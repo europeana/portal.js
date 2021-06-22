@@ -10,6 +10,7 @@ localVue.use(VueMasonryPlugin);
 
 const storeDispatch = sinon.spy();
 const storeIsLikedGetter = sinon.stub();
+const storeIsPinnedGetter = sinon.stub();
 
 const factory = () => {
   return mount(ItemPreviewCardGroup, {
@@ -27,7 +28,8 @@ const factory = () => {
           set: { ...{ liked: [] }, ...{} }
         },
         getters: {
-          'set/isLiked': storeIsLikedGetter
+          'set/isLiked': storeIsLikedGetter,
+          'entity/isPinned': storeIsPinnedGetter
         },
         dispatch: storeDispatch
       },

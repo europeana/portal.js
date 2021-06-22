@@ -96,6 +96,7 @@
                 :hits="hits"
                 :view="view"
                 :per-row="perRow"
+                :show-pins="showPins"
               />
               <InfoMessage
                 v-if="lastAvailablePage"
@@ -160,6 +161,10 @@
         default: () => {
           return { name: 'search' };
         }
+      },
+      showPins: {
+        type: Boolean,
+        default: false
       }
     },
     fetch() {
