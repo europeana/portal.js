@@ -8,7 +8,7 @@
       >
         <img
           :src="resizedLogo"
-          :alt="'logo of ' + title.values[0]"
+          :alt="`${$t('logo')} ${title.values[0]}`"
         >
       </div>
       <div
@@ -160,7 +160,6 @@
     font-size: $font-size-small;
     font-weight: 600;
     color: $mediumgrey;
-
     &:before {
       @extend .icon-font;
       display: inline-block;
@@ -168,6 +167,9 @@
       font-size: 1.125rem;
       line-height: 1;
       margin-top: -0.2rem;
+    }
+    a {
+      color: $mediumgrey;
     }
   }
 

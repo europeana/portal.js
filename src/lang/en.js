@@ -618,6 +618,7 @@ export default {
     }
   },
   "loadingResults": "Loading results",
+  "logo": "logo",
   "mediaPreview": {
     "selectItem": "Select item {src}"
   },
