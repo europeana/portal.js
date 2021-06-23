@@ -194,8 +194,9 @@
 
     computed: {
       userIsEditor() {
-        return this.$store.state.auth.user && this.$store.state.auth.user.resource_access.entities && this.$store.state.auth.user.resource_access.entities.roles.includes('editor') &&
-          this.$store.state.auth.user.resource_access.usersets && this.$store.state.auth.user.resource_access.usersets.roles.includes('editor');
+        const user = this.$store.state.auth.user;
+        return user && user.resource_access.entities && user.resource_access.entities.roles.includes('editor')
+          && user.resource_access.usersets && user.resource_access.usersets.roles.includes('editor');
       },
       ...mapState({
         likesId: state => state.set.likesId,
