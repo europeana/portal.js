@@ -1,4 +1,4 @@
-# Runs Nightwatch
+# Builds a base image for running Nightwatch with Percy
 
 FROM alpine:3
 
@@ -19,13 +19,3 @@ RUN apk add --no-cache \
       ttf-freefont \
       nodejs \
       npm
-
-COPY docker/stack/nightwatch/package*.json docker/stack/nightwatch/percy.js ./
-
-RUN npm install
-
-COPY tests/features tests/features
-COPY tests/visual tests/visual
-
-ENTRYPOINT ["npm", "run", "start"]
-CMD ["tests/features"]
