@@ -8,6 +8,8 @@ export default {
     page: null,
     recordsPerPage: 24,
     relatedEntities: null,
+    pinned: null,
+    featuredSetId: null,
     editable: false
   }),
 
@@ -26,6 +28,22 @@ export default {
     },
     setCuratedEntities(state, value) {
       state.curatedEntities = value;
+    },
+    setPinned(state, value) {
+      if (value) {
+        state.pinned = value.map(item => item.id);
+      } else {
+        state.pinned = [];
+      }
+    },
+    setFeaturedSetId(state, value) {
+      state.featuredSetId = value;
+    },
+    pin(state, itemId) {
+      state.pinned.push(itemId);
+    },
+    unpin(state, itemId) {
+      state.pinned.splice(state.pinned.indexOf(itemId), 1);
     },
     setEntityDescription(state, value) {
       state.entity.note = value;
@@ -55,6 +73,10 @@ export default {
 
     id(state) {
       return state.id ? state.id : null;
+    },
+
+    isPinned: (state) => (itemId) => {
+      return state.pinned ? state.pinned.includes(itemId) : false;
     }
   },
 
@@ -95,7 +117,59 @@ export default {
 
       await dispatch('search/run', {}, { root: true });
     },
-
+    getFeatured({ commit, state, dispatch }) {
+      const searchParams = {
+        query: 'type:EntityBestItemsSet',
+        qf: `subject:${state.id}`
+      };
+      return this.$apis.set.search(searchParams)
+        .then(searchResponse => {
+          if (searchResponse.data.total > 0) {
+            commit('setFeaturedSetId', searchResponse.data.items[0].split('/').pop());
+            dispatch('getPins');
+          }
+        });
+    },
+    pin({ dispatch, state, commit }, itemId) {
+      return dispatch('getPins')
+        .then(() => {
+          if (state.pinned && state.pinned.length >= 24) {
+            throw new Error('too many pins');
+          }
+        })
+        .then(() => {
+          return this.$apis.set.modifyItems('add', state.featuredSetId, itemId, true)
+            .then(() =>  commit('pin', itemId));
+        })
+        .catch((e) => {
+          dispatch('getPins');
+          throw e;
+        });
+    },
+    unpin({ dispatch, state }, itemId) {
+      return this.$apis.set.modifyItems('delete', state.featuredSetId, itemId)
+        .then(() =>  {
+          dispatch('getPins');
+        })
+        .catch((e) => {
+          dispatch('getPins');
+          throw e;
+        });
+    },
+    getPins({ state, commit }) {
+      return this.$apis.set.getSet(state.featuredSetId, {
+        profile: 'itemDescriptions'
+      }).then(featured => featured.pinned > 0 ? commit('setPinned', featured.items.slice(0, featured.pinned)) : commit('setPinned', []));
+    },
+    createFeaturedSet({ getters, commit }) {
+      const featuredSetBody = {
+        type: 'EntityBestItemsSet',
+        title: { 'en': getters.englishPrefLabel + ' Page' },
+        subject: [getters.id]
+      };
+      return this.$apis.set.createSet(featuredSetBody)
+        .then(response => commit('setFeaturedSetId', response.id));
+    },
     updateEntity({ commit }, { id, body }) {
       return this.$apis.entityManagement.updateEntity(id.split('/').pop(), body)
         .then(response => {

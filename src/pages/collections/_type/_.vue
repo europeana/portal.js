@@ -70,6 +70,7 @@
             :per-page="recordsPerPage"
             :route="route"
             :show-content-tier-toggle="false"
+            :show-pins="userIsEditor && userIsSetsEditor"
           />
         </b-col>
       </b-row>
@@ -120,6 +121,8 @@
         store.commit('entity/setEntity', null);
         store.commit('entity/setPage', null);
         store.commit('entity/setRelatedEntities', null);
+        store.commit('entity/setFeaturedSetId', null);
+        store.commit('entity/setPinned', null);
         store.commit('entity/setEditable', false);
       }
       store.commit('entity/setId', entityUri);
@@ -268,6 +271,12 @@
         }
         return false;
       },
+      userIsEditor() {
+        return this.$store.state.auth.user && this.$store.state.auth.user.resource_access.entities && this.$store.state.auth.user.resource_access.entities.roles.includes('editor');
+      },
+      userIsSetsEditor() {
+        return this.$store.state.auth.user && this.$store.state.auth.user.resource_access.usersets && this.$store.state.auth.user.resource_access.usersets.roles.includes('editor');
+      },
       route() {
         return {
           name: 'collections-type-all',
@@ -286,9 +295,6 @@
         }
         return langMapValueForLocale(this.entity.prefLabel, this.$store.state.i18n.locale);
       },
-      userIsEditor() {
-        return this.$store.state.auth.user && this.$store.state.auth.user.resource_access.entities && this.$store.state.auth.user.resource_access.entities.roles.includes('editor');
-      },
       isEditable() {
         return this.entity && this.editable;
       }
@@ -304,6 +310,9 @@
           .then(related => {
             this.$store.commit('entity/setRelatedEntities', related);
           });
+      }
+      if (this.userIsEditor) {
+        this.$store.dispatch('entity/getFeatured');
       }
     },
     methods: {

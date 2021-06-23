@@ -136,7 +136,33 @@ export default {
     "right": "Right"
   },
   "edmIsShownAtLinkAlt": "View at the provider's website",
-  "entity": "Entity",
+  "entity": {
+    "actions": {
+      "pin": "Pin item",
+      "unpin": "Unpin item",
+      "viewPinned": "See pinned items",
+      "cancel": "Cancel"
+    },
+    "labels": {
+      "entity": "Entity"
+    },
+    "prompts": {
+      "pin": "Are you sure you want to pin this item? This item will show at the top of the \"{entity}\" collection. This change might take up to 24 hours to take effect.",
+      "unpin": "Are you sure you want to unpin this item? This item will stop showing at the top of the \"{entity}\" collection. This change might take up to 24 hours to take effect."
+    },
+    "notifications": {
+      "deleted": "Your gallery has been deleted.",
+      "pinLimit": {
+        "body": "For now you can only pin 24 items on the first page. If you want to pin this item, make sure you unpin another one and then try to pin this one again.",
+        "title": "Too many pinned items"
+      },
+      "pinnedFirstPage": "The item has been pinned. It might take up to 24 hours to appear for everyone.",
+      "unpinnedFirstPage": "The item has been unpinned. It might take up to 24 hours to disappear for everyone.",
+      "pinned": "The item has been pinned. It is now at the top of the first page of this collection. It might take up to 24 hours to appear for everyone.",
+      "unpinned": "The item has been unpinned. It is no longer at the top of the first page of this collection. It might take up to 24 hours to disappear for everyone."
+    }
+
+  },
   "error": "Error",
   "exhibitions": {
     "chapters": "Chapters",

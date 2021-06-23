@@ -163,7 +163,7 @@
     &:before {
       @extend .icon-font;
       display: inline-block;
-      content: '\e936';
+      content: '\e937';
       font-size: 1.125rem;
       line-height: 1;
       margin-top: -0.2rem;

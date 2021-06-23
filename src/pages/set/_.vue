@@ -275,7 +275,7 @@
           { hid: 'og:image', property: 'og:image', content: this.shareMediaUrl },
           { hid: 'og:type', property: 'og:type', content: 'article' }
         ]
-          .concat(this.description ? [
+          .concat(this.displayDescription && this.displayDescription.values[0] ? [
             { hid: 'description', name: 'description', content: this.displayDescription.values[0]  },
             { hid: 'og:description', property: 'og:description', content: this.displayDescription.values[0]  }
           ] : [])

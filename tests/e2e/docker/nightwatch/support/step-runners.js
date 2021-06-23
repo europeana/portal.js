@@ -205,7 +205,7 @@ module.exports = {
   },
   async preferBrowserLanguage(locale) {
     const nightwatchApiOptions = {
-      configFile: 'tests/features/config/nightwatch.conf.js',
+      configFile: 'config/nightwatch.conf.js',
       env: `chrome-${locale}`,
       silent: true
     };
