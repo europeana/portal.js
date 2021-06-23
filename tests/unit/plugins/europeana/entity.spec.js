@@ -353,7 +353,7 @@ describe('plugins/europeana/entity', () => {
   });
 
   describe('getWikimediaThumbnailUrl', () => {
-    const logo = 'http://commons.wikimedia.org/wiki/Special:FilePath/Exterieur%20Centraal%20Museum.jpg';
+    const logo = 'http://commons.wikimedia.org/wiki/Special:FilePath/Uni-Leiden-seal.png';
 
     it('returns an wikimedia thumbnail url starting with https://upload.wikimedia.org', () => {
       const thumbnail = getWikimediaThumbnailUrl(logo, 60);

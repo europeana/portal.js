@@ -72,7 +72,7 @@ describe('components/entity/EntityDetails', () => {
   });
 
   it('shows a logo', () => {
-    entityDetails.logo = 'http://commons.wikimedia.org/wiki/Special:FilePath/Exterieur%20Centraal%20Museum.jpg';
+    entityDetails.logo = 'http://commons.wikimedia.org/wiki/Special:FilePath/Uni-Leiden-seal.png';
 
     const wrapper = factory(entityDetails);
     wrapper.findAll('[data-qa="entity logo"]').exists().should.be.true;
