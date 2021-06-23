@@ -135,7 +135,7 @@
                     <b-row
                       class="w-100 px-3"
                     >
-                      <b-col class="related-heading d-inline-flex">
+                      <b-col class="related-heading d-inline-flex px-0">
                         <span class="icon-info mr-1" />
                         <h2 class="related-heading text-uppercase">
                           {{ $t('account.curatedCollectionsInfo') }}
@@ -194,7 +194,8 @@
 
     computed: {
       userIsEditor() {
-        return this.$store.state.auth.user && this.$store.state.auth.user.resource_access.entities && this.$store.state.auth.user.resource_access.entities.roles.includes('editor');
+        return this.$store.state.auth.user && this.$store.state.auth.user.resource_access.entities && this.$store.state.auth.user.resource_access.entities.roles.includes('editor') &&
+          this.$store.state.auth.user.resource_access.usersets && this.$store.state.auth.user.resource_access.usersets.roles.includes('editor');
       },
       ...mapState({
         likesId: state => state.set.likesId,

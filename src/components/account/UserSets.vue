@@ -4,7 +4,7 @@
     <b-row class="flex-md-row">
       <b-col cols="12">
         <div
-          v-if="emptyText && value.length === 0"
+          v-if="emptyText && value && value.length === 0"
           class="text-center pb-4"
         >
           {{ emptyText }}
