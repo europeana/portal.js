@@ -317,7 +317,7 @@ describe('store/set', () => {
 
         store.actions.$apis.recommendation.accept = sinon.stub().resolves(newRecommendation);
 
-        await store.actions.acceptRecommendation({ state, commit }, { setId, itemIds: [itemId] });
+        await store.actions.reviewRecommendation({ state, commit }, { setId, itemIds: [itemId], action: 'accept' });
 
         store.actions.$apis.recommendation.accept.should.have.been.calledWith('set', setId, [itemId]);
         commit.should.have.been.calledWith('setActiveRecommendations', updatedRecommendations);
@@ -330,7 +330,7 @@ describe('store/set', () => {
 
         store.actions.$apis.recommendation.reject = sinon.stub().resolves(newRecommendation);
 
-        await store.actions.rejectRecommendation({ state, commit }, { setId, itemIds: [itemId] });
+        await store.actions.reviewRecommendation({ state, commit }, { setId, itemIds: [itemId], action: 'reject' });
 
         store.actions.$apis.recommendation.reject.should.have.been.calledWith('set', setId, [itemId]);
         commit.should.have.been.calledWith('setActiveRecommendations', updatedRecommendations);

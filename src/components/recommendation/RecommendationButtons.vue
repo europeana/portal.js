@@ -5,13 +5,13 @@
   >
     <client-only>
       <b-button
-        class="recommendation-buttons icon-accept"
+        class="recommendation-button icon-accept"
         data-qa="accept button"
         :aria-label="$t('actions.accept')"
         @click="acceptRecommendation"
       />
       <b-button
-        class="recommendation-buttons icon-reject"
+        class="recommendation-button icon-reject"
         data-qa="reject button"
         :aria-label="$t('actions.reject')"
         @click="rejectRecommendation"
@@ -61,7 +61,7 @@
       },
       async acceptRecommendation() {
         if (this.$auth.loggedIn) {
-          this.$store.dispatch('set/acceptRecommendation', { setId: `/${this.$route.params.pathMatch}`, itemIds: [this.value] });
+          this.$store.dispatch('set/reviewRecommendation', { setId: `/${this.$route.params.pathMatch}`, itemIds: [this.value], action: 'accept' });
           await this.$store.dispatch('set/addItem', { setId: `http://data.europeana.eu/set/${this.$route.params.pathMatch}`, itemId: this.value });
           this.$store.dispatch('set/refreshSet');
           this.makeToast();
@@ -71,7 +71,7 @@
       },
       rejectRecommendation() {
         if (this.$auth.loggedIn) {
-          this.$store.dispatch('set/rejectRecommendation', { setId: `/${this.$route.params.pathMatch}`, itemIds: [this.value] });
+          this.$store.dispatch('set/reviewRecommendation', { setId: `/${this.$route.params.pathMatch}`, itemIds: [this.value], action: 'reject' });
         } else {
           this.$goto('/account/login');
         }

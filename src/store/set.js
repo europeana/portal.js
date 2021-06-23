@@ -177,22 +177,8 @@ export default {
           commit('setActiveRecommendations', response.items);
         });
     },
-    acceptRecommendation({ state, commit }, params) {
-      return this.$apis.recommendation.accept('set', params.setId, params.itemIds)
-        .then(response => {
-          const recList = state.activeRecommendations.slice();
-          const index = recList.findIndex(item => item.id === params.itemIds[0]);
-          if (response.items.length > 0) {
-            recList.splice(index, 1, response.items[0]);
-          } else {
-            recList.splice(index, 1);
-          }
-
-          commit('setActiveRecommendations', recList);
-        });
-    },
-    rejectRecommendation({ state, commit }, params) {
-      return this.$apis.recommendation.reject('set', params.setId, params.itemIds)
+    reviewRecommendation({ state, commit }, params) {
+      return this.$apis.recommendation[params.action]('set', params.setId, params.itemIds)
         .then(response => {
           const recList = state.activeRecommendations.slice();
           const index = recList.findIndex(item => item.id === params.itemIds[0]);

@@ -48,7 +48,7 @@ describe('components/recommendation/RecommendationButtons', () => {
           const acceptButton = wrapper.find('[data-qa="accept button"]');
           acceptButton.trigger('click');
 
-          storeDispatch.should.have.been.calledWith('set/acceptRecommendation', { setId, itemIds: ['/123/abc'] });
+          storeDispatch.should.have.been.calledWith('set/reviewRecommendation', { setId, itemIds: ['/123/abc'], action: 'accept' });
           storeDispatch.should.have.been.calledWith('set/addItem', { setId: `http://data.europeana.eu/set${setId}`, itemId: identifier });
         });
       });
@@ -74,7 +74,7 @@ describe('components/recommendation/RecommendationButtons', () => {
           const rejectButton = wrapper.find('[data-qa="reject button"]');
           rejectButton.trigger('click');
 
-          storeDispatch.should.have.been.calledWith('set/rejectRecommendation', { setId, itemIds: ['/123/abc'] });
+          storeDispatch.should.have.been.calledWith('set/reviewRecommendation', { setId, itemIds: ['/123/abc'], action: 'reject' });
         });
       });
     });
