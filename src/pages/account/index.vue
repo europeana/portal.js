@@ -85,7 +85,9 @@
                 </div>
                 <UserSets
                   v-else
+                  v-model="publicCreations"
                   visibility="public"
+                  :empty-text="$t('account.notifications.noCollections.public')"
                   data-qa="public sets"
                 />
               </client-only>
@@ -103,7 +105,9 @@
                 </div>
                 <UserSets
                   v-else
+                  v-model="privateCreations"
                   visibility="private"
+                  :empty-text="$t('account.notifications.noCollections.private')"
                   data-qa="private sets"
                 />
               </client-only>
@@ -122,9 +126,24 @@
                 </div>
                 <UserSets
                   v-else
-                  visibility="curated"
+                  v-model="curations"
+                  :show-create-set-button="false"
+                  :empty-text="$t('account.notifications.noCollections.curated')"
                   data-qa="curated sets"
-                />
+                >
+                  <template v-slot:header>
+                    <b-row
+                      class="w-100 px-3"
+                    >
+                      <b-col class="related-heading d-inline-flex">
+                        <span class="icon-info mr-1" />
+                        <h2 class="related-heading text-uppercase">
+                          {{ $t('account.curatedCollectionsInfo') }}
+                        </h2>
+                      </b-col>
+                    </b-row>
+                  </template>
+                </UserSets>
               </client-only>
             </b-tab>
           </b-tabs>
@@ -177,10 +196,12 @@
       userIsEditor() {
         return this.$store.state.auth.user && this.$store.state.auth.user.resource_access.entities && this.$store.state.auth.user.resource_access.entities.roles.includes('editor');
       },
-
       ...mapState({
         likesId: state => state.set.likesId,
-        likedItems: state => state.set.likedItems
+        likedItems: state => state.set.likedItems,
+        curations: state => state.set.curations,
+        publicCreations: state => state.set.creations.filter(set => set.visibility === 'public'),
+        privateCreations: state => state.set.creations.filter(set => set.visibility === 'private')
       })
     },
 
