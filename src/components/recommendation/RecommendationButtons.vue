@@ -66,14 +66,14 @@
           this.$store.dispatch('set/refreshSet');
           this.makeToast();
         } else {
-          this.$goto('/account/login');
+          this.keycloakLogin();
         }
       },
       rejectRecommendation() {
         if (this.$auth.loggedIn) {
           this.$store.dispatch('set/reviewRecommendation', { setId: `/${this.$route.params.pathMatch}`, itemIds: [this.value], action: 'reject' });
         } else {
-          this.$goto('/account/login');
+          this.keycloakLogin();
         }
       }
     }
