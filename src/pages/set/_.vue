@@ -143,7 +143,7 @@
           </h5>
           <ItemPreviewCardGroup
             v-model="recommendations"
-            :recommendations-grid="true"
+            :recommendations="true"
           />
         </b-col>
       </b-row>
