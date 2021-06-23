@@ -252,21 +252,27 @@
     },
 
     mounted() {
-      if (!this.$fetchState.pending && this.enableRecommendations && this.$auth.loggedIn && this.userIsOwner) {
-        try {
-          this.$store.dispatch('set/fetchActiveRecommendations', `/${this.$route.params.pathMatch}`);
-        } catch (apiError) {
-          if (process.server) {
-            this.$nuxt.context.res.statusCode = apiError.statusCode;
-          }
-          throw apiError;
-        }
+      if (!this.$fetchState.pending) {
+        this.getRecommendations();
       }
     },
 
     methods: {
       updateSet() {
         this.$bvModal.hide(this.setFormModalId);
+      },
+
+      getRecommendations() {
+        if (this.enableRecommendations && this.$auth.loggedIn && this.userIsOwner) {
+          try {
+            this.$store.dispatch('set/fetchActiveRecommendations', `/${this.$route.params.pathMatch}`);
+          } catch (apiError) {
+            if (process.server) {
+              this.$nuxt.context.res.statusCode = apiError.statusCode;
+            }
+            throw apiError;
+          }
+        }
       }
     },
 
