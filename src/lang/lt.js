@@ -1,5 +1,6 @@
 export default {
   "account": {
+    "editProfile": "Redaguoti profilį",
     "likes": "Patinka",
     "linkAccount": "Mano paskyra",
     "linkLogin": "Prisijungti",
@@ -7,6 +8,8 @@ export default {
     "linkLogout": "Atsijungti",
     "myProfile": "Mano profilis",
     "notifications": {
+      "loggedIn": "Dabar esate prisijungę. Sveiki!",
+      "loggedOut": "Dabar esate prisijungę.",
       "noCollections": {
         "private": "Kol kas nesukūrėte jokių privačių galerijų",
         "public": "Kol kas nesukūrėte jokių viešų galerijų"
@@ -15,19 +18,25 @@ export default {
     },
     "privateCollections": "Privačios galerijos",
     "profile": "Man patinkančios prekės, kolekcijos ir galerijos",
+    "profileSettings": "Profilio nustatymai",
     "publicCollections": "Viešos galerijos",
     "settings": "Nustatymai",
     "title": "Mano paskyra"
   },
   "actions": {
+    "cancel": "Atšaukti",
     "close": "uždaryti",
     "download": "Parsisiųsti",
     "edit": "Redaguoti",
+    "feedback": "Atsiliepimas",
     "goBack": "Grįžti",
     "like": "Patinka",
+    "next": "Kitas",
     "providedBy": "Tiekėjas {provider}",
+    "send": "Siųsti",
     "share": "Dalintis",
     "shareOn": "Dalintis {social}",
+    "skip": "Praleisti",
     "viewAt": "Peržiūrėkite {link}",
     "viewDocument": "Peržiūrėti dokumentą"
   },
@@ -373,6 +382,23 @@ export default {
       }
     }
   },
+  "feedback": {
+    "emailOptional": "Galbūt norėsime tęsti. Įveskite savo el. Pašto adresą, jei džiaugiatės, kad susisieksime su jumis.",
+    "failed": "Užklausa nepavyko. Prašome, pabandykite dar kartą.",
+    "form": {
+      "placeholders": {
+        "email": "Įveskite savo elektroninio pašto adresą",
+        "feedback": "Čia įveskite savo atsiliepimą"
+      }
+    },
+    "policies": "Tęsdami sutinkate su mūsų {0} ir patvirtinate mūsų {1} .",
+    "privacyPolicy": "Privatumo politika",
+    "success": "Jūsų atsiliepimas išsiųstas.",
+    "termsOfService": "Paslaugų teikimo sąlygos",
+    "thankYou": "Ačiū!",
+    "title": "Siųsti atsiliepimą",
+    "validEmail": "Įveskite galiojantį el. Pašto adresą"
+  },
   "fieldLabels": {
     "default": {
       "dcContributor": "Įnešėjai",
@@ -456,6 +482,7 @@ export default {
   "header": {
     "backToMenu": "Uždaryti paieškos langą",
     "clearQuery": "Išvalyti paieškos užklausą",
+    "closeSidebar": "Uždaryti meniu",
     "entireCollection": "Ieškoti {query} visoje kolekcijoje",
     "europeanaHome": "„Europeana“ pagrindinis puslapis",
     "inCollection": "Ieškoti {query} {collection}",
@@ -463,7 +490,8 @@ export default {
       "about": "Apie mus",
       "collections": "Kolekcijos",
       "europeanaClassroom": "Mokytojams",
-      "help": "Pagalba"
+      "help": "Pagalba",
+      "stories": "Istorijos"
     },
     "searchFor": "Ieškoti {query}",
     "searchForEverything": "Ieškoti visko",

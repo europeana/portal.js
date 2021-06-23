@@ -20,6 +20,7 @@
       <UserButtons
         v-else
         v-model="identifier"
+        :show-pins="showPins"
         @like="$emit('like', identifier)"
         @unlike="$emit('unlike', identifier)"
       />
@@ -62,7 +63,10 @@
         type: Boolean,
         default: true
       },
-
+      showPins: {
+        type: Boolean,
+        default: false
+      },
       recommendedItem: {
         type: Boolean,
         default: false

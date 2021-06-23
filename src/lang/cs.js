@@ -1,5 +1,6 @@
 export default {
   "account": {
+    "editProfile": "Upravit profil",
     "likes": "Oblíbené",
     "linkAccount": "Můj účet",
     "linkLogin": "Přihlásit se",
@@ -7,6 +8,8 @@ export default {
     "linkLogout": "Odhlásit se",
     "myProfile": "Můj profil",
     "notifications": {
+      "loggedIn": "Nyní jste přihlášeni. Vítejte!",
+      "loggedOut": "Nyní jste odhlášeni.",
       "noCollections": {
         "private": "Ještě jste nevytvořil/a žádné soukromé galerie.",
         "public": "Ještě jste nevytvořil/a žádné veřejné galerie."
@@ -15,19 +18,25 @@ export default {
     },
     "privateCollections": "Soukromé galerie",
     "profile": "Moje oblíbené a moje galerie",
+    "profileSettings": "Nastavení profilu",
     "publicCollections": "Veřejné galerie",
     "settings": "Nastavení",
     "title": "Můj účet"
   },
   "actions": {
+    "cancel": "Zrušit",
     "close": "zavřít",
     "download": "Stáhnout",
     "edit": "Upravit",
+    "feedback": "Zpětná vazba",
     "goBack": "Zpět",
     "like": "Oblíbené",
+    "next": "Další",
     "providedBy": "Poskytl {provider}",
+    "send": "Poslat",
     "share": "Sdílejte",
     "shareOn": "Sdílet na {social}",
+    "skip": "Přeskočit",
     "viewAt": "Zobrazit na stránce {link}",
     "viewDocument": "Zobrazit dokument"
   },
@@ -69,6 +78,7 @@ export default {
     }
   },
   "collectionsYouMightLike": "Sbírky, které by se vám mohly líbit",
+  "colourSwatch": "Vzorník barev",
   "contentfulManual": {
     "footerNavigation": {
       "about": "O stránkách Europeana",
@@ -99,6 +109,9 @@ export default {
     "startDate": "Datum od",
     "to": "až"
   },
+  "debug": {
+    "apiRequests": "Požadavky API"
+  },
   "delete": "Smazat",
   "depiction": "Znázornění {title}",
   "directions": {
@@ -106,6 +119,7 @@ export default {
     "right": "Doprava"
   },
   "edmIsShownAtLinkAlt": "Zobrazit na webu poskytovatele",
+  "entity": "Entita",
   "error": "Chyba",
   "exhibitions": {
     "chapters": "Kapitoly",
@@ -373,6 +387,23 @@ export default {
       }
     }
   },
+  "feedback": {
+    "emailOptional": "Možná budeme chtít navázat. Pokud si přejete, abychom vás kontaktovali, zadejte svůj e-mail.",
+    "failed": "Požadavek se nezdařil. Zkuste to znovu.",
+    "form": {
+      "placeholders": {
+        "email": "Zadejte svou e-mailovou adresu",
+        "feedback": "Zde zadejte svou zpětnou vazbu"
+      }
+    },
+    "policies": "Pokračováním souhlasíte s naším {0} a berete na vědomí naše {1}.",
+    "privacyPolicy": "Zásady ochrany osobních údajů",
+    "success": "Vaše zpětná vazba byla odeslána.",
+    "termsOfService": "Podmínky používání ",
+    "thankYou": "Děkujeme!",
+    "title": "Odeslat zpětnou vazbu",
+    "validEmail": "Zadejte platnou e-mailovou adresu."
+  },
   "fieldLabels": {
     "default": {
       "dcContributor": "Přispěvatelé",
@@ -456,6 +487,7 @@ export default {
   "header": {
     "backToMenu": "Zavřít vyhledávací okno",
     "clearQuery": "Vymazat vyhledávací kriteria",
+    "closeSidebar": "Zavřít nabídku",
     "entireCollection": "Hledat {query} v celé sbírce",
     "europeanaHome": "Domovská stránka Europeana",
     "inCollection": "Hledat {query} v {collection}",
@@ -463,7 +495,9 @@ export default {
       "about": "O nás",
       "collections": "SBÍRKY",
       "europeanaClassroom": "Učitelé",
-      "help": "Nápověda"
+      "help": "Nápověda",
+      "home": "Domov",
+      "stories": "Příběhy"
     },
     "searchFor": "Vyhledat {query}",
     "searchForEverything": "Vyhledat vše",
@@ -499,7 +533,11 @@ export default {
     }
   },
   "loadingResults": "Načítání výsledků",
+  "mediaPreview": {
+    "selectItem": "Vyberte položku {src}"
+  },
   "messages": {
+    "copyToClipboardSuccess": "Zkopírováno do schránky",
     "externalContentError": "Načtení externího obsahu se nezdařilo.",
     "notFound": "Nenalezno",
     "paginationLimitExceeded": "Lze zobrazit pouze prvních {limit} výsledků vyhledávání."
@@ -517,11 +555,13 @@ export default {
   "readMore": "Více informací",
   "record": {
     "allMetaData": "Všechna metadata",
+    "copyEmbedLabel": "Vložit kód (kliknutím zkopírujete)",
     "downloadCopyrightInfo": "Tato položka je chráněna autorskými právy a nelze ji stáhnout.",
     "exploreMore": "Prozkoumat více",
     "extendedInformation": "Bližší informace",
     "goodToKnow": "Užitečné informace",
     "hideAll": "Skrýt všechny informace",
+    "location": "Umístění",
     "record": "Záznam",
     "showAll": "Zobrazit všechny informace",
     "similarItems": "Podobné položky",

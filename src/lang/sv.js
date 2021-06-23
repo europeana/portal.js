@@ -1,5 +1,6 @@
 export default {
   "account": {
+    "editProfile": "Redigera profil",
     "likes": "Likes",
     "linkAccount": "Mitt konto",
     "linkLogin": "Logga in",
@@ -7,6 +8,8 @@ export default {
     "linkLogout": "Logga ut",
     "myProfile": "Min profil",
     "notifications": {
+      "loggedIn": "Du är nu inloggad. Välkommen!",
+      "loggedOut": "Du är nu utloggad.",
       "noCollections": {
         "private": "Du har inte skapat något privat galleri ännu",
         "public": "Du har inte skapat något offentligt galleri ännu"
@@ -15,19 +18,25 @@ export default {
     },
     "privateCollections": "Privata gallerier",
     "profile": "Mina likes & gallerier",
+    "profileSettings": "Profilinställningar",
     "publicCollections": "Offentliga gallerier",
     "settings": "Inställningar",
     "title": "Mitt konto"
   },
   "actions": {
+    "cancel": "Avbryt",
     "close": "stäng",
     "download": "Ladda ner",
     "edit": "Redigera",
+    "feedback": "Feedback",
     "goBack": "Gå tillbaka",
     "like": "Gilla",
+    "next": "Nästa",
     "providedBy": "Tillhandahålls av {provider}",
+    "send": "Skicka",
     "share": "Dela",
     "shareOn": "Dela på {social}",
+    "skip": "Hoppa",
     "viewAt": "Visa på {link}",
     "viewDocument": "Visa dokument"
   },
@@ -373,6 +382,23 @@ export default {
       }
     }
   },
+  "feedback": {
+    "emailOptional": "Vi kanske vill följa upp detta. Ange din e-postadress om du vill att vi ska kontakta dig.",
+    "failed": "Begäran misslyckades. Var god försök igen.",
+    "form": {
+      "placeholders": {
+        "email": "Ange din e-postadress",
+        "feedback": "Ange din feedback här"
+      }
+    },
+    "policies": "Genom att fortsätta godkänner du vår {0} och godkänner vår {1} .",
+    "privacyPolicy": "Integritetspolicy",
+    "success": "Din feedback har skickats.",
+    "termsOfService": "Användarvillkor",
+    "thankYou": "Tack!",
+    "title": "Skicka feedback",
+    "validEmail": "Ange en giltig e-postadress"
+  },
   "fieldLabels": {
     "default": {
       "dcContributor": "Medverkande",
@@ -456,6 +482,7 @@ export default {
   "header": {
     "backToMenu": "Stäng sökruta",
     "clearQuery": "Rensa sökning",
+    "closeSidebar": "Stäng menyn",
     "entireCollection": "Sök efter {query} i hela vår samling",
     "europeanaHome": "Europeana start",
     "inCollection": "Sök efter {query} i {collection}",
@@ -463,7 +490,8 @@ export default {
       "about": "Om oss",
       "collections": "Samlingar",
       "europeanaClassroom": "Lärare",
-      "help": "Hjälp"
+      "help": "Hjälp",
+      "stories": "Berättelser"
     },
     "searchFor": "Sök efter {query}",
     "searchForEverything": "Sök efter allt",

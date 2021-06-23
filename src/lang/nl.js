@@ -1,5 +1,6 @@
 export default {
   "account": {
+    "editProfile": "Profiel bewerken",
     "likes": "Likes",
     "linkAccount": "Mijn account",
     "linkLogin": "Inloggen",
@@ -7,6 +8,8 @@ export default {
     "linkLogout": "Uitloggen",
     "myProfile": "Mijn profiel",
     "notifications": {
+      "loggedIn": "U bent nu ingelogd. Welkom!",
+      "loggedOut": "U bent nu uitgelogd.",
       "noCollections": {
         "private": "U hebt nog geen privé galerijen gemaakt",
         "public": "U hebt nog geen openbare galerijen gemaakt"
@@ -15,19 +18,25 @@ export default {
     },
     "privateCollections": "Privé galerijen",
     "profile": "Mijn likes en galerijen",
+    "profileSettings": "Profielinstellingen",
     "publicCollections": "Openbare galerijen",
     "settings": "Instellingen",
     "title": "Mijn account"
   },
   "actions": {
+    "cancel": "Annuleren",
     "close": "sluiten",
     "download": "Download",
     "edit": "Bewerken",
+    "feedback": "Feedback",
     "goBack": "Ga terug",
     "like": "Liken",
+    "next": "Volgende",
     "providedBy": "Aangeboden door {provider}",
+    "send": "Verzenden",
     "share": "Delen",
     "shareOn": "Delen op {social}",
+    "skip": "Overslaan",
     "viewAt": "Bekijken op {link}",
     "viewDocument": "Document weergeven"
   },
@@ -100,6 +109,10 @@ export default {
     "startDate": "Begin datum",
     "to": "naar"
   },
+  "debug": {
+    "apiRequests": "API-verzoeken",
+    "debug": "Foutopsporing"
+  },
   "delete": "Verwijder",
   "depiction": "Een afbeelding van {title}",
   "directions": {
@@ -107,6 +120,7 @@ export default {
     "right": "Rechts"
   },
   "edmIsShownAtLinkAlt": "Bekijken op de website van de provider",
+  "entity": "Entiteit",
   "error": "Fout",
   "exhibitions": {
     "chapters": "Hoofdstukken",
@@ -375,6 +389,23 @@ export default {
       }
     }
   },
+  "feedback": {
+    "emailOptional": "We willen hier misschien een vervolg aan geven. Voer uw e-mailadres in als u het niet erg vindt als wij contact met u opnemen.",
+    "failed": "Het verzoek is mislukt. Probeer het opnieuw.",
+    "form": {
+      "placeholders": {
+        "email": "Voer uw e-mailadres in",
+        "feedback": "Vul hier uw feedback in"
+      }
+    },
+    "policies": "Door verder te gaan, gaat u akkoord met onze {0} en erkent u onze {1} .",
+    "privacyPolicy": "Privacybeleid",
+    "success": "Uw feedback is verzonden.",
+    "termsOfService": "Servicevoorwaarden",
+    "thankYou": "Dank u!",
+    "title": "Feedback verzenden",
+    "validEmail": "Voer een geldig e-mailadres in"
+  },
   "fieldLabels": {
     "default": {
       "dcContributor": "Medewerkers",
@@ -460,6 +491,7 @@ export default {
   "header": {
     "backToMenu": "Zoekvakje sluiten",
     "clearQuery": "Zoekopdracht wissen",
+    "closeSidebar": "Menu sluiten",
     "entireCollection": "Zoek op {query} in onze gehele collectie",
     "europeanaHome": "Europeana Home",
     "inCollection": "Zoek op {query} in {collection}",
@@ -468,7 +500,8 @@ export default {
       "collections": "Collecties",
       "europeanaClassroom": "Leraren",
       "help": "Help",
-      "home": "Home"
+      "home": "Home",
+      "stories": "Verhalen"
     },
     "searchFor": "Zoeken naar {query}",
     "searchForEverything": "Zoek op alles",
@@ -484,6 +517,27 @@ export default {
     "itemCount": "1 artikel |{count} artikelen",
     "itemOf": "{max} van {count} artikelen",
     "youMightLike": "Artikelen die u misschien interessant vindt"
+  },
+  "klaro": {
+    "main": {
+      "consentNotice": {
+        "description": "We geven om uw privacy en gebruiken gegevens alleen om uw ervaring te verbeteren. We gebruiken geen persoonlijke informatie voor advertenties. U kunt uw toestemming elke 15 dagen wijzigen."
+      }
+    },
+    "services": {
+      "jira-servicedesk": {
+        "description": "Activeert de feedbackwidget die u de mogelijkheid geeft om contact met ons op te nemen.",
+        "title": "Jira-servicedesk"
+      },
+      "matomo": {
+        "description": "Verzamelt anonieme statistieken over hoe bezoekers omgaan met de website.",
+        "title": "Matomo"
+      },
+      "searchResultsView": {
+        "description": "Onthoudt of u de zoekresultaten liever in een lijst- of rasterweergave wilt zien.",
+        "title": "Zoekresultaatweergave (lijst/raster)"
+      }
+    }
   },
   "layout": {
     "skipToMain": "Ga naar pagina-inhoud"
@@ -504,7 +558,11 @@ export default {
     }
   },
   "loadingResults": "Resultaten worden geladen",
+  "mediaPreview": {
+    "selectItem": "Selecteer item {src}"
+  },
   "messages": {
+    "copyToClipboardSuccess": "Gekopieerd naar klembord",
     "externalContentError": "De externe inhoud kan niet worden geladen",
     "notFound": "Niet gevonden",
     "paginationLimitExceeded": "Het is alleen mogelijk om de eerste {limit} zoekresultaten te bekijken."
@@ -512,8 +570,12 @@ export default {
   "newWindow": "opent in nieuw venster",
   "noMoreResults": "Er zijn geen resultaten meer voor uw zoekopdracht.",
   "noResults": "Geen resultaten",
+  "pageHasLoaded": "heeft geladen",
   "pages": {
     "collections": {
+      "times": {
+        "title": "Tijden"
+      },
       "topics": {
         "title": "Onderwerpen"
       }
@@ -522,11 +584,16 @@ export default {
   "readMore": "Lees verder",
   "record": {
     "allMetaData": "Alle metadata",
+    "copyEmbedLabel": "Embed code (klik om te kopiëren)",
     "downloadCopyrightInfo": "Dit item is auteursrechtelijk beschermd en kan niet worden gedownload.",
     "exploreMore": "Meer verkennen",
     "extendedInformation": "Uitgebreide informatie",
     "goodToKnow": "Goed om te weten",
     "hideAll": "Verberg alle informatie",
+    "IIIFViewer": "IIIF-viewer",
+    "location": "Locatie",
+    "locationOnMap": "Locatie op kaart",
+    "mediaPlayer": "Mediaspeler",
     "record": "Registratie",
     "showAll": "Toon alle informatie",
     "similarItems": "Vergelijkbare items",
@@ -576,6 +643,7 @@ export default {
     "form": {
       "description": "Omschrijving van de galerij",
       "private": "Houd deze galerij privé",
+      "required": "Verplicht veld",
       "title": "Naam van de galerij"
     },
     "labels": {

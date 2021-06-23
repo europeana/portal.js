@@ -1,5 +1,6 @@
 export default {
   "account": {
+    "editProfile": "Cuir do phróifíl in eagar",
     "likes": "Toghanna",
     "linkAccount": "Mo Chuntas",
     "linkLogin": "Logáil isteach",
@@ -7,6 +8,8 @@ export default {
     "linkLogout": "Logáil amach",
     "myProfile": "Mo phróifíl",
     "notifications": {
+      "loggedIn": "Tá tú logáilte isteach anois. Fáilte!",
+      "loggedOut": "Tá tú logáilte amach anois.",
       "noCollections": {
         "private": "Níor chruthaigh tú aon ghailearaithe príobháideacha fós",
         "public": "Níor chruthaigh tú aon ghailearaithe poiblí fós"
@@ -15,19 +18,25 @@ export default {
     },
     "privateCollections": "Gailearaithe Príobháideacha",
     "profile": "Mo Thoghanna & Gailearaithe",
+    "profileSettings": "Socruithe próifíle",
     "publicCollections": "Gailearaithe Poiblí",
     "settings": "Socruithe",
     "title": "Mo chuntas"
   },
   "actions": {
+    "cancel": "Cealaigh",
     "close": "dún",
     "download": "Íoslódáil",
     "edit": "Cuir in eagar",
+    "feedback": "Aiseolas",
     "goBack": "Dul siar",
     "like": "Is maith liom",
+    "next": "Ar Aghaidh",
     "providedBy": "Arna sholáthar ag {provider}",
+    "send": "Seol",
     "share": "Roinn",
     "shareOn": "Roinn ar {social}",
+    "skip": "Scipeáil",
     "viewAt": "Féach ar ag {link}",
     "viewDocument": "Breathnaigh ar dhoiciméad"
   },
@@ -373,6 +382,23 @@ export default {
       }
     }
   },
+  "feedback": {
+    "emailOptional": "B’fhéidir gur mhaith linn obair leantach a dhéanamh. Cuir isteach do r-phost má tá tú sásta go ndéanfaimis teagmháil leat.",
+    "failed": "Theip ar an iarraidh. Arís, le do thoil.",
+    "form": {
+      "placeholders": {
+        "email": "Cuir isteach do sheoladh ríomhphoist",
+        "feedback": "Cuir isteach d'aiseolas anseo"
+      }
+    },
+    "policies": "Trí leanúint ar aghaidh, aontaíonn tú lenár {0} agus aithníonn tú ár {1} .",
+    "privacyPolicy": "Beartas Príobháideachais",
+    "success": "Tá d'aiseolas seolta.",
+    "termsOfService": "Tearmaí Seirbhís",
+    "thankYou": "Go raibh maith agat!",
+    "title": "Seol Aiseolas",
+    "validEmail": "Iontráil seoladh bailí ríomhphoist"
+  },
   "fieldLabels": {
     "default": {
       "dcContributor": "Rannchuiditheoirí",
@@ -456,6 +482,7 @@ export default {
   "header": {
     "backToMenu": "Dún Bosca Cuardaigh",
     "clearQuery": "Glan Ceist Cuardaigh",
+    "closeSidebar": "Dún Roghchlár",
     "entireCollection": "Cuardaigh {query} inár mbailiúchán iomlán",
     "europeanaHome": "Baile Europeana",
     "inCollection": "Cuardaigh {query} i {collection}",
@@ -463,7 +490,8 @@ export default {
       "about": "Fúinne",
       "collections": "Bailiúcháin",
       "europeanaClassroom": "Múinteoirí",
-      "help": "Cabhair"
+      "help": "Cabhair",
+      "stories": "Scéalta"
     },
     "searchFor": "Cuardaigh {query}",
     "searchForEverything": "Cuardaigh gach rud",

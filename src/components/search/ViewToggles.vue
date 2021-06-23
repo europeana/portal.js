@@ -9,7 +9,6 @@
       :active="activeView === view"
       :data-qa="`search ${view} view toggle`"
       class="pl-3"
-      @click="selectView(view)"
     >
       <span
         :class="view"
@@ -44,16 +43,14 @@
     watch: {
       value() {
         this.activeView = this.value;
+        if (this.$matomo) {
+          this.$matomo.trackEvent('View search results', 'Select view', this.value);
+        }
       }
     },
     methods: {
       linkGen(view) {
         return this.$path({ ...this.linkGenRoute, ...{ query: { ...this.$route.query, ...{ view } } } });
-      },
-      selectView(view) {
-        if (view !== this.activeView) {
-          this.activeView = view;
-        }
       }
     }
   };
