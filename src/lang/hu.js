@@ -1,5 +1,6 @@
 export default {
   "account": {
+    "editProfile": "Profil szerkesztése",
     "likes": "Kedvelések",
     "linkAccount": "Fiókom",
     "linkLogin": "Bejelentkezés",
@@ -7,6 +8,8 @@ export default {
     "linkLogout": "Bejelentkezés",
     "myProfile": "A profilom",
     "notifications": {
+      "loggedIn": "Most már be van jelentkezve. Üdvözlünk!",
+      "loggedOut": "Most kijelentkezett.",
       "noCollections": {
         "private": "Még nem hozott létre privát galériát",
         "public": "Még nem hozott létre nyilvános galériát"
@@ -15,19 +18,25 @@ export default {
     },
     "privateCollections": "Privát Galériák",
     "profile": "Kedveléseim és gyűjteményeim",
+    "profileSettings": "Profilbeállítások",
     "publicCollections": "Nyilvános Galériák",
     "settings": "Beállítások",
     "title": "Fiókom"
   },
   "actions": {
+    "cancel": "Mégse",
     "close": "bezárás",
     "download": "Letöltés",
     "edit": "Szerkesztés",
+    "feedback": "Visszacsatolás",
     "goBack": "Vissza",
     "like": "Kedvelés",
+    "next": "Következő",
     "providedBy": "Szolgáltató: {provider}",
+    "send": "Küld",
     "share": "Megosztás",
     "shareOn": "Megosztás a következőn: {social}",
+    "skip": "Skip",
     "viewAt": "Megtekintés a következő helyen: {link}",
     "viewDocument": "Dokumentum megtekintése"
   },
@@ -69,6 +78,7 @@ export default {
     }
   },
   "collectionsYouMightLike": "Gyűjtemények, amelyek tetszhetnek Önnek",
+  "colourSwatch": "Színminta",
   "contentfulManual": {
     "footerNavigation": {
       "about": "Az Europeana gyűjteményekről",
@@ -99,6 +109,9 @@ export default {
     "startDate": "Kezdő dátum",
     "to": "erre"
   },
+  "debug": {
+    "apiRequests": "API kérések"
+  },
   "delete": "Törlés",
   "depiction": "{title} ábrázolása",
   "directions": {
@@ -106,6 +119,7 @@ export default {
     "right": "Jobb"
   },
   "edmIsShownAtLinkAlt": "Megtekintés a szolgáltató webhelyén",
+  "entity": "Entitás",
   "error": "Hiba",
   "exhibitions": {
     "chapters": "Fejezetek",
@@ -293,6 +307,7 @@ export default {
         "#FFFAFA": "Hó",
         "#FFFF00": "Sárga",
         "#FFFFE0": "Halványsárga",
+        "#FFFFF0": "Elefántcsont",
         "#FFFFFF": "fehér"
       }
     },
@@ -373,6 +388,23 @@ export default {
       }
     }
   },
+  "feedback": {
+    "emailOptional": "Érdemes lehet utánajárnunk. Írja be az e-mail címét, ha örül, hogy kapcsolatba lépünk Önnel.",
+    "failed": "A kérés nem sikerült. Kérlek próbáld újra.",
+    "form": {
+      "placeholders": {
+        "email": "Adja meg e-mail címét",
+        "feedback": "Írja be ide visszajelzését"
+      }
+    },
+    "policies": "A folytatással elfogadja {0} és a {1} .",
+    "privacyPolicy": "Adatvédelmi irányelvek",
+    "success": "Visszajelzését elküldtük.",
+    "termsOfService": "Szolgáltatás feltételei",
+    "thankYou": "Köszönöm!",
+    "title": "Visszajelzés küldése",
+    "validEmail": "Adjon meg egy érvényes email címet"
+  },
   "fieldLabels": {
     "default": {
       "dcContributor": "Közreműködők",
@@ -438,6 +470,8 @@ export default {
   },
   "footer": {
     "customiseWebsiteLanguage": "A webhely nyelvének testreszabása",
+    "disclaimerLine1": "Az Europeana az Európai Unió kezdeményezése, amelyet az Európai Unió Európai Uniót összekötő eszközének és az Európai Unió tagállamainak finanszíroz. Az Europeana szolgáltatásait, beleértve ezt a weboldalt is, az Europeana Alapítvány által vezetett konzorcium üzemelteti az Európai Bizottsággal kötött szolgáltatási szerződés alapján.",
+    "disclaimerLine2": "Az Európai Bizottság nem garantálja az információk pontosságát, és semmilyen felelősséget nem vállal a weboldalon található információkkal kapcsolatban. Sem az Európai Bizottság, sem az Európai Bizottság nevében eljáró személyek nem felelősek vagy felelősek a weboldalon található információk pontosságáért vagy felhasználásáért.",
     "findUsElsewhere": "Keressen minket máshol",
     "imageDescription": "Az Európai Unió Európai Hálózatfinanszírozási Eszköze által társfinanszírozva",
     "ourMission": "Küldetésünk",
@@ -456,6 +490,7 @@ export default {
   "header": {
     "backToMenu": "Keresőmező bezárása",
     "clearQuery": "Keresőkifejezés törlése",
+    "closeSidebar": "Menü bezárása",
     "entireCollection": "Keresés az egész gyűjteményben erre: {query}",
     "europeanaHome": "Europeana kezdőlap",
     "inCollection": "Keresés erre: {query}, a {collection} gyűjteményben",
@@ -463,7 +498,8 @@ export default {
       "about": "Rólunk",
       "collections": "Gyűjtemények",
       "europeanaClassroom": "Tanárok",
-      "help": "Súgó"
+      "help": "Súgó",
+      "stories": "Történetek"
     },
     "searchFor": "Keresés erre: {query}",
     "searchForEverything": "Keresés mindenre",
@@ -499,7 +535,11 @@ export default {
     }
   },
   "loadingResults": "Eredmények betöltése",
+  "mediaPreview": {
+    "selectItem": "Elem kiválasztása {src}"
+  },
   "messages": {
+    "copyToClipboardSuccess": "Vágólapra másolva",
     "externalContentError": "A külső tartalom betöltése sikertelen",
     "notFound": "Nem található",
     "paginationLimitExceeded": "Csak az első {limit} keresési találat tekinthető meg."
@@ -507,6 +547,7 @@ export default {
   "newWindow": "új ablakban nyílik meg",
   "noMoreResults": "Nincs további eredmény a keresési lekérdezéshez.",
   "noResults": "Nincs találat",
+  "pageHasLoaded": "betöltődött",
   "pages": {
     "collections": {
       "topics": {
@@ -517,6 +558,7 @@ export default {
   "readMore": "Bővebben",
   "record": {
     "allMetaData": "Minden metaadat",
+    "copyEmbedLabel": "Beágyazási kód (Kattintson a másoláshoz)",
     "downloadCopyrightInfo": "Ez az elem szerzői jogi védelem alatt áll, és nem tölthető le.",
     "exploreMore": "Több felfedezés",
     "extendedInformation": "Kiterjesztett információk",

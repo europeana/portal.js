@@ -1,5 +1,6 @@
 export default {
   "account": {
+    "editProfile": "Edytuj profil",
     "likes": "Polubienia",
     "linkAccount": "Moje konto",
     "linkLogin": "Zaloguj się",
@@ -7,6 +8,8 @@ export default {
     "linkLogout": "Wyloguj",
     "myProfile": "Mój profil",
     "notifications": {
+      "loggedIn": "Jesteś teraz zalogowany. Witamy!",
+      "loggedOut": "Teraz jesteś wylogowany.",
       "noCollections": {
         "private": "Nie masz jeszcze prywatnych galerii",
         "public": "Nie masz jeszcze galerii publicznych"
@@ -15,19 +18,25 @@ export default {
     },
     "privateCollections": "Galerie prywatne",
     "profile": "Moje polubienia i galerie",
+    "profileSettings": "Ustawienia profilu",
     "publicCollections": "Galerie publiczne",
     "settings": "Ustawienia",
     "title": "Moje konto"
   },
   "actions": {
+    "cancel": "Anuluj",
     "close": "zamknij",
     "download": "Ściągnij",
     "edit": "Edytuj",
+    "feedback": "Sprzężenie zwrotne",
     "goBack": "Wróć",
     "like": "Lubię",
+    "next": "Następny",
     "providedBy": "Dostarczone przez {provider}",
+    "send": "Wyślij",
     "share": "Udostępnij",
     "shareOn": "Udostępnij na {social}",
+    "skip": "Pominąć",
     "viewAt": "Zobacz w {link}",
     "viewDocument": "Zobacz dokument"
   },
@@ -69,6 +78,7 @@ export default {
     }
   },
   "collectionsYouMightLike": "Kolekcje, które mogą Ci się spodobać",
+  "colourSwatch": "Próbka koloru",
   "contentfulManual": {
     "footerNavigation": {
       "about": "O kolekcjach Europeana",
@@ -99,6 +109,9 @@ export default {
     "startDate": "Data rozpoczęcia",
     "to": "do"
   },
+  "debug": {
+    "apiRequests": "Żądania API"
+  },
   "delete": "Usuń",
   "depiction": "Obraz {title}",
   "directions": {
@@ -106,6 +119,7 @@ export default {
     "right": "W prawo"
   },
   "edmIsShownAtLinkAlt": "Zobacz na stronie internetowej dostawcy",
+  "entity": "Jednostka",
   "error": "Błąd",
   "exhibitions": {
     "chapters": "Rozdziały",
@@ -293,6 +307,7 @@ export default {
         "#FFFAFA": "Śnieg",
         "#FFFF00": "Żółty",
         "#FFFFE0": "Jasny zółty",
+        "#FFFFF0": "kość słoniowa",
         "#FFFFFF": "Biały"
       }
     },
@@ -372,6 +387,23 @@ export default {
         "VIDEO": "Wideo"
       }
     }
+  },
+  "feedback": {
+    "emailOptional": "Możemy chcieć kontynuować. Wpisz swój adres e-mail, jeśli chcesz, abyśmy się z Tobą skontaktowali.",
+    "failed": "Żądanie nie powiodło się. Proszę spróbuj ponownie.",
+    "form": {
+      "placeholders": {
+        "email": "Wpisz swój adres e-mail",
+        "feedback": "Wpisz tutaj swoją opinię"
+      }
+    },
+    "policies": "Kontynuując, akceptujesz nasze {0} i potwierdzasz nasze {1} .",
+    "privacyPolicy": "Polityka prywatności",
+    "success": "Twoja opinia została wysłana.",
+    "termsOfService": "Warunki usługi",
+    "thankYou": "Dziękuję!",
+    "title": "Wyślij opinię",
+    "validEmail": "Wprowadzanie prawidłowego adresu e-mail"
   },
   "fieldLabels": {
     "default": {
@@ -456,6 +488,7 @@ export default {
   "header": {
     "backToMenu": "Zamknij pole wyszukiwania",
     "clearQuery": "Wyczyść zapytanie",
+    "closeSidebar": "Zamknij menu",
     "entireCollection": "Wyszukaj {query} w całej naszej kolekcji",
     "europeanaHome": "Strona główna Europeany",
     "inCollection": "Wyszukaj {query} w {collection}",
@@ -463,7 +496,8 @@ export default {
       "about": "O nas",
       "collections": "Kolekcje",
       "europeanaClassroom": "Nauczyciele",
-      "help": "Pomoc"
+      "help": "Pomoc",
+      "stories": "Historie"
     },
     "searchFor": "Wyszukaj {query}",
     "searchForEverything": "Szukaj wszystkiego",
@@ -499,7 +533,11 @@ export default {
     }
   },
   "loadingResults": "Ładowanie wyników",
+  "mediaPreview": {
+    "selectItem": "Wybierz element {src}"
+  },
   "messages": {
+    "copyToClipboardSuccess": "Skopiowane do schowka",
     "externalContentError": "Nie można załadować treści zewnętrznej",
     "notFound": "Nie znaleziono",
     "paginationLimitExceeded": "Możliwe jest wyświetlenie tylko pierwszych {limit} wyników wyświetlania."
@@ -517,11 +555,13 @@ export default {
   "readMore": "Czytaj więcej",
   "record": {
     "allMetaData": "Wszystkie metadane",
+    "copyEmbedLabel": "Kod do umieszczenia (kliknij, aby skopiować)",
     "downloadCopyrightInfo": "Ten element jest chroniony prawami autorskimi i nie można go pobrać.",
     "exploreMore": "Odkryj więcej",
     "extendedInformation": "Informacje rozszerzone",
     "goodToKnow": "Warto wiedzieć",
     "hideAll": "Ukryj wszystkie informacje",
+    "location": "Lokalizacja",
     "record": "Rekord",
     "showAll": "Pokaż wszystkie informacje",
     "similarItems": "Podobne elementy",

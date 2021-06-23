@@ -1,5 +1,6 @@
 export default {
   "account": {
+    "editProfile": "Editatu profila",
     "likes": "Atsegin |",
     "linkAccount": "Nire kontua",
     "linkLogin": "Saioa hasi",
@@ -7,6 +8,8 @@ export default {
     "linkLogout": "Saioa amaitu",
     "myProfile": "Nire profila",
     "notifications": {
+      "loggedIn": "Saioa hasi zara. Ongi etorri!",
+      "loggedOut": "Saioa amaitu duzu.",
       "noCollections": {
         "private": "Oraindik ez duzu bilduma pribaturik sortu",
         "public": "Oraindik ez duzu bilduma publikorik sortu"
@@ -15,19 +18,25 @@ export default {
     },
     "privateCollections": "Bilduma pribatuak",
     "profile": "Nire gustukoak & Bildumak",
+    "profileSettings": "Profilaren ezarpenak",
     "publicCollections": "Bilduma publikoak",
     "settings": "Ezarpenak",
     "title": "Nire kontua"
   },
   "actions": {
+    "cancel": "Utzi",
     "close": "itxi",
     "download": "Deskargatu",
     "edit": "Editatu",
+    "feedback": "Iritzia",
     "goBack": "Atzera egin",
     "like": "Atsegin dut",
+    "next": "Hurrengoa",
     "providedBy": "{provider} emanda",
+    "send": "Bidali",
     "share": "Partekatu",
     "shareOn": "{social} partekatu",
+    "skip": "Saltatu",
     "viewAt": "Ikusi hemen {link}",
     "viewDocument": "Dokumentua ikusi"
   },
@@ -69,6 +78,7 @@ export default {
     }
   },
   "collectionsYouMightLike": "Gustatu ahal zaizkizun bildumak",
+  "colourSwatch": "Kolore swatch",
   "contentfulManual": {
     "footerNavigation": {
       "about": "Europeana bildumei buruz",
@@ -298,6 +308,7 @@ export default {
         "#FFFAFA": "Elurra",
         "#FFFF00": "Horia",
         "#FFFFE0": "Hori argia",
+        "#FFFFF0": "Boli",
         "#FFFFFF": "Zuria"
       }
     },
@@ -378,6 +389,23 @@ export default {
       }
     }
   },
+  "feedback": {
+    "emailOptional": "Baliteke jarraipena egitea nahi izatea. Idatzi zure posta elektronikoa gu zurekin harremanetan jartzeko pozik bazaude.",
+    "failed": "Eskaerak huts egin du. Saiatu berriro mesedez.",
+    "form": {
+      "placeholders": {
+        "email": "Idatzi zure helbide elektronikoa",
+        "feedback": "Idatzi zure iritzia hemen"
+      }
+    },
+    "policies": "Jarraituz gero, gure {0} onartzen duzu eta gure {1} onartzen duzu.",
+    "privacyPolicy": "Pribatutasun politika",
+    "success": "Zure iritzia bidali da.",
+    "termsOfService": "Zerbitzu-baldintzak",
+    "thankYou": "Eskerrik asko!",
+    "title": "Bidali iritzia",
+    "validEmail": "Idatzi balio duen helbide elektronikoa"
+  },
   "fieldLabels": {
     "default": {
       "dcContributor": "Laguntzaileak",
@@ -434,6 +462,7 @@ export default {
       "wasPresentAt": "Bertan egon zen"
     },
     "webResource": {
+      "about": "RDF buruz",
       "dcDescription": "Deskribapena",
       "ebucoreHasMimeType": "Ebucore MIME mota",
       "edmRights": "Baliabide honetarako baimenen egoera",
@@ -442,6 +471,8 @@ export default {
   },
   "footer": {
     "customiseWebsiteLanguage": "Pertsonalizatu webgunearen hizkuntza",
+    "disclaimerLine1": "Europeana Europar Batasunaren ekimena da, Europar Batasuneko Connecting Europe Facility eta Europar Batasuneko estatu kideek finantzatua. Europeana zerbitzuak, webgune hau barne, Europeana Fundazioak zuzentzen duen partzuergo batek kudeatzen ditu Europako Batzordearekiko zerbitzu kontratu baten pean.",
+    "disclaimerLine2": "Europako Batzordeak ez du informazioaren zehaztasuna bermatzen eta ez du inolako erantzukizunik edo inolako erantzukizunik onartzen webgune honetako informazioari dagokionez. Ez Europako Batzordeak ez Europako Batzordearen izenean jarduten duen inor ez da erantzule edo erantzule egiten webgune honetako informazioaren zehaztasunaz edo erabileraz.",
     "findUsElsewhere": "Beste nonbait aurkitu gaitzazu",
     "imageDescription": "Europar Batasuneko Connecting Europe Facility-k ere finantzatu du",
     "ourMission": "Gure eginkizuna",
@@ -460,6 +491,7 @@ export default {
   "header": {
     "backToMenu": "Menura itzuli",
     "clearQuery": "Garbitu bilaketa kontsulta",
+    "closeSidebar": "Itxi Menua",
     "entireCollection": "Bilatu '{kontsulta}' gure bilduma osoan",
     "europeanaHome": "Europeanako hasiera orria",
     "inCollection": "Bilatu '{kontsulta}' bilduma honetan {collection}",
@@ -467,7 +499,9 @@ export default {
       "about": "Europeana bildumei buruz",
       "collections": "Bildumak",
       "europeanaClassroom": "Irakasleak",
-      "help": "Laguntza"
+      "help": "Laguntza",
+      "home": "Etxea",
+      "stories": "Istorioak"
     },
     "searchFor": "Bilatu",
     "searchForEverything": "Dena bilatu",
@@ -507,6 +541,7 @@ export default {
     "selectItem": "Aukeratu elementua {src}"
   },
   "messages": {
+    "copyToClipboardSuccess": "Arbelera kopiatu da",
     "externalContentError": "Ezin izan da kanpoko edukia kargatu",
     "notFound": "Ez da aurkitu",
     "paginationLimitExceeded": "Bilaketaren lehen {limit} emaitzak besterik ezin dira ikusi."
@@ -514,8 +549,12 @@ export default {
   "newWindow": "leiho berrian irekiko da",
   "noMoreResults": "Ez dago emaitza gehiagorik zure bilaketarako.",
   "noResults": "Emaitzarik ez",
+  "pageHasLoaded": "kargatu du",
   "pages": {
     "collections": {
+      "times": {
+        "title": "Garaiak"
+      },
       "topics": {
         "title": "Gaiak"
       }
@@ -524,11 +563,13 @@ export default {
   "readMore": "Gehiago irakurri",
   "record": {
     "allMetaData": "Metadatu guztiak",
+    "copyEmbedLabel": "Embed kodea (Egin klik kopiatzeko)",
     "downloadCopyrightInfo": "Elementu horrek copyright dauka eta ezin da deskargatu.",
     "exploreMore": "Gehiago arakatu",
     "extendedInformation": "Informazio zabaldua",
     "goodToKnow": "Ondo dago jakitea",
     "hideAll": "Informazio guztia ezkutatu",
+    "location": "Kokapena",
     "record": "Elementua",
     "showAll": "Informazio guztia erakutsi",
     "similarItems": "Antzeko elementuak",

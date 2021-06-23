@@ -1,5 +1,6 @@
 export default {
   "account": {
+    "editProfile": "Modifier le profil",
     "likes": "Mentions J’aime",
     "linkAccount": "Mon compte",
     "linkLogin": "Se connecter",
@@ -7,6 +8,8 @@ export default {
     "linkLogout": "Déconnexion",
     "myProfile": "Mon profil",
     "notifications": {
+      "loggedIn": "Vous êtes maintenant connecté. Bienvenue!",
+      "loggedOut": "Vous êtes maintenant déconnecté.",
       "noCollections": {
         "private": "Vous n'avez pas encore créé de galeries privées",
         "public": "Vous n'avez pas encore créé de galeries publiques"
@@ -15,19 +18,25 @@ export default {
     },
     "privateCollections": "Galeries privées",
     "profile": "Mes mentions J'aime et mes galeries",
+    "profileSettings": "Paramètres du profil",
     "publicCollections": "Galeries publiques",
     "settings": "Paramètres",
     "title": "Mon compte"
   },
   "actions": {
+    "cancel": "Annuler",
     "close": "fermer",
     "download": "Télécharger",
     "edit": "Modifier",
+    "feedback": "Commentaires",
     "goBack": "Retour en arrière",
     "like": "Mention J'aime",
+    "next": "Suivant",
     "providedBy": "Fourni par {provider}",
+    "send": "Envoyer",
     "share": "Partagez",
     "shareOn": "Partager sur {social}",
+    "skip": "Passer",
     "viewAt": "Consulter sur {link}",
     "viewDocument": "Afficher le document"
   },
@@ -69,6 +78,7 @@ export default {
     }
   },
   "collectionsYouMightLike": "Collections qui pourraient vous intéresser",
+  "colourSwatch": "Échantillon de couleur",
   "contentfulManual": {
     "footerNavigation": {
       "about": "À propos des collections Europeana",
@@ -99,6 +109,10 @@ export default {
     "startDate": "Date de début",
     "to": "à"
   },
+  "debug": {
+    "apiRequests": "Demandes d'API",
+    "debug": "Déboguer"
+  },
   "delete": "Supprimer",
   "depiction": "Une description de {title}",
   "directions": {
@@ -106,6 +120,7 @@ export default {
     "right": "Droite"
   },
   "edmIsShownAtLinkAlt": "Vue sur le site internet du prestataire",
+  "entity": "Entité",
   "error": "Erreur",
   "exhibitions": {
     "chapters": "Chapitres",
@@ -293,6 +308,7 @@ export default {
         "#FFFAFA": "Neige",
         "#FFFF00": "Jaune",
         "#FFFFE0": "Jaune clair",
+        "#FFFFF0": "Ivoire",
         "#FFFFFF": "blanc"
       }
     },
@@ -372,6 +388,23 @@ export default {
         "VIDEO": "Vidéo"
       }
     }
+  },
+  "feedback": {
+    "emailOptional": "Nous souhaiterions peut-être faire un suivi. Entrez votre e-mail si vous souhaitez que nous vous contactions.",
+    "failed": "La demande a échoué. Veuillez réessayer.",
+    "form": {
+      "placeholders": {
+        "email": "Entrez votre adresse email",
+        "feedback": "Entrez vos commentaires ici"
+      }
+    },
+    "policies": "En continuant, vous acceptez notre {0} et reconnaissez notre {1} .",
+    "privacyPolicy": "Politique de confidentialité",
+    "success": "Votre commentaire a été envoyé.",
+    "termsOfService": "Conditions d'utilisation",
+    "thankYou": "Merci!",
+    "title": "Envoyer des commentaires",
+    "validEmail": "Entrez une adresse mail valide"
   },
   "fieldLabels": {
     "default": {
@@ -456,6 +489,7 @@ export default {
   "header": {
     "backToMenu": "Fermer la boîte de recherche",
     "clearQuery": "Effacer la requête de recherche",
+    "closeSidebar": "Fermer le menu",
     "entireCollection": "Rechercher {query} dans l’ensemble de notre collection",
     "europeanaHome": "Accueil Europeana",
     "inCollection": "Rechercher {query} dans {collection}",
@@ -463,7 +497,9 @@ export default {
       "about": "À propos",
       "collections": "Collections",
       "europeanaClassroom": "Enseignants",
-      "help": "Aide"
+      "help": "Aide",
+      "home": "Domicile",
+      "stories": "Histoires"
     },
     "searchFor": "Rechercher {query}",
     "searchForEverything": "Rechercher tout",
@@ -479,6 +515,13 @@ export default {
     "itemCount": "1 article |{count} éléments",
     "itemOf": "{max} sur {count} éléments",
     "youMightLike": "Articles susceptibles de vous intéresser"
+  },
+  "klaro": {
+    "main": {
+      "consentNotice": {
+        "description": "Nous nous soucions de votre vie privée et n'utilisons les données que pour améliorer votre expérience. Nous n'utilisons aucune information personnelle à des fins publicitaires. Vous pouvez modifier votre consentement tous les 15 jours."
+      }
+    }
   },
   "layout": {
     "skipToMain": "Passer au contenu de la page"
@@ -499,6 +542,9 @@ export default {
     }
   },
   "loadingResults": "Chargement des résultats",
+  "mediaPreview": {
+    "selectItem": "Sélectionnez l'élément {src}"
+  },
   "messages": {
     "externalContentError": "Échec du chargement du contenu externe",
     "notFound": "Introuvable",
@@ -507,8 +553,12 @@ export default {
   "newWindow": "s'ouvre dans une nouvelle fenêtre",
   "noMoreResults": "Il n'y a plus de résultats pour votre requête de recherche.",
   "noResults": "Pas de résultat",
+  "pageHasLoaded": "a chargé",
   "pages": {
     "collections": {
+      "times": {
+        "title": "Fois"
+      },
       "topics": {
         "title": "Sujets"
       }
@@ -517,11 +567,13 @@ export default {
   "readMore": "Lire la suite",
   "record": {
     "allMetaData": "Toutes les métadonnées",
+    "copyEmbedLabel": "Code d’intégration (Cliquez pour copier)",
     "downloadCopyrightInfo": "Cet élément est protégé par des droits d'auteur et ne peut pas être téléchargé.",
     "exploreMore": "En savoir plus",
     "extendedInformation": "Informations complémentaires",
     "goodToKnow": "Bon à savoir",
     "hideAll": "Masquer toutes les informations",
+    "location": "Emplacement",
     "record": "Enregistrement",
     "showAll": "Afficher toutes les informations",
     "similarItems": "Éléments similaires",
