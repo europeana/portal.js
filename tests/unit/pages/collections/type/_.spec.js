@@ -22,7 +22,8 @@ const store = (entityExample = {}) => {
       entity: { entity: entityExample },
       i18n: {
         locale: 'en'
-      }
+      },
+      auth: {}
     },
     mutations: {
       'search/setCollectionLabel': () => null
