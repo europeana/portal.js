@@ -3,8 +3,8 @@
 const APP_SITE_NAME = 'Europeana';
 
 const pkg = require('./package');
-const i18nLocales = require('./plugins/i18n/locales.js');
-const i18nDateTime = require('./plugins/i18n/datetime.js');
+const i18nLocales = require('./src/plugins/i18n/locales.js');
+const i18nDateTime = require('./src/plugins/i18n/datetime.js');
 
 const featureIsEnabled = (value) => Boolean(Number(value));
 
@@ -17,10 +17,14 @@ module.exports = {
       // TODO: rename env vars to prefix w/ APP_, except feature toggles
       baseUrl: process.env.PORTAL_BASE_URL,
       internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
+      schemaOrgDatasetId: process.env.SCHEMA_ORG_DATASET_ID,
       siteName: APP_SITE_NAME,
       features: {
+        klaro: featureIsEnabled(process.env.ENABLE_KLARO),
+        jiraServiceDeskFeedbackForm: featureIsEnabled(process.env.ENABLE_JIRA_SERVICE_DESK_FEEDBACK_FORM),
         linksToClassic: featureIsEnabled(process.env.ENABLE_LINKS_TO_CLASSIC),
-        recommendations: featureIsEnabled(process.env.ENABLE_RECOMMENDATIONS)
+        recommendations: featureIsEnabled(process.env.ENABLE_RECOMMENDATIONS),
+        entityManagement: featureIsEnabled(process.env.ENABLE_ENTITY_MANAGEMENT)
       }
     },
     auth: {
@@ -84,6 +88,9 @@ module.exports = {
         set: {
           url: process.env.EUROPEANA_SET_API_URL,
           key: process.env.EUROPEANA_SET_API_KEY || process.env.EUROPEANA_API_KEY
+        },
+        entityManagement: {
+          url: process.env.EUROPEANA_ENTITY_MANAGEMENT_API_URL
         }
       }
     },
@@ -108,6 +115,10 @@ module.exports = {
         datasetBlacklist: (process.env.SSL_DATASET_BLACKLIST || '').split(',')
       }
     },
+    matomo: {
+      host: process.env.MATOMO_HOST,
+      siteId: process.env.MATOMO_SITE_ID
+    },
     oauth: {
       origin: process.env.OAUTH_ORIGIN,
       realm: process.env.OAUTH_REALM,
@@ -117,6 +128,23 @@ module.exports = {
       accessType: process.env.OAUTH_ACCESS_TYPE,
       grantType: process.env.OAUTH_GRANT_TYPE,
       tokenType: process.env.OAUTH_TOKEN_TYPE
+    }
+  },
+
+  privateRuntimeConfig: {
+    jira: {
+      origin: process.env.JIRA_API_ORIGIN,
+      username: process.env.JIRA_API_USERNAME,
+      password: process.env.JIRA_API_PASSWORD,
+      serviceDesk: {
+        serviceDeskId: process.env.JIRA_API_SERVICE_DESK_ID,
+        requestTypeId: process.env.JIRA_API_SERVICE_DESK_REQUEST_TYPE_ID,
+        customFields: {
+          pageUrl: process.env.JIRA_API_SERVICE_DESK_CUSTOM_FIELD_PAGE_URL,
+          browser: process.env.JIRA_API_SERVICE_DESK_CUSTOM_FIELD_BROWSER,
+          screensize: process.env.JIRA_API_SERVICE_DESK_CUSTOM_FIELD_SCREENSIZE
+        }
+      }
     }
   },
 
@@ -189,6 +217,7 @@ module.exports = {
       'NavbarPlugin',
       'NavPlugin',
       'PaginationNavPlugin',
+      'SidebarPlugin',
       'TabsPlugin',
       'ToastPlugin'
     ]
@@ -198,6 +227,7 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/vue-matomo.client',
     '~/plugins/vue',
     '~/plugins/i18n.js',
     '~/plugins/hotjar.client',
@@ -205,7 +235,8 @@ module.exports = {
     '~/plugins/page',
     '~/plugins/vue-filters',
     '~/plugins/vue-directives',
-    { src: '~/plugins/vue-announcer', mode: 'client' }
+    '~/plugins/vue-announcer.client',
+    '~/plugins/vue-masonry.client'
   ],
 
   buildModules: [
@@ -224,7 +255,8 @@ module.exports = {
     '@nuxtjs/axios',
     'nuxt-google-optimize',
     ['@nuxtjs/gtm', {
-      pageTracking: true
+      pageTracking: true,
+      autoInit: !featureIsEnabled(process.env.ENABLE_KLARO)
     }],
     ['@nuxtjs/robots', JSON.parse(process.env.NUXTJS_ROBOTS || '{"UserAgent":"*","Disallow":"/"}')],
     'bootstrap-vue/nuxt',
@@ -245,7 +277,6 @@ module.exports = {
       parsePages: false,
       pages: {
         'account/callback': false,
-        'account/login': false,
         'account/logout': false
       },
       // Enable browser language detection to automatically redirect user
@@ -276,13 +307,15 @@ module.exports = {
     fullPathRedirect: true,
     strategies: {
       local: false,
-      oauth2: {
+      // Include oauth2 so that ~/plugins/authScheme can extend it
+      _oauth2: {
         _scheme: 'oauth2'
       },
       keycloak: {
         _scheme: '~/plugins/authScheme'
       }
     },
+    defaultStrategy: 'keycloak',
     plugins: ['~/plugins/apis']
   },
 
@@ -296,19 +329,21 @@ module.exports = {
       routes.push({
         name: 'slug',
         path: '/*',
-        component: 'pages/index.vue'
+        component: 'src/pages/index.vue'
       });
       routes.push({
         name: 'collections',
         path: '/(collections)',
-        component: 'pages/index.vue'
+        component: 'src/pages/index.vue'
       });
     },
     linkExactActiveClass: 'exact-active-link'
   },
 
   serverMiddleware: [
-    { path: '/memory-usage', handler: '~/server-middleware/memory-usage' },
+    // We can't use /api as that's reserved on www.europeana.eu for (deprecated)
+    // access to Europeana APIs.
+    { path: '/_api', handler: '~/server-middleware/api' },
     '~/server-middleware/logging',
     '~/server-middleware/record-json'
   ],
@@ -359,6 +394,8 @@ module.exports = {
       maxAge: '1d'
     }
   },
+
+  srcDir: 'src/',
 
   // Opt-out of telemetry
   telemetry: false

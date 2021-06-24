@@ -4,12 +4,12 @@ module.exports = {
   mode: 'development',
   resolve: {
     alias: {
-      assets: path.resolve(__dirname, '../assets')
+      assets: path.resolve(__dirname, '../src/assets')
     },
     extensions: ['.js', '.jsx', '.css', '.scss', '.png', '.jpg', '.gif', '.jpeg', '.svg']
   },
   module: {
-    rules: [   
+    rules: [
       {
         test: /\.scss$/,
         use: ['vue-style-loader', 'css-loader', 'sass-loader']
@@ -20,7 +20,7 @@ module.exports = {
       },
       {
         test: /\.svg$/,
-        loader: 'svg-url-loader', 
+        loader: 'svg-url-loader',
         options: {
           noquotes: true
         }

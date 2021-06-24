@@ -1,10 +1,8 @@
 import nock from 'nock';
-import record, { isEuropeanaRecordId, BASE_URL } from '../../../../plugins/europeana/record';
+import record, { isEuropeanaRecordId, BASE_URL } from '../../../../src/plugins/europeana/record';
 
 const europeanaId = '/123/abc';
 const apiEndpoint = `${europeanaId}.json`;
-
-const baseRequest = nock(BASE_URL).get(apiEndpoint);
 
 const edmIsShownAt = 'https://example.org';
 const edmIsShownByWebResource = {
@@ -104,12 +102,48 @@ describe('plugins/europeana/record', () => {
   });
 
   describe('record().getRecord()', () => {
+    it('makes an API request', async() => {
+      nock(BASE_URL)
+        .get(apiEndpoint)
+        .query(true)
+        .reply(200, apiResponse);
+
+      await record().getRecord(europeanaId);
+
+      nock.isDone().should.be.true;
+    });
+
+    describe('profile parameter', () => {
+      it('is "schemaOrg" for configured dataset items', async() => {
+        nock(BASE_URL)
+          .get(apiEndpoint)
+          .query(query => query.profile === 'schemaOrg')
+          .reply(200, apiResponse);
+
+        await record({ $config: { app: { schemaOrgDatasetId: '123' } } }).getRecord(europeanaId);
+
+        nock.isDone().should.be.true;
+      });
+
+      it('is omitted for other dataset items', async() => {
+        nock(BASE_URL)
+          .get(apiEndpoint)
+          .query(query => !Object.keys(query).includes('profile'))
+          .reply(200, apiResponse);
+
+        await record({ $config: { app: { schemaOrgDatasetId: '456' } } }).getRecord(europeanaId);
+
+        nock.isDone().should.be.true;
+      });
+    });
+
     describe('API response', () => {
       describe('with "Invalid record identifier: ..." error', () => {
         const errorMessage = `Invalid record identifier: ${europeanaId}`;
 
         beforeEach('stub API response', () => {
-          baseRequest
+          nock(BASE_URL)
+            .get(apiEndpoint)
             .query(true)
             .reply(404, {
               success: false,

@@ -1,6 +1,6 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import UserButtons from '../../../../components/account/UserButtons';
+import UserButtons from '../../../../src/components/account/UserButtons';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
@@ -9,6 +9,7 @@ localVue.use(BootstrapVue);
 const identifier = '/123/abc';
 const storeDispatch = sinon.spy();
 const storeIsLikedGetter = sinon.stub();
+const storeIsPinnedGetter = sinon.stub();
 
 const factory = ({ storeState = {}, $auth = {} } = {}) => mount(UserButtons, {
   localVue,
@@ -16,13 +17,14 @@ const factory = ({ storeState = {}, $auth = {} } = {}) => mount(UserButtons, {
   propsData: { value: identifier },
   mocks: {
     $auth,
-    $goto: sinon.spy(),
     $store: {
       state: {
-        set: { ...{ liked: [] }, ...storeState }
+        set: { ...{ liked: [] }, ...storeState },
+        entity: { ...{ pinned: [] }, ...storeState }
       },
       getters: {
-        'set/isLiked': storeIsLikedGetter
+        'set/isLiked': storeIsLikedGetter,
+        'entity/isPinned': storeIsPinnedGetter
       },
       dispatch: storeDispatch
     },
@@ -56,11 +58,12 @@ describe('components/account/UserButtons', () => {
       context('when pressed', () => {
         it('goes to login', () => {
           const wrapper = factory({ $auth });
+          wrapper.vm.keycloakLogin = sinon.spy();
 
           const addButton = wrapper.find('[data-qa="add button"]');
           addButton.trigger('click');
 
-          wrapper.vm.$goto.should.have.been.calledWith('/account/login');
+          wrapper.vm.keycloakLogin.should.have.been.called;
         });
       });
     });
@@ -107,11 +110,12 @@ describe('components/account/UserButtons', () => {
       context('when pressed', () => {
         it('goes to login', () => {
           const wrapper = factory({ $auth, storeState: { liked: [], likesId: null } });
+          wrapper.vm.keycloakLogin = sinon.spy();
 
           const likeButton = wrapper.find('[data-qa="like button"]');
           likeButton.trigger('click');
 
-          wrapper.vm.$goto.should.have.been.calledWith('/account/login');
+          wrapper.vm.keycloakLogin.should.have.been.called;
         });
       });
     });
@@ -197,6 +201,70 @@ describe('components/account/UserButtons', () => {
             await wrapper.vm.$nextTick();
             wrapper.emitted('unlike').should.eql([[identifier]]);
           });
+        });
+      });
+    });
+  });
+
+  describe('pin button', () => {
+    it('is visible', () => {
+      const wrapper = factory();
+      wrapper.setProps({ showPins: true });
+
+      const pinButton = wrapper.find('[data-qa="pin button"]');
+
+      pinButton.isVisible().should.be.true;
+    });
+
+    context('when item is not pinned', () => {
+      beforeEach(() => {
+        storeIsPinnedGetter.returns(false);
+      });
+
+      it('is rendered as unpressed', () => {
+        const wrapper = factory();
+        wrapper.setProps({ showPins: true });
+
+        const pinButton = wrapper.find('[data-qa="pin button"]');
+        pinButton.attributes('aria-pressed').should.eq('false');
+      });
+      context('when pressed', () => {
+        it('shows the pin modal', () => {
+          const wrapper = factory();
+          wrapper.setProps({ showPins: true });
+
+          const pinButton = wrapper.find('[data-qa="pin button"]');
+          const bvModalShow = sinon.spy(wrapper.vm.$bvModal, 'show');
+
+          pinButton.trigger('click');
+
+          bvModalShow.should.have.been.calledWith(`pin-modal-${identifier}`);
+        });
+      });
+    });
+    context('when item is pinned', () => {
+      beforeEach(() => {
+        storeIsPinnedGetter.returns(true);
+      });
+
+      it('is rendered as pressed', () => {
+        const wrapper = factory();
+        wrapper.setProps({ showPins: true });
+
+        const pinButton = wrapper.find('[data-qa="pin button"]');
+        pinButton.attributes('aria-pressed').should.eq('true');
+      });
+      context('when pressed', () => {
+        it('shows the pin modal', () => {
+          const wrapper = factory();
+          wrapper.setProps({ showPins: true });
+
+          const pinButton = wrapper.find('[data-qa="pin button"]');
+          const bvModalShow = sinon.spy(wrapper.vm.$bvModal, 'show');
+
+          pinButton.trigger('click');
+
+          bvModalShow.should.have.been.calledWith(`pin-modal-${identifier}`);
         });
       });
     });

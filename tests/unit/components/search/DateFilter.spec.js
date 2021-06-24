@@ -2,7 +2,7 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import sinon from 'sinon';
 
 import BootstrapVue from 'bootstrap-vue';
-import DateFilter from '../../../../components/search/DateFilter.vue';
+import DateFilter from '../../../../src/components/search/DateFilter.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);

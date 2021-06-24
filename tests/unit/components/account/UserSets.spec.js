@@ -1,6 +1,6 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import UserSets from '../../../../components/account/UserSets.vue';
+import UserSets from '../../../../src/components/account/UserSets.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -27,8 +27,9 @@ const sets = [
   }
 ];
 
-const factory = () => mount(UserSets, {
+const factory = (propsData) => mount(UserSets, {
   localVue,
+  propsData,
   mocks: {
     $config: { app: { internalLinkDomain: null } },
     $fetchState: {},
@@ -37,22 +38,16 @@ const factory = () => mount(UserSets, {
         getSetThumbnail: () => null
       }
     },
-    $store: {
-      state: {
-        set: {
-          creations: sets
-        }
-      }
-    },
     $t: (key) => key,
     $tc: (key) => key,
-    $path: () => 'localizedPath'
+    $path: () => 'localizedPath',
+    $i18n: { locale: 'en' }
   }
 });
 
 describe('components/account/UserSets', () => {
   it('renders a card for every user set', () => {
-    const wrapper = factory();
+    const wrapper = factory({ value: sets });
 
     const renderedSets =  wrapper.findAll('[data-qa="user set"]');
 

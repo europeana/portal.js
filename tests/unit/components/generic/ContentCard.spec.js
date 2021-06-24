@@ -1,7 +1,7 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import SmartLink from '../../../../components/generic/SmartLink.vue';
-import ContentCard from '../../../../components/generic/ContentCard.vue';
+import SmartLink from '../../../../src/components/generic/SmartLink.vue';
+import ContentCard from '../../../../src/components/generic/ContentCard.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -61,6 +61,13 @@ describe('components/generic/ContentCard', () => {
           'https://www.europeana.eu/en/galleries/board-games',
           { name: 'galleries___en', params: { pathMatch: 'board-games' } }
         ]
+      },
+      {
+        type: 'collections',
+        urls: [
+          'https://www.europeana.eu/en/collections/topic/207-byzantine-art',
+          { name: 'collections___en', params: { type: 'topic' } }
+        ]
       }
     ];
 
@@ -72,7 +79,13 @@ describe('components/generic/ContentCard', () => {
             wrapper.setProps({ url });
 
             const label =  wrapper.find('[data-qa="content card"] .card-subtitle');
-            label.text().should.eq(`${test.type}.${test.type}`);
+            if (test.type === 'collections') {
+              label.text().should.eq(`cardLabels.${test.urls[1].params.type}`);
+            } else if (test.type === 'blog') {
+              label.text().should.eq('blog.posts');
+            } else {
+              label.text().should.eq(`${test.type}.${test.type}`);
+            }
           });
         }
       });

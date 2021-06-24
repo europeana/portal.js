@@ -1,12 +1,16 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import ItemPreviewCardGroup from '../../../../components/item/ItemPreviewCardGroup.vue';
+import { VueMasonryPlugin } from 'vue-masonry';
+import ItemPreviewCardGroup from '../../../../src/components/item/ItemPreviewCardGroup.vue';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
+localVue.use(VueMasonryPlugin);
+
 const storeDispatch = sinon.spy();
 const storeIsLikedGetter = sinon.stub();
+const storeIsPinnedGetter = sinon.stub();
 
 const factory = () => {
   return mount(ItemPreviewCardGroup, {
@@ -24,7 +28,8 @@ const factory = () => {
           set: { ...{ liked: [] }, ...{} }
         },
         getters: {
-          'set/isLiked': storeIsLikedGetter
+          'set/isLiked': storeIsLikedGetter,
+          'entity/isPinned': storeIsPinnedGetter
         },
         dispatch: storeDispatch
       },
@@ -59,10 +64,10 @@ describe('components/item/ItemPreviewCardGroup', () => {
 
       wrapper.setProps({ value: results, view: 'grid' });
 
-      const renderedResults =  wrapper.findAll('[data-qa="item preview"] a');
+      const renderedResults =  wrapper.findAll('[data-qa="item preview"]');
 
-      renderedResults.at(0).attributes().href.should.endWith(`/item${results[0].id}`);
-      renderedResults.at(1).attributes().href.should.endWith(`/item${results[1].id}`);
+      renderedResults.at(0).find('a').attributes().href.should.endWith(`/item${results[0].id}`);
+      renderedResults.at(1).find('a').attributes().href.should.endWith(`/item${results[1].id}`);
     });
   });
 

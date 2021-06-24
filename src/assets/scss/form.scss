@@ -1,0 +1,23 @@
+.form-control {
+  background-color: $offwhite;
+  border: 0;
+  font-weight: normal;
+  height: 2.5rem;
+
+  &::placeholder {
+    color: $grey;
+  }
+}
+
+.form-text {
+  font-size: 0.75rem;
+  margin-left: 1em;
+  margin-top: 0.125rem;
+}
+.text-muted {
+  color: $mediumgrey !important;
+}
+
+.invalid-feedback {
+  color: $red;
+}

@@ -1,7 +1,7 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 
-import EntityDetails from '../../../../components/entity/EntityDetails.vue';
+import EntityDetails from '../../../../src/components/entity/EntityDetails.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -24,10 +24,17 @@ const factory = (propsData = {}) => mount(EntityDetails, {
 const entityDetails = {
   title: { values: ['Book'], code: 'en' },
   description: { values: ['Architecture is both the process and the product of planning, designing, and constructing buildings and other physical structures.'], code: 'en' },
-  attribution: 'http://www.europeana.eu/item/123/abc'
+  attribution: 'http://www.europeana.eu/item/123/abc',
+  contextLabel: 'Person'
 };
 
 describe('components/entity/EntityDetails', () => {
+  it('shows a label', () => {
+    const wrapper = factory(entityDetails);
+
+    wrapper.find('[data-qa="entity label"]').text().should.eq('Person');
+  });
+
   it('shows a title and description', () => {
     const wrapper = factory(entityDetails);
 
