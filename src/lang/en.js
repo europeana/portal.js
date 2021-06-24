@@ -12,7 +12,8 @@ export default {
       "loggedOut": "You are now logged out.",
       "noCollections": {
         "private": "You haven’t created any private galleries yet",
-        "public": "You haven’t created any public galleries yet"
+        "public": "You haven’t created any public galleries yet",
+        "curated": "You haven’t curated any collections yet"
       },
       "noLikedItems": "You haven’t liked any items yet"
     },
@@ -21,7 +22,9 @@ export default {
     "profileSettings": "Profile settings",
     "publicCollections": "Public Galleries",
     "settings": "Settings",
-    "title": "My account"
+    "title": "My account",
+    "curatedCollections": "Curated Collections",
+    "curatedCollectionsInfo": "Find below all collections you have curated"
   },
   "actions": {
     "cancel": "Cancel",
