@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "description": "",
   "scripts": {
-    "start": "cucumber-js --require ./tests/features/config/cucumber.conf.js --format node_modules/cucumber-pretty",
-    "percy": "percy exec --config=./percy.js -- cucumber-js --require ./tests/features/config/cucumber.conf.js --format node_modules/cucumber-pretty"
+    "start": "cucumber-js --require ./config/cucumber.conf.js --format node_modules/cucumber-pretty",
+    "percy": "percy exec --config=./percy.js -- cucumber-js --require ./config/cucumber.conf.js --format node_modules/cucumber-pretty"
   },
   "author": "",
   "license": "EUPL-1.2",
@@ -15,7 +15,7 @@
     "chai": "^4.2.0",
     "cucumber": "^5.1.0",
     "cucumber-pretty": "^1.5.0",
-    "nightwatch": "^1.4.3",
+    "nightwatch": "^1.7.6",
     "nightwatch-accessibility": "^1.8.0",
     "nightwatch-api": "^3.0.1"
   }

@@ -7,7 +7,7 @@ const runners = require('../support/step-runners');
 require('../support/step-definitions');
 
 const nightwatchApiOptions = {
-  configFile: 'tests/features/config/nightwatch.conf.js',
+  configFile: 'config/nightwatch.conf.js',
   env: 'chrome-en',
   silent: true
 };
