@@ -140,6 +140,7 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    background-color: $whitegrey;
     img {
       max-height: 100%;
     }
