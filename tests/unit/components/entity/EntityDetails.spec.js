@@ -78,11 +78,20 @@ describe('components/entity/EntityDetails', () => {
     wrapper.findAll('[data-qa="entity logo"]').exists().should.be.true;
   });
 
-  it('shows an external link', () => {
-    entityDetails.externalLink = 'https://historymuseum.org/en/';
+  describe('external link', () => {
+    it('links to the external link', () => {
+      entityDetails.externalLink = 'https://historymuseum.org/en/';
 
-    const wrapper = factory(entityDetails);
-    wrapper.findAll('[data-qa="entity external link"]').exists().should.be.true;
-    wrapper.find('[data-qa="entity external link"] a').text().should.eq(entityDetails.externalLink);
+      const wrapper = factory(entityDetails);
+      wrapper.findAll('[data-qa="entity external link"]').exists().should.be.true;
+      wrapper.find('[data-qa="entity external link"] a').attributes('href').should.eq(entityDetails.externalLink);
+    });
+    it('shows a stripped link text', () => {
+      entityDetails.externalLink = 'https://historymuseum.org/en/';
+
+      const wrapper = factory(entityDetails);
+      wrapper.findAll('[data-qa="entity external link"]').exists().should.be.true;
+      wrapper.find('[data-qa="entity external link"] a').text().should.eq('historymuseum.org/en/');
+    });
   });
 });
