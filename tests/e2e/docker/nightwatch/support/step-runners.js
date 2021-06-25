@@ -39,7 +39,7 @@ module.exports = {
       reporter: 'v2',
       runOnly: {
         type: 'tags',
-        values: ['wcag2a', 'wcag2aa']
+        values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']
       },
       rules: {
         'aria-roles': { enabled: false } // https://github.com/bootstrap-vue/bootstrap-vue/issues/2921 + https://github.com/dequelabs/axe-core/issues/1462
