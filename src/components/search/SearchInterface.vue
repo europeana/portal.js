@@ -111,6 +111,7 @@
                   v-model="page"
                   :total-results="totalResults"
                   :per-page="perPage"
+                  :max-results="1000"
                 />
               </client-only>
             </b-col>
