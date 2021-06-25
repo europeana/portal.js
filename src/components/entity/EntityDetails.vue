@@ -49,7 +49,7 @@
           :href="externalLink"
           target="_blank"
         >
-          {{ externalLink }}
+          {{ externalLinkText }}
         </b-link>
       </div>
     </b-col>
@@ -108,6 +108,10 @@
           return getWikimediaThumbnailUrl(this.logo, 60);
         }
         return this.logo;
+      },
+      externalLinkText() {
+        const externalLinkURL = new URL(this.externalLink);
+        return `${externalLinkURL.host}${externalLinkURL.pathname === '/' ? '' : externalLinkURL.pathname}`;
       }
     },
     methods: {
