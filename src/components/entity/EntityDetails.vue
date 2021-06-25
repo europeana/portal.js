@@ -5,12 +5,8 @@
         v-if="resizedLogo"
         class="logo"
         data-qa="entity logo"
-      >
-        <img
-          :src="resizedLogo"
-          :alt="`${$t('logo')} ${title.values[0]}`"
-        >
-      </div>
+        :style="`background-image: url(${resizedLogo})`"
+      />
       <div
         class="context-label"
         data-qa="entity label"
@@ -141,9 +137,10 @@
     justify-content: center;
     overflow: hidden;
     background-color: $whitegrey;
-    img {
-      max-height: 100%;
-    }
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-blend-mode: multiply;
   }
 
   .btn-link {
