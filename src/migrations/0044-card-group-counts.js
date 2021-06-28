@@ -3,16 +3,18 @@ module.exports = function(migration) {
 
   browsePage
     .editField('hasPart')
+    .validations([
+      {
+        size: {
+          max: 20
+        }
+      }
+    ])
     .items({
       type: 'Link',
       validations: [
         {
           linkContentType: ['cardGroup', 'richText', 'latestCardGroup']
-        },
-        {
-          size: {
-            max: 20
-          }
         }
       ],
       linkType: 'Entry'
@@ -22,6 +24,13 @@ module.exports = function(migration) {
   const cardGroup = migration.editContentType('cardGroup');
   cardGroup
     .editField('hasPart')
+    .validations([
+      {
+        size: {
+          max: 28
+        }
+      }
+    ])
     .items({
       type: 'Link',
       validations: [
@@ -31,11 +40,6 @@ module.exports = function(migration) {
             'automatedRecordCard',
             'curatedCard'
           ]
-        },
-        {
-          size: {
-            max: 20
-          }
         }
       ],
 
