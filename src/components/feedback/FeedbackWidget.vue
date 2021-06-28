@@ -7,12 +7,12 @@
       variant="primary"
       data-qa="feedback button"
       size="lg"
-      class="feedback-button text-decoration-none"
-      :class="showWidget ? 'hide-button' : null"
+      class="feedback-button text-decoration-none shadow"
+      :class="buttonClasses"
       @click="showFeedbackForm"
     >
       <span class="icon-ic-feedback d-inline-flex" />
-      {{ $t('actions.feedback') }}
+      <span class="feedback-button-text">{{ $t('actions.feedback') }}</span>
     </b-button>
     <div
       role="dialog"
@@ -176,7 +176,8 @@
         feedbackInputState: true,
         email: '',
         emailInputState: true,
-        requestSuccess: null
+        requestSuccess: null,
+        beforeScroll: true
       };
     },
 
@@ -204,6 +205,17 @@
 
       showCloseButton() {
         return !this.showCancelButton;
+      },
+      buttonClasses() {
+        return {
+          'hide-button': this.showWidget,
+          big: this.beforeScroll
+        };
+      }
+    },
+    mounted() {
+      if (process.browser) {
+        window.addEventListener('scroll', () => this.beforeScroll = false, { once: true });
       }
     },
 
@@ -326,22 +338,45 @@
       padding: 0.875rem;
       line-height: 1;
       border-color: $white;
-      span {
-        padding-right: 0.25rem;
+      white-space: nowrap;
+      border-radius: 50%;
+      max-width: 50px;
+      transition: max-width 0.25s ease-out, border-radius 0.3s ease-out;
+      .icon-ic-feedback {
+        padding-right: 0;
+        font-size: 1.25rem;
+      }
+      .feedback-button-text {
+        transition: opacity 0.3s ease-out;
+        opacity: 0;
       }
       &.hide-button {
         display: none;
       }
-      @media (max-width: $bp-small) {
-        font-size: 0;
-        border-radius: 50%;
-        span {
-          padding-right: 0;
+      &:hover, &.big {
+        border-radius: 0.3rem;
+        max-width: 220px;
+        transition: max-width 0.75s ease-out, border-radius 0.25s ease-out;
+        .feedback-button-text {
+          opacity: 1;
+          transition: opacity 0.3s ease-out;
+        }
+        .icon-ic-feedback {
+          padding-right: 0.25rem;
         }
       }
-    }
-    .icon-ic-feedback {
-      font-size: 1.25rem;
+      @media (max-width: $bp-small) {
+        &, &:hover, &.big {
+          max-width: 50px;
+          border-radius: 50%;
+          .feedback-button-text {
+            opacity: 0;
+          }
+          .icon-ic-feedback {
+            padding-right: 0;
+          }
+        }
+      }
     }
   }
 
