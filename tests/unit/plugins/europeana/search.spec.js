@@ -153,6 +153,21 @@ describe('plugins/europeana/search', () => {
 
           nock.isDone().should.be.true;
         });
+
+        it('does not pass API i18n params if locale is already "en"', async() => {
+          const locale = 'en';
+
+          baseRequest
+            .query(query => {
+              const queryKeys = Object.keys(query);
+              return !queryKeys.includes('q.source') && !queryKeys.includes('q.target');
+            })
+            .reply(200, defaultResponse);
+
+          await search($axios, { query: 'flor' }, { locale });
+
+          nock.isDone().should.be.true;
+        });
       });
 
       describe('escaping Lucene reserved characters', () => {
