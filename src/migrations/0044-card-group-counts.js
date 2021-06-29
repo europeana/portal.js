@@ -9,17 +9,7 @@ module.exports = function(migration) {
           max: 20
         }
       }
-    ])
-    .items({
-      type: 'Link',
-      validations: [
-        {
-          linkContentType: ['cardGroup', 'richText', 'latestCardGroup']
-        }
-      ],
-      linkType: 'Entry'
-    });
-
+    ]);
 
   const cardGroup = migration.editContentType('cardGroup');
   cardGroup
@@ -30,20 +20,5 @@ module.exports = function(migration) {
           max: 28
         }
       }
-    ])
-    .items({
-      type: 'Link',
-      validations: [
-        {
-          linkContentType: [
-            'automatedEntityCard',
-            'automatedRecordCard',
-            'curatedCard'
-          ]
-        }
-      ],
-
-      linkType: 'Entry'
-    });
-
+    ]);
 };
