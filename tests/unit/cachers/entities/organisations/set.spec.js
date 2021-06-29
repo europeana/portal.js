@@ -41,9 +41,7 @@ const cacheValue = JSON.stringify(
         en: 'Two'
       }
     }
-  },
-  null,
-  2
+  }
 );
 
 describe('cachers/entities/organisations/set', () => {
