@@ -365,7 +365,7 @@ export default {
         facet: null
       };
 
-      return this.$apis.record.search(paramsForItems, getters.searchOptions)
+      return this.$apis.record.search(paramsForItems, { ...getters.searchOptions, locale: this.$i18n.locale })
         .then(async(response) => {
           await dispatch('updateForSuccess', response);
         })
@@ -385,7 +385,7 @@ export default {
         profile: 'facets'
       };
 
-      return this.$apis.record.search(paramsForFacets, getters.searchOptions)
+      return this.$apis.record.search(paramsForFacets, { ...getters.searchOptions, locale: this.$i18n.locale })
         .then((response) => {
           commit('setFacets', response.facets);
           const collection = getters.collection;

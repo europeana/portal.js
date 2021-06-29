@@ -1,6 +1,7 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import VueRouter from 'vue-router';
+import sinon from 'sinon';
 
 import ViewToggles from '../../../../src/components/search/ViewToggles.vue';
 
@@ -24,15 +25,16 @@ const factory = (propsData = {}) => {
     propsData,
     mocks: {
       $t: (key) => key,
-      $path: (args) => args
+      $path: (args) => args,
+      $matomo: {
+        trackEvent: sinon.spy()
+      }
     }
   });
 };
 
 describe('components/search/ViewToggles', () => {
-  const views = ['list', 'grid'];
-
-  for (const view of views) {
+  for (const view of ['list', 'grid']) {
     describe(`${view} view`, () => {
       it('has a toggle', () => {
         const wrapper = factory();
@@ -54,23 +56,24 @@ describe('components/search/ViewToggles', () => {
         const viewToggleIcon = wrapper.find(`[data-qa="search ${view} view toggle"] .icon-view-toggle`);
         viewToggleIcon.attributes('class').should.eq(`icon-view-toggle ${view}`);
       });
-
-      it('changes active view when clicked', () => {
-        const wrapper = factory();
-
-        const viewToggle = wrapper.find(`[data-qa="search ${view} view toggle"] a`);
-        viewToggle.trigger('click');
-
-        wrapper.vm.activeView.should.eq(view);
-      });
     });
   }
 
-  it('updates active view when v-model changes', () => {
-    const wrapper = factory({ value: 'grid' });
+  describe('when v-model changes', () => {
+    it('updates active view', () => {
+      const wrapper = factory({ value: 'grid' });
 
-    wrapper.setProps({ value: 'list' });
+      wrapper.setProps({ value: 'list' });
 
-    wrapper.vm.activeView.should.eq('list');
+      wrapper.vm.activeView.should.eq('list');
+    });
+
+    it('tracks the event in Matomo', () => {
+      const wrapper = factory({ value: 'grid' });
+
+      wrapper.setProps({ value: 'list' });
+
+      wrapper.vm.$matomo.trackEvent.should.have.been.calledWith('View search results', 'Select view', 'list');
+    });
   });
 });

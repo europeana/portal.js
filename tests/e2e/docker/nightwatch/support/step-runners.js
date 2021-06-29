@@ -35,14 +35,11 @@ module.exports = {
     await client.waitForElementVisible(activeLinkSelector);
   },
   async checkPageAccesibility() {
-    let axeOptions = {
+    const axeOptions = {
       reporter: 'v2',
       runOnly: {
         type: 'tags',
-        values: ['wcag2a', 'wcag2aa']
-      },
-      rules: {
-        'aria-roles': { enabled: false } // https://github.com/bootstrap-vue/bootstrap-vue/issues/2921 + https://github.com/dequelabs/axe-core/issues/1462
+        values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']
       }
     };
 
@@ -205,7 +202,7 @@ module.exports = {
   },
   async preferBrowserLanguage(locale) {
     const nightwatchApiOptions = {
-      configFile: 'tests/features/config/nightwatch.conf.js',
+      configFile: 'config/nightwatch.conf.js',
       env: `chrome-${locale}`,
       silent: true
     };

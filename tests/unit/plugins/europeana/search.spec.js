@@ -126,6 +126,35 @@ describe('plugins/europeana/search', () => {
         nock.isDone().should.be.true;
       });
 
+      describe('multilingual queries', () => {
+        it('passes API i18n params if locale option given', async() => {
+          const locale = 'es';
+
+          baseRequest
+            .query(query => {
+              return query['q.source'] === locale && query['q.target'] === 'en';
+            })
+            .reply(200, defaultResponse);
+
+          await search($axios, { query: 'flor' }, { locale });
+
+          nock.isDone().should.be.true;
+        });
+
+        it('does not pass API i18n params if no locale option', async() => {
+          baseRequest
+            .query(query => {
+              const queryKeys = Object.keys(query);
+              return !queryKeys.includes('q.source') && !queryKeys.includes('q.target');
+            })
+            .reply(200, defaultResponse);
+
+          await search($axios, { query: 'flor' });
+
+          nock.isDone().should.be.true;
+        });
+      });
+
       describe('escaping Lucene reserved characters', () => {
         it('does not escape them by default', async() => {
           baseRequest

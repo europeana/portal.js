@@ -29,6 +29,6 @@ jobs:
       with:
         node-version: 12.x
     - run: echo "PERCY_COMMIT=${GITHUB_SHA}" >> $GITHUB_ENV
-    - run: envsubst < .github/workflows/support/ci/.env > docker/stack/app/.env
-    - run: envsubst < .github/workflows/support/ci/.env > docker/stack/nightwatch/.env
+    - run: envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/app/.env
+    - run: envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/nightwatch-visual/.env
     - run: npm run test:visual

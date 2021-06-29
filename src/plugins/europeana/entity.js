@@ -198,7 +198,7 @@ export function getEntityTypeHumanReadable(type) {
  * @param {string} id the numeric identifier of the entity, (can contain trailing slug parts as these will be normalized)
  * @return {string} retrieved human readable name of type
  */
-function getEntityUrl(type, id) {
+export function getEntityUrl(type, id) {
   return `/${getEntityTypeApi(type)}/base/${normalizeEntityId(id)}.json`;
 }
 
