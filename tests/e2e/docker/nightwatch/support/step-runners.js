@@ -313,5 +313,8 @@ module.exports = {
   },
   async isActive(qaElementName) {
     await client.expect.element(qaSelector(qaElementName)).to.be.active;
+  },
+  async scrollWindow() {
+    await client.execute('scroll(0, 100)');
   }
 };

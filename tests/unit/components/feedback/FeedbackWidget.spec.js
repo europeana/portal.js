@@ -51,14 +51,6 @@ describe('components/feedback/FeedbackWidget', () => {
         const button = wrapper.find('[data-qa="feedback button"]');
         button.attributes().class.should.not.contain('big');
       });
-      it('and does not show text', () => {
-        const wrapper = factory();
-        global.window.dispatchEvent(new Event('scroll'));
-        setTimeout(() => { // wait for transition to finish
-          const buttonText = wrapper.find('[data-qa="feedback button text"]');
-          buttonText.isVisible().should.equal(false);
-        }, 300);
-      });
       context('and on mouseover', () => {
         it('grows big', () => {
           const wrapper = factory();
@@ -66,16 +58,6 @@ describe('components/feedback/FeedbackWidget', () => {
           const button = wrapper.find('[data-qa="feedback button"]');
           button.trigger('mouseover');
           button.attributes().class.should.contain('big');
-        });
-        it('and shows text', () => {
-          const wrapper = factory();
-          global.window.dispatchEvent(new Event('scroll'));
-          const button = wrapper.find('[data-qa="feedback button"]');
-          button.trigger('mouseover');
-          setTimeout(() => { // wait for transition to finish
-            const buttonText = wrapper.find('[data-qa="feedback button text"]');
-            buttonText.isVisible().should.equal(true);
-          }, 300);
         });
       });
       context('and on mouseleave', () => {
@@ -86,17 +68,6 @@ describe('components/feedback/FeedbackWidget', () => {
           button.trigger('mouseover');
           button.trigger('mouseleave');
           button.attributes().class.should.not.contain('big');
-        });
-        it('and does not show text', () => {
-          const wrapper = factory();
-          global.window.dispatchEvent(new Event('scroll'));
-          const button = wrapper.find('[data-qa="feedback button"]');
-          button.trigger('mouseover');
-          button.trigger('mouseleave');
-          setTimeout(() => { // wait for transition to finish
-            const buttonText = wrapper.find('[data-qa="feedback button text"]');
-            buttonText.isVisible().should.equal(false);
-          }, 300);
         });
       });
     });

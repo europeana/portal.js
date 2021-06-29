@@ -174,3 +174,5 @@ defineStep('I hover over (a/an/the)( ){target}', (target) =>
   i.moveToElement(target));
 defineStep('The {target} is active', (qa) =>
   i.isActive(qa));
+defineStep('I scroll the page', () =>
+  i.scrollWindow());
