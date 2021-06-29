@@ -10,9 +10,14 @@
       class="feedback-button text-decoration-none"
       :class="buttonClasses"
       @click="showFeedbackForm"
+      @mouseover="bigButton = true"
+      @mouseleave="bigButton = false"
     >
       <span class="icon-ic-feedback d-inline-flex" />
-      <span class="feedback-button-text">{{ $t('actions.feedback') }}</span>
+      <span
+        class="feedback-button-text"
+        data-qa="feedback button text"
+      >{{ $t('actions.feedback') }}</span>
     </b-button>
     <div
       role="dialog"
@@ -177,7 +182,7 @@
         email: '',
         emailInputState: true,
         requestSuccess: null,
-        beforeScroll: true
+        bigButton: true
       };
     },
 
@@ -209,14 +214,12 @@
       buttonClasses() {
         return {
           'hide-button': this.showWidget,
-          big: this.beforeScroll
+          big: this.bigButton
         };
       }
     },
     mounted() {
-      if (process.browser) {
-        window.addEventListener('scroll', () => this.beforeScroll = false, { once: true });
-      }
+      window.addEventListener('scroll', () => this.bigButton = false, { once: true });
     },
 
     methods: {
@@ -353,7 +356,7 @@
       &.hide-button {
         display: none;
       }
-      &:hover, &.big {
+      &.big {
         border-radius: 0.3rem;
         max-width: 220px;
         transition: max-width 0.75s ease-out, border-radius 0.25s ease-out;
@@ -366,7 +369,7 @@
         }
       }
       @media (max-width: $bp-small) {
-        &, &:hover, &.big {
+        &.big {
           max-width: 50px;
           border-radius: 50%;
           .feedback-button-text {
