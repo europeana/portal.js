@@ -13,7 +13,7 @@ RUN jq -Mr '{dependencies,devDependencies}' package-original.json > package.json
 
 
 # 1. Build
-FROM node:12-alpine
+FROM node:14-alpine
 
 ENV CHROMEDRIVER_SKIP_DOWNLOAD=true \
     GECKODRIVER_SKIP_DOWNLOAD=true \
@@ -40,7 +40,7 @@ RUN npm prune --production
 
 
 # 2. Run
-FROM node:12-alpine
+FROM node:14-alpine
 
 ENV PORT=8080 \
     HOST=0.0.0.0 \
