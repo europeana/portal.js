@@ -18,6 +18,9 @@ app.use((res, req, next) => {
 const debugMemoryUsage = require('./debug/memory-usage');
 app.get('/debug/memory-usage', debugMemoryUsage);
 
+import contentful from './contentful';
+app.post('/contentful/:alias', (req, res) => contentful(runtimeConfig)(req, res));
+
 import entitiesOrganisations from './entities/organisations';
 app.get('/entities/organisations', (req, res) => entitiesOrganisations(runtimeConfig)(req, res));
 
