@@ -7,7 +7,7 @@
       variant="primary"
       data-qa="feedback button"
       size="lg"
-      class="feedback-button text-decoration-none shadow"
+      class="feedback-button text-decoration-none"
       :class="buttonClasses"
       @click="showFeedbackForm"
     >
@@ -337,11 +337,11 @@
       text-transform: capitalize;
       padding: 0.875rem;
       line-height: 1;
-      border-color: $white;
       white-space: nowrap;
       border-radius: 50%;
       max-width: 50px;
-      transition: max-width 0.25s ease-out, border-radius 0.3s ease-out;
+      transition: max-width 0.35s ease-out, border-radius 0.3s ease-out;
+      box-shadow: 0px 2px 8px rgba(26, 26, 26, 0.25);
       .icon-ic-feedback {
         padding-right: 0;
         font-size: 1.25rem;
