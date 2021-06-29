@@ -2,7 +2,6 @@ import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 import nock from 'nock';
-// nock.recorder.rec();
 import FeedbackWidget from '../../../../src/components/feedback/FeedbackWidget.vue';
 import VueI18n from 'vue-i18n';
 
@@ -13,7 +12,14 @@ localVue.use(VueI18n);
 const factory = (propsData = {}) => {
   const wrapper = mount(FeedbackWidget, {
     localVue,
-    i18n: new VueI18n,
+    i18n: new VueI18n({  locale: 'en',
+      messages: {
+        en: {
+          feedback: {
+            policies: 'By continuing, you agree to our {0} and acknowledge our {1}.'
+          }
+        }
+      } }),
     propsData,
     mocks: {
       $t: () => {},
@@ -25,6 +31,76 @@ const factory = (propsData = {}) => {
 };
 
 describe('components/feedback/FeedbackWidget', () => {
+  describe('feedback button', () => {
+    context('on initial page load and before user scrolled', () => {
+      it('is large', () => {
+        const wrapper = factory();
+        const button = wrapper.find('[data-qa="feedback button"]');
+        button.attributes().class.should.contain('big');
+      });
+      it('and shows text', () => {
+        const wrapper = factory();
+        const buttonText = wrapper.find('[data-qa="feedback button text"]');
+        buttonText.isVisible().should.equal(true);
+      });
+    });
+    context('after scrolling', () => {
+      it('shrinks', () => {
+        const wrapper = factory();
+        global.window.dispatchEvent(new Event('scroll'));
+        const button = wrapper.find('[data-qa="feedback button"]');
+        button.attributes().class.should.not.contain('big');
+      });
+      it('and does not show text', () => {
+        const wrapper = factory();
+        global.window.dispatchEvent(new Event('scroll'));
+        setTimeout(() => { // wait for transition to finish
+          const buttonText = wrapper.find('[data-qa="feedback button text"]');
+          buttonText.isVisible().should.equal(false);
+        }, 300);
+      });
+      context('and on mouseover', () => {
+        it('grows big', () => {
+          const wrapper = factory();
+          global.window.dispatchEvent(new Event('scroll'));
+          const button = wrapper.find('[data-qa="feedback button"]');
+          button.trigger('mouseover');
+          button.attributes().class.should.contain('big');
+        });
+        it('and shows text', () => {
+          const wrapper = factory();
+          global.window.dispatchEvent(new Event('scroll'));
+          const button = wrapper.find('[data-qa="feedback button"]');
+          button.trigger('mouseover');
+          setTimeout(() => { // wait for transition to finish
+            const buttonText = wrapper.find('[data-qa="feedback button text"]');
+            buttonText.isVisible().should.equal(true);
+          }, 300);
+        });
+      });
+      context('and on mouseleave', () => {
+        it('shrinks again', () => {
+          const wrapper = factory();
+          global.window.dispatchEvent(new Event('scroll'));
+          const button = wrapper.find('[data-qa="feedback button"]');
+          button.trigger('mouseover');
+          button.trigger('mouseleave');
+          button.attributes().class.should.not.contain('big');
+        });
+        it('and does not show text', () => {
+          const wrapper = factory();
+          global.window.dispatchEvent(new Event('scroll'));
+          const button = wrapper.find('[data-qa="feedback button"]');
+          button.trigger('mouseover');
+          button.trigger('mouseleave');
+          setTimeout(() => { // wait for transition to finish
+            const buttonText = wrapper.find('[data-qa="feedback button text"]');
+            buttonText.isVisible().should.equal(false);
+          }, 300);
+        });
+      });
+    });
+  });
   describe('next button', () => {
     context('when there is no value for feedback', () => {
       it('is disabled', () => {
