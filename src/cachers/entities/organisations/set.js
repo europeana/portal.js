@@ -48,7 +48,7 @@ const persistableFields = ({ identifier, prefLabel }) => {
 };
 
 const writeToRedis = (organisations) => {
-  return redisClient.setAsync(utils.CACHE_KEY, JSON.stringify(organisations, null, 2))
+  return redisClient.setAsync(utils.CACHE_KEY, JSON.stringify(organisations))
     .then(() => redisClient.quitAsync())
     .then(() => ({
       body: `Wrote ${Object.keys(organisations).length} organisations to Redis "${utils.CACHE_KEY}".`
