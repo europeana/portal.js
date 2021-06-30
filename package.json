@@ -1,6 +1,6 @@
 {
   "name": "@europeana/portal",
-  "version": "1.39.1",
+  "version": "1.40.0",
   "description": "Europeana Portal",
   "contributors": [
     "Richard Doe <richard.doe@europeana.eu>",
@@ -15,7 +15,7 @@
   ],
   "license": "EUPL-1.2",
   "engines": {
-    "node": "^12",
+    "node": "^14",
     "npm": "^6"
   },
   "repository": {

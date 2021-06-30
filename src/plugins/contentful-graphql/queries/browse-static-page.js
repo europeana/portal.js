@@ -28,15 +28,13 @@ export default `
           contentType
           description
         }
-        # TODO: enforce this limit in CTF content model
-        hasPartCollection(limit: 10) {
+        hasPartCollection(limit: 20) {
           items {
             __typename
             ... on CardGroup {
               headline
               text
-              # TODO: reduce this limit in CTF content model?
-              hasPartCollection(limit: 60) {
+              hasPartCollection(limit: 28) {
                 items {
                   __typename
                   ... on AutomatedEntityCard {
