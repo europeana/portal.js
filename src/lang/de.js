@@ -4,7 +4,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mein Konto",
     "linkLogin": "Anmelden",
-    "linkLoginJoin": "Anmelden/Beitreten",
+    "linkLoginJoin": "Anmelden\/Beitreten",
     "linkLogout": "Abmelden",
     "myProfile": "Mein Profil",
     "notifications": {
@@ -58,8 +58,17 @@ export default {
     "published": "Veröffentlicht am {date}",
     "relatedPosts": "Ähnliche Beiträge"
   },
+  "cardLabels": {
+    "person": "Person",
+    "time": "Jahrhundert",
+    "topic": "Thema"
+  },
   "clearAllFilters": "Alle Filter löschen",
   "collections": {
+    "actions": {
+      "edit": "Sammlung bearbeiten",
+      "update": "Sammlung aktualisieren"
+    },
     "fashion": {
       "facets": {
         "CREATOR": {
@@ -75,6 +84,12 @@ export default {
           "name": "Material | Materialien"
         }
       }
+    },
+    "form": {
+      "description": "Beschreibung"
+    },
+    "notifications": {
+      "update": "Die Kollektion wurde aktualisiert"
     }
   },
   "collectionsYouMightLike": "Kollektionen, die Ihnen gefallen könnten",
@@ -120,7 +135,6 @@ export default {
     "right": "Rechts"
   },
   "edmIsShownAtLinkAlt": "Auf der Website des Anbieters ansehen",
-  "entity": "Entität",
   "error": "Fehler",
   "exhibitions": {
     "chapters": "Kapitel",
@@ -351,7 +365,7 @@ export default {
     "MIME_TYPE": {
       "name": "Dateiformat | Dateiformate",
       "options": {
-        "text/plain": "Klartext"
+        "text\/plain": "Klartext"
       }
     },
     "PROVIDER": {
@@ -518,6 +532,71 @@ export default {
     "itemOf": "{max} von {count} Artikel",
     "youMightLike": "Artikel, die Ihnen vielleicht gefallen könnten"
   },
+  "klaro": {
+    "main": {
+      "consentModal": {
+        "description": "Wir nehmen Ihren Datenschutz ernst. Hier können Sie die Dienste, die wir auf dieser Website nutzen möchten, bewerten und anpassen. Du bist verantwortlich! Aktivieren oder deaktivieren Sie Dienste nach Belieben.",
+        "title": "Dienste, die wir gerne nutzen würden."
+      },
+      "consentNotice": {
+        "description": "Wir kümmern uns um Ihre Privatsphäre und verwenden Daten nur, um Ihre Erfahrung zu verbessern. Wir verwenden keine personenbezogenen Daten für Werbung. Sie können Ihre Einwilligung alle 15 Tage ändern."
+      },
+      "ok": "Okay",
+      "purposes": {
+        "essential": {
+          "description": "Diese Dienste sind für das korrekte Funktionieren dieser Website unerlässlich. Sie umfassen die Anzeige von Suchergebnissen und Spracheinstellungen, bewahren den eingeloggten Status und sorgen für die Sicherheit Ihres Besuchs. Sie können sie nicht deaktivieren, da die Website sonst nicht richtig funktionieren würde.",
+          "title": "Grundlegende Dienste für Sicherheit und Anpassung"
+        },
+        "usage": {
+          "description": "Diese Dienste sammeln die Informationen, um uns zu helfen, besser zu verstehen, wie die Website verwendet wird und wo die Schwachstellen sind, und befähigen uns, fundierte Entscheidungen zu treffen, um Ihre Erfahrung zu verbessern.",
+          "title": "Dienste zur Erfassung von Website-Nutzung und Feedback"
+        }
+      },
+      "service": {
+        "disableAll": {
+          "description": "Verwenden Sie diesen Schalter, um alle optionalen Dienste zu aktivieren oder zu deaktivieren.",
+          "title": "Alle Dienste aktivieren oder deaktivieren"
+        }
+      }
+    },
+    "services": {
+      "auth-strategy": {
+        "description": "Erinnert an die Berechtigungsstrategie, die für die Anmeldung verwendet werden soll.",
+        "title": "Auth-Strategie"
+      },
+      "debugSettings": {
+        "title": "Debug toggle"
+      },
+      "google-analytics": {
+        "description": "Sammelt anonyme Statistiken darüber, wie Besucher mit der Website interagieren.",
+        "title": "Google Analytics"
+      },
+      "google-optimize": {
+        "description": "Ermöglicht Ihnen die Teilnahme an Website-Experimenten, die unsere Designentscheidungen für die beste Benutzererfahrung leiten.",
+        "title": "Google Optimieren"
+      },
+      "hotjar": {
+        "description": "Aktiviert ein Umfrage-Widget, das Ihnen die Möglichkeit gibt, auf unsere Umfragen zur Besucherzufriedenheit zu antworten.",
+        "title": "Hotjar"
+      },
+      "i18n": {
+        "description": "Merkt sich Ihre bevorzugte Oberflächensprache für den zukünftigen Zugriff.",
+        "title": "Sprachcode"
+      },
+      "jira-servicedesk": {
+        "description": "Aktiviert das Feedback-Widget, das Ihnen die Möglichkeit gibt, uns zu kontaktieren.",
+        "title": "Jira service desk"
+      },
+      "matomo": {
+        "description": "Sammelt anonyme Statistiken darüber, wie Besucher mit der Website interagieren.",
+        "title": "Matomo"
+      },
+      "searchResultsView": {
+        "description": "Merkt sich, ob Sie die Suchergebnisse lieber in einer Listen- oder Rasteransicht anzeigen möchten.",
+        "title": "Suchergebnisansicht (Liste\/Raster)"
+      }
+    }
+  },
   "layout": {
     "skipToMain": "Direkt zum Seiteninhalt"
   },
@@ -569,7 +648,10 @@ export default {
     "extendedInformation": "Erweiterte Informationen",
     "goodToKnow": "Gut zu wissen",
     "hideAll": "Alle Informationen ausblenden",
+    "IIIFViewer": "IIIF-Viewer",
     "location": "Ort",
+    "locationOnMap": "Standort auf der Karte",
+    "mediaPlayer": "Media Player",
     "record": "Aufzeichnung",
     "showAll": "Alle Informationen anzeigen",
     "similarItems": "Ähnliche Artikel",
@@ -619,6 +701,7 @@ export default {
     "form": {
       "description": "Galeriebeschreibung",
       "private": "Diese Galerie privat halten",
+      "required": "Pflichtfeld",
       "title": "Galeriename"
     },
     "labels": {

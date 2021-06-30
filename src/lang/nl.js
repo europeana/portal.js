@@ -4,7 +4,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mijn account",
     "linkLogin": "Inloggen",
-    "linkLoginJoin": "Inloggen/Aanmelden",
+    "linkLoginJoin": "Inloggen\/Aanmelden",
     "linkLogout": "Uitloggen",
     "myProfile": "Mijn profiel",
     "notifications": {
@@ -58,8 +58,17 @@ export default {
     "published": "Gepubliceerd op {date}",
     "relatedPosts": "Gerelateerde berichten"
   },
+  "cardLabels": {
+    "person": "Persoon",
+    "time": "Eeuw",
+    "topic": "Onderwerp"
+  },
   "clearAllFilters": "alle filters wissen",
   "collections": {
+    "actions": {
+      "edit": "Collectie bewerken",
+      "update": "Collectie bijwerken"
+    },
     "fashion": {
       "facets": {
         "CREATOR": {
@@ -75,6 +84,12 @@ export default {
           "name": "Materiaal | Materialen"
         }
       }
+    },
+    "form": {
+      "description": "Omschrijving"
+    },
+    "notifications": {
+      "update": "De collectie is bijgewerkt"
     }
   },
   "collectionsYouMightLike": "Collecties die u misschien interessant vindt",
@@ -120,7 +135,6 @@ export default {
     "right": "Rechts"
   },
   "edmIsShownAtLinkAlt": "Bekijken op de website van de provider",
-  "entity": "Entiteit",
   "error": "Fout",
   "exhibitions": {
     "chapters": "Hoofdstukken",
@@ -351,7 +365,7 @@ export default {
     "MIME_TYPE": {
       "name": "Bestandsformaat | Bestandsformaten",
       "options": {
-        "text/plain": "Platte tekst"
+        "text\/plain": "Platte tekst"
       }
     },
     "PROVIDER": {
@@ -520,11 +534,55 @@ export default {
   },
   "klaro": {
     "main": {
+      "consentModal": {
+        "description": "Wij nemen uw gegevensprivacy serieus. Hier kunt u de diensten die wij op deze website willen gebruiken, zelf beoordelen en aanpassen. U heeft het voor het zeggen! Schakel diensten in of uit zoals u dat wilt.",
+        "title": "Diensten waar we graag gebruik van willen maken."
+      },
       "consentNotice": {
         "description": "We geven om uw privacy en gebruiken gegevens alleen om uw ervaring te verbeteren. We gebruiken geen persoonlijke informatie voor advertenties. U kunt uw toestemming elke 15 dagen wijzigen."
+      },
+      "ok": "Oké",
+      "purposes": {
+        "essential": {
+          "description": "Deze diensten zijn essentieel voor het correct functioneren van deze website. Ze omvatten weergave van zoekresultaten en taalvoorkeuren, behouden de ingelogde status en houden uw bezoek veilig. U kunt ze niet uitschakelen omdat de website anders niet correct zou werken.",
+          "title": "Essentiële services voor beveiliging en maatwerk"
+        },
+        "usage": {
+          "description": "Deze diensten verzamelen de informatie om ons te helpen beter te begrijpen hoe de website wordt gebruikt en waar de pijnpunten zijn, waardoor we weloverwogen keuzes kunnen maken om uw ervaring te verbeteren.",
+          "title": "Services om websitegebruik en feedback vast te leggen"
+        }
+      },
+      "service": {
+        "disableAll": {
+          "description": "Gebruik deze schakelaar om alle optionele services in of uit te schakelen.",
+          "title": "Alle services in- of uitschakelen"
+        }
       }
     },
     "services": {
+      "auth-strategy": {
+        "description": "Onthoudt de autorisatie strategie die moet worden gebruikt om in te loggen.",
+        "title": "Auth-strategie"
+      },
+      "debugSettings": {
+        "title": "Debug toggle"
+      },
+      "google-analytics": {
+        "description": "Verzamelt anonieme statistieken over hoe bezoekers omgaan met de website.",
+        "title": "Google Analytics"
+      },
+      "google-optimize": {
+        "description": "Stelt u in staat deel te nemen aan website-experimenten die ons helpen met ontwerpkeuzes voor de beste gebruikerservaring.",
+        "title": "Google Optimaliseren"
+      },
+      "hotjar": {
+        "description": "Activeert een enquête-widget die u de mogelijkheid biedt om te reageren op onze tevredenheidsenquêtes voor bezoekers.",
+        "title": "Hotjar"
+      },
+      "i18n": {
+        "description": "Onthoudt de interfacetaal van uw voorkeur voor toekomstige toegang.",
+        "title": "Taalcode"
+      },
       "jira-servicedesk": {
         "description": "Activeert de feedbackwidget die u de mogelijkheid geeft om contact met ons op te nemen.",
         "title": "Jira-servicedesk"
@@ -535,7 +593,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Onthoudt of u de zoekresultaten liever in een lijst- of rasterweergave wilt zien.",
-        "title": "Zoekresultaatweergave (lijst/raster)"
+        "title": "Zoekresultaatweergave (lijst\/raster)"
       }
     }
   },

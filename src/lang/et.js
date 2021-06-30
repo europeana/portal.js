@@ -4,7 +4,7 @@ export default {
     "likes": "Meeldimised",
     "linkAccount": "Minu konto",
     "linkLogin": "Logi sisse",
-    "linkLoginJoin": "Logi sisse/Liitu",
+    "linkLoginJoin": "Logi sisse\/Liitu",
     "linkLogout": "Logi välja",
     "myProfile": "Minu profiil",
     "notifications": {
@@ -58,8 +58,17 @@ export default {
     "published": "Avaldatud {date}",
     "relatedPosts": "Seonduvad postitused"
   },
+  "cardLabels": {
+    "person": "Isik",
+    "time": "Sajand",
+    "topic": "Teema"
+  },
   "clearAllFilters": "tühjenda kõik filtrid",
   "collections": {
+    "actions": {
+      "edit": "Muuda kogu",
+      "update": "Värskendus Kollektsiooni"
+    },
     "fashion": {
       "facets": {
         "CREATOR": {
@@ -75,6 +84,12 @@ export default {
           "name": "Materjal | Materjalid"
         }
       }
+    },
+    "form": {
+      "description": "Kirjeldus"
+    },
+    "notifications": {
+      "update": "Kollektsiooni on uuendatud"
     }
   },
   "collectionsYouMightLike": "Kollektsioonid, mis võivad teile meeldida",
@@ -120,7 +135,6 @@ export default {
     "right": "Parem"
   },
   "edmIsShownAtLinkAlt": "Vaadake teenusepakkuja veebisaidil",
-  "entity": "Üksus",
   "error": "Viga",
   "exhibitions": {
     "chapters": "Peatükid",
@@ -351,7 +365,7 @@ export default {
     "MIME_TYPE": {
       "name": "Failivorming | Failivormingud",
       "options": {
-        "text/plain": "Lihttekst"
+        "text\/plain": "Lihttekst"
       }
     },
     "PROVIDER": {
@@ -471,6 +485,8 @@ export default {
   },
   "footer": {
     "customiseWebsiteLanguage": "Kohandage veebisaidi keelt",
+    "disclaimerLine1": "Europeana on Euroopa Liidu algatus, mida rahastavad Euroopa Liidu Euroopa ühendamise rahastu ja Euroopa Liidu liikmesriigid. Europeana teenuseid, sealhulgas seda veebisaiti, haldab konsortsium, mida juhib sihtasutuse Europeana sihtasutus Euroopa Komisjoni teenuslepingu alusel.",
+    "disclaimerLine2": "Euroopa Komisjon ei taga teabe õigsust ega võta mingit vastutust sellel veebisaidil oleva teabe eest. Euroopa Komisjon ega ükski Euroopa Komisjoni nimel tegutsev isik ei vastuta ega vastuta sellel veebisaidil oleva teabe õigsuse ega kasutamise eest.",
     "findUsElsewhere": "Leidke meid mujalt",
     "imageDescription": "Kaasfinantseerib Euroopa Liidu Euroopa ühendamise rahastu",
     "ourMission": "Meie missioon",
@@ -513,8 +529,73 @@ export default {
   },
   "items": {
     "itemCount": "1 toode | {count} toodet",
-    "itemOf": "{max} / {count} tootest",
+    "itemOf": "{max} \/ {count} tootest",
     "youMightLike": "Tooted, mis võivad teile meeldida"
+  },
+  "klaro": {
+    "main": {
+      "consentModal": {
+        "description": "Võtame teie andmete privaatsust tõsiselt. Siin saate hinnata ja kohandada teenuseid, mida soovime sellel veebisaidil kasutada. Teie olete juhtiv! Lubage või keelake teenused oma äranägemise järgi.",
+        "title": "Teenused, mida sooviksime kasutada."
+      },
+      "consentNotice": {
+        "description": "Me hoolime teie privaatsusest ja kasutame andmeid ainult teie kogemuste parandamiseks. Me ei kasuta reklaamimiseks isiklikke andmeid. Oma nõusolekut saate muuta iga 15 päeva tagant."
+      },
+      "ok": "Okei",
+      "purposes": {
+        "essential": {
+          "description": "Need teenused on selle veebisaidi korrektseks toimimiseks hädavajalikud. Need sisaldavad otsingutulemite vaadet ja keele-eelistusi, säilitavad sisselogitud oleku ja hoiavad teie külastuse turvalisena. Te ei saa neid keelata, kuna veebisait ei töötaks muidu õigesti.",
+          "title": "Olulised teenused turvalisuse ja kohandamise jaoks"
+        },
+        "usage": {
+          "description": "Need teenused koguvad teavet, mis aitab meil paremini mõista, kuidas veebilehte kasutatakse ja kus on valupunktid, mis võimaldab meil teha teadlikke valikuid, et parandada teie kasutuskogemust.",
+          "title": "Teenused veebisaidi kasutamise ja tagasiside kogumiseks"
+        }
+      },
+      "service": {
+        "disableAll": {
+          "description": "Selle lüliti abil saate lubada või keelata kõik valikulised teenused.",
+          "title": "Luba või keela kõik teenused"
+        }
+      }
+    },
+    "services": {
+      "auth-strategy": {
+        "description": "Mäletab sisselogimiseks kasutatava autoriseerimisstrateegia.",
+        "title": "Auth strateegia"
+      },
+      "debugSettings": {
+        "title": "Debugimise lüliti"
+      },
+      "google-analytics": {
+        "description": "Kogub anonüümset statistikat selle kohta, kuidas külastajad veebisaidiga suhtlevad.",
+        "title": "Google Analytics"
+      },
+      "google-optimize": {
+        "description": "Võimaldab teil osaleda veebisaitide katsetes, mis suunavad meie disaini valikud parima kasutuskogemuse saamiseks.",
+        "title": "Google Optimize"
+      },
+      "hotjar": {
+        "description": "Aktiveerib uuringu vidina, andes teile võimaluse vastata meie külastajate rahulolu uuringutele.",
+        "title": "Hotjar"
+      },
+      "i18n": {
+        "description": "Jätab teie eelistatud liidese keele edaspidiseks kasutamiseks meelde.",
+        "title": "Keelekood"
+      },
+      "jira-servicedesk": {
+        "description": "Aktiveerib tagasiside vidina, andes teile võimaluse meiega ühendust võtta.",
+        "title": "Jira teeninduslaud"
+      },
+      "matomo": {
+        "description": "Kogub anonüümset statistikat selle kohta, kuidas külastajad veebisaidiga suhtlevad.",
+        "title": "Matomo"
+      },
+      "searchResultsView": {
+        "description": "Mäletab, kas eelistate näha otsingutulemusi loendi või ruudustiku kujul.",
+        "title": "Otsingutulemite vaade (loend \/ ruudustik)"
+      }
+    }
   },
   "layout": {
     "skipToMain": "Otse lehekülje sisule"
@@ -547,6 +628,7 @@ export default {
   "newWindow": "avaneb uues aknas",
   "noMoreResults": "Teie otsingupäringule pole rohkem tulemusi.",
   "noResults": "Ühtki tulemust",
+  "pageHasLoaded": "on laaditud",
   "pages": {
     "collections": {
       "times": {
@@ -560,12 +642,16 @@ export default {
   "readMore": "Loe lähemalt",
   "record": {
     "allMetaData": "Kogu metateave",
+    "copyEmbedLabel": "Embed code (Klõpsake kopeerimiseks)",
     "downloadCopyrightInfo": "See toode on autoriõigusega kaitstud ja seda ei saa alla laadida.",
     "exploreMore": "Avastage rohkem",
     "extendedInformation": "Täiendav teave",
     "goodToKnow": "Hea teada",
     "hideAll": "Peida kogu teave",
+    "IIIFViewer": "IIIF vaataja",
     "location": "Asukoht",
+    "locationOnMap": "Asukoht kaardil",
+    "mediaPlayer": "Meediumipleier",
     "record": "Kirje",
     "showAll": "Kuva kogu teave",
     "similarItems": "Sarnased tooted",
@@ -615,6 +701,7 @@ export default {
     "form": {
       "description": "Galerii kirjeldus",
       "private": "Hoia see galerii privaatsena",
+      "required": "Kohustuslik väli",
       "title": "Galerii nimi"
     },
     "labels": {

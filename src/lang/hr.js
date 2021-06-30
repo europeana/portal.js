@@ -4,7 +4,7 @@ export default {
     "likes": "Sviđanja",
     "linkAccount": "Moj račun",
     "linkLogin": "Prijava",
-    "linkLoginJoin": "Prijavi se/Pridruži se",
+    "linkLoginJoin": "Prijavi se\/Pridruži se",
     "linkLogout": "Odjava",
     "myProfile": "Moj profil",
     "notifications": {
@@ -42,7 +42,7 @@ export default {
   },
   "attribution": {
     "country": "Država:",
-    "creator": "Stvorio/la:",
+    "creator": "Stvorio\/la:",
     "date": "Datum:",
     "institution": "Institucija:",
     "title": "Naslov:"
@@ -58,8 +58,17 @@ export default {
     "published": "Objavljeno {date}",
     "relatedPosts": "Vezane objave"
   },
+  "cardLabels": {
+    "person": "Osoba",
+    "time": "Stoljeća",
+    "topic": "Tema"
+  },
   "clearAllFilters": "očistiti sve filtre",
   "collections": {
+    "actions": {
+      "edit": "Uredi zbirku",
+      "update": "Ažuriraj zbirku"
+    },
     "fashion": {
       "facets": {
         "CREATOR": {
@@ -75,6 +84,12 @@ export default {
           "name": "Materijal | materijali"
         }
       }
+    },
+    "form": {
+      "description": "Opis"
+    },
+    "notifications": {
+      "update": "Zbirka je ažurirana"
     }
   },
   "collectionsYouMightLike": "Kolekcije koje vam se mogu sviđati",
@@ -110,7 +125,8 @@ export default {
     "to": "do"
   },
   "debug": {
-    "apiRequests": "API zahtjevi"
+    "apiRequests": "API zahtjevi",
+    "debug": "Otklanjanje pogrešaka"
   },
   "delete": "Izbriši",
   "depiction": "Prikaz {title}",
@@ -119,7 +135,6 @@ export default {
     "right": "Desno"
   },
   "edmIsShownAtLinkAlt": "Prikaz na internetskoj stranici pružatelja",
-  "entity": "Entitet",
   "error": "Greška",
   "exhibitions": {
     "chapters": "Poglavlja",
@@ -350,7 +365,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format datoteke | Formati datoteka",
       "options": {
-        "text/plain": "Jednostavni tekst"
+        "text\/plain": "Jednostavni tekst"
       }
     },
     "PROVIDER": {
@@ -409,7 +424,7 @@ export default {
     "default": {
       "dcContributor": "Suradnici",
       "dcCoverage": "Mjesto-vrijeme",
-      "dcCreator": "Stvorio/la",
+      "dcCreator": "Stvorio\/la",
       "dcDate": "Datum",
       "dcDescription": "Opis",
       "dcDuration": "Trajanje",
@@ -517,6 +532,71 @@ export default {
     "itemOf": "{max} od {count} stavki",
     "youMightLike": "Stavke koje vam se mogu sviđati"
   },
+  "klaro": {
+    "main": {
+      "consentModal": {
+        "description": "Privatnost vaših podataka shvaćamo ozbiljno. Ovdje možete procijeniti i prilagoditi usluge koje bismo željeli koristiti na ovoj web stranici. Vi ste glavni! Omogućite ili onemogućite usluge kako vam odgovara.",
+        "title": "Usluge koje bismo željeli koristiti."
+      },
+      "consentNotice": {
+        "description": "Stalo nam je do vaše privatnosti i podatke koristimo samo za poboljšanje vašeg iskustva. Ne koristimo nikakve osobne podatke za oglašavanje. Privolu možete promijeniti svakih 15 dana."
+      },
+      "ok": "u redu",
+      "purposes": {
+        "essential": {
+          "description": "Te su usluge ključne za pravilno funkcioniranje ove web stranice. Uključuju prikaz rezultata pretraživanja i jezične postavke, čuvaju prijavljeno stanje i osiguravaju siguran posjet. Ne možete ih onemogućiti jer web mjesto inače ne bi radilo ispravno.",
+          "title": "Osnovne usluge za sigurnost i prilagodbu"
+        },
+        "usage": {
+          "description": "Te usluge prikupljaju informacije kako bi nam pomogle da bolje razumijemo kako se web stranica koristi i gdje su bolne točke, osnažujući nas da donosimo informirane odluke kako bismo poboljšali vaše iskustvo.",
+          "title": "Usluge za bilježenje upotrebe web mjesta i povratnih informacija"
+        }
+      },
+      "service": {
+        "disableAll": {
+          "description": "Pomoću ove sklopke omogućite ili onemogućite sve opcijske usluge.",
+          "title": "Omogućite ili onemogućite sve usluge"
+        }
+      }
+    },
+    "services": {
+      "auth-strategy": {
+        "description": "Sjeća se strategije autorizacije za prijavu.",
+        "title": "Auth strategija"
+      },
+      "debugSettings": {
+        "title": "Prebacivanje pogrešaka"
+      },
+      "google-analytics": {
+        "description": "Prikuplja anonimne statistike o tome kako posjetitelji komuniciraju s web mjestom.",
+        "title": "Google Analytics"
+      },
+      "google-optimize": {
+        "description": "Omogućuje vam sudjelovanje u eksperimentima na web mjestu koji vode naše odabire dizajna za najbolje korisničko iskustvo.",
+        "title": "Google Optimize"
+      },
+      "hotjar": {
+        "description": "Aktivira widget ankete dajući vam mogućnost da odgovorite na naše ankete o zadovoljstvu posjetitelja.",
+        "title": "Hotjar"
+      },
+      "i18n": {
+        "description": "Sjeća vaš omiljeni jezik sučelja za budući pristup.",
+        "title": "Kod jezika"
+      },
+      "jira-servicedesk": {
+        "description": "Aktivira widget za povratne informacije dajući vam mogućnost da nas kontaktirate.",
+        "title": "Jira servisni stol"
+      },
+      "matomo": {
+        "description": "Prikuplja anonimne statistike o tome kako posjetitelji komuniciraju s web mjestom.",
+        "title": "Matomo"
+      },
+      "searchResultsView": {
+        "description": "Sjeća ako radije vidite rezultate pretraživanja u prikazu popisa ili mreže.",
+        "title": "Prikaz rezultata pretraživanja (popis \/ mreža)"
+      }
+    }
+  },
   "layout": {
     "skipToMain": "Prijeđite na sadržaj stranice"
   },
@@ -548,6 +628,7 @@ export default {
   "newWindow": "otvara se u novom prozoru",
   "noMoreResults": "Nema više rezultata za vaš upit za pretraživanje.",
   "noResults": "Nema rezultata",
+  "pageHasLoaded": "se učitao",
   "pages": {
     "collections": {
       "times": {
@@ -567,6 +648,10 @@ export default {
     "extendedInformation": "Proširene informacije",
     "goodToKnow": "Dobro je znati",
     "hideAll": "Sakrij sve informacije",
+    "IIIFViewer": "IIIF preglednik",
+    "location": "Mjesto",
+    "locationOnMap": "Lokacija na karti",
+    "mediaPlayer": "Media player",
     "record": "Zapis",
     "showAll": "Prikaži sve informacije",
     "similarItems": "Slične stavke",
@@ -616,6 +701,7 @@ export default {
     "form": {
       "description": "Opis galerije",
       "private": "Držite ovu galeriju privatnom",
+      "required": "Obavezno polje",
       "title": "Naziv galerije"
     },
     "labels": {

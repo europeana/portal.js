@@ -4,7 +4,7 @@ export default {
     "likes": "Mentions J’aime",
     "linkAccount": "Mon compte",
     "linkLogin": "Se connecter",
-    "linkLoginJoin": "Connexion/Rejoignez-nous",
+    "linkLoginJoin": "Connexion\/Rejoignez-nous",
     "linkLogout": "Déconnexion",
     "myProfile": "Mon profil",
     "notifications": {
@@ -58,8 +58,17 @@ export default {
     "published": "Publié le {date}",
     "relatedPosts": "Publications Similaires"
   },
+  "cardLabels": {
+    "person": "Personne",
+    "time": "Siècle",
+    "topic": "Sujet"
+  },
   "clearAllFilters": "Effacer tous les filtres",
   "collections": {
+    "actions": {
+      "edit": "Modifier la collection",
+      "update": "Mettre à jour la collection"
+    },
     "fashion": {
       "facets": {
         "CREATOR": {
@@ -75,6 +84,12 @@ export default {
           "name": "Matériel | Matériaux"
         }
       }
+    },
+    "form": {
+      "description": "Description"
+    },
+    "notifications": {
+      "update": "La collection a été mise à jour"
     }
   },
   "collectionsYouMightLike": "Collections qui pourraient vous intéresser",
@@ -120,7 +135,6 @@ export default {
     "right": "Droite"
   },
   "edmIsShownAtLinkAlt": "Vue sur le site internet du prestataire",
-  "entity": "Entité",
   "error": "Erreur",
   "exhibitions": {
     "chapters": "Chapitres",
@@ -351,7 +365,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format de fichier | Formats de fichiers",
       "options": {
-        "text/plain": "Texte brut"
+        "text\/plain": "Texte brut"
       }
     },
     "PROVIDER": {
@@ -471,6 +485,8 @@ export default {
   },
   "footer": {
     "customiseWebsiteLanguage": "Personnaliser la langue du site web",
+    "disclaimerLine1": "Europeana est une initiative de l'Union européenne, financée par le Connecting Europe Facility de l'Union européenne et les États membres de l'Union européenne. Les services Europeana, y compris ce site Web, sont exploités par un consortium dirigé par la Fondation Europeana dans le cadre d'un contrat de service avec la Commission européenne.",
+    "disclaimerLine2": "La Commission européenne ne garantit pas l'exactitude des informations et n'accepte aucune responsabilité ou obligation quelle qu'elle soit en ce qui concerne les informations sur ce site. Ni la Commission européenne, ni aucune personne agissant au nom de la Commission européenne, n'est responsable de l'exactitude ou de l'utilisation des informations sur ce site Web.",
     "findUsElsewhere": "Nous trouver ailleurs",
     "imageDescription": "Cofinancé par le Mécanisme pour l’interconnexion en Europe",
     "ourMission": "Notre mission",
@@ -518,8 +534,66 @@ export default {
   },
   "klaro": {
     "main": {
+      "consentModal": {
+        "description": "Nous prenons au sérieux la confidentialité de vos données. Vous pouvez ici évaluer et personnaliser les services que nous souhaitons utiliser sur ce site. C'est vous qui décidez ! Activez ou désactivez les services comme bon vous semble.",
+        "title": "Services que nous aimerions utiliser."
+      },
       "consentNotice": {
         "description": "Nous nous soucions de votre vie privée et n'utilisons les données que pour améliorer votre expérience. Nous n'utilisons aucune information personnelle à des fins publicitaires. Vous pouvez modifier votre consentement tous les 15 jours."
+      },
+      "ok": "D'accord",
+      "purposes": {
+        "essential": {
+          "description": "Ces services sont indispensables au bon fonctionnement de ce site. Ils incluent l'affichage des résultats de recherche et les préférences de langue, préservent l'état de connexion et assurent la sécurité de votre visite. Vous ne pouvez pas les désactiver car le site Web ne fonctionnerait pas correctement autrement.",
+          "title": "Services essentiels pour la sécurité et la personnalisation"
+        },
+        "usage": {
+          "description": "Ces services collectent les informations pour nous aider à mieux comprendre comment le site Web est utilisé et où se trouvent les points faibles, nous permettant de faire des choix éclairés pour améliorer votre expérience.",
+          "title": "Services pour capturer l'utilisation du site Web et les commentaires"
+        }
+      },
+      "service": {
+        "disableAll": {
+          "description": "Utilisez ce commutateur pour activer ou désactiver tous les services facultatifs.",
+          "title": "Activer ou désactiver tous les services"
+        }
+      }
+    },
+    "services": {
+      "auth-strategy": {
+        "description": "Se souvient de la stratégie d'autorisation à utiliser pour se connecter.",
+        "title": "Stratégie d'authentification"
+      },
+      "debugSettings": {
+        "title": "Bascule de débogage"
+      },
+      "google-analytics": {
+        "description": "Recueille des statistiques anonymes sur la façon dont les visiteurs interagissent avec le site Web.",
+        "title": "Google Analytics"
+      },
+      "google-optimize": {
+        "description": "Vous permet de participer à des expériences de site Web qui guident nos choix de conception pour la meilleure expérience utilisateur.",
+        "title": "Optimisation de Google"
+      },
+      "hotjar": {
+        "description": "Active un widget d'enquête vous donnant la possibilité de répondre à nos enquêtes de satisfaction des visiteurs.",
+        "title": "Hotjar"
+      },
+      "i18n": {
+        "description": "Se souvient de votre langue d'interface préférée pour un accès futur.",
+        "title": "Code de la langue"
+      },
+      "jira-servicedesk": {
+        "description": "Active le widget de feedback vous donnant la possibilité de nous contacter.",
+        "title": "Bureau de service Jira"
+      },
+      "matomo": {
+        "description": "Recueille des statistiques anonymes sur la façon dont les visiteurs interagissent avec le site Web.",
+        "title": "Matomo"
+      },
+      "searchResultsView": {
+        "description": "Se souvient si vous préférez voir les résultats de la recherche sous forme de liste ou de grille.",
+        "title": "Affichage des résultats de recherche (liste\/grille)"
       }
     }
   },
@@ -546,6 +620,7 @@ export default {
     "selectItem": "Sélectionnez l'élément {src}"
   },
   "messages": {
+    "copyToClipboardSuccess": "Copié dans le presse-papier",
     "externalContentError": "Échec du chargement du contenu externe",
     "notFound": "Introuvable",
     "paginationLimitExceeded": "Il est uniquement possible d'afficher les {limit} premiers résultats de la recherche."
@@ -573,7 +648,10 @@ export default {
     "extendedInformation": "Informations complémentaires",
     "goodToKnow": "Bon à savoir",
     "hideAll": "Masquer toutes les informations",
+    "IIIFViewer": "Visionneuse IIIF",
     "location": "Emplacement",
+    "locationOnMap": "Localisation sur la carte",
+    "mediaPlayer": "Lecteur multimédia",
     "record": "Enregistrement",
     "showAll": "Afficher toutes les informations",
     "similarItems": "Éléments similaires",
@@ -623,6 +701,7 @@ export default {
     "form": {
       "description": "Description de la galerie",
       "private": "Garder cette galerie privée",
+      "required": "Champ obligatoire",
       "title": "Nom de la galerie"
     },
     "labels": {
