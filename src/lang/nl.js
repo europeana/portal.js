@@ -4,7 +4,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mijn account",
     "linkLogin": "Inloggen",
-    "linkLoginJoin": "Inloggen\/Aanmelden",
+    "linkLoginJoin": "Inloggen/Aanmelden",
     "linkLogout": "Uitloggen",
     "myProfile": "Mijn profiel",
     "notifications": {
@@ -365,7 +365,7 @@ export default {
     "MIME_TYPE": {
       "name": "Bestandsformaat | Bestandsformaten",
       "options": {
-        "text\/plain": "Platte tekst"
+        "text/plain": "Platte tekst"
       }
     },
     "PROVIDER": {
@@ -593,7 +593,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Onthoudt of u de zoekresultaten liever in een lijst- of rasterweergave wilt zien.",
-        "title": "Zoekresultaatweergave (lijst\/raster)"
+        "title": "Zoekresultaatweergave (lijst/raster)"
       }
     }
   },
