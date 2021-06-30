@@ -10,6 +10,7 @@ export default ({ $config }) => {
     h['_hjSettings'] = { hjid: $config.hotjar.id, hjsv: $config.hotjar.sv };
     a = o.getElementsByTagName('head')[0];
     r = o.createElement('script'); r.async = 1;
+    r.src = t + h['_hjSettings'].hjid + j + h['_hjSettings'].hjsv;
     r.setAttribute('type', 'text/plain');
     r.setAttribute('data-src', t + h['_hjSettings'].hjid + j + h['_hjSettings'].hjsv);
     r.setAttribute('data-name', 'hotjar');
