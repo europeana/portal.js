@@ -26,14 +26,14 @@ export default ({ app, $config }, inject) => {
     $axios,
 
     async query(alias, variables = {}) {
-      // const cacheHashKey = `@europeana:portal.js:contentful:${alias}`;
-      // const cacheHashField = new URLSearchParams(variables).toString();
-      const cacheHashKey = `@europeana:portal.js:contentful:${alias}:${new URLSearchParams(variables).toString()}`;
+      const cacheHashKey = `@europeana:portal.js:contentful:${alias}`;
+      const cacheHashField = new URLSearchParams(variables).toString();
+      // const cacheHashKey = `@europeana:portal.js:contentful:${alias}:${new URLSearchParams(variables).toString()}`;
 
       // Look in the cache, if there is one
       if (redisClient) {
-        // const cached = await redisClient.hgetAsync(cacheHashKey, cacheHashField);
-        const cached = await redisClient.getAsync(cacheHashKey);
+        const cached = await redisClient.hgetAsync(cacheHashKey, cacheHashField);
+        // const cached = await redisClient.getAsync(cacheHashKey);
         if (cached) {
           // console.log('cached', cacheHashKey);
           return Promise.resolve({ data: JSON.parse(cached) });
@@ -60,8 +60,8 @@ export default ({ app, $config }, inject) => {
           const fresh = ctfResponse.data;
           // console.log('fresh', cacheHashKey);
           if (redisClient) {
-            // redisClient.hset(cacheHashKey, cacheHashField, JSON.stringify(fresh));
-            redisClient.set(cacheHashKey, JSON.stringify(fresh), 'ex', 60 * 5);
+            redisClient.hset(cacheHashKey, cacheHashField, JSON.stringify(fresh));
+            // redisClient.set(cacheHashKey, JSON.stringify(fresh), 'ex', 60 * 5);
           }
           return Promise.resolve({ data: fresh });
         });

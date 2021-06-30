@@ -15,6 +15,9 @@ app.use((res, req, next) => {
   next();
 });
 
+// TODO: remove. used for debugging only
+app.set('json spaces', 2);
+
 const debugMemoryUsage = require('./debug/memory-usage');
 app.get('/debug/memory-usage', debugMemoryUsage);
 

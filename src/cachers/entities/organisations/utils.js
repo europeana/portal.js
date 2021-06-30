@@ -23,7 +23,7 @@ const createRedisClient = (params = {}) => {
 
   redisClient.on('error', console.error);
 
-  for (const fn of ['get', 'set', 'hget', 'hset', 'quit']) {
+  for (const fn of ['del', 'get', 'set', 'hdel', 'hget', 'hkeys', 'hset', 'quit']) {
     redisClient[`${fn}Async`] = promisify(redisClient[fn]).bind(redisClient);
   }
 
