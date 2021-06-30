@@ -18,6 +18,9 @@ app.use((res, req, next) => {
 const debugMemoryUsage = require('./debug/memory-usage');
 app.get('/debug/memory-usage', debugMemoryUsage);
 
+import contentfulWebhook from './contentful/webhook';
+app.post('/contentful/webhook', (req, res) => contentfulWebhook(runtimeConfig)(req, res));
+
 import contentful from './contentful';
 app.post('/contentful/:alias', (req, res) => contentful(runtimeConfig)(req, res));
 
