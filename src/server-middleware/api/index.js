@@ -24,7 +24,7 @@ import contentfulWebhook from './contentful/webhook';
 app.post('/contentful/webhook', (req, res) => contentfulWebhook(runtimeConfig)(req, res));
 
 import contentful from './contentful';
-app.post('/contentful/:alias', (req, res) => contentful(runtimeConfig)(req, res));
+app.get('/contentful/:alias', (req, res) => contentful(runtimeConfig)(req, res));
 
 import entitiesOrganisations from './entities/organisations';
 app.get('/entities/organisations', (req, res) => entitiesOrganisations(runtimeConfig)(req, res));

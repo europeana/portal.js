@@ -12,7 +12,7 @@ export default ({ app }, inject) => {
     query(alias, variables = {}) {
       const path = `/_api/contentful/${alias}`;
 
-      return this.$axios.post(path, variables);
+      return this.$axios.get(path, { params: { variables: JSON.stringify(variables) } });
     }
   };
 

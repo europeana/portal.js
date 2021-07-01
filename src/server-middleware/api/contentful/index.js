@@ -3,7 +3,7 @@ import { errorHandler } from '../';
 
 export default ($config) => (req, res) => {
   return contentfulPlugin({ $config })
-    .query(req.params.alias, req.body)
+    .query(req.params.alias, JSON.parse(req.query.variables))
     .then(response => {
       res.send(response.data);
     })
