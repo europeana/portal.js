@@ -135,6 +135,14 @@ export default {
     "right": "Rechts"
   },
   "edmIsShownAtLinkAlt": "Auf der Website des Anbieters ansehen",
+  "entity": {
+    "labels": {
+      "entity": "Entität"
+    },
+    "notifications": {
+      "deleted": "Ihre Galerie wurde gelöscht."
+    }
+  },
   "error": "Fehler",
   "exhibitions": {
     "chapters": "Kapitel",

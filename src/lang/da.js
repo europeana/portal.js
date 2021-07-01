@@ -135,6 +135,14 @@ export default {
     "right": "Højre"
   },
   "edmIsShownAtLinkAlt": "Vis på udbyderens websted",
+  "entity": {
+    "labels": {
+      "entity": "Enhed"
+    },
+    "notifications": {
+      "deleted": "Dit galleri er blevet slettet."
+    }
+  },
   "error": "Fejl",
   "exhibitions": {
     "chapters": "Kapitler",

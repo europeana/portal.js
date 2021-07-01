@@ -135,6 +135,14 @@ export default {
     "right": "Doprava"
   },
   "edmIsShownAtLinkAlt": "Zobrazit na webu poskytovatele",
+  "entity": {
+    "labels": {
+      "entity": "Entita"
+    },
+    "notifications": {
+      "deleted": "Vaše galerie byla smazána."
+    }
+  },
   "error": "Chyba",
   "exhibitions": {
     "chapters": "Kapitoly",

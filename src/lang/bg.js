@@ -135,6 +135,14 @@ export default {
     "right": "Дясно"
   },
   "edmIsShownAtLinkAlt": "Преглед на уебсайта на доставчика",
+  "entity": {
+    "labels": {
+      "entity": "Субект"
+    },
+    "notifications": {
+      "deleted": "Галерията ви беше изтрита."
+    }
+  },
   "error": "Грешка",
   "exhibitions": {
     "chapters": "Глави",

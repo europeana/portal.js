@@ -135,6 +135,14 @@ export default {
     "right": "Oikea"
   },
   "edmIsShownAtLinkAlt": "Näytä palveluntarjoajan verkkosivustolla",
+  "entity": {
+    "labels": {
+      "entity": "Yksikkö"
+    },
+    "notifications": {
+      "deleted": "Galleriasi on poistettu."
+    }
+  },
   "error": "Virhe",
   "exhibitions": {
     "chapters": "Luvut",

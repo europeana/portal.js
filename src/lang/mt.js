@@ -58,6 +58,11 @@ export default {
     "published": "Ippubblikat {date}",
     "relatedPosts": "Posts relatati"
   },
+  "cardLabels": {
+    "person": "Persuna",
+    "time": "Seklu",
+    "topic": "Suġġett"
+  },
   "clearAllFilters": "ħassar il-filtri kollha",
   "collections": {
     "fashion": {
@@ -116,6 +121,17 @@ export default {
     "right": "Lemin"
   },
   "edmIsShownAtLinkAlt": "Ara fuq il-websajt tal-fornitur",
+  "entity": {
+    "actions": {
+      "cancel": "Ikkanċella"
+    },
+    "labels": {
+      "entity": "Entità"
+    },
+    "notifications": {
+      "deleted": "Il-gallerija tiegħek tħassret."
+    }
+  },
   "error": "Żball",
   "exhibitions": {
     "chapters": "Kapitoli",
@@ -493,6 +509,7 @@ export default {
       "collections": "Kollezzjonijiet",
       "europeanaClassroom": "Għalliema",
       "help": "Għajnuna",
+      "home": "Paġna Ewlenija",
       "stories": "Ġrajjiet"
     },
     "searchFor": "Fittex {query}",
@@ -558,7 +575,9 @@ export default {
     "extendedInformation": "Informazzjoni estiża",
     "goodToKnow": "Informazzjoni utli",
     "hideAll": "Aħbi l-informazzjoni kollha",
+    "IIIFViewer": "Telespettatur IIIF",
     "location": "Post",
+    "locationOnMap": "Post fuq il-mappa",
     "record": "Rekord",
     "showAll": "Uri l-informazzjoni kollha",
     "similarItems": "Oġġetti simili",
@@ -608,6 +627,7 @@ export default {
     "form": {
       "description": "Deskrizzjoni tad-direttorju tar-ritratti",
       "private": "Agħmel dan id-direttorju tar-ritratti privat",
+      "required": "Oqsma meħtieġa",
       "title": "Isem tad-direttorju tar-ritratti"
     },
     "labels": {

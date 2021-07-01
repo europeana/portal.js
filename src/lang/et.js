@@ -135,6 +135,14 @@ export default {
     "right": "Parem"
   },
   "edmIsShownAtLinkAlt": "Vaadake teenusepakkuja veebisaidil",
+  "entity": {
+    "labels": {
+      "entity": "Üksus"
+    },
+    "notifications": {
+      "deleted": "Teie galerii on kustutatud."
+    }
+  },
   "error": "Viga",
   "exhibitions": {
     "chapters": "Peatükid",

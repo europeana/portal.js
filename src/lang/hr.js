@@ -135,6 +135,14 @@ export default {
     "right": "Desno"
   },
   "edmIsShownAtLinkAlt": "Prikaz na internetskoj stranici pružatelja",
+  "entity": {
+    "labels": {
+      "entity": "Entitet"
+    },
+    "notifications": {
+      "deleted": "Vaša galerija je izbrisana."
+    }
+  },
   "error": "Greška",
   "exhibitions": {
     "chapters": "Poglavlja",

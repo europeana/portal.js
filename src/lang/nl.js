@@ -135,6 +135,14 @@ export default {
     "right": "Rechts"
   },
   "edmIsShownAtLinkAlt": "Bekijken op de website van de provider",
+  "entity": {
+    "labels": {
+      "entity": "Entiteit"
+    },
+    "notifications": {
+      "deleted": "Uw galerij is verwijderd"
+    }
+  },
   "error": "Fout",
   "exhibitions": {
     "chapters": "Hoofdstukken",

@@ -58,6 +58,11 @@ export default {
     "published": "Publicerad {date}",
     "relatedPosts": "Relaterade inlägg"
   },
+  "cardLabels": {
+    "person": "Person",
+    "time": "Århundrade",
+    "topic": "Ämne"
+  },
   "clearAllFilters": "rensa alla filter",
   "collections": {
     "fashion": {
@@ -78,6 +83,7 @@ export default {
     }
   },
   "collectionsYouMightLike": "Samlingar du kanske skulle gilla",
+  "colourSwatch": "Färgprov",
   "contentfulManual": {
     "footerNavigation": {
       "about": "Om Europeana",
@@ -115,6 +121,17 @@ export default {
     "right": "Höger"
   },
   "edmIsShownAtLinkAlt": "Visa på leverantörens webbplats",
+  "entity": {
+    "actions": {
+      "cancel": "Avbryt"
+    },
+    "labels": {
+      "entity": "Entitet"
+    },
+    "notifications": {
+      "deleted": "Ditt galleri har raderats."
+    }
+  },
   "error": "Fel",
   "exhibitions": {
     "chapters": "Kapitel",
@@ -302,6 +319,7 @@ export default {
         "#FFFAFA": "Snö",
         "#FFFF00": "Gul",
         "#FFFFE0": "Ljusgul",
+        "#FFFFF0": "Elfenben",
         "#FFFFFF": "Vit"
       }
     },
@@ -491,6 +509,7 @@ export default {
       "collections": "Samlingar",
       "europeanaClassroom": "Lärare",
       "help": "Hjälp",
+      "home": "Hem",
       "stories": "Berättelser"
     },
     "searchFor": "Sök efter {query}",
@@ -528,6 +547,7 @@ export default {
   },
   "loadingResults": "Hämtar resultat",
   "messages": {
+    "copyToClipboardSuccess": "Kopieras till Urklipp",
     "externalContentError": "Det externa innehållet kunde inte hämtas",
     "notFound": "Hittades inte",
     "paginationLimitExceeded": "Det är bara möjligt att visa de {limit} första sökresultaten."
@@ -535,8 +555,12 @@ export default {
   "newWindow": "öppnas i nytt fönster",
   "noMoreResults": "Det finns inga fler resultat för din sökning.",
   "noResults": "Inga träffar",
+  "pageHasLoaded": "har laddats",
   "pages": {
     "collections": {
+      "times": {
+        "title": "Tider"
+      },
       "topics": {
         "title": "Ämnen"
       }
@@ -545,11 +569,16 @@ export default {
   "readMore": "Läs mer",
   "record": {
     "allMetaData": "Alla metadata",
+    "copyEmbedLabel": "Bädda in kod (Klicka för att kopiera)",
     "downloadCopyrightInfo": "Detta objekt är skyddat av upphovsrätt och kan inte laddas ner.",
     "exploreMore": "Utforska mer",
     "extendedInformation": "Utökad information",
     "goodToKnow": "Bra att veta",
     "hideAll": "Dölj all information",
+    "IIIFViewer": "IIIF-tittare",
+    "location": "Plats",
+    "locationOnMap": "Plats på kartan",
+    "mediaPlayer": "Mediaspelare",
     "record": "Dokument",
     "showAll": "Visa all information",
     "similarItems": "Liknande objekt",
@@ -599,6 +628,7 @@ export default {
     "form": {
       "description": "Beskrivning av galleri",
       "private": "Detta är ett privat galleri",
+      "required": "Obligatoriska fält",
       "title": "Namn på galleri"
     },
     "labels": {
