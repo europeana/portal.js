@@ -165,7 +165,6 @@
     },
 
     mounted() {
-      this.setImageWidth();
       this.setSliderWidth();
 
       window.addEventListener('resize', this.setImageWidth);
