@@ -48,4 +48,4 @@ export const errorHandler = (res, error) => {
   }
 };
 
-module.exports = app;
+export default app;
