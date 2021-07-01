@@ -4,7 +4,7 @@ export default {
     "likes": "Všečki",
     "linkAccount": "Moj račun",
     "linkLogin": "Vpis",
-    "linkLoginJoin": "Prijava/Pridruži se",
+    "linkLoginJoin": "Prijava\/Pridruži se",
     "linkLogout": "Izpis",
     "myProfile": "Moj profil",
     "notifications": {
@@ -58,6 +58,11 @@ export default {
     "published": "Objavljeno {date}",
     "relatedPosts": "Sorodne objave"
   },
+  "cardLabels": {
+    "person": "Oseba",
+    "time": "Stoletje",
+    "topic": "Tema"
+  },
   "clearAllFilters": "počisti vse filtre",
   "collections": {
     "fashion": {
@@ -78,6 +83,7 @@ export default {
     }
   },
   "collectionsYouMightLike": "Zbirke, ki vam bodo mogoče všeč",
+  "colourSwatch": "Barvni vzorec",
   "contentfulManual": {
     "footerNavigation": {
       "about": "O zbirkah Europeana",
@@ -115,6 +121,17 @@ export default {
     "right": "Desno"
   },
   "edmIsShownAtLinkAlt": "Ogled na spletni strani ponudnika",
+  "entity": {
+    "actions": {
+      "cancel": "Prekliči"
+    },
+    "labels": {
+      "entity": "Subjekt"
+    },
+    "notifications": {
+      "deleted": "Vaša zbirka je bila izbrisana."
+    }
+  },
   "error": "Napaka",
   "exhibitions": {
     "chapters": "Poglavja",
@@ -302,6 +319,7 @@ export default {
         "#FFFAFA": "Sneg",
         "#FFFF00": "Rumena",
         "#FFFFE0": "Svetlo rumena",
+        "#FFFFF0": "Slonokoščena",
         "#FFFFFF": "Bela"
       }
     },
@@ -344,7 +362,7 @@ export default {
     "MIME_TYPE": {
       "name": "Oblika zapisa datoteke | Oblike zapisov datotek",
       "options": {
-        "text/plain": "Golo besedilo"
+        "text\/plain": "Golo besedilo"
       }
     },
     "PROVIDER": {
@@ -491,6 +509,7 @@ export default {
       "collections": "Zbirke",
       "europeanaClassroom": "Učitelji",
       "help": "Pomoč",
+      "home": "Domov",
       "stories": "Zgodbe"
     },
     "searchFor": "Išči {query}",
@@ -528,6 +547,7 @@ export default {
   },
   "loadingResults": "Nalaganje rezultatov",
   "messages": {
+    "copyToClipboardSuccess": "Kopirano v odložišče",
     "externalContentError": "Zunanje vsebine ni bilo mogoče naložiti",
     "notFound": "Ni najdeno",
     "paginationLimitExceeded": "Ogledate si lahko samo prvih {limit} rezultatov iskanja."
@@ -535,8 +555,12 @@ export default {
   "newWindow": "odpre se v novem oknu",
   "noMoreResults": "Za vašo iskalno poizvedbo ni več rezultatov.",
   "noResults": "Brez rezultatov",
+  "pageHasLoaded": "je naložena",
   "pages": {
     "collections": {
+      "times": {
+        "title": "Krat"
+      },
       "topics": {
         "title": "Teme"
       }
@@ -545,11 +569,16 @@ export default {
   "readMore": "Preberi več",
   "record": {
     "allMetaData": "Vsi metapodatki",
+    "copyEmbedLabel": "Vdelaj kodo (kliknite za kopiranje)",
     "downloadCopyrightInfo": "To delo je zaščiteno z avtorskimi pravicami in ga ni mogoče prenesti.",
     "exploreMore": "Razišči več",
     "extendedInformation": "Razširjene informacije",
     "goodToKnow": "Dobro je vedeti",
     "hideAll": "Skrij vse informacije",
+    "IIIFViewer": "Pregledovalnik IIIF",
+    "location": "Lokacija",
+    "locationOnMap": "Lokacija na zemljevidu",
+    "mediaPlayer": "Medijski predvajalnik",
     "record": "Zapis",
     "showAll": "Pokaži vse informacije",
     "similarItems": "Podobna dela",
@@ -599,6 +628,7 @@ export default {
     "form": {
       "description": "Opis zbirke",
       "private": "Ohrani to zbirko zasebno",
+      "required": "Zahtevana polja ",
       "title": "Ime zbirke"
     },
     "labels": {

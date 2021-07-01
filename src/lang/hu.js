@@ -4,7 +4,7 @@ export default {
     "likes": "Kedvelések",
     "linkAccount": "Fiókom",
     "linkLogin": "Bejelentkezés",
-    "linkLoginJoin": "Bejelentkezés/Csatlakozás",
+    "linkLoginJoin": "Bejelentkezés\/Csatlakozás",
     "linkLogout": "Bejelentkezés",
     "myProfile": "A profilom",
     "notifications": {
@@ -58,6 +58,11 @@ export default {
     "published": "Közzététel dátuma: {date}",
     "relatedPosts": "Kapcsolódó bejegyzések"
   },
+  "cardLabels": {
+    "person": "Személy",
+    "time": "Század",
+    "topic": "Téma"
+  },
   "clearAllFilters": "összes szűrő törlése",
   "collections": {
     "fashion": {
@@ -110,7 +115,8 @@ export default {
     "to": "erre"
   },
   "debug": {
-    "apiRequests": "API kérések"
+    "apiRequests": "API kérések",
+    "debug": "Debug"
   },
   "delete": "Törlés",
   "depiction": "{title} ábrázolása",
@@ -119,7 +125,17 @@ export default {
     "right": "Jobb"
   },
   "edmIsShownAtLinkAlt": "Megtekintés a szolgáltató webhelyén",
-  "entity": "Entitás",
+  "entity": {
+    "actions": {
+      "cancel": "Mégse"
+    },
+    "labels": {
+      "entity": "Entitás"
+    },
+    "notifications": {
+      "deleted": "Galéria törölve."
+    }
+  },
   "error": "Hiba",
   "exhibitions": {
     "chapters": "Fejezetek",
@@ -350,7 +366,7 @@ export default {
     "MIME_TYPE": {
       "name": "Fájlformátum | Fájlformátumok",
       "options": {
-        "text/plain": "Egyszerű szöveg"
+        "text\/plain": "Egyszerű szöveg"
       }
     },
     "PROVIDER": {
@@ -499,6 +515,7 @@ export default {
       "collections": "Gyűjtemények",
       "europeanaClassroom": "Tanárok",
       "help": "Súgó",
+      "home": "itthon",
       "stories": "Történetek"
     },
     "searchFor": "Keresés erre: {query}",
@@ -515,6 +532,24 @@ export default {
     "itemCount": "1 cikk |{count} cikk",
     "itemOf": "{max} {count} cikk",
     "youMightLike": "Cikkek, amik tetszhetnek Önnek"
+  },
+  "klaro": {
+    "main": {
+      "consentModal": {
+        "description": "Komolyan vesszük az Ön adatvédelmét. Itt értékelheti és testre szabhatja azokat a szolgáltatásokat, amelyeket ezen a weboldalon használni szeretnénk. Te vagy a felelős! Engedélyezze vagy tiltsa le a szolgáltatásokat tetszése szerint.",
+        "title": "Szolgáltatások, amelyeket szeretnénk igénybe venni."
+      },
+      "consentNotice": {
+        "description": "Törődünk az adatvédelemmel, és csak az élmény javítása érdekében használunk adatokat. Nem használunk személyes adatokat reklámozásra. 15 naponta módosíthatja beleegyezését."
+      },
+      "ok": "oké",
+      "service": {
+        "disableAll": {
+          "description": "Ezzel a kapcsolóval engedélyezheti vagy letilthatja az összes opcionális szolgáltatást.",
+          "title": "Minden szolgáltatás engedélyezése vagy letiltása"
+        }
+      }
+    }
   },
   "layout": {
     "skipToMain": "Ugrás az oldal tartalmához"
@@ -550,6 +585,9 @@ export default {
   "pageHasLoaded": "betöltődött",
   "pages": {
     "collections": {
+      "times": {
+        "title": "Idők"
+      },
       "topics": {
         "title": "Témák"
       }
@@ -564,6 +602,8 @@ export default {
     "extendedInformation": "Kiterjesztett információk",
     "goodToKnow": "Jó tudni",
     "hideAll": "Az összes információ elrejtése",
+    "location": "hely",
+    "locationOnMap": "Elhelyezkedés a térképen",
     "record": "Rekord",
     "showAll": "Az összes információ megjelenítése",
     "similarItems": "Hasonló elemek",
@@ -613,6 +653,7 @@ export default {
     "form": {
       "description": "Galéria leírása",
       "private": "Galéria privát módban tartása",
+      "required": "Kötelező mező",
       "title": "Galéria neve"
     },
     "labels": {

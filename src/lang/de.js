@@ -4,7 +4,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mein Konto",
     "linkLogin": "Anmelden",
-    "linkLoginJoin": "Anmelden/Beitreten",
+    "linkLoginJoin": "Anmelden\/Beitreten",
     "linkLogout": "Abmelden",
     "myProfile": "Mein Profil",
     "notifications": {
@@ -135,6 +135,14 @@ export default {
     "right": "Rechts"
   },
   "edmIsShownAtLinkAlt": "Auf der Website des Anbieters ansehen",
+  "entity": {
+    "labels": {
+      "entity": "Entität"
+    },
+    "notifications": {
+      "deleted": "Ihre Galerie wurde gelöscht."
+    }
+  },
   "error": "Fehler",
   "exhibitions": {
     "chapters": "Kapitel",
@@ -365,7 +373,7 @@ export default {
     "MIME_TYPE": {
       "name": "Dateiformat | Dateiformate",
       "options": {
-        "text/plain": "Klartext"
+        "text\/plain": "Klartext"
       }
     },
     "PROVIDER": {
@@ -593,7 +601,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Merkt sich, ob Sie die Suchergebnisse lieber in einer Listen- oder Rasteransicht anzeigen möchten.",
-        "title": "Suchergebnisansicht (Liste/Raster)"
+        "title": "Suchergebnisansicht (Liste\/Raster)"
       }
     }
   },

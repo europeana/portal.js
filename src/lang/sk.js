@@ -4,7 +4,7 @@ export default {
     "likes": "Označenia Páči sa mi",
     "linkAccount": "Môj účet",
     "linkLogin": "Prihlásiť sa",
-    "linkLoginJoin": "Prihlásiť sa/Zaregistrovať sa",
+    "linkLoginJoin": "Prihlásiť sa\/Zaregistrovať sa",
     "linkLogout": "Odhlásiť sa",
     "myProfile": "Môj profil",
     "notifications": {
@@ -58,6 +58,11 @@ export default {
     "published": "Zverejnené {date}",
     "relatedPosts": "Súvisiace príspevky"
   },
+  "cardLabels": {
+    "person": "Osoba",
+    "time": "Storočia",
+    "topic": "Téma"
+  },
   "clearAllFilters": "Vymazať všetky filtre",
   "collections": {
     "fashion": {
@@ -78,6 +83,7 @@ export default {
     }
   },
   "collectionsYouMightLike": "Zbierky, ktoré by sa vám mohli páčiť",
+  "colourSwatch": "Farebná vzorkovník",
   "contentfulManual": {
     "footerNavigation": {
       "about": "Informácie o zbierkach Europeana",
@@ -115,6 +121,17 @@ export default {
     "right": "Vpravo"
   },
   "edmIsShownAtLinkAlt": "Zobrazenie na webovej stránke poskytovateľa",
+  "entity": {
+    "actions": {
+      "cancel": "Zrušiť"
+    },
+    "labels": {
+      "entity": "Subjekt"
+    },
+    "notifications": {
+      "deleted": "Galéria bola vymazaná."
+    }
+  },
   "error": "Chyba",
   "exhibitions": {
     "chapters": "Kapitoly",
@@ -302,6 +319,7 @@ export default {
         "#FFFAFA": "Sneh",
         "#FFFF00": "žltá",
         "#FFFFE0": "Svetlo žltá",
+        "#FFFFF0": "Slonovina",
         "#FFFFFF": "biely"
       }
     },
@@ -344,7 +362,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formát súboru | Formáty súborov",
       "options": {
-        "text/plain": "Obyčajný text"
+        "text\/plain": "Obyčajný text"
       }
     },
     "PROVIDER": {
@@ -528,7 +546,11 @@ export default {
     }
   },
   "loadingResults": "Načítavajú sa výsledky",
+  "mediaPreview": {
+    "selectItem": "Vyberte položku {src}"
+  },
   "messages": {
+    "copyToClipboardSuccess": "Skopírované do schránky",
     "externalContentError": "Nepodarilo sa načítať externý obsah",
     "notFound": "Nenašlo sa",
     "paginationLimitExceeded": "Je možné zobraziť len prvých {limit} výsledkov vyhľadávania."
@@ -536,8 +558,12 @@ export default {
   "newWindow": "otvorí sa v novom okne",
   "noMoreResults": "Pre vaše vyhľadávanie neexistujú žiadne ďalšie výsledky.",
   "noResults": "Žiadne výsledky",
+  "pageHasLoaded": "načítal",
   "pages": {
     "collections": {
+      "times": {
+        "title": "Krát"
+      },
       "topics": {
         "title": "Témy"
       }
@@ -546,11 +572,16 @@ export default {
   "readMore": "Viac",
   "record": {
     "allMetaData": "Všetky metadáta",
+    "copyEmbedLabel": "Vložiť kód (kliknutím skopírujete)",
     "downloadCopyrightInfo": "Táto položka je chránená autorským zákonom a nie je možné ju stiahnuť.",
     "exploreMore": "Preskúmať viac",
     "extendedInformation": "Rozšírené informácie",
     "goodToKnow": "Dobré vedieť",
     "hideAll": "Skryť všetky informácie",
+    "IIIFViewer": "Divák IIIF",
+    "location": "Poloha",
+    "locationOnMap": "Poloha na mape",
+    "mediaPlayer": "Prehrávač médií",
     "record": "Záznam",
     "showAll": "Zobraziť všetky informácie",
     "similarItems": "Podobné položky",
@@ -600,6 +631,7 @@ export default {
     "form": {
       "description": "Popis galérie",
       "private": "Túto galériu uložiť ako súkromnú",
+      "required": "Povinné polia",
       "title": "Názov galérie"
     },
     "labels": {

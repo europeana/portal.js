@@ -4,7 +4,7 @@ export default {
     "likes": "Patinka",
     "linkAccount": "Mano paskyra",
     "linkLogin": "Prisijungti",
-    "linkLoginJoin": "Prisijungti/Prisijungti",
+    "linkLoginJoin": "Prisijungti\/Prisijungti",
     "linkLogout": "Atsijungti",
     "myProfile": "Mano profilis",
     "notifications": {
@@ -58,6 +58,11 @@ export default {
     "published": "Paskelbta {date}",
     "relatedPosts": "Susiję įrašai"
   },
+  "cardLabels": {
+    "person": "Asmuo",
+    "time": "Amžius",
+    "topic": "Tema"
+  },
   "clearAllFilters": "išvalyti visus filtrus",
   "collections": {
     "fashion": {
@@ -78,6 +83,7 @@ export default {
     }
   },
   "collectionsYouMightLike": "Kolekcijos, kurios jums gali patikti",
+  "colourSwatch": "Spalvų pavyzdys",
   "contentfulManual": {
     "footerNavigation": {
       "about": "Apie „Europeana“ kolekcijas",
@@ -115,6 +121,17 @@ export default {
     "right": "Dešinė"
   },
   "edmIsShownAtLinkAlt": "Peržiūrėti teikėjo svetainę",
+  "entity": {
+    "actions": {
+      "cancel": "Atšaukti"
+    },
+    "labels": {
+      "entity": "Subjektas"
+    },
+    "notifications": {
+      "deleted": "Jūsų galerija panaikinta."
+    }
+  },
   "error": "Klaida",
   "exhibitions": {
     "chapters": "Skyriai",
@@ -302,6 +319,7 @@ export default {
         "#FFFAFA": "Sniegas",
         "#FFFF00": "Geltona",
         "#FFFFE0": "Šviesiai geltona",
+        "#FFFFF0": "Dramblio kaulas",
         "#FFFFFF": "Balta"
       }
     },
@@ -344,7 +362,7 @@ export default {
     "MIME_TYPE": {
       "name": "Failo formatas | Failų formatai",
       "options": {
-        "text/plain": "Paprastas tekstas"
+        "text\/plain": "Paprastas tekstas"
       }
     },
     "PROVIDER": {
@@ -491,6 +509,7 @@ export default {
       "collections": "Kolekcijos",
       "europeanaClassroom": "Mokytojams",
       "help": "Pagalba",
+      "home": "Namai",
       "stories": "Istorijos"
     },
     "searchFor": "Ieškoti {query}",
@@ -528,6 +547,7 @@ export default {
   },
   "loadingResults": "Įkeliami rezultatai",
   "messages": {
+    "copyToClipboardSuccess": "Nukopijuota į mainų sritį",
     "externalContentError": "Nepavyko įkelti išorinio turinio",
     "notFound": "Nerasta",
     "paginationLimitExceeded": "Galima peržiūrėti tik pirmuosius {limit} paieškos rezultatus."
@@ -537,6 +557,9 @@ export default {
   "noResults": "Rezultatų nėra",
   "pages": {
     "collections": {
+      "times": {
+        "title": "Laikai"
+      },
       "topics": {
         "title": "Temos"
       }
@@ -545,11 +568,14 @@ export default {
   "readMore": "Skaityti daugiau",
   "record": {
     "allMetaData": "Visi metaduomenys",
+    "copyEmbedLabel": "Įterpti kodą (spustelėkite, jei norite kopijuoti)",
     "downloadCopyrightInfo": "Šis elementas apsaugos autorių teisėmis, jo negalima atsisiųsti.",
     "exploreMore": "Sužinokite daugiau",
     "extendedInformation": "Išplėstinė informacija",
     "goodToKnow": "Naudinga žinoti",
     "hideAll": "Slėpti visą informaciją",
+    "location": "Vieta",
+    "locationOnMap": "Vieta žemėlapyje",
     "record": "Įrašas",
     "showAll": "Rodyti visą informaciją",
     "similarItems": "Panašūs elementai",
@@ -599,6 +625,7 @@ export default {
     "form": {
       "description": "Galerijos aprašymas",
       "private": "Palikti galeriją privačią",
+      "required": "Privalomi laukai",
       "title": "Galerijos pavadinimas"
     },
     "labels": {
