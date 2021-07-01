@@ -58,8 +58,17 @@ export default {
     "published": "Publikováno {date}",
     "relatedPosts": "Související příspěvky"
   },
+  "cardLabels": {
+    "person": "Osoba",
+    "time": "Století",
+    "topic": "Téma"
+  },
   "clearAllFilters": "Vymazat všechny filtry",
   "collections": {
+    "actions": {
+      "edit": "Upravit kolekci",
+      "update": "Aktualizovat kolekci"
+    },
     "fashion": {
       "facets": {
         "CREATOR": {
@@ -75,6 +84,12 @@ export default {
           "name": "Materiál | Materiály"
         }
       }
+    },
+    "form": {
+      "description": "Popis"
+    },
+    "notifications": {
+      "update": "Sbírka byla aktualizována"
     }
   },
   "collectionsYouMightLike": "Sbírky, které by se vám mohly líbit",
@@ -110,7 +125,8 @@ export default {
     "to": "až"
   },
   "debug": {
-    "apiRequests": "Požadavky API"
+    "apiRequests": "Požadavky API",
+    "debug": "Ladit"
   },
   "delete": "Smazat",
   "depiction": "Znázornění {title}",
@@ -119,7 +135,6 @@ export default {
     "right": "Doprava"
   },
   "edmIsShownAtLinkAlt": "Zobrazit na webu poskytovatele",
-  "entity": "Entita",
   "error": "Chyba",
   "exhibitions": {
     "chapters": "Kapitoly",
@@ -307,6 +322,7 @@ export default {
         "#FFFAFA": "Sníh",
         "#FFFF00": "Žlutá",
         "#FFFFE0": "Světle žlutá",
+        "#FFFFF0": "Slonová kost",
         "#FFFFFF": "Bílý"
       }
     },
@@ -469,6 +485,8 @@ export default {
   },
   "footer": {
     "customiseWebsiteLanguage": "Přizpůsobit jazyk stránky",
+    "disclaimerLine1": "Europeana je iniciativa Evropské unie financovaná z Nástroje pro propojení Evropy a z prostředků členských států Evropské unie. Služby Europeany, včetně těchto webových stránek, provozuje konsorcium vedené nadací Europeana Foundation na základě smlouvy o poskytování služeb s Evropskou komisí.",
+    "disclaimerLine2": "Evropská komise nezaručuje přesnost informací a nepřijímá žádnou odpovědnost ani žádnou odpovědnost, pokud jde o informace na této webové stránce. Evropská komise ani žádná osoba jednající jejím jménem nenese odpovědnost ani odpovědnost za přesnost nebo použití informací na tomto webu.",
     "findUsElsewhere": "Najděte nás jinde",
     "imageDescription": "Spolufinancováno z nástroje Evropské unie pro propojení Evropy",
     "ourMission": "Naše mise",
@@ -514,6 +532,71 @@ export default {
     "itemOf": "{max} z {count} položek",
     "youMightLike": "Položky, které by se vám mohly líbit"
   },
+  "klaro": {
+    "main": {
+      "consentModal": {
+        "description": "Vaše soukromí bereme vážně. Zde můžete vyhodnotit a přizpůsobit služby, které bychom chtěli použít na tomto webu. Máte to na starosti! Povolte nebo zakažte služby, jak uznáte za vhodné.",
+        "title": "Služby, které bychom rádi využili."
+      },
+      "consentNotice": {
+        "description": "Záleží nám na vašem soukromí a údaje používáme pouze ke zlepšení vašeho zážitku. Pro reklamu nepoužíváme žádné osobní údaje. Svůj souhlas můžete změnit každých 15 dní."
+      },
+      "ok": "dobře",
+      "purposes": {
+        "essential": {
+          "description": "Tyto služby jsou nezbytné pro správné fungování tohoto webu. Zahrnují zobrazení výsledků vyhledávání a jazykové předvolby, zachovávají přihlášený stav a udržují vaši návštěvu zabezpečenou. Nelze je deaktivovat, protože web by jinak nefungoval správně.",
+          "title": "Základní služby pro zabezpečení a přizpůsobení"
+        },
+        "usage": {
+          "description": "Tyto služby shromažďují informace, které nám pomáhají lépe porozumět tomu, jak se web používá a kde jsou body bolesti, což nám umožňuje činit informovaná rozhodnutí ke zlepšení vašich zkušeností.",
+          "title": "Služby zachycující používání webových stránek a zpětnou vazbu"
+        }
+      },
+      "service": {
+        "disableAll": {
+          "description": "Pomocí tohoto přepínače můžete povolit nebo zakázat všechny volitelné služby.",
+          "title": "Povolte nebo zakažte všechny služby"
+        }
+      }
+    },
+    "services": {
+      "auth-strategy": {
+        "description": "Pamatuje si strategii autorizace, která se má použít k přihlášení.",
+        "title": "Strategie Auth"
+      },
+      "debugSettings": {
+        "title": "Přepnout ladění"
+      },
+      "google-analytics": {
+        "description": "Shromažďuje anonymní statistiky o tom, jak návštěvníci interagují s webem.",
+        "title": "Google Analytics"
+      },
+      "google-optimize": {
+        "description": "Umožňuje vám účastnit se experimentů na webových stránkách, které řídí naše volby návrhu pro nejlepší uživatelský zážitek.",
+        "title": "Google Optimize"
+      },
+      "hotjar": {
+        "description": "Aktivuje widget průzkumu, který vám dává možnost reagovat na naše průzkumy spokojenosti návštěvníků.",
+        "title": "Hotjar"
+      },
+      "i18n": {
+        "description": "Pamatuje si preferovaný jazyk rozhraní pro budoucí přístup.",
+        "title": "Kód jazyka"
+      },
+      "jira-servicedesk": {
+        "description": "Aktivuje widget zpětné vazby, který vám dává možnost nás kontaktovat.",
+        "title": "Jira service desk"
+      },
+      "matomo": {
+        "description": "Shromažďuje anonymní statistiky o tom, jak návštěvníci interagují s webem.",
+        "title": "Matomo"
+      },
+      "searchResultsView": {
+        "description": "Pamatuje si, zda chcete výsledky hledání zobrazit v seznamu nebo v mřížce.",
+        "title": "Zobrazení výsledků hledání (seznam / mřížka)"
+      }
+    }
+  },
   "layout": {
     "skipToMain": "Přeskočit na obsah stránky"
   },
@@ -545,8 +628,12 @@ export default {
   "newWindow": "otevře se v novém okně",
   "noMoreResults": "Pro vaše zadání neexistují žádné další výsledky vyhledávání.",
   "noResults": "Žádné výsledky",
+  "pageHasLoaded": "načteno",
   "pages": {
     "collections": {
+      "times": {
+        "title": "Časy"
+      },
       "topics": {
         "title": "Předměty"
       }
@@ -561,7 +648,10 @@ export default {
     "extendedInformation": "Bližší informace",
     "goodToKnow": "Užitečné informace",
     "hideAll": "Skrýt všechny informace",
+    "IIIFViewer": "Prohlížeč IIIF",
     "location": "Umístění",
+    "locationOnMap": "Umístění na mapě",
+    "mediaPlayer": "Přehrávač médií",
     "record": "Záznam",
     "showAll": "Zobrazit všechny informace",
     "similarItems": "Podobné položky",
@@ -611,6 +701,7 @@ export default {
     "form": {
       "description": "Popis galerie",
       "private": "Ponechat tuto galerii soukromou",
+      "required": "Povinné pole",
       "title": "Název galerie"
     },
     "labels": {
