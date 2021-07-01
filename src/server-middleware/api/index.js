@@ -1,9 +1,11 @@
 const express = require('express');
+const morgan = require('morgan');
 const defu = require('defu');
 
 const app = express();
 app.disable('x-powered-by'); // Security: do not disclose technology fingerprints
 app.use(express.json());
+app.use(morgan('combined'));
 
 let runtimeConfig;
 app.use((res, req, next) => {
@@ -37,4 +39,4 @@ export const errorHandler = (res, error) => {
   }
 };
 
-export default app;
+module.exports = app;
