@@ -4,7 +4,7 @@ export default {
     "likes": "Kedvelések",
     "linkAccount": "Fiókom",
     "linkLogin": "Bejelentkezés",
-    "linkLoginJoin": "Bejelentkezés\/Csatlakozás",
+    "linkLoginJoin": "Bejelentkezés/Csatlakozás",
     "linkLogout": "Bejelentkezés",
     "myProfile": "A profilom",
     "notifications": {
@@ -366,7 +366,7 @@ export default {
     "MIME_TYPE": {
       "name": "Fájlformátum | Fájlformátumok",
       "options": {
-        "text\/plain": "Egyszerű szöveg"
+        "text/plain": "Egyszerű szöveg"
       }
     },
     "PROVIDER": {

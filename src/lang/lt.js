@@ -4,7 +4,7 @@ export default {
     "likes": "Patinka",
     "linkAccount": "Mano paskyra",
     "linkLogin": "Prisijungti",
-    "linkLoginJoin": "Prisijungti\/Prisijungti",
+    "linkLoginJoin": "Prisijungti/Prisijungti",
     "linkLogout": "Atsijungti",
     "myProfile": "Mano profilis",
     "notifications": {
@@ -362,7 +362,7 @@ export default {
     "MIME_TYPE": {
       "name": "Failo formatas | Failų formatai",
       "options": {
-        "text\/plain": "Paprastas tekstas"
+        "text/plain": "Paprastas tekstas"
       }
     },
     "PROVIDER": {
