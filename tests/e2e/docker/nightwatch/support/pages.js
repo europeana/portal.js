@@ -13,6 +13,7 @@ const pages = {
   'entity page': `${url}/en/collections/person/60305-william-shakespeare`,
   'exhibition chapter': `${url}/en/exhibitions/faces-of-europe/introduction`,
   'exhibition credits': `${url}/en/exhibitions/faces-of-europe/credits`,
+  'exhibition fashion chapter': `${url}/en/exhibitions/past-to-present/fashion-reinterpretations-part-1`,
   'exhibition page': `${url}/en/exhibitions/faces-of-europe`,
   'exhibitions page': `${url}/en/exhibitions`,
   'Fashion collection search page': `${url}/en/search?qf=collection%3Afashion`,

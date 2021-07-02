@@ -104,9 +104,10 @@ export default function search($axios, params, options = {}) {
     rows,
     start
   };
-  if (options.locale) {
+  const targetLocale = 'en';
+  if (options.locale && options.locale !== targetLocale) {
     searchParams['q.source'] = options.locale;
-    searchParams['q.target'] = 'en';
+    searchParams['q.target'] = targetLocale;
   }
 
   return $axios.get(`${options.url || ''}/search.json`, {

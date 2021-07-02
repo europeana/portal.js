@@ -58,6 +58,11 @@ export default {
     "published": "Publicat la {date}",
     "relatedPosts": "Postări similare"
   },
+  "cardLabels": {
+    "person": "Persoană",
+    "time": "Secol",
+    "topic": "Subiect"
+  },
   "clearAllFilters": "șterge toate filtrele",
   "collections": {
     "fashion": {
@@ -78,6 +83,7 @@ export default {
     }
   },
   "collectionsYouMightLike": "Colecții care ți-ar putea plăcea",
+  "colourSwatch": "Specimen de culoare",
   "contentfulManual": {
     "footerNavigation": {
       "about": "Despre colecțiile Europeana",
@@ -115,6 +121,17 @@ export default {
     "right": "Dreapta"
   },
   "edmIsShownAtLinkAlt": "Vizualizează pe site-ul furnizorului",
+  "entity": {
+    "actions": {
+      "cancel": "Anulează"
+    },
+    "labels": {
+      "entity": "Entitate"
+    },
+    "notifications": {
+      "deleted": "Galeria ta a fost ștearsă."
+    }
+  },
   "error": "Eroare",
   "exhibitions": {
     "chapters": "Capitole",
@@ -302,6 +319,7 @@ export default {
         "#FFFAFA": "Zăpadă",
         "#FFFF00": "Galben",
         "#FFFFE0": "Lumină galbenă",
+        "#FFFFF0": "Fildeş",
         "#FFFFFF": "alb"
       }
     },
@@ -491,6 +509,7 @@ export default {
       "collections": "Colecții",
       "europeanaClassroom": "Profesori",
       "help": "Ajutor",
+      "home": "Acasă",
       "stories": "Povești"
     },
     "searchFor": "Caută pentru {query}",
@@ -528,6 +547,7 @@ export default {
   },
   "loadingResults": "Se încarcă rezultatele",
   "messages": {
+    "copyToClipboardSuccess": "Copiat în clipboard",
     "externalContentError": "Nu a putut fi încărcat conținutul extern",
     "notFound": "Nu a fost găsit",
     "paginationLimitExceeded": "Se pot vizualiza numai primele {limit} rezultate ale căutării."
@@ -535,8 +555,12 @@ export default {
   "newWindow": "se deschide într-o fereastră nouă",
   "noMoreResults": "Nu mai există rezultate pentru interogarea de căutare.",
   "noResults": "Niciun rezultat",
+  "pageHasLoaded": "a încărcat",
   "pages": {
     "collections": {
+      "times": {
+        "title": "Ori"
+      },
       "topics": {
         "title": "Subiecte"
       }
@@ -545,11 +569,16 @@ export default {
   "readMore": "Citește mai mult",
   "record": {
     "allMetaData": "Toate metadatele",
+    "copyEmbedLabel": "Cod de încorporare (Faceți clic pentru a copia)",
     "downloadCopyrightInfo": "Acest articol este protejat prin drepturi de autor și nu poate fi descărcat.",
     "exploreMore": "Explorează mai mult",
     "extendedInformation": "Informații extinse",
     "goodToKnow": "Bine de știut",
     "hideAll": "Ascunde toate informațiile",
+    "IIIFViewer": "Vizualizator IIIF",
+    "location": "Locație",
+    "locationOnMap": "Localizare pe hartă",
+    "mediaPlayer": "Media Player",
     "record": "Înregistrare",
     "showAll": "Afișează toate informațiile",
     "similarItems": "Articole similare",
@@ -599,6 +628,7 @@ export default {
     "form": {
       "description": "Descriere galerie",
       "private": "Menține această galerie privată",
+      "required": "Câmp obligatoriu",
       "title": "Denumire galerie"
     },
     "labels": {

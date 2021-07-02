@@ -78,7 +78,7 @@ services:
     build:
       context: ./nightwatch
     entrypoint: npm run percy
-    command: "tests/*.feature"
+    command: "tests/**/*.feature"
     depends_on:
       nginx:
         condition: service_started
