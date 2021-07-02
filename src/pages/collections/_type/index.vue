@@ -3,7 +3,16 @@
     <ContentHeader
       :title="title"
     />
-    <b-row class="flex-md-row pb-5">
+    <b-table
+      v-if="this.$route.params.type === 'organisations'"
+      :items="entityNames"
+    />
+    <b-row
+      v-else
+      class="
+      flex-md-row
+      pb-5"
+    >
       <b-col cols="12">
         <b-card-group
           class="card-deck-4-cols"
@@ -21,7 +30,9 @@
         </b-card-group>
       </b-col>
     </b-row>
-    <b-row>
+    <b-row
+      v-if="this.$route.params.type !== 'organisations'"
+    >
       <b-col>
         <PaginationNav
           v-model="page"
@@ -36,6 +47,7 @@
 
 <script>
   import { getEntityTypeApi, getEntityTypeHumanReadable, getEntitySlug } from '../../../plugins/europeana/entity';
+  import axios from 'axios';
 
   import ContentHeader from '../../../components/generic/ContentHeader';
   import ContentCard from '../../../components/generic/ContentCard';
@@ -50,6 +62,21 @@
     },
     middleware: 'sanitisePageQuery',
     asyncData({ params, error, app, store }) {
+      if (params.type === 'organisations') {
+        return axios.get(
+          `${app.$config.app.baseUrl}/_api/entities/organisations`
+        )
+          .then(response => response.data)
+          .then(data => {
+            return {
+              entities: data,
+              title: app.i18n.t(`pages.collections.${params.type}.title`)
+            };
+          })
+          .catch((e) => {
+            error({ statusCode: 500, message: e.toString() });
+          });
+      }
       if (!['persons', 'topics', 'times'].includes(params.type)) {
         return  error({ statusCode: 404, message: 'unknown collection type' });
       }
@@ -93,6 +120,11 @@
             pathMatch: this.$route.params.type
           }
         };
+      },
+      entityNames() {
+        return Object.values(this.entities).map(organisation => {
+          return { name: organisation.prefLabel.en || organisation.prefLabel[Object.keys(organisation.prefLabel)[0]] };
+        });
       }
     },
     methods: {

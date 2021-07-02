@@ -222,6 +222,7 @@ module.exports = {
       'NavPlugin',
       'PaginationNavPlugin',
       'SidebarPlugin',
+      'TablePlugin',
       'TabsPlugin',
       'ToastPlugin'
     ]
