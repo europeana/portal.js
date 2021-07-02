@@ -296,7 +296,7 @@
             if (charMatch) {
               resource.resource.chars = resource.resource.chars.slice(
                 Number(charMatch[1]),
-                Number(charMatch[2]) + 1,
+                Number(charMatch[2]) + 1
               );
             }
           }

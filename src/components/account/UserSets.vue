@@ -1,19 +1,20 @@
 <template>
   <b-container>
+    <slot name="header" />
     <b-row class="flex-md-row">
       <b-col cols="12">
         <div
-          v-if="userSets.length === 0"
+          v-if="emptyText && value && value.length === 0"
           class="text-center pb-4"
         >
-          {{ $t(`account.notifications.noCollections.${visibility}`) }}
+          {{ emptyText }}
         </div>
         <b-card-group
           class="card-deck-4-cols pb-5"
           deck
         >
           <ContentCard
-            v-for="set in userSets"
+            v-for="set in value"
             :key="set.id"
             :sub-title="setSubTitle(set)"
             :title="set.title"
@@ -23,6 +24,7 @@
             data-qa="user set"
           />
           <CreateSetButton
+            v-if="showCreateSetButton"
             :visibility="visibility"
           />
         </b-card-group>
@@ -33,24 +35,30 @@
 
 <script>
   import ContentCard from '../generic/ContentCard';
-  import CreateSetButton from './CreateSetButton.vue';
 
   export default {
     name: 'UserSets',
     components: {
       ContentCard,
-      CreateSetButton
+      CreateSetButton: () => import('./CreateSetButton')
     },
     props: {
+      value: {
+        type: Array,
+        required: true
+      },
+      showCreateSetButton: {
+        type: Boolean,
+        default: true
+      },
       // May be "public" or "private"
       visibility: {
         type: String,
         default: 'public'
-      }
-    },
-    computed: {
-      userSets() {
-        return this.$store.state.set.creations.filter(set => set.visibility === this.visibility);
+      },
+      emptyText: {
+        type: String,
+        default: null
       }
     },
     methods: {
