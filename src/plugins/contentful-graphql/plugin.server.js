@@ -1,4 +1,5 @@
 import axios from 'axios';
+import md5 from 'md5';
 
 // TODO: move `createRedisClient` and other related utils up to cachers dir
 import { createRedisClient } from '../../cachers/entities/organisations/utils';
@@ -36,7 +37,7 @@ export default ({ app, $config }, inject) => {
         // const cached = await redisClient.getAsync(cacheHashKey);
         if (cached) {
           // console.log('cached', cacheHashKey);
-          return Promise.resolve({ data: JSON.parse(cached) });
+          return Promise.resolve(JSON.parse(cached));
         }
       }
 
@@ -58,12 +59,17 @@ export default ({ app, $config }, inject) => {
       return this.$axios.post(`${origin}${path}`, body, { headers })
         .then(ctfResponse => {
           const fresh = ctfResponse.data;
+          const etag = `W/"${md5(fresh)}"`;
+          const response = {
+            data: fresh,
+            etag
+          };
           // console.log('fresh', cacheHashKey);
           if (redisClient) {
-            redisClient.hset(cacheHashKey, cacheHashField, JSON.stringify(fresh));
+            redisClient.hset(cacheHashKey, cacheHashField, JSON.stringify(response));
             // redisClient.set(cacheHashKey, JSON.stringify(fresh), 'ex', 60 * 5);
           }
-          return Promise.resolve({ data: fresh });
+          return Promise.resolve(response);
         });
     }
   };
