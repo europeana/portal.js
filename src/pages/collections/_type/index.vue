@@ -5,7 +5,9 @@
     />
     <b-table
       v-if="this.$route.params.type === 'organisations'"
+      :fields="fields"
       :items="entityNames"
+      :sort-by.sync="sortBy"
     />
     <b-row
       v-else
@@ -109,7 +111,11 @@
     data() {
       return {
         perPage: PER_PAGE,
-        page: null
+        page: null,
+        sortBy: 'name',
+        fields: [
+          { key: 'name', sortable: true }
+        ]
       };
     },
     computed: {
