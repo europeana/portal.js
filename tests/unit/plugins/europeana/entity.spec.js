@@ -241,6 +241,14 @@ describe('plugins/europeana/entity', () => {
           return uri.should.eq('http://data.europeana.eu/timespan/100');
         });
       });
+
+      context('with type Organization', () => {
+        const type = 'organisation';
+        it('returns an organization URI, without any human readable labels, or base infix', () => {
+          const uri = getEntityUri(type, id);
+          return uri.should.eq('http://data.europeana.eu/organization/100');
+        });
+      });
     });
   });
 

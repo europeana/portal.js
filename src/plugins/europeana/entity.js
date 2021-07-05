@@ -219,7 +219,7 @@ export function getEntityUrl(type, id) {
  */
 export function getEntityUri(type, id) {
   const apiType = getEntityTypeApi(type);
-  const baseInfix = apiType === 'timespan' ? '' : '/base';
+  const baseInfix = ['timespan', 'organization'].includes(apiType) ? '' : '/base';
   return `${EUROPEANA_DATA_URL}/${apiType}${baseInfix}/${normalizeEntityId(id)}`;
 }
 
@@ -280,4 +280,3 @@ export function getWikimediaThumbnailUrl(image, size = 255) {
 
   return `https://upload.wikimedia.org/wikipedia/commons/thumb/${hash.substring(0, 1)}/${hash.substring(0, 2)}/${underscoredFilename}/${size}px-${underscoredFilename}${suffix}`;
 }
-
