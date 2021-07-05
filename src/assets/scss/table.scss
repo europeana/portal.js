@@ -1,0 +1,35 @@
+.table {
+  border: 1px solid $lightgrey;
+  border-radius: $border-radius-small;
+  border-spacing: 0;
+  border-collapse: separate;
+  font-size: $font-size-small;
+  thead th {
+    background: none !important;
+    border-bottom: none;
+    border-top: none;
+    font-weight: 600;
+    line-height: 1.125rem;
+    padding: 1.125rem 1rem;
+    div {
+      display: inline-block;
+      &:after {
+        @extend .icon-font;
+        content: '\e937';
+        color: $mediumgrey;
+        font-size: 1rem;
+        margin-left: 0.5rem;
+      }
+    }
+    &[aria-sort='descending'] div:after {
+      transform: rotate(180deg);
+      display: inline-block;
+    }
+  }
+  td {
+    line-height: 1em;
+    padding: 1.125rem 1rem;
+    border-top: 1px solid $lightgrey;
+
+  }
+}
