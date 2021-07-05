@@ -6,6 +6,7 @@
     <OrganisationsTable
       v-if="this.$route.params.type === 'organisations'"
       :organisation-entities="entities"
+      :entity-route="entityRoute"
     />
     <template v-else>
       <b-row

@@ -187,7 +187,8 @@ export function getEntityTypeHumanReadable(type) {
   const names = {
     agent: 'person',
     concept: 'topic',
-    timespan: 'time'
+    timespan: 'time',
+    organisation: 'organisation'
   };
   return type ? names[type.toLowerCase()] : null;
 }

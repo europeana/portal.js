@@ -1,15 +1,15 @@
 <template>
   <b-table
     :fields="fields"
-    :items="entityNames"
+    :items="organisations"
     :sort-by.sync="sortBy"
   >
     <template #cell(nameid)="data">
       <b-link
-        :href="`/collections/organisation/${data.item.id}`"
+        :href="$path(entityRoute(data.item))"
       >
         <span>
-          {{ data.item.name }}
+          {{ entityName(data.item.prefLabel) }}
         </span>
       </b-link>
     </template>
@@ -23,6 +23,10 @@
       organisationEntities: {
         type: Object,
         default: null
+      },
+      entityRoute: {
+        type: Function,
+        default: () => null
       }
     },
     data() {
@@ -31,23 +35,27 @@
         fields: [
           { key: 'nameid',
             sortable: true,
-            formatter: (value, key, item) => item.name,
+            formatter: (value, key, item) => item.prefLabel.en || item.prefLabel[Object.keys(item.prefLabel)[0]],
             sortByFormatted: true,
             label: 'Name' }
         ]
       };
     },
     computed: {
-      entityNames() {
+      organisations() {
         if (this.organisationEntities) {
-          return Object.values(this.organisationEntities).map(organisation => {
-            return { name: organisation.prefLabel.en || organisation.prefLabel[Object.keys(organisation.prefLabel)[0]],
-                     id: organisation.id };
+          return Object.keys(this.organisationEntities).map(organisationId => {
+            const organisationObject = this.organisationEntities[organisationId];
+            return { prefLabel: organisationObject.prefLabel, id: organisationId, type: 'organisation' };
           });
         }
         return null;
       }
-
+    },
+    methods: {
+      entityName(prefLabel) {
+        return prefLabel.en || prefLabel[Object.keys(prefLabel)[0]];
+      }
     }
   };
 </script>

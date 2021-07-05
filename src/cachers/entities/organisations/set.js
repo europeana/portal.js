@@ -36,8 +36,7 @@ const allOrganisationResults = async() => {
 
 const organisationsObject = results => results
   .reduce((memo, { identifier, prefLabel }) => {
-    memo[identifier[0]] = { prefLabel,
-      id: identifier[0] };
+    memo[identifier[0]] = { prefLabel };
     return memo;
   }, {});
 
