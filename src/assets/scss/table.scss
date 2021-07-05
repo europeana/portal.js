@@ -25,11 +25,22 @@
       transform: rotate(180deg);
       display: inline-block;
     }
+    &:hover div::after {
+      color: $innovationblue;
+      transition: $standard-transition;
+    }
   }
   td {
     line-height: 1em;
     padding: 1.125rem 1rem;
     border-top: 1px solid $lightgrey;
-
+    a {
+      text-decoration: none;
+      &:hover {
+        color: $innovationblue;
+        font-weight: 600;
+        transition: $standard-transition;
+      }
+    }
   }
 }
