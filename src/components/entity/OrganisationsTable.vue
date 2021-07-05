@@ -27,10 +27,12 @@
     },
     data() {
       return {
-        sortBy: 'name',
+        sortBy: 'nameid',
         fields: [
           { key: 'nameid',
             sortable: true,
+            formatter: (value, key, item) => item.name,
+            sortByFormatted: true,
             label: 'Name' }
         ]
       };
