@@ -203,8 +203,9 @@ export default (context = {}) => {
       const places = (edm.places || []).map(reduceEntity).map(Object.freeze);
       const agents = (edm.agents || []).map(reduceEntity).map(Object.freeze);
       const timespans = (edm.timespans || []).map(reduceEntity).map(Object.freeze);
+      const organizations = (edm.organizations || []).map(reduceEntity).map(Object.freeze);
 
-      const entities = [].concat(concepts, places, agents, timespans)
+      const entities = [].concat(concepts, places, agents, timespans, organizations)
         .filter(isNotUndefined)
         .reduce((memo, entity) => {
           memo[entity.about] = entity;
@@ -226,6 +227,7 @@ export default (context = {}) => {
         agents,
         concepts,
         timespans,
+        organizations,
         title: proxyData.dcTitle,
         schemaOrg: data.schemaOrg ? Object.freeze(JSON.stringify(data.schemaOrg)) : undefined
       };
