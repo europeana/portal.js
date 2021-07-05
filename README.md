@@ -7,16 +7,23 @@
 
 1. Node.js version 12, and npm
 2. [Contentful](https://www.contentful.com/) CMS account
+3. Redis cache (included as Docker Compose service for development)
 
 ## Configuration
+
 Configuration options can be set in a .env file (see [.env.example](/.env.example))
 or via ENV variables on your machine.
 
-Some core features such as authentication and editorial content require the relevant configuration options to be specified.
-In particular, pay attention to the Europeana APIs, Contentful and oAuth sections in the example .env file.
+Some core features such as authentication and editorial content require the
+relevant configuration options to be specified. In particular, pay attention to
+the Europeana APIs, Contentful, Redis and oAuth sections in the example .env file.
 
 ## Build
+
 ```shell
+# start services
+docker-compose up
+
 # install package dependencies
 npm install
 
@@ -27,25 +34,19 @@ npm run dev
 npm run build
 npm start
 
-# generate static project
-npm run generate
-
 # serve storybook with hot reload at localhost:6006
 npm run storybook
 
 # generate static storybook
 npm run build-storybook
-
 ```
 
 For detailed explanation on how things work, refer to [Nuxt.js docs](https://nuxtjs.org).
 
 ## Testing
 
-To run end-to-end tests, you will need Docker Engine and [Compose](https://docs.docker.com/compose/) installed and
-the docker service running.
-
-Before first running the test suite, setup with: `npm run test:setup`
+To run end-to-end tests, you will need Docker Engine and [Compose](https://docs.docker.com/compose/)
+installed and the docker service running.
 
 Run the full test suite with: `npm test`
 
@@ -59,13 +60,13 @@ To run unit tests from a single file, append the full path, e.g.
 ### End-to-end tests
 
 First, create an env file for the app container, copying
-[docker/stack/app/.env.example](docker/stack/app/.env.example) to
-docker/stack/app/.env and populating with actual API keys.
+[tests/e2e/docker/app/.env.example](tests/e2e/docker/app/.env.example) to
+tests/e2e/docker/app/.env and populating with actual API keys.
 
-`npm run test:e2e` runs all end-to-end tests.
+`npm run test:e2e` runs all end-to-end feature tests.
 
 To run a single end-to-end test file, append the full path, e.g.
-`npm run test:e2e tests/features/common/header.feature`
+`npm run test:e2e tests/e2e/features/common/header.feature`
 
 If you have modified app files and want to re-run e2e tests, you will need to first
 rebuild the generated Docker images in the test stack, with `npm run test:stack:rebuild`
@@ -73,7 +74,7 @@ rebuild the generated Docker images in the test stack, with `npm run test:stack:
 ### Visual tests
 
 Ensure that you have set a [Percy](https://percy.io) token as `PERCY_TOKEN` in
-docker/stack/nightwatch/.env, then run `npm run test:visual`.
+tests/e2e/docker/nightwatch-visual/.env, then run `npm run test:visual`.
 
 ## License
 

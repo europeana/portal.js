@@ -1,5 +1,6 @@
 export default {
   "account": {
+    "editProfile": "Cuir do phróifíl in eagar",
     "likes": "Toghanna",
     "linkAccount": "Mo Chuntas",
     "linkLogin": "Logáil isteach",
@@ -7,6 +8,8 @@ export default {
     "linkLogout": "Logáil amach",
     "myProfile": "Mo phróifíl",
     "notifications": {
+      "loggedIn": "Tá tú logáilte isteach anois. Fáilte!",
+      "loggedOut": "Tá tú logáilte amach anois.",
       "noCollections": {
         "private": "Níor chruthaigh tú aon ghailearaithe príobháideacha fós",
         "public": "Níor chruthaigh tú aon ghailearaithe poiblí fós"
@@ -15,19 +18,25 @@ export default {
     },
     "privateCollections": "Gailearaithe Príobháideacha",
     "profile": "Mo Thoghanna & Gailearaithe",
+    "profileSettings": "Socruithe próifíle",
     "publicCollections": "Gailearaithe Poiblí",
     "settings": "Socruithe",
     "title": "Mo chuntas"
   },
   "actions": {
+    "cancel": "Cealaigh",
     "close": "dún",
     "download": "Íoslódáil",
     "edit": "Cuir in eagar",
+    "feedback": "Aiseolas",
     "goBack": "Dul siar",
     "like": "Is maith liom",
+    "next": "Ar Aghaidh",
     "providedBy": "Arna sholáthar ag {provider}",
+    "send": "Seol",
     "share": "Roinn",
     "shareOn": "Roinn ar {social}",
+    "skip": "Scipeáil",
     "viewAt": "Féach ar ag {link}",
     "viewDocument": "Breathnaigh ar dhoiciméad"
   },
@@ -49,8 +58,16 @@ export default {
     "published": "Foilsithe {date}",
     "relatedPosts": "Postálacha gaolmhara"
   },
+  "cardLabels": {
+    "person": "Duine",
+    "time": "Haois",
+    "topic": "Ábhar"
+  },
   "clearAllFilters": "glan gach scagaire",
   "collections": {
+    "actions": {
+      "edit": "Cuir Bailiúchán in Eagar"
+    },
     "fashion": {
       "facets": {
         "CREATOR": {
@@ -69,6 +86,7 @@ export default {
     }
   },
   "collectionsYouMightLike": "Bailiúcháin b’fhéidir gur mhaith leat",
+  "colourSwatch": "Swatch dath",
   "contentfulManual": {
     "footerNavigation": {
       "about": "Maidir le Europeana",
@@ -99,6 +117,10 @@ export default {
     "startDate": "Dáta tosaigh",
     "to": "go dtí"
   },
+  "debug": {
+    "apiRequests": "Iarrataí API",
+    "debug": "Díbhug"
+  },
   "delete": "Scrios",
   "depiction": "Léiriú ar {title}",
   "directions": {
@@ -106,6 +128,17 @@ export default {
     "right": "Ar dheis"
   },
   "edmIsShownAtLinkAlt": "Amharc air ag láithreán gréasáin an tsoláthraí",
+  "entity": {
+    "actions": {
+      "cancel": "Cealaigh"
+    },
+    "labels": {
+      "entity": "Eintiteas"
+    },
+    "notifications": {
+      "deleted": "Scriosadh do ghailearaí."
+    }
+  },
   "error": "Earráid",
   "exhibitions": {
     "chapters": "Caibidlí",
@@ -293,6 +326,7 @@ export default {
         "#FFFAFA": "Sneachta",
         "#FFFF00": "Buí",
         "#FFFFE0": "Buí Éadrom",
+        "#FFFFF0": "Eabhair",
         "#FFFFFF": "Bán"
       }
     },
@@ -373,6 +407,23 @@ export default {
       }
     }
   },
+  "feedback": {
+    "emailOptional": "B’fhéidir gur mhaith linn obair leantach a dhéanamh. Cuir isteach do r-phost má tá tú sásta go ndéanfaimis teagmháil leat.",
+    "failed": "Theip ar an iarraidh. Arís, le do thoil.",
+    "form": {
+      "placeholders": {
+        "email": "Cuir isteach do sheoladh ríomhphoist",
+        "feedback": "Cuir isteach d'aiseolas anseo"
+      }
+    },
+    "policies": "Trí leanúint ar aghaidh, aontaíonn tú lenár {0} agus aithníonn tú ár {1} .",
+    "privacyPolicy": "Beartas Príobháideachais",
+    "success": "Tá d'aiseolas seolta.",
+    "termsOfService": "Tearmaí Seirbhís",
+    "thankYou": "Go raibh maith agat!",
+    "title": "Seol Aiseolas",
+    "validEmail": "Iontráil seoladh bailí ríomhphoist"
+  },
   "fieldLabels": {
     "default": {
       "dcContributor": "Rannchuiditheoirí",
@@ -438,6 +489,8 @@ export default {
   },
   "footer": {
     "customiseWebsiteLanguage": "Saincheap teanga an láithreáin ghréasáin",
+    "disclaimerLine1": "Is tionscnamh de chuid an Aontais Eorpaigh é Europeana, arna mhaoiniú ag Saoráid Nascadh na hEorpa agus Ballstáit an Aontais Eorpaigh. Is iad cuibhreannas faoi stiúir Fhondúireacht Europeana a oibríonn seirbhísí Europeana, an láithreán gréasáin seo san áireamh, faoi chonradh seirbhíse leis an gCoimisiún Eorpach.",
+    "disclaimerLine2": "Ní ráthaíonn an Coimisiún Eorpach cruinneas na faisnéise agus ní ghlacann sé aon fhreagracht ná dliteanas ar bith maidir leis an bhfaisnéis ar an suíomh Gréasáin seo. Níl an Coimisiún Eorpach, ná aon duine atá ag gníomhú thar ceann an Choimisiúin Eorpaigh, freagrach ná faoi dhliteanas as cruinneas nó úsáid na faisnéise ar an suíomh Gréasáin seo.",
     "findUsElsewhere": "Aimsigh muid áit eile",
     "imageDescription": "Arna Comh-mhaoiniú ag an tSaoráid um Chónascadh na hEorpa de chuid an Aontais Eorpaigh",
     "ourMission": "Ár misean",
@@ -456,6 +509,7 @@ export default {
   "header": {
     "backToMenu": "Dún Bosca Cuardaigh",
     "clearQuery": "Glan Ceist Cuardaigh",
+    "closeSidebar": "Dún Roghchlár",
     "entireCollection": "Cuardaigh {query} inár mbailiúchán iomlán",
     "europeanaHome": "Baile Europeana",
     "inCollection": "Cuardaigh {query} i {collection}",
@@ -463,7 +517,9 @@ export default {
       "about": "Fúinne",
       "collections": "Bailiúcháin",
       "europeanaClassroom": "Múinteoirí",
-      "help": "Cabhair"
+      "help": "Cabhair",
+      "home": "Baile",
+      "stories": "Scéalta"
     },
     "searchFor": "Cuardaigh {query}",
     "searchForEverything": "Cuardaigh gach rud",
@@ -479,6 +535,18 @@ export default {
     "itemCount": "1 mír |{count} míreanna",
     "itemOf": "{max} de mhíreanna {count}",
     "youMightLike": "Míreanna a d’fhéadfadh a bheith uait"
+  },
+  "klaro": {
+    "main": {
+      "consentModal": {
+        "description": "Glacaimid go dáiríre le do phríobháideacht sonraí. Anseo is féidir leat na seirbhísí ar mhaith linn a úsáid ar an suíomh Gréasáin seo a mheas agus a shaincheapadh. Tá tú i gceannas! Seirbhísí a chumasú nó a dhíchumasú mar is cuí leat.",
+        "title": "Seirbhísí ba mhaith linn a úsáid."
+      },
+      "consentNotice": {
+        "description": "Tugaimid aire do do phríobháideacht agus ní úsáidimid ach sonraí chun d'eispéireas a fheabhsú. Ní úsáidimid aon fhaisnéis phearsanta le haghaidh fógraíochta. Is féidir leat do thoiliú a athrú gach 15 lá."
+      },
+      "ok": "ceart go leor"
+    }
   },
   "layout": {
     "skipToMain": "Scipeáil chuig inneachar leathanaigh"
@@ -499,6 +567,9 @@ export default {
     }
   },
   "loadingResults": "Torthaí á lódáil",
+  "mediaPreview": {
+    "selectItem": "Roghnaigh mír {src}"
+  },
   "messages": {
     "copyToClipboardSuccess": "Cóipeáilte ar ghearrthaisce",
     "externalContentError": "Theip ar lódáil an inneachair sheachtraigh",
@@ -508,8 +579,12 @@ export default {
   "newWindow": "osclaítear i bhfuinneog nua é",
   "noMoreResults": "Níl aon toradh eile ann ar d'iarratas cuardaigh.",
   "noResults": "Níor aimsíodh aon Torthaí",
+  "pageHasLoaded": "luchtaithe",
   "pages": {
     "collections": {
+      "times": {
+        "title": "Amanna"
+      },
       "topics": {
         "title": "Ábhair"
       }
@@ -525,6 +600,7 @@ export default {
     "goodToKnow": "Maith a fhios",
     "hideAll": "Folaigh gach faisnéis",
     "location": "Suíomh",
+    "locationOnMap": "Suíomh ar an léarscáil",
     "record": "Mír",
     "showAll": "Taispeáin gach faisnéis",
     "similarItems": "Míreanna eile den chineál céanna",
@@ -574,6 +650,7 @@ export default {
     "form": {
       "description": "Tuairisc ar ghailearaí",
       "private": "Coinnigh an gailearaí seo príobháideach",
+      "required": "Réimsí riachtanacha",
       "title": "Ainm an ghailearaí"
     },
     "labels": {

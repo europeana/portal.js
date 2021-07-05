@@ -277,6 +277,7 @@
     mounted() {
       if (process.browser && this.fields) {
         this.$gtm.push(this.gtmOptions());
+        this.$matomo && this.$matomo.trackPageView('item page custom dimensions', this.matomoOptions());
       }
     },
 
@@ -333,6 +334,14 @@
           itemDataProvider: langMapValueForLocale(this.coreFields.edmDataProvider.value, 'en').values[0],
           itemProvider: langMapValueForLocale(this.fields.edmProvider, 'en').values[0],
           itemRights: langMapValueForLocale(this.fields.edmRights, 'en').values[0]
+        };
+      },
+      matomoOptions() {
+        return {
+          dimension1: langMapValueForLocale(this.fields.edmCountry, 'en').values[0],
+          dimension2: langMapValueForLocale(this.coreFields.edmDataProvider.value, 'en').values[0],
+          dimension3: langMapValueForLocale(this.fields.edmProvider, 'en').values[0],
+          dimension4: langMapValueForLocale(this.fields.edmRights, 'en').values[0]
         };
       }
     },

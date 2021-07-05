@@ -121,6 +121,39 @@ describe('plugins/europeana/utils', () => {
       selected.should.eq('und');
     });
 
+    context('when theLangMap is in fact an expanded JSONLD object', () => {
+      it('first selects 2-letter code if present', () => {
+        const langMap = [{ '@language': 'en', '@value': 'English' }, { '@language': 'fr', '@value': 'Français' }];
+
+        const selected = utils.selectLocaleForLangMap(langMap, locale);
+        selected.should.eq('en');
+      });
+
+      it('second selects 3-letter code if present', () => {
+        const langMap = [{ '@language': 'eng', '@value': 'English' }, { '@language': 'fra', '@value': 'Français' }];
+        const selected = utils.selectLocaleForLangMap(langMap, locale);
+        selected.should.eq('eng');
+      });
+
+      it('third selects 2-letter code with country code if present', () => {
+        const langMap = [{ '@language': 'en-GB', '@value': 'English' }, { '@language': 'fr-FR', '@value': 'Français' }];
+        const selected = utils.selectLocaleForLangMap(langMap, locale);
+        selected.should.eq('en-GB');
+      });
+
+      it('fourth selects "def" if present', () => {
+        const langMap = [{ '@language': 'def', '@value': 'undefined' }, { '@language': 'fr', '@value': 'Français' }];
+        const selected = utils.selectLocaleForLangMap(langMap, locale);
+        selected.should.eq('def');
+      });
+
+      it('fifth selects "und" if present', () => {
+        const langMap = [{ '@language': 'und', '@value': 'undefined' }, { '@language': 'fr-FR', '@value': 'Français' }];
+        const selected = utils.selectLocaleForLangMap(langMap, locale);
+        selected.should.eq('und');
+      });
+    });
+
     it('finally selects first key', () => {
       const langMap = { fr: 'Français', nl: 'Nederlands' };
 
