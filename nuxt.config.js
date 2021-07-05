@@ -344,7 +344,7 @@ module.exports = {
     linkExactActiveClass: 'exact-active-link',
     parseQuery: (query) => require('qs').parse(query),
     stringifyQuery: (query) => {
-      const stringified = require('qs').stringify(query);
+      const stringified = require('qs').stringify(query, { arrayFormat: 'repeat' });
       return stringified ? '?' + stringified : '';
     }
   },
