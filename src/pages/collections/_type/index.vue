@@ -5,6 +5,7 @@
     />
     <OrganisationsTable
       v-if="this.$route.params.type === 'organisations'"
+      :organisation-entities="entities"
     />
     <template v-else>
       <b-row
@@ -45,6 +46,7 @@
 
 <script>
   import { getEntityTypeApi, getEntityTypeHumanReadable, getEntitySlug } from '../../../plugins/europeana/entity';
+  import axios from 'axios';
 
   import ContentHeader from '../../../components/generic/ContentHeader';
   import ContentCard from '../../../components/generic/ContentCard';
@@ -61,9 +63,19 @@
     middleware: 'sanitisePageQuery',
     asyncData({ params, error, app, store }) {
       if (params.type === 'organisations') {
-        return {
-          title: app.i18n.t(`pages.collections.${params.type}.title`)
-        };
+        return axios.get(
+          `${app.$config.app.baseUrl}/_api/entities/organisations`
+        )
+          .then(response => response.data)
+          .then(data => {
+            return {
+              entities: data,
+              title: app.i18n.t(`pages.collections.${params.type}.title`)
+            };
+          })
+          .catch((e) => {
+            error({ statusCode: 500, message: e.toString() });
+          });
       }
       if (!['persons', 'topics', 'times'].includes(params.type)) {
         return  error({ statusCode: 404, message: 'unknown collection type' });
