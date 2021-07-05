@@ -341,7 +341,12 @@ module.exports = {
         component: 'src/pages/index.vue'
       });
     },
-    linkExactActiveClass: 'exact-active-link'
+    linkExactActiveClass: 'exact-active-link',
+    parseQuery: (query) => require('qs').parse(query),
+    stringifyQuery: (query) => {
+      const stringified = require('qs').stringify(query);
+      return stringified ? '?' + stringified : '';
+    }
   },
 
   serverMiddleware: [
