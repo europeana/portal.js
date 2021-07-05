@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueMatomo from '@europeana/vue-matomo';
 
-export const trackSiteSearch = (to) => {
+export const trackSiteSearch = (store) => (to) => {
   let siteSearch = null;
 
   if (Object.keys(to.query).includes('query')) {
@@ -14,16 +14,22 @@ export const trackSiteSearch = (to) => {
       category = `${to.params.type} ${to.params.pathMatch}`;
     }
 
+    let resultsCount;
+    if (store && store.state && store.state.search) {
+      resultsCount = store.state.search.totalResults;
+    }
+
     siteSearch = {
       keyword,
-      category
+      category,
+      resultsCount
     };
   }
 
   return siteSearch;
 };
 
-export default ({ app, $config: { matomo: { host, siteId } } }) => {
+export default ({ app, $config: { matomo: { host, siteId } }, store }) => {
   if (!host || !siteId) {
     return;
   }
@@ -33,6 +39,6 @@ export default ({ app, $config: { matomo: { host, siteId } } }) => {
     router: app.router,
     host,
     siteId,
-    trackSiteSearch
+    trackSiteSearch: trackSiteSearch(store)
   });
 };

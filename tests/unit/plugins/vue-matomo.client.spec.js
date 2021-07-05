@@ -6,7 +6,7 @@ describe('plugins/vue-matomo.client', () => {
       const route = { query: { query: 'gothic' }, name: 'search' };
 
       it('uses query as keyword', () => {
-        const keyword = plugin.trackSiteSearch(route).keyword;
+        const keyword = plugin.trackSiteSearch()(route).keyword;
 
         keyword.should.eq('gothic');
       });
@@ -16,7 +16,7 @@ describe('plugins/vue-matomo.client', () => {
       const route = { query: { query: '' }, name: 'search' };
 
       it('uses *:* as keyword', () => {
-        const keyword = plugin.trackSiteSearch(route).keyword;
+        const keyword = plugin.trackSiteSearch()(route).keyword;
 
         keyword.should.eq('*:*');
       });
@@ -26,7 +26,7 @@ describe('plugins/vue-matomo.client', () => {
       const route = { query: { query: 'gothic' }, name: 'collections-type-all___en', params: { type: 'topic', pathMatch: '190-art' } };
 
       it('uses collection params as category', () => {
-        const category = plugin.trackSiteSearch(route).category;
+        const category = plugin.trackSiteSearch()(route).category;
 
         category.should.eq('topic 190-art');
       });
@@ -36,9 +36,20 @@ describe('plugins/vue-matomo.client', () => {
       const route = { query: {}, name: 'home' };
 
       it('returns `null`', () => {
-        const siteSearch = plugin.trackSiteSearch(route);
+        const siteSearch = plugin.trackSiteSearch()(route);
 
         (siteSearch === null).should.be.true;
+      });
+    });
+
+    context('when store state has search totalResults', () => {
+      const store = { state: { search: { totalResults: 9890 } } };
+      const route = { query: { query: 'gothic' }, name: 'search' };
+
+      it('uses totalResults for resultsCount', () => {
+        const resultsCount = plugin.trackSiteSearch(store)(route).resultsCount;
+
+        resultsCount.should.eq(9890);
       });
     });
   });
