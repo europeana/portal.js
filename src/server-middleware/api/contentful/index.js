@@ -2,18 +2,22 @@ import contentfulPlugin from '../../../plugins/contentful-graphql/plugin.server'
 import { errorHandler } from '../';
 
 export default ($config) => (req, res) => {
-  return contentfulPlugin({ $config })
-    .query(req.params.alias, JSON.parse(req.query.variables))
-    .then(response => {
-      const ifNoneMatch = req.get('If-None-Match');
-      if (ifNoneMatch && ifNoneMatch === response.etag) {
-        res.status(304);
-        res.end();
-      } else {
-        res.set('cache-control', 'public, no-cache, must-revalidate, proxy-revalidate');
+  const plugin = contentfulPlugin({ $config });
+
+  const alias = req.params.alias;
+  const variables = JSON.parse(req.query.variables);
+  const ifNoneMatch = req.get('If-None-Match');
+
+  if (plugin.ifNoneMatch(alias, variables, ifNoneMatch)) {
+    return plugin.query(alias, variables)
+      .then(response => {
+        res.set('cache-control', 'public, no-cache');
         res.set('etag', response.etag);
         res.send(response.data);
-      }
-    })
-    .catch(error => errorHandler(res, error));
+      })
+      .catch(error => errorHandler(res, error));
+  } else {
+    res.status(304);
+    res.end();
+  }
 };

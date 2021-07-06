@@ -6,18 +6,25 @@ import { createRedisClient } from '../../cachers/entities/organisations/utils';
 
 import queries from './queries';
 
-// console.log('queries', queries);
-
-const $axios = axios.create();
-let redisClient;
+let $axios;
+let $redis;
 
 export default ({ app, $config }, inject) => {
-  if (app && app.$axiosLogger) {
-    $axios.interceptors.request.use(app.$axiosLogger);
+  if (!$axios) {
+    const origin = 'https://graphql.contentful.com';
+    const path = `/content/v1/spaces/${$config.contentful.spaceId}/environments/${$config.contentful.environmentId || 'master'}`;
+
+    $axios = axios.create({
+      baseURL: `${origin}${path}`
+    });
+
+    if (app && app.$axiosLogger) {
+      $axios.interceptors.request.use(app.$axiosLogger);
+    }
   }
 
-  if ($config.redis.url) {
-    redisClient = createRedisClient({
+  if ($config.redis.url && !$redis) {
+    $redis = createRedisClient({
       redisUrl: $config.redis.url,
       redisTlsCa: $config.redis.tlsCa
     });
@@ -26,55 +33,63 @@ export default ({ app, $config }, inject) => {
   const plugin = {
     $axios,
 
-    async query(alias, variables = {}) {
-      const cacheHashKey = `@europeana:portal.js:contentful:${alias}`;
-      const cacheHashField = new URLSearchParams(variables).toString();
-      // const cacheHashKey = `@europeana:portal.js:contentful:${alias}:${new URLSearchParams(variables).toString()}`;
+    $redis,
 
-      // Look in the cache, if there is one
-      if (redisClient) {
-        const cached = await redisClient.hgetAsync(cacheHashKey, cacheHashField);
-        // const cached = await redisClient.getAsync(cacheHashKey);
-        if (cached) {
-          // console.log('cached', cacheHashKey);
-          return Promise.resolve(JSON.parse(cached));
-        }
+    key(alias, variables = {}) {
+      return `@europeana:portal.js:contentful:${alias}:${new URLSearchParams(variables).toString()}`;
+    },
+
+    query(alias, variables = {}) {
+      const cacheHashKey = this.key(alias, variables);
+      // const cacheHashField =
+      return this.$redis ? this.cachedOrFresh(alias, variables, cacheHashKey) : this.fresh(cacheHashKey);
+    },
+
+    async ifNoneMatch(alias, variables, ifNoneMatch) {
+      if (!ifNoneMatch) {
+        return false;
       }
+      const cacheHashKey = this.key(alias, variables);
+      const etag = await this.$redis.hgetAsync(cacheHashKey, 'etag');
+      return etag !== ifNoneMatch;
+    },
 
-      // If nothing cached, fetch from CTF
-      const origin = 'https://graphql.contentful.com';
-      const path = `/content/v1/spaces/${this.config.spaceId}/environments/${this.config.environmentId || 'master'}`;
-
-      const accessToken = variables.preview ? this.config.accessToken.preview : this.config.accessToken.delivery;
-
+    fresh(alias, variables, cacheHashKey) {
+      const accessToken = variables.preview ? $config.contentful.accessToken.preview : $config.contentful.accessToken.delivery;
+      const headers = {
+        'Authorization': `Bearer ${accessToken}`
+      };
       const body = {
         query: queries[alias],
         variables
       };
 
-      const headers = {
-        'Authorization': `Bearer ${accessToken}`
-      };
-
-      return this.$axios.post(`${origin}${path}`, body, { headers })
+      return this.$axios.post('', body, { headers })
         .then(ctfResponse => {
           const fresh = ctfResponse.data;
           const etag = `W/"${md5(fresh)}"`;
-          const response = {
+          return {
             data: fresh,
             etag
           };
-          // console.log('fresh', cacheHashKey);
-          if (redisClient) {
-            redisClient.hset(cacheHashKey, cacheHashField, JSON.stringify(response));
-            // redisClient.set(cacheHashKey, JSON.stringify(fresh), 'ex', 60 * 5);
+        })
+        .then(response => {
+          if (this.$redis) {
+            this.$redis.hset(cacheHashKey, 'data', JSON.stringify(response.data));
+            this.$redis.hset(cacheHashKey, 'etag', response.etag);
           }
+
           return Promise.resolve(response);
         });
+    },
+
+    cachedOrFresh(alias, variables, cacheHashKey) {
+      return this.$redis.hgetallAsync(cacheHashKey)
+        .then(cached => (
+          cached ? Promise.resolve({ etag: cached.etag, data: JSON.parse(cached.data) }) : this.fresh(alias, variables, cacheHashKey))
+        );
     }
   };
-
-  plugin.config = $config.contentful;
 
   if (inject) {
     inject('contentful', plugin);
