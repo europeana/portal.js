@@ -48,8 +48,14 @@
         <b-link
           :href="externalLink"
           target="_blank"
+          class="is-external-link"
         >
           {{ externalLinkText }}
+          <span
+            class="sr-only"
+          >
+            ({{ $t('newWindow') }})
+          </span>
         </b-link>
       </div>
     </b-col>
@@ -172,6 +178,10 @@
     }
     a {
       color: $mediumgrey;
+    }
+    .is-external-link:after {
+      @extend .icon-font;
+      content: '\e900';
     }
   }
 
