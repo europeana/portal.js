@@ -106,7 +106,7 @@
     background-color: $innovationblue;
     width: 100%;
     color: $white;
-    z-index: 1000;
+    z-index: 1100;
     font-size: $font-size-small;
     opacity: 0;
 

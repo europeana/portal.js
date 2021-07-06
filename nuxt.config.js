@@ -23,7 +23,8 @@ module.exports = {
         klaro: featureIsEnabled(process.env.ENABLE_KLARO),
         jiraServiceDeskFeedbackForm: featureIsEnabled(process.env.ENABLE_JIRA_SERVICE_DESK_FEEDBACK_FORM),
         linksToClassic: featureIsEnabled(process.env.ENABLE_LINKS_TO_CLASSIC),
-        recommendations: featureIsEnabled(process.env.ENABLE_RECOMMENDATIONS)
+        recommendations: featureIsEnabled(process.env.ENABLE_RECOMMENDATIONS),
+        entityManagement: featureIsEnabled(process.env.ENABLE_ENTITY_MANAGEMENT)
       }
     },
     auth: {
@@ -87,6 +88,9 @@ module.exports = {
         set: {
           url: process.env.EUROPEANA_SET_API_URL,
           key: process.env.EUROPEANA_SET_API_KEY || process.env.EUROPEANA_API_KEY
+        },
+        entityManagement: {
+          url: process.env.EUROPEANA_ENTITY_MANAGEMENT_API_URL
         }
       }
     },
@@ -141,6 +145,10 @@ module.exports = {
           screensize: process.env.JIRA_API_SERVICE_DESK_CUSTOM_FIELD_SCREENSIZE
         }
       }
+    },
+    redis: {
+      url: process.env.REDIS_URL,
+      tlsCa: process.env.REDIS_TLS_CA
     }
   },
 
@@ -333,7 +341,13 @@ module.exports = {
         component: 'src/pages/index.vue'
       });
     },
-    linkExactActiveClass: 'exact-active-link'
+    linkExactActiveClass: 'exact-active-link',
+    parseQuery: (query) => require('qs').parse(query),
+    // To ensure that `"query": ""` results in `?query=`, not `?query`
+    stringifyQuery: (query) => {
+      const stringified = require('qs').stringify(query, { arrayFormat: 'repeat' });
+      return stringified ? '?' + stringified : '';
+    }
   },
 
   serverMiddleware: [

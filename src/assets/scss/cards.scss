@@ -317,11 +317,14 @@
   }
 
   .user-buttons {
-    display: none;
+    visibility: hidden;
+    display: flex;
+    flex-wrap: wrap;
     position: absolute;
     top: 1rem;
     right: 1rem;
     z-index: 2;
+    width: 100%;
 
     .btn {
       align-items: center;
@@ -348,6 +351,25 @@
 
       &:first-of-type {
         margin-right: 0.5rem;
+
+        &.icon-push-pin {
+          margin-left: 2rem;
+
+          &.active {
+            visibility: visible;
+          }
+
+          &:hover {
+            color: $innovationblue;
+            background: $white;
+            border-color: $white;
+          }
+           
+          +.btn {
+            margin-left: auto;
+            margin-right: 0.5rem;
+          }
+        }
       }
 
       &-sm {
@@ -360,7 +382,7 @@
     box-shadow: $boxshadow-large;
 
     .user-buttons {
-      display: flex;
+      visibility: visible;
     }
   }
 }

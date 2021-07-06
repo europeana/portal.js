@@ -7,6 +7,7 @@
     size="lg"
     class="download-button d-inline-flex align-items-center"
     :target="target"
+    @click.native="trackDownload"
   >
     <span class="ic-download d-inline-flex pr-1" />
     {{ $t('actions.download') }}
@@ -27,6 +28,19 @@
       target: {
         type: String,
         default: '_blank'
+      }
+    },
+    data() {
+      return {
+        clicked: false
+      };
+    },
+    methods: {
+      trackDownload() {
+        if (!this.disabled && this.$matomo && !this.clicked) {
+          this.$matomo.trackEvent('Item_download', 'Click download button', this.url);
+          this.clicked = true;
+        }
       }
     }
   };

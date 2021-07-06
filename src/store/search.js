@@ -300,7 +300,6 @@ export default {
     // TODO: replace with a getter?
     async deriveApiSettings({ commit, dispatch, state, getters, rootGetters }) {
       // Coerce qf from user input into an array as it may be a single string
-
       const userParams = Object.assign({}, state.userParams || {});
       userParams.qf = [].concat(userParams.qf || []);
 
@@ -353,7 +352,7 @@ export default {
     async run({ dispatch, getters }) {
       await dispatch('deriveApiSettings');
 
-      await Promise.all([
+      return Promise.all([
         getters.itemUpdateNeeded ? dispatch('queryItems') : () => null,
         getters.facetUpdateNeeded ? dispatch('queryFacets') : () => null
       ]);
@@ -365,7 +364,7 @@ export default {
         facet: null
       };
 
-      return this.$apis.record.search(paramsForItems, getters.searchOptions)
+      return this.$apis.record.search(paramsForItems, { ...getters.searchOptions, locale: this.$i18n.locale })
         .then(async(response) => {
           await dispatch('updateForSuccess', response);
         })
@@ -385,7 +384,7 @@ export default {
         profile: 'facets'
       };
 
-      return this.$apis.record.search(paramsForFacets, getters.searchOptions)
+      return this.$apis.record.search(paramsForFacets, { ...getters.searchOptions, locale: this.$i18n.locale })
         .then((response) => {
           commit('setFacets', response.facets);
           const collection = getters.collection;

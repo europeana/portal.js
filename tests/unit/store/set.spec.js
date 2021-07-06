@@ -50,7 +50,8 @@ describe('store/set', () => {
       const resetCommits = {
         setLikesId: null,
         setLikedItems: null,
-        setCreations: []
+        setCreations: [],
+        setCurations: []
       };
 
       for (const commitName in resetCommits) {
@@ -282,6 +283,24 @@ describe('store/set', () => {
           qf: 'type:Collection'
         });
         commit.should.have.been.calledWith('setCreations', ['1', '2']);
+      });
+    });
+
+    describe('fetchCurations()', () => {
+      it('fetches entity related galleries the user has curated via $apis.set, then commits with "setCurations"', async() => {
+        const searchResponse = { data: { items: ['1', '2'] } };
+        store.actions.$auth.user = { sub: userId };
+        store.actions.$apis.set.search = sinon.stub().resolves(searchResponse);
+
+        await store.actions.fetchCurations({ commit });
+
+        store.actions.$apis.set.search.should.have.been.calledWith({
+          query: `contributor:${userId}`,
+          profile: 'itemDescriptions',
+          pageSize: 100,
+          qf: 'type:EntityBestItemsSet'
+        });
+        commit.should.have.been.calledWith('setCurations', ['1', '2']);
       });
     });
 
