@@ -28,6 +28,7 @@ const factory = () => shallowMountNuxt(page, {
       }
     };
   },
+  stubs: ['client-only'],
   mocks: {
     $config: { app: { features: {} } },
     $pageHeadTitle: key => key,
