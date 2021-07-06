@@ -91,7 +91,7 @@ describe('components/entity/EntityDetails', () => {
 
       const wrapper = factory(entityDetails);
       wrapper.findAll('[data-qa="entity external link"]').exists().should.be.true;
-      wrapper.find('[data-qa="entity external link"] a').text().should.eq('historymuseum.org/en/');
+      wrapper.find('[data-qa="entity external link"] a span:first-child').text().should.eq('historymuseum.org/en/');
     });
   });
 });

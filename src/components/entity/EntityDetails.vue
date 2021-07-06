@@ -50,7 +50,7 @@
           target="_blank"
           class="is-external-link"
         >
-          {{ externalLinkText }}
+          <span>{{ externalLinkText }}</span>
           <span
             class="sr-only"
           >
