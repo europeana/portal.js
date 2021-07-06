@@ -182,6 +182,8 @@
     .is-external-link:after {
       @extend .icon-font;
       content: '\e900';
+      font-size: $font-size-extrasmall;
+      vertical-align: initial;
     }
   }
 
