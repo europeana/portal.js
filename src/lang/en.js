@@ -665,6 +665,9 @@ export default {
       },
       "topics": {
         "title": "Topics"
+      },
+      "persons": {
+        "title": "Persons"
       }
     }
   },
