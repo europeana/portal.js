@@ -58,6 +58,11 @@ export default {
     "published": "Publicēts {date}",
     "relatedPosts": "Saistītās ziņas"
   },
+  "cardLabels": {
+    "person": "Persona",
+    "time": "Gadsimts",
+    "topic": "Temats"
+  },
   "clearAllFilters": "notīrīt visus filtrus",
   "collections": {
     "fashion": {
@@ -78,6 +83,7 @@ export default {
     }
   },
   "collectionsYouMightLike": "Tev varētu patikt šīs kolekcijas",
+  "colourSwatch": "Krāsu paraugs",
   "contentfulManual": {
     "footerNavigation": {
       "about": "Par Europeana",
@@ -115,6 +121,17 @@ export default {
     "right": "Labais"
   },
   "edmIsShownAtLinkAlt": "Skatīt pakalpojumu sniedzēja vietnē",
+  "entity": {
+    "actions": {
+      "cancel": "Atcelt"
+    },
+    "labels": {
+      "entity": "Struktūrvienība"
+    },
+    "notifications": {
+      "deleted": "Tava galerija ir izdzēsta."
+    }
+  },
   "error": "Kļūda",
   "exhibitions": {
     "chapters": "Nodaļas",
@@ -302,6 +319,7 @@ export default {
         "#FFFAFA": "Sniegs",
         "#FFFF00": "Dzeltens",
         "#FFFFE0": "Gaiši dzeltens",
+        "#FFFFF0": "Ziloņkaula",
         "#FFFFFF": "Balts"
       }
     },
@@ -491,6 +509,7 @@ export default {
       "collections": "Kolekcijas",
       "europeanaClassroom": "Skolotājiem",
       "help": "Palīdzība",
+      "home": "Mājas",
       "stories": "Stāsti"
     },
     "searchFor": "Meklēt {query}",
@@ -528,6 +547,7 @@ export default {
   },
   "loadingResults": "Notiek rezultātu ielāde",
   "messages": {
+    "copyToClipboardSuccess": "Kopēts starpliktuvē",
     "externalContentError": "Neizdevās ielādēt ārējo saturu",
     "notFound": "Nav atrasts",
     "paginationLimitExceeded": "Ir iespējams apskatīt tikai pirmos {limit} meklēšanas rezultātus."
@@ -535,8 +555,12 @@ export default {
   "newWindow": "tiek atvērts jaunā logā",
   "noMoreResults": "Jūsu meklēšanas vaicājumam vairs nav rezultātu.",
   "noResults": "Nav rezultātu",
+  "pageHasLoaded": "ir ielādēts",
   "pages": {
     "collections": {
+      "times": {
+        "title": "Laiki"
+      },
       "topics": {
         "title": "Tēmas"
       }
@@ -545,11 +569,14 @@ export default {
   "readMore": "Lasīt vairāk",
   "record": {
     "allMetaData": "Visi metadati",
+    "copyEmbedLabel": "Iegulšanas kods (noklikšķiniet, lai kopētu)",
     "downloadCopyrightInfo": "Šis vienums ir aizsargāts ar autortiesībām, un to nevar lejupielādēt.",
     "exploreMore": "Pārlūkot vairāk",
     "extendedInformation": "Paplašināta informācija",
     "goodToKnow": "Vērts zināt",
     "hideAll": "Paslēpt visu informāciju",
+    "location": "Atrašanās vieta",
+    "locationOnMap": "Atrašanās vieta kartē",
     "record": "Vienums",
     "showAll": "Rādīt visu informāciju",
     "similarItems": "Līdzīgi vienumi",
@@ -599,6 +626,7 @@ export default {
     "form": {
       "description": "Galerijas apraksts",
       "private": "Saglabāt šo galeriju kā privātu",
+      "required": "Obligāts lauks",
       "title": "Galerijas nosaukums"
     },
     "labels": {

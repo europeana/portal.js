@@ -1,4 +1,4 @@
-export default ($i18n, $gtm, $gtmId) => {
+export default ($i18n, $gtm, $gtmId, $initHotjar) => {
   // TODO: uncomment when we have translations
   // const locale = $i18n.locale;
   // TODO: remove when we have translations
@@ -38,6 +38,9 @@ export default ($i18n, $gtm, $gtmId) => {
     callback: (consent, service) => {
       if (service.name === 'google-analytics' && consent) {
         $gtm.init($gtmId);
+      }
+      if (service.name === 'hotjar' && consent) {
+        $initHotjar();
       }
     }
   };
