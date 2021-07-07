@@ -8,6 +8,7 @@
       :exhibition-title="exhibitionTitle"
       :description="page.headline"
       :hero="hero"
+      :context-label="$tc('exhibitions.exhibitions', 1)"
     />
     <b-container>
       <b-row>

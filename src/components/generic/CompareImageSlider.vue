@@ -165,7 +165,6 @@
     },
 
     mounted() {
-      this.setImageWidth();
       this.setSliderWidth();
 
       window.addEventListener('resize', this.setImageWidth);
@@ -173,6 +172,7 @@
       window.addEventListener('mouseup', this.stopDrag);
       window.addEventListener('touchmove', this.drag);
       window.addEventListener('touchend', this.stopDrag);
+      this.$refs.rightImage.$el.addEventListener('load', this.setImageWidth);
     },
 
     methods: {

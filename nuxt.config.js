@@ -17,10 +17,14 @@ module.exports = {
       // TODO: rename env vars to prefix w/ APP_, except feature toggles
       baseUrl: process.env.PORTAL_BASE_URL,
       internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
+      schemaOrgDatasetId: process.env.SCHEMA_ORG_DATASET_ID,
       siteName: APP_SITE_NAME,
       features: {
+        klaro: featureIsEnabled(process.env.ENABLE_KLARO),
+        jiraServiceDeskFeedbackForm: featureIsEnabled(process.env.ENABLE_JIRA_SERVICE_DESK_FEEDBACK_FORM),
         linksToClassic: featureIsEnabled(process.env.ENABLE_LINKS_TO_CLASSIC),
-        recommendations: featureIsEnabled(process.env.ENABLE_RECOMMENDATIONS)
+        recommendations: featureIsEnabled(process.env.ENABLE_RECOMMENDATIONS),
+        entityManagement: featureIsEnabled(process.env.ENABLE_ENTITY_MANAGEMENT)
       }
     },
     auth: {
@@ -84,6 +88,9 @@ module.exports = {
         set: {
           url: process.env.EUROPEANA_SET_API_URL,
           key: process.env.EUROPEANA_SET_API_KEY || process.env.EUROPEANA_API_KEY
+        },
+        entityManagement: {
+          url: process.env.EUROPEANA_ENTITY_MANAGEMENT_API_URL
         }
       }
     },
@@ -108,6 +115,10 @@ module.exports = {
         datasetBlacklist: (process.env.SSL_DATASET_BLACKLIST || '').split(',')
       }
     },
+    matomo: {
+      host: process.env.MATOMO_HOST,
+      siteId: process.env.MATOMO_SITE_ID
+    },
     oauth: {
       origin: process.env.OAUTH_ORIGIN,
       realm: process.env.OAUTH_REALM,
@@ -117,6 +128,27 @@ module.exports = {
       accessType: process.env.OAUTH_ACCESS_TYPE,
       grantType: process.env.OAUTH_GRANT_TYPE,
       tokenType: process.env.OAUTH_TOKEN_TYPE
+    }
+  },
+
+  privateRuntimeConfig: {
+    jira: {
+      origin: process.env.JIRA_API_ORIGIN,
+      username: process.env.JIRA_API_USERNAME,
+      password: process.env.JIRA_API_PASSWORD,
+      serviceDesk: {
+        serviceDeskId: process.env.JIRA_API_SERVICE_DESK_ID,
+        requestTypeId: process.env.JIRA_API_SERVICE_DESK_REQUEST_TYPE_ID,
+        customFields: {
+          pageUrl: process.env.JIRA_API_SERVICE_DESK_CUSTOM_FIELD_PAGE_URL,
+          browser: process.env.JIRA_API_SERVICE_DESK_CUSTOM_FIELD_BROWSER,
+          screensize: process.env.JIRA_API_SERVICE_DESK_CUSTOM_FIELD_SCREENSIZE
+        }
+      }
+    },
+    redis: {
+      url: process.env.REDIS_URL,
+      tlsCa: process.env.REDIS_TLS_CA
     }
   },
 
@@ -199,6 +231,7 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/vue-matomo.client',
     '~/plugins/vue',
     '~/plugins/i18n.js',
     '~/plugins/hotjar.client',
@@ -226,7 +259,8 @@ module.exports = {
     '@nuxtjs/axios',
     'nuxt-google-optimize',
     ['@nuxtjs/gtm', {
-      pageTracking: true
+      pageTracking: true,
+      autoInit: !featureIsEnabled(process.env.ENABLE_KLARO)
     }],
     ['@nuxtjs/robots', JSON.parse(process.env.NUXTJS_ROBOTS || '{"UserAgent":"*","Disallow":"/"}')],
     'bootstrap-vue/nuxt',
@@ -277,13 +311,15 @@ module.exports = {
     fullPathRedirect: true,
     strategies: {
       local: false,
-      oauth2: {
+      // Include oauth2 so that ~/plugins/authScheme can extend it
+      _oauth2: {
         _scheme: 'oauth2'
       },
       keycloak: {
         _scheme: '~/plugins/authScheme'
       }
     },
+    defaultStrategy: 'keycloak',
     plugins: ['~/plugins/apis']
   },
 
@@ -305,11 +341,19 @@ module.exports = {
         component: 'src/pages/index.vue'
       });
     },
-    linkExactActiveClass: 'exact-active-link'
+    linkExactActiveClass: 'exact-active-link',
+    parseQuery: (query) => require('qs').parse(query),
+    // To ensure that `"query": ""` results in `?query=`, not `?query`
+    stringifyQuery: (query) => {
+      const stringified = require('qs').stringify(query, { arrayFormat: 'repeat' });
+      return stringified ? '?' + stringified : '';
+    }
   },
 
   serverMiddleware: [
-    { path: '/memory-usage', handler: '~/server-middleware/memory-usage' },
+    // We can't use /api as that's reserved on www.europeana.eu for (deprecated)
+    // access to Europeana APIs.
+    { path: '/_api', handler: '~/server-middleware/api' },
     '~/server-middleware/logging',
     '~/server-middleware/record-json'
   ],

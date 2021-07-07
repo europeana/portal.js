@@ -1,5 +1,6 @@
 export default {
   "account": {
+    "editProfile": "Editar Perfil",
     "likes": "Gostos",
     "linkAccount": "A minha conta",
     "linkLogin": "Inicie sessão",
@@ -7,6 +8,8 @@ export default {
     "linkLogout": "Encerrar sessão",
     "myProfile": "Meu perfil",
     "notifications": {
+      "loggedIn": "Está agora autenticado. Bem-vindo!",
+      "loggedOut": "Está agora desconectado.",
       "noCollections": {
         "private": "Ainda não criou nenhuma galeria privada",
         "public": "Ainda não criou nenhuma galeria pública"
@@ -15,19 +18,25 @@ export default {
     },
     "privateCollections": "Galerias privadas",
     "profile": "Os meus gostos e galerias",
+    "profileSettings": "Configurações de perfil",
     "publicCollections": "Galerias públicas",
     "settings": "Definições",
     "title": "A minha conta"
   },
   "actions": {
+    "cancel": "Cancelar",
     "close": "fechar",
     "download": "Descarregar",
     "edit": "Editar",
+    "feedback": "Comentários",
     "goBack": "Voltar",
     "like": "Gosto",
+    "next": "Próximo",
     "providedBy": "Fornecido por {provider}",
+    "send": "Enviar",
     "share": "Partilhar",
     "shareOn": "Partilhe em {social}",
+    "skip": "Saltar passo",
     "viewAt": "Ver em {link}",
     "viewDocument": "Ver documento"
   },
@@ -49,6 +58,11 @@ export default {
     "published": "Publicado {date}",
     "relatedPosts": "Publicações relacionadas"
   },
+  "cardLabels": {
+    "person": "Pessoa",
+    "time": "Século",
+    "topic": "Tópico"
+  },
   "clearAllFilters": "limpar todos os filtros",
   "collections": {
     "fashion": {
@@ -69,6 +83,7 @@ export default {
     }
   },
   "collectionsYouMightLike": "Coleções que poderá gostar",
+  "colourSwatch": "Amostra de cores",
   "contentfulManual": {
     "footerNavigation": {
       "about": "Sobre Europeana",
@@ -106,6 +121,17 @@ export default {
     "right": "Direita"
   },
   "edmIsShownAtLinkAlt": "Ver no site do fornecedor",
+  "entity": {
+    "actions": {
+      "cancel": "Cancelar"
+    },
+    "labels": {
+      "entity": "Entidade"
+    },
+    "notifications": {
+      "deleted": "A galeria foi eliminada."
+    }
+  },
   "error": "Erro",
   "exhibitions": {
     "chapters": "Capítulos",
@@ -293,6 +319,7 @@ export default {
         "#FFFAFA": "Neve",
         "#FFFF00": "Amarelo",
         "#FFFFE0": "Luz amarela",
+        "#FFFFF0": "Marfim",
         "#FFFFFF": "Branco"
       }
     },
@@ -372,6 +399,23 @@ export default {
         "VIDEO": "Vídeo"
       }
     }
+  },
+  "feedback": {
+    "emailOptional": "Poderemos desejar fazer um seguimento. Introduza o seu e-mail se lhe agradar que entremos em contacto.",
+    "failed": "O pedido falhou. Por favor, tente novamente.",
+    "form": {
+      "placeholders": {
+        "email": "Digite seu endereço de e-mail",
+        "feedback": "Insira aqui o seu comentário"
+      }
+    },
+    "policies": "Ao continuar, você concorda com nossos {0} e reconhece nossos {1} .",
+    "privacyPolicy": "Política de Privacidade",
+    "success": "Seu feedback foi enviado.",
+    "termsOfService": "Termos de serviço",
+    "thankYou": "Obrigado!",
+    "title": "Enviar comentários",
+    "validEmail": "Digite um endereço de e-mail válido"
   },
   "fieldLabels": {
     "default": {
@@ -456,6 +500,7 @@ export default {
   "header": {
     "backToMenu": "Fechar caixa de pesquisa",
     "clearQuery": "Limpar consulta de pesquisa",
+    "closeSidebar": "Fechar Menu",
     "entireCollection": "Pesquise por {query} em toda a nossa coleção",
     "europeanaHome": "Página Inicial Europeana",
     "inCollection": "Pesquisar por {query} em {collection}",
@@ -463,7 +508,9 @@ export default {
       "about": "Sobre nós",
       "collections": "Colecções",
       "europeanaClassroom": "Professores",
-      "help": "Ajuda"
+      "help": "Ajuda",
+      "home": "Casa",
+      "stories": "Histórias"
     },
     "searchFor": "Pesquisa por {query}",
     "searchForEverything": "Procurar por tudo",
@@ -500,6 +547,7 @@ export default {
   },
   "loadingResults": "A carregar resultados",
   "messages": {
+    "copyToClipboardSuccess": "Copiado para a prancheta",
     "externalContentError": "Falha ao carregar o conteúdo externo",
     "notFound": "Não encontrado",
     "paginationLimitExceeded": "Só é possível visualizar os primeiros {limit} resultados da pesquisa."
@@ -507,8 +555,12 @@ export default {
   "newWindow": "abre numa nova janela",
   "noMoreResults": "Não há mais resultados para a sua pesquisa.",
   "noResults": "Sem Resultados",
+  "pageHasLoaded": "carregou",
   "pages": {
     "collections": {
+      "times": {
+        "title": "Vezes"
+      },
       "topics": {
         "title": "Tópicos"
       }
@@ -517,11 +569,16 @@ export default {
   "readMore": "Ler mais",
   "record": {
     "allMetaData": "Todos os metadados",
+    "copyEmbedLabel": "Incorporar código (Clique para copiar)",
     "downloadCopyrightInfo": "Este item está protegido por direitos de autor e não pode ser transferido.",
     "exploreMore": "Explorar mais",
     "extendedInformation": "Informação detalhada",
     "goodToKnow": "Bom saber",
     "hideAll": "Ocultar todas as informações",
+    "IIIFViewer": "Visualizador IIIF",
+    "location": "Localização",
+    "locationOnMap": "Localização no mapa",
+    "mediaPlayer": "Reprodutor de mídia",
     "record": "Item",
     "showAll": "Mostrar todas as informações",
     "similarItems": "Itens relacionados",
@@ -571,6 +628,7 @@ export default {
     "form": {
       "description": "Descrição da galeria",
       "private": "Manter a galeria privada",
+      "required": "Campos obrigatórios",
       "title": "Nome da galeria"
     },
     "labels": {

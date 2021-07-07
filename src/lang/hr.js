@@ -1,5 +1,6 @@
 export default {
   "account": {
+    "editProfile": "Uredi profil",
     "likes": "Sviđanja",
     "linkAccount": "Moj račun",
     "linkLogin": "Prijava",
@@ -7,6 +8,8 @@ export default {
     "linkLogout": "Odjava",
     "myProfile": "Moj profil",
     "notifications": {
+      "loggedIn": "Sada ste prijavljeni. Dobrodošli!",
+      "loggedOut": "Sada ste odjavljeni.",
       "noCollections": {
         "private": "Još niste stvorili privatne galerije",
         "public": "Još niste stvorili javne galerije"
@@ -15,19 +18,25 @@ export default {
     },
     "privateCollections": "Privatne galerije",
     "profile": "Moja sviđanja i galerije",
+    "profileSettings": "Postavke profila",
     "publicCollections": "Javne galerije",
     "settings": "Postavke",
     "title": "Moj račun"
   },
   "actions": {
+    "cancel": "Otkazati",
     "close": "zatvori",
     "download": "Preuzmi",
     "edit": "Uredi",
+    "feedback": "Povratna informacija",
     "goBack": "Idi nazad",
     "like": "Sviđanje",
+    "next": "Sljedeći",
     "providedBy": "Omogućio {provider}",
+    "send": "Slati",
     "share": "Podijeli",
     "shareOn": "Podijelite na {social}",
+    "skip": "Preskakati",
     "viewAt": "Pogledajte na {link}",
     "viewDocument": "Pogledajte dokument"
   },
@@ -49,8 +58,17 @@ export default {
     "published": "Objavljeno {date}",
     "relatedPosts": "Vezane objave"
   },
+  "cardLabels": {
+    "person": "Osoba",
+    "time": "Stoljeća",
+    "topic": "Tema"
+  },
   "clearAllFilters": "očistiti sve filtre",
   "collections": {
+    "actions": {
+      "edit": "Uredi zbirku",
+      "update": "Ažuriraj zbirku"
+    },
     "fashion": {
       "facets": {
         "CREATOR": {
@@ -66,9 +84,16 @@ export default {
           "name": "Materijal | materijali"
         }
       }
+    },
+    "form": {
+      "description": "Opis"
+    },
+    "notifications": {
+      "update": "Zbirka je ažurirana"
     }
   },
   "collectionsYouMightLike": "Kolekcije koje vam se mogu sviđati",
+  "colourSwatch": "Uzorak u boji",
   "contentfulManual": {
     "footerNavigation": {
       "about": "O zbirkama Europeana",
@@ -99,6 +124,10 @@ export default {
     "startDate": "Datum početka",
     "to": "do"
   },
+  "debug": {
+    "apiRequests": "API zahtjevi",
+    "debug": "Otklanjanje pogrešaka"
+  },
   "delete": "Izbriši",
   "depiction": "Prikaz {title}",
   "directions": {
@@ -106,6 +135,14 @@ export default {
     "right": "Desno"
   },
   "edmIsShownAtLinkAlt": "Prikaz na internetskoj stranici pružatelja",
+  "entity": {
+    "labels": {
+      "entity": "Entitet"
+    },
+    "notifications": {
+      "deleted": "Vaša galerija je izbrisana."
+    }
+  },
   "error": "Greška",
   "exhibitions": {
     "chapters": "Poglavlja",
@@ -293,6 +330,7 @@ export default {
         "#FFFAFA": "Snijeg",
         "#FFFF00": "Žuta boja",
         "#FFFFE0": "Svijetlo žuto",
+        "#FFFFF0": "bjelokost",
         "#FFFFFF": "bijela"
       }
     },
@@ -373,6 +411,23 @@ export default {
       }
     }
   },
+  "feedback": {
+    "emailOptional": "Možda bismo željeli pratiti. Unesite svoju e-poštu ako ste sretni da vas kontaktiramo.",
+    "failed": "Zahtjev nije uspio. Pokušajte ponovo.",
+    "form": {
+      "placeholders": {
+        "email": "Unesite svoju adresu e-pošte",
+        "feedback": "Ovdje unesite povratne informacije"
+      }
+    },
+    "policies": "Nastavljajući, slažete se s našim {0} i priznajete našu {1}.",
+    "privacyPolicy": "Pravila o privatnosti",
+    "success": "Poslane su vaše povratne informacije.",
+    "termsOfService": "Uvjeti korištenja",
+    "thankYou": "Hvala!",
+    "title": "Slanje povratnih informacija",
+    "validEmail": "Unesite valjanu adresu e-pošte"
+  },
   "fieldLabels": {
     "default": {
       "dcContributor": "Suradnici",
@@ -438,6 +493,8 @@ export default {
   },
   "footer": {
     "customiseWebsiteLanguage": "Prilagodite jezik internetske stranice",
+    "disclaimerLine1": "Europeana je inicijativa Europske unije koju financiraju Instrument za povezivanje Europe i države članice Europske unije. Uslugama Europeane, uključujući ovu web stranicu, upravlja konzorcij predvođen Zakladom Europeana prema ugovoru o pružanju usluga s Europskom komisijom.",
+    "disclaimerLine2": "Europska komisija ne jamči za točnost podataka i ne prihvaća nikakvu odgovornost niti bilo kakvu odgovornost u vezi s informacijama na ovom web mjestu. Niti Europska komisija, niti bilo koja osoba koja djeluje u ime Europske komisije, nije odgovorna niti je odgovorna za točnost ili upotrebu podataka na ovom web mjestu.",
     "findUsElsewhere": "Pronađite nas negdje drugdje",
     "imageDescription": "Sufinancirano iz Instrumenta za povezivanje Europe u Europskoj uniji",
     "ourMission": "Naša misija",
@@ -456,6 +513,7 @@ export default {
   "header": {
     "backToMenu": "Zatvori okvir za pretraživanje",
     "clearQuery": "Očisti upit za pretraživanje",
+    "closeSidebar": "Zatvori izbornik",
     "entireCollection": "Potražite {query} u cijeloj našoj kolekciji",
     "europeanaHome": "Glavna stranica Europeana",
     "inCollection": "Potražite {query} u {collection}",
@@ -463,7 +521,9 @@ export default {
       "about": "O nama",
       "collections": "Zbirke",
       "europeanaClassroom": "Nastavnici",
-      "help": "Pomoć"
+      "help": "Pomoć",
+      "home": "Dom",
+      "stories": "Priče"
     },
     "searchFor": "Potražite {query}",
     "searchForEverything": "Pretraži sve",
@@ -479,6 +539,71 @@ export default {
     "itemCount": "1 stavka |{count} stavki",
     "itemOf": "{max} od {count} stavki",
     "youMightLike": "Stavke koje vam se mogu sviđati"
+  },
+  "klaro": {
+    "main": {
+      "consentModal": {
+        "description": "Privatnost vaših podataka shvaćamo ozbiljno. Ovdje možete procijeniti i prilagoditi usluge koje bismo željeli koristiti na ovoj web stranici. Vi ste glavni! Omogućite ili onemogućite usluge kako vam odgovara.",
+        "title": "Usluge koje bismo željeli koristiti."
+      },
+      "consentNotice": {
+        "description": "Stalo nam je do vaše privatnosti i podatke koristimo samo za poboljšanje vašeg iskustva. Ne koristimo nikakve osobne podatke za oglašavanje. Privolu možete promijeniti svakih 15 dana."
+      },
+      "ok": "u redu",
+      "purposes": {
+        "essential": {
+          "description": "Te su usluge ključne za pravilno funkcioniranje ove web stranice. Uključuju prikaz rezultata pretraživanja i jezične postavke, čuvaju prijavljeno stanje i osiguravaju siguran posjet. Ne možete ih onemogućiti jer web mjesto inače ne bi radilo ispravno.",
+          "title": "Osnovne usluge za sigurnost i prilagodbu"
+        },
+        "usage": {
+          "description": "Te usluge prikupljaju informacije kako bi nam pomogle da bolje razumijemo kako se web stranica koristi i gdje su bolne točke, osnažujući nas da donosimo informirane odluke kako bismo poboljšali vaše iskustvo.",
+          "title": "Usluge za bilježenje upotrebe web mjesta i povratnih informacija"
+        }
+      },
+      "service": {
+        "disableAll": {
+          "description": "Pomoću ove sklopke omogućite ili onemogućite sve opcijske usluge.",
+          "title": "Omogućite ili onemogućite sve usluge"
+        }
+      }
+    },
+    "services": {
+      "auth-strategy": {
+        "description": "Sjeća se strategije autorizacije za prijavu.",
+        "title": "Auth strategija"
+      },
+      "debugSettings": {
+        "title": "Prebacivanje pogrešaka"
+      },
+      "google-analytics": {
+        "description": "Prikuplja anonimne statistike o tome kako posjetitelji komuniciraju s web mjestom.",
+        "title": "Google Analytics"
+      },
+      "google-optimize": {
+        "description": "Omogućuje vam sudjelovanje u eksperimentima na web mjestu koji vode naše odabire dizajna za najbolje korisničko iskustvo.",
+        "title": "Google Optimize"
+      },
+      "hotjar": {
+        "description": "Aktivira widget ankete dajući vam mogućnost da odgovorite na naše ankete o zadovoljstvu posjetitelja.",
+        "title": "Hotjar"
+      },
+      "i18n": {
+        "description": "Sjeća vaš omiljeni jezik sučelja za budući pristup.",
+        "title": "Kod jezika"
+      },
+      "jira-servicedesk": {
+        "description": "Aktivira widget za povratne informacije dajući vam mogućnost da nas kontaktirate.",
+        "title": "Jira servisni stol"
+      },
+      "matomo": {
+        "description": "Prikuplja anonimne statistike o tome kako posjetitelji komuniciraju s web mjestom.",
+        "title": "Matomo"
+      },
+      "searchResultsView": {
+        "description": "Sjeća ako radije vidite rezultate pretraživanja u prikazu popisa ili mreže.",
+        "title": "Prikaz rezultata pretraživanja (popis / mreža)"
+      }
+    }
   },
   "layout": {
     "skipToMain": "Prijeđite na sadržaj stranice"
@@ -499,7 +624,11 @@ export default {
     }
   },
   "loadingResults": "Učitavanje rezultata",
+  "mediaPreview": {
+    "selectItem": "Odaberite stavku {src}"
+  },
   "messages": {
+    "copyToClipboardSuccess": "Kopirano u međuspremnik",
     "externalContentError": "Nije se mogao učitati vanjski sadržaj",
     "notFound": "Nije pronađeno",
     "paginationLimitExceeded": "Možete pregledati samo prvih {limit} rezultata pretraživanja."
@@ -507,8 +636,12 @@ export default {
   "newWindow": "otvara se u novom prozoru",
   "noMoreResults": "Nema više rezultata za vaš upit za pretraživanje.",
   "noResults": "Nema rezultata",
+  "pageHasLoaded": "se učitao",
   "pages": {
     "collections": {
+      "times": {
+        "title": "Vremena"
+      },
       "topics": {
         "title": "Teme"
       }
@@ -517,11 +650,16 @@ export default {
   "readMore": "Pročitaj više",
   "record": {
     "allMetaData": "Svi meta podaci",
+    "copyEmbedLabel": "Ugradi kôd (kliknite za kopiranje)",
     "downloadCopyrightInfo": "Ova je stavka zaštićena autorskim pravima i nije ju moguće preuzeti.",
     "exploreMore": "Istraži više",
     "extendedInformation": "Proširene informacije",
     "goodToKnow": "Dobro je znati",
     "hideAll": "Sakrij sve informacije",
+    "IIIFViewer": "IIIF preglednik",
+    "location": "Mjesto",
+    "locationOnMap": "Lokacija na karti",
+    "mediaPlayer": "Media player",
     "record": "Zapis",
     "showAll": "Prikaži sve informacije",
     "similarItems": "Slične stavke",
@@ -571,6 +709,7 @@ export default {
     "form": {
       "description": "Opis galerije",
       "private": "Držite ovu galeriju privatnom",
+      "required": "Obavezno polje",
       "title": "Naziv galerije"
     },
     "labels": {

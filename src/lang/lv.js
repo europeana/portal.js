@@ -1,5 +1,6 @@
 export default {
   "account": {
+    "editProfile": "Rediģēt profilu",
     "likes": "Patīk",
     "linkAccount": "Mans konts",
     "linkLogin": "Pieteikties",
@@ -7,6 +8,8 @@ export default {
     "linkLogout": "Atteikties",
     "myProfile": "Mans profils",
     "notifications": {
+      "loggedIn": "Jūs tagad esat pieteicies. Laipni lūdzam!",
+      "loggedOut": "Jūs tagad esat atteicies.",
       "noCollections": {
         "private": "Vēl nav izveidota neviena privāta galerija",
         "public": "Vēl nav izveidota neviena publiska galerija"
@@ -15,19 +18,25 @@ export default {
     },
     "privateCollections": "Privātas galerijas",
     "profile": "Mani favorīti un galerijas",
+    "profileSettings": "Profila iestatījumi",
     "publicCollections": "Publiskas galerijas",
     "settings": "Iestatījumi",
     "title": "Mans konts"
   },
   "actions": {
+    "cancel": "Atcelt",
     "close": "aizvērt",
     "download": "Lejupielādēt",
     "edit": "Rediģēt",
+    "feedback": "Atsauksmes",
     "goBack": "Atpakaļ",
     "like": "Patīk",
+    "next": "Nākamais",
     "providedBy": "Nodrošina {provider}",
+    "send": "Sūtīt",
     "share": "Dalies",
     "shareOn": "Dalīties {social}",
+    "skip": "Izlaist",
     "viewAt": "Skatīt vietnē {link}",
     "viewDocument": "Skatīt dokumentu"
   },
@@ -49,6 +58,11 @@ export default {
     "published": "Publicēts {date}",
     "relatedPosts": "Saistītās ziņas"
   },
+  "cardLabels": {
+    "person": "Persona",
+    "time": "Gadsimts",
+    "topic": "Temats"
+  },
   "clearAllFilters": "notīrīt visus filtrus",
   "collections": {
     "fashion": {
@@ -69,6 +83,7 @@ export default {
     }
   },
   "collectionsYouMightLike": "Tev varētu patikt šīs kolekcijas",
+  "colourSwatch": "Krāsu paraugs",
   "contentfulManual": {
     "footerNavigation": {
       "about": "Par Europeana",
@@ -106,6 +121,17 @@ export default {
     "right": "Labais"
   },
   "edmIsShownAtLinkAlt": "Skatīt pakalpojumu sniedzēja vietnē",
+  "entity": {
+    "actions": {
+      "cancel": "Atcelt"
+    },
+    "labels": {
+      "entity": "Struktūrvienība"
+    },
+    "notifications": {
+      "deleted": "Tava galerija ir izdzēsta."
+    }
+  },
   "error": "Kļūda",
   "exhibitions": {
     "chapters": "Nodaļas",
@@ -293,6 +319,7 @@ export default {
         "#FFFAFA": "Sniegs",
         "#FFFF00": "Dzeltens",
         "#FFFFE0": "Gaiši dzeltens",
+        "#FFFFF0": "Ziloņkaula",
         "#FFFFFF": "Balts"
       }
     },
@@ -372,6 +399,23 @@ export default {
         "VIDEO": "Video"
       }
     }
+  },
+  "feedback": {
+    "emailOptional": "Mēs varētu vēlēties sekot. Ievadiet savu e-pasta adresi, ja esat priecīgs, ka mēs ar jums sazināsimies.",
+    "failed": "Pieprasījums neizdevās. Lūdzu mēģiniet vēlreiz.",
+    "form": {
+      "placeholders": {
+        "email": "ievadiet savu e-pasta adresi",
+        "feedback": "Ievadiet atsauksmes šeit"
+      }
+    },
+    "policies": "Turpinot jūs piekrītat mūsu {0} un atzīstat mūsu {1} .",
+    "privacyPolicy": "Privātuma politika",
+    "success": "Jūsu atsauksmes ir nosūtītas.",
+    "termsOfService": "Pakalpojuma noteikumi",
+    "thankYou": "Paldies!",
+    "title": "Sūtīt atsauksmes",
+    "validEmail": "ievadiet derīgu epasta adresi"
   },
   "fieldLabels": {
     "default": {
@@ -456,6 +500,7 @@ export default {
   "header": {
     "backToMenu": "Aizvērt meklēšanas lodziņu",
     "clearQuery": "Notīrīt meklēšanas vaicājumu",
+    "closeSidebar": "Aizvērt izvēlni",
     "entireCollection": "Search for {query} in our entire collection",
     "europeanaHome": "Europeana vietne",
     "inCollection": "Meklēt {query} kolekcijā {collection}",
@@ -463,7 +508,9 @@ export default {
       "about": "Par mums",
       "collections": "Kolekcijas",
       "europeanaClassroom": "Skolotājiem",
-      "help": "Palīdzība"
+      "help": "Palīdzība",
+      "home": "Mājas",
+      "stories": "Stāsti"
     },
     "searchFor": "Meklēt {query}",
     "searchForEverything": "Meklēt visu",
@@ -500,6 +547,7 @@ export default {
   },
   "loadingResults": "Notiek rezultātu ielāde",
   "messages": {
+    "copyToClipboardSuccess": "Kopēts starpliktuvē",
     "externalContentError": "Neizdevās ielādēt ārējo saturu",
     "notFound": "Nav atrasts",
     "paginationLimitExceeded": "Ir iespējams apskatīt tikai pirmos {limit} meklēšanas rezultātus."
@@ -507,8 +555,12 @@ export default {
   "newWindow": "tiek atvērts jaunā logā",
   "noMoreResults": "Jūsu meklēšanas vaicājumam vairs nav rezultātu.",
   "noResults": "Nav rezultātu",
+  "pageHasLoaded": "ir ielādēts",
   "pages": {
     "collections": {
+      "times": {
+        "title": "Laiki"
+      },
       "topics": {
         "title": "Tēmas"
       }
@@ -517,11 +569,14 @@ export default {
   "readMore": "Lasīt vairāk",
   "record": {
     "allMetaData": "Visi metadati",
+    "copyEmbedLabel": "Iegulšanas kods (noklikšķiniet, lai kopētu)",
     "downloadCopyrightInfo": "Šis vienums ir aizsargāts ar autortiesībām, un to nevar lejupielādēt.",
     "exploreMore": "Pārlūkot vairāk",
     "extendedInformation": "Paplašināta informācija",
     "goodToKnow": "Vērts zināt",
     "hideAll": "Paslēpt visu informāciju",
+    "location": "Atrašanās vieta",
+    "locationOnMap": "Atrašanās vieta kartē",
     "record": "Vienums",
     "showAll": "Rādīt visu informāciju",
     "similarItems": "Līdzīgi vienumi",
@@ -571,6 +626,7 @@ export default {
     "form": {
       "description": "Galerijas apraksts",
       "private": "Saglabāt šo galeriju kā privātu",
+      "required": "Obligāts lauks",
       "title": "Galerijas nosaukums"
     },
     "labels": {
