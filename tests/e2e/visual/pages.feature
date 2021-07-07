@@ -18,11 +18,11 @@ Feature: pages
     Then I see `exhibition text`
     And I make a snapshot of the `exhibition page`
 
-  Scenario: Take a snapshot of an exhibition chapter page
+  Scenario: Take a snapshot of the fashion exhibition chapter page
 
-    When I open the `exhibition chapter`
+    When I open the `exhibition fashion chapter`
     Then I see an `exhibition chapter`
-    And I make a snapshot of the `exhibition chapter`
+    And I make a snapshot of the `exhibition fashion chapter`
 
   Scenario: Take a snapshot of a static page
 

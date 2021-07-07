@@ -12,7 +12,10 @@
     <p>{{ message }}</p>
     <div class="cf-form-hint">
       Examples:
-      <ul style="margin-top: 0; padding-left: 1.25rem;">
+      <ul
+        style="margin-top: 0;
+          padding-left: 1.25rem;"
+      >
         <li>http://data.europeana.eu/agent/base/59832</li>
         <li>https://api.europeana.eu/entity/timespan/base/20</li>
         <li>https://www.europeana.eu/en/collections/person/60404-johannes-vermeer</li>

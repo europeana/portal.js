@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - 'master'
-      # TODO: remove this branch from here once tested
-      - 'feat/EC-5258-automate-build-push-docker-images'
     tags:
       - 'v*'
 

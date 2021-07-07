@@ -15,8 +15,6 @@
 </template>
 
 <script>
-  const maxResults = 1000;
-
   export default {
     props: {
       perPage: {
@@ -42,6 +40,10 @@
       scrollToId: {
         type: String,
         default: '__nuxt'
+      },
+      maxResults: {
+        type: Number,
+        default: null
       }
     },
     data() {
@@ -51,7 +53,8 @@
     },
     computed: {
       totalPages() {
-        return Math.ceil(Math.min(Math.max(this.totalResults, 1), maxResults) / this.perPage);
+        const atLeastOne = Math.max(this.totalResults, 1);
+        return Math.ceil(Math.min(atLeastOne, this.maxResults || atLeastOne) / this.perPage);
       }
     },
     watch: {
