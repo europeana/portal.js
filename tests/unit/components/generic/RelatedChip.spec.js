@@ -1,6 +1,7 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import RelatedChip from '../../../../src/components/generic/RelatedChip.vue';
+import sinon from 'sinon';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -61,6 +62,29 @@ describe('components/generic/RelatedChip', () => {
 
     const chip = wrapper.find('[data-qa="Costume related chip"]');
     chip.text().should.eq('Costume');
+  });
+
+  it('tracks the event in Matomo', () => {
+    const wrapper = factory({
+      $link: {
+        to: route => route,
+        href: () => null
+      },
+      $i18n: { locale: 'en' },
+      $matomo: {
+        trackEvent: sinon.spy()
+      }
+    });
+
+    wrapper.setProps({
+      linkTo: '/collections/topic/33-costume',
+      title: {
+        en: 'Costume'
+      }
+    });
+
+    wrapper.vm.trackClickEvent();
+    wrapper.vm.$matomo.trackEvent.should.have.been.calledWith('Related_collections', 'Click related collection', '/collections/topic/33-costume');
   });
 
   context('when linkTo is a URL with scheme', () => {

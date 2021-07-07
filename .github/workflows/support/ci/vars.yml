@@ -11,4 +11,6 @@ env:
   HOST: 0.0.0.0
   NUXTJS_ROBOTS: '[{"UserAgent":"Twitterbot","Disallow":""},{"UserAgent":"*","Disallow":"/"}]'
   OAUTH_CLIENT: ${OAUTH_CLIENT}
+  ENABLE_JIRA_SERVICE_DESK_FEEDBACK_FORM: 1
+  PORTAL_BASE_URL: https://${CF_APP_FQDN}
 services: []

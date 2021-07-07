@@ -3,12 +3,18 @@
     data-qa="exhibition credits page"
     class="text-page"
   >
+    <!-- TODO: use the AuthoredHead component here, so it matches the exhibition chapters -->
     <b-container>
       <b-row class="justify-content-center">
         <b-col
           cols="12"
           class="col-lg-8 pt-large mb-4"
         >
+          <div
+            class="context-label"
+          >
+            {{ $tc('exhibitions.exhibitions', 1) }}
+          </div>
           <h2
             v-if="exhibitionTitle"
             class="subtitle"

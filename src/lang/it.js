@@ -1,5 +1,6 @@
 export default {
   "account": {
+    "editProfile": "Modifica Profilo",
     "likes": "Mi piace",
     "linkAccount": "Il mio account",
     "linkLogin": "Accedi",
@@ -7,6 +8,8 @@ export default {
     "linkLogout": "Esci",
     "myProfile": "Il mio profilo",
     "notifications": {
+      "loggedIn": "Ora sei loggato. Benvenuto!",
+      "loggedOut": "Sei ora disconnesso.",
       "noCollections": {
         "private": "Non hai ancora creato gallerie private",
         "public": "Non hai ancora creato gallerie pubbliche"
@@ -15,19 +18,25 @@ export default {
     },
     "privateCollections": "Gallerie private",
     "profile": "I miei Mi piace e le mie gallerie",
+    "profileSettings": "Impostazioni del profilo",
     "publicCollections": "Gallerie pubbliche",
     "settings": "Impostazioni",
     "title": "Il mio account"
   },
   "actions": {
+    "cancel": "Annulla",
     "close": "chiudi",
     "download": "Scarica",
     "edit": "Modifica",
+    "feedback": "Feedback",
     "goBack": "Indietro",
     "like": "Mi piace",
+    "next": "Prossimo",
     "providedBy": "Fornito da {provider}",
+    "send": "Invia",
     "share": "Condividi",
     "shareOn": "Condividi su {social}",
+    "skip": "Salta",
     "viewAt": "Vedi su {link}",
     "viewDocument": "Visualizza documento"
   },
@@ -48,6 +57,11 @@ export default {
     "posts": "Articoli del blog",
     "published": "Pubblicato il giorno {date}",
     "relatedPosts": "Articoli correlati"
+  },
+  "cardLabels": {
+    "person": "Persona",
+    "time": "Secolo",
+    "topic": "Argomento"
   },
   "clearAllFilters": "cancella tutti i filtri",
   "collections": {
@@ -106,6 +120,17 @@ export default {
     "right": "Destra"
   },
   "edmIsShownAtLinkAlt": "Visualizza sul sito web del fornitore",
+  "entity": {
+    "actions": {
+      "cancel": "Annulla"
+    },
+    "labels": {
+      "entity": "Entità"
+    },
+    "notifications": {
+      "deleted": "Galleria eliminata."
+    }
+  },
   "error": "Errore",
   "exhibitions": {
     "chapters": "Capitoli",
@@ -293,6 +318,7 @@ export default {
         "#FFFAFA": "Neve",
         "#FFFF00": "Giallo",
         "#FFFFE0": "Giallo chiaro",
+        "#FFFFF0": "Avorio",
         "#FFFFFF": "bianca"
       }
     },
@@ -372,6 +398,23 @@ export default {
         "VIDEO": "Video"
       }
     }
+  },
+  "feedback": {
+    "emailOptional": "Potremmo voler seguire. Inserisci la tua email se sei felice di essere contattato.",
+    "failed": "La richiesta è fallita. Per favore riprova.",
+    "form": {
+      "placeholders": {
+        "email": "Inserisci il tuo indirizzo email",
+        "feedback": "Inserisci qui il tuo risposta"
+      }
+    },
+    "policies": "Continuando, accetti i nostri {0} e riconosci i nostri {1} .",
+    "privacyPolicy": "Informativa sulla privacy",
+    "success": "Il tuo feedback è stato inviato.",
+    "termsOfService": "Termini di servizio",
+    "thankYou": "Grazie!",
+    "title": "Invia feedback",
+    "validEmail": "Inserire un indirizzo email valido"
   },
   "fieldLabels": {
     "default": {
@@ -456,6 +499,7 @@ export default {
   "header": {
     "backToMenu": "Chiudi casella di ricerca",
     "clearQuery": "Elimina query di ricerca",
+    "closeSidebar": "Chiudi Menu",
     "entireCollection": "Cerca {query} in tutta la collezione",
     "europeanaHome": "Home Europeana",
     "inCollection": "Cerca {query} in {collection}",
@@ -463,7 +507,9 @@ export default {
       "about": "Chi siamo",
       "collections": "Collezioni",
       "europeanaClassroom": "Insegnanti",
-      "help": "Aiuto"
+      "help": "Aiuto",
+      "home": "Casa",
+      "stories": "Storie"
     },
     "searchFor": "Cerca {query}",
     "searchForEverything": "Cerca tutto",
@@ -507,8 +553,12 @@ export default {
   "newWindow": "si apre in una nuova finestra",
   "noMoreResults": "Non ci sono altri risultati per la tua query di ricerca.",
   "noResults": "Nessun Risultato",
+  "pageHasLoaded": "ha caricato",
   "pages": {
     "collections": {
+      "times": {
+        "title": "Tempi"
+      },
       "topics": {
         "title": "Temi"
       }
@@ -517,11 +567,14 @@ export default {
   "readMore": "Leggi di più",
   "record": {
     "allMetaData": "Tutti i metadati",
+    "copyEmbedLabel": "Incorpora codice (fare clic per copiare)",
     "downloadCopyrightInfo": "Questo elemento è protetto da copyright e non può essere scaricato.",
     "exploreMore": "Esplora altro",
     "extendedInformation": "Informazioni estese",
     "goodToKnow": "Caratteristiche",
     "hideAll": "Nascondi tutte le informazioni",
+    "location": "Posizione",
+    "locationOnMap": "Posizione sulla mappa",
     "record": "Documentazione",
     "showAll": "Mostra tutte le informazioni",
     "similarItems": "Elementi simili",
@@ -571,6 +624,7 @@ export default {
     "form": {
       "description": "Descrizione della galleria",
       "private": "Tieni privata questa galleria",
+      "required": "Campi obbligatorio",
       "title": "Nome della galleria"
     },
     "labels": {

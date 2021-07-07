@@ -4,6 +4,7 @@
       :title="title"
       :description="htmlDescription"
       :media-url="shareMediaUrl"
+      :context-label="$tc('galleries.galleries', 1)"
     />
     <b-row class="flex-md-row pb-5">
       <b-col cols="12">

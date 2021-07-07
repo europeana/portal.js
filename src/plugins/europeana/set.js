@@ -123,12 +123,13 @@ export default (context = {}) => {
      * @param {string} action the type of modification, can be either 'add' or 'delete'
      * @param {string} setId the id of the set that will be modified
      * @param {string} itemId the id of the item to be added or deleted, with leading slash
+     * @param {Boolean} pin if true will indicate that the item is to be pinned
      * @return {Object} API response data
      */
-    async modifyItems(action, setId, itemId) {
+    async modifyItems(action, setId, itemId, pin) {
       const apiCall = action === 'add' ? $axios.put : $axios.delete;
-
-      return apiCall(`/${setIdFromUri(setId)}${itemId}`)
+      const pinPos = pin ? '?position=pin' : '';
+      return apiCall(`/${setIdFromUri(setId)}${itemId}${pinPos}`)
         .then(response => response.data)
         .catch(error => {
           throw apiError(error);

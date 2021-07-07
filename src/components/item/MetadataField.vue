@@ -42,6 +42,7 @@
             <SmartLink
               :destination="fieldData.url"
               :link-class="name === 'edmDataProvider' ? 'view-at' : null"
+              @click.native="name === 'edmDataProvider' && $matomo && $matomo.trackEvent('Item_external link', 'Click Provider Link', fieldData.url);"
             >
               {{ value }}
             </SmartLink>

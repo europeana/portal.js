@@ -2,6 +2,10 @@ import store, { defaultFacetNames } from '../../../src/store/search';
 import sinon from 'sinon';
 
 describe('store/search', () => {
+  before('mock $i18n', () => {
+    store.actions.$i18n = { locale: 'es' };
+  });
+
   describe('getters', () => {
     describe('filters()', () => {
       context('when collection param is absent', () => {

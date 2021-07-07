@@ -1,5 +1,6 @@
 export default {
   "account": {
+    "editProfile": "Editja l-profil",
     "likes": "Likes",
     "linkAccount": "Il-Kont Tiegħi",
     "linkLogin": "Illoggja",
@@ -7,6 +8,8 @@ export default {
     "linkLogout": "Oħroġ",
     "myProfile": "Il-profil Tiegħi",
     "notifications": {
+      "loggedIn": "Inti issa illoggjat. Merħba!",
+      "loggedOut": "Issa int illoggjat' il barra.",
       "noCollections": {
         "private": "Għadek ma ħloqt l-ebda direttorju tar-ritratti privat s'issa",
         "public": "Għadek ma ħloqt l-ebda direttorju tar-ritratti pubbliku s'issa"
@@ -15,19 +18,25 @@ export default {
     },
     "privateCollections": "Direttorji tar-Ritratti privati",
     "profile": "Il-Likes u d-Direttorji tar-Ritratti Tiegħi",
+    "profileSettings": "Settings tal-profil",
     "publicCollections": "Direttorji tar-Ritratti Pubbliċi",
     "settings": "Settings",
     "title": "Il-kont tiegħi"
   },
   "actions": {
+    "cancel": "Ikkanċella",
     "close": "agħlaq",
     "download": "Niżżel",
     "edit": "Editja",
+    "feedback": "Feedback",
     "goBack": "Mur lura",
     "like": "Like",
+    "next": "Li jmiss",
     "providedBy": "Ipprovdut minn {provider}",
+    "send": "Tibgħat",
     "share": "Ixxerja",
     "shareOn": "Ixxerja fuq {social}",
+    "skip": "Aqbeż",
     "viewAt": "Ara fuq {link}",
     "viewDocument": "Ara d-dokument"
   },
@@ -48,6 +57,11 @@ export default {
     "posts": "Blog posts",
     "published": "Ippubblikat {date}",
     "relatedPosts": "Posts relatati"
+  },
+  "cardLabels": {
+    "person": "Persuna",
+    "time": "Seklu",
+    "topic": "Suġġett"
   },
   "clearAllFilters": "ħassar il-filtri kollha",
   "collections": {
@@ -107,6 +121,17 @@ export default {
     "right": "Lemin"
   },
   "edmIsShownAtLinkAlt": "Ara fuq il-websajt tal-fornitur",
+  "entity": {
+    "actions": {
+      "cancel": "Ikkanċella"
+    },
+    "labels": {
+      "entity": "Entità"
+    },
+    "notifications": {
+      "deleted": "Il-gallerija tiegħek tħassret."
+    }
+  },
   "error": "Żball",
   "exhibitions": {
     "chapters": "Kapitoli",
@@ -375,6 +400,23 @@ export default {
       }
     }
   },
+  "feedback": {
+    "emailOptional": "Aħna jista 'jkun li nixtiequ nsegwu. Daħħal l-email tiegħek jekk int kuntent li aħna nikkuntattjawk.",
+    "failed": "It-talba falliet. Jekk jogħġbok erġa pprova.",
+    "form": {
+      "placeholders": {
+        "email": "Daħħal l-indirizz tal-email tiegħek",
+        "feedback": "Daħħal il-feedback tiegħek hawn"
+      }
+    },
+    "policies": "Billi tkompli, taqbel ma ' {0} tagħna u tirrikonoxxi lil {1} tagħna.",
+    "privacyPolicy": "Regoli tal-privatezza",
+    "success": "Il-feedback tiegħek intbagħat.",
+    "termsOfService": "Termini tas-Servizz",
+    "thankYou": "Grazzi!",
+    "title": "Ibgħat feedback",
+    "validEmail": "Daħħal indirizz tal-email validu"
+  },
   "fieldLabels": {
     "default": {
       "dcContributor": "Kontributuri",
@@ -458,6 +500,7 @@ export default {
   "header": {
     "backToMenu": "Agħlaq il-Kaxxa tat-Tiftix",
     "clearQuery": "Ħassar il-Query tat-Tiftix",
+    "closeSidebar": "Agħlaq il-Menu",
     "entireCollection": "Fittex {query} fil-kollezzjoni sħiħa tagħna",
     "europeanaHome": "Europeana home",
     "inCollection": "Fittex {query} fi {collection}",
@@ -465,7 +508,9 @@ export default {
       "about": "Dwarna",
       "collections": "Kollezzjonijiet",
       "europeanaClassroom": "Għalliema",
-      "help": "Għajnuna"
+      "help": "Għajnuna",
+      "home": "Paġna Ewlenija",
+      "stories": "Ġrajjiet"
     },
     "searchFor": "Fittex {query}",
     "searchForEverything": "Fittex kollox",
@@ -530,7 +575,9 @@ export default {
     "extendedInformation": "Informazzjoni estiża",
     "goodToKnow": "Informazzjoni utli",
     "hideAll": "Aħbi l-informazzjoni kollha",
+    "IIIFViewer": "Telespettatur IIIF",
     "location": "Post",
+    "locationOnMap": "Post fuq il-mappa",
     "record": "Rekord",
     "showAll": "Uri l-informazzjoni kollha",
     "similarItems": "Oġġetti simili",
@@ -580,6 +627,7 @@ export default {
     "form": {
       "description": "Deskrizzjoni tad-direttorju tar-ritratti",
       "private": "Agħmel dan id-direttorju tar-ritratti privat",
+      "required": "Oqsma meħtieġa",
       "title": "Isem tad-direttorju tar-ritratti"
     },
     "labels": {
