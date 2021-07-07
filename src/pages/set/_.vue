@@ -143,7 +143,7 @@
           </h5>
           <ItemPreviewCardGroup
             v-model="recommendations"
-            :recommendations="true"
+            :recommendations="this.$config.app.features.acceptSetRecommendations"
           />
         </b-col>
       </b-row>
@@ -223,7 +223,7 @@
         return langMapValueForLocale(this.set.description, this.$i18n.locale);
       },
       enableRecommendations() {
-        return this.$config.app.features.recommendations && this.$config.app.features.acceptSetRecommendations;
+        return this.$config.app.features.recommendations;
       },
       displayItemCount() {
         const max = 100;
