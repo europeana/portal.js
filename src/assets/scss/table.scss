@@ -1,5 +1,5 @@
 .table {
-  border: 1px solid $lightgrey;
+  border: 1px solid $middlegrey;
   border-radius: $border-radius-small;
   border-spacing: 0;
   border-collapse: separate;
@@ -33,7 +33,7 @@
   td {
     line-height: 1em;
     padding: 1.125rem 1rem;
-    border-top: 1px solid $lightgrey;
+    border-top: 1px solid $middlegrey;
     a {
       text-decoration: none;
       &:hover {

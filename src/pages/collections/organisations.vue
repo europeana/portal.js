@@ -1,12 +1,14 @@
 <template>
-  <b-container>
-    <ContentHeader
-      :title="$t('pages.collections.organisations.title')"
-    />
-    <client-only>
-      <OrganisationsTable />
-    </client-only>
-  </b-container>
+  <div class="organisations-page">
+    <b-container>
+      <ContentHeader
+        :title="$t('pages.collections.organisations.title')"
+      />
+      <client-only>
+        <OrganisationsTable />
+      </client-only>
+    </b-container>
+  </div>
 </template>
 <script>
   import ContentHeader from '../../components/generic/ContentHeader';
@@ -27,3 +29,12 @@
     watchQuery: ['page']
   };
   </script>
+
+  <style lang="scss" scoped>
+    @import '../../assets/scss/variables.scss';
+    .organisations-page {
+      background-color: $white;
+      margin-top: -3rem;
+      padding: 3rem 0 7rem
+    }
+  </style>
