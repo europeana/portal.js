@@ -96,6 +96,7 @@
                 :hits="hits"
                 :view="view"
                 :per-row="perRow"
+                :show-pins="showPins"
               />
               <InfoMessage
                 v-if="lastAvailablePage"
@@ -110,6 +111,7 @@
                   v-model="page"
                   :total-results="totalResults"
                   :per-page="perPage"
+                  :max-results="1000"
                 />
               </client-only>
             </b-col>
@@ -160,6 +162,10 @@
         default: () => {
           return { name: 'search' };
         }
+      },
+      showPins: {
+        type: Boolean,
+        default: false
       }
     },
     fetch() {

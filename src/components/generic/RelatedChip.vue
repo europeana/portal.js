@@ -8,6 +8,7 @@
     :class="{ 'img-chip': img }"
     :data-qa="localisedTitle.values[0] + ' related chip'"
     :lang="localisedTitle.code"
+    @click.native="trackClickEvent"
   >
     <b-img
       v-if="img"
@@ -54,6 +55,14 @@
           };
         }
         return langMapValueForLocale(this.title, this.$i18n.locale);
+      }
+    },
+
+    methods: {
+      trackClickEvent() {
+        if (this.$matomo) {
+          this.$matomo.trackEvent('Related_collections', 'Click related collection', this.linkTo);
+        }
       }
     }
   };
