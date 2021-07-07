@@ -4,6 +4,7 @@
       :title="title"
       :description="description"
       :hero="hero"
+      :context-label="$tc('blog.posts', 1)"
     />
     <b-container>
       <b-row class="justify-content-center">

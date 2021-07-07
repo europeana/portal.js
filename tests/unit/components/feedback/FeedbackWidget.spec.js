@@ -12,7 +12,14 @@ localVue.use(VueI18n);
 const factory = (propsData = {}) => {
   const wrapper = mount(FeedbackWidget, {
     localVue,
-    i18n: new VueI18n,
+    i18n: new VueI18n({  locale: 'en',
+      messages: {
+        en: {
+          feedback: {
+            policies: 'By continuing, you agree to our {0} and acknowledge our {1}.'
+          }
+        }
+      } }),
     propsData,
     mocks: {
       $t: () => {},
@@ -23,7 +30,48 @@ const factory = (propsData = {}) => {
   return wrapper;
 };
 
-describe('components/generic/FeedbackWidget', () => {
+describe('components/feedback/FeedbackWidget', () => {
+  describe('feedback button', () => {
+    context('on initial page load and before user scrolled', () => {
+      it('is large', () => {
+        const wrapper = factory();
+        const button = wrapper.find('[data-qa="feedback button"]');
+        button.attributes().class.should.contain('big');
+      });
+      it('and shows text', () => {
+        const wrapper = factory();
+        const buttonText = wrapper.find('[data-qa="feedback button text"]');
+        buttonText.isVisible().should.equal(true);
+      });
+    });
+    context('after scrolling', () => {
+      it('shrinks', () => {
+        const wrapper = factory();
+        global.window.dispatchEvent(new Event('scroll'));
+        const button = wrapper.find('[data-qa="feedback button"]');
+        button.attributes().class.should.not.contain('big');
+      });
+      context('and on mouseover', () => {
+        it('grows big', () => {
+          const wrapper = factory();
+          global.window.dispatchEvent(new Event('scroll'));
+          const button = wrapper.find('[data-qa="feedback button"]');
+          button.trigger('mouseover');
+          button.attributes().class.should.contain('big');
+        });
+      });
+      context('and on mouseleave', () => {
+        it('shrinks again', () => {
+          const wrapper = factory();
+          global.window.dispatchEvent(new Event('scroll'));
+          const button = wrapper.find('[data-qa="feedback button"]');
+          button.trigger('mouseover');
+          button.trigger('mouseleave');
+          button.attributes().class.should.not.contain('big');
+        });
+      });
+    });
+  });
   describe('next button', () => {
     context('when there is no value for feedback', () => {
       it('is disabled', () => {
@@ -152,7 +200,7 @@ describe('components/generic/FeedbackWidget', () => {
     const feedback = 'This was useful. Thanks!';
 
     it('posts feedback to server middleware', async() => {
-      nock(baseUrl).post(middlewarePath, body => (body.summary === feedback)).reply(201);
+      nock(baseUrl).post(middlewarePath, body => (body.feedback === feedback)).reply(201);
       const wrapper = factory();
 
       wrapper.setData({
@@ -168,7 +216,7 @@ describe('components/generic/FeedbackWidget', () => {
     it('includes email if provided', async() => {
       const email = 'me@example.org';
       nock(baseUrl).post(middlewarePath, body => (
-        (body.summary === feedback) && (body.email === email)
+        (body.feedback === feedback) && (body.email === email)
       )).reply(201);
       const wrapper = factory();
 

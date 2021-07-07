@@ -1,4 +1,4 @@
-export default ($i18n, $gtm, $gtmId) => {
+export default ($i18n, $gtm, $gtmId, $initHotjar) => {
   // TODO: uncomment when we have translations
   // const locale = $i18n.locale;
   // TODO: remove when we have translations
@@ -27,7 +27,6 @@ export default ($i18n, $gtm, $gtmId) => {
       service('google-analytics', ['usage'], [/^_ga(_.*)?/, '_gid']),
       // https://help.hotjar.com/hc/en-us/articles/115011789248-Hotjar-Cookie-Information
       service('hotjar', ['usage'], [/^_hj(.*)?/]),
-      service('cloudflare', ['essential'], ['_cfduid'], true),
       service('i18n', ['essential'], ['i18n_locale_code'], true),
       service('searchResultsView', ['essential'], ['searchResultsView'], true),
       service('debugSettings', ['essential'], ['debugSettings'], true),
@@ -39,6 +38,9 @@ export default ($i18n, $gtm, $gtmId) => {
     callback: (consent, service) => {
       if (service.name === 'google-analytics' && consent) {
         $gtm.init($gtmId);
+      }
+      if (service.name === 'hotjar' && consent) {
+        $initHotjar();
       }
     }
   };

@@ -20,6 +20,7 @@
         :variant="cardVariant"
         class="item"
         :lazy="false"
+        :show-pins="showPins"
         data-qa="item preview"
         @like="$emit('like', item.id)"
         @unlike="$emit('unlike', item.id)"
@@ -38,6 +39,7 @@
       v-model="value[index]"
       :hit-selector="itemHitSelector(item)"
       :variant="cardVariant"
+      :show-pins="showPins"
       data-qa="item preview"
       @like="$emit('like', item.id)"
       @unlike="$emit('unlike', item.id)"
@@ -72,6 +74,10 @@
       view: {
         type: String,
         default: 'grid'
+      },
+      showPins: {
+        type: Boolean,
+        default: false
       }
     },
 

@@ -1,5 +1,6 @@
 export default {
   "account": {
+    "editProfile": "Profil bearbeiten",
     "likes": "Likes",
     "linkAccount": "Mein Konto",
     "linkLogin": "Anmelden",
@@ -7,6 +8,8 @@ export default {
     "linkLogout": "Abmelden",
     "myProfile": "Mein Profil",
     "notifications": {
+      "loggedIn": "Sie sind jetzt eingeloggt. Willkommen!",
+      "loggedOut": "Sie sind jetzt ausgeloggt.",
       "noCollections": {
         "private": "Sie haben bisher keine private Galerie erstellt",
         "public": "Sie haben bisher keine öffentliche Galerie erstellt"
@@ -15,19 +18,25 @@ export default {
     },
     "privateCollections": "Private Galerien",
     "profile": "Meine Likes & Galerien",
+    "profileSettings": "Profileinstellungen",
     "publicCollections": "Öffentliche Galerien",
     "settings": "Einstellungen",
     "title": "Mein Konto"
   },
   "actions": {
+    "cancel": "Abbrechen",
     "close": "schließen",
     "download": "Herunterladen",
     "edit": "Bearbeiten",
+    "feedback": "Feedback",
     "goBack": "Zurückgehen",
     "like": "Like",
+    "next": "Nächster",
     "providedBy": "Bereitgestellt von {provider}",
+    "send": "Senden",
     "share": "Teilen",
     "shareOn": "Teilen auf {social}",
+    "skip": "Überspringen",
     "viewAt": "Ansicht unter {link}",
     "viewDocument": "Dokument anzeigen"
   },
@@ -49,8 +58,17 @@ export default {
     "published": "Veröffentlicht am {date}",
     "relatedPosts": "Ähnliche Beiträge"
   },
+  "cardLabels": {
+    "person": "Person",
+    "time": "Jahrhundert",
+    "topic": "Thema"
+  },
   "clearAllFilters": "Alle Filter löschen",
   "collections": {
+    "actions": {
+      "edit": "Sammlung bearbeiten",
+      "update": "Sammlung aktualisieren"
+    },
     "fashion": {
       "facets": {
         "CREATOR": {
@@ -66,9 +84,16 @@ export default {
           "name": "Material | Materialien"
         }
       }
+    },
+    "form": {
+      "description": "Beschreibung"
+    },
+    "notifications": {
+      "update": "Die Kollektion wurde aktualisiert"
     }
   },
   "collectionsYouMightLike": "Kollektionen, die Ihnen gefallen könnten",
+  "colourSwatch": "Farbmuster",
   "contentfulManual": {
     "footerNavigation": {
       "about": "Über Europeana",
@@ -99,6 +124,10 @@ export default {
     "startDate": "Anfangsdatum",
     "to": "an"
   },
+  "debug": {
+    "apiRequests": "API-Anfragen",
+    "debug": "Debuggen"
+  },
   "delete": "Löschen",
   "depiction": "Eine Darstellung von {title}",
   "directions": {
@@ -106,6 +135,14 @@ export default {
     "right": "Rechts"
   },
   "edmIsShownAtLinkAlt": "Auf der Website des Anbieters ansehen",
+  "entity": {
+    "labels": {
+      "entity": "Entität"
+    },
+    "notifications": {
+      "deleted": "Ihre Galerie wurde gelöscht."
+    }
+  },
   "error": "Fehler",
   "exhibitions": {
     "chapters": "Kapitel",
@@ -293,6 +330,7 @@ export default {
         "#FFFAFA": "Schnee",
         "#FFFF00": "Gelb",
         "#FFFFE0": "Hellgelb",
+        "#FFFFF0": "Elfenbein",
         "#FFFFFF": "Weiß"
       }
     },
@@ -373,6 +411,23 @@ export default {
       }
     }
   },
+  "feedback": {
+    "emailOptional": "Wir möchten vielleicht weiterverfolgen. Geben Sie Ihre E-Mail-Adresse ein, wenn wir Sie kontaktieren möchten.",
+    "failed": "Die Anfrage ist fehlgeschlagen. Bitte versuche es erneut.",
+    "form": {
+      "placeholders": {
+        "email": "Geben sie ihre E-Mailadresse ein",
+        "feedback": "Geben Sie hier Ihr Feedback ein"
+      }
+    },
+    "policies": "Indem Sie fortfahren, stimmen Sie unseren {0} und erkennen unsere {1} .",
+    "privacyPolicy": "Datenschutz-Bestimmungen",
+    "success": "Ihr Feedback wurde gesendet.",
+    "termsOfService": "Nutzungsbedingungen",
+    "thankYou": "Vielen Dank!",
+    "title": "Feedback abschicken",
+    "validEmail": "Geben Sie eine gültige E-Mail Adresse ein"
+  },
   "fieldLabels": {
     "default": {
       "dcContributor": "Mitwirkende",
@@ -438,6 +493,8 @@ export default {
   },
   "footer": {
     "customiseWebsiteLanguage": "Sprache der Website anpassen",
+    "disclaimerLine1": "Europeana ist eine Initiative der Europäischen Union, die von der \"Connecting Europe Facility“ der Europäischen Union und den Mitgliedstaaten der Europäischen Union finanziert wird. Die Europeana-Dienste, einschließlich dieser Website, werden von einem Konsortium betrieben, das von der Europeana Foundation im Rahmen eines Dienstleistungsvertrags mit der Europäischen Kommission geführt wird.",
+    "disclaimerLine2": "Die Europäische Kommission übernimmt keine Gewähr für die Richtigkeit der Informationen und übernimmt keinerlei Verantwortung oder Haftung für die Informationen auf dieser Website. Weder die Europäische Kommission noch eine Person, die im Namen der Europäischen Kommission handelt, ist für die Richtigkeit oder Verwendung der Informationen auf dieser Website verantwortlich oder haftbar.",
     "findUsElsewhere": "Finden Sie uns anderswo",
     "imageDescription": "Kofinanziert von der Einrichtung „Connecting Europe“ der Europäischen Union",
     "ourMission": "Unser Auftrag",
@@ -456,6 +513,7 @@ export default {
   "header": {
     "backToMenu": "Suchfeld schließen",
     "clearQuery": "Suchanfrage löschen",
+    "closeSidebar": "Menü schließen",
     "entireCollection": "Suchen Sie nach {query} in unserer gesamten Kollektion",
     "europeanaHome": "Europeana-Startseite",
     "inCollection": "Suchen Sie nach {query} in {collection}",
@@ -463,7 +521,9 @@ export default {
       "about": "Über uns",
       "collections": "Sammlungen",
       "europeanaClassroom": "Lehrerinnen und Lehrer",
-      "help": "Hilfe"
+      "help": "Hilfe",
+      "home": "Startseite",
+      "stories": "Geschichten"
     },
     "searchFor": "Suche nach {query}",
     "searchForEverything": "Suchen Sie nach allem",
@@ -479,6 +539,71 @@ export default {
     "itemCount": "1 Artikel |{count} Artikel",
     "itemOf": "{max} von {count} Artikel",
     "youMightLike": "Artikel, die Ihnen vielleicht gefallen könnten"
+  },
+  "klaro": {
+    "main": {
+      "consentModal": {
+        "description": "Wir nehmen Ihren Datenschutz ernst. Hier können Sie die Dienste, die wir auf dieser Website nutzen möchten, bewerten und anpassen. Du bist verantwortlich! Aktivieren oder deaktivieren Sie Dienste nach Belieben.",
+        "title": "Dienste, die wir gerne nutzen würden."
+      },
+      "consentNotice": {
+        "description": "Wir kümmern uns um Ihre Privatsphäre und verwenden Daten nur, um Ihre Erfahrung zu verbessern. Wir verwenden keine personenbezogenen Daten für Werbung. Sie können Ihre Einwilligung alle 15 Tage ändern."
+      },
+      "ok": "Okay",
+      "purposes": {
+        "essential": {
+          "description": "Diese Dienste sind für das korrekte Funktionieren dieser Website unerlässlich. Sie umfassen die Anzeige von Suchergebnissen und Spracheinstellungen, bewahren den eingeloggten Status und sorgen für die Sicherheit Ihres Besuchs. Sie können sie nicht deaktivieren, da die Website sonst nicht richtig funktionieren würde.",
+          "title": "Grundlegende Dienste für Sicherheit und Anpassung"
+        },
+        "usage": {
+          "description": "Diese Dienste sammeln die Informationen, um uns zu helfen, besser zu verstehen, wie die Website verwendet wird und wo die Schwachstellen sind, und befähigen uns, fundierte Entscheidungen zu treffen, um Ihre Erfahrung zu verbessern.",
+          "title": "Dienste zur Erfassung von Website-Nutzung und Feedback"
+        }
+      },
+      "service": {
+        "disableAll": {
+          "description": "Verwenden Sie diesen Schalter, um alle optionalen Dienste zu aktivieren oder zu deaktivieren.",
+          "title": "Alle Dienste aktivieren oder deaktivieren"
+        }
+      }
+    },
+    "services": {
+      "auth-strategy": {
+        "description": "Erinnert an die Berechtigungsstrategie, die für die Anmeldung verwendet werden soll.",
+        "title": "Auth-Strategie"
+      },
+      "debugSettings": {
+        "title": "Debug toggle"
+      },
+      "google-analytics": {
+        "description": "Sammelt anonyme Statistiken darüber, wie Besucher mit der Website interagieren.",
+        "title": "Google Analytics"
+      },
+      "google-optimize": {
+        "description": "Ermöglicht Ihnen die Teilnahme an Website-Experimenten, die unsere Designentscheidungen für die beste Benutzererfahrung leiten.",
+        "title": "Google Optimieren"
+      },
+      "hotjar": {
+        "description": "Aktiviert ein Umfrage-Widget, das Ihnen die Möglichkeit gibt, auf unsere Umfragen zur Besucherzufriedenheit zu antworten.",
+        "title": "Hotjar"
+      },
+      "i18n": {
+        "description": "Merkt sich Ihre bevorzugte Oberflächensprache für den zukünftigen Zugriff.",
+        "title": "Sprachcode"
+      },
+      "jira-servicedesk": {
+        "description": "Aktiviert das Feedback-Widget, das Ihnen die Möglichkeit gibt, uns zu kontaktieren.",
+        "title": "Jira service desk"
+      },
+      "matomo": {
+        "description": "Sammelt anonyme Statistiken darüber, wie Besucher mit der Website interagieren.",
+        "title": "Matomo"
+      },
+      "searchResultsView": {
+        "description": "Merkt sich, ob Sie die Suchergebnisse lieber in einer Listen- oder Rasteransicht anzeigen möchten.",
+        "title": "Suchergebnisansicht (Liste/Raster)"
+      }
+    }
   },
   "layout": {
     "skipToMain": "Direkt zum Seiteninhalt"
@@ -499,7 +624,11 @@ export default {
     }
   },
   "loadingResults": "Ergebnisse werden geladen",
+  "mediaPreview": {
+    "selectItem": "Wählen Sie das Element {src}"
+  },
   "messages": {
+    "copyToClipboardSuccess": "In die Zwischenablage kopiert",
     "externalContentError": "Der externe Inhalt konnte nicht geladen werden",
     "notFound": "Nicht gefunden",
     "paginationLimitExceeded": "Es können nur die ersten {limit} Suchergebnisse angezeigt werden."
@@ -507,8 +636,12 @@ export default {
   "newWindow": "öffnet sich in einem neuen Fenster",
   "noMoreResults": "Es gibt keine weiteren Ergebnisse für Ihre Suchanfrage.",
   "noResults": "Keine Ergebnisse",
+  "pageHasLoaded": "hat geladen",
   "pages": {
     "collections": {
+      "times": {
+        "title": "Mal"
+      },
       "topics": {
         "title": "Themen"
       }
@@ -517,11 +650,16 @@ export default {
   "readMore": "Mehr anzeigen",
   "record": {
     "allMetaData": "Alle Metadaten",
+    "copyEmbedLabel": "Code einbetten (Zum Kopieren klicken)",
     "downloadCopyrightInfo": "Dieser Artikel ist urheberrechtlich geschützt und kann nicht heruntergeladen werden.",
     "exploreMore": "Entdecken Sie mehr",
     "extendedInformation": "Erweiterte Informationen",
     "goodToKnow": "Gut zu wissen",
     "hideAll": "Alle Informationen ausblenden",
+    "IIIFViewer": "IIIF-Viewer",
+    "location": "Ort",
+    "locationOnMap": "Standort auf der Karte",
+    "mediaPlayer": "Media Player",
     "record": "Aufzeichnung",
     "showAll": "Alle Informationen anzeigen",
     "similarItems": "Ähnliche Artikel",
@@ -571,6 +709,7 @@ export default {
     "form": {
       "description": "Galeriebeschreibung",
       "private": "Diese Galerie privat halten",
+      "required": "Pflichtfeld",
       "title": "Galeriename"
     },
     "labels": {

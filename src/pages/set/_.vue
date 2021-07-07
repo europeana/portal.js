@@ -30,8 +30,12 @@
           <b-container class="mb-5">
             <b-row class="mb-4">
               <b-col>
+                <div
+                  class="context-label"
+                >
+                  {{ this.$tc('galleries.galleries', 1) }}
+                </div>
                 <h1
-                  class="pt-3"
                   :lang="displayTitle.code"
                 >
                   {{ displayTitle.values[0] }}
@@ -271,7 +275,7 @@
           { hid: 'og:image', property: 'og:image', content: this.shareMediaUrl },
           { hid: 'og:type', property: 'og:type', content: 'article' }
         ]
-          .concat(this.description ? [
+          .concat(this.displayDescription && this.displayDescription.values[0] ? [
             { hid: 'description', name: 'description', content: this.displayDescription.values[0]  },
             { hid: 'og:description', property: 'og:description', content: this.displayDescription.values[0]  }
           ] : [])

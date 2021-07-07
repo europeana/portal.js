@@ -1,5 +1,6 @@
 export default {
   "account": {
+    "editProfile": "Muokkaa profiilia",
     "likes": "Tykätyt",
     "linkAccount": "Oma tili",
     "linkLogin": "Kirjaudu sisään",
@@ -7,6 +8,8 @@ export default {
     "linkLogout": "Kirjaudu ulos",
     "myProfile": "Profiilini",
     "notifications": {
+      "loggedIn": "Olet nyt kirjautunut sisään. Tervetuloa!",
+      "loggedOut": "Olet nyt kirjautunut ulos.",
       "noCollections": {
         "private": "Et ole luonut vielä yksityisiä gallerioita",
         "public": "Et ole luonut vielä julkisia gallerioita"
@@ -15,19 +18,25 @@ export default {
     },
     "privateCollections": "Yksityiset galleriat",
     "profile": "Omat tykkäykset ja galleriat",
+    "profileSettings": "Profiiliasetukset",
     "publicCollections": "Julkiset galleriat",
     "settings": "Asetukset",
     "title": "Oma tili"
   },
   "actions": {
+    "cancel": "Peruuttaa",
     "close": "sulje",
     "download": "Lataa",
     "edit": "Muokkaa",
+    "feedback": "Palaute",
     "goBack": "Palaa takaisin",
     "like": "Tykkää",
+    "next": "Seuraava",
     "providedBy": "Tarjoaa {provider}",
+    "send": "Lähettää",
     "share": "Jaa",
     "shareOn": "Jaa mediassa {social}",
+    "skip": "Ohita",
     "viewAt": "Näytä osoitteessa {link}",
     "viewDocument": "Näytä asiakirja"
   },
@@ -49,8 +58,17 @@ export default {
     "published": "Julkaistu {date}",
     "relatedPosts": "Aiheeseen liittyvät julkaisut"
   },
+  "cardLabels": {
+    "person": "Henkilö",
+    "time": "Vuosisata",
+    "topic": "Aihe"
+  },
   "clearAllFilters": "tyhjennä kaikki suodattimet",
   "collections": {
+    "actions": {
+      "edit": "Muokkaa kokoelmaa",
+      "update": "Päivitä kokoelma"
+    },
     "fashion": {
       "facets": {
         "CREATOR": {
@@ -66,9 +84,16 @@ export default {
           "name": "Materiaali | Materiaalit"
         }
       }
+    },
+    "form": {
+      "description": "Kuvaus"
+    },
+    "notifications": {
+      "update": "Kokoelma on päivitetty"
     }
   },
   "collectionsYouMightLike": "Saattaisit tykätä näistä kokoelmista",
+  "colourSwatch": "Värimalli",
   "contentfulManual": {
     "footerNavigation": {
       "about": "Tietoja Europeana",
@@ -99,6 +124,10 @@ export default {
     "startDate": "Aloituspäivämäärä",
     "to": "asti"
   },
+  "debug": {
+    "apiRequests": "API-pyynnöt",
+    "debug": "Virheenkorjaus"
+  },
   "delete": "Poista",
   "depiction": "Kuvaus kohteesta {title}",
   "directions": {
@@ -106,6 +135,14 @@ export default {
     "right": "Oikea"
   },
   "edmIsShownAtLinkAlt": "Näytä palveluntarjoajan verkkosivustolla",
+  "entity": {
+    "labels": {
+      "entity": "Yksikkö"
+    },
+    "notifications": {
+      "deleted": "Galleriasi on poistettu."
+    }
+  },
   "error": "Virhe",
   "exhibitions": {
     "chapters": "Luvut",
@@ -293,6 +330,7 @@ export default {
         "#FFFAFA": "Lumi",
         "#FFFF00": "Keltainen",
         "#FFFFE0": "Vaaleankeltainen",
+        "#FFFFF0": "Norsunluu",
         "#FFFFFF": "Valkoinen"
       }
     },
@@ -373,6 +411,23 @@ export default {
       }
     }
   },
+  "feedback": {
+    "emailOptional": "Saatamme haluta seurata asiaa. Kirjoita sähköpostiosoitteesi, jos olet iloinen siitä, että voimme ottaa sinuun yhteyttä.",
+    "failed": "Pyyntö epäonnistui. Yritä uudelleen.",
+    "form": {
+      "placeholders": {
+        "email": "Syötä sähköpostiosoitteesi",
+        "feedback": "Kirjoita palautteesi tähän"
+      }
+    },
+    "policies": "Jatkamalla hyväksyt {0} ja tunnustamme {1} .",
+    "privacyPolicy": "Tietosuojakäytäntö",
+    "success": "Palautteesi on lähetetty.",
+    "termsOfService": "Käyttöehdot",
+    "thankYou": "Kiitos!",
+    "title": "Lähetä palautetta",
+    "validEmail": "syötä voimassa oleva sähköpostiosoite"
+  },
   "fieldLabels": {
     "default": {
       "dcContributor": "Myötävaikuttajat",
@@ -438,6 +493,8 @@ export default {
   },
   "footer": {
     "customiseWebsiteLanguage": "Muokkaa verkkosivuston kieltä",
+    "disclaimerLine1": "Europeana on Euroopan unionin aloite, jonka rahoittavat Euroopan unionin Verkkojen Eurooppa -väline ja Euroopan unionin jäsenvaltiot. Europeana-palveluja, mukaan lukien tämä verkkosivusto, ylläpitää konsortio, jota johtaa Europeana-säätiö Euroopan komission kanssa tehtyyn palvelusopimukseen.",
+    "disclaimerLine2": "Euroopan komissio ei takaa tietojen paikkansapitävyyttä eikä ota mitään vastuuta tämän verkkosivuston tiedoista. Kumpikaan Euroopan komissio tai kukaan Euroopan komission puolesta toimiva henkilö ei ole vastuussa tai vastuussa tämän verkkosivuston tietojen oikeellisuudesta tai käytöstä.",
     "findUsElsewhere": "Löydä meidät muualta",
     "imageDescription": "Euroopan unionin Verkkojen Eurooppa -väline on osallistunut rahoitukseen",
     "ourMission": "Tehtävämme",
@@ -456,6 +513,7 @@ export default {
   "header": {
     "backToMenu": "Sulje hakuruutu",
     "clearQuery": "Tyhjennä hakuehdot",
+    "closeSidebar": "Sulje valikko",
     "entireCollection": "Hae ehdoilla {query} koko kokoelmastamme",
     "europeanaHome": "Europeanan kotisivu",
     "inCollection": "Hae ehdoilla {query} kokoelmasta {collection}",
@@ -463,7 +521,9 @@ export default {
       "about": "Tietoa meistä",
       "collections": "Kokoelmat",
       "europeanaClassroom": "Opettajat",
-      "help": "Apua"
+      "help": "Apua",
+      "home": "Koti",
+      "stories": "Tarinoita"
     },
     "searchFor": "Hae ehdoilla {query}",
     "searchForEverything": "Hae kaikkea",
@@ -479,6 +539,71 @@ export default {
     "itemCount": "1 kohde |{count} kohdetta",
     "itemOf": "{max} / {count} kohdetta",
     "youMightLike": "Saattaisit tykätä näistä kohteista"
+  },
+  "klaro": {
+    "main": {
+      "consentModal": {
+        "description": "Suhtaudumme tietosuojaasi vakavasti. Täällä voit arvioida ja mukauttaa palveluja, joita haluaisimme käyttää tällä verkkosivustolla. Sinä olet vastuussa! Ota palvelut käyttöön tai poista ne käytöstä mielesi mukaan.",
+        "title": "Palvelut, joita haluaisimme käyttää."
+      },
+      "consentNotice": {
+        "description": "Välitämme yksityisyydestäsi ja käytämme tietoja vain kokemuksesi parantamiseen. Emme käytä henkilökohtaisia tietoja mainostamiseen. Voit muuttaa suostumustasi 15 päivän välein."
+      },
+      "ok": "Okei",
+      "purposes": {
+        "essential": {
+          "description": "Nämä palvelut ovat välttämättömiä tämän verkkosivuston moitteettoman toiminnan kannalta. Ne sisältävät hakutulosnäkymän ja kieliasetukset, säilyttävät kirjautuneen tilan ja pitävät vierailusi turvassa. Et voi poistaa niitä käytöstä, koska verkkosivusto ei toimisi muuten oikein.",
+          "title": "Olennaiset turvallisuus- ja mukautuspalvelut"
+        },
+        "usage": {
+          "description": "Nämä palvelut keräävät tietoja, jotka auttavat meitä ymmärtämään paremmin, miten verkkosivustoa käytetään ja missä kipupisteet ovat, mikä antaa meille mahdollisuuden tehdä tietoon perustuvia valintoja kokemuksesi parantamiseksi.",
+          "title": "Palvelut verkkosivuston käytön ja palautteen keräämiseen"
+        }
+      },
+      "service": {
+        "disableAll": {
+          "description": "Käytä tätä kytkintä kaikkien valinnaisten palveluiden ottamiseen käyttöön tai poistamiseksi käytöstä.",
+          "title": "Ota kaikki palvelut käyttöön tai poista ne käytöstä"
+        }
+      }
+    },
+    "services": {
+      "auth-strategy": {
+        "description": "Muistaa kirjautumisessa käytettävän valtuutusstrategian.",
+        "title": "Auth-strategia"
+      },
+      "debugSettings": {
+        "title": "Debug-kytkin"
+      },
+      "google-analytics": {
+        "description": "Kerää nimettömiä tilastoja siitä, miten kävijät ovat vuorovaikutuksessa verkkosivuston kanssa.",
+        "title": "Google Analytics"
+      },
+      "google-optimize": {
+        "description": "Mahdollistaa osallistumisen verkkosivusto kokeiluihin, jotka ohjaavat suunnittelu valintojamme parhaan käyttökokemuksen saavuttamiseksi.",
+        "title": "Google Optimize"
+      },
+      "hotjar": {
+        "description": "Aktivoi kysely-widget, joka antaa sinulle mahdollisuuden vastata kävijöiden tyytyväisyys tutkimuksiin.",
+        "title": "Hotjar"
+      },
+      "i18n": {
+        "description": "Muistaa valitsemasi käyttöliittymäkielen tulevaa käyttöä varten.",
+        "title": "Kielikoodi"
+      },
+      "jira-servicedesk": {
+        "description": "Aktivoi palaute-widgetin, jolloin voit ottaa meihin yhteyttä.",
+        "title": "Jiran palvelupiste"
+      },
+      "matomo": {
+        "description": "Kerää nimettömiä tilastoja siitä, miten kävijät ovat vuorovaikutuksessa verkkosivuston kanssa.",
+        "title": "Matomo"
+      },
+      "searchResultsView": {
+        "description": "Muistaa, haluatko nähdä hakutulokset luettelossa tai ruudukkonäkymässä.",
+        "title": "Hakutulosnäkymä (luettelo/ruudukko)"
+      }
+    }
   },
   "layout": {
     "skipToMain": "Siirry sivun sisältöön"
@@ -499,7 +624,11 @@ export default {
     }
   },
   "loadingResults": "Ladataan tuloksia",
+  "mediaPreview": {
+    "selectItem": "Valitse kohde {src}"
+  },
   "messages": {
+    "copyToClipboardSuccess": "Kopioitu leikepöydälle",
     "externalContentError": "Ulkoisen sisällön lataaminen epäonnistui",
     "notFound": "Ei löydy",
     "paginationLimitExceeded": "Vain ensimmäiset {limit} hakutulosta voidaan näyttää."
@@ -507,8 +636,12 @@ export default {
   "newWindow": "avautuu uuteen ikkunaan",
   "noMoreResults": "Hakusi ei tuottanut enempää tuloksia.",
   "noResults": "Ei tuloksia",
+  "pageHasLoaded": "on ladattu",
   "pages": {
     "collections": {
+      "times": {
+        "title": "aika"
+      },
       "topics": {
         "title": "Aiheet"
       }
@@ -517,11 +650,16 @@ export default {
   "readMore": "Lue lisää",
   "record": {
     "allMetaData": "Kaikki metatiedot",
+    "copyEmbedLabel": "Upota koodi (kopioi napsauttamalla)",
     "downloadCopyrightInfo": "Tämä tuote on suojattu tekijänoikeudella eikä sitä voi ladata.",
     "exploreMore": "Tutki lisää",
     "extendedInformation": "Tarkemmat tiedot",
     "goodToKnow": "Hyvä tietää",
     "hideAll": "Piilota kaikki tiedot",
+    "IIIFViewer": "IIIF-katsoja",
+    "location": "Sijainti",
+    "locationOnMap": "Sijainti kartalla",
+    "mediaPlayer": "Mediasoitin",
     "record": "Tietue",
     "showAll": "Näytä kaikki tiedot",
     "similarItems": "Samanlaisia kohteita",
@@ -571,6 +709,7 @@ export default {
     "form": {
       "description": "Gallerian kuvaus",
       "private": "Pidä tämä galleria yksityisenä",
+      "required": "Pakollinen kenttä",
       "title": "Gallerian nimi"
     },
     "labels": {
