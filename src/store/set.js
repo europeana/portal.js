@@ -4,7 +4,8 @@ export default {
     likedItems: null,
     likedItemIds: [],
     active: null,
-    creations: []
+    creations: [],
+    curations: []
   }),
 
   mutations: {
@@ -31,6 +32,9 @@ export default {
     },
     setCreations(state, value) {
       state.creations = value;
+    },
+    setCurations(state, value) {
+      state.curations = value;
     }
   },
 
@@ -45,6 +49,7 @@ export default {
       commit('setLikesId', null);
       commit('setLikedItems', null);
       commit('setCreations', []);
+      commit('setCurations', []);
     },
     like({ dispatch, commit, state }, itemId) {
       // TODO: temporary prevention of addition of > 100 items; remove when no longer needed
@@ -166,6 +171,18 @@ export default {
 
       return this.$apis.set.search(searchParams)
         .then(searchResponse => commit('setCreations', searchResponse.data.items || []));
+    },
+    fetchCurations({ commit }) {
+      const contributorId = this.$auth.user ? this.$auth.user.sub : null;
+      const searchParams = {
+        query: `contributor:${contributorId}`,
+        profile: 'itemDescriptions',
+        pageSize: 100, // TODO: pagination?
+        qf: 'type:EntityBestItemsSet'
+      };
+
+      return this.$apis.set.search(searchParams)
+        .then(searchResponse => commit('setCurations', searchResponse.data.items || []));
     }
   }
 };

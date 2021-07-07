@@ -82,6 +82,7 @@ export function rangeFromQueryParam(paramValue) {
  * @param {string} params.wskey API key, to override `config.record.key`
  * @param {Object} options search options
  * @param {Boolean} options.escape whether or not to escape Lucene reserved characters in the search query
+ * @param {string} options.locale source locale for multilingual search
  * @param {string} options.url override the API URL
  * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display
  */
@@ -93,20 +94,27 @@ export default function search($axios, params, options = {}) {
   const rows = Math.max(0, Math.min(maxResults + 1 - start, perPage));
   const query = params.query || '*:*';
 
+  const searchParams = {
+    ...$axios.defaults.params,
+    facet: params.facet,
+    profile: params.profile,
+    qf: addContentTierFilter(params.qf),
+    query: options.escape ? escapeLuceneSpecials(query) : query,
+    reusability: params.reusability,
+    rows,
+    start
+  };
+  const targetLocale = 'en';
+  if (options.locale && options.locale !== targetLocale) {
+    searchParams['q.source'] = options.locale;
+    searchParams['q.target'] = targetLocale;
+  }
+
   return $axios.get(`${options.url || ''}/search.json`, {
     paramsSerializer(params) {
       return qs.stringify(params, { arrayFormat: 'repeat' });
     },
-    params: {
-      ...$axios.defaults.params,
-      facet: params.facet,
-      profile: params.profile,
-      qf: addContentTierFilter(params.qf),
-      query: options.escape ? escapeLuceneSpecials(query) : query,
-      reusability: params.reusability,
-      rows,
-      start
-    }
+    params: searchParams
   })
     .then(response => {
       return {

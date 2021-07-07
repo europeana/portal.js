@@ -102,6 +102,6 @@ describe('components/generic/CompareImageSlider', () => {
 
     global.window.dispatchEvent(new Event('resize'));
 
-    setImageWidth.should.have.callCount(2);
+    setImageWidth.should.have.callCount(1);
   });
 });

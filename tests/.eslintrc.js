@@ -3,4 +3,4 @@ module.exports = {
     'max-len': 'off',
     'no-console': 'off'
   }
-}
+};
