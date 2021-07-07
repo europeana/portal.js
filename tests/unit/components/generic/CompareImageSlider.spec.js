@@ -1,7 +1,7 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
-import CompareImageSlider from '../../../../components/generic/CompareImageSlider.vue';
+import CompareImageSlider from '../../../../src/components/generic/CompareImageSlider.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -102,6 +102,6 @@ describe('components/generic/CompareImageSlider', () => {
 
     global.window.dispatchEvent(new Event('resize'));
 
-    setImageWidth.should.have.callCount(2);
+    setImageWidth.should.have.callCount(1);
   });
 });

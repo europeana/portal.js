@@ -1,12 +1,13 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 
-import ItemHero from '../../../../components/item/ItemHero.vue';
+import ItemHero from '../../../../src/components/item/ItemHero.vue';
 import sinon from 'sinon';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 const storeDispatch = sinon.spy();
 const storeIsLikedGetter = sinon.stub();
+const storeIsPinnedGetter = sinon.stub();
 
 const factory = (propsData) => mount(ItemHero, {
   localVue,
@@ -22,7 +23,8 @@ const factory = (propsData) => mount(ItemHero, {
         set: { ...{ liked: [] }, ...{} }
       },
       getters: {
-        'set/isLiked': storeIsLikedGetter
+        'set/isLiked': storeIsLikedGetter,
+        'entity/isPinned': storeIsPinnedGetter
       },
       dispatch: storeDispatch
     },

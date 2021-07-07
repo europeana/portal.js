@@ -1,7 +1,7 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
 import sinon from 'sinon';
-import MoreFacetsDropdown from '../../../../components/search/MoreFiltersDropdown.vue';
+import MoreFacetsDropdown from '../../../../src/components/search/MoreFiltersDropdown.vue';
 
 const localVue = createLocalVue();
 localVue.use(Vuex);

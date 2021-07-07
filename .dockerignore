@@ -18,14 +18,14 @@ pids
 lib-cov
 
 # Coverage directory used by tools like istanbul
-coverage
+coverage/
 
 # nyc test coverage
-.nyc_output
+.nyc_output/
 
 # nuxt.js build outputs
-.nuxt
-.nuxt-test
+.nuxt/
+.nuxt-test/
 /dist
 
 # Bower dependency directory (https://bower.io/)
@@ -64,11 +64,11 @@ typings/
 .idea
 
 # Storybook
-storybook-static
-.storybook
+storybook-static/
+.storybook/
 
 # Temporary files
-tmp
+tmp/
 *.tmp
 
 # Locale folder
@@ -83,5 +83,5 @@ vars.yml
 /migrations
 
 # Git
-.git
-.github
+.git/
+.github/

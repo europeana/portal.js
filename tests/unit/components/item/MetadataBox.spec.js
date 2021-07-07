@@ -1,7 +1,7 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 
-import MetadataBox from '../../../../components/item/MetadataBox';
+import MetadataBox from '../../../../src/components/item/MetadataBox';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);

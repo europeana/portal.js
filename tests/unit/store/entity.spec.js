@@ -4,7 +4,7 @@
 // vue-test-utils using vue-cli-service and this: https://cli.vuejs.org/guide/mode-and-env.html
 // TODO: figure out why, resolve, and complete unit tests
 
-// import * as store from '../../../store/entity';
+// import * as store from '../../../src/store/entity';
 // import nock from 'nock';
 // import sinon from 'sinon';
 //

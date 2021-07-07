@@ -3,7 +3,7 @@ import { shallowMountNuxt } from '../../utils';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
-import page from '../../../../pages/item/_';
+import page from '../../../../src/pages/item/_';
 
 const optionsVar = {
   itemCountry: undefined,
@@ -28,6 +28,7 @@ const factory = () => shallowMountNuxt(page, {
       }
     };
   },
+  stubs: ['client-only'],
   mocks: {
     $config: { app: { features: {} } },
     $pageHeadTitle: key => key,

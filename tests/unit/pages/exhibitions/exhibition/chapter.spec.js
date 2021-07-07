@@ -1,9 +1,9 @@
-import exhibitionChapters from '../../../../../mixins/exhibitionChapters';
+import exhibitionChapters from '../../../../../src/mixins/exhibitionChapters';
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../../utils';
 import BootstrapVue from 'bootstrap-vue';
 
-import page from '../../../../../pages/exhibitions/_exhibition/_chapter';
+import page from '../../../../../src/pages/exhibitions/_exhibition/_chapter';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -39,6 +39,7 @@ const factory = () => shallowMountNuxt(page, {
   },
   mocks: {
     $t: key => key,
+    $tc: () => {},
     $pageHeadTitle: key => key
   }
 });

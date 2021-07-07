@@ -1,0 +1,18 @@
+.b-sidebar-backdrop.bg-black {
+  background-color: rgb(0, 0, 0);
+  opacity: 0.7;
+}
+
+
+#sidebar {
+  width: 16rem;
+  max-height: 100vh;
+  transition: $standard-transition; // fixes header appear/disappear
+}
+// fixes header appear/disappear
+.container-fluid:not(.show) {
+  #sidebar, .b-sidebar-backdrop {
+    transform: translateY(3.5rem);
+    transition: $standard-transition;
+  }
+}
