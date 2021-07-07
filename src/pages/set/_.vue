@@ -223,7 +223,7 @@
         return langMapValueForLocale(this.set.description, this.$i18n.locale);
       },
       enableRecommendations() {
-        return this.$config.app.features.recommendations;
+        return this.$config.app.features.recommendations && this.$config.app.features.acceptSetRecommendations;
       },
       displayItemCount() {
         const max = 100;
