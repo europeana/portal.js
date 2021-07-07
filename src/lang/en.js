@@ -66,7 +66,8 @@ export default {
   "cardLabels": {
     "person": "Person",
     "time": "Century",
-    "topic": "Topic"
+    "topic": "Topic",
+    "organisation": "Organisation"
   },
   "clearAllFilters": "clear all filters",
   "collections": {
@@ -669,6 +670,12 @@ export default {
       },
       "topics": {
         "title": "Topics"
+      },
+      "persons": {
+        "title": "Persons"
+      },
+      "organisations": {
+        "title": "Organisations"
       }
     }
   },
@@ -754,5 +761,6 @@ export default {
     }
   },
   "showLess": "Show less",
-  "showMore": "Show more"
+  "showMore": "Show more",
+  "website": "Website"
 };
