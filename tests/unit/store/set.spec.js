@@ -81,7 +81,7 @@ describe('store/set', () => {
         store.actions.$apis.set.modifyItems = sinon.stub().resolves({});
         const state = { likesId: setId };
 
-        store.actions.unlike({ commit, state }, itemId);
+        store.actions.unlike({ dispatch, commit, state }, itemId);
 
         store.actions.$apis.set.modifyItems.should.have.been.calledWith('delete', state.likesId, itemId);
         commit.should.have.been.calledWith('unlike', itemId);

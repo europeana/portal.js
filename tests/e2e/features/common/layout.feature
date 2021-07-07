@@ -35,6 +35,16 @@ Feature: Page layout on all pages.
     When I visit the `home page`
     Then I find the `feedback button`
 
+  Scenario: When mouse moves over the feedback button includes text
+    When I visit the `home page`
+    And I scroll the page
+    Then I find the `feedback button`
+    And I wait 1 second
+    Then I can't see `feedback button text`
+    Then I hover over the `feedback button`
+    And I wait 1 second
+    Then I see `feedback button text`
+
   Scenario: Opening the feedback widget
     When I visit the `home page`
     Then I find the `feedback button`
