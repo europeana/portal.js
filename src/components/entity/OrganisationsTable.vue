@@ -17,23 +17,28 @@
 </template>
 
 <script>
+  import axios from 'axios';
   import { getEntityTypeHumanReadable, getEntitySlug } from '../../plugins/europeana/entity';
 
   export default {
     name: 'OrganisationsTable',
-    props: {
-      organisationEntities: {
-        type: Object,
-        default: null
-      }
+    async fetch() {
+      return this.organisationEntities = await axios.get(
+        `${this.$config.app.baseUrl}/_api/entities/organisations`
+      )
+        .then(response => response.data)
+        .then(data => {
+          return data;
+        });
     },
     data() {
       return {
+        organisationEntities: null,
         sortBy: 'nameid',
         fields: [
           { key: 'nameid',
             sortable: true,
-            formatter: (value, key, item) => item.prefLabel.en || item.prefLabel[Object.keys(item.prefLabel)[0]],
+            formatter: 'getNames',
             sortByFormatted: true,
             label: 'Name' }
         ]
@@ -62,6 +67,9 @@
       },
       entityName(prefLabel) {
         return prefLabel.en || prefLabel[Object.keys(prefLabel)[0]];
+      },
+      getNames(value, key, item) {
+        return item.prefLabel.en || item.prefLabel[Object.keys(item.prefLabel)[0]];
       }
     }
   };

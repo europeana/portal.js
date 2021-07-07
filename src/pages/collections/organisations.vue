@@ -1,42 +1,27 @@
 <template>
   <b-container>
     <ContentHeader
-      :title="title"
+      :title="$t('pages.collections.organisations.title')"
     />
-    <OrganisationsTable
-      :organisation-entities="entities"
-    />
+    <client-only>
+      <OrganisationsTable />
+    </client-only>
   </b-container>
 </template>
 <script>
-  import axios from 'axios';
-
   import ContentHeader from '../../components/generic/ContentHeader';
+  import ClientOnly from 'vue-client-only';
 
   export default {
     name: 'OrganisationsPage',
     components: {
       ContentHeader,
+      ClientOnly,
       OrganisationsTable: () => import('../../components/entity/OrganisationsTable')
-    },
-    asyncData({ error, app }) {
-      return axios.get(
-        `${app.$config.app.baseUrl}/_api/entities/organisations`
-      )
-        .then(response => response.data)
-        .then(data => {
-          return {
-            entities: data,
-            title: app.i18n.t('pages.collections.organisations.title')
-          };
-        })
-        .catch((e) => {
-          error({ statusCode: 500, message: e.toString() });
-        });
     },
     head() {
       return {
-        title: this.$pageHeadTitle(this.title)
+        title: this.$pageHeadTitle(this.$t('pages.collections.organisations.title'))
       };
     },
     watchQuery: ['page']
