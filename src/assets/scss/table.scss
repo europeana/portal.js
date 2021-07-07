@@ -15,7 +15,7 @@
       display: inline-block;
       &:after {
         @extend .icon-font;
-        content: '\e937';
+        content: '\e938';
         color: $mediumgrey;
         font-size: 1rem;
         margin-left: 0.5rem;
@@ -27,7 +27,6 @@
     }
     &:hover div::after {
       color: $innovationblue;
-      transition: $standard-transition;
     }
   }
   td {
@@ -38,8 +37,6 @@
       text-decoration: none;
       &:hover {
         color: $innovationblue;
-        font-weight: 600;
-        transition: $standard-transition;
       }
     }
   }
