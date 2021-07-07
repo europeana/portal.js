@@ -1,29 +1,54 @@
 <template>
-  <b-table
-    :fields="fields"
-    :items="organisations"
-    :sort-by.sync="sortBy"
-  >
-    <template #cell(nameid)="data">
-      <b-link
-        :href="$path(entityRoute(data.item))"
-      >
-        <span>
-          {{ entityName(data.item.prefLabel) }}
-        </span>
-      </b-link>
-    </template>
-  </b-table>
+  <div>
+    <b-row
+      v-if="$fetchState.error"
+      class="flex-md-row py-4"
+    >
+      <b-col cols="12">
+        <AlertMessage
+          :error="$fetchState.error.message"
+        />
+      </b-col>
+    </b-row>
+    <b-table
+      :fields="fields"
+      :items="organisations"
+      :sort-by.sync="sortBy"
+      :busy="$fetchState.pending"
+    >
+      <template #table-busy>
+        <div class="text-center my-2">
+          <LoadingSpinner />
+          Loading...
+        </div>
+      </template>
+      <template #cell(nameid)="data">
+        <b-link
+          :href="$path(entityRoute(data.item))"
+        >
+          <span>
+            {{ entityName(data.item.prefLabel) }}
+          </span>
+        </b-link>
+      </template>
+    </b-table>
+  </div>
 </template>
 
 <script>
   import axios from 'axios';
   import { getEntityTypeHumanReadable, getEntitySlug } from '../../plugins/europeana/entity';
+  import AlertMessage from '../../components/generic/AlertMessage';
+  import LoadingSpinner from '../../components/generic/LoadingSpinner';
 
   export default {
     name: 'OrganisationsTable',
+    components: {
+      LoadingSpinner,
+      AlertMessage
+    },
     async fetch() {
-      return this.organisationEntities = await axios.get(
+      this.organisationEntities = await axios.get(
         `${this.$config.app.baseUrl}/_api/entities/organisations`
       )
         .then(response => response.data)
