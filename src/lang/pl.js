@@ -58,6 +58,11 @@ export default {
     "published": "Opublikowano w dniu {date}",
     "relatedPosts": "Powiązane posty"
   },
+  "cardLabels": {
+    "person": "Osoba",
+    "time": "Stulecie",
+    "topic": "Temat"
+  },
   "clearAllFilters": "wyczyść wszystkie filtry",
   "collections": {
     "fashion": {
@@ -119,7 +124,17 @@ export default {
     "right": "W prawo"
   },
   "edmIsShownAtLinkAlt": "Zobacz na stronie internetowej dostawcy",
-  "entity": "Jednostka",
+  "entity": {
+    "actions": {
+      "cancel": "Anuluj"
+    },
+    "labels": {
+      "entity": "Jednostka"
+    },
+    "notifications": {
+      "deleted": "Twoja galeria została usunięta."
+    }
+  },
   "error": "Błąd",
   "exhibitions": {
     "chapters": "Rozdziały",
@@ -497,6 +512,7 @@ export default {
       "collections": "Kolekcje",
       "europeanaClassroom": "Nauczyciele",
       "help": "Pomoc",
+      "home": "Dom",
       "stories": "Historie"
     },
     "searchFor": "Wyszukaj {query}",
@@ -547,6 +563,9 @@ export default {
   "noResults": "Brak Wyników",
   "pages": {
     "collections": {
+      "times": {
+        "title": "Czasy"
+      },
       "topics": {
         "title": "Tematy"
       }
@@ -561,7 +580,9 @@ export default {
     "extendedInformation": "Informacje rozszerzone",
     "goodToKnow": "Warto wiedzieć",
     "hideAll": "Ukryj wszystkie informacje",
+    "IIIFViewer": "Przeglądarka IIIF",
     "location": "Lokalizacja",
+    "locationOnMap": "Lokalizacja na mapie",
     "record": "Rekord",
     "showAll": "Pokaż wszystkie informacje",
     "similarItems": "Podobne elementy",

@@ -49,7 +49,7 @@
         if (this.organisationEntities) {
           return Object.keys(this.organisationEntities).map(organisationId => {
             const organisationObject = this.organisationEntities[organisationId];
-            return { prefLabel: organisationObject.prefLabel, id: organisationId, type: 'organisation' };
+            return { prefLabel: organisationObject.prefLabel, id: organisationId, type: 'organization' };
           });
         }
         return null;

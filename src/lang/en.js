@@ -1,5 +1,7 @@
 export default {
   "account": {
+    "curatedCollections": "Curated Collections",
+    "curatedCollectionsInfo": "Find below all collections you have curated",
     "editProfile": "Edit profile",
     "likes": "Likes",
     "linkAccount": "My Account",
@@ -11,9 +13,9 @@ export default {
       "loggedIn": "You are now logged in. Welcome!",
       "loggedOut": "You are now logged out.",
       "noCollections": {
+        "curated": "You haven’t curated any collections yet",
         "private": "You haven’t created any private galleries yet",
-        "public": "You haven’t created any public galleries yet",
-        "curated": "You haven’t curated any collections yet"
+        "public": "You haven’t created any public galleries yet"
       },
       "noLikedItems": "You haven’t liked any items yet"
     },
@@ -22,9 +24,7 @@ export default {
     "profileSettings": "Profile settings",
     "publicCollections": "Public Galleries",
     "settings": "Settings",
-    "title": "My account",
-    "curatedCollections": "Curated Collections",
-    "curatedCollectionsInfo": "Find below all collections you have curated"
+    "title": "My account"
   },
   "actions": {
     "cancel": "Cancel",
@@ -64,19 +64,14 @@ export default {
   "cardLabels": {
     "person": "Person",
     "time": "Century",
-    "topic": "Topic"
+    "topic": "Topic",
+    "organisation": "Organisation"
   },
   "clearAllFilters": "clear all filters",
   "collections": {
     "actions": {
       "edit": "Edit Collection",
       "update": "Update Collection"
-    },
-    "form": {
-      "description": "Description"
-    },
-    "notifications": {
-      "update": "The collection has been updated"
     },
     "fashion": {
       "facets": {
@@ -93,6 +88,12 @@ export default {
           "name": "Material | Materials"
         }
       }
+    },
+    "form": {
+      "description": "Description"
+    },
+    "notifications": {
+      "update": "The collection has been updated"
     }
   },
   "collectionsYouMightLike": "Collections you might like",
@@ -140,17 +141,13 @@ export default {
   "edmIsShownAtLinkAlt": "View at the provider's website",
   "entity": {
     "actions": {
+      "cancel": "Cancel",
       "pin": "Pin item",
       "unpin": "Unpin item",
-      "viewPinned": "See pinned items",
-      "cancel": "Cancel"
+      "viewPinned": "See pinned items"
     },
     "labels": {
       "entity": "Entity"
-    },
-    "prompts": {
-      "pin": "Are you sure you want to pin this item? This item will show at the top of the \"{entity}\" collection. This change might take up to 24 hours to take effect.",
-      "unpin": "Are you sure you want to unpin this item? This item will stop showing at the top of the \"{entity}\" collection. This change might take up to 24 hours to take effect."
     },
     "notifications": {
       "deleted": "Your gallery has been deleted.",
@@ -158,12 +155,15 @@ export default {
         "body": "For now you can only pin 24 items on the first page. If you want to pin this item, make sure you unpin another one and then try to pin this one again.",
         "title": "Too many pinned items"
       },
-      "pinnedFirstPage": "The item has been pinned. It might take up to 24 hours to appear for everyone.",
-      "unpinnedFirstPage": "The item has been unpinned. It might take up to 24 hours to disappear for everyone.",
       "pinned": "The item has been pinned. It is now at the top of the first page of this collection. It might take up to 24 hours to appear for everyone.",
-      "unpinned": "The item has been unpinned. It is no longer at the top of the first page of this collection. It might take up to 24 hours to disappear for everyone."
+      "pinnedFirstPage": "The item has been pinned. It might take up to 24 hours to appear for everyone.",
+      "unpinned": "The item has been unpinned. It is no longer at the top of the first page of this collection. It might take up to 24 hours to disappear for everyone.",
+      "unpinnedFirstPage": "The item has been unpinned. It might take up to 24 hours to disappear for everyone."
+    },
+    "prompts": {
+      "pin": "Are you sure you want to pin this item? This item will show at the top of the \"{entity}\" collection. This change might take up to 24 hours to take effect.",
+      "unpin": "Are you sure you want to unpin this item? This item will stop showing at the top of the \"{entity}\" collection. This change might take up to 24 hours to take effect."
     }
-
   },
   "error": "Error",
   "exhibitions": {
@@ -667,6 +667,9 @@ export default {
       "topics": {
         "title": "Topics"
       },
+      "persons": {
+        "title": "Persons"
+      },
       "organisations": {
         "title": "Organisations"
       }
@@ -753,5 +756,6 @@ export default {
     }
   },
   "showLess": "Show less",
-  "showMore": "Show more"
+  "showMore": "Show more",
+  "website": "Website"
 };
