@@ -17,16 +17,14 @@
 </template>
 
 <script>
+  import { getEntityTypeHumanReadable, getEntitySlug } from '../../plugins/europeana/entity';
+
   export default {
     name: 'OrganisationsTable',
     props: {
       organisationEntities: {
         type: Object,
         default: null
-      },
-      entityRoute: {
-        type: Function,
-        default: () => null
       }
     },
     data() {
@@ -53,6 +51,15 @@
       }
     },
     methods: {
+      entityRoute(entity) {
+        return {
+          name: 'collections-type-all',
+          params: {
+            type: getEntityTypeHumanReadable(entity.type),
+            pathMatch: getEntitySlug(entity.id, entity.prefLabel.en)
+          }
+        };
+      },
       entityName(prefLabel) {
         return prefLabel.en || prefLabel[Object.keys(prefLabel)[0]];
       }
