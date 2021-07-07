@@ -363,7 +363,7 @@
         margin-right: 0.5rem;
 
         &.icon-push-pin {
-           margin-left: 2rem;
+          margin-left: 2rem;
 
           &.active {
             visibility: visible;
@@ -375,13 +375,11 @@
             border-color: $white;
           }
 
-         +.btn {
-           margin-left: auto;
-           margin-right: 0.5rem;
-         }
-
+          +.btn {
+            margin-left: auto;
+            margin-right: 0.5rem;
+          }
         }
-
       }
 
       &-sm {
