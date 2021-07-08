@@ -40,7 +40,7 @@
         </b-button>
       </div>
       <div
-        v-if="$link.href(externalLink)"
+        v-if="externalLink && $link.href(externalLink)"
         class="external-link"
         data-qa="entity external link"
       >
