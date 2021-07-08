@@ -77,7 +77,7 @@ describe('components/search/FacetDropdown', () => {
           selected: []
         });
 
-        wrapper.setData({
+        await wrapper.setData({
           preSelected: []
         });
 
@@ -87,10 +87,10 @@ describe('components/search/FacetDropdown', () => {
       });
 
       context('when option has been selected', () => {
-        it('is enabled', () => {
+        it('is enabled', async() => {
           const wrapper = factory();
 
-          wrapper.setData({
+          await wrapper.setData({
             preSelected: ['Spain']
           });
 
@@ -104,10 +104,10 @@ describe('components/search/FacetDropdown', () => {
 
   describe('apply button', () => {
     context('when new facet option has been selected', () => {
-      it('is enabled', () => {
+      it('is enabled', async() => {
         const wrapper = factory();
 
-        wrapper.setData({
+        await wrapper.setData({
           preSelected: ['Spain', 'United Kingdom']
         });
 
@@ -118,10 +118,10 @@ describe('components/search/FacetDropdown', () => {
     });
 
     context('when no new facet options have been selected', () => {
-      it('is disabled', () => {
+      it('is disabled', async() => {
         const wrapper = factory();
 
-        wrapper.setData({
+        await wrapper.setData({
           preSelected: []
         });
 

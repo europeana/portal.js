@@ -44,7 +44,7 @@ describe('components/generic/SmartLink', () => {
 
     it('determines if the URL is an external path or not', async() => {
       const wrapper = factory();
-      wrapper.setData({ internalDomain: '.foo.com' });
+      await wrapper.setData({ internalDomain: '.foo.com' });
       await wrapper.setProps({ destination: 'https://www.example.org/url-example' });
       wrapper.vm.isExternalLink.should.be.true;
 
@@ -59,7 +59,7 @@ describe('components/generic/SmartLink', () => {
       const wrapper = factory();
       const uri = 'http://data.europeana.eu/item/123/abc';
 
-      wrapper.setData({ internalDomain: '.foo.com' });
+      await wrapper.setData({ internalDomain: '.foo.com' });
       await wrapper.setProps({ destination: uri });
       wrapper.vm.isExternalLink.should.be.false;
 
@@ -69,7 +69,7 @@ describe('components/generic/SmartLink', () => {
 
     it('returns the correct response if passed a path ending with internal domain ', async() => {
       const wrapper = factory();
-      wrapper.setData({ internalDomain: '.foo.com' });
+      await wrapper.setData({ internalDomain: '.foo.com' });
       await wrapper.setProps({ destination: 'https://www.example.org/www.foo.com' });
       wrapper.vm.isExternalLink.should.be.true;
     });

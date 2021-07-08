@@ -96,9 +96,9 @@ describe('components/item/ItemHero', () => {
         wrapper.vm.selectMedia(media[1].about);
         wrapper.vm.selectedMedia.webResourceEdmRights.def[0].should.eq(media[1].webResourceEdmRights.def[0]);
       });
-      it('unsets any selected IIIF canvas', () => {
+      it('unsets any selected IIIF canvas', async() => {
         const wrapper = factory({ media, identifier });
-        wrapper.setData({ selectedCanvas: { about: 'http://www.example.org/canvas' } });
+        await wrapper.setData({ selectedCanvas: { about: 'http://www.example.org/canvas' } });
         wrapper.vm.selectMedia(media[1].about);
         (wrapper.vm.selectedCanvas === null).should.eq(true);
       });
@@ -130,25 +130,25 @@ describe('components/item/ItemHero', () => {
     // allMediaUris set to existing media plus one iiif canvas
     const propsData = { allMediaUris: media.map((media) => media.about).concat('http://www.example.org/canvas'), media, identifier };
     context('when the webresource is the isShownBy', () => {
-      it('uses the proxy', () => {
+      it('uses the proxy', async() => {
         const wrapper = factory(propsData);
-        wrapper.setData({ selectedMedia: media[0] });
+        await wrapper.setData({ selectedMedia: media[0] });
         wrapper.vm.downloadUrl.should.eq('proxied - https://europeana1914-1918.s3.amazonaws.com/attachments/119112/10265.119112.original.jpg');
       });
     });
     context('when the webresource is a newspaper IIIF canvas', () => {
-      it('uses the proxy', () => {
+      it('uses the proxy', async() => {
         const wrapper = factory(propsData);
-        wrapper.setData({ selectedMedia: media[0] });
-        wrapper.setData({ selectedCanvas: { about: 'http://www.example.org/canvas' } });
+        await wrapper.setData({ selectedMedia: media[0] });
+        await wrapper.setData({ selectedCanvas: { about: 'http://www.example.org/canvas' } });
         wrapper.vm.downloadUrl.should.eq('proxied - http://www.example.org/canvas');
       });
     });
     context('when the webresource is an unknown IIIF canvas', () => {
-      it('does not use the proxy', () => {
+      it('does not use the proxy', async() => {
         const wrapper = factory(propsData);
-        wrapper.setData({ selectedMedia: media[0] });
-        wrapper.setData({ selectedCanvas: { about: 'http://www.example.org/another-canvas' } });
+        await wrapper.setData({ selectedMedia: media[0] });
+        await wrapper.setData({ selectedCanvas: { about: 'http://www.example.org/another-canvas' } });
         wrapper.vm.downloadUrl.should.eq('http://www.example.org/another-canvas');
       });
     });

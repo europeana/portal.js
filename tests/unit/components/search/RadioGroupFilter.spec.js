@@ -28,7 +28,7 @@ describe('components/search/RadioGroupFilter', () => {
     });
     const metadataRadio = wrapper.find('[data-qa="radio group"]');
 
-    wrapper.setData({
+    await wrapper.setData({
       selectedOption: 'metadata'
     });
     await metadataRadio.vm.$emit('change');

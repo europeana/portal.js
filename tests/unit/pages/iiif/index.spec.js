@@ -33,9 +33,9 @@ describe('pages/iiif/index.vue', () => {
 
   describe('methods', () => {
     describe('coerceResourceOnImagesToCanvases', () => {
-      it('coerces resource\'s `on` attribute to canvas ID', () => {
+      it('coerces resource\'s `on` attribute to canvas ID', async() => {
         const wrapper = factory();
-        wrapper.setData({
+        await wrapper.setData({
           imageToCanvasMap: {
             'https://example.org/image/123.jpg': 'http://example.org/presentation/123/canvas/p1'
           }

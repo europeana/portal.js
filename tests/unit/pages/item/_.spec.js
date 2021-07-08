@@ -74,10 +74,10 @@ describe('pages/item/_.vue', () => {
   });
 
   describe('head()', () => {
-    it('uses first media large thumbnail for og:image', () => {
+    it('uses first media large thumbnail for og:image', async() => {
       const thumbnailUrl = 'http://example.org/image/large.jpg';
       const wrapper = factory();
-      wrapper.setData({
+      await wrapper.setData({
         media: [
           {
             thumbnails: {

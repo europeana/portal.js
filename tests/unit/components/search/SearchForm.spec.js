@@ -124,7 +124,7 @@ describe('components/search/SearchForm', () => {
         };
         const wrapper = factory({ store: store(state) });
 
-        wrapper.setData({
+        await wrapper.setData({
           selectedOptionLink: { path: '/search', query: { query: '"Fresco"', view: state.search.view } }
         });
         wrapper.vm.submitForm();
@@ -149,10 +149,10 @@ describe('components/search/SearchForm', () => {
         }
       };
 
-      it('updates current route', () => {
+      it('updates current route', async() => {
         const wrapper = factory({ store: store(state) });
 
-        wrapper.setData({
+        await wrapper.setData({
           query
         });
         wrapper.vm.submitForm();
@@ -165,10 +165,10 @@ describe('components/search/SearchForm', () => {
       });
 
       context('when query is blank', () => {
-        it('includes empty query param', () => {
+        it('includes empty query param', async() => {
           const wrapper = factory({ store: store(state) });
 
-          wrapper.setData({
+          await wrapper.setData({
             query: undefined
           });
           wrapper.vm.submitForm();
@@ -183,7 +183,7 @@ describe('components/search/SearchForm', () => {
     });
 
     context('when not on a search page', () => {
-      it('reroutes to search', () => {
+      it('reroutes to search', async() => {
         const state = {
           search: {
             active: false,
@@ -192,7 +192,7 @@ describe('components/search/SearchForm', () => {
         };
         const wrapper = factory({ store: store(state) });
 
-        wrapper.setData({
+        await wrapper.setData({
           query
         });
         wrapper.vm.submitForm();

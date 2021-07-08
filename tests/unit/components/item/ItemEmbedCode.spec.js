@@ -54,11 +54,11 @@ describe('components/item/ItemEmbedCode', () => {
     });
   });
 
-  context('when response includes "html" property', () => {
+  context('when response includes "html" property', async() => {
     document.execCommand = sinon.spy();
 
     const wrapper = factory();
-    wrapper.setData({
+    await wrapper.setData({
       embedHtml: html
     });
 

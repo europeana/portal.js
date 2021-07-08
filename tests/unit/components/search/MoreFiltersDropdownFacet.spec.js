@@ -36,7 +36,7 @@ describe('components/search/MoreFiltersDropdownFacet', () => {
     const wrapper = factory();
     const checkboxGroup = wrapper.find('[data-qa="checkbox group"]');
 
-    wrapper.setData({ selectedOptions: ['de'] });
+    await wrapper.setData({ selectedOptions: ['de'] });
     await checkboxGroup.vm.$emit('change');
     await wrapper.vm.$nextTick();
 

@@ -53,7 +53,7 @@ describe('components/search/MoreFacetsDropdown', () => {
       selected: {}
     });
 
-    wrapper.setData({
+    await wrapper.setData({
       preSelected: {}
     });
 
@@ -70,7 +70,7 @@ describe('components/search/MoreFacetsDropdown', () => {
       }
     });
 
-    wrapper.setData({
+    await wrapper.setData({
       preSelected: {}
     });
 
@@ -84,7 +84,7 @@ describe('components/search/MoreFacetsDropdown', () => {
       selected: {}
     });
 
-    wrapper.setData({
+    await wrapper.setData({
       preSelected: {
         'LANGUAGE': ['de', 'sv']
       }
@@ -144,7 +144,7 @@ describe('components/search/MoreFacetsDropdown', () => {
       }
     });
 
-    wrapper.setData({
+    await wrapper.setData({
       preSelected: {
         'LANGUAGE': ['de', 'sv']
       }
@@ -155,10 +155,10 @@ describe('components/search/MoreFacetsDropdown', () => {
     wrapper.vm.preSelected.should.deep.eql({ 'PROVIDER': ['OpenUp!'] });
   });
 
-  it('clears all preselected data when user clicks the Reset Filter button', () => {
+  it('clears all preselected data when user clicks the Reset Filter button', async() => {
     const wrapper = factory();
 
-    wrapper.setData({
+    await wrapper.setData({
       preSelected: {
         'LANGUAGE': ['de', 'sv']
       }
@@ -194,10 +194,10 @@ describe('components/search/MoreFacetsDropdown', () => {
       });
     });
 
-    it('returns correct `end` and `start` properties if preSelected contains `proxy_dcterms_issued`', () => {
+    it('returns correct `end` and `start` properties if preSelected contains `proxy_dcterms_issued`', async() => {
       const wrapper = factory();
 
-      wrapper.setData({
+      await wrapper.setData({
         preSelected: {
           'proxy_dcterms_issued': ['[2019-12-06 TO *]']
         }
@@ -219,7 +219,7 @@ describe('components/search/MoreFacetsDropdown', () => {
           'LANGUAGE': ['de']
         }
       });
-      wrapper.setData({
+      await wrapper.setData({
         preSelected: {
           'LANGUAGE': ['de', 'fr'],
           'IMAGE_SIZE': ['MEDIUM']
@@ -235,7 +235,7 @@ describe('components/search/MoreFacetsDropdown', () => {
           'LANGUAGE': ['de']
         }
       });
-      wrapper.setData({
+      await wrapper.setData({
         preSelected: {
           'LANGUAGE': []
         }
@@ -250,7 +250,7 @@ describe('components/search/MoreFacetsDropdown', () => {
           'LANGUAGE': ['de']
         }
       });
-      wrapper.setData({
+      await wrapper.setData({
         preSelected: {
           'LANGUAGE': ['de'],
           'IMAGE_SIZE': []

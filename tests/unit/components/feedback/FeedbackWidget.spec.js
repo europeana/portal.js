@@ -74,10 +74,10 @@ describe('components/feedback/FeedbackWidget', () => {
   });
   describe('next button', () => {
     context('when there is no value for feedback', () => {
-      it('is disabled', () => {
+      it('is disabled', async() => {
         const wrapper = factory();
 
-        wrapper.setData({
+        await wrapper.setData({
           currentStep: 1,
           feedback: ''
         });
@@ -86,10 +86,10 @@ describe('components/feedback/FeedbackWidget', () => {
       });
     });
     context('when there is a value for feedback', () => {
-      it('is enabled', () => {
+      it('is enabled', async() => {
         const wrapper = factory();
 
-        wrapper.setData({
+        await wrapper.setData({
           currentStep: 1,
           feedback: 'This website is great!'
         });
@@ -99,7 +99,7 @@ describe('components/feedback/FeedbackWidget', () => {
       it('and it is clicked, it goes to the next step', async() => {
         const wrapper = factory();
 
-        wrapper.setData({
+        await wrapper.setData({
           currentStep: 1,
           feedback: 'This website is great!'
         });
@@ -110,10 +110,10 @@ describe('components/feedback/FeedbackWidget', () => {
       });
     });
     context('when there is no value for email', () => {
-      it('is disabled', () => {
+      it('is disabled', async() => {
         const wrapper = factory();
 
-        wrapper.setData({
+        await wrapper.setData({
           currentStep: 2,
           email: ''
         });
@@ -122,10 +122,10 @@ describe('components/feedback/FeedbackWidget', () => {
       });
     });
     context('when there is a value for email', () => {
-      it('is enabled', () => {
+      it('is enabled', async() => {
         const wrapper = factory();
 
-        wrapper.setData({
+        await wrapper.setData({
           currentStep: 2,
           email: 'example@mail.com'
         });
@@ -154,7 +154,7 @@ describe('components/feedback/FeedbackWidget', () => {
       it('feedback is send', async() => {
         const wrapper = factory();
 
-        wrapper.setData({
+        await wrapper.setData({
           currentStep: 2,
           email: ''
         });
@@ -168,7 +168,7 @@ describe('components/feedback/FeedbackWidget', () => {
       it('feedback is send', async() => {
         const wrapper = factory();
 
-        wrapper.setData({
+        await wrapper.setData({
           currentStep: 2,
           email: 'example@mail.com'
         });
@@ -182,7 +182,7 @@ describe('components/feedback/FeedbackWidget', () => {
       it('feedback is send', async() => {
         const wrapper = factory();
 
-        wrapper.setData({
+        await wrapper.setData({
           currentStep: 3,
           requestSuccess: false
         });
@@ -203,7 +203,7 @@ describe('components/feedback/FeedbackWidget', () => {
       nock(baseUrl).post(middlewarePath, body => (body.feedback === feedback)).reply(201);
       const wrapper = factory();
 
-      wrapper.setData({
+      await wrapper.setData({
         requestSuccess: false,
         feedback
       });
@@ -220,7 +220,7 @@ describe('components/feedback/FeedbackWidget', () => {
       )).reply(201);
       const wrapper = factory();
 
-      wrapper.setData({
+      await wrapper.setData({
         requestSuccess: false,
         feedback,
         email
