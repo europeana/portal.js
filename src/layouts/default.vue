@@ -20,9 +20,7 @@
     >
       {{ $t('layout.skipToMain') }}
     </a>
-    <PageHeader
-      keep-alive
-    />
+    <PageHeader />
     <client-only
       v-if="feedbackEnabled"
     >
@@ -39,6 +37,7 @@
       />
       <nuxt
         id="main"
+        keep-alive
       />
     </main>
     <client-only>

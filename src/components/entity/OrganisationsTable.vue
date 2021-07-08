@@ -22,12 +22,12 @@
           Loading...
         </div>
       </template>
-      <template #cell(nameid)="data">
+      <template #cell(prefLabel)="data">
         <b-link
-          :href="$path(entityRoute(data.item))"
+          :to="$path(entityRoute(data.item.slug))"
         >
           <span>
-            {{ entityName(data.item.prefLabel) }}
+            {{ data.item.prefLabel }}
           </span>
         </b-link>
       </template>
@@ -36,8 +36,6 @@
 </template>
 
 <script>
-  import axios from 'axios';
-  import { getEntityTypeHumanReadable, getEntitySlug } from '../../plugins/europeana/entity';
   import AlertMessage from '../../components/generic/AlertMessage';
   import LoadingSpinner from '../../components/generic/LoadingSpinner';
 
@@ -47,54 +45,37 @@
       LoadingSpinner,
       AlertMessage
     },
-    async fetch() {
-      this.organisationEntities = await axios.get(
-        `${this.$config.app.baseUrl}/_api/entities/organisations`
+    fetch() {
+      this.$axios.get(
+        '/_api/entities/organisations',
+        { params: { locale: this.$i18n.locale } }
       )
-        .then(response => response.data)
-        .then(data => {
-          return data;
+        .then(response => {
+          this.organisations = response.data;
         });
     },
     data() {
       return {
-        organisationEntities: null,
-        sortBy: 'nameid',
+        organisations: null,
+        sortBy: 'prefLabel',
         fields: [
-          { key: 'nameid',
+          {
+            key: 'prefLabel',
             sortable: true,
-            formatter: 'getNames',
-            sortByFormatted: true,
-            label: 'Name' }
+            label: 'Name'
+          }
         ]
       };
     },
-    computed: {
-      organisations() {
-        if (this.organisationEntities) {
-          return Object.keys(this.organisationEntities).map(organisationId => {
-            const organisationObject = this.organisationEntities[organisationId];
-            return { prefLabel: organisationObject.prefLabel, id: organisationId, type: 'organization' };
-          });
-        }
-        return null;
-      }
-    },
     methods: {
-      entityRoute(entity) {
+      entityRoute(slug) {
         return {
           name: 'collections-type-all',
           params: {
-            type: getEntityTypeHumanReadable(entity.type),
-            pathMatch: getEntitySlug(entity.id, entity.prefLabel.en)
+            type: 'organisation',
+            pathMatch: slug
           }
         };
-      },
-      entityName(prefLabel) {
-        return prefLabel.en || prefLabel[Object.keys(prefLabel)[0]];
-      },
-      getNames(value, key, item) {
-        return item.prefLabel.en || item.prefLabel[Object.keys(item.prefLabel)[0]];
       }
     }
   };
