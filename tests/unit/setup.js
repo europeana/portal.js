@@ -11,7 +11,6 @@ axios.defaults.adapter = require('axios/lib/adapters/http');
 
 const sinon = require('sinon');
 
-// FIXME: breaks running individual unit tests w/ e.g. `npm run test:unit tests/unit/some.spec.js`
 import '../../src/plugins/vue-filters';
 
 global.localStorage = {
