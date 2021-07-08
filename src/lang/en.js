@@ -41,7 +41,9 @@ export default {
     "shareOn": "Share on {social}",
     "skip": "Skip",
     "viewAt": "View at {link}",
-    "viewDocument": "View document"
+    "viewDocument": "View document",
+    "accept": "Accept",
+    "reject": "Reject"
   },
   "attribution": {
     "country": "Country:",
@@ -560,7 +562,9 @@ export default {
   "items": {
     "itemCount": "1 item |{count} items",
     "itemOf": "{max} of {count} items",
-    "youMightLike": "Items you might like"
+    "recommended": "Recommended items",
+    "youMightLike": "Items you might like",
+    "recommendationsDisclaimer": "Thumb up to add to the gallery - Thumb down if you dislike it"
   },
   "klaro": {
     "main": {
@@ -746,6 +750,7 @@ export default {
     },
     "notifications": {
       "deleted": "Your gallery has been deleted.",
+      "updated": "The item was added to the gallery.",
       "likeLimit": {
         "body": "We are sorry, but you are limited at the moment to liking a maximum of 100 items. We will remove this limit soon!",
         "title": "100 likes"

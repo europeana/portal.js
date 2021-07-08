@@ -18,6 +18,16 @@ header .col {
   line-height: 1;
 }
 
+.related-subtitle {
+  color: $mediumgrey;
+
+  .icon-info-outline {
+    position: relative;
+    bottom: 2px;
+    font-size: 22px;
+  }
+}
+
 .text-page {
   background: $white;
   margin-top: -3rem;
