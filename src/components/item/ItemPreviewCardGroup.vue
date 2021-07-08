@@ -20,6 +20,7 @@
         :variant="cardVariant"
         class="item"
         :lazy="false"
+        :recommended-item="recommendations"
         :show-pins="showPins"
         data-qa="item preview"
         @like="$emit('like', item.id)"
@@ -76,6 +77,10 @@
         default: 'grid'
       },
       showPins: {
+        type: Boolean,
+        default: false
+      },
+      recommendations: {
         type: Boolean,
         default: false
       }
