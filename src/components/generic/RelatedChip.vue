@@ -69,7 +69,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../../assets/scss/variables.scss';
+  @import '@/assets/scss/variables.scss';
   .badge-light {
     color: $black;
     font-size: $font-size-small;

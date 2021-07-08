@@ -147,7 +147,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../../assets/scss/variables.scss';
+  @import '@/assets/scss/variables.scss';
 
   // TODO: move the code below to video component when we switch to new item page
   ::v-deep video {

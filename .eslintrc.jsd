@@ -1,16 +1,28 @@
 module.exports = {
   root: true,
+
   env: {
+    browser: true,
+    es6: true,
     node: true
   },
-  'extends': [
-    'plugin:vue/essential',
-    'plugin:vue/recommended',
-    'eslint:recommended'
-  ],
+
   parserOptions: {
+    parser: 'vue-eslint-parser',
     ecmaVersion: 2020
   },
+
+  extends: [
+    'eslint:recommended',
+    'plugin:vue/recommended'
+  ],
+
+  // required to lint *.vue files
+  plugins: [
+    'vue'
+  ],
+
+  // add your custom rules here
   rules: {
     'array-bracket-newline': ['error', 'consistent'],
     'array-bracket-spacing': ['error', 'never'],
@@ -78,6 +90,13 @@ module.exports = {
     'switch-colon-spacing': 'error',
     'vue/script-indent': ['error', 2, { baseIndent: 1 }]
   },
+
+  'overrides': [
+    'eslint:recommended',
+    'plugin:vue/recommended',
+    'plugin:vue/essential'
+  ],
+
   overrides: [
     {
       files: [

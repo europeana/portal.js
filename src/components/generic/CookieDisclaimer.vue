@@ -98,7 +98,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../../assets/scss/variables.scss';
+  @import '@/assets/scss/variables.scss';
 
   .cookie-disclaimer {
     transition: all 0.4s ease;
