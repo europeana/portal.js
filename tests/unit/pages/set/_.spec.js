@@ -18,7 +18,8 @@ const factory = (set = {}) => shallowMountNuxt(page, {
   localVue,
   data() {
     return {
-      recommendations: []
+      recommendations: [],
+      userIsEntityEditor: false
     };
   },
   mocks: {

@@ -71,7 +71,7 @@
             </b-row>
             <div class="d-inline-flex collection-buttons">
               <template
-                v-if="userIsOwner"
+                v-if="userIsOwner || userIsEntityEditor"
               >
                 <b-button
                   variant="outline-primary"
@@ -174,7 +174,7 @@
     async fetch() {
       try {
         await this.$store.dispatch('set/fetchActive', this.$route.params.pathMatch);
-        if (this.enableRecommendations && this.$auth.loggedIn && this.userIsOwner) {
+        if (this.enableRecommendations && this.$auth.loggedIn && (this.userIsOwner || this.userIsEntityEditor)) {
           this.$store.dispatch('set/fetchActiveRecommendations', `/${this.$route.params.pathMatch}`);
         }
       } catch (apiError) {
@@ -212,6 +212,13 @@
         return this.$store.state.auth.user &&
           this.setCreatorId &&
           this.setCreatorId.endsWith(`/${this.$store.state.auth.user.sub}`);
+      },
+      userIsEntityEditor() {
+        const user = this.$store.state.auth.user;
+        const entityGallery = this.set.type === 'EntityBestItemsSet';
+        const entitiesEditor = user.resource_access.entities && user.resource_access.entities.roles.includes('editor');
+        const usersetsEditor = user.resource_access.usersets && user.resource_access.usersets.roles.includes('editor');
+        return user && entityGallery && entitiesEditor && usersetsEditor;
       },
       displayTitle() {
         if (this.$fetchState.error) {
@@ -263,7 +270,7 @@
       },
 
       getRecommendations() {
-        if (this.enableRecommendations && this.$auth.loggedIn && this.userIsOwner) {
+        if (this.enableRecommendations && this.$auth.loggedIn && (this.userIsOwner || this.userIsEntityEditor)) {
           this.$store.dispatch('set/fetchActiveRecommendations', `/${this.$route.params.pathMatch}`);
         }
       }
