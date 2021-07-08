@@ -20,47 +20,47 @@ const factory = () => mount(CiteAttribution, {
 });
 
 describe('components/generic/CiteAttribution', () => {
-  it('has a link', () => {
+  it('has a link', async() => {
     const url = 'http://www.example.org/something';
     const wrapper = factory();
-    wrapper.setProps({ url });
+    await wrapper.setProps({ url });
 
     const link = wrapper.find('cite a');
     link.attributes().href.should.eq(url);
   });
 
-  it('has an attribution', () => {
+  it('has an attribution', async() => {
     const wrapper = factory();
-    wrapper.setProps({ creator: 'Johannes Vermeer' });
+    await wrapper.setProps({ creator: 'Johannes Vermeer' });
 
     const attribution = wrapper.find('cite a');
     attribution.text().should.contain('Johannes Vermeer');
   });
 
-  it('has a rights statement', () => {
+  it('has a rights statement', async() => {
     const wrapper = factory();
-    wrapper.setProps({ rightsStatement: 'http://rightsstatements.org/vocab/InC/1.0/' });
+    await wrapper.setProps({ rightsStatement: 'http://rightsstatements.org/vocab/InC/1.0/' });
 
     const rights = wrapper.find('cite a span');
     rights.text().should.contain('In Copyright');
   });
 
   describe('.linkText', () => {
-    it('is concatenates name, creator and provider', () => {
+    it('is concatenates name, creator and provider', async() => {
       const name = 'Something';
       const creator = 'Someone';
       const provider = 'Somewhere';
       const wrapper = factory();
-      wrapper.setProps({ name, creator, provider });
+      await wrapper.setProps({ name, creator, provider });
 
       wrapper.vm.linkText.should.eq('Something, Someone, Somewhere');
     });
 
-    it('omits empty fields', () => {
+    it('omits empty fields', async() => {
       const name = 'Something';
       const provider = 'Somewhere';
       const wrapper = factory();
-      wrapper.setProps({ name, provider });
+      await wrapper.setProps({ name, provider });
 
       wrapper.vm.linkText.should.eq('Something, Somewhere');
     });

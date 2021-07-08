@@ -39,10 +39,10 @@ const dummySection = {
 
 describe('components/browse/ContentCardSection', () => {
   describe('headline', () => {
-    it('is displayed as a h2', () => {
+    it('is displayed as a h2', async() => {
       const wrapper = factory();
 
-      wrapper.setProps({ section: dummySection });
+      await wrapper.setProps({ section: dummySection });
 
       const headline =  wrapper.find('h2[data-qa="section headline"]');
 
@@ -51,28 +51,28 @@ describe('components/browse/ContentCardSection', () => {
   });
 
   describe('card group', () => {
-    it('displays each card', () => {
+    it('displays each card', async() => {
       const wrapper = factory();
 
-      wrapper.setProps({ section: dummySection });
+      await wrapper.setProps({ section: dummySection });
 
       const cardGroup = wrapper.find('[data-qa="section group"]');
 
       cardGroup.findAll('[data-qa="content card"]').length.should.eq(2);
     });
 
-    it('displays a button', () => {
+    it('displays a button', async() => {
       const wrapper = factory();
-      wrapper.setProps({ section: dummySection });
+      await wrapper.setProps({ section: dummySection });
 
       const moreButton = wrapper.find('[data-qa="section more button"]');
       moreButton.text().should.contain('Show more art');
       moreButton.attributes('href').should.eq('http://europeana.eu');
     });
 
-    it('displays mini cards if a section is exclusively people', () => {
+    it('displays mini cards if a section is exclusively people', async() => {
       const wrapper = factory();
-      wrapper.setProps({
+      await wrapper.setProps({
         section: {
           hasPartCollection: {
             items: [
@@ -88,9 +88,9 @@ describe('components/browse/ContentCardSection', () => {
       wrapper.vm.isPeopleSection.should.equal(true);
     });
 
-    it('does not display mini cards if a section is not exclusively people', () => {
+    it('does not display mini cards if a section is not exclusively people', async() => {
       const wrapper = factory();
-      wrapper.setProps({
+      await wrapper.setProps({
         section: {
           hasPartCollection: {
             items: [

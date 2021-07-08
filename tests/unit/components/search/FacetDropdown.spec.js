@@ -41,10 +41,10 @@ const factory = () => shallowMount(FacetDropdown, {
 });
 
 describe('components/search/FacetDropdown', () => {
-  it('puts selected options to the top list in descending count value order', () => {
+  it('puts selected options to the top list in descending count value order', async() => {
     const wrapper = factory();
 
-    wrapper.setProps({
+    await wrapper.setProps({
       selected: ['Spain', 'United Kingdom']
     });
 
@@ -70,10 +70,10 @@ describe('components/search/FacetDropdown', () => {
 
   describe('reset button', () => {
     context('when nothing has been selected', () => {
-      it('is disabled', () => {
+      it('is disabled', async() => {
         const wrapper = factory();
 
-        wrapper.setProps({
+        await wrapper.setProps({
           selected: []
         });
 

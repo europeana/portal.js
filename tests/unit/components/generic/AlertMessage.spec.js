@@ -13,9 +13,9 @@ const factory = () => shallowMount(AlertMessage, {
 });
 
 describe('components/generic/AlertMessage', () => {
-  it('show an error message', () => {
+  it('show an error message', async() => {
     const wrapper = factory();
-    wrapper.setProps({ error: 'No results' });
+    await wrapper.setProps({ error: 'No results' });
 
     const message =  wrapper.find('[data-qa="error notice"]');
     message.text().should.contain('No results');

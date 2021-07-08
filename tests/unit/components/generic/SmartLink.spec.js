@@ -34,51 +34,51 @@ const factory = () => {
 
 describe('components/generic/SmartLink', () => {
   context('when passed a URL', () => {
-    it('should render a link to the site', () => {
+    it('should render a link to the site', async() => {
       const wrapper = factory();
-      wrapper.setProps({ destination: 'https://www.example.org/url-example' });
+      await wrapper.setProps({ destination: 'https://www.example.org/url-example' });
 
       wrapper.contains('b-link-stub').should.be.true;
       wrapper.find('b-link-stub').attributes('href').should.exist;
     });
 
-    it('determines if the URL is an external path or not', () => {
+    it('determines if the URL is an external path or not', async() => {
       const wrapper = factory();
       wrapper.setData({ internalDomain: '.foo.com' });
-      wrapper.setProps({ destination: 'https://www.example.org/url-example' });
+      await wrapper.setProps({ destination: 'https://www.example.org/url-example' });
       wrapper.vm.isExternalLink.should.be.true;
 
-      wrapper.setProps({ destination: '/test' });
+      await wrapper.setProps({ destination: '/test' });
       wrapper.vm.isExternalLink.should.be.false;
 
-      wrapper.setProps({ destination: 'www.foo.com/test' });
+      await wrapper.setProps({ destination: 'www.foo.com/test' });
       wrapper.vm.isExternalLink.should.be.false;
     });
 
-    it('links data.europeana.eu/item URIs to record page', () => {
+    it('links data.europeana.eu/item URIs to record page', async() => {
       const wrapper = factory();
       const uri = 'http://data.europeana.eu/item/123/abc';
 
       wrapper.setData({ internalDomain: '.foo.com' });
-      wrapper.setProps({ destination: uri });
+      await wrapper.setProps({ destination: uri });
       wrapper.vm.isExternalLink.should.be.false;
 
       wrapper.contains('b-link-stub').should.be.true;
       wrapper.find('b-link-stub').attributes('to').should.exist;
     });
 
-    it('returns the correct response if passed a path ending with internal domain ', () => {
+    it('returns the correct response if passed a path ending with internal domain ', async() => {
       const wrapper = factory();
       wrapper.setData({ internalDomain: '.foo.com' });
-      wrapper.setProps({ destination: 'https://www.example.org/www.foo.com' });
+      await wrapper.setProps({ destination: 'https://www.example.org/www.foo.com' });
       wrapper.vm.isExternalLink.should.be.true;
     });
   });
 
   context('when passed a URL path', () => {
-    it('should render a Nuxt link', () => {
+    it('should render a Nuxt link', async() => {
       const wrapper = factory();
-      wrapper.setProps({ destination: '/url/path-example' });
+      await wrapper.setProps({ destination: '/url/path-example' });
 
       wrapper.contains('b-link-stub').should.be.true;
       wrapper.find('b-link-stub').attributes('to').should.exist;
@@ -86,9 +86,9 @@ describe('components/generic/SmartLink', () => {
   });
 
   context('with a named route object', () => {
-    it('should render a Nuxt link', () => {
+    it('should render a Nuxt link', async() => {
       const wrapper = factory();
-      wrapper.setProps({ destination: { name: 'route-to-somewhere' } });
+      await wrapper.setProps({ destination: { name: 'route-to-somewhere' } });
 
       wrapper.contains('b-link-stub').should.be.true;
       wrapper.find('b-link-stub').attributes('to').should.exist;
@@ -98,21 +98,21 @@ describe('components/generic/SmartLink', () => {
   describe('.itemIdentifier', () => {
     context('when `destination` is present', () => {
       context('and is a data.europeana.eu item URI', () => {
-        it('extracts identifier from it', () => {
+        it('extracts identifier from it', async() => {
           const identifier = '/123/abc';
           const destination = `http://data.europeana.eu/item${identifier}`;
           const wrapper = factory();
-          wrapper.setProps({ destination });
+          await wrapper.setProps({ destination });
 
           wrapper.vm.itemIdentifier.should.eq(identifier);
         });
       });
 
       context('but is not a data.europeana.eu item URI', () => {
-        it('is `null`', () => {
+        it('is `null`', async() => {
           const destination = 'http://www.example.org/something';
           const wrapper = factory();
-          wrapper.setProps({ destination });
+          await wrapper.setProps({ destination });
 
           (wrapper.vm.itemIdentifier === null).should.be.true;
         });
@@ -130,11 +130,11 @@ describe('components/generic/SmartLink', () => {
 
   describe('.path', () => {
     context('when destination is a data.europeana.eu URI', () => {
-      it('returns a route object', () => {
+      it('returns a route object', async() => {
         const identifierSlug = '123/abc';
         const destination = `http://data.europeana.eu/item/${identifierSlug}`;
         const wrapper = factory();
-        wrapper.setProps({ destination });
+        await wrapper.setProps({ destination });
 
         wrapper.vm.path;
         $pathSpy.should.have.been.calledWith({
@@ -145,11 +145,11 @@ describe('components/generic/SmartLink', () => {
     });
 
     context('when destination is an absolute URL path', () => {
-      it('returns a route object', () => {
+      it('returns a route object', async() => {
         const slug = 'about-us';
         const destination = `/${slug}`;
         const wrapper = factory();
-        wrapper.setProps({ destination });
+        await wrapper.setProps({ destination });
 
         wrapper.vm.path;
         $pathSpy.should.have.been.calledWith({

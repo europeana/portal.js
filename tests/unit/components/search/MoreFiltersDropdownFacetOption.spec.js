@@ -19,10 +19,10 @@ const factory = () => shallowMount(MoreFiltersDropdownFacetOption, {
 
 describe('components/search/MoreFiltersDropdownFacetOption', () => {
   describe('forColourPalette', () => {
-    it('is true for COLOURPALETTE facet', () => {
+    it('is true for COLOURPALETTE facet', async() => {
       const wrapper = factory();
 
-      wrapper.setProps({
+      await wrapper.setProps({
         facetName: 'COLOURPALETTE'
       });
 

@@ -207,9 +207,9 @@ describe('components/account/UserButtons', () => {
   });
 
   describe('pin button', () => {
-    it('is visible', () => {
+    it('is visible', async() => {
       const wrapper = factory();
-      wrapper.setProps({ showPins: true });
+      await wrapper.setProps({ showPins: true });
 
       const pinButton = wrapper.find('[data-qa="pin button"]');
 
@@ -221,17 +221,17 @@ describe('components/account/UserButtons', () => {
         storeIsPinnedGetter.returns(false);
       });
 
-      it('is rendered as unpressed', () => {
+      it('is rendered as unpressed', async() => {
         const wrapper = factory();
-        wrapper.setProps({ showPins: true });
+        await wrapper.setProps({ showPins: true });
 
         const pinButton = wrapper.find('[data-qa="pin button"]');
         pinButton.attributes('aria-pressed').should.eq('false');
       });
       context('when pressed', () => {
-        it('shows the pin modal', () => {
+        it('shows the pin modal', async() => {
           const wrapper = factory();
-          wrapper.setProps({ showPins: true });
+          await wrapper.setProps({ showPins: true });
 
           const pinButton = wrapper.find('[data-qa="pin button"]');
           const bvModalShow = sinon.spy(wrapper.vm.$bvModal, 'show');
@@ -247,17 +247,17 @@ describe('components/account/UserButtons', () => {
         storeIsPinnedGetter.returns(true);
       });
 
-      it('is rendered as pressed', () => {
+      it('is rendered as pressed', async() => {
         const wrapper = factory();
-        wrapper.setProps({ showPins: true });
+        await wrapper.setProps({ showPins: true });
 
         const pinButton = wrapper.find('[data-qa="pin button"]');
         pinButton.attributes('aria-pressed').should.eq('true');
       });
       context('when pressed', () => {
-        it('shows the pin modal', () => {
+        it('shows the pin modal', async() => {
           const wrapper = factory();
-          wrapper.setProps({ showPins: true });
+          await wrapper.setProps({ showPins: true });
 
           const pinButton = wrapper.find('[data-qa="pin button"]');
           const bvModalShow = sinon.spy(wrapper.vm.$bvModal, 'show');

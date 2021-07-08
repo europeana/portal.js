@@ -38,9 +38,9 @@ const factory = () => shallowMount(PageFooter, {
 });
 
 describe('components/PageFooter', () => {
-  it('contains the language selector', () => {
+  it('contains the language selector', async() => {
     const wrapper = factory();
-    wrapper.setProps({
+    await wrapper.setProps({
       enableLanguageSelector: true
     });
     const selector = wrapper.find('[data-qa="language selector"]');

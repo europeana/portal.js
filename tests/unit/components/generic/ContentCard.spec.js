@@ -30,9 +30,9 @@ const factory = () => mount(ContentCard, {
 });
 
 describe('components/generic/ContentCard', () => {
-  it('has a description', () => {
+  it('has a description', async() => {
     const wrapper = factory();
-    wrapper.setProps({ texts: ['The Milkmaid by Vermeer'] });
+    await wrapper.setProps({ texts: ['The Milkmaid by Vermeer'] });
 
     const description =  wrapper.find('[data-qa="content card"] .card-body');
     description.text().should.eq('The Milkmaid by Vermeer');
@@ -74,9 +74,9 @@ describe('components/generic/ContentCard', () => {
     for (const test of tests) {
       describe(`for ${test.type}`, () => {
         for (const url of test.urls) {
-          it(`is shown for ${JSON.stringify(url)}`, () => {
+          it(`is shown for ${JSON.stringify(url)}`, async() => {
             const wrapper = factory();
-            wrapper.setProps({ url });
+            await wrapper.setProps({ url });
 
             const label =  wrapper.find('[data-qa="content card"] .card-subtitle');
             if (test.type === 'collections') {
@@ -92,41 +92,41 @@ describe('components/generic/ContentCard', () => {
     }
   });
 
-  it('has a creator and institution', () => {
+  it('has a creator and institution', async() => {
     const wrapper = factory();
-    wrapper.setProps({ texts: ['Edvard Munch', 'Munchmuseet (The Munch Museum)'] });
+    await wrapper.setProps({ texts: ['Edvard Munch', 'Munchmuseet (The Munch Museum)'] });
 
     const description =  wrapper.find('[data-qa="content card"] .card-body');
     description.text().should.contain('Edvard Munch');
     description.text().should.contain('Munchmuseet');
   });
 
-  it('has a link', () => {
+  it('has a link', async() => {
     const wrapper = factory();
-    wrapper.setProps({ url: 'https://example.org' });
+    await wrapper.setProps({ url: 'https://example.org' });
 
     const link =  wrapper.find('[data-qa="content card"] .card-link');
     link.attributes().href.should.eq('https://example.org');
   });
 
-  it('has an image', () => {
+  it('has an image', async() => {
     const wrapper = factory();
-    wrapper.setProps({ imageUrl: 'https://example.org' });
+    await wrapper.setProps({ imageUrl: 'https://example.org' });
 
     const card =  wrapper.find('[data-qa="content card"] .card-img img');
     card.should.exist;
   });
 
-  it('has an optimised image', () => {
+  it('has an optimised image', async() => {
     const wrapper = factory();
-    wrapper.setProps({ imageUrl: '//images.ctfassets.net/example/example.jpg', imageContentType: 'image/jpeg' });
+    await wrapper.setProps({ imageUrl: '//images.ctfassets.net/example/example.jpg', imageContentType: 'image/jpeg' });
 
     wrapper.vm.optimisedImageUrl.should.contain('fm=jpg&fl=progressive&q=50');
   });
 
-  it('has an optimised image with max width', () => {
+  it('has an optimised image with max width', async() => {
     const wrapper = factory();
-    wrapper.setProps({
+    await wrapper.setProps({
       imageUrl: '//images.ctfassets.net/example/example.jpg',
       imageContentType: 'image/jpeg',
       imageOptimisationOptions: { width: 510 }
@@ -135,9 +135,9 @@ describe('components/generic/ContentCard', () => {
     wrapper.vm.optimisedImageUrl.should.contain('fm=jpg&fl=progressive&q=50&w=510');
   });
 
-  it('highlights the search term if found', () => {
+  it('highlights the search term if found', async() => {
     const wrapper = factory();
-    wrapper.setProps({
+    await wrapper.setProps({
       hitsText: {
         prefix: 'The quick brown ',
         exact: 'fox',

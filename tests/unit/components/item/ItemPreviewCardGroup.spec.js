@@ -59,10 +59,10 @@ const results = [
 
 describe('components/item/ItemPreviewCardGroup', () => {
   context('when view is grid', () => {
-    it('renders each result with a link', () => {
+    it('renders each result with a link', async() => {
       const wrapper = factory();
 
-      wrapper.setProps({ value: results, view: 'grid' });
+      await wrapper.setProps({ value: results, view: 'grid' });
 
       const renderedResults =  wrapper.findAll('[data-qa="item preview"]');
 
@@ -72,10 +72,10 @@ describe('components/item/ItemPreviewCardGroup', () => {
   });
 
   context('when view is list', () => {
-    it('renders each result with a link', () => {
+    it('renders each result with a link', async() => {
       const wrapper = factory();
 
-      wrapper.setProps({ value: results, view: 'list' });
+      await wrapper.setProps({ value: results, view: 'list' });
 
       const renderedResults =  wrapper.findAll('div[data-qa="item preview"]');
 

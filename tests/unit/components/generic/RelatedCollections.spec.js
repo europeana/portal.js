@@ -70,9 +70,9 @@ const relatedChips = [
 ];
 
 describe('components/generic/RelatedCollections', () => {
-  context('when related collections are found', () => {
+  context('when related collections are found', async() => {
     const wrapper = factory();
-    wrapper.setProps({ relatedCollections: relatedChips });
+    await wrapper.setProps({ relatedCollections: relatedChips });
 
     it('shows a section with related collections chips', () => {
       const relatedCollections = wrapper.find('[data-qa="related collections"]');
@@ -85,9 +85,9 @@ describe('components/generic/RelatedCollections', () => {
     });
   });
 
-  context('when no related collections are found', () => {
+  context('when no related collections are found', async() => {
     const wrapper = factory();
-    wrapper.setProps({ relatedCollections: [] });
+    await wrapper.setProps({ relatedCollections: [] });
 
     it('related collections does not render', () => {
       const relatedCollections = wrapper.find('[data-qa="related collections"]');

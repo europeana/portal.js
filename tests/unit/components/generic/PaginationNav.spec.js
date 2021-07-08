@@ -10,17 +10,17 @@ const factory = () => shallowMount(PaginationNav, {
 });
 
 describe('components/generic/PaginationNav', () => {
-  it('shows pagination for number of pages', () => {
+  it('shows pagination for number of pages', async() => {
     const wrapper = factory();
-    wrapper.setProps({ totalResults: 240, perPage: 24 });
+    await wrapper.setProps({ totalResults: 240, perPage: 24 });
 
     wrapper.attributes().numberofpages.should.eq('10');
   });
 
   context('if maxResults is 1000', () => {
-    it('limits pagination to 1000 results', () => {
+    it('limits pagination to 1000 results', async() => {
       const wrapper = factory();
-      wrapper.setProps({ maxResults: 1000, totalResults: 123456, perPage: 24 });
+      await wrapper.setProps({ maxResults: 1000, totalResults: 123456, perPage: 24 });
 
       wrapper.attributes().numberofpages.should.eq('42');
     });
