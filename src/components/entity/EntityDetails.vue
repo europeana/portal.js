@@ -40,13 +40,13 @@
         </b-button>
       </div>
       <div
-        v-if="externalLink && $link.href(externalLink)"
+        v-if="externalLink"
         class="external-link"
         data-qa="entity external link"
       >
         {{ $t('website') }}:
         <b-link
-          :href="$link.href(externalLink)"
+          :href="externalLink"
           target="_blank"
           class="is-external-link"
         >

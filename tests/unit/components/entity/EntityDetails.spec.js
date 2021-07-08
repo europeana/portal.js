@@ -2,13 +2,6 @@ import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 
 import EntityDetails from '../../../../src/components/entity/EntityDetails.vue';
-import linkPluginModule from '../../../../src/plugins/link';
-
-let linkPlugin;
-linkPluginModule(
-  {},
-  (name, plugin) => linkPlugin = plugin
-);
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -24,8 +17,7 @@ const factory = (propsData = {}) => mount(EntityDetails, {
     $config: { app: { internalLinkDomain: null } },
     $t: (val) => val,
     $i18n,
-    $path: () => '/',
-    $link: linkPlugin
+    $path: () => '/'
   }
 });
 
@@ -100,12 +92,6 @@ describe('components/entity/EntityDetails', () => {
       const wrapper = factory(entityDetails);
       wrapper.findAll('[data-qa="entity external link"]').exists().should.be.true;
       wrapper.find('[data-qa="entity external link"] a span:first-child').text().should.eq('historymuseum.org/en/');
-    });
-    it('does not show a link when an invalid URL is provided', () => {
-      entityDetails.externalLink = 'www.historymuseum.org/en/';
-
-      const wrapper = factory(entityDetails);
-      wrapper.findAll('[data-qa="entity external link"]').exists().should.be.false;
     });
   });
 });

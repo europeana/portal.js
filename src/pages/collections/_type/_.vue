@@ -100,6 +100,7 @@
   import { BASE_URL as EUROPEANA_DATA_URL } from '../../../plugins/europeana/data';
   import { getEntityTypeHumanReadable, getEntitySlug, getEntityUri } from '../../../plugins/europeana/entity';
   import { langMapValueForLocale } from  '../../../plugins/europeana/utils';
+  import { uriRegex }  from '../../../plugins/europeana/utils';
 
   export default {
     components: {
@@ -244,7 +245,8 @@
       homepage() {
         if (this.collectionType === 'organisation' &&
           this.entity &&
-          this.entity.homepage) {
+          this.entity.homepage &&
+          uriRegex.test(this.entity.homepage)) {
           return this.entity.homepage;
         }
         return null;
