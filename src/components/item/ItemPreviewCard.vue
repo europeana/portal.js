@@ -13,25 +13,29 @@
     :lazy="lazy"
   >
     <template v-slot:buttons>
-      <UserButtons
-        v-model="identifier"
-        :show-pins="showPins"
-        @like="$emit('like', identifier)"
-        @unlike="$emit('unlike', identifier)"
-      />
+      <client-only>
+        <UserButtons
+          v-model="identifier"
+          :show-pins="showPins"
+          @like="$emit('like', identifier)"
+          @unlike="$emit('unlike', identifier)"
+        />
+      </client-only>
     </template>
   </ContentCard>
 </template>
 
 <script>
-  import { genericThumbnail } from '../../plugins/europeana/thumbnail';
+  import { genericThumbnail } from '@/plugins/europeana/thumbnail';
 
+  import ClientOnly from 'vue-client-only';
   import ContentCard from '../generic/ContentCard';
 
   export default {
     name: 'ItemPreviewCard',
 
     components: {
+      ClientOnly,
       ContentCard,
       UserButtons: () => import('../account/UserButtons')
     },
