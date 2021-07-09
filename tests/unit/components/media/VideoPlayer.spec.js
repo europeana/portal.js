@@ -1,6 +1,6 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import VideoPlayer from '../../../../src/components/media/VideoPlayer.vue';
+import VideoPlayer from '@/components/media/VideoPlayer.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);

@@ -3,7 +3,7 @@ import BootstrapVue from 'bootstrap-vue';
 import Vuex from 'vuex';
 import sinon from 'sinon';
 
-import RelatedCollections from '../../../../src/components/generic/RelatedCollections.vue';
+import RelatedCollections from '@/components/generic/RelatedCollections.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);

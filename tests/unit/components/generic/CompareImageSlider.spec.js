@@ -1,7 +1,7 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
-import CompareImageSlider from '../../../../src/components/generic/CompareImageSlider.vue';
+import CompareImageSlider from '@/components/generic/CompareImageSlider.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);

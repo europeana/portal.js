@@ -2,7 +2,7 @@ import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 import nock from 'nock';
-import FeedbackWidget from '../../../../src/components/feedback/FeedbackWidget.vue';
+import FeedbackWidget from '@/components/feedback/FeedbackWidget.vue';
 import VueI18n from 'vue-i18n';
 
 const localVue = createLocalVue();
@@ -45,25 +45,28 @@ describe('components/feedback/FeedbackWidget', () => {
       });
     });
     context('after scrolling', () => {
-      it('shrinks', () => {
+      it('shrinks', async() => {
         const wrapper = factory();
         global.window.dispatchEvent(new Event('scroll'));
+        await wrapper.vm.$nextTick();
         const button = wrapper.find('[data-qa="feedback button"]');
         button.attributes().class.should.not.contain('big');
       });
       context('and on mouseover', () => {
-        it('grows big', () => {
+        it('grows big', async() => {
           const wrapper = factory();
           global.window.dispatchEvent(new Event('scroll'));
           const button = wrapper.find('[data-qa="feedback button"]');
           button.trigger('mouseover');
+          await wrapper.vm.$nextTick();
           button.attributes().class.should.contain('big');
         });
       });
       context('and on mouseleave', () => {
-        it('shrinks again', () => {
+        it('shrinks again', async() => {
           const wrapper = factory();
           global.window.dispatchEvent(new Event('scroll'));
+          await wrapper.vm.$nextTick();
           const button = wrapper.find('[data-qa="feedback button"]');
           button.trigger('mouseover');
           button.trigger('mouseleave');

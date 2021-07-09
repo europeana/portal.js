@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import MetadataField from '../../../../src/components/item/MetadataField.vue';
+import MetadataField from '@/components/item/MetadataField.vue';
 
 const $i18n = {
   locales: [{ code: 'en', name: 'English' }, { code: 'de', name: 'Deutsch' }],

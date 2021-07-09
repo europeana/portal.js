@@ -3,7 +3,7 @@ import BootstrapVue from 'bootstrap-vue';
 import VueRouter from 'vue-router';
 import sinon from 'sinon';
 
-import ViewToggles from '../../../../src/components/search/ViewToggles.vue';
+import ViewToggles from '@/components/search/ViewToggles.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);

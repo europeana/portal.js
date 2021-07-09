@@ -1,6 +1,6 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import CiteAttribution from '../../../../src/components/generic/CiteAttribution.vue';
+import CiteAttribution from '@/components/generic/CiteAttribution.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);

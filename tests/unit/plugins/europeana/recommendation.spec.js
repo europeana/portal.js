@@ -1,6 +1,6 @@
 import nock from 'nock';
 
-import recommendation, { BASE_URL } from '../../../../src/plugins/europeana/recommendation';
+import recommendation, { BASE_URL } from '@/plugins/europeana/recommendation';
 
 const axios = require('axios');
 

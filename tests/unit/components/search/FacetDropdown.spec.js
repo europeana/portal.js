@@ -1,7 +1,7 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import sinon from 'sinon';
 
-import FacetDropdown from '../../../../src/components/search/FacetDropdown.vue';
+import FacetDropdown from '@/components/search/FacetDropdown.vue';
 
 const localVue = createLocalVue();
 

@@ -1,7 +1,7 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import { VueMasonryPlugin } from 'vue-masonry';
-import ItemPreviewCardGroup from '../../../../src/components/item/ItemPreviewCardGroup.vue';
+import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup.vue';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();

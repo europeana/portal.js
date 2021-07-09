@@ -1,6 +1,6 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import PaginationNav from '../../../../src/components/generic/PaginationNav.vue';
+import PaginationNav from '@/components/generic/PaginationNav.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);

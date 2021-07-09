@@ -2,7 +2,7 @@ import nock from 'nock';
 
 import api, {
   getEntityQuery, getEntitySlug, getEntityUri, BASE_URL, entityParamsFromUri, isEntityUri
-} from '../../../../src/plugins/europeana/entity';
+} from '@/plugins/europeana/entity';
 
 const entityId = '94-architecture';
 const entityType = 'topic';

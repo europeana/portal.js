@@ -1,6 +1,6 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import RelatedChip from '../../../../src/components/generic/RelatedChip.vue';
+import RelatedChip from '@/components/generic/RelatedChip.vue';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();

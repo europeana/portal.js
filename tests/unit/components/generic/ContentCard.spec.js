@@ -1,7 +1,7 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import SmartLink from '../../../../src/components/generic/SmartLink.vue';
-import ContentCard from '../../../../src/components/generic/ContentCard.vue';
+import SmartLink from '@/components/generic/SmartLink.vue';
+import ContentCard from '@/components/generic/ContentCard.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);

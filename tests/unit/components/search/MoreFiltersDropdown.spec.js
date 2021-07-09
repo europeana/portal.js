@@ -1,7 +1,7 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
 import sinon from 'sinon';
-import MoreFacetsDropdown from '../../../../src/components/search/MoreFiltersDropdown.vue';
+import MoreFiltersDropdown from '@/components/search/MoreFiltersDropdown';
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
@@ -20,7 +20,7 @@ const store = new Vuex.Store({
   }
 });
 
-const factory = () => shallowMount(MoreFacetsDropdown, {
+const factory = () => shallowMount(MoreFiltersDropdown, {
   localVue,
   propsData: {
     selected: {}
@@ -32,7 +32,7 @@ const factory = () => shallowMount(MoreFacetsDropdown, {
   store
 });
 
-describe('components/search/MoreFacetsDropdown', () => {
+describe('components/search/MoreFiltersDropdown', () => {
   it('displays the correct count of selected options', async() => {
     const wrapper = factory();
 
@@ -46,22 +46,26 @@ describe('components/search/MoreFacetsDropdown', () => {
     wrapper.vm.selectedOptionsCount.should.eql(3);
   });
 
-  it('disables the cancel and apply button when nothing has been selected', async() => {
+  it('disables the apply button when nothing has been selected', async() => {
     const wrapper = factory();
-
-    await wrapper.setProps({
-      selected: {}
-    });
 
     await wrapper.setData({
       preSelected: {}
     });
 
+    await wrapper.setProps({
+      selected: {}
+    });
+
     wrapper.vm.selectedOptionsUnchanged.should.eql(true);
   });
 
-  it('disables the cancel and apply button when nothing new has been selected', async() => {
+  it('disables the apply button when nothing new has been selected', async() => {
     const wrapper = factory();
+
+    await wrapper.setData({
+      preSelected: {}
+    });
 
     await wrapper.setProps({
       selected: {
@@ -70,14 +74,10 @@ describe('components/search/MoreFacetsDropdown', () => {
       }
     });
 
-    await wrapper.setData({
-      preSelected: {}
-    });
-
     wrapper.vm.selectedOptionsUnchanged.should.eql(true);
   });
 
-  it('enables the cancel and apply button when an option has been selected', async() => {
+  it('enables the apply button when an option has been selected', async() => {
     const wrapper = factory();
 
     await wrapper.setProps({

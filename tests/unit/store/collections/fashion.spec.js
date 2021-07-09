@@ -1,4 +1,4 @@
-import * as store from '../../../../src/store/collections/fashion';
+import * as store from '@/store/collections/fashion';
 
 const state = {
   apiParams: {},

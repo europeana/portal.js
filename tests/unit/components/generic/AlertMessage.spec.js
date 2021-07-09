@@ -1,6 +1,6 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import AlertMessage from '../../../../src/components/generic/AlertMessage.vue';
+import AlertMessage from '@/components/generic/AlertMessage.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);

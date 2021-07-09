@@ -1,6 +1,6 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import UserButtons from '../../../../src/components/account/UserButtons';
+import UserButtons from '@/components/account/UserButtons';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
