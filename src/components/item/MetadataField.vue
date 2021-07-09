@@ -27,25 +27,19 @@
             :lang="value.code"
             data-qa="entity value"
           >
-            <EntityField
-              :value="nestedValue"
-              :about="value.about"
-            />
-          </li>
-        </template>
-        <template v-else-if="fieldData.url">
-          <li
-            :key="index"
-            :lang="langMappedValues.code"
-            data-qa="entity link"
-          >
             <SmartLink
+              v-if="fieldData.url"
               :destination="fieldData.url"
               :link-class="name === 'edmDataProvider' ? 'view-at' : null"
               @click.native="name === 'edmDataProvider' && $matomo && $matomo.trackEvent('Item_external link', 'Click Provider Link', fieldData.url);"
             >
-              {{ value }}
+              {{ nestedValue }}
             </SmartLink>
+            <EntityField
+              v-else
+              :value="nestedValue"
+              :about="value.about"
+            />
           </li>
         </template>
         <li
