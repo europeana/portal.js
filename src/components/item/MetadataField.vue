@@ -48,7 +48,17 @@
           :lang="langMappedValues.code"
           data-qa="literal value"
         >
-          <template>
+          <SmartLink
+            v-if="fieldData.url"
+            :destination="fieldData.url"
+            :link-class="name === 'edmDataProvider' ? 'view-at' : null"
+            @click.native="name === 'edmDataProvider' && $matomo && $matomo.trackEvent('Item_external link', 'Click Provider Link', fieldData.url);"
+          >
+            {{ value }}
+          </SmartLink>
+          <template
+            v-else
+          >
             {{ value }}
           </template>
         </li>
