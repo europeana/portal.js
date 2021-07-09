@@ -13,17 +13,17 @@
     padding: 1.125rem 1rem;
     div {
       display: inline-block;
-      &:after {
-        @extend .icon-font;
-        content: '\e93b';
-        color: $mediumgrey;
-        font-size: 1rem;
-        margin-left: 0.5rem;
-      }
+    }
+    &[aria-sort] div:after {
+      @extend .icon-font;
+      content: '\e93b';
+      color: $mediumgrey;
+      font-size: 1rem;
+      margin-left: 0.5rem;
+      display: inline-block;
     }
     &[aria-sort='descending'] div:after {
       transform: rotate(180deg);
-      display: inline-block;
     }
     &:hover div::after {
       color: $innovationblue;
