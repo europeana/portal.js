@@ -71,7 +71,7 @@
             </b-row>
             <div class="d-inline-flex collection-buttons">
               <template
-                v-if="userIsOwner || userIsEntityEditor"
+                v-if="userIsOwner"
               >
                 <b-button
                   variant="outline-primary"
@@ -230,6 +230,9 @@
         return langMapValueForLocale(this.set.description, this.$i18n.locale);
       },
       enableRecommendations() {
+        if (this.set.type === 'EntityBestItemsSet') {
+          return this.$config.app.features.recommendations && this.$config.app.features.acceptEntityRecommendations;
+        }
         return this.$config.app.features.recommendations;
       },
       displayItemCount() {
