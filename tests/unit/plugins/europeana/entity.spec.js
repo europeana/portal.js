@@ -1,7 +1,7 @@
 import nock from 'nock';
 
 import api, {
-  getEntityQuery, getEntitySlug, getEntityUri, BASE_URL, entityParamsFromUri, isEntityUri
+  getEntityQuery, getEntitySlug, getEntityUri, BASE_URL, entityParamsFromUri, isEntityUri, getWikimediaThumbnailUrl
 } from '@/plugins/europeana/entity';
 
 const entityId = '94-architecture';
@@ -241,6 +241,14 @@ describe('plugins/europeana/entity', () => {
           return uri.should.eq('http://data.europeana.eu/timespan/100');
         });
       });
+
+      context('with type Organization', () => {
+        const type = 'organisation';
+        it('returns an organization URI, without any human readable labels, or base infix', () => {
+          const uri = getEntityUri(type, id);
+          return uri.should.eq('http://data.europeana.eu/organization/100');
+        });
+      });
     });
   });
 
@@ -321,10 +329,24 @@ describe('plugins/europeana/entity', () => {
       });
     });
 
+    context('when entity is a timespan', () => {
+      const uri = 'http://data.europeana.eu/timespan/20';
+      it('queries on edm_timespan', () => {
+        getEntityQuery(uri).should.eq(`edm_timespan:"${uri}"`);
+      });
+    });
+
+    context('when entity is an organization', () => {
+      const uri = 'http://data.europeana.eu/organization/12345';
+      it('queries on foaf_organization', () => {
+        getEntityQuery(uri).should.eq(`foaf_organization:"${uri}"`);
+      });
+    });
+
     context('otherwise', () => {
       const uri = 'http://data.europeana.eu/place/base/12345';
-      it('is `null`', () => {
-        (getEntityQuery(uri) === null).should.be.true;
+      it('throws an error', () => {
+        (() => getEntityQuery(uri) === null).should.throw(`Unsupported entity URI "${uri}"`);
       });
     });
   });
@@ -335,6 +357,15 @@ describe('plugins/europeana/entity', () => {
     it('constructs URL slug from numeric ID and prefLabel.en', () => {
       const slug = getEntitySlug(entity.id, entity.prefLabel.en);
       return slug.should.eq('147831-architecture');
+    });
+  });
+
+  describe('getWikimediaThumbnailUrl', () => {
+    const logo = 'http://commons.wikimedia.org/wiki/Special:FilePath/Uni-Leiden-seal.png';
+
+    it('returns an wikimedia thumbnail url starting with https://upload.wikimedia.org', () => {
+      const thumbnail = getWikimediaThumbnailUrl(logo, 60);
+      return thumbnail.should.contain('https://upload.wikimedia.org');
     });
   });
 

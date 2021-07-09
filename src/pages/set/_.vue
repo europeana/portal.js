@@ -135,10 +135,15 @@
       >
         <b-col>
           <h2 class="related-heading">
-            {{ $t('items.youMightLike') }}
+            {{ $t('items.recommended') }}
           </h2>
+          <h5 class="related-subtitle">
+            <span class="icon-info-outline" />
+            {{ $t('items.recommendationsDisclaimer') }}
+          </h5>
           <ItemPreviewCardGroup
             v-model="recommendations"
+            :recommendations="this.$config.app.features.acceptSetRecommendations"
           />
         </b-col>
       </b-row>
@@ -169,6 +174,9 @@
     async fetch() {
       try {
         await this.$store.dispatch('set/fetchActive', this.$route.params.pathMatch);
+        if (this.enableRecommendations && this.$auth.loggedIn && this.userIsOwner) {
+          this.$store.dispatch('set/fetchActiveRecommendations', `/${this.$route.params.pathMatch}`);
+        }
       } catch (apiError) {
         if (process.server) {
           this.$nuxt.context.res.statusCode = apiError.statusCode;
@@ -179,7 +187,6 @@
 
     data() {
       return {
-        recommendations: [],
         setFormModalId: `set-form-modal-${this.id}`
       };
     },
@@ -187,6 +194,9 @@
     computed: {
       set() {
         return this.$store.state.set.active || {};
+      },
+      recommendations() {
+        return this.$store.state.set.activeRecommendations || [];
       },
       itemCount() {
         return this.set.total || 0;
@@ -238,30 +248,23 @@
           const path = this.$path({ name: 'account' });
           this.$goto(path);
         }
-      },
-      'set.total'() {
-        this.getRecommendations();
       }
     },
 
     mounted() {
-      this.getRecommendations();
+      if (!this.$fetchState.pending) {
+        this.getRecommendations();
+      }
     },
 
     methods: {
       updateSet() {
         this.$bvModal.hide(this.setFormModalId);
       },
+
       getRecommendations() {
-        if (this.enableRecommendations && this.$auth.loggedIn) {
-          if (this.set && this.set.total >= 0) {
-            return this.$apis.recommendation.recommend('set', `/${this.$route.params.pathMatch}`)
-              .then(recommendResponse => {
-                this.recommendations = recommendResponse.items || [];
-              });
-          } else {
-            return this.recommendations = [];
-          }
+        if (this.enableRecommendations && this.$auth.loggedIn && this.userIsOwner) {
+          this.$store.dispatch('set/fetchActiveRecommendations', `/${this.$route.params.pathMatch}`);
         }
       }
     },
@@ -283,6 +286,7 @@
     },
     async beforeRouteLeave(to, from, next) {
       await this.$store.commit('set/setActive', null);
+      await this.$store.commit('set/setActiveRecommendations', []);
       next();
     }
   };
