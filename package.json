@@ -50,6 +50,7 @@
   },
   "dependencies": {
     "@elastic/apm-rum-vue": "^1.1.9",
+    "@europeana/vue-matomo": "4.0.1-track-site-search",
     "@nuxtjs/auth": "^4.9.1",
     "@nuxtjs/axios": "^5.13.1",
     "@nuxtjs/gtm": "^2.4.0",
@@ -61,6 +62,7 @@
     "bootstrap-vue": "^2.21.2",
     "cookie-universal-nuxt": "^2.0.18",
     "core-js": "^3.8.1",
+    "dateformat": "^4.5.1",
     "deep-object-diff": "^1.1.0",
     "deepmerge": "^4.2.2",
     "defu": "^5.0.0",
@@ -81,7 +83,6 @@
     "vue-client-only": "^2.0.0",
     "vue-i18n": "^8.17.3",
     "vue-masonry": "^0.12.0",
-    "@europeana/vue-matomo": "4.0.1-track-site-search",
     "vue-scrollto": "^2.18.2",
     "vuex": "^3.6.2"
   },

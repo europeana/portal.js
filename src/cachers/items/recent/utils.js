@@ -1,12 +1,12 @@
 const axios = require('axios');
 
-const CACHE_KEY = '@europeana:portal.js:entities:organisations';
+const CACHE_KEY = '@europeana:portal.js:items:recent';
 
 const axiosConfig = (config = {}) => {
   return {
-    baseURL: config.europeana.apis.entity.url || 'https://api.europeana.eu/entity',
+    baseURL: config.europeana.apis.record.url || 'https://api.europeana.eu/record',
     params: {
-      wskey: config.europeana.apis.entity.key
+      wskey: config.europeana.apis.record.key
     }
   };
 };

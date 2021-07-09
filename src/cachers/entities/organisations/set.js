@@ -1,4 +1,5 @@
-const utils = require('./utils');
+const { CACHE_KEY, createAxiosClient } = require('./utils');
+const { createRedisClient, errorMessage } = require('../../utils');
 
 let axiosClient;
 let redisClient;
@@ -48,37 +49,25 @@ const persistableFields = ({ identifier, prefLabel }) => {
 };
 
 const writeToRedis = (organisations) => {
-  return redisClient.setAsync(utils.CACHE_KEY, JSON.stringify(organisations))
+  return redisClient.setAsync(CACHE_KEY, JSON.stringify(organisations))
     .then(() => redisClient.quitAsync())
     .then(() => ({
-      body: `Wrote ${Object.keys(organisations).length} organisations to Redis "${utils.CACHE_KEY}".`
+      body: `Wrote ${Object.keys(organisations).length} organisations to Redis "${CACHE_KEY}".`
     }));
 };
 
-const main = async(params = {}) => {
+const main = async(config = {}) => {
   try {
-    axiosClient = utils.createAxiosClient(params);
-    redisClient = utils.createRedisClient(params);
+    axiosClient = createAxiosClient(config);
+    redisClient = createRedisClient(config);
 
     const allResults = await allOrganisationResults();
     const organisations = organisationsObject(allResults);
 
     return writeToRedis(organisations);
   } catch (error) {
-    return Promise.reject({ body: utils.errorMessage(error) });
+    return Promise.reject({ body: errorMessage(error) });
   }
 };
 
-const cli = () => {
-  const params = {
-    europeanaEntityApiBaseUrl: process.env.EUROPEANA_ENTITY_API_URL,
-    europeanaEntityApiKey: process.env.EUROPEANA_ENTITY_API_KEY || process.env.EUROPEANA_API_KEY,
-    redisUrl: process.env.REDIS_URL,
-    redisTlsCa: process.env.REDIS_TLS_CA
-  };
-
-  return main(params);
-};
-
-main.cli = cli;
 module.exports = main;
