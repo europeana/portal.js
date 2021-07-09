@@ -51,7 +51,7 @@
   const { Swiper, SwiperSlide } = getAwesomeSwiper(SwiperClass);
 
   import 'swiper/swiper-bundle.css';
-  import { isPlayableMedia } from '../../plugins/media';
+  import { isPlayableMedia } from '@/plugins/media';
 
   import MediaCard from './MediaCard';
 

@@ -63,7 +63,7 @@
 </template>
 
 <script>
-  import { getWikimediaThumbnailUrl } from '../../plugins/europeana/entity';
+  import { getWikimediaThumbnailUrl } from '@/plugins/europeana/entity';
 
   export default {
     props: {

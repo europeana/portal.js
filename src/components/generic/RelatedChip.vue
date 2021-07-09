@@ -22,7 +22,7 @@
 </template>
 
 <script>
-  import { langMapValueForLocale } from  '../../plugins/europeana/utils';
+  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
 
   export default {
     name: 'RelatedChip',

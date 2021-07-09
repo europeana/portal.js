@@ -131,7 +131,7 @@
   import isEqual from 'lodash/isEqual';
   import pickBy from 'lodash/pickBy';
   import { mapState, mapGetters } from 'vuex';
-  import { thematicCollections } from '../../plugins/europeana/search';
+  import { thematicCollections } from '@/plugins/europeana/search';
   import { queryUpdatesForFilters } from '../../store/search';
 
   export default {
