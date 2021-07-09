@@ -19,7 +19,7 @@
       <template #table-busy>
         <div class="text-center my-2">
           <LoadingSpinner />
-          Loading...
+          {{ $t('loading') }}
         </div>
       </template>
       <template #cell(prefLabel)="data">
@@ -62,7 +62,7 @@
           {
             key: 'prefLabel',
             sortable: true,
-            label: 'Name'
+            label: this.$t('pages.collections.organisations.table.name')
           }
         ]
       };
