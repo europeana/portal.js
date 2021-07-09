@@ -24,7 +24,6 @@ const factory = (propsData = {}) => mount(EntityDetails, {
 const entityDetails = {
   title: { values: ['Book'], code: 'en' },
   description: { values: ['Architecture is both the process and the product of planning, designing, and constructing buildings and other physical structures.'], code: 'en' },
-  attribution: 'http://www.europeana.eu/item/123/abc',
   contextLabel: 'Person'
 };
 
@@ -44,7 +43,7 @@ describe('components/entity/EntityDetails', () => {
   });
 
   it('shows a description and title only', () => {
-    const wrapper = factory({ 'description': entityDetails.description, title: entityDetails.title });
+    const wrapper = factory({ 'description': entityDetails.description, title: entityDetails.title, contextLabel: entityDetails.contextLabel });
 
     wrapper.findAll('img').length.should.eq(0);
     wrapper.text().should.contain(entityDetails.description.values[0]);
@@ -53,7 +52,7 @@ describe('components/entity/EntityDetails', () => {
   });
 
   it('shows a title only', () => {
-    const wrapper = factory({ title: entityDetails.title });
+    const wrapper = factory({ title: entityDetails.title, contextLabel: entityDetails.contextLabel });
 
     wrapper.text().should.not.contain(entityDetails.description.values[0]);
     wrapper.find('[data-qa="entity title"]').text().should.eq('Book');
@@ -67,8 +66,32 @@ describe('components/entity/EntityDetails', () => {
 
   it('shows a show more button', () => {
     const longDescription = entityDetails.description.values[0] + entityDetails.description.values[0] + entityDetails.description.values[0];
-    const wrapper = factory({ description: { values: [longDescription], code: 'en' }, title: entityDetails.title });
+    const wrapper = factory({ description: { values: [longDescription], code: 'en' }, title: entityDetails.title, contextLabel: entityDetails.contextLabel });
 
     wrapper.findAll('button[data-qa="entity show link"]').length.should.eq(1);
+  });
+
+  it('shows a logo', () => {
+    entityDetails.logo = 'http://commons.wikimedia.org/wiki/Special:FilePath/Uni-Leiden-seal.png';
+
+    const wrapper = factory(entityDetails);
+    wrapper.findAll('[data-qa="entity logo"]').exists().should.be.true;
+  });
+
+  describe('external link', () => {
+    it('links to the external link', () => {
+      entityDetails.externalLink = 'https://historymuseum.org/en/';
+
+      const wrapper = factory(entityDetails);
+      wrapper.findAll('[data-qa="entity external link"]').exists().should.be.true;
+      wrapper.find('[data-qa="entity external link"] a').attributes('href').should.eq(entityDetails.externalLink);
+    });
+    it('shows a stripped link text', () => {
+      entityDetails.externalLink = 'https://historymuseum.org/en/';
+
+      const wrapper = factory(entityDetails);
+      wrapper.findAll('[data-qa="entity external link"]').exists().should.be.true;
+      wrapper.find('[data-qa="entity external link"] a span:first-child').text().should.eq('historymuseum.org/en/');
+    });
   });
 });

@@ -221,7 +221,7 @@
     .card-title {
       display: block;
       max-height: none;
-      line-height: 1.5;    
+      line-height: 1.5;
     }
     .icon-ic-add {
       color: #4d4d4d;
@@ -349,11 +349,21 @@
         border-color: $red;
       }
 
+      &.recommendation-button {
+        &:first-of-type {
+          margin-left: auto;
+        }
+
+        &:hover {
+          color: $innovationblue;
+        }
+      }
+
       &:first-of-type {
         margin-right: 0.5rem;
 
         &.icon-push-pin {
-           margin-left: 2rem;
+          margin-left: 2rem;
 
           &.active {
             visibility: visible;
@@ -364,14 +374,12 @@
             background: $white;
             border-color: $white;
           }
-           
-         +.btn {
-           margin-left:auto; 
-           margin-right: 0.5rem;
-         }
 
-        }   
-
+          +.btn {
+            margin-left: auto;
+            margin-right: 0.5rem;
+          }
+        }
       }
 
       &-sm {

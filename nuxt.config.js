@@ -24,6 +24,7 @@ module.exports = {
         jiraServiceDeskFeedbackForm: featureIsEnabled(process.env.ENABLE_JIRA_SERVICE_DESK_FEEDBACK_FORM),
         linksToClassic: featureIsEnabled(process.env.ENABLE_LINKS_TO_CLASSIC),
         recommendations: featureIsEnabled(process.env.ENABLE_RECOMMENDATIONS),
+        acceptSetRecommendations: featureIsEnabled(process.env.ENABLE_ACCEPT_SET_RECOMMENDATIONS),
         entityManagement: featureIsEnabled(process.env.ENABLE_ENTITY_MANAGEMENT)
       }
     },
@@ -341,7 +342,13 @@ module.exports = {
         component: 'src/pages/index.vue'
       });
     },
-    linkExactActiveClass: 'exact-active-link'
+    linkExactActiveClass: 'exact-active-link',
+    parseQuery: (query) => require('qs').parse(query),
+    // To ensure that `"query": ""` results in `?query=`, not `?query`
+    stringifyQuery: (query) => {
+      const stringified = require('qs').stringify(query, { arrayFormat: 'repeat' });
+      return stringified ? '?' + stringified : '';
+    }
   },
 
   serverMiddleware: [

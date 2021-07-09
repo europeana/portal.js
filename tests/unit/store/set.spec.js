@@ -34,6 +34,9 @@ describe('store/set', () => {
     const setId = 'http://data.europeana.eu/set/123';
     const itemId = '/123/ghi';
     const userId = 'a-b-c-d-e';
+    const recommendations = { items: ['/123/def', '/123/ghi'] };
+    const newRecommendation = { items: ['/123/jkl'] };
+    const updatedRecommendations = ['/123/def', '/123/jkl'];
     const set = {
       id: setId,
       items: []
@@ -42,7 +45,7 @@ describe('store/set', () => {
     beforeEach(() => {
       commit.resetHistory();
       dispatch.resetHistory();
-      store.actions.$apis = { set: {} };
+      store.actions.$apis = { set: {}, recommendation: {} };
       store.actions.$auth = {};
     });
 
@@ -81,7 +84,7 @@ describe('store/set', () => {
         store.actions.$apis.set.modifyItems = sinon.stub().resolves({});
         const state = { likesId: setId };
 
-        store.actions.unlike({ commit, state }, itemId);
+        store.actions.unlike({ dispatch, commit, state }, itemId);
 
         store.actions.$apis.set.modifyItems.should.have.been.calledWith('delete', state.likesId, itemId);
         commit.should.have.been.calledWith('unlike', itemId);
@@ -313,6 +316,43 @@ describe('store/set', () => {
 
           dispatch.should.have.been.calledWith('fetchActive');
         });
+      });
+    });
+
+    describe('fetchActiveRecommendations()', () => {
+      it('fetches the active set recommendations via $apis.recommendation, then commits it with "setActiveRecommendations"', async() => {
+        store.actions.$apis.recommendation.recommend = sinon.stub().resolves(recommendations);
+
+        await store.actions.fetchActiveRecommendations({ commit }, setId);
+
+        store.actions.$apis.recommendation.recommend.should.have.been.calledWith('set', setId);
+        commit.should.have.been.calledWith('setActiveRecommendations', recommendations.items);
+      });
+    });
+
+    describe('acceptRecommendation()', () => {
+      it('accepts a recommended item via $apis.recommendation, then commits the returned new item with "setActiveRecommendations"', async() => {
+        const state = { activeRecommendations: recommendations.items };
+
+        store.actions.$apis.recommendation.accept = sinon.stub().resolves(newRecommendation);
+
+        await store.actions.reviewRecommendation({ state, commit }, { setId, itemIds: [itemId], action: 'accept' });
+
+        store.actions.$apis.recommendation.accept.should.have.been.calledWith('set', setId, [itemId]);
+        commit.should.have.been.calledWith('setActiveRecommendations', updatedRecommendations);
+      });
+    });
+
+    describe('rejectRecommendation()', () => {
+      it('rejects a recommended item via $apis.recommendation, then commits the returned new item with "setActiveRecommendations"', async() => {
+        const state = { activeRecommendations: recommendations.items };
+
+        store.actions.$apis.recommendation.reject = sinon.stub().resolves(newRecommendation);
+
+        await store.actions.reviewRecommendation({ state, commit }, { setId, itemIds: [itemId], action: 'reject' });
+
+        store.actions.$apis.recommendation.reject.should.have.been.calledWith('set', setId, [itemId]);
+        commit.should.have.been.calledWith('setActiveRecommendations', updatedRecommendations);
       });
     });
   });
