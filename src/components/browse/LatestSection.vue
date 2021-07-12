@@ -122,7 +122,7 @@
         let imageUrl;
 
         if (card.hasPartCollection.items[0].encoding) {
-          imageUrl = `${card.hasPartCollection.items[0].encoding.edmPreview[0]}&size=w200`;
+          imageUrl = `${card.hasPartCollection.items[0].encoding.edmPreview[0]}&size=w400`;
         } else {
           imageUrl = card.hasPartCollection.items[0].thumbnailUrl;
         }
