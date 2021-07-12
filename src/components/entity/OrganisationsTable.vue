@@ -24,6 +24,7 @@
       </template>
       <template #cell(prefLabel)="data">
         <b-link
+          :data-qa="`organisation link ${data.item.id}`"
           :to="$path(entityRoute(data.item.slug))"
         >
           <span>
@@ -45,13 +46,16 @@
       LoadingSpinner,
       AlertMessage
     },
-    fetch() {
-      this.$axios.get(
-        '/_api/entities/organisations',
+    async fetch(baseUrl = '') {
+      await this.$axios.get(
+        `${baseUrl}/_api/entities/organisations`,
         { params: { locale: this.$i18n.locale } }
       )
         .then(response => {
           this.organisations = response.data;
+        })
+        .catch((e) => {
+          console.error({ statusCode: 500, message: e.toString() });
         });
     },
     data() {
