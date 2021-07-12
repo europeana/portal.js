@@ -174,7 +174,7 @@
     async fetch() {
       try {
         await this.$store.dispatch('set/fetchActive', this.$route.params.pathMatch);
-        if (this.enableRecommendations && this.$auth.loggedIn && (this.userIsOwner || this.userIsEntityEditor)) {
+        if (this.enableRecommendations && this.$auth.loggedIn && this.userCanEdit) {
           this.$store.dispatch('set/fetchActiveRecommendations', `/${this.$route.params.pathMatch}`);
         }
       } catch (apiError) {
@@ -209,16 +209,21 @@
         }
       },
       userIsOwner() {
-        return this.$store.state.auth.user &&
+        return this.$auth.loggedIn && this.$store.state.auth.user &&
           this.setCreatorId &&
           this.setCreatorId.endsWith(`/${this.$store.state.auth.user.sub}`);
       },
       userIsEntityEditor() {
         const user = this.$store.state.auth.user;
-        const entityGallery = this.set.type === 'EntityBestItemsSet';
         const entitiesEditor = user.resource_access.entities && user.resource_access.entities.roles.includes('editor');
         const usersetsEditor = user.resource_access.usersets && user.resource_access.usersets.roles.includes('editor');
-        return user && entityGallery && entitiesEditor && usersetsEditor;
+        return entitiesEditor && usersetsEditor;
+      },
+      userCanEdit() {
+        return this.userIsOwner || (this.setIsEntityBestItems && this.userIsEntityEditor);
+      },
+      setIsEntityBestItems() {
+        return this.set.type === 'EntityBestItemsSet';
       },
       displayTitle() {
         if (this.$fetchState.error) {
@@ -273,7 +278,7 @@
       },
 
       getRecommendations() {
-        if (this.enableRecommendations && this.$auth.loggedIn && (this.userIsOwner || this.userIsEntityEditor)) {
+        if (this.enableRecommendations && this.$auth.loggedIn && this.userCanEdit) {
           this.$store.dispatch('set/fetchActiveRecommendations', `/${this.$route.params.pathMatch}`);
         }
       }
