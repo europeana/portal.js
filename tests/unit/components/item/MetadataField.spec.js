@@ -107,8 +107,6 @@ describe('components/item/MetadataField', () => {
 
             await wrapper.setProps(props);
 
-            console.log('html', wrapper.html());
-
             const fieldValue = wrapper.find('[data-qa="metadata field"] ul [data-qa="literal value"]');
             fieldValue.text().should.eq(props.fieldData.pl[0]);
           });
