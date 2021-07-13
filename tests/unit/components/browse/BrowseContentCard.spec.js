@@ -78,7 +78,7 @@ describe('components/browse/BrowseContentCard', () => {
           }
         });
 
-        wrapper.vm.imageUrl.should.equal(`${edmPreview}&size=w200`);
+        wrapper.vm.imageUrl.should.equal(`${edmPreview}&size=w400`);
       });
     });
 
