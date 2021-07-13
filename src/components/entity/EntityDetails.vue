@@ -63,7 +63,7 @@
 </template>
 
 <script>
-  import { getWikimediaThumbnailUrl } from '../../plugins/europeana/entity';
+  import { getWikimediaThumbnailUrl } from '@/plugins/europeana/entity';
 
   export default {
     props: {
@@ -129,8 +129,8 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../../assets/scss/variables.scss';
-  @import '../../assets/scss/icons.scss';
+  @import '@/assets/scss/variables.scss';
+  @import '@/assets/scss/icons.scss';
 
   h1 {
     margin-bottom: 0.5rem;

@@ -3,7 +3,7 @@ import axios from 'axios';
 import nock from 'nock';
 import sinon from 'sinon';
 
-import page from '../../../../src/pages/iiif/index';
+import page from '@/pages/iiif/index';
 
 const factory = () => shallowMountNuxt(page, {
   data() {
@@ -33,9 +33,9 @@ describe('pages/iiif/index.vue', () => {
 
   describe('methods', () => {
     describe('coerceResourceOnImagesToCanvases', () => {
-      it('coerces resource\'s `on` attribute to canvas ID', () => {
+      it('coerces resource\'s `on` attribute to canvas ID', async() => {
         const wrapper = factory();
-        wrapper.setData({
+        await wrapper.setData({
           imageToCanvasMap: {
             'https://example.org/image/123.jpg': 'http://example.org/presentation/123/canvas/p1'
           }

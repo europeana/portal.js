@@ -1,6 +1,6 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 
-import FacetFieldLabel from '../../../../src/components/search/FacetFieldLabel.vue';
+import FacetFieldLabel from '@/components/search/FacetFieldLabel.vue';
 import Vuex from 'vuex';
 import sinon from 'sinon';
 

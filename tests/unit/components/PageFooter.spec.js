@@ -2,8 +2,8 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import Vuex from 'vuex';
 
-import SmartLink from '../../../src/components/generic/SmartLink.vue';
-import PageFooter from '../../../src/components/PageFooter.vue';
+import SmartLink from '@/components/generic/SmartLink.vue';
+import PageFooter from '@/components/PageFooter.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -38,9 +38,9 @@ const factory = () => shallowMount(PageFooter, {
 });
 
 describe('components/PageFooter', () => {
-  it('contains the language selector', () => {
+  it('contains the language selector', async() => {
     const wrapper = factory();
-    wrapper.setProps({
+    await wrapper.setProps({
       enableLanguageSelector: true
     });
     const selector = wrapper.find('[data-qa="language selector"]');

@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-require('../../../src/plugins/vue-filters');
+require('@/plugins/vue-filters');
 
 describe('Vue filters', () => {
   describe('optimisedImageUrl', () => {

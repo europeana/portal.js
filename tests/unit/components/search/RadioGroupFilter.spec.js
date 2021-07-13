@@ -1,7 +1,7 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import sinon from 'sinon';
 
-import RadioGroupFilter from '../../../../src/components/search/RadioGroupFilter.vue';
+import RadioGroupFilter from '@/components/search/RadioGroupFilter.vue';
 
 const localVue = createLocalVue();
 
@@ -28,7 +28,7 @@ describe('components/search/RadioGroupFilter', () => {
     });
     const metadataRadio = wrapper.find('[data-qa="radio group"]');
 
-    wrapper.setData({
+    await wrapper.setData({
       selectedOption: 'metadata'
     });
     await metadataRadio.vm.$emit('change');
