@@ -161,12 +161,12 @@
 
     data() {
       return {
-        agents: null,
+        agents: [],
         allMediaUris: [],
         altTitle: null,
         annotations: [],
         cardGridClass: null,
-        concepts: null,
+        concepts: [],
         coreFields: null,
         description: null,
         error: null,
@@ -174,10 +174,11 @@
         identifier: null,
         isShownAt: null,
         media: [],
+        organizations: [],
         relatedEntities: [],
         similarItems: [],
         taggingAnnotations: [],
-        timespans: null,
+        timespans: [],
         title: null,
         transcribingAnnotations: [],
         type: null,
@@ -211,18 +212,17 @@
       edmRights() {
         return this.fields.edmRights ? this.fields.edmRights.def[0] : '';
       },
-      europeanaAgents() {
-        return (this.agents || []).filter((agent) => agent.about.startsWith(`${EUROPEANA_DATA_URL}/agent/`));
-      },
-      europeanaConcepts() {
-        return (this.concepts || []).filter((concept) => concept.about.startsWith(`${EUROPEANA_DATA_URL}/concept/`));
-      },
-      europeanaTimespans() {
-        return (this.timespans || []).filter((timespan) => timespan.about.startsWith(`${EUROPEANA_DATA_URL}/timespan/`));
+      europeanaEntities() {
+        return this.agents
+          .concat(this.concepts)
+          .concat(this.timespans)
+          .concat(this.organizations)
+          .filter(entity => entity.about.startsWith(`${EUROPEANA_DATA_URL}/`));
       },
       europeanaEntityUris() {
-        const entities = this.europeanaConcepts.concat(this.europeanaAgents).concat(this.europeanaTimespans);
-        return entities.map((entity) => entity.about).slice(0, 5);
+        return this.europeanaEntities
+          .slice(0, 5)
+          .map(entity => entity.about);
       },
       titlesInCurrentLanguage() {
         const titles = [];
