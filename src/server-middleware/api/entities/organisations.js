@@ -1,4 +1,4 @@
-const getOrganisations = require('../../../cachers/entities/organisations/get');
+const cacher = require('../../../cachers/entities/organisations');
 import { errorHandler } from '../';
 import { langMapValueForLocale } from '../../../plugins/europeana/utils';
 import { getEntitySlug } from '../../../plugins/europeana/entity';
@@ -8,7 +8,7 @@ export default (options = {}) => (req, res) => {
     return errorHandler(res, new Error('No cache configured for organisations.'));
   }
 
-  return getOrganisations({
+  return cacher.get({
     redisUrl: options.redis.url,
     redisTlsCa: options.redis.tlsCa
   })

@@ -1,9 +1,9 @@
 import sinon from 'sinon';
 import redis from 'redis';
 
-const utils = require('../../../../../src/cachers/entities/organisations/utils');
+const utils = require('../../../src/cachers/utils');
 
-describe('cachers/entities/organisations/utils', () => {
+describe('cachers/utils', () => {
   describe('createRedisClient', () => {
     const redisClientStub = {
       on: sinon.spy(),

@@ -3,7 +3,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const commands = [
-  'entities:organisations:get', 'entities:organisations:set'
+  'entities:organisations'
 ];
 
 const cli = commands.reduce((memo, command) => {
@@ -13,7 +13,7 @@ const cli = commands.reduce((memo, command) => {
 }, {});
 
 const main = () => {
-  return cli[process.argv[2]].cli();
+  return cli[process.argv[2]].cli(process.argv[3]);
 };
 
 main()

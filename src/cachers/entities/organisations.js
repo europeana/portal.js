@@ -1,4 +1,18 @@
-const utils = require('./utils');
+const axios = require('axios');
+const { createRedisClient, errorMessage } = require('../utils');
+
+const CACHE_KEY = '@europeana:portal.js:entity:organizations';
+
+const axiosConfig = (params = {}) => {
+  return {
+    baseURL: params.europeanaEntityApiBaseUrl || 'https://api.europeana.eu/entity',
+    params: {
+      wskey: params.europeanaEntityApiKey
+    }
+  };
+};
+
+const createAxiosClient = (params = {}) => axios.create(axiosConfig(params));
 
 let axiosClient;
 let redisClient;
@@ -48,28 +62,39 @@ const persistableFields = ({ identifier, prefLabel }) => {
 };
 
 const writeToRedis = (organisations) => {
-  return redisClient.setAsync(utils.CACHE_KEY, JSON.stringify(organisations))
+  return redisClient.setAsync(CACHE_KEY, JSON.stringify(organisations))
     .then(() => redisClient.quitAsync())
     .then(() => ({
-      body: `Wrote ${Object.keys(organisations).length} organisations to Redis "${utils.CACHE_KEY}".`
+      body: `Wrote ${Object.keys(organisations).length} organisations to Redis "${CACHE_KEY}".`
     }));
 };
 
-const main = async(params = {}) => {
+const set = async(params = {}) => {
   try {
-    axiosClient = utils.createAxiosClient(params);
-    redisClient = utils.createRedisClient(params);
+    axiosClient = createAxiosClient(params);
+    redisClient = createRedisClient(params);
 
     const allResults = await allOrganisationResults();
     const organisations = organisationsObject(allResults);
 
     return writeToRedis(organisations);
   } catch (error) {
-    return Promise.reject({ body: utils.errorMessage(error) });
+    return Promise.reject({ body: errorMessage(error) });
   }
 };
 
-const cli = () => {
+const get = (params = {}) => {
+  try {
+    redisClient = createRedisClient(params);
+    return redisClient.getAsync(CACHE_KEY)
+      .then(organisations => redisClient.quitAsync()
+        .then(() => ({ body: JSON.parse(organisations) || {} })));
+  } catch (error) {
+    return Promise.reject({ statusCode: 500, body: errorMessage(error) });
+  }
+};
+
+function cli(command) {
   const params = {
     europeanaEntityApiBaseUrl: process.env.EUROPEANA_ENTITY_API_URL,
     europeanaEntityApiKey: process.env.EUROPEANA_ENTITY_API_KEY || process.env.EUROPEANA_API_KEY,
@@ -77,8 +102,12 @@ const cli = () => {
     redisTlsCa: process.env.REDIS_TLS_CA
   };
 
-  return main(params);
-};
+  return this[command](params);
+}
 
-main.cli = cli;
-module.exports = main;
+module.exports = {
+  CACHE_KEY,
+  cli,
+  get,
+  set
+};
