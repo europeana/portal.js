@@ -81,7 +81,7 @@
     "vue-client-only": "^2.0.0",
     "vue-i18n": "^8.17.3",
     "vue-masonry": "^0.12.0",
-    "@europeana/vue-matomo": "4.0.1-track-site-search",
+    "vue-matomo": "^4.1.0",
     "vue-scrollto": "^2.18.2",
     "vuex": "^3.6.2"
   },
