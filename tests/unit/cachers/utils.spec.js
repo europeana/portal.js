@@ -1,9 +1,9 @@
 import sinon from 'sinon';
 import redis from 'redis';
 
-const utils = require('../../../../../src/cachers/entities/organisations/utils');
+const utils = require('@/cachers/utils');
 
-describe('cachers/entities/organisations/utils', () => {
+describe('cachers/utils', () => {
   describe('createRedisClient', () => {
     const redisClientStub = {
       on: sinon.spy(),
@@ -18,24 +18,24 @@ describe('cachers/entities/organisations/utils', () => {
       redis.createClient.restore();
     });
 
+    const config = {
+      redis: { url: 'redis://localhost:6370/0' }
+    };
+
     it('creates a redis client from params', () => {
-      const params = {
-        redisUrl: 'redis://localhost:6370/0'
-      };
+      utils.createRedisClient(config);
 
-      utils.createRedisClient(params);
-
-      redis.createClient.should.have.been.calledWith({ url: params.redisUrl });
+      redis.createClient.should.have.been.calledWith({ url: config.redis.url });
     });
 
     it('adds an error handler to report to the console', () => {
-      utils.createRedisClient();
+      utils.createRedisClient(config);
 
       redisClientStub.on.should.have.been.calledWith('error', console.error);
     });
 
     it('defines async get, set and quit methods', () => {
-      const redisClient = utils.createRedisClient();
+      const redisClient = utils.createRedisClient(config);
 
       (typeof redisClient.getAsync).should.eq('function');
       (typeof redisClient.setAsync).should.eq('function');

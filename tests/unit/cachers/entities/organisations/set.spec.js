@@ -1,7 +1,8 @@
 import sinon from 'sinon';
 
-const utils = require('../../../../../src/cachers/entities/organisations/utils');
-const cacher = require('../../../../../src/cachers/entities/organisations/set');
+const cacheUtils = require('@/cachers/utils');
+const utils = require('@/cachers/entities/organisations/utils');
+const cacher = require('@/cachers/entities/organisations/set');
 
 let axiosClientStub;
 let redisClientStub;
@@ -45,6 +46,19 @@ const cacheValue = JSON.stringify(
 );
 
 describe('cachers/entities/organisations/set', () => {
+  const config = {
+    europeana: {
+      apis: {
+        entity: {
+          key: 'MY_KEY'
+        }
+      }
+    },
+    redis: {
+      url: 'redis://localhost:6370/0'
+    }
+  };
+
   beforeEach('stub utility methods', () => {
     axiosClientStub = {
       get: sinon.stub()
@@ -59,47 +73,39 @@ describe('cachers/entities/organisations/set', () => {
       setAsync: sinon.stub().resolves(),
       quitAsync: sinon.stub().resolves()
     };
-    sinon.stub(utils, 'createRedisClient').returns(redisClientStub);
+    sinon.stub(cacheUtils, 'createRedisClient').returns(redisClientStub);
   });
   afterEach('restore utility methods', () => {
     utils.createAxiosClient.restore();
-    utils.createRedisClient.restore();
+    cacheUtils.createRedisClient.restore();
   });
 
   it('creates an axios client from params', () => {
-    const params = {
-      europeanaEntityApiKey: 'MY_KEY'
-    };
-
-    cacher(params);
+    cacher(config);
 
     utils.createAxiosClient.should.have.been.calledWith(params);
   });
 
   it('creates a redis client from params', () => {
-    const params = {
-      redisUrl: 'redis://localhost:6370/0'
-    };
-
-    cacher(params);
+    cacher(config);
 
     utils.createRedisClient.should.have.been.calledWith(params);
   });
 
   it('paginates over organisations', async() => {
-    await cacher();
+    await cacher(config);
 
     axiosClientStub.get.should.have.been.calledThrice;
   });
 
   it('writes reduced organisations to cache', async() => {
-    await cacher();
+    await cacher(config);
 
     redisClientStub.setAsync.should.have.been.calledWith(utils.CACHE_KEY, cacheValue);
   });
 
   it('quits the Redis connection', async() => {
-    await cacher();
+    await cacher(config);
 
     redisClientStub.quitAsync.should.have.been.called;
   });
