@@ -1,21 +1,17 @@
-import sinon from 'sinon';
 import redis from 'redis';
+import { fakeRedisClient } from '../utils';
 
 const utils = require('@/cachers/utils');
 
+const redisClientStub = fakeRedisClient();
+
 describe('cachers/utils', () => {
   describe('createRedisClient', () => {
-    const redisClientStub = {
-      on: sinon.spy(),
-      get: sinon.spy(),
-      set: sinon.spy(),
-      quit: sinon.spy()
-    };
     before('stub redis methods', () => {
-      sinon.stub(redis, 'createClient').returns(redisClientStub);
+      redisClientStub.stub();
     });
     after('restore redis methods', () => {
-      redis.createClient.restore();
+      redisClientStub.restore();
     });
 
     it('creates a redis client from params', () => {

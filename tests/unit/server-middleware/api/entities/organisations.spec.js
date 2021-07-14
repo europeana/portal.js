@@ -1,4 +1,5 @@
 import sinon from 'sinon';
+import { fakeRedisClient } from '../../../utils';
 
 import serverMiddleware from '@/server-middleware/api/entities/organisations';
 const cacher = require('@/cachers/entities/organisations');
@@ -7,6 +8,7 @@ const expressResStub = {
   json: sinon.stub(),
   status: sinon.stub()
 };
+const redisClientStub = fakeRedisClient();
 
 const options = { redis: { url: 'redis://localhost:6379' } };
 
@@ -29,12 +31,14 @@ const organisations = {
 };
 
 describe('server-middleware/entities/organisations', () => {
-  beforeEach('stub cache getter', () => {
+  beforeEach('stubs', () => {
     sinon.stub(cacher, 'get').resolves({ body: organisations });
+    redisClientStub.stub();
   });
 
-  afterEach('restore cache getter', () => {
+  afterEach('restore stubs', () => {
     cacher.get.restore();
+    redisClientStub.restore();
   });
 
   it('localises organisations and responds with JSON', async() => {

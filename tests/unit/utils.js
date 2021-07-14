@@ -1,5 +1,6 @@
 import { mount, shallowMount } from '@vue/test-utils';
 import sinon from 'sinon';
+import redis from 'redis';
 
 const NUXT_METHODS = [
   'asyncData', 'fetch', 'head'
@@ -21,6 +22,20 @@ export const mountNuxt = (pageOrComponent, options = {}) => {
   const wrapper = mount(pageOrComponent, options);
   return injectNuxtMethods(wrapper, pageOrComponent);
 };
+
+// Stubs Redis
+export const fakeRedisClient = () => ({
+  on: sinon.spy(),
+  get: sinon.spy(),
+  set: sinon.spy(),
+  quit: sinon.spy(),
+  stub() {
+    sinon.stub(redis, 'createClient').returns(this);
+  },
+  restore() {
+    redis.createClient.restore();
+  }
+});
 
 // Stubs the Contentful app extension
 export const fakeContentfulExtension = fields => {
