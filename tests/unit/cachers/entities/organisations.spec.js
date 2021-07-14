@@ -1,10 +1,9 @@
 import sinon from 'sinon';
 import nock from 'nock';
 
-const utils = require('@/cachers/utils');
 const cacher = require('@/cachers/entities/organisations');
+const utils = require('@/cachers/utils');
 
-// let axiosClientStub;
 let redisClientStub;
 
 const apiResponse = {
@@ -48,30 +47,21 @@ const cacheValue = JSON.stringify(
 
 describe('cachers/entities/organisations', () => {
   beforeEach('stub utility methods', () => {
-    // axiosClientStub = {
-    //   get: sinon.stub()
-    //     .onFirstCall().resolves({ data: apiResponse.pageOne })
-    //     .onSecondCall().resolves({ data: apiResponse.pageTwo })
-    //     .onThirdCall().resolves({ data: apiResponse.pageThree }),
-    //   defaults: { params: {} }
-    // };
-    // sinon.stub(utils, 'createAxiosClient').returns(axiosClientStub);
-
     nock('https://api.europeana.eu')
       .get('/entity/search')
-      .query(query => query.page === 0)
+      .query(query => query.page === '0')
       .reply(200, apiResponse.pageOne);
     nock('https://api.europeana.eu')
       .get('/entity/search')
-      .query(query => query.page === 1)
+      .query(query => query.page === '1')
       .reply(200, apiResponse.pageTwo);
     nock('https://api.europeana.eu')
       .get('/entity/search')
-      .query(query => query.page === 2)
+      .query(query => query.page === '2')
       .reply(200, apiResponse.pageThree);
 
     redisClientStub = {
-      getAsync: sinon.stub().resolves('{}'),
+      getAsync: sinon.stub().resolves(cacheValue),
       setAsync: sinon.stub().resolves(),
       quitAsync: sinon.stub().resolves()
     };
@@ -114,16 +104,6 @@ describe('cachers/entities/organisations', () => {
   });
 
   describe('.set', () => {
-    it('creates an axios client from params', () => {
-      const params = {
-        europeanaEntityApiKey: 'MY_KEY'
-      };
-
-      cacher.set(params);
-
-      utils.createAxiosClient.should.have.been.calledWith(params);
-    });
-
     it('creates a redis client from params', () => {
       const params = {
         redisUrl: 'redis://localhost:6370/0'

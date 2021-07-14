@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { createRedisClient, errorMessage } = require('../utils');
+const utils = require('../utils');
 
 const CACHE_KEY = '@europeana:portal.js:entity:organizations';
 
@@ -72,25 +72,25 @@ const writeToRedis = (organisations) => {
 const set = async(params = {}) => {
   try {
     axiosClient = createAxiosClient(params);
-    redisClient = createRedisClient(params);
+    redisClient = utils.createRedisClient(params);
 
     const allResults = await allOrganisationResults();
     const organisations = organisationsObject(allResults);
 
     return writeToRedis(organisations);
   } catch (error) {
-    return Promise.reject({ body: errorMessage(error) });
+    return Promise.reject({ body: utils.errorMessage(error) });
   }
 };
 
 const get = (params = {}) => {
   try {
-    redisClient = createRedisClient(params);
+    redisClient = utils.createRedisClient(params);
     return redisClient.getAsync(CACHE_KEY)
       .then(organisations => redisClient.quitAsync()
         .then(() => ({ body: JSON.parse(organisations) || {} })));
   } catch (error) {
-    return Promise.reject({ statusCode: 500, body: errorMessage(error) });
+    return Promise.reject({ statusCode: 500, body: utils.errorMessage(error) });
   }
 };
 
