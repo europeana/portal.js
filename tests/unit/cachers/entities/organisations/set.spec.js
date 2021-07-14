@@ -1,7 +1,7 @@
 import sinon from 'sinon';
 
-const utils = require('../../../../../src/cachers/entities/organisations/utils');
-const cacher = require('../../../../../src/cachers/entities/organisations/set');
+const utils = require('@/cachers/entities/organisations/utils');
+const cacher = require('@/cachers/entities/organisations/set');
 
 let axiosClientStub;
 let redisClientStub;

@@ -1,6 +1,6 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import EntityField from '../../../../src/components/item/EntityField.vue';
+import EntityField from '@/components/item/EntityField.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);

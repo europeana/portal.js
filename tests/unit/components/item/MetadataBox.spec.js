@@ -1,7 +1,7 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 
-import MetadataBox from '../../../../src/components/item/MetadataBox';
+import MetadataBox from '@/components/item/MetadataBox';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -14,7 +14,8 @@ const factory = (propsData) => shallowMount(MetadataBox, {
     $i18n: {
       locale: 'en'
     }
-  }
+  },
+  stubs: ['MapEmbed']
 });
 
 const fixtures = {
@@ -50,9 +51,7 @@ describe('components/item/MetadataBox', () => {
             location
           });
 
-          const mapEmbed = wrapper.find('[data-qa="map embed"]');
-
-          mapEmbed.exists().should.be.false;
+          wrapper.vm.showLocationMap.should.be.false;
         });
 
         it('renders map when location tab is clicked', async() => {
@@ -60,12 +59,9 @@ describe('components/item/MetadataBox', () => {
             location
           });
 
-          const locationTab = wrapper.find('[data-qa="location tab"]');
-          locationTab.vm.$emit('click');
-          await wrapper.vm.$nextTick();
-          const mapEmbed = wrapper.find('[data-qa="map embed"]');
+          wrapper.vm.clickLocationTab();
 
-          mapEmbed.exists().should.be.true;
+          wrapper.vm.showLocationMap.should.be.true;
         });
       });
     });

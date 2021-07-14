@@ -1,7 +1,7 @@
 import sinon from 'sinon';
 import redis from 'redis';
 
-const utils = require('../../../../../src/cachers/entities/organisations/utils');
+const utils = require('@/cachers/entities/organisations/utils');
 
 describe('cachers/entities/organisations/utils', () => {
   describe('createRedisClient', () => {

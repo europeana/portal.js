@@ -42,16 +42,16 @@
 </template>
 
 <script>
-  // Custom build of Swiper with only the modules we need:
-  // @see https://swiperjs.com/api/#custom-build
-  // @see https://github.com/surmon-china/vue-awesome-swiper#custom-build-with-swiper
+// Custom build of Swiper with only the modules we need:
+// @see https://swiperjs.com/api/#custom-build
+// @see https://github.com/surmon-china/vue-awesome-swiper#custom-build-with-swiper
   import { Swiper as SwiperClass, Pagination, Navigation } from 'swiper/core';
   import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter';
   SwiperClass.use([Pagination, Navigation]);
   const { Swiper, SwiperSlide } = getAwesomeSwiper(SwiperClass);
 
   import 'swiper/swiper-bundle.css';
-  import { isPlayableMedia } from '../../plugins/media';
+  import { isPlayableMedia } from '@/plugins/media';
 
   import MediaCard from './MediaCard';
 
@@ -120,7 +120,7 @@
 </script>
 
 <style lang="scss">
-  @import '../../assets/scss/variables.scss';
+  @import '@/assets/scss/variables.scss';
 
   .swiper-container {
     height: $swiper-height;

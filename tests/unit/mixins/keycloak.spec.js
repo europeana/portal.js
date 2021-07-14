@@ -1,7 +1,7 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import sinon from 'sinon';
 
-import mixin from '../../../src/mixins/keycloak';
+import mixin from '@/mixins/keycloak';
 
 const component = {
   template: '<div/>',

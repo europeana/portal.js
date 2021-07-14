@@ -64,11 +64,11 @@
     isIIIFPresentation, isOEmbed,
     isPlayableMedia,
     isRichMedia
-  } from '../../plugins/media';
+  } from '@/plugins/media';
   import HTMLEmbed from '../generic/HTMLEmbed';
   import VideoPlayer from '../../components/media/VideoPlayer';
   import AudioPlayer from '../../components/media/AudioPlayer';
-  import oEmbed from '../../plugins/oembed';
+  import oEmbed from '@/plugins/oembed';
 
   export default {
     name: 'MediaCard',
@@ -147,7 +147,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../../assets/scss/variables.scss';
+  @import '@/assets/scss/variables.scss';
 
   // TODO: move the code below to video component when we switch to new item page
   ::v-deep video {
