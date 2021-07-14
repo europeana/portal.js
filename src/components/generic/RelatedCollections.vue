@@ -15,6 +15,7 @@
         :link-to="linkGen(relatedCollection)"
         :title="relatedCollection.prefLabel ? relatedCollection.prefLabel : relatedCollection.name"
         :img="imageUrl(relatedCollection)"
+        :type="relatedCollection.type"
       />
     </div>
   </b-container>
@@ -22,7 +23,7 @@
 
 <script>
   import { BASE_URL as EUROPEANA_DATA_URL } from '../../plugins/europeana/data';
-  import { getEntityTypeHumanReadable, getEntitySlug } from '../../plugins/europeana/entity';
+  import { getEntityTypeHumanReadable, getEntitySlug, getWikimediaThumbnailUrl } from '../../plugins/europeana/entity';
 
   import RelatedChip from './RelatedChip';
 
@@ -70,6 +71,12 @@
           return item.image + '&size=w200';
         } else if (item.isShownBy && item.isShownBy.thumbnail) {
           return item.isShownBy.thumbnail + '&size=w200';
+        } else if (item.logo) {
+          const logo = item.logo.id;
+          if (new RegExp('.wiki[mp]edia.org/wiki/Special:FilePath/').test(logo)) {
+            return getWikimediaThumbnailUrl(logo, 60);
+          }
+          return logo;
         } else {
           return null;
         }

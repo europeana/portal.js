@@ -195,3 +195,19 @@ input[type='checkbox']:focus + label {
 main#default {
   margin-top: 70px;
 }
+
+.organisation-logo {
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: $whitegrey;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 66.67%;
+  background-blend-mode: multiply;
+}
