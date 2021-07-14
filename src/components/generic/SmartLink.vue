@@ -67,11 +67,17 @@
         }
 
         if (typeof this.destination === 'string' && this.destination.startsWith('/')) {
+          const [pathSlug, urlParams] = this.destination.split('?');
           return this.$path({
             name: 'slug',
             params: {
-              pathMatch: this.destination.slice(1)
-            }
+              pathMatch: pathSlug.slice(1)
+            },
+            query: urlParams ? urlParams.split('&').reduce((memo, urlParam) => {
+              const [param, value] = urlParam.split('=');
+              memo[param] = value;
+              return memo;
+            }, {}) : {}
           });
         }
 

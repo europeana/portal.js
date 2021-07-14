@@ -154,7 +154,24 @@ describe('components/generic/SmartLink', () => {
         wrapper.vm.path;
         $pathSpy.should.have.been.calledWith({
           name: 'slug',
-          params: { pathMatch: slug }
+          params: { pathMatch: slug },
+          query: {}
+        });
+      });
+    });
+
+    context('when destination is an absolute URL path with URL params', () => {
+      it('returns a route object', async() => {
+        const slug = 'account?redirect=/account';
+        const destination = `/${slug}`;
+        const wrapper = factory();
+        await wrapper.setProps({ destination });
+
+        wrapper.vm.path;
+        $pathSpy.should.have.been.calledWith({
+          name: 'slug',
+          params: { pathMatch: 'account' },
+          query: { redirect: '/account' }
         });
       });
     });
