@@ -15,12 +15,12 @@ const factory = () => shallowMount(DownloadModal, {
 const attributionSnippet = 'Fåtölj - 1700 - Gamla Linköping - Sweden - CC0 - /en/item/565/S_GL_object_GL000004';
 
 describe('components/generic/DownloadModal', () => {
-  it('shows a snippet', () => {
+  it('shows a snippet', async() => {
     const wrapper = factory();
-    wrapper.setProps({ attributionSnippet });
+    await wrapper.setProps({ attributionSnippet });
 
     const snippet =  wrapper.find('[data-qa="attribution snippet"]');
-    snippet.contains('b-form-textarea-stub').should.be.true;
+    snippet.find('b-form-textarea-stub').exists().should.be.true;
     snippet.find('b-form-textarea-stub').attributes('value').should.contain(attributionSnippet);
   });
 });
