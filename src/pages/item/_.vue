@@ -23,6 +23,7 @@
           :identifier="identifier"
           :media="media"
           :edm-rights="edmRights"
+          :attribution-snippet="attributionSnippet"
         />
       </b-container>
       <b-container>
@@ -108,12 +109,14 @@
 <script>
   import axios from 'axios';
   import isEmpty from 'lodash/isEmpty';
+  import { mapGetters } from 'vuex';
 
   import MetadataBox from '../../components/item/MetadataBox';
 
   import { BASE_URL as EUROPEANA_DATA_URL } from '../../plugins/europeana/data';
   import similarItemsQuery from '../../plugins/europeana/record/similar-items';
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
+  import rightsStatement from '../../mixins/rightsStatement';
 
   export default {
     components: {
@@ -125,6 +128,10 @@
       MetadataBox,
       NotificationBanner: () => import('../../components/generic/NotificationBanner')
     },
+
+    mixins: [
+      rightsStatement
+    ],
 
     fetch() {
       const annotationSearchParams = {
@@ -224,6 +231,18 @@
         const entities = this.europeanaConcepts.concat(this.europeanaAgents).concat(this.europeanaTimespans);
         return entities.map((entity) => entity.about).slice(0, 5);
       },
+      attributionSnippet() {
+        let snippet = [];
+        snippet.push(langMapValueForLocale(this.title, this.$i18n.locale).values[0]);
+        snippet.push(langMapValueForLocale(this.coreFields.dcCreator, this.$i18n.locale).values[0]);
+        snippet.push(langMapValueForLocale(this.fields.year, this.$i18n.locale).values[0]);
+        snippet.push(langMapValueForLocale(this.coreFields.edmDataProvider.value, this.$i18n.locale).values[0]);
+        snippet.push(langMapValueForLocale(this.fields.edmCountry, this.$i18n.locale).values[0]);
+        snippet.push(this.rightsNameAndIcon(this.edmRights).name);
+        snippet.push(this.shareUrl);
+
+        return snippet.filter(value => value).join(' - '); // remove empty and output as a string
+      },
       titlesInCurrentLanguage() {
         const titles = [];
 
@@ -271,7 +290,10 @@
       },
       pageHeadMetaOgImage() {
         return this.media[0] ? this.media[0].thumbnails.large : null;
-      }
+      },
+      ...mapGetters({
+        shareUrl: 'http/canonicalUrl'
+      })
     },
 
     mounted() {

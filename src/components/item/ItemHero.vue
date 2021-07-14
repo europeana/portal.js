@@ -47,6 +47,9 @@
           :identifier="identifier"
         />
       </SocialShareModal>
+      <DownloadModal
+        :attribution-snippet="attributionSnippet"
+      />
     </b-container>
   </div>
 </template>
@@ -54,6 +57,7 @@
 <script>
   import AwesomeSwiper from './AwesomeSwiper';
   import DownloadButton from '../generic/DownloadButton.vue';
+  import DownloadModal from '../generic/DownloadModal.vue';
   import RightsStatementButton from '../generic/RightsStatementButton.vue';
   import ItemEmbedCode from './ItemEmbedCode.vue';
   import SocialShareModal from '../sharing/SocialShareModal.vue';
@@ -67,6 +71,7 @@
       RightsStatementButton,
       ItemEmbedCode,
       SocialShareModal,
+      DownloadModal,
       ShareButton,
       UserButtons: () => import('../account/UserButtons')
     },
@@ -86,6 +91,10 @@
       media: {
         type: Array,
         default: () => []
+      },
+      attributionSnippet: {
+        type: String,
+        default: ''
       }
     },
     data() {

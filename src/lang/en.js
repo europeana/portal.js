@@ -659,6 +659,13 @@ export default {
     "notFound": "Not Found",
     "paginationLimitExceeded": "It is only possible to view the first {limit} search results."
   },
+  "modal": {
+    "download": {
+      "modalTitle": "Say thanks",
+      "modalIntro": "If you use this item on the web or elsewhere, don’t forget to display the following attribution next to it:",
+      "clickToCopy": "Click on the attribution to copy it"
+    }
+  },
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
   "noResults": "No results",
