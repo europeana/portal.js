@@ -1,4 +1,4 @@
-import similarItemsQuery from '../../../../../src/plugins/europeana/record/similar-items';
+import similarItemsQuery from '@/plugins/europeana/record/similar-items';
 
 describe('plugins/europeana/record/similar-items', () => {
   const about = '/12345/abcde';

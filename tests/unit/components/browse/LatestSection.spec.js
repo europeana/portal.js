@@ -7,7 +7,7 @@
 // import { createLocalVue, shallowMount } from '@vue/test-utils';
 // import BootstrapVue from 'bootstrap-vue';
 
-// import LatestSection from '../../../../src/components/browse/LatestSection.vue';
+// import LatestSection from '@/components/browse/LatestSection.vue';
 
 // const localVue = createLocalVue();
 // localVue.use(BootstrapVue);

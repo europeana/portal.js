@@ -1,7 +1,7 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 
-import AuthoredHead from '../../../../src/components/authored/AuthoredHead.vue';
+import AuthoredHead from '@/components/authored/AuthoredHead.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);

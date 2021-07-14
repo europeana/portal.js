@@ -1,6 +1,6 @@
 import nock from 'nock';
 
-import entitymanage, { BASE_URL } from '../../../../src/plugins/europeana/entity-management';
+import entitymanage, { BASE_URL } from '@/plugins/europeana/entity-management';
 
 const axios = require('axios');
 

@@ -83,7 +83,7 @@
 
 <script>
   import SmartLink from './generic/SmartLink';
-  import keycloak from '../mixins/keycloak';
+  import keycloak from '@/mixins/keycloak';
 
   export default {
     name: 'PageNavigation',
@@ -174,8 +174,8 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../assets/scss/variables.scss';
-  @import '../assets/scss/icons.scss';
+  @import '@/assets/scss/variables.scss';
+  @import '@/assets/scss/icons.scss';
 
   .nav-item {
     margin-right: 1rem;

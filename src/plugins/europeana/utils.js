@@ -65,7 +65,7 @@ export function apiError(error) {
 
 const locales = require('../i18n/locales.js');
 const undefinedLocaleCodes = ['def', 'und'];
-const uriRegex = /^https?:\/\//; // Used to determine if a value is a URI
+export const uriRegex = /^https?:\/\//; // Used to determine if a value is a URI
 
 const isoAlpha3Map = locales.reduce((memo, locale) => {
   memo[locale.isoAlpha3] = locale.code;

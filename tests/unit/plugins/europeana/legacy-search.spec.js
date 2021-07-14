@@ -1,4 +1,4 @@
-import legacyUrl from '../../../../src/plugins/europeana/legacy-search';
+import legacyUrl from '@/plugins/europeana/legacy-search';
 
 describe('plugins/europeana/legacy-search', () => {
   let locale = 'en';

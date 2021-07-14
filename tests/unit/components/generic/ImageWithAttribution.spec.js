@@ -1,5 +1,5 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import ImageWithAttribution from '../../../../src/components/generic/ImageWithAttribution.vue';
+import ImageWithAttribution from '@/components/generic/ImageWithAttribution.vue';
 import BootstrapVue from 'bootstrap-vue';
 
 const localVue = createLocalVue();
@@ -28,9 +28,10 @@ describe('components/generic/ImageWithAttribution', () => {
     image.attributes().src.should.eq(propsData.src);
   });
 
-  it('renders the attribution', () => {
+  it('renders the attribution', async() => {
     const wrapper = factory();
     wrapper.vm.toggleCite();
+    await wrapper.vm.$nextTick();
     const attribution = wrapper.find('figure [data-qa="attribution"]');
     attribution.attributes().url.should.eq(propsData.attribution.url);
   });

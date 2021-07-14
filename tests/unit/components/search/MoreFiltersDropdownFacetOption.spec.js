@@ -1,6 +1,6 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import MoreFiltersDropdownFacetOption from '../../../../src/components/search/MoreFiltersDropdownFacetOption.vue';
+import MoreFiltersDropdownFacetOption from '@/components/search/MoreFiltersDropdownFacetOption.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -19,10 +19,10 @@ const factory = () => shallowMount(MoreFiltersDropdownFacetOption, {
 
 describe('components/search/MoreFiltersDropdownFacetOption', () => {
   describe('forColourPalette', () => {
-    it('is true for COLOURPALETTE facet', () => {
+    it('is true for COLOURPALETTE facet', async() => {
       const wrapper = factory();
 
-      wrapper.setProps({
+      await wrapper.setProps({
         facetName: 'COLOURPALETTE'
       });
 

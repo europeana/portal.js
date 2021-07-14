@@ -1,6 +1,6 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import NotificationBanner from '../../../../src/components/generic/NotificationBanner.vue';
+import NotificationBanner from '@/components/generic/NotificationBanner.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);

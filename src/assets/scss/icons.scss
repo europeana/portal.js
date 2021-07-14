@@ -62,6 +62,10 @@
   content: '\e91f';
 }
 
+.icon-info-outline:before {
+  content: '\e93a';
+}
+
 .icon-cancel-circle:before {
   content: '\e934';
 }
@@ -76,6 +80,14 @@
 
 .icon-ic-tag:before {
   content: '\e930';
+}
+
+.icon-accept:before {
+  content: '\e938'
+}
+
+.icon-reject:before {
+  content: '\e939'
 }
 
 .icon-ic-feedback:before {
