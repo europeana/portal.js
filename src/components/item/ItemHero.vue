@@ -48,6 +48,7 @@
         />
       </SocialShareModal>
       <DownloadModal
+        v-if="downloadEnabled"
         :attribution-snippet="attributionSnippet"
       />
     </b-container>

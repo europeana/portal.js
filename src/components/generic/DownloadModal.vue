@@ -8,7 +8,6 @@
   >
     <b-form
       data-qa="attribution snippet"
-      @submit.stop.prevent="submitForm"
     >
       <p>
         {{ $t('modal.download.modalIntro') }}
@@ -36,6 +35,7 @@
     </b-form>
     <b-button
       variant="outline-primary"
+      data-qa="attribution snippet close"
       @click="$bvModal.hide('downloadModal')"
     >
       {{ $t('actions.close') }}
