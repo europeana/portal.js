@@ -61,10 +61,10 @@ describe('components/entity/OrganisationsTable', () => {
   });
 
   describe('entityRoute', () => {
-    it('returns an object to set the relative path', () => {
+    it('returns an object to set the relative path', async() => {
       const wrapper = factory();
 
-      wrapper.setData({
+      await wrapper.setData({
         organisations: organisationsArray
       });
 
