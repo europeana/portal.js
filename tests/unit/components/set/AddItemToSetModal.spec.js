@@ -1,6 +1,6 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import AddItemToSetModal from '../../../../src/components/set/AddItemToSetModal';
+import AddItemToSetModal from '@/components/set/AddItemToSetModal';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
@@ -63,7 +63,7 @@ describe('components/set/AddItemToSetModal', () => {
   describe('toggle item button', () => {
     it('adds item to gallery when item is not yet added', async() => {
       const wrapper = factory({ itemId: '/123/abc', modalId: 'add-item-to-set-modal-/123/abc' });
-      wrapper.vm.fetched = true;
+      await wrapper.setData({ fetched: true });
 
       await wrapper.find('[data-qa="toggle item button 0"]').trigger('click');
 
@@ -71,7 +71,7 @@ describe('components/set/AddItemToSetModal', () => {
     });
     it('removes item from gallery when item already added', async() => {
       const wrapper = factory({ itemId: '/000/aaa', modalId: 'add-item-to-set-modal-/000/aaa' });
-      wrapper.vm.fetched = true;
+      await wrapper.setData({ fetched: true });
 
       await wrapper.find('[data-qa="toggle item button 0"]').trigger('click');
 

@@ -4,7 +4,7 @@ import nock from 'nock';
 import axios from 'axios';
 import BootstrapVue from 'bootstrap-vue';
 
-import OrganisationsTable from '../../../../src/components/entity/OrganisationsTable.vue';
+import OrganisationsTable from '@/components/entity/OrganisationsTable.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);

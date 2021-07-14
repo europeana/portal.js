@@ -135,13 +135,7 @@ header .col {
   iframe {
     max-height: initial;
     max-width: 100%;
-  }
-
-  @media (min-width: $bp-extralarge) {
-    blockquote + p cite {
-      width: 38.3rem;
-    }
-  }
+  } 
 }
 
 .info-panel {

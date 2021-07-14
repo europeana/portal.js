@@ -1,7 +1,7 @@
 import sinon from 'sinon';
 
-import serverMiddleware from '../../../../../src/server-middleware/api/entities/organisations';
-const cacher = require('../../../../../src/cachers/entities/organisations');
+import serverMiddleware from '@/server-middleware/api/entities/organisations';
+const cacher = require('@/cachers/entities/organisations');
 
 const expressResStub = {
   json: sinon.stub(),

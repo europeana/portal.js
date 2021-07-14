@@ -1,7 +1,7 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
 import sinon from 'sinon';
-import MoreFacetsDropdown from '../../../../src/components/search/MoreFiltersDropdown.vue';
+import MoreFiltersDropdown from '@/components/search/MoreFiltersDropdown';
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
@@ -20,7 +20,7 @@ const store = new Vuex.Store({
   }
 });
 
-const factory = () => shallowMount(MoreFacetsDropdown, {
+const factory = () => shallowMount(MoreFiltersDropdown, {
   localVue,
   propsData: {
     selected: {}
@@ -32,11 +32,11 @@ const factory = () => shallowMount(MoreFacetsDropdown, {
   store
 });
 
-describe('components/search/MoreFacetsDropdown', () => {
-  it('displays the correct count of selected options', () => {
+describe('components/search/MoreFiltersDropdown', () => {
+  it('displays the correct count of selected options', async() => {
     const wrapper = factory();
 
-    wrapper.setProps({
+    await wrapper.setProps({
       selected: {
         'LANGUAGE': ['de', 'sv'],
         'PROVIDER': ['OpenUp!']
@@ -46,45 +46,45 @@ describe('components/search/MoreFacetsDropdown', () => {
     wrapper.vm.selectedOptionsCount.should.eql(3);
   });
 
-  it('disables the cancel and apply button when nothing has been selected', () => {
+  it('disables the apply button when nothing has been selected', async() => {
     const wrapper = factory();
 
-    wrapper.setProps({
-      selected: {}
+    await wrapper.setData({
+      preSelected: {}
     });
 
-    wrapper.setData({
-      preSelected: {}
+    await wrapper.setProps({
+      selected: {}
     });
 
     wrapper.vm.selectedOptionsUnchanged.should.eql(true);
   });
 
-  it('disables the cancel and apply button when nothing new has been selected', () => {
+  it('disables the apply button when nothing new has been selected', async() => {
     const wrapper = factory();
 
-    wrapper.setProps({
+    await wrapper.setData({
+      preSelected: {}
+    });
+
+    await wrapper.setProps({
       selected: {
         'LANGUAGE': ['de', 'sv'],
         'PROVIDER': ['OpenUp!']
       }
     });
 
-    wrapper.setData({
-      preSelected: {}
-    });
-
     wrapper.vm.selectedOptionsUnchanged.should.eql(true);
   });
 
-  it('enables the cancel and apply button when an option has been selected', () => {
+  it('enables the apply button when an option has been selected', async() => {
     const wrapper = factory();
 
-    wrapper.setProps({
+    await wrapper.setProps({
       selected: {}
     });
 
-    wrapper.setData({
+    await wrapper.setData({
       preSelected: {
         'LANGUAGE': ['de', 'sv']
       }
@@ -93,10 +93,10 @@ describe('components/search/MoreFacetsDropdown', () => {
     wrapper.vm.selectedOptionsUnchanged.should.eql(false);
   });
 
-  it('maps an array of more facet names', () => {
+  it('maps an array of more facet names', async() => {
     const wrapper = factory();
 
-    wrapper.setProps({
+    await wrapper.setProps({
       moreFacets: [
         {
           name: 'LANGUAGE',
@@ -122,29 +122,29 @@ describe('components/search/MoreFacetsDropdown', () => {
     wrapper.vm.moreFacetNames.should.eql(['LANGUAGE', 'PROVIDER']);
   });
 
-  it('clones selected data', () => {
+  it('clones selected data', async() => {
     const wrapper = factory();
     const selected = {
       'LANGUAGE': ['de', 'sv'],
       'PROVIDER': ['OpenUp!']
     };
 
-    wrapper.setProps({ selected });
+    await wrapper.setProps({ selected });
     wrapper.vm.preSelected.should.eql(selected);
   });
 
-  it('clears preselected data when user clicks Cancel button', () => {
+  it('clears preselected data when user clicks Cancel button', async() => {
     const wrapper = factory();
     wrapper.vm.$refs.dropdown.hide = sinon.spy();
     const cancelButton = wrapper.find('[data-qa="cancel button"]');
 
-    wrapper.setProps({
+    await wrapper.setProps({
       selected: {
         'PROVIDER': ['OpenUp!']
       }
     });
 
-    wrapper.setData({
+    await wrapper.setData({
       preSelected: {
         'LANGUAGE': ['de', 'sv']
       }
@@ -155,10 +155,10 @@ describe('components/search/MoreFacetsDropdown', () => {
     wrapper.vm.preSelected.should.deep.eql({ 'PROVIDER': ['OpenUp!'] });
   });
 
-  it('clears all preselected data when user clicks the Reset Filter button', () => {
+  it('clears all preselected data when user clicks the Reset Filter button', async() => {
     const wrapper = factory();
 
-    wrapper.setData({
+    await wrapper.setData({
       preSelected: {
         'LANGUAGE': ['de', 'sv']
       }
@@ -194,10 +194,10 @@ describe('components/search/MoreFacetsDropdown', () => {
       });
     });
 
-    it('returns correct `end` and `start` properties if preSelected contains `proxy_dcterms_issued`', () => {
+    it('returns correct `end` and `start` properties if preSelected contains `proxy_dcterms_issued`', async() => {
       const wrapper = factory();
 
-      wrapper.setData({
+      await wrapper.setData({
         preSelected: {
           'proxy_dcterms_issued': ['[2019-12-06 TO *]']
         }
@@ -213,13 +213,13 @@ describe('components/search/MoreFacetsDropdown', () => {
   describe('filtersChanged computed property', () => {
     const wrapper = factory();
 
-    it('detects filters that have been added', () => {
-      wrapper.setProps({
+    it('detects filters that have been added', async() => {
+      await wrapper.setProps({
         selected: {
           'LANGUAGE': ['de']
         }
       });
-      wrapper.setData({
+      await wrapper.setData({
         preSelected: {
           'LANGUAGE': ['de', 'fr'],
           'IMAGE_SIZE': ['MEDIUM']
@@ -229,13 +229,13 @@ describe('components/search/MoreFacetsDropdown', () => {
       wrapper.vm.filtersChanged.should.eql(['LANGUAGE', 'IMAGE_SIZE']);
     });
 
-    it('detects filters that have been removed', () => {
-      wrapper.setProps({
+    it('detects filters that have been removed', async() => {
+      await wrapper.setProps({
         selected: {
           'LANGUAGE': ['de']
         }
       });
-      wrapper.setData({
+      await wrapper.setData({
         preSelected: {
           'LANGUAGE': []
         }
@@ -244,13 +244,13 @@ describe('components/search/MoreFacetsDropdown', () => {
       wrapper.vm.filtersChanged.should.eql(['LANGUAGE']);
     });
 
-    it('detects filters that are unchanged', () => {
-      wrapper.setProps({
+    it('detects filters that are unchanged', async() => {
+      await wrapper.setProps({
         selected: {
           'LANGUAGE': ['de']
         }
       });
-      wrapper.setData({
+      await wrapper.setData({
         preSelected: {
           'LANGUAGE': ['de'],
           'IMAGE_SIZE': []

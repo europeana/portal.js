@@ -25,6 +25,7 @@ module.exports = {
         linksToClassic: featureIsEnabled(process.env.ENABLE_LINKS_TO_CLASSIC),
         recommendations: featureIsEnabled(process.env.ENABLE_RECOMMENDATIONS),
         acceptSetRecommendations: featureIsEnabled(process.env.ENABLE_ACCEPT_SET_RECOMMENDATIONS),
+        acceptEntityRecommendations: featureIsEnabled(process.env.ENABLE_ACCEPT_ENTITY_RECOMMENDATIONS),
         entityManagement: featureIsEnabled(process.env.ENABLE_ENTITY_MANAGEMENT)
       }
     },
@@ -363,37 +364,8 @@ module.exports = {
   /*
   ** Build configuration
   */
-  build: {
-    stats: process.env.NODE_ENV === 'test' ? 'errors-only' : {
-      chunks: false,
-      children: false,
-      modules: false,
-      colors: true,
-      warnings: true,
-      errors: true,
-      excludeAssets: [
-        /.map$/,
-        /index\..+\.html$/,
-        /vue-ssr-client-manifest.json/
-      ]
-    },
-    extractCSS: true,
-    /*
-    ** You can extend webpack config here
-    */
-    extend(config, ctx) {
-      config.node = { fs: 'empty' };
-      // Run ESLint on save
-      if (ctx.isDev && ctx.isClient) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules)/
-        });
-      }
-    }
-  },
+  build: {},
+
   /*
   ** Render configuration
    */

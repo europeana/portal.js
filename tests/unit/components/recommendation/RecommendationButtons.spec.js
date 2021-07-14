@@ -1,6 +1,6 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import RecommendationButtons from '../../../../src/components/recommendation/RecommendationButtons';
+import RecommendationButtons from '@/components/recommendation/RecommendationButtons';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
