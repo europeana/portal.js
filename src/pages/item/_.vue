@@ -111,22 +111,22 @@
   import isEmpty from 'lodash/isEmpty';
   import { mapGetters } from 'vuex';
 
-  import MetadataBox from '../../components/item/MetadataBox';
+  import MetadataBox from '@/components/item/MetadataBox';
 
-  import { BASE_URL as EUROPEANA_DATA_URL } from '../../plugins/europeana/data';
-  import similarItemsQuery from '../../plugins/europeana/record/similar-items';
-  import { langMapValueForLocale } from  '../../plugins/europeana/utils';
-  import rightsStatement from '../../mixins/rightsStatement';
+  import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
+  import similarItemsQuery from '@/plugins/europeana/record/similar-items';
+  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import rightsStatement from '@/mixins/rightsStatement';
 
   export default {
     components: {
-      ItemHero: () => import('../../components/item/ItemHero'),
-      AlertMessage: () => import('../../components/generic/AlertMessage'),
-      ItemPreviewCardGroup: () => import('../../components/item/ItemPreviewCardGroup'),
-      RelatedCollections: () => import('../../components/generic/RelatedCollections'),
-      SummaryInfo: () => import('../../components/item/SummaryInfo'),
+      ItemHero: () => import('@/components/item/ItemHero'),
+      AlertMessage: () => import('@/components/generic/AlertMessage'),
+      ItemPreviewCardGroup: () => import('@/components/item/ItemPreviewCardGroup'),
+      RelatedCollections: () => import('@/components/generic/RelatedCollections'),
+      SummaryInfo: () => import('@/components/item/SummaryInfo'),
       MetadataBox,
-      NotificationBanner: () => import('../../components/generic/NotificationBanner')
+      NotificationBanner: () => import('@/components/generic/NotificationBanner')
     },
 
     mixins: [

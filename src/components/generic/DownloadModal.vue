@@ -71,7 +71,7 @@
 </script>
 
 <style lang="scss">
-  @import '../../assets/scss/variables.scss';
+  @import '@/assets/scss/variables.scss';
 
   #downloadModal {
     font-size: $font-size-small;
