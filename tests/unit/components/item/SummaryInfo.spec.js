@@ -1,6 +1,6 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import SummaryInfo from '../../../../src/components/item/SummaryInfo.vue';
+import SummaryInfo from '@/components/item/SummaryInfo.vue';
 import VueI18n from 'vue-i18n';
 
 const localVue = createLocalVue();

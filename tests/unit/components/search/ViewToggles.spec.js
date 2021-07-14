@@ -3,7 +3,7 @@ import BootstrapVue from 'bootstrap-vue';
 import VueRouter from 'vue-router';
 import sinon from 'sinon';
 
-import ViewToggles from '../../../../src/components/search/ViewToggles.vue';
+import ViewToggles from '@/components/search/ViewToggles.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -60,18 +60,18 @@ describe('components/search/ViewToggles', () => {
   }
 
   describe('when v-model changes', () => {
-    it('updates active view', () => {
+    it('updates active view', async() => {
       const wrapper = factory({ value: 'grid' });
 
-      wrapper.setProps({ value: 'list' });
+      await wrapper.setProps({ value: 'list' });
 
       wrapper.vm.activeView.should.eq('list');
     });
 
-    it('tracks the event in Matomo', () => {
+    it('tracks the event in Matomo', async() => {
       const wrapper = factory({ value: 'grid' });
 
-      wrapper.setProps({ value: 'list' });
+      await wrapper.setProps({ value: 'list' });
 
       wrapper.vm.$matomo.trackEvent.should.have.been.calledWith('View search results', 'Select view', 'list');
     });

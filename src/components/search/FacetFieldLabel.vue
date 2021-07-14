@@ -6,7 +6,7 @@
 
 <script>
   import { mapGetters } from 'vuex';
-  import { unescapeLuceneSpecials } from '../../plugins/europeana/utils';
+  import { unescapeLuceneSpecials } from '@/plugins/europeana/utils';
 
   export default {
     name: 'FacetFieldLabel',

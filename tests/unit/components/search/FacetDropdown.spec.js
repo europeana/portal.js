@@ -1,7 +1,7 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import sinon from 'sinon';
 
-import FacetDropdown from '../../../../src/components/search/FacetDropdown.vue';
+import FacetDropdown from '@/components/search/FacetDropdown.vue';
 
 const localVue = createLocalVue();
 
@@ -41,10 +41,10 @@ const factory = () => shallowMount(FacetDropdown, {
 });
 
 describe('components/search/FacetDropdown', () => {
-  it('puts selected options to the top list in descending count value order', () => {
+  it('puts selected options to the top list in descending count value order', async() => {
     const wrapper = factory();
 
-    wrapper.setProps({
+    await wrapper.setProps({
       selected: ['Spain', 'United Kingdom']
     });
 
@@ -70,14 +70,14 @@ describe('components/search/FacetDropdown', () => {
 
   describe('reset button', () => {
     context('when nothing has been selected', () => {
-      it('is disabled', () => {
+      it('is disabled', async() => {
         const wrapper = factory();
 
-        wrapper.setProps({
+        await wrapper.setProps({
           selected: []
         });
 
-        wrapper.setData({
+        await wrapper.setData({
           preSelected: []
         });
 
@@ -87,10 +87,10 @@ describe('components/search/FacetDropdown', () => {
       });
 
       context('when option has been selected', () => {
-        it('is enabled', () => {
+        it('is enabled', async() => {
           const wrapper = factory();
 
-          wrapper.setData({
+          await wrapper.setData({
             preSelected: ['Spain']
           });
 
@@ -104,10 +104,10 @@ describe('components/search/FacetDropdown', () => {
 
   describe('apply button', () => {
     context('when new facet option has been selected', () => {
-      it('is enabled', () => {
+      it('is enabled', async() => {
         const wrapper = factory();
 
-        wrapper.setData({
+        await wrapper.setData({
           preSelected: ['Spain', 'United Kingdom']
         });
 
@@ -118,10 +118,10 @@ describe('components/search/FacetDropdown', () => {
     });
 
     context('when no new facet options have been selected', () => {
-      it('is disabled', () => {
+      it('is disabled', async() => {
         const wrapper = factory();
 
-        wrapper.setData({
+        await wrapper.setData({
           preSelected: []
         });
 

@@ -95,7 +95,7 @@
 
 <script>
   import SmartLink from './SmartLink';
-  import { langMapValueForLocale } from  '../../plugins/europeana/utils';
+  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
 
   export default {
     name: 'ContentCard',

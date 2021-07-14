@@ -1,7 +1,7 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import VueI18n from 'vue-i18n';
-import EntityUpdateModal from '../../../../src/components/entity/EntityUpdateModal';
+import EntityUpdateModal from '@/components/entity/EntityUpdateModal';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
@@ -9,7 +9,7 @@ localVue.use(BootstrapVue);
 localVue.use(VueI18n);
 
 const storeDispatch = sinon.stub().resolves({});
-import messages from '../../../../src/lang/en';
+import messages from '@/lang/en';
 
 const i18n = new VueI18n({
   locale: 'en',

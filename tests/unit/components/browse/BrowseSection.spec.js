@@ -1,6 +1,6 @@
 // import { createLocalVue, mount } from '@vue/test-utils';
 // import BootstrapVue from 'bootstrap-vue';
-// import BrowseSections from '../../../../src/components/browse/BrowseSections.vue';
+// import BrowseSections from '@/components/browse/BrowseSections.vue';
 
 // const localVue = createLocalVue();
 // localVue.use(BootstrapVue);

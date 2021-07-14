@@ -3,98 +3,94 @@
     class="user-buttons"
     data-qa="user buttons"
   >
-    <client-only>
-      <b-button
-        v-show="showPins"
-        :pressed="pinned"
-        class="icon-push-pin"
-        data-qa="pin button"
-        :aria-label="$t('entity.actions.pin')"
-        @click="togglePinned"
+    <b-button
+      v-show="showPins"
+      :pressed="pinned"
+      class="icon-push-pin"
+      data-qa="pin button"
+      :aria-label="$t('entity.actions.pin')"
+      @click="togglePinned"
+    />
+    <b-button
+      class="icon-ic-add"
+      data-qa="add button"
+      :aria-label="$t('set.actions.addTo')"
+      @click="addToSet"
+    />
+    <b-button
+      :pressed="liked"
+      class="icon-heart"
+      data-qa="like button"
+      :aria-label="$t('actions.like')"
+      size="sm"
+      @click="toggleLiked"
+    />
+    <template
+      v-if="$auth.loggedIn"
+    >
+      <AddItemToSetModal
+        data-qa="add item to set modal"
+        :modal-id="addItemToSetModalId"
+        :item-id="value"
+        :new-set-created="newSetCreated"
+        @clickCreateSet="clickCreateSet"
+        @hideModal="refreshSet"
       />
-      <b-button
-        class="icon-ic-add"
-        data-qa="add button"
-        :aria-label="$t('set.actions.addTo')"
-        @click="addToSet"
+      <SetFormModal
+        :modal-id="setFormModalId"
+        :item-context="value"
+        @response="setCreatedOrUpdated"
       />
-      <b-button
-        :pressed="liked"
-        class="icon-heart"
-        data-qa="like button"
-        :aria-label="$t('actions.like')"
-        size="sm"
-        @click="toggleLiked"
+      <PinToEntityModal
+        :modal-id="pinModalId"
+        :item-id="value"
+        :pinned="pinned"
+        data-qa="pin item to entity modal"
       />
-      <template
-        v-if="$auth.loggedIn"
+      <!-- TODO: remove when 100-item like limit removed -->
+      <b-modal
+        :id="likeLimitModalId"
+        :title="$t('set.notifications.likeLimit.title')"
+        hide-footer
       >
-        <AddItemToSetModal
-          data-qa="add item to set modal"
-          :modal-id="addItemToSetModalId"
-          :item-id="value"
-          :new-set-created="newSetCreated"
-          @clickCreateSet="clickCreateSet"
-          @hideModal="refreshSet"
-        />
-        <SetFormModal
-          :modal-id="setFormModalId"
-          :item-context="value"
-          @response="setCreatedOrUpdated"
-        />
-        <PinToEntityModal
-          :modal-id="pinModalId"
-          :item-id="value"
-          :pinned="pinned"
-          data-qa="pin item to entity modal"
-        />
-        <!-- TODO: remove when 100-item like limit removed -->
-        <b-modal
-          :id="likeLimitModalId"
-          :title="$t('set.notifications.likeLimit.title')"
-          hide-footer
-        >
-          <p>{{ $t('set.notifications.likeLimit.body') }}</p>
-        </b-modal>
-        <b-modal
-          v-if="showPins"
-          :id="pinnedLimitModalId"
-          :title="$t('entity.notifications.pinLimit.title')"
-          hide-footer
-          hide-header-close
-        >
-          {{ $t('entity.notifications.pinLimit.body') }}
-          <div class="modal-footer">
-            <b-button
-              variant="outline-primary"
-              data-qa="cancel button"
-              @click="$bvModal.hide(pinnedLimitModalId)"
-            >
-              {{ $t('actions.close') }}
-            </b-button>
-            <b-button
-              variant="primary"
-              @click="goToPins"
-            >
-              {{ $t('entity.actions.viewPinned') }}
-            </b-button>
-          </div>
-        </b-modal>
-      </template>
-    </client-only>
+        <p>{{ $t('set.notifications.likeLimit.body') }}</p>
+      </b-modal>
+      <b-modal
+        v-if="showPins"
+        :id="pinnedLimitModalId"
+        :title="$t('entity.notifications.pinLimit.title')"
+        hide-footer
+        hide-header-close
+      >
+        {{ $t('entity.notifications.pinLimit.body') }}
+        <div class="modal-footer">
+          <b-button
+            variant="outline-primary"
+            data-qa="cancel button"
+            @click="$bvModal.hide(pinnedLimitModalId)"
+          >
+            {{ $t('actions.close') }}
+          </b-button>
+          <b-button
+            variant="primary"
+            @click="goToPins"
+          >
+            {{ $t('entity.actions.viewPinned') }}
+          </b-button>
+        </div>
+      </b-modal>
+    </template>
   </div>
 </template>
 
 <script>
-  import ClientOnly from 'vue-client-only';
-  import keycloak from '../../mixins/keycloak';
+  import keycloak from '@/mixins/keycloak';
 
   export default {
     name: 'UserButtons',
 
     components: {
       AddItemToSetModal: () => import('../set/AddItemToSetModal'),
-      ClientOnly,
       SetFormModal: () => import('../set/SetFormModal'),
       PinToEntityModal: () => import('../entity/PinModal')
     },

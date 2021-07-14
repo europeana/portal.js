@@ -1,7 +1,7 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import SmartLink from '../../../../src/components/generic/SmartLink.vue';
-import LinkGroup from '../../../../src/components/generic/LinkGroup.vue';
+import SmartLink from '@/components/generic/SmartLink.vue';
+import LinkGroup from '@/components/generic/LinkGroup.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);

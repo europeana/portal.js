@@ -1,4 +1,4 @@
-import * as plugin from '../../../src/plugins/vue-matomo.client';
+import * as plugin from '@/plugins/vue-matomo.client';
 
 describe('plugins/vue-matomo.client', () => {
   describe('trackSiteSearch', () => {
