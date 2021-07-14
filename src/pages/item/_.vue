@@ -232,16 +232,17 @@
         return entities.map((entity) => entity.about).slice(0, 5);
       },
       attributionSnippet() {
-        let snippet = [];
-        snippet.push(langMapValueForLocale(this.title, this.$i18n.locale).values[0]);
-        snippet.push(langMapValueForLocale(this.coreFields.dcCreator, this.$i18n.locale).values[0]);
-        snippet.push(langMapValueForLocale(this.fields.year, this.$i18n.locale).values[0]);
-        snippet.push(langMapValueForLocale(this.coreFields.edmDataProvider.value, this.$i18n.locale).values[0]);
-        snippet.push(langMapValueForLocale(this.fields.edmCountry, this.$i18n.locale).values[0]);
-        snippet.push(this.rightsNameAndIcon(this.edmRights).name);
-        snippet.push(this.shareUrl);
-
-        return snippet.filter(value => value).join(' - '); // remove empty and output as a string
+        return [
+          langMapValueForLocale(this.title, this.$i18n.locale).values[0],
+          langMapValueForLocale(this.coreFields.dcCreator, this.$i18n.locale).values[0],
+          langMapValueForLocale(this.fields.year, this.$i18n.locale).values[0],
+          langMapValueForLocale(this.coreFields.edmDataProvider.value, this.$i18n.locale).values[0],
+          langMapValueForLocale(this.fields.edmCountry, this.$i18n.locale).values[0],
+          this.rightsNameAndIcon(this.edmRights).name,
+          this.shareUrl
+        ]
+          .filter(value => value) // remove empty
+          .join(' - '); // output as a string
       },
       titlesInCurrentLanguage() {
         const titles = [];

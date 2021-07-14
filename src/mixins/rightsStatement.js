@@ -15,7 +15,6 @@ export default {
     rightsNameAndIcon(rightsStatementUrl) {
       const rights = {};
 
-      // TODO: localise the names?
       switch (true) {
         case new RegExp('https?://creativecommons.org/(licenses/)?publicdomain/mark').test(rightsStatementUrl):
           rights.name = 'Public Domain';
@@ -49,15 +48,12 @@ export default {
           rights.name = 'CC BY-ND';
           rights.iconClass = [ICON_CLASS_CC, ICON_CLASS_BY, ICON_CLASS_ND];
           break;
-        case new RegExp('https?://www.europeana.eu/rights/out-of-copyright-non-commercial/').test(rightsStatementUrl):
-          rights.name = 'No Copyright - Non-Commercial Use Only';
-          rights.iconClass = [ICON_CLASS_NO_COPYRIGHT];
-          break;
         case new RegExp('https?://rightsstatements.org/(vocab|page)/InC-EDU/').test(rightsStatementUrl):
           rights.name = 'In Copyright - Educational Use Permitted';
           rights.iconClass = [ICON_CLASS_IN_COPYRIGHT];
           break;
         case new RegExp('https?://rightsstatements.org/(vocab|page)/NoC-NC/').test(rightsStatementUrl):
+        case new RegExp('https?://www.europeana.eu/rights/out-of-copyright-non-commercial/').test(rightsStatementUrl):
           rights.name = 'No Copyright - Non-Commercial Use Only';
           rights.iconClass = [ICON_CLASS_NO_COPYRIGHT];
           break;
