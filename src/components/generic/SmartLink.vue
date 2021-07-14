@@ -73,11 +73,7 @@
             params: {
               pathMatch: pathSlug.slice(1)
             },
-            query: urlParams ? urlParams.split('&').reduce((memo, urlParam) => {
-              const [param, value] = urlParam.split('=');
-              memo[param] = value;
-              return memo;
-            }, {}) : {}
+            query: Object.fromEntries(new URLSearchParams(urlParams))
           });
         }
 

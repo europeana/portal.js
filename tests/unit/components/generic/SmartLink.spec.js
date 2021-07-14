@@ -38,7 +38,6 @@ describe('components/generic/SmartLink', () => {
       const wrapper = factory();
       await wrapper.setProps({ destination: 'https://www.example.org/url-example' });
 
-      wrapper.contains('b-link-stub').should.be.true;
       wrapper.find('b-link-stub').attributes('href').should.exist;
     });
 
@@ -63,7 +62,6 @@ describe('components/generic/SmartLink', () => {
       await wrapper.setProps({ destination: uri });
       wrapper.vm.isExternalLink.should.be.false;
 
-      wrapper.contains('b-link-stub').should.be.true;
       wrapper.find('b-link-stub').attributes('to').should.exist;
     });
 
@@ -80,7 +78,6 @@ describe('components/generic/SmartLink', () => {
       const wrapper = factory();
       await wrapper.setProps({ destination: '/url/path-example' });
 
-      wrapper.contains('b-link-stub').should.be.true;
       wrapper.find('b-link-stub').attributes('to').should.exist;
     });
   });
@@ -90,7 +87,6 @@ describe('components/generic/SmartLink', () => {
       const wrapper = factory();
       await wrapper.setProps({ destination: { name: 'route-to-somewhere' } });
 
-      wrapper.contains('b-link-stub').should.be.true;
       wrapper.find('b-link-stub').attributes('to').should.exist;
     });
   });
