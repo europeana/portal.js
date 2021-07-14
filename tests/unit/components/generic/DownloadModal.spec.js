@@ -1,6 +1,6 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import DownloadModal from '../../../../src/components/generic/DownloadModal.vue';
+import DownloadModal from '@/components/generic/DownloadModal.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
