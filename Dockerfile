@@ -1,7 +1,9 @@
 # Multi-stage image to build and run europeana/portal.js
 
-# 0. Prevent re-installing npm packages on non-dependency changes to package.json
-FROM alpine:3
+# Packager
+#
+# Prevents re-installing npm packages on non-dependency changes to package.json
+FROM alpine:3 AS packager
 
 WORKDIR /app
 
@@ -12,8 +14,8 @@ COPY package.json package-original.json
 RUN jq -Mr '{dependencies,devDependencies}' package-original.json > package.json
 
 
-# 1. Build
-FROM node:14-alpine
+# Builder
+FROM node:14-alpine AS builder
 
 ENV CHROMEDRIVER_SKIP_DOWNLOAD=true \
     GECKODRIVER_SKIP_DOWNLOAD=true \
@@ -26,7 +28,7 @@ WORKDIR /app
 RUN apk add --no-cache git
 
 COPY bin ./bin
-COPY --from=0 /app/package.json .
+COPY --from=packager /app/package.json .
 COPY package-lock.json ./
 
 RUN npm install
@@ -36,11 +38,26 @@ COPY src ./src
 
 RUN npm run build
 
+
+# Tester
+FROM builder as tester
+
+COPY .stylelintrc.js .eslintrc.js ./
+COPY tests ./tests
+
+CMD ["npm", "run", "test:unit"]
+
+
+# Pruner
+#
+# Removes packages not needed for production
+FROM builder AS pruner
+
 RUN npm prune --production
 
 
-# 2. Run
-FROM node:14-alpine
+# 3. Runner
+FROM node:14-alpine AS runner
 
 ENV PORT=8080 \
     HOST=0.0.0.0 \
@@ -50,6 +67,6 @@ EXPOSE ${PORT}
 
 WORKDIR /app
 
-COPY --from=1 /app .
+COPY --from=pruner /app .
 
 CMD ["npm", "run", "start"]
