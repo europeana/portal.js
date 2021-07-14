@@ -1,6 +1,6 @@
 import nock from 'nock';
 
-import annotation, { BASE_URL } from '../../../../src/plugins/europeana/annotation';
+import annotation, { BASE_URL } from '@/plugins/europeana/annotation';
 
 describe('plugins/europeana/entity', () => {
   afterEach(() => {

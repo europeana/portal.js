@@ -92,7 +92,7 @@
   import Vue from 'vue';
   import isEqual from 'lodash/isEqual';
   import { mapGetters } from 'vuex';
-  import { rangeToQueryParam, rangeFromQueryParam } from '../../plugins/europeana/search';
+  import { rangeToQueryParam, rangeFromQueryParam } from '@/plugins/europeana/search';
   import MoreFiltersDropdownFacet from './MoreFiltersDropdownFacet';
   import DateFilter from './DateFilter';
   import RadioGroupFilter from './RadioGroupFilter';

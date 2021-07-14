@@ -1,6 +1,6 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import HeroHeader from '../../../../src/components/browse/HeroHeader.vue';
+import HeroHeader from '@/components/browse/HeroHeader.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -43,9 +43,9 @@ describe('components/generic/HeroHeader', () => {
     description.text().should.contain('Explore millions of items!');
   });
 
-  it('has a cta', () => {
+  it('has a cta', async() => {
     const wrapper = factory();
-    wrapper.setProps({ cta: { text: 'Click here!', url: 'http://www.example.org/cta' } });
+    await wrapper.setProps({ cta: { text: 'Click here!', url: 'http://www.example.org/cta' } });
 
     const cta = wrapper.find('a');
     cta.text().should.contain('Click here!');

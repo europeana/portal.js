@@ -2,7 +2,7 @@ import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
 import BootstrapVue from 'bootstrap-vue';
 
-import page from '../../../../src/pages/set/_';
+import page from '@/pages/set/_';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
@@ -18,7 +18,8 @@ const factory = (set = {}) => shallowMountNuxt(page, {
   localVue,
   data() {
     return {
-      recommendations: []
+      recommendations: [],
+      userIsEntityEditor: false
     };
   },
   mocks: {

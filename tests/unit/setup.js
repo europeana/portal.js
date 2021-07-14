@@ -11,7 +11,7 @@ axios.defaults.adapter = require('axios/lib/adapters/http');
 
 const sinon = require('sinon');
 
-import('../../src/plugins/vue-filters');
+import '@/plugins/vue-filters';
 
 global.localStorage = {
   getItem: () => sinon.spy(),

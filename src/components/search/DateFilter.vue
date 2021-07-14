@@ -153,7 +153,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../../assets/scss/variables.scss';
+  @import '@/assets/scss/variables.scss';
 
   .form-control.is-active {
     border: 1px solid $innovationblue;

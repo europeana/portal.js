@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import VueMatomo from '@europeana/vue-matomo';
+import VueMatomo from 'vue-matomo';
 
 export const trackSiteSearch = (store) => (to) => {
   let siteSearch = null;

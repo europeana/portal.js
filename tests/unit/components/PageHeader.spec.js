@@ -1,5 +1,5 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import PageHeader from '../../../src/components/PageHeader.vue';
+import PageHeader from '@/components/PageHeader.vue';
 import BootstrapVue from 'bootstrap-vue';
 import Vuex from 'vuex';
 

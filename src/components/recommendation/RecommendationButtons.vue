@@ -3,33 +3,27 @@
     class="user-buttons"
     data-qa="recommendation buttons"
   >
-    <client-only>
-      <b-button
-        class="recommendation-button icon-accept"
-        data-qa="accept button"
-        :aria-label="$t('actions.accept')"
-        @click="acceptRecommendation"
-      />
-      <b-button
-        class="recommendation-button icon-reject"
-        data-qa="reject button"
-        :aria-label="$t('actions.reject')"
-        @click="rejectRecommendation"
-      />
-    </client-only>
+    <b-button
+      class="recommendation-button icon-accept"
+      data-qa="accept button"
+      :aria-label="$t('actions.accept')"
+      @click="acceptRecommendation"
+    />
+    <b-button
+      class="recommendation-button icon-reject"
+      data-qa="reject button"
+      :aria-label="$t('actions.reject')"
+      @click="rejectRecommendation"
+    />
   </div>
 </template>
 
 <script>
-  import ClientOnly from 'vue-client-only';
-  import keycloak from '../../mixins/keycloak';
+  import keycloak from '@/mixins/keycloak';
 
   export default {
     name: 'RecommendationButtons',
 
-    components: {
-      ClientOnly
-    },
     mixins: [
       keycloak
     ],
