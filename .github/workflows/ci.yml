@@ -48,6 +48,7 @@ jobs:
       cf-app-fqdn: ${{ steps.done.outputs.cf-app-fqdn }}
       cf-space:  ${{ steps.done.outputs.cf-space }}
 
+  # TODO: include PR # or Git SHA in Docker tags?
   build:
     runs-on: ubuntu-latest
     steps:
@@ -62,7 +63,7 @@ jobs:
           key: ${{ runner.os }}-buildx-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-buildx-
-      - name: Build Docker image: builder
+      - name: "Build Docker image: builder"
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -71,7 +72,7 @@ jobs:
           tags: europeana/portal.js:builder
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
-      - name: Build Docker image: tester
+      - name: "Build Docker image: tester"
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -80,7 +81,7 @@ jobs:
           tags: europeana/portal.js:tester
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
-      - name: Build Docker image: runner
+      - name: "Build Docker image: runner"
         uses: docker/build-push-action@v2
         with:
           context: .
