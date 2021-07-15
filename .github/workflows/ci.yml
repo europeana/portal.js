@@ -28,6 +28,7 @@ env:
   OAUTH_CLIENT: ${{ secrets.OAUTH_CLIENT }}
   PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
   REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   config:
@@ -67,7 +68,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: europeana/portal.js
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=ref,event=pr
       -
