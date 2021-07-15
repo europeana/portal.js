@@ -84,6 +84,10 @@ jobs:
         run: |
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+      - name: Inspection!
+        run: |
+          docker image ls
+          ls -al /tmp/.buildx-cache
 
   test-unit:
     needs: [build]
@@ -100,13 +104,17 @@ jobs:
           key: ${{ runner.os }}-buildx-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-buildx-
+      - name: Inspection!
+        run: |
+          docker image ls
+          ls -al /tmp/.buildx-cache
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
           context: .
           push: false
           target: tester
-          tags: europeana/portal.js-tester
+          tags: europeana/portal.js:tester
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
       - name: Test
