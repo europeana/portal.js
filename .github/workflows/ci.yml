@@ -75,7 +75,7 @@ jobs:
         name: Build and push Docker image
         run: |
           docker pull ${{ steps.metadata.outputs.tags }}
-          docker build -t ${{ steps.metadata.outputs.tags }} .
+          docker build --target runner -t ${{ steps.metadata.outputs.tags }} .
           docker push ${{ steps.metadata.outputs.tags }}
 
   #
