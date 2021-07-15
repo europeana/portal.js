@@ -3,7 +3,7 @@
     <b-col>
       <div
         v-if="resizedLogo"
-        class="logo"
+        class="organisation-logo"
         data-qa="entity logo"
         :style="`background-image: url(${resizedLogo})`"
       />
@@ -110,10 +110,7 @@
         return this.hasDescription ? this.description.values[0] : '';
       },
       resizedLogo() {
-        if (new RegExp('.wiki[mp]edia.org/wiki/Special:FilePath/').test(this.logo)) {
-          return getWikimediaThumbnailUrl(this.logo, 60);
-        }
-        return this.logo;
+        return getWikimediaThumbnailUrl(this.logo, 60);
       },
       externalLinkText() {
         const externalLinkURL = new URL(this.externalLink);
@@ -136,21 +133,8 @@
     margin-bottom: 0.5rem;
   }
 
-  .logo {
-    height: 60px;
-    width: 60px;
-    border-radius: 50%;
+  .organisation-logo {
     margin-bottom: 1.5rem;
-    object-fit: cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    background-color: $whitegrey;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    background-blend-mode: multiply;
   }
 
   .btn-link {

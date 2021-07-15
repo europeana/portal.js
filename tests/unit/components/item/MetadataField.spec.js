@@ -212,7 +212,7 @@ describe('components/item/MetadataField', () => {
         name: 'edmDataProvider',
         fieldData: {
           url: 'http://www.mimo-db.eu/MIMO/infodoc/ged/view.aspx?eid=OAI_IMAGE_PROJECTS_LIB_ED_AC_UK_10683_17533',
-          value: { en: ['University of Edinburgh'] }
+          value: { def: [{ about: 'entity_uri', prefLabel: { en: ['University of Edinburgh'] } }] }
         }
       };
 

@@ -15,14 +15,15 @@
         :link-to="linkGen(relatedCollection)"
         :title="relatedCollection.prefLabel ? relatedCollection.prefLabel : relatedCollection.name"
         :img="imageUrl(relatedCollection)"
+        :type="relatedCollection.type"
       />
     </div>
   </b-container>
 </template>
 
 <script>
-  import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
-  import { getEntityTypeHumanReadable, getEntitySlug } from '@/plugins/europeana/entity';
+  import { BASE_URL as EUROPEANA_DATA_URL } from '../../plugins/europeana/data';
+  import { getEntityTypeHumanReadable, getEntitySlug, getWikimediaThumbnailUrl } from '../../plugins/europeana/entity';
 
   import RelatedChip from './RelatedChip';
 
@@ -58,6 +59,7 @@
         }
 
         const uriMatch = id.match(`^${EUROPEANA_DATA_URL}/([^/]+)(/base)?/(.+)$`);
+
         return this.$path({
           name: 'collections-type-all', params: {
             type: getEntityTypeHumanReadable(uriMatch[1]),
@@ -65,14 +67,19 @@
           }
         });
       },
+
       imageUrl(item) {
+        let url = null;
+
         if (item.image) {
-          return item.image + '&size=w200';
-        } else if (item.isShownBy && item.isShownBy.thumbnail) {
-          return item.isShownBy.thumbnail + '&size=w200';
-        } else {
-          return null;
+          url = `${item.image}&size=w200`;
+        } else if (item.isShownBy?.thumbnail) {
+          url = `${item.isShownBy.thumbnail}&size=w200`;
+        } else if (item.logo) {
+          url = getWikimediaThumbnailUrl(item.logo.id, 28);
         }
+
+        return url;
       }
     }
   };

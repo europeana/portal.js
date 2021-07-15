@@ -10,8 +10,14 @@
     :lang="localisedTitle.code"
     @click.native="trackClickEvent"
   >
+    <div
+      v-if="img && type === 'Organization'"
+      class="organisation-logo mr-2"
+      data-qa="entity logo"
+      :style="`background-image: url(${img})`"
+    />
     <b-img
-      v-if="img"
+      v-else-if="img"
       :src="img"
       alt=""
       rounded="circle"
@@ -41,6 +47,10 @@
         default: ''
       },
       img: {
+        type: String,
+        default: ''
+      },
+      type: {
         type: String,
         default: ''
       }
@@ -92,8 +102,14 @@
     img {
       width: 28px;
       height: 28px;
-      object-fit: cover
+      object-fit: cover;
     }
+
+    .organisation-logo {
+      width: 28px;
+      height: 28px;
+    }
+
     @media (max-width: $bp-large) {
       margin-bottom: 0.25rem;
     }
