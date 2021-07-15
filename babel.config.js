@@ -4,6 +4,6 @@ module.exports = {
     '@vue/cli-plugin-babel/preset'
   ],
   plugins: [
-    'dynamic-import-node'
+    '@babel/plugin-proposal-optional-chaining'
   ]
 };

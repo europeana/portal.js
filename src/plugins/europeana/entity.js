@@ -271,6 +271,10 @@ export function getEntitySlug(id, name) {
  * @return {String} formatted thumbnail url
  */
 export function getWikimediaThumbnailUrl(image, size = 255) {
+  if (!(new RegExp('.wiki[mp]edia.org/wiki/Special:FilePath/').test(image))) {
+    return image;
+  }
+
   const md5 = require('md5');
 
   const filename = image.split('/').pop();

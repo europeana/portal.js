@@ -110,10 +110,7 @@
         return this.hasDescription ? this.description.values[0] : '';
       },
       resizedLogo() {
-        if (new RegExp('.wiki[mp]edia.org/wiki/Special:FilePath/').test(this.logo)) {
-          return getWikimediaThumbnailUrl(this.logo, 60);
-        }
-        return this.logo;
+        return getWikimediaThumbnailUrl(this.logo, 60);
       },
       externalLinkText() {
         const externalLinkURL = new URL(this.externalLink);
