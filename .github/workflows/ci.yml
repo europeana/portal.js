@@ -65,7 +65,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       -
         name: Docker metadata
-        id: meta
+        id: metadata
         uses: docker/metadata-action@v3
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
@@ -73,50 +73,47 @@ jobs:
             type=ref,event=pr
       -
         name: Build and push Docker image
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          pull: true
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+        run: |
+          docker pull ${{ steps.metadata.outputs.tags }}
+          docker build -t ${{ steps.metadata.outputs.tags }} .
+          docker push ${{ steps.metadata.outputs.tags }}
 
-
-  test-unit:
-    needs: [build]
-    runs-on: ubuntu-latest
-    steps:
-      -
-        name: Checkout
-        uses: actions/checkout@v2
-      -
-        name: Login to GitHub Container Registry
-        uses: docker/login-action@v1
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-      -
-        name: Docker metadata
-        id: meta
-        uses: docker/metadata-action@v3
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          tags: |
-            type=ref,event=pr
-      -
-        name: Build Docker image
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          pull: true
-          push: false
-          load: true
-          target: tester
-          tags: europeana/portal.js:tester
-      -
-        name: Test
-        run: docker run europeana/portal.js:tester
+  #
+  # test-unit:
+  #   needs: [build]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     -
+  #       name: Checkout
+  #       uses: actions/checkout@v2
+  #     -
+  #       name: Login to GitHub Container Registry
+  #       uses: docker/login-action@v1
+  #       with:
+  #         registry: ${{ env.REGISTRY }}
+  #         username: ${{ github.actor }}
+  #         password: ${{ secrets.GITHUB_TOKEN }}
+  #     -
+  #       name: Docker metadata
+  #       id: meta
+  #       uses: docker/metadata-action@v3
+  #       with:
+  #         images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+  #         tags: |
+  #           type=ref,event=pr
+  #     -
+  #       name: Build Docker image
+  #       uses: docker/build-push-action@v2
+  #       with:
+  #         context: .
+  #         pull: true
+  #         push: false
+  #         load: true
+  #         target: tester
+  #         tags: europeana/portal.js:tester
+  #     -
+  #       name: Test
+  #       run: docker run europeana/portal.js:tester
 
 
   # test-unit:
