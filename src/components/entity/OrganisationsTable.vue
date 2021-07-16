@@ -46,7 +46,7 @@
     },
     fetch() {
       return this.$axios.get(
-        `/_api/entities/organisations`,
+        '/_api/entities/organisations',
         { params: { locale: this.$i18n.locale } }
       )
         .then(response => {

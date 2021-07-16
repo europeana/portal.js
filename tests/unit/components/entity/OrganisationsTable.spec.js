@@ -1,13 +1,14 @@
 import { createLocalVue } from '@vue/test-utils';
 import { mountNuxt } from '../../utils';
-import nock from 'nock';
-import axios from 'axios';
+import sinon from 'sinon';
 import BootstrapVue from 'bootstrap-vue';
 
 import OrganisationsTable from '@/components/entity/OrganisationsTable.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
+
+const $axiosGetStub = sinon.stub();
 
 const factory = (propsData = {}, errorFetchState = false, pendingFetchState = false) => mountNuxt(OrganisationsTable, {
   localVue,
@@ -17,46 +18,45 @@ const factory = (propsData = {}, errorFetchState = false, pendingFetchState = fa
       error: errorFetchState,
       pending: pendingFetchState
     },
-    $axios: axios,
+    $axios: {
+      get: $axiosGetStub
+    },
     $t: (val) => val,
     $i18n: { locale: 'en' },
     $path: (code) => `/collections/${code.params.type}/${code.params.pathMatch}`
   }
 });
 
+const middlewarePath = '/_api/entities/organisations';
+const organisations = [
+  { id: '001', slug: '001-museum', prefLabel: 'museum' },
+  { id: '002', slug: '002-library', prefLabel: 'library' }
+];
+
 describe('components/entity/OrganisationsTable', () => {
-  const baseUrl = 'http://www.example.eu';
-  const middlewarePath = '/_api/entities/organisations?locale=en';
-  const organisationsArray =
-[{ id: '001', slug: '001-museum', prefLabel: 'museum' },
-  { id: '002', slug: '002-library', prefLabel: 'library' }];
   describe('fetch()', () => {
     beforeEach(() => {
-      nock(baseUrl)
-        .get(middlewarePath)
-        .reply(200, organisationsArray);
+      $axiosGetStub.withArgs(middlewarePath).resolves({ data: organisations });
     });
 
     afterEach(() => {
-      nock.cleanAll();
+      $axiosGetStub.reset();
     });
 
     it('sends a get request to the organisations server middleware', async() => {
       const wrapper = factory();
 
-      await wrapper.vm.fetch(baseUrl);
+      await wrapper.vm.fetch();
 
-      nock.isDone().should.be.true;
+      $axiosGetStub.should.have.been.calledWith(middlewarePath);
     });
 
     it('stores organisations from response body on component organisations property', async() => {
       const wrapper = factory();
 
-      await wrapper.vm.fetch(baseUrl);
+      await wrapper.vm.fetch();
 
-      nock.isDone().should.be.true;
-
-      wrapper.vm.organisations.should.deep.eq(organisationsArray);
+      wrapper.vm.organisations.should.deep.eq(organisations);
     });
   });
 
@@ -65,10 +65,10 @@ describe('components/entity/OrganisationsTable', () => {
       const wrapper = factory();
 
       await wrapper.setData({
-        organisations: organisationsArray
+        organisations
       });
 
-      wrapper.find('[data-qa="organisation link 001"]').attributes('href').should.eq((`/collections/organisation/${organisationsArray[0].slug}`));
+      wrapper.find('[data-qa="organisation link 001"]').attributes('to').should.eq((`/collections/organisation/${organisations[0].slug}`));
     });
   });
 
