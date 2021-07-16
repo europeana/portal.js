@@ -10,6 +10,7 @@
     </b-container>
   </div>
 </template>
+
 <script>
   import ContentHeader from '../../components/generic/ContentHeader';
   import ClientOnly from 'vue-client-only';

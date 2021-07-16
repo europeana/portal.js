@@ -37,7 +37,6 @@
       />
       <nuxt
         id="main"
-        keep-alive
       />
     </main>
     <client-only>
