@@ -17,6 +17,8 @@
         ref="attributionSnippet"
         readonly
         class="snippet"
+        rows="1"
+        max-rows="10"
         :value="attributionSnippet"
         @click="copySnippet"
         @keydown.enter="copySnippet"
@@ -78,6 +80,7 @@
 
     .modal-title {
       font-size: 1.5rem;
+      line-height: 1.375;
 
       &:after {
         content: '\2728';
@@ -87,7 +90,10 @@
     }
 
     .modal-body {
-      padding-top: 0;
+      padding-top: 0.75rem;
+      p:first-child {
+        margin-bottom: 0.75rem;
+      }
     }
 
     .snippet {
@@ -100,6 +106,7 @@
       height: 7rem;
       font-size: $font-size-small;
       border: 0;
+      overflow-y: auto !important;
     }
 
     .copy-to-clipboard-success {
@@ -117,6 +124,7 @@
       color: $mediumgrey;
       display: flex;
       align-items: center;
+      margin-bottom: 1.25rem;
 
       span {
         display: inline-block;
