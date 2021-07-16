@@ -43,6 +43,9 @@ module.exports = {
         }
       }
     },
+    axios: {
+      baseURL: process.env.PORTAL_BASE_URL
+    },
     contentful: {
       spaceId: process.env.CTF_SPACE_ID,
       environmentId: process.env.CTF_ENVIRONMENT_ID,
