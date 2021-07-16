@@ -23,22 +23,20 @@
         </div>
       </template>
       <template #cell(prefLabel)="data">
-        <b-link
+        <NuxtLink
           :data-qa="`organisation link ${data.item.id}`"
           :to="$path(entityRoute(data.item.slug))"
         >
-          <span>
-            {{ data.item.prefLabel }}
-          </span>
-        </b-link>
+          {{ data.item.prefLabel }}
+        </NuxtLink>
       </template>
     </b-table>
   </div>
 </template>
 
 <script>
-  import AlertMessage from '../../components/generic/AlertMessage';
-  import LoadingSpinner from '../../components/generic/LoadingSpinner';
+  import AlertMessage from '../generic/AlertMessage';
+  import LoadingSpinner from '../generic/LoadingSpinner';
 
   export default {
     name: 'OrganisationsTable',
@@ -46,15 +44,16 @@
       LoadingSpinner,
       AlertMessage
     },
-    async fetch(baseUrl = '') {
-      await this.$axios.get(
-        `${baseUrl}/_api/entities/organisations`,
+    fetch() {
+      return this.$axios.get(
+        `/_api/entities/organisations`,
         { params: { locale: this.$i18n.locale } }
       )
         .then(response => {
-          this.organisations = response.data;
+          this.organisations = response.data.map(Object.freeze);
         })
         .catch((e) => {
+          // TODO: set fetch state error from message
           console.error({ statusCode: 500, message: e.toString() });
         });
     },
