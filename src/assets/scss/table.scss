@@ -1,4 +1,5 @@
-table {
+table,
+.table {
   border: 1px solid $middlegrey;
   border-radius: $border-radius-small;
   border-spacing: 0;
@@ -18,6 +19,28 @@ table {
       display: inline-block;
     }
 
+    &:hover div::after {
+      color: $innovationblue;
+    }
+  }
+
+  td {
+    line-height: 1.214;
+    padding: 1.125rem 1rem;
+    border-top: 1px solid $middlegrey;
+    vertical-align: top;
+
+    a {
+      text-decoration: none;
+      &:hover {
+        color: $innovationblue;
+      }
+    }
+  }
+}
+
+.table {
+  thead th {
     &[aria-sort] div:after {
       @extend .icon-font;
       content: '\e93b';
@@ -30,28 +53,10 @@ table {
     &[aria-sort='descending'] div:after {
       transform: rotate(180deg);
     }
-
-    &:hover div::after {
-      color: $innovationblue;
-    }
   }
 
   td {
-    line-height: 1.214;
-    padding: 1.125rem 1rem;
-    border-top: 1px solid $middlegrey;
-
-    a {
-      text-decoration: none;
-      &:hover {
-        color: $innovationblue;
-      }
-    }
-  }
-
-  &.table {
-    td {
-      line-height: 1em;
-    }
+    line-height: 1em;
   }
 }
+
