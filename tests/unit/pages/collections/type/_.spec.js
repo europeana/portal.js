@@ -4,7 +4,7 @@ import BootstrapVue from 'bootstrap-vue';
 import Vuex from 'vuex';
 import sinon from 'sinon';
 
-import collection from '../../../../../src/pages/collections/_type/_';
+import collection from '@/pages/collections/_type/_';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);

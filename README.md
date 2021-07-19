@@ -33,12 +33,6 @@ npm run dev
 # build for production and launch server
 npm run build
 npm start
-
-# serve storybook with hot reload at localhost:6006
-npm run storybook
-
-# generate static storybook
-npm run build-storybook
 ```
 
 For detailed explanation on how things work, refer to [Nuxt.js docs](https://nuxtjs.org).

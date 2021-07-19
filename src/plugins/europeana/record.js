@@ -20,15 +20,20 @@ export const BASE_URL = process.env.EUROPEANA_RECORD_API_URL || 'https://api.eur
  * @return {Object[]} Key value pairs of the metadata fields.
  */
 function coreFields(proxyData, providerAggregation, entities) {
-  return Object.freeze(lookupEntities(omitBy({
-    edmDataProvider: { url: providerAggregation.edmIsShownAt, value: providerAggregation.edmDataProvider },
+  const fields = lookupEntities(omitBy({
+    edmDataProvider: providerAggregation.edmDataProvider,
     dcContributor: proxyData.dcContributor,
     dcCreator: proxyData.dcCreator,
     dcPublisher: proxyData.dcPublisher,
     dcSubject: proxyData.dcSubject,
     dcType: proxyData.dcType,
     dctermsMedium: proxyData.dctermsMedium
-  }, isUndefined), entities));
+  }, isUndefined), entities);
+
+  fields.edmDataProvider = {
+    url: providerAggregation.edmIsShownAt, value: fields.edmDataProvider
+  };
+  return Object.freeze(fields);
 }
 
 const PROXY_EXTRA_FIELDS = [
@@ -66,7 +71,8 @@ const PROXY_EXTRA_FIELDS = [
   'edmIsSimilarTo',
   'edmIsSuccessorOf',
   'edmRealizes',
-  'wasPresentAt'
+  'wasPresentAt',
+  'year'
 ];
 
 /**
@@ -167,7 +173,8 @@ function lookupEntities(fields, entities) {
 
 function setMatchingEntities(fields, key, entities) {
   // Only looks for entities in 'def'
-  for (const [index, value] of (fields[key]['def'] || []).entries()) {
+  const values = (fields[key]['def'] || []);
+  for (const [index, value] of values.entries()) {
     if (entities[value]) {
       fields[key]['def'][index] = entities[value];
     }
@@ -197,8 +204,9 @@ export default (context = {}) => {
       const places = (edm.places || []).map(reduceEntity).map(Object.freeze);
       const agents = (edm.agents || []).map(reduceEntity).map(Object.freeze);
       const timespans = (edm.timespans || []).map(reduceEntity).map(Object.freeze);
+      const organizations = (edm.organizations || []).map(reduceEntity).map(Object.freeze);
 
-      const entities = [].concat(concepts, places, agents, timespans)
+      const entities = [].concat(concepts, places, agents, timespans, organizations)
         .filter(isNotUndefined)
         .reduce((memo, entity) => {
           memo[entity.about] = entity;
@@ -220,6 +228,7 @@ export default (context = {}) => {
         agents,
         concepts,
         timespans,
+        organizations,
         title: proxyData.dcTitle,
         schemaOrg: data.schemaOrg ? Object.freeze(JSON.stringify(data.schemaOrg)) : undefined
       };

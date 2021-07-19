@@ -3,7 +3,7 @@ import { shallowMountNuxt } from '../../utils';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
-import page from '../../../../src/pages/item/_';
+import page from '@/pages/item/_';
 
 const optionsVar = {
   itemCountry: undefined,
@@ -33,6 +33,9 @@ const factory = () => shallowMountNuxt(page, {
     $config: { app: { features: {} } },
     $pageHeadTitle: key => key,
     $t: key => key,
+    $i18n: {
+      locale: 'en'
+    },
     $auth: {
       loggedIn: false
     },
@@ -74,10 +77,10 @@ describe('pages/item/_.vue', () => {
   });
 
   describe('head()', () => {
-    it('uses first media large thumbnail for og:image', () => {
+    it('uses first media large thumbnail for og:image', async() => {
       const thumbnailUrl = 'http://example.org/image/large.jpg';
       const wrapper = factory();
-      wrapper.setData({
+      await wrapper.setData({
         media: [
           {
             thumbnails: {

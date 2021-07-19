@@ -1,6 +1,6 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import LangSelector from '../../../../src/components/generic/LanguageSelector.vue';
+import LangSelector from '@/components/generic/LanguageSelector.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);

@@ -2,7 +2,7 @@ import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt, fakeContentfulExtension } from '../../../utils';
 import BootstrapVue from 'bootstrap-vue';
 
-import page from '../../../../../src/pages/contentful/entity-harvester/index';
+import page from '@/pages/contentful/entity-harvester/index';
 import sinon from 'sinon';
 import { apiError } from '@/plugins/europeana/utils';
 

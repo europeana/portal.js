@@ -1,6 +1,6 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import UserSets from '../../../../src/components/account/UserSets.vue';
+import UserSets from '@/components/account/UserSets.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);

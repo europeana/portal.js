@@ -649,6 +649,7 @@ export default {
       "text": "You're searching in our new and faster website."
     }
   },
+  "loading": "Loading",
   "loadingResults": "Loading results",
   "mediaPreview": {
     "selectItem": "Select item {src}"
@@ -658,6 +659,13 @@ export default {
     "externalContentError": "The external content failed to load",
     "notFound": "Not Found",
     "paginationLimitExceeded": "It is only possible to view the first {limit} search results."
+  },
+  "modal": {
+    "download": {
+      "modalTitle": "Say thanks",
+      "modalIntro": "If you use this item on the web or elsewhere, don’t forget to display the following attribution next to it:",
+      "clickToCopy": "Click on the attribution to copy it"
+    }
   },
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
@@ -675,7 +683,10 @@ export default {
         "title": "Persons"
       },
       "organisations": {
-        "title": "Organisations"
+        "title": "Organisations",
+        "table": {
+          "name": "Name"
+        }
       }
     }
   },

@@ -50,43 +50,43 @@
         </b-col>
       </b-row>
     </b-container>
-    <b-container>
-      <b-row>
-        <b-col
-          cols="12"
-          class="pb-3"
-        >
-          <i18n
-            v-if="$route.query.query"
-            path="searchResultsForIn"
-            tag="h2"
-            class="px-0 container"
+    <client-only>
+      <b-container>
+        <b-row>
+          <b-col
+            cols="12"
+            class="pb-3"
           >
-            <span>{{ $route.query.query }}</span>
-            <span>{{ title.values[0] }}</span>
-          </i18n>
-          <SearchInterface
-            class="px-0"
-            :per-page="recordsPerPage"
-            :route="route"
-            :show-content-tier-toggle="false"
-            :show-pins="userIsEditor && userIsSetsEditor"
-          />
-        </b-col>
-      </b-row>
-      <b-row>
-        <b-col>
-          <b-container class="p-0">
-            <client-only>
+            <i18n
+              v-if="$route.query.query"
+              path="searchResultsForIn"
+              tag="h2"
+              class="px-0 container"
+            >
+              <span>{{ $route.query.query }}</span>
+              <span>{{ title.values[0] }}</span>
+            </i18n>
+            <SearchInterface
+              class="px-0"
+              :per-page="recordsPerPage"
+              :route="route"
+              :show-content-tier-toggle="false"
+              :show-pins="userIsEditor && userIsSetsEditor"
+            />
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col>
+            <b-container class="p-0">
               <BrowseSections
                 v-if="page"
                 :sections="page.hasPartCollection.items"
               />
-            </client-only>
-          </b-container>
-        </b-col>
-      </b-row>
-    </b-container>
+            </b-container>
+          </b-col>
+        </b-row>
+      </b-container>
+    </client-only>
   </div>
 </template>
 
@@ -110,7 +110,9 @@
       EntityUpdateModal: () => import('../../../components/entity/EntityUpdateModal'),
       RelatedCollections: () => import('../../../components/generic/RelatedCollections')
     },
+
     middleware: 'sanitisePageQuery',
+
     fetch({ query, params, redirect, error, app, store }) {
       store.commit('search/disableCollectionFacet');
 
@@ -207,9 +209,7 @@
         return this.$route.params.type;
       },
       logo() {
-        if (this.collectionType === 'organisation' &&
-          this.entity &&
-          this.entity.logo) {
+        if (this.collectionType === 'organisation' && this.entity?.logo) {
           return this.entity.logo.id;
         }
         return null;
@@ -220,8 +220,7 @@
         }
 
         const description = this.collectionType === 'organisation' &&
-          this.entity &&
-          this.entity.description ? langMapValueForLocale(this.entity.description, this.$i18n.locale) : null;
+          this.entity?.description ? langMapValueForLocale(this.entity.description, this.$i18n.locale) : null;
 
         return this.editorialDescription ? { values: [this.editorialDescription], code: null } : description;
       },
@@ -243,8 +242,7 @@
       },
       homepage() {
         if (this.collectionType === 'organisation' &&
-          this.entity &&
-          this.entity.homepage &&
+          this.entity?.homepage &&
           uriRegex.test(this.entity.homepage)) {
           return this.entity.homepage;
         }

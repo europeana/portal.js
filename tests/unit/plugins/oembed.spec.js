@@ -1,6 +1,6 @@
 import nock from 'nock';
-import oEmbed, { oEmbeddable } from '../../../src/plugins/oembed';
-import supportedProviders from '../../../src/plugins/oembed/providers';
+import oEmbed, { oEmbeddable } from '@/plugins/oembed';
+import supportedProviders from '@/plugins/oembed/providers';
 
 describe('oEmbed()', () => {
   afterEach(() => {

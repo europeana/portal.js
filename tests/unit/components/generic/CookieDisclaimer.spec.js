@@ -1,7 +1,7 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
-import CookieDisclaimer from '../../../../src/components/generic/CookieDisclaimer.vue';
+import CookieDisclaimer from '@/components/generic/CookieDisclaimer.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);

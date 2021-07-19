@@ -1,4 +1,4 @@
-import * as utils from '../../../../src/plugins/europeana/utils';
+import * as utils from '@/plugins/europeana/utils';
 
 describe('plugins/europeana/utils', () => {
   describe('apiUrlFromRequestHeaders()', () => {

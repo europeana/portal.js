@@ -28,9 +28,11 @@
           </div>
           <div class="d-flex justify-content-md-center align-items-center button-wrapper">
             <div class="ml-lg-auto d-flex">
-              <UserButtons
-                v-model="identifier"
-              />
+              <client-only>
+                <UserButtons
+                  v-model="identifier"
+                />
+              </client-only>
               <ShareButton />
               <DownloadButton
                 v-if="downloadEnabled"
@@ -47,26 +49,41 @@
           :identifier="identifier"
         />
       </SocialShareModal>
+      <DownloadModal
+        v-if="downloadEnabled"
+        :title="attributionFields.title"
+        :creator="attributionFields.creator"
+        :year="attributionFields.year"
+        :provider="attributionFields.provider"
+        :country="attributionFields.country"
+        :rights="attributionFields.rights"
+        :url="attributionFields.url"
+      />
     </b-container>
   </div>
 </template>
 
 <script>
+  import ClientOnly from 'vue-client-only';
   import AwesomeSwiper from './AwesomeSwiper';
-  import DownloadButton from '../generic/DownloadButton.vue';
-  import RightsStatementButton from '../generic/RightsStatementButton.vue';
-  import ItemEmbedCode from './ItemEmbedCode.vue';
-  import SocialShareModal from '../sharing/SocialShareModal.vue';
-  import ShareButton from '../sharing/ShareButton.vue';
+  import DownloadButton from '../generic/DownloadButton';
+  import DownloadModal from '../generic/DownloadModal.vue';
+  import RightsStatementButton from '../generic/RightsStatementButton';
+  import ItemEmbedCode from './ItemEmbedCode';
+  import SocialShareModal from '../sharing/SocialShareModal';
+  import ShareButton from '../sharing/ShareButton';
+
   import has from 'lodash/has';
 
   export default {
     components: {
       AwesomeSwiper,
+      ClientOnly,
       DownloadButton,
       RightsStatementButton,
       ItemEmbedCode,
       SocialShareModal,
+      DownloadModal,
       ShareButton,
       UserButtons: () => import('../account/UserButtons')
     },
@@ -86,6 +103,10 @@
       media: {
         type: Array,
         default: () => []
+      },
+      attributionFields: {
+        type: Object,
+        default: () => ({})
       }
     },
     data() {

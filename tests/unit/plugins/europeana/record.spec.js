@@ -1,5 +1,5 @@
 import nock from 'nock';
-import record, { isEuropeanaRecordId, BASE_URL } from '../../../../src/plugins/europeana/record';
+import record, { isEuropeanaRecordId, BASE_URL } from '@/plugins/europeana/record';
 
 const europeanaId = '/123/abc';
 const apiEndpoint = `${europeanaId}.json`;
