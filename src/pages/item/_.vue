@@ -23,7 +23,7 @@
           :identifier="identifier"
           :media="media"
           :edm-rights="edmRights"
-          :attribution-snippet="attributionSnippet"
+          :attribution-fields="attributionFields"
         />
       </b-container>
       <b-container>
@@ -231,30 +231,16 @@
         const entities = this.europeanaConcepts.concat(this.europeanaAgents).concat(this.europeanaTimespans);
         return entities.map((entity) => entity.about).slice(0, 5);
       },
-      attributionSnippet() {
-        const title = langMapValueForLocale(this.title, this.$i18n.locale).values[0];
-        const creator = langMapValueForLocale(this.coreFields.dcCreator, this.$i18n.locale).values[0];
-        const year = langMapValueForLocale(this.fields.year, this.$i18n.locale).values[0];
-        const provider = langMapValueForLocale(this.coreFields.edmDataProvider.value, this.$i18n.locale).values[0];
-        const country = langMapValueForLocale(this.fields.edmCountry, this.$i18n.locale).values[0];
-        const rights = this.rightsNameAndIcon(this.edmRights).name;
-        const titleCreator = (title && creator && `${title} ${this.$t('blog.by')} ${creator}`) || title || creator;
-        const providerCountry = (provider && country && `${provider}, ${country}`) || provider || country;
-
-        let attributionData = [
-          titleCreator,
-          year,
-          providerCountry,
-          rights
-        ]
-          .filter(value => value) // remove empty
-          .join(' - ') // output as a string
-          .concat('.');
-        if (this.shareUrl) {
-          attributionData = attributionData.concat(`
-${this.shareUrl}`);
-        }
-        return attributionData;
+      attributionFields() {
+        return {
+          title: langMapValueForLocale(this.title, this.$i18n.locale).values[0],
+          creator: langMapValueForLocale(this.coreFields.dcCreator, this.$i18n.locale).values[0],
+          year: langMapValueForLocale(this.fields.year, this.$i18n.locale).values[0],
+          provider: langMapValueForLocale(this.coreFields.edmDataProvider.value, this.$i18n.locale).values[0],
+          country: langMapValueForLocale(this.fields.edmCountry, this.$i18n.locale).values[0],
+          rights: this.rightsNameAndIcon(this.edmRights).name,
+          url: this.shareUrl
+        };
       },
       titlesInCurrentLanguage() {
         const titles = [];

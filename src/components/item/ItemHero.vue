@@ -51,7 +51,13 @@
       </SocialShareModal>
       <DownloadModal
         v-if="downloadEnabled"
-        :attribution-snippet="attributionSnippet"
+        :title="attributionFields.title"
+        :creator="attributionFields.creator"
+        :year="attributionFields.year"
+        :provider="attributionFields.provider"
+        :country="attributionFields.country"
+        :rights="attributionFields.rights"
+        :url="attributionFields.url"
       />
     </b-container>
   </div>
@@ -98,9 +104,9 @@
         type: Array,
         default: () => []
       },
-      attributionSnippet: {
-        type: String,
-        default: ''
+      attributionFields: {
+        type: Object,
+        default: () => ({})
       }
     },
     data() {

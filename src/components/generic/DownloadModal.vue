@@ -50,9 +50,33 @@
     name: 'DownloadModal',
 
     props: {
-      attributionSnippet: {
+      title: {
         type: String,
-        default: ''
+        default: null
+      },
+      creator: {
+        type: String,
+        default: null
+      },
+      year: {
+        type: String,
+        default: null
+      },
+      provider: {
+        type: String,
+        default: null
+      },
+      country: {
+        type: String,
+        default: null
+      },
+      rights: {
+        type: String,
+        required: true
+      },
+      url: {
+        type: String,
+        default: null
       }
     },
 
@@ -60,6 +84,50 @@
       return {
         snippetCopied: false
       };
+    },
+
+    computed: {
+      attributionSnippet() {
+        let attributionData = [
+          this.titleCreator,
+          this.year,
+          this.providerCountry,
+          this.rights
+        ]
+          .filter(value => value) // remove empty
+          .join(' - ') // output as a string
+          .concat('.');
+
+        if (this.url) {
+          attributionData = attributionData.concat(`\n${this.url}`);
+        }
+
+        return attributionData;
+      },
+
+      titleCreator() {
+        let titleCreator;
+
+        if (this.title && this.creator) {
+          titleCreator = `${this.title} ${this.$t('blog.by')} ${this.creator}`;
+        } else {
+          titleCreator = this.title || this.creator;
+        }
+
+        return titleCreator;
+      },
+
+      providerCountry() {
+        let providerCountry;
+
+        if (this.provider && this.country) {
+          providerCountry = `${this.provider}, ${this.country}`;
+        } else {
+          providerCountry = this.provider || this.country;
+        }
+
+        return providerCountry;
+      }
     },
 
     methods: {
