@@ -71,7 +71,8 @@ const PROXY_EXTRA_FIELDS = [
   'edmIsSimilarTo',
   'edmIsSuccessorOf',
   'edmRealizes',
-  'wasPresentAt'
+  'wasPresentAt',
+  'year'
 ];
 
 /**

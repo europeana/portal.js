@@ -33,6 +33,9 @@ const factory = () => shallowMountNuxt(page, {
     $config: { app: { features: {} } },
     $pageHeadTitle: key => key,
     $t: key => key,
+    $i18n: {
+      locale: 'en'
+    },
     $auth: {
       loggedIn: false
     },

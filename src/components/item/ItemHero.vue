@@ -49,6 +49,16 @@
           :identifier="identifier"
         />
       </SocialShareModal>
+      <DownloadModal
+        v-if="downloadEnabled"
+        :title="attributionFields.title"
+        :creator="attributionFields.creator"
+        :year="attributionFields.year"
+        :provider="attributionFields.provider"
+        :country="attributionFields.country"
+        :rights="attributionFields.rights"
+        :url="attributionFields.url"
+      />
     </b-container>
   </div>
 </template>
@@ -57,6 +67,7 @@
   import ClientOnly from 'vue-client-only';
   import AwesomeSwiper from './AwesomeSwiper';
   import DownloadButton from '../generic/DownloadButton';
+  import DownloadModal from '../generic/DownloadModal.vue';
   import RightsStatementButton from '../generic/RightsStatementButton';
   import ItemEmbedCode from './ItemEmbedCode';
   import SocialShareModal from '../sharing/SocialShareModal';
@@ -72,6 +83,7 @@
       RightsStatementButton,
       ItemEmbedCode,
       SocialShareModal,
+      DownloadModal,
       ShareButton,
       UserButtons: () => import('../account/UserButtons')
     },
@@ -91,6 +103,10 @@
       media: {
         type: Array,
         default: () => []
+      },
+      attributionFields: {
+        type: Object,
+        default: () => ({})
       }
     },
     data() {

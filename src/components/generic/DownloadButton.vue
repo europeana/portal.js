@@ -1,5 +1,6 @@
 <template>
   <b-button
+    v-b-modal.downloadModal
     :href="url"
     :disabled="disabled"
     variant="light text-decoration-none"
