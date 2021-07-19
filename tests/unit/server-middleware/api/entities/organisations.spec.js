@@ -37,7 +37,25 @@ describe('server-middleware/entities/organisations', () => {
     cacher.get.restore();
   });
 
-  it('localises organisations and responds with JSON', async() => {
+  // it('localises organisations and responds with JSON', async() => {
+  //   await serverMiddleware(options)({ query: {} }, expressResStub);
+
+  //   const localised = [
+  //     {
+  //       id: '1482250000004477234',
+  //       slug: '1482250000004477234-abraham-lincoln-presidential-library',
+  //       prefLabel: 'Abraham Lincoln Presidential Library'
+  //     },
+  //     {
+  //       id: '1482250000004477235',
+  //       slug: '1482250000004477235',
+  //       prefLabel: 'Academie voor de Streekgebonden Gastronomie'
+  //     }
+  //   ];
+
+  //   expressResStub.json.should.have.been.calledWith(localised);
+  // });
+  it('filters out English organisation labels and responds with JSON', async() => {
     await serverMiddleware(options)({ query: {} }, expressResStub);
 
     const localised = [
@@ -45,11 +63,6 @@ describe('server-middleware/entities/organisations', () => {
         id: '1482250000004477234',
         slug: '1482250000004477234-abraham-lincoln-presidential-library',
         prefLabel: 'Abraham Lincoln Presidential Library'
-      },
-      {
-        id: '1482250000004477235',
-        slug: '1482250000004477235',
-        prefLabel: 'Academie voor de Streekgebonden Gastronomie'
       }
     ];
 
