@@ -23,6 +23,7 @@
           :identifier="identifier"
           :media="media"
           :edm-rights="edmRights"
+          :attribution-fields="attributionFields"
         />
       </b-container>
       <b-container>
@@ -108,23 +109,29 @@
 <script>
   import axios from 'axios';
   import isEmpty from 'lodash/isEmpty';
+  import { mapGetters } from 'vuex';
 
-  import MetadataBox from '../../components/item/MetadataBox';
+  import MetadataBox from '@/components/item/MetadataBox';
 
-  import { BASE_URL as EUROPEANA_DATA_URL } from '../../plugins/europeana/data';
-  import similarItemsQuery from '../../plugins/europeana/record/similar-items';
-  import { langMapValueForLocale } from  '../../plugins/europeana/utils';
+  import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
+  import similarItemsQuery from '@/plugins/europeana/record/similar-items';
+  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import rightsStatement from '@/mixins/rightsStatement';
 
   export default {
     components: {
-      ItemHero: () => import('../../components/item/ItemHero'),
-      AlertMessage: () => import('../../components/generic/AlertMessage'),
-      ItemPreviewCardGroup: () => import('../../components/item/ItemPreviewCardGroup'),
-      RelatedCollections: () => import('../../components/generic/RelatedCollections'),
-      SummaryInfo: () => import('../../components/item/SummaryInfo'),
+      ItemHero: () => import('@/components/item/ItemHero'),
+      AlertMessage: () => import('@/components/generic/AlertMessage'),
+      ItemPreviewCardGroup: () => import('@/components/item/ItemPreviewCardGroup'),
+      RelatedCollections: () => import('@/components/generic/RelatedCollections'),
+      SummaryInfo: () => import('@/components/item/SummaryInfo'),
       MetadataBox,
-      NotificationBanner: () => import('../../components/generic/NotificationBanner')
+      NotificationBanner: () => import('@/components/generic/NotificationBanner')
     },
+
+    mixins: [
+      rightsStatement
+    ],
 
     fetch() {
       const annotationSearchParams = {
@@ -224,6 +231,17 @@
           .slice(0, 5)
           .map(entity => entity.about);
       },
+      attributionFields() {
+        return {
+          title: langMapValueForLocale(this.title, this.$i18n.locale).values[0],
+          creator: langMapValueForLocale(this.coreFields.dcCreator, this.$i18n.locale).values[0],
+          year: langMapValueForLocale(this.fields.year, this.$i18n.locale).values[0],
+          provider: langMapValueForLocale(this.coreFields.edmDataProvider.value, this.$i18n.locale).values[0],
+          country: langMapValueForLocale(this.fields.edmCountry, this.$i18n.locale).values[0],
+          rights: this.rightsNameAndIcon(this.edmRights).name,
+          url: this.shareUrl
+        };
+      },
       titlesInCurrentLanguage() {
         const titles = [];
 
@@ -271,7 +289,10 @@
       },
       pageHeadMetaOgImage() {
         return this.media[0] ? this.media[0].thumbnails.large : null;
-      }
+      },
+      ...mapGetters({
+        shareUrl: 'http/canonicalUrl'
+      })
     },
 
     mounted() {
