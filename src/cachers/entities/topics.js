@@ -86,7 +86,7 @@ const ids = [
 const fetchEntity = async(id) => {
   const response = await axiosClient
     .get(`https://api.europeana.eu/entity/concept/base/${id}.json`, {
-      params: { wskey: 'apidemo' }
+      params: { ...axiosClient.defaults.config }
     });
   const data = response.data;
   return {
