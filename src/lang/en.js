@@ -649,6 +649,7 @@ export default {
       "text": "You're searching in our new and faster website."
     }
   },
+  "loading": "Loading",
   "loadingResults": "Loading results",
   "mediaPreview": {
     "selectItem": "Select item {src}"
@@ -682,7 +683,10 @@ export default {
         "title": "Persons"
       },
       "organisations": {
-        "title": "Organisations"
+        "title": "Organisations",
+        "table": {
+          "name": "Name"
+        }
       }
     }
   },

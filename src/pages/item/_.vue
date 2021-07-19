@@ -232,11 +232,16 @@
           .map(entity => entity.about);
       },
       attributionFields() {
+        let edmDataProvider = langMapValueForLocale(this.coreFields.edmDataProvider.value, this.$i18n.locale).values[0];
+        if (typeof edmDataProvider === 'object' && edmDataProvider.values) {
+          edmDataProvider = edmDataProvider.values[0];
+        }
+
         return {
           title: langMapValueForLocale(this.title, this.$i18n.locale).values[0],
           creator: langMapValueForLocale(this.coreFields.dcCreator, this.$i18n.locale).values[0],
           year: langMapValueForLocale(this.fields.year, this.$i18n.locale).values[0],
-          provider: langMapValueForLocale(this.coreFields.edmDataProvider.value, this.$i18n.locale).values[0],
+          provider: edmDataProvider,
           country: langMapValueForLocale(this.fields.edmCountry, this.$i18n.locale).values[0],
           rights: this.rightsNameAndIcon(this.edmRights).name,
           url: this.shareUrl
