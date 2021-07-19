@@ -1,17 +1,20 @@
-import sinon from 'sinon';
 import redis from 'redis';
+import sinon from 'sinon';
 
-const utils = require('@/cachers/entities/organisations/utils');
+const utils = require('@/cachers/utils');
 
-describe('cachers/entities/organisations/utils', () => {
+let redisClientStub;
+
+describe('cachers/utils', () => {
   describe('createRedisClient', () => {
-    const redisClientStub = {
-      on: sinon.spy(),
-      get: sinon.spy(),
-      set: sinon.spy(),
-      quit: sinon.spy()
-    };
     before('stub redis methods', () => {
+      redisClientStub = {
+        on: sinon.spy(),
+        get: sinon.spy(),
+        set: sinon.spy(),
+        quit: sinon.spy()
+      };
+
       sinon.stub(redis, 'createClient').returns(redisClientStub);
     });
     after('restore redis methods', () => {
