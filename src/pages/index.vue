@@ -9,6 +9,7 @@
       :hero="hero"
       :hero-image="heroImage"
       :recent-items="showRecentItems"
+      :highlighted-entities="showHighlightedEntities"
     >
       <NotificationBanner
         v-if="showNotificationBanner"
@@ -95,6 +96,9 @@
       },
       showRecentItems() {
         return this.$config.app.features.recentItems && this.isHomePage;
+      },
+      showHighlightedEntities() {
+        return this.$config.app.features.highlightedEntities && this.isHomePage;
       },
       notificationUrl() {
         return `https://classic.europeana.eu/portal/${

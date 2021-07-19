@@ -1,18 +1,6 @@
-const axios = require('axios');
 const utils = require('../utils');
 
 const CACHE_KEY = '@europeana:portal.js:entity:organizations';
-
-const axiosConfig = (config = {}) => {
-  return {
-    baseURL: config.europeana.apis.entity.url || 'https://api.europeana.eu/entity',
-    config: {
-      wskey: config.europeana.apis.entity.key
-    }
-  };
-};
-
-const createAxiosClient = (config = {}) => axios.create(axiosConfig(config));
 
 let axiosClient;
 let redisClient;
@@ -71,7 +59,7 @@ const writeToRedis = (organisations) => {
 
 const cache = async(config = {}) => {
   try {
-    axiosClient = createAxiosClient(config);
+    axiosClient = utils.createAxiosClient(config, 'entity');
     redisClient = utils.createRedisClient(config);
 
     const allResults = await allOrganisationResults();

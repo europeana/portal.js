@@ -20,9 +20,10 @@
 
     fetch() {
       if (process.server) {
-        return require('@/cachers/items/recent/get')(this.$config)
-          .then(response => {
-            this.items = response.body;
+        return require('@/server-middleware/api/items/recent')
+          .recentItems(this.$config)
+          .then(items => {
+            this.items = items;
           });
       } else {
         return this.$axios.get('/_api/items/recent')

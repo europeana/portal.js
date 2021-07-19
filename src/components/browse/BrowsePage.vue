@@ -18,6 +18,9 @@
       <RecentItems
         v-if="recentItems"
       />
+      <HighlightedEntities
+        v-if="highlightedEntities"
+      />
     </b-container>
   </div>
 </template>
@@ -32,7 +35,8 @@
       ContentHeader,
       BrowseSections,
       HeroHeader,
-      RecentItems: () => import('@/components/item/RecentItems')
+      RecentItems: () => import('@/components/item/RecentItems'),
+      HighlightedEntities: () => import('@/components/entity/HighlightedEntities')
     },
     props: {
       name: {
@@ -60,6 +64,10 @@
         default: null
       },
       recentItems: {
+        type: Boolean,
+        default: false
+      },
+      highlightedEntities: {
         type: Boolean,
         default: false
       }

@@ -9,6 +9,7 @@ const runtimeConfig = defu(nuxtConfig.privateRuntimeConfig, nuxtConfig.publicRun
 
 const cachers = [
   'entities:organisations',
+  'entities:topics',
   'items:recent'
 ];
 

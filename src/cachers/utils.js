@@ -1,3 +1,4 @@
+const axios = require('axios');
 const redis = require('redis');
 const { promisify } = require('util');
 
@@ -27,6 +28,15 @@ const createRedisClient = (config = {}) => {
   return redisClient;
 };
 
+const createAxiosClient = (config = {}, api = 'record') => {
+  return axios.create({
+    baseURL: config.europeana.apis[api].url || `https://api.europeana.eu/${api}`,
+    config: {
+      wskey: config.europeana.apis[api].key
+    }
+  });
+};
+
 const errorMessage = (error) => {
   let message;
   if (error.response) {
@@ -42,6 +52,7 @@ const errorMessage = (error) => {
 };
 
 module.exports = {
+  createAxiosClient,
   createRedisClient,
   errorMessage
 };
