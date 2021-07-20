@@ -4,7 +4,9 @@ export default {
     likedItems: null,
     likedItemIds: [],
     active: null,
-    creations: []
+    activeRecommendations: [],
+    creations: [],
+    curations: []
   }),
 
   mutations: {
@@ -26,11 +28,17 @@ export default {
     setActive(state, value) {
       state.active = value;
     },
+    setActiveRecommendations(state, value) {
+      state.activeRecommendations = value;
+    },
     addItemToActive(state, item) {
       state.active.items.push(item);
     },
     setCreations(state, value) {
       state.creations = value;
+    },
+    setCurations(state, value) {
+      state.curations = value;
     }
   },
 
@@ -45,6 +53,7 @@ export default {
       commit('setLikesId', null);
       commit('setLikedItems', null);
       commit('setCreations', []);
+      commit('setCurations', []);
     },
     like({ dispatch, commit, state }, itemId) {
       // TODO: temporary prevention of addition of > 100 items; remove when no longer needed
@@ -166,6 +175,38 @@ export default {
 
       return this.$apis.set.search(searchParams)
         .then(searchResponse => commit('setCreations', searchResponse.data.items || []));
+    },
+    fetchCurations({ commit }) {
+      const contributorId = this.$auth.user ? this.$auth.user.sub : null;
+      const searchParams = {
+        query: `contributor:${contributorId}`,
+        profile: 'itemDescriptions',
+        pageSize: 100, // TODO: pagination?
+        qf: 'type:EntityBestItemsSet'
+      };
+
+      return this.$apis.set.search(searchParams)
+        .then(searchResponse => commit('setCurations', searchResponse.data.items || []));
+    },
+    fetchActiveRecommendations({ commit }, setId) {
+      return this.$apis.recommendation.recommend('set', setId)
+        .then(response => {
+          commit('setActiveRecommendations', response.items);
+        });
+    },
+    reviewRecommendation({ state, commit }, params) {
+      return this.$apis.recommendation[params.action]('set', params.setId, params.itemIds)
+        .then(response => {
+          const recList = state.activeRecommendations.slice();
+          const index = recList.findIndex(item => item.id === params.itemIds[0]);
+          if (response.items.length > 0) {
+            recList.splice(index, 1, response.items[0]);
+          } else {
+            recList.splice(index, 1);
+          }
+
+          commit('setActiveRecommendations', recList);
+        });
     }
   }
 };

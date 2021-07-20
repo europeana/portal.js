@@ -12,6 +12,7 @@ const factory = () => shallowMountNuxt(page, {
           user: { 'preferred_username': 'tester' }
         },
         set: {
+          creations: [],
           likedItems: []
         }
       }

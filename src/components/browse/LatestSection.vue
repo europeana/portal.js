@@ -66,7 +66,7 @@
         } else if (this.forGalleries) {
           return { type: 'imageGallery', name: this.$tc('galleries.galleries', this.total), path: 'galleries' };
         } else if (this.forBlogPosts) {
-          return { type: 'blogPosting', name: this.$tc('blog.posts'), path: 'blog' };
+          return { type: 'blogPosting', name: this.$tc('blog.posts', this.total), path: 'blog' };
         }
 
         return false;
@@ -122,7 +122,7 @@
         let imageUrl;
 
         if (card.hasPartCollection.items[0].encoding) {
-          imageUrl = `${card.hasPartCollection.items[0].encoding.edmPreview[0]}&size=w200`;
+          imageUrl = `${card.hasPartCollection.items[0].encoding.edmPreview[0]}&size=w400`;
         } else {
           imageUrl = card.hasPartCollection.items[0].thumbnailUrl;
         }
@@ -139,7 +139,7 @@
 
 <style lang="scss" scoped>
 
-@import '../../assets/scss/variables.scss';
+@import '@/assets/scss/variables.scss';
 
 .latest-section {
   h2 {

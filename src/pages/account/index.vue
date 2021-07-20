@@ -85,7 +85,9 @@
                 </div>
                 <UserSets
                   v-else
+                  v-model="publicCreations"
                   visibility="public"
+                  :empty-text="$t('account.notifications.noCollections.public')"
                   data-qa="public sets"
                 />
               </client-only>
@@ -103,9 +105,45 @@
                 </div>
                 <UserSets
                   v-else
+                  v-model="privateCreations"
                   visibility="private"
+                  :empty-text="$t('account.notifications.noCollections.private')"
                   data-qa="private sets"
                 />
+              </client-only>
+            </b-tab>
+            <b-tab
+              v-if="userIsEditor"
+              data-qa="curated collections"
+              :title="$t('account.curatedCollections')"
+            >
+              <client-only>
+                <div
+                  v-if="$fetchState.pending"
+                  class="text-center pb-4"
+                >
+                  <LoadingSpinner />
+                </div>
+                <UserSets
+                  v-else
+                  v-model="curations"
+                  :show-create-set-button="false"
+                  :empty-text="$t('account.notifications.noCollections.curated')"
+                  data-qa="curated sets"
+                >
+                  <template v-slot:header>
+                    <b-row
+                      class="w-100 px-3"
+                    >
+                      <b-col class="related-heading d-inline-flex px-0">
+                        <span class="icon-info mr-1" />
+                        <h2 class="related-heading text-uppercase">
+                          {{ $t('account.curatedCollectionsInfo') }}
+                        </h2>
+                      </b-col>
+                    </b-row>
+                  </template>
+                </UserSets>
               </client-only>
             </b-tab>
           </b-tabs>
@@ -141,6 +179,9 @@
     async fetch() {
       this.fetchLikes();
       await this.$store.dispatch('set/fetchCreations');
+      if (this.userIsEditor) {
+        await this.$store.dispatch('set/fetchCurations');
+      }
     },
 
     fetchOnServer: false,
@@ -152,9 +193,17 @@
     },
 
     computed: {
+      userIsEditor() {
+        const user = this.$store.state.auth.user;
+        return user && user?.resource_access?.entities && user.resource_access.entities.roles.includes('editor')
+          && user?.resource_access?.usersets && user.resource_access.usersets.roles.includes('editor');
+      },
       ...mapState({
         likesId: state => state.set.likesId,
-        likedItems: state => state.set.likedItems
+        likedItems: state => state.set.likedItems,
+        curations: state => state.set.curations,
+        publicCreations: state => state.set.creations.filter(set => set.visibility === 'public'),
+        privateCreations: state => state.set.creations.filter(set => set.visibility === 'private')
       })
     },
 

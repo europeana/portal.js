@@ -1,6 +1,6 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import UserButtons from '../../../../src/components/account/UserButtons';
+import UserButtons from '@/components/account/UserButtons';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
@@ -9,6 +9,7 @@ localVue.use(BootstrapVue);
 const identifier = '/123/abc';
 const storeDispatch = sinon.spy();
 const storeIsLikedGetter = sinon.stub();
+const storeIsPinnedGetter = sinon.stub();
 
 const factory = ({ storeState = {}, $auth = {} } = {}) => mount(UserButtons, {
   localVue,
@@ -18,10 +19,12 @@ const factory = ({ storeState = {}, $auth = {} } = {}) => mount(UserButtons, {
     $auth,
     $store: {
       state: {
-        set: { ...{ liked: [] }, ...storeState }
+        set: { ...{ liked: [] }, ...storeState },
+        entity: { ...{ pinned: [] }, ...storeState }
       },
       getters: {
-        'set/isLiked': storeIsLikedGetter
+        'set/isLiked': storeIsLikedGetter,
+        'entity/isPinned': storeIsPinnedGetter
       },
       dispatch: storeDispatch
     },
@@ -198,6 +201,70 @@ describe('components/account/UserButtons', () => {
             await wrapper.vm.$nextTick();
             wrapper.emitted('unlike').should.eql([[identifier]]);
           });
+        });
+      });
+    });
+  });
+
+  describe('pin button', () => {
+    it('is visible', async() => {
+      const wrapper = factory();
+      await wrapper.setProps({ showPins: true });
+
+      const pinButton = wrapper.find('[data-qa="pin button"]');
+
+      pinButton.isVisible().should.be.true;
+    });
+
+    context('when item is not pinned', () => {
+      beforeEach(() => {
+        storeIsPinnedGetter.returns(false);
+      });
+
+      it('is rendered as unpressed', async() => {
+        const wrapper = factory();
+        await wrapper.setProps({ showPins: true });
+
+        const pinButton = wrapper.find('[data-qa="pin button"]');
+        pinButton.attributes('aria-pressed').should.eq('false');
+      });
+      context('when pressed', () => {
+        it('shows the pin modal', async() => {
+          const wrapper = factory();
+          await wrapper.setProps({ showPins: true });
+
+          const pinButton = wrapper.find('[data-qa="pin button"]');
+          const bvModalShow = sinon.spy(wrapper.vm.$bvModal, 'show');
+
+          pinButton.trigger('click');
+
+          bvModalShow.should.have.been.calledWith(`pin-modal-${identifier}`);
+        });
+      });
+    });
+    context('when item is pinned', () => {
+      beforeEach(() => {
+        storeIsPinnedGetter.returns(true);
+      });
+
+      it('is rendered as pressed', async() => {
+        const wrapper = factory();
+        await wrapper.setProps({ showPins: true });
+
+        const pinButton = wrapper.find('[data-qa="pin button"]');
+        pinButton.attributes('aria-pressed').should.eq('true');
+      });
+      context('when pressed', () => {
+        it('shows the pin modal', async() => {
+          const wrapper = factory();
+          await wrapper.setProps({ showPins: true });
+
+          const pinButton = wrapper.find('[data-qa="pin button"]');
+          const bvModalShow = sinon.spy(wrapper.vm.$bvModal, 'show');
+
+          pinButton.trigger('click');
+
+          bvModalShow.should.have.been.calledWith(`pin-modal-${identifier}`);
         });
       });
     });

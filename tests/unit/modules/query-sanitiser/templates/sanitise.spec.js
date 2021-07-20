@@ -1,4 +1,4 @@
-import { page } from '../../../../../src/modules/query-sanitiser/templates/sanitise';
+import { page } from '@/modules/query-sanitiser/templates/sanitise';
 
 describe('sanitise', () => {
   describe('page()', () => {

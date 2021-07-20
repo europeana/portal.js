@@ -1,5 +1,8 @@
 export default {
   "account": {
+    "curatedCollections": "Curated Collections",
+    "curatedCollectionsInfo": "Find below all collections you have curated",
+    "editProfile": "Edit profile",
     "likes": "Likes",
     "linkAccount": "My Account",
     "linkLogin": "Login",
@@ -7,17 +10,17 @@ export default {
     "linkLogout": "Log out",
     "myProfile": "My Profile",
     "notifications": {
+      "loggedIn": "You are now logged in. Welcome!",
+      "loggedOut": "You are now logged out.",
       "noCollections": {
+        "curated": "You haven’t curated any collections yet",
         "private": "You haven’t created any private galleries yet",
         "public": "You haven’t created any public galleries yet"
       },
-      "noLikedItems": "You haven’t liked any items yet",
-      "loggedIn": "You are now logged in. Welcome!",
-      "loggedOut": "You are now logged out."
+      "noLikedItems": "You haven’t liked any items yet"
     },
     "privateCollections": "Private Galleries",
     "profile": "My Likes & Galleries",
-    "editProfile": "Edit profile",
     "profileSettings": "Profile settings",
     "publicCollections": "Public Galleries",
     "settings": "Settings",
@@ -38,7 +41,9 @@ export default {
     "shareOn": "Share on {social}",
     "skip": "Skip",
     "viewAt": "View at {link}",
-    "viewDocument": "View document"
+    "viewDocument": "View document",
+    "accept": "Accept",
+    "reject": "Reject"
   },
   "attribution": {
     "country": "Country:",
@@ -54,12 +59,22 @@ export default {
     "by": "by",
     "categories": "Categories",
     "category": "Category",
-    "posts": "Blog posts",
+    "posts": "Blog post | Blog posts",
     "published": "Published {date}",
     "relatedPosts": "Related posts"
   },
+  "cardLabels": {
+    "person": "Person",
+    "time": "Century",
+    "topic": "Topic",
+    "organisation": "Organisation"
+  },
   "clearAllFilters": "clear all filters",
   "collections": {
+    "actions": {
+      "edit": "Edit Collection",
+      "update": "Update Collection"
+    },
     "fashion": {
       "facets": {
         "CREATOR": {
@@ -75,6 +90,12 @@ export default {
           "name": "Material | Materials"
         }
       }
+    },
+    "form": {
+      "description": "Description"
+    },
+    "notifications": {
+      "update": "The collection has been updated"
     }
   },
   "collectionsYouMightLike": "Collections you might like",
@@ -120,7 +141,32 @@ export default {
     "right": "Right"
   },
   "edmIsShownAtLinkAlt": "View at the provider's website",
-  "entity": "Entity",
+  "entity": {
+    "actions": {
+      "cancel": "Cancel",
+      "pin": "Pin item",
+      "unpin": "Unpin item",
+      "viewPinned": "See pinned items"
+    },
+    "labels": {
+      "entity": "Entity"
+    },
+    "notifications": {
+      "deleted": "Your gallery has been deleted.",
+      "pinLimit": {
+        "body": "For now you can only pin 24 items on the first page. If you want to pin this item, make sure you unpin another one and then try to pin this one again.",
+        "title": "Too many pinned items"
+      },
+      "pinned": "The item has been pinned. It is now at the top of the first page of this collection. It might take up to 24 hours to appear for everyone.",
+      "pinnedFirstPage": "The item has been pinned. It might take up to 24 hours to appear for everyone.",
+      "unpinned": "The item has been unpinned. It is no longer at the top of the first page of this collection. It might take up to 24 hours to disappear for everyone.",
+      "unpinnedFirstPage": "The item has been unpinned. It might take up to 24 hours to disappear for everyone."
+    },
+    "prompts": {
+      "pin": "Are you sure you want to pin this item? This item will show at the top of the \"{entity}\" collection. This change might take up to 24 hours to take effect.",
+      "unpin": "Are you sure you want to unpin this item? This item will stop showing at the top of the \"{entity}\" collection. This change might take up to 24 hours to take effect."
+    }
+  },
   "error": "Error",
   "exhibitions": {
     "chapters": "Chapters",
@@ -516,70 +562,72 @@ export default {
   "items": {
     "itemCount": "1 item |{count} items",
     "itemOf": "{max} of {count} items",
-    "youMightLike": "Items you might like"
+    "recommended": "Recommended items",
+    "youMightLike": "Items you might like",
+    "recommendationsDisclaimer": "Thumb up to add to the gallery - Thumb down if you dislike it"
   },
   "klaro": {
     "main": {
-      "consentNotice": {
-        "description": "We care about your privacy and only use data to improve your experience. We don’t use any personal information for advertising. You can change your consent every 15 days."
-      },
       "consentModal": {
         "description": "We take your data privacy seriously. Here you can assess and customize the services that we'd like to use on this website. You're in charge! Enable or disable services as you see fit.",
         "title": "Services we would like to use."
       },
+      "consentNotice": {
+        "description": "We care about your privacy and only use data to improve your experience. We don’t use any personal information for advertising. You can change your consent every 15 days."
+      },
       "ok": "Okay",
+      "purposes": {
+        "essential": {
+          "description": "These services are essential for the correct functioning of this website. They include search results view and language preferences, preserve the logged in state and keep your visit secure. You cannot disable them as the website would not work correctly otherwise.",
+          "title": "Essential services for security and customization"
+        },
+        "usage": {
+          "description": "These services collect the information to help us better understand how the website gets used and where the pain points are, empowering us to make informed choices to improve your experience.",
+          "title": "Services to capture website usage and feedback"
+        }
+      },
       "service": {
         "disableAll": {
           "description": "Use this switch to enable or disable all optional services.",
           "title": "Enable or disable all services"
         }
-      },
-      "purposes": {
-        "usage": {
-          "title": "Services to capture website usage and feedback",
-          "description": "These services collect the information to help us better understand how the website gets used and where the pain points are, empowering us to make informed choices to improve your experience."
-        },
-        "essential": {
-          "title": "Essential services for security and customization",
-          "description": "These services are essential for the correct functioning of this website. They include search results view and language preferences, preserve the logged in state and keep your visit secure. You cannot disable them as the website would not work correctly otherwise."
-        }
       }
     },
     "services": {
       "auth-strategy": {
-        "title": "Auth Strategy",
-        "description": "Remembers the authorization strategy to use to log in."
+        "description": "Remembers the authorization strategy to use to log in.",
+        "title": "Auth Strategy"
       },
       "debugSettings": {
         "title": "Debug toggle"
       },
       "google-analytics": {
-        "title": "Google Analytics",
-        "description": "Collects anonymous statistics on how visitors interact with the website."
+        "description": "Collects anonymous statistics on how visitors interact with the website.",
+        "title": "Google Analytics"
       },
       "google-optimize": {
-        "title": "Google Optimize",
-        "description": "Enables you to participate in website experiments that guide our design choices for the best user experience."
+        "description": "Enables you to participate in website experiments that guide our design choices for the best user experience.",
+        "title": "Google Optimize"
       },
       "hotjar": {
-        "title": "Hotjar",
-        "description": "Activates a survey widget giving you the option to respond to our visitor satisfaction surveys."
+        "description": "Activates a survey widget giving you the option to respond to our visitor satisfaction surveys.",
+        "title": "Hotjar"
       },
       "i18n": {
-        "title": "Language code",
-        "description": "Remembers your preferred interface language for future access."
+        "description": "Remembers your preferred interface language for future access.",
+        "title": "Language code"
       },
       "jira-servicedesk": {
-        "title": "Jira service desk",
-        "description": "Activates the feedback widget giving you the option to contact us."
+        "description": "Activates the feedback widget giving you the option to contact us.",
+        "title": "Jira service desk"
       },
       "matomo": {
-        "title": "Matomo",
-        "description": "Collects anonymous statistics on how visitors interact with the website."
+        "description": "Collects anonymous statistics on how visitors interact with the website.",
+        "title": "Matomo"
       },
       "searchResultsView": {
-        "title": "Search result view (list/grid)",
-        "description": "Remembers if you prefer to see the search results in a list or grid view."
+        "description": "Remembers if you prefer to see the search results in a list or grid view.",
+        "title": "Search result view (list/grid)"
       }
     }
   },
@@ -601,6 +649,7 @@ export default {
       "text": "You're searching in our new and faster website."
     }
   },
+  "loading": "Loading",
   "loadingResults": "Loading results",
   "mediaPreview": {
     "selectItem": "Select item {src}"
@@ -610,6 +659,13 @@ export default {
     "externalContentError": "The external content failed to load",
     "notFound": "Not Found",
     "paginationLimitExceeded": "It is only possible to view the first {limit} search results."
+  },
+  "modal": {
+    "download": {
+      "modalTitle": "Say thanks",
+      "modalIntro": "If you use this item on the web or elsewhere, don’t forget to display the following attribution next to it:",
+      "clickToCopy": "Click on the attribution to copy it"
+    }
   },
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
@@ -622,6 +678,15 @@ export default {
       },
       "topics": {
         "title": "Topics"
+      },
+      "persons": {
+        "title": "Persons"
+      },
+      "organisations": {
+        "title": "Organisations",
+        "table": {
+          "name": "Name"
+        }
       }
     }
   },
@@ -687,8 +752,8 @@ export default {
     "form": {
       "description": "Gallery description",
       "private": "Keep this gallery private",
-      "title": "Gallery name",
-      "required": "Required field"
+      "required": "Required field",
+      "title": "Gallery name"
     },
     "labels": {
       "curatedBy": "Curated by",
@@ -696,6 +761,7 @@ export default {
     },
     "notifications": {
       "deleted": "Your gallery has been deleted.",
+      "updated": "The item was added to the gallery.",
       "likeLimit": {
         "body": "We are sorry, but you are limited at the moment to liking a maximum of 100 items. We will remove this limit soon!",
         "title": "100 likes"
@@ -706,5 +772,6 @@ export default {
     }
   },
   "showLess": "Show less",
-  "showMore": "Show more"
+  "showMore": "Show more",
+  "website": "Website"
 };

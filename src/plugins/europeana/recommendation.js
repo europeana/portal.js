@@ -24,6 +24,28 @@ export default (context = {}) => {
         .catch(error => {
           throw apiError(error);
         });
+    },
+
+    accept(type, identifier, body) {
+      return $axios.post(
+        `/${type}${identifier}`,
+        body
+      )
+        .then(response => response.data)
+        .catch(error => {
+          throw apiError(error);
+        });
+    },
+
+    reject(type, identifier, body) {
+      return $axios.delete(
+        `/${type}${identifier}`,
+        { data: body }
+      )
+        .then(response => response.data)
+        .catch(error => {
+          throw apiError(error);
+        });
     }
   };
 };

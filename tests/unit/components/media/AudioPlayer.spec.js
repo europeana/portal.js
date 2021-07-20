@@ -1,6 +1,6 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import AudioPlayer from '../../../../src/components/media/AudioPlayer.vue';
+import AudioPlayer from '@/components/media/AudioPlayer.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);

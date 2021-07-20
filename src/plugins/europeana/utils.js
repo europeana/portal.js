@@ -65,7 +65,7 @@ export function apiError(error) {
 
 const locales = require('../i18n/locales.js');
 const undefinedLocaleCodes = ['def', 'und'];
-const uriRegex = /^https?:\/\//; // Used to determine if a value is a URI
+export const uriRegex = /^https?:\/\//; // Used to determine if a value is a URI
 
 const isoAlpha3Map = locales.reduce((memo, locale) => {
   memo[locale.isoAlpha3] = locale.code;
@@ -121,6 +121,13 @@ export const selectLocaleForLangMap = (langMap, locale) => {
   for (const key of languageKeys(locale)) {
     if (Object.prototype.hasOwnProperty.call(langMap, key)) {
       return key;
+    }
+  }
+  if (isJSONLDExpanded(langMap)) {
+    for (const key of languageKeys(locale)) {
+      if (langMap.some((langValue) => langValue['@language'] === key)) {
+        return key;
+      }
     }
   }
   return Object.keys(langMap)[0];

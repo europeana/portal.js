@@ -1,4 +1,4 @@
-import { keycloakResponseErrorHandler } from '../../../../src/plugins/europeana/auth';
+import { keycloakResponseErrorHandler } from '@/plugins/europeana/auth';
 
 import merge from 'deepmerge';
 import sinon from 'sinon';
@@ -23,7 +23,10 @@ const mockContext = (options = {}) => {
       request: sinon.stub().resolves({}),
       loggedIn: false
     },
-    redirect: sinon.spy()
+    redirect: sinon.spy(),
+    route: {
+      path: '/en'
+    }
   };
 
   return merge(defaults, options);
@@ -49,7 +52,9 @@ describe('plugins/europeana/auth', () => {
         it('attempts to refresh the access token', async() => {
           await keycloakResponseErrorHandler(ctx, error);
 
-          ctx.$auth.request.should.have.been.called;
+          ctx.$auth.request.should.have.been.calledWith(sinon.match.has('headers', {
+            'content-type': 'application/x-www-form-urlencoded'
+          }));
         });
 
         context('when it has refreshed the access token', () => {
@@ -84,7 +89,7 @@ describe('plugins/europeana/auth', () => {
           it('redirects to the login URL', async() => {
             await keycloakResponseErrorHandler(ctx, error);
 
-            ctx.redirect.should.have.been.calledWith('http://example.org/login');
+            ctx.redirect.should.have.been.calledWith('http://example.org/login', { redirect: ctx.route.path });
           });
         });
       });
@@ -100,7 +105,7 @@ describe('plugins/europeana/auth', () => {
         it('redirects to the login URL', async() => {
           await keycloakResponseErrorHandler(ctx, error);
 
-          ctx.redirect.should.have.been.calledWith('http://example.org/login');
+          ctx.redirect.should.have.been.calledWith('http://example.org/login', { redirect: ctx.route.path });
         });
       });
     });

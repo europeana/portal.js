@@ -163,20 +163,20 @@
           }
         }
 
-        // Add textGranularity filter to search service URI
-        //
-        // NOTE: this does not work, due to Mirador not expecting a service URI
-        //       to already contain '?' with parameters.
-        //       https://github.com/ProjectMirador/mirador/blob/v3.0.0/src/components/SearchPanelControls.js#L91
-        //
-        //       If it in future becomes possible to use this, then `filterSearchHitsByTextGranularity`
-        //       becomes redundant and may be removed, as pre-filtering on the
-        //       service side is preferrable.
-        //
-        // if ((manifestJson.service || {}).profile === 'http://iiif.io/api/search/1/search') {
-        //   const paramSeparator = manifestJson.service['@id'].includes('?') ? '&' : '?';
-        //   manifestJson.service['@id'] = `${manifestJson.service['@id']}${paramSeparator}textGranularity=${textGranularity}`;
-        // }
+      // Add textGranularity filter to search service URI
+      //
+      // NOTE: this does not work, due to Mirador not expecting a service URI
+      //       to already contain '?' with parameters.
+      //       https://github.com/ProjectMirador/mirador/blob/v3.0.0/src/components/SearchPanelControls.js#L91
+      //
+      //       If it in future becomes possible to use this, then `filterSearchHitsByTextGranularity`
+      //       becomes redundant and may be removed, as pre-filtering on the
+      //       service side is preferrable.
+      //
+      // if ((manifestJson.service || {}).profile === 'http://iiif.io/api/search/1/search') {
+      //   const paramSeparator = manifestJson.service['@id'].includes('?') ? '&' : '?';
+      //   manifestJson.service['@id'] = `${manifestJson.service['@id']}${paramSeparator}textGranularity=${textGranularity}`;
+      // }
       },
 
       filterSearchHitsByTextGranularity(searchJson, textGranularity = 'Line') {
@@ -296,7 +296,7 @@
             if (charMatch) {
               resource.resource.chars = resource.resource.chars.slice(
                 Number(charMatch[1]),
-                Number(charMatch[2]) + 1,
+                Number(charMatch[2]) + 1
               );
             }
           }
@@ -328,7 +328,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../../assets/scss/variables.scss';
+  @import '@/assets/scss/variables.scss';
 
   ::v-deep .mirador-thumbnail-nav-canvas:focus {
     outline: 2px solid $blue !important;

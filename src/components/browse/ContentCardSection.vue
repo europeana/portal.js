@@ -57,8 +57,8 @@
   import BrowseContentCard from './BrowseContentCard';
   import SmartLink from '../generic/SmartLink';
 
-  import { entityParamsFromUri, getEntityTypeHumanReadable } from '../../plugins/europeana/entity';
-  import { BASE_URL as EUROPEANA_DATA_URL } from '../../plugins/europeana/data';
+  import { entityParamsFromUri, getEntityTypeHumanReadable } from '@/plugins/europeana/entity';
+  import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
 
   export default {
     components: {
@@ -106,7 +106,7 @@
 
 <style lang="scss" scoped>
 
-@import '../../assets/scss/variables.scss';
+@import '@/assets/scss/variables.scss';
 
 .browse-section {
   h2,

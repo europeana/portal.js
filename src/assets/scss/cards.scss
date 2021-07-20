@@ -221,7 +221,7 @@
     .card-title {
       display: block;
       max-height: none;
-      line-height: 1.5;    
+      line-height: 1.5;
     }
     .icon-ic-add {
       color: #4d4d4d;
@@ -317,11 +317,14 @@
   }
 
   .user-buttons {
-    display: none;
+    visibility: hidden;
+    display: flex;
+    flex-wrap: wrap;
     position: absolute;
     top: 1rem;
     right: 1rem;
     z-index: 2;
+    width: 100%;
 
     .btn {
       align-items: center;
@@ -346,8 +349,37 @@
         border-color: $red;
       }
 
+      &.recommendation-button {
+        &:first-of-type {
+          margin-left: auto;
+        }
+
+        &:hover {
+          color: $innovationblue;
+        }
+      }
+
       &:first-of-type {
         margin-right: 0.5rem;
+
+        &.icon-push-pin {
+          margin-left: 2rem;
+
+          &.active {
+            visibility: visible;
+          }
+
+          &:hover {
+            color: $innovationblue;
+            background: $white;
+            border-color: $white;
+          }
+
+          +.btn {
+            margin-left: auto;
+            margin-right: 0.5rem;
+          }
+        }
       }
 
       &-sm {
@@ -360,7 +392,7 @@
     box-shadow: $boxshadow-large;
 
     .user-buttons {
-      display: flex;
+      visibility: visible;
     }
   }
 }

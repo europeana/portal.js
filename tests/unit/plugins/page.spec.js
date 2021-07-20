@@ -1,4 +1,4 @@
-import pagePlugin from '../../../src/plugins/page';
+import pagePlugin from '@/plugins/page';
 
 describe('pageHeadTitle', () => {
   it('appends site name to supplied page title', () => {

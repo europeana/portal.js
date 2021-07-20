@@ -98,7 +98,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../../assets/scss/variables.scss';
+  @import '@/assets/scss/variables.scss';
 
   .cookie-disclaimer {
     transition: all 0.4s ease;
@@ -106,7 +106,7 @@
     background-color: $innovationblue;
     width: 100%;
     color: $white;
-    z-index: 1000;
+    z-index: 1100;
     font-size: $font-size-small;
     opacity: 0;
 

@@ -1,0 +1,14 @@
+version: "3"
+
+# TODO: also run app in dev mode from here?
+services:
+  redis:
+    image: redis
+    command: redis-server --appendonly yes
+    ports:
+      - "16379:6379"
+    volumes:
+      - redis-data:/data
+
+volumes:
+  redis-data:

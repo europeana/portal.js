@@ -18,6 +18,16 @@ header .col {
   line-height: 1;
 }
 
+.related-subtitle {
+  color: $mediumgrey;
+
+  .icon-info-outline {
+    position: relative;
+    bottom: 2px;
+    font-size: 22px;
+  }
+}
+
 .text-page {
   background: $white;
   margin-top: -3rem;
@@ -125,13 +135,7 @@ header .col {
   iframe {
     max-height: initial;
     max-width: 100%;
-  }
-
-  @media (min-width: $bp-extralarge) {
-    blockquote + p cite {
-      width: 38.3rem;
-    }
-  }
+  } 
 }
 
 .info-panel {
@@ -148,4 +152,12 @@ header .col {
       margin-bottom: 0 !important;
     }
   }
+}
+
+.context-label {
+  font-size: $font-size-extrasmall;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: $mediumgrey;
+  line-height: initial;
 }
