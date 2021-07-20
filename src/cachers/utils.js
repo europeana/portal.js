@@ -31,7 +31,7 @@ const createRedisClient = (config = {}) => {
 const createAxiosClient = (config = {}, api = 'record') => {
   return axios.create({
     baseURL: config.europeana.apis[api].url || `https://api.europeana.eu/${api}`,
-    config: {
+    params: {
       wskey: config.europeana.apis[api].key
     }
   });

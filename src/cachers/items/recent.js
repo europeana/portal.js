@@ -1,4 +1,3 @@
-const axios = require('axios');
 const dateFormat = require('dateformat');
 const utils = require('../utils');
 
@@ -7,17 +6,6 @@ const CACHE_KEY = '@europeana:portal.js:items:recent';
 let axiosClient;
 let redisClient;
 let randomSortSeed;
-
-const axiosConfig = (config = {}) => {
-  return {
-    baseURL: config.europeana.apis.record.url || 'https://api.europeana.eu/record',
-    params: {
-      wskey: config.europeana.apis.record.key
-    }
-  };
-};
-
-const createAxiosClient = (config = {}) => axios.create(axiosConfig(config));
 
 const writeToRedis = (data) => {
   return redisClient.setAsync(CACHE_KEY, JSON.stringify(data))
@@ -71,7 +59,7 @@ const recentlyUpdatedContentTier4Items = async() => {
 
 const cache = async(config = {}) => {
   try {
-    axiosClient = createAxiosClient(config);
+    axiosClient = utils.createAxiosClient(config, 'record');
     redisClient = utils.createRedisClient(config);
     randomSortSeed = dateFormat(new Date(), 'isoDate');
 
