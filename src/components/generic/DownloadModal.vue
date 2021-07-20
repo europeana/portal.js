@@ -5,6 +5,7 @@
     hide-header-close
     hide-footer
     data-qa="download modal"
+    @hidden="snippetCopied = false"
   >
     <b-form
       data-qa="attribution snippet"
