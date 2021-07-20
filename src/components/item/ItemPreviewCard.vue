@@ -13,19 +13,17 @@
     :lazy="lazy"
   >
     <template v-slot:buttons>
-      <client-only>
-        <RecommendationButtons
-          v-if="recommendedItem"
-          v-model="identifier"
-        />
-        <UserButtons
-          v-else
-          v-model="identifier"
-          :show-pins="showPins"
-          @like="$emit('like', identifier)"
-          @unlike="$emit('unlike', identifier)"
-        />
-      </client-only>
+      <RecommendationButtons
+        v-if="recommendedItem"
+        v-model="identifier"
+      />
+      <UserButtons
+        v-else
+        v-model="identifier"
+        :show-pins="showPins"
+        @like="$emit('like', identifier)"
+        @unlike="$emit('unlike', identifier)"
+      />
     </template>
   </ContentCard>
 </template>
@@ -33,14 +31,12 @@
 <script>
   import { genericThumbnail } from '@/plugins/europeana/thumbnail';
 
-  import ClientOnly from 'vue-client-only';
   import ContentCard from '../generic/ContentCard';
 
   export default {
     name: 'ItemPreviewCard',
 
     components: {
-      ClientOnly,
       ContentCard,
       RecommendationButtons: () => import('../recommendation/RecommendationButtons'),
       UserButtons: () => import('../account/UserButtons')
