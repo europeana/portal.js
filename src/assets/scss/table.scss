@@ -1,5 +1,6 @@
 table,
 .table {
+  background-color: $white;
   border: 1px solid $middlegrey;
   border-radius: $border-radius-small;
   border-spacing: 0;
@@ -14,13 +15,8 @@ table,
     font-weight: 600;
     line-height: 1.125rem;
     padding: 1.125rem 1rem;
-
     div {
       display: inline-block;
-    }
-
-    &:hover div::after {
-      color: $innovationblue;
     }
   }
 
@@ -29,7 +25,6 @@ table,
     padding: 1.125rem 1rem;
     border-top: 1px solid $middlegrey;
     vertical-align: top;
-
     a {
       text-decoration: none;
       &:hover {
@@ -49,9 +44,11 @@ table,
       margin-left: 0.5rem;
       display: inline-block;
     }
-
     &[aria-sort='descending'] div:after {
       transform: rotate(180deg);
+    }
+    &:hover div::after {
+      color: $innovationblue;
     }
   }
 
