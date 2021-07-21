@@ -1,16 +1,19 @@
 export default {
   "account": {
+    "curatedCollections": "",
+    "curatedCollectionsInfo": "",
     "editProfile": "Muuda profiili",
     "likes": "Meeldimised",
     "linkAccount": "Minu konto",
     "linkLogin": "Logi sisse",
-    "linkLoginJoin": "Logi sisse/Liitu",
+    "linkLoginJoin": "Logi sisse\/Liitu",
     "linkLogout": "Logi välja",
     "myProfile": "Minu profiil",
     "notifications": {
       "loggedIn": "Olete nüüd sisse logitud. Tere tulemast!",
       "loggedOut": "Olete nüüd välja logitud.",
       "noCollections": {
+        "curated": "",
         "private": "Te pole veel ühtegi privaatset galeriid loonud",
         "public": "Te pole veel ühtegi avalikku galeriid loonud"
       },
@@ -24,6 +27,7 @@ export default {
     "title": "Minu konto"
   },
   "actions": {
+    "accept": "",
     "cancel": "Tühista",
     "close": "Sulge",
     "download": "Lae alla",
@@ -33,6 +37,7 @@ export default {
     "like": "Meeldib",
     "next": "Järgmine",
     "providedBy": "Pakub {provider}",
+    "reject": "",
     "send": "Saada",
     "share": "Jagage",
     "shareOn": "Jagage saidil {social}",
@@ -59,6 +64,7 @@ export default {
     "relatedPosts": "Seonduvad postitused"
   },
   "cardLabels": {
+    "organisation": "",
     "person": "Isik",
     "time": "Sajand",
     "topic": "Teema"
@@ -136,11 +142,29 @@ export default {
   },
   "edmIsShownAtLinkAlt": "Vaadake teenusepakkuja veebisaidil",
   "entity": {
+    "actions": {
+      "cancel": "",
+      "pin": "",
+      "unpin": "",
+      "viewPinned": ""
+    },
     "labels": {
       "entity": "Üksus"
     },
     "notifications": {
-      "deleted": "Teie galerii on kustutatud."
+      "deleted": "Teie galerii on kustutatud.",
+      "pinLimit": {
+        "body": "",
+        "title": ""
+      },
+      "pinned": "",
+      "pinnedFirstPage": "",
+      "unpinned": "",
+      "unpinnedFirstPage": ""
+    },
+    "prompts": {
+      "pin": "",
+      "unpin": ""
     }
   },
   "error": "Viga",
@@ -373,7 +397,7 @@ export default {
     "MIME_TYPE": {
       "name": "Failivorming | Failivormingud",
       "options": {
-        "text/plain": "Lihttekst"
+        "text\/plain": "Lihttekst"
       }
     },
     "PROVIDER": {
@@ -537,7 +561,9 @@ export default {
   },
   "items": {
     "itemCount": "1 toode | {count} toodet",
-    "itemOf": "{max} / {count} tootest",
+    "itemOf": "{max} \/ {count} tootest",
+    "recommendationsDisclaimer": "",
+    "recommended": "",
     "youMightLike": "Tooted, mis võivad teile meeldida"
   },
   "klaro": {
@@ -601,7 +627,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Mäletab, kas eelistate näha otsingutulemusi loendi või ruudustiku kujul.",
-        "title": "Otsingutulemite vaade (loend / ruudustik)"
+        "title": "Otsingutulemite vaade (loend \/ ruudustik)"
       }
     }
   },
@@ -623,6 +649,7 @@ export default {
       "text": "Otsite meie uuel ja kiiremal veebisaidil."
     }
   },
+  "loading": "",
   "loadingResults": "Tulemuste laadimine",
   "mediaPreview": {
     "selectItem": "Valige üksus {src}"
@@ -633,12 +660,28 @@ export default {
     "notFound": "Ei leitud",
     "paginationLimitExceeded": "Võimalik on vaadata ainult esimesi {limit} otsingutulemusi."
   },
+  "modal": {
+    "download": {
+      "clickToCopy": "",
+      "modalIntro": "",
+      "modalTitle": ""
+    }
+  },
   "newWindow": "avaneb uues aknas",
   "noMoreResults": "Teie otsingupäringule pole rohkem tulemusi.",
   "noResults": "Ühtki tulemust",
   "pageHasLoaded": "on laaditud",
   "pages": {
     "collections": {
+      "organisations": {
+        "table": {
+          "name": ""
+        },
+        "title": ""
+      },
+      "persons": {
+        "title": ""
+      },
       "times": {
         "title": "Korda"
       },
@@ -721,12 +764,14 @@ export default {
       "likeLimit": {
         "body": "Vabandame, kuid praegu piirdute maksimaalselt 100 toote meeldimisega. Varsti eemaldame selle limiidi!",
         "title": "100 meeldimist"
-      }
+      },
+      "updated": ""
     },
     "prompts": {
       "delete": "Kas soovite kindlasti selle galerii kustutada? Kui kustutate selle galerii, kaotate kõik sinna lisatud tooted."
     }
   },
   "showLess": "Näita vähem",
-  "showMore": "Näita rohkem"
+  "showMore": "Näita rohkem",
+  "website": ""
 };

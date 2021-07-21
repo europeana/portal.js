@@ -1,5 +1,7 @@
 export default {
   "account": {
+    "curatedCollections": "",
+    "curatedCollectionsInfo": "",
     "editProfile": "Cuir do phróifíl in eagar",
     "likes": "Toghanna",
     "linkAccount": "Mo Chuntas",
@@ -11,6 +13,7 @@ export default {
       "loggedIn": "Tá tú logáilte isteach anois. Fáilte!",
       "loggedOut": "Tá tú logáilte amach anois.",
       "noCollections": {
+        "curated": "",
         "private": "Níor chruthaigh tú aon ghailearaithe príobháideacha fós",
         "public": "Níor chruthaigh tú aon ghailearaithe poiblí fós"
       },
@@ -24,6 +27,7 @@ export default {
     "title": "Mo chuntas"
   },
   "actions": {
+    "accept": "",
     "cancel": "Cealaigh",
     "close": "dún",
     "download": "Íoslódáil",
@@ -33,6 +37,7 @@ export default {
     "like": "Is maith liom",
     "next": "Ar Aghaidh",
     "providedBy": "Arna sholáthar ag {provider}",
+    "reject": "",
     "send": "Seol",
     "share": "Roinn",
     "shareOn": "Roinn ar {social}",
@@ -59,6 +64,7 @@ export default {
     "relatedPosts": "Postálacha gaolmhara"
   },
   "cardLabels": {
+    "organisation": "",
     "person": "Duine",
     "time": "Haois",
     "topic": "Ábhar"
@@ -66,7 +72,8 @@ export default {
   "clearAllFilters": "glan gach scagaire",
   "collections": {
     "actions": {
-      "edit": "Cuir Bailiúchán in Eagar"
+      "edit": "Cuir Bailiúchán in Eagar",
+      "update": "Bailiúchán Nuashonraithe"
     },
     "fashion": {
       "facets": {
@@ -83,6 +90,12 @@ export default {
           "name": "Ábhar | Ábhair"
         }
       }
+    },
+    "form": {
+      "description": "Cur síos"
+    },
+    "notifications": {
+      "update": "Rinneadh nuashonrú ar an mbailiúchán"
     }
   },
   "collectionsYouMightLike": "Bailiúcháin b’fhéidir gur mhaith leat",
@@ -130,13 +143,28 @@ export default {
   "edmIsShownAtLinkAlt": "Amharc air ag láithreán gréasáin an tsoláthraí",
   "entity": {
     "actions": {
-      "cancel": "Cealaigh"
+      "cancel": "Cealaigh",
+      "pin": "",
+      "unpin": "",
+      "viewPinned": ""
     },
     "labels": {
       "entity": "Eintiteas"
     },
     "notifications": {
-      "deleted": "Scriosadh do ghailearaí."
+      "deleted": "Scriosadh do ghailearaí.",
+      "pinLimit": {
+        "body": "",
+        "title": ""
+      },
+      "pinned": "",
+      "pinnedFirstPage": "",
+      "unpinned": "",
+      "unpinnedFirstPage": ""
+    },
+    "prompts": {
+      "pin": "",
+      "unpin": ""
     }
   },
   "error": "Earráid",
@@ -369,7 +397,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formáid chomhaid | Formáidí comhaid",
       "options": {
-        "text/plain": "Téacs simplí"
+        "text\/plain": "Téacs simplí"
       }
     },
     "PROVIDER": {
@@ -470,7 +498,7 @@ export default {
       "edmIsSimilarTo": "Is cosúil leis",
       "edmIsSuccessorOf": "Is comharba é ar",
       "edmProvider": "Soláthraí",
-      "edmRealizes": "Tuigeann sé/sí",
+      "edmRealizes": "Tuigeann sé\/sí",
       "edmRights": "Ráiteas Ceadúnas do na meáin sa mhír seo (mura sonraítear a mhalairt)",
       "edmUgc": "Inneachar ginte le húsáideoirí",
       "europeanaCollectionName": "Ainm bailiúcháin",
@@ -534,6 +562,8 @@ export default {
   "items": {
     "itemCount": "1 mír |{count} míreanna",
     "itemOf": "{max} de mhíreanna {count}",
+    "recommendationsDisclaimer": "",
+    "recommended": "",
     "youMightLike": "Míreanna a d’fhéadfadh a bheith uait"
   },
   "klaro": {
@@ -545,7 +575,60 @@ export default {
       "consentNotice": {
         "description": "Tugaimid aire do do phríobháideacht agus ní úsáidimid ach sonraí chun d'eispéireas a fheabhsú. Ní úsáidimid aon fhaisnéis phearsanta le haghaidh fógraíochta. Is féidir leat do thoiliú a athrú gach 15 lá."
       },
-      "ok": "ceart go leor"
+      "ok": "ceart go leor",
+      "purposes": {
+        "essential": {
+          "description": "Tá na seirbhísí seo riachtanach chun go bhfeidhmeoidh an láithreán gréasáin seo i gceart. Cuimsíonn siad dearcadh torthaí cuardaigh agus roghanna teanga, caomhnaíonn siad an stát atá logáilte isteach agus coimeád do chuairt slán. Ní féidir leat iad a dhíchumasú mar ní oibreodh an suíomh Gréasáin i gceart a mhalairt.",
+          "title": "Seirbhísí riachtanacha maidir le slándáil agus saincheaptha"
+        },
+        "usage": {
+          "description": "Bailíonn na seirbhísí seo an fhaisnéis chun cabhrú linn tuiscint níos fearr a fháil ar an gcaoi a n-úsáidtear an suíomh Gréasáin agus cá bhfuil na pointí pian, ag cur ar ár gcumas roghanna eolasacha a dhéanamh chun d’eispéireas a fheabhsú.",
+          "title": "Seirbhísí chun úsáid agus aiseolas láithreán gréasáin a ghabháil"
+        }
+      },
+      "service": {
+        "disableAll": {
+          "description": "Úsáid an lasc seo chun gach seirbhís roghnach a chumasú nó a dhíchumasú.",
+          "title": "Gach seirbhís a chumasú nó a dhíchumasú"
+        }
+      }
+    },
+    "services": {
+      "auth-strategy": {
+        "description": "Is cuimhin leis an straitéis údaraithe a úsáid chun logáil isteach.",
+        "title": "Straitéis Auth"
+      },
+      "debugSettings": {
+        "title": "Scoránaigh dífhabhtaithe"
+      },
+      "google-analytics": {
+        "description": "Bailíonn sé staitisticí gan ainm ar an gcaoi a n-idirghníomhaíonn cuairteoirí leis an suíomh Gréasáin.",
+        "title": "Google Analytics"
+      },
+      "google-optimize": {
+        "description": "Cuireann sé ar do chumas páirt a ghlacadh i dturgnaimh láithreán gréasáin a threoraíonn ár roghanna dearaidh don eispéireas úsáideora is fearr.",
+        "title": "Google Optimize"
+      },
+      "hotjar": {
+        "description": "Gníomhachtaíonn sé giuirléid suirbhé a thugann an rogha duit freagra a thabhairt ar ár suirbhéanna ar shástacht na gcuairteoirí.",
+        "title": "Hotjar"
+      },
+      "i18n": {
+        "description": "Is cuimhin leat an teanga comhéadain is fearr leat le haghaidh rochtana sa todhchaí.",
+        "title": "Cód teanga"
+      },
+      "jira-servicedesk": {
+        "description": "Gníomhaíonn sé an giuirléid aiseolais ag tabhairt an rogha duit teagmháil a dhéanamh linn.",
+        "title": "Deasc seirbhíse Jira"
+      },
+      "matomo": {
+        "description": "Bailíonn sé staitisticí gan ainm ar an gcaoi a n-idirghníomhaíonn cuairteoirí leis an suíomh Gréasáin.",
+        "title": "Matomo"
+      },
+      "searchResultsView": {
+        "description": "Cuimhníonn sé más fearr leat na torthaí cuardaigh a fheiceáil i liosta nó in amharc greille.",
+        "title": "Amharc toraidh cuardaigh (liosta\/greille)"
+      }
     }
   },
   "layout": {
@@ -566,6 +649,7 @@ export default {
       "text": "Tá an cuardach seo déanta agat ar an láithreán gréasáin nua againn atá níos tapúla."
     }
   },
+  "loading": "",
   "loadingResults": "Torthaí á lódáil",
   "mediaPreview": {
     "selectItem": "Roghnaigh mír {src}"
@@ -576,12 +660,28 @@ export default {
     "notFound": "Níor aimsíodh é",
     "paginationLimitExceeded": "Ní féidir ach amháin na chéad {limit} torthaí cuardaigh a fheiceáil."
   },
+  "modal": {
+    "download": {
+      "clickToCopy": "",
+      "modalIntro": "",
+      "modalTitle": ""
+    }
+  },
   "newWindow": "osclaítear i bhfuinneog nua é",
   "noMoreResults": "Níl aon toradh eile ann ar d'iarratas cuardaigh.",
   "noResults": "Níor aimsíodh aon Torthaí",
   "pageHasLoaded": "luchtaithe",
   "pages": {
     "collections": {
+      "organisations": {
+        "table": {
+          "name": ""
+        },
+        "title": ""
+      },
+      "persons": {
+        "title": ""
+      },
       "times": {
         "title": "Amanna"
       },
@@ -599,8 +699,10 @@ export default {
     "extendedInformation": "Faisnéis leathnaithe",
     "goodToKnow": "Maith a fhios",
     "hideAll": "Folaigh gach faisnéis",
+    "IIIFViewer": "Amharcóir IIIF",
     "location": "Suíomh",
     "locationOnMap": "Suíomh ar an léarscáil",
+    "mediaPlayer": "Seinnteoir meán",
     "record": "Mír",
     "showAll": "Taispeáin gach faisnéis",
     "similarItems": "Míreanna eile den chineál céanna",
@@ -662,12 +764,14 @@ export default {
       "likeLimit": {
         "body": "Tá brón orainn, ach tá tú teoranta i láthair na huaire chun uasmhéid 100 earra a thaitin.Bainfimid an teorainn seo go luath!",
         "title": "100 Is maith liom"
-      }
+      },
+      "updated": ""
     },
     "prompts": {
       "delete": "An bhfuil tú cinnte gur mhaith leat an gailearaí seo a scriosadh? Má scriosann tú an gailearaí seo, caillfidh tú na míreanna go léir a chuir tú leis."
     }
   },
   "showLess": "Taispeáin níos lú",
-  "showMore": "Taispeáin níos mó"
+  "showMore": "Taispeáin níos mó",
+  "website": ""
 };

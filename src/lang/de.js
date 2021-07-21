@@ -1,16 +1,19 @@
 export default {
   "account": {
+    "curatedCollections": "",
+    "curatedCollectionsInfo": "",
     "editProfile": "Profil bearbeiten",
     "likes": "Likes",
     "linkAccount": "Mein Konto",
     "linkLogin": "Anmelden",
-    "linkLoginJoin": "Anmelden/Beitreten",
+    "linkLoginJoin": "Anmelden\/Beitreten",
     "linkLogout": "Abmelden",
     "myProfile": "Mein Profil",
     "notifications": {
       "loggedIn": "Sie sind jetzt eingeloggt. Willkommen!",
       "loggedOut": "Sie sind jetzt ausgeloggt.",
       "noCollections": {
+        "curated": "",
         "private": "Sie haben bisher keine private Galerie erstellt",
         "public": "Sie haben bisher keine öffentliche Galerie erstellt"
       },
@@ -24,6 +27,7 @@ export default {
     "title": "Mein Konto"
   },
   "actions": {
+    "accept": "",
     "cancel": "Abbrechen",
     "close": "schließen",
     "download": "Herunterladen",
@@ -33,6 +37,7 @@ export default {
     "like": "Like",
     "next": "Nächster",
     "providedBy": "Bereitgestellt von {provider}",
+    "reject": "",
     "send": "Senden",
     "share": "Teilen",
     "shareOn": "Teilen auf {social}",
@@ -59,6 +64,7 @@ export default {
     "relatedPosts": "Ähnliche Beiträge"
   },
   "cardLabels": {
+    "organisation": "",
     "person": "Person",
     "time": "Jahrhundert",
     "topic": "Thema"
@@ -136,11 +142,29 @@ export default {
   },
   "edmIsShownAtLinkAlt": "Auf der Website des Anbieters ansehen",
   "entity": {
+    "actions": {
+      "cancel": "",
+      "pin": "",
+      "unpin": "",
+      "viewPinned": ""
+    },
     "labels": {
       "entity": "Entität"
     },
     "notifications": {
-      "deleted": "Ihre Galerie wurde gelöscht."
+      "deleted": "Ihre Galerie wurde gelöscht.",
+      "pinLimit": {
+        "body": "",
+        "title": ""
+      },
+      "pinned": "",
+      "pinnedFirstPage": "",
+      "unpinned": "",
+      "unpinnedFirstPage": ""
+    },
+    "prompts": {
+      "pin": "",
+      "unpin": ""
     }
   },
   "error": "Fehler",
@@ -373,7 +397,7 @@ export default {
     "MIME_TYPE": {
       "name": "Dateiformat | Dateiformate",
       "options": {
-        "text/plain": "Klartext"
+        "text\/plain": "Klartext"
       }
     },
     "PROVIDER": {
@@ -538,6 +562,8 @@ export default {
   "items": {
     "itemCount": "1 Artikel |{count} Artikel",
     "itemOf": "{max} von {count} Artikel",
+    "recommendationsDisclaimer": "",
+    "recommended": "",
     "youMightLike": "Artikel, die Ihnen vielleicht gefallen könnten"
   },
   "klaro": {
@@ -601,7 +627,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Merkt sich, ob Sie die Suchergebnisse lieber in einer Listen- oder Rasteransicht anzeigen möchten.",
-        "title": "Suchergebnisansicht (Liste/Raster)"
+        "title": "Suchergebnisansicht (Liste\/Raster)"
       }
     }
   },
@@ -623,6 +649,7 @@ export default {
       "text": "Sie suchen auf unserer neuen und schnelleren Website."
     }
   },
+  "loading": "",
   "loadingResults": "Ergebnisse werden geladen",
   "mediaPreview": {
     "selectItem": "Wählen Sie das Element {src}"
@@ -633,12 +660,28 @@ export default {
     "notFound": "Nicht gefunden",
     "paginationLimitExceeded": "Es können nur die ersten {limit} Suchergebnisse angezeigt werden."
   },
+  "modal": {
+    "download": {
+      "clickToCopy": "",
+      "modalIntro": "",
+      "modalTitle": ""
+    }
+  },
   "newWindow": "öffnet sich in einem neuen Fenster",
   "noMoreResults": "Es gibt keine weiteren Ergebnisse für Ihre Suchanfrage.",
   "noResults": "Keine Ergebnisse",
   "pageHasLoaded": "hat geladen",
   "pages": {
     "collections": {
+      "organisations": {
+        "table": {
+          "name": ""
+        },
+        "title": ""
+      },
+      "persons": {
+        "title": ""
+      },
       "times": {
         "title": "Mal"
       },
@@ -721,12 +764,14 @@ export default {
       "likeLimit": {
         "body": "Es tut uns leid, aber Sie können derzeit maximal 100 Artikel liken. Wir werden dieses Limit bald aufheben!",
         "title": "100 Likes"
-      }
+      },
+      "updated": ""
     },
     "prompts": {
       "delete": "Möchten Sie diese Galerie wirklich löschen? Wenn Sie diese Galerie löschen, verlieren Sie alle Artikel, die Sie hinzugefügt haben."
     }
   },
   "showLess": "Weniger anzeigen",
-  "showMore": "Mehr anzeigen"
+  "showMore": "Mehr anzeigen",
+  "website": ""
 };

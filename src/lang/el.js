@@ -1,16 +1,19 @@
 export default {
   "account": {
+    "curatedCollections": "",
+    "curatedCollectionsInfo": "",
     "editProfile": "Επεξεργασία προφίλ",
     "likes": "Like",
     "linkAccount": "Ο λογαριασμός μου",
     "linkLogin": "Σύνδεση",
-    "linkLoginJoin": "Εγγραφή/Σύνδεση",
+    "linkLoginJoin": "Εγγραφή\/Σύνδεση",
     "linkLogout": "Αποσύνδεση",
     "myProfile": "ΤΟ ΠΡΟΦΙΛ ΜΟΥ",
     "notifications": {
       "loggedIn": "Έχετε συνδεθεί τώρα. Καλώς ήλθατε!",
       "loggedOut": "Έχετε αποσυνδεθεί τώρα.",
       "noCollections": {
+        "curated": "",
         "private": "Δεν έχετε δημιουργήσει ιδιωτικές συλλογές",
         "public": "Δεν έχετε δημιουργήσει δημόσιες συλλογές"
       },
@@ -24,6 +27,7 @@ export default {
     "title": "Ο λογαριασμός μου"
   },
   "actions": {
+    "accept": "",
     "cancel": "Ακύρωση",
     "close": "κλείσιμο",
     "download": "Μεταφόρτωση",
@@ -33,6 +37,7 @@ export default {
     "like": "Like",
     "next": "Επόμενο",
     "providedBy": "Παρέχεται από {provider}",
+    "reject": "",
     "send": "Στείλετε",
     "share": "Κοινοποίηση",
     "shareOn": "Κοινοποίηση στο {social}",
@@ -51,7 +56,7 @@ export default {
     "author": "Συγγραφέας",
     "authors": "Συγγραφείς",
     "blog": "Blog",
-    "by": "από τον/την",
+    "by": "από τον\/την",
     "categories": "Κατηγορίες",
     "category": "Κατηγορία",
     "posts": "Αναρτήσεις στο blog",
@@ -59,6 +64,7 @@ export default {
     "relatedPosts": "Σχετικές αναρτήσεις"
   },
   "cardLabels": {
+    "organisation": "",
     "person": "Πρόσωπο",
     "time": "Αιώνας",
     "topic": "Θέμα"
@@ -66,7 +72,8 @@ export default {
   "clearAllFilters": "απαλοιφή όλων των φίλτρων",
   "collections": {
     "actions": {
-      "edit": "Επεξεργασία συλλογής"
+      "edit": "Επεξεργασία συλλογής",
+      "update": "Ενημέρωση συλλογής"
     },
     "fashion": {
       "facets": {
@@ -83,6 +90,12 @@ export default {
           "name": "Υλικό | Υλικά"
         }
       }
+    },
+    "form": {
+      "description": "Περιγραφή"
+    },
+    "notifications": {
+      "update": "Η συλλογή έχει ενημερωθεί"
     }
   },
   "collectionsYouMightLike": "Συλλογές που μπορεί να σας αρέσουν",
@@ -129,11 +142,29 @@ export default {
   },
   "edmIsShownAtLinkAlt": "Προβολή στον ιστότοπο του παρόχου",
   "entity": {
+    "actions": {
+      "cancel": "",
+      "pin": "",
+      "unpin": "",
+      "viewPinned": ""
+    },
     "labels": {
       "entity": "Οντότητα"
     },
     "notifications": {
-      "deleted": "Η συλλογή σας διαγράφηκε."
+      "deleted": "Η συλλογή σας διαγράφηκε.",
+      "pinLimit": {
+        "body": "",
+        "title": ""
+      },
+      "pinned": "",
+      "pinnedFirstPage": "",
+      "unpinned": "",
+      "unpinnedFirstPage": ""
+    },
+    "prompts": {
+      "pin": "",
+      "unpin": ""
     }
   },
   "error": "Σφάλμα",
@@ -366,7 +397,7 @@ export default {
     "MIME_TYPE": {
       "name": "Μορφή αρχείου | Μορφές αρχείων",
       "options": {
-        "text/plain": "Απλό κείμενο"
+        "text\/plain": "Απλό κείμενο"
       }
     },
     "PROVIDER": {
@@ -474,7 +505,7 @@ export default {
       "keywords": "Λέξεις-κλειδιά (παρέχονται από την κοινότητα)",
       "timestampCreated": "Δημιουργήθηκε χρονική σήμανση",
       "timestampUpdate": "Η χρονική σήμανση ενημερώθηκε",
-      "wasPresentAt": "Ήταν παρών/ούσα στο"
+      "wasPresentAt": "Ήταν παρών\/ούσα στο"
     },
     "webResource": {
       "about": "RDF σχετικά με",
@@ -531,6 +562,8 @@ export default {
   "items": {
     "itemCount": "1 αντικείμενο |{count} αντικείμενα",
     "itemOf": "{max} από {count} αντικείμενα",
+    "recommendationsDisclaimer": "",
+    "recommended": "",
     "youMightLike": "Αντικείμενα που μπορεί να σας αρέσουν"
   },
   "klaro": {
@@ -573,7 +606,28 @@ export default {
         "title": "Google Analytics"
       },
       "google-optimize": {
+        "description": "Σας δίνει τη δυνατότητα να συμμετάσχετε σε πειράματα ιστότοπων που καθοδηγούν τις επιλογές σχεδιασμού μας για την καλύτερη εμπειρία χρήστη.",
         "title": "Βελτιστοποίηση Google"
+      },
+      "hotjar": {
+        "description": "Ενεργοποιεί ένα widget έρευνας, δίνοντάς σας τη δυνατότητα να απαντήσετε στις έρευνες ικανοποίησης των επισκεπτών μας.",
+        "title": "Hotjar"
+      },
+      "i18n": {
+        "description": "Θυμάται τη γλώσσα διασύνδεσης που προτιμάτε για μελλοντική πρόσβαση.",
+        "title": "Κωδικός γλώσσας"
+      },
+      "jira-servicedesk": {
+        "description": "Ενεργοποιεί ένα widget έρευνας, δίνοντάς σας τη δυνατότητα να απαντήσετε στις έρευνες ικανοποίησης των επισκεπτών μας.",
+        "title": "Γραφείο εξυπηρέτησης Jira"
+      },
+      "matomo": {
+        "description": "Συλλέγει ανώνυμα στατιστικά στοιχεία σχετικά με τον τρόπο αλληλεπίδρασης των επισκεπτών με τον ιστότοπο.",
+        "title": "Matomo"
+      },
+      "searchResultsView": {
+        "description": "Θυμάται αν προτιμάτε να βλέπετε τα αποτελέσματα αναζήτησης σε προβολή λίστας ή πλέγματος.",
+        "title": "Προβολή αποτελεσμάτων αναζήτησης (λίστα \/ πλέγμα)"
       }
     }
   },
@@ -595,6 +649,7 @@ export default {
       "text": "Πραγματοποιείτε αναζήτηση στον νέο και γρηγορότερο ιστότοπό μας."
     }
   },
+  "loading": "",
   "loadingResults": "Φόρτωση αποτελέσματα",
   "mediaPreview": {
     "selectItem": "Επιλογή στοιχείου {src}"
@@ -605,12 +660,28 @@ export default {
     "notFound": "Δεν βρέθηκε",
     "paginationLimitExceeded": "Μπορείτε να δείτε μόνο τα πρώτα {limit} αποτελέσματα αναζήτησης."
   },
+  "modal": {
+    "download": {
+      "clickToCopy": "",
+      "modalIntro": "",
+      "modalTitle": ""
+    }
+  },
   "newWindow": "ανοίγει σε νέο παράθυρο",
   "noMoreResults": "Δεν υπάρχουν άλλα αποτελέσματα για το ερώτημα της αναζήτησης σας.",
   "noResults": "Δεν βρέθηκαν αποτελέσματα",
   "pageHasLoaded": "έχει φορτωθεί",
   "pages": {
     "collections": {
+      "organisations": {
+        "table": {
+          "name": ""
+        },
+        "title": ""
+      },
+      "persons": {
+        "title": ""
+      },
       "times": {
         "title": "Φορές"
       },
@@ -628,7 +699,10 @@ export default {
     "extendedInformation": "Εκτεταμένες πληροφορίες",
     "goodToKnow": "Χρήσιμες πληροφορίες",
     "hideAll": "Απόκρυψη όλων των πληροφοριών",
+    "IIIFViewer": "Πρόγραμμα προβολής IIIF",
     "location": "Τοποθεσία",
+    "locationOnMap": "Τοποθεσία στο χάρτη",
+    "mediaPlayer": "Πρόγραμμα αναπαραγωγής πολυμέσων",
     "record": "Εγγραφή",
     "showAll": "Εμφάνιση όλων των πληροφοριών",
     "similarItems": "Παρόμοια αντικείμενα",
@@ -690,12 +764,14 @@ export default {
       "likeLimit": {
         "body": "Δυστυχώς, προς το παρόν μπορείτε να κάνετε like σε έως 100 αντικείμενα. Το όριο αυτό θα καταργηθεί σύντομα!",
         "title": "100 like"
-      }
+      },
+      "updated": ""
     },
     "prompts": {
-      "delete": "Είστε σίγουρος/η ότι θέλετε να διαγράψετε αυτήν τη συλλογή; Εάν τη διαγράψετε, θα χάσετε όλα τα αντικείμενα που έχετε προσθέσει."
+      "delete": "Είστε σίγουρος\/η ότι θέλετε να διαγράψετε αυτήν τη συλλογή; Εάν τη διαγράψετε, θα χάσετε όλα τα αντικείμενα που έχετε προσθέσει."
     }
   },
   "showLess": "Εμφάνιση λιγότερων",
-  "showMore": "Εμφάνιση περισσότερων"
+  "showMore": "Εμφάνιση περισσότερων",
+  "website": ""
 };

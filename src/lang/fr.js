@@ -1,16 +1,19 @@
 export default {
   "account": {
+    "curatedCollections": "",
+    "curatedCollectionsInfo": "",
     "editProfile": "Modifier le profil",
     "likes": "Mentions J’aime",
     "linkAccount": "Mon compte",
     "linkLogin": "Se connecter",
-    "linkLoginJoin": "Connexion/Rejoignez-nous",
+    "linkLoginJoin": "Connexion\/Rejoignez-nous",
     "linkLogout": "Déconnexion",
     "myProfile": "Mon profil",
     "notifications": {
       "loggedIn": "Vous êtes maintenant connecté. Bienvenue!",
       "loggedOut": "Vous êtes maintenant déconnecté.",
       "noCollections": {
+        "curated": "",
         "private": "Vous n'avez pas encore créé de galeries privées",
         "public": "Vous n'avez pas encore créé de galeries publiques"
       },
@@ -24,6 +27,7 @@ export default {
     "title": "Mon compte"
   },
   "actions": {
+    "accept": "",
     "cancel": "Annuler",
     "close": "fermer",
     "download": "Télécharger",
@@ -33,6 +37,7 @@ export default {
     "like": "Mention J'aime",
     "next": "Suivant",
     "providedBy": "Fourni par {provider}",
+    "reject": "",
     "send": "Envoyer",
     "share": "Partagez",
     "shareOn": "Partager sur {social}",
@@ -59,6 +64,7 @@ export default {
     "relatedPosts": "Publications Similaires"
   },
   "cardLabels": {
+    "organisation": "",
     "person": "Personne",
     "time": "Siècle",
     "topic": "Sujet"
@@ -136,11 +142,29 @@ export default {
   },
   "edmIsShownAtLinkAlt": "Vue sur le site internet du prestataire",
   "entity": {
+    "actions": {
+      "cancel": "",
+      "pin": "",
+      "unpin": "",
+      "viewPinned": ""
+    },
     "labels": {
       "entity": "Entité"
     },
     "notifications": {
-      "deleted": "Votre galerie a été supprimée."
+      "deleted": "Votre galerie a été supprimée.",
+      "pinLimit": {
+        "body": "",
+        "title": ""
+      },
+      "pinned": "",
+      "pinnedFirstPage": "",
+      "unpinned": "",
+      "unpinnedFirstPage": ""
+    },
+    "prompts": {
+      "pin": "",
+      "unpin": ""
     }
   },
   "error": "Erreur",
@@ -373,7 +397,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format de fichier | Formats de fichiers",
       "options": {
-        "text/plain": "Texte brut"
+        "text\/plain": "Texte brut"
       }
     },
     "PROVIDER": {
@@ -538,6 +562,8 @@ export default {
   "items": {
     "itemCount": "1 article |{count} éléments",
     "itemOf": "{max} sur {count} éléments",
+    "recommendationsDisclaimer": "",
+    "recommended": "",
     "youMightLike": "Articles susceptibles de vous intéresser"
   },
   "klaro": {
@@ -601,7 +627,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Se souvient si vous préférez voir les résultats de la recherche sous forme de liste ou de grille.",
-        "title": "Affichage des résultats de recherche (liste/grille)"
+        "title": "Affichage des résultats de recherche (liste\/grille)"
       }
     }
   },
@@ -623,6 +649,7 @@ export default {
       "text": "Vous effectuez vos recherches sur notre nouveau site web plus rapide."
     }
   },
+  "loading": "",
   "loadingResults": "Chargement des résultats",
   "mediaPreview": {
     "selectItem": "Sélectionnez l'élément {src}"
@@ -633,12 +660,28 @@ export default {
     "notFound": "Introuvable",
     "paginationLimitExceeded": "Il est uniquement possible d'afficher les {limit} premiers résultats de la recherche."
   },
+  "modal": {
+    "download": {
+      "clickToCopy": "",
+      "modalIntro": "",
+      "modalTitle": ""
+    }
+  },
   "newWindow": "s'ouvre dans une nouvelle fenêtre",
   "noMoreResults": "Il n'y a plus de résultats pour votre requête de recherche.",
   "noResults": "Pas de résultat",
   "pageHasLoaded": "a chargé",
   "pages": {
     "collections": {
+      "organisations": {
+        "table": {
+          "name": ""
+        },
+        "title": ""
+      },
+      "persons": {
+        "title": ""
+      },
       "times": {
         "title": "Fois"
       },
@@ -721,12 +764,14 @@ export default {
       "likeLimit": {
         "body": "Nous sommes désolés, mais vous ne pouvez aimer qu'un maximum de 100 articles pour le moment. Nous allons bientôt supprimer cette limite !",
         "title": "100 mentions J’aime"
-      }
+      },
+      "updated": ""
     },
     "prompts": {
       "delete": "Êtes-vous sûr de vouloir supprimer cette galerie ? Si vous supprimez cette galerie, vous perdrez tous les éléments que vous y avez ajoutés."
     }
   },
   "showLess": "Afficher moins",
-  "showMore": "Afficher plus"
+  "showMore": "Afficher plus",
+  "website": ""
 };

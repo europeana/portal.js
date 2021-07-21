@@ -1,16 +1,19 @@
 export default {
   "account": {
+    "curatedCollections": "",
+    "curatedCollectionsInfo": "",
     "editProfile": "Redigera profil",
     "likes": "Likes",
     "linkAccount": "Mitt konto",
     "linkLogin": "Logga in",
-    "linkLoginJoin": "Logga in/Gå med",
+    "linkLoginJoin": "Logga in\/Gå med",
     "linkLogout": "Logga ut",
     "myProfile": "Min profil",
     "notifications": {
       "loggedIn": "Du är nu inloggad. Välkommen!",
       "loggedOut": "Du är nu utloggad.",
       "noCollections": {
+        "curated": "",
         "private": "Du har inte skapat något privat galleri ännu",
         "public": "Du har inte skapat något offentligt galleri ännu"
       },
@@ -24,6 +27,7 @@ export default {
     "title": "Mitt konto"
   },
   "actions": {
+    "accept": "",
     "cancel": "Avbryt",
     "close": "stäng",
     "download": "Ladda ner",
@@ -33,6 +37,7 @@ export default {
     "like": "Gilla",
     "next": "Nästa",
     "providedBy": "Tillhandahålls av {provider}",
+    "reject": "",
     "send": "Skicka",
     "share": "Dela",
     "shareOn": "Dela på {social}",
@@ -59,12 +64,17 @@ export default {
     "relatedPosts": "Relaterade inlägg"
   },
   "cardLabels": {
+    "organisation": "",
     "person": "Person",
     "time": "Århundrade",
     "topic": "Ämne"
   },
   "clearAllFilters": "rensa alla filter",
   "collections": {
+    "actions": {
+      "edit": "Redigera samling",
+      "update": "Uppdatera samling"
+    },
     "fashion": {
       "facets": {
         "CREATOR": {
@@ -80,6 +90,12 @@ export default {
           "name": "Material | Material"
         }
       }
+    },
+    "form": {
+      "description": "Beskrivning"
+    },
+    "notifications": {
+      "update": "Samlingen har uppdaterats"
     }
   },
   "collectionsYouMightLike": "Samlingar du kanske skulle gilla",
@@ -114,6 +130,10 @@ export default {
     "startDate": "Startdatum",
     "to": "till"
   },
+  "debug": {
+    "apiRequests": "API-förfrågningar",
+    "debug": "Felsöka"
+  },
   "delete": "Radera",
   "depiction": "En skildring av {title}",
   "directions": {
@@ -123,13 +143,28 @@ export default {
   "edmIsShownAtLinkAlt": "Visa på leverantörens webbplats",
   "entity": {
     "actions": {
-      "cancel": "Avbryt"
+      "cancel": "Avbryt",
+      "pin": "",
+      "unpin": "",
+      "viewPinned": ""
     },
     "labels": {
       "entity": "Entitet"
     },
     "notifications": {
-      "deleted": "Ditt galleri har raderats."
+      "deleted": "Ditt galleri har raderats.",
+      "pinLimit": {
+        "body": "",
+        "title": ""
+      },
+      "pinned": "",
+      "pinnedFirstPage": "",
+      "unpinned": "",
+      "unpinnedFirstPage": ""
+    },
+    "prompts": {
+      "pin": "",
+      "unpin": ""
     }
   },
   "error": "Fel",
@@ -362,7 +397,7 @@ export default {
     "MIME_TYPE": {
       "name": "Filformat | Filformat",
       "options": {
-        "text/plain": "Oformaterad text"
+        "text\/plain": "Oformaterad text"
       }
     },
     "PROVIDER": {
@@ -482,6 +517,8 @@ export default {
   },
   "footer": {
     "customiseWebsiteLanguage": "Anpassa webbplatsens språk",
+    "disclaimerLine1": "Europeana är ett initiativ från Europeiska unionen, finansierat av EU: s Connecting Europe Facility och EU: s medlemsstater. Europeana-tjänsterna, inklusive denna webbplats, drivs av ett konsortium som leds av Europeana Foundation under ett serviceavtal med Europeiska kommissionen.",
+    "disclaimerLine2": "Europeiska kommissionen garanterar inte att informationen är korrekt och tar inget ansvar för informationen på denna webbplats. Varken Europeiska kommissionen eller någon person som agerar på Europeiska kommissionens vägnar är ansvarig för att informationen på denna webbplats är korrekt eller används.",
     "findUsElsewhere": "Hitta oss någon annanstans",
     "imageDescription": "Medfinansieras av EU:s Connecting Europe Facility",
     "ourMission": "Vårt uppdrag",
@@ -525,7 +562,74 @@ export default {
   "items": {
     "itemCount": "1 föremål {count} föremål",
     "itemOf": "{max} av {count} föremål",
+    "recommendationsDisclaimer": "",
+    "recommended": "",
     "youMightLike": "Föremål som du kanske skulle gilla"
+  },
+  "klaro": {
+    "main": {
+      "consentModal": {
+        "description": "Vi tar din datasekretess på allvar. Här kan du bedöma och anpassa de tjänster som vi vill använda på den här webbplatsen. Du har ansvaret! Aktivera eller inaktivera tjänster som du tycker passar.",
+        "title": "Tjänster som vi skulle vilja använda."
+      },
+      "consentNotice": {
+        "description": "Vi bryr oss om din integritet och använder endast data för att förbättra din upplevelse. Vi använder ingen personlig information för reklam. Du kan ändra ditt samtycke var 15: e dag."
+      },
+      "ok": "Okej",
+      "purposes": {
+        "essential": {
+          "description": "Dessa tjänster är nödvändiga för att denna webbplats ska fungera korrekt. De inkluderar sökresultatsvy och språkinställningar, bevarar det inloggade tillståndet och håller ditt besök säkert. Du kan inte inaktivera dem eftersom webbplatsen annars inte fungerar korrekt.",
+          "title": "Viktiga tjänster för säkerhet och anpassning"
+        },
+        "usage": {
+          "description": "Dessa tjänster samlar in informationen för att bättre förstå hur webbplatsen används och var smärtpunkterna är, vilket ger oss möjlighet att göra välgrundade val för att förbättra din upplevelse.",
+          "title": "Tjänster för att samla in användandet av webbplatsen och återkoppling"
+        }
+      },
+      "service": {
+        "disableAll": {
+          "description": "Använd den här omkopplaren för att aktivera eller inaktivera alla valfria tjänster.",
+          "title": "Aktivera eller inaktivera alla tjänster"
+        }
+      }
+    },
+    "services": {
+      "auth-strategy": {
+        "description": "Kommer ihåg den auktoriserings strategi som ska användas för att logga in.",
+        "title": "Auth-strategi"
+      },
+      "debugSettings": {
+        "title": "Felsökning växla"
+      },
+      "google-analytics": {
+        "description": "Samlar in anonym statistik om hur besökare interagerar med webbplatsen.",
+        "title": "Google Analytics"
+      },
+      "google-optimize": {
+        "description": "Gör det möjligt för dig att delta i webbplatsförsök som styr våra designval för bästa möjliga användarupplevelse.",
+        "title": "Google Optimize"
+      },
+      "hotjar": {
+        "description": "Aktiverar en enkät widget som ger dig möjlighet att svara på våra undersökningar om besökarnas tillfredsställelse.",
+        "title": "Hotjar"
+      },
+      "i18n": {
+        "description": "Kommer ihåg ditt föredragna gränssnittsspråk för framtida åtkomst.",
+        "title": "Språkkod"
+      },
+      "jira-servicedesk": {
+        "description": "Aktiverar feedback widgeten som ger dig möjlighet att kontakta oss.",
+        "title": "Jira servicedesk"
+      },
+      "matomo": {
+        "description": "Samlar in anonym statistik om hur besökare interagerar med webbplatsen.",
+        "title": "Matomo"
+      },
+      "searchResultsView": {
+        "description": "Kommer ihåg om du föredrar att se sökresultaten i en lista eller rutnät.",
+        "title": "Visa sökresultat (lista\/rutnät)"
+      }
+    }
   },
   "layout": {
     "skipToMain": "Hoppa till sidans innehåll"
@@ -545,12 +649,23 @@ export default {
       "text": "Du söker på vår nya och snabbare webbplats."
     }
   },
+  "loading": "",
   "loadingResults": "Hämtar resultat",
+  "mediaPreview": {
+    "selectItem": "Välj objekt {src}"
+  },
   "messages": {
     "copyToClipboardSuccess": "Kopieras till Urklipp",
     "externalContentError": "Det externa innehållet kunde inte hämtas",
     "notFound": "Hittades inte",
     "paginationLimitExceeded": "Det är bara möjligt att visa de {limit} första sökresultaten."
+  },
+  "modal": {
+    "download": {
+      "clickToCopy": "",
+      "modalIntro": "",
+      "modalTitle": ""
+    }
   },
   "newWindow": "öppnas i nytt fönster",
   "noMoreResults": "Det finns inga fler resultat för din sökning.",
@@ -558,6 +673,15 @@ export default {
   "pageHasLoaded": "har laddats",
   "pages": {
     "collections": {
+      "organisations": {
+        "table": {
+          "name": ""
+        },
+        "title": ""
+      },
+      "persons": {
+        "title": ""
+      },
       "times": {
         "title": "Tider"
       },
@@ -640,12 +764,14 @@ export default {
       "likeLimit": {
         "body": "Tyvärr, men du har endast möjlighet att gilla maximalt 100 föremål. Vi kommer att ta bort denna gräns inom kort!",
         "title": "100 likes"
-      }
+      },
+      "updated": ""
     },
     "prompts": {
       "delete": "Är du säker på att du vill radera detta galleri? Om du raderar galleriet går alla föremål som du har lagt till förlorade."
     }
   },
   "showLess": "Visa mindre",
-  "showMore": "Visa mer"
+  "showMore": "Visa mer",
+  "website": ""
 };

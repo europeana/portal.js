@@ -1,16 +1,19 @@
 export default {
   "account": {
+    "curatedCollections": "Kuraterede samlinger",
+    "curatedCollectionsInfo": "Find nedenfor alle samlinger, du har kurateret",
     "editProfile": "Rediger profil",
     "likes": "Synes om'er",
     "linkAccount": "Min konto",
     "linkLogin": "Log ind",
-    "linkLoginJoin": "Login/Deltag",
+    "linkLoginJoin": "Login\/Deltag",
     "linkLogout": "Log ud",
     "myProfile": "Min profil",
     "notifications": {
       "loggedIn": "Du er nu logget ind. Velkommen!",
       "loggedOut": "Du er nu logget ud.",
       "noCollections": {
+        "curated": "Du har ikke kurateret nogen samlinger endnu",
         "private": "Du har ikke oprettet nogen private gallerier endnu",
         "public": "Du har ikke oprettet nogen offentlige gallerier endnu"
       },
@@ -24,6 +27,7 @@ export default {
     "title": "Min konto"
   },
   "actions": {
+    "accept": "Acceptere",
     "cancel": "Annuller",
     "close": "luk",
     "download": "Hent",
@@ -33,6 +37,7 @@ export default {
     "like": "Synes om",
     "next": "Næste",
     "providedBy": "Leveret af {provider}",
+    "reject": "Afvise",
     "send": "Sende",
     "share": "Del",
     "shareOn": "Del på {social}",
@@ -59,6 +64,7 @@ export default {
     "relatedPosts": "Relaterede indlæg"
   },
   "cardLabels": {
+    "organisation": "Organisation",
     "person": "Person",
     "time": "Århundrede",
     "topic": "Emne"
@@ -136,11 +142,29 @@ export default {
   },
   "edmIsShownAtLinkAlt": "Vis på udbyderens websted",
   "entity": {
+    "actions": {
+      "cancel": "Annuller",
+      "pin": "Fastgør vare",
+      "unpin": "Frigør vare",
+      "viewPinned": "Se fastgjorte emner"
+    },
     "labels": {
       "entity": "Enhed"
     },
     "notifications": {
-      "deleted": "Dit galleri er blevet slettet."
+      "deleted": "Dit galleri er blevet slettet.",
+      "pinLimit": {
+        "body": "Indtil videre kan du kun fastgøre 24 elementer på den første side. Hvis du vil fastgøre dette emne, skal du fjerne et andet emne og derefter prøve at fastgøre dette emne igen.",
+        "title": "For mange fastgjorte emner"
+      },
+      "pinned": "Elementet er blevet fastgjort. Det er nu øverst på den første side i denne samling. Det kan tage op til 24 timer at vises for alle.",
+      "pinnedFirstPage": "Elementet er blevet fastgjort. Det kan tage op til 24 timer at vises for alle.",
+      "unpinned": "Elementet er blevet fastgjort. Det er ikke længere øverst på den første side i denne samling. Det kan tage op til 24 timer at forsvinde for alle.",
+      "unpinnedFirstPage": "Elementet er blevet frigjort. Det kan tage op til 24 timer at forsvinde for alle."
+    },
+    "prompts": {
+      "pin": "Er du sikker på, at du vil fastgøre denne vare? Dette element vises øverst i {entity} \". Det kan tage op til 24 timer, før denne ændring træder i kraft.",
+      "unpin": "Er du sikker på, at du vil løsne denne vare? Dette element stopper med at vises øverst i {entity} \". Det kan tage op til 24 timer, før denne ændring træder i kraft."
     }
   },
   "error": "Fejl",
@@ -373,7 +397,7 @@ export default {
     "MIME_TYPE": {
       "name": "Filformat | Filformater",
       "options": {
-        "text/plain": "Almindelig tekst"
+        "text\/plain": "Almindelig tekst"
       }
     },
     "PROVIDER": {
@@ -538,6 +562,8 @@ export default {
   "items": {
     "itemCount": "1 artikel |{count} artikler",
     "itemOf": "{max} af {count} artikler",
+    "recommendationsDisclaimer": "Tommelfinger op for at tilføje til galleriet - Tommelfinger ned, hvis du ikke kan lide det",
+    "recommended": "Anbefalede varer",
     "youMightLike": "Artikler, du måske vil synes om"
   },
   "klaro": {
@@ -601,7 +627,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Husk, hvis du foretrækker at se søgeresultaterne i en liste- eller gittervisning.",
-        "title": "Visning af søgeresultater (liste / gitter)"
+        "title": "Visning af søgeresultater (liste \/ gitter)"
       }
     }
   },
@@ -623,6 +649,7 @@ export default {
       "text": "Du søger på vores nye og hurtigere hjemmeside."
     }
   },
+  "loading": "Indlæser",
   "loadingResults": "Indlæser resultater",
   "mediaPreview": {
     "selectItem": "Vælg element {src}"
@@ -633,12 +660,28 @@ export default {
     "notFound": "Ikke fundet",
     "paginationLimitExceeded": "Det er kun muligt at få vist de første {limit} søgeresultater."
   },
+  "modal": {
+    "download": {
+      "clickToCopy": "Klik på tilskrivningen for at kopiere den",
+      "modalIntro": "Hvis du bruger dette element på nettet eller andre steder, skal du ikke glemme at vise følgende tilskrivning ved siden af det:",
+      "modalTitle": "Sig tak"
+    }
+  },
   "newWindow": "åbner i nyt vindue",
   "noMoreResults": "Der er ikke flere resultater for din søgning.",
   "noResults": "Ingen resultater",
   "pageHasLoaded": "har indlæst",
   "pages": {
     "collections": {
+      "organisations": {
+        "table": {
+          "name": "Navn"
+        },
+        "title": "Organisationer"
+      },
+      "persons": {
+        "title": "Personer"
+      },
       "times": {
         "title": "Tider"
       },
@@ -721,12 +764,14 @@ export default {
       "likeLimit": {
         "body": "Vi beklager, men du er i øjeblikket begrænset til at kunne synes om maksimalt 100 artikler. Vi fjerner denne begrænsning snart!",
         "title": "100 synes om'er"
-      }
+      },
+      "updated": "Elementet blev føjet til galleriet."
     },
     "prompts": {
       "delete": "Er du sikker på, at du vil slette dette galleri? Hvis du sletter dette galleri, mister du alle de artikler, du har tilføjet i det."
     }
   },
   "showLess": "Vis mindre",
-  "showMore": "Vis mere"
+  "showMore": "Vis mere",
+  "website": "Websted"
 };

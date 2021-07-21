@@ -1,16 +1,19 @@
 export default {
   "account": {
+    "curatedCollections": "",
+    "curatedCollectionsInfo": "",
     "editProfile": "Muokkaa profiilia",
     "likes": "Tykätyt",
     "linkAccount": "Oma tili",
     "linkLogin": "Kirjaudu sisään",
-    "linkLoginJoin": "Kirjaudu/Liity",
+    "linkLoginJoin": "Kirjaudu\/Liity",
     "linkLogout": "Kirjaudu ulos",
     "myProfile": "Profiilini",
     "notifications": {
       "loggedIn": "Olet nyt kirjautunut sisään. Tervetuloa!",
       "loggedOut": "Olet nyt kirjautunut ulos.",
       "noCollections": {
+        "curated": "",
         "private": "Et ole luonut vielä yksityisiä gallerioita",
         "public": "Et ole luonut vielä julkisia gallerioita"
       },
@@ -24,6 +27,7 @@ export default {
     "title": "Oma tili"
   },
   "actions": {
+    "accept": "",
     "cancel": "Peruuttaa",
     "close": "sulje",
     "download": "Lataa",
@@ -33,6 +37,7 @@ export default {
     "like": "Tykkää",
     "next": "Seuraava",
     "providedBy": "Tarjoaa {provider}",
+    "reject": "",
     "send": "Lähettää",
     "share": "Jaa",
     "shareOn": "Jaa mediassa {social}",
@@ -59,6 +64,7 @@ export default {
     "relatedPosts": "Aiheeseen liittyvät julkaisut"
   },
   "cardLabels": {
+    "organisation": "",
     "person": "Henkilö",
     "time": "Vuosisata",
     "topic": "Aihe"
@@ -136,11 +142,29 @@ export default {
   },
   "edmIsShownAtLinkAlt": "Näytä palveluntarjoajan verkkosivustolla",
   "entity": {
+    "actions": {
+      "cancel": "",
+      "pin": "",
+      "unpin": "",
+      "viewPinned": ""
+    },
     "labels": {
       "entity": "Yksikkö"
     },
     "notifications": {
-      "deleted": "Galleriasi on poistettu."
+      "deleted": "Galleriasi on poistettu.",
+      "pinLimit": {
+        "body": "",
+        "title": ""
+      },
+      "pinned": "",
+      "pinnedFirstPage": "",
+      "unpinned": "",
+      "unpinnedFirstPage": ""
+    },
+    "prompts": {
+      "pin": "",
+      "unpin": ""
     }
   },
   "error": "Virhe",
@@ -373,7 +397,7 @@ export default {
     "MIME_TYPE": {
       "name": "Tiedostomuoto | Tiedostomuodot",
       "options": {
-        "text/plain": "Pelkkä teksti"
+        "text\/plain": "Pelkkä teksti"
       }
     },
     "PROVIDER": {
@@ -537,7 +561,9 @@ export default {
   },
   "items": {
     "itemCount": "1 kohde |{count} kohdetta",
-    "itemOf": "{max} / {count} kohdetta",
+    "itemOf": "{max} \/ {count} kohdetta",
+    "recommendationsDisclaimer": "",
+    "recommended": "",
     "youMightLike": "Saattaisit tykätä näistä kohteista"
   },
   "klaro": {
@@ -601,7 +627,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Muistaa, haluatko nähdä hakutulokset luettelossa tai ruudukkonäkymässä.",
-        "title": "Hakutulosnäkymä (luettelo/ruudukko)"
+        "title": "Hakutulosnäkymä (luettelo\/ruudukko)"
       }
     }
   },
@@ -623,6 +649,7 @@ export default {
       "text": "Etsit uudessa ja nopeammassa verkkosivustossamme."
     }
   },
+  "loading": "",
   "loadingResults": "Ladataan tuloksia",
   "mediaPreview": {
     "selectItem": "Valitse kohde {src}"
@@ -633,12 +660,28 @@ export default {
     "notFound": "Ei löydy",
     "paginationLimitExceeded": "Vain ensimmäiset {limit} hakutulosta voidaan näyttää."
   },
+  "modal": {
+    "download": {
+      "clickToCopy": "",
+      "modalIntro": "",
+      "modalTitle": ""
+    }
+  },
   "newWindow": "avautuu uuteen ikkunaan",
   "noMoreResults": "Hakusi ei tuottanut enempää tuloksia.",
   "noResults": "Ei tuloksia",
   "pageHasLoaded": "on ladattu",
   "pages": {
     "collections": {
+      "organisations": {
+        "table": {
+          "name": ""
+        },
+        "title": ""
+      },
+      "persons": {
+        "title": ""
+      },
       "times": {
         "title": "aika"
       },
@@ -721,12 +764,14 @@ export default {
       "likeLimit": {
         "body": "Tykkäysten enimmäismäärä on valitettavasti rajoitettu tällä hetkellä 100 kohteeseen. Poistamme tämän rajoituksen lähiaikoina!",
         "title": "100 tykkäystä"
-      }
+      },
+      "updated": ""
     },
     "prompts": {
       "delete": "Haluatko varmasti poistaa tämän gallerian? Jos poistat tämän gallerian, menetät kaikki siihen lisäämäsi kohteet."
     }
   },
   "showLess": "Näytä vähemmän",
-  "showMore": "Näytä lisää"
+  "showMore": "Näytä lisää",
+  "website": ""
 };

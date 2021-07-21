@@ -1,16 +1,19 @@
 export default {
   "account": {
+    "curatedCollections": "",
+    "curatedCollectionsInfo": "",
     "editProfile": "Editare profil",
     "likes": "Aprecieri",
     "linkAccount": "Contul meu",
     "linkLogin": "Autentificare",
-    "linkLoginJoin": "Autentificare/Înscriere",
+    "linkLoginJoin": "Autentificare\/Înscriere",
     "linkLogout": "Deconectare",
     "myProfile": "Profilul meu",
     "notifications": {
       "loggedIn": "Sunteți autentificat. Bine ați venit!",
       "loggedOut": "Acum ești deconectat.",
       "noCollections": {
+        "curated": "",
         "private": "Încă nu ai creat nicio galerie privată",
         "public": "Încă nu ai creat nicio galerie publică"
       },
@@ -24,6 +27,7 @@ export default {
     "title": "Contul meu"
   },
   "actions": {
+    "accept": "",
     "cancel": "Anulează",
     "close": "închidere",
     "download": "Descarcă",
@@ -33,6 +37,7 @@ export default {
     "like": "Apreciere",
     "next": "Următorul",
     "providedBy": "Furnizat de {provider}",
+    "reject": "",
     "send": "Trimite",
     "share": "Distribuiți",
     "shareOn": "Distribuiți pe {social}",
@@ -59,12 +64,17 @@ export default {
     "relatedPosts": "Postări similare"
   },
   "cardLabels": {
+    "organisation": "",
     "person": "Persoană",
     "time": "Secol",
     "topic": "Subiect"
   },
   "clearAllFilters": "șterge toate filtrele",
   "collections": {
+    "actions": {
+      "edit": "Editare colecție",
+      "update": "Actualizați colecția"
+    },
     "fashion": {
       "facets": {
         "CREATOR": {
@@ -80,6 +90,12 @@ export default {
           "name": "Material | Materiale"
         }
       }
+    },
+    "form": {
+      "description": "Descriere"
+    },
+    "notifications": {
+      "update": "Colecția a fost actualizată"
     }
   },
   "collectionsYouMightLike": "Colecții care ți-ar putea plăcea",
@@ -114,6 +130,10 @@ export default {
     "startDate": "Data de început",
     "to": "la"
   },
+  "debug": {
+    "apiRequests": "Solicitări API",
+    "debug": "Depanare"
+  },
   "delete": "Șterge",
   "depiction": "O reprezentare a {title}",
   "directions": {
@@ -123,13 +143,28 @@ export default {
   "edmIsShownAtLinkAlt": "Vizualizează pe site-ul furnizorului",
   "entity": {
     "actions": {
-      "cancel": "Anulează"
+      "cancel": "Anulează",
+      "pin": "",
+      "unpin": "",
+      "viewPinned": ""
     },
     "labels": {
       "entity": "Entitate"
     },
     "notifications": {
-      "deleted": "Galeria ta a fost ștearsă."
+      "deleted": "Galeria ta a fost ștearsă.",
+      "pinLimit": {
+        "body": "",
+        "title": ""
+      },
+      "pinned": "",
+      "pinnedFirstPage": "",
+      "unpinned": "",
+      "unpinnedFirstPage": ""
+    },
+    "prompts": {
+      "pin": "",
+      "unpin": ""
     }
   },
   "error": "Eroare",
@@ -362,7 +397,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format fișier| Formate fișier",
       "options": {
-        "text/plain": "Text simplu"
+        "text\/plain": "Text simplu"
       }
     },
     "PROVIDER": {
@@ -482,6 +517,8 @@ export default {
   },
   "footer": {
     "customiseWebsiteLanguage": "Personalizați limba de pe pagina de internet",
+    "disclaimerLine1": "Europeana este o inițiativă a Uniunii Europene, finanțată de Connecting Europe Facility al Uniunii Europene și de statele membre ale Uniunii Europene. Serviciile Europeana, inclusiv acest site web, sunt operate de un consorțiu condus de Fundația Europeana în temeiul unui contract de servicii cu Comisia Europeană.",
+    "disclaimerLine2": "Comisia Europeană nu garantează acuratețea informațiilor și nu își asumă nicio răspundere sau răspundere cu privire la informațiile de pe acest site web. Nici Comisia Europeană, nici nicio persoană care acționează în numele Comisiei Europene, nu este responsabilă sau răspunzătoare pentru acuratețea sau utilizarea informațiilor de pe acest site web.",
     "findUsElsewhere": "Ne puteți găsi și în altă parte",
     "imageDescription": "Cofinanțat de Connecting Europe Facility a Uniunii Europene",
     "ourMission": "Misiunea noastră",
@@ -525,7 +562,74 @@ export default {
   "items": {
     "itemCount": "1 articol |{count} articole",
     "itemOf": "{max} de {count} articole",
+    "recommendationsDisclaimer": "",
+    "recommended": "",
     "youMightLike": "Articole care ți-ar putea plăcea"
+  },
+  "klaro": {
+    "main": {
+      "consentModal": {
+        "description": "Vă luăm în serios confidențialitatea datelor. Aici puteți evalua și personaliza serviciile pe care am dori să le folosim pe acest site web. Tu ești la conducere! Activați sau dezactivați serviciile după cum doriți.",
+        "title": "Servicii pe care am dori să le folosim."
+      },
+      "consentNotice": {
+        "description": "Ne pasă de confidențialitatea dvs. și folosim doar date pentru a vă îmbunătăți experiența. Nu folosim nicio informație personală pentru publicitate. Vă puteți schimba consimțământul la fiecare 15 zile."
+      },
+      "ok": "Bine",
+      "purposes": {
+        "essential": {
+          "description": "Aceste servicii sunt esențiale pentru buna funcționare a acestui site web. Acestea includ vizualizarea rezultatelor căutării și preferințele de limbă, păstrează starea conectată și vă păstrează vizita în siguranță. Nu le puteți dezactiva, deoarece site-ul nu ar funcționa corect altfel.",
+          "title": "Servicii esențiale pentru securitate și personalizare"
+        },
+        "usage": {
+          "description": "Aceste servicii colectează informații pentru a ne ajuta să înțelegem mai bine modul în care site-ul web este folosit și unde sunt punctele de durere, permițându-ne să facem alegeri în cunoștință de cauză pentru a vă îmbunătăți experiența.",
+          "title": "Servicii pentru a capta utilizarea site-ului web și feedback-ul"
+        }
+      },
+      "service": {
+        "disableAll": {
+          "description": "Utilizați acest comutator pentru a activa sau dezactiva toate serviciile opționale.",
+          "title": "Activați sau dezactivați toate serviciile"
+        }
+      }
+    },
+    "services": {
+      "auth-strategy": {
+        "description": "Reține strategia de autorizare de utilizat pentru a vă conecta.",
+        "title": "Strategia Auth"
+      },
+      "debugSettings": {
+        "title": "Comutare depanare"
+      },
+      "google-analytics": {
+        "description": "Colectează statistici anonime cu privire la modul în care vizitatorii interacționează cu site-ul web.",
+        "title": "Google Analytics"
+      },
+      "google-optimize": {
+        "description": "Vă permite să participați la experimente pe site-uri web care ne ghidează alegerile de proiectare pentru cea mai bună experiență a utilizatorului.",
+        "title": "Google Optimize"
+      },
+      "hotjar": {
+        "description": "Activează un widget de sondaj, oferindu-vă opțiunea de a răspunde la sondajele noastre privind satisfacția vizitatorilor.",
+        "title": "Hotjar"
+      },
+      "i18n": {
+        "description": "Reține limba de interfață preferată pentru acces viitor.",
+        "title": "Codul limbii"
+      },
+      "jira-servicedesk": {
+        "description": "Activează widgetul de feedback, oferindu-vă opțiunea de a ne contacta.",
+        "title": "Birou de service Jira"
+      },
+      "matomo": {
+        "description": "Colectează statistici anonime cu privire la modul în care vizitatorii interacționează cu site-ul web.",
+        "title": "Matomo"
+      },
+      "searchResultsView": {
+        "description": "Rețineți dacă preferați să vedeți rezultatele căutării într-o vizualizare listă sau grilă.",
+        "title": "Vizualizarea rezultatelor căutării (listă \/ grilă)"
+      }
+    }
   },
   "layout": {
     "skipToMain": "Treci la conținutul paginii"
@@ -545,12 +649,23 @@ export default {
       "text": "Căutați acest articol în noua pagină de internet și mai rapidă."
     }
   },
+  "loading": "",
   "loadingResults": "Se încarcă rezultatele",
+  "mediaPreview": {
+    "selectItem": "Selectați elementul {src}"
+  },
   "messages": {
     "copyToClipboardSuccess": "Copiat în clipboard",
     "externalContentError": "Nu a putut fi încărcat conținutul extern",
     "notFound": "Nu a fost găsit",
     "paginationLimitExceeded": "Se pot vizualiza numai primele {limit} rezultate ale căutării."
+  },
+  "modal": {
+    "download": {
+      "clickToCopy": "",
+      "modalIntro": "",
+      "modalTitle": ""
+    }
   },
   "newWindow": "se deschide într-o fereastră nouă",
   "noMoreResults": "Nu mai există rezultate pentru interogarea de căutare.",
@@ -558,6 +673,15 @@ export default {
   "pageHasLoaded": "a încărcat",
   "pages": {
     "collections": {
+      "organisations": {
+        "table": {
+          "name": ""
+        },
+        "title": ""
+      },
+      "persons": {
+        "title": ""
+      },
       "times": {
         "title": "Ori"
       },
@@ -640,12 +764,14 @@ export default {
       "likeLimit": {
         "body": "Ne pare rău, dar momentan ești limitat la aprecierea de max. 100 de articole. Vom elimina această limită în curând!",
         "title": "100 de aprecieri"
-      }
+      },
+      "updated": ""
     },
     "prompts": {
       "delete": "Sigur dorești să ștergi această galerie? Dacă ștergi această galerie, vei pierde toate articolele pe care le-ai adăugat."
     }
   },
   "showLess": "Afișează mai puțin",
-  "showMore": "Afișează mai multe"
+  "showMore": "Afișează mai multe",
+  "website": ""
 };

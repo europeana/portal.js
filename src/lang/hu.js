@@ -1,16 +1,19 @@
 export default {
   "account": {
+    "curatedCollections": "",
+    "curatedCollectionsInfo": "",
     "editProfile": "Profil szerkesztése",
     "likes": "Kedvelések",
     "linkAccount": "Fiókom",
     "linkLogin": "Bejelentkezés",
-    "linkLoginJoin": "Bejelentkezés/Csatlakozás",
+    "linkLoginJoin": "Bejelentkezés\/Csatlakozás",
     "linkLogout": "Bejelentkezés",
     "myProfile": "A profilom",
     "notifications": {
       "loggedIn": "Most már be van jelentkezve. Üdvözlünk!",
       "loggedOut": "Most kijelentkezett.",
       "noCollections": {
+        "curated": "",
         "private": "Még nem hozott létre privát galériát",
         "public": "Még nem hozott létre nyilvános galériát"
       },
@@ -24,6 +27,7 @@ export default {
     "title": "Fiókom"
   },
   "actions": {
+    "accept": "",
     "cancel": "Mégse",
     "close": "bezárás",
     "download": "Letöltés",
@@ -33,6 +37,7 @@ export default {
     "like": "Kedvelés",
     "next": "Következő",
     "providedBy": "Szolgáltató: {provider}",
+    "reject": "",
     "send": "Küld",
     "share": "Megosztás",
     "shareOn": "Megosztás a következőn: {social}",
@@ -59,12 +64,17 @@ export default {
     "relatedPosts": "Kapcsolódó bejegyzések"
   },
   "cardLabels": {
+    "organisation": "",
     "person": "Személy",
     "time": "Század",
     "topic": "Téma"
   },
   "clearAllFilters": "összes szűrő törlése",
   "collections": {
+    "actions": {
+      "edit": "Gyűjtemény szerkesztése",
+      "update": "Gyűjtemény frissítése"
+    },
     "fashion": {
       "facets": {
         "CREATOR": {
@@ -80,6 +90,12 @@ export default {
           "name": "Anyag | Anyagok"
         }
       }
+    },
+    "form": {
+      "description": "Leírás"
+    },
+    "notifications": {
+      "update": "A gyűjtemény frissült"
     }
   },
   "collectionsYouMightLike": "Gyűjtemények, amelyek tetszhetnek Önnek",
@@ -127,13 +143,28 @@ export default {
   "edmIsShownAtLinkAlt": "Megtekintés a szolgáltató webhelyén",
   "entity": {
     "actions": {
-      "cancel": "Mégse"
+      "cancel": "Mégse",
+      "pin": "",
+      "unpin": "",
+      "viewPinned": ""
     },
     "labels": {
       "entity": "Entitás"
     },
     "notifications": {
-      "deleted": "Galéria törölve."
+      "deleted": "Galéria törölve.",
+      "pinLimit": {
+        "body": "",
+        "title": ""
+      },
+      "pinned": "",
+      "pinnedFirstPage": "",
+      "unpinned": "",
+      "unpinnedFirstPage": ""
+    },
+    "prompts": {
+      "pin": "",
+      "unpin": ""
     }
   },
   "error": "Hiba",
@@ -366,7 +397,7 @@ export default {
     "MIME_TYPE": {
       "name": "Fájlformátum | Fájlformátumok",
       "options": {
-        "text/plain": "Egyszerű szöveg"
+        "text\/plain": "Egyszerű szöveg"
       }
     },
     "PROVIDER": {
@@ -531,6 +562,8 @@ export default {
   "items": {
     "itemCount": "1 cikk |{count} cikk",
     "itemOf": "{max} {count} cikk",
+    "recommendationsDisclaimer": "",
+    "recommended": "",
     "youMightLike": "Cikkek, amik tetszhetnek Önnek"
   },
   "klaro": {
@@ -543,11 +576,58 @@ export default {
         "description": "Törődünk az adatvédelemmel, és csak az élmény javítása érdekében használunk adatokat. Nem használunk személyes adatokat reklámozásra. 15 naponta módosíthatja beleegyezését."
       },
       "ok": "oké",
+      "purposes": {
+        "essential": {
+          "description": "Ezek a szolgáltatások elengedhetetlenek a weboldal megfelelő működéséhez. Tartalmazzák a keresési eredmények nézetét és a nyelvi beállításokat, megőrzik a bejelentkezett állapotot és biztonságban tartják látogatásukat. Nem tilthatja le őket, mivel a webhely egyébként nem működne megfelelően.",
+          "title": "Alapvető szolgáltatások a biztonság és a testreszabás érdekében"
+        },
+        "usage": {
+          "description": "Ezek a szolgáltatások összegyűjtik az információkat, hogy jobban megértsük, hogyan használják fel a weboldalt és hol vannak a fájdalompontok, felhatalmazva bennünket arra, hogy megalapozott döntéseket hozzunk az Ön élményének javítása érdekében.",
+          "title": "Szolgáltatások a weboldal használatának és visszajelzésének rögzítésére"
+        }
+      },
       "service": {
         "disableAll": {
           "description": "Ezzel a kapcsolóval engedélyezheti vagy letilthatja az összes opcionális szolgáltatást.",
           "title": "Minden szolgáltatás engedélyezése vagy letiltása"
         }
+      }
+    },
+    "services": {
+      "auth-strategy": {
+        "description": "Emlékszik a bejelentkezéshez használandó engedélyezési stratégiára.",
+        "title": "Auth stratégia"
+      },
+      "debugSettings": {
+        "title": "Hibakeresés váltás"
+      },
+      "google-analytics": {
+        "description": "Névtelen statisztikákat gyűjt arról, hogy a látogatók hogyan lépnek kapcsolatba a weboldallal.",
+        "title": "Google Analytics"
+      },
+      "google-optimize": {
+        "description": "Lehetővé teszi, hogy részt vegyen olyan webhelykísérletekben, amelyek a legjobb felhasználói élmény érdekében irányítják tervezési döntéseinket.",
+        "title": "Google Optimize"
+      },
+      "hotjar": {
+        "description": "Aktivál egy felmérési widgetet, amely lehetőséget ad a látogatói elégedettségi felméréseinkre való válaszadásra.",
+        "title": "Hotjar"
+      },
+      "i18n": {
+        "description": "Emlékszik az Ön által preferált felület nyelvére a későbbi hozzáférés érdekében.",
+        "title": "Nyelvi kód"
+      },
+      "jira-servicedesk": {
+        "description": "Aktiválja a visszajelzés widgetet, amely lehetőséget ad a kapcsolatfelvételre.",
+        "title": "Jira szolgáltató pult"
+      },
+      "matomo": {
+        "description": "Névtelen statisztikákat gyűjt arról, hogy a látogatók hogyan lépnek kapcsolatba a weboldallal.",
+        "title": "Matomo"
+      },
+      "searchResultsView": {
+        "description": "Emlékszik arra, hogy a keresési eredményeket inkább lista- vagy rácsnézetben szeretné-e látni.",
+        "title": "Keresési eredmény nézet (lista \/ rács)"
       }
     }
   },
@@ -569,6 +649,7 @@ export default {
       "text": "Ön az új és gyorsabb weboldalunkon keres."
     }
   },
+  "loading": "",
   "loadingResults": "Eredmények betöltése",
   "mediaPreview": {
     "selectItem": "Elem kiválasztása {src}"
@@ -579,12 +660,28 @@ export default {
     "notFound": "Nem található",
     "paginationLimitExceeded": "Csak az első {limit} keresési találat tekinthető meg."
   },
+  "modal": {
+    "download": {
+      "clickToCopy": "",
+      "modalIntro": "",
+      "modalTitle": ""
+    }
+  },
   "newWindow": "új ablakban nyílik meg",
   "noMoreResults": "Nincs további eredmény a keresési lekérdezéshez.",
   "noResults": "Nincs találat",
   "pageHasLoaded": "betöltődött",
   "pages": {
     "collections": {
+      "organisations": {
+        "table": {
+          "name": ""
+        },
+        "title": ""
+      },
+      "persons": {
+        "title": ""
+      },
       "times": {
         "title": "Idők"
       },
@@ -602,8 +699,10 @@ export default {
     "extendedInformation": "Kiterjesztett információk",
     "goodToKnow": "Jó tudni",
     "hideAll": "Az összes információ elrejtése",
+    "IIIFViewer": "IIIF néző",
     "location": "hely",
     "locationOnMap": "Elhelyezkedés a térképen",
+    "mediaPlayer": "Médialejátszó",
     "record": "Rekord",
     "showAll": "Az összes információ megjelenítése",
     "similarItems": "Hasonló elemek",
@@ -665,12 +764,14 @@ export default {
       "likeLimit": {
         "body": "Sajnáljuk, de jelenleg legfeljebb 100 cikket kedvelhet. Hamarosan eltávolítjuk ezt a korlátozást!",
         "title": "100 kedvelés"
-      }
+      },
+      "updated": ""
     },
     "prompts": {
       "delete": "Biztosan törli ezt a galériát? Ha törli a galériát, elveszíti az összes hozzáadott elemet."
     }
   },
   "showLess": "Kevesebb megjelenítése",
-  "showMore": "Továbbiak megjelenítése"
+  "showMore": "Továbbiak megjelenítése",
+  "website": ""
 };

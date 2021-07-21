@@ -1,16 +1,19 @@
 export default {
   "account": {
+    "curatedCollections": "",
+    "curatedCollectionsInfo": "",
     "editProfile": "Editar Perfil",
     "likes": "Gostos",
     "linkAccount": "A minha conta",
     "linkLogin": "Inicie sessão",
-    "linkLoginJoin": "Entrar/Criar conta",
+    "linkLoginJoin": "Entrar\/Criar conta",
     "linkLogout": "Encerrar sessão",
     "myProfile": "Meu perfil",
     "notifications": {
       "loggedIn": "Está agora autenticado. Bem-vindo!",
       "loggedOut": "Está agora desconectado.",
       "noCollections": {
+        "curated": "",
         "private": "Ainda não criou nenhuma galeria privada",
         "public": "Ainda não criou nenhuma galeria pública"
       },
@@ -24,6 +27,7 @@ export default {
     "title": "A minha conta"
   },
   "actions": {
+    "accept": "",
     "cancel": "Cancelar",
     "close": "fechar",
     "download": "Descarregar",
@@ -33,6 +37,7 @@ export default {
     "like": "Gosto",
     "next": "Próximo",
     "providedBy": "Fornecido por {provider}",
+    "reject": "",
     "send": "Enviar",
     "share": "Partilhar",
     "shareOn": "Partilhe em {social}",
@@ -59,12 +64,17 @@ export default {
     "relatedPosts": "Publicações relacionadas"
   },
   "cardLabels": {
+    "organisation": "",
     "person": "Pessoa",
     "time": "Século",
     "topic": "Tópico"
   },
   "clearAllFilters": "limpar todos os filtros",
   "collections": {
+    "actions": {
+      "edit": "Editar coleção",
+      "update": "Coleção de atualização"
+    },
     "fashion": {
       "facets": {
         "CREATOR": {
@@ -80,6 +90,12 @@ export default {
           "name": "Material | Materiais"
         }
       }
+    },
+    "form": {
+      "description": "Descrição"
+    },
+    "notifications": {
+      "update": "A coleção foi atualizada"
     }
   },
   "collectionsYouMightLike": "Coleções que poderá gostar",
@@ -114,6 +130,10 @@ export default {
     "startDate": "Data de início",
     "to": "para"
   },
+  "debug": {
+    "apiRequests": "Pedidos da API",
+    "debug": "Depurar"
+  },
   "delete": "Apagar",
   "depiction": "Uma representação de {title}",
   "directions": {
@@ -123,13 +143,28 @@ export default {
   "edmIsShownAtLinkAlt": "Ver no site do fornecedor",
   "entity": {
     "actions": {
-      "cancel": "Cancelar"
+      "cancel": "Cancelar",
+      "pin": "",
+      "unpin": "",
+      "viewPinned": ""
     },
     "labels": {
       "entity": "Entidade"
     },
     "notifications": {
-      "deleted": "A galeria foi eliminada."
+      "deleted": "A galeria foi eliminada.",
+      "pinLimit": {
+        "body": "",
+        "title": ""
+      },
+      "pinned": "",
+      "pinnedFirstPage": "",
+      "unpinned": "",
+      "unpinnedFirstPage": ""
+    },
+    "prompts": {
+      "pin": "",
+      "unpin": ""
     }
   },
   "error": "Erro",
@@ -362,7 +397,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formato de ficheiro | Formatos de ficheiros",
       "options": {
-        "text/plain": "Texto simples"
+        "text\/plain": "Texto simples"
       }
     },
     "PROVIDER": {
@@ -482,6 +517,8 @@ export default {
   },
   "footer": {
     "customiseWebsiteLanguage": "Personalizar o idioma do site",
+    "disclaimerLine1": "Europeana é uma iniciativa da União Europeia, financiada pelo Connecting Europe Facility da União Europeia e pelos Estados-Membros da União Europeia. Os serviços da Europeana, incluindo este site, são operados por um consórcio liderado pela Fundação Europeana ao abrigo de um contrato de serviços com a Comissão Europeia.",
+    "disclaimerLine2": "A Comissão Europeia não garante a exactidão das informações e não aceita qualquer responsabilidade ou obrigação no que diz respeito às informações apresentadas neste site. Nem a Comissão Europeia, nem qualquer pessoa agindo em seu nome, é responsável pela exatidão ou pelo uso das informações contidas neste site.",
     "findUsElsewhere": "Encontre-nos em outro lugar",
     "imageDescription": "Co-financiado pelo Mecanismo Interligar a Europa da União Europeia",
     "ourMission": "A Nossa missão",
@@ -525,7 +562,74 @@ export default {
   "items": {
     "itemCount": "1 item |{count} itens",
     "itemOf": "{max} de {count} itens",
+    "recommendationsDisclaimer": "",
+    "recommended": "",
     "youMightLike": "Itens que poderá gostar"
+  },
+  "klaro": {
+    "main": {
+      "consentModal": {
+        "description": "Levamos a sério a privacidade de seus dados. Aqui você pode avaliar e personalizar os serviços que gostaríamos de usar neste site. Você está no comando! Habilite ou desabilite os serviços conforme achar necessário.",
+        "title": "Serviços que gostaríamos de usar."
+      },
+      "consentNotice": {
+        "description": "Nos preocupamos com a sua privacidade e apenas usamos os dados para melhorar a sua experiência. Não usamos nenhuma informação pessoal para publicidade. Você pode alterar seu consentimento a cada 15 dias."
+      },
+      "ok": "OK",
+      "purposes": {
+        "essential": {
+          "description": "Esses serviços são essenciais para o correto funcionamento deste site. Eles incluem a visualização de resultados de pesquisa e preferências de idioma, preservar o estado conectado e manter sua visita segura. Você não pode desabilitá-los, pois o site não funcionaria corretamente de outra forma.",
+          "title": "Serviços essenciais para segurança e personalização"
+        },
+        "usage": {
+          "description": "Esses serviços coletam as informações para nos ajudar a entender melhor como o site é usado e onde estão os pontos problemáticos, permitindo-nos fazer escolhas informadas para melhorar sua experiência.",
+          "title": "Serviços para captar a utilização e feedback do website"
+        }
+      },
+      "service": {
+        "disableAll": {
+          "description": "Utilize este interruptor para activar ou desactivar todos os serviços opcionais.",
+          "title": "Ativar ou desativar todos os serviços"
+        }
+      }
+    },
+    "services": {
+      "auth-strategy": {
+        "description": "Lembra a estratégia de autorização a ser usada para fazer login.",
+        "title": "Estratégia Auth"
+      },
+      "debugSettings": {
+        "title": "Botão de debug"
+      },
+      "google-analytics": {
+        "description": "Coleta estatísticas anônimas sobre como os visitantes interagem com o site.",
+        "title": "Google Analytics"
+      },
+      "google-optimize": {
+        "description": "Permite-lhe participar em experiências de website que orientam as nossas escolhas de design para a melhor experiência do utilizador.",
+        "title": "Google Optimize"
+      },
+      "hotjar": {
+        "description": "Ativa um widget de pesquisa, dando a você a opção de responder às nossas pesquisas de satisfação do visitante.",
+        "title": "Hotjar"
+      },
+      "i18n": {
+        "description": "Lembra seu idioma de interface preferido para acesso futuro.",
+        "title": "Código de idioma"
+      },
+      "jira-servicedesk": {
+        "description": "Ativa o widget de feedback dando-lhe a opção de nos contactar.",
+        "title": "Balcão de serviço Jira"
+      },
+      "matomo": {
+        "description": "Coleta estatísticas anônimas sobre como os visitantes interagem com o site.",
+        "title": "Matomo"
+      },
+      "searchResultsView": {
+        "description": "Lembra-se se preferir ver os resultados da pesquisa numa lista ou numa visualização em grelha.",
+        "title": "Visualização de resultado de pesquisa (lista\/grade)"
+      }
+    }
   },
   "layout": {
     "skipToMain": "Ir para o conteúdo da página"
@@ -545,12 +649,23 @@ export default {
       "text": "Está a pesquisar no nosso site novo e mais rápido."
     }
   },
+  "loading": "",
   "loadingResults": "A carregar resultados",
+  "mediaPreview": {
+    "selectItem": "Seleccionar item {src}"
+  },
   "messages": {
     "copyToClipboardSuccess": "Copiado para a prancheta",
     "externalContentError": "Falha ao carregar o conteúdo externo",
     "notFound": "Não encontrado",
     "paginationLimitExceeded": "Só é possível visualizar os primeiros {limit} resultados da pesquisa."
+  },
+  "modal": {
+    "download": {
+      "clickToCopy": "",
+      "modalIntro": "",
+      "modalTitle": ""
+    }
   },
   "newWindow": "abre numa nova janela",
   "noMoreResults": "Não há mais resultados para a sua pesquisa.",
@@ -558,6 +673,15 @@ export default {
   "pageHasLoaded": "carregou",
   "pages": {
     "collections": {
+      "organisations": {
+        "table": {
+          "name": ""
+        },
+        "title": ""
+      },
+      "persons": {
+        "title": ""
+      },
       "times": {
         "title": "Vezes"
       },
@@ -640,12 +764,14 @@ export default {
       "likeLimit": {
         "body": "Pedimos desculpa, mas está limitado no momento a gostar de no máximo 100 itens. Removeremos esse limite em breve!",
         "title": "100 gostos"
-      }
+      },
+      "updated": ""
     },
     "prompts": {
       "delete": "Tem a certeza de que deseja eliminar esta galeria? Se eliminar esta galeria, perderá todos os itens que adicionou a ela."
     }
   },
   "showLess": "Mostrar menos",
-  "showMore": "Mostrar mais"
+  "showMore": "Mostrar mais",
+  "website": ""
 };
