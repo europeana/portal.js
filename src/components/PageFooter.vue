@@ -57,7 +57,7 @@
         </b-col>
         <b-col lg="3">
           <figure>
-            <figcaption class="text-uppercase font-weight-bold">
+            <figcaption class="text-uppercase font-weight-bold pr-2">
               {{ $t('footer.customiseWebsiteLanguage') }}
             </figcaption>
             <LangSelector data-qa="language selector" />
