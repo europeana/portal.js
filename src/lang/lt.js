@@ -6,7 +6,7 @@ export default {
     "likes": "Patinka",
     "linkAccount": "Mano paskyra",
     "linkLogin": "Prisijungti",
-    "linkLoginJoin": "Prisijungti\/Prisijungti",
+    "linkLoginJoin": "Prisijungti/Prisijungti",
     "linkLogout": "Atsijungti",
     "myProfile": "Mano profilis",
     "notifications": {
@@ -397,7 +397,7 @@ export default {
     "MIME_TYPE": {
       "name": "Failo formatas | Failų formatai",
       "options": {
-        "text\/plain": "Paprastas tekstas"
+        "text/plain": "Paprastas tekstas"
       }
     },
     "PROVIDER": {
@@ -627,7 +627,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Prisimena, ar norite paieškos rezultatus matyti sąrašo ar tinklelio rodinyje.",
-        "title": "Paieškos rezultatų rodinys (sąrašas \/ tinklelis)"
+        "title": "Paieškos rezultatų rodinys (sąrašas / tinklelis)"
       }
     }
   },

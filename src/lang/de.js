@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mein Konto",
     "linkLogin": "Anmelden",
-    "linkLoginJoin": "Anmelden\/Beitreten",
+    "linkLoginJoin": "Anmelden/Beitreten",
     "linkLogout": "Abmelden",
     "myProfile": "Mein Profil",
     "notifications": {
@@ -397,7 +397,7 @@ export default {
     "MIME_TYPE": {
       "name": "Dateiformat | Dateiformate",
       "options": {
-        "text\/plain": "Klartext"
+        "text/plain": "Klartext"
       }
     },
     "PROVIDER": {
@@ -627,7 +627,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Merkt sich, ob Sie die Suchergebnisse lieber in einer Listen- oder Rasteransicht anzeigen möchten.",
-        "title": "Suchergebnisansicht (Liste\/Raster)"
+        "title": "Suchergebnisansicht (Liste/Raster)"
       }
     }
   },
