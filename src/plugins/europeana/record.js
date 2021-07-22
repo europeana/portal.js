@@ -3,13 +3,14 @@ import pick from 'lodash/pick';
 import uniq from 'lodash/uniq';
 import merge from 'deepmerge';
 
-import { apiError, createAxios, reduceLangMapsForLocale } from './utils';
+import { apiError, createAxios, reduceLangMapsForLocale, isLangMap } from './utils';
 import search from './search';
 import { thumbnailUrl, thumbnailTypeForMimeType } from  './thumbnail';
 import { getEntityUri, getEntityQuery } from './entity';
 import { isIIIFPresentation } from '../media';
 
 export const BASE_URL = process.env.EUROPEANA_RECORD_API_URL || 'https://api.europeana.eu/record';
+const MAX_VALUES_PER_PROXY_FIELD = 10;
 
 /**
  * Retrieves the "Core" fields which will always be displayed on record pages.
@@ -212,7 +213,19 @@ export default (context = {}) => {
           memo[entity.about] = entity;
           return memo;
         }, {});
+
       const proxyData = merge.all(edm.proxies);
+
+      for (const field in proxyData) {
+        if (isLangMap(proxyData[field])) {
+          for (const locale in proxyData[field]) {
+            if (Array.isArray(proxyData[field][locale]) && proxyData[field][locale].length > MAX_VALUES_PER_PROXY_FIELD) {
+              proxyData[field][locale] = proxyData[field][locale].slice(0, MAX_VALUES_PER_PROXY_FIELD).concat('…');
+            }
+          }
+        }
+      }
+
       const allMediaUris = this.aggregationMediaUris(providerAggregation).map(Object.freeze);
 
       return {

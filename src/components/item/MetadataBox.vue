@@ -21,7 +21,6 @@
               :key="name"
               :name="name"
               :field-data="value"
-              :limit="10"
             />
           </b-card-text>
         </b-tab>
@@ -37,7 +36,6 @@
               :key="name"
               :name="name"
               :field-data="value"
-              :limit="10"
             />
           </b-card-text>
         </b-tab>
