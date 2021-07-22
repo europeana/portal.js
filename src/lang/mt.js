@@ -4,7 +4,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Il-Kont Tiegħi",
     "linkLogin": "Illoggja",
-    "linkLoginJoin": "Idħol\/Ingħaqad",
+    "linkLoginJoin": "Idħol/Ingħaqad",
     "linkLogout": "Oħroġ",
     "myProfile": "Il-profil Tiegħi",
     "notifications": {
@@ -376,7 +376,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format tal-fajl | Formati tal-fajl",
       "options": {
-        "text\/plain": "Test bla format"
+        "text/plain": "Test bla format"
       }
     },
     "PROVIDER": {
@@ -604,7 +604,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Tiftakar jekk tippreferi tara r-riżultati tat-tfittxija f'lista jew viżjoni tal-grilja.",
-        "title": "Veduta tar-riżultat tat-tfittxija (lista \/ gradilja)"
+        "title": "Veduta tar-riżultat tat-tfittxija (lista / gradilja)"
       }
     }
   },

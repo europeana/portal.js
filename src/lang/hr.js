@@ -6,7 +6,7 @@ export default {
     "likes": "Sviđanja",
     "linkAccount": "Moj račun",
     "linkLogin": "Prijava",
-    "linkLoginJoin": "Prijavi se\/Pridruži se",
+    "linkLoginJoin": "Prijavi se/Pridruži se",
     "linkLogout": "Odjava",
     "myProfile": "Moj profil",
     "notifications": {
@@ -47,7 +47,7 @@ export default {
   },
   "attribution": {
     "country": "Država:",
-    "creator": "Stvorio\/la:",
+    "creator": "Stvorio/la:",
     "date": "Datum:",
     "institution": "Institucija:",
     "title": "Naslov:"
@@ -397,7 +397,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format datoteke | Formati datoteka",
       "options": {
-        "text\/plain": "Jednostavni tekst"
+        "text/plain": "Jednostavni tekst"
       }
     },
     "PROVIDER": {
@@ -456,7 +456,7 @@ export default {
     "default": {
       "dcContributor": "Suradnici",
       "dcCoverage": "Mjesto-vrijeme",
-      "dcCreator": "Stvorio\/la",
+      "dcCreator": "Stvorio/la",
       "dcDate": "Datum",
       "dcDescription": "Opis",
       "dcDuration": "Trajanje",
@@ -627,7 +627,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Sjeća ako radije vidite rezultate pretraživanja u prikazu popisa ili mreže.",
-        "title": "Prikaz rezultata pretraživanja (popis \/ mreža)"
+        "title": "Prikaz rezultata pretraživanja (popis / mreža)"
       }
     }
   },

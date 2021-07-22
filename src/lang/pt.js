@@ -4,7 +4,7 @@ export default {
     "likes": "Gostos",
     "linkAccount": "A minha conta",
     "linkLogin": "Inicie sessão",
-    "linkLoginJoin": "Entrar\/Criar conta",
+    "linkLoginJoin": "Entrar/Criar conta",
     "linkLogout": "Encerrar sessão",
     "myProfile": "Meu perfil",
     "notifications": {
@@ -376,7 +376,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formato de ficheiro | Formatos de ficheiros",
       "options": {
-        "text\/plain": "Texto simples"
+        "text/plain": "Texto simples"
       }
     },
     "PROVIDER": {
@@ -604,7 +604,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Lembra-se se preferir ver os resultados da pesquisa numa lista ou numa visualização em grelha.",
-        "title": "Visualização de resultado de pesquisa (lista\/grade)"
+        "title": "Visualização de resultado de pesquisa (lista/grade)"
       }
     }
   },
