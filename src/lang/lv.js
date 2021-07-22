@@ -4,7 +4,7 @@ export default {
     "likes": "Patīk",
     "linkAccount": "Mans konts",
     "linkLogin": "Pieteikties",
-    "linkLoginJoin": "Pieteikties/Pievienoties",
+    "linkLoginJoin": "Pieteikties\/Pievienoties",
     "linkLogout": "Atteikties",
     "myProfile": "Mans profils",
     "notifications": {
@@ -65,6 +65,10 @@ export default {
   },
   "clearAllFilters": "notīrīt visus filtrus",
   "collections": {
+    "actions": {
+      "edit": "Rediģēt kolekciju",
+      "update": "Atjaunināt kolekciju"
+    },
     "fashion": {
       "facets": {
         "CREATOR": {
@@ -80,6 +84,12 @@ export default {
           "name": "Materiāls | Materiāli"
         }
       }
+    },
+    "form": {
+      "description": "Apraksts"
+    },
+    "notifications": {
+      "update": "Kolekcija ir atjaunināta"
     }
   },
   "collectionsYouMightLike": "Tev varētu patikt šīs kolekcijas",
@@ -113,6 +123,10 @@ export default {
     "specificDate": "Konkrēts datums",
     "startDate": "Sākuma datums",
     "to": "uz"
+  },
+  "debug": {
+    "apiRequests": "API pieprasījumi",
+    "debug": "Atkļūdošana"
   },
   "delete": "Dzēst",
   "depiction": "{title} attēlojums",
@@ -362,7 +376,7 @@ export default {
     "MIME_TYPE": {
       "name": "Datnes formāts | Datņu formāti",
       "options": {
-        "text/plain": "Vienkāršs teksts"
+        "text\/plain": "Vienkāršs teksts"
       }
     },
     "PROVIDER": {
@@ -378,7 +392,7 @@ export default {
       "name": "Izdošanas datums"
     },
     "proxy_dcterms_medium": {
-      "name": "Līdzeklis/ Līdzekļi"
+      "name": "Līdzeklis\/ Līdzekļi"
     },
     "REUSABILITY": {
       "name": "Vai drīkst šo izmantot?",
@@ -482,6 +496,8 @@ export default {
   },
   "footer": {
     "customiseWebsiteLanguage": "Pielāgojiet vietnes valodu",
+    "disclaimerLine1": "Europeana ir Eiropas Savienības iniciatīva, ko finansē Eiropas Savienības Eiropas Connecting Europe Facility un Eiropas Savienības dalībvalstis. Europeana pakalpojumus, tostarp šo vietni, pārvalda konsorcijs, kuru vada Europeana fonds saskaņā ar pakalpojumu līgumu ar Eiropas Komisiju.",
+    "disclaimerLine2": "Eiropas Komisija negarantē informācijas precizitāti un neuzņemas nekādu atbildību vai saistības attiecībā uz šajā tīmekļa vietnē sniegto informāciju. Ne Eiropas Komisija, ne jebkura persona, kas rīkojas Eiropas Komisijas vārdā, nav atbildīga par šajā tīmekļa vietnē sniegtās informācijas precizitāti vai izmantošanu.",
     "findUsElsewhere": "Atrodiet mūs citur",
     "imageDescription": "Līdzfinansē Eiropas Savienības infrastruktūras savienošanas instruments",
     "ourMission": "Mūsu misija",
@@ -527,6 +543,71 @@ export default {
     "itemOf": "{max} no {count} vienumiem",
     "youMightLike": "Iespējams, Tev patiks arī šie"
   },
+  "klaro": {
+    "main": {
+      "consentModal": {
+        "description": "Mēs nopietni uztveram jūsu datu privātumu. Šeit jūs varat novērtēt un pielāgot pakalpojumus, kurus mēs vēlētos izmantot šajā vietnē. Jūs esat atbildīgs! Iespējojiet vai atspējojiet pakalpojumus pēc jūsu ieskatiem.",
+        "title": "Pakalpojumi, kurus mēs vēlētos izmantot."
+      },
+      "consentNotice": {
+        "description": "Mēs rūpējamies par jūsu privātumu un izmantojam datus tikai jūsu pieredzes uzlabošanai. Mēs reklamēšanai neizmantojam personisku informāciju. Jūs varat mainīt savu piekrišanu ik pēc 15 dienām."
+      },
+      "ok": "Labi",
+      "purposes": {
+        "essential": {
+          "description": "Šie pakalpojumi ir būtiski, lai pareizi darbotos šī vietne. Tajos ietilpst meklēšanas rezultātu skats un valodas preferences, tiek saglabāts pieteicies stāvoklis un jūsu apmeklējums ir drošs. Jūs nevarat tos atspējot, jo vietne citādi nedarbotos pareizi.",
+          "title": "Būtiski pakalpojumi drošībai un pielāgošanai"
+        },
+        "usage": {
+          "description": "Šie pakalpojumi apkopo informāciju, lai palīdzētu mums labāk saprast, kā vietne tiek izmantota un kur atrodas sāpju punkti, dodot mums iespēju izdarīt apzinātu izvēli, lai uzlabotu jūsu pieredzi.",
+          "title": "Pakalpojumi vietņu izmantošanas un atsauksmju iegūšanai"
+        }
+      },
+      "service": {
+        "disableAll": {
+          "description": "Izmantojiet šo slēdzi, lai iespējotu vai atspējotu visus izvēles pakalpojumus.",
+          "title": "Iespējot vai atspējot visus pakalpojumus"
+        }
+      }
+    },
+    "services": {
+      "auth-strategy": {
+        "description": "Atceras autorizācijas stratēģiju, kas jāizmanto, lai pieteiktos.",
+        "title": "Auth stratēģija"
+      },
+      "debugSettings": {
+        "title": "Atkļūdošanas pārslēgšana"
+      },
+      "google-analytics": {
+        "description": "Apkopo anonīmu statistiku par to, kā apmeklētāji mijiedarbojas ar vietni.",
+        "title": "Google Analytics"
+      },
+      "google-optimize": {
+        "description": "Ļauj jums piedalīties vietņu eksperimentos, kas vada mūsu dizaina izvēli, lai iegūtu vislabāko lietotāja pieredzi.",
+        "title": "Google optimizācija"
+      },
+      "hotjar": {
+        "description": "Aktivizē aptaujas logrīku, dodot jums iespēju atbildēt uz mūsu apmeklētāju apmierinātības aptaujām.",
+        "title": "Hotjar"
+      },
+      "i18n": {
+        "description": "Atceras jūsu vēlamo saskarnes valodu, lai nodrošinātu piekļuvi nākotnē.",
+        "title": "Valodas kods"
+      },
+      "jira-servicedesk": {
+        "description": "Aktivizē atsauksmju logrīku, sniedzot iespēju sazināties ar mums.",
+        "title": "Jira servisa dienests"
+      },
+      "matomo": {
+        "description": "Apkopo anonīmu statistiku par to, kā apmeklētāji mijiedarbojas ar vietni.",
+        "title": "Matomo"
+      },
+      "searchResultsView": {
+        "description": "Atceras, vai vēlaties redzēt meklēšanas rezultātus saraksta vai režģa skatā.",
+        "title": "Meklēšanas rezultātu skats (saraksts \/ režģis)"
+      }
+    }
+  },
   "layout": {
     "skipToMain": "Pāriet uz lapas saturu"
   },
@@ -546,6 +627,9 @@ export default {
     }
   },
   "loadingResults": "Notiek rezultātu ielāde",
+  "mediaPreview": {
+    "selectItem": "Atlasīt vienumu {src}"
+  },
   "messages": {
     "copyToClipboardSuccess": "Kopēts starpliktuvē",
     "externalContentError": "Neizdevās ielādēt ārējo saturu",
@@ -575,8 +659,10 @@ export default {
     "extendedInformation": "Paplašināta informācija",
     "goodToKnow": "Vērts zināt",
     "hideAll": "Paslēpt visu informāciju",
+    "IIIFViewer": "IIIF skatītājs",
     "location": "Atrašanās vieta",
     "locationOnMap": "Atrašanās vieta kartē",
+    "mediaPlayer": "Multivides atskaņotājs",
     "record": "Vienums",
     "showAll": "Rādīt visu informāciju",
     "similarItems": "Līdzīgi vienumi",

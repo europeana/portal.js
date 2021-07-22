@@ -4,7 +4,7 @@ export default {
     "likes": "Všečki",
     "linkAccount": "Moj račun",
     "linkLogin": "Vpis",
-    "linkLoginJoin": "Prijava/Pridruži se",
+    "linkLoginJoin": "Prijava\/Pridruži se",
     "linkLogout": "Izpis",
     "myProfile": "Moj profil",
     "notifications": {
@@ -65,6 +65,10 @@ export default {
   },
   "clearAllFilters": "počisti vse filtre",
   "collections": {
+    "actions": {
+      "edit": "Uredi zbirko",
+      "update": "Posodobi zbirko"
+    },
     "fashion": {
       "facets": {
         "CREATOR": {
@@ -80,6 +84,12 @@ export default {
           "name": "Material | Materiali"
         }
       }
+    },
+    "form": {
+      "description": "Opis"
+    },
+    "notifications": {
+      "update": "Zbirka je bila posodobljena"
     }
   },
   "collectionsYouMightLike": "Zbirke, ki vam bodo mogoče všeč",
@@ -113,6 +123,10 @@ export default {
     "specificDate": "Določen datum",
     "startDate": "Datum začetka",
     "to": "do"
+  },
+  "debug": {
+    "apiRequests": "API requests",
+    "debug": "Debug"
   },
   "delete": "Izbrišite",
   "depiction": "Upodobitev {title}",
@@ -362,7 +376,7 @@ export default {
     "MIME_TYPE": {
       "name": "Oblika zapisa datoteke | Oblike zapisov datotek",
       "options": {
-        "text/plain": "Golo besedilo"
+        "text\/plain": "Golo besedilo"
       }
     },
     "PROVIDER": {
@@ -482,6 +496,8 @@ export default {
   },
   "footer": {
     "customiseWebsiteLanguage": "Prilagoditev jezika spletnega mesta",
+    "disclaimerLine1": "Europeana je pobuda Evropske unije, ki jo financirajo Connecting Europe Facility Evrope Evropske unije in države članice Evropske unije. Storitve Europeane, vključno s tem spletnim mestom, upravlja konzorcij pod vodstvom Fundacije Europeana na podlagi pogodbe o storitvah z Evropsko komisijo.",
+    "disclaimerLine2": "Evropska komisija ne zagotavlja točnosti informacij in ne sprejema nobene odgovornosti ali odgovornosti v zvezi z informacijami na tej spletni strani. Niti Evropska komisija niti nobena oseba, ki deluje v imenu Evropske komisije, ni odgovorna ali odgovorna za točnost ali uporabo informacij na tej spletni strani.",
     "findUsElsewhere": "Najdite nas drugje",
     "imageDescription": "Sofinancira Instrument za povezovanje Evrope Evropske unije",
     "ourMission": "Naša misija",
@@ -527,6 +543,71 @@ export default {
     "itemOf": "{max} od {count} predmetov",
     "youMightLike": "Predmeti, ki vam bodo mogoče všeč"
   },
+  "klaro": {
+    "main": {
+      "consentModal": {
+        "description": "Vašo zasebnost podatkov jemljemo resno. Tukaj lahko ocenite in prilagodite storitve, ki bi jih radi uporabili na tem spletnem mestu. Vi ste odgovorni! Omogočite ali onemogočite storitve, kot se vam zdi primerno.",
+        "title": "Storitve, ki jih želimo uporabljati."
+      },
+      "consentNotice": {
+        "description": "Skrbimo za vašo zasebnost in podatke uporabljamo le za izboljšanje vaše izkušnje. Osebnih podatkov ne uporabljamo za oglaševanje. Svoje soglasje lahko spremenite vsakih 15 dni."
+      },
+      "ok": "okej",
+      "purposes": {
+        "essential": {
+          "description": "Te storitve so nujne za pravilno delovanje tega spletnega mesta. Vključujejo poglede rezultatov iskanja in jezikovne nastavitve, ohranjajo stanje prijave in zagotavljajo varnost vašega obiska. Ne morete jih onemogočiti, saj spletno mesto sicer ne bi delovalo pravilno.",
+          "title": "Bistvene storitve za varnost in prilagajanje"
+        },
+        "usage": {
+          "description": "Te storitve zbirajo informacije, ki nam pomagajo bolje razumeti, kako se spletna stran uporablja in kje so bolečine točke, ki nas opolnomoči za sprejemanje obveščenih odločitev za izboljšanje vaše izkušnje.",
+          "title": "Storitve za zajemanje uporabe spletnega mesta in povratnih informacij"
+        }
+      },
+      "service": {
+        "disableAll": {
+          "description": "S tem stikalom omogočite ali onemogočite vse izbirne storitve.",
+          "title": "Omogočite ali onemogočite vse storitve"
+        }
+      }
+    },
+    "services": {
+      "auth-strategy": {
+        "description": "Zapomni si strategijo avtorizacije, ki jo je treba uporabiti za prijavo.",
+        "title": "Auth strategija"
+      },
+      "debugSettings": {
+        "title": "Debug toggle"
+      },
+      "google-analytics": {
+        "description": "Zbira anonimne statistične podatke o načinu interakcije obiskovalcev s spletno stranjo.",
+        "title": "Google Analytics"
+      },
+      "google-optimize": {
+        "description": "Omogoča vam sodelovanje pri eksperimentih na spletnem mestu, ki usmerjajo našo izbiro zasnove za najboljšo uporabniško izkušnjo.",
+        "title": "Google Optimize"
+      },
+      "hotjar": {
+        "description": "Aktivira gradnik za ankete, ki vam omogoča, da se odzovete na naše ankete o zadovoljstvu obiskovalcev.",
+        "title": "Hotjar"
+      },
+      "i18n": {
+        "description": "Zapomni si želeni jezik vmesnika za prihodnji dostop.",
+        "title": "Jezikovna koda"
+      },
+      "jira-servicedesk": {
+        "description": "Aktivira gradnik za povratne informacije, ki vam omogoča, da stopite v stik z nami.",
+        "title": "Servisna pisarna Jira"
+      },
+      "matomo": {
+        "description": "Zbira anonimne statistične podatke o tem, kako obiskovalci komunicirajo s spletnim mestom.",
+        "title": "Matomo"
+      },
+      "searchResultsView": {
+        "description": "Zapomni si, če želite rezultate iskanja raje videti v pogledu seznama ali mreže.",
+        "title": "Pogled rezultatov iskanja (seznam \/ mreža)"
+      }
+    }
+  },
   "layout": {
     "skipToMain": "Preskoči na vsebino strani"
   },
@@ -546,6 +627,9 @@ export default {
     }
   },
   "loadingResults": "Nalaganje rezultatov",
+  "mediaPreview": {
+    "selectItem": "Izberite element {src}"
+  },
   "messages": {
     "copyToClipboardSuccess": "Kopirano v odložišče",
     "externalContentError": "Zunanje vsebine ni bilo mogoče naložiti",
