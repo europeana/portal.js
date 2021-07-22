@@ -1,5 +1,7 @@
 export default {
   "account": {
+    "curatedCollections": "Bilduma komisarioak",
+    "curatedCollectionsInfo": "Bilatu komisariotzat dituzun bilduma guztiak",
     "editProfile": "Editatu profila",
     "likes": "Atsegin |",
     "linkAccount": "Nire kontua",
@@ -11,6 +13,7 @@ export default {
       "loggedIn": "Saioa hasi zara. Ongi etorri!",
       "loggedOut": "Saioa amaitu duzu.",
       "noCollections": {
+        "curated": "Oraindik ez duzu bildumarik hautatu",
         "private": "Oraindik ez duzu bilduma pribaturik sortu",
         "public": "Oraindik ez duzu bilduma publikorik sortu"
       },
@@ -24,6 +27,7 @@ export default {
     "title": "Nire kontua"
   },
   "actions": {
+    "accept": "Onartu",
     "cancel": "Utzi",
     "close": "itxi",
     "download": "Deskargatu",
@@ -33,6 +37,7 @@ export default {
     "like": "Atsegin dut",
     "next": "Hurrengoa",
     "providedBy": "{provider} emanda",
+    "reject": "Baztertu",
     "send": "Bidali",
     "share": "Partekatu",
     "shareOn": "{social} partekatu",
@@ -59,6 +64,7 @@ export default {
     "relatedPosts": "Lotutako argitalpenak"
   },
   "cardLabels": {
+    "organisation": "Antolaketa",
     "person": "Pertsona",
     "time": "Mendea",
     "topic": "Gai"
@@ -148,6 +154,7 @@ export default {
     "notifications": {
       "deleted": "Zure galeria ezabatu egin da.",
       "pinLimit": {
+        "body": "Oraingoz 24 elementu soilik leheneratu ditzakezu lehen orrian. Elementu hau itsatsi nahi baduzu, ziurtatu beste bat ainguratzen duzula eta saiatu berriro ainguratzen.",
         "title": "Ainguratutako elementu gehiegi"
       },
       "pinned": "Elementua ainguratu da. Bilduma honen lehen orrialdearen goialdean dago orain. 24 ordu behar izan ditzake guztientzat agertzeko.",
@@ -555,6 +562,8 @@ export default {
   "items": {
     "itemCount": "Elementu 1 | {count} elementu",
     "itemOf": "{max}/{count} elementu",
+    "recommendationsDisclaimer": "Erpurua gora galerian gehitzeko - Erpurua behera gustatzen ez bazaizu",
+    "recommended": "Gomendatutako elementuak",
     "youMightLike": "Gustatu ahal zaizkizun elementuak"
   },
   "klaro": {
@@ -640,6 +649,7 @@ export default {
       "text": "Gure webgune berri eta azkarragoan bilatzen ari zara."
     }
   },
+  "loading": "Kargatzen",
   "loadingResults": "Emaitzak kargatzen",
   "mediaPreview": {
     "selectItem": "Aukeratu elementua {src}"
@@ -650,12 +660,28 @@ export default {
     "notFound": "Ez da aurkitu",
     "paginationLimitExceeded": "Bilaketaren lehen {limit} emaitzak besterik ezin dira ikusi."
   },
+  "modal": {
+    "download": {
+      "clickToCopy": "Egin klik atribuzioan kopiatzeko",
+      "modalIntro": "Elementu hau webean edo beste nonbait erabiltzen baduzu, ez ahaztu atribuzio hau bistaratzea ondoan:",
+      "modalTitle": "Eskerrik asko"
+    }
+  },
   "newWindow": "leiho berrian irekiko da",
   "noMoreResults": "Ez dago emaitza gehiagorik zure bilaketarako.",
   "noResults": "Emaitzarik ez",
   "pageHasLoaded": "kargatu du",
   "pages": {
     "collections": {
+      "organisations": {
+        "table": {
+          "name": "Izena"
+        },
+        "title": "Erakundeak"
+      },
+      "persons": {
+        "title": "Pertsonak"
+      },
       "times": {
         "title": "Garaiak"
       },
@@ -738,12 +764,14 @@ export default {
       "likeLimit": {
         "body": "Sentitzen dugu, baina momentuz 100 elementu atsegin daitezke, gehienez. Laster kenduko dugu muga hori!",
         "title": "100 atsegite"
-      }
+      },
+      "updated": "Elementua galerian gehitu da."
     },
     "prompts": {
       "delete": "Ziur zaude bilduma hau ezabatu nahi duzula? Bilduma ezabatuz gero, gaineratu dituzun elementu guztiak galduko dituzu."
     }
   },
   "showLess": "Gutxiago erakutsi",
-  "showMore": "Gehiago erakutsi"
+  "showMore": "Gehiago erakutsi",
+  "website": "Webgunea"
 };

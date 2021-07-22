@@ -1,5 +1,7 @@
 export default {
   "account": {
+    "curatedCollections": "Kurátorské sbírky",
+    "curatedCollectionsInfo": "Níže naleznete všechny sbírky, které jste kurátorovali",
     "editProfile": "Upravit profil",
     "likes": "Oblíbené",
     "linkAccount": "Můj účet",
@@ -24,6 +26,7 @@ export default {
     "title": "Můj účet"
   },
   "actions": {
+    "accept": "Přijmout",
     "cancel": "Zrušit",
     "close": "zavřít",
     "download": "Stáhnout",
@@ -33,6 +36,7 @@ export default {
     "like": "Oblíbené",
     "next": "Další",
     "providedBy": "Poskytl {provider}",
+    "reject": "Odmítnout",
     "send": "Poslat",
     "share": "Sdílejte",
     "shareOn": "Sdílet na {social}",
@@ -59,6 +63,7 @@ export default {
     "relatedPosts": "Související příspěvky"
   },
   "cardLabels": {
+    "organisation": "Organizace",
     "person": "Osoba",
     "time": "Století",
     "topic": "Téma"
@@ -136,11 +141,29 @@ export default {
   },
   "edmIsShownAtLinkAlt": "Zobrazit na webu poskytovatele",
   "entity": {
+    "actions": {
+      "cancel": "Zrušit",
+      "pin": "Připnout položku",
+      "unpin": "Zrušení připnutí položky",
+      "viewPinned": "Viz připnuté položky"
+    },
     "labels": {
       "entity": "Entita"
     },
     "notifications": {
-      "deleted": "Vaše galerie byla smazána."
+      "deleted": "Vaše galerie byla smazána.",
+      "pinLimit": {
+        "body": "Prozatím můžete na první stránku připnout pouze 24 položek. Chcete-li tuto položku připnout, nezapomeňte odepnout jinou položku a potom ji zkusit připnout znovu.",
+        "title": "Příliš mnoho připnutých položek"
+      },
+      "pinned": "Položka byla připnutím. Nyní je v horní části první stránky této kolekce. Může trvat až 24 hodin, než se objeví pro všechny.",
+      "pinnedFirstPage": "Položka byla připnuta. Může trvat až 24 hodin, než se zobrazí všem.",
+      "unpinned": "Položka byla odepnuta. Už není v horní části první stránky této sbírky. Zmizení pro všechny může trvat až 24 hodin.",
+      "unpinnedFirstPage": "Položka byla odepnuta. Může trvat až 24 hodin, než zmizí pro všechny."
+    },
+    "prompts": {
+      "pin": "Opravdu chcete tuto položku připnout? Tato položka se zobrazí na začátku kolekce \"{entity}\". Tato změna se může projevit až za 24 hodin.",
+      "unpin": "Opravdu chcete tuto položku odepnout? Tato položka se přestane zobrazovat v horní části kolekce \"{entity}\". Tato změna se může projevit až za 24 hodin."
     }
   },
   "error": "Chyba",
@@ -538,6 +561,8 @@ export default {
   "items": {
     "itemCount": "1 položka |{count} položek",
     "itemOf": "{max} z {count} položek",
+    "recommendationsDisclaimer": "Palec nahoru pro přidání do galerie - Palec dolů, pokud se vám nelíbí",
+    "recommended": "Doporučené položky",
     "youMightLike": "Položky, které by se vám mohly líbit"
   },
   "klaro": {
@@ -623,6 +648,7 @@ export default {
       "text": "Vyhledáváte na naší nové a rychlejší stránce."
     }
   },
+  "loading": "Načítání",
   "loadingResults": "Načítání výsledků",
   "mediaPreview": {
     "selectItem": "Vyberte položku {src}"
@@ -633,12 +659,28 @@ export default {
     "notFound": "Nenalezno",
     "paginationLimitExceeded": "Lze zobrazit pouze prvních {limit} výsledků vyhledávání."
   },
+  "modal": {
+    "download": {
+      "clickToCopy": "Kliknutím na atribut jej zkopírujete",
+      "modalIntro": "Pokud používáte tuto položku na webu nebo jinde, nezapomeňte vedle ní zobrazit následující uvedení zdroje:",
+      "modalTitle": "Řekni díky."
+    }
+  },
   "newWindow": "otevře se v novém okně",
   "noMoreResults": "Pro vaše zadání neexistují žádné další výsledky vyhledávání.",
   "noResults": "Žádné výsledky",
   "pageHasLoaded": "načteno",
   "pages": {
     "collections": {
+      "organisations": {
+        "table": {
+          "name": "Název"
+        },
+        "title": "Organizace"
+      },
+      "persons": {
+        "title": "Osoby"
+      },
       "times": {
         "title": "Časy"
       },
@@ -721,12 +763,14 @@ export default {
       "likeLimit": {
         "body": "Je nám líto, ale momentálně je nastavený limit na 100 oblíbených položek. Tento limit brzy odstraníme.",
         "title": "100 oblíbených"
-      }
+      },
+      "updated": "Položka byla přidána do galerie."
     },
     "prompts": {
       "delete": "Opravdu chcete smazat tuto galerii? Pokud tuto galerii smažete, ztratíte všechny položky, které obsahuje."
     }
   },
   "showLess": "Zobrazit méně",
-  "showMore": "Zobrazit více"
+  "showMore": "Zobrazit více",
+  "website": "Webové stránky"
 };
