@@ -60,7 +60,7 @@
         default: null
       },
       year: {
-        type: String,
+        type: [String, Object],
         default: null
       },
       provider: {
@@ -85,7 +85,8 @@
       return {
         snippetCopied: false,
         providerString: this.stringify(this.provider),
-        creatorString: this.stringify(this.creator)
+        creatorString: this.stringify(this.creator),
+        yearString: this.stringify(this.year)
       };
     },
 
@@ -93,7 +94,7 @@
       attributionSnippet() {
         let attributionData = [
           this.titleCreator,
-          this.year,
+          this.yearString,
           this.providerCountry,
           this.rights
         ]
