@@ -56,15 +56,15 @@
         default: null
       },
       creator: {
-        type: String,
+        type: [String, Object],
         default: null
       },
       year: {
-        type: String,
+        type: [String, Object],
         default: null
       },
       provider: {
-        type: String,
+        type: [String, Object],
         default: null
       },
       country: {
@@ -83,7 +83,10 @@
 
     data() {
       return {
-        snippetCopied: false
+        snippetCopied: false,
+        providerString: this.stringify(this.provider),
+        creatorString: this.stringify(this.creator),
+        yearString: this.stringify(this.year)
       };
     },
 
@@ -91,7 +94,7 @@
       attributionSnippet() {
         let attributionData = [
           this.titleCreator,
-          this.year,
+          this.yearString,
           this.providerCountry,
           this.rights
         ]
@@ -109,10 +112,10 @@
       titleCreator() {
         let titleCreator;
 
-        if (this.title && this.creator) {
-          titleCreator = `${this.title} ${this.$t('blog.by')} ${this.creator}`;
+        if (this.title && this.creatorString) {
+          titleCreator = `${this.title} ${this.$t('blog.by')} ${this.creatorString}`;
         } else {
-          titleCreator = this.title || this.creator;
+          titleCreator = this.title || this.creatorString;
         }
 
         return titleCreator;
@@ -121,10 +124,10 @@
       providerCountry() {
         let providerCountry;
 
-        if (this.provider && this.country) {
-          providerCountry = `${this.provider}, ${this.country}`;
+        if (this.providerString && this.country) {
+          providerCountry = `${this.providerString}, ${this.country}`;
         } else {
-          providerCountry = this.provider || this.country;
+          providerCountry = this.providerString || this.country;
         }
 
         return providerCountry;
@@ -132,6 +135,16 @@
     },
 
     methods: {
+      stringify(field) {
+        let stringified = field;
+
+        if (field && !Array.isArray(field) && (typeof field === 'object') && field.values) {
+          stringified = field.values[0];
+        }
+
+        return stringified;
+      },
+
       copySnippet() {
         this.$refs.attributionSnippet.select();
         document.execCommand('copy');
