@@ -218,9 +218,9 @@ export default (context = {}) => {
       ];
       const proxyData = merge.all(edm.proxies);
       LIMITED_PROXY_FIELDS.forEach((field) => {
-        if(proxyData[field]) {
+        if (proxyData[field]) {
           Object.keys(proxyData[field]).forEach((key) => {
-            proxyData[field][key] = proxyData[field][key].slice(0,Math.min(11,proxyData[field][key].length
+            proxyData[field][key] = proxyData[field][key].slice(0, Math.min(11, proxyData[field][key].length
             ));
           });
         }
