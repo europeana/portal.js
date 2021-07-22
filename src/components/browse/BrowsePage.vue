@@ -15,12 +15,6 @@
         :description="headline"
       />
       <BrowseSections :sections="hasPartCollection.items" />
-      <RecentItems
-        v-if="recentItems"
-      />
-      <HighlightedEntities
-        v-if="highlightedEntities"
-      />
     </b-container>
   </div>
 </template>
@@ -34,9 +28,7 @@
     components: {
       ContentHeader,
       BrowseSections,
-      HeroHeader,
-      RecentItems: () => import('@/components/item/RecentItems'),
-      HighlightedEntities: () => import('@/components/entity/HighlightedEntities')
+      HeroHeader
     },
     props: {
       name: {
