@@ -212,7 +212,19 @@ export default (context = {}) => {
           memo[entity.about] = entity;
           return memo;
         }, {});
+
+      const LIMITED_PROXY_FIELDS = [
+        'dctermsHasPart'
+      ];
       const proxyData = merge.all(edm.proxies);
+      LIMITED_PROXY_FIELDS.forEach((field) => {
+        if(proxyData[field]) {
+          Object.keys(proxyData[field]).forEach((key) => {
+            proxyData[field][key] = proxyData[field][key].slice(0,Math.min(11,proxyData[field][key].length
+            ));
+          });
+        }
+      });
       const allMediaUris = this.aggregationMediaUris(providerAggregation).map(Object.freeze);
 
       return {
