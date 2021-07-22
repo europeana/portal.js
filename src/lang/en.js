@@ -27,6 +27,7 @@ export default {
     "title": "My account"
   },
   "actions": {
+    "accept": "Accept",
     "cancel": "Cancel",
     "close": "close",
     "download": "Download",
@@ -36,14 +37,13 @@ export default {
     "like": "Like",
     "next": "Next",
     "providedBy": "Provided by {provider}",
+    "reject": "Reject",
     "send": "Send",
     "share": "Share",
     "shareOn": "Share on {social}",
     "skip": "Skip",
     "viewAt": "View at {link}",
-    "viewDocument": "View document",
-    "accept": "Accept",
-    "reject": "Reject"
+    "viewDocument": "View document"
   },
   "attribution": {
     "country": "Country:",
@@ -64,10 +64,10 @@ export default {
     "relatedPosts": "Related posts"
   },
   "cardLabels": {
+    "organisation": "Organisation",
     "person": "Person",
     "time": "Century",
-    "topic": "Topic",
-    "organisation": "Organisation"
+    "topic": "Topic"
   },
   "clearAllFilters": "clear all filters",
   "collections": {
@@ -562,9 +562,9 @@ export default {
   "items": {
     "itemCount": "1 item |{count} items",
     "itemOf": "{max} of {count} items",
+    "recommendationsDisclaimer": "Thumb up to add to the gallery - Thumb down if you dislike it",
     "recommended": "Recommended items",
-    "youMightLike": "Items you might like",
-    "recommendationsDisclaimer": "Thumb up to add to the gallery - Thumb down if you dislike it"
+    "youMightLike": "Items you might like"
   },
   "klaro": {
     "main": {
@@ -662,9 +662,9 @@ export default {
   },
   "modal": {
     "download": {
-      "modalTitle": "Say thanks",
+      "clickToCopy": "Click on the attribution to copy it",
       "modalIntro": "If you use this item on the web or elsewhere, don’t forget to display the following attribution next to it:",
-      "clickToCopy": "Click on the attribution to copy it"
+      "modalTitle": "Say thanks"
     }
   },
   "newWindow": "opens in new window",
@@ -673,20 +673,20 @@ export default {
   "pageHasLoaded": "has loaded",
   "pages": {
     "collections": {
+      "organisations": {
+        "table": {
+          "name": "Name"
+        },
+        "title": "Organisations"
+      },
+      "persons": {
+        "title": "Persons"
+      },
       "times": {
         "title": "Times"
       },
       "topics": {
         "title": "Topics"
-      },
-      "persons": {
-        "title": "Persons"
-      },
-      "organisations": {
-        "title": "Organisations",
-        "table": {
-          "name": "Name"
-        }
       }
     }
   },
@@ -761,11 +761,11 @@ export default {
     },
     "notifications": {
       "deleted": "Your gallery has been deleted.",
-      "updated": "The item was added to the gallery.",
       "likeLimit": {
         "body": "We are sorry, but you are limited at the moment to liking a maximum of 100 items. We will remove this limit soon!",
         "title": "100 likes"
-      }
+      },
+      "updated": "The item was added to the gallery."
     },
     "prompts": {
       "delete": "Are you sure you want to delete this gallery? If you delete this gallery, you will lose all the items you've added to it."

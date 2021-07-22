@@ -1,5 +1,7 @@
 export default {
   "account": {
+    "curatedCollections": "Kurirane kolekcije",
+    "curatedCollectionsInfo": "U nastavku pronađite sve zbirke koje ste kurirali",
     "editProfile": "Uredi profil",
     "likes": "Sviđanja",
     "linkAccount": "Moj račun",
@@ -11,6 +13,7 @@ export default {
       "loggedIn": "Sada ste prijavljeni. Dobrodošli!",
       "loggedOut": "Sada ste odjavljeni.",
       "noCollections": {
+        "curated": "Još niste kustosi kolekcija.",
         "private": "Još niste stvorili privatne galerije",
         "public": "Još niste stvorili javne galerije"
       },
@@ -24,6 +27,7 @@ export default {
     "title": "Moj račun"
   },
   "actions": {
+    "accept": "Prihvatiti",
     "cancel": "Otkazati",
     "close": "zatvori",
     "download": "Preuzmi",
@@ -33,6 +37,7 @@ export default {
     "like": "Sviđanje",
     "next": "Sljedeći",
     "providedBy": "Omogućio {provider}",
+    "reject": "Odbiti",
     "send": "Slati",
     "share": "Podijeli",
     "shareOn": "Podijelite na {social}",
@@ -59,6 +64,7 @@ export default {
     "relatedPosts": "Vezane objave"
   },
   "cardLabels": {
+    "organisation": "Organizacija",
     "person": "Osoba",
     "time": "Stoljeća",
     "topic": "Tema"
@@ -136,11 +142,29 @@ export default {
   },
   "edmIsShownAtLinkAlt": "Prikaz na internetskoj stranici pružatelja",
   "entity": {
+    "actions": {
+      "cancel": "Otkazati",
+      "pin": "Prikvači stavku",
+      "unpin": "Otkvačite stavku",
+      "viewPinned": "Pogledajte prikvačene stavke"
+    },
     "labels": {
       "entity": "Entitet"
     },
     "notifications": {
-      "deleted": "Vaša galerija je izbrisana."
+      "deleted": "Vaša galerija je izbrisana.",
+      "pinLimit": {
+        "body": "Za sada na prvu stranicu možete prikvačiti samo 24 predmeta. Ako želite prikvačiti ovu stavku, svakako otkačite drugu, a zatim pokušajte ponovo prikvačiti ovu.",
+        "title": "Previše prikvačenih stavki"
+      },
+      "pinned": "Stavka je prikvačena. Sada je na vrhu prve stranice ove zbirke. Možda će trebati i do 24 sata da se svi pojave.",
+      "pinnedFirstPage": "Stavka je prikvačena. Možda će trebati i do 24 sata da se svi pojave.",
+      "unpinned": "Stavka je otkvačena. Više nije na vrhu prve stranice ove zbirke. Moglo bi potrajati do 24 sata da nestane za sve.",
+      "unpinnedFirstPage": "Stavka je otkvačena. Moglo bi potrajati do 24 sata da nestane za sve."
+    },
+    "prompts": {
+      "pin": "Jeste li sigurni da želite prikvačiti ovu stavku? Ova će se stavka prikazati na vrhu zbirke \"{entitet}\". Ta promjena može potrajati do 24 sata.",
+      "unpin": "Jeste li sigurni da želite otkvačiti ovu stavku? Ova će se stavka prestati prikazivati na vrhu zbirke \"{entity}\". Ta promjena može potrajati do 24 sata."
     }
   },
   "error": "Greška",
@@ -538,6 +562,8 @@ export default {
   "items": {
     "itemCount": "1 stavka |{count} stavki",
     "itemOf": "{max} od {count} stavki",
+    "recommendationsDisclaimer": "Palac gore za dodavanje u galeriju - Palac dolje ako vam se ne sviđa",
+    "recommended": "Preporučeni predmeti",
     "youMightLike": "Stavke koje vam se mogu sviđati"
   },
   "klaro": {
@@ -623,6 +649,7 @@ export default {
       "text": "Pretražujete našu novu i bržu internetsku stranicu."
     }
   },
+  "loading": "Učitavanje",
   "loadingResults": "Učitavanje rezultata",
   "mediaPreview": {
     "selectItem": "Odaberite stavku {src}"
@@ -633,12 +660,28 @@ export default {
     "notFound": "Nije pronađeno",
     "paginationLimitExceeded": "Možete pregledati samo prvih {limit} rezultata pretraživanja."
   },
+  "modal": {
+    "download": {
+      "clickToCopy": "Kliknite na atribuciju da biste je kopirali",
+      "modalIntro": "Ako ovu stavku koristite na webu ili negdje drugdje, ne zaboravite pored nje prikazati sljedeću atribuciju:",
+      "modalTitle": "Reci hvala"
+    }
+  },
   "newWindow": "otvara se u novom prozoru",
   "noMoreResults": "Nema više rezultata za vaš upit za pretraživanje.",
   "noResults": "Nema rezultata",
   "pageHasLoaded": "se učitao",
   "pages": {
     "collections": {
+      "organisations": {
+        "table": {
+          "name": "Ime"
+        },
+        "title": "Organizacije"
+      },
+      "persons": {
+        "title": "Osobe"
+      },
       "times": {
         "title": "Vremena"
       },
@@ -721,12 +764,14 @@ export default {
       "likeLimit": {
         "body": "Žao nam je, ali trenutno vam je ograničeno sviđanje na najviše 100 predmeta. Uskoro ćemo ukloniti ovo ograničenje!",
         "title": "100 sviđanja"
-      }
+      },
+      "updated": "Predmet je dodan u galeriju."
     },
     "prompts": {
       "delete": "Jeste li sigurni da želite izbrisati ovu galeriju? Ako izbrišete ovu galeriju, izgubit ćete sve stavke koje ste joj dodali."
     }
   },
   "showLess": "Prikaži manje",
-  "showMore": "Prikaži više"
+  "showMore": "Prikaži više",
+  "website": "Web stranica"
 };

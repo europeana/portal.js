@@ -86,14 +86,14 @@
         </template>
       </b-card-body>
     </SmartLink>
-    <slot name="buttons">
-      <!-- do not remove this div or there will be hydration errors -->
-      <div />
-    </slot>
+    <client-only>
+      <slot name="buttons" />
+    </client-only>
   </b-card>
 </template>
 
 <script>
+  import ClientOnly from 'vue-client-only';
   import SmartLink from './SmartLink';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
 
@@ -101,6 +101,7 @@
     name: 'ContentCard',
 
     components: {
+      ClientOnly,
       SmartLink
     },
 

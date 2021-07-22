@@ -66,7 +66,8 @@ export default {
   "clearAllFilters": "glan gach scagaire",
   "collections": {
     "actions": {
-      "edit": "Cuir Bailiúchán in Eagar"
+      "edit": "Cuir Bailiúchán in Eagar",
+      "update": "Bailiúchán Nuashonraithe"
     },
     "fashion": {
       "facets": {
@@ -83,6 +84,12 @@ export default {
           "name": "Ábhar | Ábhair"
         }
       }
+    },
+    "form": {
+      "description": "Cur síos"
+    },
+    "notifications": {
+      "update": "Rinneadh nuashonrú ar an mbailiúchán"
     }
   },
   "collectionsYouMightLike": "Bailiúcháin b’fhéidir gur mhaith leat",
@@ -545,7 +552,60 @@ export default {
       "consentNotice": {
         "description": "Tugaimid aire do do phríobháideacht agus ní úsáidimid ach sonraí chun d'eispéireas a fheabhsú. Ní úsáidimid aon fhaisnéis phearsanta le haghaidh fógraíochta. Is féidir leat do thoiliú a athrú gach 15 lá."
       },
-      "ok": "ceart go leor"
+      "ok": "ceart go leor",
+      "purposes": {
+        "essential": {
+          "description": "Tá na seirbhísí seo riachtanach chun go bhfeidhmeoidh an láithreán gréasáin seo i gceart. Cuimsíonn siad dearcadh torthaí cuardaigh agus roghanna teanga, caomhnaíonn siad an stát atá logáilte isteach agus coimeád do chuairt slán. Ní féidir leat iad a dhíchumasú mar ní oibreodh an suíomh Gréasáin i gceart a mhalairt.",
+          "title": "Seirbhísí riachtanacha maidir le slándáil agus saincheaptha"
+        },
+        "usage": {
+          "description": "Bailíonn na seirbhísí seo an fhaisnéis chun cabhrú linn tuiscint níos fearr a fháil ar an gcaoi a n-úsáidtear an suíomh Gréasáin agus cá bhfuil na pointí pian, ag cur ar ár gcumas roghanna eolasacha a dhéanamh chun d’eispéireas a fheabhsú.",
+          "title": "Seirbhísí chun úsáid agus aiseolas láithreán gréasáin a ghabháil"
+        }
+      },
+      "service": {
+        "disableAll": {
+          "description": "Úsáid an lasc seo chun gach seirbhís roghnach a chumasú nó a dhíchumasú.",
+          "title": "Gach seirbhís a chumasú nó a dhíchumasú"
+        }
+      }
+    },
+    "services": {
+      "auth-strategy": {
+        "description": "Is cuimhin leis an straitéis údaraithe a úsáid chun logáil isteach.",
+        "title": "Straitéis Auth"
+      },
+      "debugSettings": {
+        "title": "Scoránaigh dífhabhtaithe"
+      },
+      "google-analytics": {
+        "description": "Bailíonn sé staitisticí gan ainm ar an gcaoi a n-idirghníomhaíonn cuairteoirí leis an suíomh Gréasáin.",
+        "title": "Google Analytics"
+      },
+      "google-optimize": {
+        "description": "Cuireann sé ar do chumas páirt a ghlacadh i dturgnaimh láithreán gréasáin a threoraíonn ár roghanna dearaidh don eispéireas úsáideora is fearr.",
+        "title": "Google Optimize"
+      },
+      "hotjar": {
+        "description": "Gníomhachtaíonn sé giuirléid suirbhé a thugann an rogha duit freagra a thabhairt ar ár suirbhéanna ar shástacht na gcuairteoirí.",
+        "title": "Hotjar"
+      },
+      "i18n": {
+        "description": "Is cuimhin leat an teanga comhéadain is fearr leat le haghaidh rochtana sa todhchaí.",
+        "title": "Cód teanga"
+      },
+      "jira-servicedesk": {
+        "description": "Gníomhaíonn sé an giuirléid aiseolais ag tabhairt an rogha duit teagmháil a dhéanamh linn.",
+        "title": "Deasc seirbhíse Jira"
+      },
+      "matomo": {
+        "description": "Bailíonn sé staitisticí gan ainm ar an gcaoi a n-idirghníomhaíonn cuairteoirí leis an suíomh Gréasáin.",
+        "title": "Matomo"
+      },
+      "searchResultsView": {
+        "description": "Cuimhníonn sé más fearr leat na torthaí cuardaigh a fheiceáil i liosta nó in amharc greille.",
+        "title": "Amharc toraidh cuardaigh (liosta/greille)"
+      }
     }
   },
   "layout": {
@@ -599,8 +659,10 @@ export default {
     "extendedInformation": "Faisnéis leathnaithe",
     "goodToKnow": "Maith a fhios",
     "hideAll": "Folaigh gach faisnéis",
+    "IIIFViewer": "Amharcóir IIIF",
     "location": "Suíomh",
     "locationOnMap": "Suíomh ar an léarscáil",
+    "mediaPlayer": "Seinnteoir meán",
     "record": "Mír",
     "showAll": "Taispeáin gach faisnéis",
     "similarItems": "Míreanna eile den chineál céanna",

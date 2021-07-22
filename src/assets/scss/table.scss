@@ -1,9 +1,13 @@
+table,
 .table {
+  background-color: $white;
   border: 1px solid $middlegrey;
   border-radius: $border-radius-small;
   border-spacing: 0;
   border-collapse: separate;
   font-size: $font-size-small;
+  margin-bottom: 1rem;
+
   thead th {
     background: none !important;
     border-bottom: none;
@@ -14,6 +18,24 @@
     div {
       display: inline-block;
     }
+  }
+
+  td {
+    line-height: 1.214;
+    padding: 1.125rem 1rem;
+    border-top: 1px solid $middlegrey;
+    vertical-align: top;
+    a {
+      text-decoration: none;
+      &:hover {
+        color: $innovationblue;
+      }
+    }
+  }
+}
+
+.table {
+  thead th {
     &[aria-sort] div:after {
       @extend .icon-font;
       content: '\e93b';
@@ -29,15 +51,9 @@
       color: $innovationblue;
     }
   }
+
   td {
     line-height: 1em;
-    padding: 1.125rem 1rem;
-    border-top: 1px solid $middlegrey;
-    a {
-      text-decoration: none;
-      &:hover {
-        color: $innovationblue;
-      }
-    }
   }
 }
+
