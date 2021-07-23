@@ -40,10 +40,12 @@
     computed: {
       contentCardSection() {
         return {
+          // TODO: l10n
           headline: 'Recent items',
           hasPartCollection: {
             items: this.items.map(item => ({
               __typename: 'AutomatedRecordCard',
+              identifier: item.id,
               encoding: item
             }))
           }
