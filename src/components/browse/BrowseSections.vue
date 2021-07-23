@@ -105,10 +105,8 @@
       automatedCardGroupComponent(genre) {
         let component;
 
-        switch (genre) {
-        case 'Recent items':
+        if (genre === 'Recent items') {
           component = 'RecentItems';
-          break;
         }
 
         return component;
