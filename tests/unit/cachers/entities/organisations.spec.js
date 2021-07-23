@@ -75,7 +75,6 @@ describe('cachers/entities/organisations', () => {
       .reply(200, apiResponse.pageThree);
 
     redisClientStub = {
-      getAsync: sinon.stub().resolves(cacheValue),
       setAsync: sinon.stub().resolves(),
       quitAsync: sinon.stub().resolves()
     };

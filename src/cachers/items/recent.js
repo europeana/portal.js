@@ -7,8 +7,10 @@ let axiosClient;
 let redisClient;
 let randomSortSeed;
 
+// TODO: refactor into a utility method
 const writeToRedis = (data) => {
-  return redisClient.setAsync(CACHE_KEY, JSON.stringify(data))
+  return redisClient
+    .setAsync(CACHE_KEY, JSON.stringify(data))
     .then(() => redisClient.quitAsync())
     .then(() => ({
       body: `Wrote ${Object.keys(data).length} items to Redis "${CACHE_KEY}".`
@@ -59,7 +61,7 @@ const recentlyUpdatedContentTier4Items = async() => {
 
 const cache = async(config = {}) => {
   try {
-    axiosClient = utils.createEuropeanaApiClient(config.europeana.apis.record);
+    axiosClient = utils.createEuropeanaApiClient(config.europeana?.apis?.record);
     redisClient = utils.createRedisClient(config.redis);
     randomSortSeed = dateFormat(new Date(), 'isoDate');
 
