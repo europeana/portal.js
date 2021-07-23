@@ -18,7 +18,12 @@ const writeToRedis = (data) => {
 };
 
 const recentlyUpdatedContentTier4Dataset = async(exclude = []) => {
-  const query = (exclude.length === 0) ? '*:*' : 'NOT edm_datasetName:(' + exclude.map(e => `"${e}"`).join(' OR ') + ')';
+  let query = '*:*';
+  if (exclude.length > 0) {
+    const excludedDatasets = exclude.map(e => `"${e}"`).join(' OR ');
+    query = `NOT edm_datasetName:(${excludedDatasets})`;
+  }
+
   const response = await axiosClient.get('/search.json', {
     params: {
       profile: 'standard',
