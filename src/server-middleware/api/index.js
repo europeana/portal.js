@@ -1,3 +1,5 @@
+// TODO: use consola for logging
+
 const express = require('express');
 const defu = require('defu');
 
