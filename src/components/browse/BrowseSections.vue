@@ -76,8 +76,7 @@
       ImageWithAttribution: () => import('../generic/ImageWithAttribution'),
       CallToAction: () => import('../generic/CallToAction'),
       RichText: () => import('./RichText'),
-      RecentItems: () => import('../item/RecentItems'),
-      FeaturedTopics: () => import('../entity/FeaturedTopics')
+      RecentItems: () => import('../item/RecentItems')
     },
 
     props: {
@@ -107,9 +106,6 @@
         let component;
 
         switch (genre) {
-        case 'Featured topics':
-          component = 'FeaturedTopics';
-          break;
         case 'Recent items':
           component = 'RecentItems';
           break;
