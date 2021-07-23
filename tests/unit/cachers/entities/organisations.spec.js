@@ -45,18 +45,32 @@ const cacheValue = JSON.stringify(
   }
 );
 
+const config = {
+  europeana: {
+    apis: {
+      entity: {
+        url: 'https://api.example.org/entity',
+        key: 'entityApiKey'
+      }
+    }
+  },
+  redis: {
+    url: 'redis://localhost:6370/0'
+  }
+};
+
 describe('cachers/entities/organisations', () => {
   beforeEach('stub utility methods', () => {
-    nock('https://api.europeana.eu')
-      .get('/entity/search')
+    nock(config.europeana.apis.entity.url)
+      .get('/search')
       .query(query => query.page === '0')
       .reply(200, apiResponse.pageOne);
-    nock('https://api.europeana.eu')
-      .get('/entity/search')
+    nock(config.europeana.apis.entity.url)
+      .get('/search')
       .query(query => query.page === '1')
       .reply(200, apiResponse.pageTwo);
-    nock('https://api.europeana.eu')
-      .get('/entity/search')
+    nock(config.europeana.apis.entity.url)
+      .get('/search')
       .query(query => query.page === '2')
       .reply(200, apiResponse.pageThree);
 
@@ -73,61 +87,27 @@ describe('cachers/entities/organisations', () => {
     nock.cleanAll();
   });
 
-  describe('.get', () => {
-    it('creates a redis client from params', () => {
-      const params = {
-        redisUrl: 'redis://localhost:6370/0'
-      };
+  describe('.cache', () => {
+    it('creates a redis client from config', async() => {
+      await cacher.cache(config);
 
-      cacher.get(params);
-
-      utils.createRedisClient.should.have.been.calledWith(params);
-    });
-
-    it('fetches organisations from the cache', () => {
-      cacher.get();
-
-      redisClientStub.getAsync.should.have.been.calledWith(cacher.CACHE_KEY);
-    });
-
-    it('quits the Redis connection', async() => {
-      await cacher.get();
-
-      redisClientStub.quitAsync.should.have.been.called;
-    });
-
-    it('resolves to object with parsed cache value in body', async() => {
-      const response = await cacher.get();
-
-      response.should.eql({ body: JSON.parse(cacheValue) });
-    });
-  });
-
-  describe('.set', () => {
-    it('creates a redis client from params', () => {
-      const params = {
-        redisUrl: 'redis://localhost:6370/0'
-      };
-
-      cacher.set(params);
-
-      utils.createRedisClient.should.have.been.calledWith(params);
+      utils.createRedisClient.should.have.been.calledWith(config.redis);
     });
 
     it('paginates over organisations', async() => {
-      await cacher.set();
+      await cacher.cache(config);
 
       nock.isDone().should.be.true;
     });
 
     it('writes reduced organisations to cache', async() => {
-      await cacher.set();
+      await cacher.cache(config);
 
       redisClientStub.setAsync.should.have.been.calledWith(cacher.CACHE_KEY, cacheValue);
     });
 
     it('quits the Redis connection', async() => {
-      await cacher.set();
+      await cacher.cache(config);
 
       redisClientStub.quitAsync.should.have.been.called;
     });

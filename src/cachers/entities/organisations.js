@@ -50,7 +50,8 @@ const persistableFields = ({ identifier, prefLabel }) => {
 };
 
 const writeToRedis = (organisations) => {
-  return redisClient.setAsync(CACHE_KEY, JSON.stringify(organisations))
+  return redisClient
+    .setAsync(CACHE_KEY, JSON.stringify(organisations))
     .then(() => redisClient.quitAsync())
     .then(() => ({
       body: `Wrote ${Object.keys(organisations).length} organisations to Redis "${CACHE_KEY}".`
@@ -59,7 +60,7 @@ const writeToRedis = (organisations) => {
 
 const cache = async(config = {}) => {
   try {
-    axiosClient = utils.createEuropeanaApiClient(config.europeana.apis.entity);
+    axiosClient = utils.createEuropeanaApiClient(config.europeana?.apis?.entity);
     redisClient = utils.createRedisClient(config.redis);
 
     const allResults = await allOrganisationResults();

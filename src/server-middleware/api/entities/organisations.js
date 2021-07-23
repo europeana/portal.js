@@ -1,5 +1,5 @@
 const { CACHE_KEY } = require('../../../cachers/entities/organisations');
-const { createRedisClient } = require('../../../cachers/utils');
+const utils = require('../../../cachers/utils');
 import { errorHandler } from '../';
 // import { langMapValueForLocale } from '../../../plugins/europeana/utils';
 import { getEntitySlug } from '../../../plugins/europeana/entity';
@@ -17,7 +17,7 @@ const localise = (unlocalised) => {
 };
 
 export const organisations = (config = {}) => {
-  const redisClient = createRedisClient(config.redis);
+  const redisClient = utils.createRedisClient(config.redis);
 
   return redisClient.getAsync(CACHE_KEY)
     .then(value => JSON.parse(value))
