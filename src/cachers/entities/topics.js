@@ -116,8 +116,8 @@ const writeToRedis = (data) => {
 
 const cache = async(config = {}) => {
   try {
-    axiosClient = utils.createAxiosClient(config, 'entity');
-    redisClient = utils.createRedisClient(config);
+    axiosClient = utils.createEuropeanaApiClient(config.europeana.apis.entity);
+    redisClient = utils.createRedisClient(config.redis);
 
     const topics = await allTopics();
 

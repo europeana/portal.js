@@ -59,8 +59,8 @@ const writeToRedis = (organisations) => {
 
 const cache = async(config = {}) => {
   try {
-    axiosClient = utils.createAxiosClient(config, 'entity');
-    redisClient = utils.createRedisClient(config);
+    axiosClient = utils.createEuropeanaApiClient(config.europeana.apis.entity);
+    redisClient = utils.createRedisClient(config.redis);
 
     const allResults = await allOrganisationResults();
     const organisations = organisationsObject(allResults);

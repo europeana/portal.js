@@ -12,7 +12,7 @@ const offsetOfTheDay = (setSize) => {
 };
 
 export const topicsOfTheDay = (config = {}) => {
-  const redisClient = createRedisClient(config);
+  const redisClient = createRedisClient(config.redis);
 
   return redisClient.getAsync(CACHE_KEY)
     .then(value => JSON.parse(value))

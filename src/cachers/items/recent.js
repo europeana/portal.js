@@ -59,8 +59,8 @@ const recentlyUpdatedContentTier4Items = async() => {
 
 const cache = async(config = {}) => {
   try {
-    axiosClient = utils.createAxiosClient(config, 'record');
-    redisClient = utils.createRedisClient(config);
+    axiosClient = utils.createEuropeanaApiClient(config.europeana.apis.record);
+    redisClient = utils.createRedisClient(config.redis);
     randomSortSeed = dateFormat(new Date(), 'isoDate');
 
     const data = await recentlyUpdatedContentTier4Items();

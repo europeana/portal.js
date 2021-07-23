@@ -3,7 +3,7 @@ const { createRedisClient } = require('../../../cachers/utils');
 import { errorHandler } from '../';
 
 export const recentItems = (config = {}) => {
-  const redisClient = createRedisClient(config);
+  const redisClient = createRedisClient(config.redis);
 
   return redisClient.getAsync(CACHE_KEY)
     .then(value => JSON.parse(value));

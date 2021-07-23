@@ -44,7 +44,7 @@ const main = () => {
 
 const readCacheKey = (cacheKey) => {
   try {
-    const redisClient = utils.createRedisClient(runtimeConfig);
+    const redisClient = utils.createRedisClient(runtimeConfig.redis);
     return redisClient.getAsync(cacheKey)
       .then(data => redisClient.quitAsync()
         .then(() => ({ body: JSON.parse(data) || {} })));
