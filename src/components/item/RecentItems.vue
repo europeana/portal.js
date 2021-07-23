@@ -23,12 +23,12 @@
         return require('@/server-middleware/api/items/recent')
           .recentItems(this.$config)
           .then(items => {
-            this.items = items;
+            this.items = items || [];
           });
       } else {
         return this.$axios.get('/_api/items/recent')
           .then(response => {
-            this.items = response.data;
+            this.items = response.data || [];
           });
       }
     },
