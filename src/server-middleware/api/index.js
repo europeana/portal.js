@@ -1,11 +1,11 @@
-// TODO: use consola for logging
-
-const express = require('express');
-const defu = require('defu');
+import express from 'express';
+import defu  from 'defu';
+import logging from '../logging';
 
 const app = express();
 app.disable('x-powered-by'); // Security: do not disclose technology fingerprints
 app.use(express.json());
+app.use(logging);
 
 let runtimeConfig;
 app.use((res, req, next) => {
