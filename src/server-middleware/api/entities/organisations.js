@@ -21,7 +21,11 @@ export const organisations = (config = {}) => {
 
   return redisClient.getAsync(CACHE_KEY)
     .then(value => JSON.parse(value))
-    .then(body => localise(body));
+    .then(body => localise(body))
+    .then(localised => {
+      redisClient.quitAsync();
+      return localised;
+    });
 };
 
 export default (config = {}) => (req, res) => {

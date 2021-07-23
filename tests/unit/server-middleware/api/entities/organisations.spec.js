@@ -28,11 +28,14 @@ const organisations = {
   }
 };
 
-describe('server-middleware/entities/organisations', () => {
+const redisClientStub = {
+  getAsync: sinon.stub().resolves(JSON.stringify(organisations)),
+  quitAsync: sinon.stub()
+};
+
+describe('server-middleware/api/entities/organisations', () => {
   beforeEach('stub createRedisClient cache util', () => {
-    sinon.stub(cacheUtils, 'createRedisClient').returns({
-      getAsync: sinon.stub().resolves(JSON.stringify(organisations))
-    });
+    sinon.stub(cacheUtils, 'createRedisClient').returns(redisClientStub);
   });
 
   afterEach('restore createRedisClient cache util', () => {
@@ -69,5 +72,11 @@ describe('server-middleware/entities/organisations', () => {
     ];
 
     expressResStub.json.should.have.been.calledWith(localised);
+  });
+
+  it('quits the Redis connection', async() => {
+    await serverMiddleware(config)({ query: {} }, expressResStub);
+
+    redisClientStub.quitAsync.should.have.been.called;
   });
 });

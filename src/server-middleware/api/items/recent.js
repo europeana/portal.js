@@ -6,7 +6,11 @@ export const recentItems = (config = {}) => {
   const redisClient = createRedisClient(config.redis);
 
   return redisClient.getAsync(CACHE_KEY)
-    .then(value => JSON.parse(value));
+    .then(value => JSON.parse(value))
+    .then(body => {
+      redisClient.quitAsync();
+      return body;
+    });
 };
 
 export default (config = {}) => (req, res) => {
