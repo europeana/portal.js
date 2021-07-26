@@ -32,6 +32,9 @@ const factory = () => shallowMountNuxt(page, {
   mocks: {
     $config: { app: { features: {} } },
     $pageHeadTitle: key => key,
+    $route: {
+      query: {}
+    },
     $t: key => key,
     $i18n: {
       locale: 'en'
@@ -66,12 +69,13 @@ describe('pages/item/_.vue', () => {
       const record = { id: '/123/abc' };
       const $apis = { record: { getRecord: sinon.stub().resolves({ record }) } };
       const app = { i18n: { locale: 'en' } };
+      const route = { query: {} };
 
       const wrapper = factory();
 
-      const response = await wrapper.vm.asyncData({ params, app, $apis });
+      const response = await wrapper.vm.asyncData({ params, app, route, $apis });
 
-      $apis.record.getRecord.should.have.been.calledWith('/123/abc', { locale: 'en' });
+      $apis.record.getRecord.should.have.been.calledWith('/123/abc', { locale: 'en', metadataLang: undefined });
       response.should.eql(record);
     });
   });

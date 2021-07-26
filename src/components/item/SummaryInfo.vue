@@ -10,6 +10,7 @@
           v-if="index === 0"
           :key="index"
           :lang="heading.code"
+          :data-translation-source="heading.translationSource"
           class="mb-0"
         >
           {{ heading.value }}
@@ -18,6 +19,7 @@
           v-else
           :key="index"
           :lang="heading.code"
+          :data-translation-source="heading.translationSource"
           class="font-weight-bold mt-3 mb-0"
         >
           {{ heading.value }}
@@ -36,11 +38,13 @@
         <p
           v-if="index === 0"
           :lang="description.code"
+          :data-translation-source="description.translationSource"
           v-html="$options.filters.convertNewLine(showAll ? value : truncatedDescription)"
         />
         <p
           v-else-if="showAll"
           :lang="description.code"
+          :data-translation-source="description.translationSource"
           v-html="$options.filters.convertNewLine(value)"
         />
         <!-- eslint-disable vue/no-v-html -->
@@ -70,7 +74,7 @@
 
     props: {
       description: {
-        type: [Object, Boolean],
+        type: Object,
         default: null
       },
       titles: {
