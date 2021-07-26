@@ -5,18 +5,36 @@
   >
     <b-container>
       <b-row>
-        <b-col class="col-12 pb-3">
-          <span class="icon-language pr-2" />
-          <i18n
-            path="multilingual.currentLanguage"
-            tag="span"
-          >
-            <b-link
-              @click="toggleTranslation"
+        <b-col class="col-12 pb-3 d-inline-flex align-items-center flex-wrap">
+          <span>
+            <span class="icon-language pr-2" />
+            <i18n
+              path="multilingual.currentLanguage"
+              tag="span"
+              class="pr-1"
             >
-              {{ languageToggle }}
-            </b-link>
-          </i18n>
+              <b-link
+                @click="toggleTranslation"
+              >
+                {{ languageToggle }}
+              </b-link>
+            </i18n>
+          </span>
+          <b-dropdown
+            :text="$t('multilingual.other')"
+            variant="link"
+            toggle-class="multilingual-dropdown"
+            toggle-tag="span"
+            no-flip
+          >
+            <b-dropdown-item
+              v-for="locale in availableLocales"
+              :key="locale.code"
+              class="multilingual-dropdown-item"
+            >
+              {{ locale.name }}
+            </b-dropdown-item>
+          </b-dropdown>
         </b-col>
       </b-row>
     </b-container>
@@ -53,7 +71,12 @@
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/scss/variables.scss';
+
 .icon-language:before {
   font-size: 1.4375rem;
+}
+.multilingual-dropdown-item {
+  font-size: $font-size-small;
 }
 </style>

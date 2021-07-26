@@ -668,7 +668,8 @@ export default {
     }
   },
   "multilingual": {
-    "currentLanguage": "Would you like to see this item in {0}?"
+    "currentLanguage": "Would you like to see this item in {0}?",
+    "other": "Other languages"
   },
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
