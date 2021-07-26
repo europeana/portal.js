@@ -14,6 +14,7 @@
     <template
       v-else
     >
+      <LanguageSelect />
       <b-container
         fluid
         class="bg-white mb-3 px-0"
@@ -126,7 +127,8 @@
       RelatedCollections: () => import('@/components/generic/RelatedCollections'),
       SummaryInfo: () => import('@/components/item/SummaryInfo'),
       MetadataBox,
-      NotificationBanner: () => import('@/components/generic/NotificationBanner')
+      NotificationBanner: () => import('@/components/generic/NotificationBanner'),
+      LanguageSelect: () => import('@/components/item/LanguageSelect')
     },
 
     mixins: [

@@ -667,6 +667,9 @@ export default {
       "modalTitle": "Say thanks"
     }
   },
+  "multilingual": {
+    "currentLanguage": "Would you like to see this item in {0}?"
+  },
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
   "noResults": "No results",
