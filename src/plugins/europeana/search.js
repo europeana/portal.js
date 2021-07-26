@@ -3,8 +3,12 @@
  */
 
 import qs from 'qs';
+import pick from 'lodash/pick';
 
-import { apiError, escapeLuceneSpecials } from './utils';
+import {
+  apiError, escapeLuceneSpecials, isLangMap, reduceLangMapsForLocale
+} from './utils';
+import { truncate } from '../vue-filters';
 
 // Some facets do not support enquoting of their field values.
 export const unquotableFacets = [
@@ -116,16 +120,47 @@ export default function search($axios, params, options = {}) {
     },
     params: searchParams
   })
-    .then(response => {
-      return {
-        ...response.data,
-        lastAvailablePage: start + perPage > maxResults
-      };
-    })
+    .then(response => response.data)
+    .then(data => ({
+      ...data,
+      items: data.items.map(item => reduceFieldsForItem(item, options)),
+      lastAvailablePage: start + perPage > maxResults
+    }))
     .catch((error) => {
       throw apiError(error);
     });
 }
+
+const reduceFieldsForItem = (item, options = {}) => {
+  // Pick fields we need for search result display. See components/item/ItemPreviewCard.vue
+  item = pick(item,
+    [
+      'dataProvider',
+      'dcCreatorLangAware',
+      'dcDescriptionLangAware',
+      'dcTitleLangAware',
+      'edmPreview',
+      'id',
+      'type'
+    ]
+  );
+
+  // Reduce lang maps to values needed for user's locale.
+  item = reduceLangMapsForLocale(item, options.locale, { freeze: false });
+
+  // Truncate lang map values
+  for (const field in item) {
+    if (isLangMap(item[field])) {
+      for (const locale in item[field]) {
+        item[field][locale] = []
+          .concat(item[field][locale])
+          .map(value => truncate(value, 256));
+      }
+    }
+  }
+
+  return Object.freeze(item);
+};
 
 /**
  * Apply content tier filtering to the qf param.
