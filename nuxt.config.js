@@ -229,7 +229,8 @@ module.exports = {
       'SidebarPlugin',
       'TablePlugin',
       'TabsPlugin',
-      'ToastPlugin'
+      'ToastPlugin',
+      'TooltipPlugin'
     ]
   },
 
