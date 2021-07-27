@@ -54,14 +54,6 @@
       heroImage: {
         type: Object,
         default: null
-      },
-      recentItems: {
-        type: Boolean,
-        default: false
-      },
-      highlightedEntities: {
-        type: Boolean,
-        default: false
       }
     },
     computed: {
