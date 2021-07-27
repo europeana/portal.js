@@ -43,7 +43,7 @@
 
 <script>
   export default {
-    name: 'LanguageSelect',
+    name: 'ItemLanguageSelector',
     data() {
       return {
         translated: false

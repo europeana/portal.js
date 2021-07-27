@@ -14,7 +14,7 @@
     <template
       v-else
     >
-      <LanguageSelect />
+      <ItemLanguageSelector />
       <b-container
         fluid
         class="bg-white mb-3 px-0"
@@ -128,7 +128,7 @@
       SummaryInfo: () => import('@/components/item/SummaryInfo'),
       MetadataBox,
       NotificationBanner: () => import('@/components/generic/NotificationBanner'),
-      LanguageSelect: () => import('@/components/item/LanguageSelect')
+      ItemLanguageSelector: () => import('@/components/item/ItemLanguageSelector')
     },
 
     mixins: [
