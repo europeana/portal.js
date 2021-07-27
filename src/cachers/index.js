@@ -12,12 +12,15 @@ const cachers = [
   'items:recent'
 ];
 
-const cli = cachers.reduce((memo, command) => {
-  const commandPath = command.replace(/:/g, '/');
-  // TODO: lazy-require just the script for command called
-  memo[command] = require(`./${commandPath}`);
-  return memo;
-}, {});
+const cli = (cacher) => {
+  if (!cachers.includes(cacher)) {
+    throw new Error(`Unknown cacher "${cacher}"`);
+  }
+
+  const cacherPath = cacher.replace(/:/g, '/');
+
+  return require(`./${cacherPath}`);
+};
 
 const main = () => {
   const cacher = process.argv[2];
@@ -25,12 +28,14 @@ const main = () => {
 
   let executor;
 
+  const cacherCli = cli(cacher);
+
   switch (command) {
     case 'set':
-      executor = cli[cacher].cache(runtimeConfig);
+      executor = cacherCli.cache(runtimeConfig);
       break;
     case 'get':
-      executor = readCacheKey(cli[cacher].CACHE_KEY);
+      executor = readCacheKey(cacherCli.CACHE_KEY);
       break;
     default:
       console.error(`Unknown command "${command}"`);
