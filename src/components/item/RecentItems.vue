@@ -40,7 +40,6 @@
     computed: {
       contentCardSection() {
         return {
-          // TODO: l10n
           headline: this.$t('items.recent'),
           hasPartCollection: {
             items: this.items.map(item => ({
