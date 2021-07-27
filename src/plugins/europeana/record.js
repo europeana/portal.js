@@ -393,6 +393,7 @@ const reduceEntity = (entity) => {
 
 const reduceWebResource = (webResource) => {
   return pick(webResource, [
+    'webResourceEdmRights',
     'about',
     'dctermsIsReferencedBy',
     'ebucoreHasMimeType',
