@@ -41,7 +41,7 @@
       contentCardSection() {
         return {
           // TODO: l10n
-          headline: 'Recent items',
+          headline: this.$t('items.recent'),
           hasPartCollection: {
             items: this.items.map(item => ({
               __typename: 'AutomatedRecordCard',
