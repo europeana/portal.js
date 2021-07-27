@@ -56,7 +56,7 @@
         :year="attributionFields.year"
         :provider="attributionFields.provider"
         :country="attributionFields.country"
-        :rights="attributionFields.rights"
+        :rights="rightsNameAndIcon(rightsStatement).name"
         :url="attributionFields.url"
       />
     </b-container>
@@ -73,6 +73,8 @@
   import SocialShareModal from '../sharing/SocialShareModal';
   import ShareButton from '../sharing/ShareButton';
 
+  import rightsStatementMixin from '@/mixins/rightsStatement';
+
   import has from 'lodash/has';
 
   export default {
@@ -87,6 +89,12 @@
       ShareButton,
       UserButtons: () => import('../account/UserButtons')
     },
+
+    mixins: [
+      rightsStatementMixin
+    ],
+
+
     props: {
       allMediaUris: {
         type: Array,

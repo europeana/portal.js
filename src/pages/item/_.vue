@@ -116,7 +116,6 @@
   import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
   import similarItemsQuery from '@/plugins/europeana/record/similar-items';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
-  import rightsStatement from '@/mixins/rightsStatement';
 
   export default {
     components: {
@@ -128,10 +127,6 @@
       MetadataBox,
       NotificationBanner: () => import('@/components/generic/NotificationBanner')
     },
-
-    mixins: [
-      rightsStatement
-    ],
 
     fetch() {
       const annotationSearchParams = {
@@ -238,7 +233,6 @@
           year: langMapValueForLocale(this.fields.year, this.$i18n.locale).values[0],
           provider: langMapValueForLocale(this.coreFields.edmDataProvider.value, this.$i18n.locale).values[0],
           country: langMapValueForLocale(this.fields.edmCountry, this.$i18n.locale).values[0],
-          rights: this.rightsNameAndIcon(this.edmRights).name,
           url: this.shareUrl
         };
       },
