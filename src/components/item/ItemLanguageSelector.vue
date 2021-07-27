@@ -47,7 +47,7 @@
     name: 'ItemLanguageSelector',
     data() {
       return {
-        translated: false
+        translated: !!this.$route.query.metadataLang || false
       };
     },
     computed: {
