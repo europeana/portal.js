@@ -13,6 +13,13 @@
           class="mb-0"
         >
           {{ heading.value }}
+          <button
+            v-if="heading.translationSource"
+            v-b-tooltip.bottomright="{ customClass: 'tooltip' }"
+            :title="heading.translationSource === 'automated' && $t('multilingual.automated')"
+            class="translation-source"
+            :class="heading.translationSource"
+          />
         </h1>
         <p
           v-else
@@ -21,6 +28,13 @@
           class="font-weight-bold mt-3 mb-0"
         >
           {{ heading.value }}
+          <button
+            v-if="heading.translationSource"
+            v-b-tooltip.bottomright="{ customClass: 'tooltip' }"
+            :title="heading.translationSource === 'automated' && $t('multilingual.automated')"
+            class="translation-source"
+            :class="heading.translationSource"
+          />
         </p>
       </template>
     </header>
@@ -47,6 +61,13 @@
         <hr
           v-if="(index + 1) < description.values.length && showAll"
         >
+        <button
+          v-if="description.translationSource"
+          v-b-tooltip.bottomright="{ customClass: 'tooltip' }"
+          :title="description.translationSource === 'automated' && $t('multilingual.automated')"
+          class="translation-source"
+          :class="description.translationSource"
+        />
       </div>
       <b-button
         v-if="expandableDescription"
@@ -106,3 +127,24 @@
 
   };
 </script>
+
+<style lang="scss" scoped>
+@import '@/assets/scss/variables.scss';
+@import '@/assets/scss/icons.scss';
+
+.description p:last-of-type {
+  display: inline;
+}
+.automated::after {
+  @extend .icon-font;
+  content: '\e91f';
+  font-weight: $font-size-medium;
+  opacity: 0.2;
+}
+.translation-source {
+  border: none;
+  background-color: transparent;
+  cursor: default;
+  display: inline;
+}
+</style>
