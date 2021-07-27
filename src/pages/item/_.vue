@@ -14,7 +14,9 @@
     <template
       v-else
     >
-      <ItemLanguageSelector />
+      <ItemLanguageSelector
+        v-if="multilingualItemEnabled"
+      />
       <b-container
         fluid
         class="bg-white mb-3 px-0"
@@ -294,7 +296,10 @@
       },
       ...mapGetters({
         shareUrl: 'http/canonicalUrl'
-      })
+      }),
+      multilingualItemEnabled() {
+        return this.$config.app.features.multilingualItem;
+      }
     },
 
     mounted() {

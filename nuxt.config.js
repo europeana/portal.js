@@ -26,7 +26,8 @@ module.exports = {
         recommendations: featureIsEnabled(process.env.ENABLE_RECOMMENDATIONS),
         acceptSetRecommendations: featureIsEnabled(process.env.ENABLE_ACCEPT_SET_RECOMMENDATIONS),
         acceptEntityRecommendations: featureIsEnabled(process.env.ENABLE_ACCEPT_ENTITY_RECOMMENDATIONS),
-        entityManagement: featureIsEnabled(process.env.ENABLE_ENTITY_MANAGEMENT)
+        entityManagement: featureIsEnabled(process.env.ENABLE_ENTITY_MANAGEMENT),
+        multilingualItem: featureIsEnabled(process.env.ENABLE_MULTILINGUAL_ITEM)
       }
     },
     auth: {
