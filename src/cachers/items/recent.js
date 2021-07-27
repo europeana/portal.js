@@ -7,16 +7,6 @@ let axiosClient;
 let redisClient;
 let randomSortSeed;
 
-// TODO: refactor into a utility method
-const writeToRedis = (data) => {
-  return redisClient
-    .setAsync(CACHE_KEY, JSON.stringify(data))
-    .then(() => redisClient.quitAsync())
-    .then(() => ({
-      body: `Wrote ${Object.keys(data).length} items to Redis "${CACHE_KEY}".`
-    }));
-};
-
 const recentlyUpdatedContentTier4Dataset = async(exclude = []) => {
   let query = '*:*';
   if (exclude.length > 0) {
@@ -72,9 +62,9 @@ const cache = async(config = {}) => {
 
     const data = await recentlyUpdatedContentTier4Items();
 
-    return writeToRedis(data);
+    return utils.writeToRedis(redisClient, CACHE_KEY, data);
   } catch (error) {
-    return Promise.reject({ body: utils.errorMessage(error) });
+    return Promise.reject(utils.errorMessage(error));
   }
 };
 

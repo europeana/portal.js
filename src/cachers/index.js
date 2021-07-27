@@ -58,16 +58,11 @@ const readCacheKey = (cacheKey) => {
 };
 
 main()
-  .then(({ body }) => {
-    if (typeof body === 'string') {
-      console.log(`SUCCESS: ${body}`);
-    } else {
-      console.log('SUCCESS:');
-      console.log(JSON.stringify(body, null, 2));
-    }
+  .then(message => {
+    console.log(`SUCCESS: ${message}`);
     process.exit(0);
   })
-  .catch(({ body }) => {
-    console.log(`ERROR: ${body}`);
+  .catch(message => {
+    console.log(`ERROR: ${message}`);
     process.exit(1);
   });

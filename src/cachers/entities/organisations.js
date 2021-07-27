@@ -49,15 +49,6 @@ const persistableFields = ({ identifier, prefLabel }) => {
   };
 };
 
-const writeToRedis = (organisations) => {
-  return redisClient
-    .setAsync(CACHE_KEY, JSON.stringify(organisations))
-    .then(() => redisClient.quitAsync())
-    .then(() => ({
-      body: `Wrote ${Object.keys(organisations).length} organisations to Redis "${CACHE_KEY}".`
-    }));
-};
-
 const cache = async(config = {}) => {
   try {
     axiosClient = utils.createEuropeanaApiClient(config.europeana?.apis?.entity);
@@ -66,9 +57,9 @@ const cache = async(config = {}) => {
     const allResults = await allOrganisationResults();
     const organisations = organisationsObject(allResults);
 
-    return writeToRedis(organisations);
+    return utils.writeToRedis(redisClient, CACHE_KEY, organisations);
   } catch (error) {
-    return Promise.reject({ body: utils.errorMessage(error) });
+    return Promise.reject(utils.errorMessage(error));
   }
 };
 
