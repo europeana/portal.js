@@ -94,7 +94,6 @@
       rightsStatementMixin
     ],
 
-
     props: {
       allMediaUris: {
         type: Array,
