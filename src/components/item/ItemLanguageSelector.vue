@@ -14,7 +14,7 @@
               class="pr-1"
             >
               <b-link
-                @click="toggleTranslation"
+                @click="translated ? toOriginal() : translate(selectedLocale.code)"
               >
                 {{ languageToggle }}
               </b-link>
@@ -31,6 +31,7 @@
               v-for="locale in availableLocales"
               :key="locale.code"
               class="multilingual-dropdown-item"
+              @click="translate(locale.code)"
             >
               {{ locale.name }}
             </b-dropdown-item>
@@ -63,8 +64,13 @@
       }
     },
     methods: {
-      toggleTranslation() {
-        this.translated = !this.translated;
+      translate(language) {
+        this.translated = true;
+        this.$router.push({ path: this.$route.path, query: { metadataLang: language || undefined } });
+      },
+      toOriginal() {
+        this.translated = false;
+        this.$router.push({ path: this.$route.path, query: { metadataLang: undefined } });
       }
     }
   };
