@@ -670,6 +670,7 @@ export default {
   "multilingual": {
     "currentLanguage": "Would you like to see this item in {0}?",
     "other": "Other languages",
+    "differentLanguage": "a different language",
     "automated": "Automated translation"
   },
   "newWindow": "opens in new window",

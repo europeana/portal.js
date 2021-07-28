@@ -243,7 +243,8 @@ export default (context = {}) => {
         timespans,
         organizations,
         title: proxyData.dcTitle,
-        schemaOrg: data.schemaOrg ? Object.freeze(JSON.stringify(data.schemaOrg)) : undefined
+        schemaOrg: data.schemaOrg ? Object.freeze(JSON.stringify(data.schemaOrg)) : undefined,
+        edmLanguage: edm.europeanaAggregation.edmLanguage
       };
     },
 

@@ -16,6 +16,7 @@
     >
       <ItemLanguageSelector
         v-if="multilingualItemEnabled"
+        :item-language="edmLanguage.def[0]"
       />
       <b-container
         fluid
@@ -194,7 +195,8 @@
         transcribingAnnotations: [],
         type: null,
         useProxy: true,
-        schemaOrg: null
+        schemaOrg: null,
+        edmLanguage: null
       };
     },
 

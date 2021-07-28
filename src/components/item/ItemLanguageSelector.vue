@@ -13,7 +13,11 @@
               tag="span"
               class="pr-1"
             >
+              <span v-if="itemLanguage === selectedLocale.code">
+                {{ $t('multilingual.differentLanguage') }}
+              </span>
               <b-link
+                v-else
                 @click="translated ? toOriginal() : translate(selectedLocale.code)"
               >
                 {{ languageToggle }}
@@ -45,6 +49,12 @@
 <script>
   export default {
     name: 'ItemLanguageSelector',
+    props: {
+      itemLanguage: {
+        type: String,
+        default: null
+      }
+    },
     data() {
       return {
         translated: !!this.$route.query.metadataLang || false
