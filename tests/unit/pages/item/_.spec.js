@@ -64,19 +64,34 @@ const factory = () => shallowMountNuxt(page, {
 
 describe('pages/item/_.vue', () => {
   describe('asyncData()', () => {
-    it('gets a record from the API for the ID in the params pathMatch, for the current locale', async() => {
-      const params = { pathMatch: '123/abc' };
-      const record = { id: '/123/abc' };
-      const $apis = { record: { getRecord: sinon.stub().resolves({ record }) } };
-      const app = { i18n: { locale: 'en' } };
+    const params = { pathMatch: '123/abc' };
+    const record = { id: '/123/abc' };
+    const $apis = { record: { getRecord: sinon.stub().resolves({ record }) } };
+    const app = { i18n: { locale: 'en' } };
+
+    context('when the page is loaded without a metadataLang', () => {
       const route = { query: {} };
 
-      const wrapper = factory();
+      it('gets a record from the API for the ID in the params pathMatch, for the current locale', async() => {
+        const wrapper = factory();
 
-      const response = await wrapper.vm.asyncData({ params, app, route, $apis });
+        const response = await wrapper.vm.asyncData({ params, app, route, $apis });
 
-      $apis.record.getRecord.should.have.been.calledWith('/123/abc', { locale: 'en', metadataLang: undefined });
-      response.should.eql(record);
+        $apis.record.getRecord.should.have.been.calledWith('/123/abc', { locale: 'en', metadataLang: undefined });
+        response.should.eql(record);
+      });
+    });
+    context('when the page is loaded with a metadataLang', () => {
+      const route = { query: { metadataLang: 'fr' } };
+
+      it('gets a record from the API for the ID in the params pathMatch, for the current locale', async() => {
+        const wrapper = factory();
+
+        const response = await wrapper.vm.asyncData({ params, app, route, $apis });
+
+        $apis.record.getRecord.should.have.been.calledWith('/123/abc', { locale: 'en', metadataLang: 'fr' });
+        response.should.eql(record);
+      });
     });
   });
 

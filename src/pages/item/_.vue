@@ -258,7 +258,7 @@
       },
       descriptionInCurrentLanguage() {
         if (!this.description) {
-          return;
+          return null;
         }
         return langMapValueForLocale(this.description, this.$route.query?.metadataLang || this.$i18n.locale);
       },

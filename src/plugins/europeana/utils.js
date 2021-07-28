@@ -294,7 +294,7 @@ export function unescapeLuceneSpecials(escaped) {
 export const isLangMap = (value) => {
   return (typeof value === 'object') && Object.keys(value).every(key => {
     // TODO: is this good enough to determine lang map or not?
-    return /^[a-z]{2,3}(-[A-Z]{2})?$/.test(key);
+    return key === 'translationSource' || /^[a-z]{2,3}(-[A-Z]{2})?$/.test(key);
   });
 };
 
