@@ -59,7 +59,7 @@ const readCacheKey = (cacheKey) => {
 
 main()
   .then(message => {
-    console.log(`SUCCESS: ${message}`);
+    console.log(`SUCCESS: ${JSON.stringify(message)}`);
     process.exit(0);
   })
   .catch(message => {
