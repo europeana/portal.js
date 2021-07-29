@@ -232,7 +232,7 @@ export default (context = {}) => {
         // refactor to maintain the source info without having to set this.
         const europeanaProxy = edm.proxies.find(proxy => proxy.europeanaProxy);
         ['dcTitle', 'dcDescription'].forEach((field) => {
-          if (europeanaProxy && europeanaProxy[field]) {
+          if (europeanaProxy?.[field]) {
             proxyData[field].translationSource = 'automated';
           }
         });

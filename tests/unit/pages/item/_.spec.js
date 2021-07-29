@@ -84,7 +84,7 @@ describe('pages/item/_.vue', () => {
     context('when the page is loaded with a metadataLang', () => {
       const route = { query: { metadataLang: 'fr' } };
 
-      it('gets a record from the API for the ID in the params pathMatch, for the current locale', async() => {
+      it('gets a record from the API for the ID in the params pathMatch, with metadataLang passed along', async() => {
         const wrapper = factory();
 
         const response = await wrapper.vm.asyncData({ params, app, route, $apis });
