@@ -14,8 +14,8 @@
               class="pr-1"
               data-qa="translate item suggestion"
             >
-              <span v-if="itemLanguage === selectedLocale.code">
-                {{ $t('multilingual.differentLanguage') }}
+              <span v-if="!translated && itemLanguage === selectedLocale.code">
+                a different language
               </span>
               <b-link
                 v-else
