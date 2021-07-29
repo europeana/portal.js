@@ -160,6 +160,7 @@ export function langMapValueForLocale(langMap, locale, options = {}) {
   if (onlyUriValues(withEntities.values) && returnVal.code === '' && hasNonDefValues(langMap)) {
     withEntities = localizedLangMapFromFirstNonDefValue(langMap);
   }
+  withEntities.translationSource = langMap.translationSource;
   if (options.omitAllUris) {
     return omitAllUris(withEntities);
   }
@@ -293,7 +294,7 @@ export function unescapeLuceneSpecials(escaped) {
 export const isLangMap = (value) => {
   return (typeof value === 'object') && Object.keys(value).every(key => {
     // TODO: is this good enough to determine lang map or not?
-    return /^[a-z]{2,3}(-[A-Z]{2})?$/.test(key);
+    return key === 'translationSource' || /^[a-z]{2,3}(-[A-Z]{2})?$/.test(key);
   });
 };
 
@@ -309,6 +310,9 @@ export const reduceLangMapsForLocale = (value, locale, options = {}) => {
       const langMap = {
         [selectedLocale]: value[selectedLocale]
       };
+      if (value.translationSource) {
+        langMap['translationSource'] = value.translationSource;
+      }
       // Preserve entities from .def property
       if (selectedLocale !== 'def' && Array.isArray(value.def)) {
         langMap.def = value.def

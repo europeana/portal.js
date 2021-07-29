@@ -149,9 +149,9 @@
 
     fetchOnServer: false,
 
-    asyncData({ params, res, app, $apis }) {
+    asyncData({ params, res, route, app, $apis }) {
       return $apis.record
-        .getRecord(`/${params.pathMatch}`, { locale: app.i18n.locale })
+        .getRecord(`/${params.pathMatch}`, { locale: app.i18n.locale, metadataLang: route.query.metadataLang })
         .then(result => result.record)
         .catch(error => {
           if (typeof res !== 'undefined') {
@@ -228,7 +228,7 @@
       },
       attributionFields() {
         return {
-          title: langMapValueForLocale(this.title, this.$i18n.locale).values[0],
+          title: langMapValueForLocale(this.title, this.$route.query?.metadataLang || this.$i18n.locale).values[0],
           creator: langMapValueForLocale(this.coreFields.dcCreator, this.$i18n.locale).values[0],
           year: langMapValueForLocale(this.fields.year, this.$i18n.locale).values[0],
           provider: langMapValueForLocale(this.coreFields.edmDataProvider.value, this.$i18n.locale).values[0],
@@ -239,23 +239,22 @@
       titlesInCurrentLanguage() {
         const titles = [];
 
-        const mainTitle = this.title ? langMapValueForLocale(this.title, this.$i18n.locale) : '';
+        const mainTitle = this.title ? langMapValueForLocale(this.title, this.$route.query?.metadataLang || this.$i18n.locale) : '';
         const alternativeTitle = this.altTitle ? langMapValueForLocale(this.altTitle, this.$i18n.locale) : '';
 
         const allTitles = [].concat(mainTitle, alternativeTitle).filter(Boolean);
         for (const title of allTitles) {
           for (const value of title.values) {
-            titles.push({ 'code': title.code, value });
+            titles.push({ 'code': title.code, value, translationSource: title.translationSource });
           }
         }
-
         return titles;
       },
       descriptionInCurrentLanguage() {
         if (!this.description) {
-          return false;
+          return null;
         }
-        return langMapValueForLocale(this.description, this.$i18n.locale);
+        return langMapValueForLocale(this.description, this.$route.query?.metadataLang || this.$i18n.locale);
       },
       metaTitle() {
         return this.titlesInCurrentLanguage[0] ? this.titlesInCurrentLanguage[0].value : this.$t('record.record');
@@ -374,6 +373,8 @@
         ]
       };
     },
+
+    watchQuery: ['metadataLang'],
 
     beforeRouteLeave(to, from, next) {
       this.$gtm.push({

@@ -188,6 +188,14 @@ describe('plugins/europeana/utils', () => {
       reduced.should.eql({ fr: 'Français' });
     });
 
+    it('preserves the translationSource', () => {
+      const value = { en: 'English', fr: 'Français', translationSource: 'automated' };
+
+      const reduced = utils.reduceLangMapsForLocale(value, locale);
+
+      reduced.should.eql({ fr: 'Français', translationSource: 'automated' });
+    });
+
     it('preserves entities on "def"', () => {
       const value = {
         def: [{ about: 'http://data.europeana.eu/concept/base/123' }],

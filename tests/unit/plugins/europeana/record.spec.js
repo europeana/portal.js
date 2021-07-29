@@ -114,6 +114,16 @@ describe('plugins/europeana/record', () => {
     });
 
     describe('profile parameter', () => {
+      it('is "translate" when the item translation feature is enabled', async() => {
+        nock(BASE_URL)
+          .get(apiEndpoint)
+          .query(query => query.profile === 'translate' && query.lang === 'fr')
+          .reply(200, apiResponse);
+
+        await record({ $config: { app: { features: { translatedItems: true } } } }).getRecord(europeanaId, { metadataLang: 'fr' });
+
+        nock.isDone().should.be.true;
+      });
       it('is "schemaOrg" for configured dataset items', async() => {
         nock(BASE_URL)
           .get(apiEndpoint)
