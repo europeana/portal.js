@@ -1,22 +1,23 @@
+const axios = require('axios');
 const redis = require('redis');
 const { promisify } = require('util');
 
-const redisConfig = (params = {}) => {
+const redisConfig = (config = {}) => {
   const redisOptions = {
-    url: params.redisUrl
+    url: config.url
   };
 
-  if (params.redisTlsCa) {
+  if (config.tlsCa) {
     redisOptions.tls = {
-      ca: [Buffer.from(params.redisTlsCa, 'base64')]
+      ca: [Buffer.from(config.tlsCa, 'base64')]
     };
   }
 
   return redisOptions;
 };
 
-const createRedisClient = (params = {}) => {
-  const redisClient = redis.createClient(redisConfig(params));
+const createRedisClient = (config = {}) => {
+  const redisClient = redis.createClient(redisConfig(config));
 
   redisClient.on('error', console.error);
 
@@ -27,8 +28,25 @@ const createRedisClient = (params = {}) => {
   return redisClient;
 };
 
+const writeToRedis = (redisClient, cacheKey, data) => {
+  return redisClient
+    .setAsync(cacheKey, JSON.stringify(data))
+    .then(() => redisClient.quitAsync())
+    .then(() => (`Wrote data to Redis "${cacheKey}".`));
+};
+
+const createEuropeanaApiClient = (config = {}) => {
+  return axios.create({
+    baseURL: config.url,
+    params: {
+      wskey: config.key
+    }
+  });
+};
+
 const errorMessage = (error) => {
   let message;
+
   if (error.response) {
     if (error.response.data.error) {
       message = error.response.data.error;
@@ -38,10 +56,13 @@ const errorMessage = (error) => {
   } else {
     message = error.message;
   }
+
   return message;
 };
 
 module.exports = {
+  createEuropeanaApiClient,
   createRedisClient,
-  errorMessage
+  errorMessage,
+  writeToRedis
 };

@@ -226,6 +226,18 @@ export default (context = {}) => {
         }
       }
 
+      if (context.$config?.app?.features?.translatedItems) {
+        // TODO: initially API only supports translation of title & descripiton.
+        // Extend to other fields as available, or stop merging the proxies and
+        // refactor to maintain the source info without having to set this.
+        const europeanaProxy = edm.proxies.find(proxy => proxy.europeanaProxy);
+        ['dcTitle', 'dcDescription'].forEach((field) => {
+          if (europeanaProxy?.[field]) {
+            proxyData[field].translationSource = 'automated';
+          }
+        });
+      }
+
       const allMediaUris = this.aggregationMediaUris(providerAggregation).map(Object.freeze);
 
       return {
@@ -316,17 +328,29 @@ export default (context = {}) => {
       }
 
       const params = { ...this.$axios.defaults.params };
-      let schemaOrgDatasetId;
-      if (context.$config && context.$config.app && context.$config.app.schemaOrgDatasetId) {
-        schemaOrgDatasetId = context.$config.app.schemaOrgDatasetId;
-      }
-      if (schemaOrgDatasetId && europeanaId.startsWith(`/${schemaOrgDatasetId}/`)) {
-        params.profile = 'schemaOrg';
+      if (context.$config?.app?.features?.translatedItems) {
+        params.profile = 'translate';
+        if (options.metadataLang) {
+          params.lang = options.metadataLang;
+        } else {
+          // TODO: Re-evaluate fallbacks when API allows omission of "lang"
+          params.lang = options.locale || 'en';
+        }
+      } else {
+        // No point in switching on experimental schema.org with item translations.
+        // The profiles would interfere with each other.
+        let schemaOrgDatasetId;
+        if (context.$config?.app?.schemaOrgDatasetId) {
+          schemaOrgDatasetId = context.$config.app.schemaOrgDatasetId;
+        }
+        if (schemaOrgDatasetId && europeanaId.startsWith(`/${schemaOrgDatasetId}/`)) {
+          params.profile = 'schemaOrg';
+        }
       }
 
       return this.$axios.get(`${path}${europeanaId}.json`, { params })
         .then(response => this.parseRecordDataFromApiResponse(response.data))
-        .then(parsed => reduceLangMapsForLocale(parsed, options.locale))
+        .then(parsed => reduceLangMapsForLocale(parsed, options.metadataLang || options.locale))
         .then(reduced => ({
           record: reduced,
           error: null
@@ -394,6 +418,7 @@ const reduceEntity = (entity) => {
 
 const reduceWebResource = (webResource) => {
   return pick(webResource, [
+    'webResourceEdmRights',
     'about',
     'dctermsIsReferencedBy',
     'ebucoreHasMimeType',

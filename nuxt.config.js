@@ -20,14 +20,15 @@ module.exports = {
       schemaOrgDatasetId: process.env.SCHEMA_ORG_DATASET_ID,
       siteName: APP_SITE_NAME,
       features: {
-        klaro: featureIsEnabled(process.env.ENABLE_KLARO),
         jiraServiceDeskFeedbackForm: featureIsEnabled(process.env.ENABLE_JIRA_SERVICE_DESK_FEEDBACK_FORM),
+        klaro: featureIsEnabled(process.env.ENABLE_KLARO),
         linksToClassic: featureIsEnabled(process.env.ENABLE_LINKS_TO_CLASSIC),
         recommendations: featureIsEnabled(process.env.ENABLE_RECOMMENDATIONS),
         acceptSetRecommendations: featureIsEnabled(process.env.ENABLE_ACCEPT_SET_RECOMMENDATIONS),
         acceptEntityRecommendations: featureIsEnabled(process.env.ENABLE_ACCEPT_ENTITY_RECOMMENDATIONS),
         entityManagement: featureIsEnabled(process.env.ENABLE_ENTITY_MANAGEMENT),
-        multilingualItem: featureIsEnabled(process.env.ENABLE_MULTILINGUAL_ITEM)
+        multilingualItem: featureIsEnabled(process.env.ENABLE_MULTILINGUAL_ITEM),
+        translatedItems: featureIsEnabled(process.env.ENABLE_TRANSLATED_ITEMS)
       }
     },
     auth: {
@@ -75,7 +76,7 @@ module.exports = {
           key: process.env.EUROPEANA_ANNOTATION_API_KEY || process.env.EUROPEANA_API_KEY
         },
         entity: {
-          url: process.env.EUROPEANA_ENTITY_API_URL,
+          url: process.env.EUROPEANA_ENTITY_API_URL || 'https://api.europeana.eu/entity',
           key: process.env.EUROPEANA_ENTITY_API_KEY || process.env.EUROPEANA_API_KEY
         },
         newspaper: {
@@ -85,7 +86,7 @@ module.exports = {
           url: process.env.EUROPEANA_RECOMMENDATION_API_URL
         },
         record: {
-          url: process.env.EUROPEANA_RECORD_API_URL,
+          url: process.env.EUROPEANA_RECORD_API_URL || 'https://api.europeana.eu/record',
           key: process.env.EUROPEANA_RECORD_API_KEY || process.env.EUROPEANA_API_KEY
         },
         thumbnail: {

@@ -1,14 +1,14 @@
 import sinon from 'sinon';
 
 import serverMiddleware from '@/server-middleware/api/entities/organisations';
-const cacher = require('@/cachers/entities/organisations');
+import cacheUtils from '@/cachers/utils';
 
 const expressResStub = {
   json: sinon.stub(),
   status: sinon.stub()
 };
 
-const options = { redis: { url: 'redis://localhost:6379' } };
+const config = { redis: { url: 'redis://localhost:6379' } };
 
 const organisations = {
   '1482250000004477234': {
@@ -28,17 +28,22 @@ const organisations = {
   }
 };
 
-describe('server-middleware/entities/organisations', () => {
-  beforeEach('stub cache getter', () => {
-    sinon.stub(cacher, 'get').resolves({ body: organisations });
+const redisClientStub = {
+  getAsync: sinon.stub().resolves(JSON.stringify(organisations)),
+  quitAsync: sinon.stub()
+};
+
+describe('server-middleware/api/entities/organisations', () => {
+  beforeEach('stub createRedisClient cache util', () => {
+    sinon.stub(cacheUtils, 'createRedisClient').returns(redisClientStub);
   });
 
-  afterEach('restore cache getter', () => {
-    cacher.get.restore();
+  afterEach('restore createRedisClient cache util', () => {
+    cacheUtils.createRedisClient.restore();
   });
 
   // it('localises organisations and responds with JSON', async() => {
-  //   await serverMiddleware(options)({ query: {} }, expressResStub);
+  //   await serverMiddleware(config)({ query: {} }, expressResStub);
 
   //   const localised = [
   //     {
@@ -56,7 +61,7 @@ describe('server-middleware/entities/organisations', () => {
   //   expressResStub.json.should.have.been.calledWith(localised);
   // });
   it('filters out English organisation labels and responds with JSON', async() => {
-    await serverMiddleware(options)({ query: {} }, expressResStub);
+    await serverMiddleware(config)({ query: {} }, expressResStub);
 
     const localised = [
       {
@@ -67,5 +72,11 @@ describe('server-middleware/entities/organisations', () => {
     ];
 
     expressResStub.json.should.have.been.calledWith(localised);
+  });
+
+  it('quits the Redis connection', async() => {
+    await serverMiddleware(config)({ query: {} }, expressResStub);
+
+    redisClientStub.quitAsync.should.have.been.called;
   });
 });

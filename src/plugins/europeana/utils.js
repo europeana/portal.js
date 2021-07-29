@@ -160,6 +160,7 @@ export function langMapValueForLocale(langMap, locale, options = {}) {
   if (onlyUriValues(withEntities.values) && returnVal.code === '' && hasNonDefValues(langMap)) {
     withEntities = localizedLangMapFromFirstNonDefValue(langMap);
   }
+  withEntities.translationSource = langMap.translationSource;
   if (options.omitAllUris) {
     return omitAllUris(withEntities);
   }
@@ -293,29 +294,35 @@ export function unescapeLuceneSpecials(escaped) {
 export const isLangMap = (value) => {
   return (typeof value === 'object') && Object.keys(value).every(key => {
     // TODO: is this good enough to determine lang map or not?
-    return /^[a-z]{2,3}(-[A-Z]{2})?$/.test(key);
+    return key === 'translationSource' || /^[a-z]{2,3}(-[A-Z]{2})?$/.test(key);
   });
 };
 
-export const reduceLangMapsForLocale = (value, locale) => {
+export const reduceLangMapsForLocale = (value, locale, options = {}) => {
+  const defaults = { freeze: true };
+  options = { ...defaults, ...options };
+
   if (Array.isArray(value)) {
-    return value.map(val => reduceLangMapsForLocale(val, locale));
+    return value.map(val => reduceLangMapsForLocale(val, locale, options));
   } else if (typeof value === 'object') {
     if (isLangMap(value)) {
       const selectedLocale = selectLocaleForLangMap(value, locale);
       const langMap = {
         [selectedLocale]: value[selectedLocale]
       };
+      if (value.translationSource) {
+        langMap['translationSource'] = value.translationSource;
+      }
       // Preserve entities from .def property
       if (selectedLocale !== 'def' && Array.isArray(value.def)) {
         langMap.def = value.def
           .filter(def => def.about)
-          .map(entity => reduceLangMapsForLocale(entity, locale));
+          .map(entity => reduceLangMapsForLocale(entity, locale, options));
       }
-      return Object.freeze(langMap);
+      return options.freeze ? Object.freeze(langMap) : langMap;
     } else {
       return Object.keys(value).reduce((memo, key) => {
-        memo[key] = reduceLangMapsForLocale(value[key], locale);
+        memo[key] = reduceLangMapsForLocale(value[key], locale, options);
         return memo;
       }, {});
     }

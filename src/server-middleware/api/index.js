@@ -1,9 +1,11 @@
-const express = require('express');
-const defu = require('defu');
+import express from 'express';
+import defu  from 'defu';
+import logging from '../logging';
 
 const app = express();
 app.disable('x-powered-by'); // Security: do not disclose technology fingerprints
 app.use(express.json());
+app.use(logging);
 
 let runtimeConfig;
 app.use((res, req, next) => {
@@ -20,6 +22,9 @@ app.get('/debug/memory-usage', debugMemoryUsage);
 
 import entitiesOrganisations from './entities/organisations';
 app.get('/entities/organisations', (req, res) => entitiesOrganisations(runtimeConfig)(req, res));
+
+import itemsRecent from './items/recent';
+app.get('/items/recent', (req, res) => itemsRecent(runtimeConfig)(req, res));
 
 import jiraServiceDesk from './jira/service-desk';
 app.post('/jira/service-desk', (req, res) => jiraServiceDesk(runtimeConfig.jira)(req, res));

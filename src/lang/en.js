@@ -562,6 +562,7 @@ export default {
   "items": {
     "itemCount": "1 item |{count} items",
     "itemOf": "{max} of {count} items",
+    "recent": "Recent items",
     "recommendationsDisclaimer": "Thumb up to add to the gallery - Thumb down if you dislike it",
     "recommended": "Recommended items",
     "youMightLike": "Items you might like"
