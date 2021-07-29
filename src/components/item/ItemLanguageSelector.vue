@@ -12,6 +12,7 @@
               path="multilingual.currentLanguage"
               tag="span"
               class="pr-1"
+              data-qa="translate item suggestion"
             >
               <span v-if="itemLanguage === selectedLocale.code">
                 {{ $t('multilingual.differentLanguage') }}
