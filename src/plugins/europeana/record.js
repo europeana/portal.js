@@ -329,12 +329,9 @@ export default (context = {}) => {
 
       const params = { ...this.$axios.defaults.params };
       if (context.$config?.app?.features?.translatedItems) {
-        params.profile = 'translate';
         if (options.metadataLang) {
+          params.profile = 'translate';
           params.lang = options.metadataLang;
-        } else {
-          // TODO: Re-evaluate fallbacks when API allows omission of "lang"
-          params.lang = options.locale || 'en';
         }
       } else {
         // No point in switching on experimental schema.org with item translations.
