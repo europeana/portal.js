@@ -11,6 +11,8 @@ services:
     image: europeana/portal.js
     build:
       context: ../../..
+    depends_on:
+      - cache
     expose:
       - "8080"
     env_file: ./app/.env
@@ -22,6 +24,9 @@ services:
       - HTTPS_PORT=443
       - NUXT_LOADING_THROTTLE=0
       - PORTAL_BASE_URL=https://nginx
+      - REDIS_URL=redis://cache
+  cache:
+    image: redis
   chrome-en:
     image: selenium/standalone-chrome:88.0
     healthcheck:

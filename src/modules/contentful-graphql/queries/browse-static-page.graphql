@@ -67,6 +67,9 @@ query BrowseStaticPage(
           ... on LatestCardGroup {
             genre
           }
+          ... on AutomatedCardGroup {
+            genre
+          }
           ... on ContentTypeRichText {
             text
           }

@@ -21,14 +21,14 @@ describe('cachers/utils', () => {
       redis.createClient.restore();
     });
 
-    it('creates a redis client from params', () => {
-      const params = {
-        redisUrl: 'redis://localhost:6370/0'
+    it('creates a redis client from config', () => {
+      const config = {
+        url: 'redis://localhost:6370/0'
       };
 
-      utils.createRedisClient(params);
+      utils.createRedisClient(config);
 
-      redis.createClient.should.have.been.calledWith({ url: params.redisUrl });
+      redis.createClient.should.have.been.calledWith({ url: config.url });
     });
 
     it('adds an error handler to report to the console', () => {

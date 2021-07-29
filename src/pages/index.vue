@@ -86,8 +86,11 @@
     computed: {
       showNotificationBanner() {
         return (
-          this.$config.app.features.linksToClassic && this.identifier === 'home'
+          this.$config.app.features.linksToClassic && this.isHomePage
         );
+      },
+      isHomePage() {
+        return this.identifier === 'home';
       },
       notificationUrl() {
         return `https://classic.europeana.eu/portal/${
