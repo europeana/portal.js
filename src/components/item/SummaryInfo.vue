@@ -15,11 +15,11 @@
         >
           {{ heading.value }}
           <button
-            v-if="heading.translationSource"
+            v-if="$route.query.metadataLang"
             v-b-tooltip.bottomright="{ customClass: 'tooltip' }"
-            :title="heading.translationSource === 'automated' && $t('multilingual.automated')"
+            :title="translationSourceTitle(heading.translationSource)"
             class="translation-source"
-            :class="heading.translationSource"
+            :class="heading.translationSource || 'original'"
           />
         </h1>
         <p
@@ -31,11 +31,11 @@
         >
           {{ heading.value }}
           <button
-            v-if="heading.translationSource"
+            v-if="$route.query.metadataLang"
             v-b-tooltip.bottomright="{ customClass: 'tooltip' }"
-            :title="heading.translationSource === 'automated' && $t('multilingual.automated')"
+            :title="translationSourceTitle(heading.translationSource)"
             class="translation-source"
-            :class="heading.translationSource"
+            :class="heading.translationSource || 'original'"
           />
         </p>
       </template>
@@ -66,11 +66,11 @@
           v-if="(index + 1) < description.values.length && showAll"
         >
         <button
-          v-if="description.translationSource"
+          v-if="$route.query.metadataLang"
           v-b-tooltip.bottomright="{ customClass: 'tooltip' }"
-          :title="description.translationSource === 'automated' && $t('multilingual.automated')"
+          :title="translationSourceTitle(description.translationSource)"
           class="translation-source"
-          :class="description.translationSource"
+          :class="description.translationSource || 'original'"
         />
       </div>
       <b-button
@@ -121,6 +121,17 @@
           return this.$options.filters.truncate(this.description.values[0], this.limitCharacters, this.$t('formatting.ellipsis'));
         }
         return false;
+      },
+      translationSourceTitle() {
+        return (source) => {
+          if (source === 'automated') {
+            return this.$t('multilingual.automated');
+          } else if (source === 'enrichment') {
+            return this.$t('multilingual.enrichment');
+          } else {
+            return this.$t('multilingual.original');
+          }
+        };
       }
     },
     methods: {
@@ -139,11 +150,13 @@
 .description p:last-of-type {
   display: inline;
 }
-.automated::after {
-  @extend .icon-font;
-  content: '\e91f';
-  font-weight: $font-size-medium;
-  opacity: 0.2;
+.automated, .enrichment, .original {
+  &:after {
+    @extend .icon-font;
+    content: '\e91f';
+    font-weight: $font-size-medium;
+    opacity: 0.2;
+  }
 }
 .translation-source {
   border: none;
