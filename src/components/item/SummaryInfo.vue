@@ -15,7 +15,7 @@
         >
           {{ heading.value }}
           <button
-            v-if="$route.query.metadataLang"
+            v-if="metadataLang"
             v-b-tooltip.bottomright="{ customClass: 'tooltip' }"
             :title="translationSourceTitle(heading.translationSource)"
             class="translation-source"
@@ -31,7 +31,7 @@
         >
           {{ heading.value }}
           <button
-            v-if="$route.query.metadataLang"
+            v-if="metadataLang"
             v-b-tooltip.bottomright="{ customClass: 'tooltip' }"
             :title="translationSourceTitle(heading.translationSource)"
             class="translation-source"
@@ -66,7 +66,7 @@
           v-if="(index + 1) < description.values.length && showAll"
         >
         <button
-          v-if="$route.query.metadataLang"
+          v-if="metadataLang"
           v-b-tooltip.bottomright="{ customClass: 'tooltip' }"
           :title="translationSourceTitle(description.translationSource)"
           class="translation-source"
@@ -106,7 +106,8 @@
     data() {
       return {
         limitCharacters: 400,
-        showAll: false
+        showAll: false,
+        metadataLang: this.$route.query?.metadataLang
       };
     },
     computed: {

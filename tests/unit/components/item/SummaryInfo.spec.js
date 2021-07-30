@@ -29,7 +29,8 @@ const factory = (propsData) => mount(SummaryInfo, {
   propsData,
   i18n,
   mocks: {
-    $t: (key) => `TRANSLATED: ${key}`
+    $t: (key) => `TRANSLATED: ${key}`,
+    $route: {}
   }
 });
 
