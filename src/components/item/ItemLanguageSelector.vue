@@ -15,14 +15,14 @@
               data-qa="translate item suggestion"
             >
               <span v-if="!translated && itemLanguage === selectedLocale.code">
-                a different language
+                {{ $t('multilingual.differentLanguage') }}
               </span>
-              <b-link
+              <NuxtLink
                 v-else
-                @click="translated ? toOriginal() : translate(selectedLocale.code)"
+                :to="translateParams(translated ? null : selectedLocale.code)"
               >
                 {{ languageToggle }}
-              </b-link>
+              </NuxtLink>
             </i18n>
           </span>
           <b-dropdown
@@ -36,7 +36,7 @@
               v-for="locale in availableLocales"
               :key="locale.code"
               class="multilingual-dropdown-item"
-              @click="translate(locale.code)"
+              :to="translateParams(locale.code)"
             >
               {{ locale.name }}
             </b-dropdown-item>
@@ -61,24 +61,25 @@
         default: null
       }
     },
-    data() {
-      return {
-        translated: !!this.$route.query.metadataLang || false
-      };
-    },
     computed: {
       languageToggle() {
-        return this.translated ? 'original language' : this.selectedLocale.name;
+        return this.translated ? this.$t('multilingual.originalLanguage') : this.selectedLocale.name;
+      },
+      translated() {
+        if (this.$route.query.metadataLang) {
+          return this.itemLanguage !== this.$route.query.metadataLang;
+        } else {
+          return this.itemLanguage !== this.selectedLocale.code;
+        }
       }
     },
     methods: {
-      translate(language) {
-        this.translated = true;
-        this.$router.push({ path: this.$route.path, query: { metadataLang: language || undefined } });
-      },
-      toOriginal() {
-        this.translated = false;
-        this.$router.push({ path: this.$route.path, query: { metadataLang: undefined } });
+      translateParams(language) {
+        const queryParams = {};
+        if (language) {
+          queryParams.metadataLang = language;
+        }
+        return { path: this.$route.path, query: queryParams };
       }
     }
   };

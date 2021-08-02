@@ -15,7 +15,7 @@
       v-else
     >
       <ItemLanguageSelector
-        v-if="multilingualItemEnabled"
+        v-if="translatedItemsEnabled"
         :item-language="edmLanguage.def[0]"
       />
       <b-container
@@ -39,6 +39,7 @@
             <SummaryInfo
               :description="descriptionInCurrentLanguage"
               :titles="titlesInCurrentLanguage"
+              :translated-items-enabled="translatedItemsEnabled"
             />
           </b-col>
         </b-row>
@@ -292,8 +293,8 @@
       ...mapGetters({
         shareUrl: 'http/canonicalUrl'
       }),
-      multilingualItemEnabled() {
-        return this.$config.app.features.multilingualItem;
+      translatedItemsEnabled() {
+        return this.$config.app.features.translatedItems;
       }
     },
 

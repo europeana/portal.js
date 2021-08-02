@@ -15,9 +15,9 @@
         >
           {{ heading.value }}
           <button
-            v-if="metadataLang"
+            v-if="translatedItemsEnabled"
             v-b-tooltip.bottomright="{ customClass: 'tooltip' }"
-            :title="translationSourceTitle(heading.translationSource)"
+            :title="$t(`multilingual.${heading.translationSource || 'original'}`)"
             class="translation-source"
             :class="heading.translationSource || 'original'"
           />
@@ -31,9 +31,9 @@
         >
           {{ heading.value }}
           <button
-            v-if="metadataLang"
+            v-if="translatedItemsEnabled"
             v-b-tooltip.bottomright="{ customClass: 'tooltip' }"
-            :title="translationSourceTitle(heading.translationSource)"
+            :title="$t(`multilingual.${heading.translationSource || 'original'}`)"
             class="translation-source"
             :class="heading.translationSource || 'original'"
           />
@@ -66,9 +66,9 @@
           v-if="(index + 1) < description.values.length && showAll"
         >
         <button
-          v-if="metadataLang"
+          v-if="translatedItemsEnabled"
           v-b-tooltip.bottomright="{ customClass: 'tooltip' }"
-          :title="translationSourceTitle(description.translationSource)"
+          :title="$t(`multilingual.${description.translationSource || 'original'}`)"
           class="translation-source"
           :class="description.translationSource || 'original'"
         />
@@ -101,13 +101,16 @@
       titles: {
         type: Array,
         default: () => []
+      },
+      translatedItemsEnabled: {
+        type: Boolean,
+        default: false
       }
     },
     data() {
       return {
         limitCharacters: 400,
-        showAll: false,
-        metadataLang: this.$route.query?.metadataLang
+        showAll: false
       };
     },
     computed: {
@@ -122,17 +125,6 @@
           return this.$options.filters.truncate(this.description.values[0], this.limitCharacters, this.$t('formatting.ellipsis'));
         }
         return false;
-      },
-      translationSourceTitle() {
-        return (source) => {
-          if (source === 'automated') {
-            return this.$t('multilingual.automated');
-          } else if (source === 'enrichment') {
-            return this.$t('multilingual.enrichment');
-          } else {
-            return this.$t('multilingual.original');
-          }
-        };
       }
     },
     methods: {
