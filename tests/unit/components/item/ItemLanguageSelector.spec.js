@@ -2,7 +2,6 @@ import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import ItemLanguageSelector from '@/components/item/ItemLanguageSelector';
 import VueI18n from 'vue-i18n';
-import sinon from 'sinon';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -26,16 +25,24 @@ const factory = (propsData, metadataLang) => mount(ItemLanguageSelector, {
   propsData,
   i18n,
   mocks: {
-    $t: () => {},
+    $t: (key) => {
+      if (key === 'multilingual.differentLanguage') {
+        return 'a different language';
+      } else if (key === 'multilingual.originalLanguage') {
+        return 'original language';
+      } else {
+        return '';
+      }
+    },
     $route: {
       path: 'item/example/123',
       query: {
         metadataLang
       }
-    },
-    $router: {
-      push: sinon.spy()
     }
+  },
+  stubs: {
+    NuxtLink: true
   }
 });
 
@@ -64,18 +71,11 @@ describe('components/item/ItemLanguageSelector', () => {
       suggestion.text().should.eq('Would you like to see this item in original language ?');
     });
   });
-  describe('translate', () => {
+  describe('translateParams', () => {
     it('adds the metadataLang query with the provided language code', () => {
       const wrapper = factory({ itemLanguage: 'en' });
-      wrapper.vm.translate('de');
-      wrapper.vm.$router.push.should.have.been.calledWith({ path: 'item/example/123', query: { metadataLang: 'de' } });
-    });
-  });
-  describe('toOriginal', () => {
-    it('removes the metadataLang quer', () => {
-      const wrapper = factory({ itemLanguage: 'en' });
-      wrapper.vm.toOriginal();
-      wrapper.vm.$router.push.should.have.been.calledWith({ path: 'item/example/123', query: { metadataLang: undefined } });
+      const newParams = wrapper.vm.translateParams('de');
+      newParams.query.metadataLang.should.eq('de');
     });
   });
 });
