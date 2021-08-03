@@ -74,7 +74,7 @@
     },
     computed: {
       cards() {
-        return this.section.hasPartCollection.items;
+        return this.section.hasPartCollection.items.filter(card => card !== null);
       },
 
       isPeopleSection() {

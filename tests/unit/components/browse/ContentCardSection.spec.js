@@ -61,6 +61,15 @@ describe('components/browse/ContentCardSection', () => {
       cardGroup.findAll('[data-qa="content card"]').length.should.eq(2);
     });
 
+    it('does not display unpublished or deleted cards', async() => {
+      const wrapper = factory();
+      dummySection.hasPartCollection.items.push(null);
+      await wrapper.setProps({ section: dummySection });
+
+      const cardGroup = wrapper.find('[data-qa="section group"]');
+      cardGroup.findAll('[data-qa="content card"]').length.should.eq(2);
+    });
+
     it('displays a button', async() => {
       const wrapper = factory();
       await wrapper.setProps({ section: dummySection });
