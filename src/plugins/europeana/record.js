@@ -333,7 +333,7 @@ export default (context = {}) => {
         if (options.metadataLang) {
           params.lang = options.metadataLang;
         } else {
-          let recordEdmLanguage = await this.getEdmLanguage(params, europeanaId);
+          const recordEdmLanguage = await this.getEdmLanguage(params, europeanaId);
           params.lang = recordEdmLanguage; // TO DO remove this fallback when the API offers the default with edm
           options.edmLang = recordEdmLanguage;
         }

@@ -76,7 +76,8 @@
       ImageWithAttribution: () => import('../generic/ImageWithAttribution'),
       CallToAction: () => import('../generic/CallToAction'),
       RichText: () => import('./RichText'),
-      RecentItems: () => import('../item/RecentItems')
+      RecentItems: () => import('../item/RecentItems'),
+      FeaturedTopics: () => import('../entity/FeaturedTopics')
     },
 
     props: {
@@ -105,8 +106,13 @@
       automatedCardGroupComponent(genre) {
         let component;
 
-        if (genre === 'Recent items') {
+        switch (genre) {
+        case 'Featured topics':
+          component = 'FeaturedTopics';
+          break;
+        case 'Recent items':
           component = 'RecentItems';
+          break;
         }
 
         return component;
