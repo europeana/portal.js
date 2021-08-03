@@ -68,9 +68,8 @@
       translated() {
         if (this.$route.query.metadataLang) {
           return this.itemLanguage !== this.$route.query.metadataLang;
-        } else {
-          return this.itemLanguage !== this.selectedLocale.code;
         }
+        return false;
       }
     },
     methods: {

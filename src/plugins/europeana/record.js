@@ -321,7 +321,7 @@ export default (context = {}) => {
      * @param {string} europeanaId ID of Europeana record
      * @return {Object} parsed record data
      */
-    getRecord(europeanaId, options = {}) {
+    async getRecord(europeanaId, options = {}) {
       let path = '';
       if (!this.$axios.defaults.baseURL.endsWith('/record')) {
         path = '/record';
@@ -333,7 +333,9 @@ export default (context = {}) => {
         if (options.metadataLang) {
           params.lang = options.metadataLang;
         } else {
-          params.lang = 'en'; // TO DO remove this fallback when the API offers the default with edmLanguage
+          let recordEdmLanguage = await this.getEdmLanguage(params, europeanaId);
+          params.lang = recordEdmLanguage; // TO DO remove this fallback when the API offers the default with edm
+          options.edmLang = recordEdmLanguage;
         }
       } else {
         // No point in switching on experimental schema.org with item translations.
@@ -349,7 +351,7 @@ export default (context = {}) => {
 
       return this.$axios.get(`${path}${europeanaId}.json`, { params })
         .then(response => this.parseRecordDataFromApiResponse(response.data))
-        .then(parsed => reduceLangMapsForLocale(parsed, options.metadataLang || options.locale))
+        .then(parsed => reduceLangMapsForLocale(parsed, options.metadataLang || options.edmLang || options.locale))
         .then(reduced => ({
           record: reduced,
           error: null
@@ -402,6 +404,23 @@ export default (context = {}) => {
       }
 
       return proxyUrl.toString();
+    },
+
+    getEdmLanguage(params, europeanaId) {
+      return this.$axios.get('search.json', {
+        params: {
+          ...params,
+          profile: 'facets',
+          facet: 'LANGUAGE',
+          query: `europeana_id:"${europeanaId}"`,
+          rows: 0
+        }
+      })
+        .then(response => response.data.facets[0].fields[0].label)
+        .catch(error => {
+          const message = error.response ? error.response.data.error : error.message;
+          throw new Error(message);
+        });
     }
   };
 };
