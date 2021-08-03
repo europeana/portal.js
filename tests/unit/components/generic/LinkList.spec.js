@@ -42,5 +42,24 @@ describe('components/generic/LinkList', () => {
       linkWithBackground.length.should.eq(1);
     });
   });
+
+  context('when an item has been delete or unpublished', () => {
+    it('does not show this item as a link', () => {
+      const wrapper = factory();
+      wrapper.setProps({ items:
+        [
+          { url: 'https://www.example.org',
+            text: 'Example link',
+            background: 'https://www.example.org/image' },
+          { url: 'https://www.europeana.eu', text: 'Europeana link' },
+          null
+        ] }
+      );
+
+      const linkList = wrapper.find('[data-qa="link list"]');
+      const renderedList = linkList.findAll('.item');
+      renderedList.length.should.eq(2);
+    });
+  });
 });
 
