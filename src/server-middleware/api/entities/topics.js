@@ -7,8 +7,8 @@ const subsetSize = 4;
 const offsetOfTheDay = (setSize) => {
   const millisecondsPerDay = (1000 * 60 * 60 * 24);
   const unixDay = Math.floor(Date.now() / millisecondsPerDay);
-
-  return (unixDay * subsetSize) % setSize;
+  const offset = (unixDay * subsetSize) % setSize;
+  return offset + subsetSize <= setSize ? offset : setSize - subsetSize;
 };
 
 export const topicsOfTheDay = (config = {}) => {
