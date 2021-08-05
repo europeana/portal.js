@@ -8,6 +8,7 @@ import search from './search';
 import { thumbnailUrl, thumbnailTypeForMimeType } from  './thumbnail';
 import { getEntityUri, getEntityQuery } from './entity';
 import { isIIIFPresentation } from '../media';
+import locales from '../i18n/locales.js';
 
 export const BASE_URL = process.env.EUROPEANA_RECORD_API_URL || 'https://api.europeana.eu/record';
 const MAX_VALUES_PER_PROXY_FIELD = 10;
@@ -182,6 +183,25 @@ function setMatchingEntities(fields, key, entities) {
   }
 }
 
+/**
+ * Find the users prefered metadata language.
+ * Only makes sense with translated item pages.
+ * If no language is specified, defaults to the record's edmLanguage.
+ * Only returns languages also supported by the UI & translate API.
+ * @param {string} edmLang two letter edm language code of the record
+ * @param {Object} options options from the record retrieval.
+ * @param {string} options.metadataLang two letter language code from the user
+ * @return {?string} related entities
+ */
+function preferedLanguage(edmLang, options = {}) {
+  if(options.metadataLang) {
+    return options.metadataLang;
+  } else if (locales.map(locale => locale.code).includes(edmLang)) {
+    return edmLang;
+  }
+  return null;
+}
+
 export default (context = {}) => {
   const $axios = createAxios({ id: 'record', baseURL: BASE_URL }, context);
 
@@ -197,8 +217,8 @@ export default (context = {}) => {
      * @param {Object} edm data from API response
      * @return {Object} parsed data
      */
-    parseRecordDataFromApiResponse(data) {
-      const edm = data.object;
+    parseRecordDataFromApiResponse(data, options = {}) {
+      const edm = data.object;context
       const providerAggregation = edm.aggregations[0];
 
       const concepts = (edm.concepts || []).map(reduceEntity).map(Object.freeze);
@@ -225,7 +245,7 @@ export default (context = {}) => {
           }
         }
       }
-
+      let prefLang;
       if (context.$config?.app?.features?.translatedItems) {
         // TODO: initially API only supports translation of title & descripiton.
         // Extend to other fields as available, or stop merging the proxies and
@@ -236,10 +256,11 @@ export default (context = {}) => {
             proxyData[field].translationSource = 'automated';
           }
         });
+        prefLang = preferedLanguage(edm.europeanaAggregation.edmLanguage.def[0], options);
       }
 
       const allMediaUris = this.aggregationMediaUris(providerAggregation).map(Object.freeze);
-
+      console.log(`prefLang: ${prefLang}`);
       return {
         allMediaUris,
         altTitle: proxyData.dctermsAlternative,
@@ -256,7 +277,8 @@ export default (context = {}) => {
         organizations,
         title: proxyData.dcTitle,
         schemaOrg: data.schemaOrg ? Object.freeze(JSON.stringify(data.schemaOrg)) : undefined,
-        edmLanguage: edm.europeanaAggregation.edmLanguage
+        edmLanguage: edm.europeanaAggregation.edmLanguage,
+        metadataLanguage: prefLang
       };
     },
 
@@ -332,10 +354,6 @@ export default (context = {}) => {
         params.profile = 'translate';
         if (options.metadataLang) {
           params.lang = options.metadataLang;
-        } else {
-          const recordEdmLanguage = await this.getEdmLanguage(params, europeanaId);
-          params.lang = recordEdmLanguage; // TO DO remove this fallback when the API offers the default with edm
-          options.edmLang = recordEdmLanguage;
         }
       } else {
         // No point in switching on experimental schema.org with item translations.
@@ -350,8 +368,14 @@ export default (context = {}) => {
       }
 
       return this.$axios.get(`${path}${europeanaId}.json`, { params })
-        .then(response => this.parseRecordDataFromApiResponse(response.data))
-        .then(parsed => reduceLangMapsForLocale(parsed, options.metadataLang || options.edmLang || options.locale))
+        .then(response => this.parseRecordDataFromApiResponse(response.data, options))
+        .then(parsed => {
+          console.log(`parsed metalang: ${parsed.metadataLanguage}`);
+          console.log(`parsed metalang or locale: ${parsed.metadataLanguage || options.locale}`);
+          const maps = reduceLangMapsForLocale(parsed, parsed.metadataLanguage || options.locale, options);
+          console.log(`maps: ${maps}`);
+          return maps;
+        })
         .then(reduced => ({
           record: reduced,
           error: null
@@ -404,24 +428,24 @@ export default (context = {}) => {
       }
 
       return proxyUrl.toString();
-    },
-
-    getEdmLanguage(params, europeanaId) {
-      return this.$axios.get('search.json', {
-        params: {
-          ...params,
-          profile: 'facets',
-          facet: 'LANGUAGE',
-          query: `europeana_id:"${europeanaId}"`,
-          rows: 0
-        }
-      })
-        .then(response => response.data.facets[0].fields[0].label)
-        .catch(error => {
-          const message = error.response ? error.response.data.error : error.message;
-          throw new Error(message);
-        });
     }
+
+    // getEdmLanguage(params, europeanaId) {
+    //   return this.$axios.get('search.json', {
+    //     params: {
+    //       ...params,
+    //       profile: 'facets',
+    //       facet: 'LANGUAGE',
+    //       query: `europeana_id:"${europeanaId}"`,
+    //       rows: 0
+    //     }
+    //   })
+    //     .then(response => response.data.facets[0].fields[0].label)
+    //     .catch(error => {
+    //       const message = error.response ? error.response.data.error : error.message;
+    //       throw new Error(message);
+    //     });
+    // }
   };
 };
 

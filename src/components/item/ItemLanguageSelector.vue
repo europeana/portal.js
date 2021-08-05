@@ -14,15 +14,19 @@
               class="pr-1"
               data-qa="translate item suggestion"
             >
-              <span v-if="!translated && itemLanguage === selectedLocale.code">
-                {{ $t('multilingual.differentLanguage') }}
+              <span v-if="(!translated && itemLanguage === selectedLocale.code) || (unsopportedEdmLanguage && metadataLanguage === selectedLocale.code)">
+                {{ $t('multilingual.differentLanguage') }}<!-- This comment removes white space which gets underlined
+              -->
               </span>
-              <NuxtLink
+              <b-link
                 v-else
-                :to="translateParams(translated ? null : selectedLocale.code)"
+                :to="translateParams(translated && !unsopportedEdmLanguage ? null : selectedLocale.code)"
               >
-                {{ languageToggle }}
-              </NuxtLink>
+                <span>
+                  {{ languageToggle }}<!-- This comment removes white space which gets underlined
+               -->
+                </span>
+              </b-link>
             </i18n>
           </span>
           <b-dropdown
@@ -33,7 +37,7 @@
             no-flip
           >
             <b-dropdown-item
-              v-for="locale in availableLocales"
+              v-for="locale in availableLocalesForItem"
               :key="locale.code"
               class="multilingual-dropdown-item"
               :to="translateParams(locale.code)"
@@ -59,17 +63,32 @@
       itemLanguage: {
         type: String,
         default: null
+      },
+      metadataLanguage: {
+        type: String,
+        default: null
       }
     },
     computed: {
       languageToggle() {
-        return this.translated ? this.$t('multilingual.originalLanguage') : this.selectedLocale.name;
+        return this.translated && !this.unsopportedEdmLanguage ? this.$t('multilingual.originalLanguage') : this.selectedLocale.name;
       },
       translated() {
-        if (this.$route.query.metadataLang) {
-          return this.itemLanguage !== this.$route.query.metadataLang;
+        return this.metadataLanguage && this.itemLanguage !== this.metadataLanguage;
+      },
+      unsopportedEdmLanguage() {
+        return !this.$i18n.locales.some(locale => locale.code === this.itemLanguage)
+      },
+      availableLocalesForItem() {
+        let locales;
+        if(this.metadataLanguage && this.unsopportedEdmLanguage) {
+          // The edmLanguage isn't supported, but the item is already transltated,
+          // offer translation options for all languages except the current one.
+          locales = this.$i18n.locales.filter(i => ![this.selectedLocale.code, this.metadataLanguage].includes(i.code));
+        } else {
+          locales = this.availableLocales;
         }
-        return false;
+        return locales;
       }
     },
     methods: {

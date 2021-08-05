@@ -299,6 +299,7 @@ export const isLangMap = (value) => {
 };
 
 export const reduceLangMapsForLocale = (value, locale, options = {}) => {
+  if (value === null) return null;
   const defaults = { freeze: true };
   options = { ...defaults, ...options };
 

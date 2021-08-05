@@ -17,6 +17,7 @@
       <ItemLanguageSelector
         v-if="translatedItemsEnabled"
         :item-language="edmLanguage.def[0]"
+        :metadata-language="metadataLanguage"
       />
       <b-container
         fluid
@@ -158,7 +159,10 @@
     asyncData({ params, res, route, app, $apis }) {
       return $apis.record
         .getRecord(`/${params.pathMatch}`, { locale: app.i18n.locale, metadataLang: route.query.metadataLang })
-        .then(result => result.record)
+        .then(result => {
+          console.log(result);
+          return result.record;
+        })
         .catch(error => {
           if (typeof res !== 'undefined') {
             res.statusCode = (typeof error.statusCode === 'undefined') ? 500 : error.statusCode;
@@ -192,7 +196,8 @@
         type: null,
         useProxy: true,
         schemaOrg: null,
-        edmLanguage: null
+        edmLanguage: null,
+        metadataLanguage: null
       };
     },
 
@@ -235,7 +240,7 @@
       },
       attributionFields() {
         return {
-          title: langMapValueForLocale(this.title, this.$route.query?.metadataLang || this.$i18n.locale).values[0],
+          title: langMapValueForLocale(this.title, this.metadataLanguage || this.$i18n.locale).values[0],
           creator: langMapValueForLocale(this.coreFields.dcCreator, this.$i18n.locale).values[0],
           year: langMapValueForLocale(this.fields.year, this.$i18n.locale).values[0],
           provider: langMapValueForLocale(this.coreFields.edmDataProvider.value, this.$i18n.locale).values[0],
@@ -246,7 +251,7 @@
       titlesInCurrentLanguage() {
         const titles = [];
 
-        const mainTitle = this.title ? langMapValueForLocale(this.title, this.$route.query?.metadataLang || this.$i18n.locale) : '';
+        const mainTitle = this.title ? langMapValueForLocale(this.title, this.metadataLanguage || this.$i18n.locale) : '';
         const alternativeTitle = this.altTitle ? langMapValueForLocale(this.altTitle, this.$i18n.locale) : '';
 
         const allTitles = [].concat(mainTitle, alternativeTitle).filter(Boolean);
@@ -261,7 +266,7 @@
         if (!this.description) {
           return null;
         }
-        return langMapValueForLocale(this.description, this.$route.query?.metadataLang || this.$i18n.locale);
+        return langMapValueForLocale(this.description, this.metadataLanguage || this.$i18n.locale);
       },
       metaTitle() {
         return this.titlesInCurrentLanguage[0] ? this.titlesInCurrentLanguage[0].value : this.$t('record.record');
