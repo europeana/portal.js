@@ -77,11 +77,11 @@
         return this.metadataLanguage && this.itemLanguage !== this.metadataLanguage;
       },
       unsopportedEdmLanguage() {
-        return !this.$i18n.locales.some(locale => locale.code === this.itemLanguage)
+        return !this.$i18n.locales.some(locale => locale.code === this.itemLanguage);
       },
       availableLocalesForItem() {
         let locales;
-        if(this.metadataLanguage && this.unsopportedEdmLanguage) {
+        if (this.metadataLanguage && this.unsopportedEdmLanguage) {
           // The edmLanguage isn't supported, but the item is already transltated,
           // offer translation options for all languages except the current one.
           locales = this.$i18n.locales.filter(i => ![this.selectedLocale.code, this.metadataLanguage].includes(i.code));

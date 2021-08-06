@@ -194,7 +194,7 @@ function setMatchingEntities(fields, key, entities) {
  * @return {?string} related entities
  */
 function preferedLanguage(edmLang, options = {}) {
-  if(options.metadataLang) {
+  if (options.metadataLang) {
     return options.metadataLang;
   } else if (locales.map(locale => locale.code).includes(edmLang)) {
     return edmLang;
@@ -218,7 +218,7 @@ export default (context = {}) => {
      * @return {Object} parsed data
      */
     parseRecordDataFromApiResponse(data, options = {}) {
-      const edm = data.object;context
+      const edm = data.object;
       const providerAggregation = edm.aggregations[0];
 
       const concepts = (edm.concepts || []).map(reduceEntity).map(Object.freeze);
