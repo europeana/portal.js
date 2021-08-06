@@ -260,7 +260,6 @@ export default (context = {}) => {
       }
 
       const allMediaUris = this.aggregationMediaUris(providerAggregation).map(Object.freeze);
-      console.log(`prefLang: ${prefLang}`);
       return {
         allMediaUris,
         altTitle: proxyData.dctermsAlternative,
@@ -370,10 +369,7 @@ export default (context = {}) => {
       return this.$axios.get(`${path}${europeanaId}.json`, { params })
         .then(response => this.parseRecordDataFromApiResponse(response.data, options))
         .then(parsed => {
-          console.log(`parsed metalang: ${parsed.metadataLanguage}`);
-          console.log(`parsed metalang or locale: ${parsed.metadataLanguage || options.locale}`);
           const maps = reduceLangMapsForLocale(parsed, parsed.metadataLanguage || options.locale, options);
-          console.log(`maps: ${maps}`);
           return maps;
         })
         .then(reduced => ({

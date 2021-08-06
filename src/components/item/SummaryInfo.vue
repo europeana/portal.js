@@ -10,7 +10,6 @@
           v-if="index === 0"
           :key="index"
           :lang="heading.code"
-          :data-translation-source="heading.translationSource"
           class="mb-0"
         >
           {{ heading.value }}
@@ -26,7 +25,6 @@
           v-else
           :key="index"
           :lang="heading.code"
-          :data-translation-source="heading.translationSource"
           class="font-weight-bold mt-3 mb-0"
         >
           {{ heading.value }}
@@ -52,26 +50,31 @@
         <p
           v-if="index === 0"
           :lang="description.code"
-          :data-translation-source="description.translationSource"
           v-html="$options.filters.convertNewLine(showAll ? value : truncatedDescription)"
         />
         <p
           v-else-if="showAll"
           :lang="description.code"
-          :data-translation-source="description.translationSource"
           v-html="$options.filters.convertNewLine(value)"
         />
         <!-- eslint-disable vue/no-v-html -->
-        <hr
-          v-if="(index + 1) < description.values.length && showAll"
-        >
         <button
-          v-if="translatedItemsEnabled"
+          v-if="translatedItemsEnabled && index === 0"
           v-b-tooltip.bottomright="{ customClass: 'tooltip' }"
           :title="$t(`multilingual.${description.translationSource || 'original'}`)"
           class="translation-source"
           :class="description.translationSource || 'original'"
         />
+        <button
+          v-else-if="translatedItemsEnabled && showAll"
+          v-b-tooltip.bottomright="{ customClass: 'tooltip' }"
+          :title="$t(`multilingual.${description.translationSource || 'original'}`)"
+          class="translation-source"
+          :class="description.translationSource || 'original'"
+        />
+        <hr
+          v-if="(index + 1) < description.values.length && showAll"
+        >
       </div>
       <b-button
         v-if="expandableDescription"

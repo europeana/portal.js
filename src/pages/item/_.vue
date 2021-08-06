@@ -160,7 +160,6 @@
       return $apis.record
         .getRecord(`/${params.pathMatch}`, { locale: app.i18n.locale, metadataLang: route.query.metadataLang })
         .then(result => {
-          console.log(result);
           return result.record;
         })
         .catch(error => {

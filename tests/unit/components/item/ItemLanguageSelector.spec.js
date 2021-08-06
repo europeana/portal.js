@@ -52,7 +52,7 @@ describe('components/item/ItemLanguageSelector', () => {
       const wrapper = factory({ itemLanguage: 'de' });
 
       const suggestion = wrapper.find('[data-qa="translate item suggestion"]');
-      suggestion.text().should.eq('Would you like to see this item in English ?');
+      suggestion.text().should.eq('Would you like to see this item in English?');
     });
   });
   context('when the UI language and the edmLanguage are the same it', () => {
@@ -60,7 +60,7 @@ describe('components/item/ItemLanguageSelector', () => {
       const wrapper = factory({ itemLanguage: 'en' });
 
       const suggestion = wrapper.find('[data-qa="translate item suggestion"]');
-      suggestion.text().should.eq('Would you like to see this item in a different language ?');
+      suggestion.text().should.eq('Would you like to see this item in a different language?');
     });
   });
   context('when the item metadata is translated', () => {
@@ -68,7 +68,7 @@ describe('components/item/ItemLanguageSelector', () => {
       const wrapper = factory({ itemLanguage: 'en' }, 'de');
 
       const suggestion = wrapper.find('[data-qa="translate item suggestion"]');
-      suggestion.text().should.eq('Would you like to see this item in original language ?');
+      suggestion.text().should.eq('Would you like to see this item in original language?');
     });
   });
   describe('translateParams', () => {
