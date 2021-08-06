@@ -20,7 +20,7 @@ i18n.locales = [
   { code: 'de', name: 'Deutsch', iso: 'de-DE' }
 ];
 
-const factory = (propsData, metadataLang) => mount(ItemLanguageSelector, {
+const factory = (propsData) => mount(ItemLanguageSelector, {
   localVue,
   propsData,
   i18n,
@@ -37,7 +37,7 @@ const factory = (propsData, metadataLang) => mount(ItemLanguageSelector, {
     $route: {
       path: 'item/example/123',
       query: {
-        metadataLang
+        metadataLang: propsData.metadataLanguage
       }
     }
   },
@@ -47,29 +47,43 @@ const factory = (propsData, metadataLang) => mount(ItemLanguageSelector, {
 });
 
 describe('components/item/ItemLanguageSelector', () => {
-  context('when the UI language and the edmLanguage are different it', () => {
-    it('suggests to translate the item metadata to the UI language ', () => {
-      const wrapper = factory({ itemLanguage: 'de' });
+  context('when the record has a supported edmLanguage', () => {
+    context('when the UI language and the edmLanguage are different it', () => {
+      it('suggests to translate the item metadata to the UI language ', () => {
+        const wrapper = factory({ itemLanguage: 'de', metadataLanguage: 'de' });
 
-      const suggestion = wrapper.find('[data-qa="translate item suggestion"]');
-      suggestion.text().should.eq('Would you like to see this item in English?');
+        const suggestion = wrapper.find('[data-qa="translate item suggestion"]');
+        suggestion.text().should.eq('Would you like to see this item in English?');
+      });
+    });
+    context('when the UI language and the edmLanguage are the same it', () => {
+      it('suggests to translate the item metadata to different language ', () => {
+        const wrapper = factory({ itemLanguage: 'en', metadataLanguage: 'en' });
+
+        const suggestion = wrapper.find('[data-qa="translate item suggestion"]');
+        suggestion.text().should.eq('Would you like to see this item in a different language?');
+      });
+    });
+    context('when the item metadata is to the UI language', () => {
+      it('suggests to return to the original language ', () => {
+        const wrapper = factory({ itemLanguage: 'de', metadataLanguage: 'en'  });
+
+        const suggestion = wrapper.find('[data-qa="translate item suggestion"]');
+        suggestion.text().should.eq('Would you like to see this item in original language?');
+      });
+    });
+    context('when the item metadata is to a non-UI language', () => {
+      it('suggests to return to the original language ', () => {
+        const wrapper = factory({ itemLanguage: 'de', metadataLanguage: 'nl'  });
+
+        const suggestion = wrapper.find('[data-qa="translate item suggestion"]');
+        suggestion.text().should.eq('Would you like to see this item in original language?');
+      });
     });
   });
-  context('when the UI language and the edmLanguage are the same it', () => {
-    it('suggests to translate the item metadata to different language ', () => {
-      const wrapper = factory({ itemLanguage: 'en' });
 
-      const suggestion = wrapper.find('[data-qa="translate item suggestion"]');
-      suggestion.text().should.eq('Would you like to see this item in a different language?');
-    });
-  });
-  context('when the item metadata is translated', () => {
-    it('suggests to return to the original language ', () => {
-      const wrapper = factory({ itemLanguage: 'en' }, 'de');
-
-      const suggestion = wrapper.find('[data-qa="translate item suggestion"]');
-      suggestion.text().should.eq('Would you like to see this item in original language?');
-    });
+  context('when the record has a unsupported edmLanguage', () => {
+    // ...
   });
   describe('translateParams', () => {
     it('adds the metadataLang query with the provided language code', () => {

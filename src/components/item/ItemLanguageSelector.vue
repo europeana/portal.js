@@ -14,16 +14,16 @@
               class="pr-1"
               data-qa="translate item suggestion"
             >
-              <span v-if="(!translated && itemLanguage === selectedLocale.code) || (unsopportedEdmLanguage && metadataLanguage === selectedLocale.code)">
-                {{ $t('multilingual.differentLanguage') }}<!-- This comment removes white space which gets underlined
+              <span v-if="(!translated && itemLanguage === selectedLocale.code) || (unsopportedEdmLanguage && metadataLanguage === selectedLocale.code)"><!-- This comment removes white space
+              -->{{ $t('multilingual.differentLanguage') }}<!-- This comment removes white space which gets underlined
               -->
               </span>
               <b-link
                 v-else
                 :to="translateParams(translated && !unsopportedEdmLanguage ? null : selectedLocale.code)"
               >
-                <span>
-                  {{ languageToggle }}<!-- This comment removes white space which gets underlined
+                <span><!-- This comment removes white space
+                -->{{ languageToggle }}<!-- This comment removes white space which gets underlined
                -->
                 </span>
               </b-link>

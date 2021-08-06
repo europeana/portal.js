@@ -57,6 +57,7 @@ const apiResponse = {
       }
     ],
     europeanaAggregation: {
+      edmLanguage: { def: ['de'] },
       edmRights: { def: ['https://example.org'] },
       edmPreview: 'https://example.org'
     },
