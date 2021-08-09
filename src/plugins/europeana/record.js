@@ -424,23 +424,6 @@ export default (context = {}) => {
 
       return proxyUrl.toString();
     }
-
-    // getEdmLanguage(params, europeanaId) {
-    //   return this.$axios.get('search.json', {
-    //     params: {
-    //       ...params,
-    //       profile: 'facets',
-    //       facet: 'LANGUAGE',
-    //       query: `europeana_id:"${europeanaId}"`,
-    //       rows: 0
-    //     }
-    //   })
-    //     .then(response => response.data.facets[0].fields[0].label)
-    //     .catch(error => {
-    //       const message = error.response ? error.response.data.error : error.message;
-    //       throw new Error(message);
-    //     });
-    // }
   };
 };
 
