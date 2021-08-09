@@ -30,7 +30,14 @@ const factory = (propsData) => mount(SummaryInfo, {
   i18n,
   mocks: {
     $t: (key) => `TRANSLATED: ${key}`,
-    $route: {}
+    $route: {},
+    $config: {
+      app: {
+        features: {
+          translatedItems: true
+        }
+      }
+    }
   }
 });
 
@@ -71,7 +78,7 @@ describe('components/item/SummaryInfo', () => {
     });
 
     it('shows a read more button', () => {
-      const readMoreToggle = wrapper.find('button');
+      const readMoreToggle = wrapper.find('button[data-qa="description show link"]');
       readMoreToggle.text().should.eq('TRANSLATED: readMore');
     });
   });
@@ -86,7 +93,7 @@ describe('components/item/SummaryInfo', () => {
     });
 
     it('shows a title', () => {
-      const readMoreToggle = wrapper.find('button');
+      const readMoreToggle = wrapper.find('button[data-qa="description show link"]');
       readMoreToggle.text().should.eq('TRANSLATED: readMore');
     });
   });

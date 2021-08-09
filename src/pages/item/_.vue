@@ -174,7 +174,6 @@
         agents: [],
         allMediaUris: [],
         altTitle: null,
-        annotations: [],
         cardGridClass: null,
         concepts: [],
         coreFields: null,
@@ -185,12 +184,8 @@
         isShownAt: null,
         media: [],
         organizations: [],
-        relatedEntities: [],
-        similarItems: [],
-        taggingAnnotations: [],
         timespans: [],
         title: null,
-        transcribingAnnotations: [],
         type: null,
         useProxy: true,
         schemaOrg: null,
@@ -202,7 +197,7 @@
     computed: {
       keywords() {
         // Convert collection of annotations' prefLabels into a single langMap
-        return this.taggingAnnotations.reduce((memo, annotation) => {
+        return this.taggingAnnotations?.reduce((memo, annotation) => {
           for (const lang in annotation.body.prefLabel) {
             if (!memo[lang]) {
               memo[lang] = [];
@@ -310,7 +305,7 @@
 
     methods: {
       annotationsByMotivation(motivation) {
-        return this.annotations.filter(annotation => annotation.motivation === motivation);
+        return this.annotations?.filter(annotation => annotation.motivation === motivation);
       },
 
       getSimilarItems() {
