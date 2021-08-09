@@ -369,8 +369,7 @@ export default (context = {}) => {
       return this.$axios.get(`${path}${europeanaId}.json`, { params })
         .then(response => this.parseRecordDataFromApiResponse(response.data, options))
         .then(parsed => {
-          const maps = reduceLangMapsForLocale(parsed, parsed.metadataLanguage || options.locale, options);
-          return maps;
+          return reduceLangMapsForLocale(parsed, parsed.metadataLanguage || options.locale, options);
         })
         .then(reduced => ({
           record: reduced,

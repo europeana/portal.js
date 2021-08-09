@@ -104,10 +104,6 @@
       titles: {
         type: Array,
         default: () => []
-      },
-      translatedItemsEnabled: {
-        type: Boolean,
-        default: false
       }
     },
     data() {
@@ -128,6 +124,9 @@
           return this.$options.filters.truncate(this.description.values[0], this.limitCharacters, this.$t('formatting.ellipsis'));
         }
         return false;
+      },
+      translatedItemsEnabled() {
+        return this.$config.app.features.translatedItems;
       }
     },
     methods: {

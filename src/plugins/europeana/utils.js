@@ -141,9 +141,10 @@ export const selectLocaleForLangMap = (langMap, locale) => {
  * With the setting omitAllUris set to true, when no other values were found all values matching the URI pattern will be
  * omitted.
  * @param {Object} The LangMap
- * @param {String} locale Current locale as a 2 letter code
+ * @param {String} locale Prefered locale as a 2 letter code
  * @param {Boolean} options.omitUrisIfOtherValues Setting to prefer any value over URIs
  * @param {Boolean} options.omitAllUris Setting to remove all URIs
+ * @param {Boolean} options.uiLanguage Setting to override the UI language, if it differs from the locale
  * @return {{Object[]{language: String, values: Object[]}}} Language code and values, values may be strings or language maps themselves.
  */
 export function langMapValueForLocale(langMap, locale, options = {}) {
@@ -152,7 +153,7 @@ export function langMapValueForLocale(langMap, locale, options = {}) {
     return returnVal;
   }
 
-  setLangMapValuesAndCode(returnVal, langMap, selectLocaleForLangMap(langMap, locale), locale);
+  setLangMapValuesAndCode(returnVal, langMap, selectLocaleForLangMap(langMap, locale), options.uiLanguage || locale);
 
   let withEntities = addEntityValues(returnVal, entityValues(langMap['def'], locale));
   // In case an entity resolves as only its URI as is the case in search responses

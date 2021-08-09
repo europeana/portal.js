@@ -40,7 +40,6 @@
             <SummaryInfo
               :description="descriptionInCurrentLanguage"
               :titles="titlesInCurrentLanguage"
-              :translated-items-enabled="translatedItemsEnabled"
             />
           </b-col>
         </b-row>
@@ -250,8 +249,8 @@
       titlesInCurrentLanguage() {
         const titles = [];
 
-        const mainTitle = this.title ? langMapValueForLocale(this.title, this.metadataLanguage || this.$i18n.locale) : '';
-        const alternativeTitle = this.altTitle ? langMapValueForLocale(this.altTitle, this.$i18n.locale) : '';
+        const mainTitle = this.title ? langMapValueForLocale(this.title, this.metadataLanguage || this.$i18n.locale, { uiLanguage: this.$i18n.locale }) : '';
+        const alternativeTitle = this.altTitle ? langMapValueForLocale(this.altTitle, this.$i18n.locale, { uiLanguage: this.$i18n.locale }) : '';
 
         const allTitles = [].concat(mainTitle, alternativeTitle).filter(Boolean);
         for (const title of allTitles) {
@@ -265,7 +264,7 @@
         if (!this.description) {
           return null;
         }
-        return langMapValueForLocale(this.description, this.metadataLanguage || this.$i18n.locale);
+        return langMapValueForLocale(this.description, this.metadataLanguage || this.$i18n.locale, { uiLanguage: this.$i18n.locale });
       },
       metaTitle() {
         return this.titlesInCurrentLanguage[0] ? this.titlesInCurrentLanguage[0].value : this.$t('record.record');

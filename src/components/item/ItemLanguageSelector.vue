@@ -14,13 +14,13 @@
               class="pr-1"
               data-qa="translate item suggestion"
             >
-              <span v-if="(!translated && itemLanguage === selectedLocale.code) || (unsopportedEdmLanguage && metadataLanguage === selectedLocale.code)"><!-- This comment removes white space
+              <span v-if="(!translated && itemLanguage === selectedLocale.code)"><!-- This comment removes white space
               -->{{ $t('multilingual.differentLanguage') }}<!-- This comment removes white space which gets underlined
               -->
               </span>
               <b-link
                 v-else
-                :to="translateParams(translated && !unsopportedEdmLanguage ? null : selectedLocale.code)"
+                :to="translateParams(translated ? null : selectedLocale.code)"
               >
                 <span><!-- This comment removes white space
                 -->{{ languageToggle }}<!-- This comment removes white space which gets underlined
@@ -71,24 +71,13 @@
     },
     computed: {
       languageToggle() {
-        return this.translated && !this.unsopportedEdmLanguage ? this.$t('multilingual.originalLanguage') : this.selectedLocale.name;
+        return this.translated ? this.$t('multilingual.originalLanguage') : this.selectedLocale.name;
       },
       translated() {
         return this.metadataLanguage && this.itemLanguage !== this.metadataLanguage;
       },
-      unsopportedEdmLanguage() {
-        return !this.$i18n.locales.some(locale => locale.code === this.itemLanguage);
-      },
       availableLocalesForItem() {
-        let locales;
-        if (this.metadataLanguage && this.unsopportedEdmLanguage) {
-          // The edmLanguage isn't supported, but the item is already transltated,
-          // offer translation options for all languages except the current one.
-          locales = this.$i18n.locales.filter(i => ![this.selectedLocale.code, this.metadataLanguage].includes(i.code));
-        } else {
-          locales = this.availableLocales;
-        }
-        return locales;
+        return this.$i18n.locales.filter(i => this.metadataLanguage !== i.code);
       }
     },
     methods: {
