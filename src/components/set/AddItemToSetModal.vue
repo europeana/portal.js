@@ -16,6 +16,19 @@
     >
       {{ $t('set.actions.createNew') }}
     </b-button>
+
+    <b-form-input
+      v-model="searchQuery"
+      placeholder="Search gallery"
+      @input="fetchCollections()"
+    />
+    <p
+      class="help"
+    >
+      <span class="icon-info-outline" />
+      {{ $t('set.form.searchHelpText') }}
+    </p>
+
     <div class="collections">
       <b-button
         v-for="(collection, index) in collections"
@@ -73,7 +86,8 @@
     data() {
       return {
         fetched: false,
-        added: []
+        added: [],
+        searchQuery: null
       };
     },
 
@@ -99,7 +113,7 @@
 
     methods: {
       fetchCollections() {
-        this.$store.dispatch('set/fetchCreations')
+        this.$store.dispatch('set/fetchCreations', this.searchQuery)
           .then(() => {
             this.fetched = true;
           });
@@ -168,6 +182,12 @@
         font-size: $font-size-large;
       }
     }
+  }
+
+  input[type='text'] {
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    height: 3rem;
   }
 
   .collections {

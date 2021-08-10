@@ -164,14 +164,18 @@ export default {
           commit('setCreations', creations);
         });
     },
-    fetchCreations({ commit }) {
+    fetchCreations({ commit }, searchQuery) {
       const creatorId = this.$auth.user ? this.$auth.user.sub : null;
-      const searchParams = {
-        query: `creator:${creatorId}`,
+      const params = {
+        query: searchQuery ? searchQuery : '',
         profile: 'itemDescriptions',
-        pageSize: 100, // TODO: pagination?
-        qf: 'type:Collection'
+        pageSize: 5,
+        qf: `creator:${creatorId}`,
+        sort: 'modified+desc'
       };
+
+      const searchParams = new URLSearchParams(params);
+      searchParams.append('qf', 'type:Collection');
 
       return this.$apis.set.search(searchParams)
         .then(searchResponse => commit('setCreations', searchResponse.data.items || []));

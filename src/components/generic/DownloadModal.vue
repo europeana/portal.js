@@ -200,18 +200,5 @@
         align-items: center;
       }
     }
-
-    .help {
-      font-size: $font-size-extrasmall;
-      color: $mediumgrey;
-      display: flex;
-      align-items: center;
-      margin-bottom: 1.25rem;
-
-      span {
-        display: inline-block;
-        margin-right: 0.5rem;
-      }
-    }
   }
 </style>

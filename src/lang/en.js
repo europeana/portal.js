@@ -754,7 +754,9 @@ export default {
       "description": "Gallery description",
       "private": "Keep this gallery private",
       "required": "Required field",
-      "title": "Gallery name"
+      "title": "Gallery name",
+      "searchHelpText": "Your 5 recently updated galleries. To find your other galleries interact with the search.",
+      "searchNotFound": "We did not find any galleries matching your search query."
     },
     "labels": {
       "curatedBy": "Curated by",
