@@ -60,7 +60,12 @@ const factory = () => shallowMountNuxt(page, {
     },
     $store: {
       state: {
-
+        item: {
+          active: false,
+          annotations: [],
+          relatedEntities: [],
+          similarItems: []
+        }
       },
       getters: {
         'set/isLiked': sinon.stub(),
