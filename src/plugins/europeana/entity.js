@@ -74,7 +74,7 @@ export default (context = {}) => {
      * @return {Array} entity data
      */
     findEntities(entityUris) {
-      if (entityUris.length === 0) {
+      if (entityUris?.length === 0) {
         return [];
       }
       const q = entityUris.join('" OR "');

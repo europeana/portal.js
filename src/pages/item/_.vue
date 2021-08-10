@@ -44,7 +44,7 @@
           </b-col>
         </b-row>
         <b-row
-          v-if="relatedEntities && relatedEntities.length > 0"
+          v-if="activeStore && relatedEntities && relatedEntities.length > 0"
           class="justify-content-center"
         >
           <b-col
@@ -53,7 +53,7 @@
           >
             <RelatedCollections
               :title="$t('collectionsYouMightLike')"
-              :related-collections="relatedEntities"
+              :related-collections="relatedEntities ? relatedEntities : []"
               data-qa="related entities"
             />
           </b-col>
@@ -71,12 +71,12 @@
               :all-metadata="allMetaData"
               :core-metadata="coreFields"
               :location="locationData"
-              :transcribing-annotations="transcribingAnnotations"
+              :transcribing-annotations="activeStore ? transcribingAnnotations : []"
             />
           </b-col>
         </b-row>
         <b-row
-          v-if="similarItems && similarItems.length > 0"
+          v-if="activeStore && similarItems && similarItems.length > 0"
           class="mt-3 mb-0 justify-content-center"
         >
           <b-col
@@ -114,7 +114,7 @@
 <script>
   import axios from 'axios';
   import isEmpty from 'lodash/isEmpty';
-  import { mapGetters } from 'vuex';
+  import { mapState, mapGetters } from 'vuex';
 
   import MetadataBox from '@/components/item/MetadataBox';
 
@@ -145,11 +145,10 @@
         this.getSimilarItems()
       ])
         .then(axios.spread((annotations, entities, similar) => {
-          this.annotations = annotations;
-          this.transcribingAnnotations = this.annotationsByMotivation('transcribing');
-          this.taggingAnnotations = this.annotationsByMotivation('tagging');
-          this.relatedEntities = entities;
-          this.similarItems = similar.items;
+          this.$nuxt.context.store.commit('item/setAnnotations', annotations);
+          this.$nuxt.context.store.commit('item/setRelatedEntities', entities);
+          this.$nuxt.context.store.commit('item/setSimilarItems', similar.items);
+          this.$nuxt.context.store.dispatch('item/activate');
         }));
     },
 
@@ -288,8 +287,21 @@
       pageHeadMetaOgImage() {
         return this.media[0] ? this.media[0].thumbnails.large : null;
       },
+      taggingAnnotations() {
+        return this.annotationsByMotivation('tagging');
+      },
+      transcribingAnnotations() {
+        return this.annotationsByMotivation('transcribing');
+      },
       ...mapGetters({
-        shareUrl: 'http/canonicalUrl'
+        shareUrl: 'http/canonicalUrl',
+        annotationsByMotivation: 'item/annotationsByMotivation'
+      }),
+      ...mapState({
+        activeStore: state => state.item.active,
+        relatedEntities: state => state.item.relatedEntities,
+        similarItems: state => state.item.similarItems,
+        annotations: state => state.item.annotations
       }),
       translatedItemsEnabled() {
         return this.$config.app.features.translatedItems;
@@ -304,10 +316,6 @@
     },
 
     methods: {
-      annotationsByMotivation(motivation) {
-        return this.annotations?.filter(annotation => annotation.motivation === motivation);
-      },
-
       getSimilarItems() {
         const noSimilarItems = { results: [] };
         if (this.error) {
@@ -384,13 +392,21 @@
 
     watchQuery: ['metadataLang'],
 
-    beforeRouteLeave(to, from, next) {
+    async beforeRouteUpdate(to, from, next) {
+      if (to.path !== from.path) {
+        // Navigation to another item
+        await this.$store.dispatch('item/deactivate');
+      }
+      next();
+    },
+    async beforeRouteLeave(to, from, next) {
       this.$gtm.push({
         itemCountry: undefined,
         itemDataProvider: undefined,
         itemProvider: undefined,
         itemRights: undefined
       });
+      await this.$store.dispatch('item/deactivate');
       next();
     }
   };

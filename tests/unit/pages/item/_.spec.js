@@ -15,18 +15,22 @@ const optionsVar = {
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
+const item = {
+  identifier: '/123/abc',
+  coreFields: {
+    edmDataProvider: {
+      url: 'https://www.example.eu',
+      value: ['Data Provider']
+    }
+  }
+};
+
+const storeDispatch = sinon.spy();
+
 const factory = () => shallowMountNuxt(page, {
   localVue,
   data() {
-    return {
-      identifier: '/123/abc',
-      coreFields: {
-        edmDataProvider: {
-          url: 'https://www.example.eu',
-          value: ['Data Provider']
-        }
-      }
-    };
+    return item;
   },
   stubs: ['client-only'],
   mocks: {
@@ -55,9 +59,14 @@ const factory = () => shallowMountNuxt(page, {
       }
     },
     $store: {
+      state: {
+
+      },
       getters: {
-        'set/isLiked': sinon.stub()
-      }
+        'set/isLiked': sinon.stub(),
+        'item/annotationsByMotivation': sinon.stub()
+      },
+      dispatch: storeDispatch
     }
   }
 });
