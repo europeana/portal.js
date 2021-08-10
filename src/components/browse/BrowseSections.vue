@@ -77,7 +77,8 @@
       CallToAction: () => import('../generic/CallToAction'),
       RichText: () => import('./RichText'),
       RecentItems: () => import('../item/RecentItems'),
-      FeaturedTopics: () => import('../entity/FeaturedTopics')
+      FeaturedTopics: () => import('../entity/FeaturedTopics'),
+      FeaturedTimes: () => import('../entity/FeaturedTimes')
     },
 
     props: {
@@ -109,6 +110,9 @@
         switch (genre) {
         case 'Featured topics':
           component = 'FeaturedTopics';
+          break;
+        case 'Featured centuries':
+          component = 'FeaturedTimes';
           break;
         case 'Recent items':
           component = 'RecentItems';

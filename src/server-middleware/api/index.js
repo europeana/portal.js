@@ -26,6 +26,9 @@ app.get('/entities/organisations', (req, res) => entitiesOrganisations(runtimeCo
 import entitiesTopics from './entities/topics';
 app.get('/entities/topics', (req, res) => entitiesTopics(runtimeConfig)(req, res));
 
+import entitiesTimes from './entities/times';
+app.get('/entities/times', (req, res) => entitiesTimes(runtimeConfig)(req, res));
+
 import itemsRecent from './items/recent';
 app.get('/items/recent', (req, res) => itemsRecent(runtimeConfig)(req, res));
 
