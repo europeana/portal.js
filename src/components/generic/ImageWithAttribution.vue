@@ -12,6 +12,7 @@
     >
       <figure>
         <OptimisedImage
+          v-if="src"
           :src="src"
           :width="width"
           :height="height"
@@ -70,7 +71,7 @@
       src: {
         type: String,
         required: true,
-        default: ''
+        default: null
       },
       width: {
         type: Number,
