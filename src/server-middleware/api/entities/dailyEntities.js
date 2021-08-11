@@ -1,4 +1,5 @@
-const { CACHE_KEY } = require('../../../cachers/entities/times');
+const TIMES_CACHE_KEY = require('../../../cachers/entities/times').CACHE_KEY;
+const TOPICS_CACHE_KEY = require('../../../cachers/entities/topics').CACHE_KEY;
 const { createRedisClient } = require('../../../cachers/utils');
 import { errorHandler } from '../';
 
@@ -11,10 +12,15 @@ const offsetOfTheDay = (setSize) => {
   return offset + subsetSize <= setSize ? offset : setSize - subsetSize;
 };
 
-export const timesOfTheDay = (config = {}) => {
+export const entitiesOfTheDay = (config = {}, type) => {
   const redisClient = createRedisClient(config.redis);
-
-  return redisClient.getAsync(CACHE_KEY)
+  let key;
+  if (type === 'time') {
+    key = TIMES_CACHE_KEY;
+  } else if (type === 'topic') {
+    key = TOPICS_CACHE_KEY;
+  }
+  return redisClient.getAsync(key)
     .then(value => JSON.parse(value))
     .then(parsed => {
       const offset = offsetOfTheDay(parsed.length);
@@ -22,12 +28,12 @@ export const timesOfTheDay = (config = {}) => {
     });
 };
 
-export default (config = {}) => (req, res) => {
+export default (config = {}, type) => (req, res) => {
   if (!config.redis.url) {
     return errorHandler(res, new Error('No cache configured.'));
   }
 
-  return timesOfTheDay(config)
+  return entitiesOfTheDay(config, type)
     .then(times => res.json(times))
     .catch(error => errorHandler(res, error));
 };

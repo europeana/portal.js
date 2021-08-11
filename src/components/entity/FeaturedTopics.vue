@@ -20,8 +20,8 @@
 
     fetch() {
       if (process.server) {
-        return require('@/server-middleware/api/entities/topics')
-          .topicsOfTheDay(this.$config)
+        return require('@/server-middleware/api/entities/dailyEntities')
+          .entitiesOfTheDay(this.$config, 'topic')
           .then(topics => {
             this.topics = topics;
           });

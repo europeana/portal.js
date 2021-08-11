@@ -23,11 +23,9 @@ app.get('/debug/memory-usage', debugMemoryUsage);
 import entitiesOrganisations from './entities/organisations';
 app.get('/entities/organisations', (req, res) => entitiesOrganisations(runtimeConfig)(req, res));
 
-import entitiesTopics from './entities/topics';
-app.get('/entities/topics', (req, res) => entitiesTopics(runtimeConfig)(req, res));
-
-import entitiesTimes from './entities/times';
-app.get('/entities/times', (req, res) => entitiesTimes(runtimeConfig)(req, res));
+import dailyEntities from './entities/dailyEntities';
+app.get('/entities/topics', (req, res) => dailyEntities(runtimeConfig, 'topic')(req, res));
+app.get('/entities/times', (req, res) => dailyEntities(runtimeConfig, 'time')(req, res));
 
 import itemsRecent from './items/recent';
 app.get('/items/recent', (req, res) => itemsRecent(runtimeConfig)(req, res));
