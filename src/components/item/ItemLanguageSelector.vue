@@ -2,6 +2,7 @@
   <b-container
     fluid
     class="border-bottom mt-3"
+    data-qa="item language selector"
   >
     <b-container>
       <b-row>

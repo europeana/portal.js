@@ -19,6 +19,7 @@
             :title="$t(`multilingual.${heading.translationSource || 'original'}`)"
             class="translation-source"
             :class="heading.translationSource || 'original'"
+            data-qa="translated title tooltip"
           />
         </h1>
         <p
@@ -34,6 +35,7 @@
             :title="$t(`multilingual.${heading.translationSource || 'original'}`)"
             class="translation-source"
             :class="heading.translationSource || 'original'"
+            data-qa="translated description tooltip"
           />
         </p>
       </template>
@@ -64,6 +66,7 @@
           :title="$t(`multilingual.${description.translationSource || 'original'}`)"
           class="translation-source"
           :class="description.translationSource || 'original'"
+          data-qa="translated description tooltip"
         />
         <button
           v-else-if="translatedItemsEnabled && showAll"
@@ -71,6 +74,7 @@
           :title="$t(`multilingual.${description.translationSource || 'original'}`)"
           class="translation-source"
           :class="description.translationSource || 'original'"
+          data-qa="translated description tooltip"
         />
         <hr
           v-if="(index + 1) < description.values.length && showAll"

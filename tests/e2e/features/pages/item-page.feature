@@ -113,3 +113,7 @@ Feature: item page
     And I see an `item page`
     And I hover over the `metadata box`
     Then I don't see a "Location" tab
+
+  Scenario: Seeing an item language selector
+    When I open an `item page`
+    Then I see an `item language selector`
