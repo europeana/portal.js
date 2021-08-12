@@ -35,6 +35,7 @@
             toggle-class="multilingual-dropdown"
             toggle-tag="span"
             no-flip
+            class="multilingual-selector"
           >
             <b-dropdown-item
               v-for="locale in availableLocalesForItem"
