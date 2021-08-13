@@ -10,7 +10,9 @@
       :class="hero ? 'hero' : ''"
       @click="!citeCollapsed ? toggleCite : null"
     >
-      <figure>
+      <figure
+        :class="{ empty: !src }"
+      >
         <OptimisedImage
           v-if="src"
           :src="src"
