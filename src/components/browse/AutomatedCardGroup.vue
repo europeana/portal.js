@@ -11,6 +11,10 @@
 <script>
   import ContentCardSection from './ContentCardSection';
 
+  const FEATURED_TOPICS = 'Featured topics';
+  const FEATURED_TIMES = 'Featured centuries';
+  const RECENT_ITEMS = 'Recent items';
+
   export default {
     name: 'AutomatedCardGroup',
 
@@ -27,16 +31,15 @@
 
     fetch() {
       if (process.server) {
-        return require('@/server-middleware/api/dailyEntries').entriesOfTheDay(this.$config, this.type)
+        return require('@/server-middleware/api/dailyEntries').entriesOfTheDay(this.type, this.$config)
           .then(entries => {
             this.entries = entries;
           });
-      } else if (this.apiEndpoint) {
-        return this.$axios.get(this.apiEndpoint)
-          .then(response => {
-            this.entries = response.data;
-          });
       }
+      return this.$axios.get(this.apiEndpoint)
+        .then(response => {
+          this.entries = response.data;
+        });
     },
 
     data: () => ({
@@ -60,11 +63,11 @@
       },
       type() {
         switch (this.sectionType) {
-        case 'Featured topics':
+        case FEATURED_TOPICS:
           return 'topic';
-        case 'Featured centuries':
+        case FEATURED_TIMES:
           return 'time';
-        case 'Recent items':
+        case RECENT_ITEMS:
           return 'item';
         default:
           return null;
@@ -72,10 +75,10 @@
       },
       cardType() {
         switch (this.sectionType) {
-        case 'Featured topics':
-        case 'Featured centuries':
+        case FEATURED_TOPICS:
+        case FEATURED_TIMES:
           return 'AutomatedEntityCard';
-        case 'Recent items':
+        case RECENT_ITEMS:
           return 'AutomatedRecordCard';
         default:
           return null;
@@ -84,11 +87,11 @@
       apiEndpoint() {
         console.log(this.sectionType);
         switch (this.sectionType) {
-        case 'Featured topics':
+        case FEATURED_TOPICS:
           return '/_api/entities/topics';
-        case 'Featured centuries':
+        case FEATURED_TIMES:
           return '/_api/entities/times';
-        case 'Recent items':
+        case RECENT_ITEMS:
           return '/_api/items/recent';
         default:
           return null;

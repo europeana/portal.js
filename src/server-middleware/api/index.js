@@ -24,9 +24,9 @@ import entitiesOrganisations from './entities/organisations';
 app.get('/entities/organisations', (req, res) => entitiesOrganisations(runtimeConfig)(req, res));
 
 import dailyEntries from './dailyEntries';
-app.get('/entities/topics', (req, res) => dailyEntries(runtimeConfig, 'topic')(req, res));
-app.get('/entities/times', (req, res) => dailyEntries(runtimeConfig, 'time')(req, res));
-app.get('/items/recent', (req, res) => dailyEntries(runtimeConfig, 'item')(req, res));
+app.get('/entities/topics', (req, res) => dailyEntries('topic', runtimeConfig)(req, res));
+app.get('/entities/times', (req, res) => dailyEntries('time', runtimeConfig)(req, res));
+app.get('/items/recent', (req, res) => dailyEntries('item', runtimeConfig)(req, res));
 
 import jiraServiceDesk from './jira/service-desk';
 app.post('/jira/service-desk', (req, res) => jiraServiceDesk(runtimeConfig.jira)(req, res));

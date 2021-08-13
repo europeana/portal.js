@@ -13,7 +13,7 @@ const offsetOfTheDay = (setSize) => {
   return offset + subsetSize <= setSize ? offset : setSize - subsetSize;
 };
 
-export const entriesOfTheDay = (config = {}, type) => {
+export const entriesOfTheDay = (type, config = {}) => {
   const redisClient = createRedisClient(config.redis);
   let key;
   if (type === 'time') {
@@ -31,12 +31,12 @@ export const entriesOfTheDay = (config = {}, type) => {
     });
 };
 
-export default (config = {}, type) => (req, res) => {
+export default (type, config = {}) => (req, res) => {
   if (!config.redis.url) {
     return errorHandler(res, new Error('No cache configured.'));
   }
 
-  return entriesOfTheDay(config, type)
+  return entriesOfTheDay(type, config)
     .then(times => res.json(times))
     .catch(error => errorHandler(res, error));
 };
