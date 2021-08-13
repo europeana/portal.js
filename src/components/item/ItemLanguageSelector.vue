@@ -8,7 +8,7 @@
       <b-row>
         <b-col class="col-12 pb-3 d-inline-flex align-items-center flex-wrap">
           <span>
-            <span class="icon-language pr-2" />
+            <span class="icon-translate pr-2" />
             <i18n
               path="multilingual.currentLanguage"
               tag="span"
@@ -97,7 +97,7 @@
 <style lang="scss" scoped>
 @import '@/assets/scss/variables.scss';
 
-.icon-language:before {
+.icon-translate:before {
   font-size: 1.4375rem;
 }
 .multilingual-dropdown-item {

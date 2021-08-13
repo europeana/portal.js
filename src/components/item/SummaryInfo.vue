@@ -152,10 +152,19 @@
 .automated, .enrichment, .original {
   &:after {
     @extend .icon-font;
-    content: '\e91f';
     font-weight: $font-size-medium;
     opacity: 0.2;
+    font-size: 1.125rem;
   }
+}
+.automated::after {
+  content: '\e941';
+}
+.enrichment::after {
+  content: '\e940';
+}
+.original::after {
+  content: '\e93f';
 }
 .translation-source {
   border: none;
