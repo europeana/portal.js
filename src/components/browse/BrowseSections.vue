@@ -21,10 +21,10 @@
         :total="section.total"
         :cards="section.items"
       />
-      <component
-        :is="automatedCardGroupComponent(section.genre)"
+      <AutomatedCardGroup
         v-else-if="contentType(section, 'AutomatedCardGroup')"
         :key="index"
+        :section-type="section.genre"
       />
       <HTMLEmbed
         v-else-if="contentType(section, 'Embed')"
@@ -76,9 +76,7 @@
       ImageWithAttribution: () => import('../generic/ImageWithAttribution'),
       CallToAction: () => import('../generic/CallToAction'),
       RichText: () => import('./RichText'),
-      RecentItems: () => import('../item/RecentItems'),
-      FeaturedTopics: () => import('../entity/FeaturedTopics'),
-      FeaturedTimes: () => import('../entity/FeaturedTimes')
+      AutomatedCardGroup: () => import('../browse/AutomatedCardGroup')
     },
 
     props: {
@@ -104,24 +102,6 @@
     },
 
     methods: {
-      automatedCardGroupComponent(genre) {
-        let component;
-
-        switch (genre) {
-        case 'Featured topics':
-          component = 'FeaturedTopics';
-          break;
-        case 'Featured centuries':
-          component = 'FeaturedTimes';
-          break;
-        case 'Recent items':
-          component = 'RecentItems';
-          break;
-        }
-
-        return component;
-      },
-
       async sectionsWithLatestCardGroups(sections) {
         const content = [].concat(sections);
         const genres = content

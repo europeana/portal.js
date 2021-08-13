@@ -52,6 +52,11 @@ export default {
     "institution": "Institution:",
     "title": "Title:"
   },
+  "automatedCardGroup": {
+    "item": "Recent Items",
+    "time": "Featured Centuries",
+    "topic": "Featured Topics"
+  },
   "blog": {
     "author": "Author",
     "authors": "Authors",

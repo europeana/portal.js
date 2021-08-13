@@ -23,12 +23,10 @@ app.get('/debug/memory-usage', debugMemoryUsage);
 import entitiesOrganisations from './entities/organisations';
 app.get('/entities/organisations', (req, res) => entitiesOrganisations(runtimeConfig)(req, res));
 
-import dailyEntities from './entities/dailyEntities';
-app.get('/entities/topics', (req, res) => dailyEntities(runtimeConfig, 'topic')(req, res));
-app.get('/entities/times', (req, res) => dailyEntities(runtimeConfig, 'time')(req, res));
-
-import itemsRecent from './items/recent';
-app.get('/items/recent', (req, res) => itemsRecent(runtimeConfig)(req, res));
+import dailyEntries from './dailyEntries';
+app.get('/entities/topics', (req, res) => dailyEntries(runtimeConfig, 'topic')(req, res));
+app.get('/entities/times', (req, res) => dailyEntries(runtimeConfig, 'time')(req, res));
+app.get('/items/recent', (req, res) => dailyEntries(runtimeConfig, 'item')(req, res));
 
 import jiraServiceDesk from './jira/service-desk';
 app.post('/jira/service-desk', (req, res) => jiraServiceDesk(runtimeConfig.jira)(req, res));
@@ -42,6 +40,7 @@ export const errorHandler = (res, error) => {
   if (error.response) {
     res.status(error.response.status).set('Content-Type', 'text/plain').send(error.response.data.errorMessage);
   } else {
+    console.log(error);
     res.status(500).set('Content-Type', 'text/plain').send(error.message);
   }
 };
