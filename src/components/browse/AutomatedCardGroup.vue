@@ -85,7 +85,6 @@
         }
       },
       apiEndpoint() {
-        console.log(this.sectionType);
         switch (this.sectionType) {
         case FEATURED_TOPICS:
           return '/_api/entities/topics';
