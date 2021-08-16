@@ -8,6 +8,10 @@
       width: auto;
       height: 100%;
       background: $white;
+      &.empty {
+        min-width: 100%;
+        min-height: $jumbotron-height-min;
+      }
       img {
         width: auto;
         object-fit: contain;
