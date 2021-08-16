@@ -381,7 +381,7 @@ describe('plugins/europeana/record', () => {
           prefLang.should.equal('fr');
         });
       });
-      context('with a unsupported edm language', () => {
+      context('with an unsupported edm language', () => {
         ['sr', 'ja', 'mul'].forEach(edmLanguage => {
           it('returns null', () => {
             const prefLang = preferedLanguage(edmLanguage, options);
@@ -397,15 +397,15 @@ describe('plugins/europeana/record', () => {
 
       context('with a supported edm language', () => {
         const edmLanguage = 'fr';
-        it('returns the edm language', () => {
+        it('returns the requested metadataLanguage', () => {
           const prefLang = preferedLanguage(edmLanguage, options);
 
           prefLang.should.equal('pt');
         });
       });
-      context('with a unsupported edm language', () => {
+      context('with an unsupported edm language', () => {
         ['sr', 'ja', 'mul'].forEach(edmLanguage => {
-          it('returns null', () => {
+          it('returns the requested metadataLanguage', () => {
             const prefLang = preferedLanguage(edmLanguage, options);
 
             prefLang.should.equal('pt');
