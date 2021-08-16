@@ -25,6 +25,7 @@ services:
       - NUXT_LOADING_THROTTLE=0
       - PORTAL_BASE_URL=https://nginx
       - REDIS_URL=redis://cache
+      - ENABLE_TRANSLATED_ITEMS=1
   cache:
     image: redis
   chrome-en:
