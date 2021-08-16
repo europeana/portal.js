@@ -184,7 +184,7 @@ function setMatchingEntities(fields, key, entities) {
 }
 
 /**
- * Find the users prefered metadata language.
+ * Find the currently prefered metadata language.
  * Only makes sense with translated item pages.
  * If no language is specified, defaults to the record's edmLanguage.
  * Only returns languages also supported by the UI & translate API.
@@ -193,7 +193,7 @@ function setMatchingEntities(fields, key, entities) {
  * @param {string} options.metadataLang two letter language code from the user
  * @return {?string} related entities
  */
-function preferedLanguage(edmLang, options = {}) {
+export function preferedLanguage(edmLang, options = {}) {
   if (options.metadataLang) {
     return options.metadataLang;
   } else if (locales.map(locale => locale.code).includes(edmLang)) {
@@ -342,7 +342,7 @@ export default (context = {}) => {
      * @param {string} europeanaId ID of Europeana record
      * @return {Object} parsed record data
      */
-    async getRecord(europeanaId, options = {}) {
+    getRecord(europeanaId, options = {}) {
       let path = '';
       if (!this.$axios.defaults.baseURL.endsWith('/record')) {
         path = '/record';

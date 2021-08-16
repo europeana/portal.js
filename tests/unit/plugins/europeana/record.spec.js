@@ -1,5 +1,5 @@
 import nock from 'nock';
-import record, { isEuropeanaRecordId, BASE_URL } from '@/plugins/europeana/record';
+import record, { preferedLanguage, isEuropeanaRecordId, BASE_URL } from '@/plugins/europeana/record';
 
 const europeanaId = '/123/abc';
 const apiEndpoint = `${europeanaId}.json`;
@@ -365,6 +365,52 @@ describe('plugins/europeana/record', () => {
         const validation = isEuropeanaRecordId(recordId);
 
         validation.should.equal(false);
+      });
+    });
+  });
+
+  describe('preferedLanguage()', () => {
+    context('without a requested metadataLanguage', () => {
+      const options = {};
+
+      context('with a supported edm language', () => {
+        const edmLanguage = 'fr';
+        it('returns the edm language', () => {
+          const prefLang = preferedLanguage(edmLanguage, options);
+
+          prefLang.should.equal('fr');
+        });
+      });
+      context('with a unsupported edm language', () => {
+        ['sr', 'ja', 'mul'].forEach(edmLanguage => {
+          it('returns null', () => {
+            const prefLang = preferedLanguage(edmLanguage, options);
+
+            (prefLang === null).should.equal(true);
+          });
+        });
+      });
+    });
+
+    context('with a requested metadataLanguage', () => {
+      const options = { metadataLang: 'pt' };
+
+      context('with a supported edm language', () => {
+        const edmLanguage = 'fr';
+        it('returns the edm language', () => {
+          const prefLang = preferedLanguage(edmLanguage, options);
+
+          prefLang.should.equal('pt');
+        });
+      });
+      context('with a unsupported edm language', () => {
+        ['sr', 'ja', 'mul'].forEach(edmLanguage => {
+          it('returns null', () => {
+            const prefLang = preferedLanguage(edmLanguage, options);
+
+            prefLang.should.equal('pt');
+          });
+        });
       });
     });
   });

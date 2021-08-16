@@ -25,7 +25,7 @@
               >
                 <span><!-- This comment removes white space
                 -->{{ languageToggle }}<!-- This comment removes white space which gets underlined
-               -->
+                -->
                 </span>
               </b-link>
             </i18n>
