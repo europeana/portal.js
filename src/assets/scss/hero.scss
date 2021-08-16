@@ -26,7 +26,7 @@
   background-position: center center;
   background-size: cover;
   height: 50vh;
-  min-height: 275px;
+  min-height: $jumbotron-height-min;
   padding: 0;
   position: relative;
   margin-top: -1rem;
@@ -240,7 +240,7 @@
     .jumbotron.browse-jumbotron {
       margin-top: 0;
       background-position: center top;
-      height: 275px;
+      height: $jumbotron-height-min;
       
       .card {
         max-width: 70%;

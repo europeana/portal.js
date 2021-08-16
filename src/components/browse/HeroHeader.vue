@@ -33,11 +33,11 @@
         />
         <CiteAttribution
           v-else
-          :name="heroImage.name"
-          :creator="heroImage.creator"
-          :provider="heroImage.provider"
-          :rights-statement="heroImage.license"
-          :url="heroImage.url"
+          :name="heroImage ? heroImage.name : null"
+          :creator="heroImage ? heroImage.creator : null"
+          :provider="heroImage ? heroImage.provider : null"
+          :rights-statement="heroImage ? heroImage.license : null"
+          :url="heroImage ? heroImage.url : null"
           extended
           data-qa="attribution"
         />
@@ -80,7 +80,7 @@
     },
     computed: {
       optimisedImageUrl() {
-        return this.$options.filters.optimisedImageUrl(this.heroImage.image.url, this.heroImage.image.imageContentType, { width: 1920 });
+        return this.$options.filters.optimisedImageUrl(this.heroImage?.image?.url, this.heroImage?.image?.imageContentType, { width: 1920 });
       },
       jumbotronStyle() {
         return {

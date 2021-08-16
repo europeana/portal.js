@@ -62,7 +62,7 @@
 
           return {
             rawDescription: gallery.description,
-            images: gallery.hasPartCollection.items,
+            images: gallery.hasPartCollection.items.filter(image => image !== null),
             title: gallery.name
           };
         })
