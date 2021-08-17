@@ -84,11 +84,11 @@
     },
     methods: {
       translateParams(language) {
-        const queryParams = {};
+        const query = {};
         if (language) {
-          queryParams.metadataLang = language;
+          query.lang = language;
         }
-        return { path: this.$route.path, query: queryParams };
+        return { path: this.$route.path, query };
       }
     }
   };

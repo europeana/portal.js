@@ -37,7 +37,7 @@ const factory = (propsData) => mount(ItemLanguageSelector, {
     $route: {
       path: 'item/example/123',
       query: {
-        metadataLang: propsData.metadataLanguage
+        lang: propsData.metadataLanguage
       }
     }
   },
@@ -85,11 +85,12 @@ describe('components/item/ItemLanguageSelector', () => {
   context('when the record has a unsupported edmLanguage', () => {
     // ...
   });
+
   describe('translateParams', () => {
-    it('adds the metadataLang query with the provided language code', () => {
+    it('adds the lang query with the provided language code', () => {
       const wrapper = factory({ itemLanguage: 'en' });
       const newParams = wrapper.vm.translateParams('de');
-      newParams.query.metadataLang.should.eq('de');
+      newParams.query.lang.should.eq('de');
     });
   });
 });

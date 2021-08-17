@@ -143,7 +143,7 @@
 
     asyncData({ params, res, route, app, $apis }) {
       return $apis.record
-        .getRecord(`/${params.pathMatch}`, { locale: app.i18n.locale, metadataLang: route.query.metadataLang })
+        .getRecord(`/${params.pathMatch}`, { locale: app.i18n.locale, metadataLanguage: route.query.lang })
         .then(result => {
           return result.record;
         })
@@ -402,7 +402,7 @@
       };
     },
 
-    watchQuery: ['metadataLang'],
+    watchQuery: ['lang'],
 
     async beforeRouteUpdate(to, from, next) {
       if (to.path !== from.path) {

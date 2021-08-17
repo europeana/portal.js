@@ -1,5 +1,5 @@
 import nock from 'nock';
-import record, { preferedLanguage, isEuropeanaRecordId, BASE_URL } from '@/plugins/europeana/record';
+import record, { preferredLanguage, isEuropeanaRecordId, BASE_URL } from '@/plugins/europeana/record';
 
 const europeanaId = '/123/abc';
 const apiEndpoint = `${europeanaId}.json`;
@@ -121,7 +121,7 @@ describe('plugins/europeana/record', () => {
           .query(query => query.profile === 'translate' && query.lang === 'fr')
           .reply(200, apiResponse);
 
-        await record({ $config: { app: { features: { translatedItems: true } } } }).getRecord(europeanaId, { metadataLang: 'fr' });
+        await record({ $config: { app: { features: { translatedItems: true } } } }).getRecord(europeanaId, { metadataLanguage: 'fr' });
 
         nock.isDone().should.be.true;
       });
@@ -369,14 +369,14 @@ describe('plugins/europeana/record', () => {
     });
   });
 
-  describe('preferedLanguage()', () => {
+  describe('preferredLanguage()', () => {
     context('without a requested metadataLanguage', () => {
       const options = {};
 
       context('with a supported edm language', () => {
         const edmLanguage = 'fr';
         it('returns the edm language', () => {
-          const prefLang = preferedLanguage(edmLanguage, options);
+          const prefLang = preferredLanguage(edmLanguage, options);
 
           prefLang.should.equal('fr');
         });
@@ -384,7 +384,7 @@ describe('plugins/europeana/record', () => {
       context('with an unsupported edm language', () => {
         ['sr', 'ja', 'mul'].forEach(edmLanguage => {
           it('returns null', () => {
-            const prefLang = preferedLanguage(edmLanguage, options);
+            const prefLang = preferredLanguage(edmLanguage, options);
 
             (prefLang === null).should.equal(true);
           });
@@ -393,12 +393,12 @@ describe('plugins/europeana/record', () => {
     });
 
     context('with a requested metadataLanguage', () => {
-      const options = { metadataLang: 'pt' };
+      const options = { metadataLanguage: 'pt' };
 
       context('with a supported edm language', () => {
         const edmLanguage = 'fr';
         it('returns the requested metadataLanguage', () => {
-          const prefLang = preferedLanguage(edmLanguage, options);
+          const prefLang = preferredLanguage(edmLanguage, options);
 
           prefLang.should.equal('pt');
         });
@@ -406,7 +406,7 @@ describe('plugins/europeana/record', () => {
       context('with an unsupported edm language', () => {
         ['sr', 'ja', 'mul'].forEach(edmLanguage => {
           it('returns the requested metadataLanguage', () => {
-            const prefLang = preferedLanguage(edmLanguage, options);
+            const prefLang = preferredLanguage(edmLanguage, options);
 
             prefLang.should.equal('pt');
           });

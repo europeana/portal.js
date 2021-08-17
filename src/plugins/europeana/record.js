@@ -190,12 +190,12 @@ function setMatchingEntities(fields, key, entities) {
  * Only returns languages also supported by the UI & translate API.
  * @param {string} edmLang two letter edm language code of the record
  * @param {Object} options options from the record retrieval.
- * @param {string} options.metadataLang two letter language code from the user
+ * @param {string} options.metadataLanguage two-letter language code from the user
  * @return {?string} related entities
  */
-export function preferedLanguage(edmLang, options = {}) {
-  if (options.metadataLang) {
-    return options.metadataLang;
+export function preferredLanguage(edmLang, options = {}) {
+  if (options.metadataLanguage) {
+    return options.metadataLanguage;
   } else if (locales.map(locale => locale.code).includes(edmLang)) {
     return edmLang;
   }
@@ -256,7 +256,7 @@ export default (context = {}) => {
             proxyData[field].translationSource = 'automated';
           }
         });
-        prefLang = preferedLanguage(edm.europeanaAggregation.edmLanguage.def[0], options);
+        prefLang = preferredLanguage(edm.europeanaAggregation.edmLanguage.def[0], options);
       }
 
       const allMediaUris = this.aggregationMediaUris(providerAggregation).map(Object.freeze);
@@ -351,8 +351,8 @@ export default (context = {}) => {
       const params = { ...this.$axios.defaults.params };
       if (context.$config?.app?.features?.translatedItems) {
         params.profile = 'translate';
-        if (options.metadataLang) {
-          params.lang = options.metadataLang;
+        if (options.metadataLanguage) {
+          params.lang = options.metadataLanguage;
         }
       } else {
         // No point in switching on experimental schema.org with item translations.
