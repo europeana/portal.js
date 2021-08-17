@@ -14,7 +14,7 @@ export default (context = {}) => {
     $axios,
 
     search(params) {
-      return $axios.get('/search', { params })
+      return $axios.get('/search', { params: { ...$axios.defaults.params, ...params } })
         .then(response => response)
         .catch(error => {
           throw apiError(error);
@@ -45,7 +45,7 @@ export default (context = {}) => {
       const defaults = {
         profile: 'standard'
       };
-      const params = { ...defaults, ...options };
+      const params = { ...$axios.defaults.params, ...defaults, ...options };
 
       return $axios.get(`/${setIdFromUri(id)}`, { params })
         .then(response => {
