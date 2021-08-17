@@ -49,9 +49,9 @@ describe('store/item', () => {
 
         await store.actions.reset({ commit });
 
-        commit.should.have.been.calledWith('set', ['annotations', []]);
-        commit.should.have.been.calledWith('set', ['relatedEntities', []]);
-        commit.should.have.been.calledWith('set', ['similarItems', []]);
+        commit.should.have.been.calledWith('setAnnotations', []);
+        commit.should.have.been.calledWith('setRelatedEntities', []);
+        commit.should.have.been.calledWith('setSimilarItems', []);
       });
     });
   });
