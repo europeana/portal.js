@@ -25,9 +25,9 @@ export default {
 
   actions: {
     reset({ commit }) {
-      commit('set', ['annotations', []]);
-      commit('set', ['relatedEntities', []]);
-      commit('set', ['similarItems', []]);
+      commit('setAnnotations', []);
+      commit('setRelatedEntities', []);
+      commit('setSimilarItems', []);
     }
   }
 };
