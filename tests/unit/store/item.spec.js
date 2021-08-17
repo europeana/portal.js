@@ -22,15 +22,10 @@ const annotations = [
   }
 ];
 describe('store/item', () => {
-  // before('mock $i18n', () => {
-  //   store.actions.$i18n = { locale: 'es' };
-  // });
-
   describe('getters', () => {
     describe('annotationsByMotivation()', () => {
       context('when there are annotations', () => {
         const state = {
-          active: true,
           annotations
         };
         context('when asking for tagging annotations', () => {
@@ -48,30 +43,8 @@ describe('store/item', () => {
   });
 
   describe('actions', () => {
-    describe('activate', () => {
-      it('sets the active state to true', async() => {
-        const commit = sinon.spy();
-
-        await store.actions.activate({ commit });
-
-        commit.should.have.been.calledWith('setActive', true);
-      });
-    });
-
-    describe('deactivate', async() => {
-      it('sets the active state to false and resets all values', async() => {
-        const commit = sinon.spy();
-        const dispatch = sinon.spy();
-
-        await store.actions.deactivate({ commit, dispatch });
-
-        commit.should.have.been.calledWith('setActive', false);
-        dispatch.should.have.been.calledWith('reset');
-      });
-    });
-
     describe('reset', async() => {
-      it('esets all values', async() => {
+      it('resets all values', async() => {
         const commit = sinon.spy();
 
         await store.actions.reset({ commit });
@@ -84,13 +57,6 @@ describe('store/item', () => {
   });
 
   describe('mutations', () => {
-    describe('setActive()', () => {
-      it('sets the active state', () => {
-        const state = { active: false };
-        store.mutations.setActive(state, true);
-        state.active.should.eql(true);
-      });
-    });
     describe('setAnnotations()', () => {
       it('sets the annotations state', () => {
         const state = { annotations: [] };

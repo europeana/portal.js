@@ -44,7 +44,7 @@
           </b-col>
         </b-row>
         <b-row
-          v-if="activeStore && relatedEntities && relatedEntities.length > 0"
+          v-if="relatedEntities && relatedEntities.length > 0"
           class="justify-content-center"
         >
           <b-col
@@ -53,7 +53,7 @@
           >
             <RelatedCollections
               :title="$t('collectionsYouMightLike')"
-              :related-collections="relatedEntities ? relatedEntities : []"
+              :related-collections="relatedEntities"
               data-qa="related entities"
             />
           </b-col>
@@ -71,12 +71,12 @@
               :all-metadata="allMetaData"
               :core-metadata="coreFields"
               :location="locationData"
-              :transcribing-annotations="activeStore ? transcribingAnnotations : []"
+              :transcribing-annotations="transcribingAnnotations || []"
             />
           </b-col>
         </b-row>
         <b-row
-          v-if="activeStore && similarItems && similarItems.length > 0"
+          v-if="similarItems && similarItems.length > 0"
           class="mt-3 mb-0 justify-content-center"
         >
           <b-col
@@ -112,7 +112,6 @@
 </template>
 
 <script>
-  import axios from 'axios';
   import isEmpty from 'lodash/isEmpty';
   import { mapState, mapGetters } from 'vuex';
 
@@ -135,21 +134,9 @@
     },
 
     fetch() {
-      const annotationSearchParams = {
-        query: `target_record_id:"${this.identifier}"`,
-        profile: 'dereference'
-      };
-      axios.all([
-        this.$apis.annotation.search(annotationSearchParams),
-        this.$apis.entity.findEntities(this.europeanaEntityUris),
-        this.getSimilarItems()
-      ])
-        .then(axios.spread((annotations, entities, similar) => {
-          this.$nuxt.context.store.commit('item/setAnnotations', annotations);
-          this.$nuxt.context.store.commit('item/setRelatedEntities', entities);
-          this.$nuxt.context.store.commit('item/setSimilarItems', similar.items);
-          this.$nuxt.context.store.dispatch('item/activate');
-        }));
+      this.fetchAnnotations();
+      this.fetchRelatedEntities();
+      this.fetchSimilarItems();
     },
 
     fetchOnServer: false,
@@ -298,7 +285,6 @@
         annotationsByMotivation: 'item/annotationsByMotivation'
       }),
       ...mapState({
-        activeStore: state => state.item.active,
         relatedEntities: state => state.item.relatedEntities,
         similarItems: state => state.item.similarItems,
         annotations: state => state.item.annotations
@@ -316,6 +302,32 @@
     },
 
     methods: {
+      fetchAnnotations() {
+        const annotationSearchParams = {
+          query: `target_record_id:"${this.identifier}"`,
+          profile: 'dereference'
+        };
+
+        return this.$apis.annotation.search(annotationSearchParams)
+          .then(annotations => {
+            this.$store.commit('item/setAnnotations', annotations);
+          });
+      },
+
+      fetchRelatedEntities() {
+        return this.$apis.entity.findEntities(this.europeanaEntityUris)
+          .then(entities => {
+            this.$store.commit('item/setRelatedEntities', entities);
+          });
+      },
+
+      fetchSimilarItems() {
+        return this.getSimilarItems()
+          .then(similar => {
+            this.$store.commit('item/setSimilarItems', similar.items);
+          });
+      },
+
       getSimilarItems() {
         const noSimilarItems = { results: [] };
         if (this.error) {
@@ -395,7 +407,7 @@
     async beforeRouteUpdate(to, from, next) {
       if (to.path !== from.path) {
         // Navigation to another item
-        await this.$store.dispatch('item/deactivate');
+        await this.$store.dispatch('item/reset');
       }
       next();
     },
@@ -406,7 +418,7 @@
         itemProvider: undefined,
         itemRights: undefined
       });
-      await this.$store.dispatch('item/deactivate');
+      await this.$store.dispatch('item/reset');
       next();
     }
   };
