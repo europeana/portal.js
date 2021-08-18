@@ -3,7 +3,7 @@
 const APP_SITE_NAME = 'Europeana';
 
 const pkg = require('./package');
-import i18nLocales from './src/plugins/i18n/locales';
+const i18nLocales = require('./src/plugins/i18n/locales');
 const i18nDateTime = require('./src/plugins/i18n/datetime');
 
 const featureIsEnabled = (value) => Boolean(Number(value));

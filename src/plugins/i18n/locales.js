@@ -1,4 +1,4 @@
-const locales = [
+module.exports = [
   {
     name: 'Български',
     code: 'bg',
@@ -175,7 +175,3 @@ const locales = [
     isoAlpha3: 'swe'
   }
 ];
-
-export const localeCodes = locales.map(locale => locale.code);
-
-export default locales;
