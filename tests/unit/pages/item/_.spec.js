@@ -15,18 +15,22 @@ const optionsVar = {
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
+const item = {
+  identifier: '/123/abc',
+  coreFields: {
+    edmDataProvider: {
+      url: 'https://www.example.eu',
+      value: ['Data Provider']
+    }
+  }
+};
+
+const storeDispatch = sinon.spy();
+
 const factory = () => shallowMountNuxt(page, {
   localVue,
   data() {
-    return {
-      identifier: '/123/abc',
-      coreFields: {
-        edmDataProvider: {
-          url: 'https://www.example.eu',
-          value: ['Data Provider']
-        }
-      }
-    };
+    return item;
   },
   stubs: ['client-only'],
   mocks: {
@@ -55,9 +59,19 @@ const factory = () => shallowMountNuxt(page, {
       }
     },
     $store: {
+      state: {
+        item: {
+          active: false,
+          annotations: [],
+          relatedEntities: [],
+          similarItems: []
+        }
+      },
       getters: {
-        'set/isLiked': sinon.stub()
-      }
+        'set/isLiked': sinon.stub(),
+        'item/annotationsByMotivation': sinon.stub()
+      },
+      dispatch: storeDispatch
     }
   }
 });
@@ -69,7 +83,7 @@ describe('pages/item/_.vue', () => {
     const $apis = { record: { getRecord: sinon.stub().resolves({ record }) } };
     const app = { i18n: { locale: 'en' } };
 
-    context('when the page is loaded without a metadataLang', () => {
+    context('when the page is loaded without a metadataLanguage', () => {
       const route = { query: {} };
 
       it('gets a record from the API for the ID in the params pathMatch, for the current locale', async() => {
@@ -77,19 +91,19 @@ describe('pages/item/_.vue', () => {
 
         const response = await wrapper.vm.asyncData({ params, app, route, $apis });
 
-        $apis.record.getRecord.should.have.been.calledWith('/123/abc', { locale: 'en', metadataLang: undefined });
+        $apis.record.getRecord.should.have.been.calledWith('/123/abc', { locale: 'en', metadataLanguage: undefined });
         response.should.eql(record);
       });
     });
-    context('when the page is loaded with a metadataLang', () => {
-      const route = { query: { metadataLang: 'fr' } };
+    context('when the page is loaded with a metadataLanguage', () => {
+      const route = { query: { lang: 'fr' } };
 
-      it('gets a record from the API for the ID in the params pathMatch, with metadataLang passed along', async() => {
+      it('gets a record from the API for the ID in the params pathMatch, with metadataLanguage from `lang` query', async() => {
         const wrapper = factory();
 
         const response = await wrapper.vm.asyncData({ params, app, route, $apis });
 
-        $apis.record.getRecord.should.have.been.calledWith('/123/abc', { locale: 'en', metadataLang: 'fr' });
+        $apis.record.getRecord.should.have.been.calledWith('/123/abc', { locale: 'en', metadataLanguage: 'fr' });
         response.should.eql(record);
       });
     });

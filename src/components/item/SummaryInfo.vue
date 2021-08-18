@@ -10,19 +10,33 @@
           v-if="index === 0"
           :key="index"
           :lang="heading.code"
-          :data-translation-source="heading.translationSource"
           class="mb-0"
         >
           {{ heading.value }}
+          <button
+            v-if="translatedItemsEnabled"
+            v-b-tooltip.bottomright="{ customClass: 'tooltip' }"
+            :title="$t(`multilingual.${heading.translationSource || 'original'}`)"
+            class="translation-source"
+            :class="heading.translationSource || 'original'"
+            data-qa="translated title tooltip"
+          />
         </h1>
         <p
           v-else
           :key="index"
           :lang="heading.code"
-          :data-translation-source="heading.translationSource"
           class="font-weight-bold mt-3 mb-0"
         >
           {{ heading.value }}
+          <button
+            v-if="translatedItemsEnabled"
+            v-b-tooltip.bottomright="{ customClass: 'tooltip' }"
+            :title="$t(`multilingual.${heading.translationSource || 'original'}`)"
+            class="translation-source"
+            :class="heading.translationSource || 'original'"
+            data-qa="translated description tooltip"
+          />
         </p>
       </template>
     </header>
@@ -38,16 +52,30 @@
         <p
           v-if="index === 0"
           :lang="description.code"
-          :data-translation-source="description.translationSource"
           v-html="$options.filters.convertNewLine(showAll ? value : truncatedDescription)"
         />
         <p
           v-else-if="showAll"
           :lang="description.code"
-          :data-translation-source="description.translationSource"
           v-html="$options.filters.convertNewLine(value)"
         />
         <!-- eslint-disable vue/no-v-html -->
+        <button
+          v-if="translatedItemsEnabled && index === 0"
+          v-b-tooltip.bottomright="{ customClass: 'tooltip' }"
+          :title="$t(`multilingual.${description.translationSource || 'original'}`)"
+          class="translation-source"
+          :class="description.translationSource || 'original'"
+          data-qa="translated description tooltip"
+        />
+        <button
+          v-else-if="translatedItemsEnabled && showAll"
+          v-b-tooltip.bottomright="{ customClass: 'tooltip' }"
+          :title="$t(`multilingual.${description.translationSource || 'original'}`)"
+          class="translation-source"
+          :class="description.translationSource || 'original'"
+          data-qa="translated description tooltip"
+        />
         <hr
           v-if="(index + 1) < description.values.length && showAll"
         >
@@ -100,6 +128,9 @@
           return this.$options.filters.truncate(this.description.values[0], this.limitCharacters, this.$t('formatting.ellipsis'));
         }
         return false;
+      },
+      translatedItemsEnabled() {
+        return this.$config.app.features.translatedItems;
       }
     },
     methods: {
@@ -110,3 +141,35 @@
 
   };
 </script>
+
+<style lang="scss" scoped>
+  @import '@/assets/scss/variables.scss';
+  @import '@/assets/scss/icons.scss';
+
+  .description p:last-of-type {
+    display: inline;
+  }
+  .automated, .enrichment, .original {
+    &:after {
+      @extend .icon-font;
+      font-weight: $font-size-medium;
+      opacity: 0.2;
+      font-size: 1.125rem;
+    }
+  }
+  .automated::after {
+    content: '\e941';
+  }
+  .enrichment::after {
+    content: '\e940';
+  }
+  .original::after {
+    content: '\e93f';
+  }
+  .translation-source {
+    border: none;
+    background-color: transparent;
+    cursor: default;
+    display: inline;
+  }
+</style>

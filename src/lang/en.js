@@ -668,6 +668,15 @@ export default {
       "modalTitle": "Say thanks"
     }
   },
+  "multilingual": {
+    "automated": "Automated translation",
+    "currentLanguage": "Would you like to see this item in {0}?",
+    "differentLanguage": "a different language",
+    "enrichment": "Enrichment by partner projects",
+    "original": "Original metadata",
+    "originalLanguage": "original language",
+    "other": "Other languages"
+  },
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
   "noResults": "No results",
