@@ -40,7 +40,6 @@ export const errorHandler = (res, error) => {
   if (error.response) {
     res.status(error.response.status).set('Content-Type', 'text/plain').send(error.response.data.errorMessage);
   } else {
-    console.log(error);
     res.status(500).set('Content-Type', 'text/plain').send(error.message);
   }
 };
