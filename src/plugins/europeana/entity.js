@@ -75,16 +75,14 @@ export default (context = {}) => {
      */
     findEntities(entityUris) {
       if (entityUris?.length === 0) {
-        return [];
+        return Promise.resolve([]);
       }
       const q = entityUris.join('" OR "');
       const params = {
         query: `entity_uri:("${q}")`
       };
       return this.searchEntities(params)
-        .then(response => {
-          return response.entities || [];
-        });
+        .then(response => response.entities || []);
     },
 
     /**

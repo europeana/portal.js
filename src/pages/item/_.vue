@@ -295,8 +295,8 @@
     },
 
     mounted() {
-      if (process.browser && this.fields) {
-        this.$gtm.push(this.gtmOptions());
+      if (!this.error) {
+        this.$gtm && this.$gtm.push(this.gtmOptions());
         this.$matomo && this.$matomo.trackPageView('item page custom dimensions', this.matomoOptions());
       }
     },
@@ -331,7 +331,7 @@
       getSimilarItems() {
         const noSimilarItems = { results: [] };
         if (this.error) {
-          return noSimilarItems;
+          return Promise.resolve(noSimilarItems);
         }
 
         if (this.$config.app.features.recommendations && this.$auth.loggedIn) {
