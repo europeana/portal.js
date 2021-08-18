@@ -141,7 +141,7 @@ export const selectLocaleForLangMap = (langMap, locale) => {
  * With the setting omitAllUris set to true, when no other values were found all values matching the URI pattern will be
  * omitted.
  * @param {Object} The LangMap
- * @param {String} locale Prefered locale as a 2 letter code
+ * @param {String} locale Preferred locale as a 2 letter code
  * @param {Boolean} options.omitUrisIfOtherValues Setting to prefer any value over URIs
  * @param {Boolean} options.omitAllUris Setting to remove all URIs
  * @param {Boolean} options.uiLanguage Setting to override the UI language, if it differs from the locale
