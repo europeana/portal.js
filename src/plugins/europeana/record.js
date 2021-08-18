@@ -8,7 +8,7 @@ import search from './search';
 import { thumbnailUrl, thumbnailTypeForMimeType } from  './thumbnail';
 import { getEntityUri, getEntityQuery } from './entity';
 import { isIIIFPresentation } from '../media';
-import locales from '../i18n/locales.js';
+import { localeCodes } from '../i18n/locales';
 
 export const BASE_URL = process.env.EUROPEANA_RECORD_API_URL || 'https://api.europeana.eu/record';
 const MAX_VALUES_PER_PROXY_FIELD = 10;
@@ -184,7 +184,7 @@ function setMatchingEntities(fields, key, entities) {
 }
 
 /**
- * Find the currently prefered metadata language.
+ * Find the currently preferred metadata language.
  * Only makes sense with translated item pages.
  * If no language is specified, defaults to the record's edmLanguage.
  * Only returns languages also supported by the UI & translate API.
@@ -194,12 +194,15 @@ function setMatchingEntities(fields, key, entities) {
  * @return {?string} related entities
  */
 export function preferredLanguage(edmLang, options = {}) {
+  let lang = null;
+
   if (options.metadataLanguage) {
-    return options.metadataLanguage;
-  } else if (locales.map(locale => locale.code).includes(edmLang)) {
-    return edmLang;
+    lang = options.metadataLanguage;
+  } else if (localeCodes.includes(edmLang)) {
+    lang = edmLang;
   }
-  return null;
+
+  return lang;
 }
 
 export default (context = {}) => {

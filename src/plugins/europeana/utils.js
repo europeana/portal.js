@@ -1,4 +1,5 @@
 import axios from 'axios';
+import locales from '../i18n/locales';
 
 import { keycloakResponseErrorHandler } from './auth';
 
@@ -63,7 +64,6 @@ export function apiError(error) {
   return apiError;
 }
 
-const locales = require('../i18n/locales.js');
 const undefinedLocaleCodes = ['def', 'und'];
 export const uriRegex = /^https?:\/\//; // Used to determine if a value is a URI
 
