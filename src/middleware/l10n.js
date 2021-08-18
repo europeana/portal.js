@@ -10,10 +10,10 @@
 const COOKIE_NAME = 'i18n_locale_code';
 
 // Codes of all languages supported by the app
-const registeredLocales = require('../plugins/i18n/locales.js').map(locale => locale.code);
+import { localeCodes } from '../plugins/i18n/locales';
 
 function appSupportsLocale(locale) {
-  return locale && registeredLocales.includes(locale);
+  return locale && localeCodes.includes(locale);
 }
 
 export default ({ app, route, redirect, req }) => {
