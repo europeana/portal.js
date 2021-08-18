@@ -95,12 +95,12 @@
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/variables.scss';
+  @import '@/assets/scss/variables.scss';
 
-.icon-translate:before {
-  font-size: 1.4375rem;
-}
-.multilingual-dropdown-item {
-  font-size: $font-size-small;
-}
+  .icon-translate:before {
+    font-size: 1.4375rem;
+  }
+  .multilingual-dropdown-item {
+    font-size: $font-size-small;
+  }
 </style>
