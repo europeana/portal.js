@@ -128,6 +128,7 @@
               data-qa="feedback skip button"
               variant="outline-primary"
               class="mt-3"
+              :disabled="disableSkipButton"
               @click="skipEmail"
             >
               {{ $t('actions.skip') }}
@@ -204,6 +205,10 @@
       },
 
       disableSendButton() {
+        return this.sending;
+      },
+
+      disableSkipButton() {
         return this.sending;
       },
 
