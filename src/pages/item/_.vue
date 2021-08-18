@@ -6,7 +6,14 @@
       :notification-text="$t('linksToClassic.record.text')"
       :notification-link-text="$t('linksToClassic.record.linkText')"
     />
-    <b-container v-if="error">
+    <b-container v-if="$fetchState.pending">
+      <b-row class="flex-md-row py-4 text-center">
+        <b-col cols="12">
+          <LoadingSpinner />
+        </b-col>
+      </b-row>
+    </b-container>
+    <b-container v-else-if="error">
       <AlertMessage
         :error="error"
       />
@@ -115,6 +122,7 @@
   import isEmpty from 'lodash/isEmpty';
   import { mapState, mapGetters } from 'vuex';
 
+  import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import MetadataBox from '@/components/item/MetadataBox';
 
   import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
@@ -128,32 +136,38 @@
       ItemPreviewCardGroup: () => import('@/components/item/ItemPreviewCardGroup'),
       RelatedCollections: () => import('@/components/generic/RelatedCollections'),
       SummaryInfo: () => import('@/components/item/SummaryInfo'),
+      LoadingSpinner,
       MetadataBox,
       NotificationBanner: () => import('@/components/generic/NotificationBanner'),
       ItemLanguageSelector: () => import('@/components/item/ItemLanguageSelector')
     },
 
-    fetch() {
-      this.fetchAnnotations();
-      this.fetchRelatedEntities();
-      this.fetchSimilarItems();
+    async fetch() {
+      await this.$store.dispatch('item/reset');
+
+      // FIXME: can't go before this.fetchItem() as data missing for some of these calls
+      if (process.client) {
+        this.fetchAnnotations();
+        this.fetchRelatedEntities();
+        this.fetchSimilarItems();
+      }
+
+      return this.fetchItem();
     },
 
-    fetchOnServer: false,
-
-    asyncData({ params, res, route, app, $apis }) {
-      return $apis.record
-        .getRecord(`/${params.pathMatch}`, { locale: app.i18n.locale, metadataLanguage: route.query.lang })
-        .then(result => {
-          return result.record;
-        })
-        .catch(error => {
-          if (typeof res !== 'undefined') {
-            res.statusCode = (typeof error.statusCode === 'undefined') ? 500 : error.statusCode;
-          }
-          return { error: error.message };
-        });
-    },
+    // asyncData({ params, res, route, app, $apis }) {
+    //   return $apis.record
+    //     .getRecord(`/${params.pathMatch}`, { locale: app.i18n.locale, metadataLanguage: route.query.lang })
+    //     .then(result => {
+    //       return result.record;
+    //     })
+    //     .catch(error => {
+    //       if (typeof res !== 'undefined') {
+    //         res.statusCode = (typeof error.statusCode === 'undefined') ? 500 : error.statusCode;
+    //       }
+    //       return { error: error.message };
+    //     });
+    // },
 
     data() {
       return {
@@ -295,6 +309,10 @@
     },
 
     mounted() {
+      this.fetchAnnotations();
+      this.fetchRelatedEntities();
+      this.fetchSimilarItems();
+
       if (!this.error) {
         this.$gtm && this.$gtm.push(this.gtmOptions());
         this.$matomo && this.$matomo.trackPageView('item page custom dimensions', this.matomoOptions());
@@ -302,6 +320,23 @@
     },
 
     methods: {
+      fetchItem() {
+        return this.$apis.record
+          .getRecord(`/${this.$route.params.pathMatch}`, { locale: this.$i18n.locale, metadataLanguage: this.$route.query.lang })
+          .then(result => {
+            for (const key in result.record) {
+              this[key] = result.record[key];
+            }
+          });
+          // FIXME: restore error handling
+          // .catch(error => {
+          //   if (typeof res !== 'undefined') {
+          //     res.statusCode = (typeof error.statusCode === 'undefined') ? 500 : error.statusCode;
+          //   }
+          //   return { error: error.message };
+          // });
+      },
+
       fetchAnnotations() {
         const annotationSearchParams = {
           query: `target_record_id:"${this.identifier}"`,
@@ -402,15 +437,10 @@
       };
     },
 
-    watchQuery: ['lang'],
-
-    async beforeRouteUpdate(to, from, next) {
-      if (to.path !== from.path) {
-        // Navigation to another item
-        await this.$store.dispatch('item/reset');
-      }
-      next();
+    watch: {
+      '$route.query.lang': 'fetchItem'
     },
+
     async beforeRouteLeave(to, from, next) {
       this.$gtm.push({
         itemCountry: undefined,
@@ -418,7 +448,6 @@
         itemProvider: undefined,
         itemRights: undefined
       });
-      await this.$store.dispatch('item/reset');
       next();
     }
   };
