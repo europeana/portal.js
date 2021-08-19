@@ -8,16 +8,19 @@ export default ($config) => (req, res) => {
   const variables = JSON.parse(req.query.variables);
   const ifNoneMatch = req.get('If-None-Match');
 
-  if (plugin.ifNoneMatch(alias, variables, ifNoneMatch)) {
-    return plugin.query(alias, variables)
-      .then(response => {
-        res.set('cache-control', 'public, no-cache');
-        res.set('etag', response.etag);
-        res.send(response.data);
-      })
-      .catch(error => errorHandler(res, error));
-  } else {
-    res.status(304);
-    res.end();
-  }
+  return plugin.ifNoneMatch(alias, variables, ifNoneMatch)
+    .then(ifNoneMatch => {
+      if (ifNoneMatch) {
+        return plugin.query(alias, variables)
+          .then(response => {
+            res.set('cache-control', 'public, no-cache');
+            res.set('etag', response.etag);
+            res.send(response.data);
+          })
+          .catch(error => errorHandler(res, error));
+      } else {
+        res.status(304);
+        res.end();
+      }
+    });
 };

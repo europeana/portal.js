@@ -37,17 +37,16 @@ export default ({ app, $config }, inject) => {
 
     query(alias, variables = {}) {
       const cacheHashKey = this.key(alias, variables);
-      // const cacheHashField =
       return this.$redis ? this.cachedOrFresh(alias, variables, cacheHashKey) : this.fresh(cacheHashKey);
     },
 
-    async ifNoneMatch(alias, variables, ifNoneMatch) {
+    ifNoneMatch(alias, variables, ifNoneMatch) {
       if (!ifNoneMatch) {
         return false;
       }
       const cacheHashKey = this.key(alias, variables);
-      const etag = await this.$redis.hgetAsync(cacheHashKey, 'etag');
-      return etag !== ifNoneMatch;
+      return this.$redis.hgetAsync(cacheHashKey, 'etag')
+        .then(etag => etag !== ifNoneMatch);
     },
 
     fresh(alias, variables, cacheHashKey) {
