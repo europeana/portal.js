@@ -1,9 +1,9 @@
 import axios from 'axios';
 import md5 from 'md5';
 
-import { createRedisClient } from '../../cachers/utils';
+import { createRedisClient } from '../../cachers/utils.js';
 
-import queries from './queries';
+import queries from './queries/index.js';
 
 let $axios;
 let $redis;

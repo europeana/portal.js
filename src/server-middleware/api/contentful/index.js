@@ -1,5 +1,5 @@
-import contentfulPlugin from '../../../plugins/contentful-graphql/plugin.server';
-import { errorHandler } from '../';
+import contentfulPlugin from '../../../plugins/contentful-graphql/plugin.server.js';
+import { errorHandler } from '../index.js';
 
 export default ($config) => (req, res) => {
   const plugin = contentfulPlugin({ $config });

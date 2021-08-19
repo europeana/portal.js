@@ -1,15 +1,15 @@
-import blogFoyerPage from './blog-foyer-page';
-import blogPostPage from './blog-post-page';
-import browseStaticPage from './browse-static-page';
-import collectionPage from './collection-page';
-import exhibitionChapterPage from './exhibition-chapter-page';
-import exhibitionCreditsPage from './exhibition-credits-page';
-import exhibitionFoyerPage from './exhibition-foyer-page';
-import exhibitionLandingPage from './exhibition-landing-page';
-import galleryFoyerPage from './gallery-foyer-page';
-import galleryPage from './gallery-page';
-import latestCardGroups from './latest-card-groups';
-import linkGroups from './link-groups';
+import blogFoyerPage from './blog-foyer-page.js';
+import blogPostPage from './blog-post-page.js';
+import browseStaticPage from './browse-static-page.js';
+import collectionPage from './collection-page.js';
+import exhibitionChapterPage from './exhibition-chapter-page.js';
+import exhibitionCreditsPage from './exhibition-credits-page.js';
+import exhibitionFoyerPage from './exhibition-foyer-page.js';
+import exhibitionLandingPage from './exhibition-landing-page.js';
+import galleryFoyerPage from './gallery-foyer-page.js';
+import galleryPage from './gallery-page.js';
+import latestCardGroups from './latest-card-groups.js';
+import linkGroups from './link-groups.js';
 
 export default {
   blogFoyerPage,

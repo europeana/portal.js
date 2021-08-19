@@ -1,7 +1,7 @@
-const contentful = require('contentful');
-const flatten = require('lodash/flatten');
+import contentful from 'contentful';
+import flatten from 'lodash/flatten.js';
 
-const createRedisClient = require('../../../cachers/utils').createRedisClient;
+import { createRedisClient } from '../../../cachers/utils.js';
 
 let contentfulClient;
 let redisClient;

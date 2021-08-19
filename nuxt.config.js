@@ -2,13 +2,16 @@
 
 const APP_SITE_NAME = 'Europeana';
 
-const pkg = require('./package');
-const i18nLocales = require('./src/plugins/i18n/locales');
-const i18nDateTime = require('./src/plugins/i18n/datetime');
+import pkg from './package.json';
+import nuxtPkg from 'nuxt/package.json';
+
+import i18nLocales from './src/plugins/i18n/locales.js';
+import i18nDateTime from './src/plugins/i18n/datetime.js';
+import { parseQuery, stringifyQuery } from './src/plugins/vue-router.cjs';
 
 const featureIsEnabled = (value) => Boolean(Number(value));
 
-module.exports = {
+export default {
   /*
   ** Runtime config
   */
@@ -64,8 +67,8 @@ module.exports = {
         logLevel: process.env.ELASTIC_APM_LOG_LEVEL || 'info',
         serviceName: 'portal-js',
         serviceVersion: pkg.version,
-        frameworkName: 'Nuxt.js',
-        frameworkVersion: require('nuxt/package.json').version
+        frameworkName: 'Nuxt',
+        frameworkVersion: nuxtPkg.version
       }
     },
     europeana: {
@@ -241,7 +244,7 @@ module.exports = {
   plugins: [
     '~/plugins/vue-matomo.client',
     '~/plugins/vue',
-    '~/plugins/i18n.js',
+    '~/plugins/i18n/iso-locale',
     '~/plugins/hotjar.client',
     '~/plugins/link',
     '~/plugins/page',
@@ -351,12 +354,8 @@ module.exports = {
       });
     },
     linkExactActiveClass: 'exact-active-link',
-    parseQuery: (query) => require('qs').parse(query),
-    // To ensure that `"query": ""` results in `?query=`, not `?query`
-    stringifyQuery: (query) => {
-      const stringified = require('qs').stringify(query, { arrayFormat: 'repeat' });
-      return stringified ? '?' + stringified : '';
-    }
+    parseQuery,
+    stringifyQuery
   },
 
   serverMiddleware: [
