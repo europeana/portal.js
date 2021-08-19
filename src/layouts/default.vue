@@ -109,7 +109,11 @@
 
     mounted() {
       if (this.klaroEnabled) {
-        this.renderKlaro();
+        if (this.$matomo) {
+          this.renderKlaro();
+        } else {
+          this.timeoutUntilPiwikSet(0);
+        }
       }
 
       if (this.$auth.$storage.getUniversal('portalLoggingIn') && this.$auth.loggedIn) {
@@ -136,9 +140,24 @@
 
       renderKlaro() {
         if (typeof window.klaro !== 'undefined') {
-          window.klaro.render(klaroConfig(this.$i18n, this.$gtm, this.$config.gtm.id, this.$initHotjar), true);
+          window.klaro.render(klaroConfig(this.$i18n, this.$gtm, this.$config.gtm.id, this.$initHotjar, this.$matomo), true);
         }
         return null;
+      },
+
+      timeoutUntilPiwikSet(counter) {
+        // People might have a tracking blocker and it won't ever load
+        if (counter > 100) {
+          console.error('Waiting for $matomo timed out');
+          // We might still want to render Klaro anyway if for whatever reason the matomo plugin didn't initialise
+        }
+        if (this.$matomo) {
+          this.renderKlaro();
+        } else {
+          setTimeout(() => {
+            this.timeoutUntilPiwikSet(counter + 1);
+          }, 10);
+        }
       }
     },
 
