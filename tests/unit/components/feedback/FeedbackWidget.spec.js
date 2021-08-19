@@ -2,8 +2,7 @@ import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 import nock from 'nock';
-// nock.recorder.rec();
-import FeedbackWidget from '../../../../src/components/feedback/FeedbackWidget.vue';
+import FeedbackWidget from '@/components/feedback/FeedbackWidget.vue';
 import VueI18n from 'vue-i18n';
 
 const localVue = createLocalVue();
@@ -13,7 +12,14 @@ localVue.use(VueI18n);
 const factory = (propsData = {}) => {
   const wrapper = mount(FeedbackWidget, {
     localVue,
-    i18n: new VueI18n,
+    i18n: new VueI18n({  locale: 'en',
+      messages: {
+        en: {
+          feedback: {
+            policies: 'By continuing, you agree to our {0} and acknowledge our {1}.'
+          }
+        }
+      } }),
     propsData,
     mocks: {
       $t: () => {},
@@ -25,12 +31,56 @@ const factory = (propsData = {}) => {
 };
 
 describe('components/feedback/FeedbackWidget', () => {
+  describe('feedback button', () => {
+    context('on initial page load and before user scrolled', () => {
+      it('is large', () => {
+        const wrapper = factory();
+        const button = wrapper.find('[data-qa="feedback button"]');
+        button.attributes().class.should.contain('big');
+      });
+      it('and shows text', () => {
+        const wrapper = factory();
+        const buttonText = wrapper.find('[data-qa="feedback button text"]');
+        buttonText.isVisible().should.equal(true);
+      });
+    });
+    context('after scrolling', () => {
+      it('shrinks', async() => {
+        const wrapper = factory();
+        global.window.dispatchEvent(new Event('scroll'));
+        await wrapper.vm.$nextTick();
+        const button = wrapper.find('[data-qa="feedback button"]');
+        button.attributes().class.should.not.contain('big');
+      });
+      context('and on mouseover', () => {
+        it('grows big', async() => {
+          const wrapper = factory();
+          global.window.dispatchEvent(new Event('scroll'));
+          const button = wrapper.find('[data-qa="feedback button"]');
+          button.trigger('mouseover');
+          await wrapper.vm.$nextTick();
+          button.attributes().class.should.contain('big');
+        });
+      });
+      context('and on mouseleave', () => {
+        it('shrinks again', async() => {
+          const wrapper = factory();
+          global.window.dispatchEvent(new Event('scroll'));
+          await wrapper.vm.$nextTick();
+          const button = wrapper.find('[data-qa="feedback button"]');
+          button.trigger('mouseover');
+          button.trigger('mouseleave');
+          button.attributes().class.should.not.contain('big');
+        });
+      });
+    });
+  });
   describe('next button', () => {
     context('when there is no value for feedback', () => {
-      it('is disabled', () => {
+      it('is disabled', async() => {
         const wrapper = factory();
 
-        wrapper.setData({
+        await wrapper.setData({
           currentStep: 1,
           feedback: ''
         });
@@ -39,10 +89,10 @@ describe('components/feedback/FeedbackWidget', () => {
       });
     });
     context('when there is a value for feedback', () => {
-      it('is enabled', () => {
+      it('is enabled', async() => {
         const wrapper = factory();
 
-        wrapper.setData({
+        await wrapper.setData({
           currentStep: 1,
           feedback: 'This website is great!'
         });
@@ -52,7 +102,7 @@ describe('components/feedback/FeedbackWidget', () => {
       it('and it is clicked, it goes to the next step', async() => {
         const wrapper = factory();
 
-        wrapper.setData({
+        await wrapper.setData({
           currentStep: 1,
           feedback: 'This website is great!'
         });
@@ -63,10 +113,10 @@ describe('components/feedback/FeedbackWidget', () => {
       });
     });
     context('when there is no value for email', () => {
-      it('is disabled', () => {
+      it('is disabled', async() => {
         const wrapper = factory();
 
-        wrapper.setData({
+        await wrapper.setData({
           currentStep: 2,
           email: ''
         });
@@ -75,10 +125,10 @@ describe('components/feedback/FeedbackWidget', () => {
       });
     });
     context('when there is a value for email', () => {
-      it('is enabled', () => {
+      it('is enabled', async() => {
         const wrapper = factory();
 
-        wrapper.setData({
+        await wrapper.setData({
           currentStep: 2,
           email: 'example@mail.com'
         });
@@ -107,7 +157,7 @@ describe('components/feedback/FeedbackWidget', () => {
       it('feedback is send', async() => {
         const wrapper = factory();
 
-        wrapper.setData({
+        await wrapper.setData({
           currentStep: 2,
           email: ''
         });
@@ -121,7 +171,7 @@ describe('components/feedback/FeedbackWidget', () => {
       it('feedback is send', async() => {
         const wrapper = factory();
 
-        wrapper.setData({
+        await wrapper.setData({
           currentStep: 2,
           email: 'example@mail.com'
         });
@@ -135,7 +185,7 @@ describe('components/feedback/FeedbackWidget', () => {
       it('feedback is send', async() => {
         const wrapper = factory();
 
-        wrapper.setData({
+        await wrapper.setData({
           currentStep: 3,
           requestSuccess: false
         });
@@ -156,7 +206,7 @@ describe('components/feedback/FeedbackWidget', () => {
       nock(baseUrl).post(middlewarePath, body => (body.feedback === feedback)).reply(201);
       const wrapper = factory();
 
-      wrapper.setData({
+      await wrapper.setData({
         requestSuccess: false,
         feedback
       });
@@ -173,7 +223,7 @@ describe('components/feedback/FeedbackWidget', () => {
       )).reply(201);
       const wrapper = factory();
 
-      wrapper.setData({
+      await wrapper.setData({
         requestSuccess: false,
         feedback,
         email

@@ -1,5 +1,7 @@
 export default {
   "account": {
+    "curatedCollections": "Bilduma komisarioak",
+    "curatedCollectionsInfo": "Bilatu komisariotzat dituzun bilduma guztiak",
     "editProfile": "Editatu profila",
     "likes": "Atsegin |",
     "linkAccount": "Nire kontua",
@@ -11,6 +13,7 @@ export default {
       "loggedIn": "Saioa hasi zara. Ongi etorri!",
       "loggedOut": "Saioa amaitu duzu.",
       "noCollections": {
+        "curated": "Oraindik ez duzu bildumarik hautatu",
         "private": "Oraindik ez duzu bilduma pribaturik sortu",
         "public": "Oraindik ez duzu bilduma publikorik sortu"
       },
@@ -24,6 +27,7 @@ export default {
     "title": "Nire kontua"
   },
   "actions": {
+    "accept": "Onartu",
     "cancel": "Utzi",
     "close": "itxi",
     "download": "Deskargatu",
@@ -33,6 +37,7 @@ export default {
     "like": "Atsegin dut",
     "next": "Hurrengoa",
     "providedBy": "{provider} emanda",
+    "reject": "Baztertu",
     "send": "Bidali",
     "share": "Partekatu",
     "shareOn": "{social} partekatu",
@@ -58,8 +63,18 @@ export default {
     "published": "Argitaratze data {date}",
     "relatedPosts": "Lotutako argitalpenak"
   },
+  "cardLabels": {
+    "organisation": "Antolaketa",
+    "person": "Pertsona",
+    "time": "Mendea",
+    "topic": "Gai"
+  },
   "clearAllFilters": "Iragazki guztiak garbitu",
   "collections": {
+    "actions": {
+      "edit": "Editatu bilduma",
+      "update": "Eguneratu Bilduma"
+    },
     "fashion": {
       "facets": {
         "CREATOR": {
@@ -75,6 +90,12 @@ export default {
           "name": "Materiala | Materialak"
         }
       }
+    },
+    "form": {
+      "description": "Deskribapena"
+    },
+    "notifications": {
+      "update": "Bilduma eguneratu egin da"
     }
   },
   "collectionsYouMightLike": "Gustatu ahal zaizkizun bildumak",
@@ -120,7 +141,32 @@ export default {
     "right": "Eskuma"
   },
   "edmIsShownAtLinkAlt": "Ikusi hornitzailearen webgunean",
-  "entity": "Erakundea",
+  "entity": {
+    "actions": {
+      "cancel": "Utzi",
+      "pin": "Ainguratu elementua",
+      "unpin": "Ainguratu elementua",
+      "viewPinned": "Ikusi ainguratutako elementuak"
+    },
+    "labels": {
+      "entity": "Entitatea"
+    },
+    "notifications": {
+      "deleted": "Zure galeria ezabatu egin da.",
+      "pinLimit": {
+        "body": "Oraingoz 24 elementu soilik leheneratu ditzakezu lehen orrian. Elementu hau itsatsi nahi baduzu, ziurtatu beste bat ainguratzen duzula eta saiatu berriro ainguratzen.",
+        "title": "Ainguratutako elementu gehiegi"
+      },
+      "pinned": "Elementua ainguratu da. Bilduma honen lehen orrialdearen goialdean dago orain. 24 ordu behar izan ditzake guztientzat agertzeko.",
+      "pinnedFirstPage": "Elementua ainguratu da. 24 ordu behar izan ditzake guztientzat agertzeko.",
+      "unpinned": "Elementua ainguratu egin da. Jada ez dago bilduma honetako lehen orrialdearen goialdean. 24 ordu behar izan ditzake guztientzat desagertzeko.",
+      "unpinnedFirstPage": "Elementua ainguratu egin da. 24 ordu behar izan ditzake guztientzat desagertzeko."
+    },
+    "prompts": {
+      "pin": "Ziur zaude elementu hau ainguratu nahi duzula? Elementu hau \" {entity} \" bildumaren goialdean erakutsiko da. Baliteke aldaketa hori 24 ordu behar izatea indarrean jartzeko.",
+      "unpin": "Ziur zaude elementu hau ainguratu nahi duzula? {entity} \" bildumaren goialdean agertzeari utziko zaio. Baliteke aldaketa hori 24 ordu behar izatea indarrean jartzeko."
+    }
+  },
   "error": "Akatsa",
   "exhibitions": {
     "chapters": "Kapituluak",
@@ -516,7 +562,74 @@ export default {
   "items": {
     "itemCount": "Elementu 1 | {count} elementu",
     "itemOf": "{max}/{count} elementu",
+    "recommendationsDisclaimer": "Erpurua gora galerian gehitzeko - Erpurua behera gustatzen ez bazaizu",
+    "recommended": "Gomendatutako elementuak",
     "youMightLike": "Gustatu ahal zaizkizun elementuak"
+  },
+  "klaro": {
+    "main": {
+      "consentModal": {
+        "description": "Zure datuen pribatutasuna serio hartzen dugu. Hemen webgune honetan erabili nahi genituzkeen zerbitzuak baloratu eta pertsonaliza ditzakezu. Arduraduna zara! Gaitu edo desgaitu zerbitzuak nahi duzun moduan.",
+        "title": "Erabili nahiko genituzkeen zerbitzuak."
+      },
+      "consentNotice": {
+        "description": "Zure pribatutasuna zaintzen dugu eta datuak soilik erabiltzen ditugu zure esperientzia hobetzeko. Ez dugu informazio pertsonalik erabiltzen publizitaterako. 15 egunez behin baimena alda dezakezu."
+      },
+      "ok": "ados",
+      "purposes": {
+        "essential": {
+          "description": "Zerbitzu hauek funtsezkoak dira webgune honen funtzionamendu egokia izateko. Bilaketaren emaitzen ikuspegia eta hizkuntza hobespenak biltzen dituzte, saioa hasita gordetzen dute eta zure bisita seguru mantentzen dute. Ezin dituzu desgaitu, bestela webguneak ez lukeelako ondo funtzionatuko.",
+          "title": "Segurtasunerako eta pertsonalizaziorako ezinbesteko zerbitzuak"
+        },
+        "usage": {
+          "description": "Zerbitzu hauek informazioa biltzen dute webgunea nola erabiltzen den eta non dauden arazo puntuak hobeto ulertzen laguntzeko, zure esperientzia hobetzeko aukera informatuak egiteko aukera ematen digute.",
+          "title": "Webgunearen erabilera eta iritziak jasotzeko zerbitzuak"
+        }
+      },
+      "service": {
+        "disableAll": {
+          "description": "Erabili etengailu hau aukerako zerbitzu guztiak gaitzeko edo desgaitzeko.",
+          "title": "Gaitu edo desgaitu zerbitzu guztiak"
+        }
+      }
+    },
+    "services": {
+      "auth-strategy": {
+        "description": "Saioa hasteko erabili beharreko baimen estrategia gogoratzen du.",
+        "title": "Auth Estrategia"
+      },
+      "debugSettings": {
+        "title": "Arazketa txandakatu"
+      },
+      "google-analytics": {
+        "description": "Bisitariek webgunearekin duten harremanari buruzko estatistika anonimoak biltzen ditu.",
+        "title": "Google Analytics"
+      },
+      "google-optimize": {
+        "description": "Erabiltzaile esperientzia onena lortzeko gure diseinu aukerak bideratzen dituzten webguneetako esperimentuetan parte hartzeko aukera ematen dizu.",
+        "title": "Google Optimize"
+      },
+      "hotjar": {
+        "description": "Inkesten widget bat aktibatzen du bisitarien gogobetetze inkestei erantzuteko aukera emanez.",
+        "title": "Hotjar"
+      },
+      "i18n": {
+        "description": "Gogoratzen duzu etorkizunean sartzeko hobetsitako interfazearen hizkuntza.",
+        "title": "Hizkuntza kodea"
+      },
+      "jira-servicedesk": {
+        "description": "Iritzi trepeta aktibatzen du gurekin harremanetan jartzeko aukera emanez.",
+        "title": "Jira zerbitzuko mahaia"
+      },
+      "matomo": {
+        "description": "Bisitariek webgunearekin duten harremanari buruzko estatistika anonimoak biltzen ditu.",
+        "title": "Matomo"
+      },
+      "searchResultsView": {
+        "description": "Gogoratzen duzu bilaketa-emaitzak zerrenda edo sareta ikuspegian ikustea nahiago baduzu.",
+        "title": "Bilaketaren emaitzen ikuspegia (zerrenda / sareta)"
+      }
+    }
   },
   "layout": {
     "skipToMain": "Orrialdearen edukietara joan"
@@ -536,6 +649,7 @@ export default {
       "text": "Gure webgune berri eta azkarragoan bilatzen ari zara."
     }
   },
+  "loading": "Kargatzen",
   "loadingResults": "Emaitzak kargatzen",
   "mediaPreview": {
     "selectItem": "Aukeratu elementua {src}"
@@ -546,12 +660,28 @@ export default {
     "notFound": "Ez da aurkitu",
     "paginationLimitExceeded": "Bilaketaren lehen {limit} emaitzak besterik ezin dira ikusi."
   },
+  "modal": {
+    "download": {
+      "clickToCopy": "Egin klik atribuzioan kopiatzeko",
+      "modalIntro": "Elementu hau webean edo beste nonbait erabiltzen baduzu, ez ahaztu atribuzio hau bistaratzea ondoan:",
+      "modalTitle": "Eskerrik asko"
+    }
+  },
   "newWindow": "leiho berrian irekiko da",
   "noMoreResults": "Ez dago emaitza gehiagorik zure bilaketarako.",
   "noResults": "Emaitzarik ez",
   "pageHasLoaded": "kargatu du",
   "pages": {
     "collections": {
+      "organisations": {
+        "table": {
+          "name": "Izena"
+        },
+        "title": "Erakundeak"
+      },
+      "persons": {
+        "title": "Pertsonak"
+      },
       "times": {
         "title": "Garaiak"
       },
@@ -569,7 +699,10 @@ export default {
     "extendedInformation": "Informazio zabaldua",
     "goodToKnow": "Ondo dago jakitea",
     "hideAll": "Informazio guztia ezkutatu",
+    "IIIFViewer": "IIIF ikuslea",
     "location": "Kokapena",
+    "locationOnMap": "Kokapena mapan",
+    "mediaPlayer": "Multimedia erreproduzitzailea",
     "record": "Elementua",
     "showAll": "Informazio guztia erakutsi",
     "similarItems": "Antzeko elementuak",
@@ -619,6 +752,7 @@ export default {
     "form": {
       "description": "Bildumaren deskribapena",
       "private": "Bilduma hau pribatu gisa mantendu",
+      "required": "Beharrezko eremua",
       "title": "Bildumaren izena"
     },
     "labels": {
@@ -630,12 +764,14 @@ export default {
       "likeLimit": {
         "body": "Sentitzen dugu, baina momentuz 100 elementu atsegin daitezke, gehienez. Laster kenduko dugu muga hori!",
         "title": "100 atsegite"
-      }
+      },
+      "updated": "Elementua galerian gehitu da."
     },
     "prompts": {
       "delete": "Ziur zaude bilduma hau ezabatu nahi duzula? Bilduma ezabatuz gero, gaineratu dituzun elementu guztiak galduko dituzu."
     }
   },
   "showLess": "Gutxiago erakutsi",
-  "showMore": "Gehiago erakutsi"
+  "showMore": "Gehiago erakutsi",
+  "website": "Webgunea"
 };

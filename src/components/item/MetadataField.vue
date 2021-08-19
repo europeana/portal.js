@@ -25,27 +25,21 @@
             v-for="(nestedValue, nestedIndex) of value.values"
             :key="index + '_' + nestedIndex"
             :lang="value.code"
-            data-qa="entity value"
-          >
-            <EntityField
-              :value="nestedValue"
-              :about="value.about"
-            />
-          </li>
-        </template>
-        <template v-else-if="fieldData.url">
-          <li
-            :key="index"
-            :lang="langMappedValues.code"
-            data-qa="entity link"
+            :data-qa="fieldData.url ? 'entity link' : 'entity value'"
           >
             <SmartLink
+              v-if="fieldData.url"
               :destination="fieldData.url"
               :link-class="name === 'edmDataProvider' ? 'view-at' : null"
               @click.native="name === 'edmDataProvider' && $matomo && $matomo.trackEvent('Item_external link', 'Click Provider Link', fieldData.url);"
             >
-              {{ value }}
+              {{ nestedValue }}
             </SmartLink>
+            <EntityField
+              v-else
+              :value="nestedValue"
+              :about="value.about"
+            />
           </li>
         </template>
         <li
@@ -54,7 +48,17 @@
           :lang="langMappedValues.code"
           data-qa="literal value"
         >
-          <template>
+          <SmartLink
+            v-if="fieldData.url"
+            :destination="fieldData.url"
+            :link-class="name === 'edmDataProvider' ? 'view-at' : null"
+            @click.native="name === 'edmDataProvider' && $matomo && $matomo.trackEvent('Item_external link', 'Click Provider Link', fieldData.url);"
+          >
+            {{ value }}
+          </SmartLink>
+          <template
+            v-else
+          >
             {{ value }}
           </template>
         </li>
@@ -64,7 +68,7 @@
 </template>
 
 <script>
-  import { langMapValueForLocale } from  '../../plugins/europeana/utils';
+  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
   import EntityField from './EntityField';
   import SmartLink from '../generic/SmartLink';
 
@@ -145,8 +149,8 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../../assets/scss/variables.scss';
-  @import '../../assets/scss/icons.scss';
+  @import '@/assets/scss/variables.scss';
+  @import '@/assets/scss/icons.scss';
 
   .metadata-row {
     border-bottom: 1px solid #e7e7e9;

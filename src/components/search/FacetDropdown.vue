@@ -203,7 +203,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../../assets/scss/variables.scss';
+  @import '@/assets/scss/variables.scss';
 
   .dropdown { // TODO: move this code to the dropdown.scss where possible, to avoid duplication
     margin-bottom: 5px;

@@ -3,8 +3,8 @@
 const APP_SITE_NAME = 'Europeana';
 
 const pkg = require('./package');
-const i18nLocales = require('./src/plugins/i18n/locales.js');
-const i18nDateTime = require('./src/plugins/i18n/datetime.js');
+const i18nLocales = require('./src/plugins/i18n/locales');
+const i18nDateTime = require('./src/plugins/i18n/datetime');
 
 const featureIsEnabled = (value) => Boolean(Number(value));
 
@@ -20,11 +20,14 @@ module.exports = {
       schemaOrgDatasetId: process.env.SCHEMA_ORG_DATASET_ID,
       siteName: APP_SITE_NAME,
       features: {
-        klaro: featureIsEnabled(process.env.ENABLE_KLARO),
         jiraServiceDeskFeedbackForm: featureIsEnabled(process.env.ENABLE_JIRA_SERVICE_DESK_FEEDBACK_FORM),
+        klaro: featureIsEnabled(process.env.ENABLE_KLARO),
         linksToClassic: featureIsEnabled(process.env.ENABLE_LINKS_TO_CLASSIC),
         recommendations: featureIsEnabled(process.env.ENABLE_RECOMMENDATIONS),
-        entityManagement: featureIsEnabled(process.env.ENABLE_ENTITY_MANAGEMENT)
+        acceptSetRecommendations: featureIsEnabled(process.env.ENABLE_ACCEPT_SET_RECOMMENDATIONS),
+        acceptEntityRecommendations: featureIsEnabled(process.env.ENABLE_ACCEPT_ENTITY_RECOMMENDATIONS),
+        entityManagement: featureIsEnabled(process.env.ENABLE_ENTITY_MANAGEMENT),
+        translatedItems: featureIsEnabled(process.env.ENABLE_TRANSLATED_ITEMS)
       }
     },
     auth: {
@@ -40,6 +43,9 @@ module.exports = {
           token_type: process.env.OAUTH_TOKEN_TYPE || 'Bearer'
         }
       }
+    },
+    axios: {
+      baseURL: process.env.PORTAL_BASE_URL
     },
     contentful: {
       spaceId: process.env.CTF_SPACE_ID,
@@ -69,7 +75,7 @@ module.exports = {
           key: process.env.EUROPEANA_ANNOTATION_API_KEY || process.env.EUROPEANA_API_KEY
         },
         entity: {
-          url: process.env.EUROPEANA_ENTITY_API_URL,
+          url: process.env.EUROPEANA_ENTITY_API_URL || 'https://api.europeana.eu/entity',
           key: process.env.EUROPEANA_ENTITY_API_KEY || process.env.EUROPEANA_API_KEY
         },
         newspaper: {
@@ -79,7 +85,7 @@ module.exports = {
           url: process.env.EUROPEANA_RECOMMENDATION_API_URL
         },
         record: {
-          url: process.env.EUROPEANA_RECORD_API_URL,
+          url: process.env.EUROPEANA_RECORD_API_URL || 'https://api.europeana.eu/record',
           key: process.env.EUROPEANA_RECORD_API_KEY || process.env.EUROPEANA_API_KEY
         },
         thumbnail: {
@@ -222,8 +228,10 @@ module.exports = {
       'NavPlugin',
       'PaginationNavPlugin',
       'SidebarPlugin',
+      'TablePlugin',
       'TabsPlugin',
-      'ToastPlugin'
+      'ToastPlugin',
+      'TooltipPlugin'
     ]
   },
 
@@ -342,7 +350,13 @@ module.exports = {
         component: 'src/pages/index.vue'
       });
     },
-    linkExactActiveClass: 'exact-active-link'
+    linkExactActiveClass: 'exact-active-link',
+    parseQuery: (query) => require('qs').parse(query),
+    // To ensure that `"query": ""` results in `?query=`, not `?query`
+    stringifyQuery: (query) => {
+      const stringified = require('qs').stringify(query, { arrayFormat: 'repeat' });
+      return stringified ? '?' + stringified : '';
+    }
   },
 
   serverMiddleware: [
@@ -356,37 +370,8 @@ module.exports = {
   /*
   ** Build configuration
   */
-  build: {
-    stats: process.env.NODE_ENV === 'test' ? 'errors-only' : {
-      chunks: false,
-      children: false,
-      modules: false,
-      colors: true,
-      warnings: true,
-      errors: true,
-      excludeAssets: [
-        /.map$/,
-        /index\..+\.html$/,
-        /vue-ssr-client-manifest.json/
-      ]
-    },
-    extractCSS: true,
-    /*
-    ** You can extend webpack config here
-    */
-    extend(config, ctx) {
-      config.node = { fs: 'empty' };
-      // Run ESLint on save
-      if (ctx.isDev && ctx.isClient) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules)/
-        });
-      }
-    }
-  },
+  build: {},
+
   /*
   ** Render configuration
    */

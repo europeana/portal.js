@@ -1,5 +1,7 @@
 export default {
   "account": {
+    "curatedCollections": "Kurirane kolekcije",
+    "curatedCollectionsInfo": "U nastavku pronađite sve zbirke koje ste kurirali",
     "editProfile": "Uredi profil",
     "likes": "Sviđanja",
     "linkAccount": "Moj račun",
@@ -11,6 +13,7 @@ export default {
       "loggedIn": "Sada ste prijavljeni. Dobrodošli!",
       "loggedOut": "Sada ste odjavljeni.",
       "noCollections": {
+        "curated": "Još niste kustosi kolekcija.",
         "private": "Još niste stvorili privatne galerije",
         "public": "Još niste stvorili javne galerije"
       },
@@ -24,6 +27,7 @@ export default {
     "title": "Moj račun"
   },
   "actions": {
+    "accept": "Prihvatiti",
     "cancel": "Otkazati",
     "close": "zatvori",
     "download": "Preuzmi",
@@ -33,6 +37,7 @@ export default {
     "like": "Sviđanje",
     "next": "Sljedeći",
     "providedBy": "Omogućio {provider}",
+    "reject": "Odbiti",
     "send": "Slati",
     "share": "Podijeli",
     "shareOn": "Podijelite na {social}",
@@ -58,8 +63,18 @@ export default {
     "published": "Objavljeno {date}",
     "relatedPosts": "Vezane objave"
   },
+  "cardLabels": {
+    "organisation": "Organizacija",
+    "person": "Osoba",
+    "time": "Stoljeća",
+    "topic": "Tema"
+  },
   "clearAllFilters": "očistiti sve filtre",
   "collections": {
+    "actions": {
+      "edit": "Uredi zbirku",
+      "update": "Ažuriraj zbirku"
+    },
     "fashion": {
       "facets": {
         "CREATOR": {
@@ -75,6 +90,12 @@ export default {
           "name": "Materijal | materijali"
         }
       }
+    },
+    "form": {
+      "description": "Opis"
+    },
+    "notifications": {
+      "update": "Zbirka je ažurirana"
     }
   },
   "collectionsYouMightLike": "Kolekcije koje vam se mogu sviđati",
@@ -110,7 +131,8 @@ export default {
     "to": "do"
   },
   "debug": {
-    "apiRequests": "API zahtjevi"
+    "apiRequests": "API zahtjevi",
+    "debug": "Otklanjanje pogrešaka"
   },
   "delete": "Izbriši",
   "depiction": "Prikaz {title}",
@@ -119,7 +141,32 @@ export default {
     "right": "Desno"
   },
   "edmIsShownAtLinkAlt": "Prikaz na internetskoj stranici pružatelja",
-  "entity": "Entitet",
+  "entity": {
+    "actions": {
+      "cancel": "Otkazati",
+      "pin": "Prikvači stavku",
+      "unpin": "Otkvačite stavku",
+      "viewPinned": "Pogledajte prikvačene stavke"
+    },
+    "labels": {
+      "entity": "Entitet"
+    },
+    "notifications": {
+      "deleted": "Vaša galerija je izbrisana.",
+      "pinLimit": {
+        "body": "Za sada na prvu stranicu možete prikvačiti samo 24 predmeta. Ako želite prikvačiti ovu stavku, svakako otkačite drugu, a zatim pokušajte ponovo prikvačiti ovu.",
+        "title": "Previše prikvačenih stavki"
+      },
+      "pinned": "Stavka je prikvačena. Sada je na vrhu prve stranice ove zbirke. Možda će trebati i do 24 sata da se svi pojave.",
+      "pinnedFirstPage": "Stavka je prikvačena. Možda će trebati i do 24 sata da se svi pojave.",
+      "unpinned": "Stavka je otkvačena. Više nije na vrhu prve stranice ove zbirke. Moglo bi potrajati do 24 sata da nestane za sve.",
+      "unpinnedFirstPage": "Stavka je otkvačena. Moglo bi potrajati do 24 sata da nestane za sve."
+    },
+    "prompts": {
+      "pin": "Jeste li sigurni da želite prikvačiti ovu stavku? Ova će se stavka prikazati na vrhu zbirke \"{entitet}\". Ta promjena može potrajati do 24 sata.",
+      "unpin": "Jeste li sigurni da želite otkvačiti ovu stavku? Ova će se stavka prestati prikazivati na vrhu zbirke \"{entity}\". Ta promjena može potrajati do 24 sata."
+    }
+  },
   "error": "Greška",
   "exhibitions": {
     "chapters": "Poglavlja",
@@ -515,7 +562,74 @@ export default {
   "items": {
     "itemCount": "1 stavka |{count} stavki",
     "itemOf": "{max} od {count} stavki",
+    "recommendationsDisclaimer": "Palac gore za dodavanje u galeriju - Palac dolje ako vam se ne sviđa",
+    "recommended": "Preporučeni predmeti",
     "youMightLike": "Stavke koje vam se mogu sviđati"
+  },
+  "klaro": {
+    "main": {
+      "consentModal": {
+        "description": "Privatnost vaših podataka shvaćamo ozbiljno. Ovdje možete procijeniti i prilagoditi usluge koje bismo željeli koristiti na ovoj web stranici. Vi ste glavni! Omogućite ili onemogućite usluge kako vam odgovara.",
+        "title": "Usluge koje bismo željeli koristiti."
+      },
+      "consentNotice": {
+        "description": "Stalo nam je do vaše privatnosti i podatke koristimo samo za poboljšanje vašeg iskustva. Ne koristimo nikakve osobne podatke za oglašavanje. Privolu možete promijeniti svakih 15 dana."
+      },
+      "ok": "u redu",
+      "purposes": {
+        "essential": {
+          "description": "Te su usluge ključne za pravilno funkcioniranje ove web stranice. Uključuju prikaz rezultata pretraživanja i jezične postavke, čuvaju prijavljeno stanje i osiguravaju siguran posjet. Ne možete ih onemogućiti jer web mjesto inače ne bi radilo ispravno.",
+          "title": "Osnovne usluge za sigurnost i prilagodbu"
+        },
+        "usage": {
+          "description": "Te usluge prikupljaju informacije kako bi nam pomogle da bolje razumijemo kako se web stranica koristi i gdje su bolne točke, osnažujući nas da donosimo informirane odluke kako bismo poboljšali vaše iskustvo.",
+          "title": "Usluge za bilježenje upotrebe web mjesta i povratnih informacija"
+        }
+      },
+      "service": {
+        "disableAll": {
+          "description": "Pomoću ove sklopke omogućite ili onemogućite sve opcijske usluge.",
+          "title": "Omogućite ili onemogućite sve usluge"
+        }
+      }
+    },
+    "services": {
+      "auth-strategy": {
+        "description": "Sjeća se strategije autorizacije za prijavu.",
+        "title": "Auth strategija"
+      },
+      "debugSettings": {
+        "title": "Prebacivanje pogrešaka"
+      },
+      "google-analytics": {
+        "description": "Prikuplja anonimne statistike o tome kako posjetitelji komuniciraju s web mjestom.",
+        "title": "Google Analytics"
+      },
+      "google-optimize": {
+        "description": "Omogućuje vam sudjelovanje u eksperimentima na web mjestu koji vode naše odabire dizajna za najbolje korisničko iskustvo.",
+        "title": "Google Optimize"
+      },
+      "hotjar": {
+        "description": "Aktivira widget ankete dajući vam mogućnost da odgovorite na naše ankete o zadovoljstvu posjetitelja.",
+        "title": "Hotjar"
+      },
+      "i18n": {
+        "description": "Sjeća vaš omiljeni jezik sučelja za budući pristup.",
+        "title": "Kod jezika"
+      },
+      "jira-servicedesk": {
+        "description": "Aktivira widget za povratne informacije dajući vam mogućnost da nas kontaktirate.",
+        "title": "Jira servisni stol"
+      },
+      "matomo": {
+        "description": "Prikuplja anonimne statistike o tome kako posjetitelji komuniciraju s web mjestom.",
+        "title": "Matomo"
+      },
+      "searchResultsView": {
+        "description": "Sjeća ako radije vidite rezultate pretraživanja u prikazu popisa ili mreže.",
+        "title": "Prikaz rezultata pretraživanja (popis / mreža)"
+      }
+    }
   },
   "layout": {
     "skipToMain": "Prijeđite na sadržaj stranice"
@@ -535,6 +649,7 @@ export default {
       "text": "Pretražujete našu novu i bržu internetsku stranicu."
     }
   },
+  "loading": "Učitavanje",
   "loadingResults": "Učitavanje rezultata",
   "mediaPreview": {
     "selectItem": "Odaberite stavku {src}"
@@ -545,11 +660,28 @@ export default {
     "notFound": "Nije pronađeno",
     "paginationLimitExceeded": "Možete pregledati samo prvih {limit} rezultata pretraživanja."
   },
+  "modal": {
+    "download": {
+      "clickToCopy": "Kliknite na atribuciju da biste je kopirali",
+      "modalIntro": "Ako ovu stavku koristite na webu ili negdje drugdje, ne zaboravite pored nje prikazati sljedeću atribuciju:",
+      "modalTitle": "Reci hvala"
+    }
+  },
   "newWindow": "otvara se u novom prozoru",
   "noMoreResults": "Nema više rezultata za vaš upit za pretraživanje.",
   "noResults": "Nema rezultata",
+  "pageHasLoaded": "se učitao",
   "pages": {
     "collections": {
+      "organisations": {
+        "table": {
+          "name": "Ime"
+        },
+        "title": "Organizacije"
+      },
+      "persons": {
+        "title": "Osobe"
+      },
       "times": {
         "title": "Vremena"
       },
@@ -567,6 +699,10 @@ export default {
     "extendedInformation": "Proširene informacije",
     "goodToKnow": "Dobro je znati",
     "hideAll": "Sakrij sve informacije",
+    "IIIFViewer": "IIIF preglednik",
+    "location": "Mjesto",
+    "locationOnMap": "Lokacija na karti",
+    "mediaPlayer": "Media player",
     "record": "Zapis",
     "showAll": "Prikaži sve informacije",
     "similarItems": "Slične stavke",
@@ -616,6 +752,7 @@ export default {
     "form": {
       "description": "Opis galerije",
       "private": "Držite ovu galeriju privatnom",
+      "required": "Obavezno polje",
       "title": "Naziv galerije"
     },
     "labels": {
@@ -627,12 +764,14 @@ export default {
       "likeLimit": {
         "body": "Žao nam je, ali trenutno vam je ograničeno sviđanje na najviše 100 predmeta. Uskoro ćemo ukloniti ovo ograničenje!",
         "title": "100 sviđanja"
-      }
+      },
+      "updated": "Predmet je dodan u galeriju."
     },
     "prompts": {
       "delete": "Jeste li sigurni da želite izbrisati ovu galeriju? Ako izbrišete ovu galeriju, izgubit ćete sve stavke koje ste joj dodali."
     }
   },
   "showLess": "Prikaži manje",
-  "showMore": "Prikaži više"
+  "showMore": "Prikaži više",
+  "website": "Web stranica"
 };

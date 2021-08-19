@@ -58,8 +58,17 @@ export default {
     "published": "Közzététel dátuma: {date}",
     "relatedPosts": "Kapcsolódó bejegyzések"
   },
+  "cardLabels": {
+    "person": "Személy",
+    "time": "Század",
+    "topic": "Téma"
+  },
   "clearAllFilters": "összes szűrő törlése",
   "collections": {
+    "actions": {
+      "edit": "Gyűjtemény szerkesztése",
+      "update": "Gyűjtemény frissítése"
+    },
     "fashion": {
       "facets": {
         "CREATOR": {
@@ -75,6 +84,12 @@ export default {
           "name": "Anyag | Anyagok"
         }
       }
+    },
+    "form": {
+      "description": "Leírás"
+    },
+    "notifications": {
+      "update": "A gyűjtemény frissült"
     }
   },
   "collectionsYouMightLike": "Gyűjtemények, amelyek tetszhetnek Önnek",
@@ -110,7 +125,8 @@ export default {
     "to": "erre"
   },
   "debug": {
-    "apiRequests": "API kérések"
+    "apiRequests": "API kérések",
+    "debug": "Debug"
   },
   "delete": "Törlés",
   "depiction": "{title} ábrázolása",
@@ -119,7 +135,17 @@ export default {
     "right": "Jobb"
   },
   "edmIsShownAtLinkAlt": "Megtekintés a szolgáltató webhelyén",
-  "entity": "Entitás",
+  "entity": {
+    "actions": {
+      "cancel": "Mégse"
+    },
+    "labels": {
+      "entity": "Entitás"
+    },
+    "notifications": {
+      "deleted": "Galéria törölve."
+    }
+  },
   "error": "Hiba",
   "exhibitions": {
     "chapters": "Fejezetek",
@@ -499,6 +525,7 @@ export default {
       "collections": "Gyűjtemények",
       "europeanaClassroom": "Tanárok",
       "help": "Súgó",
+      "home": "itthon",
       "stories": "Történetek"
     },
     "searchFor": "Keresés erre: {query}",
@@ -515,6 +542,71 @@ export default {
     "itemCount": "1 cikk |{count} cikk",
     "itemOf": "{max} {count} cikk",
     "youMightLike": "Cikkek, amik tetszhetnek Önnek"
+  },
+  "klaro": {
+    "main": {
+      "consentModal": {
+        "description": "Komolyan vesszük az Ön adatvédelmét. Itt értékelheti és testre szabhatja azokat a szolgáltatásokat, amelyeket ezen a weboldalon használni szeretnénk. Te vagy a felelős! Engedélyezze vagy tiltsa le a szolgáltatásokat tetszése szerint.",
+        "title": "Szolgáltatások, amelyeket szeretnénk igénybe venni."
+      },
+      "consentNotice": {
+        "description": "Törődünk az adatvédelemmel, és csak az élmény javítása érdekében használunk adatokat. Nem használunk személyes adatokat reklámozásra. 15 naponta módosíthatja beleegyezését."
+      },
+      "ok": "oké",
+      "purposes": {
+        "essential": {
+          "description": "Ezek a szolgáltatások elengedhetetlenek a weboldal megfelelő működéséhez. Tartalmazzák a keresési eredmények nézetét és a nyelvi beállításokat, megőrzik a bejelentkezett állapotot és biztonságban tartják látogatásukat. Nem tilthatja le őket, mivel a webhely egyébként nem működne megfelelően.",
+          "title": "Alapvető szolgáltatások a biztonság és a testreszabás érdekében"
+        },
+        "usage": {
+          "description": "Ezek a szolgáltatások összegyűjtik az információkat, hogy jobban megértsük, hogyan használják fel a weboldalt és hol vannak a fájdalompontok, felhatalmazva bennünket arra, hogy megalapozott döntéseket hozzunk az Ön élményének javítása érdekében.",
+          "title": "Szolgáltatások a weboldal használatának és visszajelzésének rögzítésére"
+        }
+      },
+      "service": {
+        "disableAll": {
+          "description": "Ezzel a kapcsolóval engedélyezheti vagy letilthatja az összes opcionális szolgáltatást.",
+          "title": "Minden szolgáltatás engedélyezése vagy letiltása"
+        }
+      }
+    },
+    "services": {
+      "auth-strategy": {
+        "description": "Emlékszik a bejelentkezéshez használandó engedélyezési stratégiára.",
+        "title": "Auth stratégia"
+      },
+      "debugSettings": {
+        "title": "Hibakeresés váltás"
+      },
+      "google-analytics": {
+        "description": "Névtelen statisztikákat gyűjt arról, hogy a látogatók hogyan lépnek kapcsolatba a weboldallal.",
+        "title": "Google Analytics"
+      },
+      "google-optimize": {
+        "description": "Lehetővé teszi, hogy részt vegyen olyan webhelykísérletekben, amelyek a legjobb felhasználói élmény érdekében irányítják tervezési döntéseinket.",
+        "title": "Google Optimize"
+      },
+      "hotjar": {
+        "description": "Aktivál egy felmérési widgetet, amely lehetőséget ad a látogatói elégedettségi felméréseinkre való válaszadásra.",
+        "title": "Hotjar"
+      },
+      "i18n": {
+        "description": "Emlékszik az Ön által preferált felület nyelvére a későbbi hozzáférés érdekében.",
+        "title": "Nyelvi kód"
+      },
+      "jira-servicedesk": {
+        "description": "Aktiválja a visszajelzés widgetet, amely lehetőséget ad a kapcsolatfelvételre.",
+        "title": "Jira szolgáltató pult"
+      },
+      "matomo": {
+        "description": "Névtelen statisztikákat gyűjt arról, hogy a látogatók hogyan lépnek kapcsolatba a weboldallal.",
+        "title": "Matomo"
+      },
+      "searchResultsView": {
+        "description": "Emlékszik arra, hogy a keresési eredményeket inkább lista- vagy rácsnézetben szeretné-e látni.",
+        "title": "Keresési eredmény nézet (lista / rács)"
+      }
+    }
   },
   "layout": {
     "skipToMain": "Ugrás az oldal tartalmához"
@@ -550,6 +642,9 @@ export default {
   "pageHasLoaded": "betöltődött",
   "pages": {
     "collections": {
+      "times": {
+        "title": "Idők"
+      },
       "topics": {
         "title": "Témák"
       }
@@ -564,6 +659,10 @@ export default {
     "extendedInformation": "Kiterjesztett információk",
     "goodToKnow": "Jó tudni",
     "hideAll": "Az összes információ elrejtése",
+    "IIIFViewer": "IIIF néző",
+    "location": "hely",
+    "locationOnMap": "Elhelyezkedés a térképen",
+    "mediaPlayer": "Médialejátszó",
     "record": "Rekord",
     "showAll": "Az összes információ megjelenítése",
     "similarItems": "Hasonló elemek",
@@ -613,6 +712,7 @@ export default {
     "form": {
       "description": "Galéria leírása",
       "private": "Galéria privát módban tartása",
+      "required": "Kötelező mező",
       "title": "Galéria neve"
     },
     "labels": {

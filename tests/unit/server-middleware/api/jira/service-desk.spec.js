@@ -1,4 +1,4 @@
-import serviceDesk from '../../../../../src/server-middleware/api/jira/service-desk';
+import serviceDesk from '@/server-middleware/api/jira/service-desk';
 
 import nock from 'nock';
 nock.disableNetConnect();

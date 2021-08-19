@@ -1,5 +1,7 @@
 export default {
   "account": {
+    "curatedCollections": "Curated Collections",
+    "curatedCollectionsInfo": "Find below all collections you have curated",
     "editProfile": "Edit profile",
     "likes": "Likes",
     "linkAccount": "My Account",
@@ -11,9 +13,9 @@ export default {
       "loggedIn": "You are now logged in. Welcome!",
       "loggedOut": "You are now logged out.",
       "noCollections": {
+        "curated": "You haven’t curated any collections yet",
         "private": "You haven’t created any private galleries yet",
-        "public": "You haven’t created any public galleries yet",
-        "curated": "You haven’t curated any collections yet"
+        "public": "You haven’t created any public galleries yet"
       },
       "noLikedItems": "You haven’t liked any items yet"
     },
@@ -22,11 +24,10 @@ export default {
     "profileSettings": "Profile settings",
     "publicCollections": "Public Galleries",
     "settings": "Settings",
-    "title": "My account",
-    "curatedCollections": "Curated Collections",
-    "curatedCollectionsInfo": "Find below all collections you have curated"
+    "title": "My account"
   },
   "actions": {
+    "accept": "Accept",
     "cancel": "Cancel",
     "close": "close",
     "download": "Download",
@@ -36,6 +37,7 @@ export default {
     "like": "Like",
     "next": "Next",
     "providedBy": "Provided by {provider}",
+    "reject": "Reject",
     "send": "Send",
     "share": "Share",
     "shareOn": "Share on {social}",
@@ -50,6 +52,11 @@ export default {
     "institution": "Institution:",
     "title": "Title:"
   },
+  "automatedCardGroup": {
+    "item": "Recent Items",
+    "time": "Featured Centuries",
+    "topic": "Featured Topics"
+  },
   "blog": {
     "author": "Author",
     "authors": "Authors",
@@ -62,6 +69,7 @@ export default {
     "relatedPosts": "Related posts"
   },
   "cardLabels": {
+    "organisation": "Organisation",
     "person": "Person",
     "time": "Century",
     "topic": "Topic"
@@ -71,12 +79,6 @@ export default {
     "actions": {
       "edit": "Edit Collection",
       "update": "Update Collection"
-    },
-    "form": {
-      "description": "Description"
-    },
-    "notifications": {
-      "update": "The collection has been updated"
     },
     "fashion": {
       "facets": {
@@ -93,6 +95,12 @@ export default {
           "name": "Material | Materials"
         }
       }
+    },
+    "form": {
+      "description": "Description"
+    },
+    "notifications": {
+      "update": "The collection has been updated"
     }
   },
   "collectionsYouMightLike": "Collections you might like",
@@ -140,17 +148,13 @@ export default {
   "edmIsShownAtLinkAlt": "View at the provider's website",
   "entity": {
     "actions": {
+      "cancel": "Cancel",
       "pin": "Pin item",
       "unpin": "Unpin item",
-      "viewPinned": "See pinned items",
-      "cancel": "Cancel"
+      "viewPinned": "See pinned items"
     },
     "labels": {
       "entity": "Entity"
-    },
-    "prompts": {
-      "pin": "Are you sure you want to pin this item? This item will show at the top of the \"{entity}\" collection. This change might take up to 24 hours to take effect.",
-      "unpin": "Are you sure you want to unpin this item? This item will stop showing at the top of the \"{entity}\" collection. This change might take up to 24 hours to take effect."
     },
     "notifications": {
       "deleted": "Your gallery has been deleted.",
@@ -158,12 +162,15 @@ export default {
         "body": "For now you can only pin 24 items on the first page. If you want to pin this item, make sure you unpin another one and then try to pin this one again.",
         "title": "Too many pinned items"
       },
-      "pinnedFirstPage": "The item has been pinned. It might take up to 24 hours to appear for everyone.",
-      "unpinnedFirstPage": "The item has been unpinned. It might take up to 24 hours to disappear for everyone.",
       "pinned": "The item has been pinned. It is now at the top of the first page of this collection. It might take up to 24 hours to appear for everyone.",
-      "unpinned": "The item has been unpinned. It is no longer at the top of the first page of this collection. It might take up to 24 hours to disappear for everyone."
+      "pinnedFirstPage": "The item has been pinned. It might take up to 24 hours to appear for everyone.",
+      "unpinned": "The item has been unpinned. It is no longer at the top of the first page of this collection. It might take up to 24 hours to disappear for everyone.",
+      "unpinnedFirstPage": "The item has been unpinned. It might take up to 24 hours to disappear for everyone."
+    },
+    "prompts": {
+      "pin": "Are you sure you want to pin this item? This item will show at the top of the \"{entity}\" collection. This change might take up to 24 hours to take effect.",
+      "unpin": "Are you sure you want to unpin this item? This item will stop showing at the top of the \"{entity}\" collection. This change might take up to 24 hours to take effect."
     }
-
   },
   "error": "Error",
   "exhibitions": {
@@ -560,6 +567,9 @@ export default {
   "items": {
     "itemCount": "1 item |{count} items",
     "itemOf": "{max} of {count} items",
+    "recent": "Recent items",
+    "recommendationsDisclaimer": "Thumb up to add to the gallery - Thumb down if you dislike it",
+    "recommended": "Recommended items",
     "youMightLike": "Items you might like"
   },
   "klaro": {
@@ -645,6 +655,7 @@ export default {
       "text": "You're searching in our new and faster website."
     }
   },
+  "loading": "Loading",
   "loadingResults": "Loading results",
   "mediaPreview": {
     "selectItem": "Select item {src}"
@@ -655,12 +666,37 @@ export default {
     "notFound": "Not Found",
     "paginationLimitExceeded": "It is only possible to view the first {limit} search results."
   },
+  "modal": {
+    "download": {
+      "clickToCopy": "Click on the attribution to copy it",
+      "modalIntro": "If you use this item on the web or elsewhere, don’t forget to display the following attribution next to it:",
+      "modalTitle": "Say thanks"
+    }
+  },
+  "multilingual": {
+    "automated": "Automated translation",
+    "currentLanguage": "Would you like to see this item in {0}?",
+    "differentLanguage": "a different language",
+    "enrichment": "Enrichment by partner projects",
+    "original": "Original metadata",
+    "originalLanguage": "original language",
+    "other": "Other languages"
+  },
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
   "noResults": "No results",
   "pageHasLoaded": "has loaded",
   "pages": {
     "collections": {
+      "organisations": {
+        "table": {
+          "name": "Name"
+        },
+        "title": "Organisations"
+      },
+      "persons": {
+        "title": "Persons"
+      },
       "times": {
         "title": "Times"
       },
@@ -743,12 +779,14 @@ export default {
       "likeLimit": {
         "body": "We are sorry, but you are limited at the moment to liking a maximum of 100 items. We will remove this limit soon!",
         "title": "100 likes"
-      }
+      },
+      "updated": "The item was added to the gallery."
     },
     "prompts": {
       "delete": "Are you sure you want to delete this gallery? If you delete this gallery, you will lose all the items you've added to it."
     }
   },
   "showLess": "Show less",
-  "showMore": "Show more"
+  "showMore": "Show more",
+  "website": "Website"
 };

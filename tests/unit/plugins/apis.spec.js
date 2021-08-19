@@ -1,4 +1,4 @@
-import plugin from '../../../src/plugins/apis';
+import plugin from '@/plugins/apis';
 
 import sinon from 'sinon';
 

@@ -58,8 +58,17 @@ export default {
     "published": "Pubblicato il giorno {date}",
     "relatedPosts": "Articoli correlati"
   },
+  "cardLabels": {
+    "person": "Persona",
+    "time": "Secolo",
+    "topic": "Argomento"
+  },
   "clearAllFilters": "cancella tutti i filtri",
   "collections": {
+    "actions": {
+      "edit": "Modifica raccolta",
+      "update": "Aggiorna raccolta"
+    },
     "fashion": {
       "facets": {
         "CREATOR": {
@@ -75,9 +84,16 @@ export default {
           "name": "Materiale | Materiali"
         }
       }
+    },
+    "form": {
+      "description": "Descrizione"
+    },
+    "notifications": {
+      "update": "La collezione è stata aggiornata"
     }
   },
   "collectionsYouMightLike": "Collezioni che potrebbero piacerti",
+  "colourSwatch": "Campione di colore",
   "contentfulManual": {
     "footerNavigation": {
       "about": "Le collezioni Europeana",
@@ -108,6 +124,10 @@ export default {
     "startDate": "Data di inizio",
     "to": "a"
   },
+  "debug": {
+    "apiRequests": "Richieste API",
+    "debug": "Debug"
+  },
   "delete": "Cancella",
   "depiction": "Una rappresentazione di {title}",
   "directions": {
@@ -115,6 +135,17 @@ export default {
     "right": "Destra"
   },
   "edmIsShownAtLinkAlt": "Visualizza sul sito web del fornitore",
+  "entity": {
+    "actions": {
+      "cancel": "Annulla"
+    },
+    "labels": {
+      "entity": "Entità"
+    },
+    "notifications": {
+      "deleted": "Galleria eliminata."
+    }
+  },
   "error": "Errore",
   "exhibitions": {
     "chapters": "Capitoli",
@@ -302,6 +333,7 @@ export default {
         "#FFFAFA": "Neve",
         "#FFFF00": "Giallo",
         "#FFFFE0": "Giallo chiaro",
+        "#FFFFF0": "Avorio",
         "#FFFFFF": "bianca"
       }
     },
@@ -464,6 +496,8 @@ export default {
   },
   "footer": {
     "customiseWebsiteLanguage": "Personalizza la lingua del sito",
+    "disclaimerLine1": "Europeana è un'iniziativa dell'Unione europea, finanziata dal Connecting Europe Facility dell'Unione europea e dagli Stati membri dell'Unione europea. I servizi Europeana, compreso questo sito web, sono gestiti da un consorzio guidato dalla Fondazione Europeana nell'ambito di un contratto di servizio con la Commissione europea.",
+    "disclaimerLine2": "La Commissione europea non garantisce l'accuratezza delle informazioni e non si assume alcuna responsabilità in merito alle informazioni contenute in questo sito web. Né la Commissione europea, né alcuna persona che agisce per conto della Commissione europea, è responsabile o obbligata per l'accuratezza o l'uso delle informazioni su questo sito web.",
     "findUsElsewhere": "Trovaci altrove",
     "imageDescription": "Cofinanziato dal fondo Collegare l'Europa dell'Unione Europea",
     "ourMission": "La nostra missione",
@@ -491,6 +525,7 @@ export default {
       "collections": "Collezioni",
       "europeanaClassroom": "Insegnanti",
       "help": "Aiuto",
+      "home": "Casa",
       "stories": "Storie"
     },
     "searchFor": "Cerca {query}",
@@ -507,6 +542,71 @@ export default {
     "itemCount": "1 articolo | {count} articoli",
     "itemOf": "{max} di {count} articoli",
     "youMightLike": "Articoli che potrebbero piacerti"
+  },
+  "klaro": {
+    "main": {
+      "consentModal": {
+        "description": "Prendiamo sul serio la privacy dei tuoi dati. Qui puoi valutare e personalizzare i servizi che vorremmo utilizzare su questo sito web. Sei tu al comando! Abilitare o disabilitare i servizi come meglio credi.",
+        "title": "Servizi che vorremmo utilizzare."
+      },
+      "consentNotice": {
+        "description": "Teniamo molto alla tua privacy e utilizziamo i dati solo per migliorare la tua esperienza. Non utilizziamo alcuna informazione personale per la pubblicità. Puoi modificare il tuo consenso ogni 15 giorni."
+      },
+      "ok": "Ok",
+      "purposes": {
+        "essential": {
+          "description": "Questi servizi sono essenziali per il corretto funzionamento di questo sito web. Includono la visualizzazione dei risultati di ricerca e le preferenze di lingua, conservano lo stato di accesso e mantengono la tua visita sicura. Non puoi disabilitarli in quanto il sito web non funzionerebbe correttamente altrimenti.",
+          "title": "Servizi essenziali per la sicurezza e la personalizzazione"
+        },
+        "usage": {
+          "description": "Questi servizi raccolgono le informazioni per aiutarci a capire meglio come viene utilizzato il sito Web e dove sono i punti deboli, consentendoci di fare scelte informate per migliorare la tua esperienza.",
+          "title": "Servizi per catturare l'uso del sito web e il feedback"
+        }
+      },
+      "service": {
+        "disableAll": {
+          "description": "Utilizzare questo interruttore per abilitare o disabilitare tutti i servizi facoltativi.",
+          "title": "Abilitare o disabilitare tutti i servizi"
+        }
+      }
+    },
+    "services": {
+      "auth-strategy": {
+        "description": "Ricorda la strategia di autorizzazione da utilizzare per accedere.",
+        "title": "Strategia di autenticazione"
+      },
+      "debugSettings": {
+        "title": "Alterna il debug"
+      },
+      "google-analytics": {
+        "description": "Raccoglie statistiche anonime su come i visitatori interagiscono con il sito web.",
+        "title": "statistiche di Google"
+      },
+      "google-optimize": {
+        "description": "Ti consente di partecipare a esperimenti sul sito Web che guidano le nostre scelte di progettazione per la migliore esperienza utente.",
+        "title": "Google ottimizza"
+      },
+      "hotjar": {
+        "description": "Attiva un widget sondaggio che ti dà la possibilità di rispondere ai nostri sondaggi sulla soddisfazione dei visitatori.",
+        "title": "Hotjar"
+      },
+      "i18n": {
+        "description": "Ricorda la lingua dell'interfaccia preferita per l'accesso futuro.",
+        "title": "Codice lingua"
+      },
+      "jira-servicedesk": {
+        "description": "Attiva il widget di feedback dandoti la possibilità di contattarci.",
+        "title": "Jira service desk"
+      },
+      "matomo": {
+        "description": "Raccoglie statistiche anonime su come i visitatori interagiscono con il sito web.",
+        "title": "Matomo"
+      },
+      "searchResultsView": {
+        "description": "Ricorda se preferisci vedere i risultati della ricerca in una visualizzazione elenco o griglia.",
+        "title": "Visualizzazione dei risultati di ricerca (elenco/griglia)"
+      }
+    }
   },
   "layout": {
     "skipToMain": "Passa al contenuto della pagina"
@@ -527,7 +627,11 @@ export default {
     }
   },
   "loadingResults": "Caricamento dei risultati in corso",
+  "mediaPreview": {
+    "selectItem": "Selezionare la voce {src}"
+  },
   "messages": {
+    "copyToClipboardSuccess": "Copiato negli appunti",
     "externalContentError": "Impossibile caricare il contenuto esterno",
     "notFound": "Non trovati",
     "paginationLimitExceeded": "È possibile visualizzare solo i primi {limit} risultati di ricerca."
@@ -535,8 +639,12 @@ export default {
   "newWindow": "si apre in una nuova finestra",
   "noMoreResults": "Non ci sono altri risultati per la tua query di ricerca.",
   "noResults": "Nessun Risultato",
+  "pageHasLoaded": "ha caricato",
   "pages": {
     "collections": {
+      "times": {
+        "title": "Tempi"
+      },
       "topics": {
         "title": "Temi"
       }
@@ -545,11 +653,16 @@ export default {
   "readMore": "Leggi di più",
   "record": {
     "allMetaData": "Tutti i metadati",
+    "copyEmbedLabel": "Incorpora codice (fare clic per copiare)",
     "downloadCopyrightInfo": "Questo elemento è protetto da copyright e non può essere scaricato.",
     "exploreMore": "Esplora altro",
     "extendedInformation": "Informazioni estese",
     "goodToKnow": "Caratteristiche",
     "hideAll": "Nascondi tutte le informazioni",
+    "IIIFViewer": "Visualizzatore IIIF",
+    "location": "Posizione",
+    "locationOnMap": "Posizione sulla mappa",
+    "mediaPlayer": "Lettore multimediale",
     "record": "Documentazione",
     "showAll": "Mostra tutte le informazioni",
     "similarItems": "Elementi simili",
@@ -599,6 +712,7 @@ export default {
     "form": {
       "description": "Descrizione della galleria",
       "private": "Tieni privata questa galleria",
+      "required": "Campi obbligatorio",
       "title": "Nome della galleria"
     },
     "labels": {

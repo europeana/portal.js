@@ -1,4 +1,4 @@
-import * as utils from '../../../../src/plugins/europeana/utils';
+import * as utils from '@/plugins/europeana/utils';
 
 describe('plugins/europeana/utils', () => {
   describe('apiUrlFromRequestHeaders()', () => {
@@ -186,6 +186,14 @@ describe('plugins/europeana/utils', () => {
       const reduced = utils.reduceLangMapsForLocale(value, locale);
 
       reduced.should.eql({ fr: 'Français' });
+    });
+
+    it('preserves the translationSource', () => {
+      const value = { en: 'English', fr: 'Français', translationSource: 'automated' };
+
+      const reduced = utils.reduceLangMapsForLocale(value, locale);
+
+      reduced.should.eql({ fr: 'Français', translationSource: 'automated' });
     });
 
     it('preserves entities on "def"', () => {

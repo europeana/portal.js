@@ -20,9 +20,7 @@
     >
       {{ $t('layout.skipToMain') }}
     </a>
-    <PageHeader
-      keep-alive
-    />
+    <PageHeader />
     <client-only
       v-if="feedbackEnabled"
     >
@@ -138,7 +136,7 @@
 
       renderKlaro() {
         if (typeof window.klaro !== 'undefined') {
-          window.klaro.render(klaroConfig(this.$i18n, this.$gtm, this.$config.gtm.id), true);
+          window.klaro.render(klaroConfig(this.$i18n, this.$gtm, this.$config.gtm.id, this.$initHotjar), true);
         }
         return null;
       }

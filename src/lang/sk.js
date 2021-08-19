@@ -58,8 +58,17 @@ export default {
     "published": "Zverejnené {date}",
     "relatedPosts": "Súvisiace príspevky"
   },
+  "cardLabels": {
+    "person": "Osoba",
+    "time": "Storočia",
+    "topic": "Téma"
+  },
   "clearAllFilters": "Vymazať všetky filtre",
   "collections": {
+    "actions": {
+      "edit": "Upraviť kolekciu",
+      "update": "Aktualizovať kolekciu"
+    },
     "fashion": {
       "facets": {
         "CREATOR": {
@@ -75,9 +84,16 @@ export default {
           "name": "Materiál | Materiály"
         }
       }
+    },
+    "form": {
+      "description": "Popis"
+    },
+    "notifications": {
+      "update": "Kolekcia bola aktualizovaná"
     }
   },
   "collectionsYouMightLike": "Zbierky, ktoré by sa vám mohli páčiť",
+  "colourSwatch": "Farebná vzorkovník",
   "contentfulManual": {
     "footerNavigation": {
       "about": "Informácie o zbierkach Europeana",
@@ -108,6 +124,10 @@ export default {
     "startDate": "Dátum začiatku",
     "to": "do"
   },
+  "debug": {
+    "apiRequests": "Žiadosti API",
+    "debug": "Debug"
+  },
   "delete": "Vymazať",
   "depiction": "Zobrazenie {title}",
   "directions": {
@@ -115,6 +135,17 @@ export default {
     "right": "Vpravo"
   },
   "edmIsShownAtLinkAlt": "Zobrazenie na webovej stránke poskytovateľa",
+  "entity": {
+    "actions": {
+      "cancel": "Zrušiť"
+    },
+    "labels": {
+      "entity": "Subjekt"
+    },
+    "notifications": {
+      "deleted": "Galéria bola vymazaná."
+    }
+  },
   "error": "Chyba",
   "exhibitions": {
     "chapters": "Kapitoly",
@@ -302,6 +333,7 @@ export default {
         "#FFFAFA": "Sneh",
         "#FFFF00": "žltá",
         "#FFFFE0": "Svetlo žltá",
+        "#FFFFF0": "Slonovina",
         "#FFFFFF": "biely"
       }
     },
@@ -464,6 +496,8 @@ export default {
   },
   "footer": {
     "customiseWebsiteLanguage": "Prispôsobenie jazyka webovej lokality",
+    "disclaimerLine1": "Europeana je iniciatíva Európskej únie financovaná Connecting Europe Facility a členskými štátmi Európskej únie. Služby Europeany, vrátane tejto webovej stránky, prevádzkuje konzorcium vedené nadáciou Europeana na základe zmluvy o poskytovaní služieb s Európskou komisiou.",
+    "disclaimerLine2": "Európska komisia nezaručuje presnosť informácií a neprijíma žiadnu zodpovednosť ani zodpovednosť za informácie na tejto webovej stránke. Európska komisia ani žiadna osoba konajúca v mene Európskej komisie nie je zodpovedná ani zodpovedná za presnosť alebo použitie informácií na tejto webovej stránke.",
     "findUsElsewhere": "Nájdite nás aj inde",
     "imageDescription": "Spolufinancované z nástroja Európskej únie s názvom Spájame Európu",
     "ourMission": "Náš cieľ",
@@ -509,6 +543,71 @@ export default {
     "itemOf": "Max. {max} z {count} položiek",
     "youMightLike": "Položky, ktoré by sa vám mohli páčiť"
   },
+  "klaro": {
+    "main": {
+      "consentModal": {
+        "description": "Vaše súkromie údajov berieme vážne. Tu môžete posúdiť a prispôsobiť služby, ktoré by sme chceli použiť na tomto webe. Máte to na starosti! Povoľte alebo zakážte služby, ako uznáte za vhodné.",
+        "title": "Služby, ktoré by sme chceli využiť."
+      },
+      "consentNotice": {
+        "description": "Záleží nám na vašom súkromí a údaje používame iba na zlepšenie vášho zážitku. Na reklamu nepoužívame žiadne osobné informácie. Svoj súhlas môžete zmeniť každých 15 dní."
+      },
+      "ok": "Dobre",
+      "purposes": {
+        "essential": {
+          "description": "Tieto služby sú nevyhnutné pre správne fungovanie tejto webovej stránky. Zahŕňajú zobrazenie výsledkov vyhľadávania a jazykové predvoľby, zachovávajú prihlásený stav a zabezpečujú vašu návštevu. Nemôžete ich deaktivovať, pretože web by inak nefungoval správne.",
+          "title": "Základné služby pre bezpečnosť a prispôsobenie"
+        },
+        "usage": {
+          "description": "Tieto služby zhromažďujú informácie, ktoré nám pomáhajú lepšie pochopiť, ako sa webová stránka používa a kde sú body bolesti, čo nám umožňuje robiť informované rozhodnutia na zlepšenie vašich skúseností.",
+          "title": "Služby na zaznamenávanie používania webových stránok a spätnej väzby"
+        }
+      },
+      "service": {
+        "disableAll": {
+          "description": "Pomocou tohto prepínača môžete povoliť alebo zakázať všetky voliteľné služby.",
+          "title": "Povoliť alebo zakázať všetky služby"
+        }
+      }
+    },
+    "services": {
+      "auth-strategy": {
+        "description": "Pamätá si stratégiu autorizácie, ktorá sa má použiť na prihlásenie.",
+        "title": "Autentická stratégia"
+      },
+      "debugSettings": {
+        "title": "Prepnúť ladenie"
+      },
+      "google-analytics": {
+        "description": "Zhromažďuje anonymné štatistiky o tom, ako návštevníci interagujú s webovou stránkou.",
+        "title": "Google Analytics"
+      },
+      "google-optimize": {
+        "description": "Umožňuje vám zúčastniť sa experimentov webových stránok, ktoré usmerňujú naše možnosti návrhu pre najlepší používateľský zážitok.",
+        "title": "Google Optimize"
+      },
+      "hotjar": {
+        "description": "Aktivuje widget prieskumu, ktorý vám dáva možnosť odpovedať na naše prieskumy spokojnosti návštevníkov.",
+        "title": "Hotjar"
+      },
+      "i18n": {
+        "description": "Zapamätá si preferovaný jazyk rozhrania pre budúci prístup.",
+        "title": "Kód jazyka"
+      },
+      "jira-servicedesk": {
+        "description": "Aktivuje widget spätnej väzby a dáva vám možnosť nás kontaktovať.",
+        "title": "Service Desk Jira"
+      },
+      "matomo": {
+        "description": "Zhromažďuje anonymné štatistiky o tom, ako návštevníci interagujú s webovou stránkou.",
+        "title": "Matomo"
+      },
+      "searchResultsView": {
+        "description": "Pamätá si, či chcete radšej zobraziť výsledky vyhľadávania v zozname alebo mriežke.",
+        "title": "Zobrazenie výsledkov hľadania (zoznam / mriežka)"
+      }
+    }
+  },
   "layout": {
     "skipToMain": "Preskočiť na stránku s obsahom"
   },
@@ -528,7 +627,11 @@ export default {
     }
   },
   "loadingResults": "Načítavajú sa výsledky",
+  "mediaPreview": {
+    "selectItem": "Vyberte položku {src}"
+  },
   "messages": {
+    "copyToClipboardSuccess": "Skopírované do schránky",
     "externalContentError": "Nepodarilo sa načítať externý obsah",
     "notFound": "Nenašlo sa",
     "paginationLimitExceeded": "Je možné zobraziť len prvých {limit} výsledkov vyhľadávania."
@@ -536,8 +639,12 @@ export default {
   "newWindow": "otvorí sa v novom okne",
   "noMoreResults": "Pre vaše vyhľadávanie neexistujú žiadne ďalšie výsledky.",
   "noResults": "Žiadne výsledky",
+  "pageHasLoaded": "načítal",
   "pages": {
     "collections": {
+      "times": {
+        "title": "Krát"
+      },
       "topics": {
         "title": "Témy"
       }
@@ -546,11 +653,16 @@ export default {
   "readMore": "Viac",
   "record": {
     "allMetaData": "Všetky metadáta",
+    "copyEmbedLabel": "Vložiť kód (kliknutím skopírujete)",
     "downloadCopyrightInfo": "Táto položka je chránená autorským zákonom a nie je možné ju stiahnuť.",
     "exploreMore": "Preskúmať viac",
     "extendedInformation": "Rozšírené informácie",
     "goodToKnow": "Dobré vedieť",
     "hideAll": "Skryť všetky informácie",
+    "IIIFViewer": "Divák IIIF",
+    "location": "Poloha",
+    "locationOnMap": "Poloha na mape",
+    "mediaPlayer": "Prehrávač médií",
     "record": "Záznam",
     "showAll": "Zobraziť všetky informácie",
     "similarItems": "Podobné položky",
@@ -600,6 +712,7 @@ export default {
     "form": {
       "description": "Popis galérie",
       "private": "Túto galériu uložiť ako súkromnú",
+      "required": "Povinné polia",
       "title": "Názov galérie"
     },
     "labels": {

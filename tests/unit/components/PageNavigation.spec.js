@@ -1,7 +1,7 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 
 import BootstrapVue from 'bootstrap-vue';
-import PageNavigation from '../../../src/components/PageNavigation.vue';
+import PageNavigation from '@/components/PageNavigation.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);

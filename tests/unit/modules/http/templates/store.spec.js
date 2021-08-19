@@ -1,4 +1,4 @@
-import store from '../../../../../src/modules/http/templates/store';
+import store from '@/modules/http/templates/store';
 
 describe('http/store', () => {
   describe('getters', () => {

@@ -1,5 +1,7 @@
 export default {
   "account": {
+    "curatedCollections": "Samengestelde collecties",
+    "curatedCollectionsInfo": "Hieronder vindt u alle collecties die u heeft samengesteld",
     "editProfile": "Profiel bewerken",
     "likes": "Likes",
     "linkAccount": "Mijn account",
@@ -11,6 +13,7 @@ export default {
       "loggedIn": "U bent nu ingelogd. Welkom!",
       "loggedOut": "U bent nu uitgelogd.",
       "noCollections": {
+        "curated": "Je hebt nog geen collecties samengesteld",
         "private": "U hebt nog geen privé galerijen gemaakt",
         "public": "U hebt nog geen openbare galerijen gemaakt"
       },
@@ -24,6 +27,7 @@ export default {
     "title": "Mijn account"
   },
   "actions": {
+    "accept": "Accepteren",
     "cancel": "Annuleren",
     "close": "sluiten",
     "download": "Download",
@@ -33,6 +37,7 @@ export default {
     "like": "Liken",
     "next": "Volgende",
     "providedBy": "Aangeboden door {provider}",
+    "reject": "afwijzen",
     "send": "Verzenden",
     "share": "Delen",
     "shareOn": "Delen op {social}",
@@ -58,8 +63,18 @@ export default {
     "published": "Gepubliceerd op {date}",
     "relatedPosts": "Gerelateerde berichten"
   },
+  "cardLabels": {
+    "organisation": "Organisatie",
+    "person": "Persoon",
+    "time": "Eeuw",
+    "topic": "Onderwerp"
+  },
   "clearAllFilters": "alle filters wissen",
   "collections": {
+    "actions": {
+      "edit": "Collectie bewerken",
+      "update": "Collectie bijwerken"
+    },
     "fashion": {
       "facets": {
         "CREATOR": {
@@ -75,6 +90,12 @@ export default {
           "name": "Materiaal | Materialen"
         }
       }
+    },
+    "form": {
+      "description": "Omschrijving"
+    },
+    "notifications": {
+      "update": "De collectie is bijgewerkt"
     }
   },
   "collectionsYouMightLike": "Collecties die u misschien interessant vindt",
@@ -120,7 +141,22 @@ export default {
     "right": "Rechts"
   },
   "edmIsShownAtLinkAlt": "Bekijken op de website van de provider",
-  "entity": "Entiteit",
+  "entity": {
+    "labels": {
+      "entity": "Entiteit"
+    },
+    "notifications": {
+      "deleted": "Uw galerij is verwijderd",
+      "pinLimit": {
+        "body": "Voorlopig kunt u maar 24 items vast zetten op de eerste pagina. Als u dit item wilt vast zetten, moet u ervoor zorgen dat u een ander item los maakt en vervolgens proberen deze opnieuw vast te maken.",
+        "title": "Te veel vastgezette items"
+      },
+      "pinned": "Het item is vastgemaakt. Het staat nu bovenaan de eerste pagina van deze collectie. Het kan tot 24 uur duren om voor iedereen te verschijnen.",
+      "pinnedFirstPage": "Het item is vastgemaakt. Het kan tot 24 uur duren om voor iedereen te verschijnen.",
+      "unpinned": "Het item is losgemaakt. Het staat niet meer bovenaan de eerste pagina van deze collectie. Het kan tot 24 uur duren om voor iedereen te verdwijnen.",
+      "unpinnedFirstPage": "Het item is losgemaakt. Het kan tot 24 uur duren om voor iedereen te verdwijnen."
+    }
+  },
   "error": "Fout",
   "exhibitions": {
     "chapters": "Hoofdstukken",
@@ -516,15 +552,61 @@ export default {
   "items": {
     "itemCount": "1 artikel |{count} artikelen",
     "itemOf": "{max} van {count} artikelen",
+    "recommendationsDisclaimer": "Duim omhoog om toe te voegen aan de galerij - Duim omlaag als je het niet leuk vindt",
+    "recommended": "Aanbevolen items",
     "youMightLike": "Artikelen die u misschien interessant vindt"
   },
   "klaro": {
     "main": {
+      "consentModal": {
+        "description": "Wij nemen uw gegevensprivacy serieus. Hier kunt u de diensten die wij op deze website willen gebruiken, zelf beoordelen en aanpassen. U heeft het voor het zeggen! Schakel diensten in of uit zoals u dat wilt.",
+        "title": "Diensten waar we graag gebruik van willen maken."
+      },
       "consentNotice": {
         "description": "We geven om uw privacy en gebruiken gegevens alleen om uw ervaring te verbeteren. We gebruiken geen persoonlijke informatie voor advertenties. U kunt uw toestemming elke 15 dagen wijzigen."
+      },
+      "ok": "Oké",
+      "purposes": {
+        "essential": {
+          "description": "Deze diensten zijn essentieel voor het correct functioneren van deze website. Ze omvatten weergave van zoekresultaten en taalvoorkeuren, behouden de ingelogde status en houden uw bezoek veilig. U kunt ze niet uitschakelen omdat de website anders niet correct zou werken.",
+          "title": "Essentiële services voor beveiliging en maatwerk"
+        },
+        "usage": {
+          "description": "Deze diensten verzamelen de informatie om ons te helpen beter te begrijpen hoe de website wordt gebruikt en waar de pijnpunten zijn, waardoor we weloverwogen keuzes kunnen maken om uw ervaring te verbeteren.",
+          "title": "Services om websitegebruik en feedback vast te leggen"
+        }
+      },
+      "service": {
+        "disableAll": {
+          "description": "Gebruik deze schakelaar om alle optionele services in of uit te schakelen.",
+          "title": "Alle services in- of uitschakelen"
+        }
       }
     },
     "services": {
+      "auth-strategy": {
+        "description": "Onthoudt de autorisatie strategie die moet worden gebruikt om in te loggen.",
+        "title": "Auth-strategie"
+      },
+      "debugSettings": {
+        "title": "Debug toggle"
+      },
+      "google-analytics": {
+        "description": "Verzamelt anonieme statistieken over hoe bezoekers omgaan met de website.",
+        "title": "Google Analytics"
+      },
+      "google-optimize": {
+        "description": "Stelt u in staat deel te nemen aan website-experimenten die ons helpen met ontwerpkeuzes voor de beste gebruikerservaring.",
+        "title": "Google Optimaliseren"
+      },
+      "hotjar": {
+        "description": "Activeert een enquête-widget die u de mogelijkheid biedt om te reageren op onze tevredenheidsenquêtes voor bezoekers.",
+        "title": "Hotjar"
+      },
+      "i18n": {
+        "description": "Onthoudt de interfacetaal van uw voorkeur voor toekomstige toegang.",
+        "title": "Taalcode"
+      },
       "jira-servicedesk": {
         "description": "Activeert de feedbackwidget die u de mogelijkheid geeft om contact met ons op te nemen.",
         "title": "Jira-servicedesk"
@@ -557,6 +639,7 @@ export default {
       "text": "U zoekt op onze nieuwe en snellere website."
     }
   },
+  "loading": "Bezig met laden",
   "loadingResults": "Resultaten worden geladen",
   "mediaPreview": {
     "selectItem": "Selecteer item {src}"
@@ -567,12 +650,28 @@ export default {
     "notFound": "Niet gevonden",
     "paginationLimitExceeded": "Het is alleen mogelijk om de eerste {limit} zoekresultaten te bekijken."
   },
+  "modal": {
+    "download": {
+      "clickToCopy": "Klik op de toeschrijving om deze te kopiëren",
+      "modalIntro": "Als u dit item op internet of ergens anders gebruikt, vergeet dan niet de volgende toeschrijving ernaast weer te geven:",
+      "modalTitle": "Zeg bedankt"
+    }
+  },
   "newWindow": "opent in nieuw venster",
   "noMoreResults": "Er zijn geen resultaten meer voor uw zoekopdracht.",
   "noResults": "Geen resultaten",
   "pageHasLoaded": "heeft geladen",
   "pages": {
     "collections": {
+      "organisations": {
+        "table": {
+          "name": "Naam"
+        },
+        "title": "Organisaties"
+      },
+      "persons": {
+        "title": "Personen"
+      },
       "times": {
         "title": "Tijden"
       },
@@ -655,12 +754,14 @@ export default {
       "likeLimit": {
         "body": "Het spijt ons, maar u kunt op dit moment niet meer dan 100 artikelen liken. We zullen deze beperking binnenkort weghalen!",
         "title": "100 likes"
-      }
+      },
+      "updated": "Het item is toegevoegd aan de galerij."
     },
     "prompts": {
       "delete": "Weet u zeker dat u deze galerij wilt verwijderen? Als u dat doet, verliest u alle artikelen die u daaraan heeft toegevoegd."
     }
   },
   "showLess": "Minder weergeven",
-  "showMore": "Meer weergeven"
+  "showMore": "Meer weergeven",
+  "website": "Website"
 };

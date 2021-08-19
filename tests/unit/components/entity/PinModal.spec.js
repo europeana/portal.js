@@ -1,7 +1,7 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import VueI18n from 'vue-i18n';
-import PinModal from '../../../../src/components/entity/PinModal';
+import PinModal from '@/components/entity/PinModal';
 import sinon from 'sinon';
 
 const util = require('util');
@@ -14,7 +14,7 @@ localVue.use(VueI18n);
 const storeDispatch = sinon.stub().resolves({});
 const storeIsPinnedGetter = sinon.stub();
 
-import messages from '../../../../src/lang/en';
+import messages from '@/lang/en';
 
 const i18n = new VueI18n({
   locale: 'en',

@@ -14,6 +14,8 @@
               :is-editorial-description="hasEditorialDescription"
               :title="title"
               :context-label="contextLabel"
+              :logo="logo"
+              :external-link="homepage"
             />
             <client-only>
               <section
@@ -48,43 +50,43 @@
         </b-col>
       </b-row>
     </b-container>
-    <b-container>
-      <b-row>
-        <b-col
-          cols="12"
-          class="pb-3"
-        >
-          <i18n
-            v-if="$route.query.query"
-            path="searchResultsForIn"
-            tag="h2"
-            class="px-0 container"
+    <client-only>
+      <b-container>
+        <b-row>
+          <b-col
+            cols="12"
+            class="pb-3"
           >
-            <span>{{ $route.query.query }}</span>
-            <span>{{ title.values[0] }}</span>
-          </i18n>
-          <SearchInterface
-            class="px-0"
-            :per-page="recordsPerPage"
-            :route="route"
-            :show-content-tier-toggle="false"
-            :show-pins="userIsEditor && userIsSetsEditor"
-          />
-        </b-col>
-      </b-row>
-      <b-row>
-        <b-col>
-          <b-container class="p-0">
-            <client-only>
+            <i18n
+              v-if="$route.query.query"
+              path="searchResultsForIn"
+              tag="h2"
+              class="px-0 container"
+            >
+              <span>{{ $route.query.query }}</span>
+              <span>{{ title.values[0] }}</span>
+            </i18n>
+            <SearchInterface
+              class="px-0"
+              :per-page="recordsPerPage"
+              :route="route"
+              :show-content-tier-toggle="false"
+              :show-pins="userIsEditor && userIsSetsEditor"
+            />
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col>
+            <b-container class="p-0">
               <BrowseSections
                 v-if="page"
                 :sections="page.hasPartCollection.items"
               />
-            </client-only>
-          </b-container>
-        </b-col>
-      </b-row>
-    </b-container>
+            </b-container>
+          </b-col>
+        </b-row>
+      </b-container>
+    </client-only>
   </div>
 </template>
 
@@ -97,7 +99,7 @@
 
   import { BASE_URL as EUROPEANA_DATA_URL } from '../../../plugins/europeana/data';
   import { getEntityTypeHumanReadable, getEntitySlug, getEntityUri } from '../../../plugins/europeana/entity';
-  import { langMapValueForLocale } from  '../../../plugins/europeana/utils';
+  import { langMapValueForLocale, uriRegex } from  '../../../plugins/europeana/utils';
 
   export default {
     components: {
@@ -108,7 +110,9 @@
       EntityUpdateModal: () => import('../../../components/entity/EntityUpdateModal'),
       RelatedCollections: () => import('../../../components/generic/RelatedCollections')
     },
+
     middleware: 'sanitisePageQuery',
+
     fetch({ query, params, redirect, error, app, store }) {
       store.commit('search/disableCollectionFacet');
 
@@ -201,11 +205,24 @@
       contextLabel() {
         return this.$t(`cardLabels.${this.$route.params.type}`);
       },
+      collectionType() {
+        return this.$route.params.type;
+      },
+      logo() {
+        if (this.collectionType === 'organisation' && this.entity?.logo) {
+          return this.entity.logo.id;
+        }
+        return null;
+      },
       description() {
         if (this.isEditable) {
           return this.entity.note[this.$store.state.i18n.locale] ? { values: this.entity.note[this.$store.state.i18n.locale], code: this.$store.state.i18n.locale } : null;
         }
-        return this.editorialDescription ? { values: [this.editorialDescription], code: null } : null;
+
+        const description = this.collectionType === 'organisation' &&
+          this.entity?.description ? langMapValueForLocale(this.entity.description, this.$i18n.locale) : null;
+
+        return this.editorialDescription ? { values: [this.editorialDescription], code: null } : description;
       },
       descriptionText() {
         return (this.description && this.description.values.length >= 1) ? this.description.values[0] : null;
@@ -222,6 +239,14 @@
       },
       hasEditorialDescription() {
         return this.page && this.page.description && this.page.description.length >= 1;
+      },
+      homepage() {
+        if (this.collectionType === 'organisation' &&
+          this.entity?.homepage &&
+          uriRegex.test(this.entity.homepage)) {
+          return this.entity.homepage;
+        }
+        return null;
       },
       // Title from the Contentful entry
       editorialTitle() {
@@ -277,7 +302,8 @@
       this.$store.commit('search/setCollectionLabel', this.title.values[0]);
       this.$store.dispatch('entity/searchForRecords', this.$route.query);
       // TODO: move into a new entity store action?
-      if (!this.relatedCollectionCards) {
+      // Disable related collections for organisation for now
+      if (!this.relatedCollectionCards && this.collectionType !== 'organisation') {
         this.$apis.record.relatedEntities(this.$route.params.type, this.$route.params.pathMatch)
           .then(facets => facets ? this.$apis.entity.getEntityFacets(facets, this.$route.params.pathMatch) : [])
           .then(related => {

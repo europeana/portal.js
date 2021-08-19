@@ -58,8 +58,17 @@ export default {
     "published": "Publicerad {date}",
     "relatedPosts": "Relaterade inlägg"
   },
+  "cardLabels": {
+    "person": "Person",
+    "time": "Århundrade",
+    "topic": "Ämne"
+  },
   "clearAllFilters": "rensa alla filter",
   "collections": {
+    "actions": {
+      "edit": "Redigera samling",
+      "update": "Uppdatera samling"
+    },
     "fashion": {
       "facets": {
         "CREATOR": {
@@ -75,9 +84,16 @@ export default {
           "name": "Material | Material"
         }
       }
+    },
+    "form": {
+      "description": "Beskrivning"
+    },
+    "notifications": {
+      "update": "Samlingen har uppdaterats"
     }
   },
   "collectionsYouMightLike": "Samlingar du kanske skulle gilla",
+  "colourSwatch": "Färgprov",
   "contentfulManual": {
     "footerNavigation": {
       "about": "Om Europeana",
@@ -108,6 +124,10 @@ export default {
     "startDate": "Startdatum",
     "to": "till"
   },
+  "debug": {
+    "apiRequests": "API-förfrågningar",
+    "debug": "Felsöka"
+  },
   "delete": "Radera",
   "depiction": "En skildring av {title}",
   "directions": {
@@ -115,6 +135,17 @@ export default {
     "right": "Höger"
   },
   "edmIsShownAtLinkAlt": "Visa på leverantörens webbplats",
+  "entity": {
+    "actions": {
+      "cancel": "Avbryt"
+    },
+    "labels": {
+      "entity": "Entitet"
+    },
+    "notifications": {
+      "deleted": "Ditt galleri har raderats."
+    }
+  },
   "error": "Fel",
   "exhibitions": {
     "chapters": "Kapitel",
@@ -302,6 +333,7 @@ export default {
         "#FFFAFA": "Snö",
         "#FFFF00": "Gul",
         "#FFFFE0": "Ljusgul",
+        "#FFFFF0": "Elfenben",
         "#FFFFFF": "Vit"
       }
     },
@@ -464,6 +496,8 @@ export default {
   },
   "footer": {
     "customiseWebsiteLanguage": "Anpassa webbplatsens språk",
+    "disclaimerLine1": "Europeana är ett initiativ från Europeiska unionen, finansierat av EU: s Connecting Europe Facility och EU: s medlemsstater. Europeana-tjänsterna, inklusive denna webbplats, drivs av ett konsortium som leds av Europeana Foundation under ett serviceavtal med Europeiska kommissionen.",
+    "disclaimerLine2": "Europeiska kommissionen garanterar inte att informationen är korrekt och tar inget ansvar för informationen på denna webbplats. Varken Europeiska kommissionen eller någon person som agerar på Europeiska kommissionens vägnar är ansvarig för att informationen på denna webbplats är korrekt eller används.",
     "findUsElsewhere": "Hitta oss någon annanstans",
     "imageDescription": "Medfinansieras av EU:s Connecting Europe Facility",
     "ourMission": "Vårt uppdrag",
@@ -491,6 +525,7 @@ export default {
       "collections": "Samlingar",
       "europeanaClassroom": "Lärare",
       "help": "Hjälp",
+      "home": "Hem",
       "stories": "Berättelser"
     },
     "searchFor": "Sök efter {query}",
@@ -507,6 +542,71 @@ export default {
     "itemCount": "1 föremål {count} föremål",
     "itemOf": "{max} av {count} föremål",
     "youMightLike": "Föremål som du kanske skulle gilla"
+  },
+  "klaro": {
+    "main": {
+      "consentModal": {
+        "description": "Vi tar din datasekretess på allvar. Här kan du bedöma och anpassa de tjänster som vi vill använda på den här webbplatsen. Du har ansvaret! Aktivera eller inaktivera tjänster som du tycker passar.",
+        "title": "Tjänster som vi skulle vilja använda."
+      },
+      "consentNotice": {
+        "description": "Vi bryr oss om din integritet och använder endast data för att förbättra din upplevelse. Vi använder ingen personlig information för reklam. Du kan ändra ditt samtycke var 15: e dag."
+      },
+      "ok": "Okej",
+      "purposes": {
+        "essential": {
+          "description": "Dessa tjänster är nödvändiga för att denna webbplats ska fungera korrekt. De inkluderar sökresultatsvy och språkinställningar, bevarar det inloggade tillståndet och håller ditt besök säkert. Du kan inte inaktivera dem eftersom webbplatsen annars inte fungerar korrekt.",
+          "title": "Viktiga tjänster för säkerhet och anpassning"
+        },
+        "usage": {
+          "description": "Dessa tjänster samlar in informationen för att bättre förstå hur webbplatsen används och var smärtpunkterna är, vilket ger oss möjlighet att göra välgrundade val för att förbättra din upplevelse.",
+          "title": "Tjänster för att samla in användandet av webbplatsen och återkoppling"
+        }
+      },
+      "service": {
+        "disableAll": {
+          "description": "Använd den här omkopplaren för att aktivera eller inaktivera alla valfria tjänster.",
+          "title": "Aktivera eller inaktivera alla tjänster"
+        }
+      }
+    },
+    "services": {
+      "auth-strategy": {
+        "description": "Kommer ihåg den auktoriserings strategi som ska användas för att logga in.",
+        "title": "Auth-strategi"
+      },
+      "debugSettings": {
+        "title": "Felsökning växla"
+      },
+      "google-analytics": {
+        "description": "Samlar in anonym statistik om hur besökare interagerar med webbplatsen.",
+        "title": "Google Analytics"
+      },
+      "google-optimize": {
+        "description": "Gör det möjligt för dig att delta i webbplatsförsök som styr våra designval för bästa möjliga användarupplevelse.",
+        "title": "Google Optimize"
+      },
+      "hotjar": {
+        "description": "Aktiverar en enkät widget som ger dig möjlighet att svara på våra undersökningar om besökarnas tillfredsställelse.",
+        "title": "Hotjar"
+      },
+      "i18n": {
+        "description": "Kommer ihåg ditt föredragna gränssnittsspråk för framtida åtkomst.",
+        "title": "Språkkod"
+      },
+      "jira-servicedesk": {
+        "description": "Aktiverar feedback widgeten som ger dig möjlighet att kontakta oss.",
+        "title": "Jira servicedesk"
+      },
+      "matomo": {
+        "description": "Samlar in anonym statistik om hur besökare interagerar med webbplatsen.",
+        "title": "Matomo"
+      },
+      "searchResultsView": {
+        "description": "Kommer ihåg om du föredrar att se sökresultaten i en lista eller rutnät.",
+        "title": "Visa sökresultat (lista/rutnät)"
+      }
+    }
   },
   "layout": {
     "skipToMain": "Hoppa till sidans innehåll"
@@ -527,7 +627,11 @@ export default {
     }
   },
   "loadingResults": "Hämtar resultat",
+  "mediaPreview": {
+    "selectItem": "Välj objekt {src}"
+  },
   "messages": {
+    "copyToClipboardSuccess": "Kopieras till Urklipp",
     "externalContentError": "Det externa innehållet kunde inte hämtas",
     "notFound": "Hittades inte",
     "paginationLimitExceeded": "Det är bara möjligt att visa de {limit} första sökresultaten."
@@ -535,8 +639,12 @@ export default {
   "newWindow": "öppnas i nytt fönster",
   "noMoreResults": "Det finns inga fler resultat för din sökning.",
   "noResults": "Inga träffar",
+  "pageHasLoaded": "har laddats",
   "pages": {
     "collections": {
+      "times": {
+        "title": "Tider"
+      },
       "topics": {
         "title": "Ämnen"
       }
@@ -545,11 +653,16 @@ export default {
   "readMore": "Läs mer",
   "record": {
     "allMetaData": "Alla metadata",
+    "copyEmbedLabel": "Bädda in kod (Klicka för att kopiera)",
     "downloadCopyrightInfo": "Detta objekt är skyddat av upphovsrätt och kan inte laddas ner.",
     "exploreMore": "Utforska mer",
     "extendedInformation": "Utökad information",
     "goodToKnow": "Bra att veta",
     "hideAll": "Dölj all information",
+    "IIIFViewer": "IIIF-tittare",
+    "location": "Plats",
+    "locationOnMap": "Plats på kartan",
+    "mediaPlayer": "Mediaspelare",
     "record": "Dokument",
     "showAll": "Visa all information",
     "similarItems": "Liknande objekt",
@@ -599,6 +712,7 @@ export default {
     "form": {
       "description": "Beskrivning av galleri",
       "private": "Detta är ett privat galleri",
+      "required": "Obligatoriska fält",
       "title": "Namn på galleri"
     },
     "labels": {

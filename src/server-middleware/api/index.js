@@ -1,11 +1,11 @@
-const express = require('express');
-const morgan = require('morgan');
-const defu = require('defu');
+import express from 'express';
+import defu  from 'defu';
+import logging from '../logging';
 
 const app = express();
 app.disable('x-powered-by'); // Security: do not disclose technology fingerprints
 app.use(express.json());
-app.use(morgan('combined'));
+app.use(logging);
 
 let runtimeConfig;
 app.use((res, req, next) => {
@@ -28,6 +28,11 @@ app.get('/contentful/:alias', (req, res) => contentful(runtimeConfig)(req, res))
 
 import entitiesOrganisations from './entities/organisations';
 app.get('/entities/organisations', (req, res) => entitiesOrganisations(runtimeConfig)(req, res));
+
+import dailyEntries from './dailyEntries';
+app.get('/entities/topics', (req, res) => dailyEntries('topic', runtimeConfig)(req, res));
+app.get('/entities/times', (req, res) => dailyEntries('time', runtimeConfig)(req, res));
+app.get('/items/recent', (req, res) => dailyEntries('item', runtimeConfig)(req, res));
 
 import jiraServiceDesk from './jira/service-desk';
 app.post('/jira/service-desk', (req, res) => jiraServiceDesk(runtimeConfig.jira)(req, res));

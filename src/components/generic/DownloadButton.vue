@@ -1,5 +1,6 @@
 <template>
   <b-button
+    v-b-modal.downloadModal
     :href="url"
     :disabled="disabled"
     variant="light text-decoration-none"
@@ -7,7 +8,7 @@
     size="lg"
     class="download-button d-inline-flex align-items-center"
     :target="target"
-    @click.native="trackDownlaod"
+    @click.native="trackDownload"
   >
     <span class="ic-download d-inline-flex pr-1" />
     {{ $t('actions.download') }}
@@ -36,7 +37,7 @@
       };
     },
     methods: {
-      trackDownlaod() {
+      trackDownload() {
         if (!this.disabled && this.$matomo && !this.clicked) {
           this.$matomo.trackEvent('Item_download', 'Click download button', this.url);
           this.clicked = true;
@@ -47,8 +48,8 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../../assets/scss/variables.scss';
-  @import '../../assets/scss/icons.scss';
+  @import '@/assets/scss/variables.scss';
+  @import '@/assets/scss/icons.scss';
 
   .download-button {
     text-transform: capitalize;

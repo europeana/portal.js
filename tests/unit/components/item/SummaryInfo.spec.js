@@ -1,6 +1,6 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import SummaryInfo from '../../../../src/components/item/SummaryInfo.vue';
+import SummaryInfo from '@/components/item/SummaryInfo.vue';
 import VueI18n from 'vue-i18n';
 
 const localVue = createLocalVue();
@@ -24,12 +24,20 @@ const i18n = new VueI18n({
   }
 });
 
-const factory = (propsData) => mount(SummaryInfo, {
+const factory = (propsData, translated = false) => mount(SummaryInfo, {
   localVue,
   propsData,
   i18n,
   mocks: {
-    $t: (key) => `TRANSLATED: ${key}`
+    $t: (key) => `TRANSLATED: ${key}`,
+    $route: {},
+    $config: {
+      app: {
+        features: {
+          translatedItems: translated
+        }
+      }
+    }
   }
 });
 
@@ -70,7 +78,7 @@ describe('components/item/SummaryInfo', () => {
     });
 
     it('shows a read more button', () => {
-      const readMoreToggle = wrapper.find('button');
+      const readMoreToggle = wrapper.find('button[data-qa="description show link"]');
       readMoreToggle.text().should.eq('TRANSLATED: readMore');
     });
   });
@@ -85,8 +93,26 @@ describe('components/item/SummaryInfo', () => {
     });
 
     it('shows a title', () => {
-      const readMoreToggle = wrapper.find('button');
+      const readMoreToggle = wrapper.find('button[data-qa="description show link"]');
       readMoreToggle.text().should.eq('TRANSLATED: readMore');
+    });
+  });
+
+  describe('when the item is translated', () => {
+    const wrapper = factory({
+      titles: [
+        { code: 'en', value: 'The title' },
+        { code: 'en', value: 'The sub-title' }
+      ],
+      description: { code: 'en', values: ['The description'] }
+    }, true);
+    it('there is an icon behind the title signifying the translation source', () => {
+      const tooltip = wrapper.find('[data-qa="translated title tooltip"]');
+      tooltip.isVisible();
+    });
+    it('there is an icon behind the description signifying the translation source', () => {
+      const tooltip = wrapper.find('[data-qa="translated description tooltip"]');
+      tooltip.isVisible();
     });
   });
 });

@@ -1,5 +1,7 @@
 export default {
   "account": {
+    "curatedCollections": "Kuraterede samlinger",
+    "curatedCollectionsInfo": "Find nedenfor alle samlinger, du har kurateret",
     "editProfile": "Rediger profil",
     "likes": "Synes om'er",
     "linkAccount": "Min konto",
@@ -11,6 +13,7 @@ export default {
       "loggedIn": "Du er nu logget ind. Velkommen!",
       "loggedOut": "Du er nu logget ud.",
       "noCollections": {
+        "curated": "Du har ikke kurateret nogen samlinger endnu",
         "private": "Du har ikke oprettet nogen private gallerier endnu",
         "public": "Du har ikke oprettet nogen offentlige gallerier endnu"
       },
@@ -24,6 +27,7 @@ export default {
     "title": "Min konto"
   },
   "actions": {
+    "accept": "Acceptere",
     "cancel": "Annuller",
     "close": "luk",
     "download": "Hent",
@@ -33,6 +37,7 @@ export default {
     "like": "Synes om",
     "next": "Næste",
     "providedBy": "Leveret af {provider}",
+    "reject": "Afvise",
     "send": "Sende",
     "share": "Del",
     "shareOn": "Del på {social}",
@@ -58,8 +63,18 @@ export default {
     "published": "Offentliggjort {date}",
     "relatedPosts": "Relaterede indlæg"
   },
+  "cardLabels": {
+    "organisation": "Organisation",
+    "person": "Person",
+    "time": "Århundrede",
+    "topic": "Emne"
+  },
   "clearAllFilters": "ryd alle filtre",
   "collections": {
+    "actions": {
+      "edit": "Rediger samling",
+      "update": "Opdater samling"
+    },
     "fashion": {
       "facets": {
         "CREATOR": {
@@ -75,6 +90,12 @@ export default {
           "name": "Materiale | Materialer"
         }
       }
+    },
+    "form": {
+      "description": "Beskrivelse"
+    },
+    "notifications": {
+      "update": "Samlingen er blevet opdateret"
     }
   },
   "collectionsYouMightLike": "Samlinger, du måske vil synes om",
@@ -110,7 +131,8 @@ export default {
     "to": "til"
   },
   "debug": {
-    "apiRequests": "API-anmodninger"
+    "apiRequests": "API-anmodninger",
+    "debug": "Debug"
   },
   "delete": "Slet",
   "depiction": "En skildring af {title}",
@@ -119,7 +141,32 @@ export default {
     "right": "Højre"
   },
   "edmIsShownAtLinkAlt": "Vis på udbyderens websted",
-  "entity": "Enhed",
+  "entity": {
+    "actions": {
+      "cancel": "Annuller",
+      "pin": "Fastgør vare",
+      "unpin": "Frigør vare",
+      "viewPinned": "Se fastgjorte emner"
+    },
+    "labels": {
+      "entity": "Enhed"
+    },
+    "notifications": {
+      "deleted": "Dit galleri er blevet slettet.",
+      "pinLimit": {
+        "body": "Indtil videre kan du kun fastgøre 24 elementer på den første side. Hvis du vil fastgøre dette emne, skal du fjerne et andet emne og derefter prøve at fastgøre dette emne igen.",
+        "title": "For mange fastgjorte emner"
+      },
+      "pinned": "Elementet er blevet fastgjort. Det er nu øverst på den første side i denne samling. Det kan tage op til 24 timer at vises for alle.",
+      "pinnedFirstPage": "Elementet er blevet fastgjort. Det kan tage op til 24 timer at vises for alle.",
+      "unpinned": "Elementet er blevet fastgjort. Det er ikke længere øverst på den første side i denne samling. Det kan tage op til 24 timer at forsvinde for alle.",
+      "unpinnedFirstPage": "Elementet er blevet frigjort. Det kan tage op til 24 timer at forsvinde for alle."
+    },
+    "prompts": {
+      "pin": "Er du sikker på, at du vil fastgøre denne vare? Dette element vises øverst i {entity} \". Det kan tage op til 24 timer, før denne ændring træder i kraft.",
+      "unpin": "Er du sikker på, at du vil løsne denne vare? Dette element stopper med at vises øverst i {entity} \". Det kan tage op til 24 timer, før denne ændring træder i kraft."
+    }
+  },
   "error": "Fejl",
   "exhibitions": {
     "chapters": "Kapitler",
@@ -515,7 +562,74 @@ export default {
   "items": {
     "itemCount": "1 artikel |{count} artikler",
     "itemOf": "{max} af {count} artikler",
+    "recommendationsDisclaimer": "Tommelfinger op for at tilføje til galleriet - Tommelfinger ned, hvis du ikke kan lide det",
+    "recommended": "Anbefalede varer",
     "youMightLike": "Artikler, du måske vil synes om"
+  },
+  "klaro": {
+    "main": {
+      "consentModal": {
+        "description": "Vi tager dit datas privatliv alvorligt. Her kan du vurdere og tilpasse de tjenester, som vi gerne vil bruge på dette websted. Du har ansvaret! Aktivér eller deaktiver tjenester, som du finder det passende.",
+        "title": "Tjenester, vi gerne vil bruge."
+      },
+      "consentNotice": {
+        "description": "Vi holder af dit privatliv og bruger kun data til at forbedre din oplevelse. Vi bruger ingen personlige oplysninger til reklame. Du kan ændre dit samtykke hver 15. dag."
+      },
+      "ok": "okay",
+      "purposes": {
+        "essential": {
+          "description": "Disse tjenester er afgørende for, at dette websted fungerer korrekt. De inkluderer søgeresultatvisning og sprogindstillinger, bevarer den loggede tilstand og holder dit besøg sikkert. Du kan ikke deaktivere dem, da webstedet ellers ikke fungerer korrekt.",
+          "title": "Væsentlige tjenester til sikkerhed og tilpasning"
+        },
+        "usage": {
+          "description": "Disse tjenester indsamler oplysningerne for at hjælpe os med bedre at forstå, hvordan hjemmesiden bliver brugt, og hvor smertepunkterne er, hvilket giver os mulighed for at træffe informerede valg for at forbedre din oplevelse.",
+          "title": "Tjenester til at registrere brug og feedback på websitet"
+        }
+      },
+      "service": {
+        "disableAll": {
+          "description": "Brug denne switch til at aktivere eller deaktivere alle valgfrie tjenester.",
+          "title": "Aktivere eller deaktivere alle tjenester"
+        }
+      }
+    },
+    "services": {
+      "auth-strategy": {
+        "description": "Husker autorisationsstrategien, der skal bruges til at logge ind.",
+        "title": "Auth-strategi"
+      },
+      "debugSettings": {
+        "title": "Fejlfinding skifter"
+      },
+      "google-analytics": {
+        "description": "Samler anonyme statistikker om, hvordan besøgende interagerer med hjemmesiden.",
+        "title": "Google Analytics"
+      },
+      "google-optimize": {
+        "description": "Gør det muligt for dig at deltage i webstedseksperimenter, der styrer vores designvalg for den bedste brugeroplevelse.",
+        "title": "Google Optimize"
+      },
+      "hotjar": {
+        "description": "Aktiverer en undersøgelses widget, der giver dig mulighed for at svare på vores undersøgelser om tilfredshed med besøgende.",
+        "title": "Hotjar"
+      },
+      "i18n": {
+        "description": "Husker dit foretrukne grænsefladesprog for fremtidig adgang.",
+        "title": "Sprogkode"
+      },
+      "jira-servicedesk": {
+        "description": "Aktiverer feedback-widget'en, så du kan kontakte os.",
+        "title": "Jira servicedesk"
+      },
+      "matomo": {
+        "description": "Samler anonyme statistikker om, hvordan besøgende interagerer med hjemmesiden.",
+        "title": "Matomo"
+      },
+      "searchResultsView": {
+        "description": "Husk, hvis du foretrækker at se søgeresultaterne i en liste- eller gittervisning.",
+        "title": "Visning af søgeresultater (liste / gitter)"
+      }
+    }
   },
   "layout": {
     "skipToMain": "Spring til sideindhold"
@@ -535,6 +649,7 @@ export default {
       "text": "Du søger på vores nye og hurtigere hjemmeside."
     }
   },
+  "loading": "Indlæser",
   "loadingResults": "Indlæser resultater",
   "mediaPreview": {
     "selectItem": "Vælg element {src}"
@@ -545,12 +660,28 @@ export default {
     "notFound": "Ikke fundet",
     "paginationLimitExceeded": "Det er kun muligt at få vist de første {limit} søgeresultater."
   },
+  "modal": {
+    "download": {
+      "clickToCopy": "Klik på tilskrivningen for at kopiere den",
+      "modalIntro": "Hvis du bruger dette element på nettet eller andre steder, skal du ikke glemme at vise følgende tilskrivning ved siden af det:",
+      "modalTitle": "Sig tak"
+    }
+  },
   "newWindow": "åbner i nyt vindue",
   "noMoreResults": "Der er ikke flere resultater for din søgning.",
   "noResults": "Ingen resultater",
   "pageHasLoaded": "har indlæst",
   "pages": {
     "collections": {
+      "organisations": {
+        "table": {
+          "name": "Navn"
+        },
+        "title": "Organisationer"
+      },
+      "persons": {
+        "title": "Personer"
+      },
       "times": {
         "title": "Tider"
       },
@@ -568,7 +699,10 @@ export default {
     "extendedInformation": "Udvidede oplysninger",
     "goodToKnow": "Værd at vide",
     "hideAll": "Skjul alle oplysninger",
+    "IIIFViewer": "IIIF-fremviser",
     "location": "Placering",
+    "locationOnMap": "Placering på kort",
+    "mediaPlayer": "Medie afspiller",
     "record": "Registrering",
     "showAll": "Vis alle oplysninger",
     "similarItems": "Lignende artikler",
@@ -618,6 +752,7 @@ export default {
     "form": {
       "description": "Beskrivelse af galleri",
       "private": "Hold dette galleri privat",
+      "required": "påkrævet  felt",
       "title": "Navn på galleri"
     },
     "labels": {
@@ -629,12 +764,14 @@ export default {
       "likeLimit": {
         "body": "Vi beklager, men du er i øjeblikket begrænset til at kunne synes om maksimalt 100 artikler. Vi fjerner denne begrænsning snart!",
         "title": "100 synes om'er"
-      }
+      },
+      "updated": "Elementet blev føjet til galleriet."
     },
     "prompts": {
       "delete": "Er du sikker på, at du vil slette dette galleri? Hvis du sletter dette galleri, mister du alle de artikler, du har tilføjet i det."
     }
   },
   "showLess": "Vis mindre",
-  "showMore": "Vis mere"
+  "showMore": "Vis mere",
+  "website": "Websted"
 };

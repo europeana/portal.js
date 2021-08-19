@@ -28,7 +28,7 @@ export default {
     "close": "zamknij",
     "download": "Ściągnij",
     "edit": "Edytuj",
-    "feedback": "Sprzężenie zwrotne",
+    "feedback": "Twoja opinia",
     "goBack": "Wróć",
     "like": "Lubię",
     "next": "Następny",
@@ -58,8 +58,17 @@ export default {
     "published": "Opublikowano w dniu {date}",
     "relatedPosts": "Powiązane posty"
   },
+  "cardLabels": {
+    "person": "Osoba",
+    "time": "Stulecie",
+    "topic": "Temat"
+  },
   "clearAllFilters": "wyczyść wszystkie filtry",
   "collections": {
+    "actions": {
+      "edit": "Edytuj kolekcję",
+      "update": "Aktualizacja Kolekcja"
+    },
     "fashion": {
       "facets": {
         "CREATOR": {
@@ -75,6 +84,12 @@ export default {
           "name": "Materiał | Materiały"
         }
       }
+    },
+    "form": {
+      "description": "Opis"
+    },
+    "notifications": {
+      "update": "Kolekcja została zaktualizowana"
     }
   },
   "collectionsYouMightLike": "Kolekcje, które mogą Ci się spodobać",
@@ -110,7 +125,8 @@ export default {
     "to": "do"
   },
   "debug": {
-    "apiRequests": "Żądania API"
+    "apiRequests": "Żądania API",
+    "debug": "Debug"
   },
   "delete": "Usuń",
   "depiction": "Obraz {title}",
@@ -119,7 +135,17 @@ export default {
     "right": "W prawo"
   },
   "edmIsShownAtLinkAlt": "Zobacz na stronie internetowej dostawcy",
-  "entity": "Jednostka",
+  "entity": {
+    "actions": {
+      "cancel": "Anuluj"
+    },
+    "labels": {
+      "entity": "Jednostka"
+    },
+    "notifications": {
+      "deleted": "Twoja galeria została usunięta."
+    }
+  },
   "error": "Błąd",
   "exhibitions": {
     "chapters": "Rozdziały",
@@ -389,15 +415,15 @@ export default {
     }
   },
   "feedback": {
-    "emailOptional": "Możemy chcieć kontynuować. Wpisz swój adres e-mail, jeśli chcesz, abyśmy się z Tobą skontaktowali.",
-    "failed": "Żądanie nie powiodło się. Proszę spróbuj ponownie.",
+    "emailOptional": "Możemy chcieć podjąć działania następcze. Jeśli chcesz się z Nami skontaktować, wpisz swój adres e-mail.",
+    "failed": "Żądanie nie powiodło się. Proszę spróbować ponownie.",
     "form": {
       "placeholders": {
         "email": "Wpisz swój adres e-mail",
         "feedback": "Wpisz tutaj swoją opinię"
       }
     },
-    "policies": "Kontynuując, akceptujesz nasze {0} i potwierdzasz nasze {1} .",
+    "policies": "Kontynuując, zgadzasz się na nasze {0} i przyjmujesz do wiadomości nasze {1}.",
     "privacyPolicy": "Polityka prywatności",
     "success": "Twoja opinia została wysłana.",
     "termsOfService": "Warunki usługi",
@@ -470,6 +496,8 @@ export default {
   },
   "footer": {
     "customiseWebsiteLanguage": "Dostosuj język witryny",
+    "disclaimerLine1": "Europeana jest inicjatywą Unii Europejskiej, finansowaną z unijnego Connecting Europe Facility oraz przez państwa członkowskie Unii Europejskiej. Usługi Europeany, w tym niniejsza strona internetowa, są prowadzone przez konsorcjum kierowane przez Fundację Europeana na podstawie umowy o świadczenie usług zawartej z Komisją Europejską.",
+    "disclaimerLine2": "Komisja Europejska nie gwarantuje dokładności informacji i nie ponosi żadnej odpowiedzialności w odniesieniu do informacji na tej stronie internetowej. Ani Komisja Europejska, ani żadna osoba działająca w imieniu Komisji Europejskiej nie ponosi odpowiedzialności za dokładność lub wykorzystanie informacji na tej stronie internetowej.",
     "findUsElsewhere": "Znajdź nas w innych miejscach",
     "imageDescription": "Współfinansowany z instrumentu „Łącząc Europę” Unii Europejskiej",
     "ourMission": "Nasza misja",
@@ -497,6 +525,7 @@ export default {
       "collections": "Kolekcje",
       "europeanaClassroom": "Nauczyciele",
       "help": "Pomoc",
+      "home": "Dom",
       "stories": "Historie"
     },
     "searchFor": "Wyszukaj {query}",
@@ -513,6 +542,71 @@ export default {
     "itemCount": "1 pozycja |Pozycje: {count}",
     "itemOf": "{max} z {count} elementów",
     "youMightLike": "Przedmioty, które mogą Ci się spodobać"
+  },
+  "klaro": {
+    "main": {
+      "consentModal": {
+        "description": "Poważnie traktujemy prywatność Twoich danych. Tutaj możesz ocenić i dostosować usługi, z których chcielibyśmy korzystać na tej stronie. Ty rządzisz! Włącz lub wyłącz usługi według własnego uznania.",
+        "title": "Usługi, z których chcielibyśmy skorzystać."
+      },
+      "consentNotice": {
+        "description": "Dbamy o Twoją prywatność i wykorzystujemy dane tylko po to, aby poprawić Twoje doświadczenia. Nie wykorzystujemy żadnych danych osobowych do celów reklamowych. Możesz zmienić swoją zgodę co 15 dni."
+      },
+      "ok": "Dobra",
+      "purposes": {
+        "essential": {
+          "description": "Usługi te są niezbędne do prawidłowego funkcjonowania tej witryny. Obejmują one widok wyników wyszukiwania i preferencje językowe, zachowują stan zalogowania i zapewniają bezpieczeństwo Twojej wizyty. Nie możesz ich wyłączyć, ponieważ w przeciwnym razie strona nie działałaby poprawnie.",
+          "title": "Niezbędne usługi w zakresie bezpieczeństwa i dostosowywania"
+        },
+        "usage": {
+          "description": "Usługi te zbierają informacje, aby pomóc nam lepiej zrozumieć, w jaki sposób strona internetowa jest używana i gdzie są punkty bólu, umożliwiając nam dokonywanie świadomych wyborów w celu poprawy doświadczenia użytkownika.",
+          "title": "Usługi do przechwytywania wykorzystania witryny i informacji zwrotnych"
+        }
+      },
+      "service": {
+        "disableAll": {
+          "description": "Użyj tego przełącznika, aby włączyć lub wyłączyć wszystkie usługi opcjonalne.",
+          "title": "Włącz lub wyłącz wszystkie usługi"
+        }
+      }
+    },
+    "services": {
+      "auth-strategy": {
+        "description": "Zapamiętuje strategię autoryzacji używaną do logowania.",
+        "title": "Strategia Auth"
+      },
+      "debugSettings": {
+        "title": "Przełącznik debugowania"
+      },
+      "google-analytics": {
+        "description": "Gromadzi anonimowe statystyki dotyczące interakcji odwiedzających z witryną.",
+        "title": "Google Analytics"
+      },
+      "google-optimize": {
+        "description": "Umożliwia udział w eksperymentach na stronie internetowej, które kierują naszymi wyborami projektowymi, aby zapewnić najlepsze wrażenia użytkownika.",
+        "title": "Google Optimize"
+      },
+      "hotjar": {
+        "description": "Aktywuje widget ankiety dający możliwość odpowiadania na nasze ankiety satysfakcji odwiedzających.",
+        "title": "Hotjar"
+      },
+      "i18n": {
+        "description": "Zapamiętuje preferowany język interfejsu do przyszłego dostępu.",
+        "title": "Kod języka"
+      },
+      "jira-servicedesk": {
+        "description": "Aktywuje widget opinii, dając Ci możliwość skontaktowania się z nami.",
+        "title": "Jira service desk"
+      },
+      "matomo": {
+        "description": "Gromadzi anonimowe statystyki dotyczące interakcji odwiedzających z witryną.",
+        "title": "Matomo"
+      },
+      "searchResultsView": {
+        "description": "Zapamiętuje się, jeśli wolisz widzieć wyniki wyszukiwania w widoku listy lub siatki.",
+        "title": "Widok wyników wyszukiwania (lista/siatka)"
+      }
+    }
   },
   "layout": {
     "skipToMain": "Przejdź do zawartości strony"
@@ -545,8 +639,12 @@ export default {
   "newWindow": "otwiera się w nowym oknie",
   "noMoreResults": "Nie ma więcej wyników dla zapytania wyszukiwania.",
   "noResults": "Brak Wyników",
+  "pageHasLoaded": "załadował",
   "pages": {
     "collections": {
+      "times": {
+        "title": "Czasy"
+      },
       "topics": {
         "title": "Tematy"
       }
@@ -561,7 +659,10 @@ export default {
     "extendedInformation": "Informacje rozszerzone",
     "goodToKnow": "Warto wiedzieć",
     "hideAll": "Ukryj wszystkie informacje",
+    "IIIFViewer": "Przeglądarka IIIF",
     "location": "Lokalizacja",
+    "locationOnMap": "Lokalizacja na mapie",
+    "mediaPlayer": "Odtwarzacz multimedialny",
     "record": "Rekord",
     "showAll": "Pokaż wszystkie informacje",
     "similarItems": "Podobne elementy",
@@ -611,6 +712,7 @@ export default {
     "form": {
       "description": "Opis galerii",
       "private": "Zachowaj tę galerię jako prywatną",
+      "required": "Pole wymagane",
       "title": "Nazwa galerii"
     },
     "labels": {

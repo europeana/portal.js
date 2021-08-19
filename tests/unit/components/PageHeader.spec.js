@@ -1,5 +1,5 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import PageHeader from '../../../src/components/PageHeader.vue';
+import PageHeader from '@/components/PageHeader.vue';
 import BootstrapVue from 'bootstrap-vue';
 import Vuex from 'vuex';
 
@@ -60,9 +60,7 @@ describe('components/PageHeader', () => {
 
   it('shows the sidebar when the sidebar is set to visible', () => {
     const wrapper = factory();
-    wrapper.setData({
-      showSidebar: true
-    });
+
     const nav = wrapper.find('[data-qa="sidebar navigation"]');
     nav.isVisible().should.equal(true);
   });

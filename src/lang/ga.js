@@ -58,8 +58,17 @@ export default {
     "published": "Foilsithe {date}",
     "relatedPosts": "Postálacha gaolmhara"
   },
+  "cardLabels": {
+    "person": "Duine",
+    "time": "Haois",
+    "topic": "Ábhar"
+  },
   "clearAllFilters": "glan gach scagaire",
   "collections": {
+    "actions": {
+      "edit": "Cuir Bailiúchán in Eagar",
+      "update": "Bailiúchán Nuashonraithe"
+    },
     "fashion": {
       "facets": {
         "CREATOR": {
@@ -75,9 +84,16 @@ export default {
           "name": "Ábhar | Ábhair"
         }
       }
+    },
+    "form": {
+      "description": "Cur síos"
+    },
+    "notifications": {
+      "update": "Rinneadh nuashonrú ar an mbailiúchán"
     }
   },
   "collectionsYouMightLike": "Bailiúcháin b’fhéidir gur mhaith leat",
+  "colourSwatch": "Swatch dath",
   "contentfulManual": {
     "footerNavigation": {
       "about": "Maidir le Europeana",
@@ -108,6 +124,10 @@ export default {
     "startDate": "Dáta tosaigh",
     "to": "go dtí"
   },
+  "debug": {
+    "apiRequests": "Iarrataí API",
+    "debug": "Díbhug"
+  },
   "delete": "Scrios",
   "depiction": "Léiriú ar {title}",
   "directions": {
@@ -115,6 +135,17 @@ export default {
     "right": "Ar dheis"
   },
   "edmIsShownAtLinkAlt": "Amharc air ag láithreán gréasáin an tsoláthraí",
+  "entity": {
+    "actions": {
+      "cancel": "Cealaigh"
+    },
+    "labels": {
+      "entity": "Eintiteas"
+    },
+    "notifications": {
+      "deleted": "Scriosadh do ghailearaí."
+    }
+  },
   "error": "Earráid",
   "exhibitions": {
     "chapters": "Caibidlí",
@@ -302,6 +333,7 @@ export default {
         "#FFFAFA": "Sneachta",
         "#FFFF00": "Buí",
         "#FFFFE0": "Buí Éadrom",
+        "#FFFFF0": "Eabhair",
         "#FFFFFF": "Bán"
       }
     },
@@ -464,6 +496,8 @@ export default {
   },
   "footer": {
     "customiseWebsiteLanguage": "Saincheap teanga an láithreáin ghréasáin",
+    "disclaimerLine1": "Is tionscnamh de chuid an Aontais Eorpaigh é Europeana, arna mhaoiniú ag Saoráid Nascadh na hEorpa agus Ballstáit an Aontais Eorpaigh. Is iad cuibhreannas faoi stiúir Fhondúireacht Europeana a oibríonn seirbhísí Europeana, an láithreán gréasáin seo san áireamh, faoi chonradh seirbhíse leis an gCoimisiún Eorpach.",
+    "disclaimerLine2": "Ní ráthaíonn an Coimisiún Eorpach cruinneas na faisnéise agus ní ghlacann sé aon fhreagracht ná dliteanas ar bith maidir leis an bhfaisnéis ar an suíomh Gréasáin seo. Níl an Coimisiún Eorpach, ná aon duine atá ag gníomhú thar ceann an Choimisiúin Eorpaigh, freagrach ná faoi dhliteanas as cruinneas nó úsáid na faisnéise ar an suíomh Gréasáin seo.",
     "findUsElsewhere": "Aimsigh muid áit eile",
     "imageDescription": "Arna Comh-mhaoiniú ag an tSaoráid um Chónascadh na hEorpa de chuid an Aontais Eorpaigh",
     "ourMission": "Ár misean",
@@ -491,6 +525,7 @@ export default {
       "collections": "Bailiúcháin",
       "europeanaClassroom": "Múinteoirí",
       "help": "Cabhair",
+      "home": "Baile",
       "stories": "Scéalta"
     },
     "searchFor": "Cuardaigh {query}",
@@ -507,6 +542,71 @@ export default {
     "itemCount": "1 mír |{count} míreanna",
     "itemOf": "{max} de mhíreanna {count}",
     "youMightLike": "Míreanna a d’fhéadfadh a bheith uait"
+  },
+  "klaro": {
+    "main": {
+      "consentModal": {
+        "description": "Glacaimid go dáiríre le do phríobháideacht sonraí. Anseo is féidir leat na seirbhísí ar mhaith linn a úsáid ar an suíomh Gréasáin seo a mheas agus a shaincheapadh. Tá tú i gceannas! Seirbhísí a chumasú nó a dhíchumasú mar is cuí leat.",
+        "title": "Seirbhísí ba mhaith linn a úsáid."
+      },
+      "consentNotice": {
+        "description": "Tugaimid aire do do phríobháideacht agus ní úsáidimid ach sonraí chun d'eispéireas a fheabhsú. Ní úsáidimid aon fhaisnéis phearsanta le haghaidh fógraíochta. Is féidir leat do thoiliú a athrú gach 15 lá."
+      },
+      "ok": "ceart go leor",
+      "purposes": {
+        "essential": {
+          "description": "Tá na seirbhísí seo riachtanach chun go bhfeidhmeoidh an láithreán gréasáin seo i gceart. Cuimsíonn siad dearcadh torthaí cuardaigh agus roghanna teanga, caomhnaíonn siad an stát atá logáilte isteach agus coimeád do chuairt slán. Ní féidir leat iad a dhíchumasú mar ní oibreodh an suíomh Gréasáin i gceart a mhalairt.",
+          "title": "Seirbhísí riachtanacha maidir le slándáil agus saincheaptha"
+        },
+        "usage": {
+          "description": "Bailíonn na seirbhísí seo an fhaisnéis chun cabhrú linn tuiscint níos fearr a fháil ar an gcaoi a n-úsáidtear an suíomh Gréasáin agus cá bhfuil na pointí pian, ag cur ar ár gcumas roghanna eolasacha a dhéanamh chun d’eispéireas a fheabhsú.",
+          "title": "Seirbhísí chun úsáid agus aiseolas láithreán gréasáin a ghabháil"
+        }
+      },
+      "service": {
+        "disableAll": {
+          "description": "Úsáid an lasc seo chun gach seirbhís roghnach a chumasú nó a dhíchumasú.",
+          "title": "Gach seirbhís a chumasú nó a dhíchumasú"
+        }
+      }
+    },
+    "services": {
+      "auth-strategy": {
+        "description": "Is cuimhin leis an straitéis údaraithe a úsáid chun logáil isteach.",
+        "title": "Straitéis Auth"
+      },
+      "debugSettings": {
+        "title": "Scoránaigh dífhabhtaithe"
+      },
+      "google-analytics": {
+        "description": "Bailíonn sé staitisticí gan ainm ar an gcaoi a n-idirghníomhaíonn cuairteoirí leis an suíomh Gréasáin.",
+        "title": "Google Analytics"
+      },
+      "google-optimize": {
+        "description": "Cuireann sé ar do chumas páirt a ghlacadh i dturgnaimh láithreán gréasáin a threoraíonn ár roghanna dearaidh don eispéireas úsáideora is fearr.",
+        "title": "Google Optimize"
+      },
+      "hotjar": {
+        "description": "Gníomhachtaíonn sé giuirléid suirbhé a thugann an rogha duit freagra a thabhairt ar ár suirbhéanna ar shástacht na gcuairteoirí.",
+        "title": "Hotjar"
+      },
+      "i18n": {
+        "description": "Is cuimhin leat an teanga comhéadain is fearr leat le haghaidh rochtana sa todhchaí.",
+        "title": "Cód teanga"
+      },
+      "jira-servicedesk": {
+        "description": "Gníomhaíonn sé an giuirléid aiseolais ag tabhairt an rogha duit teagmháil a dhéanamh linn.",
+        "title": "Deasc seirbhíse Jira"
+      },
+      "matomo": {
+        "description": "Bailíonn sé staitisticí gan ainm ar an gcaoi a n-idirghníomhaíonn cuairteoirí leis an suíomh Gréasáin.",
+        "title": "Matomo"
+      },
+      "searchResultsView": {
+        "description": "Cuimhníonn sé más fearr leat na torthaí cuardaigh a fheiceáil i liosta nó in amharc greille.",
+        "title": "Amharc toraidh cuardaigh (liosta/greille)"
+      }
+    }
   },
   "layout": {
     "skipToMain": "Scipeáil chuig inneachar leathanaigh"
@@ -527,6 +627,9 @@ export default {
     }
   },
   "loadingResults": "Torthaí á lódáil",
+  "mediaPreview": {
+    "selectItem": "Roghnaigh mír {src}"
+  },
   "messages": {
     "copyToClipboardSuccess": "Cóipeáilte ar ghearrthaisce",
     "externalContentError": "Theip ar lódáil an inneachair sheachtraigh",
@@ -536,8 +639,12 @@ export default {
   "newWindow": "osclaítear i bhfuinneog nua é",
   "noMoreResults": "Níl aon toradh eile ann ar d'iarratas cuardaigh.",
   "noResults": "Níor aimsíodh aon Torthaí",
+  "pageHasLoaded": "luchtaithe",
   "pages": {
     "collections": {
+      "times": {
+        "title": "Amanna"
+      },
       "topics": {
         "title": "Ábhair"
       }
@@ -552,7 +659,10 @@ export default {
     "extendedInformation": "Faisnéis leathnaithe",
     "goodToKnow": "Maith a fhios",
     "hideAll": "Folaigh gach faisnéis",
+    "IIIFViewer": "Amharcóir IIIF",
     "location": "Suíomh",
+    "locationOnMap": "Suíomh ar an léarscáil",
+    "mediaPlayer": "Seinnteoir meán",
     "record": "Mír",
     "showAll": "Taispeáin gach faisnéis",
     "similarItems": "Míreanna eile den chineál céanna",
@@ -602,6 +712,7 @@ export default {
     "form": {
       "description": "Tuairisc ar ghailearaí",
       "private": "Coinnigh an gailearaí seo príobháideach",
+      "required": "Réimsí riachtanacha",
       "title": "Ainm an ghailearaí"
     },
     "labels": {

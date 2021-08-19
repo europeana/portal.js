@@ -58,8 +58,17 @@ export default {
     "published": "Paskelbta {date}",
     "relatedPosts": "Susiję įrašai"
   },
+  "cardLabels": {
+    "person": "Asmuo",
+    "time": "Amžius",
+    "topic": "Tema"
+  },
   "clearAllFilters": "išvalyti visus filtrus",
   "collections": {
+    "actions": {
+      "edit": "Redaguoti kolekciją",
+      "update": "Atnaujinti kolekciją"
+    },
     "fashion": {
       "facets": {
         "CREATOR": {
@@ -75,9 +84,16 @@ export default {
           "name": "Medžiaga | Medžiagos"
         }
       }
+    },
+    "form": {
+      "description": "apibūdinimas"
+    },
+    "notifications": {
+      "update": "Kolekcija buvo atnaujinta"
     }
   },
   "collectionsYouMightLike": "Kolekcijos, kurios jums gali patikti",
+  "colourSwatch": "Spalvų pavyzdys",
   "contentfulManual": {
     "footerNavigation": {
       "about": "Apie „Europeana“ kolekcijas",
@@ -108,6 +124,10 @@ export default {
     "startDate": "Pradžios data",
     "to": "į"
   },
+  "debug": {
+    "apiRequests": "API užklausos",
+    "debug": "Derinimo"
+  },
   "delete": "Ištrinti",
   "depiction": "{title} vaizdavimas",
   "directions": {
@@ -115,6 +135,17 @@ export default {
     "right": "Dešinė"
   },
   "edmIsShownAtLinkAlt": "Peržiūrėti teikėjo svetainę",
+  "entity": {
+    "actions": {
+      "cancel": "Atšaukti"
+    },
+    "labels": {
+      "entity": "Subjektas"
+    },
+    "notifications": {
+      "deleted": "Jūsų galerija panaikinta."
+    }
+  },
   "error": "Klaida",
   "exhibitions": {
     "chapters": "Skyriai",
@@ -302,6 +333,7 @@ export default {
         "#FFFAFA": "Sniegas",
         "#FFFF00": "Geltona",
         "#FFFFE0": "Šviesiai geltona",
+        "#FFFFF0": "Dramblio kaulas",
         "#FFFFFF": "Balta"
       }
     },
@@ -464,6 +496,8 @@ export default {
   },
   "footer": {
     "customiseWebsiteLanguage": "Pasirinkti tinklalapio kalbą",
+    "disclaimerLine1": "\"Europeana\" yra Europos Sąjungos iniciatyva, finansuojama Europos Sąjungos Europos Connecting Europe Facility ir Europos Sąjungos valstybių narių lėšomis. Europeanos paslaugas, įskaitant šią svetainę, teikia konsorciumas, kuriam vadovauja Europeana Foundation, pagal paslaugų teikimo sutartį su Europos Komisija.",
+    "disclaimerLine2": "Europos Komisija negarantuoja informacijos tikslumo ir neprisiima jokios atsakomybės ar atsakomybės už šioje svetainėje pateiktą informaciją. Nei Europos Komisija, nei joks asmuo, veikiantis Europos Komisijos vardu, nėra atsakingas už šioje svetainėje esančios informacijos tikslumą ar naudojimą.",
     "findUsElsewhere": "Raskite mus kitur",
     "imageDescription": "Bendrai finansuojama pagal Europos Sąjungos Europos infrastruktūros tinklų priemonę",
     "ourMission": "Mūsų misija",
@@ -491,6 +525,7 @@ export default {
       "collections": "Kolekcijos",
       "europeanaClassroom": "Mokytojams",
       "help": "Pagalba",
+      "home": "Namai",
       "stories": "Istorijos"
     },
     "searchFor": "Ieškoti {query}",
@@ -507,6 +542,71 @@ export default {
     "itemCount": "1 prekė iš |{count} prekių",
     "itemOf": "{max} iš {count} prekių",
     "youMightLike": "Prekės, kurios jums gali patikti"
+  },
+  "klaro": {
+    "main": {
+      "consentModal": {
+        "description": "Mes rimtai žiūrime į jūsų duomenų privatumą. Čia galite įvertinti ir pritaikyti paslaugas, kurias norėtume naudoti šioje svetainėje. Jūs esate atsakingas! Įjunkite arba išjunkite paslaugas, kaip jums atrodo tinkama.",
+        "title": "Paslaugos, kuriomis norėtume naudotis."
+      },
+      "consentNotice": {
+        "description": "Mes rūpinamės jūsų privatumu ir naudojame duomenis tik tam, kad pagerintume jūsų patirtį. Reklamai nenaudojame jokios asmeninės informacijos. Savo sutikimą galite pakeisti kas 15 dienų."
+      },
+      "ok": "Gerai",
+      "purposes": {
+        "essential": {
+          "description": "Šios paslaugos yra būtinos tinkamam šios svetainės veikimui. Jie apima paieškos rezultatų rodinį ir kalbos nuostatas, išsaugo prisijungusį būseną ir saugo jūsų apsilankymą. Negalite jų išjungti, nes svetainė kitaip neveiktų tinkamai.",
+          "title": "Esminės saugos ir tinkinimo paslaugos"
+        },
+        "usage": {
+          "description": "Šios tarnybos renka informaciją, kad galėtume geriau suprasti, kaip svetainė naudojama ir kur yra skausmo taškai, suteikdami mums galimybę rinktis pagrįstai, kad pagerintume jūsų patirtį.",
+          "title": "Paslaugos, skirtos svetainės naudojimui ir atsiliepimams fiksuoti"
+        }
+      },
+      "service": {
+        "disableAll": {
+          "description": "Šiuo jungikliu galite įjungti arba išjungti visas pasirenkamąsias paslaugas.",
+          "title": "Įgalinti arba išjungti visas paslaugas"
+        }
+      }
+    },
+    "services": {
+      "auth-strategy": {
+        "description": "Prisimena autorizacijos strategiją, kurią reikia naudoti prisijungiant.",
+        "title": "Auth strategija"
+      },
+      "debugSettings": {
+        "title": "Derinti perjungti"
+      },
+      "google-analytics": {
+        "description": "Renka anoniminę statistiką apie tai, kaip lankytojai sąveikauja su svetaine.",
+        "title": "\"Google Analytics"
+      },
+      "google-optimize": {
+        "description": "Suteikiama galimybė dalyvauti svetainės eksperimentuose, kuriais remdamiesi galime pasirinkti geriausią naudotojo patirtį užtikrinantį dizainą.",
+        "title": "„Google Optimize“"
+      },
+      "hotjar": {
+        "description": "Suaktyvina apklausos valdiklį, suteikdamas galimybę atsakyti į mūsų lankytojų pasitenkinimo apklausas.",
+        "title": "Hotjar"
+      },
+      "i18n": {
+        "description": "Prisimena jūsų pageidaujamą sąsajos kalbą, kad galėtumėte ją pasiekti ateityje.",
+        "title": "Kalbos kodas"
+      },
+      "jira-servicedesk": {
+        "description": "Suaktyvina atsiliepimų valdiklį, suteikiantį galimybę susisiekti su mumis.",
+        "title": "Jiros aptarnavimo stalas"
+      },
+      "matomo": {
+        "description": "Renka anoniminę statistiką apie tai, kaip lankytojai sąveikauja su svetaine.",
+        "title": "Matomo"
+      },
+      "searchResultsView": {
+        "description": "Prisimena, ar norite paieškos rezultatus matyti sąrašo ar tinklelio rodinyje.",
+        "title": "Paieškos rezultatų rodinys (sąrašas / tinklelis)"
+      }
+    }
   },
   "layout": {
     "skipToMain": "Pereiti į puslapio turinį"
@@ -527,7 +627,11 @@ export default {
     }
   },
   "loadingResults": "Įkeliami rezultatai",
+  "mediaPreview": {
+    "selectItem": "Pasirinkite elementą {src}"
+  },
   "messages": {
+    "copyToClipboardSuccess": "Nukopijuota į mainų sritį",
     "externalContentError": "Nepavyko įkelti išorinio turinio",
     "notFound": "Nerasta",
     "paginationLimitExceeded": "Galima peržiūrėti tik pirmuosius {limit} paieškos rezultatus."
@@ -535,8 +639,12 @@ export default {
   "newWindow": "atsidaro naujame lange",
   "noMoreResults": "Daugiau nėra rezultatų pagal jūsų paieškos užklausą.",
   "noResults": "Rezultatų nėra",
+  "pageHasLoaded": "įkelta",
   "pages": {
     "collections": {
+      "times": {
+        "title": "Laikai"
+      },
       "topics": {
         "title": "Temos"
       }
@@ -545,11 +653,16 @@ export default {
   "readMore": "Skaityti daugiau",
   "record": {
     "allMetaData": "Visi metaduomenys",
+    "copyEmbedLabel": "Įterpti kodą (spustelėkite, jei norite kopijuoti)",
     "downloadCopyrightInfo": "Šis elementas apsaugos autorių teisėmis, jo negalima atsisiųsti.",
     "exploreMore": "Sužinokite daugiau",
     "extendedInformation": "Išplėstinė informacija",
     "goodToKnow": "Naudinga žinoti",
     "hideAll": "Slėpti visą informaciją",
+    "IIIFViewer": "IIIF žiūrovas",
+    "location": "Vieta",
+    "locationOnMap": "Vieta žemėlapyje",
+    "mediaPlayer": "Medijos leistuvas",
     "record": "Įrašas",
     "showAll": "Rodyti visą informaciją",
     "similarItems": "Panašūs elementai",
@@ -599,6 +712,7 @@ export default {
     "form": {
       "description": "Galerijos aprašymas",
       "private": "Palikti galeriją privačią",
+      "required": "Privalomi laukai",
       "title": "Galerijos pavadinimas"
     },
     "labels": {

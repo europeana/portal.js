@@ -27,6 +27,8 @@ env:
   SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
   OAUTH_CLIENT: ${{ secrets.OAUTH_CLIENT }}
   PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+  REDIS_URL: ${{ secrets.REDIS_URL }}
+  REDIS_TLS_CA: ${{ secrets.REDIS_TLS_CA }}
 
 jobs:
   config:
@@ -138,6 +140,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PULL_REQUEST_NUMBER: ${{ needs.config.outputs.pull-request-number }}
+      CF_APP_FQDN: ${{ needs.config.outputs.cf-app-fqdn }}
       CF_APP_NAME: ${{ needs.config.outputs.cf-app-name }}
       CF_SPACE: ${{ needs.config.outputs.cf-space }}
     steps:

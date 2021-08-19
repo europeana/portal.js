@@ -2,6 +2,7 @@ export default {
   methods: {
     chapterPagesToLinkListItems(chapters, identifier) {
       chapters = chapters.concat(this.creditsChapter() || []);
+      chapters = chapters.filter(listItem => listItem !== null);
       chapters.map(chapter => {
         chapter.url = chapter.identifier === 'credits' ?
           {

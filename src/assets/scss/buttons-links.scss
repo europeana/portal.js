@@ -41,6 +41,18 @@
   &:hover {
     box-shadow: none;
   }
+  &.multilingual-dropdown {
+    padding: 0;
+    color: $black;
+    text-decoration: underline;
+    &::after {
+      @extend .icon-font;
+      content: '\e93e';
+      border: none;
+      margin-left: 0.25rem;
+      transform: scale(1.5);
+    }
+  }
 }
 // Expected ".btn-outline-primary:hover" to come before
 //@at-root  ".btn-outline-primary:hover:not([disabled])"

@@ -62,6 +62,10 @@
   content: '\e91f';
 }
 
+.icon-info-outline:before {
+  content: '\e93a';
+}
+
 .icon-cancel-circle:before {
   content: '\e934';
 }
@@ -78,9 +82,35 @@
   content: '\e930';
 }
 
+.icon-accept:before {
+  content: '\e938'
+}
+
+.icon-reject:before {
+  content: '\e939'
+}
+
 .icon-ic-feedback:before {
   content: '\e933';
 }
 .icon-push-pin:before {
   content: '\e936';
+}
+.icon-globe:before {
+  content: '\e937';
+}
+.icon-arrow-down:before {
+  content: '\e93b';
+}
+.icon-verified:before {
+  content: '\e93c';
+}
+.icon-temporary-tag:before {
+  content: '\e93d';
+}
+.icon-language:before {
+  content: '\e905';
+}
+.icon-translate:before {
+  content: '\e93c';
 }

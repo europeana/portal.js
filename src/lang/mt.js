@@ -58,8 +58,17 @@ export default {
     "published": "Ippubblikat {date}",
     "relatedPosts": "Posts relatati"
   },
+  "cardLabels": {
+    "person": "Persuna",
+    "time": "Seklu",
+    "topic": "Suġġett"
+  },
   "clearAllFilters": "ħassar il-filtri kollha",
   "collections": {
+    "actions": {
+      "edit": "Editja Kollezzjoni",
+      "update": "Aġġorna Kollezzjoni"
+    },
     "fashion": {
       "facets": {
         "CREATOR": {
@@ -75,6 +84,12 @@ export default {
           "name": "Materjal | Materjali"
         }
       }
+    },
+    "form": {
+      "description": "Deskrizzjoni"
+    },
+    "notifications": {
+      "update": "Il-kollezzjoni ġiet aġġornata"
     }
   },
   "collectionsYouMightLike": "Kollezzjonijiet li jistgħu jinteressawk",
@@ -109,6 +124,10 @@ export default {
     "startDate": "Data tal-bidu",
     "to": "biex"
   },
+  "debug": {
+    "apiRequests": "Talbiet API",
+    "debug": "Iddibaggja"
+  },
   "delete": "Iddilitja",
   "depiction": "Tpinġija ta' {title}",
   "directions": {
@@ -116,6 +135,17 @@ export default {
     "right": "Lemin"
   },
   "edmIsShownAtLinkAlt": "Ara fuq il-websajt tal-fornitur",
+  "entity": {
+    "actions": {
+      "cancel": "Ikkanċella"
+    },
+    "labels": {
+      "entity": "Entità"
+    },
+    "notifications": {
+      "deleted": "Il-gallerija tiegħek tħassret."
+    }
+  },
   "error": "Żball",
   "exhibitions": {
     "chapters": "Kapitoli",
@@ -466,6 +496,8 @@ export default {
   },
   "footer": {
     "customiseWebsiteLanguage": "Ippersonalizza l-lingwa tas-sit web",
+    "disclaimerLine1": "Europeana hija inizjattiva tal-Unjoni Ewropea, iffinanzjata mill- Connecting Europe Facility tal-Unjoni Ewropea u l-Istati Membri tal-Unjoni Ewropea. Is-servizzi tal-Europeana, inkluż din il-websajt, huma mħaddma minn konsorzju mmexxi mill-Fondazzjoni Europeana taħt kuntratt ta ’servizz mal-Kummissjoni Ewropea.",
+    "disclaimerLine2": "Il-Kummissjoni Ewropea ma tiggarantix l-eżattezza tal-informazzjoni u ma taċċetta l-ebda responsabbiltà jew responsabbiltà fir-rigward tal-informazzjoni f'dan il-websajt. La l-Kummissjoni Ewropea, u lanqas kwalunkwe persuna li taġixxi f'isem il-Kummissjoni Ewropea, ma hija responsabbli jew responsabbli għall-eżattezza jew l-użu tal-informazzjoni f'dan il-websajt.",
     "findUsElsewhere": "Sibna x'imkien ieħor",
     "imageDescription": "Kofinanzjat mill-Faċilità Nikkollegaw l-Ewropa tal-Unjoni Ewropea",
     "ourMission": "Il-missjoni tagħna",
@@ -493,6 +525,7 @@ export default {
       "collections": "Kollezzjonijiet",
       "europeanaClassroom": "Għalliema",
       "help": "Għajnuna",
+      "home": "Paġna Ewlenija",
       "stories": "Ġrajjiet"
     },
     "searchFor": "Fittex {query}",
@@ -509,6 +542,71 @@ export default {
     "itemCount": "oġġett 1 |{count} oġġetti",
     "itemOf": "{max} minn {count} oġġett",
     "youMightLike": "Oġġetti li jistgħu jinteressawk"
+  },
+  "klaro": {
+    "main": {
+      "consentModal": {
+        "description": "Aħna nieħdu l-privatezza tad-data tiegħek bis-serjetà. Hawnhekk tista 'tivvaluta u tippersonalizza s-servizzi li nixtiequ nużaw fuq din il-websajt. Int inkarigat! Ippermetti jew itfi s-servizzi kif tarah xieraq.",
+        "title": "Servizzi li nixtiequ nużaw."
+      },
+      "consentNotice": {
+        "description": "Aħna nieħdu ħsieb il-privatezza tiegħek u nużaw biss id-dejta biex intejbu l-esperjenza tiegħek. Aħna ma nużaw l-ebda informazzjoni personali għar-reklamar. Tista 'tbiddel il-kunsens tiegħek kull 15-il jum."
+      },
+      "ok": "Okay",
+      "purposes": {
+        "essential": {
+          "description": "Dawn is-servizzi huma essenzjali għall-funzjonament korrett ta' dan is-sit web. Dawn jinkludu d-dehra tar-riżultati tat-tiftix u l-preferenzi lingwistiċi, jippreservaw l-istat illoggjat u jżommu ż-żjara tiegħek sigura. Ma tistax tiddiżattivahom għax il-websajt ma taħdimx sew mod ieħor.",
+          "title": "Servizzi essenzjali għas-sigurtà u l-personalizzazzjoni"
+        },
+        "usage": {
+          "description": "Dawn is-servizzi jiġbru l-informazzjoni biex jgħinuna nifhmu aħjar kif tintuża l-websajt u fejn huma l-punti tal-uġigħ, u jagħtuna s-setgħa li nagħmlu għażliet infurmati biex intejbu l-esperjenza tiegħek.",
+          "title": "Servizzi biex taqbad l-użu u l-feedback tal-websajt"
+        }
+      },
+      "service": {
+        "disableAll": {
+          "description": "Uża dan is-swiċċ biex tippermetti jew tiddiżattiva s-servizzi fakultattivi kollha.",
+          "title": "Jippermetti jew itfi s-servizzi kollha"
+        }
+      }
+    },
+    "services": {
+      "auth-strategy": {
+        "description": "Jiftakar l-istrateġija ta' awtorizzazzjoni biex tużaha biex tilloggja.",
+        "title": "L-Istrateġija tal-Auth"
+      },
+      "debugSettings": {
+        "title": "Debug toggle"
+      },
+      "google-analytics": {
+        "description": "Iġbor statistika anonima dwar kif il-viżitaturi jinteraġixxu mal-websajt.",
+        "title": "Google Analytics"
+      },
+      "google-optimize": {
+        "description": "Jippermettilek tipparteċipa f'esperimenti tal-websajt li jiggwidaw l-għażliet tad-disinn tagħna għall-aħjar esperjenza tal-utent.",
+        "title": "Google Optimize"
+      },
+      "hotjar": {
+        "description": "Jattiva widget tal-istħarriġ li jagħtik l-għażla li tirrispondi għall-istħarriġiet tagħna dwar is-sodisfazzjon tal-viżitaturi.",
+        "title": "Hotjar"
+      },
+      "i18n": {
+        "description": "Tiftakar il-lingwa tal-interface preferuta tiegħek għal aċċess futur.",
+        "title": "Kodiċi tal-lingwa"
+      },
+      "jira-servicedesk": {
+        "description": "Jattiva l-widget tal-feedback u jagħtik l-għażla li tikkuntattjana.",
+        "title": "Skrivanija tas-servizz ta' Jira"
+      },
+      "matomo": {
+        "description": "Iġbor statistika anonima dwar kif il-viżitaturi jinteraġixxu mal-websajt.",
+        "title": "Matomo"
+      },
+      "searchResultsView": {
+        "description": "Tiftakar jekk tippreferi tara r-riżultati tat-tfittxija f'lista jew viżjoni tal-grilja.",
+        "title": "Veduta tar-riżultat tat-tfittxija (lista / gradilja)"
+      }
+    }
   },
   "layout": {
     "skipToMain": "Aqbeż għall-kontenut paġna"
@@ -529,6 +627,9 @@ export default {
     }
   },
   "loadingResults": "Qed jillowdja r-riżultati",
+  "mediaPreview": {
+    "selectItem": "Agħżel oġġett {src}"
+  },
   "messages": {
     "copyToClipboardSuccess": "Ikkupjat fil-clipboard",
     "externalContentError": "Il-kontenut estern ma llowdjax",
@@ -558,7 +659,10 @@ export default {
     "extendedInformation": "Informazzjoni estiża",
     "goodToKnow": "Informazzjoni utli",
     "hideAll": "Aħbi l-informazzjoni kollha",
+    "IIIFViewer": "Telespettatur IIIF",
     "location": "Post",
+    "locationOnMap": "Post fuq il-mappa",
+    "mediaPlayer": "Plejer tal-midja",
     "record": "Rekord",
     "showAll": "Uri l-informazzjoni kollha",
     "similarItems": "Oġġetti simili",
@@ -608,6 +712,7 @@ export default {
     "form": {
       "description": "Deskrizzjoni tad-direttorju tar-ritratti",
       "private": "Agħmel dan id-direttorju tar-ritratti privat",
+      "required": "Oqsma meħtieġa",
       "title": "Isem tad-direttorju tar-ritratti"
     },
     "labels": {

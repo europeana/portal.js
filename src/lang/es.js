@@ -58,8 +58,17 @@ export default {
     "published": "Publicado el {date}",
     "relatedPosts": "Publicaciones relacionadas"
   },
+  "cardLabels": {
+    "person": "Persona",
+    "time": "Siglo",
+    "topic": "Tema"
+  },
   "clearAllFilters": "borrar todos los filtros",
   "collections": {
+    "actions": {
+      "edit": "Editar colección",
+      "update": "Actualizar colección"
+    },
     "fashion": {
       "facets": {
         "CREATOR": {
@@ -75,9 +84,16 @@ export default {
           "name": "Material | Materiales"
         }
       }
+    },
+    "form": {
+      "description": "Descripción"
+    },
+    "notifications": {
+      "update": "La colección se ha actualizado"
     }
   },
   "collectionsYouMightLike": "Colecciones que quizá te gusten",
+  "colourSwatch": "Muestra de color",
   "contentfulManual": {
     "footerNavigation": {
       "about": "Acerca de Europeana",
@@ -108,6 +124,10 @@ export default {
     "startDate": "Fecha de inicio",
     "to": "a"
   },
+  "debug": {
+    "apiRequests": "Solicitudes de API",
+    "debug": "Depurar"
+  },
   "delete": "Borrar",
   "depiction": "Una representación de {title}",
   "directions": {
@@ -115,6 +135,17 @@ export default {
     "right": "Derecha"
   },
   "edmIsShownAtLinkAlt": "Ver en el sitio web del proveedor",
+  "entity": {
+    "actions": {
+      "cancel": "Cancelar"
+    },
+    "labels": {
+      "entity": "Entidad"
+    },
+    "notifications": {
+      "deleted": "Tu galería ha sido eliminada."
+    }
+  },
   "error": "Error",
   "exhibitions": {
     "chapters": "Capítulos",
@@ -302,6 +333,7 @@ export default {
         "#FFFAFA": "Nieve",
         "#FFFF00": "Amarillo",
         "#FFFFE0": "Amarillo claro",
+        "#FFFFF0": "Marfil",
         "#FFFFFF": "Blanco"
       }
     },
@@ -464,6 +496,8 @@ export default {
   },
   "footer": {
     "customiseWebsiteLanguage": "Personalizar el idioma del sitio web",
+    "disclaimerLine1": "Europeana es una iniciativa de la Unión Europea, financiada por el Connecting Europe Facility de la Unión Europea y los Estados miembros de la Unión Europea. Los servicios de Europeana, incluido este sitio web, son operados por un consorcio liderado por la Fundación Europeana en virtud de un contrato de servicios con la Comisión Europea.",
+    "disclaimerLine2": "La Comisión Europea no garantiza la exactitud de la información y no acepta responsabilidad alguna con respecto a la información en este sitio web. Ni la Comisión Europea, ni ninguna persona que actúe en nombre de la Comisión Europea, es responsable de la exactitud o el uso de la información en este sitio web.",
     "findUsElsewhere": "Encuéntrenos en otro sitio",
     "imageDescription": "Cofinanciado por el fondo de inversión Connecting Europe Facility (Conectando Europa) de la Unión Europea.",
     "ourMission": "Nuestra misión",
@@ -491,6 +525,7 @@ export default {
       "collections": "Colecciones",
       "europeanaClassroom": "Profesores",
       "help": "Ayuda",
+      "home": "Casa",
       "stories": "Historias"
     },
     "searchFor": "Busca {query}",
@@ -507,6 +542,71 @@ export default {
     "itemCount": "1 artículo | {count} artículos",
     "itemOf": "{max} de {count} artículos",
     "youMightLike": "Artículos que quizá te gusten"
+  },
+  "klaro": {
+    "main": {
+      "consentModal": {
+        "description": "Nos tomamos muy en serio la privacidad de sus datos. Aquí puede evaluar y personalizar los servicios que nos gustaría utilizar en este sitio web. ¡Estás a cargo! Habilite o deshabilite los servicios como mejor le parezca.",
+        "title": "Servicios que nos gustaría utilizar."
+      },
+      "consentNotice": {
+        "description": "Nos preocupamos por su privacidad y solo usamos los datos para mejorar su experiencia. No utilizamos ninguna información personal para publicidad. Puede cambiar su consentimiento cada 15 días."
+      },
+      "ok": "Okey",
+      "purposes": {
+        "essential": {
+          "description": "Estos servicios son imprescindibles para el correcto funcionamiento de este sitio web. Incluyen vista de resultados de búsqueda y preferencias de idioma, preservan el estado de inicio de sesión y mantienen su visita segura. No puede deshabilitarlos ya que el sitio web no funcionaría correctamente de otra manera.",
+          "title": "Servicios esenciales para la seguridad y la personalización"
+        },
+        "usage": {
+          "description": "Estos servicios recopilan la información para ayudarnos a comprender mejor cómo se usa el sitio web y dónde están los puntos débiles, lo que nos permite tomar decisiones informadas para mejorar su experiencia.",
+          "title": "Servicios para capturar el uso y los comentarios del sitio web"
+        }
+      },
+      "service": {
+        "disableAll": {
+          "description": "Utilice este interruptor para habilitar o deshabilitar todos los servicios opcionales.",
+          "title": "Habilitar o deshabilitar todos los servicios"
+        }
+      }
+    },
+    "services": {
+      "auth-strategy": {
+        "description": "Recuerda la estrategia de autorización que se debe utilizar para iniciar sesión.",
+        "title": "Estrategia de autenticación"
+      },
+      "debugSettings": {
+        "title": "Alternar depuración"
+      },
+      "google-analytics": {
+        "description": "Recopila estadísticas anónimas sobre cómo los visitantes interactúan con el sitio web.",
+        "title": "Google analitico"
+      },
+      "google-optimize": {
+        "description": "Le permite participar en experimentos de sitios web que guían nuestras elecciones de diseño para la mejor experiencia de usuario.",
+        "title": "Google Optimize"
+      },
+      "hotjar": {
+        "description": "Activa un widget de encuesta que le brinda la opción de responder a nuestras encuestas de satisfacción de visitantes.",
+        "title": "Hotjar"
+      },
+      "i18n": {
+        "description": "Recuerda su idioma de interfaz preferido para acceder en el futuro.",
+        "title": "Código de la lengua"
+      },
+      "jira-servicedesk": {
+        "description": "Activa el widget de comentarios que le da la opción de contactarnos.",
+        "title": "Mesa de servicio Jira"
+      },
+      "matomo": {
+        "description": "Recopila estadísticas anónimas sobre cómo los visitantes interactúan con el sitio web.",
+        "title": "Matomo"
+      },
+      "searchResultsView": {
+        "description": "Recuerda si prefiere ver los resultados de la búsqueda en una vista de lista o cuadrícula.",
+        "title": "Vista de resultados de búsqueda (lista / cuadrícula)"
+      }
+    }
   },
   "layout": {
     "skipToMain": "Saltar al contenido de la página"
@@ -527,7 +627,11 @@ export default {
     }
   },
   "loadingResults": "Cargando resultados",
+  "mediaPreview": {
+    "selectItem": "Seleccionar elemento {src}"
+  },
   "messages": {
+    "copyToClipboardSuccess": "Copiado en el portapapeles",
     "externalContentError": "El contenido externo no se ha podido cargar",
     "notFound": "No se ha encontrado",
     "paginationLimitExceeded": "Solo es posible ver los primeros {limit} resultados de búsqueda."
@@ -535,8 +639,12 @@ export default {
   "newWindow": "se abre en una nueva ventana",
   "noMoreResults": "No hay más resultados para su búsqueda.",
   "noResults": "No hay resultados",
+  "pageHasLoaded": "ha cargado",
   "pages": {
     "collections": {
+      "times": {
+        "title": "Veces"
+      },
       "topics": {
         "title": "Temas"
       }
@@ -545,11 +653,16 @@ export default {
   "readMore": "Leer más",
   "record": {
     "allMetaData": "Todos los metadatos",
+    "copyEmbedLabel": "Código de inserción (haga clic para copiar)",
     "downloadCopyrightInfo": "Este objeto tiene derechos de autor y no se puede descargar.",
     "exploreMore": "Explorar más",
     "extendedInformation": "Información ampliada",
     "goodToKnow": "Información importante",
     "hideAll": "Ocultar toda la información",
+    "IIIFViewer": "Visor IIIF",
+    "location": "Ubicación",
+    "locationOnMap": "Ubicación en el mapa",
+    "mediaPlayer": "Reproductor multimedia",
     "record": "Registro",
     "showAll": "Mostrar toda la información",
     "similarItems": "Objetos similares",
@@ -599,6 +712,7 @@ export default {
     "form": {
       "description": "Descripción de la galería",
       "private": "Mantener esta galería como privada",
+      "required": "Campos obligatorios",
       "title": "Nombre de la galería"
     },
     "labels": {
