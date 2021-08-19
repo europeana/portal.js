@@ -1,3 +1,3 @@
-const locales = require('./locales');
+import locales from './locales.js';
 
-module.exports = locales.map(locale => locale.code);
+export default locales.map(locale => locale.code);

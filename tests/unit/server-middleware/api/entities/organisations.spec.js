@@ -1,7 +1,7 @@
 import sinon from 'sinon';
 
 import serverMiddleware from '@/server-middleware/api/entities/organisations';
-import cacheUtils from '@/cachers/utils';
+import * as cacheUtils from '@/cachers/utils';
 
 const expressResStub = {
   json: sinon.stub(),
