@@ -1,8 +1,7 @@
 import axios from 'axios';
 import md5 from 'md5';
 
-// TODO: move `createRedisClient` and other related utils up to cachers dir
-import { createRedisClient } from '../../cachers/entities/organisations/utils';
+import { createRedisClient } from '../../cachers/utils';
 
 import queries from './queries';
 
@@ -24,10 +23,7 @@ export default ({ app, $config }, inject) => {
   }
 
   if ($config.redis.url && !$redis) {
-    $redis = createRedisClient({
-      redisUrl: $config.redis.url,
-      redisTlsCa: $config.redis.tlsCa
-    });
+    $redis = createRedisClient($config.redis);
   }
 
   const plugin = {

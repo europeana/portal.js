@@ -1,7 +1,7 @@
 const contentful = require('contentful');
 const flatten = require('lodash/flatten');
 
-const createRedisClient = require('../../../cachers/entities/organisations/utils').createRedisClient;
+const createRedisClient = require('../../../cachers/utils').createRedisClient;
 
 let contentfulClient;
 let redisClient;
