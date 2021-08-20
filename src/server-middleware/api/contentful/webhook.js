@@ -1,5 +1,5 @@
 import flatten from 'lodash/flatten.js';
-import { createClient as createContentfulClient } from 'contentful';
+import * as contentful from 'contentful';
 import { createRedisClient } from '../../../cachers/utils.js';
 
 let contentfulClient;
@@ -94,7 +94,7 @@ const expireCache = async({ key, entry }) => {
 //       requests from doing so?
 // TODO: quit redis connection when done
 export default ($config) => async(req, res) => {
-  contentfulClient = createContentfulClient({
+  contentfulClient = contentful.createClient({
     space: $config.contentful.spaceId,
     environment: $config.contentful.environmentId,
     accessToken: $config.contentful.accessToken.delivery
