@@ -8,6 +8,8 @@ import queries from './queries/index.js';
 let $axios;
 let $redis;
 
+// TODO: do not cache error responses from CTF
+
 export default ({ app, $config }, inject) => {
   if (!$axios) {
     const origin = 'https://graphql.contentful.com';
