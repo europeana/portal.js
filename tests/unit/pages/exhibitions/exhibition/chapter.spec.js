@@ -8,9 +8,12 @@ import page from '@/pages/exhibitions/_exhibition/_chapter';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const heroImageUrl = 'http://example.org/contentful/asset.jpg';
+const heroImageExample =           { image: {
+  url: 'http://example.org/contentful/asset.jpg',
+  description: 'Hero image description'
+} };
 
-const factory = () => shallowMountNuxt(page, {
+const factory = (heroImage) => shallowMountNuxt(page, {
   localVue,
   mixins: [
     exhibitionChapters
@@ -25,12 +28,7 @@ const factory = () => shallowMountNuxt(page, {
         headline: '',
         description: '',
         text: '',
-        primaryImageOfPage: {
-          image: {
-            url: heroImageUrl,
-            description: 'Hero image description'
-          }
-        },
+        primaryImageOfPage: heroImage,
         hasPartCollection: {
           items: []
         }
@@ -47,12 +45,19 @@ const factory = () => shallowMountNuxt(page, {
 describe('Exhibition Chapter page', () => {
   describe('head()', () => {
     it('uses hero image for og:image', () => {
-      const wrapper = factory();
+      const wrapper = factory(heroImageExample);
 
       const headMeta = wrapper.vm.head().meta;
 
       headMeta.filter(meta => meta.property === 'og:image').length.should.eq(1);
-      headMeta.find(meta => meta.property === 'og:image').content.should.eq(heroImageUrl);
+      headMeta.find(meta => meta.property === 'og:image').content.should.eq(heroImageExample.image.url);
+    });
+    it('does not set og:image when no hero image', () => {
+      const wrapper = factory();
+
+      const headMeta = wrapper.vm.head().meta;
+
+      headMeta.filter(meta => meta.property === 'og:image').length.should.eq(0);
     });
   });
 });
