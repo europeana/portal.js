@@ -3,6 +3,8 @@ import md5 from 'md5';
 
 import { createRedisClient } from '../../cachers/utils.js';
 
+// import { performance } from 'perf_hooks';
+
 import queries from './queries/index.js';
 
 let $axios;
@@ -54,37 +56,49 @@ export default ({ app, $config }, inject) => {
     fresh(alias, variables, cacheHashKey) {
       const accessToken = variables.preview ? $config.contentful.accessToken.preview : $config.contentful.accessToken.delivery;
       const headers = {
-        'Authorization': `Bearer ${accessToken}`
+        'Authorization': `Bearer ${accessToken}`,
+        'Accept-Encoding': 'gzip'
       };
       const body = {
         query: queries[alias],
         variables
       };
 
+      // const start = performance.now();
+
       return this.$axios.post('', body, { headers })
         .then(ctfResponse => {
+          // const end = performance.now();
+          // const duration = end - start;
+          // console.log('CTF POST duration', duration);
+          // console.log('ctfResponse.headers', ctfResponse.headers);
+
           const fresh = ctfResponse.data;
-          const etag = `W/"${md5(fresh)}"`;
-          return {
-            data: fresh,
-            etag
-          };
-        })
-        .then(response => {
+          const stringified = JSON.stringify(fresh);
+          // TODO: reuse the etag from the CTF response instead?
+          const etag = `W/"${md5(stringified)}"`;
+
           if (this.$redis) {
-            this.$redis.hset(cacheHashKey, 'data', JSON.stringify(response.data));
-            this.$redis.hset(cacheHashKey, 'etag', response.etag);
+            this.$redis.hset(cacheHashKey, 'data', stringified);
+            this.$redis.hset(cacheHashKey, 'etag', etag);
           }
 
-          return Promise.resolve(response);
+          return Promise.resolve({
+            data: fresh,
+            etag
+          });
         });
     },
 
     cachedOrFresh(alias, variables, cacheHashKey) {
       return this.$redis.hgetallAsync(cacheHashKey)
-        .then(cached => (
-          cached ? Promise.resolve({ etag: cached.etag, data: JSON.parse(cached.data) }) : this.fresh(alias, variables, cacheHashKey))
-        );
+        .then(cached => {
+          if (cached) {
+            return Promise.resolve({ etag: cached.etag, data: JSON.parse(cached.data) });
+          } else {
+            return this.fresh(alias, variables, cacheHashKey);
+          }
+        });
     }
   };
 

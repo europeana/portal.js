@@ -6,6 +6,10 @@ let contentfulClient;
 let redisClient;
 
 const linksToEntry = async(entry) => {
+  if (!entry?.sys?.id) {
+    return [];
+  }
+
   const links = await contentfulClient.getEntries({
     'links_to_entry': entry.sys.id,
     include: 0
@@ -31,6 +35,10 @@ const pageSlug = entry => (
 
 const cachesToExpire = (entry) => {
   let caches = [];
+
+  if (!entry?.sys?.contentType?.sys?.id) {
+    return caches;
+  }
 
   switch (entry.sys.contentType.sys.id) {
     case 'blogPosting':
