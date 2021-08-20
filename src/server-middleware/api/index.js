@@ -4,7 +4,12 @@ import logging from '../logging.js';
 
 const app = express();
 app.disable('x-powered-by'); // Security: do not disclose technology fingerprints
-app.use(express.json());
+app.use(express.json({
+  type: [
+    'application/json',
+    'application/*+json'
+  ]
+}));
 app.use(logging);
 
 import nuxtConfig from '../../../nuxt.config.js';
