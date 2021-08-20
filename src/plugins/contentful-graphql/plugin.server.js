@@ -40,13 +40,13 @@ export default ({ app, $config }, inject) => {
       return this.$redis ? this.cachedOrFresh(alias, variables, cacheHashKey) : this.fresh(cacheHashKey);
     },
 
-    ifNoneMatch(alias, variables, ifNoneMatch) {
-      if (!ifNoneMatch) {
-        return false;
+    etagMatches(alias, variables, ifNoneMatchHeader) {
+      if (!ifNoneMatchHeader) {
+        return Promise.resolve(false);
       }
       const cacheHashKey = this.key(alias, variables);
       return this.$redis.hgetAsync(cacheHashKey, 'etag')
-        .then(etag => etag !== ifNoneMatch);
+        .then(etag => etag === ifNoneMatchHeader);
     },
 
     fresh(alias, variables, cacheHashKey) {
