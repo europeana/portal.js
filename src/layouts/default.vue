@@ -146,12 +146,7 @@
       },
 
       timeoutUntilPiwikSet(counter) {
-        // People might have a tracking blocker and it won't ever load
-        if (counter > 100) {
-          console.error('Waiting for $matomo timed out');
-          // We might still want to render Klaro anyway if for whatever reason the matomo plugin didn't initialise
-        }
-        if (this.$matomo) {
+        if (this.$matomo || counter > 100) {
           this.renderKlaro();
         } else {
           setTimeout(() => {
