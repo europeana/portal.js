@@ -87,11 +87,7 @@
       // Array of IDs of sets containing the item
       collectionsWithItem() {
         return this.collections
-          .filter(collection => (
-            (collection.items || [])
-            .map(item => item.replace(`${EUROPEANA_DATA_URL}/item`, ''))
-            .includes(this.itemId)
-          ))
+          .filter(collection => (collection.items || []).includes(`${EUROPEANA_DATA_URL}/item${this.itemId}`))
           .map(collection => collection.id);
       }
     },
@@ -125,7 +121,6 @@
       },
 
       addItem(setId) {
-        // TODO: error handling
         this.$store.dispatch('set/addItem', { setId, itemId: this.itemId });
       },
 
