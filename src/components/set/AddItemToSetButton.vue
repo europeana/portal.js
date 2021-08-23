@@ -15,6 +15,8 @@
 </template>
 
 <script>
+  import { langMapValueForLocale } from '@/plugins/europeana/utils';
+
   export default {
     name: 'AddItemToSetButton',
 
@@ -55,15 +57,8 @@
     },
 
     methods: {
-      // TODO: use lang map l10n function
       displayField(field) {
-        if (!this.set[field]) {
-          return '';
-        } else if (this.set[field][this.$i18n.locale]) {
-          return this.set[field][this.$i18n.locale];
-        } else {
-          return this.set[field].en;
-        }
+        return langMapValueForLocale(this.set[field], this.$i18n.locale).values[0];
       }
     }
   };

@@ -159,7 +159,7 @@ export default {
     refreshCreation({ state, commit, dispatch }, setId) {
       const setToReplaceIndex = state.creations.findIndex(set => set.id === setId);
       if (setToReplaceIndex === -1) {
-        return;
+        return Promise.resolve();
       }
 
       return this.$apis.set.getSet(setId, {
