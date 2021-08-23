@@ -18,7 +18,7 @@
             :key="set.id"
             :sub-title="setSubTitle(set)"
             :title="set.title"
-            :image-url="$apis.set.getSetThumbnail(set)"
+            :image-url="$store.getters['set/creationPreview'](set.id)"
             :texts="[set.description]"
             :url="{ name: 'set-all', params: { pathMatch: setPathMatch(set) } }"
             data-qa="user set"

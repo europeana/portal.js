@@ -6,6 +6,7 @@ export default {
     active: null,
     activeRecommendations: [],
     creations: [],
+    creationPreviews: {},
     curations: []
   }),
 
@@ -37,12 +38,18 @@ export default {
     setCreations(state, value) {
       state.creations = value;
     },
+    setCreationPreviews(state, value) {
+      state.creationPreviews = value;
+    },
     setCurations(state, value) {
       state.curations = value;
     }
   },
 
   getters: {
+    creationPreview: (state) => (setId) => {
+      return state.creationPreviews[setId];
+    },
     isLiked: (state) => (itemId) => {
       return state.likedItemIds.includes(itemId);
     }
@@ -149,29 +156,25 @@ export default {
           }
         });
     },
-    // TODO: refactor to not use excessively expensive profile: 'itemDescriptions',
-    //       but instead profile: 'standard' with separate Record API request
-    //       to get just the edmPreview of the first item, as with fetchCreations
-    //       and fetchCreationPreviews
-    refreshCreation({ state, commit }, setId) {
+    refreshCreation({ state, commit, dispatch }, setId) {
       const setToReplaceIndex = state.creations.findIndex(set => set.id === setId);
       if (setToReplaceIndex === -1) {
         return;
       }
 
       return this.$apis.set.getSet(setId, {
-        profile: 'itemDescriptions'
+        profile: 'standard'
       })
         .then(set => {
           const creations = [].concat(state.creations);
           if (set.items) {
             set.items = set.items.map(item => ({
-              id: item.id,
-              edmPreview: item.edmPreview
+              id: item.replace('http://data.europeana.eu/item', '')
             }));
           }
           creations[setToReplaceIndex] = set;
           commit('setCreations', creations);
+          dispatch('fetchCreationPreviews');
         });
     },
     fetchCreations({ commit, dispatch }) {
@@ -189,16 +192,14 @@ export default {
 
           for (const set of sets) {
             if (set.items) {
-              for (let i = 0; i < set.items.length; i = i + 1) {
-                set.items[i] = {
-                  id: set.items[i].replace('http://data.europeana.eu/item', '')
-                };
-              }
+              set.items = set.items.map(item => ({
+                id: item.replace('http://data.europeana.eu/item', '')
+              }));
             }
           }
 
           commit('setCreations', sets);
-          return dispatch('fetchCreationPreviews');
+          dispatch('fetchCreationPreviews');
         });
     },
     fetchCreationPreviews({ state, commit }) {
@@ -220,16 +221,17 @@ export default {
         profile: 'minimal'
       })
         .then(itemSearchResponse => {
+          const creationPreviews = {};
           for (const set of sets) {
             if (set.items) {
               const firstItem = itemSearchResponse.items.find(item => item.id === set.items[0].id);
-              if (firstItem) {
-                set.items[0].edmPreview = firstItem.edmPreview;
+              if (firstItem?.edmPreview) {
+                creationPreviews[set.id] = firstItem.edmPreview[0];
               }
             }
           }
 
-          commit('setCreations', sets || []);
+          commit('setCreationPreviews', creationPreviews || {});
         });
     },
     fetchCurations({ commit }) {
