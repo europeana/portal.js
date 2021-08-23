@@ -272,21 +272,46 @@ describe('store/set', () => {
     });
 
     describe('fetchCreations()', () => {
-      it('fetches creations via $apis.set, then commits with "setCreations"', async() => {
+      it('fetches creations via $apis.set', async() => {
         const searchResponse = { data: { items: ['1', '2'] } };
         store.actions.$auth.user = { sub: userId };
         store.actions.$apis.set.search = sinon.stub().resolves(searchResponse);
 
-        await store.actions.fetchCreations({ commit });
+        await store.actions.fetchCreations({ commit, dispatch });
 
         store.actions.$apis.set.search.should.have.been.calledWith({
           query: `creator:${userId}`,
-          profile: 'itemDescriptions',
+          profile: 'standard',
           pageSize: 100,
           qf: 'type:Collection'
         });
+      });
+
+      it('removes data.europeana.eu/item prefix from set IDs');
+
+      it('commits creations with "setCreations"', async() => {
+        const searchResponse = { data: { items: ['1', '2'] } };
+        store.actions.$auth.user = { sub: userId };
+        store.actions.$apis.set.search = sinon.stub().resolves(searchResponse);
+
+        await store.actions.fetchCreations({ commit, dispatch });
+
         commit.should.have.been.calledWith('setCreations', ['1', '2']);
       });
+
+      it('triggers fetching of creation previews', async() => {
+        const searchResponse = { data: { items: ['1', '2'] } };
+        store.actions.$auth.user = { sub: userId };
+        store.actions.$apis.set.search = sinon.stub().resolves(searchResponse);
+
+        await store.actions.fetchCreations({ commit, dispatch });
+
+        dispatch.should.have.been.calledWith('fetchCreationPreviews');
+      });
+    });
+
+    describe('fetchCreationPreviews()', () => {
+      it('fetches first items for each creation via $apis.record');
     });
 
     describe('fetchCurations()', () => {

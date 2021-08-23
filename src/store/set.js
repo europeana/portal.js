@@ -149,6 +149,10 @@ export default {
           }
         });
     },
+    // TODO: refactor to not use excessively expensive profile: 'itemDescriptions',
+    //       but instead profile: 'standard' with separate Record API request
+    //       to get just the edmPreview of the first item, as with fetchCreations
+    //       and fetchCreationPreviews
     refreshCreation({ state, commit }, setId) {
       const setToReplaceIndex = state.creations.findIndex(set => set.id === setId);
       if (setToReplaceIndex === -1) {
@@ -160,21 +164,73 @@ export default {
       })
         .then(set => {
           const creations = [].concat(state.creations);
+          if (set.items) {
+            set.items = set.items.map(item => ({
+              id: item.id,
+              edmPreview: item.edmPreview
+            }));
+          }
           creations[setToReplaceIndex] = set;
           commit('setCreations', creations);
         });
     },
-    fetchCreations({ commit }) {
+    fetchCreations({ commit, dispatch }) {
       const creatorId = this.$auth.user ? this.$auth.user.sub : null;
       const searchParams = {
         query: `creator:${creatorId}`,
-        profile: 'itemDescriptions',
+        profile: 'standard',
         pageSize: 100, // TODO: pagination?
         qf: 'type:Collection'
       };
 
       return this.$apis.set.search(searchParams)
-        .then(searchResponse => commit('setCreations', searchResponse.data.items || []));
+        .then(searchResponse => {
+          const sets = searchResponse.data.items || [];
+
+          for (const set of sets) {
+            if (set.items) {
+              for (let i = 0; i < set.items.length; i = i + 1) {
+                set.items[i] = {
+                  id: set.items[i].replace('http://data.europeana.eu/item', '')
+                };
+              }
+            }
+          }
+
+          commit('setCreations', sets);
+          return dispatch('fetchCreationPreviews');
+        });
+    },
+    fetchCreationPreviews({ state, commit }) {
+      const sets = state.creations;
+
+      const firstItemsInSets = sets.map(set => {
+        if (set.items) {
+          return set.items[0];
+        } else {
+          return false;
+        }
+      }).filter(id => id);
+
+      const itemsSearchQuery = `europeana_id:("${firstItemsInSets.map(item => item.id).join('" OR "')}")`;
+
+      return this.$apis.record.search({
+        query: itemsSearchQuery,
+        qf: ['contentTier:*'],
+        profile: 'minimal'
+      })
+        .then(itemSearchResponse => {
+          for (const set of sets) {
+            if (set.items) {
+              const firstItem = itemSearchResponse.items.find(item => item.id === set.items[0].id);
+              if (firstItem) {
+                set.items[0].edmPreview = firstItem.edmPreview;
+              }
+            }
+          }
+
+          commit('setCreations', sets || []);
+        });
     },
     fetchCurations({ commit }) {
       const contributorId = this.$auth.user ? this.$auth.user.sub : null;
