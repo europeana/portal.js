@@ -255,7 +255,7 @@ describe('store/set', () => {
       });
 
       context('when creation is stored', () => {
-        it('fetches it via $apis.set with itemDescriptions, then commits with "setCreations"', async() => {
+        it('fetches it via $apis.set, then commits with "setCreations"', async() => {
           const oldCreation = { id: setId, title: { en: 'Old title' } };
           const newCreation = { id: setId, title: { en: 'New title' } };
           const state = { creations: [oldCreation] };

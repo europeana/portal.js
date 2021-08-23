@@ -9,11 +9,13 @@ localVue.use(BootstrapVue);
 const storeDispatch = sinon.stub().resolves({});
 
 const sets = [
-  { id: '001',
-    items: [{ id: '/000/aaa' }],
+  {
+    id: '001',
+    items: ['http://data.europeana.eu/item/000/aaa'],
     title: 'Test collection',
     total: 1,
-    visibility: 'public' }
+    visibility: 'public'
+  }
 ];
 
 const factory = (propsData = {}) => mount(AddItemToSetModal, {
@@ -33,8 +35,10 @@ const factory = (propsData = {}) => mount(AddItemToSetModal, {
     },
     $store: {
       dispatch: storeDispatch,
-      state:
-        { set: { creations: sets } }
+      state: { set: { creations: sets } },
+      getters: {
+        'set/creationPreview': (id) => id
+      }
     }
   }
 });
@@ -69,11 +73,13 @@ describe('components/set/AddItemToSetModal', () => {
 
       storeDispatch.should.have.been.calledWith('set/addItem', { setId: '001', itemId: '/123/abc' });
     });
+
     it('removes item from gallery when item already added', async() => {
       const wrapper = factory({ itemId: '/000/aaa', modalId: 'add-item-to-set-modal-/000/aaa' });
       await wrapper.setData({ fetched: true });
 
       await wrapper.find('[data-qa="toggle item button 0"]').trigger('click');
+      // await wrapper.find('[data-qa="toggle item button 0"]').vm.$emit('toggle');
 
       storeDispatch.should.have.been.calledWith('set/removeItem', { setId: '001', itemId: '/000/aaa' });
     });
