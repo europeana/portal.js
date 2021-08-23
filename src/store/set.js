@@ -1,3 +1,5 @@
+import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
+
 export default {
   state: () => ({
     likesId: null,
@@ -167,12 +169,8 @@ export default {
       })
         .then(set => {
           const creations = [].concat(state.creations);
-          if (set.items) {
-            set.items = set.items.map(item => ({
-              id: item.replace('http://data.europeana.eu/item', '')
-            }));
-          }
           creations[setToReplaceIndex] = set;
+
           commit('setCreations', creations);
           dispatch('fetchCreationPreviews');
         });
@@ -190,14 +188,6 @@ export default {
         .then(searchResponse => {
           const sets = searchResponse.data.items || [];
 
-          for (const set of sets) {
-            if (set.items) {
-              set.items = set.items.map(item => ({
-                id: item.replace('http://data.europeana.eu/item', '')
-              }));
-            }
-          }
-
           commit('setCreations', sets);
           dispatch('fetchCreationPreviews');
         });
@@ -205,15 +195,21 @@ export default {
     fetchCreationPreviews({ state, commit }) {
       const sets = state.creations;
 
+      if (sets.length === 0) {
+        return Promise.resolve();
+      }
+
+      const EUROPEANA_DATA_ITEM_PREFIX = `${EUROPEANA_DATA_URL}/item`;
+
       const firstItemsInSets = sets.map(set => {
         if (set.items) {
-          return set.items[0];
+          return set.items[0].replace(EUROPEANA_DATA_ITEM_PREFIX, '');
         } else {
           return false;
         }
-      }).filter(id => id);
+      }).filter(item => item);
 
-      const itemsSearchQuery = `europeana_id:("${firstItemsInSets.map(item => item.id).join('" OR "')}")`;
+      const itemsSearchQuery = `europeana_id:("${firstItemsInSets.join('" OR "')}")`;
 
       return this.$apis.record.search({
         query: itemsSearchQuery,
@@ -224,7 +220,7 @@ export default {
           const creationPreviews = {};
           for (const set of sets) {
             if (set.items) {
-              const firstItem = itemSearchResponse.items.find(item => item.id === set.items[0].id);
+              const firstItem = itemSearchResponse.items.find(item => item.id === set.items[0].replace(EUROPEANA_DATA_ITEM_PREFIX, ''));
               if (firstItem?.edmPreview) {
                 creationPreviews[set.id] = firstItem.edmPreview[0];
               }
