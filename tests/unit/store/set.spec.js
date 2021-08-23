@@ -254,17 +254,17 @@ describe('store/set', () => {
         });
       });
 
-      context('when creation is not stored', () => {
+      context('when creation is stored', () => {
         it('fetches it via $apis.set with itemDescriptions, then commits with "setCreations"', async() => {
           const oldCreation = { id: setId, title: { en: 'Old title' } };
           const newCreation = { id: setId, title: { en: 'New title' } };
           const state = { creations: [oldCreation] };
           store.actions.$apis.set.getSet = sinon.stub().resolves(newCreation);
 
-          await store.actions.refreshCreation({ commit, state }, setId);
+          await store.actions.refreshCreation({ commit, state, dispatch }, setId);
 
           store.actions.$apis.set.getSet.should.have.been.calledWith(setId, {
-            profile: 'itemDescriptions'
+            profile: 'standard'
           });
           commit.should.have.been.calledWith('setCreations', [newCreation]);
         });
@@ -286,8 +286,6 @@ describe('store/set', () => {
           qf: 'type:Collection'
         });
       });
-
-      it('removes data.europeana.eu/item prefix from set IDs');
 
       it('commits creations with "setCreations"', async() => {
         const searchResponse = { data: { items: ['1', '2'] } };
@@ -312,6 +310,8 @@ describe('store/set', () => {
 
     describe('fetchCreationPreviews()', () => {
       it('fetches first items for each creation via $apis.record');
+
+      it('commits edm:preview of items with "setCreationPreviews"');
     });
 
     describe('fetchCurations()', () => {
