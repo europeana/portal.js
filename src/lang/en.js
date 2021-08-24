@@ -575,11 +575,11 @@ export default {
   "klaro": {
     "main": {
       "consentModal": {
-        "description": "We take your data privacy seriously. Here you can assess and customize the services that we'd like to use on this website. You're in charge! Enable or disable services as you see fit.",
+        "description": "Here you can see and customise the services that we'd like to use on this website. To learn more please read our <a href='/rights/privacy-policy'>privacy policy</a>.",
         "title": "Services we would like to use."
       },
       "consentNotice": {
-        "description": "We care about your privacy and only use data to improve your experience. We don’t use any personal information for advertising. You can change your consent every 15 days."
+        "description": "Hi! Could we please enable some additional services for analytics and security? You can always change or withdraw your consent later."
       },
       "ok": "Okay",
       "purposes": {

@@ -21,6 +21,7 @@ export default ($i18n, $initHotjar) => {
     storageMethod: 'cookie',
     cookieExpiresAfterDays: 15,
     lang: locale,
+    htmlTexts: true,
     translations: translations('klaro.main'),
     services: [
       // https://help.hotjar.com/hc/en-us/articles/115011789248-Hotjar-Cookie-Information
