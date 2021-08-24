@@ -1,13 +1,12 @@
-import experiment from '../experiments'
+import experiment from '../experiments';
 
 export default function(ctx, inject) {
-
   // check consent
   // ,,,
 
   // experiment already in cookie?
   let variant;
-  
+
   if (ctx.$cookies.get(`eu-ab-${experiment.name}`)) {
     variant = ctx.$cookies.get(`eu-ab-${experiment.name}`);
 
@@ -19,20 +18,20 @@ export default function(ctx, inject) {
     // TODO: should we introduce weighing in order to show every variant equally?
     const variantIndex = Math.floor(Math.random() * variants.length);
     variant = variants[variantIndex];
-      
-    // set cookie    
+
+    // set cookie
     ctx.$cookies.set(`eu-ab-${experiment.name}`, variant);
 
     // inform Matomo
-    //_paq.push(['AbTesting::enter', {experiment: 'theExperimentName', variation: 'variationNameOrIdActivatedForCurrentVisitor'}]);
+    // _paq.push(['AbTesting::enter', {experiment: 'theExperimentName', variation: 'variationNameOrIdActivatedForCurrentVisitor'}]);
   }
 
   // return variant
   const experimentDefaults = {
     'experimentName': experiment.name,
     'experimentClass': `${experiment.name}-${variant}`,
-    'variant': variant
-  }
+    variant
+  };
 
   // inject for further use
   // for example classname
