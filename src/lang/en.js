@@ -527,7 +527,19 @@ export default {
     "findUsElsewhere": "Find us elsewhere",
     "imageDescription": "Co-financed by the Connecting Europe Facility of the European Union",
     "ourMission": "Our mission",
-    "ourMissionQuote": "Europeana empowers the cultural heritage sector in its digital transformation. We develop expertise, tools and policies to embrace digital change and encourage partnerships that foster innovation."
+    "ourMissionQuote": "Europeana empowers the cultural heritage sector in its digital transformation. We develop expertise, tools and policies to embrace digital change and encourage partnerships that foster innovation.",
+    "navigation": {
+      "about": "About us",
+      "accessibility": "Accessibility",
+      "cookies": "Cookies",
+      "forDevelopers": "For developers",
+      "help": "Help",
+      "MoreInfoLabel": "More Info",
+      "privacy": "Privacy policy",
+      "provide": "Become a data partner",
+      "subscribe": "Subscribe to our newsletter",
+      "terms": "Terms of use"
+    }
   },
   "formatting": {
     "ellipsis": "…",
