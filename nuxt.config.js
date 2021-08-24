@@ -103,10 +103,6 @@ module.exports = {
     gtm: {
       id: process.env.GOOGLE_TAG_MANAGER_ID
     },
-    googleOptimize: {
-      id: process.env.GOOGLE_OPTIMIZE_ID,
-      experiments: {}
-    },
     hotjar: {
       id: process.env.HOTJAR_ID,
       sv: process.env.HOTJAR_SNIPPET_VERSION
@@ -248,7 +244,8 @@ module.exports = {
     '~/plugins/vue-filters',
     '~/plugins/vue-directives',
     '~/plugins/vue-announcer.client',
-    '~/plugins/vue-masonry.client'
+    '~/plugins/vue-masonry.client',
+    '~/plugins/ab-testing'
   ],
 
   buildModules: [
@@ -265,7 +262,6 @@ module.exports = {
   modules: [
     '~/modules/elastic-apm',
     '@nuxtjs/axios',
-    'nuxt-google-optimize',
     ['@nuxtjs/gtm', {
       pageTracking: true,
       autoInit: !featureIsEnabled(process.env.ENABLE_KLARO)

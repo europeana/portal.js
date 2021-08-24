@@ -29,6 +29,7 @@
     <main
       id="default"
       role="main"
+      :class="$experiment.experimentClass"
     >
       <b-breadcrumb
         v-if="breadcrumbs"
@@ -160,10 +161,7 @@
         ],
         script: [
           { src: `https://unpkg.com/klaro@${this.klaroVersion}/dist/klaro-no-css.js`, defer: true }
-        ]
-          .concat(this.$exp.$experimentIndex > -1 && this.$config.googleOptimize.id ? [
-            { src: `https://www.googleoptimize.com/optimize.js?id=${this.$config.googleOptimize.id}` }
-          ] : []),
+        ],
         meta: [
           { hid: 'description', property: 'description', content: 'Europeana' },
           { hid: 'og:url', property: 'og:url', content: this.canonicalUrl },
