@@ -605,15 +605,8 @@ export default {
         "title": "Auth Strategy"
       },
       "debugSettings": {
+        "description": "Helps debugging API requests",
         "title": "Debug toggle"
-      },
-      "google-analytics": {
-        "description": "Collects anonymous statistics on how visitors interact with the website.",
-        "title": "Google Analytics"
-      },
-      "google-optimize": {
-        "description": "Enables you to participate in website experiments that guide our design choices for the best user experience.",
-        "title": "Google Optimize"
       },
       "hotjar": {
         "description": "Activates a survey widget giving you the option to respond to our visitor satisfaction surveys.",
