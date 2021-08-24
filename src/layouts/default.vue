@@ -108,13 +108,7 @@
     },
 
     mounted() {
-      if (this.klaroEnabled) {
-        if (this.$matomo) {
-          this.renderKlaro();
-        } else {
-          this.timeoutUntilPiwikSet(0);
-        }
-      }
+      this.timeoutUntilPiwikSet(0);
 
       if (this.$auth.$storage.getUniversal('portalLoggingIn') && this.$auth.loggedIn) {
         this.showToast(this.$t('account.notifications.loggedIn'));
@@ -147,7 +141,11 @@
 
       timeoutUntilPiwikSet(counter) {
         if (this.$matomo || counter > 100) {
-          this.renderKlaro();
+          if (this.klaroEnabled) {
+            this.renderKlaro();
+          } else {
+            this.$matomo && this.$matomo.rememberCookieConsentGiven();
+          }
         } else {
           setTimeout(() => {
             this.timeoutUntilPiwikSet(counter + 1);
