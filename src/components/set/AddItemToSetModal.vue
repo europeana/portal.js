@@ -5,7 +5,7 @@
     hide-footer
     hide-header-close
     :static="modalStatic"
-    @show="fetchCollections"
+    @show="searchGalleries(galleryQuery)"
     @hide="hideModal()"
   >
     <b-button
@@ -18,22 +18,23 @@
     </b-button>
 
     <b-form-input
-      v-model="searchQuery"
+      v-model="galleryQuery"
       placeholder="Search gallery"
-      @input="fetchCollections()"
+      @input="searchGalleries(galleryQuery)"
     />
     <p
       class="help"
     >
       <span class="icon-info-outline" />
-      {{ $t('set.form.searchHelpText') }}
+
+      {{ $t(helpText) }}
     </p>
 
     <div class="collections">
       <b-button
-        v-for="(collection, index) in collections"
+        v-for="(collection, index) in searchResults"
         :key="index"
-        :disabled="!fetched"
+        :disabled="gettingGalleries"
         :style="!added.includes(collection.id) && buttonBackground($apis.set.getSetThumbnail(collection))"
         :variant="added.includes(collection.id) ? 'success' : 'overlay'"
         class="btn-collection w-100 text-left d-flex justify-content-between align-items-center"
@@ -42,11 +43,12 @@
       >
         <span>{{ displayField(collection, 'title') }} ({{ collection.visibility }}) - {{ $tc('items.itemCount', collection.total || 0) }}</span>
         <span
-          v-if="collectionsWithItem.includes(collection.id)"
+          v-if="galleriesWithItem.includes(collection.id)"
           class="icon-check_circle d-inline-flex"
         />
       </b-button>
     </div>
+
     <div class="modal-footer">
       <b-button
         variant="outline-primary"
@@ -85,50 +87,89 @@
 
     data() {
       return {
-        fetched: false,
+        activeQueryTerm: null,
         added: [],
-        searchQuery: null
+        searchResults: [],
+        gettingGalleries: false,
+        galleryQuery: null
       };
     },
 
     computed: {
-      collections() {
-        return this.$store.state.set.creations;
-      },
       // Array of IDs of sets containing the item
-      collectionsWithItem() {
-        return this.collections
+      galleriesWithItem() {
+        return this.searchResults
           .filter(collection => (collection.items || []).some(item => item.id === this.itemId))
           .map(collection => collection.id);
+      },
+      helpText() {
+        if (this.activeQueryTerm) {
+          if (this.searchResults.length >= 1) {
+            return 'set.form.searchFound';
+          }
+          return 'set.form.searchNotFound';
+        } else if (this.searchResults.length >= 1) {
+          return 'set.form.searchHelpText';
+        }
+        return 'set.form.searchNoneExist';
       }
     },
 
     watch: {
       newSetCreated(newVal) {
         if (newVal) {
-          this.added.push(this.collectionsWithItem[0]);
+          this.added.push(this.galleriesWithItem[0]);
         }
       }
     },
 
     methods: {
-      fetchCollections() {
-        this.$store.dispatch('set/fetchCreations', this.searchQuery)
+      searchGalleries(query) {
+        if (this.gettingGalleries || (query && query === this.activeQueryTerm)) {
+          return;
+        }
+
+        const creatorId = this.$auth.user ? this.$auth.user.sub : null;
+        const params = {
+          query: query || '',
+          profile: 'itemDescriptions',
+          pageSize: 5,
+          qf: [
+            `creator:${creatorId}`,
+            'type:Collection'
+          ],
+          sort: 'modified+desc'
+        };
+
+        this.gettingGalleries = true;
+        const searchParams = new URLSearchParams(params);
+        this.$apis.set.search(searchParams)
+          .then(searchResults => {
+            this.activeQueryTerm = query;
+            this.searchResults = searchResults.data.items || [];
+          })
+          .catch(() => {
+            this.activeQueryTerm = null;
+            this.searchResults = [];
+          })
           .then(() => {
-            this.fetched = true;
+            this.gettingGalleries = false;
+            if (query !== this.galleryQuery) {
+              this.searchGalleries(this.galleryQuery);
+            }
           });
       },
 
       hideModal() {
         this.$nextTick(() => {
-          this.fetched = false;
+          this.gettingGalleries = false;
           this.added = [];
           this.$emit('hideModal');
         });
       },
 
       toggleItem(setId) {
-        if (this.collectionsWithItem.includes(setId)) {
+        if (this.galleriesWithItem.includes(setId)) {
           this.added = this.added.filter(id => id !== setId);
           this.removeItem(setId);
         } else {

@@ -283,7 +283,8 @@ describe('store/set', () => {
           query: `creator:${userId}`,
           profile: 'itemDescriptions',
           pageSize: 100,
-          qf: 'type:Collection'
+          qf: 'type:Collection',
+          sort: 'modified+desc'
         });
         commit.should.have.been.calledWith('setCreations', ['1', '2']);
       });
