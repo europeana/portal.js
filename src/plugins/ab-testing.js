@@ -1,18 +1,25 @@
 import experiment from '../experiments';
 
 export default function(ctx, inject) {
+  // is there an experiment?
+  if (experiment.length === 0) {
+    return false;
+  }
+
+  const currentExperiment = experiment[0]; // TODO: discuss if we want to allow more than experiment
+
   // check consent
   // ,,,
 
   // experiment already in cookie?
   let variant;
 
-  if (ctx.$cookies.get(`eu-ab-${experiment.name}`)) {
-    variant = ctx.$cookies.get(`eu-ab-${experiment.name}`);
+  if (ctx.$cookies.get(`eu-ab-${currentExperiment.name}`)) {
+    variant = ctx.$cookies.get(`eu-ab-${currentExperiment.name}`);
 
   // else, not in cookie
   } else {
-    const variants = experiment.variants; // get list of available variants
+    const variants = currentExperiment.variants; // get list of available variants
 
     // and pick one
     // TODO: should we introduce weighing in order to show every variant equally?
@@ -20,7 +27,7 @@ export default function(ctx, inject) {
     variant = variants[variantIndex];
 
     // set cookie
-    ctx.$cookies.set(`eu-ab-${experiment.name}`, variant);
+    ctx.$cookies.set(`eu-ab-${currentExperiment.name}`, variant);
 
     // inform Matomo
     // _paq.push(['AbTesting::enter', {experiment: 'theExperimentName', variation: 'variationNameOrIdActivatedForCurrentVisitor'}]);
@@ -28,8 +35,8 @@ export default function(ctx, inject) {
 
   // return variant
   const experimentDefaults = {
-    'experimentName': experiment.name,
-    'experimentClass': `${experiment.name}-${variant}`,
+    'experimentName': currentExperiment.name,
+    'experimentClass': `${currentExperiment.name}-${variant}`,
     variant
   };
 
