@@ -47,6 +47,10 @@ export default {
     "institution": "Institución:",
     "title": "Título:"
   },
+  "automatedCardGroup": {
+    "item": "Artículos recientes",
+    "topic": "Temas destacados"
+  },
   "blog": {
     "author": "Autor",
     "authors": "Autores",
@@ -59,6 +63,7 @@ export default {
     "relatedPosts": "Publicaciones relacionadas"
   },
   "cardLabels": {
+    "organisation": "Organización",
     "person": "Persona",
     "time": "Siglo",
     "topic": "Tema"
@@ -94,13 +99,14 @@ export default {
   },
   "collectionsYouMightLike": "Colecciones que quizá te gusten",
   "colourSwatch": "Muestra de color",
+  "contentYouMightLike": "Contenido que quizá te guste",
   "contentfulManual": {
     "footerNavigation": {
+      "MoreInfoLabel": "Más información",
       "about": "Acerca de Europeana",
       "forDevelopers": "Para desarrolladores",
       "help": "Ayuda",
       "meetUs": "Nuestro equipo",
-      "MoreInfoLabel": "Más información",
       "provide": "Conviértete en proveedor de datos",
       "subscribe": "Suscríbete a nuestro boletín",
       "terms": "Condiciones de uso y Política de privacidad"
@@ -111,7 +117,6 @@ export default {
       "teachers": "Profesores"
     }
   },
-  "contentYouMightLike": "Contenido que quizá te guste",
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Aceptar el consentimiento informado del uso de cookies",
     "link": "Más información",
@@ -155,39 +160,6 @@ export default {
     "exhibitions": "Exposiciones"
   },
   "facets": {
-    "api": {
-      "name": "Buscar",
-      "options": {
-        "fulltext": "Registros de texto completo",
-        "metadata": "Registros de solo metadatos"
-      }
-    },
-    "button": {
-      "apply": "Aplicar",
-      "cancel": "Cancelar",
-      "morefilters": "Más filtros",
-      "reset": "Reiniciar",
-      "showAll": "Mostrar todo {label}",
-      "showLess": "Mostrar menos {label}"
-    },
-    "collection": {
-      "name": "Categoría",
-      "options": {
-        "archaeology": "Arqueología",
-        "art": "Arte",
-        "fashion": "Moda",
-        "industrial": "Patrimonio industrial",
-        "manuscript": "Manuscritos",
-        "map": "Mapas y geografía",
-        "migration": "Migración",
-        "music": "Música",
-        "nature": "Historia natural",
-        "newspaper": "Periódicos",
-        "photography": "Fotografía",
-        "sport": "Deporte",
-        "ww1": "1914-1918"
-      }
-    },
     "COLOURPALETTE": {
       "name": "Color | Colores",
       "options": {
@@ -337,14 +309,6 @@ export default {
         "#FFFFFF": "Blanco"
       }
     },
-    "contentTier": {
-      "name": "Incluir los elementos que no cumplan nuestros criterios de publicación",
-      "notification": "Hay artículos disponibles que no coinciden con nuestros criterios de publicación. Puedes acceder a estos activando el filtro \"Calidad del elemento\" en \"Más filtros\".",
-      "options": {
-        "*": "Incluir los objetos que no cumplan nuestros criterios de publicación",
-        "0": "Mostrar solo los elementos que no cumplen con nuestros criterios de publicación"
-      }
-    },
     "COUNTRY": {
       "name": "País proveedor"
     },
@@ -382,18 +346,6 @@ export default {
     "PROVIDER": {
       "name": "Agregador"
     },
-    "proxy_dc_format": {
-      "name": "Formato | Formatos"
-    },
-    "proxy_dc_type": {
-      "name": "Tipo | Tipos"
-    },
-    "proxy_dcterms_issued": {
-      "name": "Fecha de publicación"
-    },
-    "proxy_dcterms_medium": {
-      "name": "Medio | Medios"
-    },
     "REUSABILITY": {
       "name": "¿Puede reutilizarse?",
       "options": {
@@ -412,6 +364,59 @@ export default {
         "TEXT": "Texto",
         "VIDEO": "Vídeo"
       }
+    },
+    "api": {
+      "name": "Buscar",
+      "options": {
+        "fulltext": "Registros de texto completo",
+        "metadata": "Registros de solo metadatos"
+      }
+    },
+    "button": {
+      "apply": "Aplicar",
+      "cancel": "Cancelar",
+      "morefilters": "Más filtros",
+      "reset": "Reiniciar",
+      "showAll": "Mostrar todo {label}",
+      "showLess": "Mostrar menos {label}"
+    },
+    "collection": {
+      "name": "Categoría",
+      "options": {
+        "archaeology": "Arqueología",
+        "art": "Arte",
+        "fashion": "Moda",
+        "industrial": "Patrimonio industrial",
+        "manuscript": "Manuscritos",
+        "map": "Mapas y geografía",
+        "migration": "Migración",
+        "music": "Música",
+        "nature": "Historia natural",
+        "newspaper": "Periódicos",
+        "photography": "Fotografía",
+        "sport": "Deporte",
+        "ww1": "1914-1918"
+      }
+    },
+    "contentTier": {
+      "name": "Incluir los elementos que no cumplan nuestros criterios de publicación",
+      "notification": "Hay artículos disponibles que no coinciden con nuestros criterios de publicación. Puedes acceder a estos activando el filtro \"Calidad del elemento\" en \"Más filtros\".",
+      "options": {
+        "*": "Incluir los objetos que no cumplan nuestros criterios de publicación",
+        "0": "Mostrar solo los elementos que no cumplen con nuestros criterios de publicación"
+      }
+    },
+    "proxy_dc_format": {
+      "name": "Formato | Formatos"
+    },
+    "proxy_dc_type": {
+      "name": "Tipo | Tipos"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Fecha de publicación"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Medio | Medios"
     }
   },
   "feedback": {
@@ -448,6 +453,8 @@ export default {
       "dcRights": "Derechos",
       "dcSource": "Fuente",
       "dcSubject": "Asunto",
+      "dcTitle": "Título",
+      "dcType": "Tipo de objeto",
       "dctermsCreated": "Fecha de creación",
       "dctermsExtent": "Alcance",
       "dctermsHasPart": "contiene",
@@ -464,8 +471,6 @@ export default {
       "dctermsReferences": "hace referencia a",
       "dctermsSpatial": "Lugares",
       "dctermsTemporal": "Temporal",
-      "dcTitle": "Título",
-      "dcType": "Tipo de objeto",
       "edmCountry": "País proveedor",
       "edmCurrentLocation": "Ubicación actual",
       "edmDataProvider": "Institución proveedora",
@@ -500,6 +505,18 @@ export default {
     "disclaimerLine2": "La Comisión Europea no garantiza la exactitud de la información y no acepta responsabilidad alguna con respecto a la información en este sitio web. Ni la Comisión Europea, ni ninguna persona que actúe en nombre de la Comisión Europea, es responsable de la exactitud o el uso de la información en este sitio web.",
     "findUsElsewhere": "Encuéntrenos en otro sitio",
     "imageDescription": "Cofinanciado por el fondo de inversión Connecting Europe Facility (Conectando Europa) de la Unión Europea.",
+    "navigation": {
+      "MoreInfoLabel": "Más información",
+      "about": "Sobre nosotros",
+      "accessibility": "Accesibilidad",
+      "cookies": "Galletas",
+      "forDevelopers": "Para desarrolladores",
+      "help": "Ayuda",
+      "privacy": "Política de privacidad",
+      "provide": "Conviértete en proveedor de datos",
+      "subscribe": "Suscríbete a nuestro boletín",
+      "terms": "Condiciones de uso"
+    },
     "ourMission": "Nuestra misión",
     "ourMissionQuote": "Europeana fortalece el sector del patrimonio cultural en su proceso de transformación digital. Desarrollamos dominio, herramientas y políticas para adoptar el cambio digital y fomentar asociaciones que fomenten la innovación."
   },
@@ -525,7 +542,7 @@ export default {
       "collections": "Colecciones",
       "europeanaClassroom": "Profesores",
       "help": "Ayuda",
-      "home": "Casa",
+      "home": "Inicio",
       "stories": "Historias"
     },
     "searchFor": "Busca {query}",
@@ -642,6 +659,12 @@ export default {
   "pageHasLoaded": "ha cargado",
   "pages": {
     "collections": {
+      "organisations": {
+        "title": "Organizaciones"
+      },
+      "persons": {
+        "title": "Personas"
+      },
       "times": {
         "title": "Veces"
       },
@@ -652,6 +675,7 @@ export default {
   },
   "readMore": "Leer más",
   "record": {
+    "IIIFViewer": "Visor IIIF",
     "allMetaData": "Todos los metadatos",
     "copyEmbedLabel": "Código de inserción (haga clic para copiar)",
     "downloadCopyrightInfo": "Este objeto tiene derechos de autor y no se puede descargar.",
@@ -659,7 +683,6 @@ export default {
     "extendedInformation": "Información ampliada",
     "goodToKnow": "Información importante",
     "hideAll": "Ocultar toda la información",
-    "IIIFViewer": "Visor IIIF",
     "location": "Ubicación",
     "locationOnMap": "Ubicación en el mapa",
     "mediaPlayer": "Reproductor multimedia",

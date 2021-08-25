@@ -47,6 +47,11 @@ export default {
     "institution": "Intézmény:",
     "title": "Cím:"
   },
+  "automatedCardGroup": {
+    "item": "Legutóbbi cikk",
+    "time": "Kiemelt évszázadok",
+    "topic": "Kiemelt témák"
+  },
   "blog": {
     "author": "Szerző",
     "authors": "Szerzők",
@@ -94,13 +99,14 @@ export default {
   },
   "collectionsYouMightLike": "Gyűjtemények, amelyek tetszhetnek Önnek",
   "colourSwatch": "Színminta",
+  "contentYouMightLike": "Tartalom, ami tetszhet Önnek",
   "contentfulManual": {
     "footerNavigation": {
+      "MoreInfoLabel": "További információ",
       "about": "Az Europeana gyűjteményekről",
       "forDevelopers": "Fejlesztőknek",
       "help": "Súgó",
       "meetUs": "Találkozzon a csapattal",
-      "MoreInfoLabel": "További információ",
       "provide": "Legyen adatszolgáltató",
       "subscribe": "Iratkozzon fel hírlevelünkre",
       "terms": "Felhasználási feltételek és adatvédelmi irányelv"
@@ -111,7 +117,6 @@ export default {
       "teachers": "Tanárok"
     }
   },
-  "contentYouMightLike": "Tartalom, ami tetszhet Önnek",
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "A sütikkel kapcsolatos nyilatkozat elfogadása",
     "link": "További információ",
@@ -155,39 +160,6 @@ export default {
     "exhibitions": "Kiállítások"
   },
   "facets": {
-    "api": {
-      "name": "Keresés erre",
-      "options": {
-        "fulltext": "Rekordok teljes szöveggel",
-        "metadata": "Csak metaadatokat tartalmazó rekordok"
-      }
-    },
-    "button": {
-      "apply": "Alkalmaz",
-      "cancel": "Mégse",
-      "morefilters": "További szűrők",
-      "reset": "Visszaállítás",
-      "showAll": "Összes {label} megjelenítése",
-      "showLess": "Kevesebb {label} megjelenítése"
-    },
-    "collection": {
-      "name": "Kategória",
-      "options": {
-        "archaeology": "Régészet",
-        "art": "Művészet",
-        "fashion": "Divat",
-        "industrial": "Ipari örökség",
-        "manuscript": "Kéziratok",
-        "map": "Térképek és földrajz",
-        "migration": "Migráció",
-        "music": "Zene",
-        "nature": "Természettörténet",
-        "newspaper": "Újságok",
-        "photography": "Fotózás",
-        "sport": "Sport",
-        "ww1": "1914-1918"
-      }
-    },
     "COLOURPALETTE": {
       "name": "Szín | Színek",
       "options": {
@@ -337,14 +309,6 @@ export default {
         "#FFFFFF": "fehér"
       }
     },
-    "contentTier": {
-      "name": "Tartalmaz olyan elemeket, melyek nem felelnek meg a közzétételi kritériumoknak.",
-      "notification": "Olyan cikkek is elérhetőek, amelyek nem felelnek meg az általunk felállított közzétételi kritériumoknak. Ezeket a cikkeket a \"Több szűrő\", \"Cikkek minősége\" opció aktiválásával érheti el.",
-      "options": {
-        "*": "A közzétételi feltételeknek meg nem felelő elemek kizárása",
-        "0": "Csak olyan cikkek megjelenítése, amelyek nem felelnek meg a közzétételi kritériumoknak"
-      }
-    },
     "COUNTRY": {
       "name": "Szolgáltató ország"
     },
@@ -382,18 +346,6 @@ export default {
     "PROVIDER": {
       "name": "Aggregátor"
     },
-    "proxy_dc_format": {
-      "name": "Formátum | formátumok"
-    },
-    "proxy_dc_type": {
-      "name": "Típus | Típusok"
-    },
-    "proxy_dcterms_issued": {
-      "name": "Kibocsátás dátuma"
-    },
-    "proxy_dcterms_medium": {
-      "name": "Adathordozó | Adathordozók"
-    },
     "REUSABILITY": {
       "name": "Használhatom ezt újból?",
       "options": {
@@ -412,6 +364,59 @@ export default {
         "TEXT": "Szöveg",
         "VIDEO": "Videó"
       }
+    },
+    "api": {
+      "name": "Keresés erre",
+      "options": {
+        "fulltext": "Rekordok teljes szöveggel",
+        "metadata": "Csak metaadatokat tartalmazó rekordok"
+      }
+    },
+    "button": {
+      "apply": "Alkalmaz",
+      "cancel": "Mégse",
+      "morefilters": "További szűrők",
+      "reset": "Visszaállítás",
+      "showAll": "Összes {label} megjelenítése",
+      "showLess": "Kevesebb {label} megjelenítése"
+    },
+    "collection": {
+      "name": "Kategória",
+      "options": {
+        "archaeology": "Régészet",
+        "art": "Művészet",
+        "fashion": "Divat",
+        "industrial": "Ipari örökség",
+        "manuscript": "Kéziratok",
+        "map": "Térképek és földrajz",
+        "migration": "Migráció",
+        "music": "Zene",
+        "nature": "Természettörténet",
+        "newspaper": "Újságok",
+        "photography": "Fotózás",
+        "sport": "Sport",
+        "ww1": "1914-1918"
+      }
+    },
+    "contentTier": {
+      "name": "Tartalmaz olyan elemeket, melyek nem felelnek meg a közzétételi kritériumoknak.",
+      "notification": "Olyan cikkek is elérhetőek, amelyek nem felelnek meg az általunk felállított közzétételi kritériumoknak. Ezeket a cikkeket a \"Több szűrő\", \"Cikkek minősége\" opció aktiválásával érheti el.",
+      "options": {
+        "*": "A közzétételi feltételeknek meg nem felelő elemek kizárása",
+        "0": "Csak olyan cikkek megjelenítése, amelyek nem felelnek meg a közzétételi kritériumoknak"
+      }
+    },
+    "proxy_dc_format": {
+      "name": "Formátum | formátumok"
+    },
+    "proxy_dc_type": {
+      "name": "Típus | Típusok"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Kibocsátás dátuma"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Adathordozó | Adathordozók"
     }
   },
   "feedback": {
@@ -448,6 +453,8 @@ export default {
       "dcRights": "Jogok",
       "dcSource": "Forrás",
       "dcSubject": "Tárgy",
+      "dcTitle": "Cím",
+      "dcType": "Objektum típusa",
       "dctermsCreated": "Létrehozás dátuma",
       "dctermsExtent": "Terjedelem",
       "dctermsHasPart": "Tartalma",
@@ -464,8 +471,6 @@ export default {
       "dctermsReferences": "Hivatkozások",
       "dctermsSpatial": "Helyek",
       "dctermsTemporal": "Időbeli",
-      "dcTitle": "Cím",
-      "dcType": "Objektum típusa",
       "edmCountry": "Szolgáltató ország",
       "edmCurrentLocation": "Jelenlegi tartózkodási hely",
       "edmDataProvider": "Szolgáltató intézmény",
@@ -500,6 +505,18 @@ export default {
     "disclaimerLine2": "Az Európai Bizottság nem garantálja az információk pontosságát, és semmilyen felelősséget nem vállal a weboldalon található információkkal kapcsolatban. Sem az Európai Bizottság, sem az Európai Bizottság nevében eljáró személyek nem felelősek vagy felelősek a weboldalon található információk pontosságáért vagy felhasználásáért.",
     "findUsElsewhere": "Keressen minket máshol",
     "imageDescription": "Az Európai Unió Európai Hálózatfinanszírozási Eszköze által társfinanszírozva",
+    "navigation": {
+      "MoreInfoLabel": "További információ",
+      "about": "Rólunk",
+      "accessibility": "Hozzáférhetőség",
+      "cookies": "Sütik",
+      "forDevelopers": "Fejlesztőknek",
+      "help": "Súgó",
+      "privacy": "Adatvédelmi irányelvek",
+      "provide": "Legyen adatszolgáltató",
+      "subscribe": "Iratkozzon fel hírlevelünkre",
+      "terms": "Szolgáltatás feltételei"
+    },
     "ourMission": "Küldetésünk",
     "ourMissionQuote": "Az Europeana segíti a kulturális örökség ágazatát a digitális átalakulásban. Szakértelmet, eszközöket és irányelveket dolgozunk ki a digitális változások befogadására és az innovációt elősegítő partnerségek ösztönzésére."
   },
@@ -636,6 +653,11 @@ export default {
     "notFound": "Nem található",
     "paginationLimitExceeded": "Csak az első {limit} keresési találat tekinthető meg."
   },
+  "multilingual": {
+    "original": "Eredeti metaadat",
+    "originalLanguage": "eredeti nyelv",
+    "other": "Egyéb nyelvek"
+  },
   "newWindow": "új ablakban nyílik meg",
   "noMoreResults": "Nincs további eredmény a keresési lekérdezéshez.",
   "noResults": "Nincs találat",
@@ -652,6 +674,7 @@ export default {
   },
   "readMore": "Bővebben",
   "record": {
+    "IIIFViewer": "IIIF néző",
     "allMetaData": "Minden metaadat",
     "copyEmbedLabel": "Beágyazási kód (Kattintson a másoláshoz)",
     "downloadCopyrightInfo": "Ez az elem szerzői jogi védelem alatt áll, és nem tölthető le.",
@@ -659,7 +682,6 @@ export default {
     "extendedInformation": "Kiterjesztett információk",
     "goodToKnow": "Jó tudni",
     "hideAll": "Az összes információ elrejtése",
-    "IIIFViewer": "IIIF néző",
     "location": "hely",
     "locationOnMap": "Elhelyezkedés a térképen",
     "mediaPlayer": "Médialejátszó",
