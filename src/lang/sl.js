@@ -4,7 +4,7 @@ export default {
     "likes": "Všečki",
     "linkAccount": "Moj račun",
     "linkLogin": "Vpis",
-    "linkLoginJoin": "Prijava\/Pridruži se",
+    "linkLoginJoin": "Prijava/Pridruži se",
     "linkLogout": "Izpis",
     "myProfile": "Moj profil",
     "notifications": {
@@ -339,7 +339,7 @@ export default {
     "MIME_TYPE": {
       "name": "Oblika zapisa datoteke | Oblike zapisov datotek",
       "options": {
-        "text\/plain": "Golo besedilo"
+        "text/plain": "Golo besedilo"
       }
     },
     "PROVIDER": {
@@ -620,7 +620,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Zapomni si, če želite rezultate iskanja raje videti v pogledu seznama ali mreže.",
-        "title": "Pogled rezultatov iskanja (seznam \/ mreža)"
+        "title": "Pogled rezultatov iskanja (seznam / mreža)"
       }
     }
   },
