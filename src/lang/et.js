@@ -4,7 +4,7 @@ export default {
     "likes": "Meeldimised",
     "linkAccount": "Minu konto",
     "linkLogin": "Logi sisse",
-    "linkLoginJoin": "Logi sisse/Liitu",
+    "linkLoginJoin": "Logi sisse\/Liitu",
     "linkLogout": "Logi välja",
     "myProfile": "Minu profiil",
     "notifications": {
@@ -46,6 +46,11 @@ export default {
     "date": "Kuupäev:",
     "institution": "Institutsioon:",
     "title": "Pealkiri:"
+  },
+  "automatedCardGroup": {
+    "item": "Hiljutised esemed",
+    "time": "Esiletõstetud sajandid",
+    "topic": "Esile tõstetud teemad"
   },
   "blog": {
     "author": "Autor",
@@ -94,13 +99,14 @@ export default {
   },
   "collectionsYouMightLike": "Kollektsioonid, mis võivad teile meeldida",
   "colourSwatch": "Värvivalik",
+  "contentYouMightLike": "Sisu, mis võib teile meeldida",
   "contentfulManual": {
     "footerNavigation": {
+      "MoreInfoLabel": "Rohkem infot",
       "about": "Infot Europeana kohta",
       "forDevelopers": "Arendajatele",
       "help": "Abimaterjal",
       "meetUs": "Tutvu meeskonnaga",
-      "MoreInfoLabel": "Rohkem infot",
       "provide": "Hakka andmepakkujaks",
       "subscribe": "Telli meie uudiskiri",
       "terms": "Kasutustingimused ja privaatsuspoliitika"
@@ -111,7 +117,6 @@ export default {
       "teachers": "Õpetajad"
     }
   },
-  "contentYouMightLike": "Sisu, mis võib teile meeldida",
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Nõustuge küpsistest loobumisega",
     "link": "Rohkem infot",
@@ -136,6 +141,11 @@ export default {
   },
   "edmIsShownAtLinkAlt": "Vaadake teenusepakkuja veebisaidil",
   "entity": {
+    "actions": {
+      "cancel": "Tühista",
+      "pin": "Pin üksus",
+      "unpin": "Eemaldage üksus"
+    },
     "labels": {
       "entity": "Üksus"
     },
@@ -152,39 +162,6 @@ export default {
     "exhibitions": "Näitused"
   },
   "facets": {
-    "api": {
-      "name": "Otsing",
-      "options": {
-        "fulltext": "Täistekstiga kirjed",
-        "metadata": "Ainult metaandmete kirjed"
-      }
-    },
-    "button": {
-      "apply": "Kohalda",
-      "cancel": "Tühista",
-      "morefilters": "Rohkem filtreid",
-      "reset": "Lähtesta",
-      "showAll": "Kuva kõik {label}",
-      "showLess": "Näita vähem {label}"
-    },
-    "collection": {
-      "name": "Kategooria",
-      "options": {
-        "archaeology": "Arheoloogia",
-        "art": "Kunst",
-        "fashion": "Mood",
-        "industrial": "Tööstuspärand",
-        "manuscript": "Käsikirjad",
-        "map": "Kaardid ja geograafia",
-        "migration": "Ränne",
-        "music": "Muusika",
-        "nature": "Looduslugu",
-        "newspaper": "Ajalehed",
-        "photography": "Fotograafia",
-        "sport": "Sport",
-        "ww1": "1914–1918"
-      }
-    },
     "COLOURPALETTE": {
       "name": "Värv | Värvid",
       "options": {
@@ -334,14 +311,6 @@ export default {
         "#FFFFFF": "Valge"
       }
     },
-    "contentTier": {
-      "name": "Sisaldab üksusi, mis ei vasta meie avaldamiskriteeriumidele",
-      "notification": "Mõned tooted, mis ei vasta meie avaldamiskriteeriumidele, on saadaval. Nendele toodetele pääsete juurde, kui aktiveerite jaotises „Veel filtreid” filtri „Toote kvaliteet”.",
-      "options": {
-        "*": "Sisaldab üksusi, mis ei vasta meie avaldamiskriteeriumidele",
-        "0": "Kuva ainult üksused, mis ei vasta meie avaldamiskriteeriumidele"
-      }
-    },
     "COUNTRY": {
       "name": "Pakkuja riik"
     },
@@ -373,23 +342,11 @@ export default {
     "MIME_TYPE": {
       "name": "Failivorming | Failivormingud",
       "options": {
-        "text/plain": "Lihttekst"
+        "text\/plain": "Lihttekst"
       }
     },
     "PROVIDER": {
       "name": "Koondaja"
-    },
-    "proxy_dc_format": {
-      "name": "Vorming | Vormingud"
-    },
-    "proxy_dc_type": {
-      "name": "Tüüp | Tüübid"
-    },
-    "proxy_dcterms_issued": {
-      "name": "Väljaandmise kuupäev"
-    },
-    "proxy_dcterms_medium": {
-      "name": "Meedium | Meediumid"
     },
     "REUSABILITY": {
       "name": "Kas ma saan seda uuesti kasutada?",
@@ -409,6 +366,59 @@ export default {
         "TEXT": "Tekst",
         "VIDEO": "Video"
       }
+    },
+    "api": {
+      "name": "Otsing",
+      "options": {
+        "fulltext": "Täistekstiga kirjed",
+        "metadata": "Ainult metaandmete kirjed"
+      }
+    },
+    "button": {
+      "apply": "Kohalda",
+      "cancel": "Tühista",
+      "morefilters": "Rohkem filtreid",
+      "reset": "Lähtesta",
+      "showAll": "Kuva kõik {label}",
+      "showLess": "Näita vähem {label}"
+    },
+    "collection": {
+      "name": "Kategooria",
+      "options": {
+        "archaeology": "Arheoloogia",
+        "art": "Kunst",
+        "fashion": "Mood",
+        "industrial": "Tööstuspärand",
+        "manuscript": "Käsikirjad",
+        "map": "Kaardid ja geograafia",
+        "migration": "Ränne",
+        "music": "Muusika",
+        "nature": "Looduslugu",
+        "newspaper": "Ajalehed",
+        "photography": "Fotograafia",
+        "sport": "Sport",
+        "ww1": "1914–1918"
+      }
+    },
+    "contentTier": {
+      "name": "Sisaldab üksusi, mis ei vasta meie avaldamiskriteeriumidele",
+      "notification": "Mõned tooted, mis ei vasta meie avaldamiskriteeriumidele, on saadaval. Nendele toodetele pääsete juurde, kui aktiveerite jaotises „Veel filtreid” filtri „Toote kvaliteet”.",
+      "options": {
+        "*": "Sisaldab üksusi, mis ei vasta meie avaldamiskriteeriumidele",
+        "0": "Kuva ainult üksused, mis ei vasta meie avaldamiskriteeriumidele"
+      }
+    },
+    "proxy_dc_format": {
+      "name": "Vorming | Vormingud"
+    },
+    "proxy_dc_type": {
+      "name": "Tüüp | Tüübid"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Väljaandmise kuupäev"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Meedium | Meediumid"
     }
   },
   "feedback": {
@@ -445,6 +455,8 @@ export default {
       "dcRights": "Õigused",
       "dcSource": "Allikas",
       "dcSubject": "Teema",
+      "dcTitle": "Pealkiri",
+      "dcType": "Objekti tüüp",
       "dctermsCreated": "Loomise kuupäev",
       "dctermsExtent": "Ulatus ",
       "dctermsHasPart": "Koosneb",
@@ -461,8 +473,6 @@ export default {
       "dctermsReferences": "Viitab",
       "dctermsSpatial": "Kohad",
       "dctermsTemporal": "Ajaline",
-      "dcTitle": "Pealkiri",
-      "dcType": "Objekti tüüp",
       "edmCountry": "Pakkuja riik",
       "edmCurrentLocation": "Praegune asukoht",
       "edmDataProvider": "Pakkuja institutsioon",
@@ -497,6 +507,18 @@ export default {
     "disclaimerLine2": "Euroopa Komisjon ei taga teabe õigsust ega võta mingit vastutust sellel veebisaidil oleva teabe eest. Euroopa Komisjon ega ükski Euroopa Komisjoni nimel tegutsev isik ei vastuta ega vastuta sellel veebisaidil oleva teabe õigsuse ega kasutamise eest.",
     "findUsElsewhere": "Leidke meid mujalt",
     "imageDescription": "Kaasfinantseerib Euroopa Liidu Euroopa ühendamise rahastu",
+    "navigation": {
+      "MoreInfoLabel": "Rohkem infot",
+      "about": "Meist",
+      "accessibility": "Juurdepääsetavus",
+      "cookies": "Küpsised",
+      "forDevelopers": "Arendajatele",
+      "help": "Abimaterjal",
+      "privacy": "Privaatsuspoliitika",
+      "provide": "Hakka andmepakkujaks",
+      "subscribe": "Telli meie uudiskiri",
+      "terms": "Kasutustingimused"
+    },
     "ourMission": "Meie missioon",
     "ourMissionQuote": "Europeana annab kultuuripärandisektorile digitaalse ümberkujundamise võimaluse. Arendame teadmisi, tööriistu ja poliitikaid, et omaks võtta digitaalsed muutused ja julgustada partnerlussuhteid, mis edendavad innovatsiooni."
   },
@@ -537,7 +559,8 @@ export default {
   },
   "items": {
     "itemCount": "1 toode | {count} toodet",
-    "itemOf": "{max} / {count} tootest",
+    "itemOf": "{max} \/ {count} tootest",
+    "recent": "Hiljutised esemed",
     "youMightLike": "Tooted, mis võivad teile meeldida"
   },
   "klaro": {
@@ -601,7 +624,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Mäletab, kas eelistate näha otsingutulemusi loendi või ruudustiku kujul.",
-        "title": "Otsingutulemite vaade (loend / ruudustik)"
+        "title": "Otsingutulemite vaade (loend \/ ruudustik)"
       }
     }
   },
@@ -623,6 +646,7 @@ export default {
       "text": "Otsite meie uuel ja kiiremal veebisaidil."
     }
   },
+  "loading": "Laadimine",
   "loadingResults": "Tulemuste laadimine",
   "mediaPreview": {
     "selectItem": "Valige üksus {src}"
@@ -633,12 +657,29 @@ export default {
     "notFound": "Ei leitud",
     "paginationLimitExceeded": "Võimalik on vaadata ainult esimesi {limit} otsingutulemusi."
   },
+  "modal": {
+    "download": {
+      "clickToCopy": "Selle kopeerimiseks klõpsake omistusel",
+      "modalIntro": "Kui kasutate seda üksust veebis või mujal, ärge unustage selle kõrval kuvada järgmist omistust:",
+      "modalTitle": "Ütle aitäh"
+    }
+  },
+  "multilingual": {
+    "original": "Algsed metaandmed",
+    "originalLanguage": "originaalkeel",
+    "other": "Muud keeled"
+  },
   "newWindow": "avaneb uues aknas",
   "noMoreResults": "Teie otsingupäringule pole rohkem tulemusi.",
   "noResults": "Ühtki tulemust",
   "pageHasLoaded": "on laaditud",
   "pages": {
     "collections": {
+      "organisations": {
+        "table": {
+          "name": "Nimi"
+        }
+      },
       "times": {
         "title": "Korda"
       },
@@ -649,6 +690,7 @@ export default {
   },
   "readMore": "Loe lähemalt",
   "record": {
+    "IIIFViewer": "IIIF vaataja",
     "allMetaData": "Kogu metateave",
     "copyEmbedLabel": "Embed code (Klõpsake kopeerimiseks)",
     "downloadCopyrightInfo": "See toode on autoriõigusega kaitstud ja seda ei saa alla laadida.",
@@ -656,7 +698,6 @@ export default {
     "extendedInformation": "Täiendav teave",
     "goodToKnow": "Hea teada",
     "hideAll": "Peida kogu teave",
-    "IIIFViewer": "IIIF vaataja",
     "location": "Asukoht",
     "locationOnMap": "Asukoht kaardil",
     "mediaPlayer": "Meediumipleier",

@@ -4,7 +4,7 @@ export default {
     "likes": "Mentions J’aime",
     "linkAccount": "Mon compte",
     "linkLogin": "Se connecter",
-    "linkLoginJoin": "Connexion/Rejoignez-nous",
+    "linkLoginJoin": "Connexion\/Rejoignez-nous",
     "linkLogout": "Déconnexion",
     "myProfile": "Mon profil",
     "notifications": {
@@ -46,6 +46,11 @@ export default {
     "date": "Date :",
     "institution": "Institution :",
     "title": "Titre :"
+  },
+  "automatedCardGroup": {
+    "item": "Éléments récents",
+    "time": "Centuries en vedette",
+    "topic": "Sujets d'actualité"
   },
   "blog": {
     "author": "Auteur",
@@ -94,13 +99,14 @@ export default {
   },
   "collectionsYouMightLike": "Collections qui pourraient vous intéresser",
   "colourSwatch": "Échantillon de couleur",
+  "contentYouMightLike": "Contenu susceptible de vous plaire",
   "contentfulManual": {
     "footerNavigation": {
+      "MoreInfoLabel": "Plus d'informations",
       "about": "À propos des collections Europeana",
       "forDevelopers": "Pour les développeurs",
       "help": "Aide",
       "meetUs": "Rencontrez l'équipe",
-      "MoreInfoLabel": "Plus d'informations",
       "provide": "Devenez un fournisseur de données",
       "subscribe": "Abonnez-vous à notre newsletter",
       "terms": "Conditions d'utilisation et politique de confidentialité"
@@ -111,7 +117,6 @@ export default {
       "teachers": "Enseignants"
     }
   },
-  "contentYouMightLike": "Contenu susceptible de vous plaire",
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Accepter la clause de non-responsabilité relative aux cookies",
     "link": "Plus d'informations",
@@ -152,39 +157,6 @@ export default {
     "exhibitions": "Expositions"
   },
   "facets": {
-    "api": {
-      "name": "Rechercher",
-      "options": {
-        "fulltext": "Enregistrements avec texte intégral",
-        "metadata": "Enregistrements de métadonnées uniquement"
-      }
-    },
-    "button": {
-      "apply": "Appliquer",
-      "cancel": "Annuler",
-      "morefilters": "Plus de filtres",
-      "reset": "Réinitialiser",
-      "showAll": "Afficher tout {label}",
-      "showLess": "Afficher moins {label}"
-    },
-    "collection": {
-      "name": "Catégorie",
-      "options": {
-        "archaeology": "Archéologie",
-        "art": "Art",
-        "fashion": "Mode",
-        "industrial": "Patrimoine industriel",
-        "manuscript": "Manuscrits",
-        "map": "Cartes et géographie",
-        "migration": "Migration",
-        "music": "Musique",
-        "nature": "Histoire naturelle",
-        "newspaper": "Journaux",
-        "photography": "Photographie",
-        "sport": "Sport",
-        "ww1": "1914-1918"
-      }
-    },
     "COLOURPALETTE": {
       "name": "Couleur | Couleurs",
       "options": {
@@ -334,14 +306,6 @@ export default {
         "#FFFFFF": "blanc"
       }
     },
-    "contentTier": {
-      "name": "Inclut les éléments ne répondant pas à nos critères de publication",
-      "notification": "Certains articles ne correspondant pas à nos critères de publication sont disponibles. Vous pouvez y accéder en activant le filtre « Qualité des articles » sous « Autres filtres ».",
-      "options": {
-        "*": "Inclut les éléments ne répondant pas à nos critères de publication",
-        "0": "Afficher uniquement les articles ne répondant pas à nos critères de publication"
-      }
-    },
     "COUNTRY": {
       "name": "Pays fournisseur"
     },
@@ -373,23 +337,11 @@ export default {
     "MIME_TYPE": {
       "name": "Format de fichier | Formats de fichiers",
       "options": {
-        "text/plain": "Texte brut"
+        "text\/plain": "Texte brut"
       }
     },
     "PROVIDER": {
       "name": "Agrégateur"
-    },
-    "proxy_dc_format": {
-      "name": "Format | Formats"
-    },
-    "proxy_dc_type": {
-      "name": "Type | Types"
-    },
-    "proxy_dcterms_issued": {
-      "name": "Date de publication"
-    },
-    "proxy_dcterms_medium": {
-      "name": "Média | Médias"
     },
     "REUSABILITY": {
       "name": "Puis-je le réutiliser ?",
@@ -409,6 +361,59 @@ export default {
         "TEXT": "Texte",
         "VIDEO": "Vidéo"
       }
+    },
+    "api": {
+      "name": "Rechercher",
+      "options": {
+        "fulltext": "Enregistrements avec texte intégral",
+        "metadata": "Enregistrements de métadonnées uniquement"
+      }
+    },
+    "button": {
+      "apply": "Appliquer",
+      "cancel": "Annuler",
+      "morefilters": "Plus de filtres",
+      "reset": "Réinitialiser",
+      "showAll": "Afficher tout {label}",
+      "showLess": "Afficher moins {label}"
+    },
+    "collection": {
+      "name": "Catégorie",
+      "options": {
+        "archaeology": "Archéologie",
+        "art": "Art",
+        "fashion": "Mode",
+        "industrial": "Patrimoine industriel",
+        "manuscript": "Manuscrits",
+        "map": "Cartes et géographie",
+        "migration": "Migration",
+        "music": "Musique",
+        "nature": "Histoire naturelle",
+        "newspaper": "Journaux",
+        "photography": "Photographie",
+        "sport": "Sport",
+        "ww1": "1914-1918"
+      }
+    },
+    "contentTier": {
+      "name": "Inclut les éléments ne répondant pas à nos critères de publication",
+      "notification": "Certains articles ne correspondant pas à nos critères de publication sont disponibles. Vous pouvez y accéder en activant le filtre « Qualité des articles » sous « Autres filtres ».",
+      "options": {
+        "*": "Inclut les éléments ne répondant pas à nos critères de publication",
+        "0": "Afficher uniquement les articles ne répondant pas à nos critères de publication"
+      }
+    },
+    "proxy_dc_format": {
+      "name": "Format | Formats"
+    },
+    "proxy_dc_type": {
+      "name": "Type | Types"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Date de publication"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Média | Médias"
     }
   },
   "feedback": {
@@ -445,6 +450,8 @@ export default {
       "dcRights": "Droits",
       "dcSource": "Source",
       "dcSubject": "Thème",
+      "dcTitle": "Titre",
+      "dcType": "Type d'objet",
       "dctermsCreated": "Date de création",
       "dctermsExtent": "Étendue",
       "dctermsHasPart": "Est composé de",
@@ -461,8 +468,6 @@ export default {
       "dctermsReferences": "Se réfère à",
       "dctermsSpatial": "Lieux",
       "dctermsTemporal": "Période",
-      "dcTitle": "Titre",
-      "dcType": "Type d'objet",
       "edmCountry": "Pays fournisseur",
       "edmCurrentLocation": "Emplacement actuel",
       "edmDataProvider": "Institution fournisseuse",
@@ -497,6 +502,18 @@ export default {
     "disclaimerLine2": "La Commission européenne ne garantit pas l'exactitude des informations et n'accepte aucune responsabilité ou obligation quelle qu'elle soit en ce qui concerne les informations sur ce site. Ni la Commission européenne, ni aucune personne agissant au nom de la Commission européenne, n'est responsable de l'exactitude ou de l'utilisation des informations sur ce site Web.",
     "findUsElsewhere": "Nous trouver ailleurs",
     "imageDescription": "Cofinancé par le Mécanisme pour l’interconnexion en Europe",
+    "navigation": {
+      "MoreInfoLabel": "Plus d'informations",
+      "about": "À propos",
+      "accessibility": "Accessibilité",
+      "cookies": "Cookies",
+      "forDevelopers": "Pour les développeurs",
+      "help": "Aide",
+      "privacy": "Politique de confidentialité",
+      "provide": "Devenez un fournisseur de données",
+      "subscribe": "Abonnez-vous à notre newsletter",
+      "terms": "Conditions d'utilisation"
+    },
     "ourMission": "Notre mission",
     "ourMissionQuote": "Europeana permet au secteur du patrimoine culturel d'effectuer sa transformation numérique. Nous développons l'expertise, les outils et les politiques pour prendre le virage du numérique et encourageons les partenariats qui favorisent l'innovation."
   },
@@ -601,7 +618,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Se souvient si vous préférez voir les résultats de la recherche sous forme de liste ou de grille.",
-        "title": "Affichage des résultats de recherche (liste/grille)"
+        "title": "Affichage des résultats de recherche (liste\/grille)"
       }
     }
   },
@@ -633,6 +650,11 @@ export default {
     "notFound": "Introuvable",
     "paginationLimitExceeded": "Il est uniquement possible d'afficher les {limit} premiers résultats de la recherche."
   },
+  "multilingual": {
+    "original": "Métadonnées originales",
+    "originalLanguage": "langue originale",
+    "other": "Autres langues"
+  },
   "newWindow": "s'ouvre dans une nouvelle fenêtre",
   "noMoreResults": "Il n'y a plus de résultats pour votre requête de recherche.",
   "noResults": "Pas de résultat",
@@ -649,6 +671,7 @@ export default {
   },
   "readMore": "Lire la suite",
   "record": {
+    "IIIFViewer": "Visionneuse IIIF",
     "allMetaData": "Toutes les métadonnées",
     "copyEmbedLabel": "Code d’intégration (Cliquez pour copier)",
     "downloadCopyrightInfo": "Cet élément est protégé par des droits d'auteur et ne peut pas être téléchargé.",
@@ -656,7 +679,6 @@ export default {
     "extendedInformation": "Informations complémentaires",
     "goodToKnow": "Bon à savoir",
     "hideAll": "Masquer toutes les informations",
-    "IIIFViewer": "Visionneuse IIIF",
     "location": "Emplacement",
     "locationOnMap": "Localisation sur la carte",
     "mediaPlayer": "Lecteur multimédia",

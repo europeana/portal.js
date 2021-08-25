@@ -4,7 +4,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mitt konto",
     "linkLogin": "Logga in",
-    "linkLoginJoin": "Logga in/Gå med",
+    "linkLoginJoin": "Logga in\/Gå med",
     "linkLogout": "Logga ut",
     "myProfile": "Min profil",
     "notifications": {
@@ -94,13 +94,14 @@ export default {
   },
   "collectionsYouMightLike": "Samlingar du kanske skulle gilla",
   "colourSwatch": "Färgprov",
+  "contentYouMightLike": "Innehåll du kanske skulle gilla",
   "contentfulManual": {
     "footerNavigation": {
+      "MoreInfoLabel": "Mer info",
       "about": "Om Europeana",
       "forDevelopers": "För utvecklare",
       "help": "Hjälp",
       "meetUs": "Möt teamet",
-      "MoreInfoLabel": "Mer info",
       "provide": "Bli en dataleverantör",
       "subscribe": "Prenumerera på vårt nyhetsbrev",
       "terms": "Användarvillkor och integritetspolicy"
@@ -111,7 +112,6 @@ export default {
       "teachers": "Lärare"
     }
   },
-  "contentYouMightLike": "Innehåll du kanske skulle gilla",
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Acceptera cookiemeddelande",
     "link": "Mera info",
@@ -155,39 +155,6 @@ export default {
     "exhibitions": "Utställningar"
   },
   "facets": {
-    "api": {
-      "name": "Sök efter",
-      "options": {
-        "fulltext": "Register med fulltext",
-        "metadata": "Metadata-endast register"
-      }
-    },
-    "button": {
-      "apply": "Tillämpa",
-      "cancel": "Avbryt",
-      "morefilters": "Fler filter",
-      "reset": "Återställ",
-      "showAll": "Visa alla {label}",
-      "showLess": "Visa mindre {label}"
-    },
-    "collection": {
-      "name": "Kategori",
-      "options": {
-        "archaeology": "Arkeologi",
-        "art": "Konst",
-        "fashion": "Mode",
-        "industrial": "Industriminne",
-        "manuscript": "Manuskript",
-        "map": "Kartor och geografi",
-        "migration": "Migration",
-        "music": "Musik",
-        "nature": "Naturhistoria",
-        "newspaper": "Tidningar",
-        "photography": "Fotografi",
-        "sport": "Sport",
-        "ww1": "1914–1918"
-      }
-    },
     "COLOURPALETTE": {
       "name": "Färg | Färger",
       "options": {
@@ -337,14 +304,6 @@ export default {
         "#FFFFFF": "Vit"
       }
     },
-    "contentTier": {
-      "name": "Innefattar objekt som inte uppfyller våra publiceringsvillkor",
-      "notification": "Några föremål som inte matchar våra publiceringsvillkor finns tillgängliga. Du får åtkomst till dessa föremål genom att aktivera filtret \"Föremålskvalitet\" under \"Fler filter\".",
-      "options": {
-        "*": "Innefattar objekt som inte uppfyller våra publiceringsvillkor",
-        "0": "Visa endast föremål som inte uppfyller våra publiceringsvillkor"
-      }
-    },
     "COUNTRY": {
       "name": "Tillhandahållande land"
     },
@@ -376,23 +335,11 @@ export default {
     "MIME_TYPE": {
       "name": "Filformat | Filformat",
       "options": {
-        "text/plain": "Oformaterad text"
+        "text\/plain": "Oformaterad text"
       }
     },
     "PROVIDER": {
       "name": "Sammanställare"
-    },
-    "proxy_dc_format": {
-      "name": "Format | Format"
-    },
-    "proxy_dc_type": {
-      "name": "Typ | Typer"
-    },
-    "proxy_dcterms_issued": {
-      "name": "Datum för utfärdande"
-    },
-    "proxy_dcterms_medium": {
-      "name": "Medium | Media"
     },
     "REUSABILITY": {
       "name": "Kan jag återanvända det här?",
@@ -412,6 +359,59 @@ export default {
         "TEXT": "Text",
         "VIDEO": "Video"
       }
+    },
+    "api": {
+      "name": "Sök efter",
+      "options": {
+        "fulltext": "Register med fulltext",
+        "metadata": "Metadata-endast register"
+      }
+    },
+    "button": {
+      "apply": "Tillämpa",
+      "cancel": "Avbryt",
+      "morefilters": "Fler filter",
+      "reset": "Återställ",
+      "showAll": "Visa alla {label}",
+      "showLess": "Visa mindre {label}"
+    },
+    "collection": {
+      "name": "Kategori",
+      "options": {
+        "archaeology": "Arkeologi",
+        "art": "Konst",
+        "fashion": "Mode",
+        "industrial": "Industriminne",
+        "manuscript": "Manuskript",
+        "map": "Kartor och geografi",
+        "migration": "Migration",
+        "music": "Musik",
+        "nature": "Naturhistoria",
+        "newspaper": "Tidningar",
+        "photography": "Fotografi",
+        "sport": "Sport",
+        "ww1": "1914–1918"
+      }
+    },
+    "contentTier": {
+      "name": "Innefattar objekt som inte uppfyller våra publiceringsvillkor",
+      "notification": "Några föremål som inte matchar våra publiceringsvillkor finns tillgängliga. Du får åtkomst till dessa föremål genom att aktivera filtret \"Föremålskvalitet\" under \"Fler filter\".",
+      "options": {
+        "*": "Innefattar objekt som inte uppfyller våra publiceringsvillkor",
+        "0": "Visa endast föremål som inte uppfyller våra publiceringsvillkor"
+      }
+    },
+    "proxy_dc_format": {
+      "name": "Format | Format"
+    },
+    "proxy_dc_type": {
+      "name": "Typ | Typer"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Datum för utfärdande"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Medium | Media"
     }
   },
   "feedback": {
@@ -448,6 +448,8 @@ export default {
       "dcRights": "Rättigheter",
       "dcSource": "Källa",
       "dcSubject": "Ämne",
+      "dcTitle": "Titel",
+      "dcType": "Typ av objekt",
       "dctermsCreated": "Skapelsedatum",
       "dctermsExtent": "Utsträckning",
       "dctermsHasPart": "Består av",
@@ -464,8 +466,6 @@ export default {
       "dctermsReferences": "Hänvisar till",
       "dctermsSpatial": "Platser",
       "dctermsTemporal": "Temporal",
-      "dcTitle": "Titel",
-      "dcType": "Typ av objekt",
       "edmCountry": "Tillhandahållande land",
       "edmCurrentLocation": "Nuvarande plats",
       "edmDataProvider": "Tillhandahållande institution",
@@ -604,7 +604,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Kommer ihåg om du föredrar att se sökresultaten i en lista eller rutnät.",
-        "title": "Visa sökresultat (lista/rutnät)"
+        "title": "Visa sökresultat (lista\/rutnät)"
       }
     }
   },
@@ -652,6 +652,7 @@ export default {
   },
   "readMore": "Läs mer",
   "record": {
+    "IIIFViewer": "IIIF-tittare",
     "allMetaData": "Alla metadata",
     "copyEmbedLabel": "Bädda in kod (Klicka för att kopiera)",
     "downloadCopyrightInfo": "Detta objekt är skyddat av upphovsrätt och kan inte laddas ner.",
@@ -659,7 +660,6 @@ export default {
     "extendedInformation": "Utökad information",
     "goodToKnow": "Bra att veta",
     "hideAll": "Dölj all information",
-    "IIIFViewer": "IIIF-tittare",
     "location": "Plats",
     "locationOnMap": "Plats på kartan",
     "mediaPlayer": "Mediaspelare",

@@ -6,7 +6,7 @@ export default {
     "likes": "Sviđanja",
     "linkAccount": "Moj račun",
     "linkLogin": "Prijava",
-    "linkLoginJoin": "Prijavi se/Pridruži se",
+    "linkLoginJoin": "Prijavi se\/Pridruži se",
     "linkLogout": "Odjava",
     "myProfile": "Moj profil",
     "notifications": {
@@ -47,10 +47,15 @@ export default {
   },
   "attribution": {
     "country": "Država:",
-    "creator": "Stvorio/la:",
+    "creator": "Stvorio\/la:",
     "date": "Datum:",
     "institution": "Institucija:",
     "title": "Naslov:"
+  },
+  "automatedCardGroup": {
+    "item": "Nedavne stavke",
+    "time": "Istaknuta stoljeća",
+    "topic": "Istaknute teme"
   },
   "blog": {
     "author": "Autor",
@@ -100,13 +105,14 @@ export default {
   },
   "collectionsYouMightLike": "Kolekcije koje vam se mogu sviđati",
   "colourSwatch": "Uzorak u boji",
+  "contentYouMightLike": "Sadržaj koji bi vam se mogao svidjeti",
   "contentfulManual": {
     "footerNavigation": {
+      "MoreInfoLabel": "Više informacija",
       "about": "O zbirkama Europeana",
       "forDevelopers": "Za programere",
       "help": "Pomoć",
       "meetUs": "Upoznajte tim",
-      "MoreInfoLabel": "Više informacija",
       "provide": "Postanite davatelj podataka",
       "subscribe": "Pretplatite se na naš bilten",
       "terms": "Uvjeti korištenja i pravila o privatnosti"
@@ -117,7 +123,6 @@ export default {
       "teachers": "Nastavnici"
     }
   },
-  "contentYouMightLike": "Sadržaj koji bi vam se mogao svidjeti",
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Prihvaćanje izjavu o odricanju od odgovornosti za kolačiće",
     "link": "Više informacija",
@@ -176,39 +181,6 @@ export default {
     "exhibitions": "izložbe"
   },
   "facets": {
-    "api": {
-      "name": "Traži",
-      "options": {
-        "fulltext": "Zapisi s punim tekstom",
-        "metadata": "Metapodaci-samo zapisi"
-      }
-    },
-    "button": {
-      "apply": "Primijeni",
-      "cancel": "Otkazati",
-      "morefilters": "Više filtera",
-      "reset": "Resetiraj",
-      "showAll": "Prikaži sve {label}",
-      "showLess": "Prikaži manje {label}"
-    },
-    "collection": {
-      "name": "Kategorija",
-      "options": {
-        "archaeology": "Arheologija",
-        "art": "Umjetnost",
-        "fashion": "Moda",
-        "industrial": "Industrijska baština",
-        "manuscript": "Rukopisi",
-        "map": "Karte i geografija",
-        "migration": "Migracije",
-        "music": "Glazba",
-        "nature": "Prirodoslovne znanosti",
-        "newspaper": "Novine",
-        "photography": "Fotografija",
-        "sport": "Sport",
-        "ww1": "1914.-1918."
-      }
-    },
     "COLOURPALETTE": {
       "name": "Boja | boje",
       "options": {
@@ -358,14 +330,6 @@ export default {
         "#FFFFFF": "bijela"
       }
     },
-    "contentTier": {
-      "name": "Uključuje stavke koje ne ispunjavaju naše kriterije objavljivanja",
-      "notification": "Dostupne su neke stavke koje ne odgovaraju našim kriterijima za objavu. Tim stavkama možete pristupiti aktiviranjem filtra \"Kvaliteta predmeta\" u odjeljku \"Više filtara\".",
-      "options": {
-        "*": "Uključuje stavke koje ne ispunjavaju naše kriterije objavljivanja",
-        "0": "Prikaži samo stavke koje ne zadovoljavaju naše kriterije za objavljivanje"
-      }
-    },
     "COUNTRY": {
       "name": "Država iz koje dolazi"
     },
@@ -397,23 +361,11 @@ export default {
     "MIME_TYPE": {
       "name": "Format datoteke | Formati datoteka",
       "options": {
-        "text/plain": "Jednostavni tekst"
+        "text\/plain": "Jednostavni tekst"
       }
     },
     "PROVIDER": {
       "name": "Sakupljač"
-    },
-    "proxy_dc_format": {
-      "name": "Format | formati"
-    },
-    "proxy_dc_type": {
-      "name": "Vrsta | vrste"
-    },
-    "proxy_dcterms_issued": {
-      "name": "Datum izdavanja"
-    },
-    "proxy_dcterms_medium": {
-      "name": "Medij | mediji"
     },
     "REUSABILITY": {
       "name": "Mogu li ovo ponovno upotrijebiti?",
@@ -433,6 +385,59 @@ export default {
         "TEXT": "Tekst",
         "VIDEO": "Video"
       }
+    },
+    "api": {
+      "name": "Traži",
+      "options": {
+        "fulltext": "Zapisi s punim tekstom",
+        "metadata": "Metapodaci-samo zapisi"
+      }
+    },
+    "button": {
+      "apply": "Primijeni",
+      "cancel": "Otkazati",
+      "morefilters": "Više filtera",
+      "reset": "Resetiraj",
+      "showAll": "Prikaži sve {label}",
+      "showLess": "Prikaži manje {label}"
+    },
+    "collection": {
+      "name": "Kategorija",
+      "options": {
+        "archaeology": "Arheologija",
+        "art": "Umjetnost",
+        "fashion": "Moda",
+        "industrial": "Industrijska baština",
+        "manuscript": "Rukopisi",
+        "map": "Karte i geografija",
+        "migration": "Migracije",
+        "music": "Glazba",
+        "nature": "Prirodoslovne znanosti",
+        "newspaper": "Novine",
+        "photography": "Fotografija",
+        "sport": "Sport",
+        "ww1": "1914.-1918."
+      }
+    },
+    "contentTier": {
+      "name": "Uključuje stavke koje ne ispunjavaju naše kriterije objavljivanja",
+      "notification": "Dostupne su neke stavke koje ne odgovaraju našim kriterijima za objavu. Tim stavkama možete pristupiti aktiviranjem filtra \"Kvaliteta predmeta\" u odjeljku \"Više filtara\".",
+      "options": {
+        "*": "Uključuje stavke koje ne ispunjavaju naše kriterije objavljivanja",
+        "0": "Prikaži samo stavke koje ne zadovoljavaju naše kriterije za objavljivanje"
+      }
+    },
+    "proxy_dc_format": {
+      "name": "Format | formati"
+    },
+    "proxy_dc_type": {
+      "name": "Vrsta | vrste"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Datum izdavanja"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Medij | mediji"
     }
   },
   "feedback": {
@@ -456,7 +461,7 @@ export default {
     "default": {
       "dcContributor": "Suradnici",
       "dcCoverage": "Mjesto-vrijeme",
-      "dcCreator": "Stvorio/la",
+      "dcCreator": "Stvorio\/la",
       "dcDate": "Datum",
       "dcDescription": "Opis",
       "dcDuration": "Trajanje",
@@ -469,6 +474,8 @@ export default {
       "dcRights": "Prava",
       "dcSource": "Izvor",
       "dcSubject": "Tema",
+      "dcTitle": "Naslov",
+      "dcType": "Vrsta objekta",
       "dctermsCreated": "Datum stvaranja",
       "dctermsExtent": "Opseg",
       "dctermsHasPart": "Sastoji se od",
@@ -485,8 +492,6 @@ export default {
       "dctermsReferences": "Reference",
       "dctermsSpatial": "Mjesta",
       "dctermsTemporal": "Vremenski",
-      "dcTitle": "Naslov",
-      "dcType": "Vrsta objekta",
       "edmCountry": "Država iz koje dolazi",
       "edmCurrentLocation": "Trenutna lokacija",
       "edmDataProvider": "Institucija iz koje dolazi",
@@ -521,6 +526,18 @@ export default {
     "disclaimerLine2": "Europska komisija ne jamči za točnost podataka i ne prihvaća nikakvu odgovornost niti bilo kakvu odgovornost u vezi s informacijama na ovom web mjestu. Niti Europska komisija, niti bilo koja osoba koja djeluje u ime Europske komisije, nije odgovorna niti je odgovorna za točnost ili upotrebu podataka na ovom web mjestu.",
     "findUsElsewhere": "Pronađite nas negdje drugdje",
     "imageDescription": "Sufinancirano iz Instrumenta za povezivanje Europe u Europskoj uniji",
+    "navigation": {
+      "MoreInfoLabel": "Više informacija",
+      "about": "O nama",
+      "accessibility": "Pristupačnost",
+      "cookies": "Kolačići",
+      "forDevelopers": "Za programere",
+      "help": "Pomoć",
+      "privacy": "Pravila o privatnosti",
+      "provide": "Postanite davatelj podataka",
+      "subscribe": "Pretplatite se na naš bilten",
+      "terms": "Uvjeti korištenja"
+    },
     "ourMission": "Naša misija",
     "ourMissionQuote": "Europeana osnažuje sektor kulturne baštine u svojoj digitalnoj transformaciji. Razvijamo stručnost, alate i politike kako bismo prihvatili digitalne promjene i potaknuli partnerstva koja potiču inovacije."
   },
@@ -562,6 +579,7 @@ export default {
   "items": {
     "itemCount": "1 stavka |{count} stavki",
     "itemOf": "{max} od {count} stavki",
+    "recent": "Nedavne stavke",
     "recommendationsDisclaimer": "Palac gore za dodavanje u galeriju - Palac dolje ako vam se ne sviđa",
     "recommended": "Preporučeni predmeti",
     "youMightLike": "Stavke koje vam se mogu sviđati"
@@ -627,7 +645,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Sjeća ako radije vidite rezultate pretraživanja u prikazu popisa ili mreže.",
-        "title": "Prikaz rezultata pretraživanja (popis / mreža)"
+        "title": "Prikaz rezultata pretraživanja (popis \/ mreža)"
       }
     }
   },
@@ -667,6 +685,15 @@ export default {
       "modalTitle": "Reci hvala"
     }
   },
+  "multilingual": {
+    "automated": "Automatizirani prijevod",
+    "currentLanguage": "Želite li vidjeti ovu stavku u {0} ?",
+    "differentLanguage": "drugačiji jezik",
+    "enrichment": "Obogaćivanje partnerskim projektima",
+    "original": "Izvorni metapodaci",
+    "originalLanguage": "izvorni jezik",
+    "other": "Drugi jezici"
+  },
   "newWindow": "otvara se u novom prozoru",
   "noMoreResults": "Nema više rezultata za vaš upit za pretraživanje.",
   "noResults": "Nema rezultata",
@@ -692,6 +719,7 @@ export default {
   },
   "readMore": "Pročitaj više",
   "record": {
+    "IIIFViewer": "IIIF preglednik",
     "allMetaData": "Svi meta podaci",
     "copyEmbedLabel": "Ugradi kôd (kliknite za kopiranje)",
     "downloadCopyrightInfo": "Ova je stavka zaštićena autorskim pravima i nije ju moguće preuzeti.",
@@ -699,7 +727,6 @@ export default {
     "extendedInformation": "Proširene informacije",
     "goodToKnow": "Dobro je znati",
     "hideAll": "Sakrij sve informacije",
-    "IIIFViewer": "IIIF preglednik",
     "location": "Mjesto",
     "locationOnMap": "Lokacija na karti",
     "mediaPlayer": "Media player",

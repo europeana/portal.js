@@ -47,6 +47,11 @@ export default {
     "institution": "Institiúid:",
     "title": "Teideal:"
   },
+  "automatedCardGroup": {
+    "item": "Míreanna le Déanaí",
+    "time": "Na hAoisí Réadmhaoine",
+    "topic": "Topaicí Réadmhaoine"
+  },
   "blog": {
     "author": "Údar",
     "authors": "Údair",
@@ -94,13 +99,14 @@ export default {
   },
   "collectionsYouMightLike": "Bailiúcháin b’fhéidir gur mhaith leat",
   "colourSwatch": "Swatch dath",
+  "contentYouMightLike": "Ábhar b’fhéidir gur mhaith leat",
   "contentfulManual": {
     "footerNavigation": {
+      "MoreInfoLabel": "Tuilleadh eolais",
       "about": "Maidir le Europeana",
       "forDevelopers": "Faoi chomhair forbróirí",
       "help": "Cabhair",
       "meetUs": "Cuir aithne ar an bhfoireann",
-      "MoreInfoLabel": "Tuilleadh eolais",
       "provide": "Bí I do sholátharí sonraí",
       "subscribe": "Liostáil lenár Nuachtlitir",
       "terms": "Téarmaí úsáide agus Beartas príobháideachta"
@@ -111,7 +117,6 @@ export default {
       "teachers": "Múinteoirí"
     }
   },
-  "contentYouMightLike": "Ábhar b’fhéidir gur mhaith leat",
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Glac leis an gclásal séanta maidir le fianáin",
     "link": "Tuilleadh eolais",
@@ -155,39 +160,6 @@ export default {
     "exhibitions": "Taispeántas | Taispeántais"
   },
   "facets": {
-    "api": {
-      "name": "Cuardaigh",
-      "options": {
-        "fulltext": "Míreanna a bhfuil an téacs iomlán díobh le fáil",
-        "metadata": "Míreanna nach bhfuil iontu ach na meiteashonraí amháin"
-      }
-    },
-    "button": {
-      "apply": "Cuir i bhfeidhm",
-      "cancel": "Cealaigh",
-      "morefilters": "Níos mó scagairí",
-      "reset": "Athshocraigh",
-      "showAll": "Taispeáin gach ceann {label}",
-      "showLess": "Taispeáin níos lú {label}"
-    },
-    "collection": {
-      "name": "Bailiúchán",
-      "options": {
-        "archaeology": "Seandálaíocht",
-        "art": "Ealaín",
-        "fashion": "Faisean",
-        "industrial": "Oidhreacht thionsclaíoch",
-        "manuscript": "Lámhscríbhinní",
-        "map": "Léarscáileanna agus Tíreolaíocht",
-        "migration": "Imirce",
-        "music": "Ceol",
-        "nature": "Stair an Dúlra",
-        "newspaper": "Nuachtáin",
-        "photography": "Grianghrafadóireacht",
-        "sport": "Spórt",
-        "ww1": "1914-1918"
-      }
-    },
     "COLOURPALETTE": {
       "name": "Dath | Dathanna",
       "options": {
@@ -337,14 +309,6 @@ export default {
         "#FFFFFF": "Bán"
       }
     },
-    "contentTier": {
-      "name": "Caighdeán na míre",
-      "notification": "Tá roinnt míreanna nach gcomhlíonann ár gcritéir foilsitheoireachta ar fáil. Is féidir leat rochtain a fháil ar na míreanna sin tríd an scagaire 'Cáilíocht Míre' a ghníomhachtú faoi 'Tuilleadh scagairí'.",
-      "options": {
-        "*": "Áirítear leis míreanna nach gcomhlíonann ár riachtanais foilsitheoireachta",
-        "0": "Ná taispeáin ach míreanna nach gcomhlíonann ár gcritéir foilsitheoireachta"
-      }
-    },
     "COUNTRY": {
       "name": "Tír sholáthair"
     },
@@ -376,23 +340,11 @@ export default {
     "MIME_TYPE": {
       "name": "Formáid chomhaid | Formáidí comhaid",
       "options": {
-        "text/plain": "Téacs simplí"
+        "text\/plain": "Téacs simplí"
       }
     },
     "PROVIDER": {
       "name": "Comhbhailitheoir | Comhbhailitheoirí"
-    },
-    "proxy_dc_format": {
-      "name": "Formáid | Formáidí"
-    },
-    "proxy_dc_type": {
-      "name": "Cineál | Cineálacha"
-    },
-    "proxy_dcterms_issued": {
-      "name": "Dáta eisithe"
-    },
-    "proxy_dcterms_medium": {
-      "name": "Meán | Meáin"
     },
     "REUSABILITY": {
       "name": "An féidir liom é seo a úsáid?",
@@ -412,6 +364,59 @@ export default {
         "TEXT": "Téacs",
         "VIDEO": "Físeán"
       }
+    },
+    "api": {
+      "name": "Cuardaigh",
+      "options": {
+        "fulltext": "Míreanna a bhfuil an téacs iomlán díobh le fáil",
+        "metadata": "Míreanna nach bhfuil iontu ach na meiteashonraí amháin"
+      }
+    },
+    "button": {
+      "apply": "Cuir i bhfeidhm",
+      "cancel": "Cealaigh",
+      "morefilters": "Níos mó scagairí",
+      "reset": "Athshocraigh",
+      "showAll": "Taispeáin gach ceann {label}",
+      "showLess": "Taispeáin níos lú {label}"
+    },
+    "collection": {
+      "name": "Bailiúchán",
+      "options": {
+        "archaeology": "Seandálaíocht",
+        "art": "Ealaín",
+        "fashion": "Faisean",
+        "industrial": "Oidhreacht thionsclaíoch",
+        "manuscript": "Lámhscríbhinní",
+        "map": "Léarscáileanna agus Tíreolaíocht",
+        "migration": "Imirce",
+        "music": "Ceol",
+        "nature": "Stair an Dúlra",
+        "newspaper": "Nuachtáin",
+        "photography": "Grianghrafadóireacht",
+        "sport": "Spórt",
+        "ww1": "1914-1918"
+      }
+    },
+    "contentTier": {
+      "name": "Caighdeán na míre",
+      "notification": "Tá roinnt míreanna nach gcomhlíonann ár gcritéir foilsitheoireachta ar fáil. Is féidir leat rochtain a fháil ar na míreanna sin tríd an scagaire 'Cáilíocht Míre' a ghníomhachtú faoi 'Tuilleadh scagairí'.",
+      "options": {
+        "*": "Áirítear leis míreanna nach gcomhlíonann ár riachtanais foilsitheoireachta",
+        "0": "Ná taispeáin ach míreanna nach gcomhlíonann ár gcritéir foilsitheoireachta"
+      }
+    },
+    "proxy_dc_format": {
+      "name": "Formáid | Formáidí"
+    },
+    "proxy_dc_type": {
+      "name": "Cineál | Cineálacha"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Dáta eisithe"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Meán | Meáin"
     }
   },
   "feedback": {
@@ -448,6 +453,8 @@ export default {
       "dcRights": "Cearta",
       "dcSource": "Foinse",
       "dcSubject": "Ábhar",
+      "dcTitle": "Teideal",
+      "dcType": "Cineál oibiachta",
       "dctermsCreated": "Dáta cruthaithe",
       "dctermsExtent": "Meid",
       "dctermsHasPart": "Lena gcuimsítear",
@@ -464,8 +471,6 @@ export default {
       "dctermsReferences": "Tagairtí",
       "dctermsSpatial": "Áiteanna",
       "dctermsTemporal": "Ama",
-      "dcTitle": "Teideal",
-      "dcType": "Cineál oibiachta",
       "edmCountry": "Tír sholáthair",
       "edmCurrentLocation": "Suíomh reatha",
       "edmDataProvider": "Institiúid sholáthair",
@@ -477,7 +482,7 @@ export default {
       "edmIsSimilarTo": "Is cosúil leis",
       "edmIsSuccessorOf": "Is comharba é ar",
       "edmProvider": "Soláthraí",
-      "edmRealizes": "Tuigeann sé/sí",
+      "edmRealizes": "Tuigeann sé\/sí",
       "edmRights": "Ráiteas Ceadúnas do na meáin sa mhír seo (mura sonraítear a mhalairt)",
       "edmUgc": "Inneachar ginte le húsáideoirí",
       "europeanaCollectionName": "Ainm bailiúcháin",
@@ -500,6 +505,18 @@ export default {
     "disclaimerLine2": "Ní ráthaíonn an Coimisiún Eorpach cruinneas na faisnéise agus ní ghlacann sé aon fhreagracht ná dliteanas ar bith maidir leis an bhfaisnéis ar an suíomh Gréasáin seo. Níl an Coimisiún Eorpach, ná aon duine atá ag gníomhú thar ceann an Choimisiúin Eorpaigh, freagrach ná faoi dhliteanas as cruinneas nó úsáid na faisnéise ar an suíomh Gréasáin seo.",
     "findUsElsewhere": "Aimsigh muid áit eile",
     "imageDescription": "Arna Comh-mhaoiniú ag an tSaoráid um Chónascadh na hEorpa de chuid an Aontais Eorpaigh",
+    "navigation": {
+      "MoreInfoLabel": "Tuilleadh eolais",
+      "about": "Fúinne",
+      "accessibility": "Inrochtaineacht",
+      "cookies": "Fianáin",
+      "forDevelopers": "Faoi chomhair forbróirí",
+      "help": "Cabhair",
+      "privacy": "Beartas Príobháideachais",
+      "provide": "Bí I do sholátharí sonraí",
+      "subscribe": "Liostáil lenár Nuachtlitir",
+      "terms": "Tearmaí Seirbhís"
+    },
     "ourMission": "Ár misean",
     "ourMissionQuote": "Tugann Europeana cumhacht don earnáil oidhreachta cultúrtha tabhairt faoin gclaochlú digiteach. Forbraímid saineolas, uirlisí agus beartais chun glacadh leis an athrú digiteach agus spreagaimid comhpháirtíochtaí a chothaíonn an nuálaíocht."
   },
@@ -604,7 +621,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Cuimhníonn sé más fearr leat na torthaí cuardaigh a fheiceáil i liosta nó in amharc greille.",
-        "title": "Amharc toraidh cuardaigh (liosta/greille)"
+        "title": "Amharc toraidh cuardaigh (liosta\/greille)"
       }
     }
   },
@@ -636,6 +653,11 @@ export default {
     "notFound": "Níor aimsíodh é",
     "paginationLimitExceeded": "Ní féidir ach amháin na chéad {limit} torthaí cuardaigh a fheiceáil."
   },
+  "multilingual": {
+    "original": "Meiteashonraí bunaidh",
+    "originalLanguage": "teanga bhunaidh",
+    "other": "Teangacha eile"
+  },
   "newWindow": "osclaítear i bhfuinneog nua é",
   "noMoreResults": "Níl aon toradh eile ann ar d'iarratas cuardaigh.",
   "noResults": "Níor aimsíodh aon Torthaí",
@@ -652,6 +674,7 @@ export default {
   },
   "readMore": "Léigh níos mó",
   "record": {
+    "IIIFViewer": "Amharcóir IIIF",
     "allMetaData": "Gach meiteashonraí",
     "copyEmbedLabel": "Leabaigh an cód (Cliceáil chun é a chópáil)",
     "downloadCopyrightInfo": "Tá cóipcheart i bhfeidhm ar an mír seo agus ní féidir í a íoslódáil dá bharr.",
@@ -659,7 +682,6 @@ export default {
     "extendedInformation": "Faisnéis leathnaithe",
     "goodToKnow": "Maith a fhios",
     "hideAll": "Folaigh gach faisnéis",
-    "IIIFViewer": "Amharcóir IIIF",
     "location": "Suíomh",
     "locationOnMap": "Suíomh ar an léarscáil",
     "mediaPlayer": "Seinnteoir meán",

@@ -4,7 +4,7 @@ export default {
     "likes": "Patīk",
     "linkAccount": "Mans konts",
     "linkLogin": "Pieteikties",
-    "linkLoginJoin": "Pieteikties/Pievienoties",
+    "linkLoginJoin": "Pieteikties\/Pievienoties",
     "linkLogout": "Atteikties",
     "myProfile": "Mans profils",
     "notifications": {
@@ -46,6 +46,11 @@ export default {
     "date": "Datums",
     "institution": "Iestāde:",
     "title": "Nosaukums:"
+  },
+  "automatedCardGroup": {
+    "item": "Pēdējie vienumi",
+    "time": "Izvēlētie gadsimti",
+    "topic": "Izvēlētās tēmas"
   },
   "blog": {
     "author": "Autors",
@@ -94,13 +99,14 @@ export default {
   },
   "collectionsYouMightLike": "Tev varētu patikt šīs kolekcijas",
   "colourSwatch": "Krāsu paraugs",
+  "contentYouMightLike": "Iespējams, Tev patiks šis saturs",
   "contentfulManual": {
     "footerNavigation": {
+      "MoreInfoLabel": "Papildinformācija",
       "about": "Par Europeana",
       "forDevelopers": "Izstrādātājiem",
       "help": "Palīdzība",
       "meetUs": "Mūsu komanda",
-      "MoreInfoLabel": "Papildinformācija",
       "provide": "Kļūsti par datu nodrošinātāju",
       "subscribe": "Piesakies mūsu jaunumu ziņojumimem",
       "terms": "Lietošanas noteikumi un Privātuma politika"
@@ -111,7 +117,6 @@ export default {
       "teachers": "Skolotājiem"
     }
   },
-  "contentYouMightLike": "Iespējams, Tev patiks šis saturs",
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Pieņemt atrunu par sīkdatnēm",
     "link": "Vairāk informācijas",
@@ -155,39 +160,6 @@ export default {
     "exhibitions": "Izstāde | Izstādes"
   },
   "facets": {
-    "api": {
-      "name": "Meklēt",
-      "options": {
-        "fulltext": "Vienumi ar pilnu tekstu",
-        "metadata": "Tikai metadatu vienumi"
-      }
-    },
-    "button": {
-      "apply": "Lietot",
-      "cancel": "Atcelt",
-      "morefilters": "Vairāk filtru",
-      "reset": "Atiestatīt",
-      "showAll": "Rādīt visus {label}",
-      "showLess": "Rādīt mazāk {label}"
-    },
-    "collection": {
-      "name": "Kolekcija",
-      "options": {
-        "archaeology": "Arheoloģija",
-        "art": "Māksla",
-        "fashion": "Mode",
-        "industrial": "Rūpnieciskais mantojums",
-        "manuscript": "Manuskripti",
-        "map": "Kartes un ģeogrāfija",
-        "migration": "Migrācija",
-        "music": "Mūzika",
-        "nature": "Dabas vēsture",
-        "newspaper": "Laikraksti",
-        "photography": "Fotogrāfija",
-        "sport": "Sports",
-        "ww1": "1914.–1918. gads"
-      }
-    },
     "COLOURPALETTE": {
       "name": "Krāsa | Krāsas",
       "options": {
@@ -337,14 +309,6 @@ export default {
         "#FFFFFF": "Balts"
       }
     },
-    "contentTier": {
-      "name": "Vienuma kvalitāte",
-      "notification": "Ir pieejami daži vienumi, kas neatbilst mūsu publicēšanas kritērijiem. Šiem vienumiem var piekļūt, aktivizējot filtru \"Vienumu kvalitāte\", kas pieejams sadaļā \"Vairāk filtru\".",
-      "options": {
-        "*": "Ietver vienumus, kas neatbilst mūsu publicēšanas kritērijiem",
-        "0": "Rādīt tikai vienumus, kas neatbilst mūsu publicēšanas kritērijiem."
-      }
-    },
     "COUNTRY": {
       "name": "Nodrošinošā valsts"
     },
@@ -376,23 +340,11 @@ export default {
     "MIME_TYPE": {
       "name": "Datnes formāts | Datņu formāti",
       "options": {
-        "text/plain": "Vienkāršs teksts"
+        "text\/plain": "Vienkāršs teksts"
       }
     },
     "PROVIDER": {
       "name": "Agregators | Agregatori"
-    },
-    "proxy_dc_format": {
-      "name": "Formāts | Formāti"
-    },
-    "proxy_dc_type": {
-      "name": "Veids | Veidi"
-    },
-    "proxy_dcterms_issued": {
-      "name": "Izdošanas datums"
-    },
-    "proxy_dcterms_medium": {
-      "name": "Līdzeklis/ Līdzekļi"
     },
     "REUSABILITY": {
       "name": "Vai drīkst šo izmantot?",
@@ -412,6 +364,59 @@ export default {
         "TEXT": "Teksts",
         "VIDEO": "Video"
       }
+    },
+    "api": {
+      "name": "Meklēt",
+      "options": {
+        "fulltext": "Vienumi ar pilnu tekstu",
+        "metadata": "Tikai metadatu vienumi"
+      }
+    },
+    "button": {
+      "apply": "Lietot",
+      "cancel": "Atcelt",
+      "morefilters": "Vairāk filtru",
+      "reset": "Atiestatīt",
+      "showAll": "Rādīt visus {label}",
+      "showLess": "Rādīt mazāk {label}"
+    },
+    "collection": {
+      "name": "Kolekcija",
+      "options": {
+        "archaeology": "Arheoloģija",
+        "art": "Māksla",
+        "fashion": "Mode",
+        "industrial": "Rūpnieciskais mantojums",
+        "manuscript": "Manuskripti",
+        "map": "Kartes un ģeogrāfija",
+        "migration": "Migrācija",
+        "music": "Mūzika",
+        "nature": "Dabas vēsture",
+        "newspaper": "Laikraksti",
+        "photography": "Fotogrāfija",
+        "sport": "Sports",
+        "ww1": "1914.–1918. gads"
+      }
+    },
+    "contentTier": {
+      "name": "Vienuma kvalitāte",
+      "notification": "Ir pieejami daži vienumi, kas neatbilst mūsu publicēšanas kritērijiem. Šiem vienumiem var piekļūt, aktivizējot filtru \"Vienumu kvalitāte\", kas pieejams sadaļā \"Vairāk filtru\".",
+      "options": {
+        "*": "Ietver vienumus, kas neatbilst mūsu publicēšanas kritērijiem",
+        "0": "Rādīt tikai vienumus, kas neatbilst mūsu publicēšanas kritērijiem."
+      }
+    },
+    "proxy_dc_format": {
+      "name": "Formāts | Formāti"
+    },
+    "proxy_dc_type": {
+      "name": "Veids | Veidi"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Izdošanas datums"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Līdzeklis\/ Līdzekļi"
     }
   },
   "feedback": {
@@ -448,6 +453,8 @@ export default {
       "dcRights": "Tiesības",
       "dcSource": "Avots",
       "dcSubject": "Temats",
+      "dcTitle": "Nosaukums",
+      "dcType": "Objekta veids",
       "dctermsCreated": "Izveidošanas datums",
       "dctermsExtent": "Apjoms",
       "dctermsHasPart": "Sastāv no",
@@ -464,8 +471,6 @@ export default {
       "dctermsReferences": "Atsaucas uz",
       "dctermsSpatial": "Vietas",
       "dctermsTemporal": "Periods",
-      "dcTitle": "Nosaukums",
-      "dcType": "Objekta veids",
       "edmCountry": "Nodrošinošā valsts",
       "edmCurrentLocation": "Pašreizējā atrašanās vieta",
       "edmDataProvider": "Nodrošinošā iestāde",
@@ -500,6 +505,18 @@ export default {
     "disclaimerLine2": "Eiropas Komisija negarantē informācijas precizitāti un neuzņemas nekādu atbildību vai saistības attiecībā uz šajā tīmekļa vietnē sniegto informāciju. Ne Eiropas Komisija, ne jebkura persona, kas rīkojas Eiropas Komisijas vārdā, nav atbildīga par šajā tīmekļa vietnē sniegtās informācijas precizitāti vai izmantošanu.",
     "findUsElsewhere": "Atrodiet mūs citur",
     "imageDescription": "Līdzfinansē Eiropas Savienības infrastruktūras savienošanas instruments",
+    "navigation": {
+      "MoreInfoLabel": "Papildinformācija",
+      "about": "Par mums",
+      "accessibility": "Pieejamība",
+      "cookies": "Sīkfaili",
+      "forDevelopers": "Izstrādātājiem",
+      "help": "Palīdzība",
+      "privacy": "Privātuma politika",
+      "provide": "Kļūsti par datu nodrošinātāju",
+      "subscribe": "Piesakies mūsu jaunumu ziņojumimem",
+      "terms": "Pakalpojuma noteikumi"
+    },
     "ourMission": "Mūsu misija",
     "ourMissionQuote": "Europeana nodrošina iespējas kultūras mantojuma nozarei tās digitālajā pārveidē. Mēs izstrādājam zināšanas, instrumentus un politikas virzienus, lai atbalstītu digitālās izmaiņas un veicinātu partnerības, kas veicina jauninājumus."
   },
@@ -604,7 +621,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Atceras, vai vēlaties redzēt meklēšanas rezultātus saraksta vai režģa skatā.",
-        "title": "Meklēšanas rezultātu skats (saraksts / režģis)"
+        "title": "Meklēšanas rezultātu skats (saraksts \/ režģis)"
       }
     }
   },
@@ -636,6 +653,11 @@ export default {
     "notFound": "Nav atrasts",
     "paginationLimitExceeded": "Ir iespējams apskatīt tikai pirmos {limit} meklēšanas rezultātus."
   },
+  "multilingual": {
+    "original": "Oriģinālie metadati",
+    "originalLanguage": "oriģinālvaloda",
+    "other": "Citas valodas"
+  },
   "newWindow": "tiek atvērts jaunā logā",
   "noMoreResults": "Jūsu meklēšanas vaicājumam vairs nav rezultātu.",
   "noResults": "Nav rezultātu",
@@ -652,6 +674,7 @@ export default {
   },
   "readMore": "Lasīt vairāk",
   "record": {
+    "IIIFViewer": "IIIF skatītājs",
     "allMetaData": "Visi metadati",
     "copyEmbedLabel": "Iegulšanas kods (noklikšķiniet, lai kopētu)",
     "downloadCopyrightInfo": "Šis vienums ir aizsargāts ar autortiesībām, un to nevar lejupielādēt.",
@@ -659,7 +682,6 @@ export default {
     "extendedInformation": "Paplašināta informācija",
     "goodToKnow": "Vērts zināt",
     "hideAll": "Paslēpt visu informāciju",
-    "IIIFViewer": "IIIF skatītājs",
     "location": "Atrašanās vieta",
     "locationOnMap": "Atrašanās vieta kartē",
     "mediaPlayer": "Multivides atskaņotājs",

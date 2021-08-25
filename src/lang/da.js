@@ -6,7 +6,7 @@ export default {
     "likes": "Synes om'er",
     "linkAccount": "Min konto",
     "linkLogin": "Log ind",
-    "linkLoginJoin": "Login/Deltag",
+    "linkLoginJoin": "Login\/Deltag",
     "linkLogout": "Log ud",
     "myProfile": "Min profil",
     "notifications": {
@@ -51,6 +51,11 @@ export default {
     "date": "Dato:",
     "institution": "Institution:",
     "title": "Titel:"
+  },
+  "automatedCardGroup": {
+    "item": "Seneste varer",
+    "time": "Udvalgte århundreder",
+    "topic": "Udvalgte emner"
   },
   "blog": {
     "author": "Forfatter",
@@ -100,13 +105,14 @@ export default {
   },
   "collectionsYouMightLike": "Samlinger, du måske vil synes om",
   "colourSwatch": "Farveprøve",
+  "contentYouMightLike": "Indhold, du måske vil synes om",
   "contentfulManual": {
     "footerNavigation": {
+      "MoreInfoLabel": "Flere oplysninger",
       "about": "Om Europeana",
       "forDevelopers": "For udviklere",
       "help": "Hjælp",
       "meetUs": "Mød holdet",
-      "MoreInfoLabel": "Flere oplysninger",
       "provide": "Bliv dataleverandør",
       "subscribe": "Abonner på vores nyhedsbrev",
       "terms": "Vilkår for brug og Fortrolighedspolitik"
@@ -117,7 +123,6 @@ export default {
       "teachers": "Lærere"
     }
   },
-  "contentYouMightLike": "Indhold, du måske vil synes om",
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Accepter ansvarsfraskrivelse for cookies",
     "link": "Mere information",
@@ -176,39 +181,6 @@ export default {
     "exhibitions": "Udstillinger"
   },
   "facets": {
-    "api": {
-      "name": "Søg efter",
-      "options": {
-        "fulltext": "Poster med fuldtekst",
-        "metadata": "Kun metadata-poster"
-      }
-    },
-    "button": {
-      "apply": "Anvend",
-      "cancel": "Annuller",
-      "morefilters": "Flere filtre",
-      "reset": "Nulstil",
-      "showAll": "Vis alle {label}",
-      "showLess": "Vis mindre {label}"
-    },
-    "collection": {
-      "name": "Kategori",
-      "options": {
-        "archaeology": "Arkæologi",
-        "art": "Kunst",
-        "fashion": "Mode",
-        "industrial": "Industriel kulturarv",
-        "manuscript": "Manuskripter",
-        "map": "Kort og geografi",
-        "migration": "Migration",
-        "music": "Musik",
-        "nature": "Naturhistorie",
-        "newspaper": "Aviser",
-        "photography": "Fotografi",
-        "sport": "Sport",
-        "ww1": "1914-1918"
-      }
-    },
     "COLOURPALETTE": {
       "name": "Farve | Farver",
       "options": {
@@ -358,14 +330,6 @@ export default {
         "#FFFFFF": "hvid"
       }
     },
-    "contentTier": {
-      "name": "Indeholder emner, der ikke opfylder vores udgivelseskriterier",
-      "notification": "Nogle artikler, som ikke opfylder vores udgivelseskriterier, er tilgængelige. Du kan få adgang til disse artikler ved at aktivere filteret 'Artikelkvalitet' under 'Flere filtre'.",
-      "options": {
-        "*": "Indeholder artikler, der ikke opfylder vores udgivelseskriterier",
-        "0": "Vis kun artikler, der ikke opfylder vores udgivelseskriterier"
-      }
-    },
     "COUNTRY": {
       "name": "Leverende land"
     },
@@ -397,23 +361,11 @@ export default {
     "MIME_TYPE": {
       "name": "Filformat | Filformater",
       "options": {
-        "text/plain": "Almindelig tekst"
+        "text\/plain": "Almindelig tekst"
       }
     },
     "PROVIDER": {
       "name": "Aggregator"
-    },
-    "proxy_dc_format": {
-      "name": "Format | Formater"
-    },
-    "proxy_dc_type": {
-      "name": "Type | typer"
-    },
-    "proxy_dcterms_issued": {
-      "name": "Udstedelsesdato"
-    },
-    "proxy_dcterms_medium": {
-      "name": "Medie | Medier"
     },
     "REUSABILITY": {
       "name": "Må jeg videreformidle dette?",
@@ -433,6 +385,59 @@ export default {
         "TEXT": "Tekst",
         "VIDEO": "Video"
       }
+    },
+    "api": {
+      "name": "Søg efter",
+      "options": {
+        "fulltext": "Poster med fuldtekst",
+        "metadata": "Kun metadata-poster"
+      }
+    },
+    "button": {
+      "apply": "Anvend",
+      "cancel": "Annuller",
+      "morefilters": "Flere filtre",
+      "reset": "Nulstil",
+      "showAll": "Vis alle {label}",
+      "showLess": "Vis mindre {label}"
+    },
+    "collection": {
+      "name": "Kategori",
+      "options": {
+        "archaeology": "Arkæologi",
+        "art": "Kunst",
+        "fashion": "Mode",
+        "industrial": "Industriel kulturarv",
+        "manuscript": "Manuskripter",
+        "map": "Kort og geografi",
+        "migration": "Migration",
+        "music": "Musik",
+        "nature": "Naturhistorie",
+        "newspaper": "Aviser",
+        "photography": "Fotografi",
+        "sport": "Sport",
+        "ww1": "1914-1918"
+      }
+    },
+    "contentTier": {
+      "name": "Indeholder emner, der ikke opfylder vores udgivelseskriterier",
+      "notification": "Nogle artikler, som ikke opfylder vores udgivelseskriterier, er tilgængelige. Du kan få adgang til disse artikler ved at aktivere filteret 'Artikelkvalitet' under 'Flere filtre'.",
+      "options": {
+        "*": "Indeholder artikler, der ikke opfylder vores udgivelseskriterier",
+        "0": "Vis kun artikler, der ikke opfylder vores udgivelseskriterier"
+      }
+    },
+    "proxy_dc_format": {
+      "name": "Format | Formater"
+    },
+    "proxy_dc_type": {
+      "name": "Type | typer"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Udstedelsesdato"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Medie | Medier"
     }
   },
   "feedback": {
@@ -469,6 +474,8 @@ export default {
       "dcRights": "Rettigheder",
       "dcSource": "Kilde",
       "dcSubject": "Emne",
+      "dcTitle": "Titel",
+      "dcType": "Objekttype",
       "dctermsCreated": "Oprettelsesdato",
       "dctermsExtent": "Omfang",
       "dctermsHasPart": "Består af",
@@ -485,8 +492,6 @@ export default {
       "dctermsReferences": "Referencer",
       "dctermsSpatial": "Steder",
       "dctermsTemporal": "Tidsmæssig",
-      "dcTitle": "Titel",
-      "dcType": "Objekttype",
       "edmCountry": "Leverende land",
       "edmCurrentLocation": "Nuværende placering",
       "edmDataProvider": "Leverende institution",
@@ -521,6 +526,18 @@ export default {
     "disclaimerLine2": "Europa-Kommissionen garanterer ikke nøjagtigheden af informationen og påtager sig intet ansvar over for informationen på dette websted. Hverken Europa-Kommissionen eller nogen person, der handler på Europa-Kommissionens vegne, er ansvarlig eller ansvarlig for nøjagtigheden eller brugen af oplysningerne på dette websted.",
     "findUsElsewhere": "Find os et andet sted",
     "imageDescription": "Medfinansieret af Den Europæiske Unions Connecting Europe-facilitet",
+    "navigation": {
+      "MoreInfoLabel": "Flere oplysninger",
+      "about": "Om os",
+      "accessibility": "Tilgængelighed",
+      "cookies": "Cookies",
+      "forDevelopers": "For udviklere",
+      "help": "Hjælp",
+      "privacy": "Fortrolighedspolitik",
+      "provide": "Bliv dataleverandør",
+      "subscribe": "Abonner på vores nyhedsbrev",
+      "terms": "Vilkår for brug"
+    },
     "ourMission": "Vores mission",
     "ourMissionQuote": "Europeana styrker kulturarvsektoren i sin digitale transformation. Vi udvikler ekspertise, værktøjer og politikker til at omfatte digitale forandringer og tilskynde til partnerskaber, der fremmer innovation."
   },
@@ -562,6 +579,7 @@ export default {
   "items": {
     "itemCount": "1 artikel |{count} artikler",
     "itemOf": "{max} af {count} artikler",
+    "recent": "Seneste varer",
     "recommendationsDisclaimer": "Tommelfinger op for at tilføje til galleriet - Tommelfinger ned, hvis du ikke kan lide det",
     "recommended": "Anbefalede varer",
     "youMightLike": "Artikler, du måske vil synes om"
@@ -627,7 +645,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Husk, hvis du foretrækker at se søgeresultaterne i en liste- eller gittervisning.",
-        "title": "Visning af søgeresultater (liste / gitter)"
+        "title": "Visning af søgeresultater (liste \/ gitter)"
       }
     }
   },
@@ -667,6 +685,15 @@ export default {
       "modalTitle": "Sig tak"
     }
   },
+  "multilingual": {
+    "automated": "Automatiseret oversættelse",
+    "currentLanguage": "Vil du gerne se dette element i {0} ?",
+    "differentLanguage": "et andet sprog",
+    "enrichment": "Berigelse ved partnerprojekter",
+    "original": "Originale metadata",
+    "originalLanguage": "originalsprog",
+    "other": "Andre sprog"
+  },
   "newWindow": "åbner i nyt vindue",
   "noMoreResults": "Der er ikke flere resultater for din søgning.",
   "noResults": "Ingen resultater",
@@ -692,6 +719,7 @@ export default {
   },
   "readMore": "Læs mere",
   "record": {
+    "IIIFViewer": "IIIF-fremviser",
     "allMetaData": "Alle metadata",
     "copyEmbedLabel": "Integrer kode (Klik for at kopiere)",
     "downloadCopyrightInfo": "Denne artikel er ophavsretligt beskyttet og kan ikke downloades.",
@@ -699,7 +727,6 @@ export default {
     "extendedInformation": "Udvidede oplysninger",
     "goodToKnow": "Værd at vide",
     "hideAll": "Skjul alle oplysninger",
-    "IIIFViewer": "IIIF-fremviser",
     "location": "Placering",
     "locationOnMap": "Placering på kort",
     "mediaPlayer": "Medie afspiller",

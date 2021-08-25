@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mijn account",
     "linkLogin": "Inloggen",
-    "linkLoginJoin": "Inloggen/Aanmelden",
+    "linkLoginJoin": "Inloggen\/Aanmelden",
     "linkLogout": "Uitloggen",
     "myProfile": "Mijn profiel",
     "notifications": {
@@ -51,6 +51,11 @@ export default {
     "date": "Datum:",
     "institution": "Instelling:",
     "title": "Titel:"
+  },
+  "automatedCardGroup": {
+    "item": "Recente items",
+    "time": "Aanbevolen Eeuwen",
+    "topic": "Aanbevolen onderwerpen"
   },
   "blog": {
     "author": "Auteur",
@@ -100,13 +105,14 @@ export default {
   },
   "collectionsYouMightLike": "Collecties die u misschien interessant vindt",
   "colourSwatch": "Kleurstaal",
+  "contentYouMightLike": "Content die u misschien interessant vindt",
   "contentfulManual": {
     "footerNavigation": {
+      "MoreInfoLabel": "Meer informatie",
       "about": "Over Europeana",
       "forDevelopers": "Voor ontwikkelaars",
       "help": "Help",
       "meetUs": "Ontmoet het team",
-      "MoreInfoLabel": "Meer informatie",
       "provide": "Word een gegevensprovider",
       "subscribe": "Aanmelden voor onze nieuwsbrief",
       "terms": "Gebruiksvoorwaarden en privacybeleid"
@@ -117,7 +123,6 @@ export default {
       "teachers": "Leraren"
     }
   },
-  "contentYouMightLike": "Content die u misschien interessant vindt",
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Accepteer cookiedisclaimer",
     "link": "Meer informatie",
@@ -142,19 +147,29 @@ export default {
   },
   "edmIsShownAtLinkAlt": "Bekijken op de website van de provider",
   "entity": {
+    "actions": {
+      "cancel": "Annuleren",
+      "pin": "Item vastmaken",
+      "unpin": "Item losmaken",
+      "viewPinned": "Vastgezette items bekijken"
+    },
     "labels": {
       "entity": "Entiteit"
     },
     "notifications": {
       "deleted": "Uw galerij is verwijderd",
       "pinLimit": {
-        "body": "Voorlopig kunt u maar 24 items vast zetten op de eerste pagina. Als u dit item wilt vast zetten, moet u ervoor zorgen dat u een ander item los maakt en vervolgens proberen deze opnieuw vast te maken.",
+        "body": "Voorlopig kunt u maar 24 items vast zetten op de eerste pagina. Als u dit item wilt vast zetten, moet u ervoor zorgen dat u een ander item los maakt en vervolgens proberen deze opnieuw vast te zetten.",
         "title": "Te veel vastgezette items"
       },
-      "pinned": "Het item is vastgemaakt. Het staat nu bovenaan de eerste pagina van deze collectie. Het kan tot 24 uur duren om voor iedereen te verschijnen.",
-      "pinnedFirstPage": "Het item is vastgemaakt. Het kan tot 24 uur duren om voor iedereen te verschijnen.",
+      "pinned": "Het item is vastgezet. Het staat nu bovenaan de eerste pagina van deze collectie. Het kan tot 24 uur duren om voor iedereen te verschijnen.",
+      "pinnedFirstPage": "Het item is vastgezet. Het kan tot 24 uur duren om voor iedereen te verschijnen.",
       "unpinned": "Het item is losgemaakt. Het staat niet meer bovenaan de eerste pagina van deze collectie. Het kan tot 24 uur duren om voor iedereen te verdwijnen.",
       "unpinnedFirstPage": "Het item is losgemaakt. Het kan tot 24 uur duren om voor iedereen te verdwijnen."
+    },
+    "prompts": {
+      "pin": "Weet u zeker dat u dit item wilt vastzetten? Dit item wordt boven aan de verzameling {entiteit} weergegeven. Het kan tot 24 uur duren voordat deze wijziging van kracht wordt.",
+      "unpin": "Weet u zeker dat u dit item wilt losmaken? Dit item wordt niet meer weergegeven boven aan de verzameling {entiteit}. Het kan tot 24 uur duren voordat deze wijziging van kracht wordt."
     }
   },
   "error": "Fout",
@@ -166,39 +181,6 @@ export default {
     "exhibitions": "Tentoonstellingen"
   },
   "facets": {
-    "api": {
-      "name": "Zoeken naar",
-      "options": {
-        "fulltext": "Records met full-text",
-        "metadata": "Alleen records met Metadata"
-      }
-    },
-    "button": {
-      "apply": "Toepassen",
-      "cancel": "Annuleren",
-      "morefilters": "Meer filters",
-      "reset": "Opnieuw instellen",
-      "showAll": "Alle {label} weergeven",
-      "showLess": "Minder weergeven {label}"
-    },
-    "collection": {
-      "name": "Categorie",
-      "options": {
-        "archaeology": "Archeologie",
-        "art": "Kunst",
-        "fashion": "Mode",
-        "industrial": "Industrieel erfgoed",
-        "manuscript": "manuscripten",
-        "map": "Kaarten en geografie",
-        "migration": "Migratie",
-        "music": "Muziek",
-        "nature": "Natuurgeschiedenis",
-        "newspaper": "Kranten",
-        "photography": "Fotografie",
-        "sport": "Sport",
-        "ww1": "1914-1918"
-      }
-    },
     "COLOURPALETTE": {
       "name": "Kleur | Kleuren",
       "options": {
@@ -348,14 +330,6 @@ export default {
         "#FFFFFF": "Wit"
       }
     },
-    "contentTier": {
-      "name": "Bevat items die niet voldoen aan onze publicatiecriteria",
-      "notification": "Sommige artikelen die niet passen bij onze publicatiecriteria, zijn beschikbaar. U kunt deze artikelen inzien door het filter \"Kwaliteit van artikel\" onder \"Meer filters\" te activeren.",
-      "options": {
-        "*": "Bevat items die niet voldoen aan onze publicatiecriteria",
-        "0": "Geef items weer die niet voldoen aan onze publicatiecriteria"
-      }
-    },
     "COUNTRY": {
       "name": "Land van levering"
     },
@@ -387,23 +361,11 @@ export default {
     "MIME_TYPE": {
       "name": "Bestandsformaat | Bestandsformaten",
       "options": {
-        "text/plain": "Platte tekst"
+        "text\/plain": "Platte tekst"
       }
     },
     "PROVIDER": {
       "name": "Aggregator | Aggregatoren"
-    },
-    "proxy_dc_format": {
-      "name": "Formaat | Formaten"
-    },
-    "proxy_dc_type": {
-      "name": "Type | Types"
-    },
-    "proxy_dcterms_issued": {
-      "name": "Datum van afgifte"
-    },
-    "proxy_dcterms_medium": {
-      "name": "Medium | Media"
     },
     "REUSABILITY": {
       "name": "Kan ik dit hergebruiken?",
@@ -423,6 +385,59 @@ export default {
         "TEXT": "Tekst",
         "VIDEO": "Video"
       }
+    },
+    "api": {
+      "name": "Zoeken naar",
+      "options": {
+        "fulltext": "Records met full-text",
+        "metadata": "Alleen records met Metadata"
+      }
+    },
+    "button": {
+      "apply": "Toepassen",
+      "cancel": "Annuleren",
+      "morefilters": "Meer filters",
+      "reset": "Opnieuw instellen",
+      "showAll": "Alle {label} weergeven",
+      "showLess": "Minder weergeven {label}"
+    },
+    "collection": {
+      "name": "Categorie",
+      "options": {
+        "archaeology": "Archeologie",
+        "art": "Kunst",
+        "fashion": "Mode",
+        "industrial": "Industrieel erfgoed",
+        "manuscript": "manuscripten",
+        "map": "Kaarten en geografie",
+        "migration": "Migratie",
+        "music": "Muziek",
+        "nature": "Natuurgeschiedenis",
+        "newspaper": "Kranten",
+        "photography": "Fotografie",
+        "sport": "Sport",
+        "ww1": "1914-1918"
+      }
+    },
+    "contentTier": {
+      "name": "Bevat items die niet voldoen aan onze publicatiecriteria",
+      "notification": "Sommige artikelen die niet passen bij onze publicatiecriteria, zijn beschikbaar. U kunt deze artikelen inzien door het filter \"Kwaliteit van artikel\" onder \"Meer filters\" te activeren.",
+      "options": {
+        "*": "Bevat items die niet voldoen aan onze publicatiecriteria",
+        "0": "Geef items weer die niet voldoen aan onze publicatiecriteria"
+      }
+    },
+    "proxy_dc_format": {
+      "name": "Formaat | Formaten"
+    },
+    "proxy_dc_type": {
+      "name": "Type | Types"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Datum van afgifte"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Medium | Media"
     }
   },
   "feedback": {
@@ -459,6 +474,8 @@ export default {
       "dcRights": "Rechten",
       "dcSource": "Bron",
       "dcSubject": "Onderwerp",
+      "dcTitle": "Titel",
+      "dcType": "Type object",
       "dctermsCreated": "Aanmaakdatum",
       "dctermsExtent": "Mate",
       "dctermsHasPart": "Bestaat uit",
@@ -475,8 +492,6 @@ export default {
       "dctermsReferences": "Verwijst naar",
       "dctermsSpatial": "Plaatsen",
       "dctermsTemporal": "Tijdsperiode",
-      "dcTitle": "Titel",
-      "dcType": "Type object",
       "edmCountry": "Land",
       "edmCurrentLocation": "Huidige locatie",
       "edmDataProvider": "Instituut",
@@ -511,6 +526,18 @@ export default {
     "disclaimerLine2": "De Europese Commissie staat niet in voor de juistheid van de informatie en aanvaardt geen enkele verantwoordelijkheid of aansprakelijkheid met betrekking tot de informatie op deze website. Noch de Europese Commissie, noch enige persoon die namens de Europese Commissie handelt, is verantwoordelijk of aansprakelijk voor de juistheid of het gebruik van de informatie op deze website.",
     "findUsElsewhere": "Vind ons ergens anders",
     "imageDescription": "Medegefinancierd door de Connecting Europe Facility van de Europese Unie",
+    "navigation": {
+      "MoreInfoLabel": "Meer informatie",
+      "about": "Over ons",
+      "accessibility": "Toegankelijkheid",
+      "cookies": "Cookies",
+      "forDevelopers": "Voor ontwikkelaars",
+      "help": "Help",
+      "privacy": "Privacybeleid",
+      "provide": "Word een datapartner",
+      "subscribe": "Aanmelden voor onze nieuwsbrief",
+      "terms": "Gebruiksvoorwaarden"
+    },
     "ourMission": "Onze missie",
     "ourMissionQuote": "Europeana ondersteunt de sector cultureel erfgoed bij haar digitale transformatie. We ontwikkelen expertise, tools en beleid om digitale verandering te omarmen en partnerschappen aan te moedigen die innovatie stimuleren."
   },
@@ -552,6 +579,7 @@ export default {
   "items": {
     "itemCount": "1 artikel |{count} artikelen",
     "itemOf": "{max} van {count} artikelen",
+    "recent": "Recente items",
     "recommendationsDisclaimer": "Duim omhoog om toe te voegen aan de galerij - Duim omlaag als je het niet leuk vindt",
     "recommended": "Aanbevolen items",
     "youMightLike": "Artikelen die u misschien interessant vindt"
@@ -617,7 +645,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Onthoudt of u de zoekresultaten liever in een lijst- of rasterweergave wilt zien.",
-        "title": "Zoekresultaatweergave (lijst/raster)"
+        "title": "Zoekresultaatweergave (lijst\/raster)"
       }
     }
   },
@@ -657,6 +685,15 @@ export default {
       "modalTitle": "Zeg bedankt"
     }
   },
+  "multilingual": {
+    "automated": "Geautomatiseerde vertaling",
+    "currentLanguage": "Wilt u dit item in {0} zien?",
+    "differentLanguage": "een andere taal",
+    "enrichment": "Verrijking door partnerprojecten",
+    "original": "Originele metadata",
+    "originalLanguage": "oorspronkelijke taal",
+    "other": "Andere talen"
+  },
   "newWindow": "opent in nieuw venster",
   "noMoreResults": "Er zijn geen resultaten meer voor uw zoekopdracht.",
   "noResults": "Geen resultaten",
@@ -682,6 +719,7 @@ export default {
   },
   "readMore": "Lees verder",
   "record": {
+    "IIIFViewer": "IIIF-viewer",
     "allMetaData": "Alle metadata",
     "copyEmbedLabel": "Embed code (klik om te kopiëren)",
     "downloadCopyrightInfo": "Dit item is auteursrechtelijk beschermd en kan niet worden gedownload.",
@@ -689,7 +727,6 @@ export default {
     "extendedInformation": "Uitgebreide informatie",
     "goodToKnow": "Goed om te weten",
     "hideAll": "Verberg alle informatie",
-    "IIIFViewer": "IIIF-viewer",
     "location": "Locatie",
     "locationOnMap": "Locatie op kaart",
     "mediaPlayer": "Mediaspeler",
