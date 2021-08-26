@@ -319,10 +319,6 @@ module.exports = {
     plugins: ['~/plugins/apis']
   },
 
-  gtm: {
-    enabled: true
-  },
-
   router: {
     middleware: ['legacy/index', 'l10n'],
     extendRoutes(routes) {
