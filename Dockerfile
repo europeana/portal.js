@@ -32,7 +32,7 @@ COPY --from=0 /app/package.json /app/package-lock.json ./
 
 RUN npm install
 
-COPY babel.config.js .env.example nuxt.config.js package.json package-lock.json *.md ./
+COPY babel.config.cjs .env.example nuxt.config.js package.json package-lock.json *.md ./
 COPY src ./src
 
 RUN npm run build

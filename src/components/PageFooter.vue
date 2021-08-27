@@ -102,29 +102,8 @@
       LinkGroup
     },
 
-    fetch() {
-      const contentfulVariables = {
-        locale: this.$i18n.isoLocale(),
-        preview: this.$route.query.mode === 'preview'
-      };
-
-      return this.$contentful.query('linkGroups', contentfulVariables)
-        .then(response => {
-          for (const identifier in response.data.data) {
-            const linkGroup = response.data.data[identifier].items[0];
-            this[identifier] = {
-              name: linkGroup.name ? linkGroup.name : null,
-              links: linkGroup.links.items
-            };
-          }
-        })
-        .catch(() => null);
-    },
-
     data() {
       return {
-        footerMoreInfo: null,
-        footerHelp: null,
         social: [
           {
             text: 'Facebook',
@@ -157,6 +136,25 @@
 
       showDebugMenu() {
         return !!this.debugSettings.apiRequests;
+      },
+      footerMoreInfo() {
+        return { name: this.$t('footer.navigation.MoreInfoLabel'),
+                 links: [
+                   { url: '/about-us', text: this.$t('footer.navigation.about') },
+                   { url: '/for-developers', text: this.$t('footer.navigation.forDevelopers') },
+                   { url: 'https://pro.europeana.eu/services/data-publication-services', text: this.$t('footer.navigation.provide') },
+                   { url: 'https://europeana.us3.list-manage.com/subscribe?u=ad318b7566f97eccc895e014e&id=1d4f51a117', text: this.$t('footer.navigation.subscribe') }
+                 ] };
+      },
+      footerHelp() {
+        return { name: this.$t('footer.navigation.help'),
+                 links: [
+                   { url: '/help', text: this.$t('footer.navigation.help') },
+                   { url: '/rights', text: this.$t('footer.navigation.terms') },
+                   { url: '/rights/privacy-policy', text: this.$t('footer.navigation.privacy') },
+                   { url: '/rights/accessibility-policy', text: this.$t('footer.navigation.accessibility') },
+                   { url: '/rights/cookies-policy', text: this.$t('footer.navigation.cookies') }
+                 ] };
       }
     },
 

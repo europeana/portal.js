@@ -1,5 +1,6 @@
-import { BASE_URL as EUROPEANA_DATA_URL } from './data';
-import { apiError, createAxios } from './utils';
+import { BASE_URL as EUROPEANA_DATA_URL } from './data.js';
+import { apiError, createAxios } from './utils.js';
+import md5 from 'md5';
 
 export const BASE_URL = process.env.EUROPEANA_ENTITY_API_URL || 'https://api.europeana.eu/entity';
 
@@ -272,8 +273,6 @@ export function getWikimediaThumbnailUrl(image, size = 255) {
   if (!(new RegExp('.wiki[mp]edia.org/wiki/Special:FilePath/').test(image))) {
     return image;
   }
-
-  const md5 = require('md5');
 
   const filename = image.split('/').pop();
   const suffix = filename.endsWith('.svg') ? '.png' : '';

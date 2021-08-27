@@ -47,6 +47,11 @@ export default {
     "institution": "Inštitúcia:",
     "title": "Názov:"
   },
+  "automatedCardGroup": {
+    "item": "Nedávne položky",
+    "time": "Odporúčané storočia",
+    "topic": "Odporúčané témy"
+  },
   "blog": {
     "author": "Autor",
     "authors": "Autori",
@@ -94,13 +99,14 @@ export default {
   },
   "collectionsYouMightLike": "Zbierky, ktoré by sa vám mohli páčiť",
   "colourSwatch": "Farebná vzorkovník",
+  "contentYouMightLike": "Obsah, ktorý by sa vám mohol páčiť",
   "contentfulManual": {
     "footerNavigation": {
+      "MoreInfoLabel": "Ďalšie informácie",
       "about": "Informácie o zbierkach Europeana",
       "forDevelopers": "Pre vývojárov",
       "help": "Pomoc",
       "meetUs": "Spoznajte členov tímu",
-      "MoreInfoLabel": "Ďalšie informácie",
       "provide": "Staňte sa poskytovateľom údajov",
       "subscribe": "Prihlásiť sa na odber newslettra",
       "terms": "Podmienky používania služby a zásady ochrany osobných údajov"
@@ -111,7 +117,6 @@ export default {
       "teachers": "Učitelia"
     }
   },
-  "contentYouMightLike": "Obsah, ktorý by sa vám mohol páčiť",
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Vyjadrite súhlas s vyhlásením o používaní súborov cookie",
     "link": "Ďalšie informácie",
@@ -155,39 +160,6 @@ export default {
     "exhibitions": "Výstavy"
   },
   "facets": {
-    "api": {
-      "name": "Vyhľadávať",
-      "options": {
-        "fulltext": "Záznamy s plným textom",
-        "metadata": "Výhradne záznamy s metaúdajmi"
-      }
-    },
-    "button": {
-      "apply": "Použiť",
-      "cancel": "Zrušiť",
-      "morefilters": "Viac filtrov",
-      "reset": "Obnoviť",
-      "showAll": "Zobraziť všetko {label}",
-      "showLess": "Zobraziť menej {label}"
-    },
-    "collection": {
-      "name": "Kategória",
-      "options": {
-        "archaeology": "Archeológia",
-        "art": "Umenie",
-        "fashion": "Móda",
-        "industrial": "Priemyselné dedičstvo",
-        "manuscript": "Rukopisy",
-        "map": "Mapy a geografia",
-        "migration": "Migrácia",
-        "music": "Hudba",
-        "nature": "Prírodná história",
-        "newspaper": "Noviny",
-        "photography": "Fotografie",
-        "sport": "Šport",
-        "ww1": "1914 – 1918"
-      }
-    },
     "COLOURPALETTE": {
       "name": "Farba | Farby",
       "options": {
@@ -337,14 +309,6 @@ export default {
         "#FFFFFF": "biely"
       }
     },
-    "contentTier": {
-      "name": "Obsahuje položky, ktoré nespĺňajú naše publikačné kritériá",
-      "notification": "K dispozícii sú určité položky, ktoré sa nezhodujú s našimi kritériami. Tieto položky si môžete zobraziť aktiváciou filtra „Kvalita položky“ v časti „Ďalšie filtre“.",
-      "options": {
-        "*": "Obsahuje položky, ktoré nespĺňajú naše publikačné kritériá",
-        "0": "Zobraziť iba položky, ktoré nespĺňajú kritéria zverejnenia"
-      }
-    },
     "COUNTRY": {
       "name": "Poskytujúca krajina"
     },
@@ -382,18 +346,6 @@ export default {
     "PROVIDER": {
       "name": "Agregátor"
     },
-    "proxy_dc_format": {
-      "name": "Formát | Formáty"
-    },
-    "proxy_dc_type": {
-      "name": "Typ | Typy"
-    },
-    "proxy_dcterms_issued": {
-      "name": "Dátum vydania"
-    },
-    "proxy_dcterms_medium": {
-      "name": "Médium | Mediá"
-    },
     "REUSABILITY": {
       "name": "Môžem to znova použiť?",
       "options": {
@@ -412,6 +364,59 @@ export default {
         "TEXT": "Text",
         "VIDEO": "Video"
       }
+    },
+    "api": {
+      "name": "Vyhľadávať",
+      "options": {
+        "fulltext": "Záznamy s plným textom",
+        "metadata": "Výhradne záznamy s metaúdajmi"
+      }
+    },
+    "button": {
+      "apply": "Použiť",
+      "cancel": "Zrušiť",
+      "morefilters": "Viac filtrov",
+      "reset": "Obnoviť",
+      "showAll": "Zobraziť všetko {label}",
+      "showLess": "Zobraziť menej {label}"
+    },
+    "collection": {
+      "name": "Kategória",
+      "options": {
+        "archaeology": "Archeológia",
+        "art": "Umenie",
+        "fashion": "Móda",
+        "industrial": "Priemyselné dedičstvo",
+        "manuscript": "Rukopisy",
+        "map": "Mapy a geografia",
+        "migration": "Migrácia",
+        "music": "Hudba",
+        "nature": "Prírodná história",
+        "newspaper": "Noviny",
+        "photography": "Fotografie",
+        "sport": "Šport",
+        "ww1": "1914 – 1918"
+      }
+    },
+    "contentTier": {
+      "name": "Obsahuje položky, ktoré nespĺňajú naše publikačné kritériá",
+      "notification": "K dispozícii sú určité položky, ktoré sa nezhodujú s našimi kritériami. Tieto položky si môžete zobraziť aktiváciou filtra „Kvalita položky“ v časti „Ďalšie filtre“.",
+      "options": {
+        "*": "Obsahuje položky, ktoré nespĺňajú naše publikačné kritériá",
+        "0": "Zobraziť iba položky, ktoré nespĺňajú kritéria zverejnenia"
+      }
+    },
+    "proxy_dc_format": {
+      "name": "Formát | Formáty"
+    },
+    "proxy_dc_type": {
+      "name": "Typ | Typy"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Dátum vydania"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Médium | Mediá"
     }
   },
   "feedback": {
@@ -448,6 +453,8 @@ export default {
       "dcRights": "Práva",
       "dcSource": "Zdroj",
       "dcSubject": "Predmet",
+      "dcTitle": "Názov",
+      "dcType": "Typ objektu",
       "dctermsCreated": "Dátum vytvorenia",
       "dctermsExtent": "Rozsah",
       "dctermsHasPart": "Pozostáva z",
@@ -464,8 +471,6 @@ export default {
       "dctermsReferences": "Odkazuje na",
       "dctermsSpatial": "Miesta",
       "dctermsTemporal": "Časové obdobie",
-      "dcTitle": "Názov",
-      "dcType": "Typ objektu",
       "edmCountry": "Poskytujúca krajina",
       "edmCurrentLocation": "Aktuálna poloha",
       "edmDataProvider": "Poskytujúca inštitúcia",
@@ -500,6 +505,18 @@ export default {
     "disclaimerLine2": "Európska komisia nezaručuje presnosť informácií a neprijíma žiadnu zodpovednosť ani zodpovednosť za informácie na tejto webovej stránke. Európska komisia ani žiadna osoba konajúca v mene Európskej komisie nie je zodpovedná ani zodpovedná za presnosť alebo použitie informácií na tejto webovej stránke.",
     "findUsElsewhere": "Nájdite nás aj inde",
     "imageDescription": "Spolufinancované z nástroja Európskej únie s názvom Spájame Európu",
+    "navigation": {
+      "MoreInfoLabel": "Ďalšie informácie",
+      "about": "O nás",
+      "accessibility": "Prístupnosť",
+      "cookies": "Cookies",
+      "forDevelopers": "Pre vývojárov",
+      "help": "Pomoc",
+      "privacy": "Zásady ochrany osobných údajov",
+      "provide": "Staňte sa poskytovateľom údajov",
+      "subscribe": "Prihlásiť sa na odber newslettra",
+      "terms": "Podmienky používania"
+    },
     "ourMission": "Náš cieľ",
     "ourMissionQuote": "Europeana posilňuje digitálnu transformáciu odvetvia kultúrneho dedičstva. Rozvíjame odborné znalosti, nástroje a zásady na prijímanie digitálnych zmien a nadväzujeme partnerstvá, ktoré sú založené na inovácii."
   },
@@ -636,6 +653,10 @@ export default {
     "notFound": "Nenašlo sa",
     "paginationLimitExceeded": "Je možné zobraziť len prvých {limit} výsledkov vyhľadávania."
   },
+  "multilingual": {
+    "original": "Pôvodné metaúdaje",
+    "originalLanguage": "pôvodný jazyk"
+  },
   "newWindow": "otvorí sa v novom okne",
   "noMoreResults": "Pre vaše vyhľadávanie neexistujú žiadne ďalšie výsledky.",
   "noResults": "Žiadne výsledky",
@@ -652,6 +673,7 @@ export default {
   },
   "readMore": "Viac",
   "record": {
+    "IIIFViewer": "Divák IIIF",
     "allMetaData": "Všetky metadáta",
     "copyEmbedLabel": "Vložiť kód (kliknutím skopírujete)",
     "downloadCopyrightInfo": "Táto položka je chránená autorským zákonom a nie je možné ju stiahnuť.",
@@ -659,7 +681,6 @@ export default {
     "extendedInformation": "Rozšírené informácie",
     "goodToKnow": "Dobré vedieť",
     "hideAll": "Skryť všetky informácie",
-    "IIIFViewer": "Divák IIIF",
     "location": "Poloha",
     "locationOnMap": "Poloha na mape",
     "mediaPlayer": "Prehrávač médií",

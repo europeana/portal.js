@@ -47,6 +47,11 @@ export default {
     "institution": "Instytucja:",
     "title": "Tytuł:"
   },
+  "automatedCardGroup": {
+    "item": "Ostatnie pozycje",
+    "time": "Polecane wieki",
+    "topic": "Polecane tematy"
+  },
   "blog": {
     "author": "Autor",
     "authors": "Autorzy",
@@ -94,13 +99,14 @@ export default {
   },
   "collectionsYouMightLike": "Kolekcje, które mogą Ci się spodobać",
   "colourSwatch": "Próbka koloru",
+  "contentYouMightLike": "Treści, które mogą Ci się spodobać",
   "contentfulManual": {
     "footerNavigation": {
+      "MoreInfoLabel": "Więcej informacji",
       "about": "O kolekcjach Europeana",
       "forDevelopers": "Dla deweloperów",
       "help": "Pomoc",
       "meetUs": "Poznaj zespół",
-      "MoreInfoLabel": "Więcej informacji",
       "provide": "Zostań dostawcą danych",
       "subscribe": "Zapisz się do naszego newslettera",
       "terms": "Regulamin i Polityka prywatności"
@@ -111,7 +117,6 @@ export default {
       "teachers": "Nauczyciele"
     }
   },
-  "contentYouMightLike": "Treści, które mogą Ci się spodobać",
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Zaakceptuj zastrzeżenie dotyczące plików cookie",
     "link": "Więcej informacji",
@@ -155,39 +160,6 @@ export default {
     "exhibitions": "Wystawy"
   },
   "facets": {
-    "api": {
-      "name": "Szukaj",
-      "options": {
-        "fulltext": "Zapisy z pełnym tekstem",
-        "metadata": "Zapisy tylko z metadanymi"
-      }
-    },
-    "button": {
-      "apply": "Zastosuj",
-      "cancel": "Anuluj",
-      "morefilters": "Więcej filtrów",
-      "reset": "Resetuj",
-      "showAll": "Pokaż wszystko {label}",
-      "showLess": "Pokaż mniej {label}"
-    },
-    "collection": {
-      "name": "Kategoria",
-      "options": {
-        "archaeology": "Archeologia",
-        "art": "Sztuka",
-        "fashion": "Moda",
-        "industrial": "Dziedzictwo przemysłowe",
-        "manuscript": "Rękopisy",
-        "map": "Mapy i geografia",
-        "migration": "Migracja",
-        "music": "Muzyka",
-        "nature": "Historia naturalna",
-        "newspaper": "Gazety",
-        "photography": "Fotografia",
-        "sport": "Sport",
-        "ww1": "1914–1918"
-      }
-    },
     "COLOURPALETTE": {
       "name": "Kolor | Kolory",
       "options": {
@@ -337,14 +309,6 @@ export default {
         "#FFFFFF": "Biały"
       }
     },
-    "contentTier": {
-      "name": "Obejmuje elementy niespełniające naszych kryteriów publikowania",
-      "notification": "Dostępne są niektóre elementy niespełniające naszych kryteriów publikacji. Dostęp do tych pozycji można uzyskać, aktywując filtr „Jakość pozycji” w sekcji „Więcej filtrów”.",
-      "options": {
-        "*": "Obejmuje elementy niespełniające naszych kryteriów publikowania",
-        "0": "Pokaż tylko elementy, które nie spełniają naszych kryteriów publikacji"
-      }
-    },
     "COUNTRY": {
       "name": "Kraj dostarczający"
     },
@@ -382,18 +346,6 @@ export default {
     "PROVIDER": {
       "name": "Agregator"
     },
-    "proxy_dc_format": {
-      "name": "Format | Formaty"
-    },
-    "proxy_dc_type": {
-      "name": "Typ | Typy"
-    },
-    "proxy_dcterms_issued": {
-      "name": "Data wydania"
-    },
-    "proxy_dcterms_medium": {
-      "name": "Medium | Media"
-    },
     "REUSABILITY": {
       "name": "Czy mogę to wykorzystać?",
       "options": {
@@ -412,6 +364,59 @@ export default {
         "TEXT": "Tekst",
         "VIDEO": "Wideo"
       }
+    },
+    "api": {
+      "name": "Szukaj",
+      "options": {
+        "fulltext": "Zapisy z pełnym tekstem",
+        "metadata": "Zapisy tylko z metadanymi"
+      }
+    },
+    "button": {
+      "apply": "Zastosuj",
+      "cancel": "Anuluj",
+      "morefilters": "Więcej filtrów",
+      "reset": "Resetuj",
+      "showAll": "Pokaż wszystko {label}",
+      "showLess": "Pokaż mniej {label}"
+    },
+    "collection": {
+      "name": "Kategoria",
+      "options": {
+        "archaeology": "Archeologia",
+        "art": "Sztuka",
+        "fashion": "Moda",
+        "industrial": "Dziedzictwo przemysłowe",
+        "manuscript": "Rękopisy",
+        "map": "Mapy i geografia",
+        "migration": "Migracja",
+        "music": "Muzyka",
+        "nature": "Historia naturalna",
+        "newspaper": "Gazety",
+        "photography": "Fotografia",
+        "sport": "Sport",
+        "ww1": "1914–1918"
+      }
+    },
+    "contentTier": {
+      "name": "Obejmuje elementy niespełniające naszych kryteriów publikowania",
+      "notification": "Dostępne są niektóre elementy niespełniające naszych kryteriów publikacji. Dostęp do tych pozycji można uzyskać, aktywując filtr „Jakość pozycji” w sekcji „Więcej filtrów”.",
+      "options": {
+        "*": "Obejmuje elementy niespełniające naszych kryteriów publikowania",
+        "0": "Pokaż tylko elementy, które nie spełniają naszych kryteriów publikacji"
+      }
+    },
+    "proxy_dc_format": {
+      "name": "Format | Formaty"
+    },
+    "proxy_dc_type": {
+      "name": "Typ | Typy"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Data wydania"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Medium | Media"
     }
   },
   "feedback": {
@@ -448,6 +453,8 @@ export default {
       "dcRights": "Prawa",
       "dcSource": "Źródło",
       "dcSubject": "Temat",
+      "dcTitle": "Tytuł",
+      "dcType": "Rodzaj przedmiotu",
       "dctermsCreated": "Data utworzenia",
       "dctermsExtent": "Zakres",
       "dctermsHasPart": "składa się z",
@@ -464,8 +471,6 @@ export default {
       "dctermsReferences": "przywołuje",
       "dctermsSpatial": "Miejsca",
       "dctermsTemporal": "Okres",
-      "dcTitle": "Tytuł",
-      "dcType": "Rodzaj przedmiotu",
       "edmCountry": "Kraj dostarczający",
       "edmCurrentLocation": "Aktualna lokalizacja",
       "edmDataProvider": "Instytucja dostarczająca",
@@ -500,6 +505,18 @@ export default {
     "disclaimerLine2": "Komisja Europejska nie gwarantuje dokładności informacji i nie ponosi żadnej odpowiedzialności w odniesieniu do informacji na tej stronie internetowej. Ani Komisja Europejska, ani żadna osoba działająca w imieniu Komisji Europejskiej nie ponosi odpowiedzialności za dokładność lub wykorzystanie informacji na tej stronie internetowej.",
     "findUsElsewhere": "Znajdź nas w innych miejscach",
     "imageDescription": "Współfinansowany z instrumentu „Łącząc Europę” Unii Europejskiej",
+    "navigation": {
+      "MoreInfoLabel": "Więcej informacji",
+      "about": "O nas",
+      "accessibility": "Dostępność",
+      "cookies": "Pliki cookie",
+      "forDevelopers": "Dla deweloperów",
+      "help": "Pomoc",
+      "privacy": "Polityka prywatności",
+      "provide": "Zostań dostawcą danych",
+      "subscribe": "Zapisz się do naszego newslettera",
+      "terms": "Warunki usługi"
+    },
     "ourMission": "Nasza misja",
     "ourMissionQuote": "Europeana wspiera sektor dziedzictwa kulturowego w jego transformacji cyfrowej. Rozwijamy wiedzę specjalistyczną, narzędzia i polityki, aby uwzględnić zmiany cyfrowe i zachęcać do partnerstwa wspierającego innowacje."
   },
@@ -636,6 +653,11 @@ export default {
     "notFound": "Nie znaleziono",
     "paginationLimitExceeded": "Możliwe jest wyświetlenie tylko pierwszych {limit} wyników wyświetlania."
   },
+  "multilingual": {
+    "original": "Oryginalne metadane",
+    "originalLanguage": "język oryginalny",
+    "other": "Inne języki"
+  },
   "newWindow": "otwiera się w nowym oknie",
   "noMoreResults": "Nie ma więcej wyników dla zapytania wyszukiwania.",
   "noResults": "Brak Wyników",
@@ -652,6 +674,7 @@ export default {
   },
   "readMore": "Czytaj więcej",
   "record": {
+    "IIIFViewer": "Przeglądarka IIIF",
     "allMetaData": "Wszystkie metadane",
     "copyEmbedLabel": "Kod do umieszczenia (kliknij, aby skopiować)",
     "downloadCopyrightInfo": "Ten element jest chroniony prawami autorskimi i nie można go pobrać.",
@@ -659,7 +682,6 @@ export default {
     "extendedInformation": "Informacje rozszerzone",
     "goodToKnow": "Warto wiedzieć",
     "hideAll": "Ukryj wszystkie informacje",
-    "IIIFViewer": "Przeglądarka IIIF",
     "location": "Lokalizacja",
     "locationOnMap": "Lokalizacja na mapie",
     "mediaPlayer": "Odtwarzacz multimedialny",

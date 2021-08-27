@@ -47,6 +47,11 @@ export default {
     "institution": "Institution:",
     "title": "Titel:"
   },
+  "automatedCardGroup": {
+    "item": "Aktuelle Artikel",
+    "time": "Ausgewählte Jahrhunderte",
+    "topic": "Ausgewählte Themen"
+  },
   "blog": {
     "author": "Autor",
     "authors": "Autoren",
@@ -94,13 +99,14 @@ export default {
   },
   "collectionsYouMightLike": "Kollektionen, die Ihnen gefallen könnten",
   "colourSwatch": "Farbmuster",
+  "contentYouMightLike": "Inhalte, die Ihnen gefallen könnten",
   "contentfulManual": {
     "footerNavigation": {
+      "MoreInfoLabel": "Mehr Infos",
       "about": "Über Europeana",
       "forDevelopers": "Für Entwickler",
       "help": "Hilfe",
       "meetUs": "Lernen Sie das Team kennen",
-      "MoreInfoLabel": "Mehr Infos",
       "provide": "Werden Sie Datenanbieter",
       "subscribe": "Abonnieren Sie unseren Newsletter",
       "terms": "Nutzungsbedingungen und Datenschutzerklärung"
@@ -111,7 +117,6 @@ export default {
       "teachers": "Lehrerinnen und Lehrerinnen"
     }
   },
-  "contentYouMightLike": "Inhalte, die Ihnen gefallen könnten",
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Akzeptieren Sie den Cookie-Haftungsausschluss",
     "link": "Mehr Information",
@@ -152,39 +157,6 @@ export default {
     "exhibitions": "Ausstellungen"
   },
   "facets": {
-    "api": {
-      "name": "Suche nach",
-      "options": {
-        "fulltext": "Aufzeichnungen mit Volltext",
-        "metadata": "Nur-Metadaten Aufzeichnungen"
-      }
-    },
-    "button": {
-      "apply": "Anwenden",
-      "cancel": "Abbrechen",
-      "morefilters": "Weitere Filter",
-      "reset": "Zurücksetzen",
-      "showAll": "Alle {label} anzeigen",
-      "showLess": "Weniger anzeigen {label}"
-    },
-    "collection": {
-      "name": "Kategorie",
-      "options": {
-        "archaeology": "Archäologie",
-        "art": "Kunst",
-        "fashion": "Mode",
-        "industrial": "Industrielles Erbe",
-        "manuscript": "Manuskripte",
-        "map": "Karten und Geographie",
-        "migration": "Migration",
-        "music": "Musik",
-        "nature": "Naturgeschichte",
-        "newspaper": "Zeitungen",
-        "photography": "Fotografie",
-        "sport": "Sport",
-        "ww1": "1914-1918"
-      }
-    },
     "COLOURPALETTE": {
       "name": "Farbe | Farben",
       "options": {
@@ -334,14 +306,6 @@ export default {
         "#FFFFFF": "Weiß"
       }
     },
-    "contentTier": {
-      "name": "Enthält Artikel, die nicht unseren Veröffentlichungskriterien entsprechen",
-      "notification": "Es sind einige Artikel verfügbar, die nicht unseren Veröffentlichungskriterien entsprechen. Sie können auf diese Artikel zugreifen, indem Sie den Filter 'Artikelqualität' unter 'Weitere Filter' aktivieren.",
-      "options": {
-        "*": "Enthält Artikel, die nicht unseren Veröffentlichungskriterien entsprechen",
-        "0": "Nur Artikel anzeigen, die unsere Veröffentlichungskriterien nicht erfüllen"
-      }
-    },
     "COUNTRY": {
       "name": "Bereitstellendes Land"
     },
@@ -379,18 +343,6 @@ export default {
     "PROVIDER": {
       "name": "Aggregator | Aggregatoren"
     },
-    "proxy_dc_format": {
-      "name": "Format | Formate"
-    },
-    "proxy_dc_type": {
-      "name": "Typ | Typen"
-    },
-    "proxy_dcterms_issued": {
-      "name": "Ausstellungsdatum"
-    },
-    "proxy_dcterms_medium": {
-      "name": "Medium | Medien"
-    },
     "REUSABILITY": {
       "name": "Kann ich es wiederverwenden?",
       "options": {
@@ -409,6 +361,59 @@ export default {
         "TEXT": "Text",
         "VIDEO": "Video"
       }
+    },
+    "api": {
+      "name": "Suche nach",
+      "options": {
+        "fulltext": "Aufzeichnungen mit Volltext",
+        "metadata": "Nur-Metadaten Aufzeichnungen"
+      }
+    },
+    "button": {
+      "apply": "Anwenden",
+      "cancel": "Abbrechen",
+      "morefilters": "Weitere Filter",
+      "reset": "Zurücksetzen",
+      "showAll": "Alle {label} anzeigen",
+      "showLess": "Weniger anzeigen {label}"
+    },
+    "collection": {
+      "name": "Kategorie",
+      "options": {
+        "archaeology": "Archäologie",
+        "art": "Kunst",
+        "fashion": "Mode",
+        "industrial": "Industrielles Erbe",
+        "manuscript": "Manuskripte",
+        "map": "Karten und Geographie",
+        "migration": "Migration",
+        "music": "Musik",
+        "nature": "Naturgeschichte",
+        "newspaper": "Zeitungen",
+        "photography": "Fotografie",
+        "sport": "Sport",
+        "ww1": "1914-1918"
+      }
+    },
+    "contentTier": {
+      "name": "Enthält Artikel, die nicht unseren Veröffentlichungskriterien entsprechen",
+      "notification": "Es sind einige Artikel verfügbar, die nicht unseren Veröffentlichungskriterien entsprechen. Sie können auf diese Artikel zugreifen, indem Sie den Filter 'Artikelqualität' unter 'Weitere Filter' aktivieren.",
+      "options": {
+        "*": "Enthält Artikel, die nicht unseren Veröffentlichungskriterien entsprechen",
+        "0": "Nur Artikel anzeigen, die unsere Veröffentlichungskriterien nicht erfüllen"
+      }
+    },
+    "proxy_dc_format": {
+      "name": "Format | Formate"
+    },
+    "proxy_dc_type": {
+      "name": "Typ | Typen"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Ausstellungsdatum"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Medium | Medien"
     }
   },
   "feedback": {
@@ -445,6 +450,8 @@ export default {
       "dcRights": "Rechte",
       "dcSource": "Quelle",
       "dcSubject": "Betreff",
+      "dcTitle": "Titel",
+      "dcType": "Art des Objekts",
       "dctermsCreated": "Erstellungsdatum",
       "dctermsExtent": "Umfang",
       "dctermsHasPart": "Besteht aus",
@@ -461,8 +468,6 @@ export default {
       "dctermsReferences": "Verweisen auf",
       "dctermsSpatial": "Orte",
       "dctermsTemporal": "Zeitlich",
-      "dcTitle": "Titel",
-      "dcType": "Art des Objekts",
       "edmCountry": "Bereitstellendes Land",
       "edmCurrentLocation": "Aktueller Standort",
       "edmDataProvider": "Bereitstellende Institution",
@@ -497,6 +502,18 @@ export default {
     "disclaimerLine2": "Die Europäische Kommission übernimmt keine Gewähr für die Richtigkeit der Informationen und übernimmt keinerlei Verantwortung oder Haftung für die Informationen auf dieser Website. Weder die Europäische Kommission noch eine Person, die im Namen der Europäischen Kommission handelt, ist für die Richtigkeit oder Verwendung der Informationen auf dieser Website verantwortlich oder haftbar.",
     "findUsElsewhere": "Finden Sie uns anderswo",
     "imageDescription": "Kofinanziert von der Einrichtung „Connecting Europe“ der Europäischen Union",
+    "navigation": {
+      "MoreInfoLabel": "Mehr Infos",
+      "about": "Über uns",
+      "accessibility": "Barrierefreiheit",
+      "cookies": "Cookies",
+      "forDevelopers": "Für Entwickler",
+      "help": "Hilfe",
+      "privacy": "Datenschutz-Bestimmungen",
+      "provide": "Werden Sie Datenanbieter",
+      "subscribe": "Abonnieren Sie unseren Newsletter",
+      "terms": "Nutzungsbedingungen"
+    },
     "ourMission": "Unser Auftrag",
     "ourMissionQuote": "Europeana befähigt den Sektor des kulturellen Erbes bei seiner digitalen Transformation. Wir entwickeln Fachwissen, Tools und Richtlinien, um den digitalen Wandel zu nutzen und Partnerschaften zu fördern, die Innovationen fördern."
   },
@@ -633,6 +650,11 @@ export default {
     "notFound": "Nicht gefunden",
     "paginationLimitExceeded": "Es können nur die ersten {limit} Suchergebnisse angezeigt werden."
   },
+  "multilingual": {
+    "original": "Original-Metadaten",
+    "originalLanguage": "Originalsprache",
+    "other": "Andere Sprachen"
+  },
   "newWindow": "öffnet sich in einem neuen Fenster",
   "noMoreResults": "Es gibt keine weiteren Ergebnisse für Ihre Suchanfrage.",
   "noResults": "Keine Ergebnisse",
@@ -649,6 +671,7 @@ export default {
   },
   "readMore": "Mehr anzeigen",
   "record": {
+    "IIIFViewer": "IIIF-Viewer",
     "allMetaData": "Alle Metadaten",
     "copyEmbedLabel": "Code einbetten (Zum Kopieren klicken)",
     "downloadCopyrightInfo": "Dieser Artikel ist urheberrechtlich geschützt und kann nicht heruntergeladen werden.",
@@ -656,7 +679,6 @@ export default {
     "extendedInformation": "Erweiterte Informationen",
     "goodToKnow": "Gut zu wissen",
     "hideAll": "Alle Informationen ausblenden",
-    "IIIFViewer": "IIIF-Viewer",
     "location": "Ort",
     "locationOnMap": "Standort auf der Karte",
     "mediaPlayer": "Media Player",

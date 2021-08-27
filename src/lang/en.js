@@ -105,13 +105,14 @@ export default {
   },
   "collectionsYouMightLike": "Collections you might like",
   "colourSwatch": "Colour swatch",
+  "contentYouMightLike": "Content you might like",
   "contentfulManual": {
     "footerNavigation": {
+      "MoreInfoLabel": "More Info",
       "about": "About Europeana",
       "forDevelopers": "For developers",
       "help": "Help",
       "meetUs": "Meet the team",
-      "MoreInfoLabel": "More Info",
       "provide": "Become a data provider",
       "subscribe": "Subscribe to our Newsletter",
       "terms": "Terms of Use and Privacy Policy"
@@ -122,7 +123,6 @@ export default {
       "teachers": "Teachers"
     }
   },
-  "contentYouMightLike": "Content you might like",
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Accept cookie disclaimer",
     "link": "More info",
@@ -181,39 +181,6 @@ export default {
     "exhibitions": "Exhibition | Exhibitions"
   },
   "facets": {
-    "api": {
-      "name": "Search for",
-      "options": {
-        "fulltext": "Items with full-text",
-        "metadata": "Metadata-only items"
-      }
-    },
-    "button": {
-      "apply": "Apply",
-      "cancel": "Cancel",
-      "morefilters": "More filters",
-      "reset": "Reset",
-      "showAll": "Show all {label}",
-      "showLess": "Show less {label}"
-    },
-    "collection": {
-      "name": "Collection",
-      "options": {
-        "archaeology": "Archaeology",
-        "art": "Art",
-        "fashion": "Fashion",
-        "industrial": "Industrial Heritage",
-        "manuscript": "Manuscripts",
-        "map": "Maps and Geography",
-        "migration": "Migration",
-        "music": "Music",
-        "nature": "Natural History",
-        "newspaper": "Newspapers",
-        "photography": "Photography",
-        "sport": "Sport",
-        "ww1": "1914-1918"
-      }
-    },
     "COLOURPALETTE": {
       "name": "Colour | Colours",
       "options": {
@@ -363,14 +330,6 @@ export default {
         "#FFFFFF": "White"
       }
     },
-    "contentTier": {
-      "name": "Item quality",
-      "notification": "Some items not matching our publishing criteria are available. You can access those items by activating the 'Item Quality' filter under 'More filters'.",
-      "options": {
-        "*": "Includes items not meeting our publishing criteria",
-        "0": "Show only items not meeting our publishing criteria"
-      }
-    },
     "COUNTRY": {
       "name": "Providing country"
     },
@@ -408,18 +367,6 @@ export default {
     "PROVIDER": {
       "name": "Aggregator | Aggregators"
     },
-    "proxy_dc_format": {
-      "name": "Format | Formats"
-    },
-    "proxy_dc_type": {
-      "name": "Type | Types"
-    },
-    "proxy_dcterms_issued": {
-      "name": "Date issued"
-    },
-    "proxy_dcterms_medium": {
-      "name": "Medium | Media"
-    },
     "REUSABILITY": {
       "name": "Can I use this?",
       "options": {
@@ -438,6 +385,59 @@ export default {
         "TEXT": "Text",
         "VIDEO": "Video"
       }
+    },
+    "api": {
+      "name": "Search for",
+      "options": {
+        "fulltext": "Items with full-text",
+        "metadata": "Metadata-only items"
+      }
+    },
+    "button": {
+      "apply": "Apply",
+      "cancel": "Cancel",
+      "morefilters": "More filters",
+      "reset": "Reset",
+      "showAll": "Show all {label}",
+      "showLess": "Show less {label}"
+    },
+    "collection": {
+      "name": "Collection",
+      "options": {
+        "archaeology": "Archaeology",
+        "art": "Art",
+        "fashion": "Fashion",
+        "industrial": "Industrial Heritage",
+        "manuscript": "Manuscripts",
+        "map": "Maps and Geography",
+        "migration": "Migration",
+        "music": "Music",
+        "nature": "Natural History",
+        "newspaper": "Newspapers",
+        "photography": "Photography",
+        "sport": "Sport",
+        "ww1": "1914-1918"
+      }
+    },
+    "contentTier": {
+      "name": "Item quality",
+      "notification": "Some items not matching our publishing criteria are available. You can access those items by activating the 'Item Quality' filter under 'More filters'.",
+      "options": {
+        "*": "Includes items not meeting our publishing criteria",
+        "0": "Show only items not meeting our publishing criteria"
+      }
+    },
+    "proxy_dc_format": {
+      "name": "Format | Formats"
+    },
+    "proxy_dc_type": {
+      "name": "Type | Types"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Date issued"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Medium | Media"
     }
   },
   "feedback": {
@@ -474,6 +474,8 @@ export default {
       "dcRights": "Rights",
       "dcSource": "Source",
       "dcSubject": "Subject",
+      "dcTitle": "Title",
+      "dcType": "Type of object",
       "dctermsCreated": "Creation date",
       "dctermsExtent": "Extent",
       "dctermsHasPart": "Consists of",
@@ -490,8 +492,6 @@ export default {
       "dctermsReferences": "References",
       "dctermsSpatial": "Places",
       "dctermsTemporal": "Temporal",
-      "dcTitle": "Title",
-      "dcType": "Type of object",
       "edmCountry": "Providing country",
       "edmCurrentLocation": "Current location",
       "edmDataProvider": "Providing institution",
@@ -526,6 +526,18 @@ export default {
     "disclaimerLine2": "The European Commission does not guarantee the accuracy of the information and accepts no responsibility or liability whatsoever with regard to the information on this website. Neither the European Commission, nor any person acting on the European Commission’s behalf, is responsible or liable for the accuracy or use of the information on this website.",
     "findUsElsewhere": "Find us elsewhere",
     "imageDescription": "Co-financed by the Connecting Europe Facility of the European Union",
+    "navigation": {
+      "MoreInfoLabel": "More Info",
+      "about": "About us",
+      "accessibility": "Accessibility",
+      "cookies": "Cookies",
+      "forDevelopers": "For developers",
+      "help": "Help",
+      "privacy": "Privacy policy",
+      "provide": "Become a data partner",
+      "subscribe": "Subscribe to our newsletter",
+      "terms": "Terms of use"
+    },
     "ourMission": "Our mission",
     "ourMissionQuote": "Europeana empowers the cultural heritage sector in its digital transformation. We develop expertise, tools and policies to embrace digital change and encourage partnerships that foster innovation."
   },
@@ -700,6 +712,7 @@ export default {
   },
   "readMore": "Read more",
   "record": {
+    "IIIFViewer": "IIIF viewer",
     "allMetaData": "All metadata",
     "copyEmbedLabel": "Embed code (Click to copy)",
     "downloadCopyrightInfo": "This item is in copyright and can not be downloaded.",
@@ -707,7 +720,6 @@ export default {
     "extendedInformation": "Extended information",
     "goodToKnow": "Good to know",
     "hideAll": "Hide all information",
-    "IIIFViewer": "IIIF viewer",
     "location": "Location",
     "locationOnMap": "Location on map",
     "mediaPlayer": "Media player",
