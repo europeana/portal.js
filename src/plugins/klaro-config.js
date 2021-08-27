@@ -35,7 +35,7 @@ export default ($i18n, $initHotjar) => {
     acceptAll: true,
     callback: (consent, service) => {
       if (service.name === 'hotjar' && consent) {
-        $initHotjar();
+        $initHotjar && $initHotjar();
       }
     }
   };
