@@ -1,6 +1,6 @@
 import path from 'path';
 import apm from 'elastic-apm-node';
-import merge from 'deepmerge';
+import defu  from 'defu';
 
 const MODULE_NAME = 'elastic-apm';
 
@@ -11,10 +11,8 @@ export default function() {
   });
 
   this.nuxt.hook('ready', async(nuxt) => {
-    // $config is not available here, so read runtime config manually
-    // TODO: find a better way of doing this
-    const $config = merge(nuxt.options.publicRuntimeConfig, nuxt.options.privateRuntimeConfig);
-    const config = ($config.elastic ? $config.elastic.apm : undefined) || {};
+    const runtimeConfig = defu(nuxt.options.privateRuntimeConfig, nuxt.options.publicRuntimeConfig);
+    const config = (runtimeConfig.elastic && runtimeConfig.elastic.apm) || {};
 
     if (!config.serverUrl) {
       return;

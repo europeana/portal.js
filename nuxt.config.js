@@ -65,7 +65,8 @@ module.exports = {
         serviceName: 'portal-js',
         serviceVersion: pkg.version,
         frameworkName: 'Nuxt.js',
-        frameworkVersion: require('nuxt/package.json').version
+        frameworkVersion: require('nuxt/package.json').version,
+        usePathAsTransactionName: true
       }
     },
     europeana: {
