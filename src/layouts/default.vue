@@ -29,7 +29,7 @@
     <main
       id="default"
       role="main"
-      :class="$experiment.experimentClass"
+      :class="$experiments?.button-color?.variant"
     >
       <b-breadcrumb
         v-if="breadcrumbs"
