@@ -43,15 +43,18 @@ describe('components/generic/SmartLink', () => {
 
     it('determines if the URL is an external path or not', async() => {
       const wrapper = factory();
-      await wrapper.setData({ internalDomain: '.foo.com' });
+      await wrapper.setData({ internalDomain: 'www.foo.com' });
       await wrapper.setProps({ destination: 'https://www.example.org/url-example' });
       wrapper.vm.isExternalLink.should.be.true;
 
       await wrapper.setProps({ destination: '/test' });
       wrapper.vm.isExternalLink.should.be.false;
 
-      await wrapper.setProps({ destination: 'www.foo.com/test' });
+      await wrapper.setProps({ destination: 'https://www.foo.com/test' });
       wrapper.vm.isExternalLink.should.be.false;
+
+      await wrapper.setProps({ destination: 'https://pro.foo.com/test' });
+      wrapper.vm.isExternalLink.should.be.true;
     });
 
     it('links data.europeana.eu/item URIs to record page', async() => {

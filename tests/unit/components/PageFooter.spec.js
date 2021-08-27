@@ -33,7 +33,7 @@ const factory = () => shallowMount(PageFooter, {
   localVue,
   store,
   mocks: {
-    $t: () => {}
+    $t: (key) => key
   }
 });
 
@@ -46,6 +46,12 @@ describe('components/PageFooter', () => {
     const selector = wrapper.find('[data-qa="language selector"]');
 
     selector.isVisible().should.equal(true);
+  });
+  it('retrieves the correct navigation data', () => {
+    const wrapper = factory();
+    const links = wrapper.vm.footerMoreInfo.links;
+
+    links.some(link => link.text === 'footer.navigation.about').should.be.true;
   });
 
   describe('debug menu', () => {

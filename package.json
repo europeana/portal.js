@@ -1,6 +1,6 @@
 {
   "name": "@europeana/portal",
-  "version": "1.44.0",
+  "version": "1.45.0",
   "private": true,
   "description": "Europeana Portal",
   "type": "module",

@@ -128,6 +128,7 @@
               data-qa="feedback skip button"
               variant="outline-primary"
               class="mt-3"
+              :disabled="disableSkipButton"
               @click="skipEmail"
             >
               {{ $t('actions.skip') }}
@@ -148,6 +149,7 @@
               variant="primary"
               class="mt-3"
               type="submit"
+              :disabled="disableSendButton"
             >
               {{ $t('actions.send') }}
             </b-button>
@@ -182,7 +184,8 @@
         email: '',
         emailInputState: true,
         requestSuccess: null,
-        bigButton: true
+        bigButton: true,
+        sending: false
       };
     },
 
@@ -197,7 +200,16 @@
 
       disableNextButton() {
         return ((this.currentStep === 1) && (this.feedback === '')) ||
-          ((this.currentStep === 2) && (this.email === ''));
+          ((this.currentStep === 2) && (this.email === '')) ||
+          this.sending;
+      },
+
+      disableSendButton() {
+        return this.sending;
+      },
+
+      disableSkipButton() {
+        return this.sending;
       },
 
       showSkipButton() {
@@ -280,6 +292,8 @@
       },
 
       sendFeedback() {
+        this.sending = true;
+
         return this.postFeedbackMessage()
           .then(() => {
             this.requestSuccess = true;
@@ -289,6 +303,9 @@
           })
           .catch(() => {
             this.requestSuccess = false;
+          })
+          .finally(() => {
+            this.sending = false;
           });
       },
 

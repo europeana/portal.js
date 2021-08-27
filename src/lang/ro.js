@@ -47,6 +47,11 @@ export default {
     "institution": "Instituție",
     "title": "Titlu:"
   },
+  "automatedCardGroup": {
+    "item": "Articole recente",
+    "time": "Secole recomandate",
+    "topic": "Subiecte recomandate"
+  },
   "blog": {
     "author": "Autor",
     "authors": "Autori",
@@ -94,13 +99,14 @@ export default {
   },
   "collectionsYouMightLike": "Colecții care ți-ar putea plăcea",
   "colourSwatch": "Specimen de culoare",
+  "contentYouMightLike": "Conținut care ți-ar putea plăcea",
   "contentfulManual": {
     "footerNavigation": {
+      "MoreInfoLabel": "Mai multe informații",
       "about": "Despre colecțiile Europeana",
       "forDevelopers": "Pentru dezvoltatori",
       "help": "Ajutor",
       "meetUs": "Faceți cunoștință cu echipa",
-      "MoreInfoLabel": "Mai multe informații",
       "provide": "Deveni un furnizor de date",
       "subscribe": "Abonează-te la buletinul nostru de știri",
       "terms": "Termeni de utilizare și Politica de confidențialitate"
@@ -111,7 +117,6 @@ export default {
       "teachers": "Profesori"
     }
   },
-  "contentYouMightLike": "Conținut care ți-ar putea plăcea",
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Acceptați declarația de module cookie",
     "link": "Mai multe informații",
@@ -155,39 +160,6 @@ export default {
     "exhibitions": "Expoziții"
   },
   "facets": {
-    "api": {
-      "name": "Căutare după",
-      "options": {
-        "fulltext": "Înregistrări cu text integral",
-        "metadata": "Înregistrări doar pentru metadate"
-      }
-    },
-    "button": {
-      "apply": "Aplică",
-      "cancel": "Anulează",
-      "morefilters": "Mai multe filtre",
-      "reset": "Resetează",
-      "showAll": "Afișează tot {label}",
-      "showLess": "Afișează mai puțin {label}"
-    },
-    "collection": {
-      "name": "Categorie",
-      "options": {
-        "archaeology": "Arheologie",
-        "art": "Artă",
-        "fashion": "Modă",
-        "industrial": "Patrimoniu industrial",
-        "manuscript": "Manuscrise",
-        "map": "Hărți și Geografie",
-        "migration": "Migrație",
-        "music": "Muzică",
-        "nature": "Istorie naturală",
-        "newspaper": "Ziare",
-        "photography": "Fotografie",
-        "sport": "Sport",
-        "ww1": "1914-1918"
-      }
-    },
     "COLOURPALETTE": {
       "name": "Culoare | Culori",
       "options": {
@@ -337,14 +309,6 @@ export default {
         "#FFFFFF": "alb"
       }
     },
-    "contentTier": {
-      "name": "Sunt incluse articole care nu îndeplinesc criteriile noastre de publicare",
-      "notification": "Unele articole care nu corespund criteriilor noastre de publicare sunt disponibile. Poți accesa aceste articole activând filtrul „Calitatea articolelor” din „Mai multe filtre”.",
-      "options": {
-        "*": "Sunt incluse articole care nu îndeplinesc criteriile noastre de publicare",
-        "0": "Afișează doar articolele care nu îndeplinesc criteriile noastre de publicare"
-      }
-    },
     "COUNTRY": {
       "name": "Țara de proveniență"
     },
@@ -382,18 +346,6 @@ export default {
     "PROVIDER": {
       "name": "Agregator"
     },
-    "proxy_dc_format": {
-      "name": "Format | Formate"
-    },
-    "proxy_dc_type": {
-      "name": "Tip | Tipuri"
-    },
-    "proxy_dcterms_issued": {
-      "name": "Data emiterii"
-    },
-    "proxy_dcterms_medium": {
-      "name": "Medii | Media"
-    },
     "REUSABILITY": {
       "name": "Pot reutiliza acest lucru?",
       "options": {
@@ -412,6 +364,59 @@ export default {
         "TEXT": "Text",
         "VIDEO": "Video"
       }
+    },
+    "api": {
+      "name": "Căutare după",
+      "options": {
+        "fulltext": "Înregistrări cu text integral",
+        "metadata": "Înregistrări doar pentru metadate"
+      }
+    },
+    "button": {
+      "apply": "Aplică",
+      "cancel": "Anulează",
+      "morefilters": "Mai multe filtre",
+      "reset": "Resetează",
+      "showAll": "Afișează tot {label}",
+      "showLess": "Afișează mai puțin {label}"
+    },
+    "collection": {
+      "name": "Categorie",
+      "options": {
+        "archaeology": "Arheologie",
+        "art": "Artă",
+        "fashion": "Modă",
+        "industrial": "Patrimoniu industrial",
+        "manuscript": "Manuscrise",
+        "map": "Hărți și Geografie",
+        "migration": "Migrație",
+        "music": "Muzică",
+        "nature": "Istorie naturală",
+        "newspaper": "Ziare",
+        "photography": "Fotografie",
+        "sport": "Sport",
+        "ww1": "1914-1918"
+      }
+    },
+    "contentTier": {
+      "name": "Sunt incluse articole care nu îndeplinesc criteriile noastre de publicare",
+      "notification": "Unele articole care nu corespund criteriilor noastre de publicare sunt disponibile. Poți accesa aceste articole activând filtrul „Calitatea articolelor” din „Mai multe filtre”.",
+      "options": {
+        "*": "Sunt incluse articole care nu îndeplinesc criteriile noastre de publicare",
+        "0": "Afișează doar articolele care nu îndeplinesc criteriile noastre de publicare"
+      }
+    },
+    "proxy_dc_format": {
+      "name": "Format | Formate"
+    },
+    "proxy_dc_type": {
+      "name": "Tip | Tipuri"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Data emiterii"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Medii | Media"
     }
   },
   "feedback": {
@@ -448,6 +453,8 @@ export default {
       "dcRights": "Drepturi",
       "dcSource": "Sursă",
       "dcSubject": "Subiect",
+      "dcTitle": "Titlu",
+      "dcType": "Tipul obiectului",
       "dctermsCreated": "Data creării",
       "dctermsExtent": "Măsură",
       "dctermsHasPart": "Este format din",
@@ -464,8 +471,6 @@ export default {
       "dctermsReferences": "Referințe",
       "dctermsSpatial": "Locații",
       "dctermsTemporal": "Temporal",
-      "dcTitle": "Titlu",
-      "dcType": "Tipul obiectului",
       "edmCountry": "Țara de proveniență",
       "edmCurrentLocation": "Locația curenta",
       "edmDataProvider": "Instituția de proveniență",
@@ -500,6 +505,18 @@ export default {
     "disclaimerLine2": "Comisia Europeană nu garantează acuratețea informațiilor și nu își asumă nicio răspundere sau răspundere cu privire la informațiile de pe acest site web. Nici Comisia Europeană, nici nicio persoană care acționează în numele Comisiei Europene, nu este responsabilă sau răspunzătoare pentru acuratețea sau utilizarea informațiilor de pe acest site web.",
     "findUsElsewhere": "Ne puteți găsi și în altă parte",
     "imageDescription": "Cofinanțat de Connecting Europe Facility a Uniunii Europene",
+    "navigation": {
+      "MoreInfoLabel": "Mai multe informații",
+      "about": "Despre noi",
+      "accessibility": "Accesibilitate",
+      "cookies": "Cookie-uri",
+      "forDevelopers": "Pentru dezvoltatori",
+      "help": "Ajutor",
+      "privacy": "Politica de Confidențialitate",
+      "provide": "Deveni un furnizor de date",
+      "subscribe": "Abonează-te la buletinul nostru de știri",
+      "terms": "Termeni de utilizare"
+    },
     "ourMission": "Misiunea noastră",
     "ourMissionQuote": "Europeana sprijină sectorul patrimoniului cultural în transformarea sa digitală. Dezvoltăm expertiza, uneltele și politicile pentru a adopta schimbările digitale și încurajăm parteneriate care stau la baza inovației."
   },
@@ -636,6 +653,11 @@ export default {
     "notFound": "Nu a fost găsit",
     "paginationLimitExceeded": "Se pot vizualiza numai primele {limit} rezultate ale căutării."
   },
+  "multilingual": {
+    "original": "Metadate originale",
+    "originalLanguage": "limba originală",
+    "other": "Alte limbi"
+  },
   "newWindow": "se deschide într-o fereastră nouă",
   "noMoreResults": "Nu mai există rezultate pentru interogarea de căutare.",
   "noResults": "Niciun rezultat",
@@ -652,6 +674,7 @@ export default {
   },
   "readMore": "Citește mai mult",
   "record": {
+    "IIIFViewer": "Vizualizator IIIF",
     "allMetaData": "Toate metadatele",
     "copyEmbedLabel": "Cod de încorporare (Faceți clic pentru a copia)",
     "downloadCopyrightInfo": "Acest articol este protejat prin drepturi de autor și nu poate fi descărcat.",
@@ -659,7 +682,6 @@ export default {
     "extendedInformation": "Informații extinse",
     "goodToKnow": "Bine de știut",
     "hideAll": "Ascunde toate informațiile",
-    "IIIFViewer": "Vizualizator IIIF",
     "location": "Locație",
     "locationOnMap": "Localizare pe hartă",
     "mediaPlayer": "Media Player",
