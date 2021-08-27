@@ -1,8 +1,8 @@
-const TIMES_CACHE_KEY = require('../../cachers/entities/times').CACHE_KEY;
-const TOPICS_CACHE_KEY = require('../../cachers/entities/topics').CACHE_KEY;
-const ITEMS_CACHE_KEY = require('../../cachers/items/recent').CACHE_KEY;
-const { createRedisClient } = require('../../cachers/utils');
-import { errorHandler } from './';
+import { CACHE_KEY as TIMES_CACHE_KEY } from '../../cachers/entities/times.js';
+import { CACHE_KEY as TOPICS_CACHE_KEY } from '../../cachers/entities/topics.js';
+import { CACHE_KEY as ITEMS_CACHE_KEY } from '../../cachers/items/recent.js';
+import { createRedisClient } from '../../cachers/utils.js';
+import { errorHandler } from './index.js';
 
 const subsetSize = 4;
 

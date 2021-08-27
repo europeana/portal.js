@@ -50,10 +50,12 @@
   import ClientOnly from 'vue-client-only';
   import PageHeader from '../components/PageHeader';
   import klaroConfig from '../plugins/klaro-config';
+  import { version as bootstrapVersion } from 'bootstrap/package.json';
+  import { version as bootstrapVueVersion } from 'bootstrap-vue/package.json';
 
   const config = {
-    bootstrapVersion: require('bootstrap/package.json').version,
-    bootstrapVueVersion: require('bootstrap-vue/package.json').version,
+    bootstrapVersion,
+    bootstrapVueVersion,
     klaroVersion: '0.7.18'
   };
 

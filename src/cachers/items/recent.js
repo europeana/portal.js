@@ -1,5 +1,5 @@
-const dateFormat = require('dateformat');
-const utils = require('../utils');
+import dateFormat from 'dateformat';
+import * as utils from '../utils.js';
 
 const CACHE_KEY = '@europeana:portal.js:items:recent';
 
@@ -68,7 +68,7 @@ const cache = async(config = {}) => {
   }
 };
 
-module.exports = {
-  CACHE_KEY,
-  cache
+export {
+  cache,
+  CACHE_KEY
 };
