@@ -8,10 +8,10 @@ const localise = (unlocalised) => {
   return Object.keys(unlocalised)
     .map(id => ({
       id,
-      slug: getEntitySlug(id, unlocalised[id].prefLabel.en),
+      slug: getEntitySlug(id, unlocalised[id].prefLabel?.en),
       // For now only get English labels.
       // prefLabel: langMapValueForLocale(body[id].prefLabel, req.query.locale || 'en').values[0]
-      prefLabel: unlocalised[id].prefLabel.en
+      prefLabel: unlocalised[id].prefLabel?.en
     }))
     .filter(organisation => organisation.prefLabel);
 };
