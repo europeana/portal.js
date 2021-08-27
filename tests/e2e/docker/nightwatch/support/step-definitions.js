@@ -14,11 +14,14 @@ defineParameterType({
   }
 });
 
-defineStep('I accept cookies', () =>
-  i.acceptCookies());
-
-defineStep('I accept Klaro cookies', () =>
+defineStep('I accept all Klaro cookies', () =>
   i.acceptKlaroCookies());
+
+defineStep('I see the Klaro banner', () =>
+  i.seeKlaroBanner());
+
+defineStep('I do not see the Klaro banner', () =>
+  i.notSeeKlaroBanner());
 
 defineStep('I browse/open/visit (a/an/the)( ){target}', (pageName) =>
   i.openAPage(pageName));
