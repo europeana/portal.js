@@ -155,10 +155,10 @@ Feature: Search faceting
     And I click the `TYPE apply button`
     Then I am on page number 1
 
+@klaro-notice-not-dismissed
   Scenario: Toggle show all options in More Filters facet
     Given I am on the `search page`
-    # TODO: Uncomment when Klaro enabled by default
-    # When I accept Klaro cookies
+    When I accept all Klaro cookies
     And I click the `more filters dropdown button`
     And I should see 9 LANGUAGE checkboxes
     And I click the `Show all languages button`
@@ -175,10 +175,10 @@ Feature: Search faceting
     Then I should be on `/en/search?page=1&qf=LANGUAGE%3A%22en%22&qf=LANGUAGE%3A%22sv%22&view=grid`
     And I see a `more filters selected options count` with the text "2"
 
+@klaro-notice-not-dismissed
   Scenario: Applies the content tier query to the URL when clicking the toggle button
     Given I am on the `search page`
-    # TODO: Uncomment when Klaro enabled by default
-    # When I accept Klaro cookies
+    When I accept all Klaro cookies
     And I click the `more filters dropdown button`
     And I check the "\"0\"" "contentTier" checkbox
     And I click the `apply button`
