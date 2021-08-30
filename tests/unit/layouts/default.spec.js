@@ -46,7 +46,8 @@ const factory = (renderKlaro) => shallowMount(layout, {
     },
     $route: {
       query: {}
-    }
+    },
+    $matomo: () => {}
   },
   stubs: {
     CookieDisclaimer: true,

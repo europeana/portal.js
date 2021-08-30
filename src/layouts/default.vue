@@ -110,9 +110,7 @@
     },
 
     mounted() {
-      if (this.klaroEnabled) {
-        this.renderKlaro();
-      }
+      this.timeoutUntilPiwikSet(0);
 
       if (this.$auth.$storage.getUniversal('portalLoggingIn') && this.$auth.loggedIn) {
         this.showToast(this.$t('account.notifications.loggedIn'));
@@ -138,9 +136,23 @@
 
       renderKlaro() {
         if (typeof window.klaro !== 'undefined') {
-          window.klaro.render(klaroConfig(this.$i18n, this.$initHotjar), true);
+          window.klaro.render(klaroConfig(this.$i18n, this.$initHotjar, this.$matomo), true);
         }
         return null;
+      },
+
+      timeoutUntilPiwikSet(counter) {
+        if (this.$matomo || counter > 100) {
+          if (this.klaroEnabled) {
+            this.renderKlaro();
+          } else {
+            this.$matomo && this.$matomo.rememberCookieConsentGiven();
+          }
+        } else {
+          setTimeout(() => {
+            this.timeoutUntilPiwikSet(counter + 1);
+          }, 10);
+        }
       }
     },
 

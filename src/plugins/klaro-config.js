@@ -1,4 +1,4 @@
-export default ($i18n, $initHotjar) => {
+export default ($i18n, $initHotjar, $matomo) => {
   // TODO: uncomment when we have translations
   // const locale = $i18n.locale;
   // TODO: remove when we have translations
@@ -24,6 +24,7 @@ export default ($i18n, $initHotjar) => {
     htmlTexts: true,
     translations: translations('klaro.main'),
     services: [
+      service('matomo', ['usage'], [/^_pk(_.*)?/]),
       // https://help.hotjar.com/hc/en-us/articles/115011789248-Hotjar-Cookie-Information
       service('hotjar', ['usage'], [/^_hj(.*)?/]),
       service('i18n', ['essential'], ['i18n_locale_code'], true),
@@ -36,6 +37,9 @@ export default ($i18n, $initHotjar) => {
     callback: (consent, service) => {
       if (service.name === 'hotjar' && consent) {
         $initHotjar && $initHotjar();
+      }
+      if (service.name === 'matomo' && consent) {
+        $matomo && $matomo.rememberCookieConsentGiven();
       }
     }
   };
