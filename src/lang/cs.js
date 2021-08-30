@@ -13,6 +13,7 @@ export default {
       "loggedIn": "Nyní jste přihlášeni. Vítejte!",
       "loggedOut": "Nyní jste odhlášeni.",
       "noCollections": {
+        "curated": "Zatím jste nevybrali žádné kolekce",
         "private": "Ještě jste nevytvořil/a žádné soukromé galerie.",
         "public": "Ještě jste nevytvořil/a žádné veřejné galerie."
       },
@@ -50,6 +51,11 @@ export default {
     "date": "Datum:",
     "institution": "Instituce:",
     "title": "Název:"
+  },
+  "automatedCardGroup": {
+    "item": "Poslední položky",
+    "time": "Vybraná století",
+    "topic": "Doporučená témata"
   },
   "blog": {
     "author": "Autor",
@@ -99,13 +105,14 @@ export default {
   },
   "collectionsYouMightLike": "Sbírky, které by se vám mohly líbit",
   "colourSwatch": "Vzorník barev",
+  "contentYouMightLike": "Obsah, který by se vám mohl líbit",
   "contentfulManual": {
     "footerNavigation": {
+      "MoreInfoLabel": "Více informací",
       "about": "O stránkách Europeana",
       "forDevelopers": "Pro vývojáře",
       "help": "Nápověda",
       "meetUs": "O nás",
-      "MoreInfoLabel": "Více informací",
       "provide": "Přispívejte do naší databáze",
       "subscribe": "Přihlaste se k odběru našeho newsletteru",
       "terms": "Podmínky používání a zásady ochrany osobních údajů"
@@ -116,7 +123,6 @@ export default {
       "teachers": "Učitelé"
     }
   },
-  "contentYouMightLike": "Obsah, který by se vám mohl líbit",
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Přijmout odmítnutí cookies.",
     "link": "Více informací",
@@ -175,39 +181,6 @@ export default {
     "exhibitions": "Výstavy"
   },
   "facets": {
-    "api": {
-      "name": "Vyhledat",
-      "options": {
-        "fulltext": "Záznamy s fulltextem",
-        "metadata": "Pouze záznamy s metadaty"
-      }
-    },
-    "button": {
-      "apply": "Použít",
-      "cancel": "Zrušit",
-      "morefilters": "Další filtry",
-      "reset": "Obnovit",
-      "showAll": "Zobrazit vše {label}",
-      "showLess": "Zobrazit méně {label}"
-    },
-    "collection": {
-      "name": "Kategorie",
-      "options": {
-        "archaeology": "Archeologie",
-        "art": "Umění",
-        "fashion": "Móda",
-        "industrial": "Průmyslové dědictví",
-        "manuscript": "Rukopisy",
-        "map": "Mapy a geografie",
-        "migration": "Migrace",
-        "music": "Hudba",
-        "nature": "Přírodní dějiny",
-        "newspaper": "Noviny",
-        "photography": "Fotografie",
-        "sport": "Sport",
-        "ww1": "1914–1918"
-      }
-    },
     "COLOURPALETTE": {
       "name": "Barva | Barvy",
       "options": {
@@ -357,14 +330,6 @@ export default {
         "#FFFFFF": "Bílý"
       }
     },
-    "contentTier": {
-      "name": "Jsou zahrnuty položky, které nesplňují naše publikační kritéria.",
-      "notification": "Několik dostupných položek nesplňuje naše publikační kritéria. K těmto položkám získáte přístup po aktivaci filtru „přijatelnost položky“ v nabídce „více filtrů“.",
-      "options": {
-        "*": "Jsou zahrnuty položky, které nesplňují naše publikační kritéria.",
-        "0": "Zobrazit pouze položky, které nesplňují naše publikační kritéria."
-      }
-    },
     "COUNTRY": {
       "name": "Země původu"
     },
@@ -402,18 +367,6 @@ export default {
     "PROVIDER": {
       "name": "Agregátor"
     },
-    "proxy_dc_format": {
-      "name": "Formát | Formáty"
-    },
-    "proxy_dc_type": {
-      "name": "Druh | Druhy"
-    },
-    "proxy_dcterms_issued": {
-      "name": "Datum vydání"
-    },
-    "proxy_dcterms_medium": {
-      "name": "Médium | Média"
-    },
     "REUSABILITY": {
       "name": "Mohu to znovu použít?",
       "options": {
@@ -432,6 +385,59 @@ export default {
         "TEXT": "Text",
         "VIDEO": "Video"
       }
+    },
+    "api": {
+      "name": "Vyhledat",
+      "options": {
+        "fulltext": "Záznamy s fulltextem",
+        "metadata": "Pouze záznamy s metadaty"
+      }
+    },
+    "button": {
+      "apply": "Použít",
+      "cancel": "Zrušit",
+      "morefilters": "Další filtry",
+      "reset": "Obnovit",
+      "showAll": "Zobrazit vše {label}",
+      "showLess": "Zobrazit méně {label}"
+    },
+    "collection": {
+      "name": "Kategorie",
+      "options": {
+        "archaeology": "Archeologie",
+        "art": "Umění",
+        "fashion": "Móda",
+        "industrial": "Průmyslové dědictví",
+        "manuscript": "Rukopisy",
+        "map": "Mapy a geografie",
+        "migration": "Migrace",
+        "music": "Hudba",
+        "nature": "Přírodní dějiny",
+        "newspaper": "Noviny",
+        "photography": "Fotografie",
+        "sport": "Sport",
+        "ww1": "1914–1918"
+      }
+    },
+    "contentTier": {
+      "name": "Jsou zahrnuty položky, které nesplňují naše publikační kritéria.",
+      "notification": "Několik dostupných položek nesplňuje naše publikační kritéria. K těmto položkám získáte přístup po aktivaci filtru „přijatelnost položky“ v nabídce „více filtrů“.",
+      "options": {
+        "*": "Jsou zahrnuty položky, které nesplňují naše publikační kritéria.",
+        "0": "Zobrazit pouze položky, které nesplňují naše publikační kritéria."
+      }
+    },
+    "proxy_dc_format": {
+      "name": "Formát | Formáty"
+    },
+    "proxy_dc_type": {
+      "name": "Druh | Druhy"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Datum vydání"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Médium | Média"
     }
   },
   "feedback": {
@@ -468,6 +474,8 @@ export default {
       "dcRights": "Práva",
       "dcSource": "Zdroj",
       "dcSubject": "Předmět",
+      "dcTitle": "Název",
+      "dcType": "Druh objektu",
       "dctermsCreated": "Datum vzniku",
       "dctermsExtent": "Rozsah",
       "dctermsHasPart": "se skládá z",
@@ -484,8 +492,6 @@ export default {
       "dctermsReferences": "odkazuje na",
       "dctermsSpatial": "Místa",
       "dctermsTemporal": "Časové",
-      "dcTitle": "Název",
-      "dcType": "Druh objektu",
       "edmCountry": "Země původu",
       "edmCurrentLocation": "Aktuální umístění",
       "edmDataProvider": "Poskytovatelská instituce",
@@ -520,6 +526,18 @@ export default {
     "disclaimerLine2": "Evropská komise nezaručuje přesnost informací a nepřijímá žádnou odpovědnost ani žádnou odpovědnost, pokud jde o informace na této webové stránce. Evropská komise ani žádná osoba jednající jejím jménem nenese odpovědnost ani odpovědnost za přesnost nebo použití informací na tomto webu.",
     "findUsElsewhere": "Najděte nás jinde",
     "imageDescription": "Spolufinancováno z nástroje Evropské unie pro propojení Evropy",
+    "navigation": {
+      "MoreInfoLabel": "Více informací",
+      "about": "O nás",
+      "accessibility": "Přístupnost",
+      "cookies": "Cookies",
+      "forDevelopers": "Pro vývojáře",
+      "help": "Nápověda",
+      "privacy": "Zásady ochrany osobních údajů",
+      "provide": "Přispívejte do naší databáze",
+      "subscribe": "Přihlaste se k odběru našeho newsletteru",
+      "terms": "Podmínky použití"
+    },
     "ourMission": "Naše mise",
     "ourMissionQuote": "Europeana umožňuje převod předmětů kulturního dědictví do digitální podoby. Rozvíjíme odbornou způsobilost, nástroje a pravidla digitální přeměny a podporujeme partnerství, která urychlují inovace."
   },
@@ -561,6 +579,7 @@ export default {
   "items": {
     "itemCount": "1 položka |{count} položek",
     "itemOf": "{max} z {count} položek",
+    "recent": "Poslední položky",
     "recommendationsDisclaimer": "Palec nahoru pro přidání do galerie - Palec dolů, pokud se vám nelíbí",
     "recommended": "Doporučené položky",
     "youMightLike": "Položky, které by se vám mohly líbit"
@@ -666,6 +685,15 @@ export default {
       "modalTitle": "Řekni díky."
     }
   },
+  "multilingual": {
+    "automated": "Automatizovaný překlad",
+    "currentLanguage": "Chcete tuto položku vidět v {0}?",
+    "differentLanguage": "jiný jazyk",
+    "enrichment": "Obohacení partnerskými projekty",
+    "original": "Původní metadata",
+    "originalLanguage": "původní jazyk",
+    "other": "Jiné jazyky"
+  },
   "newWindow": "otevře se v novém okně",
   "noMoreResults": "Pro vaše zadání neexistují žádné další výsledky vyhledávání.",
   "noResults": "Žádné výsledky",
@@ -691,6 +719,7 @@ export default {
   },
   "readMore": "Více informací",
   "record": {
+    "IIIFViewer": "Prohlížeč IIIF",
     "allMetaData": "Všechna metadata",
     "copyEmbedLabel": "Vložit kód (kliknutím zkopírujete)",
     "downloadCopyrightInfo": "Tato položka je chráněna autorskými právy a nelze ji stáhnout.",
@@ -698,7 +727,6 @@ export default {
     "extendedInformation": "Bližší informace",
     "goodToKnow": "Užitečné informace",
     "hideAll": "Skrýt všechny informace",
-    "IIIFViewer": "Prohlížeč IIIF",
     "location": "Umístění",
     "locationOnMap": "Umístění na mapě",
     "mediaPlayer": "Přehrávač médií",
