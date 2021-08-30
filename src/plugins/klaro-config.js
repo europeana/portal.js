@@ -1,4 +1,4 @@
-export default ($i18n, $gtm, $gtmId, $initHotjar) => {
+export default ($i18n, $gtm, $gtmId, $initHotjar, $matomo) => {
   // TODO: uncomment when we have translations
   // const locale = $i18n.locale;
   // TODO: remove when we have translations
@@ -25,6 +25,7 @@ export default ($i18n, $gtm, $gtmId, $initHotjar) => {
     services: [
       // https://developers.google.com/analytics/devguides/collection/analyticsjs/cookie-usage#gtagjs_google_analytics_4_-_cookie_usage
       service('google-analytics', ['usage'], [/^_ga(_.*)?/, '_gid']),
+      service('matomo', ['usage'], [/^_pk(_.*)?/]),
       // https://help.hotjar.com/hc/en-us/articles/115011789248-Hotjar-Cookie-Information
       service('hotjar', ['usage'], [/^_hj(.*)?/]),
       service('i18n', ['essential'], ['i18n_locale_code'], true),
@@ -41,6 +42,9 @@ export default ($i18n, $gtm, $gtmId, $initHotjar) => {
       }
       if (service.name === 'hotjar' && consent) {
         $initHotjar();
+      }
+      if (service.name === 'matomo' && consent) {
+        $matomo && $matomo.rememberCookieConsentGiven();
       }
     }
   };

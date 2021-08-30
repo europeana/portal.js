@@ -39,6 +39,7 @@ export default ({ app, $config: { matomo: { host, siteId } }, store }) => {
     router: app.router,
     host,
     siteId,
-    trackSiteSearch: trackSiteSearch(store)
+    trackSiteSearch: trackSiteSearch(store),
+    requireCookieConsent: true
   });
 };
