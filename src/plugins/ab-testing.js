@@ -3,13 +3,21 @@ import experiments from '../experiments';
 export default function(ctx, inject) {
   // is there an experiment?
   if (experiments.length === 0) {
+    inject('experiments', () => {
+      return false;
+    });
     return false;
   }
   // check consent
-  const consentManager = ctx.klaro?.getManager();
-  if (!consentManager?.getConsent('matomo')) {
+  const consentCookie = ctx.$cookies.get('klaro');
+  if (!consentCookie?.matomo) {
+    inject('experiments', () => {
+      return false;
+    });
     return false;
   }
+
+  const activeExperiments = {};
 
   experiments.forEach((experiment) => {
     if (!experiment.name || !experiment.variants || experiment.variants.length <= 1) {
@@ -32,20 +40,20 @@ export default function(ctx, inject) {
       ctx.$cookies.set(`eu-ab-${experiment.name}`, variant);
 
       // inform Matomo
-      // _paq.push(['AbTesting::enter', {experiment: 'theExperimentName', variation: 'variationNameOrIdActivatedForCurrentVisitor'}]);
+      // _paq.push(['AbTesting::enter', {experiment: experiment.name, variation: variant}]);
     }
 
-    // return variant
-    const experimentDefaults = {
-      'experimentName': experiment.name,
-      'variant': variant
+    // set variant for export
+    activeExperiments[experiment.name] =  {
+      variant
     };
-    experimentDefaults);
   });
   // inject for further use
   // for example classname
   // :class="$experiment.experimentClass"
   // or in if statement
-  // v-if="$experiment.variant === 'variant1"
-  inject('$experiments',
+  // v-if="$experiments.[NAME].variant === 'variant1"
+  inject('experiments', () => {
+    return activeExperiments;
+  });
 }
