@@ -45,7 +45,7 @@ describe('store/set', () => {
     beforeEach(() => {
       commit.resetHistory();
       dispatch.resetHistory();
-      store.actions.$apis = { set: {}, recommendation: {} };
+      store.actions.$apis = { set: {}, recommendation: {}, record: {} };
       store.actions.$auth = {};
     });
 
@@ -309,9 +309,37 @@ describe('store/set', () => {
     });
 
     describe('fetchCreationPreviews()', () => {
-      it('fetches first items for each creation via $apis.record');
+      const state = { creations: [{ id: '01', items: [
+        'http://data.europeana.eu/item/111',
+        'http://data.europeana.eu/item/112'
+      ] },
+      { id: '02', items: [
+        'http://data.europeana.eu/item/222',
+        'http://data.europeana.eu/item/223'
+      ] }] };
+      const searchResponse = { items: [{ id: '/111',
+        edmPreview: ['http://www.example.eu/img/111'] }, { id: '/222',
+        edmPreview: ['http://www.example.eu/img/222'] }] };
 
-      it('commits edm:preview of items with "setCreationPreviews"');
+      it('fetches first items for each creation via $apis.record', async() => {
+        store.actions.$apis.record.search = sinon.stub().resolves(searchResponse);
+
+        await store.actions.fetchCreationPreviews({ state, commit });
+
+        store.actions.$apis.record.search.should.have.been.calledWith({
+          query: 'europeana_id:("/111" OR "/222")',
+          qf: ['contentTier:*'],
+          profile: 'minimal'
+        });
+      });
+
+      it('commits edm:preview of items with "setCreationPreviews"', async() => {
+        store.actions.$apis.record.search = sinon.stub().resolves(searchResponse);
+
+        await store.actions.fetchCreationPreviews({ state, commit });
+
+        commit.should.have.been.calledWith('setCreationPreviews', { '01': 'http://www.example.eu/img/111', '02': 'http://www.example.eu/img/222' });
+      });
     });
 
     describe('fetchCurations()', () => {

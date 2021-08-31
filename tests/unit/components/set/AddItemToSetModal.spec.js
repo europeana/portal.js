@@ -64,7 +64,7 @@ describe('components/set/AddItemToSetModal', () => {
     });
   });
 
-  describe('toggle item button', () => {
+  describe('AddItemToSetButton', () => {
     it('adds item to gallery when item is not yet added', async() => {
       const wrapper = factory({ itemId: '/123/abc', modalId: 'add-item-to-set-modal-/123/abc' });
       await wrapper.setData({ fetched: true });
@@ -79,7 +79,6 @@ describe('components/set/AddItemToSetModal', () => {
       await wrapper.setData({ fetched: true });
 
       await wrapper.find('[data-qa="toggle item button 0"]').trigger('click');
-      // await wrapper.find('[data-qa="toggle item button 0"]').vm.$emit('toggle');
 
       storeDispatch.should.have.been.calledWith('set/removeItem', { setId: '001', itemId: '/000/aaa' });
     });
