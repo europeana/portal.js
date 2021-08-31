@@ -455,6 +455,7 @@ export default {
     "termsOfService": "Terms of Service",
     "thankYou": "Thank you!",
     "title": "Send feedback",
+    "validFeedback": "Your feedback has to consist of 5 words at minimum",
     "validEmail": "Enter a valid email address"
   },
   "fieldLabels": {

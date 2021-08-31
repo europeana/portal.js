@@ -39,18 +39,26 @@
         @submit.prevent="submitForm"
       >
         <b-form-group>
-          <b-form-textarea
-            v-if="currentStep === 1"
-            ref="input"
-            v-model="feedback"
-            name="feedback"
-            required="required"
-            :placeholder="$t('feedback.form.placeholders.feedback')"
-            :state="feedbackInputState"
-            rows="5"
-            data-qa="feedback textarea"
-            @invalid="flagInvalidFeedback"
-          />
+          <div v-if="currentStep === 1">
+            <b-form-textarea
+              ref="input"
+              v-model="feedback"
+              name="feedback"
+              required="required"
+              :placeholder="$t('feedback.validFeedback')"
+              :state="feedbackInputState"
+              rows="5"
+              data-qa="feedback textarea"
+              aria-describedby="input-live-feedback"
+              @invalid="flagInvalidFeedback"
+            />
+            <b-form-invalid-feedback
+              id="input-live-feedback"
+              data-qa="feedback message invalid"
+            >
+              {{ $t('feedback.validFeedback') }}
+            </b-form-invalid-feedback>
+          </div>
           <div
             v-if="currentStep === 2"
             id="step2"
@@ -273,6 +281,19 @@
         this.feedbackInputState = false;
       },
 
+      wordCount() {
+        const textarea = this.$refs.input;
+        if (!textarea) {
+          return false;
+        }
+
+        if (textarea.value.trim().match(/\w+/g) === null ||
+          (textarea.value.trim().match(/\w+/g) !== null && textarea.value.trim().match(/\w+/g).length < 5)) {
+          return false;
+        }
+        return true;
+      },
+
       skipEmail() {
         this.email = '';
         this.submitForm();
@@ -282,6 +303,13 @@
         // If this handler gets called, then the fields are valid
         this.feedbackInputState = true;
         this.emailInputState = true;
+
+        if (this.currentStep === 1) {
+          if (!this.wordCount()) {
+            this.feedbackInputState = false;
+            return false;
+          }
+        }
 
         if (this.currentStep > 1) {
           await this.sendFeedback();
