@@ -303,11 +303,9 @@
         this.feedbackInputState = true;
         this.emailInputState = true;
 
-        if (this.currentStep === 1) {
-          if (!this.wordCount()) {
-            this.feedbackInputState = false;
-            return false;
-          }
+        if (this.currentStep === 1 && !this.wordCount()) {
+          this.feedbackInputState = false;
+          return;
         }
 
         if (this.currentStep > 1) {
