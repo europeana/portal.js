@@ -282,13 +282,12 @@
       },
 
       wordCount() {
-        const textarea = this.$refs.input;
-        if (!textarea) {
+        if (!this.feedback) {
           return false;
         }
 
-        if (textarea.value.trim().match(/\w+/g) === null ||
-          (textarea.value.trim().match(/\w+/g) !== null && textarea.value.trim().match(/\w+/g).length < 5)) {
+        if (this.feedback.trim().match(/\w+/g) === null ||
+          (this.feedback.trim().match(/\w+/g) !== null && this.feedback.trim().match(/\w+/g).length < 5)) {
           return false;
         }
         return true;
