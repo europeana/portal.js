@@ -510,7 +510,8 @@ export default {
       "keywords": "Keywords (provided by the community)",
       "timestampCreated": "Timestamp created",
       "timestampUpdate": "Timestamp updated",
-      "wasPresentAt": "Was present at"
+      "wasPresentAt": "Was present at",
+      "year": "Year"
     },
     "webResource": {
       "about": "RDF About",
