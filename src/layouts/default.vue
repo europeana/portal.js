@@ -137,8 +137,27 @@
       renderKlaro() {
         if (typeof window.klaro !== 'undefined') {
           window.klaro.render(klaroConfig(this.$i18n, this.$initHotjar, this.$matomo), true);
+          let manager = window.klaro.getManager(klaroConfig(this.$i18n, this.$initHotjar, this.$matomo));
+          manager.watch({
+            update(manager, eventType, data) {
+              console.log('manager:', manager, 'eventType:', eventType, 'data:', data);
+              if (eventType === 'saveConsents') {
+                if (data.type === 'accept') {
+                  //this.trackCookieConsent('Accept all', true);
+                } else if (data.type === 'decline') {
+                  //this.trackCookieConsent('Decline', null);
+                } else if (data.type == 'save') {
+                  //this.trackCookieConsent('Accept Selected', (({ matomo, hotjar}) => ({ matomo, hotjar}))(data.consents);
+                }
+              }
+            }
+          });
         }
         return null;
+      },
+
+      trackKlaro(button, options = {}) {
+        this.$matomo.trackEvent('Klaro', button, options.toString());
       },
 
       timeoutUntilPiwikSet(counter) {
