@@ -52,6 +52,11 @@ export default {
     "institution": "Institution:",
     "title": "Title:"
   },
+  "automatedCardGroup": {
+    "item": "Recent Items",
+    "time": "Featured Centuries",
+    "topic": "Featured Topics"
+  },
   "blog": {
     "author": "Author",
     "authors": "Authors",
@@ -100,13 +105,14 @@ export default {
   },
   "collectionsYouMightLike": "Collections you might like",
   "colourSwatch": "Colour swatch",
+  "contentYouMightLike": "Content you might like",
   "contentfulManual": {
     "footerNavigation": {
+      "MoreInfoLabel": "More Info",
       "about": "About Europeana",
       "forDevelopers": "For developers",
       "help": "Help",
       "meetUs": "Meet the team",
-      "MoreInfoLabel": "More Info",
       "provide": "Become a data provider",
       "subscribe": "Subscribe to our Newsletter",
       "terms": "Terms of Use and Privacy Policy"
@@ -117,7 +123,6 @@ export default {
       "teachers": "Teachers"
     }
   },
-  "contentYouMightLike": "Content you might like",
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Accept cookie disclaimer",
     "link": "More info",
@@ -176,39 +181,6 @@ export default {
     "exhibitions": "Exhibition | Exhibitions"
   },
   "facets": {
-    "api": {
-      "name": "Search for",
-      "options": {
-        "fulltext": "Items with full-text",
-        "metadata": "Metadata-only items"
-      }
-    },
-    "button": {
-      "apply": "Apply",
-      "cancel": "Cancel",
-      "morefilters": "More filters",
-      "reset": "Reset",
-      "showAll": "Show all {label}",
-      "showLess": "Show less {label}"
-    },
-    "collection": {
-      "name": "Collection",
-      "options": {
-        "archaeology": "Archaeology",
-        "art": "Art",
-        "fashion": "Fashion",
-        "industrial": "Industrial Heritage",
-        "manuscript": "Manuscripts",
-        "map": "Maps and Geography",
-        "migration": "Migration",
-        "music": "Music",
-        "nature": "Natural History",
-        "newspaper": "Newspapers",
-        "photography": "Photography",
-        "sport": "Sport",
-        "ww1": "1914-1918"
-      }
-    },
     "COLOURPALETTE": {
       "name": "Colour | Colours",
       "options": {
@@ -358,14 +330,6 @@ export default {
         "#FFFFFF": "White"
       }
     },
-    "contentTier": {
-      "name": "Item quality",
-      "notification": "Some items not matching our publishing criteria are available. You can access those items by activating the 'Item Quality' filter under 'More filters'.",
-      "options": {
-        "*": "Includes items not meeting our publishing criteria",
-        "0": "Show only items not meeting our publishing criteria"
-      }
-    },
     "COUNTRY": {
       "name": "Providing country"
     },
@@ -403,18 +367,6 @@ export default {
     "PROVIDER": {
       "name": "Aggregator | Aggregators"
     },
-    "proxy_dc_format": {
-      "name": "Format | Formats"
-    },
-    "proxy_dc_type": {
-      "name": "Type | Types"
-    },
-    "proxy_dcterms_issued": {
-      "name": "Date issued"
-    },
-    "proxy_dcterms_medium": {
-      "name": "Medium | Media"
-    },
     "REUSABILITY": {
       "name": "Can I use this?",
       "options": {
@@ -433,6 +385,59 @@ export default {
         "TEXT": "Text",
         "VIDEO": "Video"
       }
+    },
+    "api": {
+      "name": "Search for",
+      "options": {
+        "fulltext": "Items with full-text",
+        "metadata": "Metadata-only items"
+      }
+    },
+    "button": {
+      "apply": "Apply",
+      "cancel": "Cancel",
+      "morefilters": "More filters",
+      "reset": "Reset",
+      "showAll": "Show all {label}",
+      "showLess": "Show less {label}"
+    },
+    "collection": {
+      "name": "Collection",
+      "options": {
+        "archaeology": "Archaeology",
+        "art": "Art",
+        "fashion": "Fashion",
+        "industrial": "Industrial Heritage",
+        "manuscript": "Manuscripts",
+        "map": "Maps and Geography",
+        "migration": "Migration",
+        "music": "Music",
+        "nature": "Natural History",
+        "newspaper": "Newspapers",
+        "photography": "Photography",
+        "sport": "Sport",
+        "ww1": "1914-1918"
+      }
+    },
+    "contentTier": {
+      "name": "Item quality",
+      "notification": "Some items not matching our publishing criteria are available. You can access those items by activating the 'Item Quality' filter under 'More filters'.",
+      "options": {
+        "*": "Includes items not meeting our publishing criteria",
+        "0": "Show only items not meeting our publishing criteria"
+      }
+    },
+    "proxy_dc_format": {
+      "name": "Format | Formats"
+    },
+    "proxy_dc_type": {
+      "name": "Type | Types"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Date issued"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Medium | Media"
     }
   },
   "feedback": {
@@ -469,6 +474,8 @@ export default {
       "dcRights": "Rights",
       "dcSource": "Source",
       "dcSubject": "Subject",
+      "dcTitle": "Title",
+      "dcType": "Type of object",
       "dctermsCreated": "Creation date",
       "dctermsExtent": "Extent",
       "dctermsHasPart": "Consists of",
@@ -485,8 +492,6 @@ export default {
       "dctermsReferences": "References",
       "dctermsSpatial": "Places",
       "dctermsTemporal": "Temporal",
-      "dcTitle": "Title",
-      "dcType": "Type of object",
       "edmCountry": "Providing country",
       "edmCurrentLocation": "Current location",
       "edmDataProvider": "Providing institution",
@@ -521,6 +526,18 @@ export default {
     "disclaimerLine2": "The European Commission does not guarantee the accuracy of the information and accepts no responsibility or liability whatsoever with regard to the information on this website. Neither the European Commission, nor any person acting on the European Commission’s behalf, is responsible or liable for the accuracy or use of the information on this website.",
     "findUsElsewhere": "Find us elsewhere",
     "imageDescription": "Co-financed by the Connecting Europe Facility of the European Union",
+    "navigation": {
+      "MoreInfoLabel": "More Info",
+      "about": "About us",
+      "accessibility": "Accessibility",
+      "cookies": "Cookies",
+      "forDevelopers": "For developers",
+      "help": "Help",
+      "privacy": "Privacy policy",
+      "provide": "Become a data partner",
+      "subscribe": "Subscribe to our newsletter",
+      "terms": "Terms of use"
+    },
     "ourMission": "Our mission",
     "ourMissionQuote": "Europeana empowers the cultural heritage sector in its digital transformation. We develop expertise, tools and policies to embrace digital change and encourage partnerships that foster innovation."
   },
@@ -570,11 +587,11 @@ export default {
   "klaro": {
     "main": {
       "consentModal": {
-        "description": "We take your data privacy seriously. Here you can assess and customize the services that we'd like to use on this website. You're in charge! Enable or disable services as you see fit.",
+        "description": "Here you can see and customise the services that we'd like to use on this website. To learn more please read our <a href='/rights/privacy-policy'>privacy policy</a>.",
         "title": "Services we would like to use."
       },
       "consentNotice": {
-        "description": "We care about your privacy and only use data to improve your experience. We don’t use any personal information for advertising. You can change your consent every 15 days."
+        "description": "Hi! Could we please enable some additional services for analytics and security? You can always change or withdraw your consent later."
       },
       "ok": "Okay",
       "purposes": {
@@ -600,15 +617,8 @@ export default {
         "title": "Auth Strategy"
       },
       "debugSettings": {
+        "description": "Helps debugging API requests",
         "title": "Debug toggle"
-      },
-      "google-analytics": {
-        "description": "Collects anonymous statistics on how visitors interact with the website.",
-        "title": "Google Analytics"
-      },
-      "google-optimize": {
-        "description": "Enables you to participate in website experiments that guide our design choices for the best user experience.",
-        "title": "Google Optimize"
       },
       "hotjar": {
         "description": "Activates a survey widget giving you the option to respond to our visitor satisfaction surveys.",
@@ -668,6 +678,15 @@ export default {
       "modalTitle": "Say thanks"
     }
   },
+  "multilingual": {
+    "automated": "Automated translation",
+    "currentLanguage": "Would you like to see this item in {0}?",
+    "differentLanguage": "a different language",
+    "enrichment": "Enrichment by partner projects",
+    "original": "Original metadata",
+    "originalLanguage": "original language",
+    "other": "Other languages"
+  },
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
   "noResults": "No results",
@@ -693,6 +712,7 @@ export default {
   },
   "readMore": "Read more",
   "record": {
+    "IIIFViewer": "IIIF viewer",
     "allMetaData": "All metadata",
     "copyEmbedLabel": "Embed code (Click to copy)",
     "downloadCopyrightInfo": "This item is in copyright and can not be downloaded.",
@@ -700,7 +720,6 @@ export default {
     "extendedInformation": "Extended information",
     "goodToKnow": "Good to know",
     "hideAll": "Hide all information",
-    "IIIFViewer": "IIIF viewer",
     "location": "Location",
     "locationOnMap": "Location on map",
     "mediaPlayer": "Media player",

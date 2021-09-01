@@ -1,4 +1,4 @@
-const utils = require('../utils');
+import * as utils from '../utils.js';
 
 const CACHE_KEY = '@europeana:portal.js:entity:topics';
 
@@ -74,7 +74,6 @@ const ids = [
   '60',
   '61',
   '62',
-  '62',
   '74',
   '744',
   '79',
@@ -127,7 +126,7 @@ const cache = async(config = {}) => {
   }
 };
 
-module.exports = {
-  CACHE_KEY,
-  cache
+export {
+  cache,
+  CACHE_KEY
 };

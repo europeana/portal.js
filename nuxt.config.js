@@ -2,13 +2,16 @@
 
 const APP_SITE_NAME = 'Europeana';
 
-const pkg = require('./package');
-const i18nLocales = require('./src/plugins/i18n/locales.js');
-const i18nDateTime = require('./src/plugins/i18n/datetime.js');
+import pkg from './package.json';
+import nuxtPkg from 'nuxt/package.json';
+
+import i18nLocales from './src/plugins/i18n/locales.js';
+import i18nDateTime from './src/plugins/i18n/datetime.js';
+import { parseQuery, stringifyQuery } from './src/plugins/vue-router.cjs';
 
 const featureIsEnabled = (value) => Boolean(Number(value));
 
-module.exports = {
+export default {
   /*
   ** Runtime config
   */
@@ -64,8 +67,8 @@ module.exports = {
         logLevel: process.env.ELASTIC_APM_LOG_LEVEL || 'info',
         serviceName: 'portal-js',
         serviceVersion: pkg.version,
-        frameworkName: 'Nuxt.js',
-        frameworkVersion: require('nuxt/package.json').version
+        frameworkName: 'Nuxt',
+        frameworkVersion: nuxtPkg.version
       }
     },
     europeana: {
@@ -99,13 +102,6 @@ module.exports = {
           url: process.env.EUROPEANA_ENTITY_MANAGEMENT_API_URL
         }
       }
-    },
-    gtm: {
-      id: process.env.GOOGLE_TAG_MANAGER_ID
-    },
-    googleOptimize: {
-      id: process.env.GOOGLE_OPTIMIZE_ID,
-      experiments: {}
     },
     hotjar: {
       id: process.env.HOTJAR_ID,
@@ -230,7 +226,8 @@ module.exports = {
       'SidebarPlugin',
       'TablePlugin',
       'TabsPlugin',
-      'ToastPlugin'
+      'ToastPlugin',
+      'TooltipPlugin'
     ]
   },
 
@@ -240,7 +237,7 @@ module.exports = {
   plugins: [
     '~/plugins/vue-matomo.client',
     '~/plugins/vue',
-    '~/plugins/i18n.js',
+    '~/plugins/i18n/iso-locale',
     '~/plugins/hotjar.client',
     '~/plugins/link',
     '~/plugins/page',
@@ -264,11 +261,6 @@ module.exports = {
   modules: [
     '~/modules/elastic-apm',
     '@nuxtjs/axios',
-    'nuxt-google-optimize',
-    ['@nuxtjs/gtm', {
-      pageTracking: true,
-      autoInit: !featureIsEnabled(process.env.ENABLE_KLARO)
-    }],
     ['@nuxtjs/robots', JSON.parse(process.env.NUXTJS_ROBOTS || '{"UserAgent":"*","Disallow":"/"}')],
     'bootstrap-vue/nuxt',
     'cookie-universal-nuxt',
@@ -330,10 +322,6 @@ module.exports = {
     plugins: ['~/plugins/apis']
   },
 
-  gtm: {
-    enabled: true
-  },
-
   router: {
     middleware: ['legacy/index', 'l10n'],
     extendRoutes(routes) {
@@ -349,12 +337,8 @@ module.exports = {
       });
     },
     linkExactActiveClass: 'exact-active-link',
-    parseQuery: (query) => require('qs').parse(query),
-    // To ensure that `"query": ""` results in `?query=`, not `?query`
-    stringifyQuery: (query) => {
-      const stringified = require('qs').stringify(query, { arrayFormat: 'repeat' });
-      return stringified ? '?' + stringified : '';
-    }
+    parseQuery,
+    stringifyQuery
   },
 
   serverMiddleware: [

@@ -1,3 +1,4 @@
+import qs from 'qs';
 import { apiError, createKeycloakAuthAxios } from './utils';
 
 export const BASE_URL = process.env.EUROPEANA_SET_API_URL || 'https://api.europeana.eu/set';
@@ -13,8 +14,14 @@ export default (context = {}) => {
   return {
     $axios,
 
-    search(params) {
-      return $axios.get('/search', { params })
+    search(searchParams) {
+      return $axios.get('/search', {
+        params: { ...$axios.defaults.params, ...searchParams },
+        // TODO: move serializer into utils as it's common to all APIs
+        paramsSerializer(params) {
+          return qs.stringify(params, { arrayFormat: 'repeat' });
+        }
+      })
         .then(response => response)
         .catch(error => {
           throw apiError(error);
@@ -45,7 +52,7 @@ export default (context = {}) => {
       const defaults = {
         profile: 'standard'
       };
-      const params = { ...defaults, ...options };
+      const params = { ...$axios.defaults.params, ...defaults, ...options };
 
       return $axios.get(`/${setIdFromUri(id)}`, { params })
         .then(response => {

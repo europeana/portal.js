@@ -1,6 +1,6 @@
-const axios = require('axios');
-const redis = require('redis');
-const { promisify } = require('util');
+import axios from 'axios';
+import redis from 'redis';
+import { promisify } from 'util';
 
 const redisConfig = (config = {}) => {
   const redisOptions = {
@@ -60,7 +60,7 @@ const errorMessage = (error) => {
   return message;
 };
 
-module.exports = {
+export {
   createEuropeanaApiClient,
   createRedisClient,
   errorMessage,

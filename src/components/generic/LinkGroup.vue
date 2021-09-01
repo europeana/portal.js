@@ -13,8 +13,9 @@
       :class="listClass"
     >
       <li
-        v-for="(link, index) in links"
+        v-for="(link, index) in filteredLinks"
         :key="index"
+        class="link"
       >
         <SmartLink
           v-if="link.url"
@@ -67,6 +68,14 @@
       listClass: {
         type: String,
         default: ''
+      }
+    },
+    computed: {
+      filteredLinks() {
+        if (!this.links) {
+          return false;
+        }
+        return this.links.filter(link => link !== null);
       }
     }
   };

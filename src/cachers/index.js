@@ -1,14 +1,11 @@
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config();
-}
-
-const defu = require('defu');
-const utils = require('./utils');
-const nuxtConfig = require('../../nuxt.config');
+import defu from 'defu';
+import { createRedisClient, errorMessage } from './utils.js';
+import nuxtConfig from '../../nuxt.config.js';
 const runtimeConfig = defu(nuxtConfig.privateRuntimeConfig, nuxtConfig.publicRuntimeConfig);
 
 const cachers = [
   'entities:organisations',
+  'entities:times',
   'entities:topics',
   'items:recent'
 ];
@@ -20,16 +17,16 @@ const cli = (cacher) => {
 
   const cacherPath = cacher.replace(/:/g, '/');
 
-  return require(`./${cacherPath}`);
+  return import(`./${cacherPath}.js`);
 };
 
-const main = () => {
+const main = async() => {
   const cacher = process.argv[2];
   const command = process.argv[3];
 
   let executor;
 
-  const cacherCli = cli(cacher);
+  const cacherCli = await cli(cacher);
 
   switch (command) {
     case 'set':
@@ -49,12 +46,12 @@ const main = () => {
 
 const readCacheKey = (cacheKey) => {
   try {
-    const redisClient = utils.createRedisClient(runtimeConfig.redis);
+    const redisClient = createRedisClient(runtimeConfig.redis);
     return redisClient.getAsync(cacheKey)
       .then(data => redisClient.quitAsync()
         .then(() => ({ body: JSON.parse(data) || {} })));
   } catch (error) {
-    return Promise.reject({ statusCode: 500, body: utils.errorMessage(error) });
+    return Promise.reject({ statusCode: 500, body: errorMessage(error) });
   }
 };
 

@@ -47,6 +47,11 @@ export default {
     "institution": "Instituutio:",
     "title": "Nimi:"
   },
+  "automatedCardGroup": {
+    "item": "Viimeisimmät kohdetta",
+    "time": "Esillä olevat vuosisadat",
+    "topic": "Esillä olevat aiheet"
+  },
   "blog": {
     "author": "Kirjoittaja",
     "authors": "Kirjoittajat",
@@ -94,13 +99,14 @@ export default {
   },
   "collectionsYouMightLike": "Saattaisit tykätä näistä kokoelmista",
   "colourSwatch": "Värimalli",
+  "contentYouMightLike": "Saattaisit tykätä näistä sisällöistä",
   "contentfulManual": {
     "footerNavigation": {
+      "MoreInfoLabel": "Lisätietoja",
       "about": "Tietoja Europeana",
       "forDevelopers": "Kehittäjille",
       "help": "Apua",
       "meetUs": "Tutustu tiimiin",
-      "MoreInfoLabel": "Lisätietoja",
       "provide": "Ryhdy tietojentarjoajaksi",
       "subscribe": "Tilaa uutiskirjeemme",
       "terms": "Käyttöehdot ja tietosuojakäytäntö"
@@ -111,7 +117,6 @@ export default {
       "teachers": "Opettajat"
     }
   },
-  "contentYouMightLike": "Saattaisit tykätä näistä sisällöistä",
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Evästeiden hyväksymisen vastuuvapauslauseke",
     "link": "Lisätietoja",
@@ -152,39 +157,6 @@ export default {
     "exhibitions": "Näyttelyt"
   },
   "facets": {
-    "api": {
-      "name": "Hae",
-      "options": {
-        "fulltext": "Tallentaa koko tekstin kanssa",
-        "metadata": "Vain metatiedot"
-      }
-    },
-    "button": {
-      "apply": "Käytä",
-      "cancel": "Peruuttaa",
-      "morefilters": "Lisää suodattimia",
-      "reset": "Nollaa",
-      "showAll": "Näytä kaikki {label}",
-      "showLess": "Näytä vähemmän {label}"
-    },
-    "collection": {
-      "name": "Kategoria",
-      "options": {
-        "archaeology": "Arkeologia",
-        "art": "Taide",
-        "fashion": "Muoti",
-        "industrial": "Teollisuusperintö",
-        "manuscript": "Käsikirjoitukset",
-        "map": "Kartat ja maantiede",
-        "migration": "Muuttoliike",
-        "music": "Musiikki",
-        "nature": "Luonnonhistoria",
-        "newspaper": "Sanomalehdet",
-        "photography": "Valokuvaus",
-        "sport": "Urheilu",
-        "ww1": "1914–1918"
-      }
-    },
     "COLOURPALETTE": {
       "name": "Väri | värit",
       "options": {
@@ -334,14 +306,6 @@ export default {
         "#FFFFFF": "Valkoinen"
       }
     },
-    "contentTier": {
-      "name": "Sisältää kohteita, jotka eivät täytä julkaisuehtojamme",
-      "notification": "Jotkin saatavilla olevista kohteista eivät täytä julkaisuehtojamme. Voit näyttää nämä kohteet aktivoimalla \"Lisää suodattimia\" -kohdan \"Kohteiden laatu\" -suodattimen.",
-      "options": {
-        "*": "Sisältää kohteita, jotka eivät täytä julkaisuehtojamme",
-        "0": "Näytä ainoastaan kohteet, jotka eivät täytä julkaisuehtojamme"
-      }
-    },
     "COUNTRY": {
       "name": "Alkuperämaa"
     },
@@ -379,18 +343,6 @@ export default {
     "PROVIDER": {
       "name": "Kokoaja"
     },
-    "proxy_dc_format": {
-      "name": "Muoto | Muodot"
-    },
-    "proxy_dc_type": {
-      "name": "Tyyppi | Tyypit"
-    },
-    "proxy_dcterms_issued": {
-      "name": "Päivämäärä"
-    },
-    "proxy_dcterms_medium": {
-      "name": "Media | Mediat"
-    },
     "REUSABILITY": {
       "name": "Voinko käyttää tätä?",
       "options": {
@@ -409,6 +361,59 @@ export default {
         "TEXT": "Teksti",
         "VIDEO": "Video"
       }
+    },
+    "api": {
+      "name": "Hae",
+      "options": {
+        "fulltext": "Tallentaa koko tekstin kanssa",
+        "metadata": "Vain metatiedot"
+      }
+    },
+    "button": {
+      "apply": "Käytä",
+      "cancel": "Peruuttaa",
+      "morefilters": "Lisää suodattimia",
+      "reset": "Nollaa",
+      "showAll": "Näytä kaikki {label}",
+      "showLess": "Näytä vähemmän {label}"
+    },
+    "collection": {
+      "name": "Kategoria",
+      "options": {
+        "archaeology": "Arkeologia",
+        "art": "Taide",
+        "fashion": "Muoti",
+        "industrial": "Teollisuusperintö",
+        "manuscript": "Käsikirjoitukset",
+        "map": "Kartat ja maantiede",
+        "migration": "Muuttoliike",
+        "music": "Musiikki",
+        "nature": "Luonnonhistoria",
+        "newspaper": "Sanomalehdet",
+        "photography": "Valokuvaus",
+        "sport": "Urheilu",
+        "ww1": "1914–1918"
+      }
+    },
+    "contentTier": {
+      "name": "Sisältää kohteita, jotka eivät täytä julkaisuehtojamme",
+      "notification": "Jotkin saatavilla olevista kohteista eivät täytä julkaisuehtojamme. Voit näyttää nämä kohteet aktivoimalla \"Lisää suodattimia\" -kohdan \"Kohteiden laatu\" -suodattimen.",
+      "options": {
+        "*": "Sisältää kohteita, jotka eivät täytä julkaisuehtojamme",
+        "0": "Näytä ainoastaan kohteet, jotka eivät täytä julkaisuehtojamme"
+      }
+    },
+    "proxy_dc_format": {
+      "name": "Muoto | Muodot"
+    },
+    "proxy_dc_type": {
+      "name": "Tyyppi | Tyypit"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Päivämäärä"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Media | Mediat"
     }
   },
   "feedback": {
@@ -445,6 +450,8 @@ export default {
       "dcRights": "Oikeudet",
       "dcSource": "Lähde",
       "dcSubject": "Aihe",
+      "dcTitle": "Nimi",
+      "dcType": "Kohteen tyyppi",
       "dctermsCreated": "Luomispäivä",
       "dctermsExtent": "Laajuus",
       "dctermsHasPart": "Koostuu seuraavista:",
@@ -461,8 +468,6 @@ export default {
       "dctermsReferences": "Viittaa kohteeseen",
       "dctermsSpatial": "Paikat",
       "dctermsTemporal": "Ajoitus",
-      "dcTitle": "Nimi",
-      "dcType": "Kohteen tyyppi",
       "edmCountry": "Alkuperämaa",
       "edmCurrentLocation": "Nykyinen sijainti",
       "edmDataProvider": "Tarjoajainstituutio",
@@ -497,6 +502,18 @@ export default {
     "disclaimerLine2": "Euroopan komissio ei takaa tietojen paikkansapitävyyttä eikä ota mitään vastuuta tämän verkkosivuston tiedoista. Kumpikaan Euroopan komissio tai kukaan Euroopan komission puolesta toimiva henkilö ei ole vastuussa tai vastuussa tämän verkkosivuston tietojen oikeellisuudesta tai käytöstä.",
     "findUsElsewhere": "Löydä meidät muualta",
     "imageDescription": "Euroopan unionin Verkkojen Eurooppa -väline on osallistunut rahoitukseen",
+    "navigation": {
+      "MoreInfoLabel": "Lisätietoja",
+      "about": "Tietoa meistä",
+      "accessibility": "Saavutettavuus",
+      "cookies": "Evästeet",
+      "forDevelopers": "Kehittäjille",
+      "help": "Apua",
+      "privacy": "Tietosuojakäytäntö",
+      "provide": "Ryhdy tietojentarjoajaksi",
+      "subscribe": "Tilaa uutiskirjeemme",
+      "terms": "Käyttöehdot"
+    },
     "ourMission": "Tehtävämme",
     "ourMissionQuote": "Europeana edesauttaa kulttuuriperinnön digitaalista muodonmuutosta. Kehitämme asiantuntemusta, välineitä ja menettelytapoja digitaalisen muutoksen omaksumiseksi ja kannustamme innovaatioita edistäviä kumppanuuksia."
   },
@@ -633,6 +650,11 @@ export default {
     "notFound": "Ei löydy",
     "paginationLimitExceeded": "Vain ensimmäiset {limit} hakutulosta voidaan näyttää."
   },
+  "multilingual": {
+    "original": "Alkuperäiset metatiedot",
+    "originalLanguage": "alkuperäinen kieli",
+    "other": "Muut kielet"
+  },
   "newWindow": "avautuu uuteen ikkunaan",
   "noMoreResults": "Hakusi ei tuottanut enempää tuloksia.",
   "noResults": "Ei tuloksia",
@@ -649,6 +671,7 @@ export default {
   },
   "readMore": "Lue lisää",
   "record": {
+    "IIIFViewer": "IIIF-katsoja",
     "allMetaData": "Kaikki metatiedot",
     "copyEmbedLabel": "Upota koodi (kopioi napsauttamalla)",
     "downloadCopyrightInfo": "Tämä tuote on suojattu tekijänoikeudella eikä sitä voi ladata.",
@@ -656,7 +679,6 @@ export default {
     "extendedInformation": "Tarkemmat tiedot",
     "goodToKnow": "Hyvä tietää",
     "hideAll": "Piilota kaikki tiedot",
-    "IIIFViewer": "IIIF-katsoja",
     "location": "Sijainti",
     "locationOnMap": "Sijainti kartalla",
     "mediaPlayer": "Mediasoitin",

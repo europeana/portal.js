@@ -11,18 +11,19 @@ Feature: Home page
     Then I see a `browse page`
     And I am on an accessible page
     And I should have a Europeana branded page title
+    And I do not see the Klaro banner
 
   Scenario: Seeing a notification banner
 
     When I open `/en`
     Then I see a `notification banner`
 
-  @cookie-notice-not-dismissed
+  @klaro-notice-not-dismissed
   Scenario: Seeing the cookie disclaimer on first visit
 
     When I open `/en`
-    And I see a `cookie disclaimer`
-    And I accept cookies
-    And there is no `cookie disclaimer`
+    And I see the Klaro banner
+    And I accept all Klaro cookies
+    And I do not see the Klaro banner
     And I open `/en`
-    Then there is no `cookie disclaimer`
+    Then I do not see the Klaro banner

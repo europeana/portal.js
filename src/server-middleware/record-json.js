@@ -37,7 +37,7 @@ export default (req, res, next) => {
       });
     })
     .catch(error => {
-      res.status(error.response.status || 500);
+      res.status(error.response?.status || 500);
       jsonResponse(res, error.response.data);
     });
 };

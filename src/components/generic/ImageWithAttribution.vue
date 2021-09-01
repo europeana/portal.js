@@ -10,8 +10,11 @@
       :class="hero ? 'hero' : ''"
       @click="!citeCollapsed ? toggleCite : null"
     >
-      <figure>
+      <figure
+        :class="{ empty: !src }"
+      >
         <OptimisedImage
+          v-if="src"
           :src="src"
           :width="width"
           :height="height"
@@ -70,7 +73,7 @@
       src: {
         type: String,
         required: true,
-        default: ''
+        default: null
       },
       width: {
         type: Number,

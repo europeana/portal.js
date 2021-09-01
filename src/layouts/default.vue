@@ -50,10 +50,12 @@
   import ClientOnly from 'vue-client-only';
   import PageHeader from '../components/PageHeader';
   import klaroConfig from '../plugins/klaro-config';
+  import { version as bootstrapVersion } from 'bootstrap/package.json';
+  import { version as bootstrapVueVersion } from 'bootstrap-vue/package.json';
 
   const config = {
-    bootstrapVersion: require('bootstrap/package.json').version,
-    bootstrapVueVersion: require('bootstrap-vue/package.json').version,
+    bootstrapVersion,
+    bootstrapVueVersion,
     klaroVersion: '0.7.18'
   };
 
@@ -108,9 +110,7 @@
     },
 
     mounted() {
-      if (this.klaroEnabled) {
-        this.renderKlaro();
-      }
+      this.timeoutUntilPiwikSet(0);
 
       if (this.$auth.$storage.getUniversal('portalLoggingIn') && this.$auth.loggedIn) {
         this.showToast(this.$t('account.notifications.loggedIn'));
@@ -136,9 +136,23 @@
 
       renderKlaro() {
         if (typeof window.klaro !== 'undefined') {
-          window.klaro.render(klaroConfig(this.$i18n, this.$gtm, this.$config.gtm.id, this.$initHotjar), true);
+          window.klaro.render(klaroConfig(this.$i18n, this.$initHotjar, this.$matomo), true);
         }
         return null;
+      },
+
+      timeoutUntilPiwikSet(counter) {
+        if (this.$matomo || counter > 100) {
+          if (this.klaroEnabled) {
+            this.renderKlaro();
+          } else {
+            this.$matomo && this.$matomo.rememberCookieConsentGiven();
+          }
+        } else {
+          setTimeout(() => {
+            this.timeoutUntilPiwikSet(counter + 1);
+          }, 10);
+        }
       }
     },
 
@@ -160,10 +174,7 @@
         ],
         script: [
           { src: `https://unpkg.com/klaro@${this.klaroVersion}/dist/klaro-no-css.js`, defer: true }
-        ]
-          .concat(this.$exp.$experimentIndex > -1 && this.$config.googleOptimize.id ? [
-            { src: `https://www.googleoptimize.com/optimize.js?id=${this.$config.googleOptimize.id}` }
-          ] : []),
+        ],
         meta: [
           { hid: 'description', property: 'description', content: 'Europeana' },
           { hid: 'og:url', property: 'og:url', content: this.canonicalUrl },

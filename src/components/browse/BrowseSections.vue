@@ -21,10 +21,10 @@
         :total="section.total"
         :cards="section.items"
       />
-      <component
-        :is="automatedCardGroupComponent(section.genre)"
+      <AutomatedCardGroup
         v-else-if="contentType(section, 'AutomatedCardGroup')"
         :key="index"
+        :section-type="section.genre"
       />
       <HTMLEmbed
         v-else-if="contentType(section, 'Embed')"
@@ -34,25 +34,25 @@
       <CompareImageSlider
         v-else-if="contentType(section, 'ImageComparison')"
         :key="index"
-        :left-image-src="section.hasPartCollection.items[0].image.url"
-        :left-image-content-type="section.hasPartCollection.items[0].image.contentType"
+        :left-image-src="imageCompareImage(section, 0) ? imageCompareImage(section, 0).url : null"
+        :left-image-content-type="imageCompareImage(section, 0) ? imageCompareImage(section, 0).contentType : null"
         :left-image-attribution="attributionFields(section.hasPartCollection.items[0])"
-        :left-image-width="section.hasPartCollection.items[0].image.width"
-        :left-image-height="section.hasPartCollection.items[0].image.height"
-        :right-image-src="section.hasPartCollection.items[1].image.url"
-        :right-image-content-type="section.hasPartCollection.items[1].image.contentType"
+        :left-image-width="imageCompareImage(section, 0) ? imageCompareImage(section, 0).width : null"
+        :left-image-height="imageCompareImage(section, 0) ? imageCompareImage(section, 0).height : null"
+        :right-image-src="imageCompareImage(section, 1) ? imageCompareImage(section, 1).url : null"
+        :right-image-content-type="imageCompareImage(section, 1) ? imageCompareImage(section, 1).contentType : null"
         :right-image-attribution="attributionFields(section.hasPartCollection.items[1])"
-        :right-image-width="section.hasPartCollection.items[1].image.width"
-        :right-image-height="section.hasPartCollection.items[1].image.height"
+        :right-image-width="imageCompareImage(section, 1) ? imageCompareImage(section, 1).width : null"
+        :right-image-height="imageCompareImage(section, 1) ? imageCompareImage(section, 1).height : null"
       />
       <ImageWithAttribution
         v-else-if="contentType(section, 'ImageWithAttribution')"
         :key="index"
-        :src="section.image.url"
-        :content-type="section.image.contentType"
-        :width="section.image.width"
-        :height="section.image.height"
-        :alt="section.image.description ? section.image.description : ''"
+        :src="section.image ? section.image.url : null"
+        :content-type="section.image ? section.image.contentType : null"
+        :width="section.image ? section.image.width : null"
+        :height="section.image ? section.image.height : null"
+        :alt="section.image && section.image.description ? section.image.description : ''"
         :attribution="attributionFields(section)"
         :rights-statement="section.license"
       />
@@ -76,8 +76,7 @@
       ImageWithAttribution: () => import('../generic/ImageWithAttribution'),
       CallToAction: () => import('../generic/CallToAction'),
       RichText: () => import('./RichText'),
-      RecentItems: () => import('../item/RecentItems'),
-      FeaturedTopics: () => import('../entity/FeaturedTopics')
+      AutomatedCardGroup: () => import('../browse/AutomatedCardGroup')
     },
 
     props: {
@@ -103,21 +102,6 @@
     },
 
     methods: {
-      automatedCardGroupComponent(genre) {
-        let component;
-
-        switch (genre) {
-        case 'Featured topics':
-          component = 'FeaturedTopics';
-          break;
-        case 'Recent items':
-          component = 'RecentItems';
-          break;
-        }
-
-        return component;
-      },
-
       async sectionsWithLatestCardGroups(sections) {
         const content = [].concat(sections);
         const genres = content
@@ -171,12 +155,15 @@
       },
       attributionFields(fields) {
         return {
-          name: fields.name,
-          creator: fields.creator,
-          provider: fields.provider,
-          rightsStatement: fields.license,
-          url: fields.url
+          name: fields?.name,
+          creator: fields?.creator,
+          provider: fields?.provider,
+          rightsStatement: fields?.license,
+          url: fields?.url
         };
+      },
+      imageCompareImage(section, index) {
+        return section.hasPartCollection?.items?.[index]?.image;
       }
     }
   };

@@ -142,8 +142,7 @@
         };
 
         this.gettingGalleries = true;
-        const searchParams = new URLSearchParams(params);
-        this.$apis.set.search(searchParams)
+        this.$apis.set.search(params)
           .then(searchResults => {
             this.activeQueryTerm = query;
             this.searchResults = searchResults.data.items || [];

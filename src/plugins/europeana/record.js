@@ -8,6 +8,7 @@ import search from './search';
 import { thumbnailUrl, thumbnailTypeForMimeType } from  './thumbnail';
 import { getEntityUri, getEntityQuery } from './entity';
 import { isIIIFPresentation } from '../media';
+import localeCodes from '../i18n/codes';
 
 export const BASE_URL = process.env.EUROPEANA_RECORD_API_URL || 'https://api.europeana.eu/record';
 const MAX_VALUES_PER_PROXY_FIELD = 10;
@@ -182,6 +183,28 @@ function setMatchingEntities(fields, key, entities) {
   }
 }
 
+/**
+ * Find the currently preferred metadata language.
+ * Only makes sense with translated item pages.
+ * If no language is specified, defaults to the record's edmLanguage.
+ * Only returns languages also supported by the UI & translate API.
+ * @param {string} edmLang two letter edm language code of the record
+ * @param {Object} options options from the record retrieval.
+ * @param {string} options.metadataLanguage two-letter language code from the user
+ * @return {?string} related entities
+ */
+export function preferredLanguage(edmLang, options = {}) {
+  let lang = null;
+
+  if (options.metadataLanguage) {
+    lang = options.metadataLanguage;
+  } else if (localeCodes.includes(edmLang)) {
+    lang = edmLang;
+  }
+
+  return lang;
+}
+
 export default (context = {}) => {
   const $axios = createAxios({ id: 'record', baseURL: BASE_URL }, context);
 
@@ -197,7 +220,7 @@ export default (context = {}) => {
      * @param {Object} edm data from API response
      * @return {Object} parsed data
      */
-    parseRecordDataFromApiResponse(data) {
+    parseRecordDataFromApiResponse(data, options = {}) {
       const edm = data.object;
       const providerAggregation = edm.aggregations[0];
 
@@ -225,7 +248,7 @@ export default (context = {}) => {
           }
         }
       }
-
+      let prefLang;
       if (context.$config?.app?.features?.translatedItems) {
         // TODO: initially API only supports translation of title & descripiton.
         // Extend to other fields as available, or stop merging the proxies and
@@ -236,10 +259,10 @@ export default (context = {}) => {
             proxyData[field].translationSource = 'automated';
           }
         });
+        prefLang = preferredLanguage(edm.europeanaAggregation.edmLanguage.def[0], options);
       }
 
       const allMediaUris = this.aggregationMediaUris(providerAggregation).map(Object.freeze);
-
       return {
         allMediaUris,
         altTitle: proxyData.dctermsAlternative,
@@ -255,7 +278,9 @@ export default (context = {}) => {
         timespans,
         organizations,
         title: proxyData.dcTitle,
-        schemaOrg: data.schemaOrg ? Object.freeze(JSON.stringify(data.schemaOrg)) : undefined
+        schemaOrg: data.schemaOrg ? Object.freeze(JSON.stringify(data.schemaOrg)) : undefined,
+        edmLanguage: edm.europeanaAggregation.edmLanguage,
+        metadataLanguage: prefLang
       };
     },
 
@@ -329,11 +354,8 @@ export default (context = {}) => {
       const params = { ...this.$axios.defaults.params };
       if (context.$config?.app?.features?.translatedItems) {
         params.profile = 'translate';
-        if (options.metadataLang) {
-          params.lang = options.metadataLang;
-        } else {
-          // TODO: Re-evaluate fallbacks when API allows omission of "lang"
-          params.lang = options.locale || 'en';
+        if (options.metadataLanguage) {
+          params.lang = options.metadataLanguage;
         }
       } else {
         // No point in switching on experimental schema.org with item translations.
@@ -348,8 +370,10 @@ export default (context = {}) => {
       }
 
       return this.$axios.get(`${path}${europeanaId}.json`, { params })
-        .then(response => this.parseRecordDataFromApiResponse(response.data))
-        .then(parsed => reduceLangMapsForLocale(parsed, options.metadataLang || options.locale))
+        .then(response => this.parseRecordDataFromApiResponse(response.data, options))
+        .then(parsed => {
+          return reduceLangMapsForLocale(parsed, parsed.metadataLanguage || options.locale, options);
+        })
         .then(reduced => ({
           record: reduced,
           error: null
