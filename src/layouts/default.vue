@@ -137,17 +137,19 @@
       renderKlaro() {
         if (typeof window.klaro !== 'undefined') {
           window.klaro.render(klaroConfig(this.$i18n, this.$initHotjar, this.$matomo), true);
-          let manager = window.klaro.getManager(klaroConfig(this.$i18n, this.$initHotjar, this.$matomo));
+          const manager = window.klaro.getManager(klaroConfig(this.$i18n, this.$initHotjar, this.$matomo));
+          // make matomo tracking availble to the klaro manager callback, so that events can be tracked from within that.
+          manager.trackKlaro = this.trackKlaro.bind(this);
           manager.watch({
             update(manager, eventType, data) {
-              console.log('manager:', manager, 'eventType:', eventType, 'data:', data);
               if (eventType === 'saveConsents') {
+                const consentOptions = (({ matomo, hotjar}) => ({ matomo, hotjar}))(data.consents);
                 if (data.type === 'accept') {
-                  //this.trackCookieConsent('Accept all', true);
+                  manager.trackKlaro('Okay/Accept all', consentOptions);
                 } else if (data.type === 'decline') {
-                  //this.trackCookieConsent('Decline', null);
+                  manager.trackKlaro('Decline', consentOptions);
                 } else if (data.type == 'save') {
-                  //this.trackCookieConsent('Accept Selected', (({ matomo, hotjar}) => ({ matomo, hotjar}))(data.consents);
+                  manager.trackKlaro('Accept Selected', consentOptions);
                 }
               }
             }
@@ -157,7 +159,7 @@
       },
 
       trackKlaro(button, options = {}) {
-        this.$matomo.trackEvent('Klaro', button, options.toString());
+        this.$matomo.trackEvent('Klaro', button, JSON.stringify(options));
       },
 
       timeoutUntilPiwikSet(counter) {
