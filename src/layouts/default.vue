@@ -136,30 +136,42 @@
 
       renderKlaro() {
         if (typeof window.klaro !== 'undefined') {
-          window.klaro.render(klaroConfig(this.$i18n, this.$initHotjar, this.$matomo), true);
-          const manager = window.klaro.getManager(klaroConfig(this.$i18n, this.$initHotjar, this.$matomo));
-          // make matomo tracking availble to the klaro manager callback, so that events can be tracked from within that.
-          manager.trackKlaro = this.trackKlaro.bind(this);
-          manager.watch({
-            update(manager, eventType, data) {
-              if (eventType === 'saveConsents') {
-                const consentOptions = (({ matomo, hotjar}) => ({ matomo, hotjar}))(data.consents);
-                if (data.type === 'accept') {
-                  manager.trackKlaro('Okay/Accept all', consentOptions);
-                } else if (data.type === 'decline') {
-                  manager.trackKlaro('Decline', consentOptions);
-                } else if (data.type == 'save') {
-                  manager.trackKlaro('Accept Selected', consentOptions);
-                }
-              }
-            }
-          });
+          const config = klaroConfig(this.$i18n, this.$initHotjar, this.$matomo);
+          const manager = window.klaro.getManager(config);
+
+          window.klaro.render(config, true);
+          manager.watch({ update: this.watchKlaroManagerUpdate });
         }
-        return null;
       },
 
-      trackKlaro(button, options = {}) {
-        this.$matomo.trackEvent('Klaro', button, JSON.stringify(options));
+      watchKlaroManagerUpdate(manager, eventType, data) {
+        let eventAction;
+
+        if (eventType === 'saveConsents') {
+          if (data.type === 'accept') {
+            eventAction = 'Okay/Accept all';
+          } else if (data.type === 'decline') {
+            eventAction = 'Decline';
+          } else if (data.type == 'save') {
+            eventAction = 'Accept selected';
+          }
+        }
+
+        if (eventAction) {
+          this.trackKlaro(eventAction, data.consents);
+        }
+      },
+
+      trackKlaro(eventAction, consents = {}) {
+        if (!this.$matomo) {
+          return;
+        }
+
+        const consentOptions = {
+          hotjar: consents.hotjar,
+          matomo: consents.matomo
+        };
+        this.$matomo.trackEvent('Klaro', eventAction, JSON.stringify(consentOptions));
       },
 
       timeoutUntilPiwikSet(counter) {
