@@ -53,11 +53,7 @@
   import { version as bootstrapVersion } from 'bootstrap/package.json';
   import { version as bootstrapVueVersion } from 'bootstrap-vue/package.json';
 
-  const config = {
-    bootstrapVersion,
-    bootstrapVueVersion,
-    klaroVersion: '0.7.18'
-  };
+  const klaroVersion = '0.7.18';
 
   export default {
     components: {
@@ -70,7 +66,6 @@
 
     data() {
       return {
-        ...config,
         linkGroups: {},
         enableAnnouncer: true,
         klaro: null
@@ -191,14 +186,14 @@
         link: [
           { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700&subset=latin,greek,cyrillic&display=swap',
             body: true },
-          { rel: 'stylesheet', href: `https://unpkg.com/bootstrap@${this.bootstrapVersion}/dist/css/bootstrap.min.css` },
-          { rel: 'stylesheet', href: `https://cdn.kiprotect.com/klaro/v${this.klaroVersion}/klaro.min.css` },
-          { rel: 'stylesheet', href: `https://unpkg.com/bootstrap-vue@${this.bootstrapVueVersion}/dist/bootstrap-vue.min.css` },
+          { rel: 'stylesheet', href: `https://unpkg.com/bootstrap@${bootstrapVersion}/dist/css/bootstrap.min.css` },
+          { rel: 'stylesheet', href: `https://cdn.kiprotect.com/klaro/v${klaroVersion}/klaro.min.css` },
+          { rel: 'stylesheet', href: `https://unpkg.com/bootstrap-vue@${bootstrapVueVersion}/dist/bootstrap-vue.min.css` },
           { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrlWithoutLocale },
           ...i18nSeo.link
         ],
         script: [
-          { src: `https://unpkg.com/klaro@${this.klaroVersion}/dist/klaro-no-css.js`, defer: true }
+          { src: `https://unpkg.com/klaro@${klaroVersion}/dist/klaro-no-css.js`, defer: true }
         ],
         meta: [
           { hid: 'description', property: 'description', content: 'Europeana' },
