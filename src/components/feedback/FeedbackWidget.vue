@@ -479,7 +479,6 @@
           flex-wrap: wrap;
           .button-group-right {
             width: 100%;
-            order: -1;
           }
           button {
             width: 100%;
