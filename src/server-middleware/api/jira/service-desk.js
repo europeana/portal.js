@@ -33,6 +33,13 @@ const jiraData = (options, req) => {
   return data;
 };
 
+const validateReq = (req) => {
+  if (req.body?.feedback?.trim()?.match(/\w+/g)?.length < 5) {
+    return false;
+  }
+  return true;
+};
+
 const jiraOptions = options => ({
   auth: {
     username: options.username,
@@ -45,10 +52,14 @@ const jiraOptions = options => ({
 });
 
 export default (options = {}) => (req, res) => {
-  // Docs: https://developer.atlassian.com/cloud/jira/service-desk/rest/api-group-request/#api-rest-servicedeskapi-request-post
-  return axios
-    .create({ baseURL: options.origin })
-    .post(JIRA_SERVICE_DESK_API_PATH, jiraData(options, req), jiraOptions(options))
-    .then(jiraRes => res.sendStatus(jiraRes.status))
-    .catch(error => errorHandler(res, error));
+  if (validateReq(req)) {
+    // Docs: https://developer.atlassian.com/cloud/jira/service-desk/rest/api-group-request/#api-rest-servicedeskapi-request-post
+    return axios
+      .create({ baseURL: options.origin })
+      .post(JIRA_SERVICE_DESK_API_PATH, jiraData(options, req), jiraOptions(options))
+      .then(jiraRes => res.sendStatus(jiraRes.status))
+      .catch(error => errorHandler(res, error));
+  } else {
+    return errorHandler(res, { message: 'Invalid feedback.' });
+  }
 };

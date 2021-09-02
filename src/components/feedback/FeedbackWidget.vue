@@ -292,8 +292,7 @@
           return false;
         }
 
-        if (this.feedback.trim().match(/\w+/g) === null ||
-          (this.feedback.trim().match(/\w+/g) !== null && this.feedback.trim().match(/\w+/g).length < 5)) {
+        if (this.feedback?.trim()?.match(/\w+/g)?.length < 5) {
           return false;
         }
         return true;
