@@ -134,7 +134,7 @@
               >
                 {{ $t('actions.cancel') }}
               </b-button>
-              <div class="text-right">
+              <div class="button-group-right">
                 <b-button
                   v-if="showSkipButton"
                   data-qa="feedback skip button"
@@ -475,6 +475,17 @@
       }
       .form-buttons {
         flex: 0 1 100%;
+        @media (max-width: $bp-small) {
+          flex-wrap: wrap;
+          .button-group-right {
+            width: 100%;
+            order: -1;
+          }
+          button {
+            width: 100%;
+            margin: 0.5rem 0 0 !important;
+          }
+        }
       }
       .form-control {
         padding: 0.75rem;
