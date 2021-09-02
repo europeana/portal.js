@@ -13,17 +13,11 @@ const store = new Vuex.Store({
   state: { breadcrumb: {} }
 });
 
-const factory = (renderKlaro) => shallowMount(layout, {
+const factory = (data = {}) => shallowMount(layout, {
   localVue,
   store,
   data() {
-    return {
-      enableAnnouncer: true
-    };
-  },
-  methods: {
-    // TODO: don't stub methods like this
-    renderKlaro: renderKlaro || sinon.spy()
+    return data;
   },
   mocks: {
     $t: key => key,
@@ -48,7 +42,10 @@ const factory = (renderKlaro) => shallowMount(layout, {
     $route: {
       query: {}
     },
-    $matomo: () => {}
+    $matomo: () => {},
+    $i18n: {
+      t: key => key
+    }
   },
   stubs: {
     CookieDisclaimer: true,
@@ -68,11 +65,65 @@ describe('layouts/default.vue', () => {
   });
 
   describe('Klaro', () => {
-    it('is enabled', () => {
-      const renderKlaro = sinon.spy();
-      factory(renderKlaro);
+    const klaroManagerStub = {
+      watch: sinon.spy()
+    };
+    const klaroMock = {
+      getManager: sinon.stub().returns(klaroManagerStub),
+      render: sinon.spy()
+    };
 
-      renderKlaro.should.have.been.called;
+    describe('renderKlaro', () => {
+      it('renders Klaro', () => {
+        factory({ klaro: klaroMock });
+
+        klaroMock.render.should.have.been.called;
+      });
+
+      it('registers Klaro manager update watcher', () => {
+        const wrapper = factory({ klaro: klaroMock });
+
+        klaroManagerStub.watch.should.have.been.calledWith({ update: wrapper.vm.watchKlaroManagerUpdate });
+      });
+    });
+
+    describe('watchKlaroManagerUpdate', () => {
+      const wrapper = factory({ klaro: klaroMock });
+      wrapper.vm.trackKlaroClickEvent = sinon.spy();
+      const manager = null;
+
+      context('with event type "saveConsents"', () => {
+        const eventType = 'saveConsents';
+
+        const clickEvents = {
+          accept: 'Okay/Accept all',
+          decline: 'Decline',
+          save: 'Accept selected'
+        };
+        for (const dataType in clickEvents) {
+          context(`and data type "${dataType}"`, () => {
+            const data = { type: dataType };
+            const eventName = clickEvents[dataType];
+            it(`tracks Klaro click event with name "${eventName}"`, () => {
+              wrapper.vm.watchKlaroManagerUpdate(manager, eventType, data);
+
+              wrapper.vm.trackKlaroClickEvent.should.have.been.calledWith(eventName);
+            });
+          });
+        }
+      });
+    });
+
+    describe('trackKlaroClickEvent', () => {
+      it('tracks Klaro clicks with Matomo', () => {
+        const wrapper = factory({ klaro: klaroMock });
+        wrapper.vm.$matomo.trackEvent = sinon.spy();
+
+        const eventName = 'Saved';
+        wrapper.vm.trackKlaroClickEvent(eventName);
+
+        wrapper.vm.$matomo.trackEvent.should.have.been.calledWith('Klaro', 'Clicked', eventName);
+      });
     });
   });
 });

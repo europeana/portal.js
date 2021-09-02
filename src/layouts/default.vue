@@ -72,7 +72,8 @@
       return {
         ...config,
         linkGroups: {},
-        enableAnnouncer: true
+        enableAnnouncer: true,
+        klaro: null
       };
     },
 
@@ -111,6 +112,9 @@
 
     mounted() {
       this.timeoutUntilPiwikSet(0);
+      if (this.klaroEnabled) {
+        this.klaro = window.klaro;
+      }
 
       if (this.$auth.$storage.getUniversal('portalLoggingIn') && this.$auth.loggedIn) {
         this.showToast(this.$t('account.notifications.loggedIn'));
@@ -135,11 +139,11 @@
       },
 
       renderKlaro() {
-        if (typeof window.klaro !== 'undefined') {
+        if (this.klaro) {
           const config = klaroConfig(this.$i18n, this.$initHotjar, this.$matomo);
-          const manager = window.klaro.getManager(config);
+          const manager = this.klaro.getManager(config);
 
-          window.klaro.render(config, true);
+          this.klaro.render(config, true);
           manager.watch({ update: this.watchKlaroManagerUpdate });
         }
       },
