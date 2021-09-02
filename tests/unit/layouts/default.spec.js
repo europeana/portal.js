@@ -22,6 +22,7 @@ const factory = (renderKlaro) => shallowMount(layout, {
     };
   },
   methods: {
+    // TODO: don't stub methods like this
     renderKlaro: renderKlaro || sinon.spy()
   },
   mocks: {

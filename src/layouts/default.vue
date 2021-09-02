@@ -152,7 +152,7 @@
             eventAction = 'Okay/Accept all';
           } else if (data.type === 'decline') {
             eventAction = 'Decline';
-          } else if (data.type == 'save') {
+          } else if (data.type === 'save') {
             eventAction = 'Accept selected';
           }
         }
