@@ -39,137 +39,143 @@
         @submit.prevent="submitForm"
       >
         <b-form-group>
-          <div v-if="currentStep === 1">
-            <b-form-textarea
-              ref="input"
-              v-model="feedback"
-              name="feedback"
-              required="required"
-              :placeholder="$t('feedback.validFeedback')"
-              :state="feedbackInputState"
-              rows="5"
-              data-qa="feedback textarea"
-              aria-describedby="input-live-feedback"
-              @invalid="flagInvalidFeedback"
-            />
-            <b-form-invalid-feedback
-              id="input-live-feedback"
-              data-qa="feedback message invalid"
-            >
-              {{ $t('feedback.validFeedback') }}
-            </b-form-invalid-feedback>
-          </div>
-          <div
-            v-if="currentStep === 2"
-            id="step2"
-          >
-            <b-form-input
-              v-model="email"
-              autofocus
-              type="email"
-              name="email"
-              :placeholder="$t('feedback.form.placeholders.email')"
-              :state="emailInputState"
-              aria-describedby="input-live-feedback"
-              data-qa="feedback email input"
-              @invalid="flagInvalidEmail"
-            />
-            <b-form-invalid-feedback
-              id="input-live-feedback"
-              data-qa="feedback email invalid"
-            >
-              {{ $t('feedback.validEmail') }}
-            </b-form-invalid-feedback>
-            <b-form-text id="input-live-help">
-              <p class="mb-0">
-                {{ $t('feedback.emailOptional') }}
-              </p>
-              <i18n
-                path="feedback.policies"
-                tag="span"
+          <div class="d-flex flex-wrap">
+            <div class="form-fields">
+              <div v-if="currentStep === 1">
+                <b-form-textarea
+                  ref="input"
+                  v-model="feedback"
+                  name="feedback"
+                  required="required"
+                  :placeholder="$t('feedback.validFeedback')"
+                  :state="feedbackInputState"
+                  rows="5"
+                  data-qa="feedback textarea"
+                  aria-describedby="input-live-feedback"
+                  @invalid="flagInvalidFeedback"
+                />
+                <b-form-invalid-feedback
+                  id="input-live-feedback"
+                  data-qa="feedback message invalid"
+                >
+                  {{ $t('feedback.validFeedback') }}
+                </b-form-invalid-feedback>
+              </div>
+              <div
+                v-if="currentStep === 2"
+                id="step2"
               >
-                <b-link
-                  :to="this.$path('/rights')"
-                  target="_blank"
+                <b-form-input
+                  v-model="email"
+                  autofocus
+                  type="email"
+                  name="email"
+                  :placeholder="$t('feedback.form.placeholders.email')"
+                  :state="emailInputState"
+                  aria-describedby="input-live-feedback"
+                  data-qa="feedback email input"
+                  @invalid="flagInvalidEmail"
+                />
+                <b-form-invalid-feedback
+                  id="input-live-feedback"
+                  data-qa="feedback email invalid"
                 >
-                  {{ $t('feedback.termsOfService') }}
-                </b-link>
-                <b-link
-                  :to="this.$path('/rights/privacy-policy')"
-                  target="_blank"
+                  {{ $t('feedback.validEmail') }}
+                </b-form-invalid-feedback>
+                <b-form-text id="input-live-help">
+                  <p class="mb-0">
+                    {{ $t('feedback.emailOptional') }}
+                  </p>
+                  <i18n
+                    path="feedback.policies"
+                    tag="span"
+                  >
+                    <b-link
+                      :to="this.$path('/rights')"
+                      target="_blank"
+                    >
+                      {{ $t('feedback.termsOfService') }}
+                    </b-link>
+                    <b-link
+                      :to="this.$path('/rights/privacy-policy')"
+                      target="_blank"
+                    >
+                      {{ $t('feedback.privacyPolicy') }}
+                    </b-link>
+                  </i18n>
+                </b-form-text>
+              </div>
+              <div
+                v-if="currentStep == 3"
+                id="step3"
+                class="feedback-success d-flex align-items-center"
+              >
+                <span :class="requestSuccess ? 'icon-check_circle pr-3' : 'icon-cancel-circle pr-3'" />
+                <span
+                  v-if="requestSuccess"
                 >
-                  {{ $t('feedback.privacyPolicy') }}
-                </b-link>
-              </i18n>
-            </b-form-text>
-          </div>
-          <div
-            v-if="currentStep == 3"
-            id="step3"
-            class="feedback-success d-flex align-items-center"
-          >
-            <span :class="requestSuccess ? 'icon-check_circle pr-3' : 'icon-cancel-circle pr-3'" />
-            <span
-              v-if="requestSuccess"
-            >
-              <p class="mb-0">{{ $t('feedback.success') }}</p>
-              <p class="mb-0">{{ $t('feedback.thankYou') }}</p>
-            </span>
-            <span
-              v-else-if="requestSuccess === false"
-            >
-              <p class="mb-0">{{ $t('feedback.failed') }}</p>
-            </span>
-          </div>
-          <b-button
-            v-if="showCancelButton"
-            data-qa="feedback cancel button"
-            variant="outline-primary"
-            class="mt-3"
-            @click.prevent="hideFeedbackForm"
-          >
-            {{ $t('actions.cancel') }}
-          </b-button>
-          <div class="button-group-right">
-            <b-button
-              v-if="showSkipButton"
-              data-qa="feedback skip button"
-              variant="outline-primary"
-              class="mt-3"
-              :disabled="disableSkipButton"
-              @click="skipEmail"
-            >
-              {{ $t('actions.skip') }}
-            </b-button>
-            <b-button
-              v-if="showNextButton"
-              data-qa="feedback next button"
-              variant="primary"
-              class="button-next-step mt-3"
-              type="submit"
-              :disabled="disableNextButton"
-            >
-              {{ $t('actions.next') }}
-            </b-button>
-            <b-button
-              v-if="showSendButton"
-              data-qa="feedback send button"
-              variant="primary"
-              class="mt-3"
-              type="submit"
-              :disabled="disableSendButton"
-            >
-              {{ $t('actions.send') }}
-            </b-button>
-            <b-button
-              v-if="showCloseButton"
-              data-qa="feedback close button"
-              variant="primary"
-              class="mt-3"
-              @click.prevent="hideFeedbackForm"
-            >
-              {{ $t('actions.close') }}
-            </b-button>
+                  <p class="mb-0">{{ $t('feedback.success') }}</p>
+                  <p class="mb-0">{{ $t('feedback.thankYou') }}</p>
+                </span>
+                <span
+                  v-else-if="requestSuccess === false"
+                >
+                  <p class="mb-0">{{ $t('feedback.failed') }}</p>
+                </span>
+              </div>
+            </div>
+            <div class="form-buttons d-flex justify-content-between align-items-end">
+              <b-button
+                v-if="showCancelButton"
+                data-qa="feedback cancel button"
+                variant="outline-primary"
+                class="mt-3"
+                @click.prevent="hideFeedbackForm"
+              >
+                {{ $t('actions.cancel') }}
+              </b-button>
+              <div class="text-right">
+                <b-button
+                  v-if="showSkipButton"
+                  data-qa="feedback skip button"
+                  variant="outline-primary"
+                  class="mt-3 ml-2"
+                  :disabled="disableSkipButton"
+                  @click="skipEmail"
+                >
+                  {{ $t('actions.skip') }}
+                </b-button><!-- This comment removes white space
+                --><b-button
+                  v-if="showNextButton"
+                  data-qa="feedback next button"
+                  variant="primary"
+                  class="button-next-step mt-3 ml-2"
+                  type="submit"
+                  :disabled="disableNextButton"
+                >
+                  {{ $t('actions.next') }}
+                </b-button>
+                <b-button
+                  v-if="showSendButton"
+                  data-qa="feedback send button"
+                  variant="primary"
+                  class="mt-3 ml-2"
+                  type="submit"
+                  :disabled="disableSendButton"
+                >
+                  {{ $t('actions.send') }}
+                </b-button>
+                <b-button
+                  v-if="showCloseButton"
+                  data-qa="feedback close button"
+                  variant="primary"
+                  class="mt-3 ml-2"
+                  @click.prevent="hideFeedbackForm"
+                >
+                  {{ $t('actions.close') }}
+                </b-button>
+              </div>
+            </div>
           </div>
         </b-form-group>
       </b-form>
@@ -441,7 +447,7 @@
     overflow: hidden;
     @media (min-width: $bp-small) {
       left: auto;
-      width: 360px;
+      min-width: 360px;
     }
     &.show-feedback-widget {
       opacity: 1;
@@ -463,6 +469,13 @@
 
     .feedback-form {
       padding: 1rem;
+      .form-fields {
+        flex: 0 1 100%;
+        width: 0; // width will grow to space available in flexbox
+      }
+      .form-buttons {
+        flex: 0 1 100%;
+      }
       .form-control {
         padding: 0.75rem;
         background: $white;
@@ -493,10 +506,6 @@
       }
     }
 
-    .button-group-right {
-      display: inline;
-      float: right;
-    }
     .feedback-success {
       color: $black;
     }
