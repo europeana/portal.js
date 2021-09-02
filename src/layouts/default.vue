@@ -145,33 +145,21 @@
       },
 
       watchKlaroManagerUpdate(manager, eventType, data) {
-        let eventAction;
+        let eventName;
 
         if (eventType === 'saveConsents') {
-          if (data.type === 'accept') {
-            eventAction = 'Okay/Accept all';
-          } else if (data.type === 'decline') {
-            eventAction = 'Decline';
-          } else if (data.type === 'save') {
-            eventAction = 'Accept selected';
-          }
+          eventName = {
+            accept: 'Okay/Accept all',
+            decline: 'Decline',
+            save: 'Accept selected'
+          }[data.type];
         }
 
-        if (eventAction) {
-          this.trackKlaro(eventAction, data.consents);
-        }
+        eventName && this.trackKlaroClickEvent(eventName);
       },
 
-      trackKlaro(eventAction, consents = {}) {
-        if (!this.$matomo) {
-          return;
-        }
-
-        const consentOptions = {
-          hotjar: consents.hotjar,
-          matomo: consents.matomo
-        };
-        this.$matomo.trackEvent('Klaro', eventAction, JSON.stringify(consentOptions));
+      trackKlaroClickEvent(eventName) {
+        this.$matomo && this.$matomo.trackEvent('Klaro', 'Clicked', eventName);
       },
 
       timeoutUntilPiwikSet(counter) {
