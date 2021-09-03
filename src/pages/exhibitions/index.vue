@@ -94,7 +94,7 @@
         return image?.image?.contentType;
       },
       imageAlt(image) {
-        return image?.image?.description;
+        return image?.image?.description || '';
       }
     },
     head() {
