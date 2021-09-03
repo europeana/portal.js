@@ -237,6 +237,7 @@
       showCloseButton() {
         return !this.showCancelButton;
       },
+
       buttonClasses() {
         return {
           'hide-button': this.showWidget,
@@ -244,6 +245,7 @@
         };
       }
     },
+
     mounted() {
       window.addEventListener('scroll', () => this.bigButton = false, { once: true });
     },
@@ -287,20 +289,13 @@
         this.feedbackInputState = false;
       },
 
-      wordCount() {
-        if (!this.feedback) {
-          return false;
-        }
-
-        if (this.feedback?.trim()?.match(/\w+/g)?.length < 5) {
-          return false;
-        }
-        return true;
-      },
-
       skipEmail() {
         this.email = '';
         this.submitForm();
+      },
+
+      validateFeedbackLength() {
+        return this.$options.filters.wordLength(this.feedback) >= 5;
       },
 
       async submitForm() {
@@ -308,7 +303,7 @@
         this.feedbackInputState = true;
         this.emailInputState = true;
 
-        if (this.currentStep === 1 && !this.wordCount()) {
+        if (this.currentStep === 1 && !this.validateFeedbackLength()) {
           this.feedbackInputState = false;
           return;
         }

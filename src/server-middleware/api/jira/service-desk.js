@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import { errorHandler } from '../';
-import { truncate } from '../../../plugins/vue-filters';
+import { truncate, wordLength } from '../../../plugins/vue-filters';
 
 const JIRA_SERVICE_DESK_API_PATH = '/rest/servicedeskapi/request';
 const JSON_CONTENT_TYPE = 'application/json';
@@ -33,12 +33,15 @@ const jiraData = (options, req) => {
   return data;
 };
 
-const validateReq = (req) => {
-  if (req.body?.feedback?.trim()?.match(/\w+/g)?.length < 5) {
-    return false;
+const validateFeedbackLength = feedback => wordLength(feedback) >= 5;
+
+const validateFeedback = feedback => new Promise((resolve, reject) => {
+  if (validateFeedbackLength(feedback)) {
+    resolve();
+  } else {
+    reject({ status: 400, message: 'Invalid feedback.' });
   }
-  return true;
-};
+});
 
 const jiraOptions = options => ({
   auth: {
@@ -51,15 +54,13 @@ const jiraOptions = options => ({
   }
 });
 
+// Docs: https://developer.atlassian.com/cloud/jira/service-desk/rest/api-group-request/#api-rest-servicedeskapi-request-post
 export default (options = {}) => (req, res) => {
-  if (validateReq(req)) {
-    // Docs: https://developer.atlassian.com/cloud/jira/service-desk/rest/api-group-request/#api-rest-servicedeskapi-request-post
-    return axios
+  return validateFeedback(req.body.feedback)
+    .then(() => (axios
       .create({ baseURL: options.origin })
       .post(JIRA_SERVICE_DESK_API_PATH, jiraData(options, req), jiraOptions(options))
       .then(jiraRes => res.sendStatus(jiraRes.status))
-      .catch(error => errorHandler(res, error));
-  } else {
-    return errorHandler(res, { message: 'Invalid feedback.' });
-  }
+    ))
+    .catch(error => errorHandler(res, error));
 };

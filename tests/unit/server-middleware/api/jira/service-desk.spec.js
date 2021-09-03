@@ -15,7 +15,7 @@ const options = {
 };
 const middleware = serviceDesk(options);
 
-const mockRequest = (body = {}) => ({ body });
+const mockRequest = (body = { feedback: 'Hello there, five word minimum :)' }) => ({ body });
 const mockResponse = () => {
   const res = {};
   res.sendStatus = sinon.stub().returns(res);
@@ -70,6 +70,18 @@ describe('server-middleware/api/jira/service-desk', () => {
           nock.isDone().should.be.true;
         });
 
+        it('responds with an error when the feedback is blank', async() => {
+          const reqBody = {
+            feedback: ''
+          };
+          const req = mockRequest(reqBody);
+          const res = mockResponse();
+
+          await middleware(req, res);
+          res.status.should.have.been.calledWith(400);
+          res.send.should.have.been.calledWith('Invalid feedback.');
+        });
+
         it('responds with an error when the feedback is less than five words', async() => {
           const reqBody = {
             feedback: 'only three words'
@@ -78,7 +90,7 @@ describe('server-middleware/api/jira/service-desk', () => {
           const res = mockResponse();
 
           await middleware(req, res);
-          res.status.should.have.been.calledWith(500);
+          res.status.should.have.been.calledWith(400);
           res.send.should.have.been.calledWith('Invalid feedback.');
         });
 
