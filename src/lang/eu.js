@@ -6,7 +6,7 @@ export default {
     "likes": "Atsegin |",
     "linkAccount": "Nire kontua",
     "linkLogin": "Saioa hasi",
-    "linkLoginJoin": "Saioa hasi/Sartu",
+    "linkLoginJoin": "Saioa hasi\/Sartu",
     "linkLogout": "Saioa amaitu",
     "myProfile": "Nire profila",
     "notifications": {
@@ -361,7 +361,7 @@ export default {
     "MIME_TYPE": {
       "name": "Fitxategiaren formatua | Fitxategien formatuak",
       "options": {
-        "text/plain": "Testu arrunta"
+        "text\/plain": "Testu arrunta"
       }
     },
     "PROVIDER": {
@@ -510,7 +510,8 @@ export default {
       "keywords": "Gako-hitzak (komunitateak emandakoak)",
       "timestampCreated": "Dataren marka sortu da",
       "timestampUpdate": "Dataren marka eguneratu da",
-      "wasPresentAt": "Bertan egon zen"
+      "wasPresentAt": "Bertan egon zen",
+      "year": "Urtea"
     },
     "webResource": {
       "about": "RDF buruz",
@@ -578,7 +579,7 @@ export default {
   },
   "items": {
     "itemCount": "Elementu 1 | {count} elementu",
-    "itemOf": "{max}/{count} elementu",
+    "itemOf": "{max}\/{count} elementu",
     "recent": "Azken elementuak",
     "recommendationsDisclaimer": "Erpurua gora galerian gehitzeko - Erpurua behera gustatzen ez bazaizu",
     "recommended": "Gomendatutako elementuak",
@@ -617,15 +618,8 @@ export default {
         "title": "Auth Estrategia"
       },
       "debugSettings": {
+        "description": "API eskaerak arazteko laguntzen du",
         "title": "Arazketa txandakatu"
-      },
-      "google-analytics": {
-        "description": "Bisitariek webgunearekin duten harremanari buruzko estatistika anonimoak biltzen ditu.",
-        "title": "Google Analytics"
-      },
-      "google-optimize": {
-        "description": "Erabiltzaile esperientzia onena lortzeko gure diseinu aukerak bideratzen dituzten webguneetako esperimentuetan parte hartzeko aukera ematen dizu.",
-        "title": "Google Optimize"
       },
       "hotjar": {
         "description": "Inkesten widget bat aktibatzen du bisitarien gogobetetze inkestei erantzuteko aukera emanez.",
@@ -645,7 +639,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Gogoratzen duzu bilaketa-emaitzak zerrenda edo sareta ikuspegian ikustea nahiago baduzu.",
-        "title": "Bilaketaren emaitzen ikuspegia (zerrenda / sareta)"
+        "title": "Bilaketaren emaitzen ikuspegia (zerrenda \/ sareta)"
       }
     }
   },

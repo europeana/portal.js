@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mijn account",
     "linkLogin": "Inloggen",
-    "linkLoginJoin": "Inloggen/Aanmelden",
+    "linkLoginJoin": "Inloggen\/Aanmelden",
     "linkLogout": "Uitloggen",
     "myProfile": "Mijn profiel",
     "notifications": {
@@ -361,7 +361,7 @@ export default {
     "MIME_TYPE": {
       "name": "Bestandsformaat | Bestandsformaten",
       "options": {
-        "text/plain": "Platte tekst"
+        "text\/plain": "Platte tekst"
       }
     },
     "PROVIDER": {
@@ -619,14 +619,6 @@ export default {
       "debugSettings": {
         "title": "Debug toggle"
       },
-      "google-analytics": {
-        "description": "Verzamelt anonieme statistieken over hoe bezoekers omgaan met de website.",
-        "title": "Google Analytics"
-      },
-      "google-optimize": {
-        "description": "Stelt u in staat deel te nemen aan website-experimenten die ons helpen met ontwerpkeuzes voor de beste gebruikerservaring.",
-        "title": "Google Optimaliseren"
-      },
       "hotjar": {
         "description": "Activeert een enquête-widget die u de mogelijkheid biedt om te reageren op onze tevredenheidsenquêtes voor bezoekers.",
         "title": "Hotjar"
@@ -645,7 +637,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Onthoudt of u de zoekresultaten liever in een lijst- of rasterweergave wilt zien.",
-        "title": "Zoekresultaatweergave (lijst/raster)"
+        "title": "Zoekresultaatweergave (lijst\/raster)"
       }
     }
   },

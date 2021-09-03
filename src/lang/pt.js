@@ -4,7 +4,7 @@ export default {
     "likes": "Gostos",
     "linkAccount": "A minha conta",
     "linkLogin": "Inicie sessão",
-    "linkLoginJoin": "Entrar/Criar conta",
+    "linkLoginJoin": "Entrar\/Criar conta",
     "linkLogout": "Encerrar sessão",
     "myProfile": "Meu perfil",
     "notifications": {
@@ -340,7 +340,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formato de ficheiro | Formatos de ficheiros",
       "options": {
-        "text/plain": "Texto simples"
+        "text\/plain": "Texto simples"
       }
     },
     "PROVIDER": {
@@ -595,14 +595,6 @@ export default {
       "debugSettings": {
         "title": "Botão de debug"
       },
-      "google-analytics": {
-        "description": "Coleta estatísticas anônimas sobre como os visitantes interagem com o site.",
-        "title": "Google Analytics"
-      },
-      "google-optimize": {
-        "description": "Permite-lhe participar em experiências de website que orientam as nossas escolhas de design para a melhor experiência do utilizador.",
-        "title": "Google Optimize"
-      },
       "hotjar": {
         "description": "Ativa um widget de pesquisa, dando a você a opção de responder às nossas pesquisas de satisfação do visitante.",
         "title": "Hotjar"
@@ -621,7 +613,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Lembra-se se preferir ver os resultados da pesquisa numa lista ou numa visualização em grelha.",
-        "title": "Visualização de resultado de pesquisa (lista/grade)"
+        "title": "Visualização de resultado de pesquisa (lista\/grade)"
       }
     }
   },

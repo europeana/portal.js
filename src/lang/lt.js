@@ -4,7 +4,7 @@ export default {
     "likes": "Patinka",
     "linkAccount": "Mano paskyra",
     "linkLogin": "Prisijungti",
-    "linkLoginJoin": "Prisijungti/Prisijungti",
+    "linkLoginJoin": "Prisijungti\/Prisijungti",
     "linkLogout": "Atsijungti",
     "myProfile": "Mano profilis",
     "notifications": {
@@ -340,7 +340,7 @@ export default {
     "MIME_TYPE": {
       "name": "Failo formatas | Failų formatai",
       "options": {
-        "text/plain": "Paprastas tekstas"
+        "text\/plain": "Paprastas tekstas"
       }
     },
     "PROVIDER": {
@@ -595,14 +595,6 @@ export default {
       "debugSettings": {
         "title": "Derinti perjungti"
       },
-      "google-analytics": {
-        "description": "Renka anoniminę statistiką apie tai, kaip lankytojai sąveikauja su svetaine.",
-        "title": "\"Google Analytics"
-      },
-      "google-optimize": {
-        "description": "Suteikiama galimybė dalyvauti svetainės eksperimentuose, kuriais remdamiesi galime pasirinkti geriausią naudotojo patirtį užtikrinantį dizainą.",
-        "title": "„Google Optimize“"
-      },
       "hotjar": {
         "description": "Suaktyvina apklausos valdiklį, suteikdamas galimybę atsakyti į mūsų lankytojų pasitenkinimo apklausas.",
         "title": "Hotjar"
@@ -621,7 +613,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Prisimena, ar norite paieškos rezultatus matyti sąrašo ar tinklelio rodinyje.",
-        "title": "Paieškos rezultatų rodinys (sąrašas / tinklelis)"
+        "title": "Paieškos rezultatų rodinys (sąrašas \/ tinklelis)"
       }
     }
   },

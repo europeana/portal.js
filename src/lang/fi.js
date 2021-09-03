@@ -4,7 +4,7 @@ export default {
     "likes": "Tykätyt",
     "linkAccount": "Oma tili",
     "linkLogin": "Kirjaudu sisään",
-    "linkLoginJoin": "Kirjaudu/Liity",
+    "linkLoginJoin": "Kirjaudu\/Liity",
     "linkLogout": "Kirjaudu ulos",
     "myProfile": "Profiilini",
     "notifications": {
@@ -337,7 +337,7 @@ export default {
     "MIME_TYPE": {
       "name": "Tiedostomuoto | Tiedostomuodot",
       "options": {
-        "text/plain": "Pelkkä teksti"
+        "text\/plain": "Pelkkä teksti"
       }
     },
     "PROVIDER": {
@@ -554,7 +554,7 @@ export default {
   },
   "items": {
     "itemCount": "1 kohde |{count} kohdetta",
-    "itemOf": "{max} / {count} kohdetta",
+    "itemOf": "{max} \/ {count} kohdetta",
     "youMightLike": "Saattaisit tykätä näistä kohteista"
   },
   "klaro": {
@@ -592,14 +592,6 @@ export default {
       "debugSettings": {
         "title": "Debug-kytkin"
       },
-      "google-analytics": {
-        "description": "Kerää nimettömiä tilastoja siitä, miten kävijät ovat vuorovaikutuksessa verkkosivuston kanssa.",
-        "title": "Google Analytics"
-      },
-      "google-optimize": {
-        "description": "Mahdollistaa osallistumisen verkkosivusto kokeiluihin, jotka ohjaavat suunnittelu valintojamme parhaan käyttökokemuksen saavuttamiseksi.",
-        "title": "Google Optimize"
-      },
       "hotjar": {
         "description": "Aktivoi kysely-widget, joka antaa sinulle mahdollisuuden vastata kävijöiden tyytyväisyys tutkimuksiin.",
         "title": "Hotjar"
@@ -618,7 +610,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Muistaa, haluatko nähdä hakutulokset luettelossa tai ruudukkonäkymässä.",
-        "title": "Hakutulosnäkymä (luettelo/ruudukko)"
+        "title": "Hakutulosnäkymä (luettelo\/ruudukko)"
       }
     }
   },

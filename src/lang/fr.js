@@ -1,16 +1,19 @@
 export default {
   "account": {
+    "curatedCollections": "Collections organisées",
+    "curatedCollectionsInfo": "Retrouvez ci-dessous toutes les collections que vous avez organisées",
     "editProfile": "Modifier le profil",
     "likes": "Mentions J’aime",
     "linkAccount": "Mon compte",
     "linkLogin": "Se connecter",
-    "linkLoginJoin": "Connexion/Rejoignez-nous",
+    "linkLoginJoin": "Connexion\/Rejoignez-nous",
     "linkLogout": "Déconnexion",
     "myProfile": "Mon profil",
     "notifications": {
       "loggedIn": "Vous êtes maintenant connecté. Bienvenue!",
       "loggedOut": "Vous êtes maintenant déconnecté.",
       "noCollections": {
+        "curated": "Vous n'avez pas encore organisé de collections",
         "private": "Vous n'avez pas encore créé de galeries privées",
         "public": "Vous n'avez pas encore créé de galeries publiques"
       },
@@ -24,6 +27,7 @@ export default {
     "title": "Mon compte"
   },
   "actions": {
+    "accept": "Accepter",
     "cancel": "Annuler",
     "close": "fermer",
     "download": "Télécharger",
@@ -33,6 +37,7 @@ export default {
     "like": "Mention J'aime",
     "next": "Suivant",
     "providedBy": "Fourni par {provider}",
+    "reject": "Rejeter",
     "send": "Envoyer",
     "share": "Partagez",
     "shareOn": "Partager sur {social}",
@@ -64,6 +69,7 @@ export default {
     "relatedPosts": "Publications Similaires"
   },
   "cardLabels": {
+    "organisation": "Organisation",
     "person": "Personne",
     "time": "Siècle",
     "topic": "Sujet"
@@ -141,11 +147,29 @@ export default {
   },
   "edmIsShownAtLinkAlt": "Vue sur le site internet du prestataire",
   "entity": {
+    "actions": {
+      "cancel": "Annuler",
+      "pin": "Épingler l'élément",
+      "unpin": "Détacher l'élément",
+      "viewPinned": "Voir les éléments épinglés"
+    },
     "labels": {
       "entity": "Entité"
     },
     "notifications": {
-      "deleted": "Votre galerie a été supprimée."
+      "deleted": "Votre galerie a été supprimée.",
+      "pinLimit": {
+        "body": "Pour l'instant, vous ne pouvez épingler que 24 éléments sur la première page. Si vous souhaitez épingler cet élément, assurez-vous d'en désépingler un autre, puis réessayez d'épingler celui-ci.",
+        "title": "Trop d'éléments épinglés"
+      },
+      "pinned": "L'élément a été épinglé. Il est maintenant en haut de la première page de cette collection. Cela peut prendre jusqu'à 24 heures pour apparaître pour tout le monde.",
+      "pinnedFirstPage": "L'élément a été épinglé. Cela peut prendre jusqu'à 24 heures pour apparaître pour tout le monde.",
+      "unpinned": "L'élément a été désépinglé. Il n'est plus en haut de la première page de cette collection. Cela peut prendre jusqu'à 24 heures pour disparaître pour tout le monde.",
+      "unpinnedFirstPage": "L'élément a été désépinglé. Cela peut prendre jusqu'à 24 heures pour disparaître pour tout le monde."
+    },
+    "prompts": {
+      "pin": "Voulez-vous vraiment épingler cet élément ? Cet élément apparaîtra en haut de la collection \" {entity} \". Ce changement peut prendre jusqu'à 24 heures pour prendre effet.",
+      "unpin": "Voulez-vous vraiment désépingler cet élément ? Cet élément cessera de s'afficher en haut de la collection \" {entity} \". Ce changement peut prendre jusqu'à 24 heures pour prendre effet."
     }
   },
   "error": "Erreur",
@@ -337,7 +361,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format de fichier | Formats de fichiers",
       "options": {
-        "text/plain": "Texte brut"
+        "text\/plain": "Texte brut"
       }
     },
     "PROVIDER": {
@@ -486,7 +510,8 @@ export default {
       "keywords": "Mots-clés (fournis par la communauté)",
       "timestampCreated": "Horodatage créé",
       "timestampUpdate": "Horodatage mis à jour",
-      "wasPresentAt": "Était présent(e) à"
+      "wasPresentAt": "Était présent(e) à",
+      "year": "Année"
     },
     "webResource": {
       "about": "À propos de RDF",
@@ -555,6 +580,9 @@ export default {
   "items": {
     "itemCount": "1 article |{count} éléments",
     "itemOf": "{max} sur {count} éléments",
+    "recent": "Éléments récents",
+    "recommendationsDisclaimer": "Pouce vers le haut pour ajouter à la galerie - Pouce vers le bas si vous ne l'aimez pas",
+    "recommended": "Éléments recommandés",
     "youMightLike": "Articles susceptibles de vous intéresser"
   },
   "klaro": {
@@ -590,15 +618,8 @@ export default {
         "title": "Stratégie d'authentification"
       },
       "debugSettings": {
+        "description": "Aide au débogage des demandes d'API",
         "title": "Bascule de débogage"
-      },
-      "google-analytics": {
-        "description": "Recueille des statistiques anonymes sur la façon dont les visiteurs interagissent avec le site Web.",
-        "title": "Google Analytics"
-      },
-      "google-optimize": {
-        "description": "Vous permet de participer à des expériences de site Web qui guident nos choix de conception pour la meilleure expérience utilisateur.",
-        "title": "Optimisation de Google"
       },
       "hotjar": {
         "description": "Active un widget d'enquête vous donnant la possibilité de répondre à nos enquêtes de satisfaction des visiteurs.",
@@ -618,7 +639,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Se souvient si vous préférez voir les résultats de la recherche sous forme de liste ou de grille.",
-        "title": "Affichage des résultats de recherche (liste/grille)"
+        "title": "Affichage des résultats de recherche (liste\/grille)"
       }
     }
   },
@@ -640,6 +661,7 @@ export default {
       "text": "Vous effectuez vos recherches sur notre nouveau site web plus rapide."
     }
   },
+  "loading": "Chargement",
   "loadingResults": "Chargement des résultats",
   "mediaPreview": {
     "selectItem": "Sélectionnez l'élément {src}"
@@ -650,7 +672,18 @@ export default {
     "notFound": "Introuvable",
     "paginationLimitExceeded": "Il est uniquement possible d'afficher les {limit} premiers résultats de la recherche."
   },
+  "modal": {
+    "download": {
+      "clickToCopy": "Cliquez sur l'attribution pour la copier",
+      "modalIntro": "Si vous utilisez cet élément sur le Web ou ailleurs, n'oubliez pas d'afficher l'attribution suivante à côté :",
+      "modalTitle": "Dis merci"
+    }
+  },
   "multilingual": {
+    "automated": "Traduction automatisée",
+    "currentLanguage": "Souhaitez-vous voir cet article dans {0} ?",
+    "differentLanguage": "une langue différente",
+    "enrichment": "Enrichissement par des projets partenaires",
     "original": "Métadonnées originales",
     "originalLanguage": "langue originale",
     "other": "Autres langues"
@@ -661,6 +694,15 @@ export default {
   "pageHasLoaded": "a chargé",
   "pages": {
     "collections": {
+      "organisations": {
+        "table": {
+          "name": "Nom"
+        },
+        "title": "Organisations"
+      },
+      "persons": {
+        "title": "Personnes"
+      },
       "times": {
         "title": "Fois"
       },
@@ -743,12 +785,14 @@ export default {
       "likeLimit": {
         "body": "Nous sommes désolés, mais vous ne pouvez aimer qu'un maximum de 100 articles pour le moment. Nous allons bientôt supprimer cette limite !",
         "title": "100 mentions J’aime"
-      }
+      },
+      "updated": "L'élément a été ajouté à la galerie."
     },
     "prompts": {
       "delete": "Êtes-vous sûr de vouloir supprimer cette galerie ? Si vous supprimez cette galerie, vous perdrez tous les éléments que vous y avez ajoutés."
     }
   },
   "showLess": "Afficher moins",
-  "showMore": "Afficher plus"
+  "showMore": "Afficher plus",
+  "website": "Site Internet"
 };

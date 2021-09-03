@@ -4,7 +4,7 @@ export default {
     "likes": "Meeldimised",
     "linkAccount": "Minu konto",
     "linkLogin": "Logi sisse",
-    "linkLoginJoin": "Logi sisse/Liitu",
+    "linkLoginJoin": "Logi sisse\/Liitu",
     "linkLogout": "Logi välja",
     "myProfile": "Minu profiil",
     "notifications": {
@@ -150,7 +150,10 @@ export default {
       "entity": "Üksus"
     },
     "notifications": {
-      "deleted": "Teie galerii on kustutatud."
+      "deleted": "Teie galerii on kustutatud.",
+      "pinLimit": {
+        "title": "Liiga palju kinnitatud üksusi"
+      }
     }
   },
   "error": "Viga",
@@ -342,7 +345,7 @@ export default {
     "MIME_TYPE": {
       "name": "Failivorming | Failivormingud",
       "options": {
-        "text/plain": "Lihttekst"
+        "text\/plain": "Lihttekst"
       }
     },
     "PROVIDER": {
@@ -559,7 +562,7 @@ export default {
   },
   "items": {
     "itemCount": "1 toode | {count} toodet",
-    "itemOf": "{max} / {count} tootest",
+    "itemOf": "{max} \/ {count} tootest",
     "recent": "Hiljutised esemed",
     "youMightLike": "Tooted, mis võivad teile meeldida"
   },
@@ -598,14 +601,6 @@ export default {
       "debugSettings": {
         "title": "Debugimise lüliti"
       },
-      "google-analytics": {
-        "description": "Kogub anonüümset statistikat selle kohta, kuidas külastajad veebisaidiga suhtlevad.",
-        "title": "Google Analytics"
-      },
-      "google-optimize": {
-        "description": "Võimaldab teil osaleda veebisaitide katsetes, mis suunavad meie disaini valikud parima kasutuskogemuse saamiseks.",
-        "title": "Google Optimize"
-      },
       "hotjar": {
         "description": "Aktiveerib uuringu vidina, andes teile võimaluse vastata meie külastajate rahulolu uuringutele.",
         "title": "Hotjar"
@@ -624,7 +619,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Mäletab, kas eelistate näha otsingutulemusi loendi või ruudustiku kujul.",
-        "title": "Otsingutulemite vaade (loend / ruudustik)"
+        "title": "Otsingutulemite vaade (loend \/ ruudustik)"
       }
     }
   },
@@ -665,6 +660,9 @@ export default {
     }
   },
   "multilingual": {
+    "currentLanguage": "Kas soovite seda üksust domeenis {0} ?",
+    "differentLanguage": "teist keelt",
+    "enrichment": "Rikastamine partner projektide kaudu",
     "original": "Algsed metaandmed",
     "originalLanguage": "originaalkeel",
     "other": "Muud keeled"
