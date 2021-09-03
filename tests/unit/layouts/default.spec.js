@@ -31,9 +31,7 @@ const factory = (data = {}) => shallowMount(layout, {
     },
     $config: {
       app: {
-        features: {
-          klaro: true
-        }
+        features: {}
       }
     },
     $exp: {
@@ -48,7 +46,6 @@ const factory = (data = {}) => shallowMount(layout, {
     }
   },
   stubs: {
-    CookieDisclaimer: true,
     VueAnnouncer: { template: '<div id="announcer" aria-live="polite"></div>' },
     nuxt: true,
     PageHeader: true,

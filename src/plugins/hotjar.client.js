@@ -1,10 +1,8 @@
 export default ({ $config }, inject) => {
   if (!$config.hotjar || !$config.hotjar.id || !$config.hotjar.sv) {
     return;
-  } else if ($config.app.features.klaro) {
-    inject('initHotjar', init);
   } else {
-    init();
+    inject('initHotjar', init);
   }
 
   function init() {
