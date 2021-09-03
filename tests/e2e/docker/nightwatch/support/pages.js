@@ -22,6 +22,7 @@ const pages = {
   'gallery foyer page': `${url}/en/galleries`,
   'home page': `${url}/en`,
   'Newspapers collection page': `${url}/en/collections/topic/18-newspapers`,
+  'item page with a responsive embedded video': `${url}/en/item/2021007/_SLS_1226`,
   'item page with a IIIF Image': `${url}/en/item/9200357/BibliographicResource_3000095247457`,
   'item page with a IIIF Presentation': `${url}/en/item/9200301/BibliographicResource_3000126341277`,
   'item page without isShownBy or hasView': `${url}/en/item/9200102/BibliographicResource_3000134083514`,
