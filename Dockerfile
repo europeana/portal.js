@@ -23,10 +23,6 @@ ENV CHROMEDRIVER_SKIP_DOWNLOAD=true \
 
 WORKDIR /app
 
-# TODO: git is only needed to install NPM packages direct from GitHub. Remove
-#       when no longer needed.
-RUN apk add --no-cache git
-
 COPY bin ./bin
 COPY --from=0 /app/package.json /app/package-lock.json ./
 
