@@ -67,7 +67,8 @@ export default {
         serviceName: 'portal-js',
         serviceVersion: pkg.version,
         frameworkName: 'Nuxt',
-        frameworkVersion: nuxtPkg.version
+        frameworkVersion: nuxtPkg.version,
+        usePathAsTransactionName: true
       }
     },
     europeana: {
