@@ -20,9 +20,9 @@ export default ($config) => (req, res) => {
       } else {
         return plugin.query(alias, variables)
           .then(response => {
+            res.set('content-type', 'application/json');
             res.set('cache-control', 'public, no-cache');
             res.set('etag', response.etag);
-            res.set('content-type', 'application/json');
             res.send(response.data);
             res.end();
           })

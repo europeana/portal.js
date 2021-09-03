@@ -41,7 +41,7 @@ export default ({ app, $config }, inject) => {
     query(alias, variables = {}) {
       const cacheHashKey = this.key(alias, variables);
       return (this.$redis ? this.cachedOrFresh(alias, variables, cacheHashKey) : this.fresh(cacheHashKey))
-        .then(response => ({ data: JSON.parse(response.data) }));
+        .then(response => ({ data: JSON.parse(response.data), etag: response.etag }));
     },
 
     etagMatches(alias, variables, ifNoneMatchHeader) {
