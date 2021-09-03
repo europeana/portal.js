@@ -510,7 +510,8 @@ export default {
       "keywords": "Gako-hitzak (komunitateak emandakoak)",
       "timestampCreated": "Dataren marka sortu da",
       "timestampUpdate": "Dataren marka eguneratu da",
-      "wasPresentAt": "Bertan egon zen"
+      "wasPresentAt": "Bertan egon zen",
+      "year": "Urtea"
     },
     "webResource": {
       "about": "RDF buruz",
@@ -617,15 +618,8 @@ export default {
         "title": "Auth Estrategia"
       },
       "debugSettings": {
+        "description": "API eskaerak arazteko laguntzen du",
         "title": "Arazketa txandakatu"
-      },
-      "google-analytics": {
-        "description": "Bisitariek webgunearekin duten harremanari buruzko estatistika anonimoak biltzen ditu.",
-        "title": "Google Analytics"
-      },
-      "google-optimize": {
-        "description": "Erabiltzaile esperientzia onena lortzeko gure diseinu aukerak bideratzen dituzten webguneetako esperimentuetan parte hartzeko aukera ematen dizu.",
-        "title": "Google Optimize"
       },
       "hotjar": {
         "description": "Inkesten widget bat aktibatzen du bisitarien gogobetetze inkestei erantzuteko aukera emanez.",

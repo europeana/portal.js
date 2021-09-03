@@ -1,4 +1,4 @@
-const utils = require('../utils');
+import * as utils from '../utils.js';
 
 const CACHE_KEY = '@europeana:portal.js:entity:organizations';
 
@@ -37,14 +37,14 @@ const allOrganisationResults = async() => {
 };
 
 const organisationsObject = results => results
-  .reduce((memo, { identifier, prefLabel }) => {
-    memo[identifier[0]] = { prefLabel };
+  .reduce((memo, { id, prefLabel }) => {
+    memo[id.match(/([^/]*)\/*$/)[1]] = { prefLabel };
     return memo;
   }, {});
 
-const persistableFields = ({ identifier, prefLabel }) => {
+const persistableFields = ({ id, prefLabel }) => {
   return {
-    identifier,
+    id,
     prefLabel
   };
 };
@@ -63,7 +63,7 @@ const cache = async(config = {}) => {
   }
 };
 
-module.exports = {
-  CACHE_KEY,
-  cache
+export {
+  cache,
+  CACHE_KEY
 };

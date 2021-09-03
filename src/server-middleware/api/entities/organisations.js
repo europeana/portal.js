@@ -1,23 +1,23 @@
-const { CACHE_KEY } = require('../../../cachers/entities/organisations');
-const utils = require('../../../cachers/utils');
-import { errorHandler } from '../';
-// import { langMapValueForLocale } from '../../../plugins/europeana/utils';
-import { getEntitySlug } from '../../../plugins/europeana/entity';
+import { CACHE_KEY } from '../../../cachers/entities/organisations.js';
+import { createRedisClient } from '../../../cachers/utils.js';
+import { errorHandler } from '../index.js';
+// import { langMapValueForLocale } from '../../../plugins/europeana/utils.js';
+import { getEntitySlug } from '../../../plugins/europeana/entity.js';
 
 const localise = (unlocalised) => {
   return Object.keys(unlocalised)
     .map(id => ({
       id,
-      slug: getEntitySlug(id, unlocalised[id].prefLabel.en),
+      slug: getEntitySlug(id, unlocalised[id].prefLabel?.en),
       // For now only get English labels.
       // prefLabel: langMapValueForLocale(body[id].prefLabel, req.query.locale || 'en').values[0]
-      prefLabel: unlocalised[id].prefLabel.en
+      prefLabel: unlocalised[id].prefLabel?.en
     }))
     .filter(organisation => organisation.prefLabel);
 };
 
 export const organisations = (config = {}) => {
-  const redisClient = utils.createRedisClient(config.redis);
+  const redisClient = createRedisClient(config.redis);
 
   return redisClient.getAsync(CACHE_KEY)
     .then(value => JSON.parse(value))

@@ -6,7 +6,7 @@ const defaults = {
   }
 };
 
-module.exports = {
+export default {
   bg: defaults,
   cs: defaults,
   da: defaults,

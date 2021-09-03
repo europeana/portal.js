@@ -1,15 +1,15 @@
-const path = require('path');
-const propertiesReader = require('properties-reader');
+import path from 'path';
+import propertiesReader from 'properties-reader';
 
-const pkgVersion = require('../package').version;
+import pkg from '../package.json';
 
 const versionSonarcloudProperties = async() => {
-  const sonarcloudPropertiesFilePath = path.resolve(__dirname, '../.sonarcloud.properties');
+  const sonarcloudPropertiesFilePath = new URL('../.sonarcloud.properties', import.meta.url);
   const sonarcloudProperties = propertiesReader(sonarcloudPropertiesFilePath,
     'utf-8',
     { writer: { saveSections: false } }
   );
-  sonarcloudProperties.set('sonar.projectVersion', pkgVersion);
+  sonarcloudProperties.set('sonar.projectVersion', pkg.version);
   await sonarcloudProperties.save(sonarcloudPropertiesFilePath);
 };
 

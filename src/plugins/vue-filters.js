@@ -21,6 +21,9 @@ export const truncate = (text, length, ellipsis = '…') => {
 };
 Vue.filter('truncate', truncate);
 
+export const wordLength = text => text?.trim()?.match(/\w+/g)?.length || 0;
+Vue.filter('wordLength', wordLength);
+
 // TODO: deprecated; superceded by OptimisedImage.vue; remove when all dependent components updated
 Vue.filter('optimisedImageUrl', (imageUrl, contentType, options = {}) => {
   if (typeof contentType !== 'string') {

@@ -31,7 +31,7 @@ async function stopBrowser() {
 async function warmupBrowser() {
   // TODO: replace with a low cost static page not hitting any APIs
   await runners.openAPage('/en');
-  await client.waitForElementVisible('.cookie-disclaimer');
+  await client.waitForElementVisible('#eu-klaro .cookie-notice');
 }
 
 // Before running cucumber make sure the test server and webdriver are running.
@@ -42,13 +42,14 @@ BeforeAll(async() => {
   await warmupBrowser();
 });
 
-Before({ tags: '@cookie-notice-not-dismissed' }, async() => {
-  await runners.haveNotYetAcceptedCookies();
+Before({ tags: '@klaro-notice-not-dismissed' }, async() => {
+  await runners.haveNotYetAcceptedKlaroCookies();
 });
 
-Before({ tags: 'not @cookie-notice-not-dismissed' }, async() => {
-  await runners.havePreviouslyAcceptedCookies();
+Before({ tags: 'not @klaro-notice-not-dismissed' }, async() => {
+  await runners.havePreviouslyAcceptedKlaroCookies();
 });
+
 Before({ tags: '@debug-apirequests-not-enabled' }, async() => {
   await runners.haveNotEnabledDebugAPIRequests();
 });

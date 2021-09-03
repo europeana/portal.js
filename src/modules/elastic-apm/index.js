@@ -1,6 +1,6 @@
-import path from 'path';
 import apm from 'elastic-apm-node';
-import defu  from 'defu';
+import defu from 'defu';
+import path from 'path';
 
 const MODULE_NAME = 'elastic-apm';
 
@@ -26,9 +26,9 @@ export default function() {
       //
       // Docs: https://www.elastic.co/guide/en/apm/agent/nodejs/master/custom-stack.html
       // Modules: https://github.com/elastic/apm-agent-nodejs/tree/v3.9.0/lib/instrumentation/modules
-      require('http');
-      require('http2');
-      require('https');
+      await import('http');
+      await import('http2');
+      await import('https');
     }
   });
 }

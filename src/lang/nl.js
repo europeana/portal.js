@@ -619,14 +619,6 @@ export default {
       "debugSettings": {
         "title": "Debug toggle"
       },
-      "google-analytics": {
-        "description": "Verzamelt anonieme statistieken over hoe bezoekers omgaan met de website.",
-        "title": "Google Analytics"
-      },
-      "google-optimize": {
-        "description": "Stelt u in staat deel te nemen aan website-experimenten die ons helpen met ontwerpkeuzes voor de beste gebruikerservaring.",
-        "title": "Google Optimaliseren"
-      },
       "hotjar": {
         "description": "Activeert een enquête-widget die u de mogelijkheid biedt om te reageren op onze tevredenheidsenquêtes voor bezoekers.",
         "title": "Hotjar"

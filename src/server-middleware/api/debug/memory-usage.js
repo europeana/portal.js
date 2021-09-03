@@ -1,1 +1,1 @@
-module.exports = (req, res) => res.json(process.memoryUsage());
+export default (req, res) => res.json(process.memoryUsage());

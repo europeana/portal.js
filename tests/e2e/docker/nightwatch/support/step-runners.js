@@ -11,14 +11,14 @@ const { pageUrl } = require('./pages');
 const { url } = require('../config/nightwatch.conf.js').test_settings.default.globals;
 
 /**
- * Generate CSS selector for `data-qa` attribute values.
- * Given a scalar argument a single selector will be returned.
- * Given an array as argument, a descendant selector will be generated, <em>for
- * the reverse order of the elements</em>, i.e. last element is the ancestor,
- * first is the descendant.
- * @param {(string|string[])} qaElementNames one or more `data-qa` attribute values
- * @return {string} CSS selector
- */
+  * Generate CSS selector for `data-qa` attribute values.
+  * Given a scalar argument a single selector will be returned.
+  * Given an array as argument, a descendant selector will be generated, <em>for
+  * the reverse order of the elements</em>, i.e. last element is the ancestor,
+  * first is the descendant.
+  * @param {(string|string[])} qaElementNames one or more `data-qa` attribute values
+  * @return {string} CSS selector
+  */
 function qaSelector(qaElementNames) {
   return [qaElementNames]
     .flat()
@@ -146,36 +146,30 @@ module.exports = {
   async openAPage(pageName) {
     await client.url(pageUrl(pageName));
   },
-  async acceptCookies() {
-    // TODO: cleanup "old" cookie banner
-    await client.expect.element('.cookie-disclaimer').to.be.visible;
-    await client.click('.cookie-disclaimer .accept-btn');
-    await client.pause(1000);
-    await client.expect.element('.cookie-disclaimer').to.not.be.present;
-  },
   async acceptKlaroCookies() {
-    // new cookie banner
-    await client.expect.element('#eu-klaro').to.be.visible;
+    // #eu-klaro div remains in DOM after accepting. .cook-notice disappears
+    await client.expect.element('#eu-klaro .cookie-notice').to.be.visible;
     await client.click('#eu-klaro .cm-btn-success');
+    await client.expect.element('#eu-klaro .cookie-notice').to.not.be.present;
+  },
+  async seeKlaroBanner() {
+    await client.expect.element('#eu-klaro .cookie-notice').to.be.visible;
+  },
+  async notSeeKlaroBanner() {
+    await client.expect.element('#eu-klaro .cookie-notice').to.not.be.present;
   },
   async seeKeycloakLoginForm() {
     await client.expect.element('.kcform').to.be.visible;
   },
-  async havePreviouslyAcceptedCookies() {
-    /* eslint-disable prefer-arrow-callback */
-    /* DO NOT MAKE INTO A ARROW FUNCTION - If you do, it will break the tests */
-    await client.execute(function() {
-      localStorage.cookieConsent = 'accepted';
-    }, []);
-    /* eslint-enable prefer-arrow-callback */
+  async havePreviouslyAcceptedKlaroCookies() {
+    // Only sets Klaro cookie, not the actual selected cookies
+    await client.setCookie({
+      name: 'klaro',
+      value: ''
+    });
   },
-  async haveNotYetAcceptedCookies() {
-    /* eslint-disable prefer-arrow-callback */
-    /* DO NOT MAKE INTO A ARROW FUNCTION - If you do, it will break the tests */
-    await client.execute(function() {
-      localStorage.cookieConsent = null;
-    }, []);
-    /* eslint-enable prefer-arrow-callback */
+  async haveNotYetAcceptedKlaroCookies() {
+    await client.deleteCookie('klaro');
   },
   async haveNotEnabledDebugAPIRequests() {
     /* eslint-disable prefer-arrow-callback */
@@ -315,3 +309,4 @@ module.exports = {
     await client.execute('scroll(0, 100)');
   }
 };
+

@@ -595,14 +595,6 @@ export default {
       "debugSettings": {
         "title": "Comutare depanare"
       },
-      "google-analytics": {
-        "description": "Colectează statistici anonime cu privire la modul în care vizitatorii interacționează cu site-ul web.",
-        "title": "Google Analytics"
-      },
-      "google-optimize": {
-        "description": "Vă permite să participați la experimente pe site-uri web care ne ghidează alegerile de proiectare pentru cea mai bună experiență a utilizatorului.",
-        "title": "Google Optimize"
-      },
       "hotjar": {
         "description": "Activează un widget de sondaj, oferindu-vă opțiunea de a răspunde la sondajele noastre privind satisfacția vizitatorilor.",
         "title": "Hotjar"

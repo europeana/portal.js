@@ -31,10 +31,13 @@
 
     fetch() {
       if (process.server) {
-        return require('@/server-middleware/api/dailyEntries').entriesOfTheDay(this.type, this.$config)
-          .then(entries => {
-            this.entries = entries;
-          });
+        return import('@/server-middleware/api/dailyEntries')
+          .then(module => {
+            return module.entriesOfTheDay(this.type, this.$config)
+              .then(entries => {
+                this.entries = entries;
+              });
+        });
       }
       return this.$axios.get(this.apiEndpoint)
         .then(response => {
