@@ -204,6 +204,8 @@
         const splitImageId = imageId.split('#');
         if (this.imageToCanvasMap[splitImageId[0]]) {
           return [this.imageToCanvasMap[splitImageId[0]], splitImageId[1]].join('#');
+        } else {
+          return null;
         }
       },
 

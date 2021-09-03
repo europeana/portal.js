@@ -4,6 +4,7 @@ function tFacetName(facetName, count = 1) {
     if (collection) {
       return this.$tcNull(`collections.${collection}.facets.${facetName}.name`, count);
     }
+    return null;
   };
 
   const genericLabel = (facetName, count) => {

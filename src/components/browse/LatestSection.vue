@@ -61,15 +61,17 @@
 
     computed: {
       contentType() {
+        let contentType = {};
+
         if (this.forExhibitions) {
-          return { type: 'exhibitionPage', name: this.$tc('exhibitions.exhibitions', this.total), path: 'exhibitions' };
+          contentType = { type: 'exhibitionPage', name: this.$tc('exhibitions.exhibitions', this.total), path: 'exhibitions' };
         } else if (this.forGalleries) {
-          return { type: 'imageGallery', name: this.$tc('galleries.galleries', this.total), path: 'galleries' };
+          contentType = { type: 'imageGallery', name: this.$tc('galleries.galleries', this.total), path: 'galleries' };
         } else if (this.forBlogPosts) {
-          return { type: 'blogPosting', name: this.$tc('blog.posts', this.total), path: 'blog' };
+          contentType = { type: 'blogPosting', name: this.$tc('blog.posts', this.total), path: 'blog' };
         }
 
-        return false;
+        return contentType;
       },
 
       forGalleries() {

@@ -88,19 +88,13 @@
     },
     methods: {
       imageUrl(image) {
-        if (image && image.image) {
-          return image.image.url;
-        }
+        return image?.image?.url;
       },
       imageContentType(image) {
-        if (image && image.image) {
-          return image.image.contentType;
-        }
+        return image?.image?.contentType;
       },
       imageAlt(image) {
-        if (image && image.image && image.image.description) {
-          return image.image.description;
-        }
+        return image?.image?.description;
       }
     },
     head() {

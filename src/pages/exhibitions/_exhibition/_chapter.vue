@@ -101,7 +101,7 @@
 
           if (!chapter || !exhibition) {
             error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
-            return;
+            return {};
           }
 
           store.commit('breadcrumb/setBreadcrumbs', [
@@ -151,7 +151,7 @@
       },
       optimisedImageUrl() {
         if (!this.heroImage) {
-          return;
+          return null;
         }
         return this.$options.filters.optimisedImageUrl(
           this.heroImage.url,

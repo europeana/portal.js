@@ -38,10 +38,11 @@ export default ({ app, route, redirect, req }) => {
       return;
     } else {
       // Remove unsupported locale from URL
-      return redirect({
+      redirect({
         path: routePathLocaleMatch[2] || '/',
         query: route.query
       });
+      return;
     }
   }
 
@@ -66,8 +67,9 @@ export default ({ app, route, redirect, req }) => {
   }
 
   const i18nPath = route.path === '/' ? `/${browserLocale}` : `/${browserLocale}${route.path}`;
-  return redirect({
+  redirect({
     path: i18nPath,
     query: route.query
   });
+  return;
 };

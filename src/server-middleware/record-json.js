@@ -24,7 +24,7 @@ export default (req, res, next) => {
 
   const europeanaId = urlMatch[1];
 
-  axios.get(`${baseUrl}${europeanaId}.json`, {
+  return axios.get(`${baseUrl}${europeanaId}.json`, {
     params: {
       wskey: process.env.EUROPEANA_RECORD_API_KEY || process.env.EUROPEANA_API_KEY
     }

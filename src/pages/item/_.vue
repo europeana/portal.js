@@ -359,12 +359,12 @@
 
       getSimilarItemsData(value) {
         if (!value) {
-          return;
+          return null;
         }
 
         const data = langMapValueForLocale(value, this.$i18n.locale).values;
         if (!data) {
-          return;
+          return null;
         }
 
         return data.filter(item => typeof item === 'string');
