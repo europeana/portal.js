@@ -88,7 +88,7 @@
         .then(data => {
           if (data.exhibitionPageCollection.items.length === 0) {
             error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
-            return;
+            return null;
           }
 
           const exhibition = data.exhibitionPageCollection.items[0];

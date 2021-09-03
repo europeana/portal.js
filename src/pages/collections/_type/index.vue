@@ -106,9 +106,7 @@
         };
       },
       thumbnail(entity) {
-        if (typeof entity.isShownBy !== 'undefined') {
-          return entity.isShownBy.thumbnail;
-        }
+        return entity?.isShownBy?.thumbnail;
       }
     },
     head() {

@@ -28,6 +28,8 @@ export const createKeycloakAuthAxios = ({ id, baseURL, $axios }, context) => {
 const storedAPIBaseURL = (store, id) => {
   if (store && store.state && store.state.apis && store.state.apis.urls[id]) {
     return store.state.apis.urls[id];
+  } else {
+    return null;
   }
 };
 
@@ -193,13 +195,13 @@ function localizedLangMapFromFirstNonDefValue(langMap) {
       return { values: langMap[key], code: key };
     }
   }
+  return null;
 }
 
 function hasNonDefValues(langMap) {
-  const keys = Object.keys(langMap);
-  return  keys.some((key) => {
-    return key !== 'def';
-  });
+  return Object
+    .keys(langMap)
+    .some(key => key !== 'def');
 }
 
 // check if values are exclusively URIs.
