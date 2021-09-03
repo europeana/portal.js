@@ -619,14 +619,6 @@ export default {
       "debugSettings": {
         "title": "Fejlfinding skifter"
       },
-      "google-analytics": {
-        "description": "Samler anonyme statistikker om, hvordan besøgende interagerer med hjemmesiden.",
-        "title": "Google Analytics"
-      },
-      "google-optimize": {
-        "description": "Gør det muligt for dig at deltage i webstedseksperimenter, der styrer vores designvalg for den bedste brugeroplevelse.",
-        "title": "Google Optimize"
-      },
       "hotjar": {
         "description": "Aktiverer en undersøgelses widget, der giver dig mulighed for at svare på vores undersøgelser om tilfredshed med besøgende.",
         "title": "Hotjar"

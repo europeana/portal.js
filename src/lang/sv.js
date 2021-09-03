@@ -47,6 +47,11 @@ export default {
     "institution": "Institution:",
     "title": "Titel:"
   },
+  "automatedCardGroup": {
+    "item": "Senaste föremålen",
+    "time": "Utvalda århundraden",
+    "topic": "Utvalda ämnen"
+  },
   "blog": {
     "author": "Författare",
     "authors": "Författare",
@@ -500,6 +505,18 @@ export default {
     "disclaimerLine2": "Europeiska kommissionen garanterar inte att informationen är korrekt och tar inget ansvar för informationen på denna webbplats. Varken Europeiska kommissionen eller någon person som agerar på Europeiska kommissionens vägnar är ansvarig för att informationen på denna webbplats är korrekt eller används.",
     "findUsElsewhere": "Hitta oss någon annanstans",
     "imageDescription": "Medfinansieras av EU:s Connecting Europe Facility",
+    "navigation": {
+      "MoreInfoLabel": "Mer information",
+      "about": "Om oss",
+      "accessibility": "Tillgänglighet",
+      "cookies": "Cookies",
+      "forDevelopers": "För utvecklare",
+      "help": "Hjälp",
+      "privacy": "Integritetspolicy",
+      "provide": "Bli en datapartner",
+      "subscribe": "Prenumerera på vårt nyhetsbrev",
+      "terms": "Användarvillkor"
+    },
     "ourMission": "Vårt uppdrag",
     "ourMissionQuote": "Europeana stöttar kulturarvsektorns digitala omvandling. Vi utvecklar expertis, verktyg och policyer för att främja digital förändring och uppmuntra partnerskap som främjar innovation."
   },
@@ -541,6 +558,7 @@ export default {
   "items": {
     "itemCount": "1 föremål {count} föremål",
     "itemOf": "{max} av {count} föremål",
+    "recent": "Senaste föremålen",
     "youMightLike": "Föremål som du kanske skulle gilla"
   },
   "klaro": {
@@ -577,14 +595,6 @@ export default {
       },
       "debugSettings": {
         "title": "Felsökning växla"
-      },
-      "google-analytics": {
-        "description": "Samlar in anonym statistik om hur besökare interagerar med webbplatsen.",
-        "title": "Google Analytics"
-      },
-      "google-optimize": {
-        "description": "Gör det möjligt för dig att delta i webbplatsförsök som styr våra designval för bästa möjliga användarupplevelse.",
-        "title": "Google Optimize"
       },
       "hotjar": {
         "description": "Aktiverar en enkät widget som ger dig möjlighet att svara på våra undersökningar om besökarnas tillfredsställelse.",
@@ -626,6 +636,7 @@ export default {
       "text": "Du söker på vår nya och snabbare webbplats."
     }
   },
+  "loading": "Laddar",
   "loadingResults": "Hämtar resultat",
   "mediaPreview": {
     "selectItem": "Välj objekt {src}"
@@ -636,12 +647,26 @@ export default {
     "notFound": "Hittades inte",
     "paginationLimitExceeded": "Det är bara möjligt att visa de {limit} första sökresultaten."
   },
+  "multilingual": {
+    "automated": "Automatiserad översättning",
+    "currentLanguage": "Vill du se det här objektet i {0} ?",
+    "differentLanguage": "ett annat språk",
+    "enrichment": "Berikning genom partnerprojekt",
+    "original": "Originalmetadata",
+    "originalLanguage": "originalspråk",
+    "other": "Andra språk"
+  },
   "newWindow": "öppnas i nytt fönster",
   "noMoreResults": "Det finns inga fler resultat för din sökning.",
   "noResults": "Inga träffar",
   "pageHasLoaded": "har laddats",
   "pages": {
     "collections": {
+      "organisations": {
+        "table": {
+          "name": "Namn"
+        }
+      },
       "times": {
         "title": "Tider"
       },

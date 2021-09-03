@@ -595,14 +595,6 @@ export default {
       "debugSettings": {
         "title": "Scoránaigh dífhabhtaithe"
       },
-      "google-analytics": {
-        "description": "Bailíonn sé staitisticí gan ainm ar an gcaoi a n-idirghníomhaíonn cuairteoirí leis an suíomh Gréasáin.",
-        "title": "Google Analytics"
-      },
-      "google-optimize": {
-        "description": "Cuireann sé ar do chumas páirt a ghlacadh i dturgnaimh láithreán gréasáin a threoraíonn ár roghanna dearaidh don eispéireas úsáideora is fearr.",
-        "title": "Google Optimize"
-      },
       "hotjar": {
         "description": "Gníomhachtaíonn sé giuirléid suirbhé a thugann an rogha duit freagra a thabhairt ar ár suirbhéanna ar shástacht na gcuairteoirí.",
         "title": "Hotjar"

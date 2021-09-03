@@ -592,14 +592,6 @@ export default {
       "debugSettings": {
         "title": "Debug-kytkin"
       },
-      "google-analytics": {
-        "description": "Kerää nimettömiä tilastoja siitä, miten kävijät ovat vuorovaikutuksessa verkkosivuston kanssa.",
-        "title": "Google Analytics"
-      },
-      "google-optimize": {
-        "description": "Mahdollistaa osallistumisen verkkosivusto kokeiluihin, jotka ohjaavat suunnittelu valintojamme parhaan käyttökokemuksen saavuttamiseksi.",
-        "title": "Google Optimize"
-      },
       "hotjar": {
         "description": "Aktivoi kysely-widget, joka antaa sinulle mahdollisuuden vastata kävijöiden tyytyväisyys tutkimuksiin.",
         "title": "Hotjar"

@@ -31,7 +31,7 @@ export default {
     "feedback": "Feedback",
     "goBack": "Zurückgehen",
     "like": "Like",
-    "next": "Nächster",
+    "next": "Weiter",
     "providedBy": "Bereitgestellt von {provider}",
     "send": "Senden",
     "share": "Teilen",
@@ -417,7 +417,7 @@ export default {
     }
   },
   "feedback": {
-    "emailOptional": "Wir möchten vielleicht weiterverfolgen. Geben Sie Ihre E-Mail-Adresse ein, wenn wir Sie kontaktieren möchten.",
+    "emailOptional": "Möglicherweise möchten wir nachfassen. Geben Sie Ihre E-Mail-Adresse ein, wenn Sie damit einverstanden sind, dass wir Sie kontaktieren.",
     "failed": "Die Anfrage ist fehlgeschlagen. Bitte versuche es erneut.",
     "form": {
       "placeholders": {
@@ -591,14 +591,6 @@ export default {
       },
       "debugSettings": {
         "title": "Debug toggle"
-      },
-      "google-analytics": {
-        "description": "Sammelt anonyme Statistiken darüber, wie Besucher mit der Website interagieren.",
-        "title": "Google Analytics"
-      },
-      "google-optimize": {
-        "description": "Ermöglicht Ihnen die Teilnahme an Website-Experimenten, die unsere Designentscheidungen für die beste Benutzererfahrung leiten.",
-        "title": "Google Optimieren"
       },
       "hotjar": {
         "description": "Aktiviert ein Umfrage-Widget, das Ihnen die Möglichkeit gibt, auf unsere Umfragen zur Besucherzufriedenheit zu antworten.",
