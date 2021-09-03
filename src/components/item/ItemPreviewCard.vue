@@ -13,8 +13,14 @@
     :lazy="lazy"
   >
     <template v-slot:buttons>
-      <UserButtons
+      <RecommendationButtons
+        v-if="recommendedItem"
         v-model="identifier"
+      />
+      <UserButtons
+        v-else
+        v-model="identifier"
+        :show-pins="showPins"
         @like="$emit('like', identifier)"
         @unlike="$emit('unlike', identifier)"
       />
@@ -23,7 +29,7 @@
 </template>
 
 <script>
-  import { genericThumbnail } from '../../plugins/europeana/thumbnail';
+  import { genericThumbnail } from '@/plugins/europeana/thumbnail';
 
   import ContentCard from '../generic/ContentCard';
 
@@ -32,6 +38,7 @@
 
     components: {
       ContentCard,
+      RecommendationButtons: () => import('../recommendation/RecommendationButtons'),
       UserButtons: () => import('../account/UserButtons')
     },
 
@@ -55,6 +62,14 @@
       lazy: {
         type: Boolean,
         default: true
+      },
+      showPins: {
+        type: Boolean,
+        default: false
+      },
+      recommendedItem: {
+        type: Boolean,
+        default: false
       }
     },
 

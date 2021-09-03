@@ -3,35 +3,39 @@ import { shallowMountNuxt } from '../../utils';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
-import page from '../../../../src/pages/item/_';
-
-const optionsVar = {
-  itemCountry: undefined,
-  itemDataProvider: 'Data Provider',
-  itemProvider: undefined,
-  itemRights: undefined
-};
+import page from '@/pages/item/_';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
+const item = {
+  identifier: '/123/abc',
+  coreFields: {
+    edmDataProvider: {
+      url: 'https://www.example.eu',
+      value: ['Data Provider']
+    }
+  }
+};
+
+const storeDispatch = sinon.spy();
+
 const factory = () => shallowMountNuxt(page, {
   localVue,
   data() {
-    return {
-      identifier: '/123/abc',
-      coreFields: {
-        edmDataProvider: {
-          url: 'https://www.example.eu',
-          value: ['Data Provider']
-        }
-      }
-    };
+    return item;
   },
+  stubs: ['client-only'],
   mocks: {
     $config: { app: { features: {} } },
     $pageHeadTitle: key => key,
+    $route: {
+      query: {}
+    },
     $t: key => key,
+    $i18n: {
+      locale: 'en'
+    },
     $auth: {
       loggedIn: false
     },
@@ -48,35 +52,61 @@ const factory = () => shallowMountNuxt(page, {
       }
     },
     $store: {
+      state: {
+        item: {
+          active: false,
+          annotations: [],
+          relatedEntities: [],
+          similarItems: []
+        }
+      },
       getters: {
-        'set/isLiked': sinon.stub()
-      }
+        'set/isLiked': sinon.stub(),
+        'item/annotationsByMotivation': sinon.stub()
+      },
+      dispatch: storeDispatch
     }
   }
 });
 
 describe('pages/item/_.vue', () => {
   describe('asyncData()', () => {
-    it('gets a record from the API for the ID in the params pathMatch, for the current locale', async() => {
-      const params = { pathMatch: '123/abc' };
-      const record = { id: '/123/abc' };
-      const $apis = { record: { getRecord: sinon.stub().resolves({ record }) } };
-      const app = { i18n: { locale: 'en' } };
+    const params = { pathMatch: '123/abc' };
+    const record = { id: '/123/abc' };
+    const $apis = { record: { getRecord: sinon.stub().resolves({ record }) } };
+    const app = { i18n: { locale: 'en' } };
 
-      const wrapper = factory();
+    context('when the page is loaded without a metadataLanguage', () => {
+      const route = { query: {} };
 
-      const response = await wrapper.vm.asyncData({ params, app, $apis });
+      it('gets a record from the API for the ID in the params pathMatch, for the current locale', async() => {
+        const wrapper = factory();
 
-      $apis.record.getRecord.should.have.been.calledWith('/123/abc', { locale: 'en' });
-      response.should.eql(record);
+        const response = await wrapper.vm.asyncData({ params, app, route, $apis });
+
+        $apis.record.getRecord.should.have.been.calledWith('/123/abc', { locale: 'en', metadataLanguage: undefined });
+        response.should.eql(record);
+      });
+    });
+    context('when the page is loaded with a metadataLanguage', () => {
+      const route = { query: { lang: 'fr' } };
+
+      it('gets a record from the API for the ID in the params pathMatch, with metadataLanguage from `lang` query', async() => {
+        const wrapper = factory();
+
+        const response = await wrapper.vm.asyncData({ params, app, route, $apis });
+
+        $apis.record.getRecord.should.have.been.calledWith('/123/abc', { locale: 'en', metadataLanguage: 'fr' });
+        response.should.eql(record);
+      });
     });
   });
 
   describe('head()', () => {
-    it('uses first media large thumbnail for og:image', () => {
+    it('uses first media large thumbnail for og:image', async() => {
       const thumbnailUrl = 'http://example.org/image/large.jpg';
       const wrapper = factory();
-      wrapper.setData({
+      await wrapper.setData({
         media: [
           {
             thumbnails: {
@@ -90,13 +120,6 @@ describe('pages/item/_.vue', () => {
 
       headMeta.filter(meta => meta.property === 'og:image').length.should.eq(1);
       headMeta.find(meta => meta.property === 'og:image').content.should.eq(thumbnailUrl);
-    });
-  });
-
-  describe('gtmOptions()', () => {
-    it('uses first edmDataProvider from corefields', () => {
-      const wrapper = factory();
-      wrapper.vm.gtmOptions().should.eql(optionsVar);
     });
   });
 });

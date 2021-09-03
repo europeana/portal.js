@@ -1,4 +1,4 @@
-import { keycloakResponseErrorHandler } from '../../../../src/plugins/europeana/auth';
+import { keycloakResponseErrorHandler } from '@/plugins/europeana/auth';
 
 import merge from 'deepmerge';
 import sinon from 'sinon';
@@ -23,40 +23,46 @@ const mockContext = (options = {}) => {
       request: sinon.stub().resolves({}),
       loggedIn: false
     },
-    redirect: sinon.spy()
+    redirect: sinon.spy(),
+    route: {
+      path: '/en'
+    }
   };
 
   return merge(defaults, options);
 };
 
+const mockError = (status = 401) => ({
+  response: { status },
+  config: {
+    headers: {
+      'Authorization': 'Bearer token'
+    }
+  }
+});
+
 describe('plugins/europeana/auth', () => {
   describe('keycloakResponseErrorHandler', () => {
     context('when response status is 401', () => {
-      const error = new Error(401);
-      error.response = { status: 401 };
-      error.config = {
-        headers: {}
-      };
-
-      context('and the user is logged in with a refresh token', () => {
+      context('and the user has a refresh token', () => {
         const ctx = mockContext({
           $auth: {
-            getRefreshToken: () => 'token',
-            loggedIn: true
+            getRefreshToken: () => 'token'
           }
         });
 
         it('attempts to refresh the access token', async() => {
-          await keycloakResponseErrorHandler(ctx, error);
+          await keycloakResponseErrorHandler(ctx, mockError());
 
-          ctx.$auth.request.should.have.been.called;
+          ctx.$auth.request.should.have.been.calledWith(sinon.match.has('headers', {
+            'content-type': 'application/x-www-form-urlencoded'
+          }));
         });
 
         context('when it has refreshed the access token', () => {
           const ctx = mockContext({
             $auth: {
               getRefreshToken: () => 'token',
-              loggedIn: true,
               request: sinon.stub().resolves({
                 accessToken: 'new'
               })
@@ -67,24 +73,49 @@ describe('plugins/europeana/auth', () => {
           });
 
           it('stores the new access token', async() => {
-            await keycloakResponseErrorHandler(ctx, error);
+            await keycloakResponseErrorHandler(ctx, mockError());
 
             ctx.$auth.setToken.should.have.been.calledWith('strategy', 'new');
             ctx.$auth.strategy['_setToken'].should.have.been.calledWith('new');
           });
 
           it('retries the original request', async() => {
-            await keycloakResponseErrorHandler(ctx, error);
+            await keycloakResponseErrorHandler(ctx, mockError());
 
             ctx.$axios.request.should.have.been.called;
           });
         });
 
+        context('when the access token refresh request fails', () => {
+          const ctx = mockContext({
+            $auth: {
+              getRefreshToken: () => 'token',
+              request: sinon.stub().throws(),
+              logout: sinon.spy()
+            },
+            $axios: {
+              request: sinon.spy()
+            }
+          });
+
+          it('logs out', async() => {
+            await keycloakResponseErrorHandler(ctx, mockError());
+
+            ctx.$auth.logout.should.have.been.called;
+          });
+
+          it('retries the original request without authorization', async() => {
+            await keycloakResponseErrorHandler(ctx, mockError());
+
+            ctx.$axios.request.should.have.been.calledWith({ headers: {} });
+          });
+        });
+
         context('when it could not refresh the access token', () => {
           it('redirects to the login URL', async() => {
-            await keycloakResponseErrorHandler(ctx, error);
+            await keycloakResponseErrorHandler(ctx, mockError());
 
-            ctx.redirect.should.have.been.calledWith('http://example.org/login');
+            ctx.redirect.should.have.been.calledWith('http://example.org/login', { redirect: ctx.route.path });
           });
         });
       });
@@ -98,18 +129,16 @@ describe('plugins/europeana/auth', () => {
         });
 
         it('redirects to the login URL', async() => {
-          await keycloakResponseErrorHandler(ctx, error);
+          await keycloakResponseErrorHandler(ctx, mockError());
 
-          ctx.redirect.should.have.been.calledWith('http://example.org/login');
+          ctx.redirect.should.have.been.calledWith('http://example.org/login', { redirect: ctx.route.path });
         });
       });
     });
 
     context('when response status is not 401', () => {
       it('rejects it', () => {
-        const error = new Error(500);
-        error.response = { status: 500 };
-        const response = keycloakResponseErrorHandler({}, error);
+        const response = keycloakResponseErrorHandler({}, mockError(500));
         response.should.be.rejected;
       });
     });

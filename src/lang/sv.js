@@ -1,5 +1,6 @@
 export default {
   "account": {
+    "editProfile": "Redigera profil",
     "likes": "Likes",
     "linkAccount": "Mitt konto",
     "linkLogin": "Logga in",
@@ -7,6 +8,8 @@ export default {
     "linkLogout": "Logga ut",
     "myProfile": "Min profil",
     "notifications": {
+      "loggedIn": "Du är nu inloggad. Välkommen!",
+      "loggedOut": "Du är nu utloggad.",
       "noCollections": {
         "private": "Du har inte skapat något privat galleri ännu",
         "public": "Du har inte skapat något offentligt galleri ännu"
@@ -15,19 +18,25 @@ export default {
     },
     "privateCollections": "Privata gallerier",
     "profile": "Mina likes & gallerier",
+    "profileSettings": "Profilinställningar",
     "publicCollections": "Offentliga gallerier",
     "settings": "Inställningar",
     "title": "Mitt konto"
   },
   "actions": {
+    "cancel": "Avbryt",
     "close": "stäng",
     "download": "Ladda ner",
     "edit": "Redigera",
+    "feedback": "Feedback",
     "goBack": "Gå tillbaka",
     "like": "Gilla",
+    "next": "Nästa",
     "providedBy": "Tillhandahålls av {provider}",
+    "send": "Skicka",
     "share": "Dela",
     "shareOn": "Dela på {social}",
+    "skip": "Hoppa",
     "viewAt": "Visa på {link}",
     "viewDocument": "Visa dokument"
   },
@@ -37,6 +46,11 @@ export default {
     "date": "Datum:",
     "institution": "Institution:",
     "title": "Titel:"
+  },
+  "automatedCardGroup": {
+    "item": "Senaste föremålen",
+    "time": "Utvalda århundraden",
+    "topic": "Utvalda ämnen"
   },
   "blog": {
     "author": "Författare",
@@ -49,8 +63,17 @@ export default {
     "published": "Publicerad {date}",
     "relatedPosts": "Relaterade inlägg"
   },
+  "cardLabels": {
+    "person": "Person",
+    "time": "Århundrade",
+    "topic": "Ämne"
+  },
   "clearAllFilters": "rensa alla filter",
   "collections": {
+    "actions": {
+      "edit": "Redigera samling",
+      "update": "Uppdatera samling"
+    },
     "fashion": {
       "facets": {
         "CREATOR": {
@@ -66,16 +89,24 @@ export default {
           "name": "Material | Material"
         }
       }
+    },
+    "form": {
+      "description": "Beskrivning"
+    },
+    "notifications": {
+      "update": "Samlingen har uppdaterats"
     }
   },
   "collectionsYouMightLike": "Samlingar du kanske skulle gilla",
+  "colourSwatch": "Färgprov",
+  "contentYouMightLike": "Innehåll du kanske skulle gilla",
   "contentfulManual": {
     "footerNavigation": {
+      "MoreInfoLabel": "Mer info",
       "about": "Om Europeana",
       "forDevelopers": "För utvecklare",
       "help": "Hjälp",
       "meetUs": "Möt teamet",
-      "MoreInfoLabel": "Mer info",
       "provide": "Bli en dataleverantör",
       "subscribe": "Prenumerera på vårt nyhetsbrev",
       "terms": "Användarvillkor och integritetspolicy"
@@ -86,7 +117,6 @@ export default {
       "teachers": "Lärare"
     }
   },
-  "contentYouMightLike": "Innehåll du kanske skulle gilla",
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Acceptera cookiemeddelande",
     "link": "Mera info",
@@ -99,6 +129,10 @@ export default {
     "startDate": "Startdatum",
     "to": "till"
   },
+  "debug": {
+    "apiRequests": "API-förfrågningar",
+    "debug": "Felsöka"
+  },
   "delete": "Radera",
   "depiction": "En skildring av {title}",
   "directions": {
@@ -106,6 +140,17 @@ export default {
     "right": "Höger"
   },
   "edmIsShownAtLinkAlt": "Visa på leverantörens webbplats",
+  "entity": {
+    "actions": {
+      "cancel": "Avbryt"
+    },
+    "labels": {
+      "entity": "Entitet"
+    },
+    "notifications": {
+      "deleted": "Ditt galleri har raderats."
+    }
+  },
   "error": "Fel",
   "exhibitions": {
     "chapters": "Kapitel",
@@ -115,39 +160,6 @@ export default {
     "exhibitions": "Utställningar"
   },
   "facets": {
-    "api": {
-      "name": "Sök efter",
-      "options": {
-        "fulltext": "Register med fulltext",
-        "metadata": "Metadata-endast register"
-      }
-    },
-    "button": {
-      "apply": "Tillämpa",
-      "cancel": "Avbryt",
-      "morefilters": "Fler filter",
-      "reset": "Återställ",
-      "showAll": "Visa alla {label}",
-      "showLess": "Visa mindre {label}"
-    },
-    "collection": {
-      "name": "Kategori",
-      "options": {
-        "archaeology": "Arkeologi",
-        "art": "Konst",
-        "fashion": "Mode",
-        "industrial": "Industriminne",
-        "manuscript": "Manuskript",
-        "map": "Kartor och geografi",
-        "migration": "Migration",
-        "music": "Musik",
-        "nature": "Naturhistoria",
-        "newspaper": "Tidningar",
-        "photography": "Fotografi",
-        "sport": "Sport",
-        "ww1": "1914–1918"
-      }
-    },
     "COLOURPALETTE": {
       "name": "Färg | Färger",
       "options": {
@@ -293,15 +305,8 @@ export default {
         "#FFFAFA": "Snö",
         "#FFFF00": "Gul",
         "#FFFFE0": "Ljusgul",
+        "#FFFFF0": "Elfenben",
         "#FFFFFF": "Vit"
-      }
-    },
-    "contentTier": {
-      "name": "Innefattar objekt som inte uppfyller våra publiceringsvillkor",
-      "notification": "Några föremål som inte matchar våra publiceringsvillkor finns tillgängliga. Du får åtkomst till dessa föremål genom att aktivera filtret \"Föremålskvalitet\" under \"Fler filter\".",
-      "options": {
-        "*": "Innefattar objekt som inte uppfyller våra publiceringsvillkor",
-        "0": "Visa endast föremål som inte uppfyller våra publiceringsvillkor"
       }
     },
     "COUNTRY": {
@@ -341,18 +346,6 @@ export default {
     "PROVIDER": {
       "name": "Sammanställare"
     },
-    "proxy_dc_format": {
-      "name": "Format | Format"
-    },
-    "proxy_dc_type": {
-      "name": "Typ | Typer"
-    },
-    "proxy_dcterms_issued": {
-      "name": "Datum för utfärdande"
-    },
-    "proxy_dcterms_medium": {
-      "name": "Medium | Media"
-    },
     "REUSABILITY": {
       "name": "Kan jag återanvända det här?",
       "options": {
@@ -371,7 +364,77 @@ export default {
         "TEXT": "Text",
         "VIDEO": "Video"
       }
+    },
+    "api": {
+      "name": "Sök efter",
+      "options": {
+        "fulltext": "Register med fulltext",
+        "metadata": "Metadata-endast register"
+      }
+    },
+    "button": {
+      "apply": "Tillämpa",
+      "cancel": "Avbryt",
+      "morefilters": "Fler filter",
+      "reset": "Återställ",
+      "showAll": "Visa alla {label}",
+      "showLess": "Visa mindre {label}"
+    },
+    "collection": {
+      "name": "Kategori",
+      "options": {
+        "archaeology": "Arkeologi",
+        "art": "Konst",
+        "fashion": "Mode",
+        "industrial": "Industriminne",
+        "manuscript": "Manuskript",
+        "map": "Kartor och geografi",
+        "migration": "Migration",
+        "music": "Musik",
+        "nature": "Naturhistoria",
+        "newspaper": "Tidningar",
+        "photography": "Fotografi",
+        "sport": "Sport",
+        "ww1": "1914–1918"
+      }
+    },
+    "contentTier": {
+      "name": "Innefattar objekt som inte uppfyller våra publiceringsvillkor",
+      "notification": "Några föremål som inte matchar våra publiceringsvillkor finns tillgängliga. Du får åtkomst till dessa föremål genom att aktivera filtret \"Föremålskvalitet\" under \"Fler filter\".",
+      "options": {
+        "*": "Innefattar objekt som inte uppfyller våra publiceringsvillkor",
+        "0": "Visa endast föremål som inte uppfyller våra publiceringsvillkor"
+      }
+    },
+    "proxy_dc_format": {
+      "name": "Format | Format"
+    },
+    "proxy_dc_type": {
+      "name": "Typ | Typer"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Datum för utfärdande"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Medium | Media"
     }
+  },
+  "feedback": {
+    "emailOptional": "Vi kanske vill följa upp detta. Ange din e-postadress om du vill att vi ska kontakta dig.",
+    "failed": "Begäran misslyckades. Var god försök igen.",
+    "form": {
+      "placeholders": {
+        "email": "Ange din e-postadress",
+        "feedback": "Ange din feedback här"
+      }
+    },
+    "policies": "Genom att fortsätta godkänner du vår {0} och godkänner vår {1} .",
+    "privacyPolicy": "Integritetspolicy",
+    "success": "Din feedback har skickats.",
+    "termsOfService": "Användarvillkor",
+    "thankYou": "Tack!",
+    "title": "Skicka feedback",
+    "validEmail": "Ange en giltig e-postadress"
   },
   "fieldLabels": {
     "default": {
@@ -390,6 +453,8 @@ export default {
       "dcRights": "Rättigheter",
       "dcSource": "Källa",
       "dcSubject": "Ämne",
+      "dcTitle": "Titel",
+      "dcType": "Typ av objekt",
       "dctermsCreated": "Skapelsedatum",
       "dctermsExtent": "Utsträckning",
       "dctermsHasPart": "Består av",
@@ -406,8 +471,6 @@ export default {
       "dctermsReferences": "Hänvisar till",
       "dctermsSpatial": "Platser",
       "dctermsTemporal": "Temporal",
-      "dcTitle": "Titel",
-      "dcType": "Typ av objekt",
       "edmCountry": "Tillhandahållande land",
       "edmCurrentLocation": "Nuvarande plats",
       "edmDataProvider": "Tillhandahållande institution",
@@ -438,8 +501,22 @@ export default {
   },
   "footer": {
     "customiseWebsiteLanguage": "Anpassa webbplatsens språk",
+    "disclaimerLine1": "Europeana är ett initiativ från Europeiska unionen, finansierat av EU: s Connecting Europe Facility och EU: s medlemsstater. Europeana-tjänsterna, inklusive denna webbplats, drivs av ett konsortium som leds av Europeana Foundation under ett serviceavtal med Europeiska kommissionen.",
+    "disclaimerLine2": "Europeiska kommissionen garanterar inte att informationen är korrekt och tar inget ansvar för informationen på denna webbplats. Varken Europeiska kommissionen eller någon person som agerar på Europeiska kommissionens vägnar är ansvarig för att informationen på denna webbplats är korrekt eller används.",
     "findUsElsewhere": "Hitta oss någon annanstans",
     "imageDescription": "Medfinansieras av EU:s Connecting Europe Facility",
+    "navigation": {
+      "MoreInfoLabel": "Mer information",
+      "about": "Om oss",
+      "accessibility": "Tillgänglighet",
+      "cookies": "Cookies",
+      "forDevelopers": "För utvecklare",
+      "help": "Hjälp",
+      "privacy": "Integritetspolicy",
+      "provide": "Bli en datapartner",
+      "subscribe": "Prenumerera på vårt nyhetsbrev",
+      "terms": "Användarvillkor"
+    },
     "ourMission": "Vårt uppdrag",
     "ourMissionQuote": "Europeana stöttar kulturarvsektorns digitala omvandling. Vi utvecklar expertis, verktyg och policyer för att främja digital förändring och uppmuntra partnerskap som främjar innovation."
   },
@@ -456,6 +533,7 @@ export default {
   "header": {
     "backToMenu": "Stäng sökruta",
     "clearQuery": "Rensa sökning",
+    "closeSidebar": "Stäng menyn",
     "entireCollection": "Sök efter {query} i hela vår samling",
     "europeanaHome": "Europeana start",
     "inCollection": "Sök efter {query} i {collection}",
@@ -463,7 +541,9 @@ export default {
       "about": "Om oss",
       "collections": "Samlingar",
       "europeanaClassroom": "Lärare",
-      "help": "Hjälp"
+      "help": "Hjälp",
+      "home": "Hem",
+      "stories": "Berättelser"
     },
     "searchFor": "Sök efter {query}",
     "searchForEverything": "Sök efter allt",
@@ -478,7 +558,65 @@ export default {
   "items": {
     "itemCount": "1 föremål {count} föremål",
     "itemOf": "{max} av {count} föremål",
+    "recent": "Senaste föremålen",
     "youMightLike": "Föremål som du kanske skulle gilla"
+  },
+  "klaro": {
+    "main": {
+      "consentModal": {
+        "description": "Vi tar din datasekretess på allvar. Här kan du bedöma och anpassa de tjänster som vi vill använda på den här webbplatsen. Du har ansvaret! Aktivera eller inaktivera tjänster som du tycker passar.",
+        "title": "Tjänster som vi skulle vilja använda."
+      },
+      "consentNotice": {
+        "description": "Vi bryr oss om din integritet och använder endast data för att förbättra din upplevelse. Vi använder ingen personlig information för reklam. Du kan ändra ditt samtycke var 15: e dag."
+      },
+      "ok": "Okej",
+      "purposes": {
+        "essential": {
+          "description": "Dessa tjänster är nödvändiga för att denna webbplats ska fungera korrekt. De inkluderar sökresultatsvy och språkinställningar, bevarar det inloggade tillståndet och håller ditt besök säkert. Du kan inte inaktivera dem eftersom webbplatsen annars inte fungerar korrekt.",
+          "title": "Viktiga tjänster för säkerhet och anpassning"
+        },
+        "usage": {
+          "description": "Dessa tjänster samlar in informationen för att bättre förstå hur webbplatsen används och var smärtpunkterna är, vilket ger oss möjlighet att göra välgrundade val för att förbättra din upplevelse.",
+          "title": "Tjänster för att samla in användandet av webbplatsen och återkoppling"
+        }
+      },
+      "service": {
+        "disableAll": {
+          "description": "Använd den här omkopplaren för att aktivera eller inaktivera alla valfria tjänster.",
+          "title": "Aktivera eller inaktivera alla tjänster"
+        }
+      }
+    },
+    "services": {
+      "auth-strategy": {
+        "description": "Kommer ihåg den auktoriserings strategi som ska användas för att logga in.",
+        "title": "Auth-strategi"
+      },
+      "debugSettings": {
+        "title": "Felsökning växla"
+      },
+      "hotjar": {
+        "description": "Aktiverar en enkät widget som ger dig möjlighet att svara på våra undersökningar om besökarnas tillfredsställelse.",
+        "title": "Hotjar"
+      },
+      "i18n": {
+        "description": "Kommer ihåg ditt föredragna gränssnittsspråk för framtida åtkomst.",
+        "title": "Språkkod"
+      },
+      "jira-servicedesk": {
+        "description": "Aktiverar feedback widgeten som ger dig möjlighet att kontakta oss.",
+        "title": "Jira servicedesk"
+      },
+      "matomo": {
+        "description": "Samlar in anonym statistik om hur besökare interagerar med webbplatsen.",
+        "title": "Matomo"
+      },
+      "searchResultsView": {
+        "description": "Kommer ihåg om du föredrar att se sökresultaten i en lista eller rutnät.",
+        "title": "Visa sökresultat (lista/rutnät)"
+      }
+    }
   },
   "layout": {
     "skipToMain": "Hoppa till sidans innehåll"
@@ -498,17 +636,40 @@ export default {
       "text": "Du söker på vår nya och snabbare webbplats."
     }
   },
+  "loading": "Laddar",
   "loadingResults": "Hämtar resultat",
+  "mediaPreview": {
+    "selectItem": "Välj objekt {src}"
+  },
   "messages": {
+    "copyToClipboardSuccess": "Kopieras till Urklipp",
     "externalContentError": "Det externa innehållet kunde inte hämtas",
     "notFound": "Hittades inte",
     "paginationLimitExceeded": "Det är bara möjligt att visa de {limit} första sökresultaten."
   },
+  "multilingual": {
+    "automated": "Automatiserad översättning",
+    "currentLanguage": "Vill du se det här objektet i {0} ?",
+    "differentLanguage": "ett annat språk",
+    "enrichment": "Berikning genom partnerprojekt",
+    "original": "Originalmetadata",
+    "originalLanguage": "originalspråk",
+    "other": "Andra språk"
+  },
   "newWindow": "öppnas i nytt fönster",
   "noMoreResults": "Det finns inga fler resultat för din sökning.",
   "noResults": "Inga träffar",
+  "pageHasLoaded": "har laddats",
   "pages": {
     "collections": {
+      "organisations": {
+        "table": {
+          "name": "Namn"
+        }
+      },
+      "times": {
+        "title": "Tider"
+      },
       "topics": {
         "title": "Ämnen"
       }
@@ -516,12 +677,17 @@ export default {
   },
   "readMore": "Läs mer",
   "record": {
+    "IIIFViewer": "IIIF-tittare",
     "allMetaData": "Alla metadata",
+    "copyEmbedLabel": "Bädda in kod (Klicka för att kopiera)",
     "downloadCopyrightInfo": "Detta objekt är skyddat av upphovsrätt och kan inte laddas ner.",
     "exploreMore": "Utforska mer",
     "extendedInformation": "Utökad information",
     "goodToKnow": "Bra att veta",
     "hideAll": "Dölj all information",
+    "location": "Plats",
+    "locationOnMap": "Plats på kartan",
+    "mediaPlayer": "Mediaspelare",
     "record": "Dokument",
     "showAll": "Visa all information",
     "similarItems": "Liknande objekt",
@@ -571,6 +737,7 @@ export default {
     "form": {
       "description": "Beskrivning av galleri",
       "private": "Detta är ett privat galleri",
+      "required": "Obligatoriska fält",
       "title": "Namn på galleri"
     },
     "labels": {

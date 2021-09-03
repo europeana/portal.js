@@ -1,5 +1,6 @@
-import { BASE_URL as EUROPEANA_DATA_URL } from './data';
-import { apiError, createAxios } from './utils';
+import { BASE_URL as EUROPEANA_DATA_URL } from './data.js';
+import { apiError, createAxios } from './utils.js';
+import md5 from 'md5';
 
 export const BASE_URL = process.env.EUROPEANA_ENTITY_API_URL || 'https://api.europeana.eu/entity';
 
@@ -74,17 +75,15 @@ export default (context = {}) => {
      * @return {Array} entity data
      */
     findEntities(entityUris) {
-      if (entityUris.length === 0) {
-        return [];
+      if (entityUris?.length === 0) {
+        return Promise.resolve([]);
       }
       const q = entityUris.join('" OR "');
       const params = {
         query: `entity_uri:("${q}")`
       };
       return this.searchEntities(params)
-        .then(response => {
-          return response.entities || [];
-        });
+        .then(response => response.entities || []);
     },
 
     /**
@@ -141,14 +140,21 @@ export function normalizeEntityId(id) {
  * @return {string} Record API query
  */
 export function getEntityQuery(uri) {
+  let entityQuery;
+
   if (uri.includes('/concept/base/')) {
-    return `skos_concept:"${uri}"`;
+    entityQuery = `skos_concept:"${uri}"`;
   } else if (uri.includes('/agent/base/')) {
-    return `edm_agent:"${uri}"`;
+    entityQuery = `edm_agent:"${uri}"`;
   } else if (uri.includes('/timespan/')) {
-    return `edm_timespan:"${uri}"`;
+    entityQuery = `edm_timespan:"${uri}"`;
+  } else if (uri.includes('/organization/')) {
+    entityQuery = `foaf_organization:"${uri}"`;
+  } else {
+    throw new Error(`Unsupported entity URI "${uri}"`);
   }
-  return null;
+
+  return entityQuery;
 }
 
 /**
@@ -173,7 +179,8 @@ export function getEntityTypeApi(type) {
   const names = {
     person: 'agent',
     topic: 'concept',
-    time: 'timespan'
+    time: 'timespan',
+    organisation: 'organization'
   };
   return type ? names[type] : null;
 }
@@ -187,7 +194,8 @@ export function getEntityTypeHumanReadable(type) {
   const names = {
     agent: 'person',
     concept: 'topic',
-    timespan: 'time'
+    timespan: 'time',
+    organization: 'organisation'
   };
   return type ? names[type.toLowerCase()] : null;
 }
@@ -198,7 +206,7 @@ export function getEntityTypeHumanReadable(type) {
  * @param {string} id the numeric identifier of the entity, (can contain trailing slug parts as these will be normalized)
  * @return {string} retrieved human readable name of type
  */
-function getEntityUrl(type, id) {
+export function getEntityUrl(type, id) {
   return `/${getEntityTypeApi(type)}/base/${normalizeEntityId(id)}.json`;
 }
 
@@ -210,7 +218,7 @@ function getEntityUrl(type, id) {
  */
 export function getEntityUri(type, id) {
   const apiType = getEntityTypeApi(type);
-  const baseInfix = apiType === 'timespan' ? '' : '/base';
+  const baseInfix = ['timespan', 'organization'].includes(apiType) ? '' : '/base';
   return `${EUROPEANA_DATA_URL}/${apiType}${baseInfix}/${normalizeEntityId(id)}`;
 }
 
@@ -252,4 +260,24 @@ export function getEntitySlug(id, name) {
   const entityId = id.toString().split('/').pop();
   const path = entityId + (name ? '-' + name.toLowerCase().replace(/ /g, '-') : '');
   return path;
+}
+
+/**
+ * The logic for going from: http://commons.wikimedia.org/wiki/Special:FilePath/[image] to
+ * https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/[image]/200px-[image]:
+ * @image {String} image URL of wikimedia image
+ * @size {Number} requested size of the image, default 255
+ * @return {String} formatted thumbnail url
+ */
+export function getWikimediaThumbnailUrl(image, size = 255) {
+  if (!(new RegExp('.wiki[mp]edia.org/wiki/Special:FilePath/').test(image))) {
+    return image;
+  }
+
+  const filename = image.split('/').pop();
+  const suffix = filename.endsWith('.svg') ? '.png' : '';
+  const underscoredFilename = decodeURIComponent(filename).replace(/ /g, '_');
+  const hash = md5(underscoredFilename);
+
+  return `https://upload.wikimedia.org/wikipedia/commons/thumb/${hash.substring(0, 1)}/${hash.substring(0, 2)}/${underscoredFilename}/${size}px-${underscoredFilename}${suffix}`;
 }

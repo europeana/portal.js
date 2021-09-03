@@ -10,17 +10,16 @@
 const COOKIE_NAME = 'i18n_locale_code';
 
 // Codes of all languages supported by the app
-const registeredLocales = require('../plugins/i18n/locales.js').map(locale => locale.code);
+import localeCodes from '../plugins/i18n/codes';
 
 function appSupportsLocale(locale) {
-  return locale && registeredLocales.includes(locale);
+  return locale && localeCodes.includes(locale);
 }
 
 export default ({ app, route, redirect, req }) => {
   // Exit early if this is an auth callback
   if (app.$auth && [
     app.$auth.options.redirect.callback,
-    app.$auth.options.redirect.login,
     '/account/logout'
   ].includes(route.path)) {
     return;

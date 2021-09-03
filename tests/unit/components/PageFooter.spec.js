@@ -2,8 +2,8 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import Vuex from 'vuex';
 
-import SmartLink from '../../../src/components/generic/SmartLink.vue';
-import PageFooter from '../../../src/components/PageFooter.vue';
+import SmartLink from '@/components/generic/SmartLink.vue';
+import PageFooter from '@/components/PageFooter.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -33,19 +33,25 @@ const factory = () => shallowMount(PageFooter, {
   localVue,
   store,
   mocks: {
-    $t: () => {}
+    $t: (key) => key
   }
 });
 
 describe('components/PageFooter', () => {
-  it('contains the language selector', () => {
+  it('contains the language selector', async() => {
     const wrapper = factory();
-    wrapper.setProps({
+    await wrapper.setProps({
       enableLanguageSelector: true
     });
     const selector = wrapper.find('[data-qa="language selector"]');
 
     selector.isVisible().should.equal(true);
+  });
+  it('retrieves the correct navigation data', () => {
+    const wrapper = factory();
+    const links = wrapper.vm.footerMoreInfo.links;
+
+    links.some(link => link.text === 'footer.navigation.about').should.be.true;
   });
 
   describe('debug menu', () => {

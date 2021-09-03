@@ -1,5 +1,8 @@
 export default {
   "account": {
+    "curatedCollections": "Bilduma komisarioak",
+    "curatedCollectionsInfo": "Bilatu komisariotzat dituzun bilduma guztiak",
+    "editProfile": "Editatu profila",
     "likes": "Atsegin |",
     "linkAccount": "Nire kontua",
     "linkLogin": "Saioa hasi",
@@ -7,7 +10,10 @@ export default {
     "linkLogout": "Saioa amaitu",
     "myProfile": "Nire profila",
     "notifications": {
+      "loggedIn": "Saioa hasi zara. Ongi etorri!",
+      "loggedOut": "Saioa amaitu duzu.",
       "noCollections": {
+        "curated": "Oraindik ez duzu bildumarik hautatu",
         "private": "Oraindik ez duzu bilduma pribaturik sortu",
         "public": "Oraindik ez duzu bilduma publikorik sortu"
       },
@@ -15,19 +21,27 @@ export default {
     },
     "privateCollections": "Bilduma pribatuak",
     "profile": "Nire gustukoak & Bildumak",
+    "profileSettings": "Profilaren ezarpenak",
     "publicCollections": "Bilduma publikoak",
     "settings": "Ezarpenak",
     "title": "Nire kontua"
   },
   "actions": {
+    "accept": "Onartu",
+    "cancel": "Utzi",
     "close": "itxi",
     "download": "Deskargatu",
     "edit": "Editatu",
+    "feedback": "Iritzia",
     "goBack": "Atzera egin",
     "like": "Atsegin dut",
+    "next": "Hurrengoa",
     "providedBy": "{provider} emanda",
+    "reject": "Baztertu",
+    "send": "Bidali",
     "share": "Partekatu",
     "shareOn": "{social} partekatu",
+    "skip": "Saltatu",
     "viewAt": "Ikusi hemen {link}",
     "viewDocument": "Dokumentua ikusi"
   },
@@ -37,6 +51,11 @@ export default {
     "date": "Data:",
     "institution": "Erakundea:",
     "title": "Izenburua:"
+  },
+  "automatedCardGroup": {
+    "item": "Azken elementuak",
+    "time": "Mende aipagarriak",
+    "topic": "Nabarmendutako gaiak"
   },
   "blog": {
     "author": "Egilea",
@@ -49,8 +68,18 @@ export default {
     "published": "Argitaratze data {date}",
     "relatedPosts": "Lotutako argitalpenak"
   },
+  "cardLabels": {
+    "organisation": "Antolaketa",
+    "person": "Pertsona",
+    "time": "Mendea",
+    "topic": "Gai"
+  },
   "clearAllFilters": "Iragazki guztiak garbitu",
   "collections": {
+    "actions": {
+      "edit": "Editatu bilduma",
+      "update": "Eguneratu Bilduma"
+    },
     "fashion": {
       "facets": {
         "CREATOR": {
@@ -66,16 +95,24 @@ export default {
           "name": "Materiala | Materialak"
         }
       }
+    },
+    "form": {
+      "description": "Deskribapena"
+    },
+    "notifications": {
+      "update": "Bilduma eguneratu egin da"
     }
   },
   "collectionsYouMightLike": "Gustatu ahal zaizkizun bildumak",
+  "colourSwatch": "Kolore swatch",
+  "contentYouMightLike": "Gustatu ahal zaizun edukia",
   "contentfulManual": {
     "footerNavigation": {
+      "MoreInfoLabel": "Informazio gehiago",
       "about": "Europeana bildumei buruz",
       "forDevelopers": "Garatzaileentzat",
       "help": "Laguntza",
       "meetUs": "Taldea ezagutu",
-      "MoreInfoLabel": "Informazio gehiago",
       "provide": "Datu hornitzaile bihurtu",
       "subscribe": "Harpidetu zaitez gure Buletinera",
       "terms": "Erabilera baldintzak eta pribatutasun politika"
@@ -86,7 +123,6 @@ export default {
       "teachers": "Irakasleak"
     }
   },
-  "contentYouMightLike": "Gustatu ahal zaizun edukia",
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Onartu cookieen ukapena",
     "link": "Informazio gehiago",
@@ -110,7 +146,32 @@ export default {
     "right": "Eskuma"
   },
   "edmIsShownAtLinkAlt": "Ikusi hornitzailearen webgunean",
-  "entity": "Erakundea",
+  "entity": {
+    "actions": {
+      "cancel": "Utzi",
+      "pin": "Ainguratu elementua",
+      "unpin": "Ainguratu elementua",
+      "viewPinned": "Ikusi ainguratutako elementuak"
+    },
+    "labels": {
+      "entity": "Entitatea"
+    },
+    "notifications": {
+      "deleted": "Zure galeria ezabatu egin da.",
+      "pinLimit": {
+        "body": "Oraingoz 24 elementu soilik leheneratu ditzakezu lehen orrian. Elementu hau itsatsi nahi baduzu, ziurtatu beste bat ainguratzen duzula eta saiatu berriro ainguratzen.",
+        "title": "Ainguratutako elementu gehiegi"
+      },
+      "pinned": "Elementua ainguratu da. Bilduma honen lehen orrialdearen goialdean dago orain. 24 ordu behar izan ditzake guztientzat agertzeko.",
+      "pinnedFirstPage": "Elementua ainguratu da. 24 ordu behar izan ditzake guztientzat agertzeko.",
+      "unpinned": "Elementua ainguratu egin da. Jada ez dago bilduma honetako lehen orrialdearen goialdean. 24 ordu behar izan ditzake guztientzat desagertzeko.",
+      "unpinnedFirstPage": "Elementua ainguratu egin da. 24 ordu behar izan ditzake guztientzat desagertzeko."
+    },
+    "prompts": {
+      "pin": "Ziur zaude elementu hau ainguratu nahi duzula? Elementu hau \" {entity} \" bildumaren goialdean erakutsiko da. Baliteke aldaketa hori 24 ordu behar izatea indarrean jartzeko.",
+      "unpin": "Ziur zaude elementu hau ainguratu nahi duzula? {entity} \" bildumaren goialdean agertzeari utziko zaio. Baliteke aldaketa hori 24 ordu behar izatea indarrean jartzeko."
+    }
+  },
   "error": "Akatsa",
   "exhibitions": {
     "chapters": "Kapituluak",
@@ -120,39 +181,6 @@ export default {
     "exhibitions": "Erakusketa | Erakusketak"
   },
   "facets": {
-    "api": {
-      "name": "Bilatu",
-      "options": {
-        "fulltext": "Testu osoko elementuak",
-        "metadata": "Metadatuak soilik diren elementuak"
-      }
-    },
-    "button": {
-      "apply": "Aplikatu",
-      "cancel": "Bertan behera utzi",
-      "morefilters": "Iragazki gehiago",
-      "reset": "Berrezarri",
-      "showAll": "Erakutsi guztiak {label}",
-      "showLess": "Erakutsi gutxiago {label}"
-    },
-    "collection": {
-      "name": "Bilduma",
-      "options": {
-        "archaeology": "Arkeologia",
-        "art": "Artea",
-        "fashion": "Moda",
-        "industrial": "Industria ondarea",
-        "manuscript": "Eskuizkribuak",
-        "map": "Mapak eta Geografia",
-        "migration": "Migrazioa",
-        "music": "Musika",
-        "nature": "Historia Naturala",
-        "newspaper": "Egunkariak",
-        "photography": "Argazkilaritza",
-        "sport": "Kirola",
-        "ww1": "1914-1918"
-      }
-    },
     "COLOURPALETTE": {
       "name": "Kolorea | Koloreak",
       "options": {
@@ -298,15 +326,8 @@ export default {
         "#FFFAFA": "Elurra",
         "#FFFF00": "Horia",
         "#FFFFE0": "Hori argia",
+        "#FFFFF0": "Boli",
         "#FFFFFF": "Zuria"
-      }
-    },
-    "contentTier": {
-      "name": "Elementuaren kalitatea",
-      "notification": "Gure argitalpen irizpideekin bat ez datozen zenbait elementu eskuragarri daude. Elementu horietara sar zaitezke \"Elementuen kalitatea\" iragazkia aktibatuta, \"Iragazki gehiago\" aukeraren azpian.",
-      "options": {
-        "*": "Gure argitalpen irizpideak betetzen ez dituzten elementuak barne hartzen ditu",
-        "0": "Erakutsi soilik gure argitalpen irizpideak betetzen ez dituzten elementuak"
       }
     },
     "COUNTRY": {
@@ -346,18 +367,6 @@ export default {
     "PROVIDER": {
       "name": "Agregatzailea | Agregatzaileak"
     },
-    "proxy_dc_format": {
-      "name": "Formatua | Formatuak"
-    },
-    "proxy_dc_type": {
-      "name": "Mota | Motak"
-    },
-    "proxy_dcterms_issued": {
-      "name": "Igortze data"
-    },
-    "proxy_dcterms_medium": {
-      "name": "Komunikabidea | Komunikabideak"
-    },
     "REUSABILITY": {
       "name": "Hau erabili dezaket?",
       "options": {
@@ -376,7 +385,77 @@ export default {
         "TEXT": "Testua",
         "VIDEO": "Bideoa"
       }
+    },
+    "api": {
+      "name": "Bilatu",
+      "options": {
+        "fulltext": "Testu osoko elementuak",
+        "metadata": "Metadatuak soilik diren elementuak"
+      }
+    },
+    "button": {
+      "apply": "Aplikatu",
+      "cancel": "Bertan behera utzi",
+      "morefilters": "Iragazki gehiago",
+      "reset": "Berrezarri",
+      "showAll": "Erakutsi guztiak {label}",
+      "showLess": "Erakutsi gutxiago {label}"
+    },
+    "collection": {
+      "name": "Bilduma",
+      "options": {
+        "archaeology": "Arkeologia",
+        "art": "Artea",
+        "fashion": "Moda",
+        "industrial": "Industria ondarea",
+        "manuscript": "Eskuizkribuak",
+        "map": "Mapak eta Geografia",
+        "migration": "Migrazioa",
+        "music": "Musika",
+        "nature": "Historia Naturala",
+        "newspaper": "Egunkariak",
+        "photography": "Argazkilaritza",
+        "sport": "Kirola",
+        "ww1": "1914-1918"
+      }
+    },
+    "contentTier": {
+      "name": "Elementuaren kalitatea",
+      "notification": "Gure argitalpen irizpideekin bat ez datozen zenbait elementu eskuragarri daude. Elementu horietara sar zaitezke \"Elementuen kalitatea\" iragazkia aktibatuta, \"Iragazki gehiago\" aukeraren azpian.",
+      "options": {
+        "*": "Gure argitalpen irizpideak betetzen ez dituzten elementuak barne hartzen ditu",
+        "0": "Erakutsi soilik gure argitalpen irizpideak betetzen ez dituzten elementuak"
+      }
+    },
+    "proxy_dc_format": {
+      "name": "Formatua | Formatuak"
+    },
+    "proxy_dc_type": {
+      "name": "Mota | Motak"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Igortze data"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Komunikabidea | Komunikabideak"
     }
+  },
+  "feedback": {
+    "emailOptional": "Baliteke jarraipena egitea nahi izatea. Idatzi zure posta elektronikoa gu zurekin harremanetan jartzeko pozik bazaude.",
+    "failed": "Eskaerak huts egin du. Saiatu berriro mesedez.",
+    "form": {
+      "placeholders": {
+        "email": "Idatzi zure helbide elektronikoa",
+        "feedback": "Idatzi zure iritzia hemen"
+      }
+    },
+    "policies": "Jarraituz gero, gure {0} onartzen duzu eta gure {1} onartzen duzu.",
+    "privacyPolicy": "Pribatutasun politika",
+    "success": "Zure iritzia bidali da.",
+    "termsOfService": "Zerbitzu-baldintzak",
+    "thankYou": "Eskerrik asko!",
+    "title": "Bidali iritzia",
+    "validEmail": "Idatzi balio duen helbide elektronikoa"
   },
   "fieldLabels": {
     "default": {
@@ -395,6 +474,8 @@ export default {
       "dcRights": "Baimenak",
       "dcSource": "Iturria",
       "dcSubject": "Gaia",
+      "dcTitle": "Izenburua",
+      "dcType": "Objektu mota",
       "dctermsCreated": "Sortze data",
       "dctermsExtent": "Hedadura",
       "dctermsHasPart": "honetan datza",
@@ -411,8 +492,6 @@ export default {
       "dctermsReferences": "erreferentzia egiten du",
       "dctermsSpatial": "Lekuak",
       "dctermsTemporal": "Aldi baterako",
-      "dcTitle": "Izenburua",
-      "dcType": "Objektu mota",
       "edmCountry": "Herrialde hornitzailea",
       "edmCurrentLocation": "Egungo kokapena",
       "edmDataProvider": "Erakunde hornitzailea",
@@ -431,9 +510,11 @@ export default {
       "keywords": "Gako-hitzak (komunitateak emandakoak)",
       "timestampCreated": "Dataren marka sortu da",
       "timestampUpdate": "Dataren marka eguneratu da",
-      "wasPresentAt": "Bertan egon zen"
+      "wasPresentAt": "Bertan egon zen",
+      "year": "Urtea"
     },
     "webResource": {
+      "about": "RDF buruz",
       "dcDescription": "Deskribapena",
       "ebucoreHasMimeType": "Ebucore MIME mota",
       "edmRights": "Baliabide honetarako baimenen egoera",
@@ -442,8 +523,22 @@ export default {
   },
   "footer": {
     "customiseWebsiteLanguage": "Pertsonalizatu webgunearen hizkuntza",
+    "disclaimerLine1": "Europeana Europar Batasunaren ekimena da, Europar Batasuneko Connecting Europe Facility eta Europar Batasuneko estatu kideek finantzatua. Europeana zerbitzuak, webgune hau barne, Europeana Fundazioak zuzentzen duen partzuergo batek kudeatzen ditu Europako Batzordearekiko zerbitzu kontratu baten pean.",
+    "disclaimerLine2": "Europako Batzordeak ez du informazioaren zehaztasuna bermatzen eta ez du inolako erantzukizunik edo inolako erantzukizunik onartzen webgune honetako informazioari dagokionez. Ez Europako Batzordeak ez Europako Batzordearen izenean jarduten duen inor ez da erantzule edo erantzule egiten webgune honetako informazioaren zehaztasunaz edo erabileraz.",
     "findUsElsewhere": "Beste nonbait aurkitu gaitzazu",
     "imageDescription": "Europar Batasuneko Connecting Europe Facility-k ere finantzatu du",
+    "navigation": {
+      "MoreInfoLabel": "Informazio gehiago",
+      "about": "Europeana bildumei buruz",
+      "accessibility": "Irisgarritasuna",
+      "cookies": "Cookieak",
+      "forDevelopers": "Garatzaileentzat",
+      "help": "Laguntza",
+      "privacy": "Pribatutasun politika",
+      "provide": "Datu hornitzaile bihurtu",
+      "subscribe": "Harpidetu zaitez gure Buletinera",
+      "terms": "Zerbitzu-baldintzak"
+    },
     "ourMission": "Gure eginkizuna",
     "ourMissionQuote": "Europeanak kultura ondarearen sektorea sendotzen du haren eraldaketa digitalean. Aldaketa digitalarekin bat egiteko esperientzia, tresnak eta politikak garatzen ditugu eta berrikuntza bultzatzen duten lankidetzak sustatzen ditugu."
   },
@@ -460,6 +555,7 @@ export default {
   "header": {
     "backToMenu": "Menura itzuli",
     "clearQuery": "Garbitu bilaketa kontsulta",
+    "closeSidebar": "Itxi Menua",
     "entireCollection": "Bilatu '{kontsulta}' gure bilduma osoan",
     "europeanaHome": "Europeanako hasiera orria",
     "inCollection": "Bilatu '{kontsulta}' bilduma honetan {collection}",
@@ -467,7 +563,9 @@ export default {
       "about": "Europeana bildumei buruz",
       "collections": "Bildumak",
       "europeanaClassroom": "Irakasleak",
-      "help": "Laguntza"
+      "help": "Laguntza",
+      "home": "Etxea",
+      "stories": "Istorioak"
     },
     "searchFor": "Bilatu",
     "searchForEverything": "Dena bilatu",
@@ -482,7 +580,68 @@ export default {
   "items": {
     "itemCount": "Elementu 1 | {count} elementu",
     "itemOf": "{max}/{count} elementu",
+    "recent": "Azken elementuak",
+    "recommendationsDisclaimer": "Erpurua gora galerian gehitzeko - Erpurua behera gustatzen ez bazaizu",
+    "recommended": "Gomendatutako elementuak",
     "youMightLike": "Gustatu ahal zaizkizun elementuak"
+  },
+  "klaro": {
+    "main": {
+      "consentModal": {
+        "description": "Zure datuen pribatutasuna serio hartzen dugu. Hemen webgune honetan erabili nahi genituzkeen zerbitzuak baloratu eta pertsonaliza ditzakezu. Arduraduna zara! Gaitu edo desgaitu zerbitzuak nahi duzun moduan.",
+        "title": "Erabili nahiko genituzkeen zerbitzuak."
+      },
+      "consentNotice": {
+        "description": "Zure pribatutasuna zaintzen dugu eta datuak soilik erabiltzen ditugu zure esperientzia hobetzeko. Ez dugu informazio pertsonalik erabiltzen publizitaterako. 15 egunez behin baimena alda dezakezu."
+      },
+      "ok": "ados",
+      "purposes": {
+        "essential": {
+          "description": "Zerbitzu hauek funtsezkoak dira webgune honen funtzionamendu egokia izateko. Bilaketaren emaitzen ikuspegia eta hizkuntza hobespenak biltzen dituzte, saioa hasita gordetzen dute eta zure bisita seguru mantentzen dute. Ezin dituzu desgaitu, bestela webguneak ez lukeelako ondo funtzionatuko.",
+          "title": "Segurtasunerako eta pertsonalizaziorako ezinbesteko zerbitzuak"
+        },
+        "usage": {
+          "description": "Zerbitzu hauek informazioa biltzen dute webgunea nola erabiltzen den eta non dauden arazo puntuak hobeto ulertzen laguntzeko, zure esperientzia hobetzeko aukera informatuak egiteko aukera ematen digute.",
+          "title": "Webgunearen erabilera eta iritziak jasotzeko zerbitzuak"
+        }
+      },
+      "service": {
+        "disableAll": {
+          "description": "Erabili etengailu hau aukerako zerbitzu guztiak gaitzeko edo desgaitzeko.",
+          "title": "Gaitu edo desgaitu zerbitzu guztiak"
+        }
+      }
+    },
+    "services": {
+      "auth-strategy": {
+        "description": "Saioa hasteko erabili beharreko baimen estrategia gogoratzen du.",
+        "title": "Auth Estrategia"
+      },
+      "debugSettings": {
+        "description": "API eskaerak arazteko laguntzen du",
+        "title": "Arazketa txandakatu"
+      },
+      "hotjar": {
+        "description": "Inkesten widget bat aktibatzen du bisitarien gogobetetze inkestei erantzuteko aukera emanez.",
+        "title": "Hotjar"
+      },
+      "i18n": {
+        "description": "Gogoratzen duzu etorkizunean sartzeko hobetsitako interfazearen hizkuntza.",
+        "title": "Hizkuntza kodea"
+      },
+      "jira-servicedesk": {
+        "description": "Iritzi trepeta aktibatzen du gurekin harremanetan jartzeko aukera emanez.",
+        "title": "Jira zerbitzuko mahaia"
+      },
+      "matomo": {
+        "description": "Bisitariek webgunearekin duten harremanari buruzko estatistika anonimoak biltzen ditu.",
+        "title": "Matomo"
+      },
+      "searchResultsView": {
+        "description": "Gogoratzen duzu bilaketa-emaitzak zerrenda edo sareta ikuspegian ikustea nahiago baduzu.",
+        "title": "Bilaketaren emaitzen ikuspegia (zerrenda / sareta)"
+      }
+    }
   },
   "layout": {
     "skipToMain": "Orrialdearen edukietara joan"
@@ -502,20 +661,51 @@ export default {
       "text": "Gure webgune berri eta azkarragoan bilatzen ari zara."
     }
   },
+  "loading": "Kargatzen",
   "loadingResults": "Emaitzak kargatzen",
   "mediaPreview": {
     "selectItem": "Aukeratu elementua {src}"
   },
   "messages": {
+    "copyToClipboardSuccess": "Arbelera kopiatu da",
     "externalContentError": "Ezin izan da kanpoko edukia kargatu",
     "notFound": "Ez da aurkitu",
     "paginationLimitExceeded": "Bilaketaren lehen {limit} emaitzak besterik ezin dira ikusi."
   },
+  "modal": {
+    "download": {
+      "clickToCopy": "Egin klik atribuzioan kopiatzeko",
+      "modalIntro": "Elementu hau webean edo beste nonbait erabiltzen baduzu, ez ahaztu atribuzio hau bistaratzea ondoan:",
+      "modalTitle": "Eskerrik asko"
+    }
+  },
+  "multilingual": {
+    "automated": "Itzulpen automatizatua",
+    "currentLanguage": "{0} -n ikusi nahi duzu?",
+    "differentLanguage": "beste hizkuntza bat",
+    "enrichment": "Bazkide proiektuen aberastea",
+    "original": "Jatorrizko metadatuak",
+    "originalLanguage": "jatorrizko hizkuntza",
+    "other": "Beste hizkuntza batzuk"
+  },
   "newWindow": "leiho berrian irekiko da",
   "noMoreResults": "Ez dago emaitza gehiagorik zure bilaketarako.",
   "noResults": "Emaitzarik ez",
+  "pageHasLoaded": "kargatu du",
   "pages": {
     "collections": {
+      "organisations": {
+        "table": {
+          "name": "Izena"
+        },
+        "title": "Erakundeak"
+      },
+      "persons": {
+        "title": "Pertsonak"
+      },
+      "times": {
+        "title": "Garaiak"
+      },
       "topics": {
         "title": "Gaiak"
       }
@@ -523,12 +713,17 @@ export default {
   },
   "readMore": "Gehiago irakurri",
   "record": {
+    "IIIFViewer": "IIIF ikuslea",
     "allMetaData": "Metadatu guztiak",
+    "copyEmbedLabel": "Embed kodea (Egin klik kopiatzeko)",
     "downloadCopyrightInfo": "Elementu horrek copyright dauka eta ezin da deskargatu.",
     "exploreMore": "Gehiago arakatu",
     "extendedInformation": "Informazio zabaldua",
     "goodToKnow": "Ondo dago jakitea",
     "hideAll": "Informazio guztia ezkutatu",
+    "location": "Kokapena",
+    "locationOnMap": "Kokapena mapan",
+    "mediaPlayer": "Multimedia erreproduzitzailea",
     "record": "Elementua",
     "showAll": "Informazio guztia erakutsi",
     "similarItems": "Antzeko elementuak",
@@ -578,6 +773,7 @@ export default {
     "form": {
       "description": "Bildumaren deskribapena",
       "private": "Bilduma hau pribatu gisa mantendu",
+      "required": "Beharrezko eremua",
       "title": "Bildumaren izena"
     },
     "labels": {
@@ -589,12 +785,14 @@ export default {
       "likeLimit": {
         "body": "Sentitzen dugu, baina momentuz 100 elementu atsegin daitezke, gehienez. Laster kenduko dugu muga hori!",
         "title": "100 atsegite"
-      }
+      },
+      "updated": "Elementua galerian gehitu da."
     },
     "prompts": {
       "delete": "Ziur zaude bilduma hau ezabatu nahi duzula? Bilduma ezabatuz gero, gaineratu dituzun elementu guztiak galduko dituzu."
     }
   },
   "showLess": "Gutxiago erakutsi",
-  "showMore": "Gehiago erakutsi"
+  "showMore": "Gehiago erakutsi",
+  "website": "Webgunea"
 };

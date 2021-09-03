@@ -2,13 +2,16 @@
 
 const APP_SITE_NAME = 'Europeana';
 
-const pkg = require('./package');
-const i18nLocales = require('./src/plugins/i18n/locales.js');
-const i18nDateTime = require('./src/plugins/i18n/datetime.js');
+import pkg from './package.json';
+import nuxtPkg from 'nuxt/package.json';
+
+import i18nLocales from './src/plugins/i18n/locales.js';
+import i18nDateTime from './src/plugins/i18n/datetime.js';
+import { parseQuery, stringifyQuery } from './src/plugins/vue-router.cjs';
 
 const featureIsEnabled = (value) => Boolean(Number(value));
 
-module.exports = {
+export default {
   /*
   ** Runtime config
   */
@@ -17,10 +20,17 @@ module.exports = {
       // TODO: rename env vars to prefix w/ APP_, except feature toggles
       baseUrl: process.env.PORTAL_BASE_URL,
       internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
+      schemaOrgDatasetId: process.env.SCHEMA_ORG_DATASET_ID,
       siteName: APP_SITE_NAME,
       features: {
+        jiraServiceDeskFeedbackForm: featureIsEnabled(process.env.ENABLE_JIRA_SERVICE_DESK_FEEDBACK_FORM),
+        klaro: featureIsEnabled(process.env.ENABLE_KLARO),
         linksToClassic: featureIsEnabled(process.env.ENABLE_LINKS_TO_CLASSIC),
-        recommendations: featureIsEnabled(process.env.ENABLE_RECOMMENDATIONS)
+        recommendations: featureIsEnabled(process.env.ENABLE_RECOMMENDATIONS),
+        acceptSetRecommendations: featureIsEnabled(process.env.ENABLE_ACCEPT_SET_RECOMMENDATIONS),
+        acceptEntityRecommendations: featureIsEnabled(process.env.ENABLE_ACCEPT_ENTITY_RECOMMENDATIONS),
+        entityManagement: featureIsEnabled(process.env.ENABLE_ENTITY_MANAGEMENT),
+        translatedItems: featureIsEnabled(process.env.ENABLE_TRANSLATED_ITEMS)
       }
     },
     auth: {
@@ -36,6 +46,9 @@ module.exports = {
           token_type: process.env.OAUTH_TOKEN_TYPE || 'Bearer'
         }
       }
+    },
+    axios: {
+      baseURL: process.env.PORTAL_BASE_URL
     },
     contentful: {
       spaceId: process.env.CTF_SPACE_ID,
@@ -54,8 +67,8 @@ module.exports = {
         logLevel: process.env.ELASTIC_APM_LOG_LEVEL || 'info',
         serviceName: 'portal-js',
         serviceVersion: pkg.version,
-        frameworkName: 'Nuxt.js',
-        frameworkVersion: require('nuxt/package.json').version
+        frameworkName: 'Nuxt',
+        frameworkVersion: nuxtPkg.version
       }
     },
     europeana: {
@@ -65,7 +78,7 @@ module.exports = {
           key: process.env.EUROPEANA_ANNOTATION_API_KEY || process.env.EUROPEANA_API_KEY
         },
         entity: {
-          url: process.env.EUROPEANA_ENTITY_API_URL,
+          url: process.env.EUROPEANA_ENTITY_API_URL || 'https://api.europeana.eu/entity',
           key: process.env.EUROPEANA_ENTITY_API_KEY || process.env.EUROPEANA_API_KEY
         },
         newspaper: {
@@ -75,7 +88,7 @@ module.exports = {
           url: process.env.EUROPEANA_RECOMMENDATION_API_URL
         },
         record: {
-          url: process.env.EUROPEANA_RECORD_API_URL,
+          url: process.env.EUROPEANA_RECORD_API_URL || 'https://api.europeana.eu/record',
           key: process.env.EUROPEANA_RECORD_API_KEY || process.env.EUROPEANA_API_KEY
         },
         thumbnail: {
@@ -84,15 +97,11 @@ module.exports = {
         set: {
           url: process.env.EUROPEANA_SET_API_URL,
           key: process.env.EUROPEANA_SET_API_KEY || process.env.EUROPEANA_API_KEY
+        },
+        entityManagement: {
+          url: process.env.EUROPEANA_ENTITY_MANAGEMENT_API_URL
         }
       }
-    },
-    gtm: {
-      id: process.env.GOOGLE_TAG_MANAGER_ID
-    },
-    googleOptimize: {
-      id: process.env.GOOGLE_OPTIMIZE_ID,
-      experiments: {}
     },
     hotjar: {
       id: process.env.HOTJAR_ID,
@@ -108,6 +117,10 @@ module.exports = {
         datasetBlacklist: (process.env.SSL_DATASET_BLACKLIST || '').split(',')
       }
     },
+    matomo: {
+      host: process.env.MATOMO_HOST,
+      siteId: process.env.MATOMO_SITE_ID
+    },
     oauth: {
       origin: process.env.OAUTH_ORIGIN,
       realm: process.env.OAUTH_REALM,
@@ -117,6 +130,27 @@ module.exports = {
       accessType: process.env.OAUTH_ACCESS_TYPE,
       grantType: process.env.OAUTH_GRANT_TYPE,
       tokenType: process.env.OAUTH_TOKEN_TYPE
+    }
+  },
+
+  privateRuntimeConfig: {
+    jira: {
+      origin: process.env.JIRA_API_ORIGIN,
+      username: process.env.JIRA_API_USERNAME,
+      password: process.env.JIRA_API_PASSWORD,
+      serviceDesk: {
+        serviceDeskId: process.env.JIRA_API_SERVICE_DESK_ID,
+        requestTypeId: process.env.JIRA_API_SERVICE_DESK_REQUEST_TYPE_ID,
+        customFields: {
+          pageUrl: process.env.JIRA_API_SERVICE_DESK_CUSTOM_FIELD_PAGE_URL,
+          browser: process.env.JIRA_API_SERVICE_DESK_CUSTOM_FIELD_BROWSER,
+          screensize: process.env.JIRA_API_SERVICE_DESK_CUSTOM_FIELD_SCREENSIZE
+        }
+      }
+    },
+    redis: {
+      url: process.env.REDIS_URL,
+      tlsCa: process.env.REDIS_TLS_CA
     }
   },
 
@@ -190,8 +224,10 @@ module.exports = {
       'NavPlugin',
       'PaginationNavPlugin',
       'SidebarPlugin',
+      'TablePlugin',
       'TabsPlugin',
-      'ToastPlugin'
+      'ToastPlugin',
+      'TooltipPlugin'
     ]
   },
 
@@ -199,8 +235,9 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/vue-matomo.client',
     '~/plugins/vue',
-    '~/plugins/i18n.js',
+    '~/plugins/i18n/iso-locale',
     '~/plugins/hotjar.client',
     '~/plugins/link',
     '~/plugins/page',
@@ -224,10 +261,6 @@ module.exports = {
   modules: [
     '~/modules/elastic-apm',
     '@nuxtjs/axios',
-    'nuxt-google-optimize',
-    ['@nuxtjs/gtm', {
-      pageTracking: true
-    }],
     ['@nuxtjs/robots', JSON.parse(process.env.NUXTJS_ROBOTS || '{"UserAgent":"*","Disallow":"/"}')],
     'bootstrap-vue/nuxt',
     'cookie-universal-nuxt',
@@ -247,7 +280,6 @@ module.exports = {
       parsePages: false,
       pages: {
         'account/callback': false,
-        'account/login': false,
         'account/logout': false
       },
       // Enable browser language detection to automatically redirect user
@@ -278,18 +310,16 @@ module.exports = {
     fullPathRedirect: true,
     strategies: {
       local: false,
-      oauth2: {
+      // Include oauth2 so that ~/plugins/authScheme can extend it
+      _oauth2: {
         _scheme: 'oauth2'
       },
       keycloak: {
         _scheme: '~/plugins/authScheme'
       }
     },
+    defaultStrategy: 'keycloak',
     plugins: ['~/plugins/apis']
-  },
-
-  gtm: {
-    enabled: true
   },
 
   router: {
@@ -306,11 +336,15 @@ module.exports = {
         component: 'src/pages/index.vue'
       });
     },
-    linkExactActiveClass: 'exact-active-link'
+    linkExactActiveClass: 'exact-active-link',
+    parseQuery,
+    stringifyQuery
   },
 
   serverMiddleware: [
-    { path: '/memory-usage', handler: '~/server-middleware/memory-usage' },
+    // We can't use /api as that's reserved on www.europeana.eu for (deprecated)
+    // access to Europeana APIs.
+    { path: '/_api', handler: '~/server-middleware/api' },
     '~/server-middleware/logging',
     '~/server-middleware/record-json'
   ],
@@ -318,37 +352,8 @@ module.exports = {
   /*
   ** Build configuration
   */
-  build: {
-    stats: process.env.NODE_ENV === 'test' ? 'errors-only' : {
-      chunks: false,
-      children: false,
-      modules: false,
-      colors: true,
-      warnings: true,
-      errors: true,
-      excludeAssets: [
-        /.map$/,
-        /index\..+\.html$/,
-        /vue-ssr-client-manifest.json/
-      ]
-    },
-    extractCSS: true,
-    /*
-    ** You can extend webpack config here
-    */
-    extend(config, ctx) {
-      config.node = { fs: 'empty' };
-      // Run ESLint on save
-      if (ctx.isDev && ctx.isClient) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules)/
-        });
-      }
-    }
-  },
+  build: {},
+
   /*
   ** Render configuration
    */

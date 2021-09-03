@@ -1,7 +1,7 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import { VueMasonryPlugin } from 'vue-masonry';
-import ItemPreviewCardGroup from '../../../../src/components/item/ItemPreviewCardGroup.vue';
+import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup.vue';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
@@ -10,6 +10,7 @@ localVue.use(VueMasonryPlugin);
 
 const storeDispatch = sinon.spy();
 const storeIsLikedGetter = sinon.stub();
+const storeIsPinnedGetter = sinon.stub();
 
 const factory = () => {
   return mount(ItemPreviewCardGroup, {
@@ -27,7 +28,8 @@ const factory = () => {
           set: { ...{ liked: [] }, ...{} }
         },
         getters: {
-          'set/isLiked': storeIsLikedGetter
+          'set/isLiked': storeIsLikedGetter,
+          'entity/isPinned': storeIsPinnedGetter
         },
         dispatch: storeDispatch
       },
@@ -57,10 +59,10 @@ const results = [
 
 describe('components/item/ItemPreviewCardGroup', () => {
   context('when view is grid', () => {
-    it('renders each result with a link', () => {
+    it('renders each result with a link', async() => {
       const wrapper = factory();
 
-      wrapper.setProps({ value: results, view: 'grid' });
+      await wrapper.setProps({ value: results, view: 'grid' });
 
       const renderedResults =  wrapper.findAll('[data-qa="item preview"]');
 
@@ -70,10 +72,10 @@ describe('components/item/ItemPreviewCardGroup', () => {
   });
 
   context('when view is list', () => {
-    it('renders each result with a link', () => {
+    it('renders each result with a link', async() => {
       const wrapper = factory();
 
-      wrapper.setProps({ value: results, view: 'list' });
+      await wrapper.setProps({ value: results, view: 'list' });
 
       const renderedResults =  wrapper.findAll('div[data-qa="item preview"]');
 

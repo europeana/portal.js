@@ -1,7 +1,7 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
-import CompareImageSlider from '../../../../src/components/generic/CompareImageSlider.vue';
+import CompareImageSlider from '@/components/generic/CompareImageSlider.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -57,9 +57,9 @@ describe('components/generic/CompareImageSlider', () => {
     rightCite.should.exist;
   });
 
-  it('generates the correct clip sizing', () => {
+  it('generates the correct clip sizing', async() => {
     const wrapper = factory();
-    wrapper.setData({
+    await wrapper.setData({
       imageWidth: 620,
       sliderPosition: 0.5
     });
@@ -67,9 +67,9 @@ describe('components/generic/CompareImageSlider', () => {
     wrapper.vm.leftImageClip.clip.should.eq('rect(auto, 310px, auto, auto)');
   });
 
-  it('places the slider bar in the correct position', () => {
+  it('places the slider bar in the correct position', async() => {
     const wrapper = factory();
-    wrapper.setData({
+    await wrapper.setData({
       imageWidth: 620,
       sliderPosition: 0.5,
       sliderWidth: 20
@@ -102,6 +102,6 @@ describe('components/generic/CompareImageSlider', () => {
 
     global.window.dispatchEvent(new Event('resize'));
 
-    setImageWidth.should.have.callCount(2);
+    setImageWidth.should.have.callCount(1);
   });
 });

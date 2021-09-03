@@ -26,10 +26,32 @@
   }
 }
 
+.btn-success {
+  background-color: $green;
+  border-color: $green;
+  font-size: $font-size-small;
+  text-transform: uppercase;
+  &:hover {
+    background-color: $green;
+  }
+}
+
 .btn-link {
   color: $blue;
   &:hover {
     box-shadow: none;
+  }
+  &.multilingual-dropdown {
+    padding: 0;
+    color: $black;
+    text-decoration: underline;
+    &::after {
+      @extend .icon-font;
+      content: '\e93e';
+      border: none;
+      margin-left: 0.25rem;
+      transform: scale(1.5);
+    }
   }
 }
 // Expected ".btn-outline-primary:hover" to come before
@@ -87,15 +109,6 @@
   &:hover {
     background-color: rgba(0, 0, 0, 0.7);
     color: $white;
-  }
-
-  span {
-    position: relative;
-    z-index: 10;
-
-    &.icon-check_circle {
-      font-size: $font-size-large;
-    }
   }
 
   &:after {

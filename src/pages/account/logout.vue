@@ -11,7 +11,7 @@
     },
 
     mounted() {
-      this.$auth.logout();
+      this.$auth.logout({ params: { 'ui_locales': this.$i18n.locale } });
       localStorage.setItem('logout-event', `logout-${Math.random()}`);
 
       const path = this.$auth.strategies.keycloak.options.end_session_endpoint;
@@ -26,4 +26,4 @@
       });
     }
   };
-  </script>
+</script>

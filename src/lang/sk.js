@@ -1,5 +1,6 @@
 export default {
   "account": {
+    "editProfile": "Upraviť profil",
     "likes": "Označenia Páči sa mi",
     "linkAccount": "Môj účet",
     "linkLogin": "Prihlásiť sa",
@@ -7,6 +8,8 @@ export default {
     "linkLogout": "Odhlásiť sa",
     "myProfile": "Môj profil",
     "notifications": {
+      "loggedIn": "Teraz ste prihlásení. Vitajte!",
+      "loggedOut": "Teraz ste odhlásení.",
       "noCollections": {
         "private": "Zatiaľ ste nevytvorili žiadne súkromné galérie",
         "public": "Zatiaľ ste nevytvorili žiadne verejné galérie"
@@ -15,19 +18,25 @@ export default {
     },
     "privateCollections": "Súkromné zbierky",
     "profile": "Moje označenia Páči sa mi a galérie",
+    "profileSettings": "Nastavenia profilu",
     "publicCollections": "Verejné galérie",
     "settings": "Nastavenia",
     "title": "Môj účet"
   },
   "actions": {
+    "cancel": "Zrušiť",
     "close": "zatvoriť",
     "download": "Stiahnuť",
     "edit": "Upraviť",
+    "feedback": "Spätná väzba",
     "goBack": "Späť",
     "like": "Označenie Páči sa mi",
+    "next": "Ďalšie",
     "providedBy": "Poskytovateľ:  {provider}",
+    "send": "poslať",
     "share": "Zdieľať",
     "shareOn": "Zdieľať na sociálnej sieti {social}",
+    "skip": "Preskočiť",
     "viewAt": "Zobraziť na adrese {link}",
     "viewDocument": "Zobraziť dokument"
   },
@@ -37,6 +46,11 @@ export default {
     "date": "Dátum:",
     "institution": "Inštitúcia:",
     "title": "Názov:"
+  },
+  "automatedCardGroup": {
+    "item": "Nedávne položky",
+    "time": "Odporúčané storočia",
+    "topic": "Odporúčané témy"
   },
   "blog": {
     "author": "Autor",
@@ -49,8 +63,17 @@ export default {
     "published": "Zverejnené {date}",
     "relatedPosts": "Súvisiace príspevky"
   },
+  "cardLabels": {
+    "person": "Osoba",
+    "time": "Storočia",
+    "topic": "Téma"
+  },
   "clearAllFilters": "Vymazať všetky filtre",
   "collections": {
+    "actions": {
+      "edit": "Upraviť kolekciu",
+      "update": "Aktualizovať kolekciu"
+    },
     "fashion": {
       "facets": {
         "CREATOR": {
@@ -66,16 +89,24 @@ export default {
           "name": "Materiál | Materiály"
         }
       }
+    },
+    "form": {
+      "description": "Popis"
+    },
+    "notifications": {
+      "update": "Kolekcia bola aktualizovaná"
     }
   },
   "collectionsYouMightLike": "Zbierky, ktoré by sa vám mohli páčiť",
+  "colourSwatch": "Farebná vzorkovník",
+  "contentYouMightLike": "Obsah, ktorý by sa vám mohol páčiť",
   "contentfulManual": {
     "footerNavigation": {
+      "MoreInfoLabel": "Ďalšie informácie",
       "about": "Informácie o zbierkach Europeana",
       "forDevelopers": "Pre vývojárov",
       "help": "Pomoc",
       "meetUs": "Spoznajte členov tímu",
-      "MoreInfoLabel": "Ďalšie informácie",
       "provide": "Staňte sa poskytovateľom údajov",
       "subscribe": "Prihlásiť sa na odber newslettra",
       "terms": "Podmienky používania služby a zásady ochrany osobných údajov"
@@ -86,7 +117,6 @@ export default {
       "teachers": "Učitelia"
     }
   },
-  "contentYouMightLike": "Obsah, ktorý by sa vám mohol páčiť",
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Vyjadrite súhlas s vyhlásením o používaní súborov cookie",
     "link": "Ďalšie informácie",
@@ -99,6 +129,10 @@ export default {
     "startDate": "Dátum začiatku",
     "to": "do"
   },
+  "debug": {
+    "apiRequests": "Žiadosti API",
+    "debug": "Debug"
+  },
   "delete": "Vymazať",
   "depiction": "Zobrazenie {title}",
   "directions": {
@@ -106,6 +140,17 @@ export default {
     "right": "Vpravo"
   },
   "edmIsShownAtLinkAlt": "Zobrazenie na webovej stránke poskytovateľa",
+  "entity": {
+    "actions": {
+      "cancel": "Zrušiť"
+    },
+    "labels": {
+      "entity": "Subjekt"
+    },
+    "notifications": {
+      "deleted": "Galéria bola vymazaná."
+    }
+  },
   "error": "Chyba",
   "exhibitions": {
     "chapters": "Kapitoly",
@@ -115,39 +160,6 @@ export default {
     "exhibitions": "Výstavy"
   },
   "facets": {
-    "api": {
-      "name": "Vyhľadávať",
-      "options": {
-        "fulltext": "Záznamy s plným textom",
-        "metadata": "Výhradne záznamy s metaúdajmi"
-      }
-    },
-    "button": {
-      "apply": "Použiť",
-      "cancel": "Zrušiť",
-      "morefilters": "Viac filtrov",
-      "reset": "Obnoviť",
-      "showAll": "Zobraziť všetko {label}",
-      "showLess": "Zobraziť menej {label}"
-    },
-    "collection": {
-      "name": "Kategória",
-      "options": {
-        "archaeology": "Archeológia",
-        "art": "Umenie",
-        "fashion": "Móda",
-        "industrial": "Priemyselné dedičstvo",
-        "manuscript": "Rukopisy",
-        "map": "Mapy a geografia",
-        "migration": "Migrácia",
-        "music": "Hudba",
-        "nature": "Prírodná história",
-        "newspaper": "Noviny",
-        "photography": "Fotografie",
-        "sport": "Šport",
-        "ww1": "1914 – 1918"
-      }
-    },
     "COLOURPALETTE": {
       "name": "Farba | Farby",
       "options": {
@@ -293,15 +305,8 @@ export default {
         "#FFFAFA": "Sneh",
         "#FFFF00": "žltá",
         "#FFFFE0": "Svetlo žltá",
+        "#FFFFF0": "Slonovina",
         "#FFFFFF": "biely"
-      }
-    },
-    "contentTier": {
-      "name": "Obsahuje položky, ktoré nespĺňajú naše publikačné kritériá",
-      "notification": "K dispozícii sú určité položky, ktoré sa nezhodujú s našimi kritériami. Tieto položky si môžete zobraziť aktiváciou filtra „Kvalita položky“ v časti „Ďalšie filtre“.",
-      "options": {
-        "*": "Obsahuje položky, ktoré nespĺňajú naše publikačné kritériá",
-        "0": "Zobraziť iba položky, ktoré nespĺňajú kritéria zverejnenia"
       }
     },
     "COUNTRY": {
@@ -341,18 +346,6 @@ export default {
     "PROVIDER": {
       "name": "Agregátor"
     },
-    "proxy_dc_format": {
-      "name": "Formát | Formáty"
-    },
-    "proxy_dc_type": {
-      "name": "Typ | Typy"
-    },
-    "proxy_dcterms_issued": {
-      "name": "Dátum vydania"
-    },
-    "proxy_dcterms_medium": {
-      "name": "Médium | Mediá"
-    },
     "REUSABILITY": {
       "name": "Môžem to znova použiť?",
       "options": {
@@ -371,7 +364,77 @@ export default {
         "TEXT": "Text",
         "VIDEO": "Video"
       }
+    },
+    "api": {
+      "name": "Vyhľadávať",
+      "options": {
+        "fulltext": "Záznamy s plným textom",
+        "metadata": "Výhradne záznamy s metaúdajmi"
+      }
+    },
+    "button": {
+      "apply": "Použiť",
+      "cancel": "Zrušiť",
+      "morefilters": "Viac filtrov",
+      "reset": "Obnoviť",
+      "showAll": "Zobraziť všetko {label}",
+      "showLess": "Zobraziť menej {label}"
+    },
+    "collection": {
+      "name": "Kategória",
+      "options": {
+        "archaeology": "Archeológia",
+        "art": "Umenie",
+        "fashion": "Móda",
+        "industrial": "Priemyselné dedičstvo",
+        "manuscript": "Rukopisy",
+        "map": "Mapy a geografia",
+        "migration": "Migrácia",
+        "music": "Hudba",
+        "nature": "Prírodná história",
+        "newspaper": "Noviny",
+        "photography": "Fotografie",
+        "sport": "Šport",
+        "ww1": "1914 – 1918"
+      }
+    },
+    "contentTier": {
+      "name": "Obsahuje položky, ktoré nespĺňajú naše publikačné kritériá",
+      "notification": "K dispozícii sú určité položky, ktoré sa nezhodujú s našimi kritériami. Tieto položky si môžete zobraziť aktiváciou filtra „Kvalita položky“ v časti „Ďalšie filtre“.",
+      "options": {
+        "*": "Obsahuje položky, ktoré nespĺňajú naše publikačné kritériá",
+        "0": "Zobraziť iba položky, ktoré nespĺňajú kritéria zverejnenia"
+      }
+    },
+    "proxy_dc_format": {
+      "name": "Formát | Formáty"
+    },
+    "proxy_dc_type": {
+      "name": "Typ | Typy"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Dátum vydania"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Médium | Mediá"
     }
+  },
+  "feedback": {
+    "emailOptional": "Možno budeme chcieť nadviazať ďalšie kroky. Ak chcete, aby sme vás kontaktovali, zadajte svoj e-mail.",
+    "failed": "Žiadosť zlyhala. Prosím skúste znova.",
+    "form": {
+      "placeholders": {
+        "email": "Zadajte svoju e-mailovú adresu",
+        "feedback": "Sem zadajte svoju spätnú väzbu"
+      }
+    },
+    "policies": "Pokračovaním súhlasíte s našimi {0} a beriete na vedomie naše {1}.",
+    "privacyPolicy": "Zásady ochrany osobných údajov",
+    "success": "Vaša spätná väzba bola odoslaná.",
+    "termsOfService": "Podmienky služby",
+    "thankYou": "Ďakujeme!",
+    "title": "Odoslať spätnú väzbu",
+    "validEmail": "Zadajte platnú e-mailovú adresu"
   },
   "fieldLabels": {
     "default": {
@@ -390,6 +453,8 @@ export default {
       "dcRights": "Práva",
       "dcSource": "Zdroj",
       "dcSubject": "Predmet",
+      "dcTitle": "Názov",
+      "dcType": "Typ objektu",
       "dctermsCreated": "Dátum vytvorenia",
       "dctermsExtent": "Rozsah",
       "dctermsHasPart": "Pozostáva z",
@@ -406,8 +471,6 @@ export default {
       "dctermsReferences": "Odkazuje na",
       "dctermsSpatial": "Miesta",
       "dctermsTemporal": "Časové obdobie",
-      "dcTitle": "Názov",
-      "dcType": "Typ objektu",
       "edmCountry": "Poskytujúca krajina",
       "edmCurrentLocation": "Aktuálna poloha",
       "edmDataProvider": "Poskytujúca inštitúcia",
@@ -438,8 +501,22 @@ export default {
   },
   "footer": {
     "customiseWebsiteLanguage": "Prispôsobenie jazyka webovej lokality",
+    "disclaimerLine1": "Europeana je iniciatíva Európskej únie financovaná Connecting Europe Facility a členskými štátmi Európskej únie. Služby Europeany, vrátane tejto webovej stránky, prevádzkuje konzorcium vedené nadáciou Europeana na základe zmluvy o poskytovaní služieb s Európskou komisiou.",
+    "disclaimerLine2": "Európska komisia nezaručuje presnosť informácií a neprijíma žiadnu zodpovednosť ani zodpovednosť za informácie na tejto webovej stránke. Európska komisia ani žiadna osoba konajúca v mene Európskej komisie nie je zodpovedná ani zodpovedná za presnosť alebo použitie informácií na tejto webovej stránke.",
     "findUsElsewhere": "Nájdite nás aj inde",
     "imageDescription": "Spolufinancované z nástroja Európskej únie s názvom Spájame Európu",
+    "navigation": {
+      "MoreInfoLabel": "Ďalšie informácie",
+      "about": "O nás",
+      "accessibility": "Prístupnosť",
+      "cookies": "Cookies",
+      "forDevelopers": "Pre vývojárov",
+      "help": "Pomoc",
+      "privacy": "Zásady ochrany osobných údajov",
+      "provide": "Staňte sa poskytovateľom údajov",
+      "subscribe": "Prihlásiť sa na odber newslettra",
+      "terms": "Podmienky používania"
+    },
     "ourMission": "Náš cieľ",
     "ourMissionQuote": "Europeana posilňuje digitálnu transformáciu odvetvia kultúrneho dedičstva. Rozvíjame odborné znalosti, nástroje a zásady na prijímanie digitálnych zmien a nadväzujeme partnerstvá, ktoré sú založené na inovácii."
   },
@@ -456,6 +533,7 @@ export default {
   "header": {
     "backToMenu": "Zatvoriť vyhľadávacie pole",
     "clearQuery": "Zmazať vyhľadávací dopyt",
+    "closeSidebar": "Zavrieť ponuku",
     "entireCollection": "Hľadajte výraz {query} v celej našej zbierke",
     "europeanaHome": "Domovská stránka Europeana",
     "inCollection": "Hľadajte výraz {query} v zbierke {collection}",
@@ -463,7 +541,9 @@ export default {
       "about": "O nás",
       "collections": "Zbierky",
       "europeanaClassroom": "Učitelia",
-      "help": "Pomoc"
+      "help": "Pomoc",
+      "home": "Domov",
+      "stories": "Príbehy"
     },
     "searchFor": "Vyhľadávať dopyt {query}",
     "searchForEverything": "Vyhľadávať všetko",
@@ -479,6 +559,63 @@ export default {
     "itemCount": "1 položka | Počet položiek: {count}",
     "itemOf": "Max. {max} z {count} položiek",
     "youMightLike": "Položky, ktoré by sa vám mohli páčiť"
+  },
+  "klaro": {
+    "main": {
+      "consentModal": {
+        "description": "Vaše súkromie údajov berieme vážne. Tu môžete posúdiť a prispôsobiť služby, ktoré by sme chceli použiť na tomto webe. Máte to na starosti! Povoľte alebo zakážte služby, ako uznáte za vhodné.",
+        "title": "Služby, ktoré by sme chceli využiť."
+      },
+      "consentNotice": {
+        "description": "Záleží nám na vašom súkromí a údaje používame iba na zlepšenie vášho zážitku. Na reklamu nepoužívame žiadne osobné informácie. Svoj súhlas môžete zmeniť každých 15 dní."
+      },
+      "ok": "Dobre",
+      "purposes": {
+        "essential": {
+          "description": "Tieto služby sú nevyhnutné pre správne fungovanie tejto webovej stránky. Zahŕňajú zobrazenie výsledkov vyhľadávania a jazykové predvoľby, zachovávajú prihlásený stav a zabezpečujú vašu návštevu. Nemôžete ich deaktivovať, pretože web by inak nefungoval správne.",
+          "title": "Základné služby pre bezpečnosť a prispôsobenie"
+        },
+        "usage": {
+          "description": "Tieto služby zhromažďujú informácie, ktoré nám pomáhajú lepšie pochopiť, ako sa webová stránka používa a kde sú body bolesti, čo nám umožňuje robiť informované rozhodnutia na zlepšenie vašich skúseností.",
+          "title": "Služby na zaznamenávanie používania webových stránok a spätnej väzby"
+        }
+      },
+      "service": {
+        "disableAll": {
+          "description": "Pomocou tohto prepínača môžete povoliť alebo zakázať všetky voliteľné služby.",
+          "title": "Povoliť alebo zakázať všetky služby"
+        }
+      }
+    },
+    "services": {
+      "auth-strategy": {
+        "description": "Pamätá si stratégiu autorizácie, ktorá sa má použiť na prihlásenie.",
+        "title": "Autentická stratégia"
+      },
+      "debugSettings": {
+        "title": "Prepnúť ladenie"
+      },
+      "hotjar": {
+        "description": "Aktivuje widget prieskumu, ktorý vám dáva možnosť odpovedať na naše prieskumy spokojnosti návštevníkov.",
+        "title": "Hotjar"
+      },
+      "i18n": {
+        "description": "Zapamätá si preferovaný jazyk rozhrania pre budúci prístup.",
+        "title": "Kód jazyka"
+      },
+      "jira-servicedesk": {
+        "description": "Aktivuje widget spätnej väzby a dáva vám možnosť nás kontaktovať.",
+        "title": "Service Desk Jira"
+      },
+      "matomo": {
+        "description": "Zhromažďuje anonymné štatistiky o tom, ako návštevníci interagujú s webovou stránkou.",
+        "title": "Matomo"
+      },
+      "searchResultsView": {
+        "description": "Pamätá si, či chcete radšej zobraziť výsledky vyhľadávania v zozname alebo mriežke.",
+        "title": "Zobrazenie výsledkov hľadania (zoznam / mriežka)"
+      }
+    }
   },
   "layout": {
     "skipToMain": "Preskočiť na stránku s obsahom"
@@ -499,16 +636,28 @@ export default {
     }
   },
   "loadingResults": "Načítavajú sa výsledky",
+  "mediaPreview": {
+    "selectItem": "Vyberte položku {src}"
+  },
   "messages": {
+    "copyToClipboardSuccess": "Skopírované do schránky",
     "externalContentError": "Nepodarilo sa načítať externý obsah",
     "notFound": "Nenašlo sa",
     "paginationLimitExceeded": "Je možné zobraziť len prvých {limit} výsledkov vyhľadávania."
   },
+  "multilingual": {
+    "original": "Pôvodné metaúdaje",
+    "originalLanguage": "pôvodný jazyk"
+  },
   "newWindow": "otvorí sa v novom okne",
   "noMoreResults": "Pre vaše vyhľadávanie neexistujú žiadne ďalšie výsledky.",
   "noResults": "Žiadne výsledky",
+  "pageHasLoaded": "načítal",
   "pages": {
     "collections": {
+      "times": {
+        "title": "Krát"
+      },
       "topics": {
         "title": "Témy"
       }
@@ -516,12 +665,17 @@ export default {
   },
   "readMore": "Viac",
   "record": {
+    "IIIFViewer": "Divák IIIF",
     "allMetaData": "Všetky metadáta",
+    "copyEmbedLabel": "Vložiť kód (kliknutím skopírujete)",
     "downloadCopyrightInfo": "Táto položka je chránená autorským zákonom a nie je možné ju stiahnuť.",
     "exploreMore": "Preskúmať viac",
     "extendedInformation": "Rozšírené informácie",
     "goodToKnow": "Dobré vedieť",
     "hideAll": "Skryť všetky informácie",
+    "location": "Poloha",
+    "locationOnMap": "Poloha na mape",
+    "mediaPlayer": "Prehrávač médií",
     "record": "Záznam",
     "showAll": "Zobraziť všetky informácie",
     "similarItems": "Podobné položky",
@@ -571,6 +725,7 @@ export default {
     "form": {
       "description": "Popis galérie",
       "private": "Túto galériu uložiť ako súkromnú",
+      "required": "Povinné polia",
       "title": "Názov galérie"
     },
     "labels": {

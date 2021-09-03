@@ -1,7 +1,7 @@
 import qs from 'qs';
 import sinon from 'sinon';
 
-import middleware from '../../../src/middleware/legacy';
+import middleware from '@/middleware/legacy';
 
 const rules = [
   { from: '/portal/en/about-us', to: '/en/about-us' },

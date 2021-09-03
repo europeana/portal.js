@@ -1,5 +1,6 @@
 export default {
   "account": {
+    "editProfile": "Edytuj profil",
     "likes": "Polubienia",
     "linkAccount": "Moje konto",
     "linkLogin": "Zaloguj się",
@@ -7,6 +8,8 @@ export default {
     "linkLogout": "Wyloguj",
     "myProfile": "Mój profil",
     "notifications": {
+      "loggedIn": "Jesteś teraz zalogowany. Witamy!",
+      "loggedOut": "Teraz jesteś wylogowany.",
       "noCollections": {
         "private": "Nie masz jeszcze prywatnych galerii",
         "public": "Nie masz jeszcze galerii publicznych"
@@ -15,19 +18,25 @@ export default {
     },
     "privateCollections": "Galerie prywatne",
     "profile": "Moje polubienia i galerie",
+    "profileSettings": "Ustawienia profilu",
     "publicCollections": "Galerie publiczne",
     "settings": "Ustawienia",
     "title": "Moje konto"
   },
   "actions": {
+    "cancel": "Anuluj",
     "close": "zamknij",
     "download": "Ściągnij",
     "edit": "Edytuj",
+    "feedback": "Twoja opinia",
     "goBack": "Wróć",
     "like": "Lubię",
+    "next": "Następny",
     "providedBy": "Dostarczone przez {provider}",
+    "send": "Wyślij",
     "share": "Udostępnij",
     "shareOn": "Udostępnij na {social}",
+    "skip": "Pominąć",
     "viewAt": "Zobacz w {link}",
     "viewDocument": "Zobacz dokument"
   },
@@ -37,6 +46,11 @@ export default {
     "date": "Data:",
     "institution": "Instytucja:",
     "title": "Tytuł:"
+  },
+  "automatedCardGroup": {
+    "item": "Ostatnie pozycje",
+    "time": "Polecane wieki",
+    "topic": "Polecane tematy"
   },
   "blog": {
     "author": "Autor",
@@ -49,8 +63,17 @@ export default {
     "published": "Opublikowano w dniu {date}",
     "relatedPosts": "Powiązane posty"
   },
+  "cardLabels": {
+    "person": "Osoba",
+    "time": "Stulecie",
+    "topic": "Temat"
+  },
   "clearAllFilters": "wyczyść wszystkie filtry",
   "collections": {
+    "actions": {
+      "edit": "Edytuj kolekcję",
+      "update": "Aktualizacja Kolekcja"
+    },
     "fashion": {
       "facets": {
         "CREATOR": {
@@ -66,16 +89,24 @@ export default {
           "name": "Materiał | Materiały"
         }
       }
+    },
+    "form": {
+      "description": "Opis"
+    },
+    "notifications": {
+      "update": "Kolekcja została zaktualizowana"
     }
   },
   "collectionsYouMightLike": "Kolekcje, które mogą Ci się spodobać",
+  "colourSwatch": "Próbka koloru",
+  "contentYouMightLike": "Treści, które mogą Ci się spodobać",
   "contentfulManual": {
     "footerNavigation": {
+      "MoreInfoLabel": "Więcej informacji",
       "about": "O kolekcjach Europeana",
       "forDevelopers": "Dla deweloperów",
       "help": "Pomoc",
       "meetUs": "Poznaj zespół",
-      "MoreInfoLabel": "Więcej informacji",
       "provide": "Zostań dostawcą danych",
       "subscribe": "Zapisz się do naszego newslettera",
       "terms": "Regulamin i Polityka prywatności"
@@ -86,7 +117,6 @@ export default {
       "teachers": "Nauczyciele"
     }
   },
-  "contentYouMightLike": "Treści, które mogą Ci się spodobać",
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Zaakceptuj zastrzeżenie dotyczące plików cookie",
     "link": "Więcej informacji",
@@ -99,6 +129,10 @@ export default {
     "startDate": "Data rozpoczęcia",
     "to": "do"
   },
+  "debug": {
+    "apiRequests": "Żądania API",
+    "debug": "Debug"
+  },
   "delete": "Usuń",
   "depiction": "Obraz {title}",
   "directions": {
@@ -106,6 +140,17 @@ export default {
     "right": "W prawo"
   },
   "edmIsShownAtLinkAlt": "Zobacz na stronie internetowej dostawcy",
+  "entity": {
+    "actions": {
+      "cancel": "Anuluj"
+    },
+    "labels": {
+      "entity": "Jednostka"
+    },
+    "notifications": {
+      "deleted": "Twoja galeria została usunięta."
+    }
+  },
   "error": "Błąd",
   "exhibitions": {
     "chapters": "Rozdziały",
@@ -115,39 +160,6 @@ export default {
     "exhibitions": "Wystawy"
   },
   "facets": {
-    "api": {
-      "name": "Szukaj",
-      "options": {
-        "fulltext": "Zapisy z pełnym tekstem",
-        "metadata": "Zapisy tylko z metadanymi"
-      }
-    },
-    "button": {
-      "apply": "Zastosuj",
-      "cancel": "Anuluj",
-      "morefilters": "Więcej filtrów",
-      "reset": "Resetuj",
-      "showAll": "Pokaż wszystko {label}",
-      "showLess": "Pokaż mniej {label}"
-    },
-    "collection": {
-      "name": "Kategoria",
-      "options": {
-        "archaeology": "Archeologia",
-        "art": "Sztuka",
-        "fashion": "Moda",
-        "industrial": "Dziedzictwo przemysłowe",
-        "manuscript": "Rękopisy",
-        "map": "Mapy i geografia",
-        "migration": "Migracja",
-        "music": "Muzyka",
-        "nature": "Historia naturalna",
-        "newspaper": "Gazety",
-        "photography": "Fotografia",
-        "sport": "Sport",
-        "ww1": "1914–1918"
-      }
-    },
     "COLOURPALETTE": {
       "name": "Kolor | Kolory",
       "options": {
@@ -293,15 +305,8 @@ export default {
         "#FFFAFA": "Śnieg",
         "#FFFF00": "Żółty",
         "#FFFFE0": "Jasny zółty",
+        "#FFFFF0": "kość słoniowa",
         "#FFFFFF": "Biały"
-      }
-    },
-    "contentTier": {
-      "name": "Obejmuje elementy niespełniające naszych kryteriów publikowania",
-      "notification": "Dostępne są niektóre elementy niespełniające naszych kryteriów publikacji. Dostęp do tych pozycji można uzyskać, aktywując filtr „Jakość pozycji” w sekcji „Więcej filtrów”.",
-      "options": {
-        "*": "Obejmuje elementy niespełniające naszych kryteriów publikowania",
-        "0": "Pokaż tylko elementy, które nie spełniają naszych kryteriów publikacji"
       }
     },
     "COUNTRY": {
@@ -341,18 +346,6 @@ export default {
     "PROVIDER": {
       "name": "Agregator"
     },
-    "proxy_dc_format": {
-      "name": "Format | Formaty"
-    },
-    "proxy_dc_type": {
-      "name": "Typ | Typy"
-    },
-    "proxy_dcterms_issued": {
-      "name": "Data wydania"
-    },
-    "proxy_dcterms_medium": {
-      "name": "Medium | Media"
-    },
     "REUSABILITY": {
       "name": "Czy mogę to wykorzystać?",
       "options": {
@@ -371,7 +364,77 @@ export default {
         "TEXT": "Tekst",
         "VIDEO": "Wideo"
       }
+    },
+    "api": {
+      "name": "Szukaj",
+      "options": {
+        "fulltext": "Zapisy z pełnym tekstem",
+        "metadata": "Zapisy tylko z metadanymi"
+      }
+    },
+    "button": {
+      "apply": "Zastosuj",
+      "cancel": "Anuluj",
+      "morefilters": "Więcej filtrów",
+      "reset": "Resetuj",
+      "showAll": "Pokaż wszystko {label}",
+      "showLess": "Pokaż mniej {label}"
+    },
+    "collection": {
+      "name": "Kategoria",
+      "options": {
+        "archaeology": "Archeologia",
+        "art": "Sztuka",
+        "fashion": "Moda",
+        "industrial": "Dziedzictwo przemysłowe",
+        "manuscript": "Rękopisy",
+        "map": "Mapy i geografia",
+        "migration": "Migracja",
+        "music": "Muzyka",
+        "nature": "Historia naturalna",
+        "newspaper": "Gazety",
+        "photography": "Fotografia",
+        "sport": "Sport",
+        "ww1": "1914–1918"
+      }
+    },
+    "contentTier": {
+      "name": "Obejmuje elementy niespełniające naszych kryteriów publikowania",
+      "notification": "Dostępne są niektóre elementy niespełniające naszych kryteriów publikacji. Dostęp do tych pozycji można uzyskać, aktywując filtr „Jakość pozycji” w sekcji „Więcej filtrów”.",
+      "options": {
+        "*": "Obejmuje elementy niespełniające naszych kryteriów publikowania",
+        "0": "Pokaż tylko elementy, które nie spełniają naszych kryteriów publikacji"
+      }
+    },
+    "proxy_dc_format": {
+      "name": "Format | Formaty"
+    },
+    "proxy_dc_type": {
+      "name": "Typ | Typy"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Data wydania"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Medium | Media"
     }
+  },
+  "feedback": {
+    "emailOptional": "Możemy chcieć podjąć działania następcze. Jeśli chcesz się z Nami skontaktować, wpisz swój adres e-mail.",
+    "failed": "Żądanie nie powiodło się. Proszę spróbować ponownie.",
+    "form": {
+      "placeholders": {
+        "email": "Wpisz swój adres e-mail",
+        "feedback": "Wpisz tutaj swoją opinię"
+      }
+    },
+    "policies": "Kontynuując, zgadzasz się na nasze {0} i przyjmujesz do wiadomości nasze {1}.",
+    "privacyPolicy": "Polityka prywatności",
+    "success": "Twoja opinia została wysłana.",
+    "termsOfService": "Warunki usługi",
+    "thankYou": "Dziękuję!",
+    "title": "Wyślij opinię",
+    "validEmail": "Wprowadzanie prawidłowego adresu e-mail"
   },
   "fieldLabels": {
     "default": {
@@ -390,6 +453,8 @@ export default {
       "dcRights": "Prawa",
       "dcSource": "Źródło",
       "dcSubject": "Temat",
+      "dcTitle": "Tytuł",
+      "dcType": "Rodzaj przedmiotu",
       "dctermsCreated": "Data utworzenia",
       "dctermsExtent": "Zakres",
       "dctermsHasPart": "składa się z",
@@ -406,8 +471,6 @@ export default {
       "dctermsReferences": "przywołuje",
       "dctermsSpatial": "Miejsca",
       "dctermsTemporal": "Okres",
-      "dcTitle": "Tytuł",
-      "dcType": "Rodzaj przedmiotu",
       "edmCountry": "Kraj dostarczający",
       "edmCurrentLocation": "Aktualna lokalizacja",
       "edmDataProvider": "Instytucja dostarczająca",
@@ -438,8 +501,22 @@ export default {
   },
   "footer": {
     "customiseWebsiteLanguage": "Dostosuj język witryny",
+    "disclaimerLine1": "Europeana jest inicjatywą Unii Europejskiej, finansowaną z unijnego Connecting Europe Facility oraz przez państwa członkowskie Unii Europejskiej. Usługi Europeany, w tym niniejsza strona internetowa, są prowadzone przez konsorcjum kierowane przez Fundację Europeana na podstawie umowy o świadczenie usług zawartej z Komisją Europejską.",
+    "disclaimerLine2": "Komisja Europejska nie gwarantuje dokładności informacji i nie ponosi żadnej odpowiedzialności w odniesieniu do informacji na tej stronie internetowej. Ani Komisja Europejska, ani żadna osoba działająca w imieniu Komisji Europejskiej nie ponosi odpowiedzialności za dokładność lub wykorzystanie informacji na tej stronie internetowej.",
     "findUsElsewhere": "Znajdź nas w innych miejscach",
     "imageDescription": "Współfinansowany z instrumentu „Łącząc Europę” Unii Europejskiej",
+    "navigation": {
+      "MoreInfoLabel": "Więcej informacji",
+      "about": "O nas",
+      "accessibility": "Dostępność",
+      "cookies": "Pliki cookie",
+      "forDevelopers": "Dla deweloperów",
+      "help": "Pomoc",
+      "privacy": "Polityka prywatności",
+      "provide": "Zostań dostawcą danych",
+      "subscribe": "Zapisz się do naszego newslettera",
+      "terms": "Warunki usługi"
+    },
     "ourMission": "Nasza misja",
     "ourMissionQuote": "Europeana wspiera sektor dziedzictwa kulturowego w jego transformacji cyfrowej. Rozwijamy wiedzę specjalistyczną, narzędzia i polityki, aby uwzględnić zmiany cyfrowe i zachęcać do partnerstwa wspierającego innowacje."
   },
@@ -456,6 +533,7 @@ export default {
   "header": {
     "backToMenu": "Zamknij pole wyszukiwania",
     "clearQuery": "Wyczyść zapytanie",
+    "closeSidebar": "Zamknij menu",
     "entireCollection": "Wyszukaj {query} w całej naszej kolekcji",
     "europeanaHome": "Strona główna Europeany",
     "inCollection": "Wyszukaj {query} w {collection}",
@@ -463,7 +541,9 @@ export default {
       "about": "O nas",
       "collections": "Kolekcje",
       "europeanaClassroom": "Nauczyciele",
-      "help": "Pomoc"
+      "help": "Pomoc",
+      "home": "Dom",
+      "stories": "Historie"
     },
     "searchFor": "Wyszukaj {query}",
     "searchForEverything": "Szukaj wszystkiego",
@@ -479,6 +559,63 @@ export default {
     "itemCount": "1 pozycja |Pozycje: {count}",
     "itemOf": "{max} z {count} elementów",
     "youMightLike": "Przedmioty, które mogą Ci się spodobać"
+  },
+  "klaro": {
+    "main": {
+      "consentModal": {
+        "description": "Poważnie traktujemy prywatność Twoich danych. Tutaj możesz ocenić i dostosować usługi, z których chcielibyśmy korzystać na tej stronie. Ty rządzisz! Włącz lub wyłącz usługi według własnego uznania.",
+        "title": "Usługi, z których chcielibyśmy skorzystać."
+      },
+      "consentNotice": {
+        "description": "Dbamy o Twoją prywatność i wykorzystujemy dane tylko po to, aby poprawić Twoje doświadczenia. Nie wykorzystujemy żadnych danych osobowych do celów reklamowych. Możesz zmienić swoją zgodę co 15 dni."
+      },
+      "ok": "Dobra",
+      "purposes": {
+        "essential": {
+          "description": "Usługi te są niezbędne do prawidłowego funkcjonowania tej witryny. Obejmują one widok wyników wyszukiwania i preferencje językowe, zachowują stan zalogowania i zapewniają bezpieczeństwo Twojej wizyty. Nie możesz ich wyłączyć, ponieważ w przeciwnym razie strona nie działałaby poprawnie.",
+          "title": "Niezbędne usługi w zakresie bezpieczeństwa i dostosowywania"
+        },
+        "usage": {
+          "description": "Usługi te zbierają informacje, aby pomóc nam lepiej zrozumieć, w jaki sposób strona internetowa jest używana i gdzie są punkty bólu, umożliwiając nam dokonywanie świadomych wyborów w celu poprawy doświadczenia użytkownika.",
+          "title": "Usługi do przechwytywania wykorzystania witryny i informacji zwrotnych"
+        }
+      },
+      "service": {
+        "disableAll": {
+          "description": "Użyj tego przełącznika, aby włączyć lub wyłączyć wszystkie usługi opcjonalne.",
+          "title": "Włącz lub wyłącz wszystkie usługi"
+        }
+      }
+    },
+    "services": {
+      "auth-strategy": {
+        "description": "Zapamiętuje strategię autoryzacji używaną do logowania.",
+        "title": "Strategia Auth"
+      },
+      "debugSettings": {
+        "title": "Przełącznik debugowania"
+      },
+      "hotjar": {
+        "description": "Aktywuje widget ankiety dający możliwość odpowiadania na nasze ankiety satysfakcji odwiedzających.",
+        "title": "Hotjar"
+      },
+      "i18n": {
+        "description": "Zapamiętuje preferowany język interfejsu do przyszłego dostępu.",
+        "title": "Kod języka"
+      },
+      "jira-servicedesk": {
+        "description": "Aktywuje widget opinii, dając Ci możliwość skontaktowania się z nami.",
+        "title": "Jira service desk"
+      },
+      "matomo": {
+        "description": "Gromadzi anonimowe statystyki dotyczące interakcji odwiedzających z witryną.",
+        "title": "Matomo"
+      },
+      "searchResultsView": {
+        "description": "Zapamiętuje się, jeśli wolisz widzieć wyniki wyszukiwania w widoku listy lub siatki.",
+        "title": "Widok wyników wyszukiwania (lista/siatka)"
+      }
+    }
   },
   "layout": {
     "skipToMain": "Przejdź do zawartości strony"
@@ -499,16 +636,29 @@ export default {
     }
   },
   "loadingResults": "Ładowanie wyników",
+  "mediaPreview": {
+    "selectItem": "Wybierz element {src}"
+  },
   "messages": {
+    "copyToClipboardSuccess": "Skopiowane do schowka",
     "externalContentError": "Nie można załadować treści zewnętrznej",
     "notFound": "Nie znaleziono",
     "paginationLimitExceeded": "Możliwe jest wyświetlenie tylko pierwszych {limit} wyników wyświetlania."
   },
+  "multilingual": {
+    "original": "Oryginalne metadane",
+    "originalLanguage": "język oryginalny",
+    "other": "Inne języki"
+  },
   "newWindow": "otwiera się w nowym oknie",
   "noMoreResults": "Nie ma więcej wyników dla zapytania wyszukiwania.",
   "noResults": "Brak Wyników",
+  "pageHasLoaded": "załadował",
   "pages": {
     "collections": {
+      "times": {
+        "title": "Czasy"
+      },
       "topics": {
         "title": "Tematy"
       }
@@ -516,12 +666,17 @@ export default {
   },
   "readMore": "Czytaj więcej",
   "record": {
+    "IIIFViewer": "Przeglądarka IIIF",
     "allMetaData": "Wszystkie metadane",
+    "copyEmbedLabel": "Kod do umieszczenia (kliknij, aby skopiować)",
     "downloadCopyrightInfo": "Ten element jest chroniony prawami autorskimi i nie można go pobrać.",
     "exploreMore": "Odkryj więcej",
     "extendedInformation": "Informacje rozszerzone",
     "goodToKnow": "Warto wiedzieć",
     "hideAll": "Ukryj wszystkie informacje",
+    "location": "Lokalizacja",
+    "locationOnMap": "Lokalizacja na mapie",
+    "mediaPlayer": "Odtwarzacz multimedialny",
     "record": "Rekord",
     "showAll": "Pokaż wszystkie informacje",
     "similarItems": "Podobne elementy",
@@ -571,6 +726,7 @@ export default {
     "form": {
       "description": "Opis galerii",
       "private": "Zachowaj tę galerię jako prywatną",
+      "required": "Pole wymagane",
       "title": "Nazwa galerii"
     },
     "labels": {

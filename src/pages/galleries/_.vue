@@ -4,6 +4,7 @@
       :title="title"
       :description="htmlDescription"
       :media-url="shareMediaUrl"
+      :context-label="$tc('galleries.galleries', 1)"
     />
     <b-row class="flex-md-row pb-5">
       <b-col cols="12">
@@ -61,7 +62,7 @@
 
           return {
             rawDescription: gallery.description,
-            images: gallery.hasPartCollection.items,
+            images: gallery.hasPartCollection.items.filter(image => image !== null),
             title: gallery.name
           };
         })

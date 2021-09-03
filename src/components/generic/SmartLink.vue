@@ -23,7 +23,7 @@
 </template>
 
 <script>
-  // TODO: refactor to use $link.to and $link.href
+// TODO: refactor to use $link.to and $link.href
 
   export default {
     props: {
@@ -67,11 +67,13 @@
         }
 
         if (typeof this.destination === 'string' && this.destination.startsWith('/')) {
+          const [pathSlug, urlParams] = this.destination.split('?');
           return this.$path({
             name: 'slug',
             params: {
-              pathMatch: this.destination.slice(1)
-            }
+              pathMatch: pathSlug.slice(1)
+            },
+            query: Object.fromEntries(new URLSearchParams(urlParams))
           });
         }
 

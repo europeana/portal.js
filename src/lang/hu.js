@@ -1,5 +1,6 @@
 export default {
   "account": {
+    "editProfile": "Profil szerkesztése",
     "likes": "Kedvelések",
     "linkAccount": "Fiókom",
     "linkLogin": "Bejelentkezés",
@@ -7,6 +8,8 @@ export default {
     "linkLogout": "Bejelentkezés",
     "myProfile": "A profilom",
     "notifications": {
+      "loggedIn": "Most már be van jelentkezve. Üdvözlünk!",
+      "loggedOut": "Most kijelentkezett.",
       "noCollections": {
         "private": "Még nem hozott létre privát galériát",
         "public": "Még nem hozott létre nyilvános galériát"
@@ -15,19 +18,25 @@ export default {
     },
     "privateCollections": "Privát Galériák",
     "profile": "Kedveléseim és gyűjteményeim",
+    "profileSettings": "Profilbeállítások",
     "publicCollections": "Nyilvános Galériák",
     "settings": "Beállítások",
     "title": "Fiókom"
   },
   "actions": {
+    "cancel": "Mégse",
     "close": "bezárás",
     "download": "Letöltés",
     "edit": "Szerkesztés",
+    "feedback": "Visszacsatolás",
     "goBack": "Vissza",
     "like": "Kedvelés",
+    "next": "Következő",
     "providedBy": "Szolgáltató: {provider}",
+    "send": "Küld",
     "share": "Megosztás",
     "shareOn": "Megosztás a következőn: {social}",
+    "skip": "Skip",
     "viewAt": "Megtekintés a következő helyen: {link}",
     "viewDocument": "Dokumentum megtekintése"
   },
@@ -37,6 +46,11 @@ export default {
     "date": "Dátum:",
     "institution": "Intézmény:",
     "title": "Cím:"
+  },
+  "automatedCardGroup": {
+    "item": "Legutóbbi cikk",
+    "time": "Kiemelt évszázadok",
+    "topic": "Kiemelt témák"
   },
   "blog": {
     "author": "Szerző",
@@ -49,8 +63,17 @@ export default {
     "published": "Közzététel dátuma: {date}",
     "relatedPosts": "Kapcsolódó bejegyzések"
   },
+  "cardLabels": {
+    "person": "Személy",
+    "time": "Század",
+    "topic": "Téma"
+  },
   "clearAllFilters": "összes szűrő törlése",
   "collections": {
+    "actions": {
+      "edit": "Gyűjtemény szerkesztése",
+      "update": "Gyűjtemény frissítése"
+    },
     "fashion": {
       "facets": {
         "CREATOR": {
@@ -66,16 +89,24 @@ export default {
           "name": "Anyag | Anyagok"
         }
       }
+    },
+    "form": {
+      "description": "Leírás"
+    },
+    "notifications": {
+      "update": "A gyűjtemény frissült"
     }
   },
   "collectionsYouMightLike": "Gyűjtemények, amelyek tetszhetnek Önnek",
+  "colourSwatch": "Színminta",
+  "contentYouMightLike": "Tartalom, ami tetszhet Önnek",
   "contentfulManual": {
     "footerNavigation": {
+      "MoreInfoLabel": "További információ",
       "about": "Az Europeana gyűjteményekről",
       "forDevelopers": "Fejlesztőknek",
       "help": "Súgó",
       "meetUs": "Találkozzon a csapattal",
-      "MoreInfoLabel": "További információ",
       "provide": "Legyen adatszolgáltató",
       "subscribe": "Iratkozzon fel hírlevelünkre",
       "terms": "Felhasználási feltételek és adatvédelmi irányelv"
@@ -86,7 +117,6 @@ export default {
       "teachers": "Tanárok"
     }
   },
-  "contentYouMightLike": "Tartalom, ami tetszhet Önnek",
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "A sütikkel kapcsolatos nyilatkozat elfogadása",
     "link": "További információ",
@@ -99,6 +129,10 @@ export default {
     "startDate": "Kezdő dátum",
     "to": "erre"
   },
+  "debug": {
+    "apiRequests": "API kérések",
+    "debug": "Debug"
+  },
   "delete": "Törlés",
   "depiction": "{title} ábrázolása",
   "directions": {
@@ -106,6 +140,17 @@ export default {
     "right": "Jobb"
   },
   "edmIsShownAtLinkAlt": "Megtekintés a szolgáltató webhelyén",
+  "entity": {
+    "actions": {
+      "cancel": "Mégse"
+    },
+    "labels": {
+      "entity": "Entitás"
+    },
+    "notifications": {
+      "deleted": "Galéria törölve."
+    }
+  },
   "error": "Hiba",
   "exhibitions": {
     "chapters": "Fejezetek",
@@ -115,39 +160,6 @@ export default {
     "exhibitions": "Kiállítások"
   },
   "facets": {
-    "api": {
-      "name": "Keresés erre",
-      "options": {
-        "fulltext": "Rekordok teljes szöveggel",
-        "metadata": "Csak metaadatokat tartalmazó rekordok"
-      }
-    },
-    "button": {
-      "apply": "Alkalmaz",
-      "cancel": "Mégse",
-      "morefilters": "További szűrők",
-      "reset": "Visszaállítás",
-      "showAll": "Összes {label} megjelenítése",
-      "showLess": "Kevesebb {label} megjelenítése"
-    },
-    "collection": {
-      "name": "Kategória",
-      "options": {
-        "archaeology": "Régészet",
-        "art": "Művészet",
-        "fashion": "Divat",
-        "industrial": "Ipari örökség",
-        "manuscript": "Kéziratok",
-        "map": "Térképek és földrajz",
-        "migration": "Migráció",
-        "music": "Zene",
-        "nature": "Természettörténet",
-        "newspaper": "Újságok",
-        "photography": "Fotózás",
-        "sport": "Sport",
-        "ww1": "1914-1918"
-      }
-    },
     "COLOURPALETTE": {
       "name": "Szín | Színek",
       "options": {
@@ -293,15 +305,8 @@ export default {
         "#FFFAFA": "Hó",
         "#FFFF00": "Sárga",
         "#FFFFE0": "Halványsárga",
+        "#FFFFF0": "Elefántcsont",
         "#FFFFFF": "fehér"
-      }
-    },
-    "contentTier": {
-      "name": "Tartalmaz olyan elemeket, melyek nem felelnek meg a közzétételi kritériumoknak.",
-      "notification": "Olyan cikkek is elérhetőek, amelyek nem felelnek meg az általunk felállított közzétételi kritériumoknak. Ezeket a cikkeket a \"Több szűrő\", \"Cikkek minősége\" opció aktiválásával érheti el.",
-      "options": {
-        "*": "A közzétételi feltételeknek meg nem felelő elemek kizárása",
-        "0": "Csak olyan cikkek megjelenítése, amelyek nem felelnek meg a közzétételi kritériumoknak"
       }
     },
     "COUNTRY": {
@@ -341,18 +346,6 @@ export default {
     "PROVIDER": {
       "name": "Aggregátor"
     },
-    "proxy_dc_format": {
-      "name": "Formátum | formátumok"
-    },
-    "proxy_dc_type": {
-      "name": "Típus | Típusok"
-    },
-    "proxy_dcterms_issued": {
-      "name": "Kibocsátás dátuma"
-    },
-    "proxy_dcterms_medium": {
-      "name": "Adathordozó | Adathordozók"
-    },
     "REUSABILITY": {
       "name": "Használhatom ezt újból?",
       "options": {
@@ -371,7 +364,77 @@ export default {
         "TEXT": "Szöveg",
         "VIDEO": "Videó"
       }
+    },
+    "api": {
+      "name": "Keresés erre",
+      "options": {
+        "fulltext": "Rekordok teljes szöveggel",
+        "metadata": "Csak metaadatokat tartalmazó rekordok"
+      }
+    },
+    "button": {
+      "apply": "Alkalmaz",
+      "cancel": "Mégse",
+      "morefilters": "További szűrők",
+      "reset": "Visszaállítás",
+      "showAll": "Összes {label} megjelenítése",
+      "showLess": "Kevesebb {label} megjelenítése"
+    },
+    "collection": {
+      "name": "Kategória",
+      "options": {
+        "archaeology": "Régészet",
+        "art": "Művészet",
+        "fashion": "Divat",
+        "industrial": "Ipari örökség",
+        "manuscript": "Kéziratok",
+        "map": "Térképek és földrajz",
+        "migration": "Migráció",
+        "music": "Zene",
+        "nature": "Természettörténet",
+        "newspaper": "Újságok",
+        "photography": "Fotózás",
+        "sport": "Sport",
+        "ww1": "1914-1918"
+      }
+    },
+    "contentTier": {
+      "name": "Tartalmaz olyan elemeket, melyek nem felelnek meg a közzétételi kritériumoknak.",
+      "notification": "Olyan cikkek is elérhetőek, amelyek nem felelnek meg az általunk felállított közzétételi kritériumoknak. Ezeket a cikkeket a \"Több szűrő\", \"Cikkek minősége\" opció aktiválásával érheti el.",
+      "options": {
+        "*": "A közzétételi feltételeknek meg nem felelő elemek kizárása",
+        "0": "Csak olyan cikkek megjelenítése, amelyek nem felelnek meg a közzétételi kritériumoknak"
+      }
+    },
+    "proxy_dc_format": {
+      "name": "Formátum | formátumok"
+    },
+    "proxy_dc_type": {
+      "name": "Típus | Típusok"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Kibocsátás dátuma"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Adathordozó | Adathordozók"
     }
+  },
+  "feedback": {
+    "emailOptional": "Érdemes lehet utánajárnunk. Írja be az e-mail címét, ha örül, hogy kapcsolatba lépünk Önnel.",
+    "failed": "A kérés nem sikerült. Kérlek próbáld újra.",
+    "form": {
+      "placeholders": {
+        "email": "Adja meg e-mail címét",
+        "feedback": "Írja be ide visszajelzését"
+      }
+    },
+    "policies": "A folytatással elfogadja {0} és a {1} .",
+    "privacyPolicy": "Adatvédelmi irányelvek",
+    "success": "Visszajelzését elküldtük.",
+    "termsOfService": "Szolgáltatás feltételei",
+    "thankYou": "Köszönöm!",
+    "title": "Visszajelzés küldése",
+    "validEmail": "Adjon meg egy érvényes email címet"
   },
   "fieldLabels": {
     "default": {
@@ -390,6 +453,8 @@ export default {
       "dcRights": "Jogok",
       "dcSource": "Forrás",
       "dcSubject": "Tárgy",
+      "dcTitle": "Cím",
+      "dcType": "Objektum típusa",
       "dctermsCreated": "Létrehozás dátuma",
       "dctermsExtent": "Terjedelem",
       "dctermsHasPart": "Tartalma",
@@ -406,8 +471,6 @@ export default {
       "dctermsReferences": "Hivatkozások",
       "dctermsSpatial": "Helyek",
       "dctermsTemporal": "Időbeli",
-      "dcTitle": "Cím",
-      "dcType": "Objektum típusa",
       "edmCountry": "Szolgáltató ország",
       "edmCurrentLocation": "Jelenlegi tartózkodási hely",
       "edmDataProvider": "Szolgáltató intézmény",
@@ -438,8 +501,22 @@ export default {
   },
   "footer": {
     "customiseWebsiteLanguage": "A webhely nyelvének testreszabása",
+    "disclaimerLine1": "Az Europeana az Európai Unió kezdeményezése, amelyet az Európai Unió Európai Uniót összekötő eszközének és az Európai Unió tagállamainak finanszíroz. Az Europeana szolgáltatásait, beleértve ezt a weboldalt is, az Europeana Alapítvány által vezetett konzorcium üzemelteti az Európai Bizottsággal kötött szolgáltatási szerződés alapján.",
+    "disclaimerLine2": "Az Európai Bizottság nem garantálja az információk pontosságát, és semmilyen felelősséget nem vállal a weboldalon található információkkal kapcsolatban. Sem az Európai Bizottság, sem az Európai Bizottság nevében eljáró személyek nem felelősek vagy felelősek a weboldalon található információk pontosságáért vagy felhasználásáért.",
     "findUsElsewhere": "Keressen minket máshol",
     "imageDescription": "Az Európai Unió Európai Hálózatfinanszírozási Eszköze által társfinanszírozva",
+    "navigation": {
+      "MoreInfoLabel": "További információ",
+      "about": "Rólunk",
+      "accessibility": "Hozzáférhetőség",
+      "cookies": "Sütik",
+      "forDevelopers": "Fejlesztőknek",
+      "help": "Súgó",
+      "privacy": "Adatvédelmi irányelvek",
+      "provide": "Legyen adatszolgáltató",
+      "subscribe": "Iratkozzon fel hírlevelünkre",
+      "terms": "Szolgáltatás feltételei"
+    },
     "ourMission": "Küldetésünk",
     "ourMissionQuote": "Az Europeana segíti a kulturális örökség ágazatát a digitális átalakulásban. Szakértelmet, eszközöket és irányelveket dolgozunk ki a digitális változások befogadására és az innovációt elősegítő partnerségek ösztönzésére."
   },
@@ -456,6 +533,7 @@ export default {
   "header": {
     "backToMenu": "Keresőmező bezárása",
     "clearQuery": "Keresőkifejezés törlése",
+    "closeSidebar": "Menü bezárása",
     "entireCollection": "Keresés az egész gyűjteményben erre: {query}",
     "europeanaHome": "Europeana kezdőlap",
     "inCollection": "Keresés erre: {query}, a {collection} gyűjteményben",
@@ -463,7 +541,9 @@ export default {
       "about": "Rólunk",
       "collections": "Gyűjtemények",
       "europeanaClassroom": "Tanárok",
-      "help": "Súgó"
+      "help": "Súgó",
+      "home": "itthon",
+      "stories": "Történetek"
     },
     "searchFor": "Keresés erre: {query}",
     "searchForEverything": "Keresés mindenre",
@@ -479,6 +559,63 @@ export default {
     "itemCount": "1 cikk |{count} cikk",
     "itemOf": "{max} {count} cikk",
     "youMightLike": "Cikkek, amik tetszhetnek Önnek"
+  },
+  "klaro": {
+    "main": {
+      "consentModal": {
+        "description": "Komolyan vesszük az Ön adatvédelmét. Itt értékelheti és testre szabhatja azokat a szolgáltatásokat, amelyeket ezen a weboldalon használni szeretnénk. Te vagy a felelős! Engedélyezze vagy tiltsa le a szolgáltatásokat tetszése szerint.",
+        "title": "Szolgáltatások, amelyeket szeretnénk igénybe venni."
+      },
+      "consentNotice": {
+        "description": "Törődünk az adatvédelemmel, és csak az élmény javítása érdekében használunk adatokat. Nem használunk személyes adatokat reklámozásra. 15 naponta módosíthatja beleegyezését."
+      },
+      "ok": "oké",
+      "purposes": {
+        "essential": {
+          "description": "Ezek a szolgáltatások elengedhetetlenek a weboldal megfelelő működéséhez. Tartalmazzák a keresési eredmények nézetét és a nyelvi beállításokat, megőrzik a bejelentkezett állapotot és biztonságban tartják látogatásukat. Nem tilthatja le őket, mivel a webhely egyébként nem működne megfelelően.",
+          "title": "Alapvető szolgáltatások a biztonság és a testreszabás érdekében"
+        },
+        "usage": {
+          "description": "Ezek a szolgáltatások összegyűjtik az információkat, hogy jobban megértsük, hogyan használják fel a weboldalt és hol vannak a fájdalompontok, felhatalmazva bennünket arra, hogy megalapozott döntéseket hozzunk az Ön élményének javítása érdekében.",
+          "title": "Szolgáltatások a weboldal használatának és visszajelzésének rögzítésére"
+        }
+      },
+      "service": {
+        "disableAll": {
+          "description": "Ezzel a kapcsolóval engedélyezheti vagy letilthatja az összes opcionális szolgáltatást.",
+          "title": "Minden szolgáltatás engedélyezése vagy letiltása"
+        }
+      }
+    },
+    "services": {
+      "auth-strategy": {
+        "description": "Emlékszik a bejelentkezéshez használandó engedélyezési stratégiára.",
+        "title": "Auth stratégia"
+      },
+      "debugSettings": {
+        "title": "Hibakeresés váltás"
+      },
+      "hotjar": {
+        "description": "Aktivál egy felmérési widgetet, amely lehetőséget ad a látogatói elégedettségi felméréseinkre való válaszadásra.",
+        "title": "Hotjar"
+      },
+      "i18n": {
+        "description": "Emlékszik az Ön által preferált felület nyelvére a későbbi hozzáférés érdekében.",
+        "title": "Nyelvi kód"
+      },
+      "jira-servicedesk": {
+        "description": "Aktiválja a visszajelzés widgetet, amely lehetőséget ad a kapcsolatfelvételre.",
+        "title": "Jira szolgáltató pult"
+      },
+      "matomo": {
+        "description": "Névtelen statisztikákat gyűjt arról, hogy a látogatók hogyan lépnek kapcsolatba a weboldallal.",
+        "title": "Matomo"
+      },
+      "searchResultsView": {
+        "description": "Emlékszik arra, hogy a keresési eredményeket inkább lista- vagy rácsnézetben szeretné-e látni.",
+        "title": "Keresési eredmény nézet (lista / rács)"
+      }
+    }
   },
   "layout": {
     "skipToMain": "Ugrás az oldal tartalmához"
@@ -499,16 +636,29 @@ export default {
     }
   },
   "loadingResults": "Eredmények betöltése",
+  "mediaPreview": {
+    "selectItem": "Elem kiválasztása {src}"
+  },
   "messages": {
+    "copyToClipboardSuccess": "Vágólapra másolva",
     "externalContentError": "A külső tartalom betöltése sikertelen",
     "notFound": "Nem található",
     "paginationLimitExceeded": "Csak az első {limit} keresési találat tekinthető meg."
   },
+  "multilingual": {
+    "original": "Eredeti metaadat",
+    "originalLanguage": "eredeti nyelv",
+    "other": "Egyéb nyelvek"
+  },
   "newWindow": "új ablakban nyílik meg",
   "noMoreResults": "Nincs további eredmény a keresési lekérdezéshez.",
   "noResults": "Nincs találat",
+  "pageHasLoaded": "betöltődött",
   "pages": {
     "collections": {
+      "times": {
+        "title": "Idők"
+      },
       "topics": {
         "title": "Témák"
       }
@@ -516,12 +666,17 @@ export default {
   },
   "readMore": "Bővebben",
   "record": {
+    "IIIFViewer": "IIIF néző",
     "allMetaData": "Minden metaadat",
+    "copyEmbedLabel": "Beágyazási kód (Kattintson a másoláshoz)",
     "downloadCopyrightInfo": "Ez az elem szerzői jogi védelem alatt áll, és nem tölthető le.",
     "exploreMore": "Több felfedezés",
     "extendedInformation": "Kiterjesztett információk",
     "goodToKnow": "Jó tudni",
     "hideAll": "Az összes információ elrejtése",
+    "location": "hely",
+    "locationOnMap": "Elhelyezkedés a térképen",
+    "mediaPlayer": "Médialejátszó",
     "record": "Rekord",
     "showAll": "Az összes információ megjelenítése",
     "similarItems": "Hasonló elemek",
@@ -571,6 +726,7 @@ export default {
     "form": {
       "description": "Galéria leírása",
       "private": "Galéria privát módban tartása",
+      "required": "Kötelező mező",
       "title": "Galéria neve"
     },
     "labels": {

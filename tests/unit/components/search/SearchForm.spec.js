@@ -1,5 +1,5 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import SearchForm from '../../../../src/components/search/SearchForm.vue';
+import SearchForm from '@/components/search/SearchForm.vue';
 import Vuex from 'vuex';
 import sinon from 'sinon';
 
@@ -117,16 +117,15 @@ describe('components/search/SearchForm', () => {
     context('with a selected entity suggestion', () => {
       it('routes to the entity page', async() => {
         const state = {
-          active: true,
-          userParams: {
-            query: ''
-          },
-          view: 'grid'
+          search: {
+            active: true,
+            view: 'grid'
+          }
         };
-        const wrapper = factory({ store: store({ search: { showSearchBar: true } }) });
+        const wrapper = factory({ store: store(state) });
 
-        wrapper.setData({
-          selectedOptionLink: { path: '/search', query: { query: '"Fresco"', view: state.view } }
+        await wrapper.setData({
+          selectedOptionLink: { path: '/search', query: { query: '"Fresco"', view: state.search.view } }
         });
         wrapper.vm.submitForm();
 
@@ -134,7 +133,7 @@ describe('components/search/SearchForm', () => {
           path: '/search',
           query: {
             query: '"Fresco"',
-            view: state.view
+            view: 'grid'
           }
         };
 
@@ -143,19 +142,17 @@ describe('components/search/SearchForm', () => {
     });
 
     context('when on a search page', () => {
-      it('updates current route', () => {
-        const state = {
-          search: {
-            active: true,
-            userParams: {
-              query: ''
-            },
-            view: 'grid'
-          }
-        };
+      const state = {
+        search: {
+          active: true,
+          view: 'grid'
+        }
+      };
+
+      it('updates current route', async() => {
         const wrapper = factory({ store: store(state) });
 
-        wrapper.setData({
+        await wrapper.setData({
           query
         });
         wrapper.vm.submitForm();
@@ -166,22 +163,36 @@ describe('components/search/SearchForm', () => {
         };
         $goto.should.have.been.calledWith(newRouteParams);
       });
+
+      context('when query is blank', () => {
+        it('includes empty query param', async() => {
+          const wrapper = factory({ store: store(state) });
+
+          await wrapper.setData({
+            query: undefined
+          });
+          wrapper.vm.submitForm();
+
+          const newRouteParams = {
+            path: wrapper.vm.$route.path,
+            query: { query: '', page: 1, view: state.search.view }
+          };
+          $goto.should.have.been.calledWith(newRouteParams);
+        });
+      });
     });
 
     context('when not on a search page', () => {
-      it('reroutes to search', () => {
+      it('reroutes to search', async() => {
         const state = {
           search: {
             active: false,
-            userParams: {
-              query: ''
-            },
             view: 'list'
           }
         };
         const wrapper = factory({ store: store(state) });
 
-        wrapper.setData({
+        await wrapper.setData({
           query
         });
         wrapper.vm.submitForm();

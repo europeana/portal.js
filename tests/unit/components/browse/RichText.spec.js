@@ -1,7 +1,7 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 
-import RichText from '../../../../src/components/browse/RichText.vue';
+import RichText from '@/components/browse/RichText.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -21,17 +21,17 @@ describe('components/browse/RichText', () => {
     markdown.html().should.contain('<strong>This is bold text</strong>');
   });
 
-  it('shows in a card', () => {
+  it('shows in a card', async() => {
     const wrapper = factory();
-    wrapper.setProps({ richTextIsCard: true });
+    await wrapper.setProps({ richTextIsCard: true });
 
     const markdown = wrapper.find('[data-qa="markdown"]');
     markdown.find('div.card').exists().should.be.true;
   });
 
-  it('shows in as text', () => {
+  it('shows in as text', async() => {
     const wrapper = factory();
-    wrapper.setProps({ richTextIsCard: false });
+    await wrapper.setProps({ richTextIsCard: false });
 
     const markdown = wrapper.find('[data-qa="markdown"]');
     markdown.find('div.card').exists().should.be.false;

@@ -28,10 +28,14 @@
           cols="12"
         >
           <b-container class="mb-5">
-            <b-row class="mb-3">
+            <b-row class="mb-4">
               <b-col>
+                <div
+                  class="context-label"
+                >
+                  {{ this.$tc('galleries.galleries', 1) }}
+                </div>
                 <h1
-                  class="pt-3"
                   :lang="displayTitle.code"
                 >
                   {{ displayTitle.values[0] }}
@@ -46,15 +50,19 @@
                     This can be changed when this functionality is further developed
                 -->
                 <div
-                  v-if="set.visibility === 'private'"
-                  class="usergallery-metadata"
+                  v-if="set.visibility === 'private' || set.creator.nickname"
+                  class="usergallery-metadata mb-2"
                 >
-                  <!-- TODO: Fill after the '@' with the set's owner  -->
-                  <!-- <span class="curator mr-4">
-                    {{ $t('set.labels.curatedBy') }} @placeholderUsername
-                  </span>-->
                   <span
-                    class="visibility"
+                    v-if="set.creator.nickname"
+                    class="curator mb-2"
+                  >
+                    {{ $t('set.labels.curatedBy') }} @{{ set.creator.nickname }}
+                  </span>
+                  <span
+                    v-if="set.visibility === 'private'"
+                    class="
+                    visibility mb-2"
                   >
                     {{ $t('set.labels.private') }}
                   </span>
@@ -127,10 +135,15 @@
       >
         <b-col>
           <h2 class="related-heading">
-            {{ $t('items.youMightLike') }}
+            {{ $t('items.recommended') }}
           </h2>
+          <h5 class="related-subtitle">
+            <span class="icon-info-outline" />
+            {{ $t('items.recommendationsDisclaimer') }}
+          </h5>
           <ItemPreviewCardGroup
             v-model="recommendations"
+            :recommendations="this.$config.app.features.acceptSetRecommendations"
           />
         </b-col>
       </b-row>
@@ -161,6 +174,9 @@
     async fetch() {
       try {
         await this.$store.dispatch('set/fetchActive', this.$route.params.pathMatch);
+        if (this.enableRecommendations && this.$auth.loggedIn && this.userCanEdit) {
+          this.$store.dispatch('set/fetchActiveRecommendations', `/${this.$route.params.pathMatch}`);
+        }
       } catch (apiError) {
         if (process.server) {
           this.$nuxt.context.res.statusCode = apiError.statusCode;
@@ -171,7 +187,6 @@
 
     data() {
       return {
-        recommendations: [],
         setFormModalId: `set-form-modal-${this.id}`
       };
     },
@@ -179,6 +194,9 @@
     computed: {
       set() {
         return this.$store.state.set.active || {};
+      },
+      recommendations() {
+        return this.$store.state.set.activeRecommendations || [];
       },
       itemCount() {
         return this.set.total || 0;
@@ -191,9 +209,21 @@
         }
       },
       userIsOwner() {
-        return this.$store.state.auth.user &&
+        return this.$auth.loggedIn && this.$store.state.auth.user &&
           this.setCreatorId &&
           this.setCreatorId.endsWith(`/${this.$store.state.auth.user.sub}`);
+      },
+      userIsEntityEditor() {
+        const user = this.$store.state.auth.user;
+        const entitiesEditor = user.resource_access.entities && user.resource_access.entities.roles.includes('editor');
+        const usersetsEditor = user.resource_access.usersets && user.resource_access.usersets.roles.includes('editor');
+        return entitiesEditor && usersetsEditor;
+      },
+      userCanEdit() {
+        return this.userIsOwner || (this.setIsEntityBestItems && this.userIsEntityEditor);
+      },
+      setIsEntityBestItems() {
+        return this.set.type === 'EntityBestItemsSet';
       },
       displayTitle() {
         if (this.$fetchState.error) {
@@ -205,6 +235,9 @@
         return langMapValueForLocale(this.set.description, this.$i18n.locale);
       },
       enableRecommendations() {
+        if (this.set.type === 'EntityBestItemsSet') {
+          return this.$config.app.features.recommendations && this.$config.app.features.acceptEntityRecommendations;
+        }
         return this.$config.app.features.recommendations;
       },
       displayItemCount() {
@@ -230,30 +263,23 @@
           const path = this.$path({ name: 'account' });
           this.$goto(path);
         }
-      },
-      'set.total'() {
-        this.getRecommendations();
       }
     },
 
     mounted() {
-      this.getRecommendations();
+      if (!this.$fetchState.pending) {
+        this.getRecommendations();
+      }
     },
 
     methods: {
       updateSet() {
         this.$bvModal.hide(this.setFormModalId);
       },
+
       getRecommendations() {
-        if (this.enableRecommendations && this.$auth.loggedIn) {
-          if (this.set && this.set.total >= 0) {
-            return this.$apis.recommendation.recommend('set', `/${this.$route.params.pathMatch}`)
-              .then(recommendResponse => {
-                this.recommendations = recommendResponse.items || [];
-              });
-          } else {
-            return this.recommendations = [];
-          }
+        if (this.enableRecommendations && this.$auth.loggedIn && this.userCanEdit) {
+          this.$store.dispatch('set/fetchActiveRecommendations', `/${this.$route.params.pathMatch}`);
         }
       }
     },
@@ -267,7 +293,7 @@
           { hid: 'og:image', property: 'og:image', content: this.shareMediaUrl },
           { hid: 'og:type', property: 'og:type', content: 'article' }
         ]
-          .concat(this.description ? [
+          .concat(this.displayDescription && this.displayDescription.values[0] ? [
             { hid: 'description', name: 'description', content: this.displayDescription.values[0]  },
             { hid: 'og:description', property: 'og:description', content: this.displayDescription.values[0]  }
           ] : [])
@@ -275,14 +301,15 @@
     },
     async beforeRouteLeave(to, from, next) {
       await this.$store.commit('set/setActive', null);
+      await this.$store.commit('set/setActiveRecommendations', []);
       next();
     }
   };
 </script>
 
 <style lang="scss" scoped>
-  @import '../../assets/scss/variables.scss';
-  @import '../../assets/scss/icons.scss';
+  @import '@/assets/scss/variables.scss';
+  @import '@/assets/scss/icons.scss';
 
   .usergallery-description {
     color: $mediumgrey;
@@ -290,7 +317,9 @@
 
   .usergallery-metadata {
     font-size: $font-size-small;
+    font-weight: 600;
     line-height: 1.125;
+    color: $mediumgrey;
 
     .curator,
     .visibility {
@@ -308,6 +337,7 @@
       &:before {
         @extend .icon-font;
         content: '\e92e';
+        font-size: 1.125rem;
       }
     }
 
@@ -315,6 +345,7 @@
       &:before {
         @extend .icon-font;
         content: '\e92d';
+        font-size: 1.125rem;
       }
     }
   }

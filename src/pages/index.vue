@@ -86,8 +86,11 @@
     computed: {
       showNotificationBanner() {
         return (
-          this.$config.app.features.linksToClassic && this.identifier === 'home'
+          this.$config.app.features.linksToClassic && this.isHomePage
         );
+      },
+      isHomePage() {
+        return this.identifier === 'home';
       },
       notificationUrl() {
         return `https://classic.europeana.eu/portal/${
@@ -96,7 +99,13 @@
       },
       socialMediaImage() {
         // use social media image if set in Contentful, otherwise use hero image
-        return this.image === null ? this.heroImage.image : this.image;
+        if (this.image) {
+          return this.image;
+        } else if (this.heroImage) {
+          return this.heroImage.image;
+        }
+        // No relevant image present, return null
+        return null;
       },
       socialMediaImageOptimisedUrl() {
         return this.$options.filters.optimisedImageUrl(this.socialMediaImage.url, this.socialMediaImage.contentType, {
@@ -131,7 +140,7 @@
         ].concat(this.description ? [
           { hid: 'description', name: 'description', content: this.description },
           { hid: 'og:description', property: 'og:description', content: this.description }
-        ] : []).concat(this.heroImage ? [
+        ] : []).concat(this.socialMediaImage ? [
           { hid: 'og:image', property: 'og:image', content: this.socialMediaImageOptimisedUrl },
           { hid: 'og:image:alt', property: 'og:image:alt', content: this.socialMediaImageAlt }
         ] : [])

@@ -1,4 +1,4 @@
-memory: 128M
+memory: 200M
 env:
   CTF_CDA_ACCESS_TOKEN: ${CTF_CDA_ACCESS_TOKEN}
   CTF_ENVIRONMENT_ID: ${CTF_ENVIRONMENT_ID}
@@ -11,4 +11,10 @@ env:
   HOST: 0.0.0.0
   NUXTJS_ROBOTS: '[{"UserAgent":"Twitterbot","Disallow":""},{"UserAgent":"*","Disallow":"/"}]'
   OAUTH_CLIENT: ${OAUTH_CLIENT}
+  ENABLE_JIRA_SERVICE_DESK_FEEDBACK_FORM: 1
+  PORTAL_BASE_URL: https://${CF_APP_FQDN}
+  REDIS_URL: ${REDIS_URL}
+  REDIS_TLS_CA: ${REDIS_TLS_CA}
+
+
 services: []

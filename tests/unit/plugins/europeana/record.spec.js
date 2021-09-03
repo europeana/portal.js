@@ -1,10 +1,8 @@
 import nock from 'nock';
-import record, { isEuropeanaRecordId, BASE_URL } from '../../../../src/plugins/europeana/record';
+import record, { preferredLanguage, isEuropeanaRecordId, BASE_URL } from '@/plugins/europeana/record';
 
 const europeanaId = '/123/abc';
 const apiEndpoint = `${europeanaId}.json`;
-
-const baseRequest = nock(BASE_URL).get(apiEndpoint);
 
 const edmIsShownAt = 'https://example.org';
 const edmIsShownByWebResource = {
@@ -59,6 +57,7 @@ const apiResponse = {
       }
     ],
     europeanaAggregation: {
+      edmLanguage: { def: ['de'] },
       edmRights: { def: ['https://example.org'] },
       edmPreview: 'https://example.org'
     },
@@ -104,12 +103,58 @@ describe('plugins/europeana/record', () => {
   });
 
   describe('record().getRecord()', () => {
+    it('makes an API request', async() => {
+      nock(BASE_URL)
+        .get(apiEndpoint)
+        .query(true)
+        .reply(200, apiResponse);
+
+      await record().getRecord(europeanaId);
+
+      nock.isDone().should.be.true;
+    });
+
+    describe('profile parameter', () => {
+      it('is "translate" when the item translation feature is enabled', async() => {
+        nock(BASE_URL)
+          .get(apiEndpoint)
+          .query(query => query.profile === 'translate' && query.lang === 'fr')
+          .reply(200, apiResponse);
+
+        await record({ $config: { app: { features: { translatedItems: true } } } }).getRecord(europeanaId, { metadataLanguage: 'fr' });
+
+        nock.isDone().should.be.true;
+      });
+      it('is "schemaOrg" for configured dataset items', async() => {
+        nock(BASE_URL)
+          .get(apiEndpoint)
+          .query(query => query.profile === 'schemaOrg')
+          .reply(200, apiResponse);
+
+        await record({ $config: { app: { schemaOrgDatasetId: '123' } } }).getRecord(europeanaId);
+
+        nock.isDone().should.be.true;
+      });
+
+      it('is omitted for other dataset items', async() => {
+        nock(BASE_URL)
+          .get(apiEndpoint)
+          .query(query => !Object.keys(query).includes('profile'))
+          .reply(200, apiResponse);
+
+        await record({ $config: { app: { schemaOrgDatasetId: '456' } } }).getRecord(europeanaId);
+
+        nock.isDone().should.be.true;
+      });
+    });
+
     describe('API response', () => {
       describe('with "Invalid record identifier: ..." error', () => {
         const errorMessage = `Invalid record identifier: ${europeanaId}`;
 
         beforeEach('stub API response', () => {
-          baseRequest
+          nock(BASE_URL)
+            .get(apiEndpoint)
             .query(true)
             .reply(404, {
               success: false,
@@ -320,6 +365,52 @@ describe('plugins/europeana/record', () => {
         const validation = isEuropeanaRecordId(recordId);
 
         validation.should.equal(false);
+      });
+    });
+  });
+
+  describe('preferredLanguage()', () => {
+    context('without a requested metadataLanguage', () => {
+      const options = {};
+
+      context('with a supported edm language', () => {
+        const edmLanguage = 'fr';
+        it('returns the edm language', () => {
+          const prefLang = preferredLanguage(edmLanguage, options);
+
+          prefLang.should.equal('fr');
+        });
+      });
+      context('with an unsupported edm language', () => {
+        ['sr', 'ja', 'mul'].forEach(edmLanguage => {
+          it('returns null', () => {
+            const prefLang = preferredLanguage(edmLanguage, options);
+
+            (prefLang === null).should.equal(true);
+          });
+        });
+      });
+    });
+
+    context('with a requested metadataLanguage', () => {
+      const options = { metadataLanguage: 'pt' };
+
+      context('with a supported edm language', () => {
+        const edmLanguage = 'fr';
+        it('returns the requested metadataLanguage', () => {
+          const prefLang = preferredLanguage(edmLanguage, options);
+
+          prefLang.should.equal('pt');
+        });
+      });
+      context('with an unsupported edm language', () => {
+        ['sr', 'ja', 'mul'].forEach(edmLanguage => {
+          it('returns the requested metadataLanguage', () => {
+            const prefLang = preferredLanguage(edmLanguage, options);
+
+            prefLang.should.equal('pt');
+          });
+        });
       });
     });
   });

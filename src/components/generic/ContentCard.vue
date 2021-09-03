@@ -86,21 +86,22 @@
         </template>
       </b-card-body>
     </SmartLink>
-    <slot name="buttons">
-      <!-- do not remove this div or there will be hydration errors -->
-      <div />
-    </slot>
+    <client-only>
+      <slot name="buttons" />
+    </client-only>
   </b-card>
 </template>
 
 <script>
+  import ClientOnly from 'vue-client-only';
   import SmartLink from './SmartLink';
-  import { langMapValueForLocale } from  '../../plugins/europeana/utils';
+  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
 
   export default {
     name: 'ContentCard',
 
     components: {
+      ClientOnly,
       SmartLink
     },
 
@@ -183,7 +184,7 @@
     data() {
       return {
         cardImageUrl: this.imageUrl,
-        displayLabelTypes: 'exhibitions|galleries|blog'
+        displayLabelTypes: 'exhibitions|galleries|blog|collections'
       };
     },
 
@@ -210,7 +211,20 @@
         if (!this.displayLabelType) {
           return false;
         }
+
+        if (this.displayLabelType === 'collections') {
+          return this.$t(`cardLabels.${this.displayLabelTypeCollections}`);
+        }
+
+        if (this.displayLabelType === 'blog') {
+          return this.$tc('blog.posts', 1);
+        }
+
         return this.$tc(`${this.displayLabelType}.${this.displayLabelType}`, 1);
+      },
+
+      displayLabelTypeCollections() {
+        return typeof this.url === 'object' ? this.url.params.type : this.url.split('/').slice(-2, -1);
       },
 
       displayLabelType() {

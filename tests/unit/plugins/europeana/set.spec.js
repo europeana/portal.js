@@ -1,8 +1,8 @@
 import nock from 'nock';
 
-import set, { BASE_URL } from '../../../../src/plugins/europeana/set';
+import set, { BASE_URL } from '@/plugins/europeana/set';
 
-const axios = require('axios');
+const $config = { europeana: { apis: { set: { key: 'apikey' } } } };
 
 const setId = '1234';
 const itemId = '/123/abc';
@@ -53,31 +53,43 @@ const setsResponse = [
   }
 ];
 
-describe('describe./src/plugins/europeana/set', () => {
+describe('describe./@/plugins/europeana/set', () => {
   afterEach(() => {
     nock.cleanAll();
   });
 
   describe('getSet()', () => {
-    it('get the set data', async() => {
+    it('gets the set data', async() => {
       const setId = '1';
-      const profile = 'standard';
       nock(BASE_URL)
-        .get(`/${setId}?profile=standard`)
+        .get(`/${setId}`)
+        .query(true)
         .reply(200, setsResponse[0]);
 
-      const response =  await set(axios).getSet(setId, { profile });
+      const response = await set({ $config }).getSet(setId);
       response.items.should.deep.equal(['item-1', 'item-2']);
+    });
+
+    it('includes the axios default params', async() => {
+      const setId = '1';
+      nock(BASE_URL)
+        .get(`/${setId}`)
+        .query(query => query.wskey === 'apikey')
+        .reply(200);
+
+      await set({ $config }).getSet(setId);
+      nock.isDone().should.be.true;
     });
   });
 
   describe('getLikes()', () => {
     it('get the likes set ID', async() => {
       nock(BASE_URL)
-        .get('/search?query=creator:auth-user-sub+type:BookmarkFolder')
+        .get('/search')
+        .query(query => query.query === 'creator:auth-user-sub type:BookmarkFolder')
         .reply(200, searchResponse);
 
-      const response = await set(axios).getLikes('auth-user-sub');
+      const response = await set({ $config }).getLikes('auth-user-sub');
       response.should.eq('http://data.europeana.eu/set/163');
     });
   });
@@ -86,9 +98,10 @@ describe('describe./src/plugins/europeana/set', () => {
     it('creates a likes set', async() => {
       nock(BASE_URL)
         .post('/')
+        .query(true)
         .reply(200, likesResponse);
 
-      const response = await set(axios).createLikes();
+      const response = await set({ $config }).createLikes();
       response.id.should.eq('http://data.europeana.eu/set/1234');
     });
   });
@@ -97,17 +110,21 @@ describe('describe./src/plugins/europeana/set', () => {
     it('adds item to set', async() => {
       nock(BASE_URL)
         .put(`/${setId}${itemId}`)
+        .query(true)
         .reply(200, likesResponse);
-      const response =  await set(axios).modifyItems('add', setId, itemId);
+      const response =  await set({ $config }).modifyItems('add', setId, itemId);
       response.id.should.eq('http://data.europeana.eu/set/1234');
     });
   });
 
   describe('deleteSet()', () => {
     it('deletes item from set', async() => {
-      nock(BASE_URL).delete(`/${setId}`).reply(204);
+      nock(BASE_URL)
+        .delete(`/${setId}`)
+        .query(true)
+        .reply(204);
 
-      await set(axios).deleteSet(setId);
+      await set({ $config }).deleteSet(setId);
       nock.isDone().should.be.true;
     });
   });

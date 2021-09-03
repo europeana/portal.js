@@ -1,5 +1,6 @@
 export default {
   "account": {
+    "editProfile": "Editare profil",
     "likes": "Aprecieri",
     "linkAccount": "Contul meu",
     "linkLogin": "Autentificare",
@@ -7,6 +8,8 @@ export default {
     "linkLogout": "Deconectare",
     "myProfile": "Profilul meu",
     "notifications": {
+      "loggedIn": "Sunteți autentificat. Bine ați venit!",
+      "loggedOut": "Acum ești deconectat.",
       "noCollections": {
         "private": "Încă nu ai creat nicio galerie privată",
         "public": "Încă nu ai creat nicio galerie publică"
@@ -15,19 +18,25 @@ export default {
     },
     "privateCollections": "Galerii private",
     "profile": "Aprecierile și Galeriile mele",
+    "profileSettings": "Setări profil",
     "publicCollections": "Galerii publice",
     "settings": "Setări",
     "title": "Contul meu"
   },
   "actions": {
+    "cancel": "Anulează",
     "close": "închidere",
     "download": "Descarcă",
     "edit": "Editare",
+    "feedback": "Feedback",
     "goBack": "Înapoi",
     "like": "Apreciere",
+    "next": "Următorul",
     "providedBy": "Furnizat de {provider}",
+    "send": "Trimite",
     "share": "Distribuiți",
     "shareOn": "Distribuiți pe {social}",
+    "skip": "Skip",
     "viewAt": "Vizualizați pe {link}",
     "viewDocument": "Vizualizare document"
   },
@@ -37,6 +46,11 @@ export default {
     "date": "Dată:",
     "institution": "Instituție",
     "title": "Titlu:"
+  },
+  "automatedCardGroup": {
+    "item": "Articole recente",
+    "time": "Secole recomandate",
+    "topic": "Subiecte recomandate"
   },
   "blog": {
     "author": "Autor",
@@ -49,8 +63,17 @@ export default {
     "published": "Publicat la {date}",
     "relatedPosts": "Postări similare"
   },
+  "cardLabels": {
+    "person": "Persoană",
+    "time": "Secol",
+    "topic": "Subiect"
+  },
   "clearAllFilters": "șterge toate filtrele",
   "collections": {
+    "actions": {
+      "edit": "Editare colecție",
+      "update": "Actualizați colecția"
+    },
     "fashion": {
       "facets": {
         "CREATOR": {
@@ -66,16 +89,24 @@ export default {
           "name": "Material | Materiale"
         }
       }
+    },
+    "form": {
+      "description": "Descriere"
+    },
+    "notifications": {
+      "update": "Colecția a fost actualizată"
     }
   },
   "collectionsYouMightLike": "Colecții care ți-ar putea plăcea",
+  "colourSwatch": "Specimen de culoare",
+  "contentYouMightLike": "Conținut care ți-ar putea plăcea",
   "contentfulManual": {
     "footerNavigation": {
+      "MoreInfoLabel": "Mai multe informații",
       "about": "Despre colecțiile Europeana",
       "forDevelopers": "Pentru dezvoltatori",
       "help": "Ajutor",
       "meetUs": "Faceți cunoștință cu echipa",
-      "MoreInfoLabel": "Mai multe informații",
       "provide": "Deveni un furnizor de date",
       "subscribe": "Abonează-te la buletinul nostru de știri",
       "terms": "Termeni de utilizare și Politica de confidențialitate"
@@ -86,7 +117,6 @@ export default {
       "teachers": "Profesori"
     }
   },
-  "contentYouMightLike": "Conținut care ți-ar putea plăcea",
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Acceptați declarația de module cookie",
     "link": "Mai multe informații",
@@ -99,6 +129,10 @@ export default {
     "startDate": "Data de început",
     "to": "la"
   },
+  "debug": {
+    "apiRequests": "Solicitări API",
+    "debug": "Depanare"
+  },
   "delete": "Șterge",
   "depiction": "O reprezentare a {title}",
   "directions": {
@@ -106,6 +140,17 @@ export default {
     "right": "Dreapta"
   },
   "edmIsShownAtLinkAlt": "Vizualizează pe site-ul furnizorului",
+  "entity": {
+    "actions": {
+      "cancel": "Anulează"
+    },
+    "labels": {
+      "entity": "Entitate"
+    },
+    "notifications": {
+      "deleted": "Galeria ta a fost ștearsă."
+    }
+  },
   "error": "Eroare",
   "exhibitions": {
     "chapters": "Capitole",
@@ -115,39 +160,6 @@ export default {
     "exhibitions": "Expoziții"
   },
   "facets": {
-    "api": {
-      "name": "Căutare după",
-      "options": {
-        "fulltext": "Înregistrări cu text integral",
-        "metadata": "Înregistrări doar pentru metadate"
-      }
-    },
-    "button": {
-      "apply": "Aplică",
-      "cancel": "Anulează",
-      "morefilters": "Mai multe filtre",
-      "reset": "Resetează",
-      "showAll": "Afișează tot {label}",
-      "showLess": "Afișează mai puțin {label}"
-    },
-    "collection": {
-      "name": "Categorie",
-      "options": {
-        "archaeology": "Arheologie",
-        "art": "Artă",
-        "fashion": "Modă",
-        "industrial": "Patrimoniu industrial",
-        "manuscript": "Manuscrise",
-        "map": "Hărți și Geografie",
-        "migration": "Migrație",
-        "music": "Muzică",
-        "nature": "Istorie naturală",
-        "newspaper": "Ziare",
-        "photography": "Fotografie",
-        "sport": "Sport",
-        "ww1": "1914-1918"
-      }
-    },
     "COLOURPALETTE": {
       "name": "Culoare | Culori",
       "options": {
@@ -293,15 +305,8 @@ export default {
         "#FFFAFA": "Zăpadă",
         "#FFFF00": "Galben",
         "#FFFFE0": "Lumină galbenă",
+        "#FFFFF0": "Fildeş",
         "#FFFFFF": "alb"
-      }
-    },
-    "contentTier": {
-      "name": "Sunt incluse articole care nu îndeplinesc criteriile noastre de publicare",
-      "notification": "Unele articole care nu corespund criteriilor noastre de publicare sunt disponibile. Poți accesa aceste articole activând filtrul „Calitatea articolelor” din „Mai multe filtre”.",
-      "options": {
-        "*": "Sunt incluse articole care nu îndeplinesc criteriile noastre de publicare",
-        "0": "Afișează doar articolele care nu îndeplinesc criteriile noastre de publicare"
       }
     },
     "COUNTRY": {
@@ -341,18 +346,6 @@ export default {
     "PROVIDER": {
       "name": "Agregator"
     },
-    "proxy_dc_format": {
-      "name": "Format | Formate"
-    },
-    "proxy_dc_type": {
-      "name": "Tip | Tipuri"
-    },
-    "proxy_dcterms_issued": {
-      "name": "Data emiterii"
-    },
-    "proxy_dcterms_medium": {
-      "name": "Medii | Media"
-    },
     "REUSABILITY": {
       "name": "Pot reutiliza acest lucru?",
       "options": {
@@ -371,7 +364,77 @@ export default {
         "TEXT": "Text",
         "VIDEO": "Video"
       }
+    },
+    "api": {
+      "name": "Căutare după",
+      "options": {
+        "fulltext": "Înregistrări cu text integral",
+        "metadata": "Înregistrări doar pentru metadate"
+      }
+    },
+    "button": {
+      "apply": "Aplică",
+      "cancel": "Anulează",
+      "morefilters": "Mai multe filtre",
+      "reset": "Resetează",
+      "showAll": "Afișează tot {label}",
+      "showLess": "Afișează mai puțin {label}"
+    },
+    "collection": {
+      "name": "Categorie",
+      "options": {
+        "archaeology": "Arheologie",
+        "art": "Artă",
+        "fashion": "Modă",
+        "industrial": "Patrimoniu industrial",
+        "manuscript": "Manuscrise",
+        "map": "Hărți și Geografie",
+        "migration": "Migrație",
+        "music": "Muzică",
+        "nature": "Istorie naturală",
+        "newspaper": "Ziare",
+        "photography": "Fotografie",
+        "sport": "Sport",
+        "ww1": "1914-1918"
+      }
+    },
+    "contentTier": {
+      "name": "Sunt incluse articole care nu îndeplinesc criteriile noastre de publicare",
+      "notification": "Unele articole care nu corespund criteriilor noastre de publicare sunt disponibile. Poți accesa aceste articole activând filtrul „Calitatea articolelor” din „Mai multe filtre”.",
+      "options": {
+        "*": "Sunt incluse articole care nu îndeplinesc criteriile noastre de publicare",
+        "0": "Afișează doar articolele care nu îndeplinesc criteriile noastre de publicare"
+      }
+    },
+    "proxy_dc_format": {
+      "name": "Format | Formate"
+    },
+    "proxy_dc_type": {
+      "name": "Tip | Tipuri"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Data emiterii"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Medii | Media"
     }
+  },
+  "feedback": {
+    "emailOptional": "S-ar putea să dorim să urmărim acest lucru. Introduceți adresa dvs. de e-mail dacă sunteți de acord să vă contactăm.",
+    "failed": "Solicitarea nu a reușit. Încercați din nou.",
+    "form": {
+      "placeholders": {
+        "email": "Introduceți adresa de e-mail",
+        "feedback": "Introduceți feedback-ul aici"
+      }
+    },
+    "policies": "Continuând, sunteți de acord cu {0} și acceptați {1}.",
+    "privacyPolicy": "Politica de Confidențialitate",
+    "success": "Feedbackul dvs. a fost trimis.",
+    "termsOfService": "Termenii serviciului",
+    "thankYou": "Mulțumesc!",
+    "title": "Trimite feedback",
+    "validEmail": "Introduceți o adresă de email validă"
   },
   "fieldLabels": {
     "default": {
@@ -390,6 +453,8 @@ export default {
       "dcRights": "Drepturi",
       "dcSource": "Sursă",
       "dcSubject": "Subiect",
+      "dcTitle": "Titlu",
+      "dcType": "Tipul obiectului",
       "dctermsCreated": "Data creării",
       "dctermsExtent": "Măsură",
       "dctermsHasPart": "Este format din",
@@ -406,8 +471,6 @@ export default {
       "dctermsReferences": "Referințe",
       "dctermsSpatial": "Locații",
       "dctermsTemporal": "Temporal",
-      "dcTitle": "Titlu",
-      "dcType": "Tipul obiectului",
       "edmCountry": "Țara de proveniență",
       "edmCurrentLocation": "Locația curenta",
       "edmDataProvider": "Instituția de proveniență",
@@ -438,8 +501,22 @@ export default {
   },
   "footer": {
     "customiseWebsiteLanguage": "Personalizați limba de pe pagina de internet",
+    "disclaimerLine1": "Europeana este o inițiativă a Uniunii Europene, finanțată de Connecting Europe Facility al Uniunii Europene și de statele membre ale Uniunii Europene. Serviciile Europeana, inclusiv acest site web, sunt operate de un consorțiu condus de Fundația Europeana în temeiul unui contract de servicii cu Comisia Europeană.",
+    "disclaimerLine2": "Comisia Europeană nu garantează acuratețea informațiilor și nu își asumă nicio răspundere sau răspundere cu privire la informațiile de pe acest site web. Nici Comisia Europeană, nici nicio persoană care acționează în numele Comisiei Europene, nu este responsabilă sau răspunzătoare pentru acuratețea sau utilizarea informațiilor de pe acest site web.",
     "findUsElsewhere": "Ne puteți găsi și în altă parte",
     "imageDescription": "Cofinanțat de Connecting Europe Facility a Uniunii Europene",
+    "navigation": {
+      "MoreInfoLabel": "Mai multe informații",
+      "about": "Despre noi",
+      "accessibility": "Accesibilitate",
+      "cookies": "Cookie-uri",
+      "forDevelopers": "Pentru dezvoltatori",
+      "help": "Ajutor",
+      "privacy": "Politica de Confidențialitate",
+      "provide": "Deveni un furnizor de date",
+      "subscribe": "Abonează-te la buletinul nostru de știri",
+      "terms": "Termeni de utilizare"
+    },
     "ourMission": "Misiunea noastră",
     "ourMissionQuote": "Europeana sprijină sectorul patrimoniului cultural în transformarea sa digitală. Dezvoltăm expertiza, uneltele și politicile pentru a adopta schimbările digitale și încurajăm parteneriate care stau la baza inovației."
   },
@@ -456,6 +533,7 @@ export default {
   "header": {
     "backToMenu": "Închide caseta de căutare",
     "clearQuery": "Șterge căutările",
+    "closeSidebar": "Închideți meniul",
     "entireCollection": "Căutare pentru {query} în întreaga noastră colecție",
     "europeanaHome": "Pagina principală Europeana",
     "inCollection": "Caută pentru {query} în {collection}",
@@ -463,7 +541,9 @@ export default {
       "about": "Despre noi",
       "collections": "Colecții",
       "europeanaClassroom": "Profesori",
-      "help": "Ajutor"
+      "help": "Ajutor",
+      "home": "Acasă",
+      "stories": "Povești"
     },
     "searchFor": "Caută pentru {query}",
     "searchForEverything": "Caută tot",
@@ -479,6 +559,63 @@ export default {
     "itemCount": "1 articol |{count} articole",
     "itemOf": "{max} de {count} articole",
     "youMightLike": "Articole care ți-ar putea plăcea"
+  },
+  "klaro": {
+    "main": {
+      "consentModal": {
+        "description": "Vă luăm în serios confidențialitatea datelor. Aici puteți evalua și personaliza serviciile pe care am dori să le folosim pe acest site web. Tu ești la conducere! Activați sau dezactivați serviciile după cum doriți.",
+        "title": "Servicii pe care am dori să le folosim."
+      },
+      "consentNotice": {
+        "description": "Ne pasă de confidențialitatea dvs. și folosim doar date pentru a vă îmbunătăți experiența. Nu folosim nicio informație personală pentru publicitate. Vă puteți schimba consimțământul la fiecare 15 zile."
+      },
+      "ok": "Bine",
+      "purposes": {
+        "essential": {
+          "description": "Aceste servicii sunt esențiale pentru buna funcționare a acestui site web. Acestea includ vizualizarea rezultatelor căutării și preferințele de limbă, păstrează starea conectată și vă păstrează vizita în siguranță. Nu le puteți dezactiva, deoarece site-ul nu ar funcționa corect altfel.",
+          "title": "Servicii esențiale pentru securitate și personalizare"
+        },
+        "usage": {
+          "description": "Aceste servicii colectează informații pentru a ne ajuta să înțelegem mai bine modul în care site-ul web este folosit și unde sunt punctele de durere, permițându-ne să facem alegeri în cunoștință de cauză pentru a vă îmbunătăți experiența.",
+          "title": "Servicii pentru a capta utilizarea site-ului web și feedback-ul"
+        }
+      },
+      "service": {
+        "disableAll": {
+          "description": "Utilizați acest comutator pentru a activa sau dezactiva toate serviciile opționale.",
+          "title": "Activați sau dezactivați toate serviciile"
+        }
+      }
+    },
+    "services": {
+      "auth-strategy": {
+        "description": "Reține strategia de autorizare de utilizat pentru a vă conecta.",
+        "title": "Strategia Auth"
+      },
+      "debugSettings": {
+        "title": "Comutare depanare"
+      },
+      "hotjar": {
+        "description": "Activează un widget de sondaj, oferindu-vă opțiunea de a răspunde la sondajele noastre privind satisfacția vizitatorilor.",
+        "title": "Hotjar"
+      },
+      "i18n": {
+        "description": "Reține limba de interfață preferată pentru acces viitor.",
+        "title": "Codul limbii"
+      },
+      "jira-servicedesk": {
+        "description": "Activează widgetul de feedback, oferindu-vă opțiunea de a ne contacta.",
+        "title": "Birou de service Jira"
+      },
+      "matomo": {
+        "description": "Colectează statistici anonime cu privire la modul în care vizitatorii interacționează cu site-ul web.",
+        "title": "Matomo"
+      },
+      "searchResultsView": {
+        "description": "Rețineți dacă preferați să vedeți rezultatele căutării într-o vizualizare listă sau grilă.",
+        "title": "Vizualizarea rezultatelor căutării (listă / grilă)"
+      }
+    }
   },
   "layout": {
     "skipToMain": "Treci la conținutul paginii"
@@ -499,16 +636,29 @@ export default {
     }
   },
   "loadingResults": "Se încarcă rezultatele",
+  "mediaPreview": {
+    "selectItem": "Selectați elementul {src}"
+  },
   "messages": {
+    "copyToClipboardSuccess": "Copiat în clipboard",
     "externalContentError": "Nu a putut fi încărcat conținutul extern",
     "notFound": "Nu a fost găsit",
     "paginationLimitExceeded": "Se pot vizualiza numai primele {limit} rezultate ale căutării."
   },
+  "multilingual": {
+    "original": "Metadate originale",
+    "originalLanguage": "limba originală",
+    "other": "Alte limbi"
+  },
   "newWindow": "se deschide într-o fereastră nouă",
   "noMoreResults": "Nu mai există rezultate pentru interogarea de căutare.",
   "noResults": "Niciun rezultat",
+  "pageHasLoaded": "a încărcat",
   "pages": {
     "collections": {
+      "times": {
+        "title": "Ori"
+      },
       "topics": {
         "title": "Subiecte"
       }
@@ -516,12 +666,17 @@ export default {
   },
   "readMore": "Citește mai mult",
   "record": {
+    "IIIFViewer": "Vizualizator IIIF",
     "allMetaData": "Toate metadatele",
+    "copyEmbedLabel": "Cod de încorporare (Faceți clic pentru a copia)",
     "downloadCopyrightInfo": "Acest articol este protejat prin drepturi de autor și nu poate fi descărcat.",
     "exploreMore": "Explorează mai mult",
     "extendedInformation": "Informații extinse",
     "goodToKnow": "Bine de știut",
     "hideAll": "Ascunde toate informațiile",
+    "location": "Locație",
+    "locationOnMap": "Localizare pe hartă",
+    "mediaPlayer": "Media Player",
     "record": "Înregistrare",
     "showAll": "Afișează toate informațiile",
     "similarItems": "Articole similare",
@@ -571,6 +726,7 @@ export default {
     "form": {
       "description": "Descriere galerie",
       "private": "Menține această galerie privată",
+      "required": "Câmp obligatoriu",
       "title": "Denumire galerie"
     },
     "labels": {

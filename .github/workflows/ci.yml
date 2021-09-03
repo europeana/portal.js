@@ -27,6 +27,8 @@ env:
   SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
   OAUTH_CLIENT: ${{ secrets.OAUTH_CLIENT }}
   PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+  REDIS_URL: ${{ secrets.REDIS_URL }}
+  REDIS_TLS_CA: ${{ secrets.REDIS_TLS_CA }}
 
 jobs:
   config:
@@ -55,7 +57,7 @@ jobs:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
       with:
-        node-version: 12.x
+        node-version: 14.x
     - uses: actions/cache@v2
       id: cache-node
       with:
@@ -74,7 +76,7 @@ jobs:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
       with:
-        node-version: 12.x
+        node-version: 14.x
     - uses: actions/cache@v2
       id: cache-node
       with:
@@ -97,7 +99,7 @@ jobs:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
       with:
-        node-version: 12.x
+        node-version: 14.x
     - uses: actions/download-artifact@v2
     - uses: actions/cache@v2
       id: cache-size-limit-node
@@ -124,11 +126,11 @@ jobs:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
       with:
-        node-version: 12.x
+        node-version: 14.x
     - run: echo "PERCY_BRANCH=${GITHUB_HEAD_REF}" >> $GITHUB_ENV
     - run: echo "PERCY_COMMIT=${GITHUB_SHA}" >> $GITHUB_ENV
-    - run: envsubst < .github/workflows/support/ci/.env > docker/stack/app/.env
-    - run: envsubst < .github/workflows/support/ci/.env > docker/stack/nightwatch/.env
+    - run: envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/app/.env
+    - run: envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/nightwatch-visual/.env
     - run: npm run test:e2e
     - run: npm run test:visual
 
@@ -138,6 +140,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PULL_REQUEST_NUMBER: ${{ needs.config.outputs.pull-request-number }}
+      CF_APP_FQDN: ${{ needs.config.outputs.cf-app-fqdn }}
       CF_APP_NAME: ${{ needs.config.outputs.cf-app-name }}
       CF_SPACE: ${{ needs.config.outputs.cf-space }}
     steps:

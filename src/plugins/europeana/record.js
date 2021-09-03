@@ -3,13 +3,15 @@ import pick from 'lodash/pick';
 import uniq from 'lodash/uniq';
 import merge from 'deepmerge';
 
-import { apiError, createAxios, reduceLangMapsForLocale } from './utils';
+import { apiError, createAxios, reduceLangMapsForLocale, isLangMap } from './utils';
 import search from './search';
 import { thumbnailUrl, thumbnailTypeForMimeType } from  './thumbnail';
 import { getEntityUri, getEntityQuery } from './entity';
 import { isIIIFPresentation } from '../media';
+import localeCodes from '../i18n/codes';
 
 export const BASE_URL = process.env.EUROPEANA_RECORD_API_URL || 'https://api.europeana.eu/record';
+const MAX_VALUES_PER_PROXY_FIELD = 10;
 
 /**
  * Retrieves the "Core" fields which will always be displayed on record pages.
@@ -20,15 +22,20 @@ export const BASE_URL = process.env.EUROPEANA_RECORD_API_URL || 'https://api.eur
  * @return {Object[]} Key value pairs of the metadata fields.
  */
 function coreFields(proxyData, providerAggregation, entities) {
-  return Object.freeze(lookupEntities(omitBy({
-    edmDataProvider: { url: providerAggregation.edmIsShownAt, value: providerAggregation.edmDataProvider },
+  const fields = lookupEntities(omitBy({
+    edmDataProvider: providerAggregation.edmDataProvider,
     dcContributor: proxyData.dcContributor,
     dcCreator: proxyData.dcCreator,
     dcPublisher: proxyData.dcPublisher,
     dcSubject: proxyData.dcSubject,
     dcType: proxyData.dcType,
     dctermsMedium: proxyData.dctermsMedium
-  }, isUndefined), entities));
+  }, isUndefined), entities);
+
+  fields.edmDataProvider = {
+    url: providerAggregation.edmIsShownAt, value: fields.edmDataProvider
+  };
+  return Object.freeze(fields);
 }
 
 const PROXY_EXTRA_FIELDS = [
@@ -66,7 +73,8 @@ const PROXY_EXTRA_FIELDS = [
   'edmIsSimilarTo',
   'edmIsSuccessorOf',
   'edmRealizes',
-  'wasPresentAt'
+  'wasPresentAt',
+  'year'
 ];
 
 /**
@@ -167,11 +175,34 @@ function lookupEntities(fields, entities) {
 
 function setMatchingEntities(fields, key, entities) {
   // Only looks for entities in 'def'
-  for (const [index, value] of (fields[key]['def'] || []).entries()) {
+  const values = (fields[key]['def'] || []);
+  for (const [index, value] of values.entries()) {
     if (entities[value]) {
       fields[key]['def'][index] = entities[value];
     }
   }
+}
+
+/**
+ * Find the currently preferred metadata language.
+ * Only makes sense with translated item pages.
+ * If no language is specified, defaults to the record's edmLanguage.
+ * Only returns languages also supported by the UI & translate API.
+ * @param {string} edmLang two letter edm language code of the record
+ * @param {Object} options options from the record retrieval.
+ * @param {string} options.metadataLanguage two-letter language code from the user
+ * @return {?string} related entities
+ */
+export function preferredLanguage(edmLang, options = {}) {
+  let lang = null;
+
+  if (options.metadataLanguage) {
+    lang = options.metadataLanguage;
+  } else if (localeCodes.includes(edmLang)) {
+    lang = edmLang;
+  }
+
+  return lang;
 }
 
 export default (context = {}) => {
@@ -186,26 +217,52 @@ export default (context = {}) => {
 
     /**
      * Parse the record data based on the data from the API response
-     * @param {Object} response data from API response
+     * @param {Object} edm data from API response
      * @return {Object} parsed data
      */
-    parseRecordDataFromApiResponse(edm) {
+    parseRecordDataFromApiResponse(data, options = {}) {
+      const edm = data.object;
       const providerAggregation = edm.aggregations[0];
 
       const concepts = (edm.concepts || []).map(reduceEntity).map(Object.freeze);
       const places = (edm.places || []).map(reduceEntity).map(Object.freeze);
       const agents = (edm.agents || []).map(reduceEntity).map(Object.freeze);
       const timespans = (edm.timespans || []).map(reduceEntity).map(Object.freeze);
+      const organizations = (edm.organizations || []).map(reduceEntity).map(Object.freeze);
 
-      const entities = [].concat(concepts, places, agents, timespans)
+      const entities = [].concat(concepts, places, agents, timespans, organizations)
         .filter(isNotUndefined)
         .reduce((memo, entity) => {
           memo[entity.about] = entity;
           return memo;
         }, {});
-      const proxyData = merge.all(edm.proxies);
-      const allMediaUris = this.aggregationMediaUris(providerAggregation).map(Object.freeze);
 
+      const proxyData = merge.all(edm.proxies);
+
+      for (const field in proxyData) {
+        if (isLangMap(proxyData[field])) {
+          for (const locale in proxyData[field]) {
+            if (Array.isArray(proxyData[field][locale]) && proxyData[field][locale].length > MAX_VALUES_PER_PROXY_FIELD) {
+              proxyData[field][locale] = proxyData[field][locale].slice(0, MAX_VALUES_PER_PROXY_FIELD).concat('…');
+            }
+          }
+        }
+      }
+      let prefLang;
+      if (context.$config?.app?.features?.translatedItems) {
+        // TODO: initially API only supports translation of title & descripiton.
+        // Extend to other fields as available, or stop merging the proxies and
+        // refactor to maintain the source info without having to set this.
+        const europeanaProxy = edm.proxies.find(proxy => proxy.europeanaProxy);
+        ['dcTitle', 'dcDescription'].forEach((field) => {
+          if (europeanaProxy?.[field]) {
+            proxyData[field].translationSource = 'automated';
+          }
+        });
+        prefLang = preferredLanguage(edm.europeanaAggregation.edmLanguage.def[0], options);
+      }
+
+      const allMediaUris = this.aggregationMediaUris(providerAggregation).map(Object.freeze);
       return {
         allMediaUris,
         altTitle: proxyData.dctermsAlternative,
@@ -219,7 +276,11 @@ export default (context = {}) => {
         agents,
         concepts,
         timespans,
-        title: proxyData.dcTitle
+        organizations,
+        title: proxyData.dcTitle,
+        schemaOrg: data.schemaOrg ? Object.freeze(JSON.stringify(data.schemaOrg)) : undefined,
+        edmLanguage: edm.europeanaAggregation.edmLanguage,
+        metadataLanguage: prefLang
       };
     },
 
@@ -290,9 +351,29 @@ export default (context = {}) => {
         path = '/record';
       }
 
-      return this.$axios.get(`${path}${europeanaId}.json`)
-        .then(response => this.parseRecordDataFromApiResponse(response.data.object))
-        .then(parsed => reduceLangMapsForLocale(parsed, options.locale))
+      const params = { ...this.$axios.defaults.params };
+      if (context.$config?.app?.features?.translatedItems) {
+        params.profile = 'translate';
+        if (options.metadataLanguage) {
+          params.lang = options.metadataLanguage;
+        }
+      } else {
+        // No point in switching on experimental schema.org with item translations.
+        // The profiles would interfere with each other.
+        let schemaOrgDatasetId;
+        if (context.$config?.app?.schemaOrgDatasetId) {
+          schemaOrgDatasetId = context.$config.app.schemaOrgDatasetId;
+        }
+        if (schemaOrgDatasetId && europeanaId.startsWith(`/${schemaOrgDatasetId}/`)) {
+          params.profile = 'schemaOrg';
+        }
+      }
+
+      return this.$axios.get(`${path}${europeanaId}.json`, { params })
+        .then(response => this.parseRecordDataFromApiResponse(response.data, options))
+        .then(parsed => {
+          return reduceLangMapsForLocale(parsed, parsed.metadataLanguage || options.locale, options);
+        })
         .then(reduced => ({
           record: reduced,
           error: null
@@ -360,6 +441,7 @@ const reduceEntity = (entity) => {
 
 const reduceWebResource = (webResource) => {
   return pick(webResource, [
+    'webResourceEdmRights',
     'about',
     'dctermsIsReferencedBy',
     'ebucoreHasMimeType',

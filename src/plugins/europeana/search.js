@@ -3,8 +3,12 @@
  */
 
 import qs from 'qs';
+import pick from 'lodash/pick';
 
-import { apiError, escapeLuceneSpecials } from './utils';
+import {
+  apiError, escapeLuceneSpecials, isLangMap, reduceLangMapsForLocale
+} from './utils';
+import { truncate } from '../vue-filters';
 
 // Some facets do not support enquoting of their field values.
 export const unquotableFacets = [
@@ -82,6 +86,7 @@ export function rangeFromQueryParam(paramValue) {
  * @param {string} params.wskey API key, to override `config.record.key`
  * @param {Object} options search options
  * @param {Boolean} options.escape whether or not to escape Lucene reserved characters in the search query
+ * @param {string} options.locale source locale for multilingual search
  * @param {string} options.url override the API URL
  * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display
  */
@@ -93,31 +98,69 @@ export default function search($axios, params, options = {}) {
   const rows = Math.max(0, Math.min(maxResults + 1 - start, perPage));
   const query = params.query || '*:*';
 
+  const searchParams = {
+    ...$axios.defaults.params,
+    facet: params.facet,
+    profile: params.profile,
+    qf: addContentTierFilter(params.qf),
+    query: options.escape ? escapeLuceneSpecials(query) : query,
+    reusability: params.reusability,
+    rows,
+    start
+  };
+  const targetLocale = 'en';
+  if (options.locale && options.locale !== targetLocale) {
+    searchParams['q.source'] = options.locale;
+    searchParams['q.target'] = targetLocale;
+  }
+
   return $axios.get(`${options.url || ''}/search.json`, {
     paramsSerializer(params) {
       return qs.stringify(params, { arrayFormat: 'repeat' });
     },
-    params: {
-      ...$axios.defaults.params,
-      facet: params.facet,
-      profile: params.profile,
-      qf: addContentTierFilter(params.qf),
-      query: options.escape ? escapeLuceneSpecials(query) : query,
-      reusability: params.reusability,
-      rows,
-      start
-    }
+    params: searchParams
   })
-    .then(response => {
-      return {
-        ...response.data,
-        lastAvailablePage: start + perPage > maxResults
-      };
-    })
+    .then(response => response.data)
+    .then(data => ({
+      ...data,
+      items: data.items.map(item => reduceFieldsForItem(item, options)),
+      lastAvailablePage: start + perPage > maxResults
+    }))
     .catch((error) => {
       throw apiError(error);
     });
 }
+
+const reduceFieldsForItem = (item, options = {}) => {
+  // Pick fields we need for search result display. See components/item/ItemPreviewCard.vue
+  item = pick(item,
+    [
+      'dataProvider',
+      'dcCreatorLangAware',
+      'dcDescriptionLangAware',
+      'dcTitleLangAware',
+      'edmPreview',
+      'id',
+      'type'
+    ]
+  );
+
+  // Reduce lang maps to values needed for user's locale.
+  item = reduceLangMapsForLocale(item, options.locale, { freeze: false });
+
+  // Truncate lang map values
+  for (const field in item) {
+    if (isLangMap(item[field])) {
+      for (const locale in item[field]) {
+        item[field][locale] = []
+          .concat(item[field][locale])
+          .map(value => truncate(value, 256));
+      }
+    }
+  }
+
+  return Object.freeze(item);
+};
 
 /**
  * Apply content tier filtering to the qf param.

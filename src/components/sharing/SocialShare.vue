@@ -7,6 +7,7 @@
       :href="network.url"
       :class="`social-share mr-1 ${network.identifier}`"
       :data-qa="`share ${network.identifier} button`"
+      @click.native="$matomo && $matomo.trackEvent('Item_share', 'Click social share button', network.url);"
     >
       <span :class="`icon-${network.identifier}`" />
       <span
@@ -63,7 +64,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../../assets/scss/variables.scss';
+  @import '@/assets/scss/variables.scss';
 
   a {
     align-items: center;

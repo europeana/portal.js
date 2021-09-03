@@ -1,7 +1,7 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import sinon from 'sinon';
 
-import MoreFiltersDropdownFacet from '../../../../src/components/search/MoreFiltersDropdownFacet.vue';
+import MoreFiltersDropdownFacet from '@/components/search/MoreFiltersDropdownFacet.vue';
 
 const localVue = createLocalVue();
 
@@ -36,7 +36,7 @@ describe('components/search/MoreFiltersDropdownFacet', () => {
     const wrapper = factory();
     const checkboxGroup = wrapper.find('[data-qa="checkbox group"]');
 
-    wrapper.setData({ selectedOptions: ['de'] });
+    await wrapper.setData({ selectedOptions: ['de'] });
     await checkboxGroup.vm.$emit('change');
     await wrapper.vm.$nextTick();
 

@@ -1,16 +1,27 @@
 <template>
   <b-row class="mb-3">
     <b-col>
+      <div
+        v-if="resizedLogo"
+        class="organisation-logo"
+        data-qa="entity logo"
+        :style="`background-image: url(${resizedLogo})`"
+      />
+      <div
+        class="context-label"
+        data-qa="entity label"
+      >
+        {{ contextLabel }}
+      </div>
       <h1
         :lang="title.code"
         data-qa="entity title"
-        class="pt-3"
       >
         {{ title.values[0] }}
       </h1>
       <div
         v-if="hasDescription"
-        class="mb-3 w-75 description"
+        class="mb-2 w-75 description"
       >
         <p
           data-qa="entity description"
@@ -28,25 +39,33 @@
           {{ showAll ? $t('showLess') : $t('showMore') }}
         </b-button>
       </div>
-      <SmartLink
-        v-if="hasDescription && !isEditorialDescription"
-        destination="/rights/europeana-data-sources"
-        class="d-flex font-weight-bold is-size-4"
+      <div
+        v-if="externalLink"
+        class="external-link"
+        data-qa="entity external link"
       >
-        {{ $t('learnMore') }}
-      </SmartLink>
+        {{ $t('website') }}:
+        <b-link
+          :href="externalLink"
+          target="_blank"
+          class="is-external-link"
+        >
+          <span>{{ externalLinkText }}</span>
+          <span
+            class="sr-only"
+          >
+            ({{ $t('newWindow') }})
+          </span>
+        </b-link>
+      </div>
     </b-col>
   </b-row>
 </template>
 
 <script>
-  import SmartLink from '../../components/generic/SmartLink';
+  import { getWikimediaThumbnailUrl } from '@/plugins/europeana/entity';
 
   export default {
-    components: {
-      SmartLink
-    },
-
     props: {
       title: {
         type: Object,
@@ -60,6 +79,18 @@
       isEditorialDescription: {
         type: Boolean,
         default: false
+      },
+      contextLabel: {
+        type: String,
+        required: true
+      },
+      logo: {
+        type: String,
+        default: null
+      },
+      externalLink: {
+        type: String,
+        default: null
       }
     },
     data() {
@@ -77,6 +108,13 @@
       },
       fullDescription() {
         return this.hasDescription ? this.description.values[0] : '';
+      },
+      resizedLogo() {
+        return getWikimediaThumbnailUrl(this.logo, 60);
+      },
+      externalLinkText() {
+        const externalLinkURL = new URL(this.externalLink);
+        return `${externalLinkURL.host}${externalLinkURL.pathname === '/' ? '' : externalLinkURL.pathname}`;
       }
     },
     methods: {
@@ -88,24 +126,15 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../../assets/scss/variables.scss';
-  @import '../../assets/scss/icons.scss';
+  @import '@/assets/scss/variables.scss';
+  @import '@/assets/scss/icons.scss';
 
-  .depiction {
-    box-shadow: $boxshadow-small;
-    padding-top: 100%;
-    width: 100%;
+  h1 {
+    margin-bottom: 0.5rem;
+  }
 
-    img {
-      bottom: 0;
-      height: 100%;
-      left: 0;
-      object-fit: cover;
-      position: absolute;
-      right: 0;
-      top: 0;
-      width: 100%;
-    }
+  .organisation-logo {
+    margin-bottom: 1.5rem;
   }
 
   .btn-link {
@@ -116,6 +145,29 @@
 
     &:hover {
       text-decoration: none;
+    }
+  }
+
+  .external-link {
+    font-size: $font-size-small;
+    font-weight: 600;
+    color: $mediumgrey;
+    &:before {
+      @extend .icon-font;
+      display: inline-block;
+      content: '\e937';
+      font-size: 1.125rem;
+      line-height: 1;
+      margin-top: -0.2rem;
+    }
+    a {
+      color: $mediumgrey;
+    }
+    .is-external-link:after {
+      @extend .icon-font;
+      content: '\e900';
+      font-size: $font-size-extrasmall;
+      vertical-align: initial;
     }
   }
 
@@ -132,6 +184,12 @@
         content: '\e923';
         margin-right: 0.325rem;
       }
+    }
+  }
+
+  .description {
+    p:last-child {
+      margin-bottom: 0;
     }
   }
 

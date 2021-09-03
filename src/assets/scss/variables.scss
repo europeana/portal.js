@@ -1,6 +1,8 @@
 $font-family-sans-serif: 'Open Sans', 'Arial', sans-serif;
 
+// UI colors
 $white: #fff;
+$middlegrey: #D8D8D8;
 
 /* https://pro.europeana.eu/resources/europeana-brand/brand-guidelines */
 $grey: #777;
@@ -20,10 +22,15 @@ $blue: $innovationblue;
 $midnight: #293745;
 $darkblue: #085395;
 $lightblue: #79b2e3;
+$skyblue: #bcd8f1;
 $red: #e02020;
 
 $yellow: #ffae00;
 $yellowhighlight: #ffcb56;
+
+$green: #1d872b;
+$lightgreen: #71c07b;
+$darkgreen: #197324;
 
 $textcolor: $black;
 $textcolor-light: $grey;
@@ -56,3 +63,9 @@ $bp-large: 992px;
 $bp-extralarge: 1200px;
 
 $standard-transition: 0.3s ease-in-out;
+
+$swiper-height: 80vh;
+$swiper-height-max: 35.5rem;
+$swiper-height-medium: 25rem;
+
+$jumbotron-height-min: 275px;

@@ -4,36 +4,35 @@
     :title="$t('set.actions.addTo')"
     hide-footer
     hide-header-close
+    :static="modalStatic"
     @show="fetchCollections"
     @hide="hideModal()"
   >
     <b-button
       variant="primary"
       class="btn-collection w-100 mb-3 text-left"
+      data-qa="create new gallery button"
       @click="$emit('clickCreateSet')"
     >
       {{ $t('set.actions.createNew') }}
     </b-button>
     <div class="collections">
-      <b-button
+      <AddItemToSetButton
         v-for="(collection, index) in collections"
         :key="index"
+        :set="collection"
+        :img="collectionPreview(collection.id)"
         :disabled="!fetched"
-        :style="buttonBackground($apis.set.getSetThumbnail(collection))"
-        variant="overlay"
-        class="btn-collection w-100 text-left d-flex justify-content-between align-items-center"
-        @click="toggleItem(collection.id)"
-      >
-        <span>{{ displayField(collection, 'title') }} ({{ collection.visibility }}) - {{ $tc('items.itemCount', collection.total || 0) }}</span>
-        <span
-          v-if="collectionsWithItem.includes(collection.id)"
-          class="icon-check_circle d-inline-flex"
-        />
-      </b-button>
+        :added="added.includes(collection.id)"
+        :checked="collectionsWithItem.includes(collection.id)"
+        :data-qa="`toggle item button ${index}`"
+        @toggle="toggleItem(collection.id)"
+      />
     </div>
     <div class="modal-footer">
       <b-button
         variant="outline-primary"
+        data-qa="close button"
         @click="$bvModal.hide(modalId)"
       >
         {{ $t('actions.close') }}
@@ -43,8 +42,16 @@
 </template>
 
 <script>
+  import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
+
+  import AddItemToSetButton from './AddItemToSetButton';
+
   export default {
     name: 'AddItemToSetModal',
+
+    components: {
+      AddItemToSetButton
+    },
 
     props: {
       itemId: {
@@ -55,12 +62,21 @@
       modalId: {
         type: String,
         default: 'add-item-to-set-modal'
+      },
+      modalStatic: {
+        type: Boolean,
+        default: false
+      },
+      newSetCreated: {
+        type: Boolean,
+        default: false
       }
     },
 
     data() {
       return {
-        fetched: false
+        fetched: false,
+        added: []
       };
     },
 
@@ -71,8 +87,16 @@
       // Array of IDs of sets containing the item
       collectionsWithItem() {
         return this.collections
-          .filter(collection => (collection.items || []).some(item => item.id === this.itemId))
+          .filter(collection => (collection.items || []).includes(`${EUROPEANA_DATA_URL}/item${this.itemId}`))
           .map(collection => collection.id);
+      }
+    },
+
+    watch: {
+      newSetCreated(newVal) {
+        if (newVal) {
+          this.added.push(this.collectionsWithItem[0]);
+        }
       }
     },
 
@@ -87,20 +111,16 @@
       hideModal() {
         this.$nextTick(() => {
           this.fetched = false;
+          this.added = [];
           this.$emit('hideModal');
         });
       },
 
-      toggleItem(setId) {
-        if (this.collectionsWithItem.includes(setId)) {
-          this.removeItem(setId);
-        } else {
-          this.addItem(setId);
-        }
+      collectionPreview(setId) {
+        return this.$store.getters['set/creationPreview'](setId);
       },
 
       addItem(setId) {
-        // TODO: error handling
         this.$store.dispatch('set/addItem', { setId, itemId: this.itemId });
       },
 
@@ -108,42 +128,20 @@
         this.$store.dispatch('set/removeItem', { setId, itemId: this.itemId });
       },
 
-      // TODO: use lang map l10n function
-      displayField(set, field) {
-        if (!set[field]) {
-          return '';
-        } else if (set[field][this.$i18n.locale]) {
-          return set[field][this.$i18n.locale];
+      toggleItem(setId) {
+        if (this.collectionsWithItem.includes(setId)) {
+          this.added = this.added.filter(id => id !== setId);
+          this.removeItem(setId);
         } else {
-          return set[field]['en'];
+          this.added.push(setId);
+          this.addItem(setId);
         }
-      },
-
-      buttonBackground(img) {
-        if (!img) {
-          return null;
-        }
-        return {
-          'background-image': `url("${img}")`
-        };
       }
     }
   };
 </script>
 
 <style lang="scss" scoped>
-  @import '../../assets/scss/variables.scss';
-
-  .btn-collection {
-    border: 0;
-    font-size: 1rem;
-    font-weight: 500;
-    margin-bottom: 0.5rem;
-    padding: 1rem;
-    position: relative;
-    text-transform: none;
-  }
-
   .collections {
     max-height: calc(100vh - 474px);
     overflow: auto;

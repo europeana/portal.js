@@ -12,7 +12,7 @@
       data-qa="link list"
     >
       <SmartLink
-        v-for="item in items"
+        v-for="item in filteredLinkList"
         :key="item.identifier"
         :style="item.background ? `background-image: url(${item.background})` : null"
         class="item w-100 text-left d-flex justify-content-start align-items-start"
@@ -41,12 +41,21 @@
         type: Array,
         required: true
       }
+    },
+
+    computed: {
+      filteredLinkList() {
+        if (!this.items) {
+          return false;
+        }
+        return this.items.filter(listItem => listItem !== null);
+      }
     }
   };
 </script>
 
 <style lang="scss" scoped>
-  @import '../../assets/scss/variables.scss';
+  @import '@/assets/scss/variables.scss';
 
   section {
     counter-reset: items;

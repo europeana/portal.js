@@ -1,37 +1,47 @@
 export default {
   "account": {
+    "curatedCollections": "Curated Collections",
+    "curatedCollectionsInfo": "Find below all collections you have curated",
+    "editProfile": "Edit profile",
     "likes": "Likes",
     "linkAccount": "My Account",
     "linkLogin": "Login",
-    "linkLoginJoin": "Login/Join",
+    "linkLoginJoin": "Log in / Join",
     "linkLogout": "Log out",
     "myProfile": "My Profile",
     "notifications": {
+      "loggedIn": "You are now logged in. Welcome!",
+      "loggedOut": "You are now logged out.",
       "noCollections": {
+        "curated": "You haven’t curated any collections yet",
         "private": "You haven’t created any private galleries yet",
         "public": "You haven’t created any public galleries yet"
       },
-      "noLikedItems": "You haven’t liked any items yet",
-      "loggedIn": "You are now logged in. Welcome!",
-      "loggedOut": "You are now logged out."
+      "noLikedItems": "You haven’t liked any items yet"
     },
     "privateCollections": "Private Galleries",
     "profile": "My Likes & Galleries",
-    "editProfile": "Edit profile",
     "profileSettings": "Profile settings",
     "publicCollections": "Public Galleries",
     "settings": "Settings",
     "title": "My account"
   },
   "actions": {
+    "accept": "Accept",
+    "cancel": "Cancel",
     "close": "close",
     "download": "Download",
     "edit": "Edit",
+    "feedback": "Feedback",
     "goBack": "Go back",
     "like": "Like",
+    "next": "Next",
     "providedBy": "Provided by {provider}",
+    "reject": "Reject",
+    "send": "Send",
     "share": "Share",
     "shareOn": "Share on {social}",
+    "skip": "Skip",
     "viewAt": "View at {link}",
     "viewDocument": "View document"
   },
@@ -42,6 +52,11 @@ export default {
     "institution": "Institution:",
     "title": "Title:"
   },
+  "automatedCardGroup": {
+    "item": "Recent Items",
+    "time": "Featured Centuries",
+    "topic": "Featured Topics"
+  },
   "blog": {
     "author": "Author",
     "authors": "Authors",
@@ -49,12 +64,22 @@ export default {
     "by": "by",
     "categories": "Categories",
     "category": "Category",
-    "posts": "Blog posts",
+    "posts": "Blog post | Blog posts",
     "published": "Published {date}",
     "relatedPosts": "Related posts"
   },
+  "cardLabels": {
+    "organisation": "Organisation",
+    "person": "Person",
+    "time": "Century",
+    "topic": "Topic"
+  },
   "clearAllFilters": "clear all filters",
   "collections": {
+    "actions": {
+      "edit": "Edit Collection",
+      "update": "Update Collection"
+    },
     "fashion": {
       "facets": {
         "CREATOR": {
@@ -70,17 +95,24 @@ export default {
           "name": "Material | Materials"
         }
       }
+    },
+    "form": {
+      "description": "Description"
+    },
+    "notifications": {
+      "update": "The collection has been updated"
     }
   },
   "collectionsYouMightLike": "Collections you might like",
   "colourSwatch": "Colour swatch",
+  "contentYouMightLike": "Content you might like",
   "contentfulManual": {
     "footerNavigation": {
+      "MoreInfoLabel": "More Info",
       "about": "About Europeana",
       "forDevelopers": "For developers",
       "help": "Help",
       "meetUs": "Meet the team",
-      "MoreInfoLabel": "More Info",
       "provide": "Become a data provider",
       "subscribe": "Subscribe to our Newsletter",
       "terms": "Terms of Use and Privacy Policy"
@@ -91,7 +123,6 @@ export default {
       "teachers": "Teachers"
     }
   },
-  "contentYouMightLike": "Content you might like",
   "curatedAutomatically": "Curated automatically by Europeana",
   "dateFilter": {
     "endDate": "End date",
@@ -110,7 +141,32 @@ export default {
     "right": "Right"
   },
   "edmIsShownAtLinkAlt": "View at the provider's website",
-  "entity": "Entity",
+  "entity": {
+    "actions": {
+      "cancel": "Cancel",
+      "pin": "Pin item",
+      "unpin": "Unpin item",
+      "viewPinned": "See pinned items"
+    },
+    "labels": {
+      "entity": "Entity"
+    },
+    "notifications": {
+      "deleted": "Your gallery has been deleted.",
+      "pinLimit": {
+        "body": "For now you can only pin 24 items on the first page. If you want to pin this item, make sure you unpin another one and then try to pin this one again.",
+        "title": "Too many pinned items"
+      },
+      "pinned": "The item has been pinned. It is now at the top of the first page of this collection. It might take up to 24 hours to appear for everyone.",
+      "pinnedFirstPage": "The item has been pinned. It might take up to 24 hours to appear for everyone.",
+      "unpinned": "The item has been unpinned. It is no longer at the top of the first page of this collection. It might take up to 24 hours to disappear for everyone.",
+      "unpinnedFirstPage": "The item has been unpinned. It might take up to 24 hours to disappear for everyone."
+    },
+    "prompts": {
+      "pin": "Are you sure you want to pin this item? This item will show at the top of the \"{entity}\" collection. This change might take up to 24 hours to take effect.",
+      "unpin": "Are you sure you want to unpin this item? This item will stop showing at the top of the \"{entity}\" collection. This change might take up to 24 hours to take effect."
+    }
+  },
   "error": "Error",
   "exhibitions": {
     "chapters": "Chapters",
@@ -120,39 +176,6 @@ export default {
     "exhibitions": "Exhibition | Exhibitions"
   },
   "facets": {
-    "api": {
-      "name": "Search for",
-      "options": {
-        "fulltext": "Items with full-text",
-        "metadata": "Metadata-only items"
-      }
-    },
-    "button": {
-      "apply": "Apply",
-      "cancel": "Cancel",
-      "morefilters": "More filters",
-      "reset": "Reset",
-      "showAll": "Show all {label}",
-      "showLess": "Show less {label}"
-    },
-    "collection": {
-      "name": "Collection",
-      "options": {
-        "archaeology": "Archaeology",
-        "art": "Art",
-        "fashion": "Fashion",
-        "industrial": "Industrial Heritage",
-        "manuscript": "Manuscripts",
-        "map": "Maps and Geography",
-        "migration": "Migration",
-        "music": "Music",
-        "nature": "Natural History",
-        "newspaper": "Newspapers",
-        "photography": "Photography",
-        "sport": "Sport",
-        "ww1": "1914-1918"
-      }
-    },
     "COLOURPALETTE": {
       "name": "Colour | Colours",
       "options": {
@@ -302,14 +325,6 @@ export default {
         "#FFFFFF": "White"
       }
     },
-    "contentTier": {
-      "name": "Item quality",
-      "notification": "Some items not matching our publishing criteria are available. You can access those items by activating the 'Item Quality' filter under 'More filters'.",
-      "options": {
-        "*": "Includes items not meeting our publishing criteria",
-        "0": "Show only items not meeting our publishing criteria"
-      }
-    },
     "COUNTRY": {
       "name": "Providing country"
     },
@@ -347,18 +362,6 @@ export default {
     "PROVIDER": {
       "name": "Aggregator | Aggregators"
     },
-    "proxy_dc_format": {
-      "name": "Format | Formats"
-    },
-    "proxy_dc_type": {
-      "name": "Type | Types"
-    },
-    "proxy_dcterms_issued": {
-      "name": "Date issued"
-    },
-    "proxy_dcterms_medium": {
-      "name": "Medium | Media"
-    },
     "REUSABILITY": {
       "name": "Can I use this?",
       "options": {
@@ -377,7 +380,77 @@ export default {
         "TEXT": "Text",
         "VIDEO": "Video"
       }
+    },
+    "api": {
+      "name": "Search for",
+      "options": {
+        "fulltext": "Items with full-text",
+        "metadata": "Metadata-only items"
+      }
+    },
+    "button": {
+      "apply": "Apply",
+      "cancel": "Cancel",
+      "morefilters": "More filters",
+      "reset": "Reset",
+      "showAll": "Show all {label}",
+      "showLess": "Show less {label}"
+    },
+    "collection": {
+      "name": "Collection",
+      "options": {
+        "archaeology": "Archaeology",
+        "art": "Art",
+        "fashion": "Fashion",
+        "industrial": "Industrial Heritage",
+        "manuscript": "Manuscripts",
+        "map": "Maps and Geography",
+        "migration": "Migration",
+        "music": "Music",
+        "nature": "Natural History",
+        "newspaper": "Newspapers",
+        "photography": "Photography",
+        "sport": "Sport",
+        "ww1": "1914-1918"
+      }
+    },
+    "contentTier": {
+      "name": "Item quality",
+      "notification": "Some items not matching our publishing criteria are available. You can access those items by activating the 'Item Quality' filter under 'More filters'.",
+      "options": {
+        "*": "Includes items not meeting our publishing criteria",
+        "0": "Show only items not meeting our publishing criteria"
+      }
+    },
+    "proxy_dc_format": {
+      "name": "Format | Formats"
+    },
+    "proxy_dc_type": {
+      "name": "Type | Types"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Date issued"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Medium | Media"
     }
+  },
+  "feedback": {
+    "emailOptional": "We may wish to follow up. Enter your email if you're happy for us to contact you.",
+    "failed": "The request failed. Please try again.",
+    "form": {
+      "placeholders": {
+        "email": "Enter your email address",
+        "feedback": "Enter your feedback here"
+      }
+    },
+    "policies": "By continuing, you agree to our {0} and acknowledge our {1}.",
+    "privacyPolicy": "Privacy Policy",
+    "success": "Your feedback has been sent.",
+    "termsOfService": "Terms of Service",
+    "thankYou": "Thank you!",
+    "title": "Send feedback",
+    "validEmail": "Enter a valid email address"
   },
   "fieldLabels": {
     "default": {
@@ -396,6 +469,8 @@ export default {
       "dcRights": "Rights",
       "dcSource": "Source",
       "dcSubject": "Subject",
+      "dcTitle": "Title",
+      "dcType": "Type of object",
       "dctermsCreated": "Creation date",
       "dctermsExtent": "Extent",
       "dctermsHasPart": "Consists of",
@@ -412,8 +487,6 @@ export default {
       "dctermsReferences": "References",
       "dctermsSpatial": "Places",
       "dctermsTemporal": "Temporal",
-      "dcTitle": "Title",
-      "dcType": "Type of object",
       "edmCountry": "Providing country",
       "edmCurrentLocation": "Current location",
       "edmDataProvider": "Providing institution",
@@ -432,7 +505,8 @@ export default {
       "keywords": "Keywords (provided by the community)",
       "timestampCreated": "Timestamp created",
       "timestampUpdate": "Timestamp updated",
-      "wasPresentAt": "Was present at"
+      "wasPresentAt": "Was present at",
+      "year": "Year"
     },
     "webResource": {
       "about": "RDF About",
@@ -448,6 +522,18 @@ export default {
     "disclaimerLine2": "The European Commission does not guarantee the accuracy of the information and accepts no responsibility or liability whatsoever with regard to the information on this website. Neither the European Commission, nor any person acting on the European Commission’s behalf, is responsible or liable for the accuracy or use of the information on this website.",
     "findUsElsewhere": "Find us elsewhere",
     "imageDescription": "Co-financed by the Connecting Europe Facility of the European Union",
+    "navigation": {
+      "MoreInfoLabel": "More Info",
+      "about": "About us",
+      "accessibility": "Accessibility",
+      "cookies": "Cookies",
+      "forDevelopers": "For developers",
+      "help": "Help",
+      "privacy": "Privacy policy",
+      "provide": "Become a data partner",
+      "subscribe": "Subscribe to our newsletter",
+      "terms": "Terms of use"
+    },
     "ourMission": "Our mission",
     "ourMissionQuote": "Europeana empowers the cultural heritage sector in its digital transformation. We develop expertise, tools and policies to embrace digital change and encourage partnerships that foster innovation."
   },
@@ -473,7 +559,8 @@ export default {
       "collections": "Collections",
       "europeanaClassroom": "Teachers",
       "help": "Help",
-      "home": "Home"
+      "home": "Home",
+      "stories": "Stories"
     },
     "searchFor": "Search for {query}",
     "searchForEverything": "Search for everything",
@@ -488,7 +575,68 @@ export default {
   "items": {
     "itemCount": "1 item |{count} items",
     "itemOf": "{max} of {count} items",
+    "recent": "Recent items",
+    "recommendationsDisclaimer": "Thumb up to add to the gallery - Thumb down if you dislike it",
+    "recommended": "Recommended items",
     "youMightLike": "Items you might like"
+  },
+  "klaro": {
+    "main": {
+      "consentModal": {
+        "description": "Here you can see and customise the services that we'd like to use on this website. To learn more please read our <a href='/rights/privacy-policy'>privacy policy</a>.",
+        "title": "Services we would like to use."
+      },
+      "consentNotice": {
+        "description": "Hi! Could we please enable some additional services for analytics and security? You can always change or withdraw your consent later."
+      },
+      "ok": "Okay",
+      "purposes": {
+        "essential": {
+          "description": "These services are essential for the correct functioning of this website. They include search results view and language preferences, preserve the logged in state and keep your visit secure. You cannot disable them as the website would not work correctly otherwise.",
+          "title": "Essential services for security and customization"
+        },
+        "usage": {
+          "description": "These services collect the information to help us better understand how the website gets used and where the pain points are, empowering us to make informed choices to improve your experience.",
+          "title": "Services to capture website usage and feedback"
+        }
+      },
+      "service": {
+        "disableAll": {
+          "description": "Use this switch to enable or disable all optional services.",
+          "title": "Enable or disable all services"
+        }
+      }
+    },
+    "services": {
+      "auth-strategy": {
+        "description": "Remembers the authorization strategy to use to log in.",
+        "title": "Auth Strategy"
+      },
+      "debugSettings": {
+        "description": "Helps debugging API requests",
+        "title": "Debug toggle"
+      },
+      "hotjar": {
+        "description": "Activates a survey widget giving you the option to respond to our visitor satisfaction surveys.",
+        "title": "Hotjar"
+      },
+      "i18n": {
+        "description": "Remembers your preferred interface language for future access.",
+        "title": "Language code"
+      },
+      "jira-servicedesk": {
+        "description": "Activates the feedback widget giving you the option to contact us.",
+        "title": "Jira service desk"
+      },
+      "matomo": {
+        "description": "Collects anonymous statistics on how visitors interact with the website.",
+        "title": "Matomo"
+      },
+      "searchResultsView": {
+        "description": "Remembers if you prefer to see the search results in a list or grid view.",
+        "title": "Search result view (list/grid)"
+      }
+    }
   },
   "layout": {
     "skipToMain": "Skip to page contents"
@@ -508,6 +656,7 @@ export default {
       "text": "You're searching in our new and faster website."
     }
   },
+  "loading": "Loading",
   "loadingResults": "Loading results",
   "mediaPreview": {
     "selectItem": "Select item {src}"
@@ -518,12 +667,37 @@ export default {
     "notFound": "Not Found",
     "paginationLimitExceeded": "It is only possible to view the first {limit} search results."
   },
+  "modal": {
+    "download": {
+      "clickToCopy": "Click on the attribution to copy it",
+      "modalIntro": "If you use this item on the web or elsewhere, don’t forget to display the following attribution next to it:",
+      "modalTitle": "Say thanks"
+    }
+  },
+  "multilingual": {
+    "automated": "Automated translation",
+    "currentLanguage": "Would you like to see this item in {0}?",
+    "differentLanguage": "a different language",
+    "enrichment": "Enrichment by partner projects",
+    "original": "Original metadata",
+    "originalLanguage": "original language",
+    "other": "Other languages"
+  },
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
   "noResults": "No results",
   "pageHasLoaded": "has loaded",
   "pages": {
     "collections": {
+      "organisations": {
+        "table": {
+          "name": "Name"
+        },
+        "title": "Organisations"
+      },
+      "persons": {
+        "title": "Persons"
+      },
       "times": {
         "title": "Times"
       },
@@ -534,6 +708,7 @@ export default {
   },
   "readMore": "Read more",
   "record": {
+    "IIIFViewer": "IIIF viewer",
     "allMetaData": "All metadata",
     "copyEmbedLabel": "Embed code (Click to copy)",
     "downloadCopyrightInfo": "This item is in copyright and can not be downloaded.",
@@ -541,7 +716,6 @@ export default {
     "extendedInformation": "Extended information",
     "goodToKnow": "Good to know",
     "hideAll": "Hide all information",
-    "IIIFViewer": "IIIF viewer",
     "location": "Location",
     "locationOnMap": "Location on map",
     "mediaPlayer": "Media player",
@@ -594,8 +768,8 @@ export default {
     "form": {
       "description": "Gallery description",
       "private": "Keep this gallery private",
-      "title": "Gallery name",
-      "required": "Required field"
+      "required": "Required field",
+      "title": "Gallery name"
     },
     "labels": {
       "curatedBy": "Curated by",
@@ -606,12 +780,14 @@ export default {
       "likeLimit": {
         "body": "We are sorry, but you are limited at the moment to liking a maximum of 100 items. We will remove this limit soon!",
         "title": "100 likes"
-      }
+      },
+      "updated": "The item was added to the gallery."
     },
     "prompts": {
       "delete": "Are you sure you want to delete this gallery? If you delete this gallery, you will lose all the items you've added to it."
     }
   },
   "showLess": "Show less",
-  "showMore": "Show more"
+  "showMore": "Show more",
+  "website": "Website"
 };

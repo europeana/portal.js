@@ -7,6 +7,7 @@
       :title="name"
       :description="headline"
       :hero="hero"
+      :context-label="$tc('exhibitions.exhibitions')"
     />
     <b-container>
       <b-row class="justify-content-center">
@@ -133,7 +134,7 @@
           { hid: 'og:description', property: 'og:description', content: this.description }
         ] : []).concat(this.heroImage ? [
           { hid: 'og:image', property: 'og:image', content: this.optimisedImageUrl },
-          { hid: 'og:image:alt', property: 'og:image:alt', content: this.heroImage.description }
+          { hid: 'og:image:alt', property: 'og:image:alt', content: this.heroImage.description || '' }
         ] : [])
       };
     }

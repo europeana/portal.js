@@ -1,4 +1,4 @@
-import store from '../../../src/store/set';
+import store from '@/store/set';
 import sinon from 'sinon';
 
 describe('store/set', () => {
@@ -34,6 +34,9 @@ describe('store/set', () => {
     const setId = 'http://data.europeana.eu/set/123';
     const itemId = '/123/ghi';
     const userId = 'a-b-c-d-e';
+    const recommendations = { items: ['/123/def', '/123/ghi'] };
+    const newRecommendation = { items: ['/123/jkl'] };
+    const updatedRecommendations = ['/123/def', '/123/jkl'];
     const set = {
       id: setId,
       items: []
@@ -42,7 +45,7 @@ describe('store/set', () => {
     beforeEach(() => {
       commit.resetHistory();
       dispatch.resetHistory();
-      store.actions.$apis = { set: {} };
+      store.actions.$apis = { set: {}, recommendation: {}, record: {} };
       store.actions.$auth = {};
     });
 
@@ -50,7 +53,8 @@ describe('store/set', () => {
       const resetCommits = {
         setLikesId: null,
         setLikedItems: null,
-        setCreations: []
+        setCreations: [],
+        setCurations: []
       };
 
       for (const commitName in resetCommits) {
@@ -80,7 +84,7 @@ describe('store/set', () => {
         store.actions.$apis.set.modifyItems = sinon.stub().resolves({});
         const state = { likesId: setId };
 
-        store.actions.unlike({ commit, state }, itemId);
+        store.actions.unlike({ dispatch, commit, state }, itemId);
 
         store.actions.$apis.set.modifyItems.should.have.been.calledWith('delete', state.likesId, itemId);
         commit.should.have.been.calledWith('unlike', itemId);
@@ -250,17 +254,17 @@ describe('store/set', () => {
         });
       });
 
-      context('when creation is not stored', () => {
-        it('fetches it via $apis.set with itemDescriptions, then commits with "setCreations"', async() => {
+      context('when creation is stored', () => {
+        it('fetches it via $apis.set, then commits with "setCreations"', async() => {
           const oldCreation = { id: setId, title: { en: 'Old title' } };
           const newCreation = { id: setId, title: { en: 'New title' } };
           const state = { creations: [oldCreation] };
           store.actions.$apis.set.getSet = sinon.stub().resolves(newCreation);
 
-          await store.actions.refreshCreation({ commit, state }, setId);
+          await store.actions.refreshCreation({ commit, state, dispatch }, setId);
 
           store.actions.$apis.set.getSet.should.have.been.calledWith(setId, {
-            profile: 'itemDescriptions'
+            profile: 'standard'
           });
           commit.should.have.been.calledWith('setCreations', [newCreation]);
         });
@@ -268,20 +272,91 @@ describe('store/set', () => {
     });
 
     describe('fetchCreations()', () => {
-      it('fetches creations via $apis.set, then commits with "setCreations"', async() => {
+      it('fetches creations via $apis.set', async() => {
         const searchResponse = { data: { items: ['1', '2'] } };
         store.actions.$auth.user = { sub: userId };
         store.actions.$apis.set.search = sinon.stub().resolves(searchResponse);
 
-        await store.actions.fetchCreations({ commit });
+        await store.actions.fetchCreations({ commit, dispatch });
 
         store.actions.$apis.set.search.should.have.been.calledWith({
           query: `creator:${userId}`,
-          profile: 'itemDescriptions',
+          profile: 'standard',
           pageSize: 100,
           qf: 'type:Collection'
         });
+      });
+
+      it('commits creations with "setCreations"', async() => {
+        const searchResponse = { data: { items: ['1', '2'] } };
+        store.actions.$auth.user = { sub: userId };
+        store.actions.$apis.set.search = sinon.stub().resolves(searchResponse);
+
+        await store.actions.fetchCreations({ commit, dispatch });
+
         commit.should.have.been.calledWith('setCreations', ['1', '2']);
+      });
+
+      it('triggers fetching of creation previews', async() => {
+        const searchResponse = { data: { items: ['1', '2'] } };
+        store.actions.$auth.user = { sub: userId };
+        store.actions.$apis.set.search = sinon.stub().resolves(searchResponse);
+
+        await store.actions.fetchCreations({ commit, dispatch });
+
+        dispatch.should.have.been.calledWith('fetchCreationPreviews');
+      });
+    });
+
+    describe('fetchCreationPreviews()', () => {
+      const state = { creations: [{ id: '01', items: [
+        'http://data.europeana.eu/item/111',
+        'http://data.europeana.eu/item/112'
+      ] },
+      { id: '02', items: [
+        'http://data.europeana.eu/item/222',
+        'http://data.europeana.eu/item/223'
+      ] }] };
+      const searchResponse = { items: [{ id: '/111',
+        edmPreview: ['http://www.example.eu/img/111'] }, { id: '/222',
+        edmPreview: ['http://www.example.eu/img/222'] }] };
+
+      it('fetches first items for each creation via $apis.record', async() => {
+        store.actions.$apis.record.search = sinon.stub().resolves(searchResponse);
+
+        await store.actions.fetchCreationPreviews({ state, commit });
+
+        store.actions.$apis.record.search.should.have.been.calledWith({
+          query: 'europeana_id:("/111" OR "/222")',
+          qf: ['contentTier:*'],
+          profile: 'minimal'
+        });
+      });
+
+      it('commits edm:preview of items with "setCreationPreviews"', async() => {
+        store.actions.$apis.record.search = sinon.stub().resolves(searchResponse);
+
+        await store.actions.fetchCreationPreviews({ state, commit });
+
+        commit.should.have.been.calledWith('setCreationPreviews', { '01': 'http://www.example.eu/img/111', '02': 'http://www.example.eu/img/222' });
+      });
+    });
+
+    describe('fetchCurations()', () => {
+      it('fetches entity related galleries the user has curated via $apis.set, then commits with "setCurations"', async() => {
+        const searchResponse = { data: { items: ['1', '2'] } };
+        store.actions.$auth.user = { sub: userId };
+        store.actions.$apis.set.search = sinon.stub().resolves(searchResponse);
+
+        await store.actions.fetchCurations({ commit });
+
+        store.actions.$apis.set.search.should.have.been.calledWith({
+          query: `contributor:${userId}`,
+          profile: 'itemDescriptions',
+          pageSize: 100,
+          qf: 'type:EntityBestItemsSet'
+        });
+        commit.should.have.been.calledWith('setCurations', ['1', '2']);
       });
     });
 
@@ -294,6 +369,43 @@ describe('store/set', () => {
 
           dispatch.should.have.been.calledWith('fetchActive');
         });
+      });
+    });
+
+    describe('fetchActiveRecommendations()', () => {
+      it('fetches the active set recommendations via $apis.recommendation, then commits it with "setActiveRecommendations"', async() => {
+        store.actions.$apis.recommendation.recommend = sinon.stub().resolves(recommendations);
+
+        await store.actions.fetchActiveRecommendations({ commit }, setId);
+
+        store.actions.$apis.recommendation.recommend.should.have.been.calledWith('set', setId);
+        commit.should.have.been.calledWith('setActiveRecommendations', recommendations.items);
+      });
+    });
+
+    describe('acceptRecommendation()', () => {
+      it('accepts a recommended item via $apis.recommendation, then commits the returned new item with "setActiveRecommendations"', async() => {
+        const state = { activeRecommendations: recommendations.items };
+
+        store.actions.$apis.recommendation.accept = sinon.stub().resolves(newRecommendation);
+
+        await store.actions.reviewRecommendation({ state, commit }, { setId, itemIds: [itemId], action: 'accept' });
+
+        store.actions.$apis.recommendation.accept.should.have.been.calledWith('set', setId, [itemId]);
+        commit.should.have.been.calledWith('setActiveRecommendations', updatedRecommendations);
+      });
+    });
+
+    describe('rejectRecommendation()', () => {
+      it('rejects a recommended item via $apis.recommendation, then commits the returned new item with "setActiveRecommendations"', async() => {
+        const state = { activeRecommendations: recommendations.items };
+
+        store.actions.$apis.recommendation.reject = sinon.stub().resolves(newRecommendation);
+
+        await store.actions.reviewRecommendation({ state, commit }, { setId, itemIds: [itemId], action: 'reject' });
+
+        store.actions.$apis.recommendation.reject.should.have.been.calledWith('set', setId, [itemId]);
+        commit.should.have.been.calledWith('setActiveRecommendations', updatedRecommendations);
       });
     });
   });

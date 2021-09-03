@@ -2,8 +2,8 @@ import axios from 'axios';
 import nock from 'nock';
 import search, {
   addContentTierFilter, rangeToQueryParam, rangeFromQueryParam
-} from '../../../../src/plugins/europeana/search';
-import { BASE_URL } from '../../../../src/plugins/europeana/record';
+} from '@/plugins/europeana/search';
+import { BASE_URL } from '@/plugins/europeana/record';
 
 const apiEndpoint = '/search.json';
 
@@ -126,6 +126,50 @@ describe('plugins/europeana/search', () => {
         nock.isDone().should.be.true;
       });
 
+      describe('multilingual queries', () => {
+        it('passes API i18n params if locale option given', async() => {
+          const locale = 'es';
+
+          baseRequest
+            .query(query => {
+              return query['q.source'] === locale && query['q.target'] === 'en';
+            })
+            .reply(200, defaultResponse);
+
+          await search($axios, { query: 'flor' }, { locale });
+
+          nock.isDone().should.be.true;
+        });
+
+        it('does not pass API i18n params if no locale option', async() => {
+          baseRequest
+            .query(query => {
+              const queryKeys = Object.keys(query);
+              return !queryKeys.includes('q.source') && !queryKeys.includes('q.target');
+            })
+            .reply(200, defaultResponse);
+
+          await search($axios, { query: 'flor' });
+
+          nock.isDone().should.be.true;
+        });
+
+        it('does not pass API i18n params if locale is already "en"', async() => {
+          const locale = 'en';
+
+          baseRequest
+            .query(query => {
+              const queryKeys = Object.keys(query);
+              return !queryKeys.includes('q.source') && !queryKeys.includes('q.target');
+            })
+            .reply(200, defaultResponse);
+
+          await search($axios, { query: 'flor' }, { locale });
+
+          nock.isDone().should.be.true;
+        });
+      });
+
       describe('escaping Lucene reserved characters', () => {
         it('does not escape them by default', async() => {
           baseRequest
@@ -177,47 +221,108 @@ describe('plugins/europeana/search', () => {
       });
 
       context('with `items`', () => {
-        function searchResponse() {
-          return search($axios, { query: 'painting' });
+        function searchResponse(options = {}) {
+          return search($axios, { query: 'painting' }, options);
         }
 
-        const apiResponse = {
-          success: true,
-          items: [
-            {
-              id: '/123/abc',
-              type: 'IMAGE',
-              dcTitleLangAware: {
-                en: ['A painting']
-              },
-              dcDescriptionLangAware: {
-                en: ['More information about this painting']
-              },
-              dcCreatorLangAware: {
-                en: ['An artist']
-              },
-              dataProvider: ['Europeana Foundation']
-            }
-          ],
-          itemsCount: 1,
-          totalResults: 2
-        };
+        describe('.items', () => {
+          describe('are reduced to data needed for display', () => {
+            const bloatedResponse = {
+              success: true,
+              items: [
+                {
+                  id: '/123/abc',
+                  type: 'IMAGE',
+                  dataProvider: ['Europeana Foundation'],
+                  title: ['A painting', 'Een schilderij'],
+                  dcTitleLangAware: {
+                    en: ['A painting'],
+                    nl: ['Een schilderij']
+                  },
+                  dcDescription: ['More information about this painting. More information about this painting. More information about this painting. More information about this painting. More information about this painting. More information about this painting. More information about this painting.'],
+                  dcDescriptionLangAware: {
+                    en: ['More information about this painting. More information about this painting. More information about this painting. More information about this painting. More information about this painting. More information about this painting. More information about this painting.']
+                  },
+                  dcCreatorLangAware: {
+                    en: ['An artist']
+                  },
+                  edmPreview: ['https://example.org/thumbnail/123/abc.jpeg']
+                }
+              ],
+              itemsCount: 1,
+              totalResults: 2
+            };
 
-        beforeEach('stub API response', () => {
-          baseRequest
-            .query(true)
-            .reply(200, apiResponse);
-        });
+            beforeEach('stub API response', () => {
+              baseRequest
+                .query(true)
+                .reply(200, bloatedResponse);
+            });
 
-        it('includes all API response data', async() => {
-          const response = await searchResponse();
+            it('preserves required non-LangMap fields', async() => {
+              const response = await searchResponse({ locale: 'en' });
+              const item = response.items[0];
 
-          for (const key in apiResponse) {
-            response[key].should.deep.eql(apiResponse[key]);
-          }
+              item.id.should.eq('/123/abc');
+              item.type.should.eq('IMAGE');
+              item.dataProvider.should.eql(['Europeana Foundation']);
+              item.edmPreview.should.eql(['https://example.org/thumbnail/123/abc.jpeg']);
+            });
+
+            it('removes irrelevant LangMap locales', async() => {
+              const response = await searchResponse({ locale: 'en' });
+              const item = response.items[0];
+
+              item.dcTitleLangAware.should.eql({ en: ['A painting'] });
+              item.dcCreatorLangAware.should.eql({ en: ['An artist'] });
+            });
+
+            it('truncates long LangMap values', async() => {
+              const response = await searchResponse({ locale: 'en' });
+              const item = response.items[0];
+
+              item.dcDescriptionLangAware.should.eql({ en: ['More information about this painting. More information about this painting. More information about this painting. More information about this painting. More information about this painting. More information about this painting. More information about this …'] });
+            });
+
+            it('removes irrelevant fields', async() => {
+              const response = await searchResponse({ locale: 'en' });
+              const item = response.items[0];
+
+              (item.title === undefined).should.be.true;
+              (item.dcDescription === undefined).should.be.true;
+            });
+          });
         });
 
         describe('.lastAvailablePage', () => {
+          const apiResponse = {
+            success: true,
+            items: [
+              {
+                id: '/123/abc',
+                type: 'IMAGE',
+                dcTitleLangAware: {
+                  en: ['A painting']
+                },
+                dcDescriptionLangAware: {
+                  en: ['More information about this painting']
+                },
+                dcCreatorLangAware: {
+                  en: ['An artist']
+                },
+                dataProvider: ['Europeana Foundation']
+              }
+            ],
+            itemsCount: 1,
+            totalResults: 2
+          };
+
+          beforeEach('stub API response', () => {
+            baseRequest
+              .query(true)
+              .reply(200, apiResponse);
+          });
+
           context('when page is not at the API limit', () => {
             it('is `false`', async() => {
               const response = await searchResponse();

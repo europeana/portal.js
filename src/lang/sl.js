@@ -1,5 +1,6 @@
 export default {
   "account": {
+    "editProfile": "Uredi profil",
     "likes": "Všečki",
     "linkAccount": "Moj račun",
     "linkLogin": "Vpis",
@@ -7,6 +8,8 @@ export default {
     "linkLogout": "Izpis",
     "myProfile": "Moj profil",
     "notifications": {
+      "loggedIn": "Zdaj ste prijavljeni. Dobrodošli!",
+      "loggedOut": "Zdaj ste odjavljeni.",
       "noCollections": {
         "private": "Niste še ustvarili nobene zasebne zbirke.",
         "public": "Niste še ustvarili nobene javne zbirke."
@@ -15,19 +18,25 @@ export default {
     },
     "privateCollections": "Zasebne zbirke",
     "profile": "Moji všečki & zbirke",
+    "profileSettings": "Nastavitve profila",
     "publicCollections": "Javne zbirke",
     "settings": "Nastavitve",
     "title": "Moj račun"
   },
   "actions": {
+    "cancel": "Prekliči",
     "close": "zapri",
     "download": "Prenos",
     "edit": "Uredi",
+    "feedback": "Povratne informacije",
     "goBack": "Nazaj",
     "like": "Všeč mi je",
+    "next": "Naslednji",
     "providedBy": "Zagotavlja {provider}",
+    "send": "Pošlji",
     "share": "Deli",
     "shareOn": "Deli prek {social}",
+    "skip": "Preskoči",
     "viewAt": "Ogled na {link}",
     "viewDocument": "Ogled dokumenta"
   },
@@ -37,6 +46,10 @@ export default {
     "date": "Datum:",
     "institution": "Ustanova:",
     "title": "Naslov:"
+  },
+  "automatedCardGroup": {
+    "time": "Priporočena stoletja",
+    "topic": "Priporočene teme"
   },
   "blog": {
     "author": "Avtor",
@@ -49,8 +62,17 @@ export default {
     "published": "Objavljeno {date}",
     "relatedPosts": "Sorodne objave"
   },
+  "cardLabels": {
+    "person": "Oseba",
+    "time": "Stoletje",
+    "topic": "Tema"
+  },
   "clearAllFilters": "počisti vse filtre",
   "collections": {
+    "actions": {
+      "edit": "Uredi zbirko",
+      "update": "Posodobi zbirko"
+    },
     "fashion": {
       "facets": {
         "CREATOR": {
@@ -66,16 +88,24 @@ export default {
           "name": "Material | Materiali"
         }
       }
+    },
+    "form": {
+      "description": "Opis"
+    },
+    "notifications": {
+      "update": "Zbirka je bila posodobljena"
     }
   },
   "collectionsYouMightLike": "Zbirke, ki vam bodo mogoče všeč",
+  "colourSwatch": "Barvni vzorec",
+  "contentYouMightLike": "Vsebina, ki vam bo mogoče všeč",
   "contentfulManual": {
     "footerNavigation": {
+      "MoreInfoLabel": "Več informacij",
       "about": "O zbirkah Europeana",
       "forDevelopers": "Za razvijalce",
       "help": "Pomoč",
       "meetUs": "Spoznajte ekipo",
-      "MoreInfoLabel": "Več informacij",
       "provide": "Postanite ponudnik podatkov",
       "subscribe": "Prijavite se na naša obvestila",
       "terms": "Pogoji uporabe in Pravilnik o zasebnosti"
@@ -86,7 +116,6 @@ export default {
       "teachers": "Učitelji"
     }
   },
-  "contentYouMightLike": "Vsebina, ki vam bo mogoče všeč",
   "cookieDisclaimer": {
     "acceptCookieDisclaimer": "Sprejmi izjavo o piškotkih",
     "link": "Več informacij",
@@ -99,6 +128,10 @@ export default {
     "startDate": "Datum začetka",
     "to": "do"
   },
+  "debug": {
+    "apiRequests": "API requests",
+    "debug": "Debug"
+  },
   "delete": "Izbrišite",
   "depiction": "Upodobitev {title}",
   "directions": {
@@ -106,6 +139,17 @@ export default {
     "right": "Desno"
   },
   "edmIsShownAtLinkAlt": "Ogled na spletni strani ponudnika",
+  "entity": {
+    "actions": {
+      "cancel": "Prekliči"
+    },
+    "labels": {
+      "entity": "Subjekt"
+    },
+    "notifications": {
+      "deleted": "Vaša zbirka je bila izbrisana."
+    }
+  },
   "error": "Napaka",
   "exhibitions": {
     "chapters": "Poglavja",
@@ -115,39 +159,6 @@ export default {
     "exhibitions": "Razstave"
   },
   "facets": {
-    "api": {
-      "name": "Išči",
-      "options": {
-        "fulltext": "Zapisi s celotnim besedilom",
-        "metadata": "Samo zapisi z metapodatki"
-      }
-    },
-    "button": {
-      "apply": "Prijavi se",
-      "cancel": "Prekliči",
-      "morefilters": "Več filtrov",
-      "reset": "Ponastavi",
-      "showAll": "Prikaži vse {label}",
-      "showLess": "Prikaži manj {label}"
-    },
-    "collection": {
-      "name": "Kategorija",
-      "options": {
-        "archaeology": "Arheologija",
-        "art": "Umetnost",
-        "fashion": "Moda",
-        "industrial": "Industrijska dediščina",
-        "manuscript": "Rokopisi",
-        "map": "Zemljevidi in geografija",
-        "migration": "Migracije",
-        "music": "Glasba",
-        "nature": "Naravoslovna zgodovina",
-        "newspaper": "Časopisi",
-        "photography": "Fotografija",
-        "sport": "Šport",
-        "ww1": "1914-1918"
-      }
-    },
     "COLOURPALETTE": {
       "name": "Barva | Barve",
       "options": {
@@ -293,15 +304,8 @@ export default {
         "#FFFAFA": "Sneg",
         "#FFFF00": "Rumena",
         "#FFFFE0": "Svetlo rumena",
+        "#FFFFF0": "Slonokoščena",
         "#FFFFFF": "Bela"
-      }
-    },
-    "contentTier": {
-      "name": "Vključuje zapise, ki ne izpolnjujejo naših meril za objavo",
-      "notification": "Nekateri predmeti, ki ne ustrezajo našim kriterijem objavljanja, so na voljo. Do teh predmetov lahko dostopate z aktivacijo filtra 'Kakovost predmetov' pod 'Več filtrov'.",
-      "options": {
-        "*": "Vključuje elemente, ki ne izpolnjujejo naših meril za objavo",
-        "0": "Pokaži samo predmete, ki ne ustrezajo našim kriterijem objavljanja."
       }
     },
     "COUNTRY": {
@@ -341,18 +345,6 @@ export default {
     "PROVIDER": {
       "name": "Zbiralnik"
     },
-    "proxy_dc_format": {
-      "name": "Format | Formati"
-    },
-    "proxy_dc_type": {
-      "name": "Vrsta | Vrste"
-    },
-    "proxy_dcterms_issued": {
-      "name": "Datum izdaje"
-    },
-    "proxy_dcterms_medium": {
-      "name": "Medij | Mediji"
-    },
     "REUSABILITY": {
       "name": "Ali lahko to ponovno uporabim?",
       "options": {
@@ -371,7 +363,77 @@ export default {
         "TEXT": "Besedilo",
         "VIDEO": "Videoposnetek"
       }
+    },
+    "api": {
+      "name": "Išči",
+      "options": {
+        "fulltext": "Zapisi s celotnim besedilom",
+        "metadata": "Samo zapisi z metapodatki"
+      }
+    },
+    "button": {
+      "apply": "Prijavi se",
+      "cancel": "Prekliči",
+      "morefilters": "Več filtrov",
+      "reset": "Ponastavi",
+      "showAll": "Prikaži vse {label}",
+      "showLess": "Prikaži manj {label}"
+    },
+    "collection": {
+      "name": "Kategorija",
+      "options": {
+        "archaeology": "Arheologija",
+        "art": "Umetnost",
+        "fashion": "Moda",
+        "industrial": "Industrijska dediščina",
+        "manuscript": "Rokopisi",
+        "map": "Zemljevidi in geografija",
+        "migration": "Migracije",
+        "music": "Glasba",
+        "nature": "Naravoslovna zgodovina",
+        "newspaper": "Časopisi",
+        "photography": "Fotografija",
+        "sport": "Šport",
+        "ww1": "1914-1918"
+      }
+    },
+    "contentTier": {
+      "name": "Vključuje zapise, ki ne izpolnjujejo naših meril za objavo",
+      "notification": "Nekateri predmeti, ki ne ustrezajo našim kriterijem objavljanja, so na voljo. Do teh predmetov lahko dostopate z aktivacijo filtra 'Kakovost predmetov' pod 'Več filtrov'.",
+      "options": {
+        "*": "Vključuje elemente, ki ne izpolnjujejo naših meril za objavo",
+        "0": "Pokaži samo predmete, ki ne ustrezajo našim kriterijem objavljanja."
+      }
+    },
+    "proxy_dc_format": {
+      "name": "Format | Formati"
+    },
+    "proxy_dc_type": {
+      "name": "Vrsta | Vrste"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Datum izdaje"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Medij | Mediji"
     }
+  },
+  "feedback": {
+    "emailOptional": "Morda bi želeli slediti. Vnesite svojo e-pošto, če ste veseli, da vas kontaktiramo.",
+    "failed": "Zahteva ni uspela. Prosim poskusite ponovno.",
+    "form": {
+      "placeholders": {
+        "email": "Vnesite svoj e-poštni naslov",
+        "feedback": "Tukaj vnesite svoje povratne informacije"
+      }
+    },
+    "policies": "Z nadaljevanjem se strinjate z našimi {0} in potrjujete naše {1} .",
+    "privacyPolicy": "Pravilnik o zasebnosti",
+    "success": "Vaše povratne informacije so bile poslane.",
+    "termsOfService": "Pogoji storitve",
+    "thankYou": "Hvala!",
+    "title": "Pošlji povratno informacijo",
+    "validEmail": "Vnesite veljaven e-poštni naslov"
   },
   "fieldLabels": {
     "default": {
@@ -390,6 +452,8 @@ export default {
       "dcRights": "Pravice",
       "dcSource": "Vir",
       "dcSubject": "Zadeva",
+      "dcTitle": "Naslov",
+      "dcType": "Vrsta predmeta",
       "dctermsCreated": "Datum ustvarjanja",
       "dctermsExtent": "Obseg",
       "dctermsHasPart": "Je sestavljen iz",
@@ -406,8 +470,6 @@ export default {
       "dctermsReferences": "Sklici",
       "dctermsSpatial": "Kraji",
       "dctermsTemporal": "Časovno obdobje",
-      "dcTitle": "Naslov",
-      "dcType": "Vrsta predmeta",
       "edmCountry": "Država izvora",
       "edmCurrentLocation": "Trenutna lokacija",
       "edmDataProvider": "Ustanova izvora",
@@ -438,8 +500,22 @@ export default {
   },
   "footer": {
     "customiseWebsiteLanguage": "Prilagoditev jezika spletnega mesta",
+    "disclaimerLine1": "Europeana je pobuda Evropske unije, ki jo financirajo Connecting Europe Facility Evrope Evropske unije in države članice Evropske unije. Storitve Europeane, vključno s tem spletnim mestom, upravlja konzorcij pod vodstvom Fundacije Europeana na podlagi pogodbe o storitvah z Evropsko komisijo.",
+    "disclaimerLine2": "Evropska komisija ne zagotavlja točnosti informacij in ne sprejema nobene odgovornosti ali odgovornosti v zvezi z informacijami na tej spletni strani. Niti Evropska komisija niti nobena oseba, ki deluje v imenu Evropske komisije, ni odgovorna ali odgovorna za točnost ali uporabo informacij na tej spletni strani.",
     "findUsElsewhere": "Najdite nas drugje",
     "imageDescription": "Sofinancira Instrument za povezovanje Evrope Evropske unije",
+    "navigation": {
+      "MoreInfoLabel": "Več informacij",
+      "about": "O nas",
+      "accessibility": "Dostopnost",
+      "cookies": "Piškotki",
+      "forDevelopers": "Za razvijalce",
+      "help": "Pomoč",
+      "privacy": "Pravilnik o zasebnosti",
+      "provide": "Postanite ponudnik podatkov",
+      "subscribe": "Prijavite se na naša obvestila",
+      "terms": "Pogoji uporabe"
+    },
     "ourMission": "Naša misija",
     "ourMissionQuote": "Europeana krepi panogo kulturne dediščine pri njeni digitalni preobrazbi. Razvijamo strokovno znanje, orodja in politike za sprejemanje digitalnih sprememb ter spodbujamo partnerstva, ki negujejo inovacije."
   },
@@ -456,6 +532,7 @@ export default {
   "header": {
     "backToMenu": "Zapri iskalno polje",
     "clearQuery": "Počisti iskalno poizvedbo ",
+    "closeSidebar": "Zapri meni",
     "entireCollection": "Išči {query} v naši celotni zbirki",
     "europeanaHome": "Na začetno stran Europeana",
     "inCollection": "Išči {query} v {collection}",
@@ -463,7 +540,9 @@ export default {
       "about": "O nas",
       "collections": "Zbirke",
       "europeanaClassroom": "Učitelji",
-      "help": "Pomoč"
+      "help": "Pomoč",
+      "home": "Domov",
+      "stories": "Zgodbe"
     },
     "searchFor": "Išči {query}",
     "searchForEverything": "Išči vse",
@@ -479,6 +558,63 @@ export default {
     "itemCount": "1 predmet |{count} predmeti",
     "itemOf": "{max} od {count} predmetov",
     "youMightLike": "Predmeti, ki vam bodo mogoče všeč"
+  },
+  "klaro": {
+    "main": {
+      "consentModal": {
+        "description": "Vašo zasebnost podatkov jemljemo resno. Tukaj lahko ocenite in prilagodite storitve, ki bi jih radi uporabili na tem spletnem mestu. Vi ste odgovorni! Omogočite ali onemogočite storitve, kot se vam zdi primerno.",
+        "title": "Storitve, ki jih želimo uporabljati."
+      },
+      "consentNotice": {
+        "description": "Skrbimo za vašo zasebnost in podatke uporabljamo le za izboljšanje vaše izkušnje. Osebnih podatkov ne uporabljamo za oglaševanje. Svoje soglasje lahko spremenite vsakih 15 dni."
+      },
+      "ok": "okej",
+      "purposes": {
+        "essential": {
+          "description": "Te storitve so nujne za pravilno delovanje tega spletnega mesta. Vključujejo poglede rezultatov iskanja in jezikovne nastavitve, ohranjajo stanje prijave in zagotavljajo varnost vašega obiska. Ne morete jih onemogočiti, saj spletno mesto sicer ne bi delovalo pravilno.",
+          "title": "Bistvene storitve za varnost in prilagajanje"
+        },
+        "usage": {
+          "description": "Te storitve zbirajo informacije, ki nam pomagajo bolje razumeti, kako se spletna stran uporablja in kje so bolečine točke, ki nas opolnomoči za sprejemanje obveščenih odločitev za izboljšanje vaše izkušnje.",
+          "title": "Storitve za zajemanje uporabe spletnega mesta in povratnih informacij"
+        }
+      },
+      "service": {
+        "disableAll": {
+          "description": "S tem stikalom omogočite ali onemogočite vse izbirne storitve.",
+          "title": "Omogočite ali onemogočite vse storitve"
+        }
+      }
+    },
+    "services": {
+      "auth-strategy": {
+        "description": "Zapomni si strategijo avtorizacije, ki jo je treba uporabiti za prijavo.",
+        "title": "Auth strategija"
+      },
+      "debugSettings": {
+        "title": "Debug toggle"
+      },
+      "hotjar": {
+        "description": "Aktivira gradnik za ankete, ki vam omogoča, da se odzovete na naše ankete o zadovoljstvu obiskovalcev.",
+        "title": "Hotjar"
+      },
+      "i18n": {
+        "description": "Zapomni si želeni jezik vmesnika za prihodnji dostop.",
+        "title": "Jezikovna koda"
+      },
+      "jira-servicedesk": {
+        "description": "Aktivira gradnik za povratne informacije, ki vam omogoča, da stopite v stik z nami.",
+        "title": "Servisna pisarna Jira"
+      },
+      "matomo": {
+        "description": "Zbira anonimne statistične podatke o tem, kako obiskovalci komunicirajo s spletnim mestom.",
+        "title": "Matomo"
+      },
+      "searchResultsView": {
+        "description": "Zapomni si, če želite rezultate iskanja raje videti v pogledu seznama ali mreže.",
+        "title": "Pogled rezultatov iskanja (seznam / mreža)"
+      }
+    }
   },
   "layout": {
     "skipToMain": "Preskoči na vsebino strani"
@@ -499,16 +635,29 @@ export default {
     }
   },
   "loadingResults": "Nalaganje rezultatov",
+  "mediaPreview": {
+    "selectItem": "Izberite element {src}"
+  },
   "messages": {
+    "copyToClipboardSuccess": "Kopirano v odložišče",
     "externalContentError": "Zunanje vsebine ni bilo mogoče naložiti",
     "notFound": "Ni najdeno",
     "paginationLimitExceeded": "Ogledate si lahko samo prvih {limit} rezultatov iskanja."
   },
+  "multilingual": {
+    "original": "Izvirni metapodatki",
+    "originalLanguage": "izvirni jezik",
+    "other": "Drugi jeziki"
+  },
   "newWindow": "odpre se v novem oknu",
   "noMoreResults": "Za vašo iskalno poizvedbo ni več rezultatov.",
   "noResults": "Brez rezultatov",
+  "pageHasLoaded": "je naložena",
   "pages": {
     "collections": {
+      "times": {
+        "title": "Krat"
+      },
       "topics": {
         "title": "Teme"
       }
@@ -516,12 +665,17 @@ export default {
   },
   "readMore": "Preberi več",
   "record": {
+    "IIIFViewer": "Pregledovalnik IIIF",
     "allMetaData": "Vsi metapodatki",
+    "copyEmbedLabel": "Vdelaj kodo (kliknite za kopiranje)",
     "downloadCopyrightInfo": "To delo je zaščiteno z avtorskimi pravicami in ga ni mogoče prenesti.",
     "exploreMore": "Razišči več",
     "extendedInformation": "Razširjene informacije",
     "goodToKnow": "Dobro je vedeti",
     "hideAll": "Skrij vse informacije",
+    "location": "Lokacija",
+    "locationOnMap": "Lokacija na zemljevidu",
+    "mediaPlayer": "Medijski predvajalnik",
     "record": "Zapis",
     "showAll": "Pokaži vse informacije",
     "similarItems": "Podobna dela",
@@ -571,6 +725,7 @@ export default {
     "form": {
       "description": "Opis zbirke",
       "private": "Ohrani to zbirko zasebno",
+      "required": "Zahtevana polja ",
       "title": "Ime zbirke"
     },
     "labels": {
