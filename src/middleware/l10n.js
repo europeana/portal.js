@@ -71,5 +71,4 @@ export default ({ app, route, redirect, req }) => {
     path: i18nPath,
     query: route.query
   });
-  return;
 };

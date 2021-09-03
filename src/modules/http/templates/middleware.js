@@ -28,7 +28,6 @@ const negotiate = (context) => {
   const redirectToUrl = `${redirectToScheme}://${host}${redirectToPort}${context.route.fullPath}`;
 
   context.redirect(redirectToUrl);
-  return;
 };
 
 middleware.sslNegotiation = async(context) => {
@@ -39,5 +38,4 @@ middleware.sslNegotiation = async(context) => {
   }
 
   negotiate(context);
-  return;
 };
