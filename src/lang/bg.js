@@ -6,7 +6,7 @@ export default {
     "likes": "Харесвания",
     "linkAccount": "Моят профил",
     "linkLogin": "Влизане",
-    "linkLoginJoin": "Вход\/Регистрация",
+    "linkLoginJoin": "Вход/Регистрация",
     "linkLogout": "Излизане",
     "myProfile": "Моят профил",
     "notifications": {
@@ -40,7 +40,7 @@ export default {
     "reject": "Отхвърляне",
     "send": "Изпрати",
     "share": "Споделяне",
-    "shareOn": "Споделяне в\/във {social}",
+    "shareOn": "Споделяне в/във {social}",
     "skip": "Пропуснете",
     "viewAt": "Преглед на {link}",
     "viewDocument": "Преглед на документа"
@@ -361,7 +361,7 @@ export default {
     "MIME_TYPE": {
       "name": "Формат на файла | Формат на файловете",
       "options": {
-        "text\/plain": "Само текст"
+        "text/plain": "Само текст"
       }
     },
     "PROVIDER": {
@@ -637,7 +637,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Помни, ако предпочитате да виждате резултатите от търсенето в списъчен или решетъчен изглед.",
-        "title": "Преглед на резултатите от търсенето (списък \/ мрежа)"
+        "title": "Преглед на резултатите от търсенето (списък / мрежа)"
       }
     }
   },
