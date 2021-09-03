@@ -123,11 +123,6 @@ export default {
       "teachers": "Teachers"
     }
   },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Accept cookie disclaimer",
-    "link": "More info",
-    "terms": "This website uses cookies to ensure you get the best experience on our website. By clicking or navigating the site, you agree to allow our collection of information through cookies."
-  },
   "curatedAutomatically": "Curated automatically by Europeana",
   "dateFilter": {
     "endDate": "End date",
