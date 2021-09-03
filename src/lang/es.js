@@ -595,14 +595,6 @@ export default {
       "debugSettings": {
         "title": "Alternar depuración"
       },
-      "google-analytics": {
-        "description": "Recopila estadísticas anónimas sobre cómo los visitantes interactúan con el sitio web.",
-        "title": "Google analitico"
-      },
-      "google-optimize": {
-        "description": "Le permite participar en experimentos de sitios web que guían nuestras elecciones de diseño para la mejor experiencia de usuario.",
-        "title": "Google Optimize"
-      },
       "hotjar": {
         "description": "Activa un widget de encuesta que le brinda la opción de responder a nuestras encuestas de satisfacción de visitantes.",
         "title": "Hotjar"

@@ -619,14 +619,6 @@ export default {
       "debugSettings": {
         "title": "Prebacivanje pogrešaka"
       },
-      "google-analytics": {
-        "description": "Prikuplja anonimne statistike o tome kako posjetitelji komuniciraju s web mjestom.",
-        "title": "Google Analytics"
-      },
-      "google-optimize": {
-        "description": "Omogućuje vam sudjelovanje u eksperimentima na web mjestu koji vode naše odabire dizajna za najbolje korisničko iskustvo.",
-        "title": "Google Optimize"
-      },
       "hotjar": {
         "description": "Aktivira widget ankete dajući vam mogućnost da odgovorite na naše ankete o zadovoljstvu posjetitelja.",
         "title": "Hotjar"

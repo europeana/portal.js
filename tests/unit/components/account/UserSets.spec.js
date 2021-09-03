@@ -41,7 +41,12 @@ const factory = (propsData) => mount(UserSets, {
     $t: (key) => key,
     $tc: (key) => key,
     $path: () => 'localizedPath',
-    $i18n: { locale: 'en' }
+    $i18n: { locale: 'en' },
+    $store: {
+      getters: {
+        'set/creationPreview': (id) => id
+      }
+    }
   }
 });
 

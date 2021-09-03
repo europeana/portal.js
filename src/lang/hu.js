@@ -595,14 +595,6 @@ export default {
       "debugSettings": {
         "title": "Hibakeresés váltás"
       },
-      "google-analytics": {
-        "description": "Névtelen statisztikákat gyűjt arról, hogy a látogatók hogyan lépnek kapcsolatba a weboldallal.",
-        "title": "Google Analytics"
-      },
-      "google-optimize": {
-        "description": "Lehetővé teszi, hogy részt vegyen olyan webhelykísérletekben, amelyek a legjobb felhasználói élmény érdekében irányítják tervezési döntéseinket.",
-        "title": "Google Optimize"
-      },
       "hotjar": {
         "description": "Aktivál egy felmérési widgetet, amely lehetőséget ad a látogatói elégedettségi felméréseinkre való válaszadásra.",
         "title": "Hotjar"

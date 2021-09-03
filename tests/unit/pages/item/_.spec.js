@@ -5,13 +5,6 @@ import sinon from 'sinon';
 
 import page from '@/pages/item/_';
 
-const optionsVar = {
-  itemCountry: undefined,
-  itemDataProvider: 'Data Provider',
-  itemProvider: undefined,
-  itemRights: undefined
-};
-
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
@@ -127,13 +120,6 @@ describe('pages/item/_.vue', () => {
 
       headMeta.filter(meta => meta.property === 'og:image').length.should.eq(1);
       headMeta.find(meta => meta.property === 'og:image').content.should.eq(thumbnailUrl);
-    });
-  });
-
-  describe('gtmOptions()', () => {
-    it('uses first edmDataProvider from corefields', () => {
-      const wrapper = factory();
-      wrapper.vm.gtmOptions().should.eql(optionsVar);
     });
   });
 });

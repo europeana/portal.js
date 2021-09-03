@@ -53,11 +53,7 @@
   import { version as bootstrapVersion } from 'bootstrap/package.json';
   import { version as bootstrapVueVersion } from 'bootstrap-vue/package.json';
 
-  const config = {
-    bootstrapVersion,
-    bootstrapVueVersion,
-    klaroVersion: '0.7.18'
-  };
+  const klaroVersion = '0.7.18';
 
   export default {
     components: {
@@ -70,9 +66,9 @@
 
     data() {
       return {
-        ...config,
         linkGroups: {},
-        enableAnnouncer: true
+        enableAnnouncer: true,
+        klaro: null
       };
     },
 
@@ -110,8 +106,9 @@
     },
 
     mounted() {
+      this.timeoutUntilPiwikSet(0);
       if (this.klaroEnabled) {
-        this.renderKlaro();
+        this.klaro = window.klaro;
       }
 
       if (this.$auth.$storage.getUniversal('portalLoggingIn') && this.$auth.loggedIn) {
@@ -137,10 +134,45 @@
       },
 
       renderKlaro() {
-        if (typeof window.klaro !== 'undefined') {
-          window.klaro.render(klaroConfig(this.$i18n, this.$gtm, this.$config.gtm.id, this.$initHotjar), true);
+        if (this.klaro) {
+          const config = klaroConfig(this.$i18n, this.$initHotjar, this.$matomo);
+          const manager = this.klaro.getManager(config);
+
+          this.klaro.render(config, true);
+          manager.watch({ update: this.watchKlaroManagerUpdate });
         }
-        return null;
+      },
+
+      watchKlaroManagerUpdate(manager, eventType, data) {
+        let eventName;
+
+        if (eventType === 'saveConsents') {
+          eventName = {
+            accept: 'Okay/Accept all',
+            decline: 'Decline',
+            save: 'Accept selected'
+          }[data.type];
+        }
+
+        eventName && this.trackKlaroClickEvent(eventName);
+      },
+
+      trackKlaroClickEvent(eventName) {
+        this.$matomo && this.$matomo.trackEvent('Klaro', 'Clicked', eventName);
+      },
+
+      timeoutUntilPiwikSet(counter) {
+        if (this.$matomo || counter > 100) {
+          if (this.klaroEnabled) {
+            this.renderKlaro();
+          } else {
+            this.$matomo && this.$matomo.rememberCookieConsentGiven();
+          }
+        } else {
+          setTimeout(() => {
+            this.timeoutUntilPiwikSet(counter + 1);
+          }, 10);
+        }
       }
     },
 
@@ -154,18 +186,15 @@
         link: [
           { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700&subset=latin,greek,cyrillic&display=swap',
             body: true },
-          { rel: 'stylesheet', href: `https://unpkg.com/bootstrap@${this.bootstrapVersion}/dist/css/bootstrap.min.css` },
-          { rel: 'stylesheet', href: `https://cdn.kiprotect.com/klaro/v${this.klaroVersion}/klaro.min.css` },
-          { rel: 'stylesheet', href: `https://unpkg.com/bootstrap-vue@${this.bootstrapVueVersion}/dist/bootstrap-vue.min.css` },
+          { rel: 'stylesheet', href: `https://unpkg.com/bootstrap@${bootstrapVersion}/dist/css/bootstrap.min.css` },
+          { rel: 'stylesheet', href: `https://cdn.kiprotect.com/klaro/v${klaroVersion}/klaro.min.css` },
+          { rel: 'stylesheet', href: `https://unpkg.com/bootstrap-vue@${bootstrapVueVersion}/dist/bootstrap-vue.min.css` },
           { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrlWithoutLocale },
           ...i18nSeo.link
         ],
         script: [
-          { src: `https://unpkg.com/klaro@${this.klaroVersion}/dist/klaro-no-css.js`, defer: true }
-        ]
-          .concat(this.$exp.$experimentIndex > -1 && this.$config.googleOptimize.id ? [
-            { src: `https://www.googleoptimize.com/optimize.js?id=${this.$config.googleOptimize.id}` }
-          ] : []),
+          { src: `https://unpkg.com/klaro@${klaroVersion}/dist/klaro-no-css.js`, defer: true }
+        ],
         meta: [
           { hid: 'description', property: 'description', content: 'Europeana' },
           { hid: 'og:url', property: 'og:url', content: this.canonicalUrl },

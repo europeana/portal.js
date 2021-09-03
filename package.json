@@ -1,6 +1,6 @@
 {
   "name": "@europeana/portal",
-  "version": "1.46.0",
+  "version": "1.47.0",
   "private": true,
   "description": "Europeana Portal",
   "type": "module",
@@ -18,7 +18,7 @@
     "lint:fix": "npm run lint -- --fix",
     "start": "node --experimental-json-modules node_modules/.bin/nuxt start",
     "start:inspect": "node --inspect node_modules/.bin/nuxt start",
-    "stylelint": "stylelint \"**/*.scss\" \"**/*.vue\" --config .stylelintrc.js",
+    "stylelint": "stylelint \"**/*.scss\" \"**/*.vue\" --config .stylelintrc.cjs",
     "test": "npm run test:unit && npm run test:size && npm run test:e2e",
     "test:size": "npm run build && cd tests/size/ && npm install && npm run start",
     "test:stack:build": "docker-compose -f ./tests/e2e/docker/docker-compose.yml build",
@@ -27,13 +27,12 @@
     "test:stack:start": "docker-compose -f ./tests/e2e/docker/docker-compose.yml start app nginx chrome-en chrome-ja chrome-nl",
     "test:stack:stop": "docker-compose -f ./tests/e2e/docker/docker-compose.yml stop app nginx chrome-en chrome-ja chrome-nl",
     "test:visual": "docker-compose -f ./tests/e2e/docker/docker-compose.yml build -q nightwatch-visual && docker-compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-visual",
-    "version": "node bin/version.js && git add .sonarcloud.properties"
+    "version": "node --experimental-json-modules bin/version.js && git add .sonarcloud.properties"
   },
   "dependencies": {
     "@elastic/apm-rum-vue": "^1.1.9",
     "@nuxtjs/auth": "^4.9.1",
     "@nuxtjs/axios": "^5.13.1",
-    "@nuxtjs/gtm": "^2.4.0",
     "@nuxtjs/robots": "^2.4.2",
     "@vue-a11y/announcer": "^2.1.0",
     "autosuggest-highlight": "^3.1.1",
@@ -55,7 +54,6 @@
     "md5": "^2.3.0",
     "morgan": "^1.9.1",
     "nuxt": "^2.15.7",
-    "nuxt-google-optimize": "github:europeana/nuxt-google-optimize#evaluated-experiment-IDs",
     "nuxt-i18n": "^6.10.1",
     "qs": "^6.6.0",
     "redis": "^3.1.2",
