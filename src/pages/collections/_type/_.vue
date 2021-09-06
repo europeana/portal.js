@@ -257,12 +257,7 @@
         return ((this.page?.relatedLinksCollection?.items?.length || 0) > 0) ? this.page.relatedLinksCollection.items : null;
       },
       relatedCollectionsFound() {
-        if ((this.relatedEntities?.length || 0) > 0) {
-          return true;
-        } else if ((this.relatedCollectionCards?.length || 0) > 0) {
-          return true;
-        }
-        return false;
+        return (this.relatedEntities?.length || this.relatedCollectionCards?.length || 0) > 0;
       },
       userIsEditor() {
         return this.$store.state.auth.user?.resource_access?.entities?.roles?.includes('editor') || false;
