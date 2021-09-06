@@ -32,7 +32,7 @@ export default function(ctx, inject) {
       const variants = experiment.variants; // get list of available variants
 
       // and pick one
-      // TODO: should we introduce weighing in order to show every variant equally?
+      // TODO: should we introduce weighting in order to show every variant equally?
       const variantIndex = Math.floor(Math.random() * variants.length);
       variant = variants[variantIndex];
 

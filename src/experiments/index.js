@@ -9,7 +9,4 @@
 //
 // After a user allows experiments to run via the cookie settings, variants
 // are selected randomly, but with equal weighting.
-export default [{
-  name: 'buttonColor',
-  variants: ['original', 'variant1', 'variant2']
-}];
+export default [];
