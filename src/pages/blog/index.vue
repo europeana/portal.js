@@ -86,22 +86,13 @@
 
     methods: {
       imageUrl(post) {
-        if (post.primaryImageOfPage) {
-          return post.primaryImageOfPage.image.url;
-        }
-        return null;
+        return post.primaryImageOfPage?.image?.url || null;
       },
       imageContentType(post) {
-        if (post.primaryImageOfPage) {
-          return post.primaryImageOfPage.image.contentType;
-        }
-        return null;
+        return post.primaryImageOfPage?.image?.contentType || null;
       },
       imageAlt(post) {
-        if (post.primaryImageOfPage && post.primaryImageOfPage.image.description) {
-          return post.primaryImageOfPage.image.description;
-        }
-        return '';
+        return post.primaryImageOfPage?.image?.description || '';
       }
     },
 

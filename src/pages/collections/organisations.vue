@@ -12,7 +12,7 @@
 </template>
 
 <script>
-  import ContentHeader from '../../components/generic/ContentHeader';
+  import ContentHeader from '@/components/generic/ContentHeader';
   import ClientOnly from 'vue-client-only';
 
   export default {
@@ -20,7 +20,7 @@
     components: {
       ContentHeader,
       ClientOnly,
-      OrganisationsTable: () => import('../../components/entity/OrganisationsTable')
+      OrganisationsTable: () => import('@/components/entity/OrganisationsTable')
     },
     head() {
       return {

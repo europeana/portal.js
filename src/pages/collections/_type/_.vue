@@ -128,6 +128,7 @@
         store.commit('entity/setEditable', false);
       }
       store.commit('entity/setId', entityUri);
+
       // Get all curated entity names & genres and store, unless already stored
       const fetchCuratedEntities = !store.state.entity.curatedEntities;
       // Get the full page for this entity if not known needed, or known to be needed, and store for reuse
@@ -137,6 +138,8 @@
       // Prevent re-requesting entity content from APIs if already loaded,
       // e.g. when paginating through entity search results
       const fetchEntity = !store.state.entity.entity;
+      const fetchEntityManagement = fetchEntity && app.$config.app.features.entityManagement && app.$auth.user?.resource_access?.entities?.roles.includes('editor');
+
       const contentfulVariables = {
         identifier: entityUri,
         locale: app.i18n.isoLocale(),
@@ -147,9 +150,7 @@
       return axios.all(
         [store.dispatch('entity/searchForRecords', query)]
           .concat(fetchEntity ? app.$apis.entity.getEntity(params.type, params.pathMatch) : () => {})
-          .concat(fetchEntity && app.$config.app.features.entityManagement
-            && app.$auth.user && app.$auth.user.resource_access.entities
-            && app.$auth.user.resource_access.entities.roles.includes('editor') ? app.$apis.entityManagement.getEntity(params.type, params.pathMatch) : () => ({}))
+          .concat(fetchEntityManagement ? app.$apis.entityManagement.getEntity(params.type, params.pathMatch) : () => ({}))
           .concat(fetchFromContentful ? app.$contentful.query('collectionPage', contentfulVariables) : () => {})
       )
         .then(axios.spread((recordSearchResponse, entityResponse, entityManagementResponse, pageResponse) => {
@@ -225,7 +226,7 @@
         return this.editorialDescription ? { values: [this.editorialDescription], code: null } : description;
       },
       descriptionText() {
-        return (this.description && this.description.values.length >= 1) ? this.description.values[0] : null;
+        return ((this.description?.values?.length || 0) >= 1) ? this.description.values[0] : null;
       },
       editorialAttribution() {
         return this.page.primaryImageOfPage.url;
@@ -238,7 +239,7 @@
         return this.page.description;
       },
       hasEditorialDescription() {
-        return this.page && this.page.description && this.page.description.length >= 1;
+        return (this.page?.description?.length || 0) >= 1;
       },
       homepage() {
         if (this.collectionType === 'organisation' &&
@@ -250,31 +251,24 @@
       },
       // Title from the Contentful entry
       editorialTitle() {
-        if (!this.page || !this.page.name) {
-          return null;
-        }
-        return this.page.name;
+        return this.page?.name || null;
       },
       relatedCollectionCards() {
-        return (this.page
-          && this.page.relatedLinksCollection
-          && this.page.relatedLinksCollection.items
-          && this.page.relatedLinksCollection.items.length > 0)
-          ? this.page.relatedLinksCollection.items : null;
+        return ((this.page?.relatedLinksCollection?.items?.length || 0) > 0) ? this.page.relatedLinksCollection.items : null;
       },
       relatedCollectionsFound() {
-        if (this.relatedEntities && this.relatedEntities.length > 0) {
+        if ((this.relatedEntities?.length || 0) > 0) {
           return true;
-        } else if (this.relatedCollectionCards && this.relatedCollectionCards.length > 0) {
+        } else if ((this.relatedCollectionCards?.length || 0) > 0) {
           return true;
         }
         return false;
       },
       userIsEditor() {
-        return this.$store.state.auth.user && this.$store.state.auth.user.resource_access.entities && this.$store.state.auth.user.resource_access.entities.roles.includes('editor');
+        return this.$store.state.auth.user?.resource_access?.entities?.roles?.includes('editor') || false;
       },
       userIsSetsEditor() {
-        return this.$store.state.auth.user && this.$store.state.auth.user.resource_access.usersets && this.$store.state.auth.user.resource_access.usersets.roles.includes('editor');
+        return this.$store.state.auth.user?.resource_access?.usersets?.roles.includes('editor') || false;
       },
       route() {
         return {
