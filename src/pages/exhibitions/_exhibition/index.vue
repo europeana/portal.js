@@ -99,10 +99,10 @@
     },
     computed: {
       hero() {
-        return this.primaryImageOfPage ? this.primaryImageOfPage : null;
+        return this.primaryImageOfPage || null;
       },
       heroImage() {
-        return this.hero ? this.hero.image : null;
+        return this.hero?.image || null;
       },
       mainContent() {
         return this.text ? marked(this.text) : null;

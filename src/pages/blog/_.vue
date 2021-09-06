@@ -71,7 +71,7 @@
 
     computed: {
       hero() {
-        return this.post.primaryImageOfPage ? this.post.primaryImageOfPage : null;
+        return this.post.primaryImageOfPage || null;
       },
 
       ...mapGetters({
