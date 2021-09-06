@@ -16,15 +16,13 @@
       class="m-0 p-0 text-left text-lg-right list-unstyled"
     >
       <template
-        v-for="(value, index) of displayValues.values"
+        v-for="(value, index) of displayValues"
       >
         <template
-          v-if="value.about"
+          v-if="value.id"
         >
           <li
-            v-for="(nestedValue, nestedIndex) of value.values"
-            :key="index + '_' + nestedIndex"
-            :lang="value.code"
+            :lang="value.lang"
             :data-qa="fieldData.url ? 'entity link' : 'entity value'"
           >
             <SmartLink
@@ -33,19 +31,18 @@
               :link-class="name === 'edmDataProvider' ? 'view-at' : null"
               @click.native="name === 'edmDataProvider' && $matomo && $matomo.trackEvent('Item_external link', 'Click Provider Link', fieldData.url);"
             >
-              {{ nestedValue }}
+              {{ value.value }}
             </SmartLink>
             <EntityField
               v-else
-              :value="nestedValue"
-              :about="value.about"
+              :value="value.value"
+              :about="value.id"
             />
           </li>
         </template>
         <li
           v-else
-          :key="index"
-          :lang="langMappedValues.code"
+          :lang="value.lang"
           data-qa="literal value"
         >
           <SmartLink
@@ -54,12 +51,12 @@
             :link-class="name === 'edmDataProvider' ? 'view-at' : null"
             @click.native="name === 'edmDataProvider' && $matomo && $matomo.trackEvent('Item_external link', 'Click Provider Link', fieldData.url);"
           >
-            {{ value }}
+            {{ value.value }}
           </SmartLink>
           <template
             v-else
           >
-            {{ value }}
+            {{ value.value }}
           </template>
         </li>
       </template>
@@ -68,7 +65,7 @@
 </template>
 
 <script>
-  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import { localiseLangMap } from  '@/plugins/europeana/utils';
   import EntityField from './EntityField';
   import SmartLink from '../generic/SmartLink';
 
@@ -113,11 +110,12 @@
 
     computed: {
       displayValues() {
-        const display = Object.assign({}, this.langMappedValues);
+        let display = [].concat(this.langMappedValues);
 
-        if (this.limitDisplayValues && (display.values.length > this.limit)) {
-          display.values = display.values.slice(0, this.limit).concat(this.$t('formatting.ellipsis'));
+        if (this.limitDisplayValues && (this.langMappedValues.length > this.limit)) {
+          display = display.slice(0, this.limit).concat(this.$t('formatting.ellipsis'));
         }
+
         return display;
       },
 
@@ -126,23 +124,29 @@
       },
 
       langMappedValues() {
+        let values;
+
         if (this.fieldData === null) {
-          return null;
+          values = null;
         } else if (typeof (this.fieldData) === 'string') {
-          return { values: [this.fieldData], code: '' };
+          values = [
+            { value: this.fieldData, code: '' }
+          ];
         } else if (Array.isArray(this.fieldData)) {
-          return { values: this.fieldData, code: '' };
+          values = this.fieldData.map(datum => (
+            { value: datum, code: '' }
+          ));
         } else if (Object.prototype.hasOwnProperty.call(this.fieldData, 'url')) {
-          return langMapValueForLocale(this.fieldData.value, this.$i18n.locale);
+          values = localiseLangMap(this.fieldData.value, this.$i18n.locale);
+        } else {
+          values = localiseLangMap(this.fieldData, this.$i18n.locale, { omitUrisIfOtherValues: this.omitUrisIfOtherValues, omitAllUris: this.omitAllUris });
         }
-        return langMapValueForLocale(this.fieldData, this.$i18n.locale, { omitUrisIfOtherValues: this.omitUrisIfOtherValues, omitAllUris: this.omitAllUris });
+
+        return values;
       },
 
       hasValuesForLocale() {
-        if (this.langMappedValues === null) {
-          return null;
-        }
-        return this.langMappedValues.values.length >= 1;
+        return (this.langMappedValues?.length || 0) >= 1;
       }
     }
   };

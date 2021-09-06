@@ -173,6 +173,20 @@ export function langMapValueForLocale(langMap, locale, options = {}) {
   return omitUrisIfOtherValues(withEntities);
 }
 
+export const localiseLangMap = (langMap, locale, options = {}) => {
+  options;
+  const selectedLocale = selectLocaleForLangMap(langMap, locale);
+
+  if (langMap[selectedLocale]) {
+    const lang = htmlLangForSelectedLocale(locale, selectedLocale);
+    const localised = [].concat(langMap[selectedLocale]).map(value => ({
+      lang, value
+    }));
+
+    return localised;
+  }
+};
+
 function omitUrisIfOtherValues(localizedLangmap) {
   const withoutUris = localizedLangmap.values.filter((value) => !uriRegex.test(value));
   if (withoutUris.length > 0) {
@@ -251,13 +265,17 @@ function setLangMapValues(returnValues, langMap, key) {
   returnValues.values = [].concat(langMap[key]);
 }
 
-function setLangCode(map, key, locale) {
-  if (undefinedLocaleCodes.includes(key)) {
-    map['code'] = '';
+const htmlLangForSelectedLocale = (locale, selected) => {
+  if (undefinedLocaleCodes.includes(selected)) {
+    return '';
   } else {
-    const langCode = normalizedLangCode(key);
-    map['code'] = locale === langCode ? null : langCode; // output if different from UI language
+    const langCode = normalizedLangCode(selected);
+    return locale === langCode ? null : langCode; // output if different from UI language
   }
+};
+
+function setLangCode(map, key, locale) {
+  map['code'] = htmlLangForSelectedLocale(locale, key);
 }
 
 function normalizedLangCode(key) {
