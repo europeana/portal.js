@@ -84,6 +84,8 @@
     },
 
     watch: {
+      '$i18n.locale': 'renderKlaro',
+
       $route(to, from) {
         this.$nextTick(() => {
           if (to.path === from.path) {
