@@ -99,12 +99,38 @@ describe('components/feedback/FeedbackWidget', () => {
 
         (wrapper.find('[data-qa="feedback next button"]').attributes('disabled') === undefined).should.be.true;
       });
-      it('and it is clicked, it goes to the next step', async() => {
+      it('and it is clicked and it has only 4 words', async() => {
         const wrapper = factory();
 
         await wrapper.setData({
           currentStep: 1,
           feedback: 'This website is great!'
+        });
+
+        await wrapper.find('form').trigger('submit.prevent');
+
+        const errorMessage = wrapper.find('[data-qa="feedback message invalid"]');
+        errorMessage.exists().should.be.true;
+      });
+      it('and it is clicked and it has over 5 words', async() => {
+        const wrapper = factory();
+
+        await wrapper.setData({
+          currentStep: 1,
+          feedback: 'This website is my favourite website!'
+        });
+
+        await wrapper.find('form').trigger('submit.prevent');
+
+        const errorMessage = wrapper.find('[data-qa="feedback message invalid"]');
+        errorMessage.exists().should.be.false;
+      });
+      it('and it is clicked, it goes to the next step', async() => {
+        const wrapper = factory();
+
+        await wrapper.setData({
+          currentStep: 1,
+          feedback: 'This website is super great!'
         });
 
         await wrapper.find('form').trigger('submit.prevent');

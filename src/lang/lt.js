@@ -595,14 +595,6 @@ export default {
       "debugSettings": {
         "title": "Derinti perjungti"
       },
-      "google-analytics": {
-        "description": "Renka anoniminę statistiką apie tai, kaip lankytojai sąveikauja su svetaine.",
-        "title": "\"Google Analytics"
-      },
-      "google-optimize": {
-        "description": "Suteikiama galimybė dalyvauti svetainės eksperimentuose, kuriais remdamiesi galime pasirinkti geriausią naudotojo patirtį užtikrinantį dizainą.",
-        "title": "„Google Optimize“"
-      },
       "hotjar": {
         "description": "Suaktyvina apklausos valdiklį, suteikdamas galimybę atsakyti į mūsų lankytojų pasitenkinimo apklausas.",
         "title": "Hotjar"

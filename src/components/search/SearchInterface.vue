@@ -327,7 +327,7 @@
           return;
         }
 
-        return this.rerouteSearch(this.queryUpdatesForFacetChanges({ [name]: selected }));
+        this.rerouteSearch(this.queryUpdatesForFacetChanges({ [name]: selected }));
       },
       changeMoreFacets(selected) {
         return this.rerouteSearch(this.queryUpdatesForFacetChanges(selected));

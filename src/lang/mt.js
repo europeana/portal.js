@@ -595,14 +595,6 @@ export default {
       "debugSettings": {
         "title": "Debug toggle"
       },
-      "google-analytics": {
-        "description": "Iġbor statistika anonima dwar kif il-viżitaturi jinteraġixxu mal-websajt.",
-        "title": "Google Analytics"
-      },
-      "google-optimize": {
-        "description": "Jippermettilek tipparteċipa f'esperimenti tal-websajt li jiggwidaw l-għażliet tad-disinn tagħna għall-aħjar esperjenza tal-utent.",
-        "title": "Google Optimize"
-      },
       "hotjar": {
         "description": "Jattiva widget tal-istħarriġ li jagħtik l-għażla li tirrispondi għall-istħarriġiet tagħna dwar is-sodisfazzjon tal-viżitaturi.",
         "title": "Hotjar"

@@ -594,14 +594,6 @@ export default {
       "debugSettings": {
         "title": "Debug toggle"
       },
-      "google-analytics": {
-        "description": "Zbira anonimne statistične podatke o načinu interakcije obiskovalcev s spletno stranjo.",
-        "title": "Google Analytics"
-      },
-      "google-optimize": {
-        "description": "Omogoča vam sodelovanje pri eksperimentih na spletnem mestu, ki usmerjajo našo izbiro zasnove za najboljšo uporabniško izkušnjo.",
-        "title": "Google Optimize"
-      },
       "hotjar": {
         "description": "Aktivira gradnik za ankete, ki vam omogoča, da se odzovete na naše ankete o zadovoljstvu obiskovalcev.",
         "title": "Hotjar"

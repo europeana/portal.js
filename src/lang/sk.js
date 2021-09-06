@@ -595,14 +595,6 @@ export default {
       "debugSettings": {
         "title": "Prepnúť ladenie"
       },
-      "google-analytics": {
-        "description": "Zhromažďuje anonymné štatistiky o tom, ako návštevníci interagujú s webovou stránkou.",
-        "title": "Google Analytics"
-      },
-      "google-optimize": {
-        "description": "Umožňuje vám zúčastniť sa experimentov webových stránok, ktoré usmerňujú naše možnosti návrhu pre najlepší používateľský zážitok.",
-        "title": "Google Optimize"
-      },
       "hotjar": {
         "description": "Aktivuje widget prieskumu, ktorý vám dáva možnosť odpovedať na naše prieskumy spokojnosti návštevníkov.",
         "title": "Hotjar"

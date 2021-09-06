@@ -150,7 +150,10 @@ export default {
       "entity": "Üksus"
     },
     "notifications": {
-      "deleted": "Teie galerii on kustutatud."
+      "deleted": "Teie galerii on kustutatud.",
+      "pinLimit": {
+        "title": "Liiga palju kinnitatud üksusi"
+      }
     }
   },
   "error": "Viga",
@@ -598,14 +601,6 @@ export default {
       "debugSettings": {
         "title": "Debugimise lüliti"
       },
-      "google-analytics": {
-        "description": "Kogub anonüümset statistikat selle kohta, kuidas külastajad veebisaidiga suhtlevad.",
-        "title": "Google Analytics"
-      },
-      "google-optimize": {
-        "description": "Võimaldab teil osaleda veebisaitide katsetes, mis suunavad meie disaini valikud parima kasutuskogemuse saamiseks.",
-        "title": "Google Optimize"
-      },
       "hotjar": {
         "description": "Aktiveerib uuringu vidina, andes teile võimaluse vastata meie külastajate rahulolu uuringutele.",
         "title": "Hotjar"
@@ -665,6 +660,9 @@ export default {
     }
   },
   "multilingual": {
+    "currentLanguage": "Kas soovite seda üksust domeenis {0} ?",
+    "differentLanguage": "teist keelt",
+    "enrichment": "Rikastamine partner projektide kaudu",
     "original": "Algsed metaandmed",
     "originalLanguage": "originaalkeel",
     "other": "Muud keeled"

@@ -182,10 +182,10 @@ export default {
     formatFacetFieldLabel: (state, getters, rootState, rootGetters) => (facetName, facetFieldLabel) => {
       const collection = getters.collection;
       if (!getters.hasCollectionSpecificSettings(collection)) {
-        return;
+        return null;
       }
       if (!rootGetters[`collections/${collection}/formatFacetFieldLabel`]) {
-        return;
+        return null;
       }
 
       return rootGetters[`collections/${collection}/formatFacetFieldLabel`](facetName, facetFieldLabel);
@@ -375,7 +375,7 @@ export default {
 
     queryFacets({ commit, getters, rootState, rootGetters, dispatch, state }) {
       if (!state.active) {
-        return;
+        return Promise.resolve();
       }
 
       const paramsForFacets = {
