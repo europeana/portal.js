@@ -320,7 +320,6 @@ module.exports = {
     await client.getElementSize(qaSelector(qaElementNameParent), (result) => {
       parentSize = { height: result.value.height, width: result.value.width };
     });
-    console.log(`${qaSelector(qaElementNameParent)} iframe`, 'SIZES: ', childSize, parentSize);
     await client.expect(childSize.height).to.be.at.most(parentSize.height);
     await client.expect(childSize.width).to.be.at.most(parentSize.width);
   }
