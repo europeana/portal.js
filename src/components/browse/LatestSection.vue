@@ -105,19 +105,12 @@
       },
       defaultCardData(card, name) {
         const key = name === 'exhibitions-exhibition' ? 'exhibition' : 'pathMatch';
-        const primaryImageOfPage = card.primaryImageOfPage;
-        let imageUrl;
-        let imageContentType;
-        if (primaryImageOfPage && primaryImageOfPage.image) {
-          imageUrl = primaryImageOfPage.image.url;
-          imageContentType = primaryImageOfPage.image.contentType;
-        }
 
         return {
           cardLink: { name, params: { [key]: card.identifier } },
           description: card.description ? card.description : '',
-          imageUrl,
-          imageContentType
+          imageUrl: card.primaryImageOfPage?.image?.url,
+          imageContentType: card.primaryImageOfPage?.image?.contentType
         };
       },
       galleryCardData(card) {

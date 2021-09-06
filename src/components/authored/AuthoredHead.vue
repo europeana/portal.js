@@ -93,7 +93,7 @@
         return this.hero ? this.hero.image : null;
       },
       heroImageAlt() {
-        return this.heroImage && this.heroImage.description ? this.heroImage.description : '';
+        return this.heroImage?.description || '';
       }
     }
   };
