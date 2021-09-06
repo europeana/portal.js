@@ -1,10 +1,9 @@
-import path from 'path';
 import propertiesReader from 'properties-reader';
 
 import pkg from '../package.json';
 
 const versionSonarcloudProperties = async() => {
-  const sonarcloudPropertiesFilePath = path.resolve(__dirname, '../.sonarcloud.properties');
+  const sonarcloudPropertiesFilePath = new URL('../.sonarcloud.properties', import.meta.url);
   const sonarcloudProperties = propertiesReader(sonarcloudPropertiesFilePath,
     'utf-8',
     { writer: { saveSections: false } }

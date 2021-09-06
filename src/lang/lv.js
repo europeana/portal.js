@@ -595,14 +595,6 @@ export default {
       "debugSettings": {
         "title": "Atkļūdošanas pārslēgšana"
       },
-      "google-analytics": {
-        "description": "Apkopo anonīmu statistiku par to, kā apmeklētāji mijiedarbojas ar vietni.",
-        "title": "Google Analytics"
-      },
-      "google-optimize": {
-        "description": "Ļauj jums piedalīties vietņu eksperimentos, kas vada mūsu dizaina izvēli, lai iegūtu vislabāko lietotāja pieredzi.",
-        "title": "Google optimizācija"
-      },
       "hotjar": {
         "description": "Aktivizē aptaujas logrīku, dodot jums iespēju atbildēt uz mūsu apmeklētāju apmierinātības aptaujām.",
         "title": "Hotjar"

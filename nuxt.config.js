@@ -24,7 +24,6 @@ export default {
       siteName: APP_SITE_NAME,
       features: {
         jiraServiceDeskFeedbackForm: featureIsEnabled(process.env.ENABLE_JIRA_SERVICE_DESK_FEEDBACK_FORM),
-        klaro: featureIsEnabled(process.env.ENABLE_KLARO),
         linksToClassic: featureIsEnabled(process.env.ENABLE_LINKS_TO_CLASSIC),
         recommendations: featureIsEnabled(process.env.ENABLE_RECOMMENDATIONS),
         acceptSetRecommendations: featureIsEnabled(process.env.ENABLE_ACCEPT_SET_RECOMMENDATIONS),
@@ -68,7 +67,8 @@ export default {
         serviceName: 'portal-js',
         serviceVersion: pkg.version,
         frameworkName: 'Nuxt',
-        frameworkVersion: nuxtPkg.version
+        frameworkVersion: nuxtPkg.version,
+        usePathAsTransactionName: true
       }
     },
     europeana: {
@@ -102,9 +102,6 @@ export default {
           url: process.env.EUROPEANA_ENTITY_MANAGEMENT_API_URL
         }
       }
-    },
-    gtm: {
-      id: process.env.GOOGLE_TAG_MANAGER_ID
     },
     hotjar: {
       id: process.env.HOTJAR_ID,
@@ -265,10 +262,6 @@ export default {
   modules: [
     '~/modules/elastic-apm',
     '@nuxtjs/axios',
-    ['@nuxtjs/gtm', {
-      pageTracking: true,
-      autoInit: !featureIsEnabled(process.env.ENABLE_KLARO)
-    }],
     ['@nuxtjs/robots', JSON.parse(process.env.NUXTJS_ROBOTS || '{"UserAgent":"*","Disallow":"/"}')],
     'bootstrap-vue/nuxt',
     'cookie-universal-nuxt',
@@ -328,10 +321,6 @@ export default {
     },
     defaultStrategy: 'keycloak',
     plugins: ['~/plugins/apis']
-  },
-
-  gtm: {
-    enabled: true
   },
 
   router: {

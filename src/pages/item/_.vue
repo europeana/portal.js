@@ -296,7 +296,6 @@
 
     mounted() {
       if (!this.error) {
-        this.$gtm && this.$gtm.push(this.gtmOptions());
         this.$matomo && this.$matomo.trackPageView('item page custom dimensions', this.matomoOptions());
       }
     },
@@ -360,23 +359,15 @@
 
       getSimilarItemsData(value) {
         if (!value) {
-          return;
+          return null;
         }
 
         const data = langMapValueForLocale(value, this.$i18n.locale).values;
         if (!data) {
-          return;
+          return null;
         }
 
         return data.filter(item => typeof item === 'string');
-      },
-      gtmOptions() {
-        return {
-          itemCountry: langMapValueForLocale(this.fields.edmCountry, 'en').values[0],
-          itemDataProvider: langMapValueForLocale(this.coreFields.edmDataProvider.value, 'en').values[0],
-          itemProvider: langMapValueForLocale(this.fields.edmProvider, 'en').values[0],
-          itemRights: langMapValueForLocale(this.fields.edmRights, 'en').values[0]
-        };
       },
       matomoOptions() {
         return {
@@ -412,12 +403,6 @@
       next();
     },
     async beforeRouteLeave(to, from, next) {
-      this.$gtm.push({
-        itemCountry: undefined,
-        itemDataProvider: undefined,
-        itemProvider: undefined,
-        itemRights: undefined
-      });
       await this.$store.dispatch('item/reset');
       next();
     }

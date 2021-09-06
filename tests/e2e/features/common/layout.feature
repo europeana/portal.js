@@ -4,11 +4,11 @@ Feature: Page layout on all pages.
   I want to be presented with an accessible and styled
   layout for all pages.
 
-  @cookie-notice-not-dismissed
+@klaro-notice-not-dismissed
   Scenario: Moving to the main content using the skip-to-main functionality
     When I visit an `item page`
-    And I see a `cookie disclaimer`
-    And I accept cookies
+    And I see the Klaro banner
+    And I accept all Klaro cookies
     And I press the TAB key
     And I see the `main content accessibility link`
     And I press the ENTER key

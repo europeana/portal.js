@@ -137,13 +137,16 @@
           <h2 class="related-heading">
             {{ $t('items.recommended') }}
           </h2>
-          <h5 class="related-subtitle">
+          <h5
+            v-if="enableAcceptRecommendations"
+            class="related-subtitle"
+          >
             <span class="icon-info-outline" />
             {{ $t('items.recommendationsDisclaimer') }}
           </h5>
           <ItemPreviewCardGroup
             v-model="recommendations"
-            :recommendations="this.$config.app.features.acceptSetRecommendations"
+            :recommendations="enableAcceptRecommendations"
           />
         </b-col>
       </b-row>
@@ -235,10 +238,16 @@
         return langMapValueForLocale(this.set.description, this.$i18n.locale);
       },
       enableRecommendations() {
-        if (this.set.type === 'EntityBestItemsSet') {
+        if (this.setIsEntityBestItems) {
           return this.$config.app.features.recommendations && this.$config.app.features.acceptEntityRecommendations;
         }
         return this.$config.app.features.recommendations;
+      },
+      enableAcceptRecommendations() {
+        if (this.setIsEntityBestItems) {
+          return this.$config.app.features.acceptEntityRecommendations;
+        }
+        return this.$config.app.features.acceptSetRecommendations;
       },
       displayItemCount() {
         const max = 100;

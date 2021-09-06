@@ -595,14 +595,6 @@ export default {
       "debugSettings": {
         "title": "Botão de debug"
       },
-      "google-analytics": {
-        "description": "Coleta estatísticas anônimas sobre como os visitantes interagem com o site.",
-        "title": "Google Analytics"
-      },
-      "google-optimize": {
-        "description": "Permite-lhe participar em experiências de website que orientam as nossas escolhas de design para a melhor experiência do utilizador.",
-        "title": "Google Optimize"
-      },
       "hotjar": {
         "description": "Ativa um widget de pesquisa, dando a você a opção de responder às nossas pesquisas de satisfação do visitante.",
         "title": "Hotjar"
