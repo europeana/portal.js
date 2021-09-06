@@ -254,11 +254,15 @@ export default (context = {}) => {
         // Extend to other fields as available, or stop merging the proxies and
         // refactor to maintain the source info without having to set this.
         const europeanaProxy = edm.proxies.find(proxy => proxy.europeanaProxy);
+        const providerProxy = edm.proxies.length === 3 ? edm.proxies[1] : null;
         ['dcTitle', 'dcDescription'].forEach((field) => {
-          if (europeanaProxy?.[field]) {
+          if (providerProxy?.[field]) {
+            proxyData[field].translationSource = 'enrichment';
+          } else if (europeanaProxy?.[field]) {
             proxyData[field].translationSource = 'automated';
           }
         });
+
         prefLang = preferredLanguage(edm.europeanaAggregation.edmLanguage.def[0], options);
       }
 
