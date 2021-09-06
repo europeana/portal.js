@@ -77,7 +77,7 @@
 
       onCollectionPage() {
         // Auto suggest on search form will be disabled on entity pages.
-        return !!(this.$store.state.entity && this.$store.state.entity.id);
+        return !!this.$store.state.entity?.id;
       },
 
       suggestionSearchOptions() {
@@ -141,10 +141,7 @@
       },
 
       routePath() {
-        if (this.onSearchablePage) {
-          return this.$route.path;
-        }
-        return this.$path({ name: 'search' });
+        return this.onSearchablePage ? this.$route.path : this.$path({ name: 'search' });
       },
 
       removeCollectionLinkTo() {

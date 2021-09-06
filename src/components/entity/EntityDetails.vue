@@ -104,7 +104,7 @@
         return this.$options.filters.truncate(this.fullDescription, this.limitCharacters, this.$t('formatting.ellipsis'));
       },
       hasDescription() {
-        return this.description && this.description.values && this.description.values.length >= 1;
+        return (this.description?.values?.length || 0) >= 1;
       },
       fullDescription() {
         return this.hasDescription ? this.description.values[0] : '';

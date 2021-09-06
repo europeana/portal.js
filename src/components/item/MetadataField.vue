@@ -139,10 +139,7 @@
       },
 
       hasValuesForLocale() {
-        if (this.langMappedValues === null) {
-          return null;
-        }
-        return this.langMappedValues.values.length >= 1;
+        return (this.langMappedValues?.values?.length || 0) >= 1;
       }
     }
   };
