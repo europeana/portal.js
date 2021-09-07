@@ -26,6 +26,7 @@
     <main
       id="default"
       role="main"
+      :class="buttonColourClass"
     >
       <b-breadcrumb
         v-if="breadcrumbs"
@@ -80,6 +81,9 @@
 
       feedbackEnabled() {
         return this.$config.app.features.jiraServiceDeskFeedbackForm && this.$config.app.baseUrl;
+      },
+      buttonColourClass() {
+        return 'button-color-' + this.$experiments?.buttonColor?.variant;
       }
     },
 

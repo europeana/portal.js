@@ -31,6 +31,16 @@ export default function(ctx, inject) {
         const variantIndex = weightedRandom(weights); // Get random variant according to weights
         variant = variants[variantIndex].title;
 
+        // // Uncomment to test weighting
+        // let i;
+        // let variantsss = [0, 0, 0];
+        // console.log(weights);
+        // for (i = 0; i < 100; i++) {
+        //   let index = weightedRandom(weights);
+        //   variantsss[index] = variantsss[index] + 1;
+        // }
+        // console.log('variantsss', variantsss);
+
         ctx.$cookies.set(`eu-ab-${experiment.name}`, variant);
 
       // inform Matomo
