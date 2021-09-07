@@ -127,7 +127,7 @@
 
       renderKlaro() {
         if (this.klaro) {
-          const config = klaroConfig(this.$i18n, this.$initHotjar, this.$matomo);
+          const config = klaroConfig(this.$i18n, this.$initHotjar, this.$matomo, this.$abTestingConsent);
           const manager = this.klaro.getManager(config);
 
           this.klaro.render(config, true);

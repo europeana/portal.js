@@ -1,59 +1,49 @@
 import experiments from '../experiments';
 
 export default function(ctx, inject) {
-  // is there an experiment?
   if (experiments.length === 0) {
-    inject('experiments', () => {
-      return false;
+    return; // Do nothing when no experiment
+  } else if (ctx.$cookies.get('klaro')?.abTest) {
+    initExperiments(); // Init experiment when consent is given
+  } else {
+    // Inject function to enable experiments when cookie consent is not (yet) given
+    inject('abTestingConsent', (consent) => {
+      if (consent) {
+        initExperiments();
+      }
     });
-    return false;
-  }
-  // check consent
-  const consentCookie = ctx.$cookies.get('klaro');
-  if (!consentCookie?.matomo) {
-    inject('experiments', () => {
-      return false;
-    });
-    return false;
+    return;
   }
 
-  const activeExperiments = {};
+  function initExperiments() {
+    const activeExperiments = {};
+    experiments.forEach((experiment) => {
+      if (!experiment.name || !experiment.variants || experiment.variants.length <= 1) {
+        return; // experiment isn't configured with required settings
+      }
 
-  experiments.forEach((experiment) => {
-    if (!experiment.name || !experiment.variants || experiment.variants.length <= 1) {
-      return; // experiment isn't configured with required settings
-    }
-    // experiment already in cookie?
-    let variant;
+      let variant = ctx.$cookies.get(`eu-ab-${experiment.name}`);
 
-    if (ctx.$cookies.get(`eu-ab-${experiment.name}`)) {
-      variant = ctx.$cookies.get(`eu-ab-${experiment.name}`);
-    } else { // else, not in cookie
-      const variants = experiment.variants; // get list of available variants
+      if (!variant) {
+        const variants = experiment.variants;
 
-      // and pick one
-      // TODO: should we introduce weighting in order to show every variant equally?
-      const variantIndex = Math.floor(Math.random() * variants.length);
-      variant = variants[variantIndex];
+        // weighting
+        const variantIndex = Math.floor(Math.random() * variants.length);
+        variant = variants[variantIndex];
 
-      // set cookie
-      ctx.$cookies.set(`eu-ab-${experiment.name}`, variant);
+        ctx.$cookies.set(`eu-ab-${experiment.name}`, variant);
 
       // inform Matomo
       // _paq.push(['AbTesting::enter', {experiment: experiment.name, variation: variant}]);
-    }
+      }
 
-    // set variant for export
-    activeExperiments[experiment.name] =  {
-      variant
-    };
-  });
-  // inject for further use
-  // for example classname
-  // :class="$experiment.experimentClass"
-  // or in if statement
-  // v-if="$experiments.[NAME].variant === 'variant1"
-  inject('experiments', () => {
-    return activeExperiments;
-  });
+      // define variant for each experiment on the activeExperiments object which will be injected into the app
+      activeExperiments[experiment.name] =  {
+        variant
+      };
+    });
+    // inject for further use
+    // get variant in the app: "$experiments.[NAME].variant"
+    inject('experiments', activeExperiments);
+  }
 }

@@ -636,6 +636,10 @@ export default {
       "searchResultsView": {
         "description": "Remembers if you prefer to see the search results in a list or grid view.",
         "title": "Search result view (list/grid)"
+      },
+      "abTest": {
+        "description": "Remembers the A/B test variant set for the user.",
+        "title": "A/B testing"
       }
     }
   },
