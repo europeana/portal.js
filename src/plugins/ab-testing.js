@@ -1,3 +1,4 @@
+import weightedRandom from 'weighted-random';
 import experiments from '../experiments';
 
 export default function(ctx, inject) {
@@ -26,10 +27,9 @@ export default function(ctx, inject) {
 
       if (!variant) {
         const variants = experiment.variants;
-
-        // weighting
-        const variantIndex = Math.floor(Math.random() * variants.length);
-        variant = variants[variantIndex];
+        const weights = variants.map(variant => variant.weight || variant.weight === 0 ? 0 : 100);
+        const variantIndex = weightedRandom(weights); // Get random variant according to weights
+        variant = variants[variantIndex].title;
 
         ctx.$cookies.set(`eu-ab-${experiment.name}`, variant);
 
