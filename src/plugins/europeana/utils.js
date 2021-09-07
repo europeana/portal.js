@@ -177,14 +177,16 @@ export const localiseLangMap = (langMap, locale, options = {}) => {
   options;
   const selectedLocale = selectLocaleForLangMap(langMap, locale);
 
+  let localised;
+
   if (langMap[selectedLocale]) {
     const lang = htmlLangForSelectedLocale(locale, selectedLocale);
-    const localised = [].concat(langMap[selectedLocale]).map(value => ({
+    localised = [].concat(langMap[selectedLocale]).map(value => ({
       lang, value
     }));
-
-    return localised;
   }
+
+  return localised;
 };
 
 function omitUrisIfOtherValues(localizedLangmap) {
