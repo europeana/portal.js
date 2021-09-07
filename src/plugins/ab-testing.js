@@ -27,7 +27,7 @@ export default function(ctx, inject) {
 
       if (!variant) {
         const variants = experiment.variants;
-        const weights = variants.map(variant => variant.weight || variant.weight === 0 ? 0 : 100);
+        const weights = variants.map(variant => variant.weight === undefined ? 100 : variant.weight);
         const variantIndex = weightedRandom(weights); // Get random variant according to weights
         variant = variants[variantIndex].title;
 
