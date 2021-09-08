@@ -123,11 +123,6 @@ export default {
       "teachers": "Enseignants"
     }
   },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Accepter la clause de non-responsabilité relative aux cookies",
-    "link": "Plus d'informations",
-    "terms": "Ce site web utilise des cookies pour vous garantir la meilleure expérience possible sur notre site. En cliquant ou en naviguant sur le site, vous acceptez la collecte d'informations par le biais de cookies."
-  },
   "curatedAutomatically": "Organisé automatiquement par Europeana",
   "dateFilter": {
     "endDate": "Date de fin",
@@ -455,7 +450,8 @@ export default {
     "termsOfService": "Conditions d'utilisation",
     "thankYou": "Merci!",
     "title": "Envoyer des commentaires",
-    "validEmail": "Entrez une adresse mail valide"
+    "validEmail": "Entrez une adresse mail valide",
+    "validFeedback": "Vos commentaires doivent comprendre au moins 5 mots"
   },
   "fieldLabels": {
     "default": {
@@ -587,13 +583,17 @@ export default {
   },
   "klaro": {
     "main": {
+      "acceptAll": "Accepter tout",
+      "acceptSelected": "Accepter sélectionné",
       "consentModal": {
         "description": "Nous prenons au sérieux la confidentialité de vos données. Vous pouvez ici évaluer et personnaliser les services que nous souhaitons utiliser sur ce site. C'est vous qui décidez ! Activez ou désactivez les services comme bon vous semble.",
         "title": "Services que nous aimerions utiliser."
       },
       "consentNotice": {
-        "description": "Nous nous soucions de votre vie privée et n'utilisons les données que pour améliorer votre expérience. Nous n'utilisons aucune information personnelle à des fins publicitaires. Vous pouvez modifier votre consentement tous les 15 jours."
+        "description": "Nous nous soucions de votre vie privée et n'utilisons les données que pour améliorer votre expérience. Nous n'utilisons aucune information personnelle à des fins publicitaires. Vous pouvez modifier votre consentement tous les 15 jours.",
+        "learnMore": "Laisse-moi choisir"
       },
+      "decline": "Je décline",
       "ok": "D'accord",
       "purposes": {
         "essential": {

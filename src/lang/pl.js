@@ -117,11 +117,6 @@ export default {
       "teachers": "Nauczyciele"
     }
   },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Zaakceptuj zastrzeżenie dotyczące plików cookie",
-    "link": "Więcej informacji",
-    "terms": "Ta strona korzysta z plików cookie, aby zapewnić najlepszą jakość korzystania z naszej witryny. Klikając stronę lub poruszając się po niej, wyrażasz zgodę na gromadzenie informacji za pomocą plików cookie."
-  },
   "curatedAutomatically": "Wyselekcjonowane automatycznie przez Europeana",
   "dateFilter": {
     "endDate": "Data końcowa",
@@ -434,7 +429,8 @@ export default {
     "termsOfService": "Warunki usługi",
     "thankYou": "Dziękuję!",
     "title": "Wyślij opinię",
-    "validEmail": "Wprowadzanie prawidłowego adresu e-mail"
+    "validEmail": "Wprowadzanie prawidłowego adresu e-mail",
+    "validFeedback": "Twoja opinia musi składać się z co najmniej 5 słów"
   },
   "fieldLabels": {
     "default": {
@@ -562,13 +558,17 @@ export default {
   },
   "klaro": {
     "main": {
+      "acceptAll": "Akceptuj wszystkie",
+      "acceptSelected": "Zaakceptuj wybrane",
       "consentModal": {
         "description": "Poważnie traktujemy prywatność Twoich danych. Tutaj możesz ocenić i dostosować usługi, z których chcielibyśmy korzystać na tej stronie. Ty rządzisz! Włącz lub wyłącz usługi według własnego uznania.",
         "title": "Usługi, z których chcielibyśmy skorzystać."
       },
       "consentNotice": {
-        "description": "Dbamy o Twoją prywatność i wykorzystujemy dane tylko po to, aby poprawić Twoje doświadczenia. Nie wykorzystujemy żadnych danych osobowych do celów reklamowych. Możesz zmienić swoją zgodę co 15 dni."
+        "description": "Dbamy o Twoją prywatność i wykorzystujemy dane tylko po to, aby poprawić Twoje doświadczenia. Nie wykorzystujemy żadnych danych osobowych do celów reklamowych. Możesz zmienić swoją zgodę co 15 dni.",
+        "learnMore": "Pozwól mi wybrać"
       },
+      "decline": "Odmawiam",
       "ok": "Dobra",
       "purposes": {
         "essential": {

@@ -1,5 +1,7 @@
 export default {
   "account": {
+    "curatedCollections": "Kureeritud kogud",
+    "curatedCollectionsInfo": "Allpool leiate kõik kogud, mida olete kureerinud",
     "editProfile": "Muuda profiili",
     "likes": "Meeldimised",
     "linkAccount": "Minu konto",
@@ -11,6 +13,7 @@ export default {
       "loggedIn": "Olete nüüd sisse logitud. Tere tulemast!",
       "loggedOut": "Olete nüüd välja logitud.",
       "noCollections": {
+        "curated": "Te pole veel ühtegi kollektsiooni kureerinud",
         "private": "Te pole veel ühtegi privaatset galeriid loonud",
         "public": "Te pole veel ühtegi avalikku galeriid loonud"
       },
@@ -24,6 +27,7 @@ export default {
     "title": "Minu konto"
   },
   "actions": {
+    "accept": "Nõustu",
     "cancel": "Tühista",
     "close": "Sulge",
     "download": "Lae alla",
@@ -33,6 +37,7 @@ export default {
     "like": "Meeldib",
     "next": "Järgmine",
     "providedBy": "Pakub {provider}",
+    "reject": "Tagasi lükata",
     "send": "Saada",
     "share": "Jagage",
     "shareOn": "Jagage saidil {social}",
@@ -64,6 +69,7 @@ export default {
     "relatedPosts": "Seonduvad postitused"
   },
   "cardLabels": {
+    "organisation": "Organisatsioon",
     "person": "Isik",
     "time": "Sajand",
     "topic": "Teema"
@@ -117,11 +123,6 @@ export default {
       "teachers": "Õpetajad"
     }
   },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Nõustuge küpsistest loobumisega",
-    "link": "Rohkem infot",
-    "terms": "See veebisait kasutab küpsiseid, et tagada meie veebisaidil parim kogemus. Sellel saidil klõpsates või liikudes nõustute lubama teabe kogumist küpsiste kaudu."
-  },
   "curatedAutomatically": "Kuraator on automaatselt Europeana",
   "dateFilter": {
     "endDate": "Lõppkuupäev",
@@ -144,7 +145,8 @@ export default {
     "actions": {
       "cancel": "Tühista",
       "pin": "Pin üksus",
-      "unpin": "Eemaldage üksus"
+      "unpin": "Eemaldage üksus",
+      "viewPinned": "Vaadake kinnitatud üksusi"
     },
     "labels": {
       "entity": "Üksus"
@@ -152,8 +154,17 @@ export default {
     "notifications": {
       "deleted": "Teie galerii on kustutatud.",
       "pinLimit": {
+        "body": "Praegu saate esimesele lehele kinnitada ainult 24 üksust. Kui soovite selle üksuse kinnitada, eemaldage kindlasti uus üksus ja proovige siis seda uuesti kinnitada.",
         "title": "Liiga palju kinnitatud üksusi"
-      }
+      },
+      "pinned": "Üksus on kinnitatud. See on nüüd selle kogumiku esimese lehe ülaosas. Kõigi kuvamiseks võib kuluda kuni 24 tundi.",
+      "pinnedFirstPage": "Objekt on kinnitatud. See võib võtta kuni 24 tundi, et see kõigile ilmuks.",
+      "unpinned": "Üksus on vabastatud. Seda pole enam selle kogumiku esimese lehe ülaosas. Kõigi kadumiseks võib kuluda kuni 24 tundi.",
+      "unpinnedFirstPage": "Üksus on vabastatud. Kõigi kadumiseks võib kuluda kuni 24 tundi."
+    },
+    "prompts": {
+      "pin": "Kas soovite kindlasti selle üksuse kinnitada? See üksus kuvatakse kogumi {entity} ülaosas. Selle muudatuse jõustumiseks võib kuluda kuni 24 tundi.",
+      "unpin": "Kas olete kindel, et soovite selle üksuse vabastada? Seda üksust ei kuvata kogu „ {entity} ” ülaosas. Selle muudatuse jõustumiseks võib kuluda kuni 24 tundi."
     }
   },
   "error": "Viga",
@@ -439,7 +450,8 @@ export default {
     "termsOfService": "Kasutustingimused",
     "thankYou": "Aitäh!",
     "title": "Saada tagasisidet",
-    "validEmail": "Sisestage kehtiv e-posti aadress"
+    "validEmail": "Sisestage kehtiv e-posti aadress",
+    "validFeedback": "Teie tagasiside peab koosnema vähemalt 5 sõnast"
   },
   "fieldLabels": {
     "default": {
@@ -494,7 +506,8 @@ export default {
       "keywords": "Märksõnad (kogukonna poolt antud)",
       "timestampCreated": "Ajatempel loodud",
       "timestampUpdate": "Ajatempel värskendatud",
-      "wasPresentAt": "Oli kohal"
+      "wasPresentAt": "Oli kohal",
+      "year": "Aasta"
     },
     "webResource": {
       "about": "RDF kohta",
@@ -564,17 +577,23 @@ export default {
     "itemCount": "1 toode | {count} toodet",
     "itemOf": "{max} / {count} tootest",
     "recent": "Hiljutised esemed",
+    "recommendationsDisclaimer": "Galeriisse lisamiseks pöial üles - Pöidla alla, kui see teile ei meeldi",
+    "recommended": "Soovitatavad esemed",
     "youMightLike": "Tooted, mis võivad teile meeldida"
   },
   "klaro": {
     "main": {
+      "acceptAll": "Võtke kõik vastu",
+      "acceptSelected": "Aktsepteeri valitud",
       "consentModal": {
         "description": "Võtame teie andmete privaatsust tõsiselt. Siin saate hinnata ja kohandada teenuseid, mida soovime sellel veebisaidil kasutada. Teie olete juhtiv! Lubage või keelake teenused oma äranägemise järgi.",
         "title": "Teenused, mida sooviksime kasutada."
       },
       "consentNotice": {
-        "description": "Me hoolime teie privaatsusest ja kasutame andmeid ainult teie kogemuste parandamiseks. Me ei kasuta reklaamimiseks isiklikke andmeid. Oma nõusolekut saate muuta iga 15 päeva tagant."
+        "description": "Me hoolime teie privaatsusest ja kasutame andmeid ainult teie kogemuste parandamiseks. Me ei kasuta reklaamimiseks isiklikke andmeid. Oma nõusolekut saate muuta iga 15 päeva tagant.",
+        "learnMore": "Las ma valin"
       },
+      "decline": "ma keeldun",
       "ok": "Okei",
       "purposes": {
         "essential": {
@@ -599,6 +618,7 @@ export default {
         "title": "Auth strateegia"
       },
       "debugSettings": {
+        "description": "Aitab siluda API taotlusi",
         "title": "Debugimise lüliti"
       },
       "hotjar": {
@@ -660,6 +680,7 @@ export default {
     }
   },
   "multilingual": {
+    "automated": "Automatiseeritud tõlge",
     "currentLanguage": "Kas soovite seda üksust domeenis {0} ?",
     "differentLanguage": "teist keelt",
     "enrichment": "Rikastamine partner projektide kaudu",
@@ -676,7 +697,11 @@ export default {
       "organisations": {
         "table": {
           "name": "Nimi"
-        }
+        },
+        "title": "Organisatsioonid"
+      },
+      "persons": {
+        "title": "Isikud"
       },
       "times": {
         "title": "Korda"
@@ -760,12 +785,14 @@ export default {
       "likeLimit": {
         "body": "Vabandame, kuid praegu piirdute maksimaalselt 100 toote meeldimisega. Varsti eemaldame selle limiidi!",
         "title": "100 meeldimist"
-      }
+      },
+      "updated": "Üksus lisati galeriisse."
     },
     "prompts": {
       "delete": "Kas soovite kindlasti selle galerii kustutada? Kui kustutate selle galerii, kaotate kõik sinna lisatud tooted."
     }
   },
   "showLess": "Näita vähem",
-  "showMore": "Näita rohkem"
+  "showMore": "Näita rohkem",
+  "website": "Veebisait"
 };

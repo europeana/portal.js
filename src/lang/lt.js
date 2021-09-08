@@ -117,11 +117,6 @@ export default {
       "teachers": "Mokytojams"
     }
   },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Sutikti su atsakomybės apribojimu dėl slapukų",
-    "link": "Daugiau informacijos",
-    "terms": "Siekiant užtikrinti geriausią naršymo patirtį, šiame tinklalapyje naudojami slapukai. Paspausdami ar naršydami šį tinklalapį sutinkate leisti mums rinkti informaciją slapukų pagalba."
-  },
   "curatedAutomatically": "Automatiškai kuruoja „Europeana“.",
   "dateFilter": {
     "endDate": "Pabaigos data",
@@ -434,7 +429,8 @@ export default {
     "termsOfService": "Paslaugų teikimo sąlygos",
     "thankYou": "Ačiū!",
     "title": "Siųsti atsiliepimą",
-    "validEmail": "Įveskite galiojantį el. Pašto adresą"
+    "validEmail": "Įveskite galiojantį el. Pašto adresą",
+    "validFeedback": "Jūsų atsiliepimą turi sudaryti mažiausiai 5 žodžiai"
   },
   "fieldLabels": {
     "default": {
@@ -562,13 +558,17 @@ export default {
   },
   "klaro": {
     "main": {
+      "acceptAll": "Priimti visus",
+      "acceptSelected": "Priimti pasirinktą",
       "consentModal": {
         "description": "Mes rimtai žiūrime į jūsų duomenų privatumą. Čia galite įvertinti ir pritaikyti paslaugas, kurias norėtume naudoti šioje svetainėje. Jūs esate atsakingas! Įjunkite arba išjunkite paslaugas, kaip jums atrodo tinkama.",
         "title": "Paslaugos, kuriomis norėtume naudotis."
       },
       "consentNotice": {
-        "description": "Mes rūpinamės jūsų privatumu ir naudojame duomenis tik tam, kad pagerintume jūsų patirtį. Reklamai nenaudojame jokios asmeninės informacijos. Savo sutikimą galite pakeisti kas 15 dienų."
+        "description": "Mes rūpinamės jūsų privatumu ir naudojame duomenis tik tam, kad pagerintume jūsų patirtį. Reklamai nenaudojame jokios asmeninės informacijos. Savo sutikimą galite pakeisti kas 15 dienų.",
+        "learnMore": "Leisk man pasirinkti"
       },
+      "decline": "Aš atsisakau",
       "ok": "Gerai",
       "purposes": {
         "essential": {

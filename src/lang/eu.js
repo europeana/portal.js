@@ -123,11 +123,6 @@ export default {
       "teachers": "Irakasleak"
     }
   },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Onartu cookieen ukapena",
-    "link": "Informazio gehiago",
-    "terms": "Webgune honek cookieak erabiltzen ditu, gure webgunean esperientziarik onena ziurtatzeko. Gunean klik eginez edo nabigatuz, cookieen bidez informazioa biltzeko baimena ematen diguzu."
-  },
   "curatedAutomatically": "Europeanak automatikoki komisario lanak egin ditu",
   "dateFilter": {
     "endDate": "Amaiera data",
@@ -455,7 +450,8 @@ export default {
     "termsOfService": "Zerbitzu-baldintzak",
     "thankYou": "Eskerrik asko!",
     "title": "Bidali iritzia",
-    "validEmail": "Idatzi balio duen helbide elektronikoa"
+    "validEmail": "Idatzi balio duen helbide elektronikoa",
+    "validFeedback": "Zure iritziak gutxienez 5 hitz izan behar ditu"
   },
   "fieldLabels": {
     "default": {
@@ -587,13 +583,17 @@ export default {
   },
   "klaro": {
     "main": {
+      "acceptAll": "Onartu guztiak",
+      "acceptSelected": "Onartu hautatutakoa",
       "consentModal": {
         "description": "Zure datuen pribatutasuna serio hartzen dugu. Hemen webgune honetan erabili nahi genituzkeen zerbitzuak baloratu eta pertsonaliza ditzakezu. Arduraduna zara! Gaitu edo desgaitu zerbitzuak nahi duzun moduan.",
         "title": "Erabili nahiko genituzkeen zerbitzuak."
       },
       "consentNotice": {
-        "description": "Zure pribatutasuna zaintzen dugu eta datuak soilik erabiltzen ditugu zure esperientzia hobetzeko. Ez dugu informazio pertsonalik erabiltzen publizitaterako. 15 egunez behin baimena alda dezakezu."
+        "description": "Zure pribatutasuna zaintzen dugu eta datuak soilik erabiltzen ditugu zure esperientzia hobetzeko. Ez dugu informazio pertsonalik erabiltzen publizitaterako. 15 egunez behin baimena alda dezakezu.",
+        "learnMore": "Utzidazu aukeratzen"
       },
+      "decline": "Gaitzetsi egiten dut",
       "ok": "ados",
       "purposes": {
         "essential": {
