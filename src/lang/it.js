@@ -4,7 +4,7 @@ export default {
     "likes": "Mi piace",
     "linkAccount": "Il mio account",
     "linkLogin": "Accedi",
-    "linkLoginJoin": "Accedi/Iscriviti",
+    "linkLoginJoin": "Accedi\/Iscriviti",
     "linkLogout": "Esci",
     "myProfile": "Il mio profilo",
     "notifications": {
@@ -24,6 +24,7 @@ export default {
     "title": "Il mio account"
   },
   "actions": {
+    "accept": "Accettare",
     "cancel": "Annulla",
     "close": "chiudi",
     "download": "Scarica",
@@ -33,6 +34,7 @@ export default {
     "like": "Mi piace",
     "next": "Prossimo",
     "providedBy": "Fornito da {provider}",
+    "reject": "Rifiuta",
     "send": "Invia",
     "share": "Condividi",
     "shareOn": "Condividi su {social}",
@@ -116,11 +118,6 @@ export default {
       "explore": "Esplora",
       "teachers": "Insegnanti"
     }
-  },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Accetta l'informativa sui cookie",
-    "link": "Maggiori informazioni",
-    "terms": "Questo sito web utilizza i cookie per migliorare il più possibile l'esperienza degli utenti. Cliccando o navigando sul sito, acconsenti alla raccolta delle tue informazioni tramite cookie."
   },
   "curatedAutomatically": "Curato automaticamente da Europeana",
   "dateFilter": {
@@ -340,7 +337,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formato file | Formati file",
       "options": {
-        "text/plain": "Testo semplice"
+        "text\/plain": "Testo semplice"
       }
     },
     "PROVIDER": {
@@ -434,7 +431,8 @@ export default {
     "termsOfService": "Termini di servizio",
     "thankYou": "Grazie!",
     "title": "Invia feedback",
-    "validEmail": "Inserire un indirizzo email valido"
+    "validEmail": "Inserire un indirizzo email valido",
+    "validFeedback": "Il tuo feedback deve consistere in 5 parole al minimo"
   },
   "fieldLabels": {
     "default": {
@@ -562,13 +560,17 @@ export default {
   },
   "klaro": {
     "main": {
+      "acceptAll": "Accettare tutti",
+      "acceptSelected": "Accetta selezionato",
       "consentModal": {
         "description": "Prendiamo sul serio la privacy dei tuoi dati. Qui puoi valutare e personalizzare i servizi che vorremmo utilizzare su questo sito web. Sei tu al comando! Abilitare o disabilitare i servizi come meglio credi.",
         "title": "Servizi che vorremmo utilizzare."
       },
       "consentNotice": {
-        "description": "Teniamo molto alla tua privacy e utilizziamo i dati solo per migliorare la tua esperienza. Non utilizziamo alcuna informazione personale per la pubblicità. Puoi modificare il tuo consenso ogni 15 giorni."
+        "description": "Teniamo molto alla tua privacy e utilizziamo i dati solo per migliorare la tua esperienza. Non utilizziamo alcuna informazione personale per la pubblicità. Puoi modificare il tuo consenso ogni 15 giorni.",
+        "learnMore": "Fammi scegliere"
       },
+      "decline": "Rifiuto",
       "ok": "Ok",
       "purposes": {
         "essential": {
@@ -613,7 +615,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Ricorda se preferisci vedere i risultati della ricerca in una visualizzazione elenco o griglia.",
-        "title": "Visualizzazione dei risultati di ricerca (elenco/griglia)"
+        "title": "Visualizzazione dei risultati di ricerca (elenco\/griglia)"
       }
     }
   },

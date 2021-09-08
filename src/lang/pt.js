@@ -4,7 +4,7 @@ export default {
     "likes": "Gostos",
     "linkAccount": "A minha conta",
     "linkLogin": "Inicie sessão",
-    "linkLoginJoin": "Entrar/Criar conta",
+    "linkLoginJoin": "Entrar\/Criar conta",
     "linkLogout": "Encerrar sessão",
     "myProfile": "Meu perfil",
     "notifications": {
@@ -116,11 +116,6 @@ export default {
       "explore": "Explorar",
       "teachers": "Professores"
     }
-  },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Aceitar aviso de isenção de cookies",
-    "link": "Mais informações",
-    "terms": "Este site usa cookies para garantir que obtenha a melhor experiência em nosso site. Ao clicar ou navegar no site, concorda em permitir nossa coleta de informações através de cookies."
   },
   "curatedAutomatically": "Com curadoria automática de Europeana",
   "dateFilter": {
@@ -340,7 +335,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formato de ficheiro | Formatos de ficheiros",
       "options": {
-        "text/plain": "Texto simples"
+        "text\/plain": "Texto simples"
       }
     },
     "PROVIDER": {
@@ -434,7 +429,8 @@ export default {
     "termsOfService": "Termos de serviço",
     "thankYou": "Obrigado!",
     "title": "Enviar comentários",
-    "validEmail": "Digite um endereço de e-mail válido"
+    "validEmail": "Digite um endereço de e-mail válido",
+    "validFeedback": "Seu feedback deve consistir em no mínimo 5 palavras"
   },
   "fieldLabels": {
     "default": {
@@ -562,13 +558,17 @@ export default {
   },
   "klaro": {
     "main": {
+      "acceptAll": "Aceitar tudo",
+      "acceptSelected": "Aceitar selecionado",
       "consentModal": {
         "description": "Levamos a sério a privacidade de seus dados. Aqui você pode avaliar e personalizar os serviços que gostaríamos de usar neste site. Você está no comando! Habilite ou desabilite os serviços conforme achar necessário.",
         "title": "Serviços que gostaríamos de usar."
       },
       "consentNotice": {
-        "description": "Nos preocupamos com a sua privacidade e apenas usamos os dados para melhorar a sua experiência. Não usamos nenhuma informação pessoal para publicidade. Você pode alterar seu consentimento a cada 15 dias."
+        "description": "Nos preocupamos com a sua privacidade e apenas usamos os dados para melhorar a sua experiência. Não usamos nenhuma informação pessoal para publicidade. Você pode alterar seu consentimento a cada 15 dias.",
+        "learnMore": "Deixe-me escolher"
       },
+      "decline": "Eu recuso",
       "ok": "OK",
       "purposes": {
         "essential": {
@@ -613,7 +613,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Lembra-se se preferir ver os resultados da pesquisa numa lista ou numa visualização em grelha.",
-        "title": "Visualização de resultado de pesquisa (lista/grade)"
+        "title": "Visualização de resultado de pesquisa (lista\/grade)"
       }
     }
   },

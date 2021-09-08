@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mijn account",
     "linkLogin": "Inloggen",
-    "linkLoginJoin": "Inloggen/Aanmelden",
+    "linkLoginJoin": "Inloggen\/Aanmelden",
     "linkLogout": "Uitloggen",
     "myProfile": "Mijn profiel",
     "notifications": {
@@ -122,11 +122,6 @@ export default {
       "explore": "Verkennen",
       "teachers": "Leraren"
     }
-  },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Accepteer cookiedisclaimer",
-    "link": "Meer informatie",
-    "terms": "Deze website maakt gebruik van cookies om ervoor te zorgen dat u de beste ervaring op onze website krijgt. Door op de site te klikken of ernaartoe te navigeren, gaat u akkoord met de verzameling van informatie via cookies."
   },
   "curatedAutomatically": "Automatisch beheerd door Europeana",
   "dateFilter": {
@@ -361,7 +356,7 @@ export default {
     "MIME_TYPE": {
       "name": "Bestandsformaat | Bestandsformaten",
       "options": {
-        "text/plain": "Platte tekst"
+        "text\/plain": "Platte tekst"
       }
     },
     "PROVIDER": {
@@ -455,7 +450,8 @@ export default {
     "termsOfService": "Servicevoorwaarden",
     "thankYou": "Dank u!",
     "title": "Feedback verzenden",
-    "validEmail": "Voer een geldig e-mailadres in"
+    "validEmail": "Voer een geldig e-mailadres in",
+    "validFeedback": "Je feedback moet minimaal uit 5 woorden bestaan"
   },
   "fieldLabels": {
     "default": {
@@ -510,7 +506,8 @@ export default {
       "keywords": "Trefwoorden (verstrekt door de gemeenschap)",
       "timestampCreated": "Tijdstempel gemaakt",
       "timestampUpdate": "Tijdstempel bijgewerkt",
-      "wasPresentAt": "Was aanwezig in"
+      "wasPresentAt": "Was aanwezig in",
+      "year": "Jaar"
     },
     "webResource": {
       "about": "RDF Over",
@@ -586,13 +583,17 @@ export default {
   },
   "klaro": {
     "main": {
+      "acceptAll": "Accepteer alles",
+      "acceptSelected": "Geselecteerde accepteren",
       "consentModal": {
         "description": "Wij nemen uw gegevensprivacy serieus. Hier kunt u de diensten die wij op deze website willen gebruiken, zelf beoordelen en aanpassen. U heeft het voor het zeggen! Schakel diensten in of uit zoals u dat wilt.",
         "title": "Diensten waar we graag gebruik van willen maken."
       },
       "consentNotice": {
-        "description": "We geven om uw privacy en gebruiken gegevens alleen om uw ervaring te verbeteren. We gebruiken geen persoonlijke informatie voor advertenties. U kunt uw toestemming elke 15 dagen wijzigen."
+        "description": "We geven om uw privacy en gebruiken gegevens alleen om uw ervaring te verbeteren. We gebruiken geen persoonlijke informatie voor advertenties. U kunt uw toestemming elke 15 dagen wijzigen.",
+        "learnMore": "Laat me kiezen"
       },
+      "decline": "ik weiger",
       "ok": "Oké",
       "purposes": {
         "essential": {
@@ -617,6 +618,7 @@ export default {
         "title": "Auth-strategie"
       },
       "debugSettings": {
+        "description": "Helpt bij het debuggen van API-verzoeken",
         "title": "Debug toggle"
       },
       "hotjar": {
@@ -637,7 +639,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Onthoudt of u de zoekresultaten liever in een lijst- of rasterweergave wilt zien.",
-        "title": "Zoekresultaatweergave (lijst/raster)"
+        "title": "Zoekresultaatweergave (lijst\/raster)"
       }
     }
   },

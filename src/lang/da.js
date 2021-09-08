@@ -6,7 +6,7 @@ export default {
     "likes": "Synes om'er",
     "linkAccount": "Min konto",
     "linkLogin": "Log ind",
-    "linkLoginJoin": "Login/Deltag",
+    "linkLoginJoin": "Login\/Deltag",
     "linkLogout": "Log ud",
     "myProfile": "Min profil",
     "notifications": {
@@ -122,11 +122,6 @@ export default {
       "explore": "Udforsk",
       "teachers": "Lærere"
     }
-  },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Accepter ansvarsfraskrivelse for cookies",
-    "link": "Mere information",
-    "terms": "Denne hjemmeside bruger cookies for at sikre, at du får den bedste oplevelse på vores hjemmeside. Ved at klikke eller navigere på siden accepterer du at tillade vores indsamling af information via cookies."
   },
   "curatedAutomatically": "Kurateret automatisk af Europeana",
   "dateFilter": {
@@ -361,7 +356,7 @@ export default {
     "MIME_TYPE": {
       "name": "Filformat | Filformater",
       "options": {
-        "text/plain": "Almindelig tekst"
+        "text\/plain": "Almindelig tekst"
       }
     },
     "PROVIDER": {
@@ -455,7 +450,8 @@ export default {
     "termsOfService": "Vilkår for brug",
     "thankYou": "Tak!",
     "title": "Send feedback",
-    "validEmail": "Indtast en gyldig email addresse"
+    "validEmail": "Indtast en gyldig email addresse",
+    "validFeedback": "Din feedback skal mindst bestå af 5 ord"
   },
   "fieldLabels": {
     "default": {
@@ -510,7 +506,8 @@ export default {
       "keywords": "Nøgleord (leveret af fællesskabet)",
       "timestampCreated": "Tidsstempel oprettet",
       "timestampUpdate": "Tidstempel opdateret",
-      "wasPresentAt": "Var til stede på"
+      "wasPresentAt": "Var til stede på",
+      "year": "År"
     },
     "webResource": {
       "about": "RDF Om",
@@ -586,13 +583,17 @@ export default {
   },
   "klaro": {
     "main": {
+      "acceptAll": "Accepter alle",
+      "acceptSelected": "Accepter valgt",
       "consentModal": {
         "description": "Vi tager dit datas privatliv alvorligt. Her kan du vurdere og tilpasse de tjenester, som vi gerne vil bruge på dette websted. Du har ansvaret! Aktivér eller deaktiver tjenester, som du finder det passende.",
         "title": "Tjenester, vi gerne vil bruge."
       },
       "consentNotice": {
-        "description": "Vi holder af dit privatliv og bruger kun data til at forbedre din oplevelse. Vi bruger ingen personlige oplysninger til reklame. Du kan ændre dit samtykke hver 15. dag."
+        "description": "Vi holder af dit privatliv og bruger kun data til at forbedre din oplevelse. Vi bruger ingen personlige oplysninger til reklame. Du kan ændre dit samtykke hver 15. dag.",
+        "learnMore": "Lad mig vælge"
       },
+      "decline": "Jeg afviser",
       "ok": "okay",
       "purposes": {
         "essential": {
@@ -617,6 +618,7 @@ export default {
         "title": "Auth-strategi"
       },
       "debugSettings": {
+        "description": "Hjælper med fejlfinding af API -anmodninger",
         "title": "Fejlfinding skifter"
       },
       "hotjar": {
@@ -637,7 +639,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Husk, hvis du foretrækker at se søgeresultaterne i en liste- eller gittervisning.",
-        "title": "Visning af søgeresultater (liste / gitter)"
+        "title": "Visning af søgeresultater (liste \/ gitter)"
       }
     }
   },

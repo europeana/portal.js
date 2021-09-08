@@ -6,7 +6,7 @@ export default {
     "likes": "Oblíbené",
     "linkAccount": "Můj účet",
     "linkLogin": "Přihlásit se",
-    "linkLoginJoin": "Přihlášení/Připojení",
+    "linkLoginJoin": "Přihlášení\/Připojení",
     "linkLogout": "Odhlásit se",
     "myProfile": "Můj profil",
     "notifications": {
@@ -14,10 +14,10 @@ export default {
       "loggedOut": "Nyní jste odhlášeni.",
       "noCollections": {
         "curated": "Zatím jste nevybrali žádné kolekce",
-        "private": "Ještě jste nevytvořil/a žádné soukromé galerie.",
-        "public": "Ještě jste nevytvořil/a žádné veřejné galerie."
+        "private": "Ještě jste nevytvořil\/a žádné soukromé galerie.",
+        "public": "Ještě jste nevytvořil\/a žádné veřejné galerie."
       },
-      "noLikedItems": "Ještě jste neoznačil/a žádné položky jako oblíbené."
+      "noLikedItems": "Ještě jste neoznačil\/a žádné položky jako oblíbené."
     },
     "privateCollections": "Soukromé galerie",
     "profile": "Moje oblíbené a moje galerie",
@@ -122,11 +122,6 @@ export default {
       "explore": "Prozkoumat",
       "teachers": "Učitelé"
     }
-  },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Přijmout odmítnutí cookies.",
-    "link": "Více informací",
-    "terms": "Tato stránka používá cookies, aby vám přinesla nejlepší zážitek z našeho webu. Kliknutím nebo procházením webu souhlasíte s tím, že dovolujete shromažďování údajů prostřednictvím souborů cookie."
   },
   "curatedAutomatically": "Kurátorem je automaticky Europeana",
   "dateFilter": {
@@ -361,7 +356,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formát souboru | Formáty souborů",
       "options": {
-        "text/plain": "Prostý text"
+        "text\/plain": "Prostý text"
       }
     },
     "PROVIDER": {
@@ -455,7 +450,8 @@ export default {
     "termsOfService": "Podmínky používání ",
     "thankYou": "Děkujeme!",
     "title": "Odeslat zpětnou vazbu",
-    "validEmail": "Zadejte platnou e-mailovou adresu."
+    "validEmail": "Zadejte platnou e-mailovou adresu.",
+    "validFeedback": "Vaše zpětná vazba musí obsahovat minimálně 5 slov"
   },
   "fieldLabels": {
     "default": {
@@ -482,7 +478,7 @@ export default {
       "dctermsHasVersion": "vlastní verzi",
       "dctermsIsFormatOf": "je formou",
       "dctermsIsPartOf": "je součástí",
-      "dctermsIsReferencedBy": "je zmiňován/a",
+      "dctermsIsReferencedBy": "je zmiňován\/a",
       "dctermsIsReplacedBy": "se nahradí",
       "dctermsIsRequiredBy": "je potřeba pro",
       "dctermsIssued": "Datum vydání",
@@ -495,7 +491,7 @@ export default {
       "edmCountry": "Země původu",
       "edmCurrentLocation": "Aktuální umístění",
       "edmDataProvider": "Poskytovatelská instituce",
-      "edmHasMet": "se setkal/a s",
+      "edmHasMet": "se setkal\/a s",
       "edmIncorporates": "zahrnuje",
       "edmIntermediateProvider": "Zprostředkovatel třetí strany",
       "edmIsDerivativeOf": "je zpodobněním",
@@ -510,7 +506,8 @@ export default {
       "keywords": "Klíčová slova (poskytnutá komunitou)",
       "timestampCreated": "Časové razítko vytvořeno",
       "timestampUpdate": "Časové razítko bylo aktualizováno",
-      "wasPresentAt": "se účastnil/a"
+      "wasPresentAt": "se účastnil\/a",
+      "year": "Rok"
     },
     "webResource": {
       "about": "RDF About",
@@ -586,13 +583,17 @@ export default {
   },
   "klaro": {
     "main": {
+      "acceptAll": "Přijmout vše",
+      "acceptSelected": "Přijmout vybrané",
       "consentModal": {
         "description": "Vaše soukromí bereme vážně. Zde můžete vyhodnotit a přizpůsobit služby, které bychom chtěli použít na tomto webu. Máte to na starosti! Povolte nebo zakažte služby, jak uznáte za vhodné.",
         "title": "Služby, které bychom rádi využili."
       },
       "consentNotice": {
-        "description": "Záleží nám na vašem soukromí a údaje používáme pouze ke zlepšení vašeho zážitku. Pro reklamu nepoužíváme žádné osobní údaje. Svůj souhlas můžete změnit každých 15 dní."
+        "description": "Záleží nám na vašem soukromí a údaje používáme pouze ke zlepšení vašeho zážitku. Pro reklamu nepoužíváme žádné osobní údaje. Svůj souhlas můžete změnit každých 15 dní.",
+        "learnMore": "Nech mě vybrat"
       },
+      "decline": "odmítám",
       "ok": "dobře",
       "purposes": {
         "essential": {
@@ -617,6 +618,7 @@ export default {
         "title": "Strategie Auth"
       },
       "debugSettings": {
+        "description": "Pomáhá ladit požadavky API",
         "title": "Přepnout ladění"
       },
       "hotjar": {
@@ -637,7 +639,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Pamatuje si, zda chcete výsledky hledání zobrazit v seznamu nebo v mřížce.",
-        "title": "Zobrazení výsledků hledání (seznam / mřížka)"
+        "title": "Zobrazení výsledků hledání (seznam \/ mřížka)"
       }
     }
   },
@@ -775,7 +777,7 @@ export default {
       "title": "Název galerie"
     },
     "labels": {
-      "curatedBy": "Kurátor/ka",
+      "curatedBy": "Kurátor\/ka",
       "private": "Soukromá galerie"
     },
     "notifications": {

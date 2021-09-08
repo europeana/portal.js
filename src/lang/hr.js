@@ -6,7 +6,7 @@ export default {
     "likes": "Sviđanja",
     "linkAccount": "Moj račun",
     "linkLogin": "Prijava",
-    "linkLoginJoin": "Prijavi se/Pridruži se",
+    "linkLoginJoin": "Prijavi se\/Pridruži se",
     "linkLogout": "Odjava",
     "myProfile": "Moj profil",
     "notifications": {
@@ -47,7 +47,7 @@ export default {
   },
   "attribution": {
     "country": "Država:",
-    "creator": "Stvorio/la:",
+    "creator": "Stvorio\/la:",
     "date": "Datum:",
     "institution": "Institucija:",
     "title": "Naslov:"
@@ -122,11 +122,6 @@ export default {
       "explore": "Istraži",
       "teachers": "Nastavnici"
     }
-  },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Prihvaćanje izjavu o odricanju od odgovornosti za kolačiće",
-    "link": "Više informacija",
-    "terms": "Ova internetska stranica koristi kolačiće kako bi osigurala najbolje iskustvo na našoj internetskoj stranici. Klikom ili kretanjem po internetskoj stranici, prihvaćate da dopuštate naše prikupljanje podataka putem kolačića."
   },
   "curatedAutomatically": "Automatski kustos Europeana",
   "dateFilter": {
@@ -361,7 +356,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format datoteke | Formati datoteka",
       "options": {
-        "text/plain": "Jednostavni tekst"
+        "text\/plain": "Jednostavni tekst"
       }
     },
     "PROVIDER": {
@@ -455,13 +450,14 @@ export default {
     "termsOfService": "Uvjeti korištenja",
     "thankYou": "Hvala!",
     "title": "Slanje povratnih informacija",
-    "validEmail": "Unesite valjanu adresu e-pošte"
+    "validEmail": "Unesite valjanu adresu e-pošte",
+    "validFeedback": "Vaše povratne informacije moraju se sastojati od najmanje 5 riječi"
   },
   "fieldLabels": {
     "default": {
       "dcContributor": "Suradnici",
       "dcCoverage": "Mjesto-vrijeme",
-      "dcCreator": "Stvorio/la",
+      "dcCreator": "Stvorio\/la",
       "dcDate": "Datum",
       "dcDescription": "Opis",
       "dcDuration": "Trajanje",
@@ -510,7 +506,8 @@ export default {
       "keywords": "Ključne riječi (koje pruža zajednica)",
       "timestampCreated": "Vremenska oznaka stvorena",
       "timestampUpdate": "Vremenska oznaka ažurirana",
-      "wasPresentAt": "Bio je prisutan u"
+      "wasPresentAt": "Bio je prisutan u",
+      "year": "Godina"
     },
     "webResource": {
       "about": "O RDF",
@@ -586,13 +583,17 @@ export default {
   },
   "klaro": {
     "main": {
+      "acceptAll": "Prihvatiti sve",
+      "acceptSelected": "Prihvati odabrano",
       "consentModal": {
         "description": "Privatnost vaših podataka shvaćamo ozbiljno. Ovdje možete procijeniti i prilagoditi usluge koje bismo željeli koristiti na ovoj web stranici. Vi ste glavni! Omogućite ili onemogućite usluge kako vam odgovara.",
         "title": "Usluge koje bismo željeli koristiti."
       },
       "consentNotice": {
-        "description": "Stalo nam je do vaše privatnosti i podatke koristimo samo za poboljšanje vašeg iskustva. Ne koristimo nikakve osobne podatke za oglašavanje. Privolu možete promijeniti svakih 15 dana."
+        "description": "Stalo nam je do vaše privatnosti i podatke koristimo samo za poboljšanje vašeg iskustva. Ne koristimo nikakve osobne podatke za oglašavanje. Privolu možete promijeniti svakih 15 dana.",
+        "learnMore": "Pusti me da izaberem"
       },
+      "decline": "Odbijam",
       "ok": "u redu",
       "purposes": {
         "essential": {
@@ -617,6 +618,7 @@ export default {
         "title": "Auth strategija"
       },
       "debugSettings": {
+        "description": "Pomaže u otklanjanju pogrešaka API zahtjeva",
         "title": "Prebacivanje pogrešaka"
       },
       "hotjar": {
@@ -637,7 +639,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Sjeća ako radije vidite rezultate pretraživanja u prikazu popisa ili mreže.",
-        "title": "Prikaz rezultata pretraživanja (popis / mreža)"
+        "title": "Prikaz rezultata pretraživanja (popis \/ mreža)"
       }
     }
   },

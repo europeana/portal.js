@@ -4,7 +4,7 @@ export default {
     "likes": "Patīk",
     "linkAccount": "Mans konts",
     "linkLogin": "Pieteikties",
-    "linkLoginJoin": "Pieteikties/Pievienoties",
+    "linkLoginJoin": "Pieteikties\/Pievienoties",
     "linkLogout": "Atteikties",
     "myProfile": "Mans profils",
     "notifications": {
@@ -116,11 +116,6 @@ export default {
       "explore": "Jaunumi",
       "teachers": "Skolotājiem"
     }
-  },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Pieņemt atrunu par sīkdatnēm",
-    "link": "Vairāk informācijas",
-    "terms": "Šī vietne izmanto sīkdatnes, lai nodrošinātu vislabāko pieredzi mūsu vietnē. Noklikšķinot uz vietni vai pārvietojoties tajā, jūs piekrītat atļaut mums vākt informāciju, izmantojot sīkdatnes."
   },
   "curatedAutomatically": "Automātiski glabāts Europeana",
   "dateFilter": {
@@ -340,7 +335,7 @@ export default {
     "MIME_TYPE": {
       "name": "Datnes formāts | Datņu formāti",
       "options": {
-        "text/plain": "Vienkāršs teksts"
+        "text\/plain": "Vienkāršs teksts"
       }
     },
     "PROVIDER": {
@@ -416,7 +411,7 @@ export default {
       "name": "Izdošanas datums"
     },
     "proxy_dcterms_medium": {
-      "name": "Līdzeklis/ Līdzekļi"
+      "name": "Līdzeklis\/ Līdzekļi"
     }
   },
   "feedback": {
@@ -434,7 +429,8 @@ export default {
     "termsOfService": "Pakalpojuma noteikumi",
     "thankYou": "Paldies!",
     "title": "Sūtīt atsauksmes",
-    "validEmail": "ievadiet derīgu epasta adresi"
+    "validEmail": "ievadiet derīgu epasta adresi",
+    "validFeedback": "Jūsu atsauksmēm jābūt vismaz 5 vārdiem."
   },
   "fieldLabels": {
     "default": {
@@ -562,13 +558,17 @@ export default {
   },
   "klaro": {
     "main": {
+      "acceptAll": "Pieņemt visus",
+      "acceptSelected": "Pieņemt atlasīto",
       "consentModal": {
         "description": "Mēs nopietni uztveram jūsu datu privātumu. Šeit jūs varat novērtēt un pielāgot pakalpojumus, kurus mēs vēlētos izmantot šajā vietnē. Jūs esat atbildīgs! Iespējojiet vai atspējojiet pakalpojumus pēc jūsu ieskatiem.",
         "title": "Pakalpojumi, kurus mēs vēlētos izmantot."
       },
       "consentNotice": {
-        "description": "Mēs rūpējamies par jūsu privātumu un izmantojam datus tikai jūsu pieredzes uzlabošanai. Mēs reklamēšanai neizmantojam personisku informāciju. Jūs varat mainīt savu piekrišanu ik pēc 15 dienām."
+        "description": "Mēs rūpējamies par jūsu privātumu un izmantojam datus tikai jūsu pieredzes uzlabošanai. Mēs reklamēšanai neizmantojam personisku informāciju. Jūs varat mainīt savu piekrišanu ik pēc 15 dienām.",
+        "learnMore": "Ļaujiet man izvēlēties"
       },
+      "decline": "Es noraidu",
       "ok": "Labi",
       "purposes": {
         "essential": {
@@ -613,7 +613,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Atceras, vai vēlaties redzēt meklēšanas rezultātus saraksta vai režģa skatā.",
-        "title": "Meklēšanas rezultātu skats (saraksts / režģis)"
+        "title": "Meklēšanas rezultātu skats (saraksts \/ režģis)"
       }
     }
   },

@@ -6,7 +6,7 @@ export default {
     "likes": "Atsegin |",
     "linkAccount": "Nire kontua",
     "linkLogin": "Saioa hasi",
-    "linkLoginJoin": "Saioa hasi/Sartu",
+    "linkLoginJoin": "Saioa hasi\/Sartu",
     "linkLogout": "Saioa amaitu",
     "myProfile": "Nire profila",
     "notifications": {
@@ -122,11 +122,6 @@ export default {
       "explore": "Arakatu",
       "teachers": "Irakasleak"
     }
-  },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Onartu cookieen ukapena",
-    "link": "Informazio gehiago",
-    "terms": "Webgune honek cookieak erabiltzen ditu, gure webgunean esperientziarik onena ziurtatzeko. Gunean klik eginez edo nabigatuz, cookieen bidez informazioa biltzeko baimena ematen diguzu."
   },
   "curatedAutomatically": "Europeanak automatikoki komisario lanak egin ditu",
   "dateFilter": {
@@ -361,7 +356,7 @@ export default {
     "MIME_TYPE": {
       "name": "Fitxategiaren formatua | Fitxategien formatuak",
       "options": {
-        "text/plain": "Testu arrunta"
+        "text\/plain": "Testu arrunta"
       }
     },
     "PROVIDER": {
@@ -455,7 +450,8 @@ export default {
     "termsOfService": "Zerbitzu-baldintzak",
     "thankYou": "Eskerrik asko!",
     "title": "Bidali iritzia",
-    "validEmail": "Idatzi balio duen helbide elektronikoa"
+    "validEmail": "Idatzi balio duen helbide elektronikoa",
+    "validFeedback": "Zure iritziak gutxienez 5 hitz izan behar ditu"
   },
   "fieldLabels": {
     "default": {
@@ -579,7 +575,7 @@ export default {
   },
   "items": {
     "itemCount": "Elementu 1 | {count} elementu",
-    "itemOf": "{max}/{count} elementu",
+    "itemOf": "{max}\/{count} elementu",
     "recent": "Azken elementuak",
     "recommendationsDisclaimer": "Erpurua gora galerian gehitzeko - Erpurua behera gustatzen ez bazaizu",
     "recommended": "Gomendatutako elementuak",
@@ -587,13 +583,17 @@ export default {
   },
   "klaro": {
     "main": {
+      "acceptAll": "Onartu guztiak",
+      "acceptSelected": "Onartu hautatutakoa",
       "consentModal": {
         "description": "Zure datuen pribatutasuna serio hartzen dugu. Hemen webgune honetan erabili nahi genituzkeen zerbitzuak baloratu eta pertsonaliza ditzakezu. Arduraduna zara! Gaitu edo desgaitu zerbitzuak nahi duzun moduan.",
         "title": "Erabili nahiko genituzkeen zerbitzuak."
       },
       "consentNotice": {
-        "description": "Zure pribatutasuna zaintzen dugu eta datuak soilik erabiltzen ditugu zure esperientzia hobetzeko. Ez dugu informazio pertsonalik erabiltzen publizitaterako. 15 egunez behin baimena alda dezakezu."
+        "description": "Zure pribatutasuna zaintzen dugu eta datuak soilik erabiltzen ditugu zure esperientzia hobetzeko. Ez dugu informazio pertsonalik erabiltzen publizitaterako. 15 egunez behin baimena alda dezakezu.",
+        "learnMore": "Utzidazu aukeratzen"
       },
+      "decline": "Gaitzetsi egiten dut",
       "ok": "ados",
       "purposes": {
         "essential": {
@@ -639,7 +639,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Gogoratzen duzu bilaketa-emaitzak zerrenda edo sareta ikuspegian ikustea nahiago baduzu.",
-        "title": "Bilaketaren emaitzen ikuspegia (zerrenda / sareta)"
+        "title": "Bilaketaren emaitzen ikuspegia (zerrenda \/ sareta)"
       }
     }
   },

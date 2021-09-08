@@ -4,7 +4,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Il-Kont Tiegħi",
     "linkLogin": "Illoggja",
-    "linkLoginJoin": "Idħol/Ingħaqad",
+    "linkLoginJoin": "Idħol\/Ingħaqad",
     "linkLogout": "Oħroġ",
     "myProfile": "Il-profil Tiegħi",
     "notifications": {
@@ -116,11 +116,6 @@ export default {
       "explore": "Esplora",
       "teachers": "Għalliema"
     }
-  },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Aċċetta d-dikjarazzjoni tal-cookies",
-    "link": "Aktar informazzjoni",
-    "terms": "Dan is-sit web juża l-cookies biex niżguraw li jkollok l-aħjar esperjenza fuq is-sit web tagħna. Jekk tikklikkja jew tinnaviga s-sit, tkun qed taqbel li tippermetti l-ġbir tal-informazzjoni min-naħa tagħna permezz tal-cookies."
   },
   "curatedAutomatically": "Amministrat awtomatikament minn Europeana",
   "dateFilter": {
@@ -340,7 +335,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format tal-fajl | Formati tal-fajl",
       "options": {
-        "text/plain": "Test bla format"
+        "text\/plain": "Test bla format"
       }
     },
     "PROVIDER": {
@@ -434,7 +429,8 @@ export default {
     "termsOfService": "Termini tas-Servizz",
     "thankYou": "Grazzi!",
     "title": "Ibgħat feedback",
-    "validEmail": "Daħħal indirizz tal-email validu"
+    "validEmail": "Daħħal indirizz tal-email validu",
+    "validFeedback": "Il-feedback tiegħek irid jikkonsisti f'minimu ta' 5 kelmiet"
   },
   "fieldLabels": {
     "default": {
@@ -562,13 +558,17 @@ export default {
   },
   "klaro": {
     "main": {
+      "acceptAll": "Aċċetta kollox",
+      "acceptSelected": "Aċċetta magħżula",
       "consentModal": {
         "description": "Aħna nieħdu l-privatezza tad-data tiegħek bis-serjetà. Hawnhekk tista 'tivvaluta u tippersonalizza s-servizzi li nixtiequ nużaw fuq din il-websajt. Int inkarigat! Ippermetti jew itfi s-servizzi kif tarah xieraq.",
         "title": "Servizzi li nixtiequ nużaw."
       },
       "consentNotice": {
-        "description": "Aħna nieħdu ħsieb il-privatezza tiegħek u nużaw biss id-dejta biex intejbu l-esperjenza tiegħek. Aħna ma nużaw l-ebda informazzjoni personali għar-reklamar. Tista 'tbiddel il-kunsens tiegħek kull 15-il jum."
+        "description": "Aħna nieħdu ħsieb il-privatezza tiegħek u nużaw biss id-dejta biex intejbu l-esperjenza tiegħek. Aħna ma nużaw l-ebda informazzjoni personali għar-reklamar. Tista 'tbiddel il-kunsens tiegħek kull 15-il jum.",
+        "learnMore": "Ħa nagħżel"
       },
+      "decline": "Jien niċħad",
       "ok": "Okay",
       "purposes": {
         "essential": {
@@ -613,7 +613,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Tiftakar jekk tippreferi tara r-riżultati tat-tfittxija f'lista jew viżjoni tal-grilja.",
-        "title": "Veduta tar-riżultat tat-tfittxija (lista / gradilja)"
+        "title": "Veduta tar-riżultat tat-tfittxija (lista \/ gradilja)"
       }
     }
   },

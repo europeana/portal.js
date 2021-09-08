@@ -4,7 +4,7 @@ export default {
     "likes": "Aprecieri",
     "linkAccount": "Contul meu",
     "linkLogin": "Autentificare",
-    "linkLoginJoin": "Autentificare/Înscriere",
+    "linkLoginJoin": "Autentificare\/Înscriere",
     "linkLogout": "Deconectare",
     "myProfile": "Profilul meu",
     "notifications": {
@@ -116,11 +116,6 @@ export default {
       "explore": "Explorează",
       "teachers": "Profesori"
     }
-  },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Acceptați declarația de module cookie",
-    "link": "Mai multe informații",
-    "terms": "Această pagină de internet utilizează module cookie astfel încât să vă bucurați de cea mai bună experiență pe pagina noastră. Făcând clic sau navigând pe pagina noastră, sunteți de acord să colectăm informații prin intermediul modulelor."
   },
   "curatedAutomatically": "Curat automat de Europeana",
   "dateFilter": {
@@ -340,7 +335,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format fișier| Formate fișier",
       "options": {
-        "text/plain": "Text simplu"
+        "text\/plain": "Text simplu"
       }
     },
     "PROVIDER": {
@@ -434,7 +429,8 @@ export default {
     "termsOfService": "Termenii serviciului",
     "thankYou": "Mulțumesc!",
     "title": "Trimite feedback",
-    "validEmail": "Introduceți o adresă de email validă"
+    "validEmail": "Introduceți o adresă de email validă",
+    "validFeedback": "Feedback-ul tău trebuie să fie format din minim 5 cuvinte."
   },
   "fieldLabels": {
     "default": {
@@ -562,13 +558,17 @@ export default {
   },
   "klaro": {
     "main": {
+      "acceptAll": "Accepta toate",
+      "acceptSelected": "Acceptați selectat",
       "consentModal": {
         "description": "Vă luăm în serios confidențialitatea datelor. Aici puteți evalua și personaliza serviciile pe care am dori să le folosim pe acest site web. Tu ești la conducere! Activați sau dezactivați serviciile după cum doriți.",
         "title": "Servicii pe care am dori să le folosim."
       },
       "consentNotice": {
-        "description": "Ne pasă de confidențialitatea dvs. și folosim doar date pentru a vă îmbunătăți experiența. Nu folosim nicio informație personală pentru publicitate. Vă puteți schimba consimțământul la fiecare 15 zile."
+        "description": "Ne pasă de confidențialitatea dvs. și folosim doar date pentru a vă îmbunătăți experiența. Nu folosim nicio informație personală pentru publicitate. Vă puteți schimba consimțământul la fiecare 15 zile.",
+        "learnMore": "Lasa-ma sa aleg"
       },
+      "decline": "Refuz",
       "ok": "Bine",
       "purposes": {
         "essential": {
@@ -613,7 +613,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Rețineți dacă preferați să vedeți rezultatele căutării într-o vizualizare listă sau grilă.",
-        "title": "Vizualizarea rezultatelor căutării (listă / grilă)"
+        "title": "Vizualizarea rezultatelor căutării (listă \/ grilă)"
       }
     }
   },

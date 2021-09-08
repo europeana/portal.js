@@ -4,7 +4,7 @@ export default {
     "likes": "Všečki",
     "linkAccount": "Moj račun",
     "linkLogin": "Vpis",
-    "linkLoginJoin": "Prijava/Pridruži se",
+    "linkLoginJoin": "Prijava\/Pridruži se",
     "linkLogout": "Izpis",
     "myProfile": "Moj profil",
     "notifications": {
@@ -115,11 +115,6 @@ export default {
       "explore": "Razišči",
       "teachers": "Učitelji"
     }
-  },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Sprejmi izjavo o piškotkih",
-    "link": "Več informacij",
-    "terms": "To spletno mesto uporablja piškotke, ki zagotavljajo najboljšo izkušnjo z uporabo našega spletnega mesta. S klikanjem ali krmarjenjem po tem spletnem mestu se strinjate, da nam dovolite zbiranje informacij prek piškotkov."
   },
   "curatedAutomatically": "Samodejno je kurirala Europeana",
   "dateFilter": {
@@ -339,7 +334,7 @@ export default {
     "MIME_TYPE": {
       "name": "Oblika zapisa datoteke | Oblike zapisov datotek",
       "options": {
-        "text/plain": "Golo besedilo"
+        "text\/plain": "Golo besedilo"
       }
     },
     "PROVIDER": {
@@ -433,7 +428,8 @@ export default {
     "termsOfService": "Pogoji storitve",
     "thankYou": "Hvala!",
     "title": "Pošlji povratno informacijo",
-    "validEmail": "Vnesite veljaven e-poštni naslov"
+    "validEmail": "Vnesite veljaven e-poštni naslov",
+    "validFeedback": "Vaše povratne informacije morajo biti sestavljene iz 5 besed najmanj"
   },
   "fieldLabels": {
     "default": {
@@ -561,13 +557,17 @@ export default {
   },
   "klaro": {
     "main": {
+      "acceptAll": "Sprejmi vse",
+      "acceptSelected": "Sprejmi izbrano",
       "consentModal": {
         "description": "Vašo zasebnost podatkov jemljemo resno. Tukaj lahko ocenite in prilagodite storitve, ki bi jih radi uporabili na tem spletnem mestu. Vi ste odgovorni! Omogočite ali onemogočite storitve, kot se vam zdi primerno.",
         "title": "Storitve, ki jih želimo uporabljati."
       },
       "consentNotice": {
-        "description": "Skrbimo za vašo zasebnost in podatke uporabljamo le za izboljšanje vaše izkušnje. Osebnih podatkov ne uporabljamo za oglaševanje. Svoje soglasje lahko spremenite vsakih 15 dni."
+        "description": "Skrbimo za vašo zasebnost in podatke uporabljamo le za izboljšanje vaše izkušnje. Osebnih podatkov ne uporabljamo za oglaševanje. Svoje soglasje lahko spremenite vsakih 15 dni.",
+        "learnMore": "Naj izberem"
       },
+      "decline": "Zavrnem.",
       "ok": "okej",
       "purposes": {
         "essential": {
@@ -612,7 +612,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Zapomni si, če želite rezultate iskanja raje videti v pogledu seznama ali mreže.",
-        "title": "Pogled rezultatov iskanja (seznam / mreža)"
+        "title": "Pogled rezultatov iskanja (seznam \/ mreža)"
       }
     }
   },

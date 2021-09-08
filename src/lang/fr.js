@@ -6,7 +6,7 @@ export default {
     "likes": "Mentions J’aime",
     "linkAccount": "Mon compte",
     "linkLogin": "Se connecter",
-    "linkLoginJoin": "Connexion/Rejoignez-nous",
+    "linkLoginJoin": "Connexion\/Rejoignez-nous",
     "linkLogout": "Déconnexion",
     "myProfile": "Mon profil",
     "notifications": {
@@ -122,11 +122,6 @@ export default {
       "explore": "Explorer",
       "teachers": "Enseignants"
     }
-  },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Accepter la clause de non-responsabilité relative aux cookies",
-    "link": "Plus d'informations",
-    "terms": "Ce site web utilise des cookies pour vous garantir la meilleure expérience possible sur notre site. En cliquant ou en naviguant sur le site, vous acceptez la collecte d'informations par le biais de cookies."
   },
   "curatedAutomatically": "Organisé automatiquement par Europeana",
   "dateFilter": {
@@ -361,7 +356,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format de fichier | Formats de fichiers",
       "options": {
-        "text/plain": "Texte brut"
+        "text\/plain": "Texte brut"
       }
     },
     "PROVIDER": {
@@ -455,7 +450,8 @@ export default {
     "termsOfService": "Conditions d'utilisation",
     "thankYou": "Merci!",
     "title": "Envoyer des commentaires",
-    "validEmail": "Entrez une adresse mail valide"
+    "validEmail": "Entrez une adresse mail valide",
+    "validFeedback": "Vos commentaires doivent comprendre au moins 5 mots"
   },
   "fieldLabels": {
     "default": {
@@ -587,13 +583,17 @@ export default {
   },
   "klaro": {
     "main": {
+      "acceptAll": "Accepter tout",
+      "acceptSelected": "Accepter sélectionné",
       "consentModal": {
         "description": "Nous prenons au sérieux la confidentialité de vos données. Vous pouvez ici évaluer et personnaliser les services que nous souhaitons utiliser sur ce site. C'est vous qui décidez ! Activez ou désactivez les services comme bon vous semble.",
         "title": "Services que nous aimerions utiliser."
       },
       "consentNotice": {
-        "description": "Nous nous soucions de votre vie privée et n'utilisons les données que pour améliorer votre expérience. Nous n'utilisons aucune information personnelle à des fins publicitaires. Vous pouvez modifier votre consentement tous les 15 jours."
+        "description": "Nous nous soucions de votre vie privée et n'utilisons les données que pour améliorer votre expérience. Nous n'utilisons aucune information personnelle à des fins publicitaires. Vous pouvez modifier votre consentement tous les 15 jours.",
+        "learnMore": "Laisse-moi choisir"
       },
+      "decline": "Je décline",
       "ok": "D'accord",
       "purposes": {
         "essential": {
@@ -639,7 +639,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Se souvient si vous préférez voir les résultats de la recherche sous forme de liste ou de grille.",
-        "title": "Affichage des résultats de recherche (liste/grille)"
+        "title": "Affichage des résultats de recherche (liste\/grille)"
       }
     }
   },
