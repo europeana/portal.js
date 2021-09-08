@@ -583,13 +583,17 @@ export default {
   },
   "klaro": {
     "main": {
+      "acceptAll": "Accept all",
+      "acceptSelected": "Accept selected",
       "consentModal": {
         "description": "Here you can see and customise the services that we'd like to use on this website. To learn more please read our <a href='/rights/privacy-policy'>privacy policy</a>.",
         "title": "Services we would like to use."
       },
       "consentNotice": {
-        "description": "Hi! Could we please enable some additional services for analytics and security? You can always change or withdraw your consent later."
+        "description": "Hi! Could we please enable some additional services for analytics and security? You can always change or withdraw your consent later.",
+        "learnMore": "Let me choose"
       },
+      "decline": "I decline",
       "ok": "Okay",
       "purposes": {
         "essential": {
