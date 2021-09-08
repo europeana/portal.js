@@ -4,7 +4,7 @@ export default {
     "likes": "Patīk",
     "linkAccount": "Mans konts",
     "linkLogin": "Pieteikties",
-    "linkLoginJoin": "Pieteikties\/Pievienoties",
+    "linkLoginJoin": "Pieteikties/Pievienoties",
     "linkLogout": "Atteikties",
     "myProfile": "Mans profils",
     "notifications": {
@@ -335,7 +335,7 @@ export default {
     "MIME_TYPE": {
       "name": "Datnes formāts | Datņu formāti",
       "options": {
-        "text\/plain": "Vienkāršs teksts"
+        "text/plain": "Vienkāršs teksts"
       }
     },
     "PROVIDER": {
@@ -411,7 +411,7 @@ export default {
       "name": "Izdošanas datums"
     },
     "proxy_dcterms_medium": {
-      "name": "Līdzeklis\/ Līdzekļi"
+      "name": "Līdzeklis/ Līdzekļi"
     }
   },
   "feedback": {
@@ -613,7 +613,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Atceras, vai vēlaties redzēt meklēšanas rezultātus saraksta vai režģa skatā.",
-        "title": "Meklēšanas rezultātu skats (saraksts \/ režģis)"
+        "title": "Meklēšanas rezultātu skats (saraksts / režģis)"
       }
     }
   },
