@@ -117,3 +117,9 @@ Feature: item page
   Scenario: Seeing an item language selector
     When I open an `item page`
     Then I see an `item language selector`
+
+  @resized-browser
+  Scenario: HTML embedded media
+    When I open an `item page with a responsive embedded video`
+    And I resize the window to 1200 by 500
+    Then The iframe does not overflow `responsive embed wrapper`

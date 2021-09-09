@@ -1,13 +1,14 @@
 /* eslint-disable camelcase */
 
 const percy = require('@percy/nightwatch');
+const browserDimensions = require('./defaults.conf.js').browserDimensions;
 
 function chrome(options = {}) {
   const args = [
     'disable-gpu',
     `--lang=${options.locale}`,
     '--allow-insecure-localhost',
-    'window-size=1400,1000',
+    `window-size=${browserDimensions.width},${browserDimensions.height}`,
     '--no-sandbox',
     'headless'
   ];
