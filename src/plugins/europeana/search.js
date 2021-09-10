@@ -106,7 +106,8 @@ export default function search($axios, params, options = {}) {
     query: options.escape ? escapeLuceneSpecials(query) : query,
     reusability: params.reusability,
     rows,
-    start
+    start,
+    sort: params.sort
   };
   const targetLocale = 'en';
   if (options.locale && options.locale !== targetLocale) {
