@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="item.media && item.identifier"
     class="item-preview-slide"
     :class="variant"
   >
@@ -11,7 +12,7 @@
         class="slide-wrapper"
       >
         <OptimisedImage
-          :src="src"
+          :src="imageLink"
           :width="width"
           :height="height"
           alt
@@ -65,7 +66,6 @@
           return { error: error.message };
         });
     },
-    fetchOnServer: false,
 
     data() {
       return {
@@ -74,18 +74,18 @@
     },
 
     computed: {
-      src() {
-        return this.item.media?.[0]?.about;
-      },
       height() {
-        return this.item.media?.[0]?.ebucoreHeight;
+        return this.item.media[0]?.ebucoreHeight || 0;
       },
       width() {
-        return this.item.media?.[0]?.ebucoreWidth;
+        return this.item.media[0]?.ebucoreWidth || 0;
       },
 
       url() {
-        return { name: 'item-all', params: { pathMatch: this.item.identifier?.slice(1) } };
+        return { name: 'item-all', params: { pathMatch: this.item.identifier.slice(1) } };
+      },
+      imageLink() {
+        return this.$apis.record.mediaProxyUrl(this.item.media[0].about, this.item.identifier, { disposition: 'inline' });
       }
     }
   };
