@@ -27,7 +27,7 @@ jobs:
       - name: Run cleanup & commit
         run: |
           git rm i18n.js
-          find .src/lang -name "??.js" -exec sed -i 's=\\\/=\/=g' {} \;
+          find ./src/lang -name "??.js" -exec sed -i 's=\\\/=\/=g' {} \;
           git commit -am"lokalise cleanup"
           git push
 
