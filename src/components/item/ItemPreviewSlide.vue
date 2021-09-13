@@ -4,21 +4,35 @@
     class="item-preview-slide"
     :class="variant"
   >
-    <SmartLink
-      :destination="url"
-      link-class="card-link"
+    <div
+      class="slide-wrapper-link"
+      @mouseenter="show = true"
+      @mouseleave="show = false"
     >
+      <OptimisedImage
+        :src="imageLink"
+        :width="width"
+        :height="height"
+        alt
+        :aria-hidden="show ? 'true' : null"
+      />
       <div
-        class="slide-wrapper"
+        class="slide-overlay"
+        :class="{ show }"
       >
-        <OptimisedImage
-          :src="imageLink"
-          :width="width"
-          :height="height"
-          alt
+        <SmartLink
+          :destination="url"
+          link-class="slide-link"
+        >
+          Discover this item
+        </SmartLink>
+        <UserButtons
+          v-model="identifier"
+          @like="$emit('like', identifier)"
+          @unlike="$emit('unlike', identifier)"
         />
       </div>
-    </SmartLink>
+    </div>
   </div>
 </template>
 
@@ -30,7 +44,8 @@
     name: 'ItemPreviewSlide',
     components: {
       OptimisedImage,
-      SmartLink
+      SmartLink,
+      UserButtons: () => import('../account/UserButtons')
     },
     props: {
       variant: {
@@ -70,11 +85,15 @@
 
     data() {
       return {
-        item: {}
+        item: {},
+        show: false
       };
     },
 
     computed: {
+      identifier() {
+        return this.item.identifier;
+      },
       image() {
         return this.item.media.filter(m => m.ebucoreHasMimeType === 'image/jpeg');
       },
@@ -86,10 +105,10 @@
       },
 
       url() {
-        return { name: 'item-all', params: { pathMatch: this.item.identifier.slice(1) } };
+        return { name: 'item-all', params: { pathMatch: this.identifier.slice(1) } };
       },
       imageLink() {
-        return this.$apis.record.mediaProxyUrl(this.image[0]?.about, this.item.identifier, { disposition: 'inline' });
+        return this.$apis.record.mediaProxyUrl(this.image[0]?.about, this.identifier, { disposition: 'inline' });
       }
     }
   };
@@ -101,7 +120,7 @@
     height: 50vh;
     position: relative;
     margin: 4rem 0;
-    .slide-wrapper {
+    .slide-wrapper-link {
       overflow-y: hidden;
       height: 50vh;
       position: absolute;
@@ -111,8 +130,34 @@
       align-items: center;
       justify-content: center;
     }
+    .slide-overlay {
+
+      background-color: rgba(0, 0, 0, 0.8);
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      visibility: hidden;
+      opacity: 0;
+      transition: all 300ms ease-out;
+      &.show {
+        visibility: visible;
+        opacity: 1;
+        transition: all 300ms ease-in;
+      }
+      .slide-link {
+        color: $offwhite;
+        font-size: $font-size-large;
+        margin-bottom: 1rem;
+      }
+    }
   }
-  .zoom-out .slide-wrapper {
+  .zoom-out .slide-wrapper-link {
     img {
       max-height: 3000px;
       transition: all 500ms ease;
