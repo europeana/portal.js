@@ -2,11 +2,14 @@ name: Lokalise Cleanup
 
 on:
   pull_request:
-    branches: [ 'lokalise-*' ]
-    types: [opened]
+    branches:
+      - 'master'
+    types:
+      - opened
 
 jobs:
   update-pr:
+    if: ${{ startsWith(github.head_ref, 'lokalise-') }}
     runs-on: ubuntu-latest
 
     steps:
