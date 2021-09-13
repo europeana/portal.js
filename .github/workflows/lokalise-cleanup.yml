@@ -14,7 +14,8 @@ on:
 
 jobs:
   update-pr:
-    if: ${{ startsWith(github.head_ref, 'lokalise-') }}
+    # revert to limit this action to lokalise PRs when ready to go into master
+    #if: ${{ startsWith(github.head_ref, 'lokalise-') }}
     runs-on: ubuntu-latest
 
     steps:
