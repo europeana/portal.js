@@ -45,6 +45,7 @@
         qf: 'contentTier:4',
         rows: 1,
         facet: {
+          'TYPE': 'IMAGE',
           'MIME_TYPE': 'image/jpeg',
           'IMAGE_SIZE': ['MEDIUM', 'LARGE', 'EXTRA_LARGE']
         },
@@ -74,18 +75,21 @@
     },
 
     computed: {
+      image() {
+        return this.item.media.filter(m => m.ebucoreHasMimeType === 'image/jpeg');
+      },
       height() {
-        return this.item.media[0]?.ebucoreHeight || 0;
+        return this.image[0]?.ebucoreHeight || 0;
       },
       width() {
-        return this.item.media[0]?.ebucoreWidth || 0;
+        return this.image[0]?.ebucoreWidth || 0;
       },
 
       url() {
         return { name: 'item-all', params: { pathMatch: this.item.identifier.slice(1) } };
       },
       imageLink() {
-        return this.$apis.record.mediaProxyUrl(this.item.media[0].about, this.item.identifier, { disposition: 'inline' });
+        return this.$apis.record.mediaProxyUrl(this.image[0]?.about, this.item.identifier, { disposition: 'inline' });
       }
     }
   };
