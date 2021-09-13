@@ -1,11 +1,16 @@
 name: Lokalise Cleanup
 
 on:
-  pull_request:
+  # revert this to only run on PRs when ready to go into master
+  #pull_request:
+  #  branches:
+  #    - 'master'
+  #  types:
+  #    - opened
+  push:
     branches:
-      - 'master'
-    types:
-      - opened
+      - 'lokalise-*'
+
 
 jobs:
   update-pr:
