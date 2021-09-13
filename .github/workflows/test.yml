@@ -1,0 +1,13 @@
+name: Test
+
+on:
+  pull_request:
+    types: [opened]
+    branches:
+      - 'test/*'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo "OK"
