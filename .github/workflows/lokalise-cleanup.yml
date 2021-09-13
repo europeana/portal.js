@@ -26,6 +26,8 @@ jobs:
 
       - name: Run cleanup & commit
         run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
           git rm i18n.js
           find ./src/lang -name "??.js" -exec sed -i 's=\\\/=\/=g' {} \;
           git commit -am"lokalise cleanup"
