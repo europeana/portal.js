@@ -1,0 +1,39 @@
+name: Lokalise Cleanup
+
+on:
+  # revert this to only run on PRs when ready to go into master
+  #pull_request:
+  #  branches:
+  #    - 'master'
+  #  types:
+  #    - opened
+  push:
+    branches:
+      - 'lokalise-*'
+
+
+jobs:
+  update-pr:
+    if: ${{ startsWith(github.head_ref, 'lokalise-') }}
+    runs-on: ubuntu-latest
+
+    steps:
+      # Check-out repository under $GITHUB_WORKSPACE
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.PAT_TOKEN }}
+
+      - name: Run cleanup & commit
+        run: |
+          git rm i18n.js
+          find .src/lang -name "??.js" -exec sed -i 's=\\\/=\/=g' {} \;
+          git commit -am"lokalise cleanup"
+          git push
+
+# ---------------------------------------------
+# See also
+# https://github.community/t/triggering-a-new-workflow-from-another-workflow/16250/24
+# which if resolved may just allow
+# git push
+# to run without having to set and use a personal access token.
+# ---------------------------------------------
