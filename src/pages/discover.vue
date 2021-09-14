@@ -13,7 +13,7 @@
     />
     <h2>4. Parallax with overlay (link and user buttons)</h2>
     <ItemPreviewSlide
-      background="true"
+      :background="true"
     />
   </div>
 </template>
