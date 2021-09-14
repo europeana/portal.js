@@ -35,7 +35,7 @@
           @unlike="$emit('unlike', identifier)"
         />
         <SmartLink
-          :destination="'/discover'"
+          :destination="'/collections/discover'"
           link-class="slide-link"
         >
           Go on a trip through Europeana
