@@ -6,16 +6,19 @@
   >
     <div
       class="slide-wrapper-link"
+      :style="background ? `background-image: url(${imageLink})` : null"
       @mouseenter="show = true"
       @mouseleave="show = false"
     >
       <OptimisedImage
+        v-if="!background"
         :src="imageLink"
         :width="width"
         :height="height"
         alt
         :aria-hidden="show ? 'true' : null"
       />
+
       <div
         class="slide-overlay"
         :class="{ show }"
@@ -31,6 +34,12 @@
           @like="$emit('like', identifier)"
           @unlike="$emit('unlike', identifier)"
         />
+        <SmartLink
+          :destination="'/discover'"
+          link-class="slide-link"
+        >
+          Go on a trip through Europeana
+        </SmartLink>
       </div>
     </div>
   </div>
@@ -48,6 +57,10 @@
       UserButtons: () => import('../account/UserButtons')
     },
     props: {
+      background: {
+        type: Boolean,
+        default: false
+      },
       variant: {
         type: String,
         default: 'default'
@@ -119,7 +132,7 @@
   .item-preview-slide {
     height: 50vh;
     position: relative;
-    margin: 4rem 0;
+    margin: 2rem 0 4rem;
     .slide-wrapper-link {
       overflow-y: hidden;
       height: 50vh;
@@ -129,9 +142,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      //background version styles
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
     }
     .slide-overlay {
-
       background-color: rgba(0, 0, 0, 0.8);
       position: absolute;
       left: 0;
@@ -153,17 +170,27 @@
       .slide-link {
         color: $offwhite;
         font-size: $font-size-large;
-        margin-bottom: 1rem;
+        margin: 1rem 0;
       }
     }
   }
   .zoom-out .slide-wrapper-link {
     img {
       max-height: 3000px;
-      transition: all 500ms ease;
+      transition: all 1s ease;
     }
     &:hover img {
       max-height: 100%;
+      transition: all 1s ease;
+    }
+  }
+  .scroll .slide-wrapper-link {
+    align-items: flex-start;
+    overflow-y: scroll;
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+    &:-webkit-scrollbar {
+      display: none;  /* Safari and Chrome */
     }
   }
 </style>
