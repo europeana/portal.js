@@ -560,7 +560,7 @@ export default {
       "collections": "Συλλογές",
       "europeanaClassroom": "Εκπαιδευτικοί",
       "help": "Βοήθεια",
-      "home": "σπίτι",
+      "home": "Aρχική σελίδα",
       "stories": "Ιστορίες"
     },
     "searchFor": "Αναζήτηση του όρου {query}",

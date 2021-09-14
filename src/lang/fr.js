@@ -560,7 +560,7 @@ export default {
       "collections": "Collections",
       "europeanaClassroom": "Enseignants",
       "help": "Aide",
-      "home": "Domicile",
+      "home": "Accueil",
       "stories": "Histoires"
     },
     "searchFor": "Rechercher {query}",
