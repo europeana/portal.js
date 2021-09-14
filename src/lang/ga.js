@@ -53,9 +53,9 @@ export default {
     "title": "Teideal:"
   },
   "automatedCardGroup": {
-    "item": "Míreanna le Déanaí",
-    "time": "Na hAoisí Réadmhaoine",
-    "topic": "Topaicí Réadmhaoine"
+    "item": "Míreanna le déanaí",
+    "time": "Na hAois réadmhaoin",
+    "topic": "Topaicí réadmhaoine"
   },
   "blog": {
     "author": "Údar",

@@ -54,7 +54,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Viimeisimmät kohdetta",
-    "time": "Esillä olevat vuosisadat",
+    "time": "Esillä vuosisatoja",
     "topic": "Esillä olevat aiheet"
   },
   "blog": {

@@ -49,6 +49,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Artículos recientes",
+    "time": "Siglos destacados",
     "topic": "Temas destacados"
   },
   "blog": {

@@ -48,6 +48,7 @@ export default {
     "title": "Naslov:"
   },
   "automatedCardGroup": {
+    "item": "Nedavni predmeti",
     "time": "Priporočena stoletja",
     "topic": "Priporočene teme"
   },

@@ -53,9 +53,9 @@ export default {
     "title": "Title:"
   },
   "automatedCardGroup": {
-    "item": "Recent Items",
-    "time": "Featured Centuries",
-    "topic": "Featured Topics"
+    "item": "Recent items",
+    "time": "Featured centuries",
+    "topic": "Featured topics"
   },
   "blog": {
     "author": "Author",
