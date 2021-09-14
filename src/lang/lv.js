@@ -1,16 +1,19 @@
 export default {
   "account": {
+    "curatedCollections": "Kuratora veidotās kolekcijas",
+    "curatedCollectionsInfo": "Zemāk atrodiet visas kolekcijas, kuras esat izveidojis",
     "editProfile": "Rediģēt profilu",
     "likes": "Patīk",
     "linkAccount": "Mans konts",
     "linkLogin": "Pieteikties",
-    "linkLoginJoin": "Pieteikties/Pievienoties",
+    "linkLoginJoin": "Pieteikties\/Pievienoties",
     "linkLogout": "Atteikties",
     "myProfile": "Mans profils",
     "notifications": {
       "loggedIn": "Jūs tagad esat pieteicies. Laipni lūdzam!",
       "loggedOut": "Jūs tagad esat atteicies.",
       "noCollections": {
+        "curated": "Jūs vēl neesat apkopojis nevienu kolekciju",
         "private": "Vēl nav izveidota neviena privāta galerija",
         "public": "Vēl nav izveidota neviena publiska galerija"
       },
@@ -24,6 +27,7 @@ export default {
     "title": "Mans konts"
   },
   "actions": {
+    "accept": "Pieņemt",
     "cancel": "Atcelt",
     "close": "aizvērt",
     "download": "Lejupielādēt",
@@ -33,6 +37,7 @@ export default {
     "like": "Patīk",
     "next": "Nākamais",
     "providedBy": "Nodrošina {provider}",
+    "reject": "Noraidīt",
     "send": "Sūtīt",
     "share": "Dalies",
     "shareOn": "Dalīties {social}",
@@ -64,6 +69,7 @@ export default {
     "relatedPosts": "Saistītās ziņas"
   },
   "cardLabels": {
+    "organisation": "Organizācija",
     "person": "Persona",
     "time": "Gadsimts",
     "topic": "Temats"
@@ -137,13 +143,28 @@ export default {
   "edmIsShownAtLinkAlt": "Skatīt pakalpojumu sniedzēja vietnē",
   "entity": {
     "actions": {
-      "cancel": "Atcelt"
+      "cancel": "Atcelt",
+      "pin": "Piespraust vienumu",
+      "unpin": "Atspraust vienumu",
+      "viewPinned": "Skatiet piespraustos vienumus"
     },
     "labels": {
       "entity": "Struktūrvienība"
     },
     "notifications": {
-      "deleted": "Tava galerija ir izdzēsta."
+      "deleted": "Tava galerija ir izdzēsta.",
+      "pinLimit": {
+        "body": "Pagaidām pirmajā lapā var piespraust tikai 24 vienumus. Ja vēlaties piespraust šo vienumu, noteikti atspraudiet vēl vienu un mēģiniet vēlreiz piespraust šo vienumu.",
+        "title": "Pārāk daudz piesprausto vienumu"
+      },
+      "pinned": "Vienums ir piespraustas. Tagad tas atrodas šīs kolekcijas pirmās lapas augšpusē. Var paiet līdz pat 24 stundām, līdz tas parādās visiem.",
+      "pinnedFirstPage": "Vienums ir piespraustas. Var paiet līdz pat 24 stundām, līdz tas parādās visiem.",
+      "unpinned": "Vienums ir atspraustas. Tas vairs nav šīs kolekcijas pirmās lapas augšpusē. Var paiet pat 24 stundas, līdz visi pazūd.",
+      "unpinnedFirstPage": "Vienums ir atspraustas. Var paiet pat 24 stundas, līdz visi pazūd."
+    },
+    "prompts": {
+      "pin": "Vai tiešām vēlaties piespraust šo vienumu? Šis vienums tiks rādīts kolekcijas \"{entity}\" augšdaļā. Šo izmaiņu stāšanās spēkā var ilgt līdz 24 stundām.",
+      "unpin": "Vai tiešām vēlaties atspraust šo vienumu? Šis vienums vairs netiks rādīts kolekcijas \"{entity}\" augšdaļā. Šo izmaiņu stāšanās spēkā var ilgt līdz 24 stundām."
     }
   },
   "error": "Kļūda",
@@ -335,7 +356,7 @@ export default {
     "MIME_TYPE": {
       "name": "Datnes formāts | Datņu formāti",
       "options": {
-        "text/plain": "Vienkāršs teksts"
+        "text\/plain": "Vienkāršs teksts"
       }
     },
     "PROVIDER": {
@@ -411,7 +432,7 @@ export default {
       "name": "Izdošanas datums"
     },
     "proxy_dcterms_medium": {
-      "name": "Līdzeklis/ Līdzekļi"
+      "name": "Līdzeklis\/ Līdzekļi"
     }
   },
   "feedback": {
@@ -485,7 +506,8 @@ export default {
       "keywords": "Atslēgas vārdi (nodrošina kopiena)",
       "timestampCreated": "Laikspiedogs izveidots",
       "timestampUpdate": "Laikspiedogs atjaunināts",
-      "wasPresentAt": "Bija"
+      "wasPresentAt": "Bija",
+      "year": "Gads"
     },
     "webResource": {
       "about": "RDF Par",
@@ -554,6 +576,9 @@ export default {
   "items": {
     "itemCount": "1 vienums |{count} vienumiem",
     "itemOf": "{max} no {count} vienumiem",
+    "recent": "Nesenie vienumi",
+    "recommendationsDisclaimer": "Īkšķis uz augšu, lai pievienotu galerijai - īkšķis uz leju, ja jums tas nepatīk",
+    "recommended": "Ieteiktie priekšmeti",
     "youMightLike": "Iespējams, Tev patiks arī šie"
   },
   "klaro": {
@@ -593,6 +618,7 @@ export default {
         "title": "Auth stratēģija"
       },
       "debugSettings": {
+        "description": "Palīdz atkļūdot API pieprasījumus",
         "title": "Atkļūdošanas pārslēgšana"
       },
       "hotjar": {
@@ -613,7 +639,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Atceras, vai vēlaties redzēt meklēšanas rezultātus saraksta vai režģa skatā.",
-        "title": "Meklēšanas rezultātu skats (saraksts / režģis)"
+        "title": "Meklēšanas rezultātu skats (saraksts \/ režģis)"
       }
     }
   },
@@ -635,6 +661,7 @@ export default {
       "text": "Jūs meklējat mūsu jaunajā un ātrākajā vietnē."
     }
   },
+  "loading": "Notiek ielāde",
   "loadingResults": "Notiek rezultātu ielāde",
   "mediaPreview": {
     "selectItem": "Atlasīt vienumu {src}"
@@ -645,7 +672,18 @@ export default {
     "notFound": "Nav atrasts",
     "paginationLimitExceeded": "Ir iespējams apskatīt tikai pirmos {limit} meklēšanas rezultātus."
   },
+  "modal": {
+    "download": {
+      "clickToCopy": "Noklikšķiniet uz attiecinājuma, lai to kopētu",
+      "modalIntro": "Ja izmantojat šo vienumu tīmeklī vai citur, neaizmirstiet blakus tam parādīt šādu attiecinājumu:",
+      "modalTitle": "Sakiet paldies"
+    }
+  },
   "multilingual": {
+    "automated": "Automātiskā tulkošana",
+    "currentLanguage": "Vai jūs vēlētos redzēt šo preci {0}?",
+    "differentLanguage": "cita valoda",
+    "enrichment": "Bagātināšana ar partneru projektiem",
     "original": "Oriģinālie metadati",
     "originalLanguage": "oriģinālvaloda",
     "other": "Citas valodas"
@@ -656,6 +694,15 @@ export default {
   "pageHasLoaded": "ir ielādēts",
   "pages": {
     "collections": {
+      "organisations": {
+        "table": {
+          "name": "Vārds"
+        },
+        "title": "Organizācijas"
+      },
+      "persons": {
+        "title": "Personas"
+      },
       "times": {
         "title": "Laiki"
       },
@@ -738,12 +785,14 @@ export default {
       "likeLimit": {
         "body": "Diemžēl šobrīd ir iespējams atzīmēt \"patīk\" ne vairāk kā 100 vienumiem. Drīzumā šis ierobežojums tiks noņemts!",
         "title": "100 patīk"
-      }
+      },
+      "updated": "Vienums tika pievienots galerijai."
     },
     "prompts": {
       "delete": "Vai tiešām vēlies dzēst šo galeriju? Dzēšot šo galeriju, tiks zaudēti visi tai pievienotie vienumi."
     }
   },
   "showLess": "Rādīt mazāk",
-  "showMore": "Rādīt vairāk"
+  "showMore": "Rādīt vairāk",
+  "website": "Vietne"
 };
