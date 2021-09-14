@@ -124,23 +124,15 @@
         // set field values
         this.entry.fields.identifier.setValue(response.id); // data.europeana.eu URI
 
-        if (this.entry.fields.slug) {
-          this.entry.fields.slug.setValue(getEntitySlug(id, enPrefLabel)); // slug
-        }
+        this.entry.fields.slug?.setValue(getEntitySlug(id, enPrefLabel)); // slug
 
-        if (this.entry.fields.type) {
-          this.entry.fields.type.setValue(getEntityTypeHumanReadable(response.type)); // entity type
-        }
+        this.entry.fields.type?.setValue(getEntityTypeHumanReadable(response.type)); // entity type
 
         // set name field from `prefLabel`
-        if (this.entry.fields.name) {
-          this.entry.fields.name.setValue(enPrefLabel);
-        }
+        this.entry.fields.name?.setValue(enPrefLabel);
 
         // set description from different fields based on entity type
-        if (this.entry.fields.description) {
-          this.entry.fields.description.setValue(this.entityDescriptionFromResponse(response));
-        }
+        this.entry.fields.description?.setValue(this.entityDescriptionFromResponse(response));
 
         // set image field from `isShownBy`
         if (this.entry.fields.image) {

@@ -123,11 +123,6 @@ export default {
       "teachers": "Teachers"
     }
   },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Accept cookie disclaimer",
-    "link": "More info",
-    "terms": "This website uses cookies to ensure you get the best experience on our website. By clicking or navigating the site, you agree to allow our collection of information through cookies."
-  },
   "curatedAutomatically": "Curated automatically by Europeana",
   "dateFilter": {
     "endDate": "End date",
@@ -455,8 +450,8 @@ export default {
     "termsOfService": "Terms of Service",
     "thankYou": "Thank you!",
     "title": "Send feedback",
-    "validFeedback": "Your feedback has to consist of 5 words at minimum",
-    "validEmail": "Enter a valid email address"
+    "validEmail": "Enter a valid email address",
+    "validFeedback": "Your feedback has to consist of 5 words at minimum"
   },
   "fieldLabels": {
     "default": {
@@ -588,13 +583,17 @@ export default {
   },
   "klaro": {
     "main": {
+      "acceptAll": "Accept all",
+      "acceptSelected": "Accept selected",
       "consentModal": {
         "description": "Here you can see and customise the services that we'd like to use on this website. To learn more please read our <a href='/rights/privacy-policy'>privacy policy</a>.",
         "title": "Services we would like to use."
       },
       "consentNotice": {
-        "description": "Hi! Could we please enable some additional services for analytics and security? You can always change or withdraw your consent later."
+        "description": "Hi! Could we please enable some additional services for analytics and security? You can always change or withdraw your consent later.",
+        "learnMore": "Let me choose"
       },
+      "decline": "I decline",
       "ok": "Okay",
       "purposes": {
         "essential": {

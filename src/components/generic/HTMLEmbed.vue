@@ -4,6 +4,7 @@
     v-if="html && responsiveProvider"
     class="responsive-embed-wrapper"
     :style="`max-width:${maxWidthWrapper}rem`"
+    data-qa="responsive embed wrapper"
   >
     <div
       data-qa="html embed"

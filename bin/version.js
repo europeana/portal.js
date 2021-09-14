@@ -1,4 +1,3 @@
-import path from 'path';
 import propertiesReader from 'properties-reader';
 
 import pkg from '../package.json';

@@ -5,9 +5,6 @@
         v-if="enableAnnouncer"
         data-qa="vue announcer"
       />
-      <CookieDisclaimer
-        v-if="!klaroEnabled"
-      />
     </client-only>
     <div
       ref="resetfocus"
@@ -58,7 +55,6 @@
   export default {
     components: {
       ClientOnly,
-      CookieDisclaimer: () => import('../components/generic/CookieDisclaimer'),
       PageHeader,
       PageFooter: () => import('../components/PageFooter'),
       FeedbackWidget: () => import('../components/feedback/FeedbackWidget')
@@ -82,16 +78,14 @@
         canonicalUrlWithoutLocale: 'http/canonicalUrlWithoutLocale'
       }),
 
-      klaroEnabled() {
-        return this.$config.app.features.klaro;
-      },
-
       feedbackEnabled() {
         return this.$config.app.features.jiraServiceDeskFeedbackForm && this.$config.app.baseUrl;
       }
     },
 
     watch: {
+      '$i18n.locale': 'renderKlaro',
+
       $route(to, from) {
         this.$nextTick(() => {
           if (to.path === from.path) {
@@ -107,9 +101,7 @@
 
     mounted() {
       this.timeoutUntilPiwikSet(0);
-      if (this.klaroEnabled) {
-        this.klaro = window.klaro;
-      }
+      this.klaro = window.klaro;
 
       if (this.$auth.$storage.getUniversal('portalLoggingIn') && this.$auth.loggedIn) {
         this.showToast(this.$t('account.notifications.loggedIn'));
@@ -163,11 +155,7 @@
 
       timeoutUntilPiwikSet(counter) {
         if (this.$matomo || counter > 100) {
-          if (this.klaroEnabled) {
-            this.renderKlaro();
-          } else {
-            this.$matomo && this.$matomo.rememberCookieConsentGiven();
-          }
+          this.renderKlaro();
         } else {
           setTimeout(() => {
             this.timeoutUntilPiwikSet(counter + 1);

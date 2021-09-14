@@ -307,6 +307,21 @@ module.exports = {
   },
   async scrollWindow() {
     await client.execute('scroll(0, 100)');
+  },
+  async resizeBrowserWindow(width, height) {
+    await client.resizeWindow(width, height);
+  },
+  async iframeFitsContainer(qaElementNameParent) {
+    let childSize;
+    let parentSize;
+    await client.getElementSize(`${qaSelector(qaElementNameParent)} iframe`, (result) => {
+      childSize = { height: result.value.height, width: result.value.width };
+    });
+    await client.getElementSize(qaSelector(qaElementNameParent), (result) => {
+      parentSize = { height: result.value.height, width: result.value.width };
+    });
+    await client.expect(childSize.height).to.be.at.most(parentSize.height);
+    await client.expect(childSize.width).to.be.at.most(parentSize.width);
   }
 };
 

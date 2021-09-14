@@ -91,9 +91,7 @@
       },
 
       updateContentfulField() {
-        if (this.contentfulExtensionSdk) {
-          this.contentfulExtensionSdk.field.setValue(this.value.map(val => val.id));
-        }
+        this.contentfulExtensionSdk?.field?.setValue(this.value.map(val => val.id));
       }
     },
 

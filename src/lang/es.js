@@ -117,11 +117,6 @@ export default {
       "teachers": "Profesores"
     }
   },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Aceptar el consentimiento informado del uso de cookies",
-    "link": "Más información",
-    "terms": "Este sitio web utiliza cookies para garantizarle la mejor experiencia en nuestro sitio web. Al hacer clic o navegar por el sitio, nos da su consentimiento para recopilar información por medio de cookies."
-  },
   "curatedAutomatically": "Comisariados automáticamente por Europeana",
   "dateFilter": {
     "endDate": "Fecha de finalización",
@@ -434,7 +429,8 @@ export default {
     "termsOfService": "Términos de servicio",
     "thankYou": "Gracias.",
     "title": "Enviar comentarios",
-    "validEmail": "Introduzca una dirección de correo electrónico válida"
+    "validEmail": "Introduzca una dirección de correo electrónico válida",
+    "validFeedback": "Sus comentarios deben constar de 5 palabras como mínimo"
   },
   "fieldLabels": {
     "default": {
@@ -562,13 +558,17 @@ export default {
   },
   "klaro": {
     "main": {
+      "acceptAll": "Aceptar todo",
+      "acceptSelected": "Aceptar seleccionado",
       "consentModal": {
         "description": "Nos tomamos muy en serio la privacidad de sus datos. Aquí puede evaluar y personalizar los servicios que nos gustaría utilizar en este sitio web. ¡Estás a cargo! Habilite o deshabilite los servicios como mejor le parezca.",
         "title": "Servicios que nos gustaría utilizar."
       },
       "consentNotice": {
-        "description": "Nos preocupamos por su privacidad y solo usamos los datos para mejorar su experiencia. No utilizamos ninguna información personal para publicidad. Puede cambiar su consentimiento cada 15 días."
+        "description": "Nos preocupamos por su privacidad y solo usamos los datos para mejorar su experiencia. No utilizamos ninguna información personal para publicidad. Puede cambiar su consentimiento cada 15 días.",
+        "learnMore": "Dejame elegir"
       },
+      "decline": "Me niego",
       "ok": "Okey",
       "purposes": {
         "essential": {

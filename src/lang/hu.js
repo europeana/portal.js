@@ -117,11 +117,6 @@ export default {
       "teachers": "Tanárok"
     }
   },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "A sütikkel kapcsolatos nyilatkozat elfogadása",
-    "link": "További információ",
-    "terms": "Ez a weboldal sütiket használ annak érdekében, hogy weboldalunkon a lehető legjobb élményt nyújtsa. A webhelyre kattintva vagya webhelyen történő böngészéssel engedélyezi számunkra a sütik segítségével történő információgyűjtést."
-  },
   "curatedAutomatically": "Az Europeana által automatikusan felügyelt",
   "dateFilter": {
     "endDate": "Záró dátum",
@@ -142,7 +137,8 @@ export default {
   "edmIsShownAtLinkAlt": "Megtekintés a szolgáltató webhelyén",
   "entity": {
     "actions": {
-      "cancel": "Mégse"
+      "cancel": "Mégse",
+      "pin": "Elem kitűzője"
     },
     "labels": {
       "entity": "Entitás"
@@ -434,7 +430,8 @@ export default {
     "termsOfService": "Szolgáltatás feltételei",
     "thankYou": "Köszönöm!",
     "title": "Visszajelzés küldése",
-    "validEmail": "Adjon meg egy érvényes email címet"
+    "validEmail": "Adjon meg egy érvényes email címet",
+    "validFeedback": "A visszajelzésnek legalább 5 szóból kell állnia"
   },
   "fieldLabels": {
     "default": {
@@ -489,7 +486,8 @@ export default {
       "keywords": "Kulcsszavak (a közösség által megadva)",
       "timestampCreated": "Időbélyeg létrehozva",
       "timestampUpdate": "Időbélyeg frissítve",
-      "wasPresentAt": "Jelen volt itt"
+      "wasPresentAt": "Jelen volt itt",
+      "year": "Év"
     },
     "webResource": {
       "about": "RDF Névjegy",
@@ -562,13 +560,17 @@ export default {
   },
   "klaro": {
     "main": {
+      "acceptAll": "Elfogadni minden",
+      "acceptSelected": "Kiválasztott elfogadása",
       "consentModal": {
         "description": "Komolyan vesszük az Ön adatvédelmét. Itt értékelheti és testre szabhatja azokat a szolgáltatásokat, amelyeket ezen a weboldalon használni szeretnénk. Te vagy a felelős! Engedélyezze vagy tiltsa le a szolgáltatásokat tetszése szerint.",
         "title": "Szolgáltatások, amelyeket szeretnénk igénybe venni."
       },
       "consentNotice": {
-        "description": "Törődünk az adatvédelemmel, és csak az élmény javítása érdekében használunk adatokat. Nem használunk személyes adatokat reklámozásra. 15 naponta módosíthatja beleegyezését."
+        "description": "Törődünk az adatvédelemmel, és csak az élmény javítása érdekében használunk adatokat. Nem használunk személyes adatokat reklámozásra. 15 naponta módosíthatja beleegyezését.",
+        "learnMore": "Hadd válasszam"
       },
+      "decline": "Elutasítom",
       "ok": "oké",
       "purposes": {
         "essential": {
@@ -593,6 +595,7 @@ export default {
         "title": "Auth stratégia"
       },
       "debugSettings": {
+        "description": "Segít az API -kérelmek hibakeresésében",
         "title": "Hibakeresés váltás"
       },
       "hotjar": {

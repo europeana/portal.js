@@ -55,7 +55,7 @@
         .then(data => {
           if (data.imageGalleryCollection.items.length === 0) {
             error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
-            return;
+            return null;
           }
 
           const gallery = data.imageGalleryCollection.items[0];
@@ -91,13 +91,7 @@
     methods: {
       imageTitle(data) {
         if (data.encoding) {
-          if (data.encoding.dcTitleLangAware) {
-            return data.encoding.dcTitleLangAware;
-          } else if (data.encoding.dcDescriptionLangAware) {
-            return data.encoding.dcDescriptionLangAware;
-          } else {
-            return this.$t('record.record');
-          }
+          return data.encoding.dcTitleLangAware || data.encoding.dcDescriptionLangAware || this.$t('record.record');
         }
         return data.name;
       },

@@ -137,13 +137,16 @@
           <h2 class="related-heading">
             {{ $t('items.recommended') }}
           </h2>
-          <h5 class="related-subtitle">
+          <h5
+            v-if="enableAcceptRecommendations"
+            class="related-subtitle"
+          >
             <span class="icon-info-outline" />
             {{ $t('items.recommendationsDisclaimer') }}
           </h5>
           <ItemPreviewCardGroup
             v-model="recommendations"
-            :recommendations="this.$config.app.features.acceptSetRecommendations"
+            :recommendations="enableAcceptRecommendations"
           />
         </b-col>
       </b-row>
@@ -215,8 +218,8 @@
       },
       userIsEntityEditor() {
         const user = this.$store.state.auth.user;
-        const entitiesEditor = user.resource_access.entities && user.resource_access.entities.roles.includes('editor');
-        const usersetsEditor = user.resource_access.usersets && user.resource_access.usersets.roles.includes('editor');
+        const entitiesEditor = user?.resource_access?.entities?.roles?.includes('editor');
+        const usersetsEditor = user?.resource_access?.usersets?.roles?.includes('editor');
         return entitiesEditor && usersetsEditor;
       },
       userCanEdit() {
@@ -235,10 +238,16 @@
         return langMapValueForLocale(this.set.description, this.$i18n.locale);
       },
       enableRecommendations() {
-        if (this.set.type === 'EntityBestItemsSet') {
+        if (this.setIsEntityBestItems) {
           return this.$config.app.features.recommendations && this.$config.app.features.acceptEntityRecommendations;
         }
         return this.$config.app.features.recommendations;
+      },
+      enableAcceptRecommendations() {
+        if (this.setIsEntityBestItems) {
+          return this.$config.app.features.acceptEntityRecommendations;
+        }
+        return this.$config.app.features.acceptSetRecommendations;
       },
       displayItemCount() {
         const max = 100;
@@ -246,7 +255,7 @@
         return this.$tc(label, this.set.total, { max });
       },
       shareMediaUrl() {
-        if (!this.set.items || (this.set.items.length === 0)) {
+        if ((this.set?.items?.length || 0) === 0) {
           return null;
         } else {
           return this.set.items[0].edmPreview ?

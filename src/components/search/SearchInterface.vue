@@ -284,9 +284,9 @@
         });
       },
       contentTierZeroActive() {
-        return this.filters.contentTier && this.filters.contentTier.some(filter => {
+        return this.filters.contentTier?.some(filter => {
           return filter === '"0"' || filter === '*'; // UI applies "0", this won't handle user provided values.
-        });
+        }) || false;
       },
       routeQueryView() {
         return this.$route.query.view;
@@ -327,7 +327,7 @@
           return;
         }
 
-        return this.rerouteSearch(this.queryUpdatesForFacetChanges({ [name]: selected }));
+        this.rerouteSearch(this.queryUpdatesForFacetChanges({ [name]: selected }));
       },
       changeMoreFacets(selected) {
         return this.rerouteSearch(this.queryUpdatesForFacetChanges(selected));

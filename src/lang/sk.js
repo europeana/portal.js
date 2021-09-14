@@ -117,11 +117,6 @@ export default {
       "teachers": "Učitelia"
     }
   },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Vyjadrite súhlas s vyhlásením o používaní súborov cookie",
-    "link": "Ďalšie informácie",
-    "terms": "Táto webová stránka používa cookies, aby zabezpečila čo najlepší zážitok z našej webovej stránky. Kliknutím alebo navigáciou na stránke súhlasíte s povolením nášho zhromažďovania informácií prostredníctvom súborov cookie."
-  },
   "curatedAutomatically": "Spravované automaticky spol. Europeana",
   "dateFilter": {
     "endDate": "Dátum ukončenia",
@@ -434,7 +429,8 @@ export default {
     "termsOfService": "Podmienky služby",
     "thankYou": "Ďakujeme!",
     "title": "Odoslať spätnú väzbu",
-    "validEmail": "Zadajte platnú e-mailovú adresu"
+    "validEmail": "Zadajte platnú e-mailovú adresu",
+    "validFeedback": "Vaša spätná väzba musí obsahovať minimálne 5 slov"
   },
   "fieldLabels": {
     "default": {
@@ -562,13 +558,17 @@ export default {
   },
   "klaro": {
     "main": {
+      "acceptAll": "Prijať všetko",
+      "acceptSelected": "Prijať vybrané",
       "consentModal": {
         "description": "Vaše súkromie údajov berieme vážne. Tu môžete posúdiť a prispôsobiť služby, ktoré by sme chceli použiť na tomto webe. Máte to na starosti! Povoľte alebo zakážte služby, ako uznáte za vhodné.",
         "title": "Služby, ktoré by sme chceli využiť."
       },
       "consentNotice": {
-        "description": "Záleží nám na vašom súkromí a údaje používame iba na zlepšenie vášho zážitku. Na reklamu nepoužívame žiadne osobné informácie. Svoj súhlas môžete zmeniť každých 15 dní."
+        "description": "Záleží nám na vašom súkromí a údaje používame iba na zlepšenie vášho zážitku. Na reklamu nepoužívame žiadne osobné informácie. Svoj súhlas môžete zmeniť každých 15 dní.",
+        "learnMore": "Nechaj ma vybrat si"
       },
+      "decline": "zamietam",
       "ok": "Dobre",
       "purposes": {
         "essential": {

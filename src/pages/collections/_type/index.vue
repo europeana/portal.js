@@ -35,10 +35,10 @@
 </template>
 
 <script>
-  import { getEntityTypeApi, getEntityTypeHumanReadable, getEntitySlug } from '../../../plugins/europeana/entity';
+  import { getEntityTypeApi, getEntityTypeHumanReadable, getEntitySlug } from '@/plugins/europeana/entity';
 
-  import ContentHeader from '../../../components/generic/ContentHeader';
-  import ContentCard from '../../../components/generic/ContentCard';
+  import ContentHeader from '@/components/generic/ContentHeader';
+  import ContentCard from '@/components/generic/ContentCard';
 
   const PER_PAGE = 24;
   export default {
@@ -46,7 +46,7 @@
     components: {
       ContentHeader,
       ContentCard,
-      PaginationNav: () => import('../../../components/generic/PaginationNav')
+      PaginationNav: () => import('@/components/generic/PaginationNav')
     },
     middleware: 'sanitisePageQuery',
     asyncData({ params, error, app, store }) {
@@ -106,9 +106,7 @@
         };
       },
       thumbnail(entity) {
-        if (typeof entity.isShownBy !== 'undefined') {
-          return entity.isShownBy.thumbnail;
-        }
+        return entity?.isShownBy?.thumbnail;
       }
     },
     head() {

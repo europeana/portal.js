@@ -203,7 +203,7 @@
         return this.fields.dctermsSpatial;
       },
       edmRights() {
-        return this.fields.edmRights ? this.fields.edmRights.def[0] : '';
+        return this.fields.edmRights?.def[0] || '';
       },
       europeanaEntities() {
         return this.agents
@@ -254,7 +254,7 @@
         if (isEmpty(this.descriptionInCurrentLanguage)) {
           return '';
         }
-        return this.descriptionInCurrentLanguage.values[0] ? this.descriptionInCurrentLanguage.values[0] : '';
+        return this.descriptionInCurrentLanguage.values[0] || '';
       },
       dataProvider() {
         const edmDataProvider = langMapValueForLocale(this.coreFields.edmDataProvider, this.$i18n.locale);
@@ -272,7 +272,7 @@
         return this.$config.app.features.linksToClassic;
       },
       pageHeadMetaOgImage() {
-        return this.media[0] ? this.media[0].thumbnails.large : null;
+        return this.media[0]?.thumbnails?.large || null;
       },
       taggingAnnotations() {
         return this.annotationsByMotivation('tagging');
@@ -359,12 +359,12 @@
 
       getSimilarItemsData(value) {
         if (!value) {
-          return;
+          return null;
         }
 
         const data = langMapValueForLocale(value, this.$i18n.locale).values;
         if (!data) {
-          return;
+          return null;
         }
 
         return data.filter(item => typeof item === 'string');

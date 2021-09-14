@@ -60,7 +60,7 @@
             return itemData;
           } else {
             error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
-            return;
+            return null;
           }
         })
         .catch((e) => {
@@ -98,14 +98,8 @@
         }?utm_source=new-website&utm_medium=button`;
       },
       socialMediaImage() {
-        // use social media image if set in Contentful, otherwise use hero image
-        if (this.image) {
-          return this.image;
-        } else if (this.heroImage) {
-          return this.heroImage.image;
-        }
-        // No relevant image present, return null
-        return null;
+        // use social media image if set in Contentful, otherwise use hero image, else null
+        return this.image || this.heroImage?.image || null;
       },
       socialMediaImageOptimisedUrl() {
         return this.$options.filters.optimisedImageUrl(this.socialMediaImage.url, this.socialMediaImage.contentType, {
@@ -120,13 +114,7 @@
         return this.primaryImageOfPage ? this.primaryImageOfPage : null;
       },
       heroImage() {
-        let heroImage = null;
-
-        if (this.hero && this.hero.image) {
-          heroImage = this.hero.image;
-        }
-
-        return heroImage;
+        return this.hero?.image || null;
       }
     },
 

@@ -117,11 +117,6 @@ export default {
       "teachers": "Lärare"
     }
   },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Acceptera cookiemeddelande",
-    "link": "Mera info",
-    "terms": "Denna webbplats använder cookies för att säkerställa att du får den bästa upplevelsen på vår webbplats. Genom att klicka eller navigera på webbplatsen samtycker du till att vi samlar in information via cookies."
-  },
   "curatedAutomatically": "Sammanställt automatiskt av Europeana",
   "dateFilter": {
     "endDate": "Slutdatum",
@@ -434,7 +429,8 @@ export default {
     "termsOfService": "Användarvillkor",
     "thankYou": "Tack!",
     "title": "Skicka feedback",
-    "validEmail": "Ange en giltig e-postadress"
+    "validEmail": "Ange en giltig e-postadress",
+    "validFeedback": "Din feedback måste bestå av minst 5 ord"
   },
   "fieldLabels": {
     "default": {
@@ -563,13 +559,17 @@ export default {
   },
   "klaro": {
     "main": {
+      "acceptAll": "Acceptera alla",
+      "acceptSelected": "Acceptera valt",
       "consentModal": {
         "description": "Vi tar din datasekretess på allvar. Här kan du bedöma och anpassa de tjänster som vi vill använda på den här webbplatsen. Du har ansvaret! Aktivera eller inaktivera tjänster som du tycker passar.",
         "title": "Tjänster som vi skulle vilja använda."
       },
       "consentNotice": {
-        "description": "Vi bryr oss om din integritet och använder endast data för att förbättra din upplevelse. Vi använder ingen personlig information för reklam. Du kan ändra ditt samtycke var 15: e dag."
+        "description": "Vi bryr oss om din integritet och använder endast data för att förbättra din upplevelse. Vi använder ingen personlig information för reklam. Du kan ändra ditt samtycke var 15: e dag.",
+        "learnMore": "Låt mig välja"
       },
+      "decline": "jag avböjer",
       "ok": "Okej",
       "purposes": {
         "essential": {

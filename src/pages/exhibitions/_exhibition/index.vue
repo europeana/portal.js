@@ -78,7 +78,7 @@
         .then(data => {
           if (data.exhibitionPageCollection.items.length === 0) {
             error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
-            return;
+            return null;
           }
 
           store.commit('breadcrumb/setBreadcrumbs', [
@@ -99,16 +99,13 @@
     },
     computed: {
       hero() {
-        return this.primaryImageOfPage ? this.primaryImageOfPage : null;
+        return this.primaryImageOfPage || null;
       },
       heroImage() {
-        return this.hero ? this.hero.image : null;
+        return this.hero?.image || null;
       },
       mainContent() {
-        if (this.text === undefined) {
-          return;
-        }
-        return marked(this.text);
+        return this.text ? marked(this.text) : null;
       },
       optimisedImageUrl() {
         return this.$options.filters.optimisedImageUrl(

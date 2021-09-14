@@ -156,10 +156,6 @@
                    { url: '/rights/cookies-policy', text: this.$t('footer.navigation.cookies') }
                  ] };
       }
-    },
-
-    watch: {
-      '$i18n.locale': '$fetch'
     }
   };
 </script>

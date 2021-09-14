@@ -75,16 +75,10 @@
         return chapter.identifier === this.currentChapter ? this.$t('exhibitions.currentChapter') : '';
       },
       chapterImage(chapter) {
-        if (!chapter || !chapter.primaryImageOfPage || !chapter.primaryImageOfPage.image) {
-          return null;
-        }
-        return chapter.primaryImageOfPage.image.url;
+        return chapter?.primaryImageOfPage?.image?.url || null;
       },
       chapterImageContentType(chapter) {
-        if (!chapter || !chapter.primaryImageOfPage || !chapter.primaryImageOfPage.image) {
-          return null;
-        }
-        return chapter.primaryImageOfPage.image.contentType;
+        return chapter?.primaryImageOfPage?.image?.contentType || null;
       },
       optimisedBackgroundImageUrl(chapter) {
         return this.$options.filters.optimisedImageUrl(

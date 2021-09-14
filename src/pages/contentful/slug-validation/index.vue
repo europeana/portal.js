@@ -68,9 +68,7 @@
 
     methods: {
       updateContentfulField() {
-        if (this.contentfulExtensionSdk) {
-          this.contentfulExtensionSdk.field.setValue(this.value);
-        }
+        this.contentfulExtensionSdk?.field?.setValue(this.value);
       },
 
       // Convert using the speakingurl package, which is included in the contentful layout.
