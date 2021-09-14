@@ -14,7 +14,6 @@
         :title="name"
         :description="headline"
       />
-      <ItemPreviewSlide />
       <BrowseSections :sections="hasPartCollection.items" />
     </b-container>
   </div>
@@ -24,14 +23,12 @@
   import ContentHeader from '../generic/ContentHeader';
   import BrowseSections from '../browse/BrowseSections';
   import HeroHeader from '../browse/HeroHeader';
-  import ItemPreviewSlide from '../item/ItemPreviewSlide';
 
   export default {
     components: {
       ContentHeader,
       BrowseSections,
-      HeroHeader,
-      ItemPreviewSlide
+      HeroHeader
     },
     props: {
       name: {
