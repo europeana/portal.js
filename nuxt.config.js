@@ -134,6 +134,9 @@ export default {
   },
 
   privateRuntimeConfig: {
+    contentful: {
+      graphQlOrigin: process.env.CTF_GRAPHQL_ORIGIN_PRIVATE || process.env.CTF_GRAPHQL_ORIGIN
+    },
     jira: {
       origin: process.env.JIRA_API_ORIGIN,
       username: process.env.JIRA_API_USERNAME,

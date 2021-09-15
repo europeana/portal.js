@@ -49,8 +49,8 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Itens recentes",
-    "time": "Séculos em Destaque",
-    "topic": "Tópicos em Destaque"
+    "time": "Séculos em destaque",
+    "topic": "Tópicos em destaque"
   },
   "blog": {
     "author": "Autor",

@@ -54,7 +54,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Recente items",
-    "time": "Aanbevolen Eeuwen",
+    "time": "Aanbevolen eeuwen",
     "topic": "Aanbevolen onderwerpen"
   },
   "blog": {

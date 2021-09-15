@@ -48,8 +48,8 @@ export default {
     "title": "Titlu:"
   },
   "automatedCardGroup": {
-    "item": "Oġġetti Reċenti",
-    "time": "Sekli Dehru",
+    "item": "Oġġetti reċenti",
+    "time": "Sekli dehru",
     "topic": "Suġġetti temi"
   },
   "blog": {
