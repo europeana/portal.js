@@ -38,7 +38,6 @@ COPY bin ./bin
 COPY src ./src
 
 RUN npm run build
-RUN rm -rf node_modules
 
 
 # 3. Run
@@ -52,6 +51,6 @@ EXPOSE ${PORT}
 
 WORKDIR /app
 
-COPY --from=production-app-build /app .
+COPY --from=production-app-build /app/.nuxt ./.nuxt
 
 CMD ["npm", "run", "start"]
