@@ -2,46 +2,24 @@ import weightedRandom from 'weighted-random';
 import experiments from '../experiments';
 
 export default function(ctx, inject) {
-  if (experiments.length === 0) {
-    return; // Do nothing when no experiment
-  } else if (ctx.$cookies.get('klaro')?.abTest) {
-    initExperiments(); // Init experiment when consent is given
-  } else {
-    // Inject function to enable experiments when cookie consent is not (yet) given
-    inject('abTestingConsent', (consent) => {
-      if (consent) {
-        initExperiments();
-      }
-    });
-    return;
+  if (ctx.$cookies.get('klaro')?.abTest && experiments.length > 0) {
+    initExperiments(); // Only init experiments when consent is given and experiment exists
   }
 
   function initExperiments() {
     const activeExperiments = {};
     experiments.forEach((experiment) => {
-      if (!experiment.name || !experiment.variants || experiment.variants.length <= 1) {
+      if (!experiment.name || !experiment.variants || experiment.variants.length <= 1 || experiment.variants.some(variant => variant.weight === undefined)) {
+        console.error('Experiment should be configured with a name, more than one variant and with a weight set for each variant');
         return; // experiment isn't configured with required settings
       }
 
-      let variant = ctx.$cookies.get(`eu-ab-${experiment.name}`);
+      let activeVariant = ctx.$cookies.get(`eu-ab-${experiment.name}`);
 
-      if (!variant) {
-        const variants = experiment.variants;
-        const weights = variants.map(variant => variant.weight === undefined ? 100 : variant.weight);
-        const variantIndex = weightedRandom(weights); // Get random variant according to weights
-        variant = variants[variantIndex].title;
+      if (!activeVariant) {
+        activeVariant = setActiveVariant(experiment);
 
-        // // Uncomment to test weighting
-        // let i;
-        // let variantsss = [0, 0, 0];
-        // console.log(weights);
-        // for (i = 0; i < 100; i++) {
-        //   let index = weightedRandom(weights);
-        //   variantsss[index] = variantsss[index] + 1;
-        // }
-        // console.log('variantsss', variantsss);
-
-        ctx.$cookies.set(`eu-ab-${experiment.name}`, variant);
+        ctx.$cookies.set(`eu-ab-${experiment.name}`, activeVariant);
 
       // inform Matomo
       // _paq.push(['AbTesting::enter', {experiment: experiment.name, variation: variant}]);
@@ -49,11 +27,18 @@ export default function(ctx, inject) {
 
       // define variant for each experiment on the activeExperiments object which will be injected into the app
       activeExperiments[experiment.name] =  {
-        variant
+        activeVariant
       };
     });
     // inject for further use
-    // get variant in the app: "$experiments.[NAME].variant"
+    // get variant in the app: "$experiments.[NAME].activeVariant"
     inject('experiments', activeExperiments);
   }
+}
+
+function setActiveVariant(experiment) {
+  const variants = experiment.variants;
+  const weights = variants.map(variant => variant.weight);
+  const variantIndex = weightedRandom(weights); // Get random variant according to weights
+  return variants[variantIndex].title;
 }

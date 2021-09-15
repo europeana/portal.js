@@ -83,7 +83,7 @@
         return this.$config.app.features.jiraServiceDeskFeedbackForm && this.$config.app.baseUrl;
       },
       buttonColourClass() {
-        return 'button-color-' + this.$experiments?.buttonColor?.variant;
+        return 'button-color-' + this.$experiments?.buttonColor?.activeVariant;
       }
     },
 
@@ -131,7 +131,7 @@
 
       renderKlaro() {
         if (this.klaro) {
-          const config = klaroConfig(this.$i18n, this.$initHotjar, this.$matomo, this.$abTestingConsent);
+          const config = klaroConfig(this.$i18n, this.$initHotjar, this.$matomo);
           const manager = this.klaro.getManager(config);
 
           this.klaro.render(config, true);
