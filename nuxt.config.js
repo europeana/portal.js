@@ -101,6 +101,11 @@ export default {
         entityManagement: {
           url: process.env.EUROPEANA_ENTITY_MANAGEMENT_API_URL
         }
+      },
+      proxy: {
+        media: {
+          url: process.env.EUROPEANA_MEDIA_PROXY_URL
+        }
       }
     },
     hotjar: {
