@@ -2,7 +2,7 @@ import weightedRandom from 'weighted-random';
 import experiments from '../experiments';
 
 export default function(ctx, inject) {
-  if (ctx.$cookies.get('klaro')?.abTest && experiments.length > 0) {
+  if (ctx.$cookies.get('klaro')?.abTest && experiments.length > 0 && ctx.$config.app.features.abTests) {
     initExperiments(); // Only init experiments when consent is given and experiment exists
   }
 

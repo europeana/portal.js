@@ -638,7 +638,7 @@ export default {
         "title": "Search result view (list/grid)"
       },
       "abTest": {
-        "description": "Helps to improve our website by running an experiment.",
+        "description": "Helps to improve our website by occasionally applying experimental changes.",
         "title": "A/B testing"
       }
     }
