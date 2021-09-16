@@ -250,20 +250,21 @@ export default (context = {}) => {
       }
       let prefLang;
       if (context.$config?.app?.features?.translatedItems) {
+        prefLang = preferredLanguage(edm.europeanaAggregation.edmLanguage.def[0], options);
+
         // TODO: initially API only supports translation of title & descripiton.
         // Extend to other fields as available, or stop merging the proxies and
         // refactor to maintain the source info without having to set this.
         const europeanaProxy = edm.proxies.find(proxy => proxy.europeanaProxy);
         const providerProxy = edm.proxies.length === 3 ? edm.proxies[1] : null;
+        const predictedUiLang = prefLang ||  options.locale;
         ['dcTitle', 'dcDescription'].forEach((field) => {
-          if (providerProxy?.[field]) {
+          if (providerProxy?.[field] && this.localeSpecificFieldValueIsFromEnrichment(field, providerProxy, edm.proxies, predictedUiLang)) {
             proxyData[field].translationSource = 'enrichment';
           } else if (europeanaProxy?.[field]) {
             proxyData[field].translationSource = 'automated';
           }
         });
-
-        prefLang = preferredLanguage(edm.europeanaAggregation.edmLanguage.def[0], options);
       }
 
       const allMediaUris = this.aggregationMediaUris(providerAggregation).map(Object.freeze);
@@ -286,6 +287,15 @@ export default (context = {}) => {
         edmLanguage: edm.europeanaAggregation.edmLanguage,
         metadataLanguage: prefLang
       };
+    },
+
+    localeSpecificFieldValueIsFromEnrichment(field, providerProxy, proxies, predictedUiLang) {
+      if (providerProxy[field][predictedUiLang]) {
+        return true; // The UI language will be found in the enriched data
+      } else if (!proxies[2][field][predictedUiLang] && providerProxy[field]['en']) {
+        return true; // The UI language is not in the enrichment, but also not in the default proxy. However the enrichment contains an english fallback value which will take precedence.
+      }
+      return false;
     },
 
     webResourceThumbnails(webResource, aggregation, recordType) {
