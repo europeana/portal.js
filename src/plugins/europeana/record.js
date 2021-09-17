@@ -289,11 +289,21 @@ export default (context = {}) => {
       };
     },
 
+    /**
+    * Determine if a field will be displaying data from enrichment.
+    * Should only be called in the context of a providerProxy being present.
+    * If the UI language is not in the enrichment, but also not in the default proxy,
+    * the enrichment will be checked for an english fallback value which would take precedence.
+    * @param {String} field the field name to check
+    * @param {Object} providerProxy the proxy with the enrichment data
+    * @param {Array} proxies all proxies, used to confirm whether preferable values exist outside the enriched data
+    * @param {String} predictedUiLang the two letter language code which will be the prefered UI language
+    * @return {Boolean} true if enriched data will be shown
+    */
     localeSpecificFieldValueIsFromEnrichment(field, providerProxy, proxies, predictedUiLang) {
-      if (providerProxy[field][predictedUiLang]) {
-        return true; // The UI language will be found in the enriched data
-      } else if (!proxies[2][field][predictedUiLang] && providerProxy[field]['en']) {
-        return true; // The UI language is not in the enrichment, but also not in the default proxy. However the enrichment contains an english fallback value which will take precedence.
+      if (providerProxy[field][predictedUiLang] ||
+        (!proxies[2][field][predictedUiLang] && providerProxy[field]['en'])) {
+        return true;
       }
       return false;
     },
