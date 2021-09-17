@@ -218,8 +218,8 @@
       },
       userIsEntityEditor() {
         const user = this.$store.state.auth.user;
-        const entitiesEditor = user.resource_access.entities && user.resource_access.entities.roles.includes('editor');
-        const usersetsEditor = user.resource_access.usersets && user.resource_access.usersets.roles.includes('editor');
+        const entitiesEditor = user?.resource_access?.entities?.roles?.includes('editor');
+        const usersetsEditor = user?.resource_access?.usersets?.roles?.includes('editor');
         return entitiesEditor && usersetsEditor;
       },
       userCanEdit() {
@@ -255,7 +255,7 @@
         return this.$tc(label, this.set.total, { max });
       },
       shareMediaUrl() {
-        if (!this.set.items || (this.set.items.length === 0)) {
+        if ((this.set?.items?.length || 0) === 0) {
           return null;
         } else {
           return this.set.items[0].edmPreview ?

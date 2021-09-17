@@ -58,13 +58,13 @@
     },
     computed: {
       heroCta() {
-        return this.hero && this.hero.link ? this.hero.link : null;
+        return this.hero?.link || null;
       },
       heroTitle() {
-        return this.hero && this.hero.title ? this.hero.title : null;
+        return this.hero?.title || null;
       },
       heroDescription() {
-        return this.hero && this.hero.headline ? this.hero.headline : null;
+        return this.hero?.headline || null;
       }
     }
   };

@@ -49,22 +49,24 @@
         return this.cardFields.name;
       },
       imageIsContentfulAsset() {
-        return this.cardFields.image && this.cardFields.image.url && this.cardFields.image.url.includes('://images.ctfassets.net/');
+        return this.cardFields.image?.url?.includes('://images.ctfassets.net/') || false;
       },
       imageUrl() {
+        let imageUrl = '';
+
         if (this.cardFields.thumbnailUrl) {
-          return this.cardFields.thumbnailUrl;
+          imageUrl = this.cardFields.thumbnailUrl;
         } else if (typeof this.cardFields.image === 'string') {
-          return this.cardFields.image;
+          imageUrl = this.cardFields.image;
         } else if (this.cardFields.edmPreview) {
-          return `${this.cardFields.edmPreview[0]}&size=w400`;
+          imageUrl = `${this.cardFields.edmPreview[0]}&size=w400`;
         } else if (this.cardFields.entityImage) {
-          return this.cardFields.entityImage;
+          imageUrl = this.cardFields.entityImage;
         } else if (this.imageIsContentfulAsset) {
-          return this.cardFields.image.url;
+          imageUrl = this.cardFields.image.url;
         }
 
-        return '';
+        return imageUrl;
       },
       imageContentType() {
         return this.imageIsContentfulAsset ? this.cardFields.image.contentType : null;
@@ -73,18 +75,21 @@
         return this.imageIsContentfulAsset && this.cardFields.image.description ? this.cardFields.image.description : '';
       },
       destination() {
+        let destination = '';
+
         if (this.fields.url) {
-          return this.fields.url;
+          destination = this.fields.url;
         } else if (this.forEuropeanaRecord()) {
-          return this.recordRouterLink(this.fields.identifier);
+          destination = this.recordRouterLink(this.fields.identifier);
         } else if (typeof this.fields.identifier === 'string' && /^https?:\/\//.test(this.fields.identifier)) {
           if (this.forEuropeanaEntity()) {
-            return this.entityRouterLink(this.fields.identifier, this.fields.slug);
+            destination = this.entityRouterLink(this.fields.identifier, this.fields.slug);
           } else {
-            return this.fields.identifier;
+            destination = this.fields.identifier;
           }
         }
-        return '';
+
+        return destination;
       },
       texts() {
         // TODO: Refactor content model to set this directly, so this method can be skipped.

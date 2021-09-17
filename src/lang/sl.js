@@ -48,6 +48,7 @@ export default {
     "title": "Naslov:"
   },
   "automatedCardGroup": {
+    "item": "Nedavni predmeti",
     "time": "Priporočena stoletja",
     "topic": "Priporočene teme"
   },
@@ -115,11 +116,6 @@ export default {
       "explore": "Razišči",
       "teachers": "Učitelji"
     }
-  },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Sprejmi izjavo o piškotkih",
-    "link": "Več informacij",
-    "terms": "To spletno mesto uporablja piškotke, ki zagotavljajo najboljšo izkušnjo z uporabo našega spletnega mesta. S klikanjem ali krmarjenjem po tem spletnem mestu se strinjate, da nam dovolite zbiranje informacij prek piškotkov."
   },
   "curatedAutomatically": "Samodejno je kurirala Europeana",
   "dateFilter": {
@@ -433,7 +429,8 @@ export default {
     "termsOfService": "Pogoji storitve",
     "thankYou": "Hvala!",
     "title": "Pošlji povratno informacijo",
-    "validEmail": "Vnesite veljaven e-poštni naslov"
+    "validEmail": "Vnesite veljaven e-poštni naslov",
+    "validFeedback": "Vaše povratne informacije morajo biti sestavljene iz 5 besed najmanj"
   },
   "fieldLabels": {
     "default": {
@@ -561,13 +558,17 @@ export default {
   },
   "klaro": {
     "main": {
+      "acceptAll": "Sprejmi vse",
+      "acceptSelected": "Sprejmi izbrano",
       "consentModal": {
         "description": "Vašo zasebnost podatkov jemljemo resno. Tukaj lahko ocenite in prilagodite storitve, ki bi jih radi uporabili na tem spletnem mestu. Vi ste odgovorni! Omogočite ali onemogočite storitve, kot se vam zdi primerno.",
         "title": "Storitve, ki jih želimo uporabljati."
       },
       "consentNotice": {
-        "description": "Skrbimo za vašo zasebnost in podatke uporabljamo le za izboljšanje vaše izkušnje. Osebnih podatkov ne uporabljamo za oglaševanje. Svoje soglasje lahko spremenite vsakih 15 dni."
+        "description": "Skrbimo za vašo zasebnost in podatke uporabljamo le za izboljšanje vaše izkušnje. Osebnih podatkov ne uporabljamo za oglaševanje. Svoje soglasje lahko spremenite vsakih 15 dni.",
+        "learnMore": "Naj izberem"
       },
+      "decline": "Zavrnem.",
       "ok": "okej",
       "purposes": {
         "essential": {

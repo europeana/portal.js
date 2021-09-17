@@ -121,8 +121,9 @@
     }
   };
 </script>
+
 <style lang="scss" scoped>
-.author ~ .author::before {
-  content: ', ';
-}
+  .author ~ .author::before {
+    content: ', ';
+  }
 </style>

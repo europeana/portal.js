@@ -102,6 +102,11 @@ export default {
         entityManagement: {
           url: process.env.EUROPEANA_ENTITY_MANAGEMENT_API_URL
         }
+      },
+      proxy: {
+        media: {
+          url: process.env.EUROPEANA_MEDIA_PROXY_URL
+        }
       }
     },
     hotjar: {
@@ -135,6 +140,9 @@ export default {
   },
 
   privateRuntimeConfig: {
+    contentful: {
+      graphQlOrigin: process.env.CTF_GRAPHQL_ORIGIN_PRIVATE || process.env.CTF_GRAPHQL_ORIGIN
+    },
     jira: {
       origin: process.env.JIRA_API_ORIGIN,
       username: process.env.JIRA_API_USERNAME,

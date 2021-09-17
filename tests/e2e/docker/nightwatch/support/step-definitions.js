@@ -179,3 +179,7 @@ defineStep('The {target} is active', (qa) =>
   i.isActive(qa));
 defineStep('I scroll the page', () =>
   i.scrollWindow());
+defineStep('I resize the window to {int} by {int}', (width, height) =>
+  i.resizeBrowserWindow(width, height));
+defineStep('The iframe does not overflow {target}', (parent) =>
+  i.iframeFitsContainer(parent));

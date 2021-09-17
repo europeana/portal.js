@@ -118,10 +118,8 @@
     },
     computed: {
       expandableDescription() {
-        if (this.description && this.description.values) {
-          return this.description.values.length > 1 || this.description.values[0].length > this.limitCharacters;
-        }
-        return false;
+        return (this.description && this.description.values) &&
+          (this.description.values.length > 1 || this.description.values[0].length > this.limitCharacters);
       },
       truncatedDescription() {
         if (this.description !== {} && this.description.values) {

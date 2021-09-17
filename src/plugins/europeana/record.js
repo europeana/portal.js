@@ -417,7 +417,7 @@ export default (context = {}) => {
         params['api_url'] = new URL(this.$axios.defaults.baseURL).origin + '/api';
       }
 
-      const proxyUrl = new URL('https://proxy.europeana.eu');
+      const proxyUrl = new URL(context.$config?.europeana?.proxy?.media?.url || 'https://proxy.europeana.eu');
       proxyUrl.pathname = europeanaId;
       proxyUrl.searchParams.append('view', mediaUrl);
 

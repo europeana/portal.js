@@ -117,11 +117,6 @@ export default {
       "teachers": "Lehrerinnen und Lehrerinnen"
     }
   },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Akzeptieren Sie den Cookie-Haftungsausschluss",
-    "link": "Mehr Information",
-    "terms": "Diese Website verwendet Cookies, um sicherzustellen, dass Sie die bestmögliche Erfahrung auf unserer Website machen können. Durch Klicken oder Navigieren auf der Website erklären Sie sich damit einverstanden, unsere Sammlung von Informationen über Cookies zuzulassen."
-  },
   "curatedAutomatically": "Automatisch von Europeana kuratiert",
   "dateFilter": {
     "endDate": "Enddatum",
@@ -431,7 +426,8 @@ export default {
     "termsOfService": "Nutzungsbedingungen",
     "thankYou": "Vielen Dank!",
     "title": "Feedback abschicken",
-    "validEmail": "Geben Sie eine gültige E-Mail Adresse ein"
+    "validEmail": "Geben Sie eine gültige E-Mail Adresse ein",
+    "validFeedback": "Ihr Feedback muss aus mindestens 5 Wörtern bestehen"
   },
   "fieldLabels": {
     "default": {
@@ -559,13 +555,17 @@ export default {
   },
   "klaro": {
     "main": {
+      "acceptAll": "Alle akzeptieren",
+      "acceptSelected": "Ausgewählte akzeptieren",
       "consentModal": {
         "description": "Wir nehmen Ihren Datenschutz ernst. Hier können Sie die Dienste, die wir auf dieser Website nutzen möchten, bewerten und anpassen. Du bist verantwortlich! Aktivieren oder deaktivieren Sie Dienste nach Belieben.",
         "title": "Dienste, die wir gerne nutzen würden."
       },
       "consentNotice": {
-        "description": "Wir kümmern uns um Ihre Privatsphäre und verwenden Daten nur, um Ihre Erfahrung zu verbessern. Wir verwenden keine personenbezogenen Daten für Werbung. Sie können Ihre Einwilligung alle 15 Tage ändern."
+        "description": "Wir kümmern uns um Ihre Privatsphäre und verwenden Daten nur, um Ihre Erfahrung zu verbessern. Wir verwenden keine personenbezogenen Daten für Werbung. Sie können Ihre Einwilligung alle 15 Tage ändern.",
+        "learnMore": "Lass mich aussuchen"
       },
+      "decline": "Ich lehne ab",
       "ok": "Okay",
       "purposes": {
         "essential": {

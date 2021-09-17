@@ -123,11 +123,6 @@ export default {
       "teachers": "Učitelé"
     }
   },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Přijmout odmítnutí cookies.",
-    "link": "Více informací",
-    "terms": "Tato stránka používá cookies, aby vám přinesla nejlepší zážitek z našeho webu. Kliknutím nebo procházením webu souhlasíte s tím, že dovolujete shromažďování údajů prostřednictvím souborů cookie."
-  },
   "curatedAutomatically": "Kurátorem je automaticky Europeana",
   "dateFilter": {
     "endDate": "Datum do",
@@ -455,7 +450,8 @@ export default {
     "termsOfService": "Podmínky používání ",
     "thankYou": "Děkujeme!",
     "title": "Odeslat zpětnou vazbu",
-    "validEmail": "Zadejte platnou e-mailovou adresu."
+    "validEmail": "Zadejte platnou e-mailovou adresu.",
+    "validFeedback": "Vaše zpětná vazba musí obsahovat minimálně 5 slov"
   },
   "fieldLabels": {
     "default": {
@@ -510,7 +506,8 @@ export default {
       "keywords": "Klíčová slova (poskytnutá komunitou)",
       "timestampCreated": "Časové razítko vytvořeno",
       "timestampUpdate": "Časové razítko bylo aktualizováno",
-      "wasPresentAt": "se účastnil/a"
+      "wasPresentAt": "se účastnil/a",
+      "year": "Rok"
     },
     "webResource": {
       "about": "RDF About",
@@ -586,13 +583,17 @@ export default {
   },
   "klaro": {
     "main": {
+      "acceptAll": "Přijmout vše",
+      "acceptSelected": "Přijmout vybrané",
       "consentModal": {
         "description": "Vaše soukromí bereme vážně. Zde můžete vyhodnotit a přizpůsobit služby, které bychom chtěli použít na tomto webu. Máte to na starosti! Povolte nebo zakažte služby, jak uznáte za vhodné.",
         "title": "Služby, které bychom rádi využili."
       },
       "consentNotice": {
-        "description": "Záleží nám na vašem soukromí a údaje používáme pouze ke zlepšení vašeho zážitku. Pro reklamu nepoužíváme žádné osobní údaje. Svůj souhlas můžete změnit každých 15 dní."
+        "description": "Záleží nám na vašem soukromí a údaje používáme pouze ke zlepšení vašeho zážitku. Pro reklamu nepoužíváme žádné osobní údaje. Svůj souhlas můžete změnit každých 15 dní.",
+        "learnMore": "Nech mě vybrat"
       },
+      "decline": "odmítám",
       "ok": "dobře",
       "purposes": {
         "essential": {
@@ -617,6 +618,7 @@ export default {
         "title": "Strategie Auth"
       },
       "debugSettings": {
+        "description": "Pomáhá ladit požadavky API",
         "title": "Přepnout ladění"
       },
       "hotjar": {

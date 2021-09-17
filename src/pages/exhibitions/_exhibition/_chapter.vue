@@ -144,10 +144,10 @@
         });
       },
       hero() {
-        return this.page.primaryImageOfPage ? this.page.primaryImageOfPage : null;
+        return this.page.primaryImageOfPage || null;
       },
       heroImage() {
-        return this.hero ? this.hero.image : null;
+        return this.hero?.image || null;
       },
       optimisedImageUrl() {
         if (!this.heroImage) {

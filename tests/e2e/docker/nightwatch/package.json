@@ -11,7 +11,7 @@
   "dependencies": {
     "@percy/cli": "^1.0.0-beta.39",
     "@percy/nightwatch": "^2.0.0-beta.2",
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "chai": "^4.2.0",
     "cucumber": "^5.1.0",
     "cucumber-pretty": "^1.5.0",

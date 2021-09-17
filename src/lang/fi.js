@@ -1,5 +1,7 @@
 export default {
   "account": {
+    "curatedCollections": "Kuratoidut kokoelmat",
+    "curatedCollectionsInfo": "Etsi alta kaikki kuratoimiasi kokoelmia",
     "editProfile": "Muokkaa profiilia",
     "likes": "Tykätyt",
     "linkAccount": "Oma tili",
@@ -11,6 +13,7 @@ export default {
       "loggedIn": "Olet nyt kirjautunut sisään. Tervetuloa!",
       "loggedOut": "Olet nyt kirjautunut ulos.",
       "noCollections": {
+        "curated": "Et ole vielä kuratoinut yhtään kokoelmaa",
         "private": "Et ole luonut vielä yksityisiä gallerioita",
         "public": "Et ole luonut vielä julkisia gallerioita"
       },
@@ -24,6 +27,7 @@ export default {
     "title": "Oma tili"
   },
   "actions": {
+    "accept": "Hyväksy",
     "cancel": "Peruuttaa",
     "close": "sulje",
     "download": "Lataa",
@@ -33,6 +37,7 @@ export default {
     "like": "Tykkää",
     "next": "Seuraava",
     "providedBy": "Tarjoaa {provider}",
+    "reject": "Hylätä",
     "send": "Lähettää",
     "share": "Jaa",
     "shareOn": "Jaa mediassa {social}",
@@ -49,7 +54,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Viimeisimmät kohdetta",
-    "time": "Esillä olevat vuosisadat",
+    "time": "Esillä vuosisatoja",
     "topic": "Esillä olevat aiheet"
   },
   "blog": {
@@ -64,6 +69,7 @@ export default {
     "relatedPosts": "Aiheeseen liittyvät julkaisut"
   },
   "cardLabels": {
+    "organisation": "Organisaatio",
     "person": "Henkilö",
     "time": "Vuosisata",
     "topic": "Aihe"
@@ -117,11 +123,6 @@ export default {
       "teachers": "Opettajat"
     }
   },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Evästeiden hyväksymisen vastuuvapauslauseke",
-    "link": "Lisätietoja",
-    "terms": "Käytämme tällä sivustolla evästeitä, jotka mahdollistavat sivuston parhaan käyttökokemuksen. Napsauttamalla sivustolla tai selaamalla sivustoa annat suostumuksesi tietojen keräämiseen evästeiden avulla."
-  },
   "curatedAutomatically": "Europeanan automaattisesti kuratoima",
   "dateFilter": {
     "endDate": "Päättymispäivämäärä",
@@ -141,11 +142,29 @@ export default {
   },
   "edmIsShownAtLinkAlt": "Näytä palveluntarjoajan verkkosivustolla",
   "entity": {
+    "actions": {
+      "cancel": "Peruuta",
+      "pin": "Kiinnitä kohde",
+      "unpin": "Irrota kohde",
+      "viewPinned": "Katso kiinnitetyt kohteet"
+    },
     "labels": {
       "entity": "Yksikkö"
     },
     "notifications": {
-      "deleted": "Galleriasi on poistettu."
+      "deleted": "Galleriasi on poistettu.",
+      "pinLimit": {
+        "body": "Tällä hetkellä voit kiinnittää vain 24 kohdetta ensimmäiselle sivulle. Jos haluat kiinnittää tämän kohteen, irrota toinen ja yritä sitten kiinnittää tämä uudelleen.",
+        "title": "Liian monta kiinnitettyä kohdetta"
+      },
+      "pinned": "Kohde on kiinnitetty. Se on nyt tämän kokoelman ensimmäisen sivun yläosassa. Saattaa kestää jopa 24 tuntia, ennen kuin se näkyy kaikille.",
+      "pinnedFirstPage": "Kohde on kiinnitetty. Saattaa kestää jopa 24 tuntia, ennen kuin se näkyy kaikille.",
+      "unpinned": "Kohde on irrotettu. Se ei ole enää tämän kokoelman ensimmäisen sivun yläosassa. Kaikkien katoaminen voi kestää jopa 24 tuntia.",
+      "unpinnedFirstPage": "Kohde on irrotettu. Kaikkien katoaminen voi kestää jopa 24 tuntia."
+    },
+    "prompts": {
+      "pin": "Haluatko varmasti kiinnittää tämän kohteen? Tämä kohde näkyy kokoelman {entity} Muutoksen voimaantulo voi kestää jopa 24 tuntia.",
+      "unpin": "Haluatko varmasti irrottaa tämän kohteen? Tämä kohde ei enää näy kokoelman {entity} Muutoksen voimaantulo voi kestää jopa 24 tuntia."
     }
   },
   "error": "Virhe",
@@ -431,7 +450,8 @@ export default {
     "termsOfService": "Käyttöehdot",
     "thankYou": "Kiitos!",
     "title": "Lähetä palautetta",
-    "validEmail": "syötä voimassa oleva sähköpostiosoite"
+    "validEmail": "syötä voimassa oleva sähköpostiosoite",
+    "validFeedback": "Palautteen tulee koostua vähintään viidestä sanasta"
   },
   "fieldLabels": {
     "default": {
@@ -486,7 +506,8 @@ export default {
       "keywords": "Avainsanat (yhteisön tarjoamat)",
       "timestampCreated": "Aikaleima luotu",
       "timestampUpdate": "Aikaleima päivitetty",
-      "wasPresentAt": "Oli läsnä paikassa"
+      "wasPresentAt": "Oli läsnä paikassa",
+      "year": "Vuosi"
     },
     "webResource": {
       "about": "RDF-tiedot",
@@ -555,17 +576,24 @@ export default {
   "items": {
     "itemCount": "1 kohde |{count} kohdetta",
     "itemOf": "{max} / {count} kohdetta",
+    "recent": "Viimeisimmät kohteet",
+    "recommendationsDisclaimer": "Peukalo ylös lisätäksesi galleriaan - Peukalo alas, jos et pidä siitä",
+    "recommended": "Suositellut kohteet",
     "youMightLike": "Saattaisit tykätä näistä kohteista"
   },
   "klaro": {
     "main": {
+      "acceptAll": "Hyväksy kaikki",
+      "acceptSelected": "Hyväksy valittu",
       "consentModal": {
         "description": "Suhtaudumme tietosuojaasi vakavasti. Täällä voit arvioida ja mukauttaa palveluja, joita haluaisimme käyttää tällä verkkosivustolla. Sinä olet vastuussa! Ota palvelut käyttöön tai poista ne käytöstä mielesi mukaan.",
         "title": "Palvelut, joita haluaisimme käyttää."
       },
       "consentNotice": {
-        "description": "Välitämme yksityisyydestäsi ja käytämme tietoja vain kokemuksesi parantamiseen. Emme käytä henkilökohtaisia tietoja mainostamiseen. Voit muuttaa suostumustasi 15 päivän välein."
+        "description": "Välitämme yksityisyydestäsi ja käytämme tietoja vain kokemuksesi parantamiseen. Emme käytä henkilökohtaisia tietoja mainostamiseen. Voit muuttaa suostumustasi 15 päivän välein.",
+        "learnMore": "Anna minun valita"
       },
+      "decline": "kieltäydyn",
       "ok": "Okei",
       "purposes": {
         "essential": {
@@ -590,6 +618,7 @@ export default {
         "title": "Auth-strategia"
       },
       "debugSettings": {
+        "description": "Auttaa API-pyyntöjen virheenkorjausta",
         "title": "Debug-kytkin"
       },
       "hotjar": {
@@ -632,6 +661,7 @@ export default {
       "text": "Etsit uudessa ja nopeammassa verkkosivustossamme."
     }
   },
+  "loading": "Ladataan",
   "loadingResults": "Ladataan tuloksia",
   "mediaPreview": {
     "selectItem": "Valitse kohde {src}"
@@ -642,7 +672,18 @@ export default {
     "notFound": "Ei löydy",
     "paginationLimitExceeded": "Vain ensimmäiset {limit} hakutulosta voidaan näyttää."
   },
+  "modal": {
+    "download": {
+      "clickToCopy": "Kopioi attribuutti napsauttamalla sitä",
+      "modalIntro": "Jos käytät tätä kohdetta verkossa tai muualla, älä unohda näyttää seuraavaa attribuutiota sen vieressä:",
+      "modalTitle": "Sano kiitos"
+    }
+  },
   "multilingual": {
+    "automated": "Automatisoitu käännös",
+    "currentLanguage": "Haluaisitko nähdä tämän kohteen {0}?",
+    "differentLanguage": "eri kieltä",
+    "enrichment": "Rikastaminen kumppaniprojekteilla",
     "original": "Alkuperäiset metatiedot",
     "originalLanguage": "alkuperäinen kieli",
     "other": "Muut kielet"
@@ -653,6 +694,15 @@ export default {
   "pageHasLoaded": "on ladattu",
   "pages": {
     "collections": {
+      "organisations": {
+        "table": {
+          "name": "Nimi"
+        },
+        "title": "Organisaatiot"
+      },
+      "persons": {
+        "title": "Henkilöt"
+      },
       "times": {
         "title": "aika"
       },
@@ -735,12 +785,14 @@ export default {
       "likeLimit": {
         "body": "Tykkäysten enimmäismäärä on valitettavasti rajoitettu tällä hetkellä 100 kohteeseen. Poistamme tämän rajoituksen lähiaikoina!",
         "title": "100 tykkäystä"
-      }
+      },
+      "updated": "Kohde on lisätty galleriaan."
     },
     "prompts": {
       "delete": "Haluatko varmasti poistaa tämän gallerian? Jos poistat tämän gallerian, menetät kaikki siihen lisäämäsi kohteet."
     }
   },
   "showLess": "Näytä vähemmän",
-  "showMore": "Näytä lisää"
+  "showMore": "Näytä lisää",
+  "website": "Verkkosivusto"
 };
