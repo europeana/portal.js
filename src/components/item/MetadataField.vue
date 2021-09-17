@@ -15,6 +15,7 @@
     <ul
       class="m-0 p-0 text-left text-lg-right list-unstyled"
     >
+      <MetadataOriginLabel :translation-source="fieldData.translationSource" />
       <template
         v-for="(value, index) of displayValues.values"
       >
@@ -70,6 +71,7 @@
 <script>
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
   import EntityField from './EntityField';
+  import MetadataOriginLabel from './MetadataOriginLabel';
   import SmartLink from '../generic/SmartLink';
 
   export default {
@@ -77,6 +79,7 @@
 
     components: {
       EntityField,
+      MetadataOriginLabel,
       SmartLink
     },
 
@@ -140,6 +143,9 @@
 
       hasValuesForLocale() {
         return (this.langMappedValues?.values?.length || 0) >= 1;
+      },
+      translatedItemsEnabled() {
+        return this.$config.app.features.translatedItems;
       }
     }
   };

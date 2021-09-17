@@ -258,7 +258,13 @@ export default (context = {}) => {
         const europeanaProxy = edm.proxies.find(proxy => proxy.europeanaProxy);
         const providerProxy = edm.proxies.length === 3 ? edm.proxies[1] : null;
         const predictedUiLang = prefLang ||  options.locale;
-        ['dcTitle', 'dcDescription'].forEach((field) => {
+        const MAIN_FIELDS = [
+          'dcTitle',
+          'dcType',
+          'dcDescription',
+          'dctermsAlternative'
+        ];
+        [...PROXY_EXTRA_FIELDS, ...MAIN_FIELDS].forEach((field) => {
           if (providerProxy?.[field] && this.localeSpecificFieldValueIsFromEnrichment(field, providerProxy, edm.proxies, predictedUiLang)) {
             proxyData[field].translationSource = 'enrichment';
           } else if (europeanaProxy?.[field]) {
@@ -301,8 +307,13 @@ export default (context = {}) => {
     * @return {Boolean} true if enriched data will be shown
     */
     localeSpecificFieldValueIsFromEnrichment(field, providerProxy, proxies, predictedUiLang) {
-      if (providerProxy[field][predictedUiLang] ||
-        (!proxies[2][field][predictedUiLang] && providerProxy[field]['en'])) {
+      if ((providerProxy[field] && !isLangMap(providerProxy[field])) ||
+        (isLangMap(providerProxy[field]) &&
+          (providerProxy[field]?.[predictedUiLang] ||
+            (!proxies[2][field]?.[predictedUiLang] && providerProxy[field]?.['en'])
+          )
+        )
+      ) {
         return true;
       }
       return false;
