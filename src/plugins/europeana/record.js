@@ -250,16 +250,21 @@ export default (context = {}) => {
       }
       let prefLang;
       if (context.$config?.app?.features?.translatedItems) {
+        prefLang = preferredLanguage(edm.europeanaAggregation.edmLanguage.def[0], options);
+
         // TODO: initially API only supports translation of title & descripiton.
         // Extend to other fields as available, or stop merging the proxies and
         // refactor to maintain the source info without having to set this.
         const europeanaProxy = edm.proxies.find(proxy => proxy.europeanaProxy);
+        const providerProxy = edm.proxies.length === 3 ? edm.proxies[1] : null;
+        const predictedUiLang = prefLang ||  options.locale;
         ['dcTitle', 'dcDescription'].forEach((field) => {
-          if (europeanaProxy?.[field]) {
+          if (providerProxy?.[field] && this.localeSpecificFieldValueIsFromEnrichment(field, providerProxy, edm.proxies, predictedUiLang)) {
+            proxyData[field].translationSource = 'enrichment';
+          } else if (europeanaProxy?.[field]) {
             proxyData[field].translationSource = 'automated';
           }
         });
-        prefLang = preferredLanguage(edm.europeanaAggregation.edmLanguage.def[0], options);
       }
 
       const allMediaUris = this.aggregationMediaUris(providerAggregation).map(Object.freeze);
@@ -282,6 +287,25 @@ export default (context = {}) => {
         edmLanguage: edm.europeanaAggregation.edmLanguage,
         metadataLanguage: prefLang
       };
+    },
+
+    /**
+    * Determine if a field will be displaying data from enrichment.
+    * Should only be called in the context of a providerProxy being present.
+    * If the UI language is not in the enrichment, but also not in the default proxy,
+    * the enrichment will be checked for an english fallback value which would take precedence.
+    * @param {String} field the field name to check
+    * @param {Object} providerProxy the proxy with the enrichment data
+    * @param {Array} proxies all proxies, used to confirm whether preferable values exist outside the enriched data
+    * @param {String} predictedUiLang the two letter language code which will be the prefered UI language
+    * @return {Boolean} true if enriched data will be shown
+    */
+    localeSpecificFieldValueIsFromEnrichment(field, providerProxy, proxies, predictedUiLang) {
+      if (providerProxy[field][predictedUiLang] ||
+        (!proxies[2][field][predictedUiLang] && providerProxy[field]['en'])) {
+        return true;
+      }
+      return false;
     },
 
     webResourceThumbnails(webResource, aggregation, recordType) {
