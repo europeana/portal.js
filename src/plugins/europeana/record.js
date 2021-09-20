@@ -258,17 +258,23 @@ export default (context = {}) => {
         const europeanaProxy = edm.proxies.find(proxy => proxy.europeanaProxy);
         const providerProxy = edm.proxies.length === 3 ? edm.proxies[1] : null;
         const predictedUiLang = prefLang ||  options.locale;
-        const MAIN_FIELDS = [
+        const MAIN_PROXY_FIELDS = [
           'dcTitle',
           'dcType',
           'dcDescription',
-          'dctermsAlternative'
+          'dctermsAlternative',
+          'dctermsMedium',
+          'dcContributor',
+          'dcPublisher',
+          'dcSubject'
         ];
-        [...PROXY_EXTRA_FIELDS, ...MAIN_FIELDS].forEach((field) => {
+        [...PROXY_EXTRA_FIELDS, ...MAIN_PROXY_FIELDS].forEach((field) => {
           if (providerProxy?.[field] && this.localeSpecificFieldValueIsFromEnrichment(field, providerProxy, edm.proxies, predictedUiLang)) {
             proxyData[field].translationSource = 'enrichment';
-          } else if (europeanaProxy?.[field]) {
+          } else if (europeanaProxy?.[field]?.[predictedUiLang]) {
             proxyData[field].translationSource = 'automated';
+          } else if (proxyData[field]) {
+            proxyData[field].translationSource = 'original';
           }
         });
       }
@@ -279,7 +285,7 @@ export default (context = {}) => {
         altTitle: proxyData.dctermsAlternative,
         description: proxyData.dcDescription,
         identifier: edm.about,
-        type: edm.type,
+        type: edm.type, // What's this used for?
         isShownAt: providerAggregation.edmIsShownAt,
         coreFields: coreFields(proxyData, providerAggregation, entities),
         fields: extraFields(proxyData, edm, entities),
@@ -307,13 +313,11 @@ export default (context = {}) => {
     * @return {Boolean} true if enriched data will be shown
     */
     localeSpecificFieldValueIsFromEnrichment(field, providerProxy, proxies, predictedUiLang) {
-      if ((providerProxy[field] && !isLangMap(providerProxy[field])) ||
-        (isLangMap(providerProxy[field]) &&
-          (providerProxy[field]?.[predictedUiLang] ||
-            (!proxies[2][field]?.[predictedUiLang] && providerProxy[field]?.['en'])
-          )
-        )
-      ) {
+      if (isLangMap(providerProxy[field]) &&
+           (providerProxy[field]?.[predictedUiLang] ||
+             (!proxies[2][field]?.[predictedUiLang] && providerProxy[field]?.['en'])
+            )
+          ) {
         return true;
       }
       return false;

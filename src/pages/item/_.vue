@@ -172,7 +172,7 @@
         organizations: [],
         timespans: [],
         title: null,
-        type: null,
+        type: null, // is this used? where?
         useProxy: true,
         schemaOrg: null,
         edmLanguage: null,
@@ -340,7 +340,7 @@
 
         const dataSimilarItems = {
           dcSubject: this.getSimilarItemsData(this.coreFields.dcSubject),
-          dcType: this.getSimilarItemsData(this.title),
+          dcType: this.getSimilarItemsData(this.title), // ???
           dcCreator: this.getSimilarItemsData(this.coreFields.dcCreator),
           edmDataProvider: this.getSimilarItemsData(this.fields.edmDataProvider)
         };
