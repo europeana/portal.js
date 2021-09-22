@@ -88,6 +88,10 @@
         type: String,
         default: ''
       },
+      metadataLanguage: {
+        type: String,
+        default: null
+      },
       fieldData: {
         type: [String, Object, Array],
         default: null
@@ -136,9 +140,9 @@
         } else if (Array.isArray(this.fieldData)) {
           return { values: this.fieldData, code: '' };
         } else if (Object.prototype.hasOwnProperty.call(this.fieldData, 'url')) {
-          return langMapValueForLocale(this.fieldData.value, this.$i18n.locale);
+          return langMapValueForLocale(this.fieldData.value, this.metadataLanguage || this.$i18n.locale);
         }
-        return langMapValueForLocale(this.fieldData, this.$i18n.locale, { omitUrisIfOtherValues: this.omitUrisIfOtherValues, omitAllUris: this.omitAllUris });
+        return langMapValueForLocale(this.fieldData, this.metadataLanguage || this.$i18n.locale, { omitUrisIfOtherValues: this.omitUrisIfOtherValues, omitAllUris: this.omitAllUris });
       },
 
       hasValuesForLocale() {

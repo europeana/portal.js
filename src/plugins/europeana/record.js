@@ -248,6 +248,7 @@ export default (context = {}) => {
           }
         }
       }
+
       let prefLang;
       if (context.$config?.app?.features?.translatedItems) {
         prefLang = preferredLanguage(edm.europeanaAggregation.edmLanguage.def[0], options);
@@ -273,8 +274,6 @@ export default (context = {}) => {
             proxyData[field].translationSource = 'enrichment';
           } else if (europeanaProxy?.[field]?.[predictedUiLang]) {
             proxyData[field].translationSource = 'automated';
-          } else if (proxyData[field]) {
-            proxyData[field].translationSource = 'original';
           }
         });
       }
@@ -316,8 +315,8 @@ export default (context = {}) => {
       if (isLangMap(providerProxy[field]) &&
            (providerProxy[field]?.[predictedUiLang] ||
              (!proxies[2][field]?.[predictedUiLang] && providerProxy[field]?.['en'])
-            )
-          ) {
+           )
+      ) {
         return true;
       }
       return false;

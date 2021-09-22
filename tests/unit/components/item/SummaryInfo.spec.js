@@ -101,17 +101,17 @@ describe('components/item/SummaryInfo', () => {
   describe('when the item is translated', () => {
     const wrapper = factory({
       titles: [
-        { code: 'en', value: 'The title' },
+        { code: 'en', value: 'The title', translationSource: 'automated' },
         { code: 'en', value: 'The sub-title' }
       ],
-      description: { code: 'en', values: ['The description'] }
+      description: { code: 'en', values: ['The description'], translationSource: 'automated' }
     }, true);
     it('there is an icon behind the title signifying the translation source', () => {
-      const tooltip = wrapper.find('[data-qa="translated title tooltip"]');
+      const tooltip = wrapper.find('h1 [data-qa="translation tooltip"]');
       tooltip.isVisible();
     });
     it('there is an icon behind the description signifying the translation source', () => {
-      const tooltip = wrapper.find('[data-qa="translated description tooltip"]');
+      const tooltip = wrapper.find('div.description [data-qa="translation tooltip"]');
       tooltip.isVisible();
     });
   });

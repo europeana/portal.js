@@ -71,6 +71,7 @@
               :all-metadata="allMetaData"
               :core-metadata="coreFields"
               :location="locationData"
+              :metadata-language="metadataLanguage"
               :transcribing-annotations="transcribingAnnotations || []"
             />
           </b-col>

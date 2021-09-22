@@ -10,7 +10,7 @@ const factory = () => mount(MetadataField, {
   mocks: {
     $t: (key) => key,
     $i18n,
-    $config: { app: { internalLinkDomain: null } }
+    $config: { app: { internalLinkDomain: null, features: { translatedItems: false } } }
   }
 });
 
