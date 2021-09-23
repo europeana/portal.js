@@ -14,6 +14,7 @@
   const FEATURED_TOPICS = 'Featured topics';
   const FEATURED_TIMES = 'Featured centuries';
   const RECENT_ITEMS = 'Recent items';
+  const ITEM_COUNTS_MEDIA_TYPE = 'Item counts by Media type';
 
   export default {
     name: 'AutomatedCardGroup',
@@ -51,6 +52,18 @@
 
     computed: {
       contentCardSection() {
+        if (this.sectionType === ITEM_COUNTS_MEDIA_TYPE) {
+          return {
+            hasPartCollection: {
+              items: this.entries?.map(entry => ({
+                __typename: this.cardType,
+                info: entry.count,
+                label: entry.label,
+                image: this.infoImageFromType(entry.label)
+              }))
+            }
+          };
+        }
         return {
           headline: this.$i18n.t(`automatedCardGroup.${this.type}`),
           hasPartCollection: {
@@ -72,6 +85,8 @@
           return 'time';
         case RECENT_ITEMS:
           return 'item';
+        case ITEM_COUNTS_MEDIA_TYPE:
+          return 'itemCountsMediaType'
         default:
           return null;
         }
@@ -83,6 +98,8 @@
           return 'AutomatedEntityCard';
         case RECENT_ITEMS:
           return 'AutomatedRecordCard';
+        case ITEM_COUNTS_MEDIA_TYPE:
+          return 'InfoCard'
         default:
           return null;
         }
@@ -95,9 +112,17 @@
           return '/_api/entities/times';
         case RECENT_ITEMS:
           return '/_api/items/recent';
+        case ITEM_COUNTS_MEDIA_TYPE:
+          return '/_api/items/itemCountsMediaType'
         default:
           return null;
         }
+      }
+    },
+
+    methods: {
+      infoImageFromType(type) {
+        return 'imageGoesHere.svg';
       }
     }
   };

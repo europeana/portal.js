@@ -20,15 +20,7 @@
         deck
         data-qa="section group"
       >
-        <template v-if="!isPeopleSection">
-          <BrowseContentCard
-            v-for="(card, index) in cards"
-            :key="index"
-            :fields="card"
-            :card-type="card && card['__typename']"
-          />
-        </template>
-        <template v-else>
+        <template v-if="isPeopleSection">
           <ContentCard
             v-for="(card, index) in cards"
             :key="index"
@@ -37,6 +29,23 @@
             :image-url="card.entityImage"
             :image-optimisation-options="{ width: 510 }"
             variant="mini"
+          />
+        </template>
+        <template v-if="isInfoSection">
+          <InfoCard
+            v-for="(card, index) in cards"
+            :key="index"
+            :info="card.info"
+            :label="card.label"
+            :image-url="card.imageUrl"
+          />
+        </template>
+        <template v-else>
+          <BrowseContentCard
+            v-for="(card, index) in cards"
+            :key="index"
+            :fields="card"
+            :card-type="card && card['__typename']"
           />
         </template>
       </b-card-group>
@@ -54,6 +63,7 @@
 
 <script>
   import ContentCard from '../generic/ContentCard';
+  import InfoCard from '../generic/InfoCard';
   import BrowseContentCard from './BrowseContentCard';
   import SmartLink from '../generic/SmartLink';
 
@@ -64,6 +74,7 @@
     components: {
       BrowseContentCard,
       ContentCard,
+      InfoCard,
       SmartLink
     },
     props: {
@@ -87,6 +98,14 @@
           }
           const identifier = card.identifier;
           return identifier ? entityParamsFromUri(identifier).type === 'person' : false;
+        });
+      },
+      isInfoSection() {
+        return this.cards.some((card) => {
+          if (card['__typename'] === 'InfoCard') {
+            return true;
+          }
+          return false;
         });
       }
     },
