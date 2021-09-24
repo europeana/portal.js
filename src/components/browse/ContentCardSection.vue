@@ -16,6 +16,23 @@
     </div>
     <div class="col-12">
       <b-card-group
+        v-if="isInfoSection"
+        class="card-deck-3-cols"
+        deck
+        align="center"
+        data-qa="section group"
+      >
+        <InfoCard
+          v-for="(card, index) in cards"
+          :key="index"
+          :url="card.url"
+          :info="card.info"
+          :label="card.label"
+          :image="card.image"
+        />
+      </b-card-group>
+      <b-card-group
+        v-else
         class="card-deck-4-cols"
         deck
         data-qa="section group"
@@ -29,15 +46,6 @@
             :image-url="card.entityImage"
             :image-optimisation-options="{ width: 510 }"
             variant="mini"
-          />
-        </template>
-        <template v-if="isInfoSection">
-          <InfoCard
-            v-for="(card, index) in cards"
-            :key="index"
-            :info="card.info"
-            :label="card.label"
-            :image-url="card.imageUrl"
           />
         </template>
         <template v-else>

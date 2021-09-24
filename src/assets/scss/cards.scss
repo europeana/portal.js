@@ -397,6 +397,61 @@
   }
 }
 
+.info-card {
+  background: $offwhite;
+  border-radius: $border-radius-small;
+  box-shadow: none;
+  color: $black;
+  font-size: $font-size-small;
+  height: auto;
+  line-height: 1.1875rem;
+  border: none;
+
+  .card-title {
+    color: $blue;
+    font-weight: 400;
+    font-size: 1.5rem;
+    line-height: 1.75rem;
+  }
+
+  &.card {
+    margin-bottom: 1.5rem;
+    a {
+      text-decoration: none;
+    }
+  }
+  .card-img {
+    @extend .icon-font;
+    font-size: 2rem;
+    margin-top: 1rem;
+    .ic-3d {
+      &:after{
+        content: '\e942';
+      }
+    }
+    .ic-video {
+      &:after{
+        content: '\e943';
+      }
+    }
+    .ic-sound {
+      &:after{
+        content: '\e944';
+      }
+    }
+    .ic-text{
+      &:after{
+        content: '\e945';
+      }
+    }
+    .ic-image {
+      &:after{
+        content: '\e946';
+      }
+    }
+  }
+}
+
 .card-deck {
   flex-flow: column nowrap;
 }

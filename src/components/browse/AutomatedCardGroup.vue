@@ -32,9 +32,13 @@
 
     fetch() {
       if (process.server) {
+        const options = {};
+        if (this.sectionType === ITEM_COUNTS_MEDIA_TYPE) {
+          options.size = 5;
+        }
         return import('@/server-middleware/api/dailyEntries')
           .then(module => {
-            return module.entriesOfTheDay(this.type, this.$config)
+            return module.entriesOfTheDay(this.type, this.$config, options)
               .then(entries => {
                 this.entries = entries;
               });
@@ -57,7 +61,8 @@
             hasPartCollection: {
               items: this.entries?.map(entry => ({
                 __typename: this.cardType,
-                info: entry.count,
+                url: this.searchFromType(entry.label),
+                info: this.$i18n.n(entry.count),
                 label: entry.label,
                 image: this.infoImageFromType(entry.label)
               }))
@@ -122,7 +127,16 @@
 
     methods: {
       infoImageFromType(type) {
-        return 'imageGoesHere.svg';
+        return `ic-${type.toLowerCase()}`;
+      },
+      searchFromType(type) {
+        // const qf = {
+        //   qf:`TYPE=${type}`
+        // };
+        return {
+          name: 'search',
+          query: {query: '', qf: `TYPE:"${type}"` }
+        };
       }
     }
   };

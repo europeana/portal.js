@@ -12,7 +12,7 @@ const facetsForMediaTypes = async() => {
     profile: 'facets',
     query,
     facet: 'TYPE',
-    qf: 'contentTier:4', // is this needed?
+    qf: 'contentTier:1 OR contentTier:2 OR contentTier:3 OR  contentTier:4',
     rows: 0
   };
   const response = await axiosClient.get('/search.json', { params });
