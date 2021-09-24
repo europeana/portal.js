@@ -91,7 +91,7 @@
         case RECENT_ITEMS:
           return 'item';
         case ITEM_COUNTS_MEDIA_TYPE:
-          return 'itemCountsMediaType'
+          return 'itemCountsMediaType';
         default:
           return null;
         }
@@ -104,7 +104,7 @@
         case RECENT_ITEMS:
           return 'AutomatedRecordCard';
         case ITEM_COUNTS_MEDIA_TYPE:
-          return 'InfoCard'
+          return 'InfoCard';
         default:
           return null;
         }
@@ -118,7 +118,7 @@
         case RECENT_ITEMS:
           return '/_api/items/recent';
         case ITEM_COUNTS_MEDIA_TYPE:
-          return '/_api/items/itemCountsMediaType'
+          return '/_api/items/itemCountsMediaType';
         default:
           return null;
         }
@@ -135,7 +135,7 @@
         // };
         return {
           name: 'search',
-          query: {query: '', qf: `TYPE:"${type}"` }
+          query: { query: '', qf: `TYPE:"${type}"` }
         };
       }
     }

@@ -13,7 +13,7 @@
         v-if="image"
         class="card-img"
       >
-        <span :class="image"/>
+        <span :class="image" />
       </div>
       <b-card-body data-qa="card body">
         <b-card-title
@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import SmartLink from './SmartLink';
+  import SmartLink from './SmartLink';
   export default {
     name: 'InfoCard',
 
@@ -47,7 +47,7 @@ import SmartLink from './SmartLink';
     props: {
       url: {
         type: Object,
-        default: ''
+        default: null
       },
       info: {
         type: String,

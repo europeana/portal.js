@@ -5,7 +5,6 @@ const CACHE_KEY = '@europeana:portal.js:items:type-counts';
 let axiosClient;
 let redisClient;
 
-
 const facetsForMediaTypes = async() => {
   const query = '*:*';
   const params = {
