@@ -1,4 +1,4 @@
-import omitBy from 'lodash/omitBy';
+// import omitBy from 'lodash/omitBy';
 import pick from 'lodash/pick';
 import uniq from 'lodash/uniq';
 import merge from 'deepmerge';
@@ -12,91 +12,6 @@ import localeCodes from '../i18n/codes';
 
 export const BASE_URL = process.env.EUROPEANA_RECORD_API_URL || 'https://api.europeana.eu/record';
 const MAX_VALUES_PER_PROXY_FIELD = 10;
-
-/**
- * Retrieves the "Core" fields which will always be displayed on record pages.
- *
- * @param {Object[]} proxyData All core fields are in the proxyData.
- * @param {Object[]} providerAggregation Extra fields used for the provider name & isShownAt link.
- * @param {Object[]} entities Entities in order to perform entity lookups
- * @return {Object[]} Key value pairs of the metadata fields.
- */
-function coreFields(proxyData, providerAggregation, entities) {
-  const fields = lookupEntities(omitBy({
-    edmDataProvider: providerAggregation.edmDataProvider,
-    dcContributor: proxyData.dcContributor,
-    dcCreator: proxyData.dcCreator,
-    dcPublisher: proxyData.dcPublisher,
-    dcSubject: proxyData.dcSubject,
-    dcType: proxyData.dcType,
-    dctermsMedium: proxyData.dctermsMedium
-  }, isUndefined), entities);
-
-  fields.edmDataProvider = {
-    url: providerAggregation.edmIsShownAt, value: fields.edmDataProvider
-  };
-  return Object.freeze(fields);
-}
-
-const PROXY_EXTRA_FIELDS = [
-  'dcRights',
-  'dcPublisher',
-  'dctermsCreated',
-  'dcDate',
-  'dctermsIssued',
-  'dctermsPublished',
-  'dctermsTemporal',
-  'dcCoverage',
-  'dctermsSpatial',
-  'edmCurrentLocation',
-  'dctermsProvenance',
-  'dcSource',
-  'dcIdentifier',
-  'dctermsExtent',
-  'dcDuration',
-  'dcMedium',
-  'dcFormat',
-  'dcLanguage',
-  'dctermsIsPartOf',
-  'dcRelation',
-  'dctermsReferences',
-  'dctermsHasPart',
-  'dctermsHasVersion',
-  'dctermsIsFormatOf',
-  'dctermsIsReferencedBy',
-  'dctermsIsReplacedBy',
-  'dctermsIsRequiredBy',
-  'edmHasMet',
-  'edmIncorporates',
-  'edmIsDerivativeOf',
-  'edmIsRepresentationOf',
-  'edmIsSimilarTo',
-  'edmIsSuccessorOf',
-  'edmRealizes',
-  'wasPresentAt',
-  'year'
-];
-
-/**
- * Retrieves all additional fields which will be displayed on record pages in the collapsable section.
- *
- * @param {Object[]} proxy To take the fields from.
- * @param {Object[]} edm To take additional fields from.
- * @param {Object[]} entities Entities in order to perform entity lookups
- * @return {Object[]} Key value pairs of the metadata fields.
- */
-function extraFields(proxy, edm, entities) {
-  return Object.freeze(lookupEntities(omitBy({
-    ...pick(edm.aggregations[0], [
-      'edmProvider', 'edmIntermediateProvider', 'edmRights', 'edmUgc'
-    ]),
-    ...pick(proxy, PROXY_EXTRA_FIELDS),
-    edmCountry: edm.europeanaAggregation.edmCountry,
-    europeanaCollectionName: edm.europeanaCollectionName,
-    timestampCreated: edm.timestamp_created,
-    timestampUpdate: edm.timestamp_update
-  }, isUndefined), entities));
-}
 
 /**
  * Sorts an array of objects by the `isNextInSequence` property.
@@ -267,6 +182,13 @@ export default (context = {}) => {
         });
       }
 
+      const metadata = Object.freeze({
+        ...lookupEntities(merge.all(edm.proxies, edm.aggregations, edm.europeanaAggregation), entities),
+        europeanaCollectionName: edm.europeanaCollectionName,
+        timestampCreated: edm.timestamp_created,
+        timestampUpdate: edm.timestamp_update
+      });
+
       const allMediaUris = this.aggregationMediaUris(providerAggregation).map(Object.freeze);
       return {
         allMediaUris,
@@ -275,8 +197,7 @@ export default (context = {}) => {
         identifier: edm.about,
         type: edm.type,
         isShownAt: providerAggregation.edmIsShownAt,
-        coreFields: coreFields(proxyData, providerAggregation, entities),
-        fields: extraFields(proxyData, edm, entities),
+        metadata,
         media: this.aggregationMedia(providerAggregation, allMediaUris, edm.type, edm.services),
         agents,
         concepts,
