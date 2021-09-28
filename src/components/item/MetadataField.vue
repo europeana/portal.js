@@ -147,9 +147,6 @@
 
       hasValuesForLocale() {
         return (this.langMappedValues?.values?.length || 0) >= 1;
-      },
-      translatedItemsEnabled() {
-        return this.$config.app.features.translatedItems;
       }
     }
   };
