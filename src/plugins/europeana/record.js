@@ -182,12 +182,15 @@ export default (context = {}) => {
         });
       }
 
-      const metadata = Object.freeze({
+      const metadata = {
         ...lookupEntities(merge.all(edm.proxies, edm.aggregations, edm.europeanaAggregation), entities),
         europeanaCollectionName: edm.europeanaCollectionName,
         timestampCreated: edm.timestamp_created,
         timestampUpdate: edm.timestamp_update
-      });
+      };
+      metadata.edmDataProvider = {
+        url: providerAggregation.edmIsShownAt, value: providerAggregation.edmDataProvider
+      };
 
       const allMediaUris = this.aggregationMediaUris(providerAggregation).map(Object.freeze);
       return {
@@ -197,7 +200,7 @@ export default (context = {}) => {
         identifier: edm.about,
         type: edm.type,
         isShownAt: providerAggregation.edmIsShownAt,
-        metadata,
+        metadata: Object.freeze(metadata),
         media: this.aggregationMedia(providerAggregation, allMediaUris, edm.type, edm.services),
         agents,
         concepts,
