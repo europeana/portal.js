@@ -16,23 +16,6 @@
     </div>
     <div class="col-12">
       <b-card-group
-        v-if="isInfoSection"
-        class="card-deck-3-cols"
-        deck
-        align="center"
-        data-qa="section group"
-      >
-        <InfoCard
-          v-for="(card, index) in cards"
-          :key="index"
-          :url="card.url"
-          :info="card.info"
-          :label="card.label"
-          :image="card.image"
-        />
-      </b-card-group>
-      <b-card-group
-        v-else
         class="card-deck-4-cols"
         deck
         data-qa="section group"
@@ -71,7 +54,6 @@
 
 <script>
   import ContentCard from '../generic/ContentCard';
-  import InfoCard from '../generic/InfoCard';
   import BrowseContentCard from './BrowseContentCard';
   import SmartLink from '../generic/SmartLink';
 
@@ -82,7 +64,6 @@
     components: {
       BrowseContentCard,
       ContentCard,
-      InfoCard,
       SmartLink
     },
     props: {
@@ -106,14 +87,6 @@
           }
           const identifier = card.identifier;
           return identifier ? entityParamsFromUri(identifier).type === 'person' : false;
-        });
-      },
-      isInfoSection() {
-        return this.cards.some((card) => {
-          if (card['__typename'] === 'InfoCard') {
-            return true;
-          }
-          return false;
         });
       }
     },

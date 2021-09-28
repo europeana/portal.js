@@ -2,7 +2,12 @@
   <div
     v-if="entries.length > 0"
   >
+    <InfoCardSection
+      v-if="type === 'itemCountsMediaType'"
+      :section="contentCardSection"
+    />
     <ContentCardSection
+      v-else
       :section="contentCardSection"
     />
   </div>
@@ -10,6 +15,7 @@
 
 <script>
   import ContentCardSection from './ContentCardSection';
+  import InfoCardSection from './InfoCardSection';
 
   const FEATURED_TOPICS = 'Featured topics';
   const FEATURED_TIMES = 'Featured centuries';
@@ -20,7 +26,8 @@
     name: 'AutomatedCardGroup',
 
     components: {
-      ContentCardSection
+      ContentCardSection,
+      InfoCardSection
     },
 
     props: {
@@ -58,6 +65,7 @@
       contentCardSection() {
         if (this.sectionType === ITEM_COUNTS_MEDIA_TYPE) {
           return {
+            type: this.type,
             hasPartCollection: {
               items: this.entries?.map(entry => ({
                 __typename: this.cardType,
