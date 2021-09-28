@@ -138,9 +138,6 @@
         return `ic-${type.toLowerCase()}`;
       },
       searchFromType(type) {
-        // const qf = {
-        //   qf:`TYPE=${type}`
-        // };
         return {
           name: 'search',
           query: { query: '', qf: `TYPE:"${type}"` }

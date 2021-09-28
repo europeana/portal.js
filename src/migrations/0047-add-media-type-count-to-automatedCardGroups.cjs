@@ -15,11 +15,10 @@ module.exports = function(migration) {
     .items({
       type: 'Link',
       validations: [
-          {
-            linkContentType: ['embed', 'imageComparison', 'imageWithAttribution', 'link', 'richText', 'automatedCardGroup']
-          }
-        ],
-        linkType: 'Entry'
-      });
-  // const browsePage = migration.editContentType('browsePage');
+        {
+          linkContentType: ['embed', 'imageComparison', 'imageWithAttribution', 'link', 'richText', 'automatedCardGroup']
+        }
+      ],
+      linkType: 'Entry'
+    });
 };

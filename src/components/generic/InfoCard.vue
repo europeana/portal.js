@@ -66,28 +66,10 @@
         default: 'default' // other options: dark
       }
     },
-    data() {
-      return {
-        cardImageUrl: this.imageUrl,
-        displayLabelTypes: 'exhibitions|galleries|blog|collections'
-      };
-    },
 
     computed: {
       cardClass() {
         return `${this.variant}-card`;
-      }
-    },
-
-    watch: {
-      imageUrl() {
-        this.cardImageUrl = this.imageUrl;
-      }
-    },
-
-    methods: {
-      imageNotFound() {
-        this.cardImageUrl = '';
       }
     }
   };

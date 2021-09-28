@@ -17,6 +17,7 @@
           :info="card.info"
           :label="card.label"
           :image="card.image"
+          :variant="section.type"
         />
       </b-card-group>
     </div>
@@ -45,6 +46,13 @@
           return 'card-deck-3-cols';
         } else {
           return 'card-deck-4-cols';
+        }
+      },
+      cardVariant() {
+        if (this.section.type === 'itemCountsMediaType') {
+          return 'default';
+        } else {
+          return 'dark';
         }
       }
     }
