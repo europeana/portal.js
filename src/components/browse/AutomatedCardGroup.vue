@@ -71,7 +71,7 @@
                 __typename: this.cardType,
                 url: this.searchFromType(entry.label),
                 info: this.$i18n.n(entry.count),
-                label: entry.label,
+                label: this.$t(`facets.TYPE.options.${entry.label}`),
                 image: this.infoImageFromType(entry.label)
               }))
             }

@@ -27,6 +27,7 @@
         </b-card-title>
         <b-card-text
           text-tag="div"
+          class="text-uppercase"
         >
           {{ label }}
         </b-card-text>
