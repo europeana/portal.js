@@ -17,10 +17,10 @@
             data-qa="main metadata section"
           >
             <MetadataField
-              v-for="(value, name) in core"
+              v-for="name in CORE_FIELDS"
               :key="name"
               :name="name"
-              :field-data="value"
+              :field-data="value[name]"
             />
           </b-card-text>
         </b-tab>
@@ -32,10 +32,10 @@
             text-tag="div"
           >
             <MetadataField
-              v-for="(value, name) in all"
+              v-for="name in ALL_FIELDS"
               :key="name"
               :name="name"
-              :field-data="value"
+              :field-data="value[name]"
             />
           </b-card-text>
         </b-tab>
@@ -106,7 +106,6 @@
     'edmRights',
     'edmUgc',
     'dcRights',
-    'dcPublisher',
     'dctermsCreated',
     'dcDate',
     'dctermsIssued',
@@ -172,19 +171,13 @@
 
     data() {
       return {
+        CORE_FIELDS,
+        ALL_FIELDS,
         showLocationMap: false
       };
     },
 
     computed: {
-      core() {
-        return this.ordered(CORE_FIELDS);
-      },
-
-      all() {
-        return this.ordered(ALL_FIELDS);
-      },
-
       mappableLocation() {
         return this.location?.def?.find(loc => (
           (typeof loc === 'object') && loc.latitude && loc.longitude
@@ -193,16 +186,6 @@
     },
 
     methods: {
-      ordered(fields) {
-        const keys = Object.keys(this.value);
-        return fields.reduce((memo, field) => {
-          if (keys.includes(field)) {
-            memo[field] = this.value[field];
-          }
-          return memo;
-        }, {});
-      },
-
       clickLocationTab() {
         this.showLocationMap = true;
       }
