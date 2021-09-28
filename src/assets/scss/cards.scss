@@ -1,3 +1,60 @@
+.info-card {
+  background: $offwhite;
+  border-radius: $border-radius-small;
+  box-shadow: none;
+  color: $black;
+  height: auto;
+  line-height: 1.1875rem;
+  border: none;
+  a {
+    text-decoration: none;
+  }
+  .card-body {
+    padding: 0.625rem 1rem 0.5rem;
+  }
+  .card-title {
+    color: $blue;
+    font-size: 1.5rem;
+    line-height: 1.75rem;
+    margin-bottom: 0.25rem;
+  }
+  .card-text {
+    font-weight: 700;
+    font-size: $font-size-extrasmall;
+    line-height: 1.75rem;
+  }
+  .card-img {
+    @extend .icon-font;
+    font-size: 2rem;
+    margin-top: 1rem;
+    .ic-3d {
+      &:after {
+        content: '\e942';
+      }
+    }
+    .ic-video {
+      &:after {
+        content: '\e943';
+      }
+    }
+    .ic-sound {
+      &:after {
+        content: '\e944';
+      }
+    }
+    .ic-text {
+      &:after {
+        content: '\e945';
+      }
+    }
+    .ic-image {
+      &:after {
+        content: '\e946';
+      }
+    }
+  }
+}
+
 .content-card {
   background: $white;
   border-radius: $border-radius-small;
@@ -397,61 +454,6 @@
   }
 }
 
-.info-card {
-  background: $offwhite;
-  border-radius: $border-radius-small;
-  box-shadow: none;
-  color: $black;
-  font-size: $font-size-small;
-  height: auto;
-  line-height: 1.1875rem;
-  border: none;
-
-  .card-title {
-    color: $blue;
-    font-weight: 400;
-    font-size: 1.5rem;
-    line-height: 1.75rem;
-  }
-
-  &.card {
-    margin-bottom: 1.5rem;
-    a {
-      text-decoration: none;
-    }
-  }
-  .card-img {
-    @extend .icon-font;
-    font-size: 2rem;
-    margin-top: 1rem;
-    .ic-3d {
-      &:after{
-        content: '\e942';
-      }
-    }
-    .ic-video {
-      &:after{
-        content: '\e943';
-      }
-    }
-    .ic-sound {
-      &:after{
-        content: '\e944';
-      }
-    }
-    .ic-text{
-      &:after{
-        content: '\e945';
-      }
-    }
-    .ic-image {
-      &:after{
-        content: '\e946';
-      }
-    }
-  }
-}
-
 .card-deck {
   flex-flow: column nowrap;
 }
@@ -570,5 +572,22 @@
 .browse-section {
   .content-card:not(.mini-card) a .card-body {
     min-height: 10rem;
+  }
+}
+
+.info-card-section {
+  .card-deck-3-cols {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    margin-right: -$grid-gutter;
+    margin-left: -$grid-gutter;
+    .card {
+      flex: 0 0 calc(100% / 2 - #{$grid-gutter*2});
+      margin: $grid-gutter;
+      @media (min-width: $bp-medium) {
+        flex: 0 0 calc(100% / 3 - #{$grid-gutter*2});
+      }
+    }
   }
 }
