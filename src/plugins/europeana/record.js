@@ -313,13 +313,21 @@ export default (context = {}) => {
     */
     localeSpecificFieldValueIsFromEnrichment(field, providerProxy, proxies, predictedUiLang) {
       if (isLangMap(providerProxy[field]) &&
-           (providerProxy[field]?.[predictedUiLang] ||
-             (!proxies[2][field]?.[predictedUiLang] && providerProxy[field]?.['en'])
+           (this.providerProxyHasLanguageField(providerProxy, field, predictedUiLang) ||
+             this.providerProxyHasFallbackField(proxies[2], providerProxy, field, predictedUiLang)
            )
       ) {
         return true;
       }
       return false;
+    },
+
+    providerProxyHasLanguageField(providerProxy, field, targetLanguage) {
+      return providerProxy?.[field]?.[targetLanguage];
+    },
+
+    providerProxyHasFallbackField(defaultProxy, providerProxy, field, targetLanguage) {
+      return (!defaultProxy[field]?.[targetLanguage] && providerProxy[field]?.['en']);
     },
 
     webResourceThumbnails(webResource, aggregation, recordType) {
