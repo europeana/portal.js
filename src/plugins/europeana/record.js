@@ -183,13 +183,15 @@ export default (context = {}) => {
       }
 
       const metadata = {
-        ...lookupEntities(merge.all(edm.proxies, edm.aggregations, edm.europeanaAggregation), entities),
+        ...lookupEntities(
+          merge.all(edm.proxies.concat(edm.aggregations[0]).concat(edm.europeanaAggregation)), entities
+        ),
         europeanaCollectionName: edm.europeanaCollectionName,
         timestampCreated: edm.timestamp_created,
         timestampUpdate: edm.timestamp_update
       };
       metadata.edmDataProvider = {
-        url: providerAggregation.edmIsShownAt, value: providerAggregation.edmDataProvider
+        url: providerAggregation.edmIsShownAt, value: metadata.edmDataProvider
       };
 
       const allMediaUris = this.aggregationMediaUris(providerAggregation).map(Object.freeze);

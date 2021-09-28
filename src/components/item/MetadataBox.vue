@@ -90,6 +90,52 @@
 <script>
   import MetadataField from './MetadataField';
 
+  export default {
+    name: 'MetadataBox',
+
+    components: {
+      MetadataField,
+      MapEmbed: () => import('../geo/MapEmbed')
+    },
+
+    props: {
+      value: {
+        type: Object,
+        required: true
+      },
+      transcribingAnnotations: {
+        type: Array,
+        default: () => []
+      },
+      location: {
+        type: Object,
+        default: null
+      }
+    },
+
+    data() {
+      return {
+        CORE_FIELDS,
+        ALL_FIELDS,
+        showLocationMap: false
+      };
+    },
+
+    computed: {
+      mappableLocation() {
+        return this.location?.def?.find(loc => (
+          (typeof loc === 'object') && loc.latitude && loc.longitude
+        )) || null;
+      }
+    },
+
+    methods: {
+      clickLocationTab() {
+        this.showLocationMap = true;
+      }
+    }
+  };
+
   const CORE_FIELDS = [
     'edmDataProvider',
     'dcContributor',
@@ -145,50 +191,4 @@
     'timestampCreated',
     'timestampUpdate'
   ]);
-
-  export default {
-    name: 'MetadataBox',
-
-    components: {
-      MetadataField,
-      MapEmbed: () => import('../geo/MapEmbed')
-    },
-
-    props: {
-      value: {
-        type: Object,
-        required: true
-      },
-      transcribingAnnotations: {
-        type: Array,
-        default: () => []
-      },
-      location: {
-        type: Object,
-        default: null
-      }
-    },
-
-    data() {
-      return {
-        CORE_FIELDS,
-        ALL_FIELDS,
-        showLocationMap: false
-      };
-    },
-
-    computed: {
-      mappableLocation() {
-        return this.location?.def?.find(loc => (
-          (typeof loc === 'object') && loc.latitude && loc.longitude
-        )) || null;
-      }
-    },
-
-    methods: {
-      clickLocationTab() {
-        this.showLocationMap = true;
-      }
-    }
-  };
 </script>
