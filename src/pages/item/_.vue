@@ -341,7 +341,7 @@
 
         const dataSimilarItems = {
           dcSubject: this.getSimilarItemsData(this.coreFields.dcSubject),
-          dcType: this.getSimilarItemsData(this.title), // ???
+          dcType: this.getSimilarItemsData(this.title), // TODO: Evaluate why title is being set as type here.
           dcCreator: this.getSimilarItemsData(this.coreFields.dcCreator),
           edmDataProvider: this.getSimilarItemsData(this.fields.edmDataProvider)
         };

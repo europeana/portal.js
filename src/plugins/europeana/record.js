@@ -284,7 +284,7 @@ export default (context = {}) => {
         altTitle: proxyData.dctermsAlternative,
         description: proxyData.dcDescription,
         identifier: edm.about,
-        type: edm.type, // What's this used for?
+        type: edm.type, // TODO: Evaluate if this is used, if not remove.
         isShownAt: providerAggregation.edmIsShownAt,
         coreFields: coreFields(proxyData, providerAggregation, entities),
         fields: extraFields(proxyData, edm, entities),
