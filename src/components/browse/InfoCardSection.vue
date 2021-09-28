@@ -17,7 +17,7 @@
           :info="card.info"
           :label="card.label"
           :image="card.image"
-          :variant="section.type"
+          :variant="cardVariant"
         />
       </b-card-group>
     </div>

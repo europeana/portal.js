@@ -1,9 +1,12 @@
 .info-card {
-  background: $bodygrey;
+  background: $white;
   border-radius: $border-radius-large;
   box-shadow: none;
   color: $black;
   border: none;
+  @at-root .text-page &.default-card {
+    background: $bodygrey;
+  }
   a {
     text-decoration: none;
   }
