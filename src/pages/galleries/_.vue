@@ -36,6 +36,7 @@
   import ContentHeader from '../../components/generic/ContentHeader';
 
   import marked from 'marked';
+  import stripMarkdown from '@/mixins/stripMarkdown';
 
   export default {
     name: 'ImageGallery',
@@ -43,6 +44,9 @@
       ContentHeader,
       ContentCard: () => import('../../components/generic/ContentCard')
     },
+    mixins: [
+      stripMarkdown
+    ],
     asyncData({ params, query, error, app }) {
       const variables = {
         identifier: params.pathMatch,
@@ -75,7 +79,7 @@
         return this.images.length === 0 ? null : this.imageUrl(this.images[0]);
       },
       description() {
-        return this.$options.filters.stripMarkdown(this.rawDescription);
+        return this.stripMarkdown(this.rawDescription);
       },
       htmlDescription() {
         return marked(this.rawDescription);

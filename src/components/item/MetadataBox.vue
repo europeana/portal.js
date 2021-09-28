@@ -88,12 +88,14 @@
 </template>
 
 <script>
+  import { BTabs } from 'bootstrap-vue';
   import MetadataField from './MetadataField';
 
   export default {
     name: 'MetadataBox',
 
     components: {
+      BTabs,
       MetadataField,
       MapEmbed: () => import('../geo/MapEmbed')
     },

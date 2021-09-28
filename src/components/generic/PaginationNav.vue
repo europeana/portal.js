@@ -15,7 +15,12 @@
 </template>
 
 <script>
+  import { BPaginationNav } from 'bootstrap-vue';
+
   export default {
+    components: {
+      BPaginationNav
+    },
     props: {
       perPage: {
         type: Number,
