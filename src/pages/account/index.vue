@@ -154,7 +154,7 @@
 </template>
 
 <script>
-  import { BTabs } from 'bootstrap-vue';
+  import { BTabs, BTab } from 'bootstrap-vue';
   import { mapState } from 'vuex';
 
   import keycloak from '../../mixins/keycloak';
@@ -168,6 +168,7 @@
 
     components: {
       BTabs,
+      BTab,
       ItemPreviewCardGroup,
       UserSets,
       AlertMessage,
