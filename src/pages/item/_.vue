@@ -173,7 +173,7 @@
         organizations: [],
         timespans: [],
         title: null,
-        type: null, // is this used? where?
+        type: null,
         useProxy: true,
         schemaOrg: null,
         edmLanguage: null,
