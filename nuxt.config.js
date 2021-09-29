@@ -254,11 +254,12 @@ export default {
     '~/plugins/vue-directives',
     '~/plugins/vue-announcer.client',
     '~/plugins/vue-masonry.client',
+    '~/plugins/contentful-graphql/plugin.server',
+    '~/plugins/contentful-graphql/plugin.client',
     '~/plugins/ab-testing'
   ],
 
   buildModules: [
-    '~/modules/contentful-graphql',
     '~/modules/axios-logger',
     '~/modules/http',
     '~/modules/query-sanitiser',

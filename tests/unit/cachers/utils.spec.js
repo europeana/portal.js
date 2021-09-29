@@ -3,18 +3,14 @@ import sinon from 'sinon';
 
 const utils = require('@/cachers/utils');
 
-let redisClientStub;
-
 describe('cachers/utils', () => {
   describe('createRedisClient', () => {
-    before('stub redis methods', () => {
-      redisClientStub = {
-        on: sinon.spy(),
-        get: sinon.spy(),
-        set: sinon.spy(),
-        quit: sinon.spy()
-      };
+    const redisClientStub = {};
+    for (const fn of ['on', 'del', 'get', 'set', 'hdel', 'hget', 'hgetall', 'hkeys', 'hset', 'keys', 'quit']) {
+      redisClientStub[fn] = sinon.spy();
+    }
 
+    before('stub redis methods', () => {
       sinon.stub(redis, 'createClient').returns(redisClientStub);
     });
     after('restore redis methods', () => {

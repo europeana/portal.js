@@ -4,7 +4,12 @@ import logging from '../logging.js';
 
 const app = express();
 app.disable('x-powered-by'); // Security: do not disclose technology fingerprints
-app.use(express.json());
+app.use(express.json({
+  type: [
+    'application/json',
+    'application/*+json'
+  ]
+}));
 app.use(logging);
 
 import nuxtConfig from '../../../nuxt.config.js';
@@ -20,6 +25,12 @@ app.use((res, req, next) => {
 
 import debugMemoryUsage from './debug/memory-usage.js';
 app.get('/debug/memory-usage', debugMemoryUsage);
+
+import contentfulWebhook from './contentful/webhook.js';
+app.post('/contentful/webhook', (req, res) => contentfulWebhook(runtimeConfig)(req, res));
+
+import contentful from './contentful/index.js';
+app.get('/contentful/:alias', (req, res) => contentful(runtimeConfig)(req, res));
 
 import entitiesOrganisations from './entities/organisations.js';
 app.get('/entities/organisations', (req, res) => entitiesOrganisations(runtimeConfig)(req, res));

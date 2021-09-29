@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-import { errorHandler } from '../';
-import { truncate, wordLength } from '../../../plugins/vue-filters';
+import { errorHandler } from '../index.js';
+import { truncate, wordLength } from '../../../plugins/vue-filters.js';
 
 const JIRA_SERVICE_DESK_API_PATH = '/rest/servicedeskapi/request';
 const JSON_CONTENT_TYPE = 'application/json';
