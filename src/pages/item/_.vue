@@ -70,6 +70,7 @@
             <MetadataBox
               v-model="fieldsAndKeywords"
               :location="locationData"
+              :metadata-language="metadataLanguage"
               :transcribing-annotations="transcribingAnnotations || []"
             />
           </b-col>
@@ -335,7 +336,7 @@
 
         const dataSimilarItems = {
           dcSubject: this.getSimilarItemsData(this.metadata.dcSubject),
-          dcType: this.getSimilarItemsData(this.title),
+          dcType: this.getSimilarItemsData(this.title), // TODO: Evaluate why title is being set as type here.
           dcCreator: this.getSimilarItemsData(this.metadata.dcCreator),
           edmDataProvider: this.getSimilarItemsData(this.metadata.edmDataProvider)
         };

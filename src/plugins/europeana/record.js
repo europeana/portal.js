@@ -152,17 +152,18 @@ export default (context = {}) => {
           return memo;
         }, {});
 
-      const proxyData = merge.all(edm.proxies);
+      const proxies = merge.all(edm.proxies);
 
-      for (const field in proxyData) {
-        if (isLangMap(proxyData[field])) {
-          for (const locale in proxyData[field]) {
-            if (Array.isArray(proxyData[field][locale]) && proxyData[field][locale].length > MAX_VALUES_PER_PROXY_FIELD) {
-              proxyData[field][locale] = proxyData[field][locale].slice(0, MAX_VALUES_PER_PROXY_FIELD).concat('…');
+      for (const field in proxies) {
+        if (isLangMap(proxies[field])) {
+          for (const locale in proxies[field]) {
+            if (Array.isArray(proxies[field][locale]) && proxies[field][locale].length > MAX_VALUES_PER_PROXY_FIELD) {
+              proxies[field][locale] = proxies[field][locale].slice(0, MAX_VALUES_PER_PROXY_FIELD).concat('…');
             }
           }
         }
       }
+
       let prefLang;
       if (context.$config?.app?.features?.translatedItems) {
         prefLang = preferredLanguage(edm.europeanaAggregation.edmLanguage.def[0], options);
@@ -173,18 +174,19 @@ export default (context = {}) => {
         const europeanaProxy = edm.proxies.find(proxy => proxy.europeanaProxy);
         const providerProxy = edm.proxies.length === 3 ? edm.proxies[1] : null;
         const predictedUiLang = prefLang ||  options.locale;
-        ['dcTitle', 'dcDescription'].forEach((field) => {
+
+        for (const field in proxies) {
           if (providerProxy?.[field] && this.localeSpecificFieldValueIsFromEnrichment(field, providerProxy, edm.proxies, predictedUiLang)) {
-            proxyData[field].translationSource = 'enrichment';
-          } else if (europeanaProxy?.[field]) {
-            proxyData[field].translationSource = 'automated';
+            proxies[field].translationSource = 'enrichment';
+          } else if (europeanaProxy?.[field]?.[predictedUiLang]) {
+            proxies[field].translationSource = 'automated';
           }
-        });
+        }
       }
 
       const metadata = {
         ...lookupEntities(
-          merge.all(edm.proxies.concat(edm.aggregations[0]).concat(edm.europeanaAggregation)), entities
+          merge.all([proxies, edm.aggregations[0], edm.europeanaAggregation]), entities
         ),
         europeanaCollectionName: edm.europeanaCollectionName,
         timestampCreated: edm.timestamp_created,
@@ -197,10 +199,10 @@ export default (context = {}) => {
       const allMediaUris = this.aggregationMediaUris(providerAggregation).map(Object.freeze);
       return {
         allMediaUris,
-        altTitle: proxyData.dctermsAlternative,
-        description: proxyData.dcDescription,
+        altTitle: proxies.dctermsAlternative,
+        description: proxies.dcDescription,
         identifier: edm.about,
-        type: edm.type,
+        type: edm.type, // TODO: Evaluate if this is used, if not remove.
         isShownAt: providerAggregation.edmIsShownAt,
         metadata: Object.freeze(metadata),
         media: this.aggregationMedia(providerAggregation, allMediaUris, edm.type, edm.services),
@@ -208,7 +210,7 @@ export default (context = {}) => {
         concepts,
         timespans,
         organizations,
-        title: proxyData.dcTitle,
+        title: proxies.dcTitle,
         schemaOrg: data.schemaOrg ? Object.freeze(JSON.stringify(data.schemaOrg)) : undefined,
         edmLanguage: edm.europeanaAggregation.edmLanguage,
         metadataLanguage: prefLang
@@ -227,11 +229,22 @@ export default (context = {}) => {
     * @return {Boolean} true if enriched data will be shown
     */
     localeSpecificFieldValueIsFromEnrichment(field, providerProxy, proxies, predictedUiLang) {
-      if (providerProxy[field][predictedUiLang] ||
-        (!proxies[2][field][predictedUiLang] && providerProxy[field]['en'])) {
+      if (isLangMap(providerProxy[field]) &&
+           (this.providerProxyHasLanguageField(providerProxy, field, predictedUiLang) ||
+             this.providerProxyHasFallbackField(proxies[2], providerProxy, field, predictedUiLang)
+           )
+      ) {
         return true;
       }
       return false;
+    },
+
+    providerProxyHasLanguageField(providerProxy, field, targetLanguage) {
+      return providerProxy?.[field]?.[targetLanguage];
+    },
+
+    providerProxyHasFallbackField(defaultProxy, providerProxy, field, targetLanguage) {
+      return (!defaultProxy[field]?.[targetLanguage] && providerProxy[field]?.['en']);
     },
 
     webResourceThumbnails(webResource, aggregation, recordType) {
