@@ -195,6 +195,7 @@
     'edmCountry',
     'europeanaCollectionName',
     'timestampCreated',
-    'timestampUpdate'
+    'timestampUpdate',
+    'keywords'
   ]);
 </script>

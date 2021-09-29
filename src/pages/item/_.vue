@@ -193,7 +193,7 @@
         }, {});
       },
       fieldsAndKeywords() {
-        return { ...this.metadata, ...{ keywords: this.keywords } };
+        return { ...this.metadata, keywords: this.keywords };
       },
       locationData() {
         return this.metadata.dctermsSpatial;
