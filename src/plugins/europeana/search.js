@@ -123,7 +123,7 @@ export default function search($axios, params, options = {}) {
     .then(response => response.data)
     .then(data => ({
       ...data,
-      items: data.items.map(item => reduceFieldsForItem(item, options)),
+      items: data.items?.map(item => reduceFieldsForItem(item, options)),
       lastAvailablePage: start + perPage > maxResults
     }))
     .catch((error) => {
