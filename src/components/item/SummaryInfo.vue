@@ -15,7 +15,7 @@
           {{ heading.value }}
           <button
             v-if="translatedItemsEnabled"
-            v-b-tooltip.bottomright="{ customClass: 'tooltip' }"
+            v-b-tooltip.bottomright
             :title="$t(`multilingual.${heading.translationSource || 'original'}`)"
             class="translation-source"
             :class="heading.translationSource || 'original'"
@@ -31,7 +31,7 @@
           {{ heading.value }}
           <button
             v-if="translatedItemsEnabled"
-            v-b-tooltip.bottomright="{ customClass: 'tooltip' }"
+            v-b-tooltip.bottomright
             :title="$t(`multilingual.${heading.translationSource || 'original'}`)"
             class="translation-source"
             :class="heading.translationSource || 'original'"
@@ -62,7 +62,7 @@
         <!-- eslint-disable vue/no-v-html -->
         <button
           v-if="translatedItemsEnabled && index === 0"
-          v-b-tooltip.bottomright="{ customClass: 'tooltip' }"
+          v-b-tooltip.bottomright
           :title="$t(`multilingual.${description.translationSource || 'original'}`)"
           class="translation-source"
           :class="description.translationSource || 'original'"
@@ -70,7 +70,7 @@
         />
         <button
           v-else-if="translatedItemsEnabled && showAll"
-          v-b-tooltip.bottomright="{ customClass: 'tooltip' }"
+          v-b-tooltip.bottomright
           :title="$t(`multilingual.${description.translationSource || 'original'}`)"
           class="translation-source"
           :class="description.translationSource || 'original'"
