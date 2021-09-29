@@ -368,11 +368,9 @@ export default {
   ** Build configuration
   */
   build: {
-    // Extract CSS to files instead of inlining to keep HTML page size down.
-    // This results in more network requests in total to render the full page,
-    // but a smaller HTML document, and a smaller total size of all requests.
-    // Lighthouse performance ratings favour this by a few percentage points.
-    extractCSS: true,
+    // Do not enable extractCSS as it is unreliable.
+    // See: https://github.com/nuxt/nuxt.js/issues/4219
+    extractCSS: false,
 
     extend(config, { isClient }) {
       // Extend webpack config only for client bundle
