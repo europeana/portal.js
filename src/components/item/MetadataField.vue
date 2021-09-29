@@ -132,6 +132,10 @@
         return (this.limit > -1);
       },
 
+      prefLanguage() {
+        return this.metadataLanguage || this.$i18n.locale;
+      },
+
       langMappedValues() {
         if (this.fieldData === null) {
           return null;
@@ -140,9 +144,11 @@
         } else if (Array.isArray(this.fieldData)) {
           return { values: this.fieldData, code: '' };
         } else if (Object.prototype.hasOwnProperty.call(this.fieldData, 'url')) {
-          return langMapValueForLocale(this.fieldData.value, this.metadataLanguage || this.$i18n.locale);
+          return langMapValueForLocale(this.fieldData.value, this.prefLanguage);
         }
-        return langMapValueForLocale(this.fieldData, this.metadataLanguage || this.$i18n.locale, { omitUrisIfOtherValues: this.omitUrisIfOtherValues, omitAllUris: this.omitAllUris });
+        return langMapValueForLocale(this.fieldData, this.prefLanguage, {
+          omitUrisIfOtherValues: this.omitUrisIfOtherValues, omitAllUris: this.omitAllUris
+        });
       },
 
       hasValuesForLocale() {
