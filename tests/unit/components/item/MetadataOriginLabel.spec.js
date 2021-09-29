@@ -1,4 +1,4 @@
-import { mount } from '@vue/test-utils';
+import { createLocalVue, shallowMount } from '@vue/test-utils';
 import MetadataOriginLabel from '@/components/item/MetadataOriginLabel.vue';
 
 const $i18n = {
@@ -6,7 +6,11 @@ const $i18n = {
   locale: 'en'
 };
 
-const factory = (options = {}) => mount(MetadataOriginLabel, {
+const localVue = createLocalVue();
+localVue.directive('b-tooltip', {});
+
+const factory = (options = {}) => shallowMount(MetadataOriginLabel, {
+  localVue,
   mocks: {
     $t: (key) => key,
     $config: { app: { features: { translatedItems: options.translatedItems || false } } },

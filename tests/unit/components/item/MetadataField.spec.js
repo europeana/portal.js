@@ -1,4 +1,4 @@
-import { mount, shallowMount } from '@vue/test-utils';
+import { shallowMount } from '@vue/test-utils';
 import MetadataField from '@/components/item/MetadataField.vue';
 
 const $i18n = {
@@ -6,15 +6,7 @@ const $i18n = {
   locale: 'en'
 };
 
-const factory = () => mount(MetadataField, {
-  mocks: {
-    $t: (key) => key,
-    $config: { app: { internalLinkDomain: null, features: { translatedItems: false } } },
-    $i18n
-  }
-});
-
-const shallowFactory = () => shallowMount(MetadataField, {
+const factory = () => shallowMount(MetadataField, {
   mocks: {
     $t: (key) => key,
     $config: { app: { internalLinkDomain: null, features: { translatedItems: false } } },
@@ -35,9 +27,9 @@ describe('components/item/MetadataField', () => {
         await wrapper.setProps(props);
 
         const fieldValue = wrapper.find('[data-qa="metadata field"] [data-qa="literal value"]');
-        const entityFieldValue = wrapper.find('[data-qa="metadata field"] [data-qa="entity value"]');
+        const entityFieldValue = wrapper.find('[data-qa="metadata field"] [data-qa="entity value"] entityfield-stub');
         fieldValue.text().should.eq('Artist');
-        entityFieldValue.text().should.eq('English name');
+        entityFieldValue.attributes('value').should.eq('English name');
       });
     });
 
@@ -76,11 +68,10 @@ describe('components/item/MetadataField', () => {
 
     describe('field values', () => {
       describe('metadata origin labels', () => {
-        // Using shallowMount here as the MetadataOriginLabel would otherwise never render anything while the feature is toggled controlled.
         context('when the field has a translation source', () => {
           it('outputs a translation label for a single value', async() => {
             const props = { name: 'dcCreator', fieldData: { en: ['Artist'], translationSource: 'automated' }, metadataLanguage: 'en' };
-            const wrapper = shallowFactory();
+            const wrapper = factory();
 
             await wrapper.setProps(props);
             const translationTooltip = wrapper.find('metadataoriginlabel-stub');
@@ -89,7 +80,7 @@ describe('components/item/MetadataField', () => {
 
           it('outputs a translation label for a multiple values', async() => {
             const props = { name: 'dcCreator', fieldData: { en: ['Artist1', 'Artist2'],  translationSource: 'automated' }, metadataLanguage: 'en' };
-            const wrapper = shallowFactory();
+            const wrapper = factory();
 
             await wrapper.setProps(props);
 
