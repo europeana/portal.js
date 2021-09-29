@@ -3,6 +3,7 @@
     v-if="translatedItemsEnabled && translationSource"
     v-b-tooltip.bottomright="{ customClass: 'tooltip' }"
     :title="$t(`multilingual.${translationSource}`)"
+    class="translation-source"
     :class="translationSource"
     data-qa="translation tooltip"
   />
