@@ -13,6 +13,7 @@ const pageOfOrganisationResults = page => {
       ...axiosClient.defaults.config,
       query: '*:*',
       type: 'organization',
+      scope: 'europeana',
       page,
       pageSize
     }

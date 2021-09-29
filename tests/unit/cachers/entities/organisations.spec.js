@@ -63,15 +63,15 @@ describe('cachers/entities/organisations', () => {
   beforeEach('stub utility methods', () => {
     nock(config.europeana.apis.entity.url)
       .get('/search')
-      .query(query => query.page === '0')
+      .query(query => query.type === 'organization' && query.scope === 'europeana' && query.page === '0')
       .reply(200, apiResponse.pageOne);
     nock(config.europeana.apis.entity.url)
       .get('/search')
-      .query(query => query.page === '1')
+      .query(query => query.type === 'organization' && query.scope === 'europeana' && query.page === '1')
       .reply(200, apiResponse.pageTwo);
     nock(config.europeana.apis.entity.url)
       .get('/search')
-      .query(query => query.page === '2')
+      .query(query => query.type === 'organization' && query.scope === 'europeana' && query.page === '2')
       .reply(200, apiResponse.pageThree);
 
     redisClientStub = {
