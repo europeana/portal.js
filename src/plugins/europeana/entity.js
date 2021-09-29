@@ -33,11 +33,16 @@ export default (context = {}) => {
      * @param {Object} params additional parameters sent to the API
      */
     getEntitySuggestions(text, params = {}) {
+      let type = 'agent,concept,timespan';
+      if (context.$config?.app?.features?.organisationSearchSuggestions) {
+        type = `${type},organization`;
+      }
+
       return this.$axios.get('/suggest', {
         params: {
           ...this.$axios.defaults.params,
           text,
-          type: 'agent,concept,timespan',
+          type,
           scope: 'europeana',
           ...params
         }
