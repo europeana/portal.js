@@ -13,14 +13,7 @@
           class="mb-0"
         >
           {{ heading.value }}
-          <button
-            v-if="translatedItemsEnabled"
-            v-b-tooltip.bottomright
-            :title="$t(`multilingual.${heading.translationSource || 'original'}`)"
-            class="translation-source"
-            :class="heading.translationSource || 'original'"
-            data-qa="translated title tooltip"
-          />
+          <MetadataOriginLabel :translation-source="heading.translationSource" />
         </h1>
         <p
           v-else
@@ -29,14 +22,7 @@
           class="font-weight-bold mt-3 mb-0"
         >
           {{ heading.value }}
-          <button
-            v-if="translatedItemsEnabled"
-            v-b-tooltip.bottomright
-            :title="$t(`multilingual.${heading.translationSource || 'original'}`)"
-            class="translation-source"
-            :class="heading.translationSource || 'original'"
-            data-qa="translated description tooltip"
-          />
+          <MetadataOriginLabel :translation-source="heading.translationSource" />
         </p>
       </template>
     </header>
@@ -60,21 +46,13 @@
           v-html="$options.filters.convertNewLine(value)"
         />
         <!-- eslint-disable vue/no-v-html -->
-        <button
-          v-if="translatedItemsEnabled && index === 0"
-          v-b-tooltip.bottomright
-          :title="$t(`multilingual.${description.translationSource || 'original'}`)"
-          class="translation-source"
-          :class="description.translationSource || 'original'"
-          data-qa="translated description tooltip"
+        <MetadataOriginLabel
+          v-if="index === 0"
+          :translation-source="description.translationSource"
         />
-        <button
+        <MetadataOriginLabel
           v-else-if="translatedItemsEnabled && showAll"
-          v-b-tooltip.bottomright
-          :title="$t(`multilingual.${description.translationSource || 'original'}`)"
-          class="translation-source"
-          :class="description.translationSource || 'original'"
-          data-qa="translated description tooltip"
+          :translation-source="description.translationSource"
         />
         <hr
           v-if="(index + 1) < description.values.length && showAll"
@@ -94,13 +72,13 @@
 </template>
 
 <script>
-  import { VBTooltip } from 'bootstrap-vue';
+  import MetadataOriginLabel from './MetadataOriginLabel';
 
   export default {
     name: 'SummaryInfo',
 
-    directives: {
-      'b-tooltip': VBTooltip
+    components: {
+      MetadataOriginLabel
     },
 
     props: {

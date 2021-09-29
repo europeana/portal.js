@@ -1,4 +1,4 @@
-import { mount } from '@vue/test-utils';
+import { shallowMount } from '@vue/test-utils';
 import MetadataField from '@/components/item/MetadataField.vue';
 
 const $i18n = {
@@ -6,11 +6,11 @@ const $i18n = {
   locale: 'en'
 };
 
-const factory = () => mount(MetadataField, {
+const factory = () => shallowMount(MetadataField, {
   mocks: {
     $t: (key) => key,
-    $i18n,
-    $config: { app: { internalLinkDomain: null } }
+    $config: { app: { internalLinkDomain: null, features: { translatedItems: false } } },
+    $i18n
   }
 });
 
@@ -27,14 +27,14 @@ describe('components/item/MetadataField', () => {
         await wrapper.setProps(props);
 
         const fieldValue = wrapper.find('[data-qa="metadata field"] [data-qa="literal value"]');
-        const entityFieldValue = wrapper.find('[data-qa="metadata field"] [data-qa="entity value"]');
+        const entityFieldValue = wrapper.find('[data-qa="metadata field"] [data-qa="entity value"] entityfield-stub');
         fieldValue.text().should.eq('Artist');
-        entityFieldValue.text().should.eq('English name');
+        entityFieldValue.attributes('value').should.eq('English name');
       });
     });
 
     describe('a labelled field', () => {
-      it('outputs the  translated field label', async() => {
+      it('outputs the translated field label', async() => {
         await wrapper.setProps(props);
 
         const fieldName = wrapper.find('[data-qa="metadata field"] [data-qa="label"]');
@@ -67,6 +67,29 @@ describe('components/item/MetadataField', () => {
     });
 
     describe('field values', () => {
+      describe('metadata origin labels', () => {
+        context('when the field has a translation source', () => {
+          it('outputs a translation label for a single value', async() => {
+            const props = { name: 'dcCreator', fieldData: { en: ['Artist'], translationSource: 'automated' }, metadataLanguage: 'en' };
+            const wrapper = factory();
+
+            await wrapper.setProps(props);
+            const translationTooltip = wrapper.find('metadataoriginlabel-stub');
+            translationTooltip.attributes().translationsource.should.eq('automated');
+          });
+
+          it('outputs a translation label for a multiple values', async() => {
+            const props = { name: 'dcCreator', fieldData: { en: ['Artist1', 'Artist2'],  translationSource: 'automated' }, metadataLanguage: 'en' };
+            const wrapper = factory();
+
+            await wrapper.setProps(props);
+
+            const translationTooltip = wrapper.find('metadataoriginlabel-stub');
+            translationTooltip.attributes().translationsource.should.eq('automated');
+          });
+        });
+      });
+
       it('outputs a single value', async() => {
         const props = { name: 'dcCreator', fieldData: { def: ['Artist'] } };
         const wrapper = factory();

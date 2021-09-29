@@ -19,6 +19,7 @@
             <MetadataField
               v-for="(value, name) in coreMetadata"
               :key="name"
+              :metadata-language="metadataLanguage"
               :name="name"
               :field-data="value"
             />
@@ -34,6 +35,7 @@
             <MetadataField
               v-for="(value, name) in allMetadata"
               :key="name"
+              :metadata-language="metadataLanguage"
               :name="name"
               :field-data="value"
             />
@@ -102,21 +104,25 @@
     },
 
     props: {
+      allMetadata: {
+        type: Object,
+        default: null
+      },
       coreMetadata: {
         type: Object,
         default: null
       },
-      allMetadata: {
+      location: {
         type: Object,
+        default: null
+      },
+      metadataLanguage: {
+        type: String,
         default: null
       },
       transcribingAnnotations: {
         type: Array,
         default: () => []
-      },
-      location: {
-        type: Object,
-        default: null
       }
     },
 
