@@ -97,9 +97,160 @@ const apiResponse = {
   }
 };
 
+const translateProfileApiResponse = {
+  success: true,
+  object: {
+    about: europeanaId,
+    aggregations: [
+      {
+        edmIsShownAt,
+        edmIsShownBy: edmIsShownByWebResource.about,
+        hasView: [
+          edmHasViewWebResourceSecond.about,
+          edmHasViewWebResourceThird.about,
+          edmHasViewWebResourceFirst.about
+        ],
+        webResources: [
+          edmIsShownByWebResource,
+          edmHasViewWebResourceSecond,
+          edmHasViewWebResourceThird,
+          edmHasViewWebResourceFirst,
+          someOtherWebResource
+        ]
+      }
+    ],
+    europeanaAggregation: {
+      edmLanguage: { def: ['de'] },
+      edmRights: { def: ['https://example.org'] },
+      edmPreview: 'https://example.org'
+    },
+    proxies: [
+      {
+        europeanaProxy: true,
+        dcTitle: {
+          'de': ['Deutscher Titel']
+        }
+      },
+      {
+        europeanaProxy: false,
+        dcDescription: {
+          'de': ['Deutsche Beschreibung']
+        }
+      },
+      {
+        europeanaProxy: false,
+        dcType: {
+          'de': ['Deutscher Objekt Typ']
+        }
+      }
+    ],
+    agents: [
+      {
+        about: 'http://data.europeana.eu/agent/base/110088',
+        prefLabel: { en: 'Johann Wolfgang von Goethe' },
+        rdaGr2DateOfBirth: { def: '1749-08-28' }
+      }
+    ],
+    concepts: [
+      {
+        about: 'http://data.europeana.eu/concept/base/190',
+        prefLabel: { en: 'Art' },
+        note: { en: ['Art is a diverse range of human activities and the products of those activities'] }
+      }
+    ],
+    times: [
+      {
+        about: 'http://data.europeana.eu/timespan/20',
+        prefLabel: { en: '20th-century' },
+        note: { en: ['The 20th century'] }
+      }
+    ],
+    type
+  }
+};
+
 describe('plugins/europeana/record', () => {
   afterEach(() => {
     nock.cleanAll();
+  });
+
+  context('when using the translation profile', () => {
+    const translateConf = { $config: { app: { features: { translatedItems: true } } } };
+    describe('record().getRecord()', () => {
+      it('makes an API request', async() => {
+        nock(BASE_URL)
+          .get(apiEndpoint)
+          .query(true)
+          .reply(200, translateProfileApiResponse);
+
+        await record(translateConf).getRecord(europeanaId);
+
+        nock.isDone().should.be.true;
+      });
+      describe('profile parameter', () => {
+        it('is "translate" when the item translation feature is enabled', async() => {
+          nock(BASE_URL)
+            .get(apiEndpoint)
+            .query(query => query.profile === 'translate' && query.lang === 'de')
+            .reply(200, translateProfileApiResponse);
+
+          await record(translateConf).getRecord(europeanaId, { metadataLanguage: 'de' });
+
+          nock.isDone().should.be.true;
+        });
+      });
+      describe('metadadataLanguge', () => {
+        it('uses the edmLanguage', async() => {
+          nock(BASE_URL)
+            .get(apiEndpoint)
+            .query(query => query.profile === 'translate')
+            .reply(200, translateProfileApiResponse);
+
+          const recordData = await record(translateConf).getRecord(europeanaId, { metadataLanguage: 'de' });
+          recordData.record.metadataLanguage.should.eq('de');
+          nock.isDone().should.be.true;
+        });
+      });
+      describe('translation source labels', () => {
+        context('when there is a value in the Europeana proxy', () => {
+          it('is considered an automated translation', async() => {
+            nock(BASE_URL)
+              .get(apiEndpoint)
+              .query(query => query.profile === 'translate' && query.lang === 'de')
+              .reply(200, translateProfileApiResponse);
+
+            const recordData = await record(translateConf).getRecord(europeanaId, { metadataLanguage: 'de' });
+            recordData.record.title.translationSource.should.eq('automated');
+            nock.isDone().should.be.true;
+          });
+        });
+        context('when there is a value in the provider proxy', () => {
+          it('is considered an automated translation', async() => {
+            nock(BASE_URL)
+              .get(apiEndpoint)
+              .query(query => query.profile === 'translate' && query.lang === 'de')
+              .reply(200, translateProfileApiResponse);
+
+            const recordData = await record(translateConf).getRecord(europeanaId, { metadataLanguage: 'de' });
+            recordData.record.description.translationSource.should.eq('enrichment');
+            nock.isDone().should.be.true;
+          });
+        });
+        context('when there is only a value in the default proxy', () => {
+          it('does not flag the field with a translation source', async() => {
+            nock(BASE_URL)
+              .get(apiEndpoint)
+              .query(query => query.profile === 'translate' && query.lang === 'de')
+              .reply(200, translateProfileApiResponse);
+
+            const recordData = await record(translateConf).getRecord(europeanaId, { metadataLanguage: 'de' });
+
+            (recordData.record.coreFields['dcType'].translationSource === undefined).should.be.true;
+            nock.isDone().should.be.true;
+          });
+        });
+      });
+    });
   });
 
   describe('record().getRecord()', () => {
@@ -115,16 +266,6 @@ describe('plugins/europeana/record', () => {
     });
 
     describe('profile parameter', () => {
-      it('is "translate" when the item translation feature is enabled', async() => {
-        nock(BASE_URL)
-          .get(apiEndpoint)
-          .query(query => query.profile === 'translate' && query.lang === 'fr')
-          .reply(200, apiResponse);
-
-        await record({ $config: { app: { features: { translatedItems: true } } } }).getRecord(europeanaId, { metadataLanguage: 'fr' });
-
-        nock.isDone().should.be.true;
-      });
       it('is "schemaOrg" for configured dataset items', async() => {
         nock(BASE_URL)
           .get(apiEndpoint)
