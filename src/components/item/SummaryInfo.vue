@@ -94,14 +94,10 @@
 </template>
 
 <script>
-  import { VBTooltip, BTooltip } from 'bootstrap-vue';
+  import { VBTooltip } from 'bootstrap-vue';
 
   export default {
     name: 'SummaryInfo',
-
-    components: {
-      BTooltip
-    },
 
     directives: {
       'b-tooltip': VBTooltip
