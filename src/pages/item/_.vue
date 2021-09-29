@@ -71,6 +71,7 @@
               :all-metadata="allMetaData"
               :core-metadata="coreFields"
               :location="locationData"
+              :metadata-language="metadataLanguage"
               :transcribing-annotations="transcribingAnnotations || []"
             />
           </b-col>
@@ -340,7 +341,7 @@
 
         const dataSimilarItems = {
           dcSubject: this.getSimilarItemsData(this.coreFields.dcSubject),
-          dcType: this.getSimilarItemsData(this.title),
+          dcType: this.getSimilarItemsData(this.coreFields.dcType),
           dcCreator: this.getSimilarItemsData(this.coreFields.dcCreator),
           edmDataProvider: this.getSimilarItemsData(this.fields.edmDataProvider)
         };

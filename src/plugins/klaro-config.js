@@ -15,6 +15,17 @@ export default ($i18n, $initHotjar, $matomo) => {
     translations: translations(`klaro.services.${name}`)
   });
 
+  const services = [
+    service('matomo', ['usage'], [/^_pk(_.*)?/, 'mtm_cookie_consent']),
+    // https://help.hotjar.com/hc/en-us/articles/115011789248-Hotjar-Cookie-Information
+    service('hotjar', ['usage'], [/^_hj(.*)?/]),
+    service('abTest', ['usage'], [/^eu-ab-(.*)?/]),
+    service('i18n', ['essential'], ['i18n_locale_code'], true),
+    service('searchResultsView', ['essential'], ['searchResultsView'], true),
+    service('debugSettings', ['essential'], ['debugSettings'], true),
+    service('auth-strategy', ['essential'], ['auth.strategy'], true)
+  ];
+
   return {
     testing: false,
     elementID: 'eu-klaro',
@@ -23,15 +34,7 @@ export default ($i18n, $initHotjar, $matomo) => {
     lang: locale,
     htmlTexts: true,
     translations: translations('klaro.main'),
-    services: [
-      service('matomo', ['usage'], [/^_pk(_.*)?/, 'mtm_cookie_consent']),
-      // https://help.hotjar.com/hc/en-us/articles/115011789248-Hotjar-Cookie-Information
-      service('hotjar', ['usage'], [/^_hj(.*)?/]),
-      service('i18n', ['essential'], ['i18n_locale_code'], true),
-      service('searchResultsView', ['essential'], ['searchResultsView'], true),
-      service('debugSettings', ['essential'], ['debugSettings'], true),
-      service('auth-strategy', ['essential'], ['auth.strategy'], true)
-    ],
+    services,
     mustConsent: false,
     acceptAll: true,
     callback: (consent, service) => {

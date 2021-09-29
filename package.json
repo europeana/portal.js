@@ -65,7 +65,8 @@
     "vue-masonry": "^0.12.0",
     "vue-matomo": "^4.1.0",
     "vue-scrollto": "^2.18.2",
-    "vuex": "^3.6.2"
+    "vuex": "^3.6.2",
+    "weighted-random": "^0.1.0"
   },
   "devDependencies": {
     "@babel/runtime": "^7.14.6",

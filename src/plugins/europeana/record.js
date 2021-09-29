@@ -248,18 +248,34 @@ export default (context = {}) => {
           }
         }
       }
+
       let prefLang;
       if (context.$config?.app?.features?.translatedItems) {
+        prefLang = preferredLanguage(edm.europeanaAggregation.edmLanguage.def[0], options);
+
         // TODO: initially API only supports translation of title & descripiton.
         // Extend to other fields as available, or stop merging the proxies and
         // refactor to maintain the source info without having to set this.
         const europeanaProxy = edm.proxies.find(proxy => proxy.europeanaProxy);
-        ['dcTitle', 'dcDescription'].forEach((field) => {
-          if (europeanaProxy?.[field]) {
+        const providerProxy = edm.proxies.length === 3 ? edm.proxies[1] : null;
+        const predictedUiLang = prefLang ||  options.locale;
+        const MAIN_PROXY_FIELDS = [
+          'dcTitle',
+          'dcType',
+          'dcDescription',
+          'dctermsAlternative',
+          'dctermsMedium',
+          'dcContributor',
+          'dcPublisher',
+          'dcSubject'
+        ];
+        [...PROXY_EXTRA_FIELDS, ...MAIN_PROXY_FIELDS].forEach((field) => {
+          if (providerProxy?.[field] && this.localeSpecificFieldValueIsFromEnrichment(field, providerProxy, edm.proxies, predictedUiLang)) {
+            proxyData[field].translationSource = 'enrichment';
+          } else if (europeanaProxy?.[field]?.[predictedUiLang]) {
             proxyData[field].translationSource = 'automated';
           }
         });
-        prefLang = preferredLanguage(edm.europeanaAggregation.edmLanguage.def[0], options);
       }
 
       const allMediaUris = this.aggregationMediaUris(providerAggregation).map(Object.freeze);
@@ -268,7 +284,7 @@ export default (context = {}) => {
         altTitle: proxyData.dctermsAlternative,
         description: proxyData.dcDescription,
         identifier: edm.about,
-        type: edm.type,
+        type: edm.type, // TODO: Evaluate if this is used, if not remove.
         isShownAt: providerAggregation.edmIsShownAt,
         coreFields: coreFields(proxyData, providerAggregation, entities),
         fields: extraFields(proxyData, edm, entities),
@@ -282,6 +298,36 @@ export default (context = {}) => {
         edmLanguage: edm.europeanaAggregation.edmLanguage,
         metadataLanguage: prefLang
       };
+    },
+
+    /**
+    * Determine if a field will be displaying data from enrichment.
+    * Should only be called in the context of a providerProxy being present.
+    * If the UI language is not in the enrichment, but also not in the default proxy,
+    * the enrichment will be checked for an english fallback value which would take precedence.
+    * @param {String} field the field name to check
+    * @param {Object} providerProxy the proxy with the enrichment data
+    * @param {Array} proxies all proxies, used to confirm whether preferable values exist outside the enriched data
+    * @param {String} predictedUiLang the two letter language code which will be the prefered UI language
+    * @return {Boolean} true if enriched data will be shown
+    */
+    localeSpecificFieldValueIsFromEnrichment(field, providerProxy, proxies, predictedUiLang) {
+      if (isLangMap(providerProxy[field]) &&
+           (this.providerProxyHasLanguageField(providerProxy, field, predictedUiLang) ||
+             this.providerProxyHasFallbackField(proxies[2], providerProxy, field, predictedUiLang)
+           )
+      ) {
+        return true;
+      }
+      return false;
+    },
+
+    providerProxyHasLanguageField(providerProxy, field, targetLanguage) {
+      return providerProxy?.[field]?.[targetLanguage];
+    },
+
+    providerProxyHasFallbackField(defaultProxy, providerProxy, field, targetLanguage) {
+      return (!defaultProxy[field]?.[targetLanguage] && providerProxy[field]?.['en']);
     },
 
     webResourceThumbnails(webResource, aggregation, recordType) {
@@ -389,25 +435,18 @@ export default (context = {}) => {
      * @param {string} id the id of the entity, (can contain trailing slug parts as these will be normalized)
      * @return {Object} related entities
      * TODO: add people as related entities again
-     * TODO: use search() function?
      */
     relatedEntities(type, id) {
       const entityUri = getEntityUri(type, id);
 
-      return this.$axios.get('search.json', {
-        params: {
-          ...this.$axios.defaults.params,
-          profile: 'facets',
-          facet: 'skos_concept',
-          query: getEntityQuery(entityUri),
-          rows: 0
-        }
+      return this.search({
+        profile: 'facets',
+        facet: 'skos_concept',
+        query: getEntityQuery(entityUri),
+        qf: ['contentTier:*'],
+        rows: 0
       })
-        .then(response => response.data.facets)
-        .catch(error => {
-          const message = error.response ? error.response.data.error : error.message;
-          throw new Error(message);
-        });
+        .then(response => response.facets);
     },
 
     mediaProxyUrl(mediaUrl, europeanaId, params = {}) {
@@ -417,7 +456,7 @@ export default (context = {}) => {
         params['api_url'] = new URL(this.$axios.defaults.baseURL).origin + '/api';
       }
 
-      const proxyUrl = new URL('https://proxy.europeana.eu');
+      const proxyUrl = new URL(context.$config?.europeana?.proxy?.media?.url || 'https://proxy.europeana.eu');
       proxyUrl.pathname = europeanaId;
       proxyUrl.searchParams.append('view', mediaUrl);
 

@@ -15,6 +15,7 @@
     <ul
       class="m-0 p-0 text-left text-lg-right list-unstyled"
     >
+      <MetadataOriginLabel :translation-source="fieldData.translationSource" />
       <template
         v-for="(value, index) of displayValues.values"
       >
@@ -70,6 +71,7 @@
 <script>
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
   import EntityField from './EntityField';
+  import MetadataOriginLabel from './MetadataOriginLabel';
   import SmartLink from '../generic/SmartLink';
 
   export default {
@@ -77,6 +79,7 @@
 
     components: {
       EntityField,
+      MetadataOriginLabel,
       SmartLink
     },
 
@@ -84,6 +87,10 @@
       name: {
         type: String,
         default: ''
+      },
+      metadataLanguage: {
+        type: String,
+        default: null
       },
       fieldData: {
         type: [String, Object, Array],
@@ -125,6 +132,10 @@
         return (this.limit > -1);
       },
 
+      prefLanguage() {
+        return this.metadataLanguage || this.$i18n.locale;
+      },
+
       langMappedValues() {
         if (this.fieldData === null) {
           return null;
@@ -133,9 +144,11 @@
         } else if (Array.isArray(this.fieldData)) {
           return { values: this.fieldData, code: '' };
         } else if (Object.prototype.hasOwnProperty.call(this.fieldData, 'url')) {
-          return langMapValueForLocale(this.fieldData.value, this.$i18n.locale);
+          return langMapValueForLocale(this.fieldData.value, this.prefLanguage);
         }
-        return langMapValueForLocale(this.fieldData, this.$i18n.locale, { omitUrisIfOtherValues: this.omitUrisIfOtherValues, omitAllUris: this.omitAllUris });
+        return langMapValueForLocale(this.fieldData, this.prefLanguage, {
+          omitUrisIfOtherValues: this.omitUrisIfOtherValues, omitAllUris: this.omitAllUris
+        });
       },
 
       hasValuesForLocale() {

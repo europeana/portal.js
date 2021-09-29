@@ -23,6 +23,7 @@ export default {
       schemaOrgDatasetId: process.env.SCHEMA_ORG_DATASET_ID,
       siteName: APP_SITE_NAME,
       features: {
+        abTests: featureIsEnabled(process.env.ENABLE_AB_TESTS),
         jiraServiceDeskFeedbackForm: featureIsEnabled(process.env.ENABLE_JIRA_SERVICE_DESK_FEEDBACK_FORM),
         linksToClassic: featureIsEnabled(process.env.ENABLE_LINKS_TO_CLASSIC),
         recommendations: featureIsEnabled(process.env.ENABLE_RECOMMENDATIONS),
@@ -100,6 +101,11 @@ export default {
         },
         entityManagement: {
           url: process.env.EUROPEANA_ENTITY_MANAGEMENT_API_URL
+        }
+      },
+      proxy: {
+        media: {
+          url: process.env.EUROPEANA_MEDIA_PROXY_URL
         }
       }
     },
@@ -249,7 +255,8 @@ export default {
     '~/plugins/vue-announcer.client',
     '~/plugins/vue-masonry.client',
     '~/plugins/contentful-graphql/plugin.server',
-    '~/plugins/contentful-graphql/plugin.client'
+    '~/plugins/contentful-graphql/plugin.client',
+    '~/plugins/ab-testing'
   ],
 
   buildModules: [
