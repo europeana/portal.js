@@ -341,7 +341,7 @@
           //       used instead.
           dcType: this.getSimilarItemsData(this.title),
           dcCreator: this.getSimilarItemsData(this.metadata.dcCreator),
-          edmDataProvider: this.getSimilarItemsData(this.metadata.edmDataProvider)
+          edmDataProvider: this.getSimilarItemsData(this.metadata.edmDataProvider.value)
         };
 
         return this.$apis.record.search({
