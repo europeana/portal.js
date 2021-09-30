@@ -55,7 +55,7 @@ export default (context = {}) => {
      * @return {Object} related entities
      * TODO: limit results
      */
-    async facets(facets, id) {
+    facets(facets, id) {
       const currentId = normalizeEntityId(id);
       let entities = [];
       for (const facet of facets) {
@@ -66,8 +66,9 @@ export default (context = {}) => {
       const entityUris = entities.slice(0, 4).map(entity => {
         return entity['label'];
       });
-      // TODO: does this need to await?
-      return getRelatedEntityData(await this.find(entityUris));
+
+      return this.find(entityUris)
+        .then(entities => getRelatedEntityData(entities));
     },
 
     /**
