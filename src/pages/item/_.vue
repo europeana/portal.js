@@ -114,6 +114,7 @@
 
 <script>
   import isEmpty from 'lodash/isEmpty';
+  import pick from 'lodash/pick';
   import { mapState, mapGetters } from 'vuex';
 
   import MetadataBox from '@/components/item/MetadataBox';
@@ -316,9 +317,8 @@
 
       fetchRelatedEntities() {
         return this.$apis.entity.find(this.europeanaEntityUris)
-          .then(entities => {
-            this.$store.commit('item/setRelatedEntities', entities);
-          });
+          .then(entities => entities.map(entity => pick(entity, ['id', 'prefLabel', 'isShownBy'])))
+          .then(reduced => this.$store.commit('item/setRelatedEntities', reduced));
       },
 
       fetchSimilarItems() {
@@ -341,7 +341,10 @@
 
         const dataSimilarItems = {
           dcSubject: this.getSimilarItemsData(this.coreFields.dcSubject),
-          dcType: this.getSimilarItemsData(this.coreFields.dcType),
+          // NOTE: dcType/title does not make sense here, but leave it alone as
+          //       eventually this will be deprecated and the Recommendation API
+          //       used instead.
+          dcType: this.getSimilarItemsData(this.title),
           dcCreator: this.getSimilarItemsData(this.coreFields.dcCreator),
           edmDataProvider: this.getSimilarItemsData(this.fields.edmDataProvider)
         };
