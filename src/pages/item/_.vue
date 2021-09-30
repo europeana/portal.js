@@ -68,8 +68,7 @@
             class="col-lg-10"
           >
             <MetadataBox
-              :all-metadata="allMetaData"
-              :core-metadata="coreFields"
+              :metadata="fieldsAndKeywords"
               :location="locationData"
               :metadata-language="metadataLanguage"
               :transcribing-annotations="transcribingAnnotations || []"
@@ -164,13 +163,12 @@
         altTitle: null,
         cardGridClass: null,
         concepts: [],
-        coreFields: null,
         description: null,
         error: null,
-        fields: {},
         identifier: null,
         isShownAt: null,
         media: [],
+        metadata: {},
         organizations: [],
         timespans: [],
         title: null,
@@ -196,16 +194,13 @@
         }, {});
       },
       fieldsAndKeywords() {
-        return { ...this.fields, ...{ keywords: this.keywords } };
-      },
-      allMetaData() {
-        return { ...this.coreFields, ...this.fieldsAndKeywords };
+        return { ...this.metadata, keywords: this.keywords };
       },
       locationData() {
-        return this.fields.dctermsSpatial;
+        return this.metadata.dctermsSpatial;
       },
       edmRights() {
-        return this.fields.edmRights?.def[0] || '';
+        return this.metadata.edmRights?.def[0] || '';
       },
       europeanaEntities() {
         return this.agents
@@ -222,10 +217,10 @@
       attributionFields() {
         return {
           title: langMapValueForLocale(this.title, this.metadataLanguage || this.$i18n.locale).values[0],
-          creator: langMapValueForLocale(this.coreFields.dcCreator, this.$i18n.locale).values[0],
-          year: langMapValueForLocale(this.fields.year, this.$i18n.locale).values[0],
-          provider: langMapValueForLocale(this.coreFields.edmDataProvider.value, this.$i18n.locale).values[0],
-          country: langMapValueForLocale(this.fields.edmCountry, this.$i18n.locale).values[0],
+          creator: langMapValueForLocale(this.metadata.dcCreator, this.$i18n.locale).values[0],
+          year: langMapValueForLocale(this.metadata.year, this.$i18n.locale).values[0],
+          provider: langMapValueForLocale(this.metadata.edmDataProvider?.value, this.$i18n.locale).values[0],
+          country: langMapValueForLocale(this.metadata.edmCountry, this.$i18n.locale).values[0],
           url: this.shareUrl
         };
       },
@@ -259,7 +254,7 @@
         return this.descriptionInCurrentLanguage.values[0] || '';
       },
       dataProvider() {
-        const edmDataProvider = langMapValueForLocale(this.coreFields.edmDataProvider, this.$i18n.locale);
+        const edmDataProvider = langMapValueForLocale(this.metadata.edmDataProvider, this.$i18n.locale);
 
         if (edmDataProvider.values[0].about) {
           return edmDataProvider.values[0];
@@ -340,13 +335,13 @@
         }
 
         const dataSimilarItems = {
-          dcSubject: this.getSimilarItemsData(this.coreFields.dcSubject),
+          dcSubject: this.getSimilarItemsData(this.metadata.dcSubject),
           // NOTE: dcType/title does not make sense here, but leave it alone as
           //       eventually this will be deprecated and the Recommendation API
           //       used instead.
           dcType: this.getSimilarItemsData(this.title),
-          dcCreator: this.getSimilarItemsData(this.coreFields.dcCreator),
-          edmDataProvider: this.getSimilarItemsData(this.fields.edmDataProvider)
+          dcCreator: this.getSimilarItemsData(this.metadata.dcCreator),
+          edmDataProvider: this.getSimilarItemsData(this.metadata.edmDataProvider.value)
         };
 
         return this.$apis.record.search({
@@ -375,10 +370,10 @@
       },
       matomoOptions() {
         return {
-          dimension1: langMapValueForLocale(this.fields.edmCountry, 'en').values[0],
-          dimension2: langMapValueForLocale(this.coreFields.edmDataProvider.value, 'en').values[0],
-          dimension3: langMapValueForLocale(this.fields.edmProvider, 'en').values[0],
-          dimension4: langMapValueForLocale(this.fields.edmRights, 'en').values[0]
+          dimension1: langMapValueForLocale(this.metadata.edmCountry, 'en').values[0],
+          dimension2: langMapValueForLocale(this.metadata.edmDataProvider.value, 'en').values[0],
+          dimension3: langMapValueForLocale(this.metadata.edmProvider, 'en').values[0],
+          dimension4: langMapValueForLocale(this.metadata.edmRights, 'en').values[0]
         };
       }
     },
