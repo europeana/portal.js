@@ -98,7 +98,7 @@
   import { mapState } from 'vuex';
 
   import { BASE_URL as EUROPEANA_DATA_URL } from '../../../plugins/europeana/data';
-  import { getTypeHumanReadable, getSlug, getUri } from '../../../plugins/europeana/entity';
+  import { getEntityTypeHumanReadable, getEntitySlug, getEntityUri } from '../../../plugins/europeana/entity';
   import { langMapValueForLocale, uriRegex } from  '../../../plugins/europeana/utils';
 
   export default {
@@ -116,7 +116,7 @@
     fetch({ query, params, redirect, error, app, store }) {
       store.commit('search/disableCollectionFacet');
 
-      const entityUri = getUri(params.type, params.pathMatch);
+      const entityUri = getEntityUri(params.type, params.pathMatch);
       if (entityUri !== store.state.entity.id) {
         // TODO: group as a reset action on the store?
         store.commit('entity/setId', null);
@@ -182,7 +182,7 @@
           const entity = store.state.entity.entity;
           const page = store.state.entity.page;
           const entityName = page ? page.name : entity.prefLabel.en;
-          const desiredPath = getSlug(entity.id, entityName);
+          const desiredPath = getEntitySlug(entity.id, entityName);
           if (params.pathMatch !== desiredPath) {
             const redirectPath = app.$path({
               name: 'collections-type-all',
@@ -332,8 +332,8 @@
         const uriMatch = id.match(`^${EUROPEANA_DATA_URL}/([^/]+)(/base)?/(.+)$`);
         return this.$path({
           name: 'collections-type-all', params: {
-            type: getTypeHumanReadable(uriMatch[1]),
-            pathMatch: getSlug(id, name)
+            type: getEntityTypeHumanReadable(uriMatch[1]),
+            pathMatch: getEntitySlug(id, name)
           }
         });
       }
