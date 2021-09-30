@@ -126,24 +126,24 @@ export default {
         return commit('setLikedItems', null);
       }
 
-      return this.$apis.set.getSet(state.likesId, {
+      return this.$apis.set.get(state.likesId, {
         pageSize: 100,
         profile: 'itemDescriptions'
       })
         .then(likes => commit('setLikedItems', likes.items || []));
     },
     fetchActive({ commit }, setId) {
-      return this.$apis.set.getSet(setId, {
+      return this.$apis.set.get(setId, {
         profile: 'itemDescriptions'
       })
         .then(set => commit('setActive', set));
     },
     createSet({ dispatch }, body) {
-      return this.$apis.set.createSet(body)
+      return this.$apis.set.create(body)
         .then(() => dispatch('fetchCreations'));
     },
-    updateSet({ state, commit }, { id, body }) {
-      return this.$apis.set.updateSet(id, body)
+    update({ state, commit }, { id, body }) {
+      return this.$apis.set.update(id, body)
         .then(response => {
           if (state.active && id === state.active.id) {
             commit('setActive', { items: state.active.items, ...response });
@@ -164,7 +164,7 @@ export default {
         return Promise.resolve();
       }
 
-      return this.$apis.set.getSet(setId, {
+      return this.$apis.set.get(setId, {
         profile: 'standard'
       })
         .then(set => {

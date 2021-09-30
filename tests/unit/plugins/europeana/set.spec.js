@@ -58,7 +58,7 @@ describe('describe./@/plugins/europeana/set', () => {
     nock.cleanAll();
   });
 
-  describe('getSet()', () => {
+  describe('get()', () => {
     it('gets the set data', async() => {
       const setId = '1';
       nock(BASE_URL)
@@ -66,7 +66,7 @@ describe('describe./@/plugins/europeana/set', () => {
         .query(true)
         .reply(200, setsResponse[0]);
 
-      const response = await set({ $config }).getSet(setId);
+      const response = await set({ $config }).get(setId);
       response.items.should.deep.equal(['item-1', 'item-2']);
     });
 
@@ -77,7 +77,7 @@ describe('describe./@/plugins/europeana/set', () => {
         .query(query => query.wskey === 'apikey')
         .reply(200);
 
-      await set({ $config }).getSet(setId);
+      await set({ $config }).get(setId);
       nock.isDone().should.be.true;
     });
   });
