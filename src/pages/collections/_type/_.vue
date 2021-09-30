@@ -91,6 +91,7 @@
 </template>
 
 <script>
+  import pick from 'lodash/pick';
   import ClientOnly from 'vue-client-only';
   import EntityDetails from '../../../components/entity/EntityDetails';
   import SearchInterface from '../../../components/search/SearchInterface';
@@ -155,7 +156,14 @@
       ])
         .then(responses => {
           if (fetchEntity) {
-            store.commit('entity/setEntity', responses[1].entity);
+            store.commit('entity/setEntity', pick(responses[1].entity, [
+              'id',
+              'logo',
+              'note',
+              'description',
+              'homepage',
+              'prefLabel'
+            ]));
           }
           if (responses[2].note) {
             store.commit('entity/setEditable', true);
@@ -295,9 +303,9 @@
       if (!this.relatedCollectionCards && this.collectionType !== 'organisation') {
         this.$apis.record.relatedEntities(this.$route.params.type, this.$route.params.pathMatch)
           .then(facets => facets ? this.$apis.entity.getEntityFacets(facets, this.$route.params.pathMatch) : [])
-          .then(related => {
-            this.$store.commit('entity/setRelatedEntities', related);
-          });
+          .then(related => this.$store.commit('entity/setRelatedEntities', related.map(entity => {
+            return pick(entity, ['id', 'prefLabel', 'isShownBy']);
+          })));
       }
       if (this.userIsEditor) {
         this.$store.dispatch('entity/getFeatured');
