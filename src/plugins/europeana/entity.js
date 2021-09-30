@@ -68,7 +68,7 @@ export default (context = {}) => {
       });
 
       return this.find(entityUris)
-        .then(entities => getRelatedEntityData(entities));
+        .then(response => getRelatedEntityData(response));
     },
 
     /**
