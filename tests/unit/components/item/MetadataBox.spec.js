@@ -37,7 +37,7 @@ describe('components/item/MetadataBox', () => {
 
       it('is rendered', () => {
         const wrapper = factory({
-          value: {},
+          metadata: {},
           location
         });
 
@@ -49,7 +49,7 @@ describe('components/item/MetadataBox', () => {
       context('and mappable location is present', () => {
         it('does not render map embed at first', () => {
           const wrapper = factory({
-            value: {},
+            metadata: {},
             location
           });
 
@@ -58,7 +58,7 @@ describe('components/item/MetadataBox', () => {
 
         it('renders map when location tab is clicked', async() => {
           const wrapper = factory({
-            value: {},
+            metadata: {},
             location
           });
 
@@ -72,7 +72,7 @@ describe('components/item/MetadataBox', () => {
     context('when location prop is absent', () => {
       it('is not rendered', () => {
         const wrapper = factory({
-          value: {},
+          metadata: {},
           location: null
         });
 
@@ -86,7 +86,7 @@ describe('components/item/MetadataBox', () => {
   describe('.mappableLocation', () => {
     it('uses the first location object having latitude and longitude', () => {
       const wrapper = factory({
-        value: {},
+        metadata: {},
         location: {
           def: [
             fixtures.locations.eastSussex,
@@ -102,7 +102,7 @@ describe('components/item/MetadataBox', () => {
 
     it('is `null` if no such location', () => {
       const wrapper = factory({
-        value: {},
+        metadata: {},
         location: {
           def: [
             fixtures.locations.eastSussex

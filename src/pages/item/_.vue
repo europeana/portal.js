@@ -68,7 +68,7 @@
             class="col-lg-10"
           >
             <MetadataBox
-              v-model="fieldsAndKeywords"
+              :metadata="fieldsAndKeywords"
               :location="locationData"
               :metadata-language="metadataLanguage"
               :transcribing-annotations="transcribingAnnotations || []"

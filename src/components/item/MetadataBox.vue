@@ -21,7 +21,7 @@
               :key="name"
               :metadata-language="metadataLanguage"
               :name="name"
-              :field-data="value[name]"
+              :field-data="metadata[name]"
             />
           </b-card-text>
         </b-tab>
@@ -37,7 +37,7 @@
               :key="name"
               :metadata-language="metadataLanguage"
               :name="name"
-              :field-data="value[name]"
+              :field-data="metadata[name]"
             />
           </b-card-text>
         </b-tab>
@@ -101,7 +101,7 @@
     },
 
     props: {
-      value: {
+      metadata: {
         type: Object,
         required: true
       },
