@@ -282,7 +282,7 @@
     },
 
     methods: {
-      updateSet() {
+      update() {
         this.$bvModal.hide(this.setFormModalId);
       },
 

@@ -336,7 +336,10 @@
 
         const dataSimilarItems = {
           dcSubject: this.getSimilarItemsData(this.metadata.dcSubject),
-          dcType: this.getSimilarItemsData(this.metadata.dcType),
+          // NOTE: dcType/title does not make sense here, but leave it alone as
+          //       eventually this will be deprecated and the Recommendation API
+          //       used instead.
+          dcType: this.getSimilarItemsData(this.title),
           dcCreator: this.getSimilarItemsData(this.metadata.dcCreator),
           edmDataProvider: this.getSimilarItemsData(this.metadata.edmDataProvider)
         };
