@@ -315,7 +315,7 @@
       },
 
       fetchRelatedEntities() {
-        return this.$apis.entity.findEntities(this.europeanaEntityUris)
+        return this.$apis.entity.find(this.europeanaEntityUris)
           .then(entities => {
             this.$store.commit('item/setRelatedEntities', entities);
           });

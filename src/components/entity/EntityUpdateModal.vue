@@ -101,7 +101,7 @@
         });
       },
       submitForm() {
-        const handler = this.$store.dispatch('entity/updateEntity', { id: this.body.id, body: this.entityBody });
+        const handler = this.$store.dispatch('entity/update', { id: this.body.id, body: this.entityBody });
         return handler
           .then(() => {
             this.$bvModal.hide('entityUpdateModal');

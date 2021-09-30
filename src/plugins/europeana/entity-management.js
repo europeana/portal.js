@@ -20,7 +20,7 @@ export default (context = {}) => {
      * @param {string} options.profile the entity's metadata profile
      * @return {Object} the entity object
      */
-    getEntity(type, id, options = {}) {
+    get(type, id, options = {}) {
       const defaults = {
         profile: 'internal'
       };
@@ -36,7 +36,7 @@ export default (context = {}) => {
      * @param {Object} body the Proxy body
      * @return {Object} API response data
      */
-    updateEntity(id, body) {
+    update(id, body) {
       return $axios.put(`/concept/base/${id}`, body)
         .then(response => response.data)
         .catch(error => {

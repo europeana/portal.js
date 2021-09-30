@@ -59,7 +59,7 @@ const factory = () => shallowMountNuxt(page, {
     $pageHeadTitle: key => key,
     $apis: {
       entity: {
-        getEntity: sinon.spy()
+        get: sinon.spy()
       }
     }
   }
@@ -78,7 +78,7 @@ const responseError = {
 
 const entityFields = ['identifier', 'slug', 'type', 'name', 'description', 'image'];
 
-describe('entity harvester', () => {
+describe('pages/contentful/entity-harvester/index', () => {
   before('supply fake contentful extension', () => {
     window.contentfulExtension = fakeContentfulExtension(entityFields);
   });
@@ -104,7 +104,7 @@ describe('entity harvester', () => {
       context('when the entity can be retrieved', () => {
         it('calls populateFields for the entity', async() => {
           const wrapper = factory();
-          sinon.replaceGetter(wrapper.vm.$apis.entity, 'getEntity', () => {
+          sinon.replaceGetter(wrapper.vm.$apis.entity, 'get', () => {
             return sinon.fake.returns(entityResponse);
           });
           sinon.replace(wrapper.vm, 'getUrlFromUser', sinon.fake.returns(`http://data.europeana.eu/${type}/base/${id}`));
@@ -130,7 +130,7 @@ describe('entity harvester', () => {
       context('when the entity can NOT be retrieved', () => {
         it('shows an error for the response', async() => {
           const wrapper = factory();
-          sinon.replaceGetter(wrapper.vm.$apis.entity, 'getEntity', () => {
+          sinon.replaceGetter(wrapper.vm.$apis.entity, 'get', () => {
             throw apiError(responseError);
           });
           sinon.replace(wrapper.vm, 'getUrlFromUser', sinon.fake.returns(`http://data.europeana.eu/${type}/base/${id}`));
@@ -145,7 +145,7 @@ describe('entity harvester', () => {
       context('when the entry fields can NOT be set', () => {
         it('shows an error', async() => {
           const wrapper = factory();
-          sinon.replaceGetter(wrapper.vm.$apis.entity, 'getEntity', () => {
+          sinon.replaceGetter(wrapper.vm.$apis.entity, 'get', () => {
             return sinon.fake.returns(entityResponse);
           });
           sinon.replace(wrapper.vm, 'getUrlFromUser', sinon.fake.returns(`http://data.europeana.eu/${type}/base/${id}`));

@@ -149,8 +149,8 @@
       };
       return axios.all(
         [store.dispatch('entity/searchForRecords', query)]
-          .concat(fetchEntity ? app.$apis.entity.getEntity(params.type, params.pathMatch) : () => {})
-          .concat(fetchEntityManagement ? app.$apis.entityManagement.getEntity(params.type, params.pathMatch) : () => ({}))
+          .concat(fetchEntity ? app.$apis.entity.get(params.type, params.pathMatch) : () => {})
+          .concat(fetchEntityManagement ? app.$apis.entityManagement.get(params.type, params.pathMatch) : () => ({}))
           .concat(fetchFromContentful ? app.$contentful.query('collectionPage', contentfulVariables) : () => {})
       )
         .then(axios.spread((recordSearchResponse, entityResponse, entityManagementResponse, pageResponse) => {
@@ -294,7 +294,7 @@
       // Disable related collections for organisation for now
       if (!this.relatedCollectionCards && this.collectionType !== 'organisation') {
         this.$apis.record.relatedEntities(this.$route.params.type, this.$route.params.pathMatch)
-          .then(facets => facets ? this.$apis.entity.getEntityFacets(facets, this.$route.params.pathMatch) : [])
+          .then(facets => facets ? this.$apis.entity.facets(facets, this.$route.params.pathMatch) : [])
           .then(related => {
             this.$store.commit('entity/setRelatedEntities', related);
           });

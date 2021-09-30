@@ -41,7 +41,7 @@
         if (!query) {
           return;
         }
-        this.$apis.entity.getEntitySuggestions(query, {
+        this.$apis.entity.suggest(query, {
           language: this.$i18n.locale,
           rows: 4
         })

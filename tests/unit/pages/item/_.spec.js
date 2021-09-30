@@ -44,7 +44,7 @@ const factory = () => shallowMountNuxt(page, {
         search: sinon.spy()
       },
       entity: {
-        findEntities: sinon.spy()
+        find: sinon.spy()
       },
       record: {
         getRecord: sinon.stub().resolves({}),
