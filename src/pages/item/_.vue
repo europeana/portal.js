@@ -114,6 +114,7 @@
 
 <script>
   import isEmpty from 'lodash/isEmpty';
+  import pick from 'lodash/pick';
   import { mapState, mapGetters } from 'vuex';
 
   import MetadataBox from '@/components/item/MetadataBox';
@@ -316,9 +317,8 @@
 
       fetchRelatedEntities() {
         return this.$apis.entity.findEntities(this.europeanaEntityUris)
-          .then(entities => {
-            this.$store.commit('item/setRelatedEntities', entities);
-          });
+          .then(entities => entities.map(entity => pick(entity, ['id', 'prefLabel', 'isShownBy'])))
+          .then(reduced => this.$store.commit('item/setRelatedEntities', reduced));
       },
 
       fetchSimilarItems() {
