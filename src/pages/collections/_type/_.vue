@@ -91,14 +91,13 @@
 </template>
 
 <script>
-  import axios from 'axios';
   import ClientOnly from 'vue-client-only';
   import EntityDetails from '../../../components/entity/EntityDetails';
   import SearchInterface from '../../../components/search/SearchInterface';
   import { mapState } from 'vuex';
 
   import { BASE_URL as EUROPEANA_DATA_URL } from '../../../plugins/europeana/data';
-  import { getEntityTypeHumanReadable, getEntitySlug, getEntityUri } from '../../../plugins/europeana/entity';
+  import { getTypeHumanReadable, getSlug, getUri } from '../../../plugins/europeana/entity';
   import { langMapValueForLocale, uriRegex } from  '../../../plugins/europeana/utils';
 
   export default {
@@ -116,7 +115,7 @@
     fetch({ query, params, redirect, error, app, store }) {
       store.commit('search/disableCollectionFacet');
 
-      const entityUri = getEntityUri(params.type, params.pathMatch);
+      const entityUri = getUri(params.type, params.pathMatch);
       if (entityUri !== store.state.entity.id) {
         // TODO: group as a reset action on the store?
         store.commit('entity/setId', null);
@@ -147,23 +146,24 @@
         curatedEntities: fetchCuratedEntities,
         entityPage: fetchEntityPage
       };
-      return axios.all(
-        [store.dispatch('entity/searchForRecords', query)]
-          .concat(fetchEntity ? app.$apis.entity.get(params.type, params.pathMatch) : () => {})
-          .concat(fetchEntityManagement ? app.$apis.entityManagement.get(params.type, params.pathMatch) : () => ({}))
-          .concat(fetchFromContentful ? app.$contentful.query('collectionPage', contentfulVariables) : () => {})
-      )
-        .then(axios.spread((recordSearchResponse, entityResponse, entityManagementResponse, pageResponse) => {
+
+      return Promise.all([
+        store.dispatch('entity/searchForRecords', query),
+        fetchEntity ? app.$apis.entity.get(params.type, params.pathMatch) : () => null,
+        fetchEntityManagement ? app.$apis.entityManagement.get(params.type, params.pathMatch) : () => null,
+        fetchFromContentful ? app.$contentful.query('collectionPage', contentfulVariables) : () => null
+      ])
+        .then(responses => {
           if (fetchEntity) {
-            store.commit('entity/setEntity', entityResponse.entity);
+            store.commit('entity/setEntity', responses[1].entity);
           }
-          if (entityManagementResponse.note) {
+          if (responses[2].note) {
             store.commit('entity/setEditable', true);
-            store.commit('entity/setEntityDescription', entityManagementResponse.note);
-            store.commit('entity/setProxy', entityManagementResponse.proxies.find(proxy => proxy.id.includes('#proxy_europeana')));
+            store.commit('entity/setEntityDescription', responses[2].note);
+            store.commit('entity/setProxy', responses[2].proxies.find(proxy => proxy.id.includes('#proxy_europeana')));
           }
           if (fetchFromContentful) {
-            const pageResponseData = pageResponse.data.data;
+            const pageResponseData = responses[3].data.data;
             if (fetchCuratedEntities) {
               store.commit('entity/setCuratedEntities', pageResponseData.curatedEntities.items);
             }
@@ -174,7 +174,7 @@
           const entity = store.state.entity.entity;
           const page = store.state.entity.page;
           const entityName = page ? page.name : entity.prefLabel.en;
-          const desiredPath = getEntitySlug(entity.id, entityName);
+          const desiredPath = getSlug(entity.id, entityName);
           if (params.pathMatch !== desiredPath) {
             const redirectPath = app.$path({
               name: 'collections-type-all',
@@ -183,7 +183,7 @@
             return redirect(302, redirectPath);
           }
           return true;
-        }))
+        })
         .catch((e) => {
           const statusCode = (e.statusCode === undefined) ? 500 : e.statusCode;
           store.commit('entity/setId', null);
@@ -324,8 +324,8 @@
         const uriMatch = id.match(`^${EUROPEANA_DATA_URL}/([^/]+)(/base)?/(.+)$`);
         return this.$path({
           name: 'collections-type-all', params: {
-            type: getEntityTypeHumanReadable(uriMatch[1]),
-            pathMatch: getEntitySlug(id, name)
+            type: getTypeHumanReadable(uriMatch[1]),
+            pathMatch: getSlug(id, name)
           }
         });
       }
