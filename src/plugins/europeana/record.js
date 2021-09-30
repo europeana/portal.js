@@ -351,25 +351,18 @@ export default (context = {}) => {
      * @param {string} id the id of the entity, (can contain trailing slug parts as these will be normalized)
      * @return {Object} related entities
      * TODO: add people as related entities again
-     * TODO: use search() function?
      */
     relatedEntities(type, id) {
       const entityUri = getEntityUri(type, id);
 
-      return this.$axios.get('search.json', {
-        params: {
-          ...this.$axios.defaults.params,
-          profile: 'facets',
-          facet: 'skos_concept',
-          query: getEntityQuery(entityUri),
-          rows: 0
-        }
+      return this.search({
+        profile: 'facets',
+        facet: 'skos_concept',
+        query: getEntityQuery(entityUri),
+        qf: ['contentTier:*'],
+        rows: 0
       })
-        .then(response => response.data.facets)
-        .catch(error => {
-          const message = error.response ? error.response.data.error : error.message;
-          throw new Error(message);
-        });
+        .then(response => response.facets);
     },
 
     mediaProxyUrl(mediaUrl, europeanaId, params = {}) {
