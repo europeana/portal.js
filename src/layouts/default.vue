@@ -44,6 +44,7 @@
 
 <script>
   import { mapGetters, mapState } from 'vuex';
+  import { BBreadcrumb } from 'bootstrap-vue';
   import ClientOnly from 'vue-client-only';
   import PageHeader from '../components/PageHeader';
   import klaroConfig from '../plugins/klaro-config';
@@ -54,6 +55,7 @@
 
   export default {
     components: {
+      BBreadcrumb,
       ClientOnly,
       PageHeader,
       PageFooter: () => import('../components/PageFooter'),

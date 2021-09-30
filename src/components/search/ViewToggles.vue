@@ -20,8 +20,13 @@
 </template>
 
 <script>
+  import { BNav } from 'bootstrap-vue';
+
   export default {
     name: 'ViewToggles',
+    components: {
+      BNav
+    },
     props: {
       value: {
         type: String,

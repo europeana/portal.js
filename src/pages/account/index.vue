@@ -154,6 +154,7 @@
 </template>
 
 <script>
+  import { BTabs, BTab } from 'bootstrap-vue';
   import { mapState } from 'vuex';
 
   import keycloak from '../../mixins/keycloak';
@@ -166,6 +167,8 @@
     middleware: 'auth',
 
     components: {
+      BTabs,
+      BTab,
       ItemPreviewCardGroup,
       UserSets,
       AlertMessage,

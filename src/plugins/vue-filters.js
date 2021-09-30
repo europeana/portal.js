@@ -3,8 +3,10 @@
  * @see {@link https://vuejs.org/v2/guide/filters.html}
  */
 
+// NOTE: use sparingly and avoid importing third-party libraries as these filters
+//       are registered globally. Consider the use of locally imported mixins instead.
+
 import Vue from 'vue';
-import marked from 'marked';
 
 Vue.filter('localise', val => {
   if (typeof val === 'undefined' || val === null) {
@@ -53,29 +55,6 @@ Vue.filter('optimisedImageUrl', (imageUrl, contentType, options = {}) => {
   }
 
   return imageUrl;
-});
-
-const htmlRemovalPatternsFromTags = (tags) => {
-  return [/\n$/].concat(tags.map((tag) => new RegExp(`</?${tag}.*?>`, 'gi')));
-};
-
-/**
- * Strip markdown from text.
- * This method FIRST converts markdown to HTML, then removes HTML tags.
- * WARNING: This also means any HTML tags already present before will be stripped.
- *
- * As an optional parameter specific HTML tag names can be supplied. In which case,
- * only these will be removed.
- * @param {string} text String containing mark1down
- * @param {string[]} tags the HTML tags to be removed.
- * @return {String} text value with HTML breaks
- */
-Vue.filter('stripMarkdown', (text, tags = ['']) => {
-  text = marked(text); // Marked adds newlines to the end of the string, and wraps it in a <p> tag.
-  for (const pattern of htmlRemovalPatternsFromTags(tags)) {
-    text = text.replace(pattern, '');
-  }
-  return text;
 });
 
 /**

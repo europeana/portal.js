@@ -1,7 +1,7 @@
 <template>
   <button
     v-if="translatedItemsEnabled && translationSource"
-    v-b-tooltip.bottomright="{ customClass: 'tooltip' }"
+    v-b-tooltip.bottomright
     :title="$t(`multilingual.${translationSource}`)"
     class="translation-source"
     :class="translationSource"
@@ -10,8 +10,14 @@
 </template>
 
 <script>
+  import { VBTooltip } from 'bootstrap-vue';
+
   export default {
     name: 'MetadataOriginLabel',
+
+    directives: {
+      'b-tooltip': VBTooltip
+    },
 
     props: {
       translationSource: {

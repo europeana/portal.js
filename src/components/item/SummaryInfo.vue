@@ -73,6 +73,7 @@
 
 <script>
   import MetadataOriginLabel from './MetadataOriginLabel';
+
   export default {
     name: 'SummaryInfo',
 
