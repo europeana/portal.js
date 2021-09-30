@@ -311,7 +311,7 @@
       },
 
       fetchRelatedEntities() {
-        return this.$apis.entity.findEntities(this.europeanaEntityUris)
+        return this.$apis.entity.find(this.europeanaEntityUris)
           .then(entities => entities.map(entity => pick(entity, ['id', 'prefLabel', 'isShownBy'])))
           .then(reduced => this.$store.commit('item/setRelatedEntities', reduced));
       },

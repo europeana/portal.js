@@ -170,8 +170,8 @@ export default {
       return this.$apis.set.create(featuredSetBody)
         .then(response => commit('setFeaturedSetId', response.id));
     },
-    updateEntity({ commit }, { id, body }) {
-      return this.$apis.entityManagement.updateEntity(id.split('/').pop(), body)
+    update({ commit }, { id, body }) {
+      return this.$apis.entityManagement.update(id.split('/').pop(), body)
         .then(response => {
           commit('setProxyDescription', body.note);
           commit('setEntityDescription', response.note);

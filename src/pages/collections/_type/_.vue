@@ -150,8 +150,8 @@
 
       return Promise.all([
         store.dispatch('entity/searchForRecords', query),
-        fetchEntity ? app.$apis.entity.getEntity(params.type, params.pathMatch) : () => null,
-        fetchEntityManagement ? app.$apis.entityManagement.getEntity(params.type, params.pathMatch) : () => null,
+        fetchEntity ? app.$apis.entity.get(params.type, params.pathMatch) : () => null,
+        fetchEntityManagement ? app.$apis.entityManagement.get(params.type, params.pathMatch) : () => null,
         fetchFromContentful ? app.$contentful.query('collectionPage', contentfulVariables) : () => null
       ])
         .then(responses => {
@@ -302,7 +302,7 @@
       // Disable related collections for organisation for now
       if (!this.relatedCollectionCards && this.collectionType !== 'organisation') {
         this.$apis.record.relatedEntities(this.$route.params.type, this.$route.params.pathMatch)
-          .then(facets => facets ? this.$apis.entity.getEntityFacets(facets, this.$route.params.pathMatch) : [])
+          .then(facets => facets ? this.$apis.entity.facets(facets, this.$route.params.pathMatch) : [])
           .then(related => this.$store.commit('entity/setRelatedEntities', related.map(entity => {
             return pick(entity, ['id', 'prefLabel', 'isShownBy']);
           })));

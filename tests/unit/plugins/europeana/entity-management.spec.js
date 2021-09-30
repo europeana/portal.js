@@ -43,7 +43,7 @@ describe('plugins/europeana/entity-management', () => {
     nock.cleanAll();
   });
 
-  describe('getEntity()', () => {
+  describe('get()', () => {
     it('get the entity data', async() => {
       const entityId = '123';
       const type = 'topic';
@@ -51,18 +51,18 @@ describe('plugins/europeana/entity-management', () => {
       nock(BASE_URL)
         .get(`/concept/base/${entityId}?profile=internal`)
         .reply(200, entityResponses.items[0]);
-      const response =  await entitymanage(axios).getEntity(type, entityId, { profile });
+      const response =  await entitymanage(axios).get(type, entityId, { profile });
       response.note['en'].should.deep.equal(['A medium for recording information in the form of writing or images']);
     });
   });
 
-  describe('updateEntity()', () => {
+  describe('update()', () => {
     it('updates the data', async() => {
       const entityId = '124';
       nock(BASE_URL)
         .put(`/concept/base/${entityId}`)
         .reply(200, updatedEntity);
-      const response =  await entitymanage(axios).updateEntity(entityId, proxyBody);
+      const response =  await entitymanage(axios).update(entityId, proxyBody);
       response.id.should.eq('http://data.europeana.eu/concept/base/124');
     });
   });
