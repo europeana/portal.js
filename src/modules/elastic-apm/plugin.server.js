@@ -6,7 +6,7 @@ export default ({ route, req }) => {
     return;
   }
 
-  // Path deduction logic courtesy of @elastic/apm-rum-core package's src/route-hooks.js
+  // Path deduction logic courtesy of `@elastic/apm-rum-vue` package's `src/route-hooks.js`
   const matched = route.matched || [];
   let path = route.path;
 
