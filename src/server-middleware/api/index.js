@@ -1,5 +1,6 @@
 import express from 'express';
 import defu  from 'defu';
+import apm from 'elastic-apm-node';
 import logging from '../logging.js';
 
 const app = express();
@@ -14,6 +15,16 @@ app.use((res, req, next) => {
   if (!runtimeConfig) {
     // Load Nuxt config once, at runtime
     runtimeConfig = defu(nuxtConfig.privateRuntimeConfig, nuxtConfig.publicRuntimeConfig);
+  }
+  next();
+});
+
+app.use((res, req, next) => {
+  if (apm.isStarted())  {
+    // Elastic APM Node agent instruments Express requests automatically, but
+    // omits any prefix such as /_api/, so override the transactions name here
+    // to restore it form the original URL.
+    apm.setTransactionName(`${req.req.method} ${req.req.originalUrl.split('?')[0]}`);
   }
   next();
 });

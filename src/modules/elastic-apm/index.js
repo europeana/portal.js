@@ -5,10 +5,12 @@ import path from 'path';
 const MODULE_NAME = 'elastic-apm';
 
 export default function() {
-  this.addPlugin({
-    src: path.resolve(__dirname, 'plugin.js'),
-    fileName: path.join(MODULE_NAME, 'plugin.js')
-  });
+  for (const filename of ['plugin.js', 'plugin.server.js']) {
+    this.addPlugin({
+      src: path.resolve(__dirname, filename),
+      fileName: path.join(MODULE_NAME, filename)
+    });
+  }
 
   this.nuxt.hook('ready', async(nuxt) => {
     const runtimeConfig = defu(nuxt.options.privateRuntimeConfig, nuxt.options.publicRuntimeConfig);
