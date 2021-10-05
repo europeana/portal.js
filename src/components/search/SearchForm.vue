@@ -200,10 +200,18 @@
         if (this.selectedOptionLink) {
           newRoute = this.selectedOptionLink;
           this.query = this.selectedOptionLink.query.query;
+
+          this.$matomo && this.$matomo.trackEvent('Select_option_autosuggest', 'Select an autosuggest option', this.query);
+
           if (this.query !== this.activeSuggestionsQueryTerm) {
             this.suggestions = {};
           }
         } else {
+          // Matomo event: suggestions are present, but none is selected
+          if (Object.keys(this.suggestions).length > 0) {
+            this.$matomo && this.$matomo.trackEvent('Select_no_option_autosuggest', 'Select no autosuggest option', this.query);
+          }
+
           // `query` must fall back to blank string to ensure inclusion in URL,
           // which is required for analytics site search tracking
           const newRouteQuery = { ...this.$route.query, ...{ page: 1, view: this.view, query: this.query || '' } };
