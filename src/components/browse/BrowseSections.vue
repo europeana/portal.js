@@ -62,6 +62,12 @@
         :text="section.text"
         :url="section.url"
       />
+      <PrimaryCallToAction
+        v-else-if="contentType(section, 'PrimaryCallToAction')"
+        :key="index"
+        :text="section.text"
+        :link="section.ctaButton"
+      />
     </template>
   </div>
 </template>
@@ -76,7 +82,8 @@
       ImageWithAttribution: () => import('../generic/ImageWithAttribution'),
       CallToAction: () => import('../generic/CallToAction'),
       RichText: () => import('./RichText'),
-      AutomatedCardGroup: () => import('../browse/AutomatedCardGroup')
+      AutomatedCardGroup: () => import('../browse/AutomatedCardGroup'),
+      PrimaryCallToAction: () => import('./PrimaryCallToAction')
     },
 
     props: {

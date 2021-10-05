@@ -130,6 +130,10 @@ header .col {
       margin-left: 0;
       margin-right: 0;
     }
+
+    .primary-cta-rich-text p:last-child {
+      margin-bottom: 1rem;
+    }
   }
 
   iframe {
