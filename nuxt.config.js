@@ -302,7 +302,6 @@ export default {
       // Enable browser language detection to automatically redirect user
       // to their preferred language as they visit your app for the first time
       // Set to false to disable
-      // NB: do not enable this in portal.js; our own l10n middleware handles it.
       detectBrowserLanguage: true,
       vuex: {
         // Module namespace
