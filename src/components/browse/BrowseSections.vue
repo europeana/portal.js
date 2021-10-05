@@ -1,39 +1,34 @@
 <template>
   <div class="figure-attribution">
-    <template
+    <div
       v-for="(section, index) in content"
+      :key="index"
     >
       <RichText
         v-if="contentType(section, 'ContentTypeRichText')"
-        :key="index"
         :text="section.text"
         :rich-text-is-card="richTextIsCard"
       />
       <ContentCardSection
         v-else-if="contentType(section, 'CardGroup')"
-        :key="index"
         :section="section"
       />
       <LatestSection
         v-else-if="contentType(section, 'LatestCardGroup') && section.total"
-        :key="index"
         :category="section.genre"
         :total="section.total"
         :cards="section.items"
       />
       <AutomatedCardGroup
         v-else-if="contentType(section, 'AutomatedCardGroup')"
-        :key="index"
         :section-type="section.genre"
       />
       <HTMLEmbed
         v-else-if="contentType(section, 'Embed')"
-        :key="index"
         :html="section.embed"
       />
       <CompareImageSlider
         v-else-if="contentType(section, 'ImageComparison')"
-        :key="index"
         :left-image-src="imageCompareImage(section, 0) ? imageCompareImage(section, 0).url : null"
         :left-image-content-type="imageCompareImage(section, 0) ? imageCompareImage(section, 0).contentType : null"
         :left-image-attribution="attributionFields(section.hasPartCollection.items[0])"
@@ -47,7 +42,6 @@
       />
       <ImageWithAttribution
         v-else-if="contentType(section, 'ImageWithAttribution')"
-        :key="index"
         :src="section.image ? section.image.url : null"
         :content-type="section.image ? section.image.contentType : null"
         :width="section.image ? section.image.width : null"
@@ -58,17 +52,15 @@
       />
       <CallToAction
         v-else-if="contentType(section, 'Link')"
-        :key="index"
         :text="section.text"
         :url="section.url"
       />
       <PrimaryCallToAction
         v-else-if="contentType(section, 'PrimaryCallToAction')"
-        :key="index"
         :text="section.text"
         :link="section.ctaButton"
       />
-    </template>
+    </div>
   </div>
 </template>
 
