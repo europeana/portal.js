@@ -74,7 +74,9 @@ export default {
         serviceVersion: pkg.version,
         frameworkName: 'Nuxt',
         frameworkVersion: nuxtPkg.version,
-        usePathAsTransactionName: true
+        ignoreUrls: [
+          /^\/_nuxt\//
+        ]
       }
     },
     europeana: {
