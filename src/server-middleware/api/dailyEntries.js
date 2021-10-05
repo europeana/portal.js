@@ -5,16 +5,19 @@ import { CACHE_KEY as ITEM_COUNTS_BY_MEDIA_TYPE_CACHE_KEY } from '../../cachers/
 import { createRedisClient } from '../../cachers/utils.js';
 import { errorHandler } from './index.js';
 
-const subsetSize = 4;
+const defaultSubsetSize = 4;
+const completeSets = [
+  ITEMS_CACHE_KEY, ITEM_COUNTS_BY_MEDIA_TYPE_CACHE_KEY
+];
 
-const offsetOfTheDay = (setSize, options = {}) => {
+const offsetOfTheDay = (setSize) => {
   const millisecondsPerDay = (1000 * 60 * 60 * 24);
   const unixDay = Math.floor(Date.now() / millisecondsPerDay);
-  const offset = (unixDay * options.size || subsetSize) % setSize;
-  return (offset + options.size || subsetSize <= setSize) ? offset : (setSize - options.size || subsetSize);
+  const offset = (unixDay * defaultSubsetSize) % setSize;
+  return (offset + defaultSubsetSize <= setSize) ? offset : (setSize - defaultSubsetSize);
 };
 
-export const entriesOfTheDay = (type, config = {}, options = {}) => {
+export const entriesOfTheDay = (type, config = {}) => {
   const redisClient = createRedisClient(config.redis);
 
   let key;
@@ -32,17 +35,18 @@ export const entriesOfTheDay = (type, config = {}, options = {}) => {
     .then(value => JSON.parse(value))
     .then(parsed => {
       redisClient.quitAsync();
-      const offset = offsetOfTheDay(parsed.length, options);
-      return parsed.slice(offset, offset + options.size || subsetSize);
+      const subsetSize = completeSets.includes(key) ? parsed.length : defaultSubsetSize;
+      const offset = completeSets.includes(key) ? 0 : offsetOfTheDay(parsed.length);
+      return parsed.slice(offset, offset + subsetSize);
     });
 };
 
-export default (type, config = {}, options = {}) => (req, res) => {
+export default (type, config = {}) => (req, res) => {
   if (!config.redis.url) {
     return errorHandler(res, new Error('No cache configured.'));
   }
 
-  return entriesOfTheDay(type, config, options)
+  return entriesOfTheDay(type, config)
     .then(times => res.json(times))
     .catch(error => errorHandler(res, error));
 };
