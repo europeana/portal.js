@@ -132,7 +132,7 @@ describe('components/browse/AutomatedCardGroup', () => {
       $axiosGetStub.reset();
     });
     context('when rendering on the client', () => {
-      it('uses gets the data from the cache API endpoint', async() => {
+      it('gets the data from the cache API endpoint', async() => {
         const wrapper = nuxtFactory({ sectionType: FEATURED_TOPICS });
         await wrapper.vm.fetch();
         $axiosGetStub.should.have.been.calledWith('/_api/entities/topics');
@@ -141,7 +141,7 @@ describe('components/browse/AutomatedCardGroup', () => {
     });
     // context('when rendering on the server', () => {
     // TODO: SET SERVER HERE AND STUB CACHE
-    // it('uses gets the data from the cache', async() => {
+    // it('gets the data from the cache', async() => {
     //   const wrapper = factory({ sectionType: 'Featured topics' });
     //   await wrapper.vm.fetch();
     //   wrapper.vm.entries.should.eq(entries.featuredTopics);

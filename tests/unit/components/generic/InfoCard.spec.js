@@ -17,7 +17,7 @@ const factory = () => shallowMount(InfoCard, {
 });
 
 describe('components/generic/InfoCard', () => {
-  it('shows a cards', () => {
+  it('shows a card', () => {
     const wrapper = factory();
 
     wrapper.findAll('[data-qa="info card"]').length.should.eq(1);
