@@ -3,7 +3,26 @@ module.exports = function(migration) {
     .createContentType('primaryCallToAction')
     .name('Primary call to action')
     .description('Call to action module with a free text field and a CTA button')
-    .displayField('text');
+    .displayField('name');
+
+  primaryCallToAction
+    .createField('name')
+    .name('Title')
+    .type('Symbol')
+    .localized(false)
+    .required(true)
+    .validations([
+      {
+        unique: true,
+        message: 'Title should be unique'
+      }
+    ])
+    .disabled(false)
+    .omitted(false);
+
+  primaryCallToAction.changeFieldControl('name', 'builtin', 'singleLine', {
+    helpText: 'Title will not be displayed on the website, but useful for findability in Contentful'
+  });
 
   primaryCallToAction
     .createField('text')
