@@ -115,6 +115,13 @@ query BrowseStaticPage(
             url
             text
           }
+          ... on PrimaryCallToAction {
+            text
+            ctaButton {
+              url
+              text
+            }
+          }
         }
       }
       relatedLinks {
