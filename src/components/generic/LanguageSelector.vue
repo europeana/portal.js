@@ -11,7 +11,7 @@
       <b-dropdown-item
         v-for="locale in availableLocales"
         :key="locale.code"
-        :to="switchLocalePath(locale.code)"
+        :to="$path({ ...$route, params: { ...$route.params, locale: locale.code } })"
         :data-qa="`${locale.name} language option`"
       >
         {{ locale.name }}

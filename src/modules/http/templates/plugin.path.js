@@ -4,6 +4,12 @@ import {
 
 export default ({ app, store, $config }, inject) => {
   const path = (route) => {
+    if (!route.params) {
+      route.params = {};
+    }
+    if (!route.params.locale) {
+      route.params.locale = app.i18n.locale;
+    }
     const localePath = app.localePath(route);
 
     if (!$config.http.sslNegotiation.enabled || routePermittedOnEitherScheme(route)) {

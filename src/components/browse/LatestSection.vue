@@ -26,7 +26,7 @@
       <b-button
         v-if="total > 4"
         variant="light"
-        :to="localePath({ name: contentType.path })"
+        :to="$path({ name: contentType.path })"
       >
         {{ showMoreLink }}
       </b-button>

@@ -287,7 +287,7 @@ export default {
       defaultLocale: 'en',
       lazy: true,
       langDir: 'lang/',
-      strategy: 'prefix',
+      strategy: 'no_prefix',
       vueI18n: {
         fallbackLocale: 'en',
         silentFallbackWarn: true,
@@ -303,7 +303,7 @@ export default {
       // to their preferred language as they visit your app for the first time
       // Set to false to disable
       // NB: do not enable this in portal.js; our own l10n middleware handles it.
-      detectBrowserLanguage: false,
+      detectBrowserLanguage: true,
       vuex: {
         // Module namespace
         moduleName: 'i18n',
@@ -349,8 +349,18 @@ export default {
       });
       routes.push({
         name: 'collections',
-        path: '/(collections)',
+        path: '/collections',
         component: 'src/pages/index.vue'
+      });
+
+      for (const route of routes) {
+        route.path = `/:locale${route.path}`;
+      }
+
+      // Catch-all route handler to permit l10n middleware to redirect to URL with locale
+      routes.push({
+        name: 'l10n',
+        path: '/*'
       });
     },
     linkExactActiveClass: 'exact-active-link',
