@@ -4,8 +4,13 @@
   box-shadow: none;
   color: $black;
   border: none;
+  transition: box-shadow 0.25s;
   @at-root .text-page &.default-card {
     background: $bodygrey;
+  }
+  &:hover {
+    box-shadow: $boxshadow-small;
+    transition: box-shadow 0.25s;
   }
   a {
     text-decoration: none;
