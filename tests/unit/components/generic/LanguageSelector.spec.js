@@ -17,7 +17,7 @@ const factory = (locale) => mount(LangSelector, {
       locale
     },
     $route: () => {},
-    switchLocalePath: (code) => window.location.href + code
+    $path: route => route
   }
 });
 
