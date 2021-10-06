@@ -2,15 +2,26 @@ import {
   routePermittedOnEitherScheme, routeOnDatasetBlacklist
 } from './utils';
 
-export default ({ app, store, $config }, inject) => {
-  const path = (route) => {
+// TODO: does this belong here, or should it go into a new l10n plugin or such?
+const routeWithLocale = (route, locale) => {
+  if (typeof route === 'string') {
+    if (!new RegExp(`^/${locale}(/|$)`).test(route)) {
+      route = `/${locale}${route}`;
+    }
+  } else {
     if (!route.params) {
       route.params = {};
     }
     if (!route.params.locale) {
-      route.params.locale = app.i18n.locale;
+      route.params.locale = locale;
     }
-    const localePath = app.localePath(route);
+  }
+  return route;
+};
+
+export default ({ app, store, $config }, inject) => {
+  const path = (route) => {
+    const localePath = app.localePath(routeWithLocale(route, app.i18n.locale));
 
     if (!$config.http.sslNegotiation.enabled || routePermittedOnEitherScheme(route)) {
       return localePath;
