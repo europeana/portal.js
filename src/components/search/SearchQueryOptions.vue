@@ -9,13 +9,11 @@
     <b-list-group-item
       v-for="(option, index) in value"
       :key="index"
-      :to="$link.to(option.link.path, option.link.query)"
-      :href="$link.href(option.link.path, option.link.query)"
       :data-qa="option.qa"
       role="option"
       :aria-selected="index === focus"
       :class="{ 'hover': index === focus }"
-      @click="blurInput"
+      @click="selectSuggestion(index)"
       @focus="index === focus"
       @mouseover="focus = index"
       @mouseout="focus = null"
@@ -181,8 +179,11 @@
         this.selectSuggestion();
       },
 
-      selectSuggestion() {
-        if (this.focus && this.value[this.focus]) {
+      selectSuggestion(clickIndex) {
+        if (clickIndex) {
+          this.focus = clickIndex;
+          this.$emit('select', this.value[this.focus].link, true);
+        } else if (this.focus && this.value[this.focus]) {
           this.$emit('select', this.value[this.focus].link);
         } else {
           // fallback to the query by unselecting any suggestions.
@@ -239,6 +240,7 @@
       &.hover {
         background-color: $blue;
         color: $white;
+        cursor: pointer;
       }
     }
 

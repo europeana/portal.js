@@ -190,8 +190,11 @@
         this.query = this.$route.query.query;
       },
 
-      selectSearchOption(value) {
+      selectSearchOption(value, submit) {
         this.selectedOptionLink = value;
+        if (submit) {
+          this.submitForm();
+        }
       },
 
       async submitForm() {
