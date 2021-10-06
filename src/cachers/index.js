@@ -7,7 +7,8 @@ const cachers = [
   'entities:organisations',
   'entities:times',
   'entities:topics',
-  'items:recent'
+  'items:recent',
+  'items:type-counts'
 ];
 
 const cli = (cacher) => {
