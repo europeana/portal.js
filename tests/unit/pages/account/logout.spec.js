@@ -43,7 +43,7 @@ describe('pages/account/logout.vue', () => {
     });
 
     context('previous page requires auth', () => {
-      const from = { name: 'account___eu', fullPath: '/eu/account' };
+      const from = { name: 'account', fullPath: '/eu/account' };
 
       it('stores the homepage path for auth redirection', () => {
         const wrapper = factory();
