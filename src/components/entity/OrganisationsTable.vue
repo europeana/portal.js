@@ -35,12 +35,14 @@
 </template>
 
 <script>
+  import { BTable } from 'bootstrap-vue';
   import AlertMessage from '../generic/AlertMessage';
   import LoadingSpinner from '../generic/LoadingSpinner';
 
   export default {
     name: 'OrganisationsTable',
     components: {
+      BTable,
       LoadingSpinner,
       AlertMessage
     },
