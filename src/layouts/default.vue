@@ -167,7 +167,7 @@
     },
 
     head() {
-      const i18nSeo = this.$nuxtI18nSeo();
+      const i18nSeo = this.$nuxtI18nHead({ addSeoAttributes: true });
 
       return {
         htmlAttrs: {
