@@ -204,7 +204,7 @@
           newRoute = this.selectedOptionLink;
           this.query = this.selectedOptionLink.query.query;
 
-          this.$matomo && this.$matomo.trackEvent('Select_option_autosuggest', 'Select an autosuggest option', this.query);
+          this.$matomo && this.$matomo.trackEvent('Autosuggest_option_selected', 'Autosuggest option is selected', this.query);
 
           if (this.query !== this.activeSuggestionsQueryTerm) {
             this.suggestions = {};
@@ -212,7 +212,7 @@
         } else {
           // Matomo event: suggestions are present, but none is selected
           if (Object.keys(this.suggestions).length > 0) {
-            this.$matomo && this.$matomo.trackEvent('Select_no_option_autosuggest', 'Select no autosuggest option', this.query);
+            this.$matomo && this.$matomo.trackEvent('Autosuggest_option_not_selected', 'Autosuggest option is not selected', this.query);
           }
 
           // `query` must fall back to blank string to ensure inclusion in URL,
