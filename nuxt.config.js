@@ -16,6 +16,33 @@ import { parseQuery, stringifyQuery } from './src/plugins/vue-router.cjs';
 
 const featureIsEnabled = (value) => Boolean(Number(value));
 
+const i18nExclusions = ['/account/callback', '/account/logout'];
+
+const extendRoutes = (routes) => {
+  routes.push({
+    name: 'slug',
+    path: '/*',
+    component: 'src/pages/index.vue'
+  });
+  routes.push({
+    name: 'collections',
+    path: '/collections',
+    component: 'src/pages/index.vue'
+  });
+
+  for (const route of routes) {
+    if (!i18nExclusions.includes(route.path)) {
+      route.path = `/:locale${route.path}`;
+    }
+  }
+
+  // Catch-all route handler to permit l10n middleware to redirect to URL with locale
+  routes.push({
+    name: 'l10n',
+    path: '/*'
+  });
+};
+
 export default {
   /*
   ** Runtime config
@@ -24,6 +51,7 @@ export default {
     app: {
       // TODO: rename env vars to prefix w/ APP_, except feature toggles
       baseUrl: process.env.PORTAL_BASE_URL,
+      i18nExclusions,
       internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
       schemaOrgDatasetId: process.env.SCHEMA_ORG_DATASET_ID,
       siteName: APP_SITE_NAME,
@@ -287,22 +315,19 @@ export default {
       defaultLocale: 'en',
       lazy: true,
       langDir: 'lang/',
+      // NOTE: We _do_ want locale prefixes, but implement it ourselves with
+      //       `extendRoutes` so that there are fewer named routes generated,
+      //       which benefits APM transaction grouping.
       strategy: 'no_prefix',
+      // Enable browser language detection to automatically redirect user
+      // to their preferred language as they visit your app for the first time
+      // Set to false to disable
+      detectBrowserLanguage: true,
       vueI18n: {
         fallbackLocale: 'en',
         silentFallbackWarn: true,
         dateTimeFormats: i18nDateTime
       },
-      // Disable redirects to account pages
-      parsePages: false,
-      pages: {
-        'account/callback': false,
-        'account/logout': false
-      },
-      // Enable browser language detection to automatically redirect user
-      // to their preferred language as they visit your app for the first time
-      // Set to false to disable
-      detectBrowserLanguage: true,
       vuex: {
         // Module namespace
         moduleName: 'i18n',
@@ -340,28 +365,7 @@ export default {
 
   router: {
     middleware: ['legacy/index', 'l10n'],
-    extendRoutes(routes) {
-      routes.push({
-        name: 'slug',
-        path: '/*',
-        component: 'src/pages/index.vue'
-      });
-      routes.push({
-        name: 'collections',
-        path: '/collections',
-        component: 'src/pages/index.vue'
-      });
-
-      for (const route of routes) {
-        route.path = `/:locale${route.path}`;
-      }
-
-      // Catch-all route handler to permit l10n middleware to redirect to URL with locale
-      routes.push({
-        name: 'l10n',
-        path: '/*'
-      });
-    },
+    extendRoutes,
     linkExactActiveClass: 'exact-active-link',
     parseQuery,
     stringifyQuery

@@ -46,7 +46,7 @@ export const routeOnDatasetBlacklist = (route, datasetBlacklist) => {
   if (typeof route !== 'object' || !route) {
     return false;
   }
-  if (!/^item-all(___[a-z]{2})?$/.test(route.name)) {
+  if (route.name !== 'item-all') {
     return false;
   }
 
@@ -60,5 +60,5 @@ export const routePermittedOnEitherScheme = route => {
   if (typeof route !== 'object' || !route) {
     return false;
   }
-  return /^iiif(___[a-z]{2})?$/.test(route.name);
+  return route.name === 'iiif';
 };

@@ -21,7 +21,8 @@
 
     beforeRouteEnter(to, from, next) {
       next(vm => {
-        const redirectPath = /^account___[a-z]{2}$/.test(from.name) ? `/${vm.$i18n.locale}` : from.fullPath;
+        // Redirect to localised homepage if logging out from account page
+        const redirectPath = from.name === 'account' ? `/${vm.$i18n.locale}` : from.fullPath;
         vm.$auth.$storage.setUniversal('redirect', redirectPath);
       });
     }
