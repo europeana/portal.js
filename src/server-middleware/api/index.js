@@ -39,6 +39,7 @@ import dailyEntries from './dailyEntries.js';
 app.get('/entities/topics', (req, res) => dailyEntries('topic', runtimeConfig)(req, res));
 app.get('/entities/times', (req, res) => dailyEntries('time', runtimeConfig)(req, res));
 app.get('/items/recent', (req, res) => dailyEntries('item', runtimeConfig)(req, res));
+app.get('/items/itemCountsMediaType', (req, res) => dailyEntries('itemCountsMediaType', runtimeConfig)(req, res));
 
 import jiraServiceDesk from './jira/service-desk.js';
 app.post('/jira/service-desk', (req, res) => jiraServiceDesk(runtimeConfig.jira)(req, res));

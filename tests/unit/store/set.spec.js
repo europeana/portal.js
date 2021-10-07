@@ -177,7 +177,7 @@ describe('store/set', () => {
       });
     });
 
-    describe('create()', () => {
+    describe('createSet()', () => {
       it('create the set via $apis.set, then dispatches "fetchCreations"', async() => {
         store.actions.$apis.set.create = sinon.stub().resolves();
         const body = {};
