@@ -225,7 +225,7 @@
       },
       description() {
         if (this.isEditable) {
-          return this.entity.note[this.$store.state.i18n.locale] ? { values: this.entity.note[this.$store.state.i18n.locale], code: this.$store.state.i18n.locale } : null;
+          return this.entity.note[this.$i18n.locale] ? { values: this.entity.note[this.$i18n.locale], code: this.$i18n.locale } : null;
         }
 
         const description = this.collectionType === 'organisation' &&
@@ -289,7 +289,7 @@
         if (this.editorialTitle) {
           return this.titleFallback(this.editorialTitle);
         }
-        return langMapValueForLocale(this.entity.prefLabel, this.$store.state.i18n.locale);
+        return langMapValueForLocale(this.entity.prefLabel, this.$i18n.locale);
       },
       isEditable() {
         return this.entity && this.editable;
@@ -353,7 +353,7 @@
       };
     },
     async beforeRouteLeave(to, from, next) {
-      if (to.matched[0].path !== `/${this.$store.state.i18n.locale}/search`) {
+      if (to.matched[0].path !== `/${this.$i18n.locale}/search`) {
         this.$store.commit('search/setShowSearchBar', false);
       }
       await this.$store.dispatch('search/deactivate');
