@@ -12,14 +12,12 @@
 </template>
 
 <script>
-  import { BTable } from 'bootstrap-vue';
   import ContentHeader from '@/components/generic/ContentHeader';
   import ClientOnly from 'vue-client-only';
 
   export default {
     name: 'OrganisationsPage',
     components: {
-      BTable,
       ContentHeader,
       ClientOnly,
       OrganisationsTable: () => import('@/components/entity/OrganisationsTable')
