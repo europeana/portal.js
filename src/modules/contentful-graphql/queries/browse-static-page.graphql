@@ -111,6 +111,9 @@ query BrowseStaticPage(
               }
             }
           }
+          ... on AutomatedCardGroup {
+            genre
+          }
           ... on Link {
             url
             text

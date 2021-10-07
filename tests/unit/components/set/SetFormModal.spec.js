@@ -68,7 +68,7 @@ describe('components/set/SetFormModal', () => {
       await wrapper.find('#set-private').setChecked();
       await wrapper.find('form').trigger('submit.stop.prevent');
 
-      storeDispatch.should.have.been.calledWith('set/updateSet', {
+      storeDispatch.should.have.been.calledWith('set/update', {
         id: '123',
         body: {
           type: 'Collection',

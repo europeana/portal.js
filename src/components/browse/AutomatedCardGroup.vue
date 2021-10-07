@@ -2,7 +2,12 @@
   <div
     v-if="entries.length > 0"
   >
+    <InfoCardSection
+      v-if="type === 'itemCountsMediaType'"
+      :section="contentCardSection"
+    />
     <ContentCardSection
+      v-else
       :section="contentCardSection"
     />
   </div>
@@ -10,16 +15,19 @@
 
 <script>
   import ContentCardSection from './ContentCardSection';
+  import InfoCardSection from './InfoCardSection';
 
   const FEATURED_TOPICS = 'Featured topics';
   const FEATURED_TIMES = 'Featured centuries';
   const RECENT_ITEMS = 'Recent items';
+  const ITEM_COUNTS_MEDIA_TYPE = 'Item counts by Media type';
 
   export default {
     name: 'AutomatedCardGroup',
 
     components: {
-      ContentCardSection
+      ContentCardSection,
+      InfoCardSection
     },
 
     props: {
@@ -31,9 +39,13 @@
 
     fetch() {
       if (process.server) {
+        const options = {};
+        if (this.sectionType === ITEM_COUNTS_MEDIA_TYPE) {
+          options.size = 5;
+        }
         return import('@/server-middleware/api/dailyEntries')
           .then(module => {
-            return module.entriesOfTheDay(this.type, this.$config)
+            return module.entriesOfTheDay(this.type, this.$config, options)
               .then(entries => {
                 this.entries = entries;
               });
@@ -51,6 +63,20 @@
 
     computed: {
       contentCardSection() {
+        if (this.sectionType === ITEM_COUNTS_MEDIA_TYPE) {
+          return {
+            type: this.type,
+            hasPartCollection: {
+              items: this.entries?.map(entry => ({
+                __typename: this.cardType,
+                url: this.searchFromType(entry.label),
+                info: this.$i18n.n(entry.count),
+                label: this.$t(`facets.TYPE.options.${entry.label}`),
+                image: this.infoImageFromType(entry.label)
+              }))
+            }
+          };
+        }
         return {
           headline: this.$i18n.t(`automatedCardGroup.${this.type}`),
           hasPartCollection: {
@@ -72,6 +98,8 @@
           return 'time';
         case RECENT_ITEMS:
           return 'item';
+        case ITEM_COUNTS_MEDIA_TYPE:
+          return 'itemCountsMediaType';
         default:
           return null;
         }
@@ -83,6 +111,8 @@
           return 'AutomatedEntityCard';
         case RECENT_ITEMS:
           return 'AutomatedRecordCard';
+        case ITEM_COUNTS_MEDIA_TYPE:
+          return 'InfoCard';
         default:
           return null;
         }
@@ -95,9 +125,23 @@
           return '/_api/entities/times';
         case RECENT_ITEMS:
           return '/_api/items/recent';
+        case ITEM_COUNTS_MEDIA_TYPE:
+          return '/_api/items/itemCountsMediaType';
         default:
           return null;
         }
+      }
+    },
+
+    methods: {
+      infoImageFromType(type) {
+        return `ic-${type.toLowerCase()}`;
+      },
+      searchFromType(type) {
+        return {
+          name: 'search',
+          query: { query: '', qf: `TYPE:"${type}"` }
+        };
       }
     }
   };
