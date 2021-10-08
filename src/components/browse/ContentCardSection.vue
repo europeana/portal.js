@@ -20,15 +20,7 @@
         deck
         data-qa="section group"
       >
-        <template v-if="!isPeopleSection">
-          <BrowseContentCard
-            v-for="(card, index) in cards"
-            :key="index"
-            :fields="card"
-            :card-type="card && card['__typename']"
-          />
-        </template>
-        <template v-else>
+        <template v-if="isPeopleSection">
           <ContentCard
             v-for="(card, index) in cards"
             :key="index"
@@ -37,6 +29,14 @@
             :image-url="card.entityImage"
             :image-optimisation-options="{ width: 510 }"
             variant="mini"
+          />
+        </template>
+        <template v-else>
+          <BrowseContentCard
+            v-for="(card, index) in cards"
+            :key="index"
+            :fields="card"
+            :card-type="card && card['__typename']"
           />
         </template>
       </b-card-group>

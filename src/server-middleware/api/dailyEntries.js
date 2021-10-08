@@ -1,16 +1,20 @@
 import { CACHE_KEY as TIMES_CACHE_KEY } from '../../cachers/entities/times.js';
 import { CACHE_KEY as TOPICS_CACHE_KEY } from '../../cachers/entities/topics.js';
 import { CACHE_KEY as ITEMS_CACHE_KEY } from '../../cachers/items/recent.js';
+import { CACHE_KEY as ITEM_COUNTS_BY_MEDIA_TYPE_CACHE_KEY } from '../../cachers/items/type-counts.js';
 import { createRedisClient } from '../../cachers/utils.js';
 import { errorHandler } from './index.js';
 
-const subsetSize = 4;
+const defaultSubsetSize = 4;
+const completeSets = [
+  ITEMS_CACHE_KEY, ITEM_COUNTS_BY_MEDIA_TYPE_CACHE_KEY
+];
 
 const offsetOfTheDay = (setSize) => {
   const millisecondsPerDay = (1000 * 60 * 60 * 24);
   const unixDay = Math.floor(Date.now() / millisecondsPerDay);
-  const offset = (unixDay * subsetSize) % setSize;
-  return (offset + subsetSize <= setSize) ? offset : (setSize - subsetSize);
+  const offset = (unixDay * defaultSubsetSize) % setSize;
+  return (offset + defaultSubsetSize <= setSize) ? offset : (setSize - defaultSubsetSize);
 };
 
 export const entriesOfTheDay = (type, config = {}) => {
@@ -23,13 +27,16 @@ export const entriesOfTheDay = (type, config = {}) => {
     key = TOPICS_CACHE_KEY;
   } else if (type === 'item') {
     key = ITEMS_CACHE_KEY;
+  } else if (type === 'itemCountsMediaType') {
+    key = ITEM_COUNTS_BY_MEDIA_TYPE_CACHE_KEY;
   }
 
   return redisClient.getAsync(key)
     .then(value => JSON.parse(value))
     .then(parsed => {
       redisClient.quitAsync();
-      const offset = offsetOfTheDay(parsed.length);
+      const subsetSize = completeSets.includes(key) ? parsed.length : defaultSubsetSize;
+      const offset = completeSets.includes(key) ? 0 : offsetOfTheDay(parsed.length);
       return parsed.slice(offset, offset + subsetSize);
     });
 };

@@ -74,7 +74,9 @@ export default {
         serviceVersion: pkg.version,
         frameworkName: 'Nuxt',
         frameworkVersion: nuxtPkg.version,
-        usePathAsTransactionName: true
+        ignoreUrls: [
+          /^\/_nuxt\//
+        ]
       }
     },
     europeana: {
@@ -279,7 +281,7 @@ export default {
     ['@nuxtjs/robots', JSON.parse(process.env.NUXTJS_ROBOTS || '{"UserAgent":"*","Disallow":"/"}')],
     'bootstrap-vue/nuxt',
     'cookie-universal-nuxt',
-    ['nuxt-i18n', {
+    ['@nuxtjs/i18n', {
       locales: i18nLocales,
       baseUrl: ({ $config }) => $config.app.baseUrl,
       defaultLocale: 'en',

@@ -1,5 +1,6 @@
 import express from 'express';
 import defu  from 'defu';
+import apm from 'elastic-apm-node';
 import logging from '../logging.js';
 
 const app = express();
@@ -18,6 +19,16 @@ app.use((res, req, next) => {
   next();
 });
 
+app.use((res, req, next) => {
+  if (apm.isStarted())  {
+    // Elastic APM Node agent instruments Express requests automatically, but
+    // omits any prefix such as /_api/, so override the transactions name here
+    // to restore it form the original URL.
+    apm.setTransactionName(`${req.req.method} ${req.req.originalUrl.split('?')[0]}`);
+  }
+  next();
+});
+
 import debugMemoryUsage from './debug/memory-usage.js';
 app.get('/debug/memory-usage', debugMemoryUsage);
 
@@ -28,6 +39,7 @@ import dailyEntries from './dailyEntries.js';
 app.get('/entities/topics', (req, res) => dailyEntries('topic', runtimeConfig)(req, res));
 app.get('/entities/times', (req, res) => dailyEntries('time', runtimeConfig)(req, res));
 app.get('/items/recent', (req, res) => dailyEntries('item', runtimeConfig)(req, res));
+app.get('/items/itemCountsMediaType', (req, res) => dailyEntries('itemCountsMediaType', runtimeConfig)(req, res));
 
 import jiraServiceDesk from './jira/service-desk.js';
 app.post('/jira/service-desk', (req, res) => jiraServiceDesk(runtimeConfig.jira)(req, res));
