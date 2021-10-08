@@ -11,7 +11,7 @@ localVue.use(BootstrapVue);
 const FEATURED_TOPICS = 'Featured topics';
 const FEATURED_TIMES = 'Featured centuries';
 const RECENT_ITEMS = 'Recent items';
-const ITEM_COUNTS_MEDIA_TYPE = 'Item counts by Media type';
+const ITEM_COUNTS_MEDIA_TYPE = 'Item counts by media type';
 
 const $axiosGetStub = sinon.stub();
 

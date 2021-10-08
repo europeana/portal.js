@@ -5,7 +5,7 @@ module.exports = function(migration) {
     .editField('genre')
     .validations([
       {
-        in: ['Featured topics', 'Recent items', 'Featured centuries', 'Item counts by Media type']
+        in: ['Featured topics', 'Recent items', 'Featured centuries', 'Item counts by media type']
       }
     ]);
 
