@@ -9,11 +9,14 @@ export const routeHooks = (router, apm, options = {}) => {
   let transaction;
 
   router.beforeEach((to, from, next) => {
-    const path = transactionPath(to, options);
-    transaction = apm.startTransaction(path, 'route-change', {
+    const parsed = parseRoute(to, options);
+    transaction = apm.startTransaction(parsed.path, 'route-change', {
       managed: true,
       canReuse: true
     });
+    if (parsed.locale) {
+      transaction.addLabels('locale', parsed.locale);
+    }
     next();
   });
 
@@ -30,9 +33,9 @@ export const routeHooks = (router, apm, options = {}) => {
   });
 };
 
-export const transactionPath = (route, options = {}) => {
+export const parseRoute = (route, options = {}) => {
+  const parsed = { path: route.path };
   const matched = route.matched || [];
-  let path = route.path;
 
   /**
    * Get the last matched route record which acts as stack when
@@ -43,16 +46,20 @@ export const transactionPath = (route, options = {}) => {
    * use the slug pattern for the transaction name
    */
   if (matched.length > 0) {
-    path = matched[matched.length - 1].path || path;
+    parsed.path = matched[matched.length - 1].path || parsed.path;
   }
 
   /**
    * Replace supported locales at start of path with ":locale"
    */
   if (options.localeCodes) {
-    const pattern = new RegExp(`^/(${options.localeCodes.join('|')})(/|$)`);
-    path = path.replace(pattern, '/:locale$2');
+    const localePattern = new RegExp(`^/(${options.localeCodes.join('|')})(/|$)`);
+    const localeMatch = parsed.path.match(localePattern);
+    if (localeMatch) {
+      parsed.path = parsed.path.replace(localePattern, '/:locale$2');
+      parsed.locale = localeMatch[1];
+    }
   }
 
-  return path;
+  return parsed;
 };
