@@ -1,8 +1,35 @@
+import { afterFrame } from '@elastic/apm-rum-core';
+
 /**
- * Logic duplicated from `@elastic/apm-rum-vue` package's `src/route-hooks.js`,
+ * Based on `@elastic/apm-rum-vue` package's `src/route-hooks.js`
  * with optional support for replacement of locale codes in route path to group
  * transactions with locale as prefix, e.g. from nuxt-i18n.
  */
+export const routeHooks = (router, apm, options = {}) => {
+  let transaction;
+
+  router.beforeEach((to, from, next) => {
+    const path = transactionPath(to, options);
+    transaction = apm.startTransaction(path, 'route-change', {
+      managed: true,
+      canReuse: true
+    });
+    next();
+  });
+
+  router.afterEach(() => {
+    afterFrame(() => transaction && transaction.detectFinish());
+  });
+
+  /**
+   * handle when the navigation is cancelled in `beforeEach` hook of components
+   * where `next(error)` is called
+   */
+  router.onError(() => {
+    transaction && transaction.end();
+  });
+};
+
 export const transactionPath = (route, options = {}) => {
   const matched = route.matched || [];
   let path = route.path;
