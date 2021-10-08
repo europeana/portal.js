@@ -347,11 +347,6 @@ export default {
         path: '/*',
         component: 'src/pages/index.vue'
       });
-      routes.push({
-        name: 'collections',
-        path: '/collections',
-        component: 'src/pages/index.vue'
-      });
     },
     linkExactActiveClass: 'exact-active-link',
     parseQuery,
