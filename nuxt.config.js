@@ -349,7 +349,7 @@ export default {
       });
       routes.push({
         name: 'collections',
-        path: '/(collections)',
+        path: '/collections',
         component: 'src/pages/index.vue'
       });
     },
