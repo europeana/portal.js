@@ -37,7 +37,7 @@ module.exports = function(migration) {
   primaryCallToAction.changeFieldControl('text', 'builtin', 'markdown', {});
 
   primaryCallToAction
-    .createField('CTAButton')
+    .createField('relatedLink')
     .name('CTA Button')
     .type('Link')
     .linkType('Entry')

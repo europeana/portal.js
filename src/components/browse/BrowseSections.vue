@@ -58,7 +58,7 @@
       <PrimaryCallToAction
         v-else-if="contentType(section, 'PrimaryCallToAction')"
         :text="section.text"
-        :link="section.ctaButton"
+        :link="section.relatedLink"
       />
     </div>
   </div>
