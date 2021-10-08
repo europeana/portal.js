@@ -74,7 +74,7 @@
       ImageWithAttribution: () => import('../generic/ImageWithAttribution'),
       CallToAction: () => import('../generic/CallToAction'),
       RichText: () => import('./RichText'),
-      AutomatedCardGroup: () => import('../browse/AutomatedCardGroup'),
+      AutomatedCardGroup: () => import('./AutomatedCardGroup'),
       PrimaryCallToAction: () => import('./PrimaryCallToAction')
     },
 
