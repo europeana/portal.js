@@ -118,6 +118,13 @@ query BrowseStaticPage(
             url
             text
           }
+          ... on PrimaryCallToAction {
+            text
+            relatedLink {
+              url
+              text
+            }
+          }
         }
       }
       relatedLinks {
