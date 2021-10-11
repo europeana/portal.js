@@ -10,10 +10,12 @@
       v-for="(option, index) in value"
       :key="index"
       :data-qa="option.qa"
+      :to="$link.to(option.link.path, option.link.query)"
+      :href="$link.href(option.link.path, option.link.query)"
       role="option"
       :aria-selected="index === focus"
       :class="{ 'hover': index === focus }"
-      @click="selectSuggestion(index)"
+      @click="trackSuggestionClick(index, option.link.query.query)"
       @focus="index === focus"
       @mouseover="focus = index"
       @mouseout="focus = null"
@@ -163,6 +165,17 @@
         this.inputElement.blur();
       },
 
+      trackSuggestionClick(index, query) {
+        // These events are also tracked in the submitForm logic of the
+        // SearchForm component where keyboard events are tracked.
+        if (index >= 1) {
+          this.$matomo?.trackEvent('Autosuggest_option_selected', 'Autosuggest option is selected', query);
+        } else if (this.value.length >= 2) {
+          this.$matomo?.trackEvent('Autosuggest_option_not_selected', 'Autosuggest option is not selected', query);
+        }
+        this.blurInput();
+      },
+
       clickOutside(event) {
         const isParent = (event.target === this.inputElement);
         const isChild = this.$el.contains(event.target);
@@ -179,11 +192,8 @@
         this.selectSuggestion();
       },
 
-      selectSuggestion(clickIndex) {
-        if (clickIndex) {
-          this.focus = clickIndex;
-          this.$emit('select', this.value[this.focus].link, true);
-        } else if (this.focus && this.value[this.focus]) {
+      selectSuggestion() {
+        if (this.focus && this.value[this.focus]) {
           this.$emit('select', this.value[this.focus].link);
         } else {
           // fallback to the query by unselecting any suggestions.

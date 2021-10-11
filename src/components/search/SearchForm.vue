@@ -190,11 +190,8 @@
         this.query = this.$route.query.query;
       },
 
-      selectSearchOption(value, submit) {
+      selectSearchOption(value) {
         this.selectedOptionLink = value;
-        if (submit) {
-          this.submitForm();
-        }
       },
 
       async submitForm() {
@@ -204,7 +201,8 @@
           newRoute = this.selectedOptionLink;
           this.query = this.selectedOptionLink.query.query;
 
-          this.$matomo && this.$matomo.trackEvent('Autosuggest_option_selected', 'Autosuggest option is selected', this.query);
+          // This only tracks keyboard events, click events are tracked in the SearchQueryOPtions component.
+          this.$matomo?.trackEvent('Autosuggest_option_selected', 'Autosuggest option is selected', this.query);
 
           if (this.query !== this.activeSuggestionsQueryTerm) {
             this.suggestions = {};
@@ -212,7 +210,8 @@
         } else {
           // Matomo event: suggestions are present, but none is selected
           if (Object.keys(this.suggestions).length > 0) {
-            this.$matomo && this.$matomo.trackEvent('Autosuggest_option_not_selected', 'Autosuggest option is not selected', this.query);
+            // This only tracks keyboard events, click events are tracked in the SearchQueryOPtions component.
+            this.$matomo?.trackEvent('Autosuggest_option_not_selected', 'Autosuggest option is not selected', this.query);
           }
 
           // `query` must fall back to blank string to ensure inclusion in URL,
