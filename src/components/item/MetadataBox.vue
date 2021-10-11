@@ -17,11 +17,11 @@
             data-qa="main metadata section"
           >
             <MetadataField
-              v-for="(value, name) in coreMetadata"
+              v-for="name in CORE_FIELDS"
               :key="name"
               :metadata-language="metadataLanguage"
               :name="name"
-              :field-data="value"
+              :field-data="metadata[name]"
             />
           </b-card-text>
         </b-tab>
@@ -33,11 +33,11 @@
             text-tag="div"
           >
             <MetadataField
-              v-for="(value, name) in allMetadata"
+              v-for="name in ALL_FIELDS"
               :key="name"
               :metadata-language="metadataLanguage"
               :name="name"
-              :field-data="value"
+              :field-data="metadata[name]"
             />
           </b-card-text>
         </b-tab>
@@ -90,24 +90,23 @@
 </template>
 
 <script>
+  import { BTab, BTabs } from 'bootstrap-vue';
   import MetadataField from './MetadataField';
 
   export default {
     name: 'MetadataBox',
 
     components: {
+      BTab,
+      BTabs,
       MetadataField,
       MapEmbed: () => import('../geo/MapEmbed')
     },
 
     props: {
-      allMetadata: {
+      metadata: {
         type: Object,
-        default: null
-      },
-      coreMetadata: {
-        type: Object,
-        default: null
+        required: true
       },
       location: {
         type: Object,
@@ -125,6 +124,8 @@
 
     data() {
       return {
+        CORE_FIELDS,
+        ALL_FIELDS,
         showLocationMap: false
       };
     },
@@ -143,4 +144,61 @@
       }
     }
   };
+
+  const CORE_FIELDS = [
+    'edmDataProvider',
+    'dcContributor',
+    'dcCreator',
+    'dcPublisher',
+    'dcSubject',
+    'dcType',
+    'dctermsMedium'
+  ];
+
+  const ALL_FIELDS = CORE_FIELDS.concat([
+    'edmProvider',
+    'edmIntermediateProvider',
+    'edmRights',
+    'edmUgc',
+    'dcRights',
+    'dctermsCreated',
+    'dcDate',
+    'dctermsIssued',
+    'dctermsPublished',
+    'dctermsTemporal',
+    'dcCoverage',
+    'dctermsSpatial',
+    'edmCurrentLocation',
+    'dctermsProvenance',
+    'dcSource',
+    'dcIdentifier',
+    'dctermsExtent',
+    'dcDuration',
+    'dcMedium',
+    'dcFormat',
+    'dcLanguage',
+    'dctermsIsPartOf',
+    'dcRelation',
+    'dctermsReferences',
+    'dctermsHasPart',
+    'dctermsHasVersion',
+    'dctermsIsFormatOf',
+    'dctermsIsReferencedBy',
+    'dctermsIsReplacedBy',
+    'dctermsIsRequiredBy',
+    'edmHasMet',
+    'edmIncorporates',
+    'edmIsDerivativeOf',
+    'edmIsRepresentationOf',
+    'edmIsSimilarTo',
+    'edmIsSuccessorOf',
+    'edmRealizes',
+    'wasPresentAt',
+    'year',
+    'edmCountry',
+    'europeanaCollectionName',
+    'timestampCreated',
+    'timestampUpdate',
+    'keywords'
+  ]);
 </script>

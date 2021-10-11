@@ -1,4 +1,3 @@
-import omitBy from 'lodash/omitBy';
 import pick from 'lodash/pick';
 import uniq from 'lodash/uniq';
 import merge from 'deepmerge';
@@ -12,91 +11,6 @@ import localeCodes from '../i18n/codes';
 
 export const BASE_URL = process.env.EUROPEANA_RECORD_API_URL || 'https://api.europeana.eu/record';
 const MAX_VALUES_PER_PROXY_FIELD = 10;
-
-/**
- * Retrieves the "Core" fields which will always be displayed on record pages.
- *
- * @param {Object[]} proxyData All core fields are in the proxyData.
- * @param {Object[]} providerAggregation Extra fields used for the provider name & isShownAt link.
- * @param {Object[]} entities Entities in order to perform entity lookups
- * @return {Object[]} Key value pairs of the metadata fields.
- */
-function coreFields(proxyData, providerAggregation, entities) {
-  const fields = lookupEntities(omitBy({
-    edmDataProvider: providerAggregation.edmDataProvider,
-    dcContributor: proxyData.dcContributor,
-    dcCreator: proxyData.dcCreator,
-    dcPublisher: proxyData.dcPublisher,
-    dcSubject: proxyData.dcSubject,
-    dcType: proxyData.dcType,
-    dctermsMedium: proxyData.dctermsMedium
-  }, isUndefined), entities);
-
-  fields.edmDataProvider = {
-    url: providerAggregation.edmIsShownAt, value: fields.edmDataProvider
-  };
-  return Object.freeze(fields);
-}
-
-const PROXY_EXTRA_FIELDS = [
-  'dcRights',
-  'dcPublisher',
-  'dctermsCreated',
-  'dcDate',
-  'dctermsIssued',
-  'dctermsPublished',
-  'dctermsTemporal',
-  'dcCoverage',
-  'dctermsSpatial',
-  'edmCurrentLocation',
-  'dctermsProvenance',
-  'dcSource',
-  'dcIdentifier',
-  'dctermsExtent',
-  'dcDuration',
-  'dcMedium',
-  'dcFormat',
-  'dcLanguage',
-  'dctermsIsPartOf',
-  'dcRelation',
-  'dctermsReferences',
-  'dctermsHasPart',
-  'dctermsHasVersion',
-  'dctermsIsFormatOf',
-  'dctermsIsReferencedBy',
-  'dctermsIsReplacedBy',
-  'dctermsIsRequiredBy',
-  'edmHasMet',
-  'edmIncorporates',
-  'edmIsDerivativeOf',
-  'edmIsRepresentationOf',
-  'edmIsSimilarTo',
-  'edmIsSuccessorOf',
-  'edmRealizes',
-  'wasPresentAt',
-  'year'
-];
-
-/**
- * Retrieves all additional fields which will be displayed on record pages in the collapsable section.
- *
- * @param {Object[]} proxy To take the fields from.
- * @param {Object[]} edm To take additional fields from.
- * @param {Object[]} entities Entities in order to perform entity lookups
- * @return {Object[]} Key value pairs of the metadata fields.
- */
-function extraFields(proxy, edm, entities) {
-  return Object.freeze(lookupEntities(omitBy({
-    ...pick(edm.aggregations[0], [
-      'edmProvider', 'edmIntermediateProvider', 'edmRights', 'edmUgc'
-    ]),
-    ...pick(proxy, PROXY_EXTRA_FIELDS),
-    edmCountry: edm.europeanaAggregation.edmCountry,
-    europeanaCollectionName: edm.europeanaCollectionName,
-    timestampCreated: edm.timestamp_created,
-    timestampUpdate: edm.timestamp_update
-  }, isUndefined), entities));
-}
 
 /**
  * Sorts an array of objects by the `isNextInSequence` property.
@@ -237,13 +151,13 @@ export default (context = {}) => {
           return memo;
         }, {});
 
-      const proxyData = merge.all(edm.proxies);
+      const proxies = merge.all(edm.proxies);
 
-      for (const field in proxyData) {
-        if (isLangMap(proxyData[field])) {
-          for (const locale in proxyData[field]) {
-            if (Array.isArray(proxyData[field][locale]) && proxyData[field][locale].length > MAX_VALUES_PER_PROXY_FIELD) {
-              proxyData[field][locale] = proxyData[field][locale].slice(0, MAX_VALUES_PER_PROXY_FIELD).concat('…');
+      for (const field in proxies) {
+        if (isLangMap(proxies[field])) {
+          for (const locale in proxies[field]) {
+            if (Array.isArray(proxies[field][locale]) && proxies[field][locale].length > MAX_VALUES_PER_PROXY_FIELD) {
+              proxies[field][locale] = proxies[field][locale].slice(0, MAX_VALUES_PER_PROXY_FIELD).concat('…');
             }
           }
         }
@@ -259,41 +173,43 @@ export default (context = {}) => {
         const europeanaProxy = edm.proxies.find(proxy => proxy.europeanaProxy);
         const providerProxy = edm.proxies.length === 3 ? edm.proxies[1] : null;
         const predictedUiLang = prefLang ||  options.locale;
-        const MAIN_PROXY_FIELDS = [
-          'dcTitle',
-          'dcType',
-          'dcDescription',
-          'dctermsAlternative',
-          'dctermsMedium',
-          'dcContributor',
-          'dcPublisher',
-          'dcSubject'
-        ];
-        [...PROXY_EXTRA_FIELDS, ...MAIN_PROXY_FIELDS].forEach((field) => {
+
+        for (const field in proxies) {
           if (providerProxy?.[field] && this.localeSpecificFieldValueIsFromEnrichment(field, providerProxy, edm.proxies, predictedUiLang)) {
-            proxyData[field].translationSource = 'enrichment';
+            proxies[field].translationSource = 'enrichment';
           } else if (europeanaProxy?.[field]?.[predictedUiLang]) {
-            proxyData[field].translationSource = 'automated';
+            proxies[field].translationSource = 'automated';
           }
-        });
+        }
       }
+
+      const metadata = {
+        ...lookupEntities(
+          merge.all([proxies, edm.aggregations[0], edm.europeanaAggregation]), entities
+        ),
+        europeanaCollectionName: edm.europeanaCollectionName,
+        timestampCreated: edm.timestamp_created,
+        timestampUpdate: edm.timestamp_update
+      };
+      metadata.edmDataProvider = {
+        url: providerAggregation.edmIsShownAt, value: metadata.edmDataProvider
+      };
 
       const allMediaUris = this.aggregationMediaUris(providerAggregation).map(Object.freeze);
       return {
         allMediaUris,
-        altTitle: proxyData.dctermsAlternative,
-        description: proxyData.dcDescription,
+        altTitle: proxies.dctermsAlternative,
+        description: proxies.dcDescription,
         identifier: edm.about,
         type: edm.type, // TODO: Evaluate if this is used, if not remove.
         isShownAt: providerAggregation.edmIsShownAt,
-        coreFields: coreFields(proxyData, providerAggregation, entities),
-        fields: extraFields(proxyData, edm, entities),
+        metadata: Object.freeze(metadata),
         media: this.aggregationMedia(providerAggregation, allMediaUris, edm.type, edm.services),
         agents,
         concepts,
         timespans,
         organizations,
-        title: proxyData.dcTitle,
+        title: proxies.dcTitle,
         schemaOrg: data.schemaOrg ? Object.freeze(JSON.stringify(data.schemaOrg)) : undefined,
         edmLanguage: edm.europeanaAggregation.edmLanguage,
         metadataLanguage: prefLang

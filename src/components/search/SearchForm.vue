@@ -243,7 +243,7 @@
         const locale = this.$i18n.locale;
         this.gettingSuggestions = true;
 
-        this.$apis.entity.getEntitySuggestions(query, {
+        this.$apis.entity.suggest(query, {
           language: locale
         })
           .then(suggestions => {

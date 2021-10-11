@@ -53,7 +53,7 @@ describe('components/entity/EntityUpdateModal', () => {
       await wrapper.find('#entity-description').setValue('Updated');
       await wrapper.find('form').trigger('submit.stop.prevent');
 
-      storeDispatch.should.have.been.calledWith('entity/updateEntity', {
+      storeDispatch.should.have.been.calledWith('entity/update', {
         id: '1-art',
         body: {
           type: 'concept',

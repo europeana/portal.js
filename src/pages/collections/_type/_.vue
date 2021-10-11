@@ -91,7 +91,7 @@
 </template>
 
 <script>
-  import axios from 'axios';
+  import pick from 'lodash/pick';
   import ClientOnly from 'vue-client-only';
   import EntityDetails from '../../../components/entity/EntityDetails';
   import SearchInterface from '../../../components/search/SearchInterface';
@@ -147,23 +147,31 @@
         curatedEntities: fetchCuratedEntities,
         entityPage: fetchEntityPage
       };
-      return axios.all(
-        [store.dispatch('entity/searchForRecords', query)]
-          .concat(fetchEntity ? app.$apis.entity.getEntity(params.type, params.pathMatch) : () => {})
-          .concat(fetchEntityManagement ? app.$apis.entityManagement.getEntity(params.type, params.pathMatch) : () => ({}))
-          .concat(fetchFromContentful ? app.$contentful.query('collectionPage', contentfulVariables) : () => {})
-      )
-        .then(axios.spread((recordSearchResponse, entityResponse, entityManagementResponse, pageResponse) => {
+
+      return Promise.all([
+        store.dispatch('entity/searchForRecords', query),
+        fetchEntity ? app.$apis.entity.get(params.type, params.pathMatch) : () => null,
+        fetchEntityManagement ? app.$apis.entityManagement.get(params.type, params.pathMatch) : () => null,
+        fetchFromContentful ? app.$contentful.query('collectionPage', contentfulVariables) : () => null
+      ])
+        .then(responses => {
           if (fetchEntity) {
-            store.commit('entity/setEntity', entityResponse.entity);
+            store.commit('entity/setEntity', pick(responses[1].entity, [
+              'id',
+              'logo',
+              'note',
+              'description',
+              'homepage',
+              'prefLabel'
+            ]));
           }
-          if (entityManagementResponse.note) {
+          if (responses[2].note) {
             store.commit('entity/setEditable', true);
-            store.commit('entity/setEntityDescription', entityManagementResponse.note);
-            store.commit('entity/setProxy', entityManagementResponse.proxies.find(proxy => proxy.id.includes('#proxy_europeana')));
+            store.commit('entity/setEntityDescription', responses[2].note);
+            store.commit('entity/setProxy', responses[2].proxies.find(proxy => proxy.id.includes('#proxy_europeana')));
           }
           if (fetchFromContentful) {
-            const pageResponseData = pageResponse.data.data;
+            const pageResponseData = responses[3].data.data;
             if (fetchCuratedEntities) {
               store.commit('entity/setCuratedEntities', pageResponseData.curatedEntities.items);
             }
@@ -183,7 +191,7 @@
             return redirect(302, redirectPath);
           }
           return true;
-        }))
+        })
         .catch((e) => {
           const statusCode = (e.statusCode === undefined) ? 500 : e.statusCode;
           store.commit('entity/setId', null);
@@ -294,10 +302,10 @@
       // Disable related collections for organisation for now
       if (!this.relatedCollectionCards && this.collectionType !== 'organisation') {
         this.$apis.record.relatedEntities(this.$route.params.type, this.$route.params.pathMatch)
-          .then(facets => facets ? this.$apis.entity.getEntityFacets(facets, this.$route.params.pathMatch) : [])
-          .then(related => {
-            this.$store.commit('entity/setRelatedEntities', related);
-          });
+          .then(facets => facets ? this.$apis.entity.facets(facets, this.$route.params.pathMatch) : [])
+          .then(related => this.$store.commit('entity/setRelatedEntities', related.map(entity => {
+            return pick(entity, ['id', 'prefLabel', 'isShownBy']);
+          })));
       }
       if (this.userIsEditor) {
         this.$store.dispatch('entity/getFeatured');

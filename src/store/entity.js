@@ -157,7 +157,7 @@ export default {
         });
     },
     getPins({ state, commit }) {
-      return this.$apis.set.getSet(state.featuredSetId, {
+      return this.$apis.set.get(state.featuredSetId, {
         profile: 'itemDescriptions'
       }).then(featured => featured.pinned > 0 ? commit('setPinned', featured.items.slice(0, featured.pinned)) : commit('setPinned', []));
     },
@@ -167,11 +167,11 @@ export default {
         title: { 'en': getters.englishPrefLabel + ' Page' },
         subject: [getters.id]
       };
-      return this.$apis.set.createSet(featuredSetBody)
+      return this.$apis.set.create(featuredSetBody)
         .then(response => commit('setFeaturedSetId', response.id));
     },
-    updateEntity({ commit }, { id, body }) {
-      return this.$apis.entityManagement.updateEntity(id.split('/').pop(), body)
+    update({ commit }, { id, body }) {
+      return this.$apis.entityManagement.update(id.split('/').pop(), body)
         .then(response => {
           commit('setProxyDescription', body.note);
           commit('setEntityDescription', response.note);

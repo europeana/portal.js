@@ -16,7 +16,7 @@ export default (context = {}) => {
      * @param {string} id the id of the entity (can contain trailing slug parts as these will be normalized)
      * @return {Object[]} parsed entity data
      */
-    getEntity(type, id) {
+    get(type, id) {
       return this.$axios.get(getEntityUrl(type, id))
         .then(response => ({
           error: null,
@@ -32,7 +32,7 @@ export default (context = {}) => {
      * @param {string} text the query text to supply suggestions for
      * @param {Object} params additional parameters sent to the API
      */
-    getEntitySuggestions(text, params = {}) {
+    suggest(text, params = {}) {
       let type = 'agent,concept,timespan';
       if (context.$config?.app?.features?.organisationSearchSuggestions) {
         type = `${type},organization`;
@@ -60,7 +60,7 @@ export default (context = {}) => {
      * @return {Object} related entities
      * TODO: limit results
      */
-    async getEntityFacets(facets, id) {
+    facets(facets, id) {
       const currentId = normalizeEntityId(id);
       let entities = [];
       for (const facet of facets) {
@@ -71,7 +71,9 @@ export default (context = {}) => {
       const entityUris = entities.slice(0, 4).map(entity => {
         return entity['label'];
       });
-      return getRelatedEntityData(await this.findEntities(entityUris));
+
+      return this.find(entityUris)
+        .then(response => getRelatedEntityData(response));
     },
 
     /**
@@ -79,7 +81,7 @@ export default (context = {}) => {
      * @param {Array} entityUris the URIs of the entities to retrieve
      * @return {Array} entity data
      */
-    findEntities(entityUris) {
+    find(entityUris) {
       if (entityUris?.length === 0) {
         return Promise.resolve([]);
       }
@@ -87,7 +89,7 @@ export default (context = {}) => {
       const params = {
         query: `entity_uri:("${q}")`
       };
-      return this.searchEntities(params)
+      return this.search(params)
         .then(response => response.entities || []);
     },
 
@@ -95,7 +97,7 @@ export default (context = {}) => {
      * Return all entity subjects of type concept / agent / timespan
      * @param {Object} params additional parameters sent to the API
      */
-    searchEntities(params = {}) {
+    search(params = {}) {
       return this.$axios.get('/search', {
         params: {
           ...this.$axios.defaults.params,
@@ -116,7 +118,7 @@ export default (context = {}) => {
 };
 
 /**
- * Format the the entity data for a related entity
+ * Format the entity data for a related entity
  * @param {Object} entities the data returned from the Entity API
  * @return {Object[]} entity data
  */

@@ -245,7 +245,7 @@ describe('plugins/europeana/record', () => {
 
             const recordData = await record(translateConf).getRecord(europeanaId, { metadataLanguage: 'de' });
 
-            (recordData.record.coreFields['dcType'].translationSource === undefined).should.be.true;
+            (recordData.record.metadata.dcType.translationSource === undefined).should.be.true;
             nock.isDone().should.be.true;
           });
         });

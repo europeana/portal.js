@@ -1,5 +1,10 @@
 /* eslint-disable camelcase */
 
+/*
+** Nuxt config
+** Docs: https://nuxtjs.org/docs/configuration-glossary/
+*/
+
 const APP_SITE_NAME = 'Europeana';
 
 import pkg from './package.json';
@@ -70,7 +75,9 @@ export default {
         serviceVersion: pkg.version,
         frameworkName: 'Nuxt',
         frameworkVersion: nuxtPkg.version,
-        usePathAsTransactionName: true
+        ignoreUrls: [
+          /^\/_nuxt\//
+        ]
       }
     },
     europeana: {
@@ -209,10 +216,16 @@ export default {
     bootstrapVueCSS: false,
 
     // Tree shake plugins
+    //
+    // NOTE: do not register plugins globally (here) unless they are used widely;
+    //       import them locally into the views that need them instead. This
+    //       is to prevent large amounts of unused JS being sent upfront to clients.
+    //       As a general rule, only register globally if at least three views
+    //       use the plugin's components/directives. Also consider how often
+    //       those components are rendered based on placement in layout and
+    //       usage patterns by users, and the plugin's bundled size.
     componentPlugins: [
-      'AlertPlugin',
       'BadgePlugin',
-      'BreadcrumbPlugin',
       'ButtonPlugin',
       'CardPlugin',
       'DropdownPlugin',
@@ -228,16 +241,10 @@ export default {
       'LayoutPlugin',
       'LinkPlugin',
       'ListGroupPlugin',
-      'MediaPlugin',
       'ModalPlugin',
       'NavbarPlugin',
-      'NavPlugin',
-      'PaginationNavPlugin',
       'SidebarPlugin',
-      'TablePlugin',
-      'TabsPlugin',
-      'ToastPlugin',
-      'TooltipPlugin'
+      'ToastPlugin'
     ]
   },
 
@@ -275,7 +282,7 @@ export default {
     ['@nuxtjs/robots', JSON.parse(process.env.NUXTJS_ROBOTS || '{"UserAgent":"*","Disallow":"/"}')],
     'bootstrap-vue/nuxt',
     'cookie-universal-nuxt',
-    ['nuxt-i18n', {
+    ['@nuxtjs/i18n', {
       locales: i18nLocales,
       baseUrl: ({ $config }) => $config.app.baseUrl,
       defaultLocale: 'en',
@@ -363,7 +370,24 @@ export default {
   /*
   ** Build configuration
   */
-  build: {},
+  build: {
+    // Do not enable extractCSS as it is unreliable.
+    // See: https://github.com/nuxt/nuxt.js/issues/4219
+    extractCSS: false,
+
+    extend(config, { isClient }) {
+      // Extend webpack config only for client bundle
+      if (isClient) {
+        // Build source maps to aid debugging in production builds
+        config.devtool = 'source-map';
+      }
+    }
+  },
+
+  /*
+  ** Enable modern builds
+  */
+  modern: true,
 
   /*
   ** Render configuration

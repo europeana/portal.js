@@ -86,7 +86,7 @@
                   :title="set.title"
                   :description="set.description"
                   :visibility="set.visibility"
-                  @update="updateSet"
+                  @update="update"
                 />
               </template>
               <b-button
@@ -282,7 +282,7 @@
     },
 
     methods: {
-      updateSet() {
+      update() {
         this.$bvModal.hide(this.setFormModalId);
       },
 

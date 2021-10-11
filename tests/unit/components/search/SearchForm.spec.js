@@ -232,7 +232,7 @@ describe('components/search/SearchForm', () => {
       const mocks = {
         $apis: {
           entity: {
-            getEntitySuggestions: sinon.stub().resolves([])
+            suggest: sinon.stub().resolves([])
           }
         }
       };
@@ -242,7 +242,7 @@ describe('components/search/SearchForm', () => {
       it('gets suggestions from the Entity API', async() => {
         await wrapper.vm.getSearchSuggestions(query);
 
-        mocks.$apis.entity.getEntitySuggestions.should.have.been.called;
+        mocks.$apis.entity.suggest.should.have.been.called;
       });
     });
 
@@ -250,7 +250,7 @@ describe('components/search/SearchForm', () => {
       const mocks = {
         $apis: {
           entity: {
-            getEntitySuggestions: sinon.stub().resolves([])
+            suggest: sinon.stub().resolves([])
           }
         }
       };
@@ -263,7 +263,7 @@ describe('components/search/SearchForm', () => {
       it('gets suggestions from the Entity API', async() => {
         await wrapper.vm.getSearchSuggestions(query);
 
-        mocks.$apis.entity.getEntitySuggestions.should.not.have.been.called;
+        mocks.$apis.entity.suggest.should.not.have.been.called;
       });
 
       // FIXME

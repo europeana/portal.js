@@ -95,6 +95,7 @@
 <script>
   import ClientOnly from 'vue-client-only';
   import SmartLink from './SmartLink';
+  import stripMarkdown from '@/mixins/stripMarkdown';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
 
   export default {
@@ -104,6 +105,10 @@
       ClientOnly,
       SmartLink
     },
+
+    mixins: [
+      stripMarkdown
+    ],
 
     props: {
       title: {
@@ -273,7 +278,7 @@
           limited.push(this.$t('formatting.ellipsis'));
         }
         const joined = limited.join(this.$t('formatting.listSeperator') + ' ');
-        const stripped = this.$options.filters.stripMarkdown(joined);
+        const stripped = this.stripMarkdown(joined);
         return this.$options.filters.truncate(stripped, 255, this.$t('formatting.ellipsis'));
       },
 

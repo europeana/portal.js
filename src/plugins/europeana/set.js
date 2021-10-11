@@ -41,7 +41,7 @@ export default (context = {}) => {
      * @param {string} options.profile the set's metadata profile minimal/standard/itemDescriptions
      * @return {Object} the set's object, containing the requested window of the set's items
      */
-    getSet(id, options = {}) {
+    get(id, options = {}) {
       const defaults = {
         profile: 'standard'
       };
@@ -61,7 +61,7 @@ export default (context = {}) => {
      * @return {Object} API response data
      */
     createLikes() {
-      return this.createSet({
+      return this.create({
         type: 'BookmarkFolder',
         title: {
           en: 'LIKES'
@@ -75,7 +75,7 @@ export default (context = {}) => {
      * @param {Object} body Set body
      * @return {Object} API response data
      */
-    createSet(body) {
+    create(body) {
       return $axios.post(
         '/',
         body
@@ -92,7 +92,7 @@ export default (context = {}) => {
      * @param {Object} body Set body
      * @return {Object} API response data
      */
-    updateSet(id, body) {
+    update(id, body) {
       return $axios.put(
         `/${setIdFromUri(id)}`,
         body

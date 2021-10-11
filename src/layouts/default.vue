@@ -44,6 +44,7 @@
 
 <script>
   import { mapGetters, mapState } from 'vuex';
+  import { BBreadcrumb } from 'bootstrap-vue';
   import ClientOnly from 'vue-client-only';
   import PageHeader from '../components/PageHeader';
   import klaroConfig from '../plugins/klaro-config';
@@ -54,6 +55,7 @@
 
   export default {
     components: {
+      BBreadcrumb,
       ClientOnly,
       PageHeader,
       PageFooter: () => import('../components/PageFooter'),
@@ -165,11 +167,11 @@
     },
 
     head() {
-      const i18nSeo = this.$nuxtI18nSeo();
+      const i18nHead = this.$nuxtI18nHead({ addSeoAttributes: true });
 
       return {
         htmlAttrs: {
-          ...i18nSeo.htmlAttrs
+          ...i18nHead.htmlAttrs
         },
         link: [
           { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700&subset=latin,greek,cyrillic&display=swap',
@@ -178,7 +180,7 @@
           { rel: 'stylesheet', href: `https://cdn.kiprotect.com/klaro/v${klaroVersion}/klaro.min.css` },
           { rel: 'stylesheet', href: `https://unpkg.com/bootstrap-vue@${bootstrapVueVersion}/dist/bootstrap-vue.min.css` },
           { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrlWithoutLocale },
-          ...i18nSeo.link
+          ...i18nHead.link
         ],
         script: [
           { src: `https://unpkg.com/klaro@${klaroVersion}/dist/klaro-no-css.js`, defer: true }
@@ -186,7 +188,7 @@
         meta: [
           { hid: 'description', property: 'description', content: 'Europeana' },
           { hid: 'og:url', property: 'og:url', content: this.canonicalUrl },
-          ...i18nSeo.meta
+          ...i18nHead.meta
         ]
       };
     }
