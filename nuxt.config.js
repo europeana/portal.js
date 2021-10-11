@@ -75,7 +75,7 @@ export default {
         frameworkName: 'Nuxt',
         frameworkVersion: nuxtPkg.version,
         ignoreUrls: [
-          /^\/_nuxt\//
+          /^\/(_nuxt|__webpack_hmr)\//
         ]
       }
     },
