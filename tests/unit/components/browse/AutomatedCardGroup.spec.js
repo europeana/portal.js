@@ -243,6 +243,11 @@ describe('components/browse/AutomatedCardGroup', () => {
 
         wrapper.vm.contentCardSection.headline.should.eq('automatedCardGroup.item');
       });
+      it('sets a more button', () => {
+        const wrapper = shallowFactory({ sectionType: RECENT_ITEMS, moreButton: { 'url': '/search', 'text': 'Show all items' } });
+        wrapper.vm.contentCardSection.moreButton.text.should.eq('Show all items');
+        wrapper.vm.contentCardSection.moreButton.url.should.eq('/search');
+      });
       it('sets the relevant fields for the items in the hasPartCollection', async() => {
         const expected = {
           __typename: 'AutomatedRecordCard',
