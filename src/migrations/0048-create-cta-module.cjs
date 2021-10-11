@@ -59,7 +59,7 @@ module.exports = function(migration) {
 
       validations: [
         {
-          linkContentType: ['embed', 'imageComparison', 'imageWithAttribution', 'link', 'richText', 'primaryCallToAction']
+          linkContentType: ['embed', 'imageComparison', 'imageWithAttribution', 'link', 'richText', 'automatedCardGroup', 'primaryCallToAction']
         }
       ],
 
