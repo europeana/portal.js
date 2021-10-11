@@ -2,7 +2,7 @@ import apm from 'elastic-apm-node';
 import { parseRoute } from './utils';
 
 // Server-side plugin to set the transaction name based on the Vue route.
-export default ({ route, req, app }) => {
+export default ({ route, req, app }, inject) => {
   if (!apm.isStarted())  {
     return;
   }
@@ -13,4 +13,6 @@ export default ({ route, req, app }) => {
   if (parsed.locale) {
     apm.setLabel('locale', parsed.locale);
   }
+
+  inject('apm', apm);
 };
