@@ -75,7 +75,7 @@ export default {
         frameworkName: 'Nuxt',
         frameworkVersion: nuxtPkg.version,
         ignoreUrls: [
-          /^\/_nuxt\//
+          /^\/(_nuxt|__webpack_hmr)\//
         ]
       }
     },
@@ -345,11 +345,6 @@ export default {
       routes.push({
         name: 'slug',
         path: '/*',
-        component: 'src/pages/index.vue'
-      });
-      routes.push({
-        name: 'collections',
-        path: '/(collections)',
         component: 'src/pages/index.vue'
       });
     },

@@ -5,7 +5,7 @@ import path from 'path';
 const MODULE_NAME = 'elastic-apm';
 
 export default function() {
-  for (const filename of ['plugin.js', 'plugin.server.js']) {
+  for (const filename of ['plugin.client.js', 'plugin.server.js', 'utils.js']) {
     this.addPlugin({
       src: path.resolve(__dirname, filename),
       fileName: path.join(MODULE_NAME, filename)
