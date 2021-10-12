@@ -125,6 +125,11 @@
       inputElement() {
         // refs may point to a component or direct to an HTML element
         return this.inputRef.$el ? this.inputRef.$el : this.inputRef;
+      },
+
+      onCollectionPage() {
+        // Auto suggest on search form will be disabled on entity pages.
+        return !!this.$store.state.entity?.id;
       }
     },
 
@@ -166,11 +171,12 @@
       },
 
       trackSuggestionClick(index, query) {
+        // Skip tracking when on a collection page
         // These events are also tracked in the submitForm logic of the
         // SearchForm component where keyboard events are tracked.
-        if (index >= 1) {
+        if (index >= 1 && !this.onCollectionPage) {
           this.$matomo?.trackEvent('Autosuggest_option_selected', 'Autosuggest option is selected', query);
-        } else if (this.value.length >= 2) {
+        } else if (this.value.length >= 2 && !this.onCollectionPage) {
           this.$matomo?.trackEvent('Autosuggest_option_not_selected', 'Autosuggest option is not selected', query);
         }
         this.blurInput();
