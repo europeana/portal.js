@@ -32,8 +32,12 @@ app.use((res, req, next) => {
 import debugMemoryUsage from './debug/memory-usage.js';
 app.get('/debug/memory-usage', debugMemoryUsage);
 
-// FIXME: changing the URLs will break clients already using the site.
-//        support old URLs (temporarily). with a redirect?
+// TODO: remove redirection of deprecated routes after new routes are
+//       well-established in production
+app.get('/entities/topics', (req, res) => res.redirect('/_api/daily/collections/topics'));
+app.get('/entities/times', (req, res) => res.redirect('/_api/daily/collections/times'));
+app.get('/items/recent', (req, res) => res.redirect('/_api/cache/items/recent'));
+app.get('/items/itemCountsMediaType', (req, res) => res.redirect('/_api/cache/items/itemCountsMediaType'));
 
 import cache from './cache/index.js';
 app.get('/cache/*', (req, res) => cache(req.params[0], runtimeConfig)(req, res));
