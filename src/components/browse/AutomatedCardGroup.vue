@@ -34,18 +34,18 @@
       sectionType: {
         type: String,
         required: true
+      },
+      moreButton: {
+        type: Object,
+        default: null
       }
     },
 
     fetch() {
       if (process.server) {
-        const options = {};
-        if (this.sectionType === ITEM_COUNTS_MEDIA_TYPE) {
-          options.size = 5;
-        }
         return import('@/server-middleware/api/dailyEntries')
           .then(module => {
-            return module.entriesOfTheDay(this.type, this.$config, options)
+            return module.entriesOfTheDay(this.type, this.$config)
               .then(entries => {
                 this.entries = entries;
               });
@@ -74,7 +74,8 @@
                 label: this.$t(`facets.TYPE.options.${entry.label}`),
                 image: this.infoImageFromType(entry.label)
               }))
-            }
+            },
+            moreButton: this.moreButton
           };
         }
         return {
@@ -87,7 +88,8 @@
               image: entry.isShownBy?.thumbnail,
               encoding: entry
             }))
-          }
+          },
+          moreButton: this.moreButton
         };
       },
       type() {

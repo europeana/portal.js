@@ -22,6 +22,7 @@
       <AutomatedCardGroup
         v-else-if="contentType(section, 'AutomatedCardGroup')"
         :section-type="section.genre"
+        :more-button="section.moreButton"
       />
       <HTMLEmbed
         v-else-if="contentType(section, 'Embed')"

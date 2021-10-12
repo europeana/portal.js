@@ -20,6 +20,14 @@
           :variant="cardVariant"
         />
       </b-card-group>
+      <SmartLink
+        v-if="section.moreButton"
+        :destination="section.moreButton.url"
+        class="btn btn-light"
+        data-qa="section more button"
+      >
+        {{ section.moreButton.text }}
+      </SmartLink>
     </div>
   </section>
 </template>
