@@ -4,9 +4,9 @@ import nuxtConfig from '../../nuxt.config.js';
 const runtimeConfig = defu(nuxtConfig.privateRuntimeConfig, nuxtConfig.publicRuntimeConfig);
 
 const cachers = [
-  'entities:organisations',
-  'entities:times',
-  'entities:topics',
+  'collections:organisations',
+  'collections:times',
+  'collections:topics',
   'items:recent',
   'items:type-counts'
 ];

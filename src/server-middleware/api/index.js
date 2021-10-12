@@ -32,14 +32,17 @@ app.use((res, req, next) => {
 import debugMemoryUsage from './debug/memory-usage.js';
 app.get('/debug/memory-usage', debugMemoryUsage);
 
-import entitiesOrganisations from './entities/organisations.js';
-app.get('/entities/organisations', (req, res) => entitiesOrganisations(runtimeConfig)(req, res));
+// FIXME: changing the URLs will break clients already using the site.
+//        support old URLs (temporarily). with a redirect?
 
-import dailyEntries from './dailyEntries.js';
-app.get('/entities/topics', (req, res) => dailyEntries('topic', runtimeConfig)(req, res));
-app.get('/entities/times', (req, res) => dailyEntries('time', runtimeConfig)(req, res));
-app.get('/items/recent', (req, res) => dailyEntries('item', runtimeConfig)(req, res));
-app.get('/items/itemCountsMediaType', (req, res) => dailyEntries('itemCountsMediaType', runtimeConfig)(req, res));
+import cache from './cache/index.js';
+app.get('/cache/*', (req, res) => cache(req.params[0], runtimeConfig)(req, res));
+
+import collections from './collections/index.js';
+app.get('/collections/:type', (req, res) => collections(req.params.type, runtimeConfig)(req, res));
+
+import daily from './daily/index.js';
+app.get('/daily/*', (req, res) => daily(req.params[0], runtimeConfig)(req, res));
 
 import jiraServiceDesk from './jira/service-desk.js';
 app.post('/jira/service-desk', (req, res) => jiraServiceDesk(runtimeConfig.jira)(req, res));

@@ -5,6 +5,8 @@ const CACHE_KEY = '@europeana:portal.js:entity:topics';
 let axiosClient;
 let redisClient;
 
+// TODO: retrieve and store all for hub page
+
 const ids = [
   '106',
   '112',
