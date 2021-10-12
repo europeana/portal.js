@@ -10,14 +10,16 @@ const offsetOfTheDay = (setSize) => {
   return (offset + subsetSize <= setSize) ? offset : (setSize - subsetSize);
 };
 
-export const entriesOfTheDay = (entries) => {
-  const offset = offsetOfTheDay(entries.length);
-  return entries.slice(offset, offset + subsetSize);
+export const entriesOfTheDay = (id, config = {}) => {
+  return cached(id, config)
+    .then(cachedEntries => {
+      const offset = offsetOfTheDay(cachedEntries.length);
+      return cachedEntries.slice(offset, offset + subsetSize);
+    });
 };
 
 export default (id, config = {}) => (req, res) => {
-  return cached(id, config)
-    .then(cachedEntries => entriesOfTheDay(cachedEntries))
+  return entriesOfTheDay(id, config)
     .then(localised => res.json(localised))
     .catch(error => errorHandler(res, error));
 };

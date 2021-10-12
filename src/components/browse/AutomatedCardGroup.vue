@@ -43,13 +43,26 @@
 
     fetch() {
       if (process.server) {
-        return import('@/server-middleware/api/dailyEntries')
-          .then(module => {
-            return module.entriesOfTheDay(this.type, this.$config)
-              .then(entries => {
-                this.entries = entries;
+        switch (this.sectionType) {
+          case FEATURED_TOPICS:
+          case FEATURED_TIMES:
+            return import('@/server-middleware/api/daily/index.js')
+              .then(module => {
+                return module.entriesOfTheDay(this.type, this.$config)
+                  .then(entries => {
+                    this.entries = entries;
+                  })
               });
-        });
+          case RECENT_ITEMS:
+          case ITEM_COUNTS_MEDIA_TYPE:
+            return import('@/server-middleware/api/cache/index.js')
+              .then(module => {
+                return module.cached(this.type, this.$config)
+                  .then(entries => {
+                    this.entries = entries;
+                  })
+              });
+        }
       }
       return this.$axios.get(this.apiEndpoint)
         .then(response => {
@@ -95,13 +108,13 @@
       type() {
         switch (this.sectionType) {
         case FEATURED_TOPICS:
-          return 'topic';
+          return 'collections/topics';
         case FEATURED_TIMES:
-          return 'time';
+          return 'collections/times';
         case RECENT_ITEMS:
-          return 'item';
+          return 'items/recent';
         case ITEM_COUNTS_MEDIA_TYPE:
-          return 'itemCountsMediaType';
+          return 'items/mediaTypeCounts';
         default:
           return null;
         }
@@ -122,13 +135,13 @@
       apiEndpoint() {
         switch (this.sectionType) {
         case FEATURED_TOPICS:
-          return '/_api/entities/topics';
+          return '/_api/daily/collections/topics';
         case FEATURED_TIMES:
-          return '/_api/entities/times';
+          return '/_api/daily/collections/times';
         case RECENT_ITEMS:
-          return '/_api/items/recent';
+          return '/_api/cache/items/recent';
         case ITEM_COUNTS_MEDIA_TYPE:
-          return '/_api/items/itemCountsMediaType';
+          return '/_api/cache/items/mediaTypeCounts';
         default:
           return null;
         }
