@@ -43,13 +43,9 @@
 
     fetch() {
       if (process.server) {
-        const options = {};
-        if (this.sectionType === ITEM_COUNTS_MEDIA_TYPE) {
-          options.size = 5;
-        }
         return import('@/server-middleware/api/dailyEntries')
           .then(module => {
-            return module.entriesOfTheDay(this.type, this.$config, options)
+            return module.entriesOfTheDay(this.type, this.$config)
               .then(entries => {
                 this.entries = entries;
               });
