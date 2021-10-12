@@ -12,7 +12,7 @@
     </b-row>
     <b-table
       :fields="fields"
-      :items="organisations"
+      :items="collections"
       :sort-by.sync="sortBy"
       :busy="$fetchState.pending"
     >
@@ -24,7 +24,7 @@
       </template>
       <template #cell(prefLabel)="data">
         <NuxtLink
-          :data-qa="`organisation link ${data.item.id}`"
+          :data-qa="`collection link ${data.item.id}`"
           :to="$path(entityRoute(data.item.slug))"
         >
           {{ data.item.prefLabel }}
@@ -40,19 +40,25 @@
   import LoadingSpinner from '../generic/LoadingSpinner';
 
   export default {
-    name: 'OrganisationsTable',
+    name: 'EntityTable',
     components: {
       BTable,
       LoadingSpinner,
       AlertMessage
     },
+    props: {
+      type: {
+        type: String,
+        required: true
+      }
+    },
     fetch() {
       return this.$axios.get(
-        '/_api/entities/organisations',
+        `/_api/collections/${this.type}`,
         { params: { locale: this.$i18n.locale } }
       )
         .then(response => {
-          this.organisations = response.data.map(Object.freeze);
+          this.collections = response.data.map(Object.freeze);
         })
         .catch((e) => {
           // TODO: set fetch state error from message
@@ -61,13 +67,13 @@
     },
     data() {
       return {
-        organisations: null,
+        collections: null,
         sortBy: 'prefLabel',
         fields: [
           {
             key: 'prefLabel',
             sortable: true,
-            label: this.$t('pages.collections.organisations.table.name')
+            label: this.$t(`pages.collections.${this.type}.table.name`)
           }
         ]
       };
@@ -77,7 +83,7 @@
         return {
           name: 'collections-type-all',
           params: {
-            type: 'organisation',
+            type: this.type.slice(0, -1),
             pathMatch: slug
           }
         };
