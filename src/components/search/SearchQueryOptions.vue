@@ -125,11 +125,6 @@
       inputElement() {
         // refs may point to a component or direct to an HTML element
         return this.inputRef.$el ? this.inputRef.$el : this.inputRef;
-      },
-
-      onCollectionPage() {
-        // Auto suggest on search form will be disabled on entity pages.
-        return !!this.$store.state.entity?.id;
       }
     },
 
@@ -170,14 +165,24 @@
         this.inputElement.blur();
       },
 
+      onCollectionPage() {
+        // Used for deciding if clicks on search suggestions should be tracked.
+        // Uses window.location as the beforeRouteLeave call on collection pages
+        // unsets the entity ID before the @click event fires on each search option.
+        const collectionPagePattern = /(\/[a-z]{2})?\/collections\/(person|topic|time|organisation)\/([0-9]+)+/;
+        return collectionPagePattern.test(window.location.href);
+      },
+
       trackSuggestionClick(index, query) {
-        // Skip tracking when on a collection page
-        // These events are also tracked in the submitForm logic of the
-        // SearchForm component where keyboard events are tracked.
-        if (index >= 1 && !this.onCollectionPage) {
-          this.$matomo?.trackEvent('Autosuggest_option_selected', 'Autosuggest option is selected', query);
-        } else if (this.value.length >= 2 && !this.onCollectionPage) {
-          this.$matomo?.trackEvent('Autosuggest_option_not_selected', 'Autosuggest option is not selected', query);
+        // Skip click tracking while on a collection page, there will never be suggestions.
+        if (!this.onCollectionPage()) {
+          // While only triggered via @click here, these events are also tracked
+          // in the submitForm logic of the SearchForm component for keyboard events.
+          if (index >= 1) {
+            this.$matomo?.trackEvent('Autosuggest_option_selected', 'Autosuggest option is selected', query);
+          } else if (this.value.length >= 2) {
+            this.$matomo?.trackEvent('Autosuggest_option_not_selected', 'Autosuggest option is not selected', query);
+          }
         }
         this.blurInput();
       },
