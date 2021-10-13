@@ -151,6 +151,34 @@ export default {
     contentful: {
       graphQlOrigin: process.env.CTF_GRAPHQL_ORIGIN_PRIVATE || process.env.CTF_GRAPHQL_ORIGIN
     },
+    europeana: {
+      apis: {
+        annotation: {
+          url: process.env.EUROPEANA_ANNOTATION_API_URL_PRIVATE || process.env.EUROPEANA_ANNOTATION_API_URL
+        },
+        entity: {
+          url: process.env.EUROPEANA_ENTITY_API_URL_PRIVATE || process.env.EUROPEANA_ENTITY_API_URL || 'https://api.europeana.eu/entity'
+        },
+        newspaper: {
+          url: process.env.EUROPEANA_NEWSPAPER_API_URL_PRIVATE || process.env.EUROPEANA_NEWSPAPER_API_URL
+        },
+        recommendation: {
+          url: process.env.EUROPEANA_RECOMMENDATION_API_URL_PRIVATE || process.env.EUROPEANA_RECOMMENDATION_API_URL
+        },
+        record: {
+          url: process.env.EUROPEANA_RECORD_API_URL_PRIVATE || process.env.EUROPEANA_RECORD_API_URL || 'https://api.europeana.eu/record'
+        },
+        thumbnail: {
+          url: process.env.EUROPEANA_THUMBNAIL_API_URL_PRIVATE || process.env.EUROPEANA_THUMBNAIL_API_URL
+        },
+        set: {
+          url: process.env.EUROPEANA_SET_API_URL_PRIVATE || process.env.EUROPEANA_SET_API_URL
+        },
+        entityManagement: {
+          url: process.env.EUROPEANA_ENTITY_MANAGEMENT_API_URL_PRIVATE || process.env.EUROPEANA_ENTITY_MANAGEMENT_API_URL
+        }
+      }
+    },
     jira: {
       origin: process.env.JIRA_API_ORIGIN,
       username: process.env.JIRA_API_USERNAME,
