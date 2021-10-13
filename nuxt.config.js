@@ -7,8 +7,10 @@
 
 const APP_SITE_NAME = 'Europeana';
 
+import { defineNuxtConfig } from '@nuxt/bridge';
+
 import pkg from './package.json';
-import nuxtPkg from 'nuxt/package.json';
+import nuxtPkg from 'nuxt-edge/package.json';
 
 import i18nLocales from './src/plugins/i18n/locales.js';
 import i18nDateTime from './src/plugins/i18n/datetime.js';
@@ -16,7 +18,7 @@ import { parseQuery, stringifyQuery } from './src/plugins/vue-router.cjs';
 
 const featureIsEnabled = (value) => Boolean(Number(value));
 
-export default {
+export default defineNuxtConfig({
   /*
   ** Runtime config
   */
@@ -401,4 +403,4 @@ export default {
 
   // Opt-out of telemetry
   telemetry: false
-};
+});
