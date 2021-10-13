@@ -28,9 +28,16 @@ function stringifyPathChunks(chunks) {
   return chunks.filter((chunk) => typeof chunk !== undefined).join('');
 }
 
-export default ({ redirect, route, query }) => {
+const updateRoute = ({ status, route, req, redirect, app }) => {
+  if (app.$apm && process.server) {
+    app.$apm.setTransactionName(`${req.method} [legacy]`);
+  }
+  redirect(status, route);
+};
+
+export default ({ redirect, route, query, req, app }) => {
   if (/^\/[a-z]{2}\/portal(\/$|$)/.test(route.path)) {
-    redirect(302, route.path.match(/^(\/[a-z]{2})/)[1]);
+    updateRoute({ status: 302, route: route.path.match(/^(\/[a-z]{2})/)[1], req, redirect, app });
     return;
   }
   if (!/^\/portal(\/|$)/.test(route.path)) {
@@ -51,7 +58,7 @@ export default ({ redirect, route, query }) => {
         redirectRoute.status = 301;
       }
 
-      redirect(redirectRoute.status, redirectRoute.path, redirectRoute.query);
+      updateRoute({ status: redirectRoute.status, route: { path: redirectRoute.path, query: redirectRoute.query }, req, redirect, app });
       return;
     }
   }
