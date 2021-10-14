@@ -10,43 +10,46 @@
           <span>
             <span class="icon-translate pr-2" />
             <i18n
-              path="multilingual.currentLanguage"
+              path="multilingual.translateLanguage"
               tag="span"
               class="pr-1"
               data-qa="translate item suggestion"
             >
-              <span v-if="(!translated && itemLanguage === selectedLocale.code)"><!-- This comment removes white space
-              -->{{ $t('multilingual.differentLanguage') }}<!-- This comment removes white space which gets underlined
-              -->
-              </span>
-              <b-link
-                v-else
-                :to="translateParams(translated ? null : selectedLocale.code)"
+              <b-dropdown
+                :text="$t('multilingual.other')"
+                variant="link"
+                toggle-class="multilingual-dropdown"
+                toggle-tag="span"
+                no-flip
+                class="multilingual-selector"
               >
-                <span><!-- This comment removes white space
-                -->{{ languageToggle }}<!-- This comment removes white space which gets underlined
-                -->
-                </span>
-              </b-link>
+                <b-dropdown-item
+                  v-for="locale in availableLocalesForItem"
+                  :key="locale.code"
+                  class="multilingual-dropdown-item"
+                  :to="translateParams(locale.code)"
+                >
+                  {{ locale.name }}
+                </b-dropdown-item>
+              </b-dropdown>
             </i18n>
           </span>
-          <b-dropdown
-            :text="$t('multilingual.other')"
-            variant="link"
-            toggle-class="multilingual-dropdown"
-            toggle-tag="span"
-            no-flip
-            class="multilingual-selector"
+          <b-link
+            v-if="translated"
+            :to="translateParams(null)"
+            data-qa="remove item translation button"
           >
-            <b-dropdown-item
-              v-for="locale in availableLocalesForItem"
-              :key="locale.code"
-              class="multilingual-dropdown-item"
-              :to="translateParams(locale.code)"
+            <i18n
+              path="multilingual.stopTranslating"
+              tag="span"
+              class="pr-1"
             >
-              {{ locale.name }}
-            </b-dropdown-item>
-          </b-dropdown>
+              <span><!-- This comment removes white space
+              -->{{ metadataLanguageLabel }}<!-- This comment removes white space which gets underlined
+              -->
+              </span>
+            </i18n>
+          </b-link>
         </b-col>
       </b-row>
     </b-container>
@@ -72,14 +75,16 @@
       }
     },
     computed: {
-      languageToggle() {
-        return this.translated ? this.$t('multilingual.originalLanguage') : this.selectedLocale.name;
-      },
       translated() {
-        return this.metadataLanguage && this.itemLanguage !== this.metadataLanguage;
+        return this.metadataLanguage;
+      },
+      metadataLanguageLabel() {
+        return this.$i18n.locales.find(locale => {
+            return locale.code === this.metadataLanguage;
+          })?.name;
       },
       availableLocalesForItem() {
-        return this.$i18n.locales.filter(i => this.metadataLanguage !== i.code);
+        return this.$i18n.locales;
       }
     },
     methods: {
@@ -99,6 +104,9 @@
 
   .icon-translate:before {
     font-size: 1.4375rem;
+  }
+  .multilingual-selector {
+    vertical-align: baseline;
   }
   .multilingual-dropdown-item {
     font-size: $font-size-small;
