@@ -688,7 +688,7 @@ export default {
     "translateLanguage": "Would you like to see this item in {0}?",
     "enrichment": "Enrichment by partner projects",
     "other": "other languages",
-    "stopTranslating": "Stop translating this page to {0}."
+    "stopTranslating": "Stop translating this item to {0}."
 
   },
   "newWindow": "opens in new window",
