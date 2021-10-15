@@ -19,12 +19,12 @@ app.use((res, req, next) => {
   next();
 });
 
-app.use((res, req, next) => {
+app.use((req, res, next) => {
   if (apm.isStarted())  {
     // Elastic APM Node agent instruments Express requests automatically, but
     // omits any prefix such as /_api/, so override the transactions name here
     // to restore it form the original URL.
-    apm.setTransactionName(`${req.req.method} ${req.req.originalUrl.split('?')[0]}`);
+    apm.setTransactionName(`${req.method} ${req.originalUrl.split('?')[0]}`);
   }
   next();
 });
@@ -55,11 +55,15 @@ app.get('/version', version);
 app.all('/*', (req, res) => res.sendStatus(404));
 
 export const errorHandler = (res, error) => {
+  let status = error.status || 500;
+  let message = error.message;
+
   if (error.response) {
-    res.status(error.response.status).set('Content-Type', 'text/plain').send(error.response.data.errorMessage);
-  } else {
-    res.status(error.status || 500).set('Content-Type', 'text/plain').send(error.message);
+    status = error.response.status;
+    message = error.response.data.errorMessage;
   }
+
+  res.status(status).set('Content-Type', 'text/plain').send(message);
 };
 
 export default app;
