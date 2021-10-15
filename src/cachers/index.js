@@ -3,39 +3,37 @@ import * as utils from './utils.js';
 import nuxtConfig from '../../nuxt.config.js';
 const runtimeConfig = defu(nuxtConfig.privateRuntimeConfig, nuxtConfig.publicRuntimeConfig);
 
-const cachers = [
+const cacherNames = [
   'collections:organisations',
   'collections:times',
   'collections:topics',
-  'featured:topics',
   'items:recent',
   'items:type-counts'
 ];
 
-const cli = (cacher) => {
-  if (!cachers.includes(cacher)) {
-    throw new Error(`Unknown cacher "${cacher}"`);
+const cli = (cacherName) => {
+  if (!cacherNames.includes(cacherName)) {
+    throw new Error(`Unknown cacher "${cacherName}"`);
   }
 
-  const cacherPath = cacher.replace(/:/g, '/');
+  const cacherPath = cacherName.replace(/:/g, '/');
 
   return import(`./${cacherPath}.js`);
 };
 
 const main = async() => {
-  const cacher = process.argv[2];
+  const cacherName = process.argv[2];
   const command = process.argv[3];
 
-  const cacherCli = await cli(cacher);
+  const cacher = await cli(cacherName);
+  let response;
 
   try {
     if (command === 'set') {
-      const data = await cacherCli.data(runtimeConfig);
-      const response = await writeCacheKey(cacherCli.CACHE_KEY, data);
-      return response;
+      const data = await cacher.data(runtimeConfig);
+      response = await writeCacheKey(cacher.CACHE_KEY, data);
     } else if (command === 'get') {
-      const response = await readCacheKey(cacherCli.CACHE_KEY);
-      return response;
+      response = await readCacheKey(cacher.CACHE_KEY);
     } else {
       console.error(`Unknown command "${command}"`);
       process.exit(1);
@@ -43,6 +41,8 @@ const main = async() => {
   } catch (error) {
     return Promise.reject({ body: utils.errorMessage(error) });
   }
+
+  return Promise.resolve(response);
 };
 
 const writeCacheKey = (cacheKey, data) => {
