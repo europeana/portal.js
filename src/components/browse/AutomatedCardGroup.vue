@@ -74,9 +74,31 @@
         });
     },
 
-    data: () => ({
-      entries: []
-    }),
+    data() {
+      const data = {
+        entries: []
+      };
+
+      if (this.sectionType === FEATURED_TOPICS) {
+        data.apiEndpoint = '/_api/collections/topics?featured=true';
+        data.type = 'collections/topics';
+        data.cardType = 'AutomatedEntityCard';
+      } else if (this.sectionType === FEATURED_TIMES) {
+        data.apiEndpoint = '/_api/collections/times?featured=true';
+        data.type = 'collections/times';
+        data.cardType = 'AutomatedEntityCard';
+      } else if (this.sectionType === RECENT_ITEMS) {
+        data.apiEndpoint = '/_api/cache/items/recent';
+        data.type = 'items/recent';
+        data.cardType = 'AutomatedRecordCard';
+      } else if (this.sectionType === ITEM_COUNTS_MEDIA_TYPE) {
+        data.apiEndpoint = '/_api/cache/items/typeCounts';
+        data.type = 'items/typeCounts';
+        data.cardType = 'InfoCard';
+      }
+
+      return data;
+    },
 
     computed: {
       contentCardSection() {
@@ -108,47 +130,6 @@
           },
           moreButton: this.moreButton
         };
-      },
-      type() {
-        switch (this.sectionType) {
-        case FEATURED_TOPICS:
-          return 'collections/topics';
-        case FEATURED_TIMES:
-          return 'collections/times';
-        case RECENT_ITEMS:
-          return 'items/recent';
-        case ITEM_COUNTS_MEDIA_TYPE:
-          return 'items/typeCounts';
-        default:
-          return null;
-        }
-      },
-      cardType() {
-        switch (this.sectionType) {
-        case FEATURED_TOPICS:
-        case FEATURED_TIMES:
-          return 'AutomatedEntityCard';
-        case RECENT_ITEMS:
-          return 'AutomatedRecordCard';
-        case ITEM_COUNTS_MEDIA_TYPE:
-          return 'InfoCard';
-        default:
-          return null;
-        }
-      },
-      apiEndpoint() {
-        switch (this.sectionType) {
-        case FEATURED_TOPICS:
-          return '/_api/collections/topics?featured=true';
-        case FEATURED_TIMES:
-          return '/_api/collections/times?featured=true';
-        case RECENT_ITEMS:
-          return '/_api/cache/items/recent';
-        case ITEM_COUNTS_MEDIA_TYPE:
-          return '/_api/cache/items/typeCounts';
-        default:
-          return null;
-        }
       }
     },
 
