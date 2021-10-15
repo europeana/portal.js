@@ -19,12 +19,12 @@ app.use((res, req, next) => {
   next();
 });
 
-app.use((res, req, next) => {
+app.use((req, res, next) => {
   if (apm.isStarted())  {
     // Elastic APM Node agent instruments Express requests automatically, but
     // omits any prefix such as /_api/, so override the transactions name here
     // to restore it form the original URL.
-    apm.setTransactionName(`${req.req.method} ${req.req.originalUrl.split('?')[0]}`);
+    apm.setTransactionName(`${req.method} ${req.originalUrl.split('?')[0]}`);
   }
   next();
 });
