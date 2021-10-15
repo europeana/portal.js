@@ -34,19 +34,17 @@ app.get('/debug/memory-usage', debugMemoryUsage);
 
 // TODO: remove redirection of deprecated routes after new routes are
 //       well-established in production
-app.get('/entities/topics', (req, res) => res.redirect('/_api/daily/collections/topics'));
-app.get('/entities/times', (req, res) => res.redirect('/_api/daily/collections/times'));
+// FIXME: will these lose the `?locale=XY` from old URLs?
+app.get('/entities/topics', (req, res) => res.redirect('/_api/collections/topics?featured=true'));
+app.get('/entities/times', (req, res) => res.redirect('/_api/collections/times?featured=true'));
 app.get('/items/recent', (req, res) => res.redirect('/_api/cache/items/recent'));
-app.get('/items/itemCountsMediaType', (req, res) => res.redirect('/_api/cache/items/itemCountsMediaType'));
+app.get('/items/itemCountsMediaType', (req, res) => res.redirect('/_api/cache/items/mediaTypeCounts'));
 
 import cache from './cache/index.js';
 app.get('/cache/*', (req, res) => cache(req.params[0], runtimeConfig)(req, res));
 
 import collections from './collections/index.js';
 app.get('/collections/:type', (req, res) => collections(req.params.type, runtimeConfig)(req, res));
-
-import daily from './daily/index.js';
-app.get('/daily/*', (req, res) => daily(req.params[0], runtimeConfig)(req, res));
 
 import jiraServiceDesk from './jira/service-desk.js';
 app.post('/jira/service-desk', (req, res) => jiraServiceDesk(runtimeConfig.jira)(req, res));

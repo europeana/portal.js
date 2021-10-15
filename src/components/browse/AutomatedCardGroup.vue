@@ -46,9 +46,11 @@
         switch (this.sectionType) {
           case FEATURED_TOPICS:
           case FEATURED_TIMES:
-            return import('@/server-middleware/api/daily/index.js')
+            return import('@/server-middleware/api/collections/index.js')
               .then(module => {
-                return module.entriesOfTheDay(this.type, this.$config)
+                return module.cachedCollections(
+                  this.type.replace('collections/', ''), this.$config, { featured: true, locale: this.$i18n.locale }
+                )
                   .then(entries => {
                     this.entries = entries;
                   })
@@ -135,9 +137,9 @@
       apiEndpoint() {
         switch (this.sectionType) {
         case FEATURED_TOPICS:
-          return '/_api/daily/collections/topics';
+          return '/_api/collections/topics?featured=true';
         case FEATURED_TIMES:
-          return '/_api/daily/collections/times';
+          return '/_api/collections/times?featured=true';
         case RECENT_ITEMS:
           return '/_api/cache/items/recent';
         case ITEM_COUNTS_MEDIA_TYPE:

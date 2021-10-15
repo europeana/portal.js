@@ -1,134 +1,89 @@
-import * as utils from '../utils.js';
-
-const CACHE_KEY = '@europeana:portal.js:entity:topics';
-
-let axiosClient;
-let redisClient;
-
-// TODO: retrieve and store all for hub page
-
-const ids = [
-  '106',
-  '112',
-  '113',
-  '114',
-  '1146',
-  '120',
-  '124',
-  '14',
-  '1409',
-  '15',
-  '1594',
-  '1600',
-  '1603',
-  '1618',
-  '1645',
-  '1647',
-  '1653',
-  '1654',
-  '1659',
-  '1664',
-  '1665',
-  '1668',
-  '167',
-  '1672',
-  '1673',
-  '17',
-  '1700',
-  '1705',
-  '1710',
-  '1719',
-  '1720',
-  '18',
-  '187',
-  '19',
-  '190',
-  '194',
-  '23',
-  '235',
-  '236',
-  '237',
-  '238',
-  '24',
-  '247',
-  '258',
-  '277',
-  '29',
-  '30',
-  '31',
-  '321',
-  '33',
-  '35',
-  '37',
-  '41',
-  '43',
-  '46',
-  '47',
-  '48',
-  '49',
-  '50',
-  '51',
-  '52',
-  '54',
-  '56',
-  '59',
-  '6',
-  '60',
-  '61',
-  '62',
-  '74',
-  '744',
-  '79',
-  '80',
-  '84',
-  '86'
+const CACHE_KEY = '@europeana:portal.js:collections:topics';
+const ENTITY_TYPE = 'concept';
+const FEATURED = [
+  'http://data.europeana.eu/concept/base/106',
+  'http://data.europeana.eu/concept/base/112',
+  'http://data.europeana.eu/concept/base/113',
+  'http://data.europeana.eu/concept/base/114',
+  'http://data.europeana.eu/concept/base/1146',
+  'http://data.europeana.eu/concept/base/120',
+  'http://data.europeana.eu/concept/base/124',
+  'http://data.europeana.eu/concept/base/14',
+  'http://data.europeana.eu/concept/base/1409',
+  'http://data.europeana.eu/concept/base/15',
+  'http://data.europeana.eu/concept/base/1594',
+  'http://data.europeana.eu/concept/base/1600',
+  'http://data.europeana.eu/concept/base/1603',
+  'http://data.europeana.eu/concept/base/1618',
+  'http://data.europeana.eu/concept/base/1645',
+  'http://data.europeana.eu/concept/base/1647',
+  'http://data.europeana.eu/concept/base/1653',
+  'http://data.europeana.eu/concept/base/1654',
+  'http://data.europeana.eu/concept/base/1659',
+  'http://data.europeana.eu/concept/base/1664',
+  'http://data.europeana.eu/concept/base/1665',
+  'http://data.europeana.eu/concept/base/1668',
+  'http://data.europeana.eu/concept/base/167',
+  'http://data.europeana.eu/concept/base/1672',
+  'http://data.europeana.eu/concept/base/1673',
+  'http://data.europeana.eu/concept/base/17',
+  'http://data.europeana.eu/concept/base/1700',
+  'http://data.europeana.eu/concept/base/1705',
+  'http://data.europeana.eu/concept/base/1710',
+  'http://data.europeana.eu/concept/base/1719',
+  'http://data.europeana.eu/concept/base/1720',
+  'http://data.europeana.eu/concept/base/18',
+  'http://data.europeana.eu/concept/base/187',
+  'http://data.europeana.eu/concept/base/19',
+  'http://data.europeana.eu/concept/base/190',
+  'http://data.europeana.eu/concept/base/194',
+  'http://data.europeana.eu/concept/base/23',
+  'http://data.europeana.eu/concept/base/235',
+  'http://data.europeana.eu/concept/base/236',
+  'http://data.europeana.eu/concept/base/237',
+  'http://data.europeana.eu/concept/base/238',
+  'http://data.europeana.eu/concept/base/24',
+  'http://data.europeana.eu/concept/base/247',
+  'http://data.europeana.eu/concept/base/258',
+  'http://data.europeana.eu/concept/base/277',
+  'http://data.europeana.eu/concept/base/29',
+  'http://data.europeana.eu/concept/base/30',
+  'http://data.europeana.eu/concept/base/31',
+  'http://data.europeana.eu/concept/base/321',
+  'http://data.europeana.eu/concept/base/33',
+  'http://data.europeana.eu/concept/base/35',
+  'http://data.europeana.eu/concept/base/37',
+  'http://data.europeana.eu/concept/base/41',
+  'http://data.europeana.eu/concept/base/43',
+  'http://data.europeana.eu/concept/base/46',
+  'http://data.europeana.eu/concept/base/47',
+  'http://data.europeana.eu/concept/base/48',
+  'http://data.europeana.eu/concept/base/49',
+  'http://data.europeana.eu/concept/base/50',
+  'http://data.europeana.eu/concept/base/51',
+  'http://data.europeana.eu/concept/base/52',
+  'http://data.europeana.eu/concept/base/54',
+  'http://data.europeana.eu/concept/base/56',
+  'http://data.europeana.eu/concept/base/59',
+  'http://data.europeana.eu/concept/base/6',
+  'http://data.europeana.eu/concept/base/60',
+  'http://data.europeana.eu/concept/base/61',
+  'http://data.europeana.eu/concept/base/62',
+  'http://data.europeana.eu/concept/base/74',
+  'http://data.europeana.eu/concept/base/744',
+  'http://data.europeana.eu/concept/base/79',
+  'http://data.europeana.eu/concept/base/80',
+  'http://data.europeana.eu/concept/base/84',
+  'http://data.europeana.eu/concept/base/86'
 ];
 
-const fetchEntity = async(id) => {
-  const response = await axiosClient
-    .get(`https://api.europeana.eu/entity/concept/base/${id}.json`, {
-      params: { ...axiosClient.defaults.config }
-    });
-  const data = response.data;
-  return {
-    id: data.id,
-    prefLabel: data.prefLabel,
-    isShownBy: data.isShownBy
-  };
-};
+import baseCache from './index.js';
 
-const allTopics = async() => {
-  const entities = [];
-  for (const id of ids) {
-    const entity = await fetchEntity(id);
-    entities.push(entity);
-  }
-
-  return entities.sort((a, b) => (a.prefLabel.en > b.prefLabel.en) ? 1 : -1);
-};
-
-const writeToRedis = (data) => {
-  return redisClient.setAsync(CACHE_KEY, JSON.stringify(data))
-    .then(() => redisClient.quitAsync())
-    .then(() => ({
-      body: `Wrote ${Object.keys(data).length} topics to Redis "${CACHE_KEY}".`
-    }));
-};
-
-const cache = async(config = {}) => {
-  try {
-    axiosClient = utils.createEuropeanaApiClient(config.europeana.apis.entity);
-    redisClient = utils.createRedisClient(config.redis);
-
-    const topics = await allTopics();
-
-    return writeToRedis(topics);
-  } catch (error) {
-    return Promise.reject({ body: utils.errorMessage(error) });
-  }
-};
+const cache = (config = {}) => baseCache(CACHE_KEY, ENTITY_TYPE, config);
 
 export {
   cache,
-  CACHE_KEY
+  CACHE_KEY,
+  ENTITY_TYPE,
+  FEATURED
 };

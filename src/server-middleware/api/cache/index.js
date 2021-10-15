@@ -26,7 +26,7 @@ export const cached = (id, config = {}) => {
 
   const key = cacheKey(id);
   if (!key) {
-    throw createError(404);
+    throw createError(404, id);
   }
 
   return redisClient.getAsync(key)

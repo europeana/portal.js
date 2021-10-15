@@ -7,6 +7,7 @@ const cachers = [
   'collections:organisations',
   'collections:times',
   'collections:topics',
+  'featured:topics',
   'items:recent',
   'items:type-counts'
 ];
