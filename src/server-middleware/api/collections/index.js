@@ -28,9 +28,9 @@ const featuredCollections = (type, collections) => {
 
 const localise = (type, collections, locale) => {
   return collections.map(collection => {
+    collection.slug = getEntitySlug(collection.id, collection.prefLabel?.en);
     // For organisations, only get English labels (for now).
     collection.prefLabel = type === 'organisations' ? collection.prefLabel?.en : langMapValueForLocale(collection.prefLabel, locale).values[0];
-    collection.slug = getEntitySlug(collection.id, collection.prefLabel?.en);
     return collection;
   })
     .filter(collection => collection.prefLabel);
