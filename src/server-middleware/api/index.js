@@ -38,7 +38,7 @@ app.get('/debug/memory-usage', debugMemoryUsage);
 app.get('/entities/topics', (req, res) => res.redirect('/_api/collections/topics?featured=true'));
 app.get('/entities/times', (req, res) => res.redirect('/_api/collections/times?featured=true'));
 app.get('/items/recent', (req, res) => res.redirect('/_api/cache/items/recent'));
-app.get('/items/itemCountsMediaType', (req, res) => res.redirect('/_api/cache/items/mediaTypeCounts'));
+app.get('/items/itemCountsMediaType', (req, res) => res.redirect('/_api/cache/items/typeCounts'));
 
 import cache from './cache/index.js';
 app.get('/cache/*', (req, res) => cache(req.params[0], runtimeConfig)(req, res));

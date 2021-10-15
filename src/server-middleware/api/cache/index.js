@@ -2,21 +2,7 @@ import createError from 'http-errors';
 import { createRedisClient } from '../../../cachers/utils.js';
 import { errorHandler } from '../index.js';
 
-import { CACHE_KEY as ORGANISATIONS_CACHE_KEY } from '../../../cachers/collections/organisations.js';
-import { CACHE_KEY as TOPICS_CACHE_KEY } from '../../../cachers/collections/topics.js';
-import { CACHE_KEY as TIMES_CACHE_KEY } from '../../../cachers/collections/times.js';
-import { CACHE_KEY as RECENT_CACHE_KEY } from '../../../cachers/items/recent.js';
-import { CACHE_KEY as MEDIA_TYPE_COUNTS_CACHE_KEY } from '../../../cachers/items/type-counts.js';
-
-const cacheKey = (id) => {
-  return {
-    'collections/organisations': ORGANISATIONS_CACHE_KEY,
-    'collections/times': TIMES_CACHE_KEY,
-    'collections/topics': TOPICS_CACHE_KEY,
-    'items/mediaTypeCounts': MEDIA_TYPE_COUNTS_CACHE_KEY,
-    'items/recent': RECENT_CACHE_KEY
-  }[id];
-};
+const cacheKey = (id) => `@europeana:portal.js:${id.replace(/\//g, ':')}`;
 
 export const cached = (id, config = {}) => {
   if (!config.redis.url) {

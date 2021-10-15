@@ -1,6 +1,6 @@
 import * as utils from '../utils.js';
 
-const CACHE_KEY = '@europeana:portal.js:items:type-counts';
+const CACHE_KEY = '@europeana:portal.js:items:typeCounts';
 
 let axiosClient;
 let redisClient;

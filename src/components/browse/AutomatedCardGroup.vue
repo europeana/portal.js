@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="entries.length > 0"
+    v-if="entries && entries.length > 0"
   >
     <InfoCardSection
       v-if="type === 'itemCountsMediaType'"
@@ -22,6 +22,8 @@
   const RECENT_ITEMS = 'Recent items';
   const ITEM_COUNTS_MEDIA_TYPE = 'Item counts by media type';
 
+  // TODO: there are too many switch/case statements on sectionType here;
+  //       refactor e.g. to have those computed properties be props instead
   export default {
     name: 'AutomatedCardGroup',
 
@@ -116,7 +118,7 @@
         case RECENT_ITEMS:
           return 'items/recent';
         case ITEM_COUNTS_MEDIA_TYPE:
-          return 'items/mediaTypeCounts';
+          return 'items/typeCounts';
         default:
           return null;
         }
@@ -143,7 +145,7 @@
         case RECENT_ITEMS:
           return '/_api/cache/items/recent';
         case ITEM_COUNTS_MEDIA_TYPE:
-          return '/_api/cache/items/mediaTypeCounts';
+          return '/_api/cache/items/typeCounts';
         default:
           return null;
         }
