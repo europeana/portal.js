@@ -1,9 +1,8 @@
-import * as utils from '../utils.js';
+import { createEuropeanaApiClient } from '../utils.js';
 
 const CACHE_KEY = '@europeana:portal.js:items:typeCounts';
 
 let axiosClient;
-let redisClient;
 
 const facetsForMediaTypes = async() => {
   const query = '*:*';
@@ -18,20 +17,13 @@ const facetsForMediaTypes = async() => {
   return response.data?.facets?.[0]?.fields || [];
 };
 
-const cache = async(config = {}) => {
-  try {
-    axiosClient = utils.createEuropeanaApiClient(config.europeana?.apis?.record);
-    redisClient = utils.createRedisClient(config.redis);
+const data = (config = {}) => {
+  axiosClient = createEuropeanaApiClient(config.europeana?.apis?.record);
 
-    const data = await facetsForMediaTypes();
-
-    return utils.writeToRedis(redisClient, CACHE_KEY, data);
-  } catch (error) {
-    return Promise.reject(utils.errorMessage(error));
-  }
+  return facetsForMediaTypes();
 };
 
 export {
-  cache,
+  data,
   CACHE_KEY
 };

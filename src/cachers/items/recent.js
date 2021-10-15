@@ -1,10 +1,9 @@
 import dateFormat from 'dateformat';
-import * as utils from '../utils.js';
+import { createEuropeanaApiClient } from '../utils.js';
 
 const CACHE_KEY = '@europeana:portal.js:items:recent';
 
 let axiosClient;
-let redisClient;
 let randomSortSeed;
 
 const recentlyUpdatedContentTier4Dataset = async(exclude = []) => {
@@ -54,21 +53,14 @@ const recentlyUpdatedContentTier4Items = async() => {
   return items;
 };
 
-const cache = async(config = {}) => {
-  try {
-    axiosClient = utils.createEuropeanaApiClient(config.europeana?.apis?.record);
-    redisClient = utils.createRedisClient(config.redis);
-    randomSortSeed = dateFormat(new Date(), 'isoDate');
+const data = (config = {}) => {
+  axiosClient = createEuropeanaApiClient(config.europeana?.apis?.record);
+  randomSortSeed = dateFormat(new Date(), 'isoDate');
 
-    const data = await recentlyUpdatedContentTier4Items();
-
-    return utils.writeToRedis(redisClient, CACHE_KEY, data);
-  } catch (error) {
-    return Promise.reject(utils.errorMessage(error));
-  }
+  return recentlyUpdatedContentTier4Items();
 };
 
 export {
-  cache,
+  data,
   CACHE_KEY
 };

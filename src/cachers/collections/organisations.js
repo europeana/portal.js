@@ -1,12 +1,12 @@
 const CACHE_KEY = '@europeana:portal.js:collections:organisations';
 const ENTITY_TYPE = 'organization';
 
-import baseCache from './index.js';
+import baseData from './index.js';
 
-const cache = (config = {}) => baseCache(CACHE_KEY, ENTITY_TYPE, config);
+const data = (config = {}) => baseData(ENTITY_TYPE, config);
 
 export {
-  cache,
+  data,
   CACHE_KEY,
   ENTITY_TYPE
 };

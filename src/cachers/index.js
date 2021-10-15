@@ -1,5 +1,5 @@
 import defu from 'defu';
-import { createRedisClient, errorMessage } from './utils.js';
+import * as utils from './utils.js';
 import nuxtConfig from '../../nuxt.config.js';
 const runtimeConfig = defu(nuxtConfig.privateRuntimeConfig, nuxtConfig.publicRuntimeConfig);
 
@@ -26,35 +26,37 @@ const main = async() => {
   const cacher = process.argv[2];
   const command = process.argv[3];
 
-  let executor;
-
   const cacherCli = await cli(cacher);
 
-  switch (command) {
-    case 'set':
-      executor = cacherCli.cache(runtimeConfig);
-      break;
-    case 'get':
-      executor = readCacheKey(cacherCli.CACHE_KEY);
-      break;
-    default:
+  try {
+    if (command === 'set') {
+      const data = await cacherCli.data(runtimeConfig);
+      const response = await writeCacheKey(cacherCli.CACHE_KEY, data);
+      return response;
+    } else if (command === 'get') {
+      const response = await readCacheKey(cacherCli.CACHE_KEY);
+      return response;
+    } else {
       console.error(`Unknown command "${command}"`);
       process.exit(1);
-      break;
+    }
+  } catch (error) {
+    return Promise.reject({ body: utils.errorMessage(error) });
   }
+};
 
-  return executor;
+const writeCacheKey = (cacheKey, data) => {
+  const redisClient = utils.createRedisClient(runtimeConfig.redis);
+  return redisClient.setAsync(cacheKey, JSON.stringify(data))
+    .then(() => redisClient.quitAsync())
+    .then(() => ({ body: `Wrote data to Redis "${cacheKey}".` }));
 };
 
 const readCacheKey = (cacheKey) => {
-  try {
-    const redisClient = createRedisClient(runtimeConfig.redis);
-    return redisClient.getAsync(cacheKey)
-      .then(data => redisClient.quitAsync()
-        .then(() => ({ body: JSON.parse(data) || {} })));
-  } catch (error) {
-    return Promise.reject({ statusCode: 500, body: errorMessage(error) });
-  }
+  const redisClient = utils.createRedisClient(runtimeConfig.redis);
+  return redisClient.getAsync(cacheKey)
+    .then(data => redisClient.quitAsync()
+      .then(() => ({ body: JSON.parse(data) || {} })));
 };
 
 main()

@@ -1,7 +1,6 @@
-import * as utils from '../utils.js';
+import { createEuropeanaApiClient } from '../utils.js';
 
 let axiosClient;
-let redisClient;
 
 const pageSize = 100;
 
@@ -48,15 +47,9 @@ const sortResults = results => results.sort((a, b) =>
     sensitivity: 'base'
   }));
 
-export default async(cacheKey, entityType, config = {}) => {
-  try {
-    axiosClient = utils.createEuropeanaApiClient(config.europeana?.apis?.entity);
-    redisClient = utils.createRedisClient(config.redis);
+export default async(entityType, config = {}) => {
+  axiosClient = createEuropeanaApiClient(config.europeana?.apis?.entity);
 
-    const entities = await allEntityResults(entityType);
-
-    return utils.writeToRedis(redisClient, cacheKey, sortResults(entities));
-  } catch (error) {
-    return Promise.reject(utils.errorMessage(error));
-  }
+  const entities = await allEntityResults(entityType);
+  return sortResults(entities);
 };

@@ -77,12 +77,12 @@ const FEATURED = [
   'http://data.europeana.eu/concept/base/86'
 ];
 
-import baseCache from './index.js';
+import baseData from './index.js';
 
-const cache = (config = {}) => baseCache(CACHE_KEY, ENTITY_TYPE, config);
+const data = (config = {}) => baseData(ENTITY_TYPE, config);
 
 export {
-  cache,
+  data,
   CACHE_KEY,
   ENTITY_TYPE,
   FEATURED
