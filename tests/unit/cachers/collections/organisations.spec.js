@@ -1,10 +1,6 @@
-import sinon from 'sinon';
 import nock from 'nock';
 
 const cacher = require('@/cachers/collections/organisations');
-const utils = require('@/cachers/utils');
-
-let redisClientStub;
 
 const apiResponse = {
   pageOne: {
@@ -30,20 +26,18 @@ const apiResponse = {
   pageThree: {}
 };
 
-const cacheValue = JSON.stringify(
+const dataToCache = [
   {
-    '1': {
-      prefLabel: {
-        en: 'One'
-      }
-    },
-    '2': {
-      prefLabel: {
-        en: 'Two'
-      }
-    }
+    id: 'http://data.europeana.eu/organization/1',
+    prefLabel: { en: 'One' },
+    slug: '1-one'
+  },
+  {
+    id: 'http://data.europeana.eu/organization/2',
+    prefLabel: { en: 'Two' },
+    slug: '2-two'
   }
-);
+];
 
 const config = {
   europeana: {
@@ -53,9 +47,6 @@ const config = {
         key: 'entityApiKey'
       }
     }
-  },
-  redis: {
-    url: 'redis://localhost:6370/0'
   }
 };
 
@@ -73,42 +64,23 @@ describe('cachers/collections/organisations', () => {
       .get('/search')
       .query(query => query.type === 'organization' && query.scope === 'europeana' && query.page === '2')
       .reply(200, apiResponse.pageThree);
-
-    redisClientStub = {
-      setAsync: sinon.stub().resolves(),
-      quitAsync: sinon.stub().resolves()
-    };
-    sinon.stub(utils, 'createRedisClient').returns(redisClientStub);
   });
 
   afterEach('restore utility methods', () => {
-    utils.createRedisClient.restore();
     nock.cleanAll();
   });
 
-  describe('.cache', () => {
-    it('creates a redis client from config', async() => {
-      await cacher.cache(config);
-
-      utils.createRedisClient.should.have.been.calledWith(config.redis);
-    });
-
+  describe('.data', () => {
     it('paginates over organisations', async() => {
-      await cacher.cache(config);
+      await cacher.data(config);
 
       nock.isDone().should.be.true;
     });
 
-    it('writes reduced organisations to cache', async() => {
-      await cacher.cache(config);
+    it('returns organisations to cache', async() => {
+      const data = await cacher.data(config);
 
-      redisClientStub.setAsync.should.have.been.calledWith(cacher.CACHE_KEY, cacheValue);
-    });
-
-    it('quits the Redis connection', async() => {
-      await cacher.cache(config);
-
-      redisClientStub.quitAsync.should.have.been.called;
+      data.should.eql(dataToCache);
     });
   });
 });
