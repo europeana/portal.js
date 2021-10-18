@@ -24,7 +24,7 @@
                 class="multilingual-selector"
               >
                 <b-dropdown-item
-                  v-for="locale in availableLocalesForItem"
+                  v-for="locale in $i18n.locales"
                   :key="locale.code"
                   class="multilingual-dropdown-item"
                   :to="translateParams(locale.code)"
@@ -35,7 +35,7 @@
             </i18n>
           </span>
           <b-link
-            v-if="translated"
+            v-if="metadataLanguage"
             :to="translateParams(null)"
             data-qa="remove item translation button"
           >
@@ -75,16 +75,8 @@
       }
     },
     computed: {
-      translated() {
-        return this.metadataLanguage;
-      },
       metadataLanguageLabel() {
-        return this.$i18n.locales.find(locale => {
-            return locale.code === this.metadataLanguage;
-          })?.name;
-      },
-      availableLocalesForItem() {
-        return this.$i18n.locales;
+        return this.$i18n.locales.find(locale => locale.code === this.metadataLanguage)?.name;
       }
     },
     methods: {
