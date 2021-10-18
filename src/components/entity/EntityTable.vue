@@ -23,12 +23,12 @@
         </div>
       </template>
       <template #cell(prefLabel)="data">
-        <NuxtLink
+        <SmartLink
           :data-qa="`collection link ${data.item.id}`"
           :to="$path(entityRoute(data.item.slug))"
         >
           {{ data.item.prefLabel }}
-        </NuxtLink>
+        </SmartLink>
       </template>
     </b-table>
   </div>
@@ -38,13 +38,15 @@
   import { BTable } from 'bootstrap-vue';
   import AlertMessage from '../generic/AlertMessage';
   import LoadingSpinner from '../generic/LoadingSpinner';
+  import SmartLink from '../generic/SmartLink';
 
   export default {
     name: 'EntityTable',
     components: {
       BTable,
       LoadingSpinner,
-      AlertMessage
+      AlertMessage,
+      SmartLink
     },
     props: {
       type: {
