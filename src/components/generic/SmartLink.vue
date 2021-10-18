@@ -45,7 +45,7 @@
 
     data() {
       return {
-        internalDomain: this.$config.app.internalLinkDomain
+        internalDomain: this.$config?.app?.internalLinkDomain
       };
     },
 
@@ -89,6 +89,10 @@
       },
 
       isExternalLink() {
+        if (!this.internalDomain) {
+          return false;
+        }
+
         const path = this.destination;
         const hostnamePattern = /\/\/([^/:]+)/;
 

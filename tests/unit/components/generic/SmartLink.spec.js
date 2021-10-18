@@ -43,6 +43,9 @@ describe('components/generic/SmartLink', () => {
 
     it('determines if the URL is an external path or not', async() => {
       const wrapper = factory();
+
+      wrapper.vm.isExternalLink.should.be.false;
+
       await wrapper.setData({ internalDomain: 'www.foo.com' });
       await wrapper.setProps({ destination: 'https://www.example.org/url-example' });
       wrapper.vm.isExternalLink.should.be.true;
