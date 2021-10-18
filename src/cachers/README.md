@@ -35,7 +35,9 @@ Entity API.
 
 #### `collections:topics:featured`
 Retrieves and caches a hard-coded subset of featured, concept-type,
-Europeana-scoped entities from the Entity API. See `FEATURED` [`./collections/topics/featured.js`](./collections/topics/featured.js) in for the featured topic IDs.
+Europeana-scoped entities from the Entity API. See `FEATURED` in
+[`./collections/topics/featured.js`](./collections/topics/featured.js) for the
+featured topic IDs.
 
 ### `items`
 
