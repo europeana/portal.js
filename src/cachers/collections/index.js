@@ -1,3 +1,4 @@
+import pick from 'lodash/pick';
 import { createEuropeanaApiClient } from '../utils.js';
 import { getEntitySlug } from '../../plugins/europeana/entity.js';
 
@@ -21,12 +22,12 @@ const pageOfEntityResults = (page, params = {}) => {
     .then(items => items.map(entityWithSlug));
 };
 
-const persistableFields = ({ id, prefLabel, isShownBy, logo }) => ({
-  id,
-  prefLabel,
-  isShownBy,
-  logo
-});
+const persistableFields = (entity) => (pick(entity, [
+  'id',
+  'prefLabel',
+  'isShownBy',
+  'logo'
+]));
 
 const entityWithSlug = (entity) => ({
   ...entity,
