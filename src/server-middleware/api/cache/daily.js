@@ -8,6 +8,9 @@ const offsetOfTheDay = (setSize) => {
 };
 
 export default (set) => {
+  if (!Array.isArray(set)) {
+    return set;
+  }
   const offset = offsetOfTheDay(set.length);
   return set.slice(offset, offset + subsetSize);
 };
