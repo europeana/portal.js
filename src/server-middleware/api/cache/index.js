@@ -1,4 +1,3 @@
-import createError from 'http-errors';
 import { createRedisClient } from '../../../cachers/utils.js';
 import { errorHandler } from '../index.js';
 import dailyEntries from './daily.js';
@@ -8,14 +7,11 @@ const cacheKey = (id) => `@europeana:portal.js:${id.replace(/\//g, ':')}`;
 
 export const cached = (id, config = {}, options = {}) => {
   if (!config.redis.url) {
-    throw createError(500, 'No cache configured.');
+    return Promise.reject(new Error('No cache configured.'));
   }
   const redisClient = createRedisClient(config.redis);
 
   const key = cacheKey(id);
-  if (!key) {
-    throw createError(404, id);
-  }
 
   return redisClient.getAsync(key)
     .then(value => JSON.parse(value))
