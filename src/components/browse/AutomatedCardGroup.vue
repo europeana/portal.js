@@ -22,8 +22,6 @@
   const RECENT_ITEMS = 'Recent items';
   const ITEM_COUNTS_MEDIA_TYPE = 'Item counts by media type';
 
-  // TODO: there are too many switch/case statements on sectionType here;
-  //       refactor e.g. to have those computed properties be props instead
   export default {
     name: 'AutomatedCardGroup',
 
@@ -44,34 +42,30 @@
     },
 
     fetch() {
-      if (process.server) {
-        switch (this.sectionType) {
-          case FEATURED_TOPICS:
-          case FEATURED_TIMES:
-            return import('@/server-middleware/api/collections/index.js')
-              .then(module => {
-                return module.cachedCollections(
-                  this.type.replace('collections/', ''), this.$config, { featured: true, locale: this.$i18n.locale }
-                )
-                  .then(entries => {
-                    this.entries = entries;
-                  })
-              });
-          case RECENT_ITEMS:
-          case ITEM_COUNTS_MEDIA_TYPE:
-            return import('@/server-middleware/api/cache/index.js')
-              .then(module => {
-                return module.cached(this.type, this.$config)
-                  .then(entries => {
-                    this.entries = entries;
-                  })
-              });
-        }
+      const params = {};
+      switch (this.sectionType) {
+        case FEATURED_TOPICS:
+        case FEATURED_TIMES:
+          params.daily = true;
+          // TODO: should recent items be localised too?
+          params.locale = this.$i18n.locale;
+          break;
       }
-      return this.$axios.get(this.apiEndpoint)
-        .then(response => {
-          this.entries = response.data;
-        });
+
+      if (process.server) {
+        return import('@/server-middleware/api/cache/index.js')
+          .then(module => {
+            return module.cached(this.type, this.$config, params)
+              .then(entries => {
+                this.entries = entries;
+              })
+          });
+      } else {
+        return this.$axios.get(`/_api/cache/${this.type}`, { params })
+          .then(response => {
+            this.entries = response.data;
+          });
+        }
     },
 
     data() {
@@ -80,19 +74,15 @@
       };
 
       if (this.sectionType === FEATURED_TOPICS) {
-        data.apiEndpoint = '/_api/collections/topics?featured=true';
-        data.type = 'collections/topics';
+        data.type = 'collections/topics/featured';
         data.cardType = 'AutomatedEntityCard';
       } else if (this.sectionType === FEATURED_TIMES) {
-        data.apiEndpoint = '/_api/collections/times?featured=true';
         data.type = 'collections/times';
         data.cardType = 'AutomatedEntityCard';
       } else if (this.sectionType === RECENT_ITEMS) {
-        data.apiEndpoint = '/_api/cache/items/recent';
         data.type = 'items/recent';
         data.cardType = 'AutomatedRecordCard';
       } else if (this.sectionType === ITEM_COUNTS_MEDIA_TYPE) {
-        data.apiEndpoint = '/_api/cache/items/typeCounts';
         data.type = 'items/typeCounts';
         data.cardType = 'InfoCard';
       }

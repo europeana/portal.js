@@ -22,15 +22,20 @@ the prepopulated cache content.
 ### `collections`
 
 #### `collections:organisations`
-Paginates over the Europeana Entity API for organization-type entities, reduces
-these to an object keyed by identifier with values containing the `prefLabel`,
-and caches them.
+Retrieves and caches all organization-type, Europeana-scoped entities from the
+Entity API.
 
 #### `collections:times`
-**TODO**
+Retrieves and caches all timespan-type, Europeana-scoped entities from the
+Entity API.
 
 #### `collections:topics`
-**TODO**
+Retrieves and caches all concept-type, Europeana-scoped entities from the
+Entity API.
+
+#### `collections:topics:featured`
+Retrieves and caches a hard-coded subset of featured, concept-type,
+Europeana-scoped entities from the Entity API. See `FEATURED` [`./collections/topics/featured.js`](./collections/topics/featured.js) in for the featured topic IDs.
 
 ### `items`
 
@@ -40,4 +45,5 @@ containing content tier 4 items, selects one item from each at random, but
 seeded to today's date, and caches the items' metadata.
 
 #### `items:type-counts`
-**TODO**
+Queries the Europeana Record API for the total number of items available by EDM
+type, of content tiers 1-4.

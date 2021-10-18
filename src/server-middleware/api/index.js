@@ -32,19 +32,27 @@ app.use((req, res, next) => {
 import debugMemoryUsage from './debug/memory-usage.js';
 app.get('/debug/memory-usage', debugMemoryUsage);
 
+// Redirection of some deprecated API URL paths.
 // TODO: remove redirection of deprecated routes after new routes are
 //       well-established in production
-// FIXME: will these lose the `?locale=XY` from old URLs?
-app.get('/entities/topics', (req, res) => res.redirect('/_api/collections/topics?featured=true'));
-app.get('/entities/times', (req, res) => res.redirect('/_api/collections/times?featured=true'));
-app.get('/items/recent', (req, res) => res.redirect('/_api/cache/items/recent'));
-app.get('/items/itemCountsMediaType', (req, res) => res.redirect('/_api/cache/items/typeCounts'));
+const pathWithQuery = (path, query) => {
+  let destination = path;
+
+  const searchParams = new URLSearchParams(query).toString();
+  if (searchParams !== '') {
+    destination = `${path}?${searchParams}`;
+  }
+
+  return destination;
+};
+app.get('/entities/organisations', (req, res) => res.redirect(pathWithQuery('/_api/cache/collections/organisations', req.query)));
+app.get('/entities/times', (req, res) => res.redirect(pathWithQuery('/_api/cache/collections/times', { ...req.query, daily: 'true' })));
+app.get('/entities/topics', (req, res) => res.redirect(pathWithQuery('/_api/cache/collections/topics/featured', { ...req.query, daily: 'true' })));
+app.get('/items/recent', (req, res) => res.redirect(pathWithQuery('/_api/cache/items/recent', req.query)));
+app.get('/items/itemCountsMediaType', (req, res) => res.redirect(pathWithQuery('/_api/cache/items/typeCounts', req.query)));
 
 import cache from './cache/index.js';
 app.get('/cache/*', (req, res) => cache(req.params[0], runtimeConfig)(req, res));
-
-import collections from './collections/index.js';
-app.get('/collections/:type', (req, res) => collections(req.params.type, runtimeConfig)(req, res));
 
 import jiraServiceDesk from './jira/service-desk.js';
 app.post('/jira/service-desk', (req, res) => jiraServiceDesk(runtimeConfig.jira)(req, res));

@@ -3,7 +3,7 @@ const ENTITY_TYPE = 'organization';
 
 import baseData from './index.js';
 
-const data = (config = {}) => baseData(ENTITY_TYPE, config);
+const data = (config = {}) => baseData({ type: ENTITY_TYPE }, config);
 
 export {
   data,

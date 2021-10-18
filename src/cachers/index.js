@@ -7,6 +7,7 @@ const cacherNames = [
   'collections:organisations',
   'collections:times',
   'collections:topics',
+  'collections:topics:featured',
   'items:recent',
   'items:type-counts'
 ];
