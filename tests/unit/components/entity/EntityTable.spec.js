@@ -65,7 +65,7 @@ describe('components/entity/EntityTable', () => {
         collections
       });
 
-      wrapper.find('[data-qa="collection link 001"]').attributes('to').should.eq((`/collections/organisation/${collections[0].slug}`));
+      wrapper.find('[data-qa="collection link 001"]').attributes('href').should.eq((`/collections/organisation/${collections[0].slug}`));
     });
   });
 
