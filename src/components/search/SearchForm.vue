@@ -202,7 +202,10 @@
           this.query = this.selectedOptionLink.query.query;
 
           // This only tracks keyboard events, click events are tracked in the SearchQueryOPtions component.
-          this.$matomo?.trackEvent('Autosuggest_option_selected', 'Autosuggest option is selected', this.query);
+          // Make sure you are not on a collection page
+          if (!this.onCollectionPage) {
+            this.$matomo?.trackEvent('Autosuggest_option_selected', 'Autosuggest option is selected', this.query);
+          }
 
           if (this.query !== this.activeSuggestionsQueryTerm) {
             this.suggestions = {};
