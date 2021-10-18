@@ -299,6 +299,14 @@ describe('plugins/europeana/entity', () => {
       });
     });
 
+    context('with an uri of "http://data.europeana.eu/organization/999"', () => {
+      const uri = 'http://data.europeana.eu/concept/base/100';
+      it('returns true', () => {
+        const ret = isEntityUri(uri);
+        ret.should.eq(true);
+      });
+    });
+
     context('with an uri of "http://example.org/not-an-entity"', () => {
       const uri = 'http://example.org/not-an-entity';
       it('returns true', () => {
@@ -309,7 +317,7 @@ describe('plugins/europeana/entity', () => {
   });
 
   describe('entityParamsFromUri', () => {
-    context('with a agent uri of "http://data.europeana.eu/agent/base/100"', () => {
+    context('with an agent uri of "http://data.europeana.eu/agent/base/100"', () => {
       const uri = 'http://data.europeana.eu/agent/base/100';
       it('returns the id and type', () => {
         const params = entityParamsFromUri(uri);
@@ -324,6 +332,15 @@ describe('plugins/europeana/entity', () => {
         const params = entityParamsFromUri(uri);
         params.id.should.eq('20');
         params.type.should.eq('time');
+      });
+    });
+
+    context('with an organisation uri of "http://data.europeana.eu/organization/999"', () => {
+      const uri = 'http://data.europeana.eu/organization/999';
+      it('returns the id and type', () => {
+        const params = entityParamsFromUri(uri);
+        params.id.should.eq('999');
+        params.type.should.eq('organisation');
       });
     });
   });
