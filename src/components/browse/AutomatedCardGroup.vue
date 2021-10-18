@@ -44,12 +44,12 @@
     fetch() {
       const params = {};
       switch (this.sectionType) {
-        case FEATURED_TOPICS:
-        case FEATURED_TIMES:
-          params.daily = true;
-          // TODO: should recent items be localised too?
-          params.locale = this.$i18n.locale;
-          break;
+      case FEATURED_TOPICS:
+      case FEATURED_TIMES:
+        params.daily = true;
+        // TODO: should recent items be localised too?
+        params.locale = this.$i18n.locale;
+        break;
       }
 
       if (process.server) {
@@ -58,14 +58,14 @@
             return module.cached(this.type, this.$config, params)
               .then(entries => {
                 this.entries = entries;
-              })
-          });
+              });
+        });
       } else {
         return this.$axios.get(`/_api/cache/${this.type}`, { params })
           .then(response => {
             this.entries = response.data;
           });
-        }
+      }
     },
 
     data() {
