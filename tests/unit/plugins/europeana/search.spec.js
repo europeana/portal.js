@@ -396,6 +396,13 @@ describe('plugins/europeana/search', () => {
         addContentTierFilter(qf).should.deep.eql(expected);
       });
     });
+    context('with an foaf_organization qf', () => {
+      const qf = ['foaf_organization:"http://data.europeana.eu/organization/1234567890"'];
+      it('returns the qf with no content tier filter applied', () => {
+        const expected = qf;
+        addContentTierFilter(qf).should.deep.eql(expected);
+      });
+    });
   });
 
   describe('rangeToQueryParam', () => {
