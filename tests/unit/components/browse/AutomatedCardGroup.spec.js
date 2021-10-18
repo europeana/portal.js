@@ -126,7 +126,7 @@ const entries = {
 describe('components/browse/AutomatedCardGroup', () => {
   describe('fetch()', () => {
     beforeEach(() => {
-      $axiosGetStub.withArgs('/_api/entities/topics').resolves({ data: entries.featuredTopics });
+      $axiosGetStub.withArgs('/_api/cache/collections/topics/featured').resolves({ data: entries.featuredTopics });
     });
     afterEach(() => {
       $axiosGetStub.reset();
@@ -135,7 +135,7 @@ describe('components/browse/AutomatedCardGroup', () => {
       it('gets the data from the cache API endpoint', async() => {
         const wrapper = nuxtFactory({ sectionType: FEATURED_TOPICS });
         await wrapper.vm.fetch();
-        $axiosGetStub.should.have.been.calledWith('/_api/entities/topics');
+        $axiosGetStub.should.have.been.calledWith('/_api/cache/collections/topics/featured', { params: { daily: true, locale: 'en' } });
         wrapper.vm.entries.should.deep.eq(entries.featuredTopics);
       });
     });
@@ -154,7 +154,7 @@ describe('components/browse/AutomatedCardGroup', () => {
       it('includes type', () => {
         const wrapper = shallowFactory({ sectionType: ITEM_COUNTS_MEDIA_TYPE });
 
-        wrapper.vm.contentCardSection.type.should.eq('itemCountsMediaType');
+        wrapper.vm.contentCardSection.type.should.eq('items/typeCounts');
       });
       it('sets the relevant fields for the items in the hasPartCollection', async() => {
         const expected = {
