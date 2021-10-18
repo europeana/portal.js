@@ -712,6 +712,9 @@ export default {
       },
       "topics": {
         "title": "Topics"
+      },
+      "table": {
+        "name": "Name"
       }
     }
   },

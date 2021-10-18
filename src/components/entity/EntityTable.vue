@@ -74,7 +74,7 @@
           {
             key: 'prefLabel',
             sortable: true,
-            label: this.$t(`pages.collections.${this.type}.table.name`)
+            label: this.$t('pages.collections.table.name')
           }
         ]
       };

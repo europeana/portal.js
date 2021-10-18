@@ -76,12 +76,15 @@
       if (this.sectionType === FEATURED_TOPICS) {
         data.type = 'collections/topics/featured';
         data.cardType = 'AutomatedEntityCard';
+        data.headline = this.$i18n.t('automatedCardGroup.topic');
       } else if (this.sectionType === FEATURED_TIMES) {
         data.type = 'collections/times';
         data.cardType = 'AutomatedEntityCard';
+        data.headline = this.$i18n.t('automatedCardGroup.time');
       } else if (this.sectionType === RECENT_ITEMS) {
         data.type = 'items/recent';
         data.cardType = 'AutomatedRecordCard';
+        data.headline = this.$i18n.t('automatedCardGroup.item');
       } else if (this.sectionType === ITEM_COUNTS_MEDIA_TYPE) {
         data.type = 'items/typeCounts';
         data.cardType = 'InfoCard';
@@ -108,7 +111,7 @@
           };
         }
         return {
-          headline: this.$i18n.t(`automatedCardGroup.${this.type}`),
+          headline: this.headline,
           hasPartCollection: {
             items: this.entries?.map(entry => ({
               __typename: this.cardType,
