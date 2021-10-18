@@ -1,10 +1,6 @@
-import sinon from 'sinon';
 import nock from 'nock';
 
 const cacher = require('@/cachers/collections/times');
-const utils = require('@/cachers/utils');
-
-let redisClientStub;
 
 const apiResponse = {
   pageOne: {
@@ -35,26 +31,36 @@ const apiResponse = {
       },
       isShownBy: 'http://www.example.eu'
     }]
-  }
+  },
+  pageTwo: {}
 };
 
-const cacheValue = JSON.stringify(
-  [{ id: 'http://data.europeana.eu/timespan/1',
+const dataToCache = [
+  {
+    id: 'http://data.europeana.eu/timespan/1',
     prefLabel: {
       en: '1st century'
     },
-    isShownBy: 'http://www.example.eu' },
-  { id: 'http://data.europeana.eu/timespan/3',
+    isShownBy: 'http://www.example.eu',
+    slug: '1-1st-century'
+  },
+  {
+    id: 'http://data.europeana.eu/timespan/3',
     prefLabel: {
       en: '2nd century'
     },
-    isShownBy: 'http://www.example.eu' },
-  { id: 'http://data.europeana.eu/timespan/2',
+    isShownBy: 'http://www.example.eu',
+    slug: '3-2nd-century'
+  },
+  {
+    id: 'http://data.europeana.eu/timespan/2',
     prefLabel: {
       en: '10th century'
     },
-    isShownBy: 'http://www.example.eu' }]
-);
+    isShownBy: 'http://www.example.eu',
+    slug: '2-10th-century'
+  }
+];
 
 const config = {
   europeana: {
@@ -64,9 +70,6 @@ const config = {
         key: 'entityApiKey'
       }
     }
-  },
-  redis: {
-    url: 'redis://localhost:6370/0'
   }
 };
 
@@ -74,38 +77,23 @@ describe('cachers/collections/times', () => {
   beforeEach('stub utility methods', () => {
     nock(config.europeana.apis.entity.url)
       .get('/search')
-      .query(query => query.page === '0')
+      .query(query => query.type === 'timespan' && query.scope === 'europeana' && query.page === '0')
       .reply(200, apiResponse.pageOne);
-
-    redisClientStub = {
-      setAsync: sinon.stub().resolves(),
-      quitAsync: sinon.stub().resolves()
-    };
-    sinon.stub(utils, 'createRedisClient').returns(redisClientStub);
+    nock(config.europeana.apis.entity.url)
+      .get('/search')
+      .query(query => query.type === 'timespan' && query.scope === 'europeana' && query.page === '1')
+      .reply(200, apiResponse.pageTwo);
   });
 
   afterEach('restore utility methods', () => {
-    utils.createRedisClient.restore();
     nock.cleanAll();
   });
 
-  describe('.cache', () => {
-    it('creates a redis client from config', async() => {
-      await cacher.cache(config);
+  describe('.data', () => {
+    it('returns chronologically sorted centuries to cache', async() => {
+      const data = await cacher.data(config);
 
-      utils.createRedisClient.should.have.been.calledWith(config.redis);
-    });
-
-    it('writes chronologically sorted centuries to cache', async() => {
-      await cacher.cache(config);
-
-      redisClientStub.setAsync.should.have.been.calledWith(cacher.CACHE_KEY, cacheValue);
-    });
-
-    it('quits the Redis connection', async() => {
-      await cacher.cache(config);
-
-      redisClientStub.quitAsync.should.have.been.called;
+      data.should.eql(dataToCache);
     });
   });
 });
