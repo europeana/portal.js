@@ -261,7 +261,6 @@
       &.hover {
         background-color: $blue;
         color: $white;
-        cursor: pointer;
       }
     }
 

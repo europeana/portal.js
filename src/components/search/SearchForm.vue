@@ -201,7 +201,7 @@
           newRoute = this.selectedOptionLink;
           this.query = this.selectedOptionLink.query.query;
 
-          // This only tracks keyboard events, click events are tracked in the SearchQueryOPtions component.
+          // This only tracks keyboard events, click events are tracked in the SearchQueryOptions component.
           // Make sure you are not on a collection page
           if (!this.onCollectionPage) {
             this.$matomo?.trackEvent('Autosuggest_option_selected', 'Autosuggest option is selected', this.query);
@@ -213,7 +213,7 @@
         } else {
           // Matomo event: suggestions are present, but none is selected
           if (Object.keys(this.suggestions).length > 0) {
-            // This only tracks keyboard events, click events are tracked in the SearchQueryOPtions component.
+            // This only tracks keyboard events, click events are tracked in the SearchQueryOptions component.
             this.$matomo?.trackEvent('Autosuggest_option_not_selected', 'Autosuggest option is not selected', this.query);
           }
 
