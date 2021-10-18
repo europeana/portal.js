@@ -1,7 +1,7 @@
 import sinon from 'sinon';
 import nock from 'nock';
 
-const cacher = require('@/cachers/entities/times');
+const cacher = require('@/cachers/collections/times');
 const utils = require('@/cachers/utils');
 
 let redisClientStub;
@@ -70,7 +70,7 @@ const config = {
   }
 };
 
-describe('cachers/entities/times', () => {
+describe('cachers/collections/times', () => {
   beforeEach('stub utility methods', () => {
     nock(config.europeana.apis.entity.url)
       .get('/search')
