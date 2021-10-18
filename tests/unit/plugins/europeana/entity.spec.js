@@ -300,7 +300,7 @@ describe('plugins/europeana/entity', () => {
     });
 
     context('with an uri of "http://data.europeana.eu/organization/999"', () => {
-      const uri = 'http://data.europeana.eu/concept/base/100';
+      const uri = 'http://data.europeana.eu/organization/999';
       it('returns true', () => {
         const ret = isEntityUri(uri);
         ret.should.eq(true);
