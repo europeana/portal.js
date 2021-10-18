@@ -183,14 +183,29 @@ describe('components/search/SearchForm', () => {
     });
 
     context('when not on a search page', () => {
+      const state = {
+        search: {
+          active: false,
+          view: 'list'
+        }
+      };
       it('reroutes to search', async() => {
-        const state = {
-          search: {
-            active: false,
-            view: 'list'
-          }
-        };
         const wrapper = factory({ store: store(state) });
+
+        await wrapper.setData({
+          query
+        });
+        wrapper.vm.submitForm();
+
+        const newRouteParams = {
+          path: '/search',
+          query: { query, page: 1, view: state.search.view }
+        };
+        $goto.should.have.been.calledWith(newRouteParams);
+      });
+
+      it('does not carry non-seearch query params', async() => {
+        const wrapper = factory({ store: store(state), mocks: { $route: { query: { lang: 'it' } } } });
 
         await wrapper.setData({
           query

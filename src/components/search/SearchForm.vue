@@ -204,9 +204,10 @@
             this.suggestions = {};
           }
         } else {
+          const baseQuery = this.onSearchablePage ? this.$route.query : {};
           // `query` must fall back to blank string to ensure inclusion in URL,
           // which is required for analytics site search tracking
-          const newRouteQuery = { ...this.$route.query, ...{ page: 1, view: this.view, query: this.query || '' } };
+          const newRouteQuery = { ...baseQuery, ...{ page: 1, view: this.view, query: this.query || '' } };
           newRoute = { path: this.routePath, query: newRouteQuery };
         }
 
