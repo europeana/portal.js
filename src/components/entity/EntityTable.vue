@@ -25,7 +25,7 @@
       <template #cell(prefLabel)="data">
         <SmartLink
           :data-qa="`collection link ${data.item.id}`"
-          :to="$path(entityRoute(data.item.slug))"
+          :destination="entityRoute(data.item.slug)"
         >
           {{ data.item.prefLabel }}
         </SmartLink>
