@@ -172,14 +172,24 @@ const reduceFieldsForItem = (item, options = {}) => {
  */
 export function addContentTierFilter(qf) {
   let newQf = qf ? [].concat(qf) : [];
+
   if (!hasFilterForField(newQf, 'contentTier')) {
     // If no content tier qf is queried, tier 0 content is
     // excluded by default as it is considered not to meet
-    // Europeana's publishing criteria. Also tier 1 content is exluded if this
-    // is a search filtered by collection.
-    const contentTierFilter = hasFilterForField(newQf, 'collection') ? '2 OR 3 OR 4' : '1 OR 2 OR 3 OR 4';
-    newQf.push(`contentTier:(${contentTierFilter})`);
+    // Europeana's publishing criteria.
+    let contentTierFilter = '(1 OR 2 OR 3 OR 4)';
+
+    // Exceptions:
+    // 1. Tier 1 content is also excluded if this is a search filtered by collection.
+    // 2. All tier content is included if filtering by organization.
+    if (hasFilterForField(newQf, 'collection')) {
+      contentTierFilter = '(2 OR 3 OR 4)';
+    } else if (hasFilterForField(newQf, 'foaf_organization')) {
+      contentTierFilter = '*';
+    }
+    newQf.push(`contentTier:${contentTierFilter}`);
   }
+
   // contentTier:* is redundant so is removed
   newQf = newQf.filter(v => v !== 'contentTier:*');
 

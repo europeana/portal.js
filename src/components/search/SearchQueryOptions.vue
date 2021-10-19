@@ -9,13 +9,13 @@
     <b-list-group-item
       v-for="(option, index) in value"
       :key="index"
+      :data-qa="option.qa"
       :to="$link.to(option.link.path, option.link.query)"
       :href="$link.href(option.link.path, option.link.query)"
-      :data-qa="option.qa"
       role="option"
       :aria-selected="index === focus"
       :class="{ 'hover': index === focus }"
-      @click="blurInput"
+      @click="trackSuggestionClick(index, option.link.query.query)"
       @focus="index === focus"
       @mouseover="focus = index"
       @mouseout="focus = null"
@@ -163,6 +163,28 @@
 
       blurInput() {
         this.inputElement.blur();
+      },
+
+      onCollectionPage() {
+        // Used for deciding if clicks on search suggestions should be tracked.
+        // Uses window.location as the beforeRouteLeave call on collection pages
+        // unsets the entity ID before the @click event fires on each search option.
+        const collectionPagePattern = /(\/[a-z]{2})?\/collections\/(person|topic|time|organisation)\/([0-9]+)+/;
+        return collectionPagePattern.test(window.location.href);
+      },
+
+      trackSuggestionClick(index, query) {
+        // Skip click tracking while on a collection page, there will never be suggestions.
+        if (!this.onCollectionPage()) {
+          // While only triggered via @click here, these events are also tracked
+          // in the submitForm logic of the SearchForm component for keyboard events.
+          if (index >= 1) {
+            this.$matomo?.trackEvent('Autosuggest_option_selected', 'Autosuggest option is selected', query);
+          } else if (this.value.length >= 2) {
+            this.$matomo?.trackEvent('Autosuggest_option_not_selected', 'Autosuggest option is not selected', query);
+          }
+        }
+        this.blurInput();
       },
 
       clickOutside(event) {
