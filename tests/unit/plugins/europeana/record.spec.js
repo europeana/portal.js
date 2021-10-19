@@ -1,5 +1,5 @@
 import nock from 'nock';
-import record, { preferredLanguage, isEuropeanaRecordId, BASE_URL } from '@/plugins/europeana/record';
+import record, { isEuropeanaRecordId, BASE_URL } from '@/plugins/europeana/record';
 
 const europeanaId = '/123/abc';
 const apiEndpoint = `${europeanaId}.json`;
@@ -188,15 +188,29 @@ describe('plugins/europeana/record', () => {
         nock.isDone().should.be.true;
       });
       describe('profile parameter', () => {
-        it('is "translate" when the item translation feature is enabled', async() => {
-          nock(BASE_URL)
-            .get(apiEndpoint)
-            .query(query => query.profile === 'translate' && query.lang === 'de')
-            .reply(200, translateProfileApiResponse);
+        context('when no translations are explicitly requested', () => {
+          it('is omitted when the item translation feature is enabled', async() => {
+            nock(BASE_URL)
+              .get(apiEndpoint)
+              .query(query => !Object.keys(query).includes('profile'))
+              .reply(200, apiResponse);
 
-          await record(translateConf).getRecord(europeanaId, { metadataLanguage: 'de' });
+            await record(translateConf).getRecord(europeanaId);
 
-          nock.isDone().should.be.true;
+            nock.isDone().should.be.true;
+          });
+        });
+        context('when translations are explicitly requested', () => {
+          it('is "translate" when the item translation feature is enabled', async() => {
+            nock(BASE_URL)
+              .get(apiEndpoint)
+              .query(query => query.profile === 'translate' && query.lang === 'de')
+              .reply(200, translateProfileApiResponse);
+
+            await record(translateConf).getRecord(europeanaId, { metadataLanguage: 'de' });
+
+            nock.isDone().should.be.true;
+          });
         });
       });
       describe('metadadataLanguge', () => {
@@ -506,52 +520,6 @@ describe('plugins/europeana/record', () => {
         const validation = isEuropeanaRecordId(recordId);
 
         validation.should.equal(false);
-      });
-    });
-  });
-
-  describe('preferredLanguage()', () => {
-    context('without a requested metadataLanguage', () => {
-      const options = {};
-
-      context('with a supported edm language', () => {
-        const edmLanguage = 'fr';
-        it('returns the edm language', () => {
-          const prefLang = preferredLanguage(edmLanguage, options);
-
-          prefLang.should.equal('fr');
-        });
-      });
-      context('with an unsupported edm language', () => {
-        ['sr', 'ja', 'mul'].forEach(edmLanguage => {
-          it('returns null', () => {
-            const prefLang = preferredLanguage(edmLanguage, options);
-
-            (prefLang === null).should.equal(true);
-          });
-        });
-      });
-    });
-
-    context('with a requested metadataLanguage', () => {
-      const options = { metadataLanguage: 'pt' };
-
-      context('with a supported edm language', () => {
-        const edmLanguage = 'fr';
-        it('returns the requested metadataLanguage', () => {
-          const prefLang = preferredLanguage(edmLanguage, options);
-
-          prefLang.should.equal('pt');
-        });
-      });
-      context('with an unsupported edm language', () => {
-        ['sr', 'ja', 'mul'].forEach(edmLanguage => {
-          it('returns the requested metadataLanguage', () => {
-            const prefLang = preferredLanguage(edmLanguage, options);
-
-            prefLang.should.equal('pt');
-          });
-        });
       });
     });
   });

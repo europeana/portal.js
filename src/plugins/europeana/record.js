@@ -7,7 +7,6 @@ import search from './search';
 import { thumbnailUrl, thumbnailTypeForMimeType } from  './thumbnail';
 import { getEntityUri, getEntityQuery } from './entity';
 import { isIIIFPresentation } from '../media';
-import localeCodes from '../i18n/codes';
 
 export const BASE_URL = process.env.EUROPEANA_RECORD_API_URL || 'https://api.europeana.eu/record';
 const MAX_VALUES_PER_PROXY_FIELD = 10;
@@ -97,28 +96,6 @@ function setMatchingEntities(fields, key, entities) {
   }
 }
 
-/**
- * Find the currently preferred metadata language.
- * Only makes sense with translated item pages.
- * If no language is specified, defaults to the record's edmLanguage.
- * Only returns languages also supported by the UI & translate API.
- * @param {string} edmLang two letter edm language code of the record
- * @param {Object} options options from the record retrieval.
- * @param {string} options.metadataLanguage two-letter language code from the user
- * @return {?string} related entities
- */
-export function preferredLanguage(edmLang, options = {}) {
-  let lang = null;
-
-  if (options.metadataLanguage) {
-    lang = options.metadataLanguage;
-  } else if (localeCodes.includes(edmLang)) {
-    lang = edmLang;
-  }
-
-  return lang;
-}
-
 export default (context = {}) => {
   const $axios = createAxios({ id: 'record', baseURL: BASE_URL }, context);
 
@@ -165,7 +142,7 @@ export default (context = {}) => {
 
       let prefLang;
       if (context.$config?.app?.features?.translatedItems) {
-        prefLang = preferredLanguage(edm.europeanaAggregation.edmLanguage.def[0], options);
+        prefLang = options.metadataLanguage ? options.metadataLanguage : null;
 
         // TODO: initially API only supports translation of title & descripiton.
         // Extend to other fields as available, or stop merging the proxies and
@@ -315,8 +292,8 @@ export default (context = {}) => {
 
       const params = { ...this.$axios.defaults.params };
       if (context.$config?.app?.features?.translatedItems) {
-        params.profile = 'translate';
         if (options.metadataLanguage) {
+          params.profile = 'translate';
           params.lang = options.metadataLanguage;
         }
       } else {
