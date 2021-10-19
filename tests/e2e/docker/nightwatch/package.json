@@ -1,6 +1,6 @@
 {
   "name": "@europeana/portaljs-nightwatch",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "",
   "scripts": {
     "start": "cucumber-js --require ./config/cucumber.conf.js --format node_modules/cucumber-pretty",
