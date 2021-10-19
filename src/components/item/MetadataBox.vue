@@ -189,6 +189,7 @@
     'edmHasMet',
     'edmIncorporates',
     'edmIsDerivativeOf',
+    'edmIsRelatedTo',
     'edmIsRepresentationOf',
     'edmIsSimilarTo',
     'edmIsSuccessorOf',

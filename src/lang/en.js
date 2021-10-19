@@ -495,6 +495,7 @@ export default {
       "edmIncorporates": "Incorporates",
       "edmIntermediateProvider": "Intermediate provider",
       "edmIsDerivativeOf": "Is derivative of",
+      "edmIsRelatedTo": "Is related to",
       "edmIsRepresentationOf": "Is representation of",
       "edmIsSimilarTo": "Is similar to",
       "edmIsSuccessorOf": "Is successor of",
