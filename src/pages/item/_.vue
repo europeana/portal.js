@@ -14,11 +14,13 @@
     <template
       v-else
     >
-      <ItemLanguageSelector
-        v-if="translatedItemsEnabled"
-        :item-language="edmLanguage.def[0]"
-        :metadata-language="metadataLanguage"
-      />
+      <client-only>
+        <ItemLanguageSelector
+          v-if="translatedItemsEnabled"
+          :item-language="edmLanguage.def[0]"
+          :metadata-language="metadataLanguage"
+        />
+      </client-only>
       <b-container
         fluid
         class="bg-white mb-3 px-0"
