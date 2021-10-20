@@ -23,7 +23,8 @@ export default ($i18n, $initHotjar, $matomo) => {
     service('i18n', ['essential'], ['i18n_locale_code'], true),
     service('searchResultsView', ['essential'], ['searchResultsView'], true),
     service('debugSettings', ['essential'], ['debugSettings'], true),
-    service('auth-strategy', ['essential'], ['auth.strategy'], true)
+    service('auth-strategy', ['essential'], ['auth.strategy'], true),
+    service('newFeatureNotification', ['essential'], ['new_feature_notification'], true)
   ];
 
   return {

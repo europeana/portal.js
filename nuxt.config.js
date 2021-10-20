@@ -36,7 +36,8 @@ export default {
         acceptSetRecommendations: featureIsEnabled(process.env.ENABLE_ACCEPT_SET_RECOMMENDATIONS),
         acceptEntityRecommendations: featureIsEnabled(process.env.ENABLE_ACCEPT_ENTITY_RECOMMENDATIONS),
         entityManagement: featureIsEnabled(process.env.ENABLE_ENTITY_MANAGEMENT),
-        translatedItems: featureIsEnabled(process.env.ENABLE_TRANSLATED_ITEMS)
+        translatedItems: featureIsEnabled(process.env.ENABLE_TRANSLATED_ITEMS),
+        newFeatureNotification: featureIsEnabled(process.env.ENABLE_NEW_FEATURE_NOTIFICATION)
       }
     },
     auth: {

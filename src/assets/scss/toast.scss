@@ -3,8 +3,20 @@
     background: $blue;
     border: 0;
     color: $white;
+
+    &-white {
+      background: $white;
+      border: 0;
+      color: $mediumgrey;
+      box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2), 5px 5px 10px 0 rgba(0, 0, 0, 0.2);
+    }
   }
+
   .toast-body {
     padding: 1rem;
+  }
+
+  .btn {
+    text-decoration: none;
   }
 }

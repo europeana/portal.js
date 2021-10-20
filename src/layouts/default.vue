@@ -36,6 +36,11 @@
         id="main"
       />
     </main>
+    <client-only
+      v-if="newFeatureNotificationEnabled"
+    >
+      <NewFeatureNotification />
+    </client-only>
     <client-only>
       <PageFooter />
     </client-only>
@@ -59,7 +64,8 @@
       ClientOnly,
       PageHeader,
       PageFooter: () => import('../components/PageFooter'),
-      FeedbackWidget: () => import('../components/feedback/FeedbackWidget')
+      FeedbackWidget: () => import('../components/feedback/FeedbackWidget'),
+      NewFeatureNotification: () => import('../components/generic/NewFeatureNotification')
     },
 
     data() {
@@ -82,6 +88,13 @@
 
       feedbackEnabled() {
         return this.$config.app.features.jiraServiceDeskFeedbackForm && this.$config.app.baseUrl;
+      },
+
+      newFeatureNotificationEnabled() {
+        // TODO: keep cookie hard coded?
+        return this.$config.app.features.newFeatureNotification
+          && (!this.$cookies.get('new_feature_notification')
+            || this.$cookies.get('new_feature_notification') !== 'organisations');
       }
     },
 
