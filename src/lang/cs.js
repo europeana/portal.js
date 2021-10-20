@@ -6,7 +6,7 @@ export default {
     "likes": "Oblíbené",
     "linkAccount": "Můj účet",
     "linkLogin": "Přihlásit se",
-    "linkLoginJoin": "Přihlášení/Připojení",
+    "linkLoginJoin": "Přihlášení\/Připojení",
     "linkLogout": "Odhlásit se",
     "myProfile": "Můj profil",
     "notifications": {
@@ -14,10 +14,10 @@ export default {
       "loggedOut": "Nyní jste odhlášeni.",
       "noCollections": {
         "curated": "Zatím jste nevybrali žádné kolekce",
-        "private": "Ještě jste nevytvořil/a žádné soukromé galerie.",
-        "public": "Ještě jste nevytvořil/a žádné veřejné galerie."
+        "private": "Ještě jste nevytvořil\/a žádné soukromé galerie.",
+        "public": "Ještě jste nevytvořil\/a žádné veřejné galerie."
       },
-      "noLikedItems": "Ještě jste neoznačil/a žádné položky jako oblíbené."
+      "noLikedItems": "Ještě jste neoznačil\/a žádné položky jako oblíbené."
     },
     "privateCollections": "Soukromé galerie",
     "profile": "Moje oblíbené a moje galerie",
@@ -356,7 +356,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formát souboru | Formáty souborů",
       "options": {
-        "text/plain": "Prostý text"
+        "text\/plain": "Prostý text"
       }
     },
     "PROVIDER": {
@@ -464,7 +464,6 @@ export default {
       "dcFormat": "Formát",
       "dcIdentifier": "Identifikátor",
       "dcLanguage": "Jazyk",
-      "dcMedium": "Médium",
       "dcPublisher": "Vydavatel",
       "dcRelation": "souvislosti",
       "dcRights": "Práva",
@@ -478,20 +477,19 @@ export default {
       "dctermsHasVersion": "vlastní verzi",
       "dctermsIsFormatOf": "je formou",
       "dctermsIsPartOf": "je součástí",
-      "dctermsIsReferencedBy": "je zmiňován/a",
+      "dctermsIsReferencedBy": "je zmiňován\/a",
       "dctermsIsReplacedBy": "se nahradí",
       "dctermsIsRequiredBy": "je potřeba pro",
       "dctermsIssued": "Datum vydání",
       "dctermsMedium": "Médium",
       "dctermsProvenance": "Původ",
-      "dctermsPublished": "Datum publikace",
       "dctermsReferences": "odkazuje na",
       "dctermsSpatial": "Místa",
       "dctermsTemporal": "Časové",
       "edmCountry": "Země původu",
       "edmCurrentLocation": "Aktuální umístění",
       "edmDataProvider": "Poskytovatelská instituce",
-      "edmHasMet": "se setkal/a s",
+      "edmHasMet": "se setkal\/a s",
       "edmIncorporates": "zahrnuje",
       "edmIntermediateProvider": "Zprostředkovatel třetí strany",
       "edmIsDerivativeOf": "je zpodobněním",
@@ -506,7 +504,7 @@ export default {
       "keywords": "Klíčová slova (poskytnutá komunitou)",
       "timestampCreated": "Časové razítko vytvořeno",
       "timestampUpdate": "Časové razítko bylo aktualizováno",
-      "wasPresentAt": "se účastnil/a",
+      "wasPresentAt": "se účastnil\/a",
       "year": "Rok"
     },
     "webResource": {
@@ -613,6 +611,10 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Pomáhá vylepšovat náš web občasným použitím experimentálních změn.",
+        "title": "A\/B testování"
+      },
       "auth-strategy": {
         "description": "Pamatuje si strategii autorizace, která se má použít k přihlášení.",
         "title": "Strategie Auth"
@@ -639,7 +641,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Pamatuje si, zda chcete výsledky hledání zobrazit v seznamu nebo v mřížce.",
-        "title": "Zobrazení výsledků hledání (seznam / mřížka)"
+        "title": "Zobrazení výsledků hledání (seznam \/ mřížka)"
       }
     }
   },
@@ -681,12 +683,9 @@ export default {
   },
   "multilingual": {
     "automated": "Automatizovaný překlad",
-    "currentLanguage": "Chcete tuto položku vidět v {0}?",
-    "differentLanguage": "jiný jazyk",
     "enrichment": "Obohacení partnerskými projekty",
-    "original": "Původní metadata",
-    "originalLanguage": "původní jazyk",
-    "other": "Jiné jazyky"
+    "other": "Jiné jazyky",
+    "translateLanguage": "Chcete tuto položku vidět v {0}?"
   },
   "newWindow": "otevře se v novém okně",
   "noMoreResults": "Pro vaše zadání neexistují žádné další výsledky vyhledávání.",
@@ -777,7 +776,7 @@ export default {
       "title": "Název galerie"
     },
     "labels": {
-      "curatedBy": "Kurátor/ka",
+      "curatedBy": "Kurátor\/ka",
       "private": "Soukromá galerie"
     },
     "notifications": {

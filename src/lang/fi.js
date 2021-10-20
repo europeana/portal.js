@@ -6,7 +6,7 @@ export default {
     "likes": "Tykätyt",
     "linkAccount": "Oma tili",
     "linkLogin": "Kirjaudu sisään",
-    "linkLoginJoin": "Kirjaudu/Liity",
+    "linkLoginJoin": "Kirjaudu\/Liity",
     "linkLogout": "Kirjaudu ulos",
     "myProfile": "Profiilini",
     "notifications": {
@@ -356,7 +356,7 @@ export default {
     "MIME_TYPE": {
       "name": "Tiedostomuoto | Tiedostomuodot",
       "options": {
-        "text/plain": "Pelkkä teksti"
+        "text\/plain": "Pelkkä teksti"
       }
     },
     "PROVIDER": {
@@ -464,7 +464,6 @@ export default {
       "dcFormat": "Muoto",
       "dcIdentifier": "Tunniste",
       "dcLanguage": "Kieli",
-      "dcMedium": "Media",
       "dcPublisher": "Julkaisija",
       "dcRelation": "Suhteet",
       "dcRights": "Oikeudet",
@@ -484,7 +483,6 @@ export default {
       "dctermsIssued": "Julkaisupäivämäärä",
       "dctermsMedium": "Media",
       "dctermsProvenance": "Alkuperä",
-      "dctermsPublished": "Julkaisupäivä",
       "dctermsReferences": "Viittaa kohteeseen",
       "dctermsSpatial": "Paikat",
       "dctermsTemporal": "Ajoitus",
@@ -575,7 +573,7 @@ export default {
   },
   "items": {
     "itemCount": "1 kohde |{count} kohdetta",
-    "itemOf": "{max} / {count} kohdetta",
+    "itemOf": "{max} \/ {count} kohdetta",
     "recent": "Viimeisimmät kohteet",
     "recommendationsDisclaimer": "Peukalo ylös lisätäksesi galleriaan - Peukalo alas, jos et pidä siitä",
     "recommended": "Suositellut kohteet",
@@ -613,6 +611,10 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Auttaa parantamaan verkkosivustoamme soveltamalla ajoittain kokeellisia muutoksia.",
+        "title": "A\/B -testaus"
+      },
       "auth-strategy": {
         "description": "Muistaa kirjautumisessa käytettävän valtuutusstrategian.",
         "title": "Auth-strategia"
@@ -639,7 +641,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Muistaa, haluatko nähdä hakutulokset luettelossa tai ruudukkonäkymässä.",
-        "title": "Hakutulosnäkymä (luettelo/ruudukko)"
+        "title": "Hakutulosnäkymä (luettelo\/ruudukko)"
       }
     }
   },
@@ -681,12 +683,9 @@ export default {
   },
   "multilingual": {
     "automated": "Automatisoitu käännös",
-    "currentLanguage": "Haluaisitko nähdä tämän kohteen {0}?",
-    "differentLanguage": "eri kieltä",
     "enrichment": "Rikastaminen kumppaniprojekteilla",
-    "original": "Alkuperäiset metatiedot",
-    "originalLanguage": "alkuperäinen kieli",
-    "other": "Muut kielet"
+    "other": "Muut kielet",
+    "translateLanguage": "Haluaisitko nähdä tämän kohteen {0}?"
   },
   "newWindow": "avautuu uuteen ikkunaan",
   "noMoreResults": "Hakusi ei tuottanut enempää tuloksia.",

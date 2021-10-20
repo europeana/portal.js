@@ -6,7 +6,7 @@ export default {
     "likes": "Харесвания",
     "linkAccount": "Моят профил",
     "linkLogin": "Влизане",
-    "linkLoginJoin": "Вход/Регистрация",
+    "linkLoginJoin": "Вход\/Регистрация",
     "linkLogout": "Излизане",
     "myProfile": "Моят профил",
     "notifications": {
@@ -40,7 +40,7 @@ export default {
     "reject": "Отхвърляне",
     "send": "Изпрати",
     "share": "Споделяне",
-    "shareOn": "Споделяне в/във {social}",
+    "shareOn": "Споделяне в\/във {social}",
     "skip": "Пропуснете",
     "viewAt": "Преглед на {link}",
     "viewDocument": "Преглед на документа"
@@ -356,7 +356,7 @@ export default {
     "MIME_TYPE": {
       "name": "Формат на файла | Формат на файловете",
       "options": {
-        "text/plain": "Само текст"
+        "text\/plain": "Само текст"
       }
     },
     "PROVIDER": {
@@ -464,7 +464,6 @@ export default {
       "dcFormat": "Формат",
       "dcIdentifier": "Идентификатор",
       "dcLanguage": "Език",
-      "dcMedium": "Среден(а)",
       "dcPublisher": "Издател",
       "dcRelation": "Отношения",
       "dcRights": "Права",
@@ -484,7 +483,6 @@ export default {
       "dctermsIssued": "Дата на издаване",
       "dctermsMedium": "Среден(а)",
       "dctermsProvenance": "Произход",
-      "dctermsPublished": "Дата на публикуване",
       "dctermsReferences": "Препратки",
       "dctermsSpatial": "Места",
       "dctermsTemporal": "Времеви",
@@ -613,6 +611,10 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Помага за подобряване на нашия уебсайт, като периодично прилага експериментални промени.",
+        "title": "A\/B тестване"
+      },
       "auth-strategy": {
         "description": "Спомня си стратегията за оторизация, която да се използва за влизане.",
         "title": "Стратегия за утвърждаване"
@@ -639,7 +641,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Помни, ако предпочитате да виждате резултатите от търсенето в списъчен или решетъчен изглед.",
-        "title": "Преглед на резултатите от търсенето (списък / мрежа)"
+        "title": "Преглед на резултатите от търсенето (списък \/ мрежа)"
       }
     }
   },
@@ -681,12 +683,9 @@ export default {
   },
   "multilingual": {
     "automated": "Автоматизиран превод",
-    "currentLanguage": "Искате ли да видите този елемент в {0} ?",
-    "differentLanguage": "различен език",
     "enrichment": "Обогатяване по партньорски проекти",
-    "original": "Оригинални метаданни",
-    "originalLanguage": "оригинален език",
-    "other": "Други езици"
+    "other": "Други езици",
+    "translateLanguage": "Искате ли да видите този елемент в {0} ?"
   },
   "newWindow": "отваря се в нов прозорец",
   "noMoreResults": "Няма повече резултати за вашата заявка за търсене.",

@@ -1,16 +1,19 @@
 export default {
   "account": {
+    "curatedCollections": "Collezioni curate",
+    "curatedCollectionsInfo": "Trova di seguito tutte le collezioni che hai curato",
     "editProfile": "Modifica Profilo",
     "likes": "Mi piace",
     "linkAccount": "Il mio account",
     "linkLogin": "Accedi",
-    "linkLoginJoin": "Accedi/Iscriviti",
+    "linkLoginJoin": "Accedi\/Iscriviti",
     "linkLogout": "Esci",
     "myProfile": "Il mio profilo",
     "notifications": {
       "loggedIn": "Ora sei loggato. Benvenuto!",
       "loggedOut": "Sei ora disconnesso.",
       "noCollections": {
+        "curated": "Non hai ancora curato nessuna collezione",
         "private": "Non hai ancora creato gallerie private",
         "public": "Non hai ancora creato gallerie pubbliche"
       },
@@ -66,6 +69,7 @@ export default {
     "relatedPosts": "Articoli correlati"
   },
   "cardLabels": {
+    "organisation": "Organizzazione",
     "person": "Persona",
     "time": "Secolo",
     "topic": "Argomento"
@@ -139,13 +143,28 @@ export default {
   "edmIsShownAtLinkAlt": "Visualizza sul sito web del fornitore",
   "entity": {
     "actions": {
-      "cancel": "Annulla"
+      "cancel": "Annulla",
+      "pin": "Elemento pin",
+      "unpin": "Rimuovi elemento",
+      "viewPinned": "Visualizza gli elementi appuntati"
     },
     "labels": {
       "entity": "Entità"
     },
     "notifications": {
-      "deleted": "Galleria eliminata."
+      "deleted": "Galleria eliminata.",
+      "pinLimit": {
+        "body": "Per ora puoi appuntare solo 24 elementi nella prima pagina. Se vuoi appuntare questo elemento, assicurati di sbloccarne un altro e poi prova ad appuntare di nuovo questo.",
+        "title": "Troppi elementi appuntati"
+      },
+      "pinned": "L'articolo è stato appuntato. Ora è in cima alla prima pagina di questa collezione. Potrebbe richiedere fino a 24 ore per apparire per tutti.",
+      "pinnedFirstPage": "L'articolo è stato appuntato. Potrebbe richiedere fino a 24 ore per apparire per tutti.",
+      "unpinned": "L'elemento è stato sbloccato. Non è più in cima alla prima pagina di questa raccolta. Potrebbero essere necessarie fino a 24 ore per scomparire per tutti.",
+      "unpinnedFirstPage": "L'elemento è stato sbloccato. Potrebbero essere necessari fino a 24 ore per scomparire per tutti."
+    },
+    "prompts": {
+      "pin": "Sei sicuro di voler appuntare questo elemento? Questo elemento verrà visualizzato nella parte superiore della {entity} \". Questa modifica potrebbe richiedere fino a 24 ore per avere effetto.",
+      "unpin": "Sei sicuro di voler rimuovere questo elemento? Questo elemento smetterà di essere visualizzato nella parte superiore della raccolta \"{entity}\". Questa modifica potrebbe richiedere fino a 24 ore per avere effetto."
     }
   },
   "error": "Errore",
@@ -337,7 +356,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formato file | Formati file",
       "options": {
-        "text/plain": "Testo semplice"
+        "text\/plain": "Testo semplice"
       }
     },
     "PROVIDER": {
@@ -445,7 +464,6 @@ export default {
       "dcFormat": "Formato",
       "dcIdentifier": "Codice di identificazione",
       "dcLanguage": "Lingua",
-      "dcMedium": "Medium",
       "dcPublisher": "Editore",
       "dcRelation": "Relazioni",
       "dcRights": "Diritti",
@@ -465,7 +483,6 @@ export default {
       "dctermsIssued": "Data di uscita",
       "dctermsMedium": "Medium",
       "dctermsProvenance": "Provenienza",
-      "dctermsPublished": "Data di pubblicazione",
       "dctermsReferences": "Fa riferimento a",
       "dctermsSpatial": "Luoghi",
       "dctermsTemporal": "Periodo",
@@ -487,7 +504,8 @@ export default {
       "keywords": "Parole chiave (indicate dalla comunità)",
       "timestampCreated": "Timestamp creato",
       "timestampUpdate": "Timestamp aggiornato",
-      "wasPresentAt": "Era presente presso"
+      "wasPresentAt": "Era presente presso",
+      "year": "Anno"
     },
     "webResource": {
       "about": "Informazioni RDF",
@@ -556,6 +574,9 @@ export default {
   "items": {
     "itemCount": "1 articolo | {count} articoli",
     "itemOf": "{max} di {count} articoli",
+    "recent": "Articoli recenti",
+    "recommendationsDisclaimer": "Pollice in su per aggiungere alla galleria - Pollice in giù se non ti piace",
+    "recommended": "Articoli consigliati",
     "youMightLike": "Articoli che potrebbero piacerti"
   },
   "klaro": {
@@ -590,11 +611,16 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Aiuta a migliorare il nostro sito Web applicando occasionalmente modifiche sperimentali.",
+        "title": "Test A\/B"
+      },
       "auth-strategy": {
         "description": "Ricorda la strategia di autorizzazione da utilizzare per accedere.",
         "title": "Strategia di autenticazione"
       },
       "debugSettings": {
+        "description": "Aiuta il debug delle richieste API",
         "title": "Alterna il debug"
       },
       "hotjar": {
@@ -615,7 +641,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Ricorda se preferisci vedere i risultati della ricerca in una visualizzazione elenco o griglia.",
-        "title": "Visualizzazione dei risultati di ricerca (elenco/griglia)"
+        "title": "Visualizzazione dei risultati di ricerca (elenco\/griglia)"
       }
     }
   },
@@ -637,6 +663,7 @@ export default {
       "text": "Stai utilizzando la versione nuova e più veloce del sito."
     }
   },
+  "loading": "Caricamento",
   "loadingResults": "Caricamento dei risultati in corso",
   "mediaPreview": {
     "selectItem": "Selezionare la voce {src}"
@@ -647,9 +674,16 @@ export default {
     "notFound": "Non trovati",
     "paginationLimitExceeded": "È possibile visualizzare solo i primi {limit} risultati di ricerca."
   },
+  "modal": {
+    "download": {
+      "clickToCopy": "Clicca sull'attribuzione per copiarla",
+      "modalIntro": "Se utilizzi questo elemento sul Web o altrove, non dimenticare di visualizzare la seguente attribuzione accanto ad esso:",
+      "modalTitle": "Dii grazie"
+    }
+  },
   "multilingual": {
-    "original": "Metadati originali",
-    "originalLanguage": "lingua originale",
+    "automated": "Traduzione automatica",
+    "enrichment": "Arricchimento da parte dei progetti partner",
     "other": "Altre lingue"
   },
   "newWindow": "si apre in una nuova finestra",
@@ -658,6 +692,15 @@ export default {
   "pageHasLoaded": "ha caricato",
   "pages": {
     "collections": {
+      "organisations": {
+        "table": {
+          "name": "Nome"
+        },
+        "title": "Organizzazioni"
+      },
+      "persons": {
+        "title": "Persone"
+      },
       "times": {
         "title": "Tempi"
       },
@@ -740,12 +783,14 @@ export default {
       "likeLimit": {
         "body": "Siamo spiacenti, ma al momento puoi mettere Mi piace a un massimo di 100 articoli. Presto elimineremo questo limite!",
         "title": "100 Mi piace"
-      }
+      },
+      "updated": "L'elemento è stato aggiunto alla galleria."
     },
     "prompts": {
       "delete": "Continuare? Se elimini questa galleria, perderai tutti gli articoli che hai aggiunto."
     }
   },
   "showLess": "Mostra meno",
-  "showMore": "Mostra di più"
+  "showMore": "Mostra di più",
+  "website": "Sito web"
 };

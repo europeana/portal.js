@@ -1,16 +1,19 @@
 export default {
   "account": {
+    "curatedCollections": "Kuratierte Sammlungen",
+    "curatedCollectionsInfo": "Hier finden Sie alle Sammlungen, die Sie kuratiert haben",
     "editProfile": "Profil bearbeiten",
     "likes": "Likes",
     "linkAccount": "Mein Konto",
     "linkLogin": "Anmelden",
-    "linkLoginJoin": "Anmelden/Beitreten",
+    "linkLoginJoin": "Anmelden\/Beitreten",
     "linkLogout": "Abmelden",
     "myProfile": "Mein Profil",
     "notifications": {
       "loggedIn": "Sie sind jetzt eingeloggt. Willkommen!",
       "loggedOut": "Sie sind jetzt ausgeloggt.",
       "noCollections": {
+        "curated": "Sie haben noch keine Sammlungen kuratiert",
         "private": "Sie haben bisher keine private Galerie erstellt",
         "public": "Sie haben bisher keine öffentliche Galerie erstellt"
       },
@@ -24,6 +27,7 @@ export default {
     "title": "Mein Konto"
   },
   "actions": {
+    "accept": "Akzeptieren",
     "cancel": "Abbrechen",
     "close": "schließen",
     "download": "Herunterladen",
@@ -33,6 +37,7 @@ export default {
     "like": "Like",
     "next": "Weiter",
     "providedBy": "Bereitgestellt von {provider}",
+    "reject": "Ablehnen",
     "send": "Senden",
     "share": "Teilen",
     "shareOn": "Teilen auf {social}",
@@ -64,6 +69,7 @@ export default {
     "relatedPosts": "Ähnliche Beiträge"
   },
   "cardLabels": {
+    "organisation": "Organisation",
     "person": "Person",
     "time": "Jahrhundert",
     "topic": "Thema"
@@ -136,11 +142,29 @@ export default {
   },
   "edmIsShownAtLinkAlt": "Auf der Website des Anbieters ansehen",
   "entity": {
+    "actions": {
+      "cancel": "Abbrechen",
+      "pin": "Element anheften",
+      "unpin": "Element loslösen",
+      "viewPinned": "Angepinnte Elemente ansehen"
+    },
     "labels": {
       "entity": "Entität"
     },
     "notifications": {
-      "deleted": "Ihre Galerie wurde gelöscht."
+      "deleted": "Ihre Galerie wurde gelöscht.",
+      "pinLimit": {
+        "body": "Zurzeit können Sie nur 24 Artikel auf der ersten Seite pinnen. Wenn Sie diesen Artikel pinnen möchten, müssen Sie erst einen anderen Artikel entpinnen und dann versuchen, diesen Artikel erneut zu pinnen.",
+        "title": "Zu viele angeheftete Elemente"
+      },
+      "pinned": "Das Element wurde angeheftet. Es befindet sich jetzt oben auf der ersten Seite dieser Sammlung. Es kann bis zu 24 Stunden dauern, bis es für alle erscheint.",
+      "pinnedFirstPage": "Das Element wurde angeheftet. Es kann bis zu 24 Stunden dauern, bis es für alle erscheint.",
+      "unpinned": "Das Element wurde nicht mehr angehepinnt. Es steht nicht mehr oben auf der ersten Seite dieser Sammlung. Es kann bis zu 24 Stunden dauern, bis es für alle verschwindet.",
+      "unpinnedFirstPage": "Das Element wurde nicht mehr angehepinnt. Es kann bis zu 24 Stunden dauern, bis es für alle verschwindet."
+    },
+    "prompts": {
+      "pin": "Sind Sie sicher, dass Sie diesen Artikel anheften möchten? Dieses Element wird oben in der Auflistung \"{entity}\" angezeigt. Es kann bis zu 24 Stunden dauern, bis diese Änderung wirksam wird.",
+      "unpin": "Möchten Sie dieses Element wirklich aufheben? Dieses Element wird nicht mehr oben in der {entity} \" angezeigt. Es kann bis zu 24 Stunden dauern, bis diese Änderung wirksam wird."
     }
   },
   "error": "Fehler",
@@ -332,7 +356,7 @@ export default {
     "MIME_TYPE": {
       "name": "Dateiformat | Dateiformate",
       "options": {
-        "text/plain": "Klartext"
+        "text\/plain": "Klartext"
       }
     },
     "PROVIDER": {
@@ -440,7 +464,6 @@ export default {
       "dcFormat": "Format",
       "dcIdentifier": "Kennung",
       "dcLanguage": "Sprache",
-      "dcMedium": "Medium",
       "dcPublisher": "Herausgeber",
       "dcRelation": "Beziehungen",
       "dcRights": "Rechte",
@@ -460,7 +483,6 @@ export default {
       "dctermsIssued": "Ausgabedatum",
       "dctermsMedium": "Medium",
       "dctermsProvenance": "Herkunft",
-      "dctermsPublished": "Veröffentlichungsdatum",
       "dctermsReferences": "Verweisen auf",
       "dctermsSpatial": "Orte",
       "dctermsTemporal": "Zeitlich",
@@ -482,7 +504,8 @@ export default {
       "keywords": "Schlüsselwörter (von der Gemeinschaft zur Verfügung gestellt)",
       "timestampCreated": "Zeitstempel erstellt",
       "timestampUpdate": "Zeitstempel aktualisiert",
-      "wasPresentAt": "War anwesend bei"
+      "wasPresentAt": "War anwesend bei",
+      "year": "Jahr"
     },
     "webResource": {
       "about": "RDF Über",
@@ -551,6 +574,9 @@ export default {
   "items": {
     "itemCount": "1 Artikel |{count} Artikel",
     "itemOf": "{max} von {count} Artikel",
+    "recent": "Aktuelle Artikel",
+    "recommendationsDisclaimer": "Daumen hoch, um der Galerie hinzuzufügen - Daumen runter, wenn es dir nicht gefällt",
+    "recommended": "Empfohlene Artikel",
     "youMightLike": "Artikel, die Ihnen vielleicht gefallen könnten"
   },
   "klaro": {
@@ -585,11 +611,16 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Hilft, unsere Website zu verbessern, indem gelegentlich experimentelle Änderungen vorgenommen werden.",
+        "title": "A\/B-Tests"
+      },
       "auth-strategy": {
         "description": "Erinnert an die Berechtigungsstrategie, die für die Anmeldung verwendet werden soll.",
         "title": "Auth-Strategie"
       },
       "debugSettings": {
+        "description": "Hilft beim Debuggen von API-Anfragen",
         "title": "Debug toggle"
       },
       "hotjar": {
@@ -610,7 +641,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Merkt sich, ob Sie die Suchergebnisse lieber in einer Listen- oder Rasteransicht anzeigen möchten.",
-        "title": "Suchergebnisansicht (Liste/Raster)"
+        "title": "Suchergebnisansicht (Liste\/Raster)"
       }
     }
   },
@@ -632,6 +663,7 @@ export default {
       "text": "Sie suchen auf unserer neuen und schnelleren Website."
     }
   },
+  "loading": "Laden",
   "loadingResults": "Ergebnisse werden geladen",
   "mediaPreview": {
     "selectItem": "Wählen Sie das Element {src}"
@@ -642,9 +674,16 @@ export default {
     "notFound": "Nicht gefunden",
     "paginationLimitExceeded": "Es können nur die ersten {limit} Suchergebnisse angezeigt werden."
   },
+  "modal": {
+    "download": {
+      "clickToCopy": "Klicken Sie auf die Namensnennung, um sie zu kopieren",
+      "modalIntro": "Wenn Sie dieses Element im Web oder anderswo verwenden, vergessen Sie nicht, die folgende Attribution daneben anzuzeigen:",
+      "modalTitle": "Dank sagen"
+    }
+  },
   "multilingual": {
-    "original": "Original-Metadaten",
-    "originalLanguage": "Originalsprache",
+    "automated": "Automatisierte Übersetzung",
+    "enrichment": "Anreicherung durch Partnerprojekte",
     "other": "Andere Sprachen"
   },
   "newWindow": "öffnet sich in einem neuen Fenster",
@@ -653,6 +692,15 @@ export default {
   "pageHasLoaded": "hat geladen",
   "pages": {
     "collections": {
+      "organisations": {
+        "table": {
+          "name": "Name"
+        },
+        "title": "Organisationen"
+      },
+      "persons": {
+        "title": "Personen"
+      },
       "times": {
         "title": "Mal"
       },
@@ -735,12 +783,14 @@ export default {
       "likeLimit": {
         "body": "Es tut uns leid, aber Sie können derzeit maximal 100 Artikel liken. Wir werden dieses Limit bald aufheben!",
         "title": "100 Likes"
-      }
+      },
+      "updated": "Das Element wurde der Galerie hinzugefügt."
     },
     "prompts": {
       "delete": "Möchten Sie diese Galerie wirklich löschen? Wenn Sie diese Galerie löschen, verlieren Sie alle Artikel, die Sie hinzugefügt haben."
     }
   },
   "showLess": "Weniger anzeigen",
-  "showMore": "Mehr anzeigen"
+  "showMore": "Mehr anzeigen",
+  "website": "Webseite"
 };

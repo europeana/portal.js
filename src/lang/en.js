@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "My Account",
     "linkLogin": "Login",
-    "linkLoginJoin": "Log in / Join",
+    "linkLoginJoin": "Log in \/ Join",
     "linkLogout": "Log out",
     "myProfile": "My Profile",
     "notifications": {
@@ -356,7 +356,7 @@ export default {
     "MIME_TYPE": {
       "name": "File format | File formats",
       "options": {
-        "text/plain": "Plain text"
+        "text\/plain": "Plain text"
       }
     },
     "PROVIDER": {
@@ -585,7 +585,7 @@ export default {
       "acceptAll": "Accept all",
       "acceptSelected": "Accept selected",
       "consentModal": {
-        "description": "Here you can see and customise the services that we'd like to use on this website. To learn more please read our <a href='/rights/privacy-policy'>privacy policy</a>.",
+        "description": "Here you can see and customise the services that we'd like to use on this website. To learn more please read our <a href='\/rights\/privacy-policy'>privacy policy<\/a>.",
         "title": "Services we would like to use."
       },
       "consentNotice": {
@@ -612,6 +612,10 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Helps to improve our website by occasionally applying experimental changes.",
+        "title": "A\/B testing"
+      },
       "auth-strategy": {
         "description": "Remembers the authorization strategy to use to log in.",
         "title": "Auth Strategy"
@@ -638,11 +642,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Remembers if you prefer to see the search results in a list or grid view.",
-        "title": "Search result view (list/grid)"
-      },
-      "abTest": {
-        "description": "Helps to improve our website by occasionally applying experimental changes.",
-        "title": "A/B testing"
+        "title": "Search result view (list\/grid)"
       }
     }
   },
@@ -684,11 +684,10 @@ export default {
   },
   "multilingual": {
     "automated": "Automated translation",
-    "translateLanguage": "Would you like to see this item in {0}?",
     "enrichment": "Enrichment by partner projects",
     "other": "other languages",
-    "stopTranslating": "Stop translating this item to {0}."
-
+    "stopTranslating": "Stop translating this item to {0}.",
+    "translateLanguage": "Would you like to see this item in {0}?"
   },
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
