@@ -464,7 +464,6 @@ export default {
       "dcFormat": "Format",
       "dcIdentifier": "Identifikator",
       "dcLanguage": "Sprog",
-      "dcMedium": "Medium",
       "dcPublisher": "Udgiver",
       "dcRelation": "Forbindelser",
       "dcRights": "Rettigheder",
@@ -484,7 +483,6 @@ export default {
       "dctermsIssued": "Udstedelsesdato",
       "dctermsMedium": "Medium",
       "dctermsProvenance": "Oprindelse",
-      "dctermsPublished": "Udgivelsesdato",
       "dctermsReferences": "Referencer",
       "dctermsSpatial": "Steder",
       "dctermsTemporal": "Tidsmæssig",
@@ -613,6 +611,10 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Hjælper med at forbedre vores websted ved lejlighedsvis at anvende eksperimentelle ændringer.",
+        "title": "A/B-testning"
+      },
       "auth-strategy": {
         "description": "Husker autorisationsstrategien, der skal bruges til at logge ind.",
         "title": "Auth-strategi"
@@ -681,12 +683,9 @@ export default {
   },
   "multilingual": {
     "automated": "Automatiseret oversættelse",
-    "currentLanguage": "Vil du gerne se dette element i {0} ?",
-    "differentLanguage": "et andet sprog",
     "enrichment": "Berigelse ved partnerprojekter",
-    "original": "Originale metadata",
-    "originalLanguage": "originalsprog",
-    "other": "Andre sprog"
+    "other": "Andre sprog",
+    "translateLanguage": "Vil du gerne se dette element i {0} ?"
   },
   "newWindow": "åbner i nyt vindue",
   "noMoreResults": "Der er ikke flere resultater for din søgning.",

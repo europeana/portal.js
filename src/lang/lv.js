@@ -464,7 +464,6 @@ export default {
       "dcFormat": "Formāts",
       "dcIdentifier": "Identifikators",
       "dcLanguage": "Valoda",
-      "dcMedium": "Veids",
       "dcPublisher": "Izdevējs",
       "dcRelation": "Saistības",
       "dcRights": "Tiesības",
@@ -484,7 +483,6 @@ export default {
       "dctermsIssued": "Izdošanas datums",
       "dctermsMedium": "Veids",
       "dctermsProvenance": "Izcelsme",
-      "dctermsPublished": "Publicēšanas datums",
       "dctermsReferences": "Atsaucas uz",
       "dctermsSpatial": "Vietas",
       "dctermsTemporal": "Periods",
@@ -613,6 +611,10 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Palīdz uzlabot mūsu vietni, laiku pa laikam veicot eksperimentālas izmaiņas.",
+        "title": "A/B testēšana"
+      },
       "auth-strategy": {
         "description": "Atceras autorizācijas stratēģiju, kas jāizmanto, lai pieteiktos.",
         "title": "Auth stratēģija"
@@ -681,12 +683,9 @@ export default {
   },
   "multilingual": {
     "automated": "Automātiskā tulkošana",
-    "currentLanguage": "Vai jūs vēlētos redzēt šo preci {0}?",
-    "differentLanguage": "cita valoda",
     "enrichment": "Bagātināšana ar partneru projektiem",
-    "original": "Oriģinālie metadati",
-    "originalLanguage": "oriģinālvaloda",
-    "other": "Citas valodas"
+    "other": "Citas valodas",
+    "translateLanguage": "Vai jūs vēlētos redzēt šo preci {0}?"
   },
   "newWindow": "tiek atvērts jaunā logā",
   "noMoreResults": "Jūsu meklēšanas vaicājumam vairs nav rezultātu.",
