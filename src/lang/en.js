@@ -688,7 +688,7 @@ export default {
     "other": "other languages",
     "stopTranslating": "Stop translating this item to {0}.",
     "translateLanguage": "Would you like to see this item in {0}?",
-    "translateQuotaError": "Translation service is temproarily unavailable. Please try again later.",
+    "translateQuotaError": "Translation service is temproarily unavailable. Please try again later."
   },
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
