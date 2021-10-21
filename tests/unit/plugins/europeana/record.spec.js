@@ -126,18 +126,21 @@ const translateProfileApiResponse = {
     },
     proxies: [
       {
+        about: '/proxy/europeana/123/abc',
         europeanaProxy: true,
         dcTitle: {
           'de': ['Deutscher Titel']
         }
       },
       {
+        about: '/proxy/aggregator/123/abc',
         europeanaProxy: false,
         dcDescription: {
           'de': ['Deutsche Beschreibung']
         }
       },
       {
+        about: '/proxy/provider/123/abc',
         europeanaProxy: false,
         dcType: {
           'de': ['Deutscher Objekt Typ']

@@ -96,6 +96,38 @@ function setMatchingEntities(fields, key, entities) {
   }
 }
 
+const findProxy = (proxies, type) => proxies.find(proxy => proxy.about?.startsWith(`/proxy/${type}/`));
+
+/**
+* Determine if a field will be displaying data from enrichment.
+* Should only be called in the context of a aggregatorProxy being present.
+* If the UI language is not in the enrichment, but also not in the default proxy,
+* the enrichment will be checked for an english fallback value which would take precedence.
+* @param {String} field the field name to check
+* @param {Object} aggregatorProxy the proxy with the enrichment data
+* @param {Object} providerProxy provider proxy, used to confirm whether preferable values exist outside the enriched data
+* @param {String} predictedUiLang the two letter language code which will be the prefered UI language
+* @return {Boolean} true if enriched data will be shown
+*/
+const localeSpecificFieldValueIsFromEnrichment = (field, aggregatorProxy, providerProxy, predictedUiLang) => {
+  if (isLangMap(aggregatorProxy[field]) &&
+       (proxyHasLanguageField(aggregatorProxy, field, predictedUiLang) ||
+         proxyHasFallbackField(providerProxy, aggregatorProxy, field, predictedUiLang)
+       )
+  ) {
+    return true;
+  }
+  return false;
+};
+
+const proxyHasLanguageField = (proxy, field, targetLanguage) => {
+  return proxy?.[field]?.[targetLanguage];
+};
+
+const proxyHasFallbackField = (proxy, fallbackProxy, field, targetLanguage) => {
+  return (!proxy[field]?.[targetLanguage] && fallbackProxy[field]?.['en']);
+};
+
 export default (context = {}) => {
   const $axios = createAxios({ id: 'record', baseURL: BASE_URL }, context);
 
@@ -144,14 +176,15 @@ export default (context = {}) => {
       if (context.$config?.app?.features?.translatedItems) {
         prefLang = options.metadataLanguage ? options.metadataLanguage : null;
       }
-      // Europeana proxy only really needed for the translate profile
-      const europeanaProxy = edm.proxies.find(proxy => proxy.europeanaProxy);
-
-      const providerProxy = edm.proxies.length === 3 ? edm.proxies[1] : null;
       const predictedUiLang = prefLang || options.locale;
 
+      // Europeana proxy only really needed for the translate profile
+      const europeanaProxy = findProxy(edm.proxies, 'europeana');
+      const aggregatorProxy = findProxy(edm.proxies, 'aggregator');
+      const providerProxy = findProxy(edm.proxies, 'provider');
+
       for (const field in proxies) {
-        if (providerProxy?.[field] && this.localeSpecificFieldValueIsFromEnrichment(field, providerProxy, edm.proxies, predictedUiLang)) {
+        if (aggregatorProxy?.[field] && localeSpecificFieldValueIsFromEnrichment(field, aggregatorProxy, providerProxy, predictedUiLang)) {
           proxies[field].translationSource = 'enrichment';
         } else if (europeanaProxy?.[field]?.[predictedUiLang] && context.$config?.app?.features?.translatedItems) {
           proxies[field].translationSource = 'automated';
@@ -189,36 +222,6 @@ export default (context = {}) => {
         schemaOrg: data.schemaOrg ? Object.freeze(JSON.stringify(data.schemaOrg)) : undefined,
         metadataLanguage: prefLang
       };
-    },
-
-    /**
-    * Determine if a field will be displaying data from enrichment.
-    * Should only be called in the context of a providerProxy being present.
-    * If the UI language is not in the enrichment, but also not in the default proxy,
-    * the enrichment will be checked for an english fallback value which would take precedence.
-    * @param {String} field the field name to check
-    * @param {Object} providerProxy the proxy with the enrichment data
-    * @param {Array} proxies all proxies, used to confirm whether preferable values exist outside the enriched data
-    * @param {String} predictedUiLang the two letter language code which will be the prefered UI language
-    * @return {Boolean} true if enriched data will be shown
-    */
-    localeSpecificFieldValueIsFromEnrichment(field, providerProxy, proxies, predictedUiLang) {
-      if (isLangMap(providerProxy[field]) &&
-           (this.providerProxyHasLanguageField(providerProxy, field, predictedUiLang) ||
-             this.providerProxyHasFallbackField(proxies[2], providerProxy, field, predictedUiLang)
-           )
-      ) {
-        return true;
-      }
-      return false;
-    },
-
-    providerProxyHasLanguageField(providerProxy, field, targetLanguage) {
-      return providerProxy?.[field]?.[targetLanguage];
-    },
-
-    providerProxyHasFallbackField(defaultProxy, providerProxy, field, targetLanguage) {
-      return (!defaultProxy[field]?.[targetLanguage] && providerProxy[field]?.['en']);
     },
 
     webResourceThumbnails(webResource, aggregation, recordType) {
