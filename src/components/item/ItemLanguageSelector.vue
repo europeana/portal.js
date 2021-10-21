@@ -76,10 +76,14 @@
     },
     data() {
       return {
-        metadataLanguageLabel: this.$i18n.locales.find(locale => locale.code === this.metadataLanguage)?.name,
         // "eu" language code not supported for translation
         translateLocales: this.$i18n.locales.filter(locale => locale.code !== 'eu')
       };
+    },
+    computed: {
+      metadataLanguageLabel() {
+        return this.$i18n.locales.find(locale => locale.code === this.metadataLanguage)?.name;
+      }
     },
     methods: {
       translateParams(language) {
