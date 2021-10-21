@@ -124,8 +124,8 @@ const proxyHasLanguageField = (proxy, field, targetLanguage) => {
   return proxy?.[field]?.[targetLanguage];
 };
 
-const proxyHasFallbackField = (providerProxy, aggregatorProxy, field, targetLanguage) => {
-  return (!providerProxy[field]?.[targetLanguage] && aggregatorProxy[field]?.['en']);
+const proxyHasFallbackField = (proxy, fallbackProxy, field, targetLanguage) => {
+  return (!proxy[field]?.[targetLanguage] && fallbackProxy[field]?.['en']);
 };
 
 export default (context = {}) => {
