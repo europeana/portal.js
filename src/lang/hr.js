@@ -464,7 +464,6 @@ export default {
       "dcFormat": "Format",
       "dcIdentifier": "Identifikator",
       "dcLanguage": "Jezik",
-      "dcMedium": "Medij",
       "dcPublisher": "Izdavač",
       "dcRelation": "Odnosi",
       "dcRights": "Prava",
@@ -484,7 +483,6 @@ export default {
       "dctermsIssued": "Datum izdavanja",
       "dctermsMedium": "Medij",
       "dctermsProvenance": "Podrijetlo",
-      "dctermsPublished": "Datum objave",
       "dctermsReferences": "Reference",
       "dctermsSpatial": "Mjesta",
       "dctermsTemporal": "Vremenski",
@@ -613,6 +611,10 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Pomaže poboljšati našu web stranicu povremenom primjenom eksperimentalnih promjena.",
+        "title": "A/B testiranje"
+      },
       "auth-strategy": {
         "description": "Sjeća se strategije autorizacije za prijavu.",
         "title": "Auth strategija"
@@ -681,12 +683,9 @@ export default {
   },
   "multilingual": {
     "automated": "Automatizirani prijevod",
-    "currentLanguage": "Želite li vidjeti ovu stavku u {0} ?",
-    "differentLanguage": "drugačiji jezik",
     "enrichment": "Obogaćivanje partnerskim projektima",
-    "original": "Izvorni metapodaci",
-    "originalLanguage": "izvorni jezik",
-    "other": "Drugi jezici"
+    "other": "Drugi jezici",
+    "translateLanguage": "Želite li vidjeti ovu stavku u {0} ?"
   },
   "newWindow": "otvara se u novom prozoru",
   "noMoreResults": "Nema više rezultata za vaš upit za pretraživanje.",

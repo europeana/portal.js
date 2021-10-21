@@ -464,7 +464,6 @@ export default {
       "dcFormat": "Формат",
       "dcIdentifier": "Идентификатор",
       "dcLanguage": "Език",
-      "dcMedium": "Среден(а)",
       "dcPublisher": "Издател",
       "dcRelation": "Отношения",
       "dcRights": "Права",
@@ -484,7 +483,6 @@ export default {
       "dctermsIssued": "Дата на издаване",
       "dctermsMedium": "Среден(а)",
       "dctermsProvenance": "Произход",
-      "dctermsPublished": "Дата на публикуване",
       "dctermsReferences": "Препратки",
       "dctermsSpatial": "Места",
       "dctermsTemporal": "Времеви",
@@ -613,6 +611,10 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Помага за подобряване на нашия уебсайт, като периодично прилага експериментални промени.",
+        "title": "A/B тестване"
+      },
       "auth-strategy": {
         "description": "Спомня си стратегията за оторизация, която да се използва за влизане.",
         "title": "Стратегия за утвърждаване"
@@ -681,12 +683,9 @@ export default {
   },
   "multilingual": {
     "automated": "Автоматизиран превод",
-    "currentLanguage": "Искате ли да видите този елемент в {0} ?",
-    "differentLanguage": "различен език",
     "enrichment": "Обогатяване по партньорски проекти",
-    "original": "Оригинални метаданни",
-    "originalLanguage": "оригинален език",
-    "other": "Други езици"
+    "other": "Други езици",
+    "translateLanguage": "Искате ли да видите този елемент в {0} ?"
   },
   "newWindow": "отваря се в нов прозорец",
   "noMoreResults": "Няма повече резултати за вашата заявка за търсене.",

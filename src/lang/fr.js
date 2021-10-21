@@ -464,7 +464,6 @@ export default {
       "dcFormat": "Format",
       "dcIdentifier": "Identificateur",
       "dcLanguage": "Langue",
-      "dcMedium": "Support",
       "dcPublisher": "Éditeur",
       "dcRelation": "Relations",
       "dcRights": "Droits",
@@ -484,7 +483,6 @@ export default {
       "dctermsIssued": "Date d'émission",
       "dctermsMedium": "Support",
       "dctermsProvenance": "Provenance",
-      "dctermsPublished": "Date de publication",
       "dctermsReferences": "Se réfère à",
       "dctermsSpatial": "Lieux",
       "dctermsTemporal": "Période",
@@ -613,6 +611,10 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Aide à améliorer notre site Web en appliquant occasionnellement des modifications expérimentales.",
+        "title": "Tests A/B"
+      },
       "auth-strategy": {
         "description": "Se souvient de la stratégie d'autorisation à utiliser pour se connecter.",
         "title": "Stratégie d'authentification"
@@ -681,12 +683,9 @@ export default {
   },
   "multilingual": {
     "automated": "Traduction automatisée",
-    "currentLanguage": "Souhaitez-vous voir cet article dans {0} ?",
-    "differentLanguage": "une langue différente",
     "enrichment": "Enrichissement par des projets partenaires",
-    "original": "Métadonnées originales",
-    "originalLanguage": "langue originale",
-    "other": "Autres langues"
+    "other": "Autres langues",
+    "translateLanguage": "Souhaitez-vous voir cet article dans {0} ?"
   },
   "newWindow": "s'ouvre dans une nouvelle fenêtre",
   "noMoreResults": "Il n'y a plus de résultats pour votre requête de recherche.",

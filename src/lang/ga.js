@@ -464,7 +464,6 @@ export default {
       "dcFormat": "Formáid",
       "dcIdentifier": "Aitheantóir",
       "dcLanguage": "Teanga",
-      "dcMedium": "Meánach",
       "dcPublisher": "Foilsitheoir",
       "dcRelation": "Caidrimh",
       "dcRights": "Cearta",
@@ -484,7 +483,6 @@ export default {
       "dctermsIssued": "Dáta eisiúna",
       "dctermsMedium": "Meánach",
       "dctermsProvenance": "Bunadh",
-      "dctermsPublished": "Dáta foilsithe",
       "dctermsReferences": "Tagairtí",
       "dctermsSpatial": "Áiteanna",
       "dctermsTemporal": "Ama",
@@ -613,6 +611,10 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Cuidíonn sé lenár suíomh Gréasáin a fheabhsú trí athruithe turgnamhacha a chur i bhfeidhm ó am go chéile.",
+        "title": "Tástáil A/B"
+      },
       "auth-strategy": {
         "description": "Is cuimhin leis an straitéis údaraithe a úsáid chun logáil isteach.",
         "title": "Straitéis Auth"
@@ -681,12 +683,9 @@ export default {
   },
   "multilingual": {
     "automated": "Aistriúchán uathoibrithe",
-    "currentLanguage": "Ar mhaith leat an mhír seo a fheiceáil i {0} ?",
-    "differentLanguage": "teanga dhifriúil",
     "enrichment": "Saibhriú ag tionscadail chomhpháirtíochta",
-    "original": "Meiteashonraí bunaidh",
-    "originalLanguage": "teanga bhunaidh",
-    "other": "Teangacha eile"
+    "other": "Teangacha eile",
+    "translateLanguage": "Ar mhaith leat an mhír seo a fheiceáil i {0} ?"
   },
   "newWindow": "osclaítear i bhfuinneog nua é",
   "noMoreResults": "Níl aon toradh eile ann ar d'iarratas cuardaigh.",

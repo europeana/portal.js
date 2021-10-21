@@ -143,20 +143,18 @@ export default (context = {}) => {
       let prefLang;
       if (context.$config?.app?.features?.translatedItems) {
         prefLang = options.metadataLanguage ? options.metadataLanguage : null;
+      }
+      // Europeana proxy only really needed for the translate profile
+      const europeanaProxy = edm.proxies.find(proxy => proxy.europeanaProxy);
 
-        // TODO: initially API only supports translation of title & descripiton.
-        // Extend to other fields as available, or stop merging the proxies and
-        // refactor to maintain the source info without having to set this.
-        const europeanaProxy = edm.proxies.find(proxy => proxy.europeanaProxy);
-        const providerProxy = edm.proxies.length === 3 ? edm.proxies[1] : null;
-        const predictedUiLang = prefLang ||  options.locale;
+      const providerProxy = edm.proxies.length === 3 ? edm.proxies[1] : null;
+      const predictedUiLang = prefLang || options.locale;
 
-        for (const field in proxies) {
-          if (providerProxy?.[field] && this.localeSpecificFieldValueIsFromEnrichment(field, providerProxy, edm.proxies, predictedUiLang)) {
-            proxies[field].translationSource = 'enrichment';
-          } else if (europeanaProxy?.[field]?.[predictedUiLang]) {
-            proxies[field].translationSource = 'automated';
-          }
+      for (const field in proxies) {
+        if (providerProxy?.[field] && this.localeSpecificFieldValueIsFromEnrichment(field, providerProxy, edm.proxies, predictedUiLang)) {
+          proxies[field].translationSource = 'enrichment';
+        } else if (europeanaProxy?.[field]?.[predictedUiLang] && context.$config?.app?.features?.translatedItems) {
+          proxies[field].translationSource = 'automated';
         }
       }
 

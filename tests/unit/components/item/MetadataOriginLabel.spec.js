@@ -9,35 +9,33 @@ const $i18n = {
 const localVue = createLocalVue();
 localVue.directive('b-tooltip', {});
 
-const factory = (options = {}) => shallowMount(MetadataOriginLabel, {
+const factory = () => shallowMount(MetadataOriginLabel, {
   localVue,
   mocks: {
     $t: (key) => key,
-    $config: { app: { features: { translatedItems: options.translatedItems || false } } },
     $i18n
   }
 });
 
 describe('components/item/MetadataOriginLabel', () => {
-  describe('is feature toggle controlled', () => {
+  context('when the field was translated', async() => {
     const props = { translationSource: 'automated' };
-    context('when translated items are enabled', async() => {
-      const wrapper = factory({ translatedItems: true });
-      it('shows a label', async() => {
-        await wrapper.setProps(props);
+    const wrapper = factory();
+    it('shows a label', async() => {
+      await wrapper.setProps(props);
 
-        const button = wrapper.find('[data-qa="translation tooltip"]');
-        button.attributes().title.should.eq('multilingual.automated');
-      });
+      const button = wrapper.find('[data-qa="translation tooltip"]');
+      button.attributes().title.should.eq('multilingual.automated');
     });
-    context('when translated items are NOT enabled', () => {
-      const wrapper = factory({ translatedItems: false });
-      it('does not show a label', async() => {
-        await wrapper.setProps(props);
+  });
+  context('when the field was enriched', async() => {
+    const props = { translationSource: 'enrichment' };
+    const wrapper = factory();
+    it('shows a label', async() => {
+      await wrapper.setProps(props);
 
-        const button = wrapper.find('[data-qa="translation tooltip"]');
-        button.exists().should.be.false;
-      });
+      const button = wrapper.find('[data-qa="translation tooltip"]');
+      button.attributes().title.should.eq('multilingual.enrichment');
     });
   });
 });

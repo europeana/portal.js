@@ -464,7 +464,6 @@ export default {
       "dcFormat": "Vorm",
       "dcIdentifier": "Identificatie",
       "dcLanguage": "Taal",
-      "dcMedium": "Medium",
       "dcPublisher": "Uitgever",
       "dcRelation": "Relaties",
       "dcRights": "Rechten",
@@ -484,7 +483,6 @@ export default {
       "dctermsIssued": "Datum van uitgifte",
       "dctermsMedium": "Medium",
       "dctermsProvenance": "Herkomst",
-      "dctermsPublished": "Publicatiedatum",
       "dctermsReferences": "Verwijst naar",
       "dctermsSpatial": "Plaatsen",
       "dctermsTemporal": "Tijdsperiode",
@@ -613,6 +611,10 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Helpt onze website te verbeteren door af en toe experimentele wijzigingen aan te brengen.",
+        "title": "A/B-testen"
+      },
       "auth-strategy": {
         "description": "Onthoudt de autorisatie strategie die moet worden gebruikt om in te loggen.",
         "title": "Auth-strategie"
@@ -681,12 +683,9 @@ export default {
   },
   "multilingual": {
     "automated": "Geautomatiseerde vertaling",
-    "currentLanguage": "Wilt u dit item in {0} zien?",
-    "differentLanguage": "een andere taal",
     "enrichment": "Verrijking door partnerprojecten",
-    "original": "Originele metadata",
-    "originalLanguage": "oorspronkelijke taal",
-    "other": "Andere talen"
+    "other": "Andere talen",
+    "translateLanguage": "Wilt u dit item in {0} zien?"
   },
   "newWindow": "opent in nieuw venster",
   "noMoreResults": "Er zijn geen resultaten meer voor uw zoekopdracht.",

@@ -1,5 +1,7 @@
 export default {
   "account": {
+    "curatedCollections": "Kuraterade samlingar",
+    "curatedCollectionsInfo": "Hitta nedan alla samlingar du har kuraterat",
     "editProfile": "Redigera profil",
     "likes": "Likes",
     "linkAccount": "Mitt konto",
@@ -11,6 +13,7 @@ export default {
       "loggedIn": "Du är nu inloggad. Välkommen!",
       "loggedOut": "Du är nu utloggad.",
       "noCollections": {
+        "curated": "Du har inte kuraterat några samlingar än",
         "private": "Du har inte skapat något privat galleri ännu",
         "public": "Du har inte skapat något offentligt galleri ännu"
       },
@@ -24,6 +27,7 @@ export default {
     "title": "Mitt konto"
   },
   "actions": {
+    "accept": "Acceptera",
     "cancel": "Avbryt",
     "close": "stäng",
     "download": "Ladda ner",
@@ -33,6 +37,7 @@ export default {
     "like": "Gilla",
     "next": "Nästa",
     "providedBy": "Tillhandahålls av {provider}",
+    "reject": "Avvisa",
     "send": "Skicka",
     "share": "Dela",
     "shareOn": "Dela på {social}",
@@ -64,6 +69,7 @@ export default {
     "relatedPosts": "Relaterade inlägg"
   },
   "cardLabels": {
+    "organisation": "Organisation",
     "person": "Person",
     "time": "Århundrade",
     "topic": "Ämne"
@@ -137,13 +143,28 @@ export default {
   "edmIsShownAtLinkAlt": "Visa på leverantörens webbplats",
   "entity": {
     "actions": {
-      "cancel": "Avbryt"
+      "cancel": "Avbryt",
+      "pin": "Fäst objekt",
+      "unpin": "Lossa objekt",
+      "viewPinned": "Se fästa objekt"
     },
     "labels": {
       "entity": "Entitet"
     },
     "notifications": {
-      "deleted": "Ditt galleri har raderats."
+      "deleted": "Ditt galleri har raderats.",
+      "pinLimit": {
+        "body": "För tillfället kan du bara fästa 24 objekt på den första sidan. Om du vill fästa det här objektet måste du ta bort ett annat och sedan försöka fästa det här igen.",
+        "title": "För många pinnade objekt"
+      },
+      "pinned": "Objektet har fästs. Det är nu högst upp på den första sidan i den här samlingen. Det kan ta upp till 24 timmar innan alla visas.",
+      "pinnedFirstPage": "Objektet har fästs. Det kan ta upp till 24 timmar innan alla visas.",
+      "unpinned": "Objektet har lossats. Det är inte längre högst upp på den första sidan i den här samlingen. Det kan ta upp till 24 timmar innan alla försvinner.",
+      "unpinnedFirstPage": "Objektet har tagits bort. Det kan ta upp till 24 timmar att försvinna för alla."
+    },
+    "prompts": {
+      "pin": "Är du säker på att du vill fästa den här artikeln? Det här objektet kommer att visas högst upp i samlingen \"{entity}\". Det kan ta upp till 24 timmar innan den här ändringen träder i kraft.",
+      "unpin": "Är du säker på att du vill ta bort det här objektet? Det här objektet slutar visas högst upp i {entity} \". Det kan ta upp till 24 timmar innan ändringen träder i kraft."
     }
   },
   "error": "Fel",
@@ -443,7 +464,6 @@ export default {
       "dcFormat": "Format",
       "dcIdentifier": "Identifierare",
       "dcLanguage": "Språk",
-      "dcMedium": "Medium",
       "dcPublisher": "Utgivare",
       "dcRelation": "Förbindelser",
       "dcRights": "Rättigheter",
@@ -463,7 +483,6 @@ export default {
       "dctermsIssued": "Utgivningsdatum",
       "dctermsMedium": "Medium",
       "dctermsProvenance": "Proveniens",
-      "dctermsPublished": "Publiceringsdatum",
       "dctermsReferences": "Hänvisar till",
       "dctermsSpatial": "Platser",
       "dctermsTemporal": "Temporal",
@@ -485,7 +504,8 @@ export default {
       "keywords": "Nyckelord (tillhandahålls av communityn)",
       "timestampCreated": "Tidsstämpel skapad",
       "timestampUpdate": "Tidsstämpel uppdaterad",
-      "wasPresentAt": "Var närvarande vid"
+      "wasPresentAt": "Var närvarande vid",
+      "year": "År"
     },
     "webResource": {
       "about": "RDF Om",
@@ -555,6 +575,8 @@ export default {
     "itemCount": "1 föremål {count} föremål",
     "itemOf": "{max} av {count} föremål",
     "recent": "Senaste föremålen",
+    "recommendationsDisclaimer": "Tummen upp för att lägga till i galleriet - Tummen ner om du ogillar det",
+    "recommended": "Rekommenderade artiklar",
     "youMightLike": "Föremål som du kanske skulle gilla"
   },
   "klaro": {
@@ -589,11 +611,16 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Hjälper till att förbättra vår webbplats genom att ibland tillämpa experimentella förändringar.",
+        "title": "A/B -testning"
+      },
       "auth-strategy": {
         "description": "Kommer ihåg den auktoriserings strategi som ska användas för att logga in.",
         "title": "Auth-strategi"
       },
       "debugSettings": {
+        "description": "Hjälper till att felsöka API -begäranden",
         "title": "Felsökning växla"
       },
       "hotjar": {
@@ -647,14 +674,18 @@ export default {
     "notFound": "Hittades inte",
     "paginationLimitExceeded": "Det är bara möjligt att visa de {limit} första sökresultaten."
   },
+  "modal": {
+    "download": {
+      "clickToCopy": "Klicka på attributionen för att kopiera den",
+      "modalIntro": "Om du använder det här objektet på webben eller någon annanstans ska du inte glömma att visa följande attribution bredvid det:",
+      "modalTitle": "Säg tack"
+    }
+  },
   "multilingual": {
     "automated": "Automatiserad översättning",
-    "currentLanguage": "Vill du se det här objektet i {0} ?",
-    "differentLanguage": "ett annat språk",
     "enrichment": "Berikning genom partnerprojekt",
-    "original": "Originalmetadata",
-    "originalLanguage": "originalspråk",
-    "other": "Andra språk"
+    "other": "Andra språk",
+    "translateLanguage": "Vill du se det här objektet i {0} ?"
   },
   "newWindow": "öppnas i nytt fönster",
   "noMoreResults": "Det finns inga fler resultat för din sökning.",
@@ -665,7 +696,11 @@ export default {
       "organisations": {
         "table": {
           "name": "Namn"
-        }
+        },
+        "title": "Organisationer"
+      },
+      "persons": {
+        "title": "Personer"
       },
       "times": {
         "title": "Tider"
@@ -749,12 +784,14 @@ export default {
       "likeLimit": {
         "body": "Tyvärr, men du har endast möjlighet att gilla maximalt 100 föremål. Vi kommer att ta bort denna gräns inom kort!",
         "title": "100 likes"
-      }
+      },
+      "updated": "Objektet lades till i galleriet."
     },
     "prompts": {
       "delete": "Är du säker på att du vill radera detta galleri? Om du raderar galleriet går alla föremål som du har lagt till förlorade."
     }
   },
   "showLess": "Visa mindre",
-  "showMore": "Visa mer"
+  "showMore": "Visa mer",
+  "website": "Webbplats"
 };

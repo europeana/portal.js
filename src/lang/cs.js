@@ -464,7 +464,6 @@ export default {
       "dcFormat": "Formát",
       "dcIdentifier": "Identifikátor",
       "dcLanguage": "Jazyk",
-      "dcMedium": "Médium",
       "dcPublisher": "Vydavatel",
       "dcRelation": "souvislosti",
       "dcRights": "Práva",
@@ -484,7 +483,6 @@ export default {
       "dctermsIssued": "Datum vydání",
       "dctermsMedium": "Médium",
       "dctermsProvenance": "Původ",
-      "dctermsPublished": "Datum publikace",
       "dctermsReferences": "odkazuje na",
       "dctermsSpatial": "Místa",
       "dctermsTemporal": "Časové",
@@ -613,6 +611,10 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Pomáhá vylepšovat náš web občasným použitím experimentálních změn.",
+        "title": "A/B testování"
+      },
       "auth-strategy": {
         "description": "Pamatuje si strategii autorizace, která se má použít k přihlášení.",
         "title": "Strategie Auth"
@@ -681,12 +683,9 @@ export default {
   },
   "multilingual": {
     "automated": "Automatizovaný překlad",
-    "currentLanguage": "Chcete tuto položku vidět v {0}?",
-    "differentLanguage": "jiný jazyk",
     "enrichment": "Obohacení partnerskými projekty",
-    "original": "Původní metadata",
-    "originalLanguage": "původní jazyk",
-    "other": "Jiné jazyky"
+    "other": "Jiné jazyky",
+    "translateLanguage": "Chcete tuto položku vidět v {0}?"
   },
   "newWindow": "otevře se v novém okně",
   "noMoreResults": "Pro vaše zadání neexistují žádné další výsledky vyhledávání.",

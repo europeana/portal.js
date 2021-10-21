@@ -464,7 +464,6 @@ export default {
       "dcFormat": "Muoto",
       "dcIdentifier": "Tunniste",
       "dcLanguage": "Kieli",
-      "dcMedium": "Media",
       "dcPublisher": "Julkaisija",
       "dcRelation": "Suhteet",
       "dcRights": "Oikeudet",
@@ -484,7 +483,6 @@ export default {
       "dctermsIssued": "Julkaisupäivämäärä",
       "dctermsMedium": "Media",
       "dctermsProvenance": "Alkuperä",
-      "dctermsPublished": "Julkaisupäivä",
       "dctermsReferences": "Viittaa kohteeseen",
       "dctermsSpatial": "Paikat",
       "dctermsTemporal": "Ajoitus",
@@ -613,6 +611,10 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Auttaa parantamaan verkkosivustoamme soveltamalla ajoittain kokeellisia muutoksia.",
+        "title": "A/B -testaus"
+      },
       "auth-strategy": {
         "description": "Muistaa kirjautumisessa käytettävän valtuutusstrategian.",
         "title": "Auth-strategia"
@@ -681,12 +683,9 @@ export default {
   },
   "multilingual": {
     "automated": "Automatisoitu käännös",
-    "currentLanguage": "Haluaisitko nähdä tämän kohteen {0}?",
-    "differentLanguage": "eri kieltä",
     "enrichment": "Rikastaminen kumppaniprojekteilla",
-    "original": "Alkuperäiset metatiedot",
-    "originalLanguage": "alkuperäinen kieli",
-    "other": "Muut kielet"
+    "other": "Muut kielet",
+    "translateLanguage": "Haluaisitko nähdä tämän kohteen {0}?"
   },
   "newWindow": "avautuu uuteen ikkunaan",
   "noMoreResults": "Hakusi ei tuottanut enempää tuloksia.",

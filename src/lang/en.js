@@ -612,6 +612,10 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Helps to improve our website by occasionally applying experimental changes.",
+        "title": "A/B testing"
+      },
       "auth-strategy": {
         "description": "Remembers the authorization strategy to use to log in.",
         "title": "Auth Strategy"
@@ -639,10 +643,6 @@ export default {
       "searchResultsView": {
         "description": "Remembers if you prefer to see the search results in a list or grid view.",
         "title": "Search result view (list/grid)"
-      },
-      "abTest": {
-        "description": "Helps to improve our website by occasionally applying experimental changes.",
-        "title": "A/B testing"
       }
     }
   },
@@ -684,12 +684,11 @@ export default {
   },
   "multilingual": {
     "automated": "Automated translation",
-    "translateLanguage": "Would you like to see this item in {0}?",
-    "translateQuotaError": "Translation service is temproarily unavailable. Please try again later.",
     "enrichment": "Enrichment by partner projects",
     "other": "other languages",
-    "stopTranslating": "Stop translating this item to {0}."
-
+    "stopTranslating": "Stop translating this item to {0}.",
+    "translateLanguage": "Would you like to see this item in {0}?",
+    "translateQuotaError": "Translation service is temproarily unavailable. Please try again later.",
   },
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",

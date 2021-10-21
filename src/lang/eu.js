@@ -464,7 +464,6 @@ export default {
       "dcFormat": "Formatua",
       "dcIdentifier": "Identifikatzailea",
       "dcLanguage": "Hizkuntza",
-      "dcMedium": "Teknika",
       "dcPublisher": "Argitaletxea",
       "dcRelation": "Loturak",
       "dcRights": "Baimenak",
@@ -484,7 +483,6 @@ export default {
       "dctermsIssued": "Argitaratze data",
       "dctermsMedium": "Teknika",
       "dctermsProvenance": "Jatorria",
-      "dctermsPublished": "Argitaratze data",
       "dctermsReferences": "erreferentzia egiten du",
       "dctermsSpatial": "Lekuak",
       "dctermsTemporal": "Aldi baterako",
@@ -613,6 +611,10 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Gure webgunea hobetzen laguntzen du noizean behin aldaketa esperimentalak aplikatuz.",
+        "title": "A / B probak"
+      },
       "auth-strategy": {
         "description": "Saioa hasteko erabili beharreko baimen estrategia gogoratzen du.",
         "title": "Auth Estrategia"
@@ -681,12 +683,9 @@ export default {
   },
   "multilingual": {
     "automated": "Itzulpen automatizatua",
-    "currentLanguage": "{0} -n ikusi nahi duzu?",
-    "differentLanguage": "beste hizkuntza bat",
     "enrichment": "Bazkide proiektuen aberastea",
-    "original": "Jatorrizko metadatuak",
-    "originalLanguage": "jatorrizko hizkuntza",
-    "other": "Beste hizkuntza batzuk"
+    "other": "Beste hizkuntza batzuk",
+    "translateLanguage": "{0} -n ikusi nahi duzu?"
   },
   "newWindow": "leiho berrian irekiko da",
   "noMoreResults": "Ez dago emaitza gehiagorik zure bilaketarako.",

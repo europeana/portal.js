@@ -1,5 +1,7 @@
 export default {
   "account": {
+    "curatedCollections": "Kolekcje kuratorskie",
+    "curatedCollectionsInfo": "Znajdź poniżej wszystkie kolekcje, których byłeś kuratorem",
     "editProfile": "Edytuj profil",
     "likes": "Polubienia",
     "linkAccount": "Moje konto",
@@ -11,6 +13,7 @@ export default {
       "loggedIn": "Jesteś teraz zalogowany. Witamy!",
       "loggedOut": "Teraz jesteś wylogowany.",
       "noCollections": {
+        "curated": "Nie jesteś jeszcze kuratorem żadnej kolekcji",
         "private": "Nie masz jeszcze prywatnych galerii",
         "public": "Nie masz jeszcze galerii publicznych"
       },
@@ -24,6 +27,7 @@ export default {
     "title": "Moje konto"
   },
   "actions": {
+    "accept": "Zaakceptować",
     "cancel": "Anuluj",
     "close": "zamknij",
     "download": "Ściągnij",
@@ -33,6 +37,7 @@ export default {
     "like": "Lubię",
     "next": "Następny",
     "providedBy": "Dostarczone przez {provider}",
+    "reject": "Odrzucić",
     "send": "Wyślij",
     "share": "Udostępnij",
     "shareOn": "Udostępnij na {social}",
@@ -64,6 +69,7 @@ export default {
     "relatedPosts": "Powiązane posty"
   },
   "cardLabels": {
+    "organisation": "Organizacja",
     "person": "Osoba",
     "time": "Stulecie",
     "topic": "Temat"
@@ -137,13 +143,28 @@ export default {
   "edmIsShownAtLinkAlt": "Zobacz na stronie internetowej dostawcy",
   "entity": {
     "actions": {
-      "cancel": "Anuluj"
+      "cancel": "Anuluj",
+      "pin": "Element szpilkowy",
+      "unpin": "Odepnij element",
+      "viewPinned": "Zobacz przypięte elementy"
     },
     "labels": {
       "entity": "Jednostka"
     },
     "notifications": {
-      "deleted": "Twoja galeria została usunięta."
+      "deleted": "Twoja galeria została usunięta.",
+      "pinLimit": {
+        "body": "Na razie możesz przypiąć tylko 24 elementy na pierwszej stronie. Jeśli chcesz przypiąć ten element, upewnij się, że odpiąłeś inny, a następnie spróbuj ponownie przypiąć ten element.",
+        "title": "Za dużo przypiętych elementów"
+      },
+      "pinned": "Przedmiot został przypięty. Znajduje się teraz na górze pierwszej strony tej kolekcji. Pojawienie się u wszystkich może potrwać do 24 godzin.",
+      "pinnedFirstPage": "Element został przypięty. Może to potrwać do 24 godzin, aby pojawić się dla wszystkich.",
+      "unpinned": "Element został odpięty. Nie znajduje się już na górze pierwszej strony tej kolekcji. Może minąć do 24 godzin, zanim wszyscy znikną.",
+      "unpinnedFirstPage": "Element został odpięty. Może minąć do 24 godzin, zanim wszyscy znikną."
+    },
+    "prompts": {
+      "pin": "Czy na pewno chcesz przypiąć ten przedmiot? Ten element będzie wyświetlany u góry kolekcji \"{encja}\". Ta zmiana może potrwać do 24 godzin.",
+      "unpin": "Czy na pewno chcesz odpiąć ten element? Ten element przestanie być wyświetlany u góry kolekcji \"{encja}\". Ta zmiana może potrwać do 24 godzin."
     }
   },
   "error": "Błąd",
@@ -443,7 +464,6 @@ export default {
       "dcFormat": "Format",
       "dcIdentifier": "Identyfikator",
       "dcLanguage": "Język",
-      "dcMedium": "Medium",
       "dcPublisher": "Wydawca",
       "dcRelation": "Relacje",
       "dcRights": "Prawa",
@@ -463,7 +483,6 @@ export default {
       "dctermsIssued": "Data wydania",
       "dctermsMedium": "Medium",
       "dctermsProvenance": "Pochodzenie",
-      "dctermsPublished": "Data publikacji",
       "dctermsReferences": "przywołuje",
       "dctermsSpatial": "Miejsca",
       "dctermsTemporal": "Okres",
@@ -485,7 +504,8 @@ export default {
       "keywords": "Słowa kluczowe (dostarczone przez społeczność)",
       "timestampCreated": "Utworzono znacznik czasu",
       "timestampUpdate": "Zaktualizowano znacznik czasu",
-      "wasPresentAt": "Był obecny w"
+      "wasPresentAt": "Był obecny w",
+      "year": "Rok"
     },
     "webResource": {
       "about": "RDF Informacje",
@@ -554,6 +574,9 @@ export default {
   "items": {
     "itemCount": "1 pozycja |Pozycje: {count}",
     "itemOf": "{max} z {count} elementów",
+    "recent": "Ostatnie pozycje",
+    "recommendationsDisclaimer": "Kciuk w górę, aby dodać do galerii – Kciuk w dół, jeśli Ci się nie podoba",
+    "recommended": "Zalecane elementy",
     "youMightLike": "Przedmioty, które mogą Ci się spodobać"
   },
   "klaro": {
@@ -588,11 +611,16 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Pomaga ulepszyć naszą stronę internetową, od czasu do czasu stosując eksperymentalne zmiany.",
+        "title": "Testy A/B"
+      },
       "auth-strategy": {
         "description": "Zapamiętuje strategię autoryzacji używaną do logowania.",
         "title": "Strategia Auth"
       },
       "debugSettings": {
+        "description": "Pomaga w debugowaniu żądań API",
         "title": "Przełącznik debugowania"
       },
       "hotjar": {
@@ -635,6 +663,7 @@ export default {
       "text": "Przeszukujesz naszą nową i szybszą stronę internetową."
     }
   },
+  "loading": "Ładowanie",
   "loadingResults": "Ładowanie wyników",
   "mediaPreview": {
     "selectItem": "Wybierz element {src}"
@@ -645,9 +674,16 @@ export default {
     "notFound": "Nie znaleziono",
     "paginationLimitExceeded": "Możliwe jest wyświetlenie tylko pierwszych {limit} wyników wyświetlania."
   },
+  "modal": {
+    "download": {
+      "clickToCopy": "Kliknij atrybucję, aby ją skopiować",
+      "modalIntro": "Jeśli używasz tego elementu w Internecie lub w innym miejscu, nie zapomnij wyświetlić obok niego następującej atrybucji:",
+      "modalTitle": "Powiedz dziękuję"
+    }
+  },
   "multilingual": {
-    "original": "Oryginalne metadane",
-    "originalLanguage": "język oryginalny",
+    "automated": "Tłumaczenie zautomatyzowane",
+    "enrichment": "Wzbogacanie o projekty partnerskie",
     "other": "Inne języki"
   },
   "newWindow": "otwiera się w nowym oknie",
@@ -656,6 +692,15 @@ export default {
   "pageHasLoaded": "załadował",
   "pages": {
     "collections": {
+      "organisations": {
+        "table": {
+          "name": "Nazwa"
+        },
+        "title": "Organizacje"
+      },
+      "persons": {
+        "title": "Osoby"
+      },
       "times": {
         "title": "Czasy"
       },
@@ -738,12 +783,14 @@ export default {
       "likeLimit": {
         "body": "Przepraszamy, ale w tej chwili możesz polubić maksymalnie 100 pozycji. Wkrótce usuniemy ten limit!",
         "title": "100 polubień"
-      }
+      },
+      "updated": "Przedmiot został dodany do galerii."
     },
     "prompts": {
       "delete": "Czy na pewno chcesz usunąć tę galerię? Jeśli ją usuniesz, utracisz wszystkie dodane do niej elementy."
     }
   },
   "showLess": "Pokaż mniej",
-  "showMore": "Pokaż więcej"
+  "showMore": "Pokaż więcej",
+  "website": "Strona internetowa"
 };
