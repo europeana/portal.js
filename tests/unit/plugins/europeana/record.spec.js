@@ -169,6 +169,13 @@ const translateProfileApiResponse = {
   }
 };
 
+const translateErrorApiResponse = {
+  success: false,
+  error: 'Translation limit quota exceeded.',
+  message: 'No more translations available today. Resource is exhausted',
+  code: '502-TS'
+};
+
 describe('plugins/europeana/record', () => {
   afterEach(() => {
     nock.cleanAll();
@@ -210,6 +217,22 @@ describe('plugins/europeana/record', () => {
             await record(translateConf).getRecord(europeanaId, { metadataLanguage: 'de' });
 
             nock.isDone().should.be.true;
+          });
+          context('when the API returns a quota exhaustion error', () => {
+            it('re-requests the record without the profile', async() => {
+              nock(BASE_URL)
+                .get(apiEndpoint)
+                .query(query => query.profile === 'translate' && query.lang === 'de')
+                .reply(502, translateErrorApiResponse);
+              nock(BASE_URL)
+                .get(apiEndpoint)
+                .query(query => !Object.keys(query).includes('profile'))
+                .reply(200, apiResponse);
+
+              await record(translateConf).getRecord(europeanaId, { metadataLanguage: 'de' });
+
+              nock.isDone().should.be.true;
+            });
           });
         });
       });

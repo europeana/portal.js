@@ -687,7 +687,8 @@ export default {
     "enrichment": "Enrichment by partner projects",
     "other": "other languages",
     "stopTranslating": "Stop translating this item to {0}.",
-    "translateLanguage": "Would you like to see this item in {0}?"
+    "translateLanguage": "Would you like to see this item in {0}?",
+    "translateQuotaError": "Translation service is temporarily unavailable. Please try again later."
   },
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",

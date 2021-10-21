@@ -175,6 +175,7 @@ export default (context = {}) => {
         allMediaUris,
         altTitle: proxies.dctermsAlternative,
         description: proxies.dcDescription,
+        fromTranslationError: options.fromTranslationError,
         identifier: edm.about,
         type: edm.type, // TODO: Evaluate if this is used, if not remove.
         isShownAt: providerAggregation.edmIsShownAt,
@@ -186,7 +187,6 @@ export default (context = {}) => {
         organizations,
         title: proxies.dcTitle,
         schemaOrg: data.schemaOrg ? Object.freeze(JSON.stringify(data.schemaOrg)) : undefined,
-        edmLanguage: edm.europeanaAggregation.edmLanguage,
         metadataLanguage: prefLang
       };
     },
@@ -316,6 +316,12 @@ export default (context = {}) => {
           error: null
         }))
         .catch((error) => {
+          const errorResponse = error.response;
+          if (errorResponse?.status === 502 && errorResponse?.data.code === '502-TS' && !options.fromTranslationError) {
+            delete (options.metadataLanguage);
+            options.fromTranslationError = true;
+            return this.getRecord(europeanaId, options);
+          }
           throw apiError(error);
         });
     },

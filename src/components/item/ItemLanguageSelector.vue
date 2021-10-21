@@ -10,6 +10,14 @@
           <span>
             <span class="icon-translate pr-2" />
             <i18n
+              v-if="fromTranslationError"
+              path="multilingual.translateQuotaError"
+              tag="span"
+              class="pr-1"
+              data-qa="translate item error"
+            />
+            <i18n
+              v-else
               path="multilingual.translateLanguage"
               tag="span"
               class="pr-1"
@@ -65,9 +73,9 @@
       locales
     ],
     props: {
-      itemLanguage: {
-        type: String,
-        default: null
+      fromTranslationError: {
+        type: Boolean,
+        default: false
       },
       metadataLanguage: {
         type: String,
