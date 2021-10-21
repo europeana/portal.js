@@ -32,7 +32,7 @@
                 class="multilingual-selector"
               >
                 <b-dropdown-item
-                  v-for="locale in $i18n.locales"
+                  v-for="locale in translateLocales"
                   :key="locale.code"
                   class="multilingual-dropdown-item"
                   :to="translateParams(locale.code)"
@@ -81,6 +81,12 @@
         type: String,
         default: null
       }
+    },
+    data() {
+      return {
+        // "eu" language code not supported for translation
+        translateLocales: this.$i18n.locales.filter(locale => locale.code !== 'eu')
+      };
     },
     computed: {
       metadataLanguageLabel() {
