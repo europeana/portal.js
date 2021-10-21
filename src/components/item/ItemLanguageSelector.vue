@@ -24,7 +24,7 @@
                 class="multilingual-selector"
               >
                 <b-dropdown-item
-                  v-for="locale in $i18n.locales"
+                  v-for="locale in translateLocales"
                   :key="locale.code"
                   class="multilingual-dropdown-item"
                   :to="translateParams(locale.code)"
@@ -74,10 +74,12 @@
         default: null
       }
     },
-    computed: {
-      metadataLanguageLabel() {
-        return this.$i18n.locales.find(locale => locale.code === this.metadataLanguage)?.name;
-      }
+    data() {
+      return {
+        metadataLanguageLabel: this.$i18n.locales.find(locale => locale.code === this.metadataLanguage)?.name,
+        // "eu" language code not supported for translation
+        translateLocales: this.$i18n.locales.filter(locale => locale.code !== 'eu')
+      };
     },
     methods: {
       translateParams(language) {
