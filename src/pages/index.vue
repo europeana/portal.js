@@ -93,9 +93,7 @@
         return this.identifier === 'home';
       },
       notificationUrl() {
-        return `https://classic.europeana.eu/portal/${
-          this.$store.state.i18n.locale
-        }?utm_source=new-website&utm_medium=button`;
+        return `https://classic.europeana.eu/portal/${this.$i18n.locale}?utm_source=new-website&utm_medium=button`;
       },
       socialMediaImage() {
         // use social media image if set in Contentful, otherwise use hero image, else null
