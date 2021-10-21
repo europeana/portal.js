@@ -17,7 +17,7 @@
       <client-only>
         <ItemLanguageSelector
           v-if="translatedItemsEnabled"
-          :item-language="edmLanguage.def[0]"
+          :from-translation-error="fromTranslationError"
           :metadata-language="metadataLanguage"
         />
       </client-only>
@@ -167,6 +167,7 @@
         concepts: [],
         description: null,
         error: null,
+        fromTranslationError: null,
         identifier: null,
         isShownAt: null,
         media: [],
@@ -177,7 +178,6 @@
         type: null,
         useProxy: true,
         schemaOrg: null,
-        edmLanguage: null,
         metadataLanguage: null
       };
     },

@@ -685,6 +685,7 @@ export default {
   "multilingual": {
     "automated": "Automated translation",
     "translateLanguage": "Would you like to see this item in {0}?",
+    "translateQuotaError": "Translation service is temproarily unavailable. Please try again later.",
     "enrichment": "Enrichment by partner projects",
     "other": "other languages",
     "stopTranslating": "Stop translating this item to {0}."
