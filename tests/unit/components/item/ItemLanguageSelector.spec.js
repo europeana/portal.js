@@ -92,7 +92,7 @@ describe('components/item/ItemLanguageSelector', () => {
       const wrapper = factory({ fromTranslationError: true });
 
       const suggestion = wrapper.find('[data-qa="translate item error"]');
-      suggestion.text().should.contain('Translation service is temproarily unavailable. Please try again later.');
+      suggestion.text().should.contain('Translation service is temporarily unavailable. Please try again later.');
 
       wrapper.findAll('[data-qa="translate item suggestion"]').exists().should.be.false;
       wrapper.findAll('[data-qa="remove item translation button"]').exists().should.be.false;
