@@ -14,7 +14,7 @@
               path="multilingual.translateQuotaError"
               tag="span"
               class="pr-1"
-              data-qa="translate item suggestion"
+              data-qa="translate item error"
             />
             <i18n
               v-else
