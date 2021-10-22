@@ -75,7 +75,8 @@
           <div class="sub-footer">
             <img
               width="250"
-              src="../assets/img/eu-funding.svg"
+              height="26"
+              src="../assets/img/eu-funding.png"
               class="mb-3"
               :alt="$t('footer.imageDescription')"
             >

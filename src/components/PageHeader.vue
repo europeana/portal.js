@@ -42,8 +42,10 @@
         class="logo d-inline-flex"
       >
         <img
-          src="../assets/img/logo.svg"
+          src="../assets/img/logo.png"
           :alt="$t('homeLinkAlt')"
+          width="153"
+          height="32"
           class="mw-100"
           data-qa="logo"
         >
@@ -90,8 +92,10 @@
               class="logo pl-4 pr-2"
             >
               <img
-                src="../assets/img/logo.svg"
+                src="../assets/img/logo.png"
                 :alt="$t('homeLinkAlt')"
+                width="153"
+                height="32"
                 class="mw-100"
                 data-qa="logo"
               >
@@ -171,7 +175,7 @@
       min-width: 9.5625rem;
       transition: 0.3s ease-in-out;
       img {
-        width: 9.5625rem;
+        margin: auto 0;
       }
     }
   }
