@@ -109,15 +109,20 @@ const findProxy = (proxies, type) => proxies.find(proxy => proxy.about?.startsWi
 * @param {String} predictedUiLang the two letter language code which will be the prefered UI language
 * @return {Boolean} true if enriched data will be shown
 */
-const localeSpecificFieldValueIsFromEnrichment = (field, aggregatorProxy, providerProxy, predictedUiLang) => {
+const localeSpecificFieldValueIsFromEnrichment = (field, aggregatorProxy, providerProxy, predictedUiLang, entities) => {
   if (isLangMap(aggregatorProxy[field]) &&
-       (proxyHasLanguageField(aggregatorProxy, field, predictedUiLang) ||
+       (proxyHasEntityForField(aggregatorProxy, field, entities) ||
+         proxyHasLanguageField(aggregatorProxy, field, predictedUiLang) ||
          proxyHasFallbackField(providerProxy, aggregatorProxy, field, predictedUiLang)
        )
   ) {
     return true;
   }
   return false;
+};
+
+const proxyHasEntityForField = (proxy, field, entities) => {
+  return entities[proxy?.[field]?.def];
 };
 
 const proxyHasLanguageField = (proxy, field, targetLanguage) => {
@@ -184,7 +189,7 @@ export default (context = {}) => {
       const providerProxy = findProxy(edm.proxies, 'provider');
 
       for (const field in proxies) {
-        if (aggregatorProxy?.[field] && localeSpecificFieldValueIsFromEnrichment(field, aggregatorProxy, providerProxy, predictedUiLang)) {
+        if (aggregatorProxy?.[field] && localeSpecificFieldValueIsFromEnrichment(field, aggregatorProxy, providerProxy, predictedUiLang, entities)) {
           proxies[field].translationSource = 'enrichment';
         } else if (europeanaProxy?.[field]?.[predictedUiLang] && context.$config?.app?.features?.translatedItems) {
           proxies[field].translationSource = 'automated';

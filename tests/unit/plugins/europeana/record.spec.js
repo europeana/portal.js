@@ -137,6 +137,9 @@ const translateProfileApiResponse = {
         europeanaProxy: false,
         dcDescription: {
           'de': ['Deutsche Beschreibung']
+        },
+        edmIsRelatedTo: {
+          'def': ['http://data.europeana.eu/concept/base/190']
         }
       },
       {
@@ -264,16 +267,30 @@ describe('plugins/europeana/record', () => {
             nock.isDone().should.be.true;
           });
         });
-        context('when there is a value in the provider proxy', () => {
-          it('is considered an automated translation', async() => {
-            nock(BASE_URL)
-              .get(apiEndpoint)
-              .query(query => query.profile === 'translate' && query.lang === 'de')
-              .reply(200, translateProfileApiResponse);
+        context('when there is a value in the aggregator proxy', () => {
+          context('when the value is in a lang map', () => {
+            it('is considered an enrichment', async() => {
+              nock(BASE_URL)
+                .get(apiEndpoint)
+                .query(query => query.profile === 'translate' && query.lang === 'de')
+                .reply(200, translateProfileApiResponse);
 
-            const recordData = await record(translateConf).getRecord(europeanaId, { metadataLanguage: 'de' });
-            recordData.record.description.translationSource.should.eq('enrichment');
-            nock.isDone().should.be.true;
+              const recordData = await record(translateConf).getRecord(europeanaId, { metadataLanguage: 'de' });
+              recordData.record.description.translationSource.should.eq('enrichment');
+              nock.isDone().should.be.true;
+            });
+          });
+          context('when the value referes to an entity', () => {
+            it('is considered an enrichment', async() => {
+              nock(BASE_URL)
+                .get(apiEndpoint)
+                .query(query => query.profile === 'translate' && query.lang === 'de')
+                .reply(200, translateProfileApiResponse);
+
+              const recordData = await record(translateConf).getRecord(europeanaId, { metadataLanguage: 'de' });
+              recordData.record.metadata.edmIsRelatedTo.translationSource.should.eq('enrichment');
+              nock.isDone().should.be.true;
+            });
           });
         });
         context('when there is only a value in the default proxy', () => {
