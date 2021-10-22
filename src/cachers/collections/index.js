@@ -1,4 +1,4 @@
-import pick from 'lodash/pick';
+import pick from 'lodash/pick.js';
 import { createEuropeanaApiClient } from '../utils.js';
 import { getEntitySlug } from '../../plugins/europeana/entity.js';
 
