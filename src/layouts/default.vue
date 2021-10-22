@@ -82,6 +82,10 @@
 
       feedbackEnabled() {
         return this.$config.app.features.jiraServiceDeskFeedbackForm && this.$config.app.baseUrl;
+      },
+
+      klaroCookiePresent() {
+        return !!this.$cookies.get('klaro');
       }
     },
 
@@ -169,22 +173,27 @@
     head() {
       const i18nHead = this.$nuxtI18nHead({ addSeoAttributes: true });
 
+      const link = [
+        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700&subset=latin,greek,cyrillic&display=swap',
+          body: true },
+        { rel: 'stylesheet', href: `https://unpkg.com/bootstrap@${bootstrapVersion}/dist/css/bootstrap.min.css` },
+        { rel: 'stylesheet', href: `https://unpkg.com/bootstrap-vue@${bootstrapVueVersion}/dist/bootstrap-vue.min.css` },
+        { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrlWithoutLocale },
+        ...i18nHead.link
+      ];
+      const script = [];
+
+      if (!this.klaroCookiePresent) {
+        link.push({ rel: 'stylesheet', href: `https://cdn.kiprotect.com/klaro/v${klaroVersion}/klaro.min.css` });
+        script.push({ src: `https://unpkg.com/klaro@${klaroVersion}/dist/klaro-no-css.js`, defer: true });
+      }
+
       return {
         htmlAttrs: {
           ...i18nHead.htmlAttrs
         },
-        link: [
-          { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700&subset=latin,greek,cyrillic&display=swap',
-            body: true },
-          { rel: 'stylesheet', href: `https://unpkg.com/bootstrap@${bootstrapVersion}/dist/css/bootstrap.min.css` },
-          { rel: 'stylesheet', href: `https://cdn.kiprotect.com/klaro/v${klaroVersion}/klaro.min.css` },
-          { rel: 'stylesheet', href: `https://unpkg.com/bootstrap-vue@${bootstrapVueVersion}/dist/bootstrap-vue.min.css` },
-          { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrlWithoutLocale },
-          ...i18nHead.link
-        ],
-        script: [
-          { src: `https://unpkg.com/klaro@${klaroVersion}/dist/klaro-no-css.js`, defer: true }
-        ],
+        link,
+        script,
         meta: [
           { hid: 'description', property: 'description', content: 'Europeana' },
           { hid: 'og:url', property: 'og:url', content: this.canonicalUrl },
