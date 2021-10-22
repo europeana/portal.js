@@ -42,7 +42,7 @@
         class="logo d-inline-flex"
       >
         <img
-          src="../assets/img/logo.png"
+          src="../assets/img/logo.svg"
           :alt="$t('homeLinkAlt')"
           width="153"
           height="32"
@@ -92,7 +92,7 @@
               class="logo pl-4 pr-2"
             >
               <img
-                src="../assets/img/logo.png"
+                src="../assets/img/logo.svg"
                 :alt="$t('homeLinkAlt')"
                 width="153"
                 height="32"

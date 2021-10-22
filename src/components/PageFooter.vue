@@ -76,7 +76,7 @@
             <img
               width="250"
               height="26"
-              src="../assets/img/eu-funding.png"
+              src="../assets/img/eu-funding.svg"
               class="mb-3"
               :alt="$t('footer.imageDescription')"
             >
