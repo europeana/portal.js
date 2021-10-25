@@ -20,6 +20,7 @@
         <client-only>
           <EntityTable
             :type="$route.params.type"
+            data-qa="collections table"
           />
         </client-only>
       </template>
