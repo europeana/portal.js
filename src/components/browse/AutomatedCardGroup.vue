@@ -3,7 +3,7 @@
     v-if="entries && entries.length > 0"
   >
     <InfoCardSection
-      v-if="type === 'itemCountsMediaType'"
+      v-if="type === 'items/typeCounts'"
       :section="contentCardSection"
     />
     <ContentCardSection

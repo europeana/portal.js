@@ -99,7 +99,7 @@ const entries = {
     edmPreview: 'preview URL',
     title: 'item one'
   }],
-  itemCountsMediaType: [
+  itemTypeCounts: [
     {
       label: 'IMAGE',
       count: 100
@@ -168,7 +168,7 @@ describe('components/browse/AutomatedCardGroup', () => {
         const wrapper = shallowFactory({ sectionType: ITEM_COUNTS_MEDIA_TYPE });
 
         await wrapper.setData({
-          entries: entries.itemCountsMediaType
+          entries: entries.itemTypeCounts
         });
         const section = wrapper.vm.contentCardSection;
         section.hasPartCollection.items[0].should.deep.eq(expected);
