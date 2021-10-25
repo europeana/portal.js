@@ -15,6 +15,7 @@
       :items="collections"
       :sort-by.sync="sortBy"
       :busy="$fetchState.pending"
+      striped
     >
       <template #table-busy>
         <div class="text-center my-2">
