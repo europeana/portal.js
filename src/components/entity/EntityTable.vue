@@ -36,16 +36,15 @@
 
 <script>
   import { BTable } from 'bootstrap-vue';
-  import AlertMessage from '../generic/AlertMessage';
   import LoadingSpinner from '../generic/LoadingSpinner';
   import SmartLink from '../generic/SmartLink';
 
   export default {
     name: 'EntityTable',
     components: {
+      AlertMessage: () => import('@/components/generic/AlertMessage'),
       BTable,
       LoadingSpinner,
-      AlertMessage,
       SmartLink
     },
     props: {
