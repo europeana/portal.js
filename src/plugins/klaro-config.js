@@ -1,3 +1,5 @@
+export const version = '0.7.18';
+
 export default ($i18n, $initHotjar, $matomo) => {
   // TODO: uncomment when we have translations
   // const locale = $i18n.locale;
