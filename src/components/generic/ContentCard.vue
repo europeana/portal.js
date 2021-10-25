@@ -18,12 +18,16 @@
           :src="optimisedImageUrl"
           :blank-width="blankImageWidth"
           :blank-height="blankImageHeight"
+          :width="imageWidth"
+          :height="imageHeight"
           :alt="imageAlt"
           @error.native="imageNotFound"
         />
         <b-img
           v-else
           :src="optimisedImageUrl"
+          :width="imageWidth"
+          :height="imageHeight"
           :alt="imageAlt"
           @error="imageNotFound"
         />
@@ -139,6 +143,14 @@
       },
       imageContentType: {
         type: String,
+        default: null
+      },
+      imageWidth: {
+        type: Number,
+        default: null
+      },
+      imageHeight: {
+        type: Number,
         default: null
       },
       imageAlt: {
