@@ -51,13 +51,13 @@
         return this.$fetchState.error ? 'Error' : this.$t(`pages.collections.${this.$route.params.type}.title`);
       }
     },
+    watch: {
+      '$route': '$fetch'
+    },
     head() {
       return {
         title: this.$pageHeadTitle(this.pageTitle)
       };
-    },
-    watch: {
-      '$route': '$fetch'
     },
     watchQuery: ['page']
   };

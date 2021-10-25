@@ -1,4 +1,3 @@
-// import sinon from 'sinon';
 import localise from '@/server-middleware/api/cache/localise.js';
 
 describe('@/server-middleware/api/cache/localise', () => {
