@@ -1,6 +1,6 @@
 <template>
   <div
-    class="swiper-wrapper"
+    class="swiper-outer"
   >
     <swiper
       v-show="ready"
@@ -127,7 +127,7 @@
 <style lang="scss">
   @import '@/assets/scss/variables.scss';
 
-  .swiper-wrapper {
+  .swiper-outer, .swiper-container {
     height: $swiper-height;
     @media (max-height: $bp-medium) {
       max-height: $swiper-height;
