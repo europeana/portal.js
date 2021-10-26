@@ -28,13 +28,6 @@ const createRedisClient = (config = {}) => {
   return redisClient;
 };
 
-const writeToRedis = (redisClient, cacheKey, data) => {
-  return redisClient
-    .setAsync(cacheKey, JSON.stringify(data))
-    .then(() => redisClient.quitAsync())
-    .then(() => (`Wrote data to Redis "${cacheKey}".`));
-};
-
 const createEuropeanaApiClient = (config = {}) => {
   return axios.create({
     baseURL: config.url,
@@ -63,6 +56,5 @@ const errorMessage = (error) => {
 export {
   createEuropeanaApiClient,
   createRedisClient,
-  errorMessage,
-  writeToRedis
+  errorMessage
 };

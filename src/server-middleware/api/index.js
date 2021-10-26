@@ -32,14 +32,27 @@ app.use((req, res, next) => {
 import debugMemoryUsage from './debug/memory-usage.js';
 app.get('/debug/memory-usage', debugMemoryUsage);
 
-import entitiesOrganisations from './entities/organisations.js';
-app.get('/entities/organisations', (req, res) => entitiesOrganisations(runtimeConfig)(req, res));
+// Redirection of some deprecated API URL paths.
+// TODO: remove redirection of deprecated routes after new routes are
+//       well-established in production
+const pathWithQuery = (path, query) => {
+  let destination = path;
 
-import dailyEntries from './dailyEntries.js';
-app.get('/entities/topics', (req, res) => dailyEntries('topic', runtimeConfig)(req, res));
-app.get('/entities/times', (req, res) => dailyEntries('time', runtimeConfig)(req, res));
-app.get('/items/recent', (req, res) => dailyEntries('item', runtimeConfig)(req, res));
-app.get('/items/itemCountsMediaType', (req, res) => dailyEntries('itemCountsMediaType', runtimeConfig)(req, res));
+  const searchParams = new URLSearchParams(query).toString();
+  if (searchParams !== '') {
+    destination = `${path}?${searchParams}`;
+  }
+
+  return destination;
+};
+app.get('/entities/organisations', (req, res) => res.redirect(pathWithQuery('/_api/cache/collections/organisations', req.query)));
+app.get('/entities/times', (req, res) => res.redirect(pathWithQuery('/_api/cache/collections/times', { ...req.query, daily: 'true' })));
+app.get('/entities/topics', (req, res) => res.redirect(pathWithQuery('/_api/cache/collections/topics/featured', { ...req.query, daily: 'true' })));
+app.get('/items/recent', (req, res) => res.redirect(pathWithQuery('/_api/cache/items/recent', req.query)));
+app.get('/items/itemCountsMediaType', (req, res) => res.redirect(pathWithQuery('/_api/cache/items/typeCounts', req.query)));
+
+import cache from './cache/index.js';
+app.get('/cache/*', (req, res) => cache(req.params[0], runtimeConfig)(req, res));
 
 import jiraServiceDesk from './jira/service-desk.js';
 app.post('/jira/service-desk', (req, res) => jiraServiceDesk(runtimeConfig.jira)(req, res));

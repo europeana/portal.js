@@ -3,21 +3,18 @@ import { mountNuxt } from '../../utils';
 import sinon from 'sinon';
 import BootstrapVue from 'bootstrap-vue';
 
-import OrganisationsTable from '@/components/entity/OrganisationsTable.vue';
+import EntityTable from '@/components/entity/EntityTable.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const $axiosGetStub = sinon.stub();
 
-const factory = (propsData = {}, errorFetchState = false, pendingFetchState = false) => mountNuxt(OrganisationsTable, {
+const factory = (propsData = { type: 'organisations' }, fetchState = { error: false, pending: false }) => mountNuxt(EntityTable, {
   localVue,
   propsData,
   mocks: {
-    $fetchState: {
-      error: errorFetchState,
-      pending: pendingFetchState
-    },
+    $fetchState: fetchState,
     $axios: {
       get: $axiosGetStub
     },
@@ -27,23 +24,23 @@ const factory = (propsData = {}, errorFetchState = false, pendingFetchState = fa
   }
 });
 
-const middlewarePath = '/_api/entities/organisations';
-const organisations = [
+const middlewarePath = '/_api/cache/collections/organisations';
+const collections = [
   { id: '001', slug: '001-museum', prefLabel: 'museum' },
   { id: '002', slug: '002-library', prefLabel: 'library' }
 ];
 
-describe('components/entity/OrganisationsTable', () => {
+describe('components/entity/EntityTable', () => {
   describe('fetch()', () => {
     beforeEach(() => {
-      $axiosGetStub.withArgs(middlewarePath).resolves({ data: organisations });
+      $axiosGetStub.withArgs(middlewarePath).resolves({ data: collections });
     });
 
     afterEach(() => {
       $axiosGetStub.reset();
     });
 
-    it('sends a get request to the organisations server middleware', async() => {
+    it('sends a get request to the collections server middleware', async() => {
       const wrapper = factory();
 
       await wrapper.vm.fetch();
@@ -51,12 +48,12 @@ describe('components/entity/OrganisationsTable', () => {
       $axiosGetStub.should.have.been.calledWith(middlewarePath);
     });
 
-    it('stores organisations from response body on component organisations property', async() => {
+    it('stores collections from response body on component collections property', async() => {
       const wrapper = factory();
 
       await wrapper.vm.fetch();
 
-      wrapper.vm.organisations.should.deep.eq(organisations);
+      wrapper.vm.collections.should.deep.eq(collections);
     });
   });
 
@@ -65,16 +62,16 @@ describe('components/entity/OrganisationsTable', () => {
       const wrapper = factory();
 
       await wrapper.setData({
-        organisations
+        collections
       });
 
-      wrapper.find('[data-qa="organisation link 001"]').attributes('to').should.eq((`/collections/organisation/${organisations[0].slug}`));
+      wrapper.find('[data-qa="collection link 001"]').attributes('href').should.eq((`/collections/organisation/${collections[0].slug}`));
     });
   });
 
   describe('LoadingSpinner', () => {
     it('is shown when fetch is in progress', () => {
-      const wrapper = factory({ pendingFetchState: true });
+      const wrapper = factory({ type: 'organisations' }, { pending: true });
 
       wrapper.find('[data-qa="loading spinner"]').should.exist;
     });
@@ -82,7 +79,7 @@ describe('components/entity/OrganisationsTable', () => {
 
   describe('AlertMessage', () => {
     it('is shown when fetch errors', () => {
-      const wrapper = factory({ errorFetchState: true });
+      const wrapper = factory({ type: 'organisations' }, { error: true });
 
       wrapper.find('[data-qa="error notice"]').should.exist;
     });

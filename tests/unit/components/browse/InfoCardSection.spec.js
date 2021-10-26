@@ -13,7 +13,7 @@ const factory = () => shallowMount(InfoCardSection, {
 });
 
 const dummySection = {
-  type: 'itemCountsMediaType',
+  type: 'items/typeCounts',
   hasPartCollection: {
     items: [
       {

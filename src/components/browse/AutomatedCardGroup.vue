@@ -1,9 +1,9 @@
 <template>
   <div
-    v-if="entries.length > 0"
+    v-if="entries && entries.length > 0"
   >
     <InfoCardSection
-      v-if="type === 'itemCountsMediaType'"
+      v-if="type === 'items/typeCounts'"
       :section="contentCardSection"
     />
     <ContentCardSection
@@ -42,24 +42,56 @@
     },
 
     fetch() {
+      const params = {};
+      switch (this.sectionType) {
+      case FEATURED_TOPICS:
+      case FEATURED_TIMES:
+        params.daily = true;
+        // TODO: should recent items be localised too?
+        params.locale = this.$i18n.locale;
+        break;
+      }
+
       if (process.server) {
-        return import('@/server-middleware/api/dailyEntries')
+        return import('@/server-middleware/api/cache/index.js')
           .then(module => {
-            return module.entriesOfTheDay(this.type, this.$config)
+            return module.cached(this.type, this.$config, params)
               .then(entries => {
                 this.entries = entries;
               });
         });
+      } else {
+        return this.$axios.get(`/_api/cache/${this.type}`, { params })
+          .then(response => {
+            this.entries = response.data;
+          });
       }
-      return this.$axios.get(this.apiEndpoint)
-        .then(response => {
-          this.entries = response.data;
-        });
     },
 
-    data: () => ({
-      entries: []
-    }),
+    data() {
+      const data = {
+        entries: []
+      };
+
+      if (this.sectionType === FEATURED_TOPICS) {
+        data.type = 'collections/topics/featured';
+        data.cardType = 'AutomatedEntityCard';
+        data.headline = this.$i18n.t('automatedCardGroup.topic');
+      } else if (this.sectionType === FEATURED_TIMES) {
+        data.type = 'collections/times';
+        data.cardType = 'AutomatedEntityCard';
+        data.headline = this.$i18n.t('automatedCardGroup.time');
+      } else if (this.sectionType === RECENT_ITEMS) {
+        data.type = 'items/recent';
+        data.cardType = 'AutomatedRecordCard';
+        data.headline = this.$i18n.t('automatedCardGroup.item');
+      } else if (this.sectionType === ITEM_COUNTS_MEDIA_TYPE) {
+        data.type = 'items/typeCounts';
+        data.cardType = 'InfoCard';
+      }
+
+      return data;
+    },
 
     computed: {
       contentCardSection() {
@@ -79,7 +111,7 @@
           };
         }
         return {
-          headline: this.$i18n.t(`automatedCardGroup.${this.type}`),
+          headline: this.headline,
           hasPartCollection: {
             items: this.entries?.map(entry => ({
               __typename: this.cardType,
@@ -91,47 +123,6 @@
           },
           moreButton: this.moreButton
         };
-      },
-      type() {
-        switch (this.sectionType) {
-        case FEATURED_TOPICS:
-          return 'topic';
-        case FEATURED_TIMES:
-          return 'time';
-        case RECENT_ITEMS:
-          return 'item';
-        case ITEM_COUNTS_MEDIA_TYPE:
-          return 'itemCountsMediaType';
-        default:
-          return null;
-        }
-      },
-      cardType() {
-        switch (this.sectionType) {
-        case FEATURED_TOPICS:
-        case FEATURED_TIMES:
-          return 'AutomatedEntityCard';
-        case RECENT_ITEMS:
-          return 'AutomatedRecordCard';
-        case ITEM_COUNTS_MEDIA_TYPE:
-          return 'InfoCard';
-        default:
-          return null;
-        }
-      },
-      apiEndpoint() {
-        switch (this.sectionType) {
-        case FEATURED_TOPICS:
-          return '/_api/entities/topics';
-        case FEATURED_TIMES:
-          return '/_api/entities/times';
-        case RECENT_ITEMS:
-          return '/_api/items/recent';
-        case ITEM_COUNTS_MEDIA_TYPE:
-          return '/_api/items/itemCountsMediaType';
-        default:
-          return null;
-        }
       }
     },
 

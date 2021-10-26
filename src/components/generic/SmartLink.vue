@@ -45,7 +45,7 @@
 
     data() {
       return {
-        internalDomain: this.$config.app.internalLinkDomain
+        internalDomain: this.$config?.app?.internalLinkDomain
       };
     },
 
@@ -90,12 +90,17 @@
 
       isExternalLink() {
         const path = this.destination;
-        const hostnamePattern = /\/\/([^/:]+)/;
 
-        if (this.itemIdentifier) {
+        if (this.itemIdentifier || typeof path !== 'string') {
           return false;
         }
-        if (typeof path !== 'string' || !hostnamePattern.test(path)) {
+
+        if (!this.internalDomain) {
+          return path.startsWith('http://') || path.startsWith('https://');
+        }
+
+        const hostnamePattern = /\/\/([^/:]+)/;
+        if (!hostnamePattern.test(path)) {
           return false;
         }
 
