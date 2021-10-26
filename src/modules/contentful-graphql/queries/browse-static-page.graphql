@@ -23,9 +23,7 @@ query BrowseStaticPage(
         }
       }
       image {
-        url
-        contentType
-        description
+        ...imageFields
       }
       hasPartCollection(limit: 20) {
         items {
@@ -52,9 +50,7 @@ query BrowseStaticPage(
                   description
                   url
                   image {
-                    url
-                    contentType
-                    description
+                    ...imageFields
                   }
                 }
               }
@@ -90,9 +86,7 @@ query BrowseStaticPage(
           ...imageWithAttributionFields
       }
       image {
-        url
-        contentType
-        description
+        ...imageFields
       }
       hasPartCollection(limit: 40) {
         total
@@ -141,6 +135,13 @@ query BrowseStaticPage(
     }
   }
 }
+fragment imageFields on Asset {
+  url
+  contentType
+  description
+  width
+  height
+}
 fragment imageWithAttributionFields on ImageWithAttribution {
   name
   creator
@@ -148,11 +149,7 @@ fragment imageWithAttributionFields on ImageWithAttribution {
   license
   url
   image {
-    url
-    contentType
-    description
-    width
-    height
+    ...imageFields
   }
 }
 fragment linkFields on Link {
