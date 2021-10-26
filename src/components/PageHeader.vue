@@ -44,6 +44,8 @@
         <img
           src="../assets/img/logo.svg"
           :alt="$t('homeLinkAlt')"
+          width="153"
+          height="32"
           class="mw-100"
           data-qa="logo"
         >
@@ -92,6 +94,8 @@
               <img
                 src="../assets/img/logo.svg"
                 :alt="$t('homeLinkAlt')"
+                width="153"
+                height="32"
                 class="mw-100"
                 data-qa="logo"
               >
@@ -171,7 +175,7 @@
       min-width: 9.5625rem;
       transition: 0.3s ease-in-out;
       img {
-        width: 9.5625rem;
+        margin: auto 0;
       }
     }
   }
