@@ -1,11 +1,13 @@
 <template>
   <swiper
+    v-show="ready"
     ref="awesome"
     class="swiper"
     :options="swiperOptions"
     data-qa="awesome swiper"
     @slide-change="onSlideChange"
     @slide-change-transition-end="updateSwiper"
+    @ready="swiperReady"
   >
     <swiper-slide
       v-for="(item, index) in displayableMedia"
@@ -76,7 +78,7 @@
       const singleMediaResource = this.displayableMedia.length === 1;
       return {
         swiperOptions: {
-          init: false,
+          init: true,
           threshold: singleMediaResource ? 5000000 :  null,
           slidesPerView: 'auto',
           spaceBetween: singleMediaResource ? null : 40,
@@ -92,7 +94,8 @@
             type: 'fraction'
           }
         },
-        singleMediaResource
+        singleMediaResource,
+        ready: singleMediaResource
       };
     },
     computed: {
@@ -103,12 +106,10 @@
         return this.displayableMedia.filter(resource => isPlayableMedia(resource)).length === 1;
       }
     },
-    mounted() {
-      setTimeout(() => {
-        this.swiper.init();
-      }, 500);
-    },
     methods: {
+      swiperReady() {
+        this.ready = true;
+      },
       onSlideChange() {
         this.$emit('select', this.displayableMedia[this.swiper.activeIndex].about);
       },
