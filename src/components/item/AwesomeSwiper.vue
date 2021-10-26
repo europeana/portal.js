@@ -1,46 +1,50 @@
 <template>
-  <swiper
-    v-show="ready"
-    ref="awesome"
-    class="swiper"
-    :options="swiperOptions"
-    data-qa="awesome swiper"
-    @slide-change="onSlideChange"
-    @slide-change-transition-end="updateSwiper"
-    @ready="swiperReady"
+  <div
+    class="swiper-wrapper"
   >
-    <swiper-slide
-      v-for="(item, index) in displayableMedia"
-      :key="index"
+    <swiper
+      v-show="ready"
+      ref="awesome"
+      class="swiper"
+      :options="swiperOptions"
+      data-qa="awesome swiper"
+      @slide-change="onSlideChange"
+      @slide-change-transition-end="updateSwiper"
+      @ready="swiperReady"
     >
-      <div
-        v-if="singleMediaResource"
-        class="container h-100"
+      <swiper-slide
+        v-for="(item, index) in displayableMedia"
+        :key="index"
       >
+        <div
+          v-if="singleMediaResource"
+          class="container h-100"
+        >
+          <MediaCard
+            :europeana-identifier="europeanaIdentifier"
+            :media="item"
+            :is-single-playable-media="isSinglePlayableMedia"
+            :lazy="false"
+          />
+        </div>
         <MediaCard
+          v-else
           :europeana-identifier="europeanaIdentifier"
           :media="item"
           :is-single-playable-media="isSinglePlayableMedia"
-          :lazy="false"
+          :lazy="index > 0"
         />
-      </div>
-      <MediaCard
-        v-else
-        :europeana-identifier="europeanaIdentifier"
-        :media="item"
-        :is-single-playable-media="isSinglePlayableMedia"
-        :lazy="index > 0"
+      </swiper-slide>
+      <div
+        slot="button-prev"
+        class="swiper-button-prev"
       />
-    </swiper-slide>
-    <div
-      slot="button-prev"
-      class="swiper-button-prev"
-    />
-    <div
-      slot="button-next"
-      class="swiper-button-next"
-    />
-  </swiper>
+      <div
+        slot="button-next"
+        class="swiper-button-next"
+      />
+    </swiper>
+  </div>
 </template>
 
 <script>
@@ -123,7 +127,7 @@
 <style lang="scss">
   @import '@/assets/scss/variables.scss';
 
-  .swiper-container {
+  .swiper-wrapper {
     height: $swiper-height;
     @media (max-height: $bp-medium) {
       max-height: $swiper-height;
