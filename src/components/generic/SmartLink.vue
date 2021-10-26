@@ -89,17 +89,18 @@
       },
 
       isExternalLink() {
-        if (!this.internalDomain) {
-          return false;
-        }
-
         const path = this.destination;
-        const hostnamePattern = /\/\/([^/:]+)/;
 
-        if (this.itemIdentifier) {
+        if (this.itemIdentifier || typeof path !== 'string') {
           return false;
         }
-        if (typeof path !== 'string' || !hostnamePattern.test(path)) {
+
+        if (!this.internalDomain) {
+          return path.startsWith('http://') || path.startsWith('https://');
+        }
+
+        const hostnamePattern = /\/\/([^/:]+)/;
+        if (!hostnamePattern.test(path)) {
           return false;
         }
 
