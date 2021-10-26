@@ -3,13 +3,15 @@
     class="image-container h-100"
   >
     <b-link
-      v-if="imageLink && media.thumbnails['large'] && !media.isShownAt"
+      v-if="imageLink && media.thumbnails.large && !media.isShownAt"
       :href="imageLink"
       target="_blank"
     >
       <component
         :is="lazy ? 'b-img-lazy' : 'b-img'"
-        :src="media.thumbnails['large']"
+        :src="thumbnailSrc"
+        :width="thumbnailWidth"
+        :height="thumbnailHeight"
         class="w-auto"
         alt=""
         data-qa="media preview image"
@@ -21,11 +23,13 @@
       </span>
     </b-link>
     <div
-      v-else-if="media.thumbnails['large']"
+      v-else-if="media.thumbnails.large"
     >
       <component
         :is="lazy ? 'b-img-lazy' : 'b-img'"
-        :src="media.thumbnails['large']"
+        :src="thumbnailSrc"
+        :width="thumbnailWidth"
+        :height="thumbnailHeight"
         alt=""
         class="mw-100"
         data-qa="media preview image"
@@ -54,6 +58,24 @@
     computed: {
       imageLink() {
         return this.$apis.record.mediaProxyUrl(this.media.about, this.europeanaIdentifier, { disposition: 'inline' });
+      },
+      thumbnailSrc() {
+        return this.media.thumbnails.large;
+      },
+      thumbnailWidth() {
+        if (!this.media.ebucoreWidth) {
+          return null;
+        }
+        if (this.media.ebucoreWidth < 400) {
+          return this.media.ebucoreWidth;
+        }
+        return 400;
+      },
+      thumbnailHeight() {
+        if (!this.media.ebucoreHeight || !this.thumbnailWidth) {
+          return null;
+        }
+        return (this.media.ebucoreHeight / this.media.ebucoreWidth) * this.thumbnailWidth;
       }
     }
   };
