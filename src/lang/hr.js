@@ -493,6 +493,7 @@ export default {
       "edmIncorporates": "Uključuje",
       "edmIntermediateProvider": "Posredni dobavljač",
       "edmIsDerivativeOf": "Izveden je od",
+      "edmIsRelatedTo": "Povezano je s",
       "edmIsRepresentationOf": "Predstavlja",
       "edmIsSimilarTo": "je slično",
       "edmIsSuccessorOf": "Nasljednik je",
@@ -685,7 +686,9 @@ export default {
     "automated": "Automatizirani prijevod",
     "enrichment": "Obogaćivanje partnerskim projektima",
     "other": "Drugi jezici",
-    "translateLanguage": "Želite li vidjeti ovu stavku u {0} ?"
+    "stopTranslating": "Prestanite prevoditi ovu stavku na {0} .",
+    "translateLanguage": "Želite li vidjeti ovu stavku u {0} ?",
+    "translateQuotaError": "Usluga prevođenja privremeno je nedostupna. Pokušajte ponovo kasnije."
   },
   "newWindow": "otvara se u novom prozoru",
   "noMoreResults": "Nema više rezultata za vaš upit za pretraživanje.",
@@ -701,6 +704,9 @@ export default {
       },
       "persons": {
         "title": "Osobe"
+      },
+      "table": {
+        "name": "Ime"
       },
       "times": {
         "title": "Vremena"

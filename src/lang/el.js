@@ -493,6 +493,7 @@ export default {
       "edmIncorporates": "Ενσωματώνει",
       "edmIntermediateProvider": "Ενδιάμεσος πάροχος",
       "edmIsDerivativeOf": "Είναι παράγωγο του",
+      "edmIsRelatedTo": "Σχετίζεται με",
       "edmIsRepresentationOf": "Είναι αναπαράσταση του",
       "edmIsSimilarTo": "Είναι παρόμοιο με",
       "edmIsSuccessorOf": "Είναι διάδοχος του",
@@ -685,7 +686,9 @@ export default {
     "automated": "Αυτοματοποιημένη μετάφραση",
     "enrichment": "Εμπλουτισμός με έργα συνεργατών",
     "other": "Άλλες γλώσσες",
-    "translateLanguage": "Θα θέλατε να δείτε αυτό το στοιχείο στο {0};"
+    "stopTranslating": "Διακοπή μετάφρασης αυτού του στοιχείου σε {0}.",
+    "translateLanguage": "Θα θέλατε να δείτε αυτό το στοιχείο στα {0};",
+    "translateQuotaError": "Η υπηρεσία μετάφρασης δεν είναι προσωρινά διαθέσιμη. Παρακαλώ προσπαθήστε ξανά αργότερα."
   },
   "newWindow": "ανοίγει σε νέο παράθυρο",
   "noMoreResults": "Δεν υπάρχουν άλλα αποτελέσματα για την αναζήτησή σας",
@@ -701,6 +704,9 @@ export default {
       },
       "persons": {
         "title": "Άτομα"
+      },
+      "table": {
+        "name": "Ονομα"
       },
       "times": {
         "title": "Φορές"

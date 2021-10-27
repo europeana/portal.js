@@ -493,6 +493,7 @@ export default {
       "edmIncorporates": "Incorpora",
       "edmIntermediateProvider": "Fornecedor intermediário",
       "edmIsDerivativeOf": "Deriva de",
+      "edmIsRelatedTo": "Está relacionado com",
       "edmIsRepresentationOf": "É representação de",
       "edmIsSimilarTo": "É similar a",
       "edmIsSuccessorOf": "É sucessor de",
@@ -684,7 +685,10 @@ export default {
   "multilingual": {
     "automated": "Tradução automatizada",
     "enrichment": "Enriquecimento por projetos de parceiros",
-    "other": "Outras línguas"
+    "other": "Outras línguas",
+    "stopTranslating": "Pare de traduzir este item para {0} .",
+    "translateLanguage": "Gostaria de ver este item em {0} ?",
+    "translateQuotaError": "O serviço de tradução está temporariamente indisponível. Por favor, tente novamente mais tarde."
   },
   "newWindow": "abre numa nova janela",
   "noMoreResults": "Não há mais resultados para a sua pesquisa.",
@@ -700,6 +704,9 @@ export default {
       },
       "persons": {
         "title": "Pessoas"
+      },
+      "table": {
+        "name": "Nome"
       },
       "times": {
         "title": "Vezes"

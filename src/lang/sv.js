@@ -493,6 +493,7 @@ export default {
       "edmIncorporates": "Inkorporerar",
       "edmIntermediateProvider": "Mellanliggande leverantör",
       "edmIsDerivativeOf": "Är härledd från",
+      "edmIsRelatedTo": "Är relaterat till",
       "edmIsRepresentationOf": "Är en representation av",
       "edmIsSimilarTo": "Liknar",
       "edmIsSuccessorOf": "Är efterföljare till",
@@ -685,7 +686,9 @@ export default {
     "automated": "Automatiserad översättning",
     "enrichment": "Berikning genom partnerprojekt",
     "other": "Andra språk",
-    "translateLanguage": "Vill du se det här objektet i {0} ?"
+    "stopTranslating": "Sluta översätta det här objektet till {0} .",
+    "translateLanguage": "Vill du se det här objektet i {0} ?",
+    "translateQuotaError": "Översättningstjänsten är inte tillgänglig för tillfället. Försök igen senare."
   },
   "newWindow": "öppnas i nytt fönster",
   "noMoreResults": "Det finns inga fler resultat för din sökning.",
@@ -701,6 +704,9 @@ export default {
       },
       "persons": {
         "title": "Personer"
+      },
+      "table": {
+        "name": "Namn"
       },
       "times": {
         "title": "Tider"

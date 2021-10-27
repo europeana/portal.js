@@ -493,6 +493,7 @@ export default {
       "edmIncorporates": "Zahŕňa",
       "edmIntermediateProvider": "Sprostredkovateľ",
       "edmIsDerivativeOf": "Je odvodený z",
+      "edmIsRelatedTo": "Súvisí s",
       "edmIsRepresentationOf": "Znázorňuje",
       "edmIsSimilarTo": "Podobá sa",
       "edmIsSuccessorOf": "nasleduje po",
@@ -684,7 +685,10 @@ export default {
   "multilingual": {
     "automated": "Automatizovaný preklad",
     "enrichment": "Obohatenie o partnerské projekty",
-    "other": "Iné jazyky"
+    "other": "Iné jazyky",
+    "stopTranslating": "Zastaviť preklad tejto položky do jazyka {0} .",
+    "translateLanguage": "Chceli by ste túto položku vidieť v položke {0}?",
+    "translateQuotaError": "Prekladateľská služba je dočasne nedostupná. Skúste neskôr prosím."
   },
   "newWindow": "otvorí sa v novom okne",
   "noMoreResults": "Pre vaše vyhľadávanie neexistujú žiadne ďalšie výsledky.",
@@ -700,6 +704,9 @@ export default {
       },
       "persons": {
         "title": "Osoby"
+      },
+      "table": {
+        "name": "Meno"
       },
       "times": {
         "title": "Krát"

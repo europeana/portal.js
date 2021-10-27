@@ -493,6 +493,7 @@ export default {
       "edmIncorporates": "Barne hartzen ditu",
       "edmIntermediateProvider": "Bitarteko hornitzailea",
       "edmIsDerivativeOf": "eratorria da",
+      "edmIsRelatedTo": "Lotuta dago",
       "edmIsRepresentationOf": "ordezkaria da",
       "edmIsSimilarTo": "-ren antzekoa da",
       "edmIsSuccessorOf": "ondorengoa da",
@@ -685,7 +686,9 @@ export default {
     "automated": "Itzulpen automatizatua",
     "enrichment": "Bazkide proiektuen aberastea",
     "other": "Beste hizkuntza batzuk",
-    "translateLanguage": "{0} -n ikusi nahi duzu?"
+    "stopTranslating": "Utzi elementu hau itzultzeari {0} .",
+    "translateLanguage": "{0} -n ikusi nahi duzu?",
+    "translateQuotaError": "Itzulpen zerbitzua ez dago aldi baterako erabilgarri. Saiatu berriro geroago."
   },
   "newWindow": "leiho berrian irekiko da",
   "noMoreResults": "Ez dago emaitza gehiagorik zure bilaketarako.",
@@ -701,6 +704,9 @@ export default {
       },
       "persons": {
         "title": "Pertsonak"
+      },
+      "table": {
+        "name": "Izena"
       },
       "times": {
         "title": "Garaiak"

@@ -493,6 +493,7 @@ export default {
       "edmIncorporates": "Jinkorpora",
       "edmIntermediateProvider": "Fornitur intermedjarju",
       "edmIsDerivativeOf": "Hija derivattiv ta'",
+      "edmIsRelatedTo": "Huwa relatat ma '",
       "edmIsRepresentationOf": "Hija rappreżentazzjoni ta'",
       "edmIsSimilarTo": "Hija simili għal",
       "edmIsSuccessorOf": "Huwa s-suċċessur ta'",
@@ -684,7 +685,10 @@ export default {
   "multilingual": {
     "automated": "Traduzzjoni awtomatizzata",
     "enrichment": "Arrikkiment minn proġetti msieħba",
-    "other": "Lingwi oħra"
+    "other": "Lingwi oħra",
+    "stopTranslating": "Waqqaf it-traduzzjoni ta 'dan l-oġġett għal {0} .",
+    "translateLanguage": "Tixtieq tara dan l-oġġett f ' {0} ?",
+    "translateQuotaError": "Is-servizz tat-traduzzjoni temporanjament mhux disponibbli. Jekk jogħġbok erġa' pprova aktar tard."
   },
   "newWindow": "tiftaħ fit-tieqa l-ġdida",
   "noMoreResults": "M'hemmx aktar riżultati għall-mistoqsija tat-tfittxija tiegħek.",
@@ -700,6 +704,9 @@ export default {
       },
       "persons": {
         "title": "Persuni"
+      },
+      "table": {
+        "name": "Isem"
       },
       "times": {
         "title": "Times"

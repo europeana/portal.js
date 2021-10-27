@@ -493,6 +493,7 @@ export default {
       "edmIncorporates": "zahrnuje",
       "edmIntermediateProvider": "Zprostředkovatel třetí strany",
       "edmIsDerivativeOf": "je zpodobněním",
+      "edmIsRelatedTo": "Souvisí s",
       "edmIsRepresentationOf": "představuje",
       "edmIsSimilarTo": "se podobá",
       "edmIsSuccessorOf": "je nástupcem",
@@ -685,7 +686,9 @@ export default {
     "automated": "Automatizovaný překlad",
     "enrichment": "Obohacení partnerskými projekty",
     "other": "Jiné jazyky",
-    "translateLanguage": "Chcete tuto položku vidět v {0}?"
+    "stopTranslating": "Přestaňte tuto položku překládat na {0}.",
+    "translateLanguage": "Chcete tuto položku vidět v {0}?",
+    "translateQuotaError": "Překladatelská služba je dočasně nedostupná. Prosím zkuste to znovu později."
   },
   "newWindow": "otevře se v novém okně",
   "noMoreResults": "Pro vaše zadání neexistují žádné další výsledky vyhledávání.",
@@ -701,6 +704,9 @@ export default {
       },
       "persons": {
         "title": "Osoby"
+      },
+      "table": {
+        "name": "Název"
       },
       "times": {
         "title": "Časy"

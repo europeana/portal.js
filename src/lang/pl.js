@@ -493,6 +493,7 @@ export default {
       "edmIncorporates": "zawiera",
       "edmIntermediateProvider": "Dostawca pośredni",
       "edmIsDerivativeOf": "jest pochodną",
+      "edmIsRelatedTo": "Odnosi się do",
       "edmIsRepresentationOf": "reprezentuje",
       "edmIsSimilarTo": "jest podobna do",
       "edmIsSuccessorOf": "jest następcą",
@@ -684,7 +685,10 @@ export default {
   "multilingual": {
     "automated": "Tłumaczenie zautomatyzowane",
     "enrichment": "Wzbogacanie o projekty partnerskie",
-    "other": "Inne języki"
+    "other": "Inne języki",
+    "stopTranslating": "Przestań tłumaczyć ten element na {0} .",
+    "translateLanguage": "Czy chciałbyś zobaczyć ten element w {0}?",
+    "translateQuotaError": "Usługa tłumaczeń jest chwilowo niedostępna. Spróbuj ponownie później."
   },
   "newWindow": "otwiera się w nowym oknie",
   "noMoreResults": "Nie ma więcej wyników dla zapytania wyszukiwania.",
@@ -700,6 +704,9 @@ export default {
       },
       "persons": {
         "title": "Osoby"
+      },
+      "table": {
+        "name": "Nazwa"
       },
       "times": {
         "title": "Czasy"

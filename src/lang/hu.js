@@ -493,6 +493,7 @@ export default {
       "edmIncorporates": "Magában foglalja",
       "edmIntermediateProvider": "Köztes szolgáltató",
       "edmIsDerivativeOf": "Leszármazottja",
+      "edmIsRelatedTo": "Kapcsolódik a",
       "edmIsRepresentationOf": "Képviselete",
       "edmIsSimilarTo": "Hasonló",
       "edmIsSuccessorOf": "Utódja",
@@ -684,7 +685,10 @@ export default {
   "multilingual": {
     "automated": "Automatizált fordítás",
     "enrichment": "Gazdagodás partnerprojektek által",
-    "other": "Egyéb nyelvek"
+    "other": "Egyéb nyelvek",
+    "stopTranslating": "Állítsa le ennek az elemnek a fordítását {0}-ra.",
+    "translateLanguage": "Szeretné látni ezt az elemet itt: {0} ?",
+    "translateQuotaError": "A fordítási szolgáltatás ideiglenesen nem érhető el. Kérlek, próbáld újra később."
   },
   "newWindow": "új ablakban nyílik meg",
   "noMoreResults": "Nincs további eredmény a keresési lekérdezéshez.",
@@ -700,6 +704,9 @@ export default {
       },
       "persons": {
         "title": "Személyek"
+      },
+      "table": {
+        "name": "Név"
       },
       "times": {
         "title": "Idők"

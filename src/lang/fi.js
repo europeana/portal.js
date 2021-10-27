@@ -493,6 +493,7 @@ export default {
       "edmIncorporates": "Sisältää",
       "edmIntermediateProvider": "Välillinen tarjoaja",
       "edmIsDerivativeOf": "On johdannainen kohteesta",
+      "edmIsRelatedTo": "On sukua",
       "edmIsRepresentationOf": "Kuvaa kohdetta",
       "edmIsSimilarTo": "On samanlainen kuin",
       "edmIsSuccessorOf": "On seuraaja kohteelle",
@@ -685,7 +686,9 @@ export default {
     "automated": "Automatisoitu käännös",
     "enrichment": "Rikastaminen kumppaniprojekteilla",
     "other": "Muut kielet",
-    "translateLanguage": "Haluaisitko nähdä tämän kohteen {0}?"
+    "stopTranslating": "Lopeta tämän kohteen kääntäminen kielelle {0} .",
+    "translateLanguage": "Haluaisitko nähdä tämän kohteen {0}?",
+    "translateQuotaError": "Käännöspalvelu ei ole tilapäisesti käytettävissä. Yritä uudelleen myöhemmin."
   },
   "newWindow": "avautuu uuteen ikkunaan",
   "noMoreResults": "Hakusi ei tuottanut enempää tuloksia.",
@@ -701,6 +704,9 @@ export default {
       },
       "persons": {
         "title": "Henkilöt"
+      },
+      "table": {
+        "name": "Nimi"
       },
       "times": {
         "title": "aika"

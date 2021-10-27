@@ -493,6 +493,7 @@ export default {
       "edmIncorporates": "включва",
       "edmIntermediateProvider": "Междинен доставчик",
       "edmIsDerivativeOf": "е производно на",
+      "edmIsRelatedTo": "Свързано е с",
       "edmIsRepresentationOf": "представлява",
       "edmIsSimilarTo": "наподобява",
       "edmIsSuccessorOf": "е продължение на",
@@ -685,7 +686,9 @@ export default {
     "automated": "Автоматизиран превод",
     "enrichment": "Обогатяване по партньорски проекти",
     "other": "Други езици",
-    "translateLanguage": "Искате ли да видите този елемент в {0} ?"
+    "stopTranslating": "Спрете превода на този елемент на {0}.",
+    "translateLanguage": "Искате ли да видите този елемент в {0} ?",
+    "translateQuotaError": "Услугата за превод временно не е налична. Моля, опитайте отново по-късно."
   },
   "newWindow": "отваря се в нов прозорец",
   "noMoreResults": "Няма повече резултати за вашата заявка за търсене.",
@@ -701,6 +704,9 @@ export default {
       },
       "persons": {
         "title": "Лица"
+      },
+      "table": {
+        "name": "Име"
       },
       "times": {
         "title": "времеви периоди"

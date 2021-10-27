@@ -493,6 +493,7 @@ export default {
       "edmIncorporates": "Indeholder",
       "edmIntermediateProvider": "Mellemliggende udbyder",
       "edmIsDerivativeOf": "Er afledt af",
+      "edmIsRelatedTo": "Er relateret til",
       "edmIsRepresentationOf": "Er repræsentation af",
       "edmIsSimilarTo": "Svarer til",
       "edmIsSuccessorOf": "Er efterfølger til",
@@ -685,7 +686,9 @@ export default {
     "automated": "Automatiseret oversættelse",
     "enrichment": "Berigelse ved partnerprojekter",
     "other": "Andre sprog",
-    "translateLanguage": "Vil du gerne se dette element i {0} ?"
+    "stopTranslating": "Stop med at oversætte dette element til {0}.",
+    "translateLanguage": "Vil du gerne se dette element i {0} ?",
+    "translateQuotaError": "Oversættelsestjeneste er midlertidigt utilgængelig. Prøv igen senere."
   },
   "newWindow": "åbner i nyt vindue",
   "noMoreResults": "Der er ikke flere resultater for din søgning.",
@@ -701,6 +704,9 @@ export default {
       },
       "persons": {
         "title": "Personer"
+      },
+      "table": {
+        "name": "Navn"
       },
       "times": {
         "title": "Tider"

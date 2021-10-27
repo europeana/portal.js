@@ -493,6 +493,7 @@ export default {
       "edmIncorporates": "Įtraukia",
       "edmIntermediateProvider": "Tarpinis teikėjas",
       "edmIsDerivativeOf": "Yra išvestinė iš",
+      "edmIsRelatedTo": "Yra susijęs su",
       "edmIsRepresentationOf": "Ar atstovavimas",
       "edmIsSimilarTo": "Yra panašus į",
       "edmIsSuccessorOf": "Yra įpėdinis",
@@ -684,7 +685,10 @@ export default {
   "multilingual": {
     "automated": "Automatinis vertimas",
     "enrichment": "Praturtinimas partnerių projektais",
-    "other": "Kitos kalbos"
+    "other": "Kitos kalbos",
+    "stopTranslating": "Nustokite versti šį elementą į {0} .",
+    "translateLanguage": "Ar norėtumėte pamatyti šį elementą {0} ?",
+    "translateQuotaError": "Vertimo paslauga laikinai nepasiekiama. Pabandykite dar kartą vėliau."
   },
   "newWindow": "atsidaro naujame lange",
   "noMoreResults": "Daugiau nėra rezultatų pagal jūsų paieškos užklausą.",
@@ -700,6 +704,9 @@ export default {
       },
       "persons": {
         "title": "Asmenys"
+      },
+      "table": {
+        "name": "Vardas"
       },
       "times": {
         "title": "Laikai"

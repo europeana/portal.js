@@ -493,6 +493,7 @@ export default {
       "edmIncorporates": "Vključuje",
       "edmIntermediateProvider": "Vmesni ponudnik",
       "edmIsDerivativeOf": "Je izpeljan iz",
+      "edmIsRelatedTo": "Je povezano z",
       "edmIsRepresentationOf": "Predstavlja",
       "edmIsSimilarTo": "Je podoben",
       "edmIsSuccessorOf": "Je naslednik",
@@ -684,7 +685,10 @@ export default {
   "multilingual": {
     "automated": "Avtomatizirano prevajanje",
     "enrichment": "Obogatitev s partnerskimi projekti",
-    "other": "Drugi jeziki"
+    "other": "Drugi jeziki",
+    "stopTranslating": "Prenehajte prevajati ta element v {0}.",
+    "translateLanguage": "Želite ta element videti v {0}?",
+    "translateQuotaError": "Prevajalska storitev začasno ni na voljo. Prosim poskusite kasneje."
   },
   "newWindow": "odpre se v novem oknu",
   "noMoreResults": "Za vašo iskalno poizvedbo ni več rezultatov.",
@@ -700,6 +704,9 @@ export default {
       },
       "persons": {
         "title": "Osebe"
+      },
+      "table": {
+        "name": "Ime"
       },
       "times": {
         "title": "Krat"

@@ -705,14 +705,14 @@ export default {
       "persons": {
         "title": "Persons"
       },
+      "table": {
+        "name": "Name"
+      },
       "times": {
         "title": "Times"
       },
       "topics": {
         "title": "Topics"
-      },
-      "table": {
-        "name": "Name"
       }
     }
   },

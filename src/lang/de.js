@@ -493,6 +493,7 @@ export default {
       "edmIncorporates": "Einbeziehen",
       "edmIntermediateProvider": "Zwischenanbieter",
       "edmIsDerivativeOf": "Ist eine Weiterentwicklung von",
+      "edmIsRelatedTo": "Ist verwandt mit",
       "edmIsRepresentationOf": "Ist die Darstellung von",
       "edmIsSimilarTo": "Ist ähnlich wie",
       "edmIsSuccessorOf": "Ist Nachfolger von",
@@ -684,7 +685,10 @@ export default {
   "multilingual": {
     "automated": "Automatisierte Übersetzung",
     "enrichment": "Anreicherung durch Partnerprojekte",
-    "other": "Andere Sprachen"
+    "other": "Andere Sprachen",
+    "stopTranslating": "Beenden Sie die Übersetzung dieses Elements in {0}.",
+    "translateLanguage": "Möchten Sie diesen Artikel in {0} sehen?",
+    "translateQuotaError": "Der Übersetzungsdienst ist vorübergehend nicht verfügbar. Bitte versuchen Sie es später erneut."
   },
   "newWindow": "öffnet sich in einem neuen Fenster",
   "noMoreResults": "Es gibt keine weiteren Ergebnisse für Ihre Suchanfrage.",
@@ -700,6 +704,9 @@ export default {
       },
       "persons": {
         "title": "Personen"
+      },
+      "table": {
+        "name": "Name"
       },
       "times": {
         "title": "Mal"

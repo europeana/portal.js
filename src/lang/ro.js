@@ -493,6 +493,7 @@ export default {
       "edmIncorporates": "Încorporează",
       "edmIntermediateProvider": "Furnizor intermediar",
       "edmIsDerivativeOf": "Este derivat din",
+      "edmIsRelatedTo": "Este legat de",
       "edmIsRepresentationOf": "Este reprezentarea",
       "edmIsSimilarTo": "Este asemănător cu",
       "edmIsSuccessorOf": "Urmează după",
@@ -684,7 +685,10 @@ export default {
   "multilingual": {
     "automated": "Traducere automată",
     "enrichment": "Îmbogățirea prin proiecte partenere",
-    "other": "Alte limbi"
+    "other": "Alte limbi",
+    "stopTranslating": "Opriți traducerea acestui articol în {0} .",
+    "translateLanguage": "Ați dori să vedeți acest articol în {0}?",
+    "translateQuotaError": "Serviciul de traducere este temporar indisponibil. Vă rugăm să încercați din nou mai târziu."
   },
   "newWindow": "se deschide într-o fereastră nouă",
   "noMoreResults": "Nu mai există rezultate pentru interogarea de căutare.",
@@ -700,6 +704,9 @@ export default {
       },
       "persons": {
         "title": "Persoane"
+      },
+      "table": {
+        "name": "Nume"
       },
       "times": {
         "title": "Ori"

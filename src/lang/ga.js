@@ -493,6 +493,7 @@ export default {
       "edmIncorporates": "Ionchorpraítear leis",
       "edmIntermediateProvider": "Soláthraí idirmheánach",
       "edmIsDerivativeOf": "Is díorthach é de",
+      "edmIsRelatedTo": "Tá baint aige le",
       "edmIsRepresentationOf": "Is léiriú é de",
       "edmIsSimilarTo": "Is cosúil leis",
       "edmIsSuccessorOf": "Is comharba é ar",
@@ -685,7 +686,9 @@ export default {
     "automated": "Aistriúchán uathoibrithe",
     "enrichment": "Saibhriú ag tionscadail chomhpháirtíochta",
     "other": "Teangacha eile",
-    "translateLanguage": "Ar mhaith leat an mhír seo a fheiceáil i {0} ?"
+    "stopTranslating": "Stop an t-earra seo a aistriú go {0} .",
+    "translateLanguage": "Ar mhaith leat an mhír seo a fheiceáil i {0} ?",
+    "translateQuotaError": "Níl an tseirbhís aistriúcháin ar fáil go sealadach. Bain triail eile as níos déanaí."
   },
   "newWindow": "osclaítear i bhfuinneog nua é",
   "noMoreResults": "Níl aon toradh eile ann ar d'iarratas cuardaigh.",
@@ -701,6 +704,9 @@ export default {
       },
       "persons": {
         "title": "Daoine"
+      },
+      "table": {
+        "name": "Ainm"
       },
       "times": {
         "title": "Amanna"

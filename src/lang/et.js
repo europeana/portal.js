@@ -493,6 +493,7 @@ export default {
       "edmIncorporates": "Sisaldab",
       "edmIntermediateProvider": "Vahendusteenuse osutaja",
       "edmIsDerivativeOf": "Tuleneb",
+      "edmIsRelatedTo": "On seotud",
       "edmIsRepresentationOf": "Esindab",
       "edmIsSimilarTo": "on sarnane",
       "edmIsSuccessorOf": "on järeltulija",
@@ -685,7 +686,9 @@ export default {
     "automated": "Automatiseeritud tõlge",
     "enrichment": "Rikastamine partner projektide kaudu",
     "other": "Muud keeled",
-    "translateLanguage": "Kas soovite seda üksust domeenis {0} ?"
+    "stopTranslating": "Lõpetage selle üksuse tõlkimine keelde {0} .",
+    "translateLanguage": "Kas soovite seda üksust domeenis {0} ?",
+    "translateQuotaError": "Tõlketeenus pole ajutiselt saadaval. Palun proovi hiljem uuesti."
   },
   "newWindow": "avaneb uues aknas",
   "noMoreResults": "Teie otsingupäringule pole rohkem tulemusi.",
@@ -701,6 +704,9 @@ export default {
       },
       "persons": {
         "title": "Isikud"
+      },
+      "table": {
+        "name": "Nimi"
       },
       "times": {
         "title": "Korda"

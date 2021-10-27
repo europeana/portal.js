@@ -54,7 +54,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Éléments récents",
-    "time": "Centuries en vedette",
+    "time": "Des siècles en vedette",
     "topic": "Sujets d'actualité"
   },
   "blog": {
@@ -493,6 +493,7 @@ export default {
       "edmIncorporates": "Intègre",
       "edmIntermediateProvider": "Fournisseur intermédiaire",
       "edmIsDerivativeOf": "Est dérivé de",
+      "edmIsRelatedTo": "Est liée à",
       "edmIsRepresentationOf": "Est la représentation de",
       "edmIsSimilarTo": "Est identique à",
       "edmIsSuccessorOf": "Est la suite de",
@@ -685,7 +686,9 @@ export default {
     "automated": "Traduction automatisée",
     "enrichment": "Enrichissement par des projets partenaires",
     "other": "Autres langues",
-    "translateLanguage": "Souhaitez-vous voir cet article dans {0} ?"
+    "stopTranslating": "Arrêtez de traduire cet élément en {0} .",
+    "translateLanguage": "Souhaitez-vous voir cet article dans {0} ?",
+    "translateQuotaError": "Le service de traduction est temporairement indisponible. Veuillez réessayer plus tard."
   },
   "newWindow": "s'ouvre dans une nouvelle fenêtre",
   "noMoreResults": "Il n'y a plus de résultats pour votre requête de recherche.",
@@ -701,6 +704,9 @@ export default {
       },
       "persons": {
         "title": "Personnes"
+      },
+      "table": {
+        "name": "Nom"
       },
       "times": {
         "title": "Fois"
