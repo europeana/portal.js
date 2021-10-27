@@ -1,44 +1,50 @@
 <template>
-  <swiper
-    ref="awesome"
-    class="swiper"
-    :options="swiperOptions"
-    data-qa="awesome swiper"
-    @slide-change="onSlideChange"
-    @slide-change-transition-end="updateSwiper"
+  <div
+    class="swiper-outer"
   >
-    <swiper-slide
-      v-for="(item, index) in displayableMedia"
-      :key="index"
+    <swiper
+      v-show="ready"
+      ref="awesome"
+      class="swiper"
+      :options="swiperOptions"
+      data-qa="awesome swiper"
+      @slide-change="onSlideChange"
+      @slide-change-transition-end="updateSwiper"
+      @ready="swiperReady"
     >
-      <div
-        v-if="singleMediaResource"
-        class="container h-100"
+      <swiper-slide
+        v-for="(item, index) in displayableMedia"
+        :key="index"
       >
+        <div
+          v-if="singleMediaResource"
+          class="container h-100"
+        >
+          <MediaCard
+            :europeana-identifier="europeanaIdentifier"
+            :media="item"
+            :is-single-playable-media="isSinglePlayableMedia"
+            :lazy="false"
+          />
+        </div>
         <MediaCard
+          v-else
           :europeana-identifier="europeanaIdentifier"
           :media="item"
           :is-single-playable-media="isSinglePlayableMedia"
-          :lazy="false"
+          :lazy="index > 0"
         />
-      </div>
-      <MediaCard
-        v-else
-        :europeana-identifier="europeanaIdentifier"
-        :media="item"
-        :is-single-playable-media="isSinglePlayableMedia"
-        :lazy="index > 0"
+      </swiper-slide>
+      <div
+        slot="button-prev"
+        class="swiper-button-prev"
       />
-    </swiper-slide>
-    <div
-      slot="button-prev"
-      class="swiper-button-prev"
-    />
-    <div
-      slot="button-next"
-      class="swiper-button-next"
-    />
-  </swiper>
+      <div
+        slot="button-next"
+        class="swiper-button-next"
+      />
+    </swiper>
+  </div>
 </template>
 
 <script>
@@ -76,7 +82,7 @@
       const singleMediaResource = this.displayableMedia.length === 1;
       return {
         swiperOptions: {
-          init: false,
+          init: true,
           threshold: singleMediaResource ? 5000000 :  null,
           slidesPerView: 'auto',
           spaceBetween: singleMediaResource ? null : 40,
@@ -92,7 +98,8 @@
             type: 'fraction'
           }
         },
-        singleMediaResource
+        singleMediaResource,
+        ready: singleMediaResource
       };
     },
     computed: {
@@ -103,12 +110,10 @@
         return this.displayableMedia.filter(resource => isPlayableMedia(resource)).length === 1;
       }
     },
-    mounted() {
-      setTimeout(() => {
-        this.swiper.init();
-      }, 500);
-    },
     methods: {
+      swiperReady() {
+        this.ready = true;
+      },
       onSlideChange() {
         this.$emit('select', this.displayableMedia[this.swiper.activeIndex].about);
       },
@@ -122,7 +127,7 @@
 <style lang="scss">
   @import '@/assets/scss/variables.scss';
 
-  .swiper-container {
+  .swiper-outer, .swiper-container {
     height: $swiper-height;
     @media (max-height: $bp-medium) {
       max-height: $swiper-height;
