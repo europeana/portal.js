@@ -6,7 +6,7 @@ export default {
     "likes": "Mentions J’aime",
     "linkAccount": "Mon compte",
     "linkLogin": "Se connecter",
-    "linkLoginJoin": "Connexion/Rejoignez-nous",
+    "linkLoginJoin": "Connexion\/Rejoignez-nous",
     "linkLogout": "Déconnexion",
     "myProfile": "Mon profil",
     "notifications": {
@@ -54,7 +54,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Éléments récents",
-    "time": "Centuries en vedette",
+    "time": "Des siècles en vedette",
     "topic": "Sujets d'actualité"
   },
   "blog": {
@@ -356,7 +356,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format de fichier | Formats de fichiers",
       "options": {
-        "text/plain": "Texte brut"
+        "text\/plain": "Texte brut"
       }
     },
     "PROVIDER": {
@@ -493,6 +493,7 @@ export default {
       "edmIncorporates": "Intègre",
       "edmIntermediateProvider": "Fournisseur intermédiaire",
       "edmIsDerivativeOf": "Est dérivé de",
+      "edmIsRelatedTo": "Est liée à",
       "edmIsRepresentationOf": "Est la représentation de",
       "edmIsSimilarTo": "Est identique à",
       "edmIsSuccessorOf": "Est la suite de",
@@ -613,7 +614,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Aide à améliorer notre site Web en appliquant occasionnellement des modifications expérimentales.",
-        "title": "Tests A/B"
+        "title": "Tests A\/B"
       },
       "auth-strategy": {
         "description": "Se souvient de la stratégie d'autorisation à utiliser pour se connecter.",
@@ -641,7 +642,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Se souvient si vous préférez voir les résultats de la recherche sous forme de liste ou de grille.",
-        "title": "Affichage des résultats de recherche (liste/grille)"
+        "title": "Affichage des résultats de recherche (liste\/grille)"
       }
     }
   },
@@ -685,7 +686,9 @@ export default {
     "automated": "Traduction automatisée",
     "enrichment": "Enrichissement par des projets partenaires",
     "other": "Autres langues",
-    "translateLanguage": "Souhaitez-vous voir cet article dans {0} ?"
+    "stopTranslating": "Arrêtez de traduire cet élément en {0} .",
+    "translateLanguage": "Souhaitez-vous voir cet article dans {0} ?",
+    "translateQuotaError": "Le service de traduction est temporairement indisponible. Veuillez réessayer plus tard."
   },
   "newWindow": "s'ouvre dans une nouvelle fenêtre",
   "noMoreResults": "Il n'y a plus de résultats pour votre requête de recherche.",
@@ -701,6 +704,9 @@ export default {
       },
       "persons": {
         "title": "Personnes"
+      },
+      "table": {
+        "name": "Nom"
       },
       "times": {
         "title": "Fois"

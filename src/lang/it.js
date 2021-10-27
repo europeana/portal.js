@@ -6,7 +6,7 @@ export default {
     "likes": "Mi piace",
     "linkAccount": "Il mio account",
     "linkLogin": "Accedi",
-    "linkLoginJoin": "Accedi/Iscriviti",
+    "linkLoginJoin": "Accedi\/Iscriviti",
     "linkLogout": "Esci",
     "myProfile": "Il mio profilo",
     "notifications": {
@@ -356,7 +356,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formato file | Formati file",
       "options": {
-        "text/plain": "Testo semplice"
+        "text\/plain": "Testo semplice"
       }
     },
     "PROVIDER": {
@@ -493,6 +493,7 @@ export default {
       "edmIncorporates": "Incorpora",
       "edmIntermediateProvider": "Intermediario",
       "edmIsDerivativeOf": "È derivato da",
+      "edmIsRelatedTo": "È legato a",
       "edmIsRepresentationOf": "È rappresentazione di",
       "edmIsSimilarTo": "È simile a",
       "edmIsSuccessorOf": "È successore di",
@@ -613,7 +614,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Aiuta a migliorare il nostro sito Web applicando occasionalmente modifiche sperimentali.",
-        "title": "Test A/B"
+        "title": "Test A\/B"
       },
       "auth-strategy": {
         "description": "Ricorda la strategia di autorizzazione da utilizzare per accedere.",
@@ -641,7 +642,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Ricorda se preferisci vedere i risultati della ricerca in una visualizzazione elenco o griglia.",
-        "title": "Visualizzazione dei risultati di ricerca (elenco/griglia)"
+        "title": "Visualizzazione dei risultati di ricerca (elenco\/griglia)"
       }
     }
   },
@@ -684,7 +685,10 @@ export default {
   "multilingual": {
     "automated": "Traduzione automatica",
     "enrichment": "Arricchimento da parte dei progetti partner",
-    "other": "Altre lingue"
+    "other": "Altre lingue",
+    "stopTranslating": "Smetti di tradurre questo elemento in {0}.",
+    "translateLanguage": "Vuoi vedere questo articolo in {0} ?",
+    "translateQuotaError": "Il servizio di traduzione è momentaneamente non disponibile. Per favore riprova più tardi."
   },
   "newWindow": "si apre in una nuova finestra",
   "noMoreResults": "Non ci sono altri risultati per la tua query di ricerca.",
@@ -700,6 +704,9 @@ export default {
       },
       "persons": {
         "title": "Persone"
+      },
+      "table": {
+        "name": "Nome"
       },
       "times": {
         "title": "Tempi"

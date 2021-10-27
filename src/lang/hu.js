@@ -6,7 +6,7 @@ export default {
     "likes": "Kedvelések",
     "linkAccount": "Fiókom",
     "linkLogin": "Bejelentkezés",
-    "linkLoginJoin": "Bejelentkezés/Csatlakozás",
+    "linkLoginJoin": "Bejelentkezés\/Csatlakozás",
     "linkLogout": "Bejelentkezés",
     "myProfile": "A profilom",
     "notifications": {
@@ -356,7 +356,7 @@ export default {
     "MIME_TYPE": {
       "name": "Fájlformátum | Fájlformátumok",
       "options": {
-        "text/plain": "Egyszerű szöveg"
+        "text\/plain": "Egyszerű szöveg"
       }
     },
     "PROVIDER": {
@@ -493,6 +493,7 @@ export default {
       "edmIncorporates": "Magában foglalja",
       "edmIntermediateProvider": "Köztes szolgáltató",
       "edmIsDerivativeOf": "Leszármazottja",
+      "edmIsRelatedTo": "Kapcsolódik a",
       "edmIsRepresentationOf": "Képviselete",
       "edmIsSimilarTo": "Hasonló",
       "edmIsSuccessorOf": "Utódja",
@@ -613,7 +614,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Segít weboldalunk fejlesztésében azáltal, hogy alkalmanként kísérleti változtatásokat alkalmaz.",
-        "title": "A/B tesztelés"
+        "title": "A\/B tesztelés"
       },
       "auth-strategy": {
         "description": "Emlékszik a bejelentkezéshez használandó engedélyezési stratégiára.",
@@ -641,7 +642,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Emlékszik arra, hogy a keresési eredményeket inkább lista- vagy rácsnézetben szeretné-e látni.",
-        "title": "Keresési eredmény nézet (lista / rács)"
+        "title": "Keresési eredmény nézet (lista \/ rács)"
       }
     }
   },
@@ -684,7 +685,10 @@ export default {
   "multilingual": {
     "automated": "Automatizált fordítás",
     "enrichment": "Gazdagodás partnerprojektek által",
-    "other": "Egyéb nyelvek"
+    "other": "Egyéb nyelvek",
+    "stopTranslating": "Állítsa le ennek az elemnek a fordítását {0}-ra.",
+    "translateLanguage": "Szeretné látni ezt az elemet itt: {0} ?",
+    "translateQuotaError": "A fordítási szolgáltatás ideiglenesen nem érhető el. Kérlek, próbáld újra később."
   },
   "newWindow": "új ablakban nyílik meg",
   "noMoreResults": "Nincs további eredmény a keresési lekérdezéshez.",
@@ -700,6 +704,9 @@ export default {
       },
       "persons": {
         "title": "Személyek"
+      },
+      "table": {
+        "name": "Név"
       },
       "times": {
         "title": "Idők"

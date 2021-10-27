@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Il-Kont Tiegħi",
     "linkLogin": "Illoggja",
-    "linkLoginJoin": "Idħol/Ingħaqad",
+    "linkLoginJoin": "Idħol\/Ingħaqad",
     "linkLogout": "Oħroġ",
     "myProfile": "Il-profil Tiegħi",
     "notifications": {
@@ -356,7 +356,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format tal-fajl | Formati tal-fajl",
       "options": {
-        "text/plain": "Test bla format"
+        "text\/plain": "Test bla format"
       }
     },
     "PROVIDER": {
@@ -493,6 +493,7 @@ export default {
       "edmIncorporates": "Jinkorpora",
       "edmIntermediateProvider": "Fornitur intermedjarju",
       "edmIsDerivativeOf": "Hija derivattiv ta'",
+      "edmIsRelatedTo": "Huwa relatat ma '",
       "edmIsRepresentationOf": "Hija rappreżentazzjoni ta'",
       "edmIsSimilarTo": "Hija simili għal",
       "edmIsSuccessorOf": "Huwa s-suċċessur ta'",
@@ -613,7 +614,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Jgħin biex intejbu l-websajt tagħna billi kultant napplikaw bidliet sperimentali.",
-        "title": "Ittestjar A / B"
+        "title": "Ittestjar A \/ B"
       },
       "auth-strategy": {
         "description": "Jiftakar l-istrateġija ta' awtorizzazzjoni biex tużaha biex tilloggja.",
@@ -641,7 +642,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Tiftakar jekk tippreferi tara r-riżultati tat-tfittxija f'lista jew viżjoni tal-grilja.",
-        "title": "Veduta tar-riżultat tat-tfittxija (lista / gradilja)"
+        "title": "Veduta tar-riżultat tat-tfittxija (lista \/ gradilja)"
       }
     }
   },
@@ -684,7 +685,10 @@ export default {
   "multilingual": {
     "automated": "Traduzzjoni awtomatizzata",
     "enrichment": "Arrikkiment minn proġetti msieħba",
-    "other": "Lingwi oħra"
+    "other": "Lingwi oħra",
+    "stopTranslating": "Waqqaf it-traduzzjoni ta 'dan l-oġġett għal {0} .",
+    "translateLanguage": "Tixtieq tara dan l-oġġett f ' {0} ?",
+    "translateQuotaError": "Is-servizz tat-traduzzjoni temporanjament mhux disponibbli. Jekk jogħġbok erġa' pprova aktar tard."
   },
   "newWindow": "tiftaħ fit-tieqa l-ġdida",
   "noMoreResults": "M'hemmx aktar riżultati għall-mistoqsija tat-tfittxija tiegħek.",
@@ -700,6 +704,9 @@ export default {
       },
       "persons": {
         "title": "Persuni"
+      },
+      "table": {
+        "name": "Isem"
       },
       "times": {
         "title": "Times"

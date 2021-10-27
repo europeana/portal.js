@@ -6,7 +6,7 @@ export default {
     "likes": "Gostos",
     "linkAccount": "A minha conta",
     "linkLogin": "Inicie sessão",
-    "linkLoginJoin": "Entrar/Criar conta",
+    "linkLoginJoin": "Entrar\/Criar conta",
     "linkLogout": "Encerrar sessão",
     "myProfile": "Meu perfil",
     "notifications": {
@@ -356,7 +356,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formato de ficheiro | Formatos de ficheiros",
       "options": {
-        "text/plain": "Texto simples"
+        "text\/plain": "Texto simples"
       }
     },
     "PROVIDER": {
@@ -493,6 +493,7 @@ export default {
       "edmIncorporates": "Incorpora",
       "edmIntermediateProvider": "Fornecedor intermediário",
       "edmIsDerivativeOf": "Deriva de",
+      "edmIsRelatedTo": "Está relacionado com",
       "edmIsRepresentationOf": "É representação de",
       "edmIsSimilarTo": "É similar a",
       "edmIsSuccessorOf": "É sucessor de",
@@ -613,7 +614,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Ajuda a melhorar o nosso site, aplicando ocasionalmente alterações experimentais.",
-        "title": "Teste A/B"
+        "title": "Teste A\/B"
       },
       "auth-strategy": {
         "description": "Lembra a estratégia de autorização a ser usada para fazer login.",
@@ -641,7 +642,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Lembra-se se preferir ver os resultados da pesquisa numa lista ou numa visualização em grelha.",
-        "title": "Visualização de resultado de pesquisa (lista/grade)"
+        "title": "Visualização de resultado de pesquisa (lista\/grade)"
       }
     }
   },
@@ -684,7 +685,10 @@ export default {
   "multilingual": {
     "automated": "Tradução automatizada",
     "enrichment": "Enriquecimento por projetos de parceiros",
-    "other": "Outras línguas"
+    "other": "Outras línguas",
+    "stopTranslating": "Pare de traduzir este item para {0} .",
+    "translateLanguage": "Gostaria de ver este item em {0} ?",
+    "translateQuotaError": "O serviço de tradução está temporariamente indisponível. Por favor, tente novamente mais tarde."
   },
   "newWindow": "abre numa nova janela",
   "noMoreResults": "Não há mais resultados para a sua pesquisa.",
@@ -700,6 +704,9 @@ export default {
       },
       "persons": {
         "title": "Pessoas"
+      },
+      "table": {
+        "name": "Nome"
       },
       "times": {
         "title": "Vezes"

@@ -6,7 +6,7 @@ export default {
     "likes": "Atsegin |",
     "linkAccount": "Nire kontua",
     "linkLogin": "Saioa hasi",
-    "linkLoginJoin": "Saioa hasi/Sartu",
+    "linkLoginJoin": "Saioa hasi\/Sartu",
     "linkLogout": "Saioa amaitu",
     "myProfile": "Nire profila",
     "notifications": {
@@ -356,7 +356,7 @@ export default {
     "MIME_TYPE": {
       "name": "Fitxategiaren formatua | Fitxategien formatuak",
       "options": {
-        "text/plain": "Testu arrunta"
+        "text\/plain": "Testu arrunta"
       }
     },
     "PROVIDER": {
@@ -493,6 +493,7 @@ export default {
       "edmIncorporates": "Barne hartzen ditu",
       "edmIntermediateProvider": "Bitarteko hornitzailea",
       "edmIsDerivativeOf": "eratorria da",
+      "edmIsRelatedTo": "Lotuta dago",
       "edmIsRepresentationOf": "ordezkaria da",
       "edmIsSimilarTo": "-ren antzekoa da",
       "edmIsSuccessorOf": "ondorengoa da",
@@ -573,7 +574,7 @@ export default {
   },
   "items": {
     "itemCount": "Elementu 1 | {count} elementu",
-    "itemOf": "{max}/{count} elementu",
+    "itemOf": "{max}\/{count} elementu",
     "recent": "Azken elementuak",
     "recommendationsDisclaimer": "Erpurua gora galerian gehitzeko - Erpurua behera gustatzen ez bazaizu",
     "recommended": "Gomendatutako elementuak",
@@ -613,7 +614,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Gure webgunea hobetzen laguntzen du noizean behin aldaketa esperimentalak aplikatuz.",
-        "title": "A / B probak"
+        "title": "A \/ B probak"
       },
       "auth-strategy": {
         "description": "Saioa hasteko erabili beharreko baimen estrategia gogoratzen du.",
@@ -641,7 +642,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Gogoratzen duzu bilaketa-emaitzak zerrenda edo sareta ikuspegian ikustea nahiago baduzu.",
-        "title": "Bilaketaren emaitzen ikuspegia (zerrenda / sareta)"
+        "title": "Bilaketaren emaitzen ikuspegia (zerrenda \/ sareta)"
       }
     }
   },
@@ -685,7 +686,9 @@ export default {
     "automated": "Itzulpen automatizatua",
     "enrichment": "Bazkide proiektuen aberastea",
     "other": "Beste hizkuntza batzuk",
-    "translateLanguage": "{0} -n ikusi nahi duzu?"
+    "stopTranslating": "Utzi elementu hau itzultzeari {0} .",
+    "translateLanguage": "{0} -n ikusi nahi duzu?",
+    "translateQuotaError": "Itzulpen zerbitzua ez dago aldi baterako erabilgarri. Saiatu berriro geroago."
   },
   "newWindow": "leiho berrian irekiko da",
   "noMoreResults": "Ez dago emaitza gehiagorik zure bilaketarako.",
@@ -701,6 +704,9 @@ export default {
       },
       "persons": {
         "title": "Pertsonak"
+      },
+      "table": {
+        "name": "Izena"
       },
       "times": {
         "title": "Garaiak"

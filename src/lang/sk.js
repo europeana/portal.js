@@ -6,7 +6,7 @@ export default {
     "likes": "Označenia Páči sa mi",
     "linkAccount": "Môj účet",
     "linkLogin": "Prihlásiť sa",
-    "linkLoginJoin": "Prihlásiť sa/Zaregistrovať sa",
+    "linkLoginJoin": "Prihlásiť sa\/Zaregistrovať sa",
     "linkLogout": "Odhlásiť sa",
     "myProfile": "Môj profil",
     "notifications": {
@@ -356,7 +356,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formát súboru | Formáty súborov",
       "options": {
-        "text/plain": "Obyčajný text"
+        "text\/plain": "Obyčajný text"
       }
     },
     "PROVIDER": {
@@ -493,6 +493,7 @@ export default {
       "edmIncorporates": "Zahŕňa",
       "edmIntermediateProvider": "Sprostredkovateľ",
       "edmIsDerivativeOf": "Je odvodený z",
+      "edmIsRelatedTo": "Súvisí s",
       "edmIsRepresentationOf": "Znázorňuje",
       "edmIsSimilarTo": "Podobá sa",
       "edmIsSuccessorOf": "nasleduje po",
@@ -613,7 +614,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Pomáha zlepšovať náš web príležitostným použitím experimentálnych zmien.",
-        "title": "A/B testovanie"
+        "title": "A\/B testovanie"
       },
       "auth-strategy": {
         "description": "Pamätá si stratégiu autorizácie, ktorá sa má použiť na prihlásenie.",
@@ -641,7 +642,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Pamätá si, či chcete radšej zobraziť výsledky vyhľadávania v zozname alebo mriežke.",
-        "title": "Zobrazenie výsledkov hľadania (zoznam / mriežka)"
+        "title": "Zobrazenie výsledkov hľadania (zoznam \/ mriežka)"
       }
     }
   },
@@ -684,7 +685,10 @@ export default {
   "multilingual": {
     "automated": "Automatizovaný preklad",
     "enrichment": "Obohatenie o partnerské projekty",
-    "other": "Iné jazyky"
+    "other": "Iné jazyky",
+    "stopTranslating": "Zastaviť preklad tejto položky do jazyka {0} .",
+    "translateLanguage": "Chceli by ste túto položku vidieť v položke {0}?",
+    "translateQuotaError": "Prekladateľská služba je dočasne nedostupná. Skúste neskôr prosím."
   },
   "newWindow": "otvorí sa v novom okne",
   "noMoreResults": "Pre vaše vyhľadávanie neexistujú žiadne ďalšie výsledky.",
@@ -700,6 +704,9 @@ export default {
       },
       "persons": {
         "title": "Osoby"
+      },
+      "table": {
+        "name": "Meno"
       },
       "times": {
         "title": "Krát"

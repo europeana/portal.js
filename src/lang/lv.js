@@ -6,7 +6,7 @@ export default {
     "likes": "Patīk",
     "linkAccount": "Mans konts",
     "linkLogin": "Pieteikties",
-    "linkLoginJoin": "Pieteikties/Pievienoties",
+    "linkLoginJoin": "Pieteikties\/Pievienoties",
     "linkLogout": "Atteikties",
     "myProfile": "Mans profils",
     "notifications": {
@@ -356,7 +356,7 @@ export default {
     "MIME_TYPE": {
       "name": "Datnes formāts | Datņu formāti",
       "options": {
-        "text/plain": "Vienkāršs teksts"
+        "text\/plain": "Vienkāršs teksts"
       }
     },
     "PROVIDER": {
@@ -432,7 +432,7 @@ export default {
       "name": "Izdošanas datums"
     },
     "proxy_dcterms_medium": {
-      "name": "Līdzeklis/ Līdzekļi"
+      "name": "Līdzeklis\/ Līdzekļi"
     }
   },
   "feedback": {
@@ -493,6 +493,7 @@ export default {
       "edmIncorporates": "Ietver",
       "edmIntermediateProvider": "Starpnieks",
       "edmIsDerivativeOf": "Ir atvasināts(-a) no",
+      "edmIsRelatedTo": "Ir saistīts ar",
       "edmIsRepresentationOf": "Pārstāv",
       "edmIsSimilarTo": "Ir līdzīgs(-a)",
       "edmIsSuccessorOf": "Ir pēctecis(-e)",
@@ -613,7 +614,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Palīdz uzlabot mūsu vietni, laiku pa laikam veicot eksperimentālas izmaiņas.",
-        "title": "A/B testēšana"
+        "title": "A\/B testēšana"
       },
       "auth-strategy": {
         "description": "Atceras autorizācijas stratēģiju, kas jāizmanto, lai pieteiktos.",
@@ -641,7 +642,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Atceras, vai vēlaties redzēt meklēšanas rezultātus saraksta vai režģa skatā.",
-        "title": "Meklēšanas rezultātu skats (saraksts / režģis)"
+        "title": "Meklēšanas rezultātu skats (saraksts \/ režģis)"
       }
     }
   },
@@ -685,7 +686,9 @@ export default {
     "automated": "Automātiskā tulkošana",
     "enrichment": "Bagātināšana ar partneru projektiem",
     "other": "Citas valodas",
-    "translateLanguage": "Vai jūs vēlētos redzēt šo preci {0}?"
+    "stopTranslating": "Pārtrauciet šī vienuma tulkošanu uz {0}.",
+    "translateLanguage": "Vai jūs vēlētos redzēt šo preci {0}?",
+    "translateQuotaError": "Tulkošanas pakalpojums īslaicīgi nav pieejams. Lūdzu, pamēģiniet vēlreiz vēlāk."
   },
   "newWindow": "tiek atvērts jaunā logā",
   "noMoreResults": "Jūsu meklēšanas vaicājumam vairs nav rezultātu.",
@@ -701,6 +704,9 @@ export default {
       },
       "persons": {
         "title": "Personas"
+      },
+      "table": {
+        "name": "Vārds"
       },
       "times": {
         "title": "Laiki"

@@ -6,7 +6,7 @@ export default {
     "likes": "Sviđanja",
     "linkAccount": "Moj račun",
     "linkLogin": "Prijava",
-    "linkLoginJoin": "Prijavi se/Pridruži se",
+    "linkLoginJoin": "Prijavi se\/Pridruži se",
     "linkLogout": "Odjava",
     "myProfile": "Moj profil",
     "notifications": {
@@ -47,7 +47,7 @@ export default {
   },
   "attribution": {
     "country": "Država:",
-    "creator": "Stvorio/la:",
+    "creator": "Stvorio\/la:",
     "date": "Datum:",
     "institution": "Institucija:",
     "title": "Naslov:"
@@ -356,7 +356,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format datoteke | Formati datoteka",
       "options": {
-        "text/plain": "Jednostavni tekst"
+        "text\/plain": "Jednostavni tekst"
       }
     },
     "PROVIDER": {
@@ -457,7 +457,7 @@ export default {
     "default": {
       "dcContributor": "Suradnici",
       "dcCoverage": "Mjesto-vrijeme",
-      "dcCreator": "Stvorio/la",
+      "dcCreator": "Stvorio\/la",
       "dcDate": "Datum",
       "dcDescription": "Opis",
       "dcDuration": "Trajanje",
@@ -493,6 +493,7 @@ export default {
       "edmIncorporates": "Uključuje",
       "edmIntermediateProvider": "Posredni dobavljač",
       "edmIsDerivativeOf": "Izveden je od",
+      "edmIsRelatedTo": "Povezano je s",
       "edmIsRepresentationOf": "Predstavlja",
       "edmIsSimilarTo": "je slično",
       "edmIsSuccessorOf": "Nasljednik je",
@@ -613,7 +614,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Pomaže poboljšati našu web stranicu povremenom primjenom eksperimentalnih promjena.",
-        "title": "A/B testiranje"
+        "title": "A\/B testiranje"
       },
       "auth-strategy": {
         "description": "Sjeća se strategije autorizacije za prijavu.",
@@ -641,7 +642,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Sjeća ako radije vidite rezultate pretraživanja u prikazu popisa ili mreže.",
-        "title": "Prikaz rezultata pretraživanja (popis / mreža)"
+        "title": "Prikaz rezultata pretraživanja (popis \/ mreža)"
       }
     }
   },
@@ -685,7 +686,9 @@ export default {
     "automated": "Automatizirani prijevod",
     "enrichment": "Obogaćivanje partnerskim projektima",
     "other": "Drugi jezici",
-    "translateLanguage": "Želite li vidjeti ovu stavku u {0} ?"
+    "stopTranslating": "Prestanite prevoditi ovu stavku na {0} .",
+    "translateLanguage": "Želite li vidjeti ovu stavku u {0} ?",
+    "translateQuotaError": "Usluga prevođenja privremeno je nedostupna. Pokušajte ponovo kasnije."
   },
   "newWindow": "otvara se u novom prozoru",
   "noMoreResults": "Nema više rezultata za vaš upit za pretraživanje.",
@@ -701,6 +704,9 @@ export default {
       },
       "persons": {
         "title": "Osobe"
+      },
+      "table": {
+        "name": "Ime"
       },
       "times": {
         "title": "Vremena"

@@ -6,7 +6,7 @@ export default {
     "likes": "Me gusta",
     "linkAccount": "Mi cuenta",
     "linkLogin": "Iniciar sesión",
-    "linkLoginJoin": "Iniciar sesión/Unirse",
+    "linkLoginJoin": "Iniciar sesión\/Unirse",
     "linkLogout": "Cerrar sesión",
     "myProfile": "Mi perfil",
     "notifications": {
@@ -356,7 +356,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formato de archivo | Formatos de archivo",
       "options": {
-        "text/plain": "Texto sin formato"
+        "text\/plain": "Texto sin formato"
       }
     },
     "PROVIDER": {
@@ -493,6 +493,7 @@ export default {
       "edmIncorporates": "incorpora",
       "edmIntermediateProvider": "Proveedor intermediario",
       "edmIsDerivativeOf": "es derivado de",
+      "edmIsRelatedTo": "Está relacionado con",
       "edmIsRepresentationOf": "es la representación de",
       "edmIsSimilarTo": "es parecido a",
       "edmIsSuccessorOf": "es el sucesor de",
@@ -613,7 +614,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Ayuda a mejorar nuestro sitio web aplicando ocasionalmente cambios experimentales.",
-        "title": "Pruebas A/B"
+        "title": "Pruebas A\/B"
       },
       "auth-strategy": {
         "description": "Recuerda la estrategia de autorización que se debe utilizar para iniciar sesión.",
@@ -641,7 +642,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Recuerda si prefiere ver los resultados de la búsqueda en una vista de lista o cuadrícula.",
-        "title": "Vista de resultados de búsqueda (lista / cuadrícula)"
+        "title": "Vista de resultados de búsqueda (lista \/ cuadrícula)"
       }
     }
   },
@@ -684,7 +685,10 @@ export default {
   "multilingual": {
     "automated": "Traducción automática",
     "enrichment": "Enriquecimiento por parte de proyectos asociados",
-    "other": "Otros idiomas"
+    "other": "Otros idiomas",
+    "stopTranslating": "Deja de traducir este elemento a {0} .",
+    "translateLanguage": "¿Le gustaría ver este artículo en {0} ?",
+    "translateQuotaError": "El servicio de traducción no está disponible temporalmente. Por favor, inténtelo de nuevo más tarde."
   },
   "newWindow": "se abre en una nueva ventana",
   "noMoreResults": "No hay más resultados para su búsqueda.",
@@ -700,6 +704,9 @@ export default {
       },
       "persons": {
         "title": "Personas"
+      },
+      "table": {
+        "name": "Nombre"
       },
       "times": {
         "title": "Veces"

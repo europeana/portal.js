@@ -6,7 +6,7 @@ export default {
     "likes": "Všečki",
     "linkAccount": "Moj račun",
     "linkLogin": "Vpis",
-    "linkLoginJoin": "Prijava/Pridruži se",
+    "linkLoginJoin": "Prijava\/Pridruži se",
     "linkLogout": "Izpis",
     "myProfile": "Moj profil",
     "notifications": {
@@ -356,7 +356,7 @@ export default {
     "MIME_TYPE": {
       "name": "Oblika zapisa datoteke | Oblike zapisov datotek",
       "options": {
-        "text/plain": "Golo besedilo"
+        "text\/plain": "Golo besedilo"
       }
     },
     "PROVIDER": {
@@ -493,6 +493,7 @@ export default {
       "edmIncorporates": "Vključuje",
       "edmIntermediateProvider": "Vmesni ponudnik",
       "edmIsDerivativeOf": "Je izpeljan iz",
+      "edmIsRelatedTo": "Je povezano z",
       "edmIsRepresentationOf": "Predstavlja",
       "edmIsSimilarTo": "Je podoben",
       "edmIsSuccessorOf": "Je naslednik",
@@ -613,7 +614,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Pomaga izboljšati naše spletno mesto z občasno uporabo eksperimentalnih sprememb.",
-        "title": "A/B testiranje"
+        "title": "A\/B testiranje"
       },
       "auth-strategy": {
         "description": "Zapomni si strategijo avtorizacije, ki jo je treba uporabiti za prijavo.",
@@ -641,7 +642,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Zapomni si, če želite rezultate iskanja raje videti v pogledu seznama ali mreže.",
-        "title": "Pogled rezultatov iskanja (seznam / mreža)"
+        "title": "Pogled rezultatov iskanja (seznam \/ mreža)"
       }
     }
   },
@@ -684,7 +685,10 @@ export default {
   "multilingual": {
     "automated": "Avtomatizirano prevajanje",
     "enrichment": "Obogatitev s partnerskimi projekti",
-    "other": "Drugi jeziki"
+    "other": "Drugi jeziki",
+    "stopTranslating": "Prenehajte prevajati ta element v {0}.",
+    "translateLanguage": "Želite ta element videti v {0}?",
+    "translateQuotaError": "Prevajalska storitev začasno ni na voljo. Prosim poskusite kasneje."
   },
   "newWindow": "odpre se v novem oknu",
   "noMoreResults": "Za vašo iskalno poizvedbo ni več rezultatov.",
@@ -700,6 +704,9 @@ export default {
       },
       "persons": {
         "title": "Osebe"
+      },
+      "table": {
+        "name": "Ime"
       },
       "times": {
         "title": "Krat"

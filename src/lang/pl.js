@@ -6,7 +6,7 @@ export default {
     "likes": "Polubienia",
     "linkAccount": "Moje konto",
     "linkLogin": "Zaloguj się",
-    "linkLoginJoin": "Zaloguj/Dołącz",
+    "linkLoginJoin": "Zaloguj\/Dołącz",
     "linkLogout": "Wyloguj",
     "myProfile": "Mój profil",
     "notifications": {
@@ -356,7 +356,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format plików | Formaty plików",
       "options": {
-        "text/plain": "Zwykły tekst"
+        "text\/plain": "Zwykły tekst"
       }
     },
     "PROVIDER": {
@@ -493,6 +493,7 @@ export default {
       "edmIncorporates": "zawiera",
       "edmIntermediateProvider": "Dostawca pośredni",
       "edmIsDerivativeOf": "jest pochodną",
+      "edmIsRelatedTo": "Odnosi się do",
       "edmIsRepresentationOf": "reprezentuje",
       "edmIsSimilarTo": "jest podobna do",
       "edmIsSuccessorOf": "jest następcą",
@@ -613,7 +614,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Pomaga ulepszyć naszą stronę internetową, od czasu do czasu stosując eksperymentalne zmiany.",
-        "title": "Testy A/B"
+        "title": "Testy A\/B"
       },
       "auth-strategy": {
         "description": "Zapamiętuje strategię autoryzacji używaną do logowania.",
@@ -641,7 +642,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Zapamiętuje się, jeśli wolisz widzieć wyniki wyszukiwania w widoku listy lub siatki.",
-        "title": "Widok wyników wyszukiwania (lista/siatka)"
+        "title": "Widok wyników wyszukiwania (lista\/siatka)"
       }
     }
   },
@@ -684,7 +685,10 @@ export default {
   "multilingual": {
     "automated": "Tłumaczenie zautomatyzowane",
     "enrichment": "Wzbogacanie o projekty partnerskie",
-    "other": "Inne języki"
+    "other": "Inne języki",
+    "stopTranslating": "Przestań tłumaczyć ten element na {0} .",
+    "translateLanguage": "Czy chciałbyś zobaczyć ten element w {0}?",
+    "translateQuotaError": "Usługa tłumaczeń jest chwilowo niedostępna. Spróbuj ponownie później."
   },
   "newWindow": "otwiera się w nowym oknie",
   "noMoreResults": "Nie ma więcej wyników dla zapytania wyszukiwania.",
@@ -700,6 +704,9 @@ export default {
       },
       "persons": {
         "title": "Osoby"
+      },
+      "table": {
+        "name": "Nazwa"
       },
       "times": {
         "title": "Czasy"

@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mein Konto",
     "linkLogin": "Anmelden",
-    "linkLoginJoin": "Anmelden/Beitreten",
+    "linkLoginJoin": "Anmelden\/Beitreten",
     "linkLogout": "Abmelden",
     "myProfile": "Mein Profil",
     "notifications": {
@@ -356,7 +356,7 @@ export default {
     "MIME_TYPE": {
       "name": "Dateiformat | Dateiformate",
       "options": {
-        "text/plain": "Klartext"
+        "text\/plain": "Klartext"
       }
     },
     "PROVIDER": {
@@ -493,6 +493,7 @@ export default {
       "edmIncorporates": "Einbeziehen",
       "edmIntermediateProvider": "Zwischenanbieter",
       "edmIsDerivativeOf": "Ist eine Weiterentwicklung von",
+      "edmIsRelatedTo": "Ist verwandt mit",
       "edmIsRepresentationOf": "Ist die Darstellung von",
       "edmIsSimilarTo": "Ist ähnlich wie",
       "edmIsSuccessorOf": "Ist Nachfolger von",
@@ -613,7 +614,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Hilft, unsere Website zu verbessern, indem gelegentlich experimentelle Änderungen vorgenommen werden.",
-        "title": "A/B-Tests"
+        "title": "A\/B-Tests"
       },
       "auth-strategy": {
         "description": "Erinnert an die Berechtigungsstrategie, die für die Anmeldung verwendet werden soll.",
@@ -641,7 +642,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Merkt sich, ob Sie die Suchergebnisse lieber in einer Listen- oder Rasteransicht anzeigen möchten.",
-        "title": "Suchergebnisansicht (Liste/Raster)"
+        "title": "Suchergebnisansicht (Liste\/Raster)"
       }
     }
   },
@@ -684,7 +685,10 @@ export default {
   "multilingual": {
     "automated": "Automatisierte Übersetzung",
     "enrichment": "Anreicherung durch Partnerprojekte",
-    "other": "Andere Sprachen"
+    "other": "Andere Sprachen",
+    "stopTranslating": "Beenden Sie die Übersetzung dieses Elements in {0}.",
+    "translateLanguage": "Möchten Sie diesen Artikel in {0} sehen?",
+    "translateQuotaError": "Der Übersetzungsdienst ist vorübergehend nicht verfügbar. Bitte versuchen Sie es später erneut."
   },
   "newWindow": "öffnet sich in einem neuen Fenster",
   "noMoreResults": "Es gibt keine weiteren Ergebnisse für Ihre Suchanfrage.",
@@ -700,6 +704,9 @@ export default {
       },
       "persons": {
         "title": "Personen"
+      },
+      "table": {
+        "name": "Name"
       },
       "times": {
         "title": "Mal"

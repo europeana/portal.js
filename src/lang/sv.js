@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mitt konto",
     "linkLogin": "Logga in",
-    "linkLoginJoin": "Logga in/Gå med",
+    "linkLoginJoin": "Logga in\/Gå med",
     "linkLogout": "Logga ut",
     "myProfile": "Min profil",
     "notifications": {
@@ -356,7 +356,7 @@ export default {
     "MIME_TYPE": {
       "name": "Filformat | Filformat",
       "options": {
-        "text/plain": "Oformaterad text"
+        "text\/plain": "Oformaterad text"
       }
     },
     "PROVIDER": {
@@ -493,6 +493,7 @@ export default {
       "edmIncorporates": "Inkorporerar",
       "edmIntermediateProvider": "Mellanliggande leverantör",
       "edmIsDerivativeOf": "Är härledd från",
+      "edmIsRelatedTo": "Är relaterat till",
       "edmIsRepresentationOf": "Är en representation av",
       "edmIsSimilarTo": "Liknar",
       "edmIsSuccessorOf": "Är efterföljare till",
@@ -613,7 +614,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Hjälper till att förbättra vår webbplats genom att ibland tillämpa experimentella förändringar.",
-        "title": "A/B -testning"
+        "title": "A\/B -testning"
       },
       "auth-strategy": {
         "description": "Kommer ihåg den auktoriserings strategi som ska användas för att logga in.",
@@ -641,7 +642,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Kommer ihåg om du föredrar att se sökresultaten i en lista eller rutnät.",
-        "title": "Visa sökresultat (lista/rutnät)"
+        "title": "Visa sökresultat (lista\/rutnät)"
       }
     }
   },
@@ -685,7 +686,9 @@ export default {
     "automated": "Automatiserad översättning",
     "enrichment": "Berikning genom partnerprojekt",
     "other": "Andra språk",
-    "translateLanguage": "Vill du se det här objektet i {0} ?"
+    "stopTranslating": "Sluta översätta det här objektet till {0} .",
+    "translateLanguage": "Vill du se det här objektet i {0} ?",
+    "translateQuotaError": "Översättningstjänsten är inte tillgänglig för tillfället. Försök igen senare."
   },
   "newWindow": "öppnas i nytt fönster",
   "noMoreResults": "Det finns inga fler resultat för din sökning.",
@@ -701,6 +704,9 @@ export default {
       },
       "persons": {
         "title": "Personer"
+      },
+      "table": {
+        "name": "Namn"
       },
       "times": {
         "title": "Tider"

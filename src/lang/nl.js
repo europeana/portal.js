@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mijn account",
     "linkLogin": "Inloggen",
-    "linkLoginJoin": "Inloggen/Aanmelden",
+    "linkLoginJoin": "Inloggen\/Aanmelden",
     "linkLogout": "Uitloggen",
     "myProfile": "Mijn profiel",
     "notifications": {
@@ -356,7 +356,7 @@ export default {
     "MIME_TYPE": {
       "name": "Bestandsformaat | Bestandsformaten",
       "options": {
-        "text/plain": "Platte tekst"
+        "text\/plain": "Platte tekst"
       }
     },
     "PROVIDER": {
@@ -493,6 +493,7 @@ export default {
       "edmIncorporates": "Bevat",
       "edmIntermediateProvider": "Tussenleverancier",
       "edmIsDerivativeOf": "Is afgeleid van",
+      "edmIsRelatedTo": "Is gerelateerd aan",
       "edmIsRepresentationOf": "Is een vertegenwoordiging van",
       "edmIsSimilarTo": "Is vergelijkbaar met",
       "edmIsSuccessorOf": "Is de opvolger van",
@@ -613,7 +614,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Helpt onze website te verbeteren door af en toe experimentele wijzigingen aan te brengen.",
-        "title": "A/B-testen"
+        "title": "A\/B-testen"
       },
       "auth-strategy": {
         "description": "Onthoudt de autorisatie strategie die moet worden gebruikt om in te loggen.",
@@ -641,7 +642,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Onthoudt of u de zoekresultaten liever in een lijst- of rasterweergave wilt zien.",
-        "title": "Zoekresultaatweergave (lijst/raster)"
+        "title": "Zoekresultaatweergave (lijst\/raster)"
       }
     }
   },
@@ -685,7 +686,9 @@ export default {
     "automated": "Geautomatiseerde vertaling",
     "enrichment": "Verrijking door partnerprojecten",
     "other": "Andere talen",
-    "translateLanguage": "Wilt u dit item in {0} zien?"
+    "stopTranslating": "Stop met het vertalen van dit item naar {0} .",
+    "translateLanguage": "Wilt u dit item in {0} zien?",
+    "translateQuotaError": "De vertaalservice is tijdelijk niet beschikbaar. Probeer het later opnieuw."
   },
   "newWindow": "opent in nieuw venster",
   "noMoreResults": "Er zijn geen resultaten meer voor uw zoekopdracht.",
@@ -701,6 +704,9 @@ export default {
       },
       "persons": {
         "title": "Personen"
+      },
+      "table": {
+        "name": "Naam"
       },
       "times": {
         "title": "Tijden"

@@ -6,7 +6,7 @@ export default {
     "likes": "Meeldimised",
     "linkAccount": "Minu konto",
     "linkLogin": "Logi sisse",
-    "linkLoginJoin": "Logi sisse/Liitu",
+    "linkLoginJoin": "Logi sisse\/Liitu",
     "linkLogout": "Logi välja",
     "myProfile": "Minu profiil",
     "notifications": {
@@ -356,7 +356,7 @@ export default {
     "MIME_TYPE": {
       "name": "Failivorming | Failivormingud",
       "options": {
-        "text/plain": "Lihttekst"
+        "text\/plain": "Lihttekst"
       }
     },
     "PROVIDER": {
@@ -493,6 +493,7 @@ export default {
       "edmIncorporates": "Sisaldab",
       "edmIntermediateProvider": "Vahendusteenuse osutaja",
       "edmIsDerivativeOf": "Tuleneb",
+      "edmIsRelatedTo": "On seotud",
       "edmIsRepresentationOf": "Esindab",
       "edmIsSimilarTo": "on sarnane",
       "edmIsSuccessorOf": "on järeltulija",
@@ -573,7 +574,7 @@ export default {
   },
   "items": {
     "itemCount": "1 toode | {count} toodet",
-    "itemOf": "{max} / {count} tootest",
+    "itemOf": "{max} \/ {count} tootest",
     "recent": "Hiljutised esemed",
     "recommendationsDisclaimer": "Galeriisse lisamiseks pöial üles - Pöidla alla, kui see teile ei meeldi",
     "recommended": "Soovitatavad esemed",
@@ -613,7 +614,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Aitab meie veebisaiti täiustada, rakendades aeg -ajalt eksperimentaalseid muudatusi.",
-        "title": "A/B testimine"
+        "title": "A\/B testimine"
       },
       "auth-strategy": {
         "description": "Mäletab sisselogimiseks kasutatava autoriseerimisstrateegia.",
@@ -641,7 +642,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Mäletab, kas eelistate näha otsingutulemusi loendi või ruudustiku kujul.",
-        "title": "Otsingutulemite vaade (loend / ruudustik)"
+        "title": "Otsingutulemite vaade (loend \/ ruudustik)"
       }
     }
   },
@@ -685,7 +686,9 @@ export default {
     "automated": "Automatiseeritud tõlge",
     "enrichment": "Rikastamine partner projektide kaudu",
     "other": "Muud keeled",
-    "translateLanguage": "Kas soovite seda üksust domeenis {0} ?"
+    "stopTranslating": "Lõpetage selle üksuse tõlkimine keelde {0} .",
+    "translateLanguage": "Kas soovite seda üksust domeenis {0} ?",
+    "translateQuotaError": "Tõlketeenus pole ajutiselt saadaval. Palun proovi hiljem uuesti."
   },
   "newWindow": "avaneb uues aknas",
   "noMoreResults": "Teie otsingupäringule pole rohkem tulemusi.",
@@ -701,6 +704,9 @@ export default {
       },
       "persons": {
         "title": "Isikud"
+      },
+      "table": {
+        "name": "Nimi"
       },
       "times": {
         "title": "Korda"

@@ -6,7 +6,7 @@ export default {
     "likes": "Patinka",
     "linkAccount": "Mano paskyra",
     "linkLogin": "Prisijungti",
-    "linkLoginJoin": "Prisijungti/Prisijungti",
+    "linkLoginJoin": "Prisijungti\/Prisijungti",
     "linkLogout": "Atsijungti",
     "myProfile": "Mano profilis",
     "notifications": {
@@ -356,7 +356,7 @@ export default {
     "MIME_TYPE": {
       "name": "Failo formatas | Failų formatai",
       "options": {
-        "text/plain": "Paprastas tekstas"
+        "text\/plain": "Paprastas tekstas"
       }
     },
     "PROVIDER": {
@@ -493,6 +493,7 @@ export default {
       "edmIncorporates": "Įtraukia",
       "edmIntermediateProvider": "Tarpinis teikėjas",
       "edmIsDerivativeOf": "Yra išvestinė iš",
+      "edmIsRelatedTo": "Yra susijęs su",
       "edmIsRepresentationOf": "Ar atstovavimas",
       "edmIsSimilarTo": "Yra panašus į",
       "edmIsSuccessorOf": "Yra įpėdinis",
@@ -613,7 +614,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Padeda tobulinti mūsų svetainę, retkarčiais pritaikant eksperimentinius pakeitimus.",
-        "title": "A/B testavimas"
+        "title": "A\/B testavimas"
       },
       "auth-strategy": {
         "description": "Prisimena autorizacijos strategiją, kurią reikia naudoti prisijungiant.",
@@ -641,7 +642,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Prisimena, ar norite paieškos rezultatus matyti sąrašo ar tinklelio rodinyje.",
-        "title": "Paieškos rezultatų rodinys (sąrašas / tinklelis)"
+        "title": "Paieškos rezultatų rodinys (sąrašas \/ tinklelis)"
       }
     }
   },
@@ -684,7 +685,10 @@ export default {
   "multilingual": {
     "automated": "Automatinis vertimas",
     "enrichment": "Praturtinimas partnerių projektais",
-    "other": "Kitos kalbos"
+    "other": "Kitos kalbos",
+    "stopTranslating": "Nustokite versti šį elementą į {0} .",
+    "translateLanguage": "Ar norėtumėte pamatyti šį elementą {0} ?",
+    "translateQuotaError": "Vertimo paslauga laikinai nepasiekiama. Pabandykite dar kartą vėliau."
   },
   "newWindow": "atsidaro naujame lange",
   "noMoreResults": "Daugiau nėra rezultatų pagal jūsų paieškos užklausą.",
@@ -700,6 +704,9 @@ export default {
       },
       "persons": {
         "title": "Asmenys"
+      },
+      "table": {
+        "name": "Vardas"
       },
       "times": {
         "title": "Laikai"

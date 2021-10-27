@@ -356,7 +356,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formáid chomhaid | Formáidí comhaid",
       "options": {
-        "text/plain": "Téacs simplí"
+        "text\/plain": "Téacs simplí"
       }
     },
     "PROVIDER": {
@@ -493,11 +493,12 @@ export default {
       "edmIncorporates": "Ionchorpraítear leis",
       "edmIntermediateProvider": "Soláthraí idirmheánach",
       "edmIsDerivativeOf": "Is díorthach é de",
+      "edmIsRelatedTo": "Tá baint aige le",
       "edmIsRepresentationOf": "Is léiriú é de",
       "edmIsSimilarTo": "Is cosúil leis",
       "edmIsSuccessorOf": "Is comharba é ar",
       "edmProvider": "Soláthraí",
-      "edmRealizes": "Tuigeann sé/sí",
+      "edmRealizes": "Tuigeann sé\/sí",
       "edmRights": "Ráiteas Ceadúnas do na meáin sa mhír seo (mura sonraítear a mhalairt)",
       "edmUgc": "Inneachar ginte le húsáideoirí",
       "europeanaCollectionName": "Ainm bailiúcháin",
@@ -613,7 +614,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Cuidíonn sé lenár suíomh Gréasáin a fheabhsú trí athruithe turgnamhacha a chur i bhfeidhm ó am go chéile.",
-        "title": "Tástáil A/B"
+        "title": "Tástáil A\/B"
       },
       "auth-strategy": {
         "description": "Is cuimhin leis an straitéis údaraithe a úsáid chun logáil isteach.",
@@ -641,7 +642,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Cuimhníonn sé más fearr leat na torthaí cuardaigh a fheiceáil i liosta nó in amharc greille.",
-        "title": "Amharc toraidh cuardaigh (liosta/greille)"
+        "title": "Amharc toraidh cuardaigh (liosta\/greille)"
       }
     }
   },
@@ -685,7 +686,9 @@ export default {
     "automated": "Aistriúchán uathoibrithe",
     "enrichment": "Saibhriú ag tionscadail chomhpháirtíochta",
     "other": "Teangacha eile",
-    "translateLanguage": "Ar mhaith leat an mhír seo a fheiceáil i {0} ?"
+    "stopTranslating": "Stop an t-earra seo a aistriú go {0} .",
+    "translateLanguage": "Ar mhaith leat an mhír seo a fheiceáil i {0} ?",
+    "translateQuotaError": "Níl an tseirbhís aistriúcháin ar fáil go sealadach. Bain triail eile as níos déanaí."
   },
   "newWindow": "osclaítear i bhfuinneog nua é",
   "noMoreResults": "Níl aon toradh eile ann ar d'iarratas cuardaigh.",
@@ -701,6 +704,9 @@ export default {
       },
       "persons": {
         "title": "Daoine"
+      },
+      "table": {
+        "name": "Ainm"
       },
       "times": {
         "title": "Amanna"
