@@ -3,6 +3,7 @@ import sinon from 'sinon';
 import serverMiddleware from '@/server-middleware/api/cache/index.js';
 import * as dailyEntries from '@/server-middleware/api/cache/daily.js';
 import * as localise from '@/server-middleware/api/cache/localise.js';
+import * as pick from '@/server-middleware/api/cache/pick.js';
 import * as cacheUtils from '@/cachers/utils.js';
 
 const expressResStub = {
@@ -27,12 +28,14 @@ describe('server-middleware/api/cache/index', () => {
   beforeEach('stub utils', () => {
     sinon.stub(dailyEntries, 'default').returnsArg(0);
     sinon.stub(localise, 'default').returnsArg(0);
+    sinon.stub(pick, 'default').returnsArg(0);
     sinon.stub(cacheUtils, 'createRedisClient').returns(redisClientStub);
   });
 
   afterEach('restore stubs', () => {
     dailyEntries.default.restore();
     localise.default.restore();
+    pick.default.restore();
     cacheUtils.createRedisClient.restore();
   });
 
@@ -52,6 +55,12 @@ describe('server-middleware/api/cache/index', () => {
     await serverMiddleware(id, config)({ query: { daily: 'true' } }, expressResStub);
 
     dailyEntries.default.should.have.been.calledWith(cached);
+  });
+
+  it('optionally picks properties', async() => {
+    await serverMiddleware(id, config)({ query: { pick: 'id,name' } }, expressResStub);
+
+    pick.default.should.have.been.calledWith(cached, ['id', 'name']);
   });
 
   it('responds with JSON', async() => {
