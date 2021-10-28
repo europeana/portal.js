@@ -25,7 +25,7 @@
       </template>
       <template #cell(prefLabel)="data">
         <SmartLink
-          :data-qa="`collection link ${data.item.id}`"
+          :data-qa="`collection link ${data.item.slug}`"
           :destination="entityRoute(data.item.slug)"
         >
           {{ data.item.prefLabel }}
@@ -58,7 +58,12 @@
       return this.$axios.get(
         `/_api/cache/collections/${this.type}`,
         // For organisations, only get English labels (for now).
-        { params: { locale: this.type === 'organisations' ? 'en' : this.$i18n.locale } }
+        {
+          params: {
+            locale: this.type === 'organisations' ? 'en' : this.$i18n.locale,
+            pick: 'slug,prefLabel'
+          }
+        }
       )
         .then(response => {
           this.collections = response.data.map(Object.freeze);
