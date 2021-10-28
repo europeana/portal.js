@@ -10,12 +10,17 @@ the prepopulated cache content.
 
 ### Populate a cache
 
-`npm run cache [CACHER:NAME] set`
+To populate one cache by running its cacher:
+`npm run cache set [CACHER:NAME]`
+
+Alternatively, to run all known cachers by omitting `CACHER:NAME`:
 
 ### Output a cache
 
-`npm run cache [CACHER:NAME] get`
+To output one cache entry:
+`npm run cache get [LOCALE:]CACHER:NAME`
 
+NB: the `[LOCALE:]` is required if the cacher is localised (see below).
 
 ## Available cachers
 
@@ -25,19 +30,33 @@ the prepopulated cache content.
 Retrieves and caches all organization-type, Europeana-scoped entities from the
 Entity API.
 
+Localised.
+
 #### `collections:times`
 Retrieves and caches all timespan-type, Europeana-scoped entities from the
 Entity API.
+
+Localised.
+
+#### `collections:times:featured`
+Retrieves and caches a daily rotation of 4 times from a hard-coded subset of
+timespan-type, Europeana-scoped entities from the Entity API.
+
+Localised.
 
 #### `collections:topics`
 Retrieves and caches all concept-type, Europeana-scoped entities from the
 Entity API.
 
+Localised.
+
 #### `collections:topics:featured`
-Retrieves and caches a hard-coded subset of featured, concept-type,
-Europeana-scoped entities from the Entity API. See `FEATURED` in
-[`./collections/topics/featured.js`](./collections/topics/featured.js) for the
-featured topic IDs.
+Retrieves and caches a daily rotation of 4 topics from a hard-coded subset of
+featured, concept-type, Europeana-scoped entities from the Entity API. See
+`FEATURED` in [`./collections/topics/featured.js`](./collections/topics/featured.js)
+for the featured topic IDs.
+
+Localised.
 
 ### `items`
 

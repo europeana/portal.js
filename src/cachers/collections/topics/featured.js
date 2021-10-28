@@ -1,7 +1,8 @@
 import baseData from '../index.js';
 
-const CACHE_KEY = '@europeana:portal.js:collections:topics:featured';
-const ENTITY_TYPE = 'concept';
+const PICK = ['slug', 'prefLabel', 'isShownBy'];
+const LOCALISE = 'prefLabel';
+const DAILY = 4;
 const FEATURED = [
   '106',
   '112',
@@ -83,10 +84,11 @@ const featuredQf = FEATURED
   .map(idNum => `"http://data.europeana.eu/concept/base/${idNum}"`)
   .join(' OR ');
 
-const data = (config = {}) => baseData({ type: ENTITY_TYPE, qf: `id:(${featuredQf})` }, config);
+const data = (config = {}) => baseData({ type: 'concept', qf: `id:(${featuredQf})` }, config);
 
 export {
   data,
-  CACHE_KEY,
-  ENTITY_TYPE
+  LOCALISE,
+  PICK,
+  DAILY
 };

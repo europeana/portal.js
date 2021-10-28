@@ -56,14 +56,7 @@
     },
     fetch() {
       return this.$axios.get(
-        `/_api/cache/collections/${this.type}`,
-        // For organisations, only get English labels (for now).
-        {
-          params: {
-            locale: this.type === 'organisations' ? 'en' : this.$i18n.locale,
-            pick: 'slug,prefLabel'
-          }
-        }
+        `/_api/cache/${this.$i18n.locale}/collections/${this.type}`
       )
         .then(response => {
           this.collections = response.data.map(Object.freeze);

@@ -50,6 +50,7 @@ app.get('/entities/times', (req, res) => res.redirect(pathWithQuery('/_api/cache
 app.get('/entities/topics', (req, res) => res.redirect(pathWithQuery('/_api/cache/collections/topics/featured', { ...req.query, daily: 'true' })));
 app.get('/items/recent', (req, res) => res.redirect(pathWithQuery('/_api/cache/items/recent', req.query)));
 app.get('/items/itemCountsMediaType', (req, res) => res.redirect(pathWithQuery('/_api/cache/items/typeCounts', req.query)));
+// TODO: add redirects for v1.52.1 cache w/ query options
 
 import cache from './cache/index.js';
 app.get('/cache/*', (req, res) => cache(req.params[0], runtimeConfig)(req, res));

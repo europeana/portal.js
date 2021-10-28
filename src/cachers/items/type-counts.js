@@ -1,6 +1,7 @@
-import { createEuropeanaApiClient } from '../utils.js';
+const LOCALISE = false;
+const PICK = false;
 
-const CACHE_KEY = '@europeana:portal.js:items:typeCounts';
+import { createEuropeanaApiClient } from '../utils.js';
 
 let axiosClient;
 
@@ -25,5 +26,6 @@ const data = (config = {}) => {
 
 export {
   data,
-  CACHE_KEY
+  LOCALISE,
+  PICK
 };
