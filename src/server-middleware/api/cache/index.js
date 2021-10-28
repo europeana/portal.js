@@ -3,7 +3,10 @@ import { errorHandler } from '../index.js';
 
 const cacheKey = (id) => `@europeana:portal.js:${id.replace(/\//g, ':')}`;
 
-export const cached = (id, config = {}) => {
+export const cached = (id, config = {}, options = {}) => {
+  const defaults = { parse: true };
+  const settings = { ...defaults, ...options };
+
   if (!config.redis.url) {
     return Promise.reject(new Error('No cache configured.'));
   }
@@ -12,7 +15,7 @@ export const cached = (id, config = {}) => {
   const key = cacheKey(id);
 
   return redisClient.getAsync(key)
-    .then(value => JSON.parse(value))
+    .then(value => settings.parse ? JSON.parse(value) : value)
     .then(body => {
       redisClient.quitAsync();
       return body;
@@ -20,8 +23,10 @@ export const cached = (id, config = {}) => {
 };
 
 export default (id, config = {}) => (req, res) => {
-  return cached(id, config)
-    // TODO: avoid parsing JSON above, then re-serializing as JSON here
-    .then(data => res.json(data))
+  return cached(id, config, { parse: false })
+    .then(data => {
+      res.set('Content-Type', 'application/json');
+      res.send(data);
+    })
     .catch(error => errorHandler(res, error));
 };
