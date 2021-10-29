@@ -387,7 +387,7 @@
     max-width: none;
   }
   .col-filters {
-    max-width: 320px !important;
+    max-width: 320px;
     flex-grow: 0;
   }
 </style>

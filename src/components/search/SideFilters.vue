@@ -7,7 +7,7 @@
         <client-only>
           <div class="position-relative">
             <FacetDropdown
-              v-for="facet in coreFacets"
+              v-for="facet in orderedFacets"
               :key="facet.name"
               :name="facet.name"
               :fields="facet.fields"
@@ -15,13 +15,6 @@
               :selected="filters[facet.name]"
               role="search"
               @changed="changeFacet"
-            />
-            <MoreFiltersDropdown
-              v-if="enableMoreFacets"
-              :more-facets="moreFacets"
-              :selected="moreSelectedFacets"
-              role="search"
-              @changed="changeMoreFacets"
             />
             <button
               v-if="isFilteredByDropdowns()"
@@ -42,18 +35,17 @@
   import ClientOnly from 'vue-client-only';
 
   import isEqual from 'lodash/isEqual';
-  import pickBy from 'lodash/pickBy';
   import { mapState, mapGetters } from 'vuex';
   import { thematicCollections } from '@/plugins/europeana/search';
   import { queryUpdatesForFilters } from '../../store/search';
+  import FacetDropdown from './FacetDropdown.vue';
 
   export default {
-    name: 'SearchInterface',
+    name: 'SideFilters',
 
     components: {
       ClientOnly,
-      FacetDropdown: () => import('../../components/search/FacetDropdown'),
-      MoreFiltersDropdown: () => import('../../components/search/MoreFiltersDropdown')
+      FacetDropdown
     },
     props: {
       route: {
@@ -72,14 +64,8 @@
     computed: {
       ...mapState({
         userParams: state => state.search.userParams,
-        entityId: state => state.entity.id,
-        error: state => state.search.error,
         facets: state => state.search.facets,
-        hits: state => state.search.hits,
-        lastAvailablePage: state => state.search.lastAvailablePage,
-        resettableFilters: state => state.search.resettableFilters,
-        results: state => state.search.results,
-        totalResults: state => state.search.totalResults
+        resettableFilters: state => state.search.resettableFilters
       }),
       ...mapGetters({
         facetNames: 'search/facetNames',
@@ -106,28 +92,6 @@
         // This is a workaround
         return Number(this.$route.query.page || 1);
       },
-      errorMessage() {
-        if (!this.error) {
-          return null;
-        }
-
-        const paginationError = this.error.match(/It is not possible to paginate beyond the first (\d+)/);
-        if (paginationError !== null) {
-          const localisedPaginationLimit = this.$options.filters.localise(Number(paginationError[1]));
-          return this.$t('messages.paginationLimitExceeded', { limit: localisedPaginationLimit });
-        }
-
-        return this.error;
-      },
-      hasAnyResults() {
-        return this.totalResults > 0;
-      },
-      noMoreResults() {
-        return this.hasAnyResults && this.results.length === 0;
-      },
-      noResults() {
-        return this.totalResults === 0;
-      },
       /**
        * Sort the facets for display
        * Facets are returned in the hard-coded preferred order from the search
@@ -152,60 +116,9 @@
           ordered.unshift({ name: 'collection', fields: thematicCollections });
         }
         return ordered.concat(unordered);
-      },
-      coreFacets() {
-        return this.orderedFacets.filter(facet => this.coreFacetNames.includes(facet.name));
-      },
-      moreFacetNames() {
-        return this.facetNames.filter(facetName => !this.coreFacetNames.includes(facetName));
-      },
-      moreFacets() {
-        return this.orderedFacets.filter(facet => this.moreFacetNames.includes(facet.name));
-      },
-      moreSelectedFacets() {
-        // TODO: use resettableFilters here?
-        // TODO: if not, move newspaper filter names into store/collections/newspapers?
-        return pickBy(this.filters, (selected, name) => this.moreFacetNames.includes(name) || ['api', this.PROXY_DCTERMS_ISSUED].includes(name));
-      },
-      enableMoreFacets() {
-        return this.moreFacets.length > 0;
-      },
-      contentTierZeroPresent() {
-        return this.moreFacets.some(facet => {
-          return facet.name === 'contentTier' && facet.fields && facet.fields.some(option => option.label === '"0"');
-        });
-      },
-      contentTierZeroActive() {
-        return this.filters.contentTier?.some(filter => {
-          return filter === '"0"' || filter === '*'; // UI applies "0", this won't handle user provided values.
-        }) || false;
-      },
-      routeQueryView() {
-        return this.$route.query.view;
-      },
-      view: {
-        get() {
-          return this.$store.getters['search/activeView'];
-        },
-        set(value) {
-          this.$store.commit('search/setView', value);
-        }
       }
     },
-    watch: {
-      routeQueryView: 'viewFromRouteQuery',
-      contentTierZeroPresent: 'showContentTierToast',
-      contentTierZeroActive: 'showContentTierToast'
-    },
-    mounted() {
-      this.showContentTierToast();
-    },
     methods: {
-      viewFromRouteQuery() {
-        if (this.routeQueryView) {
-          this.view = this.routeQueryView;
-        }
-      },
       facetDropdownType(name) {
         return name === 'collection' ? 'radio' : 'checkbox';
       },
@@ -220,9 +133,6 @@
         }
 
         this.rerouteSearch(this.queryUpdatesForFacetChanges({ [name]: selected }));
-      },
-      changeMoreFacets(selected) {
-        return this.rerouteSearch(this.queryUpdatesForFacetChanges(selected));
       },
       rerouteSearch(queryUpdates) {
         const query = this.updateCurrentSearchQuery(queryUpdates);
@@ -268,28 +178,6 @@
       },
       isFilteredByDropdowns() {
         return this.$store.getters['search/hasResettableFilters'];
-      },
-      showContentTierToast() {
-        if (!process.browser) {
-          return;
-        }
-
-        if (sessionStorage.contentTierToastShown || this.contentTierZeroActive || !this.contentTierZeroPresent) {
-          return;
-        }
-        this.makeToast();
-        sessionStorage.contentTierToastShown = 'true';
-      },
-      makeToast() {
-        this.$root.$bvToast.toast(this.$t('facets.contentTier.notification'), {
-          toastClass: 'brand-toast',
-          toaster: 'b-toaster-bottom-left',
-          autoHideDelay: 5000,
-          isStatus: true,
-          noCloseButton: true,
-          solid: true
-        });
-        this.$matomo && this.$matomo.trackEvent('Tier 0 snackbar', 'Tier 0 snackbar appears', 'Tier 0 snackbar appears');
       }
     }
   };
