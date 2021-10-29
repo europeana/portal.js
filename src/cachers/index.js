@@ -26,7 +26,7 @@ const cacherModule = (cacherName) => {
   return import(`./${cacherPath}.js`);
 };
 
-const cacheKey = (cacherName, locale) => {
+const namespaceCacheKey = (cacherName, locale) => {
   let key = CACHE_KEY_PREFIX;
 
   if (locale) {
@@ -54,10 +54,10 @@ const runSetCacher = async(cacherName) => {
   if (cacher.LOCALISE) {
     for (const locale of localeCodes) {
       const localised = utils.localise(data, cacher.LOCALISE, locale);
-      await writeCacheKey(cacheKey(cacherName, locale), localised);
+      await writeCacheKey(namespaceCacheKey(cacherName, locale), localised);
     }
   } else {
-    await writeCacheKey(cacheKey(cacherName), data);
+    await writeCacheKey(namespaceCacheKey(cacherName), data);
   }
 };
 
@@ -70,8 +70,8 @@ const main = async() => {
   try {
     if (command === 'set') {
       if (cacherName === undefined) {
-        for (const cacherName of cacherNames) {
-          await runSetCacher(cacherName);
+        for (const cname of cacherNames) {
+          await runSetCacher(cname);
         }
       } else {
         await runSetCacher(cacherName);
@@ -79,7 +79,7 @@ const main = async() => {
 
       response = 'SUCCESS';
     } else if (command === 'get') {
-      response = await readCacheKey(cacheKey(cacherName));
+      response = await readCacheKey(namespaceCacheKey(cacherName));
     } else {
       console.error(`Unknown command "${command}"`);
       process.exit(1);
