@@ -36,7 +36,7 @@
         </b-col>
         <b-col
           v-if="sideFiltersEnabled"
-          class="col-filters"
+          class="col-filters col-3"
         >
           <SideFilters />
         </b-col>
@@ -107,6 +107,8 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '@/assets/scss/variables.scss';
+
   h1 {
     font-size: 1.875rem;
     font-weight: 300;
@@ -121,6 +123,10 @@
   }
   .col-filters {
     max-width: 320px;
+    min-width: 220px;
     flex-grow: 0;
+    padding: 0;
+    background-color: $white;
+    margin-top: -1rem;
   }
 </style>

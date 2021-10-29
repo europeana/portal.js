@@ -2,7 +2,10 @@
   <b-dropdown
     ref="dropdown"
     :variant="dropdownVariant"
-    class="mr-2 my-2"
+    :class="{
+      'mr-2 my-2 facet-dropdown': !sideFiltersEnabled,
+      'side-facet': sideFiltersEnabled
+    }"
     :data-type="type"
     data-qa="search facet"
     @hidden="cancelHandler"
@@ -157,6 +160,9 @@
 
       dropdownVariant() {
         return ((typeof this.selected === 'string') || (Array.isArray(this.selected) && this.selected.length > 0)) ? 'selected' : 'light';
+      },
+      sideFiltersEnabled() {
+        return this.$config.app.features.sideFilters;
       }
     },
 
@@ -205,7 +211,7 @@
 <style lang="scss" scoped>
   @import '@/assets/scss/variables.scss';
 
-  .dropdown { // TODO: move this code to the dropdown.scss where possible, to avoid duplication
+  .dropdown.facet-dropdown { // TODO: move this code to the dropdown.scss where possible, to avoid duplication
     margin-bottom: 5px;
     width: 100%;
 

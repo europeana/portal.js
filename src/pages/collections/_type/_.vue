@@ -77,7 +77,7 @@
           </b-col>
           <b-col
             v-if="sideFiltersEnabled"
-            class="col-filters"
+            class="col-filters col-3"
           >
             <SideFilters />
           </b-col>
@@ -377,6 +377,8 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '@/assets/scss/variables.scss';
+
   .entity-page {
     margin-top: -1rem;
     .related-collections {
@@ -388,6 +390,10 @@
   }
   .col-filters {
     max-width: 320px;
+    min-width: 220px;
     flex-grow: 0;
+    padding: 0;
+    background-color: $white;
+    margin-top: -1.5rem;
   }
 </style>

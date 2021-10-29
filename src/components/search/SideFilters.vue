@@ -1,5 +1,14 @@
 <template>
-  <b-container>
+  <b-container
+    class="side-filters"
+  >
+    <b-row
+      class="filter-title-row"
+    >
+      <h2 class="filters-title">
+        {{ $t('filterResults') }}
+      </h2>
+    </b-row>
     <b-row class="mb-3">
       <b-col
         data-qa="search filters"
@@ -18,7 +27,7 @@
             />
             <button
               v-if="isFilteredByDropdowns()"
-              class="reset"
+              class="btn btn-outline-primary"
               data-qa="reset filters button"
               @click="resetFilters"
             >
@@ -38,7 +47,7 @@
   import { mapState, mapGetters } from 'vuex';
   import { thematicCollections } from '@/plugins/europeana/search';
   import { queryUpdatesForFilters } from '../../store/search';
-  import FacetDropdown from './FacetDropdown.vue';
+  import FacetDropdown from './FacetDropdown';
 
   export default {
     name: 'SideFilters',
@@ -192,5 +201,15 @@
     color: $black;
     font-size: $font-size-small;
     text-transform: uppercase;
+  }
+  .filter-title-row {
+    border-bottom: 1px solid $middlegrey;
+  }
+  .filters-title {
+    font-size: $font-size-small;
+    font-weight: 600;
+    line-height: 1;
+    margin: 1.25rem 0;
+    padding: 0 15px;
   }
 </style>
