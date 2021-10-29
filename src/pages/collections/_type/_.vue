@@ -51,10 +51,11 @@
       </b-row>
     </b-container>
     <client-only>
-      <b-container>
+      <b-container
+        :class="{'page-container': sideFiltersEnabled}"
+      >
         <b-row>
           <b-col
-            cols="12"
             class="pb-3"
           >
             <i18n
@@ -73,6 +74,12 @@
               :show-content-tier-toggle="false"
               :show-pins="userIsEditor && userIsSetsEditor"
             />
+          </b-col>
+          <b-col
+            v-if="sideFiltersEnabled"
+            class="col-filters"
+          >
+            <SideFilters />
           </b-col>
         </b-row>
         <b-row>
@@ -108,7 +115,8 @@
       EntityDetails,
       SearchInterface,
       EntityUpdateModal: () => import('../../../components/entity/EntityUpdateModal'),
-      RelatedCollections: () => import('../../../components/generic/RelatedCollections')
+      RelatedCollections: () => import('../../../components/generic/RelatedCollections'),
+      SideFilters: () => import('../../../components/search/SideFilters')
     },
 
     middleware: 'sanitisePageQuery',
@@ -293,6 +301,9 @@
       },
       isEditable() {
         return this.entity && this.editable;
+      },
+      sideFiltersEnabled() {
+        return this.$config.app.features.sideFilters;
       }
     },
     mounted() {
@@ -371,5 +382,12 @@
     .related-collections {
       padding: 0;
     }
+  }
+  .page-container {
+    max-width: none;
+  }
+  .col-filters {
+    max-width: 320px !important;
+    flex-grow: 0;
   }
 </style>

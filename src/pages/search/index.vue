@@ -7,24 +7,39 @@
       :notification-link-text="$t('linksToClassic.search.linkText')"
       class="mb-3"
     />
-    <b-container data-qa="search page">
+    <b-container
+      data-qa="search page"
+      :class="{'page-container': sideFiltersEnabled}"
+    >
       <b-row>
         <b-col>
-          <i18n
-            :path="searchQuery ? 'searchResultsFor' : 'searchResults'"
-            tag="h1"
-          >
-            <span data-qa="search query">{{ searchQuery }}</span>
-          </i18n>
+          <b-container>
+            <b-row>
+              <b-col>
+                <i18n
+                  :path="searchQuery ? 'searchResultsFor' : 'searchResults'"
+                  tag="h1"
+                >
+                  <span data-qa="search query">{{ searchQuery }}</span>
+                </i18n>
+              </b-col>
+            </b-row>
+          </b-container>
+          <RelatedSection
+            v-if="searchQuery"
+            :query="searchQuery"
+            class="mb-4"
+          />
+          <SearchInterface
+            :per-row="4"
+          />
         </b-col>
-        <RelatedSection
-          v-if="searchQuery"
-          :query="searchQuery"
-          class="mb-4"
-        />
-        <SearchInterface
-          :per-row="4"
-        />
+        <b-col
+          v-if="sideFiltersEnabled"
+          class="col-filters"
+        >
+          <SideFilters />
+        </b-col>
       </b-row>
     </b-container>
   </div>
@@ -39,7 +54,8 @@
     components: {
       SearchInterface,
       NotificationBanner,
-      RelatedSection: () => import('../../components/search/RelatedSection')
+      RelatedSection: () => import('../../components/search/RelatedSection'),
+      SideFilters: () => import('../../components/search/SideFilters')
     },
 
     middleware: 'sanitisePageQuery',
@@ -63,6 +79,9 @@
       },
       searchQuery() {
         return this.$route.query.query;
+      },
+      sideFiltersEnabled() {
+        return this.$config.app.features.sideFilters;
       }
     },
 
@@ -96,5 +115,12 @@
     span {
       font-weight: 600;
     }
+  }
+  .page-container {
+    max-width: none;
+  }
+  .col-filters {
+    max-width: 320px;
+    flex-grow: 0;
   }
 </style>
