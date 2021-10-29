@@ -13,7 +13,8 @@ the prepopulated cache content.
 To populate one cache by running its cacher:
 `npm run cache set [CACHER:NAME]`
 
-Alternatively, to run all known cachers by omitting `CACHER:NAME`:
+Alternatively, to run all known cachers:
+`npm run cache set`
 
 ### Output a cache
 
