@@ -24,7 +24,7 @@ const factory = (propsData = { type: 'organisations' }, fetchState = { error: fa
   }
 });
 
-const middlewarePath = '/_api/cache/collections/organisations';
+const middlewarePath = '/_api/cache/en/collections/organisations';
 const collections = [
   { id: '001', slug: '001-museum', prefLabel: 'museum' },
   { id: '002', slug: '002-library', prefLabel: 'library' }
