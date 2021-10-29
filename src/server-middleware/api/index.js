@@ -33,24 +33,27 @@ import debugMemoryUsage from './debug/memory-usage.js';
 app.get('/debug/memory-usage', debugMemoryUsage);
 
 // Redirection of some deprecated API URL paths.
+//
 // TODO: remove redirection of deprecated routes after new routes are
 //       well-established in production
-const pathWithQuery = (path, query) => {
-  let destination = path;
-
-  const searchParams = new URLSearchParams(query).toString();
-  if (searchParams !== '') {
-    destination = `${path}?${searchParams}`;
+//
+// Deprecated with v1.52.0:
+app.get('/entities/organisations', (req, res) => res.redirect('/_api/cache/en/collections/organisations'));
+app.get('/entities/times', (req, res) => res.redirect(`/_api/cache/${req.query.locale}/collections/times/featured`));
+app.get('/entities/topics', (req, res) => res.redirect(`/_api/cache/${req.query.locale}/collections/topics/featured`));
+app.get('/items/recent', (req, res) => res.redirect('/_api/cache/items/recent'));
+app.get('/items/itemCountsMediaType', (req, res) => res.redirect('/_api/cache/items/typeCounts'));
+// Deprecated with v1.53.0:
+app.get('/cache/collections/organisations', (req, res) => res.redirect('/_api/cache/en/collections/organisations'));
+app.get('/cache/collections/times', (req, res) => {
+  if (req.query.daily) {
+    return res.redirect(`/_api/cache/${req.query.locale}/collections/times/featured`);
+  } else {
+    return res.redirect(`/_api/cache/${req.query.locale}/collections/times`);
   }
-
-  return destination;
-};
-app.get('/entities/organisations', (req, res) => res.redirect(pathWithQuery('/_api/cache/collections/organisations', req.query)));
-app.get('/entities/times', (req, res) => res.redirect(pathWithQuery('/_api/cache/collections/times', { ...req.query, daily: 'true' })));
-app.get('/entities/topics', (req, res) => res.redirect(pathWithQuery('/_api/cache/collections/topics/featured', { ...req.query, daily: 'true' })));
-app.get('/items/recent', (req, res) => res.redirect(pathWithQuery('/_api/cache/items/recent', req.query)));
-app.get('/items/itemCountsMediaType', (req, res) => res.redirect(pathWithQuery('/_api/cache/items/typeCounts', req.query)));
-// TODO: add redirects for v1.52.1 cache w/ query options
+});
+app.get('/cache/collections/topics', (req, res) => res.redirect(`/_api/cache/${req.query.locale}/collections/topics`));
+app.get('/cache/collections/topics/featured', (req, res) => res.redirect(`/_api/cache/${req.query.locale}/collections/topics/featured`));
 
 import cache from './cache/index.js';
 app.get('/cache/*', (req, res) => cache(req.params[0], runtimeConfig)(req, res));
