@@ -55,9 +55,7 @@
       }
     },
     fetch() {
-      return this.$axios.get(
-        `/_api/cache/${this.$i18n.locale}/collections/${this.type}`
-      )
+      return this.$axios.get(this.apiEndpoint)
         .then(response => {
           this.collections = response.data.map(Object.freeze);
         })
@@ -65,6 +63,14 @@
           // TODO: set fetch state error from message
           console.error({ statusCode: 500, message: e.toString() });
         });
+    },
+    computed: {
+      apiEndpoint() {
+        // For organisations, only get English labels (for now).
+        return this.type === 'organisations' ?
+          '/_api/cache/en/collections/organisations' :
+          `/_api/cache/${this.$i18n.locale}/collections/${this.type}`;
+      }
     },
     data() {
       return {
