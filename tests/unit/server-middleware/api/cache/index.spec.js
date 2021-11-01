@@ -1,76 +1,50 @@
 import sinon from 'sinon';
 
 import serverMiddleware from '@/server-middleware/api/cache/index.js';
-import * as dailyEntries from '@/server-middleware/api/cache/daily.js';
-import * as localise from '@/server-middleware/api/cache/localise.js';
-import * as pick from '@/server-middleware/api/cache/pick.js';
 import * as cacheUtils from '@/cachers/utils.js';
 
 const expressResStub = {
-  json: sinon.stub(),
-  status: sinon.stub()
+  set: sinon.stub(),
+  send: sinon.stub()
 };
 
 const config = { redis: { url: 'redis://localhost:6379' } };
 
 const id = 'items';
-const cached = [
+const cached = JSON.stringify([
   { id: '1' },
   { id: '2' }
-];
+]);
 
 const redisClientStub = {
-  getAsync: sinon.stub().resolves(JSON.stringify(cached)),
+  getAsync: sinon.stub().resolves(cached),
   quitAsync: sinon.stub()
 };
 
 describe('server-middleware/api/cache/index', () => {
   beforeEach('stub utils', () => {
-    sinon.stub(dailyEntries, 'default').returnsArg(0);
-    sinon.stub(localise, 'default').returnsArg(0);
-    sinon.stub(pick, 'default').returnsArg(0);
     sinon.stub(cacheUtils, 'createRedisClient').returns(redisClientStub);
   });
 
   afterEach('restore stubs', () => {
-    dailyEntries.default.restore();
-    localise.default.restore();
-    pick.default.restore();
     cacheUtils.createRedisClient.restore();
   });
 
   it('fetches from the cache, with app namespace', async() => {
-    await serverMiddleware(id, config)({ query: {} }, expressResStub);
+    await serverMiddleware(id, config)({}, expressResStub);
 
     redisClientStub.getAsync.should.have.been.calledWith(`@europeana:portal.js:${id}`);
   });
 
-  it('optionally localises data', async() => {
-    await serverMiddleware(id, config)({ query: { locale: 'fr' } }, expressResStub);
-
-    localise.default.should.have.been.calledWith(cached, 'fr');
-  });
-
-  it('optionally filters data to daily selections', async() => {
-    await serverMiddleware(id, config)({ query: { daily: 'true' } }, expressResStub);
-
-    dailyEntries.default.should.have.been.calledWith(cached);
-  });
-
-  it('optionally picks properties', async() => {
-    await serverMiddleware(id, config)({ query: { pick: 'id,name' } }, expressResStub);
-
-    pick.default.should.have.been.calledWith(cached, ['id', 'name']);
-  });
-
   it('responds with JSON', async() => {
-    await serverMiddleware(id, config)({ query: {} }, expressResStub);
+    await serverMiddleware(id, config)({}, expressResStub);
 
-    expressResStub.json.should.have.been.calledWith(cached);
+    expressResStub.set.should.have.been.calledWith('Content-Type', 'application/json');
+    expressResStub.send.should.have.been.calledWith(cached);
   });
 
   it('quits the Redis connection', async() => {
-    await serverMiddleware(id, config)({ query: {} }, expressResStub);
+    await serverMiddleware(id, config)({}, expressResStub);
 
     redisClientStub.quitAsync.should.have.been.called;
   });

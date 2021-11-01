@@ -1,12 +1,12 @@
 import { createRedisClient } from '../../../cachers/utils.js';
 import { errorHandler } from '../index.js';
-import dailyEntries from './daily.js';
-import pick from './pick.js';
-import localise from './localise.js';
 
 const cacheKey = (id) => `@europeana:portal.js:${id.replace(/\//g, ':')}`;
 
 export const cached = (id, config = {}, options = {}) => {
+  const defaults = { parse: true };
+  const settings = { ...defaults, ...options };
+
   if (!config.redis.url) {
     return Promise.reject(new Error('No cache configured.'));
   }
@@ -15,10 +15,7 @@ export const cached = (id, config = {}, options = {}) => {
   const key = cacheKey(id);
 
   return redisClient.getAsync(key)
-    .then(value => JSON.parse(value))
-    .then(body => options.pick ? pick(body, options.pick.split(',')) : body)
-    .then(body => options.locale ? localise(body, options.locale) : body)
-    .then(body => options.daily ? dailyEntries(body) : body)
+    .then(value => settings.parse ? JSON.parse(value) : value)
     .then(body => {
       redisClient.quitAsync();
       return body;
@@ -26,7 +23,10 @@ export const cached = (id, config = {}, options = {}) => {
 };
 
 export default (id, config = {}) => (req, res) => {
-  return cached(id, config, req.query)
-    .then(cachedEntries => res.json(cachedEntries))
+  return cached(id, config, { parse: false })
+    .then(data => {
+      res.set('Content-Type', 'application/json');
+      res.send(data);
+    })
     .catch(error => errorHandler(res, error));
 };

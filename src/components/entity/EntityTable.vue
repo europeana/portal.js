@@ -55,16 +55,7 @@
       }
     },
     fetch() {
-      return this.$axios.get(
-        `/_api/cache/collections/${this.type}`,
-        // For organisations, only get English labels (for now).
-        {
-          params: {
-            locale: this.type === 'organisations' ? 'en' : this.$i18n.locale,
-            pick: 'slug,prefLabel'
-          }
-        }
-      )
+      return this.$axios.get(this.apiEndpoint)
         .then(response => {
           this.collections = response.data.map(Object.freeze);
         })
@@ -85,6 +76,14 @@
           }
         ]
       };
+    },
+    computed: {
+      apiEndpoint() {
+        // For organisations, only get English labels (for now).
+        return this.type === 'organisations' ?
+          '/_api/cache/en/collections/organisations' :
+          `/_api/cache/${this.$i18n.locale}/collections/${this.type}`;
+      }
     },
     methods: {
       entityRoute(slug) {
