@@ -25,14 +25,16 @@
               role="search"
               @changed="changeFacet"
             />
-            <button
-              v-if="isFilteredByDropdowns()"
-              class="btn btn-outline-primary"
-              data-qa="reset filters button"
-              @click="resetFilters"
-            >
-              {{ $t('reset') }}
-            </button>
+            <b-row class="reset-container">
+              <button
+                v-if="isFilteredByDropdowns()"
+                class="btn btn-outline-primary"
+                data-qa="reset filters button"
+                @click="resetFilters"
+              >
+                {{ $t('reset') }}
+              </button>
+            </b-row>
           </div>
         </client-only>
       </b-col>
@@ -211,5 +213,13 @@
     line-height: 1;
     margin: 1.25rem 0;
     padding: 0 15px;
+  }
+  .reset-container {
+    padding: 0.75rem 15px;
+    background-color: $lightgrey;
+    .btn-outline-primary {
+      background-color: $white;
+      width: 50%;
+    }
   }
 </style>
