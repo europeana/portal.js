@@ -12,7 +12,9 @@
       :class="{'page-container': sideFiltersEnabled}"
     >
       <b-row>
-        <b-col>
+        <b-col
+          :style="sideFiltersEnabled && resultsColumnStyles"
+        >
           <b-container>
             <b-row>
               <b-col>
@@ -38,7 +40,9 @@
           v-if="sideFiltersEnabled"
           class="col-filters col-3"
         >
-          <SideFilters />
+          <SideFilters
+            ref="sideFiltersColumn"
+          />
         </b-col>
       </b-row>
     </b-container>
@@ -49,13 +53,14 @@
   import SearchInterface from '../../components/search/SearchInterface';
   import legacyUrl from '../../plugins/europeana/legacy-search';
   import NotificationBanner from '../../components/generic/NotificationBanner';
+  import SideFilters from '../../components/search/SideFilters';
 
   export default {
     components: {
       SearchInterface,
       NotificationBanner,
       RelatedSection: () => import('../../components/search/RelatedSection'),
-      SideFilters: () => import('../../components/search/SideFilters')
+      SideFilters
     },
 
     middleware: 'sanitisePageQuery',
@@ -68,6 +73,11 @@
       if (store.state.search.error && typeof res !== 'undefined') {
         res.statusCode = store.state.search.errorStatusCode;
       }
+    },
+    data() {
+      return {
+        sideFiltersHeight: null
+      };
     },
     computed: {
       notificationUrl() {
@@ -82,11 +92,20 @@
       },
       sideFiltersEnabled() {
         return this.$config.app.features.sideFilters;
+      },
+      resultsColumnStyles() {
+        return { maxHeight: `${this.sideFiltersHeight}px`,
+                 overflow: 'auto' };
       }
     },
 
     mounted() {
       this.$store.commit('search/enableCollectionFacet');
+      if (this.sideFiltersEnabled) {
+        this.$nextTick(() => {
+          this.sideFiltersHeight = this.$refs.sideFiltersColumn.$el.getBoundingClientRect().height;
+        });
+      }
     },
 
     head() {
