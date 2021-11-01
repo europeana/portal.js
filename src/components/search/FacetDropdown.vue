@@ -1,6 +1,7 @@
 <template>
-  <div>
+  <span>
     <label
+      v-if="sideFiltersEnabled"
       class="facet-label"
     >{{ facetName }}</label>
     <b-dropdown
@@ -78,7 +79,7 @@
         </b-button>
       </li>
     </b-dropdown>
-  </div>
+  </span>
 </template>
 
 <script>

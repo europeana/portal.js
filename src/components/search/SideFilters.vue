@@ -25,9 +25,12 @@
               role="search"
               @changed="changeFacet"
             />
-            <b-row class="reset-container">
+            <b-row
+              v-if="isFilteredByDropdowns()"
+              class="reset-container"
+            >
               <button
-                v-if="isFilteredByDropdowns()"
+
                 class="btn btn-outline-primary"
                 data-qa="reset filters button"
                 @click="resetFilters"
@@ -220,6 +223,9 @@
     .btn-outline-primary {
       background-color: $white;
       width: 50%;
+      &:hover {
+        background-color: $innovationblue;
+      }
     }
   }
 </style>
