@@ -49,7 +49,7 @@
       PaginationNav: () => import('@/components/generic/PaginationNav')
     },
     middleware: 'sanitisePageQuery',
-    asyncData({ params, error, app, store }) {
+    asyncData({ error, app, store }) {
       const entityIndexParams = {
         query: '*:*',
         page: store.state.sanitised.page - 1,

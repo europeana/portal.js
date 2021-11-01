@@ -64,14 +64,6 @@
           console.error({ statusCode: 500, message: e.toString() });
         });
     },
-    computed: {
-      apiEndpoint() {
-        // For organisations, only get English labels (for now).
-        return this.type === 'organisations' ?
-          '/_api/cache/en/collections/organisations' :
-          `/_api/cache/${this.$i18n.locale}/collections/${this.type}`;
-      }
-    },
     data() {
       return {
         collections: null,
@@ -84,6 +76,14 @@
           }
         ]
       };
+    },
+    computed: {
+      apiEndpoint() {
+        // For organisations, only get English labels (for now).
+        return this.type === 'organisations' ?
+          '/_api/cache/en/collections/organisations' :
+          `/_api/cache/${this.$i18n.locale}/collections/${this.type}`;
+      }
     },
     methods: {
       entityRoute(slug) {
