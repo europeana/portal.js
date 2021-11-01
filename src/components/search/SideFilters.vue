@@ -9,7 +9,7 @@
         {{ $t('filterResults') }}
       </h2>
     </b-row>
-    <b-row class="mb-3">
+    <b-row class="mb-3 mt-4">
       <b-col
         data-qa="search filters"
       >

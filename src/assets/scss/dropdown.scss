@@ -221,9 +221,6 @@
   &.side-facet {
     width: 100%;
     margin-bottom: 1.25rem;
-    &:first-child {
-      margin-top: 1.875rem;
-    }
     .btn {
       display: flex;
       justify-content: space-between;
@@ -232,6 +229,9 @@
     }
     .btn-light {
       border: 1px solid $middlegrey;
+    }
+    .dropdown-toggle span {
+      min-height: 1.5rem;
     }
   }
 }
