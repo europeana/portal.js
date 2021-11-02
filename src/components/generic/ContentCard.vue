@@ -64,12 +64,14 @@
           {{ $d(new Date(datetime), 'short') }}
         </time>
         <template v-if="hitsText">
-          <b-card-text
-            text-tag="div"
-            data-qa="highlighted search term"
-          >
-            <p>{{ hitsText.prefix }}<strong class="has-text-highlight">{{ hitsText.exact }}</strong>{{ hitsText.suffix }}</p>
-          </b-card-text>
+          <client-only>
+            <b-card-text
+              text-tag="div"
+              data-qa="highlighted search term"
+            >
+              <p>{{ hitsText.prefix }}<strong class="has-text-highlight">{{ hitsText.exact }}</strong>{{ hitsText.suffix }}</p>
+            </b-card-text>
+          </client-only>
         </template>
         <template v-if="displayTexts.length > 0">
           <template
