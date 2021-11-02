@@ -7,11 +7,19 @@
       class="side-filters"
     >
       <b-row
-        class="border-bottom border-top"
+        class="border-bottom border-top d-flex justify-content-between align-items-center"
       >
         <h2 class="filters-title">
           {{ $t('filterResults') }}
         </h2>
+        <button
+          v-if="isFilteredByDropdowns()"
+          class="btn btn-outline-primary mr-3"
+          data-qa="reset filters button"
+          @click="resetFilters"
+        >
+          {{ $t('reset') }}
+        </button>
       </b-row>
       <b-row class="mb-3 mt-4">
         <b-col
@@ -29,19 +37,6 @@
                 role="search"
                 @changed="changeFacet"
               />
-              <b-row
-                v-if="isFilteredByDropdowns()"
-                class="reset-container"
-              >
-                <button
-
-                  class="btn btn-outline-primary"
-                  data-qa="reset filters button"
-                  @click="resetFilters"
-                >
-                  {{ $t('reset') }}
-                </button>
-              </b-row>
             </div>
           </client-only>
         </b-col>
@@ -212,30 +207,11 @@
 <style lang="scss" scoped>
   @import '@/assets/scss/variables.scss';
 
-  .reset {
-    background: none;
-    border: none;
-    color: $black;
-    font-size: $font-size-small;
-    text-transform: uppercase;
-  }
   .filters-title {
     font-size: $font-size-small;
     font-weight: 600;
     line-height: 1;
-    margin: 1.25rem 0;
-    padding: 0 15px;
-  }
-  .reset-container {
-    padding: 0.75rem 15px;
-    background-color: $lightgrey;
-    .btn-outline-primary {
-      background-color: $white;
-      width: 50%;
-      &:hover {
-        background-color: $innovationblue;
-      }
-    }
+    margin: 1.25rem 1rem;
   }
   .col-filters {
     @media (max-width: $bp-medium) {
