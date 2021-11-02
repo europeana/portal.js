@@ -232,7 +232,7 @@
           content: '\e91d';
         }
         &.icon-school:before {
-          content: '\e91e';
+          content: '\e947';
         }
         &.icon-info:before {
           content: '\e91f';
