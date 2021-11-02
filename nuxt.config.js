@@ -341,7 +341,7 @@ export default {
   },
 
   router: {
-    middleware: ['legacy/index', 'l10n'],
+    middleware: ['legacy/index', 'l10n', 'trailing-slash'],
     extendRoutes(routes) {
       routes.push({
         name: 'slug',
