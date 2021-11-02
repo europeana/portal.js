@@ -65,6 +65,16 @@
           :aria-label="$t('search')"
           @click="toggleSearchBar"
         />
+        <b-button
+          v-if="showFiltersToggle"
+          data-qa="search filter button"
+          class="filters-toggle ml-3"
+          variant="light"
+          :aria-label="$t('filter')"
+          @click="toggleFilterSheet"
+        >
+          {{ $t('filter') }}
+        </b-button>
       </b-navbar>
       <b-sidebar
         id="sidebar"
@@ -134,13 +144,17 @@
 
     computed: {
       ...mapState({
-        showSearch: state => state.search.showSearchBar
+        showSearch: state => state.search.showSearchBar,
+        showFiltersToggle: state => state.search.showFiltersToggle
       })
     },
 
     methods: {
       toggleSearchBar() {
         this.$store.commit('search/setShowSearchBar', !this.$store.state.search.showSearchBar);
+      },
+      toggleFilterSheet() {
+        this.$store.commit('search/setShowFiltersSheet', !this.$store.state.search.showFiltersSheet);
       }
     }
   };
@@ -301,5 +315,10 @@
         min-width: 18.75rem;
       }
     }
+  }
+  .filters-toggle {
+      @media (min-width: $bp-medium) {
+        display: none;
+      }
   }
 </style>

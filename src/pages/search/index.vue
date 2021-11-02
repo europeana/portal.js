@@ -1,7 +1,7 @@
 <template>
   <div>
     <NotificationBanner
-      v-if="redirectNotificationsEnabled"
+      v-if="redirectNotificationsEnabled && !sideFiltersEnabled"
       :notification-url="notificationUrl"
       :notification-text="$t('linksToClassic.search.text')"
       :notification-link-text="$t('linksToClassic.search.linkText')"
@@ -13,8 +13,15 @@
     >
       <b-row>
         <b-col
-          :style="sideFiltersEnabled && resultsColumnStyles"
+          :class="{'px-0': !sideFiltersEnabled}"
         >
+          <NotificationBanner
+            v-if="redirectNotificationsEnabled && sideFiltersEnabled"
+            :notification-url="notificationUrl"
+            :notification-text="$t('linksToClassic.search.text')"
+            :notification-link-text="$t('linksToClassic.search.linkText')"
+            class="notification-banner mb-3"
+          />
           <b-container>
             <b-row>
               <b-col>
@@ -36,14 +43,9 @@
             :per-row="4"
           />
         </b-col>
-        <b-col
+        <SideFilters
           v-if="sideFiltersEnabled"
-          class="col-filters col-3"
-        >
-          <SideFilters
-            ref="sideFiltersColumn"
-          />
-        </b-col>
+        />
       </b-row>
     </b-container>
   </div>
@@ -53,14 +55,13 @@
   import SearchInterface from '../../components/search/SearchInterface';
   import legacyUrl from '../../plugins/europeana/legacy-search';
   import NotificationBanner from '../../components/generic/NotificationBanner';
-  import SideFilters from '../../components/search/SideFilters';
 
   export default {
     components: {
       SearchInterface,
       NotificationBanner,
       RelatedSection: () => import('../../components/search/RelatedSection'),
-      SideFilters
+      SideFilters: () => import('../../components/search/SideFilters')
     },
 
     middleware: 'sanitisePageQuery',
@@ -73,11 +74,6 @@
       if (store.state.search.error && typeof res !== 'undefined') {
         res.statusCode = store.state.search.errorStatusCode;
       }
-    },
-    data() {
-      return {
-        sideFiltersHeight: null
-      };
     },
     computed: {
       notificationUrl() {
@@ -92,20 +88,11 @@
       },
       sideFiltersEnabled() {
         return this.$config.app.features.sideFilters;
-      },
-      resultsColumnStyles() {
-        return { maxHeight: `${this.sideFiltersHeight}px`,
-                 overflow: 'auto' };
       }
     },
 
     mounted() {
       this.$store.commit('search/enableCollectionFacet');
-      if (this.sideFiltersEnabled) {
-        this.$nextTick(() => {
-          this.sideFiltersHeight = this.$refs.sideFiltersColumn.$el.getBoundingClientRect().height;
-        });
-      }
     },
 
     head() {
@@ -140,12 +127,9 @@
   .page-container {
     max-width: none;
   }
-  .col-filters {
-    max-width: 320px;
-    min-width: 220px;
-    flex-grow: 0;
-    padding: 0;
-    background-color: $white;
-    margin-top: -1rem;
+  .notification-banner {
+    margin-left: -15px;
+    margin-right: -15px;
+    width: auto;
   }
 </style>

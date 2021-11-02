@@ -4,7 +4,7 @@
     class="entity-page"
   >
     <b-container fluid>
-      <b-row class="flex-md-row pt-5 bg-white mb-4">
+      <b-row class="flex-md-row pt-5 bg-white mb-3">
         <b-col
           cols="12"
         >
@@ -75,12 +75,7 @@
               :show-pins="userIsEditor && userIsSetsEditor"
             />
           </b-col>
-          <b-col
-            v-if="sideFiltersEnabled"
-            class="col-filters col-3"
-          >
-            <SideFilters />
-          </b-col>
+          <SideFilters v-if="sideFiltersEnabled" />
         </b-row>
         <b-row>
           <b-col>
@@ -387,13 +382,5 @@
   }
   .page-container {
     max-width: none;
-  }
-  .col-filters {
-    max-width: 320px;
-    min-width: 220px;
-    flex-grow: 0;
-    padding: 0;
-    background-color: $white;
-    margin-top: -1.5rem;
   }
 </style>

@@ -85,7 +85,9 @@ export default {
     showSearchBar: false,
     totalResults: null,
     userParams: {},
-    view: null
+    view: null,
+    showFiltersSheet: false,
+    showFiltersToggle: false
   }),
 
   mutations: {
@@ -159,6 +161,12 @@ export default {
     },
     setCollectionLabel(state, value) {
       state.collectionLabel = value;
+    },
+    setShowFiltersSheet(state, value) {
+      state.showFiltersSheet = value;
+    },
+    setShowFiltersToggle(state, value) {
+      state.showFiltersToggle = value;
     },
     set(state, payload) {
       state[payload[0]] = payload[1];

@@ -516,6 +516,7 @@ export default {
       "rdfAbout": "RDF About"
     }
   },
+  "filter": "Filter",
   "filterResults": "Filter results",
   "footer": {
     "customiseWebsiteLanguage": "Customise website language",

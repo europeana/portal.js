@@ -1,48 +1,53 @@
 <template>
-  <b-container
-    class="side-filters"
+  <b-col
+    class="col-filters col-3"
+    :class="{ open: showFiltersSheet }"
   >
-    <b-row
-      class="filter-title-row"
+    <b-container
+      class="side-filters"
     >
-      <h2 class="filters-title">
-        {{ $t('filterResults') }}
-      </h2>
-    </b-row>
-    <b-row class="mb-3 mt-4">
-      <b-col
-        data-qa="search filters"
+      <b-row
+        class="border-bottom border-top"
       >
-        <client-only>
-          <div class="position-relative">
-            <FacetDropdown
-              v-for="facet in orderedFacets"
-              :key="facet.name"
-              :name="facet.name"
-              :fields="facet.fields"
-              :type="facetDropdownType(facet.name)"
-              :selected="filters[facet.name]"
-              role="search"
-              @changed="changeFacet"
-            />
-            <b-row
-              v-if="isFilteredByDropdowns()"
-              class="reset-container"
-            >
-              <button
-
-                class="btn btn-outline-primary"
-                data-qa="reset filters button"
-                @click="resetFilters"
+        <h2 class="filters-title">
+          {{ $t('filterResults') }}
+        </h2>
+      </b-row>
+      <b-row class="mb-3 mt-4">
+        <b-col
+          data-qa="search filters"
+        >
+          <client-only>
+            <div class="position-relative">
+              <FacetDropdown
+                v-for="facet in orderedFacets"
+                :key="facet.name"
+                :name="facet.name"
+                :fields="facet.fields"
+                :type="facetDropdownType(facet.name)"
+                :selected="filters[facet.name]"
+                role="search"
+                @changed="changeFacet"
+              />
+              <b-row
+                v-if="isFilteredByDropdowns()"
+                class="reset-container"
               >
-                {{ $t('reset') }}
-              </button>
-            </b-row>
-          </div>
-        </client-only>
-      </b-col>
-    </b-row>
-  </b-container>
+                <button
+
+                  class="btn btn-outline-primary"
+                  data-qa="reset filters button"
+                  @click="resetFilters"
+                >
+                  {{ $t('reset') }}
+                </button>
+              </b-row>
+            </div>
+          </client-only>
+        </b-col>
+      </b-row>
+    </b-container>
+  </b-col>
 </template>
 
 <script>
@@ -79,7 +84,8 @@
       ...mapState({
         userParams: state => state.search.userParams,
         facets: state => state.search.facets,
-        resettableFilters: state => state.search.resettableFilters
+        resettableFilters: state => state.search.resettableFilters,
+        showFiltersSheet: state => state.search.showFiltersSheet
       }),
       ...mapGetters({
         facetNames: 'search/facetNames',
@@ -131,6 +137,12 @@
         }
         return ordered.concat(unordered);
       }
+    },
+    created() {
+      this.$store.commit('search/setShowFiltersToggle', true);
+    },
+    beforeDestroy() {
+      this.$store.commit('search/setShowFiltersToggle', false);
     },
     methods: {
       facetDropdownType(name) {
@@ -207,9 +219,6 @@
     font-size: $font-size-small;
     text-transform: uppercase;
   }
-  .filter-title-row {
-    border-bottom: 1px solid $middlegrey;
-  }
   .filters-title {
     font-size: $font-size-small;
     font-weight: 600;
@@ -227,5 +236,30 @@
         background-color: $innovationblue;
       }
     }
+  }
+  .col-filters {
+    @media (max-width: $bp-medium) {
+      position: fixed;
+      width: 320px;
+      max-width: 75vw;
+      right: -100%;
+      top: 3.5rem;
+      bottom: 0;
+      overflow: auto;
+      padding-top: 1rem;
+      transition: right 300ms ease-in-out;
+      &.open {
+        right: 0;
+        transition: right 300ms ease-in-out;
+      }
+    }
+    @media (min-width: $bp-medium) {
+      max-width: 320px;
+      min-width: 220px;
+    }
+    flex-grow: 0;
+    padding: 0;
+    background-color: $white;
+    margin-top: -1rem;
   }
 </style>
