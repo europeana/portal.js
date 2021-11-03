@@ -11,6 +11,7 @@ const pageOfEntityResults = (page, params = {}) => {
       ...axiosClient.defaults.config,
       query: '*:*',
       scope: 'europeana',
+      sort: 'id',
       page,
       pageSize,
       ...params
