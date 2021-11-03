@@ -27,7 +27,7 @@
         >
           <client-only>
             <div class="position-relative">
-              <FacetDropdown
+              <SideFacetDropdown
                 v-for="facet in orderedFacets"
                 :key="facet.name"
                 :name="facet.name"
@@ -52,14 +52,14 @@
   import { mapState, mapGetters } from 'vuex';
   import { thematicCollections } from '@/plugins/europeana/search';
   import { queryUpdatesForFilters } from '../../store/search';
-  import FacetDropdown from './FacetDropdown';
+  import SideFacetDropdown from './SideFacetDropdown';
 
   export default {
     name: 'SideFilters',
 
     components: {
       ClientOnly,
-      FacetDropdown
+      SideFacetDropdown
     },
     props: {
       route: {
