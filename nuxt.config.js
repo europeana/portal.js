@@ -376,7 +376,9 @@ export default {
         // Build source maps to aid debugging in production builds
         config.devtool = 'source-map';
       }
-    }
+    },
+
+    publicPath: process.env.NUXT_BUILD_PUBLIC_PATH
   },
 
   /*
