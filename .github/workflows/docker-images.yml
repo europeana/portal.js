@@ -31,14 +31,34 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
-        name: Build and push
+        name: Build and push to DockerHub
+        id: build-push
         uses: docker/build-push-action@v2
         with:
           context: .
-          pull: true
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+      -
+        name: Publish to NPM
+        if: startsWith( github.event.ref, 'refs/tags/v' )
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+        run: |
+          docker run \
+            --rm \
+            --env NODE_AUTH_TOKEN=${NODE_AUTH_TOKEN} \
+            --mount type=bind,source=$(pwd)/.github/workflows/support/docker-images/.npmrc,target=/root/.npmrc \
+            --entrypoint npm ${{ steps.build-push.outputs.digest }} \
+            publish --access public
+      -
+        name: Warm up jsDelivr
+        if: startsWith( github.event.ref, 'refs/tags/v' )
+        run: |
+          docker run \
+            --rm \
+            --mount type=bind,source=$(pwd)/.github/workflows/support/docker-images/warm-up-jsdelivr.sh,target=/root/warm-up-jsdelivr.sh \
+            --entrypoint /root/warm-up-jsdelivr.sh ${{ steps.build-push.outputs.digest }}
 
   nginx:
     runs-on: ubuntu-latest
@@ -46,6 +66,9 @@ jobs:
       -
         name: Checkout
         uses: actions/checkout@v2
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
       -
         name: Docker meta
         id: meta
@@ -67,7 +90,8 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./tests/e2e/docker/nginx
-          pull: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -78,6 +102,9 @@ jobs:
       -
         name: Checkout
         uses: actions/checkout@v2
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
       -
         name: Docker meta
         id: meta
@@ -99,7 +126,8 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./tests/e2e/docker/nightwatch-base
-          pull: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

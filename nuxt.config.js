@@ -16,6 +16,14 @@ import { parseQuery, stringifyQuery } from './src/plugins/vue-router.cjs';
 
 const featureIsEnabled = (value) => Boolean(Number(value));
 
+const buildPublicPath = () => {
+  if (featureIsEnabled(process.env.ENABLE_JSDELIVR_BUILD_PUBLIC_PATH)) {
+    return `https://cdn.jsdelivr.net/npm/${pkg.name}@${pkg.version}/.nuxt/dist/client`;
+  } else {
+    return process.env.NUXT_BUILD_PUBLIC_PATH;
+  }
+};
+
 export default {
   /*
   ** Runtime config
@@ -378,7 +386,7 @@ export default {
       }
     },
 
-    publicPath: process.env.NUXT_BUILD_PUBLIC_PATH
+    publicPath: buildPublicPath()
   },
 
   /*
