@@ -23,7 +23,7 @@ export default (context = {}) => {
           entity: response.data
         }))
         .catch(error => {
-          throw apiError(error);
+          throw apiError(error, context);
         });
     },
 
@@ -49,7 +49,7 @@ export default (context = {}) => {
       })
         .then(response => response.data.items ? response.data.items : [])
         .catch(error => {
-          throw apiError(error);
+          throw apiError(error, context);
         });
     },
 
@@ -111,7 +111,7 @@ export default (context = {}) => {
           };
         })
         .catch((error) => {
-          throw apiError(error);
+          throw apiError(error, context);
         });
     }
   };

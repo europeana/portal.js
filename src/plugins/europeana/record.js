@@ -140,7 +140,7 @@ export default (context = {}) => {
     $axios,
 
     search(params, options = {}) {
-      return search($axios, params, options);
+      return search(context)($axios, params, options);
     },
 
     /**
@@ -330,7 +330,7 @@ export default (context = {}) => {
             options.fromTranslationError = true;
             return this.getRecord(europeanaId, options);
           }
-          throw apiError(error);
+          throw apiError(error, context);
         });
     },
 
