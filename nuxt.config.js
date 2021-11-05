@@ -77,6 +77,9 @@ export default {
         frameworkVersion: nuxtPkg.version,
         ignoreUrls: [
           /^\/(_nuxt|__webpack_hmr)\//
+        ],
+        ignoreUserAgents: [
+          'kube-probe/'
         ]
       }
     },
