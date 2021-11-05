@@ -90,7 +90,7 @@ export function rangeFromQueryParam(paramValue) {
  * @param {string} options.url override the API URL
  * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display
  */
-export default function search($axios, params, options = {}) {
+export default (context) => ($axios, params, options = {}) => {
   const maxResults = 1000;
   const perPage = params.rows === undefined ? 24 : Number(params.rows);
   const page = params.page || 1;
@@ -127,9 +127,9 @@ export default function search($axios, params, options = {}) {
       lastAvailablePage: start + perPage > maxResults
     }))
     .catch((error) => {
-      throw apiError(error);
+      throw apiError(error, context);
     });
-}
+};
 
 const reduceFieldsForItem = (item, options = {}) => {
   // Pick fields we need for search result display. See components/item/ItemPreviewCard.vue

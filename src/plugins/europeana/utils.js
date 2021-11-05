@@ -51,7 +51,11 @@ const axiosInstanceOptions = ({ id, baseURL }, { store, $config }) => {
 };
 
 // TODO: extend to be more verbose in development environments, e.g. with stack trace
-export function apiError(error) {
+export function apiError(error, context) {
+  if (context?.$apm?.captureError) {
+    context?.$apm.captureError(error);
+  }
+
   let statusCode = 500;
   let message = error.message;
 
