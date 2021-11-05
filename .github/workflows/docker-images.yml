@@ -55,6 +55,8 @@ jobs:
         name: Warm up jsDelivr
         if: startsWith( github.event.ref, 'refs/tags/v' )
         run: |
+          # Give jsdelivr time to fetch the new version
+          sleep 30
           docker run \
             --rm \
             --mount type=bind,source=$(pwd)/.github/workflows/support/docker-images/warm-up-jsdelivr.sh,target=/root/warm-up-jsdelivr.sh \
