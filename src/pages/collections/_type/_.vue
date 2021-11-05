@@ -183,7 +183,7 @@
           const page = store.state.entity.page;
           const entityName = page ? page.name : entity.prefLabel.en;
           const desiredPath = getEntitySlug(entity.id, entityName);
-          if (params.pathMatch !== desiredPath) {
+          if (params.pathMatch !== encodeURIComponent(desiredPath)) {
             const redirectPath = app.$path({
               name: 'collections-type-all',
               params: { type: params.type, pathMatch: encodeURIComponent(desiredPath) }
