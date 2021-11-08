@@ -1,18 +1,22 @@
 import defu from 'defu';
 import * as utils from './utils.js';
 import nuxtConfig from '../../nuxt.config.js';
+import localeCodes from '../plugins/i18n/codes.js';
+
+const CACHE_KEY_PREFIX = '@europeana:portal.js';
 const runtimeConfig = defu(nuxtConfig.privateRuntimeConfig, nuxtConfig.publicRuntimeConfig);
 
 const cacherNames = [
   'collections:organisations',
   'collections:times',
+  'collections:times:featured',
   'collections:topics',
   'collections:topics:featured',
   'items:recent',
   'items:type-counts'
 ];
 
-const cli = (cacherName) => {
+const cacherModule = (cacherName) => {
   if (!cacherNames.includes(cacherName)) {
     throw new Error(`Unknown cacher "${cacherName}"`);
   }
@@ -22,25 +26,66 @@ const cli = (cacherName) => {
   return import(`./${cacherPath}.js`);
 };
 
-const main = async() => {
-  const cacherName = process.argv[2];
-  const command = process.argv[3];
+const namespaceCacheKey = (cacherName, locale) => {
+  let key = CACHE_KEY_PREFIX;
 
-  const cacher = await cli(cacherName);
+  if (locale) {
+    key = `${key}:${locale}`;
+  }
+  key = `${key}:${cacherName}`;
+
+  return key;
+};
+
+const runSetCacher = async(cacherName) => {
+  console.log(cacherName);
+
+  const cacher = await cacherModule(cacherName);
+  let data = await cacher.data(runtimeConfig);
+
+  if (cacher.DAILY) {
+    data = utils.daily(data, cacher.DAILY);
+  }
+
+  if (cacher.PICK) {
+    data = utils.pick(data, cacher.PICK);
+  }
+
+  if (cacher.LOCALISE) {
+    for (const locale of localeCodes) {
+      const localised = utils.localise(data, cacher.LOCALISE, locale);
+      await writeCacheKey(namespaceCacheKey(cacherName, locale), localised);
+    }
+  } else {
+    await writeCacheKey(namespaceCacheKey(cacherName), data);
+  }
+};
+
+const main = async() => {
+  const command = process.argv[2];
+  const cacherName = process.argv[3];
+
   let response;
 
   try {
     if (command === 'set') {
-      const data = await cacher.data(runtimeConfig);
-      response = await writeCacheKey(cacher.CACHE_KEY, data);
+      if (cacherName === undefined) {
+        for (const cname of cacherNames) {
+          await runSetCacher(cname);
+        }
+      } else {
+        await runSetCacher(cacherName);
+      }
+
+      response = 'SUCCESS';
     } else if (command === 'get') {
-      response = await readCacheKey(cacher.CACHE_KEY);
+      response = await readCacheKey(namespaceCacheKey(cacherName));
     } else {
       console.error(`Unknown command "${command}"`);
       process.exit(1);
     }
   } catch (error) {
-    return Promise.reject({ body: utils.errorMessage(error) });
+    return Promise.reject(utils.errorMessage(error));
   }
 
   return Promise.resolve(response);
@@ -49,20 +94,19 @@ const main = async() => {
 const writeCacheKey = (cacheKey, data) => {
   const redisClient = utils.createRedisClient(runtimeConfig.redis);
   return redisClient.setAsync(cacheKey, JSON.stringify(data))
-    .then(() => redisClient.quitAsync())
-    .then(() => ({ body: `Wrote data to Redis "${cacheKey}".` }));
+    .then(() => redisClient.quitAsync());
 };
 
 const readCacheKey = (cacheKey) => {
   const redisClient = utils.createRedisClient(runtimeConfig.redis);
   return redisClient.getAsync(cacheKey)
     .then(data => redisClient.quitAsync()
-      .then(() => ({ body: JSON.parse(data) || {} })));
+      .then(() => data));
 };
 
 main()
   .then(message => {
-    console.log(`SUCCESS: ${JSON.stringify(message)}`);
+    console.log(message);
     process.exit(0);
   })
   .catch(message => {

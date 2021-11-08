@@ -126,7 +126,7 @@ const entries = {
 describe('components/browse/AutomatedCardGroup', () => {
   describe('fetch()', () => {
     beforeEach(() => {
-      $axiosGetStub.withArgs('/_api/cache/collections/topics/featured').resolves({ data: entries.featuredTopics });
+      $axiosGetStub.withArgs('/_api/cache/en/collections/topics/featured').resolves({ data: entries.featuredTopics });
     });
     afterEach(() => {
       $axiosGetStub.reset();
@@ -135,7 +135,7 @@ describe('components/browse/AutomatedCardGroup', () => {
       it('gets the data from the cache API endpoint', async() => {
         const wrapper = nuxtFactory({ sectionType: FEATURED_TOPICS });
         await wrapper.vm.fetch();
-        $axiosGetStub.should.have.been.calledWith('/_api/cache/collections/topics/featured', { params: { daily: true, locale: 'en' } });
+        $axiosGetStub.should.have.been.calledWith('/_api/cache/en/collections/topics/featured');
         wrapper.vm.entries.should.deep.eq(entries.featuredTopics);
       });
     });

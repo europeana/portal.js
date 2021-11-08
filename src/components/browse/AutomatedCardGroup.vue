@@ -42,26 +42,16 @@
     },
 
     fetch() {
-      const params = {};
-      switch (this.sectionType) {
-      case FEATURED_TOPICS:
-      case FEATURED_TIMES:
-        params.daily = true;
-        // TODO: should recent items be localised too?
-        params.locale = this.$i18n.locale;
-        break;
-      }
-
       if (process.server) {
         return import('@/server-middleware/api/cache/index.js')
           .then(module => {
-            return module.cached(this.type, this.$config, params)
+            return module.cached(this.type, this.$config)
               .then(entries => {
                 this.entries = entries;
               });
         });
       } else {
-        return this.$axios.get(`/_api/cache/${this.type}`, { params })
+        return this.$axios.get(`/_api/cache/${this.type}`)
           .then(response => {
             this.entries = response.data;
           });
@@ -74,11 +64,11 @@
       };
 
       if (this.sectionType === FEATURED_TOPICS) {
-        data.type = 'collections/topics/featured';
+        data.type = `${this.$i18n.locale}/collections/topics/featured`;
         data.cardType = 'AutomatedEntityCard';
         data.headline = this.$i18n.t('automatedCardGroup.topic');
       } else if (this.sectionType === FEATURED_TIMES) {
-        data.type = 'collections/times';
+        data.type = `${this.$i18n.locale}/collections/times/featured`;
         data.cardType = 'AutomatedEntityCard';
         data.headline = this.$i18n.t('automatedCardGroup.time');
       } else if (this.sectionType === RECENT_ITEMS) {

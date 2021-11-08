@@ -70,4 +70,92 @@ describe('cachers/utils', () => {
       });
     });
   });
+
+  describe('localise', () => {
+    it('returns as-is any non-Array argument', () => {
+      const argument = 'not an Array';
+
+      const filtered = utils.localise(argument, 'prefLabel', 'fr');
+
+      filtered.should.eq(argument);
+    });
+
+    it('localises Array members\' prefLabel to the specified locale', () => {
+      const argument = [
+        { id: '1', prefLabel: { en: 'English 1', fr: 'Français 1' } },
+        { id: '2', prefLabel: { en: 'English 2', fr: 'Français 2' } }
+      ];
+
+      const expected = [
+        { id: '1', prefLabel: 'Français 1' },
+        { id: '2', prefLabel: 'Français 2' }
+      ];
+
+      const localised = utils.localise(argument, 'prefLabel', 'fr');
+      localised.should.eql(expected);
+    });
+
+    // it('omits any Array members without localised prefLabel', () => {
+    //   const argument = [
+    //     { id: '1' },
+    //     { id: '2', prefLabel: { en: 'English 2', fr: 'Français 2' } }
+    //   ];
+    //
+    //   const expected = [
+    //     { id: '2', prefLabel: 'Français 2' }
+    //   ];
+    //
+    //   const localised = utils.localise(argument, 'fr');
+    //   localised.should.eql(expected);
+    // });
+  });
+
+  describe('pick', () => {
+    it('returns as-is any non-Array argument', () => {
+      const argument = 'not an Array';
+
+      const filtered = utils.pick(argument);
+
+      filtered.should.eq(argument);
+    });
+
+    it('reduces Array argument object elements to picked properties', () => {
+      const argument = [
+        { id: '/a', name: 'A', alt: 'a' },
+        { id: '/b', name: 'B', alt: 'b' }
+      ];
+      const expected = [
+        { id: '/a', name: 'A' },
+        { id: '/b', name: 'B' }
+      ];
+
+      const picked = utils.pick(argument, ['id', 'name']);
+      picked.should.eql(expected);
+    });
+  });
+
+  describe('daily', () => {
+    it('returns as-is any non-Array argument', () => {
+      const argument = 'not an Array';
+
+      const filtered = utils.daily(argument, 4);
+
+      filtered.should.eq(argument);
+    });
+
+    it('filters Array arguments to requested number for the current day', () => {
+      const argument = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+      const tests = [
+        { now: 0, expected: [0, 1, 2, 3] },
+        { now: 1634556628480, expected: [3, 4, 5, 6] }
+      ];
+
+      for (const test of tests) {
+        sinon.stub(Date, 'now').returns(test.now);
+        const filtered = utils.daily(argument, 4);
+        filtered.should.eql(test.expected);
+        Date.now.restore();
+      }
+    });
+  });
 });

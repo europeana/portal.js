@@ -10,8 +10,6 @@ const apiResponse = {
     items: [
       {
         id: 'http://data.europeana.eu/timespan/1',
-        type: ENTITY_TYPE,
-        identifier: ['1'],
         prefLabel: {
           en: '1st century'
         },
@@ -19,8 +17,6 @@ const apiResponse = {
       },
       {
         id: 'http://data.europeana.eu/timespan/2',
-        type: ENTITY_TYPE,
-        identifier: ['2'],
         prefLabel: {
           en: '10th century'
         },
@@ -32,8 +28,6 @@ const apiResponse = {
     items: [
       {
         id: 'http://data.europeana.eu/timespan/3',
-        type: ENTITY_TYPE,
-        identifier: ['3'],
         prefLabel: {
           en: '2nd century'
         },

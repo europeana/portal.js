@@ -1,7 +1,6 @@
 {
   "name": "@europeana/portal",
-  "version": "1.52.0",
-  "private": true,
+  "version": "1.54.2",
   "description": "Europeana Portal",
   "type": "module",
   "scripts": {
@@ -37,6 +36,7 @@
     "@vue-a11y/announcer": "^2.1.0",
     "autosuggest-highlight": "^3.1.1",
     "axios": "^0.21.1",
+    "axios-retry": "^3.2.4",
     "bootstrap": "^4.6.0",
     "bootstrap-vue": "^2.21.2",
     "cookie-universal-nuxt": "^2.0.18",
