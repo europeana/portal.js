@@ -122,6 +122,11 @@ const localeSpecificFieldValueIsFromEnrichment = (field, aggregatorProxy, provid
 };
 
 const proxyHasEntityForField = (proxy, field, entities) => {
+  if (Array.isArray(proxy?.[field]?.def)) {
+    return proxy?.[field]?.def.some(key => {
+      return entities[key];
+    });
+  }
   return entities[proxy?.[field]?.def];
 };
 
