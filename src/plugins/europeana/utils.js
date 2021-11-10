@@ -46,7 +46,8 @@ const axiosInstanceOptions = ({ id, baseURL }, { store, $config }) => {
     baseURL: storedAPIBaseURL(store, id) || config.url || baseURL,
     params: {
       wskey: config.key
-    }
+    },
+    timeout: 5000
   };
 };
 
