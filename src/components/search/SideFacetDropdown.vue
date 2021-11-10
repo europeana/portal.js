@@ -4,6 +4,7 @@
       class="facet-label"
     >{{ facetName }}</label>
     <b-dropdown
+      :id="facetName"
       ref="dropdown"
       :variant="dropdownVariant"
       class="facet-dropdown side-facet"
@@ -15,7 +16,9 @@
         <span
           class="dropdown-toggle-text"
           :data-qa="`${name} dropdown button`"
-        />
+        >
+          {{ facetName }}
+        </span>
       </template>
 
       <b-dropdown-form class="options-container">
