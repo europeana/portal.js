@@ -1,4 +1,3 @@
-import pick from 'lodash/pick.js';
 import { createEuropeanaApiClient } from '../utils.js';
 import { getEntitySlug } from '../../plugins/europeana/entity.js';
 
@@ -12,22 +11,15 @@ const pageOfEntityResults = (page, params = {}) => {
       ...axiosClient.defaults.config,
       query: '*:*',
       scope: 'europeana',
+      sort: 'id',
       page,
       pageSize,
       ...params
     }
   })
     .then(response => response.data.items || [])
-    .then(items => items.map(persistableFields))
     .then(items => items.map(entityWithSlug));
 };
-
-const persistableFields = (entity) => (pick(entity, [
-  'id',
-  'prefLabel',
-  'isShownBy',
-  'logo'
-]));
 
 const entityWithSlug = (entity) => ({
   ...entity,
@@ -55,9 +47,9 @@ const sortResults = results => results.sort((a, b) =>
     sensitivity: 'base'
   }));
 
-export default async(params = {}, config = {}) => {
+export default (params = {}, config = {}) => {
   axiosClient = createEuropeanaApiClient(config.europeana?.apis?.entity);
 
-  const entities = await allEntityResults(params);
-  return sortResults(entities);
+  return allEntityResults(params)
+    .then(entities => sortResults(entities));
 };

@@ -1,7 +1,12 @@
+const PICK = ['dataProvider', 'dcCreatorLangAware', 'dcTitleLangAware', 'edmPreview', 'id'];
+// TODO: We can't let the cacher localise in advance because the item preview card
+// expects to handle it. Consider refactoring that automated card group to
+// use generic content card directly?
+// const LOCALISE = ['dcCreatorLangAware', 'dcTitleLangAware'];
+const LOCALISE = false;
+
 import dateFormat from 'dateformat';
 import { createEuropeanaApiClient } from '../utils.js';
-
-const CACHE_KEY = '@europeana:portal.js:items:recent';
 
 let axiosClient;
 let randomSortSeed;
@@ -62,5 +67,6 @@ const data = (config = {}) => {
 
 export {
   data,
-  CACHE_KEY
+  LOCALISE,
+  PICK
 };

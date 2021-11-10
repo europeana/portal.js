@@ -16,6 +16,14 @@ import { parseQuery, stringifyQuery } from './src/plugins/vue-router.cjs';
 
 const featureIsEnabled = (value) => Boolean(Number(value));
 
+const buildPublicPath = () => {
+  if (featureIsEnabled(process.env.ENABLE_JSDELIVR_BUILD_PUBLIC_PATH)) {
+    return `https://cdn.jsdelivr.net/npm/${pkg.name}@${pkg.version}/.nuxt/dist/client`;
+  } else {
+    return process.env.NUXT_BUILD_PUBLIC_PATH;
+  }
+};
+
 export default {
   /*
   ** Runtime config
@@ -78,6 +86,9 @@ export default {
         frameworkVersion: nuxtPkg.version,
         ignoreUrls: [
           /^\/(_nuxt|__webpack_hmr)\//
+        ],
+        ignoreUserAgents: [
+          'kube-probe/'
         ]
       }
     },
@@ -377,7 +388,9 @@ export default {
         // Build source maps to aid debugging in production builds
         config.devtool = 'source-map';
       }
-    }
+    },
+
+    publicPath: buildPublicPath()
   },
 
   /*
