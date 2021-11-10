@@ -1,11 +1,12 @@
-import annotation from './europeana/annotation';
-import entity from './europeana/entity';
-import recommendation from './europeana/recommendation';
-import record from './europeana/record';
-import set from './europeana/set';
-import entityManagement from './europeana/entity-management';
+import annotation from './europeana/annotation.js';
+import entity from './europeana/entity.js';
+import recommendation from './europeana/recommendation.js';
+import record from './europeana/record.js';
+import set from './europeana/set.js';
+import entityManagement from './europeana/entity-management.js';
+import thumbnail from './europeana/thumbnail.js';
 
-import { apiUrlFromRequestHeaders } from './europeana/utils';
+import { apiUrlFromRequestHeaders } from './europeana/utils.js';
 
 const MODULE_NAME = 'apis';
 
@@ -19,7 +20,8 @@ const storeModule = {
       recommendation: null,
       record: null,
       set: null,
-      entityManagement: null
+      entityManagement: null,
+      thumbnail: null
     }
   }),
 
@@ -28,7 +30,7 @@ const storeModule = {
       for (const api in state.urls) {
         const apiBaseURL = apiUrlFromRequestHeaders(api, req.headers);
 
-        if (apiBaseURL && this.$apis) {
+        if (apiBaseURL && this.$apis && this.$apis[api].$axios) {
           this.$apis[api].$axios.defaults.baseURL = apiBaseURL;
         }
         state.urls[api] = apiBaseURL;
@@ -46,7 +48,8 @@ export default (context, inject) => {
     recommendation: recommendation(context),
     record: record(context),
     set: set(context),
-    entityManagement: entityManagement(context)
+    entityManagement: entityManagement(context),
+    thumbnail: thumbnail(context)
   };
 
   inject(MODULE_NAME, plugin);

@@ -29,8 +29,6 @@
 </template>
 
 <script>
-  import { genericThumbnail } from '@/plugins/europeana/thumbnail';
-
   import ContentCard from '../generic/ContentCard';
 
   export default {
@@ -112,9 +110,12 @@
       imageUrl() {
         const size = 'w400';
 
-        return this.value.edmPreview ?
-          `${this.value.edmPreview[0]}&size=${size}` :
-          genericThumbnail(this.value.id, { type: this.value.type, size });
+        if (this.value.edmPreview) {
+          const url = new URL(this.value.edmPreview[0]);
+          return this.$apis.thumbnail.url(url.searchParams.get('uri'), url.searchParams.entries());
+        } else {
+          return this.$apis.thumbnail.generic(this.value.id, { type: this.value.type, size });
+        }
       }
     }
   };

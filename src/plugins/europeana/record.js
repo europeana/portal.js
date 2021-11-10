@@ -4,7 +4,7 @@ import merge from 'deepmerge';
 
 import { apiError, createAxios, reduceLangMapsForLocale, isLangMap } from './utils';
 import search from './search';
-import { thumbnailUrl, thumbnailTypeForMimeType } from  './thumbnail';
+import thumbnail, { thumbnailTypeForMimeType } from  './thumbnail';
 import { getEntityUri, getEntityQuery } from './entity';
 import { isIIIFPresentation } from '../media';
 
@@ -135,6 +135,7 @@ const proxyHasFallbackField = (proxy, fallbackProxy, field, targetLanguage) => {
 
 export default (context = {}) => {
   const $axios = createAxios({ id: 'record', baseURL: BASE_URL }, context);
+  const thumbnailUrl = thumbnail(context).url;
 
   return {
     $axios,

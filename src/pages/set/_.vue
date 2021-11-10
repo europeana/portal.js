@@ -156,7 +156,6 @@
 
 <script>
   import { langMapValueForLocale } from  '../../plugins/europeana/utils';
-  import { genericThumbnail } from '../../plugins/europeana/thumbnail';
 
   import AlertMessage from '../../components/generic/AlertMessage';
   import ItemPreviewCardGroup from '../../components/item/ItemPreviewCardGroup';
@@ -258,9 +257,14 @@
         if ((this.set?.items?.length || 0) === 0) {
           return null;
         } else {
-          return this.set.items[0].edmPreview ?
-            `${this.set.items[0].edmPreview[0]}&size=w400` :
-            genericThumbnail(this.set.items[0].id, { type: this.set.items[0].type, size: 'w400' });
+          const size = 'w400';
+
+          if (this.set.items[0].edmPreview) {
+            const url = new URL(this.set.items[0].edmPreview[0]);
+            return this.$apis.thumbnail.url(url.searchParams.get('uri'), url.searchParams.entries());
+          } else {
+            return this.$apis.thumbnail.generic(this.set.items[0].id, { type: this.set.items[0].type, size });
+          }
         }
       }
     },

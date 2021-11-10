@@ -1,23 +1,31 @@
-import {
-  thumbnailUrl, thumbnailTypeForMimeType, genericThumbnail
+import thumbnail, {
+  thumbnailTypeForMimeType
 } from '@/plugins/europeana/thumbnail';
 
 describe('plugins/europeana/thumbnail', () => {
-  describe('thumbnailUrl()', () => {
+  describe('url()', () => {
     const uri = 'https://www.example.org/doc.pdf';
 
     it('uses the thumbnail API', () => {
-      thumbnailUrl(uri).should.startWith('https://api.europeana.eu/thumbnail/v2/url.json');
+      thumbnail().url(uri).should.startWith('https://api.europeana.eu/thumbnail/v2/url.json');
     });
 
     it('URL-encodes URI', () => {
       const encoded = 'https%3A%2F%2Fwww.example.org%2Fdoc.pdf';
-      thumbnailUrl(uri).should.include(`uri=${encoded}`);
+      thumbnail().url(uri).should.include(`uri=${encoded}`);
     });
 
     it('adds any additional parameters', () => {
       const params = { size: 'w200' };
-      thumbnailUrl(uri, params).should.include('size=w200');
+      thumbnail().url(uri, params).should.include('size=w200');
+    });
+  });
+
+  describe('generic()', () => {
+    it('uses the data.europeana.eu item URI', () => {
+      const identifier = '/123/abc';
+      const encodedUri = 'http%3A%2F%2Fdata.europeana.eu%2Fitem%2F123%2Fabc';
+      thumbnail().generic(identifier).should.include(`uri=${encodedUri}`);
     });
   });
 
@@ -61,14 +69,6 @@ describe('plugins/europeana/thumbnail', () => {
       it('is null', () => {
         (thumbnailTypeForMimeType(undefined) === null).should.be.true;
       });
-    });
-  });
-
-  describe('genericThumbnail()', () => {
-    it('uses the data.europeana.eu item URI', () => {
-      const identifier = '/123/abc';
-      const encodedUri = 'http%3A%2F%2Fdata.europeana.eu%2Fitem%2F123%2Fabc';
-      genericThumbnail(identifier).should.include(`uri=${encodedUri}`);
     });
   });
 });

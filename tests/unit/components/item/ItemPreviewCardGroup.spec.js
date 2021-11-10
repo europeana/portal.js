@@ -36,6 +36,9 @@ const factory = () => {
       $apis: {
         record: {
           mediaProxyUrl: () => 'proxied'
+        },
+        thumbnail: {
+          url: () => ''
         }
       }
     }
