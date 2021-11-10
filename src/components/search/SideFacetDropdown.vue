@@ -12,7 +12,10 @@
       @hidden="cancelHandler"
     >
       <template v-slot:button-content>
-        <span :data-qa="`${name} dropdown button`" />
+        <span
+          class="dropdown-toggle-text"
+          :data-qa="`${name} dropdown button`"
+        />
       </template>
 
       <b-dropdown-form class="options-container">

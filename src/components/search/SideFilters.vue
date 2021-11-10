@@ -205,37 +205,37 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
+@import '@/assets/scss/variables.scss';
 
-  .filters-title {
-    font-size: $font-size-small;
-    font-weight: 600;
-    line-height: 1;
-    margin: 1.25rem 1rem;
-  }
-  .col-filters {
-    @media (max-width: $bp-medium) {
-      position: fixed;
-      width: 320px;
-      max-width: 75vw;
-      right: -100%;
-      top: 3.5rem;
-      bottom: 0;
-      overflow: auto;
-      padding-top: 1rem;
+.filters-title {
+  font-size: $font-size-small;
+  font-weight: 600;
+  line-height: 1;
+  margin: 1.25rem 1rem;
+}
+.col-filters {
+  @media (max-width: $bp-medium) {
+    position: fixed;
+    width: 320px;
+    max-width: 75vw;
+    right: -100%;
+    top: 3.5rem;
+    bottom: 0;
+    overflow: auto;
+    padding-top: 1rem;
+    transition: right 300ms ease-in-out;
+    &.open {
+      right: 0;
       transition: right 300ms ease-in-out;
-      &.open {
-        right: 0;
-        transition: right 300ms ease-in-out;
-      }
     }
-    @media (min-width: $bp-medium) {
-      max-width: 320px;
-      min-width: 220px;
-    }
-    flex-grow: 0;
-    padding: 0;
-    background-color: $white;
-    margin-top: -1rem;
   }
+  @media (min-width: $bp-medium) {
+    max-width: 320px;
+    min-width: 220px;
+  }
+  flex-grow: 0;
+  padding: 0;
+  background-color: $white;
+  margin-top: -1rem;
+}
 </style>

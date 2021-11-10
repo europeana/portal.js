@@ -317,8 +317,8 @@
     }
   }
   .filters-toggle {
-      @media (min-width: $bp-medium) {
-        display: none;
-      }
+    @media (min-width: $bp-medium) {
+      display: none;
+    }
   }
 </style>
