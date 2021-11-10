@@ -128,6 +128,7 @@
             credits: exhibition.credits,
             exhibitionIdentifier: params.exhibition,
             exhibitionTitle: exhibition.name,
+            exhibitionContentWarning: exhibition.contentWarning,
             page: chapter
           };
         })
