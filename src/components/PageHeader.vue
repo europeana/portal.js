@@ -66,7 +66,7 @@
           @click="toggleSearchBar"
         />
         <b-button
-          v-if="showFiltersToggle"
+          v-show="showFiltersToggle"
           data-qa="search filter button"
           class="filters-toggle ml-3"
           variant="light"
