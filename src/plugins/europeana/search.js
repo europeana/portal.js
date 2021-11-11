@@ -109,11 +109,12 @@ export default (context) => ($axios, params, options = {}) => {
     start
   };
   const targetLocale = 'en';
-  if (options?.locale !== targetLocale && params?.api !== 'fulltext') {
+  console.log(options);
+  if (options.locale && options.locale !== targetLocale && params?.api !== 'fulltext') {
     searchParams['q.source'] = options.locale;
     searchParams['q.target'] = targetLocale;
   }
-
+  console.log(searchParams);
   return $axios.get(`${options.url || ''}/search.json`, {
     paramsSerializer(params) {
       return qs.stringify(params, { arrayFormat: 'repeat' });
