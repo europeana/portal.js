@@ -189,7 +189,7 @@
           if (params.pathMatch !== desiredPath) {
             const redirectPath = app.$path({
               name: 'collections-type-all',
-              params: { type: params.type, pathMatch: encodeURIComponent(desiredPath) }
+              params: { type: params.type, pathMatch: desiredPath }
             });
             return redirect(302, redirectPath);
           }

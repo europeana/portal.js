@@ -331,7 +331,7 @@
           return Promise.resolve(noSimilarItems);
         }
 
-        if (this.$config.app.features.recommendations && this.$auth.loggedIn) {
+        if (this.$auth.loggedIn) {
           return this.$apis.recommendation.recommend('record', this.identifier)
             .then(recommendResponse => recommendResponse);
         }

@@ -239,9 +239,9 @@
       },
       enableRecommendations() {
         if (this.setIsEntityBestItems) {
-          return this.$config.app.features.recommendations && this.$config.app.features.acceptEntityRecommendations;
+          return this.$config.app.features.acceptEntityRecommendations;
         }
-        return this.$config.app.features.recommendations;
+        return true;
       },
       enableAcceptRecommendations() {
         if (this.setIsEntityBestItems) {

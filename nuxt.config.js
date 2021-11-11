@@ -37,10 +37,8 @@ export default {
       siteName: APP_SITE_NAME,
       features: {
         abTests: featureIsEnabled(process.env.ENABLE_AB_TESTS),
-        organisationSearchSuggestions: featureIsEnabled(process.env.ENABLE_ORGANISATION_SEARCH_SUGGESTIONS),
         jiraServiceDeskFeedbackForm: featureIsEnabled(process.env.ENABLE_JIRA_SERVICE_DESK_FEEDBACK_FORM),
         linksToClassic: featureIsEnabled(process.env.ENABLE_LINKS_TO_CLASSIC),
-        recommendations: featureIsEnabled(process.env.ENABLE_RECOMMENDATIONS),
         acceptSetRecommendations: featureIsEnabled(process.env.ENABLE_ACCEPT_SET_RECOMMENDATIONS),
         acceptEntityRecommendations: featureIsEnabled(process.env.ENABLE_ACCEPT_ENTITY_RECOMMENDATIONS),
         entityManagement: featureIsEnabled(process.env.ENABLE_ENTITY_MANAGEMENT),
