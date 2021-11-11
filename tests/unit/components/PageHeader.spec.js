@@ -16,16 +16,18 @@ const factory = (options = {}) => shallowMount(PageHeader, {
     },
     $path: (code) => window.location.href + code
   },
-  stubs: {
-    transition: true
-  },
-  store: options.store || store({ showSearchBar: options.showSearch || false })
+  stubs: { transition: true },
+  store: options.store || store({ showSearchBar: options.showSearch || false,
+    showFiltersToggle: options.showFiltersToggle || false })
 });
 
 const store = (searchState = {}) => {
   return new Vuex.Store({
     state: {
       search: searchState
+    },
+    mutations: {
+      'search/setShowFiltersSheet': () => null
     }
   });
 };
@@ -63,5 +65,15 @@ describe('components/PageHeader', () => {
 
     const nav = wrapper.find('[data-qa="sidebar navigation"]');
     nav.isVisible().should.equal(true);
+  });
+  context('when side filters are on the page', () => {
+    describe('the filter toggle button', () => {
+      it('should exist', () => {
+        const wrapper = factory({ showFiltersToggle: true });
+
+        const filterButton = wrapper.find('[data-qa="search filter button"]');
+        filterButton.exists().should.be.true;
+      });
+    });
   });
 });

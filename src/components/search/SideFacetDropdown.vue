@@ -184,10 +184,6 @@
         this.init();
       },
 
-      resetSelection() {
-        this.preSelected = this.isRadio ? null : [];
-      },
-
       async applySelection() {
         await this.$emit('changed', this.name, this.preSelected);
         this.$refs.dropdown.hide(true);
