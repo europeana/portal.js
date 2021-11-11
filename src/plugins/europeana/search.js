@@ -109,7 +109,7 @@ export default (context) => ($axios, params, options = {}) => {
     start
   };
   const targetLocale = 'en';
-  if (options.locale && options.locale !== targetLocale) {
+  if (options?.locale !== targetLocale && params?.api !== 'fulltext') {
     searchParams['q.source'] = options.locale;
     searchParams['q.target'] = targetLocale;
   }
