@@ -100,7 +100,7 @@
   import { mapState } from 'vuex';
 
   import { BASE_URL as EUROPEANA_DATA_URL } from '../../../plugins/europeana/data';
-  import { getEntityTypeHumanReadable, getEntitySlug, getEntityUri } from '../../../plugins/europeana/entity';
+  import { getEntityTypeHumanReadable, getEntitySlug, getEntityUri, getEntityQuery } from '../../../plugins/europeana/entity';
   import { langMapValueForLocale, uriRegex } from  '../../../plugins/europeana/utils';
 
   export default {
@@ -152,14 +152,13 @@
       };
 
       return Promise.all([
-        store.dispatch('entity/searchForRecords', query),
         fetchEntity ? app.$apis.entity.get(params.type, params.pathMatch) : () => null,
         fetchEntityManagement ? app.$apis.entityManagement.get(params.type, params.pathMatch) : () => null,
         fetchFromContentful ? app.$contentful.query('collectionPage', contentfulVariables) : () => null
       ])
         .then(responses => {
           if (fetchEntity) {
-            store.commit('entity/setEntity', pick(responses[1].entity, [
+            store.commit('entity/setEntity', pick(responses[0].entity, [
               'id',
               'logo',
               'note',
@@ -168,13 +167,13 @@
               'prefLabel'
             ]));
           }
-          if (responses[2].note) {
+          if (responses[1].note) {
             store.commit('entity/setEditable', true);
-            store.commit('entity/setEntityDescription', responses[2].note);
-            store.commit('entity/setProxy', responses[2].proxies.find(proxy => proxy.id.includes('#proxy_europeana')));
+            store.commit('entity/setEntityDescription', responses[1].note);
+            store.commit('entity/setProxy', responses[1].proxies.find(proxy => proxy.id.includes('#proxy_europeana')));
           }
           if (fetchFromContentful) {
-            const pageResponseData = responses[3].data.data;
+            const pageResponseData = responses[2].data.data;
             if (fetchCuratedEntities) {
               store.commit('entity/setCuratedEntities', pageResponseData.curatedEntities.items);
             }
@@ -214,6 +213,29 @@
         recordsPerPage: state => state.entity.recordsPerPage,
         editable: state => state.entity.editable
       }),
+      searchOverrides() {
+        const overrideParams = {
+          qf: [],
+          rows: this.$store.state.entity.recordsPerPage
+        };
+
+        const curatedEntity = this.$store.getters['entity/curatedEntity'](this.entity.id);
+        if (curatedEntity && curatedEntity.genre) {
+          overrideParams.qf.push(`collection:${curatedEntity.genre}`);
+        } else {
+          const entityQuery = getEntityQuery(this.entity.id);
+          overrideParams.qf.push(entityQuery);
+
+          if (!this.$route.query.query) {
+            const englishPrefLabel = this.$store.getters['entity/englishPrefLabel'];
+            if (englishPrefLabel) {
+              overrideParams.query = englishPrefLabel;
+            }
+          }
+        }
+
+        return overrideParams;
+      },
       contextLabel() {
         return this.$t(`cardLabels.${this.$route.params.type}`);
       },
@@ -303,7 +325,7 @@
     },
     mounted() {
       this.$store.commit('search/setCollectionLabel', this.title.values[0]);
-      this.$store.dispatch('entity/searchForRecords', this.$route.query);
+      this.$store.commit('search/set', ['overrideParams', this.searchOverrides]);
       // TODO: move into a new entity store action?
       // Disable related collections for organisation for now
       if (!this.relatedCollectionCards && this.collectionType !== 'organisation') {

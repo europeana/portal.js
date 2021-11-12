@@ -25,6 +25,9 @@ const store = (entityExample = {}) => {
       },
       auth: {}
     },
+    getters: {
+      'entity/curatedEntity': () => () => null
+    },
     mutations: {
       'search/setCollectionLabel': () => null
     },

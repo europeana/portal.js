@@ -10,7 +10,8 @@
       class="facet-dropdown side-facet"
       :data-type="type"
       data-qa="search facet"
-      @hidden="cancelHandler"
+      @hidden="cancelDropdown"
+      @show="showDropdown"
     >
       <template v-slot:button-content>
         <span
@@ -90,11 +91,11 @@
         required: true
       },
 
-      fields: {
-        type: Array,
-        required: false,
-        default: () => []
-      },
+      // fields: {
+      //   type: Array,
+      //   required: false,
+      //   default: () => []
+      // },
 
       selected: {
         type: [Array, String],
@@ -116,6 +117,10 @@
     },
 
     computed: {
+      fields() {
+        return this.$store.state.search.facets.find(facet => facet.name === this.name)?.fields || [];
+      },
+
       sortedOptions() {
         if (this.isRadio) {
           return this.fields;
@@ -180,7 +185,12 @@
         });
       },
 
-      cancelHandler() {
+      showDropdown() {
+        console.log('showDropdown', this.name);
+        this.$store.dispatch('search/queryFacets', { facet: this.name });
+      },
+
+      cancelDropdown() {
         this.init();
       },
 

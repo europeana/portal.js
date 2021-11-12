@@ -1,127 +1,129 @@
 <template>
-  <b-container>
+  <b-container v-if="$fetchState.pending">
+    <b-row class="flex-md-row py-4 text-center">
+      <b-col cols="12">
+        <LoadingSpinner />
+      </b-col>
+    </b-row>
+  </b-container>
+  <b-container v-else-if="$fetchState.error">
+    <b-row class="flex-md-row py-4">
+      <b-col cols="12">
+        <AlertMessage
+          :error="$fetchState.error.message"
+        />
+      </b-col>
+    </b-row>
+  </b-container>
+  <b-container v-else>
     <b-row
-      v-if="errorMessage"
+      v-if="!sideFiltersEnabled"
+      class="mb-3"
+    >
+      <b-col
+        data-qa="search filters"
+      >
+        <client-only>
+          <SearchFilters />
+          <div class="position-relative">
+            <FacetDropdown
+              v-for="facet in coreFacets"
+              :key="facet.name"
+              :name="facet.name"
+              :fields="facet.fields"
+              :type="facetDropdownType(facet.name)"
+              :selected="filters[facet.name]"
+              role="search"
+              @changed="changeFacet"
+            />
+            <MoreFiltersDropdown
+              v-if="enableMoreFacets"
+              :more-facets="moreFacets"
+              :selected="moreSelectedFacets"
+              role="search"
+              @changed="changeMoreFacets"
+            />
+            <button
+              v-if="isFilteredByDropdowns()"
+              class="reset"
+              data-qa="reset filters button"
+              @click="resetFilters"
+            >
+              {{ $t('reset') }}
+            </button>
+          </div>
+        </client-only>
+      </b-col>
+    </b-row>
+    <b-row
+      v-if="noResults"
       class="mb-3"
     >
       <b-col>
         <AlertMessage
-          :error="errorMessage"
+          :error="$t('noResults')"
         />
       </b-col>
     </b-row>
-    <template
-      v-else
+    <b-row
+      v-if="hasAnyResults"
+      class="mb-3"
     >
-      <b-row
-        v-if="!sideFiltersEnabled"
-        class="mb-3"
+      <b-col>
+        <p data-qa="total results">
+          {{ $t('results') }}: {{ totalResults | localise }}
+        </p>
+      </b-col>
+      <b-col>
+        <ViewToggles
+          v-model="view"
+          :link-gen-route="route"
+        />
+      </b-col>
+    </b-row>
+    <b-row
+      class="mb-3"
+    >
+      <b-col
+        cols="12"
       >
-        <b-col
-          data-qa="search filters"
+        <b-row
+          class="mb-3"
         >
-          <client-only>
-            <SearchFilters />
-            <div class="position-relative">
-              <FacetDropdown
-                v-for="facet in coreFacets"
-                :key="facet.name"
-                :name="facet.name"
-                :fields="facet.fields"
-                :type="facetDropdownType(facet.name)"
-                :selected="filters[facet.name]"
-                role="search"
-                @changed="changeFacet"
+          <b-col>
+            <p
+              v-if="noMoreResults"
+              data-qa="warning notice"
+            >
+              {{ $t('noMoreResults') }}
+            </p>
+            <ItemPreviewCardGroup
+              v-model="results"
+              :hits="hits"
+              :view="view"
+              :per-row="perRow"
+              :show-pins="showPins"
+            />
+            <InfoMessage
+              v-if="lastAvailablePage"
+              :message="$t('resultsLimitWarning')"
+            />
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col>
+            <client-only>
+              <PaginationNav
+                v-model="page"
+                :total-results="totalResults"
+                :per-page="perPage"
+                :max-results="1000"
               />
-              <MoreFiltersDropdown
-                v-if="enableMoreFacets"
-                :more-facets="moreFacets"
-                :selected="moreSelectedFacets"
-                role="search"
-                @changed="changeMoreFacets"
-              />
-              <button
-                v-if="isFilteredByDropdowns()"
-                class="reset"
-                data-qa="reset filters button"
-                @click="resetFilters"
-              >
-                {{ $t('reset') }}
-              </button>
-            </div>
-          </client-only>
-        </b-col>
-      </b-row>
-      <b-row
-        v-if="noResults"
-        class="mb-3"
-      >
-        <b-col>
-          <AlertMessage
-            :error="$t('noResults')"
-          />
-        </b-col>
-      </b-row>
-      <b-row
-        v-if="hasAnyResults"
-        class="mb-3"
-      >
-        <b-col>
-          <p data-qa="total results">
-            {{ $t('results') }}: {{ totalResults | localise }}
-          </p>
-        </b-col>
-        <b-col>
-          <ViewToggles
-            v-model="view"
-            :link-gen-route="route"
-          />
-        </b-col>
-      </b-row>
-      <b-row
-        class="mb-3"
-      >
-        <b-col
-          cols="12"
-        >
-          <b-row
-            class="mb-3"
-          >
-            <b-col>
-              <p
-                v-if="noMoreResults"
-                data-qa="warning notice"
-              >
-                {{ $t('noMoreResults') }}
-              </p>
-              <ItemPreviewCardGroup
-                v-model="results"
-                :hits="hits"
-                :view="view"
-                :per-row="perRow"
-                :show-pins="showPins"
-              />
-              <InfoMessage
-                v-if="lastAvailablePage"
-                :message="$t('resultsLimitWarning')"
-              />
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col>
-              <client-only>
-                <PaginationNav
-                  v-model="page"
-                  :total-results="totalResults"
-                  :per-page="perPage"
-                  :max-results="1000"
-                />
-              </client-only>
-            </b-col>
-          </b-row>
-        </b-col>
-      </b-row>
-    </template>
+            </client-only>
+          </b-col>
+        </b-row>
+      </b-col>
+    </b-row>
   </b-container>
 </template>
 
@@ -143,12 +145,13 @@
     components: {
       AlertMessage: () => import('../../components/generic/AlertMessage'),
       ClientOnly,
-      InfoMessage,
       FacetDropdown: () => import('../../components/search/FacetDropdown'),
-      MoreFiltersDropdown: () => import('../../components/search/MoreFiltersDropdown'),
+      InfoMessage,
       ItemPreviewCardGroup,
-      SearchFilters: () => import('../../components/search/SearchFilters'),
+      LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
+      MoreFiltersDropdown: () => import('../../components/search/MoreFiltersDropdown'),
       PaginationNav: () => import('../../components/generic/PaginationNav'),
+      SearchFilters: () => import('../../components/search/SearchFilters'),
       ViewToggles
     },
     props: {
@@ -171,8 +174,17 @@
         default: false
       }
     },
-    fetch() {
+    async fetch() {
       this.viewFromRouteQuery();
+
+      await this.$store.dispatch('search/activate');
+      this.$store.commit('search/set', ['userParams', this.$route.query]);
+
+      await this.$store.dispatch('search/run', { skipFacets: this.sideFiltersEnabled });
+
+      if (this.$store.state.search.error && process.server) {
+        this.$nuxt.context.res.statusCode = this.$store.state.search.errorStatusCode;
+      }
     },
     data() {
       return {
@@ -309,7 +321,12 @@
     watch: {
       routeQueryView: 'viewFromRouteQuery',
       contentTierZeroPresent: 'showContentTierToast',
-      contentTierZeroActive: 'showContentTierToast'
+      contentTierZeroActive: 'showContentTierToast',
+      '$route.query.api': '$fetch',
+      '$route.query.reusability': '$fetch',
+      '$route.query.query': '$fetch',
+      '$route.query.qf': '$fetch',
+      '$route.query.page': '$fetch'
     },
     mounted() {
       this.showContentTierToast();
