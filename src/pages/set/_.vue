@@ -254,18 +254,7 @@
         return this.$tc(label, this.set.total, { max });
       },
       shareMediaUrl() {
-        if ((this.set?.items?.length || 0) === 0) {
-          return null;
-        } else {
-          const size = 'w400';
-
-          if (this.set.items[0].edmPreview) {
-            const url = new URL(this.set.items[0].edmPreview[0]);
-            return this.$apis.thumbnail.url(url.searchParams.get('uri'), url.searchParams.entries());
-          } else {
-            return this.$apis.thumbnail.generic(this.set.items[0].id, { type: this.set.items[0].type, size });
-          }
-        }
+        return this.$apis.thumbnail.edmPreview(this.set?.items?.[0], 400);
       }
     },
 

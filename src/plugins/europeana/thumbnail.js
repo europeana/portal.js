@@ -49,8 +49,24 @@ export default (context = {}) => {
     return url(uri, params);
   };
 
+  const edmPreview = (item, size = 200) => {
+    if (!item) {
+      return null;
+    }
+
+    const params = { type: item.type, size: `w${size}` };
+
+    if (item.edmPreview) {
+      const edmPreviewUrl = new URL(item.edmPreview[0]);
+      return url(edmPreviewUrl.searchParams.get('uri'), params);
+    } else {
+      return generic(item.id, params);
+    }
+  };
+
   return {
     url,
-    generic
+    generic,
+    edmPreview
   };
 };

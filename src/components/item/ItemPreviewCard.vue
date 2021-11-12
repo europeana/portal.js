@@ -108,14 +108,7 @@
       },
 
       imageUrl() {
-        const size = 'w400';
-
-        if (this.value.edmPreview) {
-          const url = new URL(this.value.edmPreview[0]);
-          return this.$apis.thumbnail.url(url.searchParams.get('uri'), url.searchParams.entries());
-        } else {
-          return this.$apis.thumbnail.generic(this.value.id, { type: this.value.type, size });
-        }
+        return this.$apis.thumbnail.edmPreview(this.value, 400);
       }
     }
   };
