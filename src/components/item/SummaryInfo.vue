@@ -33,16 +33,19 @@
       <div
         v-for="(value, index) in description.values"
         :key="index"
+        class="description-text"
       >
         <!-- eslint-disable vue/no-v-html -->
         <p
           v-if="index === 0"
           :lang="description.code"
+          class="description-text-paragraph"
           v-html="$options.filters.convertNewLine(showAll ? value : truncatedDescription)"
         />
         <p
           v-else-if="showAll"
           :lang="description.code"
+          class="description-text-paragraph"
           v-html="$options.filters.convertNewLine(value)"
         />
         <!-- eslint-disable vue/no-v-html -->

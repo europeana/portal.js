@@ -4,7 +4,7 @@
     class="entity-page"
   >
     <b-container fluid>
-      <b-row class="flex-md-row pt-5 bg-white mb-4">
+      <b-row class="flex-md-row pt-5 bg-white mb-3">
         <b-col
           cols="12"
         >
@@ -51,10 +51,11 @@
       </b-row>
     </b-container>
     <client-only>
-      <b-container>
+      <b-container
+        :class="{'page-container': sideFiltersEnabled}"
+      >
         <b-row>
           <b-col
-            cols="12"
             class="pb-3"
           >
             <i18n
@@ -74,6 +75,7 @@
               :show-pins="userIsEditor && userIsSetsEditor"
             />
           </b-col>
+          <SideFilters v-if="sideFiltersEnabled" />
         </b-row>
         <b-row>
           <b-col>
@@ -108,7 +110,8 @@
       EntityDetails,
       SearchInterface,
       EntityUpdateModal: () => import('../../../components/entity/EntityUpdateModal'),
-      RelatedCollections: () => import('../../../components/generic/RelatedCollections')
+      RelatedCollections: () => import('../../../components/generic/RelatedCollections'),
+      SideFilters: () => import('../../../components/search/SideFilters')
     },
 
     middleware: 'sanitisePageQuery',
@@ -293,6 +296,9 @@
       },
       isEditable() {
         return this.entity && this.editable;
+      },
+      sideFiltersEnabled() {
+        return this.$config.app.features.sideFilters;
       }
     },
     mounted() {
@@ -366,10 +372,15 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '@/assets/scss/variables.scss';
+
   .entity-page {
     margin-top: -1rem;
     .related-collections {
       padding: 0;
     }
+  }
+  .page-container {
+    max-width: none;
   }
 </style>

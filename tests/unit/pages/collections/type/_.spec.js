@@ -47,7 +47,8 @@ const factory = (options) => shallowMountNuxt(collection, {
     },
     $i18n: {
       locale: 'en'
-    }
+    },
+    $config: { app: { features: { sideFilters: false } } }
   }
 });
 

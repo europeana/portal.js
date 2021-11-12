@@ -1,76 +1,77 @@
 <template>
-  <b-dropdown
-    ref="dropdown"
-    :variant="dropdownVariant"
-    class="mr-2 my-2 facet-dropdown"
-    :data-type="type"
-    data-qa="search facet"
-    @hidden="cancelHandler"
-  >
-    <template v-slot:button-content>
-      <span :data-qa="`${name} dropdown button`">
-        {{ facetName }}
-      </span>
-    </template>
-
-    <b-dropdown-form class="options-container">
-      <div
-        v-for="(option, index) in sortedOptions"
-        :key="index"
-        :data-qa="`${isRadio ? option : option.label} ${name} field`"
-      >
-        <template v-if="isRadio">
-          <b-form-radio
-            v-model="preSelected"
-            :value="option"
-            :name="name"
-            :data-qa="`${option} ${name} ${RADIO}`"
-          >
-            <FacetFieldLabel
-              :facet-name="name"
-              :field-value="option"
-            />
-          </b-form-radio>
-        </template>
-
-        <template v-else>
-          <b-form-checkbox
-            v-model="preSelected"
-            :value="option.label"
-            :name="name"
-            :data-qa="`${option.label} ${name} ${CHECKBOX}`"
-          >
-            <FacetFieldLabel
-              :facet-name="name"
-              :field-value="option.label"
-            />
-            <span>({{ option.count | localise }})</span>
-          </b-form-checkbox>
-        </template>
-      </div>
-    </b-dropdown-form>
-
-    <li
-      class="dropdown-buttons mt-3"
+  <div>
+    <label
+      class="facet-label"
+    >{{ facetName }}</label>
+    <b-dropdown
+      :id="facetName"
+      ref="dropdown"
+      :variant="dropdownVariant"
+      class="facet-dropdown side-facet"
+      :data-type="type"
+      data-qa="search facet"
+      @hidden="cancelHandler"
     >
-      <b-button
-        variant="link"
-        :disabled="disableResetButton"
-        :data-qa="`${name} reset button`"
-        @click="resetSelection"
+      <template v-slot:button-content>
+        <span
+          class="dropdown-toggle-text"
+          :data-qa="`${name} dropdown button`"
+        >
+          {{ facetName }}
+        </span>
+      </template>
+
+      <b-dropdown-form class="options-container">
+        <div
+          v-for="(option, index) in sortedOptions"
+          :key="index"
+          :data-qa="`${isRadio ? option : option.label} ${name} field`"
+        >
+          <template v-if="isRadio">
+            <b-form-radio
+              v-model="preSelected"
+              :value="option"
+              :name="name"
+              :data-qa="`${option} ${name} ${RADIO}`"
+            >
+              <FacetFieldLabel
+                :facet-name="name"
+                :field-value="option"
+              />
+            </b-form-radio>
+          </template>
+
+          <template v-else>
+            <b-form-checkbox
+              v-model="preSelected"
+              :value="option.label"
+              :name="name"
+              :data-qa="`${option.label} ${name} ${CHECKBOX}`"
+            >
+              <FacetFieldLabel
+                :facet-name="name"
+                :field-value="option.label"
+              />
+              <span>({{ option.count | localise }})</span>
+            </b-form-checkbox>
+          </template>
+        </div>
+      </b-dropdown-form>
+
+      <li
+        class="dropdown-buttons mt-3"
       >
-        {{ $t('facets.button.reset') }}
-      </b-button>
-      <b-button
-        variant="primary"
-        :disabled="disableApplyButton"
-        :data-qa="`${name} apply button`"
-        @click.stop="applySelection"
-      >
-        {{ $t('facets.button.apply') }}
-      </b-button>
-    </li>
-  </b-dropdown>
+        <b-button
+          variant="primary"
+          :disabled="disableApplyButton"
+          :data-qa="`${name} apply button`"
+          @click.stop="applySelection"
+        >
+          {{ $t('facets.button.apply') }}
+        </b-button>
+      </li>
+    </b-dropdown>
+  </div>
 </template>
 
 <script>
@@ -148,13 +149,6 @@
         return isEqual(this.preSelected, this.selected);
       },
 
-      disableResetButton() {
-        if (!this.preSelected) {
-          return true;
-        }
-        return Array.isArray(this.preSelected) && (this.preSelected.length === 0);
-      },
-
       dropdownVariant() {
         return ((typeof this.selected === 'string') || (Array.isArray(this.selected) && this.selected.length > 0)) ? 'selected' : 'light';
       }
@@ -190,10 +184,6 @@
         this.init();
       },
 
-      resetSelection() {
-        this.preSelected = this.isRadio ? null : [];
-      },
-
       async applySelection() {
         await this.$emit('changed', this.name, this.preSelected);
         this.$refs.dropdown.hide(true);
@@ -201,3 +191,14 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import '@/assets/scss/variables.scss';
+
+  .facet-label {
+    font-size: $font-size-extrasmall;
+    text-transform: uppercase;
+    color: $mediumgrey;
+    margin-bottom: 0.25rem;
+  }
+</style>

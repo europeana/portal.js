@@ -13,7 +13,10 @@
     <template
       v-else
     >
-      <b-row class="mb-3">
+      <b-row
+        v-if="!sideFiltersEnabled"
+        class="mb-3"
+      >
         <b-col
           data-qa="search filters"
         >
@@ -298,6 +301,9 @@
         set(value) {
           this.$store.commit('search/setView', value);
         }
+      },
+      sideFiltersEnabled() {
+        return this.$config.app.features.sideFilters;
       }
     },
     watch: {

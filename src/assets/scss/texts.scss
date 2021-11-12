@@ -150,7 +150,7 @@ header .col {
   header + .description {
     margin-top: 1rem;
   }
-  .description div p {
+  .description .description-text .description-text-paragraph {
     color: $mediumgrey;
     &:last-child {
       margin-bottom: 0 !important;

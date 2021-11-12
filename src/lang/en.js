@@ -516,6 +516,8 @@ export default {
       "rdfAbout": "RDF About"
     }
   },
+  "filter": "Filter",
+  "filterResults": "Filter results",
   "footer": {
     "customiseWebsiteLanguage": "Customise website language",
     "disclaimerLine1": "Europeana is an initiative of the European Union, financed by the European Union’s Connecting Europe Facility and European Union Member States. The Europeana services, including this website, are operated by a consortium led by the Europeana Foundation under a service contract with the European Commission.",

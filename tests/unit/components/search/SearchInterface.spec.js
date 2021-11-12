@@ -35,6 +35,7 @@ const factory = (options = {}) => {
     $t: (key) => key,
     $path: () => '/',
     $goto: () => null,
+    $config: { app: { features: { sideFilters: false } } },
     ...options.mocks
   };
   const store = new Vuex.Store({

@@ -1,29 +1,50 @@
 <template>
   <div>
     <NotificationBanner
-      v-if="redirectNotificationsEnabled"
+      v-if="redirectNotificationsEnabled && !sideFiltersEnabled"
       :notification-url="notificationUrl"
       :notification-text="$t('linksToClassic.search.text')"
       :notification-link-text="$t('linksToClassic.search.linkText')"
       class="mb-3"
     />
-    <b-container data-qa="search page">
+    <b-container
+      data-qa="search page"
+      :class="{'page-container': sideFiltersEnabled}"
+    >
       <b-row>
-        <b-col>
-          <i18n
-            :path="searchQuery ? 'searchResultsFor' : 'searchResults'"
-            tag="h1"
-          >
-            <span data-qa="search query">{{ searchQuery }}</span>
-          </i18n>
+        <b-col
+          :class="{'px-0': !sideFiltersEnabled}"
+        >
+          <NotificationBanner
+            v-if="redirectNotificationsEnabled && sideFiltersEnabled"
+            :notification-url="notificationUrl"
+            :notification-text="$t('linksToClassic.search.text')"
+            :notification-link-text="$t('linksToClassic.search.linkText')"
+            class="notification-banner mb-3"
+          />
+          <b-container>
+            <b-row>
+              <b-col>
+                <i18n
+                  :path="searchQuery ? 'searchResultsFor' : 'searchResults'"
+                  tag="h1"
+                >
+                  <span data-qa="search query">{{ searchQuery }}</span>
+                </i18n>
+              </b-col>
+            </b-row>
+          </b-container>
+          <RelatedSection
+            v-if="searchQuery"
+            :query="searchQuery"
+            class="mb-4"
+          />
+          <SearchInterface
+            :per-row="4"
+          />
         </b-col>
-        <RelatedSection
-          v-if="searchQuery"
-          :query="searchQuery"
-          class="mb-4"
-        />
-        <SearchInterface
-          :per-row="4"
+        <SideFilters
+          v-if="sideFiltersEnabled"
         />
       </b-row>
     </b-container>
@@ -39,7 +60,8 @@
     components: {
       SearchInterface,
       NotificationBanner,
-      RelatedSection: () => import('../../components/search/RelatedSection')
+      RelatedSection: () => import('../../components/search/RelatedSection'),
+      SideFilters: () => import('../../components/search/SideFilters')
     },
 
     middleware: 'sanitisePageQuery',
@@ -63,6 +85,9 @@
       },
       searchQuery() {
         return this.$route.query.query;
+      },
+      sideFiltersEnabled() {
+        return this.$config.app.features.sideFilters;
       }
     },
 
@@ -88,6 +113,8 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '@/assets/scss/variables.scss';
+
   h1 {
     font-size: 1.875rem;
     font-weight: 300;
@@ -96,5 +123,13 @@
     span {
       font-weight: 600;
     }
+  }
+  .page-container {
+    max-width: none;
+  }
+  .notification-banner {
+    margin-left: -15px;
+    margin-right: -15px;
+    width: auto;
   }
 </style>

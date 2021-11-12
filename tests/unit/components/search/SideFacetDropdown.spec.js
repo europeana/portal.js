@@ -1,7 +1,7 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import sinon from 'sinon';
 
-import FacetDropdown from '@/components/search/FacetDropdown.vue';
+import SideFacetDropdown from '@/components/search/SideFacetDropdown.vue';
 
 const localVue = createLocalVue();
 
@@ -24,14 +24,14 @@ const countryFields = [
   }
 ];
 
-const factory = () => shallowMount(FacetDropdown, {
+const factory = () => shallowMount(SideFacetDropdown, {
   localVue,
   mocks: {
     $t: (key) => key,
+    $tFacetName: (key) => key,
     $store: {
       dispatch: sinon.stub()
-    },
-    $config: { app: { features: { sideFilters: false } } }
+    }
   },
   stubs: ['b-button', 'b-form-checkbox', 'b-dropdown', 'b-dropdown-form'],
   propsData: {
@@ -41,7 +41,7 @@ const factory = () => shallowMount(FacetDropdown, {
   }
 });
 
-describe('components/search/FacetDropdown', () => {
+describe('components/search/SideFacetDropdown', () => {
   it('puts selected options to the top list in descending count value order', async() => {
     const wrapper = factory();
 
@@ -67,40 +67,6 @@ describe('components/search/FacetDropdown', () => {
         label: 'Netherlands'
       }
     ]);
-  });
-
-  describe('reset button', () => {
-    context('when nothing has been selected', () => {
-      it('is disabled', async() => {
-        const wrapper = factory();
-
-        await wrapper.setProps({
-          selected: []
-        });
-
-        await wrapper.setData({
-          preSelected: []
-        });
-
-        const resetButton = wrapper.find('[data-qa="COUNTRY reset button"]');
-
-        resetButton.attributes('disabled').should.eq('true');
-      });
-
-      context('when option has been selected', () => {
-        it('is enabled', async() => {
-          const wrapper = factory();
-
-          await wrapper.setData({
-            preSelected: ['Spain']
-          });
-
-          const resetButton = wrapper.find('[data-qa="COUNTRY reset button"]');
-
-          (resetButton.attributes('disabled') === undefined).should.be.true;
-        });
-      });
-    });
   });
 
   describe('apply button', () => {
