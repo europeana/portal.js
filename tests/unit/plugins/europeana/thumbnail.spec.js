@@ -6,8 +6,14 @@ describe('plugins/europeana/thumbnail', () => {
   describe('url()', () => {
     const uri = 'https://www.example.org/doc.pdf';
 
-    it('uses the thumbnail API', () => {
+    it('defaults to the production thumbnail API', () => {
       thumbnail().url(uri).should.startWith('https://api.europeana.eu/thumbnail/v2/url.json');
+    });
+
+    it('favours a thumbnail API in the context', () => {
+      const context = { $config: { europeana: { apis: { thumbnail: { url: 'https://thumbnail.example.org' } } } } };
+
+      thumbnail(context).url(uri).should.startWith('https://thumbnail.example.org/url.json');
     });
 
     it('URL-encodes URI', () => {
@@ -26,6 +32,46 @@ describe('plugins/europeana/thumbnail', () => {
       const identifier = '/123/abc';
       const encodedUri = 'http%3A%2F%2Fdata.europeana.eu%2Fitem%2F123%2Fabc';
       thumbnail().generic(identifier).should.include(`uri=${encodedUri}`);
+    });
+  });
+
+  describe('edmPreview()', () => {
+    const size = 400;
+
+    context('when edmPreview property is present on item', () => {
+      it('uses edmPreview property for URL', () => {
+        const item = {
+          edmPreview: ['https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fexample.org%2Fpreview.jpg'],
+          type: 'VIDEO'
+        };
+
+        const edmPreview = thumbnail().edmPreview(item, size);
+
+        edmPreview.should.eq('https://api.europeana.eu/thumbnail/v2/url.json?type=VIDEO&size=w400&uri=https%3A%2F%2Fexample.org%2Fpreview.jpg');
+      });
+    });
+
+    context('when edmPreview property is absent from item', () => {
+      it('falls back to generic URL', () => {
+        const item = {
+          type: 'IMAGE',
+          id: '/123/abc'
+        };
+
+        const edmPreview = thumbnail().edmPreview(item, size);
+
+        edmPreview.should.eq('https://api.europeana.eu/thumbnail/v2/url.json?type=IMAGE&size=w400&uri=http%3A%2F%2Fdata.europeana.eu%2Fitem%2F123%2Fabc');
+      });
+    });
+
+    context('when item is blank', () => {
+      it('returns `null`', () => {
+        const item = undefined;
+
+        const edmPreview = thumbnail().edmPreview(item, size);
+
+        (edmPreview === null).should.be.true;
+      });
     });
   });
 
