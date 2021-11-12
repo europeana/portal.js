@@ -16,12 +16,6 @@ const $i18n = {
 
 const factory = (set = {}) => shallowMountNuxt(page, {
   localVue,
-  data() {
-    return {
-      recommendations: [],
-      userIsEntityEditor: false
-    };
-  },
   mocks: {
     $config: { app: { features: {} } },
     $pageHeadTitle: key => key,
@@ -37,6 +31,11 @@ const factory = (set = {}) => shallowMountNuxt(page, {
       state: {
         auth: { loggedIn: false },
         set: { active: set }
+      }
+    },
+    $apis: {
+      thumbnail: {
+        edmPreview: () => ''
       }
     }
   }

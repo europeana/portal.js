@@ -38,7 +38,7 @@ const factory = () => {
           mediaProxyUrl: () => 'proxied'
         },
         thumbnail: {
-          url: () => ''
+          edmPreview: () => ''
         }
       }
     }
