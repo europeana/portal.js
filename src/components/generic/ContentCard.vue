@@ -69,11 +69,11 @@
           data-qa="highlighted search term"
         >
           <p>
-            {{ hitsText.prefix }}
-            <strong class="has-text-highlight">
-              {{ hitsText.exact }}
-            </strong>
-            {{ hitsText.suffix }}
+            {{ hitsText.prefix }}<!-- This comment removes white space
+          --><strong class="has-text-highlight"><!-- This comment removes white space
+            -->{{ hitsText.exact }}<!-- This comment removes white space
+          --></strong><!-- This comment removes white space
+        -->{{ hitsText.suffix }}
           </p>
         </b-card-text>
         <template v-if="displayTexts.length > 0">
