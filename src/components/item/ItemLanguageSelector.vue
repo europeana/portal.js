@@ -52,10 +52,7 @@
               tag="span"
               class="pr-1"
             >
-              <span><!-- This comment removes white space
-              -->{{ metadataLanguageLabel }}<!-- This comment removes white space which gets underlined
-              -->
-              </span>
+              <span>{{ metadataLanguageLabel }}</span>
             </i18n>
           </b-link>
         </b-col>
