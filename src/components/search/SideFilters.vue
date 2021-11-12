@@ -72,7 +72,8 @@
     data() {
       return {
         coreFacetNames: ['collection', 'TYPE', 'COUNTRY', 'REUSABILITY'],
-        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued'
+        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued',
+        API_FILTER_COLLECTIONS: ['newspaper', 'ww1']
       };
     },
     computed: {
@@ -127,10 +128,17 @@
           }
         }
 
+        if (this.enableApiFilter) {
+          ordered.unshift({ name: 'api', fields: ['fulltext', 'metadata'] });
+        }
         if (this.$store.state.search.collectionFacetEnabled) {
           ordered.unshift({ name: 'collection', fields: thematicCollections });
         }
+
         return ordered.concat(unordered);
+      },
+      enableApiFilter() {
+        return this.API_FILTER_COLLECTIONS.includes(this.collection);
       }
     },
     created() {
@@ -141,7 +149,7 @@
     },
     methods: {
       facetDropdownType(name) {
-        return name === 'collection' ? 'radio' : 'checkbox';
+        return name === 'collection' || name === 'api' ? 'radio' : 'checkbox';
       },
       changeFacet(name, selected) {
         if (typeof this.filters[name] === 'undefined') {
