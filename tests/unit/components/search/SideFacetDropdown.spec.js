@@ -105,14 +105,26 @@ describe('components/search/SideFacetDropdown', () => {
     });
   });
 
-  describe('applySelection', () => {
-    it('emits `updated` event', async() => {
-      const wrapper = factory();
+  describe('methods', () => {
+    describe('showDropdown', () => {
+      it('requests single facet from API', () => {
+        const wrapper = factory();
 
-      wrapper.vm.$refs.dropdown.hide = sinon.spy();
+        wrapper.vm.showDropdown();
 
-      wrapper.vm.applySelection();
-      wrapper.emitted()['changed'].length.should.equal(1);
+        wrapper.vm.$store.dispatch.should.have.been.calledWith('search/queryFacets', { facet: 'COUNTRY' });
+      });
+    });
+
+    describe('applySelection', () => {
+      it('emits `updated` event', async() => {
+        const wrapper = factory();
+
+        wrapper.vm.$refs.dropdown.hide = sinon.spy();
+
+        wrapper.vm.applySelection();
+        wrapper.emitted()['changed'].length.should.equal(1);
+      });
     });
   });
 });
