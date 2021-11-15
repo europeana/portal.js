@@ -357,6 +357,7 @@ export default {
     /**
      * Run a Record API search and store the results
      */
+    // TODO: refactor not to need options once ENABLE_SIDE_FILTERS is always-on
     async run({ dispatch, getters }, options = {}) {
       await dispatch('deriveApiSettings');
 
@@ -381,6 +382,7 @@ export default {
         });
     },
 
+    // TODO: refactor not to need overrides once ENABLE_SIDE_FILTERS is always-on
     queryFacets({ commit, getters, rootState, rootGetters, dispatch, state }, overrides = {}) {
       if (!state.active) {
         return Promise.resolve();

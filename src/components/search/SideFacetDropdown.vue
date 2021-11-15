@@ -180,7 +180,6 @@
       },
 
       showDropdown() {
-        console.log('showDropdown', this.name);
         this.$store.dispatch('search/queryFacets', { facet: this.name });
       },
 
