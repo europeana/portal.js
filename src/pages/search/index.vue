@@ -67,6 +67,10 @@
 
     middleware: 'sanitisePageQuery',
 
+    fetch() {
+      this.$store.commit('search/set', ['overrideParams', {}]);
+    },
+
     computed: {
       notificationUrl() {
         return legacyUrl(this.$route.query, this.$i18n.locale) +
@@ -102,7 +106,6 @@
     async beforeRouteLeave(to, from, next) {
       // Leaving the search page closes the search bar. Reevaluate when autosuggestions go straight to entity pages.
       this.$store.commit('search/setShowSearchBar', false);
-      await this.$store.dispatch('search/deactivate');
       next();
     }
   };

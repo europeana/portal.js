@@ -290,19 +290,8 @@ export default {
       commit('setActive', true);
     },
 
-    async deactivate({ commit, dispatch }) {
+    deactivate({ commit }) {
       commit('setActive', false);
-      await dispatch('reset');
-    },
-
-    reset({ commit }) {
-      commit('set', ['userParams', {}]);
-      commit('set', ['overrideParams', {}]);
-      commit('set', ['apiParams', {}]);
-      commit('set', ['apiOptions', {}]);
-      commit('set', ['previousApiParams', null]);
-      commit('set', ['previousApiOptions', null]);
-      commit('setCollectionLabel', null);
     },
 
     // TODO: replace with a getter?
@@ -384,10 +373,6 @@ export default {
 
     // TODO: refactor not to need overrides once ENABLE_SIDE_FILTERS is always-on
     queryFacets({ commit, getters, rootState, rootGetters, dispatch, state }, overrides = {}) {
-      if (!state.active) {
-        return Promise.resolve();
-      }
-
       const paramsForFacets = {
         ...state.apiParams,
         rows: 0,

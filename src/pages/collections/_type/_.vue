@@ -392,7 +392,6 @@
       if (to.matched[0].path !== `/${this.$i18n.locale}/search`) {
         this.$store.commit('search/setShowSearchBar', false);
       }
-      await this.$store.dispatch('search/deactivate');
       this.$store.commit('entity/setId', null); // needed to re-enable auto-suggest in header
       this.$store.commit('entity/setEntity', null); // needed for best bets handling
       next();

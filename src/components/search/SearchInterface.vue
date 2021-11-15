@@ -177,7 +177,7 @@
     async fetch() {
       this.viewFromRouteQuery();
 
-      await this.$store.dispatch('search/activate');
+      this.$store.dispatch('search/activate');
       this.$store.commit('search/set', ['userParams', this.$route.query]);
 
       // TODO: refactor not to need overrides once ENABLE_SIDE_FILTERS is always-on
@@ -331,6 +331,9 @@
     },
     mounted() {
       this.showContentTierToast();
+    },
+    destroyed() {
+      this.$store.dispatch('search/deactivate');
     },
     methods: {
       viewFromRouteQuery() {
