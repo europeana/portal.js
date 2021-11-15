@@ -21,3 +21,16 @@
 .invalid-feedback {
   color: $red;
 }
+
+.side-facet {
+  font-size: $font-size-extrasmall;
+  legend {
+  font-size: $font-size-extrasmall;
+  text-transform: uppercase;
+  color: $mediumgrey;
+  margin-bottom: 0.25rem;
+  }
+  label, input {
+    font-size: $font-size-extrasmall;
+  }
+}

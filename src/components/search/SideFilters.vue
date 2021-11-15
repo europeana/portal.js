@@ -27,6 +27,17 @@
         >
           <client-only>
             <div class="position-relative">
+              <template
+                v-if="collection === 'newspaper'"
+              >
+                <DateFilter
+                  :name="PROXY_DCTERMS_ISSUED"
+                  :start="dateFilter.start"
+                  :end="dateFilter.end"
+                  :specific="dateFilter.specific"
+                  @dateFilter="dateFilterSelected"
+                />
+              </template>
               <SideFacetDropdown
                 v-for="facet in orderedFacets"
                 :key="facet.name"
@@ -50,7 +61,7 @@
 
   import isEqual from 'lodash/isEqual';
   import { mapState, mapGetters } from 'vuex';
-  import { thematicCollections } from '@/plugins/europeana/search';
+  import { thematicCollections, rangeToQueryParam, rangeFromQueryParam } from '@/plugins/europeana/search';
   import { queryUpdatesForFilters } from '../../store/search';
   import SideFacetDropdown from './SideFacetDropdown';
 
@@ -59,7 +70,8 @@
 
     components: {
       ClientOnly,
-      SideFacetDropdown
+      SideFacetDropdown,
+      DateFilter: () => import('./DateFilter')
     },
     props: {
       route: {
@@ -139,6 +151,17 @@
       },
       enableApiFilter() {
         return this.API_FILTER_COLLECTIONS.includes(this.collection);
+      },
+      dateFilter() {
+        const proxyDctermsIssued = this.filters[this.PROXY_DCTERMS_ISSUED];
+        if (!proxyDctermsIssued || proxyDctermsIssued.length < 1) {
+          return { start: null, end: null, specific: this.isCheckedSpecificDate };
+        }
+        const range = rangeFromQueryParam(proxyDctermsIssued[0]);
+        if (!range) {
+          return { start: proxyDctermsIssued[0], end: null, specific: true };
+        }
+        return range;
       }
     },
     created() {
@@ -207,6 +230,18 @@
       },
       isFilteredByDropdowns() {
         return this.$store.getters['search/hasResettableFilters'];
+      },
+      dateFilterSelected(facetName, dateRange) {
+        let dateQuery = [];
+        if (dateRange.specific) {
+          if (dateRange.start) {
+            dateQuery = [dateRange.start];
+          }
+        } else if (dateRange.start || dateRange.end) {
+          dateQuery = [rangeToQueryParam(dateRange)];
+        }
+        this.isCheckedSpecificDate = dateRange.specific;
+        this.changeFacet(facetName, dateQuery);
       }
     }
   };
