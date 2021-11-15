@@ -75,7 +75,10 @@
               :show-pins="userIsEditor && userIsSetsEditor"
             />
           </b-col>
-          <SideFilters v-if="sideFiltersEnabled" />
+          <SideFilters
+            v-if="sideFiltersEnabled"
+            :route="route"
+          />
         </b-row>
         <b-row>
           <b-col>
