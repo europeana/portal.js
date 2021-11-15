@@ -90,6 +90,22 @@ describe('components/search/SideFacetDropdown', () => {
 
         storeDispatchStub.should.not.have.been.calledWith('search/queryFacets', { facet: 'COUNTRY' });
       });
+
+      context('and facet name is "contentTier"', () => {
+        it('does not fetch facet', async() => {
+          const wrapper = factory();
+          await wrapper.setProps({
+            name: 'contentTier'
+          });
+          await wrapper.setData({
+            shown: false
+          });
+
+          await wrapper.vm.fetch();
+
+          storeDispatchStub.should.have.been.calledWith('search/queryFacets', { facet: 'contentTier' });
+        });
+      });
     });
   });
 
