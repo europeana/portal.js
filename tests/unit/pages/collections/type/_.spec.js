@@ -10,16 +10,20 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 localVue.use(Vuex);
 
-const organisationEntity =
-{ entity: { logo: { id: 'http://commons.wikimedia.org/wiki/Special:FilePath/Albertina%20Logo.svg' },
-  description: { en: 'example of an organisation description' },
-  homepage: 'https://www.example-organisation.eu' },
-type: 'organisation' };
+const organisationEntity = {
+  entity: {
+    id: 'http://data.europeana.eu/organization/01234567890',
+    logo: { id: 'http://commons.wikimedia.org/wiki/Special:FilePath/Albertina%20Logo.svg' },
+    description: { en: 'example of an organisation description' },
+    homepage: 'https://www.example-organisation.eu'
+  },
+  type: 'organisation'
+};
 
-const store = (entityExample = {}) => {
+const store = (entity = {}) => {
   return new Vuex.Store({
     state: {
-      entity: { entity: entityExample },
+      entity: { entity },
       i18n: {
         locale: 'en'
       },
@@ -29,6 +33,7 @@ const store = (entityExample = {}) => {
       'entity/curatedEntity': () => () => null
     },
     mutations: {
+      'search/set': () => null,
       'search/setCollectionLabel': () => null
     },
     actions: {

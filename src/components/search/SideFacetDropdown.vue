@@ -91,12 +91,6 @@
         required: true
       },
 
-      // fields: {
-      //   type: Array,
-      //   required: false,
-      //   default: () => []
-      // },
-
       selected: {
         type: [Array, String],
         default: () => []
@@ -118,7 +112,7 @@
 
     computed: {
       fields() {
-        return this.$store.state.search.facets.find(facet => facet.name === this.name)?.fields || [];
+        return this.$store.state.search?.facets?.find(facet => facet.name === this.name)?.fields || [];
       },
 
       sortedOptions() {

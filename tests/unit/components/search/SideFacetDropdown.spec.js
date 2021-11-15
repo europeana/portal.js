@@ -30,13 +30,19 @@ const factory = () => shallowMount(SideFacetDropdown, {
     $t: (key) => key,
     $tFacetName: (key) => key,
     $store: {
-      dispatch: sinon.stub()
+      dispatch: sinon.stub(),
+      state: {
+        search: {
+          facets: [
+            { name: 'COUNTRY', fields: countryFields }
+          ]
+        }
+      }
     }
   },
   stubs: ['b-button', 'b-form-checkbox', 'b-dropdown', 'b-dropdown-form'],
   propsData: {
     type: 'checkbox',
-    fields: countryFields,
     name: 'COUNTRY'
   }
 });
