@@ -10,7 +10,7 @@
       class="facet-dropdown side-facet"
       :data-type="type"
       data-qa="search facet"
-      @hidden="cancelDropdown"
+      @hidden="hiddenDropdown"
       @show="showDropdown"
     >
       <template v-slot:button-content>
@@ -22,7 +22,26 @@
         </span>
       </template>
 
-      <b-dropdown-form class="options-container">
+      <b-container v-if="$fetchState.pending">
+        <b-row class="flex-md-row py-4 text-center">
+          <b-col cols="12">
+            <LoadingSpinner />
+          </b-col>
+        </b-row>
+      </b-container>
+      <b-container v-else-if="$fetchState.error">
+        <b-row class="flex-md-row py-4">
+          <b-col cols="12">
+            <AlertMessage
+              :error="$fetchState.error.message"
+            />
+          </b-col>
+        </b-row>
+      </b-container>
+      <b-dropdown-form
+        v-else
+        class="options-container"
+      >
         <div
           v-for="(option, index) in sortedOptions"
           :key="index"
@@ -82,7 +101,9 @@
 
   export default {
     components: {
-      FacetFieldLabel
+      AlertMessage: () => import('../../components/generic/AlertMessage'),
+      FacetFieldLabel,
+      LoadingSpinner: () => import('@/components/generic/LoadingSpinner')
     },
 
     props: {
@@ -102,19 +123,27 @@
       }
     },
 
+    async fetch() {
+      if (this.shown) {
+        const facets = await this.$store.dispatch('search/queryFacets', { facet: this.name });
+        this.fields = (facets || [])[0]?.fields || [];
+        this.fetched = true;
+      }
+    },
+
     data() {
       return {
         RADIO: 'radio',
         CHECKBOX: 'checkbox',
-        preSelected: null
+        preSelected: null,
+        shown: false,
+        fetched: false,
+        fields: [],
+        nada: null
       };
     },
 
     computed: {
-      fields() {
-        return this.$store.state.search?.facets?.find(facet => facet.name === this.name)?.fields || [];
-      },
-
       sortedOptions() {
         if (this.isRadio) {
           return this.fields;
@@ -158,7 +187,13 @@
         // We watch selected property so when user clicks on browser back button,
         // facets properties are updated correctly
         this.init();
-      }
+      },
+      '$route.query.api': 'resetFetched',
+      '$route.query.reusability': 'resetFetched',
+      '$route.query.query': 'resetFetched',
+      // TODO: prevent refetching when qf was changed for this same facet
+      '$route.query.qf': 'resetFetched',
+      '$route.query.page': 'resetFetched'
     },
 
     mounted() {
@@ -166,6 +201,10 @@
     },
 
     methods: {
+      resetFetched() {
+        this.fetched = false;
+      },
+
       init() {
         if (this.isRadio && Array.isArray(this.selected)) {
           this.preSelected = this.selected[0];
@@ -180,10 +219,14 @@
       },
 
       showDropdown() {
-        this.$store.dispatch('search/queryFacets', { facet: this.name });
+        this.shown = true;
+        if (!this.fetched) {
+          this.$fetch();
+        }
       },
 
-      cancelDropdown() {
+      hiddenDropdown() {
+        this.shown = false;
         this.init();
       },
 

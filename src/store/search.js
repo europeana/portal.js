@@ -404,6 +404,8 @@ export default {
             commit(`collections/${collection}/set`, ['facets', state.facets], { root: true });
             commit('set', ['facets', rootGetters[`collections/${collection}/facets`]]);
           }
+
+          return response.facets;
         })
         .catch(async(error) => {
           await dispatch('updateForFailure', error);

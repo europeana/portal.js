@@ -180,6 +180,7 @@
       await this.$store.dispatch('search/activate');
       this.$store.commit('search/set', ['userParams', this.$route.query]);
 
+      // TODO: refactor not to need overrides once ENABLE_SIDE_FILTERS is always-on
       await this.$store.dispatch('search/run', { skipFacets: this.sideFiltersEnabled });
 
       if (this.$store.state.search.error && process.server) {
