@@ -25,19 +25,17 @@
         <b-col
           data-qa="search filters"
         >
-          <client-only>
-            <div class="position-relative">
-              <SideFacetDropdown
-                v-for="facetName in facetNames"
-                :key="facetName"
-                :name="facetName"
-                :type="facetDropdownType(facetName)"
-                :selected="filters[facetName]"
-                role="search"
-                @changed="changeFacet"
-              />
-            </div>
-          </client-only>
+          <div class="position-relative">
+            <SideFacetDropdown
+              v-for="facetName in facetNames"
+              :key="facetName"
+              :name="facetName"
+              :type="facetDropdownType(facetName)"
+              :selected="filters[facetName]"
+              role="search"
+              @changed="changeFacet"
+            />
+          </div>
         </b-col>
       </b-row>
     </b-container>
@@ -45,8 +43,6 @@
 </template>
 
 <script>
-  import ClientOnly from 'vue-client-only';
-
   import isEqual from 'lodash/isEqual';
   import { mapState, mapGetters } from 'vuex';
   import { queryUpdatesForFilters } from '../../store/search';
@@ -56,7 +52,6 @@
     name: 'SideFilters',
 
     components: {
-      ClientOnly,
       SideFacetDropdown
     },
     props: {
