@@ -13,7 +13,8 @@ const factory = () => shallowMount(DateFilter, {
     $t: (key) => key,
     $store: {
       dispatch: sinon.stub()
-    }
+    },
+    $config: { app: { features: { sideFilters: false } } }
   },
   propsData: {
     name: 'proxy_dcterms_issued',
