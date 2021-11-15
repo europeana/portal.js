@@ -40,6 +40,7 @@
             class="mb-4"
           />
           <SearchInterface
+            id="search-interface"
             :per-row="4"
           />
         </b-col>
@@ -79,6 +80,12 @@
       },
       sideFiltersEnabled() {
         return this.$config.app.features.sideFilters;
+      }
+    },
+
+    watch: {
+      '$route.query.page'() {
+        this.$scrollTo('#main');
       }
     },
 

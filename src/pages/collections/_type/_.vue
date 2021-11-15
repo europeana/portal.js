@@ -326,6 +326,11 @@
         return this.$config.app.features.sideFilters;
       }
     },
+    watch: {
+      '$route.query.page'() {
+        this.$scrollTo('#main');
+      }
+    },
     mounted() {
       this.$store.commit('search/setCollectionLabel', this.title.values[0]);
       this.$store.commit('search/set', ['overrideParams', this.searchOverrides]);
@@ -391,8 +396,7 @@
       this.$store.commit('entity/setId', null); // needed to re-enable auto-suggest in header
       this.$store.commit('entity/setEntity', null); // needed for best bets handling
       next();
-    },
-    watchQuery: ['api', 'reusability', 'query', 'qf', 'page']
+    }
   };
 </script>
 

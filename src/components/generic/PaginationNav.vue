@@ -10,7 +10,6 @@
     size="sm"
     align="center"
     data-qa="pagination navigation"
-    @input="changePaginationNav"
   />
 </template>
 
@@ -42,10 +41,6 @@
         type: Number,
         default: 1
       },
-      scrollToId: {
-        type: String,
-        default: '__nuxt'
-      },
       maxResults: {
         type: Number,
         default: null
@@ -72,9 +67,6 @@
       }
     },
     methods: {
-      changePaginationNav() {
-        this.$scrollTo(`#${this.scrollToId}`);
-      },
       linkGen(page) {
         return {
           ...this.$route,
