@@ -124,12 +124,16 @@
     },
 
     async fetch() {
+      // Always fetch the contentTier facet, which the toast advising of the
+      // filtering of low-tier items needs
       if (this.shown || (this.name === 'contentTier')) {
         const facets = await this.$store.dispatch('search/queryFacets', { facet: this.name });
         this.fields = (facets || [])[0]?.fields || [];
         this.fetched = true;
       }
     },
+
+    fetchOnServer: false,
 
     data() {
       return {
