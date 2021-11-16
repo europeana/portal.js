@@ -32,6 +32,10 @@
       cardType: {
         type: String,
         default: null
+      },
+      variant: {
+        type: String,
+        default: null
       }
     },
     computed: {
@@ -122,6 +126,9 @@
         return texts;
       },
       cardVariant() {
+        if (this.variant) {
+          return this.variant;
+        }
         return this.cardType === 'AutomatedEntityCard' ? 'entity' : 'default';
       }
     },

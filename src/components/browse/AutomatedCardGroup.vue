@@ -14,9 +14,11 @@
 </template>
 
 <script>
+  import { getWikimediaThumbnailUrl } from '@/plugins/europeana/entity';
   import ContentCardSection from './ContentCardSection';
   import InfoCardSection from './InfoCardSection';
 
+  const FEATURED_ORGANISATIONS = 'Featured organisations';
   const FEATURED_TOPICS = 'Featured topics';
   const FEATURED_TIMES = 'Featured centuries';
   const RECENT_ITEMS = 'Recent items';
@@ -63,7 +65,11 @@
         entries: []
       };
 
-      if (this.sectionType === FEATURED_TOPICS) {
+      if (this.sectionType === FEATURED_ORGANISATIONS) {
+        data.type = `${this.$i18n.locale}/collections/organisations/featured`;
+        data.cardType = 'AutomatedEntityCard';
+        data.headline = this.$i18n.t('automatedCardGroup.organisation');
+      } else if (this.sectionType === FEATURED_TOPICS) {
         data.type = `${this.$i18n.locale}/collections/topics/featured`;
         data.cardType = 'AutomatedEntityCard';
         data.headline = this.$i18n.t('automatedCardGroup.topic');
@@ -105,9 +111,10 @@
           hasPartCollection: {
             items: this.entries?.map(entry => ({
               __typename: this.cardType,
+              __variant: (this.sectionType === FEATURED_ORGANISATIONS) ? 'mini' : null,
               name: entry.prefLabel,
               identifier: entry.id,
-              image: entry.isShownBy?.thumbnail,
+              image: entry.isShownBy?.thumbnail || (entry.logo ? getWikimediaThumbnailUrl(entry.logo.id, 80) : null),
               encoding: entry
             }))
           },
