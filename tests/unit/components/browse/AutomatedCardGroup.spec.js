@@ -194,7 +194,8 @@ describe('components/browse/AutomatedCardGroup', () => {
               thumbnail: 'thumbnail'
             },
             prefLabel: { en: 'topic one' }
-          }
+          },
+          logo: false
         };
 
         const wrapper = shallowFactory({ sectionType: FEATURED_TOPICS });
@@ -226,7 +227,8 @@ describe('components/browse/AutomatedCardGroup', () => {
               thumbnail: 'thumbnail'
             },
             prefLabel: { en: 'time one' }
-          }
+          },
+          logo: false
         };
 
         const wrapper = shallowFactory({ sectionType: FEATURED_TIMES });
@@ -262,7 +264,8 @@ describe('components/browse/AutomatedCardGroup', () => {
             edmPreview: 'preview URL',
             id: '/500/identifier_1',
             title: 'item one'
-          }
+          },
+          logo: false
         };
 
         const wrapper = shallowFactory({ sectionType: RECENT_ITEMS });
