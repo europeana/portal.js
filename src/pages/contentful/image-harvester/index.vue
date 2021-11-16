@@ -93,16 +93,23 @@
           throw new Error('No edm:isShownBy image found.');
         }
 
-        this.entry.fields.name?.setValue(this.localiseValue(providerProxy.dcTitle), locale);
-        this.entry.fields.creator?.setValue(this.localiseValue(
-          edmIsShownByWebResource.dcCreator || providerProxy.dcCreator
-        ), locale);
-        this.entry.fields.provider?.setValue(this.localiseValue(
-          edmDataProviderOrganization?.prefLabel || edmDataProvider
-        ), locale);
-        this.entry.fields.license?.setValue(edmIsShownByWebResource?.webResourceEdmRights?.def?.[0] || providerAggregation.edmRights.def[0]);
-        this.entry.fields.url?.setValue(`${BASE_URL}${item.about}`); // data.europeana.eu URI
+        const name = this.localiseValue(providerProxy.dcTitle);
 
+        const dcCreator = edmIsShownByWebResource.dcCreator || providerProxy.dcCreator;
+        const dcCreatorAgent = item.agents.find(agent => agent.about === dcCreator.def?.[0]);
+        const creator = this.localiseValue(dcCreatorAgent?.prefLabel || dcCreator);
+
+        const provider = this.localiseValue(edmDataProviderOrganization?.prefLabel || edmDataProvider);
+
+        const license = edmIsShownByWebResource?.webResourceEdmRights?.def?.[0] || providerAggregation.edmRights.def[0];
+
+        const url = `${BASE_URL}/item${item.about}`;
+
+        this.entry.fields.name?.setValue(name, locale);
+        this.entry.fields.creator?.setValue(creator, locale);
+        this.entry.fields.provider?.setValue(provider, locale);
+        this.entry.fields.license?.setValue(license);
+        this.entry.fields.url?.setValue(url);
 
         // create an asset
         const asset = {
@@ -112,12 +119,12 @@
           }
         };
 
-        asset.fields.title[locale] = this.localiseValue(providerProxy.dcTitle) || item.about;
+        asset.fields.title[locale] = name || item.about;
         asset.fields.file[locale] = {
           contentType: edmIsShownByWebResource.ebucoreHasMimeType,
           fileName: asset.fields.title[locale],
           upload: edmIsShownBy
-        }
+        };
 
         const rawAsset = await this.contentfulExtensionSdk.space.createAsset(asset);
         await this.contentfulExtensionSdk.space.processAsset(rawAsset, locale);
