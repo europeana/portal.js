@@ -12,6 +12,7 @@
       <div
         v-if="cardImageUrl"
         class="card-img"
+        :class="{ logo }"
       >
         <b-img-lazy
           v-if="lazy"
@@ -194,6 +195,10 @@
       blankImageWidth: {
         type: Number,
         default: null
+      },
+      logo: {
+        type: Boolean,
+        default: false
       }
     },
     data() {

@@ -115,7 +115,8 @@
               name: entry.prefLabel,
               identifier: entry.id,
               image: entry.isShownBy?.thumbnail || (entry.logo ? getWikimediaThumbnailUrl(entry.logo.id, 80) : null),
-              encoding: entry
+              encoding: entry,
+              logo: !!entry.logo
             }))
           },
           moreButton: this.moreButton

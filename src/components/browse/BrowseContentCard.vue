@@ -11,6 +11,7 @@
     :variant="cardVariant"
     :omit-all-uris="true"
     :image-optimisation-options="{ width: 510 }"
+    :logo="fields.logo"
   />
 </template>
 
