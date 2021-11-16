@@ -182,8 +182,11 @@
       // TODO: refactor not to need overrides once ENABLE_SIDE_FILTERS is always-on
       await this.$store.dispatch('search/run', { skipFacets: this.sideFiltersEnabled });
 
-      if (this.$store.state.search.error && process.server) {
-        this.$nuxt.context.res.statusCode = this.$store.state.search.errorStatusCode;
+      if (this.$store.state.search.error) {
+        if (process.server) {
+          this.$nuxt.context.res.statusCode = this.$store.state.search.errorStatusCode;
+        }
+        throw this.$store.state.search.error;
       }
     },
     data() {
