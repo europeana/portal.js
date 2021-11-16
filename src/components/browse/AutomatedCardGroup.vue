@@ -111,7 +111,7 @@
           hasPartCollection: {
             items: this.entries?.map(entry => ({
               __typename: this.cardType,
-              __variant: (this.sectionType === FEATURED_ORGANISATIONS) ? 'mini' : null,
+              __variant: (this.sectionType === RECENT_ITEMS) ? null : 'mini',
               name: entry.prefLabel,
               identifier: entry.id,
               image: entry.isShownBy?.thumbnail || (entry.logo ? getWikimediaThumbnailUrl(entry.logo.id, 80) : null),

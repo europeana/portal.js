@@ -184,7 +184,7 @@ describe('components/browse/AutomatedCardGroup', () => {
       it('sets the relevant fields for the items in the hasPartCollection', async() => {
         const expected = {
           __typename: 'AutomatedEntityCard',
-          __variant: null,
+          __variant: 'mini',
           name: { en: 'topic one' },
           identifier: 'http://data.europeana.eu/concept/base/1',
           image: 'thumbnail',
@@ -216,7 +216,7 @@ describe('components/browse/AutomatedCardGroup', () => {
       it('sets the relevant fields for the items in the hasPartCollection', async() => {
         const expected = {
           __typename: 'AutomatedEntityCard',
-          __variant: null,
+          __variant: 'mini',
           name: { en: 'time one' },
           identifier: 'http://data.europeana.eu/timespan/1',
           image: 'thumbnail',
