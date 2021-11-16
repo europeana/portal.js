@@ -47,13 +47,6 @@ const entityResponse = {
 
 const factory = () => shallowMountNuxt(page, {
   localVue,
-  data() {
-    return {
-      contentfulExtensionSdk: null,
-      entry: null,
-      message: null
-    };
-  },
   mocks: {
     $t: key => key,
     $pageHeadTitle: key => key,
@@ -84,6 +77,7 @@ describe('pages/contentful/entity-harvester/index', () => {
   });
 
   describe('mounting', () => {
+    // TODO: move to contentful/sidebar mixin spec
     it('sets entry with all expected fields from the SDK', async() => {
       const wrapper = factory();
       const extensionSdk = wrapper.vm.contentfulExtensionSdk;
@@ -208,6 +202,7 @@ describe('pages/contentful/entity-harvester/index', () => {
       });
     });
 
+    // TODO: move to contentful/sidebar mixin spec
     describe('showError', () => {
       it('uses a contentful dialog and sets the message to failed', () => {
         const wrapper = factory();
