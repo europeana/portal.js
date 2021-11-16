@@ -78,11 +78,6 @@
         page: null
       };
     },
-    watch: {
-      '$route.query.page'() {
-        this.$scrollTo('#main');
-      }
-    },
     methods: {
       imageUrl(data) {
         return (data.encoding ? data.encoding.edmPreview : data.thumbnailUrl) + '&size=w400';

@@ -88,11 +88,6 @@
         };
       }
     },
-    watch: {
-      '$route.query.page'() {
-        this.$scrollTo('#main');
-      }
-    },
     methods: {
       entityRoute(entity) {
         return {

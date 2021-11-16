@@ -86,11 +86,6 @@
         page: null
       };
     },
-    watch: {
-      '$route.query.page'() {
-        this.$scrollTo('#main');
-      }
-    },
     methods: {
       imageUrl(image) {
         return image?.image?.url;

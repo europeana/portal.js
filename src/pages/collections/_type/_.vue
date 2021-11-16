@@ -326,11 +326,6 @@
         return this.$config.app.features.sideFilters;
       }
     },
-    watch: {
-      '$route.query.page'() {
-        this.$scrollTo('#main');
-      }
-    },
     mounted() {
       this.$store.commit('search/setCollectionLabel', this.title.values[0]);
       this.$store.commit('search/set', ['overrideParams', this.searchOverrides]);
