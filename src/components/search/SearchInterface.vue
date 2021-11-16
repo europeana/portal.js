@@ -7,7 +7,7 @@
     </b-row>
   </b-container>
   <b-container v-else-if="$fetchState.error">
-    <b-row class="flex-md-row py-4">
+    <b-row class="flex-md-row">
       <b-col cols="12">
         <AlertMessage
           :error="$fetchState.error.message"
