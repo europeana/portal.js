@@ -36,7 +36,7 @@ const factory = (options = {}) => {
     $path: () => '/',
     $goto: () => null,
     $config: { app: { features: { sideFilters: false } } },
-    $fetchState: {},
+    $fetchState: options.fetchState || {},
     ...options.mocks
   };
   const store = new Vuex.Store({
@@ -109,8 +109,10 @@ describe('components/search/SearchInterface', () => {
       context('when there was a pagination error', () => {
         it('returns a user-friendly error message', async() => {
           const wrapper = factory({
-            storeState: {
-              error: 'Sorry! It is not possible to paginate beyond the first 5000 search results.'
+            fetchState: {
+              error: {
+                message: 'Sorry! It is not possible to paginate beyond the first 5000 search results.'
+              }
             }
           });
 
