@@ -10,7 +10,7 @@
     <b-row class="flex-md-row">
       <b-col cols="12">
         <AlertMessage
-          :error="$fetchState.error.message"
+          :error="errorMessage"
         />
       </b-col>
     </b-row>
@@ -233,17 +233,17 @@
         return Number(this.$route.query.page || 1);
       },
       errorMessage() {
-        if (!this.error) {
+        if (!this.$fetchState.error?.message) {
           return null;
         }
 
-        const paginationError = this.error.match(/It is not possible to paginate beyond the first (\d+)/);
+        const paginationError = this.$fetchState.error.message.match(/It is not possible to paginate beyond the first (\d+)/);
         if (paginationError !== null) {
           const localisedPaginationLimit = this.$options.filters.localise(Number(paginationError[1]));
           return this.$t('messages.paginationLimitExceeded', { limit: localisedPaginationLimit });
         }
 
-        return this.error;
+        return this.$fetchState.error.message;
       },
       hasAnyResults() {
         return this.totalResults > 0;
