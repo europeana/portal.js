@@ -37,10 +37,6 @@
         type: Number,
         default: 0
       },
-      value: {
-        type: Number,
-        default: 1
-      },
       scrollToId: {
         type: String,
         default: 'main'
@@ -50,24 +46,10 @@
         default: null
       }
     },
-    data() {
-      return {
-        currentPage: this.value
-      };
-    },
     computed: {
       totalPages() {
         const atLeastOne = Math.max(this.totalResults, 1);
         return Math.ceil(Math.min(atLeastOne, this.maxResults || atLeastOne) / this.perPage);
-      }
-    },
-    watch: {
-      value: {
-        immediate: true,
-        handler(val) {
-          // Without this, using the browser back button will not update the highlighted pagination
-          this.currentPage = val;
-        }
       }
     },
     methods: {
