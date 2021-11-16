@@ -87,12 +87,6 @@
       }
     },
 
-    watch: {
-      '$route.query.page'() {
-        this.$scrollTo('#main');
-      }
-    },
-
     mounted() {
       this.$store.commit('search/enableCollectionFacet');
     },

@@ -1,7 +1,6 @@
 <template>
   <b-pagination-nav
     v-if="totalResults > perPage"
-    v-model="currentPage"
     :limit="limit"
     :hide-ellipsis="hideEllipsis"
     :number-of-pages="totalPages"
@@ -10,6 +9,7 @@
     size="sm"
     align="center"
     data-qa="pagination navigation"
+    @input="changePaginationNav"
   />
 </template>
 
@@ -41,6 +41,10 @@
         type: Number,
         default: 1
       },
+      scrollToId: {
+        type: String,
+        default: 'main'
+      },
       maxResults: {
         type: Number,
         default: null
@@ -67,6 +71,9 @@
       }
     },
     methods: {
+      changePaginationNav() {
+        this.$scrollTo(`#${this.scrollToId}`);
+      },
       linkGen(page) {
         return {
           ...this.$route,

@@ -114,7 +114,6 @@
           <b-col>
             <client-only>
               <PaginationNav
-                v-model="page"
                 :total-results="totalResults"
                 :per-page="perPage"
                 :max-results="1000"
