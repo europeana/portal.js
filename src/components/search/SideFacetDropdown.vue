@@ -67,6 +67,7 @@
               :value="option.label"
               :name="name"
               :data-qa="`${option.label} ${name} ${CHECKBOX}`"
+              @input="$emit('changed', name, preSelected)"
             >
               <FacetFieldLabel
                 :facet-name="name"
@@ -77,19 +78,6 @@
           </template>
         </div>
       </b-dropdown-form>
-
-      <li
-        class="dropdown-buttons mt-3"
-      >
-        <b-button
-          variant="primary"
-          :disabled="disableApplyButton"
-          :data-qa="`${name} apply button`"
-          @click.stop="applySelection"
-        >
-          {{ $t('facets.button.apply') }}
-        </b-button>
-      </li>
     </b-dropdown>
   </div>
 </template>
@@ -174,13 +162,6 @@
         return this.type === this.RADIO;
       },
 
-      disableApplyButton() {
-        if (this.isRadio && Array.isArray(this.selected)) {
-          return isEqual(this.preSelected, this.selected[0]);
-        }
-        return isEqual(this.preSelected, this.selected);
-      },
-
       dropdownVariant() {
         return ((typeof this.selected === 'string') || (Array.isArray(this.selected) && this.selected.length > 0)) ? 'selected' : 'light';
       }
@@ -232,11 +213,6 @@
       hiddenDropdown() {
         this.shown = false;
         this.init();
-      },
-
-      async applySelection() {
-        await this.$emit('changed', this.name, this.preSelected);
-        this.$refs.dropdown.hide(true);
       }
     }
   };
