@@ -53,6 +53,7 @@
               :value="option"
               :name="name"
               :data-qa="`${option} ${name} ${RADIO}`"
+              @input="$emit('changed', name, preSelected)"
             >
               <FacetFieldLabel
                 :facet-name="name"
@@ -83,8 +84,6 @@
 </template>
 
 <script>
-  import isEqual from 'lodash/isEqual';
-
   import FacetFieldLabel from './FacetFieldLabel';
 
   export default {
