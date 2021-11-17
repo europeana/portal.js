@@ -40,6 +40,7 @@
             class="mb-4"
           />
           <SearchInterface
+            id="search-interface"
             :per-row="4"
           />
         </b-col>
@@ -52,29 +53,24 @@
 </template>
 
 <script>
-  import SearchInterface from '../../components/search/SearchInterface';
-  import legacyUrl from '../../plugins/europeana/legacy-search';
-  import NotificationBanner from '../../components/generic/NotificationBanner';
+  import SearchInterface from '@/components/search/SearchInterface';
+  import legacyUrl from '@/plugins/europeana/legacy-search';
+  import NotificationBanner from '@/components/generic/NotificationBanner';
 
   export default {
     components: {
       SearchInterface,
       NotificationBanner,
-      RelatedSection: () => import('../../components/search/RelatedSection'),
-      SideFilters: () => import('../../components/search/SideFilters')
+      RelatedSection: () => import('@/components/search/RelatedSection'),
+      SideFilters: () => import('@/components/search/SideFilters')
     },
 
     middleware: 'sanitisePageQuery',
 
-    async fetch({ store, query, res, $apis }) {
-      await store.dispatch('search/activate');
-      store.commit('search/set', ['userParams', query]);
-
-      await store.dispatch('search/run', $apis.record.search);
-      if (store.state.search.error && typeof res !== 'undefined') {
-        res.statusCode = store.state.search.errorStatusCode;
-      }
+    fetch() {
+      this.$store.commit('search/set', ['overrideParams', {}]);
     },
+
     computed: {
       notificationUrl() {
         return legacyUrl(this.$route.query, this.$i18n.locale) +
@@ -104,11 +100,8 @@
     async beforeRouteLeave(to, from, next) {
       // Leaving the search page closes the search bar. Reevaluate when autosuggestions go straight to entity pages.
       this.$store.commit('search/setShowSearchBar', false);
-      await this.$store.dispatch('search/deactivate');
       next();
-    },
-
-    watchQuery: ['api', 'reusability', 'query', 'qf', 'page']
+    }
   };
 </script>
 

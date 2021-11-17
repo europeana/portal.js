@@ -25,20 +25,17 @@
         <b-col
           data-qa="search filters"
         >
-          <client-only>
-            <div class="position-relative">
-              <SideFacetDropdown
-                v-for="facet in orderedFacets"
-                :key="facet.name"
-                :name="facet.name"
-                :fields="facet.fields"
-                :type="facetDropdownType(facet.name)"
-                :selected="filters[facet.name]"
-                role="search"
-                @changed="changeFacet"
-              />
-            </div>
-          </client-only>
+          <div class="position-relative">
+            <SideFacetDropdown
+              v-for="facetName in facetNames"
+              :key="facetName"
+              :name="facetName"
+              :type="facetDropdownType(facetName)"
+              :selected="filters[facetName]"
+              role="search"
+              @changed="changeFacet"
+            />
+          </div>
         </b-col>
       </b-row>
     </b-container>
@@ -46,11 +43,8 @@
 </template>
 
 <script>
-  import ClientOnly from 'vue-client-only';
-
   import isEqual from 'lodash/isEqual';
   import { mapState, mapGetters } from 'vuex';
-  import { thematicCollections } from '@/plugins/europeana/search';
   import { queryUpdatesForFilters } from '../../store/search';
   import SideFacetDropdown from './SideFacetDropdown';
 
@@ -58,7 +52,6 @@
     name: 'SideFilters',
 
     components: {
-      ClientOnly,
       SideFacetDropdown
     },
     props: {
@@ -71,7 +64,6 @@
     },
     data() {
       return {
-        coreFacetNames: ['collection', 'TYPE', 'COUNTRY', 'REUSABILITY'],
         PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued'
       };
     },
@@ -106,31 +98,6 @@
 
         // This is a workaround
         return Number(this.$route.query.page || 1);
-      },
-      /**
-       * Sort the facets for display
-       * Facets are returned in the hard-coded preferred order from the search
-       * plugin, followed by all others in the order the API returned them.
-       * @return {Object[]} ordered facets
-       * TODO: does this belong in its own component?
-       */
-      orderedFacets() {
-        const unordered = this.facets.slice();
-        let ordered = [];
-
-        for (const facetName of this.facetNames) {
-          const index = unordered.findIndex((f) => {
-            return f.name === facetName;
-          });
-          if (index !== -1) {
-            ordered = ordered.concat(unordered.splice(index, 1));
-          }
-        }
-
-        if (this.$store.state.search.collectionFacetEnabled) {
-          ordered.unshift({ name: 'collection', fields: thematicCollections });
-        }
-        return ordered.concat(unordered);
       }
     },
     created() {

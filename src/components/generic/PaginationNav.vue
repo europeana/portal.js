@@ -1,7 +1,6 @@
 <template>
   <b-pagination-nav
     v-if="totalResults > perPage"
-    v-model="currentPage"
     :limit="limit"
     :hide-ellipsis="hideEllipsis"
     :number-of-pages="totalPages"
@@ -38,37 +37,19 @@
         type: Number,
         default: 0
       },
-      value: {
-        type: Number,
-        default: 1
-      },
       scrollToId: {
         type: String,
-        default: '__nuxt'
+        default: 'main'
       },
       maxResults: {
         type: Number,
         default: null
       }
     },
-    data() {
-      return {
-        currentPage: this.value
-      };
-    },
     computed: {
       totalPages() {
         const atLeastOne = Math.max(this.totalResults, 1);
         return Math.ceil(Math.min(atLeastOne, this.maxResults || atLeastOne) / this.perPage);
-      }
-    },
-    watch: {
-      value: {
-        immediate: true,
-        handler(val) {
-          // Without this, using the browser back button will not update the highlighted pagination
-          this.currentPage = val;
-        }
       }
     },
     methods: {

@@ -8,6 +8,7 @@ const NUXT_METHODS = [
 const injectNuxtMethods = (wrapper, pageOrComponent) => {
   for (const method of NUXT_METHODS) {
     wrapper.vm[method] = pageOrComponent[method];
+    wrapper.vm['$fetch'] = pageOrComponent.fetch;
   }
   return wrapper;
 };

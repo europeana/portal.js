@@ -28,7 +28,6 @@
     <b-row>
       <b-col>
         <PaginationNav
-          v-model="page"
           :limit="perPage"
           :total-results="total"
           :per-page="perPage"
