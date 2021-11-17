@@ -8,6 +8,7 @@ import AutomatedCardGroup from '@/components/browse/AutomatedCardGroup.vue';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
+const FEATURED_ORGANISATIONS = 'Featured organisations';
 const FEATURED_TOPICS = 'Featured topics';
 const FEATURED_TIMES = 'Featured centuries';
 const RECENT_ITEMS = 'Recent items';
@@ -55,6 +56,25 @@ const shallowFactory = (props = { sectionType: FEATURED_TOPICS })  => shallowMou
 });
 
 const entries = {
+  featuredOrganisations: [
+    {
+      id: 'http://data.europeana.eu/organization/1',
+      prefLabel: { en: 'organisation one' },
+      logo: { id: 'http://commons.wikimedia.org/wiki/Special:FilePath/logo.jpg' }
+    },
+    {
+      id: 'http://data.europeana.eu/organization/2',
+      prefLabel: { en: 'organisation two' }
+    },
+    {
+      id: 'http://data.europeana.eu/organization/3',
+      prefLabel: { en: 'organisation three' }
+    },
+    {
+      id: 'http://data.europeana.eu/organization/4',
+      prefLabel: { en: 'organisation four' }
+    }
+  ],
   featuredTopics: [
     {
       id: 'http://data.europeana.eu/concept/base/1',
@@ -173,6 +193,37 @@ describe('components/browse/AutomatedCardGroup', () => {
         const section = wrapper.vm.contentCardSection;
         section.hasPartCollection.items[0].should.deep.eq(expected);
         section.hasPartCollection.items.length.should.eq(5);
+      });
+    });
+    context('when the type is featured organisations', () => {
+      it('includes a headline', () => {
+        const wrapper = shallowFactory({ sectionType: FEATURED_ORGANISATIONS });
+
+        wrapper.vm.contentCardSection.headline.should.eq('automatedCardGroup.organisation');
+      });
+      it('sets the relevant fields for the items in the hasPartCollection', async() => {
+        const expected = {
+          __typename: 'AutomatedEntityCard',
+          __variant: 'mini',
+          name: { en: 'organisation one' },
+          identifier: 'http://data.europeana.eu/organization/1',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/logo.jpg/80px-logo.jpg',
+          logo: true,
+          encoding: {
+            id: 'http://data.europeana.eu/organization/1',
+            logo: { id: 'http://commons.wikimedia.org/wiki/Special:FilePath/logo.jpg' },
+            prefLabel: { en: 'organisation one' }
+          }
+        };
+
+        const wrapper = shallowFactory({ sectionType: FEATURED_ORGANISATIONS });
+
+        await wrapper.setData({
+          entries: entries.featuredOrganisations
+        });
+        const section = wrapper.vm.contentCardSection;
+        section.hasPartCollection.items[0].should.deep.eq(expected);
+        section.hasPartCollection.items.length.should.eq(4);
       });
     });
     context('when the type is featured topics', () => {
