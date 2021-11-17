@@ -26,16 +26,18 @@
           data-qa="search filters"
         >
           <div class="position-relative">
-            <SideFacetDropdown
-              v-for="facet in filterableFacets"
-              :key="facet.name"
-              :name="facet.name"
-              :type="facetDropdownType(facet.name)"
-              :selected="filters[facet.name]"
-              :static-fields="facet.staticFields"
-              role="search"
-              @changed="changeFacet"
-            />
+            <client-only>
+              <SideFacetDropdown
+                v-for="facet in filterableFacets"
+                :key="facet.name"
+                :name="facet.name"
+                :type="facetDropdownType(facet.name)"
+                :selected="filters[facet.name]"
+                :static-fields="facet.staticFields"
+                role="search"
+                @changed="changeFacet"
+              />
+            </client-only>
           </div>
         </b-col>
       </b-row>
@@ -44,6 +46,7 @@
 </template>
 
 <script>
+  import ClientOnly from 'vue-client-only';
   import { thematicCollections } from '@/plugins/europeana/search';
   import isEqual from 'lodash/isEqual';
   import { mapState, mapGetters } from 'vuex';
@@ -54,6 +57,7 @@
     name: 'SideFilters',
 
     components: {
+      ClientOnly,
       SideFacetDropdown
     },
     props: {

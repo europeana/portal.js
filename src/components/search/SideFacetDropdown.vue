@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="!fetched || fields.length > 0">
     <label
       class="facet-label"
     >{{ facetName }}</label>
@@ -128,7 +128,7 @@
       }
     },
 
-    async fetch() {
+    fetch() {
       // Static fields need no fetching
       if (this.staticFields) {
         this.fields = this.staticFields;
@@ -136,16 +136,12 @@
         return;
       }
 
-      // Always fetch the contentTier facet, which the toast advising of the
-      // filtering of low-tier items needs
-      if (this.shown || (this.name === 'contentTier')) {
-        const facets = await this.$store.dispatch('search/queryFacets', { facet: this.name });
-        this.fields = (facets || [])[0]?.fields || [];
-        this.fetched = true;
-      }
+      return this.$store.dispatch('search/queryFacets', { facet: this.name })
+        .then((facets) => {
+          this.fields = (facets || [])[0]?.fields || [];
+          this.fetched = true;
+        });
     },
-
-    fetchOnServer: false,
 
     data() {
       return {
@@ -204,12 +200,12 @@
         // facets properties are updated correctly
         this.init();
       },
-      '$route.query.api': 'resetFetched',
-      '$route.query.reusability': 'resetFetched',
-      '$route.query.query': 'resetFetched',
+      '$route.query.api': '$fetch',
+      '$route.query.reusability': '$fetch',
+      '$route.query.query': '$fetch',
       // TODO: prevent refetching when qf was changed for this same facet
-      '$route.query.qf': 'resetFetched',
-      '$route.query.page': 'resetFetched'
+      '$route.query.qf': '$fetch',
+      '$route.query.page': '$fetch'
     },
 
     mounted() {
@@ -217,12 +213,6 @@
     },
 
     methods: {
-      resetFetched() {
-        if (!this.staticFields) {
-          this.fetched = false;
-        }
-      },
-
       init() {
         if (this.isRadio && Array.isArray(this.selected)) {
           this.preSelected = this.selected[0];
