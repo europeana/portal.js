@@ -38,6 +38,13 @@
           </b-col>
         </b-row>
       </b-container>
+      <b-container v-else-if="notApplicable">
+        <b-row class="flex-md-row text-center">
+          <b-col cols="12">
+            {{ $t('facets.noFields') }}
+          </b-col>
+        </b-row>
+      </b-container>
       <b-dropdown-form
         v-else
         class="options-container"
@@ -148,6 +155,10 @@
     },
 
     computed: {
+      notApplicable() {
+        return (this.fields || []).length === 0;
+      },
+
       sortedOptions() {
         if (this.isRadio) {
           return this.fields;

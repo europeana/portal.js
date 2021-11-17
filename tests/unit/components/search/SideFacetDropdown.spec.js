@@ -41,7 +41,7 @@ const factory = () => shallowMountNuxt(SideFacetDropdown, {
       dispatch: storeDispatchStub
     }
   },
-  stubs: ['b-button', 'b-form-checkbox', 'b-dropdown', 'b-dropdown-form'],
+  stubs: ['b-button', 'b-form-checkbox', 'b-dropdown', 'b-dropdown-form', 'b-container', 'b-row', 'b-col'],
   propsData: {
     type: 'checkbox',
     name: 'COUNTRY'
@@ -137,6 +137,18 @@ describe('components/search/SideFacetDropdown', () => {
         label: 'Netherlands'
       }
     ]);
+  });
+
+  context('when there are no fields', () => {
+    it('displays a notice message', async() => {
+      const wrapper = factory();
+
+      await wrapper.setData({
+        fields: []
+      });
+
+      wrapper.text().should.include('facets.noFields');
+    });
   });
 
   describe('apply button', () => {

@@ -434,7 +434,8 @@ export default {
     },
     "proxy_dcterms_medium": {
       "name": "Medium | Media"
-    }
+    },
+    "noFields": "Not applicable"
   },
   "feedback": {
     "emailOptional": "We may wish to follow up. Enter your email if you're happy for us to contact you.",
