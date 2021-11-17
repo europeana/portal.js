@@ -76,20 +76,6 @@ describe('pages/contentful/entity-harvester/index', () => {
     window.contentfulExtension = fakeContentfulExtension(entityFields);
   });
 
-  describe('mounting', () => {
-    // TODO: move to contentful/sidebar mixin spec
-    it('sets entry with all expected fields from the SDK', async() => {
-      const wrapper = factory();
-      const extensionSdk = wrapper.vm.contentfulExtensionSdk;
-      extensionSdk.should.exist;
-      const entry = wrapper.vm.entry;
-
-      entityFields.forEach(field => {
-        Object.keys(entry.fields).should.contain(field);
-      });
-    });
-  });
-
   describe('methods', () => {
     const type = 'agent';
     const id = '20';
@@ -202,16 +188,6 @@ describe('pages/contentful/entity-harvester/index', () => {
           }
           error.name.should.eq('Error');
         });
-      });
-    });
-
-    // TODO: move to contentful/sidebar mixin spec
-    describe('showError', () => {
-      it('uses a contentful dialog and sets the message to failed', () => {
-        const wrapper = factory();
-        wrapper.vm.showError('this is the message');
-        wrapper.vm.contentfulExtensionSdk.dialogs.openAlert.should.have.been.calledWith({ title: 'Error', message: 'this is the message' });
-        wrapper.vm.message.should.eq('Failed');
       });
     });
 

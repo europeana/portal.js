@@ -20,7 +20,6 @@ export default {
 
   methods: {
     showError(error) {
-      // console.error(error);
       this.contentfulExtensionSdk.dialogs.openAlert({
         title: 'Error',
         message: error
