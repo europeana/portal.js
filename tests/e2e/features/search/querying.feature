@@ -9,8 +9,8 @@ Feature: Search querying
     And I press the ENTER key
     And I see a `search query` with the text "paris"
     Then I see "paris" in the `search box`
-    And I should see 24 `item preview`s
     And I see the `total results`
+    And I should see 24 `item preview`s
     And I am on an accessible page
 
   Scenario: Search non existing Europeana content
