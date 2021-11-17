@@ -4,7 +4,7 @@ import BootstrapVue from 'bootstrap-vue';
 
 import page from '@/pages/contentful/image-harvester/index';
 import sinon from 'sinon';
-// import { apiError } from '@/plugins/europeana/utils';
+import { apiError } from '@/plugins/europeana/utils';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -60,6 +60,15 @@ const apiResponse = {
   }
 };
 
+const apiErrorResponse = {
+  response: {
+    data: {
+      success: false,
+      error: 'Invalid record identifier'
+    }
+  }
+};
+
 const factory = () => shallowMountNuxt(page, {
   localVue,
   mocks: {
@@ -94,6 +103,48 @@ describe('pages/contentful/image-harvester/index', () => {
           await wrapper.vm.harvestImage();
           wrapper.vm.populateFields.should.have.been.called;
           wrapper.vm.message.should.eq('Success');
+        });
+      });
+
+      context('when the item URL can not be parsed', () => {
+        it('shows an error for the URL', async() => {
+          const wrapper = factory();
+          sinon.replace(wrapper.vm, 'getUrlFromUser', sinon.fake.returns('https://example.org/failure'));
+          wrapper.vm.showError = sinon.spy();
+          wrapper.vm.populateFields = sinon.spy();
+
+          await wrapper.vm.harvestImage();
+          wrapper.vm.showError.should.have.been.calledWith('Unable to parse URL: https://example.org/failure Please make sure the URL conforms to the accepted formats.');
+          wrapper.vm.populateFields.should.not.have.been.called;
+        });
+      });
+
+      context('when the item can not be retrieved', () => {
+        it('shows an error for the response', async() => {
+          const wrapper = factory();
+          wrapper.vm.$apis.record.$axios.get.rejects(apiError(apiErrorResponse));
+          sinon.replace(wrapper.vm, 'getUrlFromUser', sinon.fake.returns(apiResponse.object.about));
+          wrapper.vm.showError = sinon.spy();
+          wrapper.vm.populateFields = sinon.spy();
+
+          await wrapper.vm.harvestImage();
+          wrapper.vm.populateFields.should.not.have.been.called;
+          wrapper.vm.showError.should.have.been.calledWith(`Unable to harvest "${apiResponse.object.about}". Please make sure the item can be accessed on the Record API. Error: "${apiErrorResponse.response.data.error}"`);
+        });
+      });
+
+      context('when the entry fields can not be set', () => {
+        it('shows an error', async() => {
+          const wrapper = factory();
+          wrapper.vm.$apis.record.$axios.get.resolves({ data: apiResponse });
+          sinon.replace(wrapper.vm, 'getUrlFromUser', sinon.fake.returns(apiResponse.object.about));
+          sinon.replace(wrapper.vm, 'populateFields', () => {
+            throw Error('Contentful error');
+          });
+          wrapper.vm.showError = sinon.spy();
+
+          await wrapper.vm.harvestImage();
+          wrapper.vm.showError.should.have.been.calledWith('There was a problem updating the entry. Contentful error');
         });
       });
     });

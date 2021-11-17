@@ -109,6 +109,7 @@ describe('pages/contentful/entity-harvester/index', () => {
           wrapper.vm.message.should.eq('Success');
         });
       });
+
       context('when the entity URL can NOT be parsed', () => {
         it('shows an error for the URL', async() => {
           const wrapper = factory();
@@ -121,6 +122,7 @@ describe('pages/contentful/entity-harvester/index', () => {
           wrapper.vm.populateFields.should.not.have.been.called;
         });
       });
+
       context('when the entity can NOT be retrieved', () => {
         it('shows an error for the response', async() => {
           const wrapper = factory();
@@ -136,6 +138,7 @@ describe('pages/contentful/entity-harvester/index', () => {
           wrapper.vm.showError.should.have.been.calledWith(`Unable to harvest: http://data.europeana.eu/${type}/base/${id} Please make sure the entity can be accessed on the entity API. ${responseError.response.data.error}`);
         });
       });
+
       context('when the entry fields can NOT be set', () => {
         it('shows an error', async() => {
           const wrapper = factory();
@@ -257,6 +260,7 @@ describe('pages/contentful/entity-harvester/index', () => {
           wrapper.vm.entry.fields.name.setValue.should.have.been.calledWith('Giovnanni Francesco Straparola');
         });
       });
+
       context('when entry has a description field', () => {
         it('sets the entity description from the response', () => {
           const wrapper = factory();
@@ -264,6 +268,7 @@ describe('pages/contentful/entity-harvester/index', () => {
           wrapper.vm.entry.fields.description.setValue.should.have.been.calledWith('Desc');
         });
       });
+
       context('when entry has an image field', () => {
         it('sets the image from the response isShownBy thumbnail', () => {
           const wrapper = factory();
@@ -284,6 +289,7 @@ describe('pages/contentful/entity-harvester/index', () => {
           wrapper.vm.entityDescriptionFromResponse(response).should.eq('Bio');
         });
       });
+
       context('when entry is a Concept type entity', () => {
         const response = {
           type: 'Concept',
@@ -294,6 +300,7 @@ describe('pages/contentful/entity-harvester/index', () => {
           wrapper.vm.entityDescriptionFromResponse(response).should.eq('Note');
         });
       });
+
       context('when entry is an Organization type entity', () => {
         const response = {
           type: 'Organization',
@@ -304,6 +311,7 @@ describe('pages/contentful/entity-harvester/index', () => {
           wrapper.vm.entityDescriptionFromResponse(response).should.eq('Desc');
         });
       });
+
       context('when entry is a Timespan type entity', () => {
         const response = {
           type: 'Timespan'
@@ -313,6 +321,7 @@ describe('pages/contentful/entity-harvester/index', () => {
           wrapper.vm.entityDescriptionFromResponse(response).should.eq('');
         });
       });
+
       context('when entry is a Place type entity', () => {
         const response = {
           type: 'Place'
