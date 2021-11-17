@@ -139,36 +139,6 @@ describe('components/search/SideFacetDropdown', () => {
     ]);
   });
 
-  describe('apply button', () => {
-    context('when new facet option has been selected', () => {
-      it('is enabled', async() => {
-        const wrapper = factory();
-
-        await wrapper.setData({
-          preSelected: ['Spain', 'United Kingdom']
-        });
-
-        const applyButton = wrapper.find('[data-qa="COUNTRY apply button"]');
-
-        (applyButton.attributes('disabled') === undefined).should.be.true;
-      });
-    });
-
-    context('when no new facet options have been selected', () => {
-      it('is disabled', async() => {
-        const wrapper = factory();
-
-        await wrapper.setData({
-          preSelected: []
-        });
-
-        const applyButton = wrapper.find('[data-qa="COUNTRY apply button"]');
-
-        applyButton.attributes('disabled').should.eq('true');
-      });
-    });
-  });
-
   describe('methods', () => {
     describe('showDropdown', () => {
       it('marks dropdown as shown', async() => {
@@ -206,17 +176,6 @@ describe('components/search/SideFacetDropdown', () => {
 
           wrapper.vm['$fetch'].should.not.have.been.called;
         });
-      });
-    });
-
-    describe('applySelection', () => {
-      it('emits `updated` event', async() => {
-        const wrapper = factory();
-
-        wrapper.vm.$refs.dropdown.hide = sinon.spy();
-
-        wrapper.vm.applySelection();
-        wrapper.emitted()['changed'].length.should.equal(1);
       });
     });
   });
