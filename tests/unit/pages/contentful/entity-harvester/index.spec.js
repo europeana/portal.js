@@ -163,7 +163,7 @@ describe('pages/contentful/entity-harvester/index', () => {
         await wrapper.vm.getUrlFromUser();
         wrapper.vm.contentfulExtensionSdk.dialogs.openPrompt.should.have.been.called;
       });
-    }),
+    });
 
     describe('entityParamsFromUrl', () => {
       context('when the url is a europeana data URI', () => {

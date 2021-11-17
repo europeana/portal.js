@@ -85,18 +85,18 @@
         const providerAggregation = item.aggregations.find(aggregation => aggregation.about.startsWith('/aggregation/provider/'));
         const providerProxy = item.proxies.find(proxy => proxy.about.startsWith('/proxy/provider/'));
         const edmIsShownBy = providerAggregation.edmIsShownBy;
-        const edmIsShownByWebResource = providerAggregation.webResources.find(webResource => webResource.about === edmIsShownBy);
+        const edmIsShownByWebResource = (providerAggregation.webResources || []).find(webResource => webResource.about === edmIsShownBy);
         const edmDataProvider = providerAggregation.edmDataProvider;
-        const edmDataProviderOrganization = item.organizations.find(organization => organization.about === edmDataProvider.def[0]);
+        const edmDataProviderOrganization = item.organizations?.find(organization => organization.about === edmDataProvider.def[0]);
 
-        if (!edmIsShownBy || !/^image/.test(edmIsShownByWebResource.ebucoreHasMimeType)) {
+        if (!edmIsShownBy || !edmIsShownByWebResource?.ebucoreHasMimeType?.startsWith('image/')) {
           throw new Error('No edm:isShownBy image found.');
         }
 
         const name = this.localiseValue(providerProxy.dcTitle);
 
-        const dcCreator = edmIsShownByWebResource.dcCreator || providerProxy.dcCreator;
-        const dcCreatorAgent = item.agents.find(agent => agent.about === dcCreator.def?.[0]);
+        const dcCreator = edmIsShownByWebResource?.dcCreator || providerProxy.dcCreator;
+        const dcCreatorAgent = item.agents?.find(agent => agent.about === dcCreator.def?.[0]);
         const creator = this.localiseValue(dcCreatorAgent?.prefLabel || dcCreator);
 
         const provider = this.localiseValue(edmDataProviderOrganization?.prefLabel || edmDataProvider);
