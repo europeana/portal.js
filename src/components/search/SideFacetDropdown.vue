@@ -120,10 +120,22 @@
       type: {
         type: String,
         required: true
+      },
+
+      staticFields: {
+        type: Array,
+        default: null
       }
     },
 
     async fetch() {
+      // Static fields need no fetching
+      if (this.staticFields) {
+        this.fields = this.staticFields;
+        this.fetched = true;
+        return;
+      }
+
       // Always fetch the contentTier facet, which the toast advising of the
       // filtering of low-tier items needs
       if (this.shown || (this.name === 'contentTier')) {
@@ -206,7 +218,9 @@
 
     methods: {
       resetFetched() {
-        this.fetched = false;
+        if (!this.staticFields) {
+          this.fetched = false;
+        }
       },
 
       init() {
