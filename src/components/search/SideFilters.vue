@@ -25,31 +25,29 @@
         <b-col
           data-qa="search filters"
         >
-          <client-only>
-            <div class="position-relative">
-              <template
-                v-if="collection === 'newspaper'"
-              >
-                <DateFilter
-                  :name="PROXY_DCTERMS_ISSUED"
-                  :start="dateFilter.start"
-                  :end="dateFilter.end"
-                  :specific="dateFilter.specific"
-                  @dateFilter="dateFilterSelected"
-                />
-              </template>
-              <SideFacetDropdown
-                v-for="facet in orderedFacets"
-                :key="facet.name"
-                :name="facet.name"
-                :fields="facet.fields"
-                :type="facetDropdownType(facet.name)"
-                :selected="filters[facet.name]"
-                role="search"
-                @changed="changeFacet"
+          <div class="position-relative">
+            <template
+              v-if="collection === 'newspaper'"
+            >
+              <DateFilter
+                :name="PROXY_DCTERMS_ISSUED"
+                :start="dateFilter.start"
+                :end="dateFilter.end"
+                :specific="dateFilter.specific"
+                @dateFilter="dateFilterSelected"
               />
-            </div>
-          </client-only>
+            </template>
+            <SideFacetDropdown
+              v-for="facet in filterableFacets"
+              :key="facet.name"
+              :name="facet.name"
+              :type="facetDropdownType(facet.name)"
+              :selected="filters[facet.name]"
+              :static-fields="facet.staticFields"
+              role="search"
+              @changed="changeFacet"
+            />
+          </div>
         </b-col>
       </b-row>
     </b-container>
@@ -57,8 +55,6 @@
 </template>
 
 <script>
-  import ClientOnly from 'vue-client-only';
-
   import isEqual from 'lodash/isEqual';
   import { mapState, mapGetters } from 'vuex';
   import { thematicCollections, rangeToQueryParam, rangeFromQueryParam } from '@/plugins/europeana/search';
@@ -69,7 +65,6 @@
     name: 'SideFilters',
 
     components: {
-      ClientOnly,
       SideFacetDropdown,
       DateFilter: () => import('./DateFilter')
     },
@@ -83,7 +78,6 @@
     },
     data() {
       return {
-        coreFacetNames: ['collection', 'TYPE', 'COUNTRY', 'REUSABILITY'],
         PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued',
         API_FILTER_COLLECTIONS: ['newspaper', 'ww1']
       };
@@ -101,6 +95,18 @@
         queryUpdatesForFacetChanges: 'search/queryUpdatesForFacetChanges',
         collection: 'search/collection'
       }),
+      filterableFacets() {
+        return [{
+                  name: 'collection',
+                  staticFields: thematicCollections
+                },
+                {
+                  name: 'api',
+                  staticFields: ['fulltext', 'metadata']
+                }].concat(this.facetNames.map(facetName => ({
+          name: facetName
+        })));
+      },
       qf() {
         return this.userParams.qf;
       },
@@ -119,35 +125,6 @@
 
         // This is a workaround
         return Number(this.$route.query.page || 1);
-      },
-      /**
-       * Sort the facets for display
-       * Facets are returned in the hard-coded preferred order from the search
-       * plugin, followed by all others in the order the API returned them.
-       * @return {Object[]} ordered facets
-       * TODO: does this belong in its own component?
-       */
-      orderedFacets() {
-        const unordered = this.facets.slice();
-        let ordered = [];
-
-        for (const facetName of this.facetNames) {
-          const index = unordered.findIndex((f) => {
-            return f.name === facetName;
-          });
-          if (index !== -1) {
-            ordered = ordered.concat(unordered.splice(index, 1));
-          }
-        }
-
-        if (this.enableApiFilter) {
-          ordered.unshift({ name: 'api', fields: ['fulltext', 'metadata'] });
-        }
-        if (this.$store.state.search.collectionFacetEnabled) {
-          ordered.unshift({ name: 'collection', fields: thematicCollections });
-        }
-
-        return ordered.concat(unordered);
       },
       enableApiFilter() {
         return this.API_FILTER_COLLECTIONS.includes(this.collection);

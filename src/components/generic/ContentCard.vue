@@ -12,6 +12,7 @@
       <div
         v-if="cardImageUrl"
         class="card-img"
+        :class="{ logo }"
       >
         <b-img-lazy
           v-if="lazy"
@@ -63,30 +64,28 @@
         >
           {{ $d(new Date(datetime), 'short') }}
         </time>
-        <template v-if="hitsText">
-          <b-card-text
-            text-tag="div"
-            data-qa="highlighted search term"
-          >
-            <p>{{ hitsText.prefix }}<strong class="has-text-highlight">{{ hitsText.exact }}</strong>{{ hitsText.suffix }}</p>
-          </b-card-text>
-        </template>
+        <b-card-text
+          v-if="hitsText"
+          text-tag="div"
+          data-qa="highlighted search term"
+        >
+          <p>
+            {{ hitsText.prefix }}<strong class="has-text-highlight">{{ hitsText.exact }}</strong>{{ hitsText.suffix }}
+          </p>
+        </b-card-text>
         <template v-if="displayTexts.length > 0">
-          <template
+          <b-card-text
             v-for="(text, index) in displayTexts"
+            :key="index"
+            :lang="text.code"
+            text-tag="div"
           >
-            <b-card-text
-              :key="index"
-              :lang="text.code"
-              text-tag="div"
-            >
-              <!-- eslint-disable vue/no-v-html -->
-              <p
-                v-html="cardText(text.values)"
-              />
-              <!-- eslint-enable vue/no-v-html -->
-            </b-card-text>
-          </template>
+            <!-- eslint-disable vue/no-v-html -->
+            <p
+              v-html="cardText(text.values)"
+            />
+            <!-- eslint-enable vue/no-v-html -->
+          </b-card-text>
         </template>
       </b-card-body>
     </SmartLink>
@@ -196,6 +195,10 @@
       blankImageWidth: {
         type: Number,
         default: null
+      },
+      logo: {
+        type: Boolean,
+        default: false
       }
     },
     data() {

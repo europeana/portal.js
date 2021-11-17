@@ -498,6 +498,14 @@ describe('store/search', () => {
         dispatch.should.have.been.calledWith('queryItems');
         dispatch.should.not.have.been.calledWith('queryFacets');
       });
+
+      it('omits query for facets if explicitly skipped', async() => {
+        const dispatch = sinon.spy();
+
+        await store.actions.run({ dispatch, getters: { facetUpdateNeeded: true } }, { skipFacets: true });
+
+        dispatch.should.not.have.been.calledWith('queryFacets');
+      });
     });
 
     describe('queryItems', () => {
