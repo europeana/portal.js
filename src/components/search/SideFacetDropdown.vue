@@ -133,7 +133,7 @@
       if (this.staticFields) {
         this.fields = this.staticFields;
         this.fetched = true;
-        return;
+        return Promise.resolve();
       }
 
       return this.$store.dispatch('search/queryFacets', { facet: this.name })
