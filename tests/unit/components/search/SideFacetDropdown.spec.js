@@ -54,11 +54,11 @@ describe('components/search/SideFacetDropdown', () => {
   });
 
   describe('fetch', () => {
-    context('if dropdown is shown', () => {
+    context('if fields are not static', () => {
       it('fetches facet', async() => {
         const wrapper = factory();
         await wrapper.setData({
-          shown: true
+          staticFields: null
         });
 
         await wrapper.vm.fetch();
@@ -79,32 +79,29 @@ describe('components/search/SideFacetDropdown', () => {
       });
     });
 
-    context('if dropdown is not shown', () => {
+    context('if fields are static', () => {
       it('does not fetch facet', async() => {
         const wrapper = factory();
-        await wrapper.setData({
-          shown: false
+        await wrapper.setProps({
+          name: 'collection',
+          staticFields: []
         });
 
         await wrapper.vm.fetch();
 
-        storeDispatchStub.should.not.have.been.calledWith('search/queryFacets', { facet: 'COUNTRY' });
+        storeDispatchStub.should.not.have.been.calledWith('search/queryFacets', { facet: 'collection' });
       });
 
-      context('and facet name is "contentTier"', () => {
-        it('does not fetch facet', async() => {
-          const wrapper = factory();
-          await wrapper.setProps({
-            name: 'contentTier'
-          });
-          await wrapper.setData({
-            shown: false
-          });
-
-          await wrapper.vm.fetch();
-
-          storeDispatchStub.should.have.been.calledWith('search/queryFacets', { facet: 'contentTier' });
+      it('marks facet as fetched', async() => {
+        const wrapper = factory();
+        await wrapper.setProps({
+          name: 'collection',
+          staticFields: []
         });
+
+        await wrapper.vm.fetch();
+
+        wrapper.vm.fetched.should.be.true;
       });
     });
   });
