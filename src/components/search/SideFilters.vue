@@ -27,11 +27,12 @@
         >
           <div class="position-relative">
             <SideFacetDropdown
-              v-for="facetName in facetNames"
-              :key="facetName"
-              :name="facetName"
-              :type="facetDropdownType(facetName)"
-              :selected="filters[facetName]"
+              v-for="facet in filterableFacets"
+              :key="facet.name"
+              :name="facet.name"
+              :type="facetDropdownType(facet.name)"
+              :selected="filters[facet.name]"
+              :static-fields="facet.staticFields"
               role="search"
               @changed="changeFacet"
             />
@@ -43,6 +44,7 @@
 </template>
 
 <script>
+  import { thematicCollections } from '@/plugins/europeana/search';
   import isEqual from 'lodash/isEqual';
   import { mapState, mapGetters } from 'vuex';
   import { queryUpdatesForFilters } from '../../store/search';
@@ -80,6 +82,14 @@
         queryUpdatesForFacetChanges: 'search/queryUpdatesForFacetChanges',
         collection: 'search/collection'
       }),
+      filterableFacets() {
+        return [{
+          name: 'collection',
+          staticFields: thematicCollections
+        }].concat(this.facetNames.map(facetName => ({
+          name: facetName
+        })));
+      },
       qf() {
         return this.userParams.qf;
       },
