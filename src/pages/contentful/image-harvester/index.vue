@@ -111,7 +111,7 @@
         this.entry.fields.license?.setValue(license);
         this.entry.fields.url?.setValue(url);
 
-        // create an asset
+        await this.entry.fields.image.removeValue();
         const asset = {
           fields: {
             title: {},

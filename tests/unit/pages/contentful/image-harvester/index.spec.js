@@ -274,6 +274,13 @@ describe('pages/contentful/image-harvester/index', () => {
       });
 
       describe('image', () => {
+        it('removes the existing image', async() => {
+          const wrapper = factory();
+          const item = apiResponse().object;
+          await wrapper.vm.populateFields(item);
+          wrapper.vm.entry.fields.image.removeValue.should.have.been.called;
+        });
+
         it('creates an asset from edm:isShownBy and metadata', async() => {
           const wrapper = factory();
           const item = apiResponse().object;
