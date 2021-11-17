@@ -48,7 +48,7 @@
         }
 
         try {
-          this.populateFields(itemResponse.data.object);
+          await this.populateFields(itemResponse.data.object);
           this.message = 'Success';
         } catch (error) {
           this.showError(`There was a problem updating the entry. ${error.message}`);
