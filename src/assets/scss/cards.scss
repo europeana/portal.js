@@ -324,6 +324,16 @@
           padding-bottom: 100%;
           width: 100%;
         }
+
+        &.logo {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          img {
+            height: auto;
+            width: auto;
+          }
+        }
       }
 
       .card-title {
