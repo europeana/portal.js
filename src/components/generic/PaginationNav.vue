@@ -1,6 +1,7 @@
 <template>
   <b-pagination-nav
     v-if="totalResults > perPage"
+    v-model="page"
     :limit="limit"
     :hide-ellipsis="hideEllipsis"
     :number-of-pages="totalPages"
@@ -17,9 +18,12 @@
   import { BPaginationNav } from 'bootstrap-vue';
 
   export default {
+    name: 'PaginationNav',
+
     components: {
       BPaginationNav
     },
+
     props: {
       perPage: {
         type: Number,
@@ -46,16 +50,23 @@
         default: null
       }
     },
+
     computed: {
       totalPages() {
         const atLeastOne = Math.max(this.totalResults, 1);
         return Math.ceil(Math.min(atLeastOne, this.maxResults || atLeastOne) / this.perPage);
+      },
+
+      page() {
+        return Number(this.$route.query.page) || 1;
       }
     },
+
     methods: {
       changePaginationNav() {
         this.$scrollTo(`#${this.scrollToId}`);
       },
+
       linkGen(page) {
         return {
           ...this.$route,

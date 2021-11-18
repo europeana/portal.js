@@ -1,5 +1,5 @@
 <template>
-  <b-container v-if="$fetchState.pending">
+  <b-container v-if="$fetchState.pending && !fetched">
     <b-row class="flex-md-row py-4 text-center">
       <b-col cols="12">
         <LoadingSpinner />
@@ -188,10 +188,12 @@
         }
         throw this.$store.state.search.error;
       }
+      this.fetched = true;
     },
     data() {
       return {
         coreFacetNames: ['collection', 'TYPE', 'COUNTRY', 'REUSABILITY'],
+        fetched: false,
         PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued'
       };
     },
