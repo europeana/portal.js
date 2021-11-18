@@ -11,7 +11,6 @@
       :data-type="type"
       data-qa="search facet"
       @hidden="hiddenDropdown"
-      @show="showDropdown"
     >
       <template v-slot:button-content>
         <span
@@ -84,6 +83,7 @@
 </template>
 
 <script>
+  import xor from 'lodash/xor';
   import FacetFieldLabel from './FacetFieldLabel';
 
   export default {
@@ -135,7 +135,6 @@
         RADIO: 'radio',
         CHECKBOX: 'checkbox',
         preSelected: null,
-        shown: false,
         fetched: false,
         fields: [],
         nada: null
@@ -180,11 +179,11 @@
         // facets properties are updated correctly
         this.init();
       },
+      // TODO: why are we watching API in route query? is it ever used?
       '$route.query.api': '$fetch',
-      '$route.query.reusability': '$fetch',
+      '$route.query.reusability': 'updateRouteQueryReusability',
       '$route.query.query': '$fetch',
-      // TODO: prevent refetching when qf was changed for this same facet
-      '$route.query.qf': '$fetch'
+      '$route.query.qf': 'updateRouteQueryQf'
     },
 
     mounted() {
@@ -192,6 +191,25 @@
     },
 
     methods: {
+      // Refetch facet fields, unless this is the reusability facet
+      updateRouteQueryReusability() {
+        if (this.name !== 'REUSABILITY') {
+          this.$fetch();
+        }
+      },
+      // Refetch facet fields, but only if other qf query values have changed
+      updateRouteQueryQf(newQf, oldQf) {
+        const qfDiff = xor(newQf, oldQf);
+        if (qfDiff.length === 0) {
+          return;
+        }
+
+        const onlyThisFacetChanged = qfDiff.every(qf => qf.startsWith(`${this.name}:`));
+
+        if (!onlyThisFacetChanged) {
+          this.$fetch();
+        }
+      },
       init() {
         if (this.isRadio && Array.isArray(this.selected)) {
           this.preSelected = this.selected[0];
@@ -205,15 +223,7 @@
         });
       },
 
-      showDropdown() {
-        this.shown = true;
-        if (!this.fetched) {
-          this.$fetch();
-        }
-      },
-
       hiddenDropdown() {
-        this.shown = false;
         this.init();
       }
     }
