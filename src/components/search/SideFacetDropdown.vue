@@ -84,6 +84,7 @@
 </template>
 
 <script>
+  import xor from 'lodash/xor';
   import FacetFieldLabel from './FacetFieldLabel';
 
   export default {
@@ -180,11 +181,11 @@
         // facets properties are updated correctly
         this.init();
       },
+      // TODO: why are we watching API in route query? is it ever used?
       '$route.query.api': '$fetch',
-      '$route.query.reusability': '$fetch',
+      '$route.query.reusability': 'reusabilityUpdate',
       '$route.query.query': '$fetch',
-      // TODO: prevent refetching when qf was changed for this same facet
-      '$route.query.qf': '$fetch',
+      '$route.query.qf': 'qfUpdate',
       '$route.query.page': '$fetch'
     },
 
@@ -193,6 +194,25 @@
     },
 
     methods: {
+      // Refetch facet fields, unless this is the reusability facet
+      reusabilityUpdate() {
+        if (this.name !== 'REUSABILITY') {
+          this.$fetch();
+        }
+      },
+      // Refetch facet fields, but only if other qf query values have changed
+      qfUpdate(newQf, oldQf) {
+        const qfDiff = xor(newQf, oldQf);
+        if (qfDiff.length === 0) {
+          return;
+        }
+
+        const onlyThisFacetChanged = qfDiff.every(qf => qf.startsWith(`${this.name}:`));
+
+        if (!onlyThisFacetChanged) {
+          this.$fetch();
+        }
+      },
       init() {
         if (this.isRadio && Array.isArray(this.selected)) {
           this.preSelected = this.selected[0];
