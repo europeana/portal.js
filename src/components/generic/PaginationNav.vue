@@ -58,7 +58,7 @@
       },
 
       page() {
-        return Number(this.$route.query.page) || 1;
+        return Number(this.$route?.query?.page) || 1;
       }
     },
 
