@@ -11,7 +11,6 @@
       :data-type="type"
       data-qa="search facet"
       @hidden="hiddenDropdown"
-      @show="showDropdown"
     >
       <template v-slot:button-content>
         <span
@@ -136,7 +135,6 @@
         RADIO: 'radio',
         CHECKBOX: 'checkbox',
         preSelected: null,
-        shown: false,
         fetched: false,
         fields: [],
         nada: null
@@ -183,9 +181,9 @@
       },
       // TODO: why are we watching API in route query? is it ever used?
       '$route.query.api': '$fetch',
-      '$route.query.reusability': 'reusabilityUpdate',
+      '$route.query.reusability': 'updateRouteQueryReusability',
       '$route.query.query': '$fetch',
-      '$route.query.qf': 'qfUpdate',
+      '$route.query.qf': 'updateRouteQueryQf',
       '$route.query.page': '$fetch'
     },
 
@@ -195,13 +193,13 @@
 
     methods: {
       // Refetch facet fields, unless this is the reusability facet
-      reusabilityUpdate() {
+      updateRouteQueryReusability() {
         if (this.name !== 'REUSABILITY') {
           this.$fetch();
         }
       },
       // Refetch facet fields, but only if other qf query values have changed
-      qfUpdate(newQf, oldQf) {
+      updateRouteQueryQf(newQf, oldQf) {
         const qfDiff = xor(newQf, oldQf);
         if (qfDiff.length === 0) {
           return;
@@ -226,15 +224,7 @@
         });
       },
 
-      showDropdown() {
-        this.shown = true;
-        if (!this.fetched) {
-          this.$fetch();
-        }
-      },
-
       hiddenDropdown() {
-        this.shown = false;
         this.init();
       }
     }
