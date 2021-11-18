@@ -75,12 +75,15 @@ Feature: Search faceting
     When I click the `COUNTRY dropdown button`
     And I check the "\"Belgium\"" "COUNTRY" checkbox
     And I click the `COUNTRY apply button`
+    And I see an `item preview`
     And I click the `TYPE dropdown button`
     And I check the "\"IMAGE\"" "TYPE" checkbox
     And I click the `TYPE apply button`
+    And I see an `item preview`
     And I click the `REUSABILITY dropdown button`
     And I check the "open" "REUSABILITY" checkbox
     And I click the `REUSABILITY apply button`
+    And I see an `item preview`
     Then I should be on `/en/search?page=1&qf=COUNTRY%3A%22Belgium%22&qf=TYPE%3A%22IMAGE%22&reusability=open&view=grid`
     And I am on page number 1
     And I should have 3 `filter badge`s
@@ -94,12 +97,15 @@ Feature: Search faceting
     When I click the `COUNTRY dropdown button`
     And I check the "\"Belgium\"" "COUNTRY" checkbox
     And I click the `COUNTRY apply button`
+    And I see an `item preview`
     And I click the `TYPE dropdown button`
     And I check the "\"IMAGE\"" "TYPE" checkbox
     And I click the `TYPE apply button`
+    And I see an `item preview`
     And I click the `REUSABILITY dropdown button`
     And I check the "open" "REUSABILITY" checkbox
     And I click the `REUSABILITY apply button`
+    And I see an `item preview`
     Then I should be on `/en/search?page=1&view=grid`
     And I am on page number 1
 
@@ -109,7 +115,7 @@ Feature: Search faceting
     And I check the "\"Belgium\"" "COUNTRY" checkbox
     And I click the `COUNTRY apply button`
     Then I should be on `/en/search?page=1&qf=COUNTRY%3A%22Belgium%22&view=grid`
-    And I see a `item preview`
+    And I see an `item preview`
     And I click a `item preview`
     Then I see an `item page`
     And I click the "All metadata" tab
