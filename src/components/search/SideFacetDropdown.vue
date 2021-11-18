@@ -184,8 +184,7 @@
       '$route.query.reusability': '$fetch',
       '$route.query.query': '$fetch',
       // TODO: prevent refetching when qf was changed for this same facet
-      '$route.query.qf': '$fetch',
-      '$route.query.page': '$fetch'
+      '$route.query.qf': '$fetch'
     },
 
     mounted() {
