@@ -183,8 +183,7 @@
       '$route.query.api': '$fetch',
       '$route.query.reusability': 'updateRouteQueryReusability',
       '$route.query.query': '$fetch',
-      '$route.query.qf': 'updateRouteQueryQf',
-      '$route.query.page': '$fetch'
+      '$route.query.qf': 'updateRouteQueryQf'
     },
 
     mounted() {

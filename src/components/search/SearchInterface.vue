@@ -1,5 +1,5 @@
 <template>
-  <b-container v-if="$fetchState.pending">
+  <b-container v-if="$fetchState.pending && !fetched">
     <b-row class="flex-md-row py-4 text-center">
       <b-col cols="12">
         <LoadingSpinner />
@@ -87,7 +87,15 @@
       <b-col
         cols="12"
       >
+        <b-container v-if="$fetchState.pending && fetched">
+          <b-row class="flex-md-row py-4 text-center">
+            <b-col cols="12">
+              <LoadingSpinner />
+            </b-col>
+          </b-row>
+        </b-container>
         <b-row
+          v-else
           class="mb-3"
         >
           <b-col>
@@ -188,10 +196,12 @@
         }
         throw this.$store.state.search.error;
       }
+      this.fetched = true;
     },
     data() {
       return {
         coreFacetNames: ['collection', 'TYPE', 'COUNTRY', 'REUSABILITY'],
+        fetched: false,
         PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued'
       };
     },
