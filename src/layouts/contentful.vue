@@ -13,6 +13,8 @@
   import { version as bootstrapVueVersion } from 'bootstrap-vue/package.json';
 
   export default {
+    name: 'ContentfulLayout',
+
     data() {
       return {
         bootstrapVersion,

@@ -8,7 +8,7 @@
         <b-card-group
           class="card-deck-4-cols"
           deck
-          :data-qa="`${this.$route.params.type} listing page`"
+          :data-qa="`${$route.params.type} listing page`"
         >
           <ContentCard
             v-for="entity in entities"
@@ -41,7 +41,7 @@
 
   const PER_PAGE = 24;
   export default {
-    name: 'CollectionTypeIndexPage',
+    name: 'CollectionsPersonsIndexPage',
     components: {
       ContentHeader,
       ContentCard,
@@ -80,6 +80,11 @@
         page: null
       };
     },
+    head() {
+      return {
+        title: this.$pageHeadTitle(this.title)
+      };
+    },
     computed: {
       route() {
         return {
@@ -87,6 +92,7 @@
         };
       }
     },
+    watchQuery: ['page'],
     methods: {
       entityRoute(entity) {
         return {
@@ -100,12 +106,6 @@
       thumbnail(entity) {
         return entity?.isShownBy?.thumbnail;
       }
-    },
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.title)
-      };
-    },
-    watchQuery: ['page']
+    }
   };
 </script>

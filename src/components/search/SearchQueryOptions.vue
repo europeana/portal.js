@@ -27,7 +27,7 @@
       >
         <template
           v-for="(slot, slotIndex) in option.i18n.slots"
-          v-slot:[slot.name]
+          #[slot.name]
         >
           <TextHighlighter
             :key="slotIndex"

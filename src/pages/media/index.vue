@@ -10,6 +10,8 @@
   import { requiresDashJS } from '../../plugins/media';
 
   export default {
+    name: 'MediaPage',
+
     layout: 'minimal',
 
     data() {
@@ -22,6 +24,23 @@
         mediaUrl: this.$route.query.mediaUrl,
         mediaType: this.$route.query.mediaType,
         mediaPlayer: null
+      };
+    },
+
+    head() {
+      return {
+        title: this.$pageHeadTitle('Media player'),
+        link: [
+          { rel: 'stylesheet', href: `https://code.jquery.com/ui/${this.JQUERY_UI_VERSION}/themes/base/jquery-ui.css` }
+        ],
+
+        script: [
+          { src: `https://code.jquery.com/jquery-${this.JQUERY_VERSION}.min.js` },
+          { src: `https://code.jquery.com/ui/${this.JQUERY_UI_VERSION}/jquery-ui.min.js` },
+          { src: `https://unpkg.com/@europeana/media-player@${this.MEDIA_PLAYER_VERSION}/dist/europeana-media-player.min.js` }
+        ].concat(this.dashRequired ? [
+          { src: `https://unpkg.com/dashjs@${this.DASHJS_VERSION}/dist/dash.all.min.js` }
+        ] : [])
       };
     },
 
@@ -41,23 +60,6 @@
           mediaItem: this.mediaUrl
         });
       });
-    },
-
-    head() {
-      return {
-        title: this.$pageHeadTitle('Media player'),
-        link: [
-          { rel: 'stylesheet', href: `https://code.jquery.com/ui/${this.JQUERY_UI_VERSION}/themes/base/jquery-ui.css` }
-        ],
-
-        script: [
-          { src: `https://code.jquery.com/jquery-${this.JQUERY_VERSION}.min.js` },
-          { src: `https://code.jquery.com/ui/${this.JQUERY_UI_VERSION}/jquery-ui.min.js` },
-          { src: `https://unpkg.com/@europeana/media-player@${this.MEDIA_PLAYER_VERSION}/dist/europeana-media-player.min.js` }
-        ].concat(this.dashRequired ? [
-          { src: `https://unpkg.com/dashjs@${this.DASHJS_VERSION}/dist/dash.all.min.js` }
-        ] : [])
-      };
     }
   };
 </script>

@@ -12,7 +12,7 @@
     :variant="variant"
     :lazy="lazy"
   >
-    <template v-slot:buttons>
+    <template #buttons>
       <RecommendationButtons
         v-if="recommendedItem"
         v-model="identifier"

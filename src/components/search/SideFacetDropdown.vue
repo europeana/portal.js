@@ -12,7 +12,7 @@
       data-qa="search facet"
       @hidden="hiddenDropdown"
     >
-      <template v-slot:button-content>
+      <template #button-content>
         <span
           class="dropdown-toggle-text"
           :data-qa="`${name} dropdown button`"
@@ -115,6 +115,17 @@
       }
     },
 
+    data() {
+      return {
+        RADIO: 'radio',
+        CHECKBOX: 'checkbox',
+        preSelected: null,
+        fetched: false,
+        fields: [],
+        nada: null
+      };
+    },
+
     fetch() {
       // Static fields need no fetching
       if (this.staticFields) {
@@ -128,17 +139,6 @@
           this.fields = (facets || [])[0]?.fields || [];
           this.fetched = true;
         });
-    },
-
-    data() {
-      return {
-        RADIO: 'radio',
-        CHECKBOX: 'checkbox',
-        preSelected: null,
-        fetched: false,
-        fields: [],
-        nada: null
-      };
     },
 
     computed: {

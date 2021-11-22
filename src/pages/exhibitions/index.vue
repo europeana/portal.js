@@ -48,11 +48,15 @@
   const PER_PAGE = 20;
 
   export default {
-    name: 'ExhibitionFoyer',
+    name: 'ExhibitionsIndexPage',
     components: {
       ContentHeader,
       ContentCard,
       PaginationNav
+    },
+    beforeRouteLeave(to, from, next) {
+      this.$store.commit('breadcrumb/clearBreadcrumb');
+      next();
     },
 
     middleware: 'sanitisePageQuery',
@@ -85,6 +89,12 @@
         page: null
       };
     },
+    head() {
+      return {
+        title: this.$pageHeadTitle(this.$tc('exhibitions.exhibitions', 2))
+      };
+    },
+    watchQuery: ['page'],
     methods: {
       imageUrl(image) {
         return image?.image?.url;
@@ -95,16 +105,6 @@
       imageAlt(image) {
         return image?.image?.description || '';
       }
-    },
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.$tc('exhibitions.exhibitions', 2))
-      };
-    },
-    watchQuery: ['page'],
-    beforeRouteLeave(to, from, next) {
-      this.$store.commit('breadcrumb/clearBreadcrumb');
-      next();
     }
   };
 </script>
