@@ -24,11 +24,9 @@
         manifest: null,
         MIRADOR_BUILD_PATH: 'https://unpkg.com/mirador@3.0.0/dist',
         page: null,
-        uri: null,
         imageToCanvasMap: {},
         mirador: null,
         showAnnotations: false,
-        searchQuery: null,
         miradorStoreManifestJsonUnsubscriber: () => {}
       };
     },
