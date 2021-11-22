@@ -170,8 +170,9 @@
 
 <style lang="scss" scoped>
 .contentful {
-  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
   font-size: 0.875rem;
+
   .form-control {
     font-size: 0.875rem;
     border-radius: 0;
@@ -184,20 +185,24 @@
     padding-left: 0.65625rem;
     margin: 0;
     width: 100%;
-    -webkit-appearance: textfield;
+    appearance: textfield;
+
     &:focus {
       border: 1px solid #2e75d4;
       box-shadow: 0 0 7px #2e75d4;
     }
+
     &.error {
-      border: 1px solid rgb(191, 48, 69);
+      border: 1px solid rgb(191 48 69);
+
       &:focus {
-        box-shadow: 0 0 7px rgb(191, 48, 69);
+        box-shadow: 0 0 7px rgb(191 48 69);
       }
     }
   }
+
   .error-message {
-    color: rgb(191, 48, 69);
+    color: rgb(191 48 69);
     margin-top: 0.75em;
   }
 }

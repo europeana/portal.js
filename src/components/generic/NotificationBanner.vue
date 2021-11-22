@@ -48,10 +48,11 @@
   p {
     line-height: 1.375rem;
 
-    &:before {
+    &::before {
       content: '\e900';
       font-size: 1.2rem;
       margin-right: 0.75rem;
+
       @extend .icon-font;
     }
   }

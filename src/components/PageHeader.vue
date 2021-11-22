@@ -173,7 +173,7 @@
     left: 0;
     z-index: 1030;
     padding: 0;
-    box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.08);
+    box-shadow: 2px 2px 4px 0 rgb(0 0 0 / 8%);
 
     &:not(.show) ::v-deep .search-query,
     &:not(.show) ::v-deep .auto-suggest-dropdown {
@@ -188,6 +188,7 @@
     .logo {
       min-width: 9.5625rem;
       transition: 0.3s ease-in-out;
+
       img {
         margin: auto 0;
       }
@@ -198,6 +199,7 @@
     .logo {
       min-width: auto;
     }
+
     .navbar-nav {
       flex-direction: column;
       width: 100%;
@@ -218,14 +220,15 @@
     padding: 0;
     width: 1.5rem;
 
-    &:before {
+    &::before {
       @extend .icon-font;
+
       display: inline-block;
       font-size: 1.1rem;
     }
 
     &.search {
-      &:before {
+      &::before {
         content: '\e92b';
         transition: $standard-transition;
       }
@@ -233,7 +236,8 @@
 
     &.close {
       opacity: 1;
-      &:before {
+
+      &::before {
         content: '\e931';
         transition: $standard-transition;
         font-weight: 400;
@@ -241,8 +245,9 @@
       }
     }
 
-    &.search, &.close {
-      &:hover:before {
+    &.search,
+    &.close {
+      &:hover::before {
         color: $innovationblue;
       }
     }
@@ -253,7 +258,7 @@
       top: 1rem;
       z-index: 99;
 
-      &:before {
+      &::before {
         content: '\ea40';
       }
     }
@@ -299,16 +304,19 @@
       top: initial;
       width: auto;
       padding: 0;
+
       .navbar-nav {
         padding-top: 0;
         flex-direction: row;
         width: 100%;
       }
     }
+
     .container-fluid {
       transition: $standard-transition;
     }
   }
+
   @media (min-width: $bp-extralarge) {
     .navbar-brand {
       .logo {
@@ -316,6 +324,7 @@
       }
     }
   }
+
   .filters-toggle {
     @media (min-width: $bp-medium) {
       display: none;

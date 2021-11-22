@@ -338,9 +338,9 @@
       width: 100%;
 
       .form-control {
-        padding: 0.375rem 3.5rem 0.375rem 3.5rem;
+        padding: 0.375rem 3.5rem;
         height: 3.4rem;
-        box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.08);
+        box-shadow: 2px 2px 4px 0 rgb(0 0 0 / 8%);
         border-radius: 0;
         color: $mediumgrey;
         width: 100%;
@@ -376,7 +376,7 @@
             }
           }
 
-          &:before {
+          &::before {
             left: 1rem;
             top: 1rem;
             position: absolute;
@@ -393,6 +393,7 @@
 
   .input-group {
     width: 100%;
+
     .input-group-prepend {
       display: none;
     }
@@ -412,13 +413,14 @@
     padding: 0;
     width: 1.5rem;
 
-    &:before {
+    &::before {
       @extend .icon-font;
+
       display: inline-block;
       font-size: 1.1rem;
     }
 
-    &.search:before {
+    &.search::before {
       content: '\e92b';
     }
 
@@ -437,7 +439,7 @@
       top: 1rem;
       z-index: 99;
 
-      &:before {
+      &::before {
         content: '\e904';
       }
     }

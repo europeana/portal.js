@@ -44,8 +44,10 @@
 
   .alert.alert-light {
     font-style: italic;
+
     &.withIcon {
       font-style: normal;
+
       .icon-info {
         padding-right: 0.75rem;
         font-size: 24px;

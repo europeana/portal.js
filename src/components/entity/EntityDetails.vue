@@ -152,19 +152,24 @@
     font-size: $font-size-small;
     font-weight: 600;
     color: $mediumgrey;
-    &:before {
+
+    &::before {
       @extend .icon-font;
+
       display: inline-block;
       content: '\e937';
       font-size: 1.125rem;
       line-height: 1;
       margin-top: -0.2rem;
     }
+
     a {
       color: $mediumgrey;
     }
-    .is-external-link:after {
+
+    .is-external-link::after {
       @extend .icon-font;
+
       content: '\e900';
       font-size: $font-size-extrasmall;
       vertical-align: initial;
@@ -173,11 +178,14 @@
 
   p {
     color: $mediumgrey;
+
     &.curated {
       font-size: $font-size-small;
       color: $black;
-      &:before {
+
+      &::before {
         @extend .icon-font;
+
         display: inline-block;
         font-size: 1.5rem;
         color: $blue;

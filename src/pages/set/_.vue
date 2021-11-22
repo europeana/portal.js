@@ -335,7 +335,7 @@
       display: inline-flex;
       align-items: center;
 
-      &:before {
+      &::before {
         font-size: 1.5rem;
         padding-right: 0.2rem;
       }
@@ -343,16 +343,19 @@
 
     .curator {
       margin-right: 1.5rem;
-      &:before {
+
+      &::before {
         @extend .icon-font;
+
         content: '\e92e';
         font-size: 1.125rem;
       }
     }
 
     .visibility {
-      &:before {
+      &::before {
         @extend .icon-font;
+
         content: '\e92d';
         font-size: 1.125rem;
       }

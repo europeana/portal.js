@@ -40,9 +40,10 @@
     font-size: $font-size-small;
     transition: $standard-transition;
     overflow: hidden;
+
     &:hover {
       cursor: pointer;
-      box-shadow: $boxshadow-light
+      box-shadow: $boxshadow-light;
     }
   }
 </style>

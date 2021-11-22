@@ -264,19 +264,19 @@
 
       .slider-handle {
         position: absolute;
-        background: rgba(255, 255, 255, 0.5);
+        background: rgb(255 255 255 / 50%);
         width: $slider-dimensions;
         height: $slider-dimensions;
         border: 0;
         border-radius: 50%;
-        box-shadow: 0 0 6px rgba(0, 0, 0, 0);
+        box-shadow: 0 0 6px rgb(0 0 0 / 0%);
 
         &.is-active {
-          background: rgba(255, 255, 255, 0.85);
+          background: rgb(255 255 255 / 85%);
         }
 
-        &:before,
-        &:after {
+        &::before,
+        &::after {
           content: '';
           position: absolute;
           width: 10px;
@@ -287,24 +287,24 @@
           transform-origin: 0 0;
         }
 
-        &:before {
+        &::before {
           left: 10px;
           transform: rotate(-45deg);
         }
 
-        &:after {
+        &::after {
           right: 0;
           transform: rotate(135deg);
         }
 
         &:hover {
-          box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
+          box-shadow: 0 0 3px rgb(0 0 0 / 40%);
 
-          &:before {
+          &::before {
             left: 9px;
           }
 
-          &:after {
+          &::after {
             right: -1px;
           }
         }
@@ -312,13 +312,12 @@
     }
 
     & + figcaption {
-
       cite {
         display: block;
         margin: 0;
         position: static;
 
-        &:before {
+        &::before {
           content: attr(data-prefix);
           font-style: normal;
         }
@@ -330,7 +329,7 @@
           position: absolute;
           transition: opacity 0.2s ease-out;
 
-          &:before {
+          &::before {
             display: none;
           }
 

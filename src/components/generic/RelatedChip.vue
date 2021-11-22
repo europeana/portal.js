@@ -80,6 +80,7 @@
 
 <style lang="scss" scoped>
   @import '@/assets/scss/variables.scss';
+
   .badge-light {
     color: $black;
     font-size: $font-size-small;
@@ -92,9 +93,12 @@
     justify-content: center;
     align-items: center;
     transition: $standard-transition;
-    &:hover, &:focus {
+
+    &:hover,
+    &:focus {
       background: $smoke !important;
     }
+
     &.img-chip {
       padding: 0.25rem 0.75rem 0.25rem 0.25rem;
     }

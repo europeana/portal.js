@@ -88,6 +88,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
   @media (max-height: $bp-small) {
     align-items: flex-start;
   }
@@ -95,12 +96,15 @@
 
 img {
   height: auto;
+
   @media (max-height: $bp-medium) {
     max-height: $swiper-height;
   }
+
   @media (min-height: $bp-medium) {
     max-height: $swiper-height-max;
   }
+
   @media (max-width: $bp-medium) {
     max-height: $swiper-height-medium;
   }

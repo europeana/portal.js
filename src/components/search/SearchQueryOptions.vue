@@ -244,8 +244,9 @@
         background-color: $offwhite;
       }
 
-      &:before {
+      &::before {
         @extend .icon-font;
+
         font-size: 1.1rem;
         content: '\e92b';
         left: 1rem;

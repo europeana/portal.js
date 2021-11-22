@@ -76,9 +76,11 @@
     padding: 1rem;
     position: relative;
     text-transform: none;
+
     span {
       position: relative;
       z-index: 10;
+
       &.icon-check_circle {
         font-size: $font-size-large;
       }

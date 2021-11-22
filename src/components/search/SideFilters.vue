@@ -201,6 +201,7 @@
   line-height: 1;
   margin: 1.25rem 1rem;
 }
+
 .col-filters {
   @media (max-width: $bp-medium) {
     position: fixed;
@@ -212,16 +213,19 @@
     overflow: auto;
     padding-top: 1rem;
     transition: right 300ms ease-in-out;
+
     &.open {
       right: 0;
       transition: right 300ms ease-in-out;
     }
   }
+
   @media (min-width: $bp-medium) {
     max-width: 320px;
     min-width: 220px;
     min-height: 31rem;
   }
+
   flex-grow: 0;
   padding: 0;
   background-color: $white;

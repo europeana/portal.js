@@ -371,9 +371,11 @@
     right: 1rem;
     bottom: 1rem;
     z-index: 1050;
+
     @media (min-width: $bp-small) {
       left: auto;
     }
+
     .feedback-button {
       position: fixed;
       right: 1rem;
@@ -386,37 +388,46 @@
       border-radius: 50%;
       max-width: 50px;
       transition: max-width 0.35s ease-out, border-radius 0.3s ease-out;
-      box-shadow: 0px 2px 8px rgba(26, 26, 26, 0.25);
+      box-shadow: 0 2px 8px rgb(26 26 26 / 25%);
+
       .icon-ic-feedback {
         padding-right: 0;
         font-size: 1.25rem;
       }
+
       .feedback-button-text {
         transition: opacity 0.3s ease-out;
         opacity: 0;
       }
+
       &.hide-button {
         display: none;
       }
+
       &.big {
         border-radius: 0.3rem;
         max-width: 220px;
         transition: max-width 0.75s ease-out, border-radius 0.25s ease-out;
+
         .feedback-button-text {
           opacity: 1;
           transition: opacity 0.3s ease-out;
         }
+
         .icon-ic-feedback {
           padding-right: 0.25rem;
         }
       }
+
       @media (max-width: $bp-small) {
         &.big {
           max-width: 50px;
           border-radius: 50%;
+
           .feedback-button-text {
             opacity: 0;
           }
+
           .icon-ic-feedback {
             padding-right: 0;
           }
@@ -439,10 +450,12 @@
     bottom: 1rem;
     margin: 0;
     overflow: hidden;
+
     @media (min-width: $bp-small) {
       left: auto;
       min-width: 360px;
     }
+
     &.show-feedback-widget {
       opacity: 1;
       visibility: visible;
@@ -451,7 +464,8 @@
 
     .feedback-header {
       background-color: $innovationblue;
-      padding: 0.75rem 1rem 0.75rem 1rem;
+      padding: 0.75rem 1rem;
+
       h5 {
         color: $white;
         font-size: 1rem;
@@ -463,23 +477,29 @@
 
     .feedback-form {
       padding: 1rem;
+
       .form-fields {
         flex: 0 1 100%;
         width: 0; // width will grow to space available in flexbox
       }
+
       .form-buttons {
         flex: 0 1 100%;
+
         @media (max-width: $bp-small) {
           flex-wrap: wrap;
+
           .button-group-right {
             width: 100%;
           }
+
           button {
             width: 100%;
             margin: 0.5rem 0 0 !important;
           }
         }
       }
+
       .form-control {
         padding: 0.75rem;
         background: $white;
@@ -488,22 +508,28 @@
         font-size: $font-size-base;
         height: 3rem;
         color: $black;
+
         &:focus {
           border-color: $innovationblue;
         }
+
         &.is-invalid {
           border-color: $red;
         }
       }
+
       textarea.form-control {
         height: auto;
       }
+
       .form-group {
         margin-bottom: 0;
       }
+
       .form-text {
         font-size: 0.875rem;
-        margin: 0.75rem 0 0 0;
+        margin: 0.75rem 0 0;
+
         a {
           color: $mediumgrey;
         }
@@ -513,10 +539,12 @@
     .feedback-success {
       color: $black;
     }
+
     .icon-check_circle::before {
       color: $innovationblue;
       font-size: 2.0625rem;
     }
+
     .icon-cancel-circle::before {
       color: $red;
       font-size: 2.0625rem;

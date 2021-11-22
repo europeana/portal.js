@@ -92,6 +92,7 @@ header .col {
       margin-right: auto;
       text-align: left;
     }
+
     .col-lg-9 {
       flex: 0 0 100%;
       max-width: 100%;
@@ -109,20 +110,25 @@ header .col {
 
       &.compare-image-wrapper {
         display: inline-block;
+
         img {
           max-height: 85vh;
         }
       }
     }
+
     section {
       p {
         margin-bottom: 2rem;
       }
+
       & + .btn {
         margin-top: 0;
       }
     }
-    .html-embed, .compare-image-wrapper {
+
+    .html-embed,
+    .compare-image-wrapper {
       margin-bottom: 2rem !important;
     }
 
@@ -139,7 +145,7 @@ header .col {
   iframe {
     max-height: initial;
     max-width: 100%;
-  } 
+  }
 }
 
 .info-panel {
@@ -147,11 +153,14 @@ header .col {
     font-size: 1.75rem;
     font-weight: normal;
   }
+
   header + .description {
     margin-top: 1rem;
   }
+
   .description .description-text .description-text-paragraph {
     color: $mediumgrey;
+
     &:last-child {
       margin-bottom: 0 !important;
     }

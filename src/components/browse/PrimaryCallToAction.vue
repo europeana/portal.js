@@ -47,10 +47,12 @@
     padding: 1.5rem calc((50vw - 50%) / 2);
     margin: 0 calc((-50vw + 50%) / 2) 2rem;
     max-width: calc(100% + 100px);
+
     @media (min-width: $bp-large) {
       padding: 1.5rem 50px;
       margin: 0 -50px 2rem;
     }
+
     .btn-primary.btn-cta {
       margin-bottom: 0;
     }

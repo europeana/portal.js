@@ -77,10 +77,12 @@
     padding: 0.312rem 0.625rem;
     resize: none;
   }
+
   .copy-to-clipboard-success {
     display: none;
     vertical-align: middle;
     font-size: $font-size-small;
+
     &.active {
       display: inline-flex;
       align-items: center;

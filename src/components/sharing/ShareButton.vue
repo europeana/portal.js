@@ -22,6 +22,7 @@
     border-color: transparent;
     border-radius: 0.25rem;
     padding: 0.375rem 0.5rem;
+
     span {
       font-size: 1.125rem;
     }

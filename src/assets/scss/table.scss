@@ -15,6 +15,7 @@ table,
     font-weight: 600;
     line-height: 1.125rem;
     padding: 1.125rem 1rem;
+
     div {
       display: inline-block;
     }
@@ -25,8 +26,10 @@ table,
     padding: 1.125rem 1rem;
     border-top: 1px solid $middlegrey;
     vertical-align: top;
+
     a {
       text-decoration: none;
+
       &:hover {
         color: $innovationblue;
       }
@@ -36,17 +39,20 @@ table,
 
 .table {
   thead th {
-    &[aria-sort] div:after {
+    &[aria-sort] div::after {
       @extend .icon-font;
+
       content: '\e93b';
       color: $mediumgrey;
       font-size: 1rem;
       margin-left: 0.5rem;
       display: inline-block;
     }
-    &[aria-sort='descending'] div:after {
+
+    &[aria-sort='descending'] div::after {
       transform: rotate(180deg);
     }
+
     &:hover div::after {
       color: $innovationblue;
     }
@@ -56,4 +62,3 @@ table,
     line-height: 1em;
   }
 }
-

@@ -1,8 +1,10 @@
 .btn {
   font-weight: 400;
+
   &:focus {
     outline: auto;
   }
+
   &:hover {
     box-shadow: $boxshadow-light;
   }
@@ -31,6 +33,7 @@
   border-color: $green;
   font-size: $font-size-small;
   text-transform: uppercase;
+
   &:hover {
     background-color: $green;
   }
@@ -38,15 +41,19 @@
 
 .btn-link {
   color: $blue;
+
   &:hover {
     box-shadow: none;
   }
+
   &.multilingual-dropdown {
     padding: 0;
     color: $black;
     text-decoration: underline;
+
     &::after {
       @extend .icon-font;
+
       content: '\e93e';
       border: none;
       margin-left: 0.25rem;
@@ -54,6 +61,7 @@
     }
   }
 }
+
 // Expected ".btn-outline-primary:hover" to come before
 //@at-root  ".btn-outline-primary:hover:not([disabled])"
 .btn-outline-primary {
@@ -101,19 +109,19 @@
 }
 
 .btn-overlay {
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgb(0 0 0 / 70%);
   border: 0;
   border-radius: $border-radius-small;
   color: $white;
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgb(0 0 0 / 70%);
     color: $white;
   }
 
-  &:after {
+  &::after {
     content: '';
-    background: rgba(0, 0, 0, 0.7);
+    background: rgb(0 0 0 / 70%);
     border-radius: $border-radius-small;
     height: 100%;
     position: absolute;
@@ -134,7 +142,8 @@ a {
     z-index: -999;
   }
 
-  &.skip-main:focus, &.skip-main:active {
+  &.skip-main:focus,
+  &.skip-main:active {
     color: $white;
     background-color: $black;
     left: auto;
@@ -164,6 +173,7 @@ a {
 .page-link {
   color: $black;
   text-decoration: none;
+
   &:hover {
     color: $black;
   }

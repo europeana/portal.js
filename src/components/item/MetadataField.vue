@@ -181,13 +181,17 @@
 
       li {
         display: inline;
-        &:not(:last-child):after {
+
+        &:not(:last-child)::after {
           content: ';';
           padding: 0 0.2rem;
         }
-        a.is-external-link:after {
+
+        a.is-external-link::after {
           content: '\e900';
+
           @extend .icon-font;
+
           vertical-align: initial;
           font-size: 0.75rem;
         }
