@@ -219,5 +219,17 @@
   padding: 0;
   background-color: $white;
   margin-top: -1rem;
+  &::after {
+    border-top: 145px solid $white;
+    border-left: 60px solid transparent;
+    content: '';
+    display: block;
+    height: 0;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    width: 0;
+    z-index: 1;
+  }
 }
 </style>
