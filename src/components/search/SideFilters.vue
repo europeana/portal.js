@@ -75,10 +75,11 @@
     },
     computed: {
       ...mapState({
-        userParams: state => state.search.userParams,
+        collectionFacetEnabled: state => state.search.collectionFacetEnabled,
         facets: state => state.search.facets,
         resettableFilters: state => state.search.resettableFilters,
-        showFiltersSheet: state => state.search.showFiltersSheet
+        showFiltersSheet: state => state.search.showFiltersSheet,
+        userParams: state => state.search.userParams
       }),
       ...mapGetters({
         facetNames: 'search/facetNames',
@@ -87,12 +88,18 @@
         collection: 'search/collection'
       }),
       filterableFacets() {
-        return [{
-          name: 'collection',
-          staticFields: thematicCollections
-        }].concat(this.facetNames.map(facetName => ({
+        const facets = this.facetNames.map(facetName => ({
           name: facetName
-        })));
+        }));
+
+        if (this.collectionFacetEnabled) {
+          facets.unshift({
+            name: 'collection',
+            staticFields: thematicCollections
+          });
+        }
+
+        return facets;
       },
       qf() {
         return this.userParams.qf;
