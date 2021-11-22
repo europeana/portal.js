@@ -72,6 +72,45 @@ const factory = (options = {}) => {
 };
 
 describe('components/search/SideFilters', () => {
+  describe('computed', () => {
+    describe('filterableFacets', () => {
+      const facetNames = ['TYPE', 'COUNTRY'];
+      const storeGetters = {
+        facetNames: () => facetNames
+      };
+
+      it('includes facets from store, without static fields', () => {
+        const wrapper = factory({ storeGetters });
+
+        for (const facetName of facetNames) {
+          wrapper.vm.filterableFacets.some(facet => (facet.name === facetName) && !facet.staticFields).should.be.true;
+        }
+      });
+
+      context('when collection facet is enabled', () => {
+        const storeState = { collectionFacetEnabled: true };
+
+        it('includes collection facet first, with static fields', () => {
+          const wrapper = factory({ storeGetters, storeState });
+
+          const firstFacet = wrapper.vm.filterableFacets[0];
+          firstFacet.name.should.eq('collection');
+          Array.isArray(firstFacet.staticFields).should.be.true;
+        });
+      });
+
+      context('when collection facet is disabled', () => {
+        const storeState = { collectionFacetEnabled: false };
+
+        it('omits collection facet', () => {
+          const wrapper = factory({ storeGetters, storeState });
+
+          wrapper.vm.filterableFacets.some(facet => facet.name === 'collection').should.be.false;
+        });
+      });
+    });
+  });
+
   describe('methods', () => {
     describe('changeFacet', () => {
       const facetName = 'TYPE';
