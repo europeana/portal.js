@@ -42,6 +42,12 @@ export const fakeContentfulExtension = fields => {
       dialogs: {
         openAlert: sinon.spy(),
         openPrompt: sinon.spy()
+      },
+      space: {
+        createAsset: sinon.stub().resolves({ sys: { id: 'abcdef' } }),
+        processAsset: sinon.stub().resolves({ sys: { id: 'abcdef' } }),
+        waitUntilAssetProcessed: sinon.stub().resolves({ sys: { id: 'abcdef' } }),
+        publishAsset: sinon.stub().resolves({ sys: { id: 'abcdef' } })
       }
     };
     callback(fakeSdk);
