@@ -96,7 +96,7 @@
         const name = this.localiseValue(providerProxy.dcTitle);
 
         const dcCreator = edmIsShownByWebResource?.dcCreator || providerProxy.dcCreator;
-        const dcCreatorAgent = item.agents?.find(agent => agent.about === dcCreator.def?.[0]);
+        const dcCreatorAgent = dcCreator ? item.agents?.find(agent => agent.about === dcCreator.def?.[0]) : undefined;
         const creator = this.localiseValue(dcCreatorAgent?.prefLabel || dcCreator);
 
         const provider = this.localiseValue(edmDataProviderOrganization?.prefLabel || edmDataProvider);
