@@ -33,7 +33,7 @@
     "@nuxtjs/i18n": "^7.0.3",
     "@nuxtjs/robots": "^2.4.2",
     "@vue-a11y/announcer": "^2.1.0",
-    "autosuggest-highlight": "^3.1.1",
+    "autosuggest-highlight": "^3.2.0",
     "axios": "^0.21.4",
     "axios-retry": "^3.2.4",
     "bootstrap": "^4.6.0",
