@@ -55,40 +55,36 @@
         :class="{'page-container': sideFiltersEnabled}"
       >
         <b-row>
-          <b-col
-            class="pb-3"
-          >
-            <i18n
-              v-if="$route.query.query"
-              path="searchResultsForIn"
-              tag="h2"
-              class="px-0 container"
-            >
-              <span>{{ $route.query.query }}</span>
-              <span>{{ title.values[0] }}</span>
-            </i18n>
-            <SearchInterface
-              class="px-0"
-              :per-page="recordsPerPage"
-              :route="route"
-              :show-content-tier-toggle="false"
-              :show-pins="userIsEditor && userIsSetsEditor"
-            />
-          </b-col>
-          <SideFilters
-            v-if="sideFiltersEnabled"
-            :route="route"
-          />
-        </b-row>
-        <b-row>
           <b-col>
-            <b-container class="p-0">
+            <b-container class="px-0 pb-3">
+              <i18n
+                v-if="$route.query.query"
+                path="searchResultsForIn"
+                tag="h2"
+                class="px-0 container"
+              >
+                <span>{{ $route.query.query }}</span>
+                <span>{{ title.values[0] }}</span>
+              </i18n>
+              <SearchInterface
+                class="px-0"
+                :per-page="recordsPerPage"
+                :route="route"
+                :show-content-tier-toggle="false"
+                :show-pins="userIsEditor && userIsSetsEditor"
+              />
+            </b-container>
+            <b-container class="px-0">
               <BrowseSections
                 v-if="page"
                 :sections="page.hasPartCollection.items"
               />
             </b-container>
           </b-col>
+          <SideFilters
+            v-if="sideFiltersEnabled"
+            :route="route"
+          />
         </b-row>
       </b-container>
     </client-only>
