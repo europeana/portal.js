@@ -29,7 +29,7 @@
             <template
               v-if="collection === 'newspaper'"
             >
-              <DateFilter
+              <SideDateFilter
                 :name="PROXY_DCTERMS_ISSUED"
                 :start="dateFilter.start"
                 :end="dateFilter.end"
@@ -66,7 +66,7 @@
 
     components: {
       SideFacetDropdown,
-      DateFilter: () => import('./DateFilter')
+      SideDateFilter: () => import('./SideDateFilter')
     },
     props: {
       route: {

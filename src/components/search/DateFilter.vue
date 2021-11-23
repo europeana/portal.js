@@ -1,7 +1,6 @@
 <template>
   <b-form-group
     :label="facetName"
-    :class="{ 'side-facet': $config.app.features.sideFilters }"
   >
     <b-row>
       <b-col>
