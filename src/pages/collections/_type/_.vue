@@ -52,9 +52,9 @@
     </b-container>
     <client-only>
       <b-container
-        :class="{'page-container': sideFiltersEnabled}"
+        :class="{'page-container side-filters-enabled': sideFiltersEnabled}"
       >
-        <b-row>
+        <b-row class="flex-nowrap">
           <b-col>
             <b-container class="px-0 pb-3">
               <i18n

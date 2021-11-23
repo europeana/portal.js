@@ -195,7 +195,7 @@
   margin: 1.25rem 1rem;
 }
 .col-filters {
-  @media (max-width: $bp-medium) {
+  @media (max-width: $bp-large - 1px) {
     position: fixed;
     width: 320px;
     max-width: 75vw;
@@ -211,7 +211,7 @@
       transition: right 300ms ease-in-out;
     }
   }
-  @media (min-width: $bp-medium) {
+  @media (min-width: $bp-large) {
     max-width: 320px;
     min-width: 220px;
     min-height: 31rem;

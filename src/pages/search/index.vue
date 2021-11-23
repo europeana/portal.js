@@ -9,7 +9,7 @@
     />
     <b-container
       data-qa="search page"
-      :class="{'page-container': sideFiltersEnabled}"
+      :class="{'page-container side-filters-enabled': sideFiltersEnabled}"
     >
       <b-row>
         <b-col
