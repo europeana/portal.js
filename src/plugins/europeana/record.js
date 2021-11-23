@@ -284,7 +284,14 @@ export default (context = {}) => {
       //
       // Also greatly minimises response size, and hydration cost, for IIIF with
       // many web resources, all of which are contained in a single manifest anyway.
-      const displayable = isIIIFPresentation(media[0]) ? [media[0]] : media.some(isIIIFImage) ? media.find(isIIIFImage) : media;
+      let displayable;
+      if (isIIIFPresentation(media[0])) {
+        displayable = [media[0]];
+      } else if (media.some(isIIIFImage)) {
+        displayable = media.find(isIIIFImage);
+      } else {
+        displayable = media;
+      }
 
       // Sort by isNextInSequence property if present
       return sortByIsNextInSequence(displayable).map(Object.freeze);
