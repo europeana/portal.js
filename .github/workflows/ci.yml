@@ -74,6 +74,7 @@ jobs:
 
   test-unit:
     if: github.event.pull_request.draft == false
+    needs: [test-lint]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -143,7 +144,7 @@ jobs:
 
   test-e2e:
     if: github.event.pull_request.draft == false
-    needs: [config]
+    needs: [config, test-unit]
     runs-on: ubuntu-latest
     env:
       PERCY_PULL_REQUEST: ${{ needs.config.outputs.pull-request-number }}
