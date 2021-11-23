@@ -6,11 +6,13 @@
   import keycloak from '../../mixins/keycloak';
 
   export default {
-    layout: 'minimal',
+    name: 'AccountLoginPage',
 
     mixins: [
       keycloak
     ],
+
+    layout: 'minimal',
 
     mounted() {
       this.keycloakLogin();

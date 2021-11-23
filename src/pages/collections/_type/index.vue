@@ -33,6 +33,8 @@
   import ClientOnly from 'vue-client-only';
 
   export default {
+    name: 'CollectionsIndexPage',
+
     components: {
       AlertMessage: () => import('@/components/generic/AlertMessage'),
       ContentHeader,
@@ -47,6 +49,11 @@
         throw new Error('Unknown collection type');
       }
     },
+    head() {
+      return {
+        title: this.$pageHeadTitle(this.pageTitle)
+      };
+    },
     computed: {
       pageTitle() {
         return this.$fetchState.error ? 'Error' : this.$t(`pages.collections.${this.$route.params.type}.title`);
@@ -54,11 +61,6 @@
     },
     watch: {
       '$route': '$fetch'
-    },
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.pageTitle)
-      };
     },
     watchQuery: ['page']
   };

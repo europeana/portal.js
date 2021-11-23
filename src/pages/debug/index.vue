@@ -23,6 +23,8 @@
   import ContentHeader from '../../components/generic/ContentHeader';
 
   export default {
+    name: 'DebugIndexPage',
+
     components: {
       ContentHeader
     },
@@ -34,6 +36,12 @@
       };
     },
 
+    head() {
+      return {
+        title: this.$pageHeadTitle(this.title)
+      };
+    },
+
     watch: {
       settings: {
         deep: true,
@@ -41,12 +49,6 @@
           this.$store.commit('debug/updateSettings', value);
         }
       }
-    },
-
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.title)
-      };
     }
   };
 </script>

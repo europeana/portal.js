@@ -125,6 +125,7 @@
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
 
   export default {
+    name: 'ItemPage',
     components: {
       ItemHero: () => import('@/components/item/ItemHero'),
       AlertMessage: () => import('@/components/generic/AlertMessage'),
@@ -136,13 +137,18 @@
       ItemLanguageSelector: () => import('@/components/item/ItemLanguageSelector')
     },
 
-    fetch() {
-      this.fetchAnnotations();
-      this.fetchRelatedEntities();
-      this.fetchSimilarItems();
+    async beforeRouteUpdate(to, from, next) {
+      if (to.path !== from.path) {
+        // Navigation to another item
+        await this.$store.dispatch('item/reset');
+      }
+      next();
     },
 
-    fetchOnServer: false,
+    async beforeRouteLeave(to, from, next) {
+      await this.$store.dispatch('item/reset');
+      next();
+    },
 
     asyncData({ params, res, route, app, $apis }) {
       return $apis.record
@@ -179,6 +185,28 @@
         useProxy: true,
         schemaOrg: null,
         metadataLanguage: null
+      };
+    },
+
+    fetch() {
+      this.fetchAnnotations();
+      this.fetchRelatedEntities();
+      this.fetchSimilarItems();
+    },
+
+    fetchOnServer: false,
+
+    head() {
+      return {
+        title: this.$pageHeadTitle(this.metaTitle),
+        meta: [
+          { hid: 'title', name: 'title', content: this.metaTitle },
+          { hid: 'description', name: 'description', content: this.metaDescription },
+          { hid: 'og:title', property: 'og:title', content: this.metaTitle },
+          { hid: 'og:description', property: 'og:description', content: this.metaDescription },
+          { hid: 'og:image', property: 'og:image', content: this.pageHeadMetaOgImage },
+          { hid: 'og:type', property: 'og:type', content: 'article' }
+        ]
       };
     },
 
@@ -293,6 +321,8 @@
       }
     },
 
+    watchQuery: ['lang'],
+
     mounted() {
       if (!this.error) {
         this.$matomo && this.$matomo.trackPageView('item page custom dimensions', this.matomoOptions());
@@ -378,34 +408,6 @@
           dimension4: langMapValueForLocale(this.metadata.edmRights, 'en').values[0]
         };
       }
-    },
-
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.metaTitle),
-        meta: [
-          { hid: 'title', name: 'title', content: this.metaTitle },
-          { hid: 'description', name: 'description', content: this.metaDescription },
-          { hid: 'og:title', property: 'og:title', content: this.metaTitle },
-          { hid: 'og:description', property: 'og:description', content: this.metaDescription },
-          { hid: 'og:image', property: 'og:image', content: this.pageHeadMetaOgImage },
-          { hid: 'og:type', property: 'og:type', content: 'article' }
-        ]
-      };
-    },
-
-    watchQuery: ['lang'],
-
-    async beforeRouteUpdate(to, from, next) {
-      if (to.path !== from.path) {
-        // Navigation to another item
-        await this.$store.dispatch('item/reset');
-      }
-      next();
-    },
-    async beforeRouteLeave(to, from, next) {
-      await this.$store.dispatch('item/reset');
-      next();
     }
   };
 </script>

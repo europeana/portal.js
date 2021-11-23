@@ -91,13 +91,13 @@
                     tag="span"
                   >
                     <b-link
-                      :to="this.$path('/rights')"
+                      :to="$path('/rights')"
                       target="_blank"
                     >
                       {{ $t('feedback.termsOfService') }}
                     </b-link>
                     <b-link
-                      :to="this.$path('/rights/privacy-policy')"
+                      :to="$path('/rights/privacy-policy')"
                       target="_blank"
                     >
                       {{ $t('feedback.privacyPolicy') }}

@@ -18,11 +18,23 @@
   import { BASE_URL } from '@/plugins/europeana/data';
 
   export default {
-    layout: 'contentful',
+    name: 'ContentfulImageHarvesterPage',
 
     mixins: [
       contentfulSidebarMixin
     ],
+
+    layout: 'contentful',
+
+    head() {
+      return {
+        title: this.$pageHeadTitle('Image harvester - Contentful app'),
+        bodyAttrs: {
+          class: '',
+          style: 'background: transparent;'
+        }
+      };
+    },
 
     methods: {
       async harvestImage() {
@@ -143,16 +155,6 @@
           }
         });
       }
-    },
-
-    head() {
-      return {
-        title: this.$pageHeadTitle('Image harvester - Contentful app'),
-        bodyAttrs: {
-          class: '',
-          style: 'background: transparent;'
-        }
-      };
     }
   };
 </script>

@@ -44,7 +44,8 @@
   const PER_PAGE = 20;
 
   export default {
-    name: 'BlogFoyer',
+    name: 'BlogIndexPage',
+
     components: {
       ContentHeader,
       ContentCard,
@@ -83,6 +84,14 @@
       };
     },
 
+    head() {
+      return {
+        title: this.$pageHeadTitle(this.$t('blog.blog'))
+      };
+    },
+
+    watchQuery: ['page'],
+
     methods: {
       imageUrl(post) {
         return post.primaryImageOfPage?.image?.url || null;
@@ -93,14 +102,6 @@
       imageAlt(post) {
         return post.primaryImageOfPage?.image?.description || '';
       }
-    },
-
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.$t('blog.blog'))
-      };
-    },
-
-    watchQuery: ['page']
+    }
   };
 </script>

@@ -36,11 +36,31 @@
   import { BASE_URL } from '@/plugins/europeana/data';
 
   export default {
-    layout: 'contentful',
+    name: 'ContentfulEntityHarvesterPage',
 
     mixins: [
       contentfulSidebarMixin
     ],
+
+    layout: 'contentful',
+
+    data() {
+      return {
+        contentfulExtensionSdk: null,
+        entry: null,
+        message: null
+      };
+    },
+
+    head() {
+      return {
+        title: this.$pageHeadTitle('Entity harvester - Contentful app'),
+        bodyAttrs: {
+          class: '',
+          style: 'background: transparent;'
+        }
+      };
+    },
 
     methods: {
       async harvestEntity() {
@@ -149,16 +169,6 @@
 
         return description;
       }
-    },
-
-    head() {
-      return {
-        title: this.$pageHeadTitle('Entity harvester - Contentful app'),
-        bodyAttrs: {
-          class: '',
-          style: 'background: transparent;'
-        }
-      };
     }
   };
 </script>
