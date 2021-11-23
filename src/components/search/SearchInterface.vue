@@ -181,6 +181,13 @@
         default: false
       }
     },
+    data() {
+      return {
+        coreFacetNames: ['collection', 'TYPE', 'COUNTRY', 'REUSABILITY'],
+        fetched: false,
+        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued'
+      };
+    },
     async fetch() {
       this.viewFromRouteQuery();
 
@@ -197,13 +204,6 @@
         throw this.$store.state.search.error;
       }
       this.fetched = true;
-    },
-    data() {
-      return {
-        coreFacetNames: ['collection', 'TYPE', 'COUNTRY', 'REUSABILITY'],
-        fetched: false,
-        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued'
-      };
     },
     computed: {
       ...mapState({
