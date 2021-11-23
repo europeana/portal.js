@@ -31,19 +31,19 @@
       <AddItemToSetModal
         data-qa="add item to set modal"
         :modal-id="addItemToSetModalId"
-        :item-id="value"
+        :item-id="identifier"
         :new-set-created="newSetCreated"
         @clickCreateSet="clickCreateSet"
         @hideModal="refreshSet"
       />
       <SetFormModal
         :modal-id="setFormModalId"
-        :item-context="value"
+        :item-context="identifier"
         @response="setCreatedOrUpdated"
       />
       <PinToEntityModal
         :modal-id="pinModalId"
-        :item-id="value"
+        :item-id="identifier"
         :pinned="pinned"
         data-qa="pin item to entity modal"
       />
@@ -100,7 +100,7 @@
 
     props: {
       // Identifier of the item
-      value: {
+      identifier: {
         type: String,
         required: true
       },
@@ -112,11 +112,11 @@
 
     data() {
       return {
-        addItemToSetModalId: `add-item-to-set-modal-${this.value}`,
-        setFormModalId: `set-form-modal-${this.value}`,
-        likeLimitModalId: `like-limit-modal-${this.value}`,
-        pinModalId: `pin-modal-${this.value}`,
-        pinnedLimitModalId: `pinned-limit-modal-${this.value}`,
+        addItemToSetModalId: `add-item-to-set-modal-${this.identifier}`,
+        setFormModalId: `set-form-modal-${this.identifier}`,
+        likeLimitModalId: `like-limit-modal-${this.identifier}`,
+        pinModalId: `pin-modal-${this.identifier}`,
+        pinnedLimitModalId: `pinned-limit-modal-${this.identifier}`,
         showFormModal: false,
         newSetCreated: false
       };
@@ -124,13 +124,13 @@
 
     computed: {
       liked() {
-        return this.$store.getters['set/isLiked'](this.value);
+        return this.$store.getters['set/isLiked'](this.identifier);
       },
       likesId() {
         return this.$store.state.set.likesId;
       },
       pinned() {
-        return this.$store.getters['entity/isPinned'](this.value);
+        return this.$store.getters['entity/isPinned'](this.identifier);
       }
     },
     created() {
@@ -177,9 +177,9 @@
         }
 
         try {
-          await this.$store.dispatch('set/like', this.value);
-          this.$emit('like', this.value);
-          this.$matomo && this.$matomo.trackEvent('Item_like', 'Click like item button', this.value);
+          await this.$store.dispatch('set/like', this.identifier);
+          this.$emit('like', this.identifier);
+          this.$matomo && this.$matomo.trackEvent('Item_like', 'Click like item button', this.identifier);
         } catch (e) {
           // TODO: remove when 100 item like limit is removed
           if (e.message === '100 likes') {
@@ -190,14 +190,14 @@
         }
       },
       async unlike() {
-        await this.$store.dispatch('set/unlike', this.value);
-        this.$emit('unlike', this.value);
+        await this.$store.dispatch('set/unlike', this.identifier);
+        this.$emit('unlike', this.identifier);
       },
       addToSet() {
         if (this.$auth.loggedIn) {
           this.$bvModal.show(this.addItemToSetModalId);
-          this.$emit('add', this.value);
-          this.$matomo && this.$matomo.trackEvent('Item_add', 'Click add item button', this.value);
+          this.$emit('add', this.identifier);
+          this.$matomo && this.$matomo.trackEvent('Item_add', 'Click add item button', this.identifier);
         } else {
           this.keycloakLogin();
         }

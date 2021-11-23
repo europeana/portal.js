@@ -7,7 +7,7 @@
     data-qa="search facet"
     @hidden="cancelHandler"
   >
-    <template v-slot:button-content>
+    <template #button-content>
       <span :data-qa="`${name} dropdown button`">
         {{ facetName }}
       </span>
