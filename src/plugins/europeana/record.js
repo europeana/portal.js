@@ -288,7 +288,7 @@ export default (context = {}) => {
       if (isIIIFPresentation(media[0])) {
         displayable = [media[0]];
       } else if (media.some(isIIIFImage)) {
-        displayable = media.find(isIIIFImage);
+        displayable = [media.find(isIIIFImage)];
       } else {
         displayable = media;
       }
