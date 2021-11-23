@@ -35,6 +35,9 @@ const factory = () => shallowMountNuxt(SideFacetDropdown, {
   localVue,
   mocks: {
     $fetchState: {},
+    $route: {
+      query: {}
+    },
     $t: (key) => key,
     $tFacetName: (key) => key,
     $store: {
@@ -54,11 +57,11 @@ describe('components/search/SideFacetDropdown', () => {
   });
 
   describe('fetch', () => {
-    context('if dropdown is shown', () => {
+    context('if fields are not static', () => {
       it('fetches facet', async() => {
         const wrapper = factory();
-        await wrapper.setData({
-          shown: true
+        await wrapper.setProps({
+          staticFields: null
         });
 
         await wrapper.vm.fetch();
@@ -68,8 +71,10 @@ describe('components/search/SideFacetDropdown', () => {
 
       it('marks facet as fetched', async() => {
         const wrapper = factory();
+        await wrapper.setProps({
+          staticFields: null
+        });
         await wrapper.setData({
-          shown: true,
           fetched: false
         });
 
@@ -79,32 +84,29 @@ describe('components/search/SideFacetDropdown', () => {
       });
     });
 
-    context('if dropdown is not shown', () => {
+    context('if fields are static', () => {
       it('does not fetch facet', async() => {
         const wrapper = factory();
-        await wrapper.setData({
-          shown: false
+        await wrapper.setProps({
+          name: 'collection',
+          staticFields: []
         });
 
         await wrapper.vm.fetch();
 
-        storeDispatchStub.should.not.have.been.calledWith('search/queryFacets', { facet: 'COUNTRY' });
+        storeDispatchStub.should.not.have.been.calledWith('search/queryFacets', { facet: 'collection' });
       });
 
-      context('and facet name is "contentTier"', () => {
-        it('does not fetch facet', async() => {
-          const wrapper = factory();
-          await wrapper.setProps({
-            name: 'contentTier'
-          });
-          await wrapper.setData({
-            shown: false
-          });
-
-          await wrapper.vm.fetch();
-
-          storeDispatchStub.should.have.been.calledWith('search/queryFacets', { facet: 'contentTier' });
+      it('marks facet as fetched', async() => {
+        const wrapper = factory();
+        await wrapper.setProps({
+          name: 'collection',
+          staticFields: []
         });
+
+        await wrapper.vm.fetch();
+
+        wrapper.vm.fetched.should.be.true;
       });
     });
   });
@@ -113,9 +115,6 @@ describe('components/search/SideFacetDropdown', () => {
     const wrapper = factory();
     await wrapper.setProps({
       selected: ['Spain', 'United Kingdom']
-    });
-    await wrapper.setData({
-      shown: true
     });
     await wrapper.vm.fetch();
 
@@ -139,84 +138,70 @@ describe('components/search/SideFacetDropdown', () => {
     ]);
   });
 
-  describe('apply button', () => {
-    context('when new facet option has been selected', () => {
-      it('is enabled', async() => {
-        const wrapper = factory();
-
-        await wrapper.setData({
-          preSelected: ['Spain', 'United Kingdom']
-        });
-
-        const applyButton = wrapper.find('[data-qa="COUNTRY apply button"]');
-
-        (applyButton.attributes('disabled') === undefined).should.be.true;
-      });
-    });
-
-    context('when no new facet options have been selected', () => {
-      it('is disabled', async() => {
-        const wrapper = factory();
-
-        await wrapper.setData({
-          preSelected: []
-        });
-
-        const applyButton = wrapper.find('[data-qa="COUNTRY apply button"]');
-
-        applyButton.attributes('disabled').should.eq('true');
-      });
-    });
-  });
-
   describe('methods', () => {
-    describe('showDropdown', () => {
-      it('marks dropdown as shown', async() => {
-        const wrapper = factory();
-        wrapper.vm['$fetch'] = sinon.spy();
-
-        wrapper.vm.showDropdown();
-
-        wrapper.vm.shown.should.be.true;
-      });
-
-      context('when facet is not fetched', () => {
+    describe('updateRouteQueryReusability', () => {
+      context('when this is not the reusability facet', () => {
         it('triggers fetch', async() => {
           const wrapper = factory();
-          wrapper.vm['$fetch'] = sinon.spy();
-          await wrapper.setData({
-            fetched: false
+          wrapper.vm.$fetch = sinon.spy();
+          await wrapper.setProps({
+            name: 'TYPE'
           });
 
-          wrapper.vm.showDropdown();
+          wrapper.vm.updateRouteQueryReusability();
 
-          wrapper.vm['$fetch'].should.have.been.called;
+          wrapper.vm.$fetch.should.have.been.called;
         });
       });
 
-      context('when facet is already fetched', () => {
+      context('when this is the reusability facet', () => {
         it('does not trigger fetch', async() => {
           const wrapper = factory();
-          wrapper.vm['$fetch'] = sinon.spy();
-          await wrapper.setData({
-            fetched: true
+          wrapper.vm.$fetch = sinon.spy();
+          await wrapper.setProps({
+            name: 'REUSABILITY'
           });
 
-          wrapper.vm.showDropdown();
+          wrapper.vm.updateRouteQueryReusability();
 
-          wrapper.vm['$fetch'].should.not.have.been.called;
+          wrapper.vm.$fetch.should.not.have.been.called;
         });
       });
     });
 
-    describe('applySelection', () => {
-      it('emits `updated` event', async() => {
-        const wrapper = factory();
+    describe('updateRouteQueryQf', () => {
+      context('when qf changed for other facets', () => {
+        it('triggers fetch', async() => {
+          const wrapper = factory();
+          wrapper.vm.$fetch = sinon.spy();
+          await wrapper.setProps({
+            name: 'TYPE'
+          });
 
-        wrapper.vm.$refs.dropdown.hide = sinon.spy();
+          const oldQf = ['TYPE:"IMAGE"'];
+          const newQf = ['TYPE:"IMAGE"', 'COUNTRY:"France"'];
 
-        wrapper.vm.applySelection();
-        wrapper.emitted()['changed'].length.should.equal(1);
+          wrapper.vm.updateRouteQueryQf(newQf, oldQf);
+
+          wrapper.vm.$fetch.should.have.been.called;
+        });
+      });
+
+      context('when qf changed only for this facet', () => {
+        it('does not trigger fetch', async() => {
+          const wrapper = factory();
+          wrapper.vm.$fetch = sinon.spy();
+          await wrapper.setProps({
+            name: 'TYPE'
+          });
+
+          const oldQf = ['TYPE:"IMAGE"'];
+          const newQf = ['TYPE:"IMAGE"', 'TYPE:"TEXT"'];
+
+          wrapper.vm.updateRouteQueryQf(newQf, oldQf);
+
+          wrapper.vm.$fetch.should.not.have.been.called;
+        });
       });
     });
   });

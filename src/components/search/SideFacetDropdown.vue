@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="!fetched || fields.length > 0">
     <label
       class="facet-label"
     >{{ facetName }}</label>
@@ -11,7 +11,6 @@
       :data-type="type"
       data-qa="search facet"
       @hidden="hiddenDropdown"
-      @show="showDropdown"
     >
       <template v-slot:button-content>
         <span
@@ -53,6 +52,7 @@
               :value="option"
               :name="name"
               :data-qa="`${option} ${name} ${RADIO}`"
+              @input="$emit('changed', name, preSelected)"
             >
               <FacetFieldLabel
                 :facet-name="name"
@@ -67,6 +67,7 @@
               :value="option.label"
               :name="name"
               :data-qa="`${option.label} ${name} ${CHECKBOX}`"
+              @input="$emit('changed', name, preSelected)"
             >
               <FacetFieldLabel
                 :facet-name="name"
@@ -77,26 +78,12 @@
           </template>
         </div>
       </b-dropdown-form>
-
-      <li
-        class="dropdown-buttons mt-3"
-      >
-        <b-button
-          variant="primary"
-          :disabled="disableApplyButton"
-          :data-qa="`${name} apply button`"
-          @click.stop="applySelection"
-        >
-          {{ $t('facets.button.apply') }}
-        </b-button>
-      </li>
     </b-dropdown>
   </div>
 </template>
 
 <script>
-  import isEqual from 'lodash/isEqual';
-
+  import xor from 'lodash/xor';
   import FacetFieldLabel from './FacetFieldLabel';
 
   export default {
@@ -128,31 +115,26 @@
       }
     },
 
-    async fetch() {
+    fetch() {
       // Static fields need no fetching
       if (this.staticFields) {
         this.fields = this.staticFields;
         this.fetched = true;
-        return;
+        return Promise.resolve();
       }
 
-      // Always fetch the contentTier facet, which the toast advising of the
-      // filtering of low-tier items needs
-      if (this.shown || (this.name === 'contentTier')) {
-        const facets = await this.$store.dispatch('search/queryFacets', { facet: this.name });
-        this.fields = (facets || [])[0]?.fields || [];
-        this.fetched = true;
-      }
+      return this.$store.dispatch('search/queryFacets', { facet: this.name })
+        .then((facets) => {
+          this.fields = (facets || [])[0]?.fields || [];
+          this.fetched = true;
+        });
     },
-
-    fetchOnServer: false,
 
     data() {
       return {
         RADIO: 'radio',
         CHECKBOX: 'checkbox',
         preSelected: null,
-        shown: false,
         fetched: false,
         fields: [],
         nada: null
@@ -186,13 +168,6 @@
         return this.type === this.RADIO;
       },
 
-      disableApplyButton() {
-        if (this.isRadio && Array.isArray(this.selected)) {
-          return isEqual(this.preSelected, this.selected[0]);
-        }
-        return isEqual(this.preSelected, this.selected);
-      },
-
       dropdownVariant() {
         return ((typeof this.selected === 'string') || (Array.isArray(this.selected) && this.selected.length > 0)) ? 'selected' : 'light';
       }
@@ -204,12 +179,11 @@
         // facets properties are updated correctly
         this.init();
       },
-      '$route.query.api': 'resetFetched',
-      '$route.query.reusability': 'resetFetched',
-      '$route.query.query': 'resetFetched',
-      // TODO: prevent refetching when qf was changed for this same facet
-      '$route.query.qf': 'resetFetched',
-      '$route.query.page': 'resetFetched'
+      // TODO: why are we watching API in route query? is it ever used?
+      '$route.query.api': '$fetch',
+      '$route.query.reusability': 'updateRouteQueryReusability',
+      '$route.query.query': '$fetch',
+      '$route.query.qf': 'updateRouteQueryQf'
     },
 
     mounted() {
@@ -217,12 +191,25 @@
     },
 
     methods: {
-      resetFetched() {
-        if (!this.staticFields) {
-          this.fetched = false;
+      // Refetch facet fields, unless this is the reusability facet
+      updateRouteQueryReusability() {
+        if (this.name !== 'REUSABILITY') {
+          this.$fetch();
         }
       },
+      // Refetch facet fields, but only if other qf query values have changed
+      updateRouteQueryQf(newQf, oldQf) {
+        const qfDiff = xor(newQf, oldQf);
+        if (qfDiff.length === 0) {
+          return;
+        }
 
+        const onlyThisFacetChanged = qfDiff.every(qf => qf.startsWith(`${this.name}:`));
+
+        if (!onlyThisFacetChanged) {
+          this.$fetch();
+        }
+      },
       init() {
         if (this.isRadio && Array.isArray(this.selected)) {
           this.preSelected = this.selected[0];
@@ -236,21 +223,8 @@
         });
       },
 
-      showDropdown() {
-        this.shown = true;
-        if (!this.fetched) {
-          this.$fetch();
-        }
-      },
-
       hiddenDropdown() {
-        this.shown = false;
         this.init();
-      },
-
-      async applySelection() {
-        await this.$emit('changed', this.name, this.preSelected);
-        this.$refs.dropdown.hide(true);
       }
     }
   };
