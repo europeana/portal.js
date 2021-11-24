@@ -25,12 +25,12 @@
 .side-facet {
   font-size: $font-size-extrasmall;
   legend {
-  font-size: $font-size-extrasmall;
-  text-transform: uppercase;
-  color: $mediumgrey;
-  margin-bottom: 0.25rem;
+    font-size: $font-size-extrasmall;
+    text-transform: uppercase;
+    color: $mediumgrey;
+    margin-bottom: 0.25rem;
   }
-  input[type="date"] {
+  input[type='date'] {
     font-size: $font-size-extrasmall;
   }
   label span {
