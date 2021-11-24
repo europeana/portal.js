@@ -7,6 +7,9 @@ on:
     tags:
       - 'v*'
 
+env:
+  DOCKER_REPOSITORY: europeana/portal.js
+
 jobs:
   app:
     runs-on: ubuntu-latest
@@ -19,7 +22,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: europeana/portal.js
+          images: ${{ env.DOCKER_REPOSITORY }}
           tags: |
             type=ref,event=branch
             type=ref,event=tag
@@ -31,6 +34,10 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
+        name: Pull from DockerHub
+        run: |
+          docker pull ${DOCKER_REPOSITORY}:master
+      -
         name: Build and push to DockerHub
         id: build-push
         uses: docker/build-push-action@v2
@@ -39,28 +46,28 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-      -
-        name: Publish to NPM
-        if: startsWith( github.event.ref, 'refs/tags/v' )
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
-        run: |
-          docker run \
-            --rm \
-            --env NODE_AUTH_TOKEN=${NODE_AUTH_TOKEN} \
-            --mount type=bind,source=$(pwd)/.github/workflows/support/docker-images/.npmrc,target=/root/.npmrc \
-            --entrypoint npm ${{ steps.build-push.outputs.digest }} \
-            publish --access public
-      -
-        name: Warm up jsDelivr
-        if: startsWith( github.event.ref, 'refs/tags/v' )
-        run: |
-          # Give jsdelivr time to fetch the new version
-          sleep 30
-          docker run \
-            --rm \
-            --mount type=bind,source=$(pwd)/.github/workflows/support/docker-images/warm-up-jsdelivr.sh,target=/root/warm-up-jsdelivr.sh \
-            --entrypoint /root/warm-up-jsdelivr.sh ${{ steps.build-push.outputs.digest }}
+      # -
+      #   name: Publish to NPM
+      #   if: startsWith( github.event.ref, 'refs/tags/v' )
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+      #   run: |
+      #     docker run \
+      #       --rm \
+      #       --env NODE_AUTH_TOKEN=${NODE_AUTH_TOKEN} \
+      #       --mount type=bind,source=$(pwd)/.github/workflows/support/docker-images/.npmrc,target=/root/.npmrc \
+      #       --entrypoint npm ${{ steps.build-push.outputs.digest }} \
+      #       publish --access public
+      # -
+      #   name: Warm up jsDelivr
+      #   if: startsWith( github.event.ref, 'refs/tags/v' )
+      #   run: |
+      #     # Give jsdelivr time to fetch the new version
+      #     sleep 30
+      #     docker run \
+      #       --rm \
+      #       --mount type=bind,source=$(pwd)/.github/workflows/support/docker-images/warm-up-jsdelivr.sh,target=/root/warm-up-jsdelivr.sh \
+      #       --entrypoint /root/warm-up-jsdelivr.sh ${{ steps.build-push.outputs.digest }}
 
   deploy:
     runs-on: ubuntu-latest
@@ -68,7 +75,7 @@ jobs:
     steps:
       -
         name: Set Docker image tag env
-        run: echo "DOCKER_IMAGE_TAG=europeana/portal.js:$(echo ${{ github.event.ref }} | sed -r 's#^refs/(heads/|tags/v)##')" >> $GITHUB_ENV
+        run: echo "DOCKER_IMAGE_TAG=${DOCKER_REPOSITORY}:$(echo ${{ github.event.ref }} | sed -r 's#^refs/(heads/|tags/v)##')" >> $GITHUB_ENV
       -
         run: echo ${DOCKER_IMAGE_TAG}
       -
