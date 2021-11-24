@@ -7,6 +7,7 @@
       <b-checkbox
         v-model="form.specific"
         class="unstyled mb-2"
+        data-qa="specific checkbox"
       >
         <span>{{ $t('dateFilter.specificDate') }}</span>
       </b-checkbox>
