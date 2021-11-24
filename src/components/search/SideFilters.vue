@@ -212,6 +212,7 @@
     overflow: auto;
     padding-top: 1rem;
     transition: right 300ms ease-in-out;
+    z-index: 1;
     &.open {
       right: 0;
       transition: right 300ms ease-in-out;

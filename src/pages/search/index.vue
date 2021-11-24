@@ -11,7 +11,12 @@
       data-qa="search page"
       :class="{'page-container': sideFiltersEnabled}"
     >
-      <b-row>
+      <b-row
+        class="flex-row-reverse"
+      >
+        <SideFilters
+          v-if="sideFiltersEnabled"
+        />
         <b-col
           :class="{'px-0': !sideFiltersEnabled}"
         >
@@ -44,9 +49,6 @@
             :per-row="4"
           />
         </b-col>
-        <SideFilters
-          v-if="sideFiltersEnabled"
-        />
       </b-row>
     </b-container>
   </div>
