@@ -34,10 +34,6 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
-        name: Pull from DockerHub
-        run: |
-          docker pull ${DOCKER_REPOSITORY}:master
-      -
         name: Build and push to DockerHub
         id: build-push
         uses: docker/build-push-action@v2
@@ -79,10 +75,12 @@ jobs:
       -
         run: echo ${DOCKER_IMAGE_TAG}
       -
+        run: kubectl help
+      -
         name: Install ibmcloud CLI
         run: |
           curl -fsSL https://clis.cloud.ibm.com/install/linux | sh
-          ibmcloud help
+          ibmcloud plugin install container-service
 
   nginx:
     runs-on: ubuntu-latest
