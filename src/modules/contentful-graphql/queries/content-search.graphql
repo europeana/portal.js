@@ -17,6 +17,15 @@ query ContentSearch(
       __typename
       identifier
       name
+      description
+      primaryImageOfPage {
+        image {
+         ...imageWithAttributionFields
+        }
+      }
+      image {
+       ...imageFields
+      }
     }
   }
   staticPageCollection(
@@ -31,6 +40,10 @@ query ContentSearch(
       __typename
       identifier
       name
+      description
+      primaryImageOfPage {
+        ...imageWithAttributionFields
+      }
     }
   }
   exhibitionPageCollection(
@@ -45,6 +58,10 @@ query ContentSearch(
       __typename
       identifier
       name
+      description
+      primaryImageOfPage {
+        ...imageWithAttributionFields
+      }
     }
   }
   blogPostingCollection(
@@ -59,6 +76,22 @@ query ContentSearch(
       __typename
       identifier
       name
+      description
+      primaryImageOfPage {
+        ...imageWithAttributionFields
+      }
     }
+  }
+}
+fragment imageFields on Asset {
+  url
+  contentType
+  description
+  width
+  height
+}
+fragment imageWithAttributionFields on ImageWithAttribution {
+  image {
+    ...imageFields
   }
 }

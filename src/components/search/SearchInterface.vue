@@ -31,6 +31,10 @@
           :key="result.identifier"
           :title="result.name"
           :url="result.url"
+          :description="result.description"
+          :image-url="result.imageUrl"
+          :image-content-type="result.imageContentType"
+          :image-optimisation-options="{ width: 510 }"
           variant="mini"
         />
       </b-card-group>
@@ -225,7 +229,9 @@
         .then(response => {
           const results = flatten(Object.values(response.data.data).map(collection => collection.items)).slice(0, 4);
           for (const result of results) {
-            let prefix;
+            let prefix = '/';
+            let image = result.primaryImageOfPage?.image;
+
             switch (result['__typename']) {
             case 'BlogPosting':
               prefix = '/blog/';
@@ -233,11 +239,16 @@
             case 'ExhibitionPage':
               prefix = '/exhibitions/';
               break;
-            default:
-              prefix = '/';
+            case 'StaticPage':
+              break;
+            case 'BrowsePage':
+              image = image?.image || result?.image;
               break;
             }
+
             result.url = `${prefix}${result.identifier}`;
+            result.imageUrl = image?.url;
+            result.imageContentType = image?.contentType;
           }
           this.contentfulResults = results;
         });
