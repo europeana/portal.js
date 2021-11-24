@@ -516,21 +516,21 @@
   @media (min-width: $bp-medium) {
     .card-deck-3-cols, .card-deck-4-cols {
       .card {
-      flex: 0 0 calc(100% / 2 - #{$grid-gutter*2});
+        flex: 0 0 calc(100% / 2 - #{$grid-gutter*2});
       }
     }
-  } 
+  }
   @media (min-width: $bp-large) {
     .card-deck-3-cols, .card-deck-4-cols {
       .card {
-      flex: 0 0 calc(100% / 3 - #{$grid-gutter*2});
+        flex: 0 0 calc(100% / 3 - #{$grid-gutter*2});
       }
     }
   }
   @media (min-width: $bp-extralarge) {
     .card-deck-3-cols, .card-deck-4-cols {
       .card {
-      flex: 0 0 calc(100% / 4 - #{$grid-gutter*2});
+        flex: 0 0 calc(100% / 4 - #{$grid-gutter*2});
       }
     }
   }

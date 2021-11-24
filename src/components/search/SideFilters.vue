@@ -196,41 +196,63 @@
 }
 .col-filters {
   @media (max-width: $bp-large - 1px) {
+    display: flex;
     position: fixed;
-    width: 320px;
-    max-width: 75vw;
     right: -100%;
     top: 3.5rem;
     bottom: 0;
-    overflow: auto;
     padding-top: 1rem;
-    transition: right 300ms ease-in-out;
-    z-index: 2;
+    z-index: 3;
+    max-width: none;
+    overflow: auto;
+    .side-filters {
+      flex-shrink: 0;
+      margin-right: -320px;
+      overflow: auto;
+      width: 320px;
+      max-width: 75vw;
+      transition: margin-right 300ms ease-in-out;
+    }
     &.open {
       right: 0;
+      left: 0;
       transition: right 300ms ease-in-out;
+      .side-filters {
+        margin-right: 0;
+        transition: margin-right 300ms ease-in-out;
+      }
+      &::before {
+        content: '';
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+      }
     }
+
   }
   @media (min-width: $bp-large) {
     max-width: 320px;
     min-width: 220px;
     min-height: 31rem;
+    &::after {
+      border-top: 145px solid $white;
+      border-left: 60px solid transparent;
+      content: '';
+      display: block;
+      height: 0;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      width: 0;
+      z-index: 1;
+    }
   }
   flex-grow: 0;
   padding: 0;
-  background-color: $white;
   margin-top: -1rem;
-  &::after {
-    border-top: 145px solid $white;
-    border-left: 60px solid transparent;
-    content: '';
-    display: block;
-    height: 0;
-    position: absolute;
-    right: 0;
-    top: 100%;
-    width: 0;
-    z-index: 1;
+  .side-filters {
+    background-color: $white;
+    height: 100%;
   }
 }
 </style>
