@@ -1,8 +1,12 @@
 <template>
   <b-col
     class="col-filters col-3"
-    :class="{ open: showFiltersSheet }"
+    :class="{ open: showFiltersSheet, hide: hideFilterSheet }"
   >
+    <div
+      class="filters-backdrop"
+      @click="toggleFilterSheet"
+    />
     <b-container
       class="side-filters"
     >
@@ -20,6 +24,12 @@
         >
           {{ $t('reset') }}
         </button>
+        <b-button
+          data-qa="close filters button"
+          class="close"
+          :aria-label="$t('header.closeSidebar')"
+          @click="toggleFilterSheet"
+        />
       </b-row>
       <b-row class="mb-3 mt-4">
         <b-col
@@ -70,7 +80,8 @@
     },
     data() {
       return {
-        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued'
+        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued',
+        hideFilterSheet: true
       };
     },
     computed: {
@@ -112,6 +123,15 @@
 
         // This is a workaround
         return Number(this.$route.query.page || 1);
+      }
+    },
+    watch: {
+      showFiltersSheet(newVal) {
+        if (newVal) {
+          this.hideFilterSheet = false;
+        } else {
+          setTimeout(() => this.hideFilterSheet = true, 300);
+        }
       }
     },
     created() {
@@ -180,13 +200,17 @@
       },
       isFilteredByDropdowns() {
         return this.$store.getters['search/hasResettableFilters'];
+      },
+      toggleFilterSheet() {
+        this.$store.commit('search/setShowFiltersSheet', !this.$store.state.search.showFiltersSheet);
       }
     }
   };
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/variables.scss';
+  @import '@/assets/scss/variables.scss';
+  @import '@/assets/scss/icons.scss';
 
 .filters-title {
   font-size: $font-size-small;
@@ -198,11 +222,11 @@
   @media (max-width: $bp-large - 1px) {
     display: flex;
     position: fixed;
-    right: -100%;
-    top: 3.5rem;
+    right: 0;
+    top: 0;
     bottom: 0;
     padding-top: 1rem;
-    z-index: 3;
+    z-index: 1040;
     max-width: none;
     overflow: auto;
     .side-filters {
@@ -213,15 +237,16 @@
       max-width: 75vw;
       transition: margin-right 300ms ease-in-out;
     }
+    &.hide {
+      display: none;
+    }
     &.open {
-      right: 0;
       left: 0;
-      transition: right 300ms ease-in-out;
       .side-filters {
         margin-right: 0;
         transition: margin-right 300ms ease-in-out;
       }
-      &::before {
+      .filters-backdrop {
         content: '';
         width: 100%;
         height: 100%;
@@ -246,6 +271,9 @@
       width: 0;
       z-index: 1;
     }
+    .filters-backdrop {
+      display: none;
+    }
   }
   flex-grow: 0;
   padding: 0;
@@ -253,6 +281,30 @@
   .side-filters {
     background-color: $white;
     height: 100%;
+  }
+  .btn.close {
+    background: none;
+    border-radius: 0;
+    border: 0;
+    box-shadow: none;
+    color: $black;
+    font-size: 1rem;
+    padding: 0 15px;
+    opacity: 1;
+    height: 3.5rem;
+    transition: $standard-transition;
+    &:before {
+      @extend .icon-font;
+      display: inline-block;
+      font-size: 1.1rem;
+      content: '\e931';
+      font-weight: 400;
+      font-size: 1.5rem;
+    }
+    &:hover {
+      color: $blue;
+      transition: $standard-transition;
+    }
   }
 }
 </style>
