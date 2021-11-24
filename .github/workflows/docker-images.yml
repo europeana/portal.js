@@ -69,6 +69,7 @@ jobs:
       -
         name: Set Docker image tag env
         run: echo "DOCKER_IMAGE_TAG=europeana/portal.js:$(echo ${{ github.event.ref }} | sed -r 's#^refs/(heads/|tags/v)##')" >> $GITHUB_ENV
+      -
         run: echo ${DOCKER_IMAGE_TAG}
       -
         name: Install ibmcloud CLI
