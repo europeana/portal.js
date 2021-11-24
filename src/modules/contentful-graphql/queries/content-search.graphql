@@ -1,0 +1,64 @@
+query ContentSearch(
+  $locale: String!,
+  $query: String!,
+  $preview: Boolean = false,
+  $limit: Int = 5,
+  $skip: Int = 0
+) {
+  browsePageCollection(
+    preview: $preview,
+    locale: $locale,
+    limit: $limit,
+    skip: $skip,
+  	where: { name_contains: $query }
+  ) {
+    total
+    items {
+      __typename
+      identifier
+      name
+    }
+  }
+  staticPageCollection(
+    preview: $preview,
+    locale: $locale,
+    limit: $limit,
+    skip: $skip,
+  	where: { name_contains: $query }
+  ) {
+    total
+    items {
+      __typename
+      identifier
+      name
+    }
+  }
+  exhibitionPageCollection(
+    preview: $preview,
+    locale: $locale,
+    limit: $limit,
+    skip: $skip,
+  	where: { name_contains: $query }
+  ) {
+    total
+    items {
+      __typename
+      identifier
+      name
+    }
+  }
+  blogPostingCollection(
+    preview: $preview,
+    locale: $locale,
+    limit: $limit,
+    skip: $skip,
+  	where: { name_contains: $query }
+  ) {
+    total
+    items {
+      __typename
+      identifier
+      name
+    }
+  }
+}

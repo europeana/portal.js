@@ -16,6 +16,25 @@
     </b-row>
   </b-container>
   <b-container v-else>
+    <template
+      v-if="contentfulResults && contentfulResults.length > 0"
+    >
+      <h2 class="related-heading text-uppercase mt-4 mb-2">
+        Editorial content you may like
+      </h2>
+      <b-card-group
+        class="card-deck-4-cols"
+        deck
+      >
+        <ContentCard
+          v-for="result in contentfulResults"
+          :key="result.identifier"
+          :title="result.name"
+          :url="result.url"
+          variant="mini"
+        />
+      </b-card-group>
+    </template>
     <b-row
       v-if="!sideFiltersEnabled"
       class="mb-3"
@@ -139,7 +158,9 @@
   import ItemPreviewCardGroup from '../item/ItemPreviewCardGroup'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
   import InfoMessage from '../generic/InfoMessage';
   import ViewToggles from './ViewToggles';
+  import ContentCard from '../generic/ContentCard';
 
+  import flatten from 'lodash/flatten';
   import isEqual from 'lodash/isEqual';
   import pickBy from 'lodash/pickBy';
   import { mapState, mapGetters } from 'vuex';
@@ -152,6 +173,7 @@
     components: {
       AlertMessage: () => import('../../components/generic/AlertMessage'),
       ClientOnly,
+      ContentCard,
       FacetDropdown: () => import('../../components/search/FacetDropdown'),
       InfoMessage,
       ItemPreviewCardGroup,
@@ -183,6 +205,7 @@
     },
     data() {
       return {
+        contentfulResults: null,
         coreFacetNames: ['collection', 'TYPE', 'COUNTRY', 'REUSABILITY'],
         fetched: false,
         PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued'
@@ -190,6 +213,34 @@
     },
     async fetch() {
       this.viewFromRouteQuery();
+
+      // Contentful content search
+      const variables = {
+        locale: this.$i18n.isoLocale(),
+        preview: this.$route.query.mode === 'preview',
+        query: this.$route.query.query
+      };
+
+      this.$contentful.query('contentSearch', variables)
+        .then(response => {
+          const results = flatten(Object.values(response.data.data).map(collection => collection.items)).slice(0, 4);
+          for (const result of results) {
+            let prefix;
+            switch (result['__typename']) {
+            case 'BlogPosting':
+              prefix = '/blog/';
+              break;
+            case 'ExhibitionPage':
+              prefix = '/exhibitions/';
+              break;
+            default:
+              prefix = '/';
+              break;
+            }
+            result.url = `${prefix}${result.identifier}`;
+          }
+          this.contentfulResults = results;
+        });
 
       this.$store.dispatch('search/activate');
       this.$store.commit('search/set', ['userParams', this.$route.query]);
