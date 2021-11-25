@@ -74,35 +74,73 @@ jobs:
   #     run: npm install
   #   - run: npm run test:unit
 
-  docker:
-    runs-on: ubuntu-latest
-    steps:
-      -
-        name: Checkout
-        uses: actions/checkout@v2
-      -
-        name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v3
-        with:
-          images: ${{ env.DOCKER_REPOSITORY }}
-          tags: |
-            type=ref,event=pr
-      -
-        name: Login to DockerHub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      -
-        name: Build and push to DockerHub
-        id: build-push
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+  # docker:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     -
+  #       name: Checkout
+  #       uses: actions/checkout@v2
+  #     -
+  #       name: Docker meta
+  #       id: meta
+  #       uses: docker/metadata-action@v3
+  #       with:
+  #         images: ${{ env.DOCKER_REPOSITORY }}
+  #         tags: |
+  #           type=ref,event=pr
+  #     -
+  #       name: Login to DockerHub
+  #       uses: docker/login-action@v1
+  #       with:
+  #         username: ${{ secrets.DOCKERHUB_USERNAME }}
+  #         password: ${{ secrets.DOCKERHUB_TOKEN }}
+  #     -
+  #       name: Build and push to DockerHub
+  #       id: build-push
+  #       uses: docker/build-push-action@v2
+  #       with:
+  #         context: .
+  #         push: true
+  #         tags: ${{ steps.meta.outputs.tags }}
+  #         labels: ${{ steps.meta.outputs.labels }}
+
+    deploy:
+      runs-on: ubuntu-latest
+      # needs: [docker]
+      env:
+        IBMCLOUD_API_URL: https://cloud.ibm.com
+        IBMCLOUD_API_KEY: ${{ secrets.IBMCLOUD_API_KEY }}
+        IBMCLOUD_CLUSTER_NAME: europeana-web
+        IBMCLOUD_REGION: eu-de
+      steps:
+        -
+          name: Setup env
+          run: |
+            echo "PULL_REQUEST_NUMBER=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
+            echo "DOCKER_IMAGE_TAG=${DOCKER_REPOSITORY}:pr-${PULL_REQUEST_NUMBER}" >> $GITHUB_ENV
+            echo "K8S_RESOURCE_NAME=portaljs-pr-${PULL_REQUEST_NUMBER}" >> $GITHUB_ENV
+        -
+          name: Create K8s resource manifests
+          run: |
+            envsubst < .github/workflows/support/ci/deploy/deployment.yml > deployment.yml
+            envsubst < .github/workflows/support/ci/deploy/service.yml > service.yml
+            envsubst < .github/workflows/support/ci/deploy/ingress.yml > ingress.yml
+        -
+          name: Install ibmcloud CLI
+          run: |
+            curl -fsSL https://clis.cloud.ibm.com/install/linux | sh
+            ibmcloud plugin install container-service
+        -
+          name: Login to IBM Cloud
+          run: |
+            ibmcloud login -a ${IBMCLOUD_API_URL} -r ${IBMCLOUD_REGION} --apikey ${IBMCLOUD_API_KEY}
+            ibmcloud ks cluster config --cluster ${IBMCLOUD_CLUSTER_NAME}
+        -
+          name: Deploy to IBM Cloud K8s
+          run: |
+            kubectl apply -f deployment.yml
+            kubectl apply -f service.yml
+            kubectl apply -f ingress.yml
 
   # build:
   #   if: github.event.pull_request.draft == false

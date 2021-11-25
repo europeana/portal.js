@@ -79,10 +79,6 @@ jobs:
         name: Set Docker image tag env
         run: echo "DOCKER_IMAGE_TAG=${DOCKER_REPOSITORY}:$(echo ${{ github.event.ref }} | sed -r 's#^refs/(heads/|tags/v)##')" >> $GITHUB_ENV
       -
-        run: echo ${DOCKER_IMAGE_TAG}
-      -
-        run: kubectl help
-      -
         name: Install ibmcloud CLI
         run: |
           curl -fsSL https://clis.cloud.ibm.com/install/linux | sh
