@@ -349,7 +349,6 @@
     &:before {
       @extend .icon-font;
       display: inline-block;
-      font-size: 1.1rem;
       content: '\e931';
       font-weight: 400;
       font-size: 1.5rem;
