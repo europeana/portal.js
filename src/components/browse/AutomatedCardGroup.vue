@@ -43,6 +43,23 @@
       }
     },
 
+    fetch() {
+      if (process.server) {
+        return import('@/server-middleware/api/cache/index.js')
+          .then(module => {
+            return module.cached(this.type, this.$config)
+              .then(entries => {
+                this.entries = entries;
+              });
+        });
+      } else {
+        return this.$axios.get(`/_api/cache/${this.type}`)
+          .then(response => {
+            this.entries = response.data;
+          });
+      }
+    },
+
     data() {
       const data = {
         entries: []
@@ -70,23 +87,6 @@
       }
 
       return data;
-    },
-
-    fetch() {
-      if (process.server) {
-        return import('@/server-middleware/api/cache/index.js')
-          .then(module => {
-            return module.cached(this.type, this.$config)
-              .then(entries => {
-                this.entries = entries;
-              });
-          });
-      } else {
-        return this.$axios.get(`/_api/cache/${this.type}`)
-          .then(response => {
-            this.entries = response.data;
-          });
-      }
     },
 
     computed: {
