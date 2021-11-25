@@ -2,6 +2,8 @@ name: CI
 
 on:
   pull_request:
+    branches:
+      - 'master'
     types: [opened, synchronize, reopened, ready_for_review, converted_to_draft]
     paths-ignore:
     - '**.md'
@@ -21,6 +23,7 @@ env:
   CTF_ENVIRONMENT_ID: test
   CTF_GRAPHQL_ORIGIN: https://portaljs-api-proxy-cache-test.eanadev.org
   CTF_SPACE_ID: ${{ secrets.CTF_SPACE_ID }}
+  DOCKER_REPOSITORY: europeana/portal.js
   ELASTIC_APM_SERVER_URL: https://apm.eanadev.org:8200
   EUROPEANA_API_KEY: ${{ secrets.EUROPEANA_API_KEY }}
   EUROPEANA_RECORD_API_KEY: ${{ secrets.EUROPEANA_RECORD_API_KEY }}
@@ -31,165 +34,195 @@ env:
   REDIS_TLS_CA: ${{ secrets.REDIS_TLS_CA }}
 
 jobs:
-  config:
-    if: github.event.pull_request.draft == false
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - run: echo "PULL_REQUEST_NUMBER=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
-    - run: echo "CF_APP_NAME=${CF_APP_NAME_PREFIX}-${PULL_REQUEST_NUMBER}" >> $GITHUB_ENV
-    - run: echo "CF_APP_FQDN=${CF_APP_NAME}.${CF_DOMAIN}" >> $GITHUB_ENV
-    - id: done
-      name: Output generated env vars
-      run: |
-        echo "::set-output name=pull-request-number::${PULL_REQUEST_NUMBER}"
-        echo "::set-output name=cf-space::${CF_SPACE}"
-        echo "::set-output name=cf-app-name::${CF_APP_NAME}"
-        echo "::set-output name=cf-app-fqdn::${CF_APP_FQDN}"
-    outputs:
-      pull-request-number: ${{ steps.done.outputs.pull-request-number }}
-      cf-app-name: ${{ steps.done.outputs.cf-app-name }}
-      cf-app-fqdn: ${{ steps.done.outputs.cf-app-fqdn }}
-      cf-space:  ${{ steps.done.outputs.cf-space }}
+  # config:
+  #   if: github.event.pull_request.draft == false
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - run: echo "PULL_REQUEST_NUMBER=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
+  #   - run: echo "CF_APP_NAME=${CF_APP_NAME_PREFIX}-${PULL_REQUEST_NUMBER}" >> $GITHUB_ENV
+  #   - run: echo "CF_APP_FQDN=${CF_APP_NAME}.${CF_DOMAIN}" >> $GITHUB_ENV
+  #   - id: done
+  #     name: Output generated env vars
+  #     run: |
+  #       echo "::set-output name=pull-request-number::${PULL_REQUEST_NUMBER}"
+  #       echo "::set-output name=cf-space::${CF_SPACE}"
+  #       echo "::set-output name=cf-app-name::${CF_APP_NAME}"
+  #       echo "::set-output name=cf-app-fqdn::${CF_APP_FQDN}"
+  #   outputs:
+  #     pull-request-number: ${{ steps.done.outputs.pull-request-number }}
+  #     cf-app-name: ${{ steps.done.outputs.cf-app-name }}
+  #     cf-app-fqdn: ${{ steps.done.outputs.cf-app-fqdn }}
+  #     cf-space:  ${{ steps.done.outputs.cf-space }}
 
-  test-unit:
-    if: github.event.pull_request.draft == false
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: 14.x
-    - uses: actions/cache@v2
-      id: cache-node
-      with:
-        path: |
-          ~/.npm
-          **/node_modules
-        key: ${{ runner.os }}-node-${{ hashFiles('./package-lock.json') }}
-    - if: steps.cache-node.outputs.cache-hit != 'true'
-      run: npm install
-    - run: npm run test:unit
+  # test-unit:
+  #   if: github.event.pull_request.draft == false
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - uses: actions/setup-node@v1
+  #     with:
+  #       node-version: 14.x
+  #   - uses: actions/cache@v2
+  #     id: cache-node
+  #     with:
+  #       path: |
+  #         ~/.npm
+  #         **/node_modules
+  #       key: ${{ runner.os }}-node-${{ hashFiles('./package-lock.json') }}
+  #   - if: steps.cache-node.outputs.cache-hit != 'true'
+  #     run: npm install
+  #   - run: npm run test:unit
 
-  build:
-    if: github.event.pull_request.draft == false
-    needs: [test-unit]
+  docker:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: 14.x
-    - uses: actions/cache@v2
-      id: cache-node
-      with:
-        path: |
-          ~/.npm
-          **/node_modules
-        key: ${{ runner.os }}-node-${{ hashFiles('./package-lock.json') }}
-    - if: steps.cache-node.outputs.cache-hit != 'true'
-      run: npm install
-    - run: npm run build
-    - uses: actions/upload-artifact@v2
-      with:
-        name: .nuxt
-        path: .nuxt/
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: ${{ env.DOCKER_REPOSITORY }}
+          tags: |
+            type=ref,event=pr
+      -
+        name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Build and push to DockerHub
+        id: build-push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
 
-  test-size:
-    if: github.event.pull_request.draft == false
-    needs: [build]
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: 14.x
-    - uses: actions/download-artifact@v2
-    - uses: actions/cache@v2
-      id: cache-size-limit-node
-      with:
-        path: |
-          ./tests/size/node_modules
-        key: ${{ runner.os }}-node-${{ hashFiles('./tests/size/package.json') }}
-    - name: npm install
-      if: steps.cache-size-limit-node.outputs.cache-hit != 'true'
-      run: |
-        cd tests/size
-        npm install
-    - name: test size-limit
-      run: |
-        cd tests/size
-        npm run start
-
-  test-e2e:
-    if: github.event.pull_request.draft == false
-    needs: [config]
-    runs-on: ubuntu-latest
-    env:
-      PERCY_PULL_REQUEST: ${{ needs.config.outputs.pull-request-number }}
-    steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: 14.x
-    - run: echo "PERCY_BRANCH=${GITHUB_HEAD_REF}" >> $GITHUB_ENV
-    - run: echo "PERCY_COMMIT=${GITHUB_SHA}" >> $GITHUB_ENV
-    - run: envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/app/.env
-    - run: envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/nightwatch-visual/.env
-    - run: npm run test:e2e
-    - run: npm run test:visual
-
-  deploy:
-    if: github.event.pull_request.draft == false
-    needs: [config, build, test-unit]
-    runs-on: ubuntu-latest
-    env:
-      PULL_REQUEST_NUMBER: ${{ needs.config.outputs.pull-request-number }}
-      CF_APP_FQDN: ${{ needs.config.outputs.cf-app-fqdn }}
-      CF_APP_NAME: ${{ needs.config.outputs.cf-app-name }}
-      CF_SPACE: ${{ needs.config.outputs.cf-space }}
-    steps:
-    - uses: actions/checkout@v2
-    - uses: actions/download-artifact@v2
-    - run: envsubst < .github/workflows/support/ci/vars.yml > deploy/cloud-foundry/vars.yml
-    # TODO: build and push a Docker image for this to speed it up?
-    - name: Install CF CLI & plugins
-      run: |
-        wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
-        echo "deb https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
-        sudo apt-get -q update && sudo apt-get -yq install cf7-cli
-    - name: Login to CF
-      run: cf login -a ${CF_API} -u ${CF_USERNAME} -p "${CF_PASSWORD}" -o ${CF_ORG} -s ${CF_SPACE}
-    - name: Detect first deployment of this app
-      id: detect
-      run: |
-        set +e
-        cf app ${CF_APP_NAME}
-        if [ $? -eq 1 ]; then CF_APP_FIRST_DEPLOY="true"; else CF_APP_FIRST_DEPLOY="false"; fi
-        set -e
-        echo ${CF_APP_FIRST_DEPLOY}
-        echo "::set-output name=cf-app-first-deploy::${CF_APP_FIRST_DEPLOY}"
-    - name: Push to Cloud Foundry
-      run: |
-        cf push ${CF_APP_NAME} --strategy rolling -f deploy/cloud-foundry/manifest.yml --no-route --vars-file deploy/cloud-foundry/vars.yml
-        cf map-route ${CF_APP_NAME} ${CF_DOMAIN} --hostname ${CF_APP_NAME}
-    outputs:
-      cf-app-first-deploy: ${{ steps.detect.outputs.cf-app-first-deploy }}
-
-  notify:
-    if: github.event.pull_request.draft == false && needs.deploy.outputs.cf-app-first-deploy == 'true'
-    needs: [deploy, config]
-    runs-on: ubuntu-latest
-    env:
-      PULL_REQUEST_NUMBER: ${{ needs.config.outputs.pull-request-number }}
-      PULL_REQUEST_TITLE: ${{ github.event.pull_request.title }}
-      PULL_REQUEST_USER_LOGIN: ${{ github.event.pull_request.user.login }}
-      PULL_REQUEST_USER_HTML_URL: ${{ github.event.pull_request.user.html_url }}
-      CF_APP_FQDN: ${{ needs.config.outputs.cf-app-fqdn }}
-    steps:
-      - uses: actions/checkout@v2
-      - name: Notify Slack
-        run: |
-          mkdir tmp
-          envsubst < .github/workflows/support/ci/slack-notification.json > tmp/slack-notification.json
-          curl -d "@tmp/slack-notification.json" -X POST ${SLACK_WEBHOOK_URL}
+  # build:
+  #   if: github.event.pull_request.draft == false
+  #   needs: [test-unit]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - uses: actions/setup-node@v1
+  #     with:
+  #       node-version: 14.x
+  #   - uses: actions/cache@v2
+  #     id: cache-node
+  #     with:
+  #       path: |
+  #         ~/.npm
+  #         **/node_modules
+  #       key: ${{ runner.os }}-node-${{ hashFiles('./package-lock.json') }}
+  #   - if: steps.cache-node.outputs.cache-hit != 'true'
+  #     run: npm install
+  #   - run: npm run build
+  #   - uses: actions/upload-artifact@v2
+  #     with:
+  #       name: .nuxt
+  #       path: .nuxt/
+  #
+  # test-size:
+  #   if: github.event.pull_request.draft == false
+  #   needs: [build]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - uses: actions/setup-node@v1
+  #     with:
+  #       node-version: 14.x
+  #   - uses: actions/download-artifact@v2
+  #   - uses: actions/cache@v2
+  #     id: cache-size-limit-node
+  #     with:
+  #       path: |
+  #         ./tests/size/node_modules
+  #       key: ${{ runner.os }}-node-${{ hashFiles('./tests/size/package.json') }}
+  #   - name: npm install
+  #     if: steps.cache-size-limit-node.outputs.cache-hit != 'true'
+  #     run: |
+  #       cd tests/size
+  #       npm install
+  #   - name: test size-limit
+  #     run: |
+  #       cd tests/size
+  #       npm run start
+  #
+  # test-e2e:
+  #   if: github.event.pull_request.draft == false
+  #   needs: [config]
+  #   runs-on: ubuntu-latest
+  #   env:
+  #     PERCY_PULL_REQUEST: ${{ needs.config.outputs.pull-request-number }}
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - uses: actions/setup-node@v1
+  #     with:
+  #       node-version: 14.x
+  #   - run: echo "PERCY_BRANCH=${GITHUB_HEAD_REF}" >> $GITHUB_ENV
+  #   - run: echo "PERCY_COMMIT=${GITHUB_SHA}" >> $GITHUB_ENV
+  #   - run: envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/app/.env
+  #   - run: envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/nightwatch-visual/.env
+  #   - run: npm run test:e2e
+  #   - run: npm run test:visual
+  #
+  # deploy:
+  #   if: github.event.pull_request.draft == false
+  #   needs: [config, build, test-unit]
+  #   runs-on: ubuntu-latest
+  #   env:
+  #     PULL_REQUEST_NUMBER: ${{ needs.config.outputs.pull-request-number }}
+  #     CF_APP_FQDN: ${{ needs.config.outputs.cf-app-fqdn }}
+  #     CF_APP_NAME: ${{ needs.config.outputs.cf-app-name }}
+  #     CF_SPACE: ${{ needs.config.outputs.cf-space }}
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - uses: actions/download-artifact@v2
+  #   - run: envsubst < .github/workflows/support/ci/vars.yml > deploy/cloud-foundry/vars.yml
+  #   # TODO: build and push a Docker image for this to speed it up?
+  #   - name: Install CF CLI & plugins
+  #     run: |
+  #       wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
+  #       echo "deb https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
+  #       sudo apt-get -q update && sudo apt-get -yq install cf7-cli
+  #   - name: Login to CF
+  #     run: cf login -a ${CF_API} -u ${CF_USERNAME} -p "${CF_PASSWORD}" -o ${CF_ORG} -s ${CF_SPACE}
+  #   - name: Detect first deployment of this app
+  #     id: detect
+  #     run: |
+  #       set +e
+  #       cf app ${CF_APP_NAME}
+  #       if [ $? -eq 1 ]; then CF_APP_FIRST_DEPLOY="true"; else CF_APP_FIRST_DEPLOY="false"; fi
+  #       set -e
+  #       echo ${CF_APP_FIRST_DEPLOY}
+  #       echo "::set-output name=cf-app-first-deploy::${CF_APP_FIRST_DEPLOY}"
+  #   - name: Push to Cloud Foundry
+  #     run: |
+  #       cf push ${CF_APP_NAME} --strategy rolling -f deploy/cloud-foundry/manifest.yml --no-route --vars-file deploy/cloud-foundry/vars.yml
+  #       cf map-route ${CF_APP_NAME} ${CF_DOMAIN} --hostname ${CF_APP_NAME}
+  #   outputs:
+  #     cf-app-first-deploy: ${{ steps.detect.outputs.cf-app-first-deploy }}
+  #
+  # notify:
+  #   if: github.event.pull_request.draft == false && needs.deploy.outputs.cf-app-first-deploy == 'true'
+  #   needs: [deploy, config]
+  #   runs-on: ubuntu-latest
+  #   env:
+  #     PULL_REQUEST_NUMBER: ${{ needs.config.outputs.pull-request-number }}
+  #     PULL_REQUEST_TITLE: ${{ github.event.pull_request.title }}
+  #     PULL_REQUEST_USER_LOGIN: ${{ github.event.pull_request.user.login }}
+  #     PULL_REQUEST_USER_HTML_URL: ${{ github.event.pull_request.user.html_url }}
+  #     CF_APP_FQDN: ${{ needs.config.outputs.cf-app-fqdn }}
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Notify Slack
+  #       run: |
+  #         mkdir tmp
+  #         envsubst < .github/workflows/support/ci/slack-notification.json > tmp/slack-notification.json
+  #         curl -d "@tmp/slack-notification.json" -X POST ${SLACK_WEBHOOK_URL}
