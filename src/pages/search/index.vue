@@ -58,6 +58,8 @@
   import NotificationBanner from '@/components/generic/NotificationBanner';
 
   export default {
+    name: 'SearchPage',
+
     components: {
       SearchInterface,
       NotificationBanner,
@@ -65,10 +67,22 @@
       SideFilters: () => import('@/components/search/SideFilters')
     },
 
+    async beforeRouteLeave(to, from, next) {
+      // Leaving the search page closes the search bar. Reevaluate when autosuggestions go straight to entity pages.
+      this.$store.commit('search/setShowSearchBar', false);
+      next();
+    },
+
     middleware: 'sanitisePageQuery',
 
     fetch() {
       this.$store.commit('search/set', ['overrideParams', {}]);
+    },
+
+    head() {
+      return {
+        title: this.$pageHeadTitle(this.searchQuery ? this.$t('searchResultsFor', [this.searchQuery]) : this.$t('search'))
+      };
     },
 
     computed: {
@@ -89,18 +103,6 @@
 
     mounted() {
       this.$store.commit('search/enableCollectionFacet');
-    },
-
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.searchQuery ? this.$t('searchResultsFor', [this.searchQuery]) : this.$t('search'))
-      };
-    },
-
-    async beforeRouteLeave(to, from, next) {
-      // Leaving the search page closes the search bar. Reevaluate when autosuggestions go straight to entity pages.
-      this.$store.commit('search/setShowSearchBar', false);
-      next();
     }
   };
 </script>

@@ -36,6 +36,17 @@
           data-qa="search filters"
         >
           <div class="position-relative">
+            <template
+              v-if="collection === 'newspaper'"
+            >
+              <SideDateFilter
+                :name="PROXY_DCTERMS_ISSUED"
+                :start="dateFilter.start"
+                :end="dateFilter.end"
+                :specific="dateFilter.specific"
+                @dateFilter="dateFilterSelected"
+              />
+            </template>
             <client-only>
               <SideFacetDropdown
                 v-for="facet in filterableFacets"
@@ -57,9 +68,9 @@
 
 <script>
   import ClientOnly from 'vue-client-only';
-  import { thematicCollections } from '@/plugins/europeana/search';
   import isEqual from 'lodash/isEqual';
   import { mapState, mapGetters } from 'vuex';
+  import { thematicCollections, rangeToQueryParam, rangeFromQueryParam } from '@/plugins/europeana/search';
   import { queryUpdatesForFilters } from '../../store/search';
   import SideFacetDropdown from './SideFacetDropdown';
 
@@ -68,7 +79,8 @@
 
     components: {
       ClientOnly,
-      SideFacetDropdown
+      SideFacetDropdown,
+      SideDateFilter: () => import('./SideDateFilter')
     },
     props: {
       route: {
@@ -81,15 +93,17 @@
     data() {
       return {
         PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued',
+        API_FILTER_COLLECTIONS: ['newspaper', 'ww1'],
         hideFilterSheet: true
       };
     },
     computed: {
       ...mapState({
-        userParams: state => state.search.userParams,
+        collectionFacetEnabled: state => state.search.collectionFacetEnabled,
         facets: state => state.search.facets,
         resettableFilters: state => state.search.resettableFilters,
-        showFiltersSheet: state => state.search.showFiltersSheet
+        showFiltersSheet: state => state.search.showFiltersSheet,
+        userParams: state => state.search.userParams
       }),
       ...mapGetters({
         facetNames: 'search/facetNames',
@@ -98,12 +112,24 @@
         collection: 'search/collection'
       }),
       filterableFacets() {
-        return [{
-          name: 'collection',
-          staticFields: thematicCollections
-        }].concat(this.facetNames.map(facetName => ({
+        const facets = this.facetNames.map(facetName => ({
           name: facetName
-        })));
+        }));
+
+        if (this.enableApiFilter) {
+          facets.unshift({
+            name: 'api',
+            staticFields: ['fulltext', 'metadata']
+          });
+        }
+        if (this.collectionFacetEnabled) {
+          facets.unshift({
+            name: 'collection',
+            staticFields: thematicCollections
+          });
+        }
+
+        return facets;
       },
       qf() {
         return this.userParams.qf;
@@ -123,6 +149,20 @@
 
         // This is a workaround
         return Number(this.$route.query.page || 1);
+      },
+      enableApiFilter() {
+        return this.API_FILTER_COLLECTIONS.includes(this.collection);
+      },
+      dateFilter() {
+        const proxyDctermsIssued = this.filters[this.PROXY_DCTERMS_ISSUED];
+        if (!proxyDctermsIssued || proxyDctermsIssued.length < 1) {
+          return { start: null, end: null, specific: this.isCheckedSpecificDate };
+        }
+        const range = rangeFromQueryParam(proxyDctermsIssued[0]);
+        if (!range) {
+          return { start: proxyDctermsIssued[0], end: null, specific: true };
+        }
+        return range;
       }
     },
     watch: {
@@ -142,7 +182,7 @@
     },
     methods: {
       facetDropdownType(name) {
-        return name === 'collection' ? 'radio' : 'checkbox';
+        return name === 'collection' || name === 'api' ? 'radio' : 'checkbox';
       },
       changeFacet(name, selected) {
         if (typeof this.filters[name] === 'undefined') {
@@ -201,6 +241,18 @@
       isFilteredByDropdowns() {
         return this.$store.getters['search/hasResettableFilters'];
       },
+      dateFilterSelected(facetName, dateRange) {
+        let dateQuery = [];
+        if (dateRange.specific) {
+          if (dateRange.start) {
+            dateQuery = [dateRange.start];
+          }
+        } else if (dateRange.start || dateRange.end) {
+          dateQuery = [rangeToQueryParam(dateRange)];
+        }
+        this.isCheckedSpecificDate = dateRange.specific;
+        this.changeFacet(facetName, dateQuery);
+      },
       toggleFilterSheet() {
         this.$store.commit('search/setShowFiltersSheet', !this.$store.state.search.showFiltersSheet);
       }
@@ -226,7 +278,8 @@
     top: 0;
     bottom: 0;
     padding-top: 1rem;
-    z-index: 1040;
+    transition: right 300ms ease-in-out;
+    z-index: 2;
     max-width: none;
     overflow: auto;
     .side-filters {

@@ -38,6 +38,8 @@
 
 <script>
   export default {
+    name: 'ContentfulEntitySuggestPage',
+
     layout: 'contentful',
 
     data() {
@@ -46,6 +48,12 @@
         searchText: null,
         suggestions: [],
         contentfulExtensionSdk: null
+      };
+    },
+
+    head() {
+      return {
+        title: this.$pageHeadTitle('Entity suggest - Contentful app')
       };
     },
 
@@ -93,12 +101,6 @@
       updateContentfulField() {
         this.contentfulExtensionSdk?.field?.setValue(this.value.map(val => val.id));
       }
-    },
-
-    head() {
-      return {
-        title: this.$pageHeadTitle('Entity suggest - Contentful app')
-      };
     }
   };
 </script>

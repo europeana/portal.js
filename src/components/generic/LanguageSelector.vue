@@ -7,16 +7,14 @@
       {{ selectedLocale.name }}
     </template>
 
-    <template test>
-      <b-dropdown-item
-        v-for="locale in availableLocales"
-        :key="locale.code"
-        :href="switchLocalePath(locale.code)"
-        :data-qa="`${locale.name} language option`"
-      >
-        {{ locale.name }}
-      </b-dropdown-item>
-    </template>
+    <b-dropdown-item
+      v-for="locale in availableLocales"
+      :key="locale.code"
+      :href="switchLocalePath(locale.code)"
+      :data-qa="`${locale.name} language option`"
+    >
+      {{ locale.name }}
+    </b-dropdown-item>
   </b-dropdown>
 </template>
 

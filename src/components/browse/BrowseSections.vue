@@ -91,14 +91,14 @@
       }
     },
 
-    async fetch() {
-      this.content = await this.sectionsWithLatestCardGroups(this.sections);
-    },
-
     data() {
       return {
         content: this.sections
       };
+    },
+
+    async fetch() {
+      this.content = await this.sectionsWithLatestCardGroups(this.sections);
     },
 
     methods: {
