@@ -118,10 +118,9 @@ jobs:
           uses: actions/checkout@v2
         -
           name: Setup env
-          run: |
-            echo "PULL_REQUEST_NUMBER=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
-            echo "DOCKER_IMAGE_TAG=${DOCKER_REPOSITORY}:pr-${PULL_REQUEST_NUMBER}" >> $GITHUB_ENV
-            echo "K8S_RESOURCE_NAME=portaljs-pr-${PULL_REQUEST_NUMBER}" >> $GITHUB_ENV
+          run: echo "PULL_REQUEST_NUMBER=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
+          run: echo "DOCKER_IMAGE_TAG=${DOCKER_REPOSITORY}:pr-${PULL_REQUEST_NUMBER}" >> $GITHUB_ENV
+          run: echo "K8S_RESOURCE_NAME=portaljs-pr-${PULL_REQUEST_NUMBER}" >> $GITHUB_ENV
         -
           name: Create K8s resource manifests
           run: |
