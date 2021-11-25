@@ -22,7 +22,10 @@ spec:
     spec:
       affinity: {}
       containers:
-      - envFrom:
+      - env:
+        - name: PORTAL_BASE_URL
+          value: https://${K8S_RESOURCE_NAME}.dev.eanadev.org
+        envFrom:
         - configMapRef:
             name: portal-js-env
             optional: false
