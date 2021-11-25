@@ -4,7 +4,7 @@ metadata:
   name: ${K8S_RESOURCE_NAME}
   namespace: dev
   annotations:
-    cert-manager.io/issuer: "letsencrypt-production"
+    cert-manager.io/issuer: "letsencrypt-staging"
 spec:
   ingressClassName: public-iks-k8s-nginx
   rules:
