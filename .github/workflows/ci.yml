@@ -114,6 +114,9 @@ jobs:
         IBMCLOUD_REGION: eu-de
       steps:
         -
+          name: Checkout
+          uses: actions/checkout@v2
+        -
           name: Setup env
           run: |
             echo "PULL_REQUEST_NUMBER=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
