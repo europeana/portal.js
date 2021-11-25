@@ -275,7 +275,7 @@
     display: flex;
     position: fixed;
     right: 0;
-    top: 0;
+    top: 3.5rem;
     bottom: 0;
     padding-top: 1rem;
     transition: right 300ms ease-in-out;
@@ -336,6 +336,9 @@
     height: 100%;
   }
   .btn.close {
+    @media (min-width: $bp-large) {
+      display: none;
+    }
     background: none;
     border-radius: 0;
     border: 0;

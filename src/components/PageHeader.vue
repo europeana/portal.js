@@ -72,9 +72,7 @@
           variant="light"
           :aria-label="$t('filter')"
           @click="toggleFilterSheet"
-        >
-          {{ $t('filter') }}
-        </b-button>
+        />
       </b-navbar>
       <b-sidebar
         id="sidebar"
@@ -255,6 +253,12 @@
 
       &:before {
         content: '\ea40';
+      }
+    }
+
+    &.filters-toggle {
+      &:before {
+        content: '\e948';
       }
     }
   }
