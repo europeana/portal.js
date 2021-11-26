@@ -23,22 +23,22 @@ ENV CHROMEDRIVER_SKIP_DOWNLOAD=true \
 
 WORKDIR /app
 
-COPY --from=0 /app/package.json /app/package-lock.json ./
+COPY --from=package-json-stripped /app/package.json /app/package-lock.json ./
 
 RUN NODE_ENV=production npm install
 
+COPY bin ./bin
+COPY *.md .env.example ./
 
 # 2. Build app files
 FROM production-package-install AS production-app-build
 
 RUN npm install
 
-COPY babel.config.cjs .env.example nuxt.config.js package.json package-lock.json *.md ./
-COPY bin ./bin
+COPY package.json package-lock.json babel.config.cjs nuxt.config.js ./
 COPY src ./src
 
 RUN npm run build
-RUN rm -rf node_modules
 
 
 # 3. Run
@@ -50,8 +50,28 @@ ENV PORT=8080 \
 
 EXPOSE ${PORT}
 
-WORKDIR /app
-
-COPY --from=production-app-build /app .
+COPY --from=production-app-build /app/package.json /app/package-lock.json /app/nuxt.config.js ./
+COPY --from=production-app-build /app/src ./src
+COPY --from=production-app-build /app/.nuxt ./.nuxt
 
 CMD ["npm", "run", "start"]
+
+
+# 4. Unit test
+FROM production-app-build AS test-unit
+
+COPY .eslintrc.cjs .stylelintrc.cjs babel.config.cjs ./
+COPY tests ./tests
+
+CMD ["npm", "run", "test:unit"]
+
+
+# Size test
+FROM test-unit AS test-size
+
+RUN npm run test:size:setup
+
+CMD ["npm", "run", "test:size"]
+
+# 5.
+FROM production-app-run AS final

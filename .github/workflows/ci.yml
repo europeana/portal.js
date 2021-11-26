@@ -74,39 +74,39 @@ jobs:
   #     run: npm install
   #   - run: npm run test:unit
 
-  # docker:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     -
-  #       name: Checkout
-  #       uses: actions/checkout@v2
-  #     -
-  #       name: Docker meta
-  #       id: meta
-  #       uses: docker/metadata-action@v3
-  #       with:
-  #         images: ${{ env.DOCKER_REPOSITORY }}
-  #         tags: |
-  #           type=ref,event=pr
-  #     -
-  #       name: Login to DockerHub
-  #       uses: docker/login-action@v1
-  #       with:
-  #         username: ${{ secrets.DOCKERHUB_USERNAME }}
-  #         password: ${{ secrets.DOCKERHUB_TOKEN }}
-  #     -
-  #       name: Build and push to DockerHub
-  #       id: build-push
-  #       uses: docker/build-push-action@v2
-  #       with:
-  #         context: .
-  #         push: true
-  #         tags: ${{ steps.meta.outputs.tags }}
-  #         labels: ${{ steps.meta.outputs.labels }}
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: ${{ env.DOCKER_REPOSITORY }}
+          tags: |
+            type=ref,event=pr
+      -
+        name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Build and push to DockerHub
+        id: build-push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
 
     deploy:
       runs-on: ubuntu-latest
-      # needs: [docker]
+      needs: [docker]
       env:
         IBMCLOUD_API_URL: https://cloud.ibm.com
         IBMCLOUD_API_KEY: ${{ secrets.IBMCLOUD_API_KEY }}
@@ -141,6 +141,20 @@ jobs:
             kubectl apply -f deployment.yml
             kubectl apply -f service.yml
             kubectl apply -f ingress.yml
+
+  test-unit:
+    runs-on: ubuntu-latest
+    needs: [docker]
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      - run: echo "PULL_REQUEST_NUMBER=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
+      - run: echo "DOCKER_IMAGE_TAG=${DOCKER_REPOSITORY}:pr-${PULL_REQUEST_NUMBER}" >> $GITHUB_ENV
+      - run: |
+          docker pull ${DOCKER_IMAGE_TAG}
+          docker build --target test-unit -t ${DOCKER_IMAGE_TAG}-test-unit .
+          docker run ${DOCKER_IMAGE_TAG}-test-unit
 
   # build:
   #   if: github.event.pull_request.draft == false
