@@ -104,43 +104,43 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-    deploy:
-      runs-on: ubuntu-latest
-      needs: [docker]
-      env:
-        IBMCLOUD_API_URL: https://cloud.ibm.com
-        IBMCLOUD_API_KEY: ${{ secrets.IBMCLOUD_API_KEY }}
-        IBMCLOUD_CLUSTER_NAME: europeana-web
-        IBMCLOUD_REGION: eu-de
-      steps:
-        -
-          name: Checkout
-          uses: actions/checkout@v2
-        - run: echo "PULL_REQUEST_NUMBER=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
-        - run: echo "DOCKER_IMAGE_TAG=${DOCKER_REPOSITORY}:pr-${PULL_REQUEST_NUMBER}" >> $GITHUB_ENV
-        - run: echo "K8S_RESOURCE_NAME=portal-js-pr-${PULL_REQUEST_NUMBER}" >> $GITHUB_ENV
-        -
-          name: Create K8s resource manifests
-          run: |
-            envsubst < .github/workflows/support/ci/deploy/deployment.yml > deployment.yml
-            envsubst < .github/workflows/support/ci/deploy/service.yml > service.yml
-            envsubst < .github/workflows/support/ci/deploy/ingress.yml > ingress.yml
-        -
-          name: Install ibmcloud CLI
-          run: |
-            curl -fsSL https://clis.cloud.ibm.com/install/linux | sh
-            ibmcloud plugin install container-service
-        -
-          name: Login to IBM Cloud
-          run: |
-            ibmcloud login -a ${IBMCLOUD_API_URL} -r ${IBMCLOUD_REGION} --apikey ${IBMCLOUD_API_KEY}
-            ibmcloud ks cluster config --cluster ${IBMCLOUD_CLUSTER_NAME}
-        -
-          name: Deploy to IBM Cloud K8s
-          run: |
-            kubectl apply -f deployment.yml
-            kubectl apply -f service.yml
-            kubectl apply -f ingress.yml
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [docker]
+    env:
+      IBMCLOUD_API_URL: https://cloud.ibm.com
+      IBMCLOUD_API_KEY: ${{ secrets.IBMCLOUD_API_KEY }}
+      IBMCLOUD_CLUSTER_NAME: europeana-web
+      IBMCLOUD_REGION: eu-de
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      - run: echo "PULL_REQUEST_NUMBER=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
+      - run: echo "DOCKER_IMAGE_TAG=${DOCKER_REPOSITORY}:pr-${PULL_REQUEST_NUMBER}" >> $GITHUB_ENV
+      - run: echo "K8S_RESOURCE_NAME=portal-js-pr-${PULL_REQUEST_NUMBER}" >> $GITHUB_ENV
+      -
+        name: Create K8s resource manifests
+        run: |
+          envsubst < .github/workflows/support/ci/deploy/deployment.yml > deployment.yml
+          envsubst < .github/workflows/support/ci/deploy/service.yml > service.yml
+          envsubst < .github/workflows/support/ci/deploy/ingress.yml > ingress.yml
+      -
+        name: Install ibmcloud CLI
+        run: |
+          curl -fsSL https://clis.cloud.ibm.com/install/linux | sh
+          ibmcloud plugin install container-service
+      -
+        name: Login to IBM Cloud
+        run: |
+          ibmcloud login -a ${IBMCLOUD_API_URL} -r ${IBMCLOUD_REGION} --apikey ${IBMCLOUD_API_KEY}
+          ibmcloud ks cluster config --cluster ${IBMCLOUD_CLUSTER_NAME}
+      -
+        name: Deploy to IBM Cloud K8s
+        run: |
+          kubectl apply -f deployment.yml
+          kubectl apply -f service.yml
+          kubectl apply -f ingress.yml
 
   test-unit:
     runs-on: ubuntu-latest
