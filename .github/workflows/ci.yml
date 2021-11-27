@@ -91,7 +91,7 @@ jobs:
         with:
           context: .
           load: true
-          tags: ${DOCKER_REPOSITORY}:test-unit
+          tags: ${{ env.DOCKER_REPOSITORY }}:test-unit
           target: test-unit
           cache-from: type=gha
           cache-to: type=gha
