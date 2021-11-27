@@ -42,7 +42,7 @@ RUN npm run build
 
 
 # 3. Run
-FROM production-package-install AS production-app-run
+FROM production-package-install AS production
 
 ENV PORT=8080 \
     HOST=0.0.0.0 \
@@ -74,4 +74,4 @@ RUN npm run test:size:setup
 CMD ["npm", "run", "test:size"]
 
 # 5.
-FROM production-app-run AS final
+FROM production AS final

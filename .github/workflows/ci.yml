@@ -83,9 +83,7 @@ jobs:
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
-        with:
-          driver: docker
-      - run: docker pull ${DOCKER_REPOSITORY}:master
+      # - run: docker pull ${DOCKER_REPOSITORY}:master
       -
         name: Docker meta
         id: meta
@@ -101,52 +99,55 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
-        name: Build and push to DockerHub
+        name: Build and push
         id: build-push
         uses: docker/build-push-action@v2
         with:
           context: .
+          target: production
           push: true
+          cache-from: type=gha
+          cache-to: type=gha
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs: [docker]
-    env:
-      IBMCLOUD_API_URL: https://cloud.ibm.com
-      IBMCLOUD_API_KEY: ${{ secrets.IBMCLOUD_API_KEY }}
-      IBMCLOUD_CLUSTER_NAME: europeana-web
-      IBMCLOUD_REGION: eu-de
-    steps:
-      -
-        name: Checkout
-        uses: actions/checkout@v2
-      - run: echo "PULL_REQUEST_NUMBER=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
-      - run: echo "DOCKER_IMAGE_TAG=${DOCKER_REPOSITORY}:pr-${PULL_REQUEST_NUMBER}" >> $GITHUB_ENV
-      - run: echo "K8S_RESOURCE_NAME=portal-js-pr-${PULL_REQUEST_NUMBER}" >> $GITHUB_ENV
-      -
-        name: Create K8s resource manifests
-        run: |
-          envsubst < .github/workflows/support/ci/deploy/deployment.yml > deployment.yml
-          envsubst < .github/workflows/support/ci/deploy/service.yml > service.yml
-          envsubst < .github/workflows/support/ci/deploy/ingress.yml > ingress.yml
-      -
-        name: Install ibmcloud CLI
-        run: |
-          curl -fsSL https://clis.cloud.ibm.com/install/linux | sh
-          ibmcloud plugin install container-service
-      -
-        name: Login to IBM Cloud
-        run: |
-          ibmcloud login -a ${IBMCLOUD_API_URL} -r ${IBMCLOUD_REGION} --apikey ${IBMCLOUD_API_KEY}
-          ibmcloud ks cluster config --cluster ${IBMCLOUD_CLUSTER_NAME}
-      -
-        name: Deploy to IBM Cloud K8s
-        run: |
-          kubectl apply -f deployment.yml
-          kubectl apply -f service.yml
-          kubectl apply -f ingress.yml
+  # deploy:
+  #   runs-on: ubuntu-latest
+  #   needs: [docker]
+  #   env:
+  #     IBMCLOUD_API_URL: https://cloud.ibm.com
+  #     IBMCLOUD_API_KEY: ${{ secrets.IBMCLOUD_API_KEY }}
+  #     IBMCLOUD_CLUSTER_NAME: europeana-web
+  #     IBMCLOUD_REGION: eu-de
+  #   steps:
+  #     -
+  #       name: Checkout
+  #       uses: actions/checkout@v2
+  #     - run: echo "PULL_REQUEST_NUMBER=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
+  #     - run: echo "DOCKER_IMAGE_TAG=${DOCKER_REPOSITORY}:pr-${PULL_REQUEST_NUMBER}" >> $GITHUB_ENV
+  #     - run: echo "K8S_RESOURCE_NAME=portal-js-pr-${PULL_REQUEST_NUMBER}" >> $GITHUB_ENV
+  #     -
+  #       name: Create K8s resource manifests
+  #       run: |
+  #         envsubst < .github/workflows/support/ci/deploy/deployment.yml > deployment.yml
+  #         envsubst < .github/workflows/support/ci/deploy/service.yml > service.yml
+  #         envsubst < .github/workflows/support/ci/deploy/ingress.yml > ingress.yml
+  #     -
+  #       name: Install ibmcloud CLI
+  #       run: |
+  #         curl -fsSL https://clis.cloud.ibm.com/install/linux | sh
+  #         ibmcloud plugin install container-service
+  #     -
+  #       name: Login to IBM Cloud
+  #       run: |
+  #         ibmcloud login -a ${IBMCLOUD_API_URL} -r ${IBMCLOUD_REGION} --apikey ${IBMCLOUD_API_KEY}
+  #         ibmcloud ks cluster config --cluster ${IBMCLOUD_CLUSTER_NAME}
+  #     -
+  #       name: Deploy to IBM Cloud K8s
+  #       run: |
+  #         kubectl apply -f deployment.yml
+  #         kubectl apply -f service.yml
+  #         kubectl apply -f ingress.yml
 
   test-unit:
     runs-on: ubuntu-latest
@@ -158,13 +159,27 @@ jobs:
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
-        with:
-          driver: docker
       - run: echo "PULL_REQUEST_NUMBER=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
       - run: echo "DOCKER_IMAGE_TAG=${DOCKER_REPOSITORY}:pr-${PULL_REQUEST_NUMBER}" >> $GITHUB_ENV
+      -
+        name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: myimage
+          path: /tmp
+      -
+        name: Build and load
+        id: build-push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          load: true
+          pull: true
+          tags: ${{ env.DOCKER_IMAGE_TAG }}-test-unit
+          target: test-unit
+          cache-from: type=gha
+          cache-to: type=gha
       - run: |
-          docker pull ${DOCKER_IMAGE_TAG}
-          docker build --target test-unit -t ${DOCKER_IMAGE_TAG}-test-unit .
           docker run ${DOCKER_IMAGE_TAG}-test-unit
 
   # build:
