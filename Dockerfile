@@ -30,13 +30,18 @@ RUN NODE_ENV=production npm install
 COPY bin ./bin
 COPY *.md .env.example ./
 
-# 2. Build app files
-FROM production-package-install AS production-app-build
+# 2. Copy app src
+FROM production-package-install AS production-app-base
 
 RUN npm install
 
 COPY package.json package-lock.json babel.config.cjs nuxt.config.js ./
 COPY src ./src
+
+
+# Build app
+
+FROM production-app-base AS production-app-build
 
 RUN npm run build
 
@@ -58,7 +63,7 @@ CMD ["npm", "run", "start"]
 
 
 # 4. Unit test
-FROM production-app-build AS test-unit
+FROM production-app-base AS test-unit
 
 COPY .eslintrc.cjs .stylelintrc.cjs babel.config.cjs ./
 COPY tests ./tests
@@ -67,11 +72,12 @@ CMD ["npm", "run", "test:unit"]
 
 
 # Size test
-FROM test-unit AS test-size
+FROM production-app-build AS test-size
 
 RUN npm run test:size:setup
 
 CMD ["npm", "run", "test:size"]
+
 
 # 5.
 FROM production AS final
