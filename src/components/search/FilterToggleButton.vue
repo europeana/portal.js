@@ -40,7 +40,7 @@
       transition: $standard-transition;
     }
     &:hover:before {
-        color: $innovationblue;
+      color: $innovationblue;
     }
   }
 </style>
