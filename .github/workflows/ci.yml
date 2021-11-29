@@ -190,20 +190,10 @@ jobs:
           images: ${{ env.DOCKER_REPOSITORY }}
           tags: |
             type=ref,event=pr
-      -
-        name: Build and load
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          load: true
-          tags: ${{ steps.meta.outputs.tags }}
-          target: production
-          cache-from: type=gha
-          cache-to: type=gha
       - run: echo "APP_IMAGE_VERSION=${{ steps.meta.outputs.version }}" >> $GITHUB_ENV
       - run: envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/app/.env
       - run: envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/nightwatch-visual/.env
-      - run: docker-compose -f ./tests/e2e/docker/docker-compose.yml pull
+      - run: docker-compose -f ./tests/e2e/docker/docker-compose.yml pull -q app nginx cache chrome-en
       - run: docker-compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-features
 
   test-visual:
@@ -225,20 +215,10 @@ jobs:
           images: ${{ env.DOCKER_REPOSITORY }}
           tags: |
             type=ref,event=pr
-      -
-        name: Build and load
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          load: true
-          tags: ${{ steps.meta.outputs.tags }}
-          target: production
-          cache-from: type=gha
-          cache-to: type=gha
       - run: echo "APP_IMAGE_VERSION=${{ steps.meta.outputs.version }}" >> $GITHUB_ENV
       - run: envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/app/.env
       - run: envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/nightwatch-visual/.env
-      - run: docker-compose -f ./tests/e2e/docker/docker-compose.yml pull
+      - run: docker-compose -f ./tests/e2e/docker/docker-compose.yml pull -q app nginx cache chrome-en
       - run: docker-compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-visual
 
   deploy-ibm-cloud:
