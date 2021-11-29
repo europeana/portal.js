@@ -42,7 +42,7 @@ jobs:
           push: true
           pull: true
           cache-from: type=gha
-          cache-to: type=gha
+          cache-to: type=gha,mode=max
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
       -
@@ -129,6 +129,7 @@ jobs:
           context: ./tests/e2e/docker/nginx
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          pull: true
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -162,9 +163,10 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v2
         with:
-          context: ./tests/e2e/docker/nightwatch-base
+          context: ./tests/e2e/docker/nightwatch
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          pull: true
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

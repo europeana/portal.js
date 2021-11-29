@@ -1,7 +1,7 @@
 version: "3"
 services:
   nginx:
-    image: europeana/portal.js-nginx:master
+    image: europeana/portal.js-nginx:${NGINX_IMAGE_VERSION:-latest}
     ports:
       - "8080:80"
       - "4433:443"
@@ -60,8 +60,7 @@ services:
     volumes:
       - /dev/shm:/dev/shm
   nightwatch-features:
-    build:
-      context: ./nightwatch
+    image: europeana/portal.js-nightwatch:${NIGHTWATCH_IMAGE_VERSION:-latest}
     depends_on:
       nginx:
         condition: service_started
@@ -82,8 +81,7 @@ services:
       - WEBDRIVER_NL_HOST=chrome-nl
       - APP_URL=https://nginx
   nightwatch-visual:
-    build:
-      context: ./nightwatch
+    image: europeana/portal.js-nightwatch:${NIGHTWATCH_IMAGE_VERSION:-latest}
     entrypoint: npm run percy
     command: "tests/**/*.feature"
     depends_on:

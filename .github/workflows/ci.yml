@@ -65,7 +65,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           target: production-app-base
           cache-from: type=gha
-          cache-to: type=gha
+          cache-to: type=gha,mode=max
 
   test-unit:
     if: github.event.pull_request.draft == false
@@ -97,7 +97,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           target: test-unit
           cache-from: type=gha
-          cache-to: type=gha
+          cache-to: type=gha,mode=max
       - run: |
           docker run ${{ steps.meta.outputs.tags }}
 
@@ -135,7 +135,7 @@ jobs:
           target: production
           push: true
           cache-from: type=gha
-          cache-to: type=gha
+          cache-to: type=gha,mode=max
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
@@ -167,7 +167,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           target: test-size
           cache-from: type=gha
-          cache-to: type=gha
+          cache-to: type=gha,mode=max
       - run: |
           docker run ${{ steps.meta.outputs.tags }}
 
@@ -193,7 +193,7 @@ jobs:
       - run: echo "APP_IMAGE_VERSION=${{ steps.meta.outputs.version }}" >> $GITHUB_ENV
       - run: envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/app/.env
       - run: envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/nightwatch-visual/.env
-      - run: docker-compose -f ./tests/e2e/docker/docker-compose.yml pull -q app nginx cache chrome-en
+      - run: docker-compose -f ./tests/e2e/docker/docker-compose.yml pull -q app nginx cache chrome-en nightwatch-features
       - run: docker-compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-features
 
   test-visual:
@@ -218,7 +218,7 @@ jobs:
       - run: echo "APP_IMAGE_VERSION=${{ steps.meta.outputs.version }}" >> $GITHUB_ENV
       - run: envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/app/.env
       - run: envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/nightwatch-visual/.env
-      - run: docker-compose -f ./tests/e2e/docker/docker-compose.yml pull -q app nginx cache chrome-en
+      - run: docker-compose -f ./tests/e2e/docker/docker-compose.yml pull -q app nginx cache chrome-en nightwatch-visual
       - run: docker-compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-visual
 
   deploy-ibm-cloud:
