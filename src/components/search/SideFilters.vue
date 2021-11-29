@@ -281,11 +281,11 @@
     transition: right 300ms ease-in-out;
     z-index: 1050;
     max-width: none;
-    overflow: auto;
+    overflow: hidden;
     .side-filters {
       flex-shrink: 0;
       margin-right: -320px;
-      overflow: auto;
+      overflow-y: auto;
       width: 320px;
       max-width: 75vw;
       animation: appear 300ms ease-in-out;
