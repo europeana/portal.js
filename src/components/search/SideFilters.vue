@@ -275,11 +275,11 @@
     display: flex;
     position: fixed;
     right: 0;
-    top: 3.5rem;
+    top: 0;
     bottom: 0;
     padding-top: 1rem;
     transition: right 300ms ease-in-out;
-    z-index: 2;
+    z-index: 1050;
     max-width: none;
     overflow: auto;
     .side-filters {
@@ -288,7 +288,16 @@
       overflow: auto;
       width: 320px;
       max-width: 75vw;
+      animation: appear 300ms ease-in-out;
       transition: margin-right 300ms ease-in-out;
+      @keyframes appear {
+        from {
+          margin-right: -320px;
+        }
+        to {
+          margin-right: 0;
+        }
+      }
     }
     &.hide {
       display: none;
@@ -297,7 +306,6 @@
       left: 0;
       .side-filters {
         margin-right: 0;
-        transition: margin-right 300ms ease-in-out;
       }
       .filters-backdrop {
         content: '';
