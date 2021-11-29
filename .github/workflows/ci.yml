@@ -191,7 +191,7 @@ jobs:
       - run: echo "APP_IMAGE_VERSION=${{ steps.meta.outputs.version }}" >> $GITHUB_ENV
       - run: envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/app/.env
       - run: envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/nightwatch-visual/.env
-      - run: docker-compose -f ./tests/e2e/docker/docker-compose.yml pull -q app nginx cache chrome-en nightwatch-features
+      - run: docker-compose -f ./tests/e2e/docker/docker-compose.yml pull -q nginx cache chrome-en nightwatch-features
       - run: docker-compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-features
 
   test-visual:
@@ -226,7 +226,7 @@ jobs:
       - run: echo "APP_IMAGE_VERSION=${{ steps.meta.outputs.version }}" >> $GITHUB_ENV
       - run: envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/app/.env
       - run: envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/nightwatch-visual/.env
-      - run: docker-compose -f ./tests/e2e/docker/docker-compose.yml pull -q app nginx cache chrome-en nightwatch-visual
+      - run: docker-compose -f ./tests/e2e/docker/docker-compose.yml pull -q nginx cache chrome-en nightwatch-visual
       - run: docker-compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-visual
 
   deploy-ibm-cloud:
