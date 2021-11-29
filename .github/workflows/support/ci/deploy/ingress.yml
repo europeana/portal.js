@@ -8,7 +8,7 @@ metadata:
 spec:
   ingressClassName: public-iks-k8s-nginx
   rules:
-  - host: ${K8S_RESOURCE_NAME}.dev.eanadev.org
+  - host: ${K8S_INGRESS_HOST}
     http:
       paths:
       - backend:
@@ -20,5 +20,5 @@ spec:
         pathType: Prefix
   tls:
   - hosts:
-    - ${K8S_RESOURCE_NAME}.dev.eanadev.org
-    secretName: ${K8S_RESOURCE_NAME}.dev.eanadev.org
+    - ${K8S_INGRESS_HOST}
+    secretName: ${K8S_INGRESS_HOST}

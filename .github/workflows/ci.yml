@@ -256,6 +256,7 @@ jobs:
       - run: echo "PULL_REQUEST_NUMBER=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
       - run: echo "DOCKER_IMAGE_TAG=${DOCKER_REPOSITORY}:pr-${PULL_REQUEST_NUMBER}" >> $GITHUB_ENV
       - run: echo "K8S_RESOURCE_NAME=portal-js-pr-${PULL_REQUEST_NUMBER}" >> $GITHUB_ENV
+      - run: echo "K8S_INGRESS_HOST=pr-${PULL_REQUEST_NUMBER}.portal-js.dev.eanadev.org" >> $GITHUB_ENV
       -
         name: Create K8s resource manifests
         run: |
