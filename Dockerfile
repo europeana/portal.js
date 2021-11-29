@@ -74,6 +74,8 @@ CMD ["npm", "run", "test:unit"]
 # Size test
 FROM production-app-build AS test-size
 
+COPY tests ./tests
+
 RUN npm run test:size:setup
 
 CMD ["npm", "run", "test:size"]
