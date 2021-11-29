@@ -11,17 +11,9 @@ on:
     - 'src/migrations/**'
 
 env:
-  CF_API: https://api.eu-de.cf.cloud.ibm.com
-  CF_APP_NAME_PREFIX: portaljs
-  # TODO: use eanadev.org, requiring interaction with Dyn DNS API
-  CF_DOMAIN: eu-de.cf.appdomain.cloud
-  CF_ORG: europeana-dev
-  CF_PASSWORD: ${{ secrets.CF_PASSWORD }}
-  CF_SPACE: dev
-  CF_USERNAME: apikey
   CTF_CDA_ACCESS_TOKEN: ${{ secrets.CTF_CDA_ACCESS_TOKEN }}
   CTF_ENVIRONMENT_ID: test
-  CTF_GRAPHQL_ORIGIN: https://portaljs-api-proxy-cache-test.eanadev.org
+  CTF_GRAPHQL_ORIGIN: https://contentful-proxy-cache.test.eanadev.org
   CTF_SPACE_ID: ${{ secrets.CTF_SPACE_ID }}
   DOCKER_REPOSITORY: europeana/portal.js
   ELASTIC_APM_SERVER_URL: https://apm.eanadev.org:8200
@@ -40,41 +32,15 @@ jobs:
   #   steps:
   #   - uses: actions/checkout@v2
   #   - run: echo "PULL_REQUEST_NUMBER=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
-  #   - run: echo "CF_APP_NAME=${CF_APP_NAME_PREFIX}-${PULL_REQUEST_NUMBER}" >> $GITHUB_ENV
-  #   - run: echo "CF_APP_FQDN=${CF_APP_NAME}.${CF_DOMAIN}" >> $GITHUB_ENV
   #   - id: done
   #     name: Output generated env vars
   #     run: |
   #       echo "::set-output name=pull-request-number::${PULL_REQUEST_NUMBER}"
-  #       echo "::set-output name=cf-space::${CF_SPACE}"
-  #       echo "::set-output name=cf-app-name::${CF_APP_NAME}"
-  #       echo "::set-output name=cf-app-fqdn::${CF_APP_FQDN}"
   #   outputs:
   #     pull-request-number: ${{ steps.done.outputs.pull-request-number }}
-  #     cf-app-name: ${{ steps.done.outputs.cf-app-name }}
-  #     cf-app-fqdn: ${{ steps.done.outputs.cf-app-fqdn }}
-  #     cf-space:  ${{ steps.done.outputs.cf-space }}
 
-  # test-unit:
-  #   if: github.event.pull_request.draft == false
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - uses: actions/checkout@v2
-  #   - uses: actions/setup-node@v1
-  #     with:
-  #       node-version: 14.x
-  #   - uses: actions/cache@v2
-  #     id: cache-node
-  #     with:
-  #       path: |
-  #         ~/.npm
-  #         **/node_modules
-  #       key: ${{ runner.os }}-node-${{ hashFiles('./package-lock.json') }}
-  #   - if: steps.cache-node.outputs.cache-hit != 'true'
-  #     run: npm install
-  #   - run: npm run test:unit
-
-  build-docker-image-base:
+  docker-build-base-image:
+    if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     steps:
       -
@@ -102,8 +68,9 @@ jobs:
           cache-to: type=gha
 
   test-unit:
+    if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
-    needs: [build-docker-image-base]
+    needs: [docker-build-base-image]
     steps:
       -
         name: Checkout
@@ -134,9 +101,10 @@ jobs:
       - run: |
           docker run ${{ steps.meta.outputs.tags }}
 
-  docker-push:
+  docker-build-push-production-image:
+    if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
-    needs: [build-docker-image-base]
+    needs: [docker-build-base-image]
     steps:
       -
         name: Checkout
@@ -173,8 +141,9 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
   test-e2e:
+    if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
-    needs: [docker-push]
+    needs: [docker-build-push-production-image]
     steps:
       -
         name: Checkout
@@ -199,15 +168,16 @@ jobs:
           tags: ${{ env.DOCKER_REPOSITORY }}
           target: production
           cache-from: type=gha
-      - run: echo "APP_IMAGE_TAG=${{ steps.meta.outputs.tags }}" >> $GITHUB_ENV
+      - run: echo "APP_IMAGE_VERSION=${{ steps.meta.outputs.version }}" >> $GITHUB_ENV
       - run: envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/app/.env
       - run: envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/nightwatch-visual/.env
       - run: docker-compose -f ./tests/e2e/docker/docker-compose.yml build --pull
       - run: docker-compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-features
 
   deploy-ibm-cloud:
+    if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
-    needs: [docker-push]
+    needs: [docker-build-push-production-image]
     env:
       IBMCLOUD_API_URL: https://cloud.ibm.com
       IBMCLOUD_API_KEY: ${{ secrets.IBMCLOUD_API_KEY }}
