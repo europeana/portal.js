@@ -40,6 +40,9 @@ jobs:
         with:
           context: .
           push: true
+          pull: true
+          cache-from: type=gha
+          cache-to: type=gha
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
       -
