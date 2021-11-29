@@ -26,19 +26,6 @@ env:
   REDIS_TLS_CA: ${{ secrets.REDIS_TLS_CA }}
 
 jobs:
-  # config:
-  #   if: github.event.pull_request.draft == false
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - uses: actions/checkout@v2
-  #   - run: echo "PULL_REQUEST_NUMBER=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
-  #   - id: done
-  #     name: Output generated env vars
-  #     run: |
-  #       echo "::set-output name=pull-request-number::${PULL_REQUEST_NUMBER}"
-  #   outputs:
-  #     pull-request-number: ${{ steps.done.outputs.pull-request-number }}
-
   docker-build-base-image:
     if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
@@ -78,8 +65,6 @@ jobs:
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
-      # - run: echo "PULL_REQUEST_NUMBER=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
-      # - run: echo "DOCKER_IMAGE_TAG=${DOCKER_REPOSITORY}:pr-${PULL_REQUEST_NUMBER}" >> $GITHUB_ENV
       -
         name: Docker meta
         id: meta
