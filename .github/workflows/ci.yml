@@ -80,6 +80,7 @@ jobs:
           context: .
           load: true
           tags: ${{ steps.meta.outputs.tags }}
+          target: production-app-base
           cache-from: type=gha
           cache-to: type=gha,mode=max
       - run: |
