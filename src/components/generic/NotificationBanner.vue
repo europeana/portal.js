@@ -45,14 +45,26 @@
   @import '@/assets/scss/variables.scss';
   @import '@/assets/scss/icons.scss';
 
-  p {
-    line-height: 1.375rem;
+  .container-fluid {
+    background: $blue;
+    color: $white;
+    margin-top: -1rem;
+    padding-top: 1rem;
 
-    &:before {
-      content: '\e900';
-      font-size: 1.2rem;
-      margin-right: 0.75rem;
-      @extend .icon-font;
+    a {
+      color: $white;
+    }
+
+    p {
+      line-height: 1.375rem;
+      display: flex;
+
+      &:before {
+        content: '\e949';
+        font-size: 1.25rem;
+        margin-right: 0.75rem;
+        @extend .icon-font;
+      }
     }
   }
 </style>
