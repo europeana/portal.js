@@ -132,7 +132,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha
       - run: |
-          docker run ${DOCKER_REPOSITORY}:test-unit
+          docker run ${{ steps.meta.outputs.tags }}
 
   docker-push:
     runs-on: ubuntu-latest
