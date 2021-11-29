@@ -83,7 +83,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
       - run: |
-          docker run ${{ steps.meta.outputs.tags }} --mount type=bind,source=\"$(pwd)\"/tests,target=/app/tests npm run test:unit
+          docker run --mount type=bind,source=\"$(pwd)\"/tests,target=/app/tests ${{ steps.meta.outputs.tags }} npm run test:unit
 
   docker-build-push-production-image:
     if: github.event.pull_request.draft == false
