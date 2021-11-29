@@ -35,7 +35,7 @@ FROM production-package-install AS production-app-base
 
 RUN npm install
 
-COPY package.json package-lock.json babel.config.cjs nuxt.config.js ./
+COPY package.json package-lock.json .eslintrc.cjs .stylelintrc.cjs babel.config.cjs nuxt.config.js ./
 COPY src ./src
 
 
@@ -60,26 +60,3 @@ COPY --from=production-app-build /app/src ./src
 COPY --from=production-app-build /app/.nuxt ./.nuxt
 
 CMD ["npm", "run", "start"]
-
-
-# 4. Unit test
-FROM production-app-base AS test-unit
-
-COPY .eslintrc.cjs .stylelintrc.cjs babel.config.cjs ./
-COPY tests ./tests
-
-CMD ["npm", "run", "test:unit"]
-
-
-# Size test
-FROM production-app-build AS test-size
-
-COPY tests ./tests
-
-RUN npm run test:size:setup
-
-CMD ["npm", "run", "test:size"]
-
-
-# 5.
-FROM production AS final
