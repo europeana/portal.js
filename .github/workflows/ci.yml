@@ -175,6 +175,16 @@ jobs:
           images: ${{ env.DOCKER_REPOSITORY }}
           tags: |
             type=ref,event=pr
+      -
+        name: Build and load
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          load: true
+          target: production
+          tags: ${{ steps.meta.outputs.tags }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
       - run: echo "APP_IMAGE_VERSION=${{ steps.meta.outputs.version }}" >> $GITHUB_ENV
       - run: envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/app/.env
       - run: envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/nightwatch-visual/.env
@@ -200,6 +210,16 @@ jobs:
           images: ${{ env.DOCKER_REPOSITORY }}
           tags: |
             type=ref,event=pr
+      -
+        name: Build and load
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          load: true
+          target: production
+          tags: ${{ steps.meta.outputs.tags }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
       - run: echo "APP_IMAGE_VERSION=${{ steps.meta.outputs.version }}" >> $GITHUB_ENV
       - run: envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/app/.env
       - run: envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/nightwatch-visual/.env
