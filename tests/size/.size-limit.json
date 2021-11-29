@@ -4,8 +4,8 @@
     "running": false,
     "limit": "800 KB",
     "path": [
-      "../../.nuxt/dist/client/*.js",
-      "!../../.nuxt/dist/client/*.modern.js"
+      ".nuxt/dist/client/*.js",
+      "!.nuxt/dist/client/*.modern.js"
     ]
   },
   {
@@ -13,7 +13,7 @@
     "running": false,
     "limit": "765 KB",
     "path": [
-      "../../.nuxt/dist/client/*.modern.js"
+      ".nuxt/dist/client/*.modern.js"
     ]
   },
   {
@@ -21,7 +21,7 @@
     "running": false,
     "limit": "510 KB",
     "path": [
-      "../../.nuxt/dist/server/*.js"
+      ".nuxt/dist/server/*.js"
     ]
   }
 ]
