@@ -133,7 +133,6 @@ jobs:
         with:
           context: .
           target: production
-          pull: true
           push: true
           cache-from: type=gha
           cache-to: type=gha
