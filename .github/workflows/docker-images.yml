@@ -78,9 +78,10 @@ jobs:
       IBMCLOUD_CLUSTER_NAME: europeana-web
       IBMCLOUD_REGION: eu-de
     steps:
-      -
-        name: Set Docker image tag env
-        run: echo "DOCKER_IMAGE_TAG=${DOCKER_REPOSITORY}:$(echo ${{ github.event.ref }} | sed -r 's#^refs/(heads/|tags/v)##')" >> $GITHUB_ENV
+      # NOTE: Kept for potential future use if auto-deploying version tags to production
+      # -
+      #   name: Set Docker image tag env
+      #   run: echo "DOCKER_IMAGE_TAG=${DOCKER_REPOSITORY}:$(echo ${{ github.event.ref }} | sed -r 's#^refs/(heads/|tags/v)##')" >> $GITHUB_ENV
       -
         name: Install ibmcloud CLI
         run: |
@@ -91,6 +92,9 @@ jobs:
         run: |
           ibmcloud login -a ${IBMCLOUD_API_URL} -r ${IBMCLOUD_REGION} --apikey ${IBMCLOUD_API_KEY}
           ibmcloud ks cluster config --cluster ${IBMCLOUD_CLUSTER_NAME}
+      -
+        name: Update deployment
+        run: |
           kubectl rollout restart --namespace test deployment/portal-js
 
   nginx:
