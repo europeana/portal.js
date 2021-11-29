@@ -124,37 +124,40 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-  # TODO: rewrite to use tests/size/Dockerfile...
-  # test-size:
-  #   if: github.event.pull_request.draft == false
-  #   runs-on: ubuntu-latest
-  #   needs: [docker-build-push-production-image]
-  #   steps:
-  #     -
-  #       name: Checkout
-  #       uses: actions/checkout@v2
-  #     -
-  #       name: Set up Docker Buildx
-  #       uses: docker/setup-buildx-action@v1
-  #     -
-  #       name: Docker meta
-  #       id: meta
-  #       uses: docker/metadata-action@v3
-  #       with:
-  #         images: ${{ env.DOCKER_REPOSITORY }}
-  #         tags: |
-  #           type=ref,event=pr,suffix=-test-size
-  #     -
-  #       name: Build and load
-  #       uses: docker/build-push-action@v2
-  #       with:
-  #         context: .
-  #         load: true
-  #         tags: ${{ steps.meta.outputs.tags }}
-  #         cache-from: type=gha
-  #         cache-to: type=gha,mode=max
-  #     - run: |
-  #         docker run ${{ steps.meta.outputs.tags }}
+  test-size:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    needs: [docker-build-push-production-image]
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      -
+        name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: ${{ env.DOCKER_REPOSITORY }}
+          tags: |
+            type=ref,event=pr
+      -
+        name: Build and load
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          load: true
+          tags: ${{ steps.meta.outputs.tags }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      - run: |
+          docker pull europeana/portal.js-test-size
+          docker run --name portal.js --rm -d ${{ steps.meta.outputs.tags }}
+          docker cp portal.js:/app/.nuxt ./.nuxt
+          docker stop portal.js
+          docker run --mount type=bind,source="$(pwd)"/.nuxt,target=/app/.nuxt europeana/portal.js-test-size
 
   test-e2e:
     if: github.event.pull_request.draft == false
