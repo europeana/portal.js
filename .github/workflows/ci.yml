@@ -274,6 +274,13 @@ jobs:
         run: |
           ibmcloud login -a ${IBMCLOUD_API_URL} -r ${IBMCLOUD_REGION} --apikey ${IBMCLOUD_API_KEY}
           ibmcloud ks cluster config --cluster ${IBMCLOUD_CLUSTER_NAME}
+      - name: Detect new deployment
+        run: |
+          set +e
+          kubectl --namespace dev get deployment ${K8S_RESOURCE_NAME}
+          if [ $? -eq 1 ]; then K8S_NEW_DEPLOYMENT="true"; else K8S_NEW_DEPLOYMENT="false"; fi
+          set -e
+          echo K8S_NEW_DEPLOYMENT=${K8S_NEW_DEPLOYMENT} >> $GITHUB_ENV
       -
         name: Deploy to IBM Cloud K8s
         run: |
@@ -281,21 +288,24 @@ jobs:
           kubectl apply -f service.yml
           kubectl apply -f ingress.yml
           kubectl rollout restart --namespace dev deployment/${K8S_RESOURCE_NAME}
+    outputs:
+      k8s-ingress-host: ${{ env.K8S_INGRESS_HOST }}
+      k8s-new-deployment: ${{ env.K8S_NEW_DEPLOYMENT }}
 
-  # notify:
-  #   if: github.event.pull_request.draft == false && needs.deploy.outputs.cf-app-first-deploy == 'true'
-  #   needs: [deploy, config]
-  #   runs-on: ubuntu-latest
-  #   env:
-  #     PULL_REQUEST_NUMBER: ${{ needs.config.outputs.pull-request-number }}
-  #     PULL_REQUEST_TITLE: ${{ github.event.pull_request.title }}
-  #     PULL_REQUEST_USER_LOGIN: ${{ github.event.pull_request.user.login }}
-  #     PULL_REQUEST_USER_HTML_URL: ${{ github.event.pull_request.user.html_url }}
-  #     CF_APP_FQDN: ${{ needs.config.outputs.cf-app-fqdn }}
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - name: Notify Slack
-  #       run: |
-  #         mkdir tmp
-  #         envsubst < .github/workflows/support/ci/slack-notification.json > tmp/slack-notification.json
-  #         curl -d "@tmp/slack-notification.json" -X POST ${SLACK_WEBHOOK_URL}
+  notify:
+    if: github.event.pull_request.draft == false && needs.deploy-ibm-cloud.outputs.k8s-new-deployment == 'true'
+    needs: [deploy-ibm-cloud]
+    runs-on: ubuntu-latest
+    env:
+      PULL_REQUEST_TITLE: ${{ github.event.pull_request.title }}
+      PULL_REQUEST_USER_LOGIN: ${{ github.event.pull_request.user.login }}
+      PULL_REQUEST_USER_HTML_URL: ${{ github.event.pull_request.user.html_url }}
+      K8S_INGRESS_HOST: ${{ needs.deploy-ibm-cloud.outputs.k8s-ingress-host }}
+    steps:
+      - uses: actions/checkout@v2
+      - run: echo "PULL_REQUEST_NUMBER=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
+      - name: Notify Slack
+        run: |
+          mkdir tmp
+          envsubst < .github/workflows/support/ci/slack-notification.json > tmp/slack-notification.json
+          curl -d "@tmp/slack-notification.json" -X POST ${SLACK_WEBHOOK_URL}
