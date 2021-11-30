@@ -79,6 +79,12 @@
       this.$store.commit('search/set', ['overrideParams', {}]);
     },
 
+    head() {
+      return {
+        title: this.$pageHeadTitle(this.searchQuery ? this.$t('searchResultsFor', [this.searchQuery]) : this.$t('search'))
+      };
+    },
+
     computed: {
       notificationUrl() {
         return legacyUrl(this.$route.query, this.$i18n.locale) +
@@ -97,12 +103,6 @@
 
     mounted() {
       this.$store.commit('search/enableCollectionFacet');
-    },
-
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.searchQuery ? this.$t('searchResultsFor', [this.searchQuery]) : this.$t('search'))
-      };
     }
   };
 </script>
