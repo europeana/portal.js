@@ -56,6 +56,7 @@
                 :selected="filters[facet.name]"
                 :static-fields="facet.staticFields"
                 role="search"
+                :aria-label="facet.name"
                 @changed="changeFacet"
               />
             </client-only>
