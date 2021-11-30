@@ -65,16 +65,7 @@
           :aria-label="$t('search')"
           @click="toggleSearchBar"
         />
-        <b-button
-          v-show="showFiltersToggle"
-          data-qa="search filter button"
-          class="filters-toggle ml-3"
-          variant="light"
-          :aria-label="$t('filter')"
-          @click="toggleFilterSheet"
-        >
-          {{ $t('filter') }}
-        </b-button>
+        <FilterToggleButton />
       </b-navbar>
       <b-sidebar
         id="sidebar"
@@ -125,6 +116,7 @@
   import SmartLink from './generic/SmartLink';
   import SearchForm from './search/SearchForm';
   import PageNavigation from './PageNavigation';
+  import FilterToggleButton from '@/components/search/FilterToggleButton';
   import { mapState } from 'vuex';
 
   export default {
@@ -133,7 +125,8 @@
     components: {
       SmartLink,
       SearchForm,
-      PageNavigation
+      PageNavigation,
+      FilterToggleButton
     },
 
     data() {
@@ -143,18 +136,12 @@
     },
 
     computed: {
-      ...mapState({
-        showSearch: state => state.search.showSearchBar,
-        showFiltersToggle: state => state.search.showFiltersToggle
-      })
+      ...mapState({ showSearch: state => state.search.showSearchBar      })
     },
 
     methods: {
       toggleSearchBar() {
         this.$store.commit('search/setShowSearchBar', !this.$store.state.search.showSearchBar);
-      },
-      toggleFilterSheet() {
-        this.$store.commit('search/setShowFiltersSheet', !this.$store.state.search.showFiltersSheet);
       }
     }
   };
@@ -245,13 +232,6 @@
       }
     }
 
-    &.search,
-    &.close {
-      &:hover::before {
-        color: $innovationblue;
-      }
-    }
-
     &.back {
       position: absolute;
       left: 1rem;
@@ -260,6 +240,13 @@
 
       &::before {
         content: '\ea40';
+        transition: $standard-transition;
+      }
+    }
+
+    &.search, &.close, &.back {
+      &:hover::before {
+        color: $innovationblue;
       }
     }
   }
@@ -330,4 +317,5 @@
       display: none;
     }
   }
+
 </style>

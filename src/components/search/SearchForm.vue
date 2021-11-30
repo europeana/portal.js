@@ -11,7 +11,7 @@
       role="combobox"
       :aria-owns="showSearchOptions ? 'search-form-options' : null"
       :aria-expanded="showSearchOptions"
-      class="auto-suggest"
+      class="auto-suggest pr-3"
     >
       <b-form-input
         ref="searchbox"
@@ -30,11 +30,12 @@
       <b-button
         v-show="query"
         data-qa="clear button"
-        class="clear"
+        class="clear ml-3 my-3"
         variant="light"
         :aria-label="$t('header.clearQuery')"
         @click="clearQuery"
       />
+      <FilterToggleButton />
       <SearchQueryOptions
         v-if="showSearchOptions"
         v-model="searchQueryOptions"
@@ -47,6 +48,7 @@
 
 <script>
   import SearchQueryOptions from './SearchQueryOptions';
+  import FilterToggleButton from './FilterToggleButton';
   import { mapGetters } from 'vuex';
   import match from 'autosuggest-highlight/match';
   import parse from 'autosuggest-highlight/parse';
@@ -55,7 +57,8 @@
     name: 'SearchForm',
 
     components: {
-      SearchQueryOptions
+      SearchQueryOptions,
+      FilterToggleButton
     },
 
     data() {
@@ -338,9 +341,9 @@
       width: 100%;
 
       .form-control {
-        padding: 0.375rem 3.5rem;
+        padding: 0.375rem 1rem 0.375rem 3.5rem;
         height: 3.4rem;
-        box-shadow: 2px 2px 4px 0 rgb(0 0 0 / 8%);
+        box-shadow: none;
         border-radius: 0;
         color: $mediumgrey;
         width: 100%;
@@ -393,6 +396,9 @@
 
   .input-group {
     width: 100%;
+    flex-wrap: nowrap;
+    height: 3.4rem;
+    box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.08);
 
     .input-group-prepend {
       display: none;
@@ -434,13 +440,14 @@
     }
 
     &.clear {
-      position: absolute;
-      right: 1rem;
-      top: 1rem;
       z-index: 99;
 
       &::before {
         content: '\e904';
+        transition: $standard-transition;
+      }
+      &:hover:before {
+        color: $innovationblue;
       }
     }
   }

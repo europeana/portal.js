@@ -9,7 +9,7 @@
     />
     <b-container
       data-qa="search page"
-      :class="{'page-container': sideFiltersEnabled}"
+      :class="{'page-container side-filters-enabled': sideFiltersEnabled}"
     >
       <b-row>
         <b-col
@@ -129,5 +129,6 @@
     margin-left: -15px;
     margin-right: -15px;
     width: auto;
+    min-height: 2.5rem; // aligns with the side filters header
   }
 </style>
