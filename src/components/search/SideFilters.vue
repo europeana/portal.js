@@ -263,7 +263,6 @@
 <style lang="scss" scoped>
   @import '@/assets/scss/variables.scss';
   @import '@/assets/scss/icons.scss';
-
   .filters-title {
     font-size: $font-size-small;
     font-weight: 600;
@@ -314,7 +313,6 @@
           background-color: rgba(0, 0, 0, 0.7);
         }
       }
-
     }
     @media (min-width: $bp-large) {
       max-width: 320px;
