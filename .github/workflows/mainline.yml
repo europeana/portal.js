@@ -21,6 +21,8 @@ env:
   PERCY_BRANCH: master
 
 jobs:
+  # TODO: this should wait for the master Docker image to be built, and use that.
+  # TODO: move to the CI workflow
   test-visual:
     runs-on: ubuntu-latest
     steps:
