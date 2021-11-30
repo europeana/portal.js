@@ -152,7 +152,7 @@
   }
   .apply-button {
     height: 2.5rem;
-    vertical-align: baseline;
+    vertical-align: bottom;
     margin-left: 0.25rem;
   }
   .apply-icon {

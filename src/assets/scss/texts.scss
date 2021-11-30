@@ -31,6 +31,19 @@ header .col {
 .text-page {
   background: $white;
   margin-top: -3rem;
+  position: relative;
+  &::after {
+    border-top: 145px solid $white;
+    border-left: 60px solid transparent;
+    content: '';
+    display: block;
+    height: 0;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    width: 0;
+    z-index: 1;
+  }
 
   h1 {
     margin-bottom: 0.5rem;
