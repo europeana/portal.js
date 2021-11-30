@@ -17,100 +17,107 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-external-link:before {
+.icon-external-link::before {
   content: '\e900';
 }
 
-.icon-facebook:before {
+.icon-facebook::before {
   content: '\e901';
 }
 
-.icon-twitter:before {
+.icon-twitter::before {
   content: '\e902';
 }
 
-.icon-caret-down:before {
+.icon-caret-down::before {
   content: '\e903';
 }
 
-.icon-close:before {
+.icon-close::before {
   content: '\e904';
 }
 
-.icon-clear:before {
+.icon-clear::before {
   content: '\e931';
 }
 
-.icon-pinterest:before {
+.icon-pinterest::before {
   content: '\e908';
 }
 
-.icon-instagram:before {
+.icon-instagram::before {
   content: '\e909';
 }
 
-.icon-ic-add:before {
+.icon-ic-add::before {
   content: '\e923';
 }
 
-.icon-heart:before {
+.icon-heart::before {
   content: '\e9da';
   width: 2rem;
 }
 
-.icon-info:before {
+.icon-info::before {
   content: '\e91f';
 }
 
-.icon-info-outline:before {
+.icon-info-outline::before {
   content: '\e93a';
 }
 
-.icon-cancel-circle:before {
+.icon-cancel-circle::before {
   content: '\e934';
 }
 
-.icon-share:before {
+.icon-share::before {
   content: '\e925';
 }
 
-.icon-check_circle:before {
+.icon-check-circle::before {
   content: '\e92f';
 }
 
-.icon-ic-tag:before {
+.icon-ic-tag::before {
   content: '\e930';
 }
 
-.icon-accept:before {
-  content: '\e938'
+.icon-accept::before {
+  content: '\e938';
 }
 
-.icon-reject:before {
-  content: '\e939'
+.icon-reject::before {
+  content: '\e939';
 }
 
-.icon-ic-feedback:before {
+.icon-ic-feedback::before {
   content: '\e933';
 }
-.icon-push-pin:before {
+
+.icon-push-pin::before {
   content: '\e936';
 }
-.icon-globe:before {
+
+.icon-globe::before {
   content: '\e937';
 }
-.icon-arrow-down:before {
+
+.icon-arrow-down::before {
   content: '\e93b';
 }
-.icon-verified:before {
+
+.icon-verified::before {
   content: '\e93c';
 }
-.icon-temporary-tag:before {
+
+.icon-temporary-tag::before {
   content: '\e93d';
 }
-.icon-language:before {
+
+.icon-language::before {
   content: '\e905';
 }
-.icon-translate:before {
+
+.icon-translate::before {
   content: '\e93c';
 }

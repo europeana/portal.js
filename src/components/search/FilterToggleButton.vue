@@ -27,19 +27,21 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
-  @import '@/assets/scss/icons.scss';
+  @import '@/assets/scss/variables';
+  @import '@/assets/scss/icons';
 
   .btn.filters-toggle {
     @media (min-width: $bp-large) {
       display: none;
     }
-    &:before {
+
+    &::before {
       content: '\e948';
       font-size: 1.5rem;
       transition: $standard-transition;
     }
-    &:hover:before {
+
+    &:hover::before {
       color: $innovationblue;
     }
   }

@@ -10,7 +10,7 @@
     <span>{{ displayField('title') }} ({{ set.visibility }}) - {{ $tc('items.itemCount', set.total || 0) }}</span>
     <span
       v-if="checked"
-      class="icon-check_circle d-inline-flex"
+      class="icon-check-circle d-inline-flex"
     />
   </b-button>
 </template>
@@ -66,7 +66,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
+  @import '@/assets/scss/variables';
 
   .btn-collection {
     border: 0;
@@ -81,7 +81,7 @@
       position: relative;
       z-index: 10;
 
-      &.icon-check_circle {
+      &.icon-check-circle {
         font-size: $font-size-large;
       }
     }

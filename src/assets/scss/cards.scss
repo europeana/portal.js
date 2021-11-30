@@ -516,47 +516,52 @@
   }
 
   .card-deck-3-cols .card {
-    flex: 0 0 calc(100% / 3 - #{$grid-gutter* 2});
+    flex: 0 0 calc(100% / 3 - #{$grid-gutter * 2});
   }
 
   .card-deck-4-cols .card {
-    flex: 0 0 calc(100% / 2 - #{$grid-gutter* 2});
+    flex: 0 0 calc(100% / 2 - #{$grid-gutter * 2});
   }
 
   .card-deck-4-cols.narrow-gutter .card {
-    flex: 0 0 calc(100% / 2 - #{$grid-gutter-narrow* 2});
+    flex: 0 0 calc(100% / 2 - #{$grid-gutter-narrow * 2});
   }
 }
 
 @media (min-width: $bp-large) {
   .card-deck-4-cols .card {
-    flex: 0 0 calc(100% / 4 - #{$grid-gutter* 2});
+    flex: 0 0 calc(100% / 4 - #{$grid-gutter * 2});
   }
 
   .card-deck-4-cols.narrow-gutter .card {
-    flex: 0 0 calc(100% / 4 - #{$grid-gutter-narrow* 2});
+    flex: 0 0 calc(100% / 4 - #{$grid-gutter-narrow * 2});
   }
 }
 
 .side-filters-enabled {
   @media (min-width: $bp-medium) {
-    .card-deck-3-cols, .card-deck-4-cols {
+    .card-deck-3-cols,
+    .card-deck-4-cols {
       .card {
-        flex: 0 0 calc(100% / 2 - #{$grid-gutter*2});
+        flex: 0 0 calc(100% / 2 - #{$grid-gutter * 2});
       }
     }
   }
+
   @media (min-width: $bp-large) {
-    .card-deck-3-cols, .card-deck-4-cols {
+    .card-deck-3-cols,
+    .card-deck-4-cols {
       .card {
-        flex: 0 0 calc(100% / 3 - #{$grid-gutter*2});
+        flex: 0 0 calc(100% / 3 - #{$grid-gutter * 2});
       }
     }
   }
+
   @media (min-width: $bp-extralarge) {
-    .card-deck-3-cols, .card-deck-4-cols {
+    .card-deck-3-cols,
+    .card-deck-4-cols {
       .card {
-        flex: 0 0 calc(100% / 4 - #{$grid-gutter*2});
+        flex: 0 0 calc(100% / 4 - #{$grid-gutter * 2});
       }
     }
   }
@@ -574,7 +579,7 @@
   @media (min-width: $bp-medium) {
     margin-left: -15px;
     margin-right: -15px;
-    width: calc(100% + #{$grid-gutter* 2});
+    width: calc(100% + #{$grid-gutter * 2});
   }
 
   .content-card {
@@ -594,11 +599,11 @@
     @media (min-width: $bp-medium) {
       margin-left: 15px;
       margin-right: 15px;
-      width: calc(100% / 2 - #{$grid-gutter* 2});
+      width: calc(100% / 2 - #{$grid-gutter * 2});
     }
 
     @media (min-width: $bp-large) {
-      width: calc(100% / 4 - #{$grid-gutter* 2});
+      width: calc(100% / 4 - #{$grid-gutter * 2});
     }
 
     a {
@@ -641,15 +646,15 @@
   @at-root .side-filters-enabled & {
     .content-card {
       @media (min-width: $bp-medium) {
-        width: calc(100% / 2 - #{$grid-gutter*2});
+        width: calc(100% / 2 - #{$grid-gutter * 2});
       }
-        
+
       @media (min-width: $bp-large) {
-        width: calc(100% / 3 - #{$grid-gutter*2});
+        width: calc(100% / 3 - #{$grid-gutter * 2});
       }
-        
+
       @media (min-width: $bp-extralarge) {
-        width: calc(100% / 4 - #{$grid-gutter*2});
+        width: calc(100% / 4 - #{$grid-gutter * 2});
       }
     }
   }
@@ -670,11 +675,11 @@
     margin-left: -$grid-gutter;
 
     .card {
-      flex: 0 0 calc(100% / 2 - #{$grid-gutter* 2});
+      flex: 0 0 calc(100% / 2 - #{$grid-gutter * 2});
       margin: $grid-gutter;
 
       @media (min-width: $bp-medium) {
-        flex: 0 0 calc(100% / 3 - #{$grid-gutter* 2});
+        flex: 0 0 calc(100% / 3 - #{$grid-gutter * 2});
       }
     }
   }

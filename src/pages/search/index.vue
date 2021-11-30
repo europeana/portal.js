@@ -108,7 +108,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
+  @import '@/assets/scss/variables';
 
   h1 {
     font-size: 1.875rem;

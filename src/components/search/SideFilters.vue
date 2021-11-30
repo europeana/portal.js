@@ -261,14 +261,16 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
-  @import '@/assets/scss/icons.scss';
+  @import '@/assets/scss/variables';
+  @import '@/assets/scss/icons';
+
   .filters-title {
     font-size: $font-size-small;
     font-weight: 600;
     line-height: 1;
     margin: 1.25rem 1rem;
   }
+
   .col-filters {
     @media (max-width: $bp-large - 1px) {
       display: flex;
@@ -281,6 +283,7 @@
       z-index: 1050;
       max-width: none;
       overflow: hidden;
+
       .side-filters {
         flex-shrink: 0;
         margin-right: -320px;
@@ -289,35 +292,43 @@
         max-width: 75vw;
         animation: appear 300ms ease-in-out;
         transition: margin-right 300ms ease-in-out;
+
         @keyframes appear {
           from {
             margin-right: -320px;
           }
+
           to {
             margin-right: 0;
           }
         }
       }
+
       &.hide {
         display: none;
       }
+
       &.open {
         left: 0;
+
         .side-filters {
           margin-right: 0;
         }
+
         .filters-backdrop {
           content: '';
           width: 100%;
           height: 100%;
-          background-color: rgba(0, 0, 0, 0.7);
+          background-color: rgb(0 0 0 / 70%);
         }
       }
     }
+
     @media (min-width: $bp-large) {
       max-width: 320px;
       min-width: 220px;
       min-height: 31rem;
+
       &::after {
         border-top: 145px solid $white;
         border-left: 60px solid transparent;
@@ -330,21 +341,26 @@
         width: 0;
         z-index: 1;
       }
+
       .filters-backdrop {
         display: none;
       }
     }
+
     flex-grow: 0;
     padding: 0;
     margin-top: -1rem;
+
     .side-filters {
       background-color: $white;
       height: 100%;
     }
+
     .btn.close {
       @media (min-width: $bp-large) {
         display: none;
       }
+
       background: none;
       border-radius: 0;
       border: 0;
@@ -355,13 +371,16 @@
       opacity: 1;
       height: 3.5rem;
       transition: $standard-transition;
-      &:before {
+
+      &::before {
         @extend .icon-font;
+        
         display: inline-block;
         content: '\e931';
         font-weight: 400;
         font-size: 1.5rem;
       }
+
       &:hover {
         color: $blue;
         transition: $standard-transition;

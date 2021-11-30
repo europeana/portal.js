@@ -63,7 +63,7 @@
 }
 
 // Expected ".btn-outline-primary:hover" to come before
-//@at-root  ".btn-outline-primary:hover:not([disabled])"
+// @at-root  ".btn-outline-primary:hover:not([disabled])"
 .btn-outline-primary {
   border-color: $blue;
   color: $blue;

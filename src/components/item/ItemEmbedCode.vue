@@ -20,7 +20,7 @@
       class="copy-to-clipboard-success"
       data-qa="share embed copied notice"
     >
-      <span class="icon-check_circle d-inline-flex pr-1" />
+      <span class="icon-check-circle d-inline-flex pr-1" />
       {{ $t('messages.copyToClipboardSuccess') }}
     </span>
   </b-form>
@@ -69,7 +69,7 @@
 </script>
 
 <style lang="scss">
-  @import '@/assets/scss/variables.scss';
+  @import '@/assets/scss/variables';
 
   #shareEmbed {
     cursor: pointer;

@@ -103,7 +103,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
+  @import '@/assets/scss/variables';
 
   .icon-translate::before {
     font-size: 1.4375rem;

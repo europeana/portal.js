@@ -110,7 +110,7 @@
                 id="step3"
                 class="feedback-success d-flex align-items-center"
               >
-                <span :class="requestSuccess ? 'icon-check_circle pr-3' : 'icon-cancel-circle pr-3'" />
+                <span :class="requestSuccess ? 'icon-check-circle pr-3' : 'icon-cancel-circle pr-3'" />
                 <span
                   v-if="requestSuccess"
                 >
@@ -364,7 +364,7 @@
 </script>
 
 <style lang="scss">
-  @import '@/assets/scss/variables.scss';
+  @import '@/assets/scss/variables';
 
   .feedback-container {
     position: fixed;
@@ -540,7 +540,7 @@
       color: $black;
     }
 
-    .icon-check_circle::before {
+    .icon-check-circle::before {
       color: $innovationblue;
       font-size: 2.0625rem;
     }

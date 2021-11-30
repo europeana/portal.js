@@ -1,6 +1,6 @@
 <template>
   <b-button
-    v-b-modal.downloadModal
+    v-b-modal.download-modal
     :href="url"
     :disabled="disabled"
     variant="light text-decoration-none"
@@ -48,8 +48,8 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
-  @import '@/assets/scss/icons.scss';
+  @import '@/assets/scss/variables';
+  @import '@/assets/scss/icons';
 
   .download-button {
     text-transform: capitalize;
