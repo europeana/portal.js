@@ -276,7 +276,6 @@ export default {
   ],
 
   buildModules: [
-    'nuxt-webpack-optimisations',
     '~/modules/contentful-graphql',
     '~/modules/axios-logger',
     '~/modules/http',
