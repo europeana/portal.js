@@ -52,7 +52,7 @@ jobs:
             type=ref,event=tag,suffix=-base
             type=semver,pattern={{version}},suffix=-base
       -
-        name: Build and load
+        name: Build and cache
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -96,11 +96,45 @@ jobs:
         run: |
           docker run --mount type=bind,source="$(pwd)"/tests,target=/app/tests ${{ steps.meta.outputs.tags }} npm run test:unit
 
+  # Build the production-app-build-nuxt stage of the Docker image independently so
+  # that it gets cached by Buildx.
+  docker-build-nuxt:
+    runs-on: ubuntu-latest
+    needs: [docker-build-base]
+    if: github.event_name == 'push' || github.event.pull_request.draft == false
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      -
+        name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: ${{ env.DOCKER_REPOSITORY }}
+          tags: |
+            type=ref,event=pr,suffix=-nuxt
+            type=ref,event=branch,suffix=-nuxt
+            type=ref,event=tag,suffix=-nuxt
+            type=semver,pattern={{version}},suffix=-nuxt
+      -
+        name: Build and cache
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          tags: ${{ steps.meta.outputs.tags }}
+          target: production-app-build-nuxt
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
   # Build, and push to Docker Hub, full production Docker image for use throughout
   # other jobs
   docker-build-push:
     runs-on: ubuntu-latest
-    needs: [docker-build-base]
+    needs: [docker-build-nuxt]
     if: github.event_name == 'push' || github.event.pull_request.draft == false
     steps:
       -
@@ -132,7 +166,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          target: production
           push: true
           cache-from: type=gha
           cache-to: type=gha,mode=max

@@ -39,15 +39,15 @@ COPY package.json package-lock.json .eslintrc.cjs .stylelintrc.cjs babel.config.
 COPY src ./src
 
 
-# Build app
+# 3. Build app
 
-FROM production-app-base AS production-app-build
+FROM production-app-base AS production-app-build-nuxt
 
 RUN npm run build
 
 
-# 3. Run
-FROM production-package-install AS production
+# 4. Run
+FROM production-package-install AS production-app-run
 
 ENV PORT=8080 \
     HOST=0.0.0.0 \
@@ -55,8 +55,8 @@ ENV PORT=8080 \
 
 EXPOSE ${PORT}
 
-COPY --from=production-app-build /app/package.json /app/package-lock.json /app/nuxt.config.js ./
-COPY --from=production-app-build /app/src ./src
-COPY --from=production-app-build /app/.nuxt ./.nuxt
+COPY --from=production-app-build-nuxt /app/package.json /app/package-lock.json /app/nuxt.config.js ./
+COPY --from=production-app-build-nuxt /app/src ./src
+COPY --from=production-app-build-nuxt /app/.nuxt ./.nuxt
 
 CMD ["npm", "run", "start"]
