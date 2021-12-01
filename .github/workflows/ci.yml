@@ -254,7 +254,7 @@ jobs:
   test-visual:
     runs-on: ubuntu-latest
     needs: [docker-build-push]
-    if: (github.event_name == 'push' && github.event.ref == 'refs/heads/chore/deploy-to-ibm-cloud-k8s') || github.event.pull_request.draft == false
+    if: (github.event_name == 'push' && github.event.ref == 'refs/heads/chore/deploy-to-ibm-cloud-k8s') || (github.event_name == 'pull_request' && github.event.pull_request.draft == false)
     env:
       PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
     steps:
@@ -296,7 +296,7 @@ jobs:
   deploy-ibm-cloud:
     runs-on: ubuntu-latest
     needs: [docker-build-push]
-    if: (github.event_name == 'push' && github.event.ref == 'refs/heads/chore/deploy-to-ibm-cloud-k8s') || github.event.pull_request.draft == false
+    if: (github.event_name == 'push' && github.event.ref == 'refs/heads/chore/deploy-to-ibm-cloud-k8s') || (github.event_name == 'pull_request' && github.event.pull_request.draft == false)
     env:
       IBMCLOUD_API_URL: https://cloud.ibm.com
       IBMCLOUD_API_KEY: ${{ secrets.IBMCLOUD_API_KEY }}
