@@ -24,7 +24,7 @@ spec:
       containers:
       - env:
         - name: PORTAL_BASE_URL
-          value: https://${K8S_RESOURCE_NAME}.dev.eanadev.org
+          value: https://${K8S_INGRESS_HOST}
         envFrom:
         - configMapRef:
             name: portal-js-env
