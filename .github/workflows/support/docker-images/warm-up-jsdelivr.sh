@@ -6,6 +6,8 @@ apk add --no-cache curl
 
 warm_up_url () {
   url=$1
+  echo ${url}
+  
   cached=false
   attempt=0
   while [[ ${cached} == "false" ]]; do
@@ -15,8 +17,7 @@ warm_up_url () {
       exit 1
     fi
 
-    echo "Checking for version availability on jsDelivr, attempt #${attempt}"
-    echo ${url}
+    echo "Checking for file availability on jsDelivr, attempt #${attempt}"
     curl --fail --silent -o /dev/null -I "${url}"
 
     if [[ "$?" == "0" ]]; then
@@ -24,7 +25,7 @@ warm_up_url () {
       echo
       cached=true
     else
-      sleep 5
+      sleep 10
     fi
   done
 }
