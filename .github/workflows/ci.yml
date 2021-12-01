@@ -253,7 +253,7 @@ jobs:
   # Run visual tests on pull requests, and pushes to master
   test-visual:
     runs-on: ubuntu-latest
-    needs: [docker-build-push, test-e2e]
+    needs: [docker-build-push]
     if: (github.event_name == 'push' && github.event.ref == 'refs/heads/chore/deploy-to-ibm-cloud-k8s') || github.event.pull_request.draft == false
     env:
       PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
