@@ -93,7 +93,7 @@ jobs:
       -
         name: Run unit tests
         run: |
-          docker run --mount type=bind,source="$(pwd)"/tests,target=/app/tests ${{ steps.meta.outputs.tags }} npm run test:unit
+          docker run --mount type=bind,source="$(pwd)"/tests,target=/app/tests ${DOCKER_REPOSITORY}:${{ steps.meta.outputs.version }} npm run test:unit
 
   # Build the production-app-build-nuxt stage of the Docker image independently so
   # that it gets cached by Buildx.
@@ -204,7 +204,7 @@ jobs:
         name: Prepare resources for size tests
         run: |
           docker pull europeana/portal.js-test-size
-          docker run --name portal.js --rm -d ${{ steps.meta.outputs.tags }}
+          docker run --name portal.js --rm -d ${{ env.DOCKER_REPOSITORY }}:${{ steps.meta.outputs.version }}
           docker cp portal.js:/app/.nuxt ./.nuxt
           docker stop portal.js
       -
@@ -320,7 +320,7 @@ jobs:
             type=ref,event=branch
       -
         name: Set image tag for deployment
-        run: echo "DOCKER_IMAGE_TAG=${{ steps.meta.outputs.tags }}" >> $GITHUB_ENV
+        run: echo "DOCKER_IMAGE_TAG=${{ env.DOCKER_REPOSITORY }}:${{ steps.meta.outputs.version }}" >> $GITHUB_ENV
       -
         name: Prepare env for dev deployments, step 1
         if: github.event_name == 'pull_request'
@@ -408,7 +408,7 @@ jobs:
             --rm \
             --env NODE_AUTH_TOKEN=${NODE_AUTH_TOKEN} \
             --mount type=bind,source=$(pwd)/.github/workflows/support/docker-images/.npmrc,target=/root/.npmrc \
-            --entrypoint npm ${{ steps.meta.outputs.tags }} \
+            --entrypoint npm ${{ env.DOCKER_REPOSITORY }}:${{ steps.meta.outputs.version }} \
             publish --access public
       -
         name: Warm up jsDelivr
@@ -418,7 +418,7 @@ jobs:
           docker run \
             --rm \
             --mount type=bind,source=$(pwd)/.github/workflows/support/docker-images/warm-up-jsdelivr.sh,target=/root/warm-up-jsdelivr.sh \
-            --entrypoint /root/warm-up-jsdelivr.sh ${{ steps.meta.outputs.tags }}
+            --entrypoint /root/warm-up-jsdelivr.sh ${{ env.DOCKER_REPOSITORY }}:${{ steps.meta.outputs.version }}
 
   # Send a notification to Slack channel with details of new PR deployments
   notify:
