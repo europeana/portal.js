@@ -8,10 +8,12 @@ WORKDIR /app
 RUN apk add --no-cache jq
 
 COPY package.json package-original.json
-RUN jq -Mr '{dependencies,devDependencies}' package-original.json > package.json
+RUN jq -Mr '{dependencies,devDependencies}' package-original.json > package.json \
+    && rm package-original.json
 
 COPY package-lock.json package-lock-original.json
-RUN jq -Mr '{dependencies,lockfileVersion,requires}' package-lock-original.json > package-lock.json
+RUN jq -Mr '{dependencies,lockfileVersion,requires}' package-lock-original.json > package-lock.json \
+    && rm package-lock-original.json
 
 
 # 1. Build production base image
@@ -29,6 +31,7 @@ RUN NODE_ENV=production npm install
 
 COPY bin ./bin
 COPY *.md .env.example ./
+
 
 # 2. Copy app src
 FROM production-package-install AS production-app-base
