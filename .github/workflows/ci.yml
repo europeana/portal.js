@@ -82,7 +82,7 @@ jobs:
           tags: |
             type=ref,event=pr,suffix=-base
       -
-        name: Build and load
+        name: Load base image
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -90,7 +90,6 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           target: production-app-base
           cache-from: type=gha
-          cache-to: type=gha,mode=max
       -
         name: Run unit tests
         run: |
@@ -125,6 +124,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
+          load: true
           tags: ${{ steps.meta.outputs.tags }}
           target: production-app-build-nuxt
           cache-from: type=gha
