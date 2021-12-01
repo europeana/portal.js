@@ -402,6 +402,15 @@ jobs:
           tags: |
             type=ref,event=tag
       -
+        name: Load built image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          load: true
+          tags: ${{ steps.meta.outputs.tags }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      -
         name: Publish to NPM
         run: |
           docker run \
