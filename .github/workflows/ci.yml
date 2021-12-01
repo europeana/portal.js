@@ -266,8 +266,11 @@ jobs:
       -
         if: github.event_name == 'pull_request'
         run: |
-          echo "PULL_REQUEST_NUMBER=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
           echo "K8S_NAMESPACE=dev" >> $GITHUB_ENV
+          echo "PULL_REQUEST_NUMBER=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
+      -
+        if: github.event_name == 'pull_request'
+        run: |
           echo "K8S_RESOURCE_NAME=portal-js-pr-${PULL_REQUEST_NUMBER}" >> $GITHUB_ENV
           echo "K8S_INGRESS_HOST=pr-${PULL_REQUEST_NUMBER}.portal-js.dev.eanadev.org" >> $GITHUB_ENV
       -
