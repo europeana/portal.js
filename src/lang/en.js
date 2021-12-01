@@ -655,15 +655,15 @@ export default {
   "learnMore": "Learn about the source of this description",
   "linksToClassic": {
     "home": {
-      "linkText": "View this page on the original Europeana website till 20 December 2021.",
+      "linkText": "View this page on the original Europeana website till 20th December 2021.",
       "text": ""
     },
     "record": {
-      "linkText": "View this item on the original Europeana website till 20 December 2021.",
+      "linkText": "View this item on the original Europeana website till 20th December 2021.",
       "text": ""
     },
     "search": {
-      "linkText": "Search on the original Europeana website till 20 December 2021.",
+      "linkText": "Search on the original Europeana website till 20th December 2021.",
       "text": ""
     }
   },
