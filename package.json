@@ -1,6 +1,6 @@
 {
   "name": "@europeana/portal",
-  "version": "1.56.1-k8s-6",
+  "version": "1.56.1-k8s-7",
   "description": "Europeana Portal",
   "type": "module",
   "scripts": {
