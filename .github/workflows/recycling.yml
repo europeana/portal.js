@@ -2,6 +2,7 @@ name: Recycling
 
 # TODO: ideally closing a PR would stop any runs of the ci workflow on the same
 #       PR first.
+# TODO: delete tagged images from Docker Hub
 
 on:
   pull_request:
@@ -20,8 +21,12 @@ jobs:
     -
       name: Checkout
       uses: actions/checkout@v2
-    - run: echo "PULL_REQUEST_NUMBER=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
-    - run: echo "K8S_RESOURCE_NAME=portal-js-pr-${PULL_REQUEST_NUMBER}" >> $GITHUB_ENV
+    -
+      name: Prepare env for resource deletion, step 1
+      run: echo "PULL_REQUEST_NUMBER=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
+    -
+      name: Prepare env for resource deletion, step 2
+      run: echo "K8S_RESOURCE_NAME=portal-js-pr-${PULL_REQUEST_NUMBER}" >> $GITHUB_ENV
     -
       name: Install ibmcloud CLI
       run: |
