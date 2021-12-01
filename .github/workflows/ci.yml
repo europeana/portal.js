@@ -56,7 +56,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          load: true
           tags: ${{ steps.meta.outputs.tags }}
           target: production-app-base
           cache-from: type=gha
@@ -125,7 +124,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          load: true
           tags: ${{ steps.meta.outputs.tags }}
           target: production-app-build-nuxt
           cache-from: type=gha
