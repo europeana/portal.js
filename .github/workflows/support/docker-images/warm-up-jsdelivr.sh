@@ -5,7 +5,7 @@ version=$(npm view @europeana/portal version)
 apk add --no-cache curl
 
 # Give jsDelivr time to fetch the new version
-url="https://cdn.jsdelivr.net/npm/@europeana/portal@${version}"
+url="https://cdn.jsdelivr.net/npm/@europeana/portal@${version}/"
 cached=false
 attempt=0
 while [[ ${cached} == "false" ]]; do
@@ -24,7 +24,7 @@ while [[ ${cached} == "false" ]]; do
     echo
     cached=true
   else
-    sleep 10
+    sleep 5
   fi
 done
 
