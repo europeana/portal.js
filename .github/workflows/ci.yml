@@ -101,7 +101,7 @@ jobs:
   # Run unit tests on pull requests
   test-unit:
     runs-on: ubuntu-latest
-    needs: [docker-stage-run-base]
+    needs: [docker-stage-build-base]
     if: github.event_name == 'pull_request' && github.event.pull_request.draft == false
     steps:
       -
@@ -136,7 +136,7 @@ jobs:
   # that it gets cached by Buildx.
   docker-stage-build:
     runs-on: ubuntu-latest
-    needs: [docker-stage-run-base]
+    needs: [docker-stage-build-base]
     if: github.event_name == 'push' || github.event.pull_request.draft == false
     steps:
       -
