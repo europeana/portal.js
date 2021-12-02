@@ -10,7 +10,6 @@ ENV CHROMEDRIVER_SKIP_DOWNLOAD=true \
 WORKDIR /app
 
 COPY package.json package-lock.json ./
-
 RUN NODE_ENV=production npm install
 
 
@@ -19,12 +18,14 @@ FROM run-base AS build-base
 
 RUN npm install
 
-COPY .eslintrc.cjs .stylelintrc.cjs babel.config.cjs nuxt.config.js ./
-COPY src ./src
+COPY .eslintrc.cjs .stylelintrc.cjs babel.config.cjs ./
 
 
 # 3.
 FROM build-base as build
+
+COPY nuxt.config.js ./
+COPY src ./src
 
 RUN npm run build
 
@@ -38,9 +39,9 @@ ENV PORT=8080 \
 
 EXPOSE ${PORT}
 
-COPY package.json package-lock.json nuxt.config.js *.md .env.example ./
-COPY src ./src
 COPY bin ./bin
+COPY nuxt.config.js *.md .env.example ./
+COPY src ./src
 COPY --from=build /app/.nuxt ./.nuxt
 
 CMD ["npm", "run", "start"]
