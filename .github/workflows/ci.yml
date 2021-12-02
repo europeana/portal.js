@@ -64,7 +64,7 @@ jobs:
 
   # Build the base stage of the Docker image first so that unit tests can run,
   # as they do not require the full production image to be built.
-  docker-stage-run-base:
+  docker-stage-build-base:
     runs-on: ubuntu-latest
     if: github.event_name == 'push' || github.event.pull_request.draft == false
     needs: [docker-stage-run-base]
