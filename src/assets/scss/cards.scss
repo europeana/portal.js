@@ -311,6 +311,9 @@
         overflow: hidden;
         position: relative;
         width: 80px;
+        &.placeholder {
+          background: none;
+        }
 
         img {
           height: 80px;
