@@ -204,7 +204,20 @@
     data() {
       return {
         cardImageUrl: this.imageUrl,
-        displayLabelTypes: 'exhibitions|galleries|blog|collections'
+        displayLabelTypes: 'exhibitions|galleries|blog|collections',
+        // TO DO remove when thematic collections topics get there own 'theme' type
+        themes: ['83',
+                 '55',
+                 '190',
+                 '18',
+                 '48',
+                 '156',
+                 '62',
+                 '128',
+                 '151',
+                 '17',
+                 '129',
+                 '80']
       };
     },
 
@@ -233,6 +246,18 @@
         }
 
         if (this.displayLabelType === 'collections') {
+          let entityId;
+          if (typeof this.url === 'string') {
+            const splitUrl = this.url.split('/');
+            entityId = splitUrl[splitUrl.length - 1].split('-')[0];
+          } else {
+            entityId = this.url.params.pathMatch;
+          }
+
+          if (this.themes.some(theme => theme === entityId)) {
+            // TO DO remove when thematic collections topics get there own 'theme' type
+            return this.$t('cardLabels.theme');
+          }
           return this.$t(`cardLabels.${this.displayLabelTypeCollections}`);
         }
 
