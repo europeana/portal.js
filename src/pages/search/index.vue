@@ -3,7 +3,6 @@
     <NotificationBanner
       v-if="redirectNotificationsEnabled && !sideFiltersEnabled"
       :notification-url="notificationUrl"
-      :notification-text="$t('linksToClassic.search.text')"
       :notification-link-text="$t('linksToClassic.search.linkText')"
       class="mb-3"
     />
@@ -23,7 +22,6 @@
           <NotificationBanner
             v-if="redirectNotificationsEnabled && sideFiltersEnabled"
             :notification-url="notificationUrl"
-            :notification-text="$t('linksToClassic.search.text')"
             :notification-link-text="$t('linksToClassic.search.linkText')"
             class="notification-banner mb-3"
           />
