@@ -6,7 +6,7 @@ export default {
     "likes": "Sviđanja",
     "linkAccount": "Moj račun",
     "linkLogin": "Prijava",
-    "linkLoginJoin": "Prijavi se/Pridruži se",
+    "linkLoginJoin": "Prijavi se\/Pridruži se",
     "linkLogout": "Odjava",
     "myProfile": "Moj profil",
     "notifications": {
@@ -47,13 +47,14 @@ export default {
   },
   "attribution": {
     "country": "Država:",
-    "creator": "Stvorio/la:",
+    "creator": "Stvorio\/la:",
     "date": "Datum:",
     "institution": "Institucija:",
     "title": "Naslov:"
   },
   "automatedCardGroup": {
     "item": "Nedavne stavke",
+    "organisation": "Organizacije",
     "time": "Istaknuta stoljeća",
     "topic": "Istaknute teme"
   },
@@ -154,7 +155,7 @@ export default {
     "notifications": {
       "deleted": "Vaša galerija je izbrisana.",
       "pinLimit": {
-        "body": "Za sada na prvu stranicu možete prikvačiti samo 24 predmeta. Ako želite prikvačiti ovu stavku, svakako otkačite drugu, a zatim pokušajte ponovo prikvačiti ovu.",
+        "body": "Za sada na prvu stranicu možete prikvačiti samo 24 stavki. Ako želite prikvačiti ovu stavku, svakako otkačite drugu, a zatim pokušajte ponovo prikvačiti ovu.",
         "title": "Previše prikvačenih stavki"
       },
       "pinned": "Stavka je prikvačena. Sada je na vrhu prve stranice ove zbirke. Možda će trebati i do 24 sata da se svi pojave.",
@@ -356,7 +357,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format datoteke | Formati datoteka",
       "options": {
-        "text/plain": "Jednostavni tekst"
+        "text\/plain": "Jednostavni tekst"
       }
     },
     "PROVIDER": {
@@ -416,7 +417,7 @@ export default {
     },
     "contentTier": {
       "name": "Uključuje stavke koje ne ispunjavaju naše kriterije objavljivanja",
-      "notification": "Dostupne su neke stavke koje ne odgovaraju našim kriterijima za objavu. Tim stavkama možete pristupiti aktiviranjem filtra \"Kvaliteta predmeta\" u odjeljku \"Više filtara\".",
+      "notification": "Dostupne su neke stavke koje ne odgovaraju našim kriterijima za objavu. Tim stavkama možete pristupiti aktiviranjem filtra \"Kvaliteta stavka\" u odjeljku \"Više filtara\".",
       "options": {
         "*": "Uključuje stavke koje ne ispunjavaju naše kriterije objavljivanja",
         "0": "Prikaži samo stavke koje ne zadovoljavaju naše kriterije za objavljivanje"
@@ -457,7 +458,7 @@ export default {
     "default": {
       "dcContributor": "Suradnici",
       "dcCoverage": "Mjesto-vrijeme",
-      "dcCreator": "Stvorio/la",
+      "dcCreator": "Stvorio\/la",
       "dcDate": "Datum",
       "dcDescription": "Opis",
       "dcDuration": "Trajanje",
@@ -516,6 +517,8 @@ export default {
       "rdfAbout": "RDF O"
     }
   },
+  "filter": "Filtar",
+  "filterResults": "Filtrirajte rezultate",
   "footer": {
     "customiseWebsiteLanguage": "Prilagodite jezik internetske stranice",
     "disclaimerLine1": "Europeana je inicijativa Europske unije koju financiraju Instrument za povezivanje Europe i države članice Europske unije. Uslugama Europeane, uključujući ovu web stranicu, upravlja konzorcij predvođen Zakladom Europeana prema ugovoru o pružanju usluga s Europskom komisijom.",
@@ -614,7 +617,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Pomaže poboljšati našu web stranicu povremenom primjenom eksperimentalnih promjena.",
-        "title": "A/B testiranje"
+        "title": "A\/B testiranje"
       },
       "auth-strategy": {
         "description": "Sjeća se strategije autorizacije za prijavu.",
@@ -642,7 +645,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Sjeća ako radije vidite rezultate pretraživanja u prikazu popisa ili mreže.",
-        "title": "Prikaz rezultata pretraživanja (popis / mreža)"
+        "title": "Prikaz rezultata pretraživanja (popis \/ mreža)"
       }
     }
   },
@@ -652,15 +655,15 @@ export default {
   "learnMore": "Saznajte više o izvoru ovog opisa",
   "linksToClassic": {
     "home": {
-      "linkText": "Idi na izvornu Europeanu.",
+      "linkText": "Pogledajte ovu stranicu na izvornoj web stranici Europeana do 20. prosinca 2021.",
       "text": "Gledate novo iskustvo Europeane."
     },
     "record": {
-      "linkText": "Pogledajte ovu stavku u izvornoj Europeani.",
+      "linkText": "Pogledajte ovu stavku na izvornoj web stranici Europeana do 20. prosinca 2021.",
       "text": "Ovaj predmet pregledavate na novoj internetskoj stranici Europeana."
     },
     "search": {
-      "linkText": "Pogledajte ove rezultate pretraživanja u izvornoj Europeani.",
+      "linkText": "Pretražujte na izvornoj Europeana i web stranici do 20. prosinca 2021.",
       "text": "Pretražujete našu novu i bržu internetsku stranicu."
     }
   },
@@ -686,7 +689,7 @@ export default {
     "automated": "Automatizirani prijevod",
     "enrichment": "Obogaćivanje partnerskim projektima",
     "other": "Drugi jezici",
-    "stopTranslating": "Prestanite prevoditi ovu stavku na {0} .",
+    "stopTranslating": "Prestanite prevoditi ovu stavku na {0}.",
     "translateLanguage": "Želite li vidjeti ovu stavku u {0} ?",
     "translateQuotaError": "Usluga prevođenja privremeno je nedostupna. Pokušajte ponovo kasnije."
   },
@@ -788,7 +791,7 @@ export default {
     "notifications": {
       "deleted": "Vaša galerija je izbrisana.",
       "likeLimit": {
-        "body": "Žao nam je, ali trenutno vam je ograničeno sviđanje na najviše 100 predmeta. Uskoro ćemo ukloniti ovo ograničenje!",
+        "body": "Žao nam je, ali trenutno vam je ograničeno sviđanje na najviše 100 stavke. Uskoro ćemo ukloniti ovo ograničenje!",
         "title": "100 sviđanja"
       },
       "updated": "Predmet je dodan u galeriju."

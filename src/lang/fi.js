@@ -6,7 +6,7 @@ export default {
     "likes": "Tykätyt",
     "linkAccount": "Oma tili",
     "linkLogin": "Kirjaudu sisään",
-    "linkLoginJoin": "Kirjaudu/Liity",
+    "linkLoginJoin": "Kirjaudu\/Liity",
     "linkLogout": "Kirjaudu ulos",
     "myProfile": "Profiilini",
     "notifications": {
@@ -54,6 +54,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Viimeisimmät kohdetta",
+    "organisation": "Organisaatiot",
     "time": "Esillä vuosisatoja",
     "topic": "Esillä olevat aiheet"
   },
@@ -356,7 +357,7 @@ export default {
     "MIME_TYPE": {
       "name": "Tiedostomuoto | Tiedostomuodot",
       "options": {
-        "text/plain": "Pelkkä teksti"
+        "text\/plain": "Pelkkä teksti"
       }
     },
     "PROVIDER": {
@@ -516,6 +517,8 @@ export default {
       "rdfAbout": "RDF-tiedot"
     }
   },
+  "filter": "Suodattaa",
+  "filterResults": "Suodata tulokset",
   "footer": {
     "customiseWebsiteLanguage": "Muokkaa verkkosivuston kieltä",
     "disclaimerLine1": "Europeana on Euroopan unionin aloite, jonka rahoittavat Euroopan unionin Verkkojen Eurooppa -väline ja Euroopan unionin jäsenvaltiot. Europeana-palveluja, mukaan lukien tämä verkkosivusto, ylläpitää konsortio, jota johtaa Europeana-säätiö Euroopan komission kanssa tehtyyn palvelusopimukseen.",
@@ -574,7 +577,7 @@ export default {
   },
   "items": {
     "itemCount": "1 kohde |{count} kohdetta",
-    "itemOf": "{max} / {count} kohdetta",
+    "itemOf": "{max} \/ {count} kohdetta",
     "recent": "Viimeisimmät kohteet",
     "recommendationsDisclaimer": "Peukalo ylös lisätäksesi galleriaan - Peukalo alas, jos et pidä siitä",
     "recommended": "Suositellut kohteet",
@@ -614,7 +617,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Auttaa parantamaan verkkosivustoamme soveltamalla ajoittain kokeellisia muutoksia.",
-        "title": "A/B -testaus"
+        "title": "A\/B -testaus"
       },
       "auth-strategy": {
         "description": "Muistaa kirjautumisessa käytettävän valtuutusstrategian.",
@@ -642,7 +645,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Muistaa, haluatko nähdä hakutulokset luettelossa tai ruudukkonäkymässä.",
-        "title": "Hakutulosnäkymä (luettelo/ruudukko)"
+        "title": "Hakutulosnäkymä (luettelo\/ruudukko)"
       }
     }
   },
@@ -652,15 +655,15 @@ export default {
   "learnMore": "Lisätietoja kuvauksen lähteestä",
   "linksToClassic": {
     "home": {
-      "linkText": "Siirry alkuperäiseen Europeanaan.",
+      "linkText": "Katso tämä sivu alkuperäisellä Europeana-verkkosivustolla 20. joulukuuta 2021 asti.",
       "text": "Katselet uutta Europeanaa."
     },
     "record": {
-      "linkText": "Näytä tämä kohde alkuperäisessä Europeanassa.",
+      "linkText": "Katso tämä kohde alkuperäisellä Europeana-verkkosivustolla 20. joulukuuta 2021 asti.",
       "text": "Tarkastelet tätä kohdetta uudella Europeana-verkkosivustolla."
     },
     "search": {
-      "linkText": "Tarkastele näitä hakutuloksia alkuperäisessä Europeanassa.",
+      "linkText": "Hae alkuperäiseltä Europeanan verkkosivulta 20. joulukuuta 2021 asti.",
       "text": "Etsit uudessa ja nopeammassa verkkosivustossamme."
     }
   },
@@ -686,7 +689,7 @@ export default {
     "automated": "Automatisoitu käännös",
     "enrichment": "Rikastaminen kumppaniprojekteilla",
     "other": "Muut kielet",
-    "stopTranslating": "Lopeta tämän kohteen kääntäminen kielelle {0} .",
+    "stopTranslating": "Lopeta tämän kohteen kääntäminen kielelle {0}.",
     "translateLanguage": "Haluaisitko nähdä tämän kohteen {0}?",
     "translateQuotaError": "Käännöspalvelu ei ole tilapäisesti käytettävissä. Yritä uudelleen myöhemmin."
   },

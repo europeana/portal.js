@@ -6,7 +6,7 @@ export default {
     "likes": "Gostos",
     "linkAccount": "A minha conta",
     "linkLogin": "Inicie sessão",
-    "linkLoginJoin": "Entrar/Criar conta",
+    "linkLoginJoin": "Entrar\/Criar conta",
     "linkLogout": "Encerrar sessão",
     "myProfile": "Meu perfil",
     "notifications": {
@@ -54,6 +54,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Itens recentes",
+    "organisation": "Organizações",
     "time": "Séculos em destaque",
     "topic": "Tópicos em destaque"
   },
@@ -356,7 +357,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formato de ficheiro | Formatos de ficheiros",
       "options": {
-        "text/plain": "Texto simples"
+        "text\/plain": "Texto simples"
       }
     },
     "PROVIDER": {
@@ -516,6 +517,8 @@ export default {
       "rdfAbout": "RDF Sobre"
     }
   },
+  "filter": "Filtro",
+  "filterResults": "Filtrar resultados",
   "footer": {
     "customiseWebsiteLanguage": "Personalizar o idioma do site",
     "disclaimerLine1": "Europeana é uma iniciativa da União Europeia, financiada pelo Connecting Europe Facility da União Europeia e pelos Estados-Membros da União Europeia. Os serviços da Europeana, incluindo este site, são operados por um consórcio liderado pela Fundação Europeana ao abrigo de um contrato de serviços com a Comissão Europeia.",
@@ -614,7 +617,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Ajuda a melhorar o nosso site, aplicando ocasionalmente alterações experimentais.",
-        "title": "Teste A/B"
+        "title": "Teste A\/B"
       },
       "auth-strategy": {
         "description": "Lembra a estratégia de autorização a ser usada para fazer login.",
@@ -642,7 +645,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Lembra-se se preferir ver os resultados da pesquisa numa lista ou numa visualização em grelha.",
-        "title": "Visualização de resultado de pesquisa (lista/grade)"
+        "title": "Visualização de resultado de pesquisa (lista\/grade)"
       }
     }
   },
@@ -652,15 +655,15 @@ export default {
   "learnMore": "Saiba mais sobre a fonte desta descrição",
   "linksToClassic": {
     "home": {
-      "linkText": "Vá para o Europeana original.",
+      "linkText": "Veja esta página no site original da Europeana até 20 de dezembro de 2021.",
       "text": "Está a ver a nova experiência da Europeana."
     },
     "record": {
-      "linkText": "Veja este item no Europeana original.",
+      "linkText": "Ver este item no site original da Europeana até 20 de dezembro de 2021.",
       "text": "Está a visualizar este item no novo site da Europeana."
     },
     "search": {
-      "linkText": "Veja estes resultados da pesquisa no Europeana original.",
+      "linkText": "Pesquise no site original da Europeana até 20 de dezembro de 2021.",
       "text": "Está a pesquisar no nosso site novo e mais rápido."
     }
   },
@@ -686,7 +689,7 @@ export default {
     "automated": "Tradução automatizada",
     "enrichment": "Enriquecimento por projetos de parceiros",
     "other": "Outras línguas",
-    "stopTranslating": "Pare de traduzir este item para {0} .",
+    "stopTranslating": "Pare de traduzir este item para {0}.",
     "translateLanguage": "Gostaria de ver este item em {0} ?",
     "translateQuotaError": "O serviço de tradução está temporariamente indisponível. Por favor, tente novamente mais tarde."
   },

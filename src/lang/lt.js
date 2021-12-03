@@ -6,7 +6,7 @@ export default {
     "likes": "Patinka",
     "linkAccount": "Mano paskyra",
     "linkLogin": "Prisijungti",
-    "linkLoginJoin": "Prisijungti/Prisijungti",
+    "linkLoginJoin": "Prisijungti\/Prisijungti",
     "linkLogout": "Atsijungti",
     "myProfile": "Mano profilis",
     "notifications": {
@@ -54,6 +54,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Naujausi prekių",
+    "organisation": "Organizacijos",
     "time": "Rekomenduojami šimtmečiai",
     "topic": "Rekomenduojamos temos"
   },
@@ -356,7 +357,7 @@ export default {
     "MIME_TYPE": {
       "name": "Failo formatas | Failų formatai",
       "options": {
-        "text/plain": "Paprastas tekstas"
+        "text\/plain": "Paprastas tekstas"
       }
     },
     "PROVIDER": {
@@ -516,6 +517,8 @@ export default {
       "rdfAbout": "RDF Apie"
     }
   },
+  "filter": "Filtras",
+  "filterResults": "Filtruoti rezultatus",
   "footer": {
     "customiseWebsiteLanguage": "Pasirinkti tinklalapio kalbą",
     "disclaimerLine1": "\"Europeana\" yra Europos Sąjungos iniciatyva, finansuojama Europos Sąjungos Europos Connecting Europe Facility ir Europos Sąjungos valstybių narių lėšomis. Europeanos paslaugas, įskaitant šią svetainę, teikia konsorciumas, kuriam vadovauja Europeana Foundation, pagal paslaugų teikimo sutartį su Europos Komisija.",
@@ -614,7 +617,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Padeda tobulinti mūsų svetainę, retkarčiais pritaikant eksperimentinius pakeitimus.",
-        "title": "A/B testavimas"
+        "title": "A\/B testavimas"
       },
       "auth-strategy": {
         "description": "Prisimena autorizacijos strategiją, kurią reikia naudoti prisijungiant.",
@@ -642,7 +645,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Prisimena, ar norite paieškos rezultatus matyti sąrašo ar tinklelio rodinyje.",
-        "title": "Paieškos rezultatų rodinys (sąrašas / tinklelis)"
+        "title": "Paieškos rezultatų rodinys (sąrašas \/ tinklelis)"
       }
     }
   },
@@ -652,15 +655,15 @@ export default {
   "learnMore": "Sužinokite apie šio aprašymo šaltinį",
   "linksToClassic": {
     "home": {
-      "linkText": "Eiti į originalų „Europeana“.",
+      "linkText": "Peržiūrėkite šį puslapį originalioje Europeana svetainėje iki 2021 m. gruodžio 20 d.",
       "text": "Jūs žiūrite naująjį „Europeana“."
     },
     "record": {
-      "linkText": "Peržiūrėti šį elementą originaliame „Europeana“.",
+      "linkText": "Peržiūrėkite šį elementą originalioje Europeana svetainėje iki 2021 m. gruodžio 20 d.",
       "text": "Jūs žiūrite šį elementą originaliame „Europeana“ tinklalapyje."
     },
     "search": {
-      "linkText": "Peržiūrėkite šiuos paieškos rezultatus originaliame „Europeana“ tinklalapyje.",
+      "linkText": "Ieškokite originalioje Europeana svetainėje iki 2021 m. gruodžio 20 d.",
       "text": "Jūs ieškote mūsų naujajame ir greitesniajame tinklalapyje."
     }
   },
@@ -686,7 +689,7 @@ export default {
     "automated": "Automatinis vertimas",
     "enrichment": "Praturtinimas partnerių projektais",
     "other": "Kitos kalbos",
-    "stopTranslating": "Nustokite versti šį elementą į {0} .",
+    "stopTranslating": "Nustokite versti šį elementą į {0}.",
     "translateLanguage": "Ar norėtumėte pamatyti šį elementą {0} ?",
     "translateQuotaError": "Vertimo paslauga laikinai nepasiekiama. Pabandykite dar kartą vėliau."
   },

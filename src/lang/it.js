@@ -6,7 +6,7 @@ export default {
     "likes": "Mi piace",
     "linkAccount": "Il mio account",
     "linkLogin": "Accedi",
-    "linkLoginJoin": "Accedi/Iscriviti",
+    "linkLoginJoin": "Accedi\/Iscriviti",
     "linkLogout": "Esci",
     "myProfile": "Il mio profilo",
     "notifications": {
@@ -17,7 +17,7 @@ export default {
         "private": "Non hai ancora creato gallerie private",
         "public": "Non hai ancora creato gallerie pubbliche"
       },
-      "noLikedItems": "Non hai ancora messo Mi piace a nessun articolo"
+      "noLikedItems": "Non hai ancora messo Mi piace a nessun oggetti"
     },
     "privateCollections": "Gallerie private",
     "profile": "I miei Mi piace e le mie gallerie",
@@ -53,7 +53,8 @@ export default {
     "title": "Titolo:"
   },
   "automatedCardGroup": {
-    "item": "Articoli recenti",
+    "item": "Oggetti recenti",
+    "organisation": "Organizzazioni",
     "time": "Secoli in primo piano",
     "topic": "Argomenti in primo piano"
   },
@@ -146,7 +147,7 @@ export default {
       "cancel": "Annulla",
       "pin": "Elemento pin",
       "unpin": "Rimuovi elemento",
-      "viewPinned": "Visualizza gli elementi appuntati"
+      "viewPinned": "Visualizza gli oggetti appuntati"
     },
     "labels": {
       "entity": "Entità"
@@ -154,8 +155,8 @@ export default {
     "notifications": {
       "deleted": "Galleria eliminata.",
       "pinLimit": {
-        "body": "Per ora puoi appuntare solo 24 elementi nella prima pagina. Se vuoi appuntare questo elemento, assicurati di sbloccarne un altro e poi prova ad appuntare di nuovo questo.",
-        "title": "Troppi elementi appuntati"
+        "body": "Per ora puoi appuntare solo 24 oggetti nella prima pagina. Se vuoi appuntare questo elemento, assicurati di sbloccarne un altro e poi prova ad appuntare di nuovo questo.",
+        "title": "Troppi oggetti appuntati"
       },
       "pinned": "L'articolo è stato appuntato. Ora è in cima alla prima pagina di questa collezione. Potrebbe richiedere fino a 24 ore per apparire per tutti.",
       "pinnedFirstPage": "L'articolo è stato appuntato. Potrebbe richiedere fino a 24 ore per apparire per tutti.",
@@ -356,7 +357,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formato file | Formati file",
       "options": {
-        "text/plain": "Testo semplice"
+        "text\/plain": "Testo semplice"
       }
     },
     "PROVIDER": {
@@ -384,8 +385,8 @@ export default {
     "api": {
       "name": "Cerca",
       "options": {
-        "fulltext": "Elementi con testo completo",
-        "metadata": "Elementi con solo metadati"
+        "fulltext": "Oggetti con testo completo",
+        "metadata": "Oggetti con solo metadati"
       }
     },
     "button": {
@@ -416,10 +417,10 @@ export default {
     },
     "contentTier": {
       "name": "Comprende gli elementi che non soddisfano i nostri criteri di pubblicazione",
-      "notification": "Sono disponibili articoli che non soddisfano i nostri criteri di pubblicazione. Per accedervi, attiva il filtro \"Qualità articolo\" posizionato sotto \"Più filtri\".",
+      "notification": "Sono disponibili oggetti che non soddisfano i nostri criteri di pubblicazione. Per accedervi, attiva il filtro \"Qualità oggetti\" posizionato sotto \"Più filtri\".",
       "options": {
-        "*": "Comprende elementi che non soddisfano i nostri criteri di pubblicazione",
-        "0": "Mostra solo gli articoli che non soddisfano i nostri criteri di pubblicazione"
+        "*": "Comprende oggetti che non soddisfano i nostri criteri di pubblicazione",
+        "0": "Mostra solo gli oggetti che non soddisfano i nostri criteri di pubblicazione"
       }
     },
     "proxy_dc_format": {
@@ -516,6 +517,8 @@ export default {
       "rdfAbout": "Informazioni RDF"
     }
   },
+  "filter": "Filtro",
+  "filterResults": "Filtra risultati",
   "footer": {
     "customiseWebsiteLanguage": "Personalizza la lingua del sito",
     "disclaimerLine1": "Europeana è un'iniziativa dell'Unione europea, finanziata dal Connecting Europe Facility dell'Unione europea e dagli Stati membri dell'Unione europea. I servizi Europeana, compreso questo sito web, sono gestiti da un consorzio guidato dalla Fondazione Europeana nell'ambito di un contratto di servizio con la Commissione europea.",
@@ -559,7 +562,7 @@ export default {
       "collections": "Collezioni",
       "europeanaClassroom": "Insegnanti",
       "help": "Aiuto",
-      "home": "Casa",
+      "home": "Home",
       "stories": "Storie"
     },
     "searchFor": "Cerca {query}",
@@ -573,12 +576,12 @@ export default {
     "handle": "Dispositivo di scorrimento"
   },
   "items": {
-    "itemCount": "1 articolo | {count} articoli",
-    "itemOf": "{max} di {count} articoli",
-    "recent": "Articoli recenti",
+    "itemCount": "1 oggetto | {count} oggetti",
+    "itemOf": "{max} di {count} oggetti",
+    "recent": "Oggetti recenti",
     "recommendationsDisclaimer": "Pollice in su per aggiungere alla galleria - Pollice in giù se non ti piace",
-    "recommended": "Articoli consigliati",
-    "youMightLike": "Articoli che potrebbero piacerti"
+    "recommended": "Oggetti consigliati",
+    "youMightLike": "Oggetti che potrebbero piacerti"
   },
   "klaro": {
     "main": {
@@ -614,7 +617,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Aiuta a migliorare il nostro sito Web applicando occasionalmente modifiche sperimentali.",
-        "title": "Test A/B"
+        "title": "Test A\/B"
       },
       "auth-strategy": {
         "description": "Ricorda la strategia di autorizzazione da utilizzare per accedere.",
@@ -642,7 +645,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Ricorda se preferisci vedere i risultati della ricerca in una visualizzazione elenco o griglia.",
-        "title": "Visualizzazione dei risultati di ricerca (elenco/griglia)"
+        "title": "Visualizzazione dei risultati di ricerca (elenco\/griglia)"
       }
     }
   },
@@ -652,15 +655,15 @@ export default {
   "learnMore": "Scopri di più sulla fonte di questa descrizione",
   "linksToClassic": {
     "home": {
-      "linkText": "Vai alla versione originale di Europeana.",
-      "text": "Stai sperimentando la nuova esperienza Europeana."
+      "linkText": "Visualizza questa pagina sul sito web originale di Europeana fino al 20 dicembre 2021.",
+      "text": "Stai vedendo l'ultima versione di Europeana."
     },
     "record": {
-      "linkText": "Visualizzalo nella versione originale di Europeana.",
+      "linkText": "Visualizza questo articolo sul sito web originale di Europeana fino al 20 dicembre 2021.",
       "text": "Stai visualizzando questo elemento sul nuovo sito di Europeana."
     },
     "search": {
-      "linkText": "Visualizza i risultati nella versione originale di Europeana.",
+      "linkText": "Cerca sul sito originale di Europeana fino al 20 dicembre 2021.",
       "text": "Stai utilizzando la versione nuova e più veloce del sito."
     }
   },
@@ -731,7 +734,7 @@ export default {
     "mediaPlayer": "Lettore multimediale",
     "record": "Documentazione",
     "showAll": "Mostra tutte le informazioni",
-    "similarItems": "Elementi simili",
+    "similarItems": "Oggetti simili",
     "transcription": "Trascrizione",
     "transcriptionDisclaimer": "Questo contenuto è stato creato dagli utenti, non dall'istituzione che ha fornito l'articolo.",
     "view": {
@@ -754,12 +757,12 @@ export default {
   "searchSuggestions": "Suggerimenti di ricerca",
   "searchTier": {
     "button": {
-      "hide": "Nascondi questi elementi",
-      "show": "Mostra questi elementi"
+      "hide": "Nascondi questi oggetti",
+      "show": "Mostra questi oggetti"
     },
     "text": {
-      "hide": "Vengono visualizzati gli elementi che non soddisfano i nostri criteri di pubblicazione.",
-      "show": "Altri elementi corrispondono alla tua ricerca ma non soddisfano i nostri criteri di pubblicazione."
+      "hide": "Vengono visualizzati gli oggetti che non soddisfano i nostri criteri di pubblicazione.",
+      "show": "Altri oggetti corrispondono alla tua ricerca ma non soddisfano i nostri criteri di pubblicazione."
     }
   },
   "searchViews": {
@@ -788,13 +791,13 @@ export default {
     "notifications": {
       "deleted": "Galleria eliminata.",
       "likeLimit": {
-        "body": "Siamo spiacenti, ma al momento puoi mettere Mi piace a un massimo di 100 articoli. Presto elimineremo questo limite!",
+        "body": "Siamo spiacenti, ma al momento puoi mettere Mi piace a un massimo di 100 oggetti. Presto elimineremo questo limite!",
         "title": "100 Mi piace"
       },
       "updated": "L'elemento è stato aggiunto alla galleria."
     },
     "prompts": {
-      "delete": "Continuare? Se elimini questa galleria, perderai tutti gli articoli che hai aggiunto."
+      "delete": "Continuare? Se elimini questa galleria, perderai tutti gli oggetti che hai aggiunto."
     }
   },
   "showLess": "Mostra meno",

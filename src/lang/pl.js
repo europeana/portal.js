@@ -6,7 +6,7 @@ export default {
     "likes": "Polubienia",
     "linkAccount": "Moje konto",
     "linkLogin": "Zaloguj się",
-    "linkLoginJoin": "Zaloguj/Dołącz",
+    "linkLoginJoin": "Zaloguj\/Dołącz",
     "linkLogout": "Wyloguj",
     "myProfile": "Mój profil",
     "notifications": {
@@ -54,6 +54,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Ostatnie pozycje",
+    "organisation": "Organizacje",
     "time": "Polecane wieki",
     "topic": "Polecane tematy"
   },
@@ -356,7 +357,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format plików | Formaty plików",
       "options": {
-        "text/plain": "Zwykły tekst"
+        "text\/plain": "Zwykły tekst"
       }
     },
     "PROVIDER": {
@@ -516,6 +517,8 @@ export default {
       "rdfAbout": "RDF Informacje"
     }
   },
+  "filter": "Filtr",
+  "filterResults": "Wyniki filtrowania",
   "footer": {
     "customiseWebsiteLanguage": "Dostosuj język witryny",
     "disclaimerLine1": "Europeana jest inicjatywą Unii Europejskiej, finansowaną z unijnego Connecting Europe Facility oraz przez państwa członkowskie Unii Europejskiej. Usługi Europeany, w tym niniejsza strona internetowa, są prowadzone przez konsorcjum kierowane przez Fundację Europeana na podstawie umowy o świadczenie usług zawartej z Komisją Europejską.",
@@ -614,7 +617,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Pomaga ulepszyć naszą stronę internetową, od czasu do czasu stosując eksperymentalne zmiany.",
-        "title": "Testy A/B"
+        "title": "Testy A\/B"
       },
       "auth-strategy": {
         "description": "Zapamiętuje strategię autoryzacji używaną do logowania.",
@@ -642,7 +645,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Zapamiętuje się, jeśli wolisz widzieć wyniki wyszukiwania w widoku listy lub siatki.",
-        "title": "Widok wyników wyszukiwania (lista/siatka)"
+        "title": "Widok wyników wyszukiwania (lista\/siatka)"
       }
     }
   },
@@ -652,15 +655,15 @@ export default {
   "learnMore": "Dowiedz się o źródle tego opisu",
   "linksToClassic": {
     "home": {
-      "linkText": "Przejdź do oryginalnej Europeany.",
+      "linkText": "Zobacz tę stronę na oryginalnej stronie Europeany do 20 grudnia 2021 r.",
       "text": "Oglądasz nowe doświadczenie Europeana."
     },
     "record": {
-      "linkText": "Zobacz ten element w oryginalnej Europeanie.",
+      "linkText": "Zobacz ten element na oryginalnej stronie Europeany do 20 grudnia 2021 r.",
       "text": "Oglądasz ten element w nowej witrynie Europeana."
     },
     "search": {
-      "linkText": "Zobacz te wyniki wyszukiwania w oryginalnej Europeanie.",
+      "linkText": "Szukaj na oryginalnej stronie Europeany do 20 grudnia 2021 r.",
       "text": "Przeszukujesz naszą nową i szybszą stronę internetową."
     }
   },
@@ -686,7 +689,7 @@ export default {
     "automated": "Tłumaczenie zautomatyzowane",
     "enrichment": "Wzbogacanie o projekty partnerskie",
     "other": "Inne języki",
-    "stopTranslating": "Przestań tłumaczyć ten element na {0} .",
+    "stopTranslating": "Przestań tłumaczyć ten element na {0}.",
     "translateLanguage": "Czy chciałbyś zobaczyć ten element w {0}?",
     "translateQuotaError": "Usługa tłumaczeń jest chwilowo niedostępna. Spróbuj ponownie później."
   },

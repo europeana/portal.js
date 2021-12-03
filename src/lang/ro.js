@@ -6,7 +6,7 @@ export default {
     "likes": "Aprecieri",
     "linkAccount": "Contul meu",
     "linkLogin": "Autentificare",
-    "linkLoginJoin": "Autentificare/Înscriere",
+    "linkLoginJoin": "Autentificare\/Înscriere",
     "linkLogout": "Deconectare",
     "myProfile": "Profilul meu",
     "notifications": {
@@ -54,6 +54,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Articole recente",
+    "organisation": "Organizații",
     "time": "Secole recomandate",
     "topic": "Subiecte recomandate"
   },
@@ -356,7 +357,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format fișier| Formate fișier",
       "options": {
-        "text/plain": "Text simplu"
+        "text\/plain": "Text simplu"
       }
     },
     "PROVIDER": {
@@ -516,6 +517,8 @@ export default {
       "rdfAbout": "Despre RDF"
     }
   },
+  "filter": "Filtru",
+  "filterResults": "Filtrați rezultatele",
   "footer": {
     "customiseWebsiteLanguage": "Personalizați limba de pe pagina de internet",
     "disclaimerLine1": "Europeana este o inițiativă a Uniunii Europene, finanțată de Connecting Europe Facility al Uniunii Europene și de statele membre ale Uniunii Europene. Serviciile Europeana, inclusiv acest site web, sunt operate de un consorțiu condus de Fundația Europeana în temeiul unui contract de servicii cu Comisia Europeană.",
@@ -614,7 +617,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Ajută la îmbunătățirea site-ului nostru web aplicând ocazional modificări experimentale.",
-        "title": "Testarea A/B"
+        "title": "Testarea A\/B"
       },
       "auth-strategy": {
         "description": "Reține strategia de autorizare de utilizat pentru a vă conecta.",
@@ -642,7 +645,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Rețineți dacă preferați să vedeți rezultatele căutării într-o vizualizare listă sau grilă.",
-        "title": "Vizualizarea rezultatelor căutării (listă / grilă)"
+        "title": "Vizualizarea rezultatelor căutării (listă \/ grilă)"
       }
     }
   },
@@ -652,15 +655,15 @@ export default {
   "learnMore": "Aflați mai multe despre sursa acestei descrieri",
   "linksToClassic": {
     "home": {
-      "linkText": "Mergeți către portalul original Europeana.",
+      "linkText": "Vizualizați această pagină pe site-ul original Europeana până la 20 decembrie 2021.",
       "text": "Vizualizați noua experiență Europeana."
     },
     "record": {
-      "linkText": "Vizualizați acest articol în portalul original Europeana.",
+      "linkText": "Vizualizați acest articol pe site-ul original Europeana până pe 20 decembrie 2021.",
       "text": "Vizualizați acest articol în noua pagină de internet Europeana."
     },
     "search": {
-      "linkText": "Vizualizați rezultatele acestor căutări în portalul original Europeana.",
+      "linkText": "Căutați pe site-ul original Europeana până la 20 decembrie 2021.",
       "text": "Căutați acest articol în noua pagină de internet și mai rapidă."
     }
   },
@@ -686,7 +689,7 @@ export default {
     "automated": "Traducere automată",
     "enrichment": "Îmbogățirea prin proiecte partenere",
     "other": "Alte limbi",
-    "stopTranslating": "Opriți traducerea acestui articol în {0} .",
+    "stopTranslating": "Opriți traducerea acestui articol în {0}.",
     "translateLanguage": "Ați dori să vedeți acest articol în {0}?",
     "translateQuotaError": "Serviciul de traducere este temporar indisponibil. Vă rugăm să încercați din nou mai târziu."
   },

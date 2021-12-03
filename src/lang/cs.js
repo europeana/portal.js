@@ -6,7 +6,7 @@ export default {
     "likes": "Oblíbené",
     "linkAccount": "Můj účet",
     "linkLogin": "Přihlásit se",
-    "linkLoginJoin": "Přihlášení/Připojení",
+    "linkLoginJoin": "Přihlášení\/Připojení",
     "linkLogout": "Odhlásit se",
     "myProfile": "Můj profil",
     "notifications": {
@@ -14,10 +14,10 @@ export default {
       "loggedOut": "Nyní jste odhlášeni.",
       "noCollections": {
         "curated": "Zatím jste nevybrali žádné kolekce",
-        "private": "Ještě jste nevytvořil/a žádné soukromé galerie.",
-        "public": "Ještě jste nevytvořil/a žádné veřejné galerie."
+        "private": "Ještě jste nevytvořil\/a žádné soukromé galerie.",
+        "public": "Ještě jste nevytvořil\/a žádné veřejné galerie."
       },
-      "noLikedItems": "Ještě jste neoznačil/a žádné položky jako oblíbené."
+      "noLikedItems": "Ještě jste neoznačil\/a žádné položky jako oblíbené."
     },
     "privateCollections": "Soukromé galerie",
     "profile": "Moje oblíbené a moje galerie",
@@ -54,6 +54,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Poslední položky",
+    "organisation": "Organizace",
     "time": "Vybraná století",
     "topic": "Doporučená témata"
   },
@@ -356,7 +357,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formát souboru | Formáty souborů",
       "options": {
-        "text/plain": "Prostý text"
+        "text\/plain": "Prostý text"
       }
     },
     "PROVIDER": {
@@ -477,7 +478,7 @@ export default {
       "dctermsHasVersion": "vlastní verzi",
       "dctermsIsFormatOf": "je formou",
       "dctermsIsPartOf": "je součástí",
-      "dctermsIsReferencedBy": "je zmiňován/a",
+      "dctermsIsReferencedBy": "je zmiňován\/a",
       "dctermsIsReplacedBy": "se nahradí",
       "dctermsIsRequiredBy": "je potřeba pro",
       "dctermsIssued": "Datum vydání",
@@ -489,7 +490,7 @@ export default {
       "edmCountry": "Země původu",
       "edmCurrentLocation": "Aktuální umístění",
       "edmDataProvider": "Poskytovatelská instituce",
-      "edmHasMet": "se setkal/a s",
+      "edmHasMet": "se setkal\/a s",
       "edmIncorporates": "zahrnuje",
       "edmIntermediateProvider": "Zprostředkovatel třetí strany",
       "edmIsDerivativeOf": "je zpodobněním",
@@ -505,7 +506,7 @@ export default {
       "keywords": "Klíčová slova (poskytnutá komunitou)",
       "timestampCreated": "Časové razítko vytvořeno",
       "timestampUpdate": "Časové razítko bylo aktualizováno",
-      "wasPresentAt": "se účastnil/a",
+      "wasPresentAt": "se účastnil\/a",
       "year": "Rok"
     },
     "webResource": {
@@ -516,6 +517,8 @@ export default {
       "rdfAbout": "RDF About"
     }
   },
+  "filter": "Filtr",
+  "filterResults": "Filtrovat výsledky",
   "footer": {
     "customiseWebsiteLanguage": "Přizpůsobit jazyk stránky",
     "disclaimerLine1": "Europeana je iniciativa Evropské unie financovaná z Nástroje pro propojení Evropy a z prostředků členských států Evropské unie. Služby Europeany, včetně těchto webových stránek, provozuje konsorcium vedené nadací Europeana Foundation na základě smlouvy o poskytování služeb s Evropskou komisí.",
@@ -614,7 +617,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Pomáhá vylepšovat náš web občasným použitím experimentálních změn.",
-        "title": "A/B testování"
+        "title": "A\/B testování"
       },
       "auth-strategy": {
         "description": "Pamatuje si strategii autorizace, která se má použít k přihlášení.",
@@ -642,7 +645,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Pamatuje si, zda chcete výsledky hledání zobrazit v seznamu nebo v mřížce.",
-        "title": "Zobrazení výsledků hledání (seznam / mřížka)"
+        "title": "Zobrazení výsledků hledání (seznam \/ mřížka)"
       }
     }
   },
@@ -652,15 +655,15 @@ export default {
   "learnMore": "Údaje o zdroji tohoto popisu",
   "linksToClassic": {
     "home": {
-      "linkText": "Přejít na původní stránku Europeana.",
+      "linkText": "Tuto stránku si můžete prohlédnout na původních stránkách Europeana do 20. prosince 2021.",
       "text": "Prohlížíte si novou stránku Europeana."
     },
     "record": {
-      "linkText": "Zobrazit tuto položku na původní stránce Europeana.",
+      "linkText": "Prohlédněte si tuto položku na původní webové stránce Europeana do 20. prosince 2021.",
       "text": "Tuto položku si prohlížíte na nové stránce Europeana."
     },
     "search": {
-      "linkText": "Zobrazit tyto výsledky vyhledávání na původní stránce Europeana.",
+      "linkText": "Hledejte na původních webových stránkách Europeana do 20. prosince 2021.",
       "text": "Vyhledáváte na naší nové a rychlejší stránce."
     }
   },
@@ -782,7 +785,7 @@ export default {
       "title": "Název galerie"
     },
     "labels": {
-      "curatedBy": "Kurátor/ka",
+      "curatedBy": "Kurátor\/ka",
       "private": "Soukromá galerie"
     },
     "notifications": {

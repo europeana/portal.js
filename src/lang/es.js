@@ -6,7 +6,7 @@ export default {
     "likes": "Me gusta",
     "linkAccount": "Mi cuenta",
     "linkLogin": "Iniciar sesión",
-    "linkLoginJoin": "Iniciar sesión/Unirse",
+    "linkLoginJoin": "Iniciar sesión\/Unirse",
     "linkLogout": "Cerrar sesión",
     "myProfile": "Mi perfil",
     "notifications": {
@@ -17,7 +17,7 @@ export default {
         "private": "Aún no has creado ninguna galería privada",
         "public": "Aún no has creado ninguna galería pública"
       },
-      "noLikedItems": "Aún no le has dado \"Me gusta\" a ningún artículo"
+      "noLikedItems": "Aún no le has dado \"Me gusta\" a ningún elementos"
     },
     "privateCollections": "Galerías privadas",
     "profile": "Mis \"Me gusta\" y galerías",
@@ -53,7 +53,8 @@ export default {
     "title": "Título:"
   },
   "automatedCardGroup": {
-    "item": "Artículos recientes",
+    "item": "Elementos recientes",
+    "organisation": "Organizaciones",
     "time": "Siglos destacados",
     "topic": "Temas destacados"
   },
@@ -356,7 +357,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formato de archivo | Formatos de archivo",
       "options": {
-        "text/plain": "Texto sin formato"
+        "text\/plain": "Texto sin formato"
       }
     },
     "PROVIDER": {
@@ -416,9 +417,9 @@ export default {
     },
     "contentTier": {
       "name": "Incluir los elementos que no cumplan nuestros criterios de publicación",
-      "notification": "Hay artículos disponibles que no coinciden con nuestros criterios de publicación. Puedes acceder a estos activando el filtro \"Calidad del elemento\" en \"Más filtros\".",
+      "notification": "Hay elementos disponibles que no coinciden con nuestros criterios de publicación. Puedes acceder a estos activando el filtro \"Calidad del elemento\" en \"Más filtros\".",
       "options": {
-        "*": "Incluir los objetos que no cumplan nuestros criterios de publicación",
+        "*": "Incluir los elementos que no cumplan nuestros criterios de publicación",
         "0": "Mostrar solo los elementos que no cumplen con nuestros criterios de publicación"
       }
     },
@@ -516,6 +517,8 @@ export default {
       "rdfAbout": "RDF About"
     }
   },
+  "filter": "Filtrar",
+  "filterResults": "Filtrar resultados",
   "footer": {
     "customiseWebsiteLanguage": "Personalizar el idioma del sitio web",
     "disclaimerLine1": "Europeana es una iniciativa de la Unión Europea, financiada por el Connecting Europe Facility de la Unión Europea y los Estados miembros de la Unión Europea. Los servicios de Europeana, incluido este sitio web, son operados por un consorcio liderado por la Fundación Europeana en virtud de un contrato de servicios con la Comisión Europea.",
@@ -573,12 +576,12 @@ export default {
     "handle": "Manipulador de control deslizante"
   },
   "items": {
-    "itemCount": "1 artículo | {count} artículos",
-    "itemOf": "{max} de {count} artículos",
-    "recent": "Artículos recientes",
+    "itemCount": "1 elemento | {count} elementos",
+    "itemOf": "{max} de {count} elementos",
+    "recent": "Elementos recientes",
     "recommendationsDisclaimer": "Pulgar hacia arriba para agregar a la galería - Pulgar hacia abajo si no le gusta",
     "recommended": "Elementos recomendados",
-    "youMightLike": "Artículos que quizá te gusten"
+    "youMightLike": "Elementos que quizá te gusten"
   },
   "klaro": {
     "main": {
@@ -614,7 +617,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Ayuda a mejorar nuestro sitio web aplicando ocasionalmente cambios experimentales.",
-        "title": "Pruebas A/B"
+        "title": "Pruebas A\/B"
       },
       "auth-strategy": {
         "description": "Recuerda la estrategia de autorización que se debe utilizar para iniciar sesión.",
@@ -642,7 +645,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Recuerda si prefiere ver los resultados de la búsqueda en una vista de lista o cuadrícula.",
-        "title": "Vista de resultados de búsqueda (lista / cuadrícula)"
+        "title": "Vista de resultados de búsqueda (lista \/ cuadrícula)"
       }
     }
   },
@@ -652,15 +655,15 @@ export default {
   "learnMore": "Más información de la fuente de esta descripción",
   "linksToClassic": {
     "home": {
-      "linkText": "Ir a la web original de Europeana.",
+      "linkText": "Vea esta página en el sitio web original de Europeana hasta el 20 de diciembre de 2021.",
       "text": "Está viviendo la nueva experiencia Europeana."
     },
     "record": {
-      "linkText": "Ver este objeto en la web original de Europeana.",
+      "linkText": "Vea este elemento en el sitio web original de Europeana hasta el 20 de diciembre de 2021.",
       "text": "Está viendo este objeto en la nueva web de Europeana."
     },
     "search": {
-      "linkText": "Ver estos resultados de búsqueda en la web original de Europeana.",
+      "linkText": "Búsqueda en el sitio web original de Europeana hasta el 20 de diciembre de 2021.",
       "text": "Está buscando en nuestra nueva web, ahora más rápida."
     }
   },
@@ -685,8 +688,8 @@ export default {
   "multilingual": {
     "automated": "Traducción automática",
     "enrichment": "Enriquecimiento por parte de proyectos asociados",
-    "other": "Otros idiomas",
-    "stopTranslating": "Deja de traducir este elemento a {0} .",
+    "other": "otros idiomas",
+    "stopTranslating": "Dejar de traducir este elemento a {0}.",
     "translateLanguage": "¿Le gustaría ver este artículo en {0} ?",
     "translateQuotaError": "El servicio de traducción no está disponible temporalmente. Por favor, inténtelo de nuevo más tarde."
   },
@@ -731,7 +734,7 @@ export default {
     "mediaPlayer": "Reproductor multimedia",
     "record": "Registro",
     "showAll": "Mostrar toda la información",
-    "similarItems": "Objetos similares",
+    "similarItems": "Elementos similares",
     "transcription": "Transcripción",
     "transcriptionDisclaimer": "Este contenido ha sido aportado por el público, no por la institución que ha proporcionado este artículo.",
     "view": {
@@ -747,7 +750,7 @@ export default {
   "results": "Resultados",
   "resultsLimitWarning": "No se muestran los resultados adicionales, ya que solo se muestran los primeros 1000 resultados más relevantes. Si no ha encontrado lo que está buscando, considere delimitar su búsqueda.",
   "search": "Buscar",
-  "searchPlaceholder": "Busca millones de artículos",
+  "searchPlaceholder": "Busca millones de elementos",
   "searchResults": "Buscar",
   "searchResultsFor": "{0} - Buscar",
   "searchResultsForIn": "{0} - Buscar en {1}",
@@ -758,8 +761,8 @@ export default {
       "show": "Mostrar estos elementos"
     },
     "text": {
-      "hide": "Se muestran los artículos que no cumplen nuestros criterios de publicación.",
-      "show": "Hay más artículos que coinciden con su búsqueda, pero no cumplen nuestros criterios de publicación."
+      "hide": "Se muestran los elementos que no cumplen nuestros criterios de publicación.",
+      "show": "Hay más elementos que coinciden con su búsqueda, pero no cumplen nuestros criterios de publicación."
     }
   },
   "searchViews": {
@@ -794,7 +797,7 @@ export default {
       "updated": "El elemento se agregó a la galería."
     },
     "prompts": {
-      "delete": "¿Estás seguro de que quieres eliminar esta galería? Si eliminas esta galería, perderás todos los artículos que le hayas agregado."
+      "delete": "¿Estás seguro de que quieres eliminar esta galería? Si eliminas esta galería, perderás todos los elementos que le hayas agregado."
     }
   },
   "showLess": "Mostrar menos",

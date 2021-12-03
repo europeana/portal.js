@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mitt konto",
     "linkLogin": "Logga in",
-    "linkLoginJoin": "Logga in/Gå med",
+    "linkLoginJoin": "Logga in\/Gå med",
     "linkLogout": "Logga ut",
     "myProfile": "Min profil",
     "notifications": {
@@ -17,7 +17,7 @@ export default {
         "private": "Du har inte skapat något privat galleri ännu",
         "public": "Du har inte skapat något offentligt galleri ännu"
       },
-      "noLikedItems": "Du har inte gillat några föremål ännu"
+      "noLikedItems": "Du har inte gillat några objekt ännu"
     },
     "privateCollections": "Privata gallerier",
     "profile": "Mina likes & gallerier",
@@ -53,7 +53,8 @@ export default {
     "title": "Titel:"
   },
   "automatedCardGroup": {
-    "item": "Senaste föremålen",
+    "item": "Senaste objekt",
+    "organisation": "Organisationer",
     "time": "Utvalda århundraden",
     "topic": "Utvalda ämnen"
   },
@@ -356,7 +357,7 @@ export default {
     "MIME_TYPE": {
       "name": "Filformat | Filformat",
       "options": {
-        "text/plain": "Oformaterad text"
+        "text\/plain": "Oformaterad text"
       }
     },
     "PROVIDER": {
@@ -416,10 +417,10 @@ export default {
     },
     "contentTier": {
       "name": "Innefattar objekt som inte uppfyller våra publiceringsvillkor",
-      "notification": "Några föremål som inte matchar våra publiceringsvillkor finns tillgängliga. Du får åtkomst till dessa föremål genom att aktivera filtret \"Föremålskvalitet\" under \"Fler filter\".",
+      "notification": "Några objekt som inte matchar våra publiceringsvillkor finns tillgängliga. Du får åtkomst till dessa objekt genom att aktivera filtret \"Föremålskvalitet\" under \"Fler filter\".",
       "options": {
         "*": "Innefattar objekt som inte uppfyller våra publiceringsvillkor",
-        "0": "Visa endast föremål som inte uppfyller våra publiceringsvillkor"
+        "0": "Visa endast objekt som inte uppfyller våra publiceringskriterier"
       }
     },
     "proxy_dc_format": {
@@ -516,6 +517,8 @@ export default {
       "rdfAbout": "RDF Om"
     }
   },
+  "filter": "Filtrera",
+  "filterResults": "Filtrera resultat",
   "footer": {
     "customiseWebsiteLanguage": "Anpassa webbplatsens språk",
     "disclaimerLine1": "Europeana är ett initiativ från Europeiska unionen, finansierat av EU: s Connecting Europe Facility och EU: s medlemsstater. Europeana-tjänsterna, inklusive denna webbplats, drivs av ett konsortium som leds av Europeana Foundation under ett serviceavtal med Europeiska kommissionen.",
@@ -575,10 +578,10 @@ export default {
   "items": {
     "itemCount": "1 föremål {count} föremål",
     "itemOf": "{max} av {count} föremål",
-    "recent": "Senaste föremålen",
+    "recent": "Senaste objekt",
     "recommendationsDisclaimer": "Tummen upp för att lägga till i galleriet - Tummen ner om du ogillar det",
-    "recommended": "Rekommenderade artiklar",
-    "youMightLike": "Föremål som du kanske skulle gilla"
+    "recommended": "Rekommenderade objekt",
+    "youMightLike": "Objekt som du kanske skulle gilla"
   },
   "klaro": {
     "main": {
@@ -614,7 +617,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Hjälper till att förbättra vår webbplats genom att ibland tillämpa experimentella förändringar.",
-        "title": "A/B -testning"
+        "title": "A\/B -testning"
       },
       "auth-strategy": {
         "description": "Kommer ihåg den auktoriserings strategi som ska användas för att logga in.",
@@ -642,7 +645,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Kommer ihåg om du föredrar att se sökresultaten i en lista eller rutnät.",
-        "title": "Visa sökresultat (lista/rutnät)"
+        "title": "Visa sökresultat (lista\/rutnät)"
       }
     }
   },
@@ -652,15 +655,15 @@ export default {
   "learnMore": "Lär dig mer om källan till denna beskrivning",
   "linksToClassic": {
     "home": {
-      "linkText": "Gå till ursprunglig Europeana.",
+      "linkText": "Visa den här sidan på europeanas ursprungliga webbplats fram till den 20 december 2021.",
       "text": "Du visar den nya Europeana-upplevelsen."
     },
     "record": {
-      "linkText": "Visa detta objekt i ursprunglig Europeana.",
+      "linkText": "Du kan se det här objektet på den ursprungliga Europeana-webbplatsen fram till den 20 december 2021.",
       "text": "Du visar detta objekt på den nya Europeana-webbplatsen."
     },
     "search": {
-      "linkText": "Visa dessa sökresultat i ursprunglig Europeana.",
+      "linkText": "Sök på den ursprungliga Europeana-webbplatsen fram till den 20 december 2021.",
       "text": "Du söker på vår nya och snabbare webbplats."
     }
   },
@@ -686,7 +689,7 @@ export default {
     "automated": "Automatiserad översättning",
     "enrichment": "Berikning genom partnerprojekt",
     "other": "Andra språk",
-    "stopTranslating": "Sluta översätta det här objektet till {0} .",
+    "stopTranslating": "Sluta översätta det här objektet till {0}.",
     "translateLanguage": "Vill du se det här objektet i {0} ?",
     "translateQuotaError": "Översättningstjänsten är inte tillgänglig för tillfället. Försök igen senare."
   },
@@ -788,13 +791,13 @@ export default {
     "notifications": {
       "deleted": "Ditt galleri har raderats.",
       "likeLimit": {
-        "body": "Tyvärr, men du har endast möjlighet att gilla maximalt 100 föremål. Vi kommer att ta bort denna gräns inom kort!",
+        "body": "Tyvärr, men du har endast möjlighet att gilla maximalt 100 objekt. Vi kommer att ta bort denna gräns inom kort!",
         "title": "100 likes"
       },
       "updated": "Objektet lades till i galleriet."
     },
     "prompts": {
-      "delete": "Är du säker på att du vill radera detta galleri? Om du raderar galleriet går alla föremål som du har lagt till förlorade."
+      "delete": "Är du säker på att du vill radera detta galleri? Om du raderar galleriet går alla objekt som du har lagt till förlorade."
     }
   },
   "showLess": "Visa mindre",

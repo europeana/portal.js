@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mijn account",
     "linkLogin": "Inloggen",
-    "linkLoginJoin": "Inloggen/Aanmelden",
+    "linkLoginJoin": "Inloggen\/Aanmelden",
     "linkLogout": "Uitloggen",
     "myProfile": "Mijn profiel",
     "notifications": {
@@ -54,6 +54,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Recente items",
+    "organisation": "Organisaties",
     "time": "Aanbevolen eeuwen",
     "topic": "Aanbevolen onderwerpen"
   },
@@ -356,7 +357,7 @@ export default {
     "MIME_TYPE": {
       "name": "Bestandsformaat | Bestandsformaten",
       "options": {
-        "text/plain": "Platte tekst"
+        "text\/plain": "Platte tekst"
       }
     },
     "PROVIDER": {
@@ -516,6 +517,8 @@ export default {
       "rdfAbout": "RDF Over"
     }
   },
+  "filter": "Filter",
+  "filterResults": "Resultaten filteren",
   "footer": {
     "customiseWebsiteLanguage": "Pas de taal van de website aan",
     "disclaimerLine1": "Europeana is een initiatief van de Europese Unie, gefinancierd door de Connecting Europe Facility van de Europese Unie en de lidstaten van de Europese Unie. De Europeana-diensten, waaronder deze website, worden beheerd door een consortium onder leiding van de Europeana Foundation in het kader van een servicecontract met de Europese Commissie.",
@@ -614,7 +617,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Helpt onze website te verbeteren door af en toe experimentele wijzigingen aan te brengen.",
-        "title": "A/B-testen"
+        "title": "A\/B-testen"
       },
       "auth-strategy": {
         "description": "Onthoudt de autorisatie strategie die moet worden gebruikt om in te loggen.",
@@ -642,7 +645,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Onthoudt of u de zoekresultaten liever in een lijst- of rasterweergave wilt zien.",
-        "title": "Zoekresultaatweergave (lijst/raster)"
+        "title": "Zoekresultaatweergave (lijst\/raster)"
       }
     }
   },
@@ -652,15 +655,15 @@ export default {
   "learnMore": "Meer informatie over de bron van deze beschrijving",
   "linksToClassic": {
     "home": {
-      "linkText": "Ga naar de originele Europeana.",
+      "linkText": "Bekijk deze pagina op de originele Europeana website tot 20 december 2021.",
       "text": "U bekijkt de nieuwe Europeana-experience."
     },
     "record": {
-      "linkText": "Bekijk dit item in de originele Europeana.",
+      "linkText": "Bekijk dit item tot 20 december 2021 op de originele Europeana website.",
       "text": "U bekijkt dit item op de nieuwe Europeana-website."
     },
     "search": {
-      "linkText": "Bekijk deze zoekresultaten in de originele Europeana.",
+      "linkText": "Zoek op de originele Europeana website tot 20 december 2021.",
       "text": "U zoekt op onze nieuwe en snellere website."
     }
   },
@@ -686,7 +689,7 @@ export default {
     "automated": "Geautomatiseerde vertaling",
     "enrichment": "Verrijking door partnerprojecten",
     "other": "Andere talen",
-    "stopTranslating": "Stop met het vertalen van dit item naar {0} .",
+    "stopTranslating": "Stop met het vertalen van dit item naar {0}.",
     "translateLanguage": "Wilt u dit item in {0} zien?",
     "translateQuotaError": "De vertaalservice is tijdelijk niet beschikbaar. Probeer het later opnieuw."
   },
