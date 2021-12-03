@@ -6,7 +6,7 @@ export default {
     "likes": "Polubienia",
     "linkAccount": "Moje konto",
     "linkLogin": "Zaloguj się",
-    "linkLoginJoin": "Zaloguj\/Dołącz",
+    "linkLoginJoin": "Zaloguj/Dołącz",
     "linkLogout": "Wyloguj",
     "myProfile": "Mój profil",
     "notifications": {
@@ -357,7 +357,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format plików | Formaty plików",
       "options": {
-        "text\/plain": "Zwykły tekst"
+        "text/plain": "Zwykły tekst"
       }
     },
     "PROVIDER": {
@@ -617,7 +617,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Pomaga ulepszyć naszą stronę internetową, od czasu do czasu stosując eksperymentalne zmiany.",
-        "title": "Testy A\/B"
+        "title": "Testy A/B"
       },
       "auth-strategy": {
         "description": "Zapamiętuje strategię autoryzacji używaną do logowania.",
@@ -645,7 +645,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Zapamiętuje się, jeśli wolisz widzieć wyniki wyszukiwania w widoku listy lub siatki.",
-        "title": "Widok wyników wyszukiwania (lista\/siatka)"
+        "title": "Widok wyników wyszukiwania (lista/siatka)"
       }
     }
   },
