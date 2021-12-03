@@ -54,6 +54,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Míreanna le déanaí",
+    "organisation": "Eagraíochtaí",
     "time": "Na hAois réadmhaoin",
     "topic": "Topaicí réadmhaoine"
   },
@@ -516,6 +517,8 @@ export default {
       "rdfAbout": "Maidir le RDF"
     }
   },
+  "filter": "Scag",
+  "filterResults": "Scag torthaí",
   "footer": {
     "customiseWebsiteLanguage": "Saincheap teanga an láithreáin ghréasáin",
     "disclaimerLine1": "Is tionscnamh de chuid an Aontais Eorpaigh é Europeana, arna mhaoiniú ag Saoráid Nascadh na hEorpa agus Ballstáit an Aontais Eorpaigh. Is iad cuibhreannas faoi stiúir Fhondúireacht Europeana a oibríonn seirbhísí Europeana, an láithreán gréasáin seo san áireamh, faoi chonradh seirbhíse leis an gCoimisiún Eorpach.",
@@ -652,15 +655,15 @@ export default {
   "learnMore": "Faigh amach faoi fhoinse an tuairisc seo",
   "linksToClassic": {
     "home": {
-      "linkText": "Téigh go dtí an láithreán Europeana bunaidh.",
+      "linkText": "Féach ar an leathanach seo ar shuíomh Gréasáin bunaidh Europeana go dtí 20 Nollaig 2021.",
       "text": "Seo an t-eispéireas Europeana nua a bhfuil tú ag breathnú air."
     },
     "record": {
-      "linkText": "Féach ar an mír seo ar láithreán bunaidh Europeana.",
+      "linkText": "Féach an mhír seo ar shuíomh Gréasáin bunaidh Europeana go dtí 20 Nollaig 2021.",
       "text": "Is ar an láithreán gréasáin nua atá ag Europeana atá tú anois, agus tú ag féachaint ar an mír seo."
     },
     "search": {
-      "linkText": "Féach ar na torthaí cuardaigh seo san fhoinse bunaidh, Europeana.",
+      "linkText": "Cuardaigh ar shuíomh Gréasáin bunaidh Europeana go dtí 20 Nollaig 2021.",
       "text": "Tá an cuardach seo déanta agat ar an láithreán gréasáin nua againn atá níos tapúla."
     }
   },
@@ -686,7 +689,7 @@ export default {
     "automated": "Aistriúchán uathoibrithe",
     "enrichment": "Saibhriú ag tionscadail chomhpháirtíochta",
     "other": "Teangacha eile",
-    "stopTranslating": "Stop an t-earra seo a aistriú go {0} .",
+    "stopTranslating": "Stop an t-earra seo a aistriú go {0}.",
     "translateLanguage": "Ar mhaith leat an mhír seo a fheiceáil i {0} ?",
     "translateQuotaError": "Níl an tseirbhís aistriúcháin ar fáil go sealadach. Bain triail eile as níos déanaí."
   },

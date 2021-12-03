@@ -54,6 +54,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Nedávne položky",
+    "organisation": "Organizácie",
     "time": "Odporúčané storočia",
     "topic": "Odporúčané témy"
   },
@@ -516,6 +517,8 @@ export default {
       "rdfAbout": "RDF o"
     }
   },
+  "filter": "Filter",
+  "filterResults": "Filtrovať výsledky",
   "footer": {
     "customiseWebsiteLanguage": "Prispôsobenie jazyka webovej lokality",
     "disclaimerLine1": "Europeana je iniciatíva Európskej únie financovaná Connecting Europe Facility a členskými štátmi Európskej únie. Služby Europeany, vrátane tejto webovej stránky, prevádzkuje konzorcium vedené nadáciou Europeana na základe zmluvy o poskytovaní služieb s Európskou komisiou.",
@@ -652,15 +655,15 @@ export default {
   "learnMore": "Zistite viac o zdroji tohto popisu",
   "linksToClassic": {
     "home": {
-      "linkText": "Prejdite na pôvodnú webovú lokalitu Europeana.",
+      "linkText": "Pozrite si túto stránku na pôvodnej webovej stránke Europeana do 20. decembra 2021.",
       "text": "Prezeráte si novú verziu webovej lokality Europeana."
     },
     "record": {
-      "linkText": "Túto položku si môžete prezrieť na pôvodnej webovej lokalite Europeana.",
+      "linkText": "Pozrite si túto položku na pôvodnej webovej stránke Europeana do 20. decembra 2021.",
       "text": "Túto položku si prezeráte na novej webovej lokalite Europeana."
     },
     "search": {
-      "linkText": "Tieto výsledky vyhľadávania si môžete prezrieť na pôvodnej webovej lokalite Europeana.",
+      "linkText": "Hľadajte na pôvodnej webovej stránke Europeana do 20. decembra 2021.",
       "text": "Vyhľadávate na našej novej a rýchlejšej webovej lokalite."
     }
   },
@@ -686,7 +689,7 @@ export default {
     "automated": "Automatizovaný preklad",
     "enrichment": "Obohatenie o partnerské projekty",
     "other": "Iné jazyky",
-    "stopTranslating": "Zastaviť preklad tejto položky do jazyka {0} .",
+    "stopTranslating": "Zastaviť preklad tejto položky do jazyka {0}.",
     "translateLanguage": "Chceli by ste túto položku vidieť v položke {0}?",
     "translateQuotaError": "Prekladateľská služba je dočasne nedostupná. Skúste neskôr prosím."
   },
