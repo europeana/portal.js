@@ -135,6 +135,22 @@ describe('components/generic/ContentCard', () => {
     wrapper.vm.optimisedImageUrl.should.contain('fm=jpg&fl=progressive&q=50&w=510');
   });
 
+  it('has no image and is of variant mini', async() => {
+    const wrapper = factory();
+    await wrapper.setProps({ imageUrl: null, variant: 'mini' });
+
+    const image =  wrapper.find('[data-qa="content card"] .card-img');
+    image.exists().should.be.false;
+  });
+
+  it('has has an image and is of variant mini', async() => {
+    const wrapper = factory();
+    await wrapper.setProps({ imageUrl: 'https://example.org', variant: 'mini' });
+
+    const image =  wrapper.find('[data-qa="content card"] .card-img');
+    image.exists().should.be.true;
+  });
+
   it('highlights the search term if found', async() => {
     const wrapper = factory();
     await wrapper.setProps({
