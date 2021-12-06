@@ -34,7 +34,7 @@
         />
       </div>
       <div
-        v-else
+        v-else-if="!cardImageUrl && variant !== 'mini'"
         class="placeholder card-img"
       />
       <b-card-body data-qa="card body">
