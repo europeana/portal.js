@@ -1,6 +1,6 @@
 <template>
   <b-button
-    v-b-modal.shareModal
+    v-b-modal.share-modal
     variant="light text-decoration-none"
     data-qa="share button"
     size="lg"

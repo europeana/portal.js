@@ -5,9 +5,9 @@
     class="mt-3"
     @submit.stop.prevent="submitForm"
   >
-    <label for="shareEmbed">{{ $t('record.copyEmbedLabel') }}</label>
+    <label for="share-embed">{{ $t('record.copyEmbedLabel') }}</label>
     <b-form-textarea
-      id="shareEmbed"
+      id="share-embed"
       ref="shareEmbed"
       v-model="embedHtml"
       readonly
@@ -40,13 +40,6 @@
       }
     },
 
-    data() {
-      return {
-        embedCopied: false,
-        embedHtml: null
-      };
-    },
-
     // TODO: write to the store the response to prevent rerequesting same on
     //       subsequent instantiations?
     async fetch() {
@@ -56,6 +49,13 @@
       if (response.data.html) {
         this.embedHtml = response.data.html;
       }
+    },
+
+    data() {
+      return {
+        embedCopied: false,
+        embedHtml: null
+      };
     },
 
     methods: {
@@ -71,7 +71,7 @@
 <style lang="scss">
   @import '@/assets/scss/variables';
 
-  #shareEmbed {
+  #share-embed {
     cursor: pointer;
     height: 3.5rem;
     padding: 0.312rem 0.625rem;

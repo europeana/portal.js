@@ -90,7 +90,7 @@
                 />
               </template>
               <b-button
-                v-b-modal.shareModal
+                v-b-modal.share-modal
                 variant="outline-primary"
                 class="text-decoration-none"
               >
@@ -182,12 +182,6 @@
 
     middleware: 'sanitisePageQuery',
 
-    data() {
-      return {
-        setFormModalId: `set-form-modal-${this.id}`
-      };
-    },
-
     async fetch() {
       try {
         await this.$store.dispatch('set/fetchActive', this.$route.params.pathMatch);
@@ -202,19 +196,9 @@
       }
     },
 
-    head() {
+    data() {
       return {
-        title: this.$pageHeadTitle(this.displayTitle.values[0]),
-        meta: [
-          { hid: 'title', name: 'title', content: this.displayTitle.values[0] },
-          { hid: 'og:title', property: 'og:title', content: (this.displayTitle.values[0]) },
-          { hid: 'og:image', property: 'og:image', content: this.shareMediaUrl },
-          { hid: 'og:type', property: 'og:type', content: 'article' }
-        ]
-          .concat(this.displayDescription && this.displayDescription.values[0] ? [
-            { hid: 'description', name: 'description', content: this.displayDescription.values[0]  },
-            { hid: 'og:description', property: 'og:description', content: this.displayDescription.values[0]  }
-          ] : [])
+        setFormModalId: `set-form-modal-${this.id}`
       };
     },
 
@@ -315,6 +299,22 @@
           this.$store.dispatch('set/fetchActiveRecommendations', `/${this.$route.params.pathMatch}`);
         }
       }
+    },
+
+    head() {
+      return {
+        title: this.$pageHeadTitle(this.displayTitle.values[0]),
+        meta: [
+          { hid: 'title', name: 'title', content: this.displayTitle.values[0] },
+          { hid: 'og:title', property: 'og:title', content: (this.displayTitle.values[0]) },
+          { hid: 'og:image', property: 'og:image', content: this.shareMediaUrl },
+          { hid: 'og:type', property: 'og:type', content: 'article' }
+        ]
+          .concat(this.displayDescription && this.displayDescription.values[0] ? [
+            { hid: 'description', name: 'description', content: this.displayDescription.values[0]  },
+            { hid: 'og:description', property: 'og:description', content: this.displayDescription.values[0]  }
+          ] : [])
+      };
     }
   };
 </script>

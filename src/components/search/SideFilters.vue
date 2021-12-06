@@ -374,7 +374,7 @@
 
       &::before {
         @extend %icon-font;
-        
+
         display: inline-block;
         content: '\e931';
         font-weight: 400;

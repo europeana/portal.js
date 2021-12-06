@@ -1,6 +1,6 @@
 <template>
   <b-modal
-    id="shareModal"
+    id="share-modal"
     title="Share"
     hide-header-close
     hide-footer
@@ -16,7 +16,7 @@
     <b-button
       variant="outline-primary"
       class="mt-4"
-      @click="$bvModal.hide('shareModal')"
+      @click="$bvModal.hide('share-modal')"
     >
       {{ $t('actions.close') }}
     </b-button>
@@ -45,7 +45,7 @@
 <style lang="scss">
   @import '@/assets/scss/variables';
 
-  #shareModal {
+  #share-modal {
     .modal-content {
       .modal-body {
         .icon-wrapper > div {

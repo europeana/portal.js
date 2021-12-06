@@ -4,7 +4,7 @@
     show
     variant="light"
     data-qa="info notice"
-    class="withIcon d-flex"
+    class="with-icon d-flex"
   >
     <span class="icon-info d-inline-flex" />
     {{ message }}
@@ -45,7 +45,7 @@
   .alert.alert-light {
     font-style: italic;
 
-    &.withIcon {
+    &.with-icon {
       font-style: normal;
 
       .icon-info {
