@@ -68,7 +68,8 @@
   import ClientOnly from 'vue-client-only';
   import isEqual from 'lodash/isEqual';
   import { mapState, mapGetters } from 'vuex';
-  import { thematicCollections, rangeToQueryParam, rangeFromQueryParam } from '@/plugins/europeana/search';
+  import { rangeToQueryParam, rangeFromQueryParam } from '@/plugins/europeana/search';
+  import themes from '@/plugins/europeana/themes';
   import { queryUpdatesForFilters } from '../../store/search';
   import SideFacetDropdown from './SideFacetDropdown';
 
@@ -123,7 +124,7 @@
         if (this.collectionFacetEnabled) {
           facets.unshift({
             name: 'collection',
-            staticFields: thematicCollections
+            staticFields: themes.map(theme => theme.qf)
           });
         }
 

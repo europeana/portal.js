@@ -68,6 +68,13 @@ describe('components/generic/ContentCard', () => {
           'https://www.europeana.eu/en/collections/topic/207-byzantine-art',
           { name: 'collections___en', params: { type: 'topic' } }
         ]
+      },
+      {
+        type: 'collections',
+        urls: [
+          'https://www.europeana.eu/en/collections/topic/83-world-war-i',
+          { name: 'collections___en', params: { type: 'topic', pathMatch: '83' } }
+        ]
       }
     ];
 
@@ -80,7 +87,13 @@ describe('components/generic/ContentCard', () => {
 
             const label =  wrapper.find('[data-qa="content card"] .card-subtitle');
             if (test.type === 'collections') {
-              label.text().should.eq(`cardLabels.${test.urls[1].params.type}`);
+              if (wrapper.vm.themes.some(theme => (typeof url === 'string' && url.includes(theme))
+              || theme === url.params?.pathMatch)) {
+                // TO DO remove when thematic collections topics get there own 'theme' type
+                label.text().should.eq('cardLabels.theme');
+              } else {
+                label.text().should.eq(`cardLabels.${test.urls[1].params.type}`);
+              }
             } else if (test.type === 'blog') {
               label.text().should.eq('blog.posts');
             } else {
