@@ -27,11 +27,11 @@
     props: {
       notificationUrl: {
         type: String,
-        default: null
+        required: true
       },
       notificationText: {
         type: String,
-        required: true
+        default: null
       },
       notificationLinkText: {
         type: String,
