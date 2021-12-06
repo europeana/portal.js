@@ -373,7 +373,7 @@
       transition: $standard-transition;
 
       &::before {
-        @extend .icon-font;
+        @extend %icon-font;
         
         display: inline-block;
         content: '\e931';

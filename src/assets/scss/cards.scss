@@ -37,7 +37,7 @@
   }
 
   .card-img {
-    @extend .icon-font;
+    @extend %icon-font;
 
     font-size: 2rem;
     margin-top: 1rem;
@@ -188,7 +188,7 @@
     &::after {
       content: '\e900';
 
-      @extend .icon-font;
+      @extend %icon-font;
 
       margin-left: 5px;
     }

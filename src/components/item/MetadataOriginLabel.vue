@@ -36,7 +36,7 @@
   .enrichment,
   .original {
     &::after {
-      @extend .icon-font;
+      @extend %icon-font;
 
       font-weight: $font-size-medium;
       opacity: 0.2;

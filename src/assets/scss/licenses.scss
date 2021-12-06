@@ -60,11 +60,11 @@
     font-size: $font-size-small;
     padding-left: 0.5rem;
 
-    @extend .icon-font;
+    @extend %icon-font;
   }
 
   .license {
-    @extend .icon-font;
+    @extend %icon-font;
 
     display: inline-block;
     margin-right: 0.25rem;

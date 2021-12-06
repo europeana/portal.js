@@ -154,7 +154,7 @@
     color: $mediumgrey;
 
     &::before {
-      @extend .icon-font;
+      @extend %icon-font;
 
       display: inline-block;
       content: '\e937';
@@ -168,7 +168,7 @@
     }
 
     .is-external-link::after {
-      @extend .icon-font;
+      @extend %icon-font;
 
       content: '\e900';
       font-size: $font-size-extrasmall;
@@ -184,7 +184,7 @@
       color: $black;
 
       &::before {
-        @extend .icon-font;
+        @extend %icon-font;
 
         display: inline-block;
         font-size: 1.5rem;

@@ -190,7 +190,7 @@
         a.is-external-link::after {
           content: '\e900';
 
-          @extend .icon-font;
+          @extend %icon-font;
 
           vertical-align: initial;
           font-size: 0.75rem;

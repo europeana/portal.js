@@ -208,7 +208,7 @@
       }
 
       &.is-external-link::after {
-        @extend .icon-font;
+        @extend %icon-font;
 
         content: '\e900';
       }
@@ -220,7 +220,7 @@
         margin-right: 0.75rem;
 
         &::before {
-          @extend .icon-font;
+          @extend %icon-font;
 
           content: '';
           color: $black;

@@ -76,7 +76,7 @@
       z-index: 1;
 
       &::before {
-        @extend .icon-font;
+        @extend %icon-font;
 
         content: '\e929';
       }

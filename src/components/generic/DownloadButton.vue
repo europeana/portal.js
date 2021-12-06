@@ -62,7 +62,7 @@
     padding: 0.375rem 0.5rem;
 
     .ic-download::before {
-      @extend .icon-font;
+      @extend %icon-font;
 
       content: '\e924';
       font-size: 1.125rem;

@@ -52,7 +52,7 @@ footer {
           content: '\e900';
           color: $white;
 
-          @extend .icon-font;
+          @extend %icon-font;
         }
       }
     }
@@ -105,7 +105,7 @@ footer {
         content: '\e905';
         margin-right: 0.5rem;
 
-        @extend .icon-font;
+        @extend %icon-font;
       }
     }
 

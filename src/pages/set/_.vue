@@ -348,7 +348,7 @@
       margin-right: 1.5rem;
 
       &::before {
-        @extend .icon-font;
+        @extend %icon-font;
 
         content: '\e92e';
         font-size: 1.125rem;
@@ -357,7 +357,7 @@
 
     .visibility {
       &::before {
-        @extend .icon-font;
+        @extend %icon-font;
 
         content: '\e92d';
         font-size: 1.125rem;

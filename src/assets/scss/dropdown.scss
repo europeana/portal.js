@@ -183,7 +183,7 @@
           padding-left: 0;
 
           &::after {
-            @extend .icon-font;
+            @extend %icon-font;
 
             content: '\e903';
             position: absolute;

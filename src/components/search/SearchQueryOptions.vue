@@ -245,7 +245,7 @@
       }
 
       &::before {
-        @extend .icon-font;
+        @extend %icon-font;
 
         font-size: 1.1rem;
         content: '\e92b';

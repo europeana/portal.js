@@ -52,7 +52,7 @@
     text-decoration: underline;
 
     &::after {
-      @extend .icon-font;
+      @extend %icon-font;
 
       content: '\e93e';
       border: none;

@@ -64,7 +64,7 @@
         font-size: 1.25rem;
         margin-right: 0.75rem;
 
-        @extend .icon-font;
+        @extend %icon-font;
       }
     }
   }

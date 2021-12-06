@@ -208,7 +208,7 @@
     width: 1.5rem;
 
     &::before {
-      @extend .icon-font;
+      @extend %icon-font;
 
       display: inline-block;
       font-size: 1.1rem;
