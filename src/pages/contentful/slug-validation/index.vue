@@ -37,15 +37,6 @@
       };
     },
 
-    head() {
-      return {
-        title: this.$pageHeadTitle('Slug validation - Contentful app'),
-        script: [
-          { src: 'https://unpkg.com/speakingurl@13.0.0/speakingurl.min.js' }
-        ]
-      };
-    },
-
     watch: {
       value: 'updateContentfulField',
       debouncedDuplicateStatus: 'handleStatus'
@@ -166,6 +157,15 @@
 
         return false;
       }
+    },
+
+    head() {
+      return {
+        title: this.$pageHeadTitle('Slug validation - Contentful app'),
+        script: [
+          { src: 'https://unpkg.com/speakingurl@13.0.0/speakingurl.min.js' }
+        ]
+      };
     }
   };
 </script>
@@ -183,8 +183,8 @@
     border: 1px solid #d3dce0;
     max-height: 2.5rem;
     color: #536171;
-    padding: 0.65625rem;
-    padding-left: 0.65625rem;
+    padding: 0.6563rem;
+    padding-left: 0.6563rem;
     margin: 0;
     width: 100%;
     appearance: textfield;
