@@ -1,6 +1,6 @@
 <template>
   <b-modal
-    id="downloadModal"
+    id="download-modal"
     :title="$t('modal.download.modalTitle')"
     hide-header-close
     hide-footer
@@ -39,7 +39,7 @@
     <b-button
       variant="outline-primary"
       data-qa="attribution snippet close"
-      @click="$bvModal.hide('downloadModal')"
+      @click="$bvModal.hide('download-modal')"
     >
       {{ $t('actions.close') }}
     </b-button>
@@ -157,7 +157,7 @@
 <style lang="scss">
   @import '@/assets/scss/variables';
 
-  #downloadModal {
+  #download-modal {
     font-size: $font-size-small;
 
     .modal-title {
