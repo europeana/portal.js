@@ -27,7 +27,7 @@
     props: {
       notificationUrl: {
         type: String,
-        default: ''
+        default: null
       },
       notificationText: {
         type: String,
