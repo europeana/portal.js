@@ -9,9 +9,9 @@
   }
 
   .btn-selected {
-    background: $white;
+    background: $blue;
     border-color: $blue;
-    color: $mediumgrey;
+    color: $white;
     padding: 0.75rem 1rem;
   }
 
@@ -212,7 +212,7 @@
       }
     }
   }
-  
+
   &.multilingual-selector .dropdown-menu {
     max-height: 50vh;
     overflow: auto;
@@ -253,11 +253,11 @@
     .options-container {
       overflow: auto;
       max-height: 50vh;
-  
+
       &::-webkit-scrollbar {
         width: 0.25rem;
       }
-  
+
       &::-webkit-scrollbar-thumb {
         background-color: $grey;
       }
