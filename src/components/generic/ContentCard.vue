@@ -100,6 +100,7 @@
   import SmartLink from './SmartLink';
   import stripMarkdown from '@/mixins/stripMarkdown';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import themes from '@/plugins/europeana/themes';
 
   export default {
     name: 'ContentCard',
@@ -205,19 +206,7 @@
       return {
         cardImageUrl: this.imageUrl,
         displayLabelTypes: 'exhibitions|galleries|blog|collections',
-        // TO DO remove when thematic collections topics get there own 'theme' type
-        themes: ['83',
-                 '55',
-                 '190',
-                 '18',
-                 '48',
-                 '156',
-                 '62',
-                 '128',
-                 '151',
-                 '17',
-                 '129',
-                 '80']
+        themes: themes.map(theme => theme.id)
       };
     },
 
@@ -246,19 +235,14 @@
         }
 
         if (this.displayLabelType === 'collections') {
-          let entityId;
-          if (typeof this.url === 'string') {
-            const splitUrl = this.url.split('/');
-            entityId = splitUrl[splitUrl.length - 1].split('-')[0];
-          } else {
-            entityId = this.url.params.pathMatch;
-          }
+          const entityId = (typeof this.url === 'string') ?
+            this.url.split('/').pop().split('-').shift() :
+            this.url.params.pathMatch;
 
-          if (this.themes.some(theme => theme === entityId)) {
-            // TO DO remove when thematic collections topics get there own 'theme' type
-            return this.$t('cardLabels.theme');
-          }
-          return this.$t(`cardLabels.${this.displayLabelTypeCollections}`);
+          // TODO: remove when thematic collections topics get their own 'theme' type
+          return this.themes.includes(entityId) ?
+            this.$t('cardLabels.theme') :
+            this.$t(`cardLabels.${this.displayLabelTypeCollections}`);
         }
 
         if (this.displayLabelType === 'blog') {

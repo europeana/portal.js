@@ -143,7 +143,7 @@
   import isEqual from 'lodash/isEqual';
   import pickBy from 'lodash/pickBy';
   import { mapState, mapGetters } from 'vuex';
-  import { thematicCollections } from '@/plugins/europeana/search';
+  import themes from '@/plugins/europeana/themes';
   import { queryUpdatesForFilters } from '../../store/search';
 
   export default {
@@ -285,7 +285,7 @@
         }
 
         if (this.$store.state.search.collectionFacetEnabled) {
-          ordered.unshift({ name: 'collection', fields: thematicCollections });
+          ordered.unshift({ name: 'collection', fields: themes.map(theme => theme.qf) });
         }
         return ordered.concat(unordered);
       },
