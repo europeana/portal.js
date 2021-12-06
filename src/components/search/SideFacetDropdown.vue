@@ -11,6 +11,7 @@
       :data-type="type"
       data-qa="search facet"
       @hidden="hiddenDropdown"
+      @shown="populateFields"
     >
       <template #button-content>
         <span
@@ -20,25 +21,7 @@
           {{ facetName }}
         </span>
       </template>
-
-      <b-container v-if="$fetchState.pending">
-        <b-row class="flex-md-row py-4 text-center">
-          <b-col cols="12">
-            <LoadingSpinner />
-          </b-col>
-        </b-row>
-      </b-container>
-      <b-container v-else-if="$fetchState.error">
-        <b-row class="flex-md-row py-4">
-          <b-col cols="12">
-            <AlertMessage
-              :error="$fetchState.error.message"
-            />
-          </b-col>
-        </b-row>
-      </b-container>
       <b-dropdown-form
-        v-else
         class="options-container"
       >
         <div
@@ -122,23 +105,8 @@
         preSelected: null,
         fetched: false,
         fields: [],
-        nada: null
+        facetsToFetchEarly: ['COLOURPALETTE', 'IMAGE_SIZE', 'IMAGE_ASPECTRATIO', 'MIME_TYPE']
       };
-    },
-
-    fetch() {
-      // Static fields need no fetching
-      if (this.staticFields) {
-        this.fields = this.staticFields;
-        this.fetched = true;
-        return Promise.resolve();
-      }
-
-      return this.$store.dispatch('search/queryFacets', { facet: this.name })
-        .then((facets) => {
-          this.fields = (facets || [])[0]?.fields || [];
-          this.fetched = true;
-        });
     },
 
     computed: {
@@ -180,21 +148,46 @@
         this.init();
       },
       // TODO: why are we watching API in route query? is it ever used?
-      '$route.query.api': '$fetch',
+      '$route.query.api': 'updateFields',
       '$route.query.reusability': 'updateRouteQueryReusability',
-      '$route.query.query': '$fetch',
+      '$route.query.query': 'updateFields',
       '$route.query.qf': 'updateRouteQueryQf'
     },
 
     mounted() {
       this.init();
+
+      if (this.facetsToFetchEarly.includes(this.name)) {
+        this.populateFields();
+      }
     },
 
     methods: {
+      updateFields() {
+        if (this.facetsToFetchEarly.includes(this.name)) {
+          this.populateFields();
+        } else {
+          this.fetched = false;
+        }
+      },
+      populateFields() {
+        // Static fields need no fetching
+        if (this.staticFields) {
+          this.fields = this.staticFields;
+          this.fetched = true;
+          return Promise.resolve();
+        }
+
+        return this.$store.dispatch('search/queryFacets', { facet: this.name })
+          .then((facets) => {
+            this.fields = (facets || [])[0]?.fields || [];
+            this.fetched = true;
+          });
+      },
       // Refetch facet fields, unless this is the reusability facet
       updateRouteQueryReusability() {
         if (this.name !== 'REUSABILITY') {
-          this.$fetch();
+          this.updateFields();
         }
       },
       // Refetch facet fields, but only if other qf query values have changed
@@ -207,7 +200,7 @@
         const onlyThisFacetChanged = qfDiff.every(qf => qf.startsWith(`${this.name}:`));
 
         if (!onlyThisFacetChanged) {
-          this.$fetch();
+          this.updateFields();
         }
       },
       init() {
