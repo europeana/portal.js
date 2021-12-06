@@ -31,23 +31,20 @@
           @click="toggleFilterSheet"
         />
       </b-row>
-      <b-row class="mb-3 mt-4">
-        <b-col
-          data-qa="search filters"
-        >
-          <div class="position-relative">
-            <template
-              v-if="collection === 'newspaper'"
-            >
+      <client-only>
+        <b-row class="mb-3 mt-4">
+          <b-col
+            data-qa="search filters"
+          >
+            <div class="position-relative">
               <SideDateFilter
+                v-if="collection === 'newspaper'"
                 :name="PROXY_DCTERMS_ISSUED"
                 :start="dateFilter.start"
                 :end="dateFilter.end"
                 :specific="dateFilter.specific"
                 @dateFilter="dateFilterSelected"
               />
-            </template>
-            <client-only>
               <SideFacetDropdown
                 v-for="facet in filterableFacets"
                 :key="facet.name"
@@ -59,10 +56,10 @@
                 :aria-label="facet.name"
                 @changed="changeFacet"
               />
-            </client-only>
-          </div>
-        </b-col>
-      </b-row>
+            </div>
+          </b-col>
+        </b-row>
+      </client-only>
     </b-container>
   </b-col>
 </template>

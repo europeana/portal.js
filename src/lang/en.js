@@ -55,8 +55,8 @@ export default {
   "automatedCardGroup": {
     "item": "Recent items",
     "organisation": "Organisations",
-    "time": "Featured centuries",
-    "topic": "Featured topics"
+    "time": "Centuries",
+    "topic": "Topics"
   },
   "blog": {
     "author": "Author",
@@ -656,16 +656,13 @@ export default {
   "learnMore": "Learn about the source of this description",
   "linksToClassic": {
     "home": {
-      "linkText": "View this page on the original Europeana website till 20th December 2021.",
-      "text": ""
+      "linkText": "View this page on the original Europeana website till 20th December 2021."
     },
     "record": {
-      "linkText": "View this item on the original Europeana website till 20th December 2021.",
-      "text": ""
+      "linkText": "View this item on the original Europeana website till 20th December 2021."
     },
     "search": {
-      "linkText": "Search on the original Europeana website till 20th December 2021.",
-      "text": ""
+      "linkText": "Search on the original Europeana website till 20th December 2021."
     }
   },
   "loading": "Loading",

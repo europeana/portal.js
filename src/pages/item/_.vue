@@ -3,7 +3,6 @@
     <NotificationBanner
       v-if="redirectNotificationsEnabled"
       :notification-url="notificationUrl"
-      :notification-text="$t('linksToClassic.record.text')"
       :notification-link-text="$t('linksToClassic.record.linkText')"
     />
     <b-container v-if="error">
