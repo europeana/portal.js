@@ -46,9 +46,6 @@
   @import '@/assets/scss/icons.scss';
 
   .container-fluid {
-    margin-top: -1rem;
-    padding-top: 1rem;
-
     p {
       line-height: 1.375rem;
       display: flex;
