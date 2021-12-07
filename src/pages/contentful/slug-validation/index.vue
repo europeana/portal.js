@@ -172,7 +172,9 @@
 
 <style lang="scss" scoped>
 .contentful {
+  /* stylelint-disable */
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  /* stylelint-enable */
   font-size: 0.875rem;
 
   .form-control {

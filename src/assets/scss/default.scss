@@ -195,9 +195,11 @@ a {
 input[type='checkbox']:focus + label {
   outline: auto;
 
+  /* stylelint-disable */
   @media (-webkit-min-device-pixel-ratio: 0) {
     outline: -webkit-focus-ring-color auto 5px;
   }
+  /* stylelint-enable */
 }
 
 main#default {
