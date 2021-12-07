@@ -83,17 +83,21 @@ export default (context) => ($axios, params, options = {}) => {
   const searchParams = {
     ...$axios.defaults.params,
     facet: params.facet,
-    profile: params.profile,
+    profile: params.profile || '',
     qf: addContentTierFilter(params.qf),
     query: options.escape ? escapeLuceneSpecials(query) : query,
     reusability: params.reusability,
     rows,
     start
   };
-  const targetLocale = 'en';
-  if (options.locale && options.locale !== targetLocale) {
-    searchParams['q.source'] = options.locale;
-    searchParams['q.target'] = targetLocale;
+
+  if (context?.$config?.app?.search?.translateLocales?.includes(options.locale)) {
+    const targetLocale = 'en';
+    if (options.locale && (options.locale !== targetLocale)) {
+      searchParams.profile = `${searchParams.profile},translate`;
+      searchParams['q.source'] = options.locale;
+      searchParams['q.target'] = targetLocale;
+    }
   }
 
   return $axios.get(`${options.url || ''}/search.json`, {

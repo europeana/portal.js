@@ -127,7 +127,9 @@ describe('plugins/europeana/search', () => {
       });
 
       describe('multilingual queries', () => {
-        it('passes API i18n params if locale option given', async() => {
+        const context = { $config: { app: { search: { translateLocales: ['es'] } } } };
+
+        it('passes API i18n params if configured and locale option given', async() => {
           const locale = 'es';
 
           baseRequest
@@ -136,7 +138,7 @@ describe('plugins/europeana/search', () => {
             })
             .reply(200, defaultResponse);
 
-          await search()($axios, { query: 'flor' }, { locale });
+          await search(context)($axios, { query: 'flor' }, { locale });
 
           nock.isDone().should.be.true;
         });
@@ -149,7 +151,7 @@ describe('plugins/europeana/search', () => {
             })
             .reply(200, defaultResponse);
 
-          await search()($axios, { query: 'flor' });
+          await search(context)($axios, { query: 'flor' });
 
           nock.isDone().should.be.true;
         });
@@ -164,7 +166,7 @@ describe('plugins/europeana/search', () => {
             })
             .reply(200, defaultResponse);
 
-          await search()($axios, { query: 'flor' }, { locale });
+          await search(context)($axios, { query: 'flor' }, { locale });
 
           nock.isDone().should.be.true;
         });

@@ -35,6 +35,9 @@ export default {
       internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
       schemaOrgDatasetId: process.env.SCHEMA_ORG_DATASET_ID,
       siteName: APP_SITE_NAME,
+      search: {
+        translateLocales: (process.env.APP_SEARCH_TRANSLATE_LOCALES || '').split(',')
+      },
       features: {
         abTests: featureIsEnabled(process.env.ENABLE_AB_TESTS),
         jiraServiceDeskFeedbackForm: featureIsEnabled(process.env.ENABLE_JIRA_SERVICE_DESK_FEEDBACK_FORM),
