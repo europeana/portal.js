@@ -15,7 +15,7 @@ RUN jq -Mr '{dependencies,lockfileVersion,requires}' package-lock-original.json 
 
 
 # 1. Build production base image
-FROM node:14-alpine AS production-package-install
+FROM node:16-alpine AS production-package-install
 
 ENV CHROMEDRIVER_SKIP_DOWNLOAD=true \
     GECKODRIVER_SKIP_DOWNLOAD=true \
