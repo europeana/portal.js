@@ -369,6 +369,7 @@ export default {
     // access to Europeana APIs.
     { path: '/_api', handler: '~/server-middleware/api' },
     '~/server-middleware/logging',
+    '~/server-middleware/referrer-policy',
     '~/server-middleware/record-json'
   ],
 

@@ -148,7 +148,7 @@
 
   .form-control.is-active {
     border: 1px solid $innovationblue;
-    color: $innovationblue;
+    color: $darkblue;
   }
 
   .apply-button {

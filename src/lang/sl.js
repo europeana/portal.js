@@ -54,6 +54,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Nedavni predmeti",
+    "organisation": "Organizacije",
     "time": "Priporočena stoletja",
     "topic": "Priporočene teme"
   },
@@ -516,6 +517,8 @@ export default {
       "rdfAbout": "RDF o"
     }
   },
+  "filter": "Filter",
+  "filterResults": "Filtrirajte rezultate",
   "footer": {
     "customiseWebsiteLanguage": "Prilagoditev jezika spletnega mesta",
     "disclaimerLine1": "Europeana je pobuda Evropske unije, ki jo financirajo Connecting Europe Facility Evrope Evropske unije in države članice Evropske unije. Storitve Europeane, vključno s tem spletnim mestom, upravlja konzorcij pod vodstvom Fundacije Europeana na podlagi pogodbe o storitvah z Evropsko komisijo.",
@@ -652,15 +655,15 @@ export default {
   "learnMore": "Izvedite več o viru tega opisa",
   "linksToClassic": {
     "home": {
-      "linkText": "Pojdi na prvotno spletno mesto Europeana.",
+      "linkText": "Oglejte si to stran na izvirni spletni strani Europeana do 20. decembra 2021.",
       "text": "Ogledujete si novo spletno mesto Europeana."
     },
     "record": {
-      "linkText": "Ogled tega dela v prvotnem spletnem mestu Europeana.",
+      "linkText": "Oglejte si ta element na izvirni spletni strani Europeana do 20. decembra 2021.",
       "text": "To delo si ogledujete v novem spletnem mestu Europeana."
     },
     "search": {
-      "linkText": "Ogled teh rezultatov iskanja v prvotnem spletnem mestu Europeana.",
+      "linkText": "Iščite na izvirni spletni strani Europeana do 20. decembra 2021.",
       "text": "Iščete prek našega novega in hitrejšega spletnega mesta."
     }
   },

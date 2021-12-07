@@ -121,8 +121,7 @@
         CHECKBOX: 'checkbox',
         preSelected: null,
         fetched: false,
-        fields: [],
-        nada: null
+        fields: []
       };
     },
 

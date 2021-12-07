@@ -3,7 +3,6 @@
     <NotificationBanner
       v-if="redirectNotificationsEnabled && !sideFiltersEnabled"
       :notification-url="notificationUrl"
-      :notification-text="$t('linksToClassic.search.text')"
       :notification-link-text="$t('linksToClassic.search.linkText')"
       class="mb-3"
     />
@@ -11,14 +10,18 @@
       data-qa="search page"
       :class="{'page-container side-filters-enabled': sideFiltersEnabled}"
     >
-      <b-row>
+      <b-row
+        class="flex-row-reverse"
+      >
+        <SideFilters
+          v-if="sideFiltersEnabled"
+        />
         <b-col
           :class="{'px-0': !sideFiltersEnabled}"
         >
           <NotificationBanner
             v-if="redirectNotificationsEnabled && sideFiltersEnabled"
             :notification-url="notificationUrl"
-            :notification-text="$t('linksToClassic.search.text')"
             :notification-link-text="$t('linksToClassic.search.linkText')"
             class="notification-banner mb-3"
           />
@@ -44,9 +47,6 @@
             :per-row="4"
           />
         </b-col>
-        <SideFilters
-          v-if="sideFiltersEnabled"
-        />
       </b-row>
     </b-container>
   </div>

@@ -54,6 +54,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Poslední položky",
+    "organisation": "Organizace",
     "time": "Vybraná století",
     "topic": "Doporučená témata"
   },
@@ -516,6 +517,8 @@ export default {
       "rdfAbout": "RDF About"
     }
   },
+  "filter": "Filtr",
+  "filterResults": "Filtrovat výsledky",
   "footer": {
     "customiseWebsiteLanguage": "Přizpůsobit jazyk stránky",
     "disclaimerLine1": "Europeana je iniciativa Evropské unie financovaná z Nástroje pro propojení Evropy a z prostředků členských států Evropské unie. Služby Europeany, včetně těchto webových stránek, provozuje konsorcium vedené nadací Europeana Foundation na základě smlouvy o poskytování služeb s Evropskou komisí.",
@@ -652,15 +655,15 @@ export default {
   "learnMore": "Údaje o zdroji tohoto popisu",
   "linksToClassic": {
     "home": {
-      "linkText": "Přejít na původní stránku Europeana.",
+      "linkText": "Tuto stránku si můžete prohlédnout na původních stránkách Europeana do 20. prosince 2021.",
       "text": "Prohlížíte si novou stránku Europeana."
     },
     "record": {
-      "linkText": "Zobrazit tuto položku na původní stránce Europeana.",
+      "linkText": "Prohlédněte si tuto položku na původní webové stránce Europeana do 20. prosince 2021.",
       "text": "Tuto položku si prohlížíte na nové stránce Europeana."
     },
     "search": {
-      "linkText": "Zobrazit tyto výsledky vyhledávání na původní stránce Europeana.",
+      "linkText": "Hledejte na původních webových stránkách Europeana do 20. prosince 2021.",
       "text": "Vyhledáváte na naší nové a rychlejší stránce."
     }
   },

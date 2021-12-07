@@ -54,6 +54,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Legutóbbi cikk",
+    "organisation": "Szervezetek",
     "time": "Kiemelt évszázadok",
     "topic": "Kiemelt témák"
   },
@@ -516,6 +517,8 @@ export default {
       "rdfAbout": "RDF Névjegy"
     }
   },
+  "filter": "Szűrő",
+  "filterResults": "Eredmények szűrése",
   "footer": {
     "customiseWebsiteLanguage": "A webhely nyelvének testreszabása",
     "disclaimerLine1": "Az Europeana az Európai Unió kezdeményezése, amelyet az Európai Unió Európai Uniót összekötő eszközének és az Európai Unió tagállamainak finanszíroz. Az Europeana szolgáltatásait, beleértve ezt a weboldalt is, az Europeana Alapítvány által vezetett konzorcium üzemelteti az Európai Bizottsággal kötött szolgáltatási szerződés alapján.",
@@ -652,15 +655,15 @@ export default {
   "learnMore": "Tudjon meg többet a leírás forrásáról",
   "linksToClassic": {
     "home": {
-      "linkText": "Ugrás az eredeti Europeana webhelyre.",
+      "linkText": "Tekintse meg ezt az oldalt az eredeti Europeana webhelyen 2021. december 20-ig.",
       "text": "Ön az új Europeana élményt látja."
     },
     "record": {
-      "linkText": "Tekintse meg ezt az elemet az eredeti Europeana webhelyen",
+      "linkText": "Tekintse meg ezt az elemet az eredeti Europeana webhelyen 2021. december 20-ig.",
       "text": "Ezt az elemet az új Europeana webhelyen látja."
     },
     "search": {
-      "linkText": "Tekintse meg ezeket a keresési eredményeket az eredeti Europeana webhelyen.",
+      "linkText": "Keresés az eredeti Europeana weboldalon 2021. december 20-ig.",
       "text": "Ön az új és gyorsabb weboldalunkon keres."
     }
   },

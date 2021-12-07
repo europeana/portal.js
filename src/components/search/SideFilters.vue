@@ -31,23 +31,20 @@
           @click="toggleFilterSheet"
         />
       </b-row>
-      <b-row class="mb-3 mt-4">
-        <b-col
-          data-qa="search filters"
-        >
-          <div class="position-relative">
-            <template
-              v-if="collection === 'newspaper'"
-            >
+      <client-only>
+        <b-row class="mb-3 mt-4">
+          <b-col
+            data-qa="search filters"
+          >
+            <div class="position-relative">
               <SideDateFilter
+                v-if="collection === 'newspaper'"
                 :name="PROXY_DCTERMS_ISSUED"
                 :start="dateFilter.start"
                 :end="dateFilter.end"
                 :specific="dateFilter.specific"
                 @dateFilter="dateFilterSelected"
               />
-            </template>
-            <client-only>
               <SideFacetDropdown
                 v-for="facet in filterableFacets"
                 :key="facet.name"
@@ -56,12 +53,13 @@
                 :selected="filters[facet.name]"
                 :static-fields="facet.staticFields"
                 role="search"
+                :aria-label="facet.name"
                 @changed="changeFacet"
               />
-            </client-only>
-          </div>
-        </b-col>
-      </b-row>
+            </div>
+          </b-col>
+        </b-row>
+      </client-only>
     </b-container>
   </b-col>
 </template>
@@ -70,7 +68,8 @@
   import ClientOnly from 'vue-client-only';
   import isEqual from 'lodash/isEqual';
   import { mapState, mapGetters } from 'vuex';
-  import { thematicCollections, rangeToQueryParam, rangeFromQueryParam } from '@/plugins/europeana/search';
+  import { rangeToQueryParam, rangeFromQueryParam } from '@/plugins/europeana/search';
+  import themes from '@/plugins/europeana/themes';
   import { queryUpdatesForFilters } from '../../store/search';
   import SideFacetDropdown from './SideFacetDropdown';
 
@@ -125,7 +124,7 @@
         if (this.collectionFacetEnabled) {
           facets.unshift({
             name: 'collection',
-            staticFields: thematicCollections
+            staticFields: themes.map(theme => theme.qf)
           });
         }
 
@@ -388,4 +387,3 @@
     }
   }
 </style>
-
