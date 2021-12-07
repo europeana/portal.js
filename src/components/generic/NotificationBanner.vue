@@ -46,15 +46,6 @@
   @import '@/assets/scss/icons.scss';
 
   .container-fluid {
-    background: $blue;
-    color: $white;
-    margin-top: -1rem;
-    padding-top: 1rem;
-
-    a {
-      color: $white;
-    }
-
     p {
       line-height: 1.375rem;
       display: flex;
