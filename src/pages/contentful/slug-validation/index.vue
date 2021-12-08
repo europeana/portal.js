@@ -37,6 +37,15 @@
       };
     },
 
+    head() {
+      return {
+        title: this.$pageHeadTitle('Slug validation - Contentful app'),
+        script: [
+          { src: 'https://unpkg.com/speakingurl@13.0.0/speakingurl.min.js' }
+        ]
+      };
+    },
+
     watch: {
       value: 'updateContentfulField',
       debouncedDuplicateStatus: 'handleStatus'
@@ -157,15 +166,6 @@
 
         return false;
       }
-    },
-
-    head() {
-      return {
-        title: this.$pageHeadTitle('Slug validation - Contentful app'),
-        script: [
-          { src: 'https://unpkg.com/speakingurl@13.0.0/speakingurl.min.js' }
-        ]
-      };
     }
   };
 </script>

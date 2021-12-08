@@ -40,6 +40,13 @@
       }
     },
 
+    data() {
+      return {
+        embedCopied: false,
+        embedHtml: null
+      };
+    },
+
     // TODO: write to the store the response to prevent rerequesting same on
     //       subsequent instantiations?
     async fetch() {
@@ -49,13 +56,6 @@
       if (response.data.html) {
         this.embedHtml = response.data.html;
       }
-    },
-
-    data() {
-      return {
-        embedCopied: false,
-        embedHtml: null
-      };
     },
 
     methods: {
