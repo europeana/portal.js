@@ -17,7 +17,7 @@
     "start:inspect": "node --inspect node_modules/.bin/nuxt start",
     "stylelint": "stylelint \"**/*.scss\" \"**/*.vue\" --config .stylelintrc.cjs",
     "test": "npm run test:unit && npm run test:size && npm run test:e2e",
-    "test:size": "docker build -t europeana/portal.js-test-size tests/size && docker run --mount type=bind,source=\"$(pwd)\"/.nuxt,target=/app/.nuxt --mount type=bind,source=\"$(pwd)\"/tests/size/.size-limit.json,target=/app/.size-limit.json europeana/portal.js-test-size",
+    "test:size": "docker build -t europeana/portal.js-test-size tests/size && [ -e .nuxt/dist ] || npm run build && docker run --mount type=bind,source=\"$(pwd)\"/.nuxt,target=/app/.nuxt --mount type=bind,source=\"$(pwd)\"/tests/size/.size-limit.json,target=/app/.size-limit.json europeana/portal.js-test-size",
     "test:stack:build": "docker-compose -f ./tests/e2e/docker/docker-compose.yml build",
     "test:stack:down": "docker-compose -f ./tests/e2e/docker/docker-compose.yml down",
     "test:stack:rebuild": "docker-compose -f ./tests/e2e/docker/docker-compose.yml down && npm run test:stack:build",
