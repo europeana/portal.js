@@ -8,7 +8,7 @@
 const APP_SITE_NAME = 'Europeana';
 
 import pkg from './package.json';
-import nuxtPkg from 'nuxt/package.json';
+import nuxtCorePkg from '@nuxt/core/package.json';
 
 import i18nLocales from './src/plugins/i18n/locales.js';
 import i18nDateTime from './src/plugins/i18n/datetime.js';
@@ -84,7 +84,7 @@ export default {
         serviceName: 'portal-js',
         serviceVersion: pkg.version,
         frameworkName: 'Nuxt',
-        frameworkVersion: nuxtPkg.version,
+        frameworkVersion: nuxtCorePkg.version,
         ignoreUrls: [
           /^\/(_nuxt|__webpack_hmr)\//
         ],
