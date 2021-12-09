@@ -31,7 +31,7 @@ services:
   cache:
     image: redis
   chrome-en:
-    image: selenium/standalone-chrome:96.0
+    image: selenium/standalone-chrome:88.0
     healthcheck:
       test: curl -fs http://localhost:4444 || exit 1
     environment:
@@ -41,7 +41,7 @@ services:
     volumes:
       - /dev/shm:/dev/shm
   chrome-ja:
-    image: selenium/standalone-chrome:96.0
+    image: selenium/standalone-chrome:88.0
     healthcheck:
       test: curl -fs http://localhost:4444 || exit 1
     environment:
@@ -51,7 +51,7 @@ services:
     volumes:
       - /dev/shm:/dev/shm
   chrome-nl:
-    image: selenium/standalone-chrome:96.0
+    image: selenium/standalone-chrome:88.0
     healthcheck:
       test: curl -fs http://localhost:4444 || exit 1
     environment:
