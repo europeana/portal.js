@@ -1,5 +1,7 @@
 export default {
   "account": {
+    "curatedCollections": "Kuraterade samlingar",
+    "curatedCollectionsInfo": "Hitta nedan alla samlingar du har kuraterat",
     "editProfile": "Redigera profil",
     "likes": "Likes",
     "linkAccount": "Mitt konto",
@@ -11,10 +13,11 @@ export default {
       "loggedIn": "Du är nu inloggad. Välkommen!",
       "loggedOut": "Du är nu utloggad.",
       "noCollections": {
+        "curated": "Du har inte kuraterat några samlingar än",
         "private": "Du har inte skapat något privat galleri ännu",
         "public": "Du har inte skapat något offentligt galleri ännu"
       },
-      "noLikedItems": "Du har inte gillat några föremål ännu"
+      "noLikedItems": "Du har inte gillat några objekt ännu"
     },
     "privateCollections": "Privata gallerier",
     "profile": "Mina likes & gallerier",
@@ -24,6 +27,7 @@ export default {
     "title": "Mitt konto"
   },
   "actions": {
+    "accept": "Acceptera",
     "cancel": "Avbryt",
     "close": "stäng",
     "download": "Ladda ner",
@@ -33,6 +37,7 @@ export default {
     "like": "Gilla",
     "next": "Nästa",
     "providedBy": "Tillhandahålls av {provider}",
+    "reject": "Avvisa",
     "send": "Skicka",
     "share": "Dela",
     "shareOn": "Dela på {social}",
@@ -48,7 +53,8 @@ export default {
     "title": "Titel:"
   },
   "automatedCardGroup": {
-    "item": "Senaste föremålen",
+    "item": "Senaste objekt",
+    "organisation": "Organisationer",
     "time": "Utvalda århundraden",
     "topic": "Utvalda ämnen"
   },
@@ -64,6 +70,7 @@ export default {
     "relatedPosts": "Relaterade inlägg"
   },
   "cardLabels": {
+    "organisation": "Organisation",
     "person": "Person",
     "time": "Århundrade",
     "topic": "Ämne"
@@ -137,13 +144,28 @@ export default {
   "edmIsShownAtLinkAlt": "Visa på leverantörens webbplats",
   "entity": {
     "actions": {
-      "cancel": "Avbryt"
+      "cancel": "Avbryt",
+      "pin": "Fäst objekt",
+      "unpin": "Lossa objekt",
+      "viewPinned": "Se fästa objekt"
     },
     "labels": {
       "entity": "Entitet"
     },
     "notifications": {
-      "deleted": "Ditt galleri har raderats."
+      "deleted": "Ditt galleri har raderats.",
+      "pinLimit": {
+        "body": "För tillfället kan du bara fästa 24 objekt på den första sidan. Om du vill fästa det här objektet måste du ta bort ett annat och sedan försöka fästa det här igen.",
+        "title": "För många pinnade objekt"
+      },
+      "pinned": "Objektet har fästs. Det är nu högst upp på den första sidan i den här samlingen. Det kan ta upp till 24 timmar innan alla visas.",
+      "pinnedFirstPage": "Objektet har fästs. Det kan ta upp till 24 timmar innan alla visas.",
+      "unpinned": "Objektet har lossats. Det är inte längre högst upp på den första sidan i den här samlingen. Det kan ta upp till 24 timmar innan alla försvinner.",
+      "unpinnedFirstPage": "Objektet har tagits bort. Det kan ta upp till 24 timmar att försvinna för alla."
+    },
+    "prompts": {
+      "pin": "Är du säker på att du vill fästa den här artikeln? Det här objektet kommer att visas högst upp i samlingen \"{entity}\". Det kan ta upp till 24 timmar innan den här ändringen träder i kraft.",
+      "unpin": "Är du säker på att du vill ta bort det här objektet? Det här objektet slutar visas högst upp i {entity} \". Det kan ta upp till 24 timmar innan ändringen träder i kraft."
     }
   },
   "error": "Fel",
@@ -395,10 +417,10 @@ export default {
     },
     "contentTier": {
       "name": "Innefattar objekt som inte uppfyller våra publiceringsvillkor",
-      "notification": "Några föremål som inte matchar våra publiceringsvillkor finns tillgängliga. Du får åtkomst till dessa föremål genom att aktivera filtret \"Föremålskvalitet\" under \"Fler filter\".",
+      "notification": "Några objekt som inte matchar våra publiceringsvillkor finns tillgängliga. Du får åtkomst till dessa objekt genom att aktivera filtret \"Föremålskvalitet\" under \"Fler filter\".",
       "options": {
         "*": "Innefattar objekt som inte uppfyller våra publiceringsvillkor",
-        "0": "Visa endast föremål som inte uppfyller våra publiceringsvillkor"
+        "0": "Visa endast objekt som inte uppfyller våra publiceringskriterier"
       }
     },
     "proxy_dc_format": {
@@ -443,7 +465,6 @@ export default {
       "dcFormat": "Format",
       "dcIdentifier": "Identifierare",
       "dcLanguage": "Språk",
-      "dcMedium": "Medium",
       "dcPublisher": "Utgivare",
       "dcRelation": "Förbindelser",
       "dcRights": "Rättigheter",
@@ -463,7 +484,6 @@ export default {
       "dctermsIssued": "Utgivningsdatum",
       "dctermsMedium": "Medium",
       "dctermsProvenance": "Proveniens",
-      "dctermsPublished": "Publiceringsdatum",
       "dctermsReferences": "Hänvisar till",
       "dctermsSpatial": "Platser",
       "dctermsTemporal": "Temporal",
@@ -474,6 +494,7 @@ export default {
       "edmIncorporates": "Inkorporerar",
       "edmIntermediateProvider": "Mellanliggande leverantör",
       "edmIsDerivativeOf": "Är härledd från",
+      "edmIsRelatedTo": "Är relaterat till",
       "edmIsRepresentationOf": "Är en representation av",
       "edmIsSimilarTo": "Liknar",
       "edmIsSuccessorOf": "Är efterföljare till",
@@ -485,7 +506,8 @@ export default {
       "keywords": "Nyckelord (tillhandahålls av communityn)",
       "timestampCreated": "Tidsstämpel skapad",
       "timestampUpdate": "Tidsstämpel uppdaterad",
-      "wasPresentAt": "Var närvarande vid"
+      "wasPresentAt": "Var närvarande vid",
+      "year": "År"
     },
     "webResource": {
       "about": "RDF Om",
@@ -495,6 +517,8 @@ export default {
       "rdfAbout": "RDF Om"
     }
   },
+  "filter": "Filtrera",
+  "filterResults": "Filtrera resultat",
   "footer": {
     "customiseWebsiteLanguage": "Anpassa webbplatsens språk",
     "disclaimerLine1": "Europeana är ett initiativ från Europeiska unionen, finansierat av EU: s Connecting Europe Facility och EU: s medlemsstater. Europeana-tjänsterna, inklusive denna webbplats, drivs av ett konsortium som leds av Europeana Foundation under ett serviceavtal med Europeiska kommissionen.",
@@ -554,8 +578,10 @@ export default {
   "items": {
     "itemCount": "1 föremål {count} föremål",
     "itemOf": "{max} av {count} föremål",
-    "recent": "Senaste föremålen",
-    "youMightLike": "Föremål som du kanske skulle gilla"
+    "recent": "Senaste objekt",
+    "recommendationsDisclaimer": "Tummen upp för att lägga till i galleriet - Tummen ner om du ogillar det",
+    "recommended": "Rekommenderade objekt",
+    "youMightLike": "Objekt som du kanske skulle gilla"
   },
   "klaro": {
     "main": {
@@ -589,11 +615,16 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Hjälper till att förbättra vår webbplats genom att ibland tillämpa experimentella förändringar.",
+        "title": "A/B -testning"
+      },
       "auth-strategy": {
         "description": "Kommer ihåg den auktoriserings strategi som ska användas för att logga in.",
         "title": "Auth-strategi"
       },
       "debugSettings": {
+        "description": "Hjälper till att felsöka API -begäranden",
         "title": "Felsökning växla"
       },
       "hotjar": {
@@ -624,15 +655,15 @@ export default {
   "learnMore": "Lär dig mer om källan till denna beskrivning",
   "linksToClassic": {
     "home": {
-      "linkText": "Gå till ursprunglig Europeana.",
+      "linkText": "Visa den här sidan på europeanas ursprungliga webbplats fram till den 20 december 2021.",
       "text": "Du visar den nya Europeana-upplevelsen."
     },
     "record": {
-      "linkText": "Visa detta objekt i ursprunglig Europeana.",
+      "linkText": "Du kan se det här objektet på den ursprungliga Europeana-webbplatsen fram till den 20 december 2021.",
       "text": "Du visar detta objekt på den nya Europeana-webbplatsen."
     },
     "search": {
-      "linkText": "Visa dessa sökresultat i ursprunglig Europeana.",
+      "linkText": "Sök på den ursprungliga Europeana-webbplatsen fram till den 20 december 2021.",
       "text": "Du söker på vår nya och snabbare webbplats."
     }
   },
@@ -647,14 +678,20 @@ export default {
     "notFound": "Hittades inte",
     "paginationLimitExceeded": "Det är bara möjligt att visa de {limit} första sökresultaten."
   },
+  "modal": {
+    "download": {
+      "clickToCopy": "Klicka på attributionen för att kopiera den",
+      "modalIntro": "Om du använder det här objektet på webben eller någon annanstans ska du inte glömma att visa följande attribution bredvid det:",
+      "modalTitle": "Säg tack"
+    }
+  },
   "multilingual": {
     "automated": "Automatiserad översättning",
-    "currentLanguage": "Vill du se det här objektet i {0} ?",
-    "differentLanguage": "ett annat språk",
     "enrichment": "Berikning genom partnerprojekt",
-    "original": "Originalmetadata",
-    "originalLanguage": "originalspråk",
-    "other": "Andra språk"
+    "other": "Andra språk",
+    "stopTranslating": "Sluta översätta det här objektet till {0}.",
+    "translateLanguage": "Vill du se det här objektet i {0} ?",
+    "translateQuotaError": "Översättningstjänsten är inte tillgänglig för tillfället. Försök igen senare."
   },
   "newWindow": "öppnas i nytt fönster",
   "noMoreResults": "Det finns inga fler resultat för din sökning.",
@@ -665,7 +702,14 @@ export default {
       "organisations": {
         "table": {
           "name": "Namn"
-        }
+        },
+        "title": "Organisationer"
+      },
+      "persons": {
+        "title": "Personer"
+      },
+      "table": {
+        "name": "Namn"
       },
       "times": {
         "title": "Tider"
@@ -747,14 +791,16 @@ export default {
     "notifications": {
       "deleted": "Ditt galleri har raderats.",
       "likeLimit": {
-        "body": "Tyvärr, men du har endast möjlighet att gilla maximalt 100 föremål. Vi kommer att ta bort denna gräns inom kort!",
+        "body": "Tyvärr, men du har endast möjlighet att gilla maximalt 100 objekt. Vi kommer att ta bort denna gräns inom kort!",
         "title": "100 likes"
-      }
+      },
+      "updated": "Objektet lades till i galleriet."
     },
     "prompts": {
-      "delete": "Är du säker på att du vill radera detta galleri? Om du raderar galleriet går alla föremål som du har lagt till förlorade."
+      "delete": "Är du säker på att du vill radera detta galleri? Om du raderar galleriet går alla objekt som du har lagt till förlorade."
     }
   },
   "showLess": "Visa mindre",
-  "showMore": "Visa mer"
+  "showMore": "Visa mer",
+  "website": "Webbplats"
 };

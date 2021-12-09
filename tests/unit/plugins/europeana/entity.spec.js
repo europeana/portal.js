@@ -190,29 +190,15 @@ describe('plugins/europeana/entity', () => {
       nock.isDone().should.be.true;
     });
 
-    it('restricts types to agent, concept & timespan', async() => {
-      nock(BASE_URL)
-        .get(suggestEndpoint)
-        .query(query => {
-          return query.type === 'agent,concept,timespan';
-        })
-        .reply(200, entitySuggestionsResponse);
-
-      await api().suggest(text);
-
-      nock.isDone().should.be.true;
-    });
-
-    it('feature-toggles inclusion of organisations', async() => {
+    it('restricts types to agent, concept, timespan & organization', async() => {
       nock(BASE_URL)
         .get(suggestEndpoint)
         .query(query => {
           return query.type === 'agent,concept,timespan,organization';
         })
         .reply(200, entitySuggestionsResponse);
-      const context = { $config: { app: { features: { organisationSearchSuggestions: true } } } };
 
-      await api(context).suggest(text);
+      await api().suggest(text);
 
       nock.isDone().should.be.true;
     });
@@ -299,6 +285,14 @@ describe('plugins/europeana/entity', () => {
       });
     });
 
+    context('with an uri of "http://data.europeana.eu/organization/999"', () => {
+      const uri = 'http://data.europeana.eu/organization/999';
+      it('returns true', () => {
+        const ret = isEntityUri(uri);
+        ret.should.eq(true);
+      });
+    });
+
     context('with an uri of "http://example.org/not-an-entity"', () => {
       const uri = 'http://example.org/not-an-entity';
       it('returns true', () => {
@@ -309,7 +303,7 @@ describe('plugins/europeana/entity', () => {
   });
 
   describe('entityParamsFromUri', () => {
-    context('with a agent uri of "http://data.europeana.eu/agent/base/100"', () => {
+    context('with an agent uri of "http://data.europeana.eu/agent/base/100"', () => {
       const uri = 'http://data.europeana.eu/agent/base/100';
       it('returns the id and type', () => {
         const params = entityParamsFromUri(uri);
@@ -324,6 +318,15 @@ describe('plugins/europeana/entity', () => {
         const params = entityParamsFromUri(uri);
         params.id.should.eq('20');
         params.type.should.eq('time');
+      });
+    });
+
+    context('with an organisation uri of "http://data.europeana.eu/organization/999"', () => {
+      const uri = 'http://data.europeana.eu/organization/999';
+      it('returns the id and type', () => {
+        const params = entityParamsFromUri(uri);
+        params.id.should.eq('999');
+        params.type.should.eq('organisation');
       });
     });
   });

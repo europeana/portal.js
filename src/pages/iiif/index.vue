@@ -8,6 +8,8 @@
   import uniq from 'lodash/uniq';
 
   export default {
+    name: 'IIIFPage',
+
     layout: 'minimal',
 
     asyncData({ query }) {
@@ -22,12 +24,19 @@
         manifest: null,
         MIRADOR_BUILD_PATH: 'https://unpkg.com/mirador@3.0.0/dist',
         page: null,
-        uri: null,
         imageToCanvasMap: {},
         mirador: null,
         showAnnotations: false,
-        searchQuery: null,
         miradorStoreManifestJsonUnsubscriber: () => {}
+      };
+    },
+
+    head() {
+      return {
+        title: this.$pageHeadTitle('IIIF'),
+        script: [
+          { src: `${this.MIRADOR_BUILD_PATH}/mirador.min.js` }
+        ]
       };
     },
 
@@ -316,15 +325,6 @@
           window.parent.postMessage({ 'event': 'updateDownloadLink', 'id': page[0].images[0].resource['@id'] }, window.location.origin);
         }
       }
-    },
-
-    head() {
-      return {
-        title: this.$pageHeadTitle('IIIF'),
-        script: [
-          { src: `${this.MIRADOR_BUILD_PATH}/mirador.min.js` }
-        ]
-      };
     }
   };
 </script>

@@ -14,8 +14,8 @@
       <ItemPreviewCard
         v-for="(item, index) in value"
         :key="item.id"
-        v-model="value[index]"
         v-masonry-tile
+        :item="value[index]"
         :hit-selector="itemHitSelector(item)"
         :variant="cardVariant"
         class="item"
@@ -37,7 +37,7 @@
     <ItemPreviewCard
       v-for="(item, index) in value"
       :key="item.id"
-      v-model="value[index]"
+      :item="value[index]"
       :hit-selector="itemHitSelector(item)"
       :variant="cardVariant"
       :show-pins="showPins"

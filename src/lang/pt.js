@@ -1,5 +1,7 @@
 export default {
   "account": {
+    "curatedCollections": "Coleções Curadas",
+    "curatedCollectionsInfo": "Encontre abaixo todas as coleções que você curou",
     "editProfile": "Editar Perfil",
     "likes": "Gostos",
     "linkAccount": "A minha conta",
@@ -11,6 +13,7 @@ export default {
       "loggedIn": "Está agora autenticado. Bem-vindo!",
       "loggedOut": "Está agora desconectado.",
       "noCollections": {
+        "curated": "Você ainda não fez a curadoria de nenhuma coleção",
         "private": "Ainda não criou nenhuma galeria privada",
         "public": "Ainda não criou nenhuma galeria pública"
       },
@@ -24,6 +27,7 @@ export default {
     "title": "A minha conta"
   },
   "actions": {
+    "accept": "Aceitar",
     "cancel": "Cancelar",
     "close": "fechar",
     "download": "Descarregar",
@@ -33,6 +37,7 @@ export default {
     "like": "Gosto",
     "next": "Próximo",
     "providedBy": "Fornecido por {provider}",
+    "reject": "Rejeitar",
     "send": "Enviar",
     "share": "Partilhar",
     "shareOn": "Partilhe em {social}",
@@ -49,6 +54,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Itens recentes",
+    "organisation": "Organizações",
     "time": "Séculos em destaque",
     "topic": "Tópicos em destaque"
   },
@@ -64,6 +70,7 @@ export default {
     "relatedPosts": "Publicações relacionadas"
   },
   "cardLabels": {
+    "organisation": "Organização",
     "person": "Pessoa",
     "time": "Século",
     "topic": "Tópico"
@@ -137,13 +144,28 @@ export default {
   "edmIsShownAtLinkAlt": "Ver no site do fornecedor",
   "entity": {
     "actions": {
-      "cancel": "Cancelar"
+      "cancel": "Cancelar",
+      "pin": "Pino item",
+      "unpin": "Desafixar item",
+      "viewPinned": "Ver itens com alfinetes"
     },
     "labels": {
       "entity": "Entidade"
     },
     "notifications": {
-      "deleted": "A galeria foi eliminada."
+      "deleted": "A galeria foi eliminada.",
+      "pinLimit": {
+        "body": "Por enquanto, você só pode fixar 24 itens na primeira página. Se quiser fixar este item, certifique-se de soltar outro e tente fixá-lo novamente.",
+        "title": "Muitos itens fixados"
+      },
+      "pinned": "O item foi fixado. Agora está no topo da primeira página desta coleção. Pode levar até 24 horas para aparecer para todos.",
+      "pinnedFirstPage": "O item foi fixado com alfinete. Pode demorar até 24 horas a aparecer para todos.",
+      "unpinned": "O item foi desafixado. Não está mais no topo da primeira página desta coleção. Pode levar até 24 horas para desaparecer para todos.",
+      "unpinnedFirstPage": "O item foi desafixado. Pode levar até 24 horas para desaparecer para todos."
+    },
+    "prompts": {
+      "pin": "Tem certeza de que deseja fixar este item? Este item será mostrado no topo da {entity} \". Essa alteração pode levar até 24 horas para entrar em vigor.",
+      "unpin": "Tem certeza de que deseja liberar este item? Este item deixará de ser exibido no topo da {entity} \". Essa alteração pode levar até 24 horas para entrar em vigor."
     }
   },
   "error": "Erro",
@@ -443,7 +465,6 @@ export default {
       "dcFormat": "Formato",
       "dcIdentifier": "Identificador",
       "dcLanguage": "Língua",
-      "dcMedium": "Médio",
       "dcPublisher": "Editor",
       "dcRelation": "Relações",
       "dcRights": "Direitos",
@@ -463,7 +484,6 @@ export default {
       "dctermsIssued": "Data de emissão",
       "dctermsMedium": "Médio",
       "dctermsProvenance": "Proveniência",
-      "dctermsPublished": "Data de publicação",
       "dctermsReferences": "Referências",
       "dctermsSpatial": "Locais",
       "dctermsTemporal": "Temporal",
@@ -474,6 +494,7 @@ export default {
       "edmIncorporates": "Incorpora",
       "edmIntermediateProvider": "Fornecedor intermediário",
       "edmIsDerivativeOf": "Deriva de",
+      "edmIsRelatedTo": "Está relacionado com",
       "edmIsRepresentationOf": "É representação de",
       "edmIsSimilarTo": "É similar a",
       "edmIsSuccessorOf": "É sucessor de",
@@ -485,7 +506,8 @@ export default {
       "keywords": "Palavras-chave (fornecidas pela comunidade)",
       "timestampCreated": "Registo de data e hora criado",
       "timestampUpdate": "Registo de data e hora atualizado",
-      "wasPresentAt": "Estava presente em"
+      "wasPresentAt": "Estava presente em",
+      "year": "Ano"
     },
     "webResource": {
       "about": "RDF Sobre",
@@ -495,6 +517,8 @@ export default {
       "rdfAbout": "RDF Sobre"
     }
   },
+  "filter": "Filtro",
+  "filterResults": "Filtrar resultados",
   "footer": {
     "customiseWebsiteLanguage": "Personalizar o idioma do site",
     "disclaimerLine1": "Europeana é uma iniciativa da União Europeia, financiada pelo Connecting Europe Facility da União Europeia e pelos Estados-Membros da União Europeia. Os serviços da Europeana, incluindo este site, são operados por um consórcio liderado pela Fundação Europeana ao abrigo de um contrato de serviços com a Comissão Europeia.",
@@ -554,6 +578,9 @@ export default {
   "items": {
     "itemCount": "1 item |{count} itens",
     "itemOf": "{max} de {count} itens",
+    "recent": "Itens recentes",
+    "recommendationsDisclaimer": "Polegar para cima para adicionar à galeria - Polegar para baixo se não gostar",
+    "recommended": "Itens recomendados",
     "youMightLike": "Itens que poderá gostar"
   },
   "klaro": {
@@ -588,11 +615,16 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Ajuda a melhorar o nosso site, aplicando ocasionalmente alterações experimentais.",
+        "title": "Teste A/B"
+      },
       "auth-strategy": {
         "description": "Lembra a estratégia de autorização a ser usada para fazer login.",
         "title": "Estratégia Auth"
       },
       "debugSettings": {
+        "description": "Ajuda a depurar solicitações de API",
         "title": "Botão de debug"
       },
       "hotjar": {
@@ -623,18 +655,19 @@ export default {
   "learnMore": "Saiba mais sobre a fonte desta descrição",
   "linksToClassic": {
     "home": {
-      "linkText": "Vá para o Europeana original.",
+      "linkText": "Veja esta página no site original da Europeana até 20 de dezembro de 2021.",
       "text": "Está a ver a nova experiência da Europeana."
     },
     "record": {
-      "linkText": "Veja este item no Europeana original.",
+      "linkText": "Ver este item no site original da Europeana até 20 de dezembro de 2021.",
       "text": "Está a visualizar este item no novo site da Europeana."
     },
     "search": {
-      "linkText": "Veja estes resultados da pesquisa no Europeana original.",
+      "linkText": "Pesquise no site original da Europeana até 20 de dezembro de 2021.",
       "text": "Está a pesquisar no nosso site novo e mais rápido."
     }
   },
+  "loading": "A carregar",
   "loadingResults": "A carregar resultados",
   "mediaPreview": {
     "selectItem": "Seleccionar item {src}"
@@ -645,10 +678,20 @@ export default {
     "notFound": "Não encontrado",
     "paginationLimitExceeded": "Só é possível visualizar os primeiros {limit} resultados da pesquisa."
   },
+  "modal": {
+    "download": {
+      "clickToCopy": "Clique na atribuição para copiá-lo",
+      "modalIntro": "Se utilizar este item na web ou noutro local, não se esqueça de apresentar a seguinte atribuição ao lado:",
+      "modalTitle": "Diga obrigado"
+    }
+  },
   "multilingual": {
-    "original": "Metadados originais",
-    "originalLanguage": "língua original",
-    "other": "Outras línguas"
+    "automated": "Tradução automatizada",
+    "enrichment": "Enriquecimento por projetos de parceiros",
+    "other": "Outras línguas",
+    "stopTranslating": "Pare de traduzir este item para {0}.",
+    "translateLanguage": "Gostaria de ver este item em {0} ?",
+    "translateQuotaError": "O serviço de tradução está temporariamente indisponível. Por favor, tente novamente mais tarde."
   },
   "newWindow": "abre numa nova janela",
   "noMoreResults": "Não há mais resultados para a sua pesquisa.",
@@ -656,6 +699,18 @@ export default {
   "pageHasLoaded": "carregou",
   "pages": {
     "collections": {
+      "organisations": {
+        "table": {
+          "name": "Nome"
+        },
+        "title": "Organizações"
+      },
+      "persons": {
+        "title": "Pessoas"
+      },
+      "table": {
+        "name": "Nome"
+      },
       "times": {
         "title": "Vezes"
       },
@@ -738,12 +793,14 @@ export default {
       "likeLimit": {
         "body": "Pedimos desculpa, mas está limitado no momento a gostar de no máximo 100 itens. Removeremos esse limite em breve!",
         "title": "100 gostos"
-      }
+      },
+      "updated": "O item foi adicionado à galeria."
     },
     "prompts": {
       "delete": "Tem a certeza de que deseja eliminar esta galeria? Se eliminar esta galeria, perderá todos os itens que adicionou a ela."
     }
   },
   "showLess": "Mostrar menos",
-  "showMore": "Mostrar mais"
+  "showMore": "Mostrar mais",
+  "website": "Sítio Web"
 };

@@ -31,7 +31,7 @@
       },
       notificationText: {
         type: String,
-        required: true
+        default: null
       },
       notificationLinkText: {
         type: String,
@@ -45,14 +45,17 @@
   @import '@/assets/scss/variables.scss';
   @import '@/assets/scss/icons.scss';
 
-  p {
-    line-height: 1.375rem;
+  .container-fluid {
+    p {
+      line-height: 1.375rem;
+      display: flex;
 
-    &:before {
-      content: '\e900';
-      font-size: 1.2rem;
-      margin-right: 0.75rem;
-      @extend .icon-font;
+      &:before {
+        content: '\e949';
+        font-size: 1.25rem;
+        margin-right: 0.75rem;
+        @extend .icon-font;
+      }
     }
   }
 </style>

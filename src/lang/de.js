@@ -1,5 +1,7 @@
 export default {
   "account": {
+    "curatedCollections": "Kuratierte Sammlungen",
+    "curatedCollectionsInfo": "Hier finden Sie alle Sammlungen, die Sie kuratiert haben",
     "editProfile": "Profil bearbeiten",
     "likes": "Likes",
     "linkAccount": "Mein Konto",
@@ -11,10 +13,11 @@ export default {
       "loggedIn": "Sie sind jetzt eingeloggt. Willkommen!",
       "loggedOut": "Sie sind jetzt ausgeloggt.",
       "noCollections": {
+        "curated": "Sie haben noch keine Sammlungen kuratiert",
         "private": "Sie haben bisher keine private Galerie erstellt",
         "public": "Sie haben bisher keine öffentliche Galerie erstellt"
       },
-      "noLikedItems": "Sie haben bisher keine Artikel mit einem Like versehen"
+      "noLikedItems": "Sie haben bisher keine Objekte mit einem Like versehen"
     },
     "privateCollections": "Private Galerien",
     "profile": "Meine Likes & Galerien",
@@ -24,6 +27,7 @@ export default {
     "title": "Mein Konto"
   },
   "actions": {
+    "accept": "Akzeptieren",
     "cancel": "Abbrechen",
     "close": "schließen",
     "download": "Herunterladen",
@@ -33,6 +37,7 @@ export default {
     "like": "Like",
     "next": "Weiter",
     "providedBy": "Bereitgestellt von {provider}",
+    "reject": "Ablehnen",
     "send": "Senden",
     "share": "Teilen",
     "shareOn": "Teilen auf {social}",
@@ -48,7 +53,8 @@ export default {
     "title": "Titel:"
   },
   "automatedCardGroup": {
-    "item": "Aktuelle Artikel",
+    "item": "Aktuelle Objekte",
+    "organisation": "Organisationen",
     "time": "Ausgewählte Jahrhunderte",
     "topic": "Ausgewählte Themen"
   },
@@ -64,6 +70,7 @@ export default {
     "relatedPosts": "Ähnliche Beiträge"
   },
   "cardLabels": {
+    "organisation": "Organisation",
     "person": "Person",
     "time": "Jahrhundert",
     "topic": "Thema"
@@ -83,7 +90,7 @@ export default {
           "name": "Technik | Techniken"
         },
         "proxy_dc_type": {
-          "name": "Artikeltyp | Artikeltypen"
+          "name": "Objekttyp | Objekttypen"
         },
         "proxy_dcterms_medium": {
           "name": "Material | Materialien"
@@ -136,11 +143,29 @@ export default {
   },
   "edmIsShownAtLinkAlt": "Auf der Website des Anbieters ansehen",
   "entity": {
+    "actions": {
+      "cancel": "Abbrechen",
+      "pin": "Objekt anheften",
+      "unpin": "Objekt loslösen",
+      "viewPinned": "Angepinnte Objekte ansehen"
+    },
     "labels": {
       "entity": "Entität"
     },
     "notifications": {
-      "deleted": "Ihre Galerie wurde gelöscht."
+      "deleted": "Ihre Galerie wurde gelöscht.",
+      "pinLimit": {
+        "body": "Zurzeit können Sie nur 24 Objekte auf der ersten Seite pinnen. Wenn Sie dieses Objekt pinnen möchten, müssen Sie erst einen anderen Objekt entpinnen und dann versuchen, dieses Objekt erneut zu pinnen.",
+        "title": "Zu viele angeheftete Objekte"
+      },
+      "pinned": "Das Objekt wurde angeheftet. Es befindet sich jetzt oben auf der ersten Seite dieser Sammlung. Es kann bis zu 24 Stunden dauern, bis es für alle erscheint.",
+      "pinnedFirstPage": "Das Objekt wurde angeheftet. Es kann bis zu 24 Stunden dauern, bis es für alle erscheint.",
+      "unpinned": "Das Objekt wurde nicht mehr angepinnt. Es steht nicht mehr oben auf der ersten Seite dieser Sammlung. Es kann bis zu 24 Stunden dauern, bis es für alle verschwindet.",
+      "unpinnedFirstPage": "Das Objekt wurde nicht mehr angepinnt. Es kann bis zu 24 Stunden dauern, bis es für alle verschwindet."
+    },
+    "prompts": {
+      "pin": "Sind Sie sicher, dass Sie dieses Objekt anheften möchten? Dieses Objekt wird oben in der Auflistung \"{entity}\" angezeigt. Es kann bis zu 24 Stunden dauern, bis diese Änderung wirksam wird.",
+      "unpin": "Möchten Sie dieses Objekt wirklich aufheben? Dieses Objekt wird nicht mehr oben in der \"{entity}\"  angezeigt. Es kann bis zu 24 Stunden dauern, bis diese Änderung wirksam wird."
     }
   },
   "error": "Fehler",
@@ -391,11 +416,11 @@ export default {
       }
     },
     "contentTier": {
-      "name": "Enthält Artikel, die nicht unseren Veröffentlichungskriterien entsprechen",
-      "notification": "Es sind einige Artikel verfügbar, die nicht unseren Veröffentlichungskriterien entsprechen. Sie können auf diese Artikel zugreifen, indem Sie den Filter 'Artikelqualität' unter 'Weitere Filter' aktivieren.",
+      "name": "Enthält Objekt, die nicht unseren Veröffentlichungskriterien entsprechen",
+      "notification": "Es sind einige Objekte verfügbar, die nicht unseren Veröffentlichungskriterien entsprechen. Sie können auf diese Objekte zugreifen, indem Sie den Filter 'Objektqualität' unter 'Weitere Filter' aktivieren.",
       "options": {
-        "*": "Enthält Artikel, die nicht unseren Veröffentlichungskriterien entsprechen",
-        "0": "Nur Artikel anzeigen, die unsere Veröffentlichungskriterien nicht erfüllen"
+        "*": "Enthält Objekte, die nicht unseren Veröffentlichungskriterien entsprechen",
+        "0": "Nur Objekte anzeigen, die unsere Veröffentlichungskriterien nicht erfüllen"
       }
     },
     "proxy_dc_format": {
@@ -440,7 +465,6 @@ export default {
       "dcFormat": "Format",
       "dcIdentifier": "Kennung",
       "dcLanguage": "Sprache",
-      "dcMedium": "Medium",
       "dcPublisher": "Herausgeber",
       "dcRelation": "Beziehungen",
       "dcRights": "Rechte",
@@ -460,7 +484,6 @@ export default {
       "dctermsIssued": "Ausgabedatum",
       "dctermsMedium": "Medium",
       "dctermsProvenance": "Herkunft",
-      "dctermsPublished": "Veröffentlichungsdatum",
       "dctermsReferences": "Verweisen auf",
       "dctermsSpatial": "Orte",
       "dctermsTemporal": "Zeitlich",
@@ -471,6 +494,7 @@ export default {
       "edmIncorporates": "Einbeziehen",
       "edmIntermediateProvider": "Zwischenanbieter",
       "edmIsDerivativeOf": "Ist eine Weiterentwicklung von",
+      "edmIsRelatedTo": "Ist verwandt mit",
       "edmIsRepresentationOf": "Ist die Darstellung von",
       "edmIsSimilarTo": "Ist ähnlich wie",
       "edmIsSuccessorOf": "Ist Nachfolger von",
@@ -482,7 +506,8 @@ export default {
       "keywords": "Schlüsselwörter (von der Gemeinschaft zur Verfügung gestellt)",
       "timestampCreated": "Zeitstempel erstellt",
       "timestampUpdate": "Zeitstempel aktualisiert",
-      "wasPresentAt": "War anwesend bei"
+      "wasPresentAt": "War anwesend bei",
+      "year": "Jahr"
     },
     "webResource": {
       "about": "RDF Über",
@@ -492,6 +517,8 @@ export default {
       "rdfAbout": "RDF Über"
     }
   },
+  "filter": "Filter",
+  "filterResults": "Filter Ergebnisse",
   "footer": {
     "customiseWebsiteLanguage": "Sprache der Website anpassen",
     "disclaimerLine1": "Europeana ist eine Initiative der Europäischen Union, die von der \"Connecting Europe Facility“ der Europäischen Union und den Mitgliedstaaten der Europäischen Union finanziert wird. Die Europeana-Dienste, einschließlich dieser Website, werden von einem Konsortium betrieben, das von der Europeana Foundation im Rahmen eines Dienstleistungsvertrags mit der Europäischen Kommission geführt wird.",
@@ -549,9 +576,12 @@ export default {
     "handle": "Schieberegler"
   },
   "items": {
-    "itemCount": "1 Artikel |{count} Artikel",
-    "itemOf": "{max} von {count} Artikel",
-    "youMightLike": "Artikel, die Ihnen vielleicht gefallen könnten"
+    "itemCount": "1 Objekt |{count} Objekte",
+    "itemOf": "{max} von {count} Objekte",
+    "recent": "Aktuelle Objekte",
+    "recommendationsDisclaimer": "Daumen hoch, um der Galerie hinzuzufügen - Daumen runter, wenn es dir nicht gefällt",
+    "recommended": "Empfohlene Objekte",
+    "youMightLike": "Objekte, die Ihnen vielleicht gefallen könnten"
   },
   "klaro": {
     "main": {
@@ -585,11 +615,16 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Hilft, unsere Website zu verbessern, indem gelegentlich experimentelle Änderungen vorgenommen werden.",
+        "title": "A/B-Tests"
+      },
       "auth-strategy": {
         "description": "Erinnert an die Berechtigungsstrategie, die für die Anmeldung verwendet werden soll.",
         "title": "Auth-Strategie"
       },
       "debugSettings": {
+        "description": "Hilft beim Debuggen von API-Anfragen",
         "title": "Debug toggle"
       },
       "hotjar": {
@@ -620,21 +655,22 @@ export default {
   "learnMore": "Erfahren Sie mehr über die Quelle dieser Beschreibung",
   "linksToClassic": {
     "home": {
-      "linkText": "Gehen Sie zur ursprünglichen Europeana-Website.",
+      "linkText": "Sehen Sie sich diese Seite auf der ursprünglichen Europeana-Website bis zum 20. Dezember 2021 an.",
       "text": "Sie sehen sich die neue Europeana Website an."
     },
     "record": {
-      "linkText": "Sehen Sie sich diesen Artikel in der ursprünglichen Europeana an.",
-      "text": "Sie sehen diesen Artikel auf der neuen Europeana-Website."
+      "linkText": "Sehen Sie sich dieses Objekt bis zum 20. Dezember 2021 auf der ursprünglichen Europeana-Website an.",
+      "text": "Sie sehen dieses Objekt auf der neuen Europeana-Website."
     },
     "search": {
-      "linkText": "Zeigen Sie diese Suchergebnisse auf der ursprünglichen Europeana-Website an.",
+      "linkText": "Suche auf der ursprünglichen Europeana-Website bis zum 20. Dezember 2021.",
       "text": "Sie suchen auf unserer neuen und schnelleren Website."
     }
   },
+  "loading": "Laden",
   "loadingResults": "Ergebnisse werden geladen",
   "mediaPreview": {
-    "selectItem": "Wählen Sie das Element {src}"
+    "selectItem": "Wählen Sie das Objekt {src}"
   },
   "messages": {
     "copyToClipboardSuccess": "In die Zwischenablage kopiert",
@@ -642,10 +678,20 @@ export default {
     "notFound": "Nicht gefunden",
     "paginationLimitExceeded": "Es können nur die ersten {limit} Suchergebnisse angezeigt werden."
   },
+  "modal": {
+    "download": {
+      "clickToCopy": "Klicken Sie auf die Namensnennung, um sie zu kopieren",
+      "modalIntro": "Wenn Sie dieses Objekt im Web oder anderswo verwenden, vergessen Sie nicht, die folgende Attribution daneben anzuzeigen:",
+      "modalTitle": "Dank sagen"
+    }
+  },
   "multilingual": {
-    "original": "Original-Metadaten",
-    "originalLanguage": "Originalsprache",
-    "other": "Andere Sprachen"
+    "automated": "Automatisierte Übersetzung",
+    "enrichment": "Anreicherung durch Partnerprojekte",
+    "other": "anderen Sprachen",
+    "stopTranslating": "Beenden Sie die Übersetzung dieses Objektes ins {0}.",
+    "translateLanguage": "Möchten Sie dieses Objekt in {0} sehen?",
+    "translateQuotaError": "Der Übersetzungsdienst ist vorübergehend nicht verfügbar. Bitte versuchen Sie es später erneut."
   },
   "newWindow": "öffnet sich in einem neuen Fenster",
   "noMoreResults": "Es gibt keine weiteren Ergebnisse für Ihre Suchanfrage.",
@@ -653,6 +699,18 @@ export default {
   "pageHasLoaded": "hat geladen",
   "pages": {
     "collections": {
+      "organisations": {
+        "table": {
+          "name": "Name"
+        },
+        "title": "Organisationen"
+      },
+      "persons": {
+        "title": "Personen"
+      },
+      "table": {
+        "name": "Name"
+      },
       "times": {
         "title": "Mal"
       },
@@ -666,7 +724,7 @@ export default {
     "IIIFViewer": "IIIF-Viewer",
     "allMetaData": "Alle Metadaten",
     "copyEmbedLabel": "Code einbetten (Zum Kopieren klicken)",
-    "downloadCopyrightInfo": "Dieser Artikel ist urheberrechtlich geschützt und kann nicht heruntergeladen werden.",
+    "downloadCopyrightInfo": "Dieses Objekt ist urheberrechtlich geschützt und kann nicht heruntergeladen werden.",
     "exploreMore": "Entdecken Sie mehr",
     "extendedInformation": "Erweiterte Informationen",
     "goodToKnow": "Gut zu wissen",
@@ -676,9 +734,9 @@ export default {
     "mediaPlayer": "Media Player",
     "record": "Aufzeichnung",
     "showAll": "Alle Informationen anzeigen",
-    "similarItems": "Ähnliche Artikel",
+    "similarItems": "Ähnliche Objekte",
     "transcription": "Transkription",
-    "transcriptionDisclaimer": "Dieser Inhalt wird von der Öffentlichkeit bereitgestellt, nicht von der Institution, die diesen Artikel bereitgestellt hat.",
+    "transcriptionDisclaimer": "Dieser Inhalt wird von der Öffentlichkeit bereitgestellt, nicht von der Institution, die dieses Objekt bereitgestellt hat.",
     "view": {
       "image": "Bild anzeigen",
       "media": "Medien anzeigen",
@@ -699,12 +757,12 @@ export default {
   "searchSuggestions": "Suchvorschläge",
   "searchTier": {
     "button": {
-      "hide": "Diese Artikel ausblenden",
-      "show": "Diese Artikel anzeigen"
+      "hide": "Diese Objekte ausblenden",
+      "show": "Diese Objekte anzeigen"
     },
     "text": {
-      "hide": "Artikel, die unsere Veröffentlichungskriterien nicht erfüllen, werden angezeigt.",
-      "show": "Weitere Artikel entsprechen Ihrer Suche, erfüllen jedoch nicht unsere Veröffentlichungskriterien."
+      "hide": "Objekten, die unsere Veröffentlichungskriterien nicht erfüllen, werden angezeigt.",
+      "show": "Weitere Objekten entsprechen Ihrer Suche, erfüllen jedoch nicht unsere Veröffentlichungskriterien."
     }
   },
   "searchViews": {
@@ -733,14 +791,16 @@ export default {
     "notifications": {
       "deleted": "Ihre Galerie wurde gelöscht.",
       "likeLimit": {
-        "body": "Es tut uns leid, aber Sie können derzeit maximal 100 Artikel liken. Wir werden dieses Limit bald aufheben!",
+        "body": "Es tut uns leid, aber Sie können derzeit maximal 100 Objekte liken. Wir werden dieses Limit bald aufheben!",
         "title": "100 Likes"
-      }
+      },
+      "updated": "Das Objekt wurde der Galerie hinzugefügt."
     },
     "prompts": {
-      "delete": "Möchten Sie diese Galerie wirklich löschen? Wenn Sie diese Galerie löschen, verlieren Sie alle Artikel, die Sie hinzugefügt haben."
+      "delete": "Möchten Sie diese Galerie wirklich löschen? Wenn Sie diese Galerie löschen, verlieren Sie alle Objekte, die Sie hinzugefügt haben."
     }
   },
   "showLess": "Weniger anzeigen",
-  "showMore": "Mehr anzeigen"
+  "showMore": "Mehr anzeigen",
+  "website": "Webseite"
 };

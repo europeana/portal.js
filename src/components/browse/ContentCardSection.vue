@@ -36,7 +36,8 @@
             v-for="(card, index) in cards"
             :key="index"
             :fields="card"
-            :card-type="card && card['__typename']"
+            :card-type="card['__typename']"
+            :variant="card['__variant']"
           />
         </template>
       </b-card-group>
@@ -74,7 +75,7 @@
     },
     computed: {
       cards() {
-        return this.section.hasPartCollection.items.filter(card => card !== null);
+        return this.section.hasPartCollection.items.filter(card => !!card);
       },
 
       isPeopleSection() {

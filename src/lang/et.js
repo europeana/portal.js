@@ -54,6 +54,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Hiljutised esemed",
+    "organisation": "Organisatsioonid",
     "time": "Esiletõstetud sajandid",
     "topic": "Esile tõstetud teemad"
   },
@@ -464,7 +465,6 @@ export default {
       "dcFormat": "Formaat",
       "dcIdentifier": "Identifikaator",
       "dcLanguage": "Keel",
-      "dcMedium": "Meedium",
       "dcPublisher": "Kirjastus",
       "dcRelation": "Seosed",
       "dcRights": "Õigused",
@@ -484,7 +484,6 @@ export default {
       "dctermsIssued": "Väljaandmise kuupäev",
       "dctermsMedium": "Meedium",
       "dctermsProvenance": "Päritolu",
-      "dctermsPublished": "Avaldamise kuupäev",
       "dctermsReferences": "Viitab",
       "dctermsSpatial": "Kohad",
       "dctermsTemporal": "Ajaline",
@@ -495,6 +494,7 @@ export default {
       "edmIncorporates": "Sisaldab",
       "edmIntermediateProvider": "Vahendusteenuse osutaja",
       "edmIsDerivativeOf": "Tuleneb",
+      "edmIsRelatedTo": "On seotud",
       "edmIsRepresentationOf": "Esindab",
       "edmIsSimilarTo": "on sarnane",
       "edmIsSuccessorOf": "on järeltulija",
@@ -517,6 +517,8 @@ export default {
       "rdfAbout": "RDF kohta"
     }
   },
+  "filter": "Filter",
+  "filterResults": "Filtreeri tulemusi",
   "footer": {
     "customiseWebsiteLanguage": "Kohandage veebisaidi keelt",
     "disclaimerLine1": "Europeana on Euroopa Liidu algatus, mida rahastavad Euroopa Liidu Euroopa ühendamise rahastu ja Euroopa Liidu liikmesriigid. Europeana teenuseid, sealhulgas seda veebisaiti, haldab konsortsium, mida juhib sihtasutuse Europeana sihtasutus Euroopa Komisjoni teenuslepingu alusel.",
@@ -613,6 +615,10 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Aitab meie veebisaiti täiustada, rakendades aeg -ajalt eksperimentaalseid muudatusi.",
+        "title": "A/B testimine"
+      },
       "auth-strategy": {
         "description": "Mäletab sisselogimiseks kasutatava autoriseerimisstrateegia.",
         "title": "Auth strateegia"
@@ -649,15 +655,15 @@ export default {
   "learnMore": "Lisateave selle kirjelduse allika kohta",
   "linksToClassic": {
     "home": {
-      "linkText": "Minge algsesse Europeanasse.",
+      "linkText": "Vaadake seda lehte Europeana algsel veebisaidil kuni 20. detsembrini 2021.",
       "text": "Vaatate uut Europeana kogemust."
     },
     "record": {
-      "linkText": "Vaadake seda toodet algses Europeanas.",
+      "linkText": "Vaadake seda üksust Europeana algsel veebisaidil kuni 20. detsembrini 2021.",
       "text": "Vaatate seda toodet uuel Europeana veebisaidil."
     },
     "search": {
-      "linkText": "Vaadake neid tulemusi algses Europeanas.",
+      "linkText": "Otsige Europeana algselt veebisaidilt kuni 20. detsembrini 2021.",
       "text": "Otsite meie uuel ja kiiremal veebisaidil."
     }
   },
@@ -681,12 +687,11 @@ export default {
   },
   "multilingual": {
     "automated": "Automatiseeritud tõlge",
-    "currentLanguage": "Kas soovite seda üksust domeenis {0} ?",
-    "differentLanguage": "teist keelt",
     "enrichment": "Rikastamine partner projektide kaudu",
-    "original": "Algsed metaandmed",
-    "originalLanguage": "originaalkeel",
-    "other": "Muud keeled"
+    "other": "Muud keeled",
+    "stopTranslating": "Lõpetage selle üksuse tõlkimine keelde {0}.",
+    "translateLanguage": "Kas soovite seda üksust domeenis {0} ?",
+    "translateQuotaError": "Tõlketeenus pole ajutiselt saadaval. Palun proovi hiljem uuesti."
   },
   "newWindow": "avaneb uues aknas",
   "noMoreResults": "Teie otsingupäringule pole rohkem tulemusi.",
@@ -702,6 +707,9 @@ export default {
       },
       "persons": {
         "title": "Isikud"
+      },
+      "table": {
+        "name": "Nimi"
       },
       "times": {
         "title": "Korda"

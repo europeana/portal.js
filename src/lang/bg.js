@@ -54,6 +54,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Скорошни елементи",
+    "organisation": "Организации",
     "time": "Представени векове",
     "topic": "Представени теми"
   },
@@ -464,7 +465,6 @@ export default {
       "dcFormat": "Формат",
       "dcIdentifier": "Идентификатор",
       "dcLanguage": "Език",
-      "dcMedium": "Среден(а)",
       "dcPublisher": "Издател",
       "dcRelation": "Отношения",
       "dcRights": "Права",
@@ -484,7 +484,6 @@ export default {
       "dctermsIssued": "Дата на издаване",
       "dctermsMedium": "Среден(а)",
       "dctermsProvenance": "Произход",
-      "dctermsPublished": "Дата на публикуване",
       "dctermsReferences": "Препратки",
       "dctermsSpatial": "Места",
       "dctermsTemporal": "Времеви",
@@ -495,6 +494,7 @@ export default {
       "edmIncorporates": "включва",
       "edmIntermediateProvider": "Междинен доставчик",
       "edmIsDerivativeOf": "е производно на",
+      "edmIsRelatedTo": "Свързано е с",
       "edmIsRepresentationOf": "представлява",
       "edmIsSimilarTo": "наподобява",
       "edmIsSuccessorOf": "е продължение на",
@@ -517,6 +517,8 @@ export default {
       "rdfAbout": "Относно RDF"
     }
   },
+  "filter": "Филтрирайте",
+  "filterResults": "Филтриране на резултати",
   "footer": {
     "customiseWebsiteLanguage": "Персонализиране на езика на уебсайта",
     "disclaimerLine1": "Europeana е инициатива на Европейския съюз, финансирана от Инструмента за свързване на Европа на Европейския съюз и държавите-членки на Европейския съюз. Услугите на Europeana, включително този уебсайт, се управляват от консорциум, ръководен от фондация Europeana по договор за услуга с Европейската комисия.",
@@ -613,6 +615,10 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Помага за подобряване на нашия уебсайт, като периодично прилага експериментални промени.",
+        "title": "A/B тестване"
+      },
       "auth-strategy": {
         "description": "Спомня си стратегията за оторизация, която да се използва за влизане.",
         "title": "Стратегия за утвърждаване"
@@ -649,15 +655,15 @@ export default {
   "learnMore": "Научете за източника на това описание",
   "linksToClassic": {
     "home": {
-      "linkText": "Отидете към оригиналната Europeana.",
+      "linkText": "Преглеждайте тази страница на оригиналния уебсайт на Europeana до 20 декември 2021 г.",
       "text": "Вие разглеждате новия облик на Europeana."
     },
     "record": {
-      "linkText": "Вижте този елемент в оригиналната Europeana.",
+      "linkText": "Преглед на този елемент на оригиналния уебсайт на Europeana до 20 декември 2021 г.",
       "text": "Вие разглеждате този елемент в новия уебсайт на Europeana."
     },
     "search": {
-      "linkText": "Вижте резултатите от търсенето в оригиналната Europeana.",
+      "linkText": "Търсете в оригиналния уебсайт на Europeana до 20 декември 2021 г.",
       "text": "Вие търсите в нашия нов и по-бърз уебсайт."
     }
   },
@@ -681,12 +687,11 @@ export default {
   },
   "multilingual": {
     "automated": "Автоматизиран превод",
-    "currentLanguage": "Искате ли да видите този елемент в {0} ?",
-    "differentLanguage": "различен език",
     "enrichment": "Обогатяване по партньорски проекти",
-    "original": "Оригинални метаданни",
-    "originalLanguage": "оригинален език",
-    "other": "Други езици"
+    "other": "Други езици",
+    "stopTranslating": "Спрете превода на този елемент на {0}.",
+    "translateLanguage": "Искате ли да видите този елемент в {0} ?",
+    "translateQuotaError": "Услугата за превод временно не е налична. Моля, опитайте отново по-късно."
   },
   "newWindow": "отваря се в нов прозорец",
   "noMoreResults": "Няма повече резултати за вашата заявка за търсене.",
@@ -702,6 +707,9 @@ export default {
       },
       "persons": {
         "title": "Лица"
+      },
+      "table": {
+        "name": "Име"
       },
       "times": {
         "title": "времеви периоди"

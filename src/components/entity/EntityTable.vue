@@ -12,9 +12,10 @@
     </b-row>
     <b-table
       :fields="fields"
-      :items="organisations"
+      :items="collections"
       :sort-by.sync="sortBy"
       :busy="$fetchState.pending"
+      striped
     >
       <template #table-busy>
         <div class="text-center my-2">
@@ -23,12 +24,12 @@
         </div>
       </template>
       <template #cell(prefLabel)="data">
-        <NuxtLink
-          :data-qa="`organisation link ${data.item.id}`"
-          :to="$path(entityRoute(data.item.slug))"
+        <SmartLink
+          :data-qa="`collection link ${data.item.slug}`"
+          :destination="entityRoute(data.item.slug)"
         >
           {{ data.item.prefLabel }}
-        </NuxtLink>
+        </SmartLink>
       </template>
     </b-table>
   </div>
@@ -36,48 +37,60 @@
 
 <script>
   import { BTable } from 'bootstrap-vue';
-  import AlertMessage from '../generic/AlertMessage';
   import LoadingSpinner from '../generic/LoadingSpinner';
+  import SmartLink from '../generic/SmartLink';
 
   export default {
-    name: 'OrganisationsTable',
+    name: 'EntityTable',
     components: {
+      AlertMessage: () => import('@/components/generic/AlertMessage'),
       BTable,
       LoadingSpinner,
-      AlertMessage
+      SmartLink
+    },
+    props: {
+      type: {
+        type: String,
+        required: true
+      }
+    },
+    data() {
+      return {
+        collections: null,
+        sortBy: 'prefLabel',
+        fields: [
+          {
+            key: 'prefLabel',
+            sortable: true,
+            label: this.$t('pages.collections.table.name')
+          }
+        ]
+      };
     },
     fetch() {
-      return this.$axios.get(
-        '/_api/entities/organisations',
-        { params: { locale: this.$i18n.locale } }
-      )
+      return this.$axios.get(this.apiEndpoint)
         .then(response => {
-          this.organisations = response.data.map(Object.freeze);
+          this.collections = response.data.map(Object.freeze);
         })
         .catch((e) => {
           // TODO: set fetch state error from message
           console.error({ statusCode: 500, message: e.toString() });
         });
     },
-    data() {
-      return {
-        organisations: null,
-        sortBy: 'prefLabel',
-        fields: [
-          {
-            key: 'prefLabel',
-            sortable: true,
-            label: this.$t('pages.collections.organisations.table.name')
-          }
-        ]
-      };
+    computed: {
+      apiEndpoint() {
+        // For organisations, only get English labels (for now).
+        return this.type === 'organisations' ?
+          '/_api/cache/en/collections/organisations' :
+          `/_api/cache/${this.$i18n.locale}/collections/${this.type}`;
+      }
     },
     methods: {
       entityRoute(slug) {
         return {
           name: 'collections-type-all',
           params: {
-            type: 'organisation',
+            type: this.type.slice(0, -1),
             pathMatch: slug
           }
         };

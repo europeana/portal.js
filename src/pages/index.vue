@@ -12,7 +12,6 @@
       <NotificationBanner
         v-if="showNotificationBanner"
         :notification-url="notificationUrl"
-        :notification-text="$t('linksToClassic.home.text')"
         :notification-link-text="$t('linksToClassic.home.linkText')"
         class="mb-3"
       />
@@ -34,6 +33,8 @@
   import StaticPage from '../components/static/StaticPage';
 
   export default {
+    name: 'BrowseOrStaticPage',
+
     components: {
       NotificationBanner,
       BrowsePage,
@@ -83,6 +84,23 @@
       };
     },
 
+    head() {
+      return {
+        title: this.$pageHeadTitle(this.name),
+        meta: [
+          { hid: 'og:type', property: 'og:type', content: 'article' },
+          { hid: 'title', name: 'title', content: this.name },
+          { hid: 'og:title', property: 'og:title', content: this.name }
+        ].concat(this.description ? [
+          { hid: 'description', name: 'description', content: this.description },
+          { hid: 'og:description', property: 'og:description', content: this.description }
+        ] : []).concat(this.socialMediaImage ? [
+          { hid: 'og:image', property: 'og:image', content: this.socialMediaImageOptimisedUrl },
+          { hid: 'og:image:alt', property: 'og:image:alt', content: this.socialMediaImageAlt }
+        ] : [])
+      };
+    },
+
     computed: {
       showNotificationBanner() {
         return (
@@ -93,9 +111,7 @@
         return this.identifier === 'home';
       },
       notificationUrl() {
-        return `https://classic.europeana.eu/portal/${
-          this.$store.state.i18n.locale
-        }?utm_source=new-website&utm_medium=button`;
+        return `https://classic.europeana.eu/portal/${this.$i18n.locale}?utm_source=new-website&utm_medium=button`;
       },
       socialMediaImage() {
         // use social media image if set in Contentful, otherwise use hero image, else null
@@ -116,23 +132,6 @@
       heroImage() {
         return this.hero?.image || null;
       }
-    },
-
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.name),
-        meta: [
-          { hid: 'og:type', property: 'og:type', content: 'article' },
-          { hid: 'title', name: 'title', content: this.name },
-          { hid: 'og:title', property: 'og:title', content: this.name }
-        ].concat(this.description ? [
-          { hid: 'description', name: 'description', content: this.description },
-          { hid: 'og:description', property: 'og:description', content: this.description }
-        ] : []).concat(this.socialMediaImage ? [
-          { hid: 'og:image', property: 'og:image', content: this.socialMediaImageOptimisedUrl },
-          { hid: 'og:image:alt', property: 'og:image:alt', content: this.socialMediaImageAlt }
-        ] : [])
-      };
     }
   };
 </script>

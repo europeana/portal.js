@@ -67,6 +67,7 @@
   import exhibitionChapters from '../../../mixins/exhibitionChapters';
 
   export default {
+    name: 'ExhibitionCreditsPage',
     components: {
       ShareButton,
       SocialShareModal,
@@ -75,6 +76,10 @@
     mixins: [
       exhibitionChapters
     ],
+    beforeRouteLeave(to, from, next) {
+      this.$store.commit('breadcrumb/clearBreadcrumb');
+      next();
+    },
 
     asyncData({ params, query, error, app, store }) {
       const variables = {
@@ -118,6 +123,16 @@
           error({ statusCode: 500, message: e.toString() });
         });
     },
+    head() {
+      return {
+        title: this.$pageHeadTitle(this.title),
+        meta: [
+          { hid: 'title', name: 'title', content: this.title },
+          { hid: 'og:title', property: 'og:title', content: this.title },
+          { hid: 'og:type', property: 'og:type', content: 'article' }
+        ]
+      };
+    },
     computed: {
       htmlCredits() {
         if (this.credits === undefined) {
@@ -131,20 +146,6 @@
       exhibitionTitle() {
         return this.name;
       }
-    },
-    beforeRouteLeave(to, from, next) {
-      this.$store.commit('breadcrumb/clearBreadcrumb');
-      next();
-    },
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.title),
-        meta: [
-          { hid: 'title', name: 'title', content: this.title },
-          { hid: 'og:title', property: 'og:title', content: this.title },
-          { hid: 'og:type', property: 'og:type', content: 'article' }
-        ]
-      };
     }
   };
 </script>

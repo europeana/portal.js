@@ -8,6 +8,7 @@ const NUXT_METHODS = [
 const injectNuxtMethods = (wrapper, pageOrComponent) => {
   for (const method of NUXT_METHODS) {
     wrapper.vm[method] = pageOrComponent[method];
+    wrapper.vm['$fetch'] = pageOrComponent.fetch;
   }
   return wrapper;
 };
@@ -41,6 +42,12 @@ export const fakeContentfulExtension = fields => {
       dialogs: {
         openAlert: sinon.spy(),
         openPrompt: sinon.spy()
+      },
+      space: {
+        createAsset: sinon.stub().resolves({ sys: { id: 'abcdef' } }),
+        processAsset: sinon.stub().resolves({ sys: { id: 'abcdef' } }),
+        waitUntilAssetProcessed: sinon.stub().resolves({ sys: { id: 'abcdef' } }),
+        publishAsset: sinon.stub().resolves({ sys: { id: 'abcdef' } })
       }
     };
     callback(fakeSdk);

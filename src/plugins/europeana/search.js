@@ -27,24 +27,6 @@ export const unquotableFacets = [
   'VIDEO_HD'
 ];
 
-// Thematic collections available via the `collection` qf
-// filter. Order is significant as it will be reflected on search results.
-export const thematicCollections = [
-  'ww1',
-  'archaeology',
-  'art',
-  'fashion',
-  'industrial',
-  'manuscript',
-  'map',
-  'migration',
-  'music',
-  'nature',
-  'newspaper',
-  'photography',
-  'sport'
-];
-
 /**
  * Construct a range query from two values, if keys are omitted they will default to '*'
  * @param {Object[]} values An object containing 'start' and 'end' values
@@ -90,7 +72,7 @@ export function rangeFromQueryParam(paramValue) {
  * @param {string} options.url override the API URL
  * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display
  */
-export default function search($axios, params, options = {}) {
+export default (context) => ($axios, params, options = {}) => {
   const maxResults = 1000;
   const perPage = params.rows === undefined ? 24 : Number(params.rows);
   const page = params.page || 1;
@@ -101,17 +83,21 @@ export default function search($axios, params, options = {}) {
   const searchParams = {
     ...$axios.defaults.params,
     facet: params.facet,
-    profile: params.profile,
+    profile: params.profile || '',
     qf: addContentTierFilter(params.qf),
     query: options.escape ? escapeLuceneSpecials(query) : query,
     reusability: params.reusability,
     rows,
     start
   };
-  const targetLocale = 'en';
-  if (options.locale && options.locale !== targetLocale) {
-    searchParams['q.source'] = options.locale;
-    searchParams['q.target'] = targetLocale;
+
+  if (context?.$config?.app?.search?.translateLocales?.includes(options.locale)) {
+    const targetLocale = 'en';
+    if (options.locale && (options.locale !== targetLocale)) {
+      searchParams.profile = `${searchParams.profile},translate`;
+      searchParams['q.source'] = options.locale;
+      searchParams['q.target'] = targetLocale;
+    }
   }
 
   return $axios.get(`${options.url || ''}/search.json`, {
@@ -127,9 +113,9 @@ export default function search($axios, params, options = {}) {
       lastAvailablePage: start + perPage > maxResults
     }))
     .catch((error) => {
-      throw apiError(error);
+      throw apiError(error, context);
     });
-}
+};
 
 const reduceFieldsForItem = (item, options = {}) => {
   // Pick fields we need for search result display. See components/item/ItemPreviewCard.vue
@@ -172,14 +158,24 @@ const reduceFieldsForItem = (item, options = {}) => {
  */
 export function addContentTierFilter(qf) {
   let newQf = qf ? [].concat(qf) : [];
+
   if (!hasFilterForField(newQf, 'contentTier')) {
     // If no content tier qf is queried, tier 0 content is
     // excluded by default as it is considered not to meet
-    // Europeana's publishing criteria. Also tier 1 content is exluded if this
-    // is a search filtered by collection.
-    const contentTierFilter = hasFilterForField(newQf, 'collection') ? '2 OR 3 OR 4' : '1 OR 2 OR 3 OR 4';
-    newQf.push(`contentTier:(${contentTierFilter})`);
+    // Europeana's publishing criteria.
+    let contentTierFilter = '(1 OR 2 OR 3 OR 4)';
+
+    // Exceptions:
+    // 1. Tier 1 content is also excluded if this is a search filtered by collection.
+    // 2. All tier content is included if filtering by organization.
+    if (hasFilterForField(newQf, 'collection')) {
+      contentTierFilter = '(2 OR 3 OR 4)';
+    } else if (hasFilterForField(newQf, 'foaf_organization')) {
+      contentTierFilter = '*';
+    }
+    newQf.push(`contentTier:${contentTierFilter}`);
   }
+
   // contentTier:* is redundant so is removed
   newQf = newQf.filter(v => v !== 'contentTier:*');
 

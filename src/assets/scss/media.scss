@@ -1,4 +1,9 @@
 .swiper {
+  .swiper-button-prev,
+  .swiper-button-next {
+    margin-top: 0;
+  }
+
   iframe {
     &.iiif-iframe {
       width: 100%;

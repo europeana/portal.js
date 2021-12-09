@@ -1,5 +1,7 @@
 export default {
   "account": {
+    "curatedCollections": "Kurirane zbirke",
+    "curatedCollectionsInfo": "Spodaj poiščite vse zbirke, ki ste jih kurirali",
     "editProfile": "Uredi profil",
     "likes": "Všečki",
     "linkAccount": "Moj račun",
@@ -11,6 +13,7 @@ export default {
       "loggedIn": "Zdaj ste prijavljeni. Dobrodošli!",
       "loggedOut": "Zdaj ste odjavljeni.",
       "noCollections": {
+        "curated": "Niste še kurirali nobene zbirke",
         "private": "Niste še ustvarili nobene zasebne zbirke.",
         "public": "Niste še ustvarili nobene javne zbirke."
       },
@@ -24,6 +27,7 @@ export default {
     "title": "Moj račun"
   },
   "actions": {
+    "accept": "Sprejmi",
     "cancel": "Prekliči",
     "close": "zapri",
     "download": "Prenos",
@@ -33,6 +37,7 @@ export default {
     "like": "Všeč mi je",
     "next": "Naslednji",
     "providedBy": "Zagotavlja {provider}",
+    "reject": "Zavrne",
     "send": "Pošlji",
     "share": "Deli",
     "shareOn": "Deli prek {social}",
@@ -49,6 +54,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Nedavni predmeti",
+    "organisation": "Organizacije",
     "time": "Priporočena stoletja",
     "topic": "Priporočene teme"
   },
@@ -64,6 +70,7 @@ export default {
     "relatedPosts": "Sorodne objave"
   },
   "cardLabels": {
+    "organisation": "Organizacija",
     "person": "Oseba",
     "time": "Stoletje",
     "topic": "Tema"
@@ -137,13 +144,28 @@ export default {
   "edmIsShownAtLinkAlt": "Ogled na spletni strani ponudnika",
   "entity": {
     "actions": {
-      "cancel": "Prekliči"
+      "cancel": "Prekliči",
+      "pin": "Pripni element",
+      "unpin": "Odstrani element",
+      "viewPinned": "Oglejte si pripete predmete"
     },
     "labels": {
       "entity": "Subjekt"
     },
     "notifications": {
-      "deleted": "Vaša zbirka je bila izbrisana."
+      "deleted": "Vaša zbirka je bila izbrisana.",
+      "pinLimit": {
+        "body": "Zaenkrat lahko na prvo stran pripnete le 24 elementov. Če želite pripeti ta element, odstranite še enega in poskusite znova pripeti tega.",
+        "title": "Preveč pripete predmete"
+      },
+      "pinned": "Element je bil pripet. Zdaj je na vrhu prve strani te zbirke. Lahko traja do 24 ur, da se prikaže vsem.",
+      "pinnedFirstPage": "Element je bil pripet. Lahko traja do 24 ur, da se prikaže vsem.",
+      "unpinned": "Element je bil odpenjen. Ni več na vrhu prve strani te zbirke. Lahko traja do 24 ur, da izgine za vse.",
+      "unpinnedFirstPage": "Element je bil odpenjen. Lahko traja do 24 ur, da izgine za vse."
+    },
+    "prompts": {
+      "pin": "Ali ste prepričani, da želite pripeti ta element? Ta element bo prikazan na vrhu zbirke \" {entity} \". Ta sprememba lahko začne veljati do 24 ur.",
+      "unpin": "Ali ste prepričani, da želite odpeti ta element? Ta element se ne bo več prikazoval na vrhu zbirke » {entity} «. Ta sprememba lahko začne veljati do 24 ur."
     }
   },
   "error": "Napaka",
@@ -443,7 +465,6 @@ export default {
       "dcFormat": "Oblika",
       "dcIdentifier": "Identifikator",
       "dcLanguage": "Jezik",
-      "dcMedium": "Medij",
       "dcPublisher": "Založnik",
       "dcRelation": "Odnosi",
       "dcRights": "Pravice",
@@ -463,7 +484,6 @@ export default {
       "dctermsIssued": "Datum izdaje",
       "dctermsMedium": "Medij",
       "dctermsProvenance": "Poreklo",
-      "dctermsPublished": "Datum objave",
       "dctermsReferences": "Sklici",
       "dctermsSpatial": "Kraji",
       "dctermsTemporal": "Časovno obdobje",
@@ -474,6 +494,7 @@ export default {
       "edmIncorporates": "Vključuje",
       "edmIntermediateProvider": "Vmesni ponudnik",
       "edmIsDerivativeOf": "Je izpeljan iz",
+      "edmIsRelatedTo": "Je povezano z",
       "edmIsRepresentationOf": "Predstavlja",
       "edmIsSimilarTo": "Je podoben",
       "edmIsSuccessorOf": "Je naslednik",
@@ -485,7 +506,8 @@ export default {
       "keywords": "Ključne besede (ki jih je zagotovila skupnost)",
       "timestampCreated": "Časovni žig ustvarjen",
       "timestampUpdate": "Časovni žig posodobljen",
-      "wasPresentAt": "Bil prisoten v"
+      "wasPresentAt": "Bil prisoten v",
+      "year": "Leto"
     },
     "webResource": {
       "about": "RDF o",
@@ -495,6 +517,8 @@ export default {
       "rdfAbout": "RDF o"
     }
   },
+  "filter": "Filter",
+  "filterResults": "Filtrirajte rezultate",
   "footer": {
     "customiseWebsiteLanguage": "Prilagoditev jezika spletnega mesta",
     "disclaimerLine1": "Europeana je pobuda Evropske unije, ki jo financirajo Connecting Europe Facility Evrope Evropske unije in države članice Evropske unije. Storitve Europeane, vključno s tem spletnim mestom, upravlja konzorcij pod vodstvom Fundacije Europeana na podlagi pogodbe o storitvah z Evropsko komisijo.",
@@ -554,6 +578,9 @@ export default {
   "items": {
     "itemCount": "1 predmet |{count} predmeti",
     "itemOf": "{max} od {count} predmetov",
+    "recent": "Nedavni predmeti",
+    "recommendationsDisclaimer": "Palec gor za dodajanje v galerijo - palec navzdol, če vam ni všeč",
+    "recommended": "Priporočeni predmeti",
     "youMightLike": "Predmeti, ki vam bodo mogoče všeč"
   },
   "klaro": {
@@ -588,11 +615,16 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Pomaga izboljšati naše spletno mesto z občasno uporabo eksperimentalnih sprememb.",
+        "title": "A/B testiranje"
+      },
       "auth-strategy": {
         "description": "Zapomni si strategijo avtorizacije, ki jo je treba uporabiti za prijavo.",
         "title": "Auth strategija"
       },
       "debugSettings": {
+        "description": "Pomaga pri razhroščevanju zahtev API",
         "title": "Debug toggle"
       },
       "hotjar": {
@@ -623,18 +655,19 @@ export default {
   "learnMore": "Izvedite več o viru tega opisa",
   "linksToClassic": {
     "home": {
-      "linkText": "Pojdi na prvotno spletno mesto Europeana.",
+      "linkText": "Oglejte si to stran na izvirni spletni strani Europeana do 20. decembra 2021.",
       "text": "Ogledujete si novo spletno mesto Europeana."
     },
     "record": {
-      "linkText": "Ogled tega dela v prvotnem spletnem mestu Europeana.",
+      "linkText": "Oglejte si ta element na izvirni spletni strani Europeana do 20. decembra 2021.",
       "text": "To delo si ogledujete v novem spletnem mestu Europeana."
     },
     "search": {
-      "linkText": "Ogled teh rezultatov iskanja v prvotnem spletnem mestu Europeana.",
+      "linkText": "Iščite na izvirni spletni strani Europeana do 20. decembra 2021.",
       "text": "Iščete prek našega novega in hitrejšega spletnega mesta."
     }
   },
+  "loading": "Nalaganje",
   "loadingResults": "Nalaganje rezultatov",
   "mediaPreview": {
     "selectItem": "Izberite element {src}"
@@ -645,10 +678,20 @@ export default {
     "notFound": "Ni najdeno",
     "paginationLimitExceeded": "Ogledate si lahko samo prvih {limit} rezultatov iskanja."
   },
+  "modal": {
+    "download": {
+      "clickToCopy": "Kliknite na pripis, da ga kopirate",
+      "modalIntro": "Če uporabljate ta izdelek v spletu ali drugje, ne pozabite prikazati naslednjega atributa zraven:",
+      "modalTitle": "Reci hvala"
+    }
+  },
   "multilingual": {
-    "original": "Izvirni metapodatki",
-    "originalLanguage": "izvirni jezik",
-    "other": "Drugi jeziki"
+    "automated": "Avtomatizirano prevajanje",
+    "enrichment": "Obogatitev s partnerskimi projekti",
+    "other": "Drugi jeziki",
+    "stopTranslating": "Prenehajte prevajati ta element v {0}.",
+    "translateLanguage": "Želite ta element videti v {0}?",
+    "translateQuotaError": "Prevajalska storitev začasno ni na voljo. Prosim poskusite kasneje."
   },
   "newWindow": "odpre se v novem oknu",
   "noMoreResults": "Za vašo iskalno poizvedbo ni več rezultatov.",
@@ -656,6 +699,18 @@ export default {
   "pageHasLoaded": "je naložena",
   "pages": {
     "collections": {
+      "organisations": {
+        "table": {
+          "name": "Ime"
+        },
+        "title": "Organizacije"
+      },
+      "persons": {
+        "title": "Osebe"
+      },
+      "table": {
+        "name": "Ime"
+      },
       "times": {
         "title": "Krat"
       },
@@ -738,12 +793,14 @@ export default {
       "likeLimit": {
         "body": "Se opravičujemo, a trenutno lahko všečkate največ 100 predmetov. Kmalu bomo odstranili to omejitev!",
         "title": "100 všečkov"
-      }
+      },
+      "updated": "Element je bil dodan v galerijo."
     },
     "prompts": {
       "delete": "Ali ste prepričani, da želite izbrisati to zbirko? Če izbrišete to zbirko, boste izgubili vse predmete, ki ste jih dodali."
     }
   },
   "showLess": "Prikaži manj",
-  "showMore": "Prikaži več"
+  "showMore": "Prikaži več",
+  "website": "Spletno mesto"
 };

@@ -1,6 +1,6 @@
 <template>
   <button
-    v-if="translatedItemsEnabled && translationSource"
+    v-if="translationSource"
     v-b-tooltip.bottomright
     :title="$t(`multilingual.${translationSource}`)"
     class="translation-source"
@@ -23,12 +23,6 @@
       translationSource: {
         type: String,
         default: null
-      }
-    },
-
-    computed: {
-      translatedItemsEnabled() {
-        return this.$config.app.features.translatedItems;
       }
     }
   };

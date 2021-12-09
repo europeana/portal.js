@@ -16,7 +16,7 @@ describe('plugins/europeana/search', () => {
     nock.cleanAll();
   });
 
-  describe('search()', () => {
+  describe('search()()', () => {
     describe('API request', () => {
       it('requests 24 results by default', async() => {
         baseRequest
@@ -25,7 +25,7 @@ describe('plugins/europeana/search', () => {
           })
           .reply(200, defaultResponse);
 
-        await search($axios, { query: 'anything' });
+        await search()($axios, { query: 'anything' });
 
         nock.isDone().should.be.true;
       });
@@ -37,7 +37,7 @@ describe('plugins/europeana/search', () => {
           })
           .reply(200, defaultResponse);
 
-        await search($axios, { query: 'anything', rows: 9 });
+        await search()($axios, { query: 'anything', rows: 9 });
 
         nock.isDone().should.be.true;
       });
@@ -49,7 +49,7 @@ describe('plugins/europeana/search', () => {
           })
           .reply(200, defaultResponse);
 
-        await search($axios, { page: 2, query: 'anything' });
+        await search()($axios, { page: 2, query: 'anything' });
 
         nock.isDone().should.be.true;
       });
@@ -61,7 +61,7 @@ describe('plugins/europeana/search', () => {
           })
           .reply(200, defaultResponse);
 
-        await search($axios, { page: 42, query: 'anything' });
+        await search()($axios, { page: 42, query: 'anything' });
 
         nock.isDone().should.be.true;
       });
@@ -73,7 +73,7 @@ describe('plugins/europeana/search', () => {
           })
           .reply(200, defaultResponse);
 
-        await search($axios, { query: 'anything' });
+        await search()($axios, { query: 'anything' });
 
         nock.isDone().should.be.true;
       });
@@ -85,7 +85,7 @@ describe('plugins/europeana/search', () => {
           })
           .reply(200, defaultResponse);
 
-        await search($axios, { query: 'anything', facet: 'LANGUAGE' });
+        await search()($axios, { query: 'anything', facet: 'LANGUAGE' });
 
         nock.isDone().should.be.true;
       });
@@ -97,7 +97,7 @@ describe('plugins/europeana/search', () => {
           })
           .reply(200, defaultResponse);
 
-        await search($axios, { query: 'anything', facet: 'COUNTRY,REUSABILITY' });
+        await search()($axios, { query: 'anything', facet: 'COUNTRY,REUSABILITY' });
 
         nock.isDone().should.be.true;
       });
@@ -109,7 +109,7 @@ describe('plugins/europeana/search', () => {
           })
           .reply(200, defaultResponse);
 
-        await search($axios, { query: '' });
+        await search()($axios, { query: '' });
 
         nock.isDone().should.be.true;
       });
@@ -121,13 +121,15 @@ describe('plugins/europeana/search', () => {
           })
           .reply(200, defaultResponse);
 
-        await search($axios, { query: 'anything', reusability: 'open' });
+        await search()($axios, { query: 'anything', reusability: 'open' });
 
         nock.isDone().should.be.true;
       });
 
       describe('multilingual queries', () => {
-        it('passes API i18n params if locale option given', async() => {
+        const context = { $config: { app: { search: { translateLocales: ['es'] } } } };
+
+        it('passes API i18n params if configured and locale option given', async() => {
           const locale = 'es';
 
           baseRequest
@@ -136,7 +138,7 @@ describe('plugins/europeana/search', () => {
             })
             .reply(200, defaultResponse);
 
-          await search($axios, { query: 'flor' }, { locale });
+          await search(context)($axios, { query: 'flor' }, { locale });
 
           nock.isDone().should.be.true;
         });
@@ -149,7 +151,7 @@ describe('plugins/europeana/search', () => {
             })
             .reply(200, defaultResponse);
 
-          await search($axios, { query: 'flor' });
+          await search(context)($axios, { query: 'flor' });
 
           nock.isDone().should.be.true;
         });
@@ -164,7 +166,7 @@ describe('plugins/europeana/search', () => {
             })
             .reply(200, defaultResponse);
 
-          await search($axios, { query: 'flor' }, { locale });
+          await search(context)($axios, { query: 'flor' }, { locale });
 
           nock.isDone().should.be.true;
         });
@@ -178,7 +180,7 @@ describe('plugins/europeana/search', () => {
             })
             .reply(200, defaultResponse);
 
-          await search($axios, { query: 'dress (red OR blue)' });
+          await search()($axios, { query: 'dress (red OR blue)' });
 
           nock.isDone().should.be.true;
         });
@@ -190,7 +192,7 @@ describe('plugins/europeana/search', () => {
             })
             .reply(200, defaultResponse);
 
-          await search($axios, { query: 'dress (red OR blue)' }, { escape: true });
+          await search()($axios, { query: 'dress (red OR blue)' }, { escape: true });
 
           nock.isDone().should.be.true;
         });
@@ -210,7 +212,7 @@ describe('plugins/europeana/search', () => {
 
           let error;
           try {
-            await search($axios, { query: 'NOT ' });
+            await search()($axios, { query: 'NOT ' });
           } catch (e) {
             error = e;
           }
@@ -222,7 +224,7 @@ describe('plugins/europeana/search', () => {
 
       context('with `items`', () => {
         function searchResponse(options = {}) {
-          return search($axios, { query: 'painting' }, options);
+          return search()($axios, { query: 'painting' }, options);
         }
 
         describe('.items', () => {
@@ -333,7 +335,7 @@ describe('plugins/europeana/search', () => {
 
           context('when page is at the API limit', () => {
             function searchResponse() {
-              return search($axios, { query: 'painting', page: 42 });
+              return search()($axios, { query: 'painting', page: 42 });
             }
 
             it('is `true`', async() => {
@@ -393,6 +395,13 @@ describe('plugins/europeana/search', () => {
       const qf = ['collection:art'];
       it('returns the qf with the tier 2-4 filter applied', () => {
         const expected = ['collection:art', 'contentTier:(2 OR 3 OR 4)'];
+        addContentTierFilter(qf).should.deep.eql(expected);
+      });
+    });
+    context('with an foaf_organization qf', () => {
+      const qf = ['foaf_organization:"http://data.europeana.eu/organization/1234567890"'];
+      it('returns the qf with no content tier filter applied', () => {
+        const expected = qf;
         addContentTierFilter(qf).should.deep.eql(expected);
       });
     });

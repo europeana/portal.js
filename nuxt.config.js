@@ -18,6 +18,14 @@ import { parseQuery, stringifyQuery } from './src/plugins/vue-router.cjs';
 
 const featureIsEnabled = (value) => Boolean(Number(value));
 
+const buildPublicPath = () => {
+  if (featureIsEnabled(process.env.ENABLE_JSDELIVR_BUILD_PUBLIC_PATH)) {
+    return `https://cdn.jsdelivr.net/npm/${pkg.name}@${pkg.version}/.nuxt/dist/client`;
+  } else {
+    return process.env.NUXT_BUILD_PUBLIC_PATH;
+  }
+};
+
 export default defineNuxtConfig({
   /*
   ** Runtime config
@@ -29,16 +37,18 @@ export default defineNuxtConfig({
       internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
       schemaOrgDatasetId: process.env.SCHEMA_ORG_DATASET_ID,
       siteName: APP_SITE_NAME,
+      search: {
+        translateLocales: (process.env.APP_SEARCH_TRANSLATE_LOCALES || '').split(',')
+      },
       features: {
         abTests: featureIsEnabled(process.env.ENABLE_AB_TESTS),
-        organisationSearchSuggestions: featureIsEnabled(process.env.ENABLE_ORGANISATION_SEARCH_SUGGESTIONS),
         jiraServiceDeskFeedbackForm: featureIsEnabled(process.env.ENABLE_JIRA_SERVICE_DESK_FEEDBACK_FORM),
         linksToClassic: featureIsEnabled(process.env.ENABLE_LINKS_TO_CLASSIC),
-        recommendations: featureIsEnabled(process.env.ENABLE_RECOMMENDATIONS),
         acceptSetRecommendations: featureIsEnabled(process.env.ENABLE_ACCEPT_SET_RECOMMENDATIONS),
         acceptEntityRecommendations: featureIsEnabled(process.env.ENABLE_ACCEPT_ENTITY_RECOMMENDATIONS),
         entityManagement: featureIsEnabled(process.env.ENABLE_ENTITY_MANAGEMENT),
-        translatedItems: featureIsEnabled(process.env.ENABLE_TRANSLATED_ITEMS)
+        translatedItems: featureIsEnabled(process.env.ENABLE_TRANSLATED_ITEMS),
+        sideFilters: featureIsEnabled(process.env.ENABLE_SIDE_FILTERS)
       }
     },
     auth: {
@@ -79,6 +89,9 @@ export default defineNuxtConfig({
         frameworkVersion: nuxtPkg.version,
         ignoreUrls: [
           /^\/(_nuxt|__webpack_hmr)\//
+        ],
+        ignoreUserAgents: [
+          'kube-probe/'
         ]
       }
     },
@@ -361,6 +374,7 @@ export default defineNuxtConfig({
     // access to Europeana APIs.
     { path: '/_api', handler: '~/server-middleware/api' },
     '~/server-middleware/logging',
+    '~/server-middleware/referrer-policy',
     '~/server-middleware/record-json'
   ],
 
@@ -378,7 +392,9 @@ export default defineNuxtConfig({
         // Build source maps to aid debugging in production builds
         config.devtool = 'source-map';
       }
-    }
+    },
+
+    publicPath: buildPublicPath()
   },
 
   /*

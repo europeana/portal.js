@@ -54,6 +54,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Poslední položky",
+    "organisation": "Organizace",
     "time": "Vybraná století",
     "topic": "Doporučená témata"
   },
@@ -464,7 +465,6 @@ export default {
       "dcFormat": "Formát",
       "dcIdentifier": "Identifikátor",
       "dcLanguage": "Jazyk",
-      "dcMedium": "Médium",
       "dcPublisher": "Vydavatel",
       "dcRelation": "souvislosti",
       "dcRights": "Práva",
@@ -484,7 +484,6 @@ export default {
       "dctermsIssued": "Datum vydání",
       "dctermsMedium": "Médium",
       "dctermsProvenance": "Původ",
-      "dctermsPublished": "Datum publikace",
       "dctermsReferences": "odkazuje na",
       "dctermsSpatial": "Místa",
       "dctermsTemporal": "Časové",
@@ -495,6 +494,7 @@ export default {
       "edmIncorporates": "zahrnuje",
       "edmIntermediateProvider": "Zprostředkovatel třetí strany",
       "edmIsDerivativeOf": "je zpodobněním",
+      "edmIsRelatedTo": "Souvisí s",
       "edmIsRepresentationOf": "představuje",
       "edmIsSimilarTo": "se podobá",
       "edmIsSuccessorOf": "je nástupcem",
@@ -517,6 +517,8 @@ export default {
       "rdfAbout": "RDF About"
     }
   },
+  "filter": "Filtr",
+  "filterResults": "Filtrovat výsledky",
   "footer": {
     "customiseWebsiteLanguage": "Přizpůsobit jazyk stránky",
     "disclaimerLine1": "Europeana je iniciativa Evropské unie financovaná z Nástroje pro propojení Evropy a z prostředků členských států Evropské unie. Služby Europeany, včetně těchto webových stránek, provozuje konsorcium vedené nadací Europeana Foundation na základě smlouvy o poskytování služeb s Evropskou komisí.",
@@ -613,6 +615,10 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Pomáhá vylepšovat náš web občasným použitím experimentálních změn.",
+        "title": "A/B testování"
+      },
       "auth-strategy": {
         "description": "Pamatuje si strategii autorizace, která se má použít k přihlášení.",
         "title": "Strategie Auth"
@@ -649,15 +655,15 @@ export default {
   "learnMore": "Údaje o zdroji tohoto popisu",
   "linksToClassic": {
     "home": {
-      "linkText": "Přejít na původní stránku Europeana.",
+      "linkText": "Tuto stránku si můžete prohlédnout na původních stránkách Europeana do 20. prosince 2021.",
       "text": "Prohlížíte si novou stránku Europeana."
     },
     "record": {
-      "linkText": "Zobrazit tuto položku na původní stránce Europeana.",
+      "linkText": "Prohlédněte si tuto položku na původní webové stránce Europeana do 20. prosince 2021.",
       "text": "Tuto položku si prohlížíte na nové stránce Europeana."
     },
     "search": {
-      "linkText": "Zobrazit tyto výsledky vyhledávání na původní stránce Europeana.",
+      "linkText": "Hledejte na původních webových stránkách Europeana do 20. prosince 2021.",
       "text": "Vyhledáváte na naší nové a rychlejší stránce."
     }
   },
@@ -681,12 +687,11 @@ export default {
   },
   "multilingual": {
     "automated": "Automatizovaný překlad",
-    "currentLanguage": "Chcete tuto položku vidět v {0}?",
-    "differentLanguage": "jiný jazyk",
     "enrichment": "Obohacení partnerskými projekty",
-    "original": "Původní metadata",
-    "originalLanguage": "původní jazyk",
-    "other": "Jiné jazyky"
+    "other": "Jiné jazyky",
+    "stopTranslating": "Přestaňte tuto položku překládat na {0}.",
+    "translateLanguage": "Chcete tuto položku vidět v {0}?",
+    "translateQuotaError": "Překladatelská služba je dočasně nedostupná. Prosím zkuste to znovu později."
   },
   "newWindow": "otevře se v novém okně",
   "noMoreResults": "Pro vaše zadání neexistují žádné další výsledky vyhledávání.",
@@ -702,6 +707,9 @@ export default {
       },
       "persons": {
         "title": "Osoby"
+      },
+      "table": {
+        "name": "Název"
       },
       "times": {
         "title": "Časy"

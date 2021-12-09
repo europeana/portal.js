@@ -2,11 +2,11 @@ name: CI
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [opened, synchronize, reopened, ready_for_review, converted_to_draft]
     paths-ignore:
     - '**.md'
     - 'deploy/**'
-    - 'migrations/**'
+    - 'src/migrations/**'
 
 env:
   CF_API: https://api.eu-de.cf.cloud.ibm.com
@@ -32,6 +32,7 @@ env:
 
 jobs:
   config:
+    if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -52,6 +53,7 @@ jobs:
       cf-space:  ${{ steps.done.outputs.cf-space }}
 
   test-unit:
+    if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -70,6 +72,7 @@ jobs:
     - run: npm run test:unit
 
   build:
+    if: github.event.pull_request.draft == false
     needs: [test-unit]
     runs-on: ubuntu-latest
     steps:
@@ -93,6 +96,7 @@ jobs:
         path: .nuxt/
 
   test-size:
+    if: github.event.pull_request.draft == false
     needs: [build]
     runs-on: ubuntu-latest
     steps:
@@ -118,6 +122,7 @@ jobs:
         npm run start
 
   test-e2e:
+    if: github.event.pull_request.draft == false
     needs: [config]
     runs-on: ubuntu-latest
     env:
@@ -134,8 +139,8 @@ jobs:
     - run: npm run test:e2e
     - run: npm run test:visual
 
-  # TODO: limit to internal PRs, i.e. those from within the repo
   deploy:
+    if: github.event.pull_request.draft == false
     needs: [config, build, test-unit]
     runs-on: ubuntu-latest
     env:
@@ -172,8 +177,8 @@ jobs:
       cf-app-first-deploy: ${{ steps.detect.outputs.cf-app-first-deploy }}
 
   notify:
+    if: github.event.pull_request.draft == false && needs.deploy.outputs.cf-app-first-deploy == 'true'
     needs: [deploy, config]
-    if: needs.deploy.outputs.cf-app-first-deploy == 'true'
     runs-on: ubuntu-latest
     env:
       PULL_REQUEST_NUMBER: ${{ needs.config.outputs.pull-request-number }}

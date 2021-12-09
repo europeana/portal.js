@@ -33,7 +33,7 @@
                 <div
                   class="context-label"
                 >
-                  {{ this.$tc('galleries.galleries', 1) }}
+                  {{ $tc('galleries.galleries', 1) }}
                 </div>
                 <h1
                   :lang="displayTitle.code"
@@ -164,6 +164,8 @@
   import SocialShareModal from '../../components/sharing/SocialShareModal.vue';
 
   export default {
+    name: 'SetPage',
+
     components: {
       LoadingSpinner,
       AlertMessage,
@@ -172,7 +174,19 @@
       SetFormModal: () => import('../../components/set/SetFormModal')
     },
 
+    async beforeRouteLeave(to, from, next) {
+      await this.$store.commit('set/setActive', null);
+      await this.$store.commit('set/setActiveRecommendations', []);
+      next();
+    },
+
     middleware: 'sanitisePageQuery',
+
+    data() {
+      return {
+        setFormModalId: `set-form-modal-${this.id}`
+      };
+    },
 
     async fetch() {
       try {
@@ -188,9 +202,19 @@
       }
     },
 
-    data() {
+    head() {
       return {
-        setFormModalId: `set-form-modal-${this.id}`
+        title: this.$pageHeadTitle(this.displayTitle.values[0]),
+        meta: [
+          { hid: 'title', name: 'title', content: this.displayTitle.values[0] },
+          { hid: 'og:title', property: 'og:title', content: (this.displayTitle.values[0]) },
+          { hid: 'og:image', property: 'og:image', content: this.shareMediaUrl },
+          { hid: 'og:type', property: 'og:type', content: 'article' }
+        ]
+          .concat(this.displayDescription && this.displayDescription.values[0] ? [
+            { hid: 'description', name: 'description', content: this.displayDescription.values[0]  },
+            { hid: 'og:description', property: 'og:description', content: this.displayDescription.values[0]  }
+          ] : [])
       };
     },
 
@@ -239,9 +263,9 @@
       },
       enableRecommendations() {
         if (this.setIsEntityBestItems) {
-          return this.$config.app.features.recommendations && this.$config.app.features.acceptEntityRecommendations;
+          return this.$config.app.features.acceptEntityRecommendations;
         }
-        return this.$config.app.features.recommendations;
+        return true;
       },
       enableAcceptRecommendations() {
         if (this.setIsEntityBestItems) {
@@ -291,27 +315,6 @@
           this.$store.dispatch('set/fetchActiveRecommendations', `/${this.$route.params.pathMatch}`);
         }
       }
-    },
-
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.displayTitle.values[0]),
-        meta: [
-          { hid: 'title', name: 'title', content: this.displayTitle.values[0] },
-          { hid: 'og:title', property: 'og:title', content: (this.displayTitle.values[0]) },
-          { hid: 'og:image', property: 'og:image', content: this.shareMediaUrl },
-          { hid: 'og:type', property: 'og:type', content: 'article' }
-        ]
-          .concat(this.displayDescription && this.displayDescription.values[0] ? [
-            { hid: 'description', name: 'description', content: this.displayDescription.values[0]  },
-            { hid: 'og:description', property: 'og:description', content: this.displayDescription.values[0]  }
-          ] : [])
-      };
-    },
-    async beforeRouteLeave(to, from, next) {
-      await this.$store.commit('set/setActive', null);
-      await this.$store.commit('set/setActiveRecommendations', []);
-      next();
     }
   };
 </script>

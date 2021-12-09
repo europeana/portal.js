@@ -19,12 +19,12 @@ app.use((res, req, next) => {
   next();
 });
 
-app.use((res, req, next) => {
+app.use((req, res, next) => {
   if (apm.isStarted())  {
     // Elastic APM Node agent instruments Express requests automatically, but
     // omits any prefix such as /_api/, so override the transactions name here
     // to restore it form the original URL.
-    apm.setTransactionName(`${req.req.method} ${req.req.originalUrl.split('?')[0]}`);
+    apm.setTransactionName(`${req.method} ${req.originalUrl.split('?')[0]}`);
   }
   next();
 });
@@ -32,14 +32,31 @@ app.use((res, req, next) => {
 import debugMemoryUsage from './debug/memory-usage.js';
 app.get('/debug/memory-usage', debugMemoryUsage);
 
-import entitiesOrganisations from './entities/organisations.js';
-app.get('/entities/organisations', (req, res) => entitiesOrganisations(runtimeConfig)(req, res));
+// Redirection of some deprecated API URL paths.
+//
+// TODO: remove redirection of deprecated routes after new routes are
+//       well-established in production
+//
+// Deprecated with v1.52.0:
+app.get('/entities/organisations', (req, res) => res.redirect('/_api/cache/en/collections/organisations'));
+app.get('/entities/times', (req, res) => res.redirect(`/_api/cache/${req.query.locale}/collections/times/featured`));
+app.get('/entities/topics', (req, res) => res.redirect(`/_api/cache/${req.query.locale}/collections/topics/featured`));
+app.get('/items/recent', (req, res) => res.redirect('/_api/cache/items/recent'));
+app.get('/items/itemCountsMediaType', (req, res) => res.redirect('/_api/cache/items/typeCounts'));
+// Deprecated with v1.53.0:
+app.get('/cache/collections/organisations', (req, res) => res.redirect('/_api/cache/en/collections/organisations'));
+app.get('/cache/collections/times', (req, res) => {
+  if (req.query.daily) {
+    return res.redirect(`/_api/cache/${req.query.locale}/collections/times/featured`);
+  } else {
+    return res.redirect(`/_api/cache/${req.query.locale}/collections/times`);
+  }
+});
+app.get('/cache/collections/topics', (req, res) => res.redirect(`/_api/cache/${req.query.locale}/collections/topics`));
+app.get('/cache/collections/topics/featured', (req, res) => res.redirect(`/_api/cache/${req.query.locale}/collections/topics/featured`));
 
-import dailyEntries from './dailyEntries.js';
-app.get('/entities/topics', (req, res) => dailyEntries('topic', runtimeConfig)(req, res));
-app.get('/entities/times', (req, res) => dailyEntries('time', runtimeConfig)(req, res));
-app.get('/items/recent', (req, res) => dailyEntries('item', runtimeConfig)(req, res));
-app.get('/items/itemCountsMediaType', (req, res) => dailyEntries('itemCountsMediaType', runtimeConfig)(req, res));
+import cache from './cache/index.js';
+app.get('/cache/*', (req, res) => cache(req.params[0], runtimeConfig)(req, res));
 
 import jiraServiceDesk from './jira/service-desk.js';
 app.post('/jira/service-desk', (req, res) => jiraServiceDesk(runtimeConfig.jira)(req, res));
@@ -50,11 +67,15 @@ app.get('/version', version);
 app.all('/*', (req, res) => res.sendStatus(404));
 
 export const errorHandler = (res, error) => {
+  let status = error.status || 500;
+  let message = error.message;
+
   if (error.response) {
-    res.status(error.response.status).set('Content-Type', 'text/plain').send(error.response.data.errorMessage);
-  } else {
-    res.status(error.status || 500).set('Content-Type', 'text/plain').send(error.message);
+    status = error.response.status;
+    message = error.response.data.errorMessage;
   }
+
+  res.status(status).set('Content-Type', 'text/plain').send(message);
 };
 
 export default app;

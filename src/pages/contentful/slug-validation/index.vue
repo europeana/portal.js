@@ -20,6 +20,8 @@
 
 <script>
   export default {
+    name: 'ContentfulSlugValidationPage',
+
     layout: 'contentful',
 
     data() {
@@ -32,6 +34,15 @@
         errorMessage: null,
         debouncedDuplicateStatus: null,
         contentfulExtensionSdk: null
+      };
+    },
+
+    head() {
+      return {
+        title: this.$pageHeadTitle('Slug validation - Contentful app'),
+        script: [
+          { src: 'https://unpkg.com/speakingurl@13.0.0/speakingurl.min.js' }
+        ]
       };
     },
 
@@ -155,15 +166,6 @@
 
         return false;
       }
-    },
-
-    head() {
-      return {
-        title: this.$pageHeadTitle('Slug validation - Contentful app'),
-        script: [
-          { src: 'https://unpkg.com/speakingurl@13.0.0/speakingurl.min.js' }
-        ]
-      };
     }
   };
 </script>

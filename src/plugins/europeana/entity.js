@@ -23,7 +23,7 @@ export default (context = {}) => {
           entity: response.data
         }))
         .catch(error => {
-          throw apiError(error);
+          throw apiError(error, context);
         });
     },
 
@@ -33,23 +33,18 @@ export default (context = {}) => {
      * @param {Object} params additional parameters sent to the API
      */
     suggest(text, params = {}) {
-      let type = 'agent,concept,timespan';
-      if (context.$config?.app?.features?.organisationSearchSuggestions) {
-        type = `${type},organization`;
-      }
-
       return this.$axios.get('/suggest', {
         params: {
           ...this.$axios.defaults.params,
           text,
-          type,
+          type: 'agent,concept,timespan,organization',
           scope: 'europeana',
           ...params
         }
       })
         .then(response => response.data.items ? response.data.items : [])
         .catch(error => {
-          throw apiError(error);
+          throw apiError(error, context);
         });
     },
 
@@ -111,7 +106,7 @@ export default (context = {}) => {
           };
         })
         .catch((error) => {
-          throw apiError(error);
+          throw apiError(error, context);
         });
     }
   };
@@ -173,7 +168,7 @@ export function getEntityQuery(uri) {
  * @return {Boolean} true if the URI is a valid entity URI
  */
 export function isEntityUri(uri, types) {
-  types = types ? types : ['concept', 'agent', 'place', 'timespan'];
+  types = types ? types : ['concept', 'agent', 'place', 'timespan', 'organization'];
   return RegExp(`^http://data\\.europeana\\.eu/(${types.join('|')})(/base)?/\\d+$`).test(uri);
 }
 
@@ -235,7 +230,7 @@ export function getEntityUri(type, id) {
  * @return {{type: String, identifier: string}} Object with the portal relevant identifiers.
  */
 export function entityParamsFromUri(uri) {
-  const matched = uri.match(/^http:\/\/data\.europeana\.eu\/(concept|agent|place|timespan)(\/base)?\/(\d+)$/);
+  const matched = uri.match(/^http:\/\/data\.europeana\.eu\/(concept|agent|place|timespan|organization)(\/base)?\/(\d+)$/);
   const id = matched[matched.length - 1];
   const type = getEntityTypeHumanReadable(matched[1]);
   return { id, type };

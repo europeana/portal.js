@@ -44,6 +44,8 @@
         <img
           src="../assets/img/logo.svg"
           :alt="$t('homeLinkAlt')"
+          width="153"
+          height="32"
           class="mw-100"
           data-qa="logo"
         >
@@ -63,6 +65,7 @@
           :aria-label="$t('search')"
           @click="toggleSearchBar"
         />
+        <FilterToggleButton />
       </b-navbar>
       <b-sidebar
         id="sidebar"
@@ -92,6 +95,8 @@
               <img
                 src="../assets/img/logo.svg"
                 :alt="$t('homeLinkAlt')"
+                width="153"
+                height="32"
                 class="mw-100"
                 data-qa="logo"
               >
@@ -111,6 +116,7 @@
   import SmartLink from './generic/SmartLink';
   import SearchForm from './search/SearchForm';
   import PageNavigation from './PageNavigation';
+  import FilterToggleButton from '@/components/search/FilterToggleButton';
   import { mapState } from 'vuex';
 
   export default {
@@ -119,7 +125,8 @@
     components: {
       SmartLink,
       SearchForm,
-      PageNavigation
+      PageNavigation,
+      FilterToggleButton
     },
 
     data() {
@@ -129,9 +136,7 @@
     },
 
     computed: {
-      ...mapState({
-        showSearch: state => state.search.showSearchBar
-      })
+      ...mapState({ showSearch: state => state.search.showSearchBar      })
     },
 
     methods: {
@@ -171,7 +176,7 @@
       min-width: 9.5625rem;
       transition: 0.3s ease-in-out;
       img {
-        width: 9.5625rem;
+        margin: auto 0;
       }
     }
   }
@@ -223,20 +228,19 @@
       }
     }
 
-    &.search, &.close {
-      &:hover:before {
-        color: $innovationblue;
-      }
-    }
-
     &.back {
       position: absolute;
       left: 1rem;
       top: 1rem;
       z-index: 99;
-
       &:before {
         content: '\ea40';
+        transition: $standard-transition;
+      }
+    }
+    &.search, &.close, &.back {
+      &:hover:before {
+        color: $innovationblue;
       }
     }
   }

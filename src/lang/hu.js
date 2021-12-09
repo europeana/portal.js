@@ -1,5 +1,7 @@
 export default {
   "account": {
+    "curatedCollections": "Kurátori gyűjtemények",
+    "curatedCollectionsInfo": "Az alábbiakban megtalálja az összes gyűjteményt, amelyeket kurált",
     "editProfile": "Profil szerkesztése",
     "likes": "Kedvelések",
     "linkAccount": "Fiókom",
@@ -11,6 +13,7 @@ export default {
       "loggedIn": "Most már be van jelentkezve. Üdvözlünk!",
       "loggedOut": "Most kijelentkezett.",
       "noCollections": {
+        "curated": "Még nem kuratáltál gyűjteményeket",
         "private": "Még nem hozott létre privát galériát",
         "public": "Még nem hozott létre nyilvános galériát"
       },
@@ -24,6 +27,7 @@ export default {
     "title": "Fiókom"
   },
   "actions": {
+    "accept": "Elfogad",
     "cancel": "Mégse",
     "close": "bezárás",
     "download": "Letöltés",
@@ -33,6 +37,7 @@ export default {
     "like": "Kedvelés",
     "next": "Következő",
     "providedBy": "Szolgáltató: {provider}",
+    "reject": "Elutasít",
     "send": "Küld",
     "share": "Megosztás",
     "shareOn": "Megosztás a következőn: {social}",
@@ -49,6 +54,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Legutóbbi cikk",
+    "organisation": "Szervezetek",
     "time": "Kiemelt évszázadok",
     "topic": "Kiemelt témák"
   },
@@ -64,6 +70,7 @@ export default {
     "relatedPosts": "Kapcsolódó bejegyzések"
   },
   "cardLabels": {
+    "organisation": "Szervezet",
     "person": "Személy",
     "time": "Század",
     "topic": "Téma"
@@ -138,13 +145,27 @@ export default {
   "entity": {
     "actions": {
       "cancel": "Mégse",
-      "pin": "Elem kitűzője"
+      "pin": "Elem kitűzője",
+      "unpin": "Bontatlan elem",
+      "viewPinned": "Lásd a kitűzött elemeket"
     },
     "labels": {
       "entity": "Entitás"
     },
     "notifications": {
-      "deleted": "Galéria törölve."
+      "deleted": "Galéria törölve.",
+      "pinLimit": {
+        "body": "Egyelőre csak 24 elemet rögzíthet az első oldalon. Ha meg szeretné tűzni ezt az elemet, győződjön meg róla, hogy egy másikat bont ki, majd próbálja meg újra rögzíteni.",
+        "title": "Túl sok rögzített elem"
+      },
+      "pinned": "Az elemet kitűzték. Most a gyűjtemény első oldalának tetején található. Lehet, hogy 24 óráig is eltarthat, amíg mindenki számára megjelenik.",
+      "pinnedFirstPage": "Az elemet kitűzték. Lehet, hogy 24 óráig is eltarthat, amíg mindenki számára megjelenik.",
+      "unpinned": "Az elem rögzítése megszűnt. Már nincs a gyűjtemény első oldalának tetején. Akár 24 órát is igénybe vehet, amíg mindenki eltűnik.",
+      "unpinnedFirstPage": "Az elem rögzítése megszűnt. Akár 24 órát is igénybe vehet, amíg mindenki eltűnik."
+    },
+    "prompts": {
+      "pin": "Biztos vagy benne, hogy fel akarod tűzni ezt az elemet? Ez az elem a \"{entity}\" kollekció tetején jelenik meg. Ez a változás 24 órát vehet igénybe, mire érvénybe lép.",
+      "unpin": "Biztos vagy benne, hogy le akarod venni ezt az elemet? Ez az elem nem fog többé a \"{entity}\" gyűjtemény tetején megjelenni. Ez a változás akár 24 órát is igénybe vehet, mire érvénybe lép."
     }
   },
   "error": "Hiba",
@@ -444,7 +465,6 @@ export default {
       "dcFormat": "Formátum",
       "dcIdentifier": "Azonosító",
       "dcLanguage": "Nyelv",
-      "dcMedium": "Közepes",
       "dcPublisher": "Kiadó",
       "dcRelation": "Kapcsolatok",
       "dcRights": "Jogok",
@@ -464,7 +484,6 @@ export default {
       "dctermsIssued": "Kiadás dátuma",
       "dctermsMedium": "Közepes",
       "dctermsProvenance": "Származási hely",
-      "dctermsPublished": "Közzététel dátuma",
       "dctermsReferences": "Hivatkozások",
       "dctermsSpatial": "Helyek",
       "dctermsTemporal": "Időbeli",
@@ -475,6 +494,7 @@ export default {
       "edmIncorporates": "Magában foglalja",
       "edmIntermediateProvider": "Köztes szolgáltató",
       "edmIsDerivativeOf": "Leszármazottja",
+      "edmIsRelatedTo": "Kapcsolódik a",
       "edmIsRepresentationOf": "Képviselete",
       "edmIsSimilarTo": "Hasonló",
       "edmIsSuccessorOf": "Utódja",
@@ -497,6 +517,8 @@ export default {
       "rdfAbout": "RDF Névjegy"
     }
   },
+  "filter": "Szűrő",
+  "filterResults": "Eredmények szűrése",
   "footer": {
     "customiseWebsiteLanguage": "A webhely nyelvének testreszabása",
     "disclaimerLine1": "Az Europeana az Európai Unió kezdeményezése, amelyet az Európai Unió Európai Uniót összekötő eszközének és az Európai Unió tagállamainak finanszíroz. Az Europeana szolgáltatásait, beleértve ezt a weboldalt is, az Europeana Alapítvány által vezetett konzorcium üzemelteti az Európai Bizottsággal kötött szolgáltatási szerződés alapján.",
@@ -556,6 +578,9 @@ export default {
   "items": {
     "itemCount": "1 cikk |{count} cikk",
     "itemOf": "{max} {count} cikk",
+    "recent": "Legutóbbi elemek",
+    "recommendationsDisclaimer": "Hüvelykujj felfelé, hogy felvegye a galériába - Hüvelykujját lefelé, ha nem tetszik",
+    "recommended": "Ajánlott tételek",
     "youMightLike": "Cikkek, amik tetszhetnek Önnek"
   },
   "klaro": {
@@ -590,6 +615,10 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Segít weboldalunk fejlesztésében azáltal, hogy alkalmanként kísérleti változtatásokat alkalmaz.",
+        "title": "A/B tesztelés"
+      },
       "auth-strategy": {
         "description": "Emlékszik a bejelentkezéshez használandó engedélyezési stratégiára.",
         "title": "Auth stratégia"
@@ -626,18 +655,19 @@ export default {
   "learnMore": "Tudjon meg többet a leírás forrásáról",
   "linksToClassic": {
     "home": {
-      "linkText": "Ugrás az eredeti Europeana webhelyre.",
+      "linkText": "Tekintse meg ezt az oldalt az eredeti Europeana webhelyen 2021. december 20-ig.",
       "text": "Ön az új Europeana élményt látja."
     },
     "record": {
-      "linkText": "Tekintse meg ezt az elemet az eredeti Europeana webhelyen",
+      "linkText": "Tekintse meg ezt az elemet az eredeti Europeana webhelyen 2021. december 20-ig.",
       "text": "Ezt az elemet az új Europeana webhelyen látja."
     },
     "search": {
-      "linkText": "Tekintse meg ezeket a keresési eredményeket az eredeti Europeana webhelyen.",
+      "linkText": "Keresés az eredeti Europeana weboldalon 2021. december 20-ig.",
       "text": "Ön az új és gyorsabb weboldalunkon keres."
     }
   },
+  "loading": "Betöltés",
   "loadingResults": "Eredmények betöltése",
   "mediaPreview": {
     "selectItem": "Elem kiválasztása {src}"
@@ -648,10 +678,20 @@ export default {
     "notFound": "Nem található",
     "paginationLimitExceeded": "Csak az első {limit} keresési találat tekinthető meg."
   },
+  "modal": {
+    "download": {
+      "clickToCopy": "Kattintson az attribútumra a másoláshoz",
+      "modalIntro": "Ha ezt az elemet használja az interneten vagy máshol, ne felejtse el megjeleníteni a következő attribútumot mellette:",
+      "modalTitle": "Mondj köszönetet"
+    }
+  },
   "multilingual": {
-    "original": "Eredeti metaadat",
-    "originalLanguage": "eredeti nyelv",
-    "other": "Egyéb nyelvek"
+    "automated": "Automatizált fordítás",
+    "enrichment": "Gazdagodás partnerprojektek által",
+    "other": "Egyéb nyelvek",
+    "stopTranslating": "Állítsa le ennek az elemnek a fordítását {0}-ra.",
+    "translateLanguage": "Szeretné látni ezt az elemet itt: {0} ?",
+    "translateQuotaError": "A fordítási szolgáltatás ideiglenesen nem érhető el. Kérlek, próbáld újra később."
   },
   "newWindow": "új ablakban nyílik meg",
   "noMoreResults": "Nincs további eredmény a keresési lekérdezéshez.",
@@ -659,6 +699,18 @@ export default {
   "pageHasLoaded": "betöltődött",
   "pages": {
     "collections": {
+      "organisations": {
+        "table": {
+          "name": "Név"
+        },
+        "title": "Szervezetek"
+      },
+      "persons": {
+        "title": "Személyek"
+      },
+      "table": {
+        "name": "Név"
+      },
       "times": {
         "title": "Idők"
       },
@@ -741,12 +793,14 @@ export default {
       "likeLimit": {
         "body": "Sajnáljuk, de jelenleg legfeljebb 100 cikket kedvelhet. Hamarosan eltávolítjuk ezt a korlátozást!",
         "title": "100 kedvelés"
-      }
+      },
+      "updated": "Az elem felkerült a galériába."
     },
     "prompts": {
       "delete": "Biztosan törli ezt a galériát? Ha törli a galériát, elveszíti az összes hozzáadott elemet."
     }
   },
   "showLess": "Kevesebb megjelenítése",
-  "showMore": "Továbbiak megjelenítése"
+  "showMore": "Továbbiak megjelenítése",
+  "website": "Weboldal"
 };

@@ -47,13 +47,13 @@
   import { BBreadcrumb } from 'bootstrap-vue';
   import ClientOnly from 'vue-client-only';
   import PageHeader from '../components/PageHeader';
-  import klaroConfig from '../plugins/klaro-config';
+  import klaroConfig, { version as klaroVersion } from '../plugins/klaro-config';
   import { version as bootstrapVersion } from 'bootstrap/package.json';
   import { version as bootstrapVueVersion } from 'bootstrap-vue/package.json';
 
-  const klaroVersion = '0.7.18';
-
   export default {
+    name: 'DefaultLayout',
+
     components: {
       BBreadcrumb,
       ClientOnly,
@@ -67,6 +67,33 @@
         linkGroups: {},
         enableAnnouncer: true,
         klaro: null
+      };
+    },
+
+    head() {
+      const i18nHead = this.$nuxtI18nHead({ addSeoAttributes: true });
+
+      return {
+        htmlAttrs: {
+          ...i18nHead.htmlAttrs
+        },
+        link: [
+          { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700&subset=latin,greek,cyrillic&display=swap',
+            body: true },
+          { rel: 'stylesheet', href: `https://unpkg.com/bootstrap@${bootstrapVersion}/dist/css/bootstrap.min.css` },
+          { rel: 'stylesheet', href: `https://unpkg.com/klaro@${klaroVersion}/dist/klaro.min.css` },
+          { rel: 'stylesheet', href: `https://unpkg.com/bootstrap-vue@${bootstrapVueVersion}/dist/bootstrap-vue.min.css` },
+          { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrlWithoutLocale },
+          ...i18nHead.link
+        ],
+        script: [
+          { src: `https://unpkg.com/klaro@${klaroVersion}/dist/klaro-no-css.js`, defer: true }
+        ],
+        meta: [
+          { hid: 'description', property: 'description', content: 'Europeana' },
+          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl },
+          ...i18nHead.meta
+        ]
       };
     },
 
@@ -164,33 +191,6 @@
           }, 10);
         }
       }
-    },
-
-    head() {
-      const i18nHead = this.$nuxtI18nHead({ addSeoAttributes: true });
-
-      return {
-        htmlAttrs: {
-          ...i18nHead.htmlAttrs
-        },
-        link: [
-          { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700&subset=latin,greek,cyrillic&display=swap',
-            body: true },
-          { rel: 'stylesheet', href: `https://unpkg.com/bootstrap@${bootstrapVersion}/dist/css/bootstrap.min.css` },
-          { rel: 'stylesheet', href: `https://cdn.kiprotect.com/klaro/v${klaroVersion}/klaro.min.css` },
-          { rel: 'stylesheet', href: `https://unpkg.com/bootstrap-vue@${bootstrapVueVersion}/dist/bootstrap-vue.min.css` },
-          { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrlWithoutLocale },
-          ...i18nHead.link
-        ],
-        script: [
-          { src: `https://unpkg.com/klaro@${klaroVersion}/dist/klaro-no-css.js`, defer: true }
-        ],
-        meta: [
-          { hid: 'description', property: 'description', content: 'Europeana' },
-          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl },
-          ...i18nHead.meta
-        ]
-      };
     }
   };
 </script>

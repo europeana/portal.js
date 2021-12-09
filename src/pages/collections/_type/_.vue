@@ -4,7 +4,7 @@
     class="entity-page"
   >
     <b-container fluid>
-      <b-row class="flex-md-row pt-5 bg-white mb-4">
+      <b-row class="flex-md-row pt-5 bg-white mb-3">
         <b-col
           cols="12"
         >
@@ -51,39 +51,40 @@
       </b-row>
     </b-container>
     <client-only>
-      <b-container>
-        <b-row>
-          <b-col
-            cols="12"
-            class="pb-3"
-          >
-            <i18n
-              v-if="$route.query.query"
-              path="searchResultsForIn"
-              tag="h2"
-              class="px-0 container"
-            >
-              <span>{{ $route.query.query }}</span>
-              <span>{{ title.values[0] }}</span>
-            </i18n>
-            <SearchInterface
-              class="px-0"
-              :per-page="recordsPerPage"
-              :route="route"
-              :show-content-tier-toggle="false"
-              :show-pins="userIsEditor && userIsSetsEditor"
-            />
-          </b-col>
-        </b-row>
-        <b-row>
+      <b-container
+        :class="{'page-container side-filters-enabled': sideFiltersEnabled}"
+      >
+        <b-row class="flex-nowrap">
           <b-col>
-            <b-container class="p-0">
+            <b-container class="px-0 pb-3">
+              <i18n
+                v-if="$route.query.query"
+                path="searchResultsForIn"
+                tag="h2"
+                class="px-0 container"
+              >
+                <span>{{ $route.query.query }}</span>
+                <span>{{ title.values[0] }}</span>
+              </i18n>
+              <SearchInterface
+                class="px-0"
+                :per-page="recordsPerPage"
+                :route="route"
+                :show-content-tier-toggle="false"
+                :show-pins="userIsEditor && userIsSetsEditor"
+              />
+            </b-container>
+            <b-container class="px-0">
               <BrowseSections
                 v-if="page"
                 :sections="page.hasPartCollection.items"
               />
             </b-container>
           </b-col>
+          <SideFilters
+            v-if="sideFiltersEnabled"
+            :route="route"
+          />
         </b-row>
       </b-container>
     </client-only>
@@ -98,20 +99,38 @@
   import { mapState } from 'vuex';
 
   import { BASE_URL as EUROPEANA_DATA_URL } from '../../../plugins/europeana/data';
-  import { getEntityTypeHumanReadable, getEntitySlug, getEntityUri } from '../../../plugins/europeana/entity';
+  import { getEntityTypeHumanReadable, getEntitySlug, getEntityUri, getEntityQuery } from '../../../plugins/europeana/entity';
   import { langMapValueForLocale, uriRegex } from  '../../../plugins/europeana/utils';
 
   export default {
+    name: 'CollectionPage',
+
     components: {
       BrowseSections: () => import('../../../components/browse/BrowseSections'),
       ClientOnly,
       EntityDetails,
       SearchInterface,
       EntityUpdateModal: () => import('../../../components/entity/EntityUpdateModal'),
-      RelatedCollections: () => import('../../../components/generic/RelatedCollections')
+      RelatedCollections: () => import('../../../components/generic/RelatedCollections'),
+      SideFilters: () => import('../../../components/search/SideFilters')
+    },
+
+    async beforeRouteLeave(to, from, next) {
+      if (to.matched[0].path !== `/${this.$i18n.locale}/search`) {
+        this.$store.commit('search/setShowSearchBar', false);
+      }
+      this.$store.commit('entity/setId', null); // needed to re-enable auto-suggest in header
+      this.$store.commit('entity/setEntity', null); // needed for best bets handling
+      next();
     },
 
     middleware: 'sanitisePageQuery',
+
+    data() {
+      return {
+        relatedCollections: []
+      };
+    },
 
     fetch({ query, params, redirect, error, app, store }) {
       store.commit('search/disableCollectionFacet');
@@ -149,14 +168,13 @@
       };
 
       return Promise.all([
-        store.dispatch('entity/searchForRecords', query),
         fetchEntity ? app.$apis.entity.get(params.type, params.pathMatch) : () => null,
         fetchEntityManagement ? app.$apis.entityManagement.get(params.type, params.pathMatch) : () => null,
         fetchFromContentful ? app.$contentful.query('collectionPage', contentfulVariables) : () => null
       ])
         .then(responses => {
           if (fetchEntity) {
-            store.commit('entity/setEntity', pick(responses[1].entity, [
+            store.commit('entity/setEntity', pick(responses[0].entity, [
               'id',
               'logo',
               'note',
@@ -165,13 +183,13 @@
               'prefLabel'
             ]));
           }
-          if (responses[2].note) {
+          if (responses[1].note) {
             store.commit('entity/setEditable', true);
-            store.commit('entity/setEntityDescription', responses[2].note);
-            store.commit('entity/setProxy', responses[2].proxies.find(proxy => proxy.id.includes('#proxy_europeana')));
+            store.commit('entity/setEntityDescription', responses[1].note);
+            store.commit('entity/setProxy', responses[1].proxies.find(proxy => proxy.id.includes('#proxy_europeana')));
           }
           if (fetchFromContentful) {
-            const pageResponseData = responses[3].data.data;
+            const pageResponseData = responses[2].data.data;
             if (fetchCuratedEntities) {
               store.commit('entity/setCuratedEntities', pageResponseData.curatedEntities.items);
             }
@@ -186,7 +204,7 @@
           if (params.pathMatch !== desiredPath) {
             const redirectPath = app.$path({
               name: 'collections-type-all',
-              params: { type: params.type, pathMatch: encodeURIComponent(desiredPath) }
+              params: { type: params.type, pathMatch: desiredPath }
             });
             return redirect(302, redirectPath);
           }
@@ -198,11 +216,22 @@
           error({ statusCode, message: e.toString() });
         });
     },
-    data() {
+
+    head() {
       return {
-        relatedCollections: []
+        title: this.$pageHeadTitle(this.title.values[0]),
+        meta: [
+          { hid: 'og:type', property: 'og:type', content: 'article' },
+          { hid: 'title', name: 'title', content: this.title.values[0] },
+          { hid: 'og:title', property: 'og:title', content: this.title.values[0] }
+        ]
+          .concat(this.descriptionText ? [
+            { hid: 'description', name: 'description', content: this.descriptionText },
+            { hid: 'og:description', property: 'og:description', content: this.descriptionText }
+          ] : [])
       };
     },
+
     computed: {
       ...mapState({
         entity: state => state.entity.entity,
@@ -211,6 +240,29 @@
         recordsPerPage: state => state.entity.recordsPerPage,
         editable: state => state.entity.editable
       }),
+      searchOverrides() {
+        const overrideParams = {
+          qf: [],
+          rows: this.$store.state.entity.recordsPerPage
+        };
+
+        const curatedEntity = this.$store.getters['entity/curatedEntity'](this.entity.id);
+        if (curatedEntity && curatedEntity.genre) {
+          overrideParams.qf.push(`collection:${curatedEntity.genre}`);
+        } else {
+          const entityQuery = getEntityQuery(this.entity.id);
+          overrideParams.qf.push(entityQuery);
+
+          if (!this.$route.query.query) {
+            const englishPrefLabel = this.$store.getters['entity/englishPrefLabel'];
+            if (englishPrefLabel) {
+              overrideParams.query = englishPrefLabel;
+            }
+          }
+        }
+
+        return overrideParams;
+      },
       contextLabel() {
         return this.$t(`cardLabels.${this.$route.params.type}`);
       },
@@ -225,7 +277,7 @@
       },
       description() {
         if (this.isEditable) {
-          return this.entity.note[this.$store.state.i18n.locale] ? { values: this.entity.note[this.$store.state.i18n.locale], code: this.$store.state.i18n.locale } : null;
+          return this.entity.note[this.$i18n.locale] ? { values: this.entity.note[this.$i18n.locale], code: this.$i18n.locale } : null;
         }
 
         const description = this.collectionType === 'organisation' &&
@@ -289,15 +341,18 @@
         if (this.editorialTitle) {
           return this.titleFallback(this.editorialTitle);
         }
-        return langMapValueForLocale(this.entity.prefLabel, this.$store.state.i18n.locale);
+        return langMapValueForLocale(this.entity.prefLabel, this.$i18n.locale);
       },
       isEditable() {
         return this.entity && this.editable;
+      },
+      sideFiltersEnabled() {
+        return this.$config.app.features.sideFilters;
       }
     },
     mounted() {
       this.$store.commit('search/setCollectionLabel', this.title.values[0]);
-      this.$store.dispatch('entity/searchForRecords', this.$route.query);
+      this.$store.commit('search/set', ['overrideParams', this.searchOverrides]);
       // TODO: move into a new entity store action?
       // Disable related collections for organisation for now
       if (!this.relatedCollectionCards && this.collectionType !== 'organisation') {
@@ -337,39 +392,20 @@
           }
         });
       }
-    },
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.title.values[0]),
-        meta: [
-          { hid: 'og:type', property: 'og:type', content: 'article' },
-          { hid: 'title', name: 'title', content: this.title.values[0] },
-          { hid: 'og:title', property: 'og:title', content: this.title.values[0] }
-        ]
-          .concat(this.descriptionText ? [
-            { hid: 'description', name: 'description', content: this.descriptionText },
-            { hid: 'og:description', property: 'og:description', content: this.descriptionText }
-          ] : [])
-      };
-    },
-    async beforeRouteLeave(to, from, next) {
-      if (to.matched[0].path !== `/${this.$store.state.i18n.locale}/search`) {
-        this.$store.commit('search/setShowSearchBar', false);
-      }
-      await this.$store.dispatch('search/deactivate');
-      this.$store.commit('entity/setId', null); // needed to re-enable auto-suggest in header
-      this.$store.commit('entity/setEntity', null); // needed for best bets handling
-      next();
-    },
-    watchQuery: ['api', 'reusability', 'query', 'qf', 'page']
+    }
   };
 </script>
 
 <style lang="scss" scoped>
+  @import '@/assets/scss/variables.scss';
+
   .entity-page {
     margin-top: -1rem;
     .related-collections {
       padding: 0;
     }
+  }
+  .page-container {
+    max-width: none;
   }
 </style>

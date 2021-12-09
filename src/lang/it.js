@@ -1,5 +1,7 @@
 export default {
   "account": {
+    "curatedCollections": "Collezioni curate",
+    "curatedCollectionsInfo": "Trova di seguito tutte le collezioni che hai curato",
     "editProfile": "Modifica Profilo",
     "likes": "Mi piace",
     "linkAccount": "Il mio account",
@@ -11,10 +13,11 @@ export default {
       "loggedIn": "Ora sei loggato. Benvenuto!",
       "loggedOut": "Sei ora disconnesso.",
       "noCollections": {
+        "curated": "Non hai ancora curato nessuna collezione",
         "private": "Non hai ancora creato gallerie private",
         "public": "Non hai ancora creato gallerie pubbliche"
       },
-      "noLikedItems": "Non hai ancora messo Mi piace a nessun articolo"
+      "noLikedItems": "Non hai ancora messo Mi piace a nessun oggetti"
     },
     "privateCollections": "Gallerie private",
     "profile": "I miei Mi piace e le mie gallerie",
@@ -50,7 +53,8 @@ export default {
     "title": "Titolo:"
   },
   "automatedCardGroup": {
-    "item": "Articoli recenti",
+    "item": "Oggetti recenti",
+    "organisation": "Organizzazioni",
     "time": "Secoli in primo piano",
     "topic": "Argomenti in primo piano"
   },
@@ -66,6 +70,7 @@ export default {
     "relatedPosts": "Articoli correlati"
   },
   "cardLabels": {
+    "organisation": "Organizzazione",
     "person": "Persona",
     "time": "Secolo",
     "topic": "Argomento"
@@ -139,13 +144,28 @@ export default {
   "edmIsShownAtLinkAlt": "Visualizza sul sito web del fornitore",
   "entity": {
     "actions": {
-      "cancel": "Annulla"
+      "cancel": "Annulla",
+      "pin": "Elemento pin",
+      "unpin": "Rimuovi elemento",
+      "viewPinned": "Visualizza gli oggetti appuntati"
     },
     "labels": {
       "entity": "Entità"
     },
     "notifications": {
-      "deleted": "Galleria eliminata."
+      "deleted": "Galleria eliminata.",
+      "pinLimit": {
+        "body": "Per ora puoi appuntare solo 24 oggetti nella prima pagina. Se vuoi appuntare questo elemento, assicurati di sbloccarne un altro e poi prova ad appuntare di nuovo questo.",
+        "title": "Troppi oggetti appuntati"
+      },
+      "pinned": "L'articolo è stato appuntato. Ora è in cima alla prima pagina di questa collezione. Potrebbe richiedere fino a 24 ore per apparire per tutti.",
+      "pinnedFirstPage": "L'articolo è stato appuntato. Potrebbe richiedere fino a 24 ore per apparire per tutti.",
+      "unpinned": "L'elemento è stato sbloccato. Non è più in cima alla prima pagina di questa raccolta. Potrebbero essere necessarie fino a 24 ore per scomparire per tutti.",
+      "unpinnedFirstPage": "L'elemento è stato sbloccato. Potrebbero essere necessari fino a 24 ore per scomparire per tutti."
+    },
+    "prompts": {
+      "pin": "Sei sicuro di voler appuntare questo elemento? Questo elemento verrà visualizzato nella parte superiore della {entity} \". Questa modifica potrebbe richiedere fino a 24 ore per avere effetto.",
+      "unpin": "Sei sicuro di voler rimuovere questo elemento? Questo elemento smetterà di essere visualizzato nella parte superiore della raccolta \"{entity}\". Questa modifica potrebbe richiedere fino a 24 ore per avere effetto."
     }
   },
   "error": "Errore",
@@ -365,8 +385,8 @@ export default {
     "api": {
       "name": "Cerca",
       "options": {
-        "fulltext": "Elementi con testo completo",
-        "metadata": "Elementi con solo metadati"
+        "fulltext": "Oggetti con testo completo",
+        "metadata": "Oggetti con solo metadati"
       }
     },
     "button": {
@@ -397,10 +417,10 @@ export default {
     },
     "contentTier": {
       "name": "Comprende gli elementi che non soddisfano i nostri criteri di pubblicazione",
-      "notification": "Sono disponibili articoli che non soddisfano i nostri criteri di pubblicazione. Per accedervi, attiva il filtro \"Qualità articolo\" posizionato sotto \"Più filtri\".",
+      "notification": "Sono disponibili oggetti che non soddisfano i nostri criteri di pubblicazione. Per accedervi, attiva il filtro \"Qualità oggetti\" posizionato sotto \"Più filtri\".",
       "options": {
-        "*": "Comprende elementi che non soddisfano i nostri criteri di pubblicazione",
-        "0": "Mostra solo gli articoli che non soddisfano i nostri criteri di pubblicazione"
+        "*": "Comprende oggetti che non soddisfano i nostri criteri di pubblicazione",
+        "0": "Mostra solo gli oggetti che non soddisfano i nostri criteri di pubblicazione"
       }
     },
     "proxy_dc_format": {
@@ -445,7 +465,6 @@ export default {
       "dcFormat": "Formato",
       "dcIdentifier": "Codice di identificazione",
       "dcLanguage": "Lingua",
-      "dcMedium": "Medium",
       "dcPublisher": "Editore",
       "dcRelation": "Relazioni",
       "dcRights": "Diritti",
@@ -465,7 +484,6 @@ export default {
       "dctermsIssued": "Data di uscita",
       "dctermsMedium": "Medium",
       "dctermsProvenance": "Provenienza",
-      "dctermsPublished": "Data di pubblicazione",
       "dctermsReferences": "Fa riferimento a",
       "dctermsSpatial": "Luoghi",
       "dctermsTemporal": "Periodo",
@@ -476,6 +494,7 @@ export default {
       "edmIncorporates": "Incorpora",
       "edmIntermediateProvider": "Intermediario",
       "edmIsDerivativeOf": "È derivato da",
+      "edmIsRelatedTo": "È legato a",
       "edmIsRepresentationOf": "È rappresentazione di",
       "edmIsSimilarTo": "È simile a",
       "edmIsSuccessorOf": "È successore di",
@@ -487,7 +506,8 @@ export default {
       "keywords": "Parole chiave (indicate dalla comunità)",
       "timestampCreated": "Timestamp creato",
       "timestampUpdate": "Timestamp aggiornato",
-      "wasPresentAt": "Era presente presso"
+      "wasPresentAt": "Era presente presso",
+      "year": "Anno"
     },
     "webResource": {
       "about": "Informazioni RDF",
@@ -497,6 +517,8 @@ export default {
       "rdfAbout": "Informazioni RDF"
     }
   },
+  "filter": "Filtro",
+  "filterResults": "Filtra risultati",
   "footer": {
     "customiseWebsiteLanguage": "Personalizza la lingua del sito",
     "disclaimerLine1": "Europeana è un'iniziativa dell'Unione europea, finanziata dal Connecting Europe Facility dell'Unione europea e dagli Stati membri dell'Unione europea. I servizi Europeana, compreso questo sito web, sono gestiti da un consorzio guidato dalla Fondazione Europeana nell'ambito di un contratto di servizio con la Commissione europea.",
@@ -540,7 +562,7 @@ export default {
       "collections": "Collezioni",
       "europeanaClassroom": "Insegnanti",
       "help": "Aiuto",
-      "home": "Casa",
+      "home": "Home",
       "stories": "Storie"
     },
     "searchFor": "Cerca {query}",
@@ -554,9 +576,12 @@ export default {
     "handle": "Dispositivo di scorrimento"
   },
   "items": {
-    "itemCount": "1 articolo | {count} articoli",
-    "itemOf": "{max} di {count} articoli",
-    "youMightLike": "Articoli che potrebbero piacerti"
+    "itemCount": "1 oggetto | {count} oggetti",
+    "itemOf": "{max} di {count} oggetti",
+    "recent": "Oggetti recenti",
+    "recommendationsDisclaimer": "Pollice in su per aggiungere alla galleria - Pollice in giù se non ti piace",
+    "recommended": "Oggetti consigliati",
+    "youMightLike": "Oggetti che potrebbero piacerti"
   },
   "klaro": {
     "main": {
@@ -590,11 +615,16 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Aiuta a migliorare il nostro sito Web applicando occasionalmente modifiche sperimentali.",
+        "title": "Test A/B"
+      },
       "auth-strategy": {
         "description": "Ricorda la strategia di autorizzazione da utilizzare per accedere.",
         "title": "Strategia di autenticazione"
       },
       "debugSettings": {
+        "description": "Aiuta il debug delle richieste API",
         "title": "Alterna il debug"
       },
       "hotjar": {
@@ -625,18 +655,19 @@ export default {
   "learnMore": "Scopri di più sulla fonte di questa descrizione",
   "linksToClassic": {
     "home": {
-      "linkText": "Vai alla versione originale di Europeana.",
-      "text": "Stai sperimentando la nuova esperienza Europeana."
+      "linkText": "Visualizza questa pagina sul sito web originale di Europeana fino al 20 dicembre 2021.",
+      "text": "Stai vedendo l'ultima versione di Europeana."
     },
     "record": {
-      "linkText": "Visualizzalo nella versione originale di Europeana.",
+      "linkText": "Visualizza questo articolo sul sito web originale di Europeana fino al 20 dicembre 2021.",
       "text": "Stai visualizzando questo elemento sul nuovo sito di Europeana."
     },
     "search": {
-      "linkText": "Visualizza i risultati nella versione originale di Europeana.",
+      "linkText": "Cerca sul sito originale di Europeana fino al 20 dicembre 2021.",
       "text": "Stai utilizzando la versione nuova e più veloce del sito."
     }
   },
+  "loading": "Caricamento",
   "loadingResults": "Caricamento dei risultati in corso",
   "mediaPreview": {
     "selectItem": "Selezionare la voce {src}"
@@ -647,10 +678,20 @@ export default {
     "notFound": "Non trovati",
     "paginationLimitExceeded": "È possibile visualizzare solo i primi {limit} risultati di ricerca."
   },
+  "modal": {
+    "download": {
+      "clickToCopy": "Clicca sull'attribuzione per copiarla",
+      "modalIntro": "Se utilizzi questo elemento sul Web o altrove, non dimenticare di visualizzare la seguente attribuzione accanto ad esso:",
+      "modalTitle": "Dii grazie"
+    }
+  },
   "multilingual": {
-    "original": "Metadati originali",
-    "originalLanguage": "lingua originale",
-    "other": "Altre lingue"
+    "automated": "Traduzione automatica",
+    "enrichment": "Arricchimento da parte dei progetti partner",
+    "other": "Altre lingue",
+    "stopTranslating": "Smetti di tradurre questo elemento in {0}.",
+    "translateLanguage": "Vuoi vedere questo articolo in {0} ?",
+    "translateQuotaError": "Il servizio di traduzione è momentaneamente non disponibile. Per favore riprova più tardi."
   },
   "newWindow": "si apre in una nuova finestra",
   "noMoreResults": "Non ci sono altri risultati per la tua query di ricerca.",
@@ -658,6 +699,18 @@ export default {
   "pageHasLoaded": "ha caricato",
   "pages": {
     "collections": {
+      "organisations": {
+        "table": {
+          "name": "Nome"
+        },
+        "title": "Organizzazioni"
+      },
+      "persons": {
+        "title": "Persone"
+      },
+      "table": {
+        "name": "Nome"
+      },
       "times": {
         "title": "Tempi"
       },
@@ -681,7 +734,7 @@ export default {
     "mediaPlayer": "Lettore multimediale",
     "record": "Documentazione",
     "showAll": "Mostra tutte le informazioni",
-    "similarItems": "Elementi simili",
+    "similarItems": "Oggetti simili",
     "transcription": "Trascrizione",
     "transcriptionDisclaimer": "Questo contenuto è stato creato dagli utenti, non dall'istituzione che ha fornito l'articolo.",
     "view": {
@@ -704,12 +757,12 @@ export default {
   "searchSuggestions": "Suggerimenti di ricerca",
   "searchTier": {
     "button": {
-      "hide": "Nascondi questi elementi",
-      "show": "Mostra questi elementi"
+      "hide": "Nascondi questi oggetti",
+      "show": "Mostra questi oggetti"
     },
     "text": {
-      "hide": "Vengono visualizzati gli elementi che non soddisfano i nostri criteri di pubblicazione.",
-      "show": "Altri elementi corrispondono alla tua ricerca ma non soddisfano i nostri criteri di pubblicazione."
+      "hide": "Vengono visualizzati gli oggetti che non soddisfano i nostri criteri di pubblicazione.",
+      "show": "Altri oggetti corrispondono alla tua ricerca ma non soddisfano i nostri criteri di pubblicazione."
     }
   },
   "searchViews": {
@@ -738,14 +791,16 @@ export default {
     "notifications": {
       "deleted": "Galleria eliminata.",
       "likeLimit": {
-        "body": "Siamo spiacenti, ma al momento puoi mettere Mi piace a un massimo di 100 articoli. Presto elimineremo questo limite!",
+        "body": "Siamo spiacenti, ma al momento puoi mettere Mi piace a un massimo di 100 oggetti. Presto elimineremo questo limite!",
         "title": "100 Mi piace"
-      }
+      },
+      "updated": "L'elemento è stato aggiunto alla galleria."
     },
     "prompts": {
-      "delete": "Continuare? Se elimini questa galleria, perderai tutti gli articoli che hai aggiunto."
+      "delete": "Continuare? Se elimini questa galleria, perderai tutti gli oggetti che hai aggiunto."
     }
   },
   "showLess": "Mostra meno",
-  "showMore": "Mostra di più"
+  "showMore": "Mostra di più",
+  "website": "Sito web"
 };

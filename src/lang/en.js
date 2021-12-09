@@ -54,8 +54,9 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Recent items",
-    "time": "Featured centuries",
-    "topic": "Featured topics"
+    "organisation": "Organisations",
+    "time": "Centuries",
+    "topic": "Topics"
   },
   "blog": {
     "author": "Author",
@@ -71,6 +72,7 @@ export default {
   "cardLabels": {
     "organisation": "Organisation",
     "person": "Person",
+    "theme": "Theme",
     "time": "Century",
     "topic": "Topic"
   },
@@ -464,7 +466,6 @@ export default {
       "dcFormat": "Format",
       "dcIdentifier": "Identifier",
       "dcLanguage": "Language",
-      "dcMedium": "Medium",
       "dcPublisher": "Publisher",
       "dcRelation": "Relations",
       "dcRights": "Rights",
@@ -484,7 +485,6 @@ export default {
       "dctermsIssued": "Issue date",
       "dctermsMedium": "Medium",
       "dctermsProvenance": "Provenance",
-      "dctermsPublished": "Publication date",
       "dctermsReferences": "References",
       "dctermsSpatial": "Places",
       "dctermsTemporal": "Temporal",
@@ -495,6 +495,7 @@ export default {
       "edmIncorporates": "Incorporates",
       "edmIntermediateProvider": "Intermediate provider",
       "edmIsDerivativeOf": "Is derivative of",
+      "edmIsRelatedTo": "Is related to",
       "edmIsRepresentationOf": "Is representation of",
       "edmIsSimilarTo": "Is similar to",
       "edmIsSuccessorOf": "Is successor of",
@@ -517,6 +518,8 @@ export default {
       "rdfAbout": "RDF About"
     }
   },
+  "filter": "Filter",
+  "filterResults": "Filter results",
   "footer": {
     "customiseWebsiteLanguage": "Customise website language",
     "disclaimerLine1": "Europeana is an initiative of the European Union, financed by the European Union’s Connecting Europe Facility and European Union Member States. The Europeana services, including this website, are operated by a consortium led by the Europeana Foundation under a service contract with the European Commission.",
@@ -613,6 +616,10 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Helps to improve our website by occasionally applying experimental changes.",
+        "title": "A/B testing"
+      },
       "auth-strategy": {
         "description": "Remembers the authorization strategy to use to log in.",
         "title": "Auth Strategy"
@@ -640,10 +647,6 @@ export default {
       "searchResultsView": {
         "description": "Remembers if you prefer to see the search results in a list or grid view.",
         "title": "Search result view (list/grid)"
-      },
-      "abTest": {
-        "description": "Helps to improve our website by occasionally applying experimental changes.",
-        "title": "A/B testing"
       }
     }
   },
@@ -653,16 +656,13 @@ export default {
   "learnMore": "Learn about the source of this description",
   "linksToClassic": {
     "home": {
-      "linkText": "Go to the original Europeana.",
-      "text": "You're viewing the new Europeana experience."
+      "linkText": "View this page on the original Europeana website till 20th December 2021."
     },
     "record": {
-      "linkText": "View this item in the original Europeana.",
-      "text": "You're viewing this item in the new Europeana website."
+      "linkText": "View this item on the original Europeana website till 20th December 2021."
     },
     "search": {
-      "linkText": "View these search results in the original Europeana.",
-      "text": "You're searching in our new and faster website."
+      "linkText": "Search on the original Europeana website till 20th December 2021."
     }
   },
   "loading": "Loading",
@@ -685,12 +685,11 @@ export default {
   },
   "multilingual": {
     "automated": "Automated translation",
-    "currentLanguage": "Would you like to see this item in {0}?",
-    "differentLanguage": "a different language",
     "enrichment": "Enrichment by partner projects",
-    "original": "Original metadata",
-    "originalLanguage": "original language",
-    "other": "Other languages"
+    "other": "other languages",
+    "stopTranslating": "Stop translating this item to {0}.",
+    "translateLanguage": "Would you like to see this item in {0}?",
+    "translateQuotaError": "Translation service is temporarily unavailable. Please try again later."
   },
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
@@ -706,6 +705,9 @@ export default {
       },
       "persons": {
         "title": "Persons"
+      },
+      "table": {
+        "name": "Name"
       },
       "times": {
         "title": "Times"
