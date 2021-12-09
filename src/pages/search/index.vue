@@ -3,22 +3,25 @@
     <NotificationBanner
       v-if="redirectNotificationsEnabled && !sideFiltersEnabled"
       :notification-url="notificationUrl"
-      :notification-text="$t('linksToClassic.search.text')"
       :notification-link-text="$t('linksToClassic.search.linkText')"
       class="mb-3"
     />
     <b-container
       data-qa="search page"
-      :class="{'page-container': sideFiltersEnabled}"
+      :class="{'page-container side-filters-enabled': sideFiltersEnabled}"
     >
-      <b-row>
+      <b-row
+        class="flex-row-reverse"
+      >
+        <SideFilters
+          v-if="sideFiltersEnabled"
+        />
         <b-col
           :class="{'px-0': !sideFiltersEnabled}"
         >
           <NotificationBanner
             v-if="redirectNotificationsEnabled && sideFiltersEnabled"
             :notification-url="notificationUrl"
-            :notification-text="$t('linksToClassic.search.text')"
             :notification-link-text="$t('linksToClassic.search.linkText')"
             class="notification-banner mb-3"
           />
@@ -44,9 +47,6 @@
             :per-row="4"
           />
         </b-col>
-        <SideFilters
-          v-if="sideFiltersEnabled"
-        />
       </b-row>
     </b-container>
   </div>
@@ -108,23 +108,27 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
+  @import '@/assets/scss/variables';
 
   h1 {
     font-size: 1.875rem;
     font-weight: 300;
     line-height: 1.375;
     margin-bottom: 1rem;
+
     span {
       font-weight: 600;
     }
   }
+
   .page-container {
     max-width: none;
   }
+
   .notification-banner {
     margin-left: -15px;
     margin-right: -15px;
     width: auto;
+    min-height: 2.5rem; // aligns with the side filters header
   }
 </style>

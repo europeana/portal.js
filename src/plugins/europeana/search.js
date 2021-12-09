@@ -27,24 +27,6 @@ export const unquotableFacets = [
   'VIDEO_HD'
 ];
 
-// Thematic collections available via the `collection` qf
-// filter. Order is significant as it will be reflected on search results.
-export const thematicCollections = [
-  'ww1',
-  'archaeology',
-  'art',
-  'fashion',
-  'industrial',
-  'manuscript',
-  'map',
-  'migration',
-  'music',
-  'nature',
-  'newspaper',
-  'photography',
-  'sport'
-];
-
 /**
  * Construct a range query from two values, if keys are omitted they will default to '*'
  * @param {Object[]} values An object containing 'start' and 'end' values
@@ -101,17 +83,21 @@ export default (context) => ($axios, params, options = {}) => {
   const searchParams = {
     ...$axios.defaults.params,
     facet: params.facet,
-    profile: params.profile,
+    profile: params.profile || '',
     qf: addContentTierFilter(params.qf),
     query: options.escape ? escapeLuceneSpecials(query) : query,
     reusability: params.reusability,
     rows,
     start
   };
-  const targetLocale = 'en';
-  if (options.locale && options.locale !== targetLocale) {
-    searchParams['q.source'] = options.locale;
-    searchParams['q.target'] = targetLocale;
+
+  if (context?.$config?.app?.search?.translateLocales?.includes(options.locale)) {
+    const targetLocale = 'en';
+    if (options.locale && (options.locale !== targetLocale)) {
+      searchParams.profile = `${searchParams.profile},translate`;
+      searchParams['q.source'] = options.locale;
+      searchParams['q.target'] = targetLocale;
+    }
   }
 
   return $axios.get(`${options.url || ''}/search.json`, {

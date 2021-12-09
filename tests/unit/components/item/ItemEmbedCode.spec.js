@@ -63,18 +63,18 @@ describe('components/item/ItemEmbedCode', () => {
     });
 
     it('is shown in a textarea', () => {
-      wrapper.find('#shareEmbed').element.value.should.eq(html);
+      wrapper.find('#share-embed').element.value.should.eq(html);
     });
 
     context('when textarea is clicked', () => {
       it('copies the embed code to the clipboard', async() => {
-        await wrapper.find('#shareEmbed').trigger('click');
+        await wrapper.find('#share-embed').trigger('click');
 
         document.execCommand.should.be.calledWith('copy');
       });
 
       it('shows a notification message', async() => {
-        await wrapper.find('#shareEmbed').trigger('click');
+        await wrapper.find('#share-embed').trigger('click');
 
         wrapper.find('[data-qa="share embed copied notice"]').isVisible().should.equal(true);
       });

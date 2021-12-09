@@ -67,10 +67,11 @@
   </script>
 
   <style lang="scss" scoped>
-    @import '@/assets/scss/variables.scss';
+    @import '@/assets/scss/variables';
+
     .collections-page {
       background-color: $white;
       margin-top: -3rem;
-      padding: 3rem 0 7rem
+      padding: 3rem 0 7rem;
     }
   </style>

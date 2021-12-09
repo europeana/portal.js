@@ -54,6 +54,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Oġġetti reċenti",
+    "organisation": "Organizzazzjonijiet",
     "time": "Sekli dehru",
     "topic": "Suġġetti temi"
   },
@@ -516,6 +517,8 @@ export default {
       "rdfAbout": "Dwar RDF"
     }
   },
+  "filter": "Filtru",
+  "filterResults": "Riżultati tal-filtru",
   "footer": {
     "customiseWebsiteLanguage": "Ippersonalizza l-lingwa tas-sit web",
     "disclaimerLine1": "Europeana hija inizjattiva tal-Unjoni Ewropea, iffinanzjata mill- Connecting Europe Facility tal-Unjoni Ewropea u l-Istati Membri tal-Unjoni Ewropea. Is-servizzi tal-Europeana, inkluż din il-websajt, huma mħaddma minn konsorzju mmexxi mill-Fondazzjoni Europeana taħt kuntratt ta ’servizz mal-Kummissjoni Ewropea.",
@@ -652,15 +655,15 @@ export default {
   "learnMore": "Tgħallem aktar dawr is-sors ta' din id-deskrizzjoni",
   "linksToClassic": {
     "home": {
-      "linkText": "Mur fl-Europeana oriġinali.",
+      "linkText": "Ara din il-paġna fuq il-websajt oriġinali ta' Europeana sal-20 ta' Diċembru 2021.",
       "text": "Qed tara l-esperjenza ta' Europeana ġdida."
     },
     "record": {
-      "linkText": "Ara dan l-oġġett fl-Europeana oriġinali.",
+      "linkText": "Ara dan l-oġġett fuq il-websajt oriġinali ta' Europeana sal-20 ta' Diċembru 2021.",
       "text": "Qed tara dan l-oġġett fis-sit web il-ġdid ta' Europeana."
     },
     "search": {
-      "linkText": "Ara dawn ir-riżultati tat-tiftix fl-Europeana oriġinali.",
+      "linkText": "Fittex fuq il-websajt oriġinali tal-Europeana sal-20 ta' Diċembru 2021.",
       "text": "Qed tfittex fis-sit web ġdid u aktar veloċi tagħna."
     }
   },
@@ -686,7 +689,7 @@ export default {
     "automated": "Traduzzjoni awtomatizzata",
     "enrichment": "Arrikkiment minn proġetti msieħba",
     "other": "Lingwi oħra",
-    "stopTranslating": "Waqqaf it-traduzzjoni ta 'dan l-oġġett għal {0} .",
+    "stopTranslating": "Waqqaf it-traduzzjoni ta 'dan l-oġġett għal {0}.",
     "translateLanguage": "Tixtieq tara dan l-oġġett f ' {0} ?",
     "translateQuotaError": "Is-servizz tat-traduzzjoni temporanjament mhux disponibbli. Jekk jogħġbok erġa' pprova aktar tard."
   },

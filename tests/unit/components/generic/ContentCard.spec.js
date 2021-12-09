@@ -68,6 +68,13 @@ describe('components/generic/ContentCard', () => {
           'https://www.europeana.eu/en/collections/topic/207-byzantine-art',
           { name: 'collections___en', params: { type: 'topic' } }
         ]
+      },
+      {
+        type: 'collections',
+        urls: [
+          'https://www.europeana.eu/en/collections/topic/83-world-war-i',
+          { name: 'collections___en', params: { type: 'topic', pathMatch: '83' } }
+        ]
       }
     ];
 
@@ -80,7 +87,13 @@ describe('components/generic/ContentCard', () => {
 
             const label =  wrapper.find('[data-qa="content card"] .card-subtitle');
             if (test.type === 'collections') {
-              label.text().should.eq(`cardLabels.${test.urls[1].params.type}`);
+              if (wrapper.vm.themes.some(theme => (typeof url === 'string' && url.includes(theme))
+              || theme === url.params?.pathMatch)) {
+                // TO DO remove when thematic collections topics get there own 'theme' type
+                label.text().should.eq('cardLabels.theme');
+              } else {
+                label.text().should.eq(`cardLabels.${test.urls[1].params.type}`);
+              }
             } else if (test.type === 'blog') {
               label.text().should.eq('blog.posts');
             } else {
@@ -133,6 +146,22 @@ describe('components/generic/ContentCard', () => {
     });
 
     wrapper.vm.optimisedImageUrl.should.contain('fm=jpg&fl=progressive&q=50&w=510');
+  });
+
+  it('has no image and is of variant mini', async() => {
+    const wrapper = factory();
+    await wrapper.setProps({ imageUrl: null, variant: 'mini' });
+
+    const image =  wrapper.find('[data-qa="content card"] .card-img');
+    image.exists().should.be.false;
+  });
+
+  it('has has an image and is of variant mini', async() => {
+    const wrapper = factory();
+    await wrapper.setProps({ imageUrl: 'https://example.org', variant: 'mini' });
+
+    const image =  wrapper.find('[data-qa="content card"] .card-img');
+    image.exists().should.be.true;
   });
 
   it('highlights the search term if found', async() => {

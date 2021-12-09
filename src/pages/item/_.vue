@@ -3,7 +3,6 @@
     <NotificationBanner
       v-if="redirectNotificationsEnabled"
       :notification-url="notificationUrl"
-      :notification-text="$t('linksToClassic.record.text')"
       :notification-link-text="$t('linksToClassic.record.linkText')"
     />
     <b-container v-if="error">
@@ -425,6 +424,6 @@
 
   ::v-deep .card-header-tabs .nav-link,
   ::v-deep .card-header-tabs .nav-link:hover {
-    border-radius: 0.25rem 0 0 0;
+    border-radius: 0.25rem 0 0;
   }
 </style>

@@ -55,8 +55,8 @@ export default {
   "automatedCardGroup": {
     "item": "Recent items",
     "organisation": "Organisations",
-    "time": "Featured centuries",
-    "topic": "Featured topics"
+    "time": "Centuries",
+    "topic": "Topics"
   },
   "blog": {
     "author": "Author",
@@ -72,6 +72,7 @@ export default {
   "cardLabels": {
     "organisation": "Organisation",
     "person": "Person",
+    "theme": "Theme",
     "time": "Century",
     "topic": "Topic"
   },
@@ -655,16 +656,13 @@ export default {
   "learnMore": "Learn about the source of this description",
   "linksToClassic": {
     "home": {
-      "linkText": "Go to the original Europeana.",
-      "text": "You're viewing the new Europeana experience."
+      "linkText": "View this page on the original Europeana website till 20th December 2021."
     },
     "record": {
-      "linkText": "View this item in the original Europeana.",
-      "text": "You're viewing this item in the new Europeana website."
+      "linkText": "View this item on the original Europeana website till 20th December 2021."
     },
     "search": {
-      "linkText": "View these search results in the original Europeana.",
-      "text": "You're searching in our new and faster website."
+      "linkText": "Search on the original Europeana website till 20th December 2021."
     }
   },
   "loading": "Loading",
