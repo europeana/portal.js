@@ -172,11 +172,12 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
-  @import '@/assets/scss/icons.scss';
+  @import '@/assets/scss/variables';
+  @import '@/assets/scss/icons';
 
   .nav-item {
     margin-right: 1rem;
+
     &:nth-last-child(2) {
       margin-right: 0;
     }
@@ -193,7 +194,7 @@
       }
 
       &.exact-active-link {
-        &:after {
+        &::after {
           content: '';
           position: absolute;
           border-bottom: solid 3px $blue;
@@ -206,8 +207,9 @@
         }
       }
 
-      &.is-external-link:after {
-        @extend .icon-font;
+      &.is-external-link::after {
+        @extend %icon-font;
+
         content: '\e900';
       }
 
@@ -216,44 +218,57 @@
         font-size: 1rem;
         z-index: 1;
         margin-right: 0.75rem;
-        &:before {
-          @extend .icon-font;
+
+        &::before {
+          @extend %icon-font;
+
           content: '';
           color: $black;
           transition: $standard-transition;
           font-size: 1.5rem;
         }
-        &.icon-home:before {
+
+        &.icon-home::before {
           content: '\e922';
         }
-        &.icon-collections:before {
+
+        &.icon-collections::before {
           content: '\e91d';
         }
-        &.icon-school:before {
+
+        &.icon-school::before {
           content: '\e947';
         }
-        &.icon-info:before {
+
+        &.icon-info::before {
           content: '\e91f';
         }
-        &.icon-help:before {
+
+        &.icon-help::before {
           content: '\e921';
         }
-        &.icon-login:before {
+
+        &.icon-login::before {
           content: '\e926';
         }
-        &.icon-logout:before {
+
+        &.icon-logout::before {
           content: '\e927';
         }
-        &.icon-settings:before {
+
+        &.icon-settings::before {
           content: '\e928';
         }
-        &.icon-account:before {
+
+        &.icon-account::before {
           content: '\e932';
         }
-        &.icon-stories:before {
+
+        &.icon-stories::before {
           content: '\e935';
         }
-        &.blank:before {
+
+        &.blank::before {
           color: transparent;
         }
       }
@@ -261,15 +276,19 @@
 
     &.sidebar-nav-item {
       width: 100%;
-      margin: 0 0 0.25rem 0;
+      margin: 0 0 0.25rem;
       position: relative;
       margin-right: 0;
+
       &:nth-last-child(2) {
         margin-right: 0;
       }
-      &:first-of-type, &:last-of-type {
+
+      &:first-of-type,
+      &:last-of-type {
         display: block;
       }
+
       .nav-link {
         text-transform: capitalize;
         font-weight: 400;
@@ -277,16 +296,21 @@
         transition: $standard-transition;
         font-size: $font-size-base;
 
-        &.exact-active-link, &:hover {
+        &.exact-active-link,
+        &:hover {
           color: $white;
           background: $blue;
-          &:before, &:after {
+
+          &::before,
+          &::after {
             display: none;
           }
-          .nav-link-icon:before {
+
+          .nav-link-icon::before {
             color: $white;
           }
         }
+
         span {
           overflow: hidden;
           white-space: nowrap;
@@ -305,9 +329,11 @@
           text-transform: uppercase;
           font-size: $font-size-small;
           font-weight: 600;
+
           span {
             position: relative;
           }
+
           .nav-link-icon {
             display: none;
           }

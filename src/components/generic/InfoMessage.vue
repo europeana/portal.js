@@ -4,7 +4,7 @@
     show
     variant="light"
     data-qa="info notice"
-    class="withIcon d-flex"
+    class="with-icon d-flex"
   >
     <span class="icon-info d-inline-flex" />
     {{ message }}
@@ -40,12 +40,14 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
+  @import '@/assets/scss/variables';
 
   .alert.alert-light {
     font-style: italic;
-    &.withIcon {
+
+    &.with-icon {
       font-style: normal;
+
       .icon-info {
         padding-right: 0.75rem;
         font-size: 24px;

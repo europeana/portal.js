@@ -397,14 +397,16 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
+  @import '@/assets/scss/variables';
 
   .entity-page {
     margin-top: -1rem;
+
     .related-collections {
       padding: 0;
     }
   }
+
   .page-container {
     max-width: none;
   }

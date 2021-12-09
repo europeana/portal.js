@@ -164,6 +164,7 @@
     button {
       margin-right: 1rem;
     }
+
     font-size: 11px;
   }
 </style>

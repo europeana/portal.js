@@ -106,7 +106,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
+  @import '@/assets/scss/variables';
 
   .browse-section {
     h2,
@@ -118,7 +118,7 @@
     h2 {
       font-size: 1.5rem;
       font-weight: 600;
-      letter-spacing: 0.12125rem;
+      letter-spacing: 0.1212rem;
     }
 
     p {

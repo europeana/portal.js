@@ -171,7 +171,7 @@
 
 <style lang="scss" scoped>
   ::v-deep .attribution {
-    &:after {
+    &::after {
       padding-top: 0.2rem;
     }
   }

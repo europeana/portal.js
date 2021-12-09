@@ -144,17 +144,19 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
+  @import '@/assets/scss/variables';
 
   .form-control.is-active {
     border: 1px solid $innovationblue;
     color: $darkblue;
   }
+
   .apply-button {
     height: 2.5rem;
     vertical-align: bottom;
     margin-left: 0.25rem;
   }
+
   .apply-icon {
     transform: rotate(-90deg);
     display: inline-block;

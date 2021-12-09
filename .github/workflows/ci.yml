@@ -52,8 +52,29 @@ jobs:
       cf-app-fqdn: ${{ steps.done.outputs.cf-app-fqdn }}
       cf-space:  ${{ steps.done.outputs.cf-space }}
 
+  test-lint:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 14.x
+    - uses: actions/cache@v2
+      id: cache-node
+      with:
+        path: |
+          ~/.npm
+          **/node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('./package-lock.json') }}
+    - if: steps.cache-node.outputs.cache-hit != 'true'
+      run: npm install
+    - run: npm run lint
+    - run: npm run stylelint
+
   test-unit:
     if: github.event.pull_request.draft == false
+    needs: [test-lint]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -123,7 +144,7 @@ jobs:
 
   test-e2e:
     if: github.event.pull_request.draft == false
-    needs: [config]
+    needs: [config, test-unit]
     runs-on: ubuntu-latest
     env:
       PERCY_PULL_REQUEST: ${{ needs.config.outputs.pull-request-number }}
