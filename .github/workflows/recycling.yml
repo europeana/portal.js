@@ -2,44 +2,44 @@ name: Recycling
 
 # TODO: ideally closing a PR would stop any runs of the ci workflow on the same
 #       PR first.
+# TODO: delete tagged images from Docker Hub
 
 on:
   pull_request:
     types: closed
 
 env:
-  CF_API: https://api.eu-de.cf.cloud.ibm.com
-  CF_APP_NAME_PREFIX: portaljs
-  # TODO: use eanadev.org, requiring interaction with Dyn DNS API
-  CF_DOMAIN: eu-de.cf.appdomain.cloud
-  CF_ORG: europeana-dev
-  CF_PASSWORD: ${{ secrets.CF_PASSWORD }}
-  CF_SPACE: dev
-  CF_USERNAME: apikey
+  IBMCLOUD_API_URL: https://cloud.ibm.com
+  IBMCLOUD_API_KEY: ${{ secrets.IBMCLOUD_API_KEY }}
+  IBMCLOUD_CLUSTER_NAME: europeana-web
+  IBMCLOUD_REGION: eu-de
 
 jobs:
-  info:
+  delete-ibm-cloud:
     runs-on: ubuntu-latest
     steps:
-    - run: echo ${GITHUB_RUN_ID}
-    - run: echo ${GITHUB_ACTOR}
-    - run: echo ${GITHUB_REPOSITORY}
-    - run: echo ${GITHUB_REF}
-    - run: echo ${GITHUB_HEAD_REF}
-    - run: echo ${GITHUB_BASE_REF}
-    - run: echo ${GITHUB_SHA}
-    - run: cat ${GITHUB_EVENT_PATH}
-
-  delete-deployment:
-    runs-on: ubuntu-latest
-    steps:
-    - run: echo "PULL_REQUEST_NUMBER=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
-    - run: echo "CF_APP_NAME=${CF_APP_NAME_PREFIX}-${PULL_REQUEST_NUMBER}" >> $GITHUB_ENV
-    - name: Install CF CLI
+    -
+      name: Checkout
+      uses: actions/checkout@v2
+    -
+      name: Prepare env for resource deletion, step 1
+      run: echo "PULL_REQUEST_NUMBER=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
+    -
+      name: Prepare env for resource deletion, step 2
+      run: echo "K8S_RESOURCE_NAME=portal-js-pr-${PULL_REQUEST_NUMBER}" >> $GITHUB_ENV
+    -
+      name: Install ibmcloud CLI
       run: |
-        wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
-        echo "deb https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
-        sudo apt-get -q update && sudo apt-get -yq install cf7-cli
-    - run: cf login -a ${CF_API} -u ${CF_USERNAME} -p "${CF_PASSWORD}" -o ${CF_ORG} -s ${CF_SPACE}
-    - run: cf delete ${CF_APP_NAME} -f
-    - run: cf delete-route ${CF_DOMAIN} -n ${CF_APP_NAME} -f
+        curl -fsSL https://clis.cloud.ibm.com/install/linux | sh
+        ibmcloud plugin install container-service
+    -
+      name: Login to IBM Cloud
+      run: |
+        ibmcloud login -a ${IBMCLOUD_API_URL} -r ${IBMCLOUD_REGION} --apikey ${IBMCLOUD_API_KEY}
+        ibmcloud ks cluster config --cluster ${IBMCLOUD_CLUSTER_NAME}
+    -
+      name: Delete from K8s
+      run: |
+        kubectl --namespace dev delete ingress/${K8S_RESOURCE_NAME}
+        kubectl --namespace dev delete service/${K8S_RESOURCE_NAME}
+        kubectl --namespace dev delete deployment/${K8S_RESOURCE_NAME}
