@@ -1,6 +1,0 @@
----
-applications:
-- buildpacks:
-  - staticfile_buildpack
-  memory: 64M
-  stack: cflinuxfs3

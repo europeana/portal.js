@@ -6,7 +6,7 @@
   "scripts": {
     "build": "nuxt build",
     "test:unit": "vue-cli-service test:unit --require tests/unit/require.cjs --include tests/unit/setup",
-    "test:e2e": "touch tests/e2e/docker/nightwatch-visual/.env && docker-compose -f ./tests/e2e/docker/docker-compose.yml build -q nightwatch-features && docker-compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-features",
+    "test:e2e": "touch tests/e2e/docker/nightwatch-visual/.env && docker-compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-features",
     "lint": "vue-cli-service lint --no-fix bin src tests/unit *.js",
     "analyze": "nuxt build --analyze",
     "cache": "node --experimental-json-modules --require dotenv/config src/cachers/index.js",
@@ -17,13 +17,13 @@
     "start:inspect": "node --inspect node_modules/.bin/nuxt-cli start",
     "stylelint": "stylelint \"**/*.scss\" \"**/*.vue\" --config .stylelintrc.cjs",
     "test": "npm run test:unit && npm run test:size && npm run test:e2e",
-    "test:size": "npm run build && cd tests/size/ && npm install && npm run start",
+    "test:size": "docker build -t europeana/portal.js-test-size tests/size && [ -e .nuxt/dist ] || npm run build && docker run --mount type=bind,source=\"$(pwd)\"/.nuxt,target=/app/.nuxt --mount type=bind,source=\"$(pwd)\"/tests/size/.size-limit.json,target=/app/.size-limit.json europeana/portal.js-test-size",
     "test:stack:build": "docker-compose -f ./tests/e2e/docker/docker-compose.yml build",
     "test:stack:down": "docker-compose -f ./tests/e2e/docker/docker-compose.yml down",
     "test:stack:rebuild": "docker-compose -f ./tests/e2e/docker/docker-compose.yml down && npm run test:stack:build",
     "test:stack:start": "docker-compose -f ./tests/e2e/docker/docker-compose.yml start app nginx chrome-en chrome-ja chrome-nl",
     "test:stack:stop": "docker-compose -f ./tests/e2e/docker/docker-compose.yml stop app nginx chrome-en chrome-ja chrome-nl",
-    "test:visual": "docker-compose -f ./tests/e2e/docker/docker-compose.yml build -q nightwatch-visual && docker-compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-visual",
+    "test:visual": "touch tests/e2e/docker/nightwatch-visual/.env && docker-compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-visual",
     "version": "node --experimental-json-modules bin/version.js && git add .sonarcloud.properties"
   },
   "dependencies": {
