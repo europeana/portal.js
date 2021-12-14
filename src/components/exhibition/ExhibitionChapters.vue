@@ -92,7 +92,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
+  @import '@/assets/scss/variables';
 
   section {
     counter-reset: chapters;
@@ -111,15 +111,15 @@
     padding: 1rem 2rem;
     position: relative;
     text-transform: none;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgb(0 0 0 / 70%);
     background-size: cover;
     border-radius: $border-radius;
     color: $white;
     text-decoration: none;
 
     &:hover {
-      background-color: rgba(0, 0, 0, 0.7);
-      box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.15);
+      background-color: rgb(0 0 0 / 70%);
+      box-shadow: 2px 2px 6px 0 rgb(0 0 0 / 15%);
       color: $white;
     }
 
@@ -127,18 +127,20 @@
       position: relative;
       z-index: 2;
     }
+
     .number {
       margin-right: 1.5rem;
-      &:before {
+
+      &::before {
         counter-increment: chapters;
         content: counter(chapters, decimal-leading-zero);
         display: inline-block;
       }
     }
 
-    &:after {
+    &::after {
       content: '';
-      background: rgba(0, 0, 0, 0.7);
+      background: rgb(0 0 0 / 70%);
       border-radius: $border-radius;
       height: 100%;
       position: absolute;
@@ -152,18 +154,21 @@
       color: $black;
       margin-bottom: 0;
 
-      &:after {
+      &::after {
         display: none;
       }
+
       &:hover {
         box-shadow: none;
       }
     }
+
     &.nuxt-link-active {
       background-color: $blue;
       background-image: none !important;
       color: $white;
-      &:after {
+
+      &::after {
         display: none;
       }
     }

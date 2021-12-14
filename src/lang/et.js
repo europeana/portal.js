@@ -54,6 +54,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Hiljutised esemed",
+    "organisation": "Organisatsioonid",
     "time": "Esiletõstetud sajandid",
     "topic": "Esile tõstetud teemad"
   },
@@ -516,6 +517,8 @@ export default {
       "rdfAbout": "RDF kohta"
     }
   },
+  "filter": "Filter",
+  "filterResults": "Filtreeri tulemusi",
   "footer": {
     "customiseWebsiteLanguage": "Kohandage veebisaidi keelt",
     "disclaimerLine1": "Europeana on Euroopa Liidu algatus, mida rahastavad Euroopa Liidu Euroopa ühendamise rahastu ja Euroopa Liidu liikmesriigid. Europeana teenuseid, sealhulgas seda veebisaiti, haldab konsortsium, mida juhib sihtasutuse Europeana sihtasutus Euroopa Komisjoni teenuslepingu alusel.",
@@ -652,15 +655,15 @@ export default {
   "learnMore": "Lisateave selle kirjelduse allika kohta",
   "linksToClassic": {
     "home": {
-      "linkText": "Minge algsesse Europeanasse.",
+      "linkText": "Vaadake seda lehte Europeana algsel veebisaidil kuni 20. detsembrini 2021.",
       "text": "Vaatate uut Europeana kogemust."
     },
     "record": {
-      "linkText": "Vaadake seda toodet algses Europeanas.",
+      "linkText": "Vaadake seda üksust Europeana algsel veebisaidil kuni 20. detsembrini 2021.",
       "text": "Vaatate seda toodet uuel Europeana veebisaidil."
     },
     "search": {
-      "linkText": "Vaadake neid tulemusi algses Europeanas.",
+      "linkText": "Otsige Europeana algselt veebisaidilt kuni 20. detsembrini 2021.",
       "text": "Otsite meie uuel ja kiiremal veebisaidil."
     }
   },
@@ -686,7 +689,7 @@ export default {
     "automated": "Automatiseeritud tõlge",
     "enrichment": "Rikastamine partner projektide kaudu",
     "other": "Muud keeled",
-    "stopTranslating": "Lõpetage selle üksuse tõlkimine keelde {0} .",
+    "stopTranslating": "Lõpetage selle üksuse tõlkimine keelde {0}.",
     "translateLanguage": "Kas soovite seda üksust domeenis {0} ?",
     "translateQuotaError": "Tõlketeenus pole ajutiselt saadaval. Palun proovi hiljem uuesti."
   },

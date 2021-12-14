@@ -1,6 +1,9 @@
 # Multi-stage image to build and run europeana/portal.js
 
 # 0. Prevent re-installing npm packages on non-dependency changes to package.json
+#
+# NB: this does not work as intended with Buildx due to its considering timestamps
+# as well as file content for COPY instructions. See https://github.com/docker/docker.github.io/pull/13702
 FROM alpine:3 AS package-json-stripped
 
 WORKDIR /app
@@ -23,25 +26,31 @@ ENV CHROMEDRIVER_SKIP_DOWNLOAD=true \
 
 WORKDIR /app
 
-COPY --from=0 /app/package.json /app/package-lock.json ./
+COPY --from=package-json-stripped /app/package.json /app/package-lock.json ./
 
 RUN NODE_ENV=production npm install
 
+COPY bin ./bin
+COPY *.md .env.example ./
 
-# 2. Build app files
-FROM production-package-install AS production-app-build
+
+# 2. Copy app src
+FROM production-package-install AS production-app-base
 
 RUN npm install
 
-COPY babel.config.cjs .env.example nuxt.config.js package.json package-lock.json *.md ./
-COPY bin ./bin
+COPY package.json package-lock.json .eslintrc.cjs .stylelintrc.cjs babel.config.cjs nuxt.config.js ./
 COPY src ./src
 
+
+# 3. Build app
+
+FROM production-app-base AS production-app-build-nuxt
+
 RUN npm run build
-RUN rm -rf node_modules
 
 
-# 3. Run
+# 4. Run
 FROM production-package-install AS production-app-run
 
 ENV PORT=8080 \
@@ -50,8 +59,8 @@ ENV PORT=8080 \
 
 EXPOSE ${PORT}
 
-WORKDIR /app
-
-COPY --from=production-app-build /app .
+COPY --from=production-app-build-nuxt /app/package.json /app/package-lock.json /app/nuxt.config.js ./
+COPY --from=production-app-build-nuxt /app/src ./src
+COPY --from=production-app-build-nuxt /app/.nuxt ./.nuxt
 
 CMD ["npm", "run", "start"]

@@ -62,8 +62,8 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
-  @import '@/assets/scss/icons.scss';
+  @import '@/assets/scss/variables';
+  @import '@/assets/scss/icons';
 
   .nav-link {
     padding: 0;
@@ -75,17 +75,18 @@
       font-size: 1.5rem;
       z-index: 1;
 
-      &:before {
-        @extend .icon-font;
+      &::before {
+        @extend %icon-font;
+
         content: '\e929';
       }
 
-      &.grid:before {
+      &.grid::before {
         content: '\e92a';
       }
     }
 
-    &:before {
+    &::before {
       background: $white;
       border-radius: 50%;
       box-sizing: border-box;
@@ -95,7 +96,7 @@
       position: absolute;
       transform: scale(0);
       transition-duration: 0.15s;
-      transition-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
       transition-property: transform, opacity;
       bottom: -10px;
       left: -10px;
@@ -104,7 +105,7 @@
       z-index: -1;
     }
 
-    &:hover:before {
+    &:hover::before {
       opacity: 1;
       transform: scale(1);
     }
@@ -116,7 +117,8 @@
 
     &.active {
       cursor: default;
-      &:before {
+
+      &::before {
         opacity: 0;
         transform: scale(0);
       }

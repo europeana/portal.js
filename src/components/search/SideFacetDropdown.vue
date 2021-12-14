@@ -121,8 +121,7 @@
         CHECKBOX: 'checkbox',
         preSelected: null,
         fetched: false,
-        fields: [],
-        nada: null
+        fields: []
       };
     },
 
@@ -231,7 +230,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
+  @import '@/assets/scss/variables';
 
   .facet-label {
     font-size: $font-size-extrasmall;

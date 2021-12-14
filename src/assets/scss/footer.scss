@@ -51,7 +51,8 @@ footer {
         &.is-external-link::after {
           content: '\e900';
           color: $white;
-          @extend .icon-font;
+
+          @extend %icon-font;
         }
       }
     }
@@ -75,7 +76,7 @@ footer {
           width: 2.5rem;
 
           &:hover {
-            background: rgba(255, 255, 255, 0.75);
+            background: rgb(255 255 255 / 75%);
             text-decoration: none;
           }
 
@@ -100,10 +101,11 @@ footer {
       padding-left: 1rem;
       padding-right: 1rem;
 
-      &:before {
+      &::before {
         content: '\e905';
         margin-right: 0.5rem;
-        @extend .icon-font;
+
+        @extend %icon-font;
       }
     }
 

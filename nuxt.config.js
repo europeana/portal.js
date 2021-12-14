@@ -35,6 +35,9 @@ export default {
       internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
       schemaOrgDatasetId: process.env.SCHEMA_ORG_DATASET_ID,
       siteName: APP_SITE_NAME,
+      search: {
+        translateLocales: (process.env.APP_SEARCH_TRANSLATE_LOCALES || '').split(',')
+      },
       features: {
         abTests: featureIsEnabled(process.env.ENABLE_AB_TESTS),
         jiraServiceDeskFeedbackForm: featureIsEnabled(process.env.ENABLE_JIRA_SERVICE_DESK_FEEDBACK_FORM),
@@ -369,6 +372,7 @@ export default {
     // access to Europeana APIs.
     { path: '/_api', handler: '~/server-middleware/api' },
     '~/server-middleware/logging',
+    '~/server-middleware/referrer-policy',
     '~/server-middleware/record-json'
   ],
 
@@ -387,6 +391,10 @@ export default {
         config.devtool = 'source-map';
       }
     },
+
+    // Prevent irrelevant postcss warnings
+    // See https://github.com/postcss/postcss/issues/1375
+    postcss: null,
 
     publicPath: buildPublicPath()
   },

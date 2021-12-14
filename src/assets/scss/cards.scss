@@ -5,56 +5,69 @@
   color: $black;
   border: none;
   transition: box-shadow 0.25s;
+
   @at-root .text-page &.default-card {
     background: $bodygrey;
   }
+
   &:hover {
     box-shadow: $boxshadow-small;
     transition: box-shadow 0.25s;
   }
+
   a {
     text-decoration: none;
   }
+
   .card-body {
     padding: 0.625rem 1rem 0.5rem;
   }
+
   .card-title {
     color: $blue;
     font-size: 1.5rem;
     line-height: 1.75rem;
     margin-bottom: 0.25rem;
   }
+
   .card-text {
     font-weight: 700;
     font-size: $font-size-extrasmall;
     line-height: 1.75rem;
   }
+
   .card-img {
-    @extend .icon-font;
+    @extend %icon-font;
+
     font-size: 2rem;
     margin-top: 1rem;
+
     .ic-3d {
-      &:after {
+      &::after {
         content: '\e942';
       }
     }
+
     .ic-video {
-      &:after {
+      &::after {
         content: '\e943';
       }
     }
+
     .ic-sound {
-      &:after {
+      &::after {
         content: '\e944';
       }
     }
+
     .ic-text {
-      &:after {
+      &::after {
         content: '\e945';
       }
     }
+
     .ic-image {
-      &:after {
+      &::after {
         content: '\e946';
       }
     }
@@ -93,6 +106,7 @@
     max-height: 13rem;
     min-height: 13rem;
     width: 100%;
+
     &.placeholder {
       background: $offwhite;
     }
@@ -116,10 +130,11 @@
     max-height: 1.1875rem;
     margin-bottom: 0.75rem;
     overflow: hidden;
-    display: -webkit-box;
+    display: box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
   }
+
   .card-subtitle {
     color: $mediumgrey;
     font-size: $font-size-extrasmall;
@@ -140,7 +155,7 @@
     p {
       max-height: 4.75rem;
       overflow: hidden;
-      display: -webkit-box;
+      display: box;
       -webkit-line-clamp: 4;
       -webkit-box-orient: vertical;
     }
@@ -154,6 +169,7 @@
     min-height: 100%;
     color: $black;
     z-index: 1;
+
     &:hover {
       color: $black;
     }
@@ -169,9 +185,11 @@
       white-space: nowrap;
     }
 
-    &:after {
+    &::after {
       content: '\e900';
-      @extend .icon-font;
+
+      @extend %icon-font;
+
       margin-left: 5px;
     }
   }
@@ -179,6 +197,7 @@
   &.entity-card {
     .card-img {
       position: relative;
+
       &::after {
         border-bottom: 88px solid $white;
         border-left: 44px solid transparent;
@@ -240,7 +259,8 @@
     .card-link {
       display: initial;
 
-      &:hover, &:focus {
+      &:hover,
+      &:focus {
         color: $blue;
       }
     }
@@ -259,7 +279,7 @@
         height: 100%;
       }
 
-      &:after {
+      &::after {
         content: '';
         display: block;
         padding-bottom: 100%;
@@ -276,17 +296,20 @@
   &.create-card {
     background: $white;
     cursor: pointer;
+
     .card-inner {
       min-height: 18rem;
       margin: 1rem;
       background-color: $bodygrey;
       flex-direction: column;
     }
+
     .card-title {
       display: block;
       max-height: none;
       line-height: 1.5;
     }
+
     .icon-ic-add {
       color: #4d4d4d;
       font-size: 3.5rem;
@@ -318,7 +341,7 @@
           position: absolute;
         }
 
-        &:after {
+        &::after {
           content: '';
           display: block;
           padding-bottom: 100%;
@@ -329,6 +352,7 @@
           display: flex;
           justify-content: center;
           align-items: center;
+
           img {
             height: auto;
             width: auto;
@@ -341,7 +365,7 @@
         word-break: break-word;
         max-height: 3.5625rem;
         overflow: hidden;
-        display: -webkit-box;
+        display: box;
         -webkit-line-clamp: 3;
       }
 
@@ -492,28 +516,60 @@
   }
 
   .card-deck-3-cols .card {
-    flex: 0 0 calc(100% / 3 - #{$grid-gutter*2});
+    flex: 0 0 calc(100% / 3 - #{$grid-gutter * 2});
   }
 
   .card-deck-4-cols .card {
-    flex: 0 0 calc(100% / 2 - #{$grid-gutter*2});
+    flex: 0 0 calc(100% / 2 - #{$grid-gutter * 2});
   }
+
   .card-deck-4-cols.narrow-gutter .card {
-    flex: 0 0 calc(100% / 2 - #{$grid-gutter-narrow*2});
+    flex: 0 0 calc(100% / 2 - #{$grid-gutter-narrow * 2});
   }
 }
 
 @media (min-width: $bp-large) {
   .card-deck-4-cols .card {
-    flex: 0 0 calc(100% / 4 - #{$grid-gutter*2});
+    flex: 0 0 calc(100% / 4 - #{$grid-gutter * 2});
   }
+
   .card-deck-4-cols.narrow-gutter .card {
-    flex: 0 0 calc(100% / 4 - #{$grid-gutter-narrow*2});
+    flex: 0 0 calc(100% / 4 - #{$grid-gutter-narrow * 2});
+  }
+}
+
+.side-filters-enabled {
+  @media (min-width: $bp-medium) {
+    .card-deck-3-cols,
+    .card-deck-4-cols {
+      .card {
+        flex: 0 0 calc(100% / 2 - #{$grid-gutter * 2});
+      }
+    }
+  }
+
+  @media (min-width: $bp-large) {
+    .card-deck-3-cols,
+    .card-deck-4-cols {
+      .card {
+        flex: 0 0 calc(100% / 3 - #{$grid-gutter * 2});
+      }
+    }
+  }
+
+  @media (min-width: $bp-extralarge) {
+    .card-deck-3-cols,
+    .card-deck-4-cols {
+      .card {
+        flex: 0 0 calc(100% / 4 - #{$grid-gutter * 2});
+      }
+    }
   }
 }
 
 .masonry-container {
   width: 100%;
+
   @media (max-width: $bp-medium) {
     &[style] {
       height: auto !important;
@@ -523,7 +579,7 @@
   @media (min-width: $bp-medium) {
     margin-left: -15px;
     margin-right: -15px;
-    width: calc(100% + #{$grid-gutter*2});
+    width: calc(100% + #{$grid-gutter * 2});
   }
 
   .content-card {
@@ -531,6 +587,7 @@
     display: inline-block;
     vertical-align: top;
     width: 100%;
+
     @media (max-width: $bp-medium) {
       &[style] {
         position: relative !important;
@@ -542,15 +599,15 @@
     @media (min-width: $bp-medium) {
       margin-left: 15px;
       margin-right: 15px;
-      width: calc(100% / 2 - #{$grid-gutter*2});
+      width: calc(100% / 2 - #{$grid-gutter * 2});
     }
 
     @media (min-width: $bp-large) {
-      width: calc(100% / 4 - #{$grid-gutter*2});
+      width: calc(100% / 4 - #{$grid-gutter * 2});
     }
 
     a {
-      &:before {
+      &::before {
         box-shadow: $boxshadow-small;
         content: '';
         height: 100%;
@@ -560,10 +617,11 @@
       }
 
       &:hover {
-        &:before {
+        &::before {
           box-shadow: $boxshadow-large;
         }
       }
+
       .card-img {
         min-height: 12rem;
         max-height: none;
@@ -584,6 +642,22 @@
       }
     }
   }
+
+  @at-root .side-filters-enabled & {
+    .content-card {
+      @media (min-width: $bp-medium) {
+        width: calc(100% / 2 - #{$grid-gutter * 2});
+      }
+
+      @media (min-width: $bp-large) {
+        width: calc(100% / 3 - #{$grid-gutter * 2});
+      }
+
+      @media (min-width: $bp-extralarge) {
+        width: calc(100% / 4 - #{$grid-gutter * 2});
+      }
+    }
+  }
 }
 
 .browse-section {
@@ -599,11 +673,13 @@
     justify-content: center;
     margin-right: -$grid-gutter;
     margin-left: -$grid-gutter;
+
     .card {
-      flex: 0 0 calc(100% / 2 - #{$grid-gutter*2});
+      flex: 0 0 calc(100% / 2 - #{$grid-gutter * 2});
       margin: $grid-gutter;
+
       @media (min-width: $bp-medium) {
-        flex: 0 0 calc(100% / 3 - #{$grid-gutter*2});
+        flex: 0 0 calc(100% / 3 - #{$grid-gutter * 2});
       }
     }
   }

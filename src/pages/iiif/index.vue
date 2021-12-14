@@ -330,11 +330,12 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
+  @import '@/assets/scss/variables';
 
   ::v-deep .mirador-thumbnail-nav-canvas:focus {
     outline: 2px solid $blue !important;
   }
+
   ::v-deep .mirador-thumb-navigation {
     height: 100px !important;
   }

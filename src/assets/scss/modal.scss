@@ -3,18 +3,22 @@
     max-width: 560px;
     margin-top: 10rem;
   }
+
   .modal-content {
     border: none;
+
     .modal-header {
       border-bottom: none;
-      padding: 1.5rem 1.5rem 0 1.5rem;
+      padding: 1.5rem 1.5rem 0;
     }
+
     .modal-title {
       font-size: 2.125rem;
       font-weight: 600;
     }
+
     .modal-body {
-      padding: 1rem 1.5rem 1.5rem 1.5rem;
+      padding: 1rem 1.5rem 1.5rem;
 
       form {
         label {
@@ -30,9 +34,11 @@
           height: 3rem;
           padding: 1rem;
           color: $black;
+
           &:focus {
             border-color: $innovationblue;
           }
+
           &.is-invalid {
             border-color: $red;
           }
@@ -46,7 +52,7 @@
           border-color: $mediumgrey;
         }
 
-        .custom-control-input:checked~.custom-control-label::before {
+        .custom-control-input:checked ~ .custom-control-label::before {
           background-color: $blue;
           border-color: $blue;
         }
@@ -68,9 +74,11 @@
   .modal-footer {
     border: 0;
     justify-content: space-between;
-    padding: 1rem 0 0 0;
+    padding: 1rem 0 0;
+
     .btn-danger {
       margin-right: 0.5rem;
+
       &:hover {
         background-color: #dc3545;
         border-color: #dc3545;

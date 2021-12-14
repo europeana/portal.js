@@ -12,7 +12,6 @@
       <NotificationBanner
         v-if="showNotificationBanner"
         :notification-url="notificationUrl"
-        :notification-text="$t('linksToClassic.home.text')"
         :notification-link-text="$t('linksToClassic.home.linkText')"
         class="mb-3"
       />
