@@ -94,15 +94,22 @@ jobs:
       -
         name: Check code linting
         run: |
-          docker run --mount type=bind,source="$(pwd)"/tests,target=/app/tests ${DOCKER_REPOSITORY}:${{ steps.meta.outputs.version }} npm run lint
+          docker run \
+            --mount type=bind,source="$(pwd)"/tests,target=/app/tests \
+            --mount type=bind,source="$(pwd)"/bin,target=/app/bin \
+            ${DOCKER_REPOSITORY}:${{ steps.meta.outputs.version }} npm run lint
       -
         name: Check style linting
         run: |
-          docker run --mount type=bind,source="$(pwd)"/tests,target=/app/tests ${DOCKER_REPOSITORY}:${{ steps.meta.outputs.version }} npm run stylelint
+          docker run \
+            --mount type=bind,source="$(pwd)"/tests,target=/app/tests \
+            ${DOCKER_REPOSITORY}:${{ steps.meta.outputs.version }} npm run stylelint
       -
         name: Run unit tests
         run: |
-          docker run --mount type=bind,source="$(pwd)"/tests,target=/app/tests ${DOCKER_REPOSITORY}:${{ steps.meta.outputs.version }} npm run test:unit
+          docker run \
+            --mount type=bind,source="$(pwd)"/tests,target=/app/tests \
+            ${DOCKER_REPOSITORY}:${{ steps.meta.outputs.version }} npm run test:unit
 
   # Build, and push to Docker Hub, full production Docker image for use throughout
   # other jobs
