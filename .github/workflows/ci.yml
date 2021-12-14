@@ -96,13 +96,14 @@ jobs:
         run: |
           docker run \
             --mount type=bind,source="$(pwd)"/tests,target=/app/tests \
+            --mount type=bind,source="$(pwd)"/.eslintrc.cjs,target=/app/.eslintrc.cjs \
             --mount type=bind,source="$(pwd)"/bin,target=/app/bin \
             ${DOCKER_REPOSITORY}:${{ steps.meta.outputs.version }} npm run lint
       -
         name: Check style linting
         run: |
           docker run \
-            --mount type=bind,source="$(pwd)"/tests,target=/app/tests \
+            --mount type=bind,source="$(pwd)"/.stylelintrc.cjs,target=/app/.stylelintrc.cjs \
             ${DOCKER_REPOSITORY}:${{ steps.meta.outputs.version }} npm run stylelint
       -
         name: Run unit tests
