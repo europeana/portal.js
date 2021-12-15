@@ -17,7 +17,7 @@ warm_up_url () {
     fi
 
     echo "Checking for file availability on jsDelivr, attempt #${attempt}"
-    curl --fail --silent -o /dev/null -I "${url}"
+    curl --fail -o /dev/null -I "${url}"
 
     if [[ "$?" == "0" ]]; then
       echo "OK"
