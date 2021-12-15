@@ -7,7 +7,7 @@ warm_up_url () {
   url=$1
   echo ${url}
 
-  cached=false
+  cached="false"
   attempt=0
   while [[ ${cached} == "false" ]]; do
     attempt=$(( attempt + 1 ))
@@ -17,12 +17,12 @@ warm_up_url () {
     fi
 
     echo "Checking for file availability on jsDelivr, attempt #${attempt}"
-    curl --fail -o /dev/null -I "${url}"
+    curl --fail --silent -o /dev/null -I "${url}"
 
     if [[ "$?" == "0" ]]; then
       echo "OK"
       echo
-      cached=true
+      cached="true"
     else
       sleep 10
     fi
