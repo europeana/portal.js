@@ -9,9 +9,9 @@ warm_up_url () {
 
   cached="false"
   attempt=0
-  while [[ ${cached} == "false" ]]; do
+  while [ ${cached} == "false" ]; do
     attempt=$(( attempt + 1 ))
-    if [[ ${attempt} -gt 12 ]]; then
+    if [ ${attempt} -gt 12 ]; then
       echo "ERROR: Failed to detect version available on jsDelivr after 12 attempts."
       exit 1
     fi
@@ -19,7 +19,7 @@ warm_up_url () {
     echo "Checking for file availability on jsDelivr, attempt #${attempt}"
     curl --fail --silent -o /dev/null -I "${url}"
 
-    if [[ "$?" == "0" ]]; then
+    if [ "$?" == "0" ]; then
       echo "OK"
       echo
       cached="true"
