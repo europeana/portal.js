@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 dir=${1:-.}
 version=$(npm view @europeana/portal version)
 
