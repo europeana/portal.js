@@ -1,6 +1,6 @@
 #!/bin/sh
 
-dir=${$1:-.}
+dir=${1:-.}
 version=$(npm view @europeana/portal version)
 
 warm_up_url () {
