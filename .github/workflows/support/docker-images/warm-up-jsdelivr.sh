@@ -3,9 +3,7 @@
 set -e
 
 dir=${1:-.}
-echo OK
 version=$(npm view @europeana/portal version)
-echo ${version}
 
 warm_up_url () {
   url=$1
