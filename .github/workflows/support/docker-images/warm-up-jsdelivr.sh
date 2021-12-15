@@ -9,7 +9,7 @@ warm_up_url () {
 
   cached="false"
   attempt=0
-  while [ ${cached} == "false" ]; do
+  while [ "${cached}" == "false" ]; do
     attempt=$(( attempt + 1 ))
     if [ ${attempt} -gt 12 ]; then
       echo "ERROR: Failed to detect version available on jsDelivr after 12 attempts."
