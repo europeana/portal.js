@@ -423,11 +423,7 @@ jobs:
           npm publish --access public --dry-run ./tmp/app
       -
         name: Warm up jsDelivr
-        run: |
-          docker run \
-            --rm \
-            --mount type=bind,source=$(pwd)/.github/workflows/support/docker-images/warm-up-jsdelivr.sh,target=/root/warm-up-jsdelivr.sh \
-            --entrypoint /root/warm-up-jsdelivr.sh ${{ env.DOCKER_REPOSITORY }}:${{ steps.meta.outputs.version }}
+        run: .github/workflows/support/docker-images/warm-up-jsdelivr.sh ./tmp/app/.nuxt/dist/client
 
   # Send a notification to Slack channel with details of new PR deployments
   notify:

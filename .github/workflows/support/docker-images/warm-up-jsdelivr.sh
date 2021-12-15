@@ -1,13 +1,12 @@
 #!/bin/sh
 
+dir=$1
 version=$(npm view @europeana/portal version)
-
-apk add --no-cache curl
 
 warm_up_url () {
   url=$1
   echo ${url}
-  
+
   cached=false
   attempt=0
   while [[ ${cached} == "false" ]]; do
@@ -30,7 +29,7 @@ warm_up_url () {
   done
 }
 
-for file in $(find .nuxt/dist/client -type f | sort); do
+for file in $(find ${dir} -type f | sort); do
   url="https://cdn.jsdelivr.net/npm/@europeana/portal@${version}/${file}"
   warm_up_url ${url}
 done
