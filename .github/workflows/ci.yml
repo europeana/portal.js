@@ -391,8 +391,10 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: ${{ env.DOCKER_REPOSITORY }}
+          # TODO: remove pr type
           tags: |
             type=ref,event=tag
+            type=ref,event=pr
       -
         name: Load built image
         uses: docker/build-push-action@v2
