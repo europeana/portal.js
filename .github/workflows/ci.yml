@@ -374,8 +374,7 @@ jobs:
   npm-publish:
     runs-on: ubuntu-latest
     needs: [docker-final-stage]
-    # TODO: uncomment
-    # if: github.event_name == 'push' && startsWith( github.event.ref, 'refs/tags/v' )
+    if: github.event_name == 'push' && startsWith( github.event.ref, 'refs/tags/v' )
     env:
       NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
     steps:
@@ -396,10 +395,8 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: ${{ env.DOCKER_REPOSITORY }}
-          # TODO: remove pr type
           tags: |
             type=ref,event=tag
-            type=ref,event=pr
       -
         name: Load built image
         uses: docker/build-push-action@v2
