@@ -326,8 +326,8 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
-  @import '@/assets/scss/icons.scss';
+  @import '@/assets/scss/variables';
+  @import '@/assets/scss/icons';
 
   .form-inline {
     align-items: flex-start;
@@ -379,7 +379,7 @@
             }
           }
 
-          &:before {
+          &::before {
             left: 1rem;
             top: 1rem;
             position: absolute;
@@ -398,7 +398,8 @@
     width: 100%;
     flex-wrap: nowrap;
     height: 3.4rem;
-    box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.08);
+    box-shadow: 2px 2px 4px 0 rgba(0 0 0 / 8%);
+
     .input-group-prepend {
       display: none;
     }
@@ -418,13 +419,14 @@
     padding: 0;
     width: 1.5rem;
 
-    &:before {
-      @extend .icon-font;
+    &::before {
+      @extend %icon-font;
+
       display: inline-block;
       font-size: 1.1rem;
     }
 
-    &.search:before {
+    &.search::before {
       content: '\e92b';
     }
 
@@ -439,11 +441,13 @@
 
     &.clear {
       z-index: 99;
-      &:before {
+
+      &::before {
         content: '\e904';
         transition: $standard-transition;
       }
-      &:hover:before {
+
+      &:hover::before {
         color: $innovationblue;
       }
     }

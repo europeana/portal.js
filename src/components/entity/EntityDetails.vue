@@ -126,8 +126,8 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
-  @import '@/assets/scss/icons.scss';
+  @import '@/assets/scss/variables';
+  @import '@/assets/scss/icons';
 
   h1 {
     margin-bottom: 0.5rem;
@@ -152,19 +152,24 @@
     font-size: $font-size-small;
     font-weight: 600;
     color: $mediumgrey;
-    &:before {
-      @extend .icon-font;
+
+    &::before {
+      @extend %icon-font;
+
       display: inline-block;
       content: '\e937';
       font-size: 1.125rem;
       line-height: 1;
       margin-top: -0.2rem;
     }
+
     a {
       color: $mediumgrey;
     }
-    .is-external-link:after {
-      @extend .icon-font;
+
+    .is-external-link::after {
+      @extend %icon-font;
+
       content: '\e900';
       font-size: $font-size-extrasmall;
       vertical-align: initial;
@@ -173,11 +178,14 @@
 
   p {
     color: $mediumgrey;
+
     &.curated {
       font-size: $font-size-small;
       color: $black;
-      &:before {
-        @extend .icon-font;
+
+      &::before {
+        @extend %icon-font;
+
         display: inline-block;
         font-size: 1.5rem;
         color: $blue;

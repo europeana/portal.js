@@ -108,20 +108,23 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
+  @import '@/assets/scss/variables';
 
   h1 {
     font-size: 1.875rem;
     font-weight: 300;
     line-height: 1.375;
     margin-bottom: 1rem;
+
     span {
       font-weight: 600;
     }
   }
+
   .page-container {
     max-width: none;
   }
+
   .notification-banner {
     margin-left: -15px;
     margin-right: -15px;

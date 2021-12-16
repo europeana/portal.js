@@ -42,28 +42,20 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
-  @import '@/assets/scss/icons.scss';
+  @import '@/assets/scss/variables';
+  @import '@/assets/scss/icons';
 
   .container-fluid {
-    background: $blue;
-    color: $white;
-    margin-top: -1rem;
-    padding-top: 1rem;
-
-    a {
-      color: $white;
-    }
-
     p {
       line-height: 1.375rem;
       display: flex;
 
-      &:before {
+      &::before {
         content: '\e949';
         font-size: 1.25rem;
         margin-right: 0.75rem;
-        @extend .icon-font;
+
+        @extend %icon-font;
       }
     }
   }

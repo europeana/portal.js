@@ -103,14 +103,16 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
+  @import '@/assets/scss/variables';
 
-  .icon-translate:before {
+  .icon-translate::before {
     font-size: 1.4375rem;
   }
+
   .multilingual-selector {
     vertical-align: baseline;
   }
+
   .multilingual-dropdown-item {
     font-size: $font-size-small;
   }

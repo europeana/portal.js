@@ -1,6 +1,6 @@
 <template>
   <b-button
-    v-b-modal.downloadModal
+    v-b-modal.download-modal
     :href="url"
     :disabled="disabled"
     variant="light text-decoration-none"
@@ -48,8 +48,8 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
-  @import '@/assets/scss/icons.scss';
+  @import '@/assets/scss/variables';
+  @import '@/assets/scss/icons';
 
   .download-button {
     text-transform: capitalize;
@@ -60,13 +60,16 @@
     box-shadow: none;
     border-radius: 0.25rem;
     padding: 0.375rem 0.5rem;
-    .ic-download:before {
-      @extend .icon-font;
+
+    .ic-download::before {
+      @extend %icon-font;
+
       content: '\e924';
       font-size: 1.125rem;
     }
+
     &:hover {
-      box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.15);
+      box-shadow: 2px 2px 6px 0 rgb(0 0 0 / 15%);
     }
   }
 </style>

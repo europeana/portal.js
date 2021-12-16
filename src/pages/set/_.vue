@@ -90,7 +90,7 @@
                 />
               </template>
               <b-button
-                v-b-modal.shareModal
+                v-b-modal.share-modal
                 variant="outline-primary"
                 class="text-decoration-none"
               >
@@ -320,8 +320,8 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
-  @import '@/assets/scss/icons.scss';
+  @import '@/assets/scss/variables';
+  @import '@/assets/scss/icons';
 
   .usergallery-description {
     color: $mediumgrey;
@@ -338,7 +338,7 @@
       display: inline-flex;
       align-items: center;
 
-      &:before {
+      &::before {
         font-size: 1.5rem;
         padding-right: 0.2rem;
       }
@@ -346,16 +346,19 @@
 
     .curator {
       margin-right: 1.5rem;
-      &:before {
-        @extend .icon-font;
+
+      &::before {
+        @extend %icon-font;
+
         content: '\e92e';
         font-size: 1.125rem;
       }
     }
 
     .visibility {
-      &:before {
-        @extend .icon-font;
+      &::before {
+        @extend %icon-font;
+
         content: '\e92d';
         font-size: 1.125rem;
       }

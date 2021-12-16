@@ -3,6 +3,11 @@
     data-qa="exhibition page"
     class="text-page figure-attribution"
   >
+    <ContentWarningModal
+      v-if="contentWarning"
+      :title="contentWarning.name"
+      :description="contentWarning.description"
+    />
     <AuthoredHead
       :title="name"
       :description="headline"
@@ -58,7 +63,8 @@
       LinkList: () => import('../../../components/generic/LinkList'),
       ShareButton,
       SocialShareModal,
-      AuthoredHead: () => import('../../../components/authored/AuthoredHead')
+      AuthoredHead: () => import('../../../components/authored/AuthoredHead'),
+      ContentWarningModal: () => import('@/components/generic/ContentWarningModal')
     },
     mixins: [
       exhibitionChapters

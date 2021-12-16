@@ -216,8 +216,8 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
-  @import '@/assets/scss/icons.scss';
+  @import '@/assets/scss/variables';
+  @import '@/assets/scss/icons';
 
   .auto-suggest-dropdown {
     display: block;
@@ -244,8 +244,9 @@
         background-color: $offwhite;
       }
 
-      &:before {
-        @extend .icon-font;
+      &::before {
+        @extend %icon-font;
+
         font-size: 1.1rem;
         content: '\e92b';
         left: 1rem;

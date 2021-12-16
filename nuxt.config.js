@@ -8,7 +8,7 @@
 const APP_SITE_NAME = 'Europeana';
 
 import pkg from './package.json';
-import nuxtPkg from 'nuxt/package.json';
+import nuxtCorePkg from '@nuxt/core/package.json';
 
 import i18nLocales from './src/plugins/i18n/locales.js';
 import i18nDateTime from './src/plugins/i18n/datetime.js';
@@ -35,6 +35,9 @@ export default {
       internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
       schemaOrgDatasetId: process.env.SCHEMA_ORG_DATASET_ID,
       siteName: APP_SITE_NAME,
+      search: {
+        translateLocales: (process.env.APP_SEARCH_TRANSLATE_LOCALES || '').split(',')
+      },
       features: {
         abTests: featureIsEnabled(process.env.ENABLE_AB_TESTS),
         jiraServiceDeskFeedbackForm: featureIsEnabled(process.env.ENABLE_JIRA_SERVICE_DESK_FEEDBACK_FORM),
@@ -81,7 +84,7 @@ export default {
         serviceName: 'portal-js',
         serviceVersion: pkg.version,
         frameworkName: 'Nuxt',
-        frameworkVersion: nuxtPkg.version,
+        frameworkVersion: nuxtCorePkg.version,
         ignoreUrls: [
           /^\/(_nuxt|__webpack_hmr)\//
         ],
@@ -388,6 +391,10 @@ export default {
         config.devtool = 'source-map';
       }
     },
+
+    // Prevent irrelevant postcss warnings
+    // See https://github.com/postcss/postcss/issues/1375
+    postcss: null,
 
     publicPath: buildPublicPath()
   },
