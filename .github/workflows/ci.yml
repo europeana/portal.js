@@ -30,7 +30,7 @@ env:
 jobs:
   # Build the base stage of the Docker image first so that unit tests can run,
   # as they do not require the full production image to be built.
-  docker-build-base:
+  docker-base-stage:
     runs-on: ubuntu-latest
     if: github.event_name == 'push' || github.event.pull_request.draft == false
     steps:
@@ -58,14 +58,14 @@ jobs:
           context: .
           pull: true
           tags: ${{ steps.meta.outputs.tags }}
-          target: production-app-base
+          target: base
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
   # Run linting and unit tests on pull requests
   test-unit:
     runs-on: ubuntu-latest
-    needs: [docker-build-base]
+    needs: [docker-base-stage]
     if: github.event_name == 'pull_request' && github.event.pull_request.draft == false
     steps:
       -
@@ -89,61 +89,35 @@ jobs:
           context: .
           load: true
           tags: ${{ steps.meta.outputs.tags }}
-          target: production-app-base
+          target: base
           cache-from: type=gha
       -
         name: Check code linting
         run: |
-          docker run --mount type=bind,source="$(pwd)"/tests,target=/app/tests ${DOCKER_REPOSITORY}:${{ steps.meta.outputs.version }} npm run lint
+          docker run \
+            --mount type=bind,source="$(pwd)"/tests,target=/app/tests \
+            --mount type=bind,source="$(pwd)"/.eslintrc.cjs,target=/app/.eslintrc.cjs \
+            --mount type=bind,source="$(pwd)"/bin,target=/app/bin \
+            ${DOCKER_REPOSITORY}:${{ steps.meta.outputs.version }} npm run lint
       -
         name: Check style linting
         run: |
-          docker run --mount type=bind,source="$(pwd)"/tests,target=/app/tests ${DOCKER_REPOSITORY}:${{ steps.meta.outputs.version }} npm run stylelint
+          docker run \
+            --mount type=bind,source="$(pwd)"/.stylelintrc.cjs,target=/app/.stylelintrc.cjs \
+            ${DOCKER_REPOSITORY}:${{ steps.meta.outputs.version }} npm run stylelint
       -
         name: Run unit tests
         run: |
-          docker run --mount type=bind,source="$(pwd)"/tests,target=/app/tests ${DOCKER_REPOSITORY}:${{ steps.meta.outputs.version }} npm run test:unit
-
-  # Build the production-app-build-nuxt stage of the Docker image independently so
-  # that it gets cached by Buildx.
-  docker-build-nuxt:
-    runs-on: ubuntu-latest
-    needs: [docker-build-base]
-    if: github.event_name == 'push' || github.event.pull_request.draft == false
-    steps:
-      -
-        name: Checkout
-        uses: actions/checkout@v2
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-      -
-        name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v3
-        with:
-          images: ${{ env.DOCKER_REPOSITORY }}
-          tags: |
-            type=ref,event=pr,suffix=-nuxt
-            type=ref,event=branch,suffix=-nuxt
-            type=ref,event=tag,suffix=-nuxt
-            type=semver,pattern={{version}},suffix=-nuxt
-      -
-        name: Build and cache
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          pull: true
-          tags: ${{ steps.meta.outputs.tags }}
-          target: production-app-build-nuxt
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          docker run \
+            --mount type=bind,source="$(pwd)"/tests,target=/app/tests \
+            --mount type=bind,source="$(pwd)"/.eslintrc.cjs,target=/app/.eslintrc.cjs \
+            ${DOCKER_REPOSITORY}:${{ steps.meta.outputs.version }} npm run test:unit
 
   # Build, and push to Docker Hub, full production Docker image for use throughout
   # other jobs
-  docker-build-push:
+  docker-final-stage:
     runs-on: ubuntu-latest
-    needs: [docker-build-nuxt]
+    needs: [docker-base-stage]
     if: github.event_name == 'push' || github.event.pull_request.draft == false
     steps:
       -
@@ -185,7 +159,7 @@ jobs:
   # Run size tests on pull requests
   test-size:
     runs-on: ubuntu-latest
-    needs: [docker-build-push]
+    needs: [docker-final-stage]
     if: github.event_name == 'pull_request' && github.event.pull_request.draft == false
     steps:
       -
@@ -203,7 +177,7 @@ jobs:
           tags: |
             type=ref,event=pr
       -
-        name: Build and load
+        name: Build and load app image
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -212,9 +186,17 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
       -
+        name: Build and load size test image
+        uses: docker/build-push-action@v2
+        with:
+          context: ./tests/size
+          load: true
+          tags: ${{ env.DOCKER_REPOSITORY }}-test-size
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      -
         name: Prepare resources for size tests
         run: |
-          docker pull europeana/portal.js-test-size
           docker run --name portal.js --rm -d ${{ env.DOCKER_REPOSITORY }}:${{ steps.meta.outputs.version }}
           docker cp portal.js:/app/.nuxt ./.nuxt
           docker stop portal.js
@@ -224,12 +206,12 @@ jobs:
           docker run \
             --mount type=bind,source="$(pwd)"/.nuxt,target=/app/.nuxt \
             --mount type=bind,source="$(pwd)"/tests/size/.size-limit.json,target=/app/.size-limit.json \
-            europeana/portal.js-test-size
+            ${{ env.DOCKER_REPOSITORY }}-test-size
 
   # Run e2e tests on pull requests
   test-e2e:
     runs-on: ubuntu-latest
-    needs: [docker-build-push]
+    needs: [docker-final-stage]
     if: github.event_name == 'pull_request' && github.event.pull_request.draft == false
     steps:
       -
@@ -267,7 +249,7 @@ jobs:
   # Run visual tests on pull requests, and pushes to master
   test-visual:
     runs-on: ubuntu-latest
-    needs: [docker-build-push]
+    needs: [docker-final-stage]
     if: (github.event_name == 'push' && github.event.ref == 'refs/heads/master') || (github.event_name == 'pull_request' && github.event.pull_request.draft == false)
     env:
       PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
@@ -312,7 +294,7 @@ jobs:
   # * Pushes to master update the deployment in the test namespace
   deploy-ibm-cloud:
     runs-on: ubuntu-latest
-    needs: [docker-build-push]
+    needs: [docker-final-stage]
     if: (github.event_name == 'push' && github.event.ref == 'refs/heads/master') || (github.event_name == 'pull_request' && github.event.pull_request.draft == false)
     env:
       IBMCLOUD_API_URL: https://cloud.ibm.com
@@ -399,7 +381,7 @@ jobs:
   # Publish tagged versions to NPM
   npm-publish:
     runs-on: ubuntu-latest
-    needs: [docker-build-push]
+    needs: [docker-final-stage]
     if: github.event_name == 'push' && startsWith( github.event.ref, 'refs/tags/v' )
     env:
       NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
@@ -407,6 +389,11 @@ jobs:
       -
         name: Checkout
         uses: actions/checkout@v2
+      -
+        name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
@@ -428,21 +415,20 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
       -
+        name: Prepare resources for publish
+        run: |
+          docker run --name portal.js --rm -d ${{ env.DOCKER_REPOSITORY }}:${{ steps.meta.outputs.version }}
+          mkdir ./tmp
+          docker cp portal.js:/app ./tmp
+          docker stop portal.js
+      -
         name: Publish to NPM
         run: |
-          docker run \
-            --rm \
-            --env NODE_AUTH_TOKEN=${NODE_AUTH_TOKEN} \
-            --mount type=bind,source=$(pwd)/.github/workflows/support/docker-images/.npmrc,target=/root/.npmrc \
-            --entrypoint npm ${{ env.DOCKER_REPOSITORY }}:${{ steps.meta.outputs.version }} \
-            publish --access public
+          cp .github/workflows/support/docker-images/.npmrc ~/
+          npm publish --access public --dry-run ./tmp/app
       -
         name: Warm up jsDelivr
-        run: |
-          docker run \
-            --rm \
-            --mount type=bind,source=$(pwd)/.github/workflows/support/docker-images/warm-up-jsdelivr.sh,target=/root/warm-up-jsdelivr.sh \
-            --entrypoint /root/warm-up-jsdelivr.sh ${{ env.DOCKER_REPOSITORY }}:${{ steps.meta.outputs.version }}
+        run: .github/workflows/support/docker-images/warm-up-jsdelivr.sh ./tmp/app
 
   # Send a notification to Slack channel with details of new PR deployments
   notify:

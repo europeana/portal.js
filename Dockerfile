@@ -1,24 +1,6 @@
 # Multi-stage image to build and run europeana/portal.js
 
-# 0. Prevent re-installing npm packages on non-dependency changes to package.json
-#
-# NB: this does not work as intended with Buildx due to its considering timestamps
-# as well as file content for COPY instructions. See https://github.com/docker/docker.github.io/pull/13702
-FROM alpine:3 AS package-json-stripped
-
-WORKDIR /app
-
-RUN apk add --no-cache jq
-
-COPY package.json package-original.json
-RUN jq -Mr '{dependencies,devDependencies}' package-original.json > package.json
-
-COPY package-lock.json package-lock-original.json
-RUN jq -Mr '{dependencies,lockfileVersion,requires}' package-lock-original.json > package-lock.json
-
-
-# 1. Build production base image
-FROM node:14-alpine AS production-package-install
+FROM node:14-alpine AS base
 
 ENV CHROMEDRIVER_SKIP_DOWNLOAD=true \
     GECKODRIVER_SKIP_DOWNLOAD=true \
@@ -26,32 +8,22 @@ ENV CHROMEDRIVER_SKIP_DOWNLOAD=true \
 
 WORKDIR /app
 
-COPY --from=package-json-stripped /app/package.json /app/package-lock.json ./
+COPY package.json package-lock.json ./
 
-RUN NODE_ENV=production npm install
+RUN npm ci
 
-COPY bin ./bin
-COPY *.md .env.example ./
-
-
-# 2. Copy app src
-FROM production-package-install AS production-app-base
-
-RUN npm install
-
-COPY package.json package-lock.json .eslintrc.cjs .stylelintrc.cjs babel.config.cjs nuxt.config.js ./
+COPY nuxt.config.js babel.config.cjs *.md .env.example ./
 COPY src ./src
 
 
-# 3. Build app
-
-FROM production-app-base AS production-app-build-nuxt
+FROM base AS build
 
 RUN npm run build
+RUN rm babel.config.cjs
+RUN npm prune --production
 
 
-# 4. Run
-FROM production-package-install AS production-app-run
+FROM gcr.io/distroless/nodejs:14
 
 ENV PORT=8080 \
     HOST=0.0.0.0 \
@@ -59,8 +31,10 @@ ENV PORT=8080 \
 
 EXPOSE ${PORT}
 
-COPY --from=production-app-build-nuxt /app/package.json /app/package-lock.json /app/nuxt.config.js ./
-COPY --from=production-app-build-nuxt /app/src ./src
-COPY --from=production-app-build-nuxt /app/.nuxt ./.nuxt
+WORKDIR /app
 
-CMD ["npm", "run", "start"]
+COPY --from=build /app .
+
+USER 1000
+
+CMD ["node_modules/.bin/nuxt-cli", "start"]
