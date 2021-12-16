@@ -177,7 +177,7 @@ jobs:
           tags: |
             type=ref,event=pr
       -
-        name: Build and load
+        name: Build and load app image
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -186,9 +186,17 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
       -
+        name: Build and load size test image
+        uses: docker/build-push-action@v2
+        with:
+          context: ./tests/size
+          load: true
+          tags: ${{ env.DOCKER_REPOSITORY }}-test-size
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      -
         name: Prepare resources for size tests
         run: |
-          docker pull europeana/portal.js-test-size
           docker run --name portal.js --rm -d ${{ env.DOCKER_REPOSITORY }}:${{ steps.meta.outputs.version }}
           docker cp portal.js:/app/.nuxt ./.nuxt
           docker stop portal.js
@@ -198,7 +206,7 @@ jobs:
           docker run \
             --mount type=bind,source="$(pwd)"/.nuxt,target=/app/.nuxt \
             --mount type=bind,source="$(pwd)"/tests/size/.size-limit.json,target=/app/.size-limit.json \
-            europeana/portal.js-test-size
+            ${{ env.DOCKER_REPOSITORY }}-test-size
 
   # Run e2e tests on pull requests
   test-e2e:
