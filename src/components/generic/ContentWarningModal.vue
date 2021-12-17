@@ -4,7 +4,7 @@
     :title="title"
     hide-header-close
     hide-footer
-    data-qa="share modal"
+    data-qa="content warning modal"
   >
     <p>{{ description }}</p>
     <div class="modal-footer pt-2">
@@ -37,12 +37,10 @@
       description: {
         type: String,
         default: null
-      }
-    },
-
-    computed: {
-      contentId() {
-        return this.$route.params?.exhibition ? `exhibition-${this.$route.params?.exhibition}` : `blog-${this.$route.params?.[0]}`;
+      },
+      pageSlug: {
+        type: String,
+        default: null
       }
     },
 
@@ -52,16 +50,15 @@
 
     methods: {
       showWarning() {
-        const dismissedWarnings = sessionStorage.dismissedWarnings?.split(',');
-        const contentWarningDismissed = dismissedWarnings?.includes(this.contentId);
+        const dismissedWarnings = JSON.parse(sessionStorage.dismissedWarnings || '[]');
+        const contentWarningDismissed = dismissedWarnings?.includes(this.pageSlug);
         !contentWarningDismissed && this.$bvModal.show('content-warning-modal');
       },
       dismissWarning() {
         this.$bvModal.hide('content-warning-modal');
-        if (!sessionStorage.dismissedWarnings) {
-          sessionStorage.dismissedWarnings = '';
-        }
-        sessionStorage.dismissedWarnings = sessionStorage.dismissedWarnings.concat(`${this.contentId},`);
+        const dismissedWarnings = JSON.parse(sessionStorage.dismissedWarnings || '[]');
+        dismissedWarnings.push(this.pageSlug);
+        sessionStorage.dismissedWarnings = JSON.stringify(dismissedWarnings);
       }
     }
   };
