@@ -4,7 +4,7 @@
     <b-row class="flex-md-row">
       <b-col cols="12">
         <div
-          v-if="emptyText && value && value.length === 0"
+          v-if="emptyText && sets && sets.length === 0"
           class="text-center pb-4"
         >
           {{ emptyText }}
@@ -14,7 +14,7 @@
           deck
         >
           <ContentCard
-            v-for="set in value"
+            v-for="set in sets"
             :key="set.id"
             :sub-title="setSubTitle(set)"
             :title="set.title"
@@ -43,7 +43,7 @@
       CreateSetButton: () => import('./CreateSetButton')
     },
     props: {
-      value: {
+      sets: {
         type: Array,
         required: true
       },
