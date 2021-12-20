@@ -47,7 +47,7 @@
                       >
                         <ItemPreviewCardGroup
                           v-if="likesId && likedItems.length !== 0"
-                          v-model="likedItems"
+                          :items="likedItems"
                           class="pb-5"
                         />
                         <div
@@ -85,7 +85,7 @@
                 </div>
                 <UserSets
                   v-else
-                  v-model="publicCreations"
+                  :sets="publicCreations"
                   visibility="public"
                   :empty-text="$t('account.notifications.noCollections.public')"
                   data-qa="public sets"
@@ -105,7 +105,7 @@
                 </div>
                 <UserSets
                   v-else
-                  v-model="privateCreations"
+                  :sets="privateCreations"
                   visibility="private"
                   :empty-text="$t('account.notifications.noCollections.private')"
                   data-qa="private sets"
@@ -126,7 +126,7 @@
                 </div>
                 <UserSets
                   v-else
-                  v-model="curations"
+                  :sets="curations"
                   :show-create-set-button="false"
                   :empty-text="$t('account.notifications.noCollections.curated')"
                   data-qa="curated sets"

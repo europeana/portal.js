@@ -62,7 +62,7 @@ describe('components/item/ItemPreviewCardGroup', () => {
     it('renders each result with a link', async() => {
       const wrapper = factory();
 
-      await wrapper.setProps({ value: results, view: 'grid' });
+      await wrapper.setProps({ items: results, view: 'grid' });
 
       const renderedResults =  wrapper.findAll('[data-qa="item preview"]');
 
@@ -75,7 +75,7 @@ describe('components/item/ItemPreviewCardGroup', () => {
     it('renders each result with a link', async() => {
       const wrapper = factory();
 
-      await wrapper.setProps({ value: results, view: 'list' });
+      await wrapper.setProps({ items: results, view: 'list' });
 
       const renderedResults =  wrapper.findAll('div[data-qa="item preview"]');
 

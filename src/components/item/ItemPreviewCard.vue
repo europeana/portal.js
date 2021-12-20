@@ -15,7 +15,7 @@
     <template #buttons>
       <RecommendationButtons
         v-if="recommendedItem"
-        v-model="identifier"
+        :identifier="identifier"
       />
       <UserButtons
         v-else
