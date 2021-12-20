@@ -7,6 +7,7 @@
       v-if="post.contentWarning"
       :title="post.contentWarning.name"
       :description="post.contentWarning.description"
+      :page-slug="`blog/${post.identifier}`"
     />
     <BlogPost
       :date-published="post.datePublished"
