@@ -5,11 +5,13 @@
     hide-header-close
     hide-footer
     data-qa="content warning modal"
+    :static="modalStatic"
   >
     <p>{{ description }}</p>
     <div class="modal-footer pt-2">
       <b-button
         variant="outline-primary"
+        data-qa="go away button"
         :to="$path({ name: 'index' })"
         @click.native="$matomo && $matomo.trackEvent('Content warning', 'Click go away', pageSlug);"
       >
@@ -42,6 +44,10 @@
       pageSlug: {
         type: String,
         default: null
+      },
+      modalStatic: {
+        type: Boolean,
+        default: false
       }
     },
 
