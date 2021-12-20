@@ -11,6 +11,7 @@
       <b-button
         variant="outline-primary"
         :to="$path({ name: 'index' })"
+        @click.native="$matomo && $matomo.trackEvent('Content warning', 'Click go away', pageSlug);"
       >
         {{ $t('actions.goHome') }}
       </b-button>
@@ -52,13 +53,17 @@
       showWarning() {
         const dismissedWarnings = JSON.parse(sessionStorage.dismissedWarnings || '[]');
         const contentWarningDismissed = dismissedWarnings?.includes(this.pageSlug);
-        !contentWarningDismissed && this.$bvModal.show('content-warning-modal');
+        if (!contentWarningDismissed) {
+          this.$bvModal.show('content-warning-modal');
+          this.$matomo && this.$matomo.trackEvent('Content warning', 'Content warning modal shows', this.pageSlug);
+        }
       },
       dismissWarning() {
         this.$bvModal.hide('content-warning-modal');
         const dismissedWarnings = JSON.parse(sessionStorage.dismissedWarnings || '[]');
         dismissedWarnings.push(this.pageSlug);
         sessionStorage.dismissedWarnings = JSON.stringify(dismissedWarnings);
+        this.$matomo && this.$matomo.trackEvent('Content warning', 'Click continue', this.pageSlug);
       }
     }
   };
