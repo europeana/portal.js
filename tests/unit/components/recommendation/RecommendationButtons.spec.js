@@ -10,11 +10,23 @@ const identifier = '/123/abc';
 const setId = '/123/def';
 const storeDispatch = sinon.spy();
 
-const factory = ({ storeState = {}, $auth = {}, recommendationFlag = false } = {}) => mount(RecommendationButtons, {
+const factory = ({ storeState = {}, $auth = {}, configAppFeatures = {} } = {}) => mount(RecommendationButtons, {
   localVue,
-  propsData: { value: identifier, recommendedItem: recommendationFlag },
+  propsData: { value: identifier },
   mocks: {
     $auth,
+    $config: {
+      app: {
+        features: {
+          ...{
+            acceptEntityRecommendations: true,
+            acceptSetRecommendations: true,
+            rejectEntityRecommendations: true
+          },
+          ...configAppFeatures
+        }
+      }
+    },
     $store: {
       state: {
         set: { ...storeState }
@@ -30,12 +42,27 @@ const factory = ({ storeState = {}, $auth = {}, recommendationFlag = false } = {
 
 describe('components/recommendation/RecommendationButtons', () => {
   describe('accept button', () => {
-    it('is visible', () => {
-      const wrapper = factory({ recommendationFlag: true });
+    it('is present and visible if enabled', () => {
+      const wrapper = factory({
+        configAppFeatures: { acceptEntityRecommendations: true, rejectEntityRecommendations: false },
+        storeState: { active: { type: 'EntityBestItemsSet' } }
+      });
 
       const acceptButton = wrapper.find('[data-qa="accept button"]');
 
+      acceptButton.exists().should.be.true;
       acceptButton.isVisible().should.be.true;
+    });
+
+    it('is not present if disabled', () => {
+      const wrapper = factory({
+        configAppFeatures: { acceptEntityRecommendations: false, rejectEntityRecommendations: true },
+        storeState: { active: { type: 'EntityBestItemsSet' } }
+      });
+
+      const acceptButton = wrapper.find('[data-qa="accept button"]');
+
+      acceptButton.exists().should.be.false;
     });
 
     context('when user is logged in', () => {
@@ -43,7 +70,7 @@ describe('components/recommendation/RecommendationButtons', () => {
 
       context('when pressed', () => {
         it('dispatches to accept recommended item', async() => {
-          const wrapper = factory({ $auth, recommendationFlag: true });
+          const wrapper = factory({ $auth });
 
           const acceptButton = wrapper.find('[data-qa="accept button"]');
           acceptButton.trigger('click');
@@ -56,12 +83,27 @@ describe('components/recommendation/RecommendationButtons', () => {
   });
 
   describe('reject button', () => {
-    it('is visible', () => {
-      const wrapper = factory({ recommendationFlag: true });
+    it('is present and visible if enabled', () => {
+      const wrapper = factory({
+        configAppFeatures: { acceptEntityRecommendations: false, rejectEntityRecommendations: true },
+        storeState: { active: { type: 'EntityBestItemsSet' } }
+      });
 
       const rejectButton = wrapper.find('[data-qa="reject button"]');
 
+      rejectButton.exists().should.be.true;
       rejectButton.isVisible().should.be.true;
+    });
+
+    it('is not present if disabled', () => {
+      const wrapper = factory({
+        configAppFeatures: { acceptEntityRecommendations: true, rejectEntityRecommendations: false },
+        storeState: { active: { type: 'EntityBestItemsSet' } }
+      });
+
+      const rejectButton = wrapper.find('[data-qa="reject button"]');
+
+      rejectButton.exists().should.be.false;
     });
 
     context('when user is logged in', () => {
@@ -69,7 +111,7 @@ describe('components/recommendation/RecommendationButtons', () => {
 
       context('when pressed', () => {
         it('dispatches to reject recommended item', async() => {
-          const wrapper = factory({ $auth, recommendationFlag: true });
+          const wrapper = factory({ $auth });
 
           const rejectButton = wrapper.find('[data-qa="reject button"]');
           rejectButton.trigger('click');

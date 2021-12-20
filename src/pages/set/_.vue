@@ -138,7 +138,7 @@
             {{ $t('items.recommended') }}
           </h2>
           <h5
-            v-if="enableAcceptRecommendations"
+            v-if="enableAcceptRejectRecommendations"
             class="related-subtitle"
           >
             <span class="icon-info-outline" />
@@ -146,7 +146,7 @@
           </h5>
           <ItemPreviewCardGroup
             v-model="recommendations"
-            :recommendations="enableAcceptRecommendations"
+            :recommended-items="enableAcceptRejectRecommendations"
           />
         </b-col>
       </b-row>
@@ -263,13 +263,15 @@
       },
       enableRecommendations() {
         if (this.setIsEntityBestItems) {
-          return this.$config.app.features.acceptEntityRecommendations;
+          return this.$config.app.features.acceptEntityRecommendations ||
+            this.$config.app.features.rejectEntityRecommendations;
         }
         return true;
       },
-      enableAcceptRecommendations() {
+      enableAcceptRejectRecommendations() {
         if (this.setIsEntityBestItems) {
-          return this.$config.app.features.acceptEntityRecommendations;
+          return this.$config.app.features.acceptEntityRecommendations ||
+            this.$config.app.features.rejectEntityRecommendations;
         }
         return this.$config.app.features.acceptSetRecommendations;
       },
