@@ -41,7 +41,6 @@ export default {
       features: {
         abTests: featureIsEnabled(process.env.ENABLE_AB_TESTS),
         jiraServiceDeskFeedbackForm: featureIsEnabled(process.env.ENABLE_JIRA_SERVICE_DESK_FEEDBACK_FORM),
-        linksToClassic: featureIsEnabled(process.env.ENABLE_LINKS_TO_CLASSIC),
         acceptSetRecommendations: featureIsEnabled(process.env.ENABLE_ACCEPT_SET_RECOMMENDATIONS),
         acceptEntityRecommendations: featureIsEnabled(process.env.ENABLE_ACCEPT_ENTITY_RECOMMENDATIONS),
         entityManagement: featureIsEnabled(process.env.ENABLE_ENTITY_MANAGEMENT),

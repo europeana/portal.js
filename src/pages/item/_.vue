@@ -1,10 +1,5 @@
 <template>
   <div data-qa="item page">
-    <NotificationBanner
-      v-if="redirectNotificationsEnabled"
-      :notification-url="notificationUrl"
-      :notification-link-text="$t('linksToClassic.record.linkText')"
-    />
     <b-container v-if="error">
       <AlertMessage
         :error="error"
@@ -132,7 +127,6 @@
       RelatedCollections: () => import('@/components/generic/RelatedCollections'),
       SummaryInfo: () => import('@/components/item/SummaryInfo'),
       MetadataBox,
-      NotificationBanner: () => import('@/components/generic/NotificationBanner'),
       ItemLanguageSelector: () => import('@/components/item/ItemLanguageSelector')
     },
 
@@ -290,12 +284,6 @@
         }
 
         return edmDataProvider;
-      },
-      notificationUrl() {
-        return `https://classic.europeana.eu/portal/${this.$i18n.locale}/record${this.identifier}.html?utm_source=new-website&utm_medium=button`;
-      },
-      redirectNotificationsEnabled() {
-        return this.$config.app.features.linksToClassic;
       },
       pageHeadMetaOgImage() {
         return this.media[0]?.thumbnails?.large || null;

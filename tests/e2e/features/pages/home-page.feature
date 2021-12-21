@@ -13,11 +13,6 @@ Feature: Home page
     And I should have a Europeana branded page title
     And I do not see the Klaro banner
 
-  Scenario: Seeing a notification banner
-
-    When I open `/en`
-    Then I see a `notification banner`
-
   @klaro-notice-not-dismissed
   Scenario: Seeing the cookie disclaimer on first visit
 
