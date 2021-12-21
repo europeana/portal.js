@@ -333,7 +333,7 @@
         }
       },
       sideFiltersEnabled() {
-        return this.$config.app.features.sideFilters;
+        return this.$features.sideFilters;
       }
     },
     watch: {

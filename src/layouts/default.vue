@@ -119,7 +119,7 @@
       }),
 
       feedbackEnabled() {
-        return this.$config.app.features.jiraServiceDeskFeedbackForm && this.$config.app.baseUrl;
+        return this.$features.jiraServiceDeskFeedbackForm && this.$config.app.baseUrl;
       }
     },
 
