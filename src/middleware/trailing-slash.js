@@ -1,7 +1,7 @@
 export default ({ route, redirect }) => {
-  if ((route.path !== '/') && route.path.endsWith('/')) {
-    const redirectRoute = { ...route };
-    redirectRoute.path = redirectRoute.path.slice(0, -1);
-    return redirect(redirectRoute);
+  let routePath = route.path;
+  if ((routePath !== '/') && routePath.endsWith('/')) {
+    routePath = routePath.slice(0, -1);
+    redirect(routePath);
   }
 };
