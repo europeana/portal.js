@@ -38,7 +38,7 @@
       <FilterToggleButton />
       <SearchQueryOptions
         v-if="showSearchOptions"
-        v-model="searchQueryOptions"
+        :options="searchQueryOptions"
         element-id="search-form-options"
         @select="selectSearchOption"
       />

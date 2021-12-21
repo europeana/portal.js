@@ -7,6 +7,7 @@
       v-if="exhibitionContentWarning"
       :title="exhibitionContentWarning.name"
       :description="exhibitionContentWarning.description"
+      :page-slug="`exhibition/${exhibitionIdentifier}`"
     />
     <AuthoredHead
       :title="page.name"

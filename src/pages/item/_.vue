@@ -90,7 +90,7 @@
               {{ $t('record.exploreMore') }}
             </h2>
             <ItemPreviewCardGroup
-              v-model="similarItems"
+              :items="similarItems"
               view="explore"
               class="mb-0"
               data-qa="similar items"
