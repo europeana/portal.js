@@ -10,23 +10,11 @@ const identifier = '/123/abc';
 const setId = '/123/def';
 const storeDispatch = sinon.spy();
 
-const factory = ({ storeState = {}, $auth = {}, configAppFeatures = {} } = {}) => mount(RecommendationButtons, {
+const factory = ({ storeState = {}, $auth = {}, propsData = {} } = {}) => mount(RecommendationButtons, {
   localVue,
-  propsData: { identifier },
+  propsData: { identifier, ...propsData },
   mocks: {
     $auth,
-    $config: {
-      app: {
-        features: {
-          ...{
-            acceptEntityRecommendations: true,
-            acceptSetRecommendations: true,
-            rejectEntityRecommendations: true
-          },
-          ...configAppFeatures
-        }
-      }
-    },
     $store: {
       state: {
         set: { ...storeState }
@@ -44,7 +32,7 @@ describe('components/recommendation/RecommendationButtons', () => {
   describe('accept button', () => {
     it('is present and visible if enabled', () => {
       const wrapper = factory({
-        configAppFeatures: { acceptEntityRecommendations: true, rejectEntityRecommendations: false },
+        propsData: { enableAcceptButton: true },
         storeState: { active: { type: 'EntityBestItemsSet' } }
       });
 
@@ -56,7 +44,7 @@ describe('components/recommendation/RecommendationButtons', () => {
 
     it('is not present if disabled', () => {
       const wrapper = factory({
-        configAppFeatures: { acceptEntityRecommendations: false, rejectEntityRecommendations: true },
+        propsData: { enableAcceptButton: false },
         storeState: { active: { type: 'EntityBestItemsSet' } }
       });
 
@@ -85,7 +73,7 @@ describe('components/recommendation/RecommendationButtons', () => {
   describe('reject button', () => {
     it('is present and visible if enabled', () => {
       const wrapper = factory({
-        configAppFeatures: { acceptEntityRecommendations: false, rejectEntityRecommendations: true },
+        propsData: { enableRejectButton: true },
         storeState: { active: { type: 'EntityBestItemsSet' } }
       });
 
@@ -97,7 +85,7 @@ describe('components/recommendation/RecommendationButtons', () => {
 
     it('is not present if disabled', () => {
       const wrapper = factory({
-        configAppFeatures: { acceptEntityRecommendations: true, rejectEntityRecommendations: false },
+        propsData: { enableRejectButton: false },
         storeState: { active: { type: 'EntityBestItemsSet' } }
       });
 

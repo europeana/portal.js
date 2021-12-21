@@ -4,14 +4,14 @@
     data-qa="recommendation buttons"
   >
     <b-button
-      v-if="enableAcceptRecommendations"
+      v-if="enableAcceptButton"
       class="recommendation-button icon-accept"
       data-qa="accept button"
       :aria-label="$t('actions.accept')"
       @click="acceptRecommendation"
     />
     <b-button
-      v-if="enableRejectRecommendations"
+      v-if="enableRejectButton"
       class="recommendation-button icon-reject"
       data-qa="reject button"
       :aria-label="$t('actions.reject')"
@@ -35,6 +35,16 @@
       identifier: {
         type: String,
         required: true
+      },
+
+      enableAcceptButton: {
+        type: Boolean,
+        default: true
+      },
+
+      enableRejectButton: {
+        type: Boolean,
+        default: true
       }
     },
 
@@ -45,23 +55,8 @@
     },
 
     computed: {
-      enableAcceptRecommendations() {
-        if (this.setIsEntityBestItems) {
-          return this.$config.app.features.acceptEntityRecommendations;
-        }
-        return this.$config.app.features.acceptSetRecommendations;
-      },
-      enableRejectRecommendations() {
-        if (this.setIsEntityBestItems) {
-          return this.$config.app.features.rejectEntityRecommendations;
-        }
-        return this.$config.app.features.acceptSetRecommendations;
-      },
       set() {
         return this.$store.state.set?.active || {};
-      },
-      setIsEntityBestItems() {
-        return this.set.type === 'EntityBestItemsSet';
       }
     },
 

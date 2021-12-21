@@ -14,8 +14,10 @@
   >
     <template #buttons>
       <RecommendationButtons
-        v-if="recommendedItem"
+        v-if="enableAcceptRecommendation || enableRejectRecommendation"
         :identifier="identifier"
+        :enable-accept-button="enableAcceptRecommendation"
+        :enable-reject-button="enableRejectRecommendation"
       />
       <UserButtons
         v-else
@@ -64,7 +66,11 @@
         type: Boolean,
         default: false
       },
-      recommendedItem: {
+      enableAcceptRecommendation: {
+        type: Boolean,
+        default: false
+      },
+      enableRejectRecommendation: {
         type: Boolean,
         default: false
       }
