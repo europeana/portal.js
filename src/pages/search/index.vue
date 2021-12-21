@@ -102,11 +102,4 @@
   .page-container {
     max-width: none;
   }
-
-  .notification-banner {
-    margin-left: -15px;
-    margin-right: -15px;
-    width: auto;
-    min-height: 2.5rem; // aligns with the side filters header
-  }
 </style>
