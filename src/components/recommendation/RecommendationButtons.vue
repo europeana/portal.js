@@ -54,12 +54,6 @@
       };
     },
 
-    computed: {
-      set() {
-        return this.$store.state.set?.active || {};
-      }
-    },
-
     methods: {
       makeToast() {
         this.$root.$bvToast.toast(this.toastMsg, {
