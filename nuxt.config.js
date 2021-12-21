@@ -293,7 +293,6 @@ export default {
   modules: [
     '~/modules/elastic-apm',
     '@nuxtjs/axios',
-    ['@nuxtjs/robots', JSON.parse(process.env.NUXTJS_ROBOTS || '{"UserAgent":"*","Disallow":"/"}')],
     'bootstrap-vue/nuxt',
     'cookie-universal-nuxt',
     ['@nuxtjs/i18n', {
@@ -372,6 +371,7 @@ export default {
     // We can't use /api as that's reserved on www.europeana.eu for (deprecated)
     // access to Europeana APIs.
     { path: '/_api', handler: '~/server-middleware/api' },
+    { path: '/robots.txt', handler: '~/server-middleware/robots.txt' },
     '~/server-middleware/logging',
     '~/server-middleware/referrer-policy',
     '~/server-middleware/record-json'

@@ -122,7 +122,7 @@
             <b-row class="mb-3">
               <b-col cols="12">
                 <ItemPreviewCardGroup
-                  v-model="set.items"
+                  :items="set.items"
                 />
               </b-col>
             </b-row>
@@ -145,7 +145,7 @@
             {{ $t('items.recommendationsDisclaimer') }}
           </h5>
           <ItemPreviewCardGroup
-            v-model="recommendations"
+            :items="recommendations"
             :recommended-items="enableAcceptRejectRecommendations"
           />
         </b-col>

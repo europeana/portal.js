@@ -106,7 +106,7 @@
               {{ $t('noMoreResults') }}
             </p>
             <ItemPreviewCardGroup
-              v-model="results"
+              :items="results"
               :hits="hits"
               :view="view"
               :per-row="perRow"

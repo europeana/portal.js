@@ -32,7 +32,7 @@
 
     props: {
       // Identifier of the item
-      value: {
+      identifier: {
         type: String,
         required: true
       }
@@ -78,8 +78,8 @@
       },
       async acceptRecommendation() {
         if (this.$auth.loggedIn) {
-          this.$store.dispatch('set/reviewRecommendation', { setId: `/${this.$route.params.pathMatch}`, itemIds: [this.value], action: 'accept' });
-          await this.$store.dispatch('set/addItem', { setId: `http://data.europeana.eu/set/${this.$route.params.pathMatch}`, itemId: this.value });
+          this.$store.dispatch('set/reviewRecommendation', { setId: `/${this.$route.params.pathMatch}`, itemIds: [this.identifier], action: 'accept' });
+          await this.$store.dispatch('set/addItem', { setId: `http://data.europeana.eu/set/${this.$route.params.pathMatch}`, itemId: this.identifier });
           this.$store.dispatch('set/refreshSet');
           this.makeToast();
         } else {
@@ -88,7 +88,7 @@
       },
       rejectRecommendation() {
         if (this.$auth.loggedIn) {
-          this.$store.dispatch('set/reviewRecommendation', { setId: `/${this.$route.params.pathMatch}`, itemIds: [this.value], action: 'reject' });
+          this.$store.dispatch('set/reviewRecommendation', { setId: `/${this.$route.params.pathMatch}`, itemIds: [this.identifier], action: 'reject' });
         } else {
           this.keycloakLogin();
         }

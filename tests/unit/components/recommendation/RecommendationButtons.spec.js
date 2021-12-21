@@ -12,7 +12,7 @@ const storeDispatch = sinon.spy();
 
 const factory = ({ storeState = {}, $auth = {}, configAppFeatures = {} } = {}) => mount(RecommendationButtons, {
   localVue,
-  propsData: { value: identifier },
+  propsData: { identifier },
   mocks: {
     $auth,
     $config: {
