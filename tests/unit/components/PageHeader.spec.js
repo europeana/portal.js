@@ -16,9 +16,7 @@ const factory = (options = {}) => shallowMount(PageHeader, {
     },
     $path: (code) => window.location.href + code
   },
-  stubs: {
-    transition: true
-  },
+  stubs: { transition: true },
   store: options.store || store({ showSearchBar: options.showSearch || false })
 });
 
@@ -26,6 +24,9 @@ const store = (searchState = {}) => {
   return new Vuex.Store({
     state: {
       search: searchState
+    },
+    mutations: {
+      'search/setShowFiltersSheet': () => null
     }
   });
 };

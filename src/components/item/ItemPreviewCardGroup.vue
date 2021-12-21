@@ -12,10 +12,10 @@
       data-qa="item previews grid"
     >
       <ItemPreviewCard
-        v-for="(item, index) in value"
+        v-for="item in items"
         :key="item.id"
-        v-model="value[index]"
         v-masonry-tile
+        :item="item"
         :hit-selector="itemHitSelector(item)"
         :variant="cardVariant"
         class="item"
@@ -35,9 +35,9 @@
     deck
   >
     <ItemPreviewCard
-      v-for="(item, index) in value"
+      v-for="item in items"
       :key="item.id"
-      v-model="value[index]"
+      :item="item"
       :hit-selector="itemHitSelector(item)"
       :variant="cardVariant"
       :show-pins="showPins"
@@ -59,7 +59,7 @@
     },
 
     props: {
-      value: {
+      items: {
         type: Array,
         default: () => []
       },

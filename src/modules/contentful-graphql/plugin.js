@@ -1,9 +1,12 @@
 import axios from 'axios';
+import axiosRetry from 'axios-retry';
 
 import queries from './queries';
 
-export default ({ app, $config }, inject) => {
+export default ({ app, $config, $apm }, inject) => {
   const $axios = axios.create();
+  axiosRetry($axios);
+
   if (app.$axiosLogger) {
     $axios.interceptors.request.use(app.$axiosLogger);
   }
@@ -33,7 +36,17 @@ export default ({ app, $config }, inject) => {
         ...variables
       };
 
-      return this.$axios.post(`${origin}${path}`, body, { headers, params });
+      return this.$axios.post(`${origin}${path}`, body, { headers, params })
+        .catch((error) => {
+          if ($apm?.captureError) {
+            $apm.captureError(error, {
+              custom: {
+                code: error.code
+              }
+            });
+          }
+          throw error;
+        });
     }
   };
 

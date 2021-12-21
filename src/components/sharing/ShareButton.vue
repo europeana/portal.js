@@ -1,6 +1,6 @@
 <template>
   <b-button
-    v-b-modal.shareModal
+    v-b-modal.share-modal
     variant="light text-decoration-none"
     data-qa="share button"
     size="lg"
@@ -12,7 +12,7 @@
 </template>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
+  @import '@/assets/scss/variables';
 
   .share-button {
     text-transform: capitalize;
@@ -22,6 +22,7 @@
     border-color: transparent;
     border-radius: 0.25rem;
     padding: 0.375rem 0.5rem;
+
     span {
       font-size: 1.125rem;
     }

@@ -54,6 +54,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Pēdējie vienumi",
+    "organisation": "Organizācijas",
     "time": "Izvēlētie gadsimti",
     "topic": "Izvēlētās tēmas"
   },
@@ -516,6 +517,8 @@ export default {
       "rdfAbout": "Par radiopeilētāju (RDF)"
     }
   },
+  "filter": "Filtrs",
+  "filterResults": "Filtrēt rezultātus",
   "footer": {
     "customiseWebsiteLanguage": "Pielāgojiet vietnes valodu",
     "disclaimerLine1": "Europeana ir Eiropas Savienības iniciatīva, ko finansē Eiropas Savienības Eiropas Connecting Europe Facility un Eiropas Savienības dalībvalstis. Europeana pakalpojumus, tostarp šo vietni, pārvalda konsorcijs, kuru vada Europeana fonds saskaņā ar pakalpojumu līgumu ar Eiropas Komisiju.",
@@ -652,15 +655,15 @@ export default {
   "learnMore": "Uzziniet par šī apraksta avotu",
   "linksToClassic": {
     "home": {
-      "linkText": "Dodieties uz oriģinālo Europeana.",
+      "linkText": "Skatiet šo lapu sākotnējā Europeana vietnē līdz 2021. gada 20. decembrim.",
       "text": "Jūs izbaudāt jauno Europeana pieredzi."
     },
     "record": {
-      "linkText": "Skatiet šo vienumu oriģinālajā Europeana.",
+      "linkText": "Skatiet šo vienumu sākotnējā Europeana vietnē līdz 2021. gada 20. decembrim.",
       "text": "Jūs skatāties šo vienumu jaunajā Europeana vietnē."
     },
     "search": {
-      "linkText": "Skatiet šos meklēšanas rezultātus oriģinālajā Europeana.",
+      "linkText": "Meklējiet sākotnējā Europeana tīmekļa vietnē līdz 2021. gada 20. decembrim.",
       "text": "Jūs meklējat mūsu jaunajā un ātrākajā vietnē."
     }
   },

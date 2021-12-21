@@ -6,7 +6,7 @@ import { apiError, createAxios, reduceLangMapsForLocale, isLangMap } from './uti
 import search from './search';
 import { thumbnailUrl, thumbnailTypeForMimeType } from  './thumbnail';
 import { getEntityUri, getEntityQuery } from './entity';
-import { isIIIFPresentation } from '../media';
+import { isIIIFPresentation, isIIIFImage } from '../media';
 
 export const BASE_URL = process.env.EUROPEANA_RECORD_API_URL || 'https://api.europeana.eu/record';
 const MAX_VALUES_PER_PROXY_FIELD = 10;
@@ -122,6 +122,11 @@ const localeSpecificFieldValueIsFromEnrichment = (field, aggregatorProxy, provid
 };
 
 const proxyHasEntityForField = (proxy, field, entities) => {
+  if (Array.isArray(proxy?.[field]?.def)) {
+    return proxy?.[field]?.def.some(key => {
+      return entities[key];
+    });
+  }
   return entities[proxy?.[field]?.def];
 };
 
@@ -140,7 +145,7 @@ export default (context = {}) => {
     $axios,
 
     search(params, options = {}) {
-      return search($axios, params, options);
+      return search(context)($axios, params, options);
     },
 
     /**
@@ -279,7 +284,14 @@ export default (context = {}) => {
       //
       // Also greatly minimises response size, and hydration cost, for IIIF with
       // many web resources, all of which are contained in a single manifest anyway.
-      const displayable = isIIIFPresentation(media[0]) ? [media[0]] : media;
+      let displayable;
+      if (isIIIFPresentation(media[0])) {
+        displayable = [media[0]];
+      } else if (media.some(isIIIFImage)) {
+        displayable = [media.find(isIIIFImage)];
+      } else {
+        displayable = media;
+      }
 
       // Sort by isNextInSequence property if present
       return sortByIsNextInSequence(displayable).map(Object.freeze);
@@ -330,7 +342,7 @@ export default (context = {}) => {
             options.fromTranslationError = true;
             return this.getRecord(europeanaId, options);
           }
-          throw apiError(error);
+          throw apiError(error, context);
         });
     },
 

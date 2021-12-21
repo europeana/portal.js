@@ -29,25 +29,33 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
-  @import '@/assets/scss/icons.scss';
-  .automated, .enrichment, .original {
-    &:after {
-      @extend .icon-font;
+  @import '@/assets/scss/variables';
+  @import '@/assets/scss/icons';
+
+  .automated,
+  .enrichment,
+  .original {
+    &::after {
+      @extend %icon-font;
+
       font-weight: $font-size-medium;
       opacity: 0.2;
       font-size: 1.125rem;
     }
   }
+
   .automated::after {
     content: '\e941';
   }
+
   .enrichment::after {
     content: '\e940';
   }
+
   .original::after {
     content: '\e93f';
   }
+
   .translation-source {
     border: none;
     background-color: transparent;

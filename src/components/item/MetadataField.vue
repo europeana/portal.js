@@ -159,8 +159,8 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
-  @import '@/assets/scss/icons.scss';
+  @import '@/assets/scss/variables';
+  @import '@/assets/scss/icons';
 
   .metadata-row {
     border-bottom: 1px solid #e7e7e9;
@@ -181,13 +181,17 @@
 
       li {
         display: inline;
-        &:not(:last-child):after {
+
+        &:not(:last-child)::after {
           content: ';';
           padding: 0 0.2rem;
         }
-        a.is-external-link:after {
+
+        a.is-external-link::after {
           content: '\e900';
-          @extend .icon-font;
+
+          @extend %icon-font;
+
           vertical-align: initial;
           font-size: 0.75rem;
         }

@@ -8,7 +8,7 @@
     data-qa="more filters dropdown button"
     @hidden="cancelHandler"
   >
-    <template v-slot:button-content>
+    <template #button-content>
       {{ $t('facets.button.morefilters') }}
       <span
         v-if="anyOptionsSelected"

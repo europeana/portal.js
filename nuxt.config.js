@@ -8,13 +8,21 @@
 const APP_SITE_NAME = 'Europeana';
 
 import pkg from './package.json';
-import nuxtPkg from 'nuxt/package.json';
+import nuxtCorePkg from '@nuxt/core/package.json';
 
 import i18nLocales from './src/plugins/i18n/locales.js';
 import i18nDateTime from './src/plugins/i18n/datetime.js';
 import { parseQuery, stringifyQuery } from './src/plugins/vue-router.cjs';
 
 const featureIsEnabled = (value) => Boolean(Number(value));
+
+const buildPublicPath = () => {
+  if (featureIsEnabled(process.env.ENABLE_JSDELIVR_BUILD_PUBLIC_PATH)) {
+    return `https://cdn.jsdelivr.net/npm/${pkg.name}@${pkg.version}/.nuxt/dist/client`;
+  } else {
+    return process.env.NUXT_BUILD_PUBLIC_PATH;
+  }
+};
 
 export default {
   /*
@@ -27,16 +35,18 @@ export default {
       internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
       schemaOrgDatasetId: process.env.SCHEMA_ORG_DATASET_ID,
       siteName: APP_SITE_NAME,
+      search: {
+        translateLocales: (process.env.APP_SEARCH_TRANSLATE_LOCALES || '').split(',')
+      },
       features: {
         abTests: featureIsEnabled(process.env.ENABLE_AB_TESTS),
-        organisationSearchSuggestions: featureIsEnabled(process.env.ENABLE_ORGANISATION_SEARCH_SUGGESTIONS),
         jiraServiceDeskFeedbackForm: featureIsEnabled(process.env.ENABLE_JIRA_SERVICE_DESK_FEEDBACK_FORM),
         linksToClassic: featureIsEnabled(process.env.ENABLE_LINKS_TO_CLASSIC),
-        recommendations: featureIsEnabled(process.env.ENABLE_RECOMMENDATIONS),
         acceptSetRecommendations: featureIsEnabled(process.env.ENABLE_ACCEPT_SET_RECOMMENDATIONS),
         acceptEntityRecommendations: featureIsEnabled(process.env.ENABLE_ACCEPT_ENTITY_RECOMMENDATIONS),
         entityManagement: featureIsEnabled(process.env.ENABLE_ENTITY_MANAGEMENT),
-        translatedItems: featureIsEnabled(process.env.ENABLE_TRANSLATED_ITEMS)
+        translatedItems: featureIsEnabled(process.env.ENABLE_TRANSLATED_ITEMS),
+        sideFilters: featureIsEnabled(process.env.ENABLE_SIDE_FILTERS)
       }
     },
     auth: {
@@ -74,9 +84,12 @@ export default {
         serviceName: 'portal-js',
         serviceVersion: pkg.version,
         frameworkName: 'Nuxt',
-        frameworkVersion: nuxtPkg.version,
+        frameworkVersion: nuxtCorePkg.version,
         ignoreUrls: [
           /^\/(_nuxt|__webpack_hmr)\//
+        ],
+        ignoreUserAgents: [
+          'kube-probe/'
         ]
       }
     },
@@ -279,7 +292,6 @@ export default {
   modules: [
     '~/modules/elastic-apm',
     '@nuxtjs/axios',
-    ['@nuxtjs/robots', JSON.parse(process.env.NUXTJS_ROBOTS || '{"UserAgent":"*","Disallow":"/"}')],
     'bootstrap-vue/nuxt',
     'cookie-universal-nuxt',
     ['@nuxtjs/i18n', {
@@ -358,7 +370,9 @@ export default {
     // We can't use /api as that's reserved on www.europeana.eu for (deprecated)
     // access to Europeana APIs.
     { path: '/_api', handler: '~/server-middleware/api' },
+    { path: '/robots.txt', handler: '~/server-middleware/robots.txt' },
     '~/server-middleware/logging',
+    '~/server-middleware/referrer-policy',
     '~/server-middleware/record-json'
   ],
 
@@ -376,7 +390,13 @@ export default {
         // Build source maps to aid debugging in production builds
         config.devtool = 'source-map';
       }
-    }
+    },
+
+    // Prevent irrelevant postcss warnings
+    // See https://github.com/postcss/postcss/issues/1375
+    postcss: null,
+
+    publicPath: buildPublicPath()
   },
 
   /*

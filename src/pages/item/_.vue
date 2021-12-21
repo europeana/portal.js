@@ -3,7 +3,6 @@
     <NotificationBanner
       v-if="redirectNotificationsEnabled"
       :notification-url="notificationUrl"
-      :notification-text="$t('linksToClassic.record.text')"
       :notification-link-text="$t('linksToClassic.record.linkText')"
     />
     <b-container v-if="error">
@@ -91,7 +90,7 @@
               {{ $t('record.exploreMore') }}
             </h2>
             <ItemPreviewCardGroup
-              v-model="similarItems"
+              :items="similarItems"
               view="explore"
               class="mb-0"
               data-qa="similar items"
@@ -125,6 +124,7 @@
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
 
   export default {
+    name: 'ItemPage',
     components: {
       ItemHero: () => import('@/components/item/ItemHero'),
       AlertMessage: () => import('@/components/generic/AlertMessage'),
@@ -136,13 +136,18 @@
       ItemLanguageSelector: () => import('@/components/item/ItemLanguageSelector')
     },
 
-    fetch() {
-      this.fetchAnnotations();
-      this.fetchRelatedEntities();
-      this.fetchSimilarItems();
+    async beforeRouteUpdate(to, from, next) {
+      if (to.path !== from.path) {
+        // Navigation to another item
+        await this.$store.dispatch('item/reset');
+      }
+      next();
     },
 
-    fetchOnServer: false,
+    async beforeRouteLeave(to, from, next) {
+      await this.$store.dispatch('item/reset');
+      next();
+    },
 
     asyncData({ params, res, route, app, $apis }) {
       return $apis.record
@@ -179,6 +184,28 @@
         useProxy: true,
         schemaOrg: null,
         metadataLanguage: null
+      };
+    },
+
+    fetch() {
+      this.fetchAnnotations();
+      this.fetchRelatedEntities();
+      this.fetchSimilarItems();
+    },
+
+    fetchOnServer: false,
+
+    head() {
+      return {
+        title: this.$pageHeadTitle(this.metaTitle),
+        meta: [
+          { hid: 'title', name: 'title', content: this.metaTitle },
+          { hid: 'description', name: 'description', content: this.metaDescription },
+          { hid: 'og:title', property: 'og:title', content: this.metaTitle },
+          { hid: 'og:description', property: 'og:description', content: this.metaDescription },
+          { hid: 'og:image', property: 'og:image', content: this.pageHeadMetaOgImage },
+          { hid: 'og:type', property: 'og:type', content: 'article' }
+        ]
       };
     },
 
@@ -293,6 +320,8 @@
       }
     },
 
+    watchQuery: ['lang'],
+
     mounted() {
       if (!this.error) {
         this.$matomo && this.$matomo.trackPageView('item page custom dimensions', this.matomoOptions());
@@ -331,7 +360,7 @@
           return Promise.resolve(noSimilarItems);
         }
 
-        if (this.$config.app.features.recommendations && this.$auth.loggedIn) {
+        if (this.$auth.loggedIn) {
           return this.$apis.recommendation.recommend('record', this.identifier)
             .then(recommendResponse => recommendResponse);
         }
@@ -378,34 +407,6 @@
           dimension4: langMapValueForLocale(this.metadata.edmRights, 'en').values[0]
         };
       }
-    },
-
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.metaTitle),
-        meta: [
-          { hid: 'title', name: 'title', content: this.metaTitle },
-          { hid: 'description', name: 'description', content: this.metaDescription },
-          { hid: 'og:title', property: 'og:title', content: this.metaTitle },
-          { hid: 'og:description', property: 'og:description', content: this.metaDescription },
-          { hid: 'og:image', property: 'og:image', content: this.pageHeadMetaOgImage },
-          { hid: 'og:type', property: 'og:type', content: 'article' }
-        ]
-      };
-    },
-
-    watchQuery: ['lang'],
-
-    async beforeRouteUpdate(to, from, next) {
-      if (to.path !== from.path) {
-        // Navigation to another item
-        await this.$store.dispatch('item/reset');
-      }
-      next();
-    },
-    async beforeRouteLeave(to, from, next) {
-      await this.$store.dispatch('item/reset');
-      next();
     }
   };
 </script>
@@ -423,6 +424,6 @@
 
   ::v-deep .card-header-tabs .nav-link,
   ::v-deep .card-header-tabs .nav-link:hover {
-    border-radius: 0.25rem 0 0 0;
+    border-radius: 0.25rem 0 0;
   }
 </style>

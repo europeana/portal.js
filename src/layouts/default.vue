@@ -52,6 +52,8 @@
   import { version as bootstrapVueVersion } from 'bootstrap-vue/package.json';
 
   export default {
+    name: 'DefaultLayout',
+
     components: {
       BBreadcrumb,
       ClientOnly,
@@ -65,6 +67,33 @@
         linkGroups: {},
         enableAnnouncer: true,
         klaro: null
+      };
+    },
+
+    head() {
+      const i18nHead = this.$nuxtI18nHead({ addSeoAttributes: true });
+
+      return {
+        htmlAttrs: {
+          ...i18nHead.htmlAttrs
+        },
+        link: [
+          { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700&subset=latin,greek,cyrillic&display=swap',
+            body: true },
+          { rel: 'stylesheet', href: `https://unpkg.com/bootstrap@${bootstrapVersion}/dist/css/bootstrap.min.css` },
+          { rel: 'stylesheet', href: `https://unpkg.com/klaro@${klaroVersion}/dist/klaro.min.css` },
+          { rel: 'stylesheet', href: `https://unpkg.com/bootstrap-vue@${bootstrapVueVersion}/dist/bootstrap-vue.min.css` },
+          { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrlWithoutLocale },
+          ...i18nHead.link
+        ],
+        script: [
+          { src: `https://unpkg.com/klaro@${klaroVersion}/dist/klaro-no-css.js`, defer: true }
+        ],
+        meta: [
+          { hid: 'description', property: 'description', content: 'Europeana' },
+          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl },
+          ...i18nHead.meta
+        ]
       };
     },
 
@@ -162,33 +191,6 @@
           }, 10);
         }
       }
-    },
-
-    head() {
-      const i18nHead = this.$nuxtI18nHead({ addSeoAttributes: true });
-
-      return {
-        htmlAttrs: {
-          ...i18nHead.htmlAttrs
-        },
-        link: [
-          { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700&subset=latin,greek,cyrillic&display=swap',
-            body: true },
-          { rel: 'stylesheet', href: `https://unpkg.com/bootstrap@${bootstrapVersion}/dist/css/bootstrap.min.css` },
-          { rel: 'stylesheet', href: `https://unpkg.com/klaro@${klaroVersion}/dist/klaro.min.css` },
-          { rel: 'stylesheet', href: `https://unpkg.com/bootstrap-vue@${bootstrapVueVersion}/dist/bootstrap-vue.min.css` },
-          { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrlWithoutLocale },
-          ...i18nHead.link
-        ],
-        script: [
-          { src: `https://unpkg.com/klaro@${klaroVersion}/dist/klaro-no-css.js`, defer: true }
-        ],
-        meta: [
-          { hid: 'description', property: 'description', content: 'Europeana' },
-          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl },
-          ...i18nHead.meta
-        ]
-      };
     }
   };
 </script>

@@ -91,14 +91,14 @@
       }
     },
 
-    async fetch() {
-      this.content = await this.sectionsWithLatestCardGroups(this.sections);
-    },
-
     data() {
       return {
         content: this.sections
       };
+    },
+
+    async fetch() {
+      this.content = await this.sectionsWithLatestCardGroups(this.sections);
     },
 
     methods: {
@@ -171,7 +171,7 @@
 
 <style lang="scss" scoped>
   ::v-deep .attribution {
-    &:after {
+    &::after {
       padding-top: 0.2rem;
     }
   }

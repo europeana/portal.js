@@ -12,6 +12,7 @@
       <div
         v-if="cardImageUrl"
         class="card-img"
+        :class="{ logo }"
       >
         <b-img-lazy
           v-if="lazy"
@@ -33,7 +34,7 @@
         />
       </div>
       <div
-        v-else
+        v-else-if="!cardImageUrl && variant !== 'mini'"
         class="placeholder card-img"
       />
       <b-card-body data-qa="card body">
@@ -63,30 +64,28 @@
         >
           {{ $d(new Date(datetime), 'short') }}
         </time>
-        <template v-if="hitsText">
-          <b-card-text
-            text-tag="div"
-            data-qa="highlighted search term"
-          >
-            <p>{{ hitsText.prefix }}<strong class="has-text-highlight">{{ hitsText.exact }}</strong>{{ hitsText.suffix }}</p>
-          </b-card-text>
-        </template>
+        <b-card-text
+          v-if="hitsText"
+          text-tag="div"
+          data-qa="highlighted search term"
+        >
+          <p>
+            {{ hitsText.prefix }}<strong class="has-text-highlight">{{ hitsText.exact }}</strong>{{ hitsText.suffix }}
+          </p>
+        </b-card-text>
         <template v-if="displayTexts.length > 0">
-          <template
+          <b-card-text
             v-for="(text, index) in displayTexts"
+            :key="index"
+            :lang="text.code"
+            text-tag="div"
           >
-            <b-card-text
-              :key="index"
-              :lang="text.code"
-              text-tag="div"
-            >
-              <!-- eslint-disable vue/no-v-html -->
-              <p
-                v-html="cardText(text.values)"
-              />
-              <!-- eslint-enable vue/no-v-html -->
-            </b-card-text>
-          </template>
+            <!-- eslint-disable vue/no-v-html -->
+            <p
+              v-html="cardText(text.values)"
+            />
+            <!-- eslint-enable vue/no-v-html -->
+          </b-card-text>
         </template>
       </b-card-body>
     </SmartLink>
@@ -101,6 +100,7 @@
   import SmartLink from './SmartLink';
   import stripMarkdown from '@/mixins/stripMarkdown';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import themes from '@/plugins/europeana/themes';
 
   export default {
     name: 'ContentCard',
@@ -196,12 +196,17 @@
       blankImageWidth: {
         type: Number,
         default: null
+      },
+      logo: {
+        type: Boolean,
+        default: false
       }
     },
     data() {
       return {
         cardImageUrl: this.imageUrl,
-        displayLabelTypes: 'exhibitions|galleries|blog|collections'
+        displayLabelTypes: 'exhibitions|galleries|blog|collections',
+        themes: themes.map(theme => theme.id)
       };
     },
 
@@ -230,7 +235,14 @@
         }
 
         if (this.displayLabelType === 'collections') {
-          return this.$t(`cardLabels.${this.displayLabelTypeCollections}`);
+          const entityId = (typeof this.url === 'string') ?
+            this.url.split('/').pop().split('-').shift() :
+            this.url.params.pathMatch;
+
+          // TODO: remove when thematic collections topics get their own 'theme' type
+          return this.themes.includes(entityId) ?
+            this.$t('cardLabels.theme') :
+            this.$t(`cardLabels.${this.displayLabelTypeCollections}`);
         }
 
         if (this.displayLabelType === 'blog') {

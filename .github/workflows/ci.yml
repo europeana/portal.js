@@ -1,190 +1,455 @@
 name: CI
 
 on:
+  push:
+    branches:
+      - 'master'
+    tags:
+      - 'v[0-9]+.[0-9]+.*'
   pull_request:
-    types: [opened, synchronize, reopened]
+    branches:
+      - 'master'
+    types: [opened, synchronize, reopened, ready_for_review, converted_to_draft]
     paths-ignore:
     - '**.md'
-    - 'deploy/**'
-    - 'migrations/**'
+    - 'src/migrations/**'
 
 env:
-  CF_API: https://api.eu-de.cf.cloud.ibm.com
-  CF_APP_NAME_PREFIX: portaljs
-  # TODO: use eanadev.org, requiring interaction with Dyn DNS API
-  CF_DOMAIN: eu-de.cf.appdomain.cloud
-  CF_ORG: europeana-dev
-  CF_PASSWORD: ${{ secrets.CF_PASSWORD }}
-  CF_SPACE: dev
-  CF_USERNAME: apikey
   CTF_CDA_ACCESS_TOKEN: ${{ secrets.CTF_CDA_ACCESS_TOKEN }}
   CTF_ENVIRONMENT_ID: test
-  CTF_GRAPHQL_ORIGIN: https://portaljs-api-proxy-cache-test.eanadev.org
+  CTF_GRAPHQL_ORIGIN: https://contentful-proxy-cache.test.eanadev.org
   CTF_SPACE_ID: ${{ secrets.CTF_SPACE_ID }}
+  DOCKER_REPOSITORY: europeana/portal.js
   ELASTIC_APM_SERVER_URL: https://apm.eanadev.org:8200
   EUROPEANA_API_KEY: ${{ secrets.EUROPEANA_API_KEY }}
   EUROPEANA_RECORD_API_KEY: ${{ secrets.EUROPEANA_RECORD_API_KEY }}
-  SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
   OAUTH_CLIENT: ${{ secrets.OAUTH_CLIENT }}
-  PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
   REDIS_URL: ${{ secrets.REDIS_URL }}
   REDIS_TLS_CA: ${{ secrets.REDIS_TLS_CA }}
 
 jobs:
-  config:
+  # Build the base stage of the Docker image first so that unit tests can run,
+  # as they do not require the full production image to be built.
+  docker-base-stage:
     runs-on: ubuntu-latest
+    if: github.event_name == 'push' || github.event.pull_request.draft == false
     steps:
-    - uses: actions/checkout@v2
-    - run: echo "PULL_REQUEST_NUMBER=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
-    - run: echo "CF_APP_NAME=${CF_APP_NAME_PREFIX}-${PULL_REQUEST_NUMBER}" >> $GITHUB_ENV
-    - run: echo "CF_APP_FQDN=${CF_APP_NAME}.${CF_DOMAIN}" >> $GITHUB_ENV
-    - id: done
-      name: Output generated env vars
-      run: |
-        echo "::set-output name=pull-request-number::${PULL_REQUEST_NUMBER}"
-        echo "::set-output name=cf-space::${CF_SPACE}"
-        echo "::set-output name=cf-app-name::${CF_APP_NAME}"
-        echo "::set-output name=cf-app-fqdn::${CF_APP_FQDN}"
-    outputs:
-      pull-request-number: ${{ steps.done.outputs.pull-request-number }}
-      cf-app-name: ${{ steps.done.outputs.cf-app-name }}
-      cf-app-fqdn: ${{ steps.done.outputs.cf-app-fqdn }}
-      cf-space:  ${{ steps.done.outputs.cf-space }}
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      -
+        name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: ${{ env.DOCKER_REPOSITORY }}
+          tags: |
+            type=ref,event=pr,suffix=-base
+            type=ref,event=branch,suffix=-base
+            type=ref,event=tag,suffix=-base
+            type=semver,pattern={{version}},suffix=-base
+      -
+        name: Build and cache
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          pull: true
+          tags: ${{ steps.meta.outputs.tags }}
+          target: base
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
+  # Run linting and unit tests on pull requests
   test-unit:
     runs-on: ubuntu-latest
+    needs: [docker-base-stage]
+    if: github.event_name == 'pull_request' && github.event.pull_request.draft == false
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: 14.x
-    - uses: actions/cache@v2
-      id: cache-node
-      with:
-        path: |
-          ~/.npm
-          **/node_modules
-        key: ${{ runner.os }}-node-${{ hashFiles('./package-lock.json') }}
-    - if: steps.cache-node.outputs.cache-hit != 'true'
-      run: npm install
-    - run: npm run test:unit
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      -
+        name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: ${{ env.DOCKER_REPOSITORY }}
+          tags: |
+            type=ref,event=pr,suffix=-base
+      -
+        name: Load base image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          load: true
+          tags: ${{ steps.meta.outputs.tags }}
+          target: base
+          cache-from: type=gha
+      -
+        name: Check code linting
+        run: |
+          docker run \
+            --mount type=bind,source="$(pwd)"/tests,target=/app/tests \
+            --mount type=bind,source="$(pwd)"/.eslintrc.cjs,target=/app/.eslintrc.cjs \
+            --mount type=bind,source="$(pwd)"/bin,target=/app/bin \
+            ${DOCKER_REPOSITORY}:${{ steps.meta.outputs.version }} npm run lint
+      -
+        name: Check style linting
+        run: |
+          docker run \
+            --mount type=bind,source="$(pwd)"/.stylelintrc.cjs,target=/app/.stylelintrc.cjs \
+            ${DOCKER_REPOSITORY}:${{ steps.meta.outputs.version }} npm run stylelint
+      -
+        name: Run unit tests
+        run: |
+          docker run \
+            --mount type=bind,source="$(pwd)"/tests,target=/app/tests \
+            --mount type=bind,source="$(pwd)"/.eslintrc.cjs,target=/app/.eslintrc.cjs \
+            ${DOCKER_REPOSITORY}:${{ steps.meta.outputs.version }} npm run test:unit
 
-  build:
-    needs: [test-unit]
+  # Build, and push to Docker Hub, full production Docker image for use throughout
+  # other jobs
+  docker-final-stage:
     runs-on: ubuntu-latest
+    needs: [docker-base-stage]
+    if: github.event_name == 'push' || github.event.pull_request.draft == false
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: 14.x
-    - uses: actions/cache@v2
-      id: cache-node
-      with:
-        path: |
-          ~/.npm
-          **/node_modules
-        key: ${{ runner.os }}-node-${{ hashFiles('./package-lock.json') }}
-    - if: steps.cache-node.outputs.cache-hit != 'true'
-      run: npm install
-    - run: npm run build
-    - uses: actions/upload-artifact@v2
-      with:
-        name: .nuxt
-        path: .nuxt/
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      -
+        name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: ${{ env.DOCKER_REPOSITORY }}
+          tags: |
+            type=ref,event=pr
+            type=ref,event=branch
+            type=ref,event=tag
+            type=semver,pattern={{version}}
+      -
+        name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Build and push
+        id: build-push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          pull: true
+          push: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
 
+  # Run size tests on pull requests
   test-size:
-    needs: [build]
     runs-on: ubuntu-latest
+    needs: [docker-final-stage]
+    if: github.event_name == 'pull_request' && github.event.pull_request.draft == false
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: 14.x
-    - uses: actions/download-artifact@v2
-    - uses: actions/cache@v2
-      id: cache-size-limit-node
-      with:
-        path: |
-          ./tests/size/node_modules
-        key: ${{ runner.os }}-node-${{ hashFiles('./tests/size/package.json') }}
-    - name: npm install
-      if: steps.cache-size-limit-node.outputs.cache-hit != 'true'
-      run: |
-        cd tests/size
-        npm install
-    - name: test size-limit
-      run: |
-        cd tests/size
-        npm run start
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      -
+        name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: ${{ env.DOCKER_REPOSITORY }}
+          tags: |
+            type=ref,event=pr
+      -
+        name: Build and load app image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          load: true
+          tags: ${{ steps.meta.outputs.tags }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      -
+        name: Build and load size test image
+        uses: docker/build-push-action@v2
+        with:
+          context: ./tests/size
+          load: true
+          tags: ${{ env.DOCKER_REPOSITORY }}-test-size
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      -
+        name: Prepare resources for size tests
+        run: |
+          docker run --name portal.js --rm -d ${{ env.DOCKER_REPOSITORY }}:${{ steps.meta.outputs.version }}
+          docker cp portal.js:/app/.nuxt ./.nuxt
+          docker stop portal.js
+      -
+        name: Run size tests
+        run: |
+          docker run \
+            --mount type=bind,source="$(pwd)"/.nuxt,target=/app/.nuxt \
+            --mount type=bind,source="$(pwd)"/tests/size/.size-limit.json,target=/app/.size-limit.json \
+            ${{ env.DOCKER_REPOSITORY }}-test-size
 
+  # Run e2e tests on pull requests
   test-e2e:
-    needs: [config]
     runs-on: ubuntu-latest
-    env:
-      PERCY_PULL_REQUEST: ${{ needs.config.outputs.pull-request-number }}
+    needs: [docker-final-stage]
+    if: github.event_name == 'pull_request' && github.event.pull_request.draft == false
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: 14.x
-    - run: echo "PERCY_BRANCH=${GITHUB_HEAD_REF}" >> $GITHUB_ENV
-    - run: echo "PERCY_COMMIT=${GITHUB_SHA}" >> $GITHUB_ENV
-    - run: envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/app/.env
-    - run: envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/nightwatch-visual/.env
-    - run: npm run test:e2e
-    - run: npm run test:visual
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      -
+        name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: ${{ env.DOCKER_REPOSITORY }}
+          tags: |
+            type=ref,event=pr
+      -
+        name: Prepare env for e2e tests
+        run: echo "APP_IMAGE_VERSION=${{ steps.meta.outputs.version }}" >> $GITHUB_ENV
+      -
+        name: Create e2e test container .env files
+        run: |
+          envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/app/.env
+          envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/nightwatch-visual/.env
+      -
+        name: Pull images for e2e tests
+        run: docker-compose -f ./tests/e2e/docker/docker-compose.yml pull -q app cache chrome-en
+      -
+        name: Build images for e2e tests
+        run: docker-compose -f ./tests/e2e/docker/docker-compose.yml build -q nginx nightwatch-features
+      -
+        name: Run e2e tests
+        run: docker-compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-features
 
-  # TODO: limit to internal PRs, i.e. those from within the repo
-  deploy:
-    needs: [config, build, test-unit]
+  # Run visual tests on pull requests, and pushes to master
+  test-visual:
     runs-on: ubuntu-latest
+    needs: [docker-final-stage]
+    if: (github.event_name == 'push' && github.event.ref == 'refs/heads/master') || (github.event_name == 'pull_request' && github.event.pull_request.draft == false)
     env:
-      PULL_REQUEST_NUMBER: ${{ needs.config.outputs.pull-request-number }}
-      CF_APP_FQDN: ${{ needs.config.outputs.cf-app-fqdn }}
-      CF_APP_NAME: ${{ needs.config.outputs.cf-app-name }}
-      CF_SPACE: ${{ needs.config.outputs.cf-space }}
+      PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/download-artifact@v2
-    - run: envsubst < .github/workflows/support/ci/vars.yml > deploy/cloud-foundry/vars.yml
-    # TODO: build and push a Docker image for this to speed it up?
-    - name: Install CF CLI & plugins
-      run: |
-        wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
-        echo "deb https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
-        sudo apt-get -q update && sudo apt-get -yq install cf7-cli
-    - name: Login to CF
-      run: cf login -a ${CF_API} -u ${CF_USERNAME} -p "${CF_PASSWORD}" -o ${CF_ORG} -s ${CF_SPACE}
-    - name: Detect first deployment of this app
-      id: detect
-      run: |
-        set +e
-        cf app ${CF_APP_NAME}
-        if [ $? -eq 1 ]; then CF_APP_FIRST_DEPLOY="true"; else CF_APP_FIRST_DEPLOY="false"; fi
-        set -e
-        echo ${CF_APP_FIRST_DEPLOY}
-        echo "::set-output name=cf-app-first-deploy::${CF_APP_FIRST_DEPLOY}"
-    - name: Push to Cloud Foundry
-      run: |
-        cf push ${CF_APP_NAME} --strategy rolling -f deploy/cloud-foundry/manifest.yml --no-route --vars-file deploy/cloud-foundry/vars.yml
-        cf map-route ${CF_APP_NAME} ${CF_DOMAIN} --hostname ${CF_APP_NAME}
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      -
+        name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: ${{ env.DOCKER_REPOSITORY }}
+          tags: |
+            type=ref,event=pr
+            type=ref,event=branch
+      -
+        name: Prepare env for visual tests
+        run: |
+          echo "APP_IMAGE_VERSION=${{ steps.meta.outputs.version }}" >> $GITHUB_ENV
+          echo "PERCY_COMMIT=${GITHUB_SHA}" >> $GITHUB_ENV
+      -
+        name: Create visual test container .env files
+        run: |
+          envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/app/.env
+          envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/nightwatch-visual/.env
+      -
+        name: Pull images for visual tests
+        run: docker-compose -f ./tests/e2e/docker/docker-compose.yml pull -q app cache chrome-en
+      -
+        name: Build images for visual tests
+        run: docker-compose -f ./tests/e2e/docker/docker-compose.yml build -q nginx nightwatch-features
+      -
+        name: Run visual tests
+        run: docker-compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-visual
+
+  # Deploy to IBM Cloud Kubernetes cluster:
+  # * Pull requests are deployed as new resources in dev namespace
+  # * Pushes to master update the deployment in the test namespace
+  deploy-ibm-cloud:
+    runs-on: ubuntu-latest
+    needs: [docker-final-stage]
+    if: (github.event_name == 'push' && github.event.ref == 'refs/heads/master') || (github.event_name == 'pull_request' && github.event.pull_request.draft == false)
+    env:
+      IBMCLOUD_API_URL: https://cloud.ibm.com
+      IBMCLOUD_API_KEY: ${{ secrets.IBMCLOUD_API_KEY }}
+      IBMCLOUD_CLUSTER_NAME: europeana-web
+      IBMCLOUD_REGION: eu-de
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      -
+        name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: ${{ env.DOCKER_REPOSITORY }}
+          tags: |
+            type=ref,event=pr
+            type=ref,event=branch
+      -
+        name: Set image tag for deployment
+        run: echo "DOCKER_IMAGE_TAG=${{ env.DOCKER_REPOSITORY }}:${{ steps.meta.outputs.version }}" >> $GITHUB_ENV
+      -
+        name: Prepare env for dev deployments, step 1
+        if: github.event_name == 'pull_request'
+        run: |
+          echo "K8S_NAMESPACE=dev" >> $GITHUB_ENV
+          echo "PULL_REQUEST_NUMBER=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
+      -
+        name: Prepare env for dev deployments, step 2
+        if: github.event_name == 'pull_request'
+        run: |
+          echo "K8S_RESOURCE_NAME=portal-js-pr-${PULL_REQUEST_NUMBER}" >> $GITHUB_ENV
+          echo "K8S_INGRESS_HOST=pr-${PULL_REQUEST_NUMBER}.portal-js.dev.eanadev.org" >> $GITHUB_ENV
+      -
+        name: Prepare env for test deployment
+        if: github.event_name == 'push'
+        run: |
+          echo "K8S_NAMESPACE=test" >> $GITHUB_ENV
+          echo "K8S_RESOURCE_NAME=portal-js" >> $GITHUB_ENV
+      -
+        name: Create K8s resource manifests for dev deployments
+        if: github.event_name == 'pull_request'
+        run: |
+          envsubst < .github/workflows/support/ci/deploy/deployment.yml > deployment.yml
+          envsubst < .github/workflows/support/ci/deploy/service.yml > service.yml
+          envsubst < .github/workflows/support/ci/deploy/ingress.yml > ingress.yml
+      -
+        name: Install ibmcloud CLI
+        run: |
+          curl -fsSL https://clis.cloud.ibm.com/install/linux | sh
+          ibmcloud plugin install container-service
+      -
+        name: Login to IBM Cloud
+        run: |
+          ibmcloud login -a ${IBMCLOUD_API_URL} -r ${IBMCLOUD_REGION} --apikey ${IBMCLOUD_API_KEY}
+          ibmcloud ks cluster config --cluster ${IBMCLOUD_CLUSTER_NAME}
+      -
+        name: Detect new deployment
+        if: github.event_name == 'pull_request'
+        run: |
+          set +e
+          kubectl --namespace dev get deployment ${K8S_RESOURCE_NAME}
+          if [ $? -eq 1 ]; then K8S_NEW_DEPLOYMENT="true"; else K8S_NEW_DEPLOYMENT="false"; fi
+          set -e
+          echo K8S_NEW_DEPLOYMENT=${K8S_NEW_DEPLOYMENT} >> $GITHUB_ENV
+      -
+        name: Create new dev resources on IBM Cloud K8s
+        if: github.event_name == 'pull_request'
+        run: |
+          kubectl apply -f deployment.yml
+          kubectl apply -f service.yml
+          kubectl apply -f ingress.yml
+      -
+        name: Restart deployment
+        run: kubectl rollout restart --namespace ${K8S_NAMESPACE} deployment/${K8S_RESOURCE_NAME}
     outputs:
-      cf-app-first-deploy: ${{ steps.detect.outputs.cf-app-first-deploy }}
+      k8s-ingress-host: ${{ env.K8S_INGRESS_HOST }}
+      k8s-new-deployment: ${{ env.K8S_NEW_DEPLOYMENT }}
 
-  notify:
-    needs: [deploy, config]
-    if: needs.deploy.outputs.cf-app-first-deploy == 'true'
+  # Publish tagged versions to NPM
+  npm-publish:
     runs-on: ubuntu-latest
+    needs: [docker-final-stage]
+    if: github.event_name == 'push' && startsWith( github.event.ref, 'refs/tags/v' )
     env:
-      PULL_REQUEST_NUMBER: ${{ needs.config.outputs.pull-request-number }}
+      NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      -
+        name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: ${{ env.DOCKER_REPOSITORY }}
+          tags: |
+            type=ref,event=tag
+      -
+        name: Load built image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          load: true
+          tags: ${{ steps.meta.outputs.tags }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      -
+        name: Prepare resources for publish
+        run: |
+          docker run --name portal.js --rm -d ${{ env.DOCKER_REPOSITORY }}:${{ steps.meta.outputs.version }}
+          mkdir ./tmp
+          docker cp portal.js:/app ./tmp
+          docker stop portal.js
+      -
+        name: Publish to NPM
+        run: |
+          cp .github/workflows/support/docker-images/.npmrc ~/
+          npm publish --access public --dry-run ./tmp/app
+      -
+        name: Warm up jsDelivr
+        run: .github/workflows/support/docker-images/warm-up-jsdelivr.sh ./tmp/app
+
+  # Send a notification to Slack channel with details of new PR deployments
+  notify:
+    runs-on: ubuntu-latest
+    needs: [deploy-ibm-cloud]
+    if: github.event_name == 'pull_request' && github.event.pull_request.draft == false && needs.deploy-ibm-cloud.outputs.k8s-new-deployment == 'true'
+    env:
       PULL_REQUEST_TITLE: ${{ github.event.pull_request.title }}
       PULL_REQUEST_USER_LOGIN: ${{ github.event.pull_request.user.login }}
       PULL_REQUEST_USER_HTML_URL: ${{ github.event.pull_request.user.html_url }}
-      CF_APP_FQDN: ${{ needs.config.outputs.cf-app-fqdn }}
+      K8S_INGRESS_HOST: ${{ needs.deploy-ibm-cloud.outputs.k8s-ingress-host }}
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
     steps:
-      - uses: actions/checkout@v2
-      - name: Notify Slack
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Prepare env for notification to Slack
+        run: echo "PULL_REQUEST_NUMBER=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
+      -
+        name: Notify Slack
         run: |
-          mkdir tmp
-          envsubst < .github/workflows/support/ci/slack-notification.json > tmp/slack-notification.json
-          curl -d "@tmp/slack-notification.json" -X POST ${SLACK_WEBHOOK_URL}
+          envsubst < .github/workflows/support/ci/slack-notification.json > ./slack-notification.json
+          curl -d "@./slack-notification.json" -X POST ${SLACK_WEBHOOK_URL}

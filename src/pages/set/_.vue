@@ -33,7 +33,7 @@
                 <div
                   class="context-label"
                 >
-                  {{ this.$tc('galleries.galleries', 1) }}
+                  {{ $tc('galleries.galleries', 1) }}
                 </div>
                 <h1
                   :lang="displayTitle.code"
@@ -90,7 +90,7 @@
                 />
               </template>
               <b-button
-                v-b-modal.shareModal
+                v-b-modal.share-modal
                 variant="outline-primary"
                 class="text-decoration-none"
               >
@@ -122,7 +122,7 @@
             <b-row class="mb-3">
               <b-col cols="12">
                 <ItemPreviewCardGroup
-                  v-model="set.items"
+                  :items="set.items"
                 />
               </b-col>
             </b-row>
@@ -145,7 +145,7 @@
             {{ $t('items.recommendationsDisclaimer') }}
           </h5>
           <ItemPreviewCardGroup
-            v-model="recommendations"
+            :items="recommendations"
             :recommendations="enableAcceptRecommendations"
           />
         </b-col>
@@ -164,6 +164,8 @@
   import SocialShareModal from '../../components/sharing/SocialShareModal.vue';
 
   export default {
+    name: 'SetPage',
+
     components: {
       LoadingSpinner,
       AlertMessage,
@@ -172,7 +174,19 @@
       SetFormModal: () => import('../../components/set/SetFormModal')
     },
 
+    async beforeRouteLeave(to, from, next) {
+      await this.$store.commit('set/setActive', null);
+      await this.$store.commit('set/setActiveRecommendations', []);
+      next();
+    },
+
     middleware: 'sanitisePageQuery',
+
+    data() {
+      return {
+        setFormModalId: `set-form-modal-${this.id}`
+      };
+    },
 
     async fetch() {
       try {
@@ -188,9 +202,19 @@
       }
     },
 
-    data() {
+    head() {
       return {
-        setFormModalId: `set-form-modal-${this.id}`
+        title: this.$pageHeadTitle(this.displayTitle.values[0]),
+        meta: [
+          { hid: 'title', name: 'title', content: this.displayTitle.values[0] },
+          { hid: 'og:title', property: 'og:title', content: (this.displayTitle.values[0]) },
+          { hid: 'og:image', property: 'og:image', content: this.shareMediaUrl },
+          { hid: 'og:type', property: 'og:type', content: 'article' }
+        ]
+          .concat(this.displayDescription && this.displayDescription.values[0] ? [
+            { hid: 'description', name: 'description', content: this.displayDescription.values[0]  },
+            { hid: 'og:description', property: 'og:description', content: this.displayDescription.values[0]  }
+          ] : [])
       };
     },
 
@@ -239,9 +263,9 @@
       },
       enableRecommendations() {
         if (this.setIsEntityBestItems) {
-          return this.$config.app.features.recommendations && this.$config.app.features.acceptEntityRecommendations;
+          return this.$config.app.features.acceptEntityRecommendations;
         }
-        return this.$config.app.features.recommendations;
+        return true;
       },
       enableAcceptRecommendations() {
         if (this.setIsEntityBestItems) {
@@ -291,34 +315,13 @@
           this.$store.dispatch('set/fetchActiveRecommendations', `/${this.$route.params.pathMatch}`);
         }
       }
-    },
-
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.displayTitle.values[0]),
-        meta: [
-          { hid: 'title', name: 'title', content: this.displayTitle.values[0] },
-          { hid: 'og:title', property: 'og:title', content: (this.displayTitle.values[0]) },
-          { hid: 'og:image', property: 'og:image', content: this.shareMediaUrl },
-          { hid: 'og:type', property: 'og:type', content: 'article' }
-        ]
-          .concat(this.displayDescription && this.displayDescription.values[0] ? [
-            { hid: 'description', name: 'description', content: this.displayDescription.values[0]  },
-            { hid: 'og:description', property: 'og:description', content: this.displayDescription.values[0]  }
-          ] : [])
-      };
-    },
-    async beforeRouteLeave(to, from, next) {
-      await this.$store.commit('set/setActive', null);
-      await this.$store.commit('set/setActiveRecommendations', []);
-      next();
     }
   };
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
-  @import '@/assets/scss/icons.scss';
+  @import '@/assets/scss/variables';
+  @import '@/assets/scss/icons';
 
   .usergallery-description {
     color: $mediumgrey;
@@ -335,7 +338,7 @@
       display: inline-flex;
       align-items: center;
 
-      &:before {
+      &::before {
         font-size: 1.5rem;
         padding-right: 0.2rem;
       }
@@ -343,16 +346,19 @@
 
     .curator {
       margin-right: 1.5rem;
-      &:before {
-        @extend .icon-font;
+
+      &::before {
+        @extend %icon-font;
+
         content: '\e92e';
         font-size: 1.125rem;
       }
     }
 
     .visibility {
-      &:before {
-        @extend .icon-font;
+      &::before {
+        @extend %icon-font;
+
         content: '\e92d';
         font-size: 1.125rem;
       }

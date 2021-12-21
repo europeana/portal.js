@@ -26,7 +26,6 @@
     <b-row>
       <b-col>
         <PaginationNav
-          v-model="page"
           :limit="perPage"
           :total-results="total"
           :per-page="perPage"
@@ -43,7 +42,7 @@
   const PER_PAGE = 20;
 
   export default {
-    name: 'GalleryFoyer',
+    name: 'GalleriesIndexPage',
     components: {
       ContentHeader,
       ContentCard,
@@ -78,16 +77,16 @@
         page: null
       };
     },
-    methods: {
-      imageUrl(data) {
-        return (data.encoding ? data.encoding.edmPreview : data.thumbnailUrl) + '&size=w400';
-      }
-    },
     head() {
       return {
         title: this.$pageHeadTitle(this.$tc('galleries.galleries', 2))
       };
     },
-    watchQuery: ['page']
+    watchQuery: ['page'],
+    methods: {
+      imageUrl(data) {
+        return (data.encoding ? data.encoding.edmPreview : data.thumbnailUrl) + '&size=w400';
+      }
+    }
   };
 </script>

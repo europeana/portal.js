@@ -30,7 +30,7 @@
             <div class="ml-lg-auto d-flex">
               <client-only>
                 <UserButtons
-                  v-model="identifier"
+                  :identifier="identifier"
                 />
               </client-only>
               <ShareButton />

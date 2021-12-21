@@ -47,7 +47,7 @@
                       >
                         <ItemPreviewCardGroup
                           v-if="likesId && likedItems.length !== 0"
-                          v-model="likedItems"
+                          :items="likedItems"
                           class="pb-5"
                         />
                         <div
@@ -85,7 +85,7 @@
                 </div>
                 <UserSets
                   v-else
-                  v-model="publicCreations"
+                  :sets="publicCreations"
                   visibility="public"
                   :empty-text="$t('account.notifications.noCollections.public')"
                   data-qa="public sets"
@@ -105,7 +105,7 @@
                 </div>
                 <UserSets
                   v-else
-                  v-model="privateCreations"
+                  :sets="privateCreations"
                   visibility="private"
                   :empty-text="$t('account.notifications.noCollections.private')"
                   data-qa="private sets"
@@ -126,12 +126,12 @@
                 </div>
                 <UserSets
                   v-else
-                  v-model="curations"
+                  :sets="curations"
                   :show-create-set-button="false"
                   :empty-text="$t('account.notifications.noCollections.curated')"
                   data-qa="curated sets"
                 >
-                  <template v-slot:header>
+                  <template #header>
                     <b-row
                       class="w-100 px-3"
                     >
@@ -164,7 +164,7 @@
   import LoadingSpinner from '../../components/generic/LoadingSpinner';
 
   export default {
-    middleware: 'auth',
+    name: 'AccountIndexPage',
 
     components: {
       BTabs,
@@ -179,6 +179,14 @@
       keycloak
     ],
 
+    middleware: 'auth',
+
+    data() {
+      return {
+        loggedInUser: this.$store.state.auth.user
+      };
+    },
+
     async fetch() {
       this.fetchLikes();
       await this.$store.dispatch('set/fetchCreations');
@@ -189,9 +197,9 @@
 
     fetchOnServer: false,
 
-    data() {
+    head() {
       return {
-        loggedInUser: this.$store.state.auth.user
+        title: this.$pageHeadTitle(this.$t('account.title'))
       };
     },
 
@@ -213,12 +221,6 @@
       fetchLikes() {
         this.$store.dispatch('set/fetchLikes');
       }
-    },
-
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.$t('account.title'))
-      };
     }
   };
 
