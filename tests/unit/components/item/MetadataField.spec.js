@@ -9,7 +9,8 @@ const $i18n = {
 const factory = () => shallowMount(MetadataField, {
   mocks: {
     $t: (key) => key,
-    $config: { app: { internalLinkDomain: null, features: { translatedItems: false } } },
+    $config: { app: { internalLinkDomain: null } },
+    $features: { translatedItems: false },
     $i18n
   }
 });

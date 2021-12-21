@@ -295,7 +295,7 @@
         return `https://classic.europeana.eu/portal/${this.$i18n.locale}/record${this.identifier}.html?utm_source=new-website&utm_medium=button`;
       },
       redirectNotificationsEnabled() {
-        return this.$config.app.features.linksToClassic;
+        return this.$features.linksToClassic;
       },
       pageHeadMetaOgImage() {
         return this.media[0]?.thumbnails?.large || null;
@@ -316,7 +316,7 @@
         annotations: state => state.item.annotations
       }),
       translatedItemsEnabled() {
-        return this.$config.app.features.translatedItems;
+        return this.$features.translatedItems;
       }
     },
 

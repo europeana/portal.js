@@ -263,15 +263,15 @@
       },
       enableRecommendations() {
         if (this.setIsEntityBestItems) {
-          return this.$config.app.features.acceptEntityRecommendations;
+          return this.$features.acceptEntityRecommendations;
         }
         return true;
       },
       enableAcceptRecommendations() {
         if (this.setIsEntityBestItems) {
-          return this.$config.app.features.acceptEntityRecommendations;
+          return this.$features.acceptEntityRecommendations;
         }
-        return this.$config.app.features.acceptSetRecommendations;
+        return this.$features.acceptSetRecommendations;
       },
       displayItemCount() {
         const max = 100;

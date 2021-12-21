@@ -27,7 +27,7 @@ const factory = () => shallowMountNuxt(page, {
   },
   stubs: ['client-only'],
   mocks: {
-    $config: { app: { features: {} } },
+    $features: {},
     $pageHeadTitle: key => key,
     $route: {
       query: {}

@@ -27,7 +27,7 @@ const factory = (socialMediaImage = null, primaryImageOfPage = null) => shallowM
   mocks: {
     $t: key => key,
     $pageHeadTitle: key => key,
-    $config: { app: { features: {} } }
+    $features: {}
   }
 });
 

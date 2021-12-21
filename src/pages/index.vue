@@ -104,7 +104,7 @@
     computed: {
       showNotificationBanner() {
         return (
-          this.$config.app.features.linksToClassic && this.isHomePage
+          this.$features.linksToClassic && this.isHomePage
         );
       },
       isHomePage() {

@@ -91,13 +91,13 @@
           '&utm_source=new-website&utm_medium=button';
       },
       redirectNotificationsEnabled() {
-        return this.$config.app.features.linksToClassic;
+        return this.$features.linksToClassic;
       },
       searchQuery() {
         return this.$route.query.query;
       },
       sideFiltersEnabled() {
-        return this.$config.app.features.sideFilters;
+        return this.$features.sideFilters;
       }
     },
 

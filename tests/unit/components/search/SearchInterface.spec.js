@@ -35,7 +35,7 @@ const factory = (options = {}) => {
     $t: (key) => key,
     $path: () => '/',
     $goto: () => null,
-    $config: { app: { features: { sideFilters: false } } },
+    $features: { sideFilters: false },
     $fetchState: options.fetchState || {},
     ...options.mocks
   };

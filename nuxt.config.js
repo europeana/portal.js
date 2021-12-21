@@ -47,17 +47,7 @@ export default {
       siteName: APP_SITE_NAME,
       search: {
         translateLocales: (process.env.APP_SEARCH_TRANSLATE_LOCALES || '').split(',')
-      },
-      features: features([
-        'abTests',
-        'acceptEntityRecommendations',
-        'acceptSetRecommendations',
-        'entityManagement',
-        'jiraServiceDeskFeedbackForm',
-        'linksToClassic',
-        'sideFilters',
-        'translatedItems'
-      ])
+      }
     },
     auth: {
       strategies: {
@@ -140,6 +130,16 @@ export default {
         }
       }
     },
+    features: features([
+      'abTests',
+      'acceptEntityRecommendations',
+      'acceptSetRecommendations',
+      'entityManagement',
+      'jiraServiceDeskFeedbackForm',
+      'linksToClassic',
+      'sideFilters',
+      'translatedItems'
+    ]),
     hotjar: {
       id: process.env.HOTJAR_ID,
       sv: process.env.HOTJAR_SNIPPET_VERSION
@@ -285,7 +285,8 @@ export default {
     '~/plugins/vue-directives',
     '~/plugins/vue-announcer.client',
     '~/plugins/vue-masonry.client',
-    '~/plugins/ab-testing'
+    '~/plugins/ab-testing',
+    '~/plugins/features'
   ],
 
   buildModules: [
