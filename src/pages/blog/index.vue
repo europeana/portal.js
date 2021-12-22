@@ -3,43 +3,65 @@
     <ContentHeader
       :title="$t('blog.blog')"
     />
-    <b-row class="flex-md-row pb-5">
+    <b-row
+       v-if="$fetchState.pending"
+       class="flex-md-row py-4 text-center"
+     >
       <b-col cols="12">
-        <b-card-group
-          class="card-deck-4-cols"
-          deck
-          data-qa="blog posts section"
-        >
-          <ContentCard
-            v-for="(post, index) in posts"
-            :key="index"
-            :title="post.name"
-            :url="{ name: 'blog-all', params: { pathMatch: post.identifier } }"
-            :image-url="imageUrl(post)"
-            :image-content-type="imageContentType(post)"
-            :image-optimisation-options="{ width: 510 }"
-            :image-alt="imageAlt(post)"
-            :texts="[post.description]"
-            :show-subtitle="false"
-          />
-        </b-card-group>
+        <LoadingSpinner />
       </b-col>
     </b-row>
-    <b-row>
-      <b-col>
-        <PaginationNav
-          :limit="perPage"
-          :total-results="total"
-          :per-page="perPage"
+    <b-row
+      v-else-if="$fetchState.error"
+      class="flex-md-row py-4"
+    >
+      <b-col cols="12">
+        <AlertMessage
+          :error="$fetchState.error.message"
         />
       </b-col>
     </b-row>
+    <template v-else>
+      <b-row class="flex-md-row pb-5">
+        <b-col cols="12">
+          <b-card-group
+            class="card-deck-4-cols"
+            deck
+            data-qa="blog posts section"
+          >
+            <ContentCard
+              v-for="(post, index) in posts"
+              :key="index"
+              :title="post.name"
+              :url="{ name: 'blog-all', params: { pathMatch: post.identifier } }"
+              :image-url="imageUrl(post)"
+              :image-content-type="imageContentType(post)"
+              :image-optimisation-options="{ width: 510 }"
+              :image-alt="imageAlt(post)"
+              :texts="[post.description]"
+              :show-subtitle="false"
+            />
+          </b-card-group>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col>
+          <PaginationNav
+            :limit="perPage"
+            :total-results="total"
+            :per-page="perPage"
+          />
+        </b-col>
+      </b-row>
+    </template>
   </b-container>
 </template>
 
 <script>
-  import ContentHeader from '../../components/generic/ContentHeader';
-  import ContentCard from '../../components/generic/ContentCard';
+  import AlertMessage from '@/components/generic/AlertMessage';
+  import ContentHeader from '@/components/generic/ContentHeader';
+  import ContentCard from '@/components/generic/ContentCard';
+  import LoadingSpinner from '@/components/generic/LoadingSpinner';
 
   const PER_PAGE = 20;
 
@@ -47,40 +69,44 @@
     name: 'BlogIndexPage',
 
     components: {
+      AlertMessage,
       ContentHeader,
       ContentCard,
-      PaginationNav: () => import('../../components/generic/PaginationNav')
+      LoadingSpinner,
+      PaginationNav: () => import('@/components/generic/PaginationNav')
     },
 
     middleware: 'sanitisePageQuery',
 
-    asyncData({ query, error, app, store }) {
+    fetch() {
       const variables = {
-        locale: app.i18n.isoLocale(),
-        preview: query.mode === 'preview',
+        locale: this.$i18n.isoLocale(),
+        preview: this.$route.query.mode === 'preview',
         limit: PER_PAGE,
-        skip: (store.state.sanitised.page - 1) * PER_PAGE
+        skip: (this.$store.state.sanitised.page - 1) * PER_PAGE
       };
 
-      return app.$contentful.query('blogFoyerPage', variables)
+      return this.$contentful.query('blogFoyerPage', variables)
         .then(response => response.data.data)
         .then(data => {
-          return {
-            posts: data.blogPostingCollection.items,
-            total: data.blogPostingCollection.total,
-            page: store.state.sanitised.page,
-            perPage: PER_PAGE
-          };
+          this.posts = data.blogPostingCollection.items;
+          this.total = data.blogPostingCollection.total;
+          this.page = this.$store.state.sanitised.page;
         })
-        .catch((e) => {
-          error({ statusCode: 500, message: e.toString() });
+        .catch((error) => {
+          if (process.server && error.statusCode) {
+            this.$nuxt.context.res.statusCode = error.statusCode;
+          }
+          throw error;
         });
     },
 
     data() {
       return {
         perPage: PER_PAGE,
-        page: null
+        page: null,
+        posts: [],
+        total: 0
       };
     },
 
