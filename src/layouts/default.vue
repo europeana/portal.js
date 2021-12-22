@@ -52,6 +52,7 @@
   import { BBreadcrumb } from 'bootstrap-vue';
   import ClientOnly from 'vue-client-only';
   import PageHeader from '../components/PageHeader';
+  import makeToastMixin from '@/mixins/makeToast';
   import klaroConfig, { version as klaroVersion } from '../plugins/klaro-config';
   import { version as bootstrapVersion } from 'bootstrap/package.json';
   import { version as bootstrapVueVersion } from 'bootstrap-vue/package.json';
@@ -66,6 +67,10 @@
       PageFooter: () => import('../components/PageFooter'),
       FeedbackWidget: () => import('../components/feedback/FeedbackWidget')
     },
+
+    mixins: [
+      makeToastMixin
+    ],
 
     data() {
       return {
@@ -139,27 +144,16 @@
       this.klaro = window.klaro;
 
       if (this.$auth.$storage.getUniversal('portalLoggingIn') && this.$auth.loggedIn) {
-        this.showToast(this.$t('account.notifications.loggedIn'));
+        this.makeToast(this.$t('account.notifications.loggedIn'));
         this.$auth.$storage.removeUniversal('portalLoggingIn');
       }
       if (this.$auth.$storage.getUniversal('portalLoggingOut') && !this.$auth.loggedIn) {
-        this.showToast(this.$t('account.notifications.loggedOut'));
+        this.makeToast(this.$t('account.notifications.loggedOut'));
         this.$auth.$storage.removeUniversal('portalLoggingOut');
       }
     },
 
     methods: {
-      showToast(msg) {
-        this.$bvToast.toast(msg, {
-          toastClass: 'brand-toast',
-          toaster: 'b-toaster-bottom-left-dynamic',
-          autoHideDelay: 5000,
-          isStatus: true,
-          noCloseButton: true,
-          solid: true
-        });
-      },
-
       renderKlaro() {
         if (this.klaro) {
           const config = klaroConfig(this.$i18n, this.$initHotjar, this.$matomo);

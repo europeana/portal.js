@@ -28,8 +28,14 @@
 </template>
 
 <script>
+  import makeToastMixin from '@/mixins/makeToast';
+
   export default {
     name: 'PinModal',
+
+    mixins: [
+      makeToastMixin
+    ],
 
     props: {
       modalId: {
@@ -58,16 +64,6 @@
     },
 
     methods: {
-      makeToast(toastMsg) {
-        this.$root.$bvToast.toast(toastMsg, {
-          toastClass: 'brand-toast',
-          toaster: 'b-toaster-bottom-left-dynamic',
-          autoHideDelay: 5000,
-          isStatus: true,
-          noCloseButton: true,
-          solid: true
-        });
-      },
       async pin() {
         if (this.$store.state.entity.featuredSetId === null) {
           await this.$store.dispatch('entity/createFeaturedSet');
