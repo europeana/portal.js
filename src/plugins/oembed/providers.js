@@ -1,5 +1,13 @@
 export default [
   {
+    name: 'DISMARC',
+    endpoint: 'https://www.dismarc.org/player/oembed',
+    schemes: [
+      'http://eusounds.ait.co.at/player/*',
+      'http://www.dismarc.org/player/*'
+    ]
+  },
+  {
     name: 'Europeana',
     endpoint: 'https://oembed.europeana.eu/',
     schemes: [
