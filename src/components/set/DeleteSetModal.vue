@@ -59,7 +59,7 @@
       makeToast() {
         this.$root.$bvToast.toast(this.toastMsg, {
           toastClass: 'brand-toast',
-          toaster: 'b-toaster-bottom-left',
+          toaster: 'b-toaster-bottom-left-dynamic',
           autoHideDelay: 5000,
           isStatus: true,
           noCloseButton: true,
