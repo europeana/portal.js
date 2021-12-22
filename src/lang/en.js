@@ -655,17 +655,6 @@ export default {
     "skipToMain": "Skip to page contents"
   },
   "learnMore": "Learn about the source of this description",
-  "linksToClassic": {
-    "home": {
-      "linkText": "View this page on the original Europeana website till 20th December 2021."
-    },
-    "record": {
-      "linkText": "View this item on the original Europeana website till 20th December 2021."
-    },
-    "search": {
-      "linkText": "Search on the original Europeana website till 20th December 2021."
-    }
-  },
   "loading": "Loading",
   "loadingResults": "Loading results",
   "mediaPreview": {
