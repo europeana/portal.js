@@ -72,13 +72,13 @@
       },
       enableAcceptRecommendations() {
         return this.setIsEntityBestItems ?
-          this.$config.app.features.acceptEntityRecommendations :
-          this.$config.app.features.acceptSetRecommendations;
+          this.$features.acceptEntityRecommendations :
+          this.$features.acceptSetRecommendations;
       },
       enableRejectRecommendations() {
         return this.setIsEntityBestItems ?
-          this.$config.app.features.rejectEntityRecommendations :
-          this.$config.app.features.acceptSetRecommendations;
+          this.$features.rejectEntityRecommendations :
+          this.$features.acceptSetRecommendations;
       }
     }
   };
