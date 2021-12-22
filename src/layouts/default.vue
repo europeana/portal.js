@@ -196,6 +196,7 @@
           }, 10);
         }
       },
+
       setToastBottomOffset() {
         const cookieNoticeHeight = document.getElementsByClassName('cookie-notice')[0]?.offsetHeight;
         this.toastBottomOffset = cookieNoticeHeight ? `${cookieNoticeHeight + 40}px` : '20px';
