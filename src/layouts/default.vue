@@ -39,6 +39,11 @@
     <client-only>
       <PageFooter />
     </client-only>
+    <b-toaster
+      name="b-toaster-bottom-left-dynamic"
+      class="b-toaster-bottom-left-dynamic"
+      :style="{'--bottom': toastBottomOffset }"
+    />
   </div>
 </template>
 
@@ -47,6 +52,7 @@
   import { BBreadcrumb } from 'bootstrap-vue';
   import ClientOnly from 'vue-client-only';
   import PageHeader from '../components/PageHeader';
+  import makeToastMixin from '@/mixins/makeToast';
   import klaroConfig, { version as klaroVersion } from '../plugins/klaro-config';
   import { version as bootstrapVersion } from 'bootstrap/package.json';
   import { version as bootstrapVueVersion } from 'bootstrap-vue/package.json';
@@ -62,11 +68,16 @@
       FeedbackWidget: () => import('../components/feedback/FeedbackWidget')
     },
 
+    mixins: [
+      makeToastMixin
+    ],
+
     data() {
       return {
         linkGroups: {},
         enableAnnouncer: true,
-        klaro: null
+        klaro: null,
+        toastBottomOffset: '20px'
       };
     },
 
@@ -133,27 +144,16 @@
       this.klaro = window.klaro;
 
       if (this.$auth.$storage.getUniversal('portalLoggingIn') && this.$auth.loggedIn) {
-        this.showToast(this.$t('account.notifications.loggedIn'));
+        this.makeToast(this.$t('account.notifications.loggedIn'));
         this.$auth.$storage.removeUniversal('portalLoggingIn');
       }
       if (this.$auth.$storage.getUniversal('portalLoggingOut') && !this.$auth.loggedIn) {
-        this.showToast(this.$t('account.notifications.loggedOut'));
+        this.makeToast(this.$t('account.notifications.loggedOut'));
         this.$auth.$storage.removeUniversal('portalLoggingOut');
       }
     },
 
     methods: {
-      showToast(msg) {
-        this.$bvToast.toast(msg, {
-          toastClass: 'brand-toast',
-          toaster: 'b-toaster-bottom-left',
-          autoHideDelay: 5000,
-          isStatus: true,
-          noCloseButton: true,
-          solid: true
-        });
-      },
-
       renderKlaro() {
         if (this.klaro) {
           const config = klaroConfig(this.$i18n, this.$initHotjar, this.$matomo);
@@ -161,6 +161,7 @@
 
           this.klaro.render(config, true);
           manager.watch({ update: this.watchKlaroManagerUpdate });
+          this.setToastBottomOffset();
         }
       },
 
@@ -176,6 +177,10 @@
         }
 
         eventName && this.trackKlaroClickEvent(eventName);
+
+        setTimeout(() => {
+          this.setToastBottomOffset();
+        }, 10);
       },
 
       trackKlaroClickEvent(eventName) {
@@ -190,6 +195,11 @@
             this.timeoutUntilPiwikSet(counter + 1);
           }, 10);
         }
+      },
+
+      setToastBottomOffset() {
+        const cookieNoticeHeight = document.getElementsByClassName('cookie-notice')[0]?.offsetHeight;
+        this.toastBottomOffset = cookieNoticeHeight ? `${cookieNoticeHeight + 40}px` : '20px';
       }
     }
   };

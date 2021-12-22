@@ -140,6 +140,8 @@
   import InfoMessage from '../generic/InfoMessage';
   import ViewToggles from './ViewToggles';
 
+  import makeToastMixin from '@/mixins/makeToast';
+
   import isEqual from 'lodash/isEqual';
   import pickBy from 'lodash/pickBy';
   import { mapState, mapGetters } from 'vuex';
@@ -161,6 +163,9 @@
       SearchFilters: () => import('../../components/search/SearchFilters'),
       ViewToggles
     },
+    mixins: [
+      makeToastMixin
+    ],
     props: {
       perPage: {
         type: Number,
@@ -424,19 +429,9 @@
         if (sessionStorage.contentTierToastShown || this.contentTierZeroActive || !this.contentTierZeroPresent) {
           return;
         }
-        this.makeToast();
-        sessionStorage.contentTierToastShown = 'true';
-      },
-      makeToast() {
-        this.$root.$bvToast.toast(this.$t('facets.contentTier.notification'), {
-          toastClass: 'brand-toast',
-          toaster: 'b-toaster-bottom-left',
-          autoHideDelay: 5000,
-          isStatus: true,
-          noCloseButton: true,
-          solid: true
-        });
+        this.makeToast(this.$t('facets.contentTier.notification'));
         this.$matomo && this.$matomo.trackEvent('Tier 0 snackbar', 'Tier 0 snackbar appears', 'Tier 0 snackbar appears');
+        sessionStorage.contentTierToastShown = 'true';
       }
     }
   };
