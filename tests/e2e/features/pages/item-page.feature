@@ -81,10 +81,6 @@ Feature: item page
     Then I see the `IIIF viewer`
     And I am on an accessible page
 
-  Scenario: Seeing a notification banner
-    When I open an `item page`
-    Then I see a `notification banner`
-
   Scenario: Copying embed code
     When I open the `"Het laatste avondmaal" item page`
     And  I click the `share button`
