@@ -4,12 +4,14 @@
     data-qa="recommendation buttons"
   >
     <b-button
+      v-if="enableAcceptButton"
       class="recommendation-button icon-accept"
       data-qa="accept button"
       :aria-label="$t('actions.accept')"
       @click="acceptRecommendation"
     />
     <b-button
+      v-if="enableRejectButton"
       class="recommendation-button icon-reject"
       data-qa="reject button"
       :aria-label="$t('actions.reject')"
@@ -33,6 +35,16 @@
       identifier: {
         type: String,
         required: true
+      },
+
+      enableAcceptButton: {
+        type: Boolean,
+        default: true
+      },
+
+      enableRejectButton: {
+        type: Boolean,
+        default: true
       }
     },
 

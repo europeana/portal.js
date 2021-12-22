@@ -14,8 +14,10 @@
   >
     <template #buttons>
       <RecommendationButtons
-        v-if="recommendedItem"
+        v-if="enableAcceptRecommendation || enableRejectRecommendation"
         :identifier="identifier"
+        :enable-accept-button="enableAcceptRecommendation"
+        :enable-reject-button="enableRejectRecommendation"
       />
       <UserButtons
         v-else
@@ -48,17 +50,14 @@
         type: Object,
         required: true
       },
-
       hitSelector: {
         type: Object,
         default: null
       },
-
       variant: {
         type: String,
         default: 'default' // other options: entity, mini, list
       },
-
       lazy: {
         type: Boolean,
         default: true
@@ -67,7 +66,11 @@
         type: Boolean,
         default: false
       },
-      recommendedItem: {
+      enableAcceptRecommendation: {
+        type: Boolean,
+        default: false
+      },
+      enableRejectRecommendation: {
         type: Boolean,
         default: false
       }
