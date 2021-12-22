@@ -372,17 +372,6 @@ describe('store/set', () => {
       });
     });
 
-    describe('fetchActiveRecommendations()', () => {
-      it('fetches the active set recommendations via $apis.recommendation, then commits it with "setActiveRecommendations"', async() => {
-        store.actions.$apis.recommendation.recommend = sinon.stub().resolves(recommendations);
-
-        await store.actions.fetchActiveRecommendations({ commit }, setId);
-
-        store.actions.$apis.recommendation.recommend.should.have.been.calledWith('set', setId);
-        commit.should.have.been.calledWith('setActiveRecommendations', recommendations.items);
-      });
-    });
-
     describe('acceptRecommendation()', () => {
       it('accepts a recommended item via $apis.recommendation, then commits the returned new item with "setActiveRecommendations"', async() => {
         const state = { activeRecommendations: recommendations.items };

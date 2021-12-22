@@ -129,49 +129,39 @@
           </b-container>
         </b-col>
       </b-row>
-      <b-row
-        v-if="recommendations.length > 0"
-        class="recommendations"
-      >
-        <b-col>
-          <h2 class="related-heading">
-            {{ $t('items.recommended') }}
-          </h2>
-          <h5
-            v-if="enableAcceptRecommendations"
-            class="related-subtitle"
-          >
-            <span class="icon-info-outline" />
-            {{ $t('items.recommendationsDisclaimer') }}
-          </h5>
-          <ItemPreviewCardGroup
-            :items="recommendations"
-            :recommendations="enableAcceptRecommendations"
-          />
-        </b-col>
-      </b-row>
+      <client-only>
+        <SetRecommendations
+          v-if="displayRecommendations"
+          :identifier="`/${$route.params.pathMatch}`"
+          :type="set.type"
+        />
+      </client-only>
     </b-container>
   </div>
 </template>
 
 <script>
-  import { langMapValueForLocale } from  '../../plugins/europeana/utils';
-  import { genericThumbnail } from '../../plugins/europeana/thumbnail';
+  import ClientOnly from 'vue-client-only';
 
-  import AlertMessage from '../../components/generic/AlertMessage';
-  import ItemPreviewCardGroup from '../../components/item/ItemPreviewCardGroup';
-  import LoadingSpinner from '../../components/generic/LoadingSpinner';
-  import SocialShareModal from '../../components/sharing/SocialShareModal.vue';
+  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import { genericThumbnail } from '@/plugins/europeana/thumbnail';
+
+  import AlertMessage from '@/components/generic/AlertMessage';
+  import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
+  import LoadingSpinner from '@/components/generic/LoadingSpinner';
+  import SocialShareModal from '@/components/sharing/SocialShareModal.vue';
 
   export default {
     name: 'SetPage',
 
     components: {
+      ClientOnly,
       LoadingSpinner,
       AlertMessage,
       ItemPreviewCardGroup,
       SocialShareModal,
-      SetFormModal: () => import('../../components/set/SetFormModal')
+      SetFormModal: () => import('@/components/set/SetFormModal'),
+      SetRecommendations: () => import('@/components/set/SetRecommendations')
     },
 
     async beforeRouteLeave(to, from, next) {
@@ -188,18 +178,14 @@
       };
     },
 
-    async fetch() {
-      try {
-        await this.$store.dispatch('set/fetchActive', this.$route.params.pathMatch);
-        if (this.enableRecommendations && this.$auth.loggedIn && this.userCanEdit) {
-          this.$store.dispatch('set/fetchActiveRecommendations', `/${this.$route.params.pathMatch}`);
-        }
-      } catch (apiError) {
-        if (process.server) {
-          this.$nuxt.context.res.statusCode = apiError.statusCode;
-        }
-        throw apiError;
-      }
+    fetch() {
+      return this.$store.dispatch('set/fetchActive', this.$route.params.pathMatch)
+        .catch((apiError) => {
+          if (process.server) {
+            this.$nuxt.context.res.statusCode = apiError.statusCode;
+          }
+          throw apiError;
+        });
     },
 
     head() {
@@ -221,9 +207,6 @@
     computed: {
       set() {
         return this.$store.state.set.active || {};
-      },
-      recommendations() {
-        return this.$store.state.set.activeRecommendations || [];
       },
       itemCount() {
         return this.set.total || 0;
@@ -261,17 +244,14 @@
       displayDescription() {
         return langMapValueForLocale(this.set.description, this.$i18n.locale);
       },
+      displayRecommendations() {
+        return this.enableRecommendations && this.$auth.loggedIn && this.userCanEdit;
+      },
       enableRecommendations() {
         if (this.setIsEntityBestItems) {
-          return this.$features.acceptEntityRecommendations;
+          return this.$features.acceptEntityRecommendations || this.$features.rejectEntityRecommendations;
         }
         return true;
-      },
-      enableAcceptRecommendations() {
-        if (this.setIsEntityBestItems) {
-          return this.$features.acceptEntityRecommendations;
-        }
-        return this.$features.acceptSetRecommendations;
       },
       displayItemCount() {
         const max = 100;
@@ -299,21 +279,9 @@
       }
     },
 
-    mounted() {
-      if (!this.$fetchState.pending) {
-        this.getRecommendations();
-      }
-    },
-
     methods: {
       update() {
         this.$bvModal.hide(this.setFormModalId);
-      },
-
-      getRecommendations() {
-        if (this.enableRecommendations && this.$auth.loggedIn && this.userCanEdit) {
-          this.$store.dispatch('set/fetchActiveRecommendations', `/${this.$route.params.pathMatch}`);
-        }
       }
     }
   };
@@ -369,10 +337,5 @@
     .text {
       font-weight: 600;
     }
-  }
-
-  .recommendations h2 {
-    color: $mediumgrey;
-    font-size: $font-size-medium;
   }
 </style>

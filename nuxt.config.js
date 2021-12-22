@@ -137,6 +137,7 @@ export default {
       'entityManagement',
       'jiraServiceDeskFeedbackForm',
       'linksToClassic',
+      'rejectEntityRecommendations',
       'sideFilters',
       'translatedItems'
     ]),

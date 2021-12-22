@@ -20,7 +20,8 @@
         :variant="cardVariant"
         class="item"
         :lazy="false"
-        :recommended-item="recommendations"
+        :enable-accept-recommendation="enableAcceptRecommendations"
+        :enable-reject-recommendation="enableRejectRecommendations"
         :show-pins="showPins"
         data-qa="item preview"
         @like="$emit('like', item.id)"
@@ -80,7 +81,11 @@
         type: Boolean,
         default: false
       },
-      recommendations: {
+      enableAcceptRecommendations: {
+        type: Boolean,
+        default: false
+      },
+      enableRejectRecommendations: {
         type: Boolean,
         default: false
       }
