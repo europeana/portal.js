@@ -7,12 +7,22 @@
 
 const APP_SITE_NAME = 'Europeana';
 
+import decamelize from 'decamelize';
+
 import pkg from './package.json';
 import nuxtCorePkg from '@nuxt/core/package.json';
 
 import i18nLocales from './src/plugins/i18n/locales.js';
 import i18nDateTime from './src/plugins/i18n/datetime.js';
 import { parseQuery, stringifyQuery } from './src/plugins/vue-router.cjs';
+
+const features = (ids) => {
+  return ids.reduce((memo, id) => {
+    const envKey = `ENABLE_${decamelize(id).toUpperCase()}`;
+    memo[id] = featureIsEnabled(process.env[envKey]);
+    return memo;
+  }, {});
+};
 
 const featureIsEnabled = (value) => Boolean(Number(value));
 
@@ -37,17 +47,6 @@ export default {
       siteName: APP_SITE_NAME,
       search: {
         translateLocales: (process.env.APP_SEARCH_TRANSLATE_LOCALES || '').split(',')
-      },
-      features: {
-        abTests: featureIsEnabled(process.env.ENABLE_AB_TESTS),
-        acceptEntityRecommendations: featureIsEnabled(process.env.ENABLE_ACCEPT_ENTITY_RECOMMENDATIONS),
-        acceptSetRecommendations: featureIsEnabled(process.env.ENABLE_ACCEPT_SET_RECOMMENDATIONS),
-        entityManagement: featureIsEnabled(process.env.ENABLE_ENTITY_MANAGEMENT),
-        jiraServiceDeskFeedbackForm: featureIsEnabled(process.env.ENABLE_JIRA_SERVICE_DESK_FEEDBACK_FORM),
-        linksToClassic: featureIsEnabled(process.env.ENABLE_LINKS_TO_CLASSIC),
-        rejectEntityRecommendations: featureIsEnabled(process.env.ENABLE_REJECT_ENTITY_RECOMMENDATIONS),
-        sideFilters: featureIsEnabled(process.env.ENABLE_SIDE_FILTERS),
-        translatedItems: featureIsEnabled(process.env.ENABLE_TRANSLATED_ITEMS)
       }
     },
     auth: {
@@ -131,6 +130,16 @@ export default {
         }
       }
     },
+    features: features([
+      'abTests',
+      'acceptEntityRecommendations',
+      'acceptSetRecommendations',
+      'entityManagement',
+      'jiraServiceDeskFeedbackForm',
+      'rejectEntityRecommendations',
+      'sideFilters',
+      'translatedItems'
+    ]),
     hotjar: {
       id: process.env.HOTJAR_ID,
       sv: process.env.HOTJAR_SNIPPET_VERSION
@@ -276,7 +285,8 @@ export default {
     '~/plugins/vue-directives',
     '~/plugins/vue-announcer.client',
     '~/plugins/vue-masonry.client',
-    '~/plugins/ab-testing'
+    '~/plugins/ab-testing',
+    '~/plugins/features'
   ],
 
   buildModules: [

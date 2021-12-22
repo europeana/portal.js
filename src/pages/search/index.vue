@@ -75,7 +75,7 @@
         return this.$route.query.query;
       },
       sideFiltersEnabled() {
-        return this.$config.app.features.sideFilters;
+        return this.$features.sideFilters;
       }
     },
 

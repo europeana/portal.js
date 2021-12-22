@@ -249,8 +249,8 @@
       },
       enableRecommendations() {
         if (this.setIsEntityBestItems) {
-          return this.$config.app.features.acceptEntityRecommendations ||
-            this.$config.app.features.rejectEntityRecommendations;
+          return this.$features.acceptEntityRecommendations ||
+            this.$features.rejectEntityRecommendations;
         }
         return true;
       },

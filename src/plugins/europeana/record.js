@@ -183,7 +183,7 @@ export default (context = {}) => {
       }
 
       let prefLang;
-      if (context.$config?.app?.features?.translatedItems) {
+      if (context.$features?.translatedItems) {
         prefLang = options.metadataLanguage ? options.metadataLanguage : null;
       }
       const predictedUiLang = prefLang || options.locale;
@@ -196,7 +196,7 @@ export default (context = {}) => {
       for (const field in proxies) {
         if (aggregatorProxy?.[field] && localeSpecificFieldValueIsFromEnrichment(field, aggregatorProxy, providerProxy, predictedUiLang, entities)) {
           proxies[field].translationSource = 'enrichment';
-        } else if (europeanaProxy?.[field]?.[predictedUiLang] && context.$config?.app?.features?.translatedItems) {
+        } else if (europeanaProxy?.[field]?.[predictedUiLang] && context.$features?.translatedItems) {
           proxies[field].translationSource = 'automated';
         }
       }
@@ -309,7 +309,7 @@ export default (context = {}) => {
       }
 
       const params = { ...this.$axios.defaults.params };
-      if (context.$config?.app?.features?.translatedItems) {
+      if (context.$features?.translatedItems) {
         if (options.metadataLanguage) {
           params.profile = 'translate';
           params.lang = options.metadataLanguage;

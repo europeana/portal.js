@@ -7,7 +7,7 @@ const factory = ({ propsData = {}, features = {}, recommendations = [] }) => sha
   propsData,
   mocks: {
     $apis: { recommendation: { recommend: sinon.stub().resolves({ items: recommendations }) } },
-    $config: { app: { features } },
+    $features: features,
     $fetchState: {},
     $store: {
       commit: sinon.spy(),

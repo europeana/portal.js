@@ -31,12 +31,8 @@ const factory = (propsData, translated = false) => mount(SummaryInfo, {
   mocks: {
     $t: (key) => `TRANSLATED: ${key}`,
     $route: {},
-    $config: {
-      app: {
-        features: {
-          translatedItems: translated
-        }
-      }
+    $features: {
+      translatedItems: translated
     }
   }
 });

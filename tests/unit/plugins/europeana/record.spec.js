@@ -188,7 +188,7 @@ describe('plugins/europeana/record', () => {
   });
 
   context('when using the translation profile', () => {
-    const translateConf = { $config: { app: { features: { translatedItems: true } } } };
+    const translateConf = { $features: { translatedItems: true } };
     describe('record().getRecord()', () => {
       it('makes an API request', async() => {
         nock(BASE_URL)

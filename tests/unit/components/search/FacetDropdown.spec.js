@@ -31,7 +31,7 @@ const factory = () => shallowMount(FacetDropdown, {
     $store: {
       dispatch: sinon.stub()
     },
-    $config: { app: { features: { sideFilters: false } } }
+    $features: { sideFilters: false }
   },
   stubs: ['b-button', 'b-form-checkbox', 'b-dropdown', 'b-dropdown-form'],
   propsData: {

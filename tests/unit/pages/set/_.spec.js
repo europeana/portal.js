@@ -23,7 +23,7 @@ const factory = (set = {}) => shallowMountNuxt(page, {
     };
   },
   mocks: {
-    $config: { app: { features: {} } },
+    $features: {},
     $pageHeadTitle: key => key,
     $t: key => key,
     $tc: key => key,
