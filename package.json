@@ -15,6 +15,7 @@
     "lint:fix": "npm run lint -- --fix",
     "start": "node --experimental-json-modules node_modules/.bin/nuxt-cli start",
     "start:inspect": "node --inspect node_modules/.bin/nuxt-cli start",
+    "styleguide": "vue-styleguidist server --config ./styleguide.config.cjs",
     "stylelint": "stylelint \"**/*.scss\" \"**/*.vue\" --config .stylelintrc.cjs",
     "test": "npm run test:unit && npm run test:size && npm run test:e2e",
     "test:size": "docker build -t europeana/portal.js-test-size tests/size && [ -e .nuxt/dist ] || npm run build && docker run --mount type=bind,source=\"$(pwd)\"/.nuxt,target=/app/.nuxt --mount type=bind,source=\"$(pwd)\"/tests/size/.size-limit.json,target=/app/.size-limit.json europeana/portal.js-test-size",
@@ -100,6 +101,7 @@
     "stylelint-config-standard-scss": "^3.0.0",
     "svg-url-loader": "^7.1.1",
     "vue-eslint-parser": "^8.0.1",
+    "vue-styleguidist": "^4.43.0",
     "webpack": "^4.0.0 || ^5.0.0"
   },
   "contributors": [

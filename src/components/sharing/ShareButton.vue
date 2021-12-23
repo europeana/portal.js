@@ -28,3 +28,10 @@
     }
   }
 </style>
+<docs lang="md">
+Don't forget that you can debug it with [vue-devtools](https://github.com/vuejs/vue-devtools)
+
+```jsx
+<ShareButton />
+```
+</docs>
