@@ -425,7 +425,7 @@ jobs:
         name: Publish to NPM
         run: |
           cp .github/workflows/support/docker-images/.npmrc ~/
-          npm publish --access public --dry-run ./tmp/app
+          npm publish --access public ./tmp/app
       -
         name: Warm up jsDelivr
         run: .github/workflows/support/docker-images/warm-up-jsdelivr.sh ./tmp/app
