@@ -582,7 +582,6 @@ export default {
     "itemCount": "1 item |{count} items",
     "itemOf": "{max} of {count} items",
     "recent": "Recent items",
-    "recommendationsDisclaimer": "Thumb up to add to the gallery - Thumb down if you dislike it",
     "recommended": "Recommended items",
     "youMightLike": "Items you might like"
   },
@@ -656,17 +655,6 @@ export default {
     "skipToMain": "Skip to page contents"
   },
   "learnMore": "Learn about the source of this description",
-  "linksToClassic": {
-    "home": {
-      "linkText": "View this page on the original Europeana website till 20th December 2021."
-    },
-    "record": {
-      "linkText": "View this item on the original Europeana website till 20th December 2021."
-    },
-    "search": {
-      "linkText": "Search on the original Europeana website till 20th December 2021."
-    }
-  },
   "loading": "Loading",
   "loadingResults": "Loading results",
   "mediaPreview": {
@@ -720,6 +708,12 @@ export default {
     }
   },
   "readMore": "Read more",
+  "recommendation": {
+    "prompts": {
+      "accept": "Thumb up to add to the gallery",
+      "reject": "Thumb down if you dislike it"
+    }
+  },
   "record": {
     "IIIFViewer": "IIIF viewer",
     "allMetaData": "All metadata",

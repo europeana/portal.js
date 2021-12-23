@@ -1,10 +1,9 @@
 Feature: Search Page
 
-  Scenario: Seeing a notification banner
+  Scenario: Seeing a Europeana branded page title
 
     When I open a `search page`
-    Then I see a `notification banner`
-    And I should have a Europeana branded page title
+    Then I should have a Europeana branded page title
 
   Scenario: Seeing user buttons
 

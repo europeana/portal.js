@@ -1,7 +1,7 @@
 <template>
   <span>
     <template
-      v-for="(val, index) in [].concat(value)"
+      v-for="(val, index) in [].concat(texts)"
     >
       <strong
         v-if="val.highlight"
@@ -22,7 +22,7 @@
     name: 'TextHighlighter',
 
     props: {
-      value: {
+      texts: {
         type: [Array, Object],
         required: true
       }

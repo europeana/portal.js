@@ -12,15 +12,16 @@
       data-qa="item previews grid"
     >
       <ItemPreviewCard
-        v-for="(item, index) in value"
+        v-for="item in items"
         :key="item.id"
         v-masonry-tile
-        :item="value[index]"
+        :item="item"
         :hit-selector="itemHitSelector(item)"
         :variant="cardVariant"
         class="item"
         :lazy="false"
-        :recommended-item="recommendations"
+        :enable-accept-recommendation="enableAcceptRecommendations"
+        :enable-reject-recommendation="enableRejectRecommendations"
         :show-pins="showPins"
         data-qa="item preview"
         @like="$emit('like', item.id)"
@@ -35,9 +36,9 @@
     deck
   >
     <ItemPreviewCard
-      v-for="(item, index) in value"
+      v-for="item in items"
       :key="item.id"
-      :item="value[index]"
+      :item="item"
       :hit-selector="itemHitSelector(item)"
       :variant="cardVariant"
       :show-pins="showPins"
@@ -59,7 +60,7 @@
     },
 
     props: {
-      value: {
+      items: {
         type: Array,
         default: () => []
       },
@@ -80,7 +81,11 @@
         type: Boolean,
         default: false
       },
-      recommendations: {
+      enableAcceptRecommendations: {
+        type: Boolean,
+        default: false
+      },
+      enableRejectRecommendations: {
         type: Boolean,
         default: false
       }

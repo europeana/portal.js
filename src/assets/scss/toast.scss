@@ -9,3 +9,10 @@
     padding: 1rem;
   }
 }
+
+.b-toaster-bottom-left-dynamic {
+  position: fixed;
+  left: 20px;
+  bottom: var(--bottom);
+  transition: $standard-transition;
+}

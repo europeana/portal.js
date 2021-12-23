@@ -7,7 +7,7 @@
     :aria-label="$t('searchSuggestions')"
   >
     <b-list-group-item
-      v-for="(option, index) in value"
+      v-for="(option, index) in options"
       :key="index"
       :data-qa="option.qa"
       :to="$link.to(option.link.path, option.link.query)"
@@ -31,7 +31,7 @@
         >
           <TextHighlighter
             :key="slotIndex"
-            v-model="slot.value"
+            :texts="slot.value"
           />
         </template>
       </i18n>
@@ -39,7 +39,7 @@
         v-else-if="option.texts"
       >
         <TextHighlighter
-          v-model="option.texts"
+          :texts="option.texts"
         />
       </template>
     </b-list-group-item>
@@ -83,7 +83,7 @@
        *   }
        * ]
        */
-      value: {
+      options: {
         type: Array,
         required: true
       },
@@ -111,7 +111,7 @@
       },
 
       lastOptionHasFocus() {
-        return this.focus === (this.value.length - 1);
+        return this.focus === (this.options.length - 1);
       },
 
       noOptionHasFocus() {
@@ -152,7 +152,7 @@
       },
 
       keydownUp() {
-        this.focus = (this.noOptionHasFocus || this.firstOptionHasFocus) ? this.value.length - 1 : this.focus - 1;
+        this.focus = (this.noOptionHasFocus || this.firstOptionHasFocus) ? this.options.length - 1 : this.focus - 1;
         this.selectSuggestion();
       },
 
@@ -180,7 +180,7 @@
           // in the submitForm logic of the SearchForm component for keyboard events.
           if (index >= 1) {
             this.$matomo?.trackEvent('Autosuggest_option_selected', 'Autosuggest option is selected', query);
-          } else if (this.value.length >= 2) {
+          } else if (this.options.length >= 2) {
             this.$matomo?.trackEvent('Autosuggest_option_not_selected', 'Autosuggest option is not selected', query);
           }
         }
@@ -204,8 +204,8 @@
       },
 
       selectSuggestion() {
-        if (this.focus && this.value[this.focus]) {
-          this.$emit('select', this.value[this.focus].link);
+        if (this.focus && this.options[this.focus]) {
+          this.$emit('select', this.options[this.focus].link);
         } else {
           // fallback to the query by unselecting any suggestions.
           this.$emit('select', null);

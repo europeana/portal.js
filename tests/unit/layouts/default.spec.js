@@ -29,11 +29,7 @@ const factory = (data = {}) => shallowMount(layout, {
     $announcer: {
       setComplementRoute: () => {}
     },
-    $config: {
-      app: {
-        features: {}
-      }
-    },
+    $features: {},
     $exp: {
       $variantIndexes: [0]
     },
