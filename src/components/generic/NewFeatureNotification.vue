@@ -8,7 +8,7 @@
     variant="brand-toast-white"
     visible
     append-toast
-    toaster="b-toaster-bottom-left"
+    toaster="b-toaster-bottom-left-dynamic"
   >
     <p>{{ $t('newFeatureNotification.notification') }}</p>
     <div class="d-flex justify-content-between">
