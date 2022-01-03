@@ -54,6 +54,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Azken elementuak",
+    "organisation": "Erakundeak",
     "time": "Mende aipagarriak",
     "topic": "Nabarmendutako gaiak"
   },
@@ -464,7 +465,6 @@ export default {
       "dcFormat": "Formatua",
       "dcIdentifier": "Identifikatzailea",
       "dcLanguage": "Hizkuntza",
-      "dcMedium": "Teknika",
       "dcPublisher": "Argitaletxea",
       "dcRelation": "Loturak",
       "dcRights": "Baimenak",
@@ -484,7 +484,6 @@ export default {
       "dctermsIssued": "Argitaratze data",
       "dctermsMedium": "Teknika",
       "dctermsProvenance": "Jatorria",
-      "dctermsPublished": "Argitaratze data",
       "dctermsReferences": "erreferentzia egiten du",
       "dctermsSpatial": "Lekuak",
       "dctermsTemporal": "Aldi baterako",
@@ -495,6 +494,7 @@ export default {
       "edmIncorporates": "Barne hartzen ditu",
       "edmIntermediateProvider": "Bitarteko hornitzailea",
       "edmIsDerivativeOf": "eratorria da",
+      "edmIsRelatedTo": "Lotuta dago",
       "edmIsRepresentationOf": "ordezkaria da",
       "edmIsSimilarTo": "-ren antzekoa da",
       "edmIsSuccessorOf": "ondorengoa da",
@@ -517,6 +517,8 @@ export default {
       "rdfAbout": "RDF"
     }
   },
+  "filter": "Iragazkia",
+  "filterResults": "Iragazi emaitzak",
   "footer": {
     "customiseWebsiteLanguage": "Pertsonalizatu webgunearen hizkuntza",
     "disclaimerLine1": "Europeana Europar Batasunaren ekimena da, Europar Batasuneko Connecting Europe Facility eta Europar Batasuneko estatu kideek finantzatua. Europeana zerbitzuak, webgune hau barne, Europeana Fundazioak zuzentzen duen partzuergo batek kudeatzen ditu Europako Batzordearekiko zerbitzu kontratu baten pean.",
@@ -613,6 +615,10 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Gure webgunea hobetzen laguntzen du noizean behin aldaketa esperimentalak aplikatuz.",
+        "title": "A / B probak"
+      },
       "auth-strategy": {
         "description": "Saioa hasteko erabili beharreko baimen estrategia gogoratzen du.",
         "title": "Auth Estrategia"
@@ -649,15 +655,15 @@ export default {
   "learnMore": "Deskribapen honen iturria ezagutu",
   "linksToClassic": {
     "home": {
-      "linkText": "Jatorrizko Europeanara joan.",
+      "linkText": "Ikusi orri hau Europeana jatorrizko webgunean 2021eko abenduaren 20ra arte.",
       "text": "Europeana esperientzia berria ikusten ari zara."
     },
     "record": {
-      "linkText": "Ikusi elementu hau jatorrizko Europeanan.",
+      "linkText": "Ikusi elementu hau Europeana jatorrizko webgunean 2021eko abenduaren 20ra arte.",
       "text": "Elementu hau Europeanaren webgune berrian ikusten ari zara."
     },
     "search": {
-      "linkText": "Ikusi bilaketa-emaitza hauek jatorrizko Europeanan.",
+      "linkText": "Bilatu jatorrizko Europeana webgunean 2021eko abenduaren 20ra arte.",
       "text": "Gure webgune berri eta azkarragoan bilatzen ari zara."
     }
   },
@@ -681,12 +687,11 @@ export default {
   },
   "multilingual": {
     "automated": "Itzulpen automatizatua",
-    "currentLanguage": "{0} -n ikusi nahi duzu?",
-    "differentLanguage": "beste hizkuntza bat",
     "enrichment": "Bazkide proiektuen aberastea",
-    "original": "Jatorrizko metadatuak",
-    "originalLanguage": "jatorrizko hizkuntza",
-    "other": "Beste hizkuntza batzuk"
+    "other": "Beste hizkuntza batzuk",
+    "stopTranslating": "Utzi elementu hau itzultzeari {0}.",
+    "translateLanguage": "{0} -n ikusi nahi duzu?",
+    "translateQuotaError": "Itzulpen zerbitzua ez dago aldi baterako erabilgarri. Saiatu berriro geroago."
   },
   "newWindow": "leiho berrian irekiko da",
   "noMoreResults": "Ez dago emaitza gehiagorik zure bilaketarako.",
@@ -702,6 +707,9 @@ export default {
       },
       "persons": {
         "title": "Pertsonak"
+      },
+      "table": {
+        "name": "Izena"
       },
       "times": {
         "title": "Garaiak"

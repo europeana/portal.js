@@ -54,6 +54,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Seneste varer",
+    "organisation": "Organisationer",
     "time": "Udvalgte århundreder",
     "topic": "Udvalgte emner"
   },
@@ -464,7 +465,6 @@ export default {
       "dcFormat": "Format",
       "dcIdentifier": "Identifikator",
       "dcLanguage": "Sprog",
-      "dcMedium": "Medium",
       "dcPublisher": "Udgiver",
       "dcRelation": "Forbindelser",
       "dcRights": "Rettigheder",
@@ -484,7 +484,6 @@ export default {
       "dctermsIssued": "Udstedelsesdato",
       "dctermsMedium": "Medium",
       "dctermsProvenance": "Oprindelse",
-      "dctermsPublished": "Udgivelsesdato",
       "dctermsReferences": "Referencer",
       "dctermsSpatial": "Steder",
       "dctermsTemporal": "Tidsmæssig",
@@ -495,6 +494,7 @@ export default {
       "edmIncorporates": "Indeholder",
       "edmIntermediateProvider": "Mellemliggende udbyder",
       "edmIsDerivativeOf": "Er afledt af",
+      "edmIsRelatedTo": "Er relateret til",
       "edmIsRepresentationOf": "Er repræsentation af",
       "edmIsSimilarTo": "Svarer til",
       "edmIsSuccessorOf": "Er efterfølger til",
@@ -517,6 +517,8 @@ export default {
       "rdfAbout": "RDF Om"
     }
   },
+  "filter": "Filter",
+  "filterResults": "Filtrer resultater",
   "footer": {
     "customiseWebsiteLanguage": "Tilpas hjemmesidens sprog",
     "disclaimerLine1": "Europeana er et initiativ fra Den Europæiske Union, der finansieres af EU's Connecting Europe-facilitet og EU's medlemsstater. Europeana-tjenesterne, herunder dette websted, drives af et konsortium ledet af Europeana Foundation i henhold til en servicekontrakt med Europa-Kommissionen.",
@@ -613,6 +615,10 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Hjælper med at forbedre vores websted ved lejlighedsvis at anvende eksperimentelle ændringer.",
+        "title": "A/B-testning"
+      },
       "auth-strategy": {
         "description": "Husker autorisationsstrategien, der skal bruges til at logge ind.",
         "title": "Auth-strategi"
@@ -649,15 +655,15 @@ export default {
   "learnMore": "Få mere at vide om kilden til denne beskrivelse",
   "linksToClassic": {
     "home": {
-      "linkText": "Gå til den oprindelige Europeana.",
+      "linkText": "Se denne side på det originale Europeana-websted indtil den 20. december 2021.",
       "text": "Du ser den nye Europeana oplevelse."
     },
     "record": {
-      "linkText": "Se denne artikel i den originale Europeana.",
+      "linkText": "Se dette element på det originale Europeana-websted indtil den 20. december 2021.",
       "text": "Du ser denne artikel på den nye Europeana-hjemmeside."
     },
     "search": {
-      "linkText": "Se disse søgeresultater i den oprindelige Europeana.",
+      "linkText": "Søg på det originale Europeana-websted indtil 20. december 2021.",
       "text": "Du søger på vores nye og hurtigere hjemmeside."
     }
   },
@@ -681,12 +687,11 @@ export default {
   },
   "multilingual": {
     "automated": "Automatiseret oversættelse",
-    "currentLanguage": "Vil du gerne se dette element i {0} ?",
-    "differentLanguage": "et andet sprog",
     "enrichment": "Berigelse ved partnerprojekter",
-    "original": "Originale metadata",
-    "originalLanguage": "originalsprog",
-    "other": "Andre sprog"
+    "other": "Andre sprog",
+    "stopTranslating": "Stop med at oversætte dette element til {0}.",
+    "translateLanguage": "Vil du gerne se dette element i {0} ?",
+    "translateQuotaError": "Oversættelsestjeneste er midlertidigt utilgængelig. Prøv igen senere."
   },
   "newWindow": "åbner i nyt vindue",
   "noMoreResults": "Der er ikke flere resultater for din søgning.",
@@ -702,6 +707,9 @@ export default {
       },
       "persons": {
         "title": "Personer"
+      },
+      "table": {
+        "name": "Navn"
       },
       "times": {
         "title": "Tider"

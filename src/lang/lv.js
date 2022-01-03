@@ -54,6 +54,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Pēdējie vienumi",
+    "organisation": "Organizācijas",
     "time": "Izvēlētie gadsimti",
     "topic": "Izvēlētās tēmas"
   },
@@ -464,7 +465,6 @@ export default {
       "dcFormat": "Formāts",
       "dcIdentifier": "Identifikators",
       "dcLanguage": "Valoda",
-      "dcMedium": "Veids",
       "dcPublisher": "Izdevējs",
       "dcRelation": "Saistības",
       "dcRights": "Tiesības",
@@ -484,7 +484,6 @@ export default {
       "dctermsIssued": "Izdošanas datums",
       "dctermsMedium": "Veids",
       "dctermsProvenance": "Izcelsme",
-      "dctermsPublished": "Publicēšanas datums",
       "dctermsReferences": "Atsaucas uz",
       "dctermsSpatial": "Vietas",
       "dctermsTemporal": "Periods",
@@ -495,6 +494,7 @@ export default {
       "edmIncorporates": "Ietver",
       "edmIntermediateProvider": "Starpnieks",
       "edmIsDerivativeOf": "Ir atvasināts(-a) no",
+      "edmIsRelatedTo": "Ir saistīts ar",
       "edmIsRepresentationOf": "Pārstāv",
       "edmIsSimilarTo": "Ir līdzīgs(-a)",
       "edmIsSuccessorOf": "Ir pēctecis(-e)",
@@ -517,6 +517,8 @@ export default {
       "rdfAbout": "Par radiopeilētāju (RDF)"
     }
   },
+  "filter": "Filtrs",
+  "filterResults": "Filtrēt rezultātus",
   "footer": {
     "customiseWebsiteLanguage": "Pielāgojiet vietnes valodu",
     "disclaimerLine1": "Europeana ir Eiropas Savienības iniciatīva, ko finansē Eiropas Savienības Eiropas Connecting Europe Facility un Eiropas Savienības dalībvalstis. Europeana pakalpojumus, tostarp šo vietni, pārvalda konsorcijs, kuru vada Europeana fonds saskaņā ar pakalpojumu līgumu ar Eiropas Komisiju.",
@@ -613,6 +615,10 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Palīdz uzlabot mūsu vietni, laiku pa laikam veicot eksperimentālas izmaiņas.",
+        "title": "A/B testēšana"
+      },
       "auth-strategy": {
         "description": "Atceras autorizācijas stratēģiju, kas jāizmanto, lai pieteiktos.",
         "title": "Auth stratēģija"
@@ -649,15 +655,15 @@ export default {
   "learnMore": "Uzziniet par šī apraksta avotu",
   "linksToClassic": {
     "home": {
-      "linkText": "Dodieties uz oriģinālo Europeana.",
+      "linkText": "Skatiet šo lapu sākotnējā Europeana vietnē līdz 2021. gada 20. decembrim.",
       "text": "Jūs izbaudāt jauno Europeana pieredzi."
     },
     "record": {
-      "linkText": "Skatiet šo vienumu oriģinālajā Europeana.",
+      "linkText": "Skatiet šo vienumu sākotnējā Europeana vietnē līdz 2021. gada 20. decembrim.",
       "text": "Jūs skatāties šo vienumu jaunajā Europeana vietnē."
     },
     "search": {
-      "linkText": "Skatiet šos meklēšanas rezultātus oriģinālajā Europeana.",
+      "linkText": "Meklējiet sākotnējā Europeana tīmekļa vietnē līdz 2021. gada 20. decembrim.",
       "text": "Jūs meklējat mūsu jaunajā un ātrākajā vietnē."
     }
   },
@@ -681,12 +687,11 @@ export default {
   },
   "multilingual": {
     "automated": "Automātiskā tulkošana",
-    "currentLanguage": "Vai jūs vēlētos redzēt šo preci {0}?",
-    "differentLanguage": "cita valoda",
     "enrichment": "Bagātināšana ar partneru projektiem",
-    "original": "Oriģinālie metadati",
-    "originalLanguage": "oriģinālvaloda",
-    "other": "Citas valodas"
+    "other": "Citas valodas",
+    "stopTranslating": "Pārtrauciet šī vienuma tulkošanu uz {0}.",
+    "translateLanguage": "Vai jūs vēlētos redzēt šo preci {0}?",
+    "translateQuotaError": "Tulkošanas pakalpojums īslaicīgi nav pieejams. Lūdzu, pamēģiniet vēlreiz vēlāk."
   },
   "newWindow": "tiek atvērts jaunā logā",
   "noMoreResults": "Jūsu meklēšanas vaicājumam vairs nav rezultātu.",
@@ -702,6 +707,9 @@ export default {
       },
       "persons": {
         "title": "Personas"
+      },
+      "table": {
+        "name": "Vārds"
       },
       "times": {
         "title": "Laiki"

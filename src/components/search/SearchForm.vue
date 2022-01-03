@@ -11,7 +11,7 @@
       role="combobox"
       :aria-owns="showSearchOptions ? 'search-form-options' : null"
       :aria-expanded="showSearchOptions"
-      class="auto-suggest"
+      class="auto-suggest pr-3"
     >
       <b-form-input
         ref="searchbox"
@@ -30,14 +30,15 @@
       <b-button
         v-show="query"
         data-qa="clear button"
-        class="clear"
+        class="clear ml-3 my-3"
         variant="light"
         :aria-label="$t('header.clearQuery')"
         @click="clearQuery"
       />
+      <FilterToggleButton />
       <SearchQueryOptions
         v-if="showSearchOptions"
-        v-model="searchQueryOptions"
+        :options="searchQueryOptions"
         element-id="search-form-options"
         @select="selectSearchOption"
       />
@@ -47,6 +48,7 @@
 
 <script>
   import SearchQueryOptions from './SearchQueryOptions';
+  import FilterToggleButton from './FilterToggleButton';
   import { mapGetters } from 'vuex';
   import match from 'autosuggest-highlight/match';
   import parse from 'autosuggest-highlight/parse';
@@ -55,7 +57,8 @@
     name: 'SearchForm',
 
     components: {
-      SearchQueryOptions
+      SearchQueryOptions,
+      FilterToggleButton
     },
 
     data() {
@@ -200,13 +203,27 @@
         if (this.selectedOptionLink) {
           newRoute = this.selectedOptionLink;
           this.query = this.selectedOptionLink.query.query;
+
+          // This only tracks keyboard events, click events are tracked in the SearchQueryOptions component.
+          // Make sure you are not on a collection page
+          if (!this.onCollectionPage) {
+            this.$matomo?.trackEvent('Autosuggest_option_selected', 'Autosuggest option is selected', this.query);
+          }
+
           if (this.query !== this.activeSuggestionsQueryTerm) {
             this.suggestions = {};
           }
         } else {
+          // Matomo event: suggestions are present, but none is selected
+          if (Object.keys(this.suggestions).length > 0) {
+            // This only tracks keyboard events, click events are tracked in the SearchQueryOptions component.
+            this.$matomo?.trackEvent('Autosuggest_option_not_selected', 'Autosuggest option is not selected', this.query);
+          }
+
+          const baseQuery = this.onSearchablePage ? this.$route.query : {};
           // `query` must fall back to blank string to ensure inclusion in URL,
           // which is required for analytics site search tracking
-          const newRouteQuery = { ...this.$route.query, ...{ page: 1, view: this.view, query: this.query || '' } };
+          const newRouteQuery = { ...baseQuery, ...{ page: 1, view: this.view, query: this.query || '' } };
           newRoute = { path: this.routePath, query: newRouteQuery };
         }
 
@@ -309,8 +326,8 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
-  @import '@/assets/scss/icons.scss';
+  @import '@/assets/scss/variables';
+  @import '@/assets/scss/icons';
 
   .form-inline {
     align-items: flex-start;
@@ -324,9 +341,9 @@
       width: 100%;
 
       .form-control {
-        padding: 0.375rem 3.5rem 0.375rem 3.5rem;
+        padding: 0.375rem 1rem 0.375rem 3.5rem;
         height: 3.4rem;
-        box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.08);
+        box-shadow: none;
         border-radius: 0;
         color: $mediumgrey;
         width: 100%;
@@ -362,7 +379,7 @@
             }
           }
 
-          &:before {
+          &::before {
             left: 1rem;
             top: 1rem;
             position: absolute;
@@ -379,6 +396,10 @@
 
   .input-group {
     width: 100%;
+    flex-wrap: nowrap;
+    height: 3.4rem;
+    box-shadow: 2px 2px 4px 0 rgba(0 0 0 / 8%);
+
     .input-group-prepend {
       display: none;
     }
@@ -398,13 +419,14 @@
     padding: 0;
     width: 1.5rem;
 
-    &:before {
-      @extend .icon-font;
+    &::before {
+      @extend %icon-font;
+
       display: inline-block;
       font-size: 1.1rem;
     }
 
-    &.search:before {
+    &.search::before {
       content: '\e92b';
     }
 
@@ -418,13 +440,15 @@
     }
 
     &.clear {
-      position: absolute;
-      right: 1rem;
-      top: 1rem;
       z-index: 99;
 
-      &:before {
+      &::before {
         content: '\e904';
+        transition: $standard-transition;
+      }
+
+      &:hover::before {
+        color: $innovationblue;
       }
     }
   }

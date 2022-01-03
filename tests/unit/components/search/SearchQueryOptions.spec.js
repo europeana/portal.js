@@ -15,8 +15,8 @@ const parentInputComponent = {
   components: {
     SearchQueryOptions
   },
-  props: ['value'],
-  template: '<div><input id="searchbox" ref="searchbox" type="text" /><SearchQueryOptions v-model="value" /></div>'
+  props: ['options'],
+  template: '<div><input id="searchbox" ref="searchbox" type="text" /><SearchQueryOptions :options="options" /></div>'
 };
 
 const factory = (options = {}) => {
@@ -44,7 +44,7 @@ describe('components/search/SearchQueryOptions', () => {
   it('shows a link for each option', () => {
     const wrapper = factory({
       propsData: {
-        value: [
+        options: [
           { link: { path: '/en/search', query: { query: 'me' } }, qa: 'search link 1' },
           { link: { path: '/en/search', query: { query: '"Medicine"' } }, qa: 'search link 2' }
         ]
@@ -73,7 +73,7 @@ describe('components/search/SearchQueryOptions', () => {
     const wrapper = factory({
       i18n,
       propsData: {
-        value: [
+        options: [
           {
             link: { path: '/en/search', query: { query: 'map' } },
             qa: 'highlighted query',
@@ -114,7 +114,7 @@ describe('components/search/SearchQueryOptions', () => {
   describe('options with texts', () => {
     const wrapper = factory({
       propsData: {
-        value: [
+        options: [
           {
             link: { path: '/en/search', query: { query: '"Charles Dickens"' } },
             qa: 'texts link',
@@ -144,7 +144,7 @@ describe('components/search/SearchQueryOptions', () => {
   it('is navigable by keyboard on the parent input', () => {
     const wrapper = factory({
       propsData: {
-        value: [
+        options: [
           { link: { path: '/en/search', query: { query: 'me' } }, qa: 'search link 1' },
           { link: { path: '/en/search', query: { query: '"Medicine"' } }, qa: 'search link 2' }
         ]

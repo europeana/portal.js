@@ -1,5 +1,3 @@
-import { getEntityQuery } from '../plugins/europeana/entity';
-
 export default {
   state: () => ({
     curatedEntities: null,
@@ -81,42 +79,6 @@ export default {
   },
 
   actions: {
-    async searchForRecords({ getters, dispatch, commit, state }, query) {
-      if (!state.entity) {
-        return;
-      }
-
-      await dispatch('search/activate', null, { root: true });
-
-      const userParams = Object.assign({}, query);
-
-      const entityUri = state.id;
-
-      const overrideParams = {
-        qf: [],
-        rows: state.recordsPerPage
-      };
-
-      const curatedEntity = getters.curatedEntity(entityUri);
-      if (curatedEntity && curatedEntity.genre) {
-        overrideParams.qf.push(`collection:${curatedEntity.genre}`);
-      } else {
-        const entityQuery = getEntityQuery(entityUri);
-        overrideParams.qf.push(entityQuery);
-
-        if (!userParams.query) {
-          const englishPrefLabel = getters.englishPrefLabel;
-          if (englishPrefLabel) {
-            overrideParams.query = englishPrefLabel;
-          }
-        }
-      }
-
-      commit('search/set', ['userParams', userParams], { root: true });
-      commit('search/set', ['overrideParams', overrideParams], { root: true });
-
-      await dispatch('search/run', {}, { root: true });
-    },
     getFeatured({ commit, state, dispatch }) {
       const searchParams = {
         query: 'type:EntityBestItemsSet',

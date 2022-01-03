@@ -6,8 +6,7 @@ import { apiError, createAxios, reduceLangMapsForLocale, isLangMap } from './uti
 import search from './search';
 import { thumbnailUrl, thumbnailTypeForMimeType } from  './thumbnail';
 import { getEntityUri, getEntityQuery } from './entity';
-import { isIIIFPresentation } from '../media';
-import localeCodes from '../i18n/codes';
+import { isIIIFPresentation, isIIIFImage } from '../media';
 
 export const BASE_URL = process.env.EUROPEANA_RECORD_API_URL || 'https://api.europeana.eu/record';
 const MAX_VALUES_PER_PROXY_FIELD = 10;
@@ -97,27 +96,47 @@ function setMatchingEntities(fields, key, entities) {
   }
 }
 
+const findProxy = (proxies, type) => proxies.find(proxy => proxy.about?.startsWith(`/proxy/${type}/`));
+
 /**
- * Find the currently preferred metadata language.
- * Only makes sense with translated item pages.
- * If no language is specified, defaults to the record's edmLanguage.
- * Only returns languages also supported by the UI & translate API.
- * @param {string} edmLang two letter edm language code of the record
- * @param {Object} options options from the record retrieval.
- * @param {string} options.metadataLanguage two-letter language code from the user
- * @return {?string} related entities
- */
-export function preferredLanguage(edmLang, options = {}) {
-  let lang = null;
-
-  if (options.metadataLanguage) {
-    lang = options.metadataLanguage;
-  } else if (localeCodes.includes(edmLang)) {
-    lang = edmLang;
+* Determine if a field will be displaying data from enrichment.
+* Should only be called in the context of a aggregatorProxy being present.
+* If the UI language is not in the enrichment, but also not in the default proxy,
+* the enrichment will be checked for an english fallback value which would take precedence.
+* @param {String} field the field name to check
+* @param {Object} aggregatorProxy the proxy with the enrichment data
+* @param {Object} providerProxy provider proxy, used to confirm whether preferable values exist outside the enriched data
+* @param {String} predictedUiLang the two letter language code which will be the prefered UI language
+* @return {Boolean} true if enriched data will be shown
+*/
+const localeSpecificFieldValueIsFromEnrichment = (field, aggregatorProxy, providerProxy, predictedUiLang, entities) => {
+  if (isLangMap(aggregatorProxy[field]) &&
+       (proxyHasEntityForField(aggregatorProxy, field, entities) ||
+         proxyHasLanguageField(aggregatorProxy, field, predictedUiLang) ||
+         proxyHasFallbackField(providerProxy, aggregatorProxy, field, predictedUiLang)
+       )
+  ) {
+    return true;
   }
+  return false;
+};
 
-  return lang;
-}
+const proxyHasEntityForField = (proxy, field, entities) => {
+  if (Array.isArray(proxy?.[field]?.def)) {
+    return proxy?.[field]?.def.some(key => {
+      return entities[key];
+    });
+  }
+  return entities[proxy?.[field]?.def];
+};
+
+const proxyHasLanguageField = (proxy, field, targetLanguage) => {
+  return proxy?.[field]?.[targetLanguage];
+};
+
+const proxyHasFallbackField = (proxy, fallbackProxy, field, targetLanguage) => {
+  return (!proxy[field]?.[targetLanguage] && fallbackProxy[field]?.['en']);
+};
 
 export default (context = {}) => {
   const $axios = createAxios({ id: 'record', baseURL: BASE_URL }, context);
@@ -126,7 +145,7 @@ export default (context = {}) => {
     $axios,
 
     search(params, options = {}) {
-      return search($axios, params, options);
+      return search(context)($axios, params, options);
     },
 
     /**
@@ -164,22 +183,21 @@ export default (context = {}) => {
       }
 
       let prefLang;
-      if (context.$config?.app?.features?.translatedItems) {
-        prefLang = preferredLanguage(edm.europeanaAggregation.edmLanguage.def[0], options);
+      if (context.$features?.translatedItems) {
+        prefLang = options.metadataLanguage ? options.metadataLanguage : null;
+      }
+      const predictedUiLang = prefLang || options.locale;
 
-        // TODO: initially API only supports translation of title & descripiton.
-        // Extend to other fields as available, or stop merging the proxies and
-        // refactor to maintain the source info without having to set this.
-        const europeanaProxy = edm.proxies.find(proxy => proxy.europeanaProxy);
-        const providerProxy = edm.proxies.length === 3 ? edm.proxies[1] : null;
-        const predictedUiLang = prefLang ||  options.locale;
+      // Europeana proxy only really needed for the translate profile
+      const europeanaProxy = findProxy(edm.proxies, 'europeana');
+      const aggregatorProxy = findProxy(edm.proxies, 'aggregator');
+      const providerProxy = findProxy(edm.proxies, 'provider');
 
-        for (const field in proxies) {
-          if (providerProxy?.[field] && this.localeSpecificFieldValueIsFromEnrichment(field, providerProxy, edm.proxies, predictedUiLang)) {
-            proxies[field].translationSource = 'enrichment';
-          } else if (europeanaProxy?.[field]?.[predictedUiLang]) {
-            proxies[field].translationSource = 'automated';
-          }
+      for (const field in proxies) {
+        if (aggregatorProxy?.[field] && localeSpecificFieldValueIsFromEnrichment(field, aggregatorProxy, providerProxy, predictedUiLang, entities)) {
+          proxies[field].translationSource = 'enrichment';
+        } else if (europeanaProxy?.[field]?.[predictedUiLang] && context.$features?.translatedItems) {
+          proxies[field].translationSource = 'automated';
         }
       }
 
@@ -200,6 +218,7 @@ export default (context = {}) => {
         allMediaUris,
         altTitle: proxies.dctermsAlternative,
         description: proxies.dcDescription,
+        fromTranslationError: options.fromTranslationError,
         identifier: edm.about,
         type: edm.type, // TODO: Evaluate if this is used, if not remove.
         isShownAt: providerAggregation.edmIsShownAt,
@@ -211,39 +230,8 @@ export default (context = {}) => {
         organizations,
         title: proxies.dcTitle,
         schemaOrg: data.schemaOrg ? Object.freeze(JSON.stringify(data.schemaOrg)) : undefined,
-        edmLanguage: edm.europeanaAggregation.edmLanguage,
         metadataLanguage: prefLang
       };
-    },
-
-    /**
-    * Determine if a field will be displaying data from enrichment.
-    * Should only be called in the context of a providerProxy being present.
-    * If the UI language is not in the enrichment, but also not in the default proxy,
-    * the enrichment will be checked for an english fallback value which would take precedence.
-    * @param {String} field the field name to check
-    * @param {Object} providerProxy the proxy with the enrichment data
-    * @param {Array} proxies all proxies, used to confirm whether preferable values exist outside the enriched data
-    * @param {String} predictedUiLang the two letter language code which will be the prefered UI language
-    * @return {Boolean} true if enriched data will be shown
-    */
-    localeSpecificFieldValueIsFromEnrichment(field, providerProxy, proxies, predictedUiLang) {
-      if (isLangMap(providerProxy[field]) &&
-           (this.providerProxyHasLanguageField(providerProxy, field, predictedUiLang) ||
-             this.providerProxyHasFallbackField(proxies[2], providerProxy, field, predictedUiLang)
-           )
-      ) {
-        return true;
-      }
-      return false;
-    },
-
-    providerProxyHasLanguageField(providerProxy, field, targetLanguage) {
-      return providerProxy?.[field]?.[targetLanguage];
-    },
-
-    providerProxyHasFallbackField(defaultProxy, providerProxy, field, targetLanguage) {
-      return (!defaultProxy[field]?.[targetLanguage] && providerProxy[field]?.['en']);
     },
 
     webResourceThumbnails(webResource, aggregation, recordType) {
@@ -296,7 +284,14 @@ export default (context = {}) => {
       //
       // Also greatly minimises response size, and hydration cost, for IIIF with
       // many web resources, all of which are contained in a single manifest anyway.
-      const displayable = isIIIFPresentation(media[0]) ? [media[0]] : media;
+      let displayable;
+      if (isIIIFPresentation(media[0])) {
+        displayable = [media[0]];
+      } else if (media.some(isIIIFImage)) {
+        displayable = [media.find(isIIIFImage)];
+      } else {
+        displayable = media;
+      }
 
       // Sort by isNextInSequence property if present
       return sortByIsNextInSequence(displayable).map(Object.freeze);
@@ -314,9 +309,9 @@ export default (context = {}) => {
       }
 
       const params = { ...this.$axios.defaults.params };
-      if (context.$config?.app?.features?.translatedItems) {
-        params.profile = 'translate';
+      if (context.$features?.translatedItems) {
         if (options.metadataLanguage) {
+          params.profile = 'translate';
           params.lang = options.metadataLanguage;
         }
       } else {
@@ -341,7 +336,13 @@ export default (context = {}) => {
           error: null
         }))
         .catch((error) => {
-          throw apiError(error);
+          const errorResponse = error.response;
+          if (errorResponse?.status === 502 && errorResponse?.data.code === '502-TS' && !options.fromTranslationError) {
+            delete (options.metadataLanguage);
+            options.fromTranslationError = true;
+            return this.getRecord(europeanaId, options);
+          }
+          throw apiError(error, context);
         });
     },
 

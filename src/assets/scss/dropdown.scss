@@ -1,5 +1,4 @@
 .dropdown {
-
   .btn-light {
     background: $white;
     color: $mediumgrey;
@@ -67,14 +66,14 @@
     .selected-amount {
       padding-left: 0.25rem;
 
-      &:before {
+      &::before {
         content: '\2219';
         font-weight: bold;
       }
     }
 
     .dropdown-menu {
-      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 4px 0 rgb(0 0 0 / 10%);
       margin: 1rem 0 0;
       width: 100%;
 
@@ -183,8 +182,9 @@
           padding-right: 1.2rem;
           padding-left: 0;
 
-          &:after {
-            @extend .icon-font;
+          &::after {
+            @extend %icon-font;
+
             content: '\e903';
             position: absolute;
             right: 0;
@@ -195,7 +195,7 @@
           }
 
           &.is-active {
-            &:after {
+            &::after {
               transform: rotate(180deg);
             }
           }
@@ -212,9 +212,88 @@
       }
     }
   }
-  
+
   &.multilingual-selector .dropdown-menu {
     max-height: 50vh;
     overflow: auto;
+  }
+
+  &.facet-dropdown {
+    margin-bottom: 5px;
+    width: 100%;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    @media (min-width: $bp-large) {
+      width: auto;
+      margin-bottom: 0;
+    }
+
+    .dropdown-menu {
+      font-size: $font-size-small;
+      margin-top: 0.5rem;
+      width: 100%;
+
+      @media (min-width: $bp-large) {
+        min-width: 280px;
+
+        &.show {
+          transform: translate3d(0, 3rem, 0) !important;
+        }
+      }
+
+      .custom-control {
+        margin-bottom: 4px;
+        min-height: auto;
+
+        label span {
+          font-size: $font-size-extrasmall;
+        }
+      }
+    }
+
+    .options-container {
+      overflow: auto;
+      max-height: 50vh;
+
+      &::-webkit-scrollbar {
+        width: 0.25rem;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: $grey;
+      }
+    }
+  }
+
+  &.side-facet {
+    width: 100%;
+    margin-bottom: 1.25rem;
+
+    &:last-child {
+      margin-bottom: 1.25rem;
+    }
+
+    .btn {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: $font-size-small;
+    }
+
+    .btn-light {
+      border: 1px solid $middlegrey;
+    }
+
+    .dropdown-toggle-text {
+      min-height: 1.5rem;
+      opacity: 0;
+    }
+
+    .dropdown-menu {
+      min-width: auto;
+    }
   }
 }

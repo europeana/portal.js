@@ -1,0 +1,51 @@
+import sinon from 'sinon';
+
+import serverMiddleware from '@/server-middleware/api/cache/index.js';
+import * as cacheUtils from '@/cachers/utils.js';
+
+const expressResStub = {
+  set: sinon.stub(),
+  send: sinon.stub()
+};
+
+const config = { redis: { url: 'redis://localhost:6379' } };
+
+const id = 'items';
+const cached = JSON.stringify([
+  { id: '1' },
+  { id: '2' }
+]);
+
+const redisClientStub = {
+  getAsync: sinon.stub().resolves(cached),
+  quitAsync: sinon.stub()
+};
+
+describe('server-middleware/api/cache/index', () => {
+  beforeEach('stub utils', () => {
+    sinon.stub(cacheUtils, 'createRedisClient').returns(redisClientStub);
+  });
+
+  afterEach('restore stubs', () => {
+    cacheUtils.createRedisClient.restore();
+  });
+
+  it('fetches from the cache, with app namespace', async() => {
+    await serverMiddleware(id, config)({}, expressResStub);
+
+    redisClientStub.getAsync.should.have.been.calledWith(`@europeana:portal.js:${id}`);
+  });
+
+  it('responds with JSON', async() => {
+    await serverMiddleware(id, config)({}, expressResStub);
+
+    expressResStub.set.should.have.been.calledWith('Content-Type', 'application/json');
+    expressResStub.send.should.have.been.calledWith(cached);
+  });
+
+  it('quits the Redis connection', async() => {
+    await serverMiddleware(id, config)({}, expressResStub);
+
+    redisClientStub.quitAsync.should.have.been.called;
+  });
+});

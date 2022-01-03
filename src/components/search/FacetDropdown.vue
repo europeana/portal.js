@@ -2,12 +2,12 @@
   <b-dropdown
     ref="dropdown"
     :variant="dropdownVariant"
-    class="mr-2 my-2"
+    class="mr-2 my-2 facet-dropdown"
     :data-type="type"
     data-qa="search facet"
     @hidden="cancelHandler"
   >
-    <template v-slot:button-content>
+    <template #button-content>
       <span :data-qa="`${name} dropdown button`">
         {{ facetName }}
       </span>
@@ -201,64 +201,3 @@
     }
   };
 </script>
-
-<style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
-
-  .dropdown { // TODO: move this code to the dropdown.scss where possible, to avoid duplication
-    margin-bottom: 5px;
-    width: 100%;
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-
-    @media (min-width: $bp-large) {
-      width: auto;
-      margin-bottom: 0;
-    }
-  }
-
-  .has-selected {
-    ::v-deep > .btn {
-      background: $white;
-      color: $mediumgrey;
-    }
-  }
-
-  ::v-deep .dropdown-menu {
-    font-size: $font-size-small;
-    margin-top: 0.5rem;
-    width: 100%;
-
-    @media (min-width: $bp-large) {
-      min-width: 280px;
-
-      &.show {
-        transform: translate3d(0, 3rem, 0) !important;
-      }
-    }
-
-    .custom-control {
-      margin-bottom: 4px;
-      min-height: auto;
-
-      label span {
-        font-size: $font-size-extrasmall;
-      }
-    }
-  }
-
-  .options-container {
-    overflow: auto;
-    max-height: 50vh;
-
-    &::-webkit-scrollbar {
-      width: 0.25rem;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: $grey;
-    }
-  }
-</style>

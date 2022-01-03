@@ -1,5 +1,7 @@
 export default {
   "account": {
+    "curatedCollections": "Kollezzjonijiet Kurati",
+    "curatedCollectionsInfo": "Sib hawn taħt il-kollezzjonijiet kollha li kkurajt",
     "editProfile": "Editja l-profil",
     "likes": "Likes",
     "linkAccount": "Il-Kont Tiegħi",
@@ -11,6 +13,7 @@ export default {
       "loggedIn": "Inti issa illoggjat. Merħba!",
       "loggedOut": "Issa int illoggjat' il barra.",
       "noCollections": {
+        "curated": "Għadek ma kkurajt l-ebda kollezzjoni",
         "private": "Għadek ma ħloqt l-ebda direttorju tar-ritratti privat s'issa",
         "public": "Għadek ma ħloqt l-ebda direttorju tar-ritratti pubbliku s'issa"
       },
@@ -24,6 +27,7 @@ export default {
     "title": "Il-kont tiegħi"
   },
   "actions": {
+    "accept": "Aċċetta",
     "cancel": "Ikkanċella",
     "close": "agħlaq",
     "download": "Niżżel",
@@ -33,6 +37,7 @@ export default {
     "like": "Like",
     "next": "Li jmiss",
     "providedBy": "Ipprovdut minn {provider}",
+    "reject": "Irrifjuta",
     "send": "Tibgħat",
     "share": "Ixxerja",
     "shareOn": "Ixxerja fuq {social}",
@@ -49,6 +54,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Oġġetti reċenti",
+    "organisation": "Organizzazzjonijiet",
     "time": "Sekli dehru",
     "topic": "Suġġetti temi"
   },
@@ -64,6 +70,7 @@ export default {
     "relatedPosts": "Posts relatati"
   },
   "cardLabels": {
+    "organisation": "Organizzazzjoni",
     "person": "Persuna",
     "time": "Seklu",
     "topic": "Suġġett"
@@ -137,13 +144,28 @@ export default {
   "edmIsShownAtLinkAlt": "Ara fuq il-websajt tal-fornitur",
   "entity": {
     "actions": {
-      "cancel": "Ikkanċella"
+      "cancel": "Ikkanċella",
+      "pin": "Oġġett tal-pin",
+      "unpin": "Neħħi l-oġġett",
+      "viewPinned": "Ara l-oġġetti mwaħħlin"
     },
     "labels": {
       "entity": "Entità"
     },
     "notifications": {
-      "deleted": "Il-gallerija tiegħek tħassret."
+      "deleted": "Il-gallerija tiegħek tħassret.",
+      "pinLimit": {
+        "body": "Għalissa tista 'biss tpoġġi 24 oġġett fl-ewwel paġna. Jekk trid tpoġġi din il-partita, kun żgur li tneħħi pinna oħra u mbagħad erġa 'pprova tpinġiha.",
+        "title": "Wisq oġġetti pinned"
+      },
+      "pinned": "L-item ġie mwaħħal. Issa tinsab fin-naħa ta' fuq tal-ewwel paġna ta' din il-ġabra. Jista' jieħu sa 24 siegħa biex jidher għal kulħadd.",
+      "pinnedFirstPage": "L-oġġett ġie mwaħħal. Jista 'jieħu sa 24 siegħa biex jidher għal kulħadd.",
+      "unpinned": "L-oġġett ma tpoġġiex. M’għadux fil-quċċata tal-ewwel paġna ta ’din il-kollezzjoni. Jista 'jieħu sa 24 siegħa biex jisparixxi għal kulħadd.",
+      "unpinnedFirstPage": "L-oġġett ma tpoġġiex. Jista 'jieħu sa 24 siegħa biex jisparixxi għal kulħadd."
+    },
+    "prompts": {
+      "pin": "Int żgur li trid tpoġġi din il-partita? Dan l-oġġett se juri fil-quċċata tal-kollezzjoni \" {entity} Din il-bidla tista 'tieħu sa 24 siegħa biex tidħol fis-seħħ.",
+      "unpin": "Int żgur li trid tneħħi l-pinna ta 'dan l-oġġett? Din il-partita tieqaf tidher fin-naħa ta 'fuq tal-kollezzjoni \" {entity} Din il-bidla tista 'tieħu sa 24 siegħa biex tidħol fis-seħħ."
     }
   },
   "error": "Żball",
@@ -443,7 +465,6 @@ export default {
       "dcFormat": "Format",
       "dcIdentifier": "Identifikatur",
       "dcLanguage": "Lingwa",
-      "dcMedium": "Mezz",
       "dcPublisher": "Pubblikatur",
       "dcRelation": "Relazzjonijiet",
       "dcRights": "Drittijiet",
@@ -463,7 +484,6 @@ export default {
       "dctermsIssued": "Data tal-ħruġ",
       "dctermsMedium": "Mezz",
       "dctermsProvenance": "Provenjenza",
-      "dctermsPublished": "Data tal-pubblikazzjoni",
       "dctermsReferences": "Jagħmel referenza għal",
       "dctermsSpatial": "Postijiet",
       "dctermsTemporal": "Temporali",
@@ -474,6 +494,7 @@ export default {
       "edmIncorporates": "Jinkorpora",
       "edmIntermediateProvider": "Fornitur intermedjarju",
       "edmIsDerivativeOf": "Hija derivattiv ta'",
+      "edmIsRelatedTo": "Huwa relatat ma '",
       "edmIsRepresentationOf": "Hija rappreżentazzjoni ta'",
       "edmIsSimilarTo": "Hija simili għal",
       "edmIsSuccessorOf": "Huwa s-suċċessur ta'",
@@ -485,7 +506,8 @@ export default {
       "keywords": "Keywords (ipprovduti mill-komunità)",
       "timestampCreated": "Il-kronogramma ġiet maħluqa",
       "timestampUpdate": "Kronogramma aġġornata",
-      "wasPresentAt": "Kien preżenti fi"
+      "wasPresentAt": "Kien preżenti fi",
+      "year": "Sena"
     },
     "webResource": {
       "about": "Dwar RDF",
@@ -495,6 +517,8 @@ export default {
       "rdfAbout": "Dwar RDF"
     }
   },
+  "filter": "Filtru",
+  "filterResults": "Riżultati tal-filtru",
   "footer": {
     "customiseWebsiteLanguage": "Ippersonalizza l-lingwa tas-sit web",
     "disclaimerLine1": "Europeana hija inizjattiva tal-Unjoni Ewropea, iffinanzjata mill- Connecting Europe Facility tal-Unjoni Ewropea u l-Istati Membri tal-Unjoni Ewropea. Is-servizzi tal-Europeana, inkluż din il-websajt, huma mħaddma minn konsorzju mmexxi mill-Fondazzjoni Europeana taħt kuntratt ta ’servizz mal-Kummissjoni Ewropea.",
@@ -554,6 +578,9 @@ export default {
   "items": {
     "itemCount": "oġġett 1 |{count} oġġetti",
     "itemOf": "{max} minn {count} oġġett",
+    "recent": "Oġġetti reċenti",
+    "recommendationsDisclaimer": "Thumb up biex iżżid mal-gallerija - Thumb down jekk ma tħobbx",
+    "recommended": "Oġġetti rakkomandati",
     "youMightLike": "Oġġetti li jistgħu jinteressawk"
   },
   "klaro": {
@@ -588,11 +615,16 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Jgħin biex intejbu l-websajt tagħna billi kultant napplikaw bidliet sperimentali.",
+        "title": "Ittestjar A / B"
+      },
       "auth-strategy": {
         "description": "Jiftakar l-istrateġija ta' awtorizzazzjoni biex tużaha biex tilloggja.",
         "title": "L-Istrateġija tal-Auth"
       },
       "debugSettings": {
+        "description": "Jgħin id-debugging ta 'talbiet API",
         "title": "Debug toggle"
       },
       "hotjar": {
@@ -623,18 +655,19 @@ export default {
   "learnMore": "Tgħallem aktar dawr is-sors ta' din id-deskrizzjoni",
   "linksToClassic": {
     "home": {
-      "linkText": "Mur fl-Europeana oriġinali.",
+      "linkText": "Ara din il-paġna fuq il-websajt oriġinali ta' Europeana sal-20 ta' Diċembru 2021.",
       "text": "Qed tara l-esperjenza ta' Europeana ġdida."
     },
     "record": {
-      "linkText": "Ara dan l-oġġett fl-Europeana oriġinali.",
+      "linkText": "Ara dan l-oġġett fuq il-websajt oriġinali ta' Europeana sal-20 ta' Diċembru 2021.",
       "text": "Qed tara dan l-oġġett fis-sit web il-ġdid ta' Europeana."
     },
     "search": {
-      "linkText": "Ara dawn ir-riżultati tat-tiftix fl-Europeana oriġinali.",
+      "linkText": "Fittex fuq il-websajt oriġinali tal-Europeana sal-20 ta' Diċembru 2021.",
       "text": "Qed tfittex fis-sit web ġdid u aktar veloċi tagħna."
     }
   },
+  "loading": "Tagħbija",
   "loadingResults": "Qed jillowdja r-riżultati",
   "mediaPreview": {
     "selectItem": "Agħżel oġġett {src}"
@@ -645,10 +678,20 @@ export default {
     "notFound": "Ma Nstabx",
     "paginationLimitExceeded": "Huwa possibbli biss li tara l-ewwel {limit} riżultati tat-tfittxija."
   },
+  "modal": {
+    "download": {
+      "clickToCopy": "Ikklikkja fuq l-attribuzzjoni biex tikkopjaha",
+      "modalIntro": "Jekk tuża dan l-oġġett fuq il-web jew x'imkien ieħor, tinsiex turi l-attribuzzjoni li ġejja ħdejha:",
+      "modalTitle": "Għid grazzi"
+    }
+  },
   "multilingual": {
-    "original": "Metadata oriġinali",
-    "originalLanguage": "lingwa oriġinali",
-    "other": "Lingwi oħra"
+    "automated": "Traduzzjoni awtomatizzata",
+    "enrichment": "Arrikkiment minn proġetti msieħba",
+    "other": "Lingwi oħra",
+    "stopTranslating": "Waqqaf it-traduzzjoni ta 'dan l-oġġett għal {0}.",
+    "translateLanguage": "Tixtieq tara dan l-oġġett f ' {0} ?",
+    "translateQuotaError": "Is-servizz tat-traduzzjoni temporanjament mhux disponibbli. Jekk jogħġbok erġa' pprova aktar tard."
   },
   "newWindow": "tiftaħ fit-tieqa l-ġdida",
   "noMoreResults": "M'hemmx aktar riżultati għall-mistoqsija tat-tfittxija tiegħek.",
@@ -656,6 +699,18 @@ export default {
   "pageHasLoaded": "ġie illowdjat",
   "pages": {
     "collections": {
+      "organisations": {
+        "table": {
+          "name": "Isem"
+        },
+        "title": "Organizzazzjonijiet"
+      },
+      "persons": {
+        "title": "Persuni"
+      },
+      "table": {
+        "name": "Isem"
+      },
       "times": {
         "title": "Times"
       },
@@ -738,12 +793,14 @@ export default {
       "likeLimit": {
         "body": "Jiddispjaċina, iżda bħalissa hemm limitu fuq kemm tista' titfa' likes fuq oġġetti, li huwa ta' massimu ta' 100 like. Dan il-limitu dalwaqt se jitneħħa!",
         "title": "100 like"
-      }
+      },
+      "updated": "L-oġġett ġie miżjud mal-gallerija."
     },
     "prompts": {
       "delete": "Ċert li trid tħassar din il-gallerija? Jekk tħassar din il-gallerija, se titlef kull oġġett li tfajt fiha."
     }
   },
   "showLess": "Uri inqas",
-  "showMore": "Uri aktar"
+  "showMore": "Uri aktar",
+  "website": "Websajt"
 };

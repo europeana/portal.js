@@ -14,10 +14,31 @@
   margin-left: 1em;
   margin-top: 0.125rem;
 }
+
 .text-muted {
   color: $mediumgrey !important;
 }
 
 .invalid-feedback {
   color: $red;
+}
+
+.side-facet {
+  font-size: $font-size-extrasmall;
+
+  legend {
+    font-size: $font-size-extrasmall;
+    text-transform: uppercase;
+    color: $mediumgrey;
+    margin-bottom: 0.25rem;
+  }
+
+  input[type='date'] {
+    font-size: $font-size-extrasmall;
+  }
+
+  label span {
+    font-size: 0.75rem;
+    line-height: 1.5rem;
+  }
 }

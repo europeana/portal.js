@@ -40,8 +40,14 @@
 </template>
 
 <script>
+  import makeToastMixin from '@/mixins/makeToast';
+
   export default {
     name: 'EntityUpdateModal',
+
+    mixins: [
+      makeToastMixin
+    ],
 
     props: {
       modalStatic: {
@@ -90,22 +96,12 @@
       init() {
         this.descriptionValue = this.description ? this.description : this.descriptionValue;
       },
-      makeToast() {
-        this.$root.$bvToast.toast(this.toastMsg, {
-          toastClass: 'brand-toast',
-          toaster: 'b-toaster-bottom-left',
-          autoHideDelay: 5000,
-          isStatus: true,
-          noCloseButton: true,
-          solid: true
-        });
-      },
       submitForm() {
         const handler = this.$store.dispatch('entity/update', { id: this.body.id, body: this.entityBody });
         return handler
           .then(() => {
             this.$bvModal.hide('entityUpdateModal');
-            this.makeToast();
+            this.makeToast(this.toastMsg);
           })
           .catch(e => {
             throw e;

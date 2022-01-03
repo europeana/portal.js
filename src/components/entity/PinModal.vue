@@ -1,13 +1,13 @@
 <template>
   <b-modal
     :id="modalId"
-    :title="pinned ? this.$t('entity.actions.unpin') : this.$t('entity.actions.pin')"
+    :title="pinned ? $t('entity.actions.unpin') : $t('entity.actions.pin')"
     hide-footer
     hide-header-close
     :static="modalStatic"
   >
-    {{ pinned ? $t('entity.prompts.unpin', { entity: this.$store.getters['entity/englishPrefLabel'] }) :
-      this.$t('entity.prompts.pin', { entity: this.$store.getters['entity/englishPrefLabel'] }) }}
+    {{ pinned ? $t('entity.prompts.unpin', { entity: $store.getters['entity/englishPrefLabel'] }) :
+      $t('entity.prompts.pin', { entity: $store.getters['entity/englishPrefLabel'] }) }}
     <div class="modal-footer">
       <b-button
         variant="outline-primary"
@@ -21,15 +21,21 @@
         data-qa="toggle pin button"
         @click="togglePin"
       >
-        {{ pinned ? this.$t('entity.actions.unpin') : this.$t('entity.actions.pin') }}
+        {{ pinned ? $t('entity.actions.unpin') : $t('entity.actions.pin') }}
       </b-button>
     </div>
   </b-modal>
 </template>
 
 <script>
+  import makeToastMixin from '@/mixins/makeToast';
+
   export default {
     name: 'PinModal',
+
+    mixins: [
+      makeToastMixin
+    ],
 
     props: {
       modalId: {
@@ -58,16 +64,6 @@
     },
 
     methods: {
-      makeToast(toastMsg) {
-        this.$root.$bvToast.toast(toastMsg, {
-          toastClass: 'brand-toast',
-          toaster: 'b-toaster-bottom-left',
-          autoHideDelay: 5000,
-          isStatus: true,
-          noCloseButton: true,
-          solid: true
-        });
-      },
       async pin() {
         if (this.$store.state.entity.featuredSetId === null) {
           await this.$store.dispatch('entity/createFeaturedSet');

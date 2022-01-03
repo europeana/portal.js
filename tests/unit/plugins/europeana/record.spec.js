@@ -1,5 +1,5 @@
 import nock from 'nock';
-import record, { preferredLanguage, isEuropeanaRecordId, BASE_URL } from '@/plugins/europeana/record';
+import record, { isEuropeanaRecordId, BASE_URL } from '@/plugins/europeana/record';
 
 const europeanaId = '/123/abc';
 const apiEndpoint = `${europeanaId}.json`;
@@ -126,18 +126,24 @@ const translateProfileApiResponse = {
     },
     proxies: [
       {
+        about: '/proxy/europeana/123/abc',
         europeanaProxy: true,
         dcTitle: {
           'de': ['Deutscher Titel']
         }
       },
       {
+        about: '/proxy/aggregator/123/abc',
         europeanaProxy: false,
         dcDescription: {
           'de': ['Deutsche Beschreibung']
+        },
+        edmIsRelatedTo: {
+          'def': ['http://data.europeana.eu/concept/base/190']
         }
       },
       {
+        about: '/proxy/provider/123/abc',
         europeanaProxy: false,
         dcType: {
           'de': ['Deutscher Objekt Typ']
@@ -169,13 +175,20 @@ const translateProfileApiResponse = {
   }
 };
 
+const translateErrorApiResponse = {
+  success: false,
+  error: 'Translation limit quota exceeded.',
+  message: 'No more translations available today. Resource is exhausted',
+  code: '502-TS'
+};
+
 describe('plugins/europeana/record', () => {
   afterEach(() => {
     nock.cleanAll();
   });
 
   context('when using the translation profile', () => {
-    const translateConf = { $config: { app: { features: { translatedItems: true } } } };
+    const translateConf = { $features: { translatedItems: true } };
     describe('record().getRecord()', () => {
       it('makes an API request', async() => {
         nock(BASE_URL)
@@ -188,15 +201,45 @@ describe('plugins/europeana/record', () => {
         nock.isDone().should.be.true;
       });
       describe('profile parameter', () => {
-        it('is "translate" when the item translation feature is enabled', async() => {
-          nock(BASE_URL)
-            .get(apiEndpoint)
-            .query(query => query.profile === 'translate' && query.lang === 'de')
-            .reply(200, translateProfileApiResponse);
+        context('when no translations are explicitly requested', () => {
+          it('is omitted when the item translation feature is enabled', async() => {
+            nock(BASE_URL)
+              .get(apiEndpoint)
+              .query(query => !Object.keys(query).includes('profile'))
+              .reply(200, apiResponse);
 
-          await record(translateConf).getRecord(europeanaId, { metadataLanguage: 'de' });
+            await record(translateConf).getRecord(europeanaId);
 
-          nock.isDone().should.be.true;
+            nock.isDone().should.be.true;
+          });
+        });
+        context('when translations are explicitly requested', () => {
+          it('is "translate" when the item translation feature is enabled', async() => {
+            nock(BASE_URL)
+              .get(apiEndpoint)
+              .query(query => query.profile === 'translate' && query.lang === 'de')
+              .reply(200, translateProfileApiResponse);
+
+            await record(translateConf).getRecord(europeanaId, { metadataLanguage: 'de' });
+
+            nock.isDone().should.be.true;
+          });
+          context('when the API returns a quota exhaustion error', () => {
+            it('re-requests the record without the profile', async() => {
+              nock(BASE_URL)
+                .get(apiEndpoint)
+                .query(query => query.profile === 'translate' && query.lang === 'de')
+                .reply(502, translateErrorApiResponse);
+              nock(BASE_URL)
+                .get(apiEndpoint)
+                .query(query => !Object.keys(query).includes('profile'))
+                .reply(200, apiResponse);
+
+              await record(translateConf).getRecord(europeanaId, { metadataLanguage: 'de' });
+
+              nock.isDone().should.be.true;
+            });
+          });
         });
       });
       describe('metadadataLanguge', () => {
@@ -224,16 +267,30 @@ describe('plugins/europeana/record', () => {
             nock.isDone().should.be.true;
           });
         });
-        context('when there is a value in the provider proxy', () => {
-          it('is considered an automated translation', async() => {
-            nock(BASE_URL)
-              .get(apiEndpoint)
-              .query(query => query.profile === 'translate' && query.lang === 'de')
-              .reply(200, translateProfileApiResponse);
+        context('when there is a value in the aggregator proxy', () => {
+          context('when the value is in a lang map', () => {
+            it('is considered an enrichment', async() => {
+              nock(BASE_URL)
+                .get(apiEndpoint)
+                .query(query => query.profile === 'translate' && query.lang === 'de')
+                .reply(200, translateProfileApiResponse);
 
-            const recordData = await record(translateConf).getRecord(europeanaId, { metadataLanguage: 'de' });
-            recordData.record.description.translationSource.should.eq('enrichment');
-            nock.isDone().should.be.true;
+              const recordData = await record(translateConf).getRecord(europeanaId, { metadataLanguage: 'de' });
+              recordData.record.description.translationSource.should.eq('enrichment');
+              nock.isDone().should.be.true;
+            });
+          });
+          context('when the value referes to an entity', () => {
+            it('is considered an enrichment', async() => {
+              nock(BASE_URL)
+                .get(apiEndpoint)
+                .query(query => query.profile === 'translate' && query.lang === 'de')
+                .reply(200, translateProfileApiResponse);
+
+              const recordData = await record(translateConf).getRecord(europeanaId, { metadataLanguage: 'de' });
+              recordData.record.metadata.edmIsRelatedTo.translationSource.should.eq('enrichment');
+              nock.isDone().should.be.true;
+            });
           });
         });
         context('when there is only a value in the default proxy', () => {
@@ -506,52 +563,6 @@ describe('plugins/europeana/record', () => {
         const validation = isEuropeanaRecordId(recordId);
 
         validation.should.equal(false);
-      });
-    });
-  });
-
-  describe('preferredLanguage()', () => {
-    context('without a requested metadataLanguage', () => {
-      const options = {};
-
-      context('with a supported edm language', () => {
-        const edmLanguage = 'fr';
-        it('returns the edm language', () => {
-          const prefLang = preferredLanguage(edmLanguage, options);
-
-          prefLang.should.equal('fr');
-        });
-      });
-      context('with an unsupported edm language', () => {
-        ['sr', 'ja', 'mul'].forEach(edmLanguage => {
-          it('returns null', () => {
-            const prefLang = preferredLanguage(edmLanguage, options);
-
-            (prefLang === null).should.equal(true);
-          });
-        });
-      });
-    });
-
-    context('with a requested metadataLanguage', () => {
-      const options = { metadataLanguage: 'pt' };
-
-      context('with a supported edm language', () => {
-        const edmLanguage = 'fr';
-        it('returns the requested metadataLanguage', () => {
-          const prefLang = preferredLanguage(edmLanguage, options);
-
-          prefLang.should.equal('pt');
-        });
-      });
-      context('with an unsupported edm language', () => {
-        ['sr', 'ja', 'mul'].forEach(edmLanguage => {
-          it('returns the requested metadataLanguage', () => {
-            const prefLang = preferredLanguage(edmLanguage, options);
-
-            prefLang.should.equal('pt');
-          });
-        });
       });
     });
   });

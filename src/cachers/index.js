@@ -1,64 +1,113 @@
 import defu from 'defu';
-import { createRedisClient, errorMessage } from './utils.js';
+import * as utils from './utils.js';
 import nuxtConfig from '../../nuxt.config.js';
+import localeCodes from '../plugins/i18n/codes.js';
+
+const CACHE_KEY_PREFIX = '@europeana:portal.js';
 const runtimeConfig = defu(nuxtConfig.privateRuntimeConfig, nuxtConfig.publicRuntimeConfig);
 
-const cachers = [
-  'entities:organisations',
-  'entities:times',
-  'entities:topics',
+const cacherNames = [
+  'collections:organisations',
+  'collections:organisations:featured',
+  'collections:times',
+  'collections:times:featured',
+  'collections:topics',
+  'collections:topics:featured',
   'items:recent',
   'items:type-counts'
 ];
 
-const cli = (cacher) => {
-  if (!cachers.includes(cacher)) {
-    throw new Error(`Unknown cacher "${cacher}"`);
+const cacherModule = (cacherName) => {
+  if (!cacherNames.includes(cacherName)) {
+    throw new Error(`Unknown cacher "${cacherName}"`);
   }
 
-  const cacherPath = cacher.replace(/:/g, '/');
+  const cacherPath = cacherName.replace(/:/g, '/');
 
   return import(`./${cacherPath}.js`);
 };
 
-const main = async() => {
-  const cacher = process.argv[2];
-  const command = process.argv[3];
+const namespaceCacheKey = (cacherName, locale) => {
+  let key = CACHE_KEY_PREFIX;
 
-  let executor;
+  if (locale) {
+    key = `${key}:${locale}`;
+  }
+  key = `${key}:${cacherName}`;
 
-  const cacherCli = await cli(cacher);
+  return key;
+};
 
-  switch (command) {
-    case 'set':
-      executor = cacherCli.cache(runtimeConfig);
-      break;
-    case 'get':
-      executor = readCacheKey(cacherCli.CACHE_KEY);
-      break;
-    default:
-      console.error(`Unknown command "${command}"`);
-      process.exit(1);
-      break;
+const runSetCacher = async(cacherName) => {
+  console.log(cacherName);
+
+  const cacher = await cacherModule(cacherName);
+  let data = await cacher.data(runtimeConfig);
+
+  if (cacher.DAILY) {
+    data = utils.daily(data, cacher.DAILY);
   }
 
-  return executor;
+  if (cacher.PICK) {
+    data = utils.pick(data, cacher.PICK);
+  }
+
+  if (cacher.LOCALISE) {
+    for (const locale of localeCodes) {
+      const localised = utils.localise(data, cacher.LOCALISE, locale);
+      await writeCacheKey(namespaceCacheKey(cacherName, locale), localised);
+    }
+  } else {
+    await writeCacheKey(namespaceCacheKey(cacherName), data);
+  }
+};
+
+const main = async() => {
+  const command = process.argv[2];
+  const cacherName = process.argv[3];
+
+  let response;
+
+  try {
+    if (command === 'set') {
+      if (cacherName === undefined) {
+        for (const cname of cacherNames) {
+          await runSetCacher(cname);
+        }
+      } else {
+        await runSetCacher(cacherName);
+      }
+
+      response = 'SUCCESS';
+    } else if (command === 'get') {
+      response = await readCacheKey(namespaceCacheKey(cacherName));
+    } else {
+      console.error(`Unknown command "${command}"`);
+      process.exit(1);
+    }
+  } catch (error) {
+    return Promise.reject(utils.errorMessage(error));
+  }
+
+  return Promise.resolve(response);
+};
+
+const writeCacheKey = (cacheKey, data) => {
+  const redisClient = utils.createRedisClient(runtimeConfig.redis);
+  return redisClient.setAsync(cacheKey, JSON.stringify(data))
+    .then(() => redisClient.quitAsync());
 };
 
 const readCacheKey = (cacheKey) => {
-  try {
-    const redisClient = createRedisClient(runtimeConfig.redis);
-    return redisClient.getAsync(cacheKey)
-      .then(data => redisClient.quitAsync()
-        .then(() => ({ body: JSON.parse(data) || {} })));
-  } catch (error) {
-    return Promise.reject({ statusCode: 500, body: errorMessage(error) });
-  }
+  const redisClient = utils.createRedisClient(runtimeConfig.redis);
+  return redisClient.getAsync(cacheKey)
+    .then(data => redisClient.quitAsync()
+      .then(() => data));
 };
 
 main()
   .then(message => {
-    console.log(`SUCCESS: ${JSON.stringify(message)}`);
+    console.log(message);
     process.exit(0);
   })
   .catch(message => {

@@ -1,7 +1,6 @@
 import axios from 'axios';
-import locales from '../i18n/locales';
-
-import { keycloakResponseErrorHandler } from './auth';
+import locales from '../i18n/locales.js';
+import { keycloakResponseErrorHandler } from './auth.js';
 
 export const createAxios = ({ id, baseURL, $axios }, context) => {
   const axiosOptions = axiosInstanceOptions({ id, baseURL }, context);
@@ -52,7 +51,11 @@ const axiosInstanceOptions = ({ id, baseURL }, { store, $config }) => {
 };
 
 // TODO: extend to be more verbose in development environments, e.g. with stack trace
-export function apiError(error) {
+export function apiError(error, context) {
+  if (context?.$apm?.captureError) {
+    context?.$apm.captureError(error);
+  }
+
   let statusCode = 500;
   let message = error.message;
 

@@ -10,43 +10,51 @@
           <span>
             <span class="icon-translate pr-2" />
             <i18n
-              path="multilingual.currentLanguage"
+              v-if="fromTranslationError"
+              path="multilingual.translateQuotaError"
+              tag="span"
+              class="pr-1"
+              data-qa="translate item error"
+            />
+            <i18n
+              v-else
+              path="multilingual.translateLanguage"
               tag="span"
               class="pr-1"
               data-qa="translate item suggestion"
             >
-              <span v-if="(!translated && itemLanguage === selectedLocale.code)"><!-- This comment removes white space
-              -->{{ $t('multilingual.differentLanguage') }}<!-- This comment removes white space which gets underlined
-              -->
-              </span>
-              <b-link
-                v-else
-                :to="translateParams(translated ? null : selectedLocale.code)"
+              <b-dropdown
+                :text="$t('multilingual.other')"
+                variant="link"
+                toggle-class="multilingual-dropdown"
+                toggle-tag="span"
+                no-flip
+                class="multilingual-selector"
               >
-                <span><!-- This comment removes white space
-                -->{{ languageToggle }}<!-- This comment removes white space which gets underlined
-                -->
-                </span>
-              </b-link>
+                <b-dropdown-item
+                  v-for="locale in translateLocales"
+                  :key="locale.code"
+                  class="multilingual-dropdown-item"
+                  :to="translateParams(locale.code)"
+                >
+                  {{ locale.name }}
+                </b-dropdown-item>
+              </b-dropdown>
             </i18n>
           </span>
-          <b-dropdown
-            :text="$t('multilingual.other')"
-            variant="link"
-            toggle-class="multilingual-dropdown"
-            toggle-tag="span"
-            no-flip
-            class="multilingual-selector"
+          <b-link
+            v-if="metadataLanguage"
+            :to="translateParams(null)"
+            data-qa="remove item translation button"
           >
-            <b-dropdown-item
-              v-for="locale in availableLocalesForItem"
-              :key="locale.code"
-              class="multilingual-dropdown-item"
-              :to="translateParams(locale.code)"
+            <i18n
+              path="multilingual.stopTranslating"
+              tag="span"
+              class="pr-1"
             >
-              {{ locale.name }}
-            </b-dropdown-item>
-          </b-dropdown>
+              <span>{{ metadataLanguageLabel }}</span>
+            </i18n>
+          </b-link>
         </b-col>
       </b-row>
     </b-container>
@@ -62,24 +70,24 @@
       locales
     ],
     props: {
-      itemLanguage: {
-        type: String,
-        default: null
+      fromTranslationError: {
+        type: Boolean,
+        default: false
       },
       metadataLanguage: {
         type: String,
         default: null
       }
     },
+    data() {
+      return {
+        // "eu" language code not supported for translation
+        translateLocales: this.$i18n.locales.filter(locale => locale.code !== 'eu')
+      };
+    },
     computed: {
-      languageToggle() {
-        return this.translated ? this.$t('multilingual.originalLanguage') : this.selectedLocale.name;
-      },
-      translated() {
-        return this.metadataLanguage && this.itemLanguage !== this.metadataLanguage;
-      },
-      availableLocalesForItem() {
-        return this.$i18n.locales.filter(i => this.metadataLanguage !== i.code);
+      metadataLanguageLabel() {
+        return this.$i18n.locales.find(locale => locale.code === this.metadataLanguage)?.name;
       }
     },
     methods: {
@@ -95,11 +103,16 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
+  @import '@/assets/scss/variables';
 
-  .icon-translate:before {
+  .icon-translate::before {
     font-size: 1.4375rem;
   }
+
+  .multilingual-selector {
+    vertical-align: baseline;
+  }
+
   .multilingual-dropdown-item {
     font-size: $font-size-small;
   }

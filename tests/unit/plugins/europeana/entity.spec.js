@@ -190,29 +190,15 @@ describe('plugins/europeana/entity', () => {
       nock.isDone().should.be.true;
     });
 
-    it('restricts types to agent, concept & timespan', async() => {
-      nock(BASE_URL)
-        .get(suggestEndpoint)
-        .query(query => {
-          return query.type === 'agent,concept,timespan';
-        })
-        .reply(200, entitySuggestionsResponse);
-
-      await api().suggest(text);
-
-      nock.isDone().should.be.true;
-    });
-
-    it('feature-toggles inclusion of organisations', async() => {
+    it('restricts types to agent, concept, timespan & organization', async() => {
       nock(BASE_URL)
         .get(suggestEndpoint)
         .query(query => {
           return query.type === 'agent,concept,timespan,organization';
         })
         .reply(200, entitySuggestionsResponse);
-      const context = { $config: { app: { features: { organisationSearchSuggestions: true } } } };
 
-      await api(context).suggest(text);
+      await api().suggest(text);
 
       nock.isDone().should.be.true;
     });

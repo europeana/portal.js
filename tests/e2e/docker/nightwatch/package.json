@@ -1,6 +1,6 @@
 {
   "name": "@europeana/portaljs-nightwatch",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "",
   "scripts": {
     "start": "cucumber-js --require ./config/cucumber.conf.js --format node_modules/cucumber-pretty",
@@ -9,14 +9,14 @@
   "author": "",
   "license": "EUPL-1.2",
   "dependencies": {
-    "@percy/cli": "^1.0.0-beta.39",
-    "@percy/nightwatch": "^2.0.0-beta.2",
-    "axios": "^0.21.2",
-    "chai": "^4.2.0",
-    "cucumber": "^5.1.0",
-    "cucumber-pretty": "^1.5.0",
-    "nightwatch": "^1.7.6",
+    "@percy/cli": "^1.0.0-beta.69",
+    "@percy/nightwatch": "^2.0.0",
+    "axios": "^0.23.0",
+    "chai": "^4.3.4",
+    "cucumber": "^6.0.0",
+    "cucumber-pretty": "^6.0.0",
+    "nightwatch": "^1.7.11",
     "nightwatch-accessibility": "^1.11.0",
-    "nightwatch-api": "^3.0.1"
+    "nightwatch-api": "^3.0.2"
   }
 }

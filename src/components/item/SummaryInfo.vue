@@ -33,16 +33,19 @@
       <div
         v-for="(value, index) in description.values"
         :key="index"
+        class="description-text"
       >
         <!-- eslint-disable vue/no-v-html -->
         <p
           v-if="index === 0"
           :lang="description.code"
+          class="description-text-paragraph"
           v-html="$options.filters.convertNewLine(showAll ? value : truncatedDescription)"
         />
         <p
           v-else-if="showAll"
           :lang="description.code"
+          class="description-text-paragraph"
           v-html="$options.filters.convertNewLine(value)"
         />
         <!-- eslint-disable vue/no-v-html -->
@@ -109,7 +112,7 @@
         return false;
       },
       translatedItemsEnabled() {
-        return this.$config.app.features.translatedItems;
+        return this.$features.translatedItems;
       }
     },
     methods: {
@@ -122,29 +125,37 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
-  @import '@/assets/scss/icons.scss';
+  @import '@/assets/scss/variables';
+  @import '@/assets/scss/icons';
 
   .description p:last-of-type {
     display: inline;
   }
-  .automated, .enrichment, .original {
-    &:after {
-      @extend .icon-font;
+
+  .automated,
+  .enrichment,
+  .original {
+    &::after {
+      @extend %icon-font;
+
       font-weight: $font-size-medium;
       opacity: 0.2;
       font-size: 1.125rem;
     }
   }
+
   .automated::after {
     content: '\e941';
   }
+
   .enrichment::after {
     content: '\e940';
   }
+
   .original::after {
     content: '\e93f';
   }
+
   .translation-source {
     border: none;
     background-color: transparent;

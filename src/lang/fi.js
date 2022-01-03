@@ -54,6 +54,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Viimeisimmät kohdetta",
+    "organisation": "Organisaatiot",
     "time": "Esillä vuosisatoja",
     "topic": "Esillä olevat aiheet"
   },
@@ -464,7 +465,6 @@ export default {
       "dcFormat": "Muoto",
       "dcIdentifier": "Tunniste",
       "dcLanguage": "Kieli",
-      "dcMedium": "Media",
       "dcPublisher": "Julkaisija",
       "dcRelation": "Suhteet",
       "dcRights": "Oikeudet",
@@ -484,7 +484,6 @@ export default {
       "dctermsIssued": "Julkaisupäivämäärä",
       "dctermsMedium": "Media",
       "dctermsProvenance": "Alkuperä",
-      "dctermsPublished": "Julkaisupäivä",
       "dctermsReferences": "Viittaa kohteeseen",
       "dctermsSpatial": "Paikat",
       "dctermsTemporal": "Ajoitus",
@@ -495,6 +494,7 @@ export default {
       "edmIncorporates": "Sisältää",
       "edmIntermediateProvider": "Välillinen tarjoaja",
       "edmIsDerivativeOf": "On johdannainen kohteesta",
+      "edmIsRelatedTo": "On sukua",
       "edmIsRepresentationOf": "Kuvaa kohdetta",
       "edmIsSimilarTo": "On samanlainen kuin",
       "edmIsSuccessorOf": "On seuraaja kohteelle",
@@ -517,6 +517,8 @@ export default {
       "rdfAbout": "RDF-tiedot"
     }
   },
+  "filter": "Suodattaa",
+  "filterResults": "Suodata tulokset",
   "footer": {
     "customiseWebsiteLanguage": "Muokkaa verkkosivuston kieltä",
     "disclaimerLine1": "Europeana on Euroopan unionin aloite, jonka rahoittavat Euroopan unionin Verkkojen Eurooppa -väline ja Euroopan unionin jäsenvaltiot. Europeana-palveluja, mukaan lukien tämä verkkosivusto, ylläpitää konsortio, jota johtaa Europeana-säätiö Euroopan komission kanssa tehtyyn palvelusopimukseen.",
@@ -613,6 +615,10 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Auttaa parantamaan verkkosivustoamme soveltamalla ajoittain kokeellisia muutoksia.",
+        "title": "A/B -testaus"
+      },
       "auth-strategy": {
         "description": "Muistaa kirjautumisessa käytettävän valtuutusstrategian.",
         "title": "Auth-strategia"
@@ -649,15 +655,15 @@ export default {
   "learnMore": "Lisätietoja kuvauksen lähteestä",
   "linksToClassic": {
     "home": {
-      "linkText": "Siirry alkuperäiseen Europeanaan.",
+      "linkText": "Katso tämä sivu alkuperäisellä Europeana-verkkosivustolla 20. joulukuuta 2021 asti.",
       "text": "Katselet uutta Europeanaa."
     },
     "record": {
-      "linkText": "Näytä tämä kohde alkuperäisessä Europeanassa.",
+      "linkText": "Katso tämä kohde alkuperäisellä Europeana-verkkosivustolla 20. joulukuuta 2021 asti.",
       "text": "Tarkastelet tätä kohdetta uudella Europeana-verkkosivustolla."
     },
     "search": {
-      "linkText": "Tarkastele näitä hakutuloksia alkuperäisessä Europeanassa.",
+      "linkText": "Hae alkuperäiseltä Europeanan verkkosivulta 20. joulukuuta 2021 asti.",
       "text": "Etsit uudessa ja nopeammassa verkkosivustossamme."
     }
   },
@@ -681,12 +687,11 @@ export default {
   },
   "multilingual": {
     "automated": "Automatisoitu käännös",
-    "currentLanguage": "Haluaisitko nähdä tämän kohteen {0}?",
-    "differentLanguage": "eri kieltä",
     "enrichment": "Rikastaminen kumppaniprojekteilla",
-    "original": "Alkuperäiset metatiedot",
-    "originalLanguage": "alkuperäinen kieli",
-    "other": "Muut kielet"
+    "other": "Muut kielet",
+    "stopTranslating": "Lopeta tämän kohteen kääntäminen kielelle {0}.",
+    "translateLanguage": "Haluaisitko nähdä tämän kohteen {0}?",
+    "translateQuotaError": "Käännöspalvelu ei ole tilapäisesti käytettävissä. Yritä uudelleen myöhemmin."
   },
   "newWindow": "avautuu uuteen ikkunaan",
   "noMoreResults": "Hakusi ei tuottanut enempää tuloksia.",
@@ -702,6 +707,9 @@ export default {
       },
       "persons": {
         "title": "Henkilöt"
+      },
+      "table": {
+        "name": "Nimi"
       },
       "times": {
         "title": "aika"

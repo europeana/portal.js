@@ -242,12 +242,6 @@ export default {
       return this.$apis.set.search(searchParams)
         .then(searchResponse => commit('setCurations', searchResponse.data.items || []));
     },
-    fetchActiveRecommendations({ commit }, setId) {
-      return this.$apis.recommendation.recommend('set', setId)
-        .then(response => {
-          commit('setActiveRecommendations', response.items);
-        });
-    },
     reviewRecommendation({ state, commit }, params) {
       return this.$apis.recommendation[params.action]('set', params.setId, params.itemIds)
         .then(response => {

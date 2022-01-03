@@ -54,7 +54,8 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Éléments récents",
-    "time": "Centuries en vedette",
+    "organisation": "Organisations",
+    "time": "Des siècles en vedette",
     "topic": "Sujets d'actualité"
   },
   "blog": {
@@ -464,7 +465,6 @@ export default {
       "dcFormat": "Format",
       "dcIdentifier": "Identificateur",
       "dcLanguage": "Langue",
-      "dcMedium": "Support",
       "dcPublisher": "Éditeur",
       "dcRelation": "Relations",
       "dcRights": "Droits",
@@ -484,7 +484,6 @@ export default {
       "dctermsIssued": "Date d'émission",
       "dctermsMedium": "Support",
       "dctermsProvenance": "Provenance",
-      "dctermsPublished": "Date de publication",
       "dctermsReferences": "Se réfère à",
       "dctermsSpatial": "Lieux",
       "dctermsTemporal": "Période",
@@ -495,6 +494,7 @@ export default {
       "edmIncorporates": "Intègre",
       "edmIntermediateProvider": "Fournisseur intermédiaire",
       "edmIsDerivativeOf": "Est dérivé de",
+      "edmIsRelatedTo": "Est liée à",
       "edmIsRepresentationOf": "Est la représentation de",
       "edmIsSimilarTo": "Est identique à",
       "edmIsSuccessorOf": "Est la suite de",
@@ -517,6 +517,8 @@ export default {
       "rdfAbout": "À propos de RDF"
     }
   },
+  "filter": "Filtre",
+  "filterResults": "Filtrer les résultats",
   "footer": {
     "customiseWebsiteLanguage": "Personnaliser la langue du site web",
     "disclaimerLine1": "Europeana est une initiative de l'Union européenne, financée par le Connecting Europe Facility de l'Union européenne et les États membres de l'Union européenne. Les services Europeana, y compris ce site Web, sont exploités par un consortium dirigé par la Fondation Europeana dans le cadre d'un contrat de service avec la Commission européenne.",
@@ -613,6 +615,10 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Aide à améliorer notre site Web en appliquant occasionnellement des modifications expérimentales.",
+        "title": "Tests A/B"
+      },
       "auth-strategy": {
         "description": "Se souvient de la stratégie d'autorisation à utiliser pour se connecter.",
         "title": "Stratégie d'authentification"
@@ -649,15 +655,15 @@ export default {
   "learnMore": "Découvrez la source de cette description",
   "linksToClassic": {
     "home": {
-      "linkText": "Accédez à l'Europeana original.",
+      "linkText": "Consultez cette page sur le site Web original d'Europeana jusqu'au 20 décembre 2021.",
       "text": "Vous consultez la nouvelle expérience Europeana."
     },
     "record": {
-      "linkText": "Affichez cet élément dans l'Europeana original.",
+      "linkText": "Vous pouvez consulter cet article sur le site original d'Europeana jusqu'au 20 décembre 2021.",
       "text": "Vous consultez cet élément dans le nouveau site web d'Europeana."
     },
     "search": {
-      "linkText": "Affichez ces résultats de recherche dans l'Europeana original.",
+      "linkText": "Recherchez sur le site Web original d'Europeana jusqu'au 20 décembre 2021.",
       "text": "Vous effectuez vos recherches sur notre nouveau site web plus rapide."
     }
   },
@@ -681,12 +687,11 @@ export default {
   },
   "multilingual": {
     "automated": "Traduction automatisée",
-    "currentLanguage": "Souhaitez-vous voir cet article dans {0} ?",
-    "differentLanguage": "une langue différente",
     "enrichment": "Enrichissement par des projets partenaires",
-    "original": "Métadonnées originales",
-    "originalLanguage": "langue originale",
-    "other": "Autres langues"
+    "other": "Autres langues",
+    "stopTranslating": "Arrêtez de traduire cet élément en {0}.",
+    "translateLanguage": "Souhaitez-vous voir cet article dans {0} ?",
+    "translateQuotaError": "Le service de traduction est temporairement indisponible. Veuillez réessayer plus tard."
   },
   "newWindow": "s'ouvre dans une nouvelle fenêtre",
   "noMoreResults": "Il n'y a plus de résultats pour votre requête de recherche.",
@@ -702,6 +707,9 @@ export default {
       },
       "persons": {
         "title": "Personnes"
+      },
+      "table": {
+        "name": "Nom"
       },
       "times": {
         "title": "Fois"

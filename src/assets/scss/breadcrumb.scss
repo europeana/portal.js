@@ -8,11 +8,12 @@
     font-size: $font-size-small;
   }
 
-  .breadcrumb-item.active, a {
+  .breadcrumb-item.active,
+  a {
     color: $mediumgrey;
+
     &:hover {
       color: $mediumgrey;
     }
   }
-  
 }

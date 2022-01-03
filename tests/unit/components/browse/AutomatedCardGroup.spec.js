@@ -8,6 +8,7 @@ import AutomatedCardGroup from '@/components/browse/AutomatedCardGroup.vue';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
+const FEATURED_ORGANISATIONS = 'Featured organisations';
 const FEATURED_TOPICS = 'Featured topics';
 const FEATURED_TIMES = 'Featured centuries';
 const RECENT_ITEMS = 'Recent items';
@@ -55,6 +56,25 @@ const shallowFactory = (props = { sectionType: FEATURED_TOPICS })  => shallowMou
 });
 
 const entries = {
+  featuredOrganisations: [
+    {
+      id: 'http://data.europeana.eu/organization/1',
+      prefLabel: { en: 'organisation one' },
+      logo: { id: 'http://commons.wikimedia.org/wiki/Special:FilePath/logo.jpg' }
+    },
+    {
+      id: 'http://data.europeana.eu/organization/2',
+      prefLabel: { en: 'organisation two' }
+    },
+    {
+      id: 'http://data.europeana.eu/organization/3',
+      prefLabel: { en: 'organisation three' }
+    },
+    {
+      id: 'http://data.europeana.eu/organization/4',
+      prefLabel: { en: 'organisation four' }
+    }
+  ],
   featuredTopics: [
     {
       id: 'http://data.europeana.eu/concept/base/1',
@@ -99,7 +119,7 @@ const entries = {
     edmPreview: 'preview URL',
     title: 'item one'
   }],
-  itemCountsMediaType: [
+  itemTypeCounts: [
     {
       label: 'IMAGE',
       count: 100
@@ -126,7 +146,7 @@ const entries = {
 describe('components/browse/AutomatedCardGroup', () => {
   describe('fetch()', () => {
     beforeEach(() => {
-      $axiosGetStub.withArgs('/_api/entities/topics').resolves({ data: entries.featuredTopics });
+      $axiosGetStub.withArgs('/_api/cache/en/collections/topics/featured').resolves({ data: entries.featuredTopics });
     });
     afterEach(() => {
       $axiosGetStub.reset();
@@ -135,7 +155,7 @@ describe('components/browse/AutomatedCardGroup', () => {
       it('gets the data from the cache API endpoint', async() => {
         const wrapper = nuxtFactory({ sectionType: FEATURED_TOPICS });
         await wrapper.vm.fetch();
-        $axiosGetStub.should.have.been.calledWith('/_api/entities/topics');
+        $axiosGetStub.should.have.been.calledWith('/_api/cache/en/collections/topics/featured');
         wrapper.vm.entries.should.deep.eq(entries.featuredTopics);
       });
     });
@@ -154,7 +174,7 @@ describe('components/browse/AutomatedCardGroup', () => {
       it('includes type', () => {
         const wrapper = shallowFactory({ sectionType: ITEM_COUNTS_MEDIA_TYPE });
 
-        wrapper.vm.contentCardSection.type.should.eq('itemCountsMediaType');
+        wrapper.vm.contentCardSection.type.should.eq('items/typeCounts');
       });
       it('sets the relevant fields for the items in the hasPartCollection', async() => {
         const expected = {
@@ -168,11 +188,42 @@ describe('components/browse/AutomatedCardGroup', () => {
         const wrapper = shallowFactory({ sectionType: ITEM_COUNTS_MEDIA_TYPE });
 
         await wrapper.setData({
-          entries: entries.itemCountsMediaType
+          entries: entries.itemTypeCounts
         });
         const section = wrapper.vm.contentCardSection;
         section.hasPartCollection.items[0].should.deep.eq(expected);
         section.hasPartCollection.items.length.should.eq(5);
+      });
+    });
+    context('when the type is featured organisations', () => {
+      it('includes a headline', () => {
+        const wrapper = shallowFactory({ sectionType: FEATURED_ORGANISATIONS });
+
+        wrapper.vm.contentCardSection.headline.should.eq('automatedCardGroup.organisation');
+      });
+      it('sets the relevant fields for the items in the hasPartCollection', async() => {
+        const expected = {
+          __typename: 'AutomatedEntityCard',
+          __variant: 'mini',
+          name: { en: 'organisation one' },
+          identifier: 'http://data.europeana.eu/organization/1',
+          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/logo.jpg/80px-logo.jpg',
+          logo: true,
+          encoding: {
+            id: 'http://data.europeana.eu/organization/1',
+            logo: { id: 'http://commons.wikimedia.org/wiki/Special:FilePath/logo.jpg' },
+            prefLabel: { en: 'organisation one' }
+          }
+        };
+
+        const wrapper = shallowFactory({ sectionType: FEATURED_ORGANISATIONS });
+
+        await wrapper.setData({
+          entries: entries.featuredOrganisations
+        });
+        const section = wrapper.vm.contentCardSection;
+        section.hasPartCollection.items[0].should.deep.eq(expected);
+        section.hasPartCollection.items.length.should.eq(4);
       });
     });
     context('when the type is featured topics', () => {
@@ -184,6 +235,7 @@ describe('components/browse/AutomatedCardGroup', () => {
       it('sets the relevant fields for the items in the hasPartCollection', async() => {
         const expected = {
           __typename: 'AutomatedEntityCard',
+          __variant: 'mini',
           name: { en: 'topic one' },
           identifier: 'http://data.europeana.eu/concept/base/1',
           image: 'thumbnail',
@@ -193,7 +245,8 @@ describe('components/browse/AutomatedCardGroup', () => {
               thumbnail: 'thumbnail'
             },
             prefLabel: { en: 'topic one' }
-          }
+          },
+          logo: false
         };
 
         const wrapper = shallowFactory({ sectionType: FEATURED_TOPICS });
@@ -215,6 +268,7 @@ describe('components/browse/AutomatedCardGroup', () => {
       it('sets the relevant fields for the items in the hasPartCollection', async() => {
         const expected = {
           __typename: 'AutomatedEntityCard',
+          __variant: 'mini',
           name: { en: 'time one' },
           identifier: 'http://data.europeana.eu/timespan/1',
           image: 'thumbnail',
@@ -224,7 +278,8 @@ describe('components/browse/AutomatedCardGroup', () => {
               thumbnail: 'thumbnail'
             },
             prefLabel: { en: 'time one' }
-          }
+          },
+          logo: false
         };
 
         const wrapper = shallowFactory({ sectionType: FEATURED_TIMES });
@@ -251,15 +306,17 @@ describe('components/browse/AutomatedCardGroup', () => {
       it('sets the relevant fields for the items in the hasPartCollection', async() => {
         const expected = {
           __typename: 'AutomatedRecordCard',
+          __variant: null,
           identifier: '/500/identifier_1',
-          image: undefined,
+          image: null,
           name: undefined,
           encoding: {
             edmIsShownBy: 'isShownBy URL',
             edmPreview: 'preview URL',
             id: '/500/identifier_1',
             title: 'item one'
-          }
+          },
+          logo: false
         };
 
         const wrapper = shallowFactory({ sectionType: RECENT_ITEMS });

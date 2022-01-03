@@ -52,7 +52,7 @@ const factory = (propsData) => mount(UserSets, {
 
 describe('components/account/UserSets', () => {
   it('renders a card for every user set', () => {
-    const wrapper = factory({ value: sets });
+    const wrapper = factory({ sets });
 
     const renderedSets =  wrapper.findAll('[data-qa="user set"]');
 

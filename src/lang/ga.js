@@ -54,6 +54,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Míreanna le déanaí",
+    "organisation": "Eagraíochtaí",
     "time": "Na hAois réadmhaoin",
     "topic": "Topaicí réadmhaoine"
   },
@@ -464,7 +465,6 @@ export default {
       "dcFormat": "Formáid",
       "dcIdentifier": "Aitheantóir",
       "dcLanguage": "Teanga",
-      "dcMedium": "Meánach",
       "dcPublisher": "Foilsitheoir",
       "dcRelation": "Caidrimh",
       "dcRights": "Cearta",
@@ -484,7 +484,6 @@ export default {
       "dctermsIssued": "Dáta eisiúna",
       "dctermsMedium": "Meánach",
       "dctermsProvenance": "Bunadh",
-      "dctermsPublished": "Dáta foilsithe",
       "dctermsReferences": "Tagairtí",
       "dctermsSpatial": "Áiteanna",
       "dctermsTemporal": "Ama",
@@ -495,6 +494,7 @@ export default {
       "edmIncorporates": "Ionchorpraítear leis",
       "edmIntermediateProvider": "Soláthraí idirmheánach",
       "edmIsDerivativeOf": "Is díorthach é de",
+      "edmIsRelatedTo": "Tá baint aige le",
       "edmIsRepresentationOf": "Is léiriú é de",
       "edmIsSimilarTo": "Is cosúil leis",
       "edmIsSuccessorOf": "Is comharba é ar",
@@ -517,6 +517,8 @@ export default {
       "rdfAbout": "Maidir le RDF"
     }
   },
+  "filter": "Scag",
+  "filterResults": "Scag torthaí",
   "footer": {
     "customiseWebsiteLanguage": "Saincheap teanga an láithreáin ghréasáin",
     "disclaimerLine1": "Is tionscnamh de chuid an Aontais Eorpaigh é Europeana, arna mhaoiniú ag Saoráid Nascadh na hEorpa agus Ballstáit an Aontais Eorpaigh. Is iad cuibhreannas faoi stiúir Fhondúireacht Europeana a oibríonn seirbhísí Europeana, an láithreán gréasáin seo san áireamh, faoi chonradh seirbhíse leis an gCoimisiún Eorpach.",
@@ -613,6 +615,10 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Cuidíonn sé lenár suíomh Gréasáin a fheabhsú trí athruithe turgnamhacha a chur i bhfeidhm ó am go chéile.",
+        "title": "Tástáil A/B"
+      },
       "auth-strategy": {
         "description": "Is cuimhin leis an straitéis údaraithe a úsáid chun logáil isteach.",
         "title": "Straitéis Auth"
@@ -649,15 +655,15 @@ export default {
   "learnMore": "Faigh amach faoi fhoinse an tuairisc seo",
   "linksToClassic": {
     "home": {
-      "linkText": "Téigh go dtí an láithreán Europeana bunaidh.",
+      "linkText": "Féach ar an leathanach seo ar shuíomh Gréasáin bunaidh Europeana go dtí 20 Nollaig 2021.",
       "text": "Seo an t-eispéireas Europeana nua a bhfuil tú ag breathnú air."
     },
     "record": {
-      "linkText": "Féach ar an mír seo ar láithreán bunaidh Europeana.",
+      "linkText": "Féach an mhír seo ar shuíomh Gréasáin bunaidh Europeana go dtí 20 Nollaig 2021.",
       "text": "Is ar an láithreán gréasáin nua atá ag Europeana atá tú anois, agus tú ag féachaint ar an mír seo."
     },
     "search": {
-      "linkText": "Féach ar na torthaí cuardaigh seo san fhoinse bunaidh, Europeana.",
+      "linkText": "Cuardaigh ar shuíomh Gréasáin bunaidh Europeana go dtí 20 Nollaig 2021.",
       "text": "Tá an cuardach seo déanta agat ar an láithreán gréasáin nua againn atá níos tapúla."
     }
   },
@@ -681,12 +687,11 @@ export default {
   },
   "multilingual": {
     "automated": "Aistriúchán uathoibrithe",
-    "currentLanguage": "Ar mhaith leat an mhír seo a fheiceáil i {0} ?",
-    "differentLanguage": "teanga dhifriúil",
     "enrichment": "Saibhriú ag tionscadail chomhpháirtíochta",
-    "original": "Meiteashonraí bunaidh",
-    "originalLanguage": "teanga bhunaidh",
-    "other": "Teangacha eile"
+    "other": "Teangacha eile",
+    "stopTranslating": "Stop an t-earra seo a aistriú go {0}.",
+    "translateLanguage": "Ar mhaith leat an mhír seo a fheiceáil i {0} ?",
+    "translateQuotaError": "Níl an tseirbhís aistriúcháin ar fáil go sealadach. Bain triail eile as níos déanaí."
   },
   "newWindow": "osclaítear i bhfuinneog nua é",
   "noMoreResults": "Níl aon toradh eile ann ar d'iarratas cuardaigh.",
@@ -702,6 +707,9 @@ export default {
       },
       "persons": {
         "title": "Daoine"
+      },
+      "table": {
+        "name": "Ainm"
       },
       "times": {
         "title": "Amanna"

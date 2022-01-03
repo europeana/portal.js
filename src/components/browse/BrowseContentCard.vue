@@ -5,10 +5,13 @@
     :url="destination"
     :image-url="imageUrl"
     :image-content-type="imageContentType"
+    :image-width="imageWidth"
+    :image-height="imageHeight"
     :image-alt="imageAlt"
     :variant="cardVariant"
     :omit-all-uris="true"
     :image-optimisation-options="{ width: 510 }"
+    :logo="fields.logo"
   />
 </template>
 
@@ -28,6 +31,10 @@
         default: () => ({})
       },
       cardType: {
+        type: String,
+        default: null
+      },
+      variant: {
         type: String,
         default: null
       }
@@ -74,6 +81,12 @@
       imageAlt() {
         return this.imageIsContentfulAsset && this.cardFields.image.description ? this.cardFields.image.description : '';
       },
+      imageWidth() {
+        return this.imageIsContentfulAsset ? this.cardFields.image.width : null;
+      },
+      imageHeight() {
+        return this.imageIsContentfulAsset ? this.cardFields.image.height : null;
+      },
       destination() {
         let destination = '';
 
@@ -114,6 +127,9 @@
         return texts;
       },
       cardVariant() {
+        if (this.variant) {
+          return this.variant;
+        }
         return this.cardType === 'AutomatedEntityCard' ? 'entity' : 'default';
       }
     },

@@ -1,11 +1,5 @@
 <template>
   <div data-qa="item page">
-    <NotificationBanner
-      v-if="redirectNotificationsEnabled"
-      :notification-url="notificationUrl"
-      :notification-text="$t('linksToClassic.record.text')"
-      :notification-link-text="$t('linksToClassic.record.linkText')"
-    />
     <b-container v-if="error">
       <AlertMessage
         :error="error"
@@ -14,11 +8,13 @@
     <template
       v-else
     >
-      <ItemLanguageSelector
-        v-if="translatedItemsEnabled"
-        :item-language="edmLanguage.def[0]"
-        :metadata-language="metadataLanguage"
-      />
+      <client-only>
+        <ItemLanguageSelector
+          v-if="translatedItemsEnabled"
+          :from-translation-error="fromTranslationError"
+          :metadata-language="metadataLanguage"
+        />
+      </client-only>
       <b-container
         fluid
         class="bg-white mb-3 px-0"
@@ -89,7 +85,7 @@
               {{ $t('record.exploreMore') }}
             </h2>
             <ItemPreviewCardGroup
-              v-model="similarItems"
+              :items="similarItems"
               view="explore"
               class="mb-0"
               data-qa="similar items"
@@ -123,6 +119,7 @@
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
 
   export default {
+    name: 'ItemPage',
     components: {
       ItemHero: () => import('@/components/item/ItemHero'),
       AlertMessage: () => import('@/components/generic/AlertMessage'),
@@ -130,17 +127,21 @@
       RelatedCollections: () => import('@/components/generic/RelatedCollections'),
       SummaryInfo: () => import('@/components/item/SummaryInfo'),
       MetadataBox,
-      NotificationBanner: () => import('@/components/generic/NotificationBanner'),
       ItemLanguageSelector: () => import('@/components/item/ItemLanguageSelector')
     },
 
-    fetch() {
-      this.fetchAnnotations();
-      this.fetchRelatedEntities();
-      this.fetchSimilarItems();
+    async beforeRouteUpdate(to, from, next) {
+      if (to.path !== from.path) {
+        // Navigation to another item
+        await this.$store.dispatch('item/reset');
+      }
+      next();
     },
 
-    fetchOnServer: false,
+    async beforeRouteLeave(to, from, next) {
+      await this.$store.dispatch('item/reset');
+      next();
+    },
 
     asyncData({ params, res, route, app, $apis }) {
       return $apis.record
@@ -165,6 +166,7 @@
         concepts: [],
         description: null,
         error: null,
+        fromTranslationError: null,
         identifier: null,
         isShownAt: null,
         media: [],
@@ -175,8 +177,29 @@
         type: null,
         useProxy: true,
         schemaOrg: null,
-        edmLanguage: null,
         metadataLanguage: null
+      };
+    },
+
+    fetch() {
+      this.fetchAnnotations();
+      this.fetchRelatedEntities();
+      this.fetchSimilarItems();
+    },
+
+    fetchOnServer: false,
+
+    head() {
+      return {
+        title: this.$pageHeadTitle(this.metaTitle),
+        meta: [
+          { hid: 'title', name: 'title', content: this.metaTitle },
+          { hid: 'description', name: 'description', content: this.metaDescription },
+          { hid: 'og:title', property: 'og:title', content: this.metaTitle },
+          { hid: 'og:description', property: 'og:description', content: this.metaDescription },
+          { hid: 'og:image', property: 'og:image', content: this.pageHeadMetaOgImage },
+          { hid: 'og:type', property: 'og:type', content: 'article' }
+        ]
       };
     },
 
@@ -262,12 +285,6 @@
 
         return edmDataProvider;
       },
-      notificationUrl() {
-        return `https://classic.europeana.eu/portal/${this.$i18n.locale}/record${this.identifier}.html?utm_source=new-website&utm_medium=button`;
-      },
-      redirectNotificationsEnabled() {
-        return this.$config.app.features.linksToClassic;
-      },
       pageHeadMetaOgImage() {
         return this.media[0]?.thumbnails?.large || null;
       },
@@ -287,9 +304,11 @@
         annotations: state => state.item.annotations
       }),
       translatedItemsEnabled() {
-        return this.$config.app.features.translatedItems;
+        return this.$features.translatedItems;
       }
     },
+
+    watchQuery: ['lang'],
 
     mounted() {
       if (!this.error) {
@@ -329,7 +348,7 @@
           return Promise.resolve(noSimilarItems);
         }
 
-        if (this.$config.app.features.recommendations && this.$auth.loggedIn) {
+        if (this.$auth.loggedIn) {
           return this.$apis.recommendation.recommend('record', this.identifier)
             .then(recommendResponse => recommendResponse);
         }
@@ -376,34 +395,6 @@
           dimension4: langMapValueForLocale(this.metadata.edmRights, 'en').values[0]
         };
       }
-    },
-
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.metaTitle),
-        meta: [
-          { hid: 'title', name: 'title', content: this.metaTitle },
-          { hid: 'description', name: 'description', content: this.metaDescription },
-          { hid: 'og:title', property: 'og:title', content: this.metaTitle },
-          { hid: 'og:description', property: 'og:description', content: this.metaDescription },
-          { hid: 'og:image', property: 'og:image', content: this.pageHeadMetaOgImage },
-          { hid: 'og:type', property: 'og:type', content: 'article' }
-        ]
-      };
-    },
-
-    watchQuery: ['lang'],
-
-    async beforeRouteUpdate(to, from, next) {
-      if (to.path !== from.path) {
-        // Navigation to another item
-        await this.$store.dispatch('item/reset');
-      }
-      next();
-    },
-    async beforeRouteLeave(to, from, next) {
-      await this.$store.dispatch('item/reset');
-      next();
     }
   };
 </script>
@@ -421,6 +412,6 @@
 
   ::v-deep .card-header-tabs .nav-link,
   ::v-deep .card-header-tabs .nav-link:hover {
-    border-radius: 0.25rem 0 0 0;
+    border-radius: 0.25rem 0 0;
   }
 </style>

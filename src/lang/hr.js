@@ -54,6 +54,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Nedavne stavke",
+    "organisation": "Organizacije",
     "time": "Istaknuta stoljeća",
     "topic": "Istaknute teme"
   },
@@ -154,7 +155,7 @@ export default {
     "notifications": {
       "deleted": "Vaša galerija je izbrisana.",
       "pinLimit": {
-        "body": "Za sada na prvu stranicu možete prikvačiti samo 24 predmeta. Ako želite prikvačiti ovu stavku, svakako otkačite drugu, a zatim pokušajte ponovo prikvačiti ovu.",
+        "body": "Za sada na prvu stranicu možete prikvačiti samo 24 stavki. Ako želite prikvačiti ovu stavku, svakako otkačite drugu, a zatim pokušajte ponovo prikvačiti ovu.",
         "title": "Previše prikvačenih stavki"
       },
       "pinned": "Stavka je prikvačena. Sada je na vrhu prve stranice ove zbirke. Možda će trebati i do 24 sata da se svi pojave.",
@@ -416,7 +417,7 @@ export default {
     },
     "contentTier": {
       "name": "Uključuje stavke koje ne ispunjavaju naše kriterije objavljivanja",
-      "notification": "Dostupne su neke stavke koje ne odgovaraju našim kriterijima za objavu. Tim stavkama možete pristupiti aktiviranjem filtra \"Kvaliteta predmeta\" u odjeljku \"Više filtara\".",
+      "notification": "Dostupne su neke stavke koje ne odgovaraju našim kriterijima za objavu. Tim stavkama možete pristupiti aktiviranjem filtra \"Kvaliteta stavka\" u odjeljku \"Više filtara\".",
       "options": {
         "*": "Uključuje stavke koje ne ispunjavaju naše kriterije objavljivanja",
         "0": "Prikaži samo stavke koje ne zadovoljavaju naše kriterije za objavljivanje"
@@ -464,7 +465,6 @@ export default {
       "dcFormat": "Format",
       "dcIdentifier": "Identifikator",
       "dcLanguage": "Jezik",
-      "dcMedium": "Medij",
       "dcPublisher": "Izdavač",
       "dcRelation": "Odnosi",
       "dcRights": "Prava",
@@ -484,7 +484,6 @@ export default {
       "dctermsIssued": "Datum izdavanja",
       "dctermsMedium": "Medij",
       "dctermsProvenance": "Podrijetlo",
-      "dctermsPublished": "Datum objave",
       "dctermsReferences": "Reference",
       "dctermsSpatial": "Mjesta",
       "dctermsTemporal": "Vremenski",
@@ -495,6 +494,7 @@ export default {
       "edmIncorporates": "Uključuje",
       "edmIntermediateProvider": "Posredni dobavljač",
       "edmIsDerivativeOf": "Izveden je od",
+      "edmIsRelatedTo": "Povezano je s",
       "edmIsRepresentationOf": "Predstavlja",
       "edmIsSimilarTo": "je slično",
       "edmIsSuccessorOf": "Nasljednik je",
@@ -517,6 +517,8 @@ export default {
       "rdfAbout": "RDF O"
     }
   },
+  "filter": "Filtar",
+  "filterResults": "Filtrirajte rezultate",
   "footer": {
     "customiseWebsiteLanguage": "Prilagodite jezik internetske stranice",
     "disclaimerLine1": "Europeana je inicijativa Europske unije koju financiraju Instrument za povezivanje Europe i države članice Europske unije. Uslugama Europeane, uključujući ovu web stranicu, upravlja konzorcij predvođen Zakladom Europeana prema ugovoru o pružanju usluga s Europskom komisijom.",
@@ -613,6 +615,10 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Pomaže poboljšati našu web stranicu povremenom primjenom eksperimentalnih promjena.",
+        "title": "A/B testiranje"
+      },
       "auth-strategy": {
         "description": "Sjeća se strategije autorizacije za prijavu.",
         "title": "Auth strategija"
@@ -649,15 +655,15 @@ export default {
   "learnMore": "Saznajte više o izvoru ovog opisa",
   "linksToClassic": {
     "home": {
-      "linkText": "Idi na izvornu Europeanu.",
+      "linkText": "Pogledajte ovu stranicu na izvornoj web stranici Europeana do 20. prosinca 2021.",
       "text": "Gledate novo iskustvo Europeane."
     },
     "record": {
-      "linkText": "Pogledajte ovu stavku u izvornoj Europeani.",
+      "linkText": "Pogledajte ovu stavku na izvornoj web stranici Europeana do 20. prosinca 2021.",
       "text": "Ovaj predmet pregledavate na novoj internetskoj stranici Europeana."
     },
     "search": {
-      "linkText": "Pogledajte ove rezultate pretraživanja u izvornoj Europeani.",
+      "linkText": "Pretražujte na izvornoj Europeana i web stranici do 20. prosinca 2021.",
       "text": "Pretražujete našu novu i bržu internetsku stranicu."
     }
   },
@@ -681,12 +687,11 @@ export default {
   },
   "multilingual": {
     "automated": "Automatizirani prijevod",
-    "currentLanguage": "Želite li vidjeti ovu stavku u {0} ?",
-    "differentLanguage": "drugačiji jezik",
     "enrichment": "Obogaćivanje partnerskim projektima",
-    "original": "Izvorni metapodaci",
-    "originalLanguage": "izvorni jezik",
-    "other": "Drugi jezici"
+    "other": "Drugi jezici",
+    "stopTranslating": "Prestanite prevoditi ovu stavku na {0}.",
+    "translateLanguage": "Želite li vidjeti ovu stavku u {0} ?",
+    "translateQuotaError": "Usluga prevođenja privremeno je nedostupna. Pokušajte ponovo kasnije."
   },
   "newWindow": "otvara se u novom prozoru",
   "noMoreResults": "Nema više rezultata za vaš upit za pretraživanje.",
@@ -702,6 +707,9 @@ export default {
       },
       "persons": {
         "title": "Osobe"
+      },
+      "table": {
+        "name": "Ime"
       },
       "times": {
         "title": "Vremena"
@@ -783,7 +791,7 @@ export default {
     "notifications": {
       "deleted": "Vaša galerija je izbrisana.",
       "likeLimit": {
-        "body": "Žao nam je, ali trenutno vam je ograničeno sviđanje na najviše 100 predmeta. Uskoro ćemo ukloniti ovo ograničenje!",
+        "body": "Žao nam je, ali trenutno vam je ograničeno sviđanje na najviše 100 stavke. Uskoro ćemo ukloniti ovo ograničenje!",
         "title": "100 sviđanja"
       },
       "updated": "Predmet je dodan u galeriju."

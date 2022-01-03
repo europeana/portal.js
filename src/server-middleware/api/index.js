@@ -32,14 +32,31 @@ app.use((req, res, next) => {
 import debugMemoryUsage from './debug/memory-usage.js';
 app.get('/debug/memory-usage', debugMemoryUsage);
 
-import entitiesOrganisations from './entities/organisations.js';
-app.get('/entities/organisations', (req, res) => entitiesOrganisations(runtimeConfig)(req, res));
+// Redirection of some deprecated API URL paths.
+//
+// TODO: remove redirection of deprecated routes after new routes are
+//       well-established in production
+//
+// Deprecated with v1.52.0:
+app.get('/entities/organisations', (req, res) => res.redirect('/_api/cache/en/collections/organisations'));
+app.get('/entities/times', (req, res) => res.redirect(`/_api/cache/${req.query.locale}/collections/times/featured`));
+app.get('/entities/topics', (req, res) => res.redirect(`/_api/cache/${req.query.locale}/collections/topics/featured`));
+app.get('/items/recent', (req, res) => res.redirect('/_api/cache/items/recent'));
+app.get('/items/itemCountsMediaType', (req, res) => res.redirect('/_api/cache/items/typeCounts'));
+// Deprecated with v1.53.0:
+app.get('/cache/collections/organisations', (req, res) => res.redirect('/_api/cache/en/collections/organisations'));
+app.get('/cache/collections/times', (req, res) => {
+  if (req.query.daily) {
+    return res.redirect(`/_api/cache/${req.query.locale}/collections/times/featured`);
+  } else {
+    return res.redirect(`/_api/cache/${req.query.locale}/collections/times`);
+  }
+});
+app.get('/cache/collections/topics', (req, res) => res.redirect(`/_api/cache/${req.query.locale}/collections/topics`));
+app.get('/cache/collections/topics/featured', (req, res) => res.redirect(`/_api/cache/${req.query.locale}/collections/topics/featured`));
 
-import dailyEntries from './dailyEntries.js';
-app.get('/entities/topics', (req, res) => dailyEntries('topic', runtimeConfig)(req, res));
-app.get('/entities/times', (req, res) => dailyEntries('time', runtimeConfig)(req, res));
-app.get('/items/recent', (req, res) => dailyEntries('item', runtimeConfig)(req, res));
-app.get('/items/itemCountsMediaType', (req, res) => dailyEntries('itemCountsMediaType', runtimeConfig)(req, res));
+import cache from './cache/index.js';
+app.get('/cache/*', (req, res) => cache(req.params[0], runtimeConfig)(req, res));
 
 import jiraServiceDesk from './jira/service-desk.js';
 app.post('/jira/service-desk', (req, res) => jiraServiceDesk(runtimeConfig.jira)(req, res));

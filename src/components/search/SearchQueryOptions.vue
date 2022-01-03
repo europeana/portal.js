@@ -7,15 +7,15 @@
     :aria-label="$t('searchSuggestions')"
   >
     <b-list-group-item
-      v-for="(option, index) in value"
+      v-for="(option, index) in options"
       :key="index"
+      :data-qa="option.qa"
       :to="$link.to(option.link.path, option.link.query)"
       :href="$link.href(option.link.path, option.link.query)"
-      :data-qa="option.qa"
       role="option"
       :aria-selected="index === focus"
       :class="{ 'hover': index === focus }"
-      @click="blurInput"
+      @click="trackSuggestionClick(index, option.link.query.query)"
       @focus="index === focus"
       @mouseover="focus = index"
       @mouseout="focus = null"
@@ -27,11 +27,11 @@
       >
         <template
           v-for="(slot, slotIndex) in option.i18n.slots"
-          v-slot:[slot.name]
+          #[slot.name]
         >
           <TextHighlighter
             :key="slotIndex"
-            v-model="slot.value"
+            :texts="slot.value"
           />
         </template>
       </i18n>
@@ -39,7 +39,7 @@
         v-else-if="option.texts"
       >
         <TextHighlighter
-          v-model="option.texts"
+          :texts="option.texts"
         />
       </template>
     </b-list-group-item>
@@ -83,7 +83,7 @@
        *   }
        * ]
        */
-      value: {
+      options: {
         type: Array,
         required: true
       },
@@ -111,7 +111,7 @@
       },
 
       lastOptionHasFocus() {
-        return this.focus === (this.value.length - 1);
+        return this.focus === (this.options.length - 1);
       },
 
       noOptionHasFocus() {
@@ -152,7 +152,7 @@
       },
 
       keydownUp() {
-        this.focus = (this.noOptionHasFocus || this.firstOptionHasFocus) ? this.value.length - 1 : this.focus - 1;
+        this.focus = (this.noOptionHasFocus || this.firstOptionHasFocus) ? this.options.length - 1 : this.focus - 1;
         this.selectSuggestion();
       },
 
@@ -163,6 +163,28 @@
 
       blurInput() {
         this.inputElement.blur();
+      },
+
+      onCollectionPage() {
+        // Used for deciding if clicks on search suggestions should be tracked.
+        // Uses window.location as the beforeRouteLeave call on collection pages
+        // unsets the entity ID before the @click event fires on each search option.
+        const collectionPagePattern = /(\/[a-z]{2})?\/collections\/(person|topic|time|organisation)\/([0-9]+)+/;
+        return collectionPagePattern.test(window.location.href);
+      },
+
+      trackSuggestionClick(index, query) {
+        // Skip click tracking while on a collection page, there will never be suggestions.
+        if (!this.onCollectionPage()) {
+          // While only triggered via @click here, these events are also tracked
+          // in the submitForm logic of the SearchForm component for keyboard events.
+          if (index >= 1) {
+            this.$matomo?.trackEvent('Autosuggest_option_selected', 'Autosuggest option is selected', query);
+          } else if (this.options.length >= 2) {
+            this.$matomo?.trackEvent('Autosuggest_option_not_selected', 'Autosuggest option is not selected', query);
+          }
+        }
+        this.blurInput();
       },
 
       clickOutside(event) {
@@ -182,8 +204,8 @@
       },
 
       selectSuggestion() {
-        if (this.focus && this.value[this.focus]) {
-          this.$emit('select', this.value[this.focus].link);
+        if (this.focus && this.options[this.focus]) {
+          this.$emit('select', this.options[this.focus].link);
         } else {
           // fallback to the query by unselecting any suggestions.
           this.$emit('select', null);
@@ -194,8 +216,8 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
-  @import '@/assets/scss/icons.scss';
+  @import '@/assets/scss/variables';
+  @import '@/assets/scss/icons';
 
   .auto-suggest-dropdown {
     display: block;
@@ -222,8 +244,9 @@
         background-color: $offwhite;
       }
 
-      &:before {
-        @extend .icon-font;
+      &::before {
+        @extend %icon-font;
+
         font-size: 1.1rem;
         content: '\e92b';
         left: 1rem;

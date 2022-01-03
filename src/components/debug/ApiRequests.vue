@@ -63,27 +63,31 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
+  @import '@/assets/scss/variables';
 
   .modal {
     &#api-requests {
       font-family: $font-family-sans-serif;
+
       .modal-title {
         font-size: 1.5rem;
         font-weight: 600;
       }
+
       ol {
         list-style: none;
         counter-reset: item;
         padding-left: 0;
       }
+
       li {
         counter-increment: item;
         margin-bottom: 10px;
         line-height: 1.2;
         padding-left: 2rem;
       }
-      li:before {
+
+      li::before {
         content: counter(item);
         margin-left: -2rem;
         background: #e83e8c;

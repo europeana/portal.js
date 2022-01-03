@@ -30,10 +30,12 @@ export default {
     "accept": "Accept",
     "cancel": "Cancel",
     "close": "close",
+    "continue": "continue",
     "download": "Download",
     "edit": "Edit",
     "feedback": "Feedback",
     "goBack": "Go back",
+    "goHome": "Go to the homepage",
     "like": "Like",
     "next": "Next",
     "providedBy": "Provided by {provider}",
@@ -54,8 +56,9 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Recent items",
-    "time": "Featured centuries",
-    "topic": "Featured topics"
+    "organisation": "Organisations",
+    "time": "Centuries",
+    "topic": "Topics"
   },
   "blog": {
     "author": "Author",
@@ -71,6 +74,7 @@ export default {
   "cardLabels": {
     "organisation": "Organisation",
     "person": "Person",
+    "theme": "Theme",
     "time": "Century",
     "topic": "Topic"
   },
@@ -464,7 +468,6 @@ export default {
       "dcFormat": "Format",
       "dcIdentifier": "Identifier",
       "dcLanguage": "Language",
-      "dcMedium": "Medium",
       "dcPublisher": "Publisher",
       "dcRelation": "Relations",
       "dcRights": "Rights",
@@ -484,7 +487,6 @@ export default {
       "dctermsIssued": "Issue date",
       "dctermsMedium": "Medium",
       "dctermsProvenance": "Provenance",
-      "dctermsPublished": "Publication date",
       "dctermsReferences": "References",
       "dctermsSpatial": "Places",
       "dctermsTemporal": "Temporal",
@@ -495,6 +497,7 @@ export default {
       "edmIncorporates": "Incorporates",
       "edmIntermediateProvider": "Intermediate provider",
       "edmIsDerivativeOf": "Is derivative of",
+      "edmIsRelatedTo": "Is related to",
       "edmIsRepresentationOf": "Is representation of",
       "edmIsSimilarTo": "Is similar to",
       "edmIsSuccessorOf": "Is successor of",
@@ -517,6 +520,8 @@ export default {
       "rdfAbout": "RDF About"
     }
   },
+  "filter": "Filter",
+  "filterResults": "Filter results",
   "footer": {
     "customiseWebsiteLanguage": "Customise website language",
     "disclaimerLine1": "Europeana is an initiative of the European Union, financed by the European Union’s Connecting Europe Facility and European Union Member States. The Europeana services, including this website, are operated by a consortium led by the Europeana Foundation under a service contract with the European Commission.",
@@ -577,7 +582,6 @@ export default {
     "itemCount": "1 item |{count} items",
     "itemOf": "{max} of {count} items",
     "recent": "Recent items",
-    "recommendationsDisclaimer": "Thumb up to add to the gallery - Thumb down if you dislike it",
     "recommended": "Recommended items",
     "youMightLike": "Items you might like"
   },
@@ -613,6 +617,10 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Helps to improve our website by occasionally applying experimental changes.",
+        "title": "A/B testing"
+      },
       "auth-strategy": {
         "description": "Remembers the authorization strategy to use to log in.",
         "title": "Auth Strategy"
@@ -644,10 +652,6 @@ export default {
       "searchResultsView": {
         "description": "Remembers if you prefer to see the search results in a list or grid view.",
         "title": "Search result view (list/grid)"
-      },
-      "abTest": {
-        "description": "Helps to improve our website by occasionally applying experimental changes.",
-        "title": "A/B testing"
       }
     }
   },
@@ -655,20 +659,6 @@ export default {
     "skipToMain": "Skip to page contents"
   },
   "learnMore": "Learn about the source of this description",
-  "linksToClassic": {
-    "home": {
-      "linkText": "Go to the original Europeana.",
-      "text": "You're viewing the new Europeana experience."
-    },
-    "record": {
-      "linkText": "View this item in the original Europeana.",
-      "text": "You're viewing this item in the new Europeana website."
-    },
-    "search": {
-      "linkText": "View these search results in the original Europeana.",
-      "text": "You're searching in our new and faster website."
-    }
-  },
   "loading": "Loading",
   "loadingResults": "Loading results",
   "mediaPreview": {
@@ -689,12 +679,11 @@ export default {
   },
   "multilingual": {
     "automated": "Automated translation",
-    "currentLanguage": "Would you like to see this item in {0}?",
-    "differentLanguage": "a different language",
     "enrichment": "Enrichment by partner projects",
-    "original": "Original metadata",
-    "originalLanguage": "original language",
-    "other": "Other languages"
+    "other": "other languages",
+    "stopTranslating": "Stop translating this item to {0}.",
+    "translateLanguage": "Would you like to see this item in {0}?",
+    "translateQuotaError": "Translation service is temporarily unavailable. Please try again later."
   },
   "newFeatureNotification": {
     "notification": "You can now easily discover cultural heritage items organised by partnering institutions.",
@@ -716,6 +705,9 @@ export default {
       "persons": {
         "title": "Persons"
       },
+      "table": {
+        "name": "Name"
+      },
       "times": {
         "title": "Times"
       },
@@ -725,6 +717,12 @@ export default {
     }
   },
   "readMore": "Read more",
+  "recommendation": {
+    "prompts": {
+      "accept": "Thumb up to add to the gallery",
+      "reject": "Thumb down if you dislike it"
+    }
+  },
   "record": {
     "IIIFViewer": "IIIF viewer",
     "allMetaData": "All metadata",

@@ -1,5 +1,7 @@
 export default {
   "account": {
+    "curatedCollections": "Kurátorské zbierky",
+    "curatedCollectionsInfo": "Nájdite nižšie všetky zbierky, ktoré ste kurátori",
     "editProfile": "Upraviť profil",
     "likes": "Označenia Páči sa mi",
     "linkAccount": "Môj účet",
@@ -11,6 +13,7 @@ export default {
       "loggedIn": "Teraz ste prihlásení. Vitajte!",
       "loggedOut": "Teraz ste odhlásení.",
       "noCollections": {
+        "curated": "Zatiaľ ste nevybrali žiadne zbierky",
         "private": "Zatiaľ ste nevytvorili žiadne súkromné galérie",
         "public": "Zatiaľ ste nevytvorili žiadne verejné galérie"
       },
@@ -24,6 +27,7 @@ export default {
     "title": "Môj účet"
   },
   "actions": {
+    "accept": "Prijať",
     "cancel": "Zrušiť",
     "close": "zatvoriť",
     "download": "Stiahnuť",
@@ -33,6 +37,7 @@ export default {
     "like": "Označenie Páči sa mi",
     "next": "Ďalšie",
     "providedBy": "Poskytovateľ:  {provider}",
+    "reject": "Odmietnuť",
     "send": "poslať",
     "share": "Zdieľať",
     "shareOn": "Zdieľať na sociálnej sieti {social}",
@@ -49,6 +54,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Nedávne položky",
+    "organisation": "Organizácie",
     "time": "Odporúčané storočia",
     "topic": "Odporúčané témy"
   },
@@ -64,6 +70,7 @@ export default {
     "relatedPosts": "Súvisiace príspevky"
   },
   "cardLabels": {
+    "organisation": "Organizácia",
     "person": "Osoba",
     "time": "Storočia",
     "topic": "Téma"
@@ -137,13 +144,28 @@ export default {
   "edmIsShownAtLinkAlt": "Zobrazenie na webovej stránke poskytovateľa",
   "entity": {
     "actions": {
-      "cancel": "Zrušiť"
+      "cancel": "Zrušiť",
+      "pin": "Pripnúť položku",
+      "unpin": "Odopnúť položku",
+      "viewPinned": "Pozrite si pripnuté položky"
     },
     "labels": {
       "entity": "Subjekt"
     },
     "notifications": {
-      "deleted": "Galéria bola vymazaná."
+      "deleted": "Galéria bola vymazaná.",
+      "pinLimit": {
+        "body": "Zatiaľ môžete na prvú stránku pripnúť iba 24 položiek. Ak chcete túto položku pripnúť, odpojte inú a potom sa pokúste znova pripnúť túto položku.",
+        "title": "Príliš veľa pripnutých položiek"
+      },
+      "pinned": "Položka bola pripnutá. Teraz je v hornej časti prvej stránky tejto zbierky. Zobrazenie pre všetkých môže trvať až 24 hodín.",
+      "pinnedFirstPage": "Položka bola pripnutá. Môže trvať až 24 hodín, aby sa objavil pre každého.",
+      "unpinned": "Položka bola odopnutá. Už sa nenachádza v hornej časti prvej stránky tejto zbierky. Zmiznutie pre každého môže trvať až 24 hodín.",
+      "unpinnedFirstPage": "Položka bola odopnutá. Zmiznutie pre každého môže trvať až 24 hodín."
+    },
+    "prompts": {
+      "pin": "Naozaj chcete pripnúť túto položku? Táto položka sa zobrazí v hornej časti {entity} “. Účinnosť tejto zmeny môže trvať až 24 hodín.",
+      "unpin": "Ste si istí, že chcete zrušiť pripnutie tejto položky? Táto položka sa prestane zobrazovať v hornej časti kolekcie \"{entity}\". Táto zmena sa môže prejaviť až do 24 hodín."
     }
   },
   "error": "Chyba",
@@ -443,7 +465,6 @@ export default {
       "dcFormat": "Formát",
       "dcIdentifier": "Identifikátor",
       "dcLanguage": "Jazyk",
-      "dcMedium": "Médium",
       "dcPublisher": "Vydavateľ",
       "dcRelation": "Vzťahy",
       "dcRights": "Práva",
@@ -463,7 +484,6 @@ export default {
       "dctermsIssued": "Dátum vydania",
       "dctermsMedium": "Médium",
       "dctermsProvenance": "Proveniencia",
-      "dctermsPublished": "Dátum publikácie",
       "dctermsReferences": "Odkazuje na",
       "dctermsSpatial": "Miesta",
       "dctermsTemporal": "Časové obdobie",
@@ -474,6 +494,7 @@ export default {
       "edmIncorporates": "Zahŕňa",
       "edmIntermediateProvider": "Sprostredkovateľ",
       "edmIsDerivativeOf": "Je odvodený z",
+      "edmIsRelatedTo": "Súvisí s",
       "edmIsRepresentationOf": "Znázorňuje",
       "edmIsSimilarTo": "Podobá sa",
       "edmIsSuccessorOf": "nasleduje po",
@@ -485,7 +506,8 @@ export default {
       "keywords": "Kľúčové slová (poskytnuté komunitou)",
       "timestampCreated": "Vytvorenie časovej pečiatky",
       "timestampUpdate": "Aktualizácia časovej pečiatky",
-      "wasPresentAt": "bol prítomný na mieste"
+      "wasPresentAt": "bol prítomný na mieste",
+      "year": "Rok"
     },
     "webResource": {
       "about": "RDF o",
@@ -495,6 +517,8 @@ export default {
       "rdfAbout": "RDF o"
     }
   },
+  "filter": "Filter",
+  "filterResults": "Filtrovať výsledky",
   "footer": {
     "customiseWebsiteLanguage": "Prispôsobenie jazyka webovej lokality",
     "disclaimerLine1": "Europeana je iniciatíva Európskej únie financovaná Connecting Europe Facility a členskými štátmi Európskej únie. Služby Europeany, vrátane tejto webovej stránky, prevádzkuje konzorcium vedené nadáciou Europeana na základe zmluvy o poskytovaní služieb s Európskou komisiou.",
@@ -554,6 +578,9 @@ export default {
   "items": {
     "itemCount": "1 položka | Počet položiek: {count}",
     "itemOf": "Max. {max} z {count} položiek",
+    "recent": "Nedávne položky",
+    "recommendationsDisclaimer": "Palec hore pre pridanie do galérie - Palec dole, ak sa vám nepáči",
+    "recommended": "Odporúčané položky",
     "youMightLike": "Položky, ktoré by sa vám mohli páčiť"
   },
   "klaro": {
@@ -588,11 +615,16 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Pomáha zlepšovať náš web príležitostným použitím experimentálnych zmien.",
+        "title": "A/B testovanie"
+      },
       "auth-strategy": {
         "description": "Pamätá si stratégiu autorizácie, ktorá sa má použiť na prihlásenie.",
         "title": "Autentická stratégia"
       },
       "debugSettings": {
+        "description": "Pomáha pri ladení požiadaviek API",
         "title": "Prepnúť ladenie"
       },
       "hotjar": {
@@ -623,18 +655,19 @@ export default {
   "learnMore": "Zistite viac o zdroji tohto popisu",
   "linksToClassic": {
     "home": {
-      "linkText": "Prejdite na pôvodnú webovú lokalitu Europeana.",
+      "linkText": "Pozrite si túto stránku na pôvodnej webovej stránke Europeana do 20. decembra 2021.",
       "text": "Prezeráte si novú verziu webovej lokality Europeana."
     },
     "record": {
-      "linkText": "Túto položku si môžete prezrieť na pôvodnej webovej lokalite Europeana.",
+      "linkText": "Pozrite si túto položku na pôvodnej webovej stránke Europeana do 20. decembra 2021.",
       "text": "Túto položku si prezeráte na novej webovej lokalite Europeana."
     },
     "search": {
-      "linkText": "Tieto výsledky vyhľadávania si môžete prezrieť na pôvodnej webovej lokalite Europeana.",
+      "linkText": "Hľadajte na pôvodnej webovej stránke Europeana do 20. decembra 2021.",
       "text": "Vyhľadávate na našej novej a rýchlejšej webovej lokalite."
     }
   },
+  "loading": "Načítava",
   "loadingResults": "Načítavajú sa výsledky",
   "mediaPreview": {
     "selectItem": "Vyberte položku {src}"
@@ -645,9 +678,20 @@ export default {
     "notFound": "Nenašlo sa",
     "paginationLimitExceeded": "Je možné zobraziť len prvých {limit} výsledkov vyhľadávania."
   },
+  "modal": {
+    "download": {
+      "clickToCopy": "Kliknutím na atribút ho skopírujete",
+      "modalIntro": "Ak používate túto položku na webe alebo kdekoľvek inde, nezabudnite vedľa nej zobraziť nasledujúce priradenie:",
+      "modalTitle": "Povedz ďakujem"
+    }
+  },
   "multilingual": {
-    "original": "Pôvodné metaúdaje",
-    "originalLanguage": "pôvodný jazyk"
+    "automated": "Automatizovaný preklad",
+    "enrichment": "Obohatenie o partnerské projekty",
+    "other": "Iné jazyky",
+    "stopTranslating": "Zastaviť preklad tejto položky do jazyka {0}.",
+    "translateLanguage": "Chceli by ste túto položku vidieť v položke {0}?",
+    "translateQuotaError": "Prekladateľská služba je dočasne nedostupná. Skúste neskôr prosím."
   },
   "newWindow": "otvorí sa v novom okne",
   "noMoreResults": "Pre vaše vyhľadávanie neexistujú žiadne ďalšie výsledky.",
@@ -655,6 +699,18 @@ export default {
   "pageHasLoaded": "načítal",
   "pages": {
     "collections": {
+      "organisations": {
+        "table": {
+          "name": "Názov"
+        },
+        "title": "Organizácie"
+      },
+      "persons": {
+        "title": "Osoby"
+      },
+      "table": {
+        "name": "Meno"
+      },
       "times": {
         "title": "Krát"
       },
@@ -737,12 +793,14 @@ export default {
       "likeLimit": {
         "body": "Mrzí nás to, ale aktuálne môžete označiť maximálne 100 položiek, že sa vám páčia. Toto obmedzenie čoskoro odstránime!",
         "title": "100 označení Páči sa mi"
-      }
+      },
+      "updated": "Položka bola pridaná do galérie."
     },
     "prompts": {
       "delete": "Naozaj chcete vymazať túto galériu? Ak ju vymažete, stratíte všetky položky, ktoré ste do nej pridali."
     }
   },
   "showLess": "Zobraziť menej",
-  "showMore": "Zobraziť viac"
+  "showMore": "Zobraziť viac",
+  "website": "Webové stránky"
 };

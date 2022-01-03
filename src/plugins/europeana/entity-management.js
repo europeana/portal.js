@@ -27,7 +27,9 @@ export default (context = {}) => {
       const params = { ...defaults, ...options };
       return $axios.get(getEntityUrl(type, id).replace('.json', ''), { params })
         .then(response => response.data)
-        .catch(error => apiError(error));
+        .catch(error => {
+          throw apiError(error, context);
+        });
     },
 
     /**
@@ -40,7 +42,7 @@ export default (context = {}) => {
       return $axios.put(`/concept/base/${id}`, body)
         .then(response => response.data)
         .catch(error => {
-          throw apiError(error);
+          throw apiError(error, context);
         });
     }
 

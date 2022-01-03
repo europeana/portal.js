@@ -85,7 +85,9 @@ export default {
     showSearchBar: false,
     totalResults: null,
     userParams: {},
-    view: null
+    view: null,
+    showFiltersSheet: false,
+    showFiltersToggle: false
   }),
 
   mutations: {
@@ -159,6 +161,12 @@ export default {
     },
     setCollectionLabel(state, value) {
       state.collectionLabel = value;
+    },
+    setShowFiltersSheet(state, value) {
+      state.showFiltersSheet = value;
+    },
+    setShowFiltersToggle(state, value) {
+      state.showFiltersToggle = value;
     },
     set(state, payload) {
       state[payload[0]] = payload[1];
@@ -282,19 +290,8 @@ export default {
       commit('setActive', true);
     },
 
-    async deactivate({ commit, dispatch }) {
+    deactivate({ commit }) {
       commit('setActive', false);
-      await dispatch('reset');
-    },
-
-    reset({ commit }) {
-      commit('set', ['userParams', {}]);
-      commit('set', ['overrideParams', {}]);
-      commit('set', ['apiParams', {}]);
-      commit('set', ['apiOptions', {}]);
-      commit('set', ['previousApiParams', null]);
-      commit('set', ['previousApiOptions', null]);
-      commit('setCollectionLabel', null);
     },
 
     // TODO: replace with a getter?
@@ -349,12 +346,13 @@ export default {
     /**
      * Run a Record API search and store the results
      */
-    async run({ dispatch, getters }) {
+    // TODO: refactor not to need options once ENABLE_SIDE_FILTERS is always-on
+    async run({ dispatch, getters }, options = {}) {
       await dispatch('deriveApiSettings');
 
       return Promise.all([
-        getters.itemUpdateNeeded ? dispatch('queryItems') : () => null,
-        getters.facetUpdateNeeded ? dispatch('queryFacets') : () => null
+        getters.itemUpdateNeeded ? dispatch('queryItems') : Promise.resolve(),
+        (!options.skipFacets && getters.facetUpdateNeeded) ? dispatch('queryFacets') : Promise.resolve()
       ]);
     },
 
@@ -373,15 +371,13 @@ export default {
         });
     },
 
-    queryFacets({ commit, getters, rootState, rootGetters, dispatch, state }) {
-      if (!state.active) {
-        return Promise.resolve();
-      }
-
+    // TODO: refactor not to need overrides once ENABLE_SIDE_FILTERS is always-on
+    queryFacets({ commit, getters, rootState, rootGetters, dispatch, state }, overrides = {}) {
       const paramsForFacets = {
         ...state.apiParams,
         rows: 0,
-        profile: 'facets'
+        profile: 'facets',
+        ...overrides
       };
 
       return this.$apis.record.search(paramsForFacets, { ...getters.searchOptions, locale: this.$i18n.locale })
@@ -393,6 +389,8 @@ export default {
             commit(`collections/${collection}/set`, ['facets', state.facets], { root: true });
             commit('set', ['facets', rootGetters[`collections/${collection}/facets`]]);
           }
+
+          return response.facets;
         })
         .catch(async(error) => {
           await dispatch('updateForFailure', error);

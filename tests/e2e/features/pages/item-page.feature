@@ -56,8 +56,8 @@ Feature: item page
     When I open the `"Het laatste avondmaal" item page`
     Then I see `related entities`
     And I see the `Leonardo da Vinci related chip` in the `related entities`
-    And I see the `Teodoro Matteini related chip` in the `related entities`
     And I see the `Engraving related chip` in the `related entities`
+    And I see the `Rijksmuseum related chip` in the `related entities`
 
   Scenario: Metadata in another language
     When I open the `"Hammerflügel" item page`
@@ -80,10 +80,6 @@ Feature: item page
     When I open an `item page with a IIIF Presentation`
     Then I see the `IIIF viewer`
     And I am on an accessible page
-
-  Scenario: Seeing a notification banner
-    When I open an `item page`
-    Then I see a `notification banner`
 
   Scenario: Copying embed code
     When I open the `"Het laatste avondmaal" item page`
