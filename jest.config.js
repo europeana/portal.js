@@ -11,6 +11,9 @@ export default {
     '<rootDir>/tests/unit/setup.js'
   ],
   testEnvironment: 'jsdom',
+  transformIgnorePatterns: [
+    '/node_modules/(?!decamelize)'
+  ],
   transform: {
     '^.+\\.js$': 'babel-jest',
     '^.+\\.vue$': '@vue/vue2-jest'
