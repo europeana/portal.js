@@ -39,7 +39,12 @@
     <client-only
       v-if="newFeatureNotificationEnabled"
     >
-      <NewFeatureNotification />
+      <NewFeatureNotification
+        :key="newFeature"
+        :text="$t('newFeatureNotification.notification')"
+        :feature="newFeature"
+        url="https://pro.europeana.eu/"
+      />
     </client-only>
     <client-only>
       <PageFooter />
@@ -83,7 +88,8 @@
         linkGroups: {},
         enableAnnouncer: true,
         klaro: null,
-        toastBottomOffset: '20px'
+        toastBottomOffset: '20px',
+        newFeature: 'organisations'
       };
     },
 
@@ -129,10 +135,9 @@
       },
 
       newFeatureNotificationEnabled() {
-        // TODO: keep cookie hard coded?
         return this.$features.newFeatureNotification
           && (!this.$cookies.get('new_feature_notification')
-            || this.$cookies.get('new_feature_notification') !== 'organisations');
+            || this.$cookies.get('new_feature_notification') !== this.newFeature);
       }
     },
 

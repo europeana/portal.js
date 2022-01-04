@@ -10,7 +10,7 @@
     append-toast
     toaster="b-toaster-bottom-left-dynamic"
   >
-    <p>{{ $t('newFeatureNotification.notification') }}</p>
+    <p>{{ text }}</p>
     <div class="d-flex justify-content-between">
       <b-button
         variant="outline-primary"
@@ -19,9 +19,9 @@
         {{ $t('newFeatureNotification.dismiss') }}
       </b-button>
       <b-button
-        v-if="newFeatureUrl"
+        v-if="url"
         variant="primary"
-        :href="newFeatureUrl"
+        :href="url"
         target="blank"
         @click="trackEvent()"
       >
@@ -32,14 +32,21 @@
 </template>
 
 <script>
-  // TODO: add cookie
   export default {
     name: 'NewFeatureNotification',
 
-    computed: {
-      newFeatureUrl() {
-        // TODO: keep this hard coded or move it elsewhere?
-        return 'https://pro.europeana.eu/';
+    props: {
+      text: {
+        type: String,
+        required: true
+      },
+      url: {
+        type: String,
+        default: null
+      },
+      feature: {
+        type: String,
+        default: null
       }
     },
 
@@ -48,7 +55,7 @@
       if (this.$cookies.get('new_feature_notification')) {
         this.$cookies.remove('new_feature_notification');
       }
-      this.$cookies.set('new_feature_notification', 'organisations');
+      this.$cookies.set('new_feature_notification', this.feature);
     },
 
     methods: {
