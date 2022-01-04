@@ -40,7 +40,6 @@
       v-if="newFeatureNotificationEnabled"
     >
       <NewFeatureNotification
-        :key="newFeature"
         :text="$t('newFeatureNotification.notification')"
         :feature="newFeature"
         url="https://pro.europeana.eu/"

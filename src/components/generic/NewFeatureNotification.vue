@@ -5,7 +5,7 @@
     is-status
     no-close-button
     solid
-    variant="brand-toast-white"
+    toast-class="brand-toast-white"
     visible
     append-toast
     toaster="b-toaster-bottom-left-dynamic"
@@ -23,7 +23,7 @@
         variant="primary"
         :href="url"
         target="blank"
-        @click="trackEvent()"
+        @click="trackEvent('click read more')"
       >
         {{ $t('newFeatureNotification.readMore') }}
       </b-button>
@@ -52,9 +52,6 @@
 
     created() {
       this.trackEvent('show');
-      if (this.$cookies.get('new_feature_notification')) {
-        this.$cookies.remove('new_feature_notification');
-      }
       this.$cookies.set('new_feature_notification', this.feature);
     },
 
@@ -66,7 +63,7 @@
 
       trackEvent(msg) {
         if (this.$matomo) {
-          this.$matomo.trackEvent('New_feature_notification', 'New feature notification', msg);
+          this.$matomo.trackEvent('New_feature_notification', msg, this.feature);
         }
       }
     }
