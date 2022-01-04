@@ -108,6 +108,7 @@ jobs:
       -
         name: Run unit tests
         run: |
+          mkdir coverage
           docker run \
             --mount type=bind,source="$(pwd)"/tests,target=/app/tests \
             --mount type=bind,source="$(pwd)"/coverage,target=/app/coverage \
