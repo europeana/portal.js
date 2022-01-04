@@ -332,7 +332,6 @@ describe('components/search/SearchInterface', () => {
       describe('in browser', () => {
         beforeEach(() => {
           process.browser = true;
-          global.sessionStorage = {};
         });
 
         describe('with contentTier "0" facet field', () => {
@@ -343,12 +342,15 @@ describe('components/search/SearchInterface', () => {
           });
 
           describe('when toast has not yet been shown this session', () => {
+            beforeEach(() => {
+              global.sessionStorage.removeItem('contentTierToastShown');
+            });
+
             it('shows the toast', async() => {
               const wrapper = factory({
                 storeState: { facets }
               });
               const rootBvToast = sinon.spy(wrapper.vm.$root.$bvToast, 'toast');
-              global.sessionStorage.contentTierToastShown = false;
               await wrapper.vm.showContentTierToast();
               expect(rootBvToast.calledWith('facets.contentTier.notification', sinon.match.any));
             });
@@ -357,17 +359,16 @@ describe('components/search/SearchInterface', () => {
               const wrapper = factory({
                 storeState: { facets }
               });
-              global.sessionStorage.contentTierToastShown = false;
               await wrapper.vm.showContentTierToast();
               await wrapper.vm.$root.$emit('bv::toast:shown');
 
-              expect(global.sessionStorage.contentTierToastShown).toEqual('true');
+              expect(global.sessionStorage.getItem('contentTierToastShown')).toEqual('true');
             });
           });
 
           describe('when toast has previously been shown this session', () => {
             beforeEach(() => {
-              global.sessionStorage.contentTierToastShown = true;
+              global.sessionStorage.setItem('contentTierToastShown', 'true');
             });
 
             it('does not show the toast', async() => {
