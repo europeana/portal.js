@@ -12,14 +12,14 @@ COPY package.json package-lock.json ./
 
 RUN npm ci
 
-COPY nuxt.config.js babel.config.cjs *.md .env.example ./
+COPY nuxt.config.js babel.config.cjs jest.config.js *.md .env.example ./
 COPY src ./src
 
 
 FROM base AS build
 
 RUN npm run build
-RUN rm babel.config.cjs
+RUN rm babel.config.cjs jest.config.js
 RUN npm prune --production
 
 
