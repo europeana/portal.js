@@ -2,18 +2,18 @@ import propertiesReader from 'properties-reader';
 
 import pkg from '../package.json';
 
-const versionSonarcloudProperties = async() => {
-  const sonarcloudPropertiesFilePath = new URL('../.sonarcloud.properties', import.meta.url);
-  const sonarcloudProperties = propertiesReader(sonarcloudPropertiesFilePath,
+const versionSonarProjectProperties = async() => {
+  const sonarProjectPropertiesFilePath = new URL('../sonar-project.properties', import.meta.url);
+  const sonarProjectProperties = propertiesReader(sonarProjectPropertiesFilePath,
     'utf-8',
     { writer: { saveSections: false } }
   );
-  sonarcloudProperties.set('sonar.projectVersion', pkg.version);
-  await sonarcloudProperties.save(sonarcloudPropertiesFilePath);
+  sonarProjectProperties.set('sonar.projectVersion', pkg.version);
+  await sonarProjectProperties.save(sonarProjectPropertiesFilePath);
 };
 
 const version = async() => {
-  await versionSonarcloudProperties();
+  await versionSonarProjectProperties();
 };
 
 version();

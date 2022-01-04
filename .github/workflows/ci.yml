@@ -110,8 +110,14 @@ jobs:
         run: |
           docker run \
             --mount type=bind,source="$(pwd)"/tests,target=/app/tests \
-            --mount type=bind,source="$(pwd)"/.eslintrc.cjs,target=/app/.eslintrc.cjs \
-            ${DOCKER_REPOSITORY}:${{ steps.meta.outputs.version }} npm run test:unit
+            --mount type=bind,source="$(pwd)"/coverage,target=/app/coverage \
+            ${DOCKER_REPOSITORY}:${{ steps.meta.outputs.version }} npm run test:coverage
+      -
+        name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@v1.6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   # Build, and push to Docker Hub, full production Docker image for use throughout
   # other jobs

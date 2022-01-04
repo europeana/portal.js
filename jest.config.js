@@ -1,4 +1,7 @@
 export default {
+  collectCoverageFrom: [
+    'src/**/*.{js,vue}'
+  ],
   moduleFileExtensions: [
     'js',
     'json',
