@@ -22,30 +22,30 @@ const redisClientStub = {
 };
 
 describe('server-middleware/api/cache/index', () => {
-  beforeEach('stub utils', () => {
+  beforeEach(() => {
     sinon.stub(cacheUtils, 'createRedisClient').returns(redisClientStub);
   });
 
-  afterEach('restore stubs', () => {
+  afterEach(() => {
     cacheUtils.createRedisClient.restore();
   });
 
   it('fetches from the cache, with app namespace', async() => {
     await serverMiddleware(id, config)({}, expressResStub);
 
-    redisClientStub.getAsync.should.have.been.calledWith(`@europeana:portal.js:${id}`);
+    expect(redisClientStub.getAsync.calledWith(`@europeana:portal.js:${id}`));
   });
 
   it('responds with JSON', async() => {
     await serverMiddleware(id, config)({}, expressResStub);
 
-    expressResStub.set.should.have.been.calledWith('Content-Type', 'application/json');
-    expressResStub.send.should.have.been.calledWith(cached);
+    expect(expressResStub.set.calledWith('Content-Type', 'application/json'));
+    expect(expressResStub.send.calledWith(cached));
   });
 
   it('quits the Redis connection', async() => {
     await serverMiddleware(id, config)({}, expressResStub);
 
-    redisClientStub.quitAsync.should.have.been.called;
+    expect(redisClientStub.quitAsync.called);
   });
 });

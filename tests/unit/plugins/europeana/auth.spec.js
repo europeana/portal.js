@@ -43,8 +43,8 @@ const mockError = (status = 401) => ({
 
 describe('plugins/europeana/auth', () => {
   describe('keycloakResponseErrorHandler', () => {
-    context('when response status is 401', () => {
-      context('and the user has a refresh token', () => {
+    describe('when response status is 401', () => {
+      describe('and the user has a refresh token', () => {
         const ctx = mockContext({
           $auth: {
             getRefreshToken: () => 'token'
@@ -54,12 +54,12 @@ describe('plugins/europeana/auth', () => {
         it('attempts to refresh the access token', async() => {
           await keycloakResponseErrorHandler(ctx, mockError());
 
-          ctx.$auth.request.should.have.been.calledWith(sinon.match.has('headers', {
+          expect(ctx.$auth.request.calledWith(sinon.match.has('headers', {
             'content-type': 'application/x-www-form-urlencoded'
-          }));
+          })));
         });
 
-        context('when it has refreshed the access token', () => {
+        describe('when it has refreshed the access token', () => {
           const ctx = mockContext({
             $auth: {
               getRefreshToken: () => 'token',
@@ -75,18 +75,18 @@ describe('plugins/europeana/auth', () => {
           it('stores the new access token', async() => {
             await keycloakResponseErrorHandler(ctx, mockError());
 
-            ctx.$auth.setToken.should.have.been.calledWith('strategy', 'new');
-            ctx.$auth.strategy['_setToken'].should.have.been.calledWith('new');
+            expect(ctx.$auth.setToken.calledWith('strategy', 'new'));
+            expect(ctx.$auth.strategy['_setToken'].calledWith('new'));
           });
 
           it('retries the original request', async() => {
             await keycloakResponseErrorHandler(ctx, mockError());
 
-            ctx.$axios.request.should.have.been.called;
+            expect(ctx.$axios.request.called);
           });
         });
 
-        context('when the access token refresh request fails', () => {
+        describe('when the access token refresh request fails', () => {
           const ctx = mockContext({
             $auth: {
               getRefreshToken: () => 'token',
@@ -101,26 +101,26 @@ describe('plugins/europeana/auth', () => {
           it('logs out', async() => {
             await keycloakResponseErrorHandler(ctx, mockError());
 
-            ctx.$auth.logout.should.have.been.called;
+            expect(ctx.$auth.logout.called);
           });
 
           it('retries the original request without authorization', async() => {
             await keycloakResponseErrorHandler(ctx, mockError());
 
-            ctx.$axios.request.should.have.been.calledWith({ headers: {} });
+            expect(ctx.$axios.request.calledWith({ headers: {} }));
           });
         });
 
-        context('when it could not refresh the access token', () => {
+        describe('when it could not refresh the access token', () => {
           it('redirects to the login URL', async() => {
             await keycloakResponseErrorHandler(ctx, mockError());
 
-            ctx.redirect.should.have.been.calledWith('http://example.org/login', { redirect: ctx.route.path });
+            expect(ctx.redirect.calledWith('http://example.org/login', { redirect: ctx.route.path }));
           });
         });
       });
 
-      context('but the user is not logged in with a refresh token', () => {
+      describe('but the user is not logged in with a refresh token', () => {
         const ctx = mockContext({
           $auth: {
             getRefreshToken: () => null,
@@ -131,15 +131,15 @@ describe('plugins/europeana/auth', () => {
         it('redirects to the login URL', async() => {
           await keycloakResponseErrorHandler(ctx, mockError());
 
-          ctx.redirect.should.have.been.calledWith('http://example.org/login', { redirect: ctx.route.path });
+          expect(ctx.redirect.calledWith('http://example.org/login', { redirect: ctx.route.path }));
         });
       });
     });
 
-    context('when response status is not 401', () => {
+    describe('when response status is not 401', () => {
       it('rejects it', () => {
         const response = keycloakResponseErrorHandler({}, mockError(500));
-        response.should.be.rejected;
+        expect(response).rejects.toThrow();
       });
     });
   });

@@ -42,7 +42,7 @@ describe('components/item/ItemEmbedCode', () => {
 
       await wrapper.vm.fetch();
 
-      nock.isDone().should.be.true;
+      expect(nock.isDone());
     });
 
     it('stores html from response body on component embedHtml property', async() => {
@@ -50,42 +50,42 @@ describe('components/item/ItemEmbedCode', () => {
 
       await wrapper.vm.fetch();
 
-      wrapper.vm.embedHtml.should.eq(html);
+      expect(wrapper.vm.embedHtml).toBe(html);
     });
   });
 
-  context('when response includes "html" property', async() => {
+  describe('when response includes "html" property', () => {
     document.execCommand = sinon.spy();
 
     const wrapper = factory();
-    await wrapper.setData({
+    wrapper.setData({
       embedHtml: html
     });
 
     it('is shown in a textarea', () => {
-      wrapper.find('#share-embed').element.value.should.eq(html);
+      expect(wrapper.find('#share-embed').element.value).toBe(html);
     });
 
-    context('when textarea is clicked', () => {
+    describe('when textarea is clicked', () => {
       it('copies the embed code to the clipboard', async() => {
         await wrapper.find('#share-embed').trigger('click');
 
-        document.execCommand.should.be.calledWith('copy');
+        expect(document.execCommand.calledWith('copy'));
       });
 
       it('shows a notification message', async() => {
         await wrapper.find('#share-embed').trigger('click');
 
-        wrapper.find('[data-qa="share embed copied notice"]').isVisible().should.equal(true);
+        wrapper.find('[data-qa="share embed copied notice"]').isVisible().should;
       });
     });
   });
 
-  context('when response does not include "html" property', () => {
+  describe('when response does not include "html" property', () => {
     it('does not render form for embed', () => {
       const wrapper = factory();
 
-      wrapper.find('[data-qa="share embed"]').exists().should.be.false;
+      expect(wrapper.find('[data-qa="share embed"]').exists()).toBe(false);
     });
   });
 });

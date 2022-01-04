@@ -7,59 +7,59 @@ describe('plugins/europeana/thumbnail', () => {
     const uri = 'https://www.example.org/doc.pdf';
 
     it('uses the thumbnail API', () => {
-      thumbnailUrl(uri).should.startWith('https://api.europeana.eu/thumbnail/v2/url.json');
+      expect(thumbnailUrl(uri).startsWith('https://api.europeana.eu/thumbnail/v2/url.json'));
     });
 
     it('URL-encodes URI', () => {
       const encoded = 'https%3A%2F%2Fwww.example.org%2Fdoc.pdf';
-      thumbnailUrl(uri).should.include(`uri=${encoded}`);
+      expect(thumbnailUrl(uri)).toContain(`uri=${encoded}`);
     });
 
     it('adds any additional parameters', () => {
       const params = { size: 'w200' };
-      thumbnailUrl(uri, params).should.include('size=w200');
+      expect(thumbnailUrl(uri, params)).toContain('size=w200');
     });
   });
 
   describe('thumbnailTypeForMimeType()', () => {
-    context('when MIME type starts with "image/"', () => {
+    describe('when MIME type starts with "image/"', () => {
       it('is "IMAGE"', () => {
-        thumbnailTypeForMimeType('image/jpeg').should.eq('IMAGE');
+        expect(thumbnailTypeForMimeType('image/jpeg')).toBe('IMAGE');
       });
     });
-    context('when MIME type starts with "audio/"', () => {
+    describe('when MIME type starts with "audio/"', () => {
       it('is "SOUND"', () => {
-        thumbnailTypeForMimeType('audio/ogg').should.eq('SOUND');
+        expect(thumbnailTypeForMimeType('audio/ogg')).toBe('SOUND');
       });
     });
-    context('when MIME type starts with "video/"', () => {
+    describe('when MIME type starts with "video/"', () => {
       it('is "VIDEO"', () => {
-        thumbnailTypeForMimeType('video/mp4').should.eq('VIDEO');
+        expect(thumbnailTypeForMimeType('video/mp4')).toBe('VIDEO');
       });
     });
-    context('when MIME type starts with "text/"', () => {
+    describe('when MIME type starts with "text/"', () => {
       it('is "TEXT"', () => {
-        thumbnailTypeForMimeType('text/plain').should.eq('TEXT');
+        expect(thumbnailTypeForMimeType('text/plain')).toBe('TEXT');
       });
     });
-    context('when MIME type is "application/pdf"', () => {
+    describe('when MIME type is "application/pdf"', () => {
       it('is "TEXT"', () => {
-        thumbnailTypeForMimeType('application/pdf').should.eq('TEXT');
+        expect(thumbnailTypeForMimeType('application/pdf')).toBe('TEXT');
       });
     });
-    context('when MIME type is "application/rtf"', () => {
+    describe('when MIME type is "application/rtf"', () => {
       it('is "TEXT"', () => {
-        thumbnailTypeForMimeType('application/rtf').should.eq('TEXT');
+        expect(thumbnailTypeForMimeType('application/rtf')).toBe('TEXT');
       });
     });
-    context('when MIME type is anything else', () => {
+    describe('when MIME type is anything else', () => {
       it('is null', () => {
-        (thumbnailTypeForMimeType('application/octet-stream') === null).should.be.true;
+        expect(thumbnailTypeForMimeType('application/octet-stream') === null);
       });
     });
-    context('when MIME type is undefined', () => {
+    describe('when MIME type is undefined', () => {
       it('is null', () => {
-        (thumbnailTypeForMimeType(undefined) === null).should.be.true;
+        expect(thumbnailTypeForMimeType(undefined) === null);
       });
     });
   });
@@ -68,7 +68,7 @@ describe('plugins/europeana/thumbnail', () => {
     it('uses the data.europeana.eu item URI', () => {
       const identifier = '/123/abc';
       const encodedUri = 'http%3A%2F%2Fdata.europeana.eu%2Fitem%2F123%2Fabc';
-      genericThumbnail(identifier).should.include(`uri=${encodedUri}`);
+      expect(genericThumbnail(identifier)).toContain(`uri=${encodedUri}`);
     });
   });
 });

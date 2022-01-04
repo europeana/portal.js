@@ -7,7 +7,7 @@ let redisClientStub;
 
 describe('cachers/utils', () => {
   describe('createRedisClient', () => {
-    before('stub redis methods', () => {
+    beforeAll(() => {
       redisClientStub = {
         on: sinon.spy(),
         get: sinon.spy(),
@@ -17,7 +17,7 @@ describe('cachers/utils', () => {
 
       sinon.stub(redis, 'createClient').returns(redisClientStub);
     });
-    after('restore redis methods', () => {
+    afterAll(() => {
       redis.createClient.restore();
     });
 
@@ -28,45 +28,45 @@ describe('cachers/utils', () => {
 
       utils.createRedisClient(config);
 
-      redis.createClient.should.have.been.calledWith({ url: config.url });
+      expect(redis.createClient.calledWith({ url: config.url }));
     });
 
     it('adds an error handler to report to the console', () => {
       utils.createRedisClient();
 
-      redisClientStub.on.should.have.been.calledWith('error', console.error);
+      expect(redisClientStub.on.calledWith('error', console.error));
     });
 
     it('defines async get, set and quit methods', () => {
       const redisClient = utils.createRedisClient();
 
-      (typeof redisClient.getAsync).should.eq('function');
-      (typeof redisClient.setAsync).should.eq('function');
-      (typeof redisClient.quitAsync).should.eq('function');
+      expect(typeof redisClient.getAsync).toBe('function');
+      expect(typeof redisClient.setAsync).toBe('function');
+      expect(typeof redisClient.quitAsync).toBe('function');
     });
   });
 
   describe('errorMessage', () => {
-    context('with property .response', () => {
-      context('having property .data.error', () => {
+    describe('with property .response', () => {
+      describe('having property .data.error', () => {
         const error = { response: { data: { error: 'Uh oh' } } };
         it('uses property .response.data.error', () => {
-          utils.errorMessage(error).should.eq(error.response.data.error);
+          expect(utils.errorMessage(error)).toBe(error.response.data.error);
         });
       });
 
-      context('not having property .data.error', () => {
+      describe('not having property .data.error', () => {
         const error = { response: { data: {}, status: 404, statusText: 'Not Found' } };
         it('combines properties .response.status and .response.statusText', () => {
-          utils.errorMessage(error).should.eq('404 Not Found');
+          expect(utils.errorMessage(error)).toBe('404 Not Found');
         });
       });
     });
 
-    context('without property .response', () => {
+    describe('without property .response', () => {
       const error = { message: 'Uh oh' };
       it('uses property .message', () => {
-        utils.errorMessage(error).should.eq(error.message);
+        expect(utils.errorMessage(error)).toBe(error.message);
       });
     });
   });
@@ -77,7 +77,7 @@ describe('cachers/utils', () => {
 
       const filtered = utils.localise(argument, 'prefLabel', 'fr');
 
-      filtered.should.eq(argument);
+      expect(filtered).toBe(argument);
     });
 
     it('localises Array members\' prefLabel to the specified locale', () => {
@@ -92,7 +92,7 @@ describe('cachers/utils', () => {
       ];
 
       const localised = utils.localise(argument, 'prefLabel', 'fr');
-      localised.should.eql(expected);
+      expect(localised).toEqual(expected);
     });
 
     // it('omits any Array members without localised prefLabel', () => {
@@ -106,7 +106,7 @@ describe('cachers/utils', () => {
     //   ];
     //
     //   const localised = utils.localise(argument, 'fr');
-    //   localised.should.eql(expected);
+    //   expect(localised).toEqual(expected);
     // });
   });
 
@@ -116,7 +116,7 @@ describe('cachers/utils', () => {
 
       const filtered = utils.pick(argument);
 
-      filtered.should.eq(argument);
+      expect(filtered).toBe(argument);
     });
 
     it('reduces Array argument object elements to picked properties', () => {
@@ -130,7 +130,7 @@ describe('cachers/utils', () => {
       ];
 
       const picked = utils.pick(argument, ['id', 'name']);
-      picked.should.eql(expected);
+      expect(picked).toEqual(expected);
     });
   });
 
@@ -140,7 +140,7 @@ describe('cachers/utils', () => {
 
       const filtered = utils.daily(argument, 4);
 
-      filtered.should.eq(argument);
+      expect(filtered).toBe(argument);
     });
 
     it('filters Array arguments to requested number for the current day', () => {
@@ -153,7 +153,7 @@ describe('cachers/utils', () => {
       for (const test of tests) {
         sinon.stub(Date, 'now').returns(test.now);
         const filtered = utils.daily(argument, 4);
-        filtered.should.eql(test.expected);
+        expect(filtered).toEqual(test.expected);
         Date.now.restore();
       }
     });

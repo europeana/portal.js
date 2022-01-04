@@ -32,37 +32,37 @@ const factory = (propsData = {}) => {
 
 describe('components/feedback/FeedbackWidget', () => {
   describe('feedback button', () => {
-    context('on initial page load and before user scrolled', () => {
+    describe('on initial page load and before user scrolled', () => {
       it('is large', () => {
         const wrapper = factory();
         const button = wrapper.find('[data-qa="feedback button"]');
-        button.attributes().class.should.contain('big');
+        expect(button.attributes().class).toContain('big');
       });
       it('and shows text', () => {
         const wrapper = factory();
         const buttonText = wrapper.find('[data-qa="feedback button text"]');
-        buttonText.isVisible().should.equal(true);
+        expect(buttonText.isVisible());
       });
     });
-    context('after scrolling', () => {
+    describe('after scrolling', () => {
       it('shrinks', async() => {
         const wrapper = factory();
         global.window.dispatchEvent(new Event('scroll'));
         await wrapper.vm.$nextTick();
         const button = wrapper.find('[data-qa="feedback button"]');
-        button.attributes().class.should.not.contain('big');
+        expect(button.attributes().class).not.toContain('big');
       });
-      context('and on mouseover', () => {
+      describe('and on mouseover', () => {
         it('grows big', async() => {
           const wrapper = factory();
           global.window.dispatchEvent(new Event('scroll'));
           const button = wrapper.find('[data-qa="feedback button"]');
           button.trigger('mouseover');
           await wrapper.vm.$nextTick();
-          button.attributes().class.should.contain('big');
+          expect(button.attributes().class).toContain('big');
         });
       });
-      context('and on mouseleave', () => {
+      describe('and on mouseleave', () => {
         it('shrinks again', async() => {
           const wrapper = factory();
           global.window.dispatchEvent(new Event('scroll'));
@@ -70,13 +70,13 @@ describe('components/feedback/FeedbackWidget', () => {
           const button = wrapper.find('[data-qa="feedback button"]');
           button.trigger('mouseover');
           button.trigger('mouseleave');
-          button.attributes().class.should.not.contain('big');
+          expect(button.attributes().class).not.toContain('big');
         });
       });
     });
   });
   describe('next button', () => {
-    context('when there is no value for feedback', () => {
+    describe('when there is no value for feedback', () => {
       it('is disabled', async() => {
         const wrapper = factory();
 
@@ -85,10 +85,10 @@ describe('components/feedback/FeedbackWidget', () => {
           feedback: ''
         });
 
-        wrapper.find('[data-qa="feedback next button"]').attributes('disabled').should.eq('disabled');
+        expect(wrapper.find('[data-qa="feedback next button"]').attributes('disabled')).toBe('disabled');
       });
     });
-    context('when there is a value for feedback', () => {
+    describe('when there is a value for feedback', () => {
       it('is enabled', async() => {
         const wrapper = factory();
 
@@ -97,7 +97,7 @@ describe('components/feedback/FeedbackWidget', () => {
           feedback: 'This website is great!'
         });
 
-        (wrapper.find('[data-qa="feedback next button"]').attributes('disabled') === undefined).should.be.true;
+        expect(wrapper.find('[data-qa="feedback next button"]').attributes('disabled') === undefined);
       });
       it('and it is clicked and it has only 4 words', async() => {
         const wrapper = factory();
@@ -110,7 +110,7 @@ describe('components/feedback/FeedbackWidget', () => {
         await wrapper.find('form').trigger('submit.prevent');
 
         const errorMessage = wrapper.find('[data-qa="feedback message invalid"]');
-        errorMessage.exists().should.be.true;
+        expect(errorMessage.exists());
       });
       it('and it is clicked and it has over 5 words', async() => {
         const wrapper = factory();
@@ -123,7 +123,7 @@ describe('components/feedback/FeedbackWidget', () => {
         await wrapper.find('form').trigger('submit.prevent');
 
         const errorMessage = wrapper.find('[data-qa="feedback message invalid"]');
-        errorMessage.exists().should.be.false;
+        expect(errorMessage.exists()).toBe(false);
       });
       it('and it is clicked, it goes to the next step', async() => {
         const wrapper = factory();
@@ -135,10 +135,10 @@ describe('components/feedback/FeedbackWidget', () => {
 
         await wrapper.find('form').trigger('submit.prevent');
 
-        wrapper.vm.currentStep.should.equal(2);
+        expect(wrapper.vm.currentStep).toBe(2);
       });
     });
-    context('when there is no value for email', () => {
+    describe('when there is no value for email', () => {
       it('is disabled', async() => {
         const wrapper = factory();
 
@@ -147,10 +147,10 @@ describe('components/feedback/FeedbackWidget', () => {
           email: ''
         });
 
-        wrapper.find('[data-qa="feedback next button"]').attributes('disabled').should.eq('disabled');
+        expect(wrapper.find('[data-qa="feedback next button"]').attributes('disabled')).toBe('disabled');
       });
     });
-    context('when there is a value for email', () => {
+    describe('when there is a value for email', () => {
       it('is enabled', async() => {
         const wrapper = factory();
 
@@ -159,13 +159,13 @@ describe('components/feedback/FeedbackWidget', () => {
           email: 'example@mail.com'
         });
 
-        (wrapper.find('[data-qa="feedback next button"]').attributes('disabled') === undefined).should.be.true;
+        expect(wrapper.find('[data-qa="feedback next button"]').attributes('disabled') === undefined);
       });
     });
   });
 
   describe('resetForm', () => {
-    context('when widget is opened', () => {
+    describe('when widget is opened', () => {
       it('form values are reset', () => {
         const wrapper = factory();
 
@@ -173,13 +173,13 @@ describe('components/feedback/FeedbackWidget', () => {
 
         wrapper.find('[data-qa="feedback button"]').trigger('click');
 
-        resetForm.should.have.been.called;
+        expect(resetForm.called);
       });
     });
   });
 
   describe('sendFeedback', () => {
-    context('when email is not filled in and user clicks skip button', () => {
+    describe('when email is not filled in and user clicks skip button', () => {
       it('feedback is send', async() => {
         const wrapper = factory();
 
@@ -190,10 +190,10 @@ describe('components/feedback/FeedbackWidget', () => {
 
         await wrapper.find('form').trigger('submit.prevent');
 
-        wrapper.vm.sendFeedback.should.have.been.called;
+        expect(wrapper.vm.sendFeedback.called);
       });
     });
-    context('when email is filled in and user clicks next button', () => {
+    describe('when email is filled in and user clicks next button', () => {
       it('feedback is send', async() => {
         const wrapper = factory();
 
@@ -204,10 +204,10 @@ describe('components/feedback/FeedbackWidget', () => {
 
         await wrapper.find('form').trigger('submit.prevent');
 
-        wrapper.vm.sendFeedback.should.have.been.called;
+        expect(wrapper.vm.sendFeedback.called);
       });
     });
-    context('when request failed and user clicks send button', () => {
+    describe('when request failed and user clicks send button', () => {
       it('feedback is send', async() => {
         const wrapper = factory();
 
@@ -218,7 +218,7 @@ describe('components/feedback/FeedbackWidget', () => {
 
         await wrapper.find('form').trigger('submit.prevent');
 
-        wrapper.vm.sendFeedback.should.have.been.called;
+        expect(wrapper.vm.sendFeedback.called);
       });
     });
   });
@@ -239,7 +239,7 @@ describe('components/feedback/FeedbackWidget', () => {
       wrapper.vm.$config = { app: { baseUrl } };
       await wrapper.vm.postFeedbackMessage();
 
-      nock.isDone().should.be.true;
+      expect(nock.isDone());
     });
 
     it('includes email if provided', async() => {
@@ -257,7 +257,7 @@ describe('components/feedback/FeedbackWidget', () => {
       wrapper.vm.$config = { app: { baseUrl } };
       await wrapper.vm.postFeedbackMessage();
 
-      nock.isDone().should.be.true;
+      expect(nock.isDone());
     });
   });
 });

@@ -94,13 +94,13 @@ const factory = () => shallowMountNuxt(page, {
 const imageWithAttributionFields = ['name', 'image', 'creator', 'provider', 'license', 'url'];
 
 describe('pages/contentful/image-harvester/index', () => {
-  before('supply fake contentful extension', () => {
+  beforeAll(() => {
     window.contentfulExtension = fakeContentfulExtension(imageWithAttributionFields);
   });
 
   describe('methods', () => {
     describe('harvestImage', () => {
-      context('when the item can be retrieved', () => {
+      describe('when the item can be retrieved', () => {
         it('calls populateFields for the item', async() => {
           const wrapper = factory();
           wrapper.vm.$apis.record.$axios.get.resolves({ data: apiResponse() });
@@ -108,12 +108,12 @@ describe('pages/contentful/image-harvester/index', () => {
           wrapper.vm.populateFields = sinon.spy();
 
           await wrapper.vm.harvestImage();
-          wrapper.vm.populateFields.should.have.been.called;
-          wrapper.vm.message.should.eq('Success');
+          expect(wrapper.vm.populateFields.called);
+          expect(wrapper.vm.message).toBe('Success');
         });
       });
 
-      context('when the item URL can not be parsed', () => {
+      describe('when the item URL can not be parsed', () => {
         it('shows an error for the URL', async() => {
           const wrapper = factory();
           sinon.replace(wrapper.vm, 'getUrlFromUser', sinon.fake.returns('https://example.org/failure'));
@@ -121,12 +121,12 @@ describe('pages/contentful/image-harvester/index', () => {
           wrapper.vm.populateFields = sinon.spy();
 
           await wrapper.vm.harvestImage();
-          wrapper.vm.showError.should.have.been.calledWith('Unable to parse URL: https://example.org/failure Please make sure the URL conforms to the accepted formats.');
-          wrapper.vm.populateFields.should.not.have.been.called;
+          expect(wrapper.vm.showError.calledWith('Unable to parse URL: https://example.org/failure Please make sure the URL conforms to the accepted formats.'));
+          expect(wrapper.vm.populateFields.called).toBe(false);
         });
       });
 
-      context('when the item can not be retrieved', () => {
+      describe('when the item can not be retrieved', () => {
         it('shows an error for the response', async() => {
           const wrapper = factory();
           wrapper.vm.$apis.record.$axios.get.rejects(apiError(apiErrorResponse));
@@ -135,12 +135,12 @@ describe('pages/contentful/image-harvester/index', () => {
           wrapper.vm.populateFields = sinon.spy();
 
           await wrapper.vm.harvestImage();
-          wrapper.vm.populateFields.should.not.have.been.called;
-          wrapper.vm.showError.should.have.been.calledWith(`Unable to harvest "${apiResponse().object.about}". Please make sure the item can be accessed on the Record API. Error: "${apiErrorResponse.response.data.error}"`);
+          expect(wrapper.vm.populateFields.called).toBe(false);
+          expect(wrapper.vm.showError.calledWith(`Unable to harvest "${apiResponse().object.about}". Please make sure the item can be accessed on the Record API. Error: "${apiErrorResponse.response.data.error}"`));
         });
       });
 
-      context('when the entry fields can not be set', () => {
+      describe('when the entry fields can not be set', () => {
         it('shows an error', async() => {
           const wrapper = factory();
           wrapper.vm.$apis.record.$axios.get.resolves({ data: apiResponse() });
@@ -151,7 +151,7 @@ describe('pages/contentful/image-harvester/index', () => {
           wrapper.vm.showError = sinon.spy();
 
           await wrapper.vm.harvestImage();
-          wrapper.vm.showError.should.have.been.calledWith('There was a problem updating the entry. Contentful error');
+          expect(wrapper.vm.showError.calledWith('There was a problem updating the entry. Contentful error'));
         });
       });
     });
@@ -160,7 +160,7 @@ describe('pages/contentful/image-harvester/index', () => {
       it('uses the contentfulExtension to get a URL', async() => {
         const wrapper = factory();
         await wrapper.vm.getUrlFromUser();
-        wrapper.vm.contentfulExtensionSdk.dialogs.openPrompt.should.have.been.called;
+        expect(wrapper.vm.contentfulExtensionSdk.dialogs.openPrompt.called);
       });
     });
 
@@ -177,7 +177,7 @@ describe('pages/contentful/image-harvester/index', () => {
           error = e;
         }
 
-        error.message.should.eq('No edm:isShownBy image found.');
+        expect(error.message).toBe('No edm:isShownBy image found.');
       });
 
       it('throws an error if edm:isShownBy is not an image', async() => {
@@ -192,14 +192,14 @@ describe('pages/contentful/image-harvester/index', () => {
           error = e;
         }
 
-        error.message.should.eq('No edm:isShownBy image found.');
+        expect(error.message).toBe('No edm:isShownBy image found.');
       });
 
       describe('name', () => {
         it('uses dc:title from the provider proxy', () => {
           const wrapper = factory();
           wrapper.vm.populateFields(apiResponse().object);
-          wrapper.vm.entry.fields.name.setValue.should.have.been.calledWith('Madonna');
+          expect(wrapper.vm.entry.fields.name.setValue.calledWith('Madonna'));
         });
       });
 
@@ -209,7 +209,7 @@ describe('pages/contentful/image-harvester/index', () => {
           const item = apiResponse().object;
           item.aggregations[0].webResources[0].dcCreator = { en: ['isShownBy creator'] };
           wrapper.vm.populateFields(item);
-          wrapper.vm.entry.fields.creator.setValue.should.have.been.calledWith('isShownBy creator');
+          expect(wrapper.vm.entry.fields.creator.setValue.calledWith('isShownBy creator'));
         });
 
         it('falls back to dc:creator from the provider proxy', () => {
@@ -217,14 +217,14 @@ describe('pages/contentful/image-harvester/index', () => {
           const item = apiResponse().object;
           item.proxies[0].dcCreator = { en: ['proxy creator'] };
           wrapper.vm.populateFields(item);
-          wrapper.vm.entry.fields.creator.setValue.should.have.been.calledWith('proxy creator');
+          expect(wrapper.vm.entry.fields.creator.setValue.calledWith('proxy creator'));
         });
 
         it('uses prefLabel for a linked agent', () => {
           const wrapper = factory();
           const item = apiResponse().object;
           wrapper.vm.populateFields(item);
-          wrapper.vm.entry.fields.creator.setValue.should.have.been.calledWith('Edvard Munch');
+          expect(wrapper.vm.entry.fields.creator.setValue.calledWith('Edvard Munch'));
         });
       });
 
@@ -234,14 +234,14 @@ describe('pages/contentful/image-harvester/index', () => {
           const item = apiResponse().object;
           item.aggregations[0].edmDataProvider = { def: ['aggregation data provider'] };
           wrapper.vm.populateFields(item);
-          wrapper.vm.entry.fields.provider.setValue.should.have.been.calledWith('aggregation data provider');
+          expect(wrapper.vm.entry.fields.provider.setValue.calledWith('aggregation data provider'));
         });
 
         it('uses prefLabel for a linked organization', () => {
           const wrapper = factory();
           const item = apiResponse().object;
           wrapper.vm.populateFields(item);
-          wrapper.vm.entry.fields.provider.setValue.should.have.been.calledWith('The National Museum of Art, Architecture and Design');
+          expect(wrapper.vm.entry.fields.provider.setValue.calledWith('The National Museum of Art, Architecture and Design'));
         });
       });
 
@@ -251,7 +251,7 @@ describe('pages/contentful/image-harvester/index', () => {
           const item = apiResponse().object;
           item.aggregations[0].webResources[0].webResourceEdmRights = { def: ['isShownBy rights'] };
           wrapper.vm.populateFields(item);
-          wrapper.vm.entry.fields.license.setValue.should.have.been.calledWith('isShownBy rights');
+          expect(wrapper.vm.entry.fields.license.setValue.calledWith('isShownBy rights'));
         });
 
         it('falls back to edm:rights from the provider aggregation', () => {
@@ -260,7 +260,7 @@ describe('pages/contentful/image-harvester/index', () => {
           item.aggregations[0].edmRights = { def: ['aggregation rights'] };
           delete item.aggregations[0].webResources[0].webResourceEdmRights;
           wrapper.vm.populateFields(item);
-          wrapper.vm.entry.fields.license.setValue.should.have.been.calledWith('aggregation rights');
+          expect(wrapper.vm.entry.fields.license.setValue.calledWith('aggregation rights'));
         });
       });
 
@@ -269,7 +269,7 @@ describe('pages/contentful/image-harvester/index', () => {
           const wrapper = factory();
           const item = apiResponse().object;
           wrapper.vm.populateFields(item);
-          wrapper.vm.entry.fields.url.setValue.should.have.been.calledWith('http://data.europeana.eu/item/2063612/NO_280_001');
+          expect(wrapper.vm.entry.fields.url.setValue.calledWith('http://data.europeana.eu/item/2063612/NO_280_001'));
         });
       });
 
@@ -278,14 +278,14 @@ describe('pages/contentful/image-harvester/index', () => {
           const wrapper = factory();
           const item = apiResponse().object;
           await wrapper.vm.populateFields(item);
-          wrapper.vm.entry.fields.image.removeValue.should.have.been.called;
+          expect(wrapper.vm.entry.fields.image.removeValue.called);
         });
 
         it('creates an asset from edm:isShownBy and metadata', async() => {
           const wrapper = factory();
           const item = apiResponse().object;
           await wrapper.vm.populateFields(item);
-          wrapper.vm.contentfulExtensionSdk.space.createAsset.should.have.been.calledWith({
+          expect(wrapper.vm.contentfulExtensionSdk.space.createAsset.calledWith({
             fields: {
               title: {
                 'en-GB': 'Madonna'
@@ -298,29 +298,29 @@ describe('pages/contentful/image-harvester/index', () => {
                 }
               }
             }
-          });
+          }));
         });
 
         it('processes and publishes the asset', async() => {
           const wrapper = factory();
           const item = apiResponse().object;
           await wrapper.vm.populateFields(item);
-          wrapper.vm.contentfulExtensionSdk.space.processAsset.should.have.been.called;
-          wrapper.vm.contentfulExtensionSdk.space.waitUntilAssetProcessed.should.have.been.called;
-          wrapper.vm.contentfulExtensionSdk.space.publishAsset.should.have.been.called;
+          expect(wrapper.vm.contentfulExtensionSdk.space.processAsset.called);
+          expect(wrapper.vm.contentfulExtensionSdk.space.waitUntilAssetProcessed.called);
+          expect(wrapper.vm.contentfulExtensionSdk.space.publishAsset.called);
         });
 
         it('assigns the published image to the entry', async() => {
           const wrapper = factory();
           const item = apiResponse().object;
           await wrapper.vm.populateFields(item);
-          wrapper.vm.entry.fields.image.setValue.should.have.been.calledWith({
+          expect(wrapper.vm.entry.fields.image.setValue.calledWith({
             sys: {
               type: 'Link',
               linkType: 'Asset',
               id: 'abcdef'
             }
-          });
+          }));
         });
       });
     });

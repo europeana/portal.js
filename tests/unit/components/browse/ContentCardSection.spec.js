@@ -47,7 +47,7 @@ describe('components/browse/ContentCardSection', () => {
 
       const headline =  wrapper.find('h2[data-qa="section headline"]');
 
-      headline.text().should.eq('Test Headline');
+      expect(headline.text()).toBe('Test Headline');
     });
   });
 
@@ -57,7 +57,7 @@ describe('components/browse/ContentCardSection', () => {
 
       const cardGroup = wrapper.find('[data-qa="section group"]');
 
-      cardGroup.findAll('[data-qa="content card"]').length.should.eq(2);
+      expect(cardGroup.findAll('[data-qa="content card"]').length).toBe(2);
     });
 
     it('does not display unpublished or deleted cards', async() => {
@@ -73,15 +73,15 @@ describe('components/browse/ContentCardSection', () => {
       const wrapper = factory(dummySectionPlusNull);
 
       const cardGroup = wrapper.find('[data-qa="section group"]');
-      cardGroup.findAll('[data-qa="content card"]').length.should.eq(2);
+      expect(cardGroup.findAll('[data-qa="content card"]').length).toBe(2);
     });
 
     it('displays a button', async() => {
       const wrapper = factory();
 
       const moreButton = wrapper.find('[data-qa="section more button"]');
-      moreButton.text().should.contain('Show more art');
-      moreButton.attributes('href').should.eq('http://europeana.eu');
+      expect(moreButton.text()).toContain('Show more art');
+      expect(moreButton.attributes('href')).toBe('http://europeana.eu');
     });
 
     it('displays mini cards if a section is exclusively people', async() => {
@@ -96,7 +96,7 @@ describe('components/browse/ContentCardSection', () => {
         }
       });
 
-      wrapper.vm.isPeopleSection.should.equal(true);
+      expect(wrapper.vm.isPeopleSection);
     });
 
     it('does not display mini cards if a section is not exclusively people', async() => {
@@ -111,7 +111,7 @@ describe('components/browse/ContentCardSection', () => {
         }
       });
 
-      wrapper.vm.isPeopleSection.should.equal(false);
+      expect(wrapper.vm.isPeopleSection).toBe(false);
     });
   });
 });

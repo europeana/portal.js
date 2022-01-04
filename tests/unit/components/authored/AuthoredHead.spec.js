@@ -30,6 +30,6 @@ describe('components/authored/AuthoredHead', () => {
   it('shows a label', () => {
     const wrapper = factory(details);
 
-    wrapper.find('[data-qa="context label"]').text().should.eq(details.contextLabel);
+    expect(wrapper.find('[data-qa="context label"]').text()).toBe(details.contextLabel);
   });
 });

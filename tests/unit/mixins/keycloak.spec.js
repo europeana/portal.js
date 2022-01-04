@@ -27,7 +27,7 @@ describe('mixins/keycloak', () => {
         };
         const wrapper = factory(mocks);
 
-        wrapper.vm.keycloakLoginRedirect.should.eq(mocks.$route.query.redirect);
+        expect(wrapper.vm.keycloakLoginRedirect).toBe(mocks.$route.query.redirect);
       });
 
       it('otherwise uses full path from route', () => {
@@ -38,7 +38,7 @@ describe('mixins/keycloak', () => {
         };
         const wrapper = factory(mocks);
 
-        wrapper.vm.keycloakLoginRedirect.should.eq(mocks.$route.fullPath);
+        expect(wrapper.vm.keycloakLoginRedirect).toBe(mocks.$route.fullPath);
       });
     });
 
@@ -54,7 +54,7 @@ describe('mixins/keycloak', () => {
 
         const keycloakAccountUrl = wrapper.vm.keycloakAccountUrl;
 
-        keycloakAccountUrl.should.eq(
+        expect(keycloakAccountUrl).toBe(
           'https://auth.example.org/auth/realms/europeana/account?referrer=portal.js&referrer_uri=https%3A%2F%2Fwww.example.eu'
         );
       });
@@ -82,19 +82,19 @@ describe('mixins/keycloak', () => {
       it('sets universal auth storage for redirect', () => {
         wrapper.vm.keycloakLogin();
 
-        mocks.$auth.$storage.setUniversal.should.have.been.calledWith('redirect', loginRedirect);
+        expect(mocks.$auth.$storage.setUniversal.calledWith('redirect', loginRedirect));
       });
 
       it('sets universal auth storage for logging in flag', () => {
         wrapper.vm.keycloakLogin();
 
-        mocks.$auth.$storage.setUniversal.should.have.been.calledWith('portalLoggingIn', true);
+        expect(mocks.$auth.$storage.setUniversal.calledWith('portalLoggingIn', true));
       });
 
       it('calls auth login with keycloak scheme and ui_locales param', () => {
         wrapper.vm.keycloakLogin();
 
-        mocks.$auth.loginWith.should.have.been.calledWith('keycloak', { params: { 'ui_locales': mocks.$i18n.locale } });
+        expect(mocks.$auth.loginWith.calledWith('keycloak', { params: { 'ui_locales': mocks.$i18n.locale } }));
       });
     });
   });
@@ -119,7 +119,7 @@ describe('mixins/keycloak', () => {
   //   const next = sinon.stub().yields(wrapper.vm);
   //   page.beforeRouteEnter.call(wrapper.vm, null, from, next);
   //
-  //   next.should.have.been.called;
-  //   authStorageSetUniversal.should.have.been.calledWith('redirect', from.fullPath);
+  //   expect(next).have.been.called;
+  //   expect(authStorageSetUniversal).have.been.calledWith('redirect', from.fullPath);
   // });
 });

@@ -27,7 +27,7 @@ describe('components/browse/BrowseContentCard', () => {
       const name = 'Content item';
       const wrapper = factory({ fields: { name } });
 
-      wrapper.vm.title.should.eq(name);
+      expect(wrapper.vm.title).toBe(name);
     });
 
     it('uses `dcTitleLangAware`', () => {
@@ -43,30 +43,30 @@ describe('components/browse/BrowseContentCard', () => {
         }
       });
 
-      wrapper.vm.title.should.eq(dcTitleLangAware);
+      expect(wrapper.vm.title).toBe(dcTitleLangAware);
     });
   });
 
   describe('imageUrl()', () => {
-    context('when `fields.thumbnailUrl` is present', () => {
+    describe('when `fields.thumbnailUrl` is present', () => {
       it('is used', () => {
         const thumbnailUrl = 'https://www.example.org/image.jpg';
         const wrapper = factory({ fields: { thumbnailUrl } });
 
-        wrapper.vm.imageUrl.should.equal(thumbnailUrl);
+        expect(wrapper.vm.imageUrl).toBe(thumbnailUrl);
       });
     });
 
-    context('when `fields.image` is a string', () => {
+    describe('when `fields.image` is a string', () => {
       it('is used', () => {
         const image = 'https://www.example.org/image.jpg';
         const wrapper = factory({ fields: { image } });
 
-        wrapper.vm.imageUrl.should.equal(image);
+        expect(wrapper.vm.imageUrl).toBe(image);
       });
     });
 
-    context('when the card is an AutomatedRecordCard and `edmPreview` is present', () => {
+    describe('when the card is an AutomatedRecordCard and `edmPreview` is present', () => {
       it('is used', () => {
         const edmPreview = 'https://www.example.org/image.jpg';
         const wrapper = factory({
@@ -78,49 +78,49 @@ describe('components/browse/BrowseContentCard', () => {
           }
         });
 
-        wrapper.vm.imageUrl.should.equal(`${edmPreview}&size=w400`);
+        expect(wrapper.vm.imageUrl).toBe(`${edmPreview}&size=w400`);
       });
     });
 
-    context('when image is a Contentful asset', () => {
+    describe('when image is a Contentful asset', () => {
       it('uses `fields.image.url`', () => {
         const imageUrl = 'https://images.ctfassets.net/image.jpg';
         const wrapper = factory({ fields: { image: { url: imageUrl } } });
 
-        wrapper.vm.imageUrl.should.equal(imageUrl);
+        expect(wrapper.vm.imageUrl).toBe(imageUrl);
       });
     });
 
-    context('otherwise', () => {
+    describe('otherwise', () => {
       it('is an empty string', () => {
         const wrapper = factory();
 
-        wrapper.vm.imageUrl.should.equal('');
+        expect(wrapper.vm.imageUrl).toBe('');
       });
     });
   });
 
   describe('destination()', () => {
-    context('when `fields.url` is present', () => {
+    describe('when `fields.url` is present', () => {
       it('is used', () => {
         const url = 'https://www.example.org/';
         const wrapper = factory({ fields: { url } });
 
-        wrapper.vm.destination.should.equal(url);
+        expect(wrapper.vm.destination).toBe(url);
       });
     });
 
-    context('when `fields.identifier` is a Europeana record ID', () => {
+    describe('when `fields.identifier` is a Europeana record ID', () => {
       it('constructs a route to the record page', () => {
         const identifier = '/123456/abcdef_7890';
         const wrapper = factory({ fields: { identifier } });
 
-        wrapper.vm.destination.should.eql({ name: 'item-all', params: { pathMatch: identifier.slice(1) } });
+        expect(wrapper.vm.destination).toEqual({ name: 'item-all', params: { pathMatch: identifier.slice(1) } });
       });
     });
 
-    context('when `fields.identifier` is a http(s) URL', () => {
-      context('and is a Europeana entity URI', () => {
+    describe('when `fields.identifier` is a http(s) URL', () => {
+      describe('and is a Europeana entity URI', () => {
         it('constructs a route to the entity page', () => {
           const entityType = 'agent';
           const entityHumanType = 'person';
@@ -128,46 +128,46 @@ describe('components/browse/BrowseContentCard', () => {
           const identifier = `http://data.europeana.eu/${entityType}/base/${entityId}`;
           const wrapper = factory({ fields: { identifier } });
 
-          wrapper.vm.destination.should.eql({ name: 'collections-type-all', params: { type: entityHumanType, pathMatch: entityId } });
+          expect(wrapper.vm.destination).toEqual({ name: 'collections-type-all', params: { type: entityHumanType, pathMatch: entityId } });
         });
       });
 
-      context('but is not a Europeana entity URI', () => {
+      describe('but is not a Europeana entity URI', () => {
         it('is used', () => {
           const identifier = 'https://www.example.org/';
           const wrapper = factory({ fields: { identifier } });
 
-          wrapper.vm.destination.should.eql(identifier);
+          expect(wrapper.vm.destination).toEqual(identifier);
         });
       });
     });
 
-    context('otherwise', () => {
+    describe('otherwise', () => {
       it('is an empty string', () => {
         const wrapper = factory();
 
-        wrapper.vm.destination.should.equal('');
+        expect(wrapper.vm.destination).toBe('');
       });
     });
   });
 
   describe('texts()', () => {
-    context('for a curated card', () => {
+    describe('for a curated card', () => {
       it('is includes description', () => {
         const description = 'Some interesting content';
         const wrapper = factory({ fields: { description } });
-        wrapper.vm.texts.should.include(description);
+        expect(wrapper.vm.texts).toContain(description);
       });
     });
-    context('for an automated record card', () => {
+    describe('for an automated record card', () => {
       it('is includes creator and provider fields, but no description', () => {
         const description = 'Some interesting content';
         const creator = 'A European artist';
         const provider = 'An aggregator';
         const wrapper = factory({ cardType: 'AutomatedRecordCard', fields: { description, creator, provider } });
-        wrapper.vm.texts.should.not.include(description);
-        wrapper.vm.texts.should.include(creator);
-        wrapper.vm.texts.should.include(provider);
+        expect(wrapper.vm.texts).not.toContain(description);
+        expect(wrapper.vm.texts).toContain(creator);
+        expect(wrapper.vm.texts).toContain(provider);
       });
       it('is includes dcCreatorLangAware and dataProvider fields', () => {
         const dcCreatorLangAware = 'A European artist';
@@ -182,8 +182,8 @@ describe('components/browse/BrowseContentCard', () => {
             }
           }
         });
-        wrapper.vm.texts.should.include(dcCreatorLangAware);
-        wrapper.vm.texts.should.include(dataProvider);
+        expect(wrapper.vm.texts).toContain(dcCreatorLangAware);
+        expect(wrapper.vm.texts).toContain(dataProvider);
       });
     });
   });

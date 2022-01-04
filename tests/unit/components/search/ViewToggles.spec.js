@@ -40,21 +40,21 @@ describe('components/search/ViewToggles', () => {
         const wrapper = factory();
 
         const viewToggle = wrapper.find(`[data-qa="search ${view} view toggle"]`);
-        viewToggle.exists().should.eq(true);
+        expect(viewToggle.exists());
       });
 
       it('links to route with view parameter set', () => {
         const wrapper = factory();
 
         const viewToggleLink = wrapper.find(`[data-qa="search ${view} view toggle"] a`);
-        viewToggleLink.attributes('href').should.match(new RegExp(`[?&]view=${view}(&|$)`));
+        expect(viewToggleLink.attributes('href')).toMatch(new RegExp(`[?&]view=${view}(&|$)`));
       });
 
       it('displays icon', () => {
         const wrapper = factory();
 
         const viewToggleIcon = wrapper.find(`[data-qa="search ${view} view toggle"] .icon-view-toggle`);
-        viewToggleIcon.attributes('class').should.eq(`icon-view-toggle ${view}`);
+        expect(viewToggleIcon.attributes('class')).toBe(`icon-view-toggle ${view}`);
       });
     });
   }
@@ -65,7 +65,7 @@ describe('components/search/ViewToggles', () => {
 
       await wrapper.setProps({ value: 'list' });
 
-      wrapper.vm.activeView.should.eq('list');
+      expect(wrapper.vm.activeView).toBe('list');
     });
 
     it('tracks the event in Matomo', async() => {
@@ -73,7 +73,7 @@ describe('components/search/ViewToggles', () => {
 
       await wrapper.setProps({ value: 'list' });
 
-      wrapper.vm.$matomo.trackEvent.should.have.been.calledWith('View search results', 'Select view', 'list');
+      expect(wrapper.vm.$matomo.trackEvent.calledWith('View search results', 'Select view', 'list'));
     });
   });
 });

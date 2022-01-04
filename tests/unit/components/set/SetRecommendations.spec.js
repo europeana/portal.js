@@ -32,19 +32,19 @@ describe('components/set/SetRecommendations', () => {
 
       await wrapper.vm.fetch();
 
-      wrapper.vm.$apis.recommendation.recommend.should.have.been.calledWith('set', propsData.identifier);
-      wrapper.vm.$store.commit.should.have.been.calledWith('set/setActiveRecommendations', recommendations);
+      expect(wrapper.vm.$apis.recommendation.recommend.calledWith('set', propsData.identifier));
+      expect(wrapper.vm.$store.commit.calledWith('set/setActiveRecommendations', recommendations));
     });
   });
 
   describe('accept/reject disclaimer', () => {
-    context('when set is for entity best items', () => {
+    describe('when set is for entity best items', () => {
       const propsData = {
         identifier: '/2019',
         type: 'EntityBestItemsSet'
       };
 
-      context('and only accept recommendations is enabled', () => {
+      describe('and only accept recommendations is enabled', () => {
         const features = { acceptEntityRecommendations: true };
 
         it('describes use of accept button', async() => {
@@ -54,11 +54,11 @@ describe('components/set/SetRecommendations', () => {
 
           const disclaimer = wrapper.find('[data-qa="recommendations disclaimer"]');
 
-          disclaimer.text().should.eq('recommendation.prompts.accept');
+          expect(disclaimer.text()).toBe('recommendation.prompts.accept');
         });
       });
 
-      context('and only reject recommendations is enabled', () => {
+      describe('and only reject recommendations is enabled', () => {
         const features = { rejectEntityRecommendations: true };
 
         it('describes use of reject button', async() => {
@@ -68,11 +68,11 @@ describe('components/set/SetRecommendations', () => {
 
           const disclaimer = wrapper.find('[data-qa="recommendations disclaimer"]');
 
-          disclaimer.text().should.eq('recommendation.prompts.reject');
+          expect(disclaimer.text()).toBe('recommendation.prompts.reject');
         });
       });
 
-      context('and both accept and reject recommendations are enabled', () => {
+      describe('and both accept and reject recommendations are enabled', () => {
         const features = { acceptEntityRecommendations: true, rejectEntityRecommendations: true };
 
         it('describes use of both accept and reject buttons', async() => {
@@ -82,11 +82,11 @@ describe('components/set/SetRecommendations', () => {
 
           const disclaimer = wrapper.find('[data-qa="recommendations disclaimer"]');
 
-          disclaimer.text().should.eq('recommendation.prompts.accept — recommendation.prompts.reject');
+          expect(disclaimer.text()).toBe('recommendation.prompts.accept — recommendation.prompts.reject');
         });
       });
 
-      context('and neither accept nor reject recommendations are enabled', () => {
+      describe('and neither accept nor reject recommendations are enabled', () => {
         const features = {};
 
         it('is not present', async() => {
@@ -96,18 +96,18 @@ describe('components/set/SetRecommendations', () => {
 
           const disclaimer = wrapper.find('[data-qa="recommendations disclaimer"]');
 
-          disclaimer.exists().should.be.false;
+          expect(disclaimer.exists()).toBe(false);
         });
       });
     });
 
-    context('when set is not for entity best items', () => {
+    describe('when set is not for entity best items', () => {
       const propsData = {
         identifier: '/2019',
         type: 'Collection'
       };
 
-      context('and accept recommendations is enabled', () => {
+      describe('and accept recommendations is enabled', () => {
         const features = { acceptSetRecommendations: true };
 
         it('describes use of both accept and reject buttons', async() => {
@@ -117,11 +117,11 @@ describe('components/set/SetRecommendations', () => {
 
           const disclaimer = wrapper.find('[data-qa="recommendations disclaimer"]');
 
-          disclaimer.text().should.eq('recommendation.prompts.accept — recommendation.prompts.reject');
+          expect(disclaimer.text()).toBe('recommendation.prompts.accept — recommendation.prompts.reject');
         });
       });
 
-      context('and neither accept nor reject recommendations are enabled', () => {
+      describe('and neither accept nor reject recommendations are enabled', () => {
         const features = {};
 
         it('is not present', async() => {
@@ -131,7 +131,7 @@ describe('components/set/SetRecommendations', () => {
 
           const disclaimer = wrapper.find('[data-qa="recommendations disclaimer"]');
 
-          disclaimer.exists().should.be.false;
+          expect(disclaimer.exists()).toBe(false);
         });
       });
     });

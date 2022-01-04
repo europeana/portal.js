@@ -5,7 +5,7 @@ describe('plugins/media', () => {
     it('returns `true` if ebucoreHasMimeType is for PDF', () => {
       const ebucoreHasMimeType = 'application/pdf';
 
-      media.isPDF({ ebucoreHasMimeType }).should.be.true;
+      expect(media.isPDF({ ebucoreHasMimeType }));
     });
   });
 
@@ -13,7 +13,7 @@ describe('plugins/media', () => {
     it('returns `true` if ebucoreHasMimeType is for an image', () => {
       const ebucoreHasMimeType = 'image/jpeg';
 
-      media.isImage({ ebucoreHasMimeType }).should.be.true;
+      expect(media.isImage({ ebucoreHasMimeType }));
     });
   });
 
@@ -24,7 +24,7 @@ describe('plugins/media', () => {
       for (const ebucoreHasMimeType of mediaTypes) {
         const edmCodecName = ebucoreHasMimeType === 'video/mp4' ? 'h264' : null;
 
-        media.isHTMLVideo({ ebucoreHasMimeType, edmCodecName }).should.be.true;
+        expect(media.isHTMLVideo({ ebucoreHasMimeType, edmCodecName }));
       }
     });
   });
@@ -34,7 +34,7 @@ describe('plugins/media', () => {
       const mediaTypes = ['audio/flac', 'audio/ogg', 'audio/mpeg'];
 
       for (const ebucoreHasMimeType of mediaTypes) {
-        media.isHTMLAudio({ ebucoreHasMimeType }).should.be.true;
+        expect(media.isHTMLAudio({ ebucoreHasMimeType }));
       }
     });
   });
@@ -45,7 +45,7 @@ describe('plugins/media', () => {
       const edmCodecName = 'h264';
 
       for (const ebucoreHasMimeType of mediaTypes) {
-        media.isPlayableMedia({ ebucoreHasMimeType, edmCodecName }).should.be.true;
+        expect(media.isPlayableMedia({ ebucoreHasMimeType, edmCodecName }));
       }
     });
 
@@ -53,7 +53,7 @@ describe('plugins/media', () => {
       const mediaTypes = ['video/somethingelse'];
 
       for (const ebucoreHasMimeType of mediaTypes) {
-        media.isPlayableMedia({ ebucoreHasMimeType }).should.be.false;
+        expect(media.isPlayableMedia({ ebucoreHasMimeType })).toBe(false);
       }
     });
 
@@ -61,7 +61,7 @@ describe('plugins/media', () => {
       const mediaTypes = ['audio/flac', 'audio/ogg', 'audio/mpeg'];
 
       for (const ebucoreHasMimeType of mediaTypes) {
-        media.isPlayableMedia({ ebucoreHasMimeType }).should.be.true;
+        expect(media.isPlayableMedia({ ebucoreHasMimeType }));
       }
     });
 
@@ -69,23 +69,23 @@ describe('plugins/media', () => {
       const mediaTypes = ['audio/somethingelse'];
 
       for (const ebucoreHasMimeType of mediaTypes) {
-        media.isPlayableMedia({ ebucoreHasMimeType }).should.be.false;
+        expect(media.isPlayableMedia({ ebucoreHasMimeType })).toBe(false);
       }
     });
 
     it('returns `true` if ebucoreHasMimeType is for application/dash+xml', () => {
-      media.isPlayableMedia({ ebucoreHasMimeType: 'application/dash+xml' }).should.be.true;
+      expect(media.isPlayableMedia({ ebucoreHasMimeType: 'application/dash+xml' }));
     });
 
     it('returns `true` if media.about is for EUscreen item', () => {
-      media.isPlayableMedia({ about: 'http://www.euscreen.eu/item.html?id=EUS_123' }).should.be.true;
+      expect(media.isPlayableMedia({ about: 'http://www.euscreen.eu/item.html?id=EUS_123' }));
     });
 
     it('returns `false` for other media types', () => {
       const mediaTypes = ['text/plain', 'image/jpeg', 'application/json'];
 
       for (const ebucoreHasMimeType of mediaTypes) {
-        media.isPlayableMedia({ ebucoreHasMimeType }).should.be.false;
+        expect(media.isPlayableMedia({ ebucoreHasMimeType })).toBe(false);
       }
     });
   });
@@ -94,7 +94,7 @@ describe('plugins/media', () => {
     it('returns `true` if URL is oEmbeddable', () => {
       const about = 'https://soundcloud.com/oembed';
 
-      media.isOEmbed({ about }).should.be.true;
+      expect(media.isOEmbed({ about }));
     });
   });
 
@@ -108,7 +108,7 @@ describe('plugins/media', () => {
         ]
       };
 
-      media.isIIIFImage(item).should.be.true;
+      expect(media.isIIIFImage(item));
     });
   });
 
@@ -123,7 +123,7 @@ describe('plugins/media', () => {
         dctermsIsReferencedBy: ['http://www.example.org/iiif/manifest']
       };
 
-      media.isIIIFPresentation(item).should.be.true;
+      expect(media.isIIIFPresentation(item));
     });
 
     it('returns `false` if dctermsIsReferencedBy is Image info.json', () => {
@@ -137,14 +137,14 @@ describe('plugins/media', () => {
         dctermsIsReferencedBy: ['http://www.example.org/image/info.json']
       };
 
-      media.isIIIFPresentation(item).should.be.false;
+      expect(media.isIIIFPresentation(item)).toBe(false);
     });
   });
 
   describe('iiifManifest()', () => {
     const europeanaIdentifier = '/123/abc';
 
-    context('for a Presentation', () => {
+    describe('for a Presentation', () => {
       it('returns the first element in dctermsIsReferencedBy', () => {
         const manifest = 'http://www.example.org/iiif/manifest';
         const item = {
@@ -156,11 +156,11 @@ describe('plugins/media', () => {
           dctermsIsReferencedBy: [manifest]
         };
 
-        media.iiifManifest(item, europeanaIdentifier).should.eq(manifest);
+        expect(media.iiifManifest(item, europeanaIdentifier)).toBe(manifest);
       });
     });
 
-    context('for an Image', () => {
+    describe('for an Image', () => {
       it('uses the Europeana IIIF Presentation API', () => {
         const item = {
           services: [
@@ -170,16 +170,16 @@ describe('plugins/media', () => {
           ]
         };
 
-        media.iiifManifest(item, europeanaIdentifier).should.eq(`https://iiif.europeana.eu/presentation${europeanaIdentifier}/manifest`);
+        expect(media.iiifManifest(item, europeanaIdentifier)).toBe(`https://iiif.europeana.eu/presentation${europeanaIdentifier}/manifest`);
       });
     });
   });
 
   describe('isRichMedia()', () => {
     it('returns `true` if media considered rich', () => {
-      media.isRichMedia({ about: 'https://soundcloud.com/oembed' }).should.be.true;
-      media.isRichMedia({ ebucoreHasMimeType: 'video/mp4', edmCodecName: 'h264' }).should.be.true;
-      media.isRichMedia({ ebucoreHasMimeType: 'audio/mpeg' }).should.be.true;
+      expect(media.isRichMedia({ about: 'https://soundcloud.com/oembed' }));
+      expect(media.isRichMedia({ ebucoreHasMimeType: 'video/mp4', edmCodecName: 'h264' }));
+      expect(media.isRichMedia({ ebucoreHasMimeType: 'audio/mpeg' }));
     });
   });
 
@@ -187,7 +187,7 @@ describe('plugins/media', () => {
     it('returns `true` if ebucoreHasMimeType is for Dash XML', () => {
       const ebucoreHasMimeType = 'application/dash+xml';
 
-      media.requiresDashJS(ebucoreHasMimeType).should.be.true;
+      expect(media.requiresDashJS(ebucoreHasMimeType));
     });
   });
 });

@@ -49,18 +49,18 @@ describe('components/item/SummaryInfo', () => {
 
     it('shows a title', () => {
       const title = wrapper.find('h1');
-      title.attributes().lang.should.eq('en');
-      title.text().should.eq('The title');
+      expect(title.attributes().lang).toBe('en');
+      expect(title.text()).toBe('The title');
     });
     it('shows a sub-title', () => {
       const subTitle = wrapper.find('header p');
-      subTitle.attributes().lang.should.eq('en');
-      subTitle.text().should.eq('The sub-title');
+      expect(subTitle.attributes().lang).toBe('en');
+      expect(subTitle.text()).toBe('The sub-title');
     });
     it('shows a description', () => {
       const description = wrapper.find('div.description p');
-      description.attributes().lang.should.eq('en');
-      description.text().should.eq('The description');
+      expect(description.attributes().lang).toBe('en');
+      expect(description.text()).toBe('The description');
     });
   });
 
@@ -75,7 +75,7 @@ describe('components/item/SummaryInfo', () => {
 
     it('shows a read more button', () => {
       const readMoreToggle = wrapper.find('button[data-qa="description show link"]');
-      readMoreToggle.text().should.eq('TRANSLATED: readMore');
+      expect(readMoreToggle.text()).toBe('TRANSLATED: readMore');
     });
   });
 
@@ -90,7 +90,7 @@ describe('components/item/SummaryInfo', () => {
 
     it('shows a title', () => {
       const readMoreToggle = wrapper.find('button[data-qa="description show link"]');
-      readMoreToggle.text().should.eq('TRANSLATED: readMore');
+      expect(readMoreToggle.text()).toBe('TRANSLATED: readMore');
     });
   });
 

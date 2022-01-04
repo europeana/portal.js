@@ -36,7 +36,7 @@ const config = {
 };
 
 describe('cachers/items/recent', () => {
-  beforeEach('stub utility methods', () => {
+  beforeEach(() => {
     nock(config.europeana.apis.record.url)
       .get('/search.json')
       .query(query => (
@@ -94,7 +94,7 @@ describe('cachers/items/recent', () => {
       .reply(200, apiResponses.items[3]);
   });
 
-  afterEach('restore utility methods', () => {
+  afterEach(() => {
     nock.cleanAll();
   });
 
@@ -102,13 +102,13 @@ describe('cachers/items/recent', () => {
     it('queries Record API for 4 items from recently updated content tier 4 datasets', async() => {
       await cacher.data(config);
 
-      nock.isDone().should.be.true;
+      expect(nock.isDone());
     });
 
     it('returns item metadata to cache', async() => {
       const data = await cacher.data(config);
 
-      data.should.eql(dataToCache);
+      expect(data).toEqual(dataToCache);
     });
   });
 });

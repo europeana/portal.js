@@ -39,7 +39,7 @@ describe('components/account/UserButtons', () => {
 
       const collectionModal = wrapper.find('[data-qa="collection modal"]');
 
-      collectionModal.exists().should.be.false;
+      expect(collectionModal.exists()).toBe(false);
     });
   });
 
@@ -49,13 +49,13 @@ describe('components/account/UserButtons', () => {
 
       const addButton = wrapper.find('[data-qa="add button"]');
 
-      addButton.isVisible().should.be.true;
+      expect(addButton.isVisible());
     });
 
-    context('when user is not logged in', () => {
+    describe('when user is not logged in', () => {
       const $auth = { loggedIn: false };
 
-      context('when pressed', () => {
+      describe('when pressed', () => {
         it('goes to login', () => {
           const wrapper = factory({ $auth });
           wrapper.vm.keycloakLogin = sinon.spy();
@@ -63,15 +63,15 @@ describe('components/account/UserButtons', () => {
           const addButton = wrapper.find('[data-qa="add button"]');
           addButton.trigger('click');
 
-          wrapper.vm.keycloakLogin.should.have.been.called;
+          expect(wrapper.vm.keycloakLogin.called);
         });
       });
     });
 
-    context('when user is logged in', () => {
+    describe('when user is logged in', () => {
       const $auth = { loggedIn: true };
 
-      context('when pressed', () => {
+      describe('when pressed', () => {
         it('shows the collection modal', () => {
           const wrapper = factory({ $auth });
           const bvModalShow = sinon.spy(wrapper.vm.$bvModal, 'show');
@@ -79,7 +79,7 @@ describe('components/account/UserButtons', () => {
           const addButton = wrapper.find('[data-qa="add button"]');
           addButton.trigger('click');
 
-          bvModalShow.should.have.been.calledWith(`add-item-to-set-modal-${identifier}`);
+          expect(bvModalShow.calledWith(`add-item-to-set-modal-${identifier}`));
         });
 
         it('emits "add" event', async() => {
@@ -89,7 +89,7 @@ describe('components/account/UserButtons', () => {
           addButton.trigger('click');
 
           await wrapper.vm.$nextTick();
-          wrapper.emitted('add').should.eql([[identifier]]);
+          expect(wrapper.emitted('add')).toEqual([[identifier]]);
         });
       });
     });
@@ -101,13 +101,13 @@ describe('components/account/UserButtons', () => {
 
       const likeButton = wrapper.find('[data-qa="like button"]');
 
-      likeButton.isVisible().should.be.true;
+      expect(likeButton.isVisible());
     });
 
-    context('when user is not logged in', () => {
+    describe('when user is not logged in', () => {
       const $auth = { loggedIn: false };
 
-      context('when pressed', () => {
+      describe('when pressed', () => {
         it('goes to login', () => {
           const wrapper = factory({ $auth, storeState: { liked: [], likesId: null } });
           wrapper.vm.keycloakLogin = sinon.spy();
@@ -115,15 +115,15 @@ describe('components/account/UserButtons', () => {
           const likeButton = wrapper.find('[data-qa="like button"]');
           likeButton.trigger('click');
 
-          wrapper.vm.keycloakLogin.should.have.been.called;
+          expect(wrapper.vm.keycloakLogin.called);
         });
       });
     });
 
-    context('when user is logged in', () => {
+    describe('when user is logged in', () => {
       const $auth = { loggedIn: true };
 
-      context('when an item is not yet liked', () => {
+      describe('when an item is not yet liked', () => {
         beforeEach(() => {
           storeIsLikedGetter.reset();
           storeIsLikedGetter.returns(false);
@@ -134,17 +134,17 @@ describe('components/account/UserButtons', () => {
 
           const likeButton = wrapper.find('[data-qa="like button"]');
 
-          likeButton.attributes('aria-pressed').should.eq('false');
+          expect(likeButton.attributes('aria-pressed')).toBe('false');
         });
 
-        context('when pressed', () => {
+        describe('when pressed', () => {
           it('dispatches to create likes set if needed', () => {
             const wrapper = factory({ $auth, storeState: { liked: [], likesId: null } });
 
             const likeButton = wrapper.find('[data-qa="like button"]');
             likeButton.trigger('click');
 
-            storeDispatch.should.have.been.calledWith('set/createLikes');
+            expect(storeDispatch.calledWith('set/createLikes'));
           });
 
           it('dispatches to add item to likes set', () => {
@@ -153,7 +153,7 @@ describe('components/account/UserButtons', () => {
             const likeButton = wrapper.find('[data-qa="like button"]');
             likeButton.trigger('click');
 
-            storeDispatch.should.have.been.calledWith('set/like', identifier);
+            expect(storeDispatch.calledWith('set/like', identifier));
           });
 
           it('emits "like" event', async() => {
@@ -163,12 +163,12 @@ describe('components/account/UserButtons', () => {
             likeButton.trigger('click');
 
             await wrapper.vm.$nextTick();
-            wrapper.emitted('like').should.eql([[identifier]]);
+            expect(wrapper.emitted('like')).toEqual([[identifier]]);
           });
         });
       });
 
-      context('and an item is already liked', () => {
+      describe('and an item is already liked', () => {
         beforeEach(() => {
           storeIsLikedGetter.reset();
           storeIsLikedGetter.returns(true);
@@ -179,17 +179,17 @@ describe('components/account/UserButtons', () => {
 
           const likeButton = wrapper.find('[data-qa="like button"]');
 
-          likeButton.attributes('aria-pressed').should.eq('true');
+          expect(likeButton.attributes('aria-pressed')).toBe('true');
         });
 
-        context('when pressed', () => {
+        describe('when pressed', () => {
           it('dispatches to remove item from likes set', () => {
             const wrapper = factory({ $auth, storeState: { liked: [identifier] } });
 
             const likeButton = wrapper.find('[data-qa="like button"]');
             likeButton.trigger('click');
 
-            storeDispatch.should.have.been.calledWith('set/unlike', identifier);
+            expect(storeDispatch.calledWith('set/unlike', identifier));
           });
 
           it('emits "unlike" event', async() => {
@@ -199,7 +199,7 @@ describe('components/account/UserButtons', () => {
             likeButton.trigger('click');
 
             await wrapper.vm.$nextTick();
-            wrapper.emitted('unlike').should.eql([[identifier]]);
+            expect(wrapper.emitted('unlike')).toEqual([[identifier]]);
           });
         });
       });
@@ -213,10 +213,10 @@ describe('components/account/UserButtons', () => {
 
       const pinButton = wrapper.find('[data-qa="pin button"]');
 
-      pinButton.isVisible().should.be.true;
+      expect(pinButton.isVisible());
     });
 
-    context('when item is not pinned', () => {
+    describe('when item is not pinned', () => {
       beforeEach(() => {
         storeIsPinnedGetter.returns(false);
       });
@@ -226,9 +226,9 @@ describe('components/account/UserButtons', () => {
         await wrapper.setProps({ showPins: true });
 
         const pinButton = wrapper.find('[data-qa="pin button"]');
-        pinButton.attributes('aria-pressed').should.eq('false');
+        expect(pinButton.attributes('aria-pressed')).toBe('false');
       });
-      context('when pressed', () => {
+      describe('when pressed', () => {
         it('shows the pin modal', async() => {
           const wrapper = factory();
           await wrapper.setProps({ showPins: true });
@@ -238,11 +238,11 @@ describe('components/account/UserButtons', () => {
 
           pinButton.trigger('click');
 
-          bvModalShow.should.have.been.calledWith(`pin-modal-${identifier}`);
+          expect(bvModalShow.calledWith(`pin-modal-${identifier}`));
         });
       });
     });
-    context('when item is pinned', () => {
+    describe('when item is pinned', () => {
       beforeEach(() => {
         storeIsPinnedGetter.returns(true);
       });
@@ -252,9 +252,9 @@ describe('components/account/UserButtons', () => {
         await wrapper.setProps({ showPins: true });
 
         const pinButton = wrapper.find('[data-qa="pin button"]');
-        pinButton.attributes('aria-pressed').should.eq('true');
+        expect(pinButton.attributes('aria-pressed')).toBe('true');
       });
-      context('when pressed', () => {
+      describe('when pressed', () => {
         it('shows the pin modal', async() => {
           const wrapper = factory();
           await wrapper.setProps({ showPins: true });
@@ -264,7 +264,7 @@ describe('components/account/UserButtons', () => {
 
           pinButton.trigger('click');
 
-          bvModalShow.should.have.been.calledWith(`pin-modal-${identifier}`);
+          expect(bvModalShow.calledWith(`pin-modal-${identifier}`));
         });
       });
     });

@@ -43,7 +43,7 @@ describe('components/search/MoreFiltersDropdown', () => {
       }
     });
 
-    wrapper.vm.selectedOptionsCount.should.eql(3);
+    expect(wrapper.vm.selectedOptionsCount).toEqual(3);
   });
 
   it('disables the apply button when nothing has been selected', async() => {
@@ -57,7 +57,7 @@ describe('components/search/MoreFiltersDropdown', () => {
       selected: {}
     });
 
-    wrapper.vm.selectedOptionsUnchanged.should.eql(true);
+    expect(wrapper.vm.selectedOptionsUnchanged).toEqual(true);
   });
 
   it('disables the apply button when nothing new has been selected', async() => {
@@ -74,7 +74,7 @@ describe('components/search/MoreFiltersDropdown', () => {
       }
     });
 
-    wrapper.vm.selectedOptionsUnchanged.should.eql(true);
+    expect(wrapper.vm.selectedOptionsUnchanged).toEqual(true);
   });
 
   it('enables the apply button when an option has been selected', async() => {
@@ -90,7 +90,7 @@ describe('components/search/MoreFiltersDropdown', () => {
       }
     });
 
-    wrapper.vm.selectedOptionsUnchanged.should.eql(false);
+    expect(wrapper.vm.selectedOptionsUnchanged).toEqual(false);
   });
 
   it('maps an array of more facet names', async() => {
@@ -119,7 +119,7 @@ describe('components/search/MoreFiltersDropdown', () => {
       ]
     });
 
-    wrapper.vm.moreFacetNames.should.eql(['LANGUAGE', 'PROVIDER']);
+    expect(wrapper.vm.moreFacetNames).toEqual(['LANGUAGE', 'PROVIDER']);
   });
 
   it('clones selected data', async() => {
@@ -130,7 +130,7 @@ describe('components/search/MoreFiltersDropdown', () => {
     };
 
     await wrapper.setProps({ selected });
-    wrapper.vm.preSelected.should.eql(selected);
+    expect(wrapper.vm.preSelected).toEqual(selected);
   });
 
   it('clears preselected data when user clicks Cancel button', async() => {
@@ -152,7 +152,7 @@ describe('components/search/MoreFiltersDropdown', () => {
 
     cancelButton.vm.$emit('click');
 
-    wrapper.vm.preSelected.should.deep.eql({ 'PROVIDER': ['OpenUp!'] });
+    expect(wrapper.vm.preSelected).toEqual({ 'PROVIDER': ['OpenUp!'] });
   });
 
   it('clears all preselected data when user clicks the Reset Filter button', async() => {
@@ -166,7 +166,7 @@ describe('components/search/MoreFiltersDropdown', () => {
 
     wrapper.vm.clearPreSelected();
 
-    wrapper.vm.preSelected.should.eql({ LANGUAGE: [] });
+    expect(wrapper.vm.preSelected).toEqual({ LANGUAGE: [] });
   });
 
   describe('dateFilterSelected()', () => {
@@ -177,7 +177,7 @@ describe('components/search/MoreFiltersDropdown', () => {
 
       wrapper.vm.dateFilterSelected(facetName, dateRange);
 
-      wrapper.vm.preSelected.should.eql({
+      expect(wrapper.vm.preSelected).toEqual({
         'proxy_dcterms_issued': ['[2019-12-07 TO *]']
       });
     });
@@ -187,7 +187,7 @@ describe('components/search/MoreFiltersDropdown', () => {
     it('returns empty `end` and `start` properties when `proxy_dcterms_issued` doesn`t exist in preSelected', () => {
       const wrapper = factory();
 
-      wrapper.vm.dateFilter.should.eql({
+      expect(wrapper.vm.dateFilter).toEqual({
         end: null,
         specific: false,
         start: null
@@ -203,7 +203,7 @@ describe('components/search/MoreFiltersDropdown', () => {
         }
       });
 
-      wrapper.vm.dateFilter.should.eql({
+      expect(wrapper.vm.dateFilter).toEqual({
         end: null,
         start: '2019-12-06'
       });
@@ -226,7 +226,7 @@ describe('components/search/MoreFiltersDropdown', () => {
         }
       });
 
-      wrapper.vm.filtersChanged.should.eql(['LANGUAGE', 'IMAGE_SIZE']);
+      expect(wrapper.vm.filtersChanged).toEqual(['LANGUAGE', 'IMAGE_SIZE']);
     });
 
     it('detects filters that have been removed', async() => {
@@ -241,7 +241,7 @@ describe('components/search/MoreFiltersDropdown', () => {
         }
       });
 
-      wrapper.vm.filtersChanged.should.eql(['LANGUAGE']);
+      expect(wrapper.vm.filtersChanged).toEqual(['LANGUAGE']);
     });
 
     it('detects filters that are unchanged', async() => {
@@ -257,7 +257,7 @@ describe('components/search/MoreFiltersDropdown', () => {
         }
       });
 
-      wrapper.vm.filtersChanged.should.eql([]);
+      expect(wrapper.vm.filtersChanged).toEqual([]);
     });
   });
 });

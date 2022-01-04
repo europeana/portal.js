@@ -2,21 +2,21 @@ import store, { defaultFacetNames } from '@/store/search';
 import sinon from 'sinon';
 
 describe('store/search', () => {
-  before('mock $i18n', () => {
+  beforeAll(() => {
     store.actions.$i18n = { locale: 'es' };
   });
 
   describe('getters', () => {
     describe('filters()', () => {
-      context('when collection param is absent', () => {
+      describe('when collection param is absent', () => {
         const collection = undefined;
 
         it('is false', () => {
-          store.getters.hasCollectionSpecificSettings({})(collection).should.be.false;
+          expect(store.getters.hasCollectionSpecificSettings({})(collection)).toBe(false);
         });
       });
 
-      context('with `null` query qf', () => {
+      describe('with `null` query qf', () => {
         it('returns {}', async() => {
           const state = {
             apiParams: {},
@@ -25,11 +25,11 @@ describe('store/search', () => {
             }
           };
 
-          store.getters.filters(state).should.eql({});
+          expect(store.getters.filters(state)).toEqual({});
         });
       });
 
-      context('with single query qf value', () => {
+      describe('with single query qf value', () => {
         it('returns it in an array on a property named for the facet', async() => {
           const state = {
             apiParams: {},
@@ -38,11 +38,11 @@ describe('store/search', () => {
             }
           };
 
-          store.getters.filters(state).should.deep.eql({ 'TYPE': ['"IMAGE"'] });
+          expect(store.getters.filters(state)).toEqual({ 'TYPE': ['"IMAGE"'] });
         });
       });
 
-      context('with multiple query qf values', () => {
+      describe('with multiple query qf values', () => {
         it('returns them in arrays on properties named for each facet', async() => {
           const query = { qf: ['TYPE:"IMAGE"', 'TYPE:"VIDEO"', 'REUSABILITY:open'] };
           const expected = { 'TYPE': ['"IMAGE"', '"VIDEO"'], 'REUSABILITY': ['open'] };
@@ -52,11 +52,11 @@ describe('store/search', () => {
             userParams: query
           };
 
-          store.getters.filters(state).should.deep.eql(expected);
+          expect(store.getters.filters(state)).toEqual(expected);
         });
       });
 
-      context('with reusability values', () => {
+      describe('with reusability values', () => {
         it('returns them in an array on REUSABILITY property', async() => {
           const query = { reusability: 'open,restricted' };
           const expected = { 'REUSABILITY': ['open', 'restricted'] };
@@ -66,11 +66,11 @@ describe('store/search', () => {
             userParams: query
           };
 
-          store.getters.filters(state).should.deep.eql(expected);
+          expect(store.getters.filters(state)).toEqual(expected);
         });
       });
 
-      context('with api value', () => {
+      describe('with api value', () => {
         it('returns it as a string on api property', async() => {
           const query = { api: 'metadata' };
           const expected = { 'api': 'metadata' };
@@ -80,11 +80,11 @@ describe('store/search', () => {
             userParams: {}
           };
 
-          store.getters.filters(state).should.deep.eql(expected);
+          expect(store.getters.filters(state)).toEqual(expected);
         });
       });
 
-      context('with query that has two colons', () => {
+      describe('with query that has two colons', () => {
         it('returns an array with a string seperated by a colon ', async() => {
           const query = { qf: 'DATA_PROVIDER:"Galiciana: Biblioteca Digital de Galicia"' };
           const expected = { 'DATA_PROVIDER': ['"Galiciana: Biblioteca Digital de Galicia"'] };
@@ -94,7 +94,7 @@ describe('store/search', () => {
             userParams: query
           };
 
-          store.getters.filters(state).should.deep.eql(expected);
+          expect(store.getters.filters(state)).toEqual(expected);
         });
       });
     });
@@ -105,49 +105,49 @@ describe('store/search', () => {
       };
       const getters = {};
 
-      context('when facet is REUSABILITY', () => {
-        context('with values selected', () => {
+      describe('when facet is REUSABILITY', () => {
+        describe('with values selected', () => {
           const selected = { 'REUSABILITY': ['open', 'permission'] };
           it('sets `reusability` to values joined with ","', () => {
             const updates = store.getters.queryUpdatesForFacetChanges(state, getters)(selected);
-            updates.reusability.should.eq('open,permission');
+            expect(updates.reusability).toBe('open,permission');
           });
         });
 
-        context('with no values selected', () => {
+        describe('with no values selected', () => {
           it('sets `reusability` to `null`', () => {
             const updates = store.getters.queryUpdatesForFacetChanges(state, getters)();
-            updates.should.eql({ qf: [], page: 1 });
+            expect(updates).toEqual({ qf: [], page: 1 });
           });
         });
       });
 
-      context('for default facets from search plugin supporting quotes', () => {
+      describe('for default facets from search plugin supporting quotes', () => {
         it('includes fielded and quoted queries for each value in `qf`', () => {
           const selected = { 'TYPE': ['"IMAGE"', '"SOUND"'] };
           const updates = store.getters.queryUpdatesForFacetChanges(state, getters)(selected);
-          updates.qf.should.include('TYPE:"IMAGE"');
-          updates.qf.should.include('TYPE:"SOUND"');
+          expect(updates.qf).toContain('TYPE:"IMAGE"');
+          expect(updates.qf).toContain('TYPE:"SOUND"');
         });
       });
 
-      context('for default facets from search plugin not supporting quotes', () => {
+      describe('for default facets from search plugin not supporting quotes', () => {
         it('includes fielded but unquoted queries for each value in `qf`', () => {
           const selected = { 'MIME_TYPE': ['application/pdf'] };
           const updates = store.getters.queryUpdatesForFacetChanges(state, getters)(selected);
-          updates.qf.should.include('MIME_TYPE:application/pdf');
+          expect(updates.qf).toContain('MIME_TYPE:application/pdf');
         });
       });
 
-      context('for any other facets', () => {
+      describe('for any other facets', () => {
         it('includes fielded but unquoted queries for each value in `qf`', () => {
           const selected = { 'contentTier': ['4'] };
           const updates = store.getters.queryUpdatesForFacetChanges(state, getters)(selected);
-          updates.qf.should.include('contentTier:4');
+          expect(updates.qf).toContain('contentTier:4');
         });
       });
 
-      context('in a collection having custom filters', () => {
+      describe('in a collection having custom filters', () => {
         const state = {
           userParams: {
             qf: ['proxy_dcterms_issued:1900-01-01']
@@ -163,12 +163,12 @@ describe('store/search', () => {
 
           const updates = store.getters.queryUpdatesForFacetChanges(state, getters)(selected);
 
-          updates.qf.should.include('proxy_dcterms_issued:1900-01-02');
-          updates.api.should.eq('metadata');
+          expect(updates.qf).toContain('proxy_dcterms_issued:1900-01-02');
+          expect(updates.api).toBe('metadata');
         });
       });
 
-      context('with collection-specific facets already selected', () => {
+      describe('with collection-specific facets already selected', () => {
         const state = {
           resettableFilters: ['collection', 'CREATOR', 'TYPE']
         };
@@ -181,94 +181,94 @@ describe('store/search', () => {
           collection: 'fashion'
         };
 
-        context('when collection is changed', () => {
+        describe('when collection is changed', () => {
           const selected = { 'collection': 'art' };
 
           it('removes collection-specific facet filters', () => {
             const updates = store.getters.queryUpdatesForFacetChanges(state, getters)(selected);
 
-            updates.qf.should.not.include('CREATOR:"Missoni (Designer)"');
+            expect(updates.qf).not.toContain('CREATOR:"Missoni (Designer)"');
           });
 
           it('preserves generic facet filters', () => {
             const updates = store.getters.queryUpdatesForFacetChanges(state, getters)(selected);
 
-            updates.qf.should.include('TYPE:"IMAGE"');
+            expect(updates.qf).toContain('TYPE:"IMAGE"');
           });
 
           it('removes tier filter', () => {
             const updates = store.getters.queryUpdatesForFacetChanges(state, getters)(selected);
 
-            updates.qf.should.not.include('contentTier:*');
+            expect(updates.qf).not.toContain('contentTier:*');
           });
         });
 
-        context('when collection is removed', () => {
+        describe('when collection is removed', () => {
           const selected = { 'collection': null };
 
           it('removes collection-specific facet filters', () => {
             const updates = store.getters.queryUpdatesForFacetChanges(state, getters)(selected);
 
-            updates.qf.should.not.include('CREATOR:"Missoni (Designer)"');
+            expect(updates.qf).not.toContain('CREATOR:"Missoni (Designer)"');
           });
 
           it('preserves generic facet filters', () => {
             const updates = store.getters.queryUpdatesForFacetChanges(state, getters)(selected);
 
-            updates.qf.should.include('TYPE:"IMAGE"');
+            expect(updates.qf).toContain('TYPE:"IMAGE"');
           });
         });
       });
     });
 
     describe('hasCollectionSpecificSettings', () => {
-      context('when collection param is absent', () => {
+      describe('when collection param is absent', () => {
         const collection = undefined;
 
         it('is false', () => {
-          store.getters.hasCollectionSpecificSettings({})(collection).should.be.false;
+          expect(store.getters.hasCollectionSpecificSettings({})(collection)).toBe(false);
         });
       });
 
-      context('when collection param is present', () => {
+      describe('when collection param is present', () => {
         const collection = 'music';
 
-        context('when rootState has collection store for the collection', () => {
-          context('with `enabled` property', () => {
-            context('that is enabled', () => {
+        describe('when rootState has collection store for the collection', () => {
+          describe('with `enabled` property', () => {
+            describe('that is enabled', () => {
               const rootState = { collections: { [collection]: { enabled: true } } };
               it('is true', () => {
-                store.getters.hasCollectionSpecificSettings({}, {}, rootState)(collection).should.be.true;
+                expect(store.getters.hasCollectionSpecificSettings({}, {}, rootState)(collection));
               });
             });
 
-            context('that is disabled', () => {
+            describe('that is disabled', () => {
               const rootState = { collections: { [collection]: { enabled: false } } };
               it('is false', () => {
-                store.getters.hasCollectionSpecificSettings({}, {}, rootState)(collection).should.be.false;
+                expect(store.getters.hasCollectionSpecificSettings({}, {}, rootState)(collection)).toBe(false);
               });
             });
           });
 
-          context('without `enabled` property', () => {
+          describe('without `enabled` property', () => {
             const rootState = { collections: { [collection]: {} } };
             it('is true', () => {
-              store.getters.hasCollectionSpecificSettings({}, {}, rootState)(collection).should.be.true;
+              expect(store.getters.hasCollectionSpecificSettings({}, {}, rootState)(collection));
             });
           });
         });
 
-        context('when rootState lacks collection store for the collection', () => {
+        describe('when rootState lacks collection store for the collection', () => {
           const rootState = { collections: {} };
           it('is false', () => {
-            store.getters.hasCollectionSpecificSettings({}, {}, rootState)(collection).should.be.false;
+            expect(store.getters.hasCollectionSpecificSettings({}, {}, rootState)(collection)).toBe(false);
           });
         });
       });
     });
 
     describe('apiParamsChanged', () => {
-      context('with params added', () => {
+      describe('with params added', () => {
         it('returns their names', () => {
           const state = {
             previousApiParams: {
@@ -282,11 +282,11 @@ describe('store/search', () => {
 
           const apiParamsChanged = store.getters.apiParamsChanged(state);
 
-          apiParamsChanged.should.eql(['qf']);
+          expect(apiParamsChanged).toEqual(['qf']);
         });
       });
 
-      context('with params removed', () => {
+      describe('with params removed', () => {
         it('returns their names', () => {
           const state = {
             previousApiParams: {
@@ -300,11 +300,11 @@ describe('store/search', () => {
 
           const apiParamsChanged = store.getters.apiParamsChanged(state);
 
-          apiParamsChanged.should.eql(['qf']);
+          expect(apiParamsChanged).toEqual(['qf']);
         });
       });
 
-      context('without changed params', () => {
+      describe('without changed params', () => {
         it('returns their names', () => {
           const state = {
             previousApiParams: {
@@ -319,13 +319,13 @@ describe('store/search', () => {
 
           const apiParamsChanged = store.getters.apiParamsChanged(state);
 
-          apiParamsChanged.should.eql([]);
+          expect(apiParamsChanged).toEqual([]);
         });
       });
     });
 
     describe('itemUpdateNeeded', () => {
-      context('without previous API params', () => {
+      describe('without previous API params', () => {
         const previousApiParams = null;
 
         it('is `true`', () => {
@@ -333,17 +333,17 @@ describe('store/search', () => {
             { previousApiParams }
           );
 
-          itemUpdateNeeded.should.be.true;
+          expect(itemUpdateNeeded);
         });
       });
 
-      context('with previous API params', () => {
+      describe('with previous API params', () => {
         const previousApiParams = {
           query: '*:*'
         };
 
         for (const param of ['query', 'qf', 'reusability', 'api', 'page']) {
-          context(`when ${param} param changes`, () => {
+          describe(`when ${param} param changes`, () => {
             it('is `true`', () => {
               const apiParamsChanged = [param];
 
@@ -352,13 +352,13 @@ describe('store/search', () => {
                 { apiParamsChanged }
               );
 
-              itemUpdateNeeded.should.be.true;
+              expect(itemUpdateNeeded);
             });
           });
         }
 
         for (const param of ['view']) {
-          context(`when ${param} param changes`, () => {
+          describe(`when ${param} param changes`, () => {
             it('is `false`', () => {
               const apiParamsChanged = [param];
 
@@ -367,7 +367,7 @@ describe('store/search', () => {
                 { apiParamsChanged }
               );
 
-              itemUpdateNeeded.should.be.false;
+              expect(itemUpdateNeeded).toBe(false);
             });
           });
         }
@@ -375,7 +375,7 @@ describe('store/search', () => {
     });
 
     describe('facetUpdateNeeded', () => {
-      context('without previous API params', () => {
+      describe('without previous API params', () => {
         const previousApiParams = null;
 
         it('is `true`', () => {
@@ -383,17 +383,17 @@ describe('store/search', () => {
             { previousApiParams }
           );
 
-          facetUpdateNeeded.should.be.true;
+          expect(facetUpdateNeeded);
         });
       });
 
-      context('with previous API params', () => {
+      describe('with previous API params', () => {
         const previousApiParams = {
           query: '*:*'
         };
 
         for (const param of ['query', 'qf', 'reusability', 'api']) {
-          context(`when ${param} param changes`, () => {
+          describe(`when ${param} param changes`, () => {
             it('is `true`', () => {
               const apiParamsChanged = [param];
 
@@ -402,13 +402,13 @@ describe('store/search', () => {
                 { apiParamsChanged }
               );
 
-              facetUpdateNeeded.should.be.true;
+              expect(facetUpdateNeeded);
             });
           });
         }
 
         for (const param of ['page', 'view']) {
-          context(`when ${param} param changes`, () => {
+          describe(`when ${param} param changes`, () => {
             it('is `false`', () => {
               const apiParamsChanged = [param];
 
@@ -417,7 +417,7 @@ describe('store/search', () => {
                 { apiParamsChanged }
               );
 
-              facetUpdateNeeded.should.be.false;
+              expect(facetUpdateNeeded).toBe(false);
             });
           });
         }
@@ -434,7 +434,7 @@ describe('store/search', () => {
 
           const escape = store.getters.searchOptions(state).escape;
 
-          escape.should.be.true;
+          expect(escape);
         });
 
         it('is `true` when override params has query and user params query is blank', () => {
@@ -445,7 +445,7 @@ describe('store/search', () => {
 
           const escape = store.getters.searchOptions(state).escape;
 
-          escape.should.be.true;
+          expect(escape);
         });
 
         it('is `false` when override params has no query', () => {
@@ -456,7 +456,7 @@ describe('store/search', () => {
 
           const escape = store.getters.searchOptions(state).escape;
 
-          escape.should.be.false;
+          expect(escape).toBe(false);
         });
       });
     });
@@ -469,7 +469,7 @@ describe('store/search', () => {
 
         await store.actions.run({ dispatch, getters: {} });
 
-        dispatch.should.have.been.calledWith('deriveApiSettings');
+        expect(dispatch.calledWith('deriveApiSettings'));
       });
 
       it('queries for items and facets if needed', async() => {
@@ -477,8 +477,8 @@ describe('store/search', () => {
 
         await store.actions.run({ dispatch, getters: { itemUpdateNeeded: true, facetUpdateNeeded: true } });
 
-        dispatch.should.have.been.calledWith('queryItems');
-        dispatch.should.have.been.calledWith('queryFacets');
+        expect(dispatch.calledWith('queryItems'));
+        expect(dispatch.calledWith('queryFacets'));
       });
 
       it('omits query for items if not needed', async() => {
@@ -486,8 +486,8 @@ describe('store/search', () => {
 
         await store.actions.run({ dispatch, getters: { itemUpdateNeeded: false, facetUpdateNeeded: true } });
 
-        dispatch.should.not.have.been.calledWith('queryItems');
-        dispatch.should.been.calledWith('queryFacets');
+        expect(dispatch.calledWith('queryItems')).toBe(false);
+        expect(dispatch.calledWith('queryFacets'));
       });
 
       it('omits query for facets if not needed', async() => {
@@ -495,8 +495,8 @@ describe('store/search', () => {
 
         await store.actions.run({ dispatch, getters: { itemUpdateNeeded: true, facetUpdateNeeded: false } });
 
-        dispatch.should.have.been.calledWith('queryItems');
-        dispatch.should.not.have.been.calledWith('queryFacets');
+        expect(dispatch.calledWith('queryItems'));
+        expect(dispatch.calledWith('queryFacets')).toBe(false);
       });
 
       it('omits query for facets if explicitly skipped', async() => {
@@ -504,7 +504,7 @@ describe('store/search', () => {
 
         await store.actions.run({ dispatch, getters: { facetUpdateNeeded: true } }, { skipFacets: true });
 
-        dispatch.should.not.have.been.calledWith('queryFacets');
+        expect(dispatch.calledWith('queryFacets')).toBe(false);
       });
     });
 
@@ -524,10 +524,10 @@ describe('store/search', () => {
 
         await store.actions.queryItems({ dispatch, state, getters });
 
-        store.actions.$apis.record.search.should.have.been.called;
+        expect(store.actions.$apis.record.search.called);
       });
 
-      context('on success', () => {
+      describe('on success', () => {
         it('dispatches updateForSuccess', async() => {
           const dispatch = sinon.spy();
           const state = {};
@@ -540,11 +540,11 @@ describe('store/search', () => {
 
           await store.actions.queryItems({ dispatch, state, getters });
 
-          dispatch.should.have.been.calledWith('updateForSuccess');
+          expect(dispatch.calledWith('updateForSuccess'));
         });
       });
 
-      context('on failure', () => {
+      describe('on failure', () => {
         it('dispatches updateForFailure', async() => {
           const dispatch = sinon.spy();
           const state = {};
@@ -557,13 +557,9 @@ describe('store/search', () => {
 
           await store.actions.queryItems({ dispatch, state, getters });
 
-          dispatch.should.have.been.calledWith('updateForFailure');
+          expect(dispatch.calledWith('updateForFailure'));
         });
       });
-    });
-
-    describe('applyCollectionSpecificSettings', () => {
-      it('TODO');
     });
 
     describe('deriveApiSettings', () => {
@@ -590,7 +586,7 @@ describe('store/search', () => {
 
         await store.actions.deriveApiSettings({ commit, dispatch, state, getters, rootGetters });
 
-        commit.should.have.been.calledWith('set', [
+        expect(commit.calledWith('set', [
           'apiParams',
           {
             query: userQuery,
@@ -598,7 +594,7 @@ describe('store/search', () => {
             profile,
             facet
           }
-        ]);
+        ]));
       });
     });
 
@@ -610,7 +606,7 @@ describe('store/search', () => {
 
         await store.actions.setResettableFilter({ commit }, { name, selected });
 
-        commit.should.have.been.calledWith('removeResettableFilter', name);
+        expect(commit.calledWith('removeResettableFilter', name));
       });
 
       it('commits removeResettableFilter for falsy values', async() => {
@@ -620,7 +616,7 @@ describe('store/search', () => {
 
         await store.actions.setResettableFilter({ commit }, { name, selected });
 
-        commit.should.have.been.calledWith('removeResettableFilter', name);
+        expect(commit.calledWith('removeResettableFilter', name));
       });
 
       it('commits addResettableFilter for non-empty arrays', async() => {
@@ -630,7 +626,7 @@ describe('store/search', () => {
 
         await store.actions.setResettableFilter({ commit }, { name, selected });
 
-        commit.should.have.been.calledWith('addResettableFilter', name);
+        expect(commit.calledWith('addResettableFilter', name));
       });
 
       it('commits addResettableFilter for truthy values', async() => {
@@ -640,7 +636,7 @@ describe('store/search', () => {
 
         await store.actions.setResettableFilter({ commit }, { name, selected });
 
-        commit.should.have.been.calledWith('addResettableFilter', name);
+        expect(commit.calledWith('addResettableFilter', name));
       });
     });
   });
@@ -667,7 +663,7 @@ describe('store/search', () => {
         ];
 
         store.mutations.setFacets(state, unquotedFacets);
-        state.facets.should.eql(quotedFacets);
+        expect(state.facets).toEqual(quotedFacets);
       });
 
       it('escapes Lucene special characters', () => {
@@ -690,7 +686,7 @@ describe('store/search', () => {
         ];
 
         store.mutations.setFacets(state, unescapedFacets);
-        state.facets.should.eql(escapedFacets);
+        expect(state.facets).toEqual(escapedFacets);
       });
     });
   });

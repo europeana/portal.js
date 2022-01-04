@@ -31,51 +31,51 @@ describe('components/entity/EntityDetails', () => {
   it('shows a label', () => {
     const wrapper = factory(entityDetails);
 
-    wrapper.find('[data-qa="entity label"]').text().should.eq('Person');
+    expect(wrapper.find('[data-qa="entity label"]').text()).toBe('Person');
   });
 
   it('shows a title and description', () => {
     const wrapper = factory(entityDetails);
 
-    wrapper.find('[data-qa="entity title"]').text().should.eq('Book');
-    wrapper.find('[data-qa="entity title"]').attributes('lang').should.eq('en');
-    wrapper.text().should.contain(entityDetails.description.values[0]);
+    expect(wrapper.find('[data-qa="entity title"]').text()).toBe('Book');
+    expect(wrapper.find('[data-qa="entity title"]').attributes('lang')).toBe('en');
+    expect(wrapper.text()).toContain(entityDetails.description.values[0]);
   });
 
   it('shows a description and title only', () => {
     const wrapper = factory({ 'description': entityDetails.description, title: entityDetails.title, contextLabel: entityDetails.contextLabel });
 
-    wrapper.findAll('img').length.should.eq(0);
-    wrapper.text().should.contain(entityDetails.description.values[0]);
-    wrapper.find('[data-qa="entity title"]').text().should.eq('Book');
-    wrapper.find('[data-qa="entity title"]').attributes('lang').should.eq('en');
+    expect(wrapper.findAll('img').length).toBe(0);
+    expect(wrapper.text()).toContain(entityDetails.description.values[0]);
+    expect(wrapper.find('[data-qa="entity title"]').text()).toBe('Book');
+    expect(wrapper.find('[data-qa="entity title"]').attributes('lang')).toBe('en');
   });
 
   it('shows a title only', () => {
     const wrapper = factory({ title: entityDetails.title, contextLabel: entityDetails.contextLabel });
 
-    wrapper.text().should.not.contain(entityDetails.description.values[0]);
-    wrapper.find('[data-qa="entity title"]').text().should.eq('Book');
-    wrapper.find('[data-qa="entity title"]').attributes('lang').should.eq('en');
+    expect(wrapper.text()).not.toContain(entityDetails.description.values[0]);
+    expect(wrapper.find('[data-qa="entity title"]').text()).toBe('Book');
+    expect(wrapper.find('[data-qa="entity title"]').attributes('lang')).toBe('en');
   });
 
   it('does not show a show more button', () => {
     const wrapper = factory(entityDetails);
-    wrapper.findAll('button[data-qa="entity show link"]').length.should.eq(0);
+    expect(wrapper.findAll('button[data-qa="entity show link"]').length).toBe(0);
   });
 
   it('shows a show more button', () => {
     const longDescription = entityDetails.description.values[0] + entityDetails.description.values[0] + entityDetails.description.values[0];
     const wrapper = factory({ description: { values: [longDescription], code: 'en' }, title: entityDetails.title, contextLabel: entityDetails.contextLabel });
 
-    wrapper.findAll('button[data-qa="entity show link"]').length.should.eq(1);
+    expect(wrapper.findAll('button[data-qa="entity show link"]').length).toBe(1);
   });
 
   it('shows a logo', () => {
     entityDetails.logo = 'http://commons.wikimedia.org/wiki/Special:FilePath/Uni-Leiden-seal.png';
 
     const wrapper = factory(entityDetails);
-    wrapper.findAll('[data-qa="entity logo"]').exists().should.be.true;
+    expect(wrapper.findAll('[data-qa="entity logo"]').exists());
   });
 
   describe('external link', () => {
@@ -83,15 +83,15 @@ describe('components/entity/EntityDetails', () => {
       entityDetails.externalLink = 'https://historymuseum.org/en/';
 
       const wrapper = factory(entityDetails);
-      wrapper.findAll('[data-qa="entity external link"]').exists().should.be.true;
-      wrapper.find('[data-qa="entity external link"] a').attributes('href').should.eq(entityDetails.externalLink);
+      expect(wrapper.findAll('[data-qa="entity external link"]').exists());
+      expect(wrapper.find('[data-qa="entity external link"] a').attributes('href')).toBe(entityDetails.externalLink);
     });
     it('shows a stripped link text', () => {
       entityDetails.externalLink = 'https://historymuseum.org/en/';
 
       const wrapper = factory(entityDetails);
-      wrapper.findAll('[data-qa="entity external link"]').exists().should.be.true;
-      wrapper.find('[data-qa="entity external link"] a span:first-child').text().should.eq('historymuseum.org/en/');
+      expect(wrapper.findAll('[data-qa="entity external link"]').exists());
+      expect(wrapper.find('[data-qa="entity external link"] a span:first-child').text()).toBe('historymuseum.org/en/');
     });
   });
 });

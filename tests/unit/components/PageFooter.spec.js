@@ -45,20 +45,20 @@ describe('components/PageFooter', () => {
     });
     const selector = wrapper.find('[data-qa="language selector"]');
 
-    selector.isVisible().should.equal(true);
+    expect(selector.isVisible());
   });
   it('retrieves the correct navigation data', () => {
     const wrapper = factory();
     const links = wrapper.vm.footerMoreInfo.links;
 
-    links.some(link => link.text === 'footer.navigation.about').should.be.true;
+    expect(links.some(link => link.text === 'footer.navigation.about'));
   });
 
   describe('debug menu', () => {
     it('is not shown by default', () => {
       const wrapper = factory();
 
-      wrapper.vm.showDebugMenu.should.be.false;
+      expect(wrapper.vm.showDebugMenu).toBe(false);
     });
 
     it('is shown if enabled in debug settings', () => {
@@ -66,7 +66,7 @@ describe('components/PageFooter', () => {
 
       store.commit('applySettings', { apiRequests: true });
 
-      wrapper.vm.showDebugMenu.should.be.true;
+      expect(wrapper.vm.showDebugMenu);
     });
   });
 });

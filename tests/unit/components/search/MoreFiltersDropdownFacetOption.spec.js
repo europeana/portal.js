@@ -26,13 +26,13 @@ describe('components/search/MoreFiltersDropdownFacetOption', () => {
         facetName: 'COLOURPALETTE'
       });
 
-      wrapper.vm.forColourPalette.should.be.true;
+      expect(wrapper.vm.forColourPalette);
     });
 
     it('is false for other facets', () => {
       const wrapper = factory();
 
-      wrapper.vm.forColourPalette.should.be.false;
+      expect(wrapper.vm.forColourPalette).toBe(false);
     });
   });
 
@@ -40,7 +40,7 @@ describe('components/search/MoreFiltersDropdownFacetOption', () => {
     it('is derived from index and facet name', () => {
       const wrapper = factory();
 
-      wrapper.vm.fieldLabelId.should.eq('facet-field-LANGUAGE-5');
+      expect(wrapper.vm.fieldLabelId).toBe('facet-field-LANGUAGE-5');
     });
   });
 });

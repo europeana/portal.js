@@ -24,34 +24,34 @@ const annotations = [
 describe('store/item', () => {
   describe('getters', () => {
     describe('annotationsByMotivation()', () => {
-      context('when there are annotations', () => {
+      describe('when there are annotations', () => {
         const state = {
           annotations
         };
-        context('when asking for tagging annotations', () => {
+        describe('when asking for tagging annotations', () => {
           const taggingAnnotations = store.getters.annotationsByMotivation(state)('tagging');
-          taggingAnnotations[0].motivation.should.eq('tagging');
-          taggingAnnotations.length.should.eq(1);
+          expect(taggingAnnotations[0].motivation).toBe('tagging');
+          expect(taggingAnnotations.length).toBe(1);
         });
-        context('when asking for transcribing annotations', () => {
+        describe('when asking for transcribing annotations', () => {
           const taggingAnnotations = store.getters.annotationsByMotivation(state)('transcribing');
-          taggingAnnotations[0].motivation.should.eq('transcribing');
-          taggingAnnotations.length.should.eq(1);
+          expect(taggingAnnotations[0].motivation).toBe('transcribing');
+          expect(taggingAnnotations.length).toBe(1);
         });
       });
     });
   });
 
   describe('actions', () => {
-    describe('reset', async() => {
+    describe('reset', () => {
       it('resets all values', async() => {
         const commit = sinon.spy();
 
         await store.actions.reset({ commit });
 
-        commit.should.have.been.calledWith('setAnnotations', []);
-        commit.should.have.been.calledWith('setRelatedEntities', []);
-        commit.should.have.been.calledWith('setSimilarItems', []);
+        expect(commit.calledWith('setAnnotations', []));
+        expect(commit.calledWith('setRelatedEntities', []));
+        expect(commit.calledWith('setSimilarItems', []));
       });
     });
   });
@@ -61,7 +61,7 @@ describe('store/item', () => {
       it('sets the annotations state', () => {
         const state = { annotations: [] };
         store.mutations.setAnnotations(state, annotations);
-        state.annotations.should.eql(annotations);
+        expect(state.annotations).toEqual(annotations);
       });
     });
     describe('setRelatedEntities()', () => {
@@ -69,7 +69,7 @@ describe('store/item', () => {
         const relatedEntities = ['related'];
         const state = { relatedEntities: [] };
         store.mutations.setRelatedEntities(state, relatedEntities);
-        state.relatedEntities.should.eql(relatedEntities);
+        expect(state.relatedEntities).toEqual(relatedEntities);
       });
     });
     describe('setSimilarItems()', () => {
@@ -77,7 +77,7 @@ describe('store/item', () => {
         const similarItems = ['similar'];
         const state = { similarItems: [] };
         store.mutations.setSimilarItems(state, similarItems);
-        state.similarItems.should.eql(similarItems);
+        expect(state.similarItems).toEqual(similarItems);
       });
     });
   });

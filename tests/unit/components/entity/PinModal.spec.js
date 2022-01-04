@@ -51,7 +51,7 @@ describe('components/entity/PinModal', () => {
     const wrapper = factory({ itemId: id, pinned: false });
     const modalText = wrapper.text();
     myLogger(modalText);
-    modalText.should.include('Are you sure you want to pin this item?');
+    expect(modalText).toContain('Are you sure you want to pin this item?');
   });
 
   describe('cancel button', () => {
@@ -61,7 +61,7 @@ describe('components/entity/PinModal', () => {
 
       wrapper.find('[data-qa="cancel button"]').trigger('click');
 
-      bvModalHide.should.have.been.calledWith(`pin-modal-${id}`);
+      expect(bvModalHide.calledWith(`pin-modal-${id}`));
     });
 
     it('does not update pinned set', () => {
@@ -69,7 +69,7 @@ describe('components/entity/PinModal', () => {
 
       wrapper.find('[data-qa="cancel button"]').trigger('click');
 
-      storeDispatch.should.not.have.been.called;
+      expect(storeDispatch.called).toBe(false);
     });
   });
 
@@ -78,14 +78,14 @@ describe('components/entity/PinModal', () => {
       const wrapper = factory({ itemId: id, modalId: 'pin-modal-/123/abc' });
       wrapper.find('[data-qa="toggle pin button"]').trigger('click');
 
-      storeDispatch.should.have.been.calledWith('entity/pin', id);
+      expect(storeDispatch.calledWith('entity/pin', id));
     });
     it('unpins item when already pinned', () => {
       const wrapper = factory({ itemId: id, modalId: 'pin-modal-/123/abc', pinned: true });
 
       wrapper.find('[data-qa="toggle pin button"]').trigger('click');
 
-      storeDispatch.should.have.been.calledWith('entity/unpin', id);
+      expect(storeDispatch.calledWith('entity/unpin', id));
     });
     it('hides the modal', async() => {
       const wrapper = factory({ itemId: id, modalId: 'pin-modal-/123/abc' });
@@ -93,7 +93,7 @@ describe('components/entity/PinModal', () => {
 
       await wrapper.find('[data-qa="toggle pin button"]').trigger('click');
 
-      bvModalHide.should.have.been.calledWith(`pin-modal-${id}`);
+      expect(bvModalHide.calledWith(`pin-modal-${id}`));
     });
 
     it('makes toast', async() => {
@@ -102,7 +102,7 @@ describe('components/entity/PinModal', () => {
 
       await wrapper.find('[data-qa="toggle pin button"]').trigger('click');
 
-      rootBvToast.should.have.been.calledWith('The item has been pinned. It might take up to 24 hours to appear for everyone.');
+      expect(rootBvToast.calledWith('The item has been pinned. It might take up to 24 hours to appear for everyone.'));
     });
   });
 });

@@ -16,7 +16,7 @@ const factory = () => shallowMount(component, {
 const fields = ['name', 'url'];
 
 describe('mixins/contentful/sidebar', () => {
-  before('supply fake contentful extension', () => {
+  beforeAll(() => {
     window.contentfulExtension = fakeContentfulExtension(fields);
   });
 
@@ -25,7 +25,7 @@ describe('mixins/contentful/sidebar', () => {
       const wrapper = factory();
 
       for (const field of ['contentfulExtensionSdk', 'entry', 'message']) {
-        (wrapper.vm[field] === undefined).should.not.be.true;
+        expect(wrapper.vm[field] === undefined).not;
       }
     });
   });
@@ -34,10 +34,10 @@ describe('mixins/contentful/sidebar', () => {
     it('sets entry with all expected fields from the SDK', async() => {
       const wrapper = factory();
       const extensionSdk = wrapper.vm.contentfulExtensionSdk;
-      extensionSdk.should.exist;
+      expect(extensionSdk).exist;
       const entry = wrapper.vm.entry;
 
-      Object.keys(entry.fields).should.eql(fields);
+      expect(Object.keys(entry.fields)).toEqual(fields);
     });
   });
 
@@ -46,8 +46,8 @@ describe('mixins/contentful/sidebar', () => {
       it('uses a contentful dialog and sets the message to failed', () => {
         const wrapper = factory();
         wrapper.vm.showError('this is the message');
-        wrapper.vm.contentfulExtensionSdk.dialogs.openAlert.should.have.been.calledWith({ title: 'Error', message: 'this is the message' });
-        wrapper.vm.message.should.eq('Failed');
+        expect(wrapper.vm.contentfulExtensionSdk.dialogs.openAlert.calledWith({ title: 'Error', message: 'this is the message' }));
+        expect(wrapper.vm.message).toBe('Failed');
       });
     });
   });

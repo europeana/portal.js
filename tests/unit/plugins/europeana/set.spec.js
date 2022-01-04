@@ -67,7 +67,7 @@ describe('describe./@/plugins/europeana/set', () => {
         .reply(200, setsResponse[0]);
 
       const response = await set({ $config }).get(setId);
-      response.items.should.deep.equal(['item-1', 'item-2']);
+      expect(response.items).toEqual(['item-1', 'item-2']);
     });
 
     it('includes the axios default params', async() => {
@@ -78,7 +78,7 @@ describe('describe./@/plugins/europeana/set', () => {
         .reply(200);
 
       await set({ $config }).get(setId);
-      nock.isDone().should.be.true;
+      expect(nock.isDone());
     });
   });
 
@@ -90,7 +90,7 @@ describe('describe./@/plugins/europeana/set', () => {
         .reply(200, searchResponse);
 
       const response = await set({ $config }).getLikes('auth-user-sub');
-      response.should.eq('http://data.europeana.eu/set/163');
+      expect(response).toBe('http://data.europeana.eu/set/163');
     });
   });
 
@@ -102,7 +102,7 @@ describe('describe./@/plugins/europeana/set', () => {
         .reply(200, likesResponse);
 
       const response = await set({ $config }).createLikes();
-      response.id.should.eq('http://data.europeana.eu/set/1234');
+      expect(response.id).toBe('http://data.europeana.eu/set/1234');
     });
   });
 
@@ -113,7 +113,7 @@ describe('describe./@/plugins/europeana/set', () => {
         .query(true)
         .reply(200, likesResponse);
       const response =  await set({ $config }).modifyItems('add', setId, itemId);
-      response.id.should.eq('http://data.europeana.eu/set/1234');
+      expect(response.id).toBe('http://data.europeana.eu/set/1234');
     });
   });
 
@@ -125,7 +125,7 @@ describe('describe./@/plugins/europeana/set', () => {
         .reply(204);
 
       await set({ $config }).deleteSet(setId);
-      nock.isDone().should.be.true;
+      expect(nock.isDone());
     });
   });
 
@@ -141,7 +141,7 @@ describe('describe./@/plugins/europeana/set', () => {
 
       const thumbnail = set().getSetThumbnail(setData);
 
-      thumbnail.should.equal('http://www.example.org/image.jpg');
+      expect(thumbnail).toBe('http://www.example.org/image.jpg');
     });
   });
 });

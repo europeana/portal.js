@@ -19,7 +19,7 @@ describe('plugins/europeana/entity', () => {
 
       await annotation().search({ query: apiQuery });
 
-      nock.isDone().should.be.true;
+      expect(nock.isDone());
     });
   });
 });

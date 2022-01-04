@@ -81,7 +81,7 @@ const config = {
 };
 
 describe('cachers/collections/index', () => {
-  beforeEach('stub utility methods', () => {
+  beforeEach(() => {
     nock(config.europeana.apis.entity.url)
       .get('/search')
       .query(query => query.type === ENTITY_TYPE && query.scope === ENTITY_SCOPE && query.page === '0')
@@ -96,7 +96,7 @@ describe('cachers/collections/index', () => {
       .reply(200, apiResponse.pageThree);
   });
 
-  afterEach('restore utility methods', () => {
+  afterEach(() => {
     nock.cleanAll();
   });
 
@@ -104,13 +104,13 @@ describe('cachers/collections/index', () => {
     it('paginates over data', async() => {
       await cacher(params, config);
 
-      nock.isDone().should.be.true;
+      expect(nock.isDone());
     });
 
     it('returns data to cache, with numeric sorting', async() => {
       const data = await cacher(params, config);
 
-      data.should.eql(dataToCache);
+      expect(data).toEqual(dataToCache);
     });
   });
 });

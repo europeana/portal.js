@@ -76,7 +76,7 @@ describe('pages/item/_.vue', () => {
     const $apis = { record: { getRecord: sinon.stub().resolves({ record }) } };
     const app = { i18n: { locale: 'en' } };
 
-    context('when the page is loaded without a metadataLanguage', () => {
+    describe('when the page is loaded without a metadataLanguage', () => {
       const route = { query: {} };
 
       it('gets a record from the API for the ID in the params pathMatch, for the current locale', async() => {
@@ -84,11 +84,11 @@ describe('pages/item/_.vue', () => {
 
         const response = await wrapper.vm.asyncData({ params, app, route, $apis });
 
-        $apis.record.getRecord.should.have.been.calledWith('/123/abc', { locale: 'en', metadataLanguage: undefined });
-        response.should.eql(record);
+        expect($apis.record.getRecord.calledWith('/123/abc', { locale: 'en', metadataLanguage: undefined }));
+        expect(response).toEqual(record);
       });
     });
-    context('when the page is loaded with a metadataLanguage', () => {
+    describe('when the page is loaded with a metadataLanguage', () => {
       const route = { query: { lang: 'fr' } };
 
       it('gets a record from the API for the ID in the params pathMatch, with metadataLanguage from `lang` query', async() => {
@@ -96,8 +96,8 @@ describe('pages/item/_.vue', () => {
 
         const response = await wrapper.vm.asyncData({ params, app, route, $apis });
 
-        $apis.record.getRecord.should.have.been.calledWith('/123/abc', { locale: 'en', metadataLanguage: 'fr' });
-        response.should.eql(record);
+        expect($apis.record.getRecord.calledWith('/123/abc', { locale: 'en', metadataLanguage: 'fr' }));
+        expect(response).toEqual(record);
       });
     });
   });
@@ -118,8 +118,8 @@ describe('pages/item/_.vue', () => {
 
       const headMeta = wrapper.vm.head().meta;
 
-      headMeta.filter(meta => meta.property === 'og:image').length.should.eq(1);
-      headMeta.find(meta => meta.property === 'og:image').content.should.eq(thumbnailUrl);
+      expect(headMeta.filter(meta => meta.property === 'og:image').length).toBe(1);
+      expect(headMeta.find(meta => meta.property === 'og:image').content).toBe(thumbnailUrl);
     });
   });
 });

@@ -31,7 +31,7 @@ const config = {
 };
 
 describe('cachers/items/type-counts', () => {
-  beforeEach('stub utility methods', () => {
+  beforeEach(() => {
     nock(config.europeana.apis.record.url)
       .get('/search.json')
       .query(query => (
@@ -44,7 +44,7 @@ describe('cachers/items/type-counts', () => {
       .reply(200, apiResponse);
   });
 
-  afterEach('restore utility methods', () => {
+  afterEach(() => {
     nock.cleanAll();
   });
 
@@ -52,13 +52,13 @@ describe('cachers/items/type-counts', () => {
     it('queries Record API for facets', async() => {
       await cacher.data(config);
 
-      nock.isDone().should.be.true;
+      expect(nock.isDone());
     });
 
     it('returns count metadata', async() => {
       const data = await cacher.data(config);
 
-      data.should.eql(dataToCache);
+      expect(data).toEqual(dataToCache);
     });
   });
 });

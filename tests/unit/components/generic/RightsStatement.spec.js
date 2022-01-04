@@ -36,12 +36,12 @@ const statements = [
 describe('components/generic/RightsStatement', () => {
   for (const statement of statements) {
     for (const url of statement.urls) {
-      context(`when URL is ${url}`, () => {
+      describe(`when URL is ${url}`, () => {
         it(`is labelled "${statement.label}"`, () => {
           const wrapper = factory({ rightsStatementUrl: url });
 
           const rights = wrapper.find('[data-qa="rights statement"]');
-          rights.text().should.eq(statement.label);
+          expect(rights.text()).toBe(statement.label);
         });
 
         const iconCount = statement.classes.length;
@@ -49,7 +49,7 @@ describe('components/generic/RightsStatement', () => {
           const wrapper = factory({ rightsStatementUrl: url });
 
           const icons = wrapper.findAll('[data-qa="rights statement"] .license');
-          icons.length.should.eq(iconCount);
+          expect(icons.length).toBe(iconCount);
         });
 
         for (const iconClassSuffix of statement.classes) {
@@ -58,7 +58,7 @@ describe('components/generic/RightsStatement', () => {
             const wrapper = factory({ rightsStatementUrl: url });
 
             const icon = wrapper.find(`[data-qa="rights statement"] .${iconClass}`);
-            icon.isVisible().should.be.true;
+            expect(icon.isVisible());
           });
         }
       });

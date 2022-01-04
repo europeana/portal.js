@@ -3,7 +3,7 @@ import store from '@/store/collections/newspaper';
 describe('store/collections/newspaper', () => {
   describe('getters', () => {
     describe('apiOptions', () => {
-      context('when api param is "fulltext"', () => {
+      describe('when api param is "fulltext"', () => {
         const getters = {
           apiParams: {
             api: 'fulltext'
@@ -11,11 +11,11 @@ describe('store/collections/newspaper', () => {
         };
 
         it('sets url option to Newpapers API', () => {
-          store.getters.apiOptions({}, getters).url.should.eq('https://newspapers.eanadev.org/api/v2');
+          expect(store.getters.apiOptions({}, getters).url).toBe('https://newspapers.eanadev.org/api/v2');
         });
       });
 
-      context('when api param is "metadata"', () => {
+      describe('when api param is "metadata"', () => {
         const getters = {
           apiParams: {
             api: 'metadata'
@@ -23,23 +23,23 @@ describe('store/collections/newspaper', () => {
         };
 
         it('does not set url option to Newpapers API', () => {
-          (store.getters.apiOptions({}, getters).url === undefined).should.be.true;
+          expect(store.getters.apiOptions({}, getters).url === undefined);
         });
       });
     });
 
     describe('apiParams', () => {
-      context('when api param is absent', () => {
+      describe('when api param is absent', () => {
         const state = {
           apiParams: {}
         };
 
         it('defaults api param to "fulltext"', () => {
-          store.getters.apiParams(state).api.should.eq('fulltext');
+          expect(store.getters.apiParams(state).api).toBe('fulltext');
         });
       });
 
-      context('when api param is "fulltext"', () => {
+      describe('when api param is "fulltext"', () => {
         const state = {
           apiParams: {
             api: 'fulltext',
@@ -48,7 +48,7 @@ describe('store/collections/newspaper', () => {
         };
 
         it('overrides contentTier filter to "*"', () => {
-          store.getters.apiParams(state).qf.should.deep.eql(['contentTier:*']);
+          expect(store.getters.apiParams(state).qf).toEqual(['contentTier:*']);
         });
       });
     });
