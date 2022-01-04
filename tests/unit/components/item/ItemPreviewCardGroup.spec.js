@@ -1,12 +1,12 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import { VueMasonryPlugin } from 'vue-masonry';
 import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup.vue';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
-localVue.use(VueMasonryPlugin);
+localVue.directive('masonry', {});
+localVue.directive('masonry-tile', {});
 
 const storeDispatch = sinon.spy();
 const storeIsLikedGetter = sinon.stub();

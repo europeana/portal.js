@@ -1,7 +1,5 @@
 import Vue from 'vue';
 
-require('@/plugins/vue-filters');
-
 describe('Vue filters', () => {
   describe('optimisedImageUrl', () => {
     const optimisedImageUrl = Vue.filter('optimisedImageUrl');

@@ -2,7 +2,7 @@ import nock from 'nock';
 
 import entitymanage, { BASE_URL } from '@/plugins/europeana/entity-management';
 
-const axios = require('axios');
+import axios from 'axios';
 
 const proxyBody = { type: 'Concept',
   prefLabel: { en: 'Painting' },

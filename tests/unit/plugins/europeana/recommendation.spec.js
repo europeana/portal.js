@@ -2,7 +2,7 @@ import nock from 'nock';
 
 import recommendation, { BASE_URL } from '@/plugins/europeana/recommendation';
 
-const axios = require('axios');
+import axios from 'axios';
 
 const recommendations = ['/123/def', '/123/ghi'];
 const oldRecommendedItem = ['/123/jkl'];

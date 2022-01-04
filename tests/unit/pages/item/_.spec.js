@@ -61,6 +61,7 @@ const factory = () => shallowMountNuxt(page, {
         }
       },
       getters: {
+        'entity/isPinned': () => false,
         'set/isLiked': sinon.stub(),
         'item/annotationsByMotivation': sinon.stub()
       },

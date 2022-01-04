@@ -5,7 +5,8 @@ export default {
     'vue'
   ],
   moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1'
+    '^@/(.*)$': '<rootDir>/src/$1',
+    '\\.css$': '<rootDir>/tests/unit/styleMock.js'
   },
   setupFiles: [
     '<rootDir>/tests/unit/setup.js'
