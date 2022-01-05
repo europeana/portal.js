@@ -22,6 +22,9 @@
 </template>
 
 <script>
+  /**
+   * Button for initiating creation of a user set (AKA gallery).
+   */
   export default {
     name: 'CreateSetButton',
 
@@ -30,6 +33,10 @@
     },
 
     props: {
+      /**
+       * Visibility of the set
+       * @values public, private
+       */
       visibility: {
         type: String,
         default: 'public'
@@ -56,10 +63,9 @@
     }
   };
 </script>
-<docs lang="md">
-Don't forget that you can debug it with [vue-devtools](https://github.com/vuejs/vue-devtools)
 
-```jsx
-<CreateSetButton />
-```
+<docs lang="md">
+  ```jsx
+  <CreateSetButton />
+  ```
 </docs>

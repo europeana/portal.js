@@ -11,6 +11,13 @@
   </b-button>
 </template>
 
+<script>
+  /**
+   * Button for opening the social media share modal.
+   */
+  export default {};
+</script>
+
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
 
@@ -28,10 +35,9 @@
     }
   }
 </style>
-<docs lang="md">
-Don't forget that you can debug it with [vue-devtools](https://github.com/vuejs/vue-devtools)
 
-```jsx
-<ShareButton />
-```
+<docs lang="md">
+  ```jsx
+  <ShareButton />
+  ```
 </docs>

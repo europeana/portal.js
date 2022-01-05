@@ -22,18 +22,29 @@
 <script>
   import { BAlert } from 'bootstrap-vue';
 
+  /**
+   * Information/notification alert message.
+   */
   export default {
+    name: 'InfoMessage',
     components: {
       BAlert
     },
     props: {
+      /**
+       * Message to display
+       */
       message: {
         type: String,
         default: ''
       },
+      /**
+       * Style variant to use
+       * @values icon, default
+       */
       variant: {
         type: String,
-        default: ''
+        default: 'default'
       }
     }
   };
@@ -60,3 +71,20 @@
     color: $black;
   }
 </style>
+
+<docs lang="md">
+  Variant "default":
+  ```jsx
+  <InfoMessage
+    message="Hello."
+  />
+  ```
+
+  Variant "icon":
+  ```jsx
+  <InfoMessage
+    message="Hello."
+    variant="icon"
+  />
+  ```
+</docs>
