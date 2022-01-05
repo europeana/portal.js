@@ -40,7 +40,6 @@
       v-if="newFeatureNotificationEnabled"
     >
       <NewFeatureNotification
-        :text="$t('newFeatureNotification.notification')"
         :feature="newFeature"
         url="https://pro.europeana.eu/"
       />
@@ -88,7 +87,7 @@
         enableAnnouncer: true,
         klaro: null,
         toastBottomOffset: '20px',
-        newFeature: 'organisations'
+        newFeature: 'notifications2'
       };
     },
 

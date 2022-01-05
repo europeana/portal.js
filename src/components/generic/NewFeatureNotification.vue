@@ -10,7 +10,7 @@
     append-toast
     toaster="b-toaster-bottom-left-dynamic"
   >
-    <p>{{ text }}</p>
+    <p>{{ $t('newFeatureNotification.notification') }}</p>
     <div class="d-flex justify-content-between">
       <b-button
         variant="outline-primary"
@@ -36,10 +36,6 @@
     name: 'NewFeatureNotification',
 
     props: {
-      text: {
-        type: String,
-        required: true
-      },
       url: {
         type: String,
         default: null
