@@ -1,21 +1,16 @@
 <template>
   <b-alert
-    v-if="variant === 'icon'"
     show
     variant="light"
-    data-qa="info notice"
-    class="with-icon d-flex"
-  >
-    <span class="icon-info d-inline-flex" />
-    {{ message }}
-  </b-alert>
-  <b-alert
-    v-else
-    show
-    variant="light"
+    :class="variant === 'icon' ? 'with-icon d-flex' : ''"
     data-qa="info notice"
   >
-    {{ message }}
+    <span
+      v-if="variant === 'icon'"
+      class="icon-info d-inline-flex"
+    />
+    <!-- @slot Message text -->
+    <slot />
   </b-alert>
 </template>
 
@@ -27,17 +22,12 @@
    */
   export default {
     name: 'InfoMessage',
+
     components: {
       BAlert
     },
+
     props: {
-      /**
-       * Message to display
-       */
-      message: {
-        type: String,
-        default: ''
-      },
       /**
        * Style variant to use
        * @values icon, default
@@ -75,16 +65,17 @@
 <docs lang="md">
   Variant "default":
   ```jsx
-  <InfoMessage
-    message="Hello."
-  />
+  <InfoMessage>
+    Hello default!
+  </InfoMessage>
   ```
 
   Variant "icon":
   ```jsx
   <InfoMessage
-    message="Hello."
     variant="icon"
-  />
+  >
+    Hello icon!
+  </InfoMessage>
   ```
 </docs>

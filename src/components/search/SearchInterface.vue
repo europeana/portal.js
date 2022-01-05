@@ -114,8 +114,9 @@
             />
             <InfoMessage
               v-if="lastAvailablePage"
-              :message="$t('resultsLimitWarning')"
-            />
+            >
+              {{ $t('resultsLimitWarning') }}
+            </InfoMessage>
           </b-col>
         </b-row>
         <b-row>
