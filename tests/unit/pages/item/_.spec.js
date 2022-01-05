@@ -1,11 +1,13 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
+import Vuex from 'vuex';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
 import page from '@/pages/item/_';
 
 const localVue = createLocalVue();
+localVue.use(Vuex);
 localVue.use(BootstrapVue);
 
 const item = {
@@ -18,7 +20,25 @@ const item = {
   }
 };
 
-const storeDispatch = sinon.spy();
+const store = new Vuex.Store({
+  state: {
+    item: {
+      active: false,
+      annotations: [],
+      relatedEntities: [],
+      similarItems: []
+    }
+  },
+  getters: {
+    'entity/isPinned': () => () => false,
+    'http/canonicalUrl': () => () => null,
+    'set/isLiked': () => () => null,
+    'item/annotationsByMotivation': () => () => null
+  },
+  actions: {
+    'item/reset': () => null
+  }
+});
 
 const factory = () => shallowMountNuxt(page, {
   localVue,
@@ -50,24 +70,9 @@ const factory = () => shallowMountNuxt(page, {
         getRecord: sinon.stub().resolves({}),
         search: sinon.spy()
       }
-    },
-    $store: {
-      state: {
-        item: {
-          active: false,
-          annotations: [],
-          relatedEntities: [],
-          similarItems: []
-        }
-      },
-      getters: {
-        'entity/isPinned': () => false,
-        'set/isLiked': sinon.stub(),
-        'item/annotationsByMotivation': sinon.stub()
-      },
-      dispatch: storeDispatch
     }
-  }
+  },
+  store
 });
 
 describe('pages/item/_.vue', () => {
