@@ -102,7 +102,7 @@ describe('components/generic/RelatedChip', () => {
 
       const chip = wrapper.find('[data-qa="Art related chip"]');
       expect(chip.attributes().href).toBe('https://www.example.org/collections/topic/190-art');
-      expect(chip.attributes().to === undefined);
+      expect(chip.attributes().to).toBe(undefined);
     });
   });
 });
