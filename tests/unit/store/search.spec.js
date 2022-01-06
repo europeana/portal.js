@@ -594,7 +594,7 @@ describe('store/search', () => {
             profile,
             facet
           }
-        ]));
+        ])).toBe(true);
       });
     });
 

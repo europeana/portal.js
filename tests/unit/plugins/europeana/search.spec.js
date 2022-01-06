@@ -437,12 +437,12 @@ describe('plugins/europeana/search', () => {
   describe('rangeFromQueryParam', () => {
     describe('when the pattern does NOT match', () => {
       it('returns null', () => {
-        expect(rangeFromQueryParam('[abc OR xyz]') === null);
+        expect(rangeFromQueryParam('[abc OR xyz]')).toBe(null);
       });
     });
     describe('with blank start and end values', () => {
       it('returns both values', () => {
-        expect(rangeFromQueryParam('[ TO ]') === null);
+        expect(rangeFromQueryParam('[ TO ]')).toBe(null);
       });
     });
     describe('with only a start', () => {

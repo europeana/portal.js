@@ -64,7 +64,7 @@ describe('components/entity/EntityUpdateModal', () => {
             en: ['Updated']
           }
         }
-      }));
+      })).toBe(true);
     });
     it('hides the modal', async() => {
       const wrapper = factory(existingEntityPropsData);

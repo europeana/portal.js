@@ -58,7 +58,7 @@ describe('components/set/SetFormModal', () => {
           en: 'Lots of things in here'
         },
         visibility: 'public'
-      }));
+      })).toBe(true);
     });
 
     it('updates existing sets', async() => {
@@ -80,7 +80,7 @@ describe('components/set/SetFormModal', () => {
           },
           visibility: 'private'
         }
-      }));
+      })).toBe(true);
     });
   });
 

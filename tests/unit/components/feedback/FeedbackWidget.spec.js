@@ -97,7 +97,7 @@ describe('components/feedback/FeedbackWidget', () => {
           feedback: 'This website is great!'
         });
 
-        expect(wrapper.find('[data-qa="feedback next button"]').attributes('disabled') === undefined);
+        expect(wrapper.find('[data-qa="feedback next button"]').attributes('disabled')).toBe(undefined);
       });
       it('and it is clicked and it has only 4 words', async() => {
         const wrapper = factory();
@@ -159,7 +159,7 @@ describe('components/feedback/FeedbackWidget', () => {
           email: 'example@mail.com'
         });
 
-        expect(wrapper.find('[data-qa="feedback next button"]').attributes('disabled') === undefined);
+        expect(wrapper.find('[data-qa="feedback next button"]').attributes('disabled')).toBe(undefined);
       });
     });
   });

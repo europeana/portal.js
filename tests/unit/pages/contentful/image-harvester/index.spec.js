@@ -298,7 +298,7 @@ describe('pages/contentful/image-harvester/index', () => {
                 }
               }
             }
-          }));
+          })).toBe(true);
         });
 
         it('processes and publishes the asset', async() => {
@@ -320,7 +320,7 @@ describe('pages/contentful/image-harvester/index', () => {
               linkType: 'Asset',
               id: 'abcdef'
             }
-          }));
+          })).toBe(true);
         });
       });
     });

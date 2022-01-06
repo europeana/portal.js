@@ -41,7 +41,7 @@ describe('components/generic/RelatedChip', () => {
     const chip = wrapper.find('[data-qa="Art related chip"]');
     expect(chip.text()).toBe('Art');
     expect(chip.attributes().to).toContain('190-art');
-    expect(chip.attributes().href === undefined);
+    expect(chip.attributes().href).toBe(undefined);
   });
 
   it('translates lang maps for title', async() => {

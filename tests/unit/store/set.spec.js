@@ -265,7 +265,7 @@ describe('store/set', () => {
 
           expect(store.actions.$apis.set.get.calledWith(setId, {
             profile: 'standard'
-          }));
+          })).toBe(true);
           expect(commit.calledWith('setCreations', [newCreation])).toBe(true);
         });
       });
@@ -284,7 +284,7 @@ describe('store/set', () => {
           profile: 'standard',
           pageSize: 100,
           qf: 'type:Collection'
-        }));
+        })).toBe(true);
       });
 
       it('commits creations with "setCreations"', async() => {
@@ -327,10 +327,10 @@ describe('store/set', () => {
         await store.actions.fetchCreationPreviews({ state, commit });
 
         expect(store.actions.$apis.record.search.calledWith({
-          query: 'europeana_id:("/111" OR "/222"))',
+          query: 'europeana_id:("/111" OR "/222")',
           qf: ['contentTier:*'],
           profile: 'minimal'
-        }));
+        })).toBe(true);
       });
 
       it('commits edm:preview of items with "setCreationPreviews"', async() => {
@@ -355,7 +355,7 @@ describe('store/set', () => {
           profile: 'itemDescriptions',
           pageSize: 100,
           qf: 'type:EntityBestItemsSet'
-        }));
+        })).toBe(true);
         expect(commit.calledWith('setCurations', ['1', '2'])).toBe(true);
       });
     });

@@ -23,7 +23,7 @@ describe('store/collections/newspaper', () => {
         };
 
         it('does not set url option to Newpapers API', () => {
-          expect(store.getters.apiOptions({}, getters).url === undefined);
+          expect(store.getters.apiOptions({}, getters).url).toBe(undefined);
         });
       });
     });

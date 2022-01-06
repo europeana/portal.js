@@ -144,7 +144,7 @@ describe('components/generic/SmartLink', () => {
         expect($pathSpy.calledWith({
           name: 'item-all',
           params: { pathMatch: identifierSlug }
-        }));
+        })).toBe(true);
       });
     });
 
@@ -160,7 +160,7 @@ describe('components/generic/SmartLink', () => {
           name: 'slug',
           params: { pathMatch: slug },
           query: {}
-        }));
+        })).toBe(true);
       });
     });
 
@@ -176,7 +176,7 @@ describe('components/generic/SmartLink', () => {
           name: 'slug',
           params: { pathMatch: 'account' },
           query: { redirect: '/account' }
-        }));
+        })).toBe(true);
       });
     });
   });

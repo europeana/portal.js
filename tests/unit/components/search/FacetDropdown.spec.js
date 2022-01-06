@@ -97,7 +97,7 @@ describe('components/search/FacetDropdown', () => {
 
           const resetButton = wrapper.find('[data-qa="COUNTRY reset button"]');
 
-          expect(resetButton.attributes('disabled') === undefined);
+          expect(resetButton.attributes('disabled')).toBe(undefined);
         });
       });
     });
@@ -114,7 +114,7 @@ describe('components/search/FacetDropdown', () => {
 
         const applyButton = wrapper.find('[data-qa="COUNTRY apply button"]');
 
-        expect(applyButton.attributes('disabled') === undefined);
+        expect(applyButton.attributes('disabled')).toBe(undefined);
       });
     });
 

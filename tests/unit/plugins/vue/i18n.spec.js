@@ -74,7 +74,7 @@ describe('plugins/vue/i18n', () => {
       it('is null', () => {
         const wrapper = factory(mocks);
 
-        expect(wrapper.vm.$tNull(keyArg) === null);
+        expect(wrapper.vm.$tNull(keyArg)).toBe(null);
       });
     });
   });

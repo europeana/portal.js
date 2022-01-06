@@ -81,6 +81,6 @@ describe('plugins/europeana/record/similar-items', () => {
   it('handles no relevant query terms sensibly', () => {
     const data = {};
 
-    expect(similarItemsQuery(about, data) === null);
+    expect(similarItemsQuery(about, data)).toBe(null);
   });
 });

@@ -56,7 +56,7 @@ describe('plugins/europeana/auth', () => {
 
           expect(ctx.$auth.request.calledWith(sinon.match.has('headers', {
             'content-type': 'application/x-www-form-urlencoded'
-          })));
+          }))).toBe(true);
         });
 
         describe('when it has refreshed the access token', () => {

@@ -25,7 +25,7 @@ describe('mixins/contentful/sidebar', () => {
       const wrapper = factory();
 
       for (const field of ['contentfulExtensionSdk', 'entry', 'message']) {
-        expect(wrapper.vm[field] === undefined).not;
+        expect(wrapper.vm[field]).not.toBe(undefined);
       }
     });
   });

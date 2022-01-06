@@ -54,12 +54,12 @@ describe('plugins/europeana/thumbnail', () => {
     });
     describe('when MIME type is anything else', () => {
       it('is null', () => {
-        expect(thumbnailTypeForMimeType('application/octet-stream') === null);
+        expect(thumbnailTypeForMimeType('application/octet-stream')).toBe(null);
       });
     });
     describe('when MIME type is undefined', () => {
       it('is null', () => {
-        expect(thumbnailTypeForMimeType(undefined) === null);
+        expect(thumbnailTypeForMimeType(undefined)).toBe(null);
       });
     });
   });

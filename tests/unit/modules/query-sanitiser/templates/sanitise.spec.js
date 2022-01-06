@@ -13,7 +13,7 @@ describe('sanitise', () => {
     describe('with invalid value', () => {
       it('returns `null`', () => {
         for (const queryPage of ['0', '-1', '3.5', 'one', 'last']) {
-          expect(page(queryPage) === null);
+          expect(page(queryPage)).toBe(null);
         }
       });
     });
