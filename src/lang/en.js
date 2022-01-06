@@ -686,7 +686,9 @@ export default {
     "translateQuotaError": "Translation service is temporarily unavailable. Please try again later."
   },
   "newFeatureNotification": {
-    "notification": "You can now easily discover cultural heritage items organised by partnering institutions.",
+    "text": {
+      "organisationsPage": "You can now easily discover cultural heritage items organised by partnering institutions."
+    },
     "dismiss": "Dismiss",
     "readMore": "Read more"
   },

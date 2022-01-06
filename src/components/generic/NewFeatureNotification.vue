@@ -10,7 +10,7 @@
     append-toast
     toaster="b-toaster-bottom-left-dynamic"
   >
-    <p>{{ $t('newFeatureNotification.notification') }}</p>
+    <slot />
     <div class="d-flex justify-content-between">
       <b-button
         variant="outline-primary"
