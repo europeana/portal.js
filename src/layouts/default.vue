@@ -40,10 +40,10 @@
       v-if="newFeatureNotificationEnabled"
     >
       <NewFeatureNotification
-        :feature="newFeature.name"
-        :url="newFeature.url"
+        :feature="featureNotification.name"
+        :url="featureNotification.url"
       >
-        <p>{{ $t(`newFeatureNotification.text.${newFeature.name}`) }}</p>
+        <p>{{ $t(`newFeatureNotification.text.${featureNotification.name}`) }}</p>
       </NewFeatureNotification>
     </client-only>
     <client-only>
@@ -66,7 +66,7 @@
   import klaroConfig, { version as klaroVersion } from '../plugins/klaro-config';
   import { version as bootstrapVersion } from 'bootstrap/package.json';
   import { version as bootstrapVueVersion } from 'bootstrap-vue/package.json';
-  import newFeatures from '@/features/new';
+  import featureNotifications from '@/features/notifications';
 
   export default {
     name: 'DefaultLayout',
@@ -90,7 +90,7 @@
         enableAnnouncer: true,
         klaro: null,
         toastBottomOffset: '20px',
-        newFeature: newFeatures.find(feature => feature.name === this.$config.app.newFeature)
+        featureNotification: featureNotifications.find(feature => feature.name === this.$config.app.newFeatureNotification)
       };
     },
 
@@ -136,9 +136,9 @@
       },
 
       newFeatureNotificationEnabled() {
-        return this.newFeature && (
+        return this.featureNotification && (
           !this.$cookies.get('new_feature_notification') ||
-          this.$cookies.get('new_feature_notification') !== this.newFeature.name
+          this.$cookies.get('new_feature_notification') !== this.featureNotification.name
         );
       }
     },

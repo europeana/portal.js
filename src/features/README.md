@@ -23,17 +23,18 @@ export default [
 ENABLE_TURBO_SPEED=1
 ```
 
-## New features
+## New feature notifications
 
-New features are declared in [new.js](./new.js). Each feature is declared as
-an object with a name property, and optional URL property. For a new feature to
-be highlighted to users, its name needs to be set in the environment variable
-`APP_NEW_FEATURE`.
+New features that we may want to highlight to users are declared in
+[notifications.js](./notifications.js). Each feature is declared as an object
+with a name property, and optional URL property. For a new feature notification
+to be shown to users, its name needs to be set in the environment variable
+`APP_NEW_FEATURE_NOTIFICATION`.
 
 ### Example
 
 ```js
-// src/features/new.js
+// src/features/notifications.js
 export default [
   { name: 'sideFilters', url: '/blog/side-filters' }
 ];
@@ -52,5 +53,5 @@ export default {
 
 ```sh
 # .env
-APP_NEW_FEATURE=sideFilters
+APP_NEW_FEATURE_NOTIFICATION=sideFilters
 ```
