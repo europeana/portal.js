@@ -93,8 +93,7 @@
     "stylelint": "^14.1.0",
     "stylelint-config-recommended-vue": "^1.0.0",
     "stylelint-config-standard-scss": "^3.0.0",
-    "svg-url-loader": "^7.1.1",
-    "webpack": "^4.0.0 || ^5.0.0"
+    "svg-url-loader": "^7.1.1"
   },
   "contributors": [
     "Richard Doe <richard.doe@europeana.eu>",
