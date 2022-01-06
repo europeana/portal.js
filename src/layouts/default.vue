@@ -40,9 +40,11 @@
       v-if="newFeatureNotificationEnabled"
     >
       <NewFeatureNotification
-        :feature="newFeature"
-        url="https://pro.europeana.eu/"
-      />
+        :feature="newFeature.name"
+        :url="newFeature.url"
+      >
+        <p>{{ $t(`newFeatureNotification.text.${newFeature.name}`)}}</p>
+      </NewFeatureNotification>
     </client-only>
     <client-only>
       <PageFooter />
@@ -64,6 +66,7 @@
   import klaroConfig, { version as klaroVersion } from '../plugins/klaro-config';
   import { version as bootstrapVersion } from 'bootstrap/package.json';
   import { version as bootstrapVueVersion } from 'bootstrap-vue/package.json';
+  import newFeatures from '@/features/new';
 
   export default {
     name: 'DefaultLayout',
@@ -87,7 +90,7 @@
         enableAnnouncer: true,
         klaro: null,
         toastBottomOffset: '20px',
-        newFeature: 'notifications2'
+        newFeature: newFeatures.find(feature => feature.name === this.$config.app.newFeature)
       };
     },
 
@@ -133,9 +136,10 @@
       },
 
       newFeatureNotificationEnabled() {
-        return this.$features.newFeatureNotification
-          && (!this.$cookies.get('new_feature_notification')
-            || this.$cookies.get('new_feature_notification') !== this.newFeature);
+        return this.newFeature && (
+          !this.$cookies.get('new_feature_notification') ||
+          this.$cookies.get('new_feature_notification') !== this.newFeature.name
+        );
       }
     },
 
