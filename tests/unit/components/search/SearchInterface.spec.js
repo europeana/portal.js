@@ -252,7 +252,7 @@ describe('components/search/SearchInterface', () => {
 
           wrapper.vm.view = view;
 
-          expect(searchSetViewMutation.calledWith(sinon.match.any, view));
+          expect(searchSetViewMutation.calledWith(sinon.match.any, view)).toBe(true);
         });
       });
     });
@@ -352,7 +352,7 @@ describe('components/search/SearchInterface', () => {
               });
               const rootBvToast = sinon.spy(wrapper.vm.$root.$bvToast, 'toast');
               await wrapper.vm.showContentTierToast();
-              expect(rootBvToast.calledWith('facets.contentTier.notification', sinon.match.any));
+              expect(rootBvToast.calledWith('facets.contentTier.notification', sinon.match.any)).toBe(true);
             });
 
             it('updates session storage after toast is shown', async() => {

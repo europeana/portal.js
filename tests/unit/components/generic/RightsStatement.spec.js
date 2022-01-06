@@ -58,7 +58,7 @@ describe('components/generic/RightsStatement', () => {
             const wrapper = factory({ rightsStatementUrl: url });
 
             const icon = wrapper.find(`[data-qa="rights statement"] .${iconClass}`);
-            expect(icon.isVisible());
+            expect(icon.isVisible()).toBe(true);
           });
         }
       });

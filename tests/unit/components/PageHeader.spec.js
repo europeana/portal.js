@@ -36,7 +36,7 @@ describe('components/PageHeader', () => {
     const wrapper = factory({ showSearch: true });
 
     const form = wrapper.find('[data-qa="search form"]');
-    expect(form.isVisible());
+    expect(form.isVisible()).toBe(true);
   });
 
   it('contains the logo', () => {
@@ -49,20 +49,20 @@ describe('components/PageHeader', () => {
     const wrapper = factory();
 
     const nav = wrapper.find('[data-qa="top navigation"]');
-    expect(nav.isVisible());
+    expect(nav.isVisible()).toBe(true);
   });
 
   it('contains the sidebar hamburger button', () => {
     const wrapper = factory();
 
     const sidebarButton = wrapper.find('b-button-stub.navbar-toggle');
-    expect(sidebarButton.isVisible());
+    expect(sidebarButton.isVisible()).toBe(true);
   });
 
   it('shows the sidebar when the sidebar is set to visible', () => {
     const wrapper = factory();
 
     const nav = wrapper.find('[data-qa="sidebar navigation"]');
-    expect(nav.isVisible());
+    expect(nav.isVisible()).toBe(true);
   });
 });

@@ -46,7 +46,7 @@ describe('mixins/contentful/sidebar', () => {
       it('uses a contentful dialog and sets the message to failed', () => {
         const wrapper = factory();
         wrapper.vm.showError('this is the message');
-        expect(wrapper.vm.contentfulExtensionSdk.dialogs.openAlert.calledWith({ title: 'Error', message: 'this is the message' }));
+        expect(wrapper.vm.contentfulExtensionSdk.dialogs.openAlert.calledWith({ title: 'Error', message: 'this is the message' })).toBe(true);
         expect(wrapper.vm.message).toBe('Failed');
       });
     });

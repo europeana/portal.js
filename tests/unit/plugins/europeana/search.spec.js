@@ -27,7 +27,7 @@ describe('plugins/europeana/search', () => {
 
         await search()($axios, { query: 'anything' });
 
-        expect(nock.isDone());
+        expect(nock.isDone()).toBe(true);
       });
 
       it('accepts and uses `rows` option', async() => {
@@ -39,7 +39,7 @@ describe('plugins/europeana/search', () => {
 
         await search()($axios, { query: 'anything', rows: 9 });
 
-        expect(nock.isDone());
+        expect(nock.isDone()).toBe(true);
       });
 
       it('paginates if `page` is passed', async() => {
@@ -51,7 +51,7 @@ describe('plugins/europeana/search', () => {
 
         await search()($axios, { page: 2, query: 'anything' });
 
-        expect(nock.isDone());
+        expect(nock.isDone()).toBe(true);
       });
 
       it('does not request rows beyond API limit', async() => {
@@ -63,7 +63,7 @@ describe('plugins/europeana/search', () => {
 
         await search()($axios, { page: 42, query: 'anything' });
 
-        expect(nock.isDone());
+        expect(nock.isDone()).toBe(true);
       });
 
       it('includes contentTier query', async() => {
@@ -75,7 +75,7 @@ describe('plugins/europeana/search', () => {
 
         await search()($axios, { query: 'anything' });
 
-        expect(nock.isDone());
+        expect(nock.isDone()).toBe(true);
       });
 
       it('uses the supplied `facet` param', async() => {
@@ -87,7 +87,7 @@ describe('plugins/europeana/search', () => {
 
         await search()($axios, { query: 'anything', facet: 'LANGUAGE' });
 
-        expect(nock.isDone());
+        expect(nock.isDone()).toBe(true);
       });
 
       it('uses the supplied `facet` param when using comma seperated list', async() => {
@@ -99,7 +99,7 @@ describe('plugins/europeana/search', () => {
 
         await search()($axios, { query: 'anything', facet: 'COUNTRY,REUSABILITY' });
 
-        expect(nock.isDone());
+        expect(nock.isDone()).toBe(true);
       });
 
       it('maps blank `query` to "*:*"', async() => {
@@ -111,7 +111,7 @@ describe('plugins/europeana/search', () => {
 
         await search()($axios, { query: '' });
 
-        expect(nock.isDone());
+        expect(nock.isDone()).toBe(true);
       });
 
       it('filters by reusability', async() => {
@@ -123,7 +123,7 @@ describe('plugins/europeana/search', () => {
 
         await search()($axios, { query: 'anything', reusability: 'open' });
 
-        expect(nock.isDone());
+        expect(nock.isDone()).toBe(true);
       });
 
       describe('multilingual queries', () => {
@@ -140,7 +140,7 @@ describe('plugins/europeana/search', () => {
 
           await search(context)($axios, { query: 'flor' }, { locale });
 
-          expect(nock.isDone());
+          expect(nock.isDone()).toBe(true);
         });
 
         it('does not pass API i18n params if no locale option', async() => {
@@ -153,7 +153,7 @@ describe('plugins/europeana/search', () => {
 
           await search(context)($axios, { query: 'flor' });
 
-          expect(nock.isDone());
+          expect(nock.isDone()).toBe(true);
         });
 
         it('does not pass API i18n params if locale is already "en"', async() => {
@@ -168,7 +168,7 @@ describe('plugins/europeana/search', () => {
 
           await search(context)($axios, { query: 'flor' }, { locale });
 
-          expect(nock.isDone());
+          expect(nock.isDone()).toBe(true);
         });
       });
 
@@ -182,7 +182,7 @@ describe('plugins/europeana/search', () => {
 
           await search()($axios, { query: 'dress (red OR blue)' });
 
-          expect(nock.isDone());
+          expect(nock.isDone()).toBe(true);
         });
 
         it('does escape them when options.escape is `true`', async() => {
@@ -194,7 +194,7 @@ describe('plugins/europeana/search', () => {
 
           await search()($axios, { query: 'dress (red OR blue)' }, { escape: true });
 
-          expect(nock.isDone());
+          expect(nock.isDone()).toBe(true);
         });
       });
     });

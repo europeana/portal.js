@@ -137,7 +137,7 @@ describe('components/search/SearchForm', () => {
           }
         };
 
-        expect($goto.calledWith(searchRoute));
+        expect($goto.calledWith(searchRoute)).toBe(true);
       });
     });
 
@@ -161,7 +161,7 @@ describe('components/search/SearchForm', () => {
           path: wrapper.vm.$route.path,
           query: { query, page: 1, view: state.search.view }
         };
-        expect($goto.calledWith(newRouteParams));
+        expect($goto.calledWith(newRouteParams)).toBe(true);
       });
 
       describe('when query is blank', () => {
@@ -177,7 +177,7 @@ describe('components/search/SearchForm', () => {
             path: wrapper.vm.$route.path,
             query: { query: '', page: 1, view: state.search.view }
           };
-          expect($goto.calledWith(newRouteParams));
+          expect($goto.calledWith(newRouteParams)).toBe(true);
         });
       });
     });
@@ -201,7 +201,7 @@ describe('components/search/SearchForm', () => {
           path: '/search',
           query: { query, page: 1, view: state.search.view }
         };
-        expect($goto.calledWith(newRouteParams));
+        expect($goto.calledWith(newRouteParams)).toBe(true);
       });
 
       it('does not carry non-seearch query params', async() => {
@@ -216,7 +216,7 @@ describe('components/search/SearchForm', () => {
           path: '/search',
           query: { query, page: 1, view: state.search.view }
         };
-        expect($goto.calledWith(newRouteParams));
+        expect($goto.calledWith(newRouteParams)).toBe(true);
       });
     });
   });

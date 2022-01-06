@@ -5,7 +5,7 @@ describe('plugins/media', () => {
     it('returns `true` if ebucoreHasMimeType is for PDF', () => {
       const ebucoreHasMimeType = 'application/pdf';
 
-      expect(media.isPDF({ ebucoreHasMimeType }));
+      expect(media.isPDF({ ebucoreHasMimeType })).toBe(true);
     });
   });
 
@@ -13,7 +13,7 @@ describe('plugins/media', () => {
     it('returns `true` if ebucoreHasMimeType is for an image', () => {
       const ebucoreHasMimeType = 'image/jpeg';
 
-      expect(media.isImage({ ebucoreHasMimeType }));
+      expect(media.isImage({ ebucoreHasMimeType })).toBe(true);
     });
   });
 
@@ -24,7 +24,7 @@ describe('plugins/media', () => {
       for (const ebucoreHasMimeType of mediaTypes) {
         const edmCodecName = ebucoreHasMimeType === 'video/mp4' ? 'h264' : null;
 
-        expect(media.isHTMLVideo({ ebucoreHasMimeType, edmCodecName }));
+        expect(media.isHTMLVideo({ ebucoreHasMimeType, edmCodecName })).toBe(true);
       }
     });
   });
@@ -34,7 +34,7 @@ describe('plugins/media', () => {
       const mediaTypes = ['audio/flac', 'audio/ogg', 'audio/mpeg'];
 
       for (const ebucoreHasMimeType of mediaTypes) {
-        expect(media.isHTMLAudio({ ebucoreHasMimeType }));
+        expect(media.isHTMLAudio({ ebucoreHasMimeType })).toBe(true);
       }
     });
   });
@@ -45,7 +45,7 @@ describe('plugins/media', () => {
       const edmCodecName = 'h264';
 
       for (const ebucoreHasMimeType of mediaTypes) {
-        expect(media.isPlayableMedia({ ebucoreHasMimeType, edmCodecName }));
+        expect(media.isPlayableMedia({ ebucoreHasMimeType, edmCodecName })).toBe(true);
       }
     });
 
@@ -61,7 +61,7 @@ describe('plugins/media', () => {
       const mediaTypes = ['audio/flac', 'audio/ogg', 'audio/mpeg'];
 
       for (const ebucoreHasMimeType of mediaTypes) {
-        expect(media.isPlayableMedia({ ebucoreHasMimeType }));
+        expect(media.isPlayableMedia({ ebucoreHasMimeType })).toBe(true);
       }
     });
 
@@ -74,11 +74,11 @@ describe('plugins/media', () => {
     });
 
     it('returns `true` if ebucoreHasMimeType is for application/dash+xml', () => {
-      expect(media.isPlayableMedia({ ebucoreHasMimeType: 'application/dash+xml' }));
+      expect(media.isPlayableMedia({ ebucoreHasMimeType: 'application/dash+xml' })).toBe(true);
     });
 
     it('returns `true` if media.about is for EUscreen item', () => {
-      expect(media.isPlayableMedia({ about: 'http://www.euscreen.eu/item.html?id=EUS_123' }));
+      expect(media.isPlayableMedia({ about: 'http://www.euscreen.eu/item.html?id=EUS_123' })).toBe(true);
     });
 
     it('returns `false` for other media types', () => {
@@ -94,7 +94,7 @@ describe('plugins/media', () => {
     it('returns `true` if URL is oEmbeddable', () => {
       const about = 'https://soundcloud.com/oembed';
 
-      expect(media.isOEmbed({ about }));
+      expect(media.isOEmbed({ about })).toBe(true);
     });
   });
 
@@ -108,7 +108,7 @@ describe('plugins/media', () => {
         ]
       };
 
-      expect(media.isIIIFImage(item));
+      expect(media.isIIIFImage(item)).toBe(true);
     });
   });
 
@@ -123,7 +123,7 @@ describe('plugins/media', () => {
         dctermsIsReferencedBy: ['http://www.example.org/iiif/manifest']
       };
 
-      expect(media.isIIIFPresentation(item));
+      expect(media.isIIIFPresentation(item)).toBe(true);
     });
 
     it('returns `false` if dctermsIsReferencedBy is Image info.json', () => {
@@ -177,9 +177,9 @@ describe('plugins/media', () => {
 
   describe('isRichMedia()', () => {
     it('returns `true` if media considered rich', () => {
-      expect(media.isRichMedia({ about: 'https://soundcloud.com/oembed' }));
-      expect(media.isRichMedia({ ebucoreHasMimeType: 'video/mp4', edmCodecName: 'h264' }));
-      expect(media.isRichMedia({ ebucoreHasMimeType: 'audio/mpeg' }));
+      expect(media.isRichMedia({ about: 'https://soundcloud.com/oembed' })).toBe(true);
+      expect(media.isRichMedia({ ebucoreHasMimeType: 'video/mp4', edmCodecName: 'h264' })).toBe(true);
+      expect(media.isRichMedia({ ebucoreHasMimeType: 'audio/mpeg' })).toBe(true);
     });
   });
 
@@ -187,7 +187,7 @@ describe('plugins/media', () => {
     it('returns `true` if ebucoreHasMimeType is for Dash XML', () => {
       const ebucoreHasMimeType = 'application/dash+xml';
 
-      expect(media.requiresDashJS(ebucoreHasMimeType));
+      expect(media.requiresDashJS(ebucoreHasMimeType)).toBe(true);
     });
   });
 });

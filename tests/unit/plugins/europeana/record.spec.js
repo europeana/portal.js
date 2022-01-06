@@ -198,7 +198,7 @@ describe('plugins/europeana/record', () => {
 
         await record(translateConf).getRecord(europeanaId);
 
-        expect(nock.isDone());
+        expect(nock.isDone()).toBe(true);
       });
       describe('profile parameter', () => {
         describe('when no translations are explicitly requested', () => {
@@ -210,7 +210,7 @@ describe('plugins/europeana/record', () => {
 
             await record(translateConf).getRecord(europeanaId);
 
-            expect(nock.isDone());
+            expect(nock.isDone()).toBe(true);
           });
         });
         describe('when translations are explicitly requested', () => {
@@ -222,7 +222,7 @@ describe('plugins/europeana/record', () => {
 
             await record(translateConf).getRecord(europeanaId, { metadataLanguage: 'de' });
 
-            expect(nock.isDone());
+            expect(nock.isDone()).toBe(true);
           });
           describe('when the API returns a quota exhaustion error', () => {
             it('re-requests the record without the profile', async() => {
@@ -237,7 +237,7 @@ describe('plugins/europeana/record', () => {
 
               await record(translateConf).getRecord(europeanaId, { metadataLanguage: 'de' });
 
-              expect(nock.isDone());
+              expect(nock.isDone()).toBe(true);
             });
           });
         });
@@ -251,7 +251,7 @@ describe('plugins/europeana/record', () => {
 
           const recordData = await record(translateConf).getRecord(europeanaId, { metadataLanguage: 'de' });
           expect(recordData.record.metadataLanguage).toBe('de');
-          expect(nock.isDone());
+          expect(nock.isDone()).toBe(true);
         });
       });
       describe('translation source labels', () => {
@@ -264,7 +264,7 @@ describe('plugins/europeana/record', () => {
 
             const recordData = await record(translateConf).getRecord(europeanaId, { metadataLanguage: 'de' });
             expect(recordData.record.title.translationSource).toBe('automated');
-            expect(nock.isDone());
+            expect(nock.isDone()).toBe(true);
           });
         });
         describe('when there is a value in the aggregator proxy', () => {
@@ -277,7 +277,7 @@ describe('plugins/europeana/record', () => {
 
               const recordData = await record(translateConf).getRecord(europeanaId, { metadataLanguage: 'de' });
               expect(recordData.record.description.translationSource).toBe('enrichment');
-              expect(nock.isDone());
+              expect(nock.isDone()).toBe(true);
             });
           });
           describe('when the value referes to an entity', () => {
@@ -289,7 +289,7 @@ describe('plugins/europeana/record', () => {
 
               const recordData = await record(translateConf).getRecord(europeanaId, { metadataLanguage: 'de' });
               expect(recordData.record.metadata.edmIsRelatedTo.translationSource).toBe('enrichment');
-              expect(nock.isDone());
+              expect(nock.isDone()).toBe(true);
             });
           });
         });
@@ -303,7 +303,7 @@ describe('plugins/europeana/record', () => {
             const recordData = await record(translateConf).getRecord(europeanaId, { metadataLanguage: 'de' });
 
             expect(recordData.record.metadata.dcType.translationSource === undefined).toBe(true);
-            expect(nock.isDone());
+            expect(nock.isDone()).toBe(true);
           });
         });
       });
@@ -319,7 +319,7 @@ describe('plugins/europeana/record', () => {
 
       await record().getRecord(europeanaId);
 
-      expect(nock.isDone());
+      expect(nock.isDone()).toBe(true);
     });
 
     describe('profile parameter', () => {
@@ -331,7 +331,7 @@ describe('plugins/europeana/record', () => {
 
         await record({ $config: { app: { schemaOrgDatasetId: '123' } } }).getRecord(europeanaId);
 
-        expect(nock.isDone());
+        expect(nock.isDone()).toBe(true);
       });
 
       it('is omitted for other dataset items', async() => {
@@ -342,7 +342,7 @@ describe('plugins/europeana/record', () => {
 
         await record({ $config: { app: { schemaOrgDatasetId: '456' } } }).getRecord(europeanaId);
 
-        expect(nock.isDone());
+        expect(nock.isDone()).toBe(true);
       });
     });
 
@@ -541,7 +541,7 @@ describe('plugins/europeana/record', () => {
 
       await record().relatedEntities(entityType, entityId);
 
-      expect(nock.isDone());
+      expect(nock.isDone()).toBe(true);
     });
   });
 

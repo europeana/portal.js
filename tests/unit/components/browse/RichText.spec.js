@@ -26,7 +26,7 @@ describe('components/browse/RichText', () => {
     await wrapper.setProps({ richTextIsCard: true });
 
     const markdown = wrapper.find('[data-qa="markdown"]');
-    expect(markdown.find('div.card').exists());
+    expect(markdown.find('div.card').exists()).toBe(true);
   });
 
   it('shows in as text', async() => {

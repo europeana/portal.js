@@ -75,8 +75,8 @@ describe('plugins/europeana/auth', () => {
           it('stores the new access token', async() => {
             await keycloakResponseErrorHandler(ctx, mockError());
 
-            expect(ctx.$auth.setToken.calledWith('strategy', 'new'));
-            expect(ctx.$auth.strategy['_setToken'].calledWith('new'));
+            expect(ctx.$auth.setToken.calledWith('strategy', 'new')).toBe(true);
+            expect(ctx.$auth.strategy['_setToken'].calledWith('new')).toBe(true);
           });
 
           it('retries the original request', async() => {
@@ -107,7 +107,7 @@ describe('plugins/europeana/auth', () => {
           it('retries the original request without authorization', async() => {
             await keycloakResponseErrorHandler(ctx, mockError());
 
-            expect(ctx.$axios.request.calledWith({ headers: {} }));
+            expect(ctx.$axios.request.calledWith({ headers: {} })).toBe(true);
           });
         });
 
@@ -115,7 +115,7 @@ describe('plugins/europeana/auth', () => {
           it('redirects to the login URL', async() => {
             await keycloakResponseErrorHandler(ctx, mockError());
 
-            expect(ctx.redirect.calledWith('http://example.org/login', { redirect: ctx.route.path }));
+            expect(ctx.redirect.calledWith('http://example.org/login', { redirect: ctx.route.path })).toBe(true);
           });
         });
       });
@@ -131,7 +131,7 @@ describe('plugins/europeana/auth', () => {
         it('redirects to the login URL', async() => {
           await keycloakResponseErrorHandler(ctx, mockError());
 
-          expect(ctx.redirect.calledWith('http://example.org/login', { redirect: ctx.route.path }));
+          expect(ctx.redirect.calledWith('http://example.org/login', { redirect: ctx.route.path })).toBe(true);
         });
       });
     });

@@ -82,19 +82,19 @@ describe('mixins/keycloak', () => {
       it('sets universal auth storage for redirect', () => {
         wrapper.vm.keycloakLogin();
 
-        expect(mocks.$auth.$storage.setUniversal.calledWith('redirect', loginRedirect));
+        expect(mocks.$auth.$storage.setUniversal.calledWith('redirect', loginRedirect)).toBe(true);
       });
 
       it('sets universal auth storage for logging in flag', () => {
         wrapper.vm.keycloakLogin();
 
-        expect(mocks.$auth.$storage.setUniversal.calledWith('portalLoggingIn', true));
+        expect(mocks.$auth.$storage.setUniversal.calledWith('portalLoggingIn', true)).toBe(true);
       });
 
       it('calls auth login with keycloak scheme and ui_locales param', () => {
         wrapper.vm.keycloakLogin();
 
-        expect(mocks.$auth.loginWith.calledWith('keycloak', { params: { 'ui_locales': mocks.$i18n.locale } }));
+        expect(mocks.$auth.loginWith.calledWith('keycloak', { params: { 'ui_locales': mocks.$i18n.locale } })).toBe(true);
       });
     });
   });

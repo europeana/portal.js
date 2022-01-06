@@ -156,7 +156,7 @@ describe('plugins/europeana/entity', () => {
 
       await api().find(uris);
 
-      expect(nock.isDone());
+      expect(nock.isDone()).toBe(true);
     });
   });
 
@@ -174,7 +174,7 @@ describe('plugins/europeana/entity', () => {
 
       await api().suggest(text);
 
-      expect(nock.isDone());
+      expect(nock.isDone()).toBe(true);
     });
 
     it('passes `language` to API', async() => {
@@ -187,7 +187,7 @@ describe('plugins/europeana/entity', () => {
 
       await api().suggest(text, { language: 'fr' });
 
-      expect(nock.isDone());
+      expect(nock.isDone()).toBe(true);
     });
 
     it('restricts types to agent, concept, timespan & organization', async() => {
@@ -200,7 +200,7 @@ describe('plugins/europeana/entity', () => {
 
       await api().suggest(text);
 
-      expect(nock.isDone());
+      expect(nock.isDone()).toBe(true);
     });
 
     it('returns the "items"', async() => {

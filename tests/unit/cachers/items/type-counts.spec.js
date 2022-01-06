@@ -52,7 +52,7 @@ describe('cachers/items/type-counts', () => {
     it('queries Record API for facets', async() => {
       await cacher.data(config);
 
-      expect(nock.isDone());
+      expect(nock.isDone()).toBe(true);
     });
 
     it('returns count metadata', async() => {

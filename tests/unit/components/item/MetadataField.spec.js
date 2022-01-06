@@ -246,7 +246,7 @@ describe('components/item/MetadataField', () => {
         await wrapper.setProps(props);
 
         const fieldValues = wrapper.findAll('[data-qa="metadata field"] ul [data-qa="entity link"]');
-        expect(fieldValues.exists());
+        expect(fieldValues.exists()).toBe(true);
       });
     });
     describe('when the link has no url', () => {
@@ -266,7 +266,7 @@ describe('components/item/MetadataField', () => {
         const link = wrapper.findAll('[data-qa="metadata field"] ul [data-qa="entity link"]');
         const fieldValues = wrapper.findAll('[data-qa="metadata field"] ul [data-qa="literal value"]');
         expect(link.exists()).toBe(false);
-        expect(fieldValues.exists());
+        expect(fieldValues.exists()).toBe(true);
       });
     });
   });

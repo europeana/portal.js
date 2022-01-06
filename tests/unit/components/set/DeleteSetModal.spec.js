@@ -49,7 +49,7 @@ describe('components/set/DeleteSetModal', () => {
 
       wrapper.find('[data-qa="close button"]').trigger('click');
 
-      expect(bvModalHide.calledWith('delete-set-modal'));
+      expect(bvModalHide.calledWith('delete-set-modal')).toBe(true);
     });
 
     it('emits "cancel" event', () => {
@@ -75,7 +75,7 @@ describe('components/set/DeleteSetModal', () => {
 
       await wrapper.find('form').trigger('submit.stop.prevent');
 
-      expect(storeDispatch.calledWith('set/deleteSet', '123'));
+      expect(storeDispatch.calledWith('set/deleteSet', '123')).toBe(true);
     });
 
     it('hides the modal', async() => {
@@ -84,7 +84,7 @@ describe('components/set/DeleteSetModal', () => {
 
       await wrapper.find('form').trigger('submit.stop.prevent');
 
-      expect(bvModalHide.calledWith('delete-set-modal'));
+      expect(bvModalHide.calledWith('delete-set-modal')).toBe(true);
     });
 
     it('makes toast', async() => {
@@ -93,7 +93,7 @@ describe('components/set/DeleteSetModal', () => {
 
       await wrapper.find('form').trigger('submit.stop.prevent');
 
-      expect(rootBvToast.calledWith('Your gallery has been deleted.', sinon.match.any));
+      expect(rootBvToast.calledWith('Your gallery has been deleted.', sinon.match.any)).toBe(true);
     });
   });
 });

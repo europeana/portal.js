@@ -98,7 +98,7 @@ describe('components/set/SetFormModal', () => {
 
       const deleteButton = wrapper.find('[data-qa="delete button"]');
 
-      expect(deleteButton.exists());
+      expect(deleteButton.exists()).toBe(true);
     });
 
     it('opens the confirmation modal when pressed', () => {
@@ -108,7 +108,7 @@ describe('components/set/SetFormModal', () => {
       const deleteButton = wrapper.find('[data-qa="delete button"]');
       deleteButton.trigger('click');
 
-      expect(bvModalShow.calledWith(`delete-set-modal-${existingSetPropsData.setId}`));
+      expect(bvModalShow.calledWith(`delete-set-modal-${existingSetPropsData.setId}`)).toBe(true);
     });
   });
 

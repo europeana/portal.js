@@ -157,7 +157,7 @@ describe('components/item/ItemHero', () => {
     describe('when the url is in the list of allMediaUris', () => {
       it('returns true', () => {
         const wrapper = factory(propsData);
-        expect(wrapper.vm.downloadViaProxy('http://www.example.org/canvas'));
+        expect(wrapper.vm.downloadViaProxy('http://www.example.org/canvas')).toBe(true);
       });
     });
     describe('when the url is NOT in the list of allMediaUris', () => {

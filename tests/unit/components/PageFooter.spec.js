@@ -45,13 +45,13 @@ describe('components/PageFooter', () => {
     });
     const selector = wrapper.find('[data-qa="language selector"]');
 
-    expect(selector.isVisible());
+    expect(selector.isVisible()).toBe(true);
   });
   it('retrieves the correct navigation data', () => {
     const wrapper = factory();
     const links = wrapper.vm.footerMoreInfo.links;
 
-    expect(links.some(link => link.text === 'footer.navigation.about'));
+    expect(links.some(link => link.text === 'footer.navigation.about')).toBe(true);
   });
 
   describe('debug menu', () => {

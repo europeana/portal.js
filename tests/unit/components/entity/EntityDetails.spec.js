@@ -75,7 +75,7 @@ describe('components/entity/EntityDetails', () => {
     entityDetails.logo = 'http://commons.wikimedia.org/wiki/Special:FilePath/Uni-Leiden-seal.png';
 
     const wrapper = factory(entityDetails);
-    expect(wrapper.findAll('[data-qa="entity logo"]').exists());
+    expect(wrapper.findAll('[data-qa="entity logo"]').exists()).toBe(true);
   });
 
   describe('external link', () => {
@@ -83,14 +83,14 @@ describe('components/entity/EntityDetails', () => {
       entityDetails.externalLink = 'https://historymuseum.org/en/';
 
       const wrapper = factory(entityDetails);
-      expect(wrapper.findAll('[data-qa="entity external link"]').exists());
+      expect(wrapper.findAll('[data-qa="entity external link"]').exists()).toBe(true);
       expect(wrapper.find('[data-qa="entity external link"] a').attributes('href')).toBe(entityDetails.externalLink);
     });
     it('shows a stripped link text', () => {
       entityDetails.externalLink = 'https://historymuseum.org/en/';
 
       const wrapper = factory(entityDetails);
-      expect(wrapper.findAll('[data-qa="entity external link"]').exists());
+      expect(wrapper.findAll('[data-qa="entity external link"]').exists()).toBe(true);
       expect(wrapper.find('[data-qa="entity external link"] a span:first-child').text()).toBe('historymuseum.org/en/');
     });
   });

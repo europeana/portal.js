@@ -78,7 +78,7 @@ describe('describe./@/plugins/europeana/set', () => {
         .reply(200);
 
       await set({ $config }).get(setId);
-      expect(nock.isDone());
+      expect(nock.isDone()).toBe(true);
     });
   });
 
@@ -125,7 +125,7 @@ describe('describe./@/plugins/europeana/set', () => {
         .reply(204);
 
       await set({ $config }).deleteSet(setId);
-      expect(nock.isDone());
+      expect(nock.isDone()).toBe(true);
     });
   });
 

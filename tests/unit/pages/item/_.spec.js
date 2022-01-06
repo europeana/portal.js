@@ -90,7 +90,7 @@ describe('pages/item/_.vue', () => {
 
         const response = await wrapper.vm.asyncData({ params, app, route, $apis });
 
-        expect($apis.record.getRecord.calledWith('/123/abc', { locale: 'en', metadataLanguage: undefined }));
+        expect($apis.record.getRecord.calledWith('/123/abc', { locale: 'en', metadataLanguage: undefined })).toBe(true);
         expect(response).toEqual(record);
       });
     });
@@ -102,7 +102,7 @@ describe('pages/item/_.vue', () => {
 
         const response = await wrapper.vm.asyncData({ params, app, route, $apis });
 
-        expect($apis.record.getRecord.calledWith('/123/abc', { locale: 'en', metadataLanguage: 'fr' }));
+        expect($apis.record.getRecord.calledWith('/123/abc', { locale: 'en', metadataLanguage: 'fr' })).toBe(true);
         expect(response).toEqual(record);
       });
     });

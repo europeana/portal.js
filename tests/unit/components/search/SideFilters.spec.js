@@ -83,7 +83,7 @@ describe('components/search/SideFilters', () => {
         const wrapper = factory({ storeGetters });
 
         for (const facetName of facetNames) {
-          expect(wrapper.vm.filterableFacets.some(facet => (facet.name === facetName) && !facet.staticFields));
+          expect(wrapper.vm.filterableFacets.some(facet => (facet.name === facetName) && !facet.staticFields)).toBe(true);
         }
       });
 
@@ -95,7 +95,7 @@ describe('components/search/SideFilters', () => {
 
           const firstFacet = wrapper.vm.filterableFacets[0];
           expect(firstFacet.name).toBe('collection');
-          expect(Array.isArray(firstFacet.staticFields));
+          expect(Array.isArray(firstFacet.staticFields)).toBe(true);
         });
       });
 

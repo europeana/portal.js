@@ -33,14 +33,14 @@ describe('server-middleware/api/cache/index', () => {
   it('fetches from the cache, with app namespace', async() => {
     await serverMiddleware(id, config)({}, expressResStub);
 
-    expect(redisClientStub.getAsync.calledWith(`@europeana:portal.js:${id}`));
+    expect(redisClientStub.getAsync.calledWith(`@europeana:portal.js:${id}`)).toBe(true);
   });
 
   it('responds with JSON', async() => {
     await serverMiddleware(id, config)({}, expressResStub);
 
-    expect(expressResStub.set.calledWith('Content-Type', 'application/json'));
-    expect(expressResStub.send.calledWith(cached));
+    expect(expressResStub.set.calledWith('Content-Type', 'application/json')).toBe(true);
+    expect(expressResStub.send.calledWith(cached)).toBe(true);
   });
 
   it('quits the Redis connection', async() => {

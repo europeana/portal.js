@@ -109,7 +109,7 @@ describe('pages/iiif/index.vue', () => {
 
         const fulltext = await wrapper.vm.fetchAnnotationResourcesFulltext(annotationJson);
 
-        expect(nock.isDone());
+        expect(nock.isDone()).toBe(true);
         expect(fulltext).toEqual({
           'http://example.org/fulltext/123': 'Fulltext 123',
           'http://example.org/fulltext/456': 'Fulltext 456'

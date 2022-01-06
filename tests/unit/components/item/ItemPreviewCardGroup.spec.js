@@ -66,8 +66,8 @@ describe('components/item/ItemPreviewCardGroup', () => {
 
       const renderedResults =  wrapper.findAll('[data-qa="item preview"]');
 
-      expect(renderedResults.at(0).find('a').attributes().href.endsWith(`/item${results[0].id}`));
-      expect(renderedResults.at(1).find('a').attributes().href.endsWith(`/item${results[1].id}`));
+      expect(renderedResults.at(0).find('a').attributes().href.endsWith(`/item${results[0].id}`)).toBe(true);
+      expect(renderedResults.at(1).find('a').attributes().href.endsWith(`/item${results[1].id}`)).toBe(true);
     });
   });
 
@@ -79,8 +79,8 @@ describe('components/item/ItemPreviewCardGroup', () => {
 
       const renderedResults =  wrapper.findAll('div[data-qa="item preview"]');
 
-      expect(renderedResults.at(0).find('a').attributes().href.endsWith(`/item${results[0].id}`));
-      expect(renderedResults.at(1).find('a').attributes().href.endsWith(`/item${results[1].id}`));
+      expect(renderedResults.at(0).find('a').attributes().href.endsWith(`/item${results[0].id}`)).toBe(true);
+      expect(renderedResults.at(1).find('a').attributes().href.endsWith(`/item${results[1].id}`)).toBe(true);
     });
   });
 });

@@ -28,7 +28,7 @@ describe('oEmbed()', () => {
 
           await oEmbed(embeddableUrl);
 
-          expect(nock.isDone());
+          expect(nock.isDone()).toBe(true);
         });
       }
     });
@@ -41,7 +41,7 @@ describe('oEmbeddable()', () => {
       for (const scheme of provider.schemes) {
         it(`is \`true\` for scheme "${scheme}"`, () => {
           const embeddableUrl = scheme.replace(/\*/g, 'abcdef');
-          expect(oEmbeddable(embeddableUrl));
+          expect(oEmbeddable(embeddableUrl)).toBe(true);
         });
       }
     });

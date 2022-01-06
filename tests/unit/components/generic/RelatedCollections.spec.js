@@ -76,7 +76,7 @@ describe('components/generic/RelatedCollections', () => {
 
     it('shows a section with related collections chips', () => {
       const relatedCollections = wrapper.find('[data-qa="related collections"]');
-      expect(relatedCollections.isVisible());
+      expect(relatedCollections.isVisible()).toBe(true);
     });
 
     it('contains four related chips', () => {

@@ -41,7 +41,7 @@ describe('components/feedback/FeedbackWidget', () => {
       it('and shows text', () => {
         const wrapper = factory();
         const buttonText = wrapper.find('[data-qa="feedback button text"]');
-        expect(buttonText.isVisible());
+        expect(buttonText.isVisible()).toBe(true);
       });
     });
     describe('after scrolling', () => {
@@ -110,7 +110,7 @@ describe('components/feedback/FeedbackWidget', () => {
         await wrapper.find('form').trigger('submit.prevent');
 
         const errorMessage = wrapper.find('[data-qa="feedback message invalid"]');
-        expect(errorMessage.exists());
+        expect(errorMessage.exists()).toBe(true);
       });
       it('and it is clicked and it has over 5 words', async() => {
         const wrapper = factory();
@@ -239,7 +239,7 @@ describe('components/feedback/FeedbackWidget', () => {
       wrapper.vm.$config = { app: { baseUrl } };
       await wrapper.vm.postFeedbackMessage();
 
-      expect(nock.isDone());
+      expect(nock.isDone()).toBe(true);
     });
 
     it('includes email if provided', async() => {
@@ -257,7 +257,7 @@ describe('components/feedback/FeedbackWidget', () => {
       wrapper.vm.$config = { app: { baseUrl } };
       await wrapper.vm.postFeedbackMessage();
 
-      expect(nock.isDone());
+      expect(nock.isDone()).toBe(true);
     });
   });
 });

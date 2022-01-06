@@ -66,7 +66,7 @@ describe('components/search/SideFacetDropdown', () => {
 
         await wrapper.vm.fetch();
 
-        expect(storeDispatchStub.calledWith('search/queryFacets', { facet: 'COUNTRY' }));
+        expect(storeDispatchStub.calledWith('search/queryFacets', { facet: 'COUNTRY' })).toBe(true);
       });
 
       it('marks facet as fetched', async() => {

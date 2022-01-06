@@ -28,13 +28,13 @@ describe('cachers/utils', () => {
 
       utils.createRedisClient(config);
 
-      expect(redis.createClient.calledWith({ url: config.url }));
+      expect(redis.createClient.calledWith({ url: config.url })).toBe(true);
     });
 
     it('adds an error handler to report to the console', () => {
       utils.createRedisClient();
 
-      expect(redisClientStub.on.calledWith('error', console.error));
+      expect(redisClientStub.on.calledWith('error', console.error)).toBe(true);
     });
 
     it('defines async get, set and quit methods', () => {

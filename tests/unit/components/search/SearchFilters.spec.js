@@ -50,7 +50,7 @@ describe('components/search/SearchFilters', () => {
 
         const label = wrapper.find('[facetname="TYPE"]');
 
-        expect(label.props('prefixed'));
+        expect(label.props('prefixed')).toBe(true);
       });
     });
   });

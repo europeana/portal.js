@@ -32,8 +32,8 @@ describe('components/set/SetRecommendations', () => {
 
       await wrapper.vm.fetch();
 
-      expect(wrapper.vm.$apis.recommendation.recommend.calledWith('set', propsData.identifier));
-      expect(wrapper.vm.$store.commit.calledWith('set/setActiveRecommendations', recommendations));
+      expect(wrapper.vm.$apis.recommendation.recommend.calledWith('set', propsData.identifier)).toBe(true);
+      expect(wrapper.vm.$store.commit.calledWith('set/setActiveRecommendations', recommendations)).toBe(true);
     });
   });
 

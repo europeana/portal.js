@@ -22,7 +22,7 @@ describe('plugins/europeana/recommendation', () => {
 
         const response = await recommendation(axios).recommend('record', '/123/abc');
 
-        expect(nock.isDone());
+        expect(nock.isDone()).toBe(true);
         expect(response).toEqual(recommendations);
       });
     });
@@ -35,7 +35,7 @@ describe('plugins/europeana/recommendation', () => {
 
         const response = await recommendation(axios).recommend('set', '/123');
 
-        expect(nock.isDone());
+        expect(nock.isDone()).toBe(true);
         expect(response).toEqual(recommendations);
       });
     });
@@ -50,7 +50,7 @@ describe('plugins/europeana/recommendation', () => {
 
         const response = await recommendation(axios).accept('set', '/123', oldRecommendedItem);
 
-        expect(nock.isDone());
+        expect(nock.isDone()).toBe(true);
         expect(response).toEqual(newRecommendedItem);
       });
     });
@@ -65,7 +65,7 @@ describe('plugins/europeana/recommendation', () => {
 
         const response = await recommendation(axios).accept('set', '/123', oldRecommendedItem);
 
-        expect(nock.isDone());
+        expect(nock.isDone()).toBe(true);
         expect(response).toEqual(newRecommendedItem);
       });
     });

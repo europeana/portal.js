@@ -52,11 +52,11 @@ describe('components/search/SearchQueryOptions', () => {
     });
 
     const link1 = wrapper.find('[data-qa="search link 1"]');
-    expect(link1.isVisible());
+    expect(link1.isVisible()).toBe(true);
     expect(link1.attributes('href')).toBe('/en/search?query=me');
 
     const link2 = wrapper.find('[data-qa="search link 2"]');
-    expect(link2.isVisible());
+    expect(link2.isVisible()).toBe(true);
     expect(link2.attributes('href')).toBe('/en/search?query=%22Medicine%22');
   });
 

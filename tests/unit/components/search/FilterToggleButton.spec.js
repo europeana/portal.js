@@ -34,7 +34,7 @@ describe('components/search/FilterToggleButton', () => {
         const wrapper = factory({ showFiltersToggle: false });
 
         const filterButton = wrapper.find('[data-qa="search filter button"]');
-        expect(filterButton.exists());
+        expect(filterButton.exists()).toBe(true);
       });
     });
   });
@@ -44,7 +44,7 @@ describe('components/search/FilterToggleButton', () => {
         const wrapper = factory({ showFiltersToggle: true });
 
         const filterButton = wrapper.find('[data-qa="search filter button"]');
-        expect(filterButton.exists());
+        expect(filterButton.exists()).toBe(true);
       });
     });
   });

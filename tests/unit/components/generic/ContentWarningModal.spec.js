@@ -46,13 +46,13 @@ describe('components/generic/ContentWarning', () => {
           const bvModalShow = sinon.spy(wrapper.vm.$bvModal, 'show');
 
           wrapper.vm.showWarning();
-          expect(bvModalShow.calledWith('content-warning-modal'));
+          expect(bvModalShow.calledWith('content-warning-modal')).toBe(true);
         });
         it('tracks the show event in Matomo', () => {
           const wrapper = factory(props);
 
           wrapper.vm.showWarning();
-          expect(wrapper.vm.$matomo.trackEvent.calledWith('Content warning', 'Content warning modal shows', 'exhibition/slug-example'));
+          expect(wrapper.vm.$matomo.trackEvent.calledWith('Content warning', 'Content warning modal shows', 'exhibition/slug-example')).toBe(true);
         });
       });
       describe('when shown before and dismissed', () => {
@@ -73,7 +73,7 @@ describe('components/generic/ContentWarning', () => {
         const awayButton = wrapper.find('[data-qa="go away button"]');
 
         awayButton.trigger('click');
-        expect(wrapper.vm.$matomo.trackEvent.calledWith('Content warning', 'Click go away', 'exhibition/slug-example'));
+        expect(wrapper.vm.$matomo.trackEvent.calledWith('Content warning', 'Click go away', 'exhibition/slug-example')).toBe(true);
       });
     });
 
@@ -83,14 +83,14 @@ describe('components/generic/ContentWarning', () => {
         const bvModalHide = sinon.spy(wrapper.vm.$bvModal, 'hide');
 
         wrapper.vm.dismissWarning();
-        expect(bvModalHide.calledWith('content-warning-modal'));
+        expect(bvModalHide.calledWith('content-warning-modal')).toBe(true);
         expect(global.sessionStorage.getItem('dismissedWarnings')).toBe('["blog/already-viewed","exhibition/slug-example"]');
       });
       it('tracks the continue event in Matomo', () => {
         const wrapper = factory(props);
 
         wrapper.vm.dismissWarning();
-        expect(wrapper.vm.$matomo.trackEvent.calledWith('Content warning', 'Click continue', 'exhibition/slug-example'));
+        expect(wrapper.vm.$matomo.trackEvent.calledWith('Content warning', 'Click continue', 'exhibition/slug-example')).toBe(true);
       });
     });
   });

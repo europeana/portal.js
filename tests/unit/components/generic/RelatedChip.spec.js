@@ -84,7 +84,7 @@ describe('components/generic/RelatedChip', () => {
     });
 
     wrapper.vm.trackClickEvent();
-    expect(wrapper.vm.$matomo.trackEvent.calledWith('Related_collections', 'Click related collection', '/collections/topic/33-costume'));
+    expect(wrapper.vm.$matomo.trackEvent.calledWith('Related_collections', 'Click related collection', '/collections/topic/33-costume')).toBe(true);
   });
 
   describe('when linkTo is a URL with scheme', () => {

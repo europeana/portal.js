@@ -102,7 +102,7 @@ describe('cachers/items/recent', () => {
     it('queries Record API for 4 items from recently updated content tier 4 datasets', async() => {
       await cacher.data(config);
 
-      expect(nock.isDone());
+      expect(nock.isDone()).toBe(true);
     });
 
     it('returns item metadata to cache', async() => {

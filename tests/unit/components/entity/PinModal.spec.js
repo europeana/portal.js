@@ -61,7 +61,7 @@ describe('components/entity/PinModal', () => {
 
       wrapper.find('[data-qa="cancel button"]').trigger('click');
 
-      expect(bvModalHide.calledWith(`pin-modal-${id}`));
+      expect(bvModalHide.calledWith(`pin-modal-${id}`)).toBe(true);
     });
 
     it('does not update pinned set', () => {
@@ -78,14 +78,14 @@ describe('components/entity/PinModal', () => {
       const wrapper = factory({ itemId: id, modalId: 'pin-modal-/123/abc' });
       wrapper.find('[data-qa="toggle pin button"]').trigger('click');
 
-      expect(storeDispatch.calledWith('entity/pin', id));
+      expect(storeDispatch.calledWith('entity/pin', id)).toBe(true);
     });
     it('unpins item when already pinned', () => {
       const wrapper = factory({ itemId: id, modalId: 'pin-modal-/123/abc', pinned: true });
 
       wrapper.find('[data-qa="toggle pin button"]').trigger('click');
 
-      expect(storeDispatch.calledWith('entity/unpin', id));
+      expect(storeDispatch.calledWith('entity/unpin', id)).toBe(true);
     });
     it('hides the modal', async() => {
       const wrapper = factory({ itemId: id, modalId: 'pin-modal-/123/abc' });
@@ -93,7 +93,7 @@ describe('components/entity/PinModal', () => {
 
       await wrapper.find('[data-qa="toggle pin button"]').trigger('click');
 
-      expect(bvModalHide.calledWith(`pin-modal-${id}`));
+      expect(bvModalHide.calledWith(`pin-modal-${id}`)).toBe(true);
     });
 
     it('makes toast', async() => {
@@ -102,7 +102,7 @@ describe('components/entity/PinModal', () => {
 
       await wrapper.find('[data-qa="toggle pin button"]').trigger('click');
 
-      expect(rootBvToast.calledWith('The item has been pinned. It might take up to 24 hours to appear for everyone.'));
+      expect(rootBvToast.calledWith('The item has been pinned. It might take up to 24 hours to appear for everyone.')).toBe(true);
     });
   });
 });

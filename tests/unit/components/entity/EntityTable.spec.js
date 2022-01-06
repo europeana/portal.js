@@ -45,7 +45,7 @@ describe('components/entity/EntityTable', () => {
 
       await wrapper.vm.fetch();
 
-      expect($axiosGetStub.calledWith(middlewarePath));
+      expect($axiosGetStub.calledWith(middlewarePath)).toBe(true);
     });
 
     it('stores collections from response body on component collections property', async() => {
@@ -65,7 +65,7 @@ describe('components/entity/EntityTable', () => {
         collections
       });
 
-      expect(wrapper.find('[data-qa="collection link 001-museum"]').attributes('href')).toBe((`/collections/organisation/${collections[0].slug}`));
+      expect(wrapper.find('[data-qa="collection link 001-museum"]').attributes('href')).toBe(`/collections/organisation/${collections[0].slug}`);
     });
   });
 

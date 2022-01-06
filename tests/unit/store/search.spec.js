@@ -238,7 +238,7 @@ describe('store/search', () => {
             describe('that is enabled', () => {
               const rootState = { collections: { [collection]: { enabled: true } } };
               it('is true', () => {
-                expect(store.getters.hasCollectionSpecificSettings({}, {}, rootState)(collection));
+                expect(store.getters.hasCollectionSpecificSettings({}, {}, rootState)(collection)).toBe(true);
               });
             });
 
@@ -253,7 +253,7 @@ describe('store/search', () => {
           describe('without `enabled` property', () => {
             const rootState = { collections: { [collection]: {} } };
             it('is true', () => {
-              expect(store.getters.hasCollectionSpecificSettings({}, {}, rootState)(collection));
+              expect(store.getters.hasCollectionSpecificSettings({}, {}, rootState)(collection)).toBe(true);
             });
           });
         });
@@ -469,7 +469,7 @@ describe('store/search', () => {
 
         await store.actions.run({ dispatch, getters: {} });
 
-        expect(dispatch.calledWith('deriveApiSettings'));
+        expect(dispatch.calledWith('deriveApiSettings')).toBe(true);
       });
 
       it('queries for items and facets if needed', async() => {
@@ -477,8 +477,8 @@ describe('store/search', () => {
 
         await store.actions.run({ dispatch, getters: { itemUpdateNeeded: true, facetUpdateNeeded: true } });
 
-        expect(dispatch.calledWith('queryItems'));
-        expect(dispatch.calledWith('queryFacets'));
+        expect(dispatch.calledWith('queryItems')).toBe(true);
+        expect(dispatch.calledWith('queryFacets')).toBe(true);
       });
 
       it('omits query for items if not needed', async() => {
@@ -487,7 +487,7 @@ describe('store/search', () => {
         await store.actions.run({ dispatch, getters: { itemUpdateNeeded: false, facetUpdateNeeded: true } });
 
         expect(dispatch.calledWith('queryItems')).toBe(false);
-        expect(dispatch.calledWith('queryFacets'));
+        expect(dispatch.calledWith('queryFacets')).toBe(true);
       });
 
       it('omits query for facets if not needed', async() => {
@@ -495,7 +495,7 @@ describe('store/search', () => {
 
         await store.actions.run({ dispatch, getters: { itemUpdateNeeded: true, facetUpdateNeeded: false } });
 
-        expect(dispatch.calledWith('queryItems'));
+        expect(dispatch.calledWith('queryItems')).toBe(true);
         expect(dispatch.calledWith('queryFacets')).toBe(false);
       });
 
@@ -540,7 +540,7 @@ describe('store/search', () => {
 
           await store.actions.queryItems({ dispatch, state, getters });
 
-          expect(dispatch.calledWith('updateForSuccess'));
+          expect(dispatch.calledWith('updateForSuccess')).toBe(true);
         });
       });
 
@@ -557,7 +557,7 @@ describe('store/search', () => {
 
           await store.actions.queryItems({ dispatch, state, getters });
 
-          expect(dispatch.calledWith('updateForFailure'));
+          expect(dispatch.calledWith('updateForFailure')).toBe(true);
         });
       });
     });
@@ -606,7 +606,7 @@ describe('store/search', () => {
 
         await store.actions.setResettableFilter({ commit }, { name, selected });
 
-        expect(commit.calledWith('removeResettableFilter', name));
+        expect(commit.calledWith('removeResettableFilter', name)).toBe(true);
       });
 
       it('commits removeResettableFilter for falsy values', async() => {
@@ -616,7 +616,7 @@ describe('store/search', () => {
 
         await store.actions.setResettableFilter({ commit }, { name, selected });
 
-        expect(commit.calledWith('removeResettableFilter', name));
+        expect(commit.calledWith('removeResettableFilter', name)).toBe(true);
       });
 
       it('commits addResettableFilter for non-empty arrays', async() => {
@@ -626,7 +626,7 @@ describe('store/search', () => {
 
         await store.actions.setResettableFilter({ commit }, { name, selected });
 
-        expect(commit.calledWith('addResettableFilter', name));
+        expect(commit.calledWith('addResettableFilter', name)).toBe(true);
       });
 
       it('commits addResettableFilter for truthy values', async() => {
@@ -636,7 +636,7 @@ describe('store/search', () => {
 
         await store.actions.setResettableFilter({ commit }, { name, selected });
 
-        expect(commit.calledWith('addResettableFilter', name));
+        expect(commit.calledWith('addResettableFilter', name)).toBe(true);
       });
     });
   });

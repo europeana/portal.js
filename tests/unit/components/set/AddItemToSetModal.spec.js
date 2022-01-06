@@ -60,7 +60,7 @@ describe('components/set/AddItemToSetModal', () => {
 
       wrapper.find('[data-qa="close button"]').trigger('click');
 
-      expect(bvModalHide.calledWith('add-item-to-set-modal-/123/abc'));
+      expect(bvModalHide.calledWith('add-item-to-set-modal-/123/abc')).toBe(true);
     });
   });
 
@@ -71,7 +71,7 @@ describe('components/set/AddItemToSetModal', () => {
 
       await wrapper.find('[data-qa="toggle item button 0"]').trigger('click');
 
-      expect(storeDispatch.calledWith('set/addItem', { setId: '001', itemId: '/123/abc' }));
+      expect(storeDispatch.calledWith('set/addItem', { setId: '001', itemId: '/123/abc' })).toBe(true);
     });
 
     it('removes item from gallery when item already added', async() => {
@@ -80,7 +80,7 @@ describe('components/set/AddItemToSetModal', () => {
 
       await wrapper.find('[data-qa="toggle item button 0"]').trigger('click');
 
-      expect(storeDispatch.calledWith('set/removeItem', { setId: '001', itemId: '/000/aaa' }));
+      expect(storeDispatch.calledWith('set/removeItem', { setId: '001', itemId: '/000/aaa' })).toBe(true);
     });
   });
 });

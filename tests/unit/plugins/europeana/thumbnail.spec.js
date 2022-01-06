@@ -7,7 +7,7 @@ describe('plugins/europeana/thumbnail', () => {
     const uri = 'https://www.example.org/doc.pdf';
 
     it('uses the thumbnail API', () => {
-      expect(thumbnailUrl(uri).startsWith('https://api.europeana.eu/thumbnail/v2/url.json'));
+      expect(thumbnailUrl(uri).startsWith('https://api.europeana.eu/thumbnail/v2/url.json')).toBe(true);
     });
 
     it('URL-encodes URI', () => {

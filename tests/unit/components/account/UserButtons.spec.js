@@ -49,7 +49,7 @@ describe('components/account/UserButtons', () => {
 
       const addButton = wrapper.find('[data-qa="add button"]');
 
-      expect(addButton.isVisible());
+      expect(addButton.isVisible()).toBe(true);
     });
 
     describe('when user is not logged in', () => {
@@ -79,7 +79,7 @@ describe('components/account/UserButtons', () => {
           const addButton = wrapper.find('[data-qa="add button"]');
           addButton.trigger('click');
 
-          expect(bvModalShow.calledWith(`add-item-to-set-modal-${identifier}`));
+          expect(bvModalShow.calledWith(`add-item-to-set-modal-${identifier}`)).toBe(true);
         });
 
         it('emits "add" event', async() => {
@@ -101,7 +101,7 @@ describe('components/account/UserButtons', () => {
 
       const likeButton = wrapper.find('[data-qa="like button"]');
 
-      expect(likeButton.isVisible());
+      expect(likeButton.isVisible()).toBe(true);
     });
 
     describe('when user is not logged in', () => {
@@ -144,7 +144,7 @@ describe('components/account/UserButtons', () => {
             const likeButton = wrapper.find('[data-qa="like button"]');
             likeButton.trigger('click');
 
-            expect(storeDispatch.calledWith('set/createLikes'));
+            expect(storeDispatch.calledWith('set/createLikes')).toBe(true);
           });
 
           it('dispatches to add item to likes set', () => {
@@ -153,7 +153,7 @@ describe('components/account/UserButtons', () => {
             const likeButton = wrapper.find('[data-qa="like button"]');
             likeButton.trigger('click');
 
-            expect(storeDispatch.calledWith('set/like', identifier));
+            expect(storeDispatch.calledWith('set/like', identifier)).toBe(true);
           });
 
           it('emits "like" event', async() => {
@@ -189,7 +189,7 @@ describe('components/account/UserButtons', () => {
             const likeButton = wrapper.find('[data-qa="like button"]');
             likeButton.trigger('click');
 
-            expect(storeDispatch.calledWith('set/unlike', identifier));
+            expect(storeDispatch.calledWith('set/unlike', identifier)).toBe(true);
           });
 
           it('emits "unlike" event', async() => {
@@ -213,7 +213,7 @@ describe('components/account/UserButtons', () => {
 
       const pinButton = wrapper.find('[data-qa="pin button"]');
 
-      expect(pinButton.isVisible());
+      expect(pinButton.isVisible()).toBe(true);
     });
 
     describe('when item is not pinned', () => {
@@ -238,7 +238,7 @@ describe('components/account/UserButtons', () => {
 
           pinButton.trigger('click');
 
-          expect(bvModalShow.calledWith(`pin-modal-${identifier}`));
+          expect(bvModalShow.calledWith(`pin-modal-${identifier}`)).toBe(true);
         });
       });
     });
@@ -264,7 +264,7 @@ describe('components/account/UserButtons', () => {
 
           pinButton.trigger('click');
 
-          expect(bvModalShow.calledWith(`pin-modal-${identifier}`));
+          expect(bvModalShow.calledWith(`pin-modal-${identifier}`)).toBe(true);
         });
       });
     });

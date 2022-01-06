@@ -121,7 +121,7 @@ describe('pages/contentful/image-harvester/index', () => {
           wrapper.vm.populateFields = sinon.spy();
 
           await wrapper.vm.harvestImage();
-          expect(wrapper.vm.showError.calledWith('Unable to parse URL: https://example.org/failure Please make sure the URL conforms to the accepted formats.'));
+          expect(wrapper.vm.showError.calledWith('Unable to parse URL: https://example.org/failure Please make sure the URL conforms to the accepted formats.')).toBe(true);
           expect(wrapper.vm.populateFields.called).toBe(false);
         });
       });
@@ -136,7 +136,7 @@ describe('pages/contentful/image-harvester/index', () => {
 
           await wrapper.vm.harvestImage();
           expect(wrapper.vm.populateFields.called).toBe(false);
-          expect(wrapper.vm.showError.calledWith(`Unable to harvest "${apiResponse().object.about}". Please make sure the item can be accessed on the Record API. Error: "${apiErrorResponse.response.data.error}"`));
+          expect(wrapper.vm.showError.calledWith(`Unable to harvest "${apiResponse().object.about}". Please make sure the item can be accessed on the Record API. Error: "${apiErrorResponse.response.data.error}"`)).toBe(true);
         });
       });
 
@@ -151,7 +151,7 @@ describe('pages/contentful/image-harvester/index', () => {
           wrapper.vm.showError = sinon.spy();
 
           await wrapper.vm.harvestImage();
-          expect(wrapper.vm.showError.calledWith('There was a problem updating the entry. Contentful error'));
+          expect(wrapper.vm.showError.calledWith('There was a problem updating the entry. Contentful error')).toBe(true);
         });
       });
     });
@@ -199,7 +199,7 @@ describe('pages/contentful/image-harvester/index', () => {
         it('uses dc:title from the provider proxy', () => {
           const wrapper = factory();
           wrapper.vm.populateFields(apiResponse().object);
-          expect(wrapper.vm.entry.fields.name.setValue.calledWith('Madonna'));
+          expect(wrapper.vm.entry.fields.name.setValue.calledWith('Madonna')).toBe(true);
         });
       });
 
@@ -209,7 +209,7 @@ describe('pages/contentful/image-harvester/index', () => {
           const item = apiResponse().object;
           item.aggregations[0].webResources[0].dcCreator = { en: ['isShownBy creator'] };
           wrapper.vm.populateFields(item);
-          expect(wrapper.vm.entry.fields.creator.setValue.calledWith('isShownBy creator'));
+          expect(wrapper.vm.entry.fields.creator.setValue.calledWith('isShownBy creator')).toBe(true);
         });
 
         it('falls back to dc:creator from the provider proxy', () => {
@@ -217,14 +217,14 @@ describe('pages/contentful/image-harvester/index', () => {
           const item = apiResponse().object;
           item.proxies[0].dcCreator = { en: ['proxy creator'] };
           wrapper.vm.populateFields(item);
-          expect(wrapper.vm.entry.fields.creator.setValue.calledWith('proxy creator'));
+          expect(wrapper.vm.entry.fields.creator.setValue.calledWith('proxy creator')).toBe(true);
         });
 
         it('uses prefLabel for a linked agent', () => {
           const wrapper = factory();
           const item = apiResponse().object;
           wrapper.vm.populateFields(item);
-          expect(wrapper.vm.entry.fields.creator.setValue.calledWith('Edvard Munch'));
+          expect(wrapper.vm.entry.fields.creator.setValue.calledWith('Edvard Munch')).toBe(true);
         });
       });
 
@@ -234,14 +234,14 @@ describe('pages/contentful/image-harvester/index', () => {
           const item = apiResponse().object;
           item.aggregations[0].edmDataProvider = { def: ['aggregation data provider'] };
           wrapper.vm.populateFields(item);
-          expect(wrapper.vm.entry.fields.provider.setValue.calledWith('aggregation data provider'));
+          expect(wrapper.vm.entry.fields.provider.setValue.calledWith('aggregation data provider')).toBe(true);
         });
 
         it('uses prefLabel for a linked organization', () => {
           const wrapper = factory();
           const item = apiResponse().object;
           wrapper.vm.populateFields(item);
-          expect(wrapper.vm.entry.fields.provider.setValue.calledWith('The National Museum of Art, Architecture and Design'));
+          expect(wrapper.vm.entry.fields.provider.setValue.calledWith('The National Museum of Art, Architecture and Design')).toBe(true);
         });
       });
 
@@ -251,7 +251,7 @@ describe('pages/contentful/image-harvester/index', () => {
           const item = apiResponse().object;
           item.aggregations[0].webResources[0].webResourceEdmRights = { def: ['isShownBy rights'] };
           wrapper.vm.populateFields(item);
-          expect(wrapper.vm.entry.fields.license.setValue.calledWith('isShownBy rights'));
+          expect(wrapper.vm.entry.fields.license.setValue.calledWith('isShownBy rights')).toBe(true);
         });
 
         it('falls back to edm:rights from the provider aggregation', () => {
@@ -260,7 +260,7 @@ describe('pages/contentful/image-harvester/index', () => {
           item.aggregations[0].edmRights = { def: ['aggregation rights'] };
           delete item.aggregations[0].webResources[0].webResourceEdmRights;
           wrapper.vm.populateFields(item);
-          expect(wrapper.vm.entry.fields.license.setValue.calledWith('aggregation rights'));
+          expect(wrapper.vm.entry.fields.license.setValue.calledWith('aggregation rights')).toBe(true);
         });
       });
 
@@ -269,7 +269,7 @@ describe('pages/contentful/image-harvester/index', () => {
           const wrapper = factory();
           const item = apiResponse().object;
           wrapper.vm.populateFields(item);
-          expect(wrapper.vm.entry.fields.url.setValue.calledWith('http://data.europeana.eu/item/2063612/NO_280_001'));
+          expect(wrapper.vm.entry.fields.url.setValue.calledWith('http://data.europeana.eu/item/2063612/NO_280_001')).toBe(true);
         });
       });
 

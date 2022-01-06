@@ -104,7 +104,7 @@ describe('cachers/collections/index', () => {
     it('paginates over data', async() => {
       await cacher(params, config);
 
-      expect(nock.isDone());
+      expect(nock.isDone()).toBe(true);
     });
 
     it('returns data to cache, with numeric sorting', async() => {

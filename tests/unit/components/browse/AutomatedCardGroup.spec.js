@@ -155,7 +155,7 @@ describe('components/browse/AutomatedCardGroup', () => {
       it('gets the data from the cache API endpoint', async() => {
         const wrapper = nuxtFactory({ sectionType: FEATURED_TOPICS });
         await wrapper.vm.fetch();
-        expect($axiosGetStub.calledWith('/_api/cache/en/collections/topics/featured'));
+        expect($axiosGetStub.calledWith('/_api/cache/en/collections/topics/featured')).toBe(true);
         expect(wrapper.vm.entries).toEqual(entries.featuredTopics);
       });
     });

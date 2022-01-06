@@ -27,7 +27,7 @@ describe('components/geo/MapEmbed', () => {
 
     const iframe =  wrapper.find('iframe');
 
-    expect(iframe.exists());
+    expect(iframe.exists()).toBe(true);
   });
 
   describe('label', () => {
@@ -36,7 +36,7 @@ describe('components/geo/MapEmbed', () => {
 
       const labelText =  wrapper.find('label').text();
 
-      expect(labelText.startsWith('Brighton'));
+      expect(labelText.startsWith('Brighton')).toBe(true);
     });
 
     it('ends with formatted co-ordinates', () => {
@@ -44,7 +44,7 @@ describe('components/geo/MapEmbed', () => {
 
       const labelText =  wrapper.find('label').text();
 
-      expect(labelText.endsWith('50.82838° N -0.13947° W'));
+      expect(labelText.endsWith('50.82838° N -0.13947° W')).toBe(true);
     });
   });
 

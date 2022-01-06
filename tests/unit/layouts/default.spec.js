@@ -53,7 +53,7 @@ describe('layouts/default.vue', () => {
   describe('VueAnnouncer', () => {
     it('is enabled', () => {
       const wrapper = factory();
-      expect(wrapper.find('#announcer').exists());
+      expect(wrapper.find('#announcer').exists()).toBe(true);
     });
   });
 
@@ -76,7 +76,7 @@ describe('layouts/default.vue', () => {
       it('registers Klaro manager update watcher', () => {
         const wrapper = factory({ klaro: klaroMock });
 
-        expect(klaroManagerStub.watch.calledWith({ update: wrapper.vm.watchKlaroManagerUpdate }));
+        expect(klaroManagerStub.watch.calledWith({ update: wrapper.vm.watchKlaroManagerUpdate })).toBe(true);
       });
     });
 
@@ -100,7 +100,7 @@ describe('layouts/default.vue', () => {
             it(`tracks Klaro click event with name "${eventName}"`, () => {
               wrapper.vm.watchKlaroManagerUpdate(manager, eventType, data);
 
-              expect(wrapper.vm.trackKlaroClickEvent.calledWith(eventName));
+              expect(wrapper.vm.trackKlaroClickEvent.calledWith(eventName)).toBe(true);
             });
           });
         }
@@ -115,7 +115,7 @@ describe('layouts/default.vue', () => {
         const eventName = 'Saved';
         wrapper.vm.trackKlaroClickEvent(eventName);
 
-        expect(wrapper.vm.$matomo.trackEvent.calledWith('Klaro', 'Clicked', eventName));
+        expect(wrapper.vm.$matomo.trackEvent.calledWith('Klaro', 'Clicked', eventName)).toBe(true);
       });
     });
   });

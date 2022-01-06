@@ -28,7 +28,7 @@ describe('components/generic/DownloadModal', () => {
     const wrapper = factory(propsData);
 
     const snippet =  wrapper.find('[data-qa="attribution snippet"]');
-    expect(snippet.find('b-form-textarea-stub').exists());
+    expect(snippet.find('b-form-textarea-stub').exists()).toBe(true);
     expect(snippet.find('b-form-textarea-stub').attributes('value')).toContain(attributionSnippet);
   });
 });

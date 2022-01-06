@@ -161,7 +161,7 @@ describe('components/generic/ContentCard', () => {
     await wrapper.setProps({ imageUrl: 'https://example.org', variant: 'mini' });
 
     const image =  wrapper.find('[data-qa="content card"] .card-img');
-    expect(image.exists());
+    expect(image.exists()).toBe(true);
   });
 
   it('highlights the search term if found', async() => {

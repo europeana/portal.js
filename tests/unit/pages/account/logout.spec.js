@@ -38,7 +38,7 @@ describe('pages/account/logout.vue', () => {
         page.beforeRouteEnter.call(wrapper.vm, null, from, next);
 
         expect(next.called).toBe(true);
-        expect(authStorageSetUniversal.calledWith('redirect', from.fullPath));
+        expect(authStorageSetUniversal.calledWith('redirect', from.fullPath)).toBe(true);
       });
     });
 
@@ -52,7 +52,7 @@ describe('pages/account/logout.vue', () => {
         page.beforeRouteEnter.call(wrapper.vm, null, from, next);
 
         expect(next.called).toBe(true);
-        expect(authStorageSetUniversal.calledWith('redirect', '/eu'));
+        expect(authStorageSetUniversal.calledWith('redirect', '/eu')).toBe(true);
       });
     });
   });
@@ -83,7 +83,7 @@ describe('pages/account/logout.vue', () => {
         }
       });
 
-      expect(wrapper.vm.$goto.calledWith('https://auth.example.org/logout?redirect_uri=http%3A%2F%2Flocalhost%2Fabout-us'));
+      expect(wrapper.vm.$goto.calledWith('https://auth.example.org/logout?redirect_uri=http%3A%2F%2Flocalhost%2Fabout-us')).toBe(true);
     });
   });
 });

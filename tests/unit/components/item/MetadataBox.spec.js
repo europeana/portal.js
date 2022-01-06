@@ -43,7 +43,7 @@ describe('components/item/MetadataBox', () => {
 
         const locationTab = wrapper.find('[data-qa="location tab"]');
 
-        expect(locationTab.exists());
+        expect(locationTab.exists()).toBe(true);
       });
 
       describe('and mappable location is present', () => {

@@ -18,7 +18,7 @@ describe('components/media/OEmbedMedia', () => {
       const wrapper = factory();
       const container = wrapper.find('[data-qa="html embed"]');
 
-      expect(container.contains('iframe'));
+      expect(container.contains('iframe')).toBe(true);
     });
   });
   describe('when there was a problem retrieving the embeded content', () => {

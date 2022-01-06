@@ -72,7 +72,7 @@ describe('components/entity/EntityUpdateModal', () => {
 
       await wrapper.find('form').trigger('submit.stop.prevent');
 
-      expect(bvModalHide.calledWith('entityUpdateModal'));
+      expect(bvModalHide.calledWith('entityUpdateModal')).toBe(true);
     });
 
     it('makes toast', async() => {
@@ -81,7 +81,7 @@ describe('components/entity/EntityUpdateModal', () => {
 
       await wrapper.find('form').trigger('submit.stop.prevent');
 
-      expect(rootBvToast.calledWith('The collection has been updated', sinon.match.any));
+      expect(rootBvToast.calledWith('The collection has been updated', sinon.match.any)).toBe(true);
     });
   });
 

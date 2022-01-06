@@ -42,7 +42,7 @@ describe('components/item/ItemEmbedCode', () => {
 
       await wrapper.vm.fetch();
 
-      expect(nock.isDone());
+      expect(nock.isDone()).toBe(true);
     });
 
     it('stores html from response body on component embedHtml property', async() => {
@@ -70,7 +70,7 @@ describe('components/item/ItemEmbedCode', () => {
       it('copies the embed code to the clipboard', async() => {
         await wrapper.find('#share-embed').trigger('click');
 
-        expect(document.execCommand.calledWith('copy'));
+        expect(document.execCommand.calledWith('copy')).toBe(true);
       });
 
       it('shows a notification message', async() => {

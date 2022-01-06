@@ -98,9 +98,9 @@ describe('middleware/legacy', () => {
       const status = rule.status || 301;
 
       if (Object.keys(toQuery).length > 0) {
-        expect(redirect.calledWith(status, { path: toPath, query: toQuery }));
+        expect(redirect.calledWith(status, { path: toPath, query: toQuery })).toBe(true);
       } else {
-        expect(redirect.calledWith(status, { path: toPath, query: {} }));
+        expect(redirect.calledWith(status, { path: toPath, query: {} })).toBe(true);
       }
     });
   }

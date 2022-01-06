@@ -49,9 +49,9 @@ describe('store/item', () => {
 
         await store.actions.reset({ commit });
 
-        expect(commit.calledWith('setAnnotations', []));
-        expect(commit.calledWith('setRelatedEntities', []));
-        expect(commit.calledWith('setSimilarItems', []));
+        expect(commit.calledWith('setAnnotations', [])).toBe(true);
+        expect(commit.calledWith('setRelatedEntities', [])).toBe(true);
+        expect(commit.calledWith('setSimilarItems', [])).toBe(true);
       });
     });
   });

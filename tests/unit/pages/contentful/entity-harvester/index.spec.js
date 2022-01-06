@@ -104,7 +104,7 @@ describe('pages/contentful/entity-harvester/index', () => {
           wrapper.vm.populateFields = sinon.spy();
 
           await wrapper.vm.harvestEntity();
-          expect(wrapper.vm.showError.calledWith('Unable to parse URL: https://example.org/failure Please make sure the URL conforms to the accepted formats.'));
+          expect(wrapper.vm.showError.calledWith('Unable to parse URL: https://example.org/failure Please make sure the URL conforms to the accepted formats.')).toBe(true);
           expect(wrapper.vm.populateFields.called).toBe(false);
         });
       });
@@ -121,7 +121,7 @@ describe('pages/contentful/entity-harvester/index', () => {
 
           await wrapper.vm.harvestEntity();
           expect(wrapper.vm.populateFields.called).toBe(false);
-          expect(wrapper.vm.showError.calledWith(`Unable to harvest: http://data.europeana.eu/${type}/base/${id} Please make sure the entity can be accessed on the entity API. ${responseError.response.data.error}`));
+          expect(wrapper.vm.showError.calledWith(`Unable to harvest: http://data.europeana.eu/${type}/base/${id} Please make sure the entity can be accessed on the entity API. ${responseError.response.data.error}`)).toBe(true);
         });
       });
 
@@ -138,7 +138,7 @@ describe('pages/contentful/entity-harvester/index', () => {
           wrapper.vm.showError = sinon.spy();
 
           await wrapper.vm.harvestEntity();
-          expect(wrapper.vm.showError.calledWith('There was a problem updating the entry. Contentful error'));
+          expect(wrapper.vm.showError.calledWith('There was a problem updating the entry. Contentful error')).toBe(true);
         });
       });
     }),
@@ -210,14 +210,14 @@ describe('pages/contentful/entity-harvester/index', () => {
       it('sets the field identifier', () => {
         const wrapper = factory();
         wrapper.vm.populateFields(response, id);
-        expect(wrapper.vm.entry.fields.identifier.setValue.calledWith(response.id));
+        expect(wrapper.vm.entry.fields.identifier.setValue.calledWith(response.id)).toBe(true);
       });
 
       describe('when entry has a slug', () => {
         it('sets the entity Slug from the response', () => {
           const wrapper = factory();
           wrapper.vm.populateFields(response, id);
-          expect(wrapper.vm.entry.fields.slug.setValue.calledWith('20-giovnanni-francesco-straparola'));
+          expect(wrapper.vm.entry.fields.slug.setValue.calledWith('20-giovnanni-francesco-straparola')).toBe(true);
         });
       });
 
@@ -225,7 +225,7 @@ describe('pages/contentful/entity-harvester/index', () => {
         it('sets the human readable entity type from the response', () => {
           const wrapper = factory();
           wrapper.vm.populateFields(response, id);
-          expect(wrapper.vm.entry.fields.type.setValue.calledWith('person'));
+          expect(wrapper.vm.entry.fields.type.setValue.calledWith('person')).toBe(true);
         });
       });
 
@@ -233,7 +233,7 @@ describe('pages/contentful/entity-harvester/index', () => {
         it('sets the entity name from the response', () => {
           const wrapper = factory();
           wrapper.vm.populateFields(response, id);
-          expect(wrapper.vm.entry.fields.name.setValue.calledWith('Giovnanni Francesco Straparola'));
+          expect(wrapper.vm.entry.fields.name.setValue.calledWith('Giovnanni Francesco Straparola')).toBe(true);
         });
       });
 
@@ -241,7 +241,7 @@ describe('pages/contentful/entity-harvester/index', () => {
         it('sets the entity description from the response', () => {
           const wrapper = factory();
           wrapper.vm.populateFields(response, id);
-          expect(wrapper.vm.entry.fields.description.setValue.calledWith('Desc'));
+          expect(wrapper.vm.entry.fields.description.setValue.calledWith('Desc')).toBe(true);
         });
       });
 
@@ -249,7 +249,7 @@ describe('pages/contentful/entity-harvester/index', () => {
         it('sets the image from the response isShownBy thumbnail', () => {
           const wrapper = factory();
           wrapper.vm.populateFields(response, id);
-          expect(wrapper.vm.entry.fields.image.setValue.calledWith('thumbnailUrl'));
+          expect(wrapper.vm.entry.fields.image.setValue.calledWith('thumbnailUrl')).toBe(true);
         });
       });
     });

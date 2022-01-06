@@ -62,7 +62,7 @@ describe('store/set', () => {
         it(`commits "${commitName}" with ${commitValue}`, ()  => {
           store.actions.reset({ commit });
 
-          expect(commit.calledWith(commitName, commitValue));
+          expect(commit.calledWith(commitName, commitValue)).toBe(true);
         });
       }
     });
@@ -74,8 +74,8 @@ describe('store/set', () => {
 
         await store.actions.like({ dispatch, commit, state }, itemId);
 
-        expect(store.actions.$apis.set.modifyItems.calledWith('add', state.likesId, itemId));
-        expect(commit.calledWith('like', itemId));
+        expect(store.actions.$apis.set.modifyItems.calledWith('add', state.likesId, itemId)).toBe(true);
+        expect(commit.calledWith('like', itemId)).toBe(true);
       });
     });
 
@@ -86,8 +86,8 @@ describe('store/set', () => {
 
         store.actions.unlike({ dispatch, commit, state }, itemId);
 
-        expect(store.actions.$apis.set.modifyItems.calledWith('delete', state.likesId, itemId));
-        expect(commit.calledWith('unlike', itemId));
+        expect(store.actions.$apis.set.modifyItems.calledWith('delete', state.likesId, itemId)).toBe(true);
+        expect(commit.calledWith('unlike', itemId)).toBe(true);
       });
     });
 
@@ -98,8 +98,8 @@ describe('store/set', () => {
 
         await store.actions.addItem({ dispatch, state }, { setId, itemId });
 
-        expect(store.actions.$apis.set.modifyItems.calledWith('add', setId, itemId));
-        expect(dispatch.calledWith('refreshCreation', setId));
+        expect(store.actions.$apis.set.modifyItems.calledWith('add', setId, itemId)).toBe(true);
+        expect(dispatch.calledWith('refreshCreation', setId)).toBe(true);
       });
     });
 
@@ -110,8 +110,8 @@ describe('store/set', () => {
 
         await store.actions.removeItem({ dispatch, state }, { setId, itemId });
 
-        expect(store.actions.$apis.set.modifyItems.calledWith('delete', setId, itemId));
-        expect(dispatch.calledWith('refreshCreation', setId));
+        expect(store.actions.$apis.set.modifyItems.calledWith('delete', setId, itemId)).toBe(true);
+        expect(dispatch.calledWith('refreshCreation', setId)).toBe(true);
       });
     });
 
@@ -123,8 +123,8 @@ describe('store/set', () => {
 
         await store.actions.setLikes({ commit });
 
-        expect(store.actions.$apis.set.getLikes.calledWith(userId));
-        expect(commit.calledWith('setLikesId', setId));
+        expect(store.actions.$apis.set.getLikes.calledWith(userId)).toBe(true);
+        expect(commit.calledWith('setLikesId', setId)).toBe(true);
       });
     });
 
@@ -134,8 +134,8 @@ describe('store/set', () => {
 
         await store.actions.createLikes({ commit });
 
-        expect(store.actions.$apis.set.createLikes.calledWith());
-        expect(commit.calledWith('setLikesId', setId));
+        expect(store.actions.$apis.set.createLikes.calledWith()).toBe(true);
+        expect(commit.calledWith('setLikesId', setId)).toBe(true);
       });
     });
 
@@ -158,8 +158,8 @@ describe('store/set', () => {
 
           await store.actions.fetchLikes({ state, commit });
 
-          expect(store.actions.$apis.set.get.calledWith(setId, sinon.match.any));
-          expect(commit.calledWith('setLikedItems', set.items));
+          expect(store.actions.$apis.set.get.calledWith(setId, sinon.match.any)).toBe(true);
+          expect(commit.calledWith('setLikedItems', set.items)).toBe(true);
         });
       });
     });
@@ -173,7 +173,7 @@ describe('store/set', () => {
         expect(store.actions.$apis.set.get.calledWith(setId, {
           profile: 'itemDescriptions'
         }));
-        expect(commit.calledWith('setActive', set));
+        expect(commit.calledWith('setActive', set)).toBe(true);
       });
     });
 
@@ -184,8 +184,8 @@ describe('store/set', () => {
 
         await store.actions.createSet({ dispatch }, body);
 
-        expect(store.actions.$apis.set.create.calledWith(body));
-        expect(dispatch.calledWith('fetchCreations'));
+        expect(store.actions.$apis.set.create.calledWith(body)).toBe(true);
+        expect(dispatch.calledWith('fetchCreations')).toBe(true);
       });
     });
 
@@ -197,7 +197,7 @@ describe('store/set', () => {
 
         await store.actions.update({ commit, state }, { id: setId, body });
 
-        expect(store.actions.$apis.set.update.calledWith(setId, body));
+        expect(store.actions.$apis.set.update.calledWith(setId, body)).toBe(true);
       });
 
       describe('when set is active', () => {
@@ -215,7 +215,7 @@ describe('store/set', () => {
 
           await store.actions.update({ commit, state }, { id: setId, activeUpdates });
 
-          expect(commit.calledWith('setActive', activeWillBe));
+          expect(commit.calledWith('setActive', activeWillBe)).toBe(true);
         });
       });
     });
@@ -227,7 +227,7 @@ describe('store/set', () => {
 
         await store.actions.deleteSet({ commit, state }, setId);
 
-        expect(store.actions.$apis.set.deleteSet.calledWith(setId));
+        expect(store.actions.$apis.set.deleteSet.calledWith(setId)).toBe(true);
       });
 
       describe('when set was active', () => {
@@ -237,7 +237,7 @@ describe('store/set', () => {
 
           await store.actions.deleteSet({ commit, state }, setId);
 
-          expect(commit.calledWith('setActive', 'DELETED'));
+          expect(commit.calledWith('setActive', 'DELETED')).toBe(true);
         });
       });
     });
@@ -266,7 +266,7 @@ describe('store/set', () => {
           expect(store.actions.$apis.set.get.calledWith(setId, {
             profile: 'standard'
           }));
-          expect(commit.calledWith('setCreations', [newCreation]));
+          expect(commit.calledWith('setCreations', [newCreation])).toBe(true);
         });
       });
     });
@@ -294,7 +294,7 @@ describe('store/set', () => {
 
         await store.actions.fetchCreations({ commit, dispatch });
 
-        expect(commit.calledWith('setCreations', ['1', '2']));
+        expect(commit.calledWith('setCreations', ['1', '2'])).toBe(true);
       });
 
       it('triggers fetching of creation previews', async() => {
@@ -304,7 +304,7 @@ describe('store/set', () => {
 
         await store.actions.fetchCreations({ commit, dispatch });
 
-        expect(dispatch.calledWith('fetchCreationPreviews'));
+        expect(dispatch.calledWith('fetchCreationPreviews')).toBe(true);
       });
     });
 
@@ -338,7 +338,7 @@ describe('store/set', () => {
 
         await store.actions.fetchCreationPreviews({ state, commit });
 
-        expect(commit.calledWith('setCreationPreviews', { '01': 'http://www.example.eu/img/111', '02': 'http://www.example.eu/img/222' }));
+        expect(commit.calledWith('setCreationPreviews', { '01': 'http://www.example.eu/img/111', '02': 'http://www.example.eu/img/222' })).toBe(true);
       });
     });
 
@@ -356,7 +356,7 @@ describe('store/set', () => {
           pageSize: 100,
           qf: 'type:EntityBestItemsSet'
         }));
-        expect(commit.calledWith('setCurations', ['1', '2']));
+        expect(commit.calledWith('setCurations', ['1', '2'])).toBe(true);
       });
     });
 
@@ -367,7 +367,7 @@ describe('store/set', () => {
 
           await store.actions.refreshSet({ state, dispatch });
 
-          expect(dispatch.calledWith('fetchActive'));
+          expect(dispatch.calledWith('fetchActive')).toBe(true);
         });
       });
     });
@@ -380,8 +380,8 @@ describe('store/set', () => {
 
         await store.actions.reviewRecommendation({ state, commit }, { setId, itemIds: [itemId], action: 'accept' });
 
-        expect(store.actions.$apis.recommendation.accept.calledWith('set', setId, [itemId]));
-        expect(commit.calledWith('setActiveRecommendations', updatedRecommendations));
+        expect(store.actions.$apis.recommendation.accept.calledWith('set', setId, [itemId])).toBe(true);
+        expect(commit.calledWith('setActiveRecommendations', updatedRecommendations)).toBe(true);
       });
     });
 
@@ -393,8 +393,8 @@ describe('store/set', () => {
 
         await store.actions.reviewRecommendation({ state, commit }, { setId, itemIds: [itemId], action: 'reject' });
 
-        expect(store.actions.$apis.recommendation.reject.calledWith('set', setId, [itemId]));
-        expect(commit.calledWith('setActiveRecommendations', updatedRecommendations));
+        expect(store.actions.$apis.recommendation.reject.calledWith('set', setId, [itemId])).toBe(true);
+        expect(commit.calledWith('setActiveRecommendations', updatedRecommendations)).toBe(true);
       });
     });
   });

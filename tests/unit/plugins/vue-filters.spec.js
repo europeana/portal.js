@@ -11,8 +11,8 @@ describe('Vue filters', () => {
 
         it('appends JPEG optimisation parameters', () => {
           const optimised = optimisedImageUrl(imageUrl, contentType);
-          expect(optimised.startsWith(imageUrl));
-          expect(optimised.endsWith('?fm=jpg&fl=progressive&q=50'));
+          expect(optimised.startsWith(imageUrl)).toBe(true);
+          expect(optimised.endsWith('?fm=jpg&fl=progressive&q=50')).toBe(true);
         });
       });
 
@@ -42,8 +42,8 @@ describe('Vue filters', () => {
         const options = { width: 200, height: 150 };
 
         const optimised = optimisedImageUrl(imageUrl, contentType, options);
-        expect(optimised.startsWith(imageUrl));
-        expect(optimised.endsWith(`?w=${options.width}&h=${options.height}`));
+        expect(optimised.startsWith(imageUrl)).toBe(true);
+        expect(optimised.endsWith(`?w=${options.width}&h=${options.height}`)).toBe(true);
       });
     });
 

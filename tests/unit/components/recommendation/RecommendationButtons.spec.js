@@ -38,8 +38,8 @@ describe('components/recommendation/RecommendationButtons', () => {
 
       const acceptButton = wrapper.find('[data-qa="accept button"]');
 
-      expect(acceptButton.exists());
-      expect(acceptButton.isVisible());
+      expect(acceptButton.exists()).toBe(true);
+      expect(acceptButton.isVisible()).toBe(true);
     });
 
     it('is not present if disabled', () => {
@@ -63,8 +63,8 @@ describe('components/recommendation/RecommendationButtons', () => {
           const acceptButton = wrapper.find('[data-qa="accept button"]');
           acceptButton.trigger('click');
 
-          expect(storeDispatch.calledWith('set/reviewRecommendation', { setId, itemIds: ['/123/abc'], action: 'accept' }));
-          expect(storeDispatch.calledWith('set/addItem', { setId: `http://data.europeana.eu/set${setId}`, itemId: identifier }));
+          expect(storeDispatch.calledWith('set/reviewRecommendation', { setId, itemIds: ['/123/abc'], action: 'accept' })).toBe(true);
+          expect(storeDispatch.calledWith('set/addItem', { setId: `http://data.europeana.eu/set${setId}`, itemId: identifier })).toBe(true);
         });
       });
     });
@@ -79,8 +79,8 @@ describe('components/recommendation/RecommendationButtons', () => {
 
       const rejectButton = wrapper.find('[data-qa="reject button"]');
 
-      expect(rejectButton.exists());
-      expect(rejectButton.isVisible());
+      expect(rejectButton.exists()).toBe(true);
+      expect(rejectButton.isVisible()).toBe(true);
     });
 
     it('is not present if disabled', () => {
@@ -104,7 +104,7 @@ describe('components/recommendation/RecommendationButtons', () => {
           const rejectButton = wrapper.find('[data-qa="reject button"]');
           rejectButton.trigger('click');
 
-          expect(storeDispatch.calledWith('set/reviewRecommendation', { setId, itemIds: ['/123/abc'], action: 'reject' }));
+          expect(storeDispatch.calledWith('set/reviewRecommendation', { setId, itemIds: ['/123/abc'], action: 'reject' })).toBe(true);
         });
       });
     });

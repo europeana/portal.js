@@ -40,7 +40,7 @@ describe('components/search/ViewToggles', () => {
         const wrapper = factory();
 
         const viewToggle = wrapper.find(`[data-qa="search ${view} view toggle"]`);
-        expect(viewToggle.exists());
+        expect(viewToggle.exists()).toBe(true);
       });
 
       it('links to route with view parameter set', () => {
@@ -73,7 +73,7 @@ describe('components/search/ViewToggles', () => {
 
       await wrapper.setProps({ value: 'list' });
 
-      expect(wrapper.vm.$matomo.trackEvent.calledWith('View search results', 'Select view', 'list'));
+      expect(wrapper.vm.$matomo.trackEvent.calledWith('View search results', 'Select view', 'list')).toBe(true);
     });
   });
 });
