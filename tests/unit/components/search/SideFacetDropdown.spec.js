@@ -80,7 +80,7 @@ describe('components/search/SideFacetDropdown', () => {
 
         await wrapper.vm.fetch();
 
-        expect(wrapper.vm.fetched);
+        expect(wrapper.vm.fetched).toBe(true);
       });
     });
 
@@ -106,7 +106,7 @@ describe('components/search/SideFacetDropdown', () => {
 
         await wrapper.vm.fetch();
 
-        expect(wrapper.vm.fetched);
+        expect(wrapper.vm.fetched).toBe(true);
       });
     });
   });
@@ -150,7 +150,7 @@ describe('components/search/SideFacetDropdown', () => {
 
           wrapper.vm.updateRouteQueryReusability();
 
-          expect(wrapper.vm.$fetch.called);
+          expect(wrapper.vm.$fetch.called).toBe(true);
         });
       });
 
@@ -183,7 +183,7 @@ describe('components/search/SideFacetDropdown', () => {
 
           wrapper.vm.updateRouteQueryQf(newQf, oldQf);
 
-          expect(wrapper.vm.$fetch.called);
+          expect(wrapper.vm.$fetch.called).toBe(true);
         });
       });
 

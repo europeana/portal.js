@@ -63,7 +63,7 @@ describe('components/account/UserButtons', () => {
           const addButton = wrapper.find('[data-qa="add button"]');
           addButton.trigger('click');
 
-          expect(wrapper.vm.keycloakLogin.called);
+          expect(wrapper.vm.keycloakLogin.called).toBe(true);
         });
       });
     });
@@ -115,7 +115,7 @@ describe('components/account/UserButtons', () => {
           const likeButton = wrapper.find('[data-qa="like button"]');
           likeButton.trigger('click');
 
-          expect(wrapper.vm.keycloakLogin.called);
+          expect(wrapper.vm.keycloakLogin.called).toBe(true);
         });
       });
     });

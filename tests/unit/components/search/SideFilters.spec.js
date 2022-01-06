@@ -131,7 +131,7 @@ describe('components/search/SideFilters', () => {
             const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
 
             await wrapper.vm.changeFacet(facetName, newSelectedValues);
-            expect(searchRerouter.called);
+            expect(searchRerouter.called).toBe(true);
           });
         });
 
@@ -161,7 +161,7 @@ describe('components/search/SideFilters', () => {
             const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
 
             await wrapper.vm.changeFacet(facetName, newSelectedValues);
-            expect(searchRerouter.called);
+            expect(searchRerouter.called).toBe(true);
           });
         });
 

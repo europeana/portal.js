@@ -46,6 +46,6 @@ describe('server-middleware/api/cache/index', () => {
   it('quits the Redis connection', async() => {
     await serverMiddleware(id, config)({}, expressResStub);
 
-    expect(redisClientStub.quitAsync.called);
+    expect(redisClientStub.quitAsync.called).toBe(true);
   });
 });

@@ -290,8 +290,8 @@ describe('plugins/europeana/search', () => {
               const response = await searchResponse({ locale: 'en' });
               const item = response.items[0];
 
-              expect(item.title === undefined);
-              expect(item.dcDescription === undefined);
+              expect(item.title === undefined).toBe(true);
+              expect(item.dcDescription === undefined).toBe(true);
             });
           });
         });
@@ -341,7 +341,7 @@ describe('plugins/europeana/search', () => {
             it('is `true`', async() => {
               const response = await searchResponse();
 
-              expect(response.lastAvailablePage);
+              expect(response.lastAvailablePage).toBe(true);
             });
           });
         });

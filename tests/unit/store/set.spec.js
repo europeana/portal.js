@@ -12,7 +12,7 @@ describe('store/set', () => {
 
         const isLiked = store.getters.isLiked(state)(itemId);
 
-        expect(isLiked);
+        expect(isLiked).toBe(true);
       });
 
       it('is `false` if likedItemIds state does not include item ID', () => {

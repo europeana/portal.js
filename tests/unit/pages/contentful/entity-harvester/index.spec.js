@@ -91,7 +91,7 @@ describe('pages/contentful/entity-harvester/index', () => {
           wrapper.vm.populateFields = sinon.spy();
 
           await wrapper.vm.harvestEntity();
-          expect(wrapper.vm.populateFields.called);
+          expect(wrapper.vm.populateFields.called).toBe(true);
           expect(wrapper.vm.message).toBe('Success');
         });
       });
@@ -147,7 +147,7 @@ describe('pages/contentful/entity-harvester/index', () => {
       it('uses the contentfulExtension to get a URL', async() => {
         const wrapper = factory();
         await wrapper.vm.getUrlFromUser();
-        expect(wrapper.vm.contentfulExtensionSdk.dialogs.openPrompt.called);
+        expect(wrapper.vm.contentfulExtensionSdk.dialogs.openPrompt.called).toBe(true);
       });
     });
 

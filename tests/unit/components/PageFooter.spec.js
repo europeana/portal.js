@@ -66,7 +66,7 @@ describe('components/PageFooter', () => {
 
       store.commit('applySettings', { apiRequests: true });
 
-      expect(wrapper.vm.showDebugMenu);
+      expect(wrapper.vm.showDebugMenu).toBe(true);
     });
   });
 });

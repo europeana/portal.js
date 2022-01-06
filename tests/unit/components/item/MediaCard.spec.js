@@ -26,7 +26,7 @@ describe('components/item/MediaCard', () => {
         const props = { europeanaIdentifier, media: { ebucoreHasMimeType: 'video/ogg', about: 'http://www.example.org/video.ogg', thumbnails: { large: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Feuropeana1914-1918.s3.amazonaws.com%2Fattachments%2F119200%2F10265.119200.original.jpg' } } };
         const wrapper = factory(props);
 
-        expect(wrapper.vm.isHTMLVideo);
+        expect(wrapper.vm.isHTMLVideo).toBe(true);
       });
     });
 
@@ -35,7 +35,7 @@ describe('components/item/MediaCard', () => {
         const props = { europeanaIdentifier, media: { ebucoreHasMimeType: 'video/webm', about: 'http://www.example.org/video.webm', thumbnails: { large: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Feuropeana1914-1918.s3.amazonaws.com%2Fattachments%2F119200%2F10265.119200.original.jpg' } } };
         const wrapper = factory(props);
 
-        expect(wrapper.vm.isHTMLVideo);
+        expect(wrapper.vm.isHTMLVideo).toBe(true);
       });
     });
 
@@ -45,7 +45,7 @@ describe('components/item/MediaCard', () => {
           const props = { europeanaIdentifier, media: { ebucoreHasMimeType: 'video/mp4', edmCodecName: 'h264', about: 'http://www.example.org/video.mp4', thumbnails: { large: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Feuropeana1914-1918.s3.amazonaws.com%2Fattachments%2F119200%2F10265.119200.original.jpg' } } };
           const wrapper = factory(props);
 
-          expect(wrapper.vm.isHTMLVideo);
+          expect(wrapper.vm.isHTMLVideo).toBe(true);
         });
       });
 
@@ -75,7 +75,7 @@ describe('components/item/MediaCard', () => {
         const props = { europeanaIdentifier, media: { ebucoreHasMimeType: 'audio/ogg', about: 'http://www.example.org/audio.ogg', thumbnails: { large: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Feuropeana1914-1918.s3.amazonaws.com%2Fattachments%2F119200%2F10265.119200.original.jpg' } } };
         const wrapper = factory(props);
 
-        expect(wrapper.vm.isHTMLAudio);
+        expect(wrapper.vm.isHTMLAudio).toBe(true);
       });
     });
 
@@ -84,7 +84,7 @@ describe('components/item/MediaCard', () => {
         const props = { europeanaIdentifier, media: { ebucoreHasMimeType: 'audio/flac', about: 'http://www.example.org/audio.flac', thumbnails: { large: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Feuropeana1914-1918.s3.amazonaws.com%2Fattachments%2F119200%2F10265.119200.original.jpg' } } };
         const wrapper = factory(props);
 
-        expect(wrapper.vm.isHTMLAudio);
+        expect(wrapper.vm.isHTMLAudio).toBe(true);
       });
     });
 
@@ -93,7 +93,7 @@ describe('components/item/MediaCard', () => {
         const props = { europeanaIdentifier, media: { ebucoreHasMimeType: 'audio/mpeg', about: 'http://www.example.org/audio.mp3', thumbnails: { large: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Feuropeana1914-1918.s3.amazonaws.com%2Fattachments%2F119200%2F10265.119200.original.jpg' } } };
         const wrapper = factory(props);
 
-        expect(wrapper.vm.isHTMLAudio);
+        expect(wrapper.vm.isHTMLAudio).toBe(true);
       });
     });
   });
@@ -104,7 +104,7 @@ describe('components/item/MediaCard', () => {
         const props = { europeanaIdentifier, media: { about: 'https://soundcloud.com/abc/def' } };
         const wrapper = factory(props);
 
-        expect(wrapper.vm.isOEmbed);
+        expect(wrapper.vm.isOEmbed).toBe(true);
       });
     });
 
@@ -113,7 +113,7 @@ describe('components/item/MediaCard', () => {
         const props = { europeanaIdentifier, media: { about: 'https://vimeo.com/abcdef' } };
         const wrapper = factory(props);
 
-        expect(wrapper.vm.isOEmbed);
+        expect(wrapper.vm.isOEmbed).toBe(true);
       });
     });
 
@@ -122,7 +122,7 @@ describe('components/item/MediaCard', () => {
         const props = { europeanaIdentifier, media: { about: 'https://www.youtube.com/watch?v=abcdef' } };
         const wrapper = factory(props);
 
-        expect(wrapper.vm.isOEmbed);
+        expect(wrapper.vm.isOEmbed).toBe(true);
       });
     });
 
@@ -170,7 +170,7 @@ describe('components/item/MediaCard', () => {
           const props = { europeanaIdentifier, media: { ebucoreHasMimeType: 'image/png', thumbnails: { large: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Feuropeana1914-1918.s3.amazonaws.com%2Fattachments%2F119200%2F10265.119200.original.jpg' } }, imageSrc: 'http://www.example.org/preview.jpg' };
           const wrapper = factory(props);
 
-          expect(wrapper.vm.displayImage);
+          expect(wrapper.vm.displayImage).toBe(true);
         });
       });
     });

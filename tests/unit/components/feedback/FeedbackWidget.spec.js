@@ -173,7 +173,7 @@ describe('components/feedback/FeedbackWidget', () => {
 
         wrapper.find('[data-qa="feedback button"]').trigger('click');
 
-        expect(resetForm.called);
+        expect(resetForm.called).toBe(true);
       });
     });
   });
@@ -190,7 +190,7 @@ describe('components/feedback/FeedbackWidget', () => {
 
         await wrapper.find('form').trigger('submit.prevent');
 
-        expect(wrapper.vm.sendFeedback.called);
+        expect(wrapper.vm.sendFeedback.called).toBe(true);
       });
     });
     describe('when email is filled in and user clicks next button', () => {
@@ -204,7 +204,7 @@ describe('components/feedback/FeedbackWidget', () => {
 
         await wrapper.find('form').trigger('submit.prevent');
 
-        expect(wrapper.vm.sendFeedback.called);
+        expect(wrapper.vm.sendFeedback.called).toBe(true);
       });
     });
     describe('when request failed and user clicks send button', () => {
@@ -218,7 +218,7 @@ describe('components/feedback/FeedbackWidget', () => {
 
         await wrapper.find('form').trigger('submit.prevent');
 
-        expect(wrapper.vm.sendFeedback.called);
+        expect(wrapper.vm.sendFeedback.called).toBe(true);
       });
     });
   });

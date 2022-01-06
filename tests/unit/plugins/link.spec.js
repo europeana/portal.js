@@ -14,7 +14,7 @@ describe('link plugin', () => {
 
       const to = linkPlugin.to(path, query);
 
-      expect(to === null);
+      expect(to === null).toBe(true);
     });
 
     it('returns route object for path without "://"', () => {
@@ -46,7 +46,7 @@ describe('link plugin', () => {
 
       const href = linkPlugin.href(path, query);
 
-      expect(href === null);
+      expect(href === null).toBe(true);
     });
   });
 });

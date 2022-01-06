@@ -82,7 +82,7 @@ describe('plugins/europeana/auth', () => {
           it('retries the original request', async() => {
             await keycloakResponseErrorHandler(ctx, mockError());
 
-            expect(ctx.$axios.request.called);
+            expect(ctx.$axios.request.called).toBe(true);
           });
         });
 
@@ -101,7 +101,7 @@ describe('plugins/europeana/auth', () => {
           it('logs out', async() => {
             await keycloakResponseErrorHandler(ctx, mockError());
 
-            expect(ctx.$auth.logout.called);
+            expect(ctx.$auth.logout.called).toBe(true);
           });
 
           it('retries the original request without authorization', async() => {

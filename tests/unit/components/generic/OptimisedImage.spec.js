@@ -95,7 +95,7 @@ describe('components/generic/OptimisedImage', () => {
 
       const forContentfulAsset = wrapper.vm.forContentfulAsset;
 
-      expect(forContentfulAsset);
+      expect(forContentfulAsset).toBe(true);
     });
 
     it('is `false` for other URLs', () => {

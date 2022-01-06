@@ -64,7 +64,7 @@ describe('components/item/MetadataBox', () => {
 
           wrapper.vm.clickLocationTab();
 
-          expect(wrapper.vm.showLocationMap);
+          expect(wrapper.vm.showLocationMap).toBe(true);
         });
       });
     });
@@ -112,7 +112,7 @@ describe('components/item/MetadataBox', () => {
 
       const mappableLocation = wrapper.vm.mappableLocation;
 
-      expect(mappableLocation === null);
+      expect(mappableLocation === null).toBe(true);
     });
   });
 });

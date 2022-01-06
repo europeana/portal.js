@@ -302,7 +302,7 @@ describe('plugins/europeana/record', () => {
 
             const recordData = await record(translateConf).getRecord(europeanaId, { metadataLanguage: 'de' });
 
-            expect(recordData.record.metadata.dcType.translationSource === undefined);
+            expect(recordData.record.metadata.dcType.translationSource === undefined).toBe(true);
             expect(nock.isDone());
           });
         });
@@ -552,7 +552,7 @@ describe('plugins/europeana/record', () => {
 
         const validation = isEuropeanaRecordId(recordId);
 
-        expect(validation);
+        expect(validation).toBe(true);
       });
     });
 

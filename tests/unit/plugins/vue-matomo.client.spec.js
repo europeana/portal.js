@@ -38,7 +38,7 @@ describe('plugins/vue-matomo.client', () => {
       it('returns `null`', () => {
         const siteSearch = plugin.trackSiteSearch()(route);
 
-        expect(siteSearch === null);
+        expect(siteSearch === null).toBe(true);
       });
     });
 

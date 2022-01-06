@@ -72,7 +72,7 @@ describe('components/item/AwesomeSwiper', () => {
     it('is NOT enabled when there is one displayableMedia resource', () => {
       const wrapper = factory({ displayableMedia: [displayableMedia[0]], europeanaIdentifier });
 
-      expect(wrapper.vm.singleMediaResource);
+      expect(wrapper.vm.singleMediaResource).toBe(true);
     });
   });
 });

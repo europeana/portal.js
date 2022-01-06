@@ -46,11 +46,11 @@ describe('components/generic/SmartLink', () => {
 
       await wrapper.setData({ internalDomain: null });
       await wrapper.setProps({ destination: 'https://www.example.org/url-example' });
-      expect(wrapper.vm.isExternalLink);
+      expect(wrapper.vm.isExternalLink).toBe(true);
 
       await wrapper.setData({ internalDomain: 'www.foo.com' });
       await wrapper.setProps({ destination: 'https://www.example.org/url-example' });
-      expect(wrapper.vm.isExternalLink);
+      expect(wrapper.vm.isExternalLink).toBe(true);
 
       await wrapper.setProps({ destination: '/test' });
       expect(wrapper.vm.isExternalLink).toBe(false);
@@ -59,7 +59,7 @@ describe('components/generic/SmartLink', () => {
       expect(wrapper.vm.isExternalLink).toBe(false);
 
       await wrapper.setProps({ destination: 'https://pro.foo.com/test' });
-      expect(wrapper.vm.isExternalLink);
+      expect(wrapper.vm.isExternalLink).toBe(true);
     });
 
     it('links data.europeana.eu/item URIs to record page', async() => {
@@ -77,7 +77,7 @@ describe('components/generic/SmartLink', () => {
       const wrapper = factory();
       await wrapper.setData({ internalDomain: '.foo.com' });
       await wrapper.setProps({ destination: 'https://www.example.org/www.foo.com' });
-      expect(wrapper.vm.isExternalLink);
+      expect(wrapper.vm.isExternalLink).toBe(true);
     });
   });
 
@@ -118,7 +118,7 @@ describe('components/generic/SmartLink', () => {
           const wrapper = factory();
           await wrapper.setProps({ destination });
 
-          expect(wrapper.vm.itemIdentifier === null);
+          expect(wrapper.vm.itemIdentifier === null).toBe(true);
         });
       });
     });
@@ -127,7 +127,7 @@ describe('components/generic/SmartLink', () => {
       it('is `null`', () => {
         const wrapper = factory();
 
-        expect(wrapper.vm.itemIdentifier === null);
+        expect(wrapper.vm.itemIdentifier === null).toBe(true);
       });
     });
   });

@@ -257,7 +257,7 @@ describe('components/search/SearchForm', () => {
       it('gets suggestions from the Entity API', async() => {
         await wrapper.vm.getSearchSuggestions(query);
 
-        expect(mocks.$apis.entity.suggest.called);
+        expect(mocks.$apis.entity.suggest.called).toBe(true);
       });
     });
 

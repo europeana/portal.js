@@ -70,7 +70,7 @@ describe('layouts/default.vue', () => {
       it('renders Klaro', () => {
         factory({ klaro: klaroMock });
 
-        expect(klaroMock.render.called);
+        expect(klaroMock.render.called).toBe(true);
       });
 
       it('registers Klaro manager update watcher', () => {

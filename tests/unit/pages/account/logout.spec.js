@@ -37,7 +37,7 @@ describe('pages/account/logout.vue', () => {
         const next = sinon.stub().yields(wrapper.vm);
         page.beforeRouteEnter.call(wrapper.vm, null, from, next);
 
-        expect(next.called);
+        expect(next.called).toBe(true);
         expect(authStorageSetUniversal.calledWith('redirect', from.fullPath));
       });
     });
@@ -51,7 +51,7 @@ describe('pages/account/logout.vue', () => {
         const next = sinon.stub().yields(wrapper.vm);
         page.beforeRouteEnter.call(wrapper.vm, null, from, next);
 
-        expect(next.called);
+        expect(next.called).toBe(true);
         expect(authStorageSetUniversal.calledWith('redirect', '/eu'));
       });
     });

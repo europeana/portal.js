@@ -96,7 +96,7 @@ describe('components/browse/ContentCardSection', () => {
         }
       });
 
-      expect(wrapper.vm.isPeopleSection);
+      expect(wrapper.vm.isPeopleSection).toBe(true);
     });
 
     it('does not display mini cards if a section is not exclusively people', async() => {

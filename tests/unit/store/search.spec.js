@@ -333,7 +333,7 @@ describe('store/search', () => {
             { previousApiParams }
           );
 
-          expect(itemUpdateNeeded);
+          expect(itemUpdateNeeded).toBe(true);
         });
       });
 
@@ -352,7 +352,7 @@ describe('store/search', () => {
                 { apiParamsChanged }
               );
 
-              expect(itemUpdateNeeded);
+              expect(itemUpdateNeeded).toBe(true);
             });
           });
         }
@@ -383,7 +383,7 @@ describe('store/search', () => {
             { previousApiParams }
           );
 
-          expect(facetUpdateNeeded);
+          expect(facetUpdateNeeded).toBe(true);
         });
       });
 
@@ -402,7 +402,7 @@ describe('store/search', () => {
                 { apiParamsChanged }
               );
 
-              expect(facetUpdateNeeded);
+              expect(facetUpdateNeeded).toBe(true);
             });
           });
         }
@@ -434,7 +434,7 @@ describe('store/search', () => {
 
           const escape = store.getters.searchOptions(state).escape;
 
-          expect(escape);
+          expect(escape).toBe(true);
         });
 
         it('is `true` when override params has query and user params query is blank', () => {
@@ -445,7 +445,7 @@ describe('store/search', () => {
 
           const escape = store.getters.searchOptions(state).escape;
 
-          expect(escape);
+          expect(escape).toBe(true);
         });
 
         it('is `false` when override params has no query', () => {
@@ -524,7 +524,7 @@ describe('store/search', () => {
 
         await store.actions.queryItems({ dispatch, state, getters });
 
-        expect(store.actions.$apis.record.search.called);
+        expect(store.actions.$apis.record.search.called).toBe(true);
       });
 
       describe('on success', () => {

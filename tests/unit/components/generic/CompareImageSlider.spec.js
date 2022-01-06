@@ -84,7 +84,7 @@ describe('components/generic/CompareImageSlider', () => {
 
     slider.trigger('mousedown');
 
-    expect(wrapper.vm.dragging);
+    expect(wrapper.vm.dragging).toBe(true);
   });
 
   it('sets dragging property to `false` when the user clicks off the slider', async() => {
@@ -102,6 +102,6 @@ describe('components/generic/CompareImageSlider', () => {
 
     global.window.dispatchEvent(new Event('resize'));
 
-    expect(setImageWidth.calledOnce);
+    expect(setImageWidth.calledOnce).toBe(true);
   });
 });

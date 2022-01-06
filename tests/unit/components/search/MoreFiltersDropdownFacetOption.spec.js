@@ -26,7 +26,7 @@ describe('components/search/MoreFiltersDropdownFacetOption', () => {
         facetName: 'COLOURPALETTE'
       });
 
-      expect(wrapper.vm.forColourPalette);
+      expect(wrapper.vm.forColourPalette).toBe(true);
     });
 
     it('is false for other facets', () => {

@@ -98,7 +98,7 @@ describe('components/item/ItemHero', () => {
         const wrapper = factory({ media, identifier });
         await wrapper.setData({ selectedCanvas: { about: 'http://www.example.org/canvas' } });
         wrapper.vm.selectMedia(media[1].about);
-        expect(wrapper.vm.selectedCanvas === null);
+        expect(wrapper.vm.selectedCanvas === null).toBe(true);
       });
     });
   });
@@ -119,7 +119,7 @@ describe('components/item/ItemHero', () => {
     describe('when the rightsstatement is not in copyright and the selected media is not the isShownAt', () => {
       it('is true', () => {
         const wrapper = factory({ media: [media[0]], identifier });
-        expect(wrapper.vm.downloadEnabled);
+        expect(wrapper.vm.downloadEnabled).toBe(true);
       });
     });
   });

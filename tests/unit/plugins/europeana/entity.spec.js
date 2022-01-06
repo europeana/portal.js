@@ -257,7 +257,7 @@ describe('plugins/europeana/entity', () => {
       const uri = 'http://data.europeana.eu/agent/base/100';
       it('returns true', () => {
         const ret = isEntityUri(uri);
-        expect(ret);
+        expect(ret).toBe(true);
       });
     });
 
@@ -265,7 +265,7 @@ describe('plugins/europeana/entity', () => {
       const uri = 'http://data.europeana.eu/timespan/20';
       it('returns true', () => {
         const ret = isEntityUri(uri);
-        expect(ret);
+        expect(ret).toBe(true);
       });
     });
 
@@ -273,7 +273,7 @@ describe('plugins/europeana/entity', () => {
       const uri = 'http://data.europeana.eu/concept/base/100';
       it('returns true', () => {
         const ret = isEntityUri(uri);
-        expect(ret);
+        expect(ret).toBe(true);
       });
     });
 
@@ -281,7 +281,7 @@ describe('plugins/europeana/entity', () => {
       const uri = 'http://data.europeana.eu/place/base/100';
       it('returns true', () => {
         const ret = isEntityUri(uri);
-        expect(ret);
+        expect(ret).toBe(true);
       });
     });
 
@@ -289,7 +289,7 @@ describe('plugins/europeana/entity', () => {
       const uri = 'http://data.europeana.eu/organization/999';
       it('returns true', () => {
         const ret = isEntityUri(uri);
-        expect(ret);
+        expect(ret).toBe(true);
       });
     });
 

@@ -108,7 +108,7 @@ describe('pages/contentful/image-harvester/index', () => {
           wrapper.vm.populateFields = sinon.spy();
 
           await wrapper.vm.harvestImage();
-          expect(wrapper.vm.populateFields.called);
+          expect(wrapper.vm.populateFields.called).toBe(true);
           expect(wrapper.vm.message).toBe('Success');
         });
       });
@@ -160,7 +160,7 @@ describe('pages/contentful/image-harvester/index', () => {
       it('uses the contentfulExtension to get a URL', async() => {
         const wrapper = factory();
         await wrapper.vm.getUrlFromUser();
-        expect(wrapper.vm.contentfulExtensionSdk.dialogs.openPrompt.called);
+        expect(wrapper.vm.contentfulExtensionSdk.dialogs.openPrompt.called).toBe(true);
       });
     });
 
@@ -278,7 +278,7 @@ describe('pages/contentful/image-harvester/index', () => {
           const wrapper = factory();
           const item = apiResponse().object;
           await wrapper.vm.populateFields(item);
-          expect(wrapper.vm.entry.fields.image.removeValue.called);
+          expect(wrapper.vm.entry.fields.image.removeValue.called).toBe(true);
         });
 
         it('creates an asset from edm:isShownBy and metadata', async() => {
@@ -305,9 +305,9 @@ describe('pages/contentful/image-harvester/index', () => {
           const wrapper = factory();
           const item = apiResponse().object;
           await wrapper.vm.populateFields(item);
-          expect(wrapper.vm.contentfulExtensionSdk.space.processAsset.called);
-          expect(wrapper.vm.contentfulExtensionSdk.space.waitUntilAssetProcessed.called);
-          expect(wrapper.vm.contentfulExtensionSdk.space.publishAsset.called);
+          expect(wrapper.vm.contentfulExtensionSdk.space.processAsset.called).toBe(true);
+          expect(wrapper.vm.contentfulExtensionSdk.space.waitUntilAssetProcessed.called).toBe(true);
+          expect(wrapper.vm.contentfulExtensionSdk.space.publishAsset.called).toBe(true);
         });
 
         it('assigns the published image to the entry', async() => {

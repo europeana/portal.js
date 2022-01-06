@@ -161,7 +161,7 @@ describe('components/search/SearchInterface', () => {
           });
 
           it('is `true`', () => {
-            expect(wrapper.vm.noMoreResults);
+            expect(wrapper.vm.noMoreResults).toBe(true);
           });
         });
       });
@@ -278,7 +278,7 @@ describe('components/search/SearchInterface', () => {
             const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
 
             await wrapper.vm.changeFacet(facetName, newSelectedValues);
-            expect(searchRerouter.called);
+            expect(searchRerouter.called).toBe(true);
           });
         });
 
@@ -308,7 +308,7 @@ describe('components/search/SearchInterface', () => {
             const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
 
             await wrapper.vm.changeFacet(facetName, newSelectedValues);
-            expect(searchRerouter.called);
+            expect(searchRerouter.called).toBe(true);
           });
         });
 

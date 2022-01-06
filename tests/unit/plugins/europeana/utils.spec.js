@@ -41,7 +41,7 @@ describe('plugins/europeana/utils', () => {
 
       const isLangMap = utils.isLangMap(value);
 
-      expect(isLangMap);
+      expect(isLangMap).toBe(true);
     });
 
     it('accepts 3-letter codes', () => {
@@ -53,7 +53,7 @@ describe('plugins/europeana/utils', () => {
 
       const isLangMap = utils.isLangMap(value);
 
-      expect(isLangMap);
+      expect(isLangMap).toBe(true);
     });
 
     it('accepts 2-letter codes with country code', () => {
@@ -64,7 +64,7 @@ describe('plugins/europeana/utils', () => {
 
       const isLangMap = utils.isLangMap(value);
 
-      expect(isLangMap);
+      expect(isLangMap).toBe(true);
     });
 
     it('rejects other keys', () => {
