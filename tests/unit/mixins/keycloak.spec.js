@@ -98,28 +98,4 @@ describe('mixins/keycloak', () => {
       });
     });
   });
-
-  // it('stores the previous page full path for auth redirection', () => {
-  //   const authStorageSetUniversal = sinon.spy();
-  //   const wrapper = shallowMountNuxt(page, {
-  //     mocks: {
-  //       $auth: {
-  //         loginWith: sinon.spy(),
-  //         $storage: {
-  //           setUniversal: authStorageSetUniversal
-  //         }
-  //       },
-  //       $i18n: {
-  //         locale: 'en'
-  //       }
-  //     }
-  //   });
-  //
-  //   const from = { fullPath: '/eu/item/123/def' };
-  //   const next = sinon.stub().yields(wrapper.vm);
-  //   page.beforeRouteEnter.call(wrapper.vm, null, from, next);
-  //
-  //   expect(next).have.been.called;
-  //   expect(authStorageSetUniversal).have.been.calledWith('redirect', from.fullPath);
-  // });
 });

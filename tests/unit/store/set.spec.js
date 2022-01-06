@@ -172,7 +172,7 @@ describe('store/set', () => {
 
         expect(store.actions.$apis.set.get.calledWith(setId, {
           profile: 'itemDescriptions'
-        }));
+        })).toBe(true);
         expect(commit.calledWith('setActive', set)).toBe(true);
       });
     });

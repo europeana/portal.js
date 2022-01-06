@@ -110,7 +110,7 @@ describe('components/search/SearchInterface', () => {
 
         const errorNotice = wrapper.find(`[error="${errorMessage}"]`);
 
-        expect(errorNotice).exist;
+        expect(errorNotice).toBeDefined();
       });
     });
   });

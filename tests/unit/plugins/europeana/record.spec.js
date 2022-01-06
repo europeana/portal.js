@@ -383,7 +383,7 @@ describe('plugins/europeana/record', () => {
 
         it('returns record data', async() => {
           const response = await record().getRecord(europeanaId);
-          expect(response.record).exist;
+          expect(response.record).toBeDefined();
         });
 
         it('includes identifier', async() => {
@@ -404,13 +404,13 @@ describe('plugins/europeana/record', () => {
         describe('.media', () => {
           it('includes edmIsShownBy web resource', async() => {
             const response = await record().getRecord(europeanaId);
-            expect(response.record.media.find((item) => item.about === edmIsShownByWebResource.about)).exist;
+            expect(response.record.media.find((item) => item.about === edmIsShownByWebResource.about)).toBeDefined();
           });
 
           it('includes edmHasView web resource', async() => {
             const response = await record().getRecord(europeanaId);
             for (const hasView of [edmHasViewWebResourceFirst, edmHasViewWebResourceSecond, edmHasViewWebResourceThird]) {
-              expect(response.record.media.find((item) => item.about === hasView.about)).exist;
+              expect(response.record.media.find((item) => item.about === hasView.about)).toBeDefined();
             }
           });
 

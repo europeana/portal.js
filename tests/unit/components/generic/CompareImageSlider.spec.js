@@ -47,14 +47,14 @@ describe('components/generic/CompareImageSlider', () => {
     const wrapper = factory();
 
     const leftCite = wrapper.find('figcaption [data-qa="compare image left attribution"]');
-    expect(leftCite).exist;
+    expect(leftCite).toBeDefined();
   });
 
   it('cites right image attribution', () => {
     const wrapper = factory();
 
     const rightCite = wrapper.find('figcaption [data-qa="compare image right attribution"]');
-    expect(rightCite).exist;
+    expect(rightCite).toBeDefined();
   });
 
   it('generates the correct clip sizing', async() => {

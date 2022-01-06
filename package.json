@@ -78,6 +78,7 @@
     "contentful-cli": "^1.5.32",
     "css-loader": "^4.2.0",
     "eslint": "^7.32.0",
+    "eslint-plugin-jest": "^25.3.4",
     "eslint-plugin-vue": "^8.1.1",
     "jest": "^27.4.5",
     "nock": "^10.0.6",

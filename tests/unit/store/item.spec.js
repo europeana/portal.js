@@ -29,14 +29,18 @@ describe('store/item', () => {
           annotations
         };
         describe('when asking for tagging annotations', () => {
-          const taggingAnnotations = store.getters.annotationsByMotivation(state)('tagging');
-          expect(taggingAnnotations[0].motivation).toBe('tagging');
-          expect(taggingAnnotations.length).toBe(1);
+          it('has a tagging motivation', () => {
+            const taggingAnnotations = store.getters.annotationsByMotivation(state)('tagging');
+            expect(taggingAnnotations[0].motivation).toBe('tagging');
+            expect(taggingAnnotations.length).toBe(1);
+          });
         });
         describe('when asking for transcribing annotations', () => {
-          const taggingAnnotations = store.getters.annotationsByMotivation(state)('transcribing');
-          expect(taggingAnnotations[0].motivation).toBe('transcribing');
-          expect(taggingAnnotations.length).toBe(1);
+          it('has a transcribing motivation', () => {
+            const taggingAnnotations = store.getters.annotationsByMotivation(state)('transcribing');
+            expect(taggingAnnotations[0].motivation).toBe('transcribing');
+            expect(taggingAnnotations.length).toBe(1);
+          });
         });
       });
     });

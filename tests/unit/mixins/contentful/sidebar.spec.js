@@ -34,7 +34,7 @@ describe('mixins/contentful/sidebar', () => {
     it('sets entry with all expected fields from the SDK', async() => {
       const wrapper = factory();
       const extensionSdk = wrapper.vm.contentfulExtensionSdk;
-      expect(extensionSdk).exist;
+      expect(extensionSdk).toBeDefined();
       const entry = wrapper.vm.entry;
 
       expect(Object.keys(entry.fields)).toEqual(fields);

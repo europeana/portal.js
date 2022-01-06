@@ -127,7 +127,7 @@ describe('components/generic/ContentCard', () => {
     await wrapper.setProps({ imageUrl: 'https://example.org' });
 
     const card =  wrapper.find('[data-qa="content card"] .card-img img');
-    expect(card).exist;
+    expect(card).toBeDefined();
   });
 
   it('has an optimised image', async() => {

@@ -46,7 +46,7 @@ describe('mixins/stripMarkdown', () => {
         describe('when the text is plain', () => {
           const textBefore = 'Contains only plain text.';
 
-          it('returns the text wrapped in a "<p>" tag ', () => {
+          it('returns the text wrapped in a "<p>" tag', () => {
             const result = factory().vm.stripMarkdown(textBefore, tags);
             expect(result).toBe('<p>Contains only plain text.</p>');
           });

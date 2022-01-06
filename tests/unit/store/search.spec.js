@@ -85,7 +85,7 @@ describe('store/search', () => {
       });
 
       describe('with query that has two colons', () => {
-        it('returns an array with a string seperated by a colon ', async() => {
+        it('returns an array with a string seperated by a colon', async() => {
           const query = { qf: 'DATA_PROVIDER:"Galiciana: Biblioteca Digital de Galicia"' };
           const expected = { 'DATA_PROVIDER': ['"Galiciana: Biblioteca Digital de Galicia"'] };
 

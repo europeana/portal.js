@@ -73,7 +73,7 @@ describe('components/entity/EntityTable', () => {
     it('is shown when fetch is in progress', () => {
       const wrapper = factory({ type: 'organisations' }, { pending: true });
 
-      expect(wrapper.find('[data-qa="loading spinner"]')).exist;
+      expect(wrapper.find('[data-qa="loading spinner"]')).toBeDefined();
     });
   });
 
@@ -81,7 +81,7 @@ describe('components/entity/EntityTable', () => {
     it('is shown when fetch errors', () => {
       const wrapper = factory({ type: 'organisations' }, { error: true });
 
-      expect(wrapper.find('[data-qa="error notice"]')).exist;
+      expect(wrapper.find('[data-qa="error notice"]')).toBeDefined();
     });
   });
 });

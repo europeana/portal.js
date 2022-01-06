@@ -38,7 +38,7 @@ describe('components/generic/SmartLink', () => {
       const wrapper = factory();
       await wrapper.setProps({ destination: 'https://www.example.org/url-example' });
 
-      expect(wrapper.find('b-link-stub').attributes('href')).exist;
+      expect(wrapper.find('b-link-stub').attributes('href')).toBeDefined();
     });
 
     it('determines if the URL is an external path or not', async() => {
@@ -70,10 +70,10 @@ describe('components/generic/SmartLink', () => {
       await wrapper.setProps({ destination: uri });
       expect(wrapper.vm.isExternalLink).toBe(false);
 
-      expect(wrapper.find('b-link-stub').attributes('to')).exist;
+      expect(wrapper.find('b-link-stub').attributes('to')).toBeDefined();
     });
 
-    it('returns the correct response if passed a path ending with internal domain ', async() => {
+    it('returns the correct response if passed a path ending with internal domain', async() => {
       const wrapper = factory();
       await wrapper.setData({ internalDomain: '.foo.com' });
       await wrapper.setProps({ destination: 'https://www.example.org/www.foo.com' });
@@ -86,7 +86,7 @@ describe('components/generic/SmartLink', () => {
       const wrapper = factory();
       await wrapper.setProps({ destination: '/url/path-example' });
 
-      expect(wrapper.find('b-link-stub').attributes('to')).exist;
+      expect(wrapper.find('b-link-stub').attributes('to')).toBeDefined();
     });
   });
 
@@ -95,7 +95,7 @@ describe('components/generic/SmartLink', () => {
       const wrapper = factory();
       await wrapper.setProps({ destination: { name: 'route-to-somewhere' } });
 
-      expect(wrapper.find('b-link-stub').attributes('to')).exist;
+      expect(wrapper.find('b-link-stub').attributes('to')).toBeDefined();
     });
   });
 

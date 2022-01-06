@@ -139,7 +139,7 @@ describe('plugins/europeana/auth', () => {
     describe('when response status is not 401', () => {
       it('rejects it', () => {
         const response = keycloakResponseErrorHandler({}, mockError(500));
-        expect(response).rejects.toThrow();
+        expect(response).rejects.toEqual(mockError(500));
       });
     });
   });
