@@ -43,7 +43,7 @@
         :feature="newFeature.name"
         :url="newFeature.url"
       >
-        <p>{{ $t(`newFeatureNotification.text.${newFeature.name}`)}}</p>
+        <p>{{ $t(`newFeatureNotification.text.${newFeature.name}`) }}</p>
       </NewFeatureNotification>
     </client-only>
     <client-only>
