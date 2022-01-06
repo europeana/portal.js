@@ -16,6 +16,7 @@ localVue.use(VueRouter);
 localVue.use(Vuex);
 
 const searchSetViewMutation = sinon.spy();
+const makeToastSpy = sinon.spy();
 
 const factory = (options = {}) => {
   const router = new VueRouter({
@@ -77,11 +78,21 @@ const factory = (options = {}) => {
       }
     }
   });
+
+  const mixins = [
+    {
+      methods: {
+        makeToast: makeToastSpy
+      }
+    }
+  ];
+
   return shallowMount(SearchInterface, {
     localVue,
     mocks,
     router,
     store,
+    mixins,
     propsData: options.propsData
   });
 };
@@ -327,6 +338,9 @@ describe('components/search/SearchInterface', () => {
     });
 
     describe('showContentTierToast', () => {
+      beforeEach(() => {
+        makeToastSpy.resetHistory();
+      });
       let facets = [];
 
       describe('in browser', () => {
@@ -342,7 +356,7 @@ describe('components/search/SearchInterface', () => {
           });
 
           describe('when toast has not yet been shown this session', () => {
-            beforeEach(() => {
+            beforeEach(async() => {
               global.sessionStorage.removeItem('contentTierToastShown');
             });
 
@@ -350,9 +364,9 @@ describe('components/search/SearchInterface', () => {
               const wrapper = factory({
                 storeState: { facets }
               });
-              const rootBvToast = sinon.spy(wrapper.vm.$root.$bvToast, 'toast');
               await wrapper.vm.showContentTierToast();
-              expect(rootBvToast.calledWith('facets.contentTier.notification', sinon.match.any)).toBe(true);
+
+              expect(makeToastSpy.calledWith('facets.contentTier.notification')).toBe(true);
             });
 
             it('updates session storage after toast is shown', async() => {
@@ -375,11 +389,10 @@ describe('components/search/SearchInterface', () => {
               const wrapper = factory({
                 storeState: { facets }
               });
-              const rootBvToast = sinon.spy(wrapper.vm.$root.$bvToast, 'toast');
 
               await wrapper.vm.showContentTierToast();
 
-              expect(rootBvToast.called).toBe(false);
+              expect(makeToastSpy.calledWith('facets.contentTier.notification')).toBe(false);
             });
           });
         });
@@ -395,11 +408,10 @@ describe('components/search/SearchInterface', () => {
             const wrapper = factory({
               storeState: { facets }
             });
-            const rootBvToast = sinon.spy(wrapper.vm.$root.$bvToast, 'toast');
 
             await wrapper.vm.showContentTierToast();
 
-            expect(rootBvToast.called).toBe(false);
+            expect(makeToastSpy.calledWith('facets.contentTier.notification')).toBe(false);
           });
         });
       });
@@ -411,11 +423,10 @@ describe('components/search/SearchInterface', () => {
 
         it('does not show the toast', async() => {
           const wrapper = factory();
-          const rootBvToast = sinon.spy(wrapper.vm.$root.$bvToast, 'toast');
 
           await wrapper.vm.showContentTierToast();
 
-          expect(rootBvToast.called).toBe(false);
+          expect(makeToastSpy.calledWith('facets.contentTier.notification')).toBe(false);
         });
       });
     });
