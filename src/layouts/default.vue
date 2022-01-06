@@ -90,7 +90,7 @@
         enableAnnouncer: true,
         klaro: null,
         toastBottomOffset: '20px',
-        featureNotification: featureNotifications.find(feature => feature.name === this.$config.app.featureNotification)
+        featureNotification: featureNotifications.find(feature => feature.name === this.$config?.app?.featureNotification)
       };
     },
 
