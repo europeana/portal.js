@@ -15,6 +15,11 @@ export default {
     '<rootDir>/tests/unit/setup.js'
   ],
   testEnvironment: 'jsdom',
+  testPathIgnorePatterns: [
+    '/node_modules/',
+    '<rootDir>/.nuxt/',
+    '<rootDir>/tmp/'
+  ],
   transformIgnorePatterns: [
     '/node_modules/(?!decamelize)'
   ],
