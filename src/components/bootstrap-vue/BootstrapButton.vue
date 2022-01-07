@@ -102,25 +102,30 @@ Variant "light"
   >
     label
   </b-button>
-    <b-button
+   <b-button
     variant="light"
     disabled
   >
     label
   </b-button>
 ```
+Variant "light-flat"
+Used for the icon buttons in the header
+```jsx
+  <b-button
+    variant="light-flat"
+  >
+    label
+  </b-button>
+    <b-button
+    variant="light-flat"
+    class="button-icon icon-search"
+  />
+```
 Variant "overlay"
 ```jsx
   <b-button
     variant="overlay"
-  >
-    label
-  </b-button>
-```
-Variant "transparent"
-```jsx
-  <b-button
-    variant="transparent"
   >
     label
   </b-button>
