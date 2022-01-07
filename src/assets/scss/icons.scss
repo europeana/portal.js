@@ -3,6 +3,7 @@
   /* stylelint-disable-next-line */
   font-family: 'icomoon';
   speak: none;
+  font-size: 1.1rem;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
@@ -42,6 +43,7 @@
 
 .icon-clear::before {
   content: '\e931';
+  font-size: $font-size-large;
 }
 
 .icon-pinterest::before {
@@ -123,4 +125,17 @@
 
 .icon-translate::before {
   content: '\e93c';
+}
+
+.icon-back::before {
+  content: '\ea40';
+}
+
+.icon-search::before {
+  content: '\e92b';
+}
+
+.icon-filter::before {
+  content: '\e948';
+  font-size: $font-size-large;
 }

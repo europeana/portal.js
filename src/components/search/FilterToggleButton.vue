@@ -2,8 +2,8 @@
   <b-button
     v-show="showFiltersToggle"
     data-qa="search filter button"
-    class="filters-toggle ml-3 my-3"
-    variant="light"
+    class="icon-filter p-0 ml-3 my-3"
+    variant="light-flat"
     :aria-label="$t('filter')"
     @click="toggleFilterSheet"
   />
@@ -30,19 +30,9 @@
   @import '@/assets/scss/variables';
   @import '@/assets/scss/icons';
 
-  .btn.filters-toggle {
+  .btn.icon-filter {
     @media (min-width: $bp-large) {
       display: none;
-    }
-
-    &::before {
-      content: '\e948';
-      font-size: 1.5rem;
-      transition: $standard-transition;
-    }
-
-    &:hover::before {
-      color: $innovationblue;
     }
   }
 </style>
