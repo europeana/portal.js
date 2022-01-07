@@ -68,12 +68,12 @@ describe('components/search/SearchForm', () => {
           }
         }
       });
-      wrapper.vm.query.should.eq('cartography');
+      expect(wrapper.vm.query).toBe('cartography');
     });
   });
 
   describe('routePath', () => {
-    context('when on a search page', () => {
+    describe('when on a search page', () => {
       const wrapper = factory({
         mocks: {
           $route: {
@@ -89,11 +89,11 @@ describe('components/search/SearchForm', () => {
       });
 
       it('uses current route path', () => {
-        wrapper.vm.routePath.should.eq('/somewhere');
+        expect(wrapper.vm.routePath).toBe('/somewhere');
       });
     });
 
-    context('when not on a search page', () => {
+    describe('when not on a search page', () => {
       const wrapper = factory({
         mocks: {
           $path
@@ -106,7 +106,7 @@ describe('components/search/SearchForm', () => {
       });
 
       it('uses default search route path', () => {
-        wrapper.vm.routePath.should.eql('/search');
+        expect(wrapper.vm.routePath).toEqual('/search');
       });
     });
   });
@@ -114,7 +114,7 @@ describe('components/search/SearchForm', () => {
   describe('form submission', () => {
     const query = 'trees';
 
-    context('with a selected entity suggestion', () => {
+    describe('with a selected entity suggestion', () => {
       it('routes to the entity page', async() => {
         const state = {
           search: {
@@ -137,11 +137,11 @@ describe('components/search/SearchForm', () => {
           }
         };
 
-        $goto.should.have.been.calledWith(searchRoute);
+        expect($goto.calledWith(searchRoute)).toBe(true);
       });
     });
 
-    context('when on a search page', () => {
+    describe('when on a search page', () => {
       const state = {
         search: {
           active: true,
@@ -161,10 +161,10 @@ describe('components/search/SearchForm', () => {
           path: wrapper.vm.$route.path,
           query: { query, page: 1, view: state.search.view }
         };
-        $goto.should.have.been.calledWith(newRouteParams);
+        expect($goto.calledWith(newRouteParams)).toBe(true);
       });
 
-      context('when query is blank', () => {
+      describe('when query is blank', () => {
         it('includes empty query param', async() => {
           const wrapper = factory({ store: store(state) });
 
@@ -177,12 +177,12 @@ describe('components/search/SearchForm', () => {
             path: wrapper.vm.$route.path,
             query: { query: '', page: 1, view: state.search.view }
           };
-          $goto.should.have.been.calledWith(newRouteParams);
+          expect($goto.calledWith(newRouteParams)).toBe(true);
         });
       });
     });
 
-    context('when not on a search page', () => {
+    describe('when not on a search page', () => {
       const state = {
         search: {
           active: false,
@@ -201,7 +201,7 @@ describe('components/search/SearchForm', () => {
           path: '/search',
           query: { query, page: 1, view: state.search.view }
         };
-        $goto.should.have.been.calledWith(newRouteParams);
+        expect($goto.calledWith(newRouteParams)).toBe(true);
       });
 
       it('does not carry non-seearch query params', async() => {
@@ -216,7 +216,7 @@ describe('components/search/SearchForm', () => {
           path: '/search',
           query: { query, page: 1, view: state.search.view }
         };
-        $goto.should.have.been.calledWith(newRouteParams);
+        expect($goto.calledWith(newRouteParams)).toBe(true);
       });
     });
   });
@@ -235,15 +235,15 @@ describe('components/search/SearchForm', () => {
 
     it('generates search suggestion URLs', () => {
       const link = wrapper.vm.suggestionLinkGen('Fresco');
-      link.path.should.eq('/search');
-      link.query.query.should.eq('"Fresco"');
-      link.query.view.should.eq('grid');
+      expect(link.path).toBe('/search');
+      expect(link.query.query).toBe('"Fresco"');
+      expect(link.query.view).toBe('grid');
     });
   });
 
   describe('getSearchSuggestions', () => {
     const query = 'something';
-    context('auto-suggest is enabled by default', () => {
+    describe('auto-suggest is enabled by default', () => {
       const mocks = {
         $apis: {
           entity: {
@@ -257,11 +257,11 @@ describe('components/search/SearchForm', () => {
       it('gets suggestions from the Entity API', async() => {
         await wrapper.vm.getSearchSuggestions(query);
 
-        mocks.$apis.entity.suggest.should.have.been.called;
+        expect(mocks.$apis.entity.suggest.called).toBe(true);
       });
     });
 
-    context('auto-suggest is disabled on collection page', () => {
+    describe('auto-suggest is disabled on collection page', () => {
       const mocks = {
         $apis: {
           entity: {
@@ -278,14 +278,14 @@ describe('components/search/SearchForm', () => {
       it('gets suggestions from the Entity API', async() => {
         await wrapper.vm.getSearchSuggestions(query);
 
-        mocks.$apis.entity.suggest.should.not.have.been.called;
+        expect(mocks.$apis.entity.suggest.called).toBe(false);
       });
 
       // FIXME
       // it('parses and stores suggestions locally', async() => {
       //   await wrapper.vm.getSearchSuggestions();
       //
-      //   wrapper.vm.suggestions.should.deep.eq(parsedSuggestions);
+      //   expect(wrapper.vm.suggestions).toEqual(parsedSuggestions);
       // });
     });
   });

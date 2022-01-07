@@ -28,23 +28,23 @@ const store = (searchState = {}) => {
 };
 
 describe('components/search/FilterToggleButton', () => {
-  context('when no side filters are on the page', () => {
+  describe('when no side filters are on the page', () => {
     describe('the filter toggle button', () => {
       it('should not exist', () => {
         const wrapper = factory({ showFiltersToggle: false });
 
         const filterButton = wrapper.find('[data-qa="search filter button"]');
-        filterButton.exists().should.be.true;
+        expect(filterButton.exists()).toBe(true);
       });
     });
   });
-  context('when side filters are on the page', () => {
+  describe('when side filters are on the page', () => {
     describe('the filter toggle button', () => {
       it('should exist', () => {
         const wrapper = factory({ showFiltersToggle: true });
 
         const filterButton = wrapper.find('[data-qa="search filter button"]');
-        filterButton.exists().should.be.true;
+        expect(filterButton.exists()).toBe(true);
       });
     });
   });

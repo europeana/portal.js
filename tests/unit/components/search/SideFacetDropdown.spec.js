@@ -57,7 +57,7 @@ describe('components/search/SideFacetDropdown', () => {
   });
 
   describe('fetch', () => {
-    context('if fields are not static', () => {
+    describe('if fields are not static', () => {
       it('fetches facet', async() => {
         const wrapper = factory();
         await wrapper.setProps({
@@ -66,7 +66,7 @@ describe('components/search/SideFacetDropdown', () => {
 
         await wrapper.vm.fetch();
 
-        storeDispatchStub.should.have.been.calledWith('search/queryFacets', { facet: 'COUNTRY' });
+        expect(storeDispatchStub.calledWith('search/queryFacets', { facet: 'COUNTRY' })).toBe(true);
       });
 
       it('marks facet as fetched', async() => {
@@ -80,11 +80,11 @@ describe('components/search/SideFacetDropdown', () => {
 
         await wrapper.vm.fetch();
 
-        wrapper.vm.fetched.should.be.true;
+        expect(wrapper.vm.fetched).toBe(true);
       });
     });
 
-    context('if fields are static', () => {
+    describe('if fields are static', () => {
       it('does not fetch facet', async() => {
         const wrapper = factory();
         await wrapper.setProps({
@@ -94,7 +94,7 @@ describe('components/search/SideFacetDropdown', () => {
 
         await wrapper.vm.fetch();
 
-        storeDispatchStub.should.not.have.been.calledWith('search/queryFacets', { facet: 'collection' });
+        expect(storeDispatchStub.calledWith('search/queryFacets', { facet: 'collection' })).toBe(false);
       });
 
       it('marks facet as fetched', async() => {
@@ -106,7 +106,7 @@ describe('components/search/SideFacetDropdown', () => {
 
         await wrapper.vm.fetch();
 
-        wrapper.vm.fetched.should.be.true;
+        expect(wrapper.vm.fetched).toBe(true);
       });
     });
   });
@@ -118,7 +118,7 @@ describe('components/search/SideFacetDropdown', () => {
     });
     await wrapper.vm.fetch();
 
-    wrapper.vm.sortedOptions.should.eql([
+    expect(wrapper.vm.sortedOptions).toEqual([
       {
         count: 99,
         label: 'United Kingdom'
@@ -140,7 +140,7 @@ describe('components/search/SideFacetDropdown', () => {
 
   describe('methods', () => {
     describe('updateRouteQueryReusability', () => {
-      context('when this is not the reusability facet', () => {
+      describe('when this is not the reusability facet', () => {
         it('triggers fetch', async() => {
           const wrapper = factory();
           wrapper.vm.$fetch = sinon.spy();
@@ -150,11 +150,11 @@ describe('components/search/SideFacetDropdown', () => {
 
           wrapper.vm.updateRouteQueryReusability();
 
-          wrapper.vm.$fetch.should.have.been.called;
+          expect(wrapper.vm.$fetch.called).toBe(true);
         });
       });
 
-      context('when this is the reusability facet', () => {
+      describe('when this is the reusability facet', () => {
         it('does not trigger fetch', async() => {
           const wrapper = factory();
           wrapper.vm.$fetch = sinon.spy();
@@ -164,13 +164,13 @@ describe('components/search/SideFacetDropdown', () => {
 
           wrapper.vm.updateRouteQueryReusability();
 
-          wrapper.vm.$fetch.should.not.have.been.called;
+          expect(wrapper.vm.$fetch.called).toBe(false);
         });
       });
     });
 
     describe('updateRouteQueryQf', () => {
-      context('when qf changed for other facets', () => {
+      describe('when qf changed for other facets', () => {
         it('triggers fetch', async() => {
           const wrapper = factory();
           wrapper.vm.$fetch = sinon.spy();
@@ -183,11 +183,11 @@ describe('components/search/SideFacetDropdown', () => {
 
           wrapper.vm.updateRouteQueryQf(newQf, oldQf);
 
-          wrapper.vm.$fetch.should.have.been.called;
+          expect(wrapper.vm.$fetch.called).toBe(true);
         });
       });
 
-      context('when qf changed only for this facet', () => {
+      describe('when qf changed only for this facet', () => {
         it('does not trigger fetch', async() => {
           const wrapper = factory();
           wrapper.vm.$fetch = sinon.spy();
@@ -200,7 +200,7 @@ describe('components/search/SideFacetDropdown', () => {
 
           wrapper.vm.updateRouteQueryQf(newQf, oldQf);
 
-          wrapper.vm.$fetch.should.not.have.been.called;
+          expect(wrapper.vm.$fetch.called).toBe(false);
         });
       });
     });

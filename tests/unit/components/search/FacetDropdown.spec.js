@@ -49,7 +49,7 @@ describe('components/search/FacetDropdown', () => {
       selected: ['Spain', 'United Kingdom']
     });
 
-    wrapper.vm.sortedOptions.should.eql([
+    expect(wrapper.vm.sortedOptions).toEqual([
       {
         count: 99,
         label: 'United Kingdom'
@@ -70,7 +70,7 @@ describe('components/search/FacetDropdown', () => {
   });
 
   describe('reset button', () => {
-    context('when nothing has been selected', () => {
+    describe('when nothing has been selected', () => {
       it('is disabled', async() => {
         const wrapper = factory();
 
@@ -84,10 +84,10 @@ describe('components/search/FacetDropdown', () => {
 
         const resetButton = wrapper.find('[data-qa="COUNTRY reset button"]');
 
-        resetButton.attributes('disabled').should.eq('true');
+        expect(resetButton.attributes('disabled')).toBe('true');
       });
 
-      context('when option has been selected', () => {
+      describe('when option has been selected', () => {
         it('is enabled', async() => {
           const wrapper = factory();
 
@@ -97,14 +97,14 @@ describe('components/search/FacetDropdown', () => {
 
           const resetButton = wrapper.find('[data-qa="COUNTRY reset button"]');
 
-          (resetButton.attributes('disabled') === undefined).should.be.true;
+          expect(resetButton.attributes('disabled')).toBe(undefined);
         });
       });
     });
   });
 
   describe('apply button', () => {
-    context('when new facet option has been selected', () => {
+    describe('when new facet option has been selected', () => {
       it('is enabled', async() => {
         const wrapper = factory();
 
@@ -114,11 +114,11 @@ describe('components/search/FacetDropdown', () => {
 
         const applyButton = wrapper.find('[data-qa="COUNTRY apply button"]');
 
-        (applyButton.attributes('disabled') === undefined).should.be.true;
+        expect(applyButton.attributes('disabled')).toBe(undefined);
       });
     });
 
-    context('when no new facet options have been selected', () => {
+    describe('when no new facet options have been selected', () => {
       it('is disabled', async() => {
         const wrapper = factory();
 
@@ -128,7 +128,7 @@ describe('components/search/FacetDropdown', () => {
 
         const applyButton = wrapper.find('[data-qa="COUNTRY apply button"]');
 
-        applyButton.attributes('disabled').should.eq('true');
+        expect(applyButton.attributes('disabled')).toBe('true');
       });
     });
   });
@@ -140,7 +140,7 @@ describe('components/search/FacetDropdown', () => {
       wrapper.vm.$refs.dropdown.hide = sinon.spy();
 
       wrapper.vm.applySelection();
-      wrapper.emitted()['changed'].length.should.equal(1);
+      expect(wrapper.emitted()['changed'].length).toBe(1);
     });
   });
 });

@@ -40,7 +40,7 @@ describe('server-middleware/api/jira/service-desk', () => {
 
         await middleware(req, res);
 
-        nock.isDone().should.be.true;
+        expect(nock.isDone()).toBe(true);
       });
 
       describe('Jira service desk API request POST body content', () => {
@@ -54,7 +54,7 @@ describe('server-middleware/api/jira/service-desk', () => {
 
           await middleware(req, res);
 
-          nock.isDone().should.be.true;
+          expect(nock.isDone()).toBe(true);
         });
 
         it('uses full feedback for description field', async() => {
@@ -67,7 +67,7 @@ describe('server-middleware/api/jira/service-desk', () => {
 
           await middleware(req, res);
 
-          nock.isDone().should.be.true;
+          expect(nock.isDone()).toBe(true);
         });
 
         it('responds with an error when the feedback is blank', async() => {
@@ -78,8 +78,8 @@ describe('server-middleware/api/jira/service-desk', () => {
           const res = mockResponse();
 
           await middleware(req, res);
-          res.status.should.have.been.calledWith(400);
-          res.send.should.have.been.calledWith('Invalid feedback.');
+          expect(res.status.calledWith(400)).toBe(true);
+          expect(res.send.calledWith('Invalid feedback.')).toBe(true);
         });
 
         it('responds with an error when the feedback is less than five words', async() => {
@@ -90,8 +90,8 @@ describe('server-middleware/api/jira/service-desk', () => {
           const res = mockResponse();
 
           await middleware(req, res);
-          res.status.should.have.been.calledWith(400);
-          res.send.should.have.been.calledWith('Invalid feedback.');
+          expect(res.status.calledWith(400)).toBe(true);
+          expect(res.send.calledWith('Invalid feedback.')).toBe(true);
         });
 
         it('truncates feedback to 50 characters in summary field', async() => {
@@ -106,7 +106,7 @@ describe('server-middleware/api/jira/service-desk', () => {
 
           await middleware(req, res);
 
-          nock.isDone().should.be.true;
+          expect(nock.isDone()).toBe(true);
         });
 
         it('omits raiseOnBehalfOf if no email', async() => {
@@ -119,7 +119,7 @@ describe('server-middleware/api/jira/service-desk', () => {
 
           await middleware(req, res);
 
-          nock.isDone().should.be.true;
+          expect(nock.isDone()).toBe(true);
         });
 
         it('includes raiseOnBehalfOf if email present', async() => {
@@ -133,7 +133,7 @@ describe('server-middleware/api/jira/service-desk', () => {
 
           await middleware(req, res);
 
-          nock.isDone().should.be.true;
+          expect(nock.isDone()).toBe(true);
         });
       });
     });
@@ -147,7 +147,7 @@ describe('server-middleware/api/jira/service-desk', () => {
 
         await middleware(req, res);
 
-        res.sendStatus.should.have.been.calledWith(status);
+        expect(res.sendStatus.calledWith(status)).toBe(true);
       });
 
       it('responds with upstream error on failure', async() => {
@@ -159,8 +159,8 @@ describe('server-middleware/api/jira/service-desk', () => {
 
         await middleware(req, res);
 
-        res.status.should.have.been.calledWith(status);
-        res.send.should.have.been.calledWith(errorMessage);
+        expect(res.status.calledWith(status)).toBe(true);
+        expect(res.send.calledWith(errorMessage)).toBe(true);
       });
 
       it('responds with 500 status on request failure', async() => {
@@ -172,8 +172,8 @@ describe('server-middleware/api/jira/service-desk', () => {
 
         await middleware(req, res);
 
-        res.status.should.have.been.calledWith(status);
-        res.send.should.have.been.calledWith(errorMessage);
+        expect(res.status.calledWith(status)).toBe(true);
+        expect(res.send.calledWith(errorMessage)).toBe(true);
       });
     });
   });

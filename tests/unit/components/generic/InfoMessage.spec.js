@@ -18,6 +18,6 @@ describe('components/generic/InfoMessage', () => {
     const wrapper = factory({ default: 'Some information to display' });
 
     const message =  wrapper.find('[data-qa="info notice"]');
-    message.text().should.contain('Some information to display');
+    expect(message.text()).toContain('Some information to display');
   });
 });

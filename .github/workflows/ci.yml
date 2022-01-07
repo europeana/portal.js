@@ -62,11 +62,12 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-  # Run linting and unit tests on pull requests
+  # Run linting and unit tests on master (for coverage reports), and non-draft
+  # pull requests
   test-unit:
     runs-on: ubuntu-latest
     needs: [docker-base-stage]
-    if: github.event_name == 'pull_request' && github.event.pull_request.draft == false
+    if: (github.event_name == 'push' && github.event.ref == 'refs/heads/master') || (github.event_name == 'pull_request' && github.event.pull_request.draft == false)
     steps:
       -
         name: Checkout
@@ -82,6 +83,7 @@ jobs:
           images: ${{ env.DOCKER_REPOSITORY }}
           tags: |
             type=ref,event=pr,suffix=-base
+            type=ref,event=branch,suffix=-base
       -
         name: Load base image
         uses: docker/build-push-action@v2
@@ -108,10 +110,17 @@ jobs:
       -
         name: Run unit tests
         run: |
+          mkdir coverage
           docker run \
             --mount type=bind,source="$(pwd)"/tests,target=/app/tests \
-            --mount type=bind,source="$(pwd)"/.eslintrc.cjs,target=/app/.eslintrc.cjs \
-            ${DOCKER_REPOSITORY}:${{ steps.meta.outputs.version }} npm run test:unit
+            --mount type=bind,source="$(pwd)"/coverage,target=/app/coverage \
+            ${DOCKER_REPOSITORY}:${{ steps.meta.outputs.version }} npm run test:coverage
+      -
+        name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@v1.6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   # Build, and push to Docker Hub, full production Docker image for use throughout
   # other jobs
@@ -425,7 +434,7 @@ jobs:
         name: Publish to NPM
         run: |
           cp .github/workflows/support/docker-images/.npmrc ~/
-          npm publish --access public --dry-run ./tmp/app
+          npm publish --access public ./tmp/app
       -
         name: Warm up jsDelivr
         run: .github/workflows/support/docker-images/warm-up-jsdelivr.sh ./tmp/app
