@@ -26,7 +26,8 @@
         </button>
         <b-button
           data-qa="close filters button"
-          class="close"
+          class="button-icon icon-clear mx-3"
+          variant="light-flat"
           :aria-label="$t('header.closeSidebar')"
           @click="toggleFilterSheet"
         />
@@ -355,34 +356,9 @@
       height: 100%;
     }
 
-    .btn.close {
+    .icon-clear {
       @media (min-width: $bp-large) {
         display: none;
-      }
-
-      background: none;
-      border-radius: 0;
-      border: 0;
-      box-shadow: none;
-      color: $black;
-      font-size: 1rem;
-      padding: 0 15px;
-      opacity: 1;
-      height: 3.5rem;
-      transition: $standard-transition;
-
-      &::before {
-        @extend %icon-font;
-
-        display: inline-block;
-        content: '\e931';
-        font-weight: 400;
-        font-size: 1.5rem;
-      }
-
-      &:hover {
-        color: $blue;
-        transition: $standard-transition;
       }
     }
   }

@@ -11,6 +11,17 @@
   }
 }
 
+.button-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 1.5rem;
+  width: 1.5rem;
+  &::before {
+    display: inline-block;
+  }
+}
+
 .btn-primary {
   background: $blue;
   border-color: $blue;
@@ -101,6 +112,19 @@
 
   &:hover {
     background: $white;
+  }
+}
+
+.btn-light-flat {
+  background: $white;
+  border: 0;
+  color: $black;
+  text-decoration: none;
+  transition: $standard-transition;
+  &:hover {
+    box-shadow: none;
+    transition: $standard-transition;
+    color: $innovationblue;
   }
 }
 

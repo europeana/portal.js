@@ -30,8 +30,8 @@
       <b-button
         v-show="query"
         data-qa="clear button"
-        class="clear ml-3 my-3"
-        variant="light"
+        class="button-icon icon-clear ml-3 my-3"
+        variant="light-flat"
         :aria-label="$t('header.clearQuery')"
         @click="clearQuery"
       />
@@ -402,54 +402,6 @@
 
     .input-group-prepend {
       display: none;
-    }
-  }
-
-  .btn {
-    align-items: center;
-    background: none;
-    border-radius: 0;
-    border: 0;
-    box-shadow: none;
-    color: $black;
-    display: flex;
-    font-size: 1rem;
-    height: 1.5rem;
-    justify-content: center;
-    padding: 0;
-    width: 1.5rem;
-
-    &::before {
-      @extend %icon-font;
-
-      display: inline-block;
-      font-size: 1.1rem;
-    }
-
-    &.search::before {
-      content: '\e92b';
-    }
-
-    &.btn-primary {
-      text-transform: none;
-
-      &:hover {
-        background: $blue;
-        color: $white;
-      }
-    }
-
-    &.clear {
-      z-index: 99;
-
-      &::before {
-        content: '\e904';
-        transition: $standard-transition;
-      }
-
-      &:hover::before {
-        color: $innovationblue;
-      }
     }
   }
 </style>
