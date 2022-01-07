@@ -1,11 +1,5 @@
 <template>
   <div>
-    <NotificationBanner
-      v-if="redirectNotificationsEnabled && !sideFiltersEnabled"
-      :notification-url="notificationUrl"
-      :notification-link-text="$t('linksToClassic.search.linkText')"
-      class="mb-3"
-    />
     <b-container
       data-qa="search page"
       :class="{'page-container side-filters-enabled': sideFiltersEnabled}"
@@ -19,12 +13,6 @@
         <b-col
           :class="{'px-0': !sideFiltersEnabled}"
         >
-          <NotificationBanner
-            v-if="redirectNotificationsEnabled && sideFiltersEnabled"
-            :notification-url="notificationUrl"
-            :notification-link-text="$t('linksToClassic.search.linkText')"
-            class="notification-banner mb-3"
-          />
           <b-container>
             <b-row>
               <b-col>
@@ -54,15 +42,12 @@
 
 <script>
   import SearchInterface from '@/components/search/SearchInterface';
-  import legacyUrl from '@/plugins/europeana/legacy-search';
-  import NotificationBanner from '@/components/generic/NotificationBanner';
 
   export default {
     name: 'SearchPage',
 
     components: {
       SearchInterface,
-      NotificationBanner,
       RelatedSection: () => import('@/components/search/RelatedSection'),
       SideFilters: () => import('@/components/search/SideFilters')
     },
@@ -86,18 +71,11 @@
     },
 
     computed: {
-      notificationUrl() {
-        return legacyUrl(this.$route.query, this.$i18n.locale) +
-          '&utm_source=new-website&utm_medium=button';
-      },
-      redirectNotificationsEnabled() {
-        return this.$config.app.features.linksToClassic;
-      },
       searchQuery() {
         return this.$route.query.query;
       },
       sideFiltersEnabled() {
-        return this.$config.app.features.sideFilters;
+        return this.$features.sideFilters;
       }
     },
 
@@ -123,12 +101,5 @@
 
   .page-container {
     max-width: none;
-  }
-
-  .notification-banner {
-    margin-left: -15px;
-    margin-right: -15px;
-    width: auto;
-    min-height: 2.5rem; // aligns with the side filters header
   }
 </style>

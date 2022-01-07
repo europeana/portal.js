@@ -8,7 +8,7 @@ describe('plugins/europeana/record/similar-items', () => {
       dcType: ['Type']
     };
 
-    similarItemsQuery(about, data).should.include('what:("Type")^0.8');
+    expect(similarItemsQuery(about, data)).toContain('what:("Type")^0.8');
   });
 
   it('fields on `what` for dcSubject, boosted by 0.8', () => {
@@ -16,7 +16,7 @@ describe('plugins/europeana/record/similar-items', () => {
       dcSubject: ['Subject']
     };
 
-    similarItemsQuery(about, data).should.include('what:("Subject")^0.8');
+    expect(similarItemsQuery(about, data)).toContain('what:("Subject")^0.8');
   });
 
   it('fields on `who` for dcCreator, boosted by 0.5', () => {
@@ -24,7 +24,7 @@ describe('plugins/europeana/record/similar-items', () => {
       dcCreator: ['Creator']
     };
 
-    similarItemsQuery(about, data).should.include('who:("Creator")^0.5');
+    expect(similarItemsQuery(about, data)).toContain('who:("Creator")^0.5');
   });
 
   it('fields on `DATA_PROVIDER` for edmDataProvider, boosted by 0.2', () => {
@@ -32,7 +32,7 @@ describe('plugins/europeana/record/similar-items', () => {
       edmDataProvider: ['Data Provider']
     };
 
-    similarItemsQuery(about, data).should.include('DATA_PROVIDER:("Data Provider")^0.2');
+    expect(similarItemsQuery(about, data)).toContain('DATA_PROVIDER:("Data Provider")^0.2');
   });
 
   it('excludes the current item by `europeana_id`', () => {
@@ -40,7 +40,7 @@ describe('plugins/europeana/record/similar-items', () => {
       dcType: ['Type']
     };
 
-    similarItemsQuery(about, data).should.include(' NOT europeana_id:"/12345/abcde"');
+    expect(similarItemsQuery(about, data)).toContain(' NOT europeana_id:"/12345/abcde"');
   });
 
   it('escapes Lucene special characters in each term', () => {
@@ -48,7 +48,7 @@ describe('plugins/europeana/record/similar-items', () => {
       dcType: ['http://www.example.org/vocabulary/term']
     };
 
-    similarItemsQuery(about, data).should.include('"http\\:\\/\\/www.example.org\\/vocabulary\\/term"');
+    expect(similarItemsQuery(about, data)).toContain('"http\\:\\/\\/www.example.org\\/vocabulary\\/term"');
   });
 
   it('combines each term per-field with OR', () => {
@@ -57,7 +57,7 @@ describe('plugins/europeana/record/similar-items', () => {
       dcType: ['Type1', 'Type2']
     };
 
-    similarItemsQuery(about, data).should.include('("Subject1" OR "Type1" OR "Type2")');
+    expect(similarItemsQuery(about, data)).toContain('("Subject1" OR "Type1" OR "Type2")');
   });
 
   it('combines all fielded terms with OR', () => {
@@ -66,7 +66,7 @@ describe('plugins/europeana/record/similar-items', () => {
       dcType: ['Type']
     };
 
-    similarItemsQuery(about, data).should.include('(what:("Type")^0.8 OR who:("Creator")^0.5)');
+    expect(similarItemsQuery(about, data)).toContain('(what:("Type")^0.8 OR who:("Creator")^0.5)');
   });
 
   it('omits empty fields', () => {
@@ -75,12 +75,12 @@ describe('plugins/europeana/record/similar-items', () => {
       dcType: ['Type']
     };
 
-    similarItemsQuery(about, data).should.not.include('who:(');
+    expect(similarItemsQuery(about, data)).not.toContain('who:(');
   });
 
   it('handles no relevant query terms sensibly', () => {
     const data = {};
 
-    (similarItemsQuery(about, data) === null).should.be.true;
+    expect(similarItemsQuery(about, data)).toBe(null);
   });
 });

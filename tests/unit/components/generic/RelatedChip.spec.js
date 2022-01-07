@@ -23,7 +23,7 @@ describe('components/generic/RelatedChip', () => {
         href: () => null
       }
     });
-    wrapper.findAll('[data-qa="Art related chip"]').length.should.eq(1);
+    expect(wrapper.findAll('[data-qa="Art related chip"]').length).toBe(1);
   });
 
   it('has a collection title, lang and link', async() => {
@@ -39,9 +39,9 @@ describe('components/generic/RelatedChip', () => {
     });
 
     const chip = wrapper.find('[data-qa="Art related chip"]');
-    chip.text().should.eq('Art');
-    chip.attributes().to.should.contain('190-art');
-    (chip.attributes().href === undefined).should.be.true;
+    expect(chip.text()).toBe('Art');
+    expect(chip.attributes().to).toContain('190-art');
+    expect(chip.attributes().href).toBe(undefined);
   });
 
   it('translates lang maps for title', async() => {
@@ -61,7 +61,7 @@ describe('components/generic/RelatedChip', () => {
     });
 
     const chip = wrapper.find('[data-qa="Costume related chip"]');
-    chip.text().should.eq('Costume');
+    expect(chip.text()).toBe('Costume');
   });
 
   it('tracks the event in Matomo', async() => {
@@ -84,10 +84,10 @@ describe('components/generic/RelatedChip', () => {
     });
 
     wrapper.vm.trackClickEvent();
-    wrapper.vm.$matomo.trackEvent.should.have.been.calledWith('Related_collections', 'Click related collection', '/collections/topic/33-costume');
+    expect(wrapper.vm.$matomo.trackEvent.calledWith('Related_collections', 'Click related collection', '/collections/topic/33-costume')).toBe(true);
   });
 
-  context('when linkTo is a URL with scheme', () => {
+  describe('when linkTo is a URL with scheme', () => {
     it('is linked to, not routed to', async() => {
       const wrapper = factory({
         $link: {
@@ -101,8 +101,8 @@ describe('components/generic/RelatedChip', () => {
       });
 
       const chip = wrapper.find('[data-qa="Art related chip"]');
-      chip.attributes().href.should.eq('https://www.example.org/collections/topic/190-art');
-      (chip.attributes().to === undefined).should.be.true;
+      expect(chip.attributes().href).toBe('https://www.example.org/collections/topic/190-art');
+      expect(chip.attributes().to).toBe(undefined);
     });
   });
 });

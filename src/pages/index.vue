@@ -8,14 +8,7 @@
       :has-part-collection="hasPartCollection"
       :hero="hero"
       :hero-image="heroImage"
-    >
-      <NotificationBanner
-        v-if="showNotificationBanner"
-        :notification-url="notificationUrl"
-        :notification-link-text="$t('linksToClassic.home.linkText')"
-        class="mb-3"
-      />
-    </BrowsePage>
+    />
     <StaticPage
       v-if="staticPage"
       :name="name"
@@ -28,7 +21,6 @@
 </template>
 
 <script>
-  import NotificationBanner from '../components/generic/NotificationBanner.vue';
   import BrowsePage from '../components/browse/BrowsePage';
   import StaticPage from '../components/static/StaticPage';
 
@@ -36,7 +28,6 @@
     name: 'BrowseOrStaticPage',
 
     components: {
-      NotificationBanner,
       BrowsePage,
       StaticPage
     },
@@ -102,16 +93,8 @@
     },
 
     computed: {
-      showNotificationBanner() {
-        return (
-          this.$config.app.features.linksToClassic && this.isHomePage
-        );
-      },
       isHomePage() {
         return this.identifier === 'home';
-      },
-      notificationUrl() {
-        return `https://classic.europeana.eu/portal/${this.$i18n.locale}?utm_source=new-website&utm_medium=button`;
       },
       socialMediaImage() {
         // use social media image if set in Contentful, otherwise use hero image, else null

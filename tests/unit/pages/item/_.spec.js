@@ -1,11 +1,13 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
+import Vuex from 'vuex';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
 import page from '@/pages/item/_';
 
 const localVue = createLocalVue();
+localVue.use(Vuex);
 localVue.use(BootstrapVue);
 
 const item = {
@@ -18,7 +20,25 @@ const item = {
   }
 };
 
-const storeDispatch = sinon.spy();
+const store = new Vuex.Store({
+  state: {
+    item: {
+      active: false,
+      annotations: [],
+      relatedEntities: [],
+      similarItems: []
+    }
+  },
+  getters: {
+    'entity/isPinned': () => () => false,
+    'http/canonicalUrl': () => () => null,
+    'set/isLiked': () => () => null,
+    'item/annotationsByMotivation': () => () => null
+  },
+  actions: {
+    'item/reset': () => null
+  }
+});
 
 const factory = () => shallowMountNuxt(page, {
   localVue,
@@ -27,7 +47,7 @@ const factory = () => shallowMountNuxt(page, {
   },
   stubs: ['client-only'],
   mocks: {
-    $config: { app: { features: {} } },
+    $features: {},
     $pageHeadTitle: key => key,
     $route: {
       query: {}
@@ -50,23 +70,9 @@ const factory = () => shallowMountNuxt(page, {
         getRecord: sinon.stub().resolves({}),
         search: sinon.spy()
       }
-    },
-    $store: {
-      state: {
-        item: {
-          active: false,
-          annotations: [],
-          relatedEntities: [],
-          similarItems: []
-        }
-      },
-      getters: {
-        'set/isLiked': sinon.stub(),
-        'item/annotationsByMotivation': sinon.stub()
-      },
-      dispatch: storeDispatch
     }
-  }
+  },
+  store
 });
 
 describe('pages/item/_.vue', () => {
@@ -76,7 +82,7 @@ describe('pages/item/_.vue', () => {
     const $apis = { record: { getRecord: sinon.stub().resolves({ record }) } };
     const app = { i18n: { locale: 'en' } };
 
-    context('when the page is loaded without a metadataLanguage', () => {
+    describe('when the page is loaded without a metadataLanguage', () => {
       const route = { query: {} };
 
       it('gets a record from the API for the ID in the params pathMatch, for the current locale', async() => {
@@ -84,11 +90,11 @@ describe('pages/item/_.vue', () => {
 
         const response = await wrapper.vm.asyncData({ params, app, route, $apis });
 
-        $apis.record.getRecord.should.have.been.calledWith('/123/abc', { locale: 'en', metadataLanguage: undefined });
-        response.should.eql(record);
+        expect($apis.record.getRecord.calledWith('/123/abc', { locale: 'en', metadataLanguage: undefined })).toBe(true);
+        expect(response).toEqual(record);
       });
     });
-    context('when the page is loaded with a metadataLanguage', () => {
+    describe('when the page is loaded with a metadataLanguage', () => {
       const route = { query: { lang: 'fr' } };
 
       it('gets a record from the API for the ID in the params pathMatch, with metadataLanguage from `lang` query', async() => {
@@ -96,8 +102,8 @@ describe('pages/item/_.vue', () => {
 
         const response = await wrapper.vm.asyncData({ params, app, route, $apis });
 
-        $apis.record.getRecord.should.have.been.calledWith('/123/abc', { locale: 'en', metadataLanguage: 'fr' });
-        response.should.eql(record);
+        expect($apis.record.getRecord.calledWith('/123/abc', { locale: 'en', metadataLanguage: 'fr' })).toBe(true);
+        expect(response).toEqual(record);
       });
     });
   });
@@ -118,8 +124,8 @@ describe('pages/item/_.vue', () => {
 
       const headMeta = wrapper.vm.head().meta;
 
-      headMeta.filter(meta => meta.property === 'og:image').length.should.eq(1);
-      headMeta.find(meta => meta.property === 'og:image').content.should.eq(thumbnailUrl);
+      expect(headMeta.filter(meta => meta.property === 'og:image').length).toBe(1);
+      expect(headMeta.find(meta => meta.property === 'og:image').content).toBe(thumbnailUrl);
     });
   });
 });

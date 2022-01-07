@@ -112,7 +112,7 @@
         return false;
       },
       translatedItemsEnabled() {
-        return this.$config.app.features.translatedItems;
+        return this.$features.translatedItems;
       }
     },
     methods: {

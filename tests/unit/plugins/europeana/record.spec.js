@@ -187,8 +187,8 @@ describe('plugins/europeana/record', () => {
     nock.cleanAll();
   });
 
-  context('when using the translation profile', () => {
-    const translateConf = { $config: { app: { features: { translatedItems: true } } } };
+  describe('when using the translation profile', () => {
+    const translateConf = { $features: { translatedItems: true } };
     describe('record().getRecord()', () => {
       it('makes an API request', async() => {
         nock(BASE_URL)
@@ -198,10 +198,10 @@ describe('plugins/europeana/record', () => {
 
         await record(translateConf).getRecord(europeanaId);
 
-        nock.isDone().should.be.true;
+        expect(nock.isDone()).toBe(true);
       });
       describe('profile parameter', () => {
-        context('when no translations are explicitly requested', () => {
+        describe('when no translations are explicitly requested', () => {
           it('is omitted when the item translation feature is enabled', async() => {
             nock(BASE_URL)
               .get(apiEndpoint)
@@ -210,10 +210,10 @@ describe('plugins/europeana/record', () => {
 
             await record(translateConf).getRecord(europeanaId);
 
-            nock.isDone().should.be.true;
+            expect(nock.isDone()).toBe(true);
           });
         });
-        context('when translations are explicitly requested', () => {
+        describe('when translations are explicitly requested', () => {
           it('is "translate" when the item translation feature is enabled', async() => {
             nock(BASE_URL)
               .get(apiEndpoint)
@@ -222,9 +222,9 @@ describe('plugins/europeana/record', () => {
 
             await record(translateConf).getRecord(europeanaId, { metadataLanguage: 'de' });
 
-            nock.isDone().should.be.true;
+            expect(nock.isDone()).toBe(true);
           });
-          context('when the API returns a quota exhaustion error', () => {
+          describe('when the API returns a quota exhaustion error', () => {
             it('re-requests the record without the profile', async() => {
               nock(BASE_URL)
                 .get(apiEndpoint)
@@ -237,7 +237,7 @@ describe('plugins/europeana/record', () => {
 
               await record(translateConf).getRecord(europeanaId, { metadataLanguage: 'de' });
 
-              nock.isDone().should.be.true;
+              expect(nock.isDone()).toBe(true);
             });
           });
         });
@@ -250,12 +250,12 @@ describe('plugins/europeana/record', () => {
             .reply(200, translateProfileApiResponse);
 
           const recordData = await record(translateConf).getRecord(europeanaId, { metadataLanguage: 'de' });
-          recordData.record.metadataLanguage.should.eq('de');
-          nock.isDone().should.be.true;
+          expect(recordData.record.metadataLanguage).toBe('de');
+          expect(nock.isDone()).toBe(true);
         });
       });
       describe('translation source labels', () => {
-        context('when there is a value in the Europeana proxy', () => {
+        describe('when there is a value in the Europeana proxy', () => {
           it('is considered an automated translation', async() => {
             nock(BASE_URL)
               .get(apiEndpoint)
@@ -263,12 +263,12 @@ describe('plugins/europeana/record', () => {
               .reply(200, translateProfileApiResponse);
 
             const recordData = await record(translateConf).getRecord(europeanaId, { metadataLanguage: 'de' });
-            recordData.record.title.translationSource.should.eq('automated');
-            nock.isDone().should.be.true;
+            expect(recordData.record.title.translationSource).toBe('automated');
+            expect(nock.isDone()).toBe(true);
           });
         });
-        context('when there is a value in the aggregator proxy', () => {
-          context('when the value is in a lang map', () => {
+        describe('when there is a value in the aggregator proxy', () => {
+          describe('when the value is in a lang map', () => {
             it('is considered an enrichment', async() => {
               nock(BASE_URL)
                 .get(apiEndpoint)
@@ -276,11 +276,11 @@ describe('plugins/europeana/record', () => {
                 .reply(200, translateProfileApiResponse);
 
               const recordData = await record(translateConf).getRecord(europeanaId, { metadataLanguage: 'de' });
-              recordData.record.description.translationSource.should.eq('enrichment');
-              nock.isDone().should.be.true;
+              expect(recordData.record.description.translationSource).toBe('enrichment');
+              expect(nock.isDone()).toBe(true);
             });
           });
-          context('when the value referes to an entity', () => {
+          describe('when the value referes to an entity', () => {
             it('is considered an enrichment', async() => {
               nock(BASE_URL)
                 .get(apiEndpoint)
@@ -288,12 +288,12 @@ describe('plugins/europeana/record', () => {
                 .reply(200, translateProfileApiResponse);
 
               const recordData = await record(translateConf).getRecord(europeanaId, { metadataLanguage: 'de' });
-              recordData.record.metadata.edmIsRelatedTo.translationSource.should.eq('enrichment');
-              nock.isDone().should.be.true;
+              expect(recordData.record.metadata.edmIsRelatedTo.translationSource).toBe('enrichment');
+              expect(nock.isDone()).toBe(true);
             });
           });
         });
-        context('when there is only a value in the default proxy', () => {
+        describe('when there is only a value in the default proxy', () => {
           it('does not flag the field with a translation source', async() => {
             nock(BASE_URL)
               .get(apiEndpoint)
@@ -302,8 +302,8 @@ describe('plugins/europeana/record', () => {
 
             const recordData = await record(translateConf).getRecord(europeanaId, { metadataLanguage: 'de' });
 
-            (recordData.record.metadata.dcType.translationSource === undefined).should.be.true;
-            nock.isDone().should.be.true;
+            expect(recordData.record.metadata.dcType.translationSource === undefined).toBe(true);
+            expect(nock.isDone()).toBe(true);
           });
         });
       });
@@ -319,7 +319,7 @@ describe('plugins/europeana/record', () => {
 
       await record().getRecord(europeanaId);
 
-      nock.isDone().should.be.true;
+      expect(nock.isDone()).toBe(true);
     });
 
     describe('profile parameter', () => {
@@ -331,7 +331,7 @@ describe('plugins/europeana/record', () => {
 
         await record({ $config: { app: { schemaOrgDatasetId: '123' } } }).getRecord(europeanaId);
 
-        nock.isDone().should.be.true;
+        expect(nock.isDone()).toBe(true);
       });
 
       it('is omitted for other dataset items', async() => {
@@ -342,7 +342,7 @@ describe('plugins/europeana/record', () => {
 
         await record({ $config: { app: { schemaOrgDatasetId: '456' } } }).getRecord(europeanaId);
 
-        nock.isDone().should.be.true;
+        expect(nock.isDone()).toBe(true);
       });
     });
 
@@ -350,7 +350,7 @@ describe('plugins/europeana/record', () => {
       describe('with "Invalid record identifier: ..." error', () => {
         const errorMessage = `Invalid record identifier: ${europeanaId}`;
 
-        beforeEach('stub API response', () => {
+        beforeEach(() => {
           nock(BASE_URL)
             .get(apiEndpoint)
             .query(true)
@@ -368,13 +368,13 @@ describe('plugins/europeana/record', () => {
             error = e;
           }
 
-          error.message.should.eq(errorMessage);
-          error.statusCode.should.eq(404);
+          expect(error.message).toBe(errorMessage);
+          expect(error.statusCode).toBe(404);
         });
       });
 
       describe('with object in response', () => {
-        beforeEach('stub API response', () => {
+        beforeEach(() => {
           nock(BASE_URL)
             .get(apiEndpoint)
             .query(true)
@@ -383,53 +383,53 @@ describe('plugins/europeana/record', () => {
 
         it('returns record data', async() => {
           const response = await record().getRecord(europeanaId);
-          response.record.should.exist;
+          expect(response.record).toBeDefined();
         });
 
         it('includes identifier', async() => {
           const response = await record().getRecord(europeanaId);
-          response.record.identifier.should.eq(europeanaId);
+          expect(response.record.identifier).toBe(europeanaId);
         });
 
         it('includes edmIsShownAt', async() => {
           const response = await record().getRecord(europeanaId);
-          response.record.isShownAt.should.eq(edmIsShownAt);
+          expect(response.record.isShownAt).toBe(edmIsShownAt);
         });
 
         it('includes type', async() => {
           const response = await record().getRecord(europeanaId);
-          response.record.type.should.eq(type);
+          expect(response.record.type).toBe(type);
         });
 
         describe('.media', () => {
           it('includes edmIsShownBy web resource', async() => {
             const response = await record().getRecord(europeanaId);
-            response.record.media.find((item) => item.about === edmIsShownByWebResource.about).should.exist;
+            expect(response.record.media.find((item) => item.about === edmIsShownByWebResource.about)).toBeDefined();
           });
 
           it('includes edmHasView web resource', async() => {
             const response = await record().getRecord(europeanaId);
             for (const hasView of [edmHasViewWebResourceFirst, edmHasViewWebResourceSecond, edmHasViewWebResourceThird]) {
-              response.record.media.find((item) => item.about === hasView.about).should.exist;
+              expect(response.record.media.find((item) => item.about === hasView.about)).toBeDefined();
             }
           });
 
           it('omits other web resources', async() => {
             const response = await record().getRecord(europeanaId);
-            (typeof response.record.media.find((item) => item.about === someOtherWebResource.about)).should.eq('undefined');
+            expect(typeof response.record.media.find((item) => item.about === someOtherWebResource.about)).toBe('undefined');
           });
 
           it('sorts by isNextInSequence', async() => {
             const response = await record().getRecord(europeanaId);
 
-            response.record.media[0].about.should.eq(edmIsShownByWebResource.about);
-            response.record.media[1].about.should.eq(edmHasViewWebResourceFirst.about);
-            response.record.media[2].about.should.eq(edmHasViewWebResourceSecond.about);
-            response.record.media[3].about.should.eq(edmHasViewWebResourceThird.about);
+            expect(response.record.media[0].about).toBe(edmIsShownByWebResource.about);
+            expect(response.record.media[1].about).toBe(edmHasViewWebResourceFirst.about);
+            expect(response.record.media[2].about).toBe(edmHasViewWebResourceSecond.about);
+            expect(response.record.media[3].about).toBe(edmHasViewWebResourceThird.about);
           });
 
           describe('injected thumbnail URLs', () => {
-            context('when item has a supported MIME type', () => {
+            describe('when item has a supported MIME type', () => {
               const item = edmHasViewWebResourceFirst;
               it('includes item-specific-type thumbnails', async() => {
                 const expectedThumbnails = {
@@ -440,11 +440,11 @@ describe('plugins/europeana/record', () => {
                 const response = await record().getRecord(europeanaId);
                 const actualThumbnails = response.record.media.find((m) => m.about === item.about).thumbnails;
 
-                actualThumbnails.should.deep.eq(expectedThumbnails);
+                expect(actualThumbnails).toEqual(expectedThumbnails);
               });
             });
 
-            context('when item has an unsupported MIME type', () => {
+            describe('when item has an unsupported MIME type', () => {
               const item = edmHasViewWebResourceThird;
               it('includes record-type thumbnails', async() => {
                 const expectedThumbnails = {
@@ -455,7 +455,7 @@ describe('plugins/europeana/record', () => {
                 const response = await record().getRecord(europeanaId);
                 const actualThumbnails = response.record.media.find((m) => m.about === item.about).thumbnails;
 
-                actualThumbnails.should.deep.eq(expectedThumbnails);
+                expect(actualThumbnails).toEqual(expectedThumbnails);
               });
             });
           });
@@ -464,17 +464,17 @@ describe('plugins/europeana/record', () => {
         it('includes agents, reduced to about and prefLabel', async() => {
           const response = await record().getRecord(europeanaId);
           const agent = response.record.agents[0];
-          Object.keys(agent).should.eql(['about', 'prefLabel']);
-          agent.about.should.eql(apiResponse.object.agents[0].about);
-          agent.prefLabel.should.eql(apiResponse.object.agents[0].prefLabel);
+          expect(Object.keys(agent)).toEqual(['about', 'prefLabel']);
+          expect(agent.about).toEqual(apiResponse.object.agents[0].about);
+          expect(agent.prefLabel).toEqual(apiResponse.object.agents[0].prefLabel);
         });
 
         it('includes concepts, reduced to about and prefLabel', async() => {
           const response = await record().getRecord(europeanaId);
           const concept = response.record.concepts[0];
-          Object.keys(concept).should.eql(['about', 'prefLabel']);
-          concept.about.should.eql(apiResponse.object.concepts[0].about);
-          concept.prefLabel.should.eql(apiResponse.object.concepts[0].prefLabel);
+          expect(Object.keys(concept)).toEqual(['about', 'prefLabel']);
+          expect(concept.about).toEqual(apiResponse.object.concepts[0].about);
+          expect(concept.prefLabel).toEqual(apiResponse.object.concepts[0].prefLabel);
         });
       });
     });
@@ -487,31 +487,31 @@ describe('plugins/europeana/record', () => {
     it('uses origin https://proxy.europeana.eu', () => {
       const proxyUrl = new URL(record().mediaProxyUrl(mediaUrl, europeanaId));
 
-      proxyUrl.origin.should.eq('https://proxy.europeana.eu');
+      expect(proxyUrl.origin).toBe('https://proxy.europeana.eu');
     });
 
     it('uses europeanaId as path', () => {
       const proxyUrl = new URL(record().mediaProxyUrl(mediaUrl, europeanaId));
 
-      proxyUrl.pathname.should.eq(europeanaId);
+      expect(proxyUrl.pathname).toBe(europeanaId);
     });
 
     it('uses web resource URI as view param', () => {
       const proxyUrl = new URL(record().mediaProxyUrl(mediaUrl, europeanaId));
 
-      proxyUrl.searchParams.get('view').should.eq(mediaUrl);
+      expect(proxyUrl.searchParams.get('view')).toBe(mediaUrl);
     });
 
     it('uses store Record API origin as api_url param', () => {
       const proxyUrl = new URL(record().mediaProxyUrl(mediaUrl, europeanaId));
 
-      proxyUrl.searchParams.get('api_url').should.eq('https://api.europeana.eu/api');
+      expect(proxyUrl.searchParams.get('api_url')).toBe('https://api.europeana.eu/api');
     });
 
     it('sets additional params from final arg', () => {
       const proxyUrl = new URL(record().mediaProxyUrl(mediaUrl, europeanaId, { disposition: 'inline' }));
 
-      proxyUrl.searchParams.get('disposition').should.eq('inline');
+      expect(proxyUrl.searchParams.get('disposition')).toBe('inline');
     });
   });
 
@@ -541,28 +541,28 @@ describe('plugins/europeana/record', () => {
 
       await record().relatedEntities(entityType, entityId);
 
-      nock.isDone().should.be.true;
+      expect(nock.isDone()).toBe(true);
     });
   });
 
   describe('isEuropeanaRecordId()', () => {
-    context('with valid record ID', () => {
+    describe('with valid record ID', () => {
       it('returns `true`', () => {
         const recordId = '/123456/abcdef_7890';
 
         const validation = isEuropeanaRecordId(recordId);
 
-        validation.should.equal(true);
+        expect(validation).toBe(true);
       });
     });
 
-    context('with invalid record ID', () => {
+    describe('with invalid record ID', () => {
       it('returns `false`', () => {
         const recordId = 'http://www.example.org/123456/abcdef_7890';
 
         const validation = isEuropeanaRecordId(recordId);
 
-        validation.should.equal(false);
+        expect(validation).toBe(false);
       });
     });
   });

@@ -157,7 +157,7 @@
       // Prevent re-requesting entity content from APIs if already loaded,
       // e.g. when paginating through entity search results
       const fetchEntity = !store.state.entity.entity;
-      const fetchEntityManagement = fetchEntity && app.$config.app.features.entityManagement && app.$auth.user?.resource_access?.entities?.roles.includes('editor');
+      const fetchEntityManagement = fetchEntity && app.$features.entityManagement && app.$auth.user?.resource_access?.entities?.roles.includes('editor');
 
       const contentfulVariables = {
         identifier: entityUri,
@@ -347,7 +347,7 @@
         return this.entity && this.editable;
       },
       sideFiltersEnabled() {
-        return this.$config.app.features.sideFilters;
+        return this.$features.sideFilters;
       }
     },
     mounted() {

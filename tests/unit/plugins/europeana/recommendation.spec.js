@@ -2,7 +2,7 @@ import nock from 'nock';
 
 import recommendation, { BASE_URL } from '@/plugins/europeana/recommendation';
 
-const axios = require('axios');
+import axios from 'axios';
 
 const recommendations = ['/123/def', '/123/ghi'];
 const oldRecommendedItem = ['/123/jkl'];
@@ -14,7 +14,7 @@ describe('plugins/europeana/recommendation', () => {
   });
 
   describe('recommend()', () => {
-    context('when type is "record"', () => {
+    describe('when type is "record"', () => {
       it('requests and returns recommendations for the given item ID', async() => {
         nock(BASE_URL)
           .get('/record/123/abc')
@@ -22,12 +22,12 @@ describe('plugins/europeana/recommendation', () => {
 
         const response = await recommendation(axios).recommend('record', '/123/abc');
 
-        nock.isDone().should.be.true;
-        response.should.eql(recommendations);
+        expect(nock.isDone()).toBe(true);
+        expect(response).toEqual(recommendations);
       });
     });
 
-    context('when type is "set"', () => {
+    describe('when type is "set"', () => {
       it('requests and returns recommendations for the given set ID', async() => {
         nock(BASE_URL)
           .get('/set/123')
@@ -35,14 +35,14 @@ describe('plugins/europeana/recommendation', () => {
 
         const response = await recommendation(axios).recommend('set', '/123');
 
-        nock.isDone().should.be.true;
-        response.should.eql(recommendations);
+        expect(nock.isDone()).toBe(true);
+        expect(response).toEqual(recommendations);
       });
     });
   });
 
   describe('accept()', () => {
-    context('when type is "set"', () => {
+    describe('when type is "set"', () => {
       it('accepts a recommended item and returns a new recommendation for the given set ID', async() => {
         nock(BASE_URL)
           .post('/set/123')
@@ -50,14 +50,14 @@ describe('plugins/europeana/recommendation', () => {
 
         const response = await recommendation(axios).accept('set', '/123', oldRecommendedItem);
 
-        nock.isDone().should.be.true;
-        response.should.eql(newRecommendedItem);
+        expect(nock.isDone()).toBe(true);
+        expect(response).toEqual(newRecommendedItem);
       });
     });
   });
 
   describe('reject()', () => {
-    context('when type is "set"', () => {
+    describe('when type is "set"', () => {
       it('rejects a recommended item and returns a new recommendation for the given set ID', async() => {
         nock(BASE_URL)
           .post('/set/123')
@@ -65,8 +65,8 @@ describe('plugins/europeana/recommendation', () => {
 
         const response = await recommendation(axios).accept('set', '/123', oldRecommendedItem);
 
-        nock.isDone().should.be.true;
-        response.should.eql(newRecommendedItem);
+        expect(nock.isDone()).toBe(true);
+        expect(response).toEqual(newRecommendedItem);
       });
     });
   });

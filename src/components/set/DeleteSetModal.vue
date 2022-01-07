@@ -29,8 +29,14 @@
 </template>
 
 <script>
+  import makeToastMixin from '@/mixins/makeToast';
+
   export default {
     name: 'DeleteSetModal',
+
+    mixins: [
+      makeToastMixin
+    ],
 
     props: {
       setId: {
@@ -56,22 +62,11 @@
     },
 
     methods: {
-      makeToast() {
-        this.$root.$bvToast.toast(this.toastMsg, {
-          toastClass: 'brand-toast',
-          toaster: 'b-toaster-bottom-left',
-          autoHideDelay: 5000,
-          isStatus: true,
-          noCloseButton: true,
-          solid: true
-        });
-      },
-
       // TODO: error handling
       submitForm() {
         this.$store.dispatch('set/deleteSet', this.setId)
           .then(() => {
-            this.makeToast();
+            this.makeToast(this.toastMsg);
             this.hide();
           });
       },
