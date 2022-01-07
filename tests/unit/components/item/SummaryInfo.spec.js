@@ -104,11 +104,11 @@ describe('components/item/SummaryInfo', () => {
     }, true);
     it('there is an icon behind the title signifying the translation source', () => {
       const tooltip = wrapper.find('h1 [data-qa="translation tooltip"]');
-      tooltip.isVisible();
+      expect(tooltip.isVisible()).toBe(true);
     });
     it('there is an icon behind the description signifying the translation source', () => {
       const tooltip = wrapper.find('div.description [data-qa="translation tooltip"]');
-      tooltip.isVisible();
+      expect(tooltip.isVisible()).toBe(true);
     });
   });
 });
