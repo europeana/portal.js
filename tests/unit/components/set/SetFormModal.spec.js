@@ -49,7 +49,7 @@ describe('components/set/SetFormModal', () => {
       await wrapper.find('#set-description').setValue('Lots of things in here');
       await wrapper.find('form').trigger('submit.stop.prevent');
 
-      storeDispatch.should.have.been.calledWith('set/createSet', {
+      expect(storeDispatch.calledWith('set/createSet', {
         type: 'Collection',
         title: {
           en: 'My first public set'
@@ -58,7 +58,7 @@ describe('components/set/SetFormModal', () => {
           en: 'Lots of things in here'
         },
         visibility: 'public'
-      });
+      })).toBe(true);
     });
 
     it('updates existing sets', async() => {
@@ -68,7 +68,7 @@ describe('components/set/SetFormModal', () => {
       await wrapper.find('#set-private').setChecked();
       await wrapper.find('form').trigger('submit.stop.prevent');
 
-      storeDispatch.should.have.been.calledWith('set/update', {
+      expect(storeDispatch.calledWith('set/update', {
         id: '123',
         body: {
           type: 'Collection',
@@ -80,7 +80,7 @@ describe('components/set/SetFormModal', () => {
           },
           visibility: 'private'
         }
-      });
+      })).toBe(true);
     });
   });
 
@@ -90,7 +90,7 @@ describe('components/set/SetFormModal', () => {
 
       const deleteButton = wrapper.find('[data-qa="delete button"]');
 
-      deleteButton.exists().should.be.false;
+      expect(deleteButton.exists()).toBe(false);
     });
 
     it('is shown for existing sets', async() => {
@@ -98,7 +98,7 @@ describe('components/set/SetFormModal', () => {
 
       const deleteButton = wrapper.find('[data-qa="delete button"]');
 
-      deleteButton.exists().should.be.true;
+      expect(deleteButton.exists()).toBe(true);
     });
 
     it('opens the confirmation modal when pressed', () => {
@@ -108,21 +108,21 @@ describe('components/set/SetFormModal', () => {
       const deleteButton = wrapper.find('[data-qa="delete button"]');
       deleteButton.trigger('click');
 
-      bvModalShow.should.have.been.calledWith(`delete-set-modal-${existingSetPropsData.setId}`);
+      expect(bvModalShow.calledWith(`delete-set-modal-${existingSetPropsData.setId}`)).toBe(true);
     });
   });
 
   describe('create/update button', () => {
-    context('when there is no value for title', () => {
+    describe('when there is no value for title', () => {
       it('is disabled', () => {
         const wrapper = factory();
 
         wrapper.find('#set-title').setValue('');
 
-        wrapper.find('[data-qa="submit button"]').attributes('disabled').should.eq('disabled');
+        expect(wrapper.find('[data-qa="submit button"]').attributes('disabled')).toBe('disabled');
       });
     });
-    context('when there are no updates made', () => {
+    describe('when there are no updates made', () => {
       it('is disabled', () => {
         const wrapper = factory(existingSetPropsData);
 
@@ -130,10 +130,10 @@ describe('components/set/SetFormModal', () => {
         wrapper.find('#set-description').setValue(existingSetPropsData.description.en);
         wrapper.find('#set-private').setChecked(false);
 
-        wrapper.find('[data-qa="submit button"]').attributes('disabled').should.eq('disabled');
+        expect(wrapper.find('[data-qa="submit button"]').attributes('disabled')).toBe('disabled');
       });
     });
-    context('when description is filled with emptry string', () => {
+    describe('when description is filled with emptry string', () => {
       it('is disabled', () => {
         const wrapper = factory({ description: {
           en: undefined
@@ -141,7 +141,7 @@ describe('components/set/SetFormModal', () => {
 
         wrapper.find('#set-description').setValue('');
 
-        wrapper.find('[data-qa="submit button"]').attributes('disabled').should.eq('disabled');
+        expect(wrapper.find('[data-qa="submit button"]').attributes('disabled')).toBe('disabled');
       });
     });
   });

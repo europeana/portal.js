@@ -35,7 +35,7 @@ describe('components/generic/ContentCard', () => {
     await wrapper.setProps({ texts: ['The Milkmaid by Vermeer'] });
 
     const description =  wrapper.find('[data-qa="content card"] .card-body');
-    description.text().should.eq('The Milkmaid by Vermeer');
+    expect(description.text()).toBe('The Milkmaid by Vermeer');
   });
 
   describe('display labels', () => {
@@ -90,14 +90,14 @@ describe('components/generic/ContentCard', () => {
               if (wrapper.vm.themes.some(theme => (typeof url === 'string' && url.includes(theme))
               || theme === url.params?.pathMatch)) {
                 // TO DO remove when thematic collections topics get there own 'theme' type
-                label.text().should.eq('cardLabels.theme');
+                expect(label.text()).toBe('cardLabels.theme');
               } else {
-                label.text().should.eq(`cardLabels.${test.urls[1].params.type}`);
+                expect(label.text()).toBe(`cardLabels.${test.urls[1].params.type}`);
               }
             } else if (test.type === 'blog') {
-              label.text().should.eq('blog.posts');
+              expect(label.text()).toBe('blog.posts');
             } else {
-              label.text().should.eq(`${test.type}.${test.type}`);
+              expect(label.text()).toBe(`${test.type}.${test.type}`);
             }
           });
         }
@@ -110,8 +110,8 @@ describe('components/generic/ContentCard', () => {
     await wrapper.setProps({ texts: ['Edvard Munch', 'Munchmuseet (The Munch Museum)'] });
 
     const description =  wrapper.find('[data-qa="content card"] .card-body');
-    description.text().should.contain('Edvard Munch');
-    description.text().should.contain('Munchmuseet');
+    expect(description.text()).toContain('Edvard Munch');
+    expect(description.text()).toContain('Munchmuseet');
   });
 
   it('has a link', async() => {
@@ -119,7 +119,7 @@ describe('components/generic/ContentCard', () => {
     await wrapper.setProps({ url: 'https://example.org' });
 
     const link =  wrapper.find('[data-qa="content card"] .card-link');
-    link.attributes().href.should.eq('https://example.org');
+    expect(link.attributes().href).toBe('https://example.org');
   });
 
   it('has an image', async() => {
@@ -127,14 +127,14 @@ describe('components/generic/ContentCard', () => {
     await wrapper.setProps({ imageUrl: 'https://example.org' });
 
     const card =  wrapper.find('[data-qa="content card"] .card-img img');
-    card.should.exist;
+    expect(card).toBeDefined();
   });
 
   it('has an optimised image', async() => {
     const wrapper = factory();
     await wrapper.setProps({ imageUrl: '//images.ctfassets.net/example/example.jpg', imageContentType: 'image/jpeg' });
 
-    wrapper.vm.optimisedImageUrl.should.contain('fm=jpg&fl=progressive&q=50');
+    expect(wrapper.vm.optimisedImageUrl).toContain('fm=jpg&fl=progressive&q=50');
   });
 
   it('has an optimised image with max width', async() => {
@@ -145,7 +145,7 @@ describe('components/generic/ContentCard', () => {
       imageOptimisationOptions: { width: 510 }
     });
 
-    wrapper.vm.optimisedImageUrl.should.contain('fm=jpg&fl=progressive&q=50&w=510');
+    expect(wrapper.vm.optimisedImageUrl).toContain('fm=jpg&fl=progressive&q=50&w=510');
   });
 
   it('has no image and is of variant mini', async() => {
@@ -153,7 +153,7 @@ describe('components/generic/ContentCard', () => {
     await wrapper.setProps({ imageUrl: null, variant: 'mini' });
 
     const image =  wrapper.find('[data-qa="content card"] .card-img');
-    image.exists().should.be.false;
+    expect(image.exists()).toBe(false);
   });
 
   it('has has an image and is of variant mini', async() => {
@@ -161,7 +161,7 @@ describe('components/generic/ContentCard', () => {
     await wrapper.setProps({ imageUrl: 'https://example.org', variant: 'mini' });
 
     const image =  wrapper.find('[data-qa="content card"] .card-img');
-    image.exists().should.be.true;
+    expect(image.exists()).toBe(true);
   });
 
   it('highlights the search term if found', async() => {
@@ -175,6 +175,6 @@ describe('components/generic/ContentCard', () => {
     });
 
     const description =  wrapper.find('[data-qa="highlighted search term"] strong');
-    description.text().should.eq('fox');
+    expect(description.text()).toBe('fox');
   });
 });

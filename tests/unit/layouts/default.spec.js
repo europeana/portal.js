@@ -53,7 +53,7 @@ describe('layouts/default.vue', () => {
   describe('VueAnnouncer', () => {
     it('is enabled', () => {
       const wrapper = factory();
-      wrapper.find('#announcer').exists().should.equal(true);
+      expect(wrapper.find('#announcer').exists()).toBe(true);
     });
   });
 
@@ -70,13 +70,13 @@ describe('layouts/default.vue', () => {
       it('renders Klaro', () => {
         factory({ klaro: klaroMock });
 
-        klaroMock.render.should.have.been.called;
+        expect(klaroMock.render.called).toBe(true);
       });
 
       it('registers Klaro manager update watcher', () => {
         const wrapper = factory({ klaro: klaroMock });
 
-        klaroManagerStub.watch.should.have.been.calledWith({ update: wrapper.vm.watchKlaroManagerUpdate });
+        expect(klaroManagerStub.watch.calledWith({ update: wrapper.vm.watchKlaroManagerUpdate })).toBe(true);
       });
     });
 
@@ -85,7 +85,7 @@ describe('layouts/default.vue', () => {
       wrapper.vm.trackKlaroClickEvent = sinon.spy();
       const manager = null;
 
-      context('with event type "saveConsents"', () => {
+      describe('with event type "saveConsents"', () => {
         const eventType = 'saveConsents';
 
         const clickEvents = {
@@ -94,13 +94,13 @@ describe('layouts/default.vue', () => {
           save: 'Accept selected'
         };
         for (const dataType in clickEvents) {
-          context(`and data type "${dataType}"`, () => {
+          describe(`and data type "${dataType}"`, () => {
             const data = { type: dataType };
             const eventName = clickEvents[dataType];
             it(`tracks Klaro click event with name "${eventName}"`, () => {
               wrapper.vm.watchKlaroManagerUpdate(manager, eventType, data);
 
-              wrapper.vm.trackKlaroClickEvent.should.have.been.calledWith(eventName);
+              expect(wrapper.vm.trackKlaroClickEvent.calledWith(eventName)).toBe(true);
             });
           });
         }
@@ -115,7 +115,7 @@ describe('layouts/default.vue', () => {
         const eventName = 'Saved';
         wrapper.vm.trackKlaroClickEvent(eventName);
 
-        wrapper.vm.$matomo.trackEvent.should.have.been.calledWith('Klaro', 'Clicked', eventName);
+        expect(wrapper.vm.$matomo.trackEvent.calledWith('Klaro', 'Clicked', eventName)).toBe(true);
       });
     });
   });

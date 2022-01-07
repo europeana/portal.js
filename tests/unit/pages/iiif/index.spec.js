@@ -17,7 +17,7 @@ const factory = () => shallowMountNuxt(page, {
 });
 
 describe('pages/iiif/index.vue', () => {
-  beforeEach('stub Mirador', () => {
+  beforeEach(() => {
     window.Mirador = {
       viewer: sinon.stub().returns({
         store: {
@@ -27,7 +27,7 @@ describe('pages/iiif/index.vue', () => {
     };
   });
 
-  afterEach('restore stubs', () => {
+  afterEach(() => {
     sinon.restore();
   });
 
@@ -46,7 +46,7 @@ describe('pages/iiif/index.vue', () => {
 
         wrapper.vm.coerceResourceOnImagesToCanvases(resource);
 
-        resource.should.eql({
+        expect(resource).toEqual({
           on: ['http://example.org/presentation/123/canvas/p1#xywh=1,0,90,100']
         });
       });
@@ -74,7 +74,7 @@ describe('pages/iiif/index.vue', () => {
 
         wrapper.vm.coerceSearchHitsToBeforeMatchAfter(searchJson);
 
-        searchJson.should.eql({
+        expect(searchJson).toEqual({
           hits: [
             {
               '@type': 'search:Hit',
@@ -109,8 +109,8 @@ describe('pages/iiif/index.vue', () => {
 
         const fulltext = await wrapper.vm.fetchAnnotationResourcesFulltext(annotationJson);
 
-        nock.isDone().should.be.true;
-        fulltext.should.eql({
+        expect(nock.isDone()).toBe(true);
+        expect(fulltext).toEqual({
           'http://example.org/fulltext/123': 'Fulltext 123',
           'http://example.org/fulltext/456': 'Fulltext 456'
         });
@@ -133,7 +133,7 @@ describe('pages/iiif/index.vue', () => {
 
         await wrapper.vm.dereferenceAnnotationResources(annotationJson);
 
-        annotationJson.resources.should.eql([
+        expect(annotationJson.resources).toEqual([
           { resource: { '@id': 'http://example.org/fulltext/123#char=0,7', chars: 'Fulltext' } },
           { resource: { '@id': 'http://example.org/fulltext/123#char=9,21', chars: 'transcription' } }
         ]);

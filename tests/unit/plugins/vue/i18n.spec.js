@@ -18,17 +18,17 @@ describe('plugins/vue/i18n', () => {
   it('adds $tNull() to Vue', () => {
     const wrapper = factory();
 
-    (typeof wrapper.vm.$tNull).should.eq('function');
+    expect(typeof wrapper.vm.$tNull).toBe('function');
   });
 
   it('adds $tcNull() to Vue', () => {
     const wrapper = factory();
 
-    (typeof wrapper.vm.$tcNull).should.eq('function');
+    expect(typeof wrapper.vm.$tcNull).toBe('function');
   });
 
   describe('$tNull()', () => {
-    context('when key exists in current locale', () => {
+    describe('when key exists in current locale', () => {
       const keyArg = 'hello';
       const translation = 'Bonjour';
       const mocks = {
@@ -39,11 +39,11 @@ describe('plugins/vue/i18n', () => {
       it('translates with that key', () => {
         const wrapper = factory(mocks);
 
-        wrapper.vm.$tNull(keyArg).should.eq(translation);
+        expect(wrapper.vm.$tNull(keyArg)).toBe(translation);
       });
     });
 
-    context('when key exists in fallback locale, but not current locale', () => {
+    describe('when key exists in fallback locale, but not current locale', () => {
       const currentLocale = 'fr';
       const fallbackLocale = 'en';
       const keyArg = 'hello';
@@ -60,11 +60,11 @@ describe('plugins/vue/i18n', () => {
       it('translates with that key', () => {
         const wrapper = factory(mocks);
 
-        wrapper.vm.$tNull(keyArg).should.eq(translation);
+        expect(wrapper.vm.$tNull(keyArg)).toBe(translation);
       });
     });
 
-    context('when key exists in neither current nor fallback locale', () => {
+    describe('when key exists in neither current nor fallback locale', () => {
       const keyArg = 'hello';
       const mocks = {
         $te: () => false,
@@ -74,7 +74,7 @@ describe('plugins/vue/i18n', () => {
       it('is null', () => {
         const wrapper = factory(mocks);
 
-        (wrapper.vm.$tNull(keyArg) === null).should.be.true;
+        expect(wrapper.vm.$tNull(keyArg)).toBe(null);
       });
     });
   });

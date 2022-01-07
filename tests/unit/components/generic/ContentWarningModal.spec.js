@@ -29,10 +29,10 @@ const props = {
 };
 
 describe('components/generic/ContentWarning', () => {
-  context('in browser', () => {
+  describe('in browser', () => {
     beforeEach(() => {
       process.browser = true;
-      global.sessionStorage = { dismissedWarnings: '["blog/already-viewed"]' };
+      global.sessionStorage.setItem('dismissedWarnings', '["blog/already-viewed"]');
     });
 
     afterEach(() => {
@@ -40,29 +40,29 @@ describe('components/generic/ContentWarning', () => {
     });
 
     describe('showWarning', () => {
-      context('when not shown before', () => {
+      describe('when not shown before', () => {
         it('uses bvModal to show a warning', () => {
           const wrapper = factory(props);
           const bvModalShow = sinon.spy(wrapper.vm.$bvModal, 'show');
 
           wrapper.vm.showWarning();
-          bvModalShow.should.have.been.calledWith('content-warning-modal');
+          expect(bvModalShow.calledWith('content-warning-modal')).toBe(true);
         });
         it('tracks the show event in Matomo', () => {
           const wrapper = factory(props);
 
           wrapper.vm.showWarning();
-          wrapper.vm.$matomo.trackEvent.should.have.been.calledWith('Content warning', 'Content warning modal shows', 'exhibition/slug-example');
+          expect(wrapper.vm.$matomo.trackEvent.calledWith('Content warning', 'Content warning modal shows', 'exhibition/slug-example')).toBe(true);
         });
       });
-      context('when shown before and dismissed', () => {
+      describe('when shown before and dismissed', () => {
         it('does not show a warning', () => {
-          global.sessionStorage = { dismissedWarnings: '["exhibition/slug-example"]' };
+          global.sessionStorage.setItem('dismissedWarnings', '["exhibition/slug-example"]');
           const wrapper = factory(props);
           const bvModalShow = sinon.spy(wrapper.vm.$bvModal, 'show');
 
           wrapper.vm.showWarning();
-          bvModalShow.should.not.have.been.calledWith('content-warning-modal');
+          expect(bvModalShow.calledWith('content-warning-modal')).toBe(false);
         });
       });
     });
@@ -73,7 +73,7 @@ describe('components/generic/ContentWarning', () => {
         const awayButton = wrapper.find('[data-qa="go away button"]');
 
         awayButton.trigger('click');
-        wrapper.vm.$matomo.trackEvent.should.have.been.calledWith('Content warning', 'Click go away', 'exhibition/slug-example');
+        expect(wrapper.vm.$matomo.trackEvent.calledWith('Content warning', 'Click go away', 'exhibition/slug-example')).toBe(true);
       });
     });
 
@@ -83,14 +83,14 @@ describe('components/generic/ContentWarning', () => {
         const bvModalHide = sinon.spy(wrapper.vm.$bvModal, 'hide');
 
         wrapper.vm.dismissWarning();
-        bvModalHide.should.have.been.calledWith('content-warning-modal');
-        global.sessionStorage.dismissedWarnings.should.eq('["blog/already-viewed","exhibition/slug-example"]');
+        expect(bvModalHide.calledWith('content-warning-modal')).toBe(true);
+        expect(global.sessionStorage.getItem('dismissedWarnings')).toBe('["blog/already-viewed","exhibition/slug-example"]');
       });
       it('tracks the continue event in Matomo', () => {
         const wrapper = factory(props);
 
         wrapper.vm.dismissWarning();
-        wrapper.vm.$matomo.trackEvent.should.have.been.calledWith('Content warning', 'Click continue', 'exhibition/slug-example');
+        expect(wrapper.vm.$matomo.trackEvent.calledWith('Content warning', 'Click continue', 'exhibition/slug-example')).toBe(true);
       });
     });
   });

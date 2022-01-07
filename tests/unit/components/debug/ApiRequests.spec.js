@@ -24,7 +24,7 @@ describe('components/debug/ApiRequests', () => {
 
     const apiRequests = wrapper.findAll('[data-qa="logged API request"]');
 
-    apiRequests.length.should.eq(2);
+    expect(apiRequests.length).toBe(2);
   });
 
   it('displays the HTTP request method', () => {
@@ -36,11 +36,11 @@ describe('components/debug/ApiRequests', () => {
 
     const apiRequests = wrapper.findAll('[data-qa="logged API request"]');
 
-    apiRequests.at(0).text().should.include('GET');
-    apiRequests.at(1).text().should.include('POST');
+    expect(apiRequests.at(0).text()).toContain('GET');
+    expect(apiRequests.at(1).text()).toContain('POST');
   });
 
-  context('when HTTP request method is GET', () => {
+  describe('when HTTP request method is GET', () => {
     it('links to the request URL', () => {
       const requests = [
         { method: 'GET', url: 'https://api.example.org/request/1' }
@@ -50,12 +50,12 @@ describe('components/debug/ApiRequests', () => {
 
       const apiRequestLink = wrapper.find('[data-qa="logged API request"] a');
 
-      apiRequestLink.text().should.eq('https://api.example.org/request/1');
-      apiRequestLink.attributes('href').should.eq('https://api.example.org/request/1');
+      expect(apiRequestLink.text()).toBe('https://api.example.org/request/1');
+      expect(apiRequestLink.attributes('href')).toBe('https://api.example.org/request/1');
     });
   });
 
-  context('when HTTP request method is not GET', () => {
+  describe('when HTTP request method is not GET', () => {
     it('just displays the URL', () => {
       const requests = [
         { method: 'POST', url: 'https://api.example.org/request/1' }
@@ -65,8 +65,8 @@ describe('components/debug/ApiRequests', () => {
 
       const apiRequest = wrapper.find('[data-qa="logged API request"]');
 
-      apiRequest.text().should.include('https://api.example.org/request/1');
-      apiRequest.find('a').exists().should.be.false;
+      expect(apiRequest.text()).toContain('https://api.example.org/request/1');
+      expect(apiRequest.find('a').exists()).toBeFalsy();
     });
   });
 });

@@ -26,21 +26,21 @@ describe('components/generic/HeroHeader', () => {
     const wrapper = factory();
 
     const hero = wrapper.find('[data-qa="hero banner"]');
-    hero.attributes().style.should.contain('https://example.org');
+    expect(hero.attributes().style).toContain('https://example.org');
   });
 
   it('has a title', () => {
     const wrapper = factory();
 
     const title = wrapper.find('[data-qa="hero banner"] h1');
-    title.text().should.contain('Welcome to Europeana');
+    expect(title.text()).toContain('Welcome to Europeana');
   });
 
   it('has a description', () => {
     const wrapper = factory();
 
     const description = wrapper.find('[data-qa="hero banner"] .lead');
-    description.text().should.contain('Explore millions of items!');
+    expect(description.text()).toContain('Explore millions of items!');
   });
 
   it('has a cta', async() => {
@@ -48,7 +48,7 @@ describe('components/generic/HeroHeader', () => {
     await wrapper.setProps({ cta: { text: 'Click here!', url: 'http://www.example.org/cta' } });
 
     const cta = wrapper.find('a');
-    cta.text().should.contain('Click here!');
-    cta.attributes('href').should.contain('http://www.example.org/cta');
+    expect(cta.text()).toContain('Click here!');
+    expect(cta.attributes('href')).toContain('http://www.example.org/cta');
   });
 });

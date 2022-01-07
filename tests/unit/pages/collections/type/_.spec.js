@@ -66,7 +66,7 @@ describe('Collection page', () => {
       const wrapper = factory(organisationEntity);
 
       const collectionType = wrapper.vm.collectionType;
-      collectionType.should.eq('organisation');
+      expect(collectionType).toBe('organisation');
     });
   });
   describe('logo', () => {
@@ -74,7 +74,7 @@ describe('Collection page', () => {
       const wrapper = factory(organisationEntity);
 
       const logo = wrapper.vm.logo;
-      logo.should.eq(organisationEntity.entity.logo.id);
+      expect(logo).toBe(organisationEntity.entity.logo.id);
     });
   });
   describe('description', () => {
@@ -82,7 +82,7 @@ describe('Collection page', () => {
       const wrapper = factory(organisationEntity);
 
       const description = wrapper.vm.description.values[0];
-      description.should.eq(organisationEntity.entity.description.en);
+      expect(description).toBe(organisationEntity.entity.description.en);
     });
   });
   describe('homepage', () => {
@@ -90,7 +90,7 @@ describe('Collection page', () => {
       const wrapper = factory(organisationEntity);
 
       const homepage = wrapper.vm.homepage;
-      homepage.should.eq(organisationEntity.entity.homepage);
+      expect(homepage).toBe(organisationEntity.entity.homepage);
     });
   });
 });
