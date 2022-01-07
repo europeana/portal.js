@@ -2,6 +2,9 @@ export default {
   collectCoverageFrom: [
     'src/**/*.{js,vue}'
   ],
+  coverageReporters: [
+    'html', 'lcov', 'text'
+  ],
   moduleFileExtensions: [
     'js',
     'json',
