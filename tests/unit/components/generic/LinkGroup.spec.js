@@ -22,16 +22,16 @@ describe('components/generic/LinkGroup', () => {
   it('contains a caption title', () => {
     const wrapper = factory();
     const footerCaption = wrapper.find('[data-qa="link group caption"]');
-    footerCaption.text().should.contain('Caption text');
+    expect(footerCaption.text()).toContain('Caption text');
   });
 
   it('contains elements for each link', () => {
     const wrapper = factory();
     const footerLinks = wrapper.find('[data-qa="link group links"]');
     const renderedList = footerLinks.findAll('li');
-    renderedList.length.should.eq(2);
+    expect(renderedList.length).toBe(2);
   });
-  context('when an item has been delete or unpublished', () => {
+  describe('when an item has been delete or unpublished', () => {
     it('does not show this item as a link', () => {
       const wrapper = factory([
         { url: 'https://www.example.org',
@@ -42,7 +42,7 @@ describe('components/generic/LinkGroup', () => {
 
       const linkList = wrapper.find('[data-qa="link group links"]');
       const renderedList = linkList.findAll('.link');
-      renderedList.length.should.eq(2);
+      expect(renderedList.length).toBe(2);
     });
   });
 });

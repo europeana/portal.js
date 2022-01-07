@@ -42,8 +42,8 @@ describe('Browse/Home page', () => {
 
       const headMeta = wrapper.vm.head().meta;
 
-      headMeta.filter(meta => meta.property === 'og:image').length.should.eq(1);
-      headMeta.find(meta => meta.property === 'og:image').content.should.eq(socialMediaImageUrl);
+      expect(headMeta.filter(meta => meta.property === 'og:image').length).toBe(1);
+      expect(headMeta.find(meta => meta.property === 'og:image').content).toBe(socialMediaImageUrl);
     });
 
     it('uses hero image for og:image when no social media image is set', () => {
@@ -63,8 +63,8 @@ describe('Browse/Home page', () => {
 
       const headMeta = wrapper.vm.head().meta;
 
-      headMeta.filter(meta => meta.property === 'og:image').length.should.eq(1);
-      headMeta.find(meta => meta.property === 'og:image').content.should.eq(heroImageUrl);
+      expect(headMeta.filter(meta => meta.property === 'og:image').length).toBe(1);
+      expect(headMeta.find(meta => meta.property === 'og:image').content).toBe(heroImageUrl);
     });
 
     it('does not set og image info when no relevant images exist', () => {
@@ -72,7 +72,7 @@ describe('Browse/Home page', () => {
 
       const headMeta = wrapper.vm.head().meta;
 
-      headMeta.filter(meta => meta.property === 'og:image').length.should.eq(0);
+      expect(headMeta.filter(meta => meta.property === 'og:image').length).toBe(0);
     });
   });
 });

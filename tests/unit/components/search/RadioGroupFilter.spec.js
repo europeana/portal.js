@@ -34,6 +34,6 @@ describe('components/search/RadioGroupFilter', () => {
     await metadataRadio.vm.$emit('change');
     await wrapper.vm.$nextTick();
 
-    wrapper.emitted()['change'].should.eql([['api', 'metadata']]);
+    expect(wrapper.emitted()['change']).toEqual([['api', 'metadata']]);
   });
 });

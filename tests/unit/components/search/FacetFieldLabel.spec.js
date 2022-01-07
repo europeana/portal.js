@@ -51,7 +51,7 @@ describe('components/search/FacetFieldLabel', () => {
         }
       });
 
-      wrapper.vm.genericLabel.should.eq('store formatted');
+      expect(wrapper.vm.genericLabel).toBe('store formatted');
     });
 
     it('removes quotes from the field value', () => {
@@ -65,7 +65,7 @@ describe('components/search/FacetFieldLabel', () => {
         }
       });
 
-      wrapper.vm.genericLabel.should.eq('IMAGE');
+      expect(wrapper.vm.genericLabel).toBe('IMAGE');
     });
 
     it('removes Lucene special character escaping', () => {
@@ -79,7 +79,7 @@ describe('components/search/FacetFieldLabel', () => {
         }
       });
 
-      wrapper.vm.genericLabel.should.eq('Nederlands Bakkerijmuseum "Het Warme Land"');
+      expect(wrapper.vm.genericLabel).toBe('Nederlands Bakkerijmuseum "Het Warme Land"');
     });
 
     it('translates the field value', () => {
@@ -93,7 +93,7 @@ describe('components/search/FacetFieldLabel', () => {
         }
       });
 
-      wrapper.vm.genericLabel.should.eq('Image');
+      expect(wrapper.vm.genericLabel).toBe('Image');
     });
 
     it('falls back to the field value if no translation', () => {
@@ -107,7 +107,7 @@ describe('components/search/FacetFieldLabel', () => {
         }
       });
 
-      wrapper.vm.genericLabel.should.eq('IMAGE');
+      expect(wrapper.vm.genericLabel).toBe('IMAGE');
     });
   });
 
@@ -123,7 +123,7 @@ describe('components/search/FacetFieldLabel', () => {
         }
       });
 
-      wrapper.vm.mediaTypeLabel.should.eq('Plain text');
+      expect(wrapper.vm.mediaTypeLabel).toBe('Plain text');
     });
 
     describe('fallback with no translation', () => {
@@ -138,7 +138,7 @@ describe('components/search/FacetFieldLabel', () => {
           }
         });
 
-        wrapper.vm.mediaTypeLabel.should.eq('JPEG');
+        expect(wrapper.vm.mediaTypeLabel).toBe('JPEG');
       });
 
       it('removes a leading "x-" from the subtype', () => {
@@ -152,13 +152,13 @@ describe('components/search/FacetFieldLabel', () => {
           }
         });
 
-        wrapper.vm.mediaTypeLabel.should.eq('FLAC');
+        expect(wrapper.vm.mediaTypeLabel).toBe('FLAC');
       });
     });
   });
 
   describe('label', () => {
-    context('for MIME_TYPE facet', () => {
+    describe('for MIME_TYPE facet', () => {
       it('uses media type label', () => {
         const wrapper = factory({
           propsData: {
@@ -170,11 +170,11 @@ describe('components/search/FacetFieldLabel', () => {
           }
         });
 
-        wrapper.vm.label.should.eq('JPEG');
+        expect(wrapper.vm.label).toBe('JPEG');
       });
     });
 
-    context('not for MIME_TYPE facet', () => {
+    describe('not for MIME_TYPE facet', () => {
       it('uses generic label', () => {
         const wrapper = factory({
           propsData: {
@@ -186,11 +186,11 @@ describe('components/search/FacetFieldLabel', () => {
           }
         });
 
-        wrapper.vm.label.should.eq('VIDEO');
+        expect(wrapper.vm.label).toBe('VIDEO');
       });
     });
 
-    context('with prefixing', () => {
+    describe('with prefixing', () => {
       it('prefixes with the translated facet name', () => {
         const wrapper = factory({
           propsData: {
@@ -205,7 +205,7 @@ describe('components/search/FacetFieldLabel', () => {
           }
         });
 
-        wrapper.vm.label.should.eq('TYPE: TEXT');
+        expect(wrapper.vm.label).toBe('TYPE: TEXT');
       });
     });
   });

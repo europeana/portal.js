@@ -28,7 +28,7 @@ describe('pages/account/logout.vue', () => {
       }
     });
 
-    context('previous page does not require auth', () => {
+    describe('previous page does not require auth', () => {
       const from = { name: 'item___eu', fullPath: '/eu/item/123/def' };
 
       it('stores the previous page full path for auth redirection', () => {
@@ -37,12 +37,12 @@ describe('pages/account/logout.vue', () => {
         const next = sinon.stub().yields(wrapper.vm);
         page.beforeRouteEnter.call(wrapper.vm, null, from, next);
 
-        next.should.have.been.called;
-        authStorageSetUniversal.should.have.been.calledWith('redirect', from.fullPath);
+        expect(next.called).toBe(true);
+        expect(authStorageSetUniversal.calledWith('redirect', from.fullPath)).toBe(true);
       });
     });
 
-    context('previous page requires auth', () => {
+    describe('previous page requires auth', () => {
       const from = { name: 'account___eu', fullPath: '/eu/account' };
 
       it('stores the homepage path for auth redirection', () => {
@@ -51,8 +51,8 @@ describe('pages/account/logout.vue', () => {
         const next = sinon.stub().yields(wrapper.vm);
         page.beforeRouteEnter.call(wrapper.vm, null, from, next);
 
-        next.should.have.been.called;
-        authStorageSetUniversal.should.have.been.calledWith('redirect', '/eu');
+        expect(next.called).toBe(true);
+        expect(authStorageSetUniversal.calledWith('redirect', '/eu')).toBe(true);
       });
     });
   });
@@ -83,7 +83,7 @@ describe('pages/account/logout.vue', () => {
         }
       });
 
-      wrapper.vm.$goto.should.have.been.calledWith('https://auth.example.org/logout?redirect_uri=http%3A%2F%2Flocalhost%2Fabout-us');
+      expect(wrapper.vm.$goto.calledWith('https://auth.example.org/logout?redirect_uri=http%3A%2F%2Flocalhost%2Fabout-us')).toBe(true);
     });
   });
 });

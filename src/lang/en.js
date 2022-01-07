@@ -661,9 +661,6 @@ export default {
   "learnMore": "Learn about the source of this description",
   "loading": "Loading",
   "loadingResults": "Loading results",
-  "mediaPreview": {
-    "selectItem": "Select item {src}"
-  },
   "messages": {
     "copyToClipboardSuccess": "Copied to clipboard",
     "externalContentError": "The external content failed to load",
@@ -729,7 +726,6 @@ export default {
     "IIIFViewer": "IIIF viewer",
     "allMetaData": "All metadata",
     "copyEmbedLabel": "Embed code (Click to copy)",
-    "downloadCopyrightInfo": "This item is in copyright and can not be downloaded.",
     "exploreMore": "Explore More",
     "extendedInformation": "Extended information",
     "goodToKnow": "Good to know",
@@ -741,12 +737,7 @@ export default {
     "showAll": "Show all information",
     "similarItems": "Similar items",
     "transcription": "Transcription",
-    "transcriptionDisclaimer": "This content is contributed by the public, not by the institution that provided this item.",
-    "view": {
-      "image": "View image",
-      "media": "View media",
-      "pdf": "View PDF"
-    }
+    "transcriptionDisclaimer": "This content is contributed by the public, not by the institution that provided this item."
   },
   "relatedCollections": "Related collections",
   "removeFilter": "Remove {filterLabel} filter",

@@ -2,7 +2,7 @@ import nock from 'nock';
 
 import entitymanage, { BASE_URL } from '@/plugins/europeana/entity-management';
 
-const axios = require('axios');
+import axios from 'axios';
 
 const proxyBody = { type: 'Concept',
   prefLabel: { en: 'Painting' },
@@ -52,7 +52,7 @@ describe('plugins/europeana/entity-management', () => {
         .get(`/concept/base/${entityId}?profile=internal`)
         .reply(200, entityResponses.items[0]);
       const response =  await entitymanage(axios).get(type, entityId, { profile });
-      response.note['en'].should.deep.equal(['A medium for recording information in the form of writing or images']);
+      expect(response.note['en']).toEqual(['A medium for recording information in the form of writing or images']);
     });
   });
 
@@ -63,7 +63,7 @@ describe('plugins/europeana/entity-management', () => {
         .put(`/concept/base/${entityId}`)
         .reply(200, updatedEntity);
       const response =  await entitymanage(axios).update(entityId, proxyBody);
-      response.id.should.eq('http://data.europeana.eu/concept/base/124');
+      expect(response.id).toBe('http://data.europeana.eu/concept/base/124');
     });
   });
 });

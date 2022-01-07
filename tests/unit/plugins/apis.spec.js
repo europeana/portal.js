@@ -8,7 +8,7 @@ describe('plugins/apis', () => {
   describe('store module', () => {
     let storeModule;
 
-    before(async() => {
+    beforeAll(async() => {
       await plugin({
         app: {},
         store: {
@@ -31,9 +31,9 @@ describe('plugins/apis', () => {
 
           storeModule.mutations.init(state, { $config: { europeana: { apis: {} } }, req: { headers } });
 
-          state.urls.annotation.should.eql('https://annotation.example.org');
-          state.urls.entity.should.eql('https://entity.example.org');
-          state.urls.record.should.eql('https://record.example.org');
+          expect(state.urls.annotation).toEqual('https://annotation.example.org');
+          expect(state.urls.entity).toEqual('https://entity.example.org');
+          expect(state.urls.record).toEqual('https://record.example.org');
         });
       });
     });

@@ -83,29 +83,29 @@ describe('components/search/SideFilters', () => {
         const wrapper = factory({ storeGetters });
 
         for (const facetName of facetNames) {
-          wrapper.vm.filterableFacets.some(facet => (facet.name === facetName) && !facet.staticFields).should.be.true;
+          expect(wrapper.vm.filterableFacets.some(facet => (facet.name === facetName) && !facet.staticFields)).toBe(true);
         }
       });
 
-      context('when collection facet is enabled', () => {
+      describe('when collection facet is enabled', () => {
         const storeState = { collectionFacetEnabled: true };
 
         it('includes collection facet first, with static fields', () => {
           const wrapper = factory({ storeGetters, storeState });
 
           const firstFacet = wrapper.vm.filterableFacets[0];
-          firstFacet.name.should.eq('collection');
-          Array.isArray(firstFacet.staticFields).should.be.true;
+          expect(firstFacet.name).toBe('collection');
+          expect(Array.isArray(firstFacet.staticFields)).toBe(true);
         });
       });
 
-      context('when collection facet is disabled', () => {
+      describe('when collection facet is disabled', () => {
         const storeState = { collectionFacetEnabled: false };
 
         it('omits collection facet', () => {
           const wrapper = factory({ storeGetters, storeState });
 
-          wrapper.vm.filterableFacets.some(facet => facet.name === 'collection').should.be.false;
+          expect(wrapper.vm.filterableFacets.some(facet => facet.name === 'collection')).toBe(false);
         });
       });
     });
@@ -115,7 +115,7 @@ describe('components/search/SideFilters', () => {
     describe('changeFacet', () => {
       const facetName = 'TYPE';
 
-      context('when facet had selected values', () => {
+      describe('when facet had selected values', () => {
         const initialSelectedValues = ['"IMAGE"'];
         const storeGetters = {
           filters: () => {
@@ -123,7 +123,7 @@ describe('components/search/SideFilters', () => {
           }
         };
 
-        context('and they changed', () => {
+        describe('and they changed', () => {
           const newSelectedValues = ['"IMAGE"', '"TEXT"'];
 
           it('triggers rerouting', async() => {
@@ -131,29 +131,29 @@ describe('components/search/SideFilters', () => {
             const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
 
             await wrapper.vm.changeFacet(facetName, newSelectedValues);
-            searchRerouter.should.have.been.called;
+            expect(searchRerouter.called).toBe(true);
           });
         });
 
-        context('and they were unchanged', () => {
+        describe('and they were unchanged', () => {
           it('does not trigger rerouting', async() => {
             const wrapper = factory({ storeGetters });
             const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
 
             await wrapper.vm.changeFacet(facetName, initialSelectedValues);
-            searchRerouter.should.not.have.been.called;
+            expect(searchRerouter.called).toBe(false);
           });
         });
       });
 
-      context('when facet had no selected values', () => {
+      describe('when facet had no selected values', () => {
         const storeGetters = {
           filters: () => {
             return {};
           }
         };
 
-        context('and some were selected', () => {
+        describe('and some were selected', () => {
           const newSelectedValues = ['"IMAGE"', '"TEXT"'];
 
           it('triggers rerouting', async() => {
@@ -161,11 +161,11 @@ describe('components/search/SideFilters', () => {
             const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
 
             await wrapper.vm.changeFacet(facetName, newSelectedValues);
-            searchRerouter.should.have.been.called;
+            expect(searchRerouter.called).toBe(true);
           });
         });
 
-        context('and none were selected', () => {
+        describe('and none were selected', () => {
           const newSelectedValues = [];
 
           it('does not trigger rerouting', async() => {
@@ -173,7 +173,7 @@ describe('components/search/SideFilters', () => {
             const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
 
             await wrapper.vm.changeFacet(facetName, newSelectedValues);
-            searchRerouter.should.not.have.been.called;
+            expect(searchRerouter.called).toBe(false);
           });
         });
       });

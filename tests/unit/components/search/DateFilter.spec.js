@@ -31,7 +31,7 @@ describe('components/search/DateFilter', () => {
     wrapper.vm.form.specific = false;
     await startInput.vm.$emit('input');
 
-    wrapper.emitted('dateFilter').should.eql([['proxy_dcterms_issued', { 'end': null, 'start': '2019-01-01', 'specific': false }]]);
+    expect(wrapper.emitted('dateFilter')).toEqual([['proxy_dcterms_issued', { 'end': null, 'start': '2019-01-01', 'specific': false }]]);
   });
 
   it('emits `dateFilter` event with name and form arguments when user changes End date input', async() => {
@@ -42,13 +42,13 @@ describe('components/search/DateFilter', () => {
     wrapper.vm.form.end = '2019-01-01';
     await endInput.vm.$emit('input');
 
-    wrapper.emitted()['dateFilter'].should.eql([['proxy_dcterms_issued', { 'end': '2019-01-01', 'start': null, 'specific': false }]]);
+    expect(wrapper.emitted()['dateFilter']).toEqual([['proxy_dcterms_issued', { 'end': '2019-01-01', 'start': null, 'specific': false }]]);
   });
 
   it('should not display end date field when specific is selected', async() => {
     const wrapper = factory();
     await wrapper.setData({ form: { specific: true } });
 
-    wrapper.find('[data-qa="date range end input"]').exists().should.be.false;
+    expect(wrapper.find('[data-qa="date range end input"]').exists()).toBe(false);
   });
 });

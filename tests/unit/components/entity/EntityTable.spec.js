@@ -45,7 +45,7 @@ describe('components/entity/EntityTable', () => {
 
       await wrapper.vm.fetch();
 
-      $axiosGetStub.should.have.been.calledWith(middlewarePath);
+      expect($axiosGetStub.calledWith(middlewarePath)).toBe(true);
     });
 
     it('stores collections from response body on component collections property', async() => {
@@ -53,7 +53,7 @@ describe('components/entity/EntityTable', () => {
 
       await wrapper.vm.fetch();
 
-      wrapper.vm.collections.should.deep.eq(collections);
+      expect(wrapper.vm.collections).toEqual(collections);
     });
   });
 
@@ -65,7 +65,7 @@ describe('components/entity/EntityTable', () => {
         collections
       });
 
-      wrapper.find('[data-qa="collection link 001-museum"]').attributes('href').should.eq((`/collections/organisation/${collections[0].slug}`));
+      expect(wrapper.find('[data-qa="collection link 001-museum"]').attributes('href')).toBe(`/collections/organisation/${collections[0].slug}`);
     });
   });
 
@@ -73,7 +73,7 @@ describe('components/entity/EntityTable', () => {
     it('is shown when fetch is in progress', () => {
       const wrapper = factory({ type: 'organisations' }, { pending: true });
 
-      wrapper.find('[data-qa="loading spinner"]').should.exist;
+      expect(wrapper.find('[data-qa="loading spinner"]')).toBeDefined();
     });
   });
 
@@ -81,7 +81,7 @@ describe('components/entity/EntityTable', () => {
     it('is shown when fetch errors', () => {
       const wrapper = factory({ type: 'organisations' }, { error: true });
 
-      wrapper.find('[data-qa="error notice"]').should.exist;
+      expect(wrapper.find('[data-qa="error notice"]')).toBeDefined();
     });
   });
 });
