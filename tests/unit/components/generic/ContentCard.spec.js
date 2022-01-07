@@ -38,7 +38,6 @@ const factory = () => mount(ContentCard, {
 });
 
 describe('components/generic/ContentCard', () => {
-
   describe('card title', () => {
     it('is displayed as-is if a string', async() => {
       const wrapper = factory();
@@ -50,7 +49,7 @@ describe('components/generic/ContentCard', () => {
 
     it('is localised if a LangMap', async() => {
       const wrapper = factory();
-      await wrapper.setProps({ title: { en: 'Art', es: 'Arte'} });
+      await wrapper.setProps({ title: { en: 'Art', es: 'Arte' } });
 
       const title =  wrapper.find('[data-qa="content card"] .card-title');
       expect(title.text()).toBe('Art');
@@ -135,7 +134,7 @@ describe('components/generic/ContentCard', () => {
 
     it('localises LangMap texts', async() => {
       const wrapper = factory();
-      await wrapper.setProps({ texts: [{ en: 'Art', es: 'Arte'}] });
+      await wrapper.setProps({ texts: [{ en: 'Art', es: 'Arte' }] });
 
       const body =  wrapper.find('[data-qa="content card"] .card-body');
       expect(body.text()).toBe('Art');
