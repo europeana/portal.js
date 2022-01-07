@@ -20,8 +20,8 @@ describe('components/item/EntityField', () => {
       const wrapper = factory({ value: 'Painting', about: 'http://data.europeana.eu/concept/base/47' });
 
       const fieldValue = wrapper.find('span a');
-      fieldValue.attributes().href.should.eq('localizedPath');
-      fieldValue.text().should.eq('Painting');
+      expect(fieldValue.attributes().href).toBe('localizedPath');
+      expect(fieldValue.text()).toBe('Painting');
     });
   });
 
@@ -30,7 +30,7 @@ describe('components/item/EntityField', () => {
       const wrapper = factory({ value: 'Painting', about: 'http://example.org/entities/painting' });
 
       const fieldValue = wrapper.find('span');
-      fieldValue.text().should.eq('Painting');
+      expect(fieldValue.text()).toBe('Painting');
     });
   });
 });

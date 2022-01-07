@@ -26,13 +26,13 @@ describe('components/media/AudioPlayer', () => {
     const wrapper = factory();
     const audioSource = wrapper.find('[data-qa="audio source"]');
 
-    audioSource.attributes().src.should.eq('proxied');
+    expect(audioSource.attributes().src).toBe('proxied');
   });
 
   it('has a MIME type', async() => {
     const wrapper = factory();
     const audioSource = wrapper.find('[data-qa="audio source"]');
 
-    audioSource.attributes().type.should.eq('audio/mpeg');
+    expect(audioSource.attributes().type).toBe('audio/mpeg');
   });
 });

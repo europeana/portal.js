@@ -33,28 +33,28 @@ describe('components/generic/CompareImageSlider', () => {
     const wrapper = factory();
 
     const leftImage = wrapper.find('[data-qa="compare image left image"]');
-    leftImage.attributes().src.should.contain('/img/portrait.jpg');
+    expect(leftImage.attributes().src).toContain('/img/portrait.jpg');
   });
 
   it('has right image', () => {
     const wrapper = factory();
 
     const rightImage = wrapper.find('[data-qa="compare image right image"]');
-    rightImage.attributes().src.should.contain('/img/portrait-monochrome.jpg');
+    expect(rightImage.attributes().src).toContain('/img/portrait-monochrome.jpg');
   });
 
   it('cites left image attribution', () => {
     const wrapper = factory();
 
     const leftCite = wrapper.find('figcaption [data-qa="compare image left attribution"]');
-    leftCite.should.exist;
+    expect(leftCite).toBeDefined();
   });
 
   it('cites right image attribution', () => {
     const wrapper = factory();
 
     const rightCite = wrapper.find('figcaption [data-qa="compare image right attribution"]');
-    rightCite.should.exist;
+    expect(rightCite).toBeDefined();
   });
 
   it('generates the correct clip sizing', async() => {
@@ -64,7 +64,7 @@ describe('components/generic/CompareImageSlider', () => {
       sliderPosition: 0.5
     });
 
-    wrapper.vm.leftImageClip.clip.should.eq('rect(auto, 310px, auto, auto)');
+    expect(wrapper.vm.leftImageClip.clip).toBe('rect(auto, 310px, auto, auto)');
   });
 
   it('places the slider bar in the correct position', async() => {
@@ -75,7 +75,7 @@ describe('components/generic/CompareImageSlider', () => {
       sliderWidth: 20
     });
 
-    wrapper.vm.sliderBarPosition.left.should.eq('300px');
+    expect(wrapper.vm.sliderBarPosition.left).toBe('300px');
   });
 
   it('sets dragging property to `true` when the user clicks on the slider', async() => {
@@ -84,7 +84,7 @@ describe('components/generic/CompareImageSlider', () => {
 
     slider.trigger('mousedown');
 
-    wrapper.vm.dragging.should.eq(true);
+    expect(wrapper.vm.dragging).toBe(true);
   });
 
   it('sets dragging property to `false` when the user clicks off the slider', async() => {
@@ -93,7 +93,7 @@ describe('components/generic/CompareImageSlider', () => {
 
     slider.trigger('mouseup');
 
-    wrapper.vm.dragging.should.eq(false);
+    expect(wrapper.vm.dragging).toBe(false);
   });
 
   it('calls `setImageWidth` method when browser has been resized', () => {
@@ -102,6 +102,6 @@ describe('components/generic/CompareImageSlider', () => {
 
     global.window.dispatchEvent(new Event('resize'));
 
-    setImageWidth.should.have.callCount(1);
+    expect(setImageWidth.calledOnce).toBe(true);
   });
 });

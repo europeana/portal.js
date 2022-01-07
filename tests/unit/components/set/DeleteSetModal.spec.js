@@ -39,7 +39,7 @@ describe('components/set/DeleteSetModal', () => {
 
     const modalText = wrapper.text();
 
-    modalText.should.include('Are you sure you want to delete this gallery?');
+    expect(modalText).toContain('Are you sure you want to delete this gallery?');
   });
 
   describe('cancel button', () => {
@@ -49,7 +49,7 @@ describe('components/set/DeleteSetModal', () => {
 
       wrapper.find('[data-qa="close button"]').trigger('click');
 
-      bvModalHide.should.have.been.calledWith('delete-set-modal');
+      expect(bvModalHide.calledWith('delete-set-modal')).toBe(true);
     });
 
     it('emits "cancel" event', () => {
@@ -57,7 +57,7 @@ describe('components/set/DeleteSetModal', () => {
 
       wrapper.find('[data-qa="close button"]').trigger('click');
 
-      wrapper.emitted('cancel').length.should.eql(1);
+      expect(wrapper.emitted('cancel').length).toEqual(1);
     });
 
     it('does not delete the set!', () => {
@@ -65,7 +65,7 @@ describe('components/set/DeleteSetModal', () => {
 
       wrapper.find('[data-qa="close button"]').trigger('click');
 
-      storeDispatch.should.not.have.been.called;
+      expect(storeDispatch.called).toBe(false);
     });
   });
 
@@ -75,7 +75,7 @@ describe('components/set/DeleteSetModal', () => {
 
       await wrapper.find('form').trigger('submit.stop.prevent');
 
-      storeDispatch.should.have.been.calledWith('set/deleteSet', '123');
+      expect(storeDispatch.calledWith('set/deleteSet', '123')).toBe(true);
     });
 
     it('hides the modal', async() => {
@@ -84,7 +84,7 @@ describe('components/set/DeleteSetModal', () => {
 
       await wrapper.find('form').trigger('submit.stop.prevent');
 
-      bvModalHide.should.have.been.calledWith('delete-set-modal');
+      expect(bvModalHide.calledWith('delete-set-modal')).toBe(true);
     });
 
     it('makes toast', async() => {
@@ -93,7 +93,7 @@ describe('components/set/DeleteSetModal', () => {
 
       await wrapper.find('form').trigger('submit.stop.prevent');
 
-      rootBvToast.should.have.been.calledWith('Your gallery has been deleted.', sinon.match.any);
+      expect(rootBvToast.calledWith('Your gallery has been deleted.', sinon.match.any)).toBe(true);
     });
   });
 });

@@ -43,19 +43,19 @@ describe('components/browse/InfoCardSection', () => {
     const wrapper = factory();
     await wrapper.setProps({ section: dummySection });
 
-    wrapper.findAll('[data-qa="section group"]').length.should.eq(1);
+    expect(wrapper.findAll('[data-qa="section group"]').length).toBe(1);
   });
   it('shows a card for each element', async() => {
     const wrapper = factory();
     await wrapper.setProps({ section: dummySection });
-    wrapper.findAll('infocard-stub').length.should.eq(3);
+    expect(wrapper.findAll('infocard-stub').length).toBe(3);
   });
   describe('cardGroupClass', () => {
     it('is three columns for mediaType counts', async() => {
       const wrapper = factory();
       await wrapper.setProps({ section: dummySection });
 
-      wrapper.vm.cardGroupClass.should.eq('card-deck-3-cols');
+      expect(wrapper.vm.cardGroupClass).toBe('card-deck-3-cols');
     });
   });
   describe('cardVariant', () => {
@@ -63,7 +63,7 @@ describe('components/browse/InfoCardSection', () => {
       const wrapper = factory();
       await wrapper.setProps({ section: dummySection });
 
-      wrapper.vm.cardVariant.should.eq('default');
+      expect(wrapper.vm.cardVariant).toBe('default');
     });
   });
 });

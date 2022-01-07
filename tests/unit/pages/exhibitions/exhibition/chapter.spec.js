@@ -49,15 +49,15 @@ describe('Exhibition Chapter page', () => {
 
       const headMeta = wrapper.vm.head().meta;
 
-      headMeta.filter(meta => meta.property === 'og:image').length.should.eq(1);
-      headMeta.find(meta => meta.property === 'og:image').content.should.eq(heroImageExample.image.url);
+      expect(headMeta.filter(meta => meta.property === 'og:image').length).toBe(1);
+      expect(headMeta.find(meta => meta.property === 'og:image').content).toBe(heroImageExample.image.url);
     });
     it('does not set og:image when no hero image', () => {
       const wrapper = factory();
 
       const headMeta = wrapper.vm.head().meta;
 
-      headMeta.filter(meta => meta.property === 'og:image').length.should.eq(0);
+      expect(headMeta.filter(meta => meta.property === 'og:image').length).toBe(0);
     });
   });
 });

@@ -70,28 +70,28 @@ const relatedChips = [
 ];
 
 describe('components/generic/RelatedCollections', () => {
-  context('when related collections are found', async() => {
+  describe('when related collections are found', () => {
     const wrapper = factory();
-    await wrapper.setProps({ relatedCollections: relatedChips });
+    wrapper.setProps({ relatedCollections: relatedChips });
 
     it('shows a section with related collections chips', () => {
       const relatedCollections = wrapper.find('[data-qa="related collections"]');
-      relatedCollections.isVisible().should.be.true;
+      expect(relatedCollections.isVisible()).toBe(true);
     });
 
     it('contains four related chips', () => {
       const chips = wrapper.findAll('span.badge');
-      chips.length.should.eq(4);
+      expect(chips.length).toBe(4);
     });
   });
 
-  context('when no related collections are found', async() => {
+  describe('when no related collections are found', () => {
     const wrapper = factory();
-    await wrapper.setProps({ relatedCollections: [] });
+    wrapper.setProps({ relatedCollections: [] });
 
     it('related collections does not render', () => {
       const relatedCollections = wrapper.find('[data-qa="related collections"]');
-      relatedCollections.exists().should.be.false;
+      expect(relatedCollections.exists()).toBe(false);
     });
   });
 });

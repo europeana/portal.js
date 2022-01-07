@@ -46,8 +46,8 @@ describe('Blog post page', () => {
 
       const headMeta = wrapper.vm.head().meta;
 
-      headMeta.filter(meta => meta.property === 'og:image').length.should.eq(1);
-      headMeta.find(meta => meta.property === 'og:image').content.should.eq(heroImageUrl);
+      expect(headMeta.filter(meta => meta.property === 'og:image').length).toBe(1);
+      expect(headMeta.find(meta => meta.property === 'og:image').content).toBe(heroImageUrl);
     });
   });
 });

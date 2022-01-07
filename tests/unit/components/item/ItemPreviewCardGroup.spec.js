@@ -1,12 +1,12 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import { VueMasonryPlugin } from 'vue-masonry';
 import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup.vue';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
-localVue.use(VueMasonryPlugin);
+localVue.directive('masonry', {});
+localVue.directive('masonry-tile', {});
 
 const storeDispatch = sinon.spy();
 const storeIsLikedGetter = sinon.stub();
@@ -58,7 +58,7 @@ const results = [
 ];
 
 describe('components/item/ItemPreviewCardGroup', () => {
-  context('when view is grid', () => {
+  describe('when view is grid', () => {
     it('renders each result with a link', async() => {
       const wrapper = factory();
 
@@ -66,12 +66,12 @@ describe('components/item/ItemPreviewCardGroup', () => {
 
       const renderedResults =  wrapper.findAll('[data-qa="item preview"]');
 
-      renderedResults.at(0).find('a').attributes().href.should.endWith(`/item${results[0].id}`);
-      renderedResults.at(1).find('a').attributes().href.should.endWith(`/item${results[1].id}`);
+      expect(renderedResults.at(0).find('a').attributes().href.endsWith(`/item${results[0].id}`)).toBe(true);
+      expect(renderedResults.at(1).find('a').attributes().href.endsWith(`/item${results[1].id}`)).toBe(true);
     });
   });
 
-  context('when view is list', () => {
+  describe('when view is list', () => {
     it('renders each result with a link', async() => {
       const wrapper = factory();
 
@@ -79,8 +79,8 @@ describe('components/item/ItemPreviewCardGroup', () => {
 
       const renderedResults =  wrapper.findAll('div[data-qa="item preview"]');
 
-      renderedResults.at(0).find('a').attributes().href.should.endWith(`/item${results[0].id}`);
-      renderedResults.at(1).find('a').attributes().href.should.endWith(`/item${results[1].id}`);
+      expect(renderedResults.at(0).find('a').attributes().href.endsWith(`/item${results[0].id}`)).toBe(true);
+      expect(renderedResults.at(1).find('a').attributes().href.endsWith(`/item${results[1].id}`)).toBe(true);
     });
   });
 });

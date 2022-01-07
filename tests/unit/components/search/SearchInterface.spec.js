@@ -16,6 +16,7 @@ localVue.use(VueRouter);
 localVue.use(Vuex);
 
 const searchSetViewMutation = sinon.spy();
+const makeToastSpy = sinon.spy();
 
 const factory = (options = {}) => {
   const router = new VueRouter({
@@ -77,18 +78,28 @@ const factory = (options = {}) => {
       }
     }
   });
+
+  const mixins = [
+    {
+      methods: {
+        makeToast: makeToastSpy
+      }
+    }
+  ];
+
   return shallowMount(SearchInterface, {
     localVue,
     mocks,
     router,
     store,
+    mixins,
     propsData: options.propsData
   });
 };
 
 describe('components/search/SearchInterface', () => {
   describe('output', () => {
-    context('with `error` in search state', () => {
+    describe('with `error` in search state', () => {
       it('displays the message', () => {
         const errorMessage = 'Something went very wrong';
         const wrapper = factory({
@@ -99,14 +110,14 @@ describe('components/search/SearchInterface', () => {
 
         const errorNotice = wrapper.find(`[error="${errorMessage}"]`);
 
-        errorNotice.should.exist;
+        expect(errorNotice).toBeDefined();
       });
     });
   });
 
   describe('computed properties', () => {
     describe('errorMessage', () => {
-      context('when there was a pagination error', () => {
+      describe('when there was a pagination error', () => {
         it('returns a user-friendly error message', async() => {
           const wrapper = factory({
             fetchState: {
@@ -116,24 +127,24 @@ describe('components/search/SearchInterface', () => {
             }
           });
 
-          wrapper.vm.errorMessage.should.eq('messages.paginationLimitExceeded');
+          expect(wrapper.vm.errorMessage).toBe('messages.paginationLimitExceeded');
         });
       });
     });
 
     describe('noMoreResults', () => {
-      context('when there are 0 results in total', () => {
+      describe('when there are 0 results in total', () => {
         const wrapper = factory({
           storeState: { totalResults: 0 }
         });
 
         it('is `false`', () => {
-          wrapper.vm.noMoreResults.should.be.false;
+          expect(wrapper.vm.noMoreResults).toBe(false);
         });
       });
 
-      context('when there are some results in total', () => {
-        context('and results here', () => {
+      describe('when there are some results in total', () => {
+        describe('and results here', () => {
           const wrapper = factory({
             storeState: {
               totalResults: 100,
@@ -149,11 +160,11 @@ describe('components/search/SearchInterface', () => {
           });
 
           it('is `false`', () => {
-            wrapper.vm.noMoreResults.should.be.false;
+            expect(wrapper.vm.noMoreResults).toBe(false);
           });
         });
 
-        context('but no results here', () => {
+        describe('but no results here', () => {
           const wrapper = factory({
             storeState: {
               totalResults: 100
@@ -161,7 +172,7 @@ describe('components/search/SearchInterface', () => {
           });
 
           it('is `true`', () => {
-            wrapper.vm.noMoreResults.should.be.true;
+            expect(wrapper.vm.noMoreResults).toBe(true);
           });
         });
       });
@@ -184,21 +195,21 @@ describe('components/search/SearchInterface', () => {
       });
 
       it('injects collection first', () => {
-        wrapper.vm.orderedFacets[0].name.should.eq('collection');
+        expect(wrapper.vm.orderedFacets[0].name).toBe('collection');
       });
 
       it('follows with ordered default facets from search plugin', () => {
-        wrapper.vm.orderedFacets[1].name.should.eq('TYPE');
-        wrapper.vm.orderedFacets[2].name.should.eq('REUSABILITY');
-        wrapper.vm.orderedFacets[3].name.should.eq('COUNTRY');
-        wrapper.vm.orderedFacets[4].name.should.eq('LANGUAGE');
-        wrapper.vm.orderedFacets[5].name.should.eq('PROVIDER');
-        wrapper.vm.orderedFacets[6].name.should.eq('DATA_PROVIDER');
+        expect(wrapper.vm.orderedFacets[1].name).toBe('TYPE');
+        expect(wrapper.vm.orderedFacets[2].name).toBe('REUSABILITY');
+        expect(wrapper.vm.orderedFacets[3].name).toBe('COUNTRY');
+        expect(wrapper.vm.orderedFacets[4].name).toBe('LANGUAGE');
+        expect(wrapper.vm.orderedFacets[5].name).toBe('PROVIDER');
+        expect(wrapper.vm.orderedFacets[6].name).toBe('DATA_PROVIDER');
       });
 
       it('ends with any other facets in their original order', () => {
-        wrapper.vm.orderedFacets[7].name.should.eq('RIGHTS');
-        wrapper.vm.orderedFacets[8].name.should.eq('CONTRIBUTOR');
+        expect(wrapper.vm.orderedFacets[7].name).toBe('RIGHTS');
+        expect(wrapper.vm.orderedFacets[8].name).toBe('CONTRIBUTOR');
       });
     });
 
@@ -219,7 +230,7 @@ describe('components/search/SearchInterface', () => {
       });
 
       it('returns core facets only', () => {
-        wrapper.vm.coreFacets.map(coreFacet => coreFacet.name).should.eql(['collection', 'TYPE', 'REUSABILITY', 'COUNTRY']);
+        expect(wrapper.vm.coreFacets.map(coreFacet => coreFacet.name)).toEqual(['collection', 'TYPE', 'REUSABILITY', 'COUNTRY']);
       });
     });
 
@@ -240,7 +251,7 @@ describe('components/search/SearchInterface', () => {
       });
 
       it('returns non-core facets only', () => {
-        wrapper.vm.moreFacets.map(moreFacet => moreFacet.name).should.eql(['LANGUAGE', 'PROVIDER', 'DATA_PROVIDER']);
+        expect(wrapper.vm.moreFacets.map(moreFacet => moreFacet.name)).toEqual(['LANGUAGE', 'PROVIDER', 'DATA_PROVIDER']);
       });
     });
 
@@ -252,7 +263,7 @@ describe('components/search/SearchInterface', () => {
 
           wrapper.vm.view = view;
 
-          searchSetViewMutation.should.have.been.calledWith(sinon.match.any, view);
+          expect(searchSetViewMutation.calledWith(sinon.match.any, view)).toBe(true);
         });
       });
     });
@@ -262,7 +273,7 @@ describe('components/search/SearchInterface', () => {
     describe('changeFacet', () => {
       const facetName = 'TYPE';
 
-      context('when facet had selected values', () => {
+      describe('when facet had selected values', () => {
         const initialSelectedValues = ['"IMAGE"'];
         const storeGetters = {
           filters: () => {
@@ -270,7 +281,7 @@ describe('components/search/SearchInterface', () => {
           }
         };
 
-        context('and they changed', () => {
+        describe('and they changed', () => {
           const newSelectedValues = ['"IMAGE"', '"TEXT"'];
 
           it('triggers rerouting', async() => {
@@ -278,29 +289,29 @@ describe('components/search/SearchInterface', () => {
             const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
 
             await wrapper.vm.changeFacet(facetName, newSelectedValues);
-            searchRerouter.should.have.been.called;
+            expect(searchRerouter.called).toBe(true);
           });
         });
 
-        context('and they were unchanged', () => {
+        describe('and they were unchanged', () => {
           it('does not trigger rerouting', async() => {
             const wrapper = factory({ storeGetters });
             const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
 
             await wrapper.vm.changeFacet(facetName, initialSelectedValues);
-            searchRerouter.should.not.have.been.called;
+            expect(searchRerouter.called).toBe(false);
           });
         });
       });
 
-      context('when facet had no selected values', () => {
+      describe('when facet had no selected values', () => {
         const storeGetters = {
           filters: () => {
             return {};
           }
         };
 
-        context('and some were selected', () => {
+        describe('and some were selected', () => {
           const newSelectedValues = ['"IMAGE"', '"TEXT"'];
 
           it('triggers rerouting', async() => {
@@ -308,11 +319,11 @@ describe('components/search/SearchInterface', () => {
             const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
 
             await wrapper.vm.changeFacet(facetName, newSelectedValues);
-            searchRerouter.should.have.been.called;
+            expect(searchRerouter.called).toBe(true);
           });
         });
 
-        context('and none were selected', () => {
+        describe('and none were selected', () => {
           const newSelectedValues = [];
 
           it('does not trigger rerouting', async() => {
@@ -320,70 +331,73 @@ describe('components/search/SearchInterface', () => {
             const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
 
             await wrapper.vm.changeFacet(facetName, newSelectedValues);
-            searchRerouter.should.not.have.been.called;
+            expect(searchRerouter.called).toBe(false);
           });
         });
       });
     });
 
     describe('showContentTierToast', () => {
+      beforeEach(() => {
+        makeToastSpy.resetHistory();
+      });
       let facets = [];
 
-      context('in browser', () => {
+      describe('in browser', () => {
         beforeEach(() => {
           process.browser = true;
-          global.sessionStorage = {};
         });
 
-        context('with contentTier "0" facet field', () => {
+        describe('with contentTier "0" facet field', () => {
           beforeEach(() => {
             facets = [
               { name: 'contentTier', fields: [{ label: '"0"' }] }
             ];
           });
 
-          context('when toast has not yet been shown this session', () => {
+          describe('when toast has not yet been shown this session', () => {
+            beforeEach(async() => {
+              global.sessionStorage.removeItem('contentTierToastShown');
+            });
+
             it('shows the toast', async() => {
               const wrapper = factory({
                 storeState: { facets }
               });
-              const rootBvToast = sinon.spy(wrapper.vm.$root.$bvToast, 'toast');
-              global.sessionStorage.contentTierToastShown = false;
               await wrapper.vm.showContentTierToast();
-              rootBvToast.should.have.been.calledWith('facets.contentTier.notification', sinon.match.any);
+
+              expect(makeToastSpy.calledWith('facets.contentTier.notification')).toBe(true);
             });
 
             it('updates session storage after toast is shown', async() => {
               const wrapper = factory({
                 storeState: { facets }
               });
-              global.sessionStorage.contentTierToastShown = false;
               await wrapper.vm.showContentTierToast();
               await wrapper.vm.$root.$emit('bv::toast:shown');
 
-              global.sessionStorage.contentTierToastShown.should.eql('true');
+              expect(global.sessionStorage.getItem('contentTierToastShown')).toEqual('true');
             });
           });
 
-          context('when toast has previously been shown this session', () => {
+          describe('when toast has previously been shown this session', () => {
             beforeEach(() => {
-              global.sessionStorage.contentTierToastShown = true;
+              global.sessionStorage.setItem('contentTierToastShown', 'true');
             });
 
             it('does not show the toast', async() => {
               const wrapper = factory({
                 storeState: { facets }
               });
-              const rootBvToast = sinon.spy(wrapper.vm.$root.$bvToast, 'toast');
 
               await wrapper.vm.showContentTierToast();
 
-              rootBvToast.should.not.have.been.called;
+              expect(makeToastSpy.calledWith('facets.contentTier.notification')).toBe(false);
             });
           });
         });
 
-        context('without contentTier 0 facet field', () => {
+        describe('without contentTier 0 facet field', () => {
           beforeEach(() => {
             facets = [
               { name: 'contentTier', fields: [{ label: '"1"' }] }
@@ -394,27 +408,25 @@ describe('components/search/SearchInterface', () => {
             const wrapper = factory({
               storeState: { facets }
             });
-            const rootBvToast = sinon.spy(wrapper.vm.$root.$bvToast, 'toast');
 
             await wrapper.vm.showContentTierToast();
 
-            rootBvToast.should.not.have.been.called;
+            expect(makeToastSpy.calledWith('facets.contentTier.notification')).toBe(false);
           });
         });
       });
 
-      context('when not in browser', () => {
+      describe('when not in browser', () => {
         beforeEach(() => {
           process.browser = false;
         });
 
         it('does not show the toast', async() => {
           const wrapper = factory();
-          const rootBvToast = sinon.spy(wrapper.vm.$root.$bvToast, 'toast');
 
           await wrapper.vm.showContentTierToast();
 
-          rootBvToast.should.not.have.been.called;
+          expect(makeToastSpy.calledWith('facets.contentTier.notification')).toBe(false);
         });
       });
     });

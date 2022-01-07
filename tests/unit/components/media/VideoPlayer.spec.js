@@ -26,13 +26,13 @@ describe('components/media/VideoPlayer', () => {
     const wrapper = factory();
     const videoSource = wrapper.find('[data-qa="video source"]');
 
-    videoSource.attributes().src.should.eq('proxied');
+    expect(videoSource.attributes().src).toBe('proxied');
   });
 
   it('has a MIME type', async() => {
     const wrapper = factory();
     const videoSource = wrapper.find('[data-qa="video source"]');
 
-    videoSource.attributes().type.should.eq('video/webm');
+    expect(videoSource.attributes().type).toBe('video/webm');
   });
 });

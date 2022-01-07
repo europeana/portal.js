@@ -30,27 +30,27 @@ describe('components/search/SearchFilters', () => {
     const wrapper = factory({ TYPE: ['IMAGE', 'VIDEO'] });
 
     const badges = wrapper.findAll('[data-qa="filter badge"]');
-    badges.length.should.eq(2);
+    expect(badges.length).toBe(2);
   });
 
   describe('labels', () => {
-    context('when facet name is contentTier', () => {
+    describe('when facet name is contentTier', () => {
       it('is not prefixed', () => {
         const wrapper = factory({ contentTier: ['*'] });
 
         const label = wrapper.find('[facetname="contentTier"]');
 
-        label.props('prefixed').should.be.false;
+        expect(label.props('prefixed')).toBe(false);
       });
     });
 
-    context('when facet name is not contentTier', () => {
+    describe('when facet name is not contentTier', () => {
       it('is prefixed', () => {
         const wrapper = factory({ TYPE: ['IMAGE'] });
 
         const label = wrapper.find('[facetname="TYPE"]');
 
-        label.props('prefixed').should.be.true;
+        expect(label.props('prefixed')).toBe(true);
       });
     });
   });
