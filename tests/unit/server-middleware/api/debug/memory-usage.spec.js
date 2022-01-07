@@ -10,7 +10,7 @@ describe('server-middleware/api/debug/memory-usage', () => {
 
     middleware(null, res);
 
-    expect(res.json.calledWith('10 MB'));
+    expect(res.json.calledWith('10 MB')).toBe(true);
 
     processMemoryUsageStub.restore();
   });

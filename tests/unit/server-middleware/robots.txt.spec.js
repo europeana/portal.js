@@ -15,7 +15,7 @@ describe('server-middleware/robots.txt', () => {
   it('sets Content-Type response header to "text/plain"', () => {
     middleware(null, res);
 
-    expect(res.setHeader.calledWith('Content-Type', 'text/plain'));
+    expect(res.setHeader.calledWith('Content-Type', 'text/plain')).toBe(true);
   });
 
   it('sends response with config from process.env if present', () => {
@@ -24,7 +24,7 @@ describe('server-middleware/robots.txt', () => {
 
     middleware(null, res);
 
-    expect(res.end.calledWith(robotsTxt));
+    expect(res.end.calledWith(robotsTxt)).toBe(true);
     delete process.env.ROBOTS_TXT;
   });
 
@@ -33,6 +33,6 @@ describe('server-middleware/robots.txt', () => {
 
     middleware(null, res);
 
-    expect(res.end.calledWith(robotsTxt));
+    expect(res.end.calledWith(robotsTxt)).toBe(true);
   });
 });

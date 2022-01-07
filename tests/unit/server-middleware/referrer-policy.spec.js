@@ -13,12 +13,12 @@ describe('server-middleware/referrer-policy', () => {
   it('sets Referrer-Policy response header to "strict-origin-when-cross-origin"', () => {
     middleware(null, res, next);
 
-    expect(res.setHeader.calledWith('Referrer-Policy', 'strict-origin-when-cross-origin'));
+    expect(res.setHeader.calledWith('Referrer-Policy', 'strict-origin-when-cross-origin')).toBe(true);
   });
 
   it('calls next', () => {
     middleware(null, res, next);
 
-    expect(next.called);
+    expect(next.called).toBe(true);
   });
 });

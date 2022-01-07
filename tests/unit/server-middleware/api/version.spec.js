@@ -17,12 +17,12 @@ describe('server-middleware/api/version', () => {
   it('sets Content-Type response header to "text/plain"', () => {
     middleware(null, res);
 
-    expect(res.setHeader.calledWith('Content-Type', 'text/plain'));
+    expect(res.setHeader.calledWith('Content-Type', 'text/plain')).toBe(true);
   });
 
   it('sends app version in response', () => {
     middleware(null, res);
 
-    expect(res.end.calledWith(version));
+    expect(res.end.calledWith(version)).toBe(true);
   });
 });
