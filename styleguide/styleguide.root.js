@@ -12,6 +12,7 @@ Vue.use(BootstrapVue);
 // Vue.use(VueRouter);
 
 import messages from '@/lang/en';
+import '@/plugins/vue-filters';
 
 const i18n = new VueI18n({
   locale: 'en',
