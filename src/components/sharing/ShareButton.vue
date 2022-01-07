@@ -11,6 +11,13 @@
   </b-button>
 </template>
 
+<script>
+  /**
+   * Button for opening the social media share modal.
+   */
+  export default {};
+</script>
+
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
 
@@ -28,3 +35,9 @@
     }
   }
 </style>
+
+<docs lang="md">
+  ```jsx
+  <ShareButton />
+  ```
+</docs>

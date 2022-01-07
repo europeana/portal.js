@@ -5,8 +5,9 @@ import InfoMessage from '@/components/generic/InfoMessage.vue';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = () => shallowMount(InfoMessage, {
+const factory = (slots) => shallowMount(InfoMessage, {
   localVue,
+  slots,
   mocks: {
     $t: () => {}
   }
@@ -14,8 +15,7 @@ const factory = () => shallowMount(InfoMessage, {
 
 describe('components/generic/InfoMessage', () => {
   it('show an info message', async() => {
-    const wrapper = factory();
-    await wrapper.setProps({ message: 'Some information to display' });
+    const wrapper = factory({ default: 'Some information to display' });
 
     const message =  wrapper.find('[data-qa="info notice"]');
     expect(message.text()).toContain('Some information to display');

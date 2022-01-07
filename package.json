@@ -12,6 +12,7 @@
     "lint": "eslint --no-fix bin src tests/unit *.js",
     "start:inspect": "node --inspect node_modules/.bin/nuxt-cli start",
     "start": "node --experimental-json-modules node_modules/.bin/nuxt-cli start",
+    "styleguide": "vue-styleguidist server --config ./styleguide.config.cjs",
     "stylelint": "stylelint \"**/*.scss\" \"**/*.vue\" --config .stylelintrc.cjs",
     "test:e2e": "touch tests/e2e/docker/nightwatch-visual/.env && docker-compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-features",
     "test:coverage": "jest --coverage",
@@ -94,7 +95,8 @@
     "stylelint": "^14.1.0",
     "stylelint-config-recommended-vue": "^1.0.0",
     "stylelint-config-standard-scss": "^3.0.0",
-    "svg-url-loader": "^7.1.1"
+    "svg-url-loader": "^7.1.1",
+    "vue-styleguidist": "^4.43.0"
   },
   "contributors": [
     "Richard Doe <richard.doe@europeana.eu>",
