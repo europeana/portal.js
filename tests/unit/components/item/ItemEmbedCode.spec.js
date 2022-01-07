@@ -76,7 +76,7 @@ describe('components/item/ItemEmbedCode', () => {
       it('shows a notification message', async() => {
         await wrapper.find('#share-embed').trigger('click');
 
-        wrapper.find('[data-qa="share embed copied notice"]').isVisible().should;
+        expect(wrapper.find('[data-qa="share embed copied notice"]').isVisible()).toBe(true);
       });
     });
   });
