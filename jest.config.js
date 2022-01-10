@@ -27,7 +27,7 @@ export default {
     '/node_modules/(?!decamelize)'
   ],
   transform: {
-    '^.+\\.js$': 'babel-jest',
+    '^.+\\.js$': 'jest-esm-transformer',
     '^.+\\.vue$': '@vue/vue2-jest'
   }
 };
