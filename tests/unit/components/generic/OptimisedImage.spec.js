@@ -10,6 +10,29 @@ const factory = (propsData) => shallowMount(OptimisedImage, {
 });
 
 describe('components/generic/OptimisedImage', () => {
+  it('uses a lazy loading image by default', () => {
+    const wrapper = factory({
+      src: 'https://www.example.org/image.jpeg',
+      width: 2000,
+      height: 1250
+    });
+    const lazyImage = wrapper.find('b-img-lazy-stub');
+    expect(lazyImage.exists()).toBeTruthy();
+  });
+
+  describe('when lazy is set to false', () => {
+    it('uses a non-lazy loading image', () => {
+      const wrapper = factory({
+        src: 'https://www.example.org/image.jpeg',
+        width: 2000,
+        height: 1250,
+        lazy: false
+      });
+      const image = wrapper.find('b-img-stub');
+      expect(image.exists()).toBeTruthy();
+    });
+  });
+
   describe('aspectRatio', () => {
     it('equals width / height', () => {
       const wrapper = factory({
