@@ -6,21 +6,24 @@
     <b-button
       v-show="showPins"
       :pressed="pinned"
-      class="icon-push-pin"
+      class="button-icon button-user icon-push-pin"
+      variant="light"
       data-qa="pin button"
       :aria-label="$t('entity.actions.pin')"
       @click="togglePinned"
     />
     <b-button
-      class="icon-ic-add"
+      class="button-icon button-user icon-ic-add"
       data-qa="add button"
+      variant="light"
       :aria-label="$t('set.actions.addTo')"
       @click="addToSet"
     />
     <b-button
       :pressed="liked"
-      class="icon-heart"
+      class="button-icon button-user icon-heart"
       data-qa="like button"
+      variant="light"
       :aria-label="$t('actions.like')"
       size="sm"
       @click="toggleLiked"

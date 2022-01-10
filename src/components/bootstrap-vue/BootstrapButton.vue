@@ -7,24 +7,6 @@ Variant default
   <b-button>label</b-button>
   <b-button disabled>label</b-button>
 ```
-Variant "outline-primary" with icon
-```jsx
-  <b-button
-    variant="outline-primary"
-    class="d-inline-flex align-items-center"
-  >
-    <span class="icon-twitter d-inline-flex pr-1" />
-    label
-  </b-button>
-    <b-button
-    variant="outline-primary"
-    class="d-inline-flex align-items-center"
-    disabled
-  >
-    <span class="icon-twitter d-inline-flex pr-1" />
-    label
-  </b-button>
-```
 Variant "outline-primary"
 ```jsx
   <b-button
@@ -33,6 +15,13 @@ Variant "outline-primary"
     Label
   </b-button>
     <b-button
+    variant="outline-primary"
+    class="d-inline-flex align-items-center"
+  >
+    <span class="icon-twitter d-inline-flex pr-1" />
+    label
+  </b-button>
+  <b-button
     variant="outline-primary"
     disabled
   >
@@ -102,12 +91,19 @@ Variant "light"
   >
     label
   </b-button>
-   <b-button
+  <b-button
     variant="light"
     disabled
   >
     label
   </b-button>
+```
+Variant "light" with user-button class
+```jsx
+  <b-button
+    variant="light"
+    class="button-icon button-user icon-ic-add"
+  />
 ```
 Variant "light-flat"
 Used for the icon buttons in the header

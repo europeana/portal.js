@@ -415,81 +415,23 @@
   }
 
   .user-buttons {
-    visibility: hidden;
     display: flex;
     flex-wrap: wrap;
+    justify-content: flex-end;
     position: absolute;
     top: 1rem;
     right: 1rem;
     z-index: 2;
     width: 100%;
-
-    .btn {
-      align-items: center;
-      justify-content: center;
-      background-color: $white;
-      border: 1px solid $paper;
-      color: $mediumgrey;
-      display: inline-flex;
-      font-size: 1.5rem;
-      height: 2.25rem;
-      width: 2.25rem;
-      line-height: 1;
-      padding: 0.375rem;
-
-      &:hover {
-        box-shadow: $boxshadow-small;
-      }
-
-      &.active {
-        color: $white;
-        background-color: $red;
-        border-color: $red;
-      }
-
-      &.recommendation-button {
-        &:first-of-type {
-          margin-left: auto;
-        }
-
-        &:hover {
-          color: $innovationblue;
-        }
-      }
-
-      &:first-of-type {
-        margin-right: 0.5rem;
-
-        &.icon-push-pin {
-          margin-left: 2rem;
-
-          &.active {
-            visibility: visible;
-          }
-
-          &:hover {
-            color: $innovationblue;
-            background: $white;
-            border-color: $white;
-          }
-
-          +.btn {
-            margin-left: auto;
-            margin-right: 0.5rem;
-          }
-        }
-      }
-
-      &-sm {
-        font-size: $font-size-medium;
-      }
+    .button-user{
+      visibility: hidden;
     }
   }
 
   &:hover {
     box-shadow: $boxshadow-large;
 
-    .user-buttons {
+    .user-buttons .button-user{
       visibility: visible;
     }
   }
