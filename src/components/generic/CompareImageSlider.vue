@@ -73,6 +73,9 @@
   import CiteAttribution from './CiteAttribution';
   import OptimisedImage from './OptimisedImage';
 
+  /**
+   * Slider to compare two images side-by-side
+   */
   export default {
     name: 'CompareImageSlider',
 
@@ -82,51 +85,85 @@
     },
 
     props: {
+      /**
+       * URL of the left image
+       */
       leftImageSrc: {
         type: String,
         required: true
       },
 
+      /**
+       * Content type of the left image
+       */
       leftImageContentType: {
         type: String,
         default: null
       },
 
+      /**
+       * Width of the left image
+       */
       leftImageWidth: {
         type: Number,
         required: true
       },
 
+      /**
+       * Height of the left image
+       */
       leftImageHeight: {
         type: Number,
         required: true
       },
 
+      /**
+       * Attribution for the left image
+       *
+       * Properties are passed as props to CiteAttribution
+       */
       leftImageAttribution: {
         type: Object,
         required: true
       },
 
+      /**
+       * URL of the right image
+       */
       rightImageSrc: {
         type: String,
         required: true
       },
 
+      /**
+       * Content type of the right image
+       */
       rightImageContentType: {
         type: String,
         default: null
       },
 
+      /**
+       * Width of the right image
+       */
       rightImageWidth: {
         type: Number,
         required: true
       },
 
+      /**
+       * Height of the right image
+       */
       rightImageHeight: {
         type: Number,
         required: true
       },
 
+      /**
+       * Attribution for the right image
+       *
+       * Properties are passed as props to CiteAttribution
+       */
       rightImageAttribution: {
         type: Object,
         required: true
@@ -348,3 +385,20 @@
     }
   }
 </style>
+
+<docs lang="md">
+  ```jsx
+  <CompareImageSlider
+    left-image-src="https://via.placeholder.com/800x300/085395/FFFFFF?text=Left%20image"
+    left-image-content-type="image/png"
+    :left-image-width="800"
+    :left-image-height="300"
+    :left-image-attribution="{ provider: 'placeholder.com', name: 'Dark blue', url: 'https://via.placeholder.com/800x300/085395/FFFFFF?text=Left%20image', rightsStatement: 'http://creativecommons.org/publicdomain/zero/1.0/' }"
+    right-image-src="https://via.placeholder.com/800x300/79B2E3/000000?text=Right%20image"
+    right-image-content-type="image/png"
+    :right-image-width="800"
+    :right-image-height="300"
+    :right-image-attribution="{ provider: 'placeholder.com', name: 'Light blue', url: 'https://via.placeholder.com/800x300/79B2E3/000000?text=Right%20image', rightsStatement: 'http://creativecommons.org/publicdomain/zero/1.0/' }"
+  />
+  ```
+</docs>

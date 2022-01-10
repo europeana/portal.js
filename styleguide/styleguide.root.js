@@ -11,6 +11,10 @@ Vue.use(BootstrapVue);
 // Vue.use(VueMasonryPlugin);
 // Vue.use(VueRouter);
 
+Vue.prototype.$path = function() {
+  return '/';
+}
+
 import messages from '@/lang/en';
 import '@/plugins/vue-filters';
 
