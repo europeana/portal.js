@@ -257,6 +257,8 @@
         .custom-control-label {
           display: inline-flex;
           align-items: center;
+          flex: 1;
+          flex-wrap: wrap;
 
           span {
             margin-right: 0.25rem;
