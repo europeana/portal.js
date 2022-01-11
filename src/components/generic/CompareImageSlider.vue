@@ -417,12 +417,22 @@
     left-image-content-type="image/png"
     :left-image-width="800"
     :left-image-height="300"
-    :left-image-attribution="{ provider: 'placeholder.com', name: 'Dark blue', url: 'https://via.placeholder.com/800x300/085395/FFFFFF?text=Left%20image', rightsStatement: 'http://creativecommons.org/publicdomain/zero/1.0/' }"
+    :left-image-attribution="{
+      provider: 'placeholder.com',
+      name: 'Dark blue',
+      url: 'https://via.placeholder.com/800x300/085395/FFFFFF?text=Left%20image',
+      rightsStatement: 'http://creativecommons.org/publicdomain/zero/1.0/'
+    }"
     right-image-src="https://via.placeholder.com/800x300/79B2E3/000000?text=Right%20image"
     right-image-content-type="image/png"
     :right-image-width="800"
     :right-image-height="300"
-    :right-image-attribution="{ provider: 'placeholder.com', name: 'Light blue', url: 'https://via.placeholder.com/800x300/79B2E3/000000?text=Right%20image', rightsStatement: 'http://creativecommons.org/publicdomain/zero/1.0/' }"
+    :right-image-attribution="{
+      provider: 'placeholder.com',
+      name: 'Light blue',
+      url: 'https://via.placeholder.com/800x300/79B2E3/000000?text=Right%20image',
+      rightsStatement: 'http://creativecommons.org/publicdomain/zero/1.0/'
+    }"
   />
   ```
 </docs>
