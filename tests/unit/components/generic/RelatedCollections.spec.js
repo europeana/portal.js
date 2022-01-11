@@ -20,7 +20,9 @@ const factory = (options = {}) => {
         $i18n: { locale: 'en' },
         $t: () => {},
         $fetch: () => {},
-        $path: (args) => { return `${args.params.type} - ${args.params.pathMatch}`},
+        $path: (args) => {
+          return `${args.params.type} - ${args.params.pathMatch}`;
+        },
         $link: {
           to: route => route,
           href: () => null
@@ -56,15 +58,15 @@ const relatedChips = [
     isShownBy: {
       id: 'item2isShownById',
       source: 'http://data.europeana.eu/item/123/XYZ',
-      thumbnail:'thumbnailUrlItem2',
-      type:'WebResource'
+      thumbnail: 'thumbnailUrlItem2',
+      type: 'WebResource'
     }
   },
   {
     id: 'http://data.europeana.eu/organzation/base/1',
     logo: {
       id: 'http://www.wikimedia.org/wiki/Special:FilePath/logoUrlItem3.jpg',
-      source: 'www.wikimedia.org/wiki/Special:FilePath/logoUrlItem3',
+      source: 'www.wikimedia.org/wiki/Special:FilePath/logoUrlItem3'
     },
     prefLabel: {
       en: 'Europeana'
@@ -120,7 +122,7 @@ describe('components/generic/RelatedCollections', () => {
     });
   });
 
-  describe('#imageUrl', ()=> {
+  describe('#imageUrl', () => {
     describe('when the item has an image attribute', () => {
       it('uses the image at a width of 200', () => {
         const wrapper = factory();
