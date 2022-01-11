@@ -15,6 +15,7 @@
         :height="leftImageHeight"
         :content-type="leftImageContentType"
         :max-width="1100"
+        :lazy="lazy"
         data-qa="compare image left image"
       />
       <OptimisedImage
@@ -24,6 +25,7 @@
         :height="rightImageHeight"
         :content-type="rightImageContentType"
         :max-width="1100"
+        :lazy="lazy"
         data-qa="compare image right image"
       />
       <div
@@ -167,6 +169,14 @@
       rightImageAttribution: {
         type: Object,
         required: true
+      },
+
+      /**
+       * If `true`, lazy-load the images
+       */
+      lazy: {
+        type: Boolean,
+        default: true
       }
     },
 
@@ -204,15 +214,27 @@
     mounted() {
       this.setSliderWidth();
 
-      window.addEventListener('resize', this.setImageWidth);
-      window.addEventListener('mousemove', this.drag);
-      window.addEventListener('mouseup', this.stopDrag);
-      window.addEventListener('touchmove', this.drag);
-      window.addEventListener('touchend', this.stopDrag);
+      window.addEventListener('resize', this.resize);
+      window.addEventListener('mousemove', this.mousemove);
+      window.addEventListener('mouseup', this.mouseup);
+      window.addEventListener('touchmove', this.mousemove);
+      window.addEventListener('touchend', this.mouseup);
       this.$refs.rightImage.$el.addEventListener('load', this.setImageWidth);
     },
 
     methods: {
+      resize() {
+        this.setImageWidth();
+      },
+
+      mousemove(event) {
+        this.drag(event);
+      },
+
+      mouseup() {
+        this.stopDrag();
+      },
+
       setImageWidth() {
         this.imageWidth = this.$refs.rightImage.$el.getBoundingClientRect().width;
       },
@@ -240,6 +262,10 @@
       },
 
       drag(event) {
+        if (!this.dragging) {
+          return;
+        }
+
         // Calc Cursor Position from the left edge of the viewport
         const cursorXfromViewport = event.touches ? event.touches[0].pageX : event.pageX;
         // Calc Cursor Position from the left edge of the window (consider any page scrolling)
@@ -259,10 +285,8 @@
           pos = maxPos;
         }
 
-        if (this.dragging) {
-          this.sliderPosition = pos / this.imageWidth;
-          this.showHideAttribution();
-        }
+        this.sliderPosition = pos / this.imageWidth;
+        this.showHideAttribution();
       }
     }
   };
