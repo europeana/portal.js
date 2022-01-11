@@ -350,9 +350,12 @@
         return this.$features.sideFilters;
       }
     },
+    watch: {
+      searchOverrides: 'storeSearchOverrides'
+    },
     mounted() {
       this.$store.commit('search/setCollectionLabel', this.title.values[0]);
-      this.$store.commit('search/set', ['overrideParams', this.searchOverrides]);
+      this.storeSearchOverrides();
       // TODO: move into a new entity store action?
       // Disable related collections for organisation for now
       if (!this.relatedCollectionCards && this.collectionType !== 'organisation') {
@@ -367,6 +370,9 @@
       }
     },
     methods: {
+      storeSearchOverrides() {
+        this.$store.commit('search/set', ['overrideParams', this.searchOverrides]);
+      },
       titleFallback(title) {
         return {
           values: [title],
