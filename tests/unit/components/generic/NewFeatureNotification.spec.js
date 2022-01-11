@@ -21,6 +21,13 @@ const factory = (propsData = {}) => shallowMount(NewFeatureNotification, {
 });
 
 describe('components/generic/NewFeatureNotification', () => {
+  describe('when a url prop is passed', () => {
+    it('shows a "read more" button', () => {
+      const wrapper = factory({ url: 'https://www.example.eu' });
+      const readMoreButton = wrapper.find('[data-qa="new feature read more"]');
+      expect(readMoreButton.exists()).toBe(true);
+    });
+  });
   describe('hideToast', () => {
     it('hides the toast', async() => {
       const wrapper = factory();

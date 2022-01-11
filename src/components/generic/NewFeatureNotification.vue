@@ -23,6 +23,7 @@
         variant="primary"
         :href="url"
         target="blank"
+        data-qa="new feature read more"
         @click="trackEvent('click read more')"
       >
         {{ $t('newFeatureNotification.readMore') }}
