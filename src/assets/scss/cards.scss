@@ -90,8 +90,9 @@
 
   @media (min-width: $bp-medium) {
     min-height: 20rem;
+
     &.search-grid-card {
-      min-height: 0px;
+      min-height: 0;
     }
   }
 
