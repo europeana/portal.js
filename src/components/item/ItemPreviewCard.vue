@@ -56,7 +56,7 @@
       },
       variant: {
         type: String,
-        default: 'default' // other options: entity, mini, list
+        default: 'default' // other options: entity, mini, search-grid, search-list
       },
       lazy: {
         type: Boolean,
@@ -78,7 +78,8 @@
 
     computed: {
       texts() {
-        if (this.variant === 'similar' || this.variant === 'explore') {
+        const textlessVariants = ['similar', 'explore', 'search-grid'];
+        if (textlessVariants.includes(this.variant)) {
           return [];
         }
 
@@ -87,7 +88,7 @@
           texts.unshift(this.item.dcCreatorLangAware);
         }
 
-        if (this.variant === 'list') {
+        if (this.variant === 'search-list') {
           if (!this.hitSelector && this.item.dcDescriptionLangAware) {
             texts.unshift(this.item.dcDescriptionLangAware);
           }
@@ -97,11 +98,11 @@
       },
 
       hitsText() {
-        return this.variant === 'list' ? this.hitSelector : null;
+        return this.variant === 'search-list' ? this.hitSelector : null;
       },
 
       cardClass() {
-        return this.variant === 'list' ? 'mx-0' : null;
+        return this.variant === 'search-list' ? 'mx-0' : null;
       },
 
       identifier() {

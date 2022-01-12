@@ -90,6 +90,9 @@
 
   @media (min-width: $bp-medium) {
     min-height: 20rem;
+    &.search-grid-card {
+      min-height: 0px;
+    }
   }
 
   a {
@@ -383,7 +386,7 @@
     }
   }
 
-  &.list-card {
+  &.search-list-card {
     @media (min-width: $bp-medium) {
       min-height: 0;
 

@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="view === 'grid'"
+    v-if="view === 'grid' || view === 'search-grid'"
   >
     <div
       v-masonry
@@ -96,7 +96,7 @@
         let cardGroupClass;
 
         switch (this.view) {
-        case 'list':
+        case 'search-list':
           cardGroupClass = 'card-group-list mx-0';
           break;
         case 'plain':
