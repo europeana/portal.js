@@ -142,8 +142,13 @@
 
     computed: {
       sortedOptions() {
+        let fields = [].concat(this.fields);
+        if (this.name === 'contentTier') {
+          fields = fields.filter(field => field.label === '"0"');
+        }
+
         if (this.isRadio) {
-          return this.fields;
+          return fields;
         }
 
         const selected = [];
@@ -154,7 +159,7 @@
           }
         });
 
-        const leftOver = this.fields.filter(field => !this.selected.includes(field.label));
+        const leftOver = fields.filter(field => !this.selected.includes(field.label));
 
         return selected.sort((a, b) => a.count + b.count).concat(leftOver);
       },
