@@ -26,13 +26,14 @@ module.exports = async() => {
   };
 
   return {
+    title: 'Europeana Style Guide',
     sections: [
       {
-        name: 'Bootstrap Components',
+        name: 'Bootstrap Vue',
         components: './src/components/bootstrap-vue/[A-Z]*.vue'
       },
       {
-        name: 'Generic Components',
+        name: 'Generic',
         components: './src/components/generic/[A-Z]*.vue'
       }
     ],
