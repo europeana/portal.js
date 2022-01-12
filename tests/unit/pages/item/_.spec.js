@@ -20,6 +20,7 @@ const item = {
   }
 };
 
+const itemSetRelatedEntities = sinon.spy();
 const store = new Vuex.Store({
   state: {
     item: {
@@ -28,6 +29,9 @@ const store = new Vuex.Store({
       relatedEntities: [],
       similarItems: []
     }
+  },
+  mutations: {
+    'item/setRelatedEntities': itemSetRelatedEntities
   },
   getters: {
     'entity/isPinned': () => () => false,
@@ -76,6 +80,10 @@ const factory = () => shallowMountNuxt(page, {
 });
 
 describe('pages/item/_.vue', () => {
+  afterEach(() => {
+    sinon.resetHistory();
+  });
+
   describe('asyncData()', () => {
     const params = { pathMatch: '123/abc' };
     const record = { id: '/123/abc' };
@@ -104,6 +112,74 @@ describe('pages/item/_.vue', () => {
 
         expect($apis.record.getRecord.calledWith('/123/abc', { locale: 'en', metadataLanguage: 'fr' })).toBe(true);
         expect(response).toEqual(record);
+      });
+    });
+  });
+
+  describe('methods', () => {
+    describe('fetchRelatedEntities()', () => {
+      const organizations = [
+        {
+          about: 'http://data.europeana.eu/organization/12345'
+        }
+      ];
+      const concepts = [
+        {
+          about: 'http://data.europeana.eu/concept/base/12345'
+        }
+      ];
+      const pluginResponse = [
+        {
+          id: 'http://data.europeana.eu/concept/base/12345',
+          prefLabel: { en: 'concept' },
+          isShownBy: 'http://example.org/image.jpeg',
+          altLabel: { en: 'alt concept' }
+        },
+        {
+          id: 'http://data.europeana.eu/organization/12345',
+          prefLabel: { en: 'organization' },
+          logo: 'http://example.org/logo.jpeg',
+          altLabel: { en: 'alt organization' }
+        }
+      ];
+      const dataToStore = [
+        {
+          id: 'http://data.europeana.eu/concept/base/12345',
+          prefLabel: { en: 'concept' },
+          isShownBy: 'http://example.org/image.jpeg'
+        },
+        {
+          id: 'http://data.europeana.eu/organization/12345',
+          prefLabel: { en: 'organization' },
+          logo: 'http://example.org/logo.jpeg'
+        }
+      ];
+
+      it('fetches related entities from API plugin', async() => {
+        const wrapper = factory();
+        await wrapper.setData({
+          concepts,
+          organizations
+        });
+        wrapper.vm.$apis.entity.find = sinon.stub().resolves(pluginResponse);
+        await wrapper.vm.fetchRelatedEntities();
+
+        expect(wrapper.vm.$apis.entity.find.calledWith([
+          'http://data.europeana.eu/concept/base/12345',
+          'http://data.europeana.eu/organization/12345'
+        ])).toBe(true);
+      });
+
+      it('picks fields from response and commits to store', async() => {
+        const wrapper = factory();
+        await wrapper.setData({
+          concepts,
+          organizations
+        });
+        wrapper.vm.$apis.entity.find = sinon.stub().resolves(pluginResponse);
+        await wrapper.vm.fetchRelatedEntities();
+
+        expect(itemSetRelatedEntities.calledWith(sinon.match.any, dataToStore)).toBe(true);
       });
     });
   });

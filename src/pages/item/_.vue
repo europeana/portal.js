@@ -331,7 +331,7 @@
 
       fetchRelatedEntities() {
         return this.$apis.entity.find(this.europeanaEntityUris)
-          .then(entities => entities.map(entity => pick(entity, ['id', 'prefLabel', 'isShownBy'])))
+          .then(entities => entities.map(entity => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo'])))
           .then(reduced => this.$store.commit('item/setRelatedEntities', reduced));
       },
 
