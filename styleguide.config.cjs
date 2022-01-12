@@ -26,6 +26,16 @@ module.exports = async() => {
   };
 
   return {
+    sections: [
+      {
+        name: 'Bootstrap Components',
+        components: './src/components/bootstrap-vue/[A-Z]*.vue'
+      },
+      {
+        name: 'Generic Components',
+        components: './src/components/generic/[A-Z]*.vue'
+      }
+    ],
     components: './src/components/**/[A-Z]*.vue',
     assetsDir: './src/assets',
     skipComponentsWithoutExample: true,
