@@ -21,7 +21,9 @@
     <client-only
       v-if="feedbackEnabled"
     >
-      <FeedbackWidget />
+      <FeedbackWidget
+        data-qa="feedback widget"
+      />
     </client-only>
     <main
       id="default"
@@ -42,6 +44,7 @@
       <NewFeatureNotification
         :feature="featureNotification.name"
         :url="featureNotification.url"
+        data-qa="new feature notification"
       >
         <p>{{ $t(`newFeatureNotification.text.${featureNotification.name}`) }}</p>
       </NewFeatureNotification>
@@ -136,7 +139,7 @@
       },
 
       newFeatureNotificationEnabled() {
-        return this.featureNotification && (
+        return !!this.featureNotification && (
           !this.$cookies.get('new_feature_notification') ||
           this.$cookies.get('new_feature_notification') !== this.featureNotification.name
         );
