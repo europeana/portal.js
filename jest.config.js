@@ -1,8 +1,17 @@
 export default {
+  coveragePathIgnorePatterns: [
+    '<rootDir>/src/plugins/i18n/locales.js',
+    '<rootDir>/src/lang/',
+    '<rootDir>/src/migrations/'
+  ],
   collectCoverageFrom: [
-    'src/**/*.{js,vue}'
+    '<rootDir>/src/**/*.{cjs,js,vue}'
+  ],
+  coverageReporters: [
+    'html', 'lcov', 'text'
   ],
   moduleFileExtensions: [
+    'cjs',
     'js',
     'json',
     'vue'
@@ -24,7 +33,7 @@ export default {
     '/node_modules/(?!decamelize)'
   ],
   transform: {
-    '^.+\\.js$': 'babel-jest',
+    '^.+\\.js$': 'jest-esm-transformer',
     '^.+\\.vue$': '@vue/vue2-jest'
   }
 };

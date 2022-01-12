@@ -1,7 +1,7 @@
 <template>
   <footer
     data-qa="footer"
-    class="py-5 px-3"
+    class="page-footer py-5 px-3"
   >
     <b-container>
       <b-row>

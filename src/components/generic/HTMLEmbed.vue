@@ -30,7 +30,7 @@
   import AlertMessage from '../../components/generic/AlertMessage';
 
   export default {
-    name: 'OEmbedMedia',
+    name: 'HTMLEmbed',
 
     components: {
       AlertMessage

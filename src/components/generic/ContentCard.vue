@@ -90,6 +90,7 @@
       </b-card-body>
     </SmartLink>
     <client-only>
+      <!-- @slot Buttons rendered over the card, client-side only -->
       <slot name="buttons" />
     </client-only>
   </b-card>
@@ -115,88 +116,160 @@
     ],
 
     props: {
+      /**
+       * Card title
+       *
+       * If an object is supplied, it is expected to be a LangMap.
+       */
       title: {
-        // may be a string or a lang map
         type: [String, Object],
         default: ''
       },
+      /**
+       * Card subtitle
+       */
       subTitle: {
         type: String,
         default: null
       },
-      // each element may be a string, an array of strings, or a lang map
+      /**
+       * Card texts
+       *
+       * Each element may be a string, an array of strings, or a LangMap
+       */
       texts: {
         type: Array,
         default: () => []
       },
+      /**
+       * Hits from a search to highlight in the card texts
+       */
       hitsText: {
         type: Object,
         default: null
       },
+      /**
+       * URL for the card to link to
+       *
+       * An object should be a Vue route
+       */
       url: {
         type: [String, Object],
         default: ''
       },
+      /**
+       * URL of an image to display
+       */
       imageUrl: {
         type: String,
         default: ''
       },
+      /**
+       * Content type of the image
+       */
       imageContentType: {
         type: String,
         default: null
       },
+      /**
+       * Width of the image
+       */
       imageWidth: {
         type: Number,
         default: null
       },
+      /**
+       * Height of the image
+       */
       imageHeight: {
         type: Number,
         default: null
       },
+      /**
+       * Image alt text
+       */
       imageAlt: {
         type: String,
         default: ''
       },
+      /**
+       * Image optimisation options
+       *
+       * Passed to `optimisedImageUrl` filter
+       */
       imageOptimisationOptions: {
         type: Object,
         default: () => ({})
       },
+      /**
+       * If `true`, image will be lazy-loaded
+       */
       lazy: {
         type: Boolean,
         default: true
       },
+      /**
+       * If `true`, subtitle will be shown
+       */
       showSubtitle: {
         type: Boolean,
         default: true
       },
+      /**
+       * Date & time
+       */
       datetime: {
         type: String,
         default: ''
       },
+      /**
+       * Style variant to use
+       * @values default, entity, mini, list
+       */
       variant: {
         type: String,
-        default: 'default' // other options: entity, mini, list
+        default: 'default'
       },
+      /**
+       * If `true`, will omit all URIs from texts
+       */
       omitAllUris: {
         type: Boolean,
         default: false
       },
+      /**
+       * If `true`, will omit URIs from texts only if other values are present
+       */
       omitUrisIfOtherValues: {
         type: Boolean,
         default: false
       },
+      /**
+       * For each element of `texts`, limit the number of values shown
+       *
+       * Default is no limit
+       */
       limitValuesWithinEachText: {
         type: Number,
         default: -1
       },
+      /**
+       * Height of image placeholder when lazy-loading image
+       */
       blankImageHeight: {
         type: Number,
         default: null
       },
+      /**
+       * Width of image placeholder when lazy-loading image
+       */
       blankImageWidth: {
         type: Number,
         default: null
       },
+      /**
+       * If `true`, the image is a logo and will be styled differently
+       */
       logo: {
         type: Boolean,
         default: false
@@ -312,3 +385,25 @@
     }
   };
 </script>
+
+<docs lang="md">
+  Variant "default":
+  ```jsx
+  <ContentCard
+    title="Debarquement a l'Ile de Malte (Bonaparte landing on Malta)"
+    image-url="https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=http%3A%2F%2Fcollections.rmg.co.uk%2FmediaLib%2F323%2Fmedia-323744%2Flarge.jpg"
+    :texts="['Royal Museums Greenwich']"
+    url="https://www.europeana.eu/item/2022362/_Royal_Museums_Greenwich__http___collections_rmg_co_uk_collections_objects_147879"
+  />
+  ```
+
+  Variant "mini":
+  ```jsx
+  <ContentCard
+    variant="mini"
+    title="Photograph"
+    image-url="https://api.europeana.eu/api/v2/thumbnail-by-url.json?uri=https%3A%2F%2Fwww.rijksmuseum.nl%2Fassetimage2.jsp%3Fid%3DRP-F-2000-21-40&type=IMAGE"
+    url="https://www.europeana.eu/collections/topic/48"
+  />
+  ```
+</docs>
