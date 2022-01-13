@@ -21,13 +21,15 @@
         >
           {{ facetName }}
         </span> -->
+
         <!-- ensure down arrow symbol still appears on right in flexbox if no filter badges -->
         <span
           v-if="selected.length === 0"
         />
+
         <div
           v-else
-          style="display: flex; flex-wrap: wrap;"
+          class="filter-badges"
         >
           <b-badge
             v-for="(filter, index) in selected"
@@ -279,6 +281,11 @@
 
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
+
+  .filter-badges {
+    display: flex;
+    flex-wrap: wrap;
+  }
 
   .facet-label {
     font-size: $font-size-extrasmall;
