@@ -24,6 +24,15 @@ Feature: View styles (List and Grid)
     And I press the ENTER key
     And I click the `search list view toggle`
     Then I see a `item previews list`
+    And I am on an accessible page
+
+  Scenario: Switching to the image-grid view
+    When I visit the `search page`
+    And I click the `show search button`
+    And I press the ENTER key
+    And I click the `search image-grid view toggle`
+    Then I see a `item previews image-grid`
+    And I am on an accessible page
 
   Scenario: Switching to the grid view
     When I open `/search?view=list`
@@ -37,6 +46,14 @@ Feature: View styles (List and Grid)
     And I click the `search list view toggle`
     And I go to page number 2
     Then I see a `item previews list`
+
+  Scenario: Switching to the image-grid view and paginating
+    When I visit the `search page`
+    And I click the `show search button`
+    And I press the ENTER key
+    And I click the `search image-grid view toggle`
+    And I go to page number 2
+    Then I see a `item previews image-grid`
 
   Scenario: The view parameter is preserved and present in the URL for the list view
     Given I have chosen the `list` search results view

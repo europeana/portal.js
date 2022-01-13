@@ -8,6 +8,7 @@
     <SmartLink
       :destination="url"
       link-class="card-link"
+      :aria-label="displayTitle"
     >
       <div
         v-if="cardImageUrl"
@@ -38,7 +39,7 @@
         class="placeholder card-img"
       />
       <b-card-body
-        v-if="variant !== 'search-grid'"
+        v-if="variant !== 'image-grid'"
         data-qa="card body"
       >
         <b-card-sub-title
@@ -227,7 +228,7 @@
       },
       /**
        * Style variant to use
-       * @values default, entity, mini, search-list, search-grid
+       * @values default, entity, mini, list, image-grid
        */
       variant: {
         type: String,
@@ -410,21 +411,20 @@
   />
   ```
 
-  Variant "search-grid":
+  Variant "image-grid":
   ```jsx
   <ContentCard
-    variant="search-grid"
+    variant="image-grid"
     title="Debarquement a l'Ile de Malte (Bonaparte landing on Malta)"
     image-url="https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=http%3A%2F%2Fcollections.rmg.co.uk%2FmediaLib%2F323%2Fmedia-323744%2Flarge.jpg"
-    :texts="['Royal Museums Greenwich']"
     url="https://www.europeana.eu/item/2022362/_Royal_Museums_Greenwich__http___collections_rmg_co_uk_collections_objects_147879"
   />
   ```
 
-  Variant "search-list":
+  Variant "list":
   ```jsx
   <ContentCard
-    variant="search-list"
+    variant="list"
     title="Debarquement a l'Ile de Malte (Bonaparte landing on Malta)"
     image-url="https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=http%3A%2F%2Fcollections.rmg.co.uk%2FmediaLib%2F323%2Fmedia-323744%2Flarge.jpg"
     :hitsText="{ prefix: 'This shows a ', exact: 'Hit-Highlight', suffix: ' appearing in the middle of the description!' }"

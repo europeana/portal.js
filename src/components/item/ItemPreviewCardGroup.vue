@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="view === 'grid' || view === 'search-grid'"
+    v-if="view === 'grid' || view === 'image-grid'"
   >
     <div
       v-masonry
@@ -9,7 +9,7 @@
       horizontal-order="true"
       column-width=".masonry-container .card"
       class="masonry-container"
-      data-qa="item previews grid"
+      data-qa="`item previews ${view}`"
     >
       <ItemPreviewCard
         v-for="item in items"
@@ -96,7 +96,7 @@
         let cardGroupClass;
 
         switch (this.view) {
-        case 'search-list':
+        case 'list':
           cardGroupClass = 'card-group-list mx-0';
           break;
         case 'plain':
@@ -118,13 +118,22 @@
       }
     },
 
+    watch: {
+      cardVariant: 'redrawMasonary'
+    },
+
     mounted() {
-      if (typeof this.$redrawVueMasonry === 'function' && this.view === 'grid') {
-        this.$redrawVueMasonry();
-      }
+      this.redrawMasonary();
     },
 
     methods: {
+      redrawMasonary() {
+        const masonaryViews = ['grid', 'image-grid'];
+        if (typeof this.$redrawVueMasonry === 'function' && masonaryViews.includes(this.view)) {
+          this.$redrawVueMasonry();
+        }
+      },
+
       itemHitSelector(item) {
         if (!this.hits) {
           return null;

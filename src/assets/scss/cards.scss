@@ -91,7 +91,7 @@
   @media (min-width: $bp-medium) {
     min-height: 20rem;
 
-    &.search-grid-card {
+    &.image-grid-card {
       min-height: 0;
     }
   }
@@ -387,7 +387,7 @@
     }
   }
 
-  &.search-list-card {
+  &.list-card {
     @media (min-width: $bp-medium) {
       min-height: 0;
 

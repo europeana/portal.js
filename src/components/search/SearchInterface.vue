@@ -108,7 +108,7 @@
             <ItemPreviewCardGroup
               :items="results"
               :hits="hits"
-              :view="`search-${view}`"
+              :view="view"
               :per-row="perRow"
               :show-pins="showPins"
             />

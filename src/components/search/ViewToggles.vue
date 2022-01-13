@@ -41,7 +41,7 @@
     },
     data() {
       return {
-        views: ['list', 'grid'],
+        views: ['list', 'grid', 'image-grid'],
         activeView: this.value
       };
     },
@@ -83,6 +83,10 @@
 
       &.grid::before {
         content: '\e92a';
+      }
+
+      &.image-grid::before {
+        content: '\e94a';
       }
     }
 
