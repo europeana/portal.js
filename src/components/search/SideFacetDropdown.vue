@@ -141,25 +141,31 @@
     },
 
     computed: {
-      sortedOptions() {
+      filteredFields() {
         let fields = [].concat(this.fields);
+
+        // Only show option 0 for contentTier toggle
         if (this.name === 'contentTier') {
           fields = fields.filter(field => field.label === '"0"');
         }
 
+        return fields;
+      },
+
+      sortedOptions() {
         if (this.isRadio) {
-          return fields;
+          return this.filteredFields;
         }
 
         const selected = [];
 
-        this.fields.map(field => {
+        this.filteredFields.map(field => {
           if (this.selected.includes(field.label)) {
             selected.push(field);
           }
         });
 
-        const leftOver = fields.filter(field => !this.selected.includes(field.label));
+        const leftOver = this.filteredFields.filter(field => !this.selected.includes(field.label));
 
         return selected.sort((a, b) => a.count + b.count).concat(leftOver);
       },
