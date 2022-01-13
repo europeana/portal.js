@@ -3,6 +3,24 @@
     <label
       class="facet-label"
     >{{ facetName }}</label>
+    <div
+      class="filter-badges"
+    >
+      <b-badge
+        v-for="(filter, index) in [].concat(selected)"
+        :key="index"
+        variant="secondary"
+        class="mr-2 mb-2 filter-badge"
+        data-qa="filter badge"
+      >
+        <FacetFieldLabel
+          :facet-name="name"
+          :field-value="filter"
+          :prefixed="false"
+          :truncate="40"
+        />
+      </b-badge>
+    </div>
     <b-dropdown
       :id="facetName"
       ref="dropdown"
@@ -14,38 +32,12 @@
       @hidden="hiddenDropdown"
     >
       <template #button-content>
-        <!-- TODO: is this needed? it has opacity 0... -->
-        <!-- <span
+        <span
           class="dropdown-toggle-text"
           :data-qa="`${name} dropdown button`"
         >
           {{ facetName }}
-        </span> -->
-
-        <!-- ensure down arrow symbol still appears on right in flexbox if no filter badges -->
-        <span
-          v-if="selected.length === 0"
-        />
-
-        <div
-          v-else
-          class="filter-badges"
-        >
-          <b-badge
-            v-for="(filter, index) in selected"
-            :key="index"
-            variant="secondary"
-            class="mr-2 mb-2 filter-badge"
-            data-qa="filter badge"
-          >
-            <FacetFieldLabel
-              :facet-name="name"
-              :field-value="filter"
-              :prefixed="false"
-              :truncate="40"
-            />
-          </b-badge>
-        </div>
+        </span>
       </template>
 
       <b-container v-if="$fetchState.pending">
