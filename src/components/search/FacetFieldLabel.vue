@@ -25,6 +25,11 @@
       prefixed: {
         type: Boolean,
         default: false
+      },
+
+      truncate: {
+        type: Number,
+        default: -1
       }
     },
 
@@ -41,7 +46,11 @@
       }),
 
       label() {
-        const fieldLabel = (this.facetName === this.MIME_TYPE) ? this.mediaTypeLabel : this.genericLabel;
+        let fieldLabel = (this.facetName === this.MIME_TYPE) ? this.mediaTypeLabel : this.genericLabel;
+
+        if (this.truncate > -1) {
+          fieldLabel = this.$options.filters.truncate(fieldLabel, this.truncate);
+        }
 
         if (!this.prefixed) {
           return fieldLabel;

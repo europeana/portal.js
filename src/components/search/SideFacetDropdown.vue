@@ -10,15 +10,40 @@
       class="facet-dropdown side-facet"
       :data-type="type"
       data-qa="search facet"
+      block
       @hidden="hiddenDropdown"
     >
       <template #button-content>
-        <span
+        <!-- TODO: is this needed? it has opacity 0... -->
+        <!-- <span
           class="dropdown-toggle-text"
           :data-qa="`${name} dropdown button`"
         >
           {{ facetName }}
-        </span>
+        </span> -->
+        <!-- ensure down arrow symbol still appears on right in flexbox if no filter badges -->
+        <span
+          v-if="selected.length === 0"
+        />
+        <div
+          v-else
+          style="display: flex; flex-wrap: wrap;"
+        >
+          <b-badge
+            v-for="(filter, index) in selected"
+            :key="index"
+            variant="secondary"
+            class="mr-2 mb-2 filter-badge"
+            data-qa="filter badge"
+          >
+            <FacetFieldLabel
+              :facet-name="name"
+              :field-value="filter"
+              :prefixed="false"
+              :truncate="40"
+            />
+          </b-badge>
+        </div>
       </template>
 
       <b-container v-if="$fetchState.pending">
