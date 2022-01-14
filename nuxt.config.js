@@ -13,7 +13,7 @@ import nuxtCorePkg from '@nuxt/core/package.json';
 import i18nLocales from './src/plugins/i18n/locales.js';
 import i18nDateTime from './src/plugins/i18n/datetime.js';
 import { parseQuery, stringifyQuery } from './src/plugins/vue-router.cjs';
-import features, { featureIsEnabled } from './src/features';
+import features, { featureIsEnabled } from './src/features/index.js';
 
 const buildPublicPath = () => {
   if (featureIsEnabled(process.env.ENABLE_JSDELIVR_BUILD_PUBLIC_PATH)) {
