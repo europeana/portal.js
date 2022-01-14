@@ -11,8 +11,8 @@ const storeIsPinnedGetter = sinon.stub();
 const item = {
   id: '/123/abc',
   dcTitleLangAware: { def: ['Record 123/abc'] },
-  dcCreatorLangAware: { def: ['Creator Name']},
-  dcDescriptionLangAware: { def: ['Item Description']},
+  dcCreatorLangAware: { def: ['Creator Name'] },
+  dcDescriptionLangAware: { def: ['Item Description'] },
   edmPreview: ['https://www.example.org/abc.jpg'],
   dataProvider: 'Provider 123'
 };

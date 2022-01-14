@@ -3,9 +3,9 @@
     v-if="view === 'grid' || view === 'image-grid'"
   >
     <div
-      v-masonry
       id="searchResultsGrid"
       :key="`searchResultsGrid${view}`"
+      v-masonry
       transition-duration="0.1"
       item-selector=".card"
       horizontal-order="true"
