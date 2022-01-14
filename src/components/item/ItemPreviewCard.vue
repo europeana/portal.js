@@ -20,8 +20,12 @@
         <RightsStatement
           v-if="rights"
           :rights-statement-url="rights"
+          replace-icon="icon-license"
         />
-        <span v-if="type">
+        <span
+          v-if="type"
+          class="d-inline-flex align-items-center"
+        >
           <span class="icon-file" />{{ type }}</span>
         <RecommendationButtons
           v-if="enableAcceptRecommendation || enableRejectRecommendation"

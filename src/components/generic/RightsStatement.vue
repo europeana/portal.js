@@ -1,11 +1,20 @@
 <template>
-  <span data-qa="rights statement">
+  <span
+    data-qa="rights statement"
+    class="d-inline-flex align-items-center"
+  >
     <span
-      v-for="icon in rightsNameAndIcon(rightsStatementUrl).iconClass"
-      :key="icon"
-      :class="icon"
-      class="license"
+      v-if="replaceIcon"
+      :class="replaceIcon"
     />
+    <template v-else>
+      <span
+        v-for="icon in rightsNameAndIcon(rightsStatementUrl).iconClass"
+        :key="icon"
+        :class="icon"
+        class="license"
+      />
+    </template>
     {{ rightsNameAndIcon(rightsStatementUrl).name }}
   </span>
 </template>
@@ -21,6 +30,10 @@
       rightsStatementUrl: {
         type: String,
         required: true
+      },
+      replaceIcon: {
+        type: String,
+        default: null
       }
     }
   };
