@@ -11,8 +11,15 @@
     :blank-image-height="280"
     :variant="variant"
     :lazy="lazy"
+    :sub-title="subTitle"
   >
     <template #buttons>
+      <RightsStatement
+        v-if="rights"
+        :rights-statement-url="rights"
+      />
+      <span v-if="type">
+        <span class="icon-file" />{{ type }}</span>
       <RecommendationButtons
         v-if="enableAcceptRecommendation || enableRejectRecommendation"
         :identifier="identifier"
@@ -32,6 +39,7 @@
 
 <script>
   import { genericThumbnail } from '@/plugins/europeana/thumbnail';
+  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
 
   import ContentCard from '../generic/ContentCard';
 
@@ -41,7 +49,8 @@
     components: {
       ContentCard,
       RecommendationButtons: () => import('../recommendation/RecommendationButtons'),
-      UserButtons: () => import('../account/UserButtons')
+      UserButtons: () => import('../account/UserButtons'),
+      RightsStatement: () => import('../generic/RightsStatement')
     },
 
     props: {
@@ -82,7 +91,7 @@
           return [];
         }
 
-        const texts = [].concat(this.item.dataProvider);
+        const texts = [];
         if (this.item.dcCreatorLangAware) {
           texts.unshift(this.item.dcCreatorLangAware);
         }
@@ -91,6 +100,8 @@
           if (!this.hitSelector && this.item.dcDescriptionLangAware) {
             texts.unshift(this.item.dcDescriptionLangAware);
           }
+        } else {
+          texts.push(this.item.dataProvider);
         }
 
         return texts;
@@ -118,7 +129,36 @@
         return this.item.edmPreview ?
           `${this.item.edmPreview[0]}&size=${size}` :
           genericThumbnail(this.item.id, { type: this.item.type, size });
+      },
+
+      subTitle() {
+        return this.variant === 'list' ? langMapValueForLocale(this.item.dataProvider, this.$i18n.locale).values[0] : null;
+      },
+
+      rights() {
+        return this.variant === 'list' ? this.item.rights[0] : null;
+      },
+
+      type() {
+        return this.variant === 'list' ? this.item.type : null;
       }
     }
   };
 </script>
+
+<docs lang="md">
+  Variant "list":
+  ```jsx
+  <ItemPreviewCard
+    variant="list"
+    :item="{ dataProvider: ['United Archives / WHA'],
+          dcCreatorLangAware: { en: ['United Archives / WHA'] },
+          dcDescriptionLangAware: { de: ['French, Coloured illustration, dated circa 1884, depicting a frilled-necked lizard (Chlamydosaurus kingii), also known as the frilled lizard, frilled dragon or frilled agama, is a species of lizard which is found mainly in northern Australia and southern N…'] },
+          dcTitleLangAware: { en: ['illustration, circa 1884,depicting a frilled-necked lizard'] },
+          edmPreview: ['https://api.europeana.eu/thumbnail/v2/url.json?uri=http%3A%2F%2Funitedarchives.noip.me%2FPagodeEU%2FWHA_112_0849_PagEU_EN.jpg&type=IMAGE'],
+          id: '/2024909/photography_ProvidedCHO_United_Archives___WHA_02404781',
+          type: 'IMAGE',
+          rights: ['http://creativecommons.org/licenses/by-sa/3.0/'] }"
+  />
+  ```
+</docs>
