@@ -50,4 +50,43 @@ describe('components/item/ItemPreviewCard', () => {
       expect(wrapper.vm.texts).toEqual([item.dcCreatorLangAware, item.dataProvider]);
     });
   });
+
+  describe('similar items card', () => {
+    it('renders a similar items content card without any recommendation buttons', async() => {
+      const wrapper = factory({ item, variant: 'similar' });
+
+      expect(wrapper.vm.texts).toEqual([]);
+    });
+  });
+
+  describe('image-grid card', () => {
+    it('renders a image-grid content card without any recommendation buttons', async() => {
+      const wrapper = factory({ item, variant: 'image-grid' });
+
+      expect(wrapper.vm.texts).toEqual([]);
+    });
+  });
+
+  describe('explore card', () => {
+    it('renders an explore content card without any recommendation buttons', async() => {
+      const wrapper = factory({ item, variant: 'explore' });
+
+      expect(wrapper.vm.texts).toEqual([]);
+    });
+  });
+
+  describe('list card', () => {
+    it('renders a list style content card hit-selector text', async() => {
+      const hitSelector = {
+        exact: 'hit',
+        field: 'rdf:value',
+        prefix: 'Prefix text ',
+        suffix: 'suffix text.'
+      };
+      const wrapper = factory({ item, variant: 'list', hitSelector });
+
+      expect(wrapper.vm.texts).toEqual([item.dcCreatorLangAware, item.dataProvider]);
+      expect(wrapper.vm.hitsText).toEqual(hitSelector);
+    });
+  });
 });
