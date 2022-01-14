@@ -88,7 +88,7 @@
           </b-card-text>
         </template>
         <client-only v-if="variant === 'list'">
-          <!-- @slot Buttons rendered over the card, client-side only -->
+          <!-- @slot Buttons rendered at the bottom of the card, client-side only -->
           <slot name="buttons" />
         </client-only>
       </b-card-body>
