@@ -109,6 +109,20 @@
   border: 0;
 }
 
+.btn-light-flat {
+  background: $white;
+  border: 0;
+  color: $black;
+  text-decoration: none;
+  transition: $standard-transition;
+
+  &:hover {
+    box-shadow: none;
+    transition: $standard-transition;
+    color: $innovationblue;
+  }
+}
+
 .btn-overlay {
   background-color: rgb(0 0 0 / 70%);
   border: 0;

@@ -394,6 +394,9 @@
       [class*=' icon-'] {
         margin-right: 0.3rem;
       }
+      .btn-light-flat {
+        color: $mediumgrey;
+      }
     }
     
     @media (min-width: $bp-medium) {
@@ -435,7 +438,8 @@
     }
   }
 
-  .user-buttons {
+  &:not(.list-card) .user-buttons {
+    justify-content: flex-end;
     visibility: hidden;
     display: flex;
     flex-wrap: wrap;
@@ -481,7 +485,7 @@
       &:first-of-type {
         margin-right: 0.5rem;
 
-        &.icon-push-pin {
+        &.pin {
           margin-left: 2rem;
 
           &.active {

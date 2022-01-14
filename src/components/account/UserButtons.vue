@@ -5,26 +5,36 @@
   >
     <b-button
       v-show="showPins"
+      class="pin"
+      :variant="buttonVariant"
       :pressed="pinned"
-      class="icon-push-pin"
       data-qa="pin button"
       :aria-label="$t('entity.actions.pin')"
       @click="togglePinned"
-    />
+    >
+      <span class="icon-push-pin" />
+      {{ buttonVariant && $t('entity.actions.pin') }}
+    </b-button>
     <b-button
-      class="icon-ic-add"
       data-qa="add button"
+      :variant="buttonVariant"
       :aria-label="$t('set.actions.addTo')"
       @click="addToSet"
-    />
+    >
+      <span class="icon-ic-add" />
+      {{ buttonVariant && $t('set.actions.save') }}
+    </b-button>
     <b-button
       :pressed="liked"
-      class="icon-heart"
+      :variant="buttonVariant"
       data-qa="like button"
       :aria-label="$t('actions.like')"
       size="sm"
       @click="toggleLiked"
-    />
+    >
+      <span class="icon-heart" />
+      {{ buttonVariant && $t('actions.like') }}
+    </b-button>
     <template
       v-if="$auth.loggedIn"
     >
@@ -107,6 +117,10 @@
       showPins: {
         type: Boolean,
         default: false
+      },
+      buttonVariant: {
+        type: String,
+        default: null
       }
     },
 

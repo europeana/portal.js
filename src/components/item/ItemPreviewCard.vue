@@ -15,7 +15,8 @@
   >
     <template #buttons>
       <div
-        :class="{ 'data-and-buttons-wrapper d-flex': variant === 'list' }"
+        v-if="variant === 'list'"
+        class="data-and-buttons-wrapper d-flex"
       >
         <RightsStatement
           v-if="rights"
@@ -27,6 +28,15 @@
           class="d-inline-flex align-items-center"
         >
           <span class="icon-file" />{{ type }}</span>
+        <UserButtons
+          :identifier="identifier"
+          :show-pins="showPins"
+          button-variant="light-flat"
+          @like="$emit('like', identifier)"
+          @unlike="$emit('unlike', identifier)"
+        />
+      </div>
+      <template v-else>
         <RecommendationButtons
           v-if="enableAcceptRecommendation || enableRejectRecommendation"
           :identifier="identifier"
@@ -40,7 +50,7 @@
           @like="$emit('like', identifier)"
           @unlike="$emit('unlike', identifier)"
         />
-      </div>
+      </template>
     </template>
   </ContentCard>
 </template>
