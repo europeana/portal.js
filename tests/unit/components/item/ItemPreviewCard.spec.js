@@ -44,7 +44,7 @@ const factory = (propsData) => {
 
 describe('components/item/ItemPreviewCard', () => {
   describe('default card', () => {
-    it('renders a default content card without any recommendation buttons', async() => {
+    it('renders a default content card without any recommendation buttons', () => {
       const wrapper = factory({ item });
 
       expect(wrapper.vm.texts).toEqual([item.dcCreatorLangAware, item.dataProvider]);
@@ -52,7 +52,7 @@ describe('components/item/ItemPreviewCard', () => {
   });
 
   describe('similar items card', () => {
-    it('renders a similar items content card without any recommendation buttons', async() => {
+    it('renders a similar items content card without any recommendation buttons', () => {
       const wrapper = factory({ item, variant: 'similar' });
 
       expect(wrapper.vm.texts).toEqual([]);
@@ -60,7 +60,7 @@ describe('components/item/ItemPreviewCard', () => {
   });
 
   describe('image-grid card', () => {
-    it('renders a image-grid content card without any recommendation buttons', async() => {
+    it('renders a image-grid content card without any recommendation buttons', () => {
       const wrapper = factory({ item, variant: 'image-grid' });
 
       expect(wrapper.vm.texts).toEqual([]);
@@ -68,7 +68,7 @@ describe('components/item/ItemPreviewCard', () => {
   });
 
   describe('explore card', () => {
-    it('renders an explore content card without any recommendation buttons', async() => {
+    it('renders an explore content card without any recommendation buttons', () => {
       const wrapper = factory({ item, variant: 'explore' });
 
       expect(wrapper.vm.texts).toEqual([]);
@@ -76,7 +76,7 @@ describe('components/item/ItemPreviewCard', () => {
   });
 
   describe('list card', () => {
-    it('renders a list style content card hit-selector text', async() => {
+    it('renders a list style content card hit-selector text', () => {
       const hitSelector = {
         exact: 'hit',
         field: 'rdf:value',
