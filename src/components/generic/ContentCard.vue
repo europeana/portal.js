@@ -87,9 +87,13 @@
             <!-- eslint-enable vue/no-v-html -->
           </b-card-text>
         </template>
+        <client-only v-if="variant === 'list'">
+          <!-- @slot Buttons rendered over the card, client-side only -->
+          <slot name="buttons" />
+        </client-only>
       </b-card-body>
     </SmartLink>
-    <client-only>
+    <client-only v-if="variant !== 'list'">
       <!-- @slot Buttons rendered over the card, client-side only -->
       <slot name="buttons" />
     </client-only>

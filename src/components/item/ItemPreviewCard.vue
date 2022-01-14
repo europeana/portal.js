@@ -14,25 +14,29 @@
     :sub-title="subTitle"
   >
     <template #buttons>
-      <RightsStatement
-        v-if="rights"
-        :rights-statement-url="rights"
-      />
-      <span v-if="type">
-        <span class="icon-file" />{{ type }}</span>
-      <RecommendationButtons
-        v-if="enableAcceptRecommendation || enableRejectRecommendation"
-        :identifier="identifier"
-        :enable-accept-button="enableAcceptRecommendation"
-        :enable-reject-button="enableRejectRecommendation"
-      />
-      <UserButtons
-        v-else
-        :identifier="identifier"
-        :show-pins="showPins"
-        @like="$emit('like', identifier)"
-        @unlike="$emit('unlike', identifier)"
-      />
+      <div
+        :class="{ 'data-and-buttons-wrapper d-flex': variant === 'list' }"
+      >
+        <RightsStatement
+          v-if="rights"
+          :rights-statement-url="rights"
+        />
+        <span v-if="type">
+          <span class="icon-file" />{{ type }}</span>
+        <RecommendationButtons
+          v-if="enableAcceptRecommendation || enableRejectRecommendation"
+          :identifier="identifier"
+          :enable-accept-button="enableAcceptRecommendation"
+          :enable-reject-button="enableRejectRecommendation"
+        />
+        <UserButtons
+          v-else
+          :identifier="identifier"
+          :show-pins="showPins"
+          @like="$emit('like', identifier)"
+          @unlike="$emit('unlike', identifier)"
+        />
+      </div>
     </template>
   </ContentCard>
 </template>
