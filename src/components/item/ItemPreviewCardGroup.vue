@@ -4,12 +4,14 @@
   >
     <div
       v-masonry
+      id="searchResultsGrid"
+      :key="`searchResultsGrid${view}`"
       transition-duration="0.1"
       item-selector=".card"
       horizontal-order="true"
       column-width=".masonry-container .card"
       class="masonry-container"
-      data-qa="`item previews ${view}`"
+      :data-qa="`item previews ${view}`"
     >
       <ItemPreviewCard
         v-for="item in items"
@@ -118,22 +120,15 @@
       }
     },
 
-    watch: {
-      cardVariant: 'redrawMasonary'
-    },
-
     mounted() {
-      this.redrawMasonary();
+      const masonaryViews = ['grid', 'image-grid'];
+      if (typeof this.$redrawVueMasonry === 'function' && masonaryViews.includes(this.view)) {
+        console.log('calling redraw');
+        this.$redrawVueMasonry('searchResultsGrid');
+      }
     },
 
     methods: {
-      redrawMasonary() {
-        const masonaryViews = ['grid', 'image-grid'];
-        if (typeof this.$redrawVueMasonry === 'function' && masonaryViews.includes(this.view)) {
-          this.$redrawVueMasonry();
-        }
-      },
-
       itemHitSelector(item) {
         if (!this.hits) {
           return null;

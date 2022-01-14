@@ -793,6 +793,7 @@ export default {
   },
   "searchViews": {
     "grid": "Grid view",
+    "image-grid": "Image grid view",
     "list": "List view"
   },
   "set": {
