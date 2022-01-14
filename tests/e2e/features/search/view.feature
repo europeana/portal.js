@@ -31,6 +31,7 @@ Feature: View styles (List and Grid)
     And I click the `show search button`
     And I press the ENTER key
     And I click the `search image-grid view toggle`
+    And I wait for the `item previews image-grid`
     Then I see a `item previews image-grid`
     And I am on an accessible page
 
@@ -52,6 +53,7 @@ Feature: View styles (List and Grid)
     And I click the `show search button`
     And I press the ENTER key
     And I click the `search image-grid view toggle`
+    And I wait for the `item previews image-grid`
     And I go to page number 2
     Then I see a `item previews image-grid`
 
