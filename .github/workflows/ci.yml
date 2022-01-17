@@ -283,7 +283,7 @@ jobs:
         run: |
           echo "APP_IMAGE_VERSION=${{ steps.meta.outputs.version }}" >> $GITHUB_ENV
           echo "PERCY_COMMIT=${GITHUB_SHA}" >> $GITHUB_ENV
-          echo "PERCY_BRANCH=${GITHUB_REF_NAME}" >> $GITHUB_ENV
+          echo "PERCY_BRANCH=$(echo ${GITHUB_REF} | sed 's|refs/heads/||')" >> $GITHUB_ENV
       -
         name: Prepare env for visual tests (PRs only)
         if: github.event_name == 'pull_request'
