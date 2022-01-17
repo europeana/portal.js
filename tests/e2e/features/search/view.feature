@@ -7,29 +7,21 @@ Feature: View styles (List and Grid)
 
   Scenario: Defaulting to grid view
     When I visit the `search page`
-    And I click the `show search button`
-    And I press the ENTER key
     Then I see a `item previews grid`
 
   Scenario: Defaulting to grid view after paginating
     When I visit the `search page`
-    And I click the `show search button`
-    And I press the ENTER key
     And I go to page number 2
     Then I see a `item previews grid`
 
   Scenario: Switching to the list view
     When I visit the `search page`
-    And I click the `show search button`
-    And I press the ENTER key
     And I click the `search list view toggle`
     Then I see a `item previews list`
     And I am on an accessible page
 
   Scenario: Switching to the image-grid view
-    When I visit the `search page`
-    And I click the `show search button`
-    And I press the ENTER key
+    When I open `/search?view=grid`
     And I click the `search image-grid view toggle`
     And I wait for the `item previews image-grid`
     Then I see a `item previews image-grid`
@@ -42,16 +34,12 @@ Feature: View styles (List and Grid)
 
   Scenario: Switching to the list view and paginating
     When I visit the `search page`
-    And I click the `show search button`
-    And I press the ENTER key
     And I click the `search list view toggle`
     And I go to page number 2
     Then I see a `item previews list`
 
   Scenario: Switching to the image-grid view and paginating
-    When I visit the `search page`
-    And I click the `show search button`
-    And I press the ENTER key
+    When I open `/search?view=grid`
     And I click the `search image-grid view toggle`
     And I wait for the `item previews image-grid`
     And I go to page number 2
@@ -72,6 +60,14 @@ Feature: View styles (List and Grid)
     And I enter "paris" in the `search box`
     And I press the ENTER key
     Then I see a `item previews grid`
+
+  Scenario: The view parameter is preserved and present in the URL for the  image-rid view
+    Given I have chosen the `image-grid` search results view
+    When I visit the `home page`
+    And I click the `show search button`
+    And I enter "paris" in the `search box`
+    And I press the ENTER key
+    Then I see a `item previews image-grid`
 
   Scenario: Back button restores previous view
     Given I am on `/search?view=grid`
