@@ -241,9 +241,13 @@
         editable: state => state.entity.editable
       }),
       searchOverrides() {
+        if (!this.entity) {
+          return;
+        }
+
         const overrideParams = {
           qf: [],
-          rows: this.$store.state.entity.recordsPerPage
+          rows: this.recordsPerPage
         };
 
         const curatedEntity = this.$store.getters['entity/curatedEntity'](this.entity.id);
