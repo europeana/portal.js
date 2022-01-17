@@ -143,11 +143,6 @@ Example:
       <td><code>icon-twitter</code></td>
       <td><span class="icon icon-twitter" /></td>
     </tr>
-    <tr>
-      <td>Verified</td>
-      <td><code>icon-verified</code></td>
-      <td><span class="icon icon-verified" /></td>
-    </tr>
     <!-- Template for additional icons:
     <tr>
       <td></td>
