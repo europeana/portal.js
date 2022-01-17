@@ -1,13 +1,16 @@
-<docs lang="md">
+### Button
+
 Customised BootstrapVue Button component.
+
 Docs: https://bootstrap-vue.org/docs/components/button
 
-Variant default
+Variant default:
 ```jsx
   <b-button>label</b-button>
   <b-button disabled>label</b-button>
 ```
-Variant "outline-primary" with icon
+
+Variant "outline-primary" with icon:
 ```jsx
   <b-button
     variant="outline-primary"
@@ -25,7 +28,8 @@ Variant "outline-primary" with icon
     label
   </b-button>
 ```
-Variant "outline-primary"
+
+Variant "outline-primary":
 ```jsx
   <b-button
     variant="outline-primary"
@@ -39,7 +43,8 @@ Variant "outline-primary"
     Label
   </b-button>
 ```
-Variant "primary"
+
+Variant "primary":
 ```jsx
   <b-button
     variant="primary"
@@ -53,7 +58,8 @@ Variant "primary"
     label
   </b-button>
 ```
-Variant "success"
+
+Variant "success":
 ```jsx
   <b-button
     variant="success"
@@ -67,7 +73,8 @@ Variant "success"
     label
   </b-button>
 ```
-Variant "danger"
+
+Variant "danger":
 ```jsx
   <b-button
     variant="danger"
@@ -81,7 +88,8 @@ Variant "danger"
     label
   </b-button>
 ```
-Variant "link"
+
+Variant "link":
 ```jsx
   <b-button
     variant="link"
@@ -95,7 +103,8 @@ Variant "link"
     label
   </b-button>
 ```
-Variant "light"
+
+Variant "light":
 ```jsx
   <b-button
     variant="light"
@@ -109,7 +118,8 @@ Variant "light"
     label
   </b-button>
 ```
-Variant "overlay"
+
+Variant "overlay":
 ```jsx
   <b-button
     variant="overlay"
@@ -117,7 +127,8 @@ Variant "overlay"
     label
   </b-button>
 ```
-Variant "transparent"
+
+Variant "transparent":
 ```jsx
   <b-button
     variant="transparent"
@@ -125,4 +136,3 @@ Variant "transparent"
     label
   </b-button>
 ```
-</docs>
