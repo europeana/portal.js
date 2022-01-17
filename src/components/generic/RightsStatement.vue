@@ -2,12 +2,9 @@
   <span
     data-qa="rights statement"
     class="d-inline-flex align-items-center"
+    :class="{ 'text-uppercase': variant === 'simple' }"
   >
-    <span
-      v-if="replaceIcon"
-      :class="replaceIcon"
-    />
-    <template v-else>
+    <template v-if="variant === 'icons'">
       <span
         v-for="icon in rightsNameAndIcon(rightsStatementUrl).iconClass"
         :key="icon"
@@ -15,6 +12,10 @@
         class="license"
       />
     </template>
+    <span
+      v-else
+      class="icon-license"
+    />
     {{ rightsNameAndIcon(rightsStatementUrl).name }}
   </span>
 </template>
@@ -31,9 +32,9 @@
         type: String,
         required: true
       },
-      replaceIcon: {
+      variant: {
         type: String,
-        default: null
+        default: 'icons' // other variants: 'simple'
       }
     }
   };

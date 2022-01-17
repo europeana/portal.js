@@ -148,6 +148,7 @@ export default {
   "entity": {
     "actions": {
       "cancel": "Cancel",
+      "pin0": "Pin",
       "pin": "Pin item",
       "unpin": "Unpin item",
       "viewPinned": "See pinned items"

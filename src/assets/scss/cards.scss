@@ -396,6 +396,19 @@
       }
       .btn-light-flat {
         color: $mediumgrey;
+        padding: 0;
+        margin-right: 1rem;
+        &:hover {
+          color: $innovationblue;
+        }
+        &.active {
+          &.like-button {
+            color: $red;
+          }
+          &.pin-button {
+            color: $darkgreen;
+          }
+        }
       }
     }
     
@@ -466,26 +479,10 @@
         box-shadow: $boxshadow-small;
       }
 
-      &.active {
-        color: $white;
-        background-color: $red;
-        border-color: $red;
-      }
-
-      &.recommendation-button {
-        &:first-of-type {
-          margin-left: auto;
-        }
-
-        &:hover {
-          color: $innovationblue;
-        }
-      }
-
       &:first-of-type {
         margin-right: 0.5rem;
 
-        &.pin {
+        &.pin-button {
           margin-left: 2rem;
 
           &.active {
@@ -505,8 +502,25 @@
         }
       }
 
-      &-sm {
-        font-size: $font-size-medium;
+      &.like-button {
+        &.active {
+          color: $white;
+          background-color: $red;
+          border-color: $red;
+        }
+        .icon-heart {
+          font-size: $font-size-medium;
+        }
+      }
+
+      &.recommendation-button {
+        &:first-of-type {
+          margin-left: auto;
+        }
+
+        &:hover {
+          color: $innovationblue;
+        }
       }
     }
   }

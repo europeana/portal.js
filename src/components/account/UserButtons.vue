@@ -5,7 +5,7 @@
   >
     <b-button
       v-show="showPins"
-      class="pin"
+      class="pin-button text-uppercase"
       :variant="buttonVariant"
       :pressed="pinned"
       data-qa="pin button"
@@ -13,10 +13,11 @@
       @click="togglePinned"
     >
       <span class="icon-push-pin" />
-      {{ buttonVariant && $t('entity.actions.pin') }}
+      {{ buttonVariant && $t('entity.actions.pin0') }}
     </b-button>
     <b-button
       data-qa="add button"
+      class="add-button text-uppercase"
       :variant="buttonVariant"
       :aria-label="$t('set.actions.addTo')"
       @click="addToSet"
@@ -25,11 +26,11 @@
       {{ buttonVariant && $t('set.actions.save') }}
     </b-button>
     <b-button
+      class="like-button text-uppercase"
       :pressed="liked"
       :variant="buttonVariant"
       data-qa="like button"
       :aria-label="$t('actions.like')"
-      size="sm"
       @click="toggleLiked"
     >
       <span class="icon-heart" />

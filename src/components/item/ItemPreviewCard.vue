@@ -16,16 +16,16 @@
     <template #buttons>
       <div
         v-if="variant === 'list'"
-        class="data-and-buttons-wrapper d-flex"
+        class="data-and-buttons-wrapper d-flex flex-wrap"
       >
         <RightsStatement
           v-if="rights"
           :rights-statement-url="rights"
-          replace-icon="icon-license"
+          variant="simple"
         />
         <span
           v-if="type"
-          class="d-inline-flex align-items-center"
+          class="d-inline-flex align-items-center text-uppercase"
         >
           <span class="icon-file" />{{ type }}</span>
         <UserButtons
