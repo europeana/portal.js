@@ -155,10 +155,10 @@ describe('components/item/ItemPreviewCardGroup', () => {
       it('picks the hit with the same ID as the item', async() => {
         const wrapper = factory();
 
-        await wrapper.setProps({ items: results, view: 'list', hits: [ { scope: '/123/abc', selectors: ['example selector'] }] });
+        await wrapper.setProps({ items: results, view: 'list', hits: [{ scope: '/123/abc', selectors: ['example selector'] }] });
 
         expect(wrapper.vm.itemHitSelector(results[0])).toMatch('example selector');
       });
-    })
+    });
   });
 });
