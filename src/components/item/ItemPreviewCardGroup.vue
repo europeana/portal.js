@@ -123,7 +123,6 @@
     mounted() {
       const masonaryViews = ['grid', 'image-grid'];
       if (typeof this.$redrawVueMasonry === 'function' && masonaryViews.includes(this.view)) {
-        console.log('calling redraw');
         this.$redrawVueMasonry('searchResultsGrid');
       }
     },
