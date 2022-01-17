@@ -35,6 +35,10 @@ module.exports = async() => {
       {
         name: 'Generic',
         components: './src/components/generic/[A-Z]*.vue'
+      },
+      {
+        name: 'Header and footer',
+        components: './src/components/[A-Z]*.vue'
       }
     ],
     components: './src/components/**/[A-Z]*.vue',

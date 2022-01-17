@@ -15,6 +15,14 @@ Vue.prototype.$path = function() {
   return '/';
 }
 
+/*const store = new Vuex.Store({
+  getters: {
+    'debug/settings': state => {
+      return {}
+    }
+  }
+})*/
+
 import messages from '@/lang/en';
 import '@/plugins/vue-filters';
 
@@ -24,6 +32,8 @@ const i18n = new VueI18n({
     en: messages
   }
 });
+
+console.log('i18n', i18n);
 
 export default previewComponent => {
   // https://vuejs.org/v2/guide/render-function.html
