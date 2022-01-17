@@ -318,15 +318,8 @@ export default {
       commit('set', ['apiOptions', apiOptions]);
 
       if (getters.collection || rootGetters['entity/id']) {
-        await dispatch('applyAnyCollectionSettings');
         await dispatch('applyCollectionSpecificSettings');
       }
-    },
-
-    applyAnyCollectionSettings({ commit, state }) {
-      const facet = state.apiParams.facet.split(',');
-      facet.splice(facet.indexOf('contentTier'), 1);
-      commit('set', ['apiParams', { ...state.apiParams, ...{ facet: facet.join(',') } }]);
     },
 
     applyCollectionSpecificSettings({ commit, getters, rootGetters, rootState, state }) {

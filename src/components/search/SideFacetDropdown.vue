@@ -163,9 +163,15 @@
       filteredFields() {
         let fields = [].concat(this.fields);
 
-        // Only show option 0 for contentTier toggle
         if (this.name === 'contentTier') {
-          fields = fields.filter(field => field.label === '"0"');
+          // Limit options shown for contentTier toggle
+          if (this.$store.getters['search/collection']) { // || this.$store.getters['entity/id']
+            // Searching within a collection, only show options 2 to 4
+            fields = fields.filter(field => ['"2"', '"3"', '"4"'].includes(field.label));
+          } else {
+            // Elsewhere, only show option 0
+            fields = fields.filter(field => field.label === '"0"');
+          }
         }
 
         return fields;

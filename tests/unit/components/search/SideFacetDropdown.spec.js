@@ -41,7 +41,10 @@ const factory = () => shallowMountNuxt(SideFacetDropdown, {
     $t: (key) => key,
     $tFacetName: (key) => key,
     $store: {
-      dispatch: storeDispatchStub
+      dispatch: storeDispatchStub,
+      getters: {
+        'search/collection': false
+      }
     }
   },
   stubs: ['b-button', 'b-form-checkbox', 'b-dropdown', 'b-dropdown-form'],
