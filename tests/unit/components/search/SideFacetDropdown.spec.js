@@ -141,24 +141,41 @@ describe('components/search/SideFacetDropdown', () => {
     ]);
   });
 
-  it('filters contentTier options to field "0"', async() => {
-    const wrapper = factory();
-    await wrapper.setProps({
-      name: 'contentTier'
-    });
-    await wrapper.setData({
-      fields: [
-        { label: '"0"', count: 9686142 },
-        { label: '"1"', count: 15763224 },
-        { label: '"2"', count: 10558597 },
-        { label: '"3"', count: 6293190 },
-        { label: '"4"', count: 18778040 }
-      ]
+  describe('contentTier filter', () => {
+    const fields = [
+      { label: '"0"', count: 9686142 },
+      { label: '"1"', count: 15763224 },
+      { label: '"2"', count: 10558597 },
+      { label: '"3"', count: 6293190 },
+      { label: '"4"', count: 18778040 }
+    ];
+
+    it('limits contentTier options to fields "2", "3" and "4" in a thematic collection', async() => {
+      const wrapper = factory();
+      wrapper.vm.$store.getters['search/collection'] = true;
+      await wrapper.setProps({
+        name: 'contentTier'
+      });
+      await wrapper.setData({ fields });
+
+      const contentTierCheckboxes = wrapper.findAll('b-form-checkbox-stub');
+      expect(contentTierCheckboxes.length).toBe(3);
+      expect(contentTierCheckboxes.at(0).attributes('data-qa')).toBe('"2" contentTier checkbox');
+      expect(contentTierCheckboxes.at(1).attributes('data-qa')).toBe('"3" contentTier checkbox');
+      expect(contentTierCheckboxes.at(2).attributes('data-qa')).toBe('"4" contentTier checkbox');
     });
 
-    const contentTierCheckboxes = wrapper.findAll('b-form-checkbox-stub');
-    expect(contentTierCheckboxes.length).toBe(1);
-    expect(contentTierCheckboxes.at(0).attributes('data-qa')).toBe('"0" contentTier checkbox');
+    it('elsewhere limits contentTier options to field "0"', async() => {
+      const wrapper = factory();
+      await wrapper.setProps({
+        name: 'contentTier'
+      });
+      await wrapper.setData({ fields });
+
+      const contentTierCheckboxes = wrapper.findAll('b-form-checkbox-stub');
+      expect(contentTierCheckboxes.length).toBe(1);
+      expect(contentTierCheckboxes.at(0).attributes('data-qa')).toBe('"0" contentTier checkbox');
+    });
   });
 
   describe('methods', () => {
