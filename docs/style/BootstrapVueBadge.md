@@ -1,12 +1,13 @@
-<docs lang="md">
 Customised BootstrapVue badge component. AKA 'pill', 'chip' or 'tag'
+
 Docs: https://bootstrap-vue.org/docs/components/badge
 
-Variant default
+Variant default:
 ```jsx
   <b-badge>label</b-badge>
 ```
-Variant "secondary"
+
+Variant "secondary":
 ```jsx
   <b-badge
     variant="secondary"
@@ -14,7 +15,8 @@ Variant "secondary"
   label
   </b-badge>
 ```
-Variant "outline-light"
+
+Variant "outline-light":
 ```jsx
   <b-badge
     variant="outline-light"
@@ -22,7 +24,8 @@ Variant "outline-light"
   label
   </b-badge>
 ```
-Variant "pill"
+
+Variant "pill":
 ```jsx
   <b-badge
     variant="pill"
@@ -30,4 +33,3 @@ Variant "pill"
   label
   </b-badge>
 ```
-</docs>

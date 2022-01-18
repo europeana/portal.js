@@ -243,20 +243,22 @@
       searchOverrides() {
         const overrideParams = {
           qf: [],
-          rows: this.$store.state.entity.recordsPerPage
+          rows: this.recordsPerPage
         };
 
-        const curatedEntity = this.$store.getters['entity/curatedEntity'](this.entity.id);
-        if (curatedEntity && curatedEntity.genre) {
-          overrideParams.qf.push(`collection:${curatedEntity.genre}`);
-        } else {
-          const entityQuery = getEntityQuery(this.entity.id);
-          overrideParams.qf.push(entityQuery);
+        if (this.entity) {
+          const curatedEntity = this.$store.getters['entity/curatedEntity'](this.entity.id);
+          if (curatedEntity && curatedEntity.genre) {
+            overrideParams.qf.push(`collection:${curatedEntity.genre}`);
+          } else {
+            const entityQuery = getEntityQuery(this.entity.id);
+            overrideParams.qf.push(entityQuery);
 
-          if (!this.$route.query.query) {
-            const englishPrefLabel = this.$store.getters['entity/englishPrefLabel'];
-            if (englishPrefLabel) {
-              overrideParams.query = englishPrefLabel;
+            if (!this.$route.query.query) {
+              const englishPrefLabel = this.$store.getters['entity/englishPrefLabel'];
+              if (englishPrefLabel) {
+                overrideParams.query = englishPrefLabel;
+              }
             }
           }
         }

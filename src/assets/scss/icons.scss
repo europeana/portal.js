@@ -20,45 +20,65 @@
   @extend %icon-font;
 }
 
-.icon-external-link::before {
-  content: '\e900';
+.icon-accept::before {
+  content: '\e938';
 }
 
-.icon-facebook::before {
-  content: '\e901';
+.icon-arrow-down::before {
+  content: '\e93b';
 }
 
-.icon-twitter::before {
-  content: '\e902';
+.icon-cancel-circle::before {
+  content: '\e934';
 }
 
 .icon-caret-down::before {
   content: '\e903';
 }
 
-.icon-close::before {
-  content: '\e904';
+.icon-check-circle::before {
+  content: '\e92f';
 }
 
 .icon-clear::before {
   content: '\e931';
 }
 
-.icon-pinterest::before {
-  content: '\e908';
+.icon-close::before {
+  content: '\e904';
 }
 
-.icon-instagram::before {
-  content: '\e909';
+.icon-external-link::before {
+  content: '\e900';
+}
+
+.icon-linkedin::before {
+  content: '\eaca';
+}
+
+.icon-facebook::before {
+  content: '\e901';
+}
+
+.icon-globe::before {
+  content: '\e937';
+}
+
+.icon-heart::before {
+  content: '\e9da';
+  width: 2rem;
 }
 
 .icon-ic-add::before {
   content: '\e923';
 }
 
-.icon-heart::before {
-  content: '\e9da';
-  width: 2rem;
+.icon-ic-feedback::before {
+  content: '\e933';
+}
+
+.icon-ic-tag::before {
+  content: '\e930';
 }
 
 .icon-info::before {
@@ -69,56 +89,32 @@
   content: '\e93a';
 }
 
-.icon-cancel-circle::before {
-  content: '\e934';
+.icon-instagram::before {
+  content: '\e909';
 }
 
-.icon-share::before {
-  content: '\e925';
+.icon-language::before {
+  content: '\e905';
 }
 
-.icon-check-circle::before {
-  content: '\e92f';
-}
-
-.icon-ic-tag::before {
-  content: '\e930';
-}
-
-.icon-accept::before {
-  content: '\e938';
-}
-
-.icon-reject::before {
-  content: '\e939';
-}
-
-.icon-ic-feedback::before {
-  content: '\e933';
+.icon-pinterest::before {
+  content: '\e908';
 }
 
 .icon-push-pin::before {
   content: '\e936';
 }
 
-.icon-globe::before {
-  content: '\e937';
+.icon-reject::before {
+  content: '\e939';
 }
 
-.icon-arrow-down::before {
-  content: '\e93b';
-}
-
-.icon-verified::before {
-  content: '\e93c';
+.icon-share::before {
+  content: '\e925';
 }
 
 .icon-temporary-tag::before {
   content: '\e93d';
-}
-
-.icon-language::before {
-  content: '\e905';
 }
 
 .icon-translate::before {
@@ -131,4 +127,8 @@
 
 .icon-file::before {
   content: '\e94d';
+}
+
+.icon-twitter::before {
+  content: '\e902';
 }

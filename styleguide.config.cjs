@@ -29,23 +29,48 @@ module.exports = async() => {
     title: 'Europeana Style Guide',
     sections: [
       {
-        name: 'Bootstrap Vue',
-        components: './src/components/bootstrap-vue/[A-Z]*.vue'
+        name: 'Style',
+        sections: [
+          {
+            name: 'Font icons',
+            content: './docs/style/FontIcons.md'
+          },
+          {
+            name: 'Bootstrap Vue',
+            sections: [
+              {
+                name: 'Badge',
+                content: './docs/style/BootstrapVueBadge.md'
+              },
+              {
+                name: 'Button',
+                content: './docs/style/BootstrapVueButton.md'
+              }
+            ]
+          }
+        ]
       },
       {
-        name: 'Generic',
-        components: './src/components/generic/[A-Z]*.vue'
-      },
-      {
-        name: 'Item',
-        components: './src/components/item/[A-Z]*.vue'
+        name: 'Components',
+        sections: [
+          {
+            name: 'Generic',
+            components: './src/components/generic/[A-Z]*.vue'
+          },
+          {
+            name: 'Item',
+            components: './src/components/item/[A-Z]*.vue'
+          }
+        ]
       }
     ],
-    components: './src/components/**/[A-Z]*.vue',
     assetsDir: './src/assets',
     skipComponentsWithoutExample: true,
-    require: [resolve(__dirname, './src/assets/scss/style.scss')],
-    renderRootJsx: resolve(__dirname, 'styleguide/styleguide.root.js'),
+    require: [
+      resolve(__dirname, './src/assets/scss/style.scss'),
+      resolve(__dirname, './styleguide/style.scss')
+    ],
+    renderRootJsx: resolve(__dirname, './styleguide/styleguide.root.js'),
     template: {
       head: {
         links: [
@@ -58,6 +83,7 @@ module.exports = async() => {
     },
     webpackConfig,
     usageMode: 'expand',
-    styleguideDir: 'dist'
+    styleguideDir: 'dist',
+    pagePerSection: true
   };
 };
