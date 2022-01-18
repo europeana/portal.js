@@ -391,31 +391,37 @@
     .data-and-buttons-wrapper {
       color: $mediumgrey;
       margin: auto auto 0 0;
+
       >  * {
         margin-right: 1rem;
       }
+
       [class^='icon-'],
       [class*=' icon-'] {
         margin-right: 0.3rem;
       }
+
       .btn-light-flat {
         color: $mediumgrey;
         padding: 0;
         margin-right: 1rem;
+
         &:hover {
           color: $innovationblue;
         }
+
         &.active {
           &.like-button {
             color: $red;
           }
+
           &.pin-button {
             color: $darkgreen;
           }
         }
       }
     }
-    
+
     @media (min-width: $bp-medium) {
       min-height: 0;
 
@@ -512,6 +518,7 @@
           background-color: $red;
           border-color: $red;
         }
+
         .icon-heart {
           font-size: $font-size-medium;
         }
