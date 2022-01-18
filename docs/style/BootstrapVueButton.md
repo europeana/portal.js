@@ -10,22 +10,6 @@ Variant default:
   <b-button disabled>label</b-button>
 ```
 
-Variant "outline-primary" with icon:
-```jsx
-  <b-button
-    variant="outline-primary"
-  >
-    Label
-  </b-button>
-    <b-button
-    variant="outline-primary"
-    class="d-inline-flex align-items-center"
-  >
-    <span class="icon-twitter d-inline-flex pr-1" />
-    label
-  </b-button>
-```
-
 Variant "outline-primary":
 ```jsx
   <b-button
@@ -33,7 +17,27 @@ Variant "outline-primary":
   >
     Label
   </b-button>
-    <b-button
+  <b-button
+    variant="outline-primary"
+    class="d-inline-flex align-items-center"
+  >
+    <span class="icon-twitter d-inline-flex pr-1" />
+    label
+  </b-button>
+  <b-button
+    variant="outline-primary"
+    class="d-inline-flex align-items-center"
+  >
+    label
+    <span class="icon-twitter d-inline-flex pl-1" />
+  </b-button>
+  <b-button
+    variant="outline-primary"
+    class="d-inline-flex align-items-center"
+  >
+    <span class="icon-twitter" />
+  </b-button>
+  <b-button
     variant="outline-primary"
     disabled
   >
@@ -108,7 +112,7 @@ Variant "light":
   >
     label
   </b-button>
-    <b-button
+  <b-button
     variant="light"
     disabled
   >
@@ -132,7 +136,7 @@ Used for the icon buttons in the header
   >
     label
   </b-button>
-    <b-button
+  <b-button
     variant="light-flat"
     class="button-icon icon-search"
   />
@@ -143,15 +147,6 @@ Variant "overlay":
   <b-button
     variant="overlay"
   >
-    label
-  </b-button>
-```
-
-Variant "transparent":
-```jsx
-  <b-button
-    variant="transparent"
-  >
-    label
+    <span>label</span>
   </b-button>
 ```

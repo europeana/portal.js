@@ -2,6 +2,10 @@
   font-weight: 400;
   text-decoration-line: none;
 
+  span {
+    line-height: 1.5;
+  }
+
   &:focus {
     outline: auto;
   }
@@ -123,6 +127,12 @@
   border: 0;
   border-radius: $border-radius-small;
   color: $white;
+  position: relative;
+
+  span {
+    position: relative;
+    z-index: 10;
+  }
 
   &:hover {
     background-color: rgb(0 0 0 / 70%);
