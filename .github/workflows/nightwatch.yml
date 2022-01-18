@@ -1,0 +1,62 @@
+name: Nightwatch
+
+on:
+  workflow_call:
+    inputs:
+      docker-image-version:
+        description: Docker image version for the app build to test, e.g. "master", "pr-1234"
+        default: master
+        required: false
+        type: string
+      test:
+        description: Test set to run, either "features" or "visual"
+        default: features
+        required: false
+        type: string
+      git-commit:
+        description: Git commit ref (for Percy visual tests)
+        required: false
+        type: string
+      git-branch:
+        description: Git branch name (for Percy visual tests)
+        required: false
+        type: string
+      git-pull-request-number:
+        description: Git PR number (for Percy visual tests)
+        required: false
+        type: number
+    secrets:
+      percy-token:
+        description: Percy access token for visual tests
+        required: false
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      APP_IMAGE_VERSION: ${{ inputs.docker-image-version }}
+      PERCY_TOKEN: ${{ secrets.percy-token }}
+      PERCY_COMMIT: ${{ inputs.git-commit }}
+      PERCY_BRANCH: ${{ inputs.git-branch }}
+      PERCY_PULL_REQUEST: ${{ inputs.git-pull-request-number }}
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      -
+        name: Create test container .env files
+        run: |
+          envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/app/.env
+          envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/nightwatch-visual/.env
+      -
+        name: Pull remote images
+        run: docker-compose -f ./tests/e2e/docker/docker-compose.yml pull -q app cache chrome-en
+      -
+        name: Build local images
+        run: docker-compose -f ./tests/e2e/docker/docker-compose.yml build -q nginx nightwatch-${{ inputs.test }}
+      -
+        name: Run tests
+        run: docker-compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-${{ inputs.test }}
