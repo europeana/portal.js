@@ -239,7 +239,7 @@ jobs:
   test-e2e:
     needs: [docker-final-stage]
     if: github.event_name == 'pull_request' && github.event.pull_request.draft == false
-    uses: .github/workflows/nightwatch.yml
+    uses: europeana/portal.js/.github/workflows/nightwatch.yml@chore/GHA-reusable-workflows
     with:
       docker-image-version: ${{ needs.docker-final-stage.outputs.version }}
       test: features
@@ -248,7 +248,7 @@ jobs:
   test-visual:
     needs: [meta, docker-final-stage]
     if: (github.event_name == 'push' && github.event.ref == 'refs/heads/master') || (github.event_name == 'pull_request' && github.event.pull_request.draft == false)
-    uses: .github/workflows/nightwatch.yml
+    uses: europeana/portal.js/.github/workflows/nightwatch.yml@chore/GHA-reusable-workflows
     with:
       docker-image-version: ${{ needs.docker-final-stage.outputs.version }}
       test: visual
