@@ -33,8 +33,6 @@ const i18n = new VueI18n({
   }
 });
 
-console.log('i18n', i18n);
-
 export default previewComponent => {
   // https://vuejs.org/v2/guide/render-function.html
   return {
