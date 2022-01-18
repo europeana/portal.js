@@ -193,7 +193,9 @@
   <ItemPreviewCard
     :item="{ dataProvider: ['United Archives / WHA'],
           dcCreatorLangAware: { en: ['United Archives / WHA'] },
-          dcDescriptionLangAware: { de: ['French, Coloured illustration, dated circa 1884, depicting a frilled-necked lizard (Chlamydosaurus kingii), also known as the frilled lizard, frilled dragon or frilled agama, is a species of lizard which is found mainly in northern Australia and southern N…'] },
+          dcDescriptionLangAware: { de:
+          [`French, Coloured illustration, dated circa 1884, depicting a frilled-necked lizard (Chlamydosaurus kingii), also known as the frilled lizard,
+          frilled dragon or frilled agama, is a species of lizard which is found mainly in northern Australia and southern N…`] },
           dcTitleLangAware: { en: ['illustration, circa 1884,depicting a frilled-necked lizard'] },
           edmPreview: ['https://api.europeana.eu/thumbnail/v2/url.json?uri=http%3A%2F%2Funitedarchives.noip.me%2FPagodeEU%2FWHA_112_0849_PagEU_EN.jpg&type=IMAGE'],
           id: '/2024909/photography_ProvidedCHO_United_Archives___WHA_02404781',
@@ -206,7 +208,9 @@
   <ItemPreviewCard
     :item="{ dataProvider: ['United Archives / WHA'],
           dcCreatorLangAware: { en: ['United Archives / WHA'] },
-          dcDescriptionLangAware: { de: ['French, Coloured illustration, dated circa 1884, depicting a frilled-necked lizard (Chlamydosaurus kingii), also known as the frilled lizard, frilled dragon or frilled agama, is a species of lizard which is found mainly in northern Australia and southern N…'] },
+          dcDescriptionLangAware: { de:
+          [`French, Coloured illustration, dated circa 1884, depicting a frilled-necked lizard (Chlamydosaurus kingii), also known as the frilled lizard,
+          frilled dragon or frilled agama, is a species of lizard which is found mainly in northern Australia and southern N…`] },
           dcTitleLangAware: { en: ['illustration, circa 1884,depicting a frilled-necked lizard'] },
           edmPreview: ['https://api.europeana.eu/thumbnail/v2/url.json?uri=http%3A%2F%2Funitedarchives.noip.me%2FPagodeEU%2FWHA_112_0849_PagEU_EN.jpg&type=IMAGE'],
           id: '/2024909/photography_ProvidedCHO_United_Archives___WHA_02404781',
@@ -220,7 +224,9 @@
   <ItemPreviewCard
     :item="{ dataProvider: ['United Archives / WHA'],
           dcCreatorLangAware: { en: ['United Archives / WHA'] },
-          dcDescriptionLangAware: { de: ['French, Coloured illustration, dated circa 1884, depicting a frilled-necked lizard (Chlamydosaurus kingii), also known as the frilled lizard, frilled dragon or frilled agama, is a species of lizard which is found mainly in northern Australia and southern N…'] },
+          dcDescriptionLangAware: { de:
+          [`French, Coloured illustration, dated circa 1884, depicting a frilled-necked lizard (Chlamydosaurus kingii), also known as the frilled lizard,
+          frilled dragon or frilled agama, is a species of lizard which is found mainly in northern Australia and southern N…`] },
           dcTitleLangAware: { en: ['illustration, circa 1884,depicting a frilled-necked lizard'] },
           edmPreview: ['https://api.europeana.eu/thumbnail/v2/url.json?uri=http%3A%2F%2Funitedarchives.noip.me%2FPagodeEU%2FWHA_112_0849_PagEU_EN.jpg&type=IMAGE'],
           id: '/2024909/photography_ProvidedCHO_United_Archives___WHA_02404781',
@@ -236,7 +242,9 @@
     variant="list"
     :item="{ dataProvider: ['United Archives / WHA'],
           dcCreatorLangAware: { en: ['United Archives / WHA'] },
-          dcDescriptionLangAware: { de: ['French, Coloured illustration, dated circa 1884, depicting a frilled-necked lizard (Chlamydosaurus kingii), also known as the frilled lizard, frilled dragon or frilled agama, is a species of lizard which is found mainly in northern Australia and southern N…'] },
+          dcDescriptionLangAware: { de:
+          [`French, Coloured illustration, dated circa 1884, depicting a frilled-necked lizard (Chlamydosaurus kingii), also known as the frilled lizard,
+          frilled dragon or frilled agama, is a species of lizard which is found mainly in northern Australia and southern N…`] },
           dcTitleLangAware: { en: ['illustration, circa 1884,depicting a frilled-necked lizard'] },
           edmPreview: ['https://api.europeana.eu/thumbnail/v2/url.json?uri=http%3A%2F%2Funitedarchives.noip.me%2FPagodeEU%2FWHA_112_0849_PagEU_EN.jpg&type=IMAGE'],
           id: '/2024909/photography_ProvidedCHO_United_Archives___WHA_02404781',
@@ -250,7 +258,9 @@
     variant="list"
     :item="{ dataProvider: ['United Archives / WHA'],
           dcCreatorLangAware: { en: ['United Archives / WHA'] },
-          dcDescriptionLangAware: { de: ['French, Coloured illustration, dated circa 1884, depicting a frilled-necked lizard (Chlamydosaurus kingii), also known as the frilled lizard, frilled dragon or frilled agama, is a species of lizard which is found mainly in northern Australia and southern N…'] },
+          dcDescriptionLangAware: { de:
+          [`French, Coloured illustration, dated circa 1884, depicting a frilled-necked lizard (Chlamydosaurus kingii), also known as the frilled lizard,
+          frilled dragon or frilled agama, is a species of lizard which is found mainly in northern Australia and southern N…`] },
           dcTitleLangAware: { en: ['illustration, circa 1884,depicting a frilled-necked lizard'] },
           edmPreview: ['https://api.europeana.eu/thumbnail/v2/url.json?uri=http%3A%2F%2Funitedarchives.noip.me%2FPagodeEU%2FWHA_112_0849_PagEU_EN.jpg&type=IMAGE'],
           id: '/2024909/photography_ProvidedCHO_United_Archives___WHA_02404781',
