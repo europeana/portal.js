@@ -81,7 +81,7 @@ jobs:
 
   # Run linting and unit tests on master (for coverage reports), and non-draft
   # pull requests
-  test-unit:
+  unit-test:
     runs-on: ubuntu-latest
     needs: [docker-base-stage]
     if: (github.event_name == 'push' && github.event.ref == 'refs/heads/master') || (github.event_name == 'pull_request' && github.event.pull_request.draft == false)
@@ -185,7 +185,7 @@ jobs:
       version: ${{ steps.meta.outputs.version }}
 
   # Run size tests on pull requests
-  test-size:
+  size-test:
     runs-on: ubuntu-latest
     needs: [docker-final-stage]
     if: github.event_name == 'pull_request' && github.event.pull_request.draft == false
@@ -219,7 +219,7 @@ jobs:
         with:
           context: ./tests/size
           load: true
-          tags: ${{ env.DOCKER_REPOSITORY }}-test-size
+          tags: ${{ env.DOCKER_REPOSITORY }}-size-test
           cache-from: type=gha
           cache-to: type=gha,mode=max
       -
@@ -234,10 +234,10 @@ jobs:
           docker run \
             --mount type=bind,source="$(pwd)"/.nuxt,target=/app/.nuxt \
             --mount type=bind,source="$(pwd)"/tests/size/.size-limit.json,target=/app/.size-limit.json \
-            ${{ env.DOCKER_REPOSITORY }}-test-size
+            ${{ env.DOCKER_REPOSITORY }}-size-test
 
   # Run e2e tests on pull requests
-  test-e2e:
+  e2e-features:
     needs: [docker-final-stage]
     if: github.event_name == 'pull_request' && github.event.pull_request.draft == false
     uses: europeana/portal.js/.github/workflows/nightwatch.yml@chore/GHA-reusable-workflows
@@ -246,7 +246,7 @@ jobs:
       test: features
 
   # Run visual tests on pull requests, and pushes to master
-  test-visual:
+  e2e-visual:
     needs: [meta, docker-final-stage]
     if: (github.event_name == 'push' && github.event.ref == 'refs/heads/master') || (github.event_name == 'pull_request' && github.event.pull_request.draft == false)
     uses: europeana/portal.js/.github/workflows/nightwatch.yml@chore/GHA-reusable-workflows
