@@ -84,7 +84,7 @@
     },
     computed: {
       filteredLinks() {
-        if (!this.links) {
+        if (this.links.length === 0) {
           return false;
         }
         return this.links.filter(link => link !== null);
