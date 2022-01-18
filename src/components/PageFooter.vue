@@ -9,14 +9,14 @@
           lg="5"
           class="pb-4"
         >
-          <figure>
-            <figcaption class="text-uppercase font-weight-bold">
+          <div class="mb-3">
+            <div class="group-title text-uppercase font-weight-bold">
               {{ $t('footer.ourMission') }}
-            </figcaption>
+            </div>
             <p class="font-italic mb-0">
               {{ $t('footer.ourMissionQuote') }}
             </p>
-          </figure>
+          </div>
           <LinkGroup
             list-class="footer-link-list social-links"
             link-class="footer-link"
@@ -32,6 +32,7 @@
             <b-col
               cols="6"
               lg="12"
+              class="mb-3"
             >
               <LinkGroup
                 v-if="footerMoreInfo"
@@ -56,12 +57,12 @@
           </b-row>
         </b-col>
         <b-col lg="3">
-          <figure>
-            <figcaption class="text-uppercase font-weight-bold pr-2">
+          <div>
+            <div class="group-title text-uppercase font-weight-bold pr-2">
               {{ $t('footer.customiseWebsiteLanguage') }}
-            </figcaption>
+            </div>
             <LangSelector data-qa="language selector" />
-          </figure>
+          </div>
 
           <DebugMenu
             v-if="showDebugMenu"
@@ -125,6 +126,11 @@
             text: 'Instagram',
             url: 'https://www.instagram.com/europeana_eu/',
             icon: 'icon-instagram'
+          },
+          {
+            text: 'LinkedIn',
+            url: 'https://www.linkedin.com/company/europeana',
+            icon: 'icon-linkedin'
           }
         ]
       };
@@ -160,3 +166,11 @@
     }
   };
 </script>
+
+<!-- <docs lang="md">
+  TODO: uncomment and implement once store is available to styleguide
+  Page footer
+  ```jsx
+  <PageFooter />
+  ```
+</docs> -->

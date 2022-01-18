@@ -53,7 +53,7 @@
 </template>
 
 <script>
-  import marked from 'marked';
+  import { marked } from 'marked';
   import SocialShareModal from '../../../components/sharing/SocialShareModal.vue';
   import ShareButton from '../../../components/sharing/ShareButton.vue';
   import exhibitionChapters from '../../../mixins/exhibitionChapters';
@@ -133,7 +133,7 @@
         return this.hero?.image || null;
       },
       mainContent() {
-        return this.text ? marked(this.text) : null;
+        return this.text ? marked.parse(this.text) : null;
       },
       optimisedImageUrl() {
         return this.$options.filters.optimisedImageUrl(

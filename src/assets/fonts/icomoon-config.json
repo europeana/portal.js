@@ -2,7 +2,7 @@
   "metadata": {
     "name": "Europeana",
     "lastOpened": 0,
-    "created": 1642079457657
+    "created": 1642422293046
   },
   "iconSets": [
     {
@@ -2195,7 +2195,7 @@
           "prevSize": 28,
           "code": 59676,
           "name": "chevron-right",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -2203,7 +2203,7 @@
           "name": "chevron-left",
           "prevSize": 28,
           "code": 59675,
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -2211,7 +2211,7 @@
           "prevSize": 28,
           "code": 59674,
           "name": "copyright",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -2219,7 +2219,7 @@
           "prevSize": 28,
           "code": 59653,
           "name": "language",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -2227,7 +2227,7 @@
           "prevSize": 28,
           "code": 59651,
           "name": "caret-down",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 1,
@@ -2235,7 +2235,7 @@
           "prevSize": 28,
           "code": 59648,
           "name": "external-link",
-          "tempChar": ""
+          "tempChar": ""
         }
       ],
       "id": 2,
@@ -5118,8 +5118,11 @@
         {
           "ligatures": "linkedin2, brand65",
           "name": "linkedin2",
-          "order": 0,
-          "id": 459
+          "order": 90,
+          "id": 459,
+          "prevSize": 32,
+          "code": 60106,
+          "tempChar": ""
         },
         {
           "ligatures": "lastfm, brand66",

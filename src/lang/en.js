@@ -686,6 +686,10 @@ export default {
         "description": "Collects anonymous statistics on how visitors interact with the website.",
         "title": "Matomo"
       },
+      "newFeatureNotification": {
+        "description": "Shows a notification when new features become available.",
+        "title": "New feature notification"
+      },
       "searchResultsView": {
         "description": "Remembers if you prefer to see the search results in a list or grid view.",
         "title": "Search result view (list/grid)"
@@ -718,6 +722,13 @@ export default {
     "stopTranslating": "Stop translating this item to {0}.",
     "translateLanguage": "Would you like to see this item in {0}?",
     "translateQuotaError": "Translation service is temporarily unavailable. Please try again later."
+  },
+  "newFeatureNotification": {
+    "text": {
+      "organisationsPage": "You can now easily discover cultural heritage items organised by partnering institutions."
+    },
+    "dismiss": "Dismiss",
+    "readMore": "Read more"
   },
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
