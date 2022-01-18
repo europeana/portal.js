@@ -8,7 +8,7 @@
     <SmartLink
       :destination="url"
       link-class="card-link"
-      :aria-label="displayTitle"
+      :aria-label="displayTitle ? displayTitle.values[0] : null"
     >
       <div
         v-if="cardImageUrl"
