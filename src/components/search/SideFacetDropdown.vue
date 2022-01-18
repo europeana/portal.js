@@ -154,43 +154,39 @@
 
       return this.$store.dispatch('search/queryFacets', { facet: this.name })
         .then((facets) => {
-          this.fields = (facets || [])[0]?.fields || [];
+          let fields = (facets || [])[0]?.fields || [];
+
+          if (this.name === 'contentTier') {
+            // Limit options shown for contentTier toggle
+            if (this.$store.getters['search/collection']) { // || this.$store.getters['entity/id']
+              // Searching within a collection, only show options 2 to 4
+              fields = fields.filter(field => ['"2"', '"3"', '"4"'].includes(field.label));
+            } else {
+              // Elsewhere, only show option 0
+              fields = fields.filter(field => field.label === '"0"');
+            }
+          }
+
+          this.fields = fields;
           this.fetched = true;
         });
     },
 
     computed: {
-      filteredFields() {
-        let fields = [].concat(this.fields);
-
-        if (this.name === 'contentTier') {
-          // Limit options shown for contentTier toggle
-          if (this.$store.getters['search/collection']) { // || this.$store.getters['entity/id']
-            // Searching within a collection, only show options 2 to 4
-            fields = fields.filter(field => ['"2"', '"3"', '"4"'].includes(field.label));
-          } else {
-            // Elsewhere, only show option 0
-            fields = fields.filter(field => field.label === '"0"');
-          }
-        }
-
-        return fields;
-      },
-
       sortedOptions() {
         if (this.isRadio) {
-          return this.filteredFields;
+          return this.fields;
         }
 
         const selected = [];
 
-        this.filteredFields.map(field => {
+        this.fields.map(field => {
           if (this.selected.includes(field.label)) {
             selected.push(field);
           }
         });
 
-        const leftOver = this.filteredFields.filter(field => !this.selected.includes(field.label));
+        const leftOver = this.fields.filter(field => !this.selected.includes(field.label));
 
         return selected.sort((a, b) => a.count + b.count).concat(leftOver);
       },
@@ -238,7 +234,9 @@
       },
       // Refetch facet fields, but only if other qf query values have changed
       updateRouteQueryQf(newQf, oldQf) {
-        const qfDiff = xor(newQf, oldQf);
+        // Look for changes to qf, accounting for them being potentially strings
+        // or arrays.
+        const qfDiff = xor([].concat(newQf), [].concat(oldQf));
         if (qfDiff.length === 0) {
           return;
         }
