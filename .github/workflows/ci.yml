@@ -252,10 +252,11 @@ jobs:
     with:
       docker-image-version: ${{ needs.docker-final-stage.outputs.version }}
       test: visual
-      percy-token: ${{ secrets.PERCY_TOKEN }}
       git-commit: ${{ env.GITHUB_SHA }}
       git-branch: ${{ needs.meta.outputs.git-branch }}
       git-pull-request-number: ${{ needs.meta.outputs.git-pull-request-number }}
+    secrets:
+      percy-token: ${{ secrets.PERCY_TOKEN }}
 
   # Deploy to IBM Cloud Kubernetes cluster:
   # * Pull requests are deployed as new resources in dev namespace
