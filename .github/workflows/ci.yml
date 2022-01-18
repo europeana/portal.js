@@ -250,7 +250,7 @@ jobs:
     if: (github.event_name == 'push' && github.event.ref == 'refs/heads/master') || (github.event_name == 'pull_request' && github.event.pull_request.draft == false)
     uses: .github/workflows/nightwatch.yml
     with:
-      docker-image-version: ${{ needs.docker-final-stage.outputs.docker-image-version }}
+      docker-image-version: ${{ needs.docker-final-stage.outputs.version }}
       test: visual
       percy-token: ${{ secrets.PERCY_TOKEN }}
       git-commit: ${{ env.GITHUB_SHA }}
