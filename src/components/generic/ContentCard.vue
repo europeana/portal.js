@@ -5,14 +5,12 @@
     no-body
     :class="cardClass"
   >
-    <SmartLink
-      :destination="url"
-      link-class="card-link"
-    >
-      <div
+    <div class="card-wrapper">
+      <SmartLink
         v-if="cardImageUrl"
-        class="card-img"
         :class="{ logo }"
+        :destination="url"
+        class="card-img"
       >
         <b-img-lazy
           v-if="lazy"
@@ -32,9 +30,10 @@
           :alt="imageAlt"
           @error="imageNotFound"
         />
-      </div>
-      <div
+      </SmartLink>
+      <SmartLink
         v-else-if="!cardImageUrl && variant !== 'mini'"
+        :destination="url"
         class="placeholder card-img"
       />
       <b-card-body data-qa="card body">
@@ -52,9 +51,13 @@
           data-qa="card title"
           :lang="displayTitle.code"
         >
-          <span>
-            {{ displayTitle.values[0] | truncate(90, $t('formatting.ellipsis')) }}
-          </span>
+          <SmartLink
+            :destination="url"
+          >
+            <span>
+              {{ displayTitle.values[0] | truncate(90, $t('formatting.ellipsis')) }}
+            </span>
+          </SmartLink>
         </b-card-title>
         <time
           v-if="datetime"
@@ -84,7 +87,7 @@
             <p
               v-html="cardText(text.values)"
             />
-            <!-- eslint-enable vue/no-v-html -->
+          <!-- eslint-enable vue/no-v-html -->
           </b-card-text>
         </template>
         <client-only v-if="variant === 'list'">
@@ -92,7 +95,7 @@
           <slot name="buttons" />
         </client-only>
       </b-card-body>
-    </SmartLink>
+    </div>
     <client-only v-if="variant !== 'list'">
       <!-- @slot Buttons rendered over the card, client-side only -->
       <slot name="buttons" />

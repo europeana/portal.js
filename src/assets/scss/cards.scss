@@ -15,7 +15,7 @@
     transition: box-shadow 0.25s;
   }
 
-  a {
+  .card-wrapper {
     text-decoration: none;
   }
 
@@ -93,6 +93,10 @@
   }
 
   a {
+    text-decoration: none;
+  }
+
+  .card-wrapper {
     display: flex;
     flex-direction: column;
     text-decoration: none;
@@ -320,7 +324,7 @@
     min-height: auto;
     padding: 1rem;
 
-    a {
+    .card-wrapper {
       flex-direction: row;
       justify-content: space-between;
 
@@ -415,7 +419,7 @@
     @media (min-width: $bp-medium) {
       min-height: 0;
 
-      a {
+      .card-wrapper {
         flex-direction: row;
         justify-content: space-between;
 
@@ -645,7 +649,7 @@
       width: calc(100% / 4 - #{$grid-gutter * 2});
     }
 
-    a {
+    .card-wrapper {
       &::before {
         box-shadow: $boxshadow-small;
         content: '';
@@ -653,6 +657,7 @@
         position: absolute;
         transition: box-shadow 0.25s;
         width: 100%;
+        z-index: -1;
       }
 
       &:hover {
