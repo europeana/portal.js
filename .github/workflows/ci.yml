@@ -28,6 +28,23 @@ env:
   REDIS_TLS_CA: ${{ secrets.REDIS_TLS_CA }}
 
 jobs:
+  meta:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Metadata (all)
+        run: |
+          echo "GIT_BRANCH=$(echo ${GITHUB_HEAD_REF:-${GITHUB_REF}} | sed 's|refs/heads/||')" >> $GITHUB_ENV
+      -
+        name: Metadata (PRs only)
+        if: github.event_name == 'pull_request'
+        run: |
+          echo "GIT_PULL_REQUEST_NUMBER=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
+    outputs:
+      git-sha: ${{ env.GITHUB_SHA }}
+      git-branch: ${{ env.GIT_BRANCH }}
+      git-pull-request-number: ${{ env.GIT_PULL_REQUEST_NUMBER }}
+
   # Build the base stage of the Docker image first so that unit tests can run,
   # as they do not require the full production image to be built.
   docker-base-stage:
@@ -64,7 +81,7 @@ jobs:
 
   # Run linting and unit tests on master (for coverage reports), and non-draft
   # pull requests
-  test-unit:
+  unit-test:
     runs-on: ubuntu-latest
     needs: [docker-base-stage]
     if: (github.event_name == 'push' && github.event.ref == 'refs/heads/master') || (github.event_name == 'pull_request' && github.event.pull_request.draft == false)
@@ -164,9 +181,11 @@ jobs:
           cache-to: type=gha,mode=max
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+    outputs:
+      version: ${{ steps.meta.outputs.version }}
 
   # Run size tests on pull requests
-  test-size:
+  size-test:
     runs-on: ubuntu-latest
     needs: [docker-final-stage]
     if: github.event_name == 'pull_request' && github.event.pull_request.draft == false
@@ -200,7 +219,7 @@ jobs:
         with:
           context: ./tests/size
           load: true
-          tags: ${{ env.DOCKER_REPOSITORY }}-test-size
+          tags: ${{ env.DOCKER_REPOSITORY }}-size-test
           cache-from: type=gha
           cache-to: type=gha,mode=max
       -
@@ -215,98 +234,30 @@ jobs:
           docker run \
             --mount type=bind,source="$(pwd)"/.nuxt,target=/app/.nuxt \
             --mount type=bind,source="$(pwd)"/tests/size/.size-limit.json,target=/app/.size-limit.json \
-            ${{ env.DOCKER_REPOSITORY }}-test-size
+            ${{ env.DOCKER_REPOSITORY }}-size-test
 
   # Run e2e tests on pull requests
-  test-e2e:
-    runs-on: ubuntu-latest
+  e2e-features:
     needs: [docker-final-stage]
     if: github.event_name == 'pull_request' && github.event.pull_request.draft == false
-    steps:
-      -
-        name: Checkout
-        uses: actions/checkout@v2
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-      -
-        name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v3
-        with:
-          images: ${{ env.DOCKER_REPOSITORY }}
-          tags: |
-            type=ref,event=pr
-      -
-        name: Prepare env for e2e tests
-        run: echo "APP_IMAGE_VERSION=${{ steps.meta.outputs.version }}" >> $GITHUB_ENV
-      -
-        name: Create e2e test container .env files
-        run: |
-          envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/app/.env
-          envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/nightwatch-visual/.env
-      -
-        name: Pull images for e2e tests
-        run: docker-compose -f ./tests/e2e/docker/docker-compose.yml pull -q app cache chrome-en
-      -
-        name: Build images for e2e tests
-        run: docker-compose -f ./tests/e2e/docker/docker-compose.yml build -q nginx nightwatch-features
-      -
-        name: Run e2e tests
-        run: docker-compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-features
+    uses: europeana/portal.js/.github/workflows/nightwatch.yml@chore/GHA-reusable-workflows
+    with:
+      docker-image-version: ${{ needs.docker-final-stage.outputs.version }}
+      test: features
 
   # Run visual tests on pull requests, and pushes to master
-  test-visual:
-    runs-on: ubuntu-latest
-    needs: [docker-final-stage]
+  e2e-visual:
+    needs: [meta, docker-final-stage]
     if: (github.event_name == 'push' && github.event.ref == 'refs/heads/master') || (github.event_name == 'pull_request' && github.event.pull_request.draft == false)
-    env:
-      PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
-    steps:
-      -
-        name: Checkout
-        uses: actions/checkout@v2
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-      -
-        name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v3
-        with:
-          images: ${{ env.DOCKER_REPOSITORY }}
-          tags: |
-            type=ref,event=pr
-            type=ref,event=branch
-      -
-        name: Prepare env for visual tests
-        run: |
-          echo "APP_IMAGE_VERSION=${{ steps.meta.outputs.version }}" >> $GITHUB_ENV
-          echo "PERCY_COMMIT=${GITHUB_SHA}" >> $GITHUB_ENV
-          echo "PERCY_BRANCH=$(echo ${GITHUB_HEAD_REF:-${GITHUB_REF}} | sed 's|refs/heads/||')" >> $GITHUB_ENV
-      -
-        name: Prepare env for visual tests (PRs only)
-        if: github.event_name == 'pull_request'
-        run:
-          echo "PERCY_PULL_REQUEST=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
-      -
-        name: Check Percy env vars
-        run:
-          echo
-      -
-        name: Create visual test container .env files
-        run: |
-          envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/app/.env
-          envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/nightwatch-visual/.env
-      -
-        name: Pull images for visual tests
-        run: docker-compose -f ./tests/e2e/docker/docker-compose.yml pull -q app cache chrome-en
-      -
-        name: Build images for visual tests
-        run: docker-compose -f ./tests/e2e/docker/docker-compose.yml build -q nginx nightwatch-features
-      -
-        name: Run visual tests
-        run: docker-compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-visual
+    uses: europeana/portal.js/.github/workflows/nightwatch.yml@chore/GHA-reusable-workflows
+    with:
+      docker-image-version: ${{ needs.docker-final-stage.outputs.version }}
+      test: visual
+      git-commit: ${{ needs.meta.outputs.git-sha }}
+      git-branch: ${{ needs.meta.outputs.git-branch }}
+      git-pull-request-number: ${{ needs.meta.outputs.git-pull-request-number }}
+    secrets:
+      percy-token: ${{ secrets.PERCY_TOKEN }}
 
   # Deploy to IBM Cloud Kubernetes cluster:
   # * Pull requests are deployed as new resources in dev namespace
