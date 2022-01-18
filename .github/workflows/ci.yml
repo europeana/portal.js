@@ -41,6 +41,7 @@ jobs:
         run: |
           echo "GIT_PULL_REQUEST_NUMBER=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
     outputs:
+      git-sha: ${{ env.GITHUB_SHA }}
       git-branch: ${{ env.GIT_BRANCH }}
       git-pull-request-number: ${{ env.GIT_PULL_REQUEST_NUMBER }}
 
@@ -252,7 +253,7 @@ jobs:
     with:
       docker-image-version: ${{ needs.docker-final-stage.outputs.version }}
       test: visual
-      git-commit: ${{ env.GITHUB_SHA }}
+      git-commit: ${{ needs.meta.outputs.git-sha }}
       git-branch: ${{ needs.meta.outputs.git-branch }}
       git-pull-request-number: ${{ needs.meta.outputs.git-pull-request-number }}
     secrets:
