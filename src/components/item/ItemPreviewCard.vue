@@ -177,7 +177,7 @@
       },
 
       rights() {
-        return this.variant === 'list' ? this.item.rights[0] : null;
+        return this.variant === 'list' ? this.item.rights?.[0] : null;
       },
 
       type() {
@@ -212,7 +212,7 @@
           id: '/2024909/photography_ProvidedCHO_United_Archives___WHA_02404781',
           type: 'IMAGE',
           rights: ['http://creativecommons.org/licenses/by-sa/3.0/'] }"
-    showPins="true"
+    :showPins="true"
   />
   ```
   Variant "default" with accept and reject recommendations enabled:
@@ -226,8 +226,8 @@
           id: '/2024909/photography_ProvidedCHO_United_Archives___WHA_02404781',
           type: 'IMAGE',
           rights: ['http://creativecommons.org/licenses/by-sa/3.0/'] }"
-    enableAcceptRecommendation="true"
-    enableRejectRecommendation="true"
+    :enableAcceptRecommendation="true"
+    :enableRejectRecommendation="true"
   />
   ```
   Variant "list":
@@ -256,7 +256,7 @@
           id: '/2024909/photography_ProvidedCHO_United_Archives___WHA_02404781',
           type: 'IMAGE',
           rights: ['http://creativecommons.org/licenses/by-sa/3.0/'] }"
-    showPins="true"
+    :showPins="true"
   />
   ```
 </docs>
