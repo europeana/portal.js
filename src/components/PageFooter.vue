@@ -168,9 +168,9 @@
 </script>
 
 <!-- <docs lang="md">
+  TODO: uncomment and implement once store is available to styleguide
   Page footer
   ```jsx
   <PageFooter />
   ```
 </docs> -->
-

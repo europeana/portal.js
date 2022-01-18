@@ -15,6 +15,7 @@ Vue.prototype.$path = function() {
   return '/';
 }
 
+// TODO: properly import store modules needed for components that use them
 /*const store = new Vuex.Store({
   getters: {
     'debug/settings': state => {
