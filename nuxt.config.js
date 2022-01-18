@@ -7,24 +7,13 @@
 
 const APP_SITE_NAME = 'Europeana';
 
-import decamelize from 'decamelize';
-
 import pkg from './package.json';
 import nuxtCorePkg from '@nuxt/core/package.json';
 
 import i18nLocales from './src/plugins/i18n/locales.js';
 import i18nDateTime from './src/plugins/i18n/datetime.js';
 import { parseQuery, stringifyQuery } from './src/plugins/vue-router.cjs';
-
-const features = (ids) => {
-  return ids.reduce((memo, id) => {
-    const envKey = `ENABLE_${decamelize(id).toUpperCase()}`;
-    memo[id] = featureIsEnabled(process.env[envKey]);
-    return memo;
-  }, {});
-};
-
-const featureIsEnabled = (value) => Boolean(Number(value));
+import features, { featureIsEnabled } from './src/features/index.js';
 
 const buildPublicPath = () => {
   if (featureIsEnabled(process.env.ENABLE_JSDELIVR_BUILD_PUBLIC_PATH)) {
@@ -43,6 +32,7 @@ export default {
       // TODO: rename env vars to prefix w/ APP_, except feature toggles
       baseUrl: process.env.PORTAL_BASE_URL,
       internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
+      featureNotification: process.env.APP_FEATURE_NOTIFICATION,
       schemaOrgDatasetId: process.env.SCHEMA_ORG_DATASET_ID,
       siteName: APP_SITE_NAME,
       search: {
@@ -130,16 +120,7 @@ export default {
         }
       }
     },
-    features: features([
-      'abTests',
-      'acceptEntityRecommendations',
-      'acceptSetRecommendations',
-      'entityManagement',
-      'jiraServiceDeskFeedbackForm',
-      'rejectEntityRecommendations',
-      'sideFilters',
-      'translatedItems'
-    ]),
+    features: features(),
     hotjar: {
       id: process.env.HOTJAR_ID,
       sv: process.env.HOTJAR_SNIPPET_VERSION

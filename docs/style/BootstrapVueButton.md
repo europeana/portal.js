@@ -1,34 +1,50 @@
-<docs lang="md">
+### Button
+
 Customised BootstrapVue Button component.
+
 Docs: https://bootstrap-vue.org/docs/components/button
 
-Variant default
+Variant default:
 ```jsx
   <b-button>label</b-button>
   <b-button disabled>label</b-button>
 ```
-Variant "outline-primary"
+
+Variant "outline-primary" with icon:
 ```jsx
   <b-button
-    variant="outline-primary"
-  >
-    Label
-  </b-button>
-    <b-button
     variant="outline-primary"
     class="d-inline-flex align-items-center"
   >
     <span class="icon-twitter d-inline-flex pr-1" />
     label
   </b-button>
+    <b-button
+    variant="outline-primary"
+    class="d-inline-flex align-items-center"
+    disabled
+  >
+    <span class="icon-twitter d-inline-flex pr-1" />
+    label
+  </b-button>
+```
+
+Variant "outline-primary":
+```jsx
   <b-button
+    variant="outline-primary"
+  >
+    Label
+  </b-button>
+    <b-button
     variant="outline-primary"
     disabled
   >
     Label
   </b-button>
 ```
-Variant "primary"
+
+Variant "primary":
 ```jsx
   <b-button
     variant="primary"
@@ -42,7 +58,8 @@ Variant "primary"
     label
   </b-button>
 ```
-Variant "success"
+
+Variant "success":
 ```jsx
   <b-button
     variant="success"
@@ -56,7 +73,8 @@ Variant "success"
     label
   </b-button>
 ```
-Variant "danger"
+
+Variant "danger":
 ```jsx
   <b-button
     variant="danger"
@@ -70,7 +88,8 @@ Variant "danger"
     label
   </b-button>
 ```
-Variant "link"
+
+Variant "link":
 ```jsx
   <b-button
     variant="link"
@@ -84,41 +103,23 @@ Variant "link"
     label
   </b-button>
 ```
-Variant "light"
+
+Variant "light":
 ```jsx
   <b-button
     variant="light"
-  >
-    label
-  </b-button>
-  <b-button
-    variant="light"
-    disabled
-  >
-    label
-  </b-button>
-```
-Variant "light" with user-button class
-```jsx
-  <b-button
-    variant="light"
-    class="button-icon button-user icon-ic-add"
-  />
-```
-Variant "light-flat"
-Used for the icon buttons in the header
-```jsx
-  <b-button
-    variant="light-flat"
   >
     label
   </b-button>
     <b-button
-    variant="light-flat"
-    class="button-icon icon-search"
-  />
+    variant="light"
+    disabled
+  >
+    label
+  </b-button>
 ```
-Variant "overlay"
+
+Variant "overlay":
 ```jsx
   <b-button
     variant="overlay"
@@ -126,4 +127,12 @@ Variant "overlay"
     label
   </b-button>
 ```
-</docs>
+
+Variant "transparent":
+```jsx
+  <b-button
+    variant="transparent"
+  >
+    label
+  </b-button>
+```

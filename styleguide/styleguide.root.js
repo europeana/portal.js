@@ -11,7 +11,21 @@ Vue.use(BootstrapVue);
 // Vue.use(VueMasonryPlugin);
 // Vue.use(VueRouter);
 
+Vue.prototype.$path = function() {
+  return '/';
+}
+
+// TODO: properly import store modules needed for components that use them
+/*const store = new Vuex.Store({
+  getters: {
+    'debug/settings': state => {
+      return {}
+    }
+  }
+})*/
+
 import messages from '@/lang/en';
+import '@/plugins/vue-filters';
 
 const i18n = new VueI18n({
   locale: 'en',

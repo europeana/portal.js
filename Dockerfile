@@ -27,7 +27,8 @@ FROM gcr.io/distroless/nodejs:14
 
 ENV PORT=8080 \
     HOST=0.0.0.0 \
-    NODE_ENV=production
+    NODE_ENV=production \
+    NODE_OPTIONS=--experimental-json-modules
 
 EXPOSE ${PORT}
 

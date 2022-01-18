@@ -67,8 +67,13 @@
               :value="option.label"
               :name="name"
               :data-qa="`${option.label} ${name} ${CHECKBOX}`"
+              :class="{ 'custom-checkbox-colour': isColourPalette }"
               @input="$emit('changed', name, preSelected)"
             >
+              <ColourSwatch
+                v-if="isColourPalette"
+                :hex-code="option.label"
+              />
               <FacetFieldLabel
                 :facet-name="name"
                 :field-value="option.label"
@@ -85,30 +90,44 @@
 <script>
   import xor from 'lodash/xor';
   import FacetFieldLabel from './FacetFieldLabel';
+  import ColourSwatch from '../generic/ColourSwatch';
 
   export default {
     components: {
       AlertMessage: () => import('../../components/generic/AlertMessage'),
       FacetFieldLabel,
+      ColourSwatch,
       LoadingSpinner: () => import('@/components/generic/LoadingSpinner')
     },
 
     props: {
+      /**
+       * Name of filter
+       */
       name: {
         type: String,
         required: true
       },
 
+      /**
+       * Selected option(s)
+       */
       selected: {
         type: [Array, String],
         default: () => []
       },
 
+      /**
+       * Type of input fields in dropdown, could be radio or checkbox
+       */
       type: {
         type: String,
         required: true
       },
 
+      /**
+       * Static fields, these fields need no fetching
+       */
       staticFields: {
         type: Array,
         default: null
@@ -141,22 +160,37 @@
     },
 
     computed: {
+      filteredFields() {
+        let fields = [].concat(this.fields);
+
+        // Only show option 0 for contentTier toggle
+        if (this.name === 'contentTier') {
+          fields = fields.filter(field => field.label === '"0"');
+        }
+
+        return fields;
+      },
+
       sortedOptions() {
         if (this.isRadio) {
-          return this.fields;
+          return this.filteredFields;
         }
 
         const selected = [];
 
-        this.fields.map(field => {
+        this.filteredFields.map(field => {
           if (this.selected.includes(field.label)) {
             selected.push(field);
           }
         });
 
-        const leftOver = this.fields.filter(field => !this.selected.includes(field.label));
+        const leftOver = this.filteredFields.filter(field => !this.selected.includes(field.label));
 
         return selected.sort((a, b) => a.count + b.count).concat(leftOver);
+      },
+
+      isColourPalette() {
+        return this.facetName === 'Colour';
       },
 
       facetName() {
@@ -239,3 +273,25 @@
     margin-bottom: 0.25rem;
   }
 </style>
+
+<docs lang="md">
+  <!--Variant "radio buttons, one selected"
+  ```jsx
+  <SideFacetDropdown
+    name="collection"
+    type="radio"
+    :selected="['archaeology']"
+    :static-fields="['ww1', 'archaeology', 'art', 'fashion']"
+  />
+  ```
+
+  Variant "checkboxes, none selected"
+  ```jsx
+  <SideFacetDropdown
+    name="TYPE"
+    type="checkbox"
+    :selected="[]"
+    :static-fields="[]"
+  />
+  ```-->
+</docs>

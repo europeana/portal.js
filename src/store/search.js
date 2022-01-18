@@ -390,7 +390,7 @@ export default {
             commit('set', ['facets', rootGetters[`collections/${collection}/facets`]]);
           }
 
-          return response.facets;
+          return state.facets;
         })
         .catch(async(error) => {
           await dispatch('updateForFailure', error);

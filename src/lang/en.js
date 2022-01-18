@@ -355,7 +355,48 @@ export default {
       }
     },
     "LANGUAGE": {
-      "name": "Language | Languages"
+      "name": "Language | Languages",
+      "options": {
+        "ar": "Arabic",
+        "bg": "Bulgarian",
+        "bs": "Bosnian",
+        "ca": "Catalan",
+        "cs": "Czech",
+        "cy": "Welsh",
+        "da": "Danish",
+        "de": "German",
+        "el": "Greek",
+        "en": "English",
+        "es": "Spanish",
+        "et": "Estonian",
+        "fi": "Finnish",
+        "fr": "French",
+        "ga": "Irish",
+        "gd": "Gaelic",
+        "he": "Hebrew",
+        "hr": "Croatian",
+        "hu": "Hungarian",
+        "is": "Icelandic",
+        "it": "Italian",
+        "lt": "Lithuanian",
+        "lv": "Latvian",
+        "mk": "Macedonian",
+        "mt": "Maltese",
+        "mul": "Multiple languages",
+        "nl": "Dutch",
+        "no": "Norwegian",
+        "pl": "Polish",
+        "pt": "Portuguese",
+        "ru": "Russian",
+        "ro": "Romanian",
+        "sk": "Slovak",
+        "sl": "Slovenian",
+        "sq": "Albanian",
+        "sr": "Serbian",
+        "sv": "Swedish",
+        "tr": "Turkish",
+        "uk": "Ukrainian"
+      }
     },
     "MIME_TYPE": {
       "name": "File format | File formats",
@@ -645,6 +686,10 @@ export default {
         "description": "Collects anonymous statistics on how visitors interact with the website.",
         "title": "Matomo"
       },
+      "newFeatureNotification": {
+        "description": "Shows a notification when new features become available.",
+        "title": "New feature notification"
+      },
       "searchResultsView": {
         "description": "Remembers if you prefer to see the search results in a list or grid view.",
         "title": "Search result view (list/grid)"
@@ -677,6 +722,13 @@ export default {
     "stopTranslating": "Stop translating this item to {0}.",
     "translateLanguage": "Would you like to see this item in {0}?",
     "translateQuotaError": "Translation service is temporarily unavailable. Please try again later."
+  },
+  "newFeatureNotification": {
+    "text": {
+      "organisationsPage": "You can now easily discover cultural heritage items organised by partnering institutions."
+    },
+    "dismiss": "Dismiss",
+    "readMore": "Read more"
   },
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
