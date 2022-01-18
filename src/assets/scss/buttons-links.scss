@@ -168,19 +168,21 @@
     color: $innovationblue;
   }
 
-  &.active, &:not(:disabled):not(.disabled).active {
+  &.active,
+  &:not(:disabled):not(.disabled).active {
     color: $white;
     background-color: $red;
     border-color: $red;
   }
 
-    &.icon-push-pin {
-      margin-left: 2rem;
-      margin-right: auto;
-      &.active {
-        visibility: visible;
-      }
+  &.icon-push-pin {
+    margin-left: 2rem;
+    margin-right: auto;
+
+    &.active {
+      visibility: visible;
     }
+  }
 
   &.btn-sm {
     font-size: $font-size-medium;

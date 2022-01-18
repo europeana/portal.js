@@ -423,7 +423,8 @@
     right: 1rem;
     z-index: 2;
     width: 100%;
-    .button-user{
+
+    .button-user {
       visibility: hidden;
     }
   }
@@ -431,7 +432,7 @@
   &:hover {
     box-shadow: $boxshadow-large;
 
-    .user-buttons .button-user{
+    .user-buttons .button-user {
       visibility: visible;
     }
   }

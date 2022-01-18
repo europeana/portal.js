@@ -1,11 +1,13 @@
 .item-hero .user-buttons .button-user {
   background: $offwhite;
   border: 1px solid transparent;
-  &:hover:not(.active) {
-    color: $mediumgrey;
-  }
+
   &:last-of-type {
     margin-right: 0.5rem;
+  }
+
+  &:hover:not(.active) {
+    color: $mediumgrey;
   }
 }
 

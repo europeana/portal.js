@@ -14,15 +14,12 @@ Variant "outline-primary" with icon:
 ```jsx
   <b-button
     variant="outline-primary"
-    class="d-inline-flex align-items-center"
   >
-    <span class="icon-twitter d-inline-flex pr-1" />
-    label
+    Label
   </b-button>
     <b-button
     variant="outline-primary"
     class="d-inline-flex align-items-center"
-    disabled
   >
     <span class="icon-twitter d-inline-flex pr-1" />
     label
@@ -117,6 +114,28 @@ Variant "light":
   >
     label
   </b-button>
+```
+
+Variant "light" with user-button class
+```jsx
+  <b-button
+    variant="light"
+    class="button-icon button-user icon-ic-add"
+  />
+```
+
+Variant "light-flat"
+Used for the icon buttons in the header
+```jsx
+  <b-button
+    variant="light-flat"
+  >
+    label
+  </b-button>
+    <b-button
+    variant="light-flat"
+    class="button-icon icon-search"
+  />
 ```
 
 Variant "overlay":
