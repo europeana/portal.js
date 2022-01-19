@@ -804,7 +804,8 @@ export default {
   },
   "searchViews": {
     "grid": "Grid view",
-    "list": "List view"
+    "list": "List view",
+    "mosaic": "Mosaic view"
   },
   "set": {
     "actions": {
