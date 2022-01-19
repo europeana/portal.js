@@ -35,7 +35,7 @@
 <script>
   import ContentHeader from '../../components/generic/ContentHeader';
 
-  import marked from 'marked';
+  import { marked } from 'marked';
   import stripMarkdown from '@/mixins/stripMarkdown';
 
   export default {
@@ -97,7 +97,7 @@
         return this.stripMarkdown(this.rawDescription);
       },
       htmlDescription() {
-        return marked(this.rawDescription);
+        return marked.parse(this.rawDescription);
       }
     },
 
