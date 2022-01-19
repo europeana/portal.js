@@ -20,11 +20,11 @@ Feature: View styles (List and Grid)
     Then I see a `item previews list`
     And I am on an accessible page
 
-  Scenario: Switching to the image-grid view
+  Scenario: Switching to the mosaic view
     When I open `/search?view=grid`
-    And I click the `search image-grid view toggle`
-    And I wait for the `item previews image-grid`
-    Then I see a `item previews image-grid`
+    And I click the `search mosaic view toggle`
+    And I wait for the `item previews mosaic`
+    Then I see a `item previews mosaic`
     And I am on an accessible page
 
   Scenario: Switching to the grid view
@@ -38,12 +38,12 @@ Feature: View styles (List and Grid)
     And I go to page number 2
     Then I see a `item previews list`
 
-  Scenario: Switching to the image-grid view and paginating
+  Scenario: Switching to the mosaic view and paginating
     When I open `/search?view=grid`
-    And I click the `search image-grid view toggle`
-    And I wait for the `item previews image-grid`
+    And I click the `search mosaic view toggle`
+    And I wait for the `item previews mosaic`
     And I go to page number 2
-    Then I see a `item previews image-grid`
+    Then I see a `item previews mosaic`
 
   Scenario: The view parameter is preserved and present in the URL for the list view
     Given I have chosen the `list` search results view
@@ -62,12 +62,12 @@ Feature: View styles (List and Grid)
     Then I see a `item previews grid`
 
   Scenario: The view parameter is preserved and present in the URL for the  image-rid view
-    Given I have chosen the `image-grid` search results view
+    Given I have chosen the `mosaic` search results view
     When I visit the `home page`
     And I click the `show search button`
     And I enter "paris" in the `search box`
     And I press the ENTER key
-    Then I see a `item previews image-grid`
+    Then I see a `item previews mosaic`
 
   Scenario: Back button restores previous view
     Given I am on `/search?view=grid`

@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="view === 'grid' || view === 'image-grid'"
+    v-if="view === 'grid' || view === 'mosaic'"
   >
     <div
       id="searchResultsGrid"
@@ -121,7 +121,7 @@
     },
 
     mounted() {
-      const masonaryViews = ['grid', 'image-grid'];
+      const masonaryViews = ['grid', 'mosaic'];
       if (typeof this.$redrawVueMasonry === 'function' && masonaryViews.includes(this.view)) {
         this.$redrawVueMasonry('searchResultsGrid');
       }

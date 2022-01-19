@@ -39,7 +39,7 @@
         class="placeholder card-img"
       />
       <b-card-body
-        v-if="variant !== 'image-grid'"
+        v-if="variant !== 'mosaic'"
         data-qa="card body"
       >
         <b-card-sub-title
@@ -228,7 +228,7 @@
       },
       /**
        * Style variant to use
-       * @values default, entity, mini, list, image-grid
+       * @values default, entity, mini, list, mosaic
        */
       variant: {
         type: String,
@@ -411,10 +411,10 @@
   />
   ```
 
-  Variant "image-grid":
+  Variant "mosaic":
   ```jsx
   <ContentCard
-    variant="image-grid"
+    variant="mosaic"
     title="Debarquement a l'Ile de Malte (Bonaparte landing on Malta)"
     image-url="https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=http%3A%2F%2Fcollections.rmg.co.uk%2FmediaLib%2F323%2Fmedia-323744%2Flarge.jpg"
     url="https://www.europeana.eu/item/2022362/_Royal_Museums_Greenwich__http___collections_rmg_co_uk_collections_objects_147879"

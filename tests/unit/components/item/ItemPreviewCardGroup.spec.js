@@ -74,11 +74,11 @@ describe('components/item/ItemPreviewCardGroup', () => {
     });
   });
 
-  describe('when view is image-grid', () => {
+  describe('when view is mosaic', () => {
     it('renders each result with a link, and resizes the masonary grid', async() => {
       const wrapper = factory();
 
-      await wrapper.setProps({ items: results, view: 'image-grid' });
+      await wrapper.setProps({ items: results, view: 'mosaic' });
 
       const renderedResults =  wrapper.findAll('[data-qa="item preview"]');
 

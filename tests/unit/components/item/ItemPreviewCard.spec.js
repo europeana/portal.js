@@ -59,9 +59,9 @@ describe('components/item/ItemPreviewCard', () => {
     });
   });
 
-  describe('image-grid card', () => {
-    it('renders a image-grid content card without any recommendation buttons', () => {
-      const wrapper = factory({ item, variant: 'image-grid' });
+  describe('mosaic card', () => {
+    it('renders a mosaic content card without any recommendation buttons', () => {
+      const wrapper = factory({ item, variant: 'mosaic' });
 
       expect(wrapper.vm.texts).toEqual([]);
     });
