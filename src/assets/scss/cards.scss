@@ -249,6 +249,11 @@
       box-shadow: none;
     }
 
+    &:hover,
+    &:focus {
+      color: $blue;
+    }
+
     @media (max-width: $bp-medium) {
       flex: 100%;
       margin-bottom: 1rem;
@@ -257,15 +262,6 @@
     .card-title {
       font-size: $font-size-small;
       font-weight: normal;
-    }
-
-    .card-wrapper {
-      // display: initial;
-
-      &:hover,
-      &:focus {
-        color: $blue;
-      }
     }
 
     .card-img {
@@ -326,63 +322,63 @@
     .card-wrapper {
       flex-direction: row;
       justify-content: space-between;
+    }
 
-      .card-img {
-        border-radius: 4px;
-        display: block;
-        flex: 0 0 auto;
+    .card-img {
+      border-radius: 4px;
+      display: block;
+      flex: 0 0 auto;
+      height: 80px;
+      min-height: initial;
+      order: 2;
+      overflow: hidden;
+      position: relative;
+      width: 80px;
+
+      img {
         height: 80px;
-        min-height: initial;
-        order: 2;
-        overflow: hidden;
-        position: relative;
-        width: 80px;
-
-        img {
-          height: 80px;
-          margin: 0;
-          position: absolute;
-        }
-
-        &::after {
-          content: '';
-          display: block;
-          padding-bottom: 100%;
-          width: 100%;
-        }
-
-        &.logo {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-
-          img {
-            height: auto;
-            width: auto;
-          }
-        }
+        margin: 0;
+        position: absolute;
       }
 
-      .card-title {
-        overflow-wrap: break-word;
-        word-break: break-word;
-        max-height: 3.5625rem;
-        overflow: hidden;
-        display: box;
-        -webkit-line-clamp: 3;
+      &::after {
+        content: '';
+        display: block;
+        padding-bottom: 100%;
+        width: 100%;
       }
+    }
 
-      .card-body {
-        flex-grow: 1;
-        margin-right: 1rem;
-        order: 1;
-        padding: 0;
-        width: 55%;
-      }
+    .logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
-      .card-text {
-        color: $blue;
+      img {
+        height: auto;
+        width: auto;
       }
+    }
+
+    .card-title {
+      overflow-wrap: break-word;
+      word-break: break-word;
+      max-height: 3.5625rem;
+      overflow: hidden;
+      display: box;
+      -webkit-line-clamp: 3;
+    }
+
+    .card-body {
+      flex-grow: 1;
+      margin-right: 1rem;
+      order: 1;
+      padding: 0;
+      width: 55%;
+    }
+
+    .card-text {
+      color: $blue;
     }
   }
 

@@ -54,14 +54,6 @@ describe('components/generic/ContentCard', () => {
       const title =  wrapper.find('[data-qa="content card"] .card-title');
       expect(title.text()).toBe('Art');
     });
-
-    it('contains a link', async() => {
-      const wrapper = factory();
-      await wrapper.setProps({ title: 'The Milkmaid by Vermeer', url: 'https://example.org' });
-
-      const link =  wrapper.find('[data-qa="content card"] .card-title > a');
-      expect(link.attributes().href).toBe('https://example.org');
-    });
   });
 
   describe('card subtitle', () => {
@@ -177,6 +169,16 @@ describe('components/generic/ContentCard', () => {
     });
   });
 
+  describe('card link', () => {
+    it('may have a link', async() => {
+      const wrapper = factory();
+      await wrapper.setProps({ url: 'https://example.org' });
+
+      const link =  wrapper.find('[data-qa="content card"] .card-link');
+      expect(link.attributes().href).toBe('https://example.org');
+    });
+  });
+
   describe('card image', () => {
     it('may have an image', async() => {
       const wrapper = factory();
@@ -231,14 +233,6 @@ describe('components/generic/ContentCard', () => {
 
       image = wrapper.find('[data-qa="content card"] .card-img img');
       expect(image.exists()).toBe(false);
-    });
-
-    it('is wrapped with a link', async() => {
-      const wrapper = factory();
-      await wrapper.setProps({ imageUrl: 'https://example.org', url: 'https://example.org' });
-
-      const link =  wrapper.find('[data-qa="content card"] a.card-img');
-      expect(link.attributes().href).toBe('https://example.org');
     });
   });
 
