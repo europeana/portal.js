@@ -31,6 +31,18 @@ describe('components/generic/LinkGroup', () => {
     const renderedList = footerLinks.findAll('li');
     expect(renderedList.length).toBe(2);
   });
+
+  describe('when there are no links', () => {
+    it('does not show a link list', async() => {
+      const wrapper = factory();
+      await wrapper.setProps({ links: [] });
+
+      const linkList = wrapper.find('[data-qa="link group links"]');
+      const renderedList = linkList.findAll('.link');
+      expect(renderedList.length).toBe(0);
+    });
+  });
+
   describe('when an item has been delete or unpublished', () => {
     it('does not show this item as a link', () => {
       const wrapper = factory([
