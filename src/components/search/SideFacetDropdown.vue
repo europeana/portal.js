@@ -4,7 +4,7 @@
       class="facet-label"
     >{{ facetName }}</label>
     <SearchFilters
-      :filters="filters"
+      :filters="selectedFilters"
       :truncate-labels="40"
     />
     <b-dropdown
@@ -166,7 +166,7 @@
     },
 
     computed: {
-      filters() {
+      selectedFilters() {
         return {
           [this.name]: [].concat(this.selected)
         };
