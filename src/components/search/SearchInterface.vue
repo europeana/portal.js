@@ -24,7 +24,10 @@
         data-qa="search filters"
       >
         <client-only>
-          <SearchFilters />
+          <SearchFilters
+            :filters="filters"
+            class="mb-2"
+          />
           <div class="position-relative">
             <FacetDropdown
               v-for="facet in coreFacets"

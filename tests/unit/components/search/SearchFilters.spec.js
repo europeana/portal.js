@@ -1,42 +1,51 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import Vuex from 'vuex';
 
 import SearchFilters from '@/components/search/SearchFilters.vue';
 
 const localVue = createLocalVue();
-localVue.use(Vuex);
 
-const factory = (filters) => {
-  const store = new Vuex.Store({
-    modules: {
-      search: {
-        namespaced: true,
-        getters: {
-          filters: () => filters
-        }
-      }
-    }
-  });
-
+const factory = (options = {}) => {
   return shallowMount(SearchFilters, {
     localVue,
     stubs: ['b-badge'],
-    store
+    mocks: {
+      $features: {
+        sideFilters: false
+      }
+    },
+    ...options
   });
 };
 
 describe('components/search/SearchFilters', () => {
   it('shows a badge for each supplied filter', () => {
-    const wrapper = factory({ TYPE: ['IMAGE', 'VIDEO'] });
+    const wrapper = factory({
+      propsData: { filters: { TYPE: ['IMAGE', 'VIDEO'] } }
+    });
 
     const badges = wrapper.findAll('[data-qa="filter badge"]');
     expect(badges.length).toBe(2);
   });
 
   describe('labels', () => {
+    describe('when side filters are enabled', () => {
+      it('is not prefixed', () => {
+        const wrapper = factory({
+          propsData: { filters: { TYPE: ['IMAGE'] } },
+          mocks: { $features: { sideFilters: true } }
+        });
+
+        const label = wrapper.find('[facetname="TYPE"]');
+
+        expect(label.props('prefixed')).toBe(false);
+      });
+    });
+
     describe('when facet name is contentTier', () => {
       it('is not prefixed', () => {
-        const wrapper = factory({ contentTier: ['*'] });
+        const wrapper = factory({
+          propsData: { filters: { contentTier: ['*'] } }
+        });
 
         const label = wrapper.find('[facetname="contentTier"]');
 
@@ -46,7 +55,9 @@ describe('components/search/SearchFilters', () => {
 
     describe('when facet name is not contentTier', () => {
       it('is prefixed', () => {
-        const wrapper = factory({ TYPE: ['IMAGE'] });
+        const wrapper = factory({
+          propsData: { filters: { TYPE: ['IMAGE'] } }
+        });
 
         const label = wrapper.find('[facetname="TYPE"]');
 

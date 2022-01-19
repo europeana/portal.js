@@ -3,24 +3,10 @@
     <label
       class="facet-label"
     >{{ facetName }}</label>
-    <div
-      class="filter-badges"
-    >
-      <b-badge
-        v-for="(filter, index) in [].concat(selected)"
-        :key="index"
-        variant="secondary"
-        class="mr-2 mb-2 filter-badge"
-        data-qa="filter badge"
-      >
-        <FacetFieldLabel
-          :facet-name="name"
-          :field-value="filter"
-          :prefixed="false"
-          :truncate="40"
-        />
-      </b-badge>
-    </div>
+    <SearchFilters
+      :filters="filters"
+      :truncate-labels="40"
+    />
     <b-dropdown
       :id="facetName"
       ref="dropdown"
@@ -113,10 +99,11 @@
 
   export default {
     components: {
-      AlertMessage: () => import('../../components/generic/AlertMessage'),
+      AlertMessage: () => import('../generic/AlertMessage'),
       FacetFieldLabel,
       ColourSwatch,
-      LoadingSpinner: () => import('@/components/generic/LoadingSpinner')
+      LoadingSpinner: () => import('../generic/LoadingSpinner'),
+      SearchFilters: () => import('./SearchFilters'),
     },
 
     props: {
@@ -179,6 +166,12 @@
     },
 
     computed: {
+      filters() {
+        return {
+          [this.name]: [].concat(this.selected)
+        }
+      },
+
       sortedOptions() {
         if (this.isRadio) {
           return this.fields;
@@ -273,11 +266,6 @@
 
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
-
-  .filter-badges {
-    display: flex;
-    flex-wrap: wrap;
-  }
 
   .facet-label {
     font-size: $font-size-extrasmall;
