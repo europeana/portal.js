@@ -7,10 +7,13 @@
   >
     <div class="card-wrapper">
       <SmartLink
-        v-if="cardImageUrl"
-        :class="{ logo }"
         :destination="url"
+        link-class="card-link"
+      />
+      <div
+        v-if="cardImageUrl"
         class="card-img"
+        :class="{ logo }"
       >
         <b-img-lazy
           v-if="lazy"
@@ -30,10 +33,9 @@
           :alt="imageAlt"
           @error="imageNotFound"
         />
-      </SmartLink>
-      <SmartLink
+      </div>
+      <div
         v-else-if="!cardImageUrl && variant !== 'mini'"
-        :destination="url"
         class="placeholder card-img"
       />
       <b-card-body data-qa="card body">
@@ -51,13 +53,9 @@
           data-qa="card title"
           :lang="displayTitle.code"
         >
-          <SmartLink
-            :destination="url"
-          >
-            <span>
-              {{ displayTitle.values[0] | truncate(90, $t('formatting.ellipsis')) }}
-            </span>
-          </SmartLink>
+          <span>
+            {{ displayTitle.values[0] | truncate(90, $t('formatting.ellipsis')) }}
+          </span>
         </b-card-title>
         <time
           v-if="datetime"
@@ -87,7 +85,7 @@
             <p
               v-html="cardText(text.values)"
             />
-          <!-- eslint-enable vue/no-v-html -->
+            <!-- eslint-enable vue/no-v-html -->
           </b-card-text>
         </template>
         <client-only v-if="variant === 'list'">

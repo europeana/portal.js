@@ -170,13 +170,12 @@
   }
 
   .card-link {
-    min-height: 100%;
-    color: $black;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
     z-index: 1;
-
-    &:hover {
-      color: $black;
-    }
   }
 
   .is-external-link .card-title {
@@ -260,8 +259,8 @@
       font-weight: normal;
     }
 
-    .card-link {
-      display: initial;
+    .card-wrapper {
+      // display: initial;
 
       &:hover,
       &:focus {
@@ -404,6 +403,8 @@
     }
 
     .data-and-buttons-wrapper {
+      position: relative;
+      z-index: 2;
       color: $mediumgrey;
       margin: auto auto 0 0;
 
@@ -483,7 +484,7 @@
     position: absolute;
     top: 1rem;
     right: 1rem;
-    z-index: 2;
+    z-index: 3;
     width: 100%;
 
     .btn {
