@@ -9,6 +9,7 @@
       <SmartLink
         :destination="url"
         link-class="card-link"
+        :aria-label="displayTitle ? displayTitle.values[0] : null"
       />
       <div
         v-if="cardImageUrl"
@@ -38,7 +39,10 @@
         v-else-if="!cardImageUrl && variant !== 'mini'"
         class="placeholder card-img"
       />
-      <b-card-body data-qa="card body">
+      <b-card-body
+        v-if="variant !== 'mosaic'"
+        data-qa="card body"
+      >
         <b-card-sub-title
           v-if="(displaySubTitle && variant !== 'mini') && showSubtitle"
           sub-title-tag="div"
@@ -229,7 +233,7 @@
       },
       /**
        * Style variant to use
-       * @values default, entity, mini, list
+       * @values default, entity, mini, list, mosaic
        */
       variant: {
         type: String,
@@ -409,6 +413,27 @@
     title="Photograph"
     image-url="https://api.europeana.eu/api/v2/thumbnail-by-url.json?uri=https%3A%2F%2Fwww.rijksmuseum.nl%2Fassetimage2.jsp%3Fid%3DRP-F-2000-21-40&type=IMAGE"
     url="https://www.europeana.eu/collections/topic/48"
+  />
+  ```
+
+  Variant "mosaic":
+  ```jsx
+  <ContentCard
+    variant="mosaic"
+    title="Debarquement a l'Ile de Malte (Bonaparte landing on Malta)"
+    image-url="https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=http%3A%2F%2Fcollections.rmg.co.uk%2FmediaLib%2F323%2Fmedia-323744%2Flarge.jpg"
+    url="https://www.europeana.eu/item/2022362/_Royal_Museums_Greenwich__http___collections_rmg_co_uk_collections_objects_147879"
+  />
+  ```
+
+  Variant "list":
+  ```jsx
+  <ContentCard
+    variant="list"
+    title="Debarquement a l'Ile de Malte (Bonaparte landing on Malta)"
+    image-url="https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=http%3A%2F%2Fcollections.rmg.co.uk%2FmediaLib%2F323%2Fmedia-323744%2Flarge.jpg"
+    :hitsText="{ prefix: 'This shows a ', exact: 'Hit-Highlight', suffix: ' appearing in the middle of the description!' }"
+    url="https://www.europeana.eu/item/2022362/_Royal_Museums_Greenwich__http___collections_rmg_co_uk_collections_objects_147879"
   />
   ```
 </docs>

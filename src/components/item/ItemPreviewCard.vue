@@ -90,7 +90,7 @@
       },
       /**
        * Style variant to use
-       * @values default, entity, mini, list, exlpore, similar
+       * @values default, entity, mini, mosaic, list, exlpore, similar
        */
       variant: {
         type: String,
@@ -128,7 +128,8 @@
 
     computed: {
       texts() {
-        if (this.variant === 'similar' || this.variant === 'explore') {
+        const textlessVariants = ['similar', 'explore', 'mosaic'];
+        if (textlessVariants.includes(this.variant)) {
           return [];
         }
 
