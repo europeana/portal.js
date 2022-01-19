@@ -178,17 +178,10 @@
           return this.fields;
         }
 
-        const selected = [];
-
-        this.fields.map(field => {
-          if (this.selected.includes(field.label)) {
-            selected.push(field);
-          }
-        });
-
+        const selected = this.fields.filter(field => this.selected.includes(field.label));
         const leftOver = this.fields.filter(field => !this.selected.includes(field.label));
 
-        return selected.sort((a, b) => a.count + b.count).concat(leftOver);
+        return selected.sort((a, b) => a.count > b.count).concat(leftOver);
       },
 
       isColourPalette() {
@@ -235,8 +228,11 @@
       // Refetch facet fields, but only if other qf query values have changed
       updateRouteQueryQf(newQf, oldQf) {
         // Look for changes to qf, accounting for them being potentially strings
-        // or arrays.
-        const qfDiff = xor([].concat(newQf), [].concat(oldQf));
+        // or arrays or undefined.
+        const qfDiff = xor(
+          newQf ? [].concat(newQf) : [],
+          oldQf ? [].concat(oldQf) : []
+        );
         if (qfDiff.length === 0) {
           return;
         }
