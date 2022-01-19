@@ -85,7 +85,7 @@ describe('components/item/ItemPreviewCard', () => {
       };
       const wrapper = factory({ item, variant: 'list', hitSelector });
 
-      expect(wrapper.vm.texts).toEqual([item.dcCreatorLangAware, item.dataProvider]);
+      expect(wrapper.vm.texts).toEqual([item.dcCreatorLangAware]);
       expect(wrapper.vm.hitsText).toEqual(hitSelector);
     });
   });
