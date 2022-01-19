@@ -26,6 +26,10 @@
   export default {
     name: 'SearchFilters',
 
+    components: {
+      FacetFieldLabel
+    },
+
     props: {
       /**
        * Selected filter(s)
@@ -49,10 +53,6 @@
         type: Number,
         default: -1
       }
-    },
-
-    components: {
-      FacetFieldLabel
     },
 
     computed: {

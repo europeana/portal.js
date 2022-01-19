@@ -103,7 +103,7 @@
       FacetFieldLabel,
       ColourSwatch,
       LoadingSpinner: () => import('../generic/LoadingSpinner'),
-      SearchFilters: () => import('./SearchFilters'),
+      SearchFilters: () => import('./SearchFilters')
     },
 
     props: {
@@ -169,7 +169,7 @@
       filters() {
         return {
           [this.name]: [].concat(this.selected)
-        }
+        };
       },
 
       filteredFields() {
