@@ -5,7 +5,6 @@ import Vuex from 'vuex';
 import sinon from 'sinon';
 
 import SearchInterface from '@/components/search/SearchInterface.vue';
-import { defaultFacetNames } from '@/store/search';
 
 const localVue = createLocalVue();
 localVue.filter('localise', (number) => number);

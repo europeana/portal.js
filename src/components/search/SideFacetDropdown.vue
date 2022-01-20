@@ -152,7 +152,7 @@
         return Promise.resolve();
       }
 
-      return this.$store.dispatch('search/queryFacets', { facet: this.name })
+      return this.$store.dispatch('search/queryFacet', this.name)
         .then((facets) => {
           this.fields = (facets || [])[0]?.fields || [];
           this.fetched = true;

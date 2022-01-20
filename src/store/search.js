@@ -368,13 +368,12 @@ export default {
         });
     },
 
-    // TODO: refactor not to need overrides once ENABLE_SIDE_FILTERS is always-on
-    queryFacets({ commit, getters, rootState, rootGetters, dispatch, state }, overrides = {}) {
+    queryFacet({ commit, getters, rootState, rootGetters, dispatch, state }, facet) {
       const paramsForFacets = {
         ...state.apiParams,
         rows: 0,
         profile: 'facets',
-        ...overrides
+        facet
       };
 
       return this.$apis.record.search(paramsForFacets, { ...getters.searchOptions, locale: this.$i18n.locale })

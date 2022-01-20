@@ -104,11 +104,7 @@
 
   import makeToastMixin from '@/mixins/makeToast';
 
-  import isEqual from 'lodash/isEqual';
-  import pickBy from 'lodash/pickBy';
   import { mapState, mapGetters } from 'vuex';
-  import themes from '@/plugins/europeana/themes';
-  import { queryUpdatesForFilters } from '../../store/search';
 
   export default {
     name: 'SearchInterface',
@@ -147,9 +143,7 @@
     },
     data() {
       return {
-        coreFacetNames: ['collection', 'TYPE', 'COUNTRY', 'REUSABILITY'],
-        fetched: false,
-        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued'
+        fetched: false
       };
     },
     async fetch() {

@@ -26,7 +26,7 @@ const countryFields = [
 ];
 
 const storeDispatchStub = sinon.stub()
-  .withArgs('search/queryFacets', { facet: 'COUNTRY' })
+  .withArgs('search/queryFacet', 'COUNTRY')
   .resolves([
     { name: 'COUNTRY', fields: countryFields }
   ]);
@@ -66,7 +66,7 @@ describe('components/search/SideFacetDropdown', () => {
 
         await wrapper.vm.fetch();
 
-        expect(storeDispatchStub.calledWith('search/queryFacets', { facet: 'COUNTRY' })).toBe(true);
+        expect(storeDispatchStub.calledWith('search/queryFacet', 'COUNTRY')).toBe(true);
       });
 
       it('marks facet as fetched', async() => {
@@ -94,7 +94,7 @@ describe('components/search/SideFacetDropdown', () => {
 
         await wrapper.vm.fetch();
 
-        expect(storeDispatchStub.calledWith('search/queryFacets', { facet: 'collection' })).toBe(false);
+        expect(storeDispatchStub.calledWith('search/queryFacet', 'collection')).toBe(false);
       });
 
       it('marks facet as fetched', async() => {
