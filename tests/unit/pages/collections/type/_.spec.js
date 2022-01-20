@@ -33,8 +33,8 @@ const store = (entity = {}) => {
     getters: {
       'entity/curatedEntity': () => () => null,
       'search/facetNames': () => [],
-      'search/filters': () => {},
-      'search/queryUpdatesForFacetChanges': () => () => {},
+      'search/filters': () => ({}),
+      'search/queryUpdatesForFacetChanges': () => () => ({}),
       'search/collection': () => false
     },
     mutations: {

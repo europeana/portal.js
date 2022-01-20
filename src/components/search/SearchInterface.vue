@@ -158,7 +158,6 @@
       this.$store.dispatch('search/activate');
       this.$store.commit('search/set', ['userParams', this.$route.query]);
 
-      // TODO: refactor not to need overrides once ENABLE_SIDE_FILTERS is always-on
       await this.$store.dispatch('search/run');
 
       if (this.$store.state.search.error) {
@@ -177,15 +176,11 @@
         facets: state => state.search.facets,
         hits: state => state.search.hits,
         lastAvailablePage: state => state.search.lastAvailablePage,
-        resettableFilters: state => state.search.resettableFilters,
         results: state => state.search.results,
         totalResults: state => state.search.totalResults
       }),
       ...mapGetters({
-        facetNames: 'search/facetNames',
-        filters: 'search/filters',
-        queryUpdatesForFacetChanges: 'search/queryUpdatesForFacetChanges',
-        collection: 'search/collection'
+        filters: 'search/filters'
       }),
       qf() {
         return this.userParams.qf;
@@ -228,50 +223,8 @@
       noResults() {
         return this.totalResults === 0;
       },
-      /**
-       * Sort the facets for display
-       * Facets are returned in the hard-coded preferred order from the search
-       * plugin, followed by all others in the order the API returned them.
-       * @return {Object[]} ordered facets
-       * TODO: does this belong in its own component?
-       */
-      orderedFacets() {
-        const unordered = this.facets.slice();
-        let ordered = [];
-
-        for (const facetName of this.facetNames) {
-          const index = unordered.findIndex((f) => {
-            return f.name === facetName;
-          });
-          if (index !== -1) {
-            ordered = ordered.concat(unordered.splice(index, 1));
-          }
-        }
-
-        if (this.$store.state.search.collectionFacetEnabled) {
-          ordered.unshift({ name: 'collection', fields: themes.map(theme => theme.qf) });
-        }
-        return ordered.concat(unordered);
-      },
-      coreFacets() {
-        return this.orderedFacets.filter(facet => this.coreFacetNames.includes(facet.name));
-      },
-      moreFacetNames() {
-        return this.facetNames.filter(facetName => !this.coreFacetNames.includes(facetName));
-      },
-      moreFacets() {
-        return this.orderedFacets.filter(facet => this.moreFacetNames.includes(facet.name));
-      },
-      moreSelectedFacets() {
-        // TODO: use resettableFilters here?
-        // TODO: if not, move newspaper filter names into store/collections/newspapers?
-        return pickBy(this.filters, (selected, name) => this.moreFacetNames.includes(name) || ['api', this.PROXY_DCTERMS_ISSUED].includes(name));
-      },
-      enableMoreFacets() {
-        return this.moreFacets.length > 0;
-      },
       contentTierZeroPresent() {
-        return this.moreFacets.some(facet => {
+        return this.facets.some(facet => {
           return facet.name === 'contentTier' && facet.fields && facet.fields.some(option => option.label === '"0"');
         });
       },
@@ -314,24 +267,6 @@
           this.view = this.routeQueryView;
         }
       },
-      facetDropdownType(name) {
-        return name === 'collection' ? 'radio' : 'checkbox';
-      },
-      changeFacet(name, selected) {
-        if (typeof this.filters[name] === 'undefined') {
-          if ((Array.isArray(selected) && selected.length === 0) || !selected) {
-            return;
-          }
-        }
-        if (isEqual(this.filters[name], selected)) {
-          return;
-        }
-
-        this.rerouteSearch(this.queryUpdatesForFacetChanges({ [name]: selected }));
-      },
-      changeMoreFacets(selected) {
-        return this.rerouteSearch(this.queryUpdatesForFacetChanges(selected));
-      },
       rerouteSearch(queryUpdates) {
         const query = this.updateCurrentSearchQuery(queryUpdates);
         this.$goto(this.$path({ ...this.route, ...{ query } }));
@@ -364,18 +299,6 @@
         }
 
         return updated;
-      },
-      resetFilters() {
-        const filters = Object.assign({}, this.filters);
-
-        for (const filterName of this.resettableFilters) {
-          filters[filterName] = [];
-        }
-        this.$store.commit('search/clearResettableFilters');
-        return this.rerouteSearch(queryUpdatesForFilters(filters));
-      },
-      isFilteredByDropdowns() {
-        return this.$store.getters['search/hasResettableFilters'];
       },
       showContentTierToast() {
         if (!process.browser) {
