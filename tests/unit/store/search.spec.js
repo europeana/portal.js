@@ -196,10 +196,10 @@ describe('store/search', () => {
             expect(updates.qf).toContain('TYPE:"IMAGE"');
           });
 
-          it('preserves tier filter', () => {
+          it('removes tier filter', () => {
             const updates = store.getters.queryUpdatesForFacetChanges(state, getters)(selected);
 
-            expect(updates.qf).toContain('contentTier:*');
+            expect(updates.qf).not.toContain('contentTier:*');
           });
         });
 
