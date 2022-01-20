@@ -418,10 +418,19 @@
         margin-right: 0.3rem;
       }
 
+      .user-buttons {
+        display: flex;
+      }
+
       .btn-light-flat {
         color: $mediumgrey;
         padding: 0;
         margin-right: 1rem;
+
+        &.pin-button {
+          display: inline-flex;
+          order: 3;
+        }
 
         &:hover {
           color: $innovationblue;
@@ -433,7 +442,6 @@
           }
 
           &.pin-button {
-            display: inline-flex;
             color: $darkgreen;
           }
         }
