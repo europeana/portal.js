@@ -56,7 +56,7 @@
       },
       variant: {
         type: String,
-        default: 'default' // other options: entity, mini, list
+        default: 'default' // other options: entity, mini, mosaic, list
       },
       lazy: {
         type: Boolean,
@@ -78,7 +78,8 @@
 
     computed: {
       texts() {
-        if (this.variant === 'similar' || this.variant === 'explore') {
+        const textlessVariants = ['similar', 'explore', 'mosaic'];
+        if (textlessVariants.includes(this.variant)) {
           return [];
         }
 

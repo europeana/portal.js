@@ -1,15 +1,17 @@
 <template>
   <div
-    v-if="view === 'grid'"
+    v-if="view === 'grid' || view === 'mosaic'"
   >
     <div
+      id="searchResultsGrid"
+      :key="`searchResultsGrid${view}`"
       v-masonry
       transition-duration="0.1"
       item-selector=".card"
       horizontal-order="true"
       column-width=".masonry-container .card"
       class="masonry-container"
-      data-qa="item previews grid"
+      :data-qa="`item previews ${view}`"
     >
       <ItemPreviewCard
         v-for="item in items"
@@ -119,8 +121,9 @@
     },
 
     mounted() {
-      if (typeof this.$redrawVueMasonry === 'function' && this.view === 'grid') {
-        this.$redrawVueMasonry();
+      const masonaryViews = ['grid', 'mosaic'];
+      if (typeof this.$redrawVueMasonry === 'function' && masonaryViews.includes(this.view)) {
+        this.$redrawVueMasonry('searchResultsGrid');
       }
     },
 

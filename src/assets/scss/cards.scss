@@ -90,6 +90,10 @@
 
   @media (min-width: $bp-medium) {
     min-height: 20rem;
+
+    &.mosaic-card {
+      min-height: 0;
+    }
   }
 
   a {
