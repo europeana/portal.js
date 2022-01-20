@@ -43,7 +43,8 @@ const factory = () => shallowMountNuxt(SideFacetDropdown, {
     $store: {
       dispatch: storeDispatchStub,
       getters: {
-        'search/collection': false
+        'search/collection': false,
+        'entity/id': null
       }
     }
   },
@@ -125,6 +126,32 @@ describe('components/search/SideFacetDropdown', () => {
 
         expect(wrapper.vm.fields.length).toBe(3);
         expect(wrapper.vm.fields.map(field => field.label)).toEqual(['"2"', '"3"', '"4"']);
+      });
+
+      it('does not limit contentTier options in an organization collection', async() => {
+        const wrapper = factory();
+        await wrapper.setProps({
+          name: 'contentTier'
+        });
+        wrapper.vm.$store.getters['entity/id'] = 'http://data.europeana.eu/organization/12345';
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.fields.length).toBe(5);
+        expect(wrapper.vm.fields.map(field => field.label)).toEqual(['"0"', '"1"', '"2"', '"3"', '"4"']);
+      });
+
+      it('limits contentTier options to fields "1", "2", "3" and "4" in non-organization, non-thematic collections', async() => {
+        const wrapper = factory();
+        await wrapper.setProps({
+          name: 'contentTier'
+        });
+        wrapper.vm.$store.getters['entity/id'] = 'http://data.europeana.eu/base/concept/12345';
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.fields.length).toBe(4);
+        expect(wrapper.vm.fields.map(field => field.label)).toEqual(['"1"', '"2"', '"3"', '"4"']);
       });
 
       it('elsewhere limits contentTier options to field "0"', async() => {

@@ -156,15 +156,9 @@
         .then((facets) => {
           let fields = (facets || [])[0]?.fields || [];
 
+          // Limit contentTier filter options shown
           if (this.name === 'contentTier') {
-            // Limit options shown for contentTier toggle
-            if (this.$store.getters['search/collection']) { // || this.$store.getters['entity/id']
-              // Searching within a collection, only show options 2 to 4
-              fields = fields.filter(field => ['"2"', '"3"', '"4"'].includes(field.label));
-            } else {
-              // Elsewhere, only show option 0
-              fields = fields.filter(field => field.label === '"0"');
-            }
+            fields = this.filterContentTierFields(fields);
           }
 
           this.fields = fields;
@@ -219,6 +213,30 @@
     },
 
     methods: {
+      filterContentTierFields(fields) {
+        // In general, only show option 0
+        let contentTierFilters = ['"0"'];
+
+        if (this.$store.getters['search/collection']) {
+          // If searching within a thematic collection, only show options 2 to 4
+          contentTierFilters = ['"2"', '"3"', '"4"'];
+        } else if (this.$store.getters['entity/id']) {
+          // If searching with a non-thematic collection...
+          if (this.$store.getters['entity/id'].includes('/organization/')) {
+            // ... and it is an organization, do not limit the options
+            contentTierFilters = null;
+          } else {
+            // ... and it is not an organization, only show options 1 to 4
+            contentTierFilters = ['"1"', '"2"', '"3"', '"4"'];
+          }
+        }
+
+        if (contentTierFilters) {
+          fields = fields.filter(field => contentTierFilters.includes(field.label));
+        }
+
+        return fields;
+      },
       // Refetch facet fields, unless this is the reusability facet
       updateRouteQueryReusability() {
         if (this.name !== 'REUSABILITY') {
