@@ -32,9 +32,13 @@
         type: String,
         required: true
       },
+      /**
+       * Style variant to use
+       * @values icons, simple
+       */
       variant: {
         type: String,
-        default: 'icons' // other variants: 'simple'
+        default: 'icons'
       }
     }
   };
