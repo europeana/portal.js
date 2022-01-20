@@ -472,13 +472,12 @@ describe('store/search', () => {
         expect(dispatch.calledWith('deriveApiSettings')).toBe(true);
       });
 
-      it('queries for items and facets if needed', async() => {
+      it('queries for items if needed', async() => {
         const dispatch = sinon.spy();
 
         await store.actions.run({ dispatch, getters: { itemUpdateNeeded: true, facetUpdateNeeded: true } });
 
         expect(dispatch.calledWith('queryItems')).toBe(true);
-        expect(dispatch.calledWith('queryFacets')).toBe(true);
       });
 
       it('omits query for items if not needed', async() => {
@@ -487,24 +486,6 @@ describe('store/search', () => {
         await store.actions.run({ dispatch, getters: { itemUpdateNeeded: false, facetUpdateNeeded: true } });
 
         expect(dispatch.calledWith('queryItems')).toBe(false);
-        expect(dispatch.calledWith('queryFacets')).toBe(true);
-      });
-
-      it('omits query for facets if not needed', async() => {
-        const dispatch = sinon.spy();
-
-        await store.actions.run({ dispatch, getters: { itemUpdateNeeded: true, facetUpdateNeeded: false } });
-
-        expect(dispatch.calledWith('queryItems')).toBe(true);
-        expect(dispatch.calledWith('queryFacets')).toBe(false);
-      });
-
-      it('omits query for facets if explicitly skipped', async() => {
-        const dispatch = sinon.spy();
-
-        await store.actions.run({ dispatch, getters: { facetUpdateNeeded: true } }, { skipFacets: true });
-
-        expect(dispatch.calledWith('queryFacets')).toBe(false);
       });
     });
 

@@ -17,45 +17,6 @@
   </b-container>
   <b-container v-else>
     <b-row
-      v-if="!sideFiltersEnabled"
-      class="mb-3"
-    >
-      <b-col
-        data-qa="search filters"
-      >
-        <client-only>
-          <SearchFilters />
-          <div class="position-relative">
-            <FacetDropdown
-              v-for="facet in coreFacets"
-              :key="facet.name"
-              :name="facet.name"
-              :fields="facet.fields"
-              :type="facetDropdownType(facet.name)"
-              :selected="filters[facet.name]"
-              role="search"
-              @changed="changeFacet"
-            />
-            <MoreFiltersDropdown
-              v-if="enableMoreFacets"
-              :more-facets="moreFacets"
-              :selected="moreSelectedFacets"
-              role="search"
-              @changed="changeMoreFacets"
-            />
-            <button
-              v-if="isFilteredByDropdowns()"
-              class="reset"
-              data-qa="reset filters button"
-              @click="resetFilters"
-            >
-              {{ $t('reset') }}
-            </button>
-          </div>
-        </client-only>
-      </b-col>
-    </b-row>
-    <b-row
       v-if="noResults"
       class="mb-3"
     >
@@ -155,13 +116,10 @@
     components: {
       AlertMessage: () => import('../../components/generic/AlertMessage'),
       ClientOnly,
-      FacetDropdown: () => import('../../components/search/FacetDropdown'),
       InfoMessage,
       ItemPreviewCardGroup,
       LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
-      MoreFiltersDropdown: () => import('../../components/search/MoreFiltersDropdown'),
       PaginationNav: () => import('../../components/generic/PaginationNav'),
-      SearchFilters: () => import('../../components/search/SearchFilters'),
       ViewToggles
     },
     mixins: [
@@ -201,7 +159,7 @@
       this.$store.commit('search/set', ['userParams', this.$route.query]);
 
       // TODO: refactor not to need overrides once ENABLE_SIDE_FILTERS is always-on
-      await this.$store.dispatch('search/run', { skipFacets: this.sideFiltersEnabled });
+      await this.$store.dispatch('search/run');
 
       if (this.$store.state.search.error) {
         if (process.server) {
@@ -332,9 +290,6 @@
         set(value) {
           this.$store.commit('search/setView', value);
         }
-      },
-      sideFiltersEnabled() {
-        return this.$features.sideFilters;
       }
     },
     watch: {

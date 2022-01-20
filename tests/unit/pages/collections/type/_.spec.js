@@ -27,13 +27,19 @@ const store = (entity = {}) => {
       i18n: {
         locale: 'en'
       },
-      auth: {}
+      auth: {},
+      search: {}
     },
     getters: {
-      'entity/curatedEntity': () => () => null
+      'entity/curatedEntity': () => () => null,
+      'search/facetNames': () => [],
+      'search/filters': () => {},
+      'search/queryUpdatesForFacetChanges': () => () => {},
+      'search/collection': () => false
     },
     mutations: {
       'search/set': () => null,
+      'search/setShowFiltersToggle': () => null,
       'search/setCollectionLabel': () => null
     },
     actions: {

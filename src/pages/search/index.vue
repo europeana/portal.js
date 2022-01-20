@@ -2,17 +2,13 @@
   <div>
     <b-container
       data-qa="search page"
-      :class="{'page-container side-filters-enabled': sideFiltersEnabled}"
+      class="page-container side-filters-enabled"
     >
       <b-row
         class="flex-row-reverse"
       >
-        <SideFilters
-          v-if="sideFiltersEnabled"
-        />
-        <b-col
-          :class="{'px-0': !sideFiltersEnabled}"
-        >
+        <SideFilters />
+        <b-col>
           <b-container>
             <b-row>
               <b-col>
@@ -73,9 +69,6 @@
     computed: {
       searchQuery() {
         return this.$route.query.query;
-      },
-      sideFiltersEnabled() {
-        return this.$features.sideFilters;
       }
     },
 
