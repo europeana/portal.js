@@ -13,9 +13,12 @@
     :lazy="lazy"
     :sub-title="subTitle"
   >
-    <template #buttons>
+    <template
+      v-if="variant === 'list'"
+      #footer
+    >
       <div
-        v-if="variant === 'list'"
+
         class="data-and-buttons-wrapper d-flex flex-wrap"
       >
         <RightsStatement
@@ -27,7 +30,8 @@
           v-if="type"
           class="d-inline-flex align-items-center text-uppercase"
         >
-          <span class="icon-file" />{{ type }}</span>
+          <span class="icon-file" />{{ type }}
+        </span>
         <UserButtons
           :identifier="identifier"
           :show-pins="showPins"
@@ -36,21 +40,24 @@
           @unlike="$emit('unlike', identifier)"
         />
       </div>
-      <template v-else>
-        <RecommendationButtons
-          v-if="enableAcceptRecommendation || enableRejectRecommendation"
-          :identifier="identifier"
-          :enable-accept-button="enableAcceptRecommendation"
-          :enable-reject-button="enableRejectRecommendation"
-        />
-        <UserButtons
-          v-else
-          :identifier="identifier"
-          :show-pins="showPins"
-          @like="$emit('like', identifier)"
-          @unlike="$emit('unlike', identifier)"
-        />
-      </template>
+    </template>
+    <template
+      v-else
+      #image-overlay
+    >
+      <RecommendationButtons
+        v-if="enableAcceptRecommendation || enableRejectRecommendation"
+        :identifier="identifier"
+        :enable-accept-button="enableAcceptRecommendation"
+        :enable-reject-button="enableRejectRecommendation"
+      />
+      <UserButtons
+        v-else
+        :identifier="identifier"
+        :show-pins="showPins"
+        @like="$emit('like', identifier)"
+        @unlike="$emit('unlike', identifier)"
+      />
     </template>
   </ContentCard>
 </template>

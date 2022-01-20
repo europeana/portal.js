@@ -92,15 +92,15 @@
             <!-- eslint-enable vue/no-v-html -->
           </b-card-text>
         </template>
-        <client-only v-if="variant === 'list'">
-          <!-- @slot Buttons rendered over or at the bottom (list variant) of the card, client-side only -->
-          <slot name="buttons" />
+        <client-only>
+          <!-- @slot footer rendered at the bottom left of the card, client-side only -->
+          <slot name="footer" />
         </client-only>
       </b-card-body>
     </div>
-    <client-only v-if="variant !== 'list'">
-      <!-- @slot Buttons rendered over or at the bottom (list variant) of the card, client-side only -->
-      <slot name="buttons" />
+    <client-only>
+      <!-- @slot image-overlay rendered over the card, client-side only -->
+      <slot name="image-overlay" />
     </client-only>
   </b-card>
 </template>
