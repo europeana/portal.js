@@ -17,10 +17,7 @@
       v-if="variant === 'list'"
       #footer
     >
-      <div
-
-        class="data-and-buttons-wrapper d-flex flex-wrap"
-      >
+      <div class="data-and-buttons-wrapper d-flex">
         <RightsStatement
           v-if="rights"
           :rights-statement-url="rights"

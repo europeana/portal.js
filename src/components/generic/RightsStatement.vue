@@ -1,7 +1,7 @@
 <template>
   <span
     data-qa="rights statement"
-    class="d-inline-flex align-items-center"
+    class="license-label d-inline-flex align-items-center"
     :class="{ 'text-uppercase': variant === 'simple' }"
   >
     <template v-if="variant === 'icons'">

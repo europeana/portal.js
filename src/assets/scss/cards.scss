@@ -403,6 +403,7 @@
     }
 
     .data-and-buttons-wrapper {
+      flex-wrap: wrap;
       position: relative;
       z-index: 2;
       color: $mediumgrey;
@@ -416,6 +417,7 @@
       [class^='icon-'],
       [class*=' icon-'] {
         margin-right: 0.3rem;
+        line-height: inherit;
       }
 
       .user-buttons {
@@ -426,6 +428,7 @@
         color: $mediumgrey;
         padding: 0;
         margin-right: 1rem;
+        line-height: inherit;
 
         &.pin-button {
           display: inline-flex;
@@ -475,10 +478,31 @@
         .card-subtitle {
           font-size: $font-size-small;
           margin-bottom: 1.125rem;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
         }
 
         .card-title {
           margin-bottom: 1rem;
+        }
+
+        .card-text p {
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+      }
+
+      .data-and-buttons-wrapper {
+        flex-wrap: nowrap;
+        max-width: 100%;
+      > .license-label  {
+          display: -webkit-box !important;
+          -webkit-line-clamp: 1;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
         }
       }
     }
