@@ -88,7 +88,7 @@ describe('components/item/ItemPreviewCard', () => {
         };
         const wrapper = factory({ item, variant: 'list', hitSelector });
 
-        expect(wrapper.vm.texts).toEqual([item.dcCreatorLangAware]);
+        expect(wrapper.vm.texts).toEqual([]);
         expect(wrapper.vm.hitsText).toEqual(hitSelector);
       });
     });
@@ -96,7 +96,7 @@ describe('components/item/ItemPreviewCard', () => {
       it('renders a list content card with description text', () => {
         const wrapper = factory({ item, variant: 'list' });
 
-        expect(wrapper.vm.texts).toEqual([item.dcDescriptionLangAware, item.dcCreatorLangAware]);
+        expect(wrapper.vm.texts).toEqual([item.dcDescriptionLangAware]);
       });
     });
     it('renders a list content card with license label', () => {

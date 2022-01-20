@@ -420,10 +420,6 @@
         line-height: inherit;
       }
 
-      .user-buttons {
-        display: flex;
-      }
-
       .btn-light-flat {
         color: $mediumgrey;
         padding: 0;
@@ -498,7 +494,8 @@
       .data-and-buttons-wrapper {
         flex-wrap: nowrap;
         max-width: 100%;
-      > .license-label  {
+
+        .license-label {
           display: -webkit-box !important;
           -webkit-line-clamp: 1;
           -webkit-box-orient: vertical;
@@ -581,6 +578,10 @@
         }
       }
     }
+  }
+
+  &.list-card .user-buttons {
+    white-space: nowrap;
   }
 
   &:hover {
