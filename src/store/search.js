@@ -234,11 +234,6 @@ export default {
         }
       }
 
-      // Remove filters incompatible with collection filter
-      if (Object.prototype.hasOwnProperty.call(selected, 'collection') && Object.prototype.hasOwnProperty.call(filters, 'contentTier')) {
-        filters['contentTier'] = [];
-      }
-
       return queryUpdatesForFilters(filters);
     },
 
