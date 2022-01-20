@@ -141,15 +141,14 @@
         }
 
         const texts = [];
-        if (this.item.dcCreatorLangAware) {
-          texts.unshift(this.item.dcCreatorLangAware);
-        }
-
         if (this.variant === 'list') {
           if (!this.hitSelector && this.item.dcDescriptionLangAware) {
             texts.unshift(this.item.dcDescriptionLangAware);
           }
         } else {
+          if (this.item.dcCreatorLangAware) {
+            texts.unshift(this.item.dcCreatorLangAware);
+          }
           texts.push(this.item.dataProvider);
         }
 
