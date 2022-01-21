@@ -153,13 +153,13 @@
       },
       pinButtonText() {
         if (this.buttonText) {
-          return this.pinned ? this.$t('actions.pinned') : this.$t('actions.pin');
+          return this.pinned ? this.$t('statuses.pinned') : this.$t('actions.pin');
         }
         return '';
       },
       likeButtonText() {
         if (this.buttonText) {
-          return this.liked ? this.$t('actions.liked') : this.$t('actions.like');
+          return this.liked ? this.$t('statuses.liked') : this.$t('actions.like');
         }
         return '';
       }

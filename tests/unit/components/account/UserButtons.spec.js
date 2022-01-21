@@ -197,7 +197,7 @@ describe('components/account/UserButtons', () => {
           await wrapper.setProps({ buttonText: true });
 
           const likeButton = wrapper.find('[data-qa="like button"]');
-          expect(likeButton.text()).toBe('actions.liked');
+          expect(likeButton.text()).toBe('statuses.liked');
         });
         it('is rendered as pressed', () => {
           const wrapper = factory({ $auth, storeState: { liked: [identifier] } });
@@ -297,7 +297,7 @@ describe('components/account/UserButtons', () => {
         await wrapper.setProps({ showPins: true, buttonText: true });
 
         const pinButton = wrapper.find('[data-qa="pin button"]');
-        expect(pinButton.text()).toBe('actions.pinned');
+        expect(pinButton.text()).toBe('statuses.pinned');
       });
       it('is rendered as pressed', async() => {
         const wrapper = factory();

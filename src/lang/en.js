@@ -37,10 +37,8 @@ export default {
     "goBack": "Go back",
     "goHome": "Go to the homepage",
     "like": "Like",
-    "liked": "Liked",
     "next": "Next",
     "pin": "Pin",
-    "pinned": "Pinned",
     "providedBy": "Provided by {provider}",
     "reject": "Reject",
     "send": "Send",
@@ -844,5 +842,9 @@ export default {
   },
   "showLess": "Show less",
   "showMore": "Show more",
+  "statuses": {
+    "liked": "Liked",
+    "pinned": "Pinned"
+  },
   "website": "Website"
 };
