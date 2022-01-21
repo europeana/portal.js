@@ -14,7 +14,6 @@
         :facet-name="filter.filterName"
         :field-value="filter.fieldValue"
         :prefixed="prefixed(filter)"
-        :truncate="truncateLabels"
       />
     </b-badge>
   </div>
@@ -42,16 +41,6 @@
       filters: {
         type: Object,
         required: true
-      },
-
-      /**
-       * Truncate labels to this length, if > -1
-       *
-       * @type {Number}
-       */
-      truncateLabels: {
-        type: Number,
-        default: -1
       }
     },
 
@@ -84,5 +73,10 @@
   .filter-badges {
     display: flex;
     flex-wrap: wrap;
+  }
+
+  .filter-badge {
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 </style>

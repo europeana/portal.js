@@ -5,7 +5,6 @@
     >{{ facetName }}</label>
     <SearchFilters
       :filters="selectedFilters"
-      :truncate-labels="40"
     />
     <b-dropdown
       :id="facetName"
