@@ -36,7 +36,7 @@
 
     computed: {
       label() {
-        let fieldLabel = (this.facetName === this.MIME_TYPE) ? this.mediaTypeLabel : this.genericLabel;
+        const fieldLabel = (this.facetName === this.MIME_TYPE) ? this.mediaTypeLabel : this.genericLabel;
 
         if (!this.prefixed) {
           return fieldLabel;
