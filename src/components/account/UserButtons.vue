@@ -13,7 +13,7 @@
       @click="togglePinned"
     >
       <span class="icon-push-pin" />
-      {{ buttonVariant && $t('entity.actions.pin0') }}
+      {{ pinButtonText }}
     </b-button>
     <b-button
       data-qa="add button"
@@ -23,7 +23,7 @@
       @click="addToSet"
     >
       <span class="icon-ic-add" />
-      {{ buttonVariant && $t('set.actions.save') }}
+      {{ buttonText ? $t('set.actions.save') : '' }}
     </b-button>
     <b-button
       class="like-button text-uppercase d-inline-flex align-items-center"
@@ -34,7 +34,7 @@
       @click="toggleLiked"
     >
       <span class="icon-heart" />
-      {{ buttonVariant && $t('actions.like') }}
+      {{ likeButtonText }}
     </b-button>
     <template
       v-if="$auth.loggedIn"
@@ -122,6 +122,10 @@
       buttonVariant: {
         type: String,
         default: null
+      },
+      buttonText: {
+        type: Boolean,
+        default: false
       }
     },
 
@@ -146,6 +150,18 @@
       },
       pinned() {
         return this.$store.getters['entity/isPinned'](this.identifier);
+      },
+      pinButtonText() {
+        if (this.buttonText) {
+          return this.pinned ? this.$t('actions.pinned') : this.$t('actions.pin');
+        }
+        return '';
+      },
+      likeButtonText() {
+        if (this.buttonText) {
+          return this.liked ? this.$t('actions.liked') : this.$t('actions.like');
+        }
+        return '';
       }
     },
     created() {

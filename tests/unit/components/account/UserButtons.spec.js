@@ -28,7 +28,7 @@ const factory = ({ storeState = {}, $auth = {} } = {}) => mount(UserButtons, {
       },
       dispatch: storeDispatch
     },
-    $t: () => {}
+    $t: (key) => key
   }
 });
 
@@ -103,6 +103,24 @@ describe('components/account/UserButtons', () => {
 
       expect(likeButton.isVisible()).toBe(true);
     });
+    it('does not contain text', () => {
+      const wrapper = factory();
+
+      const likeButton = wrapper.find('[data-qa="like button"]');
+
+      expect(likeButton.text()).toBe('');
+    });
+
+    describe('when button with text', () => {
+      it('contains text', async() => {
+        const wrapper = factory();
+        await wrapper.setProps({ buttonText: true });
+
+        const likeButton = wrapper.find('[data-qa="like button"]');
+
+        expect(likeButton.text()).toBe('actions.like');
+      });
+    });
 
     describe('when user is not logged in', () => {
       const $auth = { loggedIn: false };
@@ -174,6 +192,13 @@ describe('components/account/UserButtons', () => {
           storeIsLikedGetter.returns(true);
         });
 
+        it('button text is updated', async() => {
+          const wrapper = factory();
+          await wrapper.setProps({ buttonText: true });
+
+          const likeButton = wrapper.find('[data-qa="like button"]');
+          expect(likeButton.text()).toBe('actions.liked');
+        });
         it('is rendered as pressed', () => {
           const wrapper = factory({ $auth, storeState: { liked: [identifier] } });
 
@@ -216,6 +241,26 @@ describe('components/account/UserButtons', () => {
       expect(pinButton.isVisible()).toBe(true);
     });
 
+    it('does not contain text', async() => {
+      const wrapper = factory();
+      await wrapper.setProps({ showPins: true });
+
+      const pinButton = wrapper.find('[data-qa="pin button"]');
+
+      expect(pinButton.text()).toBe('');
+    });
+
+    describe('when button with text', () => {
+      it('contains text', async() => {
+        const wrapper = factory();
+        await wrapper.setProps({ showPins: true, buttonText: true });
+
+        const pinButton = wrapper.find('[data-qa="pin button"]');
+
+        expect(pinButton.text()).toBe('actions.pin');
+      });
+    });
+
     describe('when item is not pinned', () => {
       beforeEach(() => {
         storeIsPinnedGetter.returns(false);
@@ -247,6 +292,13 @@ describe('components/account/UserButtons', () => {
         storeIsPinnedGetter.returns(true);
       });
 
+      it('button text is updated', async() => {
+        const wrapper = factory();
+        await wrapper.setProps({ showPins: true, buttonText: true });
+
+        const pinButton = wrapper.find('[data-qa="pin button"]');
+        expect(pinButton.text()).toBe('actions.pinned');
+      });
       it('is rendered as pressed', async() => {
         const wrapper = factory();
         await wrapper.setProps({ showPins: true });

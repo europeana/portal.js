@@ -37,7 +37,10 @@ export default {
     "goBack": "Go back",
     "goHome": "Go to the homepage",
     "like": "Like",
+    "liked": "Liked",
     "next": "Next",
+    "pin": "Pin",
+    "pinned": "Pinned",
     "providedBy": "Provided by {provider}",
     "reject": "Reject",
     "send": "Send",
@@ -148,7 +151,6 @@ export default {
   "entity": {
     "actions": {
       "cancel": "Cancel",
-      "pin0": "Pin",
       "pin": "Pin item",
       "unpin": "Unpin item",
       "viewPinned": "See pinned items"

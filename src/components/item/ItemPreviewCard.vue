@@ -32,6 +32,7 @@
         <UserButtons
           :identifier="identifier"
           :show-pins="showPins"
+          :button-text="true"
           button-variant="light-flat"
           @like="$emit('like', identifier)"
           @unlike="$emit('unlike', identifier)"
