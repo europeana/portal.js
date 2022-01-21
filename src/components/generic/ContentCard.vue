@@ -8,7 +8,8 @@
     <SmartLink
       :destination="url"
       link-class="card-link"
-      :aria-label="displayTitle ? displayTitle.values[0] : null"
+      :aria-label="displayTitle ? displayTitle.value : null"
+      :title="(variant === 'mosaic' && displayTitle) ? displayTitle.value : null"
     >
       <div
         v-if="cardImageUrl"
@@ -57,7 +58,7 @@
           :lang="displayTitle.code"
         >
           <span>
-            {{ displayTitle.values[0] | truncate(90, $t('formatting.ellipsis')) }}
+            {{ displayTitle.value | truncate(90, $t('formatting.ellipsis')) }}
           </span>
         </b-card-title>
         <time
@@ -296,9 +297,10 @@
         if (!this.title) {
           return null;
         } else if (typeof this.title === 'string') {
-          return { values: [this.title], code: null };
+          return { value: this.title, code: null };
         } else {
-          return langMapValueForLocale(this.title, this.$i18n.locale);
+          const langMapValue = langMapValueForLocale(this.title, this.$i18n.locale);
+          return { value: langMapValue.values[0], code: langMapValue.code };
         }
       },
 
