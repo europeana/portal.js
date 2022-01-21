@@ -505,9 +505,12 @@
         max-width: 100%;
 
         .license-label {
-          display: -webkit-box !important;
-          -webkit-line-clamp: 1;
-          -webkit-box-orient: vertical;
+          min-width: 0;
+        }
+
+        .license-label-text {
+          text-overflow: ellipsis;
+          white-space: nowrap;
           overflow: hidden;
         }
       }
@@ -591,6 +594,7 @@
 
   &.list-card .user-buttons {
     white-space: nowrap;
+    display: inline-flex;
   }
 
   &:hover {

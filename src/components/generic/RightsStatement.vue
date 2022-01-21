@@ -16,7 +16,9 @@
       v-else
       class="icon-license"
     />
-    {{ rightsNameAndIcon(rightsStatementUrl).name }}
+    <span class="license-label-text">
+      {{ rightsNameAndIcon(rightsStatementUrl).name }}
+    </span>
   </span>
 </template>
 
