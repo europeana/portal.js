@@ -75,13 +75,14 @@
 }
 
 .content-card {
+  $card-line-height: 1.1875rem;
   background: $white;
   border-radius: $border-radius-small;
   box-shadow: $boxshadow-small;
   color: $black;
   font-size: $font-size-small;
   height: auto;
-  line-height: 1.1875rem;
+  line-height: $card-line-height;
   transition: box-shadow 0.25s;
 
   &.card {
@@ -135,10 +136,10 @@
   .card-title {
     font-size: 1rem;
     font-weight: 600;
-    max-height: 1.1875rem;
+    max-height: $card-line-height;
     margin-bottom: 0.75rem;
     overflow: hidden;
-    display: box;
+    display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
   }
@@ -163,7 +164,7 @@
     p {
       max-height: 4.75rem;
       overflow: hidden;
-      display: box;
+      display: -webkit-box;
       -webkit-line-clamp: 4;
       -webkit-box-orient: vertical;
     }
@@ -369,7 +370,7 @@
       word-break: break-word;
       max-height: 3.5625rem;
       overflow: hidden;
-      display: box;
+      display: -webkit-box;
       -webkit-line-clamp: 3;
     }
 
@@ -456,7 +457,7 @@
         height: 10rem;
         max-height: none;
         min-height: 0;
-        margin: 1rem;
+        margin: 1.25rem 1.25rem 1.25rem 0;
       }
 
       .card-wrapper {
@@ -479,8 +480,15 @@
           text-overflow: ellipsis;
         }
 
+        .title-texts-wrapper {
+          max-height: calc(4 * $card-line-height);
+          overflow: hidden;
+        }
+
         .card-title {
-          margin-bottom: 1rem;
+          margin-bottom: $card-line-height;
+          -webkit-line-clamp: 4;
+          max-height: none;
         }
 
         .card-text p {

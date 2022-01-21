@@ -51,47 +51,49 @@
         >
           {{ displaySubTitle }}
         </b-card-sub-title>
-        <b-card-title
-          v-if="displayTitle"
-          title-tag="div"
-          data-qa="card title"
-          :lang="displayTitle.code"
-        >
-          <span>
-            {{ displayTitle.values[0] | truncate(90, $t('formatting.ellipsis')) }}
-          </span>
-        </b-card-title>
-        <time
-          v-if="datetime"
-          class="font-weight-bold pb-3"
-          data-qa="date"
-          :datetime="datetime"
-        >
-          {{ $d(new Date(datetime), 'short') }}
-        </time>
-        <b-card-text
-          v-if="hitsText"
-          text-tag="div"
-          data-qa="highlighted search term"
-        >
-          <p>
-            {{ hitsText.prefix }}<strong class="has-text-highlight">{{ hitsText.exact }}</strong>{{ hitsText.suffix }}
-          </p>
-        </b-card-text>
-        <template v-if="displayTexts.length > 0">
-          <b-card-text
-            v-for="(text, index) in displayTexts"
-            :key="index"
-            :lang="text.code"
-            text-tag="div"
+        <div class="title-texts-wrapper">
+          <b-card-title
+            v-if="displayTitle"
+            title-tag="div"
+            data-qa="card title"
+            :lang="displayTitle.code"
           >
-            <!-- eslint-disable vue/no-v-html -->
-            <p
-              v-html="cardText(text.values)"
-            />
-            <!-- eslint-enable vue/no-v-html -->
+            <span>
+              {{ displayTitle.values[0] | truncate(90, $t('formatting.ellipsis')) }}
+            </span>
+          </b-card-title>
+          <time
+            v-if="datetime"
+            class="font-weight-bold pb-3"
+            data-qa="date"
+            :datetime="datetime"
+          >
+            {{ $d(new Date(datetime), 'short') }}
+          </time>
+          <b-card-text
+            v-if="hitsText"
+            text-tag="div"
+            data-qa="highlighted search term"
+          >
+            <p>
+              {{ hitsText.prefix }}<strong class="has-text-highlight">{{ hitsText.exact }}</strong>{{ hitsText.suffix }}
+            </p>
           </b-card-text>
-        </template>
+          <template v-if="displayTexts.length > 0">
+            <b-card-text
+              v-for="(text, index) in displayTexts"
+              :key="index"
+              :lang="text.code"
+              text-tag="div"
+            >
+              <!-- eslint-disable vue/no-v-html -->
+              <p
+                v-html="cardText(text.values)"
+              />
+            <!-- eslint-enable vue/no-v-html -->
+            </b-card-text>
+          </template>
+        </div>
         <client-only>
           <!-- @slot footer rendered at the bottom left of the card, client-side only -->
           <slot name="footer" />
