@@ -1,6 +1,5 @@
 <template>
   <div
-    v-if="filterList.length > 0"
     class="filter-badges"
   >
     <b-badge
@@ -33,7 +32,7 @@
       /**
        * Selected filter(s)
        *
-       * Object, keyed by filter name, with values being selected fields for the
+       * Object, keyed by filter name, with value(s) being selected fields for the
        * filter.
        *
        * @type {Object}
@@ -41,6 +40,16 @@
       filters: {
         type: Object,
         required: true
+      },
+
+      /**
+       * Whether to prefix selected filters with field label
+       *
+       * If `true`, prefix all. If a function, call it with the field name to test.
+       */
+      prefix: {
+        type: [Boolean, Function],
+        default: false
       }
     },
 
@@ -63,7 +72,13 @@
 
     methods: {
       prefixed(filter) {
-        return this.$features.sideFilters ? false : (filter.filterName !== 'contentTier');
+        if (!this.prefix) {
+          return false;
+        } else if (typeof this.prefix === 'function') {
+          return this.prefix(filter.filterName);
+        } else {
+          return true;
+        }
       }
     }
   };

@@ -5,6 +5,7 @@
     >{{ facetName }}</label>
     <SearchFilters
       :filters="selectedFilters"
+      :prefixed="false"
     />
     <b-dropdown
       :id="facetName"
@@ -124,6 +125,8 @@
 
       /**
        * Type of input fields in dropdown, could be radio or checkbox
+       *
+       * @values radio, checkbox
        */
       type: {
         type: String,
@@ -144,8 +147,8 @@
         RADIO: 'radio',
         CHECKBOX: 'checkbox',
         preSelected: null,
-        fetched: false,
-        fields: []
+        fetched: !!this.staticFields,
+        fields: this.staticFields || []
       };
     },
 
@@ -223,8 +226,6 @@
         // facets properties are updated correctly
         this.init();
       },
-      // TODO: why are we watching API in route query? is it ever used?
-      '$route.query.api': '$fetch',
       '$route.query.reusability': 'updateRouteQueryReusability',
       '$route.query.query': '$fetch',
       '$route.query.qf': 'updateRouteQueryQf'
@@ -286,23 +287,28 @@
 </style>
 
 <docs lang="md">
-  <!--Variant "radio buttons, one selected"
+  Variant "radio buttons, none selected":
   ```jsx
   <SideFacetDropdown
     name="collection"
     type="radio"
-    :selected="['archaeology']"
     :static-fields="['ww1', 'archaeology', 'art', 'fashion']"
   />
   ```
 
-  Variant "checkboxes, none selected"
+  Variant "checkboxes, two selected":
   ```jsx
   <SideFacetDropdown
     name="TYPE"
     type="checkbox"
-    :selected="[]"
-    :static-fields="[]"
+    :selected="['IMAGE', 'VIDEO']"
+    :static-fields="[
+      { label:'IMAGE', count: 28417756 },
+      { label:'TEXT', count: 21607709 },
+      { label:'SOUND', count: 782764 },
+      { label:'VIDEO', count: 514235 },
+      { label:'3D', count: 17668 }
+    ]"
   />
-  ```-->
+  ```
 </docs>

@@ -9,7 +9,7 @@
     "dev": "node --experimental-json-modules node_modules/.bin/nuxt",
     "generate": "nuxt generate",
     "lint:fix": "npm run lint -- --fix",
-    "lint": "eslint --no-fix bin src tests/unit *.js",
+    "lint": "eslint --no-fix bin src tests/unit *.js styleguide",
     "start:inspect": "node --inspect node_modules/.bin/nuxt-cli start",
     "start": "node --experimental-json-modules node_modules/.bin/nuxt-cli start",
     "styleguide": "vue-styleguidist server --config ./styleguide.config.cjs",

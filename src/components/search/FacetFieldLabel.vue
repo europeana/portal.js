@@ -5,7 +5,6 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
   import { unescapeLuceneSpecials } from '@/plugins/europeana/utils';
 
   export default {
@@ -36,10 +35,6 @@
     },
 
     computed: {
-      ...mapGetters({
-        formatFacetFieldLabel: 'search/formatFacetFieldLabel'
-      }),
-
       label() {
         let fieldLabel = (this.facetName === this.MIME_TYPE) ? this.mediaTypeLabel : this.genericLabel;
 
@@ -53,7 +48,7 @@
       genericLabel() {
         let fieldLabel;
 
-        fieldLabel = this.formatFacetFieldLabel(this.facetName, this.fieldValue);
+        fieldLabel = this.$store.getters['search/formatFacetFieldLabel'](this.facetName, this.fieldValue);
         if (!fieldLabel) {
           fieldLabel = this.fieldValue;
         }

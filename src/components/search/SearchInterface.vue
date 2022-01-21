@@ -26,6 +26,7 @@
         <client-only>
           <SearchFilters
             :filters="filters"
+            :prefix="(name) => name !== 'contentTier'"
             class="mb-2"
           />
           <div class="position-relative">

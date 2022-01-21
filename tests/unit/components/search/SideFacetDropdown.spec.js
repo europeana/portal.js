@@ -44,7 +44,7 @@ const factory = () => shallowMountNuxt(SideFacetDropdown, {
       dispatch: storeDispatchStub
     }
   },
-  stubs: ['b-button', 'b-form-checkbox', 'b-dropdown', 'b-dropdown-form'],
+  stubs: ['b-button', 'b-form-checkbox', 'b-dropdown', 'b-dropdown-form', 'b-badge'],
   propsData: {
     type: 'checkbox',
     name: 'COUNTRY'
