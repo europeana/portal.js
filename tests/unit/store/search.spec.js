@@ -611,7 +611,7 @@ describe('store/search', () => {
         beforeAll(() => {
           store.actions.$apis = {
             record: {
-              search: sinon.stub().resolves({ facets: [1, 2]})
+              search: sinon.stub().resolves({ facets: [1, 2] })
             }
           };
         });
