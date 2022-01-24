@@ -47,8 +47,8 @@ describe('store/collections/newspaper', () => {
           }
         };
 
-        it('overrides contentTier filter to "*"', () => {
-          expect(store.getters.apiParams(state).qf).toEqual(['contentTier:*']);
+        it('respects contentTier filter', () => {
+          expect(store.getters.apiParams(state).qf).toEqual(['contentTier:(1 OR 2 OR 3 OR 4)']);
         });
       });
     });

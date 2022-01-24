@@ -154,39 +154,28 @@
 
       return this.$store.dispatch('search/queryFacets', { facet: this.name })
         .then((facets) => {
-          this.fields = (facets || [])[0]?.fields || [];
+          let fields = (facets || [])[0]?.fields || [];
+
+          // Limit contentTier filter options shown
+          if (this.name === 'contentTier') {
+            fields = this.filterContentTierFields(fields);
+          }
+
+          this.fields = fields;
           this.fetched = true;
         });
     },
 
     computed: {
-      filteredFields() {
-        let fields = [].concat(this.fields);
-
-        // Only show option 0 for contentTier toggle
-        if (this.name === 'contentTier') {
-          fields = fields.filter(field => field.label === '"0"');
-        }
-
-        return fields;
-      },
-
       sortedOptions() {
         if (this.isRadio) {
-          return this.filteredFields;
+          return this.fields;
         }
 
-        const selected = [];
+        const selected = this.fields.filter(field => this.selected.includes(field.label));
+        const leftOver = this.fields.filter(field => !this.selected.includes(field.label));
 
-        this.filteredFields.map(field => {
-          if (this.selected.includes(field.label)) {
-            selected.push(field);
-          }
-        });
-
-        const leftOver = this.filteredFields.filter(field => !this.selected.includes(field.label));
-
-        return selected.sort((a, b) => a.count + b.count).concat(leftOver);
+        return selected.sort((a, b) => a.count > b.count).concat(leftOver);
       },
 
       isColourPalette() {
@@ -224,6 +213,30 @@
     },
 
     methods: {
+      filterContentTierFields(fields) {
+        // In general, only show option 0
+        let contentTierFilters = ['"0"'];
+
+        if (this.$store.getters['search/collection']) {
+          // If searching within a thematic collection, only show options 2 to 4
+          contentTierFilters = ['"2"', '"3"', '"4"'];
+        } else if (this.$store.getters['entity/id']) {
+          // If searching with a non-thematic collection...
+          if (this.$store.getters['entity/id'].includes('/organization/')) {
+            // ... and it is an organization, do not limit the options
+            contentTierFilters = null;
+          } else {
+            // ... and it is not an organization, only show options 1 to 4
+            contentTierFilters = ['"1"', '"2"', '"3"', '"4"'];
+          }
+        }
+
+        if (contentTierFilters) {
+          fields = fields.filter(field => contentTierFilters.includes(field.label));
+        }
+
+        return fields;
+      },
       // Refetch facet fields, unless this is the reusability facet
       updateRouteQueryReusability() {
         if (this.name !== 'REUSABILITY') {
@@ -232,7 +245,12 @@
       },
       // Refetch facet fields, but only if other qf query values have changed
       updateRouteQueryQf(newQf, oldQf) {
-        const qfDiff = xor(newQf, oldQf);
+        // Look for changes to qf, accounting for them being potentially strings
+        // or arrays or undefined.
+        const qfDiff = xor(
+          newQf ? [].concat(newQf) : [],
+          oldQf ? [].concat(oldQf) : []
+        );
         if (qfDiff.length === 0) {
           return;
         }

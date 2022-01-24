@@ -464,7 +464,11 @@ export default {
       "notification": "Some items not matching our publishing criteria are available. You can access those items by activating the 'Item Quality' filter under 'More filters'.",
       "options": {
         "*": "Includes items not meeting our publishing criteria",
-        "0": "Show only items not meeting our publishing criteria"
+        "0": "Show only items not meeting our publishing criteria",
+        "1": "Low quality",
+        "2": "Medium quality",
+        "3": "High quality & reusable with conditions",
+        "4": "High quality & freely reusable"
       }
     },
     "proxy_dc_format": {
