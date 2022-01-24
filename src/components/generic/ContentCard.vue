@@ -63,14 +63,6 @@
               {{ displayTitle.value | truncate(90, $t('formatting.ellipsis')) }}
             </span>
           </b-card-title>
-          <time
-            v-if="datetime"
-            class="font-weight-bold pb-3"
-            data-qa="date"
-            :datetime="datetime"
-          >
-            {{ $d(new Date(datetime), 'short') }}
-          </time>
           <b-card-text
             v-if="hitsText"
             text-tag="div"
@@ -226,13 +218,6 @@
       showSubtitle: {
         type: Boolean,
         default: true
-      },
-      /**
-       * Date & time
-       */
-      datetime: {
-        type: String,
-        default: ''
       },
       /**
        * Style variant to use
