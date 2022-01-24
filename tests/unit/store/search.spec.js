@@ -514,6 +514,7 @@ describe('store/search', () => {
         const typeQf = 'TYPE:"IMAGE"';
         const collectionQf = 'collection:"migration"';
         const dispatch = sinon.spy();
+        const commit = sinon.spy();
         const state = { apiParams: { query: searchQuery, qf: [typeQf, collectionQf] } };
         const getters = {};
         store.actions.$apis = {
@@ -522,7 +523,7 @@ describe('store/search', () => {
           }
         };
 
-        await store.actions.queryItems({ dispatch, state, getters });
+        await store.actions.queryItems({ dispatch, state, getters, commit });
 
         expect(store.actions.$apis.record.search.called).toBe(true);
       });
@@ -530,6 +531,7 @@ describe('store/search', () => {
       describe('on success', () => {
         it('dispatches updateForSuccess', async() => {
           const dispatch = sinon.spy();
+          const commit = sinon.spy();
           const state = {};
           const getters = {};
           store.actions.$apis = {
@@ -538,7 +540,7 @@ describe('store/search', () => {
             }
           };
 
-          await store.actions.queryItems({ dispatch, state, getters });
+          await store.actions.queryItems({ dispatch, state, getters, commit });
 
           expect(dispatch.calledWith('updateForSuccess')).toBe(true);
         });
@@ -547,6 +549,7 @@ describe('store/search', () => {
       describe('on failure', () => {
         it('dispatches updateForFailure', async() => {
           const dispatch = sinon.spy();
+          const commit = sinon.spy();
           const state = {};
           const getters = {};
           store.actions.$apis = {
@@ -555,7 +558,7 @@ describe('store/search', () => {
             }
           };
 
-          await store.actions.queryItems({ dispatch, state, getters });
+          await store.actions.queryItems({ dispatch, state, getters, commit });
 
           expect(dispatch.calledWith('updateForFailure')).toBe(true);
         });
