@@ -365,9 +365,9 @@ export default {
 
     queryItems({ dispatch, state, getters, commit }) {
       const paramsForItems = {
-        ...state.apiParams,
-        facet: null
+        ...state.apiParams
       };
+      delete paramsForItems.facet;
 
       commit('addLiveQuery', paramsForItems);
       return this.$apis.record.search(paramsForItems, { ...getters.searchOptions, locale: this.$i18n.locale })

@@ -509,14 +509,19 @@ describe('store/search', () => {
     });
 
     describe('queryItems', () => {
+      beforeEach(() => {
+        sinon.resetHistory();
+      });
+
+      const dispatch = sinon.spy();
+      const commit = sinon.spy();
+      const getters = {};
+      const searchQuery = 'anything';
+      const typeQf = 'TYPE:"IMAGE"';
+      const collectionQf = 'collection:"migration"';
+      const state = { apiParams: { query: searchQuery, qf: [typeQf, collectionQf] } };
+
       it('searches the Record API', async() => {
-        const searchQuery = 'anything';
-        const typeQf = 'TYPE:"IMAGE"';
-        const collectionQf = 'collection:"migration"';
-        const dispatch = sinon.spy();
-        const commit = sinon.spy();
-        const state = { apiParams: { query: searchQuery, qf: [typeQf, collectionQf] } };
-        const getters = {};
         store.actions.$apis = {
           record: {
             search: sinon.stub().resolves({})
@@ -529,38 +534,48 @@ describe('store/search', () => {
       });
 
       describe('on success', () => {
-        it('dispatches updateForSuccess', async() => {
-          const dispatch = sinon.spy();
-          const commit = sinon.spy();
-          const state = {};
-          const getters = {};
+        beforeAll(() => {
           store.actions.$apis = {
             record: {
               search: sinon.stub().resolves({})
             }
           };
+        });
 
+        it('dispatches updateForSuccess', async() => {
           await store.actions.queryItems({ dispatch, state, getters, commit });
 
           expect(dispatch.calledWith('updateForSuccess')).toBe(true);
         });
+
+        it('logs the query while live', async() => {
+          await store.actions.queryItems({ dispatch, state, getters, commit });
+
+          expect(commit.calledWith('addLiveQuery', state.apiParams)).toBe(true);
+          expect(commit.calledWith('removeLiveQuery', state.apiParams)).toBe(true);
+        });
       });
 
       describe('on failure', () => {
-        it('dispatches updateForFailure', async() => {
-          const dispatch = sinon.spy();
-          const commit = sinon.spy();
-          const state = {};
-          const getters = {};
+        beforeAll(() => {
           store.actions.$apis = {
             record: {
               search: sinon.stub().rejects({})
             }
           };
+        });
 
+        it('dispatches updateForFailure', async() => {
           await store.actions.queryItems({ dispatch, state, getters, commit });
 
           expect(dispatch.calledWith('updateForFailure')).toBe(true);
+        });
+
+        it('logs the query while live', async() => {
+          await store.actions.queryItems({ dispatch, state, getters, commit });
+
+          expect(commit.calledWith('addLiveQuery', state.apiParams)).toBe(true);
+          expect(commit.calledWith('removeLiveQuery', state.apiParams)).toBe(true);
         });
       });
     });
