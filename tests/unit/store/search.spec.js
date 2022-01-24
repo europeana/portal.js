@@ -734,6 +734,30 @@ describe('store/search', () => {
   });
 
   describe('mutations', () => {
+    describe('addLiveQuery', () => {
+      it('adds the passed query to the store', () => {
+        const state = { liveQueries: [ { qf: ['TYPE:"IMAGE"'] }] };
+        const query = { qf: ['collection:"migration"'] };
+
+        store.mutations.addLiveQuery(state, query);
+
+        expect(state.liveQueries.length).toBe(2);
+        expect(state.liveQueries).toContain(query);
+      });
+
+      describe('removeLiveQuery', () => {
+        it('removes the passed query from the store', () => {
+          const query = { qf: ['collection:"migration"'] };
+          const state = { liveQueries: [ { qf: ['TYPE:"IMAGE"'] }, query] };
+
+          store.mutations.removeLiveQuery(state, query);
+
+          expect(state.liveQueries.length).toBe(1);
+          expect(state.liveQueries).not.toContain(query);
+        });
+      });
+    });
+
     describe('setFacets()', () => {
       it('enquotes values for quotable facets', () => {
         const state = { facets: [] };
