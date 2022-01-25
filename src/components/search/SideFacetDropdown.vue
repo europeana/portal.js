@@ -3,6 +3,10 @@
     <label
       class="facet-label"
     >{{ facetName }}</label>
+    <SearchFilters
+      :filters="selectedFilters"
+      :prefixed="false"
+    />
     <b-dropdown
       :id="facetName"
       ref="dropdown"
@@ -10,6 +14,7 @@
       class="facet-dropdown side-facet"
       :data-type="type"
       data-qa="search facet"
+      block
       @hidden="hiddenDropdown"
     >
       <template #button-content>
@@ -94,10 +99,11 @@
 
   export default {
     components: {
-      AlertMessage: () => import('../../components/generic/AlertMessage'),
+      AlertMessage: () => import('../generic/AlertMessage'),
       FacetFieldLabel,
       ColourSwatch,
-      LoadingSpinner: () => import('@/components/generic/LoadingSpinner')
+      LoadingSpinner: () => import('../generic/LoadingSpinner'),
+      SearchFilters: () => import('./SearchFilters')
     },
 
     props: {
@@ -119,6 +125,8 @@
 
       /**
        * Type of input fields in dropdown, could be radio or checkbox
+       *
+       * @values radio, checkbox
        */
       type: {
         type: String,
@@ -139,8 +147,8 @@
         RADIO: 'radio',
         CHECKBOX: 'checkbox',
         preSelected: null,
-        fetched: false,
-        fields: []
+        fetched: !!this.staticFields,
+        fields: this.staticFields || []
       };
     },
 
@@ -167,6 +175,12 @@
     },
 
     computed: {
+      selectedFilters() {
+        return {
+          [this.name]: [].concat(this.selected)
+        };
+      },
+
       sortedOptions() {
         if (this.isRadio) {
           return this.fields;
@@ -201,8 +215,6 @@
         // facets properties are updated correctly
         this.init();
       },
-      // TODO: why are we watching API in route query? is it ever used?
-      '$route.query.api': '$fetch',
       '$route.query.reusability': 'updateRouteQueryReusability',
       '$route.query.query': '$fetch',
       '$route.query.qf': 'updateRouteQueryQf'
@@ -293,23 +305,28 @@
 </style>
 
 <docs lang="md">
-  <!--Variant "radio buttons, one selected"
+  Radio buttons, none selected:
   ```jsx
   <SideFacetDropdown
     name="collection"
     type="radio"
-    :selected="['archaeology']"
     :static-fields="['ww1', 'archaeology', 'art', 'fashion']"
   />
   ```
 
-  Variant "checkboxes, none selected"
+  Checkboxes, two selected:
   ```jsx
   <SideFacetDropdown
     name="TYPE"
     type="checkbox"
-    :selected="[]"
-    :static-fields="[]"
+    :selected="['IMAGE', 'VIDEO']"
+    :static-fields="[
+      { label:'IMAGE', count: 28417756 },
+      { label:'TEXT', count: 21607709 },
+      { label:'SOUND', count: 782764 },
+      { label:'VIDEO', count: 514235 },
+      { label:'3D', count: 17668 }
+    ]"
   />
-  ```-->
+  ```
 </docs>
