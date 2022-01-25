@@ -38,6 +38,7 @@ export default {
     "goHome": "Go to the homepage",
     "like": "Like",
     "next": "Next",
+    "pin": "Pin",
     "providedBy": "Provided by {provider}",
     "reject": "Reject",
     "send": "Send",
@@ -818,6 +819,7 @@ export default {
       "createNew": "Create new gallery",
       "delete": "Delete gallery",
       "edit": "Edit gallery",
+      "save": "Save",
       "update": "Update gallery"
     },
     "form": {
@@ -844,5 +846,9 @@ export default {
   },
   "showLess": "Show less",
   "showMore": "Show more",
+  "statuses": {
+    "liked": "Liked",
+    "pinned": "Pinned"
+  },
   "website": "Website"
 };

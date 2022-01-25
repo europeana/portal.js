@@ -127,7 +127,8 @@ const reduceFieldsForItem = (item, options = {}) => {
       'dcTitleLangAware',
       'edmPreview',
       'id',
-      'type'
+      'type',
+      'rights'
     ]
   );
 
