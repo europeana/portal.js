@@ -10,6 +10,7 @@
       class="facet-dropdown side-facet"
       :data-type="type"
       data-qa="search facet"
+      @show="showDropdown"
       @hidden="hiddenDropdown"
     >
       <template #button-content>
@@ -140,7 +141,9 @@
         CHECKBOX: 'checkbox',
         preSelected: null,
         fetched: false,
-        fields: []
+        fields: [],
+        shown: false,
+        isTechnicalMetadataFacet: ['IMAGE_ASPECTRATIO', 'COLOURPALETTE', 'IMAGE_SIZE', 'MIME_TYPE'].includes(this.name)
       };
     },
 
@@ -149,6 +152,12 @@
       if (this.staticFields) {
         this.fields = this.staticFields;
         this.fetched = true;
+        return Promise.resolve();
+      }
+
+      // Only technical metadata facets need to be pre-fetched as may have no
+      // fields to display
+      if (!this.shown && !this.isTechnicalMetadataFacet) {
         return Promise.resolve();
       }
 
@@ -275,7 +284,15 @@
       },
 
       hiddenDropdown() {
+        this.shown = false;
         this.init();
+      },
+
+      showDropdown() {
+        this.shown = true;
+        if (!this.fetched) {
+          this.$fetch();
+        }
       }
     }
   };
