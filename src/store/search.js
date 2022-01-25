@@ -241,7 +241,7 @@ export default {
         }
       }
 
-      // Remove filters incompatible with collection filter
+      // Remove filters incompatible with change of collection filter
       if (Object.prototype.hasOwnProperty.call(selected, 'collection') && Object.prototype.hasOwnProperty.call(filters, 'contentTier')) {
         filters['contentTier'] = [];
       }
@@ -325,15 +325,8 @@ export default {
       commit('set', ['apiOptions', apiOptions]);
 
       if (getters.collection || rootGetters['entity/id']) {
-        await dispatch('applyAnyCollectionSettings');
         await dispatch('applyCollectionSpecificSettings');
       }
-    },
-
-    applyAnyCollectionSettings({ commit, state }) {
-      const facet = state.apiParams.facet.split(',');
-      facet.splice(facet.indexOf('contentTier'), 1);
-      commit('set', ['apiParams', { ...state.apiParams, ...{ facet: facet.join(',') } }]);
     },
 
     applyCollectionSpecificSettings({ commit, getters, rootGetters, rootState, state }) {

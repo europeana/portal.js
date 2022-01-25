@@ -6,12 +6,14 @@
     >
       <b-row
         class="flex-row-reverse"
+        :class="{'flex-nowrap': sideFiltersEnabled}"
       >
         <SideFilters
           v-if="sideFiltersEnabled"
         />
         <b-col
-          :class="{'px-0': !sideFiltersEnabled}"
+          :class="{'px-0': !sideFiltersEnabled,
+                   'results-col': sideFiltersEnabled}"
         >
           <b-container>
             <b-row>
@@ -101,5 +103,9 @@
 
   .page-container {
     max-width: none;
+  }
+
+  .results-col {
+    min-width: 0;
   }
 </style>

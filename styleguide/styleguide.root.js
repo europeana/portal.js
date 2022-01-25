@@ -11,9 +11,21 @@ Vue.use(BootstrapVue);
 // Vue.use(VueMasonryPlugin);
 // Vue.use(VueRouter);
 
-Vue.prototype.$path = function() {
+Vue.prototype.$path = () => {
   return '/';
-}
+};
+Vue.prototype.$store = {
+  state: {
+    set: { ...{ liked: [] } },
+    entity: { ...{ pinned: [] } }
+  },
+  getters: {
+    'set/isLiked': () => {},
+    'entity/isPinned': () => {}
+  },
+  dispatch: () => {}
+};
+Vue.prototype.$auth = {};
 
 // TODO: properly import store modules needed for components that use them
 /*const store = new Vuex.Store({

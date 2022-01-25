@@ -56,6 +56,10 @@ module.exports = async() => {
           {
             name: 'Generic',
             components: './src/components/generic/[A-Z]*.vue'
+          },
+          {
+            name: 'Item',
+            components: './src/components/item/[A-Z]*.vue'
           }
         ]
       }

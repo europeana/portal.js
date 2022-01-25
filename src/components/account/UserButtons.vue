@@ -5,26 +5,37 @@
   >
     <b-button
       v-show="showPins"
+      class="pin-button text-uppercase align-items-center"
+      :variant="buttonVariant"
       :pressed="pinned"
-      class="icon-push-pin"
       data-qa="pin button"
       :aria-label="$t('entity.actions.pin')"
       @click="togglePinned"
-    />
+    >
+      <span class="icon-push-pin" />
+      {{ pinButtonText }}
+    </b-button>
     <b-button
-      class="icon-ic-add"
       data-qa="add button"
+      class="add-button text-uppercase d-inline-flex align-items-center"
+      :variant="buttonVariant"
       :aria-label="$t('set.actions.addTo')"
       @click="addToSet"
-    />
+    >
+      <span class="icon-ic-add" />
+      {{ buttonText ? $t('set.actions.save') : '' }}
+    </b-button>
     <b-button
+      class="like-button text-uppercase d-inline-flex align-items-center"
       :pressed="liked"
-      class="icon-heart"
+      :variant="buttonVariant"
       data-qa="like button"
       :aria-label="$t('actions.like')"
-      size="sm"
       @click="toggleLiked"
-    />
+    >
+      <span class="icon-heart" />
+      {{ likeButtonText }}
+    </b-button>
     <template
       v-if="$auth.loggedIn"
     >
@@ -107,6 +118,14 @@
       showPins: {
         type: Boolean,
         default: false
+      },
+      buttonVariant: {
+        type: String,
+        default: null
+      },
+      buttonText: {
+        type: Boolean,
+        default: false
       }
     },
 
@@ -131,6 +150,18 @@
       },
       pinned() {
         return this.$store.getters['entity/isPinned'](this.identifier);
+      },
+      pinButtonText() {
+        if (this.buttonText) {
+          return this.pinned ? this.$t('statuses.pinned') : this.$t('actions.pin');
+        }
+        return '';
+      },
+      likeButtonText() {
+        if (this.buttonText) {
+          return this.liked ? this.$t('statuses.liked') : this.$t('actions.like');
+        }
+        return '';
       }
     },
     created() {

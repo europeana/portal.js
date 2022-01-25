@@ -7,28 +7,28 @@ import SideFacetDropdown from '@/components/search/SideFacetDropdown.vue';
 const localVue = createLocalVue();
 
 const countryFields = [
-  {
-    count: 100,
-    label: 'Germany'
-  },
-  {
-    count: 101,
-    label: 'Netherlands'
-  },
-  {
-    count: 99,
-    label: 'United Kingdom'
-  },
-  {
-    count: 44,
-    label: 'Spain'
-  }
+  { label: 'Netherlands', count: 101 },
+  { label: 'Germany', count: 100 },
+  { label: 'United Kingdom', count: 99 },
+  { label: 'Spain', count: 44 }
 ];
-
-const storeDispatchStub = sinon.stub()
+const contentTierFields = [
+  { label: '"0"', count: 9686142 },
+  { label: '"1"', count: 15763224 },
+  { label: '"2"', count: 10558597 },
+  { label: '"3"', count: 6293190 },
+  { label: '"4"', count: 18778040 }
+];
+const storeDispatchStub = sinon.stub();
+storeDispatchStub
   .withArgs('search/queryFacets', { facet: 'COUNTRY' })
   .resolves([
     { name: 'COUNTRY', fields: countryFields }
+  ]);
+storeDispatchStub
+  .withArgs('search/queryFacets', { facet: 'contentTier' })
+  .resolves([
+    { name: 'contentTier', fields: contentTierFields }
   ]);
 
 const factory = () => shallowMountNuxt(SideFacetDropdown, {
@@ -41,7 +41,11 @@ const factory = () => shallowMountNuxt(SideFacetDropdown, {
     $t: (key) => key,
     $tFacetName: (key) => key,
     $store: {
-      dispatch: storeDispatchStub
+      dispatch: storeDispatchStub,
+      getters: {
+        'search/collection': false,
+        'entity/id': null
+      }
     }
   },
   stubs: ['b-button', 'b-form-checkbox', 'b-dropdown', 'b-dropdown-form'],
@@ -109,53 +113,73 @@ describe('components/search/SideFacetDropdown', () => {
         expect(wrapper.vm.fetched).toBe(true);
       });
     });
+
+    describe('contentTier filter', () => {
+      it('limits contentTier options to fields "2", "3" and "4" in a thematic collection', async() => {
+        const wrapper = factory();
+        await wrapper.setProps({
+          name: 'contentTier'
+        });
+        wrapper.vm.$store.getters['search/collection'] = true;
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.fields.length).toBe(3);
+        expect(wrapper.vm.fields.map(field => field.label)).toEqual(['"2"', '"3"', '"4"']);
+      });
+
+      it('does not limit contentTier options in an organization collection', async() => {
+        const wrapper = factory();
+        await wrapper.setProps({
+          name: 'contentTier'
+        });
+        wrapper.vm.$store.getters['entity/id'] = 'http://data.europeana.eu/organization/12345';
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.fields.length).toBe(5);
+        expect(wrapper.vm.fields.map(field => field.label)).toEqual(['"0"', '"1"', '"2"', '"3"', '"4"']);
+      });
+
+      it('limits contentTier options to fields "1", "2", "3" and "4" in non-organization, non-thematic collections', async() => {
+        const wrapper = factory();
+        await wrapper.setProps({
+          name: 'contentTier'
+        });
+        wrapper.vm.$store.getters['entity/id'] = 'http://data.europeana.eu/base/concept/12345';
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.fields.length).toBe(4);
+        expect(wrapper.vm.fields.map(field => field.label)).toEqual(['"1"', '"2"', '"3"', '"4"']);
+      });
+
+      it('elsewhere limits contentTier options to field "0"', async() => {
+        const wrapper = factory();
+        await wrapper.setProps({
+          name: 'contentTier'
+        });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.fields.length).toBe(1);
+        expect(wrapper.vm.fields.map(field => field.label)).toEqual(['"0"']);
+      });
+    });
   });
 
-  it('puts selected options to the top list in descending count value order', async() => {
+  it('puts selected options to the top, in descending count value order', async() => {
     const wrapper = factory();
     await wrapper.setProps({
+      name: 'COUNTRY',
       selected: ['Spain', 'United Kingdom']
     });
     await wrapper.vm.fetch();
 
-    expect(wrapper.vm.sortedOptions).toEqual([
-      {
-        count: 99,
-        label: 'United Kingdom'
-      },
-      {
-        count: 44,
-        label: 'Spain'
-      },
-      {
-        count: 100,
-        label: 'Germany'
-      },
-      {
-        count: 101,
-        label: 'Netherlands'
-      }
-    ]);
-  });
-
-  it('filters contentTier options to field "0"', async() => {
-    const wrapper = factory();
-    await wrapper.setProps({
-      name: 'contentTier'
-    });
-    await wrapper.setData({
-      fields: [
-        { label: '"0"', count: 9686142 },
-        { label: '"1"', count: 15763224 },
-        { label: '"2"', count: 10558597 },
-        { label: '"3"', count: 6293190 },
-        { label: '"4"', count: 18778040 }
-      ]
-    });
-
-    const contentTierCheckboxes = wrapper.findAll('b-form-checkbox-stub');
-    expect(contentTierCheckboxes.length).toBe(1);
-    expect(contentTierCheckboxes.at(0).attributes('data-qa')).toBe('"0" contentTier checkbox');
+    expect(wrapper.vm.sortedOptions[0].label).toBe('United Kingdom');
+    expect(wrapper.vm.sortedOptions[1].label).toBe('Spain');
+    expect(wrapper.vm.sortedOptions[2].label).toBe('Netherlands');
+    expect(wrapper.vm.sortedOptions[3].label).toBe('Germany');
   });
 
   describe('methods', () => {
