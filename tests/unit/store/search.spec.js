@@ -736,7 +736,7 @@ describe('store/search', () => {
   describe('mutations', () => {
     describe('addLiveQuery', () => {
       it('adds the passed query to the store', () => {
-        const state = { liveQueries: [ { qf: ['TYPE:"IMAGE"'] }] };
+        const state = { liveQueries: [{ qf: ['TYPE:"IMAGE"'] }] };
         const query = { qf: ['collection:"migration"'] };
 
         store.mutations.addLiveQuery(state, query);
@@ -748,7 +748,7 @@ describe('store/search', () => {
       describe('removeLiveQuery', () => {
         it('removes the passed query from the store', () => {
           const query = { qf: ['collection:"migration"'] };
-          const state = { liveQueries: [ { qf: ['TYPE:"IMAGE"'] }, query] };
+          const state = { liveQueries: [{ qf: ['TYPE:"IMAGE"'] }, query] };
 
           store.mutations.removeLiveQuery(state, query);
 
