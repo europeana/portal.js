@@ -22,5 +22,9 @@ module.exports = {
       }
     ],
     'string-quotes': 'single',
+    'value-no-vendor-prefix': [
+      true, 
+      { ignoreValues: ['box'] }
+    ]
   }
 }

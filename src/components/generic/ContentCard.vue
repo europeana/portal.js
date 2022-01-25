@@ -5,10 +5,13 @@
     no-body
     :class="cardClass"
   >
-    <SmartLink
-      :destination="url"
-      link-class="card-link"
-    >
+    <div class="card-wrapper">
+      <SmartLink
+        :destination="url"
+        link-class="card-link"
+        :aria-label="displayTitle ? displayTitle.value : null"
+        :title="(variant === 'mosaic' && displayTitle) ? displayTitle.value : null"
+      />
       <div
         v-if="cardImageUrl"
         class="card-img"
@@ -37,7 +40,10 @@
         v-else-if="!cardImageUrl && variant !== 'mini'"
         class="placeholder card-img"
       />
-      <b-card-body data-qa="card body">
+      <b-card-body
+        v-if="variant !== 'mosaic'"
+        data-qa="card body"
+      >
         <b-card-sub-title
           v-if="(displaySubTitle && variant !== 'mini') && showSubtitle"
           sub-title-tag="div"
@@ -46,52 +52,50 @@
         >
           {{ displaySubTitle }}
         </b-card-sub-title>
-        <b-card-title
-          v-if="displayTitle"
-          title-tag="div"
-          data-qa="card title"
-          :lang="displayTitle.code"
-        >
-          <span>
-            {{ displayTitle.values[0] | truncate(90, $t('formatting.ellipsis')) }}
-          </span>
-        </b-card-title>
-        <time
-          v-if="datetime"
-          class="font-weight-bold pb-3"
-          data-qa="date"
-          :datetime="datetime"
-        >
-          {{ $d(new Date(datetime), 'short') }}
-        </time>
-        <b-card-text
-          v-if="hitsText"
-          text-tag="div"
-          data-qa="highlighted search term"
-        >
-          <p>
-            {{ hitsText.prefix }}<strong class="has-text-highlight">{{ hitsText.exact }}</strong>{{ hitsText.suffix }}
-          </p>
-        </b-card-text>
-        <template v-if="displayTexts.length > 0">
-          <b-card-text
-            v-for="(text, index) in displayTexts"
-            :key="index"
-            :lang="text.code"
-            text-tag="div"
+        <div class="title-texts-wrapper">
+          <b-card-title
+            v-if="displayTitle"
+            title-tag="div"
+            data-qa="card title"
+            :lang="displayTitle.code"
           >
-            <!-- eslint-disable vue/no-v-html -->
-            <p
-              v-html="cardText(text.values)"
-            />
-            <!-- eslint-enable vue/no-v-html -->
+            <span>
+              {{ displayTitle.value | truncate(90, $t('formatting.ellipsis')) }}
+            </span>
+          </b-card-title>
+          <b-card-text
+            v-if="hitsText"
+            text-tag="div"
+            data-qa="highlighted search term"
+          >
+            <p>
+              {{ hitsText.prefix }}<strong class="has-text-highlight">{{ hitsText.exact }}</strong>{{ hitsText.suffix }}
+            </p>
           </b-card-text>
-        </template>
+          <template v-if="displayTexts.length > 0">
+            <b-card-text
+              v-for="(text, index) in displayTexts"
+              :key="index"
+              :lang="text.code"
+              text-tag="div"
+            >
+              <!-- eslint-disable vue/no-v-html -->
+              <p
+                v-html="cardText(text.values)"
+              />
+            <!-- eslint-enable vue/no-v-html -->
+            </b-card-text>
+          </template>
+        </div>
+        <client-only>
+          <!-- @slot footer rendered at the bottom left of the card, client-side only -->
+          <slot name="footer" />
+        </client-only>
       </b-card-body>
-    </SmartLink>
+    </div>
     <client-only>
-      <!-- @slot Buttons rendered over the card, client-side only -->
-      <slot name="buttons" />
+      <!-- @slot image-overlay rendered over the card, client-side only -->
+      <slot name="image-overlay" />
     </client-only>
   </b-card>
 </template>
@@ -216,15 +220,8 @@
         default: true
       },
       /**
-       * Date & time
-       */
-      datetime: {
-        type: String,
-        default: ''
-      },
-      /**
        * Style variant to use
-       * @values default, entity, mini, list
+       * @values default, entity, mini, list, mosaic
        */
       variant: {
         type: String,
@@ -292,9 +289,10 @@
         if (!this.title) {
           return null;
         } else if (typeof this.title === 'string') {
-          return { values: [this.title], code: null };
+          return { value: this.title, code: null };
         } else {
-          return langMapValueForLocale(this.title, this.$i18n.locale);
+          const langMapValue = langMapValueForLocale(this.title, this.$i18n.locale);
+          return { value: langMapValue.values[0], code: langMapValue.code };
         }
       },
 
@@ -404,6 +402,27 @@
     title="Photograph"
     image-url="https://api.europeana.eu/api/v2/thumbnail-by-url.json?uri=https%3A%2F%2Fwww.rijksmuseum.nl%2Fassetimage2.jsp%3Fid%3DRP-F-2000-21-40&type=IMAGE"
     url="https://www.europeana.eu/collections/topic/48"
+  />
+  ```
+
+  Variant "mosaic":
+  ```jsx
+  <ContentCard
+    variant="mosaic"
+    title="Debarquement a l'Ile de Malte (Bonaparte landing on Malta)"
+    image-url="https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=http%3A%2F%2Fcollections.rmg.co.uk%2FmediaLib%2F323%2Fmedia-323744%2Flarge.jpg"
+    url="https://www.europeana.eu/item/2022362/_Royal_Museums_Greenwich__http___collections_rmg_co_uk_collections_objects_147879"
+  />
+  ```
+
+  Variant "list":
+  ```jsx
+  <ContentCard
+    variant="list"
+    title="Debarquement a l'Ile de Malte (Bonaparte landing on Malta)"
+    image-url="https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=http%3A%2F%2Fcollections.rmg.co.uk%2FmediaLib%2F323%2Fmedia-323744%2Flarge.jpg"
+    :hitsText="{ prefix: 'This shows a ', exact: 'Hit-Highlight', suffix: ' appearing in the middle of the description!' }"
+    url="https://www.europeana.eu/item/2022362/_Royal_Museums_Greenwich__http___collections_rmg_co_uk_collections_objects_147879"
   />
   ```
 </docs>
