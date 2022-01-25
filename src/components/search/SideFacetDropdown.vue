@@ -56,6 +56,7 @@
               v-model="preSelected"
               :value="option"
               :name="name"
+              :disabled="filterSelectionDisabled"
               :data-qa="`${option} ${name} ${RADIO}`"
               @input="$emit('changed', name, preSelected)"
             >
@@ -71,6 +72,7 @@
               v-model="preSelected"
               :value="option.label"
               :name="name"
+              :disabled="filterSelectionDisabled"
               :data-qa="`${option.label} ${name} ${CHECKBOX}`"
               :class="{ 'custom-checkbox-colour': isColourPalette }"
               @input="$emit('changed', name, preSelected)"
@@ -179,6 +181,10 @@
         return {
           [this.name]: [].concat(this.selected)
         };
+      },
+
+      filterSelectionDisabled() {
+        return this.$store.state.search.liveQueries.length > 0;
       },
 
       sortedOptions() {
