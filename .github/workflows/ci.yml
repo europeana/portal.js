@@ -30,7 +30,7 @@ env:
 jobs:
   annotate:
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' && contains(github.head_ref, '/EC-')
+    if: github.event_name == 'pull_request' && contains(github.head_ref, '/EC-') && github.event.action == 'opened'
     steps:
       -
         name: Extract JIRA ticket number
