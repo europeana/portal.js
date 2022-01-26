@@ -5,16 +5,16 @@
   >
     <b-button
       v-if="enableAcceptButton"
-      class="button-icon button-user recommendation-button icon-accept"
-      variant="light"
+      class="button-icon recommendation-button icon-accept"
+      variant="outline-light"
       data-qa="accept button"
       :aria-label="$t('actions.accept')"
       @click="acceptRecommendation"
     />
     <b-button
       v-if="enableRejectButton"
-      class="button-icon button-user recommendation-button icon-reject"
-      variant="light"
+      class="button-icon recommendation-button icon-reject"
+      variant="outline-light"
       data-qa="reject button"
       :aria-label="$t('actions.reject')"
       @click="rejectRecommendation"

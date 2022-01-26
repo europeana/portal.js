@@ -4,8 +4,9 @@
     data-qa="user buttons"
   >
     <b-button
-      v-show="true"
-      class="button-icon button-user pin-button text-uppercase align-items-center"
+      v-show="showPins"
+      class="pin-button text-uppercase d-inline-flex align-items-center"
+      :class="{ 'button-icon': !buttonText }"
       :variant="buttonVariant"
       :pressed="pinned"
       data-qa="pin button"
@@ -16,7 +17,8 @@
       {{ pinButtonText }}
     </b-button>
     <b-button
-      class="button-icon button-user add-button text-uppercase d-inline-flex align-items-center"
+      class="add-button text-uppercase d-inline-flex align-items-center"
+      :class="{ 'button-icon': !buttonText }"
       data-qa="add button"
       :variant="buttonVariant"
       :aria-label="$t('set.actions.addTo')"
@@ -26,7 +28,8 @@
       {{ buttonText ? $t('set.actions.save') : '' }}
     </b-button>
     <b-button
-      class="button-icon button-user like-button text-uppercase d-inline-flex align-items-center"
+      class="like-button text-uppercase d-inline-flex align-items-center"
+      :class="{ 'button-icon': !buttonText }"
       :pressed="liked"
       :variant="buttonVariant"
       data-qa="like button"
@@ -121,7 +124,7 @@
       },
       buttonVariant: {
         type: String,
-        default: 'light'
+        default: 'outline-light'
       },
       buttonText: {
         type: Boolean,
