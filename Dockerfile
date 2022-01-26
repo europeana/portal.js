@@ -14,12 +14,13 @@ RUN npm ci
 
 COPY nuxt.config.js babel.config.cjs jest.config.js *.md .env.example ./
 COPY src ./src
+COPY styleguide ./styleguide
 
 
 FROM base AS build
 
 RUN npm run build
-RUN rm babel.config.cjs jest.config.js
+RUN rm -r babel.config.cjs jest.config.js styleguide
 RUN npm prune --production
 
 

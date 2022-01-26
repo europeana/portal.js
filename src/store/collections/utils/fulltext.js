@@ -26,11 +26,6 @@ export default (defaultApi = 'fulltext') => ({
       }
 
       if (params.api === 'fulltext') {
-        // TODO: fulltext search API should be aware of contentTier, but is not.
-        //       If & when it is, this can be removed.
-        params.qf = ([].concat(params.qf)).filter(qf => !/^contentTier:/.test(qf));
-        params.qf.push('contentTier:*');
-
         params.profile = 'minimal,hits';
       }
 

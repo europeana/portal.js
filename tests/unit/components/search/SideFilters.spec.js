@@ -32,6 +32,7 @@ const factory = (options = {}) => {
     $goto: () => null,
     ...options.mocks
   };
+
   const store = new Vuex.Store({
     modules: {
       search: {
@@ -41,6 +42,7 @@ const factory = (options = {}) => {
           userParams: {},
           collectionFacetEnabled: true,
           resettableFilters: [],
+          liveQueries: [],
           ...options.storeState
         },
         getters: {
@@ -72,6 +74,46 @@ const factory = (options = {}) => {
 };
 
 describe('components/search/SideFilters', () => {
+  describe('reset button', () => {
+    it('is not present when no filters are selected', () => {
+      const storeGetters = {
+        hasResettableFilters: () => false
+      };
+      const wrapper = factory({ storeGetters });
+
+      const resetButton = wrapper.find('[data-qa="reset filters button"]');
+
+      expect(resetButton.exists()).toBe(false);
+    });
+
+    it('is present when filters are selected', () => {
+      const storeGetters = {
+        hasResettableFilters: () => true
+      };
+      const wrapper = factory({ storeGetters });
+
+      const resetButton = wrapper.find('[data-qa="reset filters button"]');
+
+      expect(resetButton.exists()).toBe(true);
+      expect(resetButton.attributes('disabled')).not.toBe('disabled');
+    });
+
+    it('is disabled while search queries are running', () => {
+      const storeGetters = {
+        hasResettableFilters: () => true
+      };
+      const storeState = {
+        liveQueries: [{ query: 'river' }]
+      };
+      const wrapper = factory({ storeGetters, storeState });
+
+      const resetButton = wrapper.find('[data-qa="reset filters button"]');
+
+      expect(resetButton.exists()).toBe(true);
+      expect(resetButton.attributes('disabled')).toBe('disabled');
+    });
+  });
+
   describe('computed', () => {
     describe('filterableFacets', () => {
       const facetNames = ['TYPE', 'COUNTRY'];

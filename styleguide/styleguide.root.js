@@ -11,21 +11,36 @@ Vue.use(BootstrapVue);
 // Vue.use(VueMasonryPlugin);
 // Vue.use(VueRouter);
 
-Vue.prototype.$path = function() {
+Vue.prototype.$path = () => {
   return '/';
-}
+};
+Vue.prototype.$store = {
+  state: {
+    set: { ...{ liked: [] } },
+    entity: { ...{ pinned: [] } }
+  },
+  getters: {
+    'entity/isPinned': () => {},
+    'search/formatFacetFieldLabel': (name, value) => value,
+    'set/isLiked': () => {}
+  },
+  dispatch: () => {}
+};
+Vue.prototype.$auth = {};
+Vue.prototype.$fetchState = {};
 
 // TODO: properly import store modules needed for components that use them
-/*const store = new Vuex.Store({
-  getters: {
-    'debug/settings': state => {
-      return {}
-    }
-  }
-})*/
+// const store = new Vuex.Store({
+//   getters: {
+//     'debug/settings': state => {
+//       return {}
+//     }
+//   }
+// })
 
 import messages from '@/lang/en';
 import '@/plugins/vue-filters';
+import '@/plugins/vue/index.js';
 
 const i18n = new VueI18n({
   locale: 'en',

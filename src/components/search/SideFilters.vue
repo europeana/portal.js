@@ -18,6 +18,7 @@
         </h2>
         <button
           v-if="isFilteredByDropdowns()"
+          :disabled="resetButtonDisabled"
           class="btn btn-outline-primary mr-3"
           data-qa="reset filters button"
           @click="resetFilters"
@@ -110,6 +111,10 @@
         queryUpdatesForFacetChanges: 'search/queryUpdatesForFacetChanges',
         collection: 'search/collection'
       }),
+      resetButtonDisabled() {
+        // Disable reset button while queries are running
+        return this.$store.state.search.liveQueries.length > 0;
+      },
       filterableFacets() {
         const facets = this.facetNames.map(facetName => ({
           name: facetName

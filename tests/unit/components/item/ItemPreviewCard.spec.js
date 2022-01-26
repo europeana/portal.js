@@ -14,7 +14,9 @@ const item = {
   dcCreatorLangAware: { def: ['Creator Name'] },
   dcDescriptionLangAware: { def: ['Item Description'] },
   edmPreview: ['https://www.example.org/abc.jpg'],
-  dataProvider: 'Provider 123'
+  dataProvider: ['Provider 123'],
+  rights: ['http://creativecommons.org/publicdomain/mark/1.0/'],
+  type: 'IMAGE'
 };
 
 const factory = (propsData) => {
@@ -76,17 +78,36 @@ describe('components/item/ItemPreviewCard', () => {
   });
 
   describe('list card', () => {
-    it('renders a list style content card hit-selector text', () => {
-      const hitSelector = {
-        exact: 'hit',
-        field: 'rdf:value',
-        prefix: 'Prefix text ',
-        suffix: 'suffix text.'
-      };
-      const wrapper = factory({ item, variant: 'list', hitSelector });
+    describe('when hit-selector is present', () => {
+      it('renders a list content card with hit-selector text', () => {
+        const hitSelector = {
+          exact: 'hit',
+          field: 'rdf:value',
+          prefix: 'Prefix text ',
+          suffix: 'suffix text.'
+        };
+        const wrapper = factory({ item, variant: 'list', hitSelector });
 
-      expect(wrapper.vm.texts).toEqual([item.dcCreatorLangAware, item.dataProvider]);
-      expect(wrapper.vm.hitsText).toEqual(hitSelector);
+        expect(wrapper.vm.texts).toEqual([]);
+        expect(wrapper.vm.hitsText).toEqual(hitSelector);
+      });
+    });
+    describe('when no hit-selector is present, but there is a description', () => {
+      it('renders a list content card with description text', () => {
+        const wrapper = factory({ item, variant: 'list' });
+
+        expect(wrapper.vm.texts).toEqual([item.dcDescriptionLangAware]);
+      });
+    });
+    it('renders a list content card with license label', () => {
+      const wrapper = factory({ item, variant: 'list' });
+
+      expect(wrapper.vm.rights).toEqual(item.rights[0]);
+    });
+    it('renders a list content card with type label', () => {
+      const wrapper = factory({ item, variant: 'list' });
+
+      expect(wrapper.vm.type).toEqual(item.type);
     });
   });
 });
