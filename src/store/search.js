@@ -76,6 +76,7 @@ export default {
     facets: [],
     hits: null,
     lastAvailablePage: null,
+    liveQueries: [],
     overrideParams: {},
     collectionLabel: null,
     previousApiOptions: null,
@@ -91,6 +92,12 @@ export default {
   }),
 
   mutations: {
+    addLiveQuery(state, query) {
+      state.liveQueries.push(query);
+    },
+    removeLiveQuery(state, query) {
+      state.liveQueries = state.liveQueries.filter(liveQuery => liveQuery !== query);
+    },
     clearResettableFilters(state) {
       state.resettableFilters = [];
     },
@@ -234,7 +241,7 @@ export default {
         }
       }
 
-      // Remove filters incompatible with collection filter
+      // Remove filters incompatible with change of collection filter
       if (Object.prototype.hasOwnProperty.call(selected, 'collection') && Object.prototype.hasOwnProperty.call(filters, 'contentTier')) {
         filters['contentTier'] = [];
       }
@@ -318,15 +325,8 @@ export default {
       commit('set', ['apiOptions', apiOptions]);
 
       if (getters.collection || rootGetters['entity/id']) {
-        await dispatch('applyAnyCollectionSettings');
         await dispatch('applyCollectionSpecificSettings');
       }
-    },
-
-    applyAnyCollectionSettings({ commit, state }) {
-      const facet = state.apiParams.facet.split(',');
-      facet.splice(facet.indexOf('contentTier'), 1);
-      commit('set', ['apiParams', { ...state.apiParams, ...{ facet: facet.join(',') } }]);
     },
 
     applyCollectionSpecificSettings({ commit, getters, rootGetters, rootState, state }) {
@@ -356,18 +356,22 @@ export default {
       ]);
     },
 
-    queryItems({ dispatch, state, getters }) {
+    queryItems({ dispatch, state, getters, commit }) {
       const paramsForItems = {
-        ...state.apiParams,
-        facet: null
+        ...state.apiParams
       };
+      delete paramsForItems.facet;
 
+      commit('addLiveQuery', paramsForItems);
       return this.$apis.record.search(paramsForItems, { ...getters.searchOptions, locale: this.$i18n.locale })
         .then(async(response) => {
           await dispatch('updateForSuccess', response);
         })
         .catch(async(error) => {
           await dispatch('updateForFailure', error);
+        })
+        .finally(() => {
+          commit('removeLiveQuery', paramsForItems);
         });
     },
 
@@ -380,6 +384,7 @@ export default {
         ...overrides
       };
 
+      commit('addLiveQuery', paramsForFacets);
       return this.$apis.record.search(paramsForFacets, { ...getters.searchOptions, locale: this.$i18n.locale })
         .then((response) => {
           commit('setFacets', response.facets);
@@ -390,10 +395,13 @@ export default {
             commit('set', ['facets', rootGetters[`collections/${collection}/facets`]]);
           }
 
-          return response.facets;
+          return state.facets;
         })
         .catch(async(error) => {
           await dispatch('updateForFailure', error);
+        })
+        .finally(() => {
+          commit('removeLiveQuery', paramsForFacets);
         });
     },
 

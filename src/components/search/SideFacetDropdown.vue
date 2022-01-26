@@ -3,6 +3,10 @@
     <label
       class="facet-label"
     >{{ facetName }}</label>
+    <SearchFilters
+      :filters="selectedFilters"
+      :prefixed="false"
+    />
     <b-dropdown
       :id="facetName"
       ref="dropdown"
@@ -10,6 +14,7 @@
       class="facet-dropdown side-facet"
       :data-type="type"
       data-qa="search facet"
+      block
       @hidden="hiddenDropdown"
     >
       <template #button-content>
@@ -51,6 +56,7 @@
               v-model="preSelected"
               :value="option"
               :name="name"
+              :disabled="filterSelectionDisabled"
               :data-qa="`${option} ${name} ${RADIO}`"
               @input="$emit('changed', name, preSelected)"
             >
@@ -66,9 +72,15 @@
               v-model="preSelected"
               :value="option.label"
               :name="name"
+              :disabled="filterSelectionDisabled"
               :data-qa="`${option.label} ${name} ${CHECKBOX}`"
+              :class="{ 'custom-checkbox-colour': isColourPalette }"
               @input="$emit('changed', name, preSelected)"
             >
+              <ColourSwatch
+                v-if="isColourPalette"
+                :hex-code="option.label"
+              />
               <FacetFieldLabel
                 :facet-name="name"
                 :field-value="option.label"
@@ -85,30 +97,47 @@
 <script>
   import xor from 'lodash/xor';
   import FacetFieldLabel from './FacetFieldLabel';
+  import ColourSwatch from '../generic/ColourSwatch';
 
   export default {
     components: {
-      AlertMessage: () => import('../../components/generic/AlertMessage'),
+      AlertMessage: () => import('../generic/AlertMessage'),
       FacetFieldLabel,
-      LoadingSpinner: () => import('@/components/generic/LoadingSpinner')
+      ColourSwatch,
+      LoadingSpinner: () => import('../generic/LoadingSpinner'),
+      SearchFilters: () => import('./SearchFilters')
     },
 
     props: {
+      /**
+       * Name of filter
+       */
       name: {
         type: String,
         required: true
       },
 
+      /**
+       * Selected option(s)
+       */
       selected: {
         type: [Array, String],
         default: () => []
       },
 
+      /**
+       * Type of input fields in dropdown, could be radio or checkbox
+       *
+       * @values radio, checkbox
+       */
       type: {
         type: String,
         required: true
       },
 
+      /**
+       * Static fields, these fields need no fetching
+       */
       staticFields: {
         type: Array,
         default: null
@@ -120,8 +149,8 @@
         RADIO: 'radio',
         CHECKBOX: 'checkbox',
         preSelected: null,
-        fetched: false,
-        fields: []
+        fetched: !!this.staticFields,
+        fields: this.staticFields || []
       };
     },
 
@@ -135,28 +164,42 @@
 
       return this.$store.dispatch('search/queryFacets', { facet: this.name })
         .then((facets) => {
-          this.fields = (facets || [])[0]?.fields || [];
+          let fields = (facets || [])[0]?.fields || [];
+
+          // Limit contentTier filter options shown
+          if (this.name === 'contentTier') {
+            fields = this.filterContentTierFields(fields);
+          }
+
+          this.fields = fields;
           this.fetched = true;
         });
     },
 
     computed: {
+      selectedFilters() {
+        return {
+          [this.name]: [].concat(this.selected)
+        };
+      },
+
+      filterSelectionDisabled() {
+        return this.$store.state.search.liveQueries.length > 0;
+      },
+
       sortedOptions() {
         if (this.isRadio) {
           return this.fields;
         }
 
-        const selected = [];
-
-        this.fields.map(field => {
-          if (this.selected.includes(field.label)) {
-            selected.push(field);
-          }
-        });
-
+        const selected = this.fields.filter(field => this.selected.includes(field.label));
         const leftOver = this.fields.filter(field => !this.selected.includes(field.label));
 
-        return selected.sort((a, b) => a.count + b.count).concat(leftOver);
+        return selected.sort((a, b) => a.count > b.count).concat(leftOver);
+      },
+
+      isColourPalette() {
+        return this.facetName === 'Colour';
       },
 
       facetName() {
@@ -178,8 +221,6 @@
         // facets properties are updated correctly
         this.init();
       },
-      // TODO: why are we watching API in route query? is it ever used?
-      '$route.query.api': '$fetch',
       '$route.query.reusability': 'updateRouteQueryReusability',
       '$route.query.query': '$fetch',
       '$route.query.qf': 'updateRouteQueryQf'
@@ -190,6 +231,30 @@
     },
 
     methods: {
+      filterContentTierFields(fields) {
+        // In general, only show option 0
+        let contentTierFilters = ['"0"'];
+
+        if (this.$store.getters['search/collection']) {
+          // If searching within a thematic collection, only show options 2 to 4
+          contentTierFilters = ['"2"', '"3"', '"4"'];
+        } else if (this.$store.getters['entity/id']) {
+          // If searching with a non-thematic collection...
+          if (this.$store.getters['entity/id'].includes('/organization/')) {
+            // ... and it is an organization, do not limit the options
+            contentTierFilters = null;
+          } else {
+            // ... and it is not an organization, only show options 1 to 4
+            contentTierFilters = ['"1"', '"2"', '"3"', '"4"'];
+          }
+        }
+
+        if (contentTierFilters) {
+          fields = fields.filter(field => contentTierFilters.includes(field.label));
+        }
+
+        return fields;
+      },
       // Refetch facet fields, unless this is the reusability facet
       updateRouteQueryReusability() {
         if (this.name !== 'REUSABILITY') {
@@ -198,7 +263,12 @@
       },
       // Refetch facet fields, but only if other qf query values have changed
       updateRouteQueryQf(newQf, oldQf) {
-        const qfDiff = xor(newQf, oldQf);
+        // Look for changes to qf, accounting for them being potentially strings
+        // or arrays or undefined.
+        const qfDiff = xor(
+          newQf ? [].concat(newQf) : [],
+          oldQf ? [].concat(oldQf) : []
+        );
         if (qfDiff.length === 0) {
           return;
         }
@@ -239,3 +309,30 @@
     margin-bottom: 0.25rem;
   }
 </style>
+
+<docs lang="md">
+  Radio buttons, none selected:
+  ```jsx
+  <SideFacetDropdown
+    name="collection"
+    type="radio"
+    :static-fields="['ww1', 'archaeology', 'art', 'fashion']"
+  />
+  ```
+
+  Checkboxes, two selected:
+  ```jsx
+  <SideFacetDropdown
+    name="TYPE"
+    type="checkbox"
+    :selected="['IMAGE', 'VIDEO']"
+    :static-fields="[
+      { label:'IMAGE', count: 28417756 },
+      { label:'TEXT', count: 21607709 },
+      { label:'SOUND', count: 782764 },
+      { label:'VIDEO', count: 514235 },
+      { label:'3D', count: 17668 }
+    ]"
+  />
+  ```
+</docs>

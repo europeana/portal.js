@@ -2,6 +2,7 @@
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=europeana_portal.js&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=europeana_portal.js)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=europeana_portal.js&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=europeana_portal.js)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=europeana_portal.js&metric=security_rating)](https://sonarcloud.io/dashboard?id=europeana_portal.js)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=europeana_portal.js&metric=coverage)](https://sonarcloud.io/summary/new_code?id=europeana_portal.js)
 
 ## Prerequisites
 

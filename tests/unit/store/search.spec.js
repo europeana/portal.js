@@ -509,55 +509,147 @@ describe('store/search', () => {
     });
 
     describe('queryItems', () => {
+      beforeEach(() => {
+        sinon.resetHistory();
+      });
+
+      const dispatch = sinon.spy();
+      const commit = sinon.spy();
+      const getters = {};
+      const searchQuery = 'anything';
+      const typeQf = 'TYPE:"IMAGE"';
+      const collectionQf = 'collection:"migration"';
+      const state = { apiParams: { query: searchQuery, qf: [typeQf, collectionQf] } };
+      const queryParams = state.apiParams;
+
       it('searches the Record API', async() => {
-        const searchQuery = 'anything';
-        const typeQf = 'TYPE:"IMAGE"';
-        const collectionQf = 'collection:"migration"';
-        const dispatch = sinon.spy();
-        const state = { apiParams: { query: searchQuery, qf: [typeQf, collectionQf] } };
-        const getters = {};
         store.actions.$apis = {
           record: {
             search: sinon.stub().resolves({})
           }
         };
 
-        await store.actions.queryItems({ dispatch, state, getters });
+        await store.actions.queryItems({ dispatch, state, getters, commit });
 
         expect(store.actions.$apis.record.search.called).toBe(true);
       });
 
       describe('on success', () => {
-        it('dispatches updateForSuccess', async() => {
-          const dispatch = sinon.spy();
-          const state = {};
-          const getters = {};
+        beforeAll(() => {
           store.actions.$apis = {
             record: {
               search: sinon.stub().resolves({})
             }
           };
+        });
 
-          await store.actions.queryItems({ dispatch, state, getters });
+        it('dispatches updateForSuccess', async() => {
+          await store.actions.queryItems({ dispatch, state, getters, commit });
 
           expect(dispatch.calledWith('updateForSuccess')).toBe(true);
+        });
+
+        it('logs the query while live', async() => {
+          await store.actions.queryItems({ dispatch, state, getters, commit });
+
+          expect(commit.calledWith('addLiveQuery', queryParams)).toBe(true);
+          expect(commit.calledWith('removeLiveQuery', queryParams)).toBe(true);
         });
       });
 
       describe('on failure', () => {
-        it('dispatches updateForFailure', async() => {
-          const dispatch = sinon.spy();
-          const state = {};
-          const getters = {};
+        beforeAll(() => {
           store.actions.$apis = {
             record: {
               search: sinon.stub().rejects({})
             }
           };
+        });
 
-          await store.actions.queryItems({ dispatch, state, getters });
+        it('dispatches updateForFailure', async() => {
+          await store.actions.queryItems({ dispatch, state, getters, commit });
 
           expect(dispatch.calledWith('updateForFailure')).toBe(true);
+        });
+
+        it('logs the query while live', async() => {
+          await store.actions.queryItems({ dispatch, state, getters, commit });
+
+          expect(commit.calledWith('addLiveQuery', queryParams)).toBe(true);
+          expect(commit.calledWith('removeLiveQuery', queryParams)).toBe(true);
+        });
+      });
+    });
+
+    describe('queryFacets', () => {
+      beforeEach(() => {
+        sinon.resetHistory();
+      });
+
+      const dispatch = sinon.spy();
+      const commit = sinon.spy();
+      const getters = {};
+      const searchQuery = 'anything';
+      const typeQf = 'TYPE:"IMAGE"';
+      const collectionQf = 'collection:"migration"';
+      const state = { apiParams: { query: searchQuery, qf: [typeQf, collectionQf] } };
+      const queryParams = { ...state.apiParams, rows: 0, profile: 'facets' };
+
+      it('searches the Record API', async() => {
+        store.actions.$apis = {
+          record: {
+            search: sinon.stub().resolves({})
+          }
+        };
+
+        await store.actions.queryFacets({ dispatch, state, getters, commit });
+
+        expect(store.actions.$apis.record.search.called).toBe(true);
+      });
+
+      describe('on success', () => {
+        beforeAll(() => {
+          store.actions.$apis = {
+            record: {
+              search: sinon.stub().resolves({ facets: [1, 2] })
+            }
+          };
+        });
+
+        it('commits facets', async() => {
+          await store.actions.queryFacets({ dispatch, state, getters, commit });
+
+          expect(commit.calledWith('setFacets', [1, 2])).toBe(true);
+        });
+
+        it('logs the query while live', async() => {
+          await store.actions.queryFacets({ dispatch, state, getters, commit });
+
+          expect(commit.calledWith('addLiveQuery', queryParams)).toBe(true);
+          expect(commit.calledWith('removeLiveQuery', queryParams)).toBe(true);
+        });
+      });
+
+      describe('on failure', () => {
+        beforeAll(() => {
+          store.actions.$apis = {
+            record: {
+              search: sinon.stub().rejects({})
+            }
+          };
+        });
+
+        it('dispatches updateForFailure', async() => {
+          await store.actions.queryFacets({ dispatch, state, getters, commit });
+
+          expect(dispatch.calledWith('updateForFailure')).toBe(true);
+        });
+
+        it('logs the query while live', async() => {
+          await store.actions.queryFacets({ dispatch, state, getters, commit });
+
+          expect(commit.calledWith('addLiveQuery', queryParams)).toBe(true);
+          expect(commit.calledWith('removeLiveQuery', queryParams)).toBe(true);
         });
       });
     });
@@ -642,6 +734,30 @@ describe('store/search', () => {
   });
 
   describe('mutations', () => {
+    describe('addLiveQuery', () => {
+      it('adds the passed query to the store', () => {
+        const state = { liveQueries: [{ qf: ['TYPE:"IMAGE"'] }] };
+        const query = { qf: ['collection:"migration"'] };
+
+        store.mutations.addLiveQuery(state, query);
+
+        expect(state.liveQueries.length).toBe(2);
+        expect(state.liveQueries).toContain(query);
+      });
+
+      describe('removeLiveQuery', () => {
+        it('removes the passed query from the store', () => {
+          const query = { qf: ['collection:"migration"'] };
+          const state = { liveQueries: [{ qf: ['TYPE:"IMAGE"'] }, query] };
+
+          store.mutations.removeLiveQuery(state, query);
+
+          expect(state.liveQueries.length).toBe(1);
+          expect(state.liveQueries).not.toContain(query);
+        });
+      });
+    });
+
     describe('setFacets()', () => {
       it('enquotes values for quotable facets', () => {
         const state = { facets: [] };

@@ -15,7 +15,7 @@
     transition: box-shadow 0.25s;
   }
 
-  a {
+  .card-wrapper {
     text-decoration: none;
   }
 
@@ -75,13 +75,15 @@
 }
 
 .content-card {
+  $card-line-height: 1.1875rem;
+
   background: $white;
   border-radius: $border-radius-small;
   box-shadow: $boxshadow-small;
   color: $black;
   font-size: $font-size-small;
   height: auto;
-  line-height: 1.1875rem;
+  line-height: $card-line-height;
   transition: box-shadow 0.25s;
 
   &.card {
@@ -90,9 +92,17 @@
 
   @media (min-width: $bp-medium) {
     min-height: 20rem;
+
+    &.mosaic-card {
+      min-height: 0;
+    }
   }
 
   a {
+    text-decoration: none;
+  }
+
+  .card-wrapper {
     display: flex;
     flex-direction: column;
     text-decoration: none;
@@ -127,10 +137,10 @@
   .card-title {
     font-size: 1rem;
     font-weight: 600;
-    max-height: 1.1875rem;
+    max-height: $card-line-height;
     margin-bottom: 0.75rem;
     overflow: hidden;
-    display: box;
+    display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
   }
@@ -155,7 +165,7 @@
     p {
       max-height: 4.75rem;
       overflow: hidden;
-      display: box;
+      display: -webkit-box;
       -webkit-line-clamp: 4;
       -webkit-box-orient: vertical;
     }
@@ -166,13 +176,12 @@
   }
 
   .card-link {
-    min-height: 100%;
-    color: $black;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
     z-index: 1;
-
-    &:hover {
-      color: $black;
-    }
   }
 
   .is-external-link .card-title {
@@ -246,6 +255,11 @@
       box-shadow: none;
     }
 
+    &:hover,
+    &:focus {
+      color: $blue;
+    }
+
     @media (max-width: $bp-medium) {
       flex: 100%;
       margin-bottom: 1rem;
@@ -254,15 +268,6 @@
     .card-title {
       font-size: $font-size-small;
       font-weight: normal;
-    }
-
-    .card-link {
-      display: initial;
-
-      &:hover,
-      &:focus {
-        color: $blue;
-      }
     }
 
     .card-img {
@@ -320,108 +325,208 @@
     min-height: auto;
     padding: 1rem;
 
-    a {
+    .card-wrapper {
       flex-direction: row;
       justify-content: space-between;
+    }
 
-      .card-img {
-        border-radius: 4px;
-        display: block;
-        flex: 0 0 auto;
+    .card-img {
+      border-radius: 4px;
+      display: block;
+      flex: 0 0 auto;
+      height: 80px;
+      min-height: initial;
+      order: 2;
+      overflow: hidden;
+      position: relative;
+      width: 80px;
+
+      img {
         height: 80px;
-        min-height: initial;
-        order: 2;
-        overflow: hidden;
-        position: relative;
-        width: 80px;
-
-        img {
-          height: 80px;
-          margin: 0;
-          position: absolute;
-        }
-
-        &::after {
-          content: '';
-          display: block;
-          padding-bottom: 100%;
-          width: 100%;
-        }
-
-        &.logo {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-
-          img {
-            height: auto;
-            width: auto;
-          }
-        }
+        margin: 0;
+        position: absolute;
       }
 
-      .card-title {
-        overflow-wrap: break-word;
-        word-break: break-word;
-        max-height: 3.5625rem;
-        overflow: hidden;
-        display: box;
-        -webkit-line-clamp: 3;
+      &::after {
+        content: '';
+        display: block;
+        padding-bottom: 100%;
+        width: 100%;
       }
+    }
 
-      .card-body {
-        flex-grow: 1;
-        margin-right: 1rem;
-        order: 1;
-        padding: 0;
-        width: 55%;
-      }
+    .logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
-      .card-text {
-        color: $blue;
+      img {
+        height: auto;
+        width: auto;
       }
+    }
+
+    .card-title {
+      overflow-wrap: break-word;
+      word-break: break-word;
+      max-height: 3.5625rem;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+    }
+
+    .card-body {
+      flex-grow: 1;
+      margin-right: 1rem;
+      order: 1;
+      padding: 0;
+      width: 55%;
+    }
+
+    .card-text {
+      color: $blue;
     }
   }
 
   &.list-card {
+    .card-img {
+      background-color: $mediumgrey;
+      border-radius: $border-radius-small;
+      display: inline-flex;
+      justify-content: center;
+
+      img {
+        border-radius: 0 calc(0.25rem - 1px) calc(0.25rem - 1px) 0;
+        object-fit: contain;
+        height: auto;
+        max-height: 100%;
+        width: auto;
+      }
+    }
+
+    .data-and-buttons-wrapper {
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 2;
+      color: $mediumgrey;
+      margin: auto auto 0 0;
+
+      >  * {
+        margin-right: 1rem;
+        margin-top: 0.5rem;
+      }
+
+      [class^='icon-'],
+      [class*=' icon-'] {
+        margin-right: 0.3rem;
+        line-height: inherit;
+      }
+
+      .btn-light-flat {
+        color: $mediumgrey;
+        padding: 0;
+        margin-right: 1rem;
+        line-height: inherit;
+
+        &.pin-button {
+          display: inline-flex;
+          order: 3;
+        }
+
+        &:hover {
+          color: $innovationblue;
+        }
+
+        &.active {
+          &.like-button {
+            color: $red;
+          }
+
+          &.pin-button {
+            color: $darkgreen;
+          }
+        }
+      }
+    }
+
     @media (min-width: $bp-medium) {
       min-height: 0;
 
-      a {
+      .card-img {
+        flex: 0 0 10rem;
+        order: 2;
+        width: 10rem;
+        height: 10rem;
+        max-height: none;
+        min-height: 0;
+        margin: 1.25rem 1.25rem 1.25rem 0;
+      }
+
+      .card-wrapper {
         flex-direction: row;
         justify-content: space-between;
 
-        .card-img {
-          display: inline-block;
-          height: 13rem;
-          max-height: none;
-          min-height: 0;
-          order: 2;
-          width: 200px;
-
-          img {
-            border-radius: 0 calc(0.25rem - 1px) calc(0.25rem - 1px) 0;
-            height: 100%;
-          }
-        }
-
         .card-body {
           flex: none;
-          padding-right: 2rem;
-          width: calc(100% - 200px);
+          padding: 1.25rem;
+          width: calc(100% - 12rem);
+          display: flex;
+          flex-direction: column;
+        }
+
+        .card-subtitle {
+          font-size: $font-size-small;
+          margin-bottom: 1.125rem;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+
+        .title-texts-wrapper {
+          max-height: calc(4 * $card-line-height);
+          overflow: hidden;
+        }
+
+        .card-title {
+          margin-bottom: $card-line-height;
+          -webkit-line-clamp: 4;
+          max-height: none;
+        }
+
+        .card-text p {
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+      }
+
+      .data-and-buttons-wrapper {
+        flex-wrap: nowrap;
+        max-width: 100%;
+
+        .license-label {
+          min-width: 0;
+        }
+
+        .license-label-text {
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
         }
       }
     }
   }
 
-  .user-buttons {
+  &:not(.list-card) .user-buttons {
+    justify-content: flex-end;
     visibility: hidden;
     display: flex;
     flex-wrap: wrap;
     position: absolute;
     top: 1rem;
     right: 1rem;
-    z-index: 2;
+    z-index: 3;
     width: 100%;
 
     .btn {
@@ -441,26 +546,10 @@
         box-shadow: $boxshadow-small;
       }
 
-      &.active {
-        color: $white;
-        background-color: $red;
-        border-color: $red;
-      }
-
-      &.recommendation-button {
-        &:first-of-type {
-          margin-left: auto;
-        }
-
-        &:hover {
-          color: $innovationblue;
-        }
-      }
-
       &:first-of-type {
         margin-right: 0.5rem;
 
-        &.icon-push-pin {
+        &.pin-button {
           margin-left: 2rem;
 
           &.active {
@@ -480,10 +569,33 @@
         }
       }
 
-      &-sm {
-        font-size: $font-size-medium;
+      &.like-button {
+        &.active {
+          color: $white;
+          background-color: $red;
+          border-color: $red;
+        }
+
+        .icon-heart {
+          font-size: $font-size-medium;
+        }
+      }
+
+      &.recommendation-button {
+        &:first-of-type {
+          margin-left: auto;
+        }
+
+        &:hover {
+          color: $innovationblue;
+        }
       }
     }
+  }
+
+  &.list-card .user-buttons {
+    white-space: nowrap;
+    display: inline-flex;
   }
 
   &:hover {
@@ -606,7 +718,7 @@
       width: calc(100% / 4 - #{$grid-gutter * 2});
     }
 
-    a {
+    .card-wrapper {
       &::before {
         box-shadow: $boxshadow-small;
         content: '';
@@ -614,6 +726,7 @@
         position: absolute;
         transition: box-shadow 0.25s;
         width: 100%;
+        z-index: -1;
       }
 
       &:hover {

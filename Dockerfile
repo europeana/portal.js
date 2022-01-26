@@ -14,12 +14,13 @@ RUN npm ci
 
 COPY nuxt.config.js babel.config.cjs jest.config.js *.md .env.example ./
 COPY src ./src
+COPY styleguide ./styleguide
 
 
 FROM base AS build
 
 RUN npm run build
-RUN rm babel.config.cjs jest.config.js
+RUN rm -r babel.config.cjs jest.config.js styleguide
 RUN npm prune --production
 
 
@@ -27,7 +28,8 @@ FROM gcr.io/distroless/nodejs:16
 
 ENV PORT=8080 \
     HOST=0.0.0.0 \
-    NODE_ENV=production
+    NODE_ENV=production \
+    NODE_OPTIONS=--experimental-json-modules
 
 EXPOSE ${PORT}
 

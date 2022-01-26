@@ -252,6 +252,27 @@
           font-size: $font-size-extrasmall;
         }
       }
+
+      .custom-checkbox-colour {
+        .custom-control-label {
+          display: inline-flex;
+          align-items: center;
+          flex: 1;
+          flex-wrap: wrap;
+
+          span {
+            margin-right: 0.25rem;
+          }
+
+          .colour-palette {
+            border: 1px solid $whitegrey;
+            border-radius: 50%;
+            height: 1rem;
+            width: 1rem;
+            display: inline-block;
+          }
+        }
+      }
     }
 
     .options-container {
@@ -288,8 +309,11 @@
     }
 
     .dropdown-toggle-text {
-      min-height: 1.5rem;
       opacity: 0;
+    }
+
+    .dropdown-toggle {
+      min-height: 1.5rem;
     }
 
     .dropdown-menu {

@@ -11,11 +11,6 @@
     name: 'ColourSwatch',
 
     props: {
-      ariaLabelledby: {
-        type: String,
-        default: ''
-      },
-
       hexCode: {
         type: String,
         default: ''

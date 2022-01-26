@@ -21,7 +21,9 @@
     <client-only
       v-if="feedbackEnabled"
     >
-      <FeedbackWidget />
+      <FeedbackWidget
+        data-qa="feedback widget"
+      />
     </client-only>
     <main
       id="default"
@@ -36,6 +38,17 @@
         id="main"
       />
     </main>
+    <client-only
+      v-if="newFeatureNotificationEnabled"
+    >
+      <NewFeatureNotification
+        :feature="featureNotification.name"
+        :url="featureNotification.url"
+        data-qa="new feature notification"
+      >
+        <p>{{ $t(`newFeatureNotification.text.${featureNotification.name}`) }}</p>
+      </NewFeatureNotification>
+    </client-only>
     <client-only>
       <PageFooter />
     </client-only>
@@ -56,6 +69,7 @@
   import klaroConfig, { version as klaroVersion } from '../plugins/klaro-config';
   import { version as bootstrapVersion } from 'bootstrap/package.json';
   import { version as bootstrapVueVersion } from 'bootstrap-vue/package.json';
+  import featureNotifications from '@/features/notifications';
 
   export default {
     name: 'DefaultLayout',
@@ -65,7 +79,8 @@
       ClientOnly,
       PageHeader,
       PageFooter: () => import('../components/PageFooter'),
-      FeedbackWidget: () => import('../components/feedback/FeedbackWidget')
+      FeedbackWidget: () => import('../components/feedback/FeedbackWidget'),
+      NewFeatureNotification: () => import('../components/generic/NewFeatureNotification')
     },
 
     mixins: [
@@ -77,7 +92,8 @@
         linkGroups: {},
         enableAnnouncer: true,
         klaro: null,
-        toastBottomOffset: '20px'
+        toastBottomOffset: '20px',
+        featureNotification: featureNotifications.find(feature => feature.name === this.$config?.app?.featureNotification)
       };
     },
 
@@ -120,6 +136,13 @@
 
       feedbackEnabled() {
         return this.$features.jiraServiceDeskFeedbackForm && this.$config.app.baseUrl;
+      },
+
+      newFeatureNotificationEnabled() {
+        return !!this.featureNotification && (
+          !this.$cookies.get('new_feature_notification') ||
+          this.$cookies.get('new_feature_notification') !== this.featureNotification.name
+        );
       }
     },
 

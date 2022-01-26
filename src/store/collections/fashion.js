@@ -6,7 +6,6 @@ const fashionFacetNames = [
   'proxy_dcterms_medium.en',
   'proxy_dc_type.en'
 ].concat(defaultFacetNames);
-fashionFacetNames.splice(fashionFacetNames.indexOf('contentTier'), 1);
 const fashionFacetParam = fashionFacetNames.join(',');
 
 const facetFieldLabelPatterns = {
