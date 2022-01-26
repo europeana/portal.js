@@ -410,7 +410,7 @@ describe('plugins/europeana/record', () => {
           expect(response.record.metadata.europeanaCollectionName.value).toEqual(europeanaCollectionName);
           expect(response.record.metadata.europeanaCollectionName.url).toEqual({
             name: 'search',
-            query: { query: 'europeana_collectionName:"123_Collection"'}
+            query: { query: 'europeana_collectionName:"123_Collection"' }
           });
         });
 
