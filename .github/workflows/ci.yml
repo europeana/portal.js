@@ -28,6 +28,25 @@ env:
   REDIS_TLS_CA: ${{ secrets.REDIS_TLS_CA }}
 
 jobs:
+  annotate:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && contains(github.head_ref, '/EC-') && github.event.action == 'opened'
+    steps:
+      -
+        name: Extract JIRA ticket number
+        run: echo "JIRA_TICKET_NUMBER=$(echo ${{ github.head_ref }} | sed -r 's|^.*/(EC-[0-9]+).*$|\1|')" >> $GITHUB_ENV
+      -
+        name: Link to JIRA ticket on pull request
+        uses: actions/github-script@v5
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `JIRA ticket: ${process.env.JIRA_TICKET_NUMBER}`
+            })
+
   # Build the base stage of the Docker image first so that unit tests can run,
   # as they do not require the full production image to be built.
   docker-base-stage:
@@ -471,7 +490,18 @@ jobs:
         name: Prepare env for notification to Slack
         run: echo "PULL_REQUEST_NUMBER=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
       -
-        name: Notify Slack
+        name: Notify Slack of preview deployment
         run: |
           envsubst < .github/workflows/support/ci/slack-notification.json > ./slack-notification.json
           curl -d "@./slack-notification.json" -X POST ${SLACK_WEBHOOK_URL}
+      -
+        name: Link to preview deployment on pull request
+        uses: actions/github-script@v5
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `Preview deployment: https://${process.env.K8S_INGRESS_HOST}/`
+            })
