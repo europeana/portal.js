@@ -428,11 +428,12 @@ export default {
       }
     },
     "api": {
-      "name": "Search for",
+      "name": "Search within documents",
       "options": {
         "fulltext": "Items with full-text",
         "metadata": "Metadata-only items"
-      }
+      },
+      "switch": "Search only in the content of items with full-text"
     },
     "button": {
       "apply": "Apply",
