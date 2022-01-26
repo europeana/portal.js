@@ -30,7 +30,7 @@
       <b-button
         v-show="query"
         data-qa="clear button"
-        class="button-icon icon-clear ml-3 my-3"
+        class="button-icon-only icon-clear ml-3 my-3"
         variant="light-flat"
         :aria-label="$t('header.clearQuery')"
         @click="clearQuery"

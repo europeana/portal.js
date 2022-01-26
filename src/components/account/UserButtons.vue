@@ -5,8 +5,8 @@
   >
     <b-button
       v-show="showPins"
-      class="pin-button text-uppercase d-inline-flex align-items-center"
-      :class="{ 'button-icon': !buttonText }"
+      class="pin-button text-uppercase"
+      :class="{ 'button-icon-only': !buttonText }"
       :variant="buttonVariant"
       :pressed="pinned"
       data-qa="pin button"
@@ -18,7 +18,7 @@
     </b-button>
     <b-button
       class="add-button text-uppercase d-inline-flex align-items-center"
-      :class="{ 'button-icon': !buttonText }"
+      :class="{ 'button-icon-only': !buttonText }"
       data-qa="add button"
       :variant="buttonVariant"
       :aria-label="$t('set.actions.addTo')"
@@ -29,7 +29,7 @@
     </b-button>
     <b-button
       class="like-button text-uppercase d-inline-flex align-items-center"
-      :class="{ 'button-icon': !buttonText }"
+      :class="{ 'button-icon-only': !buttonText }"
       :pressed="liked"
       :variant="buttonVariant"
       data-qa="like button"

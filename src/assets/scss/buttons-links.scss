@@ -2,7 +2,8 @@
   font-weight: 400;
   text-decoration-line: none;
 
-  span {
+  [class^='icon-'],
+  [class*=' icon-'] {
     line-height: 1.5;
   }
 
@@ -132,10 +133,15 @@
   text-decoration: none;
   transition: $standard-transition;
 
-  &.button-icon {
+  &.button-icon-only {
     height: 1.5rem;
     width: 1.5rem;
     font-size: 1.1rem;
+  }
+
+  &.icon-clear,
+  &.icon-filter {
+    font-size: $font-size-large;
   }
 
   &:hover {
@@ -174,7 +180,7 @@
   }
 }
 
-.button-icon {
+.button-icon-only {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -190,17 +196,22 @@
   color: $mediumgrey;
   font-size: $font-size-small;
 
-  &.button-icon {
-    font-size: $font-size-large;
-    height: 2.25rem;
-    width: 2.25rem;
-    padding: 0.375rem;
-  }
-
   &:hover {
     box-shadow: $boxshadow-small;
     background: $white;
     color: $mediumgrey;
+  }
+
+  &.add-button,
+  &.like-button,
+  &.pin-button,
+  &.recommendation-button {
+    font-size: $font-size-large;
+
+    &.button-icon-only {
+      height: 2.25rem;
+      width: 2.25rem;
+    }
   }
 
   &.like-button,
@@ -213,7 +224,7 @@
     }
   }
 
-  .icon-heart {
+  &.like-button {
     font-size: $font-size-medium;
   }
 

@@ -27,7 +27,7 @@
         </button>
         <b-button
           data-qa="close filters button"
-          class="button-icon icon-clear mx-3"
+          class="button-icon-only icon-clear mx-3"
           variant="light-flat"
           :aria-label="$t('header.closeSidebar')"
           @click="toggleFilterSheet"

@@ -12,7 +12,7 @@
     >
       <b-button
         data-qa="back button"
-        class="button-icon icon-back"
+        class="button-icon-only icon-back"
         variant="light-flat"
         :aria-label="$t('header.backToMenu')"
         @click="toggleSearchBar"
@@ -29,7 +29,7 @@
       <b-button
         v-b-toggle.sidebar
         variant="light-flat"
-        class="navbar-toggle collapsed button-icon flex-column align-self-center ml-3"
+        class="navbar-toggle collapsed button-icon-only flex-column align-self-center ml-3"
         :aria-label="$t('header.showSidebar')"
         data-qa="hamburger button"
       >
@@ -60,7 +60,7 @@
         />
         <b-button
           data-qa="show search button"
-          class="button-icon icon-search ml-lg-3"
+          class="button-icon-only icon-search ml-lg-3"
           variant="light-flat"
           :aria-label="$t('search')"
           @click="toggleSearchBar"
@@ -84,7 +84,7 @@
             <b-button
               v-b-toggle.sidebar
               data-qa="close menu button"
-              class="button-icon icon-clear"
+              class="button-icon-only icon-clear"
               variant="light-flat"
               :aria-label="$t('header.closeSidebar')"
             />

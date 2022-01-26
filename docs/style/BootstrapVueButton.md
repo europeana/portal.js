@@ -124,7 +124,7 @@ Variant "light" with user-button class
 ```jsx
   <b-button
     variant="light"
-    class="button-icon button-user icon-ic-add"
+    class="button-icon-only button-user icon-ic-add"
   />
 ```
 
@@ -138,7 +138,7 @@ Used for the icon buttons in the header
   </b-button>
   <b-button
     variant="light-flat"
-    class="button-icon icon-search"
+    class="button-icon-only icon-search"
   />
 ```
 
