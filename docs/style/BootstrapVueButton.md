@@ -16,7 +16,10 @@ Variant "secondary"<br>
     label
     <span class="icon-twitter d-inline-flex pl-1" />
   </b-button>
-  <b-button class="d-inline-flex align-items-center">
+  <b-button 
+    class="d-inline-flex align-items-center"
+    aria-label="label for textless button"
+  >
     <span class="icon-twitter" />
   </b-button>
   <b-button disabled>label</b-button>
@@ -46,6 +49,7 @@ Variant "outline-primary":
   <b-button
     variant="outline-primary"
     class="d-inline-flex align-items-center"
+    aria-label="label for textless button"
   >
     <span class="icon-twitter" />
   </b-button>
@@ -79,6 +83,7 @@ Variant "primary":
   <b-button
     variant="primary"
     class="d-inline-flex align-items-center"
+    aria-label="label for textless button"
   >
     <span class="icon-twitter" />
   </b-button>
@@ -114,6 +119,7 @@ Variant "success":
   <b-button
     variant="success"
     class="d-inline-flex align-items-center"
+    aria-label="label for textless button"
   >
     <span class="icon-twitter" />
   </b-button>
@@ -149,6 +155,7 @@ Variant "danger":
   <b-button
     variant="danger"
     class="d-inline-flex align-items-center"
+    aria-label="label for textless button"
   >
     <span class="icon-twitter" />
   </b-button>
@@ -184,6 +191,7 @@ Variant "link":
   <b-button
     variant="link"
     class="d-inline-flex align-items-center"
+    aria-label="label for textless button"
   >
     <span class="icon-twitter" />
   </b-button>
@@ -219,6 +227,7 @@ Variant "light":
   <b-button
     variant="light"
     class="d-inline-flex align-items-center"
+    aria-label="label for textless button"
   >
     <span class="icon-twitter" />
   </b-button>
@@ -255,6 +264,7 @@ Variant "outline-light"<br>
   <b-button
     variant="outline-light"
     class="d-inline-flex align-items-center"
+    aria-label="label for textless button"
   >
     <span class="icon-twitter" />
   </b-button>
@@ -267,6 +277,7 @@ Variant "outline-light"<br>
   <b-button
     class="like-button text-uppercase d-inline-flex align-items-center button-icon-only"
     variant="outline-light"
+    aria-label="like item"
   >
     <span class="icon-heart" />
   </b-button>
@@ -297,6 +308,7 @@ Variant "light-flat"<br>
   <b-button
     variant="light-flat"
     class="d-inline-flex align-items-center"
+    aria-label="label for textless button"
   >
     <span class="icon-twitter" />
   </b-button>
@@ -309,6 +321,7 @@ Variant "light-flat"<br>
     <b-button
     variant="light-flat"
     class="d-inline-flex align-items-center"
+    aria-label="label for textless button"
   >
     <span class="icon-search" />
   </b-button>
