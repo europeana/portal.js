@@ -20,12 +20,9 @@ env:
   CTF_GRAPHQL_ORIGIN: https://contentful-proxy-cache.test.eanadev.org
   CTF_SPACE_ID: ${{ secrets.CTF_SPACE_ID }}
   DOCKER_REPOSITORY: europeana/portal.js
-  ELASTIC_APM_SERVER_URL: https://apm.eanadev.org:8200
   EUROPEANA_API_KEY: ${{ secrets.EUROPEANA_API_KEY }}
   EUROPEANA_RECORD_API_KEY: ${{ secrets.EUROPEANA_RECORD_API_KEY }}
   OAUTH_CLIENT: ${{ secrets.OAUTH_CLIENT }}
-  REDIS_URL: ${{ secrets.REDIS_URL }}
-  REDIS_TLS_CA: ${{ secrets.REDIS_TLS_CA }}
 
 jobs:
   annotate:
