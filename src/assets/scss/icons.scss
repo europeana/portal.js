@@ -135,6 +135,14 @@
   font-size: $font-size-large;
 }
 
+.icon-license::before {
+  content: '\e94b';
+}
+
+.icon-file::before {
+  content: '\e94d';
+}
+
 .icon-twitter::before {
   content: '\e902';
 }

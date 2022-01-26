@@ -24,7 +24,11 @@
         data-qa="search filters"
       >
         <client-only>
-          <SearchFilters />
+          <SearchFilters
+            :filters="filters"
+            :prefix="(name) => name !== 'contentTier'"
+            class="mb-2"
+          />
           <div class="position-relative">
             <FacetDropdown
               v-for="facet in coreFacets"
@@ -299,7 +303,13 @@
         return this.orderedFacets.filter(facet => this.coreFacetNames.includes(facet.name));
       },
       moreFacetNames() {
-        return this.facetNames.filter(facetName => !this.coreFacetNames.includes(facetName));
+        return this.facetNames.filter(facetName => {
+          if (facetName === 'contentTier') {
+            return !(this.$store.getters['search/collection'] || this.$store.getters['entity/id']);
+          } else {
+            return !this.coreFacetNames.includes(facetName);
+          }
+        });
       },
       moreFacets() {
         return this.orderedFacets.filter(facet => this.moreFacetNames.includes(facet.name));

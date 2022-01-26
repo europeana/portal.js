@@ -4,30 +4,38 @@
     data-qa="user buttons"
   >
     <b-button
-      v-show="showPins"
+      v-show="true"
+      class="button-icon button-user pin-button text-uppercase align-items-center"
+      :variant="buttonVariant"
       :pressed="pinned"
-      class="button-icon button-user icon-push-pin"
-      variant="light"
       data-qa="pin button"
       :aria-label="$t('entity.actions.pin')"
       @click="togglePinned"
-    />
+    >
+      <span class="icon-push-pin" />
+      {{ pinButtonText }}
+    </b-button>
     <b-button
-      class="button-icon button-user icon-ic-add"
+      class="button-icon button-user add-button text-uppercase d-inline-flex align-items-center"
       data-qa="add button"
-      variant="light"
+      :variant="buttonVariant"
       :aria-label="$t('set.actions.addTo')"
       @click="addToSet"
-    />
+    >
+      <span class="icon-ic-add" />
+      {{ buttonText ? $t('set.actions.save') : '' }}
+    </b-button>
     <b-button
+      class="button-icon button-user like-button text-uppercase d-inline-flex align-items-center"
       :pressed="liked"
-      class="button-icon button-user icon-heart"
+      :variant="buttonVariant"
       data-qa="like button"
-      variant="light"
       :aria-label="$t('actions.like')"
-      size="sm"
       @click="toggleLiked"
-    />
+    >
+      <span class="icon-heart" />
+      {{ likeButtonText }}
+    </b-button>
     <template
       v-if="$auth.loggedIn"
     >
@@ -110,6 +118,14 @@
       showPins: {
         type: Boolean,
         default: false
+      },
+      buttonVariant: {
+        type: String,
+        default: 'light'
+      },
+      buttonText: {
+        type: Boolean,
+        default: false
       }
     },
 
@@ -134,6 +150,18 @@
       },
       pinned() {
         return this.$store.getters['entity/isPinned'](this.identifier);
+      },
+      pinButtonText() {
+        if (this.buttonText) {
+          return this.pinned ? this.$t('statuses.pinned') : this.$t('actions.pin');
+        }
+        return '';
+      },
+      likeButtonText() {
+        if (this.buttonText) {
+          return this.liked ? this.$t('statuses.liked') : this.$t('actions.like');
+        }
+        return '';
       }
     },
     created() {
