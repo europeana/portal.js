@@ -152,6 +152,7 @@
     'dcPublisher',
     'dcSubject',
     'dcType',
+    'dcDate',
     'dctermsMedium'
   ];
 
@@ -162,7 +163,6 @@
     'edmUgc',
     'dcRights',
     'dctermsCreated',
-    'dcDate',
     'dctermsIssued',
     'dctermsTemporal',
     'dcCoverage',
