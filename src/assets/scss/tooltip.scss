@@ -12,3 +12,15 @@
     display: none;
   }
 }
+
+.btn.tooltip-button {
+  display: inline;
+
+  &:hover {
+    color: initial;
+  }
+
+  &:not(:disabled):not(.disabled) {
+    cursor: default;
+  }
+}

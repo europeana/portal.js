@@ -433,7 +433,8 @@ export default {
         "fulltext": "Items with full-text",
         "metadata": "Metadata-only items"
       },
-      "switch": "Search only in the content of items with full-text"
+      "switch": "Search only in the content of items with full-text",
+      "switchMoreInfo": "More information on what this filter does"
     },
     "button": {
       "apply": "Apply",
