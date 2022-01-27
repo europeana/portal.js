@@ -205,7 +205,10 @@ export default (context = {}) => {
         ...lookupEntities(
           merge.all([proxies, edm.aggregations[0], edm.europeanaAggregation]), entities
         ),
-        europeanaCollectionName: edm.europeanaCollectionName,
+        europeanaCollectionName: edm.europeanaCollectionName ? {
+          url: { name: 'search', query: { query: `europeana_collectionName:"${edm.europeanaCollectionName[0]}"` } },
+          value: edm.europeanaCollectionName
+        } : null,
         timestampCreated: edm.timestamp_created,
         timestampUpdate: edm.timestamp_update
       };
