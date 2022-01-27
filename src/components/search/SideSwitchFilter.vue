@@ -1,10 +1,11 @@
 <template>
   <b-form-group
     :label="$tFacetName(name)"
+    label-class="facet-label"
   >
     <b-form-checkbox
-      :name="name"
       v-model="localValue"
+      :name="name"
       switch
       :value="checkedValue"
       :unchecked-value="uncheckedValue"
@@ -34,12 +35,12 @@
 
       checkedValue: {
         type: String,
-        default: 'true'
+        default: 'checked'
       },
 
       uncheckedValue: {
         type: String,
-        default: false
+        default: 'unchecked'
       }
     },
 

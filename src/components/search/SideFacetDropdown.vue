@@ -299,17 +299,6 @@
   };
 </script>
 
-<style lang="scss" scoped>
-  @import '@/assets/scss/variables';
-
-  .facet-label {
-    font-size: $font-size-extrasmall;
-    text-transform: uppercase;
-    color: $mediumgrey;
-    margin-bottom: 0.25rem;
-  }
-</style>
-
 <docs lang="md">
   Radio buttons, none selected:
   ```jsx

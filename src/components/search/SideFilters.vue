@@ -134,12 +134,6 @@
           name: facetName
         }));
 
-        // if (this.enableApiFilter) {
-        //   facets.unshift({
-        //     name: 'api',
-        //     staticFields: ['fulltext', 'metadata']
-        //   });
-        // }
         if (this.collectionFacetEnabled) {
           facets.unshift({
             name: 'collection',
@@ -407,5 +401,10 @@
         transition: $standard-transition;
       }
     }
+  }
+
+  .icon-info {
+    color: $grey;
+    font-size: $font-size-base;
   }
 </style>
