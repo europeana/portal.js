@@ -3,6 +3,12 @@
     :label="$tFacetName(name)"
     label-class="facet-label"
   >
+    <!--
+    triggered on change
+    @event changed
+    @property {string} name - filter name
+    @property {string} localValue - new value after switch
+  -->
     <b-form-checkbox
       v-model="localValue"
       :name="name"
@@ -13,6 +19,7 @@
       @change="$emit('changed', name, localValue)"
     >
       {{ $t(`facets.${name}.switch`) }}
+      <!-- @slot optional info icon with tooltip -->
       <slot />
     </b-form-checkbox>
   </b-form-group>
@@ -23,21 +30,33 @@
     name: 'SideSwitchFilter',
 
     props: {
+      /**
+       * Value to which the switch is set
+       */
       value: {
         type: String,
         required: true
       },
 
+      /**
+       * Name of filter
+       */
       name: {
         type: String,
         required: true
       },
 
+      /**
+       * Value when switch is checked
+       */
       checkedValue: {
         type: String,
         default: 'checked'
       },
 
+      /**
+       * Value when switch is unchecked
+       */
       uncheckedValue: {
         type: String,
         default: 'unchecked'
@@ -51,3 +70,15 @@
     }
   };
 </script>
+
+<docs lang="md">
+  Switch style checkbox:
+  ```jsx
+    <SideSwitchFilter
+      value="metadata"
+      name="api"
+      checked-value="fulltext"
+      unchecked-value="metadata"
+    />
+  ```
+</docs>
