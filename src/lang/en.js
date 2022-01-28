@@ -466,6 +466,7 @@ export default {
       "options": {
         "*": "Includes items not meeting our publishing criteria",
         "0": "Show only items not meeting our publishing criteria",
+        "0-inclusive": "Not meeting publishing criteria",
         "1": "Low quality",
         "2": "Medium quality",
         "3": "High quality & reusable with conditions",

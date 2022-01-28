@@ -195,6 +195,9 @@ export default {
     },
 
     formatFacetFieldLabel: (state, getters, rootState, rootGetters) => (facetName, facetFieldLabel) => {
+      if(rootGetters['entity/id']?.match('/organization/') && facetName === 'contentTier' && facetFieldLabel == '"0"') {
+        return '"0-inclusive"';
+      }
       const collection = getters.collection;
       if (!getters.hasCollectionSpecificSettings(collection)) {
         return null;
