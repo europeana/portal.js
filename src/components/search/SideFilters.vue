@@ -147,6 +147,9 @@
       api() {
         return this.userParams.api;
       },
+      view() {
+        return this.userParams.view;
+      },
       page() {
         // This causes double jumps on pagination when using the > arrow, for some reason
         // return this.userParams.page;
