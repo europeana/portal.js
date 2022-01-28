@@ -58,9 +58,7 @@
       value() {
         this.activeView = this.value;
 
-        if (this.$cookies) {
-          this.$cookies && this.$cookies.set('searchResultsView', this.value);
-        }
+        this.$cookies && this.$cookies.set('searchResultsView', this.value);
 
         this.$matomo && this.$matomo.trackEvent('View search results', 'Select view', this.value);
       }

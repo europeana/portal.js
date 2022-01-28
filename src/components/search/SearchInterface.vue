@@ -367,7 +367,7 @@
       viewFromRouteQuery() {
         if (this.routeQueryView) {
           this.view = this.routeQueryView;
-          this.$cookies && this.$cookies.set('searchResultsView', this.value);
+          this.$cookies && this.$cookies.set('searchResultsView', this.view);
           this.$store.commit('search/set', ['userParams', this.$route.query]);
         }
       },
