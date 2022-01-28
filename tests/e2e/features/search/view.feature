@@ -61,7 +61,7 @@ Feature: View styles (List and Grid)
     And I press the ENTER key
     Then I see a `item previews grid`
 
-  Scenario: The view parameter is preserved and present in the URL for the  image-rid view
+  Scenario: The view parameter is preserved and present in the URL for the mosaic view
     Given I have chosen the `mosaic` search results view
     When I visit the `home page`
     And I click the `show search button`
