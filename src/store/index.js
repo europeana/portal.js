@@ -7,5 +7,6 @@ export const actions = {
   async nuxtServerInit(store, context) {
     store.dispatch('http/init', context);
     store.commit('apis/init', context);
+    context.$cookies && store.commit('search/setView', context.$cookies.get('searchResultsView'));
   }
 };

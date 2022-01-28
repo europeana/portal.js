@@ -161,10 +161,6 @@ export default {
     },
     setView(state, value) {
       state.view = value;
-      if (process.browser) {
-        sessionStorage.searchResultsView = value;
-        localStorage.searchResultsView = value;
-      }
     },
     setCollectionLabel(state, value) {
       state.collectionLabel = value;
@@ -184,12 +180,6 @@ export default {
     activeView(state) {
       if (state.view) {
         return state.view;
-      } else if (process.browser) {
-        if (sessionStorage.searchResultsView) {
-          return sessionStorage.searchResultsView;
-        } else if (localStorage.searchResultsView) {
-          return localStorage.searchResultsView;
-        }
       }
       return 'grid';
     },
