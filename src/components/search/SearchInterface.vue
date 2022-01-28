@@ -368,6 +368,7 @@
         if (this.routeQueryView) {
           this.view = this.routeQueryView;
           this.$cookies && this.$cookies.set('searchResultsView', this.value);
+          this.$store.commit('search/set', ['userParams', this.$route.query]);
         }
       },
       facetDropdownType(name) {
