@@ -53,15 +53,7 @@
                 checked-value="fulltext"
                 unchecked-value="metadata"
                 @changed="changeFacet"
-              >
-                <b-button
-                  v-if="$t(`facets.api.switchMoreInfo`) !== `facets.api.switchMoreInfo`"
-                  v-b-tooltip.hover.bottom
-                  :title="$t(`facets.api.switchMoreInfo`)"
-                  class="icon-info p-0 tooltip-button"
-                  variant="light-flat"
-                />
-              </SideSwitchFilter>
+              />
               <SideFacetDropdown
                 v-for="facet in filterableFacets"
                 :key="facet.name"
@@ -89,7 +81,6 @@
   import themes from '@/plugins/europeana/themes';
   import { queryUpdatesForFilters } from '../../store/search';
   import SideFacetDropdown from './SideFacetDropdown';
-  import { VBTooltip } from 'bootstrap-vue';
 
   export default {
     name: 'SideFilters',
@@ -99,9 +90,6 @@
       SideFacetDropdown,
       SideDateFilter: () => import('./SideDateFilter'),
       SideSwitchFilter: () => import('./SideSwitchFilter')
-    },
-    directives: {
-      'b-tooltip': VBTooltip
     },
     props: {
       route: {
@@ -409,11 +397,6 @@
         transition: $standard-transition;
       }
     }
-  }
-
-  .btn.tooltip-button {
-    color: $grey;
-    font-size: $font-size-base;
   }
 
   .form-group {

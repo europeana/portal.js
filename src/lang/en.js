@@ -434,7 +434,7 @@ export default {
         "metadata": "Metadata-only items"
       },
       "switch": "Search only in the content of items with full-text",
-      "switchMoreInfo": "More information on what this filter does"
+      "switchMoreInfo": "In this collection, you can either search for your search term within the information describing the item as you do in other collections by deactivating this toggle. Or leave this toggle activated to search for your search term within the newspaper and document text."
     },
     "button": {
       "apply": "Apply",

@@ -19,15 +19,26 @@
       @change="$emit('changed', name, localValue)"
     >
       {{ $t(`facets.${name}.switch`) }}
-      <!-- @slot optional info icon with tooltip -->
-      <slot />
+      <b-button
+        v-if="$t(`facets.${name}.switchMoreInfo`) !== `facets.${name}.switchMoreInfo`"
+        v-b-tooltip.hover.bottom
+        :title="$t(`facets.${name}.switchMoreInfo`)"
+        class="icon-info p-0 tooltip-button"
+        variant="light-flat"
+      />
     </b-form-checkbox>
   </b-form-group>
 </template>
 
 <script>
+  import { VBTooltip } from 'bootstrap-vue';
+
   export default {
     name: 'SideSwitchFilter',
+
+    directives: {
+      'b-tooltip': VBTooltip
+    },
 
     props: {
       /**
@@ -70,6 +81,15 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import '@/assets/scss/variables';
+
+  .btn.tooltip-button {
+    color: $grey;
+    font-size: $font-size-base;
+  }
+</style>
 
 <docs lang="md">
   Switch style checkbox:
