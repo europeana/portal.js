@@ -20,19 +20,19 @@ describe('store/index.js', () => {
       it('dispatches http/init with the context', () => {
         actions.nuxtServerInit(store, context);
 
-        expect(store.dispatch.calledWith('http/init', context));
+        expect(store.dispatch.calledWith('http/init', context)).toBe(true);
       });
 
       it('commits apis/init with the context', () => {
         actions.nuxtServerInit(store, context);
 
-        expect(store.commit.calledWith('apis/init', context));
+        expect(store.commit.calledWith('apis/init', context)).toBe(true);
       });
 
       it('commits search/setView with the searchResultsView cookie', () => {
         actions.nuxtServerInit(store, context);
 
-        expect(store.commit.calledWith('search/setView', 'list'));
+        expect(store.commit.calledWith('search/setView', 'list')).toBe(true);
       });
     });
   });
