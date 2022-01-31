@@ -25,6 +25,7 @@
         :title="$t(`facets.${name}.switchMoreInfo`)"
         class="icon-info p-0 tooltip-button"
         variant="light-flat"
+        data-qa="switch filter more info button"
       />
     </b-form-checkbox>
   </b-form-group>
