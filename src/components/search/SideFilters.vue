@@ -38,14 +38,6 @@
             data-qa="search filters"
           >
             <div class="position-relative">
-              <SideDateFilter
-                v-if="enableDateFilter"
-                :name="PROXY_DCTERMS_ISSUED"
-                :start="dateFilter.start"
-                :end="dateFilter.end"
-                :specific="dateFilter.specific"
-                @dateFilter="dateFilterSelected"
-              />
               <SideSwitchFilter
                 v-if="enableApiFilter"
                 :value="filters.api"
@@ -53,6 +45,14 @@
                 checked-value="fulltext"
                 unchecked-value="metadata"
                 @changed="changeFacet"
+              />
+              <SideDateFilter
+                v-if="enableDateFilter"
+                :name="PROXY_DCTERMS_ISSUED"
+                :start="dateFilter.start"
+                :end="dateFilter.end"
+                :specific="dateFilter.specific"
+                @dateFilter="dateFilterSelected"
               />
               <SideFacetDropdown
                 v-for="facet in filterableFacets"
