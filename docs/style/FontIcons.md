@@ -143,6 +143,21 @@ Example:
       <td><code>icon-twitter</code></td>
       <td><span class="icon icon-twitter" /></td>
     </tr>
+    <tr>
+      <td>Back</td>
+      <td><code>icon-back</code></td>
+      <td><span class="icon icon-back" /></td>
+    </tr>
+    <tr>
+      <td>Search</td>
+      <td><code>icon-search</code></td>
+      <td><span class="icon icon-search" /></td>
+    </tr>
+    <tr>
+      <td>Filter</td>
+      <td><code>icon-filter</code></td>
+      <td><span class="icon icon-filter" /></td>
+    </tr>
     <!-- Template for additional icons:
     <tr>
       <td></td>
