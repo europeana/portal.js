@@ -6,7 +6,7 @@
 
 ## Prerequisites
 
-1. Node.js version 12, and npm
+1. Node.js version 16, and npm
 2. [Contentful](https://www.contentful.com/) CMS account
 3. Redis cache (included as Docker Compose service for development)
 
