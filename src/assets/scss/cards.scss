@@ -518,76 +518,50 @@
     }
   }
 
-  &:not(.list-card) .user-buttons {
-    justify-content: flex-end;
-    visibility: hidden;
-    display: flex;
-    flex-wrap: wrap;
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    z-index: 3;
-    width: 100%;
+  &:not(.list-card) {
+    .user-buttons {
+      justify-content: flex-end;
+      visibility: hidden;
+      display: flex;
+      flex-wrap: wrap;
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      z-index: 3;
+      width: 100%;
 
-    .btn {
-      align-items: center;
-      justify-content: center;
-      background-color: $white;
-      border: 1px solid $paper;
-      color: $mediumgrey;
-      display: inline-flex;
-      font-size: 1.5rem;
-      height: 2.25rem;
-      width: 2.25rem;
-      line-height: 1;
-      padding: 0.375rem;
-
-      &:hover {
-        box-shadow: $boxshadow-small;
+      .btn {
+        visibility: hidden;
       }
+    }
 
-      &:first-of-type {
-        margin-right: 0.5rem;
+    &:hover {
+      box-shadow: $boxshadow-large;
 
-        &.pin-button {
-          margin-left: 2rem;
+      .user-buttons .btn {
+        visibility: visible;
 
-          &.active {
-            visibility: visible;
-          }
-
-          &:hover {
-            color: $innovationblue;
-            background: $white;
-            border-color: $white;
-          }
-
-          +.btn {
-            margin-left: auto;
-            margin-right: 0.5rem;
-          }
-        }
-      }
-
-      &.like-button {
-        &.active {
-          color: $white;
-          background-color: $red;
-          border-color: $red;
-        }
-
-        .icon-heart {
-          font-size: $font-size-medium;
-        }
-      }
-
-      &.recommendation-button {
         &:first-of-type {
-          margin-left: auto;
+          margin-right: 0.5rem;
+
+          &.pin-button {
+            margin-left: 2rem;
+
+            &.active {
+              visibility: visible;
+            }
+
+            +.btn {
+              margin-left: auto;
+              margin-right: 0.5rem;
+            }
+          }
         }
 
-        &:hover {
-          color: $innovationblue;
+        &.recommendation-button {
+          &:first-of-type {
+            margin-left: auto;
+          }
         }
       }
     }
@@ -596,14 +570,6 @@
   &.list-card .user-buttons {
     white-space: nowrap;
     display: inline-flex;
-  }
-
-  &:hover {
-    box-shadow: $boxshadow-large;
-
-    .user-buttons {
-      visibility: visible;
-    }
   }
 }
 
@@ -694,7 +660,7 @@
     width: calc(100% + #{$grid-gutter * 2});
   }
 
-  .content-card {
+  .content-card:not(.list-card) {
     box-shadow: none;
     display: inline-block;
     vertical-align: top;

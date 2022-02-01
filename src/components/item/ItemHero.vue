@@ -31,6 +31,7 @@
               <client-only>
                 <UserButtons
                   :identifier="identifier"
+                  button-variant="secondary"
                 />
               </client-only>
               <ShareButton />

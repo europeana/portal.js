@@ -32,6 +32,7 @@
 
     span {
       font-size: 1.125rem;
+      line-height: 1rem;
     }
   }
 </style>
