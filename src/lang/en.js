@@ -730,7 +730,7 @@ export default {
   },
   "newFeatureNotification": {
     "text": {
-      "organisationsPage": "You can now easily discover cultural heritage items organised by partnering institutions."
+      "sideFilters": "Check out the new filters! They are now all visible on the right-hand side of the search results."
     },
     "dismiss": "Dismiss",
     "readMore": "Read more"
