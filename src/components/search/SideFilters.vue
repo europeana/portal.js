@@ -43,6 +43,8 @@
                 v-if="enableApiFilter"
                 :value="filters.api"
                 name="api"
+                :label="$t('facets.api.switch')"
+                :tooltip="$t('facets.api.switchMoreInfo')"
                 checked-value="fulltext"
                 unchecked-value="metadata"
                 @changed="changeFacet"
@@ -64,6 +66,15 @@
                 :static-fields="facet.staticFields"
                 role="search"
                 :aria-label="facet.name"
+                @changed="changeFacet"
+              />
+              <SideSwitchFilter
+                v-if="contentTierFacetSwitch"
+                :value="filters.contentTier"
+                name="contentTier"
+                :label="$t('facets.contentTier.options.0')"
+                checked-value="&quot;0&quot;"
+                :unchecked-value="null"
                 @changed="changeFacet"
               />
             </div>
@@ -127,7 +138,7 @@
         return this.$store.state.search.liveQueries.length > 0;
       },
       filterableFacets() {
-        const facets = this.facetNames.map(facetName => ({
+        let facets = this.facetNames.map(facetName => ({
           name: facetName
         }));
 
@@ -138,7 +149,14 @@
           });
         }
 
+        if (this.contentTierFacetSwitch) {
+          facets = facets.filter((facet) => facet.name !== 'contentTier');
+        }
+
         return facets;
+      },
+      contentTierFacetSwitch() {
+        return !this.$store.getters['search/collection'] && !this.$store.getters['entity/id'];
       },
       qf() {
         return this.userParams.qf;

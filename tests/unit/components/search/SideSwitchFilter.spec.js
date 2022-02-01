@@ -39,7 +39,8 @@ describe('components/search/SideSwitchFilter', () => {
           value: 'fulltext',
           name: 'api',
           checkedValue: 'fulltext',
-          uncheckedValue: 'metadata'
+          uncheckedValue: 'metadata',
+          tooltip: 'More info'
         }, tooltipText);
 
         const switchChecked = wrapper.find('[data-qa="switch filter more info button"]');

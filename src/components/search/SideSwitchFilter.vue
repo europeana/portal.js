@@ -18,11 +18,11 @@
       :data-qa="`${name} switch filter`"
       @change="$emit('changed', name, localValue)"
     >
-      {{ $t(`facets.${name}.switch`) }}
+      {{ label }}
       <b-button
-        v-if="$t(`facets.${name}.switchMoreInfo`) !== `facets.${name}.switchMoreInfo`"
+        v-if="tooltip"
         v-b-tooltip.hover.bottom
-        :title="$t(`facets.${name}.switchMoreInfo`)"
+        :title="tooltip"
         class="icon-info p-0 tooltip-button"
         variant="light-flat"
         data-qa="switch filter more info button"
@@ -47,7 +47,7 @@
        */
       value: {
         type: String,
-        required: true
+        default: null
       },
 
       /**
@@ -72,6 +72,22 @@
       uncheckedValue: {
         type: String,
         default: 'unchecked'
+      },
+
+      /**
+       * Text for the switch label
+       */
+      label: {
+        type: String,
+        default: null
+      },
+
+      /**
+       * Text for the switch tooltip
+       */
+      tooltip: {
+        type: String,
+        default: null
       }
     },
 
@@ -93,13 +109,15 @@
 </style>
 
 <docs lang="md">
-  Switch style checkbox:
+  Switch-style checkbox with tooltip:
   ```jsx
     <SideSwitchFilter
       value="metadata"
       name="api"
       checked-value="fulltext"
       unchecked-value="metadata"
+      label="Search only in the content of items with full-text"
+      tooltip="More info!"
     />
   ```
 </docs>
