@@ -38,8 +38,16 @@
             data-qa="search filters"
           >
             <div class="position-relative">
+              <SideSwitchFilter
+                v-if="enableApiFilter"
+                :value="filters.api"
+                name="api"
+                checked-value="fulltext"
+                unchecked-value="metadata"
+                @changed="changeFacet"
+              />
               <SideDateFilter
-                v-if="collection === 'newspaper'"
+                v-if="enableDateFilter"
                 :name="PROXY_DCTERMS_ISSUED"
                 :start="dateFilter.start"
                 :end="dateFilter.end"
@@ -80,7 +88,8 @@
     components: {
       ClientOnly,
       SideFacetDropdown,
-      SideDateFilter: () => import('./SideDateFilter')
+      SideDateFilter: () => import('./SideDateFilter'),
+      SideSwitchFilter: () => import('./SideSwitchFilter')
     },
     props: {
       route: {
@@ -94,6 +103,7 @@
       return {
         PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued',
         API_FILTER_COLLECTIONS: ['newspaper', 'ww1'],
+        DATE_FILTER_COLLECTIONS: ['newspaper'],
         hideFilterSheet: true
       };
     },
@@ -120,12 +130,6 @@
           name: facetName
         }));
 
-        if (this.enableApiFilter) {
-          facets.unshift({
-            name: 'api',
-            staticFields: ['fulltext', 'metadata']
-          });
-        }
         if (this.collectionFacetEnabled) {
           facets.unshift({
             name: 'collection',
@@ -159,6 +163,9 @@
       },
       enableApiFilter() {
         return this.API_FILTER_COLLECTIONS.includes(this.collection);
+      },
+      enableDateFilter() {
+        return this.DATE_FILTER_COLLECTIONS.includes(this.collection);
       },
       dateFilter() {
         const proxyDctermsIssued = this.filters[this.PROXY_DCTERMS_ISSUED];
@@ -393,5 +400,9 @@
         transition: $standard-transition;
       }
     }
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
   }
 </style>

@@ -428,11 +428,13 @@ export default {
       }
     },
     "api": {
-      "name": "Search for",
+      "name": "Search within documents",
       "options": {
         "fulltext": "Items with full-text",
         "metadata": "Metadata-only items"
-      }
+      },
+      "switch": "Search only in the content of items with full-text",
+      "switchMoreInfo": "In this collection, you can either search within the information describing the item as you do in other collections by deactivating this toggle. Or leave this toggle activated to search within the newspaper and document text."
     },
     "button": {
       "apply": "Apply",
