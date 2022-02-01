@@ -39,36 +39,12 @@ describe('components/search/SideSwitchFilter', () => {
           value: 'fulltext',
           name: 'api',
           checkedValue: 'fulltext',
-          uncheckedValue: 'metadata'
+          uncheckedValue: 'metadata',
+          tooltip: 'More info'
         }, tooltipText);
 
         const switchChecked = wrapper.find('[data-qa="switch filter more info button"]');
         expect(switchChecked.exists()).toBe(true);
-      });
-    });
-  });
-
-  describe('computed', () => {
-    describe('labelText', () => {
-      it('translates labelKey prop if supplied', () => {
-        const wrapper = factory({
-          name: 'api',
-          labelKey: 'facets.api'
-        });
-
-        const labelText = wrapper.vm.labelText;
-
-        expect(labelText).toBe('facets.api');
-      });
-
-      it('otherwise translates key derived from name prop', () => {
-        const wrapper = factory({
-          name: 'api'
-        });
-
-        const labelText = wrapper.vm.labelText;
-
-        expect(labelText).toBe('facets.api.switch');
       });
     });
   });

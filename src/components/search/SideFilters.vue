@@ -42,6 +42,8 @@
                 v-if="enableApiFilter"
                 :value="filters.api"
                 name="api"
+                :label="$t('facets.api.switch')"
+                :tooltip="$t('facets.api.switchMoreInfo')"
                 checked-value="fulltext"
                 unchecked-value="metadata"
                 @changed="changeFacet"
@@ -69,9 +71,9 @@
                 v-if="contentTierFacetSwitch"
                 :value="filters.contentTier"
                 name="contentTier"
+                :label="$t('facets.contentTier.options.0')"
                 checked-value="&quot;0&quot;"
                 :unchecked-value="null"
-                label-key="facets.contentTier.options.0"
                 @changed="changeFacet"
               />
             </div>
