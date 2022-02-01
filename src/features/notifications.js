@@ -1,6 +1,5 @@
 export default [
   {
-    name: 'sideFilters',
-    url: '/search'
+    name: 'sideFilters'
   }
 ];
