@@ -65,6 +65,15 @@
                 :aria-label="facet.name"
                 @changed="changeFacet"
               />
+              <SideSwitchFilter
+                v-if="contentTierFacetSwitch"
+                :value="filters.contentTier"
+                name="contentTier"
+                checked-value="&quot;0&quot;"
+                :unchecked-value="null"
+                label-key="facets.contentTier.options.0"
+                @changed="changeFacet"
+              />
             </div>
           </b-col>
         </b-row>
@@ -126,7 +135,7 @@
         return this.$store.state.search.liveQueries.length > 0;
       },
       filterableFacets() {
-        const facets = this.facetNames.map(facetName => ({
+        let facets = this.facetNames.map(facetName => ({
           name: facetName
         }));
 
@@ -137,7 +146,14 @@
           });
         }
 
+        if (this.contentTierFacetSwitch) {
+          facets = facets.filter((facet) => facet.name !== 'contentTier');
+        }
+
         return facets;
+      },
+      contentTierFacetSwitch() {
+        return !this.$store.getters['search/collection'] && !this.$store.getters['entity/id'];
       },
       qf() {
         return this.userParams.qf;

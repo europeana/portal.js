@@ -18,7 +18,7 @@
       :data-qa="`${name} switch filter`"
       @change="$emit('changed', name, localValue)"
     >
-      {{ $t(`facets.${name}.switch`) }}
+      {{ labelText }}
       <b-button
         v-if="$t(`facets.${name}.switchMoreInfo`) !== `facets.${name}.switchMoreInfo`"
         v-b-tooltip.hover.bottom
@@ -47,7 +47,7 @@
        */
       value: {
         type: String,
-        required: true
+        default: null
       },
 
       /**
@@ -72,6 +72,16 @@
       uncheckedValue: {
         type: String,
         default: 'unchecked'
+      },
+
+      /**
+       * I18n key for label text for the switch.
+       *
+       * If null, defaults to `facets.${name}.switch`
+       */
+      labelKey: {
+        type: String,
+        default: null
       }
     },
 
@@ -79,6 +89,14 @@
       return {
         localValue: this.value
       };
+    },
+
+    computed: {
+      labelText() {
+        const labelKey = this.labelKey || `facets.${this.name}.switch`;
+
+        return this.$t(labelKey);
+      }
     }
   };
 </script>
