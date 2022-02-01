@@ -1,10 +1,11 @@
 <template>
-  <button
+  <b-button
     v-if="translationSource"
     v-b-tooltip.bottomright
     :title="$t(`multilingual.${translationSource}`)"
-    class="translation-source"
+    class="p-0 tooltip-button"
     :class="translationSource"
+    variant="light-flat"
     data-qa="translation tooltip"
   />
 </template>
@@ -54,12 +55,5 @@
 
   .original::after {
     content: '\e93f';
-  }
-
-  .translation-source {
-    border: none;
-    background-color: transparent;
-    cursor: default;
-    display: inline;
   }
 </style>

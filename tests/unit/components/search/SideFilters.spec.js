@@ -28,6 +28,7 @@ const factory = (options = {}) => {
 
   const mocks = {
     $t: (key) => key,
+    $tFacetName: (key) => key,
     $path: () => '/',
     $goto: () => null,
     ...options.mocks
@@ -60,6 +61,9 @@ const factory = (options = {}) => {
         },
         mutations: {
           setShowFiltersToggle: () => null
+        },
+        actions: {
+          setResettableFilter: () => null
         }
       }
     }
@@ -148,6 +152,33 @@ describe('components/search/SideFilters', () => {
           const wrapper = factory({ storeGetters, storeState });
 
           expect(wrapper.vm.filterableFacets.some(facet => facet.name === 'collection')).toBe(false);
+        });
+      });
+    });
+
+    describe('when on the newspaper collection', () => {
+      describe('enableDateFilter', () => {
+        it('is true', async() => {
+          const storeGetters = {
+            collection: () => 'newspaper',
+            filters: () => {
+              return { api: 'fulltext' };
+            }
+          };
+          const wrapper = factory({ storeGetters });
+          expect(wrapper.vm.enableDateFilter).toBe(true);
+        });
+      });
+      describe('enableApiFilter', () => {
+        it('is true', async() => {
+          const storeGetters = {
+            collection: () => 'newspaper',
+            filters: () => {
+              return { api: 'fulltext' };
+            }
+          };
+          const wrapper = factory({ storeGetters });
+          expect(wrapper.vm.enableApiFilter).toBe(true);
         });
       });
     });

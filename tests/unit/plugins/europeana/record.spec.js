@@ -34,10 +34,14 @@ const someOtherWebResource = {
   about: 'https://example.org/'
 };
 const type = 'TEXT';
+const europeanaCollectionName = [
+  '123_Collection'
+];
 const apiResponse = {
   success: true,
   object: {
     about: europeanaId,
+    europeanaCollectionName,
     aggregations: [
       {
         edmIsShownAt,
@@ -399,6 +403,15 @@ describe('plugins/europeana/record', () => {
         it('includes type', async() => {
           const response = await record().getRecord(europeanaId);
           expect(response.record.type).toBe(type);
+        });
+
+        it('includes europeanaCollectionName with link to search', async() => {
+          const response = await record().getRecord(europeanaId);
+          expect(response.record.metadata.europeanaCollectionName.value).toEqual(europeanaCollectionName);
+          expect(response.record.metadata.europeanaCollectionName.url).toEqual({
+            name: 'search',
+            query: { query: 'europeana_collectionName:"123_Collection"' }
+          });
         });
 
         describe('.media', () => {

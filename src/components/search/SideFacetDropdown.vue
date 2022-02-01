@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!fetched || fields.length > 0">
+  <div v-if="!fetched || fields.length > 0 || selectedFilters[this.name].length > 0">
     <label
       class="facet-label"
     >{{ facetName }}</label>
@@ -13,6 +13,7 @@
       :variant="dropdownVariant"
       class="facet-dropdown side-facet"
       :data-type="type"
+      :disabled="fetched && fields.length === 0"
       data-qa="search facet"
       block
       @hidden="hiddenDropdown"
@@ -298,17 +299,6 @@
     }
   };
 </script>
-
-<style lang="scss" scoped>
-  @import '@/assets/scss/variables';
-
-  .facet-label {
-    font-size: $font-size-extrasmall;
-    text-transform: uppercase;
-    color: $mediumgrey;
-    margin-bottom: 0.25rem;
-  }
-</style>
 
 <docs lang="md">
   Radio buttons, none selected:
