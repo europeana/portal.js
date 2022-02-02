@@ -53,6 +53,7 @@ const factory = (options) => shallowMountNuxt(collection, {
   store: store(options.entity),
   mocks: {
     $t: key => key,
+    $tFacetName: key => key,
     $route: { query: '', params: { type: options.type } },
     $apis: {
       record: {

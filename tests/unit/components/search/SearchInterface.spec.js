@@ -1,6 +1,5 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import VueRouter from 'vue-router';
 import Vuex from 'vuex';
 import sinon from 'sinon';
 
@@ -11,34 +10,23 @@ localVue.filter('localise', (number) => number);
 localVue.filter('truncate', (string) => string);
 localVue.filter('optimisedImageUrl', (string) => string);
 localVue.use(BootstrapVue);
-localVue.use(VueRouter);
 localVue.use(Vuex);
 
 const searchSetViewMutation = sinon.spy();
+const searchSetMutation = sinon.spy();
 const makeToastSpy = sinon.spy();
 
 const factory = (options = {}) => {
-  const router = new VueRouter({
-    routes: [
-      {
-        path: '/search',
-        name: 'search'
-      },
-      {
-        path: '/item/*',
-        name: 'item-all'
-      }
-    ]
-  });
-
   const mocks = {
     $t: (key) => key,
     $path: () => '/',
     $goto: () => null,
     $features: { sideFilters: false },
     $fetchState: options.fetchState || {},
+    $route: { path: '/search', name: 'search', query: {} },
     ...options.mocks
   };
+
   const store = new Vuex.Store({
     modules: {
       search: {
@@ -55,8 +43,9 @@ const factory = (options = {}) => {
           ...options.storeGetters
         },
         mutations: {
+          set: searchSetMutation,
           setUserParams: () => null,
-          setView: (state, view) => searchSetViewMutation(state, view)
+          setView: searchSetViewMutation
         },
         actions: {
           run: () => null
@@ -76,7 +65,6 @@ const factory = (options = {}) => {
   return shallowMount(SearchInterface, {
     localVue,
     mocks,
-    router,
     store,
     mixins,
     propsData: options.propsData
@@ -84,6 +72,8 @@ const factory = (options = {}) => {
 };
 
 describe('components/search/SearchInterface', () => {
+  beforeEach(() => sinon.resetHistory());
+
   describe('output', () => {
     describe('with `error` in search state', () => {
       it('displays the message', () => {
@@ -179,6 +169,73 @@ describe('components/search/SearchInterface', () => {
   });
 
   describe('methods', () => {
+    describe('viewFromRouteQuery', () => {
+      describe('with view in route query', () => {
+        const route = { query: { view: 'mosaic', query: 'sport' } };
+
+        it('updates the stored view', () => {
+          const wrapper = factory({ mocks: { $route: route } });
+          wrapper.setData({ view: 'list' });
+
+          wrapper.vm.viewFromRouteQuery();
+
+          expect(searchSetViewMutation.calledWith(sinon.match.any, 'mosaic')).toBe(true);
+        });
+
+        it('sets searchResultsView cookie', () => {
+          const wrapper = factory({ mocks: { $route: route, $cookies: { set: sinon.spy() } } });
+          wrapper.setData({ view: 'list' });
+
+          wrapper.vm.viewFromRouteQuery();
+
+          expect(wrapper.vm.$cookies.set.calledWith('searchResultsView', 'mosaic')).toBe(true);
+        });
+
+        it('commit route query to store as userParams', () => {
+          const wrapper = factory({ mocks: { $route: route } });
+          wrapper.setData({ view: 'list' });
+
+          wrapper.vm.viewFromRouteQuery();
+
+          expect(searchSetMutation.calledWith(
+            sinon.match.any, ['userParams', sinon.match(route.query)]
+          )).toBe(true);
+        });
+      });
+
+      describe('without view in route query', () => {
+        const route = { query: { query: 'sport' } };
+
+        it('does not update the stored view', () => {
+          const wrapper = factory({ mocks: { $route: route } });
+          wrapper.setData({ view: 'list' });
+          sinon.resetHistory();
+
+          wrapper.vm.viewFromRouteQuery();
+
+          expect(searchSetViewMutation.called).toBe(false);
+        });
+
+        it('does not set searchResultsView cookie', () => {
+          const wrapper = factory({ mocks: { $route: route, $cookies: { set: sinon.spy() } } });
+          wrapper.setData({ view: 'list' });
+
+          wrapper.vm.viewFromRouteQuery();
+
+          expect(wrapper.vm.$cookies.set.called).toBe(false);
+        });
+
+        it('does not commit route query to store as userParams', () => {
+          const wrapper = factory({ mocks: { $route: route } });
+          wrapper.setData({ view: 'list' });
+
+          wrapper.vm.viewFromRouteQuery();
+
+          expect(searchSetMutation.called).toBe(false);
+        });
+      });
+    });
+
     describe('showContentTierToast', () => {
       beforeEach(() => {
         makeToastSpy.resetHistory();

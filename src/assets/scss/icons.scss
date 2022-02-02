@@ -66,7 +66,6 @@
 
 .icon-heart::before {
   content: '\e9da';
-  width: 2rem;
 }
 
 .icon-ic-add::before {
@@ -119,6 +118,18 @@
 
 .icon-translate::before {
   content: '\e93c';
+}
+
+.icon-back::before {
+  content: '\ea40';
+}
+
+.icon-search::before {
+  content: '\e92b';
+}
+
+.icon-filter::before {
+  content: '\e948';
 }
 
 .icon-license::before {

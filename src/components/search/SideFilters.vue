@@ -27,7 +27,8 @@
         </button>
         <b-button
           data-qa="close filters button"
-          class="close"
+          class="button-icon-only icon-clear mx-3"
+          variant="light-flat"
           :aria-label="$t('header.closeSidebar')"
           @click="toggleFilterSheet"
         />
@@ -38,8 +39,18 @@
             data-qa="search filters"
           >
             <div class="position-relative">
+              <SideSwitchFilter
+                v-if="enableApiFilter"
+                :value="filters.api"
+                name="api"
+                :label="$t('facets.api.switch')"
+                :tooltip="$t('facets.api.switchMoreInfo')"
+                checked-value="fulltext"
+                unchecked-value="metadata"
+                @changed="changeFacet"
+              />
               <SideDateFilter
-                v-if="collection === 'newspaper'"
+                v-if="enableDateFilter"
                 :name="PROXY_DCTERMS_ISSUED"
                 :start="dateFilter.start"
                 :end="dateFilter.end"
@@ -55,6 +66,15 @@
                 :static-fields="facet.staticFields"
                 role="search"
                 :aria-label="facet.name"
+                @changed="changeFacet"
+              />
+              <SideSwitchFilter
+                v-if="contentTierFacetSwitch"
+                :value="filters.contentTier"
+                name="contentTier"
+                :label="$t('facets.contentTier.options.0')"
+                checked-value="&quot;0&quot;"
+                :unchecked-value="null"
                 @changed="changeFacet"
               />
             </div>
@@ -80,7 +100,8 @@
     components: {
       ClientOnly,
       SideFacetDropdown,
-      SideDateFilter: () => import('./SideDateFilter')
+      SideDateFilter: () => import('./SideDateFilter'),
+      SideSwitchFilter: () => import('./SideSwitchFilter')
     },
     props: {
       route: {
@@ -94,6 +115,7 @@
       return {
         PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued',
         API_FILTER_COLLECTIONS: ['newspaper', 'ww1'],
+        DATE_FILTER_COLLECTIONS: ['newspaper'],
         hideFilterSheet: true
       };
     },
@@ -116,16 +138,10 @@
         return this.$store.state.search.liveQueries.length > 0;
       },
       filterableFacets() {
-        const facets = this.facetNames.map(facetName => ({
+        let facets = this.facetNames.map(facetName => ({
           name: facetName
         }));
 
-        if (this.enableApiFilter) {
-          facets.unshift({
-            name: 'api',
-            staticFields: ['fulltext', 'metadata']
-          });
-        }
         if (this.collectionFacetEnabled) {
           facets.unshift({
             name: 'collection',
@@ -133,7 +149,14 @@
           });
         }
 
+        if (this.contentTierFacetSwitch) {
+          facets = facets.filter((facet) => facet.name !== 'contentTier');
+        }
+
         return facets;
+      },
+      contentTierFacetSwitch() {
+        return !this.$store.getters['search/collection'] && !this.$store.getters['entity/id'];
       },
       qf() {
         return this.userParams.qf;
@@ -147,6 +170,9 @@
       api() {
         return this.userParams.api;
       },
+      view() {
+        return this.userParams.view;
+      },
       page() {
         // This causes double jumps on pagination when using the > arrow, for some reason
         // return this.userParams.page;
@@ -156,6 +182,9 @@
       },
       enableApiFilter() {
         return this.API_FILTER_COLLECTIONS.includes(this.collection);
+      },
+      enableDateFilter() {
+        return this.DATE_FILTER_COLLECTIONS.includes(this.collection);
       },
       dateFilter() {
         const proxyDctermsIssued = this.filters[this.PROXY_DCTERMS_ISSUED];
@@ -360,35 +389,14 @@
       height: 100%;
     }
 
-    .btn.close {
+    .icon-clear {
       @media (min-width: $bp-large) {
         display: none;
       }
-
-      background: none;
-      border-radius: 0;
-      border: 0;
-      box-shadow: none;
-      color: $black;
-      font-size: 1rem;
-      padding: 0 15px;
-      opacity: 1;
-      height: 3.5rem;
-      transition: $standard-transition;
-
-      &::before {
-        @extend %icon-font;
-
-        display: inline-block;
-        content: '\e931';
-        font-weight: 400;
-        font-size: 1.5rem;
-      }
-
-      &:hover {
-        color: $blue;
-        transition: $standard-transition;
-      }
     }
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
   }
 </style>

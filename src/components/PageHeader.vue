@@ -12,8 +12,8 @@
     >
       <b-button
         data-qa="back button"
-        class="back"
-        variant="light"
+        class="button-icon-only icon-back"
+        variant="light-flat"
         :aria-label="$t('header.backToMenu')"
         @click="toggleSearchBar"
       />
@@ -28,8 +28,8 @@
     >
       <b-button
         v-b-toggle.sidebar
-        variant="light"
-        class="navbar-toggle collapsed flex-column align-items-center justify-content-center align-self-center ml-3"
+        variant="light-flat"
+        class="navbar-toggle collapsed button-icon-only flex-column align-self-center ml-3"
         :aria-label="$t('header.showSidebar')"
         data-qa="hamburger button"
       >
@@ -60,8 +60,8 @@
         />
         <b-button
           data-qa="show search button"
-          class="search ml-lg-3"
-          variant="light"
+          class="button-icon-only icon-search ml-lg-3"
+          variant="light-flat"
           :aria-label="$t('search')"
           @click="toggleSearchBar"
         />
@@ -84,8 +84,8 @@
             <b-button
               v-b-toggle.sidebar
               data-qa="close menu button"
-              class="close"
-              variant="light"
+              class="button-icon-only icon-clear"
+              variant="light-flat"
               :aria-label="$t('header.closeSidebar')"
             />
             <SmartLink
@@ -193,86 +193,27 @@
     }
   }
 
-  .btn {
-    align-items: center;
-    background: none;
-    border-radius: 0;
-    border: 0;
-    box-shadow: none;
-    color: $black;
-    display: flex;
-    font-size: 1rem;
-    height: 1.5rem;
-    justify-content: center;
-    padding: 0;
-    width: 1.5rem;
-
-    &::before {
-      @extend %icon-font;
-
-      display: inline-block;
-      font-size: 1.1rem;
-    }
-
-    &.search {
-      &::before {
-        content: '\e92b';
-        transition: $standard-transition;
-      }
-    }
-
-    &.close {
-      opacity: 1;
-
-      &::before {
-        content: '\e931';
-        transition: $standard-transition;
-        font-weight: 400;
-        font-size: 1.5rem;
-      }
-    }
-
-    &.back {
-      position: absolute;
-      left: 1rem;
-      top: 1rem;
-      z-index: 99;
-
-      &::before {
-        content: '\ea40';
-        transition: $standard-transition;
-      }
-    }
-
-    &.search,
-    &.close,
-    &.back {
-      &:hover::before {
-        color: $innovationblue;
-      }
-    }
+  .icon-back {
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    z-index: 99;
   }
 
   .navbar-toggle {
-    display: flex;
-    align-items: center;
-    width: 1.5rem;
-    height: 1.5rem;
-    box-shadow: none;
-
     span {
       width: 1.125rem;
       background: $black;
       height: 2px;
       margin-bottom: 3px;
       transition: $standard-transition;
-
       &:last-of-type { margin-bottom: 0; }
     }
 
     &:hover {
       span {
         background: $innovationblue;
+        transition: $standard-transition;
       }
     }
   }

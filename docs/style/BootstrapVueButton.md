@@ -4,29 +4,25 @@ Customised BootstrapVue Button component.
 
 Docs: https://bootstrap-vue.org/docs/components/button
 
-Variant default:
+Variant "secondary"<br>
+*Used as default*
 ```jsx
   <b-button>label</b-button>
+  <b-button class="d-inline-flex align-items-center">
+    <span class="icon-twitter d-inline-flex pr-1" />
+    label
+  </b-button>
+  <b-button class="d-inline-flex align-items-center">
+    label
+    <span class="icon-twitter d-inline-flex pl-1" />
+  </b-button>
+  <b-button 
+    class="d-inline-flex align-items-center"
+    aria-label="label for textless button"
+  >
+    <span class="icon-twitter" />
+  </b-button>
   <b-button disabled>label</b-button>
-```
-
-Variant "outline-primary" with icon:
-```jsx
-  <b-button
-    variant="outline-primary"
-    class="d-inline-flex align-items-center"
-  >
-    <span class="icon-twitter d-inline-flex pr-1" />
-    label
-  </b-button>
-    <b-button
-    variant="outline-primary"
-    class="d-inline-flex align-items-center"
-    disabled
-  >
-    <span class="icon-twitter d-inline-flex pr-1" />
-    label
-  </b-button>
 ```
 
 Variant "outline-primary":
@@ -36,7 +32,28 @@ Variant "outline-primary":
   >
     Label
   </b-button>
-    <b-button
+  <b-button
+    variant="outline-primary"
+    class="d-inline-flex align-items-center"
+  >
+    <span class="icon-twitter d-inline-flex pr-1" />
+    label
+  </b-button>
+  <b-button
+    variant="outline-primary"
+    class="d-inline-flex align-items-center"
+  >
+    label
+    <span class="icon-twitter d-inline-flex pl-1" />
+  </b-button>
+  <b-button
+    variant="outline-primary"
+    class="d-inline-flex align-items-center"
+    aria-label="label for textless button"
+  >
+    <span class="icon-twitter" />
+  </b-button>
+  <b-button
     variant="outline-primary"
     disabled
   >
@@ -46,10 +63,29 @@ Variant "outline-primary":
 
 Variant "primary":
 ```jsx
+  <b-button variant="primary">
+    label
+  </b-button>
   <b-button
     variant="primary"
+    class="d-inline-flex align-items-center"
+  >
+    <span class="icon-twitter d-inline-flex pr-1" />
+    label
+  </b-button>
+  <b-button
+    variant="primary"
+    class="d-inline-flex align-items-center"
   >
     label
+    <span class="icon-twitter d-inline-flex pl-1" />
+  </b-button>
+  <b-button
+    variant="primary"
+    class="d-inline-flex align-items-center"
+    aria-label="label for textless button"
+  >
+    <span class="icon-twitter" />
   </b-button>
   <b-button
     variant="primary"
@@ -68,6 +104,27 @@ Variant "success":
   </b-button>
   <b-button
     variant="success"
+    class="d-inline-flex align-items-center"
+  >
+    <span class="icon-twitter d-inline-flex pr-1" />
+    label
+  </b-button>
+  <b-button
+    variant="success"
+    class="d-inline-flex align-items-center"
+  >
+    label
+    <span class="icon-twitter d-inline-flex pl-1" />
+  </b-button>
+  <b-button
+    variant="success"
+    class="d-inline-flex align-items-center"
+    aria-label="label for textless button"
+  >
+    <span class="icon-twitter" />
+  </b-button>
+  <b-button
+    variant="success"
     disabled
   >
     label
@@ -80,6 +137,27 @@ Variant "danger":
     variant="danger"
   >
     label
+  </b-button>
+    <b-button
+    variant="danger"
+    class="d-inline-flex align-items-center"
+  >
+    <span class="icon-twitter d-inline-flex pr-1" />
+    label
+  </b-button>
+  <b-button
+    variant="danger"
+    class="d-inline-flex align-items-center"
+  >
+    label
+    <span class="icon-twitter d-inline-flex pl-1" />
+  </b-button>
+  <b-button
+    variant="danger"
+    class="d-inline-flex align-items-center"
+    aria-label="label for textless button"
+  >
+    <span class="icon-twitter" />
   </b-button>
   <b-button
     variant="danger"
@@ -95,6 +173,27 @@ Variant "link":
     variant="link"
   >
     label
+  </b-button>
+    <b-button
+    variant="link"
+    class="d-inline-flex align-items-center"
+  >
+    <span class="icon-twitter d-inline-flex pr-1" />
+    label
+  </b-button>
+  <b-button
+    variant="link"
+    class="d-inline-flex align-items-center"
+  >
+    label
+    <span class="icon-twitter d-inline-flex pl-1" />
+  </b-button>
+  <b-button
+    variant="link"
+    class="d-inline-flex align-items-center"
+    aria-label="label for textless button"
+  >
+    <span class="icon-twitter" />
   </b-button>
   <b-button
     variant="link"
@@ -113,26 +212,141 @@ Variant "light":
   </b-button>
     <b-button
     variant="light"
+    class="d-inline-flex align-items-center"
+  >
+    <span class="icon-twitter d-inline-flex pr-1" />
+    label
+  </b-button>
+  <b-button
+    variant="light"
+    class="d-inline-flex align-items-center"
+  >
+    label
+    <span class="icon-twitter d-inline-flex pl-1" />
+  </b-button>
+  <b-button
+    variant="light"
+    class="d-inline-flex align-items-center"
+    aria-label="label for textless button"
+  >
+    <span class="icon-twitter" />
+  </b-button>
+  <b-button
+    variant="light"
     disabled
   >
     label
   </b-button>
 ```
 
-Variant "overlay":
+Variant "outline-light"<br>
+*Used for the non-list card user buttons*
+```jsx
+  <b-button
+    variant="outline-light"
+  >
+    label
+  </b-button>
+    <b-button
+    variant="outline-light"
+    class="d-inline-flex align-items-center"
+  >
+    <span class="icon-twitter d-inline-flex pr-1" />
+    label
+  </b-button>
+  <b-button
+    variant="outline-light"
+    class="d-inline-flex align-items-center"
+  >
+    label
+    <span class="icon-twitter d-inline-flex pl-1" />
+  </b-button>
+  <b-button
+    variant="outline-light"
+    class="d-inline-flex align-items-center"
+    aria-label="label for textless button"
+  >
+    <span class="icon-twitter" />
+  </b-button>
+  <b-button
+    variant="outline-light"
+    disabled
+  >
+    label
+  </b-button>
+  <b-button
+    class="like-button text-uppercase d-inline-flex align-items-center button-icon-only"
+    variant="outline-light"
+    aria-label="like item"
+  >
+    <span class="icon-heart" />
+  </b-button>
+```
+
+Variant "light-flat"<br>
+*Used for the icon buttons in the header and list card user buttons*
+```jsx
+  <b-button
+    variant="light-flat"
+  >
+    label
+  </b-button>
+      <b-button
+    variant="light-flat"
+    class="d-inline-flex align-items-center"
+  >
+    <span class="icon-twitter d-inline-flex pr-1" />
+    label
+  </b-button>
+  <b-button
+    variant="light-flat"
+    class="d-inline-flex align-items-center"
+  >
+    label
+    <span class="icon-twitter d-inline-flex pl-1" />
+  </b-button>
+  <b-button
+    variant="light-flat"
+    class="d-inline-flex align-items-center"
+    aria-label="label for textless button"
+  >
+    <span class="icon-twitter" />
+  </b-button>
+  <b-button
+    variant="light-flat"
+    disabled
+  >
+    label
+  </b-button>
+    <b-button
+    variant="light-flat"
+    class="d-inline-flex align-items-center"
+    aria-label="label for textless button"
+  >
+    <span class="icon-search" />
+  </b-button>
+  <b-button
+    class="like-button text-uppercase d-inline-flex align-items-center "
+    variant="light-flat"
+  >
+    <span class="icon-heart" />
+    like
+  </b-button>
+```
+
+Variant "overlay"<br>
+*Used in the 'add item to gallery' modal*
 ```jsx
   <b-button
     variant="overlay"
   >
-    label
+    <span>Label</span>
   </b-button>
-```
-
-Variant "transparent":
-```jsx
   <b-button
-    variant="transparent"
+    variant="overlay"
+    style='background-image: url("https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Fwww.rijksmuseum.nl%2Fassetimage2.jsp%3Fid%3DSK-C-214");'
+    class="w-100 text-left"
   >
-    label
+    <span>Label: add to gallery</span>
   </b-button>
 ```

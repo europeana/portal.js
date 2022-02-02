@@ -238,14 +238,10 @@ module.exports = {
     });
   },
   async selectSearchResultsView(viewName) {
-    /* eslint-disable prefer-arrow-callback */
-    /* DO NOT MAKE INTO A ARROW FUNCTION - If you do, it will break the tests */
-    await client.execute(function(viewName) {
-      localStorage.searchResultsView = viewName;
-      sessionStorage.searchResultsView = viewName;
-      return true;
-    }, [viewName]);
-    /* eslint-enable prefer-arrow-callback */
+    await client.setCookie({
+      name: 'searchResultsView',
+      value: viewName
+    });;
   },
   async doNotSeeTextInTarget(text, qaElementName) {
     const selector = qaSelector(qaElementName);
@@ -324,4 +320,3 @@ module.exports = {
     await client.expect(childSize.width).to.be.at.most(parentSize.width);
   }
 };
-

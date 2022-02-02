@@ -2,6 +2,11 @@
   font-weight: 400;
   text-decoration-line: none;
 
+  [class^='icon-'],
+  [class*=' icon-'] {
+    line-height: 1.5;
+  }
+
   &:focus {
     outline: auto;
   }
@@ -26,6 +31,22 @@
     text-decoration: none;
     margin-bottom: 2rem;
     margin-top: 2rem;
+  }
+}
+
+.btn-secondary {
+  &.like-button,
+  &.pin-button {
+    &.active,
+    &:not(:disabled):not(.disabled).active {
+      color: $white;
+      background-color: $red;
+      border-color: $red;
+    }
+  }
+
+  .icon-heart {
+    font-size: $font-size-medium;
   }
 }
 
@@ -104,11 +125,6 @@
   }
 }
 
-.btn-transparent {
-  background-color: transparent;
-  border: 0;
-}
-
 .btn-light-flat {
   background: $white;
   border: 0;
@@ -116,6 +132,17 @@
   font-size: $font-size-small;
   text-decoration: none;
   transition: $standard-transition;
+
+  &.button-icon-only {
+    height: 1.5rem;
+    width: 1.5rem;
+    font-size: 1.1rem;
+  }
+
+  &.icon-clear,
+  &.icon-filter {
+    font-size: $font-size-large;
+  }
 
   &:hover {
     box-shadow: none;
@@ -131,6 +158,11 @@
   color: $white;
   position: relative;
 
+  span {
+    position: relative;
+    z-index: 10;
+  }
+
   &:hover {
     background-color: rgb(0 0 0 / 70%);
     color: $white;
@@ -145,6 +177,64 @@
     top: 0;
     left: 0;
     width: 100%;
+  }
+}
+
+.button-icon-only {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  &::before {
+    display: inline-block;
+  }
+}
+
+.btn-outline-light {
+  border: 1px solid $paper;
+  background: $white;
+  color: $mediumgrey;
+  font-size: $font-size-small;
+
+  &:hover {
+    box-shadow: $boxshadow-small;
+    background: $white;
+    color: $mediumgrey;
+  }
+
+  &.add-button,
+  &.like-button,
+  &.pin-button,
+  &.recommendation-button {
+    font-size: $font-size-large;
+
+    &.button-icon-only {
+      height: 2.25rem;
+      width: 2.25rem;
+    }
+  }
+
+  &.like-button,
+  &.pin-button {
+    &.active,
+    &:not(:disabled):not(.disabled).active {
+      color: $white;
+      background-color: $red;
+      border-color: $red;
+    }
+  }
+
+  &.like-button {
+    font-size: $font-size-medium;
+  }
+
+  &.pin-button,
+  &.recommendation-button {
+    &:hover {
+      color: $innovationblue;
+      background: $white;
+      border-color: $white;
+    }
   }
 }
 

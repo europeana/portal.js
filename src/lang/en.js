@@ -428,11 +428,13 @@ export default {
       }
     },
     "api": {
-      "name": "Search for",
+      "name": "Search within documents",
       "options": {
         "fulltext": "Items with full-text",
         "metadata": "Metadata-only items"
-      }
+      },
+      "switch": "Search only in the content of items with full-text",
+      "switchMoreInfo": "In this collection, you can either search within the information describing the item as you do in other collections by deactivating this toggle. Or leave this toggle activated to search within the newspaper and document text."
     },
     "button": {
       "apply": "Apply",
@@ -465,7 +467,7 @@ export default {
       "notification": "Some items not matching our publishing criteria are available. You can access those items by activating the 'Item Quality' filter under 'More filters'.",
       "options": {
         "*": "Includes items not meeting our publishing criteria",
-        "0": "Show only items not meeting our publishing criteria",
+        "0": "Not meeting publishing criteria",
         "1": "Low quality",
         "2": "Medium quality",
         "3": "High quality & reusable with conditions",
@@ -730,7 +732,7 @@ export default {
   },
   "newFeatureNotification": {
     "text": {
-      "organisationsPage": "You can now easily discover cultural heritage items organised by partnering institutions."
+      "sideFilters": "Check out the new filters! They are now all visible on the right-hand side of the search results."
     },
     "dismiss": "Dismiss",
     "readMore": "Read more"
