@@ -5,8 +5,7 @@
       class="page-container side-filters-enabled"
     >
       <b-row
-        class="flex-row-reverse"
-        :class="{'flex-nowrap': sideFiltersEnabled}"
+        class="flex-row-reverse flex-nowrap"
       >
         <SideFilters />
         <b-col
