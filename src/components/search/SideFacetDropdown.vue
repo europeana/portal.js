@@ -14,7 +14,7 @@
       class="facet-dropdown side-facet"
       :data-type="type"
       :disabled="fetched && fields.length === 0"
-      :data-qa="`${name} dropdown`"
+      :data-qa="`${name} facet dropdown`"
       block
       @hidden="hiddenDropdown"
     >
@@ -46,10 +46,12 @@
         v-else
         class="options-container"
       >
+        <!-- TODO: we aren't we using b-dropdown-item here? -->
         <div
           v-for="(option, index) in sortedOptions"
           :key="index"
           :data-qa="`${isRadio ? option : option.label} ${name} field`"
+          role="menuitem"
         >
           <template v-if="isRadio">
             <b-form-radio
