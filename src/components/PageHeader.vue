@@ -5,6 +5,7 @@
     role="banner"
     :aria-label="$t('header.europeanaHome')"
     data-qa="header"
+    id="header"
   >
     <div
       v-if="showSearch"
