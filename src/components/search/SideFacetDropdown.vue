@@ -47,10 +47,12 @@
         v-else
         class="options-container"
       >
+        <!-- TODO: we aren't we using b-dropdown-item here? -->
         <div
           v-for="(option, index) in sortedOptions"
           :key="index"
           :data-qa="`${isRadio ? option : option.label} ${name} field`"
+          role="menuitem"
         >
           <template v-if="isRadio">
             <b-form-radio
