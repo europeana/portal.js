@@ -53,11 +53,19 @@ module.exports = {
     await this.checkTheCheckbox(selector);
   },
   async checkTheCheckbox(selector) {
+    const enabledSelector = `${selector}:enabled`;
+    await client.expect.element(enabledSelector).to.be.present;
+
     await client.getAttribute(selector, 'id', async(result) => {
       const checkboxId = result.value;
       const labelSelector = `label[for="${checkboxId}"]`;
       client.click(labelSelector);
     });
+  },
+  async waitForTargetToHaveState(qaElementName, state) {
+    const selector = qaSelector(qaElementName);
+    const stateSelector = `${selector}:${state}`;
+    await client.expect.element(stateSelector).to.be.present;
   },
   async switchTheTargetOnOrOff(qaElementName, onOrOff) {
     const selector = qaSelector(qaElementName);
@@ -83,6 +91,10 @@ module.exports = {
   },
   async checkTheRadio(inputName, inputValue) {
     const selector = `input[type="radio"][name="${inputName}"][value="${this.escapeCssAttributeSelector(inputValue)}"]`;
+
+    const enabledSelector = `${selector}:enabled`;
+    await client.expect.element(enabledSelector).to.be.present;
+
     await client.getAttribute(selector, 'id', (result) => {
       const radioId = result.value;
       const labelSelector = `label[for="${radioId}"]`;

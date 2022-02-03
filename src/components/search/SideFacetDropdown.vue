@@ -14,14 +14,13 @@
       class="facet-dropdown side-facet"
       :data-type="type"
       :disabled="fetched && fields.length === 0"
-      data-qa="search facet"
+      :data-qa="`${name} dropdown`"
       block
       @hidden="hiddenDropdown"
     >
       <template #button-content>
         <span
           class="dropdown-toggle-text"
-          :data-qa="`${name} dropdown button`"
         >
           {{ facetName }}
         </span>

@@ -88,6 +88,8 @@ defineStep('I can\'t/don\'t find/identify/see/spot {string} in/on (the ){target}
 defineStep('I activate/click (the/a/an)( ){target}', (qa) =>
   i.clickOnTheTarget(qa));
 
+defineStep('the/a/an {target} is/are {string}', i.waitForTargetToHaveState);
+
 defineStep('I activate/click (on )(the/a/an)( ){target} in/on a/an/the {target}', (qa, parentQa) =>
   i.clickOnTheTarget([qa, parentQa]));
 
