@@ -6,7 +6,7 @@
     :lazy="lazy"
   />
   <div
-    v-else-if="isSinglePlayableMedia"
+    v-else-if="isSinglePlayableMedia && isPlayableMedia"
     ref="player"
     class="media-player-wrapper col-lg-10 col-12"
   >
