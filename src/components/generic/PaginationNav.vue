@@ -43,7 +43,7 @@
       },
       scrollToId: {
         type: String,
-        default: 'main'
+        default: 'header'
       },
       maxResults: {
         type: Number,
