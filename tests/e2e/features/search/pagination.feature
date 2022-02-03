@@ -19,7 +19,7 @@ Feature: Search pagination
     And I press the ENTER key
     And I see a `search query` with the text "paris"
     And I wait for an `item preview`
-    And I click the `TYPE dropdown`
+    And I click the `TYPE facet dropdown`
     And I check the "\"IMAGE\"" "TYPE" checkbox
     Then I should be on `/en/search?page=1&qf=TYPE%3A%22IMAGE%22&query=paris&view=grid`
     And I see a link to "/en/search?page=2&qf=TYPE%3A%22IMAGE%22&query=paris&view=grid" in the `pagination navigation`
