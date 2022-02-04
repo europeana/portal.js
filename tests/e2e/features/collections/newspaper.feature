@@ -33,6 +33,7 @@ Feature: Newspapers collection
 
   Scenario: Newspapers collection API toggle is removed by reset button
     Given I am on `/en/search?page=1&qf=collection%3Anewspaper&api=fulltext`
+    And the `reset filters button` is "enabled"
     When I click the `reset filters button`
     Then I should be on `/en/search?page=1`
 
