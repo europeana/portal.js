@@ -9,6 +9,8 @@ services:
       - "4433:443"
     depends_on:
       - app
+    volumes:
+      - nginx-proxy-cache-apis:/var/cache/nginx/proxy/apis
   app:
     image: europeana/portal.js:${APP_IMAGE_VERSION:-latest}
     build:
@@ -19,11 +21,20 @@ services:
       - "8080"
     env_file: ./app/.env
     environment:
+      - CTF_GRAPHQL_ORIGIN=https://nginx/contentful
       - ENABLE_JIRA_SERVICE_DESK_FEEDBACK_FORM=1
       - ENABLE_SSL_NEGOTIATION=1
       - ENABLE_TRANSLATED_ITEMS=1
+      - EUROPEANA_ANNOTATION_API_URL=https://nginx/api/annotation
+      - EUROPEANA_ENTITY_API_URL=https://nginx/api/entity
+      - EUROPEANA_NEWSPAPER_API_URL=https://nginx/api/newspapers/api/v2
+      - EUROPEANA_RECOMMENDATION_API_URL=https://nginx/api/recommendation
+      - EUROPEANA_RECORD_API_URL=https://nginx/api/record
+      - EUROPEANA_SET_API_URL=https://nginx/api/set
+      - EUROPEANA_THUMBNAIL_API_URL=https://nginx/api/thumbnail/v2
       - HTTP_PORT=80
       - HTTPS_PORT=443
+      - NODE_TLS_REJECT_UNAUTHORIZED=0
       - NUXT_LOADING_THROTTLE=0
       - PORTAL_BASE_URL=https://nginx
       - REDIS_URL=redis://cache
@@ -102,3 +113,5 @@ services:
     environment:
       - WEBDRIVER_EN_HOST=chrome-en
       - APP_URL=https://nginx
+volumes:
+  nginx-proxy-cache-apis: {}
