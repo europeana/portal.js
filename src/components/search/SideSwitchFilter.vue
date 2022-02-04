@@ -108,7 +108,7 @@
     },
 
     watch: {
-      localValue() {
+      value() {
         this.init();
       }
     },
@@ -119,6 +119,8 @@
 
     methods: {
       init() {
+        this.localValue = this.value;
+
         this.$store.dispatch('search/setResettableFilter', {
           name: this.name,
           selected: (this.localValue === this.defaultValue) ? null : this.localValue
