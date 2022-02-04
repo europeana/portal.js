@@ -95,6 +95,25 @@
       return {
         localValue: this.value
       };
+    },
+
+    watch: {
+      value() {
+        this.init();
+      }
+    },
+
+    mounted() {
+      this.init();
+    },
+
+    methods: {
+      init() {
+        this.$store.dispatch('search/setResettableFilter', {
+          name: this.name,
+          selected: this.localValue
+        });
+      }
     }
   };
 </script>
