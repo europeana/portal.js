@@ -60,6 +60,24 @@ describe('components/search/SideSwitchFilter', () => {
 
   describe('methods', () => {
     describe('init', () => {
+      it('updates localValue from value', () => {
+        const wrapper = factory({
+          value: 'metadata',
+          name: 'api',
+          checkedValue: 'fulltext',
+          uncheckedValue: 'metadata',
+          defaultValue: 'fulltext'
+        });
+        wrapper.setData({
+          localValue: 'fulltext'
+        });
+        expect(wrapper.vm.localValue).toBe('fulltext');
+
+        wrapper.vm.init();
+
+        expect(wrapper.vm.localValue).toBe('metadata');
+      });
+
       it('flags the filter as resettable if not at its default value', () => {
         const wrapper = factory({
           value: 'metadata',
