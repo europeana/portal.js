@@ -59,7 +59,7 @@ describe('components/search/SideSwitchFilter', () => {
   });
 
   it('records the filter as resettable in the store', () => {
-    const wrapper = factory({
+    factory({
       value: 'fulltext',
       name: 'api',
       checkedValue: 'fulltext',
