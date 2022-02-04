@@ -265,16 +265,6 @@ jobs:
           envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/app/.env
           envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/nightwatch-visual/.env
       -
-        name: Download NGINX cache volume archive
-        uses: actions/download-artifact@v2
-        with:
-          name: docker_nginx-proxy-cache-apis.tar
-          path: ./docker_nginx-proxy-cache-apis.tar
-      -
-        name: Extract NGINX cache volume archive
-        run: |
-          [ -f ./docker_nginx-proxy-cache-apis.tar ] && sudo tar -xf ./docker_nginx-proxy-cache-apis.tar -C /var/lib/docker/volumes
-      -
         name: Pull images for e2e tests
         run: docker-compose -f ./tests/e2e/docker/docker-compose.yml pull -q app cache chrome-en
       -
@@ -283,15 +273,6 @@ jobs:
       -
         name: Run e2e tests
         run: docker-compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-features
-      -
-        name: Archive the NGINX cache volume
-        run: sudo tar -cf ./docker_nginx-proxy-cache-apis.tar /var/lib/docker/volumes/docker_nginx-proxy-cache-apis
-      -
-        name: Upload NGINX cache volume archive
-        uses: actions/upload-artifact@v2
-        with:
-          name: docker_nginx-proxy-cache-apis.tar
-          path: ./docker_nginx-proxy-cache-apis.tar
 
   # Run visual tests on pull requests, and pushes to master
   test-visual:
