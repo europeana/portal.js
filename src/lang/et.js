@@ -6,7 +6,7 @@ export default {
     "likes": "Meeldimised",
     "linkAccount": "Minu konto",
     "linkLogin": "Logi sisse",
-    "linkLoginJoin": "Logi sisse/Liitu",
+    "linkLoginJoin": "Logi sisse\/Liitu",
     "linkLogout": "Logi välja",
     "myProfile": "Minu profiil",
     "notifications": {
@@ -30,12 +30,15 @@ export default {
     "accept": "Nõustu",
     "cancel": "Tühista",
     "close": "Sulge",
+    "continue": "jätka",
     "download": "Lae alla",
     "edit": "Muuda",
     "feedback": "Tagasiside",
     "goBack": "Mine tagasi",
+    "goHome": "Minge avalehele",
     "like": "Meeldib",
     "next": "Järgmine",
+    "pin": "Pin",
     "providedBy": "Pakub {provider}",
     "reject": "Tagasi lükata",
     "send": "Saada",
@@ -72,6 +75,7 @@ export default {
   "cardLabels": {
     "organisation": "Organisatsioon",
     "person": "Isik",
+    "theme": "Teema",
     "time": "Sajand",
     "topic": "Teema"
   },
@@ -352,12 +356,52 @@ export default {
       }
     },
     "LANGUAGE": {
-      "name": "Keel"
+      "name": "Keel",
+      "options": {
+        "ar": "Araabia",
+        "bg": "Bulgaaria",
+        "bs": "Bosnia",
+        "ca": "Katalaani",
+        "cs": "Tšehhi",
+        "cy": "Kõmri",
+        "da": "Taani",
+        "de": "Saksa",
+        "el": "Kreeka",
+        "en": "Inglise",
+        "es": "Hispaania",
+        "et": "Eesti",
+        "fi": "Soome",
+        "fr": "Prantsuse",
+        "ga": "Iiri",
+        "gd": "Gaeli",
+        "he": "Heebrea",
+        "hr": "Horvaatia",
+        "hu": "Ungari",
+        "is": "Islandi",
+        "it": "Itaalia",
+        "lt": "Leedu",
+        "lv": "Läti",
+        "mk": "Makedoonia",
+        "mt": "Malta",
+        "mul": "Mitu keelt",
+        "nl": "Hollandi",
+        "no": "Norra",
+        "pl": "Poola",
+        "pt": "Portugali",
+        "ro": "Rumeenia",
+        "ru": "Vene",
+        "sl": "Sloveenia",
+        "sq": "Albaania",
+        "sr": "Serbia",
+        "sv": "Rootsi",
+        "tr": "Türgi",
+        "uk": "Ukraina"
+      }
     },
     "MIME_TYPE": {
       "name": "Failivorming | Failivormingud",
       "options": {
-        "text/plain": "Lihttekst"
+        "text\/plain": "Lihttekst"
       }
     },
     "PROVIDER": {
@@ -387,7 +431,9 @@ export default {
       "options": {
         "fulltext": "Täistekstiga kirjed",
         "metadata": "Ainult metaandmete kirjed"
-      }
+      },
+      "switch": "Otsige ainult täistekstiga üksuste sisust",
+      "switchMoreInfo": "Selles kogumikus saate selle tumblernupu deaktiveerimise abil otsida üksust kirjeldavast teabest nagu teistes kogudes. Või jätke see tumblernupp aktiveerima, et otsida ajalehes ja dokumenditekstis."
     },
     "button": {
       "apply": "Kohalda",
@@ -420,7 +466,11 @@ export default {
       "notification": "Mõned tooted, mis ei vasta meie avaldamiskriteeriumidele, on saadaval. Nendele toodetele pääsete juurde, kui aktiveerite jaotises „Veel filtreid” filtri „Toote kvaliteet”.",
       "options": {
         "*": "Sisaldab üksusi, mis ei vasta meie avaldamiskriteeriumidele",
-        "0": "Kuva ainult üksused, mis ei vasta meie avaldamiskriteeriumidele"
+        "0": "Kuva ainult üksused, mis ei vasta meie avaldamiskriteeriumidele",
+        "1": "Madal kvaliteet",
+        "2": "Keskmine kvaliteet",
+        "3": "Kvaliteetne ja korduvkasutatav koos tingimustega",
+        "4": "Kvaliteetne ja vabalt taaskasutatav"
       }
     },
     "proxy_dc_format": {
@@ -577,9 +627,8 @@ export default {
   },
   "items": {
     "itemCount": "1 toode | {count} toodet",
-    "itemOf": "{max} / {count} tootest",
+    "itemOf": "{max} \/ {count} tootest",
     "recent": "Hiljutised esemed",
-    "recommendationsDisclaimer": "Galeriisse lisamiseks pöial üles - Pöidla alla, kui see teile ei meeldi",
     "recommended": "Soovitatavad esemed",
     "youMightLike": "Tooted, mis võivad teile meeldida"
   },
@@ -617,7 +666,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Aitab meie veebisaiti täiustada, rakendades aeg -ajalt eksperimentaalseid muudatusi.",
-        "title": "A/B testimine"
+        "title": "A\/B testimine"
       },
       "auth-strategy": {
         "description": "Mäletab sisselogimiseks kasutatava autoriseerimisstrateegia.",
@@ -643,9 +692,13 @@ export default {
         "description": "Kogub anonüümset statistikat selle kohta, kuidas külastajad veebisaidiga suhtlevad.",
         "title": "Matomo"
       },
+      "newFeatureNotification": {
+        "description": "Kuvab teate, kui uued funktsioonid muutuvad kättesaadavaks.",
+        "title": "Uus funktsiooniteatis"
+      },
       "searchResultsView": {
         "description": "Mäletab, kas eelistate näha otsingutulemusi loendi või ruudustiku kujul.",
-        "title": "Otsingutulemite vaade (loend / ruudustik)"
+        "title": "Otsingutulemite vaade (loend \/ ruudustik)"
       }
     }
   },
@@ -653,25 +706,8 @@ export default {
     "skipToMain": "Otse lehekülje sisule"
   },
   "learnMore": "Lisateave selle kirjelduse allika kohta",
-  "linksToClassic": {
-    "home": {
-      "linkText": "Vaadake seda lehte Europeana algsel veebisaidil kuni 20. detsembrini 2021.",
-      "text": "Vaatate uut Europeana kogemust."
-    },
-    "record": {
-      "linkText": "Vaadake seda üksust Europeana algsel veebisaidil kuni 20. detsembrini 2021.",
-      "text": "Vaatate seda toodet uuel Europeana veebisaidil."
-    },
-    "search": {
-      "linkText": "Otsige Europeana algselt veebisaidilt kuni 20. detsembrini 2021.",
-      "text": "Otsite meie uuel ja kiiremal veebisaidil."
-    }
-  },
   "loading": "Laadimine",
   "loadingResults": "Tulemuste laadimine",
-  "mediaPreview": {
-    "selectItem": "Valige üksus {src}"
-  },
   "messages": {
     "copyToClipboardSuccess": "Kopeeritud lõikelauale",
     "externalContentError": "Välist sisu ei õnnestunud laadida",
@@ -692,6 +728,13 @@ export default {
     "stopTranslating": "Lõpetage selle üksuse tõlkimine keelde {0}.",
     "translateLanguage": "Kas soovite seda üksust domeenis {0} ?",
     "translateQuotaError": "Tõlketeenus pole ajutiselt saadaval. Palun proovi hiljem uuesti."
+  },
+  "newFeatureNotification": {
+    "dismiss": "Jätta",
+    "readMore": "Loe lähemalt",
+    "text": {
+      "sideFilters": "Vaata uusi filtreid! Nüüd on need kõik nähtavad otsingutulemuste paremal küljel."
+    }
   },
   "newWindow": "avaneb uues aknas",
   "noMoreResults": "Teie otsingupäringule pole rohkem tulemusi.",
@@ -724,7 +767,6 @@ export default {
     "IIIFViewer": "IIIF vaataja",
     "allMetaData": "Kogu metateave",
     "copyEmbedLabel": "Embed code (Klõpsake kopeerimiseks)",
-    "downloadCopyrightInfo": "See toode on autoriõigusega kaitstud ja seda ei saa alla laadida.",
     "exploreMore": "Avastage rohkem",
     "extendedInformation": "Täiendav teave",
     "goodToKnow": "Hea teada",
@@ -736,12 +778,7 @@ export default {
     "showAll": "Kuva kogu teave",
     "similarItems": "Sarnased tooted",
     "transcription": "Transkriptsioon",
-    "transcriptionDisclaimer": "See sisu on saadud eraisikult, mitte eset pakkunud institutsioonilt.",
-    "view": {
-      "image": "Vaadake pilti",
-      "media": "Vaadake meediat",
-      "pdf": "Vaadake PDF-i"
-    }
+    "transcriptionDisclaimer": "See sisu on saadud eraisikult, mitte eset pakkunud institutsioonilt."
   },
   "relatedCollections": "Seotud kollektsioonid",
   "removeFilter": "Eemalda filter {filterLabel}",
@@ -767,7 +804,8 @@ export default {
   },
   "searchViews": {
     "grid": "Võrguvaade",
-    "list": "Loendivaade"
+    "list": "Loendivaade",
+    "mosaic": "Mosaiikvaade"
   },
   "set": {
     "actions": {
@@ -776,6 +814,7 @@ export default {
       "createNew": "Loo uus galerii",
       "delete": "Kustuta galerii",
       "edit": "Redigeeri galeriid",
+      "save": "Salvesta",
       "update": "Värskenda galeriid"
     },
     "form": {
@@ -802,5 +841,9 @@ export default {
   },
   "showLess": "Näita vähem",
   "showMore": "Näita rohkem",
+  "statuses": {
+    "liked": "Meeldis",
+    "pinned": "Kinnitatud"
+  },
   "website": "Veebisait"
 };

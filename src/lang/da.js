@@ -6,7 +6,7 @@ export default {
     "likes": "Synes om'er",
     "linkAccount": "Min konto",
     "linkLogin": "Log ind",
-    "linkLoginJoin": "Login/Deltag",
+    "linkLoginJoin": "Login\/Deltag",
     "linkLogout": "Log ud",
     "myProfile": "Min profil",
     "notifications": {
@@ -30,12 +30,15 @@ export default {
     "accept": "Acceptere",
     "cancel": "Annuller",
     "close": "luk",
+    "continue": "fortsæt",
     "download": "Hent",
     "edit": "Rediger",
     "feedback": "Feedback",
     "goBack": "Tilbage",
+    "goHome": "Gå til hjemmesiden",
     "like": "Synes om",
     "next": "Næste",
+    "pin": "Pin",
     "providedBy": "Leveret af {provider}",
     "reject": "Afvise",
     "send": "Sende",
@@ -72,6 +75,7 @@ export default {
   "cardLabels": {
     "organisation": "Organisation",
     "person": "Person",
+    "theme": "Tema",
     "time": "Århundrede",
     "topic": "Emne"
   },
@@ -352,12 +356,53 @@ export default {
       }
     },
     "LANGUAGE": {
-      "name": "Sprog"
+      "name": "Sprog",
+      "options": {
+        "ar": "Arabisk",
+        "bg": "Bulgarsk",
+        "bs": "Bosnisk",
+        "ca": "Catalansk",
+        "cs": "Tjekkisk",
+        "cy": "Walisisk",
+        "da": "Dansk",
+        "de": "Tysk",
+        "el": "Græsk",
+        "en": "Engelsk",
+        "es": "Spansk",
+        "et": "Estisk",
+        "fi": "Finsk",
+        "fr": "Fransk",
+        "ga": "Irsk",
+        "gd": "Gælisk",
+        "he": "Hebraisk",
+        "hr": "Kroatisk",
+        "hu": "Ungarsk",
+        "is": "Islandsk",
+        "it": "Italiensk",
+        "lt": "Litauisk",
+        "lv": "Lettisk",
+        "mk": "Makedonsk",
+        "mt": "Maltesisk",
+        "mul": "Flere sprog",
+        "nl": "Hollandsk",
+        "no": "Norsk",
+        "pl": "Polsk",
+        "pt": "Portugisisk",
+        "ro": "Rumænsk",
+        "ru": "Russisk",
+        "sk": "Slovakisk",
+        "sl": "Slovensk",
+        "sq": "Albansk",
+        "sr": "Serbisk",
+        "sv": "Svensk",
+        "tr": "Tyrkisk",
+        "uk": "Ukrainsk"
+      }
     },
     "MIME_TYPE": {
       "name": "Filformat | Filformater",
       "options": {
-        "text/plain": "Almindelig tekst"
+        "text\/plain": "Almindelig tekst"
       }
     },
     "PROVIDER": {
@@ -387,7 +432,9 @@ export default {
       "options": {
         "fulltext": "Poster med fuldtekst",
         "metadata": "Kun metadata-poster"
-      }
+      },
+      "switch": "Søg kun i indholdet af elementer med fuldtekst",
+      "switchMoreInfo": "I denne samling kan du enten søge i de oplysninger, der beskriver elementet, som du gør i andre samlinger, ved at deaktivere denne til\/fra-til-knap. Eller lad denne til\/fra aktiveret for at søge i avisen og dokumentteksten."
     },
     "button": {
       "apply": "Anvend",
@@ -420,7 +467,11 @@ export default {
       "notification": "Nogle artikler, som ikke opfylder vores udgivelseskriterier, er tilgængelige. Du kan få adgang til disse artikler ved at aktivere filteret 'Artikelkvalitet' under 'Flere filtre'.",
       "options": {
         "*": "Indeholder artikler, der ikke opfylder vores udgivelseskriterier",
-        "0": "Vis kun artikler, der ikke opfylder vores udgivelseskriterier"
+        "0": "Vis kun artikler, der ikke opfylder vores udgivelseskriterier",
+        "1": "Lav kvalitet",
+        "2": "Mellem kvalitet",
+        "3": "Høj kvalitet og genanvendelig med betingelser",
+        "4": "Høj kvalitet og frit genanvendelig"
       }
     },
     "proxy_dc_format": {
@@ -579,7 +630,6 @@ export default {
     "itemCount": "1 artikel |{count} artikler",
     "itemOf": "{max} af {count} artikler",
     "recent": "Seneste varer",
-    "recommendationsDisclaimer": "Tommelfinger op for at tilføje til galleriet - Tommelfinger ned, hvis du ikke kan lide det",
     "recommended": "Anbefalede varer",
     "youMightLike": "Artikler, du måske vil synes om"
   },
@@ -617,7 +667,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Hjælper med at forbedre vores websted ved lejlighedsvis at anvende eksperimentelle ændringer.",
-        "title": "A/B-testning"
+        "title": "A\/B-testning"
       },
       "auth-strategy": {
         "description": "Husker autorisationsstrategien, der skal bruges til at logge ind.",
@@ -643,9 +693,13 @@ export default {
         "description": "Samler anonyme statistikker om, hvordan besøgende interagerer med hjemmesiden.",
         "title": "Matomo"
       },
+      "newFeatureNotification": {
+        "description": "Viser en meddelelse, når nye funktioner bliver tilgængelige.",
+        "title": "Meddelelse om ny funktion"
+      },
       "searchResultsView": {
         "description": "Husk, hvis du foretrækker at se søgeresultaterne i en liste- eller gittervisning.",
-        "title": "Visning af søgeresultater (liste / gitter)"
+        "title": "Visning af søgeresultater (liste \/ gitter)"
       }
     }
   },
@@ -653,25 +707,8 @@ export default {
     "skipToMain": "Spring til sideindhold"
   },
   "learnMore": "Få mere at vide om kilden til denne beskrivelse",
-  "linksToClassic": {
-    "home": {
-      "linkText": "Se denne side på det originale Europeana-websted indtil den 20. december 2021.",
-      "text": "Du ser den nye Europeana oplevelse."
-    },
-    "record": {
-      "linkText": "Se dette element på det originale Europeana-websted indtil den 20. december 2021.",
-      "text": "Du ser denne artikel på den nye Europeana-hjemmeside."
-    },
-    "search": {
-      "linkText": "Søg på det originale Europeana-websted indtil 20. december 2021.",
-      "text": "Du søger på vores nye og hurtigere hjemmeside."
-    }
-  },
   "loading": "Indlæser",
   "loadingResults": "Indlæser resultater",
-  "mediaPreview": {
-    "selectItem": "Vælg element {src}"
-  },
   "messages": {
     "copyToClipboardSuccess": "Kopieret til udklipsholderen",
     "externalContentError": "Det eksterne indhold kunne ikke indlæses",
@@ -692,6 +729,13 @@ export default {
     "stopTranslating": "Stop med at oversætte dette element til {0}.",
     "translateLanguage": "Vil du gerne se dette element i {0} ?",
     "translateQuotaError": "Oversættelsestjeneste er midlertidigt utilgængelig. Prøv igen senere."
+  },
+  "newFeatureNotification": {
+    "dismiss": "Afskedige",
+    "readMore": "Læs mere",
+    "text": {
+      "sideFilters": "Tjek de nye filtre! De er nu alle synlige på højre side af søgeresultaterne."
+    }
   },
   "newWindow": "åbner i nyt vindue",
   "noMoreResults": "Der er ikke flere resultater for din søgning.",
@@ -724,7 +768,6 @@ export default {
     "IIIFViewer": "IIIF-fremviser",
     "allMetaData": "Alle metadata",
     "copyEmbedLabel": "Integrer kode (Klik for at kopiere)",
-    "downloadCopyrightInfo": "Denne artikel er ophavsretligt beskyttet og kan ikke downloades.",
     "exploreMore": "Udforsk mere",
     "extendedInformation": "Udvidede oplysninger",
     "goodToKnow": "Værd at vide",
@@ -736,12 +779,7 @@ export default {
     "showAll": "Vis alle oplysninger",
     "similarItems": "Lignende artikler",
     "transcription": "Transskription",
-    "transcriptionDisclaimer": "Dette indhold er leveret af offentligheden, ikke af den institution, der leverede denne artikel.",
-    "view": {
-      "image": "Se billede",
-      "media": "Se medier",
-      "pdf": "Se PDF"
-    }
+    "transcriptionDisclaimer": "Dette indhold er leveret af offentligheden, ikke af den institution, der leverede denne artikel."
   },
   "relatedCollections": "Relaterede samlinger",
   "removeFilter": "Fjern {filterLabel} filter",
@@ -767,7 +805,8 @@ export default {
   },
   "searchViews": {
     "grid": "Gittervisning",
-    "list": "Listevisning"
+    "list": "Listevisning",
+    "mosaic": "Mosaik udsigt"
   },
   "set": {
     "actions": {
@@ -776,6 +815,7 @@ export default {
       "createNew": "Opret nyt galleri",
       "delete": "Slet galleri",
       "edit": "Rediger galleri",
+      "save": "Gem",
       "update": "Opdater galleri"
     },
     "form": {
@@ -802,5 +842,9 @@ export default {
   },
   "showLess": "Vis mindre",
   "showMore": "Vis mere",
+  "statuses": {
+    "liked": "Kunne lide",
+    "pinned": "Fastgjort"
+  },
   "website": "Websted"
 };

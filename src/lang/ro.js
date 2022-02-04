@@ -6,7 +6,7 @@ export default {
     "likes": "Aprecieri",
     "linkAccount": "Contul meu",
     "linkLogin": "Autentificare",
-    "linkLoginJoin": "Autentificare/Înscriere",
+    "linkLoginJoin": "Autentificare\/Înscriere",
     "linkLogout": "Deconectare",
     "myProfile": "Profilul meu",
     "notifications": {
@@ -30,12 +30,15 @@ export default {
     "accept": "Acceptă",
     "cancel": "Anulează",
     "close": "închidere",
+    "continue": "continua",
     "download": "Descarcă",
     "edit": "Editare",
     "feedback": "Feedback",
     "goBack": "Înapoi",
+    "goHome": "Mergeți la pagina de pornire",
     "like": "Apreciere",
     "next": "Următorul",
+    "pin": "Pin",
     "providedBy": "Furnizat de {provider}",
     "reject": "Respinge",
     "send": "Trimite",
@@ -72,6 +75,7 @@ export default {
   "cardLabels": {
     "organisation": "Organizare",
     "person": "Persoană",
+    "theme": "Temă",
     "time": "Secol",
     "topic": "Subiect"
   },
@@ -352,12 +356,53 @@ export default {
       }
     },
     "LANGUAGE": {
-      "name": "Limbă"
+      "name": "Limbă",
+      "options": {
+        "ar": "Arabă",
+        "bg": "Bulgară",
+        "bs": "Bosniacă",
+        "ca": "Catalană",
+        "cs": "Cehă",
+        "cy": "Velşă",
+        "da": "Daneză",
+        "de": "Germană",
+        "el": "Greacă",
+        "en": "Engleză",
+        "es": "Spaniolă",
+        "et": "Estonă",
+        "fi": "Finlandeză",
+        "fr": "Franceză",
+        "ga": "Irlandeză",
+        "gd": "Gaelică",
+        "he": "Ebraică",
+        "hr": "Croată",
+        "hu": "Maghiară",
+        "is": "Islandeză",
+        "it": "Italiană",
+        "lt": "Lituaniană",
+        "lv": "Letonă",
+        "mk": "Macedoneană",
+        "mt": "Malteză",
+        "mul": "Mai multe limbi",
+        "nl": "Olandeză",
+        "no": "Norvegiană",
+        "pl": "Poloneză",
+        "pt": "Portugheză",
+        "ro": "Română",
+        "ru": "Rusă",
+        "sk": "Slovacă",
+        "sl": "Slovenă",
+        "sq": "Albaneză",
+        "sr": "Sârbă",
+        "sv": "Suedeză",
+        "tr": "Turcă",
+        "uk": "Ucraineană"
+      }
     },
     "MIME_TYPE": {
       "name": "Format fișier| Formate fișier",
       "options": {
-        "text/plain": "Text simplu"
+        "text\/plain": "Text simplu"
       }
     },
     "PROVIDER": {
@@ -387,7 +432,9 @@ export default {
       "options": {
         "fulltext": "Înregistrări cu text integral",
         "metadata": "Înregistrări doar pentru metadate"
-      }
+      },
+      "switch": "Căutați numai în conținutul articolelor cu text integral",
+      "switchMoreInfo": "În această colecție, puteți căuta fie în cadrul informațiilor care descriu articolul, așa cum faceți în alte colecții, dezactivând acest comutator. Fie lăsați acest comutator activat pentru a căuta în textul ziarului și al documentului."
     },
     "button": {
       "apply": "Aplică",
@@ -420,7 +467,11 @@ export default {
       "notification": "Unele articole care nu corespund criteriilor noastre de publicare sunt disponibile. Poți accesa aceste articole activând filtrul „Calitatea articolelor” din „Mai multe filtre”.",
       "options": {
         "*": "Sunt incluse articole care nu îndeplinesc criteriile noastre de publicare",
-        "0": "Afișează doar articolele care nu îndeplinesc criteriile noastre de publicare"
+        "0": "Afișează doar articolele care nu îndeplinesc criteriile noastre de publicare",
+        "1": "Calitate scăzută",
+        "2": "Calitate medie",
+        "3": "De înaltă calitate și reutilizabil cu condiții",
+        "4": "De înaltă calitate și reutilizabil gratuit"
       }
     },
     "proxy_dc_format": {
@@ -579,7 +630,6 @@ export default {
     "itemCount": "1 articol |{count} articole",
     "itemOf": "{max} de {count} articole",
     "recent": "Elemente recente",
-    "recommendationsDisclaimer": "Degetul mare în sus pentru a adăuga la galerie - Degetul mare în jos, dacă nu vă place",
     "recommended": "Articole recomandate",
     "youMightLike": "Articole care ți-ar putea plăcea"
   },
@@ -617,7 +667,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Ajută la îmbunătățirea site-ului nostru web aplicând ocazional modificări experimentale.",
-        "title": "Testarea A/B"
+        "title": "Testarea A\/B"
       },
       "auth-strategy": {
         "description": "Reține strategia de autorizare de utilizat pentru a vă conecta.",
@@ -643,9 +693,13 @@ export default {
         "description": "Colectează statistici anonime cu privire la modul în care vizitatorii interacționează cu site-ul web.",
         "title": "Matomo"
       },
+      "newFeatureNotification": {
+        "description": "Afișează o notificare atunci când devin disponibile caracteristici noi.",
+        "title": "Notificare pentru funcții noi"
+      },
       "searchResultsView": {
         "description": "Rețineți dacă preferați să vedeți rezultatele căutării într-o vizualizare listă sau grilă.",
-        "title": "Vizualizarea rezultatelor căutării (listă / grilă)"
+        "title": "Vizualizarea rezultatelor căutării (listă \/ grilă)"
       }
     }
   },
@@ -653,25 +707,8 @@ export default {
     "skipToMain": "Treci la conținutul paginii"
   },
   "learnMore": "Aflați mai multe despre sursa acestei descrieri",
-  "linksToClassic": {
-    "home": {
-      "linkText": "Vizualizați această pagină pe site-ul original Europeana până la 20 decembrie 2021.",
-      "text": "Vizualizați noua experiență Europeana."
-    },
-    "record": {
-      "linkText": "Vizualizați acest articol pe site-ul original Europeana până pe 20 decembrie 2021.",
-      "text": "Vizualizați acest articol în noua pagină de internet Europeana."
-    },
-    "search": {
-      "linkText": "Căutați pe site-ul original Europeana până la 20 decembrie 2021.",
-      "text": "Căutați acest articol în noua pagină de internet și mai rapidă."
-    }
-  },
   "loading": "Încărcare",
   "loadingResults": "Se încarcă rezultatele",
-  "mediaPreview": {
-    "selectItem": "Selectați elementul {src}"
-  },
   "messages": {
     "copyToClipboardSuccess": "Copiat în clipboard",
     "externalContentError": "Nu a putut fi încărcat conținutul extern",
@@ -692,6 +729,13 @@ export default {
     "stopTranslating": "Opriți traducerea acestui articol în {0}.",
     "translateLanguage": "Ați dori să vedeți acest articol în {0}?",
     "translateQuotaError": "Serviciul de traducere este temporar indisponibil. Vă rugăm să încercați din nou mai târziu."
+  },
+  "newFeatureNotification": {
+    "dismiss": "Respingeți",
+    "readMore": "Citește mai mult",
+    "text": {
+      "sideFilters": "Vezi noile filtre! Acestea sunt acum toate vizibile în partea dreaptă a rezultatelor căutării."
+    }
   },
   "newWindow": "se deschide într-o fereastră nouă",
   "noMoreResults": "Nu mai există rezultate pentru interogarea de căutare.",
@@ -724,7 +768,6 @@ export default {
     "IIIFViewer": "Vizualizator IIIF",
     "allMetaData": "Toate metadatele",
     "copyEmbedLabel": "Cod de încorporare (Faceți clic pentru a copia)",
-    "downloadCopyrightInfo": "Acest articol este protejat prin drepturi de autor și nu poate fi descărcat.",
     "exploreMore": "Explorează mai mult",
     "extendedInformation": "Informații extinse",
     "goodToKnow": "Bine de știut",
@@ -736,12 +779,7 @@ export default {
     "showAll": "Afișează toate informațiile",
     "similarItems": "Articole similare",
     "transcription": "Transcriere",
-    "transcriptionDisclaimer": "La acest conținut a contribuit publicul, nu instituția care a furnizat acest articol.",
-    "view": {
-      "image": "Vizualizare imagine",
-      "media": "Vizualizare fișiere media",
-      "pdf": "Vizualizare pdf"
-    }
+    "transcriptionDisclaimer": "La acest conținut a contribuit publicul, nu instituția care a furnizat acest articol."
   },
   "relatedCollections": "Colecții similare",
   "removeFilter": "Elimină filtrul {filterLabel}",
@@ -767,7 +805,8 @@ export default {
   },
   "searchViews": {
     "grid": "Vizualizare tabel",
-    "list": "Vizualizare listă"
+    "list": "Vizualizare listă",
+    "mosaic": "Vedere în mozaic"
   },
   "set": {
     "actions": {
@@ -776,6 +815,7 @@ export default {
       "createNew": "Creare galerie nouă",
       "delete": "Ștergere galerie",
       "edit": "Editare galerie",
+      "save": "Salva",
       "update": "Actualizare galerie"
     },
     "form": {
@@ -802,5 +842,9 @@ export default {
   },
   "showLess": "Afișează mai puțin",
   "showMore": "Afișează mai multe",
+  "statuses": {
+    "liked": "A apreciat",
+    "pinned": "Fixat"
+  },
   "website": "Site-ul web"
 };

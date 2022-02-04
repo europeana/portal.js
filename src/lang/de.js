@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mein Konto",
     "linkLogin": "Anmelden",
-    "linkLoginJoin": "Anmelden/Beitreten",
+    "linkLoginJoin": "Anmelden\/Beitreten",
     "linkLogout": "Abmelden",
     "myProfile": "Mein Profil",
     "notifications": {
@@ -30,12 +30,15 @@ export default {
     "accept": "Akzeptieren",
     "cancel": "Abbrechen",
     "close": "schließen",
+    "continue": "Fortfahren",
     "download": "Herunterladen",
     "edit": "Bearbeiten",
     "feedback": "Feedback",
     "goBack": "Zurückgehen",
+    "goHome": "Zur Homepage gehen",
     "like": "Like",
     "next": "Weiter",
+    "pin": "Stift",
     "providedBy": "Bereitgestellt von {provider}",
     "reject": "Ablehnen",
     "send": "Senden",
@@ -72,6 +75,7 @@ export default {
   "cardLabels": {
     "organisation": "Organisation",
     "person": "Person",
+    "theme": "Thema",
     "time": "Jahrhundert",
     "topic": "Thema"
   },
@@ -352,12 +356,53 @@ export default {
       }
     },
     "LANGUAGE": {
-      "name": "Sprache | Sprachen"
+      "name": "Sprache | Sprachen",
+      "options": {
+        "ar": "Arabisch",
+        "bg": "Bulgarisch",
+        "bs": "Bosnisch",
+        "ca": "Katalanisch",
+        "cs": "Tschechisch",
+        "cy": "Walisisch",
+        "da": "Dänisch",
+        "de": "Deutsch",
+        "el": "Griechisch",
+        "en": "Englisch",
+        "es": "Spanisch",
+        "et": "Estnisch",
+        "fi": "Finnisch",
+        "fr": "Französisch",
+        "ga": "Irisch",
+        "gd": "Gälisch",
+        "he": "Hebräisch",
+        "hr": "Kroatisch",
+        "hu": "Ungarisch",
+        "is": "Isländisch",
+        "it": "Italienisch",
+        "lt": "Litauisch",
+        "lv": "Lettisch",
+        "mk": "Mazedonisch",
+        "mt": "Maltesisch",
+        "mul": "Mehrere Sprachen",
+        "nl": "Niederländisch",
+        "no": "Norwegisch",
+        "pl": "Polnisch",
+        "pt": "Portugiesisch",
+        "ro": "Rumänisch",
+        "ru": "Russisch",
+        "sk": "Slowakisch",
+        "sl": "Slowenisch",
+        "sq": "Albanisch",
+        "sr": "Serbisch",
+        "sv": "Schwedisch",
+        "tr": "Türkisch",
+        "uk": "Ukrainisch"
+      }
     },
     "MIME_TYPE": {
       "name": "Dateiformat | Dateiformate",
       "options": {
-        "text/plain": "Klartext"
+        "text\/plain": "Klartext"
       }
     },
     "PROVIDER": {
@@ -387,7 +432,9 @@ export default {
       "options": {
         "fulltext": "Aufzeichnungen mit Volltext",
         "metadata": "Nur-Metadaten Aufzeichnungen"
-      }
+      },
+      "switch": "Suchen Sie nur im Inhalt von Artikeln mit Volltext",
+      "switchMoreInfo": "In dieser Sammlung können Sie entweder innerhalb der Informationen suchen, die das Element beschreiben, wie Sie es in anderen Sammlungen tun, indem Sie diesen Schalter deaktivieren. Oder lassen Sie diesen Schalter aktiviert, um im Zeitungs- und Dokumenttext zu suchen."
     },
     "button": {
       "apply": "Anwenden",
@@ -420,7 +467,11 @@ export default {
       "notification": "Es sind einige Objekte verfügbar, die nicht unseren Veröffentlichungskriterien entsprechen. Sie können auf diese Objekte zugreifen, indem Sie den Filter 'Objektqualität' unter 'Weitere Filter' aktivieren.",
       "options": {
         "*": "Enthält Objekte, die nicht unseren Veröffentlichungskriterien entsprechen",
-        "0": "Nur Objekte anzeigen, die unsere Veröffentlichungskriterien nicht erfüllen"
+        "0": "Nur Objekte anzeigen, die unsere Veröffentlichungskriterien nicht erfüllen",
+        "1": "Geringe Qualität",
+        "2": "Mittlere Qualität",
+        "3": "Hohe Qualität & wiederverwendbar mit Bedingungen",
+        "4": "Hohe Qualität & frei wiederverwendbar"
       }
     },
     "proxy_dc_format": {
@@ -579,7 +630,6 @@ export default {
     "itemCount": "1 Objekt |{count} Objekte",
     "itemOf": "{max} von {count} Objekte",
     "recent": "Aktuelle Objekte",
-    "recommendationsDisclaimer": "Daumen hoch, um der Galerie hinzuzufügen - Daumen runter, wenn es dir nicht gefällt",
     "recommended": "Empfohlene Objekte",
     "youMightLike": "Objekte, die Ihnen vielleicht gefallen könnten"
   },
@@ -617,7 +667,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Hilft, unsere Website zu verbessern, indem gelegentlich experimentelle Änderungen vorgenommen werden.",
-        "title": "A/B-Tests"
+        "title": "A\/B-Tests"
       },
       "auth-strategy": {
         "description": "Erinnert an die Berechtigungsstrategie, die für die Anmeldung verwendet werden soll.",
@@ -643,9 +693,13 @@ export default {
         "description": "Sammelt anonyme Statistiken darüber, wie Besucher mit der Website interagieren.",
         "title": "Matomo"
       },
+      "newFeatureNotification": {
+        "description": "Zeigt eine Benachrichtigung an, wenn neue Funktionen verfügbar sind.",
+        "title": "Benachrichtigung über neue Funktionen"
+      },
       "searchResultsView": {
         "description": "Merkt sich, ob Sie die Suchergebnisse lieber in einer Listen- oder Rasteransicht anzeigen möchten.",
-        "title": "Suchergebnisansicht (Liste/Raster)"
+        "title": "Suchergebnisansicht (Liste\/Raster)"
       }
     }
   },
@@ -653,25 +707,8 @@ export default {
     "skipToMain": "Direkt zum Seiteninhalt"
   },
   "learnMore": "Erfahren Sie mehr über die Quelle dieser Beschreibung",
-  "linksToClassic": {
-    "home": {
-      "linkText": "Sehen Sie sich diese Seite auf der ursprünglichen Europeana-Website bis zum 20. Dezember 2021 an.",
-      "text": "Sie sehen sich die neue Europeana Website an."
-    },
-    "record": {
-      "linkText": "Sehen Sie sich dieses Objekt bis zum 20. Dezember 2021 auf der ursprünglichen Europeana-Website an.",
-      "text": "Sie sehen dieses Objekt auf der neuen Europeana-Website."
-    },
-    "search": {
-      "linkText": "Suche auf der ursprünglichen Europeana-Website bis zum 20. Dezember 2021.",
-      "text": "Sie suchen auf unserer neuen und schnelleren Website."
-    }
-  },
   "loading": "Laden",
   "loadingResults": "Ergebnisse werden geladen",
-  "mediaPreview": {
-    "selectItem": "Wählen Sie das Objekt {src}"
-  },
   "messages": {
     "copyToClipboardSuccess": "In die Zwischenablage kopiert",
     "externalContentError": "Der externe Inhalt konnte nicht geladen werden",
@@ -692,6 +729,13 @@ export default {
     "stopTranslating": "Beenden Sie die Übersetzung dieses Objektes ins {0}.",
     "translateLanguage": "Möchten Sie dieses Objekt in {0} sehen?",
     "translateQuotaError": "Der Übersetzungsdienst ist vorübergehend nicht verfügbar. Bitte versuchen Sie es später erneut."
+  },
+  "newFeatureNotification": {
+    "dismiss": "Ablehnen",
+    "readMore": "Mehr anzeigen",
+    "text": {
+      "sideFilters": "Schauen Sie sich die neuen Filter an! Sie sind jetzt alle auf der rechten Seite der Suchergebnisse sichtbar."
+    }
   },
   "newWindow": "öffnet sich in einem neuen Fenster",
   "noMoreResults": "Es gibt keine weiteren Ergebnisse für Ihre Suchanfrage.",
@@ -724,7 +768,6 @@ export default {
     "IIIFViewer": "IIIF-Viewer",
     "allMetaData": "Alle Metadaten",
     "copyEmbedLabel": "Code einbetten (Zum Kopieren klicken)",
-    "downloadCopyrightInfo": "Dieses Objekt ist urheberrechtlich geschützt und kann nicht heruntergeladen werden.",
     "exploreMore": "Entdecken Sie mehr",
     "extendedInformation": "Erweiterte Informationen",
     "goodToKnow": "Gut zu wissen",
@@ -736,12 +779,7 @@ export default {
     "showAll": "Alle Informationen anzeigen",
     "similarItems": "Ähnliche Objekte",
     "transcription": "Transkription",
-    "transcriptionDisclaimer": "Dieser Inhalt wird von der Öffentlichkeit bereitgestellt, nicht von der Institution, die dieses Objekt bereitgestellt hat.",
-    "view": {
-      "image": "Bild anzeigen",
-      "media": "Medien anzeigen",
-      "pdf": "PDF anzeigen"
-    }
+    "transcriptionDisclaimer": "Dieser Inhalt wird von der Öffentlichkeit bereitgestellt, nicht von der Institution, die dieses Objekt bereitgestellt hat."
   },
   "relatedCollections": "Zugehörige Sammlungen",
   "removeFilter": "{filterLabel}-Filter entfernen",
@@ -767,7 +805,8 @@ export default {
   },
   "searchViews": {
     "grid": "Gitteransicht",
-    "list": "Listenansicht"
+    "list": "Listenansicht",
+    "mosaic": "Mosaik-Ansicht"
   },
   "set": {
     "actions": {
@@ -776,6 +815,7 @@ export default {
       "createNew": "Neue Galerie erstellen",
       "delete": "Galerie löschen",
       "edit": "Galerie bearbeiten",
+      "save": "Speichern",
       "update": "Galerie aktualisieren"
     },
     "form": {
@@ -802,5 +842,9 @@ export default {
   },
   "showLess": "Weniger anzeigen",
   "showMore": "Mehr anzeigen",
+  "statuses": {
+    "liked": "Gemocht",
+    "pinned": "Angeheftet"
+  },
   "website": "Webseite"
 };

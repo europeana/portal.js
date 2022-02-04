@@ -6,7 +6,7 @@ export default {
     "likes": "Všečki",
     "linkAccount": "Moj račun",
     "linkLogin": "Vpis",
-    "linkLoginJoin": "Prijava/Pridruži se",
+    "linkLoginJoin": "Prijava\/Pridruži se",
     "linkLogout": "Izpis",
     "myProfile": "Moj profil",
     "notifications": {
@@ -30,12 +30,15 @@ export default {
     "accept": "Sprejmi",
     "cancel": "Prekliči",
     "close": "zapri",
+    "continue": "nadaljuj",
     "download": "Prenos",
     "edit": "Uredi",
     "feedback": "Povratne informacije",
     "goBack": "Nazaj",
+    "goHome": "Pojdite na domačo stran",
     "like": "Všeč mi je",
     "next": "Naslednji",
+    "pin": "Pin",
     "providedBy": "Zagotavlja {provider}",
     "reject": "Zavrne",
     "send": "Pošlji",
@@ -72,6 +75,7 @@ export default {
   "cardLabels": {
     "organisation": "Organizacija",
     "person": "Oseba",
+    "theme": "Tema",
     "time": "Stoletje",
     "topic": "Tema"
   },
@@ -352,12 +356,53 @@ export default {
       }
     },
     "LANGUAGE": {
-      "name": "Jezik"
+      "name": "Jezik",
+      "options": {
+        "ar": "Arabščina",
+        "bg": "Bolgarski",
+        "bs": "Bosanski",
+        "ca": "Katalonščina",
+        "cs": "Češka",
+        "cy": "Valižanščina",
+        "da": "Danska",
+        "de": "Nemščina",
+        "el": "Grški",
+        "en": "Angleščina",
+        "es": "Španščina",
+        "et": "Estonski",
+        "fi": "Finska",
+        "fr": "Francoski",
+        "ga": "Irski",
+        "gd": "Gaelščina",
+        "he": "Hebrejščina",
+        "hr": "Hrvaška",
+        "hu": "Madžarski",
+        "is": "Islandski",
+        "it": "Italijanski",
+        "lt": "Litvanski",
+        "lv": "Latvijski",
+        "mk": "Makedonski",
+        "mt": "Malteški",
+        "mul": "Več jezikov",
+        "nl": "Nizozemska",
+        "no": "Norveški",
+        "pl": "Poljski",
+        "pt": "Portugalska",
+        "ro": "Romunski",
+        "ru": "Ruski",
+        "sk": "Slovaška",
+        "sl": "Slovenski",
+        "sq": "Albanski",
+        "sr": "Srbski",
+        "sv": "Švedski",
+        "tr": "Turški",
+        "uk": "Ukrajinski"
+      }
     },
     "MIME_TYPE": {
       "name": "Oblika zapisa datoteke | Oblike zapisov datotek",
       "options": {
-        "text/plain": "Golo besedilo"
+        "text\/plain": "Golo besedilo"
       }
     },
     "PROVIDER": {
@@ -387,7 +432,9 @@ export default {
       "options": {
         "fulltext": "Zapisi s celotnim besedilom",
         "metadata": "Samo zapisi z metapodatki"
-      }
+      },
+      "switch": "Iskanje samo v vsebini elementov s polnim besedilom",
+      "switchMoreInfo": "V tej zbirki lahko iščete po informacijah, ki opisujejo predmet, kot v drugih zbirkah, tako da deaktivirate to stikalo. Lahko pa pustite ta gumb aktiven in iščete po besedilu časopisa in dokumenta."
     },
     "button": {
       "apply": "Prijavi se",
@@ -420,7 +467,11 @@ export default {
       "notification": "Nekateri predmeti, ki ne ustrezajo našim kriterijem objavljanja, so na voljo. Do teh predmetov lahko dostopate z aktivacijo filtra 'Kakovost predmetov' pod 'Več filtrov'.",
       "options": {
         "*": "Vključuje elemente, ki ne izpolnjujejo naših meril za objavo",
-        "0": "Pokaži samo predmete, ki ne ustrezajo našim kriterijem objavljanja."
+        "0": "Pokaži samo predmete, ki ne ustrezajo našim kriterijem objavljanja.",
+        "1": "Nizka kakovost",
+        "2": "Srednja kakovost",
+        "3": "Visoka kakovost in ponovna uporaba s pogoji",
+        "4": "Visoka kakovost & prosto večkratno uporabo"
       }
     },
     "proxy_dc_format": {
@@ -579,7 +630,6 @@ export default {
     "itemCount": "1 predmet |{count} predmeti",
     "itemOf": "{max} od {count} predmetov",
     "recent": "Nedavni predmeti",
-    "recommendationsDisclaimer": "Palec gor za dodajanje v galerijo - palec navzdol, če vam ni všeč",
     "recommended": "Priporočeni predmeti",
     "youMightLike": "Predmeti, ki vam bodo mogoče všeč"
   },
@@ -617,7 +667,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Pomaga izboljšati naše spletno mesto z občasno uporabo eksperimentalnih sprememb.",
-        "title": "A/B testiranje"
+        "title": "A\/B testiranje"
       },
       "auth-strategy": {
         "description": "Zapomni si strategijo avtorizacije, ki jo je treba uporabiti za prijavo.",
@@ -643,9 +693,13 @@ export default {
         "description": "Zbira anonimne statistične podatke o tem, kako obiskovalci komunicirajo s spletnim mestom.",
         "title": "Matomo"
       },
+      "newFeatureNotification": {
+        "description": "Prikaže obvestilo, ko so na voljo nove funkcije.",
+        "title": "Obvestilo o novi funkciji"
+      },
       "searchResultsView": {
         "description": "Zapomni si, če želite rezultate iskanja raje videti v pogledu seznama ali mreže.",
-        "title": "Pogled rezultatov iskanja (seznam / mreža)"
+        "title": "Pogled rezultatov iskanja (seznam \/ mreža)"
       }
     }
   },
@@ -653,25 +707,8 @@ export default {
     "skipToMain": "Preskoči na vsebino strani"
   },
   "learnMore": "Izvedite več o viru tega opisa",
-  "linksToClassic": {
-    "home": {
-      "linkText": "Oglejte si to stran na izvirni spletni strani Europeana do 20. decembra 2021.",
-      "text": "Ogledujete si novo spletno mesto Europeana."
-    },
-    "record": {
-      "linkText": "Oglejte si ta element na izvirni spletni strani Europeana do 20. decembra 2021.",
-      "text": "To delo si ogledujete v novem spletnem mestu Europeana."
-    },
-    "search": {
-      "linkText": "Iščite na izvirni spletni strani Europeana do 20. decembra 2021.",
-      "text": "Iščete prek našega novega in hitrejšega spletnega mesta."
-    }
-  },
   "loading": "Nalaganje",
   "loadingResults": "Nalaganje rezultatov",
-  "mediaPreview": {
-    "selectItem": "Izberite element {src}"
-  },
   "messages": {
     "copyToClipboardSuccess": "Kopirano v odložišče",
     "externalContentError": "Zunanje vsebine ni bilo mogoče naložiti",
@@ -692,6 +729,13 @@ export default {
     "stopTranslating": "Prenehajte prevajati ta element v {0}.",
     "translateLanguage": "Želite ta element videti v {0}?",
     "translateQuotaError": "Prevajalska storitev začasno ni na voljo. Prosim poskusite kasneje."
+  },
+  "newFeatureNotification": {
+    "dismiss": "Zavrnite",
+    "readMore": "Preberi več",
+    "text": {
+      "sideFilters": "Oglejte si nove filtre! Vsi so zdaj vidni na desni strani rezultatov iskanja."
+    }
   },
   "newWindow": "odpre se v novem oknu",
   "noMoreResults": "Za vašo iskalno poizvedbo ni več rezultatov.",
@@ -724,7 +768,6 @@ export default {
     "IIIFViewer": "Pregledovalnik IIIF",
     "allMetaData": "Vsi metapodatki",
     "copyEmbedLabel": "Vdelaj kodo (kliknite za kopiranje)",
-    "downloadCopyrightInfo": "To delo je zaščiteno z avtorskimi pravicami in ga ni mogoče prenesti.",
     "exploreMore": "Razišči več",
     "extendedInformation": "Razširjene informacije",
     "goodToKnow": "Dobro je vedeti",
@@ -736,12 +779,7 @@ export default {
     "showAll": "Pokaži vse informacije",
     "similarItems": "Podobna dela",
     "transcription": "Prepis",
-    "transcriptionDisclaimer": "To vsebino je prispevala javnost, ne ustanova, ki je zagotovila ta predmet.",
-    "view": {
-      "image": "Ogled slike",
-      "media": "Ogled medijev",
-      "pdf": "Ogled PDF"
-    }
+    "transcriptionDisclaimer": "To vsebino je prispevala javnost, ne ustanova, ki je zagotovila ta predmet."
   },
   "relatedCollections": "Povezane zbirke",
   "removeFilter": "Odstrani filter {filterLabel}",
@@ -767,7 +805,8 @@ export default {
   },
   "searchViews": {
     "grid": "Pogled mreže",
-    "list": "Pogled seznama"
+    "list": "Pogled seznama",
+    "mosaic": "Pogled na mozaik"
   },
   "set": {
     "actions": {
@@ -776,6 +815,7 @@ export default {
       "createNew": "Ustvari novo zbirko",
       "delete": "Izbriši zbirko",
       "edit": "Uredi zbirko",
+      "save": "Shrani",
       "update": "Posodobi zbirko"
     },
     "form": {
@@ -802,5 +842,9 @@ export default {
   },
   "showLess": "Prikaži manj",
   "showMore": "Prikaži več",
+  "statuses": {
+    "liked": "Všeč",
+    "pinned": "Pripet"
+  },
   "website": "Spletno mesto"
 };
