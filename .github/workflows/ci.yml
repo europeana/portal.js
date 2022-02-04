@@ -272,7 +272,8 @@ jobs:
           path: ./docker_nginx-proxy-cache-apis.tar
       -
         name: Extract NGINX cache volume archive
-        run: [ -f ./docker_nginx-proxy-cache-apis.tar ] && sudo tar -xf ./docker_nginx-proxy-cache-apis.tar -C /var/lib/docker/volumes
+        run: |
+          [ -f ./docker_nginx-proxy-cache-apis.tar ] && sudo tar -xf ./docker_nginx-proxy-cache-apis.tar -C /var/lib/docker/volumes
       -
         name: Pull images for e2e tests
         run: docker-compose -f ./tests/e2e/docker/docker-compose.yml pull -q app cache chrome-en
