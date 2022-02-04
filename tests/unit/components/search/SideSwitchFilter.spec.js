@@ -10,6 +10,9 @@ const factory = (propsData = {}, keyMock) => {
     localVue,
     propsData,
     mocks: {
+      $store: {
+        dispatch: () => null
+      },
       $t: (key) => keyMock || key,
       $tFacetName: (key) => key
     }
