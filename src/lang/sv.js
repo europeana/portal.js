@@ -30,12 +30,15 @@ export default {
     "accept": "Acceptera",
     "cancel": "Avbryt",
     "close": "stäng",
+    "continue": "Fortsätt",
     "download": "Ladda ner",
     "edit": "Redigera",
     "feedback": "Feedback",
     "goBack": "Gå tillbaka",
+    "goHome": "Gå till hemsidan",
     "like": "Gilla",
     "next": "Nästa",
+    "pin": "Stift",
     "providedBy": "Tillhandahålls av {provider}",
     "reject": "Avvisa",
     "send": "Skicka",
@@ -72,6 +75,7 @@ export default {
   "cardLabels": {
     "organisation": "Organisation",
     "person": "Person",
+    "theme": "Tema",
     "time": "Århundrade",
     "topic": "Ämne"
   },
@@ -352,7 +356,48 @@ export default {
       }
     },
     "LANGUAGE": {
-      "name": "Språk"
+      "name": "Språk",
+      "options": {
+        "ar": "Arabiska",
+        "bg": "Bulgariska",
+        "bs": "Bosniska",
+        "ca": "Katalanska",
+        "cs": "Tjeckiska",
+        "cy": "Walesiska",
+        "da": "Danska",
+        "de": "Tyska",
+        "el": "Grekiska",
+        "en": "Engelska",
+        "es": "Spanska",
+        "et": "Estniska",
+        "fi": "Finska",
+        "fr": "Franska",
+        "ga": "Irländska",
+        "gd": "Gaeliska",
+        "he": "Hebreiska",
+        "hr": "Kroatiska",
+        "hu": "Ungerska",
+        "is": "Isländska",
+        "it": "Italienska",
+        "lt": "Litauiska",
+        "lv": "Lettiska",
+        "mk": "Makedonska",
+        "mt": "Maltesiska",
+        "mul": "Flera språk",
+        "nl": "Nederländska",
+        "no": "Norska",
+        "pl": "Polska",
+        "pt": "Portugisiska",
+        "ro": "Rumänska",
+        "ru": "Ryska",
+        "sk": "Slovakiska",
+        "sl": "Slovenska",
+        "sq": "Albanska",
+        "sr": "Serbiska",
+        "sv": "Svenska",
+        "tr": "Turkiska",
+        "uk": "Ukrainska"
+      }
     },
     "MIME_TYPE": {
       "name": "Filformat | Filformat",
@@ -387,7 +432,9 @@ export default {
       "options": {
         "fulltext": "Register med fulltext",
         "metadata": "Metadata-endast register"
-      }
+      },
+      "switch": "Sök endast i innehållet i objekt med fulltext",
+      "switchMoreInfo": "I den här samlingen kan du antingen söka i informationen som beskriver objektet som du gör i andra samlingar genom att avaktivera denna växel. Eller lämna denna reglage aktiverad för att söka i tidningen och dokumenttexten."
     },
     "button": {
       "apply": "Tillämpa",
@@ -420,7 +467,11 @@ export default {
       "notification": "Några objekt som inte matchar våra publiceringsvillkor finns tillgängliga. Du får åtkomst till dessa objekt genom att aktivera filtret \"Föremålskvalitet\" under \"Fler filter\".",
       "options": {
         "*": "Innefattar objekt som inte uppfyller våra publiceringsvillkor",
-        "0": "Visa endast objekt som inte uppfyller våra publiceringskriterier"
+        "0": "Visa endast objekt som inte uppfyller våra publiceringskriterier",
+        "1": "Låg kvalitet",
+        "2": "Medium kvalité",
+        "3": "Hög kvalitet & återanvändbar med villkor",
+        "4": "Hög kvalitet och fritt återanvändbar"
       }
     },
     "proxy_dc_format": {
@@ -579,7 +630,6 @@ export default {
     "itemCount": "1 föremål {count} föremål",
     "itemOf": "{max} av {count} föremål",
     "recent": "Senaste objekt",
-    "recommendationsDisclaimer": "Tummen upp för att lägga till i galleriet - Tummen ner om du ogillar det",
     "recommended": "Rekommenderade objekt",
     "youMightLike": "Objekt som du kanske skulle gilla"
   },
@@ -643,6 +693,10 @@ export default {
         "description": "Samlar in anonym statistik om hur besökare interagerar med webbplatsen.",
         "title": "Matomo"
       },
+      "newFeatureNotification": {
+        "description": "Visar ett meddelande när nya funktioner blir tillgängliga.",
+        "title": "Ny funktionsavisering"
+      },
       "searchResultsView": {
         "description": "Kommer ihåg om du föredrar att se sökresultaten i en lista eller rutnät.",
         "title": "Visa sökresultat (lista/rutnät)"
@@ -653,25 +707,8 @@ export default {
     "skipToMain": "Hoppa till sidans innehåll"
   },
   "learnMore": "Lär dig mer om källan till denna beskrivning",
-  "linksToClassic": {
-    "home": {
-      "linkText": "Visa den här sidan på europeanas ursprungliga webbplats fram till den 20 december 2021.",
-      "text": "Du visar den nya Europeana-upplevelsen."
-    },
-    "record": {
-      "linkText": "Du kan se det här objektet på den ursprungliga Europeana-webbplatsen fram till den 20 december 2021.",
-      "text": "Du visar detta objekt på den nya Europeana-webbplatsen."
-    },
-    "search": {
-      "linkText": "Sök på den ursprungliga Europeana-webbplatsen fram till den 20 december 2021.",
-      "text": "Du söker på vår nya och snabbare webbplats."
-    }
-  },
   "loading": "Laddar",
   "loadingResults": "Hämtar resultat",
-  "mediaPreview": {
-    "selectItem": "Välj objekt {src}"
-  },
   "messages": {
     "copyToClipboardSuccess": "Kopieras till Urklipp",
     "externalContentError": "Det externa innehållet kunde inte hämtas",
@@ -692,6 +729,13 @@ export default {
     "stopTranslating": "Sluta översätta det här objektet till {0}.",
     "translateLanguage": "Vill du se det här objektet i {0} ?",
     "translateQuotaError": "Översättningstjänsten är inte tillgänglig för tillfället. Försök igen senare."
+  },
+  "newFeatureNotification": {
+    "dismiss": "Avfärda",
+    "readMore": "Läs mer",
+    "text": {
+      "sideFilters": "Kolla in de nya filtren! De är nu alla synliga på höger sida av sökresultaten."
+    }
   },
   "newWindow": "öppnas i nytt fönster",
   "noMoreResults": "Det finns inga fler resultat för din sökning.",
@@ -724,7 +768,6 @@ export default {
     "IIIFViewer": "IIIF-tittare",
     "allMetaData": "Alla metadata",
     "copyEmbedLabel": "Bädda in kod (Klicka för att kopiera)",
-    "downloadCopyrightInfo": "Detta objekt är skyddat av upphovsrätt och kan inte laddas ner.",
     "exploreMore": "Utforska mer",
     "extendedInformation": "Utökad information",
     "goodToKnow": "Bra att veta",
@@ -736,12 +779,7 @@ export default {
     "showAll": "Visa all information",
     "similarItems": "Liknande objekt",
     "transcription": "Transkribering",
-    "transcriptionDisclaimer": "Innehållet har lagts till av allmänheten, inte av institutionen som tillhandahåller detta föremål.",
-    "view": {
-      "image": "Visa bild",
-      "media": "Visa media",
-      "pdf": "Visa PDF"
-    }
+    "transcriptionDisclaimer": "Innehållet har lagts till av allmänheten, inte av institutionen som tillhandahåller detta föremål."
   },
   "relatedCollections": "Tillhörande kollektioner",
   "removeFilter": "Ta bort filter {filterLabel}",
@@ -767,7 +805,8 @@ export default {
   },
   "searchViews": {
     "grid": "Rutnätsvy",
-    "list": "Listvy"
+    "list": "Listvy",
+    "mosaic": "Mosaikvy"
   },
   "set": {
     "actions": {
@@ -776,6 +815,7 @@ export default {
       "createNew": "Skapa nytt galleri",
       "delete": "Radera galleri",
       "edit": "Redigera galleri",
+      "save": "Spara",
       "update": "Uppdatera galleri"
     },
     "form": {
@@ -802,5 +842,9 @@ export default {
   },
   "showLess": "Visa mindre",
   "showMore": "Visa mer",
+  "statuses": {
+    "liked": "Gillade",
+    "pinned": "Fäst"
+  },
   "website": "Webbplats"
 };

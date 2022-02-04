@@ -388,8 +388,8 @@ export default {
         "no": "Norwegian",
         "pl": "Polish",
         "pt": "Portuguese",
-        "ru": "Russian",
         "ro": "Romanian",
+        "ru": "Russian",
         "sk": "Slovak",
         "sl": "Slovenian",
         "sq": "Albanian",
@@ -731,11 +731,11 @@ export default {
     "translateQuotaError": "Translation service is temporarily unavailable. Please try again later."
   },
   "newFeatureNotification": {
+    "dismiss": "Dismiss",
+    "readMore": "Read more",
     "text": {
       "sideFilters": "Check out the new filters! They are now all visible on the right-hand side of the search results."
-    },
-    "dismiss": "Dismiss",
-    "readMore": "Read more"
+    }
   },
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",

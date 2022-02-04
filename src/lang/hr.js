@@ -30,12 +30,15 @@ export default {
     "accept": "Prihvatiti",
     "cancel": "Otkazati",
     "close": "zatvori",
+    "continue": "nastaviti",
     "download": "Preuzmi",
     "edit": "Uredi",
     "feedback": "Povratna informacija",
     "goBack": "Idi nazad",
+    "goHome": "Idite na početnu stranicu",
     "like": "Sviđanje",
     "next": "Sljedeći",
+    "pin": "Klin",
     "providedBy": "Omogućio {provider}",
     "reject": "Odbiti",
     "send": "Slati",
@@ -72,6 +75,7 @@ export default {
   "cardLabels": {
     "organisation": "Organizacija",
     "person": "Osoba",
+    "theme": "Tema",
     "time": "Stoljeća",
     "topic": "Tema"
   },
@@ -352,7 +356,48 @@ export default {
       }
     },
     "LANGUAGE": {
-      "name": "Jezik"
+      "name": "Jezik",
+      "options": {
+        "ar": "Arapski",
+        "bg": "Bugarski",
+        "bs": "Bosanski",
+        "ca": "Katalonski",
+        "cs": "Češki",
+        "cy": "Velški",
+        "da": "Danski",
+        "de": "Njemački",
+        "el": "Grčki",
+        "en": "Engleski",
+        "es": "Španjolski",
+        "et": "Estonski",
+        "fi": "Finski",
+        "fr": "Francuski",
+        "ga": "Irski",
+        "gd": "Gelski",
+        "he": "Hebrejski",
+        "hr": "Hrvatski",
+        "hu": "Mađarski",
+        "is": "Islandski",
+        "it": "Talijanski",
+        "lt": "Litvanski",
+        "lv": "Latvijski",
+        "mk": "Makedonski",
+        "mt": "Malteški",
+        "mul": "Više jezika",
+        "nl": "Nizozemski",
+        "no": "Norveški",
+        "pl": "Poljski",
+        "pt": "Portugalski",
+        "ro": "Rumunjski",
+        "ru": "Ruski",
+        "sk": "Slovački",
+        "sl": "Slovenski",
+        "sq": "Albanski",
+        "sr": "Srpski",
+        "sv": "Švedski",
+        "tr": "Turski",
+        "uk": "Ukrajinski"
+      }
     },
     "MIME_TYPE": {
       "name": "Format datoteke | Formati datoteka",
@@ -387,7 +432,9 @@ export default {
       "options": {
         "fulltext": "Zapisi s punim tekstom",
         "metadata": "Metapodaci-samo zapisi"
-      }
+      },
+      "switch": "Pretraživanje samo u sadržaju stavki s cijelim tekstom",
+      "switchMoreInfo": "U ovoj zbirci možete pretraživati unutar informacija koje opisuju stavku kao u drugim zbirkama deaktiviranjem ovog preklopnog gumba. Ili ostavite ovaj preklopni gumb aktiviran za pretraživanje unutar novina i teksta dokumenta."
     },
     "button": {
       "apply": "Primijeni",
@@ -420,7 +467,11 @@ export default {
       "notification": "Dostupne su neke stavke koje ne odgovaraju našim kriterijima za objavu. Tim stavkama možete pristupiti aktiviranjem filtra \"Kvaliteta stavka\" u odjeljku \"Više filtara\".",
       "options": {
         "*": "Uključuje stavke koje ne ispunjavaju naše kriterije objavljivanja",
-        "0": "Prikaži samo stavke koje ne zadovoljavaju naše kriterije za objavljivanje"
+        "0": "Prikaži samo stavke koje ne zadovoljavaju naše kriterije za objavljivanje",
+        "1": "Niska kvaliteta",
+        "2": "Srednja kvaliteta",
+        "3": "Visoka kvaliteta i višekratna upotreba s uvjetima",
+        "4": "Visoka kvaliteta i slobodna ponovna upotreba"
       }
     },
     "proxy_dc_format": {
@@ -579,7 +630,6 @@ export default {
     "itemCount": "1 stavka |{count} stavki",
     "itemOf": "{max} od {count} stavki",
     "recent": "Nedavne stavke",
-    "recommendationsDisclaimer": "Palac gore za dodavanje u galeriju - Palac dolje ako vam se ne sviđa",
     "recommended": "Preporučeni predmeti",
     "youMightLike": "Stavke koje vam se mogu sviđati"
   },
@@ -643,6 +693,10 @@ export default {
         "description": "Prikuplja anonimne statistike o tome kako posjetitelji komuniciraju s web mjestom.",
         "title": "Matomo"
       },
+      "newFeatureNotification": {
+        "description": "Prikazuje obavijest kada nove značajke postanu dostupne.",
+        "title": "Obavijest o novoj značajki"
+      },
       "searchResultsView": {
         "description": "Sjeća ako radije vidite rezultate pretraživanja u prikazu popisa ili mreže.",
         "title": "Prikaz rezultata pretraživanja (popis / mreža)"
@@ -653,25 +707,8 @@ export default {
     "skipToMain": "Prijeđite na sadržaj stranice"
   },
   "learnMore": "Saznajte više o izvoru ovog opisa",
-  "linksToClassic": {
-    "home": {
-      "linkText": "Pogledajte ovu stranicu na izvornoj web stranici Europeana do 20. prosinca 2021.",
-      "text": "Gledate novo iskustvo Europeane."
-    },
-    "record": {
-      "linkText": "Pogledajte ovu stavku na izvornoj web stranici Europeana do 20. prosinca 2021.",
-      "text": "Ovaj predmet pregledavate na novoj internetskoj stranici Europeana."
-    },
-    "search": {
-      "linkText": "Pretražujte na izvornoj Europeana i web stranici do 20. prosinca 2021.",
-      "text": "Pretražujete našu novu i bržu internetsku stranicu."
-    }
-  },
   "loading": "Učitavanje",
   "loadingResults": "Učitavanje rezultata",
-  "mediaPreview": {
-    "selectItem": "Odaberite stavku {src}"
-  },
   "messages": {
     "copyToClipboardSuccess": "Kopirano u međuspremnik",
     "externalContentError": "Nije se mogao učitati vanjski sadržaj",
@@ -692,6 +729,13 @@ export default {
     "stopTranslating": "Prestanite prevoditi ovu stavku na {0}.",
     "translateLanguage": "Želite li vidjeti ovu stavku u {0} ?",
     "translateQuotaError": "Usluga prevođenja privremeno je nedostupna. Pokušajte ponovo kasnije."
+  },
+  "newFeatureNotification": {
+    "dismiss": "Odbaciti",
+    "readMore": "Pročitaj više",
+    "text": {
+      "sideFilters": "Pogledajte nove filtre! Sada su svi vidljivi na desnoj strani rezultata pretraživanja."
+    }
   },
   "newWindow": "otvara se u novom prozoru",
   "noMoreResults": "Nema više rezultata za vaš upit za pretraživanje.",
@@ -720,11 +764,16 @@ export default {
     }
   },
   "readMore": "Pročitaj više",
+  "recommendation": {
+    "prompts": {
+      "accept": "Predmet je dodan u galeriju.",
+      "reject": "Palac dolje ako vam se ne sviđa"
+    }
+  },
   "record": {
     "IIIFViewer": "IIIF preglednik",
     "allMetaData": "Svi meta podaci",
     "copyEmbedLabel": "Ugradi kôd (kliknite za kopiranje)",
-    "downloadCopyrightInfo": "Ova je stavka zaštićena autorskim pravima i nije ju moguće preuzeti.",
     "exploreMore": "Istraži više",
     "extendedInformation": "Proširene informacije",
     "goodToKnow": "Dobro je znati",
@@ -736,12 +785,7 @@ export default {
     "showAll": "Prikaži sve informacije",
     "similarItems": "Slične stavke",
     "transcription": "Transkripcija",
-    "transcriptionDisclaimer": "Ovaj sadržaj je ponudila javnost, a ne institucija koja je pružila ovu stavku.",
-    "view": {
-      "image": "Pogledajte sliku",
-      "media": "Pogledajte medije",
-      "pdf": "Pogledaj PDF"
-    }
+    "transcriptionDisclaimer": "Ovaj sadržaj je ponudila javnost, a ne institucija koja je pružila ovu stavku."
   },
   "relatedCollections": "Povezane zbirke",
   "removeFilter": "Uklonite filtar {filterLabel} ",
@@ -767,7 +811,8 @@ export default {
   },
   "searchViews": {
     "grid": "Prikaz rešetke",
-    "list": "Prikaz popisa"
+    "list": "Prikaz popisa",
+    "mosaic": "Prikaz rešetke"
   },
   "set": {
     "actions": {
@@ -776,6 +821,7 @@ export default {
       "createNew": "Stvori novu galeriju",
       "delete": "Izbriši galeriju",
       "edit": "Uredi galeriju",
+      "save": "Uštedjeti",
       "update": "Ažuriraj galeriju"
     },
     "form": {
@@ -802,5 +848,9 @@ export default {
   },
   "showLess": "Prikaži manje",
   "showMore": "Prikaži više",
+  "statuses": {
+    "liked": "Volio",
+    "pinned": "Prikvačeno"
+  },
   "website": "Web stranica"
 };
