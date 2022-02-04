@@ -58,20 +58,47 @@ describe('components/search/SideSwitchFilter', () => {
     });
   });
 
-  it('records the filter as resettable in the store', () => {
-    factory({
-      value: 'fulltext',
-      name: 'api',
-      checkedValue: 'fulltext',
-      uncheckedValue: 'metadata'
-    });
+  describe('methods', () => {
+    describe('init', () => {
+      it('flags the filter as resettable if not at its default value', () => {
+        const wrapper = factory({
+          value: 'metadata',
+          name: 'api',
+          checkedValue: 'fulltext',
+          uncheckedValue: 'metadata',
+          defaultValue: 'fulltext'
+        });
 
-    expect(storeDispatchSpy.calledWith(
-      'search/setResettableFilter',
-      {
-        name: 'api',
-        selected: 'fulltext'
-      }
-    )).toBe(true);
+        wrapper.vm.init();
+
+        expect(storeDispatchSpy.calledWith(
+          'search/setResettableFilter',
+          {
+            name: 'api',
+            selected: 'metadata'
+          }
+        )).toBe(true);
+      });
+
+      it('flags the filter as not resettable if at its default value', () => {
+        const wrapper = factory({
+          value: 'fulltext',
+          name: 'api',
+          checkedValue: 'fulltext',
+          uncheckedValue: 'metadata',
+          defaultValue: 'fulltext'
+        });
+
+        wrapper.vm.init();
+
+        expect(storeDispatchSpy.calledWith(
+          'search/setResettableFilter',
+          {
+            name: 'api',
+            selected: null
+          }
+        )).toBe(true);
+      });
+    });
   });
 });
