@@ -75,6 +75,16 @@
       },
 
       /**
+       * Value to consider default for the switch
+       *
+       * If the switch is set to its default value, it is not resettable.
+       */
+      defaultValue: {
+        type: String,
+        default: 'unchecked'
+      },
+
+      /**
        * Text for the switch label
        */
       label: {
@@ -111,7 +121,7 @@
       init() {
         this.$store.dispatch('search/setResettableFilter', {
           name: this.name,
-          selected: this.localValue
+          selected: (this.localValue === this.defaultValue) ? null : this.localValue
         });
       }
     }
