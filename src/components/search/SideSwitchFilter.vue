@@ -108,7 +108,7 @@
     },
 
     watch: {
-      value() {
+      localValue() {
         this.init();
       }
     },
