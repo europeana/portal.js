@@ -1,9 +1,13 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
+import sinon from 'sinon';
+
 import BootstrapVue from 'bootstrap-vue';
 import SideSwitchFilter from '@/components/search/SideSwitchFilter';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
+
+const storeDispatchSpy = sinon.spy();
 
 const factory = (propsData = {}, keyMock) => {
   return shallowMount(SideSwitchFilter, {
@@ -11,7 +15,7 @@ const factory = (propsData = {}, keyMock) => {
     propsData,
     mocks: {
       $store: {
-        dispatch: () => null
+        dispatch: storeDispatchSpy
       },
       $t: (key) => keyMock || key,
       $tFacetName: (key) => key
@@ -20,6 +24,8 @@ const factory = (propsData = {}, keyMock) => {
 };
 
 describe('components/search/SideSwitchFilter', () => {
+  beforeEach(sinon.resetHistory);
+
   describe('when the value passed in matches the checked value', () => {
     it('is switched on', () => {
       const wrapper = factory({
@@ -50,5 +56,22 @@ describe('components/search/SideSwitchFilter', () => {
         expect(switchChecked.exists()).toBe(true);
       });
     });
+  });
+
+  it('records the filter as resettable in the store', () => {
+    const wrapper = factory({
+      value: 'fulltext',
+      name: 'api',
+      checkedValue: 'fulltext',
+      uncheckedValue: 'metadata'
+    });
+
+    expect(storeDispatchSpy.calledWith(
+      'search/setResettableFilter',
+      {
+        name: 'api',
+        selected: 'fulltext'
+      }
+    )).toBe(true);
   });
 });
