@@ -434,7 +434,7 @@ export default {
         "metadata": "Csak metaadatokat tartalmazó rekordok"
       },
       "switch": "Keresés csak a teljes szövegű elemek tartalmában",
-      "switchMoreInfo": "Ebben a gyűjteményben az elemet leíró információk között kereshet, ahogyan más gyűjteményekben is, ha kikapcsolja ezt a kapcsolót. Vagy hagyja bekapcsolva ezt a kapcsolót, hogy az újság és a dokumentum szövegében keressen."
+      "switchMoreInfo": "Ebben a gyűjteményben kiválaszthatja, hogy mit szeretne keresni: ha ez a kapcsoló be van kapcsolva, akkor az újság és a dokumentum szövegében fog keresni; ha ki van kapcsolva, akkor inkább a tárgyat leíró információk között fog keresni, ahogyan a legtöbb más gyűjteményben is."
     },
     "button": {
       "apply": "Alkalmaz",
@@ -463,7 +463,7 @@ export default {
       }
     },
     "contentTier": {
-      "name": "Tartalmaz olyan elemeket, melyek nem felelnek meg a közzétételi kritériumoknak.",
+      "name": "Minősége elemek",
       "notification": "Olyan cikkek is elérhetőek, amelyek nem felelnek meg az általunk felállított közzétételi kritériumoknak. Ezeket a cikkeket a \"Több szűrő\", \"Cikkek minősége\" opció aktiválásával érheti el.",
       "options": {
         "*": "A közzétételi feltételeknek meg nem felelő elemek kizárása",
@@ -764,6 +764,12 @@ export default {
     }
   },
   "readMore": "Bővebben",
+  "recommendation": {
+    "prompts": {
+      "accept": "Hüvelykujj felfelé, hogy hozzáadjuk a galériához",
+      "reject": "Hüvelykujj le, ha nem tetszik"
+    }
+  },
   "record": {
     "IIIFViewer": "IIIF néző",
     "allMetaData": "Minden metaadat",

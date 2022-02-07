@@ -434,7 +434,7 @@ export default {
         "metadata": "Alleen records met Metadata"
       },
       "switch": "Zoek alleen in de inhoud van items met full-text",
-      "switchMoreInfo": "In deze collectie kunt u ofwel zoeken in de informatie die het item beschrijft, zoals u in andere collecties doet, door deze schakelaar uit te schakelen. Of u laat deze knop geactiveerd om in de tekst van de krant en het document te zoeken."
+      "switchMoreInfo": "In deze collectie kunt u kiezen waarnaar u wilt zoeken: als deze schakelaar aan staat, zoekt u binnen de krant en documenttekst; als het is uitgeschakeld, zoekt u in plaats daarvan binnen de informatie die het item beschrijft, net zoals u altijd doet in de meeste andere collecties."
     },
     "button": {
       "apply": "Toepassen",
@@ -463,7 +463,7 @@ export default {
       }
     },
     "contentTier": {
-      "name": "Bevat items die niet voldoen aan onze publicatiecriteria",
+      "name": "Item kwaliteit",
       "notification": "Sommige artikelen die niet passen bij onze publicatiecriteria, zijn beschikbaar. U kunt deze artikelen inzien door het filter \"Kwaliteit van artikel\" onder \"Meer filters\" te activeren.",
       "options": {
         "*": "Bevat items die niet voldoen aan onze publicatiecriteria",
@@ -764,6 +764,12 @@ export default {
     }
   },
   "readMore": "Lees verder",
+  "recommendation": {
+    "prompts": {
+      "accept": "Duim omhoog om toe te voegen aan de galerij",
+      "reject": "Duim omlaag als je het niet leuk vindt"
+    }
+  },
   "record": {
     "IIIFViewer": "IIIF-viewer",
     "allMetaData": "Alle metadata",

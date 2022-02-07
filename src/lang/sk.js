@@ -434,7 +434,7 @@ export default {
         "metadata": "Výhradne záznamy s metaúdajmi"
       },
       "switch": "Vyhľadávanie len v obsahu položiek s plným textom",
-      "switchMoreInfo": "V tejto kolekcii môžete buď vyhľadávať v informáciách popisujúcich položku, ako to robíte v iných kolekciách, deaktivovaním tohto prepínača. Alebo nechajte tento prepínač aktivovaný, ak chcete vyhľadávať v novinách a texte dokumentov."
+      "switchMoreInfo": "V tejto zbierke si môžete vybrať, čo chcete vyhľadávať: ak je tento prepínač zapnutý, budete vyhľadávať v texte novín a dokumentov; ak je vypnutý, budete namiesto toho vyhľadávať v informáciách popisujúcich položku, rovnako ako vždy vo väčšine iných zbierok."
     },
     "button": {
       "apply": "Použiť",
@@ -463,7 +463,7 @@ export default {
       }
     },
     "contentTier": {
-      "name": "Obsahuje položky, ktoré nespĺňajú naše publikačné kritériá",
+      "name": "Kvalita položky",
       "notification": "K dispozícii sú určité položky, ktoré sa nezhodujú s našimi kritériami. Tieto položky si môžete zobraziť aktiváciou filtra „Kvalita položky“ v časti „Ďalšie filtre“.",
       "options": {
         "*": "Obsahuje položky, ktoré nespĺňajú naše publikačné kritériá",
@@ -764,6 +764,12 @@ export default {
     }
   },
   "readMore": "Viac",
+  "recommendation": {
+    "prompts": {
+      "accept": "Palec hore pre pridanie do galérie",
+      "reject": "Palec dole, ak sa vám nepáči"
+    }
+  },
   "record": {
     "IIIFViewer": "Divák IIIF",
     "allMetaData": "Všetky metadáta",

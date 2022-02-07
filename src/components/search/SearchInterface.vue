@@ -430,7 +430,7 @@
         return this.$store.getters['search/hasResettableFilters'];
       },
       showContentTierToast() {
-        if (!process.browser) {
+        if (!process.browser || this.sideFiltersEnabled) {
           return;
         }
 
