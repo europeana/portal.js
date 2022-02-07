@@ -434,7 +434,7 @@ export default {
         "metadata": "Samo zapisi z metapodatki"
       },
       "switch": "Iskanje samo v vsebini elementov s polnim besedilom",
-      "switchMoreInfo": "V tej zbirki lahko iščete po informacijah, ki opisujejo predmet, kot v drugih zbirkah, tako da deaktivirate to stikalo. Lahko pa pustite ta gumb aktiven in iščete po besedilu časopisa in dokumenta."
+      "switchMoreInfo": "V tej zbirki lahko izberete, kaj želite iskati: če je to stikalo vklopljeno, boste iskali po besedilu časopisa in dokumenta; če je izklopljeno, boste iskali po informacijah, ki opisujejo predmet, tako kot v večini drugih zbirk."
     },
     "button": {
       "apply": "Prijavi se",
@@ -463,7 +463,7 @@ export default {
       }
     },
     "contentTier": {
-      "name": "Vključuje zapise, ki ne izpolnjujejo naših meril za objavo",
+      "name": "Kakovost artikla",
       "notification": "Nekateri predmeti, ki ne ustrezajo našim kriterijem objavljanja, so na voljo. Do teh predmetov lahko dostopate z aktivacijo filtra 'Kakovost predmetov' pod 'Več filtrov'.",
       "options": {
         "*": "Vključuje elemente, ki ne izpolnjujejo naših meril za objavo",
@@ -764,6 +764,12 @@ export default {
     }
   },
   "readMore": "Preberi več",
+  "recommendation": {
+    "prompts": {
+      "accept": "Palec gor za dodajanje v galerijo",
+      "reject": "Palec dol, če ti ni všeč"
+    }
+  },
   "record": {
     "IIIFViewer": "Pregledovalnik IIIF",
     "allMetaData": "Vsi metapodatki",

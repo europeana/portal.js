@@ -434,7 +434,7 @@ export default {
         "metadata": "Apenas registos de metadados"
       },
       "switch": "Pesquise apenas no conteúdo de itens com texto completo",
-      "switchMoreInfo": "Nesta coleção, você pode pesquisar nas informações que descrevem o item como faz em outras coleções, desativando essa alternância. Ou deixe essa alternância ativada para pesquisar no jornal e no texto do documento."
+      "switchMoreInfo": "Nesta coleção, você pode escolher o que deseja pesquisar: se esta opção estiver ativada, você pesquisará no jornal e no texto do documento; se estiver desativado, você pesquisará nas informações que descrevem o item, assim como sempre faz na maioria das outras coleções."
     },
     "button": {
       "apply": "Aplicar",
@@ -764,6 +764,12 @@ export default {
     }
   },
   "readMore": "Ler mais",
+  "recommendation": {
+    "prompts": {
+      "accept": "Polegar para cima para adicionar à galeria",
+      "reject": "Polegar para baixo se não lhe agrada"
+    }
+  },
   "record": {
     "IIIFViewer": "Visualizador IIIF",
     "allMetaData": "Todos os metadados",

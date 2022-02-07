@@ -434,7 +434,7 @@ export default {
         "metadata": "Pouze záznamy s metadaty"
       },
       "switch": "Vyhledávání pouze v obsahu položek s plným textem",
-      "switchMoreInfo": "V této sbírce můžete vyhledávat v informacích popisujících položku stejně jako v jiných sbírkách, pokud tento přepínač deaktivujete. Nebo ponechte tento přepínač aktivovaný a vyhledávejte v textu novin a dokumentu."
+      "switchMoreInfo": "V této kolekci si můžete vybrat, co chcete vyhledávat: pokud je tento přepínač zapnutý, budete vyhledávat v textu novin a dokumentů; pokud je vypnutý, budete místo toho vyhledávat v informacích popisujících položku, stejně jako ve většině ostatních kolekcí."
     },
     "button": {
       "apply": "Použít",
@@ -463,7 +463,7 @@ export default {
       }
     },
     "contentTier": {
-      "name": "Jsou zahrnuty položky, které nesplňují naše publikační kritéria.",
+      "name": "Kvalita položky",
       "notification": "Několik dostupných položek nesplňuje naše publikační kritéria. K těmto položkám získáte přístup po aktivaci filtru „přijatelnost položky“ v nabídce „více filtrů“.",
       "options": {
         "*": "Jsou zahrnuty položky, které nesplňují naše publikační kritéria.",
@@ -764,6 +764,12 @@ export default {
     }
   },
   "readMore": "Více informací",
+  "recommendation": {
+    "prompts": {
+      "accept": "Palec nahoru pro přidání do galerie",
+      "reject": "Palec dolů, pokud se vám to nelíbí"
+    }
+  },
   "record": {
     "IIIFViewer": "Prohlížeč IIIF",
     "allMetaData": "Všechna metadata",
