@@ -28,6 +28,7 @@ const factory = (options = {}) => {
 
   const mocks = {
     $t: (key) => key,
+    $tc: (key) => key,
     $tFacetName: (key) => key,
     $path: () => '/',
     $goto: () => null,

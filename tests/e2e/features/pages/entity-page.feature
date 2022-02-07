@@ -5,11 +5,11 @@ Feature: Entity page
     Then I see the `entity page`
     And I see an `entity title`
     And I don't have an `entity description`
-    And I see `total results`
     And I see a `search list view toggle`
     And I see a `search facet`
     And I should see 24 `item preview`s
     And I see a `pagination navigation`
+    And I see `total results`
     And I don't have a `contentTier facet`
     And I am on an accessible page
     And I should have a Europeana branded page title
