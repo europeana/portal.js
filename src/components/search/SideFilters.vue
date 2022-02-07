@@ -13,8 +13,11 @@
       <b-row
         class="border-bottom border-top d-flex justify-content-between align-items-center"
       >
-        <h2 class="filters-title">
-          {{ $t('filterResults') }}
+        <h2
+          class="filters-title"
+          data-qa="total results"
+        >
+          {{ $tc('items.itemCount', totalResultsLocalised, { count: totalResultsLocalised }) }}
         </h2>
         <button
           v-if="isFilteredByDropdowns()"
@@ -125,7 +128,8 @@
         facets: state => state.search.facets,
         resettableFilters: state => state.search.resettableFilters,
         showFiltersSheet: state => state.search.showFiltersSheet,
-        userParams: state => state.search.userParams
+        userParams: state => state.search.userParams,
+        totalResults: state => state.search.totalResults
       }),
       ...mapGetters({
         facetNames: 'search/facetNames',
@@ -196,6 +200,9 @@
           return { start: proxyDctermsIssued[0], end: null, specific: true };
         }
         return range;
+      },
+      totalResultsLocalised() {
+        return this.$options.filters.localise(this.totalResults);
       }
     },
     watch: {

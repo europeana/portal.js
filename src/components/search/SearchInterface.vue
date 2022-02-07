@@ -74,11 +74,6 @@
       class="mb-3"
     >
       <b-col>
-        <p data-qa="total results">
-          {{ $t('results') }}: {{ totalResults | localise }}
-        </p>
-      </b-col>
-      <b-col>
         <ViewToggles
           v-model="view"
           :link-gen-route="route"

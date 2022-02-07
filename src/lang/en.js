@@ -569,7 +569,6 @@ export default {
     }
   },
   "filter": "Filter",
-  "filterResults": "Filter results",
   "footer": {
     "customiseWebsiteLanguage": "Customise website language",
     "disclaimerLine1": "Europeana is an initiative of the European Union, financed by the European Union’s Connecting Europe Facility and European Union Member States. The Europeana services, including this website, are operated by a consortium led by the Europeana Foundation under a service contract with the European Commission.",
@@ -791,7 +790,6 @@ export default {
   "removeFilter": "Remove {filterLabel} filter",
   "reset": "Reset",
   "resourceWikimedia": "Resource from Wikimedia Commons",
-  "results": "Results",
   "resultsLimitWarning": "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
   "search": "Search",
   "searchPlaceholder": "Search millions of items",
