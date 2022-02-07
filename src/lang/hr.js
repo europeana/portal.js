@@ -434,7 +434,7 @@ export default {
         "metadata": "Metapodaci-samo zapisi"
       },
       "switch": "Pretraživanje samo u sadržaju stavki s cijelim tekstom",
-      "switchMoreInfo": "U ovoj zbirci možete pretraživati unutar informacija koje opisuju stavku kao u drugim zbirkama deaktiviranjem ovog preklopnog gumba. Ili ostavite ovaj preklopni gumb aktiviran za pretraživanje unutar novina i teksta dokumenta."
+      "switchMoreInfo": "U ovoj zbirci možete odabrati što želite tražiti: ako je ovaj prekidač uključen, pretražit ćete unutar novina i teksta dokumenta; ako je isključena, umjesto toga pretražit ćete unutar informacija koje opisuju stavku, baš kao što to uvijek činite u većini drugih zbirki."
     },
     "button": {
       "apply": "Primijeni",
@@ -463,7 +463,7 @@ export default {
       }
     },
     "contentTier": {
-      "name": "Uključuje stavke koje ne ispunjavaju naše kriterije objavljivanja",
+      "name": "Kvaliteta artikla",
       "notification": "Dostupne su neke stavke koje ne odgovaraju našim kriterijima za objavu. Tim stavkama možete pristupiti aktiviranjem filtra \"Kvaliteta stavka\" u odjeljku \"Više filtara\".",
       "options": {
         "*": "Uključuje stavke koje ne ispunjavaju naše kriterije objavljivanja",

@@ -434,7 +434,7 @@ export default {
         "metadata": "Metadatuak soilik diren elementuak"
       },
       "switch": "Bilatu testu osoa duten elementuen edukian soilik",
-      "switchMoreInfo": "Bilduma honetan, elementua deskribatzen duen informazioan beste bilduma batzuetan egiten duzun bezala bilatu dezakezu etengailu hau desaktibatuta. Edo utzi etengailu hau aktibatuta egunkariaren eta dokumentuaren testuan bilatzeko."
+      "switchMoreInfo": "Bilduma honetan, zer bilatu nahi duzun aukeratu dezakezu: etengailu hau aktibatuta badago, egunkariaren eta dokumentuaren testuaren barruan bilatuko duzu; desaktibatuta badago, elementua deskribatzen duen informazioaren barruan bilatuko duzu, beste bilduma gehienetan beti egiten duzun bezala."
     },
     "button": {
       "apply": "Aplikatu",
@@ -764,6 +764,12 @@ export default {
     }
   },
   "readMore": "Gehiago irakurri",
+  "recommendation": {
+    "prompts": {
+      "accept": "Erpurua gora galerian gehitzeko",
+      "reject": "Erpurua behera gustatzen ez bazaizu"
+    }
+  },
   "record": {
     "IIIFViewer": "IIIF ikuslea",
     "allMetaData": "Metadatu guztiak",

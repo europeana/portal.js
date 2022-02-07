@@ -297,7 +297,7 @@
         return updated;
       },
       showContentTierToast() {
-        if (!process.browser) {
+        if (!process.browser || this.sideFiltersEnabled) {
           return;
         }
 

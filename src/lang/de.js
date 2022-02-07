@@ -434,7 +434,7 @@ export default {
         "metadata": "Nur-Metadaten Aufzeichnungen"
       },
       "switch": "Suchen Sie nur im Inhalt von Artikeln mit Volltext",
-      "switchMoreInfo": "In dieser Sammlung können Sie entweder innerhalb der Informationen suchen, die das Element beschreiben, wie Sie es in anderen Sammlungen tun, indem Sie diesen Schalter deaktivieren. Oder lassen Sie diesen Schalter aktiviert, um im Zeitungs- und Dokumenttext zu suchen."
+      "switchMoreInfo": "In dieser Sammlung können Sie auswählen, wonach Sie suchen möchten: Wenn dieser Schalter eingeschaltet ist, suchen Sie innerhalb des Zeitungs- und Dokumententextes; Wenn es deaktiviert ist, suchen Sie stattdessen in den Informationen, die das Element beschreiben, so wie Sie es in den meisten anderen Sammlungen immer tun."
     },
     "button": {
       "apply": "Anwenden",
@@ -463,7 +463,7 @@ export default {
       }
     },
     "contentTier": {
-      "name": "Enthält Objekt, die nicht unseren Veröffentlichungskriterien entsprechen",
+      "name": "Objektqualität",
       "notification": "Es sind einige Objekte verfügbar, die nicht unseren Veröffentlichungskriterien entsprechen. Sie können auf diese Objekte zugreifen, indem Sie den Filter 'Objektqualität' unter 'Weitere Filter' aktivieren.",
       "options": {
         "*": "Enthält Objekte, die nicht unseren Veröffentlichungskriterien entsprechen",
@@ -764,6 +764,12 @@ export default {
     }
   },
   "readMore": "Mehr anzeigen",
+  "recommendation": {
+    "prompts": {
+      "accept": "Daumen hoch zum Hinzufügen zur Galerie",
+      "reject": "Daumen runter, wenn es dir nicht gefällt"
+    }
+  },
   "record": {
     "IIIFViewer": "IIIF-Viewer",
     "allMetaData": "Alle Metadaten",

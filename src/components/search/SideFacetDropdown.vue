@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!fetched || fields.length > 0 || selectedFilters[this.name].length > 0">
+  <div v-if="!fetched || fields.length > 0 || selectedFilters[name].length > 0">
     <label
       class="facet-label"
     >{{ facetName }}</label>

@@ -434,7 +434,7 @@ export default {
         "metadata": "Metadata-endast register"
       },
       "switch": "Sök endast i innehållet i objekt med fulltext",
-      "switchMoreInfo": "I den här samlingen kan du antingen söka i informationen som beskriver objektet som du gör i andra samlingar genom att avaktivera denna växel. Eller lämna denna reglage aktiverad för att söka i tidningen och dokumenttexten."
+      "switchMoreInfo": "I den här samlingen kan du välja vad du vill söka efter: om den här knappen är på, så kommer du att söka i tidningen och dokumenttexten; om den är avstängd kommer du istället att söka i informationen som beskriver föremålet, precis som du alltid gör i de flesta andra samlingar."
     },
     "button": {
       "apply": "Tillämpa",
@@ -463,7 +463,7 @@ export default {
       }
     },
     "contentTier": {
-      "name": "Innefattar objekt som inte uppfyller våra publiceringsvillkor",
+      "name": "Objektets kvalitet",
       "notification": "Några objekt som inte matchar våra publiceringsvillkor finns tillgängliga. Du får åtkomst till dessa objekt genom att aktivera filtret \"Föremålskvalitet\" under \"Fler filter\".",
       "options": {
         "*": "Innefattar objekt som inte uppfyller våra publiceringsvillkor",
@@ -764,6 +764,12 @@ export default {
     }
   },
   "readMore": "Läs mer",
+  "recommendation": {
+    "prompts": {
+      "accept": "Tummen upp för att lägga till i galleriet",
+      "reject": "Tumma ner om du ogillar det"
+    }
+  },
   "record": {
     "IIIFViewer": "IIIF-tittare",
     "allMetaData": "Alla metadata",
