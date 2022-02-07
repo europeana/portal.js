@@ -26,7 +26,7 @@
     "test:visual": "touch tests/e2e/docker/nightwatch-visual/.env && docker-compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-visual",
     "test:watch": "jest --watch",
     "test": "npm run test:unit && npm run test:size && npm run test:e2e",
-    "version": "node --experimental-json-modules bin/version.js && git add .sonarcloud.properties"
+    "version": "node --experimental-json-modules bin/version.js && git add sonar-project.properties"
   },
   "dependencies": {
     "@elastic/apm-rum-vue": "^1.3.1",
