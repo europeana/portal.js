@@ -204,28 +204,57 @@ describe('components/search/SideFilters', () => {
     });
 
     describe('when on the newspaper collection', () => {
+      const searchStoreGetters = {
+        collection: () => 'newspaper',
+        filters: () => ({})
+      };
+
       describe('enableDateFilter', () => {
         it('is true', async() => {
-          const searchStoreGetters = {
-            collection: () => 'newspaper',
-            filters: () => {
-              return { api: 'fulltext' };
-            }
-          };
           const wrapper = factory({ searchStoreGetters });
           expect(wrapper.vm.enableDateFilter).toBe(true);
         });
       });
+
       describe('enableApiFilter', () => {
         it('is true', async() => {
-          const searchStoreGetters = {
-            collection: () => 'newspaper',
-            filters: () => {
-              return { api: 'fulltext' };
-            }
-          };
           const wrapper = factory({ searchStoreGetters });
           expect(wrapper.vm.enableApiFilter).toBe(true);
+        });
+      });
+
+      describe('apiFilterDefaultValue', () => {
+        it('is "fulltext"', async() => {
+          const wrapper = factory({ searchStoreGetters });
+          expect(wrapper.vm.apiFilterDefaultValue).toBe('fulltext');
+        });
+      });
+    });
+
+    describe('when on the ww1 collection', () => {
+      const searchStoreGetters = {
+        collection: () => 'ww1',
+        filters: () => ({})
+      };
+
+      describe('enableDateFilter', () => {
+        it('is false', async() => {
+          const wrapper = factory({ searchStoreGetters });
+          expect(wrapper.vm.enableDateFilter).toBe(false);
+        });
+      });
+
+      describe('enableApiFilter', () => {
+        it('is true', async() => {
+          const wrapper = factory({ searchStoreGetters });
+          expect(wrapper.vm.enableApiFilter).toBe(true);
+        });
+      });
+
+      describe('apiFilterDefaultValue', () => {
+        it('is "metadata"', async() => {
+          const wrapper = factory({ searchStoreGetters });
+          expect(wrapper.vm.apiFilterDefaultValue).toBe('metadata');
         });
       });
     });

@@ -48,6 +48,7 @@
                 :tooltip="$t('facets.api.switchMoreInfo')"
                 checked-value="fulltext"
                 unchecked-value="metadata"
+                :default-value="apiFilterDefaultValue"
                 @changed="changeFacet"
               />
               <SideDateFilter
@@ -76,6 +77,7 @@
                 :label="$t('facets.contentTier.options.0')"
                 checked-value="&quot;0&quot;"
                 :unchecked-value="null"
+                :default-value="null"
                 @changed="changeFacet"
               />
             </div>
@@ -183,6 +185,15 @@
       },
       enableApiFilter() {
         return this.API_FILTER_COLLECTIONS.includes(this.collection);
+      },
+      apiFilterDefaultValue() {
+        if (this.collection === 'newspaper') {
+          return 'fulltext';
+        } else if (this.collection === 'ww1') {
+          return 'metadata';
+        } else {
+          return null;
+        }
       },
       enableDateFilter() {
         return this.DATE_FILTER_COLLECTIONS.includes(this.collection);

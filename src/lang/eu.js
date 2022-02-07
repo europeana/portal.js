@@ -30,12 +30,15 @@ export default {
     "accept": "Onartu",
     "cancel": "Utzi",
     "close": "itxi",
+    "continue": "jarraitu",
     "download": "Deskargatu",
     "edit": "Editatu",
     "feedback": "Iritzia",
     "goBack": "Atzera egin",
+    "goHome": "Joan hasierako orrialdera",
     "like": "Atsegin dut",
     "next": "Hurrengoa",
+    "pin": "Pin",
     "providedBy": "{provider} emanda",
     "reject": "Baztertu",
     "send": "Bidali",
@@ -72,6 +75,7 @@ export default {
   "cardLabels": {
     "organisation": "Antolaketa",
     "person": "Pertsona",
+    "theme": "Gaia",
     "time": "Mendea",
     "topic": "Gai"
   },
@@ -352,7 +356,48 @@ export default {
       }
     },
     "LANGUAGE": {
-      "name": "Hizkuntza | Hizkuntzak"
+      "name": "Hizkuntza | Hizkuntzak",
+      "options": {
+        "ar": "Arabiera",
+        "bg": "Bulgariera",
+        "bs": "Bosniarra",
+        "ca": "Katalana",
+        "cs": "Txekiar",
+        "cy": "Galesera",
+        "da": "Daniera",
+        "de": "Alemana",
+        "el": "Grekoa",
+        "en": "Ingelesa",
+        "es": "Gaztelania",
+        "et": "Estoniarra",
+        "fi": "Finlandiera",
+        "fr": "Frantsesa",
+        "ga": "Irlandarra",
+        "gd": "Gaelikoa",
+        "he": "Hebreera",
+        "hr": "Kroaziera",
+        "hu": "Hungariera",
+        "is": "Islandiera",
+        "it": "Italiera",
+        "lt": "Lituaniera",
+        "lv": "Letoniera",
+        "mk": "Mazedoniera",
+        "mt": "Maltera",
+        "mul": "Hainbat hizkuntza",
+        "nl": "Holandarra",
+        "no": "Norvegiarra",
+        "pl": "Poloniarra",
+        "pt": "Portugesa",
+        "ro": "Errumaniera",
+        "ru": "Errusiera",
+        "sk": "Eslovakiera",
+        "sl": "Esloveniera",
+        "sq": "Albaniarra",
+        "sr": "Serbiarra",
+        "sv": "Suediera",
+        "tr": "Turkiera",
+        "uk": "Ukrainara"
+      }
     },
     "MIME_TYPE": {
       "name": "Fitxategiaren formatua | Fitxategien formatuak",
@@ -387,7 +432,9 @@ export default {
       "options": {
         "fulltext": "Testu osoko elementuak",
         "metadata": "Metadatuak soilik diren elementuak"
-      }
+      },
+      "switch": "Bilatu testu osoa duten elementuen edukian soilik",
+      "switchMoreInfo": "Bilduma honetan, elementua deskribatzen duen informazioan beste bilduma batzuetan egiten duzun bezala bilatu dezakezu etengailu hau desaktibatuta. Edo utzi etengailu hau aktibatuta egunkariaren eta dokumentuaren testuan bilatzeko."
     },
     "button": {
       "apply": "Aplikatu",
@@ -420,7 +467,11 @@ export default {
       "notification": "Gure argitalpen irizpideekin bat ez datozen zenbait elementu eskuragarri daude. Elementu horietara sar zaitezke \"Elementuen kalitatea\" iragazkia aktibatuta, \"Iragazki gehiago\" aukeraren azpian.",
       "options": {
         "*": "Gure argitalpen irizpideak betetzen ez dituzten elementuak barne hartzen ditu",
-        "0": "Erakutsi soilik gure argitalpen irizpideak betetzen ez dituzten elementuak"
+        "0": "Erakutsi soilik gure argitalpen irizpideak betetzen ez dituzten elementuak",
+        "1": "Kalitate baxua",
+        "2": "Kalitate ertaina",
+        "3": "Kalitate handiko eta baldintzarekin berrerabilgarria",
+        "4": "Kalitate handikoa eta libreki berrerabil daitekeena"
       }
     },
     "proxy_dc_format": {
@@ -579,7 +630,6 @@ export default {
     "itemCount": "Elementu 1 | {count} elementu",
     "itemOf": "{max}/{count} elementu",
     "recent": "Azken elementuak",
-    "recommendationsDisclaimer": "Erpurua gora galerian gehitzeko - Erpurua behera gustatzen ez bazaizu",
     "recommended": "Gomendatutako elementuak",
     "youMightLike": "Gustatu ahal zaizkizun elementuak"
   },
@@ -643,6 +693,10 @@ export default {
         "description": "Bisitariek webgunearekin duten harremanari buruzko estatistika anonimoak biltzen ditu.",
         "title": "Matomo"
       },
+      "newFeatureNotification": {
+        "description": "Jakinarazpen bat erakusten du funtzio berriak erabilgarri daudenean.",
+        "title": "Ezaugarri berrien jakinarazpena"
+      },
       "searchResultsView": {
         "description": "Gogoratzen duzu bilaketa-emaitzak zerrenda edo sareta ikuspegian ikustea nahiago baduzu.",
         "title": "Bilaketaren emaitzen ikuspegia (zerrenda / sareta)"
@@ -653,25 +707,8 @@ export default {
     "skipToMain": "Orrialdearen edukietara joan"
   },
   "learnMore": "Deskribapen honen iturria ezagutu",
-  "linksToClassic": {
-    "home": {
-      "linkText": "Ikusi orri hau Europeana jatorrizko webgunean 2021eko abenduaren 20ra arte.",
-      "text": "Europeana esperientzia berria ikusten ari zara."
-    },
-    "record": {
-      "linkText": "Ikusi elementu hau Europeana jatorrizko webgunean 2021eko abenduaren 20ra arte.",
-      "text": "Elementu hau Europeanaren webgune berrian ikusten ari zara."
-    },
-    "search": {
-      "linkText": "Bilatu jatorrizko Europeana webgunean 2021eko abenduaren 20ra arte.",
-      "text": "Gure webgune berri eta azkarragoan bilatzen ari zara."
-    }
-  },
   "loading": "Kargatzen",
   "loadingResults": "Emaitzak kargatzen",
-  "mediaPreview": {
-    "selectItem": "Aukeratu elementua {src}"
-  },
   "messages": {
     "copyToClipboardSuccess": "Arbelera kopiatu da",
     "externalContentError": "Ezin izan da kanpoko edukia kargatu",
@@ -692,6 +729,13 @@ export default {
     "stopTranslating": "Utzi elementu hau itzultzeari {0}.",
     "translateLanguage": "{0} -n ikusi nahi duzu?",
     "translateQuotaError": "Itzulpen zerbitzua ez dago aldi baterako erabilgarri. Saiatu berriro geroago."
+  },
+  "newFeatureNotification": {
+    "dismiss": "Baztertu",
+    "readMore": "Gehiago irakurri",
+    "text": {
+      "sideFilters": "Ikusi iragazki berriak! Orain bilaketa-emaitzen eskuinaldean ikusgai daude guztiak."
+    }
   },
   "newWindow": "leiho berrian irekiko da",
   "noMoreResults": "Ez dago emaitza gehiagorik zure bilaketarako.",
@@ -724,7 +768,6 @@ export default {
     "IIIFViewer": "IIIF ikuslea",
     "allMetaData": "Metadatu guztiak",
     "copyEmbedLabel": "Embed kodea (Egin klik kopiatzeko)",
-    "downloadCopyrightInfo": "Elementu horrek copyright dauka eta ezin da deskargatu.",
     "exploreMore": "Gehiago arakatu",
     "extendedInformation": "Informazio zabaldua",
     "goodToKnow": "Ondo dago jakitea",
@@ -736,12 +779,7 @@ export default {
     "showAll": "Informazio guztia erakutsi",
     "similarItems": "Antzeko elementuak",
     "transcription": "Transkripzioa",
-    "transcriptionDisclaimer": "Eduki hori jendeak egin du, eta ez elementu hau eman duen erakundeak",
-    "view": {
-      "image": "Irudia ikusi",
-      "media": "Materialak ikusi",
-      "pdf": "PDFa ikusi"
-    }
+    "transcriptionDisclaimer": "Eduki hori jendeak egin du, eta ez elementu hau eman duen erakundeak"
   },
   "relatedCollections": "Lotutako bildumak",
   "removeFilter": "Kendu {filterLabel} iragazkia",
@@ -767,7 +805,8 @@ export default {
   },
   "searchViews": {
     "grid": "Lauki-sare ikuspegia",
-    "list": "Zerrenda ikuspegia"
+    "list": "Zerrenda ikuspegia",
+    "mosaic": "Mosaiko ikuspegia"
   },
   "set": {
     "actions": {
@@ -776,6 +815,7 @@ export default {
       "createNew": "Bilduma berria sortu",
       "delete": "Bilduma ezabatu",
       "edit": "Bilduma editatu",
+      "save": "Gorde",
       "update": "Bilduma eguneratu"
     },
     "form": {
@@ -802,5 +842,9 @@ export default {
   },
   "showLess": "Gutxiago erakutsi",
   "showMore": "Gehiago erakutsi",
+  "statuses": {
+    "liked": "Gustatu",
+    "pinned": "Ainguratuta"
+  },
   "website": "Webgunea"
 };

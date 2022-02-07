@@ -232,6 +232,10 @@
       this.init();
     },
 
+    destroyed() {
+      this.$store.commit('search/removeResettableFilter', this.name);
+    },
+
     methods: {
       filterContentTierFields(fields) {
         // In general, only show option 0
