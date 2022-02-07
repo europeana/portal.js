@@ -1,15 +1,22 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
+import sinon from 'sinon';
+
 import BootstrapVue from 'bootstrap-vue';
 import SideSwitchFilter from '@/components/search/SideSwitchFilter';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
+const storeDispatchSpy = sinon.spy();
+
 const factory = (propsData = {}, keyMock) => {
   return shallowMount(SideSwitchFilter, {
     localVue,
     propsData,
     mocks: {
+      $store: {
+        dispatch: storeDispatchSpy
+      },
       $t: (key) => keyMock || key,
       $tFacetName: (key) => key
     }
@@ -17,6 +24,8 @@ const factory = (propsData = {}, keyMock) => {
 };
 
 describe('components/search/SideSwitchFilter', () => {
+  beforeEach(sinon.resetHistory);
+
   describe('when the value passed in matches the checked value', () => {
     it('is switched on', () => {
       const wrapper = factory({
@@ -45,6 +54,68 @@ describe('components/search/SideSwitchFilter', () => {
 
         const switchChecked = wrapper.find('[data-qa="switch filter more info button"]');
         expect(switchChecked.exists()).toBe(true);
+      });
+    });
+  });
+
+  describe('methods', () => {
+    describe('init', () => {
+      it('updates localValue from value', () => {
+        const wrapper = factory({
+          value: 'metadata',
+          name: 'api',
+          checkedValue: 'fulltext',
+          uncheckedValue: 'metadata',
+          defaultValue: 'fulltext'
+        });
+        wrapper.setData({
+          localValue: 'fulltext'
+        });
+        expect(wrapper.vm.localValue).toBe('fulltext');
+
+        wrapper.vm.init();
+
+        expect(wrapper.vm.localValue).toBe('metadata');
+      });
+
+      it('flags the filter as resettable if not at its default value', () => {
+        const wrapper = factory({
+          value: 'metadata',
+          name: 'api',
+          checkedValue: 'fulltext',
+          uncheckedValue: 'metadata',
+          defaultValue: 'fulltext'
+        });
+
+        wrapper.vm.init();
+
+        expect(storeDispatchSpy.calledWith(
+          'search/setResettableFilter',
+          {
+            name: 'api',
+            selected: 'metadata'
+          }
+        )).toBe(true);
+      });
+
+      it('flags the filter as not resettable if at its default value', () => {
+        const wrapper = factory({
+          value: 'fulltext',
+          name: 'api',
+          checkedValue: 'fulltext',
+          uncheckedValue: 'metadata',
+          defaultValue: 'fulltext'
+        });
+
+        wrapper.vm.init();
+
+        expect(storeDispatchSpy.calledWith(
+          'search/setResettableFilter',
+          {
+            name: 'api',
+            selected: null
+          }
+        )).toBe(true);
       });
     });
   });

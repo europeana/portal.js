@@ -75,6 +75,16 @@
       },
 
       /**
+       * Value to consider default for the switch
+       *
+       * If the switch is set to its default value, it is not resettable.
+       */
+      defaultValue: {
+        type: String,
+        default: 'unchecked'
+      },
+
+      /**
        * Text for the switch label
        */
       label: {
@@ -95,6 +105,30 @@
       return {
         localValue: this.value
       };
+    },
+
+    watch: {
+      value() {
+        this.init();
+      }
+    },
+
+    mounted() {
+      this.init();
+    },
+
+    destroyed() {
+      this.$store.commit('search/removeResettableFilter', this.name);
+    },
+
+    methods: {
+      init() {
+        this.localValue = this.value;
+        this.$store.dispatch('search/setResettableFilter', {
+          name: this.name,
+          selected: (this.localValue === this.defaultValue) ? null : this.localValue
+        });
+      }
     }
   };
 </script>

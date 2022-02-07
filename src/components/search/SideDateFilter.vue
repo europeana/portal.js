@@ -120,6 +120,10 @@
       this.init();
     },
 
+    destroyed() {
+      this.$store.commit('search/removeResettableFilter', this.name);
+    },
+
     methods: {
       init() {
         this.form = {
