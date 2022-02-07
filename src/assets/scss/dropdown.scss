@@ -310,6 +310,8 @@
 
     .dropdown-toggle-text {
       opacity: 0;
+      min-width: 0;
+      overflow: hidden;
     }
 
     .dropdown-toggle {
