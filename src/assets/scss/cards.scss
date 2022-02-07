@@ -736,6 +736,30 @@
         width: calc(100% / 4 - #{$grid-gutter * 2});
       }
     }
+    .header-card {
+      margin-bottom: 1.5rem;
+
+      @media (max-width: $bp-medium) {
+        &[style] {
+          position: relative !important;
+          left: auto !important;
+          top: auto !important;
+        }
+      }
+      @media (min-width: $bp-medium) {
+        width: calc(100% - #{$grid-gutter * 2});
+        margin-left: 15px;
+        margin-right: 15px;
+      }
+
+      @media (min-width: $bp-large) {
+        width: calc(100% / 1.5 - #{$grid-gutter * 2});
+      }
+
+      @media (min-width: $bp-extralarge) {
+        width: calc(100% / 2 - #{$grid-gutter * 2});
+      }
+    }
   }
 }
 

@@ -2,8 +2,12 @@
   <div
     data-qa="entity page"
     class="entity-page"
+    :class="{'top-header': !$features.entityHeaderCards}"
   >
-    <b-container fluid>
+    <b-container
+      v-if="!$features.entityHeaderCards"
+      fluid
+    >
       <b-row class="flex-md-row pt-5 bg-white mb-3">
         <b-col
           cols="12"
@@ -72,7 +76,14 @@
                 :route="route"
                 :show-content-tier-toggle="false"
                 :show-pins="userIsEditor && userIsSetsEditor"
-              />
+              >
+                <EntityHeader
+                  v-if="$features.entityHeaderCards"
+                  :description="description"
+                  :title="title"
+                  :logo="logo"
+                />
+              </SearchInterface>
             </b-container>
             <b-container class="px-0">
               <BrowseSections
@@ -110,9 +121,8 @@
       ClientOnly,
       EntityDetails,
       SearchInterface,
-      EntityUpdateModal: () => import('../../../components/entity/EntityUpdateModal'),
-      RelatedCollections: () => import('../../../components/generic/RelatedCollections'),
-      SideFilters: () => import('../../../components/search/SideFilters')
+      SideFilters: () => import('../../../components/search/SideFilters'),
+      EntityHeader: () => import('@/components/entity/EntityHeader')
     },
 
     async beforeRouteLeave(to, from, next) {
@@ -408,7 +418,9 @@
   @import '@/assets/scss/variables';
 
   .entity-page {
-    margin-top: -1rem;
+    &.top-header{
+      margin-top: -1rem;
+    }
 
     .related-collections {
       padding: 0;

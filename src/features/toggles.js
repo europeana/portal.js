@@ -6,5 +6,6 @@ export default [
   { name: 'jiraServiceDeskFeedbackForm' },
   { name: 'rejectEntityRecommendations' },
   { name: 'sideFilters' },
-  { name: 'translatedItems' }
+  { name: 'translatedItems' },
+  { name: 'entityHeaderCards' }
 ];

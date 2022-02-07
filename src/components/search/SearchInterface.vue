@@ -115,7 +115,9 @@
               :view="view"
               :per-row="perRow"
               :show-pins="showPins"
-            />
+            >
+              <slot />
+            </ItemPreviewCardGroup>
             <InfoMessage
               v-if="lastAvailablePage"
             >
