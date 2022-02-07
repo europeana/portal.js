@@ -6,7 +6,7 @@ export default {
     "likes": "Gostos",
     "linkAccount": "A minha conta",
     "linkLogin": "Inicie sessão",
-    "linkLoginJoin": "Entrar/Criar conta",
+    "linkLoginJoin": "Entrar\/Criar conta",
     "linkLogout": "Encerrar sessão",
     "myProfile": "Meu perfil",
     "notifications": {
@@ -402,7 +402,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formato de ficheiro | Formatos de ficheiros",
       "options": {
-        "text/plain": "Texto simples"
+        "text\/plain": "Texto simples"
       }
     },
     "PROVIDER": {
@@ -434,7 +434,7 @@ export default {
         "metadata": "Apenas registos de metadados"
       },
       "switch": "Pesquise apenas no conteúdo de itens com texto completo",
-      "switchMoreInfo": "Nesta coleção, você pode pesquisar nas informações que descrevem o item como faz em outras coleções, desativando essa alternância. Ou deixe essa alternância ativada para pesquisar no jornal e no texto do documento."
+      "switchMoreInfo": "Nesta coleção, você pode escolher o que deseja pesquisar: se esta opção estiver ativada, você pesquisará no jornal e no texto do documento; se estiver desativado, você pesquisará nas informações que descrevem o item, assim como sempre faz na maioria das outras coleções."
     },
     "button": {
       "apply": "Aplicar",
@@ -667,7 +667,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Ajuda a melhorar o nosso site, aplicando ocasionalmente alterações experimentais.",
-        "title": "Teste A/B"
+        "title": "Teste A\/B"
       },
       "auth-strategy": {
         "description": "Lembra a estratégia de autorização a ser usada para fazer login.",
@@ -699,7 +699,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Lembra-se se preferir ver os resultados da pesquisa numa lista ou numa visualização em grelha.",
-        "title": "Visualização de resultado de pesquisa (lista/grade)"
+        "title": "Visualização de resultado de pesquisa (lista\/grade)"
       }
     }
   },
@@ -764,6 +764,12 @@ export default {
     }
   },
   "readMore": "Ler mais",
+  "recommendation": {
+    "prompts": {
+      "accept": "Polegar para cima para adicionar à galeria",
+      "reject": "Polegar para baixo se não lhe agrada"
+    }
+  },
   "record": {
     "IIIFViewer": "Visualizador IIIF",
     "allMetaData": "Todos os metadados",

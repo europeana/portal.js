@@ -6,7 +6,7 @@ export default {
     "likes": "Atsegin |",
     "linkAccount": "Nire kontua",
     "linkLogin": "Saioa hasi",
-    "linkLoginJoin": "Saioa hasi/Sartu",
+    "linkLoginJoin": "Saioa hasi\/Sartu",
     "linkLogout": "Saioa amaitu",
     "myProfile": "Nire profila",
     "notifications": {
@@ -402,7 +402,7 @@ export default {
     "MIME_TYPE": {
       "name": "Fitxategiaren formatua | Fitxategien formatuak",
       "options": {
-        "text/plain": "Testu arrunta"
+        "text\/plain": "Testu arrunta"
       }
     },
     "PROVIDER": {
@@ -434,7 +434,7 @@ export default {
         "metadata": "Metadatuak soilik diren elementuak"
       },
       "switch": "Bilatu testu osoa duten elementuen edukian soilik",
-      "switchMoreInfo": "Bilduma honetan, elementua deskribatzen duen informazioan beste bilduma batzuetan egiten duzun bezala bilatu dezakezu etengailu hau desaktibatuta. Edo utzi etengailu hau aktibatuta egunkariaren eta dokumentuaren testuan bilatzeko."
+      "switchMoreInfo": "Bilduma honetan, zer bilatu nahi duzun aukeratu dezakezu: etengailu hau aktibatuta badago, egunkariaren eta dokumentuaren testuaren barruan bilatuko duzu; desaktibatuta badago, elementua deskribatzen duen informazioaren barruan bilatuko duzu, beste bilduma gehienetan beti egiten duzun bezala."
     },
     "button": {
       "apply": "Aplikatu",
@@ -628,7 +628,7 @@ export default {
   },
   "items": {
     "itemCount": "Elementu 1 | {count} elementu",
-    "itemOf": "{max}/{count} elementu",
+    "itemOf": "{max}\/{count} elementu",
     "recent": "Azken elementuak",
     "recommended": "Gomendatutako elementuak",
     "youMightLike": "Gustatu ahal zaizkizun elementuak"
@@ -667,7 +667,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Gure webgunea hobetzen laguntzen du noizean behin aldaketa esperimentalak aplikatuz.",
-        "title": "A / B probak"
+        "title": "A \/ B probak"
       },
       "auth-strategy": {
         "description": "Saioa hasteko erabili beharreko baimen estrategia gogoratzen du.",
@@ -699,7 +699,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Gogoratzen duzu bilaketa-emaitzak zerrenda edo sareta ikuspegian ikustea nahiago baduzu.",
-        "title": "Bilaketaren emaitzen ikuspegia (zerrenda / sareta)"
+        "title": "Bilaketaren emaitzen ikuspegia (zerrenda \/ sareta)"
       }
     }
   },
@@ -764,6 +764,12 @@ export default {
     }
   },
   "readMore": "Gehiago irakurri",
+  "recommendation": {
+    "prompts": {
+      "accept": "Erpurua gora galerian gehitzeko",
+      "reject": "Erpurua behera gustatzen ez bazaizu"
+    }
+  },
   "record": {
     "IIIFViewer": "IIIF ikuslea",
     "allMetaData": "Metadatu guztiak",

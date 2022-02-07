@@ -6,7 +6,7 @@ export default {
     "likes": "Synes om'er",
     "linkAccount": "Min konto",
     "linkLogin": "Log ind",
-    "linkLoginJoin": "Login/Deltag",
+    "linkLoginJoin": "Login\/Deltag",
     "linkLogout": "Log ud",
     "myProfile": "Min profil",
     "notifications": {
@@ -402,7 +402,7 @@ export default {
     "MIME_TYPE": {
       "name": "Filformat | Filformater",
       "options": {
-        "text/plain": "Almindelig tekst"
+        "text\/plain": "Almindelig tekst"
       }
     },
     "PROVIDER": {
@@ -434,7 +434,7 @@ export default {
         "metadata": "Kun metadata-poster"
       },
       "switch": "Søg kun i indholdet af elementer med fuldtekst",
-      "switchMoreInfo": "I denne samling kan du enten søge i de oplysninger, der beskriver elementet, som du gør i andre samlinger, ved at deaktivere denne til/fra-til-knap. Eller lad denne til/fra aktiveret for at søge i avisen og dokumentteksten."
+      "switchMoreInfo": "I denne samling kan du vælge, hvad du vil søge efter: Hvis denne knap er slået til, vil du søge i avis- og dokumentteksten; hvis den er slået fra, vil du i stedet søge i de oplysninger, der beskriver emnet, ligesom du altid gør i de fleste andre samlinger."
     },
     "button": {
       "apply": "Anvend",
@@ -463,7 +463,7 @@ export default {
       }
     },
     "contentTier": {
-      "name": "Indeholder emner, der ikke opfylder vores udgivelseskriterier",
+      "name": "Varekvalitet",
       "notification": "Nogle artikler, som ikke opfylder vores udgivelseskriterier, er tilgængelige. Du kan få adgang til disse artikler ved at aktivere filteret 'Artikelkvalitet' under 'Flere filtre'.",
       "options": {
         "*": "Indeholder artikler, der ikke opfylder vores udgivelseskriterier",
@@ -667,7 +667,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Hjælper med at forbedre vores websted ved lejlighedsvis at anvende eksperimentelle ændringer.",
-        "title": "A/B-testning"
+        "title": "A\/B-testning"
       },
       "auth-strategy": {
         "description": "Husker autorisationsstrategien, der skal bruges til at logge ind.",
@@ -699,7 +699,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Husk, hvis du foretrækker at se søgeresultaterne i en liste- eller gittervisning.",
-        "title": "Visning af søgeresultater (liste / gitter)"
+        "title": "Visning af søgeresultater (liste \/ gitter)"
       }
     }
   },
@@ -764,6 +764,12 @@ export default {
     }
   },
   "readMore": "Læs mere",
+  "recommendation": {
+    "prompts": {
+      "accept": "Tommelfinger op for at tilføje til galleriet",
+      "reject": "Tommelfinger ned, hvis du ikke kan lide det"
+    }
+  },
   "record": {
     "IIIFViewer": "IIIF-fremviser",
     "allMetaData": "Alle metadata",

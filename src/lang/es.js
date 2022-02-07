@@ -6,7 +6,7 @@ export default {
     "likes": "Me gusta",
     "linkAccount": "Mi cuenta",
     "linkLogin": "Iniciar sesión",
-    "linkLoginJoin": "Iniciar sesión/Unirse",
+    "linkLoginJoin": "Iniciar sesión\/Unirse",
     "linkLogout": "Cerrar sesión",
     "myProfile": "Mi perfil",
     "notifications": {
@@ -402,7 +402,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formato de archivo | Formatos de archivo",
       "options": {
-        "text/plain": "Texto sin formato"
+        "text\/plain": "Texto sin formato"
       }
     },
     "PROVIDER": {
@@ -434,7 +434,7 @@ export default {
         "metadata": "Registros de solo metadatos"
       },
       "switch": "Buscar solo en el contenido de los elementos con texto completo",
-      "switchMoreInfo": "En esta colección, puede buscar dentro de la información que describe el elemento como lo hace en otras colecciones desactivando esta opción. O deje esta opción activada para buscar dentro del periódico y el texto del documento."
+      "switchMoreInfo": "En esta colección, puede elegir lo que desea buscar: si este interruptor está activado, buscará dentro del periódico y el texto del documento; si está desactivada, buscará dentro de la información que describe el elemento, como siempre lo hace en la mayoría de las otras colecciones."
     },
     "button": {
       "apply": "Aplicar",
@@ -463,7 +463,7 @@ export default {
       }
     },
     "contentTier": {
-      "name": "Incluir los elementos que no cumplan nuestros criterios de publicación",
+      "name": "Calidad del artículo",
       "notification": "Hay elementos disponibles que no coinciden con nuestros criterios de publicación. Puedes acceder a estos activando el filtro \"Calidad del elemento\" en \"Más filtros\".",
       "options": {
         "*": "Incluir los elementos que no cumplan nuestros criterios de publicación",
@@ -667,7 +667,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Ayuda a mejorar nuestro sitio web aplicando ocasionalmente cambios experimentales.",
-        "title": "Pruebas A/B"
+        "title": "Pruebas A\/B"
       },
       "auth-strategy": {
         "description": "Recuerda la estrategia de autorización que se debe utilizar para iniciar sesión.",
@@ -699,7 +699,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Recuerda si prefiere ver los resultados de la búsqueda en una vista de lista o cuadrícula.",
-        "title": "Vista de resultados de búsqueda (lista / cuadrícula)"
+        "title": "Vista de resultados de búsqueda (lista \/ cuadrícula)"
       }
     }
   },
@@ -764,6 +764,12 @@ export default {
     }
   },
   "readMore": "Leer más",
+  "recommendation": {
+    "prompts": {
+      "accept": "Pulgar arriba para agregar a la galería",
+      "reject": "Pulgar hacia abajo si no le gusta"
+    }
+  },
   "record": {
     "IIIFViewer": "Visor IIIF",
     "allMetaData": "Todos los metadatos",

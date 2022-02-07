@@ -6,7 +6,7 @@ export default {
     "likes": "Tykätyt",
     "linkAccount": "Oma tili",
     "linkLogin": "Kirjaudu sisään",
-    "linkLoginJoin": "Kirjaudu/Liity",
+    "linkLoginJoin": "Kirjaudu\/Liity",
     "linkLogout": "Kirjaudu ulos",
     "myProfile": "Profiilini",
     "notifications": {
@@ -402,7 +402,7 @@ export default {
     "MIME_TYPE": {
       "name": "Tiedostomuoto | Tiedostomuodot",
       "options": {
-        "text/plain": "Pelkkä teksti"
+        "text\/plain": "Pelkkä teksti"
       }
     },
     "PROVIDER": {
@@ -434,7 +434,7 @@ export default {
         "metadata": "Vain metatiedot"
       },
       "switch": "Haku vain kohteiden sisällöstä, joissa on kokoteksti.",
-      "switchMoreInfo": "Tässä kokoelmassa voit joko etsiä kohdetta kuvaavista tiedoista, kuten muissa kokoelmissa, poistamalla tämän valitsimen käytöstä. Voit myös jättää tämän kytkimen aktivoituna, jolloin voit tehdä haun sanomalehti- ja asiakirjatekstistä."
+      "switchMoreInfo": "Tässä kokoelmassa voit valita, mitä haluat etsiä: jos tämä kytkin on päällä, etsit sanomalehti- ja asiakirjateksteistä; jos se on pois päältä, etsit sen sijaan kohteen kuvailutiedoista, aivan kuten useimmissa muissa kokoelmissa."
     },
     "button": {
       "apply": "Käytä",
@@ -463,7 +463,7 @@ export default {
       }
     },
     "contentTier": {
-      "name": "Sisältää kohteita, jotka eivät täytä julkaisuehtojamme",
+      "name": "Kohde laatu",
       "notification": "Jotkin saatavilla olevista kohteista eivät täytä julkaisuehtojamme. Voit näyttää nämä kohteet aktivoimalla \"Lisää suodattimia\" -kohdan \"Kohteiden laatu\" -suodattimen.",
       "options": {
         "*": "Sisältää kohteita, jotka eivät täytä julkaisuehtojamme",
@@ -628,7 +628,7 @@ export default {
   },
   "items": {
     "itemCount": "1 kohde |{count} kohdetta",
-    "itemOf": "{max} / {count} kohdetta",
+    "itemOf": "{max} \/ {count} kohdetta",
     "recent": "Viimeisimmät kohteet",
     "recommended": "Suositellut kohteet",
     "youMightLike": "Saattaisit tykätä näistä kohteista"
@@ -667,7 +667,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Auttaa parantamaan verkkosivustoamme soveltamalla ajoittain kokeellisia muutoksia.",
-        "title": "A/B -testaus"
+        "title": "A\/B -testaus"
       },
       "auth-strategy": {
         "description": "Muistaa kirjautumisessa käytettävän valtuutusstrategian.",
@@ -699,7 +699,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Muistaa, haluatko nähdä hakutulokset luettelossa tai ruudukkonäkymässä.",
-        "title": "Hakutulosnäkymä (luettelo/ruudukko)"
+        "title": "Hakutulosnäkymä (luettelo\/ruudukko)"
       }
     }
   },
@@ -764,6 +764,12 @@ export default {
     }
   },
   "readMore": "Lue lisää",
+  "recommendation": {
+    "prompts": {
+      "accept": "Peukalo ylös lisätäksesi galleriaan",
+      "reject": "Peukalo alas, jos et pidä siitä"
+    }
+  },
   "record": {
     "IIIFViewer": "IIIF-katsoja",
     "allMetaData": "Kaikki metatiedot",

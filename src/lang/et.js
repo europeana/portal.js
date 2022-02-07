@@ -6,7 +6,7 @@ export default {
     "likes": "Meeldimised",
     "linkAccount": "Minu konto",
     "linkLogin": "Logi sisse",
-    "linkLoginJoin": "Logi sisse/Liitu",
+    "linkLoginJoin": "Logi sisse\/Liitu",
     "linkLogout": "Logi välja",
     "myProfile": "Minu profiil",
     "notifications": {
@@ -390,6 +390,7 @@ export default {
         "pt": "Portugali",
         "ro": "Rumeenia",
         "ru": "Vene",
+        "sk": "Slovaki",
         "sl": "Sloveenia",
         "sq": "Albaania",
         "sr": "Serbia",
@@ -401,7 +402,7 @@ export default {
     "MIME_TYPE": {
       "name": "Failivorming | Failivormingud",
       "options": {
-        "text/plain": "Lihttekst"
+        "text\/plain": "Lihttekst"
       }
     },
     "PROVIDER": {
@@ -433,7 +434,7 @@ export default {
         "metadata": "Ainult metaandmete kirjed"
       },
       "switch": "Otsige ainult täistekstiga üksuste sisust",
-      "switchMoreInfo": "Selles kogumikus saate selle tumblernupu deaktiveerimise abil otsida üksust kirjeldavast teabest nagu teistes kogudes. Või jätke see tumblernupp aktiveerima, et otsida ajalehes ja dokumenditekstis."
+      "switchMoreInfo": "Selles kollektsioonis saate valida, mida soovite otsida: kui see lüliti on sisse lülitatud, siis otsite ajalehtede ja dokumentide tekstist; kui see on välja lülitatud, siis otsite selle asemel objekti kirjeldavast teabest, nagu teete seda alati enamikus teistes kollektsioonides."
     },
     "button": {
       "apply": "Kohalda",
@@ -462,7 +463,7 @@ export default {
       }
     },
     "contentTier": {
-      "name": "Sisaldab üksusi, mis ei vasta meie avaldamiskriteeriumidele",
+      "name": "Eseme kvaliteet",
       "notification": "Mõned tooted, mis ei vasta meie avaldamiskriteeriumidele, on saadaval. Nendele toodetele pääsete juurde, kui aktiveerite jaotises „Veel filtreid” filtri „Toote kvaliteet”.",
       "options": {
         "*": "Sisaldab üksusi, mis ei vasta meie avaldamiskriteeriumidele",
@@ -627,7 +628,7 @@ export default {
   },
   "items": {
     "itemCount": "1 toode | {count} toodet",
-    "itemOf": "{max} / {count} tootest",
+    "itemOf": "{max} \/ {count} tootest",
     "recent": "Hiljutised esemed",
     "recommended": "Soovitatavad esemed",
     "youMightLike": "Tooted, mis võivad teile meeldida"
@@ -666,7 +667,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Aitab meie veebisaiti täiustada, rakendades aeg -ajalt eksperimentaalseid muudatusi.",
-        "title": "A/B testimine"
+        "title": "A\/B testimine"
       },
       "auth-strategy": {
         "description": "Mäletab sisselogimiseks kasutatava autoriseerimisstrateegia.",
@@ -698,7 +699,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Mäletab, kas eelistate näha otsingutulemusi loendi või ruudustiku kujul.",
-        "title": "Otsingutulemite vaade (loend / ruudustik)"
+        "title": "Otsingutulemite vaade (loend \/ ruudustik)"
       }
     }
   },
@@ -763,6 +764,12 @@ export default {
     }
   },
   "readMore": "Loe lähemalt",
+  "recommendation": {
+    "prompts": {
+      "accept": "Pöidla üles, et lisada galeriisse",
+      "reject": "Pöidla alla, kui see sulle ei meeldi"
+    }
+  },
   "record": {
     "IIIFViewer": "IIIF vaataja",
     "allMetaData": "Kogu metateave",

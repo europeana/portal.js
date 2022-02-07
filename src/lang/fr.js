@@ -6,7 +6,7 @@ export default {
     "likes": "Mentions J’aime",
     "linkAccount": "Mon compte",
     "linkLogin": "Se connecter",
-    "linkLoginJoin": "Connexion/Rejoignez-nous",
+    "linkLoginJoin": "Connexion\/Rejoignez-nous",
     "linkLogout": "Déconnexion",
     "myProfile": "Mon profil",
     "notifications": {
@@ -402,7 +402,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format de fichier | Formats de fichiers",
       "options": {
-        "text/plain": "Texte brut"
+        "text\/plain": "Texte brut"
       }
     },
     "PROVIDER": {
@@ -434,7 +434,7 @@ export default {
         "metadata": "Enregistrements de métadonnées uniquement"
       },
       "switch": "Recherche uniquement dans le contenu des articles avec texte intégral",
-      "switchMoreInfo": "Dans cette collection, vous pouvez soit chercher dans les informations décrivant l'article comme vous le faites dans d'autres collections en désactivant ce bouton. Vous pouvez également laisser ce bouton activé pour effectuer une recherche dans le texte du journal et du document."
+      "switchMoreInfo": "Dans cette collection, vous pouvez choisir ce que vous voulez rechercher: si ce bouton est activé, vous chercherez dans le texte du journal et du document; s'il est désactivé, vous chercherez plutôt dans les informations décrivant l'article, comme vous le faites toujours dans la plupart des autres collections."
     },
     "button": {
       "apply": "Appliquer",
@@ -463,7 +463,7 @@ export default {
       }
     },
     "contentTier": {
-      "name": "Inclut les éléments ne répondant pas à nos critères de publication",
+      "name": "Qualité de l'article",
       "notification": "Certains articles ne correspondant pas à nos critères de publication sont disponibles. Vous pouvez y accéder en activant le filtre « Qualité des articles » sous « Autres filtres ».",
       "options": {
         "*": "Inclut les éléments ne répondant pas à nos critères de publication",
@@ -667,7 +667,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Aide à améliorer notre site Web en appliquant occasionnellement des modifications expérimentales.",
-        "title": "Tests A/B"
+        "title": "Tests A\/B"
       },
       "auth-strategy": {
         "description": "Se souvient de la stratégie d'autorisation à utiliser pour se connecter.",
@@ -699,7 +699,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Se souvient si vous préférez voir les résultats de la recherche sous forme de liste ou de grille.",
-        "title": "Affichage des résultats de recherche (liste/grille)"
+        "title": "Affichage des résultats de recherche (liste\/grille)"
       }
     }
   },
@@ -764,6 +764,12 @@ export default {
     }
   },
   "readMore": "Lire la suite",
+  "recommendation": {
+    "prompts": {
+      "accept": "Pouce vers le haut pour ajouter à la galerie",
+      "reject": "Pouce vers le bas si vous ne l'aimez pas"
+    }
+  },
   "record": {
     "IIIFViewer": "Visionneuse IIIF",
     "allMetaData": "Toutes les métadonnées",

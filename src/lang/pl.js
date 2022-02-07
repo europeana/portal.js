@@ -6,7 +6,7 @@ export default {
     "likes": "Polubienia",
     "linkAccount": "Moje konto",
     "linkLogin": "Zaloguj się",
-    "linkLoginJoin": "Zaloguj/Dołącz",
+    "linkLoginJoin": "Zaloguj\/Dołącz",
     "linkLogout": "Wyloguj",
     "myProfile": "Mój profil",
     "notifications": {
@@ -402,7 +402,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format plików | Formaty plików",
       "options": {
-        "text/plain": "Zwykły tekst"
+        "text\/plain": "Zwykły tekst"
       }
     },
     "PROVIDER": {
@@ -434,7 +434,7 @@ export default {
         "metadata": "Zapisy tylko z metadanymi"
       },
       "switch": "Wyszukiwanie tylko w treści artykułów z pełnym tekstem",
-      "switchMoreInfo": "W tej kolekcji możesz wyszukiwać w informacjach opisujących dany artykuł, tak jak w innych kolekcjach, dezaktywując ten przełącznik. Możesz też pozostawić ten przełącznik włączony, aby wyszukiwać w tekście gazet i dokumentów."
+      "switchMoreInfo": "W tej kolekcji możesz wybrać, czego chcesz szukać: jeśli ten przełącznik jest włączony, wtedy będziesz szukał w tekście gazety i dokumentu; jeśli jest wyłączony, wtedy będziesz szukał w informacjach opisujących dany artykuł, tak jak zawsze robisz to w większości innych kolekcji."
     },
     "button": {
       "apply": "Zastosuj",
@@ -463,7 +463,7 @@ export default {
       }
     },
     "contentTier": {
-      "name": "Obejmuje elementy niespełniające naszych kryteriów publikowania",
+      "name": "Jakość przedmiotu",
       "notification": "Dostępne są niektóre elementy niespełniające naszych kryteriów publikacji. Dostęp do tych pozycji można uzyskać, aktywując filtr „Jakość pozycji” w sekcji „Więcej filtrów”.",
       "options": {
         "*": "Obejmuje elementy niespełniające naszych kryteriów publikowania",
@@ -667,7 +667,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Pomaga ulepszyć naszą stronę internetową, od czasu do czasu stosując eksperymentalne zmiany.",
-        "title": "Testy A/B"
+        "title": "Testy A\/B"
       },
       "auth-strategy": {
         "description": "Zapamiętuje strategię autoryzacji używaną do logowania.",
@@ -699,7 +699,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Zapamiętuje się, jeśli wolisz widzieć wyniki wyszukiwania w widoku listy lub siatki.",
-        "title": "Widok wyników wyszukiwania (lista/siatka)"
+        "title": "Widok wyników wyszukiwania (lista\/siatka)"
       }
     }
   },
@@ -764,6 +764,12 @@ export default {
     }
   },
   "readMore": "Czytaj więcej",
+  "recommendation": {
+    "prompts": {
+      "accept": "Kciuk w górę, aby dodać do galerii",
+      "reject": "Kciuk w dół, jeśli ci się nie podoba"
+    }
+  },
   "record": {
     "IIIFViewer": "Przeglądarka IIIF",
     "allMetaData": "Wszystkie metadane",

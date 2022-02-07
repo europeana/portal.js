@@ -6,7 +6,7 @@ export default {
     "likes": "Mi piace",
     "linkAccount": "Il mio account",
     "linkLogin": "Accedi",
-    "linkLoginJoin": "Accedi/Iscriviti",
+    "linkLoginJoin": "Accedi\/Iscriviti",
     "linkLogout": "Esci",
     "myProfile": "Il mio profilo",
     "notifications": {
@@ -402,7 +402,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formato file | Formati file",
       "options": {
-        "text/plain": "Testo semplice"
+        "text\/plain": "Testo semplice"
       }
     },
     "PROVIDER": {
@@ -434,7 +434,7 @@ export default {
         "metadata": "Oggetti con solo metadati"
       },
       "switch": "Cerca solo nel contenuto degli articoli con testo completo",
-      "switchMoreInfo": "In questa collezione, puoi cercare all'interno delle informazioni che descrivono l'articolo come fai in altre collezioni disattivando questo interruttore. Oppure lascia questo interruttore attivato per cercare all'interno del testo del giornale e del documento."
+      "switchMoreInfo": "In questa raccolta puoi scegliere cosa cercare: se questo interruttore è attivo, cercherai all'interno del giornale e del testo del documento; se è spento, cercherai invece all'interno delle informazioni che descrivono l'articolo, proprio come fai sempre nella maggior parte delle altre collezioni."
     },
     "button": {
       "apply": "Applica",
@@ -463,7 +463,7 @@ export default {
       }
     },
     "contentTier": {
-      "name": "Comprende gli elementi che non soddisfano i nostri criteri di pubblicazione",
+      "name": "Qualità dell'articolo",
       "notification": "Sono disponibili oggetti che non soddisfano i nostri criteri di pubblicazione. Per accedervi, attiva il filtro \"Qualità oggetti\" posizionato sotto \"Più filtri\".",
       "options": {
         "*": "Comprende oggetti che non soddisfano i nostri criteri di pubblicazione",
@@ -667,7 +667,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Aiuta a migliorare il nostro sito Web applicando occasionalmente modifiche sperimentali.",
-        "title": "Test A/B"
+        "title": "Test A\/B"
       },
       "auth-strategy": {
         "description": "Ricorda la strategia di autorizzazione da utilizzare per accedere.",
@@ -699,7 +699,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Ricorda se preferisci vedere i risultati della ricerca in una visualizzazione elenco o griglia.",
-        "title": "Visualizzazione dei risultati di ricerca (elenco/griglia)"
+        "title": "Visualizzazione dei risultati di ricerca (elenco\/griglia)"
       }
     }
   },
@@ -764,6 +764,12 @@ export default {
     }
   },
   "readMore": "Leggi di più",
+  "recommendation": {
+    "prompts": {
+      "accept": "Pollice su per aggiungere alla galleria",
+      "reject": "Pollice verso il basso se non ti piace"
+    }
+  },
   "record": {
     "IIIFViewer": "Visualizzatore IIIF",
     "allMetaData": "Tutti i metadati",
