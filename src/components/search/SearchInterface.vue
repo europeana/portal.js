@@ -217,16 +217,6 @@
       noResults() {
         return this.totalResults === 0;
       },
-      contentTierZeroPresent() {
-        return this.facets.some(facet => {
-          return facet.name === 'contentTier' && facet.fields && facet.fields.some(option => option.label === '"0"');
-        });
-      },
-      contentTierZeroActive() {
-        return this.filters.contentTier?.some(filter => {
-          return filter === '"0"' || filter === '*'; // UI applies "0", this won't handle user provided values.
-        }) || false;
-      },
       routeQueryView() {
         return this.$route.query.view;
       },
@@ -241,16 +231,11 @@
     },
     watch: {
       routeQueryView: 'viewFromRouteQuery',
-      contentTierZeroPresent: 'showContentTierToast',
-      contentTierZeroActive: 'showContentTierToast',
       '$route.query.api': '$fetch',
       '$route.query.reusability': '$fetch',
       '$route.query.query': '$fetch',
       '$route.query.qf': '$fetch',
       '$route.query.page': '$fetch'
-    },
-    mounted() {
-      this.showContentTierToast();
     },
     destroyed() {
       this.$store.dispatch('search/deactivate');
@@ -295,18 +280,6 @@
         }
 
         return updated;
-      },
-      showContentTierToast() {
-        if (!process.browser || this.sideFiltersEnabled) {
-          return;
-        }
-
-        if (sessionStorage.contentTierToastShown || this.contentTierZeroActive || !this.contentTierZeroPresent) {
-          return;
-        }
-        this.makeToast(this.$t('facets.contentTier.notification'));
-        this.$matomo && this.$matomo.trackEvent('Tier 0 snackbar', 'Tier 0 snackbar appears', 'Tier 0 snackbar appears');
-        sessionStorage.contentTierToastShown = 'true';
       }
     }
   };

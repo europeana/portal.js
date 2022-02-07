@@ -464,7 +464,6 @@ export default {
     },
     "contentTier": {
       "name": "Item quality",
-      "notification": "Some items not matching our publishing criteria are available. You can access those items by activating the 'Item Quality' filter under 'More filters'.",
       "options": {
         "*": "Includes items not meeting our publishing criteria",
         "0": "Not meeting publishing criteria",
