@@ -1,7 +1,7 @@
 <template>
   <b-card
     v-masonry-tile
-    class="text-left header-card"
+    class="text-left header-card mb-4"
   >
     <div
       v-if="resizedLogo"
@@ -19,7 +19,7 @@
     <b-card-text
       v-if="hasDescription"
       text-tag="div"
-      class="mb-2 w-75 description"
+      class="mb-2 description"
     >
       <p
         data-qa="entity description"
