@@ -71,7 +71,8 @@
     </b-row>
     <b-row
       v-if="hasAnyResults"
-      class="mb-3 d-flex align-items-center"
+      class="mb-3 "
+      :class="{ 'd-flex align-items-center': entityHeaderCardsEnabled }"
     >
       <b-col>
         <div
