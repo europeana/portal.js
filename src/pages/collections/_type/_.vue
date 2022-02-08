@@ -2,10 +2,10 @@
   <div
     data-qa="entity page"
     class="entity-page"
-    :class="{'top-header': !$features.entityHeaderCards}"
+    :class="{'top-header': !headerCardsEnabled}"
   >
     <b-container
-      v-if="!$features.entityHeaderCards"
+      v-if="!headerCardsEnabled"
       fluid
     >
       <b-row class="flex-md-row pt-5 bg-white mb-3">
@@ -78,11 +78,18 @@
                 :show-pins="userIsEditor && userIsSetsEditor"
               >
                 <EntityHeader
-                  v-if="$features.entityHeaderCards"
+                  v-if="headerCardsEnabled"
                   :description="description"
                   :title="title"
                   :logo="logo"
-                />
+                  :image="thumbnail"
+                  :editable="true"
+                >
+                  <EntityUpdateModal
+                    :body="entity.proxy"
+                    :description="descriptionText"
+                  />
+                </EntityHeader>
               </SearchInterface>
             </b-container>
             <b-container class="px-0">
@@ -122,7 +129,8 @@
       EntityDetails,
       SearchInterface,
       SideFilters: () => import('../../../components/search/SideFilters'),
-      EntityHeader: () => import('@/components/entity/EntityHeader')
+      EntityHeader: () => import('@/components/entity/EntityHeader'),
+      EntityUpdateModal: () => import('@/components/entity/EntityUpdateModal')
     },
 
     async beforeRouteLeave(to, from, next) {
@@ -190,7 +198,8 @@
               'note',
               'description',
               'homepage',
-              'prefLabel'
+              'prefLabel',
+              'isShownBy'
             ]));
           }
           if (responses[1].note) {
@@ -360,6 +369,16 @@
       },
       sideFiltersEnabled() {
         return this.$features.sideFilters;
+      },
+      headerCardsEnabled() {
+        return this.$features.entityHeaderCards;
+      },
+      thumbnail() {
+        if (this.entity.isShownBy) {
+          return this.entity.isShownBy?.thumbnail;
+        } else {
+          return null;
+        }
       }
     },
     watch: {
@@ -418,7 +437,7 @@
   @import '@/assets/scss/variables';
 
   .entity-page {
-    &.top-header{
+    &.top-header {
       margin-top: -1rem;
     }
 

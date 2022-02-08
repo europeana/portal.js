@@ -736,6 +736,7 @@
         width: calc(100% / 4 - #{$grid-gutter * 2});
       }
     }
+
     .header-card {
       margin-bottom: 1.5rem;
 
@@ -746,6 +747,7 @@
           top: auto !important;
         }
       }
+
       @media (min-width: $bp-medium) {
         width: calc(100% - #{$grid-gutter * 2});
         margin-left: 15px;

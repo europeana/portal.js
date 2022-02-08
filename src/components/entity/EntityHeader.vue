@@ -37,14 +37,37 @@
         {{ showAll ? $t('showLess') : $t('showMore') }}
       </b-button>
     </b-card-text>
+    <ShareButton />
+    <SocialShareModal :media-url="image ? image : logo" />
+    <client-only>
+      <template
+        v-if="editable"
+      >
+        <b-button
+          class="d-inline-flex align-items-center"
+          @click="$bvModal.show('entityUpdateModal')"
+        >
+          <span class="icon-edit pr-1" />
+          {{ $t('actions.edit') }}
+        </b-button>
+        <slot />
+      </template>
+    </client-only>
   </b-card>
 </template>
 
 <script>
   import { getWikimediaThumbnailUrl } from '@/plugins/europeana/entity';
+  import ShareButton from '@/components/sharing/ShareButton';
+  import SocialShareModal from '@/components/sharing/SocialShareModal';
 
   export default {
     name: 'EntityHeader',
+
+    components: {
+      ShareButton,
+      SocialShareModal
+    },
 
     props: {
       title: {
@@ -59,6 +82,14 @@
       logo: {
         type: String,
         default: null
+      },
+      image: {
+        type: String,
+        default: null
+      },
+      editable: {
+        type: Boolean,
+        default: false
       }
     },
     data() {
@@ -89,3 +120,11 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  .header-card .btn {
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-right: 0.5rem;
+  }
+</style>

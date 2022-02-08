@@ -1,9 +1,7 @@
 <template>
   <b-button
     v-b-modal.share-modal
-    variant="light text-decoration-none"
     data-qa="share button"
-    size="lg"
     class="share-button d-inline-flex align-items-center"
   >
     <span class="icon-share d-inline-flex pr-1" />
@@ -19,22 +17,11 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
-
-  .share-button {
-    text-transform: capitalize;
-    background: $offwhite;
-    color: $mediumgrey;
-    font-size: $font-size-small;
-    border-color: transparent;
-    border-radius: 0.25rem;
-    padding: 0.375rem 0.5rem;
-
-    span {
-      font-size: 1.125rem;
-      line-height: 1rem;
-    }
+  .icon-share {
+    font-size: 1.125rem;
+    line-height: 1rem;
   }
+
 </style>
 
 <docs lang="md">
