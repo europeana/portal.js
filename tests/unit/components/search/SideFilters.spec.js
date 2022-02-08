@@ -29,6 +29,7 @@ const factory = (options = {}) => {
   const mocks = {
     $t: (key) => key,
     $tc: (key) => key,
+    $features: { entityHeaderCards: true },
     $tFacetName: (key) => key,
     $path: () => '/',
     $goto: () => null,

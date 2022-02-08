@@ -22,7 +22,7 @@ const factory = (options = {}) => {
     $t: (key) => key,
     $path: () => '/',
     $goto: () => null,
-    $features: { sideFilters: false },
+    $features: { sideFilters: false, entityHeaderCards: true },
     $fetchState: options.fetchState || {},
     $route: { path: '/search', name: 'search', query: {} },
     ...options.mocks
