@@ -219,10 +219,10 @@ module.exports = {
     await startWebDriver(nightwatchApiOptions);
     await createSession(nightwatchApiOptions);
   },
-  async seeACheckedRadio(inputName, inputValue) {
-    const radioSelector = `input[type="radio"][name="${inputName}"][value="${inputValue}"]:checked`;
+  async seeACheckedInput(value, name, type) {
+    const selector = `input[type="${type}"][name="${name}"][value="${value}"]:checked`;
 
-    await client.expect.element(radioSelector).to.be.present;
+    await client.expect.element(selector).to.be.present;
   },
   async seeALinkInTarget(linkHref, qaElementName) {
     await client.expect.element(qaSelector(qaElementName) + ` a[href="${linkHref}"]`).to.be.visible;

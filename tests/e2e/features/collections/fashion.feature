@@ -1,6 +1,6 @@
 Feature: Fashion collection
 
-  Scenario: CREATOR facet in more filters
+  Scenario: CREATOR facet
     Given I am on the `Fashion collection search page`
     Then I see the `CREATOR facet dropdown`
     And I see the `proxy_dc_format.en facet dropdown`
