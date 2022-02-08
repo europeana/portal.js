@@ -13,9 +13,9 @@
               :description="description"
               :is-editorial-description="hasEditorialDescription"
               :title="title"
-              :context-label="contextLabel"
               :logo="logo"
               :external-link="homepage"
+              :context-label="contextLabel"
             />
             <client-only>
               <section
@@ -72,6 +72,7 @@
                 :route="route"
                 :show-content-tier-toggle="false"
                 :show-pins="userIsEditor && userIsSetsEditor"
+                :context-label="contextLabel"
               />
             </b-container>
             <b-container class="px-0">

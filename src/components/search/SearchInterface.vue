@@ -71,10 +71,20 @@
     </b-row>
     <b-row
       v-if="hasAnyResults"
-      class="mb-3"
+      class="mb-3 d-flex align-items-center"
     >
       <b-col>
-        <p data-qa="total results">
+        <div
+          v-if="entityHeaderCardsEnabled"
+          class="context-label"
+          data-qa="entity label"
+        >
+          {{ contextLabel }}
+        </div>
+        <p
+          v-else
+          data-qa="total results"
+        >
           {{ $t('results') }}: {{ totalResults | localise }}
         </p>
       </b-col>
@@ -189,6 +199,10 @@
       showPins: {
         type: Boolean,
         default: false
+      },
+      contextLabel: {
+        type: String,
+        default: null
       }
     },
     data() {
@@ -345,6 +359,9 @@
       },
       sideFiltersEnabled() {
         return this.$features.sideFilters;
+      },
+      entityHeaderCardsEnabled() {
+        return this.$features.entityHeaderCards;
       }
     },
     watch: {
