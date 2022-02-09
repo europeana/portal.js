@@ -16,8 +16,9 @@ Vue.prototype.$path = () => {
 };
 Vue.prototype.$store = {
   state: {
-    set: { ...{ liked: [] } },
-    entity: { ...{ pinned: [] } }
+    entity: { pinned: [] },
+    search: { liveQueries: [] },
+    set: { liked: [] }
   },
   getters: {
     'entity/isPinned': () => {},
