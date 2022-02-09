@@ -83,7 +83,7 @@
                   :title="title"
                   :logo="logo"
                   :image="thumbnail"
-                  :editable="true"
+                  :editable="isEditable && userIsEditor"
                 >
                   <EntityUpdateModal
                     :body="entity.proxy"
@@ -199,7 +199,8 @@
               'description',
               'homepage',
               'prefLabel',
-              'isShownBy'
+              'isShownBy',
+              'biographicalInformation'
             ]));
           }
           if (responses[1].note) {
@@ -301,8 +302,13 @@
           return this.entity.note[this.$i18n.locale] ? { values: this.entity.note[this.$i18n.locale], code: this.$i18n.locale } : null;
         }
 
-        const description = this.collectionType === 'organisation' &&
-          this.entity?.description ? langMapValueForLocale(this.entity.description, this.$i18n.locale) : null;
+        let description = null;
+        if (this.collectionType === 'organisation' && this.entity?.description) {
+          description = langMapValueForLocale(this.entity.description, this.$i18n.locale);
+        }
+        if (this.collectionType === 'person' && this.entity?.biographicalInformation) {
+          description = langMapValueForLocale(this.entity.biographicalInformation, this.$i18n.locale);
+        }
 
         return this.editorialDescription ? { values: [this.editorialDescription], code: null } : description;
       },
