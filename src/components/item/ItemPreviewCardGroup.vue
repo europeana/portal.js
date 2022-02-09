@@ -38,6 +38,7 @@
     :class="cardGroupClass"
     deck
   >
+    <slot />
     <ItemPreviewCard
       v-for="item in items"
       :key="item.id"

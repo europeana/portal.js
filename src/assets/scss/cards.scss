@@ -598,6 +598,11 @@
   flex: 0 0 100%;
 }
 
+.card-group-list .header-card {
+  margin-left: 0;
+  margin-right: 0;
+}
+
 @media (min-width: $bp-medium) {
   .card-deck {
     flex-flow: row wrap;
