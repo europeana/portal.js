@@ -84,6 +84,7 @@
                   :logo="logo"
                   :image="thumbnail"
                   :editable="isEditable && userIsEditor"
+                  :external-link="homepage"
                 >
                   <EntityUpdateModal
                     :body="entity.proxy"

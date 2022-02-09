@@ -37,6 +37,14 @@
         {{ showAll ? $t('showLess') : $t('showMore') }}
       </b-button>
     </b-card-text>
+    <b-button
+      v-if="externalLink"
+      class="d-inline-flex align-items-center"
+      :href="externalLink"
+    >
+      <span class="icon-link pr-1" />
+      {{ $t('website') }}
+    </b-button>
     <ShareButton />
     <SocialShareModal :media-url="image ? image : logo" />
     <client-only>
@@ -90,6 +98,10 @@
       editable: {
         type: Boolean,
         default: false
+      },
+      externalLink: {
+        type: String,
+        default: null
       }
     },
     data() {
