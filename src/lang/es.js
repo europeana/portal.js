@@ -30,12 +30,15 @@ export default {
     "accept": "Aceptar",
     "cancel": "Cancelar",
     "close": "cerrar",
+    "continue": "continuar",
     "download": "Descargar",
     "edit": "Editar",
     "feedback": "Comentarios",
     "goBack": "Volver",
+    "goHome": "Ir a la página de inicio",
     "like": "Me gusta",
     "next": "próximo",
+    "pin": "Alfiler",
     "providedBy": "Proporcionado por {provider}",
     "reject": "Rechazar",
     "send": "Enviar",
@@ -72,6 +75,7 @@ export default {
   "cardLabels": {
     "organisation": "Organización",
     "person": "Persona",
+    "theme": "Tema",
     "time": "Siglo",
     "topic": "Tema"
   },
@@ -352,7 +356,48 @@ export default {
       }
     },
     "LANGUAGE": {
-      "name": "Idioma"
+      "name": "Idioma",
+      "options": {
+        "ar": "Árabe",
+        "bg": "Búlgaro",
+        "bs": "Bosnio",
+        "ca": "Catalán",
+        "cs": "Checo",
+        "cy": "Galés",
+        "da": "Danés",
+        "de": "Alemán",
+        "el": "Griego",
+        "en": "Inglés",
+        "es": "Español",
+        "et": "Estonio",
+        "fi": "Finlandés",
+        "fr": "Francés",
+        "ga": "Irlandés",
+        "gd": "Gaélico",
+        "he": "Hebreo",
+        "hr": "Croata",
+        "hu": "Húngaro",
+        "is": "Islandés",
+        "it": "Italiano",
+        "lt": "Lituano",
+        "lv": "Letón",
+        "mk": "Macedonio",
+        "mt": "Maltés",
+        "mul": "Múltiples idiomas",
+        "nl": "Holandés",
+        "no": "Noruego",
+        "pl": "Polaco",
+        "pt": "Portugués",
+        "ro": "Rumano",
+        "ru": "Ruso",
+        "sk": "Eslovaco",
+        "sl": "Esloveno",
+        "sq": "Albanés",
+        "sr": "Serbio",
+        "sv": "Sueco",
+        "tr": "Turco",
+        "uk": "Ucraniano"
+      }
     },
     "MIME_TYPE": {
       "name": "Formato de archivo | Formatos de archivo",
@@ -387,7 +432,9 @@ export default {
       "options": {
         "fulltext": "Registros de texto completo",
         "metadata": "Registros de solo metadatos"
-      }
+      },
+      "switch": "Buscar solo en el contenido de los elementos con texto completo",
+      "switchMoreInfo": "En esta colección, puede elegir lo que desea buscar: si este interruptor está activado, buscará dentro del periódico y el texto del documento; si está desactivada, buscará dentro de la información que describe el elemento, como siempre lo hace en la mayoría de las otras colecciones."
     },
     "button": {
       "apply": "Aplicar",
@@ -416,11 +463,15 @@ export default {
       }
     },
     "contentTier": {
-      "name": "Incluir los elementos que no cumplan nuestros criterios de publicación",
+      "name": "Calidad del artículo",
       "notification": "Hay elementos disponibles que no coinciden con nuestros criterios de publicación. Puedes acceder a estos activando el filtro \"Calidad del elemento\" en \"Más filtros\".",
       "options": {
         "*": "Incluir los elementos que no cumplan nuestros criterios de publicación",
-        "0": "Mostrar solo los elementos que no cumplen con nuestros criterios de publicación"
+        "0": "Mostrar solo los elementos que no cumplen con nuestros criterios de publicación",
+        "1": "Baja calidad",
+        "2": "Calidad media",
+        "3": "Alta calidad y reutilizable con condiciones",
+        "4": "Alta calidad y libremente reutilizable"
       }
     },
     "proxy_dc_format": {
@@ -579,7 +630,6 @@ export default {
     "itemCount": "1 elemento | {count} elementos",
     "itemOf": "{max} de {count} elementos",
     "recent": "Elementos recientes",
-    "recommendationsDisclaimer": "Pulgar hacia arriba para agregar a la galería - Pulgar hacia abajo si no le gusta",
     "recommended": "Elementos recomendados",
     "youMightLike": "Elementos que quizá te gusten"
   },
@@ -643,6 +693,10 @@ export default {
         "description": "Recopila estadísticas anónimas sobre cómo los visitantes interactúan con el sitio web.",
         "title": "Matomo"
       },
+      "newFeatureNotification": {
+        "description": "Muestra una notificación cuando hay nuevas funciones disponibles.",
+        "title": "Notificación de nuevas funciones"
+      },
       "searchResultsView": {
         "description": "Recuerda si prefiere ver los resultados de la búsqueda en una vista de lista o cuadrícula.",
         "title": "Vista de resultados de búsqueda (lista / cuadrícula)"
@@ -653,25 +707,8 @@ export default {
     "skipToMain": "Saltar al contenido de la página"
   },
   "learnMore": "Más información de la fuente de esta descripción",
-  "linksToClassic": {
-    "home": {
-      "linkText": "Vea esta página en el sitio web original de Europeana hasta el 20 de diciembre de 2021.",
-      "text": "Está viviendo la nueva experiencia Europeana."
-    },
-    "record": {
-      "linkText": "Vea este elemento en el sitio web original de Europeana hasta el 20 de diciembre de 2021.",
-      "text": "Está viendo este objeto en la nueva web de Europeana."
-    },
-    "search": {
-      "linkText": "Búsqueda en el sitio web original de Europeana hasta el 20 de diciembre de 2021.",
-      "text": "Está buscando en nuestra nueva web, ahora más rápida."
-    }
-  },
   "loading": "Cargando",
   "loadingResults": "Cargando resultados",
-  "mediaPreview": {
-    "selectItem": "Seleccionar elemento {src}"
-  },
   "messages": {
     "copyToClipboardSuccess": "Copiado en el portapapeles",
     "externalContentError": "El contenido externo no se ha podido cargar",
@@ -692,6 +729,13 @@ export default {
     "stopTranslating": "Dejar de traducir este elemento a {0}.",
     "translateLanguage": "¿Le gustaría ver este artículo en {0} ?",
     "translateQuotaError": "El servicio de traducción no está disponible temporalmente. Por favor, inténtelo de nuevo más tarde."
+  },
+  "newFeatureNotification": {
+    "dismiss": "Despedir",
+    "readMore": "Leer más",
+    "text": {
+      "sideFilters": "¡Mira los nuevos filtros! Ahora están todos visibles en el lado derecho de los resultados de búsqueda."
+    }
   },
   "newWindow": "se abre en una nueva ventana",
   "noMoreResults": "No hay más resultados para su búsqueda.",
@@ -720,11 +764,16 @@ export default {
     }
   },
   "readMore": "Leer más",
+  "recommendation": {
+    "prompts": {
+      "accept": "Pulgar arriba para agregar a la galería",
+      "reject": "Pulgar hacia abajo si no le gusta"
+    }
+  },
   "record": {
     "IIIFViewer": "Visor IIIF",
     "allMetaData": "Todos los metadatos",
     "copyEmbedLabel": "Código de inserción (haga clic para copiar)",
-    "downloadCopyrightInfo": "Este objeto tiene derechos de autor y no se puede descargar.",
     "exploreMore": "Explorar más",
     "extendedInformation": "Información ampliada",
     "goodToKnow": "Información importante",
@@ -736,12 +785,7 @@ export default {
     "showAll": "Mostrar toda la información",
     "similarItems": "Elementos similares",
     "transcription": "Transcripción",
-    "transcriptionDisclaimer": "Este contenido ha sido aportado por el público, no por la institución que ha proporcionado este artículo.",
-    "view": {
-      "image": "Ver imagen",
-      "media": "Ver medio",
-      "pdf": "Ver PDF"
-    }
+    "transcriptionDisclaimer": "Este contenido ha sido aportado por el público, no por la institución que ha proporcionado este artículo."
   },
   "relatedCollections": "Colecciones relacionadas",
   "removeFilter": "Quitar el filtro {filterLabel}",
@@ -767,7 +811,8 @@ export default {
   },
   "searchViews": {
     "grid": "Ver en cuadrícula",
-    "list": "Ver en lista"
+    "list": "Ver en lista",
+    "mosaic": "Vista de mosaico"
   },
   "set": {
     "actions": {
@@ -776,6 +821,7 @@ export default {
       "createNew": "Crear nueva galería",
       "delete": "Eliminar galería",
       "edit": "Editar galería",
+      "save": "Salvar",
       "update": "Actualizar galería"
     },
     "form": {
@@ -802,5 +848,9 @@ export default {
   },
   "showLess": "Mostrar menos",
   "showMore": "Mostrar más",
+  "statuses": {
+    "liked": "Gustó",
+    "pinned": "Fijado"
+  },
   "website": "Sitio web"
 };

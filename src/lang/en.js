@@ -388,8 +388,8 @@ export default {
         "no": "Norwegian",
         "pl": "Polish",
         "pt": "Portuguese",
-        "ru": "Russian",
         "ro": "Romanian",
+        "ru": "Russian",
         "sk": "Slovak",
         "sl": "Slovenian",
         "sq": "Albanian",
@@ -434,7 +434,7 @@ export default {
         "metadata": "Metadata-only items"
       },
       "switch": "Search only in the content of items with full-text",
-      "switchMoreInfo": "In this collection, you can either search within the information describing the item as you do in other collections by deactivating this toggle. Or leave this toggle activated to search within the newspaper and document text."
+      "switchMoreInfo": "In this collection, you can choose what you want to search for: if this switch is on, then you will search within the newspaper and document text; if it is off, then you will instead search within the information describing the item, just as you always do in most other collections."
     },
     "button": {
       "apply": "Apply",
@@ -464,7 +464,6 @@ export default {
     },
     "contentTier": {
       "name": "Item quality",
-      "notification": "Some items not matching our publishing criteria are available. You can access those items by activating the 'Item Quality' filter under 'More filters'.",
       "options": {
         "*": "Includes items not meeting our publishing criteria",
         "0": "Not meeting publishing criteria",
@@ -731,11 +730,11 @@ export default {
     "translateQuotaError": "Translation service is temporarily unavailable. Please try again later."
   },
   "newFeatureNotification": {
+    "dismiss": "Dismiss",
+    "readMore": "Read more",
     "text": {
       "sideFilters": "Check out the new filters! They are now all visible on the right-hand side of the search results."
-    },
-    "dismiss": "Dismiss",
-    "readMore": "Read more"
+    }
   },
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",

@@ -30,12 +30,15 @@ export default {
     "accept": "Glac leis",
     "cancel": "Cealaigh",
     "close": "dún",
+    "continue": "Lean ar aghaidh",
     "download": "Íoslódáil",
     "edit": "Cuir in eagar",
     "feedback": "Aiseolas",
     "goBack": "Dul siar",
+    "goHome": "Téigh go dtí an leathanach baile",
     "like": "Is maith liom",
     "next": "Ar Aghaidh",
+    "pin": "Bioráin",
     "providedBy": "Arna sholáthar ag {provider}",
     "reject": "Diúltaigh",
     "send": "Seol",
@@ -72,6 +75,7 @@ export default {
   "cardLabels": {
     "organisation": "Eagraíocht",
     "person": "Duine",
+    "theme": "Téama",
     "time": "Haois",
     "topic": "Ábhar"
   },
@@ -352,7 +356,48 @@ export default {
       }
     },
     "LANGUAGE": {
-      "name": "Teanga | Teangacha"
+      "name": "Teanga | Teangacha",
+      "options": {
+        "ar": "Araibis",
+        "bg": "Bulgáiris",
+        "bs": "Boisnis",
+        "ca": "Catalóinis",
+        "cs": "Seicis",
+        "cy": "Breatnais",
+        "da": "Danmhairgis",
+        "de": "Gearmáinis",
+        "el": "Gréigis",
+        "en": "Béarla",
+        "es": "Spáinnis ",
+        "et": "Eastóinis",
+        "fi": "Fionlainnis",
+        "fr": "Fraincis",
+        "ga": "Gaeilge",
+        "gd": "Gaeilge",
+        "he": "Eabhrais",
+        "hr": "Cróitis",
+        "hu": "Ungáiris",
+        "is": "Íoslainnis",
+        "it": "Iodálach ",
+        "lt": "Liotuáinis",
+        "lv": "Laitvis",
+        "mk": "Macadóinis",
+        "mt": "Máltais",
+        "mul": "Teangacha éagsúla",
+        "nl": "Ísiltíris",
+        "no": "Ioruais",
+        "pl": "Polainnis",
+        "pt": "Portaingéilis ",
+        "ro": "Rómáinis",
+        "ru": "Rúisis",
+        "sk": "Slóvaicis",
+        "sl": "Slóivéinis",
+        "sq": "Albáinis",
+        "sr": "Seirbis",
+        "sv": "Sualainnis",
+        "tr": "Tuircis",
+        "uk": "Úcráinis"
+      }
     },
     "MIME_TYPE": {
       "name": "Formáid chomhaid | Formáidí comhaid",
@@ -387,7 +432,9 @@ export default {
       "options": {
         "fulltext": "Míreanna a bhfuil an téacs iomlán díobh le fáil",
         "metadata": "Míreanna nach bhfuil iontu ach na meiteashonraí amháin"
-      }
+      },
+      "switch": "Ná cuardaigh ach in ábhar na n-ítimí a bhfuil téacs iomlán acu",
+      "switchMoreInfo": "Sa bhailiúchán seo, is féidir leat an méid is mian leat a chuardach a roghnú: má tá an lasc seo ar siúl, ansin déanfaidh tú cuardach laistigh den nuachtán agus téacs doiciméid; má tá sé as, ansin déanfaidh tú cuardach laistigh den fhaisnéis a chuireann síos ar an mír, díreach mar a dhéanann tú i gcónaí i bhformhór na mbailiúchán eile."
     },
     "button": {
       "apply": "Cuir i bhfeidhm",
@@ -416,11 +463,15 @@ export default {
       }
     },
     "contentTier": {
-      "name": "Caighdeán na míre",
+      "name": "Cáilíocht na míre",
       "notification": "Tá roinnt míreanna nach gcomhlíonann ár gcritéir foilsitheoireachta ar fáil. Is féidir leat rochtain a fháil ar na míreanna sin tríd an scagaire 'Cáilíocht Míre' a ghníomhachtú faoi 'Tuilleadh scagairí'.",
       "options": {
         "*": "Áirítear leis míreanna nach gcomhlíonann ár riachtanais foilsitheoireachta",
-        "0": "Ná taispeáin ach míreanna nach gcomhlíonann ár gcritéir foilsitheoireachta"
+        "0": "Ná taispeáin ach míreanna nach gcomhlíonann ár gcritéir foilsitheoireachta",
+        "1": "Caighdeán íseal",
+        "2": "Caighdeán meánach",
+        "3": "Ardchaighdeán & in-athúsáidte le coinníollacha",
+        "4": "Ardchaighdeán & in-athúsáidte go saor in aisce"
       }
     },
     "proxy_dc_format": {
@@ -579,7 +630,6 @@ export default {
     "itemCount": "1 mír |{count} míreanna",
     "itemOf": "{max} de mhíreanna {count}",
     "recent": "Míreanna le déanaí",
-    "recommendationsDisclaimer": "Ordóg suas le cur leis an ngailearaí - Ordóg síos mura dtaitníonn sé leat",
     "recommended": "Míreanna molta",
     "youMightLike": "Míreanna a d’fhéadfadh a bheith uait"
   },
@@ -643,6 +693,10 @@ export default {
         "description": "Bailíonn sé staitisticí gan ainm ar an gcaoi a n-idirghníomhaíonn cuairteoirí leis an suíomh Gréasáin.",
         "title": "Matomo"
       },
+      "newFeatureNotification": {
+        "description": "Taispeánann sé fógra nuair a bhíonn gnéithe nua ar fáil.",
+        "title": "Fógra gné nua"
+      },
       "searchResultsView": {
         "description": "Cuimhníonn sé más fearr leat na torthaí cuardaigh a fheiceáil i liosta nó in amharc greille.",
         "title": "Amharc toraidh cuardaigh (liosta/greille)"
@@ -653,25 +707,8 @@ export default {
     "skipToMain": "Scipeáil chuig inneachar leathanaigh"
   },
   "learnMore": "Faigh amach faoi fhoinse an tuairisc seo",
-  "linksToClassic": {
-    "home": {
-      "linkText": "Féach ar an leathanach seo ar shuíomh Gréasáin bunaidh Europeana go dtí 20 Nollaig 2021.",
-      "text": "Seo an t-eispéireas Europeana nua a bhfuil tú ag breathnú air."
-    },
-    "record": {
-      "linkText": "Féach an mhír seo ar shuíomh Gréasáin bunaidh Europeana go dtí 20 Nollaig 2021.",
-      "text": "Is ar an láithreán gréasáin nua atá ag Europeana atá tú anois, agus tú ag féachaint ar an mír seo."
-    },
-    "search": {
-      "linkText": "Cuardaigh ar shuíomh Gréasáin bunaidh Europeana go dtí 20 Nollaig 2021.",
-      "text": "Tá an cuardach seo déanta agat ar an láithreán gréasáin nua againn atá níos tapúla."
-    }
-  },
   "loading": "Ag luchtú",
   "loadingResults": "Torthaí á lódáil",
-  "mediaPreview": {
-    "selectItem": "Roghnaigh mír {src}"
-  },
   "messages": {
     "copyToClipboardSuccess": "Cóipeáilte ar ghearrthaisce",
     "externalContentError": "Theip ar lódáil an inneachair sheachtraigh",
@@ -692,6 +729,13 @@ export default {
     "stopTranslating": "Stop an t-earra seo a aistriú go {0}.",
     "translateLanguage": "Ar mhaith leat an mhír seo a fheiceáil i {0} ?",
     "translateQuotaError": "Níl an tseirbhís aistriúcháin ar fáil go sealadach. Bain triail eile as níos déanaí."
+  },
+  "newFeatureNotification": {
+    "dismiss": "Dífhostú",
+    "readMore": "Léigh níos mó",
+    "text": {
+      "sideFilters": "Amharc ar na scagairí nua! Tá siad go léir le feiceáil anois ar thaobh na láimhe deise de na torthaí cuardaigh."
+    }
   },
   "newWindow": "osclaítear i bhfuinneog nua é",
   "noMoreResults": "Níl aon toradh eile ann ar d'iarratas cuardaigh.",
@@ -720,11 +764,16 @@ export default {
     }
   },
   "readMore": "Léigh níos mó",
+  "recommendation": {
+    "prompts": {
+      "accept": "Ordóg suas le cur leis an gailearaí",
+      "reject": "Ordóg síos mura dtaitníonn leat é"
+    }
+  },
   "record": {
     "IIIFViewer": "Amharcóir IIIF",
     "allMetaData": "Gach meiteashonraí",
     "copyEmbedLabel": "Leabaigh an cód (Cliceáil chun é a chópáil)",
-    "downloadCopyrightInfo": "Tá cóipcheart i bhfeidhm ar an mír seo agus ní féidir í a íoslódáil dá bharr.",
     "exploreMore": "Déan iniúchadh ar níos mó",
     "extendedInformation": "Faisnéis leathnaithe",
     "goodToKnow": "Maith a fhios",
@@ -736,12 +785,7 @@ export default {
     "showAll": "Taispeáin gach faisnéis",
     "similarItems": "Míreanna eile den chineál céanna",
     "transcription": "Tras-scríobh",
-    "transcriptionDisclaimer": "Is é an pobal a chuireann an t-ábhar seo ar fáil, ní ag an institiúid a chuir an mhír seo ar fáil.",
-    "view": {
-      "image": "Breathnaigh ar íomhá",
-      "media": "Breathnaigh ar na meáin",
-      "pdf": "Féach ar an PDF"
-    }
+    "transcriptionDisclaimer": "Is é an pobal a chuireann an t-ábhar seo ar fáil, ní ag an institiúid a chuir an mhír seo ar fáil."
   },
   "relatedCollections": "Bailiúcháin ghaolmhara",
   "removeFilter": "Bain {filterLabel} scagaire",
@@ -767,7 +811,8 @@ export default {
   },
   "searchViews": {
     "grid": "Amharc greille",
-    "list": "Amharc liosta"
+    "list": "Amharc liosta",
+    "mosaic": "Amharc mósáic"
   },
   "set": {
     "actions": {
@@ -776,6 +821,7 @@ export default {
       "createNew": "Cruthaigh gailearaí nua",
       "delete": "Scrios gailearaí",
       "edit": "Cuir an gailearaí in eagar",
+      "save": "Sábháil",
       "update": "Nuashonraigh gailearaí"
     },
     "form": {
@@ -802,5 +848,9 @@ export default {
   },
   "showLess": "Taispeáin níos lú",
   "showMore": "Taispeáin níos mó",
+  "statuses": {
+    "liked": "Thaitin sé",
+    "pinned": "Pionnáilte"
+  },
   "website": "Suíomh Gréasáin"
 };

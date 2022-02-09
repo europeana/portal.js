@@ -9,11 +9,22 @@
     />
     <b-container
       class="side-filters"
+      data-qa="side filters"
     >
       <b-row
-        class="border-bottom border-top d-flex justify-content-between align-items-center"
+        class="border-bottom border-top d-flex justify-content-between align-items-center flex-nowrap"
       >
-        <h2 class="filters-title">
+        <div
+          v-if="entityHeaderCardsEnabled && totalResults"
+          class="filters-title"
+          data-qa="total results"
+        >
+          {{ $tc('items.itemCount', totalResultsLocalised, { count: totalResultsLocalised }) }}
+        </div>
+        <h2
+          v-else
+          class="filters-title"
+        >
           {{ $t('filterResults') }}
         </h2>
         <button
@@ -47,6 +58,7 @@
                 :tooltip="$t('facets.api.switchMoreInfo')"
                 checked-value="fulltext"
                 unchecked-value="metadata"
+                :default-value="apiFilterDefaultValue"
                 @changed="changeFacet"
               />
               <SideDateFilter
@@ -75,6 +87,7 @@
                 :label="$t('facets.contentTier.options.0')"
                 checked-value="&quot;0&quot;"
                 :unchecked-value="null"
+                :default-value="null"
                 @changed="changeFacet"
               />
             </div>
@@ -125,6 +138,7 @@
         facets: state => state.search.facets,
         resettableFilters: state => state.search.resettableFilters,
         showFiltersSheet: state => state.search.showFiltersSheet,
+        totalResults: state => state.search.totalResults,
         userParams: state => state.search.userParams
       }),
       ...mapGetters({
@@ -183,6 +197,15 @@
       enableApiFilter() {
         return this.API_FILTER_COLLECTIONS.includes(this.collection);
       },
+      apiFilterDefaultValue() {
+        if (this.collection === 'newspaper') {
+          return 'fulltext';
+        } else if (this.collection === 'ww1') {
+          return 'metadata';
+        } else {
+          return null;
+        }
+      },
       enableDateFilter() {
         return this.DATE_FILTER_COLLECTIONS.includes(this.collection);
       },
@@ -196,6 +219,12 @@
           return { start: proxyDctermsIssued[0], end: null, specific: true };
         }
         return range;
+      },
+      entityHeaderCardsEnabled() {
+        return this.$features.entityHeaderCards;
+      },
+      totalResultsLocalised() {
+        return this.$options.filters.localise(this.totalResults);
       }
     },
     watch: {

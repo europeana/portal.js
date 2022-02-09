@@ -17,7 +17,8 @@ const factory = (propsData = {}) => mount(EntityDetails, {
     $config: { app: { internalLinkDomain: null } },
     $t: (val) => val,
     $i18n,
-    $path: () => '/'
+    $path: () => '/',
+    $features: { entityHeaderCards: true }
   }
 });
 
@@ -28,12 +29,6 @@ const entityDetails = {
 };
 
 describe('components/entity/EntityDetails', () => {
-  it('shows a label', () => {
-    const wrapper = factory(entityDetails);
-
-    expect(wrapper.find('[data-qa="entity label"]').text()).toBe('Person');
-  });
-
   it('shows a title and description', () => {
     const wrapper = factory(entityDetails);
 

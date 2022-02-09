@@ -30,12 +30,15 @@ export default {
     "accept": "Aċċetta",
     "cancel": "Ikkanċella",
     "close": "agħlaq",
+    "continue": "kompli",
     "download": "Niżżel",
     "edit": "Editja",
     "feedback": "Feedback",
     "goBack": "Mur lura",
+    "goHome": "Mur fil-homepage",
     "like": "Like",
     "next": "Li jmiss",
+    "pin": "Pin",
     "providedBy": "Ipprovdut minn {provider}",
     "reject": "Irrifjuta",
     "send": "Tibgħat",
@@ -72,6 +75,7 @@ export default {
   "cardLabels": {
     "organisation": "Organizzazzjoni",
     "person": "Persuna",
+    "theme": "Tema",
     "time": "Seklu",
     "topic": "Suġġett"
   },
@@ -352,7 +356,48 @@ export default {
       }
     },
     "LANGUAGE": {
-      "name": "Lingwa | Lingwi"
+      "name": "Lingwa | Lingwi",
+      "options": {
+        "ar": "Għarbi",
+        "bg": "Bulgaru",
+        "bs": "Bożnijan",
+        "ca": "Katalan",
+        "cs": "Ċeka",
+        "cy": "Welsh",
+        "da": "Daniż",
+        "de": "Ġermaniż",
+        "el": "Grieg",
+        "en": "Ingliż",
+        "es": "Spanjol",
+        "et": "Estonjan",
+        "fi": "Fillandiż",
+        "fr": "Franċiż",
+        "ga": "Irlandiż",
+        "gd": "Ċeltiku",
+        "he": "Lhudi",
+        "hr": "Kroat",
+        "hu": "Ungeriż",
+        "is": "Iżlandiż",
+        "it": "Taljan",
+        "lt": "Litwan",
+        "lv": "Latvjan",
+        "mk": "Maċedonjan",
+        "mt": "Malti",
+        "mul": "Lingwi multipli",
+        "nl": "Olandiż",
+        "no": "Norveġjan",
+        "pl": "Pollak",
+        "pt": "Portugiż",
+        "ro": "Rumen",
+        "ru": "Russu",
+        "sk": "Slovakk",
+        "sl": "Sloven",
+        "sq": "Albaniż",
+        "sr": "Serbjan",
+        "sv": "Svediż",
+        "tr": "Tork",
+        "uk": "Ukren"
+      }
     },
     "MIME_TYPE": {
       "name": "Format tal-fajl | Formati tal-fajl",
@@ -387,7 +432,9 @@ export default {
       "options": {
         "fulltext": "Oġġetti bit-test sħiħ",
         "metadata": "Oġġetti tal-metadata biss"
-      }
+      },
+      "switch": "Fittex biss fil-kontenut ta' oġġetti b'test sħiħ",
+      "switchMoreInfo": "F'din il-ġabra, tista' tagħżel dak li trid tfittex: jekk dan is-swiċċ huwa mixgħul, allura inti se tfittex fit-test tal-gazzetta u tad-dokument; jekk tkun mitfija, allura inti minflok tfittex fl-informazzjoni li tiddeskrivi l-oġġett, bħalma dejjem tagħmel fil-biċċa l-kbira tal-kollezzjonijiet l-oħra."
     },
     "button": {
       "apply": "Applika",
@@ -420,7 +467,11 @@ export default {
       "notification": "Xi oġġetti li ma jikkonformawx mal-kriterji tal-pubblikazzjoni tagħna huma disponibbli. Tista' taċċessa dawk l-oġġetti billi tattiva l-filtru 'Kwalità tal-Oġġett' taħt 'Aktar filtri'.",
       "options": {
         "*": "Jinkludi oġġetti li ma jissodisfawx il-kriterji tal-pubblikazzjoni tagħna",
-        "0": "Uri biss l-oġġetti li ma jissodisfawx il-kriterji tal-pubblikazzjoni tagħna"
+        "0": "Uri biss l-oġġetti li ma jissodisfawx il-kriterji tal-pubblikazzjoni tagħna",
+        "1": "Kwalità baxxa",
+        "2": "Kwalità medja",
+        "3": "Kwalità għolja & li jistgħu jerġgħu jintużaw b'kundizzjonijiet",
+        "4": "Kwalità għolja & li jistgħu jerġgħu jintużaw liberament"
       }
     },
     "proxy_dc_format": {
@@ -579,7 +630,6 @@ export default {
     "itemCount": "oġġett 1 |{count} oġġetti",
     "itemOf": "{max} minn {count} oġġett",
     "recent": "Oġġetti reċenti",
-    "recommendationsDisclaimer": "Thumb up biex iżżid mal-gallerija - Thumb down jekk ma tħobbx",
     "recommended": "Oġġetti rakkomandati",
     "youMightLike": "Oġġetti li jistgħu jinteressawk"
   },
@@ -643,6 +693,10 @@ export default {
         "description": "Iġbor statistika anonima dwar kif il-viżitaturi jinteraġixxu mal-websajt.",
         "title": "Matomo"
       },
+      "newFeatureNotification": {
+        "description": "Juri notifika meta karatteristiċi ġodda jsiru disponibbli.",
+        "title": "Notifika ta' karatteristika ġdida"
+      },
       "searchResultsView": {
         "description": "Tiftakar jekk tippreferi tara r-riżultati tat-tfittxija f'lista jew viżjoni tal-grilja.",
         "title": "Veduta tar-riżultat tat-tfittxija (lista / gradilja)"
@@ -653,25 +707,8 @@ export default {
     "skipToMain": "Aqbeż għall-kontenut paġna"
   },
   "learnMore": "Tgħallem aktar dawr is-sors ta' din id-deskrizzjoni",
-  "linksToClassic": {
-    "home": {
-      "linkText": "Ara din il-paġna fuq il-websajt oriġinali ta' Europeana sal-20 ta' Diċembru 2021.",
-      "text": "Qed tara l-esperjenza ta' Europeana ġdida."
-    },
-    "record": {
-      "linkText": "Ara dan l-oġġett fuq il-websajt oriġinali ta' Europeana sal-20 ta' Diċembru 2021.",
-      "text": "Qed tara dan l-oġġett fis-sit web il-ġdid ta' Europeana."
-    },
-    "search": {
-      "linkText": "Fittex fuq il-websajt oriġinali tal-Europeana sal-20 ta' Diċembru 2021.",
-      "text": "Qed tfittex fis-sit web ġdid u aktar veloċi tagħna."
-    }
-  },
   "loading": "Tagħbija",
   "loadingResults": "Qed jillowdja r-riżultati",
-  "mediaPreview": {
-    "selectItem": "Agħżel oġġett {src}"
-  },
   "messages": {
     "copyToClipboardSuccess": "Ikkupjat fil-clipboard",
     "externalContentError": "Il-kontenut estern ma llowdjax",
@@ -692,6 +729,13 @@ export default {
     "stopTranslating": "Waqqaf it-traduzzjoni ta 'dan l-oġġett għal {0}.",
     "translateLanguage": "Tixtieq tara dan l-oġġett f ' {0} ?",
     "translateQuotaError": "Is-servizz tat-traduzzjoni temporanjament mhux disponibbli. Jekk jogħġbok erġa' pprova aktar tard."
+  },
+  "newFeatureNotification": {
+    "dismiss": "Tkeċċija",
+    "readMore": "Aqra iktar",
+    "text": {
+      "sideFilters": "Iċċekkja l-filtri l-ġodda! Issa huma kollha viżibbli fuq in-naħa tal-lemin tar-riżultati tat-tfittxija."
+    }
   },
   "newWindow": "tiftaħ fit-tieqa l-ġdida",
   "noMoreResults": "M'hemmx aktar riżultati għall-mistoqsija tat-tfittxija tiegħek.",
@@ -720,11 +764,16 @@ export default {
     }
   },
   "readMore": "Aqra iktar",
+  "recommendation": {
+    "prompts": {
+      "accept": "Thumb up biex iżżid mal-gallerija",
+      "reject": "Thumb down jekk ma togħġbokx"
+    }
+  },
   "record": {
     "IIIFViewer": "Telespettatur IIIF",
     "allMetaData": "Il-metadata kollha",
     "copyEmbedLabel": "Inkorpora il-code (Ikklikkja biex tikkopja)",
-    "downloadCopyrightInfo": "Dan l-oġġett huwa marbut bid-drittijiet tal-awtur u ma jistax jitniżżel.",
     "exploreMore": "Esplora Aktar",
     "extendedInformation": "Informazzjoni estiża",
     "goodToKnow": "Informazzjoni utli",
@@ -736,12 +785,7 @@ export default {
     "showAll": "Uri l-informazzjoni kollha",
     "similarItems": "Oġġetti simili",
     "transcription": "Traskrizzjoni",
-    "transcriptionDisclaimer": "Dan il-kontenut huwa ġie kkontribwit mill-pubbliku, mhux mill-instituzzjoni li pprovdiet dan l-oġġett.",
-    "view": {
-      "image": "Ara l-istampa",
-      "media": "Ara l-midja",
-      "pdf": "Ara l-PDF"
-    }
+    "transcriptionDisclaimer": "Dan il-kontenut huwa ġie kkontribwit mill-pubbliku, mhux mill-instituzzjoni li pprovdiet dan l-oġġett."
   },
   "relatedCollections": "Kollezzjonijiet relatati",
   "removeFilter": "Neħħi l-filtru {filterLabel}",
@@ -767,7 +811,8 @@ export default {
   },
   "searchViews": {
     "grid": "Dehra tal-grilja",
-    "list": "Dehra tal-lista"
+    "list": "Dehra tal-lista",
+    "mosaic": "Dehra tal-mużajk"
   },
   "set": {
     "actions": {
@@ -776,6 +821,7 @@ export default {
       "createNew": "Oħloq direttorju tar-ritratti ġdid",
       "delete": "Ħassar id-direttorju tar-ritratti",
       "edit": "Editja d-direttorju tar-ritratti",
+      "save": "Tissejvja",
       "update": "Aġġorna d-direttorju tar-ritratti"
     },
     "form": {
@@ -802,5 +848,9 @@ export default {
   },
   "showLess": "Uri inqas",
   "showMore": "Uri aktar",
+  "statuses": {
+    "liked": "Għoġobni",
+    "pinned": "Mehmuż"
+  },
   "website": "Websajt"
 };

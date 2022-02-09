@@ -30,12 +30,15 @@ export default {
     "accept": "Priimti",
     "cancel": "Atšaukti",
     "close": "uždaryti",
+    "continue": "tęsti",
     "download": "Parsisiųsti",
     "edit": "Redaguoti",
     "feedback": "Atsiliepimas",
     "goBack": "Grįžti",
+    "goHome": "Eikite į pagrindinį puslapį",
     "like": "Patinka",
     "next": "Kitas",
+    "pin": "Kaištis",
     "providedBy": "Tiekėjas {provider}",
     "reject": "Atmesti",
     "send": "Siųsti",
@@ -72,6 +75,7 @@ export default {
   "cardLabels": {
     "organisation": "Organizacija",
     "person": "Asmuo",
+    "theme": "Tema",
     "time": "Amžius",
     "topic": "Tema"
   },
@@ -352,7 +356,48 @@ export default {
       }
     },
     "LANGUAGE": {
-      "name": "Kalba"
+      "name": "Kalba",
+      "options": {
+        "ar": "Arabų",
+        "bg": "Bulgarų",
+        "bs": "Bosnių",
+        "ca": "Katalonų",
+        "cs": "Čekų",
+        "cy": "Valų",
+        "da": "Danų",
+        "de": "Vokiečių",
+        "el": "Graikų",
+        "en": "Anglų",
+        "es": "Ispanų",
+        "et": "Estų",
+        "fi": "Suomių",
+        "fr": "Prancūzų",
+        "ga": "Airių",
+        "gd": "Gėlų",
+        "he": "Hebrajų",
+        "hr": "Kroatų",
+        "hu": "Vengrų",
+        "is": "Islandų",
+        "it": "Italų",
+        "lt": "Lietuvių",
+        "lv": "Latvių",
+        "mk": "Makedonų",
+        "mt": "Maltiečių",
+        "mul": "Kelios kalbos",
+        "nl": "Olandų",
+        "no": "Norvegų",
+        "pl": "Lenkų",
+        "pt": "Portugalų",
+        "ro": "Rumunų",
+        "ru": "Rusų",
+        "sk": "Slovakų",
+        "sl": "Slovėnų",
+        "sq": "Albanų",
+        "sr": "Serbų",
+        "sv": "Švedų",
+        "tr": "Turkų",
+        "uk": "Ukrainiečių"
+      }
     },
     "MIME_TYPE": {
       "name": "Failo formatas | Failų formatai",
@@ -387,7 +432,9 @@ export default {
       "options": {
         "fulltext": "Įrašai su visu tekstu",
         "metadata": "Tik metaduomenų įrašai"
-      }
+      },
+      "switch": "Ieškoti tik pilno teksto elementų turinyje",
+      "switchMoreInfo": "Šioje kolekcijoje galite pasirinkti, ko norite ieškoti: jei šis jungiklis įjungtas, tada ieškosite laikraščio ir dokumento tekste; jei jis išjungtas, tada ieškosite informacijos, apibūdinančios elementą, kaip ir daugumoje kitų kolekcijų."
     },
     "button": {
       "apply": "Taikyti",
@@ -416,11 +463,15 @@ export default {
       }
     },
     "contentTier": {
-      "name": "Rodomi elementai, neatitinkantys mūsų paskelbimo kriterijų.",
+      "name": "Prekės kokybė",
       "notification": "Yra prekių, kurios neatitinka mūsų skelbiamų prekių kriterijų. Šias prekes rasite aktyvavę filtrą „Prekių kokybė“, esantį skiltyje „Daugiau filtrų“.",
       "options": {
         "*": "Rodomi elementai, neatitinkantys mūsų paskelbimo kriterijų.",
-        "0": "Tik elementai, neatitinkantys mūsų paskelbimo kriterijų"
+        "0": "Tik elementai, neatitinkantys mūsų paskelbimo kriterijų",
+        "1": "Žema kokybė",
+        "2": "Vidutinė kokybė",
+        "3": "Aukštos kokybės ir daugkartinio naudojimo sąlygos",
+        "4": "Aukštos kokybės ir laisvai daugkartinio naudojimo"
       }
     },
     "proxy_dc_format": {
@@ -579,7 +630,6 @@ export default {
     "itemCount": "1 prekė iš |{count} prekių",
     "itemOf": "{max} iš {count} prekių",
     "recent": "Naujausi elementai",
-    "recommendationsDisclaimer": "Nykštis aukštyn ir įtraukimas į galeriją - Nykštis žemyn, jei jums tai nepatinka",
     "recommended": "Rekomenduojami daiktai",
     "youMightLike": "Prekės, kurios jums gali patikti"
   },
@@ -643,6 +693,10 @@ export default {
         "description": "Renka anoniminę statistiką apie tai, kaip lankytojai sąveikauja su svetaine.",
         "title": "Matomo"
       },
+      "newFeatureNotification": {
+        "description": "Rodomas pranešimas, kai atsiranda naujų funkcijų.",
+        "title": "Pranešimas apie naują funkciją"
+      },
       "searchResultsView": {
         "description": "Prisimena, ar norite paieškos rezultatus matyti sąrašo ar tinklelio rodinyje.",
         "title": "Paieškos rezultatų rodinys (sąrašas / tinklelis)"
@@ -653,25 +707,8 @@ export default {
     "skipToMain": "Pereiti į puslapio turinį"
   },
   "learnMore": "Sužinokite apie šio aprašymo šaltinį",
-  "linksToClassic": {
-    "home": {
-      "linkText": "Peržiūrėkite šį puslapį originalioje Europeana svetainėje iki 2021 m. gruodžio 20 d.",
-      "text": "Jūs žiūrite naująjį „Europeana“."
-    },
-    "record": {
-      "linkText": "Peržiūrėkite šį elementą originalioje Europeana svetainėje iki 2021 m. gruodžio 20 d.",
-      "text": "Jūs žiūrite šį elementą originaliame „Europeana“ tinklalapyje."
-    },
-    "search": {
-      "linkText": "Ieškokite originalioje Europeana svetainėje iki 2021 m. gruodžio 20 d.",
-      "text": "Jūs ieškote mūsų naujajame ir greitesniajame tinklalapyje."
-    }
-  },
   "loading": "Įkeliama",
   "loadingResults": "Įkeliami rezultatai",
-  "mediaPreview": {
-    "selectItem": "Pasirinkite elementą {src}"
-  },
   "messages": {
     "copyToClipboardSuccess": "Nukopijuota į mainų sritį",
     "externalContentError": "Nepavyko įkelti išorinio turinio",
@@ -692,6 +729,13 @@ export default {
     "stopTranslating": "Nustokite versti šį elementą į {0}.",
     "translateLanguage": "Ar norėtumėte pamatyti šį elementą {0} ?",
     "translateQuotaError": "Vertimo paslauga laikinai nepasiekiama. Pabandykite dar kartą vėliau."
+  },
+  "newFeatureNotification": {
+    "dismiss": "Atmesti",
+    "readMore": "Skaityti daugiau",
+    "text": {
+      "sideFilters": "Patikrinkite naujus filtrus! Dabar jie visi matomi dešinėje paieškos rezultatų pusėje."
+    }
   },
   "newWindow": "atsidaro naujame lange",
   "noMoreResults": "Daugiau nėra rezultatų pagal jūsų paieškos užklausą.",
@@ -720,11 +764,16 @@ export default {
     }
   },
   "readMore": "Skaityti daugiau",
+  "recommendation": {
+    "prompts": {
+      "accept": "Nykščiu aukštyn, kad pridėtumėte į galeriją",
+      "reject": "Nykščiu žemyn, jei nepatinka"
+    }
+  },
   "record": {
     "IIIFViewer": "IIIF žiūrovas",
     "allMetaData": "Visi metaduomenys",
     "copyEmbedLabel": "Įterpti kodą (spustelėkite, jei norite kopijuoti)",
-    "downloadCopyrightInfo": "Šis elementas apsaugos autorių teisėmis, jo negalima atsisiųsti.",
     "exploreMore": "Sužinokite daugiau",
     "extendedInformation": "Išplėstinė informacija",
     "goodToKnow": "Naudinga žinoti",
@@ -736,12 +785,7 @@ export default {
     "showAll": "Rodyti visą informaciją",
     "similarItems": "Panašūs elementai",
     "transcription": "Transkripcija",
-    "transcriptionDisclaimer": "Šį turinį patalpino visuomenės narys, o ne prekę pateikusi įstaiga.",
-    "view": {
-      "image": "Peržiūrėti vaizdą",
-      "media": "Peržiūrėti laikmeną",
-      "pdf": "Peržiūrėti PDF"
-    }
+    "transcriptionDisclaimer": "Šį turinį patalpino visuomenės narys, o ne prekę pateikusi įstaiga."
   },
   "relatedCollections": "Susiję rinkiniai",
   "removeFilter": "Pašalinkite filtrą {filterLabel}",
@@ -767,7 +811,8 @@ export default {
   },
   "searchViews": {
     "grid": "Tinklelio rodinys",
-    "list": "Sąrašo rodinys"
+    "list": "Sąrašo rodinys",
+    "mosaic": "Mozaikos vaizdas"
   },
   "set": {
     "actions": {
@@ -776,6 +821,7 @@ export default {
       "createNew": "Kurti naują galeriją",
       "delete": "Naikinti galeriją",
       "edit": "Redaguoti galeriją",
+      "save": "Išsaugoti",
       "update": "Atnaujinti galeriją"
     },
     "form": {
@@ -802,5 +848,9 @@ export default {
   },
   "showLess": "Rodyti mažiau",
   "showMore": "Rodyti daugiau",
+  "statuses": {
+    "liked": "Patiko",
+    "pinned": "Prisegtas"
+  },
   "website": "Interneto svetainė"
 };

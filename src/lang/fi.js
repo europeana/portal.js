@@ -30,12 +30,15 @@ export default {
     "accept": "Hyväksy",
     "cancel": "Peruuttaa",
     "close": "sulje",
+    "continue": "jatka",
     "download": "Lataa",
     "edit": "Muokkaa",
     "feedback": "Palaute",
     "goBack": "Palaa takaisin",
+    "goHome": "Siirry kotisivulle",
     "like": "Tykkää",
     "next": "Seuraava",
+    "pin": "Pin",
     "providedBy": "Tarjoaa {provider}",
     "reject": "Hylätä",
     "send": "Lähettää",
@@ -72,6 +75,7 @@ export default {
   "cardLabels": {
     "organisation": "Organisaatio",
     "person": "Henkilö",
+    "theme": "Teema",
     "time": "Vuosisata",
     "topic": "Aihe"
   },
@@ -352,7 +356,48 @@ export default {
       }
     },
     "LANGUAGE": {
-      "name": "Kieli"
+      "name": "Kieli",
+      "options": {
+        "ar": "Arabialainen",
+        "bg": "Bulgarialainen",
+        "bs": "Bosnialainen",
+        "ca": "Katalaani",
+        "cs": "Tšekki",
+        "cy": "Walesin",
+        "da": "Tanskalainen",
+        "de": "Saksan",
+        "el": "Kreikkalainen",
+        "en": "Englanti",
+        "es": "Espanjan",
+        "et": "Viron",
+        "fi": "Suomalainen",
+        "fr": "Ranskan",
+        "ga": "Irlantilainen",
+        "gd": "Gaeli",
+        "he": "Heprea",
+        "hr": "Kroatian",
+        "hu": "Unkarilainen",
+        "is": "Islantilainen",
+        "it": "Italialainen",
+        "lt": "Liettuan",
+        "lv": "Latvialainen",
+        "mk": "Makedonialainen",
+        "mt": "Maltalainen",
+        "mul": "Useita kieliä",
+        "nl": "Hollantilainen",
+        "no": "Norjalainen",
+        "pl": "Puolan",
+        "pt": "Portugalin",
+        "ro": "Romanialainen",
+        "ru": "Venäläinen",
+        "sk": "Slovakki",
+        "sl": "Sloveeni",
+        "sq": "Albanian",
+        "sr": "Serbialainen",
+        "sv": "Ruotsalainen",
+        "tr": "Turkkilainen",
+        "uk": "Ukrainan"
+      }
     },
     "MIME_TYPE": {
       "name": "Tiedostomuoto | Tiedostomuodot",
@@ -387,7 +432,9 @@ export default {
       "options": {
         "fulltext": "Tallentaa koko tekstin kanssa",
         "metadata": "Vain metatiedot"
-      }
+      },
+      "switch": "Haku vain kohteiden sisällöstä, joissa on kokoteksti.",
+      "switchMoreInfo": "Tässä kokoelmassa voit valita, mitä haluat etsiä: jos tämä kytkin on päällä, etsit sanomalehti- ja asiakirjateksteistä; jos se on pois päältä, etsit sen sijaan kohteen kuvailutiedoista, aivan kuten useimmissa muissa kokoelmissa."
     },
     "button": {
       "apply": "Käytä",
@@ -416,11 +463,15 @@ export default {
       }
     },
     "contentTier": {
-      "name": "Sisältää kohteita, jotka eivät täytä julkaisuehtojamme",
+      "name": "Kohde laatu",
       "notification": "Jotkin saatavilla olevista kohteista eivät täytä julkaisuehtojamme. Voit näyttää nämä kohteet aktivoimalla \"Lisää suodattimia\" -kohdan \"Kohteiden laatu\" -suodattimen.",
       "options": {
         "*": "Sisältää kohteita, jotka eivät täytä julkaisuehtojamme",
-        "0": "Näytä ainoastaan kohteet, jotka eivät täytä julkaisuehtojamme"
+        "0": "Näytä ainoastaan kohteet, jotka eivät täytä julkaisuehtojamme",
+        "1": "Heikko laatu",
+        "2": "Keskilaatuinen",
+        "3": "Korkealaatuinen ja uudelleenkäytettävä olosuhteissa",
+        "4": "Korkealaatuinen & vapaasti uudelleenkäytettävissä"
       }
     },
     "proxy_dc_format": {
@@ -579,7 +630,6 @@ export default {
     "itemCount": "1 kohde |{count} kohdetta",
     "itemOf": "{max} / {count} kohdetta",
     "recent": "Viimeisimmät kohteet",
-    "recommendationsDisclaimer": "Peukalo ylös lisätäksesi galleriaan - Peukalo alas, jos et pidä siitä",
     "recommended": "Suositellut kohteet",
     "youMightLike": "Saattaisit tykätä näistä kohteista"
   },
@@ -643,6 +693,10 @@ export default {
         "description": "Kerää nimettömiä tilastoja siitä, miten kävijät ovat vuorovaikutuksessa verkkosivuston kanssa.",
         "title": "Matomo"
       },
+      "newFeatureNotification": {
+        "description": "Näyttää ilmoituksen, kun uusia ominaisuuksia tulee saataville.",
+        "title": "Uuden ominaisuuden ilmoitus"
+      },
       "searchResultsView": {
         "description": "Muistaa, haluatko nähdä hakutulokset luettelossa tai ruudukkonäkymässä.",
         "title": "Hakutulosnäkymä (luettelo/ruudukko)"
@@ -653,25 +707,8 @@ export default {
     "skipToMain": "Siirry sivun sisältöön"
   },
   "learnMore": "Lisätietoja kuvauksen lähteestä",
-  "linksToClassic": {
-    "home": {
-      "linkText": "Katso tämä sivu alkuperäisellä Europeana-verkkosivustolla 20. joulukuuta 2021 asti.",
-      "text": "Katselet uutta Europeanaa."
-    },
-    "record": {
-      "linkText": "Katso tämä kohde alkuperäisellä Europeana-verkkosivustolla 20. joulukuuta 2021 asti.",
-      "text": "Tarkastelet tätä kohdetta uudella Europeana-verkkosivustolla."
-    },
-    "search": {
-      "linkText": "Hae alkuperäiseltä Europeanan verkkosivulta 20. joulukuuta 2021 asti.",
-      "text": "Etsit uudessa ja nopeammassa verkkosivustossamme."
-    }
-  },
   "loading": "Ladataan",
   "loadingResults": "Ladataan tuloksia",
-  "mediaPreview": {
-    "selectItem": "Valitse kohde {src}"
-  },
   "messages": {
     "copyToClipboardSuccess": "Kopioitu leikepöydälle",
     "externalContentError": "Ulkoisen sisällön lataaminen epäonnistui",
@@ -692,6 +729,13 @@ export default {
     "stopTranslating": "Lopeta tämän kohteen kääntäminen kielelle {0}.",
     "translateLanguage": "Haluaisitko nähdä tämän kohteen {0}?",
     "translateQuotaError": "Käännöspalvelu ei ole tilapäisesti käytettävissä. Yritä uudelleen myöhemmin."
+  },
+  "newFeatureNotification": {
+    "dismiss": "Vapauttakaa",
+    "readMore": "Lue lisää",
+    "text": {
+      "sideFilters": "Tutustu uusiin suodattimiin! Ne näkyvät nyt kaikki hakutulosten oikealla puolella."
+    }
   },
   "newWindow": "avautuu uuteen ikkunaan",
   "noMoreResults": "Hakusi ei tuottanut enempää tuloksia.",
@@ -720,11 +764,16 @@ export default {
     }
   },
   "readMore": "Lue lisää",
+  "recommendation": {
+    "prompts": {
+      "accept": "Peukalo ylös lisätäksesi galleriaan",
+      "reject": "Peukalo alas, jos et pidä siitä"
+    }
+  },
   "record": {
     "IIIFViewer": "IIIF-katsoja",
     "allMetaData": "Kaikki metatiedot",
     "copyEmbedLabel": "Upota koodi (kopioi napsauttamalla)",
-    "downloadCopyrightInfo": "Tämä tuote on suojattu tekijänoikeudella eikä sitä voi ladata.",
     "exploreMore": "Tutki lisää",
     "extendedInformation": "Tarkemmat tiedot",
     "goodToKnow": "Hyvä tietää",
@@ -736,12 +785,7 @@ export default {
     "showAll": "Näytä kaikki tiedot",
     "similarItems": "Samanlaisia kohteita",
     "transcription": "Transkriptio",
-    "transcriptionDisclaimer": "Tämän sisällön on lähettänyt yksityishenkilö eikä tämän kohteen tarjoava instituutio.",
-    "view": {
-      "image": "Näytä kuva",
-      "media": "Näytä media",
-      "pdf": "Näytä PDF"
-    }
+    "transcriptionDisclaimer": "Tämän sisällön on lähettänyt yksityishenkilö eikä tämän kohteen tarjoava instituutio."
   },
   "relatedCollections": "Aiheeseen liittyvät kokoelmat",
   "removeFilter": "Poista {filterLabel} -suodatin",
@@ -767,7 +811,8 @@ export default {
   },
   "searchViews": {
     "grid": "Ruudukkonäkymä",
-    "list": "Luettelonäkymä"
+    "list": "Luettelonäkymä",
+    "mosaic": "Mosaiikkinäkymä"
   },
   "set": {
     "actions": {
@@ -776,6 +821,7 @@ export default {
       "createNew": "Luo uusi galleria",
       "delete": "Poista galleria",
       "edit": "Muokkaa galleriaa",
+      "save": "Tallenna",
       "update": "Päivitä galleria"
     },
     "form": {
@@ -802,5 +848,9 @@ export default {
   },
   "showLess": "Näytä vähemmän",
   "showMore": "Näytä lisää",
+  "statuses": {
+    "liked": "Pidetty",
+    "pinned": "Kiinnitetty"
+  },
   "website": "Verkkosivusto"
 };
