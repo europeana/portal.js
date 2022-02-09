@@ -31,6 +31,7 @@
           <SearchInterface
             id="search-interface"
             :per-row="4"
+            :context-label="entityHeaderCardsEnabled ? '' : null"
           />
         </b-col>
       </b-row>
@@ -71,6 +72,9 @@
     computed: {
       searchQuery() {
         return this.$route.query.query;
+      },
+      entityHeaderCardsEnabled() {
+        return this.$features.entityHeaderCards;
       }
     },
 

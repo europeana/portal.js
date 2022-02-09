@@ -28,10 +28,21 @@
     </b-row>
     <b-row
       v-if="hasAnyResults"
-      class="mb-3"
+      class="mb-3 "
+      :class="{ 'd-flex align-items-center': contextLabel }"
     >
       <b-col>
-        <p data-qa="total results">
+        <div
+          v-if="contextLabel || contextLabel === ''"
+          class="context-label"
+          data-qa="context label"
+        >
+          {{ contextLabel }}
+        </div>
+        <p
+          v-else
+          data-qa="total results"
+        >
           {{ $t('results') }}: {{ totalResults | localise }}
         </p>
       </b-col>
@@ -139,6 +150,10 @@
       showPins: {
         type: Boolean,
         default: false
+      },
+      contextLabel: {
+        type: String,
+        default: null
       }
     },
     data() {
@@ -294,5 +309,9 @@
     color: $black;
     font-size: $font-size-small;
     text-transform: uppercase;
+  }
+
+  .context-label {
+    font-size: $font-size-small;
   }
 </style>

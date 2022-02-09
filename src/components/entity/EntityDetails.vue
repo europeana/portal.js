@@ -8,6 +8,7 @@
         :style="`background-image: url(${resizedLogo})`"
       />
       <div
+        v-if="!entityHeaderCardsEnabled"
         class="context-label"
         data-qa="entity label"
       >
@@ -115,6 +116,9 @@
       externalLinkText() {
         const externalLinkURL = new URL(this.externalLink);
         return `${externalLinkURL.host}${externalLinkURL.pathname === '/' ? '' : externalLinkURL.pathname}`;
+      },
+      entityHeaderCardsEnabled() {
+        return this.$features.entityHeaderCards;
       }
     },
     methods: {

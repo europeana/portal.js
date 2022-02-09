@@ -21,7 +21,7 @@ const factory = (options = {}) => {
     $t: (key) => key,
     $path: () => '/',
     $goto: () => null,
-    $features: { sideFilters: false },
+    $features: { sideFilters: false, entityHeaderCards: true },
     $fetchState: options.fetchState || {},
     $route: { path: '/search', name: 'search', query: {} },
     ...options.mocks
@@ -88,6 +88,32 @@ describe('components/search/SearchInterface', () => {
 
         expect(errorNotice).toBeDefined();
       });
+    });
+  });
+
+  describe('context label', () => {
+    it('shows when results and label is present', () => {
+      const wrapper = factory({ propsData: { contextLabel: 'topic' }, storeState: { totalResults: 100 } });
+
+      const label = wrapper.find('[data-qa="context label"]');
+
+      expect(label.text()).toContain('topic');
+    });
+
+    it('does not show when no label is present', () => {
+      const wrapper = factory({ propsData: { contextLabel: null }, storeState: { totalResults: 100 } });
+
+      const label = wrapper.find('[data-qa="context label"]');
+
+      expect(label.exists()).toBe(false);
+    });
+
+    it('does not show when no results are present', () => {
+      const wrapper = factory({ propsData: { contextLabel: 'topic' }, storeState: { totalResults: null } });
+
+      const label = wrapper.find('[data-qa="context label"]');
+
+      expect(label.exists()).toBe(false);
     });
   });
 
