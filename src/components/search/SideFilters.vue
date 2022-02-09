@@ -104,7 +104,7 @@
   import { mapState, mapGetters } from 'vuex';
   import { rangeToQueryParam, rangeFromQueryParam } from '@/plugins/europeana/search';
   import themes from '@/plugins/europeana/themes';
-  import { queryUpdatesForFilters } from '../../store/search';
+  import { defaultFacetNames, queryUpdatesForFilters } from '../../store/search';
   import SideFacetDropdown from './SideFacetDropdown';
 
   export default {
@@ -129,24 +129,39 @@
         PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued',
         API_FILTER_COLLECTIONS: ['newspaper', 'ww1'],
         DATE_FILTER_COLLECTIONS: ['newspaper'],
+        // Default facets to always request and display.
+        // Order is significant as it will be reflected on search results.
+        DEFAULT_FACET_NAMES: defaultFacetNames,
+        COLLECTION_SPECIFIC_FACET_NAMES: {
+          fashion: [
+            'CREATOR',
+            'proxy_dc_format.en',
+            'proxy_dcterms_medium.en',
+            'proxy_dc_type.en'
+          ]
+        },
         hideFilterSheet: true
       };
     },
     computed: {
       ...mapState({
         collectionFacetEnabled: state => state.search.collectionFacetEnabled,
-        facets: state => state.search.facets,
         resettableFilters: state => state.search.resettableFilters,
         showFiltersSheet: state => state.search.showFiltersSheet,
         totalResults: state => state.search.totalResults,
         userParams: state => state.search.userParams
       }),
       ...mapGetters({
-        facetNames: 'search/facetNames',
         filters: 'search/filters',
         queryUpdatesForFacetChanges: 'search/queryUpdatesForFacetChanges',
         collection: 'search/collection'
       }),
+      collectionSpecificFacetNames() {
+        return this.COLLECTION_SPECIFIC_FACET_NAMES[this.collection] || [];
+      },
+      facetNames() {
+        return this.collectionSpecificFacetNames.concat(this.DEFAULT_FACET_NAMES);
+      },
       resetButtonDisabled() {
         // Disable reset button while queries are running
         return this.$store.state.search.liveQueries.length > 0;

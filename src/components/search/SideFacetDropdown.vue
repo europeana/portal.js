@@ -100,6 +100,8 @@
   import xor from 'lodash/xor';
   import FacetFieldLabel from './FacetFieldLabel';
   import ColourSwatch from '../generic/ColourSwatch';
+  import { unquotableFacets } from '@/plugins/europeana/search';
+  import { escapeLuceneSpecials } from '@/plugins/europeana/utils';
 
   export default {
     components: {
@@ -152,7 +154,15 @@
         CHECKBOX: 'checkbox',
         preSelected: null,
         fetched: !!this.staticFields,
-        fields: this.staticFields || []
+        fields: this.staticFields || [],
+        COLLECTION_SPECIFIC_FIELD_LABEL_PATTERNS: {
+          fashion: {
+            'CREATOR': / \(Designer\)/,
+            'proxy_dc_type.en': /Object Type: /,
+            'proxy_dc_format.en': /Technique: /,
+            'proxy_dcterms_medium.en': /Material: /
+          }
+        }
       };
     },
 
@@ -164,21 +174,18 @@
         return Promise.resolve();
       }
 
-      return this.$store.dispatch('search/queryFacet', this.name)
-        .then((facets) => {
-          let fields = (facets || [])[0]?.fields || [];
-
-          // Limit contentTier filter options shown
-          if (this.name === 'contentTier') {
-            fields = this.filterContentTierFields(fields);
-          }
-
+      return this.queryFacet()
+        .then((fields) => {
           this.fields = fields;
           this.fetched = true;
         });
     },
 
     computed: {
+      collection() {
+        return this.$store.getters['search/collection'];
+      },
+
       selectedFilters() {
         return {
           [this.name]: [].concat(this.selected)
@@ -214,6 +221,19 @@
 
       dropdownVariant() {
         return ((typeof this.selected === 'string') || (Array.isArray(this.selected) && this.selected.length > 0)) ? 'selected' : 'light';
+      },
+
+      collectionSpecificFieldLabelPattern() {
+        return this.COLLECTION_SPECIFIC_FIELD_LABEL_PATTERNS[this.collection]?.[this.name];
+      },
+
+      paramsForFacets() {
+        return {
+          ...this.$store.state.search.apiParams,
+          rows: 0,
+          profile: 'facets',
+          facet: this.name
+        };
       }
     },
 
@@ -237,13 +257,45 @@
     },
 
     methods: {
+      queryFacet() {
+        this.$store.commit('search/addLiveQuery', this.paramsForFacets);
+
+        return this.$apis.record.search(this.paramsForFacets, {
+          ...this.$store.getters['search/searchOptions'],
+          locale: this.$i18n.locale
+        })
+          .then((response) => response.facets?.[0]?.fields || [])
+          .then((fields) => this.filterFacetFields(fields))
+          .then((fields) => this.formatFacetFieldLabels(fields))
+          .catch(async(error) => {
+            await this.$store.dispatch('search/updateForFailure', error);
+          })
+          .finally(() => {
+            this.$store.commit('search/removeLiveQuery', this.paramsForFacets);
+          });
+      },
+
+      filterFacetFields(fields) {
+        if (this.name === 'REUSABILITY') {
+          fields = fields.filter((field) => field.label !== 'uncategorized');
+        } else if (this.name === 'contentTier') {
+          fields = this.filterContentTierFields(fields);
+        }
+
+        if (this.collectionSpecificFieldLabelPattern) {
+          fields = fields.filter((field) => this.collectionSpecificFieldLabelPattern.test(field.label));
+        }
+
+        return fields;
+      },
+
       filterContentTierFields(fields) {
         // In general, only show option 0
-        let contentTierFilters = ['"0"'];
+        let contentTierFilters = ['0'];
 
-        if (this.$store.getters['search/collection']) {
+        if (this.collection) {
           // If searching within a thematic collection, only show options 2 to 4
-          contentTierFilters = ['"2"', '"3"', '"4"'];
+          contentTierFilters = ['2', '3', '4'];
         } else if (this.$store.getters['entity/id']) {
           // If searching with a non-thematic collection...
           if (this.$store.getters['entity/id'].includes('/organization/')) {
@@ -251,7 +303,7 @@
             contentTierFilters = null;
           } else {
             // ... and it is not an organization, only show options 1 to 4
-            contentTierFilters = ['"1"', '"2"', '"3"', '"4"'];
+            contentTierFilters = ['1', '2', '3', '4'];
           }
         }
 
@@ -261,6 +313,23 @@
 
         return fields;
       },
+
+      formatFacetFieldLabels(fields) {
+        if (this.collectionSpecificFieldLabelPattern) {
+          for (const field of fields) {
+            field.label = field.label.replace(this.collectionSpecificFieldLabelPattern, '');
+          }
+        }
+
+        if (!unquotableFacets.includes(this.name)) {
+          for (const field of fields) {
+            field.label = '"' + escapeLuceneSpecials(field.label) + '"';
+          }
+        }
+
+        return fields;
+      },
+
       // Refetch facet fields, unless this is the reusability facet
       updateRouteQueryReusability() {
         if (this.name !== 'REUSABILITY') {

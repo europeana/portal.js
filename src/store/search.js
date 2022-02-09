@@ -1,7 +1,5 @@
 import { diff } from 'deep-object-diff';
 import merge from 'deepmerge';
-import { escapeLuceneSpecials } from '../plugins/europeana/utils';
-import { unquotableFacets } from '../plugins/europeana/search';
 
 // Default facets to always request and display.
 // Order is significant as it will be reflected on search results.
@@ -73,7 +71,6 @@ export default {
     collectionFacetEnabled: true,
     error: null,
     errorStatusCode: null,
-    facets: [],
     hits: null,
     lastAvailablePage: null,
     liveQueries: [],
@@ -127,23 +124,6 @@ export default {
     setErrorStatusCode(state, value) {
       state.errorStatusCode = value;
     },
-    setFacets(state, value) {
-      if (!value) {
-        value = [];
-      }
-      for (const facet of value) {
-        if (facet.name === 'REUSABILITY') {
-          facet.fields = facet.fields.filter((field) => field.label !== 'uncategorized');
-        }
-
-        if (!unquotableFacets.includes(facet.name)) {
-          for (const field of facet.fields) {
-            field.label = '"' + escapeLuceneSpecials(field.label) + '"';
-          }
-        }
-      }
-      state.facets = value;
-    },
     setHits(state, value) {
       state.hits = value;
     },
@@ -194,10 +174,6 @@ export default {
       }
 
       return rootGetters[`collections/${collection}/formatFacetFieldLabel`](facetName, facetFieldLabel);
-    },
-
-    facetNames(state) {
-      return (state.apiParams.facet || '').split(',');
     },
 
     hasCollectionSpecificSettings: (state, getters, rootState) => (collection) => {
@@ -353,35 +329,6 @@ export default {
         });
     },
 
-    queryFacet({ commit, getters, rootState, rootGetters, dispatch, state }, facet) {
-      const paramsForFacets = {
-        ...state.apiParams,
-        rows: 0,
-        profile: 'facets',
-        facet
-      };
-
-      commit('addLiveQuery', paramsForFacets);
-      return this.$apis.record.search(paramsForFacets, { ...getters.searchOptions, locale: this.$i18n.locale })
-        .then((response) => {
-          commit('setFacets', response.facets);
-          const collection = getters.collection;
-
-          if (getters.hasCollectionSpecificSettings(collection) && rootState.collections[collection]['facets'] !== undefined) {
-            commit(`collections/${collection}/set`, ['facets', state.facets], { root: true });
-            commit('set', ['facets', rootGetters[`collections/${collection}/facets`]]);
-          }
-
-          return state.facets;
-        })
-        .catch(async(error) => {
-          await dispatch('updateForFailure', error);
-        })
-        .finally(() => {
-          commit('removeLiveQuery', paramsForFacets);
-        });
-    },
-
     updateForSuccess({ commit }, response) {
       commit('setError', response.error);
       commit('setErrorStatusCode', null);
@@ -394,7 +341,6 @@ export default {
     updateForFailure({ commit }, error) {
       commit('setError', error.message);
       commit('setErrorStatusCode', (typeof error.statusCode === 'undefined') ? 500 : error.statusCode);
-      commit('setFacets', []);
       commit('setHits', null);
       commit('setLastAvailablePage', null);
       commit('setResults', []);
