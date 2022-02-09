@@ -266,9 +266,6 @@ export default {
       userParams.qf = [].concat(userParams.qf || []);
 
       const apiParams = merge(userParams, state.overrideParams || {});
-      if (!apiParams.facet) {
-        apiParams.facet = defaultFacetNames.join(',');
-      }
 
       if (!apiParams.profile) {
         apiParams.profile = 'minimal';
