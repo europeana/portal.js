@@ -14,7 +14,7 @@
         class="border-bottom border-top d-flex justify-content-between align-items-center flex-nowrap"
       >
         <div
-          v-if="entityHeaderCardsEnabled"
+          v-if="entityHeaderCardsEnabled && totalResults"
           class="filters-title"
           data-qa="total results"
         >
