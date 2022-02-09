@@ -13,22 +13,32 @@
       class="masonry-container"
       :data-qa="`item previews ${view}`"
     >
-      <ItemPreviewCard
-        v-for="item in items"
+      <div
+        v-for="(item, index) in items"
         :key="item.id"
-        v-masonry-tile
-        :item="item"
-        :hit-selector="itemHitSelector(item)"
-        :variant="cardVariant"
-        class="item"
-        :lazy="false"
-        :enable-accept-recommendation="enableAcceptRecommendations"
-        :enable-reject-recommendation="enableRejectRecommendations"
-        :show-pins="showPins"
-        data-qa="item preview"
-        @like="$emit('like', item.id)"
-        @unlike="$emit('unlike', item.id)"
-      />
+      >
+        <ItemPreviewCard
+          v-masonry-tile
+          :item="item"
+          :hit-selector="itemHitSelector(item)"
+          :variant="cardVariant"
+          class="item"
+          :lazy="false"
+          :enable-accept-recommendation="enableAcceptRecommendations"
+          :enable-reject-recommendation="enableRejectRecommendations"
+          :show-pins="showPins"
+          data-qa="item preview"
+          @like="$emit('like', item.id)"
+          @unlike="$emit('unlike', item.id)"
+        />
+        <div
+          v-if="index === 6"
+          v-masonry-tile
+          class="item card text-left content-card item default-card"
+        >
+          Related
+        </div>
+      </div>
     </div>
   </div>
   <b-card-group
