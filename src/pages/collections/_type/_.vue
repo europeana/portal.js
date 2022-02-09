@@ -52,7 +52,7 @@
     </b-container>
     <client-only>
       <b-container
-        :class="{'page-container side-filters-enabled': sideFiltersEnabled}"
+        class="page-container side-filters-enabled"
       >
         <b-row class="flex-nowrap">
           <b-col>
@@ -83,7 +83,6 @@
             </b-container>
           </b-col>
           <SideFilters
-            v-if="sideFiltersEnabled"
             :route="route"
           />
         </b-row>
@@ -348,9 +347,6 @@
       },
       isEditable() {
         return this.entity && this.editable;
-      },
-      sideFiltersEnabled() {
-        return this.$features.sideFilters;
       },
       entityHeaderCardsEnabled() {
         return this.$features.entityHeaderCards;

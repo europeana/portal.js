@@ -2,18 +2,14 @@
   <div>
     <b-container
       data-qa="search page"
-      :class="{'page-container side-filters-enabled': sideFiltersEnabled}"
+      class="page-container side-filters-enabled"
     >
       <b-row
-        class="flex-row-reverse"
-        :class="{'flex-nowrap': sideFiltersEnabled}"
+        class="flex-row-reverse flex-nowrap"
       >
-        <SideFilters
-          v-if="sideFiltersEnabled"
-        />
+        <SideFilters />
         <b-col
-          :class="{'px-0': !sideFiltersEnabled,
-                   'results-col': sideFiltersEnabled}"
+          class="results-col"
         >
           <b-container>
             <b-row>
@@ -76,9 +72,6 @@
     computed: {
       searchQuery() {
         return this.$route.query.query;
-      },
-      sideFiltersEnabled() {
-        return this.$features.sideFilters;
       },
       entityHeaderCardsEnabled() {
         return this.$features.entityHeaderCards;

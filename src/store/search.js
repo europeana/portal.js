@@ -266,14 +266,6 @@ export default {
         .some((param) => ['page', 'query', 'qf', 'api', 'reusability'].includes(param));
     },
 
-    facetUpdateNeeded: (state, getters) => {
-      if (!state.previousApiParams) {
-        return true;
-      } // i.e. if this is the first search
-      return getters.apiParamsChanged
-        .some((param) => ['query', 'qf', 'api', 'reusability'].includes(param));
-    },
-
     searchOptions: (state) => {
       return {
         ...state.apiOptions,
@@ -336,14 +328,10 @@ export default {
     /**
      * Run a Record API search and store the results
      */
-    // TODO: refactor not to need options once ENABLE_SIDE_FILTERS is always-on
-    async run({ dispatch, getters }, options = {}) {
+    async run({ dispatch, getters }) {
       await dispatch('deriveApiSettings');
 
-      return Promise.all([
-        getters.itemUpdateNeeded ? dispatch('queryItems') : Promise.resolve(),
-        (!options.skipFacets && getters.facetUpdateNeeded) ? dispatch('queryFacets') : Promise.resolve()
-      ]);
+      return getters.itemUpdateNeeded ? dispatch('queryItems') : Promise.resolve();
     },
 
     queryItems({ dispatch, state, getters, commit }) {
@@ -365,13 +353,12 @@ export default {
         });
     },
 
-    // TODO: refactor not to need overrides once ENABLE_SIDE_FILTERS is always-on
-    queryFacets({ commit, getters, rootState, rootGetters, dispatch, state }, overrides = {}) {
+    queryFacet({ commit, getters, rootState, rootGetters, dispatch, state }, facet) {
       const paramsForFacets = {
         ...state.apiParams,
         rows: 0,
         profile: 'facets',
-        ...overrides
+        facet
       };
 
       commit('addLiveQuery', paramsForFacets);
