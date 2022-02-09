@@ -9,6 +9,7 @@
     />
     <b-container
       class="side-filters"
+      data-qa="side filters"
     >
       <b-row
         class="border-bottom border-top d-flex justify-content-between align-items-center"

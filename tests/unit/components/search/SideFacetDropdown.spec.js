@@ -21,12 +21,12 @@ const contentTierFields = [
 ];
 const storeDispatchStub = sinon.stub();
 storeDispatchStub
-  .withArgs('search/queryFacets', { facet: 'COUNTRY' })
+  .withArgs('search/queryFacet', 'COUNTRY')
   .resolves([
     { name: 'COUNTRY', fields: countryFields }
   ]);
 storeDispatchStub
-  .withArgs('search/queryFacets', { facet: 'contentTier' })
+  .withArgs('search/queryFacet', 'contentTier')
   .resolves([
     { name: 'contentTier', fields: contentTierFields }
   ]);
@@ -45,6 +45,11 @@ const factory = () => shallowMountNuxt(SideFacetDropdown, {
       getters: {
         'search/collection': false,
         'entity/id': null
+      },
+      state: {
+        search: {
+          liveQueries: []
+        }
       }
     }
   },
@@ -70,7 +75,7 @@ describe('components/search/SideFacetDropdown', () => {
 
         await wrapper.vm.fetch();
 
-        expect(storeDispatchStub.calledWith('search/queryFacets', { facet: 'COUNTRY' })).toBe(true);
+        expect(storeDispatchStub.calledWith('search/queryFacet', 'COUNTRY')).toBe(true);
       });
 
       it('marks facet as fetched', async() => {
@@ -98,7 +103,7 @@ describe('components/search/SideFacetDropdown', () => {
 
         await wrapper.vm.fetch();
 
-        expect(storeDispatchStub.calledWith('search/queryFacets', { facet: 'collection' })).toBe(false);
+        expect(storeDispatchStub.calledWith('search/queryFacet', 'collection')).toBe(false);
       });
 
       it('marks facet as fetched', async() => {
