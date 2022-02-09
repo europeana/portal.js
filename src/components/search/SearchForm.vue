@@ -74,7 +74,6 @@
 
     computed: {
       ...mapGetters({
-        queryUpdatesForFacetChanges: 'search/queryUpdatesForFacetChanges',
         view: 'search/activeView'
       }),
 
@@ -145,20 +144,6 @@
 
       routePath() {
         return this.onSearchablePage ? this.$route.path : this.$path({ name: 'search' });
-      },
-
-      removeCollectionLinkTo() {
-        const query = {
-          ...this.queryUpdatesForFacetChanges({ collection: null }),
-          view: this.view,
-          query: this.query || ''
-        };
-        return {
-          path: this.$path({
-            name: 'search'
-          }),
-          query
-        };
       }
     },
 
@@ -316,10 +301,6 @@
             this.$refs.searchbox.$el.focus();
           }
         });
-      },
-
-      async toggleSearchAndRemoveLabel() {
-        await this.$goto(this.removeCollectionLinkTo);
       }
     }
   };
