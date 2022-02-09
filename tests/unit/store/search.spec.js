@@ -374,56 +374,6 @@ describe('store/search', () => {
       });
     });
 
-    describe('facetUpdateNeeded', () => {
-      describe('without previous API params', () => {
-        const previousApiParams = null;
-
-        it('is `true`', () => {
-          const facetUpdateNeeded = store.getters.facetUpdateNeeded(
-            { previousApiParams }
-          );
-
-          expect(facetUpdateNeeded).toBe(true);
-        });
-      });
-
-      describe('with previous API params', () => {
-        const previousApiParams = {
-          query: '*:*'
-        };
-
-        for (const param of ['query', 'qf', 'reusability', 'api']) {
-          describe(`when ${param} param changes`, () => {
-            it('is `true`', () => {
-              const apiParamsChanged = [param];
-
-              const facetUpdateNeeded = store.getters.facetUpdateNeeded(
-                { previousApiParams },
-                { apiParamsChanged }
-              );
-
-              expect(facetUpdateNeeded).toBe(true);
-            });
-          });
-        }
-
-        for (const param of ['page', 'view']) {
-          describe(`when ${param} param changes`, () => {
-            it('is `false`', () => {
-              const apiParamsChanged = [param];
-
-              const facetUpdateNeeded = store.getters.facetUpdateNeeded(
-                { previousApiParams },
-                { apiParamsChanged }
-              );
-
-              expect(facetUpdateNeeded).toBe(false);
-            });
-          });
-        }
-      });
-    });
-
     describe('searchOptions', () => {
       describe('.escape', () => {
         it('is `true` when override params has query and user params does not', () => {

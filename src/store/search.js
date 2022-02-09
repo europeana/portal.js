@@ -266,15 +266,6 @@ export default {
         .some((param) => ['page', 'query', 'qf', 'api', 'reusability'].includes(param));
     },
 
-    // TODO: is this still used? if not, should it be?
-    facetUpdateNeeded: (state, getters) => {
-      if (!state.previousApiParams) {
-        return true;
-      } // i.e. if this is the first search
-      return getters.apiParamsChanged
-        .some((param) => ['query', 'qf', 'api', 'reusability'].includes(param));
-    },
-
     searchOptions: (state) => {
       return {
         ...state.apiOptions,
