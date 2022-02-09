@@ -72,7 +72,7 @@
                 :route="route"
                 :show-content-tier-toggle="false"
                 :show-pins="userIsEditor && userIsSetsEditor"
-                :context-label="contextLabel"
+                :context-label="entityHeaderCardsEnabled ? contextLabel : false"
               />
             </b-container>
             <b-container class="px-0">
@@ -351,6 +351,9 @@
       },
       sideFiltersEnabled() {
         return this.$features.sideFilters;
+      },
+      entityHeaderCardsEnabled() {
+        return this.$features.entityHeaderCards;
       }
     },
     watch: {

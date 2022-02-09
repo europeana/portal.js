@@ -72,13 +72,13 @@
     <b-row
       v-if="hasAnyResults"
       class="mb-3 "
-      :class="{ 'd-flex align-items-center': entityHeaderCardsEnabled }"
+      :class="{ 'd-flex align-items-center': contextLabel }"
     >
       <b-col>
         <div
-          v-if="entityHeaderCardsEnabled"
+          v-if="contextLabel || contextLabel === ''"
           class="context-label"
-          data-qa="entity label"
+          data-qa="context label"
         >
           {{ contextLabel }}
         </div>
@@ -477,5 +477,9 @@
     color: $black;
     font-size: $font-size-small;
     text-transform: uppercase;
+  }
+
+  .context-label {
+    font-size: $font-size-small;
   }
 </style>

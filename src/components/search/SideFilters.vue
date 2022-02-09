@@ -11,15 +11,15 @@
       class="side-filters"
     >
       <b-row
-        class="border-bottom border-top d-flex justify-content-between align-items-center"
+        class="border-bottom border-top d-flex justify-content-between align-items-center flex-nowrap"
       >
-        <h2
+        <div
           v-if="entityHeaderCardsEnabled"
           class="filters-title"
           data-qa="total results"
         >
           {{ $tc('items.itemCount', totalResultsLocalised, { count: totalResultsLocalised }) }}
-        </h2>
+        </div>
         <h2
           v-else
           class="filters-title"
