@@ -360,9 +360,6 @@
       },
       sideFiltersEnabled() {
         return this.$features.sideFilters;
-      },
-      entityHeaderCardsEnabled() {
-        return this.$features.entityHeaderCards;
       }
     },
     watch: {

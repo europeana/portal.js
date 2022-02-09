@@ -137,8 +137,8 @@
         facets: state => state.search.facets,
         resettableFilters: state => state.search.resettableFilters,
         showFiltersSheet: state => state.search.showFiltersSheet,
-        userParams: state => state.search.userParams,
-        totalResults: state => state.search.totalResults
+        totalResults: state => state.search.totalResults,
+        userParams: state => state.search.userParams
       }),
       ...mapGetters({
         facetNames: 'search/facetNames',

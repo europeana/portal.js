@@ -35,7 +35,7 @@
           <SearchInterface
             id="search-interface"
             :per-row="4"
-            :context-label="entityHeaderCardsEnabled ? '' : false"
+            :context-label="entityHeaderCardsEnabled ? '' : null"
           />
         </b-col>
       </b-row>

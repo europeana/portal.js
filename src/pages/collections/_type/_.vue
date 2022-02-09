@@ -72,7 +72,7 @@
                 :route="route"
                 :show-content-tier-toggle="false"
                 :show-pins="userIsEditor && userIsSetsEditor"
-                :context-label="entityHeaderCardsEnabled ? contextLabel : false"
+                :context-label="entityHeaderCardsEnabled ? contextLabel : null"
               />
             </b-container>
             <b-container class="px-0">
