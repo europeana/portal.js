@@ -138,6 +138,7 @@
       SideFilters: () => import('../../../components/search/SideFilters'),
       EntityHeader: () => import('@/components/entity/EntityHeader'),
       EntityUpdateModal: () => import('@/components/entity/EntityUpdateModal'),
+      RelatedCollections: () => import('../../../components/generic/RelatedCollections'),
       EntityInformationModal: () => import('@/components/entity/EntityInformationModal')
     },
 
