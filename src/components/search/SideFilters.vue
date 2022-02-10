@@ -127,8 +127,6 @@
     data() {
       return {
         PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued',
-        API_FILTER_COLLECTIONS: ['newspaper', 'ww1'],
-        DATE_FILTER_COLLECTIONS: ['newspaper'],
         hideFilterSheet: true
       };
     },
@@ -147,6 +145,9 @@
         queryUpdatesForFacetChanges: 'search/queryUpdatesForFacetChanges',
         collection: 'search/collection'
       }),
+      theme() {
+        return themes.find(theme => theme.qf === this.collection);
+      },
       resetButtonDisabled() {
         // Disable reset button while queries are running
         return this.$store.state.search.liveQueries.length > 0;
@@ -195,19 +196,13 @@
         return Number(this.$route.query.page || 1);
       },
       enableApiFilter() {
-        return this.API_FILTER_COLLECTIONS.includes(this.collection);
+        return !!this.theme?.filters?.api;
       },
       apiFilterDefaultValue() {
-        if (this.collection === 'newspaper') {
-          return 'fulltext';
-        } else if (this.collection === 'ww1') {
-          return 'metadata';
-        } else {
-          return null;
-        }
+        return this.theme?.filters?.api || null;
       },
       enableDateFilter() {
-        return this.DATE_FILTER_COLLECTIONS.includes(this.collection);
+        return !!this.theme?.filters?.date;
       },
       dateFilter() {
         const proxyDctermsIssued = this.filters[this.PROXY_DCTERMS_ISSUED];
