@@ -11,40 +11,40 @@
       class="side-filters"
       data-qa="side filters"
     >
-      <b-row
-        class="border-bottom border-top d-flex justify-content-between align-items-center flex-nowrap"
-      >
-        <div
-          v-if="entityHeaderCardsEnabled && totalResults"
-          class="filters-title"
-          data-qa="total results"
-        >
-          {{ $tc('items.itemCount', totalResultsLocalised, { count: totalResultsLocalised }) }}
-        </div>
-        <h2
-          v-else
-          class="filters-title"
-        >
-          {{ $t('filterResults') }}
-        </h2>
-        <button
-          v-if="isFilteredByDropdowns()"
-          :disabled="resetButtonDisabled"
-          class="btn btn-outline-primary mr-3"
-          data-qa="reset filters button"
-          @click="resetFilters"
-        >
-          {{ $t('reset') }}
-        </button>
-        <b-button
-          data-qa="close filters button"
-          class="button-icon-only icon-clear mx-3"
-          variant="light-flat"
-          :aria-label="$t('header.closeSidebar')"
-          @click="toggleFilterSheet"
-        />
-      </b-row>
       <client-only>
+        <b-row
+          class="border-bottom border-top d-flex justify-content-between align-items-center flex-nowrap"
+        >
+          <div
+            v-if="entityHeaderCardsEnabled && totalResults"
+            class="filters-title"
+            data-qa="total results"
+          >
+            {{ $tc('items.itemCount', totalResultsLocalised, { count: totalResultsLocalised }) }}
+          </div>
+          <h2
+            v-else
+            class="filters-title"
+          >
+            {{ $t('filterResults') }}
+          </h2>
+          <button
+            v-if="isFilteredByDropdowns()"
+            :disabled="resetButtonDisabled"
+            class="btn btn-outline-primary mr-3"
+            data-qa="reset filters button"
+            @click="resetFilters"
+          >
+            {{ $t('reset') }}
+          </button>
+          <b-button
+            data-qa="close filters button"
+            class="button-icon-only icon-clear mx-3"
+            variant="light-flat"
+            :aria-label="$t('header.closeSidebar')"
+            @click="toggleFilterSheet"
+          />
+        </b-row>
         <b-row class="mb-3 mt-4">
           <b-col
             data-qa="search filters"
