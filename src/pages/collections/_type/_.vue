@@ -86,14 +86,15 @@
                   :image="thumbnail"
                   :editable="isEditable && userIsEditor"
                   :external-link="homepage"
-                  :learn-more="collectionType === 'organisation' && moreData"
+                  :learn-more="collectionType === 'organisation' && !!moreData"
                 >
                   <EntityInformationModal
-                    v-if="collectionType === 'organisation' && moreData"
+                    v-if="collectionType === 'organisation' && !!moreData"
                     :title="title"
                     :entity-info="moreData"
                   />
                   <EntityUpdateModal
+                    v-if="isEditable && userIsEditor"
                     :body="entity.proxy"
                     :description="descriptionText"
                   />
@@ -317,7 +318,7 @@
         if (this.collectionType === 'organisation' && this.entity?.description) {
           description = langMapValueForLocale(this.entity.description, this.$i18n.locale);
         }
-        if (this.collectionType === 'person' && this.entity?.biographicalInformation) {
+        if (this.headerCardsEnabled && this.collectionType === 'person' && this.entity?.biographicalInformation) {
           description = langMapValueForLocale(this.entity.biographicalInformation, this.$i18n.locale);
         }
 
@@ -388,8 +389,8 @@
         return this.$features.entityHeaderCards;
       },
       thumbnail() {
-        if (this.entity.isShownBy) {
-          return this.entity.isShownBy?.thumbnail;
+        if (this.entity?.isShownBy) {
+          return this.entity?.isShownBy?.thumbnail;
         } else {
           return null;
         }
@@ -400,13 +401,13 @@
           if (this.homepage)  {
             labelledData.website = { label: this.$t('website'), value: this.homepage };
           }
-          if (this.entity.hasAddress?.countryName)  {
+          if (this.entity?.hasAddress?.countryName)  {
             labelledData.country = { label: this.$t('organisation.country'), value: this.entity.hasAddress.countryName };
           }
-          if (this.entity.acronym)  {
+          if (this.entity?.acronym)  {
             labelledData.acronym = { label: this.$t('organisation.nameAcronym'), value: langMapValueForLocale(this.entity.acronym, this.$i18n.locale) };
           }
-          if (this.entity.hasAddress?.locality)  {
+          if (this.entity?.hasAddress?.locality)  {
             labelledData.city = { label: this.$t('organisation.city'), value: this.entity.hasAddress.locality };
           }
           return Object.keys(labelledData).length > 0 ? labelledData : null;
