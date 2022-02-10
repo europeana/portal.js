@@ -5,7 +5,7 @@
   >
     <div
       v-if="resizedLogo"
-      class="organisation-logo"
+      class="organisation-logo mb-2"
       data-qa="entity logo"
       :style="`background-image: url(${resizedLogo})`"
     />
