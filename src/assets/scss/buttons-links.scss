@@ -339,18 +339,7 @@ a {
   border-color: $darkblue;
 }
 
-.info-panel {
-  .btn-link {
-    color: $blue;
-    text-decoration: none;
-    font-size: 1rem;
-
-    &:hover {
-      text-decoration: none;
-    }
-  }
-}
-
+.info-panel,
 .header-card {
   .btn-link {
     color: $blue;
