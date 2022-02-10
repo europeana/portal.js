@@ -242,6 +242,13 @@ describe('components/search/SideFilters', () => {
         });
       });
 
+      describe('dateFilterName', () => {
+        it('is "proxy_dcterms_issued"', async() => {
+          const wrapper = factory({ searchStoreGetters });
+          expect(wrapper.vm.dateFilterName).toBe('proxy_dcterms_issued');
+        });
+      });
+
       describe('enableApiFilter', () => {
         it('is true', async() => {
           const wrapper = factory({ searchStoreGetters });
