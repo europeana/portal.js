@@ -375,6 +375,7 @@ export default {
         "ga": "Gaeilge",
         "gd": "Gaeilge",
         "he": "Eabhrais",
+        "hr": "Cróitis",
         "hu": "Ungáiris",
         "is": "Íoslainnis",
         "it": "Iodálach ",
@@ -433,7 +434,7 @@ export default {
         "metadata": "Míreanna nach bhfuil iontu ach na meiteashonraí amháin"
       },
       "switch": "Ná cuardaigh ach in ábhar na n-ítimí a bhfuil téacs iomlán acu",
-      "switchMoreInfo": "Sa bhailiúchán seo, is féidir leat cuardach a dhéanamh laistigh den fhaisnéis a chuireann síos ar an mír mar a dhéanann tú i mbailiúcháin eile tríd an scoránú seo a dhíghníomhachtú. Nó fág an scoránú seo gníomhachtaithe chun cuardach a dhéanamh laistigh den nuachtán agus téacs doiciméid."
+      "switchMoreInfo": "Sa bhailiúchán seo, is féidir leat an méid is mian leat a chuardach a roghnú: má tá an lasc seo ar siúl, ansin déanfaidh tú cuardach laistigh den nuachtán agus téacs doiciméid; má tá sé as, ansin déanfaidh tú cuardach laistigh den fhaisnéis a chuireann síos ar an mír, díreach mar a dhéanann tú i gcónaí i bhformhór na mbailiúchán eile."
     },
     "button": {
       "apply": "Cuir i bhfeidhm",
@@ -462,7 +463,7 @@ export default {
       }
     },
     "contentTier": {
-      "name": "Caighdeán na míre",
+      "name": "Cáilíocht na míre",
       "notification": "Tá roinnt míreanna nach gcomhlíonann ár gcritéir foilsitheoireachta ar fáil. Is féidir leat rochtain a fháil ar na míreanna sin tríd an scagaire 'Cáilíocht Míre' a ghníomhachtú faoi 'Tuilleadh scagairí'.",
       "options": {
         "*": "Áirítear leis míreanna nach gcomhlíonann ár riachtanais foilsitheoireachta",
@@ -763,6 +764,12 @@ export default {
     }
   },
   "readMore": "Léigh níos mó",
+  "recommendation": {
+    "prompts": {
+      "accept": "Ordóg suas le cur leis an gailearaí",
+      "reject": "Ordóg síos mura dtaitníonn leat é"
+    }
+  },
   "record": {
     "IIIFViewer": "Amharcóir IIIF",
     "allMetaData": "Gach meiteashonraí",

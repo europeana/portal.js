@@ -2,21 +2,21 @@
   <b-form-group
     :label="$tFacetName(name)"
     label-class="facet-label"
+    :data-qa="`${name} switch filter`"
   >
     <!--
-    triggered on change
-    @event changed
-    @property {string} name - filter name
-    @property {string} localValue - new value after switch
-  -->
+      triggered on change
+      @event changed
+      @property {string} name - filter name
+      @property {string} localValue - new value after switch
+    -->
     <b-form-checkbox
       v-model="localValue"
       :name="name"
       switch
       :value="checkedValue"
       :unchecked-value="uncheckedValue"
-      :data-qa="`${name} switch filter`"
-      @change="$emit('changed', name, localValue)"
+      @change="$emit('changed', name, localValueUnlessDefault)"
     >
       {{ label }}
       <b-button
@@ -107,6 +107,12 @@
       };
     },
 
+    computed: {
+      localValueUnlessDefault() {
+        return (this.localValue === this.defaultValue) ? null : this.localValue;
+      }
+    },
+
     watch: {
       value() {
         this.init();
@@ -126,7 +132,7 @@
         this.localValue = this.value;
         this.$store.dispatch('search/setResettableFilter', {
           name: this.name,
-          selected: (this.localValue === this.defaultValue) ? null : this.localValue
+          selected: this.localValueUnlessDefault
         });
       }
     }

@@ -434,7 +434,7 @@ export default {
         "metadata": "Oġġetti tal-metadata biss"
       },
       "switch": "Fittex biss fil-kontenut ta' oġġetti b'test sħiħ",
-      "switchMoreInfo": "F'din il-kollezzjoni, tista' jew tfittex fl-informazzjoni li tiddeskrivi l-oġġett kif tagħmel f'kollezzjonijiet oħra billi tiddiżattiva din il-toggle. Jew ħalli din it-toggle attivata biex tfittex fit-test tal-gazzetta u tad-dokument."
+      "switchMoreInfo": "F'din il-ġabra, tista' tagħżel dak li trid tfittex: jekk dan is-swiċċ huwa mixgħul, allura inti se tfittex fit-test tal-gazzetta u tad-dokument; jekk tkun mitfija, allura inti minflok tfittex fl-informazzjoni li tiddeskrivi l-oġġett, bħalma dejjem tagħmel fil-biċċa l-kbira tal-kollezzjonijiet l-oħra."
     },
     "button": {
       "apply": "Applika",
@@ -764,6 +764,12 @@ export default {
     }
   },
   "readMore": "Aqra iktar",
+  "recommendation": {
+    "prompts": {
+      "accept": "Thumb up biex iżżid mal-gallerija",
+      "reject": "Thumb down jekk ma togħġbokx"
+    }
+  },
   "record": {
     "IIIFViewer": "Telespettatur IIIF",
     "allMetaData": "Il-metadata kollha",

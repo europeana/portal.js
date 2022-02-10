@@ -434,7 +434,7 @@ export default {
         "metadata": "Tikai metadatu vienumi"
       },
       "switch": "Meklēt tikai to vienumu saturā, kuriem ir pilnteksta",
-      "switchMoreInfo": "Šajā kolekcijā varat meklēt informāciju, kas apraksta objektu, kā tas tiek darīts citās kolekcijās, deaktivizējot šo slēdzi. Vai arī atstājiet šo pārslēdzēju aktivizētu, lai meklētu avīzes un dokumenta tekstā."
+      "switchMoreInfo": "Šajā kolekcijā varat izvēlēties, ko vēlaties meklēt: ja šis slēdzis ir ieslēgts, tad meklēsiet laikraksta un dokumenta tekstā; ja tas ir izslēgts, tad meklēsiet informāciju, kas raksturo attiecīgo priekšmetu, tāpat kā to vienmēr darāt vairumā citu kolekciju."
     },
     "button": {
       "apply": "Lietot",
@@ -463,7 +463,7 @@ export default {
       }
     },
     "contentTier": {
-      "name": "Vienuma kvalitāte",
+      "name": "Preces kvalitāte",
       "notification": "Ir pieejami daži vienumi, kas neatbilst mūsu publicēšanas kritērijiem. Šiem vienumiem var piekļūt, aktivizējot filtru \"Vienumu kvalitāte\", kas pieejams sadaļā \"Vairāk filtru\".",
       "options": {
         "*": "Ietver vienumus, kas neatbilst mūsu publicēšanas kritērijiem",
@@ -764,6 +764,12 @@ export default {
     }
   },
   "readMore": "Lasīt vairāk",
+  "recommendation": {
+    "prompts": {
+      "accept": "Īkšķis augšā , lai pievienotu galerijai",
+      "reject": "Īkšķis uz leju , ja jums tas nepatīk"
+    }
+  },
   "record": {
     "IIIFViewer": "IIIF skatītājs",
     "allMetaData": "Visi metadati",

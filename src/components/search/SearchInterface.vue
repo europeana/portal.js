@@ -17,49 +17,6 @@
   </b-container>
   <b-container v-else>
     <b-row
-      v-if="!sideFiltersEnabled"
-      class="mb-3"
-    >
-      <b-col
-        data-qa="search filters"
-      >
-        <client-only>
-          <SearchFilters
-            :filters="filters"
-            :prefix="(name) => name !== 'contentTier'"
-            class="mb-2"
-          />
-          <div class="position-relative">
-            <FacetDropdown
-              v-for="facet in coreFacets"
-              :key="facet.name"
-              :name="facet.name"
-              :fields="facet.fields"
-              :type="facetDropdownType(facet.name)"
-              :selected="filters[facet.name]"
-              role="search"
-              @changed="changeFacet"
-            />
-            <MoreFiltersDropdown
-              v-if="enableMoreFacets"
-              :more-facets="moreFacets"
-              :selected="moreSelectedFacets"
-              role="search"
-              @changed="changeMoreFacets"
-            />
-            <button
-              v-if="isFilteredByDropdowns()"
-              class="reset"
-              data-qa="reset filters button"
-              @click="resetFilters"
-            >
-              {{ $t('reset') }}
-            </button>
-          </div>
-        </client-only>
-      </b-col>
-    </b-row>
-    <b-row
       v-if="noResults"
       class="mb-3"
     >
@@ -71,10 +28,21 @@
     </b-row>
     <b-row
       v-if="hasAnyResults"
-      class="mb-3"
+      class="mb-3 "
+      :class="{ 'd-flex align-items-center': contextLabel }"
     >
       <b-col>
-        <p data-qa="total results">
+        <div
+          v-if="contextLabel || contextLabel === ''"
+          class="context-label"
+          data-qa="context label"
+        >
+          {{ contextLabel }}
+        </div>
+        <p
+          v-else
+          data-qa="total results"
+        >
           {{ $t('results') }}: {{ totalResults | localise }}
         </p>
       </b-col>
@@ -149,11 +117,7 @@
 
   import makeToastMixin from '@/mixins/makeToast';
 
-  import isEqual from 'lodash/isEqual';
-  import pickBy from 'lodash/pickBy';
   import { mapState, mapGetters } from 'vuex';
-  import themes from '@/plugins/europeana/themes';
-  import { queryUpdatesForFilters } from '../../store/search';
 
   export default {
     name: 'SearchInterface',
@@ -161,13 +125,10 @@
     components: {
       AlertMessage: () => import('../../components/generic/AlertMessage'),
       ClientOnly,
-      FacetDropdown: () => import('../../components/search/FacetDropdown'),
       InfoMessage,
       ItemPreviewCardGroup,
       LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
-      MoreFiltersDropdown: () => import('../../components/search/MoreFiltersDropdown'),
       PaginationNav: () => import('../../components/generic/PaginationNav'),
-      SearchFilters: () => import('../../components/search/SearchFilters'),
       ViewToggles
     },
     mixins: [
@@ -191,13 +152,15 @@
       showPins: {
         type: Boolean,
         default: false
+      },
+      contextLabel: {
+        type: String,
+        default: null
       }
     },
     data() {
       return {
-        coreFacetNames: ['collection', 'TYPE', 'COUNTRY', 'REUSABILITY'],
-        fetched: false,
-        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued'
+        fetched: false
       };
     },
     async fetch() {
@@ -206,8 +169,7 @@
       this.$store.dispatch('search/activate');
       this.$store.commit('search/set', ['userParams', this.$route.query]);
 
-      // TODO: refactor not to need overrides once ENABLE_SIDE_FILTERS is always-on
-      await this.$store.dispatch('search/run', { skipFacets: this.sideFiltersEnabled });
+      await this.$store.dispatch('search/run');
 
       if (this.$store.state.search.error) {
         if (process.server) {
@@ -225,15 +187,11 @@
         facets: state => state.search.facets,
         hits: state => state.search.hits,
         lastAvailablePage: state => state.search.lastAvailablePage,
-        resettableFilters: state => state.search.resettableFilters,
         results: state => state.search.results,
         totalResults: state => state.search.totalResults
       }),
       ...mapGetters({
-        facetNames: 'search/facetNames',
-        filters: 'search/filters',
-        queryUpdatesForFacetChanges: 'search/queryUpdatesForFacetChanges',
-        collection: 'search/collection'
+        filters: 'search/filters'
       }),
       qf() {
         return this.userParams.qf;
@@ -276,64 +234,6 @@
       noResults() {
         return this.totalResults === 0;
       },
-      /**
-       * Sort the facets for display
-       * Facets are returned in the hard-coded preferred order from the search
-       * plugin, followed by all others in the order the API returned them.
-       * @return {Object[]} ordered facets
-       * TODO: does this belong in its own component?
-       */
-      orderedFacets() {
-        const unordered = this.facets.slice();
-        let ordered = [];
-
-        for (const facetName of this.facetNames) {
-          const index = unordered.findIndex((f) => {
-            return f.name === facetName;
-          });
-          if (index !== -1) {
-            ordered = ordered.concat(unordered.splice(index, 1));
-          }
-        }
-
-        if (this.$store.state.search.collectionFacetEnabled) {
-          ordered.unshift({ name: 'collection', fields: themes.map(theme => theme.qf) });
-        }
-        return ordered.concat(unordered);
-      },
-      coreFacets() {
-        return this.orderedFacets.filter(facet => this.coreFacetNames.includes(facet.name));
-      },
-      moreFacetNames() {
-        return this.facetNames.filter(facetName => {
-          if (facetName === 'contentTier') {
-            return !(this.$store.getters['search/collection'] || this.$store.getters['entity/id']);
-          } else {
-            return !this.coreFacetNames.includes(facetName);
-          }
-        });
-      },
-      moreFacets() {
-        return this.orderedFacets.filter(facet => this.moreFacetNames.includes(facet.name));
-      },
-      moreSelectedFacets() {
-        // TODO: use resettableFilters here?
-        // TODO: if not, move newspaper filter names into store/collections/newspapers?
-        return pickBy(this.filters, (selected, name) => this.moreFacetNames.includes(name) || ['api', this.PROXY_DCTERMS_ISSUED].includes(name));
-      },
-      enableMoreFacets() {
-        return this.moreFacets.length > 0;
-      },
-      contentTierZeroPresent() {
-        return this.moreFacets.some(facet => {
-          return facet.name === 'contentTier' && facet.fields && facet.fields.some(option => option.label === '"0"');
-        });
-      },
-      contentTierZeroActive() {
-        return this.filters.contentTier?.some(filter => {
-          return filter === '"0"' || filter === '*'; // UI applies "0", this won't handle user provided values.
-        }) || false;
-      },
       routeQueryView() {
         return this.$route.query.view;
       },
@@ -344,23 +244,15 @@
         set(value) {
           this.$store.commit('search/setView', value);
         }
-      },
-      sideFiltersEnabled() {
-        return this.$features.sideFilters;
       }
     },
     watch: {
       routeQueryView: 'viewFromRouteQuery',
-      contentTierZeroPresent: 'showContentTierToast',
-      contentTierZeroActive: 'showContentTierToast',
       '$route.query.api': '$fetch',
       '$route.query.reusability': '$fetch',
       '$route.query.query': '$fetch',
       '$route.query.qf': '$fetch',
       '$route.query.page': '$fetch'
-    },
-    mounted() {
-      this.showContentTierToast();
     },
     destroyed() {
       this.$store.dispatch('search/deactivate');
@@ -372,24 +264,6 @@
           this.$cookies && this.$cookies.set('searchResultsView', this.routeQueryView);
           this.$store.commit('search/set', ['userParams', this.$route.query]);
         }
-      },
-      facetDropdownType(name) {
-        return name === 'collection' ? 'radio' : 'checkbox';
-      },
-      changeFacet(name, selected) {
-        if (typeof this.filters[name] === 'undefined') {
-          if ((Array.isArray(selected) && selected.length === 0) || !selected) {
-            return;
-          }
-        }
-        if (isEqual(this.filters[name], selected)) {
-          return;
-        }
-
-        this.rerouteSearch(this.queryUpdatesForFacetChanges({ [name]: selected }));
-      },
-      changeMoreFacets(selected) {
-        return this.rerouteSearch(this.queryUpdatesForFacetChanges(selected));
       },
       rerouteSearch(queryUpdates) {
         const query = this.updateCurrentSearchQuery(queryUpdates);
@@ -423,30 +297,6 @@
         }
 
         return updated;
-      },
-      resetFilters() {
-        const filters = Object.assign({}, this.filters);
-
-        for (const filterName of this.resettableFilters) {
-          filters[filterName] = [];
-        }
-        this.$store.commit('search/clearResettableFilters');
-        return this.rerouteSearch(queryUpdatesForFilters(filters));
-      },
-      isFilteredByDropdowns() {
-        return this.$store.getters['search/hasResettableFilters'];
-      },
-      showContentTierToast() {
-        if (!process.browser) {
-          return;
-        }
-
-        if (sessionStorage.contentTierToastShown || this.contentTierZeroActive || !this.contentTierZeroPresent) {
-          return;
-        }
-        this.makeToast(this.$t('facets.contentTier.notification'));
-        this.$matomo && this.$matomo.trackEvent('Tier 0 snackbar', 'Tier 0 snackbar appears', 'Tier 0 snackbar appears');
-        sessionStorage.contentTierToastShown = 'true';
       }
     }
   };
@@ -461,5 +311,9 @@
     color: $black;
     font-size: $font-size-small;
     text-transform: uppercase;
+  }
+
+  .context-label {
+    font-size: $font-size-small;
   }
 </style>

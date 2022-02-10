@@ -28,6 +28,8 @@ const factory = (options = {}) => {
 
   const mocks = {
     $t: (key) => key,
+    $tc: (key) => key,
+    $features: { entityHeaderCards: true },
     $tFacetName: (key) => key,
     $path: () => '/',
     $goto: () => null,
@@ -122,6 +124,30 @@ describe('components/search/SideFilters', () => {
 
       expect(resetButton.exists()).toBe(true);
       expect(resetButton.attributes('disabled')).toBe('disabled');
+    });
+  });
+
+  describe('number of search results', () => {
+    it('shows the total results', () => {
+      const storeState = {
+        totalResults: 1000
+      };
+
+      const wrapper = factory({ storeState });
+      const totalResults = wrapper.find('[data-qa="total results"]');
+
+      expect(totalResults.exists()).toBe(true);
+    });
+
+    it('does not show the total results', () => {
+      const storeState = {
+        totalResults: null
+      };
+
+      const wrapper = factory({ storeState });
+      const totalResults = wrapper.find('[data-qa="total results"]');
+
+      expect(totalResults.exists()).toBe(false);
     });
   });
 

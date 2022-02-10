@@ -434,7 +434,7 @@ export default {
         "metadata": "Înregistrări doar pentru metadate"
       },
       "switch": "Căutați numai în conținutul articolelor cu text integral",
-      "switchMoreInfo": "În această colecție, puteți căuta fie în cadrul informațiilor care descriu articolul, așa cum faceți în alte colecții, dezactivând acest comutator. Fie lăsați acest comutator activat pentru a căuta în textul ziarului și al documentului."
+      "switchMoreInfo": "În această colecție, puteți alege ceea ce doriți să căutați: dacă acest comutator este pornit, atunci veți căuta în ziar și în textul documentului; dacă este oprit, atunci veți căuta în schimb în informațiile care descriu elementul, la fel cum faceți întotdeauna în majoritatea celorlalte colecții."
     },
     "button": {
       "apply": "Aplică",
@@ -463,7 +463,7 @@ export default {
       }
     },
     "contentTier": {
-      "name": "Sunt incluse articole care nu îndeplinesc criteriile noastre de publicare",
+      "name": "Calitatea articolelor",
       "notification": "Unele articole care nu corespund criteriilor noastre de publicare sunt disponibile. Poți accesa aceste articole activând filtrul „Calitatea articolelor” din „Mai multe filtre”.",
       "options": {
         "*": "Sunt incluse articole care nu îndeplinesc criteriile noastre de publicare",
@@ -764,6 +764,12 @@ export default {
     }
   },
   "readMore": "Citește mai mult",
+  "recommendation": {
+    "prompts": {
+      "accept": "Degetul mare în sus pentru a adăuga la galerie",
+      "reject": "Degetul mare în jos, dacă nu vă place"
+    }
+  },
   "record": {
     "IIIFViewer": "Vizualizator IIIF",
     "allMetaData": "Toate metadatele",

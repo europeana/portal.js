@@ -17,9 +17,9 @@
               :description="description"
               :is-editorial-description="hasEditorialDescription"
               :title="title"
-              :context-label="contextLabel"
               :logo="logo"
               :external-link="homepage"
+              :context-label="contextLabel"
             />
             <client-only>
               <section
@@ -56,7 +56,7 @@
     </b-container>
     <client-only>
       <b-container
-        :class="{'page-container side-filters-enabled': sideFiltersEnabled}"
+        class="page-container side-filters-enabled"
       >
         <b-row class="flex-nowrap">
           <b-col>
@@ -76,6 +76,7 @@
                 :route="route"
                 :show-content-tier-toggle="false"
                 :show-pins="userIsEditor && userIsSetsEditor"
+                :context-label="headerCardsEnabled ? contextLabel : null"
               >
                 <EntityHeader
                   v-if="headerCardsEnabled"
@@ -107,7 +108,6 @@
             </b-container>
           </b-col>
           <SideFilters
-            v-if="sideFiltersEnabled"
             :route="route"
           />
         </b-row>
@@ -383,9 +383,6 @@
       },
       isEditable() {
         return this.entity && this.editable;
-      },
-      sideFiltersEnabled() {
-        return this.$features.sideFilters;
       },
       headerCardsEnabled() {
         return this.$features.entityHeaderCards;
