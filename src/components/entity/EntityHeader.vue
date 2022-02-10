@@ -30,7 +30,7 @@
       <b-button
         v-if="fullDescription.length > limitCharacters"
         data-qa="entity show link"
-        class="btn-link is-size-4 p-0"
+        class="btn-link p-0 mt-0 mb-1"
         variant="link"
         @click="toggleMoreDescription"
       >
@@ -49,6 +49,7 @@
       v-if="externalLink"
       class="d-inline-flex align-items-center"
       :href="externalLink"
+      target="_blank"
     >
       <span class="icon-link pr-1" />
       {{ $t('website') }}
@@ -140,6 +141,9 @@
     methods: {
       toggleMoreDescription() {
         this.showAll = !this.showAll;
+        this.$nextTick(() => {
+          this.$redrawVueMasonry();
+        });
       }
     }
   };
@@ -147,8 +151,6 @@
 
 <style lang="scss" scoped>
   .header-card .btn {
-    text-transform: uppercase;
-    font-weight: 600;
     margin-right: 0.5rem;
     margin-top: 0.5rem;
   }
