@@ -17,7 +17,7 @@ export default [
   { id: '128', qf: 'migration' },
   { id: '62', qf: 'music' },
   { id: '156', qf: 'nature' },
-  { id: '18', qf: 'newspaper', filters: { api: 'fulltext', date: true } },
+  { id: '18', qf: 'newspaper', filters: { api: 'fulltext', date: 'proxy_dcterms_issued' } },
   { id: '48', qf: 'photography' },
   { id: '114', qf: 'sport' }
 ];

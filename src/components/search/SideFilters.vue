@@ -63,7 +63,7 @@
               />
               <SideDateFilter
                 v-if="enableDateFilter"
-                :name="PROXY_DCTERMS_ISSUED"
+                :name="dateFilterName"
                 :start="dateFilter.start"
                 :end="dateFilter.end"
                 :specific="dateFilter.specific"
@@ -126,7 +126,6 @@
     },
     data() {
       return {
-        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued',
         hideFilterSheet: true
       };
     },
@@ -204,16 +203,18 @@
       enableDateFilter() {
         return !!this.theme?.filters?.date;
       },
+      dateFilterName() {
+        return this.theme?.filters?.date || null;
+      },
       dateFilter() {
-        const proxyDctermsIssued = this.filters[this.PROXY_DCTERMS_ISSUED];
-        if (!proxyDctermsIssued || proxyDctermsIssued.length < 1) {
+        const dateFilterValue = this.filters[this.dateFilterName];
+        if (!dateFilterValue || dateFilterValue.length < 1) {
           return { start: null, end: null, specific: this.isCheckedSpecificDate };
         }
-        const range = rangeFromQueryParam(proxyDctermsIssued[0]);
-        if (!range) {
-          return { start: proxyDctermsIssued[0], end: null, specific: true };
-        }
-        return range;
+
+        const range = rangeFromQueryParam(dateFilterValue[0]);
+
+        return range ? range : { start: dateFilterValue[0], end: null, specific: true };
       },
       entityHeaderCardsEnabled() {
         return this.$features.entityHeaderCards;
