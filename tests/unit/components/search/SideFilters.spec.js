@@ -291,6 +291,41 @@ describe('components/search/SideFilters', () => {
         });
       });
     });
+
+    describe('when on a collection without specific filters', () => {
+      const searchStoreGetters = {
+        collection: () => 'art',
+        filters: () => ({})
+      };
+
+      describe('enableDateFilter', () => {
+        it('is false', async() => {
+          const wrapper = factory({ searchStoreGetters });
+          expect(wrapper.vm.enableDateFilter).toBe(false);
+        });
+      });
+
+      describe('enableApiFilter', () => {
+        it('is false', async() => {
+          const wrapper = factory({ searchStoreGetters });
+          expect(wrapper.vm.enableApiFilter).toBe(false);
+        });
+      });
+
+      describe('apiFilterDefaultValue', () => {
+        it('is null', async() => {
+          const wrapper = factory({ searchStoreGetters });
+          expect(wrapper.vm.apiFilterDefaultValue).toBe(null);
+        });
+      });
+
+      describe('dateFilterName', () => {
+        it('is null', async() => {
+          const wrapper = factory({ searchStoreGetters });
+          expect(wrapper.vm.dateFilterName).toBe(null);
+        });
+      });
+    });
   });
 
   describe('methods', () => {
