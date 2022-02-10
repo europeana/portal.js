@@ -36,6 +36,7 @@ export default {
     "feedback": "Feedback",
     "goBack": "Go back",
     "goHome": "Go to the homepage",
+    "learnMore": "Learn more",
     "like": "Like",
     "next": "Next",
     "pin": "Pin",
@@ -740,6 +741,11 @@ export default {
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
   "noResults": "No results",
+  "organisation": {
+    "city": "City",
+    "country": "Country",
+    "nameAcronym": "Name acronym"
+  },
   "pageHasLoaded": "has loaded",
   "pages": {
     "collections": {

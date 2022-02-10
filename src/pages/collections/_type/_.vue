@@ -85,7 +85,13 @@
                   :image="thumbnail"
                   :editable="isEditable && userIsEditor"
                   :external-link="homepage"
+                  :learn-more="collectionType === 'organisation' && moreData"
                 >
+                  <EntityInformationModal
+                    v-if="collectionType === 'organisation' && moreData"
+                    :title="title"
+                    :entity-info="moreData"
+                  />
                   <EntityUpdateModal
                     :body="entity.proxy"
                     :description="descriptionText"
@@ -131,7 +137,8 @@
       SearchInterface,
       SideFilters: () => import('../../../components/search/SideFilters'),
       EntityHeader: () => import('@/components/entity/EntityHeader'),
-      EntityUpdateModal: () => import('@/components/entity/EntityUpdateModal')
+      EntityUpdateModal: () => import('@/components/entity/EntityUpdateModal'),
+      EntityInformationModal: () => import('@/components/entity/EntityInformationModal')
     },
 
     async beforeRouteLeave(to, from, next) {
@@ -201,7 +208,9 @@
               'homepage',
               'prefLabel',
               'isShownBy',
-              'biographicalInformation'
+              'biographicalInformation',
+              'hasAddress',
+              'acronym'
             ]));
           }
           if (responses[1].note) {
@@ -383,6 +392,26 @@
       thumbnail() {
         if (this.entity.isShownBy) {
           return this.entity.isShownBy?.thumbnail;
+        } else {
+          return null;
+        }
+      },
+      moreData() {
+        const labelledData = {};
+        if (this.collectionType === 'organisation') {
+          if (this.homepage)  {
+            labelledData.website = { label: this.$t('website'), value: this.homepage };
+          }
+          if (this.entity.hasAddress?.countryName)  {
+            labelledData.country = { label: this.$t('organisation.country'), value: this.entity.hasAddress.countryName };
+          }
+          if (this.entity.acronym)  {
+            labelledData.acronym = { label: this.$t('organisation.nameAcronym'), value: langMapValueForLocale(this.entity.acronym, this.$i18n.locale) };
+          }
+          if (this.entity.hasAddress?.locality)  {
+            labelledData.city = { label: this.$t('organisation.city'), value: this.entity.hasAddress.locality };
+          }
+          return Object.keys(labelledData).length > 0 ? labelledData : null;
         } else {
           return null;
         }

@@ -38,6 +38,14 @@
       </b-button>
     </b-card-text>
     <b-button
+      v-if="learnMore"
+      class="d-inline-flex align-items-center"
+      @click="$bvModal.show('entityInformationModal')"
+    >
+      <span class="icon-info pr-1" />
+      {{ $t('actions.learnMore') }}
+    </b-button>
+    <b-button
       v-if="externalLink"
       class="d-inline-flex align-items-center"
       :href="externalLink"
@@ -58,9 +66,9 @@
           <span class="icon-edit pr-1" />
           {{ $t('actions.edit') }}
         </b-button>
-        <slot />
       </template>
     </client-only>
+    <slot />
   </b-card>
 </template>
 
@@ -102,6 +110,10 @@
       externalLink: {
         type: String,
         default: null
+      },
+      learnMore: {
+        type: Boolean,
+        default: false
       }
     },
     data() {
@@ -138,5 +150,6 @@
     text-transform: uppercase;
     font-weight: 600;
     margin-right: 0.5rem;
+    margin-top: 0.5rem;
   }
 </style>
