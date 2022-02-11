@@ -74,12 +74,22 @@
   }
 }
 
+.related-collections-card {
+  background: $white;
+  border: 0;
+  border-radius: $border-radius-small;
+
+  h2 {
+    margin-top: 0 !important;
+  }
+}
+
 .content-card {
   $card-line-height: 1.1875rem;
 
   background: $white;
+  border: 0;
   border-radius: $border-radius-small;
-  box-shadow: $boxshadow-small;
   color: $black;
   font-size: $font-size-small;
   height: auto;
@@ -389,6 +399,15 @@
   }
 
   &.list-card {
+    .card-wrapper {
+      box-shadow: none;
+
+      &:hover {
+        box-shadow: $boxshadow-large;
+        transition: box-shadow 0.25s;
+      }
+    }
+
     .card-img {
       background-color: $mediumgrey;
       border-radius: $border-radius-small;
@@ -583,6 +602,13 @@
   flex: 0 0 100%;
 }
 
+.card-group-list {
+  .related-collections-card {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
 @media (min-width: $bp-medium) {
   .card-deck {
     flex-flow: row wrap;
@@ -660,6 +686,8 @@
     width: calc(100% + #{$grid-gutter * 2});
   }
 
+  // TODO reorder masonry-container and :not(.list-card) selectors
+  .related-collections-card:not(.list-card),
   .content-card:not(.list-card) {
     box-shadow: none;
     display: inline-block;
@@ -686,7 +714,6 @@
 
     .card-wrapper {
       &::before {
-        box-shadow: $boxshadow-small;
         content: '';
         height: 100%;
         position: absolute;
@@ -723,7 +750,8 @@
   }
 
   @at-root .side-filters-enabled & {
-    .content-card {
+    .content-card,
+    .related-collections-card {
       @media (min-width: $bp-medium) {
         width: calc(100% / 2 - #{$grid-gutter * 2});
       }
