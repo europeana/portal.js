@@ -129,22 +129,22 @@ describe('components/search/SideFilters', () => {
 
   describe('number of search results', () => {
     it('shows the total results', () => {
-      const storeState = {
+      const searchStoreState = {
         totalResults: 1000
       };
 
-      const wrapper = factory({ storeState });
+      const wrapper = factory({ searchStoreState });
       const totalResults = wrapper.find('[data-qa="total results"]');
 
       expect(totalResults.exists()).toBe(true);
     });
 
     it('does not show the total results', () => {
-      const storeState = {
+      const searchStoreState = {
         totalResults: null
       };
 
-      const wrapper = factory({ storeState });
+      const wrapper = factory({ searchStoreState });
       const totalResults = wrapper.find('[data-qa="total results"]');
 
       expect(totalResults.exists()).toBe(false);
