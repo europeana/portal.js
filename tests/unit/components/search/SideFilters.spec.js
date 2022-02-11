@@ -53,7 +53,7 @@ const factory = (options = {}) => {
           collectionFacetEnabled: true,
           resettableFilters: [],
           liveQueries: [],
-          ...options.storeState
+          ...options.searchStoreState
         },
         getters: {
           facetNames() {
@@ -115,10 +115,10 @@ describe('components/search/SideFilters', () => {
       const searchStoreGetters = {
         hasResettableFilters: () => true
       };
-      const storeState = {
+      const searchStoreState = {
         liveQueries: [{ query: 'river' }]
       };
-      const wrapper = factory({ searchStoreGetters, storeState });
+      const wrapper = factory({ searchStoreGetters, searchStoreState });
 
       const resetButton = wrapper.find('[data-qa="reset filters button"]');
 
@@ -206,10 +206,10 @@ describe('components/search/SideFilters', () => {
 
       describe('collection facet', () => {
         describe('when enabled', () => {
-          const storeState = { collectionFacetEnabled: true };
+          const searchStoreState = { collectionFacetEnabled: true };
 
           it('is included first, with static fields', () => {
-            const wrapper = factory({ searchStoreGetters, storeState });
+            const wrapper = factory({ searchStoreGetters, searchStoreState });
 
             const firstFacet = wrapper.vm.filterableFacets[0];
             expect(firstFacet.name).toBe('collection');
@@ -218,10 +218,10 @@ describe('components/search/SideFilters', () => {
         });
 
         describe('when disabled', () => {
-          const storeState = { collectionFacetEnabled: false };
+          const searchStoreState = { collectionFacetEnabled: false };
 
           it('is omitted', () => {
-            const wrapper = factory({ searchStoreGetters, storeState });
+            const wrapper = factory({ searchStoreGetters, searchStoreState });
 
             expect(wrapper.vm.filterableFacets.some(facet => facet.name === 'collection')).toBe(false);
           });
@@ -391,6 +391,146 @@ describe('components/search/SideFilters', () => {
 
             await wrapper.vm.changeFacet(facetName, newSelectedValues);
             expect(searchRerouter.called).toBe(false);
+          });
+        });
+      });
+    });
+
+    describe('queryUpdatesForFacetChanges', () => {
+      const searchStoreState = {
+        resettableFilters: []
+      };
+      const searchStoreGetters = {};
+
+      describe('when facet is REUSABILITY', () => {
+        describe('with values selected', () => {
+          const selected = { 'REUSABILITY': ['open', 'permission'] };
+          it('sets `reusability` to values joined with ","', () => {
+            const wrapper = factory({ searchStoreState, searchStoreGetters });
+
+            const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
+
+            expect(updates.reusability).toBe('open,permission');
+          });
+        });
+
+        describe('with no values selected', () => {
+          it('sets `reusability` to `null`', () => {
+            const wrapper = factory({ searchStoreState, searchStoreGetters });
+
+            const updates = wrapper.vm.queryUpdatesForFacetChanges();
+
+            expect(updates).toEqual({ qf: [], page: 1 });
+          });
+        });
+      });
+
+      describe('for default facets from search plugin supporting quotes', () => {
+        it('includes fielded and quoted queries for each value in `qf`', () => {
+          const wrapper = factory({ searchStoreState, searchStoreGetters });
+          const selected = { 'TYPE': ['"IMAGE"', '"SOUND"'] };
+
+          const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
+
+          expect(updates.qf).toContain('TYPE:"IMAGE"');
+          expect(updates.qf).toContain('TYPE:"SOUND"');
+        });
+      });
+
+      describe('for default facets from search plugin not supporting quotes', () => {
+        it('includes fielded but unquoted queries for each value in `qf`', () => {
+          const wrapper = factory({ searchStoreState, searchStoreGetters });
+          const selected = { 'MIME_TYPE': ['application/pdf'] };
+
+          const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
+
+          expect(updates.qf).toContain('MIME_TYPE:application/pdf');
+        });
+      });
+
+      describe('for any other facets', () => {
+        it('includes fielded but unquoted queries for each value in `qf`', () => {
+          const wrapper = factory({ searchStoreState, searchStoreGetters });
+          const selected = { 'contentTier': ['4'] };
+
+          const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
+
+          expect(updates.qf).toContain('contentTier:4');
+        });
+      });
+
+      describe('in a collection having custom filters', () => {
+        const searchStoreState = {
+          userParams: {
+            qf: ['proxy_dcterms_issued:1900-01-01']
+          },
+          resettableFilters: ['proxy_dcterms_issued']
+        };
+        const searchStoreGetters = {
+          collection: () => 'newspaper'
+        };
+
+        it('applies them', () => {
+          const wrapper = factory({ searchStoreState, searchStoreGetters });
+          const selected = { api: 'metadata', 'proxy_dcterms_issued': ['1900-01-02'] };
+
+          const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
+
+          expect(updates.qf).toContain('proxy_dcterms_issued:1900-01-02');
+          expect(updates.api).toBe('metadata');
+        });
+      });
+
+      describe('with collection-specific facets already selected', () => {
+        const searchStoreState = {
+          resettableFilters: ['collection', 'CREATOR', 'TYPE']
+        };
+        const searchStoreGetters = {
+          filters: () => ({
+            'CREATOR': ['"Missoni (Designer)"'],
+            'TYPE': ['"IMAGE"'],
+            'contentTier': ['*']
+          }),
+          collection: () => 'fashion'
+        };
+
+        describe('when collection is changed', () => {
+          const wrapper = factory({ searchStoreState, searchStoreGetters });
+          const selected = { 'collection': 'art' };
+
+          it('removes collection-specific facet filters', () => {
+            const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
+
+            expect(updates.qf).not.toContain('CREATOR:"Missoni (Designer)"');
+          });
+
+          it('preserves generic facet filters', () => {
+            const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
+
+            expect(updates.qf).toContain('TYPE:"IMAGE"');
+          });
+
+          it('removes tier filter', () => {
+            const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
+
+            expect(updates.qf).not.toContain('contentTier:*');
+          });
+        });
+
+        describe('when collection is removed', () => {
+          const wrapper = factory({ searchStoreState, searchStoreGetters });
+          const selected = { 'collection': null };
+
+          it('removes collection-specific facet filters', () => {
+            const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
+
+            expect(updates.qf).not.toContain('CREATOR:"Missoni (Designer)"');
+          });
+
+          it('preserves generic facet filters', () => {
+            const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
+
+            expect(updates.qf).toContain('TYPE:"IMAGE"');
           });
         });
       });
