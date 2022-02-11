@@ -242,10 +242,10 @@ describe('components/search/SideFilters', () => {
         });
       });
 
-      describe('dateFilterName', () => {
+      describe('dateFilterField', () => {
         it('is "proxy_dcterms_issued"', async() => {
           const wrapper = factory({ searchStoreGetters });
-          expect(wrapper.vm.dateFilterName).toBe('proxy_dcterms_issued');
+          expect(wrapper.vm.dateFilterField).toBe('proxy_dcterms_issued');
         });
       });
 
@@ -319,10 +319,10 @@ describe('components/search/SideFilters', () => {
         });
       });
 
-      describe('dateFilterName', () => {
+      describe('dateFilterField', () => {
         it('is null', async() => {
           const wrapper = factory({ searchStoreGetters });
-          expect(wrapper.vm.dateFilterName).toBe(null);
+          expect(wrapper.vm.dateFilterField).toBe(null);
         });
       });
     });

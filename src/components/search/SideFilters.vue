@@ -63,7 +63,7 @@
               />
               <SideDateFilter
                 v-if="enableDateFilter"
-                :name="dateFilterName"
+                :name="dateFilterField"
                 :start="dateFilter.start"
                 :end="dateFilter.end"
                 :specific="dateFilter.specific"
@@ -198,16 +198,16 @@
         return !!this.theme?.filters?.api;
       },
       apiFilterDefaultValue() {
-        return this.theme?.filters?.api || null;
+        return this.theme?.filters?.api?.default || null;
       },
       enableDateFilter() {
         return !!this.theme?.filters?.date;
       },
-      dateFilterName() {
-        return this.theme?.filters?.date || null;
+      dateFilterField() {
+        return this.theme?.filters?.date?.field || null;
       },
       dateFilter() {
-        const dateFilterValue = this.filters[this.dateFilterName];
+        const dateFilterValue = this.filters[this.dateFilterField];
         if (!dateFilterValue || dateFilterValue.length < 1) {
           return { start: null, end: null, specific: this.isCheckedSpecificDate };
         }
