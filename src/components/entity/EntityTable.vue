@@ -68,7 +68,7 @@
       };
     },
     fetch() {
-      return this.$axios.get(this.apiEndpoint)
+      return this.$axios.get(this.apiEndpoint, { baseURL: this.$store.getters['http/origin'] })
         .then(response => {
           this.collections = response.data.map(Object.freeze);
         })
