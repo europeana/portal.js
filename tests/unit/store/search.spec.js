@@ -99,128 +99,6 @@ describe('store/search', () => {
       });
     });
 
-    describe('queryUpdatesForFacetChanges', () => {
-      const state = {
-        resettableFilters: []
-      };
-      const getters = {};
-
-      describe('when facet is REUSABILITY', () => {
-        describe('with values selected', () => {
-          const selected = { 'REUSABILITY': ['open', 'permission'] };
-          it('sets `reusability` to values joined with ","', () => {
-            const updates = store.getters.queryUpdatesForFacetChanges(state, getters)(selected);
-            expect(updates.reusability).toBe('open,permission');
-          });
-        });
-
-        describe('with no values selected', () => {
-          it('sets `reusability` to `null`', () => {
-            const updates = store.getters.queryUpdatesForFacetChanges(state, getters)();
-            expect(updates).toEqual({ qf: [], page: 1 });
-          });
-        });
-      });
-
-      describe('for default facets from search plugin supporting quotes', () => {
-        it('includes fielded and quoted queries for each value in `qf`', () => {
-          const selected = { 'TYPE': ['"IMAGE"', '"SOUND"'] };
-          const updates = store.getters.queryUpdatesForFacetChanges(state, getters)(selected);
-          expect(updates.qf).toContain('TYPE:"IMAGE"');
-          expect(updates.qf).toContain('TYPE:"SOUND"');
-        });
-      });
-
-      describe('for default facets from search plugin not supporting quotes', () => {
-        it('includes fielded but unquoted queries for each value in `qf`', () => {
-          const selected = { 'MIME_TYPE': ['application/pdf'] };
-          const updates = store.getters.queryUpdatesForFacetChanges(state, getters)(selected);
-          expect(updates.qf).toContain('MIME_TYPE:application/pdf');
-        });
-      });
-
-      describe('for any other facets', () => {
-        it('includes fielded but unquoted queries for each value in `qf`', () => {
-          const selected = { 'contentTier': ['4'] };
-          const updates = store.getters.queryUpdatesForFacetChanges(state, getters)(selected);
-          expect(updates.qf).toContain('contentTier:4');
-        });
-      });
-
-      describe('in a collection having custom filters', () => {
-        const state = {
-          userParams: {
-            qf: ['proxy_dcterms_issued:1900-01-01']
-          },
-          resettableFilters: ['proxy_dcterms_issued']
-        };
-        const getters = {
-          collection: () => 'newspaper'
-        };
-
-        it('applies them', () => {
-          const selected = { api: 'metadata', 'proxy_dcterms_issued': ['1900-01-02'] };
-
-          const updates = store.getters.queryUpdatesForFacetChanges(state, getters)(selected);
-
-          expect(updates.qf).toContain('proxy_dcterms_issued:1900-01-02');
-          expect(updates.api).toBe('metadata');
-        });
-      });
-
-      describe('with collection-specific facets already selected', () => {
-        const state = {
-          resettableFilters: ['collection', 'CREATOR', 'TYPE']
-        };
-        const getters = {
-          filters: {
-            'CREATOR': ['"Missoni (Designer)"'],
-            'TYPE': ['"IMAGE"'],
-            'contentTier': ['*']
-          },
-          collection: 'fashion'
-        };
-
-        describe('when collection is changed', () => {
-          const selected = { 'collection': 'art' };
-
-          it('removes collection-specific facet filters', () => {
-            const updates = store.getters.queryUpdatesForFacetChanges(state, getters)(selected);
-
-            expect(updates.qf).not.toContain('CREATOR:"Missoni (Designer)"');
-          });
-
-          it('preserves generic facet filters', () => {
-            const updates = store.getters.queryUpdatesForFacetChanges(state, getters)(selected);
-
-            expect(updates.qf).toContain('TYPE:"IMAGE"');
-          });
-
-          it('removes tier filter', () => {
-            const updates = store.getters.queryUpdatesForFacetChanges(state, getters)(selected);
-
-            expect(updates.qf).not.toContain('contentTier:*');
-          });
-        });
-
-        describe('when collection is removed', () => {
-          const selected = { 'collection': null };
-
-          it('removes collection-specific facet filters', () => {
-            const updates = store.getters.queryUpdatesForFacetChanges(state, getters)(selected);
-
-            expect(updates.qf).not.toContain('CREATOR:"Missoni (Designer)"');
-          });
-
-          it('preserves generic facet filters', () => {
-            const updates = store.getters.queryUpdatesForFacetChanges(state, getters)(selected);
-
-            expect(updates.qf).toContain('TYPE:"IMAGE"');
-          });
-        });
-      });
-    });
-
     describe('hasCollectionSpecificSettings', () => {
       describe('when collection param is absent', () => {
         const collection = undefined;
@@ -374,56 +252,6 @@ describe('store/search', () => {
       });
     });
 
-    describe('facetUpdateNeeded', () => {
-      describe('without previous API params', () => {
-        const previousApiParams = null;
-
-        it('is `true`', () => {
-          const facetUpdateNeeded = store.getters.facetUpdateNeeded(
-            { previousApiParams }
-          );
-
-          expect(facetUpdateNeeded).toBe(true);
-        });
-      });
-
-      describe('with previous API params', () => {
-        const previousApiParams = {
-          query: '*:*'
-        };
-
-        for (const param of ['query', 'qf', 'reusability', 'api']) {
-          describe(`when ${param} param changes`, () => {
-            it('is `true`', () => {
-              const apiParamsChanged = [param];
-
-              const facetUpdateNeeded = store.getters.facetUpdateNeeded(
-                { previousApiParams },
-                { apiParamsChanged }
-              );
-
-              expect(facetUpdateNeeded).toBe(true);
-            });
-          });
-        }
-
-        for (const param of ['page', 'view']) {
-          describe(`when ${param} param changes`, () => {
-            it('is `false`', () => {
-              const apiParamsChanged = [param];
-
-              const facetUpdateNeeded = store.getters.facetUpdateNeeded(
-                { previousApiParams },
-                { apiParamsChanged }
-              );
-
-              expect(facetUpdateNeeded).toBe(false);
-            });
-          });
-        }
-      });
-    });
-
     describe('searchOptions', () => {
       describe('.escape', () => {
         it('is `true` when override params has query and user params does not', () => {
@@ -472,13 +300,12 @@ describe('store/search', () => {
         expect(dispatch.calledWith('deriveApiSettings')).toBe(true);
       });
 
-      it('queries for items and facets if needed', async() => {
+      it('queries for items if needed', async() => {
         const dispatch = sinon.spy();
 
         await store.actions.run({ dispatch, getters: { itemUpdateNeeded: true, facetUpdateNeeded: true } });
 
         expect(dispatch.calledWith('queryItems')).toBe(true);
-        expect(dispatch.calledWith('queryFacets')).toBe(true);
       });
 
       it('omits query for items if not needed', async() => {
@@ -487,24 +314,6 @@ describe('store/search', () => {
         await store.actions.run({ dispatch, getters: { itemUpdateNeeded: false, facetUpdateNeeded: true } });
 
         expect(dispatch.calledWith('queryItems')).toBe(false);
-        expect(dispatch.calledWith('queryFacets')).toBe(true);
-      });
-
-      it('omits query for facets if not needed', async() => {
-        const dispatch = sinon.spy();
-
-        await store.actions.run({ dispatch, getters: { itemUpdateNeeded: true, facetUpdateNeeded: false } });
-
-        expect(dispatch.calledWith('queryItems')).toBe(true);
-        expect(dispatch.calledWith('queryFacets')).toBe(false);
-      });
-
-      it('omits query for facets if explicitly skipped', async() => {
-        const dispatch = sinon.spy();
-
-        await store.actions.run({ dispatch, getters: { facetUpdateNeeded: true } }, { skipFacets: true });
-
-        expect(dispatch.calledWith('queryFacets')).toBe(false);
       });
     });
 
@@ -581,7 +390,7 @@ describe('store/search', () => {
       });
     });
 
-    describe('queryFacets', () => {
+    describe('queryFacet', () => {
       beforeEach(() => {
         sinon.resetHistory();
       });
@@ -593,7 +402,8 @@ describe('store/search', () => {
       const typeQf = 'TYPE:"IMAGE"';
       const collectionQf = 'collection:"migration"';
       const state = { apiParams: { query: searchQuery, qf: [typeQf, collectionQf] } };
-      const queryParams = { ...state.apiParams, rows: 0, profile: 'facets' };
+      const facetName = 'PROVIDER';
+      const queryParams = { ...state.apiParams, rows: 0, profile: 'facets', facet: facetName };
 
       it('searches the Record API', async() => {
         store.actions.$apis = {
@@ -602,7 +412,7 @@ describe('store/search', () => {
           }
         };
 
-        await store.actions.queryFacets({ dispatch, state, getters, commit });
+        await store.actions.queryFacet({ dispatch, state, getters, commit }, facetName);
 
         expect(store.actions.$apis.record.search.called).toBe(true);
       });
@@ -617,13 +427,13 @@ describe('store/search', () => {
         });
 
         it('commits facets', async() => {
-          await store.actions.queryFacets({ dispatch, state, getters, commit });
+          await store.actions.queryFacet({ dispatch, state, getters, commit }, facetName);
 
           expect(commit.calledWith('setFacets', [1, 2])).toBe(true);
         });
 
         it('logs the query while live', async() => {
-          await store.actions.queryFacets({ dispatch, state, getters, commit });
+          await store.actions.queryFacet({ dispatch, state, getters, commit }, facetName);
 
           expect(commit.calledWith('addLiveQuery', queryParams)).toBe(true);
           expect(commit.calledWith('removeLiveQuery', queryParams)).toBe(true);
@@ -640,13 +450,13 @@ describe('store/search', () => {
         });
 
         it('dispatches updateForFailure', async() => {
-          await store.actions.queryFacets({ dispatch, state, getters, commit });
+          await store.actions.queryFacet({ dispatch, state, getters, commit }, facetName);
 
           expect(dispatch.calledWith('updateForFailure')).toBe(true);
         });
 
         it('logs the query while live', async() => {
-          await store.actions.queryFacets({ dispatch, state, getters, commit });
+          await store.actions.queryFacet({ dispatch, state, getters, commit }, facetName);
 
           expect(commit.calledWith('addLiveQuery', queryParams)).toBe(true);
           expect(commit.calledWith('removeLiveQuery', queryParams)).toBe(true);

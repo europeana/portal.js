@@ -57,7 +57,7 @@ Feature: Search querying
     Then I see the `search page`
     And I see "\"World War I\"" in the `search box`
 
-  Scenario: Pressing ESC will close the auto suggestion dropdown
+  Scenario: Pressing ESC will close the auto suggestion facet dropdown
     When I visit a `search page`
     And I click the `show search button`
     And I enter "World" in the `search box`

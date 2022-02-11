@@ -31,6 +31,7 @@ Feature: View styles (List and Grid)
     When I open `/search?view=list`
     And I click the `search grid view toggle`
     Then I see a `item previews grid`
+    And I am on an accessible page
 
   Scenario: Switching to the list view and paginating
     When I visit the `search page`

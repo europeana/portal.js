@@ -53,11 +53,19 @@ module.exports = {
     await this.checkTheCheckbox(selector);
   },
   async checkTheCheckbox(selector) {
+    const enabledSelector = `${selector}:enabled`;
+    await client.expect.element(enabledSelector).to.be.present;
+
     await client.getAttribute(selector, 'id', async(result) => {
       const checkboxId = result.value;
       const labelSelector = `label[for="${checkboxId}"]`;
       client.click(labelSelector);
     });
+  },
+  async waitForTargetToHaveState(qaElementName, state) {
+    const selector = qaSelector(qaElementName);
+    const stateSelector = `${selector}:${state}`;
+    await client.expect.element(stateSelector).to.be.present;
   },
   async switchTheTargetOnOrOff(qaElementName, onOrOff) {
     const selector = qaSelector(qaElementName);
@@ -83,6 +91,10 @@ module.exports = {
   },
   async checkTheRadio(inputName, inputValue) {
     const selector = `input[type="radio"][name="${inputName}"][value="${this.escapeCssAttributeSelector(inputValue)}"]`;
+
+    const enabledSelector = `${selector}:enabled`;
+    await client.expect.element(enabledSelector).to.be.present;
+
     await client.getAttribute(selector, 'id', (result) => {
       const radioId = result.value;
       const labelSelector = `label[for="${radioId}"]`;
@@ -207,10 +219,10 @@ module.exports = {
     await startWebDriver(nightwatchApiOptions);
     await createSession(nightwatchApiOptions);
   },
-  async seeACheckedRadio(inputName, inputValue) {
-    const radioSelector = `input[type="radio"][name="${inputName}"][value="${inputValue}"]:checked`;
+  async seeACheckedInput(value, name, type) {
+    const selector = `input[type="${type}"][name="${name}"][value="${value}"]:checked`;
 
-    await client.expect.element(radioSelector).to.be.present;
+    await client.expect.element(selector).to.be.present;
   },
   async seeALinkInTarget(linkHref, qaElementName) {
     await client.expect.element(qaSelector(qaElementName) + ` a[href="${linkHref}"]`).to.be.visible;

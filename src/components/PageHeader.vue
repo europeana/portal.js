@@ -1,11 +1,11 @@
 <template>
   <header
+    id="header"
     v-visible-on-scroll
     class="m-0 navbar-brand container-fluid d-flex justify-content-between show"
     role="banner"
     :aria-label="$t('header.europeanaHome')"
     data-qa="header"
-    id="header"
   >
     <div
       v-if="showSearch"

@@ -35,7 +35,7 @@ describe('components/search/SideSwitchFilter', () => {
         uncheckedValue: 'metadata'
       });
 
-      const switchChecked = wrapper.find('[data-qa="api switch filter"]');
+      const switchChecked = wrapper.find('[data-qa="api switch filter"] b-form-checkbox-stub');
       expect(switchChecked.attributes('checked')).toBe('fulltext');
     });
   });
