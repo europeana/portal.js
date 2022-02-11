@@ -207,13 +207,14 @@
       },
       dateFilter() {
         const dateFilterValue = this.filters[this.dateFilterField];
+
         if (!dateFilterValue || dateFilterValue.length < 1) {
           return { start: null, end: null, specific: this.isCheckedSpecificDate };
         }
 
         const range = rangeFromQueryParam(dateFilterValue[0]);
 
-        return range ? range : { start: dateFilterValue[0], end: null, specific: true };
+        return range ? { ...range, specific: false } : { start: dateFilterValue[0], end: null, specific: true };
       },
       entityHeaderCardsEnabled() {
         return this.$features.entityHeaderCards;
