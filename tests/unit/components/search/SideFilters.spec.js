@@ -229,6 +229,34 @@ describe('components/search/SideFilters', () => {
       });
     });
 
+    describe('dateFilter', () => {
+      it('is blank without a date filter', () => {
+        const wrapper = factory();
+
+        expect(wrapper.vm.dateFilter).toEqual({ start: null, end: null, specific: undefined });
+      });
+
+      it('is a range if date query filter value is a range', () => {
+        const searchStoreGetters = {
+          collection: () => 'newspaper',
+          filters: () => ({ 'proxy_dcterms_issued': ['[1900-01-01 TO 1910-01-01]'] })
+        };
+        const wrapper = factory({ searchStoreGetters });
+
+        expect(wrapper.vm.dateFilter).toEqual({ start: '1900-01-01', end: '1910-01-01', specific: false });
+      });
+
+      it('is a specific date if date query filter value is not a range', () => {
+        const searchStoreGetters = {
+          collection: () => 'newspaper',
+          filters: () => ({ 'proxy_dcterms_issued': ['1900-01-01'] })
+        };
+        const wrapper = factory({ searchStoreGetters });
+
+        expect(wrapper.vm.dateFilter).toEqual({ start: '1900-01-01', end: null, specific: true });
+      });
+    });
+
     describe('when on the newspaper collection', () => {
       const searchStoreGetters = {
         collection: () => 'newspaper',
