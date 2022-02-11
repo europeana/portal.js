@@ -68,7 +68,7 @@
       };
     },
     fetch() {
-      return this.$axios.get(this.apiEndpoint, { baseURL: this.$store.getters['http/origin'] })
+      return this.$axios.get(this.apiEndpoint, { baseURL: window.location.origin })
         .then(response => {
           this.collections = response.data.map(Object.freeze);
         })
@@ -77,6 +77,7 @@
           console.error({ statusCode: 500, message: e.toString() });
         });
     },
+    fetchOnServer: false,
     computed: {
       apiEndpoint() {
         // For organisations, only get English labels (for now).

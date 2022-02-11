@@ -23,11 +23,8 @@ export default {
     canonicalUrlWithoutLocale(state, getters) {
       return getters.canonicalUrl.replace(/(:\/\/[^/]+)\/[a-z]{2}(\/|$)/, '$1$2');
     },
-    origin(state, getters) {
-      return `${state.protocol}//${state.host}${getters.port}`;
-    },
-    port(state) {
-      return (state.protocol === 'http:') ? state.httpPort : state.httpsPort;
+    origin(state) {
+      return `${state.protocol}//${state.host}`;
     }
   },
   actions: {

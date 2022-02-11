@@ -82,7 +82,7 @@
               });
           });
       } else {
-        return this.$axios.get(`/_api/cache/${this.type}`, { baseURL: this.$store.getters['http/origin'] })
+        return this.$axios.get(`/_api/cache/${this.type}`, { baseURL: window.location.origin })
           .then(response => {
             this.entries = response.data;
           });
