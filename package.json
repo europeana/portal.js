@@ -44,6 +44,7 @@
     "bootstrap-vue": "^2.21.2",
     "cookie-universal-nuxt": "^2.1.5",
     "core-js": "^3.19.1",
+    "cors": "^2.8.5",
     "dateformat": "^4.6.3",
     "decamelize": "^6.0.0",
     "deep-object-diff": "^1.1.0",
