@@ -26,7 +26,7 @@ env:
 
 jobs:
   annotate:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     if: github.event_name == 'pull_request' && contains(github.head_ref, '/EC-') && github.event.action == 'opened'
     steps:
       -
@@ -47,7 +47,7 @@ jobs:
   # Build the base stage of the Docker image first so that unit tests can run,
   # as they do not require the full production image to be built.
   docker-base-stage:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     if: github.event_name == 'push' || github.event.pull_request.draft == false
     steps:
       -
@@ -81,7 +81,7 @@ jobs:
   # Run linting and unit tests on master (for coverage reports), and non-draft
   # pull requests
   test-unit:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [docker-base-stage]
     if: (github.event_name == 'push' && github.event.ref == 'refs/heads/master') || (github.event_name == 'pull_request' && github.event.pull_request.draft == false)
     steps:
@@ -144,7 +144,7 @@ jobs:
   # Build, and push to Docker Hub, full production Docker image for use throughout
   # other jobs
   docker-final-stage:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [docker-base-stage]
     if: github.event_name == 'push' || github.event.pull_request.draft == false
     steps:
@@ -186,7 +186,7 @@ jobs:
 
   # Run size tests on pull requests
   test-size:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [docker-final-stage]
     if: github.event_name == 'pull_request' && github.event.pull_request.draft == false
     steps:
@@ -238,7 +238,7 @@ jobs:
 
   # Run e2e tests on pull requests
   test-e2e:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [docker-final-stage]
     if: github.event_name == 'pull_request' && github.event.pull_request.draft == false
     steps:
@@ -276,7 +276,7 @@ jobs:
 
   # Run visual tests on pull requests, and pushes to master
   test-visual:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [docker-final-stage]
     if: (github.event_name == 'push' && github.event.ref == 'refs/heads/master') || (github.event_name == 'pull_request' && github.event.pull_request.draft == false)
     env:
@@ -331,7 +331,7 @@ jobs:
   # * Pull requests are deployed as new resources in dev namespace
   # * Pushes to master update the deployment in the test namespace
   deploy-ibm-cloud:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [docker-final-stage]
     if: (github.event_name == 'push' && github.event.ref == 'refs/heads/master') || (github.event_name == 'pull_request' && github.event.pull_request.draft == false)
     env:
@@ -427,7 +427,7 @@ jobs:
 
   # Publish tagged versions to NPM
   npm-publish:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [docker-final-stage]
     if: github.event_name == 'push' && startsWith( github.event.ref, 'refs/tags/v' )
     env:
