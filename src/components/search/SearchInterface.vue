@@ -20,11 +20,14 @@
       v-if="noResults"
       class="mb-3"
     >
-      <b-col>
+      <b-col cols="12">
         <AlertMessage
           :error="$t('noResults')"
         />
       </b-col>
+      <slot
+        name="related"
+      />
     </b-row>
     <b-row
       v-if="hasAnyResults"
@@ -83,7 +86,13 @@
               :view="view"
               :per-row="perRow"
               :show-pins="showPins"
-            />
+            >
+              <template #related>
+                <slot
+                  name="related"
+                />
+              </template>
+            </ItemPreviewCardGroup>
             <InfoMessage
               v-if="lastAvailablePage"
             >

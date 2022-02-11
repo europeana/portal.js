@@ -3,7 +3,10 @@
     data-qa="entity page"
     class="entity-page"
   >
-    <b-container fluid>
+    <b-container
+      v-if="!headerCardsEnabled"
+      fluid
+    >
       <b-row class="flex-md-row pt-5 bg-white mb-3">
         <b-col
           cols="12"
@@ -72,8 +75,23 @@
                 :route="route"
                 :show-content-tier-toggle="false"
                 :show-pins="userIsEditor && userIsSetsEditor"
-                :context-label="entityHeaderCardsEnabled ? contextLabel : null"
-              />
+                :context-label="headerCardsEnabled ? contextLabel : null"
+              >
+                <template
+                  v-if="headerCardsEnabled && relatedCollectionsFound"
+                  #related
+                >
+                  <b-card
+                    class="text-left related-collections-card mb-4"
+                  >
+                    <RelatedCollections
+                      :title="$t('youMightAlsoLike')"
+                      :related-collections="relatedEntities ? relatedEntities : relatedCollectionCards"
+                      data-qa="related entities"
+                    />
+                  </b-card>
+                </template>
+              </SearchInterface>
             </b-container>
             <b-container class="px-0">
               <BrowseSections
@@ -348,7 +366,7 @@
       isEditable() {
         return this.entity && this.editable;
       },
-      entityHeaderCardsEnabled() {
+      headerCardsEnabled() {
         return this.$features.entityHeaderCards;
       }
     },

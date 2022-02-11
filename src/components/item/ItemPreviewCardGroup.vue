@@ -13,11 +13,11 @@
       class="masonry-container"
       :data-qa="`item previews ${view}`"
     >
-      <div
+      <template
         v-for="(item, index) in items"
-        :key="item.id"
       >
         <ItemPreviewCard
+          :key="item.id"
           v-masonry-tile
           :item="item"
           :hit-selector="itemHitSelector(item)"
@@ -31,14 +31,12 @@
           @like="$emit('like', item.id)"
           @unlike="$emit('unlike', item.id)"
         />
-        <div
-          v-if="index === 6"
+        <slot
+          v-if="index === indexForRelatedCollections"
           v-masonry-tile
-          class="item card text-left content-card item default-card"
-        >
-          Related
-        </div>
-      </div>
+          name="related"
+        />
+      </template>
     </div>
   </div>
   <b-card-group
@@ -47,17 +45,24 @@
     :class="cardGroupClass"
     deck
   >
-    <ItemPreviewCard
-      v-for="item in items"
-      :key="item.id"
-      :item="item"
-      :hit-selector="itemHitSelector(item)"
-      :variant="cardVariant"
-      :show-pins="showPins"
-      data-qa="item preview"
-      @like="$emit('like', item.id)"
-      @unlike="$emit('unlike', item.id)"
-    />
+    <template
+      v-for="(item, index) in items"
+    >
+      <ItemPreviewCard
+        :key="item.id"
+        :item="item"
+        :hit-selector="itemHitSelector(item)"
+        :variant="cardVariant"
+        :show-pins="showPins"
+        data-qa="item preview"
+        @like="$emit('like', item.id)"
+        @unlike="$emit('unlike', item.id)"
+      />
+      <slot
+        v-if="index === indexForRelatedCollections"
+        name="related"
+      />
+    </template>
   </b-card-group>
 </template>
 
@@ -127,6 +132,13 @@
 
       cardVariant() {
         return this.view === 'grid' ? 'default' : this.view;
+      },
+      indexForRelatedCollections() {
+        if (this.items.length) {
+          return this.items.length > 4 ? 4 : this.items.length - 1;
+        } else {
+          return 0;
+        }
       }
     },
 
