@@ -72,7 +72,7 @@
           <template v-else>
             <b-form-checkbox
               v-model="preSelected"
-              :value="option.label"
+              :value="enquoteFacetFieldFilterValue(option.label)"
               :name="name"
               :disabled="filterSelectionDisabled"
               :data-qa="`${option.label} ${name} ${CHECKBOX}`"
@@ -175,10 +175,6 @@
     },
 
     computed: {
-      collection() {
-        return this.$store.getters['search/collection'];
-      },
-
       selectedFilters() {
         return {
           [this.name]: [].concat(this.selected)
@@ -216,12 +212,16 @@
         return ((typeof this.selected === 'string') || (Array.isArray(this.selected) && this.selected.length > 0)) ? 'selected' : 'light';
       },
 
-      themeSpecificFieldLabelPattern() {
-        return (this.theme?.facets || []).find((facet) => facet.field === this.name)?.label;
+      collection() {
+        return this.$store.getters['search/collection'];
       },
 
       theme() {
         return themes.find(theme => theme.qf === this.collection);
+      },
+
+      themeSpecificFieldLabelPattern() {
+        return (this.theme?.facets || []).find((facet) => facet.field === this.name)?.label;
       },
 
       paramsForFacets() {
@@ -263,7 +263,6 @@
         })
           .then((response) => response.facets?.[0]?.fields || [])
           .then((fields) => this.filterFacetFields(fields))
-          .then((fields) => this.formatFacetFieldLabels(fields))
           .catch(async(error) => {
             // TODO: refactor not to use store. rely on fetchState.error instead
             await this.$store.dispatch('search/updateForFailure', error);
@@ -312,22 +311,8 @@
         return fields;
       },
 
-      formatFacetFieldLabels(fields) {
-        // FIXME: is this formatting not only the presented label, but also the
-        //        value sent in API requests when filtering?
-        if (this.themeSpecificFieldLabelPattern) {
-          for (const field of fields) {
-            field.label = field.label.replace(this.themeSpecificFieldLabelPattern, '');
-          }
-        }
-
-        if (!unquotableFacets.includes(this.name)) {
-          for (const field of fields) {
-            field.label = '"' + escapeLuceneSpecials(field.label) + '"';
-          }
-        }
-
-        return fields;
+      enquoteFacetFieldFilterValue(value) {
+        return unquotableFacets.includes(this.name) ? value : `"${escapeLuceneSpecials(value)}"`;
       },
 
       // Refetch facet fields, unless this is the reusability facet
@@ -336,6 +321,7 @@
           this.$fetch();
         }
       },
+
       // Refetch facet fields, but only if other qf query values have changed
       updateRouteQueryQf(newQf, oldQf) {
         // Look for changes to qf, accounting for them being potentially strings
@@ -354,6 +340,7 @@
           this.$fetch();
         }
       },
+
       init() {
         if (this.isRadio && Array.isArray(this.selected)) {
           this.preSelected = this.selected[0];

@@ -134,18 +134,6 @@ export default {
       return 'grid';
     },
 
-    formatFacetFieldLabel: (state, getters, rootState, rootGetters) => (facetName, facetFieldLabel) => {
-      const collection = getters.collection;
-      if (!getters.hasCollectionSpecificSettings(collection)) {
-        return null;
-      }
-      if (!rootGetters[`collections/${collection}/formatFacetFieldLabel`]) {
-        return null;
-      }
-
-      return rootGetters[`collections/${collection}/formatFacetFieldLabel`](facetName, facetFieldLabel);
-    },
-
     hasCollectionSpecificSettings: (state, getters, rootState) => (collection) => {
       return (!!collection) &&
         (!!rootState.collections && !!rootState.collections[collection]) &&
