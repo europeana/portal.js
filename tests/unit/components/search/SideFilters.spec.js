@@ -229,6 +229,34 @@ describe('components/search/SideFilters', () => {
       });
     });
 
+    describe('dateFilter', () => {
+      it('is blank without a date filter', () => {
+        const wrapper = factory();
+
+        expect(wrapper.vm.dateFilter).toEqual({ start: null, end: null, specific: undefined });
+      });
+
+      it('is a range if date query filter value is a range', () => {
+        const searchStoreGetters = {
+          collection: () => 'newspaper',
+          filters: () => ({ 'proxy_dcterms_issued': ['[1900-01-01 TO 1910-01-01]'] })
+        };
+        const wrapper = factory({ searchStoreGetters });
+
+        expect(wrapper.vm.dateFilter).toEqual({ start: '1900-01-01', end: '1910-01-01', specific: false });
+      });
+
+      it('is a specific date if date query filter value is not a range', () => {
+        const searchStoreGetters = {
+          collection: () => 'newspaper',
+          filters: () => ({ 'proxy_dcterms_issued': ['1900-01-01'] })
+        };
+        const wrapper = factory({ searchStoreGetters });
+
+        expect(wrapper.vm.dateFilter).toEqual({ start: '1900-01-01', end: null, specific: true });
+      });
+    });
+
     describe('when on the newspaper collection', () => {
       const searchStoreGetters = {
         collection: () => 'newspaper',
@@ -239,6 +267,13 @@ describe('components/search/SideFilters', () => {
         it('is true', async() => {
           const wrapper = factory({ searchStoreGetters });
           expect(wrapper.vm.enableDateFilter).toBe(true);
+        });
+      });
+
+      describe('dateFilterField', () => {
+        it('is "proxy_dcterms_issued"', async() => {
+          const wrapper = factory({ searchStoreGetters });
+          expect(wrapper.vm.dateFilterField).toBe('proxy_dcterms_issued');
         });
       });
 
@@ -281,6 +316,41 @@ describe('components/search/SideFilters', () => {
         it('is "metadata"', async() => {
           const wrapper = factory({ searchStoreGetters });
           expect(wrapper.vm.apiFilterDefaultValue).toBe('metadata');
+        });
+      });
+    });
+
+    describe('when on a collection without specific filters', () => {
+      const searchStoreGetters = {
+        collection: () => 'art',
+        filters: () => ({})
+      };
+
+      describe('enableDateFilter', () => {
+        it('is false', async() => {
+          const wrapper = factory({ searchStoreGetters });
+          expect(wrapper.vm.enableDateFilter).toBe(false);
+        });
+      });
+
+      describe('enableApiFilter', () => {
+        it('is false', async() => {
+          const wrapper = factory({ searchStoreGetters });
+          expect(wrapper.vm.enableApiFilter).toBe(false);
+        });
+      });
+
+      describe('apiFilterDefaultValue', () => {
+        it('is null', async() => {
+          const wrapper = factory({ searchStoreGetters });
+          expect(wrapper.vm.apiFilterDefaultValue).toBe(null);
+        });
+      });
+
+      describe('dateFilterField', () => {
+        it('is null', async() => {
+          const wrapper = factory({ searchStoreGetters });
+          expect(wrapper.vm.dateFilterField).toBe(null);
         });
       });
     });

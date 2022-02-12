@@ -63,7 +63,7 @@
               />
               <SideDateFilter
                 v-if="enableDateFilter"
-                :name="PROXY_DCTERMS_ISSUED"
+                :name="dateFilterField"
                 :start="dateFilter.start"
                 :end="dateFilter.end"
                 :specific="dateFilter.specific"
@@ -126,9 +126,6 @@
     },
     data() {
       return {
-        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued',
-        API_FILTER_COLLECTIONS: ['newspaper', 'ww1'],
-        DATE_FILTER_COLLECTIONS: ['newspaper'],
         hideFilterSheet: true
       };
     },
@@ -146,6 +143,9 @@
         filters: 'search/filters',
         collection: 'search/collection'
       }),
+      theme() {
+        return themes.find(theme => theme.qf === this.collection);
+      },
       resetButtonDisabled() {
         // Disable reset button while queries are running
         return this.$store.state.search.liveQueries.length > 0;
@@ -194,30 +194,27 @@
         return Number(this.$route.query.page || 1);
       },
       enableApiFilter() {
-        return this.API_FILTER_COLLECTIONS.includes(this.collection);
+        return !!this.theme?.filters?.api;
       },
       apiFilterDefaultValue() {
-        if (this.collection === 'newspaper') {
-          return 'fulltext';
-        } else if (this.collection === 'ww1') {
-          return 'metadata';
-        } else {
-          return null;
-        }
+        return this.theme?.filters?.api?.default || null;
       },
       enableDateFilter() {
-        return this.DATE_FILTER_COLLECTIONS.includes(this.collection);
+        return !!this.theme?.filters?.date;
+      },
+      dateFilterField() {
+        return this.theme?.filters?.date?.field || null;
       },
       dateFilter() {
-        const proxyDctermsIssued = this.filters[this.PROXY_DCTERMS_ISSUED];
-        if (!proxyDctermsIssued || proxyDctermsIssued.length < 1) {
+        const dateFilterValue = this.filters[this.dateFilterField];
+
+        if (!dateFilterValue || dateFilterValue.length < 1) {
           return { start: null, end: null, specific: this.isCheckedSpecificDate };
         }
-        const range = rangeFromQueryParam(proxyDctermsIssued[0]);
-        if (!range) {
-          return { start: proxyDctermsIssued[0], end: null, specific: true };
-        }
-        return range;
+
+        const range = rangeFromQueryParam(dateFilterValue[0]);
+
+        return range ? { ...range, specific: false } : { start: dateFilterValue[0], end: null, specific: true };
       },
       entityHeaderCardsEnabled() {
         return this.$features.entityHeaderCards;
