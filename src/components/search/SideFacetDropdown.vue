@@ -100,6 +100,7 @@
   import xor from 'lodash/xor';
   import FacetFieldLabel from './FacetFieldLabel';
   import ColourSwatch from '../generic/ColourSwatch';
+  import themes from '@/plugins/europeana/themes';
   import { unquotableFacets } from '@/plugins/europeana/search';
   import { escapeLuceneSpecials } from '@/plugins/europeana/utils';
 
@@ -154,15 +155,7 @@
         CHECKBOX: 'checkbox',
         preSelected: null,
         fetched: !!this.staticFields,
-        fields: this.staticFields || [],
-        COLLECTION_SPECIFIC_FIELD_LABEL_PATTERNS: {
-          fashion: {
-            'CREATOR': / \(Designer\)/,
-            'proxy_dc_type.en': /Object Type: /,
-            'proxy_dc_format.en': /Technique: /,
-            'proxy_dcterms_medium.en': /Material: /
-          }
-        }
+        fields: this.staticFields || []
       };
     },
 
@@ -223,8 +216,12 @@
         return ((typeof this.selected === 'string') || (Array.isArray(this.selected) && this.selected.length > 0)) ? 'selected' : 'light';
       },
 
-      collectionSpecificFieldLabelPattern() {
-        return this.COLLECTION_SPECIFIC_FIELD_LABEL_PATTERNS[this.collection]?.[this.name];
+      themeSpecificFieldLabelPattern() {
+        return (this.theme?.facets || []).find((facet) => facet.field === this.name)?.label;
+      },
+
+      theme() {
+        return themes.find(theme => theme.qf === this.collection);
       },
 
       paramsForFacets() {
@@ -268,6 +265,7 @@
           .then((fields) => this.filterFacetFields(fields))
           .then((fields) => this.formatFacetFieldLabels(fields))
           .catch(async(error) => {
+            // TODO: refactor not to use store. rely on fetchState.error instead
             await this.$store.dispatch('search/updateForFailure', error);
           })
           .finally(() => {
@@ -282,8 +280,8 @@
           fields = this.filterContentTierFields(fields);
         }
 
-        if (this.collectionSpecificFieldLabelPattern) {
-          fields = fields.filter((field) => this.collectionSpecificFieldLabelPattern.test(field.label));
+        if (this.themeSpecificFieldLabelPattern) {
+          fields = fields.filter((field) => this.themeSpecificFieldLabelPattern.test(field.label));
         }
 
         return fields;
@@ -315,9 +313,11 @@
       },
 
       formatFacetFieldLabels(fields) {
-        if (this.collectionSpecificFieldLabelPattern) {
+        // FIXME: is this formatting not only the presented label, but also the
+        //        value sent in API requests when filtering?
+        if (this.themeSpecificFieldLabelPattern) {
           for (const field of fields) {
-            field.label = field.label.replace(this.collectionSpecificFieldLabelPattern, '');
+            field.label = field.label.replace(this.themeSpecificFieldLabelPattern, '');
           }
         }
 

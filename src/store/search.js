@@ -33,36 +33,6 @@ const filtersFromQf = (qfs) => {
   return filters;
 };
 
-export const queryUpdatesForFilters = (filters) => {
-  const queryUpdates = {
-    qf: [],
-    page: 1
-  };
-
-  for (const name in filters) {
-    switch (name) {
-      case 'REUSABILITY':
-        // `reusability` has its own API parameter and can not be queried in `qf`
-        queryUpdates.reusability = filters[name].length > 0 ? filters[name].join(',') : null;
-        break;
-      case 'api':
-        // `api` is an option to /plugins/europeana/search/search()
-        queryUpdates.api = filters[name];
-        break;
-      default:
-        // Everything else goes in `qf`
-        queryUpdates.qf = queryUpdates.qf.concat(queryUpdatesForFilter(name, filters[name]));
-    }
-  }
-  return queryUpdates;
-};
-
-export const queryUpdatesForFilter = (name, values) => {
-  return [].concat(values)
-    .filter((value) => (value !== undefined) && (value !== null))
-    .map((value) => `${name}:${value}`);
-};
-
 export default {
   state: () => ({
     active: false,
@@ -189,30 +159,6 @@ export default {
     collection(state) {
       const collectionFilter = filtersFromQf(state.apiParams.qf).collection;
       return collectionFilter ? collectionFilter[0] : null;
-    },
-
-    queryUpdatesForFacetChanges: (state, getters) => (selected = {}) => {
-      const filters = Object.assign({}, getters.filters);
-
-      for (const name in selected) {
-        filters[name] = selected[name];
-      }
-
-      // Remove collection-specific filters when collection is changed
-      if (Object.prototype.hasOwnProperty.call(selected, 'collection') || !getters.collection) {
-        for (const name in filters) {
-          if (name !== 'collection' && !defaultFacetNames.includes(name) && state.resettableFilters.includes(name)) {
-            filters[name] = [];
-          }
-        }
-      }
-
-      // Remove filters incompatible with change of collection filter
-      if (Object.prototype.hasOwnProperty.call(selected, 'collection') && Object.prototype.hasOwnProperty.call(filters, 'contentTier')) {
-        filters['contentTier'] = [];
-      }
-
-      return queryUpdatesForFilters(filters);
     },
 
     // TODO: do not assume filters are fielded, e.g. `qf=whale`
