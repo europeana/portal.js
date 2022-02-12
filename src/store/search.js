@@ -1,5 +1,7 @@
 import { diff } from 'deep-object-diff';
 import merge from 'deepmerge';
+import themes from '@/plugins/europeana/themes';
+import { BASE_URL as FULLTEXT_BASE_URL } from '@/plugins/europeana/newspaper';
 
 // Default facets to always request and display.
 // Order is significant as it will be reflected on search results.
@@ -134,12 +136,6 @@ export default {
       return 'grid';
     },
 
-    hasCollectionSpecificSettings: (state, getters, rootState) => (collection) => {
-      return (!!collection) &&
-        (!!rootState.collections && !!rootState.collections[collection]) &&
-        ((rootState.collections[collection].enabled === undefined) || rootState.collections[collection].enabled);
-    },
-
     hasResettableFilters(state) {
       return state.resettableFilters.length > 0;
     },
@@ -147,6 +143,10 @@ export default {
     collection(state) {
       const collectionFilter = filtersFromQf(state.apiParams.qf).collection;
       return collectionFilter ? collectionFilter[0] : null;
+    },
+
+    theme(state, getters) {
+      return themes.find(theme => theme.qf === getters.collection);
     },
 
     // TODO: do not assume filters are fielded, e.g. `qf=whale`
@@ -194,7 +194,10 @@ export default {
     },
 
     // TODO: replace with a getter?
-    async deriveApiSettings({ commit, dispatch, state, getters, rootGetters }) {
+    deriveApiSettings({ commit, dispatch, state, getters, rootGetters }) {
+      commit('set', ['previousApiParams', Object.assign({}, state.apiParams)]);
+      commit('set', ['previousApiOptions', Object.assign({}, state.apiOptions)]);
+
       // Coerce qf from user input into an array as it may be a single string
       const userParams = Object.assign({}, state.userParams || {});
       userParams.qf = [].concat(userParams.qf || []);
@@ -205,31 +208,26 @@ export default {
         apiParams.profile = 'minimal';
       }
 
+      // TODO: this happens once here, then again later, because `getters.collection`
+      //       and hence `getters.theme` rely on in; refactor.
+      commit('set', ['apiParams', { ...apiParams }]);
+
       const apiOptions = {};
 
-      commit('set', ['previousApiParams', Object.assign({}, state.apiParams)]);
-      commit('set', ['previousApiOptions', Object.assign({}, state.apiOptions)]);
+      if (getters.theme?.filters?.api) {
+        // Set default API (of fulltext or metadata), from theme config
+        if (!apiParams.api) {
+          apiParams.api = getters.theme.filters.api.default || 'fulltext';
+        }
+
+        if (apiParams.api === 'fulltext') {
+          apiParams.profile = 'minimal,hits';
+          apiOptions.url = FULLTEXT_BASE_URL;
+        }
+      }
 
       commit('set', ['apiParams', apiParams]);
       commit('set', ['apiOptions', apiOptions]);
-
-      if (getters.collection || rootGetters['entity/id']) {
-        await dispatch('applyCollectionSpecificSettings');
-      }
-    },
-
-    applyCollectionSpecificSettings({ commit, getters, rootGetters, rootState, state }) {
-      const collection = getters.collection;
-      if (!getters.hasCollectionSpecificSettings(collection)) {
-        return;
-      }
-
-      for (const property of ['apiParams', 'apiOptions']) {
-        if (rootState.collections[collection][property] !== undefined) {
-          commit(`collections/${collection}/set`, [property, state[property]], { root: true });
-          commit('set', [property, rootGetters[`collections/${collection}/${property}`]]);
-        }
-      }
     },
 
     /**
