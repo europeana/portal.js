@@ -6,7 +6,7 @@ export default {
     "likes": "Aprecieri",
     "linkAccount": "Contul meu",
     "linkLogin": "Autentificare",
-    "linkLoginJoin": "Autentificare/Înscriere",
+    "linkLoginJoin": "Autentificare\/Înscriere",
     "linkLogout": "Deconectare",
     "myProfile": "Profilul meu",
     "notifications": {
@@ -402,7 +402,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format fișier| Formate fișier",
       "options": {
-        "text/plain": "Text simplu"
+        "text\/plain": "Text simplu"
       }
     },
     "PROVIDER": {
@@ -464,7 +464,6 @@ export default {
     },
     "contentTier": {
       "name": "Calitatea articolelor",
-      "notification": "Unele articole care nu corespund criteriilor noastre de publicare sunt disponibile. Poți accesa aceste articole activând filtrul „Calitatea articolelor” din „Mai multe filtre”.",
       "options": {
         "*": "Sunt incluse articole care nu îndeplinesc criteriile noastre de publicare",
         "0": "Afișează doar articolele care nu îndeplinesc criteriile noastre de publicare",
@@ -667,7 +666,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Ajută la îmbunătățirea site-ului nostru web aplicând ocazional modificări experimentale.",
-        "title": "Testarea A/B"
+        "title": "Testarea A\/B"
       },
       "auth-strategy": {
         "description": "Reține strategia de autorizare de utilizat pentru a vă conecta.",
@@ -699,7 +698,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Rețineți dacă preferați să vedeți rezultatele căutării într-o vizualizare listă sau grilă.",
-        "title": "Vizualizarea rezultatelor căutării (listă / grilă)"
+        "title": "Vizualizarea rezultatelor căutării (listă \/ grilă)"
       }
     }
   },
