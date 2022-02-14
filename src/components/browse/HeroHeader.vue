@@ -1,5 +1,5 @@
 <template>
-  <div class="container hero-wrapper">
+  <div class="hero-wrapper">
     <b-jumbotron
       :style="jumbotronStyle"
       fluid

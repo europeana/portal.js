@@ -16,7 +16,6 @@
     </div>
     <div class="col-12">
       <b-card-group
-        class="card-deck-4-cols"
         deck
         data-qa="section group"
       >

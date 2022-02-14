@@ -1,5 +1,8 @@
 <template>
-  <div data-qa="browse page">
+  <div
+    data-qa="browse page"
+    class="mx-3"
+  >
     <slot />
     <HeroHeader
       v-if="heroImage"
@@ -8,14 +11,12 @@
       :description="heroDescription"
       :cta="heroCta"
     />
-    <b-container>
-      <ContentHeader
-        v-if="!hero"
-        :title="name"
-        :description="headline"
-      />
-      <BrowseSections :sections="hasPartCollection.items" />
-    </b-container>
+    <ContentHeader
+      v-if="!hero"
+      :title="name"
+      :description="headline"
+    />
+    <BrowseSections :sections="hasPartCollection.items" />
   </div>
 </template>
 

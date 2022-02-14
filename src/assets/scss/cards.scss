@@ -75,6 +75,8 @@
 }
 
 .content-card {
+  min-width: 260px;
+  max-width: 100%;
   $card-line-height: 1.1875rem;
 
   background: $white;
