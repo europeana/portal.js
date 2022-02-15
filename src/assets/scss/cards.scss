@@ -82,6 +82,10 @@
   h2 {
     margin-top: 0 !important;
   }
+
+  .card-body {
+    padding-bottom: 0.5rem;
+  }
 }
 
 .content-card {
@@ -699,6 +703,7 @@
         position: relative !important;
         left: auto !important;
         top: auto !important;
+        transform: none !important;
       }
     }
 

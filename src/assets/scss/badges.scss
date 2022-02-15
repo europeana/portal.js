@@ -1,5 +1,63 @@
 .badge {
   text-decoration: none;
+  font-size: $font-size-small;
+  transition: $standard-transition;
+
+  img {
+    width: 28px;
+    height: 28px;
+    object-fit: cover;
+  }
+
+  .organisation-logo {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+.badge-pill {
+  border-radius: 1.125rem;
+  padding: 0.25rem 0.75rem;
+  height: 2.25rem;
+  min-width: 4rem;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  margin-right: 1rem;
+  background-color: $blue;
+  font-weight: 400;
+  transition: $standard-transition;
+
+  &[href] {
+    &:hover {
+      background-color: $darkblue;
+    }
+  }
+
+  &.img-chip {
+    padding: 0.25rem 0.75rem 0.25rem 0.25rem;
+  }
+
+  .pill-close {
+    background-color: transparent;
+    border: 0;
+    color: $white;
+    text-decoration: none;
+  }
+}
+
+.badge-primary {
+  background-color: $white;
+  color: $black;
+
+  &[href] {
+    &:hover,
+    &:focus {
+      background-color: $bodygrey;
+      box-shadow: 0 4px 8px rgb(0 0 0 / 15%);
+    }
+  }
 }
 
 .badge-secondary {
@@ -9,22 +67,23 @@
   padding: 0.5rem;
 }
 
-.badge-pill {
-  background-color: $blue;
-  font-size: $font-size-small;
-  font-weight: 400;
+.badge-light {
+  background-color: $bodygrey;
+  color: $black;
+  padding: 0.25rem 0.75rem;
+  height: 2.25rem;
+  min-width: 4rem;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   transition: $standard-transition;
-  cursor: pointer;
 
-  &:hover {
-    background-color: $darkblue;
-  }
-
-  .pill-close {
-    background-color: transparent;
-    border: 0;
-    color: $white;
-    text-decoration: none;
+  &[href] {
+    &:hover,
+    &:focus {
+      background: $middlegrey !important;
+      box-shadow: 0 4px 8px rgb(0 0 0 / 15%);
+    }
   }
 }
 
