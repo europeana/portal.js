@@ -81,10 +81,16 @@
 
   h2 {
     margin-top: 0 !important;
+    margin-right: 1rem;
   }
 
   .card-body {
+    padding-right: 0.25rem;
     padding-bottom: 0.5rem;
+  }
+
+  .related-collections {
+    padding: 0;
   }
 }
 
@@ -685,9 +691,9 @@
   }
 
   @media (min-width: $bp-medium) {
-    margin-left: -15px;
-    margin-right: -15px;
-    width: calc(100% + #{$grid-gutter * 2});
+    margin-left: -0.5 * $masonry-gutter;
+    margin-right: -0.5 * $masonry-gutter;
+    width: calc(100% + $masonry-gutter);
   }
 
   // TODO reorder masonry-container and :not(.list-card) selectors
@@ -708,13 +714,13 @@
     }
 
     @media (min-width: $bp-medium) {
-      margin-left: 15px;
-      margin-right: 15px;
-      width: calc(100% / 2 - #{$grid-gutter * 2});
+      margin-left: 0.5 * $masonry-gutter;
+      margin-right: 0.5 * $masonry-gutter;
+      width: calc(100% / 2 - $masonry-gutter);
     }
 
-    @media (min-width: $bp-large) {
-      width: calc(100% / 4 - #{$grid-gutter * 2});
+    @media (min-width: $bp-extralarge) {
+      width: calc(100% / 4 - $masonry-gutter);
     }
 
     .card-wrapper {
@@ -758,15 +764,15 @@
     .content-card,
     .related-collections-card {
       @media (min-width: $bp-medium) {
-        width: calc(100% / 2 - #{$grid-gutter * 2});
+        width: calc(100% / 2 - $masonry-gutter);
       }
 
       @media (min-width: $bp-large) {
-        width: calc(100% / 3 - #{$grid-gutter * 2});
+        width: calc(100% / 3 - $masonry-gutter);
       }
 
       @media (min-width: $bp-extralarge) {
-        width: calc(100% / 4 - #{$grid-gutter * 2});
+        width: calc(100% / 4 - $masonry-gutter);
       }
     }
   }

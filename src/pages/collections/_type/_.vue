@@ -427,10 +427,6 @@
 
   .entity-page {
     margin-top: -1rem;
-
-    .related-collections {
-      padding: 0;
-    }
   }
 
   .page-container {

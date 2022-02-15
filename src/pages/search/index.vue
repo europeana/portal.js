@@ -24,15 +24,29 @@
             </b-row>
           </b-container>
           <RelatedSection
-            v-if="searchQuery"
+            v-if="searchQuery && !headerCardsEnabled"
             :query="searchQuery"
             class="mb-4"
           />
           <SearchInterface
             id="search-interface"
             :per-row="4"
-            :context-label="entityHeaderCardsEnabled ? '' : null"
-          />
+            :context-label="headerCardsEnabled ? '' : null"
+          >
+            <template
+              v-if="searchQuery && headerCardsEnabled"
+              #related
+            >
+              <b-card
+                class="text-left related-collections-card mb-4"
+              >
+                <RelatedSection
+                  v-if="searchQuery && headerCardsEnabled"
+                  :query="searchQuery"
+                />
+              </b-card>
+            </template>
+          </SearchInterface>
         </b-col>
       </b-row>
     </b-container>
@@ -73,7 +87,7 @@
       searchQuery() {
         return this.$route.query.query;
       },
-      entityHeaderCardsEnabled() {
+      headerCardsEnabled() {
         return this.$features.entityHeaderCards;
       }
     },

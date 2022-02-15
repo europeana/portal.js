@@ -22,7 +22,7 @@
       rounded="circle"
       class="mr-2"
     />
-    {{ localisedTitle.values[0] }}
+    <span>{{ localisedTitle.values[0] }}</span>
   </b-badge>
 </template>
 
