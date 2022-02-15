@@ -16,6 +16,7 @@
         :title="relatedCollection.prefLabel ? relatedCollection.prefLabel : relatedCollection.name"
         :img="imageUrl(relatedCollection)"
         :type="relatedCollection.type"
+        :badge-variant="badgeVariant"
       />
     </div>
   </b-container>
@@ -42,6 +43,10 @@
       relatedCollections: {
         type: Array,
         default: () => []
+      },
+      badgeVariant: {
+        type: String,
+        default: 'primary'
       }
     },
 

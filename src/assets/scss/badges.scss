@@ -48,13 +48,14 @@
 }
 
 .badge-primary {
-  background-color: $white;
+  background-color: $bodygrey;
   color: $black;
 
   &[href] {
     &:hover,
     &:focus {
-      background-color: $bodygrey;
+      color: $black;
+      background: $middlegrey !important;
       box-shadow: 0 4px 8px rgb(0 0 0 / 15%);
     }
   }
@@ -68,7 +69,7 @@
 }
 
 .badge-light {
-  background-color: $bodygrey;
+  background-color: $white;
   color: $black;
   padding: 0.25rem 0.75rem;
   height: 2.25rem;
@@ -81,7 +82,7 @@
   &[href] {
     &:hover,
     &:focus {
-      background: $middlegrey !important;
+      background-color: $bodygrey !important;
       box-shadow: 0 4px 8px rgb(0 0 0 / 15%);
     }
   }

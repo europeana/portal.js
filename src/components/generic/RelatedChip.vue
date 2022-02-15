@@ -3,7 +3,7 @@
     :to="$link.to(linkTo)"
     :href="$link.href(linkTo)"
     pill
-    variant="light"
+    :variant="badgeVariant"
     :class="{ 'img-chip': img }"
     :data-qa="localisedTitle.values[0] + ' related chip'"
     :lang="localisedTitle.code"
@@ -52,6 +52,10 @@
       type: {
         type: String,
         default: ''
+      },
+      badgeVariant: {
+        type: String,
+        default: 'primary'
       }
     },
 

@@ -5,9 +5,9 @@ Docs: https://bootstrap-vue.org/docs/components/badge
 Variant "secondary": regular, pill<br>
 *Used as default*
 ```jsx
-  <b-badge>label</b-badge>
+  <b-badge>badge</b-badge>
   <b-badge variant="pill">
-  label
+    pill
   </b-badge>
 ```
 
@@ -16,38 +16,23 @@ Variant "primary":
   <b-badge
     variant="primary"
   >
-  label
+    badge
   </b-badge>
   <b-badge
     variant="primary"
     pill
   >
-  label
-  </b-badge>
-```
-
-Variant "light":
-```jsx
-  <b-badge
-    variant="light"
-  >
-  label
-  </b-badge>
-  <b-badge
-    variant="light"
     pill
-  >
-  label
   </b-badge>
   <b-badge
-    variant="light"
+    variant="primary"
     pill
     href="https://www.europeana.eu"
   >
-  label
+    pill link
   </b-badge>
   <b-badge
-    variant="light"
+    variant="primary"
     pill
     href="https://www.europeana.eu"
     class="img-chip"
@@ -57,8 +42,45 @@ Variant "light":
       rounded="circle"
       class="mr-2"
     />
-    label
+    pill image link
   </b-badge>
+```
+
+Variant "light":
+```jsx
+  <div style="background-color: #ededed; margin: -16px; padding: 16px;">
+    <b-badge
+      variant="light"
+    >
+      badge
+    </b-badge>
+    <b-badge
+      variant="light"
+      pill
+    >
+      pill
+    </b-badge>
+    <b-badge
+      variant="light"
+      pill
+      href="https://www.europeana.eu"
+    >
+      pill link
+    </b-badge>
+    <b-badge
+      variant="light"
+      pill
+      href="https://www.europeana.eu"
+      class="img-chip"
+    >
+      <b-img
+        src="https://api.europeana.eu/api/v2/thumbnail-by-url.json?uri=http%3A%2F%2Fcc.museon.nl%2Fimageproxy.aspx%3Fserver%3Dlocalhost%26port%3D17512%26filename%3Dimages%2Fscreen2%2F116201a.jpg&type=IMAGE&size=w200"
+        rounded="circle"
+        class="mr-2"
+      />
+        pill image link
+    </b-badge>
+  </div>
 ```
 
 Variant "outline-light":
@@ -66,12 +88,12 @@ Variant "outline-light":
   <b-badge
     variant="outline-light"
   >
-  label
+  badge
   </b-badge>
   <b-badge
     variant="outline-light"
     pill
   >
-  label
+    pill
   </b-badge>
 ```

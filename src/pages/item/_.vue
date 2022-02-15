@@ -51,6 +51,7 @@
               :title="$t('collectionsYouMightLike')"
               :related-collections="relatedEntities"
               data-qa="related entities"
+              badge-variant="light"
             />
           </b-col>
         </b-row>
