@@ -43,7 +43,7 @@
           v-else
           data-qa="total results"
         >
-          {{ $t('results') }}: {{ totalResults | localise }}
+          {{ $t('results') }}: {{ localisedResults }}
         </p>
       </b-col>
       <b-col>
@@ -175,6 +175,12 @@
         }
         throw this.$store.state.search.error;
       }
+
+      if (this.$announcer) {
+        const announceMsg = this.$t('searchHasLoaded', [this.localisedResults, this.page]);
+        this.$announcer.set(announceMsg, 'assertive');
+      }
+
       this.fetched = true;
     },
     computed: {
@@ -234,6 +240,9 @@
       },
       routeQueryView() {
         return this.$route.query.view;
+      },
+      localisedResults() {
+        return this.$options.filters.localise(this.totalResults);
       },
       view: {
         get() {

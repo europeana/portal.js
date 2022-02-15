@@ -70,6 +70,7 @@
   import { version as bootstrapVersion } from 'bootstrap/package.json';
   import { version as bootstrapVueVersion } from 'bootstrap-vue/package.json';
   import featureNotifications from '@/features/notifications';
+  import isEqual from 'lodash/isEqual';
 
   export default {
     name: 'DefaultLayout',
@@ -152,7 +153,7 @@
       $route(to, from) {
         this.$nextTick(() => {
           if (to.path === from.path) {
-            this.enableAnnouncer = false;
+            this.enableAnnouncer = !isEqual(to.query, from.query);
           } else {
             this.$refs.resetfocus.setAttribute('tabindex', '0');
             this.$refs.resetfocus.focus();
