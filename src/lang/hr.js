@@ -464,7 +464,6 @@ export default {
     },
     "contentTier": {
       "name": "Kvaliteta artikla",
-      "notification": "Dostupne su neke stavke koje ne odgovaraju našim kriterijima za objavu. Tim stavkama možete pristupiti aktiviranjem filtra \"Kvaliteta stavka\" u odjeljku \"Više filtara\".",
       "options": {
         "*": "Uključuje stavke koje ne ispunjavaju naše kriterije objavljivanja",
         "0": "Prikaži samo stavke koje ne zadovoljavaju naše kriterije za objavljivanje",

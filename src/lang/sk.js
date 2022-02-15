@@ -464,7 +464,6 @@ export default {
     },
     "contentTier": {
       "name": "Kvalita položky",
-      "notification": "K dispozícii sú určité položky, ktoré sa nezhodujú s našimi kritériami. Tieto položky si môžete zobraziť aktiváciou filtra „Kvalita položky“ v časti „Ďalšie filtre“.",
       "options": {
         "*": "Obsahuje položky, ktoré nespĺňajú naše publikačné kritériá",
         "0": "Zobraziť iba položky, ktoré nespĺňajú kritéria zverejnenia",

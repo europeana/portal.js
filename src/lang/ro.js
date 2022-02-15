@@ -464,7 +464,6 @@ export default {
     },
     "contentTier": {
       "name": "Calitatea articolelor",
-      "notification": "Unele articole care nu corespund criteriilor noastre de publicare sunt disponibile. Poți accesa aceste articole activând filtrul „Calitatea articolelor” din „Mai multe filtre”.",
       "options": {
         "*": "Sunt incluse articole care nu îndeplinesc criteriile noastre de publicare",
         "0": "Afișează doar articolele care nu îndeplinesc criteriile noastre de publicare",

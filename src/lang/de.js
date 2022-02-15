@@ -464,7 +464,6 @@ export default {
     },
     "contentTier": {
       "name": "Objektqualität",
-      "notification": "Es sind einige Objekte verfügbar, die nicht unseren Veröffentlichungskriterien entsprechen. Sie können auf diese Objekte zugreifen, indem Sie den Filter 'Objektqualität' unter 'Weitere Filter' aktivieren.",
       "options": {
         "*": "Enthält Objekte, die nicht unseren Veröffentlichungskriterien entsprechen",
         "0": "Nur Objekte anzeigen, die unsere Veröffentlichungskriterien nicht erfüllen",
