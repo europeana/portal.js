@@ -6,7 +6,7 @@ export default {
     "likes": "Mentions J’aime",
     "linkAccount": "Mon compte",
     "linkLogin": "Se connecter",
-    "linkLoginJoin": "Connexion/Rejoignez-nous",
+    "linkLoginJoin": "Connexion\/Rejoignez-nous",
     "linkLogout": "Déconnexion",
     "myProfile": "Mon profil",
     "notifications": {
@@ -402,7 +402,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format de fichier | Formats de fichiers",
       "options": {
-        "text/plain": "Texte brut"
+        "text\/plain": "Texte brut"
       }
     },
     "PROVIDER": {
@@ -464,7 +464,6 @@ export default {
     },
     "contentTier": {
       "name": "Qualité de l'article",
-      "notification": "Certains articles ne correspondant pas à nos critères de publication sont disponibles. Vous pouvez y accéder en activant le filtre « Qualité des articles » sous « Autres filtres ».",
       "options": {
         "*": "Inclut les éléments ne répondant pas à nos critères de publication",
         "0": "Afficher uniquement les articles ne répondant pas à nos critères de publication",
@@ -667,7 +666,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Aide à améliorer notre site Web en appliquant occasionnellement des modifications expérimentales.",
-        "title": "Tests A/B"
+        "title": "Tests A\/B"
       },
       "auth-strategy": {
         "description": "Se souvient de la stratégie d'autorisation à utiliser pour se connecter.",
@@ -699,7 +698,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Se souvient si vous préférez voir les résultats de la recherche sous forme de liste ou de grille.",
-        "title": "Affichage des résultats de recherche (liste/grille)"
+        "title": "Affichage des résultats de recherche (liste\/grille)"
       }
     }
   },

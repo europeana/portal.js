@@ -6,7 +6,7 @@ export default {
     "likes": "Kedvelések",
     "linkAccount": "Fiókom",
     "linkLogin": "Bejelentkezés",
-    "linkLoginJoin": "Bejelentkezés/Csatlakozás",
+    "linkLoginJoin": "Bejelentkezés\/Csatlakozás",
     "linkLogout": "Bejelentkezés",
     "myProfile": "A profilom",
     "notifications": {
@@ -402,7 +402,7 @@ export default {
     "MIME_TYPE": {
       "name": "Fájlformátum | Fájlformátumok",
       "options": {
-        "text/plain": "Egyszerű szöveg"
+        "text\/plain": "Egyszerű szöveg"
       }
     },
     "PROVIDER": {
@@ -464,7 +464,6 @@ export default {
     },
     "contentTier": {
       "name": "Minősége elemek",
-      "notification": "Olyan cikkek is elérhetőek, amelyek nem felelnek meg az általunk felállított közzétételi kritériumoknak. Ezeket a cikkeket a \"Több szűrő\", \"Cikkek minősége\" opció aktiválásával érheti el.",
       "options": {
         "*": "A közzétételi feltételeknek meg nem felelő elemek kizárása",
         "0": "Csak olyan cikkek megjelenítése, amelyek nem felelnek meg a közzétételi kritériumoknak",
@@ -667,7 +666,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Segít weboldalunk fejlesztésében azáltal, hogy alkalmanként kísérleti változtatásokat alkalmaz.",
-        "title": "A/B tesztelés"
+        "title": "A\/B tesztelés"
       },
       "auth-strategy": {
         "description": "Emlékszik a bejelentkezéshez használandó engedélyezési stratégiára.",
@@ -699,7 +698,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Emlékszik arra, hogy a keresési eredményeket inkább lista- vagy rácsnézetben szeretné-e látni.",
-        "title": "Keresési eredmény nézet (lista / rács)"
+        "title": "Keresési eredmény nézet (lista \/ rács)"
       }
     }
   },

@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mijn account",
     "linkLogin": "Inloggen",
-    "linkLoginJoin": "Inloggen/Aanmelden",
+    "linkLoginJoin": "Inloggen\/Aanmelden",
     "linkLogout": "Uitloggen",
     "myProfile": "Mijn profiel",
     "notifications": {
@@ -40,7 +40,7 @@ export default {
     "next": "Volgende",
     "pin": "Pin",
     "providedBy": "Aangeboden door {provider}",
-    "reject": "afwijzen",
+    "reject": "Afwijzen",
     "send": "Verzenden",
     "share": "Delen",
     "shareOn": "Delen op {social}",
@@ -402,7 +402,7 @@ export default {
     "MIME_TYPE": {
       "name": "Bestandsformaat | Bestandsformaten",
       "options": {
-        "text/plain": "Platte tekst"
+        "text\/plain": "Platte tekst"
       }
     },
     "PROVIDER": {
@@ -464,7 +464,6 @@ export default {
     },
     "contentTier": {
       "name": "Item kwaliteit",
-      "notification": "Sommige artikelen die niet passen bij onze publicatiecriteria, zijn beschikbaar. U kunt deze artikelen inzien door het filter \"Kwaliteit van artikel\" onder \"Meer filters\" te activeren.",
       "options": {
         "*": "Bevat items die niet voldoen aan onze publicatiecriteria",
         "0": "Geef items weer die niet voldoen aan onze publicatiecriteria",
@@ -667,7 +666,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Helpt onze website te verbeteren door af en toe experimentele wijzigingen aan te brengen.",
-        "title": "A/B-testen"
+        "title": "A\/B-testen"
       },
       "auth-strategy": {
         "description": "Onthoudt de autorisatie strategie die moet worden gebruikt om in te loggen.",
@@ -699,7 +698,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Onthoudt of u de zoekresultaten liever in een lijst- of rasterweergave wilt zien.",
-        "title": "Zoekresultaatweergave (lijst/raster)"
+        "title": "Zoekresultaatweergave (lijst\/raster)"
       }
     }
   },
@@ -731,7 +730,7 @@ export default {
     "translateQuotaError": "De vertaalservice is tijdelijk niet beschikbaar. Probeer het later opnieuw."
   },
   "newFeatureNotification": {
-    "dismiss": "Afwijzen",
+    "dismiss": "Sluiten",
     "readMore": "Lees verder",
     "text": {
       "sideFilters": "Bekijk de nieuwe filters! Ze zijn nu allemaal zichtbaar aan de rechterkant van de zoekresultaten."

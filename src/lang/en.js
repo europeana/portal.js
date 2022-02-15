@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "My Account",
     "linkLogin": "Login",
-    "linkLoginJoin": "Log in / Join",
+    "linkLoginJoin": "Log in \/ Join",
     "linkLogout": "Log out",
     "myProfile": "My Profile",
     "notifications": {
@@ -402,7 +402,7 @@ export default {
     "MIME_TYPE": {
       "name": "File format | File formats",
       "options": {
-        "text/plain": "Plain text"
+        "text\/plain": "Plain text"
       }
     },
     "PROVIDER": {
@@ -637,7 +637,7 @@ export default {
       "acceptAll": "Accept all",
       "acceptSelected": "Accept selected",
       "consentModal": {
-        "description": "Here you can see and customise the services that we'd like to use on this website. To learn more please read our <a href='/rights/privacy-policy'>privacy policy</a>.",
+        "description": "Here you can see and customise the services that we'd like to use on this website. To learn more please read our <a href='\/rights\/privacy-policy'>privacy policy<\/a>.",
         "title": "Services we would like to use."
       },
       "consentNotice": {
@@ -666,7 +666,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Helps to improve our website by occasionally applying experimental changes.",
-        "title": "A/B testing"
+        "title": "A\/B testing"
       },
       "auth-strategy": {
         "description": "Remembers the authorization strategy to use to log in.",
@@ -698,7 +698,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Remembers if you prefer to see the search results in a list or grid view.",
-        "title": "Search result view (list/grid)"
+        "title": "Search result view (list\/grid)"
       }
     }
   },

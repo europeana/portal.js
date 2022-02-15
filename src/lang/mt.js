@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Il-Kont Tiegħi",
     "linkLogin": "Illoggja",
-    "linkLoginJoin": "Idħol/Ingħaqad",
+    "linkLoginJoin": "Idħol\/Ingħaqad",
     "linkLogout": "Oħroġ",
     "myProfile": "Il-profil Tiegħi",
     "notifications": {
@@ -402,7 +402,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format tal-fajl | Formati tal-fajl",
       "options": {
-        "text/plain": "Test bla format"
+        "text\/plain": "Test bla format"
       }
     },
     "PROVIDER": {
@@ -464,7 +464,6 @@ export default {
     },
     "contentTier": {
       "name": "Kwalità tal-oġġett",
-      "notification": "Xi oġġetti li ma jikkonformawx mal-kriterji tal-pubblikazzjoni tagħna huma disponibbli. Tista' taċċessa dawk l-oġġetti billi tattiva l-filtru 'Kwalità tal-Oġġett' taħt 'Aktar filtri'.",
       "options": {
         "*": "Jinkludi oġġetti li ma jissodisfawx il-kriterji tal-pubblikazzjoni tagħna",
         "0": "Uri biss l-oġġetti li ma jissodisfawx il-kriterji tal-pubblikazzjoni tagħna",
@@ -667,7 +666,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Jgħin biex intejbu l-websajt tagħna billi kultant napplikaw bidliet sperimentali.",
-        "title": "Ittestjar A / B"
+        "title": "Ittestjar A \/ B"
       },
       "auth-strategy": {
         "description": "Jiftakar l-istrateġija ta' awtorizzazzjoni biex tużaha biex tilloggja.",
@@ -699,7 +698,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Tiftakar jekk tippreferi tara r-riżultati tat-tfittxija f'lista jew viżjoni tal-grilja.",
-        "title": "Veduta tar-riżultat tat-tfittxija (lista / gradilja)"
+        "title": "Veduta tar-riżultat tat-tfittxija (lista \/ gradilja)"
       }
     }
   },
