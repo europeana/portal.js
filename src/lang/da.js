@@ -6,7 +6,7 @@ export default {
     "likes": "Synes om'er",
     "linkAccount": "Min konto",
     "linkLogin": "Log ind",
-    "linkLoginJoin": "Login\/Deltag",
+    "linkLoginJoin": "Login/Deltag",
     "linkLogout": "Log ud",
     "myProfile": "Min profil",
     "notifications": {
@@ -402,7 +402,7 @@ export default {
     "MIME_TYPE": {
       "name": "Filformat | Filformater",
       "options": {
-        "text\/plain": "Almindelig tekst"
+        "text/plain": "Almindelig tekst"
       }
     },
     "PROVIDER": {
@@ -666,7 +666,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Hjælper med at forbedre vores websted ved lejlighedsvis at anvende eksperimentelle ændringer.",
-        "title": "A\/B-testning"
+        "title": "A/B-testning"
       },
       "auth-strategy": {
         "description": "Husker autorisationsstrategien, der skal bruges til at logge ind.",
@@ -698,7 +698,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Husk, hvis du foretrækker at se søgeresultaterne i en liste- eller gittervisning.",
-        "title": "Visning af søgeresultater (liste \/ gitter)"
+        "title": "Visning af søgeresultater (liste / gitter)"
       }
     }
   },
