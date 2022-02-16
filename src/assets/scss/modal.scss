@@ -1,7 +1,10 @@
 .modal {
   .modal-dialog {
     max-width: 560px;
-    margin-top: 10rem;
+
+    @media (min-height: $bp-small) {
+      margin-top: 10rem;
+    }
   }
 
   .modal-content {
