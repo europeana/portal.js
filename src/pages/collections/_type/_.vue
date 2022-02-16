@@ -210,7 +210,6 @@
               'homepage',
               'prefLabel',
               'isShownBy',
-              'biographicalInformation',
               'hasAddress',
               'acronym'
             ]));
@@ -317,9 +316,6 @@
         let description = null;
         if (this.collectionType === 'organisation' && this.entity?.description) {
           description = langMapValueForLocale(this.entity.description, this.$i18n.locale);
-        }
-        if (this.headerCardsEnabled && this.collectionType === 'person' && this.entity?.biographicalInformation) {
-          description = langMapValueForLocale(this.entity.biographicalInformation, this.$i18n.locale);
         }
 
         return this.editorialDescription ? { values: [this.editorialDescription], code: null } : description;

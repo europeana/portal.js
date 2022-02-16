@@ -21,13 +21,31 @@
           :lang="info.value.code"
           class="semibold"
         >
-          {{ info.value.values[0] }}
+          <b-link
+            v-if=" isUrl(info.value.values[0])"
+            :href="info.value.values[0]"
+            target="_blank"
+          >
+            {{ info.value.values[0] }}
+          </b-link>
+          <template v-else>
+            {{ info.value.values[0] }}
+          </template>
         </span>
         <span
           v-else
           class="semibold"
         >
-          {{ info.value }}
+          <b-link
+            v-if=" isUrl(info.value)"
+            :href="info.value"
+            target="_blank"
+          >
+            {{ info.value }}
+          </b-link>
+          <template v-else>
+            {{ info.value }}
+          </template>
         </span>
       </li>
     </ul>
@@ -57,6 +75,12 @@
       entityInfo: {
         type: Object,
         default: null
+      }
+    },
+
+    methods: {
+      isUrl(value) {
+        return RegExp('^https?://*').test(value);
       }
     }
   };
