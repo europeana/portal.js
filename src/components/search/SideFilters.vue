@@ -69,7 +69,7 @@
                 :specific="dateFilter.specific"
                 @dateFilter="dateFilterSelected"
               />
-              <SideFacetDropdown
+              <SideFacetAutosuggest
                 v-for="facet in filterableFacets"
                 :key="facet.name"
                 :name="facet.name"
@@ -105,14 +105,14 @@
   import { rangeToQueryParam, rangeFromQueryParam } from '@/plugins/europeana/search';
   import themes from '@/plugins/europeana/themes';
   import { defaultFacetNames } from '@/store/search';
-  import SideFacetDropdown from './SideFacetDropdown';
+  import SideFacetAutosuggest from './SideFacetAutosuggest';
 
   export default {
     name: 'SideFilters',
 
     components: {
       ClientOnly,
-      SideFacetDropdown,
+      SideFacetAutosuggest,
       SideDateFilter: () => import('./SideDateFilter'),
       SideSwitchFilter: () => import('./SideSwitchFilter')
     },
