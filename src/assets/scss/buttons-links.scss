@@ -12,7 +12,7 @@
   }
 
   &:hover {
-    box-shadow: $boxshadow-light;
+    box-shadow: $boxshadow;
   }
 }
 
@@ -24,7 +24,15 @@
   font-weight: 600;
 
   &:hover {
+    background: $innovationblue-dark;
+    box-shadow: $boxshadow;
+  }
+
+  &:disabled {
     background: $blue;
+    border-color: $blue;
+    opacity: 0.7;
+    box-shadow: none;
   }
 
   &.btn-cta {
@@ -40,10 +48,8 @@
   background: $offwhite;
   color: $mediumgrey;
   font-size: $font-size-small;
-  border: 0;
+  border: 1px solid $offwhite;
   border-radius: 0.25rem;
-  padding: 0.375rem 0.5rem;
-  line-height: 1.5rem;
   font-weight: 600;
 
   &:focus,
@@ -51,12 +57,22 @@
     background: $offwhite;
     color: $mediumgrey;
     box-shadow: none;
+    border: 1px solid $offwhite;
   }
 
   &:hover {
     background: $offwhite;
     color: $blue;
-    box-shadow: 2px 2px 6px 0 rgb(0 0 0 / 15%);
+    box-shadow: $boxshadow;
+    border: 1px solid $offwhite;
+  }
+
+  &:disabled {
+    background: $offwhite;
+    border: 1px solid $offwhite;
+    color: $mediumgrey;
+    opacity: 0.7;
+    box-shadow: none;
   }
 
   &:not(:disabled):not(.disabled):active,
@@ -67,7 +83,7 @@
 
     &:hover {
       color: $blue;
-      box-shadow: 2px 2px 6px 0 rgb(0 0 0 / 15%);
+      box-shadow: $boxshadow;
     }
   }
 
@@ -88,11 +104,6 @@
   .icon-link {
     font-size: 0.5rem;
   }
-
-  [class^='icon-'],
-  [class*=' icon-'] {
-    line-height: 1;
-  }
 }
 
 .btn-success {
@@ -100,6 +111,7 @@
   border-color: $green;
   font-size: $font-size-small;
   text-transform: uppercase;
+  font-weight: 600;
 
   &:hover {
     background-color: $green;
@@ -245,7 +257,7 @@
   font-size: $font-size-small;
 
   &:hover {
-    box-shadow: $boxshadow-small;
+    box-shadow: $boxshadow;
     background: $white;
     color: $mediumgrey;
   }
