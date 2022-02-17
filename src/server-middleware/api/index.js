@@ -37,23 +37,8 @@ app.get('/debug/memory-usage', debugMemoryUsage);
 // TODO: remove redirection of deprecated routes after new routes are
 //       well-established in production
 //
-// Deprecated with v1.52.0:
-app.get('/entities/organisations', (req, res) => res.redirect('/_api/cache/en/collections/organisations'));
-app.get('/entities/times', (req, res) => res.redirect(`/_api/cache/${req.query.locale}/collections/times/featured`));
-app.get('/entities/topics', (req, res) => res.redirect(`/_api/cache/${req.query.locale}/collections/topics/featured`));
-app.get('/items/recent', (req, res) => res.redirect('/_api/cache/items/recent'));
-app.get('/items/itemCountsMediaType', (req, res) => res.redirect('/_api/cache/items/type-counts'));
-// Deprecated with v1.53.0:
-app.get('/cache/collections/organisations', (req, res) => res.redirect('/_api/cache/en/collections/organisations'));
-app.get('/cache/collections/times', (req, res) => {
-  if (req.query.daily) {
-    return res.redirect(`/_api/cache/${req.query.locale}/collections/times/featured`);
-  } else {
-    return res.redirect(`/_api/cache/${req.query.locale}/collections/times`);
-  }
-});
-app.get('/cache/collections/topics', (req, res) => res.redirect(`/_api/cache/${req.query.locale}/collections/topics`));
-app.get('/cache/collections/topics/featured', (req, res) => res.redirect(`/_api/cache/${req.query.locale}/collections/topics/featured`));
+// Deprecated with v1.63.0:
+app.get('/items/typeCounts', (req, res) => res.redirect('/_api/cache/items/type-counts'));
 
 import cache from './cache/index.js';
 app.get('/cache/*', (req, res) => cache(req.params[0], runtimeConfig)(req, res));
