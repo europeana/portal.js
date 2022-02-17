@@ -86,19 +86,9 @@
                   :image="thumbnail"
                   :editable="isEditable && userIsEditor"
                   :external-link="homepage"
-                  :learn-more="collectionType === 'organisation' && !!moreData"
-                >
-                  <EntityInformationModal
-                    v-if="collectionType === 'organisation' && !!moreData"
-                    :title="title"
-                    :entity-info="moreData"
-                  />
-                  <EntityUpdateModal
-                    v-if="isEditable && userIsEditor"
-                    :body="entity.proxy"
-                    :description="descriptionText"
-                  />
-                </EntityHeader>
+                  :proxy="entity.proxy"
+                  :more-data="moreData"
+                />
               </SearchInterface>
             </b-container>
             <b-container class="px-0">
@@ -139,8 +129,7 @@
       SideFilters: () => import('../../../components/search/SideFilters'),
       EntityHeader: () => import('@/components/entity/EntityHeader'),
       EntityUpdateModal: () => import('@/components/entity/EntityUpdateModal'),
-      RelatedCollections: () => import('../../../components/generic/RelatedCollections'),
-      EntityInformationModal: () => import('@/components/entity/EntityInformationModal')
+      RelatedCollections: () => import('../../../components/generic/RelatedCollections')
     },
 
     async beforeRouteLeave(to, from, next) {
