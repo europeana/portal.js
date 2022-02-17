@@ -3,7 +3,7 @@
     v-if="entries && entries.length > 0"
   >
     <InfoCardSection
-      v-if="type === 'items/typeCounts'"
+      v-if="type === 'items/type-counts'"
       :section="contentCardSection"
     />
     <ContentCardSection
@@ -65,7 +65,7 @@
         data.cardType = 'AutomatedRecordCard';
         data.headline = this.$i18n.t('automatedCardGroup.item');
       } else if (this.sectionType === ITEM_COUNTS_MEDIA_TYPE) {
-        data.type = 'items/typeCounts';
+        data.type = 'items/type-counts';
         data.cardType = 'InfoCard';
       }
 

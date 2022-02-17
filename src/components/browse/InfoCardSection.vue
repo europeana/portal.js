@@ -50,14 +50,14 @@
         return this.section.hasPartCollection.items.filter(card => card !== null);
       },
       cardGroupClass() {
-        if (this.section.type === 'items/typeCounts') {
+        if (this.section.type === 'items/type-counts') {
           return 'card-deck-3-cols';
         } else {
           return 'card-deck-4-cols';
         }
       },
       cardVariant() {
-        if (this.section.type === 'items/typeCounts') {
+        if (this.section.type === 'items/type-counts') {
           return 'dark';
         } else {
           return 'default';

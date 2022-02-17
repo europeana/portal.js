@@ -42,7 +42,7 @@ app.get('/entities/organisations', (req, res) => res.redirect('/_api/cache/en/co
 app.get('/entities/times', (req, res) => res.redirect(`/_api/cache/${req.query.locale}/collections/times/featured`));
 app.get('/entities/topics', (req, res) => res.redirect(`/_api/cache/${req.query.locale}/collections/topics/featured`));
 app.get('/items/recent', (req, res) => res.redirect('/_api/cache/items/recent'));
-app.get('/items/itemCountsMediaType', (req, res) => res.redirect('/_api/cache/items/typeCounts'));
+app.get('/items/itemCountsMediaType', (req, res) => res.redirect('/_api/cache/items/type-counts'));
 // Deprecated with v1.53.0:
 app.get('/cache/collections/organisations', (req, res) => res.redirect('/_api/cache/en/collections/organisations'));
 app.get('/cache/collections/times', (req, res) => {

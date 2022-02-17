@@ -13,7 +13,7 @@ const factory = () => shallowMount(InfoCardSection, {
 });
 
 const dummySection = {
-  type: 'items/typeCounts',
+  type: 'items/type-counts',
   hasPartCollection: {
     items: [
       {
@@ -59,11 +59,11 @@ describe('components/browse/InfoCardSection', () => {
     });
   });
   describe('cardVariant', () => {
-    it('is default for mediaType counts', async() => {
+    it('is dark for mediaType counts', async() => {
       const wrapper = factory();
       await wrapper.setProps({ section: dummySection });
 
-      expect(wrapper.vm.cardVariant).toBe('default');
+      expect(wrapper.vm.cardVariant).toBe('dark');
     });
   });
 });
