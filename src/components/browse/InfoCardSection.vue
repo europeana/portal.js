@@ -58,9 +58,9 @@
       },
       cardVariant() {
         if (this.section.type === 'items/typeCounts') {
-          return 'default';
-        } else {
           return 'dark';
+        } else {
+          return 'default';
         }
       }
     }
