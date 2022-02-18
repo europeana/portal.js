@@ -62,7 +62,7 @@ describe('components/browse/InfoCardSection', () => {
     });
     it('is four columns by default', async() => {
       const wrapper = factory();
-      await wrapper.setProps({ section:  defaultSection });
+      await wrapper.setProps({ section: defaultSection });
 
       expect(wrapper.vm.cardGroupClass).toBe('card-deck-4-cols');
     });
@@ -76,7 +76,7 @@ describe('components/browse/InfoCardSection', () => {
     });
     it('is default by default', async() => {
       const wrapper = factory();
-      await wrapper.setProps({ section:  defaultSection });
+      await wrapper.setProps({ section: defaultSection });
 
       expect(wrapper.vm.cardVariant).toBe('default');
     });
