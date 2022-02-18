@@ -37,7 +37,7 @@ const typeCountsSection = {
   hasPartCollection
 };
 
-const otherTypeSection = {
+const defaultSection = {
   hasPartCollection
 };
 
@@ -60,9 +60,9 @@ describe('components/browse/InfoCardSection', () => {
 
       expect(wrapper.vm.cardGroupClass).toBe('card-deck-3-cols');
     });
-    it('is four columns for other types', async() => {
+    it('is four columns by default', async() => {
       const wrapper = factory();
-      await wrapper.setProps({ section: otherTypeSection });
+      await wrapper.setProps({ section:  defaultSection });
 
       expect(wrapper.vm.cardGroupClass).toBe('card-deck-4-cols');
     });
@@ -74,9 +74,9 @@ describe('components/browse/InfoCardSection', () => {
 
       expect(wrapper.vm.cardVariant).toBe('dark');
     });
-    it('is default for other types', async() => {
+    it('is default by default', async() => {
       const wrapper = factory();
-      await wrapper.setProps({ section: otherTypeSection });
+      await wrapper.setProps({ section:  defaultSection });
 
       expect(wrapper.vm.cardVariant).toBe('default');
     });
