@@ -6,41 +6,29 @@ import SideFacetDropdown from '@/components/search/SideFacetDropdown.vue';
 
 const localVue = createLocalVue();
 
-const countryFields = [
-  { label: 'Netherlands', count: 101 },
-  { label: 'Germany', count: 100 },
-  { label: 'United Kingdom', count: 99 },
-  { label: 'Spain', count: 44 }
-];
-const contentTierFields = [
-  { label: '"0"', count: 9686142 },
-  { label: '"1"', count: 15763224 },
-  { label: '"2"', count: 10558597 },
-  { label: '"3"', count: 6293190 },
-  { label: '"4"', count: 18778040 }
-];
 const storeDispatchStub = sinon.stub();
-storeDispatchStub
-  .withArgs('search/queryFacet', 'COUNTRY')
-  .resolves([
-    { name: 'COUNTRY', fields: countryFields }
-  ]);
-storeDispatchStub
-  .withArgs('search/queryFacet', 'contentTier')
-  .resolves([
-    { name: 'contentTier', fields: contentTierFields }
-  ]);
+
+const storeCommitSpy = sinon.spy();
+
+const apisRecordSearchStub = sinon.stub().resolves({});
 
 const factory = () => shallowMountNuxt(SideFacetDropdown, {
   localVue,
   mocks: {
+    $apis: {
+      record: {
+        search: apisRecordSearchStub
+      }
+    },
     $fetchState: {},
+    $i18n: { locale: 'en' },
     $route: {
       query: {}
     },
     $t: (key) => key,
     $tFacetName: (key) => key,
     $store: {
+      commit: storeCommitSpy,
       dispatch: storeDispatchStub,
       getters: {
         'search/collection': false,
@@ -67,7 +55,7 @@ describe('components/search/SideFacetDropdown', () => {
 
   describe('fetch', () => {
     describe('if fields are not static', () => {
-      it('fetches facet', async() => {
+      it('fetches facet from Record API', async() => {
         const wrapper = factory();
         await wrapper.setProps({
           staticFields: null
@@ -75,7 +63,7 @@ describe('components/search/SideFacetDropdown', () => {
 
         await wrapper.vm.fetch();
 
-        expect(storeDispatchStub.calledWith('search/queryFacet', 'COUNTRY')).toBe(true);
+        expect(apisRecordSearchStub.calledWith({ rows: 0, profile: 'facets', facet: 'COUNTRY' }, { locale: 'en' })).toBe(true);
       });
 
       it('marks facet as fetched', async() => {
@@ -118,76 +106,97 @@ describe('components/search/SideFacetDropdown', () => {
         expect(wrapper.vm.fetched).toBe(true);
       });
     });
-
-    describe('contentTier filter', () => {
-      it('limits contentTier options to fields "2", "3" and "4" in a thematic collection', async() => {
-        const wrapper = factory();
-        await wrapper.setProps({
-          name: 'contentTier'
-        });
-        wrapper.vm.$store.getters['search/collection'] = true;
-
-        await wrapper.vm.fetch();
-
-        expect(wrapper.vm.fields.length).toBe(3);
-        expect(wrapper.vm.fields.map(field => field.label)).toEqual(['"2"', '"3"', '"4"']);
-      });
-
-      it('does not limit contentTier options in an organization collection', async() => {
-        const wrapper = factory();
-        await wrapper.setProps({
-          name: 'contentTier'
-        });
-        wrapper.vm.$store.getters['entity/id'] = 'http://data.europeana.eu/organization/12345';
-
-        await wrapper.vm.fetch();
-
-        expect(wrapper.vm.fields.length).toBe(5);
-        expect(wrapper.vm.fields.map(field => field.label)).toEqual(['"0"', '"1"', '"2"', '"3"', '"4"']);
-      });
-
-      it('limits contentTier options to fields "1", "2", "3" and "4" in non-organization, non-thematic collections', async() => {
-        const wrapper = factory();
-        await wrapper.setProps({
-          name: 'contentTier'
-        });
-        wrapper.vm.$store.getters['entity/id'] = 'http://data.europeana.eu/base/concept/12345';
-
-        await wrapper.vm.fetch();
-
-        expect(wrapper.vm.fields.length).toBe(4);
-        expect(wrapper.vm.fields.map(field => field.label)).toEqual(['"1"', '"2"', '"3"', '"4"']);
-      });
-
-      it('elsewhere limits contentTier options to field "0"', async() => {
-        const wrapper = factory();
-        await wrapper.setProps({
-          name: 'contentTier'
-        });
-
-        await wrapper.vm.fetch();
-
-        expect(wrapper.vm.fields.length).toBe(1);
-        expect(wrapper.vm.fields.map(field => field.label)).toEqual(['"0"']);
-      });
-    });
   });
 
-  it('puts selected options to the top, in descending count value order', async() => {
-    const wrapper = factory();
-    await wrapper.setProps({
-      name: 'COUNTRY',
-      selected: ['Spain', 'United Kingdom']
-    });
-    await wrapper.vm.fetch();
+  describe('computed', () => {
+    describe('sortedOptions', () => {
+      it('puts selected options to the top, in descending count value order', async() => {
+        const wrapper = factory();
+        await wrapper.setProps({
+          name: 'COUNTRY',
+          selected: ['Spain', 'United Kingdom']
+        });
+        wrapper.setData({
+          fields: [
+            { label: 'Netherlands', count: 101 },
+            { label: 'Germany', count: 100 },
+            { label: 'United Kingdom', count: 99 },
+            { label: 'Spain', count: 44 }
+          ]
+        })
 
-    expect(wrapper.vm.sortedOptions[0].label).toBe('United Kingdom');
-    expect(wrapper.vm.sortedOptions[1].label).toBe('Spain');
-    expect(wrapper.vm.sortedOptions[2].label).toBe('Netherlands');
-    expect(wrapper.vm.sortedOptions[3].label).toBe('Germany');
+        expect(wrapper.vm.sortedOptions[0].label).toBe('United Kingdom');
+        expect(wrapper.vm.sortedOptions[1].label).toBe('Spain');
+        expect(wrapper.vm.sortedOptions[2].label).toBe('Netherlands');
+        expect(wrapper.vm.sortedOptions[3].label).toBe('Germany');
+      });
+    });
   });
 
   describe('methods', () => {
+    describe('filterContentTierFields', () => {
+      describe('contentTier filter', () => {
+        const fields = [
+          { label: '0', count: 9686142 },
+          { label: '1', count: 15763224 },
+          { label: '2', count: 10558597 },
+          { label: '3', count: 6293190 },
+          { label: '4', count: 18778040 }
+        ];
+
+        it('limits contentTier options to fields "2", "3" and "4" in a thematic collection', async() => {
+          const wrapper = factory();
+          await wrapper.setProps({
+            name: 'contentTier'
+          });
+          wrapper.vm.$store.getters['search/collection'] = true;
+
+          const filtered = wrapper.vm.filterContentTierFields(fields);
+
+          expect(filtered.length).toBe(3);
+          expect(filtered.map(field => field.label)).toEqual(['2', '3', '4']);
+        });
+
+        it('does not limit contentTier options in an organization collection', async() => {
+          const wrapper = factory();
+          await wrapper.setProps({
+            name: 'contentTier'
+          });
+          wrapper.vm.$store.getters['entity/id'] = 'http://data.europeana.eu/organization/12345';
+
+          const filtered = wrapper.vm.filterContentTierFields(fields);
+
+          expect(filtered.length).toBe(5);
+          expect(filtered.map(field => field.label)).toEqual(['0', '1', '2', '3', '4']);
+        });
+
+        it('limits contentTier options to fields "1", "2", "3" and "4" in non-organization, non-thematic collections', async() => {
+          const wrapper = factory();
+          await wrapper.setProps({
+            name: 'contentTier'
+          });
+          wrapper.vm.$store.getters['entity/id'] = 'http://data.europeana.eu/base/concept/12345';
+
+          const filtered = wrapper.vm.filterContentTierFields(fields);
+
+          expect(filtered.length).toBe(4);
+          expect(filtered.map(field => field.label)).toEqual(['1', '2', '3', '4']);
+        });
+
+        it('elsewhere limits contentTier options to field "0"', async() => {
+          const wrapper = factory();
+          await wrapper.setProps({
+            name: 'contentTier'
+          });
+
+          const filtered = wrapper.vm.filterContentTierFields(fields);
+
+          expect(filtered.length).toBe(1);
+          expect(filtered.map(field => field.label)).toEqual(['0']);
+        });
+      });
+    });
+
     describe('updateRouteQueryReusability', () => {
       describe('when this is not the reusability facet', () => {
         it('triggers fetch', async() => {
