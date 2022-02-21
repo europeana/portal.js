@@ -1,6 +1,6 @@
 # Multi-stage image to build and run europeana/portal.js
 
-FROM node:16.13-alpine AS base
+FROM node:16-alpine AS base
 
 ENV CHROMEDRIVER_SKIP_DOWNLOAD=true \
     GECKODRIVER_SKIP_DOWNLOAD=true \
@@ -25,11 +25,7 @@ RUN rm -r babel.config.cjs jest.config.js bin styleguide
 RUN npm prune --production
 
 
-# FIXME: ideally we would always use the latest version of Node 16, from the
-#        distroless image `gcr.io/distroless/nodejs:16`, but as of 16.14 that
-#        encounters issues with our imports of .json files. Locked to 16.13
-#        on the non-distroless image as a temporary workaround.
-FROM node:16.13-alpine
+FROM gcr.io/distroless/nodejs:16
 
 ENV PORT=8080 \
     HOST=0.0.0.0 \
