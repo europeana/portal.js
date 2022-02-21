@@ -8,7 +8,6 @@ ENV CHROMEDRIVER_SKIP_DOWNLOAD=true \
 
 WORKDIR /app
 
-COPY bin ./bin
 COPY package.json package-lock.json ./
 
 RUN npm ci
@@ -21,7 +20,7 @@ COPY styleguide ./styleguide
 FROM base AS build
 
 RUN npm run build
-RUN rm -r babel.config.cjs jest.config.js bin styleguide
+RUN rm -r babel.config.cjs jest.config.js styleguide
 RUN npm prune --production
 
 
