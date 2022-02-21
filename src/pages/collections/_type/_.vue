@@ -86,7 +86,7 @@
                   :image="thumbnail"
                   :editable="isEditable && userIsEditor"
                   :external-link="homepage"
-                  :proxy="entity.proxy"
+                  :proxy="entity ? entity.proxy : null"
                   :more-data="moreData"
                 />
               </SearchInterface>
