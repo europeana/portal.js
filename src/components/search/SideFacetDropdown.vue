@@ -105,6 +105,8 @@
   import { escapeLuceneSpecials } from '@/plugins/europeana/utils';
 
   export default {
+    name: 'SideFacetDropdown',
+
     components: {
       AlertMessage: () => import('../generic/AlertMessage'),
       FacetFieldLabel,

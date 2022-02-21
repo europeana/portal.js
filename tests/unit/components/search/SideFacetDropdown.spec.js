@@ -134,8 +134,29 @@ describe('components/search/SideFacetDropdown', () => {
   });
 
   describe('methods', () => {
-    describe('filterContentTierFields', () => {
-      describe('contentTier filter', () => {
+    describe('filterFacetFields', () => {
+      describe('REUSABILITY facet', () => {
+        const fields = [
+          { label: 'open', count: 28526707 },
+          { label: 'restricted', count: 15979894 },
+          { label: 'permission', count: 16073238 },
+          { label: 'uncategorized', count: 415238 }
+        ];
+
+        it('removes "uncategorized" option', async() => {
+          const wrapper = factory();
+          await wrapper.setProps({
+            name: 'REUSABILITY'
+          });
+
+          const filtered = wrapper.vm.filterFacetFields(fields);
+
+          expect(filtered.length).toBe(3);
+          expect(filtered.map(field => field.label)).toEqual(['open', 'restricted', 'permission']);
+        });
+      });
+
+      describe('contentTier facet', () => {
         const fields = [
           { label: '0', count: 9686142 },
           { label: '1', count: 15763224 },
@@ -151,7 +172,7 @@ describe('components/search/SideFacetDropdown', () => {
           });
           wrapper.vm.$store.getters['search/collection'] = true;
 
-          const filtered = wrapper.vm.filterContentTierFields(fields);
+          const filtered = wrapper.vm.filterFacetFields(fields);
 
           expect(filtered.length).toBe(3);
           expect(filtered.map(field => field.label)).toEqual(['2', '3', '4']);
@@ -164,7 +185,7 @@ describe('components/search/SideFacetDropdown', () => {
           });
           wrapper.vm.$store.getters['entity/id'] = 'http://data.europeana.eu/organization/12345';
 
-          const filtered = wrapper.vm.filterContentTierFields(fields);
+          const filtered = wrapper.vm.filterFacetFields(fields);
 
           expect(filtered.length).toBe(5);
           expect(filtered.map(field => field.label)).toEqual(['0', '1', '2', '3', '4']);
@@ -177,7 +198,7 @@ describe('components/search/SideFacetDropdown', () => {
           });
           wrapper.vm.$store.getters['entity/id'] = 'http://data.europeana.eu/base/concept/12345';
 
-          const filtered = wrapper.vm.filterContentTierFields(fields);
+          const filtered = wrapper.vm.filterFacetFields(fields);
 
           expect(filtered.length).toBe(4);
           expect(filtered.map(field => field.label)).toEqual(['1', '2', '3', '4']);
@@ -189,10 +210,32 @@ describe('components/search/SideFacetDropdown', () => {
             name: 'contentTier'
           });
 
-          const filtered = wrapper.vm.filterContentTierFields(fields);
+          const filtered = wrapper.vm.filterFacetFields(fields);
 
           expect(filtered.length).toBe(1);
           expect(filtered.map(field => field.label)).toEqual(['0']);
+        });
+      });
+
+      describe('facet with theme-specific replacement pattern', () => {
+        const fields = [
+          { label: 'Chanel (Designer)' },
+          { label: 'Paul van Riel (Photographer)' },
+          { label: 'Emilio Pucci (Designer)' },
+          { label: 'http://www.wikidata.org/entity/Q1142142' }
+        ]
+
+        it('limits to the options matching the pattern', async() => {
+          const wrapper = factory();
+          wrapper.vm.$store.getters['search/collection'] = 'fashion';
+          await wrapper.setProps({
+            name: 'CREATOR'
+          });
+
+          const filtered = wrapper.vm.filterFacetFields(fields);
+
+          expect(filtered.length).toBe(2);
+          expect(filtered.map(field => field.label)).toEqual(['Chanel (Designer)', 'Emilio Pucci (Designer)']);
         });
       });
     });
