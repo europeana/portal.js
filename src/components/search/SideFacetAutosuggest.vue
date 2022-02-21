@@ -7,6 +7,7 @@
       :id="facetName"
       v-model="selectedOptions"
       no-outer-focus
+      class="side-filter-autosuggest"
     >
       <template
         #default="{ tags, disabled, addTag, removeTag }"
@@ -33,7 +34,7 @@
           block
         >
           <template #button-content>
-            {{ facetName }}
+            Select {{ facetName.toLowerCase() }}
           </template>
           <b-dropdown-form
             @submit.stop.prevent="() => {}"
@@ -330,6 +331,7 @@
 
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
+  
   // TEMP: for testing
   .colour-palette {
     border: 1px solid $whitegrey;
@@ -339,4 +341,3 @@
     display: inline-block;
   }
 </style>
-

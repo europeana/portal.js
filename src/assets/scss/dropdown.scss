@@ -135,3 +135,48 @@
     }
   }
 }
+
+.b-form-tags.form-control {
+  padding: 0;
+  margin-bottom: 1.25rem;
+  background-color: $white;
+  border-radius: 0;
+
+  > ul {
+    padding-left: 0;
+  }
+
+  .dropdown-toggle {
+    background: $white;
+    font-size: $font-size-small;
+    color: $lightgrey;
+    height: 3rem;
+    border: 1px solid $middlegrey;
+    text-align: left;
+
+    &:focus {
+      border: 1px solid $blue;
+    }
+  }
+
+  .dropdown-menu {
+    width: 100%;
+    font-size: $font-size-small;
+    max-height: 15rem;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    .dropdown-item {
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+
+      &:hover {
+        background-color: $bodygrey;
+      }
+
+      span {
+        white-space: normal;
+      }
+    }
+  }
+}
