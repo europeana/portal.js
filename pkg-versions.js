@@ -4,7 +4,7 @@
 // Node.js, at which time we may instead import from the respective package.json
 // files to get the versions.
 //
-// NOTE: This file is auto-updated by ../bin/pkg-versions.js
+// NOTE: This file is auto-updated by ./bin/pkg-versions.js
 
 export default {
   '@europeana/portal': '1.62.2',
