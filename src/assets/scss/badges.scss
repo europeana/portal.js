@@ -33,6 +33,7 @@
   background-color: $blue;
   font-weight: 400;
   transition: $standard-transition;
+  line-height: 1.5;
 
   &[href] {
     &:hover {
@@ -55,7 +56,6 @@
 .badge-primary {
   background-color: $bodygrey;
   color: $black;
-  line-height: 1.5;
 
   &[href] {
     &:hover,
@@ -84,6 +84,7 @@
   justify-content: center;
   align-items: center;
   transition: $standard-transition;
+  line-height: 1.25;
 
   &[href] {
     &:hover,
