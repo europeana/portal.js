@@ -86,8 +86,6 @@
         return themes.find(theme => theme.qf === this.collection);
       },
 
-      // TODO: move the label replacement pattern to a prop instead. and do
-      //       the same for media type?
       themeSpecificFieldLabelPattern() {
         return (this.theme?.facets || []).find((facet) => facet.field === this.facetName)?.label;
       }
