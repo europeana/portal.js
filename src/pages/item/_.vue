@@ -407,6 +407,11 @@
     padding: 0;
   }
 
+  ::v-deep .related-collections .badge-light {
+    margin-top: 0.25rem;
+    margin-right: 0.5rem;
+  }
+
   ::v-deep .card-header-tabs {
     border-radius: 0.25rem 0.25rem 0 0;
   }

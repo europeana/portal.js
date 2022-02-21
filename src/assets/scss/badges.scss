@@ -30,8 +30,6 @@
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 0.75rem;
-  margin-right: 1rem;
   background-color: $blue;
   font-weight: 400;
   transition: $standard-transition;
@@ -57,6 +55,7 @@
 .badge-primary {
   background-color: $bodygrey;
   color: $black;
+  line-height: 1.5;
 
   &[href] {
     &:hover,
