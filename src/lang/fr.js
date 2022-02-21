@@ -464,7 +464,6 @@ export default {
     },
     "contentTier": {
       "name": "Qualité de l'article",
-      "notification": "Certains articles ne correspondant pas à nos critères de publication sont disponibles. Vous pouvez y accéder en activant le filtre « Qualité des articles » sous « Autres filtres ».",
       "options": {
         "*": "Inclut les éléments ne répondant pas à nos critères de publication",
         "0": "Afficher uniquement les articles ne répondant pas à nos critères de publication",

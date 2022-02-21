@@ -464,7 +464,6 @@ export default {
     },
     "contentTier": {
       "name": "Kohde laatu",
-      "notification": "Jotkin saatavilla olevista kohteista eivät täytä julkaisuehtojamme. Voit näyttää nämä kohteet aktivoimalla \"Lisää suodattimia\" -kohdan \"Kohteiden laatu\" -suodattimen.",
       "options": {
         "*": "Sisältää kohteita, jotka eivät täytä julkaisuehtojamme",
         "0": "Näytä ainoastaan kohteet, jotka eivät täytä julkaisuehtojamme",

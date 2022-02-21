@@ -464,7 +464,6 @@ export default {
     },
     "contentTier": {
       "name": "Prekės kokybė",
-      "notification": "Yra prekių, kurios neatitinka mūsų skelbiamų prekių kriterijų. Šias prekes rasite aktyvavę filtrą „Prekių kokybė“, esantį skiltyje „Daugiau filtrų“.",
       "options": {
         "*": "Rodomi elementai, neatitinkantys mūsų paskelbimo kriterijų.",
         "0": "Tik elementai, neatitinkantys mūsų paskelbimo kriterijų",

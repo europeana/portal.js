@@ -464,7 +464,6 @@ export default {
     },
     "contentTier": {
       "name": "Elementuaren kalitatea",
-      "notification": "Gure argitalpen irizpideekin bat ez datozen zenbait elementu eskuragarri daude. Elementu horietara sar zaitezke \"Elementuen kalitatea\" iragazkia aktibatuta, \"Iragazki gehiago\" aukeraren azpian.",
       "options": {
         "*": "Gure argitalpen irizpideak betetzen ez dituzten elementuak barne hartzen ditu",
         "0": "Erakutsi soilik gure argitalpen irizpideak betetzen ez dituzten elementuak",

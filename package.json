@@ -1,6 +1,6 @@
 {
   "name": "@europeana/portal",
-  "version": "1.62.0",
+  "version": "1.62.2",
   "description": "Europeana Portal",
   "scripts": {
     "analyze": "nuxt build --analyze",
@@ -106,7 +106,7 @@
     "Alan Sutherland <alan.sutherland@europeana.eu>"
   ],
   "engines": {
-    "node": "^16",
+    "node": "^16 <16.14",
     "npm": "^8"
   },
   "keywords": [

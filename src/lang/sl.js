@@ -464,7 +464,6 @@ export default {
     },
     "contentTier": {
       "name": "Kakovost artikla",
-      "notification": "Nekateri predmeti, ki ne ustrezajo našim kriterijem objavljanja, so na voljo. Do teh predmetov lahko dostopate z aktivacijo filtra 'Kakovost predmetov' pod 'Več filtrov'.",
       "options": {
         "*": "Vključuje elemente, ki ne izpolnjujejo naših meril za objavo",
         "0": "Pokaži samo predmete, ki ne ustrezajo našim kriterijem objavljanja.",

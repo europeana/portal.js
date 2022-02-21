@@ -40,7 +40,7 @@ export default {
     "next": "Volgende",
     "pin": "Pin",
     "providedBy": "Aangeboden door {provider}",
-    "reject": "afwijzen",
+    "reject": "Afwijzen",
     "send": "Verzenden",
     "share": "Delen",
     "shareOn": "Delen op {social}",
@@ -464,7 +464,6 @@ export default {
     },
     "contentTier": {
       "name": "Item kwaliteit",
-      "notification": "Sommige artikelen die niet passen bij onze publicatiecriteria, zijn beschikbaar. U kunt deze artikelen inzien door het filter \"Kwaliteit van artikel\" onder \"Meer filters\" te activeren.",
       "options": {
         "*": "Bevat items die niet voldoen aan onze publicatiecriteria",
         "0": "Geef items weer die niet voldoen aan onze publicatiecriteria",
@@ -731,7 +730,7 @@ export default {
     "translateQuotaError": "De vertaalservice is tijdelijk niet beschikbaar. Probeer het later opnieuw."
   },
   "newFeatureNotification": {
-    "dismiss": "Afwijzen",
+    "dismiss": "Sluiten",
     "readMore": "Lees verder",
     "text": {
       "sideFilters": "Bekijk de nieuwe filters! Ze zijn nu allemaal zichtbaar aan de rechterkant van de zoekresultaten."

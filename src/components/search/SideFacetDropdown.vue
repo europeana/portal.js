@@ -60,7 +60,7 @@
               :name="name"
               :disabled="filterSelectionDisabled"
               :data-qa="`${option} ${name} ${RADIO}`"
-              @input="$emit('changed', name, preSelected)"
+              @change="$emit('changed', name, preSelected)"
             >
               <FacetFieldLabel
                 :facet-name="name"
@@ -77,7 +77,7 @@
               :disabled="filterSelectionDisabled"
               :data-qa="`${option.label} ${name} ${CHECKBOX}`"
               :class="{ 'custom-checkbox-colour': isColourPalette }"
-              @input="$emit('changed', name, preSelected)"
+              @change="$emit('changed', name, preSelected)"
             >
               <ColourSwatch
                 v-if="isColourPalette"

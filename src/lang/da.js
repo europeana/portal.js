@@ -464,7 +464,6 @@ export default {
     },
     "contentTier": {
       "name": "Varekvalitet",
-      "notification": "Nogle artikler, som ikke opfylder vores udgivelseskriterier, er tilgængelige. Du kan få adgang til disse artikler ved at aktivere filteret 'Artikelkvalitet' under 'Flere filtre'.",
       "options": {
         "*": "Indeholder artikler, der ikke opfylder vores udgivelseskriterier",
         "0": "Vis kun artikler, der ikke opfylder vores udgivelseskriterier",
