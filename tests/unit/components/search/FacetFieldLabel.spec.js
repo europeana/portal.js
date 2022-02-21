@@ -12,7 +12,8 @@ const store = new Vuex.Store({
     search: {
       namespaced: true,
       getters: {
-        formatFacetFieldLabel: () => () => null
+        formatFacetFieldLabel: () => () => null,
+        collection: () => 'fashion'
       }
     }
   }
@@ -26,60 +27,36 @@ const factory = (options = {}) => shallowMount(FacetFieldLabel, {
 
 describe('components/search/FacetFieldLabel', () => {
   describe('genericLabel', () => {
-    it('favours a formatted value from the store getter formatFacetFieldLabel', () => {
-      const formatFacetFieldLabel = sinon.stub();
-      formatFacetFieldLabel.returns('store formatted');
-      const store = new Vuex.Store({
-        modules: {
-          search: {
-            namespaced: true,
-            getters: {
-              formatFacetFieldLabel: () => formatFacetFieldLabel
-            }
+    describe('with escaped prop set to `true`', () => {
+      it('removes quotes from the field value', () => {
+        const wrapper = factory({
+          propsData: {
+            facetName: 'TYPE',
+            fieldValue: '"IMAGE"',
+            escaped: true
+          },
+          mocks: {
+            $tNull: () => null
           }
-        }
+        });
+
+        expect(wrapper.vm.genericLabel).toBe('IMAGE');
       });
 
-      const wrapper = factory({
-        propsData: {
-          facetName: 'TYPE',
-          fieldValue: '"IMAGE"'
-        },
-        store,
-        mocks: {
-          $tNull: () => null
-        }
+      it('removes Lucene special character escaping', () => {
+        const wrapper = factory({
+          propsData: {
+            facetName: 'DATA_PROVIDER',
+            fieldValue: '"Nederlands Bakkerijmuseum \\"Het Warme Land\\""',
+            escaped: true
+          },
+          mocks: {
+            $tNull: () => null
+          }
+        });
+
+        expect(wrapper.vm.genericLabel).toBe('Nederlands Bakkerijmuseum "Het Warme Land"');
       });
-
-      expect(wrapper.vm.genericLabel).toBe('store formatted');
-    });
-
-    it('removes quotes from the field value', () => {
-      const wrapper = factory({
-        propsData: {
-          facetName: 'TYPE',
-          fieldValue: '"IMAGE"'
-        },
-        mocks: {
-          $tNull: () => null
-        }
-      });
-
-      expect(wrapper.vm.genericLabel).toBe('IMAGE');
-    });
-
-    it('removes Lucene special character escaping', () => {
-      const wrapper = factory({
-        propsData: {
-          facetName: 'DATA_PROVIDER',
-          fieldValue: '"Nederlands Bakkerijmuseum \\"Het Warme Land\\""'
-        },
-        mocks: {
-          $tNull: () => null
-        }
-      });
-
-      expect(wrapper.vm.genericLabel).toBe('Nederlands Bakkerijmuseum "Het Warme Land"');
     });
 
     it('translates the field value', () => {
@@ -108,6 +85,22 @@ describe('components/search/FacetFieldLabel', () => {
       });
 
       expect(wrapper.vm.genericLabel).toBe('IMAGE');
+    });
+
+    describe('with theme-specific field label pattern', () => {
+      it('removes it', () => {
+        const wrapper = factory({
+          propsData: {
+            facetName: 'CREATOR',
+            fieldValue: 'Chanel (Designer)'
+          },
+          mocks: {
+            $tNull: () => null
+          }
+        });
+
+        expect(wrapper.vm.genericLabel).toBe('Chanel');
+      });
     });
   });
 
