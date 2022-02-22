@@ -49,9 +49,7 @@ const factory = () => shallowMountNuxt(SideFacetDropdown, {
 });
 
 describe('components/search/SideFacetDropdown', () => {
-  afterEach(() => {
-    storeDispatchStub.resetHistory();
-  });
+  beforeEach(sinon.resetHistory);
 
   describe('fetch', () => {
     describe('if fields are not static', () => {
@@ -134,6 +132,21 @@ describe('components/search/SideFacetDropdown', () => {
   });
 
   describe('methods', () => {
+    describe('queryFacet', () => {
+      it('logs the query while live', async() => {
+        const wrapper = factory();
+        await wrapper.setProps({
+          name: 'TYPE'
+        });
+        const queryParams = { rows: 0, profile: 'facets', facet: 'TYPE' };
+
+        await wrapper.vm.queryFacet();
+
+        expect(storeCommitSpy.calledWith('search/addLiveQuery', queryParams)).toBe(true);
+        expect(storeCommitSpy.calledWith('search/removeLiveQuery', queryParams)).toBe(true);
+      });
+    });
+
     describe('filterFacetFields', () => {
       describe('REUSABILITY facet', () => {
         const fields = [

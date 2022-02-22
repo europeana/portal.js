@@ -5,17 +5,10 @@ describe('store/search', () => {
   beforeAll(() => {
     store.actions.$i18n = { locale: 'es' };
   });
+  beforeEach(sinon.resetHistory);
 
   describe('getters', () => {
     describe('filters()', () => {
-      describe('when collection param is absent', () => {
-        const collection = undefined;
-
-        it('is false', () => {
-          expect(store.getters.hasCollectionSpecificSettings({})(collection)).toBe(false);
-        });
-      });
-
       describe('with `null` query qf', () => {
         it('returns {}', async() => {
           const state = {
@@ -95,52 +88,6 @@ describe('store/search', () => {
           };
 
           expect(store.getters.filters(state)).toEqual(expected);
-        });
-      });
-    });
-
-    describe('hasCollectionSpecificSettings', () => {
-      describe('when collection param is absent', () => {
-        const collection = undefined;
-
-        it('is false', () => {
-          expect(store.getters.hasCollectionSpecificSettings({})(collection)).toBe(false);
-        });
-      });
-
-      describe('when collection param is present', () => {
-        const collection = 'music';
-
-        describe('when rootState has collection store for the collection', () => {
-          describe('with `enabled` property', () => {
-            describe('that is enabled', () => {
-              const rootState = { collections: { [collection]: { enabled: true } } };
-              it('is true', () => {
-                expect(store.getters.hasCollectionSpecificSettings({}, {}, rootState)(collection)).toBe(true);
-              });
-            });
-
-            describe('that is disabled', () => {
-              const rootState = { collections: { [collection]: { enabled: false } } };
-              it('is false', () => {
-                expect(store.getters.hasCollectionSpecificSettings({}, {}, rootState)(collection)).toBe(false);
-              });
-            });
-          });
-
-          describe('without `enabled` property', () => {
-            const rootState = { collections: { [collection]: {} } };
-            it('is true', () => {
-              expect(store.getters.hasCollectionSpecificSettings({}, {}, rootState)(collection)).toBe(true);
-            });
-          });
-        });
-
-        describe('when rootState lacks collection store for the collection', () => {
-          const rootState = { collections: {} };
-          it('is false', () => {
-            expect(store.getters.hasCollectionSpecificSettings({}, {}, rootState)(collection)).toBe(false);
-          });
         });
       });
     });
@@ -318,10 +265,6 @@ describe('store/search', () => {
     });
 
     describe('queryItems', () => {
-      beforeEach(() => {
-        sinon.resetHistory();
-      });
-
       const dispatch = sinon.spy();
       const commit = sinon.spy();
       const getters = {};
@@ -390,87 +333,12 @@ describe('store/search', () => {
       });
     });
 
-    describe('queryFacet', () => {
-      beforeEach(() => {
-        sinon.resetHistory();
-      });
-
-      const dispatch = sinon.spy();
-      const commit = sinon.spy();
-      const getters = {};
-      const searchQuery = 'anything';
-      const typeQf = 'TYPE:"IMAGE"';
-      const collectionQf = 'collection:"migration"';
-      const state = { apiParams: { query: searchQuery, qf: [typeQf, collectionQf] } };
-      const facetName = 'PROVIDER';
-      const queryParams = { ...state.apiParams, rows: 0, profile: 'facets', facet: facetName };
-
-      it('searches the Record API', async() => {
-        store.actions.$apis = {
-          record: {
-            search: sinon.stub().resolves({})
-          }
-        };
-
-        await store.actions.queryFacet({ dispatch, state, getters, commit }, facetName);
-
-        expect(store.actions.$apis.record.search.called).toBe(true);
-      });
-
-      describe('on success', () => {
-        beforeAll(() => {
-          store.actions.$apis = {
-            record: {
-              search: sinon.stub().resolves({ facets: [1, 2] })
-            }
-          };
-        });
-
-        it('commits facets', async() => {
-          await store.actions.queryFacet({ dispatch, state, getters, commit }, facetName);
-
-          expect(commit.calledWith('setFacets', [1, 2])).toBe(true);
-        });
-
-        it('logs the query while live', async() => {
-          await store.actions.queryFacet({ dispatch, state, getters, commit }, facetName);
-
-          expect(commit.calledWith('addLiveQuery', queryParams)).toBe(true);
-          expect(commit.calledWith('removeLiveQuery', queryParams)).toBe(true);
-        });
-      });
-
-      describe('on failure', () => {
-        beforeAll(() => {
-          store.actions.$apis = {
-            record: {
-              search: sinon.stub().rejects({})
-            }
-          };
-        });
-
-        it('dispatches updateForFailure', async() => {
-          await store.actions.queryFacet({ dispatch, state, getters, commit }, facetName);
-
-          expect(dispatch.calledWith('updateForFailure')).toBe(true);
-        });
-
-        it('logs the query while live', async() => {
-          await store.actions.queryFacet({ dispatch, state, getters, commit }, facetName);
-
-          expect(commit.calledWith('addLiveQuery', queryParams)).toBe(true);
-          expect(commit.calledWith('removeLiveQuery', queryParams)).toBe(true);
-        });
-      });
-    });
-
     describe('deriveApiSettings', () => {
       it('combines userParams and overrideParams into apiParams', async() => {
         const userQuery = 'calais';
         const userQf = 'TYPE:"IMAGE"';
         const overrideQf = 'edm_agent:"http://data.europeana.eu/agent/base/200"';
         const profile = 'minimal';
-        const facet = defaultFacetNames.join(',');
 
         const commit = sinon.spy();
         const dispatch = sinon.spy();
@@ -493,8 +361,7 @@ describe('store/search', () => {
           {
             query: userQuery,
             qf: [userQf, overrideQf],
-            profile,
-            facet
+            profile
           }
         ])).toBe(true);
       });
@@ -565,54 +432,6 @@ describe('store/search', () => {
           expect(state.liveQueries.length).toBe(1);
           expect(state.liveQueries).not.toContain(query);
         });
-      });
-    });
-
-    describe('setFacets()', () => {
-      it('enquotes values for quotable facets', () => {
-        const state = { facets: [] };
-        const unquotedFacets = [
-          {
-            name: 'TYPE',
-            fields: [
-              { label: 'IMAGE' }
-            ]
-          }
-        ];
-        const quotedFacets = [
-          {
-            name: 'TYPE',
-            fields: [
-              { label: '"IMAGE"' }
-            ]
-          }
-        ];
-
-        store.mutations.setFacets(state, unquotedFacets);
-        expect(state.facets).toEqual(quotedFacets);
-      });
-
-      it('escapes Lucene special characters', () => {
-        const state = { facets: [] };
-        const unescapedFacets = [
-          {
-            name: 'DATA_PROVIDER',
-            fields: [
-              { label: 'Nederlands Bakkerijmuseum "Het Warme Land"' }
-            ]
-          }
-        ];
-        const escapedFacets = [
-          {
-            name: 'DATA_PROVIDER',
-            fields: [
-              { label: '"Nederlands Bakkerijmuseum \\"Het Warme Land\\""' }
-            ]
-          }
-        ];
-
-        store.mutations.setFacets(state, unescapedFacets);
-        expect(state.facets).toEqual(escapedFacets);
       });
     });
   });
