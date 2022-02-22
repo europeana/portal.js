@@ -1,4 +1,4 @@
-import store, { defaultFacetNames } from '@/store/search';
+import store from '@/store/search';
 import sinon from 'sinon';
 
 describe('store/search', () => {

@@ -121,7 +121,7 @@ describe('components/search/SideFacetDropdown', () => {
             { label: 'United Kingdom', count: 99 },
             { label: 'Spain', count: 44 }
           ]
-        })
+        });
 
         expect(wrapper.vm.sortedOptions[0].label).toBe('United Kingdom');
         expect(wrapper.vm.sortedOptions[1].label).toBe('Spain');
@@ -236,7 +236,7 @@ describe('components/search/SideFacetDropdown', () => {
           { label: 'Paul van Riel (Photographer)' },
           { label: 'Emilio Pucci (Designer)' },
           { label: 'http://www.wikidata.org/entity/Q1142142' }
-        ]
+        ];
 
         it('limits to the options matching the pattern', async() => {
           const wrapper = factory();

@@ -194,7 +194,7 @@ export default {
     },
 
     // TODO: replace with a getter?
-    deriveApiSettings({ commit, dispatch, state, getters, rootGetters }) {
+    deriveApiSettings({ commit, state, getters }) {
       commit('set', ['previousApiParams', Object.assign({}, state.apiParams)]);
       commit('set', ['previousApiOptions', Object.assign({}, state.apiOptions)]);
 
