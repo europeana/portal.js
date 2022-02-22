@@ -38,4 +38,4 @@ COPY --from=build /app .
 
 USER 1000
 
-CMD ["node", "node_modules/.bin/nuxt-cli", "start"]
+CMD ["node_modules/.bin/nuxt-cli", "start"]
