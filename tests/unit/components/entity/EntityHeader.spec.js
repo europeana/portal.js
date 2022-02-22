@@ -27,7 +27,6 @@ const factory = (propsData = {}) => mount(EntityHeader, {
 const moreData = {
 };
 
-
 const entityProps = {
   title: { values: ['Book'], code: 'en' },
   description: { values: ['Architecture is both the process and the product of planning, designing, and constructing buildings and other physical structures.'], code: 'en' },
@@ -35,7 +34,7 @@ const entityProps = {
   image: 'https://www.example.eu/image.jpg',
   editable: false,
   externalLink: 'https://www.example.eu/',
-  moreData: moreData
+  moreData
 };
 
 describe('components/entity/EntityHeaders', () => {
@@ -97,7 +96,7 @@ describe('components/entity/EntityHeaders', () => {
     expect(moreInfoModal.exists()).toBe(true);
   });
 
-  describe('editing when it is enabled', ()=> {
+  describe('editing when it is enabled', () => {
     entityProps.editable = true;
     it('shows an edit button', () => {
       // This test doesn't confirm that the button opens the modal.

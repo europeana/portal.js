@@ -17,14 +17,14 @@ const factory = (propsData = {}) => mount(EntityInformationModal, {
 const info =  {
   website: { label: 'website', value: 'https://www.europeana.eu' },
   country: { label: 'Country', value: 'The Netherlands' },
-  acronym: {label: 'Acronym', value: 'EF' },
+  acronym: { label: 'Acronym', value: 'EF' },
   city: { label: 'city', value: 'The Hague' }
-}
+};
 
 const entityProps = {
   modalStatic: true,
   title: { values: ['Europeana'], code: 'en' },
-  entityInfo: info,
+  entityInfo: info
 };
 
 describe('components/entity/EntityInformationModal', () => {
@@ -47,7 +47,7 @@ describe('components/entity/EntityInformationModal', () => {
   it('links to the organisation URL for the website', () => {
     const wrapper = factory(entityProps);
 
-    const websiteLink = wrapper.find(`ul li[data-qa="website field"] a`);
+    const websiteLink = wrapper.find('ul li[data-qa="website field"] a');
     expect(websiteLink.attributes().href).toEqual(info.website.value);
   });
 });

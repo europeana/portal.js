@@ -201,7 +201,13 @@
   ```jsx
     <div style="background-color: #ededed; margin: -16px; padding: 16px;">
       <EntityHeader
-        :description="{ values: ['Discover inspiring art, artists and stories in the digitised collections of European museums, galleries, libraries and archives. Explore paintings, drawings, engravings and sculpture from cultural heritage institutions across Europe. Discover inspiring art, artists and stories in the digitised collections of European museums, galleries, libraries and archives. Explore paintings, drawings, engravings and sculpture from cultural heritage institutions across Europe.'] }"
+        :description="{ values: [
+          'Discover inspiring art, artists and stories in the digitised collections of European museums, galleries,\
+           libraries and archives. Explore paintings, drawings, engravings and sculpture from cultural heritage institutions\
+           across Europe. Discover inspiring art, artists and stories in the digitised collections of European museums, galleries,\
+           libraries and archives. Explore paintings, drawings, engravings and sculpture from cultural heritage institutions\
+           across Europe.'
+        ] }"
         :title="{ values: ['Title'] }"
         logo="https://cdn.jsdelivr.net/npm/@europeana/portal@1.62.2/.nuxt/dist/client/img/logo.e9d9080.svg"
         :editable="true"
@@ -209,7 +215,7 @@
         :moreData="{
           website: { label: 'website', value: 'https://www.europeana.eu' },
           country: { label: 'Country', value: 'The Netherlands' },
-          acronym: {label: 'Acronym', value: 'EF' },
+          acronym: { label: 'Acronym', value: 'EF' },
           city: { label: 'city', value: 'The Hague' }
         }"
       />
