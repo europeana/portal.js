@@ -4,7 +4,7 @@
       class="facet-label"
     >{{ facetName }}</label>
     <b-form-tags
-      :id="facetName"
+      :id="facetNameNoSpaces"
       v-model="selectedOptions"
       no-outer-focus
       class="side-filter-autosuggest"
@@ -41,12 +41,12 @@
           >
             <b-form-group
               label="Search"
-              label-for="search-input"
+              :label-for="`${facetNameNoSpaces}-search-input`"
               :description="searchOptions"
               :disabled="disabled"
             >
               <b-form-input
-                id="search-input"
+                :id="`${facetNameNoSpaces}-search-input`"
                 v-model="searchFacet"
                 type="search"
                 autocomplete="off"
@@ -216,6 +216,10 @@
 
       facetName() {
         return this.$tFacetName(this.name);
+      },
+
+      facetNameNoSpaces() {
+        return this.$tFacetName(this.name).replace(/\s/g, '-').toLowerCase();
       },
 
       isRadio() {
