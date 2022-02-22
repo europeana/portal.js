@@ -209,7 +209,7 @@ export default {
       }
 
       // TODO: this happens once here, then again later, because `getters.collection`
-      //       and hence `getters.theme` rely on in; refactor.
+      //       and hence `getters.theme` rely on it; refactor.
       commit('set', ['apiParams', { ...apiParams }]);
 
       const apiOptions = {};
