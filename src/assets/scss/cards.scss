@@ -689,7 +689,7 @@
 .masonry-container {
   width: 100%;
 
-  @media (max-width: $bp-medium) {
+  @media (max-width: $bp-medium - 1) {
     &[style] {
       height: auto !important;
     }
@@ -709,7 +709,7 @@
     vertical-align: top;
     width: 100%;
 
-    @media (max-width: $bp-medium) {
+    @media (max-width: $bp-medium - 1) {
       &[style] {
         position: relative !important;
         left: auto !important;
