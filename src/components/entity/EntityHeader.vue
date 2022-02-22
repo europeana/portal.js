@@ -40,6 +40,7 @@
     <b-button
       v-if="moreData"
       class="d-inline-flex align-items-center"
+      data-qa='entity details button'
       @click="$bvModal.show('entityInformationModal')"
     >
       <span class="icon-info pr-1" />
@@ -68,6 +69,7 @@
         <b-button
           class="d-inline-flex align-items-center"
           @click="$bvModal.show('entityUpdateModal')"
+          data-qa="entity edit button"
         >
           <span class="icon-edit pr-1" />
           {{ $t('actions.edit') }}
@@ -111,13 +113,6 @@
        */
       description: {
         type: Object,
-        default: null
-      },
-      /**
-       * Text taken from the description value
-       */
-      descriptionText: {
-        type: String,
         default: null
       },
       /**

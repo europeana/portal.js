@@ -1,17 +1,21 @@
 <template>
   <b-modal
     id="entityInformationModal"
-    :title="title.values[0]"
-    :lang="title.code"
     :static="modalStatic"
     hide-footer
     hide-header-close
   >
+    <template #modal-title>
+      <span :lang="title.code">
+        {{ title.values[0] }}
+      </span>
+    </template>
     <ul class="mb-2 p-0">
       <li
         v-for="(info, index) in entityInfo"
         :key="index"
         class="entity-data-row d-flex flex-wrap justify-content-between"
+        :data-qa="info.label + ' field'"
       >
         <span>
           {{ info.label }}
