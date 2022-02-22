@@ -73,6 +73,7 @@
                 :facet-name="name"
                 :field-value="option.label"
               />
+              <span>({{ option.count | localise }})</span>
             </template>
           </b-dropdown-item-button>
           <b-dropdown-text v-if="availableSortedOptions.length === 0">
@@ -328,16 +329,3 @@
     }
   };
 </script>
-
-<style lang="scss" scoped>
-  @import '@/assets/scss/variables';
-  
-  // TEMP: for testing
-  .colour-palette {
-    border: 1px solid $whitegrey;
-    border-radius: 50%;
-    height: 1rem;
-    width: 1rem;
-    display: inline-block;
-  }
-</style>

@@ -153,6 +153,9 @@
     height: 3rem;
     border: 1px solid $middlegrey;
     text-align: left;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
 
     &:focus {
       border: 1px solid $blue;
@@ -176,6 +179,14 @@
 
       span {
         white-space: normal;
+      }
+
+      .colour-palette {
+        border: 1px solid $whitegrey;
+        border-radius: 50%;
+        height: 1rem;
+        width: 1rem;
+        display: inline-block;
       }
     }
   }
