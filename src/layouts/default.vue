@@ -104,8 +104,6 @@
           ...i18nHead.htmlAttrs
         },
         link: [
-          { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700&subset=latin,greek,cyrillic&display=swap',
-            body: true },
           { rel: 'stylesheet', href: `https://unpkg.com/bootstrap@${versions.bootstrap}/dist/css/bootstrap.min.css` },
           { rel: 'stylesheet', href: `https://unpkg.com/klaro@${klaroVersion}/dist/klaro.min.css` },
           { rel: 'stylesheet', href: `https://unpkg.com/bootstrap-vue@${versions['bootstrap-vue']}/dist/bootstrap-vue.min.css` },
