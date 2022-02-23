@@ -6,7 +6,7 @@
   border: none;
   transition: box-shadow 0.25s;
 
-  @at-root .text-page &.default-card {
+  &.dark-card {
     background: $bodygrey;
   }
 
@@ -15,7 +15,7 @@
     transition: box-shadow 0.25s;
   }
 
-  .card-wrapper {
+  a {
     text-decoration: none;
   }
 
