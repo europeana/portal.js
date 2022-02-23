@@ -168,14 +168,6 @@ export default {
       return Object.keys(diff(state.previousApiParams, state.apiParams));
     },
 
-    itemUpdateNeeded: (state, getters) => {
-      if (!state.previousApiParams) {
-        return true;
-      } // i.e. if this is the first search
-      return getters.apiParamsChanged
-        .some((param) => ['page', 'query', 'qf', 'api', 'reusability'].includes(param));
-    },
-
     searchOptions: (state) => {
       return {
         ...state.apiOptions,
@@ -233,10 +225,9 @@ export default {
     /**
      * Run a Record API search and store the results
      */
-    async run({ dispatch, getters }) {
-      await dispatch('deriveApiSettings');
-
-      return getters.itemUpdateNeeded ? dispatch('queryItems') : Promise.resolve();
+    run({ dispatch }) {
+      return dispatch('deriveApiSettings')
+        .then(dispatch('queryItems'));
     },
 
     queryItems({ dispatch, state, getters, commit }) {
