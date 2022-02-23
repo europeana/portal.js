@@ -9,10 +9,11 @@
       transition-duration="0.1"
       item-selector=".card"
       horizontal-order="true"
-      column-width=".masonry-container .card"
+      column-width=".masonry-container .content-card"
       class="masonry-container"
       :data-qa="`item previews ${view}`"
     >
+      <slot />
       <ItemPreviewCard
         v-for="item in items"
         :key="item.id"
@@ -37,6 +38,7 @@
     :class="cardGroupClass"
     deck
   >
+    <slot />
     <ItemPreviewCard
       v-for="item in items"
       :key="item.id"

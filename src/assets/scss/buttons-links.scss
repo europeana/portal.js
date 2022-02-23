@@ -12,7 +12,7 @@
   }
 
   &:hover {
-    box-shadow: $boxshadow-light;
+    box-shadow: $boxshadow;
   }
 }
 
@@ -21,9 +21,18 @@
   border-color: $blue;
   font-size: $font-size-small;
   text-transform: uppercase;
+  font-weight: 600;
 
   &:hover {
+    background: $innovationblue-dark;
+    box-shadow: $boxshadow;
+  }
+
+  &:disabled {
     background: $blue;
+    border-color: $blue;
+    opacity: 0.7;
+    box-shadow: none;
   }
 
   &.btn-cta {
@@ -35,6 +44,49 @@
 }
 
 .btn-secondary {
+  text-transform: uppercase;
+  background: $offwhite;
+  color: $mediumgrey;
+  font-size: $font-size-small;
+  border: 1px solid $offwhite;
+  border-radius: 0.25rem;
+  font-weight: 600;
+
+  &:focus,
+  &:active {
+    background: $offwhite;
+    color: $mediumgrey;
+    box-shadow: none;
+    border: 1px solid $offwhite;
+  }
+
+  &:hover {
+    background: $offwhite;
+    color: $blue;
+    box-shadow: $boxshadow;
+    border: 1px solid $offwhite;
+  }
+
+  &:disabled {
+    background: $offwhite;
+    border: 1px solid $offwhite;
+    color: $mediumgrey;
+    opacity: 0.7;
+    box-shadow: none;
+  }
+
+  &:not(:disabled):not(.disabled):active,
+  &:not(:disabled):not(.disabled).active {
+    background: $offwhite;
+    color: $mediumgrey;
+    box-shadow: none;
+
+    &:hover {
+      color: $blue;
+      box-shadow: $boxshadow;
+    }
+  }
+
   &.like-button,
   &.pin-button {
     &.active,
@@ -48,6 +100,10 @@
   .icon-heart {
     font-size: $font-size-medium;
   }
+
+  .icon-link {
+    font-size: 0.5rem;
+  }
 }
 
 .btn-success {
@@ -55,6 +111,7 @@
   border-color: $green;
   font-size: $font-size-small;
   text-transform: uppercase;
+  font-weight: 600;
 
   &:hover {
     background-color: $green;
@@ -91,6 +148,7 @@
   color: $blue;
   font-size: $font-size-small;
   text-transform: uppercase;
+  font-weight: 600;
 
   &:hover {
     box-shadow: none;
@@ -110,6 +168,7 @@
 .btn-danger {
   font-size: $font-size-small;
   text-transform: uppercase;
+  font-weight: 600;
 }
 
 .btn-light {
@@ -157,6 +216,7 @@
   border-radius: $border-radius-small;
   color: $white;
   position: relative;
+  font-weight: 600;
 
   span {
     position: relative;
@@ -197,7 +257,7 @@
   font-size: $font-size-small;
 
   &:hover {
-    box-shadow: $boxshadow-small;
+    box-shadow: $boxshadow;
     background: $white;
     color: $mediumgrey;
   }
@@ -291,7 +351,8 @@ a {
   border-color: $darkblue;
 }
 
-.info-panel {
+.info-panel,
+.header-card {
   .btn-link {
     color: $blue;
     text-decoration: none;

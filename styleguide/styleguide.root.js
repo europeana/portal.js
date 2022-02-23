@@ -1,14 +1,14 @@
 import Vue from 'vue';
 // import Vuex from 'vuex';
 import BootstrapVue from 'bootstrap-vue';
-// import { VueMasonryPlugin } from 'vue-masonry';
+import { VueMasonryPlugin } from 'vue-masonry';
 // import VueRouter from 'vue-router';
 import VueI18n from 'vue-i18n';
 
 Vue.use(VueI18n);
 // Vue.use(Vuex);
 Vue.use(BootstrapVue);
-// Vue.use(VueMasonryPlugin);
+Vue.use(VueMasonryPlugin);
 // Vue.use(VueRouter);
 
 Vue.prototype.$path = () => {
