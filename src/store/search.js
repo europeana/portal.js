@@ -1,4 +1,3 @@
-import { diff } from 'deep-object-diff';
 import merge from 'deepmerge';
 import themes from '@/plugins/europeana/themes';
 import { BASE_URL as FULLTEXT_BASE_URL } from '@/plugins/europeana/newspaper';
