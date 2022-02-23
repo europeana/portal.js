@@ -101,7 +101,7 @@ describe('components/search/SideFilters', () => {
 
     it('is present when filters are selected', () => {
       const searchStoreGetters = {
-        hasResettableFilters: () => true
+        filters: () => ({ 'TYPE': ['IMAGE'] })
       };
       const wrapper = factory({ searchStoreGetters });
 
@@ -113,7 +113,7 @@ describe('components/search/SideFilters', () => {
 
     it('is disabled while search queries are running', () => {
       const searchStoreGetters = {
-        hasResettableFilters: () => true
+        filters: () => ({ 'TYPE': ['IMAGE'] })
       };
       const searchStoreState = {
         liveQueries: [{ query: 'river' }]

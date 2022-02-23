@@ -251,10 +251,6 @@
       this.init();
     },
 
-    destroyed() {
-      this.$store.commit('search/removeResettableFilter', this.name);
-    },
-
     methods: {
       queryFacet() {
         this.$store.commit('search/addLiveQuery', this.paramsForFacets);
@@ -349,11 +345,6 @@
         } else {
           this.preSelected = this.selected;
         }
-
-        this.$store.dispatch('search/setResettableFilter', {
-          name: this.name,
-          selected: this.preSelected
-        });
       },
 
       hiddenDropdown() {

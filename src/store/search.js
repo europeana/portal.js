@@ -50,7 +50,6 @@ export default {
     collectionLabel: null,
     previousApiOptions: null,
     previousApiParams: null,
-    resettableFilters: [],
     results: [],
     showSearchBar: false,
     totalResults: null,
@@ -66,20 +65,6 @@ export default {
     },
     removeLiveQuery(state, query) {
       state.liveQueries = state.liveQueries.filter(liveQuery => liveQuery !== query);
-    },
-    clearResettableFilters(state) {
-      state.resettableFilters = [];
-    },
-    addResettableFilter(state, filterName) {
-      if (!state.resettableFilters.includes(filterName)) {
-        state.resettableFilters.push(filterName);
-      }
-    },
-    removeResettableFilter(state, filterName) {
-      const index = state.resettableFilters.indexOf(filterName);
-      if (index !== -1) {
-        state.resettableFilters.splice(index, 1);
-      }
     },
     disableCollectionFacet(state) {
       state.collectionFacetEnabled = false;
@@ -134,10 +119,6 @@ export default {
         return state.view;
       }
       return 'grid';
-    },
-
-    hasResettableFilters(state) {
-      return state.resettableFilters.length > 0;
     },
 
     collection(state) {
@@ -274,14 +255,6 @@ export default {
       commit('setLastAvailablePage', null);
       commit('setResults', []);
       commit('setTotalResults', null);
-    },
-
-    async setResettableFilter({ commit }, { name, selected }) {
-      if ((Array.isArray(selected) && selected.length === 0) || !selected) {
-        await commit('removeResettableFilter', name);
-      } else {
-        await commit('addResettableFilter', name);
-      }
     }
   }
 };

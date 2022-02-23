@@ -29,7 +29,7 @@
             {{ $t('filterResults') }}
           </h2>
           <button
-            v-if="isFilteredByDropdowns()"
+            v-if="hasResettableFilters()"
             :disabled="resetButtonDisabled"
             class="btn btn-outline-primary mr-3"
             data-qa="reset filters button"
@@ -133,7 +133,6 @@
     computed: {
       ...mapState({
         collectionFacetEnabled: state => state.search.collectionFacetEnabled,
-        resettableFilters: state => state.search.resettableFilters,
         showFiltersSheet: state => state.search.showFiltersSheet,
         totalResults: state => state.search.totalResults,
         userParams: state => state.search.userParams
@@ -142,6 +141,23 @@
         filters: 'search/filters',
         collection: 'search/collection'
       }),
+      resettableFilters() {
+        const filters = this.filterableFacets
+          .map(facet => facet.name)
+          .filter(name => this.filters[name]);
+
+        if (this.contentTierFacetSwitch && this.filters.contentTier) {
+          filters.push('contentTier');
+        }
+        if (this.enableApiFilter && (this.filters.api !== this.apiFilterDefaultValue)) {
+          filters.push('api');
+        }
+        if (this.enableDateFilter && this.filters[this.dateFilterField]) {
+          filters.push(this.dateFilterField);
+        }
+
+        return filters;
+      },
       theme() {
         return themes.find(theme => theme.qf === this.collection);
       },
@@ -349,11 +365,10 @@
         for (const filterName of this.resettableFilters) {
           filters[filterName] = [];
         }
-        this.$store.commit('search/clearResettableFilters');
         return this.rerouteSearch(this.queryUpdatesForFilters(filters));
       },
-      isFilteredByDropdowns() {
-        return this.$store.getters['search/hasResettableFilters'];
+      hasResettableFilters() {
+        return this.resettableFilters.length > 0;
       },
       dateFilterSelected(facetName, dateRange) {
         let dateQuery = [];

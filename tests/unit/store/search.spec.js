@@ -443,48 +443,6 @@ describe('store/search', () => {
         });
       });
     });
-
-    describe('setResettableFilter', () => {
-      it('commits removeResettableFilter for empty arrays', async() => {
-        const name = 'TYPE';
-        const selected = [];
-        const commit = sinon.spy();
-
-        await store.actions.setResettableFilter({ commit }, { name, selected });
-
-        expect(commit.calledWith('removeResettableFilter', name)).toBe(true);
-      });
-
-      it('commits removeResettableFilter for falsy values', async() => {
-        const name = 'proxy_dcterms_issued';
-        const selected = false;
-        const commit = sinon.spy();
-
-        await store.actions.setResettableFilter({ commit }, { name, selected });
-
-        expect(commit.calledWith('removeResettableFilter', name)).toBe(true);
-      });
-
-      it('commits addResettableFilter for non-empty arrays', async() => {
-        const name = 'TYPE';
-        const selected = ['IMAGE'];
-        const commit = sinon.spy();
-
-        await store.actions.setResettableFilter({ commit }, { name, selected });
-
-        expect(commit.calledWith('addResettableFilter', name)).toBe(true);
-      });
-
-      it('commits addResettableFilter for truthy values', async() => {
-        const name = 'proxy_dcterms_issued';
-        const selected = true;
-        const commit = sinon.spy();
-
-        await store.actions.setResettableFilter({ commit }, { name, selected });
-
-        expect(commit.calledWith('addResettableFilter', name)).toBe(true);
-      });
-    });
   });
 
   describe('mutations', () => {
