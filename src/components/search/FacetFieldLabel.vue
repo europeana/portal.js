@@ -5,6 +5,7 @@
 </template>
 
 <script>
+  import themes from '@/plugins/europeana/themes';
   import { unescapeLuceneSpecials } from '@/plugins/europeana/utils';
 
   export default {
@@ -22,6 +23,11 @@
       },
 
       prefixed: {
+        type: Boolean,
+        default: false
+      },
+
+      escaped: {
         type: Boolean,
         default: false
       }
@@ -46,18 +52,19 @@
       },
 
       genericLabel() {
-        let fieldLabel;
+        let fieldLabel = this.fieldValue;
 
-        fieldLabel = this.$store.getters['search/formatFacetFieldLabel'](this.facetName, this.fieldValue);
-        if (!fieldLabel) {
-          fieldLabel = this.fieldValue;
+        if (this.themeSpecificFieldLabelPattern) {
+          fieldLabel = fieldLabel.replace(this.themeSpecificFieldLabelPattern, '');
         }
 
-        const unquotedFieldValue = unescapeLuceneSpecials(fieldLabel.replace(/^"(.*)"$/, '$1'));
+        if (this.escaped) {
+          fieldLabel = unescapeLuceneSpecials(fieldLabel.replace(/^"(.*)"$/, '$1'));
+        }
 
-        const key = `facets.${this.facetName}.options.${unquotedFieldValue}`;
+        const key = `facets.${this.facetName}.options.${fieldLabel}`;
 
-        return this.$tNull(key) || unquotedFieldValue;
+        return this.$tNull(key) || fieldLabel;
       },
 
       mediaTypeLabel() {
@@ -69,6 +76,18 @@
         const subtype = this.fieldValue.split('/')[1];
 
         return subtype.replace(/^x-/, '').toUpperCase();
+      },
+
+      collection() {
+        return this.$store.getters['search/collection'];
+      },
+
+      theme() {
+        return themes.find(theme => theme.qf === this.collection);
+      },
+
+      themeSpecificFieldLabelPattern() {
+        return (this.theme?.facets || []).find((facet) => facet.field === this.facetName)?.label;
       }
     }
   };

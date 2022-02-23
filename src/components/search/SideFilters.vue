@@ -126,25 +126,30 @@
     },
     data() {
       return {
+        DEFAULT_FACET_NAMES: defaultFacetNames,
         hideFilterSheet: true
       };
     },
     computed: {
       ...mapState({
         collectionFacetEnabled: state => state.search.collectionFacetEnabled,
-        facets: state => state.search.facets,
         resettableFilters: state => state.search.resettableFilters,
         showFiltersSheet: state => state.search.showFiltersSheet,
         totalResults: state => state.search.totalResults,
         userParams: state => state.search.userParams
       }),
       ...mapGetters({
-        facetNames: 'search/facetNames',
         filters: 'search/filters',
         collection: 'search/collection'
       }),
       theme() {
         return themes.find(theme => theme.qf === this.collection);
+      },
+      themeSpecificFacetNames() {
+        return (this.theme?.facets || []).map((facet) => facet.field);
+      },
+      facetNames() {
+        return this.themeSpecificFacetNames.concat(this.DEFAULT_FACET_NAMES);
       },
       resetButtonDisabled() {
         // Disable reset button while queries are running
