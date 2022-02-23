@@ -92,63 +92,6 @@ describe('store/search', () => {
       });
     });
 
-    describe('apiParamsChanged', () => {
-      describe('with params added', () => {
-        it('returns their names', () => {
-          const state = {
-            previousApiParams: {
-              query: '*:*'
-            },
-            apiParams: {
-              query: '*:*',
-              qf: ['TYPE:"IMAGE"']
-            }
-          };
-
-          const apiParamsChanged = store.getters.apiParamsChanged(state);
-
-          expect(apiParamsChanged).toEqual(['qf']);
-        });
-      });
-
-      describe('with params removed', () => {
-        it('returns their names', () => {
-          const state = {
-            previousApiParams: {
-              query: '*:*',
-              qf: ['TYPE:"IMAGE"']
-            },
-            apiParams: {
-              query: '*:*'
-            }
-          };
-
-          const apiParamsChanged = store.getters.apiParamsChanged(state);
-
-          expect(apiParamsChanged).toEqual(['qf']);
-        });
-      });
-
-      describe('without changed params', () => {
-        it('returns their names', () => {
-          const state = {
-            previousApiParams: {
-              query: '*:*',
-              qf: ['TYPE:"IMAGE"']
-            },
-            apiParams: {
-              query: '*:*',
-              qf: ['TYPE:"IMAGE"']
-            }
-          };
-
-          const apiParamsChanged = store.getters.apiParamsChanged(state);
-
-          expect(apiParamsChanged).toEqual([]);
-        });
-      });
-    });
-
     describe('searchOptions', () => {
       describe('.escape', () => {
         it('is `true` when override params has query and user params does not', () => {

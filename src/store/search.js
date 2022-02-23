@@ -48,8 +48,6 @@ export default {
     liveQueries: [],
     overrideParams: {},
     collectionLabel: null,
-    previousApiOptions: null,
-    previousApiParams: null,
     resettableFilters: [],
     results: [],
     showSearchBar: false,
@@ -164,10 +162,6 @@ export default {
       return filters;
     },
 
-    apiParamsChanged: (state) => {
-      return Object.keys(diff(state.previousApiParams, state.apiParams));
-    },
-
     searchOptions: (state) => {
       return {
         ...state.apiOptions,
@@ -187,9 +181,6 @@ export default {
 
     // TODO: replace with a getter?
     deriveApiSettings({ commit, state, getters }) {
-      commit('set', ['previousApiParams', Object.assign({}, state.apiParams)]);
-      commit('set', ['previousApiOptions', Object.assign({}, state.apiOptions)]);
-
       // Coerce qf from user input into an array as it may be a single string
       const userParams = Object.assign({}, state.userParams || {});
       userParams.qf = [].concat(userParams.qf || []);
