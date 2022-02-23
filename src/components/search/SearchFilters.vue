@@ -13,6 +13,7 @@
         :facet-name="filter.filterName"
         :field-value="filter.fieldValue"
         :prefixed="prefixed(filter)"
+        :escaped="true"
       />
     </b-badge>
   </div>

@@ -72,7 +72,7 @@
           <template v-else>
             <b-form-checkbox
               v-model="preSelected"
-              :value="option.label"
+              :value="enquoteFacetFieldFilterValue(option.label)"
               :name="name"
               :disabled="filterSelectionDisabled"
               :data-qa="`${option.label} ${name} ${CHECKBOX}`"
@@ -100,8 +100,13 @@
   import xor from 'lodash/xor';
   import FacetFieldLabel from './FacetFieldLabel';
   import ColourSwatch from '../generic/ColourSwatch';
+  import themes from '@/plugins/europeana/themes';
+  import { unquotableFacets } from '@/plugins/europeana/search';
+  import { escapeLuceneSpecials } from '@/plugins/europeana/utils';
 
   export default {
+    name: 'SideFacetDropdown',
+
     components: {
       AlertMessage: () => import('../generic/AlertMessage'),
       FacetFieldLabel,
@@ -164,15 +169,8 @@
         return Promise.resolve();
       }
 
-      return this.$store.dispatch('search/queryFacet', this.name)
-        .then((facets) => {
-          let fields = (facets || [])[0]?.fields || [];
-
-          // Limit contentTier filter options shown
-          if (this.name === 'contentTier') {
-            fields = this.filterContentTierFields(fields);
-          }
-
+      return this.queryFacet()
+        .then((fields) => {
           this.fields = fields;
           this.fetched = true;
         });
@@ -214,6 +212,27 @@
 
       dropdownVariant() {
         return ((typeof this.selected === 'string') || (Array.isArray(this.selected) && this.selected.length > 0)) ? 'selected' : 'light';
+      },
+
+      collection() {
+        return this.$store.getters['search/collection'];
+      },
+
+      theme() {
+        return themes.find(theme => theme.qf === this.collection);
+      },
+
+      themeSpecificFieldLabelPattern() {
+        return (this.theme?.facets || []).find((facet) => facet.field === this.name)?.label;
+      },
+
+      paramsForFacets() {
+        return {
+          ...this.$store.state.search.apiParams,
+          rows: 0,
+          profile: 'facets',
+          facet: this.name
+        };
       }
     },
 
@@ -237,13 +256,45 @@
     },
 
     methods: {
+      queryFacet() {
+        this.$store.commit('search/addLiveQuery', this.paramsForFacets);
+
+        return this.$apis.record.search(this.paramsForFacets, {
+          ...this.$store.getters['search/searchOptions'],
+          locale: this.$i18n.locale
+        })
+          .then((response) => response.facets?.[0]?.fields || [])
+          .then((fields) => this.filterFacetFields(fields))
+          .catch(async(error) => {
+            // TODO: refactor not to use store. rely on fetchState.error instead
+            await this.$store.dispatch('search/updateForFailure', error);
+          })
+          .finally(() => {
+            this.$store.commit('search/removeLiveQuery', this.paramsForFacets);
+          });
+      },
+
+      filterFacetFields(fields) {
+        if (this.name === 'REUSABILITY') {
+          fields = fields.filter((field) => field.label !== 'uncategorized');
+        } else if (this.name === 'contentTier') {
+          fields = this.filterContentTierFields(fields);
+        }
+
+        if (this.themeSpecificFieldLabelPattern) {
+          fields = fields.filter((field) => this.themeSpecificFieldLabelPattern.test(field.label));
+        }
+
+        return fields;
+      },
+
       filterContentTierFields(fields) {
         // In general, only show option 0
-        let contentTierFilters = ['"0"'];
+        let contentTierFilters = ['0'];
 
-        if (this.$store.getters['search/collection']) {
+        if (this.collection) {
           // If searching within a thematic collection, only show options 2 to 4
-          contentTierFilters = ['"2"', '"3"', '"4"'];
+          contentTierFilters = ['2', '3', '4'];
         } else if (this.$store.getters['entity/id']) {
           // If searching with a non-thematic collection...
           if (this.$store.getters['entity/id'].includes('/organization/')) {
@@ -251,7 +302,7 @@
             contentTierFilters = null;
           } else {
             // ... and it is not an organization, only show options 1 to 4
-            contentTierFilters = ['"1"', '"2"', '"3"', '"4"'];
+            contentTierFilters = ['1', '2', '3', '4'];
           }
         }
 
@@ -261,12 +312,18 @@
 
         return fields;
       },
+
+      enquoteFacetFieldFilterValue(value) {
+        return unquotableFacets.includes(this.name) ? value : `"${escapeLuceneSpecials(value)}"`;
+      },
+
       // Refetch facet fields, unless this is the reusability facet
       updateRouteQueryReusability() {
         if (this.name !== 'REUSABILITY') {
           this.$fetch();
         }
       },
+
       // Refetch facet fields, but only if other qf query values have changed
       updateRouteQueryQf(newQf, oldQf) {
         // Look for changes to qf, accounting for them being potentially strings
@@ -285,6 +342,7 @@
           this.$fetch();
         }
       },
+
       init() {
         if (this.isRadio && Array.isArray(this.selected)) {
           this.preSelected = this.selected[0];
