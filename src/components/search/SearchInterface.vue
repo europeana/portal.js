@@ -269,14 +269,6 @@
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
 
-  .reset {
-    background: none;
-    border: none;
-    color: $black;
-    font-size: $font-size-small;
-    text-transform: uppercase;
-  }
-
   .context-label {
     font-size: $font-size-small;
   }

@@ -80,6 +80,17 @@
                 :aria-label="facet.name"
                 @changed="changeFacet"
               />
+              <!-- <SideFacetDropdown
+                v-for="facet in filterableFacets"
+                :key="facet.name"
+                :name="facet.name"
+                :type="facetDropdownType(facet.name)"
+                :selected="filters[facet.name]"
+                :static-fields="facet.staticFields"
+                role="search"
+                :aria-label="facet.name"
+                @changed="changeFacet"
+              /> -->
               <SideSwitchFilter
                 v-if="contentTierFacetSwitch"
                 :value="filters.contentTier"
@@ -106,6 +117,7 @@
   import themes from '@/plugins/europeana/themes';
   import { defaultFacetNames } from '@/store/search';
   import SideFacetAutosuggest from './SideFacetAutosuggest';
+  // import SideFacetDropdown from './SideFacetDropdown';
 
   export default {
     name: 'SideFilters',
@@ -113,6 +125,7 @@
     components: {
       ClientOnly,
       SideFacetAutosuggest,
+      // SideFacetDropdown,
       SideDateFilter: () => import('./SideDateFilter'),
       SideSwitchFilter: () => import('./SideSwitchFilter')
     },

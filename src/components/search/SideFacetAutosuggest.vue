@@ -8,6 +8,7 @@
       v-model="selectedOptions"
       no-outer-focus
       class="side-filter-autosuggest"
+      :limit="isRadio ? 1 : null"
     >
       <template
         #default="{ tags, disabled, addTag, removeTag }"
@@ -25,7 +26,12 @@
               :disabled="disabled"
               @remove="removeTag(tag)"
             >
-              {{ tag }}
+              <FacetFieldLabel
+                :facet-name="name"
+                :field-value="tag"
+                :prefixed="false"
+                escaped
+              />
             </b-form-tag>
           </li>
         </ul>
@@ -57,7 +63,7 @@
           <b-dropdown-item-button
             v-for="(option, index) in availableSortedOptions"
             :key="index"
-            @click="selectOption({ option, addTag })"
+            @click="selectOption({ option, addTag, removeTag })"
           >
             <FacetFieldLabel
               v-if="isRadio"
@@ -90,6 +96,9 @@
   import FacetFieldLabel from './FacetFieldLabel';
   import ColourSwatch from '../generic/ColourSwatch';
   import { BFormTags, BFormTag } from 'bootstrap-vue';
+  import themes from '@/plugins/europeana/themes';
+  import { unquotableFacets } from '@/plugins/europeana/search';
+  import { escapeLuceneSpecials } from '@/plugins/europeana/utils';
 
   export default {
     name: 'SideFacetAutosuggest',
@@ -159,15 +168,8 @@
         return Promise.resolve();
       }
 
-      return this.$store.dispatch('search/queryFacet', this.name)
-        .then((facets) => {
-          let fields = (facets || [])[0]?.fields || [];
-
-          // Limit contentTier filter options shown
-          if (this.name === 'contentTier') {
-            fields = this.filterContentTierFields(fields);
-          }
-
+      return this.queryFacet()
+        .then((fields) => {
           this.fields = fields;
           this.fetched = true;
         });
@@ -226,8 +228,25 @@
         return this.type === this.RADIO;
       },
 
-      dropdownVariant() {
-        return ((typeof this.selected === 'string') || (Array.isArray(this.selected) && this.selected.length > 0)) ? 'selected' : 'light';
+      collection() {
+        return this.$store.getters['search/collection'];
+      },
+
+      theme() {
+        return themes.find(theme => theme.qf === this.collection);
+      },
+
+      themeSpecificFieldLabelPattern() {
+        return (this.theme?.facets || []).find((facet) => facet.field === this.name)?.label;
+      },
+
+      paramsForFacets() {
+        return {
+          ...this.$store.state.search.apiParams,
+          rows: 0,
+          profile: 'facets',
+          facet: this.name
+        };
       },
 
       criteria() {
@@ -262,13 +281,45 @@
     },
 
     methods: {
+      queryFacet() {
+        this.$store.commit('search/addLiveQuery', this.paramsForFacets);
+
+        return this.$apis.record.search(this.paramsForFacets, {
+          ...this.$store.getters['search/searchOptions'],
+          locale: this.$i18n.locale
+        })
+          .then((response) => response.facets?.[0]?.fields || [])
+          .then((fields) => this.filterFacetFields(fields))
+          .catch(async(error) => {
+            // TODO: refactor not to use store. rely on fetchState.error instead
+            await this.$store.dispatch('search/updateForFailure', error);
+          })
+          .finally(() => {
+            this.$store.commit('search/removeLiveQuery', this.paramsForFacets);
+          });
+      },
+
+      filterFacetFields(fields) {
+        if (this.name === 'REUSABILITY') {
+          fields = fields.filter((field) => field.label !== 'uncategorized');
+        } else if (this.name === 'contentTier') {
+          fields = this.filterContentTierFields(fields);
+        }
+
+        if (this.themeSpecificFieldLabelPattern) {
+          fields = fields.filter((field) => this.themeSpecificFieldLabelPattern.test(field.label));
+        }
+
+        return fields;
+      },
+
       filterContentTierFields(fields) {
         // In general, only show option 0
-        let contentTierFilters = ['"0"'];
+        let contentTierFilters = ['0'];
 
-        if (this.$store.getters['search/collection']) {
+        if (this.collection) {
           // If searching within a thematic collection, only show options 2 to 4
-          contentTierFilters = ['"2"', '"3"', '"4"'];
+          contentTierFilters = ['2', '3', '4'];
         } else if (this.$store.getters['entity/id']) {
           // If searching with a non-thematic collection...
           if (this.$store.getters['entity/id'].includes('/organization/')) {
@@ -276,7 +327,7 @@
             contentTierFilters = null;
           } else {
             // ... and it is not an organization, only show options 1 to 4
-            contentTierFilters = ['"1"', '"2"', '"3"', '"4"'];
+            contentTierFilters = ['1', '2', '3', '4'];
           }
         }
 
@@ -286,6 +337,11 @@
 
         return fields;
       },
+
+      enquoteFacetFieldFilterValue(value) {
+        return unquotableFacets.includes(this.name) ? value : `"${escapeLuceneSpecials(value)}"`;
+      },
+
       // Refetch facet fields, unless this is the reusability facet
       updateRouteQueryReusability() {
         if (this.name !== 'REUSABILITY') {
@@ -323,7 +379,12 @@
         });
       },
 
-      selectOption({ option, addTag }) {
+      selectOption({ option, addTag, removeTag }) {
+        // when isRadio and already one option selected > replace
+        if (this.isRadio && this.selectedOptions.length === 1) {
+          removeTag(this.selectedOptions[0]);
+        }
+
         const selected = this.isRadio ? option : option.label;
         addTag(selected);
         this.searchFacet = '';
