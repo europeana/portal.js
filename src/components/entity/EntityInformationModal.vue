@@ -21,27 +21,11 @@
           {{ info.label }}
         </span>
         <span
-          v-if="info.value.values"
-          :lang="info.value.code"
           class="semibold"
+          :lang="info.lang"
         >
           <b-link
-            v-if=" isUrl(info.value.values[0])"
-            :href="info.value.values[0]"
-            target="_blank"
-          >
-            {{ info.value.values[0] }}
-          </b-link>
-          <template v-else>
-            {{ info.value.values[0] }}
-          </template>
-        </span>
-        <span
-          v-else
-          class="semibold"
-        >
-          <b-link
-            v-if=" isUrl(info.value)"
+            v-if="isUrl(info.value)"
             :href="info.value"
             target="_blank"
           >

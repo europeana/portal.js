@@ -173,7 +173,7 @@ describe('pages/collections/type/_', () => {
       const moreInfo = wrapper.vm.moreInfo;
       expect(moreInfo[0].value).toBe(organisationEntity.entity.homepage);
       expect(moreInfo[1].value).toBe(organisationEntity.entity.hasAddress.countryName);
-      expect(moreInfo[2].value.values[0]).toBe(organisationEntity.entity.acronym['en']);
+      expect(moreInfo[2].value).toBe(organisationEntity.entity.acronym.en);
       expect(moreInfo[3].value).toBe(organisationEntity.entity.hasAddress.locality);
     });
   });

@@ -387,7 +387,8 @@
             labelledMoreInfo.push({ label: this.$t('organisation.country'), value: this.entity.hasAddress.countryName });
           }
           if (this.entity?.acronym)  {
-            labelledMoreInfo.push({ label: this.$t('organisation.nameAcronym'), value: langMapValueForLocale(this.entity.acronym, this.$i18n.locale) });
+            const langMapValue = langMapValueForLocale(this.entity.acronym, this.$i18n.locale);
+            labelledMoreInfo.push({ label: this.$t('organisation.nameAcronym'), value: langMapValue.values[0], lang: langMapValue.code });
           }
           if (this.entity?.hasAddress?.locality)  {
             labelledMoreInfo.push({ label: this.$t('organisation.city'), value: this.entity.hasAddress.locality });
