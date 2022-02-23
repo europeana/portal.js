@@ -37,20 +37,22 @@
         {{ showAll ? $t('showLess') : $t('showMore') }}
       </b-button>
     </b-card-text>
-    <b-button
-      v-if="moreData"
-      class="d-inline-flex align-items-center"
-      data-qa='entity details button'
-      @click="$bvModal.show('entityInformationModal')"
+    <template
+      v-if="moreInfo"
     >
-      <span class="icon-info pr-1" />
-      {{ $t('actions.learnMore') }}
-    </b-button>
-    <EntityInformationModal
-      v-if="moreData"
-      :title="title"
-      :entity-info="moreData"
-    />
+      <b-button
+        class="d-inline-flex align-items-center"
+        data-qa='entity details button'
+        @click="$bvModal.show('entityInformationModal')"
+      >
+        <span class="icon-info pr-1" />
+        {{ $t('actions.learnMore') }}
+      </b-button>
+      <EntityInformationModal
+        :title="title"
+        :entity-info="moreInfo"
+      />
+    </template>
     <b-button
       v-if="externalLink"
       class="d-inline-flex align-items-center"
@@ -153,8 +155,8 @@
       /**
        * More entity data to show in modal (currently only used for organisation entity)
        */
-      moreData: {
-        type: Object,
+      moreInfo: {
+        type: Array,
         default: null
       }
     },
@@ -212,7 +214,7 @@
         logo="https://cdn.jsdelivr.net/npm/@europeana/portal@1.62.2/.nuxt/dist/client/img/logo.e9d9080.svg"
         :editable="true"
         externalLink="https://www.europeana.eu"
-        :moreData="{
+        :moreInfo="{
           website: { label: 'website', value: 'https://www.europeana.eu' },
           country: { label: 'Country', value: 'The Netherlands' },
           acronym: { label: 'Acronym', value: 'EF' },

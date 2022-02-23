@@ -24,9 +24,6 @@ const factory = (propsData = {}) => mount(EntityHeader, {
   }
 });
 
-const moreData = {
-};
-
 const entityProps = {
   title: { values: ['Book'], code: 'en' },
   description: { values: ['Architecture is both the process and the product of planning, designing, and constructing buildings and other physical structures.'], code: 'en' },
@@ -34,7 +31,7 @@ const entityProps = {
   image: 'https://www.example.eu/image.jpg',
   editable: false,
   externalLink: 'https://www.example.eu/',
-  moreData
+  moreInfo: []
 };
 
 describe('components/entity/EntityHeaders', () => {

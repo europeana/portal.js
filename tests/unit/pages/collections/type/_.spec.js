@@ -166,15 +166,15 @@ describe('pages/collections/type/_', () => {
       expect(thumbnail).toBe(topicEntity.entity.isShownBy.thumbnail);
     });
   });
-  describe('moreData', () => {
+  describe('moreInfo', () => {
     it('returns an object with more entity data on organisation pages', () => {
       const wrapper = factory(organisationEntity);
 
-      const moreData = wrapper.vm.moreData;
-      expect(moreData.website.value).toBe(organisationEntity.entity.homepage);
-      expect(moreData.country.value).toBe(organisationEntity.entity.hasAddress.countryName);
-      expect(moreData.city.value).toBe(organisationEntity.entity.hasAddress.locality);
-      expect(moreData.acronym.value.values[0]).toBe(organisationEntity.entity.acronym['en']);
+      const moreInfo = wrapper.vm.moreInfo;
+      expect(moreInfo[0].value).toBe(organisationEntity.entity.homepage);
+      expect(moreInfo[1].value).toBe(organisationEntity.entity.hasAddress.countryName);
+      expect(moreInfo[2].value.values[0]).toBe(organisationEntity.entity.acronym['en']);
+      expect(moreInfo[3].value).toBe(organisationEntity.entity.hasAddress.locality);
     });
   });
 });

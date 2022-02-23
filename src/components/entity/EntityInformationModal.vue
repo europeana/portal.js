@@ -15,7 +15,7 @@
         v-for="(info, index) in entityInfo"
         :key="index"
         class="entity-data-row d-flex flex-wrap justify-content-between"
-        :data-qa="info.label + ' field'"
+        :data-qa="`${info.label} field`"
       >
         <span>
           {{ info.label }}
@@ -77,7 +77,7 @@
         default: null
       },
       entityInfo: {
-        type: Object,
+        type: Array,
         default: null
       }
     },
