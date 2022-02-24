@@ -409,7 +409,7 @@
         addTag(selected);
         this.searchFacet = '';
 
-        this.$emit('changed', this.name, this.selected.concat(selected));
+        this.$emit('changed', this.name, (this.isRadio ? selected : this.selected.concat(selected)));
       }
     }
   };
