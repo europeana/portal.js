@@ -2,6 +2,7 @@
   <div
     data-qa="entity page"
     class="entity-page"
+    :class="{'top-header': !headerCardsEnabled}"
   >
     <b-container
       v-if="!headerCardsEnabled"
@@ -77,6 +78,17 @@
                 :show-pins="userIsEditor && userIsSetsEditor"
                 :context-label="headerCardsEnabled ? contextLabel : null"
               >
+                <EntityHeader
+                  v-if="headerCardsEnabled"
+                  :description="description"
+                  :title="title"
+                  :logo="logo"
+                  :image="thumbnail"
+                  :editable="isEditable && userIsEditor"
+                  :external-link="homepage"
+                  :proxy="entity ? entity.proxy : null"
+                  :more-info="moreInfo"
+                />
                 <template
                   v-if="headerCardsEnabled && relatedCollectionsFound"
                   #related
@@ -128,9 +140,10 @@
       ClientOnly,
       EntityDetails,
       SearchInterface,
-      EntityUpdateModal: () => import('../../../components/entity/EntityUpdateModal'),
-      RelatedCollections: () => import('../../../components/generic/RelatedCollections'),
-      SideFilters: () => import('../../../components/search/SideFilters')
+      SideFilters: () => import('../../../components/search/SideFilters'),
+      EntityHeader: () => import('@/components/entity/EntityHeader'),
+      EntityUpdateModal: () => import('@/components/entity/EntityUpdateModal'),
+      RelatedCollections: () => import('../../../components/generic/RelatedCollections')
     },
 
     async beforeRouteLeave(to, from, next) {
@@ -198,7 +211,10 @@
               'note',
               'description',
               'homepage',
-              'prefLabel'
+              'prefLabel',
+              'isShownBy',
+              'hasAddress',
+              'acronym'
             ]));
           }
           if (responses[1].note) {
@@ -300,8 +316,10 @@
           return this.entity.note[this.$i18n.locale] ? { values: this.entity.note[this.$i18n.locale], code: this.$i18n.locale } : null;
         }
 
-        const description = this.collectionType === 'organisation' &&
-          this.entity?.description ? langMapValueForLocale(this.entity.description, this.$i18n.locale) : null;
+        let description = null;
+        if (this.collectionType === 'organisation' && this.entity?.description) {
+          description = langMapValueForLocale(this.entity.description, this.$i18n.locale);
+        }
 
         return this.editorialDescription ? { values: [this.editorialDescription], code: null } : description;
       },
@@ -368,6 +386,30 @@
       },
       headerCardsEnabled() {
         return this.$features.entityHeaderCards;
+      },
+      thumbnail() {
+        return this.entity?.isShownBy?.thumbnail || null;
+      },
+      moreInfo() {
+        const labelledMoreInfo = [];
+
+        if (this.collectionType === 'organisation') {
+          if (this.homepage)  {
+            labelledMoreInfo.push({ label: this.$t('website'), value: this.homepage });
+          }
+          if (this.entity?.hasAddress?.countryName)  {
+            labelledMoreInfo.push({ label: this.$t('organisation.country'), value: this.entity.hasAddress.countryName });
+          }
+          if (this.entity?.acronym)  {
+            const langMapValue = langMapValueForLocale(this.entity.acronym, this.$i18n.locale);
+            labelledMoreInfo.push({ label: this.$t('organisation.nameAcronym'), value: langMapValue.values[0], lang: langMapValue.code });
+          }
+          if (this.entity?.hasAddress?.locality)  {
+            labelledMoreInfo.push({ label: this.$t('organisation.city'), value: this.entity.hasAddress.locality });
+          }
+        }
+
+        return labelledMoreInfo.length > 0 ? labelledMoreInfo : null;
       }
     },
     watch: {
@@ -426,7 +468,13 @@
   @import '@/assets/scss/variables';
 
   .entity-page {
-    margin-top: -1rem;
+    &.top-header {
+      margin-top: -1rem;
+    }
+
+    .related-collections {
+      padding: 0;
+    }
   }
 
   .page-container {

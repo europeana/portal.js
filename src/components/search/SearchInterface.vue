@@ -87,6 +87,7 @@
               :per-row="perRow"
               :show-pins="showPins"
             >
+              <slot />
               <template #related>
                 <slot
                   name="related"
@@ -191,7 +192,6 @@
         userParams: state => state.search.userParams,
         entityId: state => state.entity.id,
         error: state => state.search.error,
-        facets: state => state.search.facets,
         hits: state => state.search.hits,
         lastAvailablePage: state => state.search.lastAvailablePage,
         results: state => state.search.results,
@@ -271,39 +271,6 @@
           this.$cookies && this.$cookies.set('searchResultsView', this.routeQueryView);
           this.$store.commit('search/set', ['userParams', this.$route.query]);
         }
-      },
-      rerouteSearch(queryUpdates) {
-        const query = this.updateCurrentSearchQuery(queryUpdates);
-        this.$goto(this.$path({ ...this.route, ...{ query } }));
-        if (queryUpdates.qf) {
-          queryUpdates.qf.forEach(filter =>
-            this.$matomo && this.$matomo.trackEvent('Filters', 'Filter selected', filter)
-          );
-        }
-        if (queryUpdates.reusability) {
-          this.$matomo && this.$matomo.trackEvent('Filters', 'Reusability filter selected', queryUpdates.reusability);
-        }
-      },
-      updateCurrentSearchQuery(updates = {}) {
-        const current = {
-          page: this.page,
-          qf: this.qf,
-          query: this.query,
-          reusability: this.reusability,
-          view: this.view,
-          api: this.api
-        };
-
-        const updated = { ...current, ...updates };
-
-        for (const key in updated) {
-          // If any updated values are `null`, remove them from the query
-          if (updated[key] === null) {
-            delete updated[key];
-          }
-        }
-
-        return updated;
       }
     }
   };

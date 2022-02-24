@@ -6,7 +6,7 @@
   border: none;
   transition: box-shadow 0.25s;
 
-  @at-root .text-page &.default-card {
+  &.dark-card {
     background: $bodygrey;
   }
 
@@ -15,7 +15,7 @@
     transition: box-shadow 0.25s;
   }
 
-  .card-wrapper {
+  a {
     text-decoration: none;
   }
 
@@ -71,6 +71,19 @@
         content: '\e946';
       }
     }
+  }
+}
+
+.header-card {
+  border: 0;
+  h1 {
+    font-size: $font-size-medium;
+    margin-bottom: 0.375rem;
+  }
+
+  .card-text {
+    font-size: $font-size-small;
+    color: $mediumgrey;
   }
 }
 
@@ -617,11 +630,9 @@
   flex: 0 0 100%;
 }
 
-.card-group-list {
-  .related-collections-card {
-    margin-left: 0;
-    margin-right: 0;
-  }
+.card-group-list .header-card, .card .related-collections-card {
+  margin-left: 0;
+  margin-right: 0;
 }
 
 @media (min-width: $bp-medium) {
@@ -778,6 +789,30 @@
 
       @media (min-width: $bp-extralarge) {
         width: calc(100% / 4 - $masonry-gutter);
+      }
+    }
+
+    .header-card {
+      @media (max-width: $bp-medium) {
+        &[style] {
+          position: relative !important;
+          left: auto !important;
+          top: auto !important;
+        }
+      }
+
+      @media (min-width: $bp-medium) {
+        width: calc(100% - $masonry-gutter);
+        margin-left: 0.5 * $masonry-gutter ;
+        margin-right: 0.5 * $masonry-gutter;
+      }
+
+      @media (min-width: $bp-large) {
+        width: calc(100% / 1.5 - $masonry-gutter);
+      }
+
+      @media (min-width: $bp-extralarge) {
+        width: calc(100% / 2 - $masonry-gutter);
       }
     }
   }

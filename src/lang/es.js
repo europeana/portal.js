@@ -464,7 +464,6 @@ export default {
     },
     "contentTier": {
       "name": "Calidad del artículo",
-      "notification": "Hay elementos disponibles que no coinciden con nuestros criterios de publicación. Puedes acceder a estos activando el filtro \"Calidad del elemento\" en \"Más filtros\".",
       "options": {
         "*": "Incluir los elementos que no cumplan nuestros criterios de publicación",
         "0": "Mostrar solo los elementos que no cumplen con nuestros criterios de publicación",

@@ -464,7 +464,6 @@ export default {
     },
     "contentTier": {
       "name": "Qualità dell'articolo",
-      "notification": "Sono disponibili oggetti che non soddisfano i nostri criteri di pubblicazione. Per accedervi, attiva il filtro \"Qualità oggetti\" posizionato sotto \"Più filtri\".",
       "options": {
         "*": "Comprende oggetti che non soddisfano i nostri criteri di pubblicazione",
         "0": "Mostra solo gli oggetti che non soddisfano i nostri criteri di pubblicazione",

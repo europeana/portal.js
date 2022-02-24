@@ -464,7 +464,6 @@ export default {
     },
     "contentTier": {
       "name": "Objektets kvalitet",
-      "notification": "Några objekt som inte matchar våra publiceringsvillkor finns tillgängliga. Du får åtkomst till dessa objekt genom att aktivera filtret \"Föremålskvalitet\" under \"Fler filter\".",
       "options": {
         "*": "Innefattar objekt som inte uppfyller våra publiceringsvillkor",
         "0": "Visa endast objekt som inte uppfyller våra publiceringskriterier",

@@ -464,7 +464,6 @@ export default {
     },
     "contentTier": {
       "name": "Minősége elemek",
-      "notification": "Olyan cikkek is elérhetőek, amelyek nem felelnek meg az általunk felállított közzétételi kritériumoknak. Ezeket a cikkeket a \"Több szűrő\", \"Cikkek minősége\" opció aktiválásával érheti el.",
       "options": {
         "*": "A közzétételi feltételeknek meg nem felelő elemek kizárása",
         "0": "Csak olyan cikkek megjelenítése, amelyek nem felelnek meg a közzétételi kritériumoknak",

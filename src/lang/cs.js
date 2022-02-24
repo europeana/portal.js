@@ -464,7 +464,6 @@ export default {
     },
     "contentTier": {
       "name": "Kvalita položky",
-      "notification": "Několik dostupných položek nesplňuje naše publikační kritéria. K těmto položkám získáte přístup po aktivaci filtru „přijatelnost položky“ v nabídce „více filtrů“.",
       "options": {
         "*": "Jsou zahrnuty položky, které nesplňují naše publikační kritéria.",
         "0": "Zobrazit pouze položky, které nesplňují naše publikační kritéria.",

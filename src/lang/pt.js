@@ -464,7 +464,6 @@ export default {
     },
     "contentTier": {
       "name": "Qualidade do item",
-      "notification": "Alguns itens que não correspondem aos nossos critérios de publicação estão disponíveis. Pode aceder a esses itens ativando o filtro 'Qualidade do item' em 'Mais filtros'.",
       "options": {
         "*": "Inclui itens que não atendem aos nossos critérios de publicação",
         "0": "Mostrar apenas os itens que não atendem aos nossos critérios de publicação",

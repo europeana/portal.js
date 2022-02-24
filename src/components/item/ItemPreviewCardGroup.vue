@@ -13,6 +13,7 @@
       class="masonry-container"
       :data-qa="`item previews ${view}`"
     >
+      <slot />
       <template
         v-for="(item, index) in items"
       >
@@ -45,6 +46,7 @@
     :class="cardGroupClass"
     deck
   >
+    <slot />
     <template
       v-for="(item, index) in items"
     >

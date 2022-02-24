@@ -464,7 +464,6 @@ export default {
     },
     "contentTier": {
       "name": "Preces kvalitāte",
-      "notification": "Ir pieejami daži vienumi, kas neatbilst mūsu publicēšanas kritērijiem. Šiem vienumiem var piekļūt, aktivizējot filtru \"Vienumu kvalitāte\", kas pieejams sadaļā \"Vairāk filtru\".",
       "options": {
         "*": "Ietver vienumus, kas neatbilst mūsu publicēšanas kritērijiem",
         "0": "Rādīt tikai vienumus, kas neatbilst mūsu publicēšanas kritērijiem.",

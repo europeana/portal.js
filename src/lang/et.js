@@ -464,7 +464,6 @@ export default {
     },
     "contentTier": {
       "name": "Eseme kvaliteet",
-      "notification": "Mõned tooted, mis ei vasta meie avaldamiskriteeriumidele, on saadaval. Nendele toodetele pääsete juurde, kui aktiveerite jaotises „Veel filtreid” filtri „Toote kvaliteet”.",
       "options": {
         "*": "Sisaldab üksusi, mis ei vasta meie avaldamiskriteeriumidele",
         "0": "Kuva ainult üksused, mis ei vasta meie avaldamiskriteeriumidele",
