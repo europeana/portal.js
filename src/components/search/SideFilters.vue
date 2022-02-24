@@ -294,7 +294,7 @@
         // Remove collection-specific filters when collection is changed
         if (Object.prototype.hasOwnProperty.call(selected, 'collection') || !this.collection) {
           for (const name in filters) {
-            if (name !== 'collection' && !defaultFacetNames.includes(name) && this.resettableFilters.includes(name)) {
+            if (name !== 'collection' && !this.DEFAULT_FACET_NAMES.includes(name) && this.resettableFilters.includes(name)) {
               filters[name] = [];
             }
           }

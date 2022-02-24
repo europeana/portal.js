@@ -23,9 +23,8 @@
             class="list-inline-item"
           >
             <b-form-tag
-              :title="tag"
               :disabled="disabled"
-              @remove="removeTag(tag)"
+              @remove="removeOption({ tag, removeTag })"
             >
               <FacetFieldLabel
                 :facet-name="name"
@@ -395,6 +394,11 @@
         });
       },
 
+      removeOption({ tag, removeTag }) {
+        removeTag(tag);
+        this.$emit('changed', this.name, this.selected.filter((selection) => selection !== tag));
+      },
+
       selectOption({ option, addTag, removeTag }) {
         // when isRadio and already one option selected > replace
         if (this.isRadio && this.selectedOptions.length === 1) {
@@ -405,7 +409,7 @@
         addTag(selected);
         this.searchFacet = '';
 
-        this.$emit('changed', this.name, selected);
+        this.$emit('changed', this.name, this.selected.concat(selected));
       }
     }
   };
