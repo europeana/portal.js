@@ -94,7 +94,8 @@
                   #related
                 >
                   <b-card
-                    class="text-left related-collections-card mb-4"
+                    v-masonry-tile
+                    class="text-left related-collections-card content-card"
                   >
                     <RelatedCollections
                       :title="$t('youMightAlsoLike')"
