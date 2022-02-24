@@ -3,22 +3,6 @@ import merge from 'deepmerge';
 import themes from '@/plugins/europeana/themes';
 import { BASE_URL as FULLTEXT_BASE_URL } from '@/plugins/europeana/newspaper';
 
-// Default facets to always request and display.
-// Order is significant as it will be reflected on search results.
-export const defaultFacetNames = [
-  'TYPE',
-  'REUSABILITY',
-  'COUNTRY',
-  'LANGUAGE',
-  'PROVIDER',
-  'DATA_PROVIDER',
-  'COLOURPALETTE',
-  'IMAGE_ASPECTRATIO',
-  'IMAGE_SIZE',
-  'MIME_TYPE',
-  'contentTier'
-];
-
 const filtersFromQf = (qfs) => {
   const filters = {};
 

@@ -3,82 +3,79 @@
     <label
       class="facet-label"
     >{{ facetName }}</label>
-    <SearchFilters
-      :filters="selectedFilters"
-      :prefixed="false"
-    />
-    <b-dropdown
-      :id="facetName"
-      ref="dropdown"
-      :variant="dropdownVariant"
-      class="facet-dropdown side-facet"
-      :data-type="type"
-      :disabled="fetched && fields.length === 0"
-      :data-qa="`${name} facet dropdown`"
-      block
-      @hidden="hiddenDropdown"
+    <b-form-tags
+      :id="facetNameNoSpaces"
+      v-model="selectedOptions"
+      no-outer-focus
+      class="side-filter-autosuggest"
+      :limit="isRadio ? 1 : null"
     >
-      <template #button-content>
-        <span
-          class="dropdown-toggle-text"
-        >
-          {{ facetName }}
-        </span>
-      </template>
-
-      <b-container v-if="$fetchState.pending">
-        <b-row class="flex-md-row py-4 text-center">
-          <b-col cols="12">
-            <LoadingSpinner />
-          </b-col>
-        </b-row>
-      </b-container>
-      <b-container v-else-if="$fetchState.error">
-        <b-row class="flex-md-row py-4">
-          <b-col cols="12">
-            <AlertMessage
-              :error="$fetchState.error.message"
-            />
-          </b-col>
-        </b-row>
-      </b-container>
-      <b-dropdown-form
-        v-else
-        class="options-container"
+      <template
+        #default="{ tags, disabled, addTag, removeTag }"
       >
-        <!-- TODO: we aren't we using b-dropdown-item here? -->
-        <div
-          v-for="(option, index) in sortedOptions"
-          :key="index"
-          :data-qa="`${isRadio ? option : option.label} ${name} field`"
-          role="menuitem"
+        <!-- TODO: use SearchFilters? -->
+        <ul
+          v-if="tags.length > 0"
         >
-          <template v-if="isRadio">
-            <b-form-radio
-              v-model="preSelected"
-              :value="option"
-              :name="name"
-              :disabled="filterSelectionDisabled"
-              :data-qa="`${option} ${name} ${RADIO}`"
-              @change="$emit('changed', name, preSelected)"
+          <li
+            v-for="tag in tags"
+            :key="tag"
+            class="list-inline-item"
+          >
+            <b-form-tag
+              :title="tag"
+              :disabled="disabled"
+              @remove="removeTag(tag)"
             >
               <FacetFieldLabel
                 :facet-name="name"
-                :field-value="option"
+                :field-value="tag"
+                :prefixed="false"
+                escaped
               />
-            </b-form-radio>
-          </template>
+            </b-form-tag>
+          </li>
+        </ul>
 
-          <template v-else>
-            <b-form-checkbox
-              v-model="preSelected"
-              :value="enquoteFacetFieldFilterValue(option.label)"
-              :name="name"
-              :disabled="filterSelectionDisabled"
-              :data-qa="`${option.label} ${name} ${CHECKBOX}`"
-              :class="{ 'custom-checkbox-colour': isColourPalette }"
-              @change="$emit('changed', name, preSelected)"
+        <b-dropdown
+          block
+        >
+          <template #button-content>
+            Select {{ facetName.toLowerCase() }}
+          </template>
+          <template
+            v-if="search"
+          >
+            <b-dropdown-form
+              @submit.stop.prevent="() => {}"
             >
+              <b-form-group
+                label="Search"
+                :label-for="`${facetNameNoSpaces}-search-input`"
+                :description="searchOptions"
+                :disabled="disabled"
+              >
+                <b-form-input
+                  :id="`${facetNameNoSpaces}-search-input`"
+                  v-model="searchFacet"
+                  type="search"
+                  autocomplete="off"
+                />
+              </b-form-group>
+            </b-dropdown-form>
+            <b-dropdown-divider />
+          </template>
+          <b-dropdown-item-button
+            v-for="(option, index) in availableSortedOptions"
+            :key="index"
+            @click="selectOption({ option, addTag, removeTag })"
+          >
+            <FacetFieldLabel
+              v-if="isRadio"
+              :facet-name="name"
+              :field-value="option"
+            />
+            <template v-else>
               <ColourSwatch
                 v-if="isColourPalette"
                 :hex-code="option.label"
@@ -88,11 +85,14 @@
                 :field-value="option.label"
               />
               <span>({{ option.count | localise }})</span>
-            </b-form-checkbox>
-          </template>
-        </div>
-      </b-dropdown-form>
-    </b-dropdown>
+            </template>
+          </b-dropdown-item-button>
+          <b-dropdown-text v-if="availableSortedOptions.length === 0">
+            There are no tags available to select
+          </b-dropdown-text>
+        </b-dropdown>
+      </template>
+    </b-form-tags>
   </div>
 </template>
 
@@ -100,19 +100,24 @@
   import xor from 'lodash/xor';
   import FacetFieldLabel from './FacetFieldLabel';
   import ColourSwatch from '../generic/ColourSwatch';
+  import { BFormTags, BFormTag } from 'bootstrap-vue';
   import themes from '@/plugins/europeana/themes';
   import { unquotableFacets } from '@/plugins/europeana/search';
   import { escapeLuceneSpecials } from '@/plugins/europeana/utils';
 
+  /**
+   * Dropdown for search facet, with removable tags and optional search.
+   */
   export default {
     name: 'SideFacetDropdown',
 
     components: {
-      AlertMessage: () => import('../generic/AlertMessage'),
+      // AlertMessage: () => import('../generic/AlertMessage'),
+      BFormTags,
+      BFormTag,
       FacetFieldLabel,
-      ColourSwatch,
-      LoadingSpinner: () => import('../generic/LoadingSpinner'),
-      SearchFilters: () => import('./SearchFilters')
+      ColourSwatch
+      // LoadingSpinner: () => import('../generic/LoadingSpinner'),
     },
 
     props: {
@@ -148,16 +153,26 @@
       staticFields: {
         type: Array,
         default: null
+      },
+
+      /**
+       * If `true`, enable search of available fields.
+       */
+      search: {
+        type: Boolean,
+        default: false
       }
     },
 
     data() {
       return {
+        searchFacet: '',
         RADIO: 'radio',
         CHECKBOX: 'checkbox',
         preSelected: null,
         fetched: !!this.staticFields,
-        fields: this.staticFields || []
+        fields: this.staticFields || [],
+        selectedOptions: this.selected || []
       };
     },
 
@@ -198,6 +213,21 @@
         return selected.sort((a, b) => a.count > b.count).concat(leftOver);
       },
 
+      availableSortedOptions() {
+        const criteria = this.criteria;
+
+        const options = this.sortedOptions.filter(option => this.selectedOptions.indexOf(option) === -1);
+
+        if (criteria) {
+          return options.filter(option => {
+            const optionLabel = this.isRadio ? option : option.label;
+            return optionLabel.toLowerCase().indexOf(criteria) > -1;
+          });
+        }
+
+        return options;
+      },
+
       isColourPalette() {
         return this.facetName === 'Colour';
       },
@@ -206,12 +236,12 @@
         return this.$tFacetName(this.name);
       },
 
-      isRadio() {
-        return this.type === this.RADIO;
+      facetNameNoSpaces() {
+        return this.$tFacetName(this.name).replace(/\s/g, '-').toLowerCase();
       },
 
-      dropdownVariant() {
-        return ((typeof this.selected === 'string') || (Array.isArray(this.selected) && this.selected.length > 0)) ? 'selected' : 'light';
+      isRadio() {
+        return this.type === this.RADIO;
       },
 
       collection() {
@@ -233,6 +263,17 @@
           profile: 'facets',
           facet: this.name
         };
+      },
+
+      criteria() {
+        return this.searchFacet.trim().toLowerCase();
+      },
+
+      searchOptions() {
+        if (this.criteria && this.sortedOptions.length === 0) {
+          return 'There are no tags matching your search criteria';
+        }
+        return '';
       }
     },
 
@@ -323,7 +364,6 @@
           this.$fetch();
         }
       },
-
       // Refetch facet fields, but only if other qf query values have changed
       updateRouteQueryQf(newQf, oldQf) {
         // Look for changes to qf, accounting for them being potentially strings
@@ -342,7 +382,6 @@
           this.$fetch();
         }
       },
-
       init() {
         if (this.isRadio && Array.isArray(this.selected)) {
           this.preSelected = this.selected[0];
@@ -356,36 +395,18 @@
         });
       },
 
-      hiddenDropdown() {
-        this.init();
+      selectOption({ option, addTag, removeTag }) {
+        // when isRadio and already one option selected > replace
+        if (this.isRadio && this.selectedOptions.length === 1) {
+          removeTag(this.selectedOptions[0]);
+        }
+
+        const selected = this.isRadio ? option : option.label;
+        addTag(selected);
+        this.searchFacet = '';
+
+        this.$emit('changed', this.name, selected);
       }
     }
   };
 </script>
-
-<docs lang="md">
-  Radio buttons, none selected:
-  ```jsx
-  <SideFacetDropdown
-    name="collection"
-    type="radio"
-    :static-fields="['ww1', 'archaeology', 'art', 'fashion']"
-  />
-  ```
-
-  Checkboxes, two selected:
-  ```jsx
-  <SideFacetDropdown
-    name="TYPE"
-    type="checkbox"
-    :selected="['IMAGE', 'VIDEO']"
-    :static-fields="[
-      { label:'IMAGE', count: 28417756 },
-      { label:'TEXT', count: 21607709 },
-      { label:'SOUND', count: 782764 },
-      { label:'VIDEO', count: 514235 },
-      { label:'3D', count: 17668 }
-    ]"
-  />
-  ```
-</docs>

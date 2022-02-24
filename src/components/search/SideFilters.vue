@@ -69,28 +69,18 @@
                 :specific="dateFilter.specific"
                 @dateFilter="dateFilterSelected"
               />
-              <SideFacetAutosuggest
+              <SideFacetDropdown
                 v-for="facet in filterableFacets"
                 :key="facet.name"
                 :name="facet.name"
                 :type="facetDropdownType(facet.name)"
                 :selected="filters[facet.name]"
                 :static-fields="facet.staticFields"
+                :search="facet.search"
                 role="search"
                 :aria-label="facet.name"
                 @changed="changeFacet"
               />
-              <!-- <SideFacetDropdown
-                v-for="facet in filterableFacets"
-                :key="facet.name"
-                :name="facet.name"
-                :type="facetDropdownType(facet.name)"
-                :selected="filters[facet.name]"
-                :static-fields="facet.staticFields"
-                role="search"
-                :aria-label="facet.name"
-                @changed="changeFacet"
-              /> -->
               <SideSwitchFilter
                 v-if="contentTierFacetSwitch"
                 :value="filters.contentTier"
@@ -115,17 +105,14 @@
   import { mapState, mapGetters } from 'vuex';
   import { rangeToQueryParam, rangeFromQueryParam } from '@/plugins/europeana/search';
   import themes from '@/plugins/europeana/themes';
-  import { defaultFacetNames } from '@/store/search';
-  import SideFacetAutosuggest from './SideFacetAutosuggest';
-  // import SideFacetDropdown from './SideFacetDropdown';
+  import SideFacetDropdown from './SideFacetDropdown';
 
   export default {
     name: 'SideFilters',
 
     components: {
       ClientOnly,
-      SideFacetAutosuggest,
-      // SideFacetDropdown,
+      SideFacetDropdown,
       SideDateFilter: () => import('./SideDateFilter'),
       SideSwitchFilter: () => import('./SideSwitchFilter')
     },
@@ -139,7 +126,31 @@
     },
     data() {
       return {
-        DEFAULT_FACET_NAMES: defaultFacetNames,
+        DEFAULT_FACET_NAMES: [
+          'TYPE',
+          'REUSABILITY',
+          'COUNTRY',
+          'LANGUAGE',
+          'PROVIDER',
+          'DATA_PROVIDER',
+          'COLOURPALETTE',
+          'IMAGE_ASPECTRATIO',
+          'IMAGE_SIZE',
+          'MIME_TYPE',
+          'contentTier'
+        ],
+        SEARCHABLE_FACETS: [
+          'COUNTRY',
+          'LANGUAGE',
+          'PROVIDER',
+          'DATA_PROVIDER',
+          'COLOURPALETTE',
+          'MIME_TYPE',
+          'CREATOR',
+          'proxy_dc_type.en',
+          'proxy_dc_format.en',
+          'proxy_dcterms_medium.en'
+        ],
         hideFilterSheet: true
       };
     },
@@ -170,7 +181,8 @@
       },
       filterableFacets() {
         let facets = this.facetNames.map(facetName => ({
-          name: facetName
+          name: facetName,
+          search: this.SEARCHABLE_FACETS.includes(facetName)
         }));
 
         if (this.collectionFacetEnabled) {
