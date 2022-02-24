@@ -255,13 +255,17 @@
         return (this.theme?.facets || []).find((facet) => facet.field === this.name)?.label;
       },
 
-      paramsForFacets() {
-        return {
+      recordApiSearchParams() {
+        const params = {
           ...this.$store.state.search.apiParams,
           rows: 0,
           profile: 'facets',
           facet: this.name
         };
+        if (this.search) {
+          params[`f.${this.name}.facet.limit`] = 500;
+        }
+        return params;
       },
 
       criteria() {
@@ -297,9 +301,9 @@
 
     methods: {
       queryFacet() {
-        this.$store.commit('search/addLiveQuery', this.paramsForFacets);
+        this.$store.commit('search/addLiveQuery', this.recordApiSearchParams);
 
-        return this.$apis.record.search(this.paramsForFacets, {
+        return this.$apis.record.search(this.recordApiSearchParams, {
           ...this.$store.getters['search/searchOptions'],
           locale: this.$i18n.locale
         })
@@ -310,7 +314,7 @@
             await this.$store.dispatch('search/updateForFailure', error);
           })
           .finally(() => {
-            this.$store.commit('search/removeLiveQuery', this.paramsForFacets);
+            this.$store.commit('search/removeLiveQuery', this.recordApiSearchParams);
           });
       },
 

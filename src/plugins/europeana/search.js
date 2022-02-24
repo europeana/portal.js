@@ -82,11 +82,10 @@ export default (context) => ($axios, params, options = {}) => {
 
   const searchParams = {
     ...$axios.defaults.params,
-    facet: params.facet,
+    ...params,
     profile: params.profile || '',
     qf: addContentTierFilter(params.qf),
     query: options.escape ? escapeLuceneSpecials(query) : query,
-    reusability: params.reusability,
     rows,
     start
   };
