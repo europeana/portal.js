@@ -131,6 +131,7 @@ Feature: Search faceting
     Given I am on the `search page`
     When I click the `TYPE facet dropdown`
     And I check the "\"IMAGE\"" "TYPE" checkbox
+    And the `IMAGE TYPE checkbox` is "enabled"
     And I go to page number 2
     And I am on page number 2
     And I hover over the `TYPE facet dropdown`
