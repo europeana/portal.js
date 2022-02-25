@@ -6,23 +6,22 @@
   -->
   <video
     :key="src"
-    :controls="controls"
     :autoplay="autoplay"
+    :controls="controls"
     :loop="loop"
     :muted="muted"
     :width="width"
     :height="height"
-    data-qa="video"
-  >
-    <source
-      :src="$apis.record.mediaProxyUrl(src, europeanaIdentifier)"
-      :type="type"
-      data-qa="video source"
-    >
-  </video>
+    data-qa="video player"
+    ref="videoPlayer"
+    class="video-js"
+  ></video>
 </template>
 
 <script>
+  import videojs from 'video.js';
+  import 'video.js/dist/video-js.css';
+
   export default {
     name: 'VideoPlayer',
 
@@ -62,6 +61,37 @@
       height: {
         type: Number,
         default: null
+      }
+    },
+
+    data() {
+      return {
+        player: null
+      }
+    },
+
+    computed: {
+      videojsOptions() {
+        return {
+          sources: [
+            {
+              // media proxy does not work with DASH...
+              // src: this.$apis.record.mediaProxyUrl(this.src, this.europeanaIdentifier),
+              src: this.src,
+              type: this.type
+            }
+          ]
+        };
+      }
+    },
+
+    mounted() {
+      this.player = videojs(this.$refs.videoPlayer, this.videojsOptions);
+    },
+
+    beforeDestroy() {
+      if (this.player) {
+        this.player.dispose();
       }
     }
   };
