@@ -131,13 +131,19 @@ Feature: Search faceting
     Given I am on the `search page`
     When I click the `TYPE facet dropdown`
     And I check the "\"IMAGE\"" "TYPE" checkbox
+    And I don't have a `loading spinner`
     And I go to page number 2
-    And I am on page number 2
-    And I hover over the `TYPE facet dropdown`
-    And I click the `TYPE facet dropdown`
+    And I don't have a `loading spinner`
+    Then I am on page number 2
+    And I should have 1 `filter badge`
+
+  Scenario: Additional filters restore pagination to page 1
+    Given I am on `/en/search?page=2&qf=TYPE%3A%22IMAGE%22`
+    When I click the `TYPE facet dropdown`
     And I check the "\"VIDEO\"" "TYPE" checkbox
     And I don't have a `loading spinner`
     Then I am on page number 1
+    And I should have 2 `filter badge`s
 
   Scenario: Clear filters using reset button
     Given I am on the `search page`
