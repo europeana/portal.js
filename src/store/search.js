@@ -215,9 +215,9 @@ export default {
     /**
      * Run a Record API search and store the results
      */
-    run({ dispatch }) {
-      return dispatch('deriveApiSettings')
-        .then(dispatch('queryItems'));
+    async run({ dispatch }) {
+      await dispatch('deriveApiSettings');
+      return dispatch('queryItems');
     },
 
     queryItems({ dispatch, state, getters, commit }) {
