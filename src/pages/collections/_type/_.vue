@@ -476,6 +476,12 @@
     .related-collections {
       padding: 0;
     }
+
+    ::v-deep .related-collections .badge {
+      // TODO: Remove this when the badges move into the search results
+      margin-top: 0.25rem;
+      margin-right: 0.5rem;
+    }
   }
 
   .page-container {

@@ -2,6 +2,7 @@
   <RelatedCollections
     :title="$t('collectionsYouMightLike')"
     :related-collections="relatedCollections"
+    :badge-variant="badgeVariant"
   />
 </template>
 
@@ -19,6 +20,10 @@
       query: {
         type: String,
         default: null
+      },
+      badgeVariant: {
+        type: String,
+        default: 'primary'
       }
     },
 
