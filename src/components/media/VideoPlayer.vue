@@ -6,6 +6,7 @@
   -->
   <video
     :key="src"
+    ref="videoPlayer"
     :autoplay="autoplay"
     :controls="controls"
     :loop="loop"
@@ -13,9 +14,8 @@
     :width="width"
     :height="height"
     data-qa="video player"
-    ref="videoPlayer"
     class="video-js"
-  ></video>
+  />
 </template>
 
 <script>
@@ -67,7 +67,7 @@
     data() {
       return {
         player: null
-      }
+      };
     },
 
     computed: {

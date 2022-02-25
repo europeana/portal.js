@@ -42,7 +42,7 @@
     >
       <b-button
         class="d-inline-flex align-items-center"
-        data-qa='entity details button'
+        data-qa="entity details button"
         @click="$bvModal.show('entityInformationModal')"
       >
         <span class="icon-info pr-1" />
@@ -70,8 +70,8 @@
       >
         <b-button
           class="d-inline-flex align-items-center"
-          @click="$bvModal.show('entityUpdateModal')"
           data-qa="entity edit button"
+          @click="$bvModal.show('entityUpdateModal')"
         >
           <span class="icon-edit pr-1" />
           {{ $t('actions.edit') }}
