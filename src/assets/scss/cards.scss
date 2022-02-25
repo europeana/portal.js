@@ -131,7 +131,7 @@
   @media (min-width: $bp-medium) {
     min-height: 20rem;
 
-    &.mosaic-card, &.related-collections-card {
+    &.mosaic-card {
       min-height: 0;
     }
   }
