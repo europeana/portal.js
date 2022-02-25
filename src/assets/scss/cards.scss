@@ -76,6 +76,7 @@
 
 .header-card {
   border: 0;
+
   h1 {
     font-size: $font-size-medium;
     margin-bottom: 0.375rem;
@@ -630,7 +631,8 @@
   flex: 0 0 100%;
 }
 
-.card-group-list .header-card, .card-group-list .related-collections-card {
+.card-group-list .header-card,
+.card-group-list .related-collections-card {
   margin-left: 0;
   margin-right: 0;
 }
@@ -803,7 +805,7 @@
 
       @media (min-width: $bp-medium) {
         width: calc(100% - $masonry-gutter);
-        margin-left: 0.5 * $masonry-gutter ;
+        margin-left: 0.5 * $masonry-gutter;
         margin-right: 0.5 * $masonry-gutter;
       }
 
