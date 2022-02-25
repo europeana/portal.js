@@ -116,7 +116,7 @@
 
   import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
   import similarItemsQuery from '@/plugins/europeana/record/similar-items';
-  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import { langMapValueForLocale, reduceLangMapsForLocale } from  '@/plugins/europeana/utils';
 
   export default {
     name: 'ItemPage',
@@ -144,11 +144,17 @@
     },
 
     asyncData({ params, res, route, app, $apis }) {
-      return $apis.record
-        .getRecord(`/${params.pathMatch}`, { locale: app.i18n.locale, metadataLanguage: route.query.lang })
-        .then(result => {
-          return result.record;
-        })
+      const options = { locale: app.i18n.locale, metadataLanguage: route.query.lang };
+      const handler = process.server ? $apis.record.get(`/${params.pathMatch}`) : app.$axios.get(`/_api/record/${params.pathMatch}`, { baseURL: window.origin });
+
+      return handler
+        .then(response => $apis.record.parseRecordDataFromApiResponse(response.data, options))
+        .then(parsed => reduceLangMapsForLocale(parsed, parsed.metadataLanguage || options.locale, options))
+        // .then(reduced => ({
+        //   record: reduced,
+        //   error: null
+        // }))
+        // .then(result => result.record)
         .catch(error => {
           if (typeof res !== 'undefined') {
             res.statusCode = (typeof error.statusCode === 'undefined') ? 500 : error.statusCode;

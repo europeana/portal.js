@@ -46,6 +46,9 @@ app.get('/cache/*', (req, res) => cache(req.params[0], runtimeConfig)(req, res))
 import jiraServiceDesk from './jira/service-desk.js';
 app.post('/jira/service-desk', (req, res) => jiraServiceDesk(runtimeConfig.jira)(req, res));
 
+import getRecord from './record/get.js';
+app.get('/record/:datasetId/:localId', (req, res) => getRecord(runtimeConfig)(req, res));
+
 import version from './version.js';
 app.get('/version', version);
 

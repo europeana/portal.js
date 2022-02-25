@@ -2,7 +2,7 @@ import pick from 'lodash/pick';
 import uniq from 'lodash/uniq';
 import merge from 'deepmerge';
 
-import { apiError, createAxios, reduceLangMapsForLocale, isLangMap } from './utils';
+import { apiError, createAxios, isLangMap } from './utils';
 import search from './search';
 import { thumbnailUrl, thumbnailTypeForMimeType } from  './thumbnail';
 import { getEntityUri, getEntityQuery } from './entity';
@@ -300,12 +300,7 @@ export default (context = {}) => {
       return sortByIsNextInSequence(displayable).map(Object.freeze);
     },
 
-    /**
-     * Get the record data from the API
-     * @param {string} europeanaId ID of Europeana record
-     * @return {Object} parsed record data
-     */
-    getRecord(europeanaId, options = {}) {
+    get(europeanaId, options = {}) {
       let path = '';
       if (!this.$axios.defaults.baseURL.endsWith('/record')) {
         path = '/record';
@@ -330,14 +325,6 @@ export default (context = {}) => {
       }
 
       return this.$axios.get(`${path}${europeanaId}.json`, { params })
-        .then(response => this.parseRecordDataFromApiResponse(response.data, options))
-        .then(parsed => {
-          return reduceLangMapsForLocale(parsed, parsed.metadataLanguage || options.locale, options);
-        })
-        .then(reduced => ({
-          record: reduced,
-          error: null
-        }))
         .catch((error) => {
           const errorResponse = error.response;
           if (errorResponse?.status === 502 && errorResponse?.data.code === '502-TS' && !options.fromTranslationError) {
@@ -389,7 +376,7 @@ export default (context = {}) => {
   };
 };
 
-const reduceEntity = (entity) => {
+export const reduceEntity = (entity) => {
   return pick(entity, [
     'about',
     'latitude',
@@ -398,7 +385,7 @@ const reduceEntity = (entity) => {
   ]);
 };
 
-const reduceWebResource = (webResource) => {
+export const reduceWebResource = (webResource) => {
   return pick(webResource, [
     'webResourceEdmRights',
     'about',
