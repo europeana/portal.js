@@ -16,8 +16,8 @@ export function isHTMLVideo(media) {
     return false;
   }
   return ['video/ogg', 'video/webm'].includes(media.ebucoreHasMimeType) ||
-    ((media.ebucoreHasMimeType === 'video/mp4') && (media.edmCodecName === 'h264')) ||
-    ((media.ebucoreHasMimeType === 'application/dash+xml'));
+    ((media.ebucoreHasMimeType.startsWith('video/')) && (media.edmCodecName === 'h264')) ||
+    (media.ebucoreHasMimeType === 'application/dash+xml');
 }
 
 export function isHTMLAudio(media) {
