@@ -33,7 +33,7 @@
           @unlike="$emit('unlike', item.id)"
         />
         <slot
-          v-if="index === indexForRelatedCollections"
+          v-if="index === indexForRelated"
           v-masonry-tile
           name="related"
         />
@@ -61,7 +61,7 @@
         @unlike="$emit('unlike', item.id)"
       />
       <slot
-        v-if="index === indexForRelatedCollections"
+        v-if="index === indexForRelated"
         name="related"
       />
     </template>
@@ -135,7 +135,7 @@
       cardVariant() {
         return this.view === 'grid' ? 'default' : this.view;
       },
-      indexForRelatedCollections() {
+      indexForRelated() {
         if (this.items.length) {
           return this.items.length > 4 ? 4 : this.items.length - 1;
         } else {
