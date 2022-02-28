@@ -1,5 +1,6 @@
 <template>
   <RelatedCollections
+    v-show="!$fetchState.pending"
     :title="$t('collectionsYouMightLike')"
     :related-collections="relatedCollections"
     :badge-variant="badgeVariant"
@@ -34,7 +35,7 @@
     },
 
     fetch() {
-      this.getSearchSuggestions(this.query);
+      return this.getSearchSuggestions(this.query);
     },
 
     watch: {
@@ -46,7 +47,7 @@
         if (!query) {
           return;
         }
-        this.$apis.entity.suggest(query, {
+        return this.$apis.entity.suggest(query, {
           language: this.$i18n.locale,
           rows: 4
         })
