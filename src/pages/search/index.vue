@@ -42,7 +42,6 @@
                 class="text-left related-collections-card mb-4"
               >
                 <RelatedSection
-                  v-if="searchQuery && headerCardsEnabled"
                   :query="searchQuery"
                 />
               </b-card>
