@@ -92,113 +92,6 @@ describe('store/search', () => {
       });
     });
 
-    describe('apiParamsChanged', () => {
-      describe('with params added', () => {
-        it('returns their names', () => {
-          const state = {
-            previousApiParams: {
-              query: '*:*'
-            },
-            apiParams: {
-              query: '*:*',
-              qf: ['TYPE:"IMAGE"']
-            }
-          };
-
-          const apiParamsChanged = store.getters.apiParamsChanged(state);
-
-          expect(apiParamsChanged).toEqual(['qf']);
-        });
-      });
-
-      describe('with params removed', () => {
-        it('returns their names', () => {
-          const state = {
-            previousApiParams: {
-              query: '*:*',
-              qf: ['TYPE:"IMAGE"']
-            },
-            apiParams: {
-              query: '*:*'
-            }
-          };
-
-          const apiParamsChanged = store.getters.apiParamsChanged(state);
-
-          expect(apiParamsChanged).toEqual(['qf']);
-        });
-      });
-
-      describe('without changed params', () => {
-        it('returns their names', () => {
-          const state = {
-            previousApiParams: {
-              query: '*:*',
-              qf: ['TYPE:"IMAGE"']
-            },
-            apiParams: {
-              query: '*:*',
-              qf: ['TYPE:"IMAGE"']
-            }
-          };
-
-          const apiParamsChanged = store.getters.apiParamsChanged(state);
-
-          expect(apiParamsChanged).toEqual([]);
-        });
-      });
-    });
-
-    describe('itemUpdateNeeded', () => {
-      describe('without previous API params', () => {
-        const previousApiParams = null;
-
-        it('is `true`', () => {
-          const itemUpdateNeeded = store.getters.itemUpdateNeeded(
-            { previousApiParams }
-          );
-
-          expect(itemUpdateNeeded).toBe(true);
-        });
-      });
-
-      describe('with previous API params', () => {
-        const previousApiParams = {
-          query: '*:*'
-        };
-
-        for (const param of ['query', 'qf', 'reusability', 'api', 'page']) {
-          describe(`when ${param} param changes`, () => {
-            it('is `true`', () => {
-              const apiParamsChanged = [param];
-
-              const itemUpdateNeeded = store.getters.itemUpdateNeeded(
-                { previousApiParams },
-                { apiParamsChanged }
-              );
-
-              expect(itemUpdateNeeded).toBe(true);
-            });
-          });
-        }
-
-        for (const param of ['view']) {
-          describe(`when ${param} param changes`, () => {
-            it('is `false`', () => {
-              const apiParamsChanged = [param];
-
-              const itemUpdateNeeded = store.getters.itemUpdateNeeded(
-                { previousApiParams },
-                { apiParamsChanged }
-              );
-
-              expect(itemUpdateNeeded).toBe(false);
-            });
-          });
-        }
-      });
-    });
-
     describe('searchOptions', () => {
       describe('.escape', () => {
         it('is `true` when override params has query and user params does not', () => {
@@ -240,32 +133,24 @@ describe('store/search', () => {
   describe('actions', () => {
     describe('run', () => {
       it('derives the API params', async() => {
-        const dispatch = sinon.spy();
+        const dispatch = sinon.stub().resolves();
 
         await store.actions.run({ dispatch, getters: {} });
 
         expect(dispatch.calledWith('deriveApiSettings')).toBe(true);
       });
 
-      it('queries for items if needed', async() => {
-        const dispatch = sinon.spy();
+      it('queries for items', async() => {
+        const dispatch = sinon.stub().resolves();
 
-        await store.actions.run({ dispatch, getters: { itemUpdateNeeded: true, facetUpdateNeeded: true } });
+        await store.actions.run({ dispatch });
 
         expect(dispatch.calledWith('queryItems')).toBe(true);
-      });
-
-      it('omits query for items if not needed', async() => {
-        const dispatch = sinon.spy();
-
-        await store.actions.run({ dispatch, getters: { itemUpdateNeeded: false, facetUpdateNeeded: true } });
-
-        expect(dispatch.calledWith('queryItems')).toBe(false);
       });
     });
 
     describe('queryItems', () => {
-      const dispatch = sinon.spy();
+      const dispatch = sinon.stub().resolves();
       const commit = sinon.spy();
       const getters = {};
       const searchQuery = 'anything';
@@ -335,7 +220,7 @@ describe('store/search', () => {
 
     describe('deriveApiSettings', () => {
       const commit = sinon.spy();
-      const dispatch = sinon.spy();
+      const dispatch = sinon.stub().resolves();
       const state = {};
       const getters = sinon.spy();
       const rootGetters = sinon.spy();

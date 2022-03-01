@@ -1,4 +1,3 @@
-import { diff } from 'deep-object-diff';
 import merge from 'deepmerge';
 import themes from '@/plugins/europeana/themes';
 import { BASE_URL as FULLTEXT_BASE_URL } from '@/plugins/europeana/newspaper';
@@ -48,8 +47,6 @@ export default {
     liveQueries: [],
     overrideParams: {},
     collectionLabel: null,
-    previousApiOptions: null,
-    previousApiParams: null,
     results: [],
     showSearchBar: false,
     totalResults: null,
@@ -145,18 +142,6 @@ export default {
       return filters;
     },
 
-    apiParamsChanged: (state) => {
-      return Object.keys(diff(state.previousApiParams, state.apiParams));
-    },
-
-    itemUpdateNeeded: (state, getters) => {
-      if (!state.previousApiParams) {
-        return true;
-      } // i.e. if this is the first search
-      return getters.apiParamsChanged
-        .some((param) => ['page', 'query', 'qf', 'api', 'reusability'].includes(param));
-    },
-
     searchOptions: (state) => {
       return {
         ...state.apiOptions,
@@ -176,9 +161,6 @@ export default {
 
     // TODO: replace with a getter?
     deriveApiSettings({ commit, state, getters }) {
-      commit('set', ['previousApiParams', Object.assign({}, state.apiParams)]);
-      commit('set', ['previousApiOptions', Object.assign({}, state.apiOptions)]);
-
       // Coerce qf from user input into an array as it may be a single string
       const userParams = Object.assign({}, state.userParams || {});
       userParams.qf = [].concat(userParams.qf || []);
@@ -214,10 +196,9 @@ export default {
     /**
      * Run a Record API search and store the results
      */
-    async run({ dispatch, getters }) {
+    async run({ dispatch }) {
       await dispatch('deriveApiSettings');
-
-      return getters.itemUpdateNeeded ? dispatch('queryItems') : Promise.resolve();
+      return dispatch('queryItems');
     },
 
     queryItems({ dispatch, state, getters, commit }) {
