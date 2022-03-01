@@ -93,16 +93,11 @@
                   v-if="headerCardsEnabled && relatedCollectionsFound"
                   #related
                 >
-                  <b-card
-                    v-masonry-tile
-                    class="text-left related-collections-card mb-4"
-                  >
-                    <RelatedCollections
-                      :title="$t('youMightAlsoLike')"
-                      :related-collections="relatedEntities ? relatedEntities : relatedCollectionCards"
-                      data-qa="related entities"
-                    />
-                  </b-card>
+                  <RelatedCollections
+                    :title="$t('youMightAlsoLike')"
+                    :related-collections="relatedEntities ? relatedEntities : relatedCollectionCards"
+                    data-qa="related entities"
+                  />
                 </template>
               </SearchInterface>
             </b-container>

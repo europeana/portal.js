@@ -89,9 +89,16 @@
             >
               <slot />
               <template #related>
-                <slot
-                  name="related"
-                />
+                <b-card
+                  v-if="relatedHasContent"
+                  class="text-left related-collections-card mb-4"
+                >
+                  <div ref="relatedContent">
+                    <slot
+                      name="related"
+                    />
+                  </div>
+                </b-card>
               </template>
             </ItemPreviewCardGroup>
             <InfoMessage
@@ -168,7 +175,8 @@
     },
     data() {
       return {
-        fetched: false
+        fetched: false,
+        relatedHasContent: true
       };
     },
     async fetch() {
@@ -253,6 +261,7 @@
         }
       }
     },
+
     watch: {
       routeQueryView: 'viewFromRouteQuery',
       '$route.query.api': '$fetch',
@@ -261,9 +270,18 @@
       '$route.query.qf': '$fetch',
       '$route.query.page': '$fetch'
     },
+
+    mounted() {
+      if (this.$refs.relatedContent) {
+        const related = this.$refs.relatedContent[0] ? this.$refs.relatedContent[0] : this.$refs.relatedContent;
+        this.relatedHasContent = !related.matches(':empty');
+      }
+    },
+
     destroyed() {
       this.$store.dispatch('search/deactivate');
     },
+
     methods: {
       viewFromRouteQuery() {
         if (this.routeQueryView) {

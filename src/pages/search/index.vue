@@ -26,7 +26,7 @@
           <RelatedSection
             v-if="searchQuery && !headerCardsEnabled"
             :query="searchQuery"
-            badgeVariant="light"
+            badge-variant="light"
             class="mb-4"
           />
           <SearchInterface
@@ -38,13 +38,9 @@
               v-if="searchQuery && headerCardsEnabled"
               #related
             >
-              <b-card
-                class="text-left related-collections-card mb-4"
-              >
-                <RelatedSection
-                  :query="searchQuery"
-                />
-              </b-card>
+              <RelatedSection
+                :query="searchQuery"
+              />
             </template>
           </SearchInterface>
         </b-col>
