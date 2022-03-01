@@ -49,7 +49,6 @@
               @submit.stop.prevent="() => {}"
             >
               <b-form-group
-                label="Search"
                 :label-for="`${facetNameNoSpaces}-search-input`"
                 :description="searchOptions"
                 :disabled="disabled"
@@ -57,8 +56,9 @@
                 <b-form-input
                   :id="`${facetNameNoSpaces}-search-input`"
                   v-model="searchFacet"
-                  type="search"
+                  type="text"
                   autocomplete="off"
+                  placeholder="Search"
                 />
               </b-form-group>
             </b-dropdown-form>
