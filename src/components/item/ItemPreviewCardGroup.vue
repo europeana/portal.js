@@ -32,11 +32,19 @@
           @like="$emit('like', item.id)"
           @unlike="$emit('unlike', item.id)"
         />
-        <slot
+        <template
           v-if="index === indexForRelated"
-          v-masonry-tile
-          name="related"
-        />
+        >
+          <b-card
+            v-show="showRelated"
+            class="text-left related-collections-card mb-4"
+          >
+            <slot
+              v-masonry-tile
+              name="related"
+            />
+          </b-card>
+        </template>
       </template>
     </div>
   </div>
@@ -60,10 +68,19 @@
         @like="$emit('like', item.id)"
         @unlike="$emit('unlike', item.id)"
       />
-      <slot
+      <template
         v-if="index === indexForRelated"
-        name="related"
-      />
+      >
+        <b-card
+          v-show="showRelated"
+          class="text-left related-collections-card mb-4"
+        >
+          <slot
+            v-masonry-tile
+            name="related"
+          />
+        </b-card>
+      </template>
     </template>
   </b-card-group>
 </template>
@@ -100,6 +117,10 @@
         type: Boolean,
         default: false
       },
+      showRelated: {
+        type: Boolean,
+        default: true
+      },
       enableAcceptRecommendations: {
         type: Boolean,
         default: false
@@ -135,6 +156,7 @@
       cardVariant() {
         return this.view === 'grid' ? 'default' : this.view;
       },
+
       indexForRelated() {
         if (this.items.length) {
           return this.items.length > 4 ? 4 : this.items.length - 1;
@@ -145,8 +167,8 @@
     },
 
     mounted() {
-      const masonaryViews = ['grid', 'mosaic'];
-      if (typeof this.$redrawVueMasonry === 'function' && masonaryViews.includes(this.view)) {
+      const masonryViews = ['grid', 'mosaic'];
+      if (typeof this.$redrawVueMasonry === 'function' && masonryViews.includes(this.view)) {
         this.$redrawVueMasonry('searchResultsGrid');
       }
     },

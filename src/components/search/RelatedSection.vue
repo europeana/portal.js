@@ -1,6 +1,6 @@
 <template>
   <RelatedCollections
-    v-show="!$fetchState.pending"
+    v-if="!$fetchState.pending && (relatedCollections.length > 0)"
     :title="$t('collectionsYouMightLike')"
     :related-collections="relatedCollections"
     :badge-variant="badgeVariant"
@@ -35,7 +35,15 @@
     },
 
     fetch() {
-      return this.getSearchSuggestions(this.query);
+      return this.getSearchSuggestions(this.query)
+        .then(response => {
+          this.relatedCollections = response;
+          if (this.relatedCollections.length > 0) {
+            this.$emit('show');
+          } else {
+            this.$emit('hide');
+          }
+        });
     },
 
     watch: {
@@ -45,13 +53,12 @@
     methods: {
       getSearchSuggestions(query) {
         if (!query) {
-          return;
+          return Promise.resolve();
         }
         return this.$apis.entity.suggest(query, {
           language: this.$i18n.locale,
           rows: 4
-        })
-          .then(response => (this.relatedCollections = response));
+        });
       }
     }
   };

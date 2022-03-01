@@ -26,6 +26,7 @@
         />
       </b-col>
       <slot
+        v-show="showRelated"
         name="related"
       />
     </b-row>
@@ -86,19 +87,15 @@
               :view="view"
               :per-row="perRow"
               :show-pins="showPins"
+              :show-related="showRelated"
             >
               <slot />
-              <template #related>
-                <b-card
-                  v-if="relatedHasContent"
-                  class="text-left related-collections-card mb-4"
-                >
-                  <div ref="relatedContent">
-                    <slot
-                      name="related"
-                    />
-                  </div>
-                </b-card>
+              <template
+                #related
+              >
+                <slot
+                  name="related"
+                />
               </template>
             </ItemPreviewCardGroup>
             <InfoMessage
@@ -168,6 +165,10 @@
         type: Boolean,
         default: false
       },
+      showRelated: {
+        type: Boolean,
+        default: true
+      },
       contextLabel: {
         type: String,
         default: null
@@ -175,8 +176,7 @@
     },
     data() {
       return {
-        fetched: false,
-        relatedHasContent: true
+        fetched: false
       };
     },
     async fetch() {
@@ -269,13 +269,6 @@
       '$route.query.query': '$fetch',
       '$route.query.qf': '$fetch',
       '$route.query.page': '$fetch'
-    },
-
-    mounted() {
-      if (this.$refs.relatedContent) {
-        const related = this.$refs.relatedContent[0] ? this.$refs.relatedContent[0] : this.$refs.relatedContent;
-        this.relatedHasContent = !related.matches(':empty');
-      }
     },
 
     destroyed() {
