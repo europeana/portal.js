@@ -82,7 +82,7 @@
 
     data() {
       return {
-        showRelated: null
+        showRelated: false
       };
     },
 

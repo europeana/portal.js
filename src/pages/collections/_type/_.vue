@@ -46,7 +46,7 @@
               >
                 <RelatedCollections
                   :title="$t('collectionsYouMightLike')"
-                  :related-collections="relatedEntities ? relatedEntities : relatedCollectionCards"
+                  :related-collections="relatedCollections"
                 />
               </section>
             </client-only>
@@ -77,6 +77,7 @@
                 :show-content-tier-toggle="false"
                 :show-pins="userIsEditor && userIsSetsEditor"
                 :context-label="headerCardsEnabled ? contextLabel : null"
+                :show-related="showRelated"
               >
                 <EntityHeader
                   v-if="headerCardsEnabled"
@@ -90,14 +91,18 @@
                   :more-info="moreInfo"
                 />
                 <template
-                  v-if="headerCardsEnabled && relatedCollectionsFound"
+                  v-if="headerCardsEnabled"
                   #related
                 >
-                  <RelatedCollections
-                    :title="$t('youMightAlsoLike')"
-                    :related-collections="relatedEntities ? relatedEntities : relatedCollectionCards"
-                    data-qa="related entities"
-                  />
+                  <client-only>
+                    <RelatedCollections
+                      :title="$t('youMightAlsoLike')"
+                      :related-collections="relatedCollections"
+                      data-qa="related entities"
+                      @show="showRelatedCollections"
+                      @hide="hideRelatedCollections"
+                    />
+                  </client-only>
                 </template>
               </SearchInterface>
             </b-container>
@@ -155,7 +160,7 @@
 
     data() {
       return {
-        relatedCollections: []
+        showRelated: null
       };
     },
 
@@ -350,8 +355,11 @@
       relatedCollectionCards() {
         return ((this.page?.relatedLinksCollection?.items?.length || 0) > 0) ? this.page.relatedLinksCollection.items : null;
       },
+      relatedCollections() {
+        return this.relatedEntities || this.relatedCollectionCards || [];
+      },
       relatedCollectionsFound() {
-        return (this.relatedEntities?.length || this.relatedCollectionCards?.length || 0) > 0;
+        return this.relatedCollections.length > 0;
       },
       userIsEditor() {
         return this.$store.state.auth.user?.resource_access?.entities?.roles?.includes('editor') || false;
@@ -455,6 +463,12 @@
             pathMatch: getEntitySlug(id, name)
           }
         });
+      },
+      showRelatedCollections() {
+        this.showRelated = true;
+      },
+      hideRelatedCollections() {
+        this.showRelated = false;
       }
     }
   };

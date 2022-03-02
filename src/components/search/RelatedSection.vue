@@ -38,11 +38,6 @@
       return this.getSearchSuggestions(this.query)
         .then(response => {
           this.relatedCollections = response;
-          if (this.relatedCollections.length > 0) {
-            this.$emit('show');
-          } else {
-            this.$emit('hide');
-          }
         });
     },
 
@@ -50,11 +45,20 @@
       query: '$fetch'
     },
 
+    mounted() {
+      this.draw();
+    },
+
     updated() {
-      this.$redrawVueMasonry && this.$redrawVueMasonry();
+      this.draw();
     },
 
     methods: {
+      draw() {
+        this.$emit(this.relatedCollections.length > 0 ? 'show' : 'hide');
+        this.$redrawVueMasonry && this.$redrawVueMasonry();
+      },
+
       getSearchSuggestions(query) {
         if (!query) {
           return Promise.resolve();

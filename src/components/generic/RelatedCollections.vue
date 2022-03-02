@@ -50,7 +50,20 @@
       }
     },
 
+    mounted() {
+      this.draw();
+    },
+
+    updated() {
+      this.draw();
+    },
+
     methods: {
+      draw() {
+        this.$emit(this.relatedCollections.length > 0 ? 'show' : 'hide');
+        this.$redrawVueMasonry && this.$redrawVueMasonry();
+      },
+
       linkGen(item) {
         let id = '';
         let name = '';
