@@ -50,6 +50,10 @@
       query: '$fetch'
     },
 
+    updated() {
+      this.$redrawVueMasonry && this.$redrawVueMasonry();
+    },
+
     methods: {
       getSearchSuggestions(query) {
         if (!query) {
