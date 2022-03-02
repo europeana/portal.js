@@ -15,29 +15,14 @@
     >
       <slot />
       <template
-        v-for="(item, index) in items"
+        v-for="(card, index) in cards"
       >
-        <ItemPreviewCard
-          :key="item.id"
-          v-masonry-tile
-          :item="item"
-          :hit-selector="itemHitSelector(item)"
-          :variant="cardVariant"
-          class="item"
-          :lazy="false"
-          :enable-accept-recommendation="enableAcceptRecommendations"
-          :enable-reject-recommendation="enableRejectRecommendations"
-          :show-pins="showPins"
-          data-qa="item preview"
-          @like="$emit('like', item.id)"
-          @unlike="$emit('unlike', item.id)"
-        />
         <template
-          v-if="index === indexForRelated"
+          v-if="card === 'related'"
         >
           <b-card
             v-show="showRelated"
-            key="related"
+            :key="index"
             class="text-left related-collections-card mb-4"
           >
             <slot
@@ -46,6 +31,22 @@
             />
           </b-card>
         </template>
+        <ItemPreviewCard
+          v-else
+          :key="index"
+          v-masonry-tile
+          :item="card"
+          :hit-selector="itemHitSelector(card)"
+          :variant="cardVariant"
+          class="item"
+          :lazy="false"
+          :enable-accept-recommendation="enableAcceptRecommendations"
+          :enable-reject-recommendation="enableRejectRecommendations"
+          :show-pins="showPins"
+          data-qa="item preview"
+          @like="$emit('like', card.id)"
+          @unlike="$emit('unlike', card.id)"
+        />
       </template>
     </div>
   </div>
@@ -57,32 +58,32 @@
   >
     <slot />
     <template
-      v-for="(item, index) in items"
+      v-for="(card, index) in cards"
     >
-      <ItemPreviewCard
-        :key="item.id"
-        :item="item"
-        :hit-selector="itemHitSelector(item)"
-        :variant="cardVariant"
-        :show-pins="showPins"
-        data-qa="item preview"
-        @like="$emit('like', item.id)"
-        @unlike="$emit('unlike', item.id)"
-      />
       <template
-        v-if="index === indexForRelated"
+        v-if="card === 'related'"
       >
         <b-card
           v-show="showRelated"
-          key="related"
+          :key="index"
           class="text-left related-collections-card mb-4"
         >
           <slot
-            v-masonry-tile
             name="related"
           />
         </b-card>
       </template>
+      <ItemPreviewCard
+        v-else
+        :key="card.id"
+        :item="card"
+        :hit-selector="itemHitSelector(card)"
+        :variant="cardVariant"
+        :show-pins="showPins"
+        data-qa="item preview"
+        @like="$emit('like', card.id)"
+        @unlike="$emit('unlike', card.id)"
+      />
     </template>
   </b-card-group>
 </template>
@@ -134,6 +135,10 @@
     },
 
     computed: {
+      cards() {
+        return this.items.slice(0, 4).concat('related').concat(this.items.slice(4));
+      },
+
       cardGroupClass() {
         let cardGroupClass;
 

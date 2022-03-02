@@ -76,14 +76,14 @@
 
     middleware: 'sanitisePageQuery',
 
-    fetch() {
-      this.$store.commit('search/set', ['overrideParams', {}]);
-    },
-
     data() {
       return {
         showRelated: false
       };
+    },
+
+    fetch() {
+      this.$store.commit('search/set', ['overrideParams', {}]);
     },
 
     head() {

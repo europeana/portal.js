@@ -17,20 +17,6 @@
   </b-container>
   <b-container v-else>
     <b-row
-      v-if="noResults"
-      class="mb-3"
-    >
-      <b-col cols="12">
-        <AlertMessage
-          :error="$t('noResults')"
-        />
-      </b-col>
-      <slot
-        v-show="showRelated"
-        name="related"
-      />
-    </b-row>
-    <b-row
       v-if="hasAnyResults"
       class="mb-3 "
       :class="{ 'd-flex align-items-center': contextLabel }"
@@ -75,8 +61,12 @@
           class="mb-3"
         >
           <b-col>
+            <AlertMessage
+              v-if="noResults"
+              :error="$t('noResults')"
+            />
             <p
-              v-if="noMoreResults"
+              v-else-if="noMoreResults"
               data-qa="warning notice"
             >
               {{ $t('noMoreResults') }}
