@@ -45,10 +45,6 @@
       query: '$fetch'
     },
 
-    mounted() {
-      this.draw();
-    },
-
     updated() {
       this.draw();
     },
@@ -56,7 +52,9 @@
     methods: {
       draw() {
         this.$emit(this.relatedCollections.length > 0 ? 'show' : 'hide');
-        this.$redrawVueMasonry && this.$redrawVueMasonry();
+        this.$nextTick(() => {
+          this.$redrawVueMasonry && this.$redrawVueMasonry();
+        });
       },
 
       getSearchSuggestions(query) {
