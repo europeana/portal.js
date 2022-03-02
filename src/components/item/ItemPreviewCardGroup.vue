@@ -162,14 +162,6 @@
 
       cardVariant() {
         return this.view === 'grid' ? 'default' : this.view;
-      },
-
-      indexForRelated() {
-        if (this.items.length) {
-          return this.items.length > 4 ? 4 : this.items.length - 1;
-        } else {
-          return 0;
-        }
       }
     },
 
