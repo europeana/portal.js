@@ -18,7 +18,7 @@
         v-for="(item, index) in items"
       >
         <ItemPreviewCard
-          :key="index"
+          :key="item.id"
           v-masonry-tile
           :item="item"
           :hit-selector="itemHitSelector(item)"
@@ -37,7 +37,7 @@
         >
           <b-card
             v-show="showRelated"
-            :key="index"
+            key="related"
             class="text-left related-collections-card mb-4"
           >
             <slot
@@ -60,7 +60,7 @@
       v-for="(item, index) in items"
     >
       <ItemPreviewCard
-        :key="index"
+        :key="item.id"
         :item="item"
         :hit-selector="itemHitSelector(item)"
         :variant="cardVariant"
@@ -74,7 +74,7 @@
       >
         <b-card
           v-show="showRelated"
-          :key="index"
+          key="related"
           class="text-left related-collections-card mb-4"
         >
           <slot
