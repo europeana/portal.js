@@ -799,6 +799,7 @@ export default {
   "results": "Results",
   "resultsLimitWarning": "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
   "search": "Search",
+  "searchHasLoaded": "{0} results returned",
   "searchPlaceholder": "Search millions of items",
   "searchResults": "Search",
   "searchResultsFor": "{0} - Search",

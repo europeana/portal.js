@@ -29,12 +29,19 @@
         >
           {{ contextLabel }}
         </div>
-        <p
-          v-else
-          data-qa="total results"
-        >
-          {{ $t('results') }}: {{ totalResults | localise }}
-        </p>
+        <template v-else>
+          <p
+            data-qa="total results"
+          >
+            {{ $t('results') }}: {{ totalResults | localise }}
+          </p>
+          <div
+            class="visually-hidden"
+            role="status"
+          >
+            {{ $t('searchHasLoaded', [totalResults | localise]) }}
+          </div>
+        </template>
       </b-col>
       <b-col>
         <ViewToggles

@@ -243,6 +243,7 @@
         this.init();
       },
       '$route.query.reusability': 'updateRouteQueryReusability',
+      '$route.query.api': '$fetch',
       '$route.query.query': '$fetch',
       '$route.query.qf': 'updateRouteQueryQf'
     },
