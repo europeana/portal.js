@@ -33,14 +33,19 @@
             id="search-interface"
             :per-row="4"
             :context-label="headerCardsEnabled ? '' : null"
+            :show-related="showRelated"
           >
             <template
               v-if="searchQuery && headerCardsEnabled"
               #related
             >
-              <RelatedSection
-                :query="searchQuery"
-              />
+              <client-only>
+                <RelatedSection
+                  :query="searchQuery"
+                  @show="showRelatedSection"
+                  @hide="hideRelatedSection"
+                />
+              </client-only>
             </template>
           </SearchInterface>
         </b-col>
@@ -50,12 +55,14 @@
 </template>
 
 <script>
+  import ClientOnly from 'vue-client-only';
   import SearchInterface from '@/components/search/SearchInterface';
 
   export default {
     name: 'SearchPage',
 
     components: {
+      ClientOnly,
       SearchInterface,
       RelatedSection: () => import('@/components/search/RelatedSection'),
       SideFilters: () => import('@/components/search/SideFilters')
@@ -68,6 +75,12 @@
     },
 
     middleware: 'sanitisePageQuery',
+
+    data() {
+      return {
+        showRelated: false
+      };
+    },
 
     fetch() {
       this.$store.commit('search/set', ['overrideParams', {}]);
@@ -90,6 +103,16 @@
 
     mounted() {
       this.$store.commit('search/enableCollectionFacet');
+    },
+
+    methods: {
+      showRelatedSection() {
+        this.showRelated = true;
+      },
+
+      hideRelatedSection() {
+        this.showRelated = false;
+      }
     }
   };
 </script>
