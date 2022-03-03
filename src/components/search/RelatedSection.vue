@@ -4,6 +4,8 @@
     :title="$t('collectionsYouMightLike')"
     :related-collections="relatedCollections"
     :badge-variant="badgeVariant"
+    @show="$emit('show')"
+    @hide="$emit('hide')"
   />
 </template>
 
@@ -45,21 +47,10 @@
       query: '$fetch'
     },
 
-    updated() {
-      this.draw();
-    },
-
     methods: {
-      draw() {
-        this.$emit(this.relatedCollections.length > 0 ? 'show' : 'hide');
-        this.$nextTick(() => {
-          this.$redrawVueMasonry && this.$redrawVueMasonry();
-        });
-      },
-
       getSearchSuggestions(query) {
         if (!query) {
-          return Promise.resolve();
+          return Promise.resolve([]);
         }
         return this.$apis.entity.suggest(query, {
           language: this.$i18n.locale,
