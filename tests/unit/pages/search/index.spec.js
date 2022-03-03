@@ -4,7 +4,6 @@ import Vuex from 'vuex';
 import VueI18n from 'vue-i18n';
 import BootstrapVue from 'bootstrap-vue';
 
-
 import sinon from 'sinon';
 
 import page from '@/pages/search/index';
@@ -13,7 +12,6 @@ const localVue = createLocalVue();
 localVue.use(Vuex);
 localVue.use(BootstrapVue);
 localVue.use(VueI18n);
-
 
 const searchEnableCollectionFacet = sinon.spy();
 const searchSetShowFiltersToggle = sinon.spy();
@@ -36,10 +34,7 @@ const store = new Vuex.Store({
   getters: {
     'search/showFiltersSheet': () => () => false,
     'search/collection': () => () => false,
-    'search/filters': () => () => false,
-  },
-  actions: {
-    'item/reset': () => null
+    'search/filters': () => () => false
   }
 });
 
@@ -51,7 +46,7 @@ const factory = (query) => shallowMountNuxt(page, {
     $pageHeadTitle: key => key,
     $route: {
       query: {
-        query: query
+        query
       }
     },
     $fetchState: {},
@@ -81,11 +76,10 @@ describe('pages/item/_.vue', () => {
   });
 
   describe('fetch()', () => {
-
     it('resets overrideParams on the search store', async() => {
       const wrapper = factory();
 
-      const response = await wrapper.vm.fetch();
+      await wrapper.vm.fetch();
 
       expect(searchSet.called).toBe(true);
     });
@@ -115,7 +109,6 @@ describe('pages/item/_.vue', () => {
 
   describe('head()', () => {
     describe('with no query', () => {
-
       it('is only "search"', async() => {
         const wrapper = factory();
 
@@ -124,6 +117,7 @@ describe('pages/item/_.vue', () => {
         expect(headTitle).toBe('search undefined'); // 'undefined' because $t is mocked
       });
     });
+
     describe('with a query', () => {
       it('uses the search query in the title', async() => {
         const wrapper = factory('test');
