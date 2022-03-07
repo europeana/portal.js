@@ -92,6 +92,8 @@
       align-items: center;
       justify-content: space-between;
       border-radius: 0.375rem;
+      text-transform: none;
+      font-weight: normal;
 
       &:focus {
         border: 1px solid $blue;
