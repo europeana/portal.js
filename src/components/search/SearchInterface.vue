@@ -17,16 +17,6 @@
   </b-container>
   <b-container v-else>
     <b-row
-      v-if="noResults"
-      class="mb-3"
-    >
-      <b-col>
-        <AlertMessage
-          :error="$t('noResults')"
-        />
-      </b-col>
-    </b-row>
-    <b-row
       v-if="hasAnyResults"
       class="mb-3 "
       :class="{ 'd-flex align-items-center': contextLabel }"
@@ -77,8 +67,12 @@
           class="mb-3"
         >
           <b-col>
+            <AlertMessage
+              v-if="noResults"
+              :error="$t('noResults')"
+            />
             <p
-              v-if="noMoreResults"
+              v-else-if="noMoreResults"
               data-qa="warning notice"
             >
               {{ $t('noMoreResults') }}
@@ -89,8 +83,16 @@
               :view="view"
               :per-row="perRow"
               :show-pins="showPins"
+              :show-related="showRelated"
             >
               <slot />
+              <template
+                #related
+              >
+                <slot
+                  name="related"
+                />
+              </template>
             </ItemPreviewCardGroup>
             <InfoMessage
               v-if="lastAvailablePage"
@@ -160,6 +162,10 @@
       showPins: {
         type: Boolean,
         default: false
+      },
+      showRelated: {
+        type: Boolean,
+        default: true
       },
       contextLabel: {
         type: String,
@@ -256,6 +262,7 @@
         return this.$features.entityHeaderCards;
       },
     },
+
     watch: {
       routeQueryView: 'viewFromRouteQuery',
       '$route.query.api': '$fetch',
@@ -264,9 +271,11 @@
       '$route.query.qf': '$fetch',
       '$route.query.page': '$fetch'
     },
+
     destroyed() {
       this.$store.dispatch('search/deactivate');
     },
+
     methods: {
       viewFromRouteQuery() {
         if (this.routeQueryView) {

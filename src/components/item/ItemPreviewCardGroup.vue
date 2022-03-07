@@ -9,27 +9,45 @@
       transition-duration="0.1"
       item-selector=".card"
       horizontal-order="true"
-      column-width=".masonry-container .content-card"
+      column-width=".masonry-container .default-card"
       class="masonry-container"
       :data-qa="`item previews ${view}`"
     >
       <slot />
-      <ItemPreviewCard
-        v-for="item in items"
-        :key="item.id"
-        v-masonry-tile
-        :item="item"
-        :hit-selector="itemHitSelector(item)"
-        :variant="cardVariant"
-        class="item"
-        :lazy="false"
-        :enable-accept-recommendation="enableAcceptRecommendations"
-        :enable-reject-recommendation="enableRejectRecommendations"
-        :show-pins="showPins"
-        data-qa="item preview"
-        @like="$emit('like', item.id)"
-        @unlike="$emit('unlike', item.id)"
-      />
+      <template
+        v-for="(card, index) in cards"
+      >
+        <template
+          v-if="card === 'related'"
+        >
+          <b-card
+            v-show="showRelated"
+            :key="index"
+            class="text-left related-collections-card default-card mb-4"
+          >
+            <slot
+              v-masonry-tile
+              name="related"
+            />
+          </b-card>
+        </template>
+        <ItemPreviewCard
+          v-else
+          :key="index"
+          v-masonry-tile
+          :item="card"
+          :hit-selector="itemHitSelector(card)"
+          :variant="cardVariant"
+          class="item"
+          :lazy="false"
+          :enable-accept-recommendation="enableAcceptRecommendations"
+          :enable-reject-recommendation="enableRejectRecommendations"
+          :show-pins="showPins"
+          data-qa="item preview"
+          @like="$emit('like', card.id)"
+          @unlike="$emit('unlike', card.id)"
+        />
+      </template>
     </div>
   </div>
   <b-card-group
@@ -39,17 +57,34 @@
     deck
   >
     <slot />
-    <ItemPreviewCard
-      v-for="item in items"
-      :key="item.id"
-      :item="item"
-      :hit-selector="itemHitSelector(item)"
-      :variant="cardVariant"
-      :show-pins="showPins"
-      data-qa="item preview"
-      @like="$emit('like', item.id)"
-      @unlike="$emit('unlike', item.id)"
-    />
+    <template
+      v-for="(card, index) in cards"
+    >
+      <template
+        v-if="card === 'related'"
+      >
+        <b-card
+          v-show="showRelated"
+          :key="index"
+          class="text-left related-collections-card mb-4"
+        >
+          <slot
+            name="related"
+          />
+        </b-card>
+      </template>
+      <ItemPreviewCard
+        v-else
+        :key="card.id"
+        :item="card"
+        :hit-selector="itemHitSelector(card)"
+        :variant="cardVariant"
+        :show-pins="showPins"
+        data-qa="item preview"
+        @like="$emit('like', card.id)"
+        @unlike="$emit('unlike', card.id)"
+      />
+    </template>
   </b-card-group>
 </template>
 
@@ -85,6 +120,10 @@
         type: Boolean,
         default: false
       },
+      showRelated: {
+        type: Boolean,
+        default: false
+      },
       enableAcceptRecommendations: {
         type: Boolean,
         default: false
@@ -96,6 +135,10 @@
     },
 
     computed: {
+      cards() {
+        return this.items.slice(0, 4).concat('related').concat(this.items.slice(4));
+      },
+
       cardGroupClass() {
         let cardGroupClass;
 
@@ -123,8 +166,8 @@
     },
 
     mounted() {
-      const masonaryViews = ['grid', 'mosaic'];
-      if (typeof this.$redrawVueMasonry === 'function' && masonaryViews.includes(this.view)) {
+      const masonryViews = ['grid', 'mosaic'];
+      if (typeof this.$redrawVueMasonry === 'function' && masonryViews.includes(this.view)) {
         this.$redrawVueMasonry('searchResultsGrid');
       }
     },

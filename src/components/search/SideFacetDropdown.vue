@@ -199,7 +199,7 @@
       },
 
       isColourPalette() {
-        return this.facetName === 'Colour';
+        return this.name === 'COLOURPALETTE';
       },
 
       facetName() {

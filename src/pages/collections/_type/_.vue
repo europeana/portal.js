@@ -46,7 +46,7 @@
               >
                 <RelatedCollections
                   :title="$t('collectionsYouMightLike')"
-                  :related-collections="relatedEntities ? relatedEntities : relatedCollectionCards"
+                  :related-collections="relatedCollections"
                 />
               </section>
             </client-only>
@@ -76,6 +76,8 @@
                 :route="route"
                 :show-content-tier-toggle="false"
                 :show-pins="userIsEditor && userIsSetsEditor"
+                :context-label="headerCardsEnabled ? contextLabel : null"
+                :show-related="showRelated"
               >
                 <EntityHeader
                   v-if="headerCardsEnabled && !hasUserQuery"
@@ -88,6 +90,20 @@
                   :proxy="entity ? entity.proxy : null"
                   :more-info="moreInfo"
                 />
+                <template
+                  v-if="headerCardsEnabled"
+                  #related
+                >
+                  <client-only>
+                    <RelatedCollections
+                      :title="$t('youMightAlsoLike')"
+                      :related-collections="relatedCollections"
+                      data-qa="related entities"
+                      @show="showRelatedCollections"
+                      @hide="hideRelatedCollections"
+                    />
+                  </client-only>
+                </template>
               </SearchInterface>
             </b-container>
             <b-container class="px-0">
@@ -144,7 +160,7 @@
 
     data() {
       return {
-        relatedCollections: []
+        showRelated: false
       };
     },
 
@@ -179,7 +195,9 @@
         identifier: entityUri,
         locale: app.i18n.isoLocale(),
         preview: query.mode === 'preview',
+        // TODO: does `curatedEntities` variable do anything in the GraphQL query?
         curatedEntities: fetchCuratedEntities,
+        // TODO: does `entityPage` variable do anything in the GraphQL query?
         entityPage: fetchEntityPage
       };
 
@@ -339,8 +357,11 @@
       relatedCollectionCards() {
         return ((this.page?.relatedLinksCollection?.items?.length || 0) > 0) ? this.page.relatedLinksCollection.items : null;
       },
+      relatedCollections() {
+        return this.relatedEntities || this.relatedCollectionCards || [];
+      },
       relatedCollectionsFound() {
-        return (this.relatedEntities?.length || this.relatedCollectionCards?.length || 0) > 0;
+        return this.relatedCollections.length > 0;
       },
       userIsEditor() {
         return this.$store.state.auth.user?.resource_access?.entities?.roles?.includes('editor') || false;
@@ -447,6 +468,12 @@
             pathMatch: getEntitySlug(id, name)
           }
         });
+      },
+      showRelatedCollections() {
+        this.showRelated = true;
+      },
+      hideRelatedCollections() {
+        this.showRelated = false;
       }
     }
   };
@@ -462,6 +489,12 @@
 
     .related-collections {
       padding: 0;
+    }
+
+    ::v-deep .related-collections .badge {
+      // TODO: Remove this when the badges move into the search results
+      margin-top: 0.25rem;
+      margin-right: 0.5rem;
     }
   }
 

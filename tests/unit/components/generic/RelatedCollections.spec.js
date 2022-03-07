@@ -1,6 +1,7 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import Vuex from 'vuex';
+import sinon from 'sinon';
 
 import RelatedCollections from '@/components/generic/RelatedCollections.vue';
 
@@ -11,9 +12,7 @@ localVue.use(Vuex);
 const factory = (options = {}) => {
   return mount(RelatedCollections, {
     localVue,
-    propsData: {
-      query: 'Art'
-    },
+    propsData: options.propsData,
     stubs: ['b-container'],
     mocks: {
       ...{
@@ -42,7 +41,7 @@ const store = (options = {}) => {
   });
 };
 
-const relatedChips = [
+const relatedCollections = [
   {
     description: 'This is a scpecially curated chip!',
     identifier: 'http://data.europeana.eu/agent/base/123',
@@ -83,7 +82,7 @@ const relatedChips = [
 describe('components/generic/RelatedCollections', () => {
   describe('when related collections are found', () => {
     const wrapper = factory();
-    wrapper.setProps({ relatedCollections: relatedChips });
+    wrapper.setProps({ relatedCollections });
 
     it('shows a section with related collections chips', () => {
       const relatedCollections = wrapper.find('[data-qa="related collections"]');
@@ -106,45 +105,76 @@ describe('components/generic/RelatedCollections', () => {
     });
   });
 
-  describe('#linkGen', () => {
-    describe('when the item has an identifier/it is a curated chip from contenful', () => {
-      it('uses the identifier and name for the slug', () => {
-        const wrapper = factory();
-        expect(wrapper.vm.linkGen(relatedChips[0])).toEqual('person - 123-entity-from-contentful');
+  describe('methods', () => {
+    describe('draw', () => {
+      it('emits "show" when relatedCollections has members', async() => {
+        const wrapper = factory({ propsData: { relatedCollections } });
+
+        await wrapper.vm.draw();
+
+        expect(wrapper.emitted('show').length).toBeGreaterThanOrEqual(1);
+        expect(wrapper.emitted('hide')).toBe(undefined);
+      });
+
+      it('emits "hide" when relatedCollections is blank', async() => {
+        const wrapper = factory({ propsData: { relatedCollections: [] } });
+
+        await wrapper.vm.draw();
+
+        expect(wrapper.emitted('hide').length).toBeGreaterThanOrEqual(1);
+        expect(wrapper.emitted('show')).toBe(undefined);
+      });
+
+      it('redraws Masonry', async() => {
+        const wrapper = factory({ propsData: { relatedCollections } });
+        wrapper.vm.$redrawVueMasonry = sinon.spy();
+
+        await wrapper.vm.draw();
+
+        expect(wrapper.vm.$redrawVueMasonry.called).toBe(true);
       });
     });
 
-    describe('when the item has an id/it is a Europeana entity from a search request', () => {
-      it('uses the id and the prefLabel for the name', () => {
-        const wrapper = factory();
-        expect(wrapper.vm.linkGen(relatedChips[1])).toEqual('topic - 194-visual-arts');
+    describe('linkGen', () => {
+      describe('when the item has an identifier/it is a curated chip from contenful', () => {
+        it('uses the identifier and name for the slug', () => {
+          const wrapper = factory();
+          expect(wrapper.vm.linkGen(relatedCollections[0])).toEqual('person - 123-entity-from-contentful');
+        });
       });
-    });
-  });
 
-  describe('#imageUrl', () => {
-    describe('when the item has an image attribute', () => {
-      it('uses the image at a width of 200', () => {
-        const wrapper = factory();
-        expect(wrapper.vm.imageUrl(relatedChips[0])).toEqual('imageUrlItem1&size=w200');
+      describe('when the item has an id/it is a Europeana entity from a search request', () => {
+        it('uses the id and the prefLabel for the name', () => {
+          const wrapper = factory();
+          expect(wrapper.vm.linkGen(relatedCollections[1])).toEqual('topic - 194-visual-arts');
+        });
       });
     });
-    describe('when the item has an isShownBy with a thumbnail', () => {
-      it('uses the thumbnail at a width of 200', () => {
-        const wrapper = factory();
-        expect(wrapper.vm.imageUrl(relatedChips[1])).toEqual('thumbnailUrlItem2&size=w200');
+
+    describe('imageUrl', () => {
+      describe('when the item has an image attribute', () => {
+        it('uses the image at a width of 200', () => {
+          const wrapper = factory();
+          expect(wrapper.vm.imageUrl(relatedCollections[0])).toEqual('imageUrlItem1&size=w200');
+        });
       });
-    });
-    describe('when the item has a logo attribute', () => {
-      it('uses the logo URL from wikimedia at a size of 28', () => {
-        const wrapper = factory();
-        expect(wrapper.vm.imageUrl(relatedChips[2])).toEqual('https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/logoUrlItem3.jpg/28px-logoUrlItem3.jpg');
+      describe('when the item has an isShownBy with a thumbnail', () => {
+        it('uses the thumbnail at a width of 200', () => {
+          const wrapper = factory();
+          expect(wrapper.vm.imageUrl(relatedCollections[1])).toEqual('thumbnailUrlItem2&size=w200');
+        });
       });
-    });
-    describe('when there is no relevant attribute', () => {
-      it('returns null', () => {
-        const wrapper = factory();
-        expect(wrapper.vm.imageUrl(relatedChips[3])).toBeNull();
+      describe('when the item has a logo attribute', () => {
+        it('uses the logo URL from wikimedia at a size of 28', () => {
+          const wrapper = factory();
+          expect(wrapper.vm.imageUrl(relatedCollections[2])).toEqual('https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/logoUrlItem3.jpg/28px-logoUrlItem3.jpg');
+        });
+      });
+      describe('when there is no relevant attribute', () => {
+        it('returns null', () => {
+          const wrapper = factory();
+          expect(wrapper.vm.imageUrl(relatedCollections[3])).toBeNull();
+        });
       });
     });
   });

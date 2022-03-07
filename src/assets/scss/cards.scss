@@ -76,7 +76,7 @@
 
 .header-card {
   border: 0;
-  border-radius: 0;
+  box-shadow: $boxshadow-small;
 
   h1 {
     font-size: $font-size-medium;
@@ -89,10 +89,37 @@
   }
 }
 
+.related-collections-card {
+  background: $white;
+  border: 0;
+  border-radius: $border-radius-small;
+  box-shadow: $boxshadow-small;
+
+  h2 {
+    margin-top: 0 !important;
+    margin-right: 1rem;
+  }
+
+  .card-body {
+    padding-right: 0.25rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .related-collections {
+    padding: 0;
+
+    .badge-pill {
+      margin-bottom: 0.75rem;
+      margin-right: 1rem;
+    }
+  }
+}
+
 .content-card {
   $card-line-height: 1.1875rem;
 
   background: $white;
+  border: 0;
   border-radius: $border-radius-small;
   box-shadow: $boxshadow-small;
   color: $black;
@@ -404,6 +431,15 @@
   }
 
   &.list-card {
+    .card-wrapper {
+      box-shadow: none;
+
+      &:hover {
+        box-shadow: $boxshadow-large;
+        transition: box-shadow 0.25s;
+      }
+    }
+
     .card-img {
       background-color: $mediumgrey;
       border-radius: $border-radius-small;
@@ -598,7 +634,8 @@
   flex: 0 0 100%;
 }
 
-.card-group-list .header-card {
+.card-group-list .header-card,
+.card-group-list .related-collections-card {
   margin-left: 0;
   margin-right: 0;
 }
@@ -668,45 +705,46 @@
 .masonry-container {
   width: 100%;
 
-  @media (max-width: $bp-medium) {
+  @media (max-width: $bp-medium - 1) {
     &[style] {
       height: auto !important;
     }
   }
 
   @media (min-width: $bp-medium) {
-    margin-left: -15px;
-    margin-right: -15px;
-    width: calc(100% + #{$grid-gutter * 2});
+    margin-left: -0.5 * $masonry-gutter;
+    margin-right: -0.5 * $masonry-gutter;
+    width: calc(100% + $masonry-gutter);
   }
 
+  // TODO reorder masonry-container and :not(.list-card) selectors
+  .related-collections-card:not(.list-card),
   .content-card:not(.list-card) {
-    box-shadow: none;
     display: inline-block;
     vertical-align: top;
     width: 100%;
 
-    @media (max-width: $bp-medium) {
+    @media (max-width: $bp-medium - 1) {
       &[style] {
         position: relative !important;
         left: auto !important;
         top: auto !important;
+        transform: none !important;
       }
     }
 
     @media (min-width: $bp-medium) {
-      margin-left: 15px;
-      margin-right: 15px;
-      width: calc(100% / 2 - #{$grid-gutter * 2});
+      margin-left: 0.5 * $masonry-gutter;
+      margin-right: 0.5 * $masonry-gutter;
+      width: calc(100% / 2 - $masonry-gutter);
     }
 
-    @media (min-width: $bp-large) {
-      width: calc(100% / 4 - #{$grid-gutter * 2});
+    @media (min-width: $bp-extralarge) {
+      width: calc(100% / 4 - $masonry-gutter);
     }
 
     .card-wrapper {
       &::before {
-        box-shadow: $boxshadow-small;
         content: '';
         height: 100%;
         position: absolute;
@@ -743,17 +781,18 @@
   }
 
   @at-root .side-filters-enabled & {
-    .content-card {
+    .content-card,
+    .related-collections-card {
       @media (min-width: $bp-medium) {
-        width: calc(100% / 2 - #{$grid-gutter * 2});
+        width: calc(100% / 2 - $masonry-gutter);
       }
 
       @media (min-width: $bp-large) {
-        width: calc(100% / 3 - #{$grid-gutter * 2});
+        width: calc(100% / 3 - $masonry-gutter);
       }
 
       @media (min-width: $bp-extralarge) {
-        width: calc(100% / 4 - #{$grid-gutter * 2});
+        width: calc(100% / 4 - $masonry-gutter);
       }
     }
 
@@ -767,17 +806,17 @@
       }
 
       @media (min-width: $bp-medium) {
-        width: calc(100% - #{$grid-gutter * 2});
-        margin-left: 15px;
-        margin-right: 15px;
+        width: calc(100% - $masonry-gutter);
+        margin-left: 0.5 * $masonry-gutter;
+        margin-right: 0.5 * $masonry-gutter;
       }
 
       @media (min-width: $bp-large) {
-        width: calc(100% / 1.5 - #{$grid-gutter * 2});
+        width: calc(100% / 1.5 - $masonry-gutter);
       }
 
       @media (min-width: $bp-extralarge) {
-        width: calc(100% / 2 - #{$grid-gutter * 2});
+        width: calc(100% / 2 - $masonry-gutter);
       }
     }
   }
