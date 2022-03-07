@@ -32,13 +32,12 @@
       :class="{ 'd-flex align-items-center': contextLabel }"
     >
       <b-col>
-        <div
-          v-if="contextLabel || contextLabel === ''"
-          class="context-label"
+        <ContextLabel
+          v-if="headerCardsEnabled"
+          :query="query"
+          :entity="entity"
           data-qa="context label"
-        >
-          {{ contextLabel }}
-        </div>
+        />
         <template v-else>
           <p
             data-qa="total results"
@@ -122,6 +121,7 @@
   import InfoMessage from '../generic/InfoMessage';
   import ViewToggles from './ViewToggles';
 
+
   import makeToastMixin from '@/mixins/makeToast';
 
   import { mapState, mapGetters } from 'vuex';
@@ -132,6 +132,7 @@
     components: {
       AlertMessage: () => import('../../components/generic/AlertMessage'),
       ClientOnly,
+      ContextLabel: () => import('../../components/search/ContextLabel'),
       InfoMessage,
       ItemPreviewCardGroup,
       LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
@@ -189,7 +190,7 @@
     computed: {
       ...mapState({
         userParams: state => state.search.userParams,
-        entityId: state => state.entity.id,
+        entity: state => state.entity,
         error: state => state.search.error,
         hits: state => state.search.hits,
         lastAvailablePage: state => state.search.lastAvailablePage,
@@ -250,7 +251,10 @@
         set(value) {
           this.$store.commit('search/setView', value);
         }
-      }
+      },
+      headerCardsEnabled() {
+        return this.$features.entityHeaderCards;
+      },
     },
     watch: {
       routeQueryView: 'viewFromRouteQuery',

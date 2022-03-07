@@ -62,7 +62,7 @@
           <b-col>
             <b-container class="px-0 pb-3">
               <i18n
-                v-if="$route.query.query"
+                v-if="$route.query.query && !headerCardsEnabled"
                 path="searchResultsForIn"
                 tag="h2"
                 class="px-0 container"
@@ -76,10 +76,9 @@
                 :route="route"
                 :show-content-tier-toggle="false"
                 :show-pins="userIsEditor && userIsSetsEditor"
-                :context-label="headerCardsEnabled ? contextLabel : null"
               >
                 <EntityHeader
-                  v-if="headerCardsEnabled"
+                  v-if="headerCardsEnabled && !hasUserQuery"
                   :description="description"
                   :title="title"
                   :logo="logo"
@@ -372,6 +371,9 @@
       },
       headerCardsEnabled() {
         return this.$features.entityHeaderCards;
+      },
+      hasUserQuery() {
+        return this.$route.query.query &&  this.$route.query.query !== '';
       },
       thumbnail() {
         return this.entity?.isShownBy?.thumbnail || null;
