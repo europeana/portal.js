@@ -858,5 +858,6 @@ export default {
     "liked": "Liked",
     "pinned": "Pinned"
   },
-  "website": "Website"
+  "website": "Website",
+  "youMightAlsoLike": "You might also like"
 };
