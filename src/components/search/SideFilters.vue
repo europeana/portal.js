@@ -21,6 +21,12 @@
             data-qa="total results"
           >
             {{ $tc('items.itemCount', totalResultsLocalised, { count: totalResultsLocalised }) }}
+            <div
+              class="visually-hidden"
+              role="status"
+            >
+              {{ $t('searchHasLoaded', [totalResultsLocalised]) }}
+            </div>
           </div>
           <h2
             v-else

@@ -15,9 +15,29 @@ const organisationEntity = {
     id: 'http://data.europeana.eu/organization/01234567890',
     logo: { id: 'http://commons.wikimedia.org/wiki/Special:FilePath/Albertina%20Logo.svg' },
     description: { en: 'example of an organisation description' },
-    homepage: 'https://www.example-organisation.eu'
+    homepage: 'https://www.example-organisation.eu',
+    hasAddress: {
+      countryName: 'The Netherlands',
+      locality: 'The Hague'
+    },
+    acronym: { en: 'ABC' }
   },
   type: 'organisation'
+};
+
+const topicEntity = {
+  entity: {
+    id: 'http://data.europeana.eu/concept/base/01234567890',
+    description: { en: 'example of a topic description' },
+    isShownBy: { thumbnail: 'https://api.europeana.eu/api/v2/thumbnail.jpg' }
+  },
+  type: 'concept'
+};
+
+const mutations = {
+  setId: sinon.spy(),
+  setEntity: sinon.spy(),
+  setShowSearchBar: sinon.spy()
 };
 
 const store = (entity = {}) => {
@@ -28,7 +48,9 @@ const store = (entity = {}) => {
         locale: 'en'
       },
       auth: {},
-      search: {}
+      search: {
+        showSearchBar: true
+      }
     },
     getters: {
       'entity/curatedEntity': () => () => null,
@@ -40,10 +62,15 @@ const store = (entity = {}) => {
     mutations: {
       'search/set': () => null,
       'search/setShowFiltersToggle': () => null,
-      'search/setCollectionLabel': () => null
+      'search/setCollectionLabel': () => null,
+      'search/setShowSearchBar': (state, val) => mutations.setShowSearchBar(val),
+      'entity/setRelatedEntities': () => null,
+      'entity/setId': (state, val) => mutations.setId(val),
+      'entity/setEntity': (state, val) => mutations.setEntity(val) // (state, val) => state.entity.entity = val
     },
     actions: {
-      'entity/searchForRecords': () => null
+      'entity/searchForRecords': () => null,
+      'search/setResettableFilter': () => ({})
     }
   });
 };
@@ -56,6 +83,9 @@ const factory = (options) => shallowMountNuxt(collection, {
     $tFacetName: key => key,
     $route: { query: '', params: { type: options.type } },
     $apis: {
+      entity: {
+        facets: sinon.stub().resolves([])
+      },
       record: {
         relatedEntities: sinon.stub().resolves({})
       }
@@ -67,7 +97,33 @@ const factory = (options) => shallowMountNuxt(collection, {
   }
 });
 
-describe('Collection page', () => {
+describe('pages/collections/type/_', () => {
+  describe('beforeRouteLeave', () => {
+    it('resets set id and set entity', async() => {
+      const to = { name: 'search__eu', fullPath: '/en/search', matched: [{ path: '/en/search' }] };
+      const wrapper = factory(topicEntity);
+
+      const next = sinon.stub();
+
+      await wrapper.vm.$options.beforeRouteLeave.call(wrapper.vm, to, null, next);
+
+      expect(mutations.setEntity.calledWith(null)).toBe(true);
+      expect(mutations.setId.calledWith(null)).toBe(true);
+      expect(next.called).toBe(true);
+    });
+    it('hides search bar when not navigating to search page', async() => {
+      const to = { name: 'item___eu', fullPath: '/eu/item/123', matched: [{ path: '/eu/item/123' }] };
+      const wrapper = factory(topicEntity);
+
+      const next = sinon.stub();
+
+      await wrapper.vm.$options.beforeRouteLeave.call(wrapper.vm, to, null, next);
+
+      expect(mutations.setShowSearchBar.calledWith(false)).toBe(true);
+      expect(next.called).toBe(true);
+    });
+  });
+
   describe('collectionType', () => {
     it('returns the collection type', () => {
       const wrapper = factory(organisationEntity);
@@ -76,6 +132,7 @@ describe('Collection page', () => {
       expect(collectionType).toBe('organisation');
     });
   });
+
   describe('logo', () => {
     it('returns a logo on organisation pages', () => {
       const wrapper = factory(organisationEntity);
@@ -84,6 +141,7 @@ describe('Collection page', () => {
       expect(logo).toBe(organisationEntity.entity.logo.id);
     });
   });
+
   describe('description', () => {
     it('returns a description for an organisation when provided', () => {
       const wrapper = factory(organisationEntity);
@@ -98,6 +156,47 @@ describe('Collection page', () => {
 
       const homepage = wrapper.vm.homepage;
       expect(homepage).toBe(organisationEntity.entity.homepage);
+    });
+  });
+  describe('thumbnail', () => {
+    it('returns a thumbnail when available', () => {
+      const wrapper = factory(topicEntity);
+
+      const thumbnail = wrapper.vm.thumbnail;
+      expect(thumbnail).toBe(topicEntity.entity.isShownBy.thumbnail);
+    });
+  });
+  describe('moreInfo', () => {
+    it('returns an object with more entity data on organisation pages', () => {
+      const wrapper = factory(organisationEntity);
+
+      const moreInfo = wrapper.vm.moreInfo;
+      expect(moreInfo[0].value).toBe(organisationEntity.entity.homepage);
+      expect(moreInfo[1].value).toBe(organisationEntity.entity.hasAddress.countryName);
+      expect(moreInfo[2].value).toBe(organisationEntity.entity.acronym.en);
+      expect(moreInfo[3].value).toBe(organisationEntity.entity.hasAddress.locality);
+    });
+  });
+
+  describe('methods', () => {
+    describe('showRelatedCollections()', () => {
+      it('sets showRelated to true', async() => {
+        const wrapper = factory(topicEntity);
+
+        await wrapper.vm.showRelatedCollections();
+
+        expect(wrapper.vm.showRelated).toBe(true);
+      });
+    });
+
+    describe('hideRelatedCollections()', () => {
+      it('sets showRelated to true', async() => {
+        const wrapper = factory(topicEntity);
+
+        await wrapper.vm.hideRelatedCollections();
+
+        expect(wrapper.vm.showRelated).toBe(false);
+      });
     });
   });
 });

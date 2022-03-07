@@ -36,6 +36,7 @@ export default {
     "feedback": "Feedback",
     "goBack": "Go back",
     "goHome": "Go to the homepage",
+    "learnMore": "Learn more",
     "like": "Like",
     "next": "Next",
     "pin": "Pin",
@@ -739,6 +740,11 @@ export default {
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
   "noResults": "No results",
+  "organisation": {
+    "city": "City",
+    "country": "Country",
+    "nameAcronym": "Name acronym"
+  },
   "pageHasLoaded": "has loaded",
   "pages": {
     "collections": {
@@ -793,6 +799,7 @@ export default {
   "results": "Results",
   "resultsLimitWarning": "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
   "search": "Search",
+  "searchHasLoaded": "{0} results returned",
   "searchPlaceholder": "Search millions of items",
   "searchResults": "Search",
   "searchResultsFor": "{0} - Search",
@@ -856,5 +863,6 @@ export default {
     "liked": "Liked",
     "pinned": "Pinned"
   },
-  "website": "Website"
+  "website": "Website",
+  "youMightAlsoLike": "You might also like"
 };
