@@ -847,6 +847,11 @@ export default {
   },
   "showLess": "Show less",
   "showMore": "Show more",
+  "sideFilters": {
+    "select": "Select",
+    "search": "Search",
+    "noOptions": "There are no options available to select"
+  },
   "statuses": {
     "liked": "Liked",
     "pinned": "Pinned"

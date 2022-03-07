@@ -2,6 +2,7 @@
   <div v-if="!fetched || fields.length > 0 || selectedFilters[name].length > 0">
     <label
       class="facet-label"
+      :class="{ 'facet-label-active' : selectedFilters[name].length > 0 }"
     >{{ facetName }}</label>
     <b-form-tags
       :id="facetNameNoSpaces"
@@ -40,7 +41,7 @@
           block
         >
           <template #button-content>
-            Select {{ facetName.toLowerCase() }}
+            {{ `${$t('sideFilters.select')} ${facetName.toLowerCase()}` }}
           </template>
           <template
             v-if="search"
@@ -58,8 +59,9 @@
                   v-model="searchFacet"
                   type="text"
                   autocomplete="off"
-                  placeholder="Search"
+                  :placeholder="$t('sideFilters.search')"
                 />
+                <span class="icon-search" />
               </b-form-group>
             </b-dropdown-form>
             <b-dropdown-divider />
@@ -87,7 +89,7 @@
             </template>
           </b-dropdown-item-button>
           <b-dropdown-text v-if="availableSortedOptions.length === 0">
-            There are no tags available to select
+            {{ $t('sideFilters.noOptions') }}
           </b-dropdown-text>
         </b-dropdown>
       </template>
@@ -392,6 +394,8 @@
           name: this.name,
           selected: this.preSelected
         });
+
+        this.selectedOptions = this.selected || [];
       },
 
       removeOption({ tag, removeTag }) {

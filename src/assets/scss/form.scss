@@ -48,6 +48,10 @@
   text-transform: uppercase;
   color: $mediumgrey;
   margin-bottom: 0.25rem;
+
+  &.facet-label-active {
+    color: $blue;
+  }
 }
 
 .custom-switch {

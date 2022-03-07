@@ -30,77 +30,6 @@
     overflow: auto;
   }
 
-  &.facet-dropdown {
-    margin-bottom: 5px;
-    width: 100%;
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-
-    @media (min-width: $bp-large) {
-      width: auto;
-      margin-bottom: 0;
-    }
-
-    .dropdown-menu {
-      font-size: $font-size-small;
-      margin-top: 0.5rem;
-      width: 100%;
-
-      @media (min-width: $bp-large) {
-        min-width: 280px;
-
-        &.show {
-          transform: translate3d(0, 3rem, 0) !important;
-        }
-      }
-
-      .custom-control {
-        margin-bottom: 4px;
-        min-height: auto;
-
-        label span {
-          font-size: $font-size-extrasmall;
-        }
-      }
-
-      .custom-checkbox-colour {
-        .custom-control-label {
-          display: inline-flex;
-          align-items: center;
-          flex: 1;
-          flex-wrap: wrap;
-
-          span {
-            margin-right: 0.25rem;
-          }
-
-          .colour-palette {
-            border: 1px solid $whitegrey;
-            border-radius: 50%;
-            height: 1rem;
-            width: 1rem;
-            display: inline-block;
-          }
-        }
-      }
-    }
-
-    .options-container {
-      overflow: auto;
-      max-height: 50vh;
-
-      &::-webkit-scrollbar {
-        width: 0.25rem;
-      }
-
-      &::-webkit-scrollbar-thumb {
-        background-color: $grey;
-      }
-    }
-  }
-
   &.side-facet {
     width: 100%;
     margin-bottom: 1.25rem;
@@ -220,18 +149,31 @@
       padding-right: 0.75rem;
     }
 
-    input[type='text'] {
+    .form-group > div {
+      display: flex;
+      align-items: center;
       border-bottom: 1px solid $blue;
-      background: none;
-      border-radius: 0;
-      font-size: $font-size-small;
+
+      input[type='text'] {
+        background: none;
+        border-radius: 0;
+        font-size: $font-size-small;
+        padding-right: 0.5rem;
+        padding-left: 0;
+        color: $mediumgrey;
+      }
     }
 
     .dropdown-item {
       padding: 0.5rem 0.75rem;
+      color: $black;
 
       &:hover {
         background-color: $bodygrey;
+      }
+
+      &:active {
+        color: $black;
       }
 
       span {
@@ -245,6 +187,11 @@
         width: 1rem;
         display: inline-block;
       }
+    }
+
+    .b-dropdown-text {
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
     }
   }
 }
