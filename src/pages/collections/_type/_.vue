@@ -195,7 +195,9 @@
         identifier: entityUri,
         locale: app.i18n.isoLocale(),
         preview: query.mode === 'preview',
+        // TODO: does `curatedEntities` variable do anything in the GraphQL query?
         curatedEntities: fetchCuratedEntities,
+        // TODO: does `entityPage` variable do anything in the GraphQL query?
         entityPage: fetchEntityPage
       };
 
