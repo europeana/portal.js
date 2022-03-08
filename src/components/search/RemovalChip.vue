@@ -4,7 +4,7 @@
     :href="$link.href(linkTo)"
     pill
     variant="light"
-    class="mt-1 mr-2 font-weight-normal bg-white"
+    class="mt-1 font-weight-normal bg-white"
     :class="{ 'img-chip': img }"
     :data-qa="localisedTitle.values[0] + ' removal chip'"
     :lang="localisedTitle.code"
@@ -87,16 +87,7 @@
     }
 
     &.img-chip {
-      padding: 0.25rem 0.75rem 0.25rem 0.25rem;
-    }
-
-    img {
-      width: 28px;
-      height: 28px;
-      object-fit: cover;
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
+      padding: 0.25rem 0.75rem 0.25rem calc(0.5rem + 28px);
     }
 
     .clear-indicator {

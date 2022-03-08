@@ -108,7 +108,7 @@
           params: currentParams,
           query: {
             ...this.$route.query,
-            query: ''
+            query: null
           }
         });
       },
