@@ -13,8 +13,7 @@ const factory = (options = {}) => shallowMount(FilterToggleButton, {
   mocks: {
     $t: (key) => key
   },
-  store: store({ showFiltersToggle: options.showFiltersToggle || false, 
-    resettableFilters: options.resettableFilters || [] })
+  store: store({ showFiltersToggle: options.showFiltersToggle || false, resettableFilters: options.resettableFilters || [] })
 });
 
 const store = (searchState = {}) => {
