@@ -25,7 +25,8 @@
         <ContextLabel
           v-if="headerCardsEnabled"
           :query="query"
-          :entity="entity"
+          :entity="entity.entity"
+          :labelOverride="editorialEntityLabel"
           data-qa="context label"
         />
         <template v-else>
@@ -168,6 +169,10 @@
         default: true
       },
       contextLabel: {
+        type: String,
+        default: null
+      },
+      editorialEntityLabel: {
         type: String,
         default: null
       }

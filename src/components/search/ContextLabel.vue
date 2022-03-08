@@ -65,12 +65,22 @@
       },
 
       /**
-       * Active entity
+       * Entity for the current collection page.
        *
-       * Current entity which is being searched. Used for labeling and remvoal link.
+       * Current entity which is being searched by. Used for labeling and remvoal link.
        */
       entity: {
         type: Object,
+        default: null
+      },
+
+      /**
+       * Editorial title
+       *
+       * Title/label override. Used for editorial collection titles from contentful.
+       */
+      labelOverride: {
+        type: String,
         default: null
       }
     },
@@ -82,12 +92,10 @@
         return this.entity && this.entity.id;
       },
       localisedEntityLabel() {
-        // TODO: needs to handle fallbacks & editorialTitle overrides
-        return this.entity?.entity?.prefLabel;
+        return this.labelOverride ? { values: [this.labelOverride], code: null } : this.entity?.prefLabel;
       },
       entityImage() {
-        const entityData =  this.entity?.entity;
-        return entityData?.isShownBy?.thumbnail || entityData?.logo ? getWikimediaThumbnailUrl(entityData?.logo.id, 80) : null;
+        return this.entity?.isShownBy?.thumbnail || (this.entity?.logo ? getWikimediaThumbnailUrl(this.entity?.logo?.id, 80) : null);
       },
       entityTypeLabel() {
         return this.$t(`cardLabels.${this.$route.params.type}`);

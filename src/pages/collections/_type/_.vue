@@ -77,6 +77,7 @@
                 :show-content-tier-toggle="false"
                 :show-pins="userIsEditor && userIsSetsEditor"
                 :context-label="headerCardsEnabled ? contextLabel : null"
+                :editorialEntityLabel="editorialTitle"
                 :show-related="showRelated"
               >
                 <EntityHeader
