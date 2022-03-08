@@ -54,12 +54,12 @@
       genericLabel() {
         let fieldLabel = this.fieldValue;
 
-        if (this.themeSpecificFieldLabelPattern) {
-          fieldLabel = fieldLabel.replace(this.themeSpecificFieldLabelPattern, '');
-        }
-
         if (this.escaped) {
           fieldLabel = unescapeLuceneSpecials(fieldLabel.replace(/^"(.*)"$/, '$1'));
+        }
+
+        if (this.themeSpecificFieldLabelPattern) {
+          fieldLabel = fieldLabel.replace(this.themeSpecificFieldLabelPattern, '');
         }
 
         const key = `facets.${this.facetName}.options.${fieldLabel}`;

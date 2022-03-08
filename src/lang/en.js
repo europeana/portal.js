@@ -855,7 +855,7 @@ export default {
   "showLess": "Show less",
   "showMore": "Show more",
   "sideFilters": {
-    "select": "Select",
+    "select": "Select a | Select",
     "search": "Search",
     "noOptions": "There are no options available to select"
   },

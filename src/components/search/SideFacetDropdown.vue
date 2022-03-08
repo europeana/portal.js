@@ -41,7 +41,7 @@
           block
         >
           <template #button-content>
-            {{ `${$t('sideFilters.select')} ${facetName.toLowerCase()}` }}
+            {{ `${$tc('sideFilters.select', isRadio ? 1 : 2)} ${facetName.toLowerCase()}` }}
           </template>
           <template
             v-if="search"
@@ -384,6 +384,7 @@
           this.$fetch();
         }
       },
+
       init() {
         if (this.isRadio && Array.isArray(this.selected)) {
           this.preSelected = this.selected[0];
@@ -411,10 +412,11 @@
         }
 
         const selected = this.isRadio ? option : option.label;
+
         addTag(selected);
         this.searchFacet = '';
 
-        this.$emit('changed', this.name, (this.isRadio ? selected : this.selected.concat(selected)));
+        this.$emit('changed', this.name, this.isRadio ? selected : this.selected.concat(this.enquoteFacetFieldFilterValue(selected)));
       }
     }
   };
