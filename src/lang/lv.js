@@ -6,7 +6,7 @@ export default {
     "likes": "Patīk",
     "linkAccount": "Mans konts",
     "linkLogin": "Pieteikties",
-    "linkLoginJoin": "Pieteikties/Pievienoties",
+    "linkLoginJoin": "Pieteikties\/Pievienoties",
     "linkLogout": "Atteikties",
     "myProfile": "Mans profils",
     "notifications": {
@@ -36,6 +36,7 @@ export default {
     "feedback": "Atsauksmes",
     "goBack": "Atpakaļ",
     "goHome": "Dodieties uz sākumlapu",
+    "learnMore": "Apgūt vairāk",
     "like": "Patīk",
     "next": "Nākamais",
     "pin": "Pin",
@@ -331,7 +332,55 @@ export default {
       }
     },
     "COUNTRY": {
-      "name": "Nodrošinošā valsts"
+      "name": "Nodrošinošā valsts",
+      "options": {
+        "Albania": "Albānija",
+        "Austria": "Austrija",
+        "Belarus": "Baltkrievija",
+        "Belgium": "Beļģija",
+        "Bosnia and Herzegovina": "Bosnija un Hercegovina",
+        "Bulgaria": "Bulgārija",
+        "Croatia": "Horvātija",
+        "Cyprus": "Kipra",
+        "Czech Republic": "Čehija",
+        "Denmark": "Dānija",
+        "Estonia": "Igaunija",
+        "Europe": "Eiropa",
+        "Finland": "Somija",
+        "France": "Francija",
+        "Georgia": "Gruzija",
+        "Germany": "Vācija",
+        "Greece": "Grieķija",
+        "Holy See (Vatican City State)": "Svētais Krēsls (Vatikāna Pilsētvalsts)",
+        "Hungary": "Ungārija",
+        "Iceland": "Islande",
+        "Ireland": "Īrija",
+        "Israel": "Izraēla",
+        "Italy": "Itālija",
+        "Latvia": "Latvija",
+        "Lithuania": "Lietuva",
+        "Luxembourg": "Luksemburga",
+        "Macedonia": "Maķedonija",
+        "Malta": "Malta",
+        "Moldova": "Moldova",
+        "Montenegro": "Melnkalne",
+        "Netherlands": "Nīderlande",
+        "Norway": "Norvēģija",
+        "Poland": "Polija",
+        "Portugal": "Portugāle",
+        "Romania": "Rumānija",
+        "Russia": "Krievija",
+        "Serbia": "Serbija",
+        "Slovakia": "Slovākija",
+        "Slovenia": "Slovēnija",
+        "Spain": "Spānija",
+        "Sweden": "Zviedrija",
+        "Switzerland": "Šveice",
+        "Turkey": "Turcija",
+        "Ukraine": "Ukraina",
+        "United Kingdom": "Apvienotā Karaliste",
+        "United States of America": "Amerikas Savienotās Valstis"
+      }
     },
     "CREATOR": {
       "name": "Radītājs | Radītāji"
@@ -402,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Datnes formāts | Datņu formāti",
       "options": {
-        "text/plain": "Vienkāršs teksts"
+        "text\/plain": "Vienkāršs teksts"
       }
     },
     "PROVIDER": {
@@ -483,7 +532,7 @@ export default {
       "name": "Izdošanas datums"
     },
     "proxy_dcterms_medium": {
-      "name": "Līdzeklis/ Līdzekļi"
+      "name": "Līdzeklis\/ Līdzekļi"
     }
   },
   "feedback": {
@@ -666,7 +715,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Palīdz uzlabot mūsu vietni, laiku pa laikam veicot eksperimentālas izmaiņas.",
-        "title": "A/B testēšana"
+        "title": "A\/B testēšana"
       },
       "auth-strategy": {
         "description": "Atceras autorizācijas stratēģiju, kas jāizmanto, lai pieteiktos.",
@@ -698,7 +747,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Atceras, vai vēlaties redzēt meklēšanas rezultātus saraksta vai režģa skatā.",
-        "title": "Meklēšanas rezultātu skats (saraksts / režģis)"
+        "title": "Meklēšanas rezultātu skats (saraksts \/ režģis)"
       }
     }
   },
@@ -730,7 +779,7 @@ export default {
     "translateQuotaError": "Tulkošanas pakalpojums īslaicīgi nav pieejams. Lūdzu, pamēģiniet vēlreiz vēlāk."
   },
   "newFeatureNotification": {
-    "dismiss": "Atbrīvot",
+    "dismiss": "Aizvērt",
     "readMore": "Lasīt vairāk",
     "text": {
       "sideFilters": "Apskatiet jaunos filtrus! Tagad tie visi ir redzami meklēšanas rezultātu labajā pusē."
@@ -739,6 +788,11 @@ export default {
   "newWindow": "tiek atvērts jaunā logā",
   "noMoreResults": "Jūsu meklēšanas vaicājumam vairs nav rezultātu.",
   "noResults": "Nav rezultātu",
+  "organisation": {
+    "city": "Pilsēta",
+    "country": "Valsts",
+    "nameAcronym": "Vārda akronīms"
+  },
   "pageHasLoaded": "ir ielādēts",
   "pages": {
     "collections": {
@@ -793,6 +847,7 @@ export default {
   "results": "Rezultāti",
   "resultsLimitWarning": "Papildu rezultāti netiek parādīti, jo tiek parādīti tikai pirmie 1000 atbilstošākie rezultāti. Ja neesat atradis to, ko meklējat, lūdzu, apsveriet iespēju precizēt meklēšanu.",
   "search": "Meklēt",
+  "searchHasLoaded": "{0} atgriezti rezultāti",
   "searchPlaceholder": "Meklēt starp miljoniem vienumu",
   "searchResults": "Meklēt",
   "searchResultsFor": "{0} - Meklēšana",
@@ -851,5 +906,6 @@ export default {
     "liked": "Patika",
     "pinned": "Piesprausts"
   },
-  "website": "Vietne"
+  "website": "Vietne",
+  "youMightAlsoLike": "Jums varētu arī patikt"
 };

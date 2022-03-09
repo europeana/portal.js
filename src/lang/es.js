@@ -6,7 +6,7 @@ export default {
     "likes": "Me gusta",
     "linkAccount": "Mi cuenta",
     "linkLogin": "Iniciar sesión",
-    "linkLoginJoin": "Iniciar sesión/Unirse",
+    "linkLoginJoin": "Iniciar sesión\/Unirse",
     "linkLogout": "Cerrar sesión",
     "myProfile": "Mi perfil",
     "notifications": {
@@ -36,6 +36,7 @@ export default {
     "feedback": "Comentarios",
     "goBack": "Volver",
     "goHome": "Ir a la página de inicio",
+    "learnMore": "Aprende más",
     "like": "Me gusta",
     "next": "próximo",
     "pin": "Alfiler",
@@ -331,7 +332,55 @@ export default {
       }
     },
     "COUNTRY": {
-      "name": "País proveedor"
+      "name": "País proveedor",
+      "options": {
+        "Albania": "Albania",
+        "Austria": "Austria",
+        "Belarus": "Bielorrusia",
+        "Belgium": "Bélgica",
+        "Bosnia and Herzegovina": "Bosnia y Herzegovina",
+        "Bulgaria": "Bulgaria",
+        "Croatia": "Croacia",
+        "Cyprus": "Chipre",
+        "Czech Republic": "República Checa",
+        "Denmark": "Dinamarca",
+        "Estonia": "Estonia",
+        "Europe": "Europa",
+        "Finland": "Finlandia",
+        "France": "Francia",
+        "Georgia": "Georgia",
+        "Germany": "Alemania",
+        "Greece": "Grecia",
+        "Holy See (Vatican City State)": "Santa Sede (Estado de la Ciudad del Vaticano)",
+        "Hungary": "Hungría",
+        "Iceland": "Islandia",
+        "Ireland": "Irlanda",
+        "Israel": "Israel",
+        "Italy": "Italia",
+        "Latvia": "Letonia",
+        "Lithuania": "Lituania",
+        "Luxembourg": "Luxemburgo",
+        "Macedonia": "Macedonia",
+        "Malta": "Malta",
+        "Moldova": "Moldavia",
+        "Montenegro": "Montenegro",
+        "Netherlands": "Países Bajos",
+        "Norway": "Noruega",
+        "Poland": "Polonia",
+        "Portugal": "Portugal",
+        "Romania": "Rumanía",
+        "Russia": "Rusia",
+        "Serbia": "Serbia",
+        "Slovakia": "Eslovaquia",
+        "Slovenia": "Eslovenia",
+        "Spain": "España",
+        "Sweden": "Suecia",
+        "Switzerland": "Suiza",
+        "Turkey": "Turquía",
+        "Ukraine": "Ucrania",
+        "United Kingdom": "Reino Unido",
+        "United States of America": "Estados Unidos de América"
+      }
     },
     "CREATOR": {
       "name": "Creador | Creadores"
@@ -402,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formato de archivo | Formatos de archivo",
       "options": {
-        "text/plain": "Texto sin formato"
+        "text\/plain": "Texto sin formato"
       }
     },
     "PROVIDER": {
@@ -666,7 +715,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Ayuda a mejorar nuestro sitio web aplicando ocasionalmente cambios experimentales.",
-        "title": "Pruebas A/B"
+        "title": "Pruebas A\/B"
       },
       "auth-strategy": {
         "description": "Recuerda la estrategia de autorización que se debe utilizar para iniciar sesión.",
@@ -698,7 +747,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Recuerda si prefiere ver los resultados de la búsqueda en una vista de lista o cuadrícula.",
-        "title": "Vista de resultados de búsqueda (lista / cuadrícula)"
+        "title": "Vista de resultados de búsqueda (lista \/ cuadrícula)"
       }
     }
   },
@@ -730,7 +779,7 @@ export default {
     "translateQuotaError": "El servicio de traducción no está disponible temporalmente. Por favor, inténtelo de nuevo más tarde."
   },
   "newFeatureNotification": {
-    "dismiss": "Despedir",
+    "dismiss": "Cerrar",
     "readMore": "Leer más",
     "text": {
       "sideFilters": "¡Mira los nuevos filtros! Ahora están todos visibles en el lado derecho de los resultados de búsqueda."
@@ -739,6 +788,11 @@ export default {
   "newWindow": "se abre en una nueva ventana",
   "noMoreResults": "No hay más resultados para su búsqueda.",
   "noResults": "No hay resultados",
+  "organisation": {
+    "city": "Ciudad",
+    "country": "País",
+    "nameAcronym": "acrónimo del nombre"
+  },
   "pageHasLoaded": "ha cargado",
   "pages": {
     "collections": {
@@ -793,6 +847,7 @@ export default {
   "results": "Resultados",
   "resultsLimitWarning": "No se muestran los resultados adicionales, ya que solo se muestran los primeros 1000 resultados más relevantes. Si no ha encontrado lo que está buscando, considere delimitar su búsqueda.",
   "search": "Buscar",
+  "searchHasLoaded": "{0} resultados devueltos",
   "searchPlaceholder": "Busca millones de elementos",
   "searchResults": "Buscar",
   "searchResultsFor": "{0} - Buscar",
@@ -851,5 +906,6 @@ export default {
     "liked": "Gustó",
     "pinned": "Fijado"
   },
-  "website": "Sitio web"
+  "website": "Sitio web",
+  "youMightAlsoLike": "También podría gustarte"
 };

@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mitt konto",
     "linkLogin": "Logga in",
-    "linkLoginJoin": "Logga in/Gå med",
+    "linkLoginJoin": "Logga in\/Gå med",
     "linkLogout": "Logga ut",
     "myProfile": "Min profil",
     "notifications": {
@@ -36,6 +36,7 @@ export default {
     "feedback": "Feedback",
     "goBack": "Gå tillbaka",
     "goHome": "Gå till hemsidan",
+    "learnMore": "Läs mer",
     "like": "Gilla",
     "next": "Nästa",
     "pin": "Stift",
@@ -331,7 +332,55 @@ export default {
       }
     },
     "COUNTRY": {
-      "name": "Tillhandahållande land"
+      "name": "Tillhandahållande land",
+      "options": {
+        "Albania": "Albanien",
+        "Austria": "Österrike",
+        "Belarus": "Vitryssland",
+        "Belgium": "Belgien",
+        "Bosnia and Herzegovina": "Bosnien och Hercegovina",
+        "Bulgaria": "Bulgarien",
+        "Croatia": "Kroatien",
+        "Cyprus": "Cypern",
+        "Czech Republic": "Tjeckien",
+        "Denmark": "Danmark",
+        "Estonia": "Estland",
+        "Europe": "Europa",
+        "Finland": "Finland",
+        "France": "Frankrike",
+        "Georgia": "Georgien",
+        "Germany": "Tyskland",
+        "Greece": "Grekland",
+        "Holy See (Vatican City State)": "Heliga stolen (Vatikanstaten)",
+        "Hungary": "Ungern",
+        "Iceland": "Island",
+        "Ireland": "Irland",
+        "Israel": "Israel",
+        "Italy": "Italien",
+        "Latvia": "Lettland",
+        "Lithuania": "Litauen",
+        "Luxembourg": "Luxemburg",
+        "Macedonia": "Makedonien",
+        "Malta": "Malta",
+        "Moldova": "Moldavien",
+        "Montenegro": "Montenegro",
+        "Netherlands": "Nederländerna",
+        "Norway": "Norge",
+        "Poland": "Polen",
+        "Portugal": "Portugal",
+        "Romania": "Rumänien",
+        "Russia": "Ryssland",
+        "Serbia": "Serbien",
+        "Slovakia": "Slovakien",
+        "Slovenia": "Slovenien",
+        "Spain": "Spanien",
+        "Sweden": "Sverige",
+        "Switzerland": "Schweiz",
+        "Turkey": "Turkiet",
+        "Ukraine": "Ukraina",
+        "United Kingdom": "Storbritannien",
+        "United States of America": "Amerikas förenta stater"
+      }
     },
     "CREATOR": {
       "name": "Skapare | Skapare"
@@ -402,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Filformat | Filformat",
       "options": {
-        "text/plain": "Oformaterad text"
+        "text\/plain": "Oformaterad text"
       }
     },
     "PROVIDER": {
@@ -666,7 +715,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Hjälper till att förbättra vår webbplats genom att ibland tillämpa experimentella förändringar.",
-        "title": "A/B -testning"
+        "title": "A\/B -testning"
       },
       "auth-strategy": {
         "description": "Kommer ihåg den auktoriserings strategi som ska användas för att logga in.",
@@ -698,7 +747,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Kommer ihåg om du föredrar att se sökresultaten i en lista eller rutnät.",
-        "title": "Visa sökresultat (lista/rutnät)"
+        "title": "Visa sökresultat (lista\/rutnät)"
       }
     }
   },
@@ -730,7 +779,7 @@ export default {
     "translateQuotaError": "Översättningstjänsten är inte tillgänglig för tillfället. Försök igen senare."
   },
   "newFeatureNotification": {
-    "dismiss": "Avfärda",
+    "dismiss": "Stäng",
     "readMore": "Läs mer",
     "text": {
       "sideFilters": "Kolla in de nya filtren! De är nu alla synliga på höger sida av sökresultaten."
@@ -739,6 +788,11 @@ export default {
   "newWindow": "öppnas i nytt fönster",
   "noMoreResults": "Det finns inga fler resultat för din sökning.",
   "noResults": "Inga träffar",
+  "organisation": {
+    "city": "Stad",
+    "country": "Land",
+    "nameAcronym": "Namn akronym"
+  },
   "pageHasLoaded": "har laddats",
   "pages": {
     "collections": {
@@ -793,6 +847,7 @@ export default {
   "results": "Resultat",
   "resultsLimitWarning": "Ytterligare resultat visas inte eftersom endast de 1000 första mest relevanta resultaten visas. Om du inte har hittat det du letar efter kan du prova att förfina din sökning.",
   "search": "Sök",
+  "searchHasLoaded": "{0} resultat returnerade",
   "searchPlaceholder": "Vad letar du efter?",
   "searchResults": "Sök",
   "searchResultsFor": "{0} – Sök",
@@ -851,5 +906,6 @@ export default {
     "liked": "Gillade",
     "pinned": "Fäst"
   },
-  "website": "Webbplats"
+  "website": "Webbplats",
+  "youMightAlsoLike": "Du kanske också gillar"
 };

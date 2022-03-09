@@ -6,7 +6,7 @@ export default {
     "likes": "Mentions J’aime",
     "linkAccount": "Mon compte",
     "linkLogin": "Se connecter",
-    "linkLoginJoin": "Connexion/Rejoignez-nous",
+    "linkLoginJoin": "Connexion\/Rejoignez-nous",
     "linkLogout": "Déconnexion",
     "myProfile": "Mon profil",
     "notifications": {
@@ -36,6 +36,7 @@ export default {
     "feedback": "Commentaires",
     "goBack": "Retour en arrière",
     "goHome": "Aller à la page d'accueil",
+    "learnMore": "Apprendre encore plus",
     "like": "Mention J'aime",
     "next": "Suivant",
     "pin": "Épingler",
@@ -331,7 +332,55 @@ export default {
       }
     },
     "COUNTRY": {
-      "name": "Pays fournisseur"
+      "name": "Pays fournisseur",
+      "options": {
+        "Albania": "Albanie",
+        "Austria": "Autriche",
+        "Belarus": "Biélorussie",
+        "Belgium": "Belgique",
+        "Bosnia and Herzegovina": "Bosnie Herzégovine",
+        "Bulgaria": "Bulgarie",
+        "Croatia": "Croatie",
+        "Cyprus": "Chypre",
+        "Czech Republic": "République tchèque",
+        "Denmark": "Danemark",
+        "Estonia": "Estonie",
+        "Europe": "Europe",
+        "Finland": "Finlande",
+        "France": "France",
+        "Georgia": "Géorgie",
+        "Germany": "Allemagne",
+        "Greece": "Grèce",
+        "Holy See (Vatican City State)": "Saint-Siège (État de la Cité du Vatican)",
+        "Hungary": "Hongrie",
+        "Iceland": "Islande",
+        "Ireland": "Irlande",
+        "Israel": "Israël",
+        "Italy": "Italie",
+        "Latvia": "Lettonie",
+        "Lithuania": "Lituanie",
+        "Luxembourg": "Luxembourg",
+        "Macedonia": "Macédoine",
+        "Malta": "Malte",
+        "Moldova": "Moldavie",
+        "Montenegro": "Monténégro",
+        "Netherlands": "Pays-Bas",
+        "Norway": "Norvège",
+        "Poland": "Pologne",
+        "Portugal": "Portugal",
+        "Romania": "Roumanie",
+        "Russia": "Russie",
+        "Serbia": "Serbie",
+        "Slovakia": "Slovaquie",
+        "Slovenia": "Slovénie",
+        "Spain": "Espagne",
+        "Sweden": "Suède",
+        "Switzerland": "Suisse",
+        "Turkey": "Turquie",
+        "Ukraine": "Ukraine",
+        "United Kingdom": "Royaume-Uni",
+        "United States of America": "États-Unis d'Amérique"
+      }
     },
     "CREATOR": {
       "name": "Créateur | Créateurs"
@@ -402,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format de fichier | Formats de fichiers",
       "options": {
-        "text/plain": "Texte brut"
+        "text\/plain": "Texte brut"
       }
     },
     "PROVIDER": {
@@ -666,7 +715,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Aide à améliorer notre site Web en appliquant occasionnellement des modifications expérimentales.",
-        "title": "Tests A/B"
+        "title": "Tests A\/B"
       },
       "auth-strategy": {
         "description": "Se souvient de la stratégie d'autorisation à utiliser pour se connecter.",
@@ -698,7 +747,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Se souvient si vous préférez voir les résultats de la recherche sous forme de liste ou de grille.",
-        "title": "Affichage des résultats de recherche (liste/grille)"
+        "title": "Affichage des résultats de recherche (liste\/grille)"
       }
     }
   },
@@ -730,7 +779,7 @@ export default {
     "translateQuotaError": "Le service de traduction est temporairement indisponible. Veuillez réessayer plus tard."
   },
   "newFeatureNotification": {
-    "dismiss": "Rejeter",
+    "dismiss": "Fermer",
     "readMore": "Lire la suite",
     "text": {
       "sideFilters": "Découvrez les nouveaux filtres ! Ils sont désormais tous visibles sur le côté droit des résultats de la recherche."
@@ -739,6 +788,11 @@ export default {
   "newWindow": "s'ouvre dans une nouvelle fenêtre",
   "noMoreResults": "Il n'y a plus de résultats pour votre requête de recherche.",
   "noResults": "Pas de résultat",
+  "organisation": {
+    "city": "Ville",
+    "country": "Pays",
+    "nameAcronym": "Acronyme du nom"
+  },
   "pageHasLoaded": "a chargé",
   "pages": {
     "collections": {
@@ -793,6 +847,7 @@ export default {
   "results": "Résultats",
   "resultsLimitWarning": "Les résultats supplémentaires ne sont pas affichés, car seuls les 1000 premiers résultats les plus pertinents sont affichés. Si vous n'avez pas trouvé ce que vous cherchez, veuillez affiner votre recherche.",
   "search": "Rechercher",
+  "searchHasLoaded": "{0} résultats retournés",
   "searchPlaceholder": "Que cherchez-vous ?",
   "searchResults": "Rechercher",
   "searchResultsFor": "{0} - Rechercher",
@@ -851,5 +906,6 @@ export default {
     "liked": "Aimé",
     "pinned": "Épinglé"
   },
-  "website": "Site Internet"
+  "website": "Site Internet",
+  "youMightAlsoLike": "Vous pourriez aussi aimer"
 };

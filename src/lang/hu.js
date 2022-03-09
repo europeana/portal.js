@@ -6,7 +6,7 @@ export default {
     "likes": "Kedvelések",
     "linkAccount": "Fiókom",
     "linkLogin": "Bejelentkezés",
-    "linkLoginJoin": "Bejelentkezés/Csatlakozás",
+    "linkLoginJoin": "Bejelentkezés\/Csatlakozás",
     "linkLogout": "Bejelentkezés",
     "myProfile": "A profilom",
     "notifications": {
@@ -36,6 +36,7 @@ export default {
     "feedback": "Visszacsatolás",
     "goBack": "Vissza",
     "goHome": "Ugrás a kezdőlapra",
+    "learnMore": "Tudj meg többet",
     "like": "Kedvelés",
     "next": "Következő",
     "pin": "Pin",
@@ -331,7 +332,55 @@ export default {
       }
     },
     "COUNTRY": {
-      "name": "Szolgáltató ország"
+      "name": "Szolgáltató ország",
+      "options": {
+        "Albania": "Albánia",
+        "Austria": "Ausztria",
+        "Belarus": "Fehéroroszország",
+        "Belgium": "Belgium",
+        "Bosnia and Herzegovina": "Bosznia-Hercegovina",
+        "Bulgaria": "Bulgária",
+        "Croatia": "Horvátország",
+        "Cyprus": "Ciprus",
+        "Czech Republic": "Cseh Köztársaság",
+        "Denmark": "Dánia",
+        "Estonia": "Észtország",
+        "Europe": "Európa",
+        "Finland": "Finnország",
+        "France": "Franciaország",
+        "Georgia": "Grúzia",
+        "Germany": "Németország",
+        "Greece": "Görögország",
+        "Holy See (Vatican City State)": "Szentszék (Vatikánváros Állam)",
+        "Hungary": "Magyarország",
+        "Iceland": "Izland",
+        "Ireland": "Írország",
+        "Israel": "Izrael",
+        "Italy": "Olaszország",
+        "Latvia": "Lettország",
+        "Lithuania": "Litvánia",
+        "Luxembourg": "Luxemburg",
+        "Macedonia": "Macedónia",
+        "Malta": "Málta",
+        "Moldova": "Moldova",
+        "Montenegro": "Montenegró",
+        "Netherlands": "Hollandia",
+        "Norway": "Norvégia",
+        "Poland": "Lengyelország",
+        "Portugal": "Portugália",
+        "Romania": "Románia",
+        "Russia": "Oroszország",
+        "Serbia": "Szerbia",
+        "Slovakia": "Szlovákia",
+        "Slovenia": "Szlovénia",
+        "Spain": "Spanyolország",
+        "Sweden": "Svédország",
+        "Switzerland": "Svájc",
+        "Turkey": "Törökország",
+        "Ukraine": "Ukrajna",
+        "United Kingdom": "Egyesült Királyság",
+        "United States of America": "Amerikai Egyesült Államok"
+      }
     },
     "CREATOR": {
       "name": "Alkotó | Alkotók"
@@ -402,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Fájlformátum | Fájlformátumok",
       "options": {
-        "text/plain": "Egyszerű szöveg"
+        "text\/plain": "Egyszerű szöveg"
       }
     },
     "PROVIDER": {
@@ -666,7 +715,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Segít weboldalunk fejlesztésében azáltal, hogy alkalmanként kísérleti változtatásokat alkalmaz.",
-        "title": "A/B tesztelés"
+        "title": "A\/B tesztelés"
       },
       "auth-strategy": {
         "description": "Emlékszik a bejelentkezéshez használandó engedélyezési stratégiára.",
@@ -698,7 +747,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Emlékszik arra, hogy a keresési eredményeket inkább lista- vagy rácsnézetben szeretné-e látni.",
-        "title": "Keresési eredmény nézet (lista / rács)"
+        "title": "Keresési eredmény nézet (lista \/ rács)"
       }
     }
   },
@@ -730,7 +779,7 @@ export default {
     "translateQuotaError": "A fordítási szolgáltatás ideiglenesen nem érhető el. Kérlek, próbáld újra később."
   },
   "newFeatureNotification": {
-    "dismiss": "Elutasíthatod",
+    "dismiss": "Bezárás",
     "readMore": "Bővebben",
     "text": {
       "sideFilters": "Nézd meg az új szűrőket! Ezek mostantól mind láthatóak a keresési eredmények jobb oldalán."
@@ -739,6 +788,11 @@ export default {
   "newWindow": "új ablakban nyílik meg",
   "noMoreResults": "Nincs további eredmény a keresési lekérdezéshez.",
   "noResults": "Nincs találat",
+  "organisation": {
+    "city": "Város",
+    "country": "Ország",
+    "nameAcronym": "Név rövidítés"
+  },
   "pageHasLoaded": "betöltődött",
   "pages": {
     "collections": {
@@ -793,6 +847,7 @@ export default {
   "results": "Találatok",
   "resultsLimitWarning": "Nem jelennek meg további eredmények, mivel csak az első 1000 legrelevánsabb eredmény látható. Ha nem találta meg azt, amit keres, kérjük, finomítsa a keresést.",
   "search": "Keresés",
+  "searchHasLoaded": "{0} eredmények visszaadva",
   "searchPlaceholder": "Mit keres?",
   "searchResults": "Keresés",
   "searchResultsFor": "{0} - Keresés",
@@ -851,5 +906,6 @@ export default {
     "liked": "Tetszett",
     "pinned": "Odatűzött"
   },
-  "website": "Weboldal"
+  "website": "Weboldal",
+  "youMightAlsoLike": "Ez is érdekelheti Önt"
 };

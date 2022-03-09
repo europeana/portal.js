@@ -6,7 +6,7 @@ export default {
     "likes": "Polubienia",
     "linkAccount": "Moje konto",
     "linkLogin": "Zaloguj się",
-    "linkLoginJoin": "Zaloguj/Dołącz",
+    "linkLoginJoin": "Zaloguj\/Dołącz",
     "linkLogout": "Wyloguj",
     "myProfile": "Mój profil",
     "notifications": {
@@ -36,6 +36,7 @@ export default {
     "feedback": "Twoja opinia",
     "goBack": "Wróć",
     "goHome": "Przejdź do strony głównej",
+    "learnMore": "Ucz się więcej",
     "like": "Lubię",
     "next": "Następny",
     "pin": "Szpilka",
@@ -331,7 +332,55 @@ export default {
       }
     },
     "COUNTRY": {
-      "name": "Kraj dostarczający"
+      "name": "Kraj dostarczający",
+      "options": {
+        "Albania": "Albania",
+        "Austria": "Austria",
+        "Belarus": "Białoruś",
+        "Belgium": "Belgia",
+        "Bosnia and Herzegovina": "Bośnia i Hercegowina",
+        "Bulgaria": "Bułgaria",
+        "Croatia": "Chorwacja",
+        "Cyprus": "Cypr",
+        "Czech Republic": "Republika Czeska",
+        "Denmark": "Dania",
+        "Estonia": "Estonia",
+        "Europe": "Europa",
+        "Finland": "Finlandia",
+        "France": "Francja",
+        "Georgia": "Gruzja",
+        "Germany": "Niemcy",
+        "Greece": "Grecja",
+        "Holy See (Vatican City State)": "Stolica Apostolska (Państwo Watykańskie)",
+        "Hungary": "Węgry",
+        "Iceland": "Islandia",
+        "Ireland": "Irlandia",
+        "Israel": "Izrael",
+        "Italy": "Włochy",
+        "Latvia": "Łotwa",
+        "Lithuania": "Litwa",
+        "Luxembourg": "Luksemburg",
+        "Macedonia": "Macedonia",
+        "Malta": "Malta",
+        "Moldova": "Moldova",
+        "Montenegro": "Czarnogóra",
+        "Netherlands": "Holandia",
+        "Norway": "Norwegia",
+        "Poland": "Polska",
+        "Portugal": "Portugalia",
+        "Romania": "Rumunia",
+        "Russia": "Rosja",
+        "Serbia": "Serbia",
+        "Slovakia": "Słowacja",
+        "Slovenia": "Słowenia",
+        "Spain": "Hiszpania",
+        "Sweden": "Szwecja",
+        "Switzerland": "Szwajcaria",
+        "Turkey": "Turcja",
+        "Ukraine": "Ukraina",
+        "United Kingdom": "Zjednoczone Królestwo",
+        "United States of America": "Stany Zjednoczone Ameryki"
+      }
     },
     "CREATOR": {
       "name": "Twórca | Twórcy"
@@ -402,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format plików | Formaty plików",
       "options": {
-        "text/plain": "Zwykły tekst"
+        "text\/plain": "Zwykły tekst"
       }
     },
     "PROVIDER": {
@@ -556,7 +605,7 @@ export default {
       "keywords": "Słowa kluczowe (dostarczone przez społeczność)",
       "timestampCreated": "Data utworzenia rekordu",
       "timestampUpdate": "Data zaktualizowania rekordu",
-      "wasPresentAt": "Był obecny w/na",
+      "wasPresentAt": "Był obecny w\/na",
       "year": "Rok"
     },
     "webResource": {
@@ -666,7 +715,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Pomaga ulepszyć naszą stronę internetową, od czasu do czasu stosując eksperymentalne zmiany.",
-        "title": "Testy A/B"
+        "title": "Testy A\/B"
       },
       "auth-strategy": {
         "description": "Zapamiętuje strategię autoryzacji używaną do logowania.",
@@ -698,7 +747,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Zapamiętuje czy wolisz widzieć wyniki wyszukiwania w widoku listy lub siatki.",
-        "title": "Widok wyników wyszukiwania (lista/siatka)"
+        "title": "Widok wyników wyszukiwania (lista\/siatka)"
       }
     }
   },
@@ -730,7 +779,7 @@ export default {
     "translateQuotaError": "Usługa tłumaczeń jest chwilowo niedostępna. Spróbuj ponownie później."
   },
   "newFeatureNotification": {
-    "dismiss": "Odrzucić",
+    "dismiss": "Zamknij",
     "readMore": "Czytaj więcej",
     "text": {
       "sideFilters": "Sprawdź nowe filtry! Wszystkie są teraz widoczne po prawej stronie wyników wyszukiwania."
@@ -739,6 +788,11 @@ export default {
   "newWindow": "otwiera się w nowym oknie",
   "noMoreResults": "Nie ma więcej wyników dla zapytania wyszukiwania.",
   "noResults": "Brak wyników",
+  "organisation": {
+    "city": "Miasto",
+    "country": "Kraj",
+    "nameAcronym": "Nazwa akronim"
+  },
   "pageHasLoaded": "załadował",
   "pages": {
     "collections": {
@@ -793,6 +847,7 @@ export default {
   "results": "Wyniki",
   "resultsLimitWarning": "Dodatkowe wyniki nie są wyświetlane, ponieważ wyświetlanych jest tylko pierwsze 1000 najbardziej odpowiednich wyników. Jeśli nie znalazłeś tego, czego szukasz, rozważ zawężenie wyszukiwania.",
   "search": "Szukaj",
+  "searchHasLoaded": "{0} zwróconych wyników",
   "searchPlaceholder": "Odkryj miliony obiektów",
   "searchResults": "Szukaj",
   "searchResultsFor": "{0} - Szukaj",
@@ -851,5 +906,6 @@ export default {
     "liked": "Lubiana",
     "pinned": "Przypięty"
   },
-  "website": "Strona internetowa"
+  "website": "Strona internetowa",
+  "youMightAlsoLike": "Możesz też polubić"
 };

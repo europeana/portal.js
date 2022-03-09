@@ -6,7 +6,7 @@ export default {
     "likes": "Харесвания",
     "linkAccount": "Моят профил",
     "linkLogin": "Влизане",
-    "linkLoginJoin": "Вход/Регистрация",
+    "linkLoginJoin": "Вход\/Регистрация",
     "linkLogout": "Излизане",
     "myProfile": "Моят профил",
     "notifications": {
@@ -36,6 +36,7 @@ export default {
     "feedback": "Обратна връзка",
     "goBack": "Назад",
     "goHome": "Отидете на началната страница",
+    "learnMore": "Научете повече",
     "like": "Харесвам",
     "next": "Следваща",
     "pin": "Щифт",
@@ -43,7 +44,7 @@ export default {
     "reject": "Отхвърляне",
     "send": "Изпрати",
     "share": "Споделяне",
-    "shareOn": "Споделяне в/във {social}",
+    "shareOn": "Споделяне в\/във {social}",
     "skip": "Пропуснете",
     "viewAt": "Преглед на {link}",
     "viewDocument": "Преглед на документа"
@@ -331,7 +332,55 @@ export default {
       }
     },
     "COUNTRY": {
-      "name": "Предоставяне на държава"
+      "name": "Предоставяне на държава",
+      "options": {
+        "Albania": "Албания",
+        "Austria": "Австрия",
+        "Belarus": "Беларус",
+        "Belgium": "Белгия",
+        "Bosnia and Herzegovina": "Босна и Херцеговина",
+        "Bulgaria": "България",
+        "Croatia": "Хърватия",
+        "Cyprus": "Кипър",
+        "Czech Republic": "Чешка република",
+        "Denmark": "Дания",
+        "Estonia": "Естония",
+        "Europe": "Европа",
+        "Finland": "Финландия",
+        "France": "Франция",
+        "Georgia": "Грузия",
+        "Germany": "Германия",
+        "Greece": "Гърция",
+        "Holy See (Vatican City State)": "Светия престол (държава Ватикана)",
+        "Hungary": "Унгария",
+        "Iceland": "Исландия",
+        "Ireland": "Ирландия",
+        "Israel": "Израел",
+        "Italy": "Италия",
+        "Latvia": "Латвия",
+        "Lithuania": "Литва",
+        "Luxembourg": "Люксембург",
+        "Macedonia": "Македония",
+        "Malta": "Малта",
+        "Moldova": "Молдова",
+        "Montenegro": "Черна гора",
+        "Netherlands": "Холандия",
+        "Norway": "Норвегия",
+        "Poland": "Полша",
+        "Portugal": "Португалия",
+        "Romania": "Румъния",
+        "Russia": "Русия",
+        "Serbia": "Сърбия",
+        "Slovakia": "Словакия",
+        "Slovenia": "Словения",
+        "Spain": "Испания",
+        "Sweden": "Швеция",
+        "Switzerland": "Швейцария",
+        "Turkey": "Турция",
+        "Ukraine": "Украйна",
+        "United Kingdom": "Великобритания",
+        "United States of America": "Съединени Американски щати"
+      }
     },
     "CREATOR": {
       "name": "Създател | Създатели"
@@ -402,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Формат на файла | Формат на файловете",
       "options": {
-        "text/plain": "Само текст"
+        "text\/plain": "Само текст"
       }
     },
     "PROVIDER": {
@@ -666,7 +715,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Помага за подобряване на нашия уебсайт, като периодично прилага експериментални промени.",
-        "title": "A/B тестване"
+        "title": "A\/B тестване"
       },
       "auth-strategy": {
         "description": "Спомня си стратегията за оторизация, която да се използва за влизане.",
@@ -698,7 +747,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Помни, ако предпочитате да виждате резултатите от търсенето в списъчен или решетъчен изглед.",
-        "title": "Преглед на резултатите от търсенето (списък / мрежа)"
+        "title": "Преглед на резултатите от търсенето (списък \/ мрежа)"
       }
     }
   },
@@ -739,6 +788,11 @@ export default {
   "newWindow": "отваря се в нов прозорец",
   "noMoreResults": "Няма повече резултати за вашата заявка за търсене.",
   "noResults": "Няма получени резултати",
+  "organisation": {
+    "city": "град",
+    "country": "Държава:",
+    "nameAcronym": "Акроним на името"
+  },
   "pageHasLoaded": "е зареден",
   "pages": {
     "collections": {
@@ -793,6 +847,7 @@ export default {
   "results": "Резултати",
   "resultsLimitWarning": "Допълнителните резултати не са показани, тъй като са показани само първите 1000 най-подходящи резултата. Ако не сте намерили това, което търсите, моля, помислете за прецизиране на търсенето.",
   "search": "Търсене",
+  "searchHasLoaded": "{0} върнати резултати",
   "searchPlaceholder": "Какво търсите?",
   "searchResults": "Търсене",
   "searchResultsFor": "{0} – търсене",
@@ -851,5 +906,6 @@ export default {
     "liked": "Харесвах",
     "pinned": "Закрепен"
   },
-  "website": "Уебсайт"
+  "website": "Уебсайт",
+  "youMightAlsoLike": "Може да харесате също и"
 };

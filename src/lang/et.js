@@ -6,7 +6,7 @@ export default {
     "likes": "Meeldimised",
     "linkAccount": "Minu konto",
     "linkLogin": "Logi sisse",
-    "linkLoginJoin": "Logi sisse/Liitu",
+    "linkLoginJoin": "Logi sisse\/Liitu",
     "linkLogout": "Logi välja",
     "myProfile": "Minu profiil",
     "notifications": {
@@ -36,6 +36,7 @@ export default {
     "feedback": "Tagasiside",
     "goBack": "Mine tagasi",
     "goHome": "Minge avalehele",
+    "learnMore": "Lisateave",
     "like": "Meeldib",
     "next": "Järgmine",
     "pin": "Pin",
@@ -331,7 +332,55 @@ export default {
       }
     },
     "COUNTRY": {
-      "name": "Pakkuja riik"
+      "name": "Pakkuja riik",
+      "options": {
+        "Albania": "Albaania",
+        "Austria": "Austria",
+        "Belarus": "Valgevene",
+        "Belgium": "Belgia",
+        "Bosnia and Herzegovina": "Bosnia ja Hertsegoviina",
+        "Bulgaria": "Bulgaaria",
+        "Croatia": "Horvaatia",
+        "Cyprus": "Küpros",
+        "Czech Republic": "Tšehhi Vabariik",
+        "Denmark": "Taani",
+        "Estonia": "Eesti",
+        "Europe": "Euroopa",
+        "Finland": "Soome",
+        "France": "Prantsusmaa",
+        "Georgia": "Gruusia",
+        "Germany": "Saksamaa",
+        "Greece": "Kreeka",
+        "Holy See (Vatican City State)": "Püha Tool (Vatikani Linnriik)",
+        "Hungary": "Ungari",
+        "Iceland": "Island",
+        "Ireland": "Iirimaa",
+        "Israel": "Iisrael",
+        "Italy": "Itaalia",
+        "Latvia": "Läti",
+        "Lithuania": "Leedu",
+        "Luxembourg": "Luksemburg",
+        "Macedonia": "Makedoonia",
+        "Malta": "Malta",
+        "Moldova": "Moldova",
+        "Montenegro": "Montenegro",
+        "Netherlands": "Holland",
+        "Norway": "Norra",
+        "Poland": "Poola",
+        "Portugal": "Portugal",
+        "Romania": "Rumeenia",
+        "Russia": "Venemaa",
+        "Serbia": "Serbia",
+        "Slovakia": "Slovakkia",
+        "Slovenia": "Sloveenia",
+        "Spain": "Hispaania",
+        "Sweden": "Rootsi",
+        "Switzerland": "Šveits",
+        "Turkey": "Türgi",
+        "Ukraine": "Ukraina",
+        "United Kingdom": "Ühendkuningriik",
+        "United States of America": "Ameerika Ühendriigid"
+      }
     },
     "CREATOR": {
       "name": "Looja | Loojad"
@@ -402,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Failivorming | Failivormingud",
       "options": {
-        "text/plain": "Lihttekst"
+        "text\/plain": "Lihttekst"
       }
     },
     "PROVIDER": {
@@ -627,7 +676,7 @@ export default {
   },
   "items": {
     "itemCount": "1 toode | {count} toodet",
-    "itemOf": "{max} / {count} tootest",
+    "itemOf": "{max} \/ {count} tootest",
     "recent": "Hiljutised esemed",
     "recommended": "Soovitatavad esemed",
     "youMightLike": "Tooted, mis võivad teile meeldida"
@@ -666,7 +715,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Aitab meie veebisaiti täiustada, rakendades aeg -ajalt eksperimentaalseid muudatusi.",
-        "title": "A/B testimine"
+        "title": "A\/B testimine"
       },
       "auth-strategy": {
         "description": "Mäletab sisselogimiseks kasutatava autoriseerimisstrateegia.",
@@ -698,7 +747,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Mäletab, kas eelistate näha otsingutulemusi loendi või ruudustiku kujul.",
-        "title": "Otsingutulemite vaade (loend / ruudustik)"
+        "title": "Otsingutulemite vaade (loend \/ ruudustik)"
       }
     }
   },
@@ -730,7 +779,7 @@ export default {
     "translateQuotaError": "Tõlketeenus pole ajutiselt saadaval. Palun proovi hiljem uuesti."
   },
   "newFeatureNotification": {
-    "dismiss": "Jätta",
+    "dismiss": "Sulge",
     "readMore": "Loe lähemalt",
     "text": {
       "sideFilters": "Vaata uusi filtreid! Nüüd on need kõik nähtavad otsingutulemuste paremal küljel."
@@ -739,6 +788,11 @@ export default {
   "newWindow": "avaneb uues aknas",
   "noMoreResults": "Teie otsingupäringule pole rohkem tulemusi.",
   "noResults": "Ühtki tulemust",
+  "organisation": {
+    "city": "Linn",
+    "country": "Riik",
+    "nameAcronym": "Nime akronüüm"
+  },
   "pageHasLoaded": "on laaditud",
   "pages": {
     "collections": {
@@ -793,6 +847,7 @@ export default {
   "results": "Tulemused",
   "resultsLimitWarning": "Täiendavaid tulemusi ei kuvata, kuna kuvatakse ainult esimesed 1000 kõige asjakohasemat tulemust. Kui te pole leidnud seda, mida otsite, kaaluge oma otsingu täpsustamist.",
   "search": "Otsing",
+  "searchHasLoaded": "{0} tagastatud tulemused",
   "searchPlaceholder": "Mida te otsite?",
   "searchResults": "Otsing",
   "searchResultsFor": "{0} - otsing",
@@ -851,5 +906,6 @@ export default {
     "liked": "Meeldis",
     "pinned": "Kinnitatud"
   },
-  "website": "Veebisait"
+  "website": "Veebisait",
+  "youMightAlsoLike": "Sulle võib ka meeldida"
 };
