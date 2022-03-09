@@ -36,6 +36,7 @@ export default {
     "feedback": "Σχόλια",
     "goBack": "Πίσω",
     "goHome": "Μεταβείτε στην αρχική σελίδα",
+    "learnMore": "Μάθε περισσότερα",
     "like": "Like",
     "next": "Επόμενο",
     "pin": "Καρφίτσα",
@@ -331,7 +332,55 @@ export default {
       }
     },
     "COUNTRY": {
-      "name": "Χώρα"
+      "name": "Χώρα",
+      "options": {
+        "Albania": "Αλβανία",
+        "Austria": "Αυστρία",
+        "Belarus": "Λευκορωσία",
+        "Belgium": "Βέλγιο",
+        "Bosnia and Herzegovina": "Βοσνία-Ερζεγοβίνη",
+        "Bulgaria": "Βουλγαρία",
+        "Croatia": "Κροατία",
+        "Cyprus": "Κύπρος",
+        "Czech Republic": "Τσεχική Δημοκρατία",
+        "Denmark": "Δανία",
+        "Estonia": "Εσθονία",
+        "Europe": "Ευρώπη",
+        "Finland": "Φινλανδία",
+        "France": "Γαλλία",
+        "Georgia": "Γεωργία",
+        "Germany": "Γερμανία",
+        "Greece": "Ελλάδα",
+        "Holy See (Vatican City State)": "Αγία Έδρα (Κράτος της Πόλης του Βατικανού)",
+        "Hungary": "Ουγγαρία",
+        "Iceland": "Ισλανδία",
+        "Ireland": "Ιρλανδία",
+        "Israel": "Ισραήλ",
+        "Italy": "Ιταλία",
+        "Latvia": "Λετονία",
+        "Lithuania": "Λιθουανία",
+        "Luxembourg": "Λουξεμβούργο",
+        "Macedonia": "Μακεδόνια",
+        "Malta": "Μάλτα",
+        "Moldova": "Μολδαβία",
+        "Montenegro": "Μαυροβούνιο",
+        "Netherlands": "Ολλανδία",
+        "Norway": "Νορβηγία",
+        "Poland": "Πολωνία",
+        "Portugal": "Πορτογαλία",
+        "Romania": "Ρουμανία",
+        "Russia": "Ρωσία",
+        "Serbia": "Σερβία",
+        "Slovakia": "Σλοβακία",
+        "Slovenia": "Σλοβενία",
+        "Spain": "Ισπανία",
+        "Sweden": "Σουηδία",
+        "Switzerland": "Ελβετία",
+        "Turkey": "Τουρκία",
+        "Ukraine": "Ουκρανία",
+        "United Kingdom": "Ηνωμένο Βασίλειο",
+        "United States of America": "Ηνωμένες Πολιτείες της Αμερικής"
+      }
     },
     "CREATOR": {
       "name": "Δημιουργός | Δημιουργοί"
@@ -730,7 +779,7 @@ export default {
     "translateQuotaError": "Η υπηρεσία μετάφρασης δεν είναι προσωρινά διαθέσιμη. Παρακαλώ προσπαθήστε ξανά αργότερα."
   },
   "newFeatureNotification": {
-    "dismiss": "Απολύω",
+    "dismiss": "Κλείσιμο",
     "readMore": "Διαβάστε περισσότερα",
     "text": {
       "sideFilters": "Δείτε τα νέα φίλτρα! Είναι πλέον όλα ορατά στη δεξιά πλευρά των αποτελεσμάτων αναζήτησης."
@@ -739,6 +788,11 @@ export default {
   "newWindow": "ανοίγει σε νέο παράθυρο",
   "noMoreResults": "Δεν υπάρχουν άλλα αποτελέσματα για την αναζήτησή σας",
   "noResults": "Δεν βρέθηκαν αποτελέσματα",
+  "organisation": {
+    "city": "Πόλη",
+    "country": "Χώρα",
+    "nameAcronym": "Ακρωνύμιο ονόματος"
+  },
   "pageHasLoaded": "έχει φορτωθεί",
   "pages": {
     "collections": {
@@ -793,6 +847,7 @@ export default {
   "results": "Αποτελέσματα",
   "resultsLimitWarning": "Δεν εμφανίζονται επιπλέον αποτελέσματα, καθώς εμφανίζονται μόνο τα πρώτα 1.000 πιο σχετικά αποτελέσματα. Εάν δεν βρείτε αυτό που ψάχνετε, προσπαθήστε να αλλάξετε τα φίλτρα αναζήτησής σας.",
   "search": "Αναζήτηση",
+  "searchHasLoaded": "{0} αποτελέσματα που επιστράφηκαν",
   "searchPlaceholder": "Τι αναζητάτε;",
   "searchResults": "Αναζήτηση",
   "searchResultsFor": "{0} - Αναζήτηση",
@@ -851,5 +906,6 @@ export default {
     "liked": "Άρεσε",
     "pinned": "Καρφιτσωμένο"
   },
-  "website": "Δικτυακός τόπος"
+  "website": "Δικτυακός τόπος",
+  "youMightAlsoLike": "Μπορεί επίσης να σας αρέσει"
 };
