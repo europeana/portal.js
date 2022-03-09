@@ -113,12 +113,9 @@
         });
       },
       entityRemovalLink() {
-        const currentQuery = this.$route.query;
-
         return this.$path({
           name: 'search', query: {
-            // TODO: Needs to account for collection specific facets that may need to be removed.
-            ...currentQuery
+            query: this.$route.query?.query
           }
         });
       }
