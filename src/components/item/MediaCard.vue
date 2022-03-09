@@ -5,6 +5,15 @@
     :media="media"
     :lazy="lazy"
   />
+  <VideoPlayer
+    v-else-if="isHTMLVideo"
+    :europeana-identifier="europeanaIdentifier"
+    :src="media.about"
+    :type="media.ebucoreHasMimeType"
+    :width="640"
+    :height="480"
+    style="width:100%; height:100%;"
+  />
   <div
     v-else-if="isSinglePlayableMedia"
     ref="player"
@@ -18,14 +27,6 @@
       :title="$t('record.mediaPlayer')"
     />
   </div>
-  <VideoPlayer
-    v-else-if="isHTMLVideo"
-    :europeana-identifier="europeanaIdentifier"
-    :src="media.about"
-    :type="media.ebucoreHasMimeType"
-    :width="media.ebucoreWidth"
-    :height="media.ebucoreHeight"
-  />
   <div
     v-else-if="isHTMLAudio"
     class="audio-slide"

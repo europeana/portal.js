@@ -16,7 +16,8 @@ export function isHTMLVideo(media) {
     return false;
   }
   return ['video/ogg', 'video/webm'].includes(media.ebucoreHasMimeType) ||
-    ((media.ebucoreHasMimeType === 'video/mp4') && (media.edmCodecName === 'h264'));
+    ((media.ebucoreHasMimeType.startsWith('video/')) && (media.edmCodecName === 'h264')) ||
+    (media.ebucoreHasMimeType === 'application/dash+xml');
 }
 
 export function isHTMLAudio(media) {
@@ -28,8 +29,7 @@ export function isHTMLAudio(media) {
 
 export function isPlayableMedia(media) {
   return (typeof media.ebucoreHasMimeType === 'string' && (
-    isHTMLAudio(media) || isHTMLVideo(media) ||
-    (media.ebucoreHasMimeType === 'application/dash+xml')
+    isHTMLAudio(media) || isHTMLVideo(media)
   )) ||
     new RegExp('^http://www.euscreen.eu/item.html').test(media.about);
 }
