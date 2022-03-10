@@ -466,6 +466,27 @@ export default {
         "uncategorized": "Uncategorized"
       }
     },
+    "RIGHTS": {
+      "name": "Rights statement",
+      "options": {
+        "*/CNE/*": "Copyright Not Evaluated",
+        "*/InC-EDU/*": "In Copyright - Educational Use Permitted",
+        "*/InC-OW-EU/*": "In Copyright - OW-EU",
+        "*/InC/*": "In Copyright",
+        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
+        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
+        "*/licenses/by-nc/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-NC",
+        "*/licenses/by-sa/*": "CC BY-SA",
+        "*/licenses/by/*": "CC BY",
+        "*/NoC-NC/*": "No Copyright - Non-Commercial Use Only",
+        "*/NoC-OKLR/*": "No Copyright - Other Known Legal Restrictions",
+        "*/publicdomain/mark/*": "Public Domain Mark",
+        "*/publicdomain/zero/*": "CC0",
+        "*/rights/out-of-copyright-non-commercial/*": "Out of Copyright - Non-Commercial",
+        "*/rights/rr-f/*": "Rights Reserved - Free access"
+      }
+    },
     "TYPE": {
       "name": "Type of media",
       "options": {

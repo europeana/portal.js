@@ -148,6 +148,14 @@
       staticFields: {
         type: Array,
         default: null
+      },
+
+      /**
+       * Array of strings to group fields by
+       */
+      groupBy: {
+        type: Array,
+        default: null
       }
     },
 
@@ -187,15 +195,37 @@
         return this.$store.state.search.liveQueries.length > 0;
       },
 
+      groupedOptions() {
+        if (!this.groupBy) {
+          return this.fields;
+        }
+
+        const groups = this.groupBy.map((substring) => ({ label: `*${substring}*`, substring, count: 0 }));
+        for (const field of this.fields) {
+          const fieldGroup = groups.find((group) => field.label.includes(group.substring));
+          if (fieldGroup) {
+            fieldGroup.count = fieldGroup.count + field.count;
+          } else {
+            groups.push(field);
+          }
+        }
+        return groups;
+      },
+
       sortedOptions() {
         if (this.isRadio) {
           return this.fields;
         }
 
-        const selected = this.fields.filter(field => this.selected.includes(field.label));
-        const leftOver = this.fields.filter(field => !this.selected.includes(field.label));
+        const fields = this.groupedOptions;
 
-        return selected.sort((a, b) => a.count > b.count).concat(leftOver);
+        const selected = fields.filter(field => this.selected.includes(field.label));
+        selected.sort((a, b) => b.count - a.count);
+        const leftOver = fields.filter(field => !this.selected.includes(field.label));
+        leftOver.sort((a, b) => b.count - a.count);
+
+        const sorted = selected.concat(leftOver);
+        return sorted;
       },
 
       isColourPalette() {
@@ -315,7 +345,11 @@
       },
 
       enquoteFacetFieldFilterValue(value) {
-        return unquotableFacets.includes(this.name) ? value : `"${escapeLuceneSpecials(value)}"`;
+        if (unquotableFacets.includes(this.name) || this.groupBy) {
+          return value;
+        } else {
+          return `"${escapeLuceneSpecials(value)}"`;
+        }
       },
 
       // Refetch facet fields, unless this is the reusability facet
