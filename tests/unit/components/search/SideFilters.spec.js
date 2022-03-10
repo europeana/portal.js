@@ -620,7 +620,7 @@ describe('components/search/SideFilters', () => {
               'contentTier:*'
             ]
           }
-        }
+        };
         const searchStoreGetters = {
           collection: () => 'fashion'
         };
