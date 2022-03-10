@@ -8,90 +8,6 @@ describe('store/search', () => {
   beforeEach(sinon.resetHistory);
 
   describe('getters', () => {
-    describe('filters()', () => {
-      describe('with `null` query qf', () => {
-        it('returns {}', async() => {
-          const state = {
-            apiParams: {},
-            userParams: {
-              qf: null
-            }
-          };
-
-          expect(store.getters.filters(state)).toEqual({});
-        });
-      });
-
-      describe('with single query qf value', () => {
-        it('returns it in an array on a property named for the facet', async() => {
-          const state = {
-            apiParams: {},
-            userParams: {
-              qf: 'TYPE:"IMAGE"'
-            }
-          };
-
-          expect(store.getters.filters(state)).toEqual({ 'TYPE': ['"IMAGE"'] });
-        });
-      });
-
-      describe('with multiple query qf values', () => {
-        it('returns them in arrays on properties named for each facet', async() => {
-          const query = { qf: ['TYPE:"IMAGE"', 'TYPE:"VIDEO"', 'REUSABILITY:open'] };
-          const expected = { 'TYPE': ['"IMAGE"', '"VIDEO"'], 'REUSABILITY': ['open'] };
-
-          const state = {
-            apiParams: {},
-            userParams: query
-          };
-
-          expect(store.getters.filters(state)).toEqual(expected);
-        });
-      });
-
-      describe('with reusability values', () => {
-        it('returns them in an array on REUSABILITY property', async() => {
-          const query = { reusability: 'open,restricted' };
-          const expected = { 'REUSABILITY': ['open', 'restricted'] };
-
-          const state = {
-            apiParams: {},
-            userParams: query
-          };
-
-          expect(store.getters.filters(state)).toEqual(expected);
-        });
-      });
-
-      describe('with api value', () => {
-        it('returns it as a string on api property', async() => {
-          const query = { api: 'metadata' };
-          const expected = { 'api': 'metadata' };
-
-          const state = {
-            apiParams: query,
-            userParams: {}
-          };
-
-          expect(store.getters.filters(state)).toEqual(expected);
-        });
-      });
-
-      describe('with query that has two colons', () => {
-        it('returns an array with a string seperated by a colon', async() => {
-          const query = { qf: 'DATA_PROVIDER:"Galiciana: Biblioteca Digital de Galicia"' };
-          const expected = { 'DATA_PROVIDER': ['"Galiciana: Biblioteca Digital de Galicia"'] };
-
-          const state = {
-            apiParams: {},
-            userParams: query
-          };
-
-          expect(store.getters.filters(state)).toEqual(expected);
-        });
-      });
-    });
-
     describe('searchOptions', () => {
       describe('.escape', () => {
         it('is `true` when override params has query and user params does not', () => {
@@ -326,48 +242,6 @@ describe('store/search', () => {
             ).toBe(false);
           });
         });
-      });
-    });
-
-    describe('setResettableFilter', () => {
-      it('commits removeResettableFilter for empty arrays', async() => {
-        const name = 'TYPE';
-        const selected = [];
-        const commit = sinon.spy();
-
-        await store.actions.setResettableFilter({ commit }, { name, selected });
-
-        expect(commit.calledWith('removeResettableFilter', name)).toBe(true);
-      });
-
-      it('commits removeResettableFilter for falsy values', async() => {
-        const name = 'proxy_dcterms_issued';
-        const selected = false;
-        const commit = sinon.spy();
-
-        await store.actions.setResettableFilter({ commit }, { name, selected });
-
-        expect(commit.calledWith('removeResettableFilter', name)).toBe(true);
-      });
-
-      it('commits addResettableFilter for non-empty arrays', async() => {
-        const name = 'TYPE';
-        const selected = ['IMAGE'];
-        const commit = sinon.spy();
-
-        await store.actions.setResettableFilter({ commit }, { name, selected });
-
-        expect(commit.calledWith('addResettableFilter', name)).toBe(true);
-      });
-
-      it('commits addResettableFilter for truthy values', async() => {
-        const name = 'proxy_dcterms_issued';
-        const selected = true;
-        const commit = sinon.spy();
-
-        await store.actions.setResettableFilter({ commit }, { name, selected });
-
-        expect(commit.calledWith('addResettableFilter', name)).toBe(true);
       });
     });
   });

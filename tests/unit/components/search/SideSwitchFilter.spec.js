@@ -77,46 +77,6 @@ describe('components/search/SideSwitchFilter', () => {
 
         expect(wrapper.vm.localValue).toBe('metadata');
       });
-
-      it('flags the filter as resettable if not at its default value', () => {
-        const wrapper = factory({
-          value: 'metadata',
-          name: 'api',
-          checkedValue: 'fulltext',
-          uncheckedValue: 'metadata',
-          defaultValue: 'fulltext'
-        });
-
-        wrapper.vm.init();
-
-        expect(storeDispatchSpy.calledWith(
-          'search/setResettableFilter',
-          {
-            name: 'api',
-            selected: 'metadata'
-          }
-        )).toBe(true);
-      });
-
-      it('flags the filter as not resettable if at its default value', () => {
-        const wrapper = factory({
-          value: 'fulltext',
-          name: 'api',
-          checkedValue: 'fulltext',
-          uncheckedValue: 'metadata',
-          defaultValue: 'fulltext'
-        });
-
-        wrapper.vm.init();
-
-        expect(storeDispatchSpy.calledWith(
-          'search/setResettableFilter',
-          {
-            name: 'api',
-            selected: null
-          }
-        )).toBe(true);
-      });
     });
   });
 });
