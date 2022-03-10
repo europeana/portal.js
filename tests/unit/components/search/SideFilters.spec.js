@@ -51,7 +51,6 @@ const factory = (options = {}) => {
           facets: [],
           userParams: {},
           collectionFacetEnabled: true,
-          resettableFilters: [],
           liveQueries: [],
           ...options.searchStoreState
         },
@@ -425,16 +424,13 @@ describe('components/search/SideFilters', () => {
     });
 
     describe('queryUpdatesForFacetChanges', () => {
-      const searchStoreState = {
-        resettableFilters: []
-      };
       const searchStoreGetters = {};
 
       describe('when facet is REUSABILITY', () => {
         describe('with values selected', () => {
           const selected = { 'REUSABILITY': ['open', 'permission'] };
           it('sets `reusability` to values joined with ","', () => {
-            const wrapper = factory({ searchStoreState, searchStoreGetters });
+            const wrapper = factory({ searchStoreGetters });
 
             const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
 
@@ -444,7 +440,7 @@ describe('components/search/SideFilters', () => {
 
         describe('with no values selected', () => {
           it('sets `reusability` to `null`', () => {
-            const wrapper = factory({ searchStoreState, searchStoreGetters });
+            const wrapper = factory({ searchStoreGetters });
 
             const updates = wrapper.vm.queryUpdatesForFacetChanges();
 
@@ -455,7 +451,7 @@ describe('components/search/SideFilters', () => {
 
       describe('for default facets from search plugin supporting quotes', () => {
         it('includes fielded and quoted queries for each value in `qf`', () => {
-          const wrapper = factory({ searchStoreState, searchStoreGetters });
+          const wrapper = factory({ searchStoreGetters });
           const selected = { 'TYPE': ['"IMAGE"', '"SOUND"'] };
 
           const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
@@ -467,7 +463,7 @@ describe('components/search/SideFilters', () => {
 
       describe('for default facets from search plugin not supporting quotes', () => {
         it('includes fielded but unquoted queries for each value in `qf`', () => {
-          const wrapper = factory({ searchStoreState, searchStoreGetters });
+          const wrapper = factory({ searchStoreGetters });
           const selected = { 'MIME_TYPE': ['application/pdf'] };
 
           const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
@@ -478,7 +474,7 @@ describe('components/search/SideFilters', () => {
 
       describe('for any other facets', () => {
         it('includes fielded but unquoted queries for each value in `qf`', () => {
-          const wrapper = factory({ searchStoreState, searchStoreGetters });
+          const wrapper = factory({ searchStoreGetters });
           const selected = { 'contentTier': ['4'] };
 
           const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
@@ -491,8 +487,7 @@ describe('components/search/SideFilters', () => {
         const searchStoreState = {
           userParams: {
             qf: ['proxy_dcterms_issued:1900-01-01']
-          },
-          resettableFilters: ['proxy_dcterms_issued']
+          }
         };
         const searchStoreGetters = {
           collection: () => 'newspaper'
@@ -510,9 +505,6 @@ describe('components/search/SideFilters', () => {
       });
 
       describe('with collection-specific facets already selected', () => {
-        const searchStoreState = {
-          resettableFilters: ['collection', 'CREATOR', 'TYPE']
-        };
         const searchStoreGetters = {
           filters: () => ({
             'CREATOR': ['"Missoni (Designer)"'],
@@ -523,7 +515,7 @@ describe('components/search/SideFilters', () => {
         };
 
         describe('when collection is changed', () => {
-          const wrapper = factory({ searchStoreState, searchStoreGetters });
+          const wrapper = factory({ searchStoreGetters });
           const selected = { 'collection': 'art' };
 
           it('removes collection-specific facet filters', () => {
@@ -546,7 +538,7 @@ describe('components/search/SideFilters', () => {
         });
 
         describe('when collection is removed', () => {
-          const wrapper = factory({ searchStoreState, searchStoreGetters });
+          const wrapper = factory({ searchStoreGetters });
           const selected = { 'collection': null };
 
           it('removes collection-specific facet filters', () => {
