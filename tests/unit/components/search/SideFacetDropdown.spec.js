@@ -141,7 +141,7 @@ describe('components/search/SideFacetDropdown', () => {
         ];
 
         it('groups fields by substring', () => {
-          const wrapper = factory({ propsData: { groupBy } });
+          const wrapper = factory({ propsData });
           wrapper.setData({ fields });
 
           expect(wrapper.vm.groupedOptions).toEqual(expected);
