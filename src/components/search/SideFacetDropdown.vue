@@ -218,14 +218,12 @@
         }
 
         const fields = this.groupedOptions;
+        const sortByCount = (a, b) => b.count - a.count;
 
-        const selected = fields.filter(field => this.selected.includes(field.label));
-        selected.sort((a, b) => b.count - a.count);
-        const leftOver = fields.filter(field => !this.selected.includes(field.label));
-        leftOver.sort((a, b) => b.count - a.count);
+        const selected = fields.filter(field => this.selected.includes(field.label)).sort(sortByCount);
+        const leftOver = fields.filter(field => !this.selected.includes(field.label)).sort(sortByCount);
 
-        const sorted = selected.concat(leftOver);
-        return sorted;
+        return selected.concat(leftOver);
       },
 
       isColourPalette() {
