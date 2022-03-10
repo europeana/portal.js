@@ -105,7 +105,7 @@
   import { BFormTags, BFormTag } from 'bootstrap-vue';
   import themes from '@/plugins/europeana/themes';
   import { unquotableFacets } from '@/plugins/europeana/search';
-  import { escapeLuceneSpecials } from '@/plugins/europeana/utils';
+  import { escapeLuceneSpecials, unescapeLuceneSpecials } from '@/plugins/europeana/utils';
 
   /**
    * Dropdown for search facet, with removable tags and optional search.
@@ -218,7 +218,9 @@
       availableSortedOptions() {
         const criteria = this.criteria;
 
-        const options = this.sortedOptions.filter(option => this.selectedOptions.indexOf(option) === -1);
+        const unquotedSelectedOptions = this.selectedOptions.map(option => unescapeLuceneSpecials(option.replace(/^"(.*)"$/, '$1')));
+
+        const options = this.sortedOptions.filter(option => unquotedSelectedOptions.indexOf(this.isRadio ? option : option.label) === -1);
 
         if (criteria) {
           return options.filter(option => {
