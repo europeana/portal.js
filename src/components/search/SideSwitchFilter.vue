@@ -123,17 +123,9 @@
       this.init();
     },
 
-    destroyed() {
-      this.$store.commit('search/removeResettableFilter', this.name);
-    },
-
     methods: {
       init() {
         this.localValue = this.value;
-        this.$store.dispatch('search/setResettableFilter', {
-          name: this.name,
-          selected: this.localValueUnlessDefault
-        });
       }
     }
   };
