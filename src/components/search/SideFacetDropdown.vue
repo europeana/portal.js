@@ -209,7 +209,7 @@
             groups.push(field);
           }
         }
-        return groups;
+        return groups.filter((group) => group.count > 0).map((group) => ({ label: group.label, count: group.count }));
       },
 
       sortedOptions() {
