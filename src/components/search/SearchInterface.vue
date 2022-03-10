@@ -165,7 +165,7 @@
         type: Boolean,
         default: true
       },
-      contextLabel: {
+      contextLabel: { // TODO: Remove when entity header switch is complete.
         type: String,
         default: null
       },

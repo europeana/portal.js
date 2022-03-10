@@ -846,7 +846,7 @@ export default {
   "resourceWikimedia": "Resource from Wikimedia Commons",
   "results": "Results",
   "resultsFor": "Results for {0}",
-  "resultsWithin": "Results within {0} for {1}",
+  "resultsWithin": "Results within {0} {1} for {2}",
   "resultsLimitWarning": "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
   "search": "Search",
   "searchHasLoaded": "{0} results returned",

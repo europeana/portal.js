@@ -18,6 +18,7 @@
       path="resultsWithin"
       tag="span"
     >
+      {{ entityTypeLabel }}
       <RemovalChip
         :title="localisedEntityLabel"
         :link-to="entityRemovalLink"
