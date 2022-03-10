@@ -39,6 +39,7 @@
 
         <b-dropdown
           block
+          no-flip
         >
           <template #button-content>
             {{ `${$tc('sideFilters.select', isRadio ? 1 : 2)} ${facetName.toLowerCase()}` }}
