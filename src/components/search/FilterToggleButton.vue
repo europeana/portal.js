@@ -3,7 +3,7 @@
     v-show="showFiltersToggle"
     data-qa="search filter button"
     class="icon-filter p-0 ml-3 my-3"
-    :class="{ 'filters-applied' : resettableFilters.length > 0 }"
+    :class="{ 'filters-applied' : hasSelectedFilters }"
     variant="light-flat"
     :aria-label="$t('filter')"
     @click="toggleFilterSheet"
@@ -16,9 +16,11 @@
   export default {
     computed: {
       ...mapState({
-        resettableFilters: state => state.search.resettableFilters,
         showFiltersToggle: state => state.search.showFiltersToggle
-      })
+      }),
+      hasSelectedFilters() {
+        return this.$store.state.search.userParams?.qf || this.$store.state.search.userParams?.reusability;
+      }
     },
     methods: {
       toggleFilterSheet() {
