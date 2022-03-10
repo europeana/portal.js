@@ -108,7 +108,7 @@
   import ClientOnly from 'vue-client-only';
   import isEqual from 'lodash/isEqual';
   import { mapState, mapGetters } from 'vuex';
-  import { rangeToQueryParam, rangeFromQueryParam } from '@/plugins/europeana/search';
+  import { rangeToQueryParam, rangeFromQueryParam, filtersFromQf } from '@/plugins/europeana/search';
   import themes from '@/plugins/europeana/themes';
   import { defaultFacetNames } from '@/store/search';
   import SideFacetDropdown from './SideFacetDropdown';
@@ -144,9 +144,22 @@
         userParams: state => state.search.userParams
       }),
       ...mapGetters({
-        filters: 'search/filters',
         collection: 'search/collection'
       }),
+      // TODO: do not assume filters are fielded, e.g. `qf=whale`
+      filters() {
+        const filters = filtersFromQf(this.$store.state.search.userParams?.qf);
+
+        if (this.$store.state.search.userParams?.reusability) {
+          filters['REUSABILITY'] = this.$store.state.search.userParams.reusability.split(',');
+        }
+
+        if (this.$store.state.search.apiParams?.api) {
+          filters['api'] = this.$store.state.search.apiParams.api;
+        }
+
+        return filters;
+      },
       resettableFilters() {
         const filters = this.filterableFacets
           .map(facet => facet.name)
