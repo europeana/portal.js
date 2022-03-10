@@ -3,7 +3,7 @@ query CollectionPage(
   $identifier: String!,
   $preview: Boolean = false
 ) {
-  entityPage: entityPageCollection(limit: 1, where: { identifier: $identifier }) {
+  entityPage: entityPageCollection(preview: $preview, locale: $locale, limit: 1, where: { identifier: $identifier }) {
     items {
       name
       description

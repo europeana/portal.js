@@ -36,6 +36,7 @@ export default {
     "feedback": "Povratna informacija",
     "goBack": "Idi nazad",
     "goHome": "Idite na početnu stranicu",
+    "learnMore": "Uči više",
     "like": "Sviđanje",
     "next": "Sljedeći",
     "pin": "Klin",
@@ -331,7 +332,55 @@ export default {
       }
     },
     "COUNTRY": {
-      "name": "Država iz koje dolazi"
+      "name": "Država iz koje dolazi",
+      "options": {
+        "Albania": "Albanija",
+        "Austria": "Austrija",
+        "Belarus": "Bjelorusija",
+        "Belgium": "Belgija",
+        "Bosnia and Herzegovina": "Bosna i Hercegovina",
+        "Bulgaria": "Bugarska",
+        "Croatia": "Hrvatska",
+        "Cyprus": "Cipar",
+        "Czech Republic": "Češka Republika",
+        "Denmark": "Danska",
+        "Estonia": "Estonija",
+        "Europe": "Europa",
+        "Finland": "Finska",
+        "France": "Francuska",
+        "Georgia": "Gruzija",
+        "Germany": "Njemačka",
+        "Greece": "Grčka",
+        "Holy See (Vatican City State)": "Sveta Stolica (Država Vatikan)",
+        "Hungary": "Mađarska",
+        "Iceland": "Island",
+        "Ireland": "Irska",
+        "Israel": "Izrael",
+        "Italy": "Italija",
+        "Latvia": "Latvija",
+        "Lithuania": "Litva",
+        "Luxembourg": "Luksemburg",
+        "Macedonia": "Makedonija",
+        "Malta": "Malta",
+        "Moldova": "Moldavija",
+        "Montenegro": "Crna Gora",
+        "Netherlands": "Nizozemska",
+        "Norway": "Norveška",
+        "Poland": "Poljska",
+        "Portugal": "Portugal",
+        "Romania": "Rumunjska",
+        "Russia": "Rusija",
+        "Serbia": "Srbija",
+        "Slovakia": "Slovačka",
+        "Slovenia": "Slovenija",
+        "Spain": "Španjolska",
+        "Sweden": "Švedska",
+        "Switzerland": "Švicarska",
+        "Turkey": "Turska",
+        "Ukraine": "Ukrajina",
+        "United Kingdom": "Ujedinjeno Kraljevstvo",
+        "United States of America": "Sjedinjene Američke Države"
+      }
     },
     "CREATOR": {
       "name": "Tvorac | tvorci"
@@ -730,7 +779,7 @@ export default {
     "translateQuotaError": "Usluga prevođenja privremeno je nedostupna. Pokušajte ponovo kasnije."
   },
   "newFeatureNotification": {
-    "dismiss": "Odbaciti",
+    "dismiss": "Zatvoriti",
     "readMore": "Pročitaj više",
     "text": {
       "sideFilters": "Pogledajte nove filtre! Sada su svi vidljivi na desnoj strani rezultata pretraživanja."
@@ -739,6 +788,11 @@ export default {
   "newWindow": "otvara se u novom prozoru",
   "noMoreResults": "Nema više rezultata za vaš upit za pretraživanje.",
   "noResults": "Nema rezultata",
+  "organisation": {
+    "city": "Grad",
+    "country": "Država",
+    "nameAcronym": "Akronim naziva"
+  },
   "pageHasLoaded": "se učitao",
   "pages": {
     "collections": {
@@ -793,6 +847,7 @@ export default {
   "results": "Rezultati",
   "resultsLimitWarning": "Dodatni rezultati nisu prikazani jer je prikazano samo prvih 1000 najrelevantnijih rezultata. Ako niste pronašli ono što tražite, razmislite o preciziranju pretraživanja.",
   "search": "Traži",
+  "searchHasLoaded": "Vraćeno je {0} rezultata",
   "searchPlaceholder": "Što tražite?",
   "searchResults": "Traži",
   "searchResultsFor": "{0} - Pretraži",
@@ -851,5 +906,6 @@ export default {
     "liked": "Volio",
     "pinned": "Prikvačeno"
   },
-  "website": "Web stranica"
+  "website": "Web stranica",
+  "youMightAlsoLike": "Možda će vam se također svidjeti"
 };
