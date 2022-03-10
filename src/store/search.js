@@ -1,5 +1,6 @@
 import merge from 'deepmerge';
 import themes from '@/plugins/europeana/themes';
+import { filtersFromQf } from '@/plugins/europeana/search';
 import { BASE_URL as FULLTEXT_BASE_URL } from '@/plugins/europeana/newspaper';
 
 // Default facets to always request and display.
@@ -17,22 +18,6 @@ export const defaultFacetNames = [
   'MIME_TYPE',
   'contentTier'
 ];
-
-const filtersFromQf = (qfs) => {
-  const filters = {};
-
-  for (const qf of [].concat(qfs || [])) {
-    const qfParts = qf.split(':');
-    const name = qfParts[0];
-    const value = qfParts.slice(1).join(':');
-    if (typeof filters[name] === 'undefined') {
-      filters[name] = [];
-    }
-    filters[name].push(value);
-  }
-
-  return filters;
-};
 
 export default {
   state: () => ({
@@ -125,21 +110,6 @@ export default {
 
     theme(state, getters) {
       return themes.find(theme => theme.qf === getters.collection);
-    },
-
-    // TODO: do not assume filters are fielded, e.g. `qf=whale`
-    filters: (state) => {
-      const filters = filtersFromQf(state.userParams.qf);
-
-      if (state.userParams.reusability) {
-        filters['REUSABILITY'] = state.userParams.reusability.split(',');
-      }
-
-      if (state.apiParams.api) {
-        filters['api'] = state.apiParams.api;
-      }
-
-      return filters;
     },
 
     searchOptions: (state) => {
