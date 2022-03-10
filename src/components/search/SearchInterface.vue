@@ -24,8 +24,6 @@
       <b-col>
         <ContextLabel
           v-if="headerCardsEnabled"
-          :query="query"
-          :entity="entity.entity"
           :label-override="editorialEntityLabel"
           data-qa="context label"
         />

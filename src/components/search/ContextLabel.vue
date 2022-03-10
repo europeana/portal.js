@@ -47,6 +47,7 @@
 <script>
   import RemovalChip from './RemovalChip';
   import { getWikimediaThumbnailUrl } from '@/plugins/europeana/entity';
+    import { mapState } from 'vuex';
 
   export default {
     name: 'ContextLabel',
@@ -56,28 +57,6 @@
     },
 
     props: {
-      /**
-       * Applied query
-       *
-       * String, the active query term.
-       *
-       * @type {String}
-       */
-      query: {
-        type: String,
-        default: null
-      },
-
-      /**
-       * Entity for the current collection page.
-       *
-       * Current entity which is being searched by. Used for labeling and remvoal link.
-       */
-      entity: {
-        type: Object,
-        default: null
-      },
-
       /**
        * Editorial title
        *
@@ -89,6 +68,10 @@
       }
     },
     computed: {
+      ...mapState({
+        query: state => state.search.userParams.query,
+        entity: state => state.entity.entity
+      }),
       hasQuery() {
         return this.query && this.query !== '';
       },
