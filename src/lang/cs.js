@@ -36,6 +36,7 @@ export default {
     "feedback": "Zpětná vazba",
     "goBack": "Zpět",
     "goHome": "Přejít na domovskou stránku",
+    "learnMore": "Zjistěte více",
     "like": "Oblíbené",
     "next": "Další",
     "pin": "Kolík",
@@ -331,7 +332,55 @@ export default {
       }
     },
     "COUNTRY": {
-      "name": "Země původu"
+      "name": "Země původu",
+      "options": {
+        "Albania": "Albánie",
+        "Austria": "Rakousko",
+        "Belarus": "Bělorusko",
+        "Belgium": "Belgie",
+        "Bosnia and Herzegovina": "Bosna a Hercegovina",
+        "Bulgaria": "Bulharsko",
+        "Croatia": "Chorvatsko",
+        "Cyprus": "Kypr",
+        "Czech Republic": "Česká republika",
+        "Denmark": "Dánsko",
+        "Estonia": "Estonsko",
+        "Europe": "Evropa",
+        "Finland": "Finsko",
+        "France": "Francie",
+        "Georgia": "Gruzie",
+        "Germany": "Německo",
+        "Greece": "Řecko",
+        "Holy See (Vatican City State)": "Svatý stolec (Vatikánský městský stát)",
+        "Hungary": "Maďarsko",
+        "Iceland": "Island",
+        "Ireland": "Irsko",
+        "Israel": "Izrael",
+        "Italy": "Itálie",
+        "Latvia": "Lotyšsko",
+        "Lithuania": "Litva",
+        "Luxembourg": "Lucembursko",
+        "Macedonia": "Makedonie",
+        "Malta": "Malta",
+        "Moldova": "Moldavsko",
+        "Montenegro": "Černá Hora",
+        "Netherlands": "Nizozemsko",
+        "Norway": "Norsko",
+        "Poland": "Polsko",
+        "Portugal": "Portugalsko",
+        "Romania": "Rumunsko",
+        "Russia": "Rusko",
+        "Serbia": "Srbsko",
+        "Slovakia": "Slovensko",
+        "Slovenia": "Slovinsko",
+        "Spain": "Španělsko",
+        "Sweden": "Švédsko",
+        "Switzerland": "Švýcarsko",
+        "Turkey": "Krocan",
+        "Ukraine": "Ukrajina",
+        "United Kingdom": "Spojené království",
+        "United States of America": "Spojené státy americké"
+      }
     },
     "CREATOR": {
       "name": "Tvůrce | Tvůrci"
@@ -730,7 +779,7 @@ export default {
     "translateQuotaError": "Překladatelská služba je dočasně nedostupná. Prosím zkuste to znovu později."
   },
   "newFeatureNotification": {
-    "dismiss": "Odmítnout",
+    "dismiss": "Zavřít",
     "readMore": "Přečtěte si více",
     "text": {
       "sideFilters": "Podívejte se na nové filtry! Všechny jsou nyní viditelné na pravé straně výsledků vyhledávání."
@@ -739,6 +788,11 @@ export default {
   "newWindow": "otevře se v novém okně",
   "noMoreResults": "Pro vaše zadání neexistují žádné další výsledky vyhledávání.",
   "noResults": "Žádné výsledky",
+  "organisation": {
+    "city": "Město",
+    "country": "Země",
+    "nameAcronym": "Zkratka jména"
+  },
   "pageHasLoaded": "načteno",
   "pages": {
     "collections": {
@@ -793,6 +847,7 @@ export default {
   "results": "Výsledky",
   "resultsLimitWarning": "Zobrazuje se pouze prvních tisíc nejvhodnějších výsledků, další výsledky se nezobrazují. Pokud jste nenašli, co jste hledali, zvažte upřesnění vyhledávání.",
   "search": "Vyhledat",
+  "searchHasLoaded": "Počet vrácených výsledků: {0}",
   "searchPlaceholder": "Co hledáte?",
   "searchResults": "Vyhledat",
   "searchResultsFor": "{0} - vyhledat",
@@ -851,5 +906,6 @@ export default {
     "liked": "Oblíbené",
     "pinned": "Připnuté"
   },
-  "website": "Webové stránky"
+  "website": "Webové stránky",
+  "youMightAlsoLike": "Mohlo by se vám také líbit"
 };
