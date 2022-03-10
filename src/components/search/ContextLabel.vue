@@ -7,6 +7,11 @@
       v-if="!hasQuery && hasEntity"
     >
       {{ entityTypeLabel }}
+      <RemovalChip
+        :title="localisedEntityLabel"
+        :link-to="entityRemovalLink"
+        :img="entityImage"
+      />
     </span>
     <i18n
       v-else-if="hasQuery && hasEntity"
