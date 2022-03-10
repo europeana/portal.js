@@ -18,7 +18,7 @@
       class="mr-2"
     />
     {{ localisedTitle.values[0] }}
-    <span class="icon icon-clear clear-indicator"/>
+    <span class="icon icon-clear clear-indicator" />
   </b-badge>
 </template>
 

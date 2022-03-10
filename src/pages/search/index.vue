@@ -100,9 +100,6 @@
       },
       headerCardsEnabled() {
         return this.$features.entityHeaderCards;
-      },
-      headerCardsEnabled() {
-        return this.$features.entityHeaderCards;
       }
     },
 

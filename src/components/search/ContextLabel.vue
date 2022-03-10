@@ -15,12 +15,12 @@
     >
       <RemovalChip
         :title="localisedEntityLabel"
-        :linkTo="entityRemovalLink"
+        :link-to="entityRemovalLink"
         :img="entityImage"
       />
       <RemovalChip
         :title="query"
-        :linkTo="queryRemovalLink"
+        :link-to="queryRemovalLink"
       />
     </i18n>
     <i18n
@@ -30,7 +30,7 @@
     >
       <RemovalChip
         :title="query"
-        :linkTo="queryRemovalLink"
+        :link-to="queryRemovalLink"
       />
     </i18n>
     <span v-else>
@@ -41,8 +41,7 @@
 
 <script>
   import RemovalChip from './RemovalChip';
-  import { getEntityTypeHumanReadable, getWikimediaThumbnailUrl } from '@/plugins/europeana/entity';
-  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import { getWikimediaThumbnailUrl } from '@/plugins/europeana/entity';
 
   export default {
     name: 'ContextLabel',
@@ -135,6 +134,6 @@
   }
 
   .context-label {
-      margin-bottom: 0;
+    margin-bottom: 0;
   }
 </style>

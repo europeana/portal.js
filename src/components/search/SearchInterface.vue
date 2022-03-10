@@ -26,7 +26,7 @@
           v-if="headerCardsEnabled"
           :query="query"
           :entity="entity.entity"
-          :labelOverride="editorialEntityLabel"
+          :label-override="editorialEntityLabel"
           data-qa="context label"
         />
         <template v-else>
@@ -123,7 +123,6 @@
   import ItemPreviewCardGroup from '../item/ItemPreviewCardGroup'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
   import InfoMessage from '../generic/InfoMessage';
   import ViewToggles from './ViewToggles';
-
 
   import makeToastMixin from '@/mixins/makeToast';
 
@@ -265,7 +264,7 @@
       },
       headerCardsEnabled() {
         return this.$features.entityHeaderCards;
-      },
+      }
     },
 
     watch: {
