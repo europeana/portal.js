@@ -44,6 +44,7 @@
         <b-dropdown
           block
           no-flip
+          @shown="search && $refs['search-input'].focus()"
         >
           <template #button-content>
             {{ `${$tc('sideFilters.select', isRadio ? 1 : 2)} ${facetName.toLowerCase()}` }}
@@ -61,6 +62,7 @@
               >
                 <b-form-input
                   :id="`${facetNameNoSpaces}-search-input`"
+                  ref="search-input"
                   v-model="searchFacet"
                   type="text"
                   autocomplete="off"
