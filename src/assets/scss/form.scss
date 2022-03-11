@@ -49,6 +49,7 @@
   color: $mediumgrey;
   margin-bottom: 0.25rem;
 
+  @at-root .focus &,
   &.facet-label-active {
     color: $blue;
   }

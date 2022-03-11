@@ -35,7 +35,7 @@
     }
 
     &::before {
-      font-size: 1rem;
+      font-size: 15px;
     }
   }
 }
@@ -89,7 +89,6 @@
   font-size: $font-size-small;
   line-height: 1.125;
   border-radius: 2.25rem;
-  padding: 0.5rem 0.5rem 0.5rem 0.75rem;
   align-items: center !important;
   margin-right: 0;
 
@@ -98,6 +97,10 @@
     &:hover {
       background-color: $lightblue-dark;
     }
+  }
+
+  &.remove-button {
+    padding-right: 0.65rem;
   }
 }
 

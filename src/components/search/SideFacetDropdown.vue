@@ -1,19 +1,20 @@
 <template>
   <div v-if="!fetched || fields.length > 0 || selectedFilters[name].length > 0">
-    <label
-      class="facet-label"
-      :class="{ 'facet-label-active' : selectedFilters[name].length > 0 }"
-    >{{ facetName }}</label>
     <b-form-tags
       :id="facetNameNoSpaces"
       v-model="selectedOptions"
-      no-outer-focus
       class="side-filter-autosuggest"
       :limit="isRadio ? 1 : null"
     >
       <template
         #default="{ tags, disabled, addTag, removeTag }"
       >
+        <label
+          class="facet-label"
+          :class="{ 'facet-label-active' : selectedFilters[name].length > 0 }"
+        >
+          {{ facetName }}
+        </label>
         <!-- TODO: use SearchFilters? -->
         <ul
           v-if="tags.length > 0"
