@@ -417,3 +417,46 @@
     }
   };
 </script>
+
+<docs lang="md">
+  Type radio:
+  ```jsx
+  <SideFacetDropdown
+    name="collection"
+    type="radio"
+    :static-fields="['ww1', 'archaeology', 'art', 'fashion']"
+  />
+  ```
+  Type checkbox:
+  ```jsx
+  <SideFacetDropdown
+    name="TYPE"
+    type="checkbox"
+    :static-fields="[
+      { label:'IMAGE', count: 28417756 },
+      { label:'TEXT', count: 21607709 },
+      { label:'SOUND', count: 782764 },
+      { label:'VIDEO', count: 514235 },
+      { label:'3D', count: 17668 }
+    ]"
+  />
+  ```
+
+  Type checkbox with search option:
+  ```jsx
+  <SideFacetDropdown
+    name="institution"
+    type="checkbox"
+    search
+    :static-fields="[
+      { label: 'Österreichische Nationalbibliothek - Austrian National Library', count: 37663 },
+      { label: 'National Library of Denmark', count: 5162 },
+      { label: 'The Great War Archive, University of Oxford', count: 1640 },
+      { label: 'The Royal Library: The National Library of Denmark and Copenhagen University Library', count: 1628 },
+      { label: 'Europeana 1914-1918', count: 1263 },
+      { label: 'Deutsche Fotothek', count: 669 },
+      { label: 'Berlin State Library', count: 477 }
+      ]"
+  />
+  ```
+</docs>
