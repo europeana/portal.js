@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!fetched || fields.length > 0 || selectedFilters[name].length > 0">
+  <div v-if="!fetched || fields && fields.length > 0 || selectedFilters[name].length > 0">
     <b-form-tags
       :id="facetNameNoSpaces"
       v-model="selectedOptions"
@@ -228,8 +228,8 @@
 
         if (criteria) {
           return options.filter(option => {
-            const optionLabel = this.isRadio ? option : option.label;
-            return optionLabel.toLowerCase().indexOf(criteria) > -1;
+            const optionLocalisedLabel = this.$tFacetOption(this.name, this.isRadio ? option : option.label);
+            return optionLocalisedLabel.toLowerCase().indexOf(criteria) > -1;
           });
         }
 
