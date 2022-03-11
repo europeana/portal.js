@@ -15,7 +15,6 @@
         >
           {{ facetName }}
         </label>
-        <!-- TODO: use SearchFilters? -->
         <ul
           v-if="tags.length > 0"
         >
@@ -34,7 +33,6 @@
               <FacetFieldLabel
                 :facet-name="name"
                 :field-value="tag"
-                :prefixed="false"
                 escaped
               />
             </b-form-tag>

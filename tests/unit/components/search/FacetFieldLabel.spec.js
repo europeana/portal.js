@@ -181,24 +181,5 @@ describe('components/search/FacetFieldLabel', () => {
         expect(wrapper.vm.label).toBe('VIDEO');
       });
     });
-
-    describe('with prefixing', () => {
-      it('prefixes with the translated facet name', () => {
-        const wrapper = factory({
-          propsData: {
-            facetName: 'TYPE',
-            fieldValue: 'TEXT',
-            prefixed: true
-          },
-          mocks: {
-            $t: (key, options) => `${options.label}: ${options.value}`,
-            $tNull: () => null,
-            $tFacetName: (key) => key
-          }
-        });
-
-        expect(wrapper.vm.label).toBe('TYPE: TEXT');
-      });
-    });
   });
 });

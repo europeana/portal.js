@@ -19,11 +19,6 @@
         required: true
       },
 
-      prefixed: {
-        type: Boolean,
-        default: false
-      },
-
       escaped: {
         type: Boolean,
         default: false
@@ -38,7 +33,7 @@
 
     computed: {
       label() {
-        return this.$tFacetOption(this.facetName, this.fieldValue, this.prefixed, this.escaped);
+        return this.$tFacetOption(this.facetName, this.fieldValue, this.escaped);
       }
     }
   };

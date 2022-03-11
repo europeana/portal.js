@@ -18,18 +18,8 @@ function tFacetName(facetName, count = 1) {
   return collectionLabel(facetNameKey, count) || genericLabel(facetNameKey, count) || facetNameKey;
 }
 
-function tFacetOption(facetName, fieldValue, prefixed, escaped) {
+function tFacetOption(facetName, fieldValue, escaped) {
   const MIME_TYPE = 'MIME_TYPE';
-
-  const facetFieldLabel = () => {
-    const fieldLabel = (facetName === MIME_TYPE) ? mediaTypeLabel() : genericLabel();
-
-    if (!prefixed) {
-      return fieldLabel;
-    }
-
-    return this.$t('formatting.labelledValue', { label: tFacetName(facetName), value: fieldLabel });
-  };
 
   const genericLabel = () => {
     let fieldLabel = fieldValue;
@@ -68,7 +58,7 @@ function tFacetOption(facetName, fieldValue, prefixed, escaped) {
 
   const collection = this.$store.getters['search/collection'];
 
-  return facetFieldLabel();
+  return (facetName === MIME_TYPE) ? mediaTypeLabel() : genericLabel();
 }
 
 export default {
