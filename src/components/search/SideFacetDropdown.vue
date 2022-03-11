@@ -21,7 +21,7 @@
           <li
             v-for="tag in tags"
             :key="tag"
-            class="list-inline-item"
+            class="list-inline-item mw-100"
           >
             <b-form-tag
               :disabled="disabled"
@@ -117,12 +117,10 @@
     name: 'SideFacetDropdown',
 
     components: {
-      // AlertMessage: () => import('../generic/AlertMessage'),
       BFormTags,
       BFormTag,
       FacetFieldLabel,
       ColourSwatch
-      // LoadingSpinner: () => import('../generic/LoadingSpinner'),
     },
 
     props: {
