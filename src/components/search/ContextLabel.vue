@@ -3,34 +3,41 @@
     class="context-label"
     data-qa="context label"
   >
-    <span
-      v-if="!hasQuery && hasEntity"
+    <template
+      v-if="hasEntity"
     >
-      {{ entityTypeLabel }}
-      <RemovalChip
-        :title="localisedEntityLabel"
-        :link-to="entityRemovalLink"
-        :img="entityImage"
-      />
-    </span>
-    <i18n
-      v-else-if="hasQuery && hasEntity"
-      path="resultsWithin"
-      tag="span"
+      <span
+        v-if="!hasQuery"
+      >
+        {{ entityTypeLabel }}
+        <RemovalChip
+          :title="localisedEntityLabel"
+          :link-to="entityRemovalLink"
+          :img="entityImage"
+        />
+      </span>
+      <i18n
+        v-else-if="hasQuery"
+        path="resultsWithin"
+        tag="span"
+      >
+        {{ entityTypeLabel }}
+        <RemovalChip
+          :title="localisedEntityLabel"
+          :link-to="entityRemovalLink"
+          :img="entityImage"
+        />
+        <RemovalChip
+          :title="query"
+          :link-to="queryRemovalLink"
+        />
+      </i18n>
+    </template>
+    <template
+      v-else
     >
-      {{ entityTypeLabel }}
-      <RemovalChip
-        :title="localisedEntityLabel"
-        :link-to="entityRemovalLink"
-        :img="entityImage"
-      />
-      <RemovalChip
-        :title="query"
-        :link-to="queryRemovalLink"
-      />
-    </i18n>
     <i18n
-      v-else-if="!hasEntity && hasQuery"
+      v-if="hasQuery"
       path="resultsFor"
       tag="span"
     >
@@ -42,13 +49,14 @@
     <span v-else>
       {{ $t('results') }}
     </span>
+    </template>
   </h2>
 </template>
 
 <script>
   import RemovalChip from './RemovalChip';
   import { getWikimediaThumbnailUrl } from '@/plugins/europeana/entity';
-    import { mapState } from 'vuex';
+  import { mapState } from 'vuex';
 
   export default {
     name: 'ContextLabel',
