@@ -5,7 +5,7 @@
     <b-badge
       v-for="(filter, index) in filterList"
       :key="index"
-      variant="secondary"
+      variant="primary"
       class="mr-2 mb-2 filter-badge"
       data-qa="filter badge"
     >

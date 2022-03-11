@@ -20,6 +20,24 @@
     width: 28px;
     height: 28px;
   }
+
+  .close {
+    @extend %icon-font, .icon-cancel-circle ;
+
+    color: $mediumgrey;
+    margin-left: 0.5rem;
+    font-size: 0 !important;
+    opacity: 1;
+
+    &:hover,
+    &:hover:not(:disabled):not(.disabled) {
+      opacity: 1;
+    }
+
+    &::before {
+      font-size: 1rem;
+    }
+  }
 }
 
 .badge-pill {
@@ -30,7 +48,6 @@
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  background-color: $blue;
   font-weight: 400;
   transition: $standard-transition;
   line-height: 1.5;
@@ -54,6 +71,37 @@
 }
 
 .badge-primary {
+  background: $blue;
+  font-size: $font-size-smallest;
+  font-weight: normal;
+  padding: 0.5rem;
+
+  &[href] {
+    &:hover {
+      background-color: $innovationblue-dark;
+    }
+  }
+}
+
+.badge-primary-light {
+  background-color: $lightblue;
+  color: $mediumgrey;
+  font-size: $font-size-small;
+  line-height: 1.125;
+  border-radius: 2.25rem;
+  padding: 0.5rem 0.5rem 0.5rem 0.75rem;
+  align-items: center !important;
+  margin-right: 0;
+
+  &[href],
+  &.remove-button {
+    &:hover {
+      background-color: $lightblue-dark;
+    }
+  }
+}
+
+.badge-secondary {
   background-color: $bodygrey;
   color: $black;
 
@@ -65,13 +113,6 @@
       box-shadow: 0 4px 8px rgb(0 0 0 / 15%);
     }
   }
-}
-
-.badge-secondary {
-  background: $blue;
-  font-size: $font-size-smallest;
-  font-weight: normal;
-  padding: 0.5rem;
 }
 
 .badge-light {

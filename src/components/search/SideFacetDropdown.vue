@@ -25,6 +25,9 @@
           >
             <b-form-tag
               :disabled="disabled"
+              pill
+              class="remove-button"
+              variant="primary-light"
               @remove="removeOption({ tag, removeTag })"
             >
               <FacetFieldLabel
