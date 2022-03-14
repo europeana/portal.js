@@ -166,7 +166,7 @@
         type: Boolean,
         default: false
       },
-      
+
       /**
        * Array of strings to group fields by
        */
