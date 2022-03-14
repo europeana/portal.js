@@ -58,9 +58,13 @@
       this.draw();
     },
 
+    beforeDestroy() {
+      this.draw('hide');
+    },
+
     methods: {
-      draw() {
-        this.$emit(this.relatedCollections.length > 0 ? 'show' : 'hide');
+      draw(showOrHide) {
+        this.$emit(showOrHide || (this.relatedCollections.length > 0 ? 'show' : 'hide'));
         this.$nextTick(() => {
           this.$redrawVueMasonry && this.$redrawVueMasonry();
         });

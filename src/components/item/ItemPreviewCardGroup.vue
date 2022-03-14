@@ -9,7 +9,7 @@
       transition-duration="0.1"
       item-selector=".card"
       horizontal-order="true"
-      column-width=".masonry-container .default-card"
+      column-width=".masonry-container .card:not(.header-card)"
       class="masonry-container"
       :data-qa="`item previews ${view}`"
     >
@@ -23,7 +23,7 @@
           <b-card
             v-show="showRelated"
             :key="index"
-            class="text-left related-collections-card default-card mb-4"
+            class="text-left related-collections-card mb-4"
           >
             <slot
               v-masonry-tile
