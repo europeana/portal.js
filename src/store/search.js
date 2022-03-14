@@ -16,6 +16,7 @@ export const defaultFacetNames = [
   'IMAGE_ASPECTRATIO',
   'IMAGE_SIZE',
   'MIME_TYPE',
+  'RIGHTS',
   'contentTier'
 ];
 

@@ -82,6 +82,7 @@
                 :type="facetDropdownType(facet.name)"
                 :selected="filters[facet.name]"
                 :static-fields="facet.staticFields"
+                :group-by="sideFacetDropdownGroupBy(facet.name)"
                 role="search"
                 :aria-label="facet.name"
                 @changed="changeFacet"
@@ -403,6 +404,30 @@
       },
       toggleFilterSheet() {
         this.$store.commit('search/setShowFiltersSheet', !this.$store.state.search.showFiltersSheet);
+      },
+      sideFacetDropdownGroupBy(facetName) {
+        if (facetName === 'RIGHTS') {
+          return [
+            '/CNE/',
+            '/InC-EDU/',
+            '/InC-OW-EU/',
+            '/InC/',
+            '/licenses/by-nc-nd/',
+            '/licenses/by-nc-sa/',
+            '/licenses/by-nc/',
+            '/licenses/by-nd/',
+            '/licenses/by-sa/',
+            '/licenses/by/',
+            '/NoC-NC/',
+            '/NoC-OKLR/',
+            '/publicdomain/mark/',
+            '/publicdomain/zero/',
+            '/rights/out-of-copyright-non-commercial/',
+            '/rights/rr-f/'
+          ];
+        } else {
+          return null;
+        }
       }
     }
   };
