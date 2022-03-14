@@ -27,6 +27,7 @@ const factory = () => shallowMountNuxt(SideFacetDropdown, {
     },
     $t: (key) => key,
     $tFacetName: (key) => key,
+    $tFacetOption: (name, key) => key,
     $store: {
       commit: storeCommitSpy,
       dispatch: storeDispatchStub,
@@ -127,6 +128,67 @@ describe('components/search/SideFacetDropdown', () => {
         expect(wrapper.vm.sortedOptions[1].label).toBe('Spain');
         expect(wrapper.vm.sortedOptions[2].label).toBe('Netherlands');
         expect(wrapper.vm.sortedOptions[3].label).toBe('Germany');
+      });
+    });
+
+    describe('availableSortedOptions', () => {
+      it('returns the options that are not yet selected', async() => {
+        const wrapper = factory();
+        await wrapper.setProps({
+          name: 'COUNTRY',
+          selected: ['Spain', 'United Kingdom']
+        });
+        wrapper.setData({
+          fields: [
+            { label: 'Netherlands', count: 101 },
+            { label: 'Germany', count: 100 },
+            { label: 'United Kingdom', count: 99 },
+            { label: 'Spain', count: 44 }
+          ]
+        });
+
+        expect(wrapper.vm.availableSortedOptions.some(option => option.label === 'Spain')).toBe(false);
+      });
+      it('returns the options that match the search term', async() => {
+        const wrapper = factory();
+        await wrapper.setProps({
+          name: 'COUNTRY',
+          selected: ['Spain', 'United Kingdom']
+        });
+        wrapper.setData({
+          searchFacet: 'netherlands',
+          fields: [
+            { label: 'Netherlands', count: 101 },
+            { label: 'Germany', count: 100 },
+            { label: 'United Kingdom', count: 99 },
+            { label: 'Spain', count: 44 }
+          ]
+        });
+
+        expect(wrapper.vm.availableSortedOptions.some(option => option.label === 'Netherlands')).toBe(true);
+        expect(wrapper.vm.availableSortedOptions.some(option => option.label === 'Germany')).toBe(false);
+      });
+    });
+
+    describe('criteria', () => {
+      it('turns the facet search term in a trimmed and lower cased string', () => {
+        const wrapper = factory();
+        wrapper.setData({
+          searchFacet: '  Im looking For a Facet '
+        });
+
+        expect(wrapper.vm.criteria).toBe('im looking for a facet');
+      });
+    });
+
+    describe('searchOptions', () => {
+      it('returns a message when no facets are found', () => {
+        const wrapper = factory();
+        wrapper.setData({
+          searchFacet: 'Im looking For a Facet'
+        });
+
+        expect(wrapper.vm.searchOptions).toBe('There are no tags matching your search criteria');
       });
     });
   });
