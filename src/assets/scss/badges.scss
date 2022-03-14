@@ -92,15 +92,15 @@
   align-items: center !important;
   margin-right: 0;
 
+  &.remove-button {
+    padding-right: 0.65rem;
+  }
+
   &[href],
   &.remove-button {
     &:hover {
       background-color: $lightblue-dark;
     }
-  }
-
-  &.remove-button {
-    padding-right: 0.65rem;
   }
 }
 
