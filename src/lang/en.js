@@ -476,7 +476,7 @@ export default {
         "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
         "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
         "*/licenses/by-nc/*": "CC BY-NC",
-        "*/licenses/by-nd/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-ND",
         "*/licenses/by-sa/*": "CC BY-SA",
         "*/licenses/by/*": "CC BY",
         "*/NoC-NC/*": "No Copyright - Non-Commercial Use Only",
