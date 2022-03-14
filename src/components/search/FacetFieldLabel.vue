@@ -25,12 +25,6 @@
       }
     },
 
-    data() {
-      return {
-        MIME_TYPE: 'MIME_TYPE'
-      };
-    },
-
     computed: {
       label() {
         return this.$tFacetOption(this.facetName, this.fieldValue, this.escaped);

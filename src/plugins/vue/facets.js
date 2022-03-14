@@ -21,6 +21,10 @@ function tFacetName(facetName, count = 1) {
 function tFacetOption(facetName, fieldValue, escaped) {
   const MIME_TYPE = 'MIME_TYPE';
 
+  const collection = this.$store.getters['search/collection'];
+  const theme = themes.find(theme => theme.qf === collection);
+  const themeSpecificFieldLabelPattern = (theme?.facets || []).find((facet) => facet.field === facetName)?.label;
+
   const genericLabel = () => {
     let fieldLabel = fieldValue;
 
@@ -47,16 +51,6 @@ function tFacetOption(facetName, fieldValue, escaped) {
 
     return subtype.replace(/^x-/, '').toUpperCase();
   }
-
-  function themeSpecificFieldLabelPattern() {
-    return (theme?.facets || []).find((facet) => facet.field === facetName)?.label;
-  }
-
-  function theme() {
-    return themes.find(theme => theme.qf === collection);
-  }
-
-  const collection = this.$store.getters['search/collection'];
 
   return (facetName === MIME_TYPE) ? mediaTypeLabel() : genericLabel();
 }
