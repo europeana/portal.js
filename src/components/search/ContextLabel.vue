@@ -36,19 +36,19 @@
     <template
       v-else
     >
-    <i18n
-      v-if="hasQuery"
-      path="resultsFor"
-      tag="span"
-    >
-      <RemovalChip
-        :title="query"
-        :link-to="queryRemovalLink"
-      />
-    </i18n>
-    <span v-else>
-      {{ $t('results') }}
-    </span>
+      <i18n
+        v-if="hasQuery"
+        path="resultsFor"
+        tag="span"
+      >
+        <RemovalChip
+          :title="query"
+          :link-to="queryRemovalLink"
+        />
+      </i18n>
+      <span v-else>
+        {{ $t('results') }}
+      </span>
     </template>
   </h2>
 </template>

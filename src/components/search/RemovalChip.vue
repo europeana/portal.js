@@ -87,7 +87,7 @@
     }
 
     &.img-chip {
-      padding: 0.25rem 0.75rem 0.25rem calc(0.5rem + 28px);
+      padding: 0.25rem 0.75rem 0.25rem calc(1rem + 28px);
     }
 
     .clear-indicator {
