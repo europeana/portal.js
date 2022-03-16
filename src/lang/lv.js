@@ -466,6 +466,9 @@ export default {
         "uncategorized": "Bez kategorijas"
       }
     },
+    "RIGHTS": {
+      "name": "Paziņojums par tiesībām"
+    },
     "TYPE": {
       "name": "Līdzekļu veids",
       "options": {
@@ -494,7 +497,7 @@ export default {
       "showLess": "Rādīt mazāk {label}"
     },
     "collection": {
-      "name": "Kolekcija",
+      "name": "Tēma",
       "options": {
         "archaeology": "Arheoloģija",
         "art": "Māksla",

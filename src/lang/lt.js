@@ -466,6 +466,9 @@ export default {
         "uncategorized": "Neklasifikuota"
       }
     },
+    "RIGHTS": {
+      "name": "Teisių pareiškimas"
+    },
     "TYPE": {
       "name": "Medijos tipas",
       "options": {
@@ -494,7 +497,7 @@ export default {
       "showLess": "Rodyti mažiau {label}"
     },
     "collection": {
-      "name": "Kategorija",
+      "name": "Tema",
       "options": {
         "archaeology": "Archeologija",
         "art": "Menas",

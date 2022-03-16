@@ -466,6 +466,9 @@ export default {
         "uncategorized": "Χωρίς κατηγορία"
       }
     },
+    "RIGHTS": {
+      "name": "Δήλωση πνευματικών δικαιωμάτων"
+    },
     "TYPE": {
       "name": "Τύπος μέσων",
       "options": {
@@ -494,7 +497,7 @@ export default {
       "showLess": "Εμφάνιση λιγότερων {label}"
     },
     "collection": {
-      "name": "Συλλογή",
+      "name": "Θέμα",
       "options": {
         "archaeology": "Αρχαιολογία",
         "art": "Τέχνη",

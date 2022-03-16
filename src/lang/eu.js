@@ -466,6 +466,9 @@ export default {
         "uncategorized": "Sailkatu gabe"
       }
     },
+    "RIGHTS": {
+      "name": "Eskubideen adierazpena"
+    },
     "TYPE": {
       "name": "Euskarri mota",
       "options": {
@@ -494,7 +497,7 @@ export default {
       "showLess": "Erakutsi gutxiago {label}"
     },
     "collection": {
-      "name": "Bilduma",
+      "name": "Gaia",
       "options": {
         "archaeology": "Arkeologia",
         "art": "Artea",
