@@ -27,6 +27,22 @@ export const unquotableFacets = [
   'VIDEO_HD'
 ];
 
+export const filtersFromQf = (qfs) => {
+  const filters = {};
+
+  for (const qf of [].concat(qfs || [])) {
+    const qfParts = qf.split(':');
+    const name = qfParts[0];
+    const value = qfParts.slice(1).join(':');
+    if (typeof filters[name] === 'undefined') {
+      filters[name] = [];
+    }
+    filters[name].push(value);
+  }
+
+  return filters;
+};
+
 /**
  * Construct a range query from two values, if keys are omitted they will default to '*'
  * @param {Object[]} values An object containing 'start' and 'end' values

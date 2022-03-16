@@ -36,6 +36,7 @@ export default {
     "feedback": "Iritzia",
     "goBack": "Atzera egin",
     "goHome": "Joan hasierako orrialdera",
+    "learnMore": "Gehiago ikasi",
     "like": "Atsegin dut",
     "next": "Hurrengoa",
     "pin": "Pin",
@@ -331,7 +332,55 @@ export default {
       }
     },
     "COUNTRY": {
-      "name": "Herrialde hornitzailea"
+      "name": "Herrialde hornitzailea",
+      "options": {
+        "Albania": "Albania",
+        "Austria": "Austria",
+        "Belarus": "Bielorrusia",
+        "Belgium": "Belgika",
+        "Bosnia and Herzegovina": "Bosnia eta Herzegovina",
+        "Bulgaria": "Bulgaria",
+        "Croatia": "Kroazia",
+        "Cyprus": "Zipre",
+        "Czech Republic": "Txekiar Errepublika",
+        "Denmark": "Danimarka",
+        "Estonia": "Estonia",
+        "Europe": "Europa",
+        "Finland": "Finlandia",
+        "France": "Frantzia",
+        "Georgia": "Georgia",
+        "Germany": "Alemania",
+        "Greece": "Grezia",
+        "Holy See (Vatican City State)": "Egoitza Santua (Vatikano Hiria)",
+        "Hungary": "Hungaria",
+        "Iceland": "Islandia",
+        "Ireland": "Irlanda",
+        "Israel": "Israel",
+        "Italy": "Italia",
+        "Latvia": "Letonia",
+        "Lithuania": "Lituania",
+        "Luxembourg": "Luxenburgo",
+        "Macedonia": "Mazedonia",
+        "Malta": "Malta",
+        "Moldova": "Moldavia",
+        "Montenegro": "Montenegro",
+        "Netherlands": "Herbehereak",
+        "Norway": "Norvegia",
+        "Poland": "Polonia",
+        "Portugal": "Portugal",
+        "Romania": "Errumania",
+        "Russia": "Errusia",
+        "Serbia": "Serbia",
+        "Slovakia": "Eslovakia",
+        "Slovenia": "Eslovenia",
+        "Spain": "Espainia",
+        "Sweden": "Suedia",
+        "Switzerland": "Suitza",
+        "Turkey": "Turkia",
+        "Ukraine": "Ukraina",
+        "United Kingdom": "Erresuma Batua",
+        "United States of America": "Ameriketako Estatu Batuak"
+      }
     },
     "CREATOR": {
       "name": "Sortzailea | Sortzaileak"
@@ -730,7 +779,7 @@ export default {
     "translateQuotaError": "Itzulpen zerbitzua ez dago aldi baterako erabilgarri. Saiatu berriro geroago."
   },
   "newFeatureNotification": {
-    "dismiss": "Baztertu",
+    "dismiss": "Itxi",
     "readMore": "Gehiago irakurri",
     "text": {
       "sideFilters": "Ikusi iragazki berriak! Orain bilaketa-emaitzen eskuinaldean ikusgai daude guztiak."
@@ -739,6 +788,11 @@ export default {
   "newWindow": "leiho berrian irekiko da",
   "noMoreResults": "Ez dago emaitza gehiagorik zure bilaketarako.",
   "noResults": "Emaitzarik ez",
+  "organisation": {
+    "city": "Hiria",
+    "country": "Herrialdea",
+    "nameAcronym": "Izenaren akronimoa"
+  },
   "pageHasLoaded": "kargatu du",
   "pages": {
     "collections": {
@@ -793,6 +847,7 @@ export default {
   "results": "Emaitzak",
   "resultsLimitWarning": "Emaitza osagarriak ez dira erakusten, izan ere, bakarrik erakusten dira lehenengo 1000 emaitza garrantzitsuenak. BIlatzen duzuna aurkitu ez baduzu, bilaketa zehatzagoa egin.",
   "search": "Bilatu",
+  "searchHasLoaded": "{0} emaitza itzuli dira",
   "searchPlaceholder": "Milioika elementu bilatu",
   "searchResults": "Bilatu",
   "searchResultsFor": "{0} - Bilatu",
@@ -851,5 +906,6 @@ export default {
     "liked": "Gustatu",
     "pinned": "Ainguratuta"
   },
-  "website": "Webgunea"
+  "website": "Webgunea",
+  "youMightAlsoLike": "Baliteke ere gustatzea"
 };

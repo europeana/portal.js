@@ -1,6 +1,6 @@
-import { diff } from 'deep-object-diff';
 import merge from 'deepmerge';
 import themes from '@/plugins/europeana/themes';
+import { filtersFromQf } from '@/plugins/europeana/search';
 import { BASE_URL as FULLTEXT_BASE_URL } from '@/plugins/europeana/newspaper';
 
 // Default facets to always request and display.
@@ -16,24 +16,9 @@ export const defaultFacetNames = [
   'IMAGE_ASPECTRATIO',
   'IMAGE_SIZE',
   'MIME_TYPE',
+  'RIGHTS',
   'contentTier'
 ];
-
-const filtersFromQf = (qfs) => {
-  const filters = {};
-
-  for (const qf of [].concat(qfs || [])) {
-    const qfParts = qf.split(':');
-    const name = qfParts[0];
-    const value = qfParts.slice(1).join(':');
-    if (typeof filters[name] === 'undefined') {
-      filters[name] = [];
-    }
-    filters[name].push(value);
-  }
-
-  return filters;
-};
 
 export default {
   state: () => ({
@@ -48,9 +33,6 @@ export default {
     liveQueries: [],
     overrideParams: {},
     collectionLabel: null,
-    previousApiOptions: null,
-    previousApiParams: null,
-    resettableFilters: [],
     results: [],
     showSearchBar: false,
     totalResults: null,
@@ -66,20 +48,6 @@ export default {
     },
     removeLiveQuery(state, query) {
       state.liveQueries = state.liveQueries.filter(liveQuery => liveQuery !== query);
-    },
-    clearResettableFilters(state) {
-      state.resettableFilters = [];
-    },
-    addResettableFilter(state, filterName) {
-      if (!state.resettableFilters.includes(filterName)) {
-        state.resettableFilters.push(filterName);
-      }
-    },
-    removeResettableFilter(state, filterName) {
-      const index = state.resettableFilters.indexOf(filterName);
-      if (index !== -1) {
-        state.resettableFilters.splice(index, 1);
-      }
     },
     disableCollectionFacet(state) {
       state.collectionFacetEnabled = false;
@@ -136,10 +104,6 @@ export default {
       return 'grid';
     },
 
-    hasResettableFilters(state) {
-      return state.resettableFilters.length > 0;
-    },
-
     collection(state) {
       const collectionFilter = filtersFromQf(state.apiParams.qf).collection;
       return collectionFilter ? collectionFilter[0] : null;
@@ -147,33 +111,6 @@ export default {
 
     theme(state, getters) {
       return themes.find(theme => theme.qf === getters.collection);
-    },
-
-    // TODO: do not assume filters are fielded, e.g. `qf=whale`
-    filters: (state) => {
-      const filters = filtersFromQf(state.userParams.qf);
-
-      if (state.userParams.reusability) {
-        filters['REUSABILITY'] = state.userParams.reusability.split(',');
-      }
-
-      if (state.apiParams.api) {
-        filters['api'] = state.apiParams.api;
-      }
-
-      return filters;
-    },
-
-    apiParamsChanged: (state) => {
-      return Object.keys(diff(state.previousApiParams, state.apiParams));
-    },
-
-    itemUpdateNeeded: (state, getters) => {
-      if (!state.previousApiParams) {
-        return true;
-      } // i.e. if this is the first search
-      return getters.apiParamsChanged
-        .some((param) => ['page', 'query', 'qf', 'api', 'reusability'].includes(param));
     },
 
     searchOptions: (state) => {
@@ -195,9 +132,6 @@ export default {
 
     // TODO: replace with a getter?
     deriveApiSettings({ commit, state, getters }) {
-      commit('set', ['previousApiParams', Object.assign({}, state.apiParams)]);
-      commit('set', ['previousApiOptions', Object.assign({}, state.apiOptions)]);
-
       // Coerce qf from user input into an array as it may be a single string
       const userParams = Object.assign({}, state.userParams || {});
       userParams.qf = [].concat(userParams.qf || []);
@@ -233,10 +167,9 @@ export default {
     /**
      * Run a Record API search and store the results
      */
-    async run({ dispatch, getters }) {
+    async run({ dispatch }) {
       await dispatch('deriveApiSettings');
-
-      return getters.itemUpdateNeeded ? dispatch('queryItems') : Promise.resolve();
+      return dispatch('queryItems');
     },
 
     queryItems({ dispatch, state, getters, commit }) {
@@ -274,14 +207,6 @@ export default {
       commit('setLastAvailablePage', null);
       commit('setResults', []);
       commit('setTotalResults', null);
-    },
-
-    async setResettableFilter({ commit }, { name, selected }) {
-      if ((Array.isArray(selected) && selected.length === 0) || !selected) {
-        await commit('removeResettableFilter', name);
-      } else {
-        await commit('addResettableFilter', name);
-      }
     }
   }
 };

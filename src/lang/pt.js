@@ -36,6 +36,7 @@ export default {
     "feedback": "Comentários",
     "goBack": "Voltar",
     "goHome": "Vá para a página inicial",
+    "learnMore": "Saiba mais",
     "like": "Gosto",
     "next": "Próximo",
     "pin": "Alfinete",
@@ -331,7 +332,55 @@ export default {
       }
     },
     "COUNTRY": {
-      "name": "País fornecedor"
+      "name": "País fornecedor",
+      "options": {
+        "Albania": "Albânia",
+        "Austria": "Áustria",
+        "Belarus": "Bielorrússia",
+        "Belgium": "Bélgica",
+        "Bosnia and Herzegovina": "Bósnia e Herzegovina",
+        "Bulgaria": "Bulgária",
+        "Croatia": "Croácia",
+        "Cyprus": "Chipre",
+        "Czech Republic": "República Checa",
+        "Denmark": "Dinamarca",
+        "Estonia": "Estónia",
+        "Europe": "Europa",
+        "Finland": "Finlândia",
+        "France": "França",
+        "Georgia": "Geórgia",
+        "Germany": "Alemanha",
+        "Greece": "Grécia",
+        "Holy See (Vatican City State)": "Santa Sé (Estado da Cidade do Vaticano)",
+        "Hungary": "Hungria",
+        "Iceland": "Islândia",
+        "Ireland": "Irlanda",
+        "Israel": "Israel",
+        "Italy": "Itália",
+        "Latvia": "Letónia",
+        "Lithuania": "Lituânia",
+        "Luxembourg": "Luxemburgo",
+        "Macedonia": "Macedónia",
+        "Malta": "Malta",
+        "Moldova": "Moldávia",
+        "Montenegro": "Montenegro",
+        "Netherlands": "Países Baixos",
+        "Norway": "Noruega",
+        "Poland": "Polônia",
+        "Portugal": "Portugal",
+        "Romania": "Roménia",
+        "Russia": "Rússia",
+        "Serbia": "Sérvia",
+        "Slovakia": "Eslováquia",
+        "Slovenia": "Eslovênia",
+        "Spain": "Espanha",
+        "Sweden": "Suécia",
+        "Switzerland": "Suíça",
+        "Turkey": "Turquia",
+        "Ukraine": "Ucrânia",
+        "United Kingdom": "Reino Unido",
+        "United States of America": "Estados Unidos da América"
+      }
     },
     "CREATOR": {
       "name": "Criador | Criadores"
@@ -730,7 +779,7 @@ export default {
     "translateQuotaError": "O serviço de tradução está temporariamente indisponível. Por favor, tente novamente mais tarde."
   },
   "newFeatureNotification": {
-    "dismiss": "Liberar",
+    "dismiss": "Fechar",
     "readMore": "Ler mais",
     "text": {
       "sideFilters": "Confira os novos filtros! Eles agora estão todos visíveis no lado direito dos resultados da pesquisa."
@@ -739,6 +788,11 @@ export default {
   "newWindow": "abre numa nova janela",
   "noMoreResults": "Não há mais resultados para a sua pesquisa.",
   "noResults": "Sem Resultados",
+  "organisation": {
+    "city": "Cidade",
+    "country": "País",
+    "nameAcronym": "Acrônimo do nome"
+  },
   "pageHasLoaded": "carregou",
   "pages": {
     "collections": {
@@ -793,6 +847,7 @@ export default {
   "results": "Resultados",
   "resultsLimitWarning": "Resultados adicionais não são mostrados, apenas os primeiros 1000 resultados mais relevantes são mostrados. Se não encontrou o que procurava, considere refinar a sua pesquisa.",
   "search": "Procurar",
+  "searchHasLoaded": "{0} resultados retornados",
   "searchPlaceholder": "Procure milhões de itens",
   "searchResults": "Procurar",
   "searchResultsFor": "{0} - Procurar",
@@ -851,5 +906,6 @@ export default {
     "liked": "Apreciado",
     "pinned": "Fixado"
   },
-  "website": "Sítio Web"
+  "website": "Sítio Web",
+  "youMightAlsoLike": "Também pode gostar"
 };

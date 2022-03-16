@@ -36,6 +36,7 @@ export default {
     "feedback": "Feedback",
     "goBack": "Tilbage",
     "goHome": "Gå til hjemmesiden",
+    "learnMore": "Lær mere",
     "like": "Synes om",
     "next": "Næste",
     "pin": "Pin",
@@ -331,7 +332,55 @@ export default {
       }
     },
     "COUNTRY": {
-      "name": "Leverende land"
+      "name": "Leverende land",
+      "options": {
+        "Albania": "Albanien",
+        "Austria": "Østrig",
+        "Belarus": "Hviderusland",
+        "Belgium": "Belgien",
+        "Bosnia and Herzegovina": "Bosnien-Hercegovina",
+        "Bulgaria": "Bulgarien",
+        "Croatia": "Kroatien",
+        "Cyprus": "Cypern",
+        "Czech Republic": "Tjekkiet",
+        "Denmark": "Danmark",
+        "Estonia": "Estland",
+        "Europe": "Europa",
+        "Finland": "Finland",
+        "France": "Frankrig",
+        "Georgia": "Georgien",
+        "Germany": "Tyskland",
+        "Greece": "Grækenland",
+        "Holy See (Vatican City State)": "Hellig Stol (Vatikanstaten)",
+        "Hungary": "Ungarn",
+        "Iceland": "Island",
+        "Ireland": "Irland",
+        "Israel": "Israel",
+        "Italy": "Italien",
+        "Latvia": "Letland",
+        "Lithuania": "Litauen",
+        "Luxembourg": "Luxembourg",
+        "Macedonia": "Makedonien",
+        "Malta": "Malta",
+        "Moldova": "Moldova",
+        "Montenegro": "Montenegro",
+        "Netherlands": "Nederlandene",
+        "Norway": "Norge",
+        "Poland": "Polen",
+        "Portugal": "Portugal",
+        "Romania": "Rumænien",
+        "Russia": "Rusland",
+        "Serbia": "Serbien",
+        "Slovakia": "Slovakiet",
+        "Slovenia": "Slovenien",
+        "Spain": "Spanien",
+        "Sweden": "Sverige",
+        "Switzerland": "Schweiz",
+        "Turkey": "Tyrkiet",
+        "Ukraine": "Ukraine",
+        "United Kingdom": "Det Forenede Kongerige",
+        "United States of America": "Amerikas Forenede Stater"
+      }
     },
     "CREATOR": {
       "name": "Skaber | Skaberne"
@@ -730,7 +779,7 @@ export default {
     "translateQuotaError": "Oversættelsestjeneste er midlertidigt utilgængelig. Prøv igen senere."
   },
   "newFeatureNotification": {
-    "dismiss": "Afskedige",
+    "dismiss": "Luk",
     "readMore": "Læs mere",
     "text": {
       "sideFilters": "Tjek de nye filtre! De er nu alle synlige på højre side af søgeresultaterne."
@@ -739,6 +788,11 @@ export default {
   "newWindow": "åbner i nyt vindue",
   "noMoreResults": "Der er ikke flere resultater for din søgning.",
   "noResults": "Ingen resultater",
+  "organisation": {
+    "city": "By",
+    "country": "Land",
+    "nameAcronym": "Navn akronym"
+  },
   "pageHasLoaded": "har indlæst",
   "pages": {
     "collections": {
@@ -793,6 +847,7 @@ export default {
   "results": "Resultater",
   "resultsLimitWarning": "Yderligere resultater vises ikke, da kun de første 1000 mest relevante resultater vises. Hvis du ikke har fundet det, du leder efter, kan du overveje at præcisere søgningen.",
   "search": "Søg",
+  "searchHasLoaded": "{0} resultater returneret",
   "searchPlaceholder": "Hvad leder du efter?",
   "searchResults": "Søg",
   "searchResultsFor": "{0} - Søg",
@@ -851,5 +906,6 @@ export default {
     "liked": "Kunne lide",
     "pinned": "Fastgjort"
   },
-  "website": "Websted"
+  "website": "Websted",
+  "youMightAlsoLike": "Du vil måske også kunne lide"
 };

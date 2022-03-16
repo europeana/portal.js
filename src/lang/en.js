@@ -332,7 +332,55 @@ export default {
       }
     },
     "COUNTRY": {
-      "name": "Providing country"
+      "name": "Providing country",
+      "options": {
+        "Albania": "Albania",
+        "Austria": "Austria",
+        "Belarus": "Belarus",
+        "Belgium": "Belgium",
+        "Bosnia and Herzegovina": "Bosnia and Herzegovina",
+        "Bulgaria": "Bulgaria",
+        "Croatia": "Croatia",
+        "Cyprus": "Cyprus",
+        "Czech Republic": "Czech Republic",
+        "Denmark": "Denmark",
+        "Estonia": "Estonia",
+        "Europe": "Europe",
+        "Finland": "Finland",
+        "France": "France",
+        "Georgia": "Georgia",
+        "Germany": "Germany",
+        "Greece": "Greece",
+        "Holy See (Vatican City State)": "Holy See (Vatican City State)",
+        "Hungary": "Hungary",
+        "Iceland": "Iceland",
+        "Ireland": "Ireland",
+        "Israel": "Israel",
+        "Italy": "Italy",
+        "Latvia": "Latvia",
+        "Lithuania": "Lithuania",
+        "Luxembourg": "Luxembourg",
+        "Macedonia": "Macedonia",
+        "Malta": "Malta",
+        "Moldova": "Moldova",
+        "Montenegro": "Montenegro",
+        "Netherlands": "Netherlands",
+        "Norway": "Norway",
+        "Poland": "Poland",
+        "Portugal": "Portugal",
+        "Romania": "Romania",
+        "Russia": "Russia",
+        "Serbia": "Serbia",
+        "Slovakia": "Slovakia",
+        "Slovenia": "Slovenia",
+        "Spain": "Spain",
+        "Sweden": "Sweden",
+        "Switzerland": "Switzerland",
+        "Turkey": "Turkey",
+        "Ukraine": "Ukraine",
+        "United Kingdom": "United Kingdom",
+        "United States of America": "United States of America"
+      }
     },
     "CREATOR": {
       "name": "Creator | Creators"
@@ -416,6 +464,27 @@ export default {
         "permission": "Maybe, seek permission",
         "restricted": "Yes, with conditions",
         "uncategorized": "Uncategorized"
+      }
+    },
+    "RIGHTS": {
+      "name": "Rights statement",
+      "options": {
+        "*/CNE/*": "Copyright Not Evaluated",
+        "*/InC-EDU/*": "In Copyright - Educational Use Permitted",
+        "*/InC-OW-EU/*": "In Copyright - OW-EU",
+        "*/InC/*": "In Copyright",
+        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
+        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
+        "*/licenses/by-nc/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-ND",
+        "*/licenses/by-sa/*": "CC BY-SA",
+        "*/licenses/by/*": "CC BY",
+        "*/NoC-NC/*": "No Copyright - Non-Commercial Use Only",
+        "*/NoC-OKLR/*": "No Copyright - Other Known Legal Restrictions",
+        "*/publicdomain/mark/*": "Public Domain Mark",
+        "*/publicdomain/zero/*": "CC0",
+        "*/rights/out-of-copyright-non-commercial/*": "Out of Copyright - Non-Commercial",
+        "*/rights/rr-f/*": "Rights Reserved - Free access"
       }
     },
     "TYPE": {
@@ -799,6 +868,7 @@ export default {
   "results": "Results",
   "resultsLimitWarning": "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
   "search": "Search",
+  "searchHasLoaded": "{0} results returned",
   "searchPlaceholder": "Search millions of items",
   "searchResults": "Search",
   "searchResultsFor": "{0} - Search",
@@ -857,5 +927,6 @@ export default {
     "liked": "Liked",
     "pinned": "Pinned"
   },
-  "website": "Website"
+  "website": "Website",
+  "youMightAlsoLike": "You might also like"
 };

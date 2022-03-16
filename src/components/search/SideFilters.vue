@@ -21,6 +21,12 @@
             data-qa="total results"
           >
             {{ $tc('items.itemCount', totalResultsLocalised, { count: totalResultsLocalised }) }}
+            <div
+              class="visually-hidden"
+              role="status"
+            >
+              {{ $t('searchHasLoaded', [totalResultsLocalised]) }}
+            </div>
           </div>
           <h2
             v-else
@@ -29,7 +35,7 @@
             {{ $t('filterResults') }}
           </h2>
           <button
-            v-if="isFilteredByDropdowns()"
+            v-if="hasResettableFilters()"
             :disabled="resetButtonDisabled"
             class="btn btn-outline-primary mr-3"
             data-qa="reset filters button"
@@ -76,6 +82,7 @@
                 :type="facetDropdownType(facet.name)"
                 :selected="filters[facet.name]"
                 :static-fields="facet.staticFields"
+                :group-by="sideFacetDropdownGroupBy(facet.name)"
                 role="search"
                 :aria-label="facet.name"
                 @changed="changeFacet"
@@ -102,7 +109,7 @@
   import ClientOnly from 'vue-client-only';
   import isEqual from 'lodash/isEqual';
   import { mapState, mapGetters } from 'vuex';
-  import { rangeToQueryParam, rangeFromQueryParam } from '@/plugins/europeana/search';
+  import { rangeToQueryParam, rangeFromQueryParam, filtersFromQf } from '@/plugins/europeana/search';
   import themes from '@/plugins/europeana/themes';
   import { defaultFacetNames } from '@/store/search';
   import SideFacetDropdown from './SideFacetDropdown';
@@ -133,15 +140,44 @@
     computed: {
       ...mapState({
         collectionFacetEnabled: state => state.search.collectionFacetEnabled,
-        resettableFilters: state => state.search.resettableFilters,
         showFiltersSheet: state => state.search.showFiltersSheet,
         totalResults: state => state.search.totalResults,
         userParams: state => state.search.userParams
       }),
       ...mapGetters({
-        filters: 'search/filters',
         collection: 'search/collection'
       }),
+      // TODO: do not assume filters are fielded, e.g. `qf=whale`
+      filters() {
+        const filters = filtersFromQf(this.$store.state.search.userParams?.qf);
+
+        if (this.$store.state.search.userParams?.reusability) {
+          filters['REUSABILITY'] = this.$store.state.search.userParams.reusability.split(',');
+        }
+
+        if (this.$store.state.search.apiParams?.api) {
+          filters['api'] = this.$store.state.search.apiParams.api;
+        }
+
+        return filters;
+      },
+      resettableFilters() {
+        const filters = this.filterableFacets
+          .map(facet => facet.name)
+          .filter(name => this.filters[name]);
+
+        if (this.contentTierFacetSwitch && this.filters.contentTier) {
+          filters.push('contentTier');
+        }
+        if (this.enableApiFilter && (this.filters.api !== this.apiFilterDefaultValue)) {
+          filters.push('api');
+        }
+        if (this.enableDateFilter && this.filters[this.dateFilterField]) {
+          filters.push(this.dateFilterField);
+        }
+
+        return filters;
+      },
       theme() {
         return themes.find(theme => theme.qf === this.collection);
       },
@@ -349,11 +385,10 @@
         for (const filterName of this.resettableFilters) {
           filters[filterName] = [];
         }
-        this.$store.commit('search/clearResettableFilters');
         return this.rerouteSearch(this.queryUpdatesForFilters(filters));
       },
-      isFilteredByDropdowns() {
-        return this.$store.getters['search/hasResettableFilters'];
+      hasResettableFilters() {
+        return this.resettableFilters.length > 0;
       },
       dateFilterSelected(facetName, dateRange) {
         let dateQuery = [];
@@ -369,6 +404,30 @@
       },
       toggleFilterSheet() {
         this.$store.commit('search/setShowFiltersSheet', !this.$store.state.search.showFiltersSheet);
+      },
+      sideFacetDropdownGroupBy(facetName) {
+        if (facetName === 'RIGHTS') {
+          return [
+            '/CNE/',
+            '/InC-EDU/',
+            '/InC-OW-EU/',
+            '/InC/',
+            '/licenses/by-nc-nd/',
+            '/licenses/by-nc-sa/',
+            '/licenses/by-nc/',
+            '/licenses/by-nd/',
+            '/licenses/by-sa/',
+            '/licenses/by/',
+            '/NoC-NC/',
+            '/NoC-OKLR/',
+            '/publicdomain/mark/',
+            '/publicdomain/zero/',
+            '/rights/out-of-copyright-non-commercial/',
+            '/rights/rr-f/'
+          ];
+        } else {
+          return null;
+        }
       }
     }
   };

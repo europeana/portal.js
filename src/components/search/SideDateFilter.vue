@@ -120,10 +120,6 @@
       this.init();
     },
 
-    destroyed() {
-      this.$store.commit('search/removeResettableFilter', this.name);
-    },
-
     methods: {
       init() {
         this.form = {
@@ -131,11 +127,6 @@
           end: this.end,
           specific: this.specific
         };
-
-        this.$store.dispatch('search/setResettableFilter', {
-          name: this.name,
-          selected: this.start || this.end
-        });
       },
 
       emitDateForm() {

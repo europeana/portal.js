@@ -36,6 +36,7 @@ export default {
     "feedback": "Aiseolas",
     "goBack": "Dul siar",
     "goHome": "Téigh go dtí an leathanach baile",
+    "learnMore": "Foghlaim níos mó",
     "like": "Is maith liom",
     "next": "Ar Aghaidh",
     "pin": "Bioráin",
@@ -331,7 +332,55 @@ export default {
       }
     },
     "COUNTRY": {
-      "name": "Tír sholáthair"
+      "name": "Tír sholáthair",
+      "options": {
+        "Albania": "An Albáin",
+        "Austria": "An Ostair",
+        "Belarus": "An Bhealarúis",
+        "Belgium": "An Bheilg",
+        "Bosnia and Herzegovina": "An Bhoisnia agus an Heirseagaivéin",
+        "Bulgaria": "An Bhulgáir",
+        "Croatia": "An Chróit",
+        "Cyprus": "An Chipir",
+        "Czech Republic": "Poblacht na Seice",
+        "Denmark": "An Danmhairg",
+        "Estonia": "An Eastóin",
+        "Europe": "An Eoraip",
+        "Finland": "An Fhionlann",
+        "France": "An Fhrainc",
+        "Georgia": "An tSeoirsia",
+        "Germany": "An Ghearmáin",
+        "Greece": "An Ghréig",
+        "Holy See (Vatican City State)": "An Suí Naofa (Stát Chathair na Vatacáine)",
+        "Hungary": "An Ungáir",
+        "Iceland": "An Íoslainn",
+        "Ireland": "Éire",
+        "Israel": "Iosrael",
+        "Italy": "An Iodáil",
+        "Latvia": "An Laitvia",
+        "Lithuania": "An Liotuáin",
+        "Luxembourg": "Lucsamburg",
+        "Macedonia": "An Mhacadóin",
+        "Malta": "Málta",
+        "Moldova": "An Mholdóiv",
+        "Montenegro": "Montainéagró",
+        "Netherlands": "An Ísiltír",
+        "Norway": "An Iorua",
+        "Poland": "An Pholainn",
+        "Portugal": "An Phortaingéil",
+        "Romania": "An Rómáin",
+        "Russia": "An Rúis",
+        "Serbia": "An tSeirbia",
+        "Slovakia": "An tSlóvaic",
+        "Slovenia": "An tSlóvéin",
+        "Spain": "An Spáinn",
+        "Sweden": "An tSualainn",
+        "Switzerland": "An Eilvéis",
+        "Turkey": "An Tuirc",
+        "Ukraine": "An Úcráin",
+        "United Kingdom": "An Ríocht Aontaithe",
+        "United States of America": "Stáit Aontaithe Mhéiriceá"
+      }
     },
     "CREATOR": {
       "name": "Cruthaitheoir | Cruthaitheoirí"
@@ -730,7 +779,7 @@ export default {
     "translateQuotaError": "Níl an tseirbhís aistriúcháin ar fáil go sealadach. Bain triail eile as níos déanaí."
   },
   "newFeatureNotification": {
-    "dismiss": "Dífhostú",
+    "dismiss": "Dún",
     "readMore": "Léigh níos mó",
     "text": {
       "sideFilters": "Amharc ar na scagairí nua! Tá siad go léir le feiceáil anois ar thaobh na láimhe deise de na torthaí cuardaigh."
@@ -739,6 +788,11 @@ export default {
   "newWindow": "osclaítear i bhfuinneog nua é",
   "noMoreResults": "Níl aon toradh eile ann ar d'iarratas cuardaigh.",
   "noResults": "Níor aimsíodh aon Torthaí",
+  "organisation": {
+    "city": "Cathair",
+    "country": "Tír",
+    "nameAcronym": "Acrainm ainm"
+  },
   "pageHasLoaded": "luchtaithe",
   "pages": {
     "collections": {
@@ -793,6 +847,7 @@ export default {
   "results": "Torthaí",
   "resultsLimitWarning": "Ní thaispeántar torthaí breise óir nach dtaispeántar ach amháin an chéad 1000 toradh is ábhartha. Murar aimsigh tú a raibh uait, déan machnamh do chuardach a leasú.",
   "search": "Cuardaigh",
+  "searchHasLoaded": "{0} torthaí ar ais",
   "searchPlaceholder": "Cuardaigh na mílte míreanna",
   "searchResults": "Cuardaigh",
   "searchResultsFor": "{0} - Cuardaigh",
@@ -851,5 +906,6 @@ export default {
     "liked": "Thaitin sé",
     "pinned": "Pionnáilte"
   },
-  "website": "Suíomh Gréasáin"
+  "website": "Suíomh Gréasáin",
+  "youMightAlsoLike": "B'fhéidir gur mhaith leat freisin"
 };

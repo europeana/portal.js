@@ -24,15 +24,30 @@
             </b-row>
           </b-container>
           <RelatedSection
-            v-if="searchQuery"
+            v-if="searchQuery && !headerCardsEnabled"
             :query="searchQuery"
+            badge-variant="light"
             class="mb-4"
           />
           <SearchInterface
             id="search-interface"
             :per-row="4"
-            :context-label="entityHeaderCardsEnabled ? '' : null"
-          />
+            :context-label="headerCardsEnabled ? '' : null"
+            :show-related="showRelated"
+          >
+            <template
+              v-if="searchQuery && headerCardsEnabled"
+              #related
+            >
+              <client-only>
+                <RelatedSection
+                  :query="searchQuery"
+                  @show="showRelatedSection"
+                  @hide="hideRelatedSection"
+                />
+              </client-only>
+            </template>
+          </SearchInterface>
         </b-col>
       </b-row>
     </b-container>
@@ -40,12 +55,14 @@
 </template>
 
 <script>
+  import ClientOnly from 'vue-client-only';
   import SearchInterface from '@/components/search/SearchInterface';
 
   export default {
     name: 'SearchPage',
 
     components: {
+      ClientOnly,
       SearchInterface,
       RelatedSection: () => import('@/components/search/RelatedSection'),
       SideFilters: () => import('@/components/search/SideFilters')
@@ -58,6 +75,12 @@
     },
 
     middleware: 'sanitisePageQuery',
+
+    data() {
+      return {
+        showRelated: false
+      };
+    },
 
     fetch() {
       this.$store.commit('search/set', ['overrideParams', {}]);
@@ -73,13 +96,23 @@
       searchQuery() {
         return this.$route.query.query;
       },
-      entityHeaderCardsEnabled() {
+      headerCardsEnabled() {
         return this.$features.entityHeaderCards;
       }
     },
 
     mounted() {
       this.$store.commit('search/enableCollectionFacet');
+    },
+
+    methods: {
+      showRelatedSection() {
+        this.showRelated = true;
+      },
+
+      hideRelatedSection() {
+        this.showRelated = false;
+      }
     }
   };
 </script>
@@ -100,6 +133,12 @@
 
   .page-container {
     max-width: none;
+
+    ::v-deep .related-collections .badge {
+      // TODO: Remove this when the badges move into the search results
+      margin-top: 0.25rem;
+      margin-right: 0.5rem;
+    }
   }
 
   .results-col {
