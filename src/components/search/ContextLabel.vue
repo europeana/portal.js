@@ -1,5 +1,5 @@
 <template>
-  <h2
+  <div
     class="context-label"
     data-qa="context label"
   >
@@ -14,6 +14,7 @@
           :title="localisedEntityLabel"
           :link-to="entityRemovalLink"
           :img="entityImage"
+          class="mt-1 mx-1"
         />
       </span>
       <i18n
@@ -26,10 +27,12 @@
           :title="localisedEntityLabel"
           :link-to="entityRemovalLink"
           :img="entityImage"
+          class="mt-1 mx-1"
         />
         <RemovalChip
           :title="query"
           :link-to="queryRemovalLink"
+          class="mt-1 mx-1"s
         />
       </i18n>
     </template>
@@ -44,13 +47,14 @@
         <RemovalChip
           :title="query"
           :link-to="queryRemovalLink"
+          class="mt-1 mx-1"
         />
       </i18n>
       <span v-else>
         {{ $t('results') }}
       </span>
     </template>
-  </h2>
+  </div>
 </template>
 
 <script>
@@ -120,16 +124,6 @@
 </script>
 
 <style lang="scss" scoped>
-  .filter-badges {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  .filter-badge {
-    text-overflow: ellipsis;
-    overflow: hidden;
-  }
-
   .context-label {
     margin-bottom: 0;
   }

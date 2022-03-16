@@ -4,7 +4,6 @@
     :href="$link.href(linkTo)"
     pill
     variant="light"
-    class="mt-1 font-weight-normal bg-white"
     :class="{ 'img-chip': img }"
     :data-qa="localisedTitle.values[0] + ' removal chip'"
     :lang="localisedTitle.code"
@@ -67,34 +66,12 @@
 
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
-
-  .badge-light {
-    color: $black;
-    font-size: $font-size-small;
-    border-radius: 1.125rem;
-    border: solid 1px $lightbluemagenta;
-    padding: 0.25rem 0.75rem;
-    height: 2.25rem;
-    min-width: 4rem;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    transition: $standard-transition;
-
-    &:hover,
-    &:focus {
-      background: $smoke !important;
-    }
-
-    &.img-chip {
-      padding: 0.25rem 0.75rem 0.25rem calc(1rem + 28px);
-    }
-
-    .clear-indicator {
-      background-color: $mediumgrey;
-      color: $white;
-      border-radius: $border-radius-large;
-      margin-left: 4px;
-    }
+  // TODO: Remove the .clear-indicator, prefer to use the .close style from EC-5678
+  .clear-indicator {
+    background-color: $mediumgrey;
+    color: $white;
+    border-radius: $border-radius-large;
+    margin-left: 4px;
   }
+  .badge-light { text-transform: none; }
 </style>
