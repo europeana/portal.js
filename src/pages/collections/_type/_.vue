@@ -130,6 +130,7 @@
   import { mapState } from 'vuex';
 
   import { BASE_URL as EUROPEANA_DATA_URL } from '../../../plugins/europeana/data';
+  import themes from '../../../plugins/europeana/themes';
   import { getEntityTypeHumanReadable, getEntitySlug, getEntityUri, getEntityQuery } from '../../../plugins/europeana/entity';
   import { langMapValueForLocale, uriRegex } from  '../../../plugins/europeana/utils';
 
@@ -160,7 +161,8 @@
 
     data() {
       return {
-        showRelated: false
+        showRelated: false,
+        themes: themes.map(theme => theme.id)
       };
     },
 
@@ -303,7 +305,15 @@
         return overrideParams;
       },
       contextLabel() {
-        return this.$t(`cardLabels.${this.$route.params.type}`);
+        if (this.collectionType === 'topic') {
+          const entityId = this.$route.params.pathMatch ?
+            this.$route.params.pathMatch.split('/').pop().split('-').shift() : '';
+
+          return this.themes.includes(entityId) ?
+            this.$t('cardLabels.theme') :
+            this.$t(`cardLabels.${this.collectionType}`);
+        }
+        return this.$t(`cardLabels.${this.collectionType}`);
       },
       collectionType() {
         return this.$route.params.type;
