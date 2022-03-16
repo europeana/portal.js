@@ -6,7 +6,7 @@ export default {
     "likes": "Me gusta",
     "linkAccount": "Mi cuenta",
     "linkLogin": "Iniciar sesión",
-    "linkLoginJoin": "Iniciar sesión/Unirse",
+    "linkLoginJoin": "Iniciar sesión\/Unirse",
     "linkLogout": "Cerrar sesión",
     "myProfile": "Mi perfil",
     "notifications": {
@@ -451,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formato de archivo | Formatos de archivo",
       "options": {
-        "text/plain": "Texto sin formato"
+        "text\/plain": "Texto sin formato"
       }
     },
     "PROVIDER": {
@@ -465,6 +465,9 @@ export default {
         "restricted": "Sí, con condiciones",
         "uncategorized": "Sin categoría"
       }
+    },
+    "RIGHTS": {
+      "name": "Declaración de derechos"
     },
     "TYPE": {
       "name": "Tipo de medio",
@@ -494,7 +497,7 @@ export default {
       "showLess": "Mostrar menos {label}"
     },
     "collection": {
-      "name": "Categoría",
+      "name": "Tema",
       "options": {
         "archaeology": "Arqueología",
         "art": "Arte",
@@ -715,7 +718,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Ayuda a mejorar nuestro sitio web aplicando ocasionalmente cambios experimentales.",
-        "title": "Pruebas A/B"
+        "title": "Pruebas A\/B"
       },
       "auth-strategy": {
         "description": "Recuerda la estrategia de autorización que se debe utilizar para iniciar sesión.",
@@ -747,7 +750,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Recuerda si prefiere ver los resultados de la búsqueda en una vista de lista o cuadrícula.",
-        "title": "Vista de resultados de búsqueda (lista / cuadrícula)"
+        "title": "Vista de resultados de búsqueda (lista \/ cuadrícula)"
       }
     }
   },

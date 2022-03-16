@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mein Konto",
     "linkLogin": "Anmelden",
-    "linkLoginJoin": "Anmelden/Beitreten",
+    "linkLoginJoin": "Anmelden\/Beitreten",
     "linkLogout": "Abmelden",
     "myProfile": "Mein Profil",
     "notifications": {
@@ -451,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Dateiformat | Dateiformate",
       "options": {
-        "text/plain": "Klartext"
+        "text\/plain": "Klartext"
       }
     },
     "PROVIDER": {
@@ -465,6 +465,9 @@ export default {
         "restricted": "Ja, mit Bedingungen",
         "uncategorized": "Nicht kategorisiert"
       }
+    },
+    "RIGHTS": {
+      "name": "Erklärung zu den Rechten"
     },
     "TYPE": {
       "name": "Art des Mediums",
@@ -494,7 +497,7 @@ export default {
       "showLess": "Weniger anzeigen {label}"
     },
     "collection": {
-      "name": "Kategorie",
+      "name": "Thema",
       "options": {
         "archaeology": "Archäologie",
         "art": "Kunst",
@@ -715,7 +718,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Hilft, unsere Website zu verbessern, indem gelegentlich experimentelle Änderungen vorgenommen werden.",
-        "title": "A/B-Tests"
+        "title": "A\/B-Tests"
       },
       "auth-strategy": {
         "description": "Erinnert an die Berechtigungsstrategie, die für die Anmeldung verwendet werden soll.",
@@ -747,7 +750,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Merkt sich, ob Sie die Suchergebnisse lieber in einer Listen- oder Rasteransicht anzeigen möchten.",
-        "title": "Suchergebnisansicht (Liste/Raster)"
+        "title": "Suchergebnisansicht (Liste\/Raster)"
       }
     }
   },

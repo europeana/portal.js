@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mijn account",
     "linkLogin": "Inloggen",
-    "linkLoginJoin": "Inloggen/Aanmelden",
+    "linkLoginJoin": "Inloggen\/Aanmelden",
     "linkLogout": "Uitloggen",
     "myProfile": "Mijn profiel",
     "notifications": {
@@ -451,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Bestandsformaat | Bestandsformaten",
       "options": {
-        "text/plain": "Platte tekst"
+        "text\/plain": "Platte tekst"
       }
     },
     "PROVIDER": {
@@ -465,6 +465,9 @@ export default {
         "restricted": "Ja, onder voorwaarden",
         "uncategorized": "Ongecategoriseerd"
       }
+    },
+    "RIGHTS": {
+      "name": "Rechtenverklaring"
     },
     "TYPE": {
       "name": "Soort media",
@@ -494,7 +497,7 @@ export default {
       "showLess": "Minder weergeven {label}"
     },
     "collection": {
-      "name": "Categorie",
+      "name": "Thema",
       "options": {
         "archaeology": "Archeologie",
         "art": "Kunst",
@@ -715,7 +718,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Helpt onze website te verbeteren door af en toe experimentele wijzigingen aan te brengen.",
-        "title": "A/B-testen"
+        "title": "A\/B-testen"
       },
       "auth-strategy": {
         "description": "Onthoudt de autorisatie strategie die moet worden gebruikt om in te loggen.",
@@ -747,7 +750,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Onthoudt of u de zoekresultaten liever in een lijst- of rasterweergave wilt zien.",
-        "title": "Zoekresultaatweergave (lijst/raster)"
+        "title": "Zoekresultaatweergave (lijst\/raster)"
       }
     }
   },

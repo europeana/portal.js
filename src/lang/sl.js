@@ -6,7 +6,7 @@ export default {
     "likes": "Všečki",
     "linkAccount": "Moj račun",
     "linkLogin": "Vpis",
-    "linkLoginJoin": "Prijava/Pridruži se",
+    "linkLoginJoin": "Prijava\/Pridruži se",
     "linkLogout": "Izpis",
     "myProfile": "Moj profil",
     "notifications": {
@@ -451,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Oblika zapisa datoteke | Oblike zapisov datotek",
       "options": {
-        "text/plain": "Golo besedilo"
+        "text\/plain": "Golo besedilo"
       }
     },
     "PROVIDER": {
@@ -465,6 +465,9 @@ export default {
         "restricted": "Da, s pogoji",
         "uncategorized": "Nekategorizirano"
       }
+    },
+    "RIGHTS": {
+      "name": "Izjava o pravicah"
     },
     "TYPE": {
       "name": "Vrsta medija",
@@ -494,7 +497,7 @@ export default {
       "showLess": "Prikaži manj {label}"
     },
     "collection": {
-      "name": "Kategorija",
+      "name": "Tema",
       "options": {
         "archaeology": "Arheologija",
         "art": "Umetnost",
@@ -715,7 +718,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Pomaga izboljšati naše spletno mesto z občasno uporabo eksperimentalnih sprememb.",
-        "title": "A/B testiranje"
+        "title": "A\/B testiranje"
       },
       "auth-strategy": {
         "description": "Zapomni si strategijo avtorizacije, ki jo je treba uporabiti za prijavo.",
@@ -747,7 +750,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Zapomni si, če želite rezultate iskanja raje videti v pogledu seznama ali mreže.",
-        "title": "Pogled rezultatov iskanja (seznam / mreža)"
+        "title": "Pogled rezultatov iskanja (seznam \/ mreža)"
       }
     }
   },
