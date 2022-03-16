@@ -106,14 +106,14 @@
         link: [
           { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700&subset=latin,greek,cyrillic&display=swap',
             body: true },
-          { rel: 'stylesheet', href: `https://unpkg.com/bootstrap@${versions.bootstrap}/dist/css/bootstrap.min.css` },
-          { rel: 'stylesheet', href: `https://unpkg.com/klaro@${klaroVersion}/dist/klaro.min.css` },
-          { rel: 'stylesheet', href: `https://unpkg.com/bootstrap-vue@${versions['bootstrap-vue']}/dist/bootstrap-vue.min.css` },
+          { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap@${versions.bootstrap}/dist/css/bootstrap.min.css` },
+          { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/klaro@${klaroVersion}/dist/klaro.min.css` },
+          { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap-vue@${versions['bootstrap-vue']}/dist/bootstrap-vue.min.css` },
           { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrlWithoutLocale },
           ...i18nHead.link
         ],
         script: [
-          { src: `https://unpkg.com/klaro@${klaroVersion}/dist/klaro-no-css.js`, defer: true }
+          { src: `https://cdn.jsdelivr.net/npm/klaro@${klaroVersion}/dist/klaro-no-css.js`, defer: true }
         ],
         meta: [
           { hid: 'description', property: 'description', content: 'Europeana' },
