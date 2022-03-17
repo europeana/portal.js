@@ -129,10 +129,9 @@
   import SearchInterface from '@/components/search/SearchInterface';
   import { mapState } from 'vuex';
 
-  import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
   import themes from '@/plugins/europeana/themes';
   import {
-    getEntityTypeHumanReadable, getEntitySlug, getEntityUri, getEntityQuery, normalizeEntityId
+    getEntitySlug, getEntityUri, getEntityQuery, normalizeEntityId
   } from '@/plugins/europeana/entity';
   import { langMapValueForLocale, uriRegex } from  '@/plugins/europeana/utils';
 
