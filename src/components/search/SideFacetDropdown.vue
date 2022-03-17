@@ -55,7 +55,6 @@
             >
               <b-form-group
                 :label-for="`${facetNameNoSpaces}-search-input`"
-                :description="searchOptions"
                 :disabled="disabled"
               >
                 <b-form-input
@@ -253,8 +252,11 @@
 
         if (criteria) {
           return options.filter(option => {
-            const optionLocalisedLabel = this.$tFacetOption(this.name, this.isRadio ? option : option.label);
-            return optionLocalisedLabel.toLowerCase().indexOf(criteria) > -1;
+            const optionLabel = this.isRadio ? option : option.label;
+            const optionLocalisedLabel = this.$tFacetOption(this.name, optionLabel);
+            const exactMatch = optionLocalisedLabel.toLowerCase().indexOf(criteria) > -1;
+            const facetValueMatch = optionLabel.toLowerCase().indexOf(criteria) > -1;
+            return exactMatch || facetValueMatch;
           });
         }
 
@@ -300,13 +302,6 @@
 
       criteria() {
         return this.searchFacet.trim().toLowerCase();
-      },
-
-      searchOptions() {
-        if (this.criteria && this.sortedOptions.length === 0) {
-          return 'There are no tags matching your search criteria';
-        }
-        return '';
       }
     },
 
