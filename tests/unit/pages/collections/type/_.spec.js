@@ -88,6 +88,7 @@ const factory = (options) => shallowMountNuxt(collection, {
   localVue,
   store: store(options.entity),
   mocks: {
+    $fetchState: {},
     $t: key => key,
     $tFacetName: key => key,
     $route: { query: '', params: { type: options.type, pathMatch: '190-art' } },

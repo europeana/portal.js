@@ -5,120 +5,137 @@
     :class="{'top-header': !headerCardsEnabled}"
   >
     <b-container
-      v-if="!headerCardsEnabled"
-      fluid
+      v-if="$fetchState.error"
     >
-      <b-row class="flex-md-row pt-5 bg-white mb-3">
-        <b-col
-          cols="12"
-        >
-          <b-container class="mb-5">
-            <EntityDetails
-              :description="description"
-              :is-editorial-description="hasEditorialDescription"
-              :title="title"
-              :logo="logo"
-              :external-link="homepage"
-              :context-label="contextLabel"
-            />
-            <client-only>
-              <section
-                v-if="isEditable && userIsEditor"
-              >
-                <div class="d-inline-flex">
-                  <b-button
-                    variant="outline-primary"
-                    @click="$bvModal.show('entityUpdateModal')"
-                  >
-                    {{ $t('actions.edit') }}
-                  </b-button>
-                  <EntityUpdateModal
-                    :body="entity.proxy"
-                    :description="descriptionText"
-                  />
-                </div>
-              </section>
-            </client-only>
-            <client-only>
-              <section
-                v-if="relatedCollectionsFound"
-                data-qa="related entities"
-              >
-                <RelatedCollections
-                  :title="$t('collectionsYouMightLike')"
-                  :related-collections="relatedCollections"
-                />
-              </section>
-            </client-only>
-          </b-container>
+      <b-row
+        class="flex-md-row py-4"
+      >
+        <b-col cols="12">
+          <AlertMessage
+            :error="$fetchState.error.message"
+          />
         </b-col>
       </b-row>
     </b-container>
-    <client-only>
+    <template
+      v-else
+    >
       <b-container
-        class="page-container side-filters-enabled"
+        v-if="!headerCardsEnabled"
+        fluid
       >
-        <b-row class="flex-nowrap">
-          <b-col>
-            <b-container class="px-0 pb-3">
-              <i18n
-                v-if="$route.query.query"
-                path="searchResultsForIn"
-                tag="h2"
-                class="px-0 container"
-              >
-                <span>{{ $route.query.query }}</span>
-                <span>{{ title.values[0] }}</span>
-              </i18n>
-              <SearchInterface
-                class="px-0"
-                :per-page="recordsPerPage"
-                :route="route"
-                :show-content-tier-toggle="false"
-                :show-pins="userIsEditor && userIsSetsEditor"
-                :context-label="headerCardsEnabled ? contextLabel : null"
-                :show-related="showRelated"
-              >
-                <EntityHeader
-                  v-if="headerCardsEnabled"
-                  :description="description"
-                  :title="title"
-                  :logo="logo"
-                  :image="thumbnail"
-                  :editable="isEditable && userIsEditor"
-                  :external-link="homepage"
-                  :proxy="entity ? entity.proxy : null"
-                  :more-info="moreInfo"
-                />
-                <template
-                  v-if="headerCardsEnabled"
-                  #related
-                >
-                  <client-only>
-                    <RelatedCollections
-                      :title="$t('youMightAlsoLike')"
-                      :related-collections="relatedCollections"
-                      data-qa="related entities"
-                      @show="showRelatedCollections"
-                      @hide="hideRelatedCollections"
-                    />
-                  </client-only>
-                </template>
-              </SearchInterface>
-            </b-container>
-            <b-container class="px-0">
-              <BrowseSections
-                v-if="page"
-                :sections="page.hasPartCollection.items"
+        <b-row class="flex-md-row pt-5 bg-white mb-3">
+          <b-col
+            cols="12"
+          >
+            <b-container class="mb-5">
+              <EntityDetails
+                :description="description"
+                :is-editorial-description="hasEditorialDescription"
+                :title="title"
+                :logo="logo"
+                :external-link="homepage"
+                :context-label="contextLabel"
               />
+              <client-only>
+                <section
+                  v-if="isEditable && userIsEditor"
+                >
+                  <div class="d-inline-flex">
+                    <b-button
+                      variant="outline-primary"
+                      @click="$bvModal.show('entityUpdateModal')"
+                    >
+                      {{ $t('actions.edit') }}
+                    </b-button>
+                    <EntityUpdateModal
+                      :body="entity.proxy"
+                      :description="descriptionText"
+                    />
+                  </div>
+                </section>
+              </client-only>
+              <client-only>
+                <section
+                  v-if="relatedCollectionsFound"
+                  data-qa="related entities"
+                >
+                  <RelatedCollections
+                    :title="$t('collectionsYouMightLike')"
+                    :related-collections="relatedCollections"
+                  />
+                </section>
+              </client-only>
             </b-container>
           </b-col>
-          <SideFilters
-            :route="route"
-          />
         </b-row>
       </b-container>
-    </client-only>
+      <client-only>
+        <b-container
+          class="page-container side-filters-enabled"
+        >
+          <b-row class="flex-nowrap">
+            <b-col>
+              <b-container class="px-0 pb-3">
+                <i18n
+                  v-if="$route.query.query"
+                  path="searchResultsForIn"
+                  tag="h2"
+                  class="px-0 container"
+                >
+                  <span>{{ $route.query.query }}</span>
+                  <span>{{ title.values[0] }}</span>
+                </i18n>
+                <SearchInterface
+                  class="px-0"
+                  :per-page="recordsPerPage"
+                  :route="route"
+                  :show-content-tier-toggle="false"
+                  :show-pins="userIsEditor && userIsSetsEditor"
+                  :context-label="headerCardsEnabled ? contextLabel : null"
+                  :show-related="showRelated"
+                >
+                  <EntityHeader
+                    v-if="headerCardsEnabled"
+                    :description="description"
+                    :title="title"
+                    :logo="logo"
+                    :image="thumbnail"
+                    :editable="isEditable && userIsEditor"
+                    :external-link="homepage"
+                    :proxy="entity ? entity.proxy : null"
+                    :more-info="moreInfo"
+                  />
+                  <template
+                    v-if="headerCardsEnabled"
+                    #related
+                  >
+                    <client-only>
+                      <RelatedCollections
+                        :title="$t('youMightAlsoLike')"
+                        :related-collections="relatedCollections"
+                        data-qa="related entities"
+                        @show="showRelatedCollections"
+                        @hide="hideRelatedCollections"
+                      />
+                    </client-only>
+                  </template>
+                </SearchInterface>
+              </b-container>
+              <b-container class="px-0">
+                <BrowseSections
+                  v-if="page"
+                  :sections="page.hasPartCollection.items"
+                />
+              </b-container>
+            </b-col>
+            <SideFilters
+              :route="route"
+            />
+          </b-row>
+        </b-container>
+      </client-only>
+    </template>
   </div>
 </template>
 
@@ -139,6 +156,7 @@
     name: 'CollectionPage',
 
     components: {
+      AlertMessage: () => import('@/components/generic/AlertMessage'),
       BrowseSections: () => import('@/components/browse/BrowseSections'),
       ClientOnly,
       EntityDetails,
@@ -162,89 +180,70 @@
 
     data() {
       return {
+        page: null,
         showRelated: false,
         themes: themes.map(theme => theme.id)
       };
     },
 
-    fetch({ query, params, redirect, error, app, store }) {
-      store.commit('search/disableCollectionFacet');
+    fetch() {
+      this.$store.commit('search/disableCollectionFacet');
 
-      const entityUri = getEntityUri(params.type, params.pathMatch);
-      if (entityUri !== store.state.entity.id) {
+      const entityUri = getEntityUri(this.$route.params.type, this.$route.params.pathMatch);
+      if (entityUri !== this.$store.state.entity.id) {
         // TODO: group as a reset action on the store?
-        store.commit('entity/setId', null);
-        store.commit('entity/setEntity', null);
-        store.commit('entity/setPage', null);
-        store.commit('entity/setRelatedEntities', null);
-        store.commit('entity/setFeaturedSetId', null);
-        store.commit('entity/setPinned', null);
-        store.commit('entity/setEditable', false);
+        this.$store.commit('entity/setId', null);
+        this.$store.commit('entity/setEntity', null);
+        this.$store.commit('entity/setRelatedEntities', null);
+        this.$store.commit('entity/setFeaturedSetId', null);
+        this.$store.commit('entity/setPinned', null);
+        this.$store.commit('entity/setEditable', false);
+        this.page = null;
       }
-      store.commit('entity/setId', entityUri);
+      this.$store.commit('entity/setId', entityUri);
 
+      // Fetch entity management data if feature enabled and user has required access
+      const fetchEntityManagement = this.$features.entityManagement && this.$auth.user?.resource_access?.entities?.roles.includes('editor');
       // Get the full page for this entity if not known needed, or known to be needed, and store for reuse
-      const fetchEntityPage = !store.state.entity.curatedEntities ||
-        store.state.entity.curatedEntities.some(entity => entity.identifier === entityUri);
-      // Prevent re-requesting entity content from APIs if already loaded,
-      // e.g. when paginating through entity search results
-      const fetchEntity = !store.state.entity.entity;
-      const fetchEntityManagement = fetchEntity && app.$features.entityManagement && app.$auth.user?.resource_access?.entities?.roles.includes('editor');
+      const fetchEntityPage = !this.$store.state.entity.curatedEntities ||
+        this.$store.state.entity.curatedEntities.some(entity => entity.identifier === entityUri);
 
       const contentfulVariables = {
         identifier: entityUri,
-        locale: app.i18n.isoLocale(),
-        preview: query.mode === 'preview'
+        locale: this.$i18n.isoLocale(),
+        preview: this.$route.query.mode === 'preview'
       };
 
       return Promise.all([
-        fetchEntity ? app.$apis.entity.get(params.type, params.pathMatch) : () => null,
-        fetchEntityManagement ? app.$apis.entityManagement.get(params.type, params.pathMatch) : () => null,
-        fetchEntityPage ? app.$contentful.query('collectionPage', contentfulVariables) : () => null
+        this.$apis.entity.get(this.$route.params.type, this.$route.params.pathMatch),
+        fetchEntityManagement ? this.$apis.entityManagement.get(this.$route.params.type, this.$route.params.pathMatch) : () => null,
+        fetchEntityPage ? this.$contentful.query('collectionPage', contentfulVariables) : () => null
       ])
         .then(responses => {
-          if (fetchEntity) {
-            store.commit('entity/setEntity', pick(responses[0].entity, [
-              'id',
-              'logo',
-              'note',
-              'description',
-              'homepage',
-              'prefLabel',
-              'isShownBy',
-              'hasAddress',
-              'acronym'
-            ]));
-          }
+          this.$store.commit('entity/setEntity', pick(responses[0].entity, [
+            'id', 'logo', 'note', 'description', 'homepage', 'prefLabel', 'isShownBy', 'hasAddress', 'acronym'
+          ]));
           if (responses[1].note) {
-            store.commit('entity/setEditable', true);
-            store.commit('entity/setEntityDescription', responses[1].note);
-            store.commit('entity/setProxy', responses[1].proxies.find(proxy => proxy.id.includes('#proxy_europeana')));
+            this.$store.commit('entity/setEditable', true);
+            this.$store.commit('entity/setEntityDescription', responses[1].note);
+            this.$store.commit('entity/setProxy', responses[1].proxies.find(proxy => proxy.id.includes('#proxy_europeana')));
           }
           if (fetchEntityPage) {
             const pageResponseData = responses[2].data.data;
-            if (fetchEntityPage) {
-              store.commit('entity/setPage', pageResponseData.entityPage.items[0]);
-              store.commit('entity/setCuratedEntities', pageResponseData.curatedEntities.items);
-            }
+            this.page = pageResponseData.entityPage.items[0];
+            this.$store.commit('entity/setCuratedEntities', pageResponseData.curatedEntities.items);
           }
-          const entity = store.state.entity.entity;
-          const page = store.state.entity.page;
-          const entityName = page ? page.name : entity.prefLabel.en;
+          const entity = this.$store.state.entity.entity;
+          const entityName = this.page ? this.page.name : entity.prefLabel.en;
           const desiredPath = getEntitySlug(entity.id, entityName);
-          if (params.pathMatch !== desiredPath) {
-            const redirectPath = app.$path({
+          if (this.$route.params.pathMatch !== desiredPath) {
+            const redirectPath = this.$path({
               name: 'collections-type-all',
-              params: { type: params.type, pathMatch: desiredPath }
+              params: { type: this.$route.params.type, pathMatch: desiredPath }
             });
-            return redirect(302, redirectPath);
+            return this.$nuxt.context.redirect(302, redirectPath);
           }
           return true;
-        })
-        .catch((e) => {
-          const statusCode = (e.statusCode === undefined) ? 500 : e.statusCode;
-          store.commit('entity/setId', null);
-          error({ statusCode, message: e.toString() });
         });
     },
 
@@ -266,7 +265,6 @@
     computed: {
       ...mapState({
         entity: state => state.entity.entity,
-        page: state => state.entity.page,
         relatedEntities: state => state.entity.relatedEntities,
         recordsPerPage: state => state.entity.recordsPerPage,
         editable: state => state.entity.editable
