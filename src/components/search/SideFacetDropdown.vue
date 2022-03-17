@@ -17,6 +17,9 @@
       :data-qa="`${name} facet dropdown`"
       block
       @hidden="hiddenDropdown"
+      @show="prefetch"
+      @mouseover.native="prefetch"
+      @focusin.native="prefetch"
     >
       <template #button-content>
         <span
@@ -165,7 +168,8 @@
         CHECKBOX: 'checkbox',
         preSelected: null,
         fetched: !!this.staticFields,
-        fields: this.staticFields || []
+        fields: this.staticFields || [],
+        mayFetch: false
       };
     },
 
@@ -174,6 +178,10 @@
       if (this.staticFields) {
         this.fields = this.staticFields;
         this.fetched = true;
+        return Promise.resolve();
+      }
+
+      if (!this.mayFetch) {
         return Promise.resolve();
       }
 
@@ -381,7 +389,16 @@
       },
 
       hiddenDropdown() {
+        this.mayFetch = false;
         this.init();
+      },
+
+      prefetch() {
+        if (this.fetched) {
+          return;
+        }
+        this.mayFetch = true;
+        this.$fetch();
       }
     }
   };
