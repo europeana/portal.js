@@ -69,7 +69,6 @@
                 <span class="icon-search" />
               </b-form-group>
             </b-dropdown-form>
-            <b-dropdown-divider />
           </template>
           <b-dropdown-item-button
             v-for="(option, index) in availableSortedOptions"
