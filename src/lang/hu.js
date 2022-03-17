@@ -466,6 +466,9 @@ export default {
         "uncategorized": "Uncategorized"
       }
     },
+    "RIGHTS": {
+      "name": "Jogokról szóló nyilatkozat"
+    },
     "TYPE": {
       "name": "Adathordozó típusa",
       "options": {
@@ -494,7 +497,7 @@ export default {
       "showLess": "Kevesebb {label} megjelenítése"
     },
     "collection": {
-      "name": "Kategória",
+      "name": "Téma",
       "options": {
         "archaeology": "Régészet",
         "art": "Művészet",

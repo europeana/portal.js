@@ -12,7 +12,7 @@ const storeCommitSpy = sinon.spy();
 
 const apisRecordSearchStub = sinon.stub().resolves({});
 
-const factory = () => shallowMountNuxt(SideFacetDropdown, {
+const factory = (options = {}) => shallowMountNuxt(SideFacetDropdown, {
   localVue,
   mocks: {
     $apis: {
@@ -44,7 +44,8 @@ const factory = () => shallowMountNuxt(SideFacetDropdown, {
   stubs: ['b-button', 'b-form-checkbox', 'b-dropdown', 'b-dropdown-form', 'b-badge'],
   propsData: {
     type: 'checkbox',
-    name: 'COUNTRY'
+    name: 'COUNTRY',
+    ...options.propsData
   }
 });
 
@@ -107,6 +108,47 @@ describe('components/search/SideFacetDropdown', () => {
   });
 
   describe('computed', () => {
+    describe('groupedOptions', () => {
+      const fields = [
+        { label: 'http://rightsstatements.org/vocab/InC/1.0/', count: 14263988 },
+        { label: 'http://creativecommons.org/publicdomain/mark/1.0/', count: 11778229 },
+        { label: 'http://creativecommons.org/licenses/by/4.0/', count: 4052280 },
+        { label: 'http://creativecommons.org/licenses/by/3.0/', count: 1088262 },
+        { label: 'http://creativecommons.org/licenses/publicdomain/mark/', count: 11890 },
+        { label: 'https://creativecommons.org/publicdomain/mark/1.0/', count: 7485 },
+        { label: 'Unknown', count: 1 }
+      ];
+
+      describe('without groupBy prop', () => {
+        const propsData = { groupBy: null };
+
+        it('returns fields as-is', () => {
+          const wrapper = factory({ propsData });
+          wrapper.setData({ fields });
+
+          expect(wrapper.vm.groupedOptions).toEqual(fields);
+        });
+      });
+
+      describe('with groupBy prop', () => {
+        const groupBy = ['/publicdomain/mark/', '/InC/', '/licenses/by/', '/licenses/by-sa/'];
+        const propsData = { groupBy };
+        const expected = [
+          { label: '*/publicdomain/mark/*', count: 11797604 },
+          { label: '*/InC/*', count: 14263988 },
+          { label: '*/licenses/by/*', count: 5140542 },
+          { label: 'Unknown', count: 1 }
+        ];
+
+        it('groups fields by substring', () => {
+          const wrapper = factory({ propsData });
+          wrapper.setData({ fields });
+
+          expect(wrapper.vm.groupedOptions).toEqual(expected);
+        });
+      });
+    });
+
     describe('sortedOptions', () => {
       it('puts selected options to the top, in descending count value order', async() => {
         const wrapper = factory();
@@ -116,9 +158,9 @@ describe('components/search/SideFacetDropdown', () => {
         });
         wrapper.setData({
           fields: [
-            { label: 'Netherlands', count: 101 },
-            { label: 'Germany', count: 100 },
             { label: 'United Kingdom', count: 99 },
+            { label: 'Germany', count: 100 },
+            { label: 'Netherlands', count: 101 },
             { label: 'Spain', count: 44 }
           ]
         });

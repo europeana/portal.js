@@ -466,6 +466,9 @@ export default {
         "uncategorized": "Nicht kategorisiert"
       }
     },
+    "RIGHTS": {
+      "name": "Erklärung zu den Rechten"
+    },
     "TYPE": {
       "name": "Art des Mediums",
       "options": {
@@ -494,7 +497,7 @@ export default {
       "showLess": "Weniger anzeigen {label}"
     },
     "collection": {
-      "name": "Kategorie",
+      "name": "Thema",
       "options": {
         "archaeology": "Archäologie",
         "art": "Kunst",

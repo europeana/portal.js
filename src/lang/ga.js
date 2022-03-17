@@ -466,6 +466,9 @@ export default {
         "uncategorized": "Gan catagóir"
       }
     },
+    "RIGHTS": {
+      "name": "Ráiteas um chearta"
+    },
     "TYPE": {
       "name": "Cineál meán",
       "options": {
@@ -494,7 +497,7 @@ export default {
       "showLess": "Taispeáin níos lú {label}"
     },
     "collection": {
-      "name": "Bailiúchán",
+      "name": "Téama",
       "options": {
         "archaeology": "Seandálaíocht",
         "art": "Ealaín",
@@ -909,3 +912,4 @@ export default {
   "website": "Suíomh Gréasáin",
   "youMightAlsoLike": "B'fhéidir gur mhaith leat freisin"
 };
+

@@ -124,7 +124,7 @@
 
   import makeToastMixin from '@/mixins/makeToast';
 
-  import { mapState, mapGetters } from 'vuex';
+  import { mapState } from 'vuex';
 
   export default {
     name: 'SearchInterface',
@@ -204,9 +204,6 @@
         lastAvailablePage: state => state.search.lastAvailablePage,
         results: state => state.search.results,
         totalResults: state => state.search.totalResults
-      }),
-      ...mapGetters({
-        filters: 'search/filters'
       }),
       qf() {
         return this.userParams.qf;

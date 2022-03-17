@@ -82,6 +82,7 @@
                 :type="facetDropdownType(facet.name)"
                 :selected="filters[facet.name]"
                 :static-fields="facet.staticFields"
+                :group-by="sideFacetDropdownGroupBy(facet.name)"
                 role="search"
                 :aria-label="facet.name"
                 @changed="changeFacet"
@@ -108,7 +109,7 @@
   import ClientOnly from 'vue-client-only';
   import isEqual from 'lodash/isEqual';
   import { mapState, mapGetters } from 'vuex';
-  import { rangeToQueryParam, rangeFromQueryParam } from '@/plugins/europeana/search';
+  import { rangeToQueryParam, rangeFromQueryParam, filtersFromQf } from '@/plugins/europeana/search';
   import themes from '@/plugins/europeana/themes';
   import { defaultFacetNames } from '@/store/search';
   import SideFacetDropdown from './SideFacetDropdown';
@@ -144,9 +145,22 @@
         userParams: state => state.search.userParams
       }),
       ...mapGetters({
-        filters: 'search/filters',
         collection: 'search/collection'
       }),
+      // TODO: do not assume filters are fielded, e.g. `qf=whale`
+      filters() {
+        const filters = filtersFromQf(this.$store.state.search.userParams?.qf);
+
+        if (this.$store.state.search.userParams?.reusability) {
+          filters['REUSABILITY'] = this.$store.state.search.userParams.reusability.split(',');
+        }
+
+        if (this.$store.state.search.apiParams?.api) {
+          filters['api'] = this.$store.state.search.apiParams.api;
+        }
+
+        return filters;
+      },
       resettableFilters() {
         const filters = this.filterableFacets
           .map(facet => facet.name)
@@ -390,6 +404,30 @@
       },
       toggleFilterSheet() {
         this.$store.commit('search/setShowFiltersSheet', !this.$store.state.search.showFiltersSheet);
+      },
+      sideFacetDropdownGroupBy(facetName) {
+        if (facetName === 'RIGHTS') {
+          return [
+            '/CNE/',
+            '/InC-EDU/',
+            '/InC-OW-EU/',
+            '/InC/',
+            '/licenses/by-nc-nd/',
+            '/licenses/by-nc-sa/',
+            '/licenses/by-nc/',
+            '/licenses/by-nd/',
+            '/licenses/by-sa/',
+            '/licenses/by/',
+            '/NoC-NC/',
+            '/NoC-OKLR/',
+            '/publicdomain/mark/',
+            '/publicdomain/zero/',
+            '/rights/out-of-copyright-non-commercial/',
+            '/rights/rr-f/'
+          ];
+        } else {
+          return null;
+        }
       }
     }
   };

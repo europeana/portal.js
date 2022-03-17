@@ -466,6 +466,9 @@ export default {
         "uncategorized": "Ongecategoriseerd"
       }
     },
+    "RIGHTS": {
+      "name": "Rechtenverklaring"
+    },
     "TYPE": {
       "name": "Soort media",
       "options": {
@@ -494,7 +497,7 @@ export default {
       "showLess": "Minder weergeven {label}"
     },
     "collection": {
-      "name": "Categorie",
+      "name": "Thema",
       "options": {
         "archaeology": "Archeologie",
         "art": "Kunst",

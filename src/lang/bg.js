@@ -466,6 +466,9 @@ export default {
         "uncategorized": "Без категория"
       }
     },
+    "RIGHTS": {
+      "name": "Декларация за правата"
+    },
     "TYPE": {
       "name": "Вид медия",
       "options": {
@@ -494,7 +497,7 @@ export default {
       "showLess": "Показване на по-малко {label}"
     },
     "collection": {
-      "name": "Категория",
+      "name": "Тема",
       "options": {
         "archaeology": "Археология",
         "art": "Изкуство",

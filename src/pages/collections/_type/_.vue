@@ -126,26 +126,29 @@
 <script>
   import pick from 'lodash/pick';
   import ClientOnly from 'vue-client-only';
-  import EntityDetails from '../../../components/entity/EntityDetails';
-  import SearchInterface from '../../../components/search/SearchInterface';
+  import EntityDetails from '@/components/entity/EntityDetails';
+  import SearchInterface from '@/components/search/SearchInterface';
   import { mapState } from 'vuex';
 
-  import { BASE_URL as EUROPEANA_DATA_URL } from '../../../plugins/europeana/data';
-  import { getEntityTypeHumanReadable, getEntitySlug, getEntityUri, getEntityQuery } from '../../../plugins/europeana/entity';
-  import { langMapValueForLocale, uriRegex } from  '../../../plugins/europeana/utils';
+  import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
+  import themes from '@/plugins/europeana/themes';
+  import {
+    getEntityTypeHumanReadable, getEntitySlug, getEntityUri, getEntityQuery, normalizeEntityId
+  } from '@/plugins/europeana/entity';
+  import { langMapValueForLocale, uriRegex } from  '@/plugins/europeana/utils';
 
   export default {
     name: 'CollectionPage',
 
     components: {
-      BrowseSections: () => import('../../../components/browse/BrowseSections'),
+      BrowseSections: () => import('@/components/browse/BrowseSections'),
       ClientOnly,
       EntityDetails,
       SearchInterface,
-      SideFilters: () => import('../../../components/search/SideFilters'),
+      SideFilters: () => import('@/components/search/SideFilters'),
       EntityHeader: () => import('@/components/entity/EntityHeader'),
       EntityUpdateModal: () => import('@/components/entity/EntityUpdateModal'),
-      RelatedCollections: () => import('../../../components/generic/RelatedCollections')
+      RelatedCollections: () => import('@/components/generic/RelatedCollections')
     },
 
     async beforeRouteLeave(to, from, next) {
@@ -161,7 +164,8 @@
 
     data() {
       return {
-        showRelated: false
+        showRelated: false,
+        themes: themes.map(theme => theme.id)
       };
     },
 
@@ -303,8 +307,17 @@
 
         return overrideParams;
       },
+      entityId() {
+        return normalizeEntityId(this.$route.params.pathMatch);
+      },
       contextLabel() {
-        return this.$t(`cardLabels.${this.$route.params.type}`);
+        let contextType = this.collectionType;
+
+        if (this.collectionType === 'topic' && this.themes.includes(this.entityId)) {
+          contextType = 'theme';
+        }
+
+        return this.$t(`cardLabels.${contextType}`);
       },
       collectionType() {
         return this.$route.params.type;

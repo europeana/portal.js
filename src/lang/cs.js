@@ -466,6 +466,9 @@ export default {
         "uncategorized": "Nezařazeno"
       }
     },
+    "RIGHTS": {
+      "name": "Prohlášení o právech"
+    },
     "TYPE": {
       "name": "Druh média",
       "options": {
@@ -494,7 +497,7 @@ export default {
       "showLess": "Zobrazit méně {label}"
     },
     "collection": {
-      "name": "Kategorie",
+      "name": "Téma",
       "options": {
         "archaeology": "Archeologie",
         "art": "Umění",

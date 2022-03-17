@@ -466,6 +466,9 @@ export default {
         "uncategorized": "Nekategorizirano"
       }
     },
+    "RIGHTS": {
+      "name": "Izjava o pravima"
+    },
     "TYPE": {
       "name": "Vrsta medija",
       "options": {
@@ -494,7 +497,7 @@ export default {
       "showLess": "Prikaži manje {label}"
     },
     "collection": {
-      "name": "Kategorija",
+      "name": "Tema",
       "options": {
         "archaeology": "Arheologija",
         "art": "Umjetnost",

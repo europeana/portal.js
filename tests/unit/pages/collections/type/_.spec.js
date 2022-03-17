@@ -34,6 +34,15 @@ const topicEntity = {
   type: 'concept'
 };
 
+const themeEntity = {
+  entity: {
+    id: 'http://data.europeana.eu/concept/base/94',
+    description: { en: 'example of a theme description' },
+    isShownBy: { thumbnail: 'https://api.europeana.eu/api/v2/thumbnail.jpg' }
+  },
+  type: 'topic'
+};
+
 const mutations = {
   setId: sinon.spy(),
   setEntity: sinon.spy(),
@@ -81,7 +90,7 @@ const factory = (options) => shallowMountNuxt(collection, {
   mocks: {
     $t: key => key,
     $tFacetName: key => key,
-    $route: { query: '', params: { type: options.type } },
+    $route: { query: '', params: { type: options.type, pathMatch: '190-art' } },
     $apis: {
       entity: {
         facets: sinon.stub().resolves([])
@@ -121,6 +130,21 @@ describe('pages/collections/type/_', () => {
 
       expect(mutations.setShowSearchBar.calledWith(false)).toBe(true);
       expect(next.called).toBe(true);
+    });
+  });
+
+  describe('contextLabel', () => {
+    it('returns the label for an organisation', () => {
+      const wrapper = factory(organisationEntity);
+
+      const contextLabel = wrapper.vm.contextLabel;
+      expect(contextLabel).toBe('cardLabels.organisation');
+    });
+    it('returns the label for a theme', () => {
+      const wrapper = factory(themeEntity);
+
+      const contextLabel = wrapper.vm.contextLabel;
+      expect(contextLabel).toBe('cardLabels.theme');
     });
   });
 

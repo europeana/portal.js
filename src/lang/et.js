@@ -466,6 +466,9 @@ export default {
         "uncategorized": "Kategoriseerimata"
       }
     },
+    "RIGHTS": {
+      "name": "Õiguste deklaratsioon"
+    },
     "TYPE": {
       "name": "Meediumitüüp",
       "options": {
@@ -494,7 +497,7 @@ export default {
       "showLess": "Näita vähem {label}"
     },
     "collection": {
-      "name": "Kategooria",
+      "name": "Teema",
       "options": {
         "archaeology": "Arheoloogia",
         "art": "Kunst",
