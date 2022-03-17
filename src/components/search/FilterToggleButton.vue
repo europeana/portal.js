@@ -12,14 +12,23 @@
 
 <script>
   import { mapState } from 'vuex';
+  import themes from '@/plugins/europeana/themes';
 
   export default {
     computed: {
       ...mapState({
-        showFiltersToggle: state => state.search.showFiltersToggle
+        showFiltersToggle: state => state.search.showFiltersToggle,
+        userParams: state => state.search.userParams
       }),
       hasSelectedFilters() {
-        return this.$store.state.search.userParams?.qf || this.$store.state.search.userParams?.reusability;
+        return this.userParams?.qf || this.userParams?.reusability ||
+          (this.userParams?.api && this.themeDefaultApi && this.userParams?.api !== this.themeDefaultApi);
+      },
+      collection() {
+        return this.$store.getters['search/collection'];
+      },
+      themeDefaultApi() {
+        return themes.find(theme => theme.qf === this.collection)?.filters?.api?.default;
       }
     },
     methods: {
