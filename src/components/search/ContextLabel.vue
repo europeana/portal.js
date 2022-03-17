@@ -32,7 +32,7 @@
         <RemovalChip
           :title="query"
           :link-to="queryRemovalLink"
-          class="mt-1 mx-1"s
+          class="mt-1 mx-1"
         />
       </i18n>
     </template>
