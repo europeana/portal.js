@@ -41,7 +41,7 @@
       return {
         title: this.$pageHeadTitle('Slug validation - Contentful app'),
         script: [
-          { src: 'https://unpkg.com/speakingurl@13.0.0/speakingurl.min.js' }
+          { src: 'https://cdn.jsdelivr.net/npm/speakingurl@13.0.0/speakingurl.min.js' }
         ]
       };
     },

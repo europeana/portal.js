@@ -37,9 +37,9 @@
         script: [
           { src: `https://code.jquery.com/jquery-${this.JQUERY_VERSION}.min.js` },
           { src: `https://code.jquery.com/ui/${this.JQUERY_UI_VERSION}/jquery-ui.min.js` },
-          { src: `https://unpkg.com/@europeana/media-player@${this.MEDIA_PLAYER_VERSION}/dist/europeana-media-player.min.js` }
+          { src: `https://cdn.jsdelivr.net/npm/@europeana/media-player@${this.MEDIA_PLAYER_VERSION}/dist/europeana-media-player.min.js` }
         ].concat(this.dashRequired ? [
-          { src: `https://unpkg.com/dashjs@${this.DASHJS_VERSION}/dist/dash.all.min.js` }
+          { src: `https://cdn.jsdelivr.net/npm/dashjs@${this.DASHJS_VERSION}/dist/dash.all.min.js` }
         ] : [])
       };
     },
