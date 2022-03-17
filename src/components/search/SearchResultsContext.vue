@@ -6,19 +6,8 @@
     <template
       v-if="hasEntity"
     >
-      <span
-        v-if="!hasQuery"
-      >
-        {{ entityTypeLabel }}
-        <RemovalChip
-          :title="localisedEntityLabel"
-          :link-to="entityRemovalLink"
-          :img="entityImage"
-          class="mt-1 mx-1"
-        />
-      </span>
       <i18n
-        v-else-if="hasQuery"
+        v-if="hasQuery"
         path="resultsWithin"
         tag="span"
       >
@@ -35,6 +24,17 @@
           class="mt-1 mx-1"
         />
       </i18n>
+      <span
+        v-else
+      >
+        {{ entityTypeLabel }}
+        <RemovalChip
+          :title="localisedEntityLabel"
+          :link-to="entityRemovalLink"
+          :img="entityImage"
+          class="mt-1 mx-1"
+        />
+      </span>
     </template>
     <template
       v-else
@@ -59,7 +59,7 @@
 
 <script>
   import RemovalChip from './RemovalChip';
-  import { getWikimediaThumbnailUrl, normalizeEntityId } from '@/plugins/europeana/entity';
+  import { getWikimediaThumbnailUrl, entityParamsFromUri } from '@/plugins/europeana/entity';
   import themes from '@/plugins/europeana/themes';
   import { mapState } from 'vuex';
 
@@ -105,9 +105,6 @@
       entityImage() {
         return this.entity?.isShownBy?.thumbnail || (this.entity?.logo ? getWikimediaThumbnailUrl(this.entity?.logo?.id, 80) : null);
       },
-      entityId() {
-        return normalizeEntityId(this.$route.params.pathMatch);
-      },
       entityTypeLabel() {
         return this.$t(`cardLabels.${this.contextType}`);
       },
@@ -120,15 +117,19 @@
 
         return contextType;
       },
+      entityParams() {
+        return this.hasEntity ? entityParamsFromUri(this.entity.id) : {};
+      },
       entityType() {
-        return this.$route.params.type;
+        return this.entityParams.type;
+      },
+      entityId() {
+        return this.entityParams.id;
       },
       queryRemovalLink() {
-        const currentPath =   this.$route.path;
-        const currentParams = this.$route.params;
         return this.$path({
-          currentPath,
-          params: currentParams,
+          currentPath: this.$route.path,
+          params: this.$route.params,
           query: {
             ...this.$route.query,
             query: null
