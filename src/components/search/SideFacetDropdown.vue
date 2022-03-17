@@ -30,11 +30,9 @@
               variant="primary-light"
               @remove="removeOption({ tag, removeTag })"
             >
-              <FacetFieldLabel
-                :facet-name="name"
-                :field-value="tag"
-                escaped
-              />
+              <span>
+                {{ $tFacetOption(name, tag, true) }}
+              </span>
             </b-form-tag>
           </li>
         </ul>
@@ -74,20 +72,17 @@
             :key="index"
             @click="selectOption({ option, addTag, removeTag })"
           >
-            <FacetFieldLabel
-              v-if="isRadio"
-              :facet-name="name"
-              :field-value="option"
-            />
+            <span v-if="isRadio">
+              {{ $tFacetOption(name, option) }}
+            </span>
             <template v-else>
               <ColourSwatch
                 v-if="isColourPalette"
                 :hex-code="option.label"
               />
-              <FacetFieldLabel
-                :facet-name="name"
-                :field-value="option.label"
-              />
+              <span>
+                {{ $tFacetOption(name, option.label) }}
+              </span>
               <span>({{ option.count | localise }})</span>
             </template>
           </b-dropdown-item-button>
@@ -102,7 +97,6 @@
 
 <script>
   import xor from 'lodash/xor';
-  import FacetFieldLabel from './FacetFieldLabel';
   import ColourSwatch from '../generic/ColourSwatch';
   import { BFormTags, BFormTag } from 'bootstrap-vue';
   import themes from '@/plugins/europeana/themes';
@@ -118,7 +112,6 @@
     components: {
       BFormTags,
       BFormTag,
-      FacetFieldLabel,
       ColourSwatch
     },
 
