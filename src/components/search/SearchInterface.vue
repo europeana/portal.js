@@ -22,10 +22,9 @@
       :class="{ 'd-flex align-items-center': contextLabel }"
     >
       <b-col>
-        <ContextLabel
+        <SearchResultsContext
           v-if="headerCardsEnabled"
           :label-override="editorialEntityLabel"
-          data-qa="context label"
         />
         <template v-else>
           <p
@@ -130,13 +129,13 @@
     name: 'SearchInterface',
 
     components: {
-      AlertMessage: () => import('../../components/generic/AlertMessage'),
+      AlertMessage: () => import('../generic/AlertMessage'),
       ClientOnly,
-      ContextLabel: () => import('../../components/search/ContextLabel'),
+      SearchResultsContext: () => import('./SearchResultsContext'),
       InfoMessage,
       ItemPreviewCardGroup,
-      LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
-      PaginationNav: () => import('../../components/generic/PaginationNav'),
+      LoadingSpinner: () => import('../generic/LoadingSpinner'),
+      PaginationNav: () => import('../generic/PaginationNav'),
       ViewToggles
     },
     mixins: [

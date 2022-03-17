@@ -64,7 +64,7 @@
   import { mapState } from 'vuex';
 
   export default {
-    name: 'ContextLabel',
+    name: 'SearchResultsContext',
 
     components: {
       RemovalChip
