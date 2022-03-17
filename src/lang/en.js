@@ -923,7 +923,7 @@ export default {
   "showLess": "Show less",
   "showMore": "Show more",
   "sideFilters": {
-    "select": "Select a | Select",
+    "select": "Select a {filter} | Select {filter}",
     "search": "Search",
     "noOptions": "There are no options available to select"
   },

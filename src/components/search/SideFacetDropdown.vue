@@ -43,7 +43,7 @@
           @shown="search && $refs['search-input'].focus()"
         >
           <template #button-content>
-            {{ `${$tc('sideFilters.select', isRadio ? 1 : 2)} ${facetName.toLowerCase()}` }}
+            {{ $tc('sideFilters.select', isRadio ? 1 : 2, {filter: facetName.toLowerCase()}) }}
           </template>
           <template
             v-if="search"
