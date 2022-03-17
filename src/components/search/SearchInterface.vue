@@ -165,7 +165,7 @@
         type: Boolean,
         default: true
       },
-      contextLabel: { // TODO: Remove when entity header switch is complete.
+      contextLabel: { // TODO: Remove when ENABLE_ENTITY_HEADER_CARDS is always-on
         type: String,
         default: null
       },

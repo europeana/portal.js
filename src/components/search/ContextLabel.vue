@@ -59,7 +59,8 @@
 
 <script>
   import RemovalChip from './RemovalChip';
-  import { getWikimediaThumbnailUrl } from '@/plugins/europeana/entity';
+  import { getWikimediaThumbnailUrl, normalizeEntityId } from '@/plugins/europeana/entity';
+  import themes from '@/plugins/europeana/themes';
   import { mapState } from 'vuex';
 
   export default {
@@ -80,6 +81,13 @@
         default: null
       }
     },
+
+    data() {
+      return {
+        themes: themes.map(theme => theme.id)
+      };
+    },
+
     computed: {
       ...mapState({
         query: state => state.search.userParams.query,
@@ -97,8 +105,23 @@
       entityImage() {
         return this.entity?.isShownBy?.thumbnail || (this.entity?.logo ? getWikimediaThumbnailUrl(this.entity?.logo?.id, 80) : null);
       },
+      entityId() {
+        return normalizeEntityId(this.$route.params.pathMatch);
+      },
       entityTypeLabel() {
-        return this.$t(`cardLabels.${this.$route.params.type}`);
+        return this.$t(`cardLabels.${this.contextType}`);
+      },
+      contextType() {
+        let contextType = this.entityType;
+
+        if (this.entityType === 'topic' && this.themes.includes(this.entityId)) {
+          contextType = 'theme';
+        }
+
+        return contextType;
+      },
+      entityType() {
+        return this.$route.params.type;
       },
       queryRemovalLink() {
         const currentPath =   this.$route.path;
