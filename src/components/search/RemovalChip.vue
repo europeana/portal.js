@@ -66,6 +66,7 @@
 
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
+
   // TODO: Remove the .clear-indicator, prefer to use the .close style from EC-5678
   .clear-indicator {
     background-color: $mediumgrey;
