@@ -114,6 +114,9 @@
           </b-col>
         </b-row>
       </b-col>
+      <SideFilters
+        :route="route"
+      />
     </b-row>
   </b-container>
 </template>
@@ -122,10 +125,14 @@
   import ClientOnly from 'vue-client-only';
   import ItemPreviewCardGroup from '../item/ItemPreviewCardGroup'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
   import InfoMessage from '../generic/InfoMessage';
+  import SideFilters from './SideFilters';
   import ViewToggles from './ViewToggles';
 
   import makeToastMixin from '@/mixins/makeToast';
+  import { filtersFromQf } from '@/plugins/europeana/search';
+  import themes from '@/plugins/europeana/themes';
 
+  import merge from 'deepmerge';
   import { mapState } from 'vuex';
 
   export default {
@@ -154,9 +161,7 @@
       },
       route: {
         type: Object,
-        default: () => {
-          return { name: 'search' };
-        }
+        default: () => ({ name: 'search' })
       },
       showPins: {
         type: Boolean,
@@ -169,38 +174,46 @@
       contextLabel: {
         type: String,
         default: null
+      },
+      userParams: {
+        type: Object,
+        default: () => ({})
+      },
+      overrideParams: {
+        type: Object,
+        default: () => ({})
       }
     },
     data() {
       return {
-        fetched: false
+        fetched: false,
+        hits: null,
+        results: [],
+        lastAvailablePage: null,
+        totalResults: null
       };
     },
-    async fetch() {
+    fetch() {
       this.viewFromRouteQuery();
 
       this.$store.dispatch('search/activate');
-      this.$store.commit('search/set', ['userParams', this.$route.query]);
 
-      await this.$store.dispatch('search/run');
+      this.queryItems()
+        .then(() => {
+          this.fetched = true;
+        });
 
-      if (this.$store.state.search.error) {
-        if (process.server) {
-          this.$nuxt.context.res.statusCode = this.$store.state.search.errorStatusCode;
-        }
-        throw this.$store.state.search.error;
-      }
-      this.fetched = true;
+      // TODO: refactor
+      // if (this.$store.state.search.error) {
+      //   if (process.server) {
+      //     this.$nuxt.context.res.statusCode = this.$store.state.search.errorStatusCode;
+      //   }
+      //   throw this.$store.state.search.error;
+      // }
     },
     computed: {
       ...mapState({
-        userParams: state => state.search.userParams,
-        entityId: state => state.entity.id,
-        error: state => state.search.error,
-        hits: state => state.search.hits,
-        lastAvailablePage: state => state.search.lastAvailablePage,
-        results: state => state.search.results,
-        totalResults: state => state.search.totalResults
+        entityId: state => state.entity.id
       }),
       qf() {
         return this.userParams.qf;
@@ -213,6 +226,46 @@
       },
       api() {
         return this.userParams.api;
+      },
+      apiParams() {
+        // Coerce qf from user input into an array as it may be a single string
+        const userParams = Object.assign({}, this.userParams || {});
+        userParams.qf = [].concat(userParams.qf || []);
+
+        const apiParams = merge(userParams, this.overrideParams || {});
+
+        if (!apiParams.profile) {
+          apiParams.profile = 'minimal';
+        }
+
+        const collectionFilter = filtersFromQf(apiParams.qf).collection;
+        const collection = collectionFilter ? collectionFilter[0] : null;
+        const theme = themes.find(theme => theme.qf === collection);
+
+        if (theme?.filters?.api) {
+          // Set default API (of fulltext or metadata), from theme config
+          if (!apiParams.api) {
+            apiParams.api = theme.filters.api.default || 'fulltext';
+          }
+
+          if (apiParams.api === 'fulltext') {
+            apiParams.profile = 'minimal,hits';
+          }
+        }
+
+        return apiParams;
+      },
+      apiOptions() {
+        const apiOptions = {
+          locale: this.$i18n.locale,
+          escape: (!this.userParams.query && !!this.overrideParams.query)
+        };
+
+        if (this.apiParams.api === 'fulltext') {
+          apiOptions.url = FULLTEXT_BASE_URL;
+        }
+
+        return apiOptions;
       },
       page() {
         // This causes double jumps on pagination when using the > arrow, for some reason
@@ -258,11 +311,7 @@
 
     watch: {
       routeQueryView: 'viewFromRouteQuery',
-      '$route.query.api': '$fetch',
-      '$route.query.reusability': '$fetch',
-      '$route.query.query': '$fetch',
-      '$route.query.qf': '$fetch',
-      '$route.query.page': '$fetch'
+      userParams: '$fetch'
     },
 
     destroyed() {
@@ -270,6 +319,25 @@
     },
 
     methods: {
+      queryItems() {
+        const paramsForItems = {
+          ...this.apiParams
+        };
+        delete paramsForItems.facet;
+
+        this.$store.commit('search/addLiveQuery', paramsForItems);
+        return this.$apis.record.search(paramsForItems, this.apiOptions)
+          .then(async(response) => {
+            this.hits = response.hits;
+            this.lastAvailablePage = response.lastAvailablePage;
+            this.results = response.items;
+            this.totalResults = response.totalResults;
+          })
+          .finally(() => {
+            this.$store.commit('search/removeLiveQuery', paramsForItems);
+          });
+      },
+
       viewFromRouteQuery() {
         if (this.routeQueryView) {
           this.view = this.routeQueryView;

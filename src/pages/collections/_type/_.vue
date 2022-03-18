@@ -72,8 +72,9 @@
               </i18n>
               <SearchInterface
                 class="px-0"
-                :per-page="recordsPerPage"
                 :route="route"
+                :user-params="$route.query"
+                :override-params="searchOverrides"
                 :show-content-tier-toggle="false"
                 :show-pins="userIsEditor && userIsSetsEditor"
                 :context-label="headerCardsEnabled ? contextLabel : null"
@@ -268,13 +269,11 @@
         entity: state => state.entity.entity,
         page: state => state.entity.page,
         relatedEntities: state => state.entity.relatedEntities,
-        recordsPerPage: state => state.entity.recordsPerPage,
         editable: state => state.entity.editable
       }),
       searchOverrides() {
         const overrideParams = {
-          qf: [],
-          rows: this.recordsPerPage
+          qf: []
         };
 
         if (this.entity) {
@@ -421,12 +420,8 @@
         return labelledMoreInfo.length > 0 ? labelledMoreInfo : null;
       }
     },
-    watch: {
-      searchOverrides: 'storeSearchOverrides'
-    },
     mounted() {
       this.$store.commit('search/setCollectionLabel', this.title.values[0]);
-      this.storeSearchOverrides();
       // TODO: move into a new entity store action?
       // Disable related collections for organisation for now
       if (!this.relatedCollectionCards && this.collectionType !== 'organisation') {
@@ -441,9 +436,6 @@
       }
     },
     methods: {
-      storeSearchOverrides() {
-        this.$store.commit('search/set', ['overrideParams', this.searchOverrides]);
-      },
       titleFallback(title) {
         return {
           values: [title],

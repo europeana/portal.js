@@ -4,7 +4,6 @@ export default {
     entity: null,
     id: null,
     page: null,
-    recordsPerPage: 24,
     relatedEntities: null,
     pinned: null,
     featuredSetId: null,

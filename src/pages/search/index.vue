@@ -34,6 +34,7 @@
             :per-row="4"
             :context-label="headerCardsEnabled ? '' : null"
             :show-related="showRelated"
+            :user-params="$route.query"
           >
             <template
               v-if="searchQuery && headerCardsEnabled"
@@ -80,10 +81,6 @@
       return {
         showRelated: false
       };
-    },
-
-    fetch() {
-      this.$store.commit('search/set', ['overrideParams', {}]);
     },
 
     head() {
