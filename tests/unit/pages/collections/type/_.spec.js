@@ -22,28 +22,47 @@ const organisationEntity = {
     },
     acronym: { en: 'ABC' }
   },
-  type: 'organisation'
+  type: 'organisation',
+  pathMatch: '01234567890-organisation'
 };
 
 const topicEntity = {
   entity: {
     id: 'http://data.europeana.eu/concept/base/01234567890',
     description: { en: 'example of a topic description' },
-    isShownBy: { thumbnail: 'https://api.europeana.eu/api/v2/thumbnail.jpg' }
+    isShownBy: { thumbnail: 'https://api.europeana.eu/api/v2/thumbnail.jpg' },
+    prefLabel: { en: 'Topic' }
   },
-  type: 'concept'
+  type: 'topic',
+  pathMatch: '01234567890-topic'
 };
 
 const themeEntity = {
   entity: {
-    id: 'http://data.europeana.eu/concept/base/94',
+    id: 'http://data.europeana.eu/concept/base/62',
     description: { en: 'example of a theme description' },
-    isShownBy: { thumbnail: 'https://api.europeana.eu/api/v2/thumbnail.jpg' }
+    isShownBy: { thumbnail: 'https://api.europeana.eu/api/v2/thumbnail.jpg' },
+    prefLabel: { en: 'Theme' }
   },
-  type: 'topic'
+  type: 'topic',
+  pathMatch: '62-theme'
+};
+
+const contentfulPageResponse = {
+  data: {
+    data: {
+      entityPage: {
+        items: []
+      },
+      curatedEntities: {
+        items: []
+      }
+    }
+  }
 };
 
 const mutations = {
+  disableCollectionFacet: sinon.spy(),
   setId: sinon.spy(),
   setEntity: sinon.spy(),
   setShowSearchBar: sinon.spy()
@@ -69,13 +88,18 @@ const store = (entity = {}) => {
       'search/collection': () => false
     },
     mutations: {
-      'search/set': () => null,
-      'search/setShowFiltersToggle': () => null,
-      'search/setCollectionLabel': () => null,
-      'search/setShowSearchBar': (state, val) => mutations.setShowSearchBar(val),
-      'entity/setRelatedEntities': () => null,
+      'entity/setCuratedEntities': () => null,
+      'entity/setEditable': () => null,
+      'entity/setEntity': (state, val) => mutations.setEntity(val),
+      'entity/setFeaturedSetId': () => null,
       'entity/setId': (state, val) => mutations.setId(val),
-      'entity/setEntity': (state, val) => mutations.setEntity(val) // (state, val) => state.entity.entity = val
+      'entity/setPinned': () => null,
+      'entity/setRelatedEntities': () => null,
+      'search/disableCollectionFacet': mutations.disableCollectionFacet,
+      'search/set': () => null,
+      'search/setCollectionLabel': () => null,
+      'search/setShowFiltersToggle': () => null,
+      'search/setShowSearchBar': (state, val) => mutations.setShowSearchBar(val)
     },
     actions: {
       'entity/searchForRecords': () => null,
@@ -84,16 +108,20 @@ const store = (entity = {}) => {
   });
 };
 
-const factory = (options) => shallowMountNuxt(collection, {
+const factory = (options = {}) => shallowMountNuxt(collection, {
   localVue,
   store: store(options.entity),
   mocks: {
     $fetchState: {},
     $t: key => key,
     $tFacetName: key => key,
-    $route: { query: '', params: { type: options.type, pathMatch: '190-art' } },
+    $route: { query: '', params: { type: options.type, pathMatch: options.pathMatch } },
+    $contentful: {
+      query: sinon.stub().resolves(contentfulPageResponse)
+    },
     $apis: {
       entity: {
+        get: sinon.stub().resolves({}),
         facets: sinon.stub().resolves([])
       },
       record: {
@@ -101,13 +129,48 @@ const factory = (options) => shallowMountNuxt(collection, {
       }
     },
     $i18n: {
-      locale: 'en'
+      locale: 'en',
+      isoLocale: () => 'en-GB'
     },
-    $features: { sideFilters: false }
+    $features: { sideFilters: false },
+    $path: () => '/',
+    $nuxt: { context: { redirect: sinon.spy() } }
   }
 });
 
 describe('pages/collections/type/_', () => {
+  beforeEach(sinon.resetHistory);
+
+  describe('fetch', () => {
+    it('disables collection facet via search store', async() => {
+      const wrapper = factory(topicEntity);
+
+      await wrapper.vm.fetch();
+
+      expect(mutations.disableCollectionFacet.called).toBe(true);
+    });
+
+    it('requests entity from Entity API', async() => {
+      const wrapper = factory(topicEntity);
+
+      await wrapper.vm.fetch();
+
+      expect(wrapper.vm.$apis.entity.get.calledWith(topicEntity.type, topicEntity.pathMatch)).toBe(true);
+    });
+
+    it('requests collection page from Contentful', async() => {
+      const wrapper = factory(topicEntity);
+
+      await wrapper.vm.fetch();
+
+      expect(wrapper.vm.$contentful.query.calledWith('collectionPage', {
+        identifier: topicEntity.entity.id,
+        locale: 'en-GB',
+        preview: false
+      })).toBe(true);
+    });
+  });
+
   describe('beforeRouteLeave', () => {
     it('resets set id and set entity', async() => {
       const to = { name: 'search__eu', fullPath: '/en/search', matched: [{ path: '/en/search' }] };
