@@ -1,16 +1,25 @@
 import sinon from 'sinon';
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
+import BootstrapVue from 'bootstrap-vue';
 
 import SideFacetDropdown from '@/components/search/SideFacetDropdown.vue';
 
 const localVue = createLocalVue();
+localVue.use(BootstrapVue);
 
 const storeDispatchStub = sinon.stub();
 
 const storeCommitSpy = sinon.spy();
 
 const apisRecordSearchStub = sinon.stub().resolves({});
+
+const countryFields = [
+  { label: 'United Kingdom', count: 99 },
+  { label: 'Germany', count: 100 },
+  { label: 'Netherlands', count: 101 },
+  { label: 'Spain', count: 44 }
+];
 
 const factory = (options = {}) => shallowMountNuxt(SideFacetDropdown, {
   localVue,
@@ -20,7 +29,7 @@ const factory = (options = {}) => shallowMountNuxt(SideFacetDropdown, {
         search: apisRecordSearchStub
       }
     },
-    $fetchState: {},
+    $fetchState: options.fetchState || {},
     $i18n: { locale: 'en' },
     $route: {
       query: {}
@@ -37,12 +46,12 @@ const factory = (options = {}) => shallowMountNuxt(SideFacetDropdown, {
       },
       state: {
         search: {
-          liveQueries: []
+          liveQueries: options.liveQueries || []
         }
       }
     }
   },
-  stubs: ['b-button', 'b-form-checkbox', 'b-dropdown', 'b-dropdown-form', 'b-badge'],
+  // stubs: ['b-button', 'b-form-checkbox', 'b-dropdown', 'b-dropdown-form', 'b-badge'],
   propsData: {
     type: 'checkbox',
     name: 'COUNTRY',
@@ -109,6 +118,29 @@ describe('components/search/SideFacetDropdown', () => {
   });
 
   describe('computed', () => {
+    describe('disabled', () => {
+      describe('while filter selection is applied', () => {
+        it('returns true', () => {
+          const wrapper = factory({ liveQueries: ['query1', 'query2', 'query3'] });
+
+          expect(wrapper.vm.disabled).toBe(true);
+        });
+      });
+      describe('while facets are being fetched', () => {
+        it('returns true', () => {
+          const wrapper = factory({ fetchState: { pending: true } });
+
+          expect(wrapper.vm.disabled).toBe(true);
+        });
+      });
+      describe('when ready for user interaction', () => {
+        it('returns false', () => {
+          const wrapper = factory();
+
+          expect(wrapper.vm.disabled).toBe(false);
+        });
+      });
+    });
     describe('groupedOptions', () => {
       const fields = [
         { label: 'http://rightsstatements.org/vocab/InC/1.0/', count: 14263988 },
@@ -157,14 +189,7 @@ describe('components/search/SideFacetDropdown', () => {
           name: 'COUNTRY',
           selected: ['Spain', 'United Kingdom']
         });
-        wrapper.setData({
-          fields: [
-            { label: 'United Kingdom', count: 99 },
-            { label: 'Germany', count: 100 },
-            { label: 'Netherlands', count: 101 },
-            { label: 'Spain', count: 44 }
-          ]
-        });
+        wrapper.setData({ fields: countryFields });
 
         expect(wrapper.vm.sortedOptions[0].label).toBe('United Kingdom');
         expect(wrapper.vm.sortedOptions[1].label).toBe('Spain');
@@ -174,41 +199,56 @@ describe('components/search/SideFacetDropdown', () => {
     });
 
     describe('availableSortedOptions', () => {
-      it('returns the options that are not yet selected', async() => {
-        const wrapper = factory();
-        await wrapper.setProps({
-          name: 'COUNTRY',
-          selected: ['Spain', 'United Kingdom']
-        });
-        wrapper.setData({
-          fields: [
-            { label: 'Netherlands', count: 101 },
-            { label: 'Germany', count: 100 },
-            { label: 'United Kingdom', count: 99 },
-            { label: 'Spain', count: 44 }
-          ]
-        });
+      describe('when nothing selected and no search term input', () => {
+        it('returns all options', async() => {
+          const wrapper = factory();
+          wrapper.setData({ fields: countryFields });
 
-        expect(wrapper.vm.availableSortedOptions.some(option => option.label === 'Spain')).toBe(false);
+          expect(wrapper.vm.availableSortedOptions.length).toBe(countryFields.length);
+        });
       });
-      it('returns the options that match the search term', async() => {
-        const wrapper = factory();
-        await wrapper.setProps({
-          name: 'COUNTRY',
-          selected: ['Spain', 'United Kingdom']
-        });
-        wrapper.setData({
-          searchFacet: 'netherlands',
-          fields: [
-            { label: 'Netherlands', count: 101 },
-            { label: 'Germany', count: 100 },
-            { label: 'United Kingdom', count: 99 },
-            { label: 'Spain', count: 44 }
-          ]
-        });
+      describe('when options selected', () => {
+        it('returns the options that are not yet selected', async() => {
+          const wrapper = factory({
+            propsData: {
+              selected: ['Spain', 'United Kingdom']
+            }
+          });
+          wrapper.setData({ fields: countryFields });
 
-        expect(wrapper.vm.availableSortedOptions.some(option => option.label === 'Netherlands')).toBe(true);
-        expect(wrapper.vm.availableSortedOptions.some(option => option.label === 'Germany')).toBe(false);
+          expect(wrapper.vm.availableSortedOptions.some(option => option.label === 'Spain')).toBe(false);
+        });
+      });
+      describe('when a search term is inserted', () => {
+        it('returns the options that match the search term', () => {
+          const wrapper = factory({
+            propsData: {
+              selected: ['Spain', 'United Kingdom']
+            }
+          });
+
+          wrapper.setData({
+            fields: countryFields,
+            searchFacet: 'netherlands'
+          });
+
+          expect(wrapper.vm.availableSortedOptions.some(option => option.label === 'Netherlands')).toBe(true);
+          expect(wrapper.vm.availableSortedOptions.some(option => option.label === 'Germany')).toBe(false);
+        });
+        describe('and the options are of the radio type', () => {
+          it('returns the options that match the search term', () => {
+            const wrapper = factory({
+              propsData: {
+                name: 'collection',
+                staticFields: ['ww1', 'archaeology', 'art', 'fashion'],
+                type: 'radio',
+                searchFacet: 'ww'
+              }
+            });
+
+            expect(wrapper.vm.availableSortedOptions.some(option => option === 'ww1')).toBe(true);
+          });
+        });
       });
     });
 
@@ -221,6 +261,35 @@ describe('components/search/SideFacetDropdown', () => {
 
         expect(wrapper.vm.criteria).toBe('im looking for a facet');
       });
+    });
+
+    describe('activeLabel', () => {
+      describe('when there are options selected', () => {
+        it('returns true', () => {
+          const wrapper = factory({
+            propsData: {
+              selected: ['Spain', 'United Kingdom']
+            }
+          });
+
+          expect(wrapper.vm.activeLabel).toBe(true);
+        });
+      });
+      // describe('when a search term is inserted', () => {
+      //   it('returns true', () => {
+      // const wrapper = factory({
+      //   propsData: {
+      //     search: true
+      //   }
+      // });
+      // wrapper.setData({ fields: countryFields });
+
+      // const searchInput = wrapper.find('[data-qa="side facet dropdown input"]');
+      // searchInput.trigger('keydown.e');
+
+      // expect(wrapper.vm.activeLabel).toBe(true);
+      // });
+      // });
     });
   });
 

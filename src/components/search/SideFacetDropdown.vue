@@ -50,6 +50,7 @@
             block
             no-flip
             :disabled="disabled"
+            data-qa="side facet dropdown button"
             @shown="search && $refs['search-input'].focus()"
             @hidden="resetDropDown"
           >
@@ -73,6 +74,7 @@
                     type="text"
                     autocomplete="off"
                     :placeholder="$t('sideFilters.search')"
+                    data-qa="side facet dropdown search input"
                     @input="activeSearchInput = true"
                     @blur="activeSearchInput = false"
                   />
@@ -219,7 +221,7 @@
       },
 
       disabled() {
-        return this.$store.state.search.liveQueries.length > 0 || this.$fetchState.pending;
+        return this.$store.state.search.liveQueries.length > 0 || !!this.$fetchState.pending;
       },
 
       groupedOptions() {
