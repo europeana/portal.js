@@ -22,8 +22,8 @@ function tFacetOption(facetName, fieldValue, escaped) {
   const MIME_TYPE = 'MIME_TYPE';
 
   const collection = this.$store.getters['search/collection'];
-  const theme = themes.find(theme => theme.qf === collection);
-  const themeSpecificFieldLabelPattern = (theme?.facets || []).find((facet) => facet.field === facetName)?.label;
+  const selectedTheme = themes.find(theme => theme.qf === collection);
+  const themeSpecificFieldLabelPattern = (selectedTheme?.facets || []).find((facet) => facet.field === facetName)?.label;
 
   const genericLabel = () => {
     let fieldLabel = fieldValue;
