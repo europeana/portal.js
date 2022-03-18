@@ -222,17 +222,6 @@ describe('components/search/SideFacetDropdown', () => {
         expect(wrapper.vm.criteria).toBe('im looking for a facet');
       });
     });
-
-    describe('searchOptions', () => {
-      it('returns a message when no facets are found', () => {
-        const wrapper = factory();
-        wrapper.setData({
-          searchFacet: 'Im looking For a Facet'
-        });
-
-        expect(wrapper.vm.searchOptions).toBe('There are no tags matching your search criteria');
-      });
-    });
   });
 
   describe('methods', () => {
