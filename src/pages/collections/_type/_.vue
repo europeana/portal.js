@@ -87,6 +87,7 @@
                   <span>{{ title.values[0] }}</span>
                 </i18n>
                 <SearchInterface
+                  v-if="!$fetchState.pending"
                   class="px-0"
                   :per-page="recordsPerPage"
                   :route="route"
