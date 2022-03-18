@@ -7,7 +7,7 @@
       :limit="isRadio ? 1 : null"
     >
       <template
-        #default="{ tags, disabled, addTag, removeTag }"
+        #default="{ tags, addTag, removeTag }"
       >
         <label
           class="facet-label"
@@ -15,81 +15,91 @@
         >
           {{ facetName }}
         </label>
-        <ul
-          v-if="tags.length > 0"
-        >
-          <li
-            v-for="tag in tags"
-            :key="tag"
-            class="list-inline-item mw-100"
-          >
-            <b-form-tag
-              :disabled="disabled"
-              pill
-              class="remove-button"
-              variant="primary-light"
-              @remove="removeOption({ tag, removeTag })"
-            >
-              <span>
-                {{ $tFacetOption(name, tag, true) }}
-              </span>
-            </b-form-tag>
-          </li>
-        </ul>
 
-        <b-dropdown
-          block
-          no-flip
-          @shown="search && $refs['search-input'].focus()"
-        >
-          <template #button-content>
-            {{ $tc('sideFilters.select', isRadio ? 1 : 2, {filter: facetName.toLowerCase()}) }}
-          </template>
-          <template
-            v-if="search"
+        <b-container v-if="$fetchState.error">
+          <AlertMessage
+            :error="$fetchState.error.message"
+          />
+        </b-container>
+        <template v-else>
+          <ul
+            v-if="tags.length > 0"
           >
-            <b-dropdown-form
-              @submit.stop.prevent="() => {}"
+            <li
+              v-for="tag in tags"
+              :key="tag"
+              class="list-inline-item mw-100"
             >
-              <b-form-group
-                :label-for="`${facetNameNoSpaces}-search-input`"
+              <b-form-tag
                 :disabled="disabled"
+                pill
+                class="remove-button"
+                variant="primary-light"
+                @remove="removeOption({ tag, removeTag })"
               >
-                <b-form-input
-                  :id="`${facetNameNoSpaces}-search-input`"
-                  ref="search-input"
-                  v-model="searchFacet"
-                  type="text"
-                  autocomplete="off"
-                  :placeholder="$t('sideFilters.search')"
-                />
-                <span class="icon-search" />
-              </b-form-group>
-            </b-dropdown-form>
-          </template>
-          <b-dropdown-item-button
-            v-for="(option, index) in availableSortedOptions"
-            :key="index"
-            @click="selectOption({ option, addTag, removeTag })"
+                <span>
+                  {{ $tFacetOption(name, tag, true) }}
+                </span>
+              </b-form-tag>
+            </li>
+          </ul>
+
+          <b-dropdown
+            block
+            no-flip
+            :disabled="disabled"
+            @shown="search && $refs['search-input'].focus()"
           >
-            <span v-if="isRadio">
-              {{ $tFacetOption(name, option) }}
-            </span>
-            <template v-else>
-              <ColourSwatch
-                v-if="isColourPalette"
-                :hex-code="option.label"
-              />
-              <span>
-                {{ $tFacetOption(name, option.label) }}
-              </span>
-              <span>({{ option.count | localise }})</span>
+            <template #button-content>
+              {{ $tc('sideFilters.select', isRadio ? 1 : 2, {filter: facetName.toLowerCase()}) }}
             </template>
-          </b-dropdown-item-button>
-          <b-dropdown-text v-if="availableSortedOptions.length === 0">
-            {{ $t('sideFilters.noOptions') }}
-          </b-dropdown-text>
-        </b-dropdown>
+            <template
+              v-if="search"
+            >
+              <b-dropdown-form
+                @submit.stop.prevent="() => {}"
+              >
+                <b-form-group
+                  :label-for="`${facetNameNoSpaces}-search-input`"
+                  :disabled="disabled"
+                >
+                  <b-form-input
+                    :id="`${facetNameNoSpaces}-search-input`"
+                    ref="search-input"
+                    v-model="searchFacet"
+                    type="text"
+                    autocomplete="off"
+                    :placeholder="$t('sideFilters.search')"
+                  />
+                  <span class="icon-search" />
+                </b-form-group>
+              </b-dropdown-form>
+            </template>
+            <b-dropdown-item-button
+              v-for="(option, index) in availableSortedOptions"
+              :key="index"
+              :disabled="disabled"
+              @click="selectOption({ option, addTag, removeTag })"
+            >
+              <span v-if="isRadio">
+                {{ $tFacetOption(name, option) }}
+              </span>
+              <template v-else>
+                <ColourSwatch
+                  v-if="isColourPalette"
+                  :hex-code="option.label"
+                />
+                <span>
+                  {{ $tFacetOption(name, option.label) }}
+                </span>
+                <span>({{ option.count | localise }})</span>
+              </template>
+            </b-dropdown-item-button>
+            <b-dropdown-text v-if="availableSortedOptions.length === 0">
+              {{ $t('sideFilters.noOptions') }}
+            </b-dropdown-text>
+          </b-dropdown>
+        </template>
       </template>
     </b-form-tags>
   </div>
@@ -112,7 +122,8 @@
     components: {
       BFormTags,
       BFormTag,
-      ColourSwatch
+      ColourSwatch,
+      AlertMessage: () => import('../generic/AlertMessage')
     },
 
     props: {
@@ -201,8 +212,8 @@
         };
       },
 
-      filterSelectionDisabled() {
-        return this.$store.state.search.liveQueries.length > 0;
+      disabled() {
+        return this.$store.state.search.liveQueries.length > 0 || this.$fetchState.pending;
       },
 
       groupedOptions() {
