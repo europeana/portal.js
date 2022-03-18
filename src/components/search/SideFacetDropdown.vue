@@ -3,6 +3,7 @@
     <b-form-tags
       :id="facetNameNoSpaces"
       v-model="selectedOptions"
+      no-outer-focus
       class="side-filter-autosuggest"
       :limit="isRadio ? 1 : null"
     >
@@ -11,7 +12,7 @@
       >
         <label
           class="facet-label"
-          :class="{ 'facet-label-active' : selectedFilters[name].length > 0 }"
+          :class="{ 'facet-label-active' : activeLabel }"
         >
           {{ facetName }}
         </label>
@@ -45,10 +46,12 @@
           </ul>
 
           <b-dropdown
+            ref="dropdown"
             block
             no-flip
             :disabled="disabled"
             @shown="search && $refs['search-input'].focus()"
+            @hidden="resetDropDown"
           >
             <template #button-content>
               {{ $tc('sideFilters.select', isRadio ? 1 : 2, {filter: facetName.toLowerCase()}) }}
@@ -70,6 +73,8 @@
                     type="text"
                     autocomplete="off"
                     :placeholder="$t('sideFilters.search')"
+                    @input="activeSearchInput = true"
+                    @blur="activeSearchInput = false"
                   />
                   <span class="icon-search" />
                 </b-form-group>
@@ -186,7 +191,8 @@
         preSelected: null,
         fetched: !!this.staticFields,
         fields: this.staticFields || [],
-        selectedOptions: this.selected || []
+        selectedOptions: this.selected || [],
+        activeSearchInput: false
       };
     },
 
@@ -306,6 +312,10 @@
 
       criteria() {
         return this.searchFacet.trim().toLowerCase();
+      },
+
+      activeLabel() {
+        return this.selectedFilters[this.name].length > 0 || this.activeSearchInput;
       }
     },
 
@@ -443,6 +453,11 @@
         this.searchFacet = '';
 
         this.$emit('changed', this.name, this.isRadio ? selected : this.selected.concat(this.enquoteFacetFieldFilterValue(selected)));
+      },
+
+      resetDropDown() {
+        this.searchFacet = '';
+        this.$refs.dropdown.$refs.menu.scrollTop = 0;
       }
     }
   };
