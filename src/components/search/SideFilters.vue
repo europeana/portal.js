@@ -423,7 +423,8 @@
             '/publicdomain/mark/',
             '/publicdomain/zero/',
             '/rights/out-of-copyright-non-commercial/',
-            '/rights/rr-f/'
+            '/rights/rr-f/',
+            '/rights/unknown/'
           ];
         } else {
           return null;
