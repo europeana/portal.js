@@ -466,6 +466,9 @@ export default {
         "uncategorized": "Ei luokiteltu"
       }
     },
+    "RIGHTS": {
+      "name": "Oikeuksia koskeva lausunto"
+    },
     "TYPE": {
       "name": "Mediatyyppi",
       "options": {
@@ -494,7 +497,7 @@ export default {
       "showLess": "Näytä vähemmän {label}"
     },
     "collection": {
-      "name": "Kategoria",
+      "name": "Teema",
       "options": {
         "archaeology": "Arkeologia",
         "art": "Taide",

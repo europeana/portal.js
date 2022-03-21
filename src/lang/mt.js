@@ -466,6 +466,9 @@ export default {
         "uncategorized": "Mhux kategorizzati"
       }
     },
+    "RIGHTS": {
+      "name": "Dikjarazzjoni tad-drittijiet"
+    },
     "TYPE": {
       "name": "Tip ta' midja",
       "options": {
@@ -494,7 +497,7 @@ export default {
       "showLess": "Uri inqas {label}"
     },
     "collection": {
-      "name": "Kollezzjoni",
+      "name": "Tema",
       "options": {
         "archaeology": "Arkeoloġija",
         "art": "Arti",

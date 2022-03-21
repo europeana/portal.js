@@ -466,6 +466,9 @@ export default {
         "uncategorized": "Ikke kategoriseret"
       }
     },
+    "RIGHTS": {
+      "name": "Erklæring om rettigheder"
+    },
     "TYPE": {
       "name": "Medietype",
       "options": {
@@ -494,7 +497,7 @@ export default {
       "showLess": "Vis mindre {label}"
     },
     "collection": {
-      "name": "Kategori",
+      "name": "Tema",
       "options": {
         "archaeology": "Arkæologi",
         "art": "Kunst",

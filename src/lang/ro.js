@@ -466,6 +466,9 @@ export default {
         "uncategorized": "Fără categorie"
       }
     },
+    "RIGHTS": {
+      "name": "Declarație de drepturi"
+    },
     "TYPE": {
       "name": "Tip de media",
       "options": {
@@ -494,7 +497,7 @@ export default {
       "showLess": "Afișează mai puțin {label}"
     },
     "collection": {
-      "name": "Categorie",
+      "name": "Temă",
       "options": {
         "archaeology": "Arheologie",
         "art": "Artă",

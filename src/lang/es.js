@@ -466,6 +466,9 @@ export default {
         "uncategorized": "Sin categoría"
       }
     },
+    "RIGHTS": {
+      "name": "Declaración de derechos"
+    },
     "TYPE": {
       "name": "Tipo de medio",
       "options": {
@@ -494,7 +497,7 @@ export default {
       "showLess": "Mostrar menos {label}"
     },
     "collection": {
-      "name": "Categoría",
+      "name": "Tema",
       "options": {
         "archaeology": "Arqueología",
         "art": "Arte",

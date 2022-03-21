@@ -466,6 +466,9 @@ export default {
         "uncategorized": "Okategoriserad"
       }
     },
+    "RIGHTS": {
+      "name": "Rättighetsförklaring"
+    },
     "TYPE": {
       "name": "Typ av media",
       "options": {
@@ -494,7 +497,7 @@ export default {
       "showLess": "Visa mindre {label}"
     },
     "collection": {
-      "name": "Kategori",
+      "name": "Tema",
       "options": {
         "archaeology": "Arkeologi",
         "art": "Konst",

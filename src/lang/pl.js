@@ -466,6 +466,9 @@ export default {
         "uncategorized": "Bez kategorii"
       }
     },
+    "RIGHTS": {
+      "name": "Oświadczenie o prawach"
+    },
     "TYPE": {
       "name": "Rodzaj mediów",
       "options": {
@@ -494,7 +497,7 @@ export default {
       "showLess": "Pokaż mniej {label}"
     },
     "collection": {
-      "name": "Kategoria",
+      "name": "Temat",
       "options": {
         "archaeology": "Archeologia",
         "art": "Sztuka",

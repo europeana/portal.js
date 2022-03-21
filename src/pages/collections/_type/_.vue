@@ -125,26 +125,28 @@
 <script>
   import pick from 'lodash/pick';
   import ClientOnly from 'vue-client-only';
-  import EntityDetails from '../../../components/entity/EntityDetails';
-  import SearchInterface from '../../../components/search/SearchInterface';
+  import EntityDetails from '@/components/entity/EntityDetails';
+  import SearchInterface from '@/components/search/SearchInterface';
   import { mapState } from 'vuex';
 
-  import { BASE_URL as EUROPEANA_DATA_URL } from '../../../plugins/europeana/data';
-  import { getEntityTypeHumanReadable, getEntitySlug, getEntityUri, getEntityQuery } from '../../../plugins/europeana/entity';
-  import { langMapValueForLocale, uriRegex } from  '../../../plugins/europeana/utils';
+  import themes from '@/plugins/europeana/themes';
+  import {
+    getEntitySlug, getEntityUri, getEntityQuery, normalizeEntityId
+  } from '@/plugins/europeana/entity';
+  import { langMapValueForLocale, uriRegex } from  '@/plugins/europeana/utils';
 
   export default {
     name: 'CollectionPage',
 
     components: {
-      BrowseSections: () => import('../../../components/browse/BrowseSections'),
+      BrowseSections: () => import('@/components/browse/BrowseSections'),
       ClientOnly,
       EntityDetails,
       SearchInterface,
-      SideFilters: () => import('../../../components/search/SideFilters'),
+      SideFilters: () => import('@/components/search/SideFilters'),
       EntityHeader: () => import('@/components/entity/EntityHeader'),
       EntityUpdateModal: () => import('@/components/entity/EntityUpdateModal'),
-      RelatedCollections: () => import('../../../components/generic/RelatedCollections')
+      RelatedCollections: () => import('@/components/generic/RelatedCollections')
     },
 
     async beforeRouteLeave(to, from, next) {
@@ -160,7 +162,8 @@
 
     data() {
       return {
-        showRelated: false
+        showRelated: false,
+        themes: themes.map(theme => theme.id)
       };
     },
 
@@ -180,12 +183,9 @@
       }
       store.commit('entity/setId', entityUri);
 
-      // Get all curated entity names & genres and store, unless already stored
-      const fetchCuratedEntities = !store.state.entity.curatedEntities;
       // Get the full page for this entity if not known needed, or known to be needed, and store for reuse
       const fetchEntityPage = !store.state.entity.curatedEntities ||
         store.state.entity.curatedEntities.some(entity => entity.identifier === entityUri);
-      const fetchFromContentful = fetchCuratedEntities || fetchEntityPage;
       // Prevent re-requesting entity content from APIs if already loaded,
       // e.g. when paginating through entity search results
       const fetchEntity = !store.state.entity.entity;
@@ -194,17 +194,13 @@
       const contentfulVariables = {
         identifier: entityUri,
         locale: app.i18n.isoLocale(),
-        preview: query.mode === 'preview',
-        // TODO: does `curatedEntities` variable do anything in the GraphQL query?
-        curatedEntities: fetchCuratedEntities,
-        // TODO: does `entityPage` variable do anything in the GraphQL query?
-        entityPage: fetchEntityPage
+        preview: query.mode === 'preview'
       };
 
       return Promise.all([
         fetchEntity ? app.$apis.entity.get(params.type, params.pathMatch) : () => null,
         fetchEntityManagement ? app.$apis.entityManagement.get(params.type, params.pathMatch) : () => null,
-        fetchFromContentful ? app.$contentful.query('collectionPage', contentfulVariables) : () => null
+        fetchEntityPage ? app.$contentful.query('collectionPage', contentfulVariables) : () => null
       ])
         .then(responses => {
           if (fetchEntity) {
@@ -225,13 +221,11 @@
             store.commit('entity/setEntityDescription', responses[1].note);
             store.commit('entity/setProxy', responses[1].proxies.find(proxy => proxy.id.includes('#proxy_europeana')));
           }
-          if (fetchFromContentful) {
+          if (fetchEntityPage) {
             const pageResponseData = responses[2].data.data;
-            if (fetchCuratedEntities) {
-              store.commit('entity/setCuratedEntities', pageResponseData.curatedEntities.items);
-            }
             if (fetchEntityPage) {
               store.commit('entity/setPage', pageResponseData.entityPage.items[0]);
+              store.commit('entity/setCuratedEntities', pageResponseData.curatedEntities.items);
             }
           }
           const entity = store.state.entity.entity;
@@ -302,8 +296,17 @@
 
         return overrideParams;
       },
+      entityId() {
+        return normalizeEntityId(this.$route.params.pathMatch);
+      },
       contextLabel() {
-        return this.$t(`cardLabels.${this.$route.params.type}`);
+        let contextType = this.collectionType;
+
+        if (this.collectionType === 'topic' && this.themes.includes(this.entityId)) {
+          contextType = 'theme';
+        }
+
+        return this.$t(`cardLabels.${contextType}`);
       },
       collectionType() {
         return this.$route.params.type;
@@ -446,25 +449,6 @@
           values: [title],
           code: null
         };
-      },
-      // TODO: remove this method, as it seems unused on the page
-      relatedLinkGen(item) {
-        let id = '';
-        let name = '';
-        if (typeof item.id === 'undefined') {
-          id = item.identifier;
-          name = item.name;
-        } else {
-          id = item.id;
-          name = item.prefLabel.en;
-        }
-        const uriMatch = id.match(`^${EUROPEANA_DATA_URL}/([^/]+)(/base)?/(.+)$`);
-        return this.$path({
-          name: 'collections-type-all', params: {
-            type: getEntityTypeHumanReadable(uriMatch[1]),
-            pathMatch: getEntitySlug(id, name)
-          }
-        });
       },
       showRelatedCollections() {
         this.showRelated = true;
