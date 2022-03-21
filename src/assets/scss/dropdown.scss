@@ -81,18 +81,23 @@
       padding-right: 0.75rem;
     }
 
-    .form-group > div {
-      display: flex;
-      align-items: center;
-      border-bottom: 1px solid $blue;
+    .form-group {
+      margin-bottom: 0.3rem;
 
-      input[type='text'] {
-        background: none;
-        border-radius: 0;
-        font-size: $font-size-small;
-        padding-right: 0.5rem;
-        padding-left: 0;
-        color: $mediumgrey;
+      > div {
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid $blue;
+
+        input[type='text'] {
+          background: none;
+          border-radius: 0;
+          font-size: $font-size-small;
+          padding-right: 0.5rem;
+          padding-left: 0;
+          color: $mediumgrey;
+          height: 2rem;
+        }
       }
     }
 
