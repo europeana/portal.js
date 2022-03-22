@@ -197,8 +197,6 @@
     computed: {
       ...mapState({
         userParams: state => state.search.userParams,
-        entity: state => state.entity,
-        error: state => state.search.error,
         hits: state => state.search.hits,
         lastAvailablePage: state => state.search.lastAvailablePage,
         results: state => state.search.results,
