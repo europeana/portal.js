@@ -63,6 +63,8 @@ Feature: Search faceting
     And the `COUNTRY side facet dropdown button` has an enabled button
     When I click the `COUNTRY side facet dropdown button`
     And I click the `Belgium COUNTRY field`
+    And the `COUNTRY side facet dropdown button` has an enabled button
+    And I click the `COUNTRY side facet dropdown button`
     And I click the `Germany COUNTRY field`
     Then I should be on `/en/search?page=1&qf=COUNTRY%3A%22Belgium%22&qf=COUNTRY%3A%22Germany%22`
     And I am on page number 1
@@ -117,6 +119,8 @@ Feature: Search faceting
     And the `COUNTRY side facet dropdown button` has an enabled button
     When I click the `COUNTRY side facet dropdown button`
     And I click the `Belgium COUNTRY field`
+    And the `COUNTRY side facet dropdown button` has an enabled button
+    And I click the `COUNTRY side facet dropdown button`
     And I click the `Germany COUNTRY field`
     Then I should be on `/en/search?page=1&qf=COUNTRY%3A%22Belgium%22&qf=COUNTRY%3A%22Germany%22`
     And I click an `item preview`
@@ -143,13 +147,12 @@ Feature: Search faceting
   Scenario: Paginating with facets
     Given I am on the `search page`
     And the `TYPE side facet dropdown button` has an enabled button
-    When I click the `TYPE side facet dropdown button`
+    Then I click the `TYPE side facet dropdown button`
     And I click the `IMAGE TYPE field`
-    And the `IMAGE TYPE checkbox` is "enabled"
     And I go to page number 2
     And I am on page number 2
-    And I hover over the `TYPE side facet dropdown button`
-    And I click the `TYPE facet dropdown`
+    And the `TYPE side facet dropdown button` has an enabled button
+    Then I click the `TYPE side facet dropdown button`
     And I click the `VIDEO TYPE field`
     And I don't have a `loading spinner`
     Then I am on page number 1

@@ -206,6 +206,19 @@ describe('components/search/SideFacetDropdown', () => {
 
           expect(wrapper.vm.availableSortedOptions.length).toBe(countryFields.length);
         });
+
+        it('returns radio options', async() => {
+          const wrapper = factory({
+            propsData: {
+              name: 'collection',
+              staticFields: ['ww1', 'archaeology'],
+              type: 'radio',
+              searchFacet: 'ww'
+            }
+          });
+
+          expect(wrapper.vm.availableSortedOptions.length).toBe(2);
+        });
       });
       describe('when options selected', () => {
         it('returns the options that are not yet selected', async() => {
@@ -290,6 +303,28 @@ describe('components/search/SideFacetDropdown', () => {
       // expect(wrapper.vm.activeLabel).toBe(true);
       // });
       // });
+    });
+
+    describe('isColourPalette', () => {
+      it('does not show a colour palette', () => {
+        const wrapper = factory();
+        expect(wrapper.vm.isColourPalette).toBe(false);
+      });
+
+      it('does show a colour palette', async() => {
+        const wrapper = factory();
+        await wrapper.setProps({
+          name: 'COLOURPALETTE'
+        });
+        expect(wrapper.vm.isColourPalette).toBe(true);
+      });
+    });
+
+    describe('facetName', () => {
+      it('returns a facet name', () => {
+        const wrapper = factory();
+        expect(wrapper.vm.facetName).toBe('COUNTRY');
+      });
     });
   });
 
