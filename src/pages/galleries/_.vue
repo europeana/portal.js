@@ -73,8 +73,8 @@
 
           return {
             contentWarning: gallery.contentWarning,
-            images: gallery.hasPartCollection.items.filter(image => image !== null),
             identifier: variables.identifier,
+            images: gallery.hasPartCollection.items.filter(image => image !== null),
             rawDescription: gallery.description,
             title: gallery.name
           };
