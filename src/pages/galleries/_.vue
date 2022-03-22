@@ -1,5 +1,11 @@
 <template>
   <b-container>
+    <ContentWarningModal
+      v-if="contentWarning"
+      :title="contentWarning.name"
+      :description="contentWarning.description"
+      :page-slug="`galleries/${identifier}`"
+    />
     <ContentHeader
       :title="title"
       :description="htmlDescription"
@@ -42,7 +48,8 @@
     name: 'GalleryPage',
     components: {
       ContentHeader,
-      ContentCard: () => import('../../components/generic/ContentCard')
+      ContentCard: () => import('../../components/generic/ContentCard'),
+      ContentWarningModal: () => import('@/components/generic/ContentWarningModal')
     },
     mixins: [
       stripMarkdown
@@ -65,8 +72,10 @@
           const gallery = data.imageGalleryCollection.items[0];
 
           return {
-            rawDescription: gallery.description,
+            contentWarning: gallery.contentWarning,
             images: gallery.hasPartCollection.items.filter(image => image !== null),
+            identifier: variables.identifier,
+            rawDescription: gallery.description,
             title: gallery.name
           };
         })
