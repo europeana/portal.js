@@ -66,6 +66,9 @@ defineStep('there are/is no (a/an/the)( ){target}', (qa) =>
 
 defineStep('the {string} {word} {word} is checked', i.seeACheckedInput);
 
+defineStep('the {target} has an enabled button', (qa) =>
+  i.haveEnabledButtonInTarget(qa));
+
 defineStep('I can\'t/don\'t have (a/an/the)( ){target} in/on the {target}', (qa, parentQa) =>
   i.doNotHaveATarget([qa, parentQa]));
 
