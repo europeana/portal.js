@@ -483,8 +483,9 @@ export default {
         "*/licenses/by/*": "CC BY",
         "*/publicdomain/mark/*": "Public Domain Mark",
         "*/publicdomain/zero/*": "CC0",
-        "*/rights/out-of-copyright-non-commercial/*": "Out of Copyright - Non-Commercial",
-        "*/rights/rr-f/*": "Rights Reserved - Free access"
+        "*/rights/out-of-copyright-non-commercial/*": "Out of copyright - non commercial re-use",
+        "*/rights/rr-f/*": "Rights Reserved - Free access",
+        "*/rights/unknown/*": "Unknown copyright status"
       }
     },
     "TYPE": {
