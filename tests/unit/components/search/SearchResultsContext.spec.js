@@ -201,6 +201,6 @@ describe('SearchResultsContext', () => {
 
         expect(wrapper.vm.localisedEntityLabel).toEqual(fixtures.organisationEntity.prefLabel);
       });
-    })
-  })
+    });
+  });
 });
