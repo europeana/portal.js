@@ -28,13 +28,13 @@
     name: 'RemovalChip',
 
     props: {
-      linkTo: {
-        type: String,
-        default: ''
-      },
       title: {
         type: [String, Object],
         required: true
+      },
+      linkTo: {
+        type: [String, Object],
+        default: null
       },
       img: {
         type: String,

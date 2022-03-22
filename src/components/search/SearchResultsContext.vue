@@ -16,11 +16,13 @@
           :title="localisedEntityLabel"
           :link-to="entityRemovalLink"
           :img="entityImage"
+          data-qa="entity removal badge"
           class="mt-1 mx-1"
         />
         <RemovalChip
           :title="query"
           :link-to="queryRemovalLink"
+          data-qa="query removal badge"
           class="mt-1 mx-1"
         />
       </i18n>
@@ -32,6 +34,7 @@
           :title="localisedEntityLabel"
           :link-to="entityRemovalLink"
           :img="entityImage"
+          data-qa="entity removal badge"
           class="mt-1 mx-1"
         />
       </span>
@@ -47,6 +50,7 @@
         <RemovalChip
           :title="query"
           :link-to="queryRemovalLink"
+          data-qa="query removal badge"
           class="mt-1 mx-1"
         />
       </i18n>
@@ -74,7 +78,7 @@
       /**
        * Editorial title
        *
-       * Title/label override. Used for editorial collection titles from contentful.
+       * Title/label override. Used for editorial collection titles from Contentful.
        */
       labelOverride: {
         type: String,
