@@ -21,125 +21,127 @@ const factory = (options = {}) => shallowMount(SearchResultsContext, {
 });
 
 describe('SearchResultsContext', () => {
-  describe('when searching within an entity collection', () => {
-    const entity = {
-      entity: {
-        id: 'http://data.europeana.eu/organization/123',
-        prefLabel: { en: 'Organisation' }
-      }
-    };
-
-    describe('and there are search terms', () => {
-      const storeState = {
-        entity,
-        search: {
-          userParams: {
-            query: 'painting'
-          }
+  describe('template', () => {
+    describe('when searching within an entity collection', () => {
+      const entity = {
+        entity: {
+          id: 'http://data.europeana.eu/organization/123',
+          prefLabel: { en: 'Organisation' }
         }
       };
 
-      it('displays the entity type label', () => {
-        const wrapper = factory({ storeState });
+      describe('and there are search terms', () => {
+        const storeState = {
+          entity,
+          search: {
+            userParams: {
+              query: 'painting'
+            }
+          }
+        };
 
-        expect(wrapper.text()).toContain('cardLabels.organisation');
+        it('displays the entity type label', () => {
+          const wrapper = factory({ storeState });
+
+          expect(wrapper.text()).toContain('cardLabels.organisation');
+        });
+
+        it('displays an entity removal badge', () => {
+          const wrapper = factory({ storeState });
+
+          const badge = wrapper.find('[data-qa="entity removal badge"]');
+
+          expect(badge.exists()).toBe(true);
+        });
+
+        it('displays a query removal badge', () => {
+          const wrapper = factory({ storeState });
+
+          const badge = wrapper.find('[data-qa="query removal badge"]');
+
+          expect(badge.exists()).toBe(true);
+        });
       });
 
-      it('displays an entity removal badge', () => {
-        const wrapper = factory({ storeState });
+      describe('but there are no search terms', () => {
+        const storeState = {
+          entity,
+          search: {
+            userParams: {
+              query: ''
+            }
+          }
+        };
 
-        const badge = wrapper.find('[data-qa="entity removal badge"]');
+        it('displays the entity type label', () => {
+          const wrapper = factory({ storeState });
 
-        expect(badge.exists()).toBe(true);
-      });
+          expect(wrapper.text()).toContain('cardLabels.organisation');
+        });
 
-      it('displays a query removal badge', () => {
-        const wrapper = factory({ storeState });
+        it('displays an entity removal badge', () => {
+          const wrapper = factory({ storeState });
 
-        const badge = wrapper.find('[data-qa="query removal badge"]');
+          const badge = wrapper.find('[data-qa="entity removal badge"]');
 
-        expect(badge.exists()).toBe(true);
+          expect(badge.exists()).toBe(true);
+        });
+
+        it('does not display a query removal badge', () => {
+          const wrapper = factory({ storeState });
+
+          const badge = wrapper.find('[data-qa="query removal badge"]');
+
+          expect(badge.exists()).toBe(false);
+        });
       });
     });
 
-    describe('but there are no search terms', () => {
-      const storeState = {
-        entity,
-        search: {
-          userParams: {
-            query: ''
+    describe('when searching without an entity collection', () => {
+      const entity = {};
+
+      describe('and there are search terms', () => {
+        const storeState = {
+          entity,
+          search: {
+            userParams: {
+              query: 'painting'
+            }
           }
-        }
-      };
+        };
 
-      it('displays the entity type label', () => {
-        const wrapper = factory({ storeState });
+        it('displays a query removal badge', () => {
+          const wrapper = factory({ storeState });
 
-        expect(wrapper.text()).toContain('cardLabels.organisation');
+          const badge = wrapper.find('[data-qa="query removal badge"]');
+
+          expect(badge.exists()).toBe(true);
+        });
       });
 
-      it('displays an entity removal badge', () => {
-        const wrapper = factory({ storeState });
-
-        const badge = wrapper.find('[data-qa="entity removal badge"]');
-
-        expect(badge.exists()).toBe(true);
-      });
-
-      it('does not display a query removal badge', () => {
-        const wrapper = factory({ storeState });
-
-        const badge = wrapper.find('[data-qa="query removal badge"]');
-
-        expect(badge.exists()).toBe(false);
-      });
-    });
-  });
-
-  describe('when searching without an entity collection', () => {
-    const entity = {};
-
-    describe('and there are search terms', () => {
-      const storeState = {
-        entity,
-        search: {
-          userParams: {
-            query: 'painting'
+      describe('but there are no search terms', () => {
+        const storeState = {
+          entity,
+          search: {
+            userParams: {
+              query: ''
+            }
           }
-        }
-      };
+        };
 
-      it('displays a query removal badge', () => {
-        const wrapper = factory({ storeState });
+        it('displays the generic results label', () => {
+          const wrapper = factory({ storeState });
 
-        const badge = wrapper.find('[data-qa="query removal badge"]');
+          expect(wrapper.text()).toContain('results');
+        });
 
-        expect(badge.exists()).toBe(true);
-      });
-    });
+        it('does not display a query removal badge', () => {
+          const wrapper = factory({ storeState });
 
-    describe('but there are no search terms', () => {
-      const storeState = {
-        entity,
-        search: {
-          userParams: {
-            query: ''
-          }
-        }
-      };
+          const badge = wrapper.find('[data-qa="query removal badge"]');
 
-      it('displays the generic results label', () => {
-        const wrapper = factory({ storeState });
-
-        expect(wrapper.text()).toContain('results');
-      });
-
-      it('does not display a query removal badge', () => {
-        const wrapper = factory({ storeState });
-
-        const badge = wrapper.find('[data-qa="query removal badge"]');
-
-        expect(badge.exists()).toBe(false);
+          expect(badge.exists()).toBe(false);
+        });
       });
     });
   });
