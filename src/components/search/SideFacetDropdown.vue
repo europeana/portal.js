@@ -33,6 +33,7 @@
             >
               <b-form-tag
                 :disabled="disabled"
+                data-qa="filter badge"
                 pill
                 class="remove-button"
                 variant="primary-light"
@@ -50,7 +51,7 @@
             block
             no-flip
             :disabled="disabled"
-            data-qa="side facet dropdown button"
+            :data-qa="`${name} side facet dropdown button`"
             @shown="search && $refs['search-input'].focus()"
             @hidden="resetDropDown"
           >
@@ -85,6 +86,7 @@
             <b-dropdown-item-button
               v-for="(option, index) in availableSortedOptions"
               :key="index"
+              :data-qa="`${isRadio ? option : option.label} ${name} field`"
               :disabled="disabled"
               @click="selectOption({ option, addTag, removeTag })"
             >
