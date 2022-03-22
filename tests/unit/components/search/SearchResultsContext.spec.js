@@ -14,20 +14,32 @@ const factory = (options = {}) => shallowMount(SearchResultsContext, {
     $path: (args) => args,
     $route: () => ({}),
     $store: {
-      state: options.storeState
+      state: {
+        entity: {},
+        search: { userParams: {} },
+        ...options.storeState
+      }
     }
   },
   stubs: ['i18n']
 });
 
+const fixtures = {
+  organisationEntity: {
+    id: 'http://data.europeana.eu/organization/123',
+    prefLabel: { en: 'Organisation' }
+  },
+  thematicCollectionTopicEntity: {
+    id: 'http://data.europeana.eu/concept/base/190',
+    prefLabel: { en: 'Art' }
+  }
+};
+
 describe('SearchResultsContext', () => {
   describe('template', () => {
     describe('when searching within an entity collection', () => {
       const entity = {
-        entity: {
-          id: 'http://data.europeana.eu/organization/123',
-          prefLabel: { en: 'Organisation' }
-        }
+        entity: fixtures.organisationEntity
       };
 
       describe('and there are search terms', () => {
@@ -145,4 +157,52 @@ describe('SearchResultsContext', () => {
       });
     });
   });
+
+  describe('computed', () => {
+    describe('contextType', () => {
+      it('is "theme" if entity is thematic collection topic', () => {
+        const storeState = {
+          entity: { entity: fixtures.thematicCollectionTopicEntity }
+        };
+
+        const wrapper = factory({ storeState });
+
+        expect(wrapper.vm.contextType).toBe('theme');
+      });
+
+      it('is "organisation" if entity is organisation', () => {
+        const storeState = {
+          entity: { entity: fixtures.organisationEntity }
+        };
+
+        const wrapper = factory({ storeState });
+
+        expect(wrapper.vm.contextType).toBe('organisation');
+      });
+    });
+
+    describe('localisedEntityLabel', () => {
+      it('priorities labelOverride prop', () => {
+        const storeState = {
+          entity: { entity: fixtures.organisationEntity }
+        };
+        const propsData = { labelOverride: 'override' };
+
+        const wrapper = factory({ propsData, storeState });
+
+        expect(wrapper.vm.localisedEntityLabel).toEqual({ values: ['override'], code: null });
+      });
+
+      it('falls back to entity prefLabel', () => {
+        const storeState = {
+          entity: { entity: fixtures.organisationEntity }
+        };
+        const propsData = {};
+
+        const wrapper = factory({ propsData, storeState });
+
+        expect(wrapper.vm.localisedEntityLabel).toEqual(fixtures.organisationEntity.prefLabel);
+      });
+    })
+  })
 });
