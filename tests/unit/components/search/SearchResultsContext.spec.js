@@ -1,6 +1,4 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-// import BootstrapVue from 'bootstrap-vue';
-// import sinon from 'sinon';
 
 import SearchResultsContext from '@/components/search/SearchResultsContext.vue';
 
