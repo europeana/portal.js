@@ -3,68 +3,66 @@
     data-qa="entity page"
     class="entity-page"
   >
-    <client-only>
-      <b-container
-        class="page-container side-filters-enabled"
-      >
-        <b-row class="flex-nowrap">
-          <b-col>
-            <b-container class="px-0 pb-3">
-              <i18n
-                v-if="$route.query.query"
-                path="searchResultsForIn"
-                tag="h2"
-                class="px-0 container"
-              >
-                <span>{{ $route.query.query }}</span>
-                <span>{{ title.values[0] }}</span>
-              </i18n>
-              <SearchInterface
-                class="px-0"
-                :per-page="recordsPerPage"
-                :route="route"
-                :show-content-tier-toggle="false"
-                :show-pins="userIsEditor && userIsSetsEditor"
-                :show-related="showRelated"
-              >
-                <EntityHeader
-                  :description="description"
-                  :title="title"
-                  :logo="logo"
-                  :image="thumbnail"
-                  :editable="isEditable && userIsEditor"
-                  :external-link="homepage"
-                  :proxy="entity ? entity.proxy : null"
-                  :more-info="moreInfo"
-                />
-                <template
-                  #related
-                >
-                  <client-only>
-                    <RelatedCollections
-                      :title="$t('youMightAlsoLike')"
-                      :related-collections="relatedCollections"
-                      data-qa="related entities"
-                      @show="showRelatedCollections"
-                      @hide="hideRelatedCollections"
-                    />
-                  </client-only>
-                </template>
-              </SearchInterface>
-            </b-container>
-            <b-container class="px-0">
-              <BrowseSections
-                v-if="page"
-                :sections="page.hasPartCollection.items"
+    <b-container
+      class="page-container side-filters-enabled"
+    >
+      <b-row class="flex-nowrap">
+        <b-col>
+          <b-container class="px-0 pb-3">
+            <i18n
+              v-if="$route.query.query"
+              path="searchResultsForIn"
+              tag="h2"
+              class="px-0 container"
+            >
+              <span>{{ $route.query.query }}</span>
+              <span>{{ title.values[0] }}</span>
+            </i18n>
+            <SearchInterface
+              class="px-0"
+              :per-page="recordsPerPage"
+              :route="route"
+              :show-content-tier-toggle="false"
+              :show-pins="userIsEditor && userIsSetsEditor"
+              :show-related="showRelated"
+            >
+              <EntityHeader
+                :description="description"
+                :title="title"
+                :logo="logo"
+                :image="thumbnail"
+                :editable="isEditable && userIsEditor"
+                :external-link="homepage"
+                :proxy="entity ? entity.proxy : null"
+                :more-info="moreInfo"
               />
-            </b-container>
-          </b-col>
-          <SideFilters
-            :route="route"
-          />
-        </b-row>
-      </b-container>
-    </client-only>
+              <template
+                #related
+              >
+                <client-only>
+                  <RelatedCollections
+                    :title="$t('youMightAlsoLike')"
+                    :related-collections="relatedCollections"
+                    data-qa="related entities"
+                    @show="showRelatedCollections"
+                    @hide="hideRelatedCollections"
+                  />
+                </client-only>
+              </template>
+            </SearchInterface>
+          </b-container>
+          <b-container class="px-0">
+            <BrowseSections
+              v-if="page"
+              :sections="page.hasPartCollection.items"
+            />
+          </b-container>
+        </b-col>
+        <SideFilters
+          :route="route"
+        />
+      </b-row>
+    </b-container>
   </div>
 </template>
 
