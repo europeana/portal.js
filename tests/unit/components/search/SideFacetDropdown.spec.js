@@ -51,7 +51,7 @@ const factory = (options = {}) => shallowMountNuxt(SideFacetDropdown, {
       }
     }
   },
-  // stubs: ['b-button', 'b-form-checkbox', 'b-dropdown', 'b-dropdown-form', 'b-badge'],
+  stubs: ['b-form-tags'],
   propsData: {
     type: 'checkbox',
     name: 'COUNTRY',
@@ -61,7 +61,6 @@ const factory = (options = {}) => shallowMountNuxt(SideFacetDropdown, {
 
 describe('components/search/SideFacetDropdown', () => {
   beforeEach(sinon.resetHistory);
-
   describe('fetch', () => {
     describe('if fields are not static', () => {
       it('fetches facet from Record API', async() => {
@@ -513,6 +512,24 @@ describe('components/search/SideFacetDropdown', () => {
 
           expect(wrapper.vm.$fetch.called).toBe(false);
         });
+      });
+    });
+
+    describe('removeOption', () => {
+      it('removes an option', async() => {
+        const wrapper = factory();
+        wrapper.vm.removeOption({ 'tag': 'Sweden', removeTag() {} });
+
+        expect(wrapper.emitted().changed).toBeTruthy();
+      });
+    });
+
+    describe('selectOption', () => {
+      it('selects an option', async() => {
+        const wrapper = factory();
+        wrapper.vm.selectOption({ 'option': { 'count': '1000', 'label': 'Sweden' }, addTag() {}, removeTag() {} });
+
+        expect(wrapper.emitted().changed).toBeTruthy();
       });
     });
   });

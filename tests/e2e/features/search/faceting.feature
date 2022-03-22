@@ -89,17 +89,10 @@ Feature: Search faceting
     Given I am on `/en/search?page=1&reusability=open&qf=COUNTRY%3A%22Belgium%22&qf=TYPE%3A%22IMAGE%22`
     Then I should have 3 `filter badge`s
 
-  Scenario: Unselecting facets
-    Given I am on `/en/search?page=1&reusability=open&qf=TYPE%3A%22IMAGE%22&qf=COUNTRY%3A%22Belgium%22`
-    And the `COUNTRY side facet dropdown button` has an enabled button
-    When I click the `COUNTRY side facet dropdown button`
-    And I click the `Belgium COUNTRY field`
-    And the `REUSABILITY side facet dropdown button` has an enabled button
-    And I click the `REUSABILITY side facet dropdown button`
-    And I click the `open REUSABILITY field`
-    And the `TYPE side facet dropdown button` has an enabled button
-    And I click the `TYPE side facet dropdown button`
-    And I click the `IMAGE TYPE field`
+  Scenario: Unselecting a facet
+    Given I am on `/en/search?page=1&qf=COUNTRY%3A%22Belgium%22`
+    And I see a `filter badge` with the text "Belgium"
+    And I click the `filter badge`
     Then I should be on `/en/search?page=1`
     And I am on page number 1
 
