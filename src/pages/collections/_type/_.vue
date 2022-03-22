@@ -2,58 +2,7 @@
   <div
     data-qa="entity page"
     class="entity-page"
-    :class="{'top-header': !headerCardsEnabled}"
   >
-    <b-container
-      v-if="!headerCardsEnabled"
-      fluid
-    >
-      <b-row class="flex-md-row pt-5 bg-white mb-3">
-        <b-col
-          cols="12"
-        >
-          <b-container class="mb-5">
-            <EntityDetails
-              :description="description"
-              :is-editorial-description="hasEditorialDescription"
-              :title="title"
-              :logo="logo"
-              :external-link="homepage"
-              :context-label="contextLabel"
-            />
-            <client-only>
-              <section
-                v-if="isEditable && userIsEditor"
-              >
-                <div class="d-inline-flex">
-                  <b-button
-                    variant="outline-primary"
-                    @click="$bvModal.show('entityUpdateModal')"
-                  >
-                    {{ $t('actions.edit') }}
-                  </b-button>
-                  <EntityUpdateModal
-                    :body="entity.proxy"
-                    :description="descriptionText"
-                  />
-                </div>
-              </section>
-            </client-only>
-            <client-only>
-              <section
-                v-if="relatedCollectionsFound"
-                data-qa="related entities"
-              >
-                <RelatedCollections
-                  :title="$t('collectionsYouMightLike')"
-                  :related-collections="relatedCollections"
-                />
-              </section>
-            </client-only>
-          </b-container>
-        </b-col>
-      </b-row>
-    </b-container>
     <client-only>
       <b-container
         class="page-container side-filters-enabled"
@@ -76,11 +25,9 @@
                 :route="route"
                 :show-content-tier-toggle="false"
                 :show-pins="userIsEditor && userIsSetsEditor"
-                :context-label="headerCardsEnabled ? contextLabel : null"
                 :show-related="showRelated"
               >
                 <EntityHeader
-                  v-if="headerCardsEnabled"
                   :description="description"
                   :title="title"
                   :logo="logo"
@@ -91,7 +38,6 @@
                   :more-info="moreInfo"
                 />
                 <template
-                  v-if="headerCardsEnabled"
                   #related
                 >
                   <client-only>
@@ -125,7 +71,6 @@
 <script>
   import pick from 'lodash/pick';
   import ClientOnly from 'vue-client-only';
-  import EntityDetails from '@/components/entity/EntityDetails';
   import SearchInterface from '@/components/search/SearchInterface';
   import { mapState } from 'vuex';
 
@@ -141,11 +86,9 @@
     components: {
       BrowseSections: () => import('@/components/browse/BrowseSections'),
       ClientOnly,
-      EntityDetails,
       SearchInterface,
       SideFilters: () => import('@/components/search/SideFilters'),
       EntityHeader: () => import('@/components/entity/EntityHeader'),
-      EntityUpdateModal: () => import('@/components/entity/EntityUpdateModal'),
       RelatedCollections: () => import('@/components/generic/RelatedCollections')
     },
 
@@ -392,9 +335,6 @@
       },
       isEditable() {
         return this.entity && this.editable;
-      },
-      headerCardsEnabled() {
-        return this.$features.entityHeaderCards;
       },
       thumbnail() {
         return this.entity?.isShownBy?.thumbnail || null;

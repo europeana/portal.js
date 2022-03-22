@@ -19,30 +19,7 @@
     <b-row
       v-if="hasAnyResults"
       class="mb-3 "
-      :class="{ 'd-flex align-items-center': contextLabel }"
     >
-      <b-col>
-        <div
-          v-if="contextLabel || contextLabel === ''"
-          class="context-label"
-          data-qa="context label"
-        >
-          {{ contextLabel }}
-        </div>
-        <template v-else>
-          <p
-            data-qa="total results"
-          >
-            {{ $t('results') }}: {{ totalResults | localise }}
-          </p>
-          <div
-            class="visually-hidden"
-            role="status"
-          >
-            {{ $t('searchHasLoaded', [totalResults | localise]) }}
-          </div>
-        </template>
-      </b-col>
       <b-col>
         <ViewToggles
           v-model="view"
@@ -165,10 +142,6 @@
       showRelated: {
         type: Boolean,
         default: true
-      },
-      contextLabel: {
-        type: String,
-        default: null
       }
     },
     data() {
@@ -290,9 +263,5 @@
     color: $black;
     font-size: $font-size-small;
     text-transform: uppercase;
-  }
-
-  .context-label {
-    font-size: $font-size-small;
   }
 </style>

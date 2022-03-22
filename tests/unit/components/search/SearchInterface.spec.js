@@ -91,32 +91,6 @@ describe('components/search/SearchInterface', () => {
     });
   });
 
-  describe('context label', () => {
-    it('shows when results and label is present', () => {
-      const wrapper = factory({ propsData: { contextLabel: 'topic' }, storeState: { totalResults: 100 } });
-
-      const label = wrapper.find('[data-qa="context label"]');
-
-      expect(label.text()).toContain('topic');
-    });
-
-    it('does not show when no label is present', () => {
-      const wrapper = factory({ propsData: { contextLabel: null }, storeState: { totalResults: 100 } });
-
-      const label = wrapper.find('[data-qa="context label"]');
-
-      expect(label.exists()).toBe(false);
-    });
-
-    it('does not show when no results are present', () => {
-      const wrapper = factory({ propsData: { contextLabel: 'topic' }, storeState: { totalResults: null } });
-
-      const label = wrapper.find('[data-qa="context label"]');
-
-      expect(label.exists()).toBe(false);
-    });
-  });
-
   describe('computed properties', () => {
     describe('errorMessage', () => {
       describe('when there was a pagination error', () => {

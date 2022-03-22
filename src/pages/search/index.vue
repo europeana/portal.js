@@ -23,20 +23,13 @@
               </b-col>
             </b-row>
           </b-container>
-          <RelatedSection
-            v-if="searchQuery && !headerCardsEnabled"
-            :query="searchQuery"
-            badge-variant="light"
-            class="mb-4"
-          />
           <SearchInterface
             id="search-interface"
             :per-row="4"
-            :context-label="headerCardsEnabled ? '' : null"
             :show-related="showRelated"
           >
             <template
-              v-if="searchQuery && headerCardsEnabled"
+              v-if="searchQuery"
               #related
             >
               <client-only>
@@ -95,9 +88,6 @@
     computed: {
       searchQuery() {
         return this.$route.query.query;
-      },
-      headerCardsEnabled() {
-        return this.$features.entityHeaderCards;
       }
     },
 
