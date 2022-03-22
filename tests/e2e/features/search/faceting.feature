@@ -92,7 +92,8 @@ Feature: Search faceting
   Scenario: Unselecting a facet
     Given I am on `/en/search?page=1&qf=COUNTRY%3A%22Belgium%22`
     And I see a `filter badge` with the text "Belgium"
-    And I click the `filter badge`
+    And the `filter badge` has an enabled button
+    And I click the `filter badge` button
     Then I should be on `/en/search?page=1`
     And I am on page number 1
 
