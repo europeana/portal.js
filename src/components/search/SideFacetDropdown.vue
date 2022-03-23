@@ -102,13 +102,13 @@
               <span>({{ option.count | localise }})</span>
             </template>
           </b-dropdown-item-button>
-          <b-dropdown-text>
-            <LoadingSpinner
-              v-if="$fetchState.pending"
-            />
-            <template v-else-if="fetched && availableSortedOptions.length === 0">
-              {{ $t('sideFilters.noOptions') }}
-            </template>
+          <b-dropdown-text
+            v-if="$fetchState.pending"
+          >
+            <LoadingSpinner />
+          </b-dropdown-text>
+          <b-dropdown-text v-else-if="fetched && availableSortedOptions.length === 0">
+            {{ $t('sideFilters.noOptions') }}
           </b-dropdown-text>
         </b-dropdown>
       </template>
@@ -203,7 +203,8 @@
         fields: this.staticFields || [],
         selectedOptions: this.selected || [],
         activeSearchInput: false,
-        mayFetch: false
+        mayFetch: false,
+        fetching: false
       };
     },
 
@@ -215,12 +216,14 @@
         return Promise.resolve();
       }
 
-      if (!this.mayFetch) {
+      if (!this.mayFetch || this.fetching) {
         return Promise.resolve();
       }
 
+      this.fetching = true;
       return this.queryFacet()
         .then((fields) => {
+          this.fetching = false;
           this.fields = fields;
           this.fetched = true;
         });
@@ -416,14 +419,19 @@
       },
 
       refetch() {
-        this.fetched = false;
-        this.$fetch();
+        this.$nextTick(() => {
+          this.fetched = false;
+          this.$fetch();
+        });
       },
 
       prefetch() {
-        this.mayFetch = true;
         if (!this.fetched) {
-          this.$fetch();
+          this.mayFetch = true;
+          return this.$fetch()
+            .then(() => {
+              this.mayFetch = false;
+            });
         }
       },
 
