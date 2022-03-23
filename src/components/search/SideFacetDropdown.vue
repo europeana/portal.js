@@ -117,7 +117,6 @@
 </template>
 
 <script>
-  import xor from 'lodash/xor';
   import ColourSwatch from '../generic/ColourSwatch';
   import { BFormTags, BFormTag } from 'bootstrap-vue';
   import themes from '@/plugins/europeana/themes';
@@ -136,7 +135,7 @@
       BFormTag,
       ColourSwatch,
       AlertMessage: () => import('../generic/AlertMessage'),
-      LoadingSpinner: () => import('../generic/LoadingSpinner'),
+      LoadingSpinner: () => import('../generic/LoadingSpinner')
     },
 
     mixins: [facetsMixin],
