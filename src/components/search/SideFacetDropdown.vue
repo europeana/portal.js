@@ -32,7 +32,6 @@
               class="list-inline-item mw-100"
             >
               <b-form-tag
-                :disabled="disabled"
                 data-qa="filter badge"
                 pill
                 class="remove-button"
@@ -50,10 +49,12 @@
             ref="dropdown"
             block
             no-flip
-            :disabled="disabled"
             :data-qa="`${name} side facet dropdown button`"
-            @shown="search && $refs['search-input'].focus()"
-            @hidden="resetDropDown"
+            @show="prefetch"
+            @shown="shownDropdown"
+            @hidden="resetDropdown"
+            @mouseover.native="prefetch"
+            @focusin.native="prefetch"
           >
             <template #button-content>
               {{ $tc('sideFilters.select', isRadio ? 1 : 2, {filter: facetName.toLowerCase()}) }}
@@ -66,7 +67,6 @@
               >
                 <b-form-group
                   :label-for="`${facetNameNoSpaces}-search-input`"
-                  :disabled="disabled"
                 >
                   <b-form-input
                     :id="`${facetNameNoSpaces}-search-input`"
@@ -87,7 +87,6 @@
               v-for="(option, index) in availableSortedOptions"
               :key="index"
               :data-qa="`${isRadio ? option : option.label} ${name} field`"
-              :disabled="disabled"
               @click="selectOption({ option, addTag, removeTag })"
             >
               <span v-if="isRadio">
@@ -104,7 +103,7 @@
                 <span>({{ option.count | localise }})</span>
               </template>
             </b-dropdown-item-button>
-            <b-dropdown-text v-if="availableSortedOptions.length === 0">
+            <b-dropdown-text v-if="fetched && availableSortedOptions.length === 0">
               {{ $t('sideFilters.noOptions') }}
             </b-dropdown-text>
           </b-dropdown>
@@ -199,7 +198,8 @@
         fetched: !!this.staticFields,
         fields: this.staticFields || [],
         selectedOptions: this.selected || [],
-        activeSearchInput: false
+        activeSearchInput: false,
+        mayFetch: false
       };
     },
 
@@ -208,6 +208,10 @@
       if (this.staticFields) {
         this.fields = this.staticFields;
         this.fetched = true;
+        return Promise.resolve();
+      }
+
+      if (!this.mayFetch) {
         return Promise.resolve();
       }
 
@@ -223,10 +227,6 @@
         return {
           [this.name]: [].concat(this.selected)
         };
-      },
-
-      disabled() {
-        return this.$store.state.search.liveQueries.length > 0 || !!this.$fetchState.pending;
       },
 
       groupedOptions() {
@@ -333,8 +333,8 @@
         this.init();
       },
       '$route.query.reusability': 'updateRouteQueryReusability',
-      '$route.query.api': '$fetch',
-      '$route.query.query': '$fetch',
+      '$route.query.api': 'refetch',
+      '$route.query.query': 'refetch',
       '$route.query.qf': 'updateRouteQueryQf'
     },
 
@@ -344,8 +344,6 @@
 
     methods: {
       queryFacet() {
-        this.$store.commit('search/addLiveQuery', this.paramsForFacets);
-
         return this.$apis.record.search(this.paramsForFacets, {
           ...this.$store.getters['search/searchOptions'],
           locale: this.$i18n.locale
@@ -355,9 +353,6 @@
           .catch(async(error) => {
             // TODO: refactor not to use store. rely on fetchState.error instead
             await this.$store.dispatch('search/updateForFailure', error);
-          })
-          .finally(() => {
-            this.$store.commit('search/removeLiveQuery', this.paramsForFacets);
           });
       },
 
@@ -411,9 +406,10 @@
       // Refetch facet fields, unless this is the reusability facet
       updateRouteQueryReusability() {
         if (this.name !== 'REUSABILITY') {
-          this.$fetch();
+          this.refetch();
         }
       },
+
       // Refetch facet fields, but only if other qf query values have changed
       updateRouteQueryQf(newQf, oldQf) {
         // Look for changes to qf, accounting for them being potentially strings
@@ -429,6 +425,18 @@
         const onlyThisFacetChanged = qfDiff.every(qf => qf.startsWith(`${this.name}:`));
 
         if (!onlyThisFacetChanged) {
+          this.refetch();
+        }
+      },
+
+      refetch() {
+        this.fetched = false;
+        this.$fetch();
+      },
+
+      prefetch() {
+        this.mayFetch = true;
+        if (!this.fetched) {
           this.$fetch();
         }
       },
@@ -462,9 +470,14 @@
         this.$emit('changed', this.name, this.isRadio ? selected : this.selected.concat(this.enquoteFacetFieldFilterValue(selected)));
       },
 
+      shownDropdown() {
+        this.search && this.$refs['search-input'].focus();
+      },
+
       resetDropDown() {
         this.searchFacet = '';
         this.$refs.dropdown.$refs.menu.scrollTop = 0;
+        this.mayFetch = false;
       }
     }
   };
