@@ -73,8 +73,7 @@ describe('store/search', () => {
       const typeQf = 'TYPE:"IMAGE"';
       const collectionQf = 'collection:"migration"';
       const state = { apiParams: { query: searchQuery, qf: [typeQf, collectionQf] } };
-      const queryParams = state.apiParams;
-
+      
       it('searches the Record API', async() => {
         store.actions.$apis = {
           record: {
