@@ -40,7 +40,7 @@
                 @remove="removeOption({ tag, removeTag })"
               >
                 <span>
-                  {{ $tFacetOption(name, tag, true) }}
+                  {{ tFacetOption(name, tag, true) }}
                 </span>
               </b-form-tag>
             </li>
@@ -91,7 +91,7 @@
               @click="selectOption({ option, addTag, removeTag })"
             >
               <span v-if="isRadio">
-                {{ $tFacetOption(name, option) }}
+                {{ tFacetOption(name, option) }}
               </span>
               <template v-else>
                 <ColourSwatch
@@ -99,7 +99,7 @@
                   :hex-code="option.label"
                 />
                 <span>
-                  {{ $tFacetOption(name, option.label) }}
+                  {{ tFacetOption(name, option.label) }}
                 </span>
                 <span>({{ option.count | localise }})</span>
               </template>
@@ -121,6 +121,7 @@
   import themes from '@/plugins/europeana/themes';
   import { unquotableFacets } from '@/plugins/europeana/search';
   import { escapeLuceneSpecials, unescapeLuceneSpecials } from '@/plugins/europeana/utils';
+  import facetsMixin from '@/mixins/facets';
 
   /**
    * Dropdown for search facet, with removable tags and optional search.
@@ -134,6 +135,8 @@
       ColourSwatch,
       AlertMessage: () => import('../generic/AlertMessage')
     },
+
+    mixins: [facetsMixin],
 
     props: {
       /**
@@ -267,7 +270,7 @@
         if (criteria) {
           return options.filter(option => {
             const optionLabel = this.isRadio ? option : option.label;
-            const optionLocalisedLabel = this.$tFacetOption(this.name, optionLabel);
+            const optionLocalisedLabel = this.tFacetOption(this.name, optionLabel);
             const exactMatch = optionLocalisedLabel.toLowerCase().indexOf(criteria) > -1;
             const facetValueMatch = optionLabel.toLowerCase().indexOf(criteria) > -1;
             return exactMatch || facetValueMatch;
@@ -282,11 +285,11 @@
       },
 
       facetName() {
-        return this.$tFacetName(this.name);
+        return this.tFacetName(this.name);
       },
 
       facetNameNoSpaces() {
-        return this.$tFacetName(this.name).replace(/\s/g, '-').toLowerCase();
+        return this.tFacetName(this.name).replace(/\s/g, '-').toLowerCase();
       },
 
       isRadio() {

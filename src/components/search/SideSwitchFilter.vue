@@ -1,6 +1,6 @@
 <template>
   <b-form-group
-    :label="$tFacetName(name)"
+    :label="tFacetName(name)"
     label-class="facet-label"
     :data-qa="`${name} switch filter`"
   >
@@ -33,9 +33,12 @@
 
 <script>
   import { VBTooltip } from 'bootstrap-vue';
+  import facetsMixin from '@/mixins/facets';
 
   export default {
     name: 'SideSwitchFilter',
+
+    mixins: [facetsMixin],
 
     directives: {
       'b-tooltip': VBTooltip

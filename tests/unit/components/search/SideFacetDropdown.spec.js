@@ -35,8 +35,8 @@ const factory = (options = {}) => shallowMountNuxt(SideFacetDropdown, {
       query: {}
     },
     $t: (key) => key,
-    $tFacetName: (key) => key,
-    $tFacetOption: (name, key) => key,
+    $tc: (key) => key,
+    $te: () => true,
     $store: {
       commit: storeCommitSpy,
       dispatch: storeDispatchStub,
@@ -320,9 +320,9 @@ describe('components/search/SideFacetDropdown', () => {
     });
 
     describe('facetName', () => {
-      it('returns a facet name', () => {
+      it('returns a translated facet name', () => {
         const wrapper = factory();
-        expect(wrapper.vm.facetName).toBe('COUNTRY');
+        expect(wrapper.vm.facetName).toBe('facets.COUNTRY.name');
       });
     });
   });
