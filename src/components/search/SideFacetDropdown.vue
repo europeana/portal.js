@@ -102,8 +102,13 @@
               <span>({{ option.count | localise }})</span>
             </template>
           </b-dropdown-item-button>
-          <b-dropdown-text v-if="fetched && availableSortedOptions.length === 0">
-            {{ $t('sideFilters.noOptions') }}
+          <b-dropdown-text>
+            <LoadingSpinner
+              v-if="$fetchState.pending"
+            />
+            <template v-else-if="fetched && availableSortedOptions.length === 0">
+              {{ $t('sideFilters.noOptions') }}
+            </template>
           </b-dropdown-text>
         </b-dropdown>
       </template>
@@ -130,7 +135,8 @@
       BFormTags,
       BFormTag,
       ColourSwatch,
-      AlertMessage: () => import('../generic/AlertMessage')
+      AlertMessage: () => import('../generic/AlertMessage'),
+      LoadingSpinner: () => import('../generic/LoadingSpinner'),
     },
 
     mixins: [facetsMixin],
@@ -263,6 +269,10 @@
       },
 
       availableSortedOptions() {
+        if (!this.fetched) {
+          return [];
+        }
+
         const criteria = this.criteria;
 
         const unquotedSelectedOptions = this.selectedOptions.map(option => unescapeLuceneSpecials(option.replace(/^"(.*)"$/, '$1')));
@@ -334,10 +344,10 @@
         // facets properties are updated correctly
         this.init();
       },
-      '$route.query.reusability': 'updateRouteQueryReusability',
+      '$route.query.reusability': 'refetch',
       '$route.query.api': 'refetch',
       '$route.query.query': 'refetch',
-      '$route.query.qf': 'updateRouteQueryQf'
+      '$route.query.qf': 'refetch'
     },
 
     mounted() {
@@ -405,32 +415,6 @@
         }
       },
 
-      // Refetch facet fields, unless this is the reusability facet
-      updateRouteQueryReusability() {
-        if (this.name !== 'REUSABILITY') {
-          this.refetch();
-        }
-      },
-
-      // Refetch facet fields, but only if other qf query values have changed
-      updateRouteQueryQf(newQf, oldQf) {
-        // Look for changes to qf, accounting for them being potentially strings
-        // or arrays or undefined.
-        const qfDiff = xor(
-          newQf ? [].concat(newQf) : [],
-          oldQf ? [].concat(oldQf) : []
-        );
-        if (qfDiff.length === 0) {
-          return;
-        }
-
-        const onlyThisFacetChanged = qfDiff.every(qf => qf.startsWith(`${this.name}:`));
-
-        if (!onlyThisFacetChanged) {
-          this.refetch();
-        }
-      },
-
       refetch() {
         this.fetched = false;
         this.$fetch();
@@ -476,7 +460,7 @@
         this.searchable && this.$refs['search-input'].focus();
       },
 
-      resetDropDown() {
+      resetDropdown() {
         this.searchFacet = '';
         this.$refs.dropdown.$refs.menu.scrollTop = 0;
         this.mayFetch = false;
