@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!fetched || fields && fields.length > 0 || selectedFilters[name].length > 0">
+  <div>
     <b-form-tags
       :id="facetNameNoSpaces"
       v-model="selectedOptions"
@@ -32,7 +32,6 @@
               class="list-inline-item mw-100"
             >
               <b-form-tag
-                :disabled="disabled"
                 data-qa="filter badge"
                 pill
                 class="remove-button"
@@ -50,23 +49,24 @@
             ref="dropdown"
             block
             no-flip
-            :disabled="disabled"
             :data-qa="`${name} side facet dropdown button`"
-            @shown="search && $refs['search-input'].focus()"
-            @hidden="resetDropDown"
+            @show="prefetch"
+            @shown="shownDropdown"
+            @hidden="resetDropdown"
+            @mouseover.native="prefetch"
+            @focusin.native="prefetch"
           >
             <template #button-content>
               {{ $tc('sideFilters.select', isRadio ? 1 : 2, {filter: facetName.toLowerCase()}) }}
             </template>
             <template
-              v-if="search"
+              v-if="searchable"
             >
               <b-dropdown-form
                 @submit.stop.prevent="() => {}"
               >
                 <b-form-group
                   :label-for="`${facetNameNoSpaces}-search-input`"
-                  :disabled="disabled"
                 >
                   <b-form-input
                     :id="`${facetNameNoSpaces}-search-input`"
@@ -87,7 +87,6 @@
               v-for="(option, index) in availableSortedOptions"
               :key="index"
               :data-qa="`${isRadio ? option : option.label} ${name} field`"
-              :disabled="disabled"
               @click="selectOption({ option, addTag, removeTag })"
             >
               <span v-if="isRadio">
@@ -104,7 +103,12 @@
                 <span>({{ option.count | localise }})</span>
               </template>
             </b-dropdown-item-button>
-            <b-dropdown-text v-if="availableSortedOptions.length === 0">
+            <b-dropdown-text
+              v-if="$fetchState.pending"
+            >
+              <LoadingSpinner />
+            </b-dropdown-text>
+            <b-dropdown-text v-else-if="fetched && availableSortedOptions.length === 0">
               {{ $t('sideFilters.noOptions') }}
             </b-dropdown-text>
           </b-dropdown>
@@ -115,7 +119,6 @@
 </template>
 
 <script>
-  import xor from 'lodash/xor';
   import ColourSwatch from '../generic/ColourSwatch';
   import { BFormTags, BFormTag } from 'bootstrap-vue';
   import themes from '@/plugins/europeana/themes';
@@ -133,7 +136,8 @@
       BFormTags,
       BFormTag,
       ColourSwatch,
-      AlertMessage: () => import('../generic/AlertMessage')
+      AlertMessage: () => import('../generic/AlertMessage'),
+      LoadingSpinner: () => import('../generic/LoadingSpinner')
     },
 
     mixins: [facetsMixin],
@@ -199,7 +203,9 @@
         fetched: !!this.staticFields,
         fields: this.staticFields || [],
         selectedOptions: this.selected || [],
-        activeSearchInput: false
+        activeSearchInput: false,
+        mayFetch: false,
+        fetching: false
       };
     },
 
@@ -211,22 +217,28 @@
         return Promise.resolve();
       }
 
+      if (!this.mayFetch || this.fetching) {
+        return Promise.resolve();
+      }
+
+      this.fetching = true;
       return this.queryFacet()
         .then((fields) => {
+          this.fetching = false;
           this.fields = fields;
           this.fetched = true;
         });
     },
 
     computed: {
+      searchable() {
+        return this.search && this.availableSortedOptions.length > 0;
+      },
+
       selectedFilters() {
         return {
           [this.name]: [].concat(this.selected)
         };
-      },
-
-      disabled() {
-        return this.$store.state.search.liveQueries.length > 0 || !!this.$fetchState.pending;
       },
 
       groupedOptions() {
@@ -261,6 +273,10 @@
       },
 
       availableSortedOptions() {
+        if (!this.fetched) {
+          return [];
+        }
+
         const criteria = this.criteria;
 
         const unquotedSelectedOptions = this.selectedOptions.map(option => unescapeLuceneSpecials(option.replace(/^"(.*)"$/, '$1')));
@@ -332,10 +348,10 @@
         // facets properties are updated correctly
         this.init();
       },
-      '$route.query.reusability': 'updateRouteQueryReusability',
-      '$route.query.api': '$fetch',
-      '$route.query.query': '$fetch',
-      '$route.query.qf': 'updateRouteQueryQf'
+      '$route.query.reusability': 'refetch',
+      '$route.query.api': 'refetch',
+      '$route.query.query': 'refetch',
+      '$route.query.qf': 'refetch'
     },
 
     mounted() {
@@ -344,8 +360,6 @@
 
     methods: {
       queryFacet() {
-        this.$store.commit('search/addLiveQuery', this.paramsForFacets);
-
         return this.$apis.record.search(this.paramsForFacets, {
           ...this.$store.getters['search/searchOptions'],
           locale: this.$i18n.locale
@@ -355,9 +369,6 @@
           .catch(async(error) => {
             // TODO: refactor not to use store. rely on fetchState.error instead
             await this.$store.dispatch('search/updateForFailure', error);
-          })
-          .finally(() => {
-            this.$store.commit('search/removeLiveQuery', this.paramsForFacets);
           });
       },
 
@@ -408,28 +419,20 @@
         }
       },
 
-      // Refetch facet fields, unless this is the reusability facet
-      updateRouteQueryReusability() {
-        if (this.name !== 'REUSABILITY') {
+      refetch() {
+        this.$nextTick(() => {
+          this.fetched = false;
           this.$fetch();
-        }
+        });
       },
-      // Refetch facet fields, but only if other qf query values have changed
-      updateRouteQueryQf(newQf, oldQf) {
-        // Look for changes to qf, accounting for them being potentially strings
-        // or arrays or undefined.
-        const qfDiff = xor(
-          newQf ? [].concat(newQf) : [],
-          oldQf ? [].concat(oldQf) : []
-        );
-        if (qfDiff.length === 0) {
-          return;
-        }
 
-        const onlyThisFacetChanged = qfDiff.every(qf => qf.startsWith(`${this.name}:`));
-
-        if (!onlyThisFacetChanged) {
-          this.$fetch();
+      prefetch() {
+        if (!this.fetched) {
+          this.mayFetch = true;
+          return this.$fetch()
+            .then(() => {
+              this.mayFetch = false;
+            });
         }
       },
 
@@ -462,9 +465,14 @@
         this.$emit('changed', this.name, this.isRadio ? selected : this.selected.concat(this.enquoteFacetFieldFilterValue(selected)));
       },
 
-      resetDropDown() {
+      shownDropdown() {
+        this.searchable && this.$refs['search-input'].focus();
+      },
+
+      resetDropdown() {
         this.searchFacet = '';
         this.$refs.dropdown.$refs.menu.scrollTop = 0;
+        this.mayFetch = false;
       }
     }
   };

@@ -101,13 +101,6 @@ describe('store/search', () => {
 
           expect(dispatch.calledWith('updateForSuccess')).toBe(true);
         });
-
-        it('logs the query while live', async() => {
-          await store.actions.queryItems({ dispatch, state, getters, commit });
-
-          expect(commit.calledWith('addLiveQuery', queryParams)).toBe(true);
-          expect(commit.calledWith('removeLiveQuery', queryParams)).toBe(true);
-        });
       });
 
       describe('on failure', () => {
@@ -123,13 +116,6 @@ describe('store/search', () => {
           await store.actions.queryItems({ dispatch, state, getters, commit });
 
           expect(dispatch.calledWith('updateForFailure')).toBe(true);
-        });
-
-        it('logs the query while live', async() => {
-          await store.actions.queryItems({ dispatch, state, getters, commit });
-
-          expect(commit.calledWith('addLiveQuery', queryParams)).toBe(true);
-          expect(commit.calledWith('removeLiveQuery', queryParams)).toBe(true);
         });
       });
     });
@@ -241,32 +227,6 @@ describe('store/search', () => {
               commit.calledWith('set', ['apiOptions', sinon.match.has('url', 'https://newspapers.eanadev.org/api/v2')])
             ).toBe(false);
           });
-        });
-      });
-    });
-  });
-
-  describe('mutations', () => {
-    describe('addLiveQuery', () => {
-      it('adds the passed query to the store', () => {
-        const state = { liveQueries: [{ qf: ['TYPE:"IMAGE"'] }] };
-        const query = { qf: ['collection:"migration"'] };
-
-        store.mutations.addLiveQuery(state, query);
-
-        expect(state.liveQueries.length).toBe(2);
-        expect(state.liveQueries).toContain(query);
-      });
-
-      describe('removeLiveQuery', () => {
-        it('removes the passed query from the store', () => {
-          const query = { qf: ['collection:"migration"'] };
-          const state = { liveQueries: [{ qf: ['TYPE:"IMAGE"'] }, query] };
-
-          store.mutations.removeLiveQuery(state, query);
-
-          expect(state.liveQueries.length).toBe(1);
-          expect(state.liveQueries).not.toContain(query);
         });
       });
     });

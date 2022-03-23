@@ -26,12 +26,6 @@ export default {
   }),
 
   mutations: {
-    addLiveQuery(state, query) {
-      state.liveQueries.push(query);
-    },
-    removeLiveQuery(state, query) {
-      state.liveQueries = state.liveQueries.filter(liveQuery => liveQuery !== query);
-    },
     disableCollectionFacet(state) {
       state.collectionFacetEnabled = false;
     },
@@ -161,16 +155,12 @@ export default {
       };
       delete paramsForItems.facet;
 
-      commit('addLiveQuery', paramsForItems);
       return this.$apis.record.search(paramsForItems, { ...getters.searchOptions, locale: this.$i18n.locale })
         .then(async(response) => {
           await dispatch('updateForSuccess', response);
         })
         .catch(async(error) => {
           await dispatch('updateForFailure', error);
-        })
-        .finally(() => {
-          commit('removeLiveQuery', paramsForItems);
         });
     },
 
