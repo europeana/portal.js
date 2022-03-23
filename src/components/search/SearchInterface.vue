@@ -16,17 +16,31 @@
     </b-row>
   </b-container>
   <b-container v-else>
-    <b-row
-      v-if="hasAnyResults"
-      class="mb-3 "
-      :class="{ 'd-flex align-items-center': contextLabel }"
-    >
-      <b-col>
+    <template v-if="headerCardsEnabled">
+      <div
+        v-if="hasAnyResults"
+        class="mb-3 d-flex align-items-start align-items-md-center justify-content-between"
+      >
         <SearchResultsContext
-          v-if="headerCardsEnabled"
           :label-override="editorialEntityLabel"
         />
-        <template v-else>
+        <ViewToggles
+          v-model="view"
+          :link-gen-route="route"
+          class="flex-nowrap mt-1 mt-md-0"
+        />
+      </div>
+    </template>
+    <template v-else>
+      <b-row
+        v-if="hasAnyResults"
+        class="mb-3"
+        :class="{ 'd-flex align-items-center': contextLabel }"
+      >
+        <b-col
+          col
+          md="8"
+        >
           <p
             data-qa="total results"
           >
@@ -38,15 +52,15 @@
           >
             {{ $t('searchHasLoaded', [totalResults | localise]) }}
           </div>
-        </template>
-      </b-col>
-      <b-col>
-        <ViewToggles
-          v-model="view"
-          :link-gen-route="route"
-        />
-      </b-col>
-    </b-row>
+        </b-col>
+        <b-col>
+          <ViewToggles
+            v-model="view"
+            :link-gen-route="route"
+          />
+        </b-col>
+      </b-row>
+    </template>
     <b-row
       class="mb-3"
     >

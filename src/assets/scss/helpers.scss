@@ -49,3 +49,9 @@
 .font-smallest {
   font-size: $font-size-smallest;
 }
+
+@media (min-width: $bp-medium) {
+  .flex-basis-md-auto {
+    flex-basis: auto;
+  }
+}
