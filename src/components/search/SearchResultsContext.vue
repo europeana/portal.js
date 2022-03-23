@@ -154,5 +154,6 @@
 <style lang="scss" scoped>
   .context-label {
     margin-bottom: 0;
+    line-height: 3;
   }
 </style>
