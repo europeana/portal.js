@@ -143,6 +143,8 @@ Feature: Search faceting
     And the `TYPE side facet dropdown button` has an enabled button
     Then I click the `TYPE side facet dropdown button`
     And I click the `IMAGE TYPE field`
+    And I see a `filter badge` with the text "Image"
+    And the `TYPE side facet dropdown button` has an enabled button
     And I go to page number 2
     And I am on page number 2
     And the `TYPE side facet dropdown button` has an enabled button

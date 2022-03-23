@@ -243,7 +243,7 @@ module.exports = {
     await client.expect.element(qaSelector(qaElementNames) + '.hover').to.be.visible;
   },
   async haveEnabledButtonInTarget(qaElementName) {
-    await client.expect.element(qaSelector(qaElementName)+ ' button').to.be.enabled;
+    await client.waitForElementVisible(qaSelector(qaElementName)+ ' button:enabled');
   },
   async seeASectionHeadingWithText(headingLevel, text) {
     await client.expect.element(`h${headingLevel}`).text.to.contain(text);
