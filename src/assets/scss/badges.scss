@@ -3,12 +3,15 @@
   font-size: $font-size-small;
   transition: $standard-transition;
   overflow: hidden;
+  position: relative;
 
   img {
     width: 28px;
     height: 28px;
     object-fit: cover;
     flex-shrink: 0;
+    position: absolute;
+    left: 0.25rem;
   }
 
   span {
@@ -42,7 +45,7 @@
   }
 
   &.img-chip {
-    padding: 0.25rem 0.75rem 0.25rem 0.25rem;
+    padding: 0.25rem 0.75rem 0.25rem calc(0.75rem + 28px);
   }
 
   .pill-close {
