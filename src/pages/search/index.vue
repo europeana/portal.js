@@ -11,7 +11,9 @@
         <b-col
           class="results-col"
         >
-          <b-container>
+          <b-container
+            v-if="!headerCardsEnabled"
+          >
             <b-row>
               <b-col>
                 <i18n

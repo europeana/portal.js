@@ -16,17 +16,19 @@
     </b-row>
   </b-container>
   <b-container v-else>
-    <b-row
+    <div
       v-if="hasAnyResults"
-      class="mb-3 "
+      class="mb-3 d-flex align-items-start align-items-md-center justify-content-between"
     >
-      <b-col>
-        <ViewToggles
-          v-model="view"
-          :link-gen-route="route"
-        />
-      </b-col>
-    </b-row>
+      <SearchResultsContext
+        :label-override="editorialEntityLabel"
+      />
+      <ViewToggles
+        v-model="view"
+        :link-gen-route="route"
+        class="flex-nowrap mt-1 mt-md-0"
+      />
+    </div>
     <b-row
       class="mb-3"
     >
@@ -109,12 +111,13 @@
     name: 'SearchInterface',
 
     components: {
-      AlertMessage: () => import('../../components/generic/AlertMessage'),
+      AlertMessage: () => import('../generic/AlertMessage'),
       ClientOnly,
+      SearchResultsContext: () => import('./SearchResultsContext'),
       InfoMessage,
       ItemPreviewCardGroup,
-      LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
-      PaginationNav: () => import('../../components/generic/PaginationNav'),
+      LoadingSpinner: () => import('../generic/LoadingSpinner'),
+      PaginationNav: () => import('../generic/PaginationNav'),
       ViewToggles
     },
     mixins: [
@@ -142,6 +145,10 @@
       showRelated: {
         type: Boolean,
         default: true
+      },
+      editorialEntityLabel: {
+        type: String,
+        default: null
       }
     },
     data() {
@@ -168,8 +175,6 @@
     computed: {
       ...mapState({
         userParams: state => state.search.userParams,
-        entityId: state => state.entity.id,
-        error: state => state.search.error,
         hits: state => state.search.hits,
         lastAvailablePage: state => state.search.lastAvailablePage,
         results: state => state.search.results,
@@ -226,6 +231,9 @@
         set(value) {
           this.$store.commit('search/setView', value);
         }
+      },
+      headerCardsEnabled() {
+        return this.$features.entityHeaderCards;
       }
     },
 

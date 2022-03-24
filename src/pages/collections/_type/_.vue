@@ -11,7 +11,7 @@
           <b-col>
             <b-container class="px-0 pb-3">
               <i18n
-                v-if="$route.query.query"
+                v-if="$route.query.query && !headerCardsEnabled"
                 path="searchResultsForIn"
                 tag="h2"
                 class="px-0 container"
@@ -25,9 +25,11 @@
                 :route="route"
                 :show-content-tier-toggle="false"
                 :show-pins="userIsEditor && userIsSetsEditor"
+                :editorial-entity-label="editorialTitle"
                 :show-related="showRelated"
               >
                 <EntityHeader
+                  v-if="!hasUserQuery"
                   :description="description"
                   :title="title"
                   :logo="logo"
@@ -335,6 +337,9 @@
       },
       isEditable() {
         return this.entity && this.editable;
+      },
+      hasUserQuery() {
+        return this.$route.query.query &&  this.$route.query.query !== '';
       },
       thumbnail() {
         return this.entity?.isShownBy?.thumbnail || null;

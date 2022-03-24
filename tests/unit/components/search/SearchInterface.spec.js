@@ -21,9 +21,10 @@ const factory = (options = {}) => {
     $t: (key) => key,
     $path: () => '/',
     $goto: () => null,
-    $features: { sideFilters: false, entityHeaderCards: true },
+    $features: { sideFilters: false, entityHeaderCards: false },
     $fetchState: options.fetchState || {},
     $route: { path: '/search', name: 'search', query: {} },
+    localise: (val) => val,
     ...options.mocks
   };
 
@@ -36,6 +37,7 @@ const factory = (options = {}) => {
           userParams: {},
           apiParams: {},
           results: [],
+          entity: {},
           ...options.storeState
         },
         getters: {
