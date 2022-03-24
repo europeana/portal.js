@@ -105,6 +105,7 @@
             </b-dropdown-item-button>
             <b-dropdown-text
               v-if="$fetchState.pending"
+              class="text-center"
             >
               <LoadingSpinner />
             </b-dropdown-text>
