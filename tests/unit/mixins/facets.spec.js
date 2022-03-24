@@ -250,59 +250,6 @@ describe('mixins/vue/facets', () => {
           });
         });
       });
-
-      // describe('when collection is set in store, and collection-specific l10n key exists for the facet', () => {
-      //   const mocks = {
-      //     $tcNull: (key) => key === 'collections.fashion.facets.CREATOR.name' ? 'Designer' : null,
-      //     $store: {
-      //       getters: {
-      //         'search/collection': 'fashion'
-      //       }
-      //     }
-      //   };
-
-      //   it('uses that key', () => {
-      //     const wrapper = factory(mocks);
-
-      //     expect(wrapper.vm.tFacetName(facetName)).toBe('Designer');
-      //   });
-      // });
-
-      // describe('when collection is not set in store', () => {
-      //   describe('but generic l10n key exists for the facet', () => {
-      //     const mocks = {
-      //       $tcNull: (key) => key === 'facets.CREATOR.name' ? 'Creator' : null,
-      //       $store: {
-      //         getters: {
-      //           'search/collection': null
-      //         }
-      //       }
-      //     };
-
-      //     it('uses that key', () => {
-      //       const wrapper = factory(mocks);
-
-      //       expect(wrapper.vm.tFacetName(facetName)).toBe('Creator');
-      //     });
-      //   });
-
-      //   describe('and no generic l10n key exists for the facet', () => {
-      //     const mocks = {
-      //       $tcNull: () => null,
-      //       $store: {
-      //         getters: {
-      //           'search/collection': null
-      //         }
-      //       }
-      //     };
-
-      //     it('just returns the facet name parameter', () => {
-      //       const wrapper = factory(mocks);
-
-      //       expect(wrapper.vm.tFacetName(facetName)).toBe('CREATOR');
-      //     });
-      //   });
-      // });
     });
   });
 });

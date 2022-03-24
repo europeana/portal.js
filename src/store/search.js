@@ -149,7 +149,7 @@ export default {
       return dispatch('queryItems');
     },
 
-    queryItems({ dispatch, state, getters, commit }) {
+    queryItems({ dispatch, state, getters }) {
       const paramsForItems = {
         ...state.apiParams
       };
