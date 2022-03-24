@@ -106,6 +106,11 @@ module.exports = {
     await client.waitForElementVisible(selector);
     await client.click(selector);
   },
+  async clickOnTheTargetButton(qaElementNames) {
+    const selector = qaSelector(qaElementNames) + ' button';
+    await client.waitForElementVisible(selector);
+    await client.click(selector);
+  },
   async clickOnLink(href) {
     const selector = `a[href="${href}"]`;
     await client.waitForElementVisible(selector);
@@ -236,6 +241,9 @@ module.exports = {
   },
   async haveHighlightedATarget(qaElementNames) {
     await client.expect.element(qaSelector(qaElementNames) + '.hover').to.be.visible;
+  },
+  async haveEnabledButtonInTarget(qaElementName) {
+    await client.waitForElementVisible(qaSelector(qaElementName)+ ' button:enabled');
   },
   async seeASectionHeadingWithText(headingLevel, text) {
     await client.expect.element(`h${headingLevel}`).text.to.contain(text);

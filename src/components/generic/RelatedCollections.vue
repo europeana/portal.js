@@ -46,7 +46,7 @@
       },
       badgeVariant: {
         type: String,
-        default: 'primary'
+        default: 'secondary'
       }
     },
 
