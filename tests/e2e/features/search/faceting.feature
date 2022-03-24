@@ -2,7 +2,6 @@ Feature: Search faceting
 
   Scenario: Filtering results by type
     Given I am on the `search page`
-    And the `TYPE side facet dropdown button` has an enabled button
     When I click the `TYPE side facet dropdown button`
     And I click the `IMAGE TYPE field`
     Then I should be on `/en/search?page=1&qf=TYPE%3A%22IMAGE%22`
@@ -12,7 +11,6 @@ Feature: Search faceting
 
   Scenario: Filtering results by Collection
     When I visit the `search page`
-    And the `collection side facet dropdown button` has an enabled button
     And I click the `collection side facet dropdown button`
     And I click the `art collection field`
     Then I should be on `/en/search?page=1&qf=collection%3Aart`
@@ -20,7 +18,6 @@ Feature: Search faceting
 
   Scenario: Filtering results by Collection and paginate
     When I visit the `search page`
-    And the `collection side facet dropdown button` has an enabled button
     And I click the `collection side facet dropdown button`
     And I click the `art collection field`
     And I am on page number 1
@@ -33,7 +30,6 @@ Feature: Search faceting
 
   Scenario: Reusability options
     Given I am on the `search page`
-    And the `REUSABILITY side facet dropdown button` has an enabled button
     When I click the `REUSABILITY side facet dropdown button`
     Then I see an `open REUSABILITY field`
     And I see a `permission REUSABILITY field`
@@ -42,7 +38,6 @@ Feature: Search faceting
 
   Scenario: Filtering results by reusability
     Given I am on the `search page`
-    And the `REUSABILITY side facet dropdown button` has an enabled button
     When I click the `REUSABILITY side facet dropdown button`
     And I click the `open REUSABILITY field`
     Then I should be on `/en/search?page=1&reusability=open`
@@ -51,7 +46,6 @@ Feature: Search faceting
 
   Scenario: Filtering results by country
     Given I am on the `search page`
-    And the `COUNTRY side facet dropdown button` has an enabled button
     When I click the `COUNTRY side facet dropdown button`
     And I click the `Belgium COUNTRY field`
     Then I should be on `/en/search?page=1&qf=COUNTRY%3A%22Belgium%22`
@@ -60,10 +54,8 @@ Feature: Search faceting
 
   Scenario: Filtering results by two countries
     Given I am on the `search page`
-    And the `COUNTRY side facet dropdown button` has an enabled button
     When I click the `COUNTRY side facet dropdown button`
     And I click the `Belgium COUNTRY field`
-    And the `COUNTRY side facet dropdown button` has an enabled button
     And I click the `COUNTRY side facet dropdown button`
     And I click the `Germany COUNTRY field`
     Then I should be on `/en/search?page=1&qf=COUNTRY%3A%22Belgium%22&qf=COUNTRY%3A%22Germany%22`
@@ -72,13 +64,10 @@ Feature: Search faceting
 
   Scenario: Filtering using a combination of facet fields
     Given I am on the `search page`
-    And the `COUNTRY side facet dropdown button` has an enabled button
     When I click the `COUNTRY side facet dropdown button`
     And I click the `Belgium COUNTRY field`
-    And the `REUSABILITY side facet dropdown button` has an enabled button
     And I click the `REUSABILITY side facet dropdown button`
     And I click the `open REUSABILITY field`
-    And the `TYPE side facet dropdown button` has an enabled button
     And I click the `TYPE side facet dropdown button`
     And I click the `IMAGE TYPE field`
     Then I should be on `/en/search?page=1&qf=COUNTRY%3A%22Belgium%22&qf=TYPE%3A%22IMAGE%22&reusability=open`
@@ -92,14 +81,12 @@ Feature: Search faceting
   Scenario: Unselecting a facet
     Given I am on `/en/search?page=1&qf=COUNTRY%3A%22Belgium%22`
     And I see a `filter badge` with the text "Belgium"
-    And the `filter badge` has an enabled button
     And I click the `filter badge` button
     Then I should be on `/en/search?page=1`
     And I am on page number 1
 
   Scenario: Filtering results by country and have a corresponding item page
     Given I am on the `search page`
-    And the `COUNTRY side facet dropdown button` has an enabled button
     When I click the `COUNTRY side facet dropdown button`
     And I click the `Belgium COUNTRY field`
     Then I should be on `/en/search?page=1&qf=COUNTRY%3A%22Belgium%22`
@@ -110,10 +97,8 @@ Feature: Search faceting
 
   Scenario: Filtering results by two countries and have a corresponding item page
     Given I am on the `search page`
-    And the `COUNTRY side facet dropdown button` has an enabled button
     When I click the `COUNTRY side facet dropdown button`
     And I click the `Belgium COUNTRY field`
-    And the `COUNTRY side facet dropdown button` has an enabled button
     And I click the `COUNTRY side facet dropdown button`
     And I click the `Germany COUNTRY field`
     Then I should be on `/en/search?page=1&qf=COUNTRY%3A%22Belgium%22&qf=COUNTRY%3A%22Germany%22`
@@ -125,7 +110,6 @@ Feature: Search faceting
   # TODO: Add back - And I click the `search button` instead of press ENTER
   Scenario: Preserve filtering when performing a new search
     Given I am on the `search page`
-    And the `COUNTRY side facet dropdown button` has an enabled button
     When I click the `COUNTRY side facet dropdown button`
     And I click the `France COUNTRY field`
     And I should be on `/en/search?page=1&qf=COUNTRY%3A%22France%22`
@@ -140,14 +124,11 @@ Feature: Search faceting
 
   Scenario: Paginating with facets
     Given I am on the `search page`
-    And the `TYPE side facet dropdown button` has an enabled button
     Then I click the `TYPE side facet dropdown button`
     And I click the `IMAGE TYPE field`
     And I see a `filter badge` with the text "Image"
-    And the `TYPE side facet dropdown button` has an enabled button
     And I go to page number 2
     And I am on page number 2
-    And the `TYPE side facet dropdown button` has an enabled button
     Then I click the `TYPE side facet dropdown button`
     And I click the `VIDEO TYPE field`
     And I don't have a `loading spinner`
@@ -155,11 +136,9 @@ Feature: Search faceting
 
   Scenario: Clear filters using reset button
     Given I am on the `search page`
-    And the `COUNTRY side facet dropdown button` has an enabled button
     When I click the `COUNTRY side facet dropdown button`
     And I click the `France COUNTRY field`
     And I should be on `/en/search?page=1&qf=COUNTRY%3A%22France%22`
-    And the `TYPE side facet dropdown button` has an enabled button
     And I click the `TYPE side facet dropdown button`
     And I click the `IMAGE TYPE field`
     And I should be on `/en/search?page=1&qf=COUNTRY%3A%22France%22&qf=TYPE%3A%22IMAGE%22`
