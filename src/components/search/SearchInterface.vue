@@ -16,20 +16,31 @@
     </b-row>
   </b-container>
   <b-container v-else>
-    <b-row
-      v-if="hasAnyResults"
-      class="mb-3 "
-      :class="{ 'd-flex align-items-center': contextLabel }"
-    >
-      <b-col>
-        <div
-          v-if="contextLabel || contextLabel === ''"
-          class="context-label"
-          data-qa="context label"
+    <template v-if="headerCardsEnabled">
+      <div
+        v-if="hasAnyResults"
+        class="mb-3 d-flex align-items-start align-items-md-center justify-content-between"
+      >
+        <SearchResultsContext
+          :label-override="editorialEntityLabel"
+        />
+        <ViewToggles
+          v-model="view"
+          :link-gen-route="route"
+          class="flex-nowrap mt-1 mt-md-0"
+        />
+      </div>
+    </template>
+    <template v-else>
+      <b-row
+        v-if="hasAnyResults"
+        class="mb-3"
+        :class="{ 'd-flex align-items-center': contextLabel }"
+      >
+        <b-col
+          col
+          md="8"
         >
-          {{ contextLabel }}
-        </div>
-        <template v-else>
           <p
             data-qa="total results"
           >
@@ -41,15 +52,15 @@
           >
             {{ $t('searchHasLoaded', [totalResults | localise]) }}
           </div>
-        </template>
-      </b-col>
-      <b-col>
-        <ViewToggles
-          v-model="view"
-          :link-gen-route="route"
-        />
-      </b-col>
-    </b-row>
+        </b-col>
+        <b-col>
+          <ViewToggles
+            v-model="view"
+            :link-gen-route="route"
+          />
+        </b-col>
+      </b-row>
+    </template>
     <b-row
       class="mb-3"
     >
@@ -132,12 +143,13 @@
     name: 'SearchInterface',
 
     components: {
-      AlertMessage: () => import('../../components/generic/AlertMessage'),
+      AlertMessage: () => import('../generic/AlertMessage'),
       ClientOnly,
+      SearchResultsContext: () => import('./SearchResultsContext'),
       InfoMessage,
       ItemPreviewCardGroup,
-      LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
-      PaginationNav: () => import('../../components/generic/PaginationNav'),
+      LoadingSpinner: () => import('../generic/LoadingSpinner'),
+      PaginationNav: () => import('../generic/PaginationNav'),
       ViewToggles
     },
     mixins: [
@@ -166,7 +178,11 @@
         type: Boolean,
         default: true
       },
-      contextLabel: {
+      contextLabel: { // TODO: Remove when ENABLE_ENTITY_HEADER_CARDS is always-on
+        type: String,
+        default: null
+      },
+      editorialEntityLabel: {
         type: String,
         default: null
       }
@@ -195,8 +211,6 @@
     computed: {
       ...mapState({
         userParams: state => state.search.userParams,
-        entityId: state => state.entity.id,
-        error: state => state.search.error,
         hits: state => state.search.hits,
         lastAvailablePage: state => state.search.lastAvailablePage,
         results: state => state.search.results,
@@ -253,6 +267,9 @@
         set(value) {
           this.$store.commit('search/setView', value);
         }
+      },
+      headerCardsEnabled() {
+        return this.$features.entityHeaderCards;
       }
     },
 

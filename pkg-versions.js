@@ -7,7 +7,7 @@
 // NOTE: This file is auto-updated by ./bin/pkg-versions.js
 
 export default {
-  '@europeana/portal': '1.64.1',
+  '@europeana/portal': '1.64.3',
   '@nuxt/core': '2.15.8',
   'bootstrap': '4.6.1',
   'bootstrap-vue': '2.21.2'
