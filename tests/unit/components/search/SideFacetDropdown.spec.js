@@ -1,16 +1,25 @@
 import sinon from 'sinon';
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
+import BootstrapVue from 'bootstrap-vue';
 
 import SideFacetDropdown from '@/components/search/SideFacetDropdown.vue';
 
 const localVue = createLocalVue();
+localVue.use(BootstrapVue);
 
 const storeDispatchStub = sinon.stub();
 
 const storeCommitSpy = sinon.spy();
 
 const apisRecordSearchStub = sinon.stub().resolves({});
+
+const countryFields = [
+  { label: 'United Kingdom', count: 99 },
+  { label: 'Germany', count: 100 },
+  { label: 'Netherlands', count: 101 },
+  { label: 'Spain', count: 44 }
+];
 
 const factory = (options = {}) => shallowMountNuxt(SideFacetDropdown, {
   localVue,
@@ -20,13 +29,14 @@ const factory = (options = {}) => shallowMountNuxt(SideFacetDropdown, {
         search: apisRecordSearchStub
       }
     },
-    $fetchState: {},
+    $fetchState: options.fetchState || {},
     $i18n: { locale: 'en' },
     $route: {
       query: {}
     },
     $t: (key) => key,
-    $tFacetName: (key) => key,
+    $tc: (key) => key,
+    $te: () => true,
     $store: {
       commit: storeCommitSpy,
       dispatch: storeDispatchStub,
@@ -35,13 +45,11 @@ const factory = (options = {}) => shallowMountNuxt(SideFacetDropdown, {
         'entity/id': null
       },
       state: {
-        search: {
-          liveQueries: []
-        }
+        search: {}
       }
     }
   },
-  stubs: ['b-button', 'b-form-checkbox', 'b-dropdown', 'b-dropdown-form', 'b-badge'],
+  stubs: ['b-form-tags'],
   propsData: {
     type: 'checkbox',
     name: 'COUNTRY',
@@ -54,29 +62,74 @@ describe('components/search/SideFacetDropdown', () => {
 
   describe('fetch', () => {
     describe('if fields are not static', () => {
-      it('fetches facet from Record API', async() => {
-        const wrapper = factory();
-        await wrapper.setProps({
-          staticFields: null
+      const staticFields = null;
+
+      describe('and are not yet fetched', () => {
+        const fetched = false;
+
+        describe('but may be fetched', () => {
+          const mayFetch = true;
+
+          it('fetches facet from Record API', async() => {
+            const wrapper = factory({
+              propsData: { staticFields }
+            });
+            wrapper.setData({
+              mayFetch,
+              fetched
+            });
+
+            await wrapper.vm.fetch();
+
+            expect(apisRecordSearchStub.calledWith({ rows: 0, profile: 'facets', facet: 'COUNTRY' }, { locale: 'en' })).toBe(true);
+          });
+
+          it('marks facet as fetched', async() => {
+            const wrapper = factory({
+              propsData: { staticFields }
+            });
+            wrapper.setData({
+              mayFetch,
+              fetched
+            });
+
+            await wrapper.vm.fetch();
+
+            expect(wrapper.vm.fetched).toBe(true);
+          });
         });
 
-        await wrapper.vm.fetch();
+        describe('and may not be fetched', () => {
+          const mayFetch = false;
 
-        expect(apisRecordSearchStub.calledWith({ rows: 0, profile: 'facets', facet: 'COUNTRY' }, { locale: 'en' })).toBe(true);
-      });
+          it('does not fetch facet', async() => {
+            const wrapper = factory({
+              propsData: { staticFields }
+            });
+            wrapper.setData({
+              mayFetch,
+              fetched
+            });
 
-      it('marks facet as fetched', async() => {
-        const wrapper = factory();
-        await wrapper.setProps({
-          staticFields: null
+            await wrapper.vm.fetch();
+
+            expect(apisRecordSearchStub.called).toBe(false);
+          });
+
+          it('leaves facet marked as not fetched', async() => {
+            const wrapper = factory({
+              propsData: { staticFields }
+            });
+            wrapper.setData({
+              mayFetch,
+              fetched
+            });
+
+            await wrapper.vm.fetch();
+
+            expect(wrapper.vm.fetched).toBe(false);
+          });
         });
-        await wrapper.setData({
-          fetched: false
-        });
-
-        await wrapper.vm.fetch();
-
-        expect(wrapper.vm.fetched).toBe(true);
       });
     });
 
@@ -108,6 +161,55 @@ describe('components/search/SideFacetDropdown', () => {
   });
 
   describe('computed', () => {
+    describe('searchable', () => {
+      describe('when `search` prop is `true`', () => {
+        const search = true;
+
+        describe('and there are available options', () => {
+          const fields = countryFields;
+
+          it('is `true`', async() => {
+            const wrapper = factory({ propsData: { search } });
+            await wrapper.setData({
+              fields,
+              fetched: true
+            });
+
+            expect(wrapper.vm.searchable).toBe(true);
+          });
+        });
+
+        describe('but there are no available options', () => {
+          const fields = [];
+
+          it('is `false`', async() => {
+            const wrapper = factory({ propsData: { search } });
+            await wrapper.setData({
+              fields,
+              fetched: true
+            });
+
+            expect(wrapper.vm.searchable).toBe(false);
+          });
+        });
+      });
+
+      describe('when `search` prop is `false`', () => {
+        const search = false;
+        const fields = countryFields;
+
+        it('is `false`', async() => {
+          const wrapper = factory({ propsData: { search } });
+          await wrapper.setData({
+            fields,
+            fetched: true
+          });
+
+          expect(wrapper.vm.searchable).toBe(false);
+        });
+      });
+    });
+
     describe('groupedOptions', () => {
       const fields = [
         { label: 'http://rightsstatements.org/vocab/InC/1.0/', count: 14263988 },
@@ -156,14 +258,7 @@ describe('components/search/SideFacetDropdown', () => {
           name: 'COUNTRY',
           selected: ['Spain', 'United Kingdom']
         });
-        wrapper.setData({
-          fields: [
-            { label: 'United Kingdom', count: 99 },
-            { label: 'Germany', count: 100 },
-            { label: 'Netherlands', count: 101 },
-            { label: 'Spain', count: 44 }
-          ]
-        });
+        wrapper.setData({ fields: countryFields });
 
         expect(wrapper.vm.sortedOptions[0].label).toBe('United Kingdom');
         expect(wrapper.vm.sortedOptions[1].label).toBe('Spain');
@@ -171,21 +266,198 @@ describe('components/search/SideFacetDropdown', () => {
         expect(wrapper.vm.sortedOptions[3].label).toBe('Germany');
       });
     });
+
+    describe('availableSortedOptions', () => {
+      describe('when nothing selected and no search term input', () => {
+        it('returns all options', async() => {
+          const wrapper = factory();
+          wrapper.setData({ fetched: true, fields: countryFields });
+
+          expect(wrapper.vm.availableSortedOptions.length).toBe(countryFields.length);
+        });
+
+        it('returns radio options', async() => {
+          const wrapper = factory({
+            propsData: {
+              name: 'collection',
+              staticFields: ['ww1', 'archaeology'],
+              type: 'radio',
+              searchFacet: 'ww'
+            }
+          });
+
+          expect(wrapper.vm.availableSortedOptions.length).toBe(2);
+        });
+      });
+      describe('when options selected', () => {
+        it('returns the options that are not yet selected', async() => {
+          const wrapper = factory({
+            propsData: {
+              selected: ['Spain', 'United Kingdom']
+            }
+          });
+          wrapper.setData({ fields: countryFields });
+
+          expect(wrapper.vm.availableSortedOptions.some(option => option.label === 'Spain')).toBe(false);
+        });
+      });
+      describe('when a search term is inserted', () => {
+        it('returns the options that match the search term', () => {
+          const wrapper = factory({
+            propsData: {
+              selected: ['Spain', 'United Kingdom']
+            }
+          });
+
+          wrapper.setData({
+            fetched: true,
+            fields: countryFields,
+            searchFacet: 'netherlands'
+          });
+
+          expect(wrapper.vm.availableSortedOptions.some(option => option.label === 'Netherlands')).toBe(true);
+          expect(wrapper.vm.availableSortedOptions.some(option => option.label === 'Germany')).toBe(false);
+        });
+        describe('and the options are of the radio type', () => {
+          it('returns the options that match the search term', () => {
+            const wrapper = factory({
+              propsData: {
+                name: 'collection',
+                staticFields: ['ww1', 'archaeology', 'art', 'fashion'],
+                type: 'radio',
+                searchFacet: 'ww'
+              }
+            });
+
+            expect(wrapper.vm.availableSortedOptions.some(option => option === 'ww1')).toBe(true);
+          });
+        });
+      });
+    });
+
+    describe('criteria', () => {
+      it('turns the facet search term in a trimmed and lower cased string', () => {
+        const wrapper = factory();
+        wrapper.setData({
+          searchFacet: '  Im looking For a Facet '
+        });
+
+        expect(wrapper.vm.criteria).toBe('im looking for a facet');
+      });
+    });
+
+    describe('activeLabel', () => {
+      describe('when there are options selected', () => {
+        it('returns true', () => {
+          const wrapper = factory({
+            propsData: {
+              selected: ['Spain', 'United Kingdom']
+            }
+          });
+
+          expect(wrapper.vm.activeLabel).toBe(true);
+        });
+      });
+      // describe('when a search term is inserted', () => {
+      //   it('returns true', () => {
+      // const wrapper = factory({
+      //   propsData: {
+      //     search: true
+      //   }
+      // });
+      // wrapper.setData({ fields: countryFields });
+
+      // const searchInput = wrapper.find('[data-qa="side facet dropdown input"]');
+      // searchInput.trigger('keydown.e');
+
+      // expect(wrapper.vm.activeLabel).toBe(true);
+      // });
+      // });
+    });
+
+    describe('isColourPalette', () => {
+      it('does not show a colour palette', () => {
+        const wrapper = factory();
+        expect(wrapper.vm.isColourPalette).toBe(false);
+      });
+
+      it('does show a colour palette', async() => {
+        const wrapper = factory();
+        await wrapper.setProps({
+          name: 'COLOURPALETTE'
+        });
+        expect(wrapper.vm.isColourPalette).toBe(true);
+      });
+    });
+
+    describe('facetName', () => {
+      it('returns a translated facet name', () => {
+        const wrapper = factory();
+        expect(wrapper.vm.facetName).toBe('facets.COUNTRY.name');
+      });
+    });
   });
 
   describe('methods', () => {
-    describe('queryFacet', () => {
-      it('logs the query while live', async() => {
+    describe('refetch', () => {
+      it('flags as not fetched', async() => {
         const wrapper = factory();
-        await wrapper.setProps({
-          name: 'TYPE'
+        wrapper.setData({ fetched: true });
+
+        wrapper.vm.refetch();
+        await wrapper.vm.$nextTick();
+
+        expect(wrapper.vm.fetched).toBe(false);
+      });
+
+      it('triggers fetch', async() => {
+        const wrapper = factory();
+        sinon.spy(wrapper.vm, '$fetch');
+
+        await wrapper.vm.refetch();
+
+        expect(wrapper.vm.$fetch.called).toBe(true);
+      });
+    });
+
+    describe('prefetch', () => {
+      describe('when already fetched', () => {
+        const fetched = true;
+
+        it('does not fetch', async() => {
+          const wrapper = factory();
+          wrapper.setData({ fetched });
+          sinon.spy(wrapper.vm, '$fetch');
+
+          await wrapper.vm.prefetch();
+
+          expect(wrapper.vm.$fetch.called).toBe(false);
         });
-        const queryParams = { rows: 0, profile: 'facets', facet: 'TYPE' };
+      });
 
-        await wrapper.vm.queryFacet();
+      describe('when not yet fetched', () => {
+        const fetched = false;
 
-        expect(storeCommitSpy.calledWith('search/addLiveQuery', queryParams)).toBe(true);
-        expect(storeCommitSpy.calledWith('search/removeLiveQuery', queryParams)).toBe(true);
+        it('triggers fetch', async() => {
+          const wrapper = factory();
+          wrapper.setData({ fetched });
+          sinon.spy(wrapper.vm, '$fetch');
+
+          await wrapper.vm.prefetch();
+
+          expect(wrapper.vm.$fetch.called).toBe(true);
+        });
+
+        it('toggles `mayFetch` while fetching', async() => {
+          const wrapper = factory();
+          wrapper.setData({ fetched });
+
+          const promise = wrapper.vm.prefetch();
+
+          expect(wrapper.vm.mayFetch).toBe(true);
+          await promise;
+          expect(wrapper.vm.mayFetch).toBe(false);
+        });
       });
     });
 
@@ -295,69 +567,21 @@ describe('components/search/SideFacetDropdown', () => {
       });
     });
 
-    describe('updateRouteQueryReusability', () => {
-      describe('when this is not the reusability facet', () => {
-        it('triggers fetch', async() => {
-          const wrapper = factory();
-          wrapper.vm.$fetch = sinon.spy();
-          await wrapper.setProps({
-            name: 'TYPE'
-          });
+    describe('removeOption', () => {
+      it('removes an option', async() => {
+        const wrapper = factory();
+        wrapper.vm.removeOption({ 'tag': 'Sweden', removeTag() {} });
 
-          wrapper.vm.updateRouteQueryReusability();
-
-          expect(wrapper.vm.$fetch.called).toBe(true);
-        });
-      });
-
-      describe('when this is the reusability facet', () => {
-        it('does not trigger fetch', async() => {
-          const wrapper = factory();
-          wrapper.vm.$fetch = sinon.spy();
-          await wrapper.setProps({
-            name: 'REUSABILITY'
-          });
-
-          wrapper.vm.updateRouteQueryReusability();
-
-          expect(wrapper.vm.$fetch.called).toBe(false);
-        });
+        expect(wrapper.emitted().changed).toBeTruthy();
       });
     });
 
-    describe('updateRouteQueryQf', () => {
-      describe('when qf changed for other facets', () => {
-        it('triggers fetch', async() => {
-          const wrapper = factory();
-          wrapper.vm.$fetch = sinon.spy();
-          await wrapper.setProps({
-            name: 'TYPE'
-          });
+    describe('selectOption', () => {
+      it('selects an option', async() => {
+        const wrapper = factory();
+        wrapper.vm.selectOption({ 'option': { 'count': '1000', 'label': 'Sweden' }, addTag() {}, removeTag() {} });
 
-          const oldQf = ['TYPE:"IMAGE"'];
-          const newQf = ['TYPE:"IMAGE"', 'COUNTRY:"France"'];
-
-          wrapper.vm.updateRouteQueryQf(newQf, oldQf);
-
-          expect(wrapper.vm.$fetch.called).toBe(true);
-        });
-      });
-
-      describe('when qf changed only for this facet', () => {
-        it('does not trigger fetch', async() => {
-          const wrapper = factory();
-          wrapper.vm.$fetch = sinon.spy();
-          await wrapper.setProps({
-            name: 'TYPE'
-          });
-
-          const oldQf = ['TYPE:"IMAGE"'];
-          const newQf = ['TYPE:"IMAGE"', 'TYPE:"TEXT"'];
-
-          wrapper.vm.updateRouteQueryQf(newQf, oldQf);
-
-          expect(wrapper.vm.$fetch.called).toBe(false);
-        });
+        expect(wrapper.emitted().changed).toBeTruthy();
       });
     });
   });

@@ -663,7 +663,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label}: {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -926,6 +925,11 @@ export default {
   },
   "showLess": "Show less",
   "showMore": "Show more",
+  "sideFilters": {
+    "select": "Select a {filter} | Select {filter}",
+    "search": "Search",
+    "noOptions": "There are no options available to select"
+  },
   "statuses": {
     "liked": "Liked",
     "pinned": "Pinned"

@@ -82,6 +82,7 @@
                 :type="facetDropdownType(facet.name)"
                 :selected="filters[facet.name]"
                 :static-fields="facet.staticFields"
+                :search="facet.search"
                 :group-by="sideFacetDropdownGroupBy(facet.name)"
                 role="search"
                 :aria-label="facet.name"
@@ -111,7 +112,6 @@
   import { mapState, mapGetters } from 'vuex';
   import { rangeToQueryParam, rangeFromQueryParam, filtersFromQf } from '@/plugins/europeana/search';
   import themes from '@/plugins/europeana/themes';
-  import { defaultFacetNames } from '@/store/search';
   import SideFacetDropdown from './SideFacetDropdown';
 
   export default {
@@ -133,7 +133,31 @@
     },
     data() {
       return {
-        DEFAULT_FACET_NAMES: defaultFacetNames,
+        DEFAULT_FACET_NAMES: [
+          'TYPE',
+          'REUSABILITY',
+          'COUNTRY',
+          'LANGUAGE',
+          'PROVIDER',
+          'DATA_PROVIDER',
+          'COLOURPALETTE',
+          'IMAGE_ASPECTRATIO',
+          'IMAGE_SIZE',
+          'MIME_TYPE',
+          'contentTier'
+        ],
+        SEARCHABLE_FACETS: [
+          'COUNTRY',
+          'LANGUAGE',
+          'PROVIDER',
+          'DATA_PROVIDER',
+          'COLOURPALETTE',
+          'MIME_TYPE',
+          'CREATOR',
+          'proxy_dc_type.en',
+          'proxy_dc_format.en',
+          'proxy_dcterms_medium.en'
+        ],
         hideFilterSheet: true
       };
     },
@@ -193,7 +217,8 @@
       },
       filterableFacets() {
         let facets = this.facetNames.map(facetName => ({
-          name: facetName
+          name: facetName,
+          search: this.SEARCHABLE_FACETS.includes(facetName)
         }));
 
         if (this.collectionFacetEnabled) {
@@ -302,7 +327,7 @@
         // Remove collection-specific filters when collection is changed
         if (Object.prototype.hasOwnProperty.call(selected, 'collection') || !this.collection) {
           for (const name in filters) {
-            if (name !== 'collection' && !defaultFacetNames.includes(name) && this.resettableFilters.includes(name)) {
+            if (name !== 'collection' && !this.DEFAULT_FACET_NAMES.includes(name) && this.resettableFilters.includes(name)) {
               filters[name] = [];
             }
           }
