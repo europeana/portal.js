@@ -59,35 +59,77 @@ const factory = (options = {}) => shallowMountNuxt(SideFacetDropdown, {
 
 describe('components/search/SideFacetDropdown', () => {
   beforeEach(sinon.resetHistory);
+
   describe('fetch', () => {
     describe('if fields are not static', () => {
-      it('fetches facet from Record API', async() => {
-        const wrapper = factory();
-        await wrapper.setData({
-          mayFetch: true
+      const staticFields = null;
+
+      describe('and are not yet fetched', () => {
+        const fetched = false;
+
+        describe('but may be fetched', () => {
+          const mayFetch = true;
+
+          it('fetches facet from Record API', async() => {
+            const wrapper = factory({
+              propsData: { staticFields }
+            });
+            wrapper.setData({
+              mayFetch,
+              fetched
+            });
+
+            await wrapper.vm.fetch();
+
+            expect(apisRecordSearchStub.calledWith({ rows: 0, profile: 'facets', facet: 'COUNTRY' }, { locale: 'en' })).toBe(true);
+          });
+
+          it('marks facet as fetched', async() => {
+            const wrapper = factory({
+              propsData: { staticFields }
+            });
+            wrapper.setData({
+              mayFetch,
+              fetched
+            });
+
+            await wrapper.vm.fetch();
+
+            expect(wrapper.vm.fetched).toBe(true);
+          });
         });
-        await wrapper.setProps({
-          staticFields: null
+
+        describe('and may not be fetched', () => {
+          const mayFetch = false;
+
+          it('does not fetch facet', async() => {
+            const wrapper = factory({
+              propsData: { staticFields }
+            });
+            wrapper.setData({
+              mayFetch,
+              fetched
+            });
+
+            await wrapper.vm.fetch();
+
+            expect(apisRecordSearchStub.called).toBe(false);
+          });
+
+          it('leaves facet marked as not fetched', async() => {
+            const wrapper = factory({
+              propsData: { staticFields }
+            });
+            wrapper.setData({
+              mayFetch,
+              fetched
+            });
+
+            await wrapper.vm.fetch();
+
+            expect(wrapper.vm.fetched).toBe(false);
+          });
         });
-
-        await wrapper.vm.fetch();
-
-        expect(apisRecordSearchStub.calledWith({ rows: 0, profile: 'facets', facet: 'COUNTRY' }, { locale: 'en' })).toBe(true);
-      });
-
-      it('marks facet as fetched', async() => {
-        const wrapper = factory();
-        await wrapper.setProps({
-          staticFields: null
-        });
-        await wrapper.setData({
-          mayFetch: true,
-          fetched: false
-        });
-
-        await wrapper.vm.fetch();
-
-        expect(wrapper.vm.fetched).toBe(true);
       });
     });
 
@@ -119,6 +161,55 @@ describe('components/search/SideFacetDropdown', () => {
   });
 
   describe('computed', () => {
+    describe('searchable', () => {
+      describe('when `search` prop is `true`', () => {
+        const search = true;
+
+        describe('and there are available options', () => {
+          const fields = countryFields;
+
+          it('is `true`', async() => {
+            const wrapper = factory({ propsData: { search } });
+            await wrapper.setData({
+              fields,
+              fetched: true
+            });
+
+            expect(wrapper.vm.searchable).toBe(true);
+          });
+        });
+
+        describe('but there are no available options', () => {
+          const fields = [];
+
+          it('is `false`', async() => {
+            const wrapper = factory({ propsData: { search } });
+            await wrapper.setData({
+              fields,
+              fetched: true
+            });
+
+            expect(wrapper.vm.searchable).toBe(false);
+          });
+        });
+      });
+
+      describe('when `search` prop is `false`', () => {
+        const search = false;
+        const fields = countryFields;
+
+        it('is `false`', async() => {
+          const wrapper = factory({ propsData: { search } });
+          await wrapper.setData({
+            fields,
+            fetched: true
+          });
+
+          expect(wrapper.vm.searchable).toBe(false);
+        });
+      });
+    });
+
     describe('groupedOptions', () => {
       const fields = [
         { label: 'http://rightsstatements.org/vocab/InC/1.0/', count: 14263988 },
@@ -308,6 +399,68 @@ describe('components/search/SideFacetDropdown', () => {
   });
 
   describe('methods', () => {
+    describe('refetch', () => {
+      it('it flags as not fetched', async() => {
+        const wrapper = factory();
+        wrapper.setData({ fetched: true });
+
+        wrapper.vm.refetch();
+        await wrapper.vm.$nextTick();
+
+        expect(wrapper.vm.fetched).toBe(false);
+      });
+
+      it('triggers fetch', async() => {
+        const wrapper = factory();
+        sinon.spy(wrapper.vm, '$fetch');
+
+        await wrapper.vm.refetch();
+
+        expect(wrapper.vm.$fetch.called).toBe(true);
+      });
+    });
+
+    describe('prefetch', () => {
+      describe('when already fetched', () => {
+        const fetched = true;
+
+        it('does not fetch', async() => {
+          const wrapper = factory();
+          wrapper.setData({ fetched });
+          sinon.spy(wrapper.vm, '$fetch');
+
+          await wrapper.vm.prefetch();
+
+          expect(wrapper.vm.$fetch.called).toBe(false);
+        });
+      });
+
+      describe('when not yet fetched', () => {
+        const fetched = false;
+
+        it('triggers fetch', async() => {
+          const wrapper = factory();
+          wrapper.setData({ fetched });
+          sinon.spy(wrapper.vm, '$fetch');
+
+          await wrapper.vm.prefetch();
+
+          expect(wrapper.vm.$fetch.called).toBe(true);
+        });
+
+        it('toggles `mayFetch` while fetching', async() => {
+          const wrapper = factory();
+          wrapper.setData({ fetched });
+
+          const promise = wrapper.vm.prefetch();
+
+          expect(wrapper.vm.mayFetch).toBe(true);
+          await promise;
+          expect(wrapper.vm.mayFetch).toBe(false);
+        });
+      });
+    });
+
     describe('filterFacetFields', () => {
       describe('REUSABILITY facet', () => {
         const fields = [
