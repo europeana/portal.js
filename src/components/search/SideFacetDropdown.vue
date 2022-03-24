@@ -427,13 +427,14 @@
       },
 
       prefetch() {
-        if (!this.fetched) {
-          this.mayFetch = true;
-          return this.$fetch()
-            .then(() => {
-              this.mayFetch = false;
-            });
+        if (this.fetched) {
+          return Promise.resolve();
         }
+        this.mayFetch = true;
+        return this.$fetch()
+          .then(() => {
+            this.mayFetch = false;
+          });
       },
 
       init() {
