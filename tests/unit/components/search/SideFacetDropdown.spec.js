@@ -400,7 +400,7 @@ describe('components/search/SideFacetDropdown', () => {
 
   describe('methods', () => {
     describe('refetch', () => {
-      it('it flags as not fetched', async() => {
+      it('flags as not fetched', async() => {
         const wrapper = factory();
         wrapper.setData({ fetched: true });
 
