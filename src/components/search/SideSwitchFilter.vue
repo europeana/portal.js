@@ -38,11 +38,11 @@
   export default {
     name: 'SideSwitchFilter',
 
-    mixins: [facetsMixin],
-
     directives: {
       'b-tooltip': VBTooltip
     },
+
+    mixins: [facetsMixin],
 
     props: {
       /**
