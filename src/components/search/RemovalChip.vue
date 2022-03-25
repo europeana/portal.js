@@ -3,26 +3,21 @@
     :to="$link.to(linkTo)"
     :href="$link.href(linkTo)"
     pill
-    :variant="badgeVariant"
+    variant="light"
     :class="{ 'img-chip': img }"
-    :data-qa="localisedTitle.values[0] + ' related chip'"
+    :data-qa="localisedTitle.values[0] + ' removal chip'"
     :lang="localisedTitle.code"
     @click.native="trackClickEvent"
   >
-    <div
-      v-if="img && type === 'Organization'"
-      class="organisation-logo mr-2"
-      data-qa="entity logo"
-      :style="`background-image: url(${img})`"
-    />
     <b-img
-      v-else-if="img"
+      v-if="img"
       :src="img"
       alt=""
       rounded="circle"
       class="mr-2"
     />
-    <span>{{ localisedTitle.values[0] }}</span>
+    {{ localisedTitle.values[0] }}
+    <span class="icon icon-clear clear-indicator" />
   </b-badge>
 </template>
 
@@ -30,32 +25,20 @@
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
 
   export default {
-    name: 'RelatedChip',
+    name: 'RemovalChip',
 
     props: {
-      linkTo: {
-        type: String,
-        default: ''
-      },
       title: {
         type: [String, Object],
         required: true
       },
-      id: {
-        type: String,
-        default: ''
+      linkTo: {
+        type: [String, Object],
+        default: null
       },
       img: {
         type: String,
         default: ''
-      },
-      type: {
-        type: String,
-        default: ''
-      },
-      badgeVariant: {
-        type: String,
-        default: 'secondary'
       }
     },
 
@@ -74,9 +57,22 @@
     methods: {
       trackClickEvent() {
         if (this.$matomo) {
-          this.$matomo.trackEvent('Related_collections', 'Click related collection', this.linkTo);
+          this.$matomo.trackEvent('Remove_search_criterion', 'Click remove search criteria', this.linkTo);
         }
       }
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  @import '@/assets/scss/variables';
+
+  // TODO: Remove the .clear-indicator, prefer to use the .close style from EC-5678
+  .clear-indicator {
+    background-color: $mediumgrey;
+    color: $white;
+    border-radius: $border-radius-large;
+    margin-left: 4px;
+  }
+  .badge-light { text-transform: none; }
+</style>

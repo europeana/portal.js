@@ -3,23 +3,6 @@ import themes from '@/plugins/europeana/themes';
 import { filtersFromQf } from '@/plugins/europeana/search';
 import { BASE_URL as FULLTEXT_BASE_URL } from '@/plugins/europeana/newspaper';
 
-// Default facets to always request and display.
-// Order is significant as it will be reflected on search results.
-export const defaultFacetNames = [
-  'TYPE',
-  'REUSABILITY',
-  'COUNTRY',
-  'LANGUAGE',
-  'PROVIDER',
-  'DATA_PROVIDER',
-  'COLOURPALETTE',
-  'IMAGE_ASPECTRATIO',
-  'IMAGE_SIZE',
-  'MIME_TYPE',
-  'RIGHTS',
-  'contentTier'
-];
-
 export default {
   state: () => ({
     active: false,
@@ -43,12 +26,6 @@ export default {
   }),
 
   mutations: {
-    addLiveQuery(state, query) {
-      state.liveQueries.push(query);
-    },
-    removeLiveQuery(state, query) {
-      state.liveQueries = state.liveQueries.filter(liveQuery => liveQuery !== query);
-    },
     disableCollectionFacet(state) {
       state.collectionFacetEnabled = false;
     },
@@ -172,22 +149,18 @@ export default {
       return dispatch('queryItems');
     },
 
-    queryItems({ dispatch, state, getters, commit }) {
+    queryItems({ dispatch, state, getters }) {
       const paramsForItems = {
         ...state.apiParams
       };
       delete paramsForItems.facet;
 
-      commit('addLiveQuery', paramsForItems);
       return this.$apis.record.search(paramsForItems, { ...getters.searchOptions, locale: this.$i18n.locale })
         .then(async(response) => {
           await dispatch('updateForSuccess', response);
         })
         .catch(async(error) => {
           await dispatch('updateForFailure', error);
-        })
-        .finally(() => {
-          commit('removeLiveQuery', paramsForItems);
         });
     },
 
