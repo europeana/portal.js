@@ -21,6 +21,16 @@
             />
           </div>
           <div
+            v-if="transcribeUrl"
+            class="d-flex justify-content-md-center align-items-center transcribathon-wrapper">
+            <b-link
+              :href="transcribeUrl"
+              target="_blank"
+            >
+              {{ $t('actions.transcribe') }}
+            </b-link>
+          </div>
+          <div
             v-if="media.length !== 1"
             class="d-flex justify-content-md-center align-items-center pagination-wrapper"
           >
@@ -115,6 +125,10 @@
       attributionFields: {
         type: Object,
         default: () => ({})
+      },
+      linkForContributingAnnotation: {
+        type: Object,
+        default: () => null
       }
     },
     data() {
@@ -150,6 +164,10 @@
       },
       downloadEnabled() {
         return this.rightsStatement && !this.rightsStatement.includes('/InC/') && !this.selectedMedia.isShownAt;
+      },
+      transcribeUrl() {
+        // TODO: Account for the link in body.id if that's used.
+        return this.linkForContributingAnnotation?.body;
       }
     },
     mounted() {

@@ -25,6 +25,7 @@
           :media="media"
           :edm-rights="edmRights"
           :attribution-fields="attributionFields"
+          :linkForContributingAnnotation="linkForContributingAnnotation"
         />
       </b-container>
       <b-container>
@@ -294,6 +295,9 @@
       },
       transcribingAnnotations() {
         return this.annotationsByMotivation('transcribing');
+      },
+      linkForContributingAnnotation() {
+        return this.annotationsByMotivation('linkForContributing')[0];
       },
       ...mapGetters({
         shareUrl: 'http/canonicalUrl',
