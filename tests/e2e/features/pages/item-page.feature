@@ -92,7 +92,7 @@ Feature: item page
     When I click the `show search button`
     And I enter "pl_wgs84_pos_lat:* pl_wgs84_pos_long:* proxy_dcterms_spatial:http\://data.europeana.eu*" in the `search box`
     And I press the ENTER key
-    And I see a `search query` with the text "pl_wgs84_pos_lat:* pl_wgs84_pos_long:* proxy_dcterms_spatial:http\://data.europeana.eu*"
+    And I see a `context label` with the text "pl_wgs84_pos_lat:* pl_wgs84_pos_long:* proxy_dcterms_spatial:http\://data.europeana.eu*"
     And I click a `item preview`
     And I see an `item page`
     And I hover over the `metadata box`
@@ -104,7 +104,7 @@ Feature: item page
     When I click the `show search button`
     And I enter "NOT proxy_dcterms_spatial:* pl_wgs84_pos_lat:* pl_wgs84_pos_long:*" in the `search box`
     And I press the ENTER key
-    And I see a `search query` with the text "NOT proxy_dcterms_spatial:* pl_wgs84_pos_lat:* pl_wgs84_pos_long:*"
+    And I see a `context label` with the text "NOT proxy_dcterms_spatial:* pl_wgs84_pos_lat:* pl_wgs84_pos_long:*"
     And I click a `item preview`
     And I see an `item page`
     And I hover over the `metadata box`

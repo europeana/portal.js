@@ -11,20 +11,6 @@
         <b-col
           class="results-col"
         >
-          <b-container
-            v-if="!headerCardsEnabled"
-          >
-            <b-row>
-              <b-col>
-                <i18n
-                  :path="searchQuery ? 'searchResultsFor' : 'searchResults'"
-                  tag="h1"
-                >
-                  <span data-qa="search query">{{ searchQuery }}</span>
-                </i18n>
-              </b-col>
-            </b-row>
-          </b-container>
           <SearchInterface
             id="search-interface"
             :per-row="4"
@@ -125,12 +111,6 @@
 
   .page-container {
     max-width: none;
-
-    ::v-deep .related-collections .badge {
-      // TODO: Remove this when the badges move into the search results
-      margin-top: 0.25rem;
-      margin-right: 0.5rem;
-    }
   }
 
   .results-col {

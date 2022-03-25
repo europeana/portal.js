@@ -95,7 +95,7 @@
     computed: {
       ...mapState({
         query: state => state.search.userParams.query,
-        entity: state => state.entity.entity
+        entity: state => state.entity?.entity
       }),
       hasQuery() {
         return this.query && this.query !== '';

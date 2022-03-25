@@ -124,7 +124,7 @@ Feature: Search faceting
     And I click the `show search button`
     And I enter "paris" in the `search box`
     And I press the ENTER key
-    Then I see a `search query` with the text "paris"
+    Then I see a `context label` with the text "paris"
     And I am on page number 1
     And I see a `filter badge` with the text "France"
     And I should have 1 `filter badge`

@@ -874,7 +874,6 @@ export default {
   "searchPlaceholder": "Search millions of items",
   "searchResults": "Search",
   "searchResultsFor": "{0} - Search",
-  "searchResultsForIn": "{0} - Search in {1}",
   "searchSuggestions": "Search suggestions",
   "searchTier": {
     "button": {

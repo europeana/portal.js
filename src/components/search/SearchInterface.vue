@@ -17,7 +17,6 @@
   </b-container>
   <b-container v-else>
     <div
-      v-if="hasAnyResults"
       class="mb-3 d-flex align-items-start align-items-md-center justify-content-between"
     >
       <SearchResultsContext
@@ -231,9 +230,6 @@
         set(value) {
           this.$store.commit('search/setView', value);
         }
-      },
-      headerCardsEnabled() {
-        return this.$features.entityHeaderCards;
       }
     },
 
