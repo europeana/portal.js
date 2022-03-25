@@ -25,7 +25,7 @@
     "test:unit": "jest",
     "test:visual": "touch tests/e2e/docker/nightwatch-visual/.env && docker-compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-visual",
     "test:watch": "jest --watch",
-    "test": "npm run test:unit && npm run test:size && npm run test:e2e",
+    "test": "npm run lint && npm run stylelint && npm run test:unit && npm run test:size && npm run test:stack:rebuild && npm run test:e2e",
     "version": "node bin/pkg-versions.js && node bin/sonar-project-version.js && git add pkg-versions.js sonar-project.properties"
   },
   "dependencies": {
