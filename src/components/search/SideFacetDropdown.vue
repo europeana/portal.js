@@ -84,7 +84,7 @@
               </b-dropdown-form>
             </template>
             <b-dropdown-item-button
-              v-for="(option, index) in availableSortedOptions"
+              v-for="(option, index) in availableSortedDisplayableOptions"
               :key="index"
               :data-qa="`${isRadio ? option : option.label} ${name} field`"
               @click="selectOption({ option, addTag, removeTag })"
@@ -104,12 +104,20 @@
               </template>
             </b-dropdown-item-button>
             <b-dropdown-text
+              v-if="truncated"
+              data-qa="more facet values available label"
+              class="more-facet-values-label"
+              @click="setSearchFocus()"
+            >
+              {{ $t('facets.moreOptions', [truncatedAmmount]) }}
+            </b-dropdown-text>
+            <b-dropdown-text
               v-if="$fetchState.pending"
               class="text-center"
             >
               <LoadingSpinner />
             </b-dropdown-text>
-            <b-dropdown-text v-else-if="fetched && availableSortedOptions.length === 0">
+            <b-dropdown-text v-else-if="fetched && availableSortedDisplayableOptions.length === 0">
               {{ $t('sideFilters.noOptions') }}
             </b-dropdown-text>
           </b-dropdown>
@@ -127,6 +135,7 @@
   import { escapeLuceneSpecials, unescapeLuceneSpecials } from '@/plugins/europeana/utils';
   import facetsMixin from '@/mixins/facets';
 
+  const MAXIMUM_VALUES_DISPLAY_COUNT = 50;
   /**
    * Dropdown for search facet, with removable tags and optional search.
    */
@@ -293,8 +302,22 @@
             return exactMatch || facetValueMatch;
           });
         }
-
         return options;
+      },
+
+      availableSortedDisplayableOptions() {
+        if (this.search && this.availableSortedOptions.length > MAXIMUM_VALUES_DISPLAY_COUNT) {
+          return this.availableSortedOptions.slice(0, MAXIMUM_VALUES_DISPLAY_COUNT);
+        }
+        return this.availableSortedOptions;
+      },
+
+      truncated() {
+        return this.search && (this.availableSortedOptions.length - MAXIMUM_VALUES_DISPLAY_COUNT) >= 0;
+      },
+
+      truncatedAmmount() {
+        return this.truncated ? this.availableSortedOptions.length - MAXIMUM_VALUES_DISPLAY_COUNT : 0;
       },
 
       isColourPalette() {
@@ -326,12 +349,16 @@
       },
 
       paramsForFacets() {
-        return {
+        const params = {
           ...this.$store.state.search.apiParams,
           rows: 0,
           profile: 'facets',
           facet: this.name
         };
+        if (this.search) {
+          params[`f.${this.name}.facet.limit`] = 125000; // TODO: set a higher limit? 140000+ can cause errors.
+        }
+        return params;
       },
 
       criteria() {
@@ -468,7 +495,11 @@
       },
 
       shownDropdown() {
-        this.searchable && this.$refs['search-input'].focus();
+        this.searchable && this.setSearchFocus();
+      },
+
+      setSearchFocus() {
+        this.$refs['search-input'].focus();
       },
 
       resetDropdown() {

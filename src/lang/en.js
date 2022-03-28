@@ -544,6 +544,7 @@ export default {
         "4": "High quality & freely reusable"
       }
     },
+    "moreOptions": "{0} more options...",
     "proxy_dc_format": {
       "name": "Format | Formats"
     },
