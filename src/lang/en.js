@@ -803,7 +803,7 @@ export default {
     "dismiss": "Dismiss",
     "readMore": "Read more",
     "text": {
-      "sideFilters": "Check out the new filters! They are now all visible on the right-hand side of the search results."
+      "searchFilters": "Our search filters now support searching; check it out! We also redesigned our results and collection pages."
     }
   },
   "newWindow": "opens in new window",
