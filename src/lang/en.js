@@ -183,7 +183,7 @@ export default {
   },
   "facets": {
     "COLOURPALETTE": {
-      "name": "Colour | Colours",
+      "name": "colour | colours",
       "options": {
         "#000000": "Black",
         "#000080": "Navy Blue",
@@ -383,20 +383,20 @@ export default {
       }
     },
     "CREATOR": {
-      "name": "Creator | Creators"
+      "name": "creator | creators"
     },
     "DATA_PROVIDER": {
-      "name": "Institution | Institutions"
+      "name": "institution | institutions"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Image orientation | Image orientations",
+      "name": "image orientation | image orientations",
       "options": {
         "landscape": "Landscape",
         "portrait": "Portrait"
       }
     },
     "IMAGE_SIZE": {
-      "name": "Image size | Image sizes",
+      "name": "image size | image sizes",
       "options": {
         "extra_large": "Extra Large 4MP+ (e.g. 2688 x 1520px)",
         "large": "Large 1-4MP (e.g. 1920x1080px)",
@@ -405,7 +405,7 @@ export default {
       }
     },
     "LANGUAGE": {
-      "name": "Language | Languages",
+      "name": "language | languages",
       "options": {
         "ar": "Arabic",
         "bg": "Bulgarian",
@@ -449,13 +449,13 @@ export default {
       }
     },
     "MIME_TYPE": {
-      "name": "File format | File formats",
+      "name": "file format | file formats",
       "options": {
         "text/plain": "Plain text"
       }
     },
     "PROVIDER": {
-      "name": "Aggregator | Aggregators"
+      "name": "aggregator | aggregators"
     },
     "REUSABILITY": {
       "name": "Can I use this?",
@@ -534,7 +534,7 @@ export default {
       }
     },
     "contentTier": {
-      "name": "Item quality",
+      "name": "item quality",
       "options": {
         "*": "Includes items not meeting our publishing criteria",
         "0": "Not meeting publishing criteria",
@@ -544,18 +544,18 @@ export default {
         "4": "High quality & freely reusable"
       }
     },
-    "moreOptions": "{0} more options...",
+    "moreOptions": "Search to find  {0} more {1} values.",
     "proxy_dc_format": {
-      "name": "Format | Formats"
+      "name": "format | formats"
     },
     "proxy_dc_type": {
-      "name": "Type | Types"
+      "name": "type | types"
     },
     "proxy_dcterms_issued": {
-      "name": "Date issued"
+      "name": "date issued"
     },
     "proxy_dcterms_medium": {
-      "name": "Medium | Media"
+      "name": "medium | media"
     }
   },
   "feedback": {

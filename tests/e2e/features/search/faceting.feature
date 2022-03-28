@@ -52,6 +52,15 @@ Feature: Search faceting
     And I am on page number 1
     And I see a `filter badge` with the text "Belgium"
 
+Scenario: Filtering beyond the first 50 facet values using facet search
+    Given I am on the `search page`
+    When I click the `PROVIDER side facet dropdown button`
+    And I click the `more facet values available label`
+    And I enter "National Library of Spain" in the `side facet dropdown search input`
+    And I click the `National Library of Spain PROVIDER field`
+    And I don't have a `loading spinner`
+    Then I should be on `/en/search?page=1&qf=PROVIDER%3A%22National%20Library%20of%20Spain%22`
+
   Scenario: Filtering results by two countries
     Given I am on the `search page`
     When I click the `COUNTRY side facet dropdown button`

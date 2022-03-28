@@ -106,10 +106,13 @@
             <b-dropdown-text
               v-if="truncated"
               data-qa="more facet values available label"
-              class="more-facet-values-label"
+              class="more-facet-values-label dropdown-item"
               @click="setSearchFocus()"
+              @selected="setSearchFocus()"
             >
-              {{ $t('facets.moreOptions', [truncatedAmmount]) }}
+              <span>
+                {{ $t('facets.moreOptions', [truncatedAmmount, facetName]) }}
+              </span>
             </b-dropdown-text>
             <b-dropdown-text
               v-if="$fetchState.pending"
@@ -356,7 +359,7 @@
           facet: this.name
         };
         if (this.search) {
-          params[`f.${this.name}.facet.limit`] = 125000; // TODO: set a higher limit? 140000+ can cause errors.
+          params[`f.${this.name}.facet.limit`] = 125000;
         }
         return params;
       },

@@ -132,6 +132,11 @@
 
     .more-facet-values-label {
       cursor: pointer;
+
+      p {
+        padding: 0;
+        margin: 0;
+      }
     }
   }
 }
