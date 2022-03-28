@@ -284,13 +284,11 @@
             overrideParams.qf.push(`collection:${curatedEntity.genre}`);
           } else {
             const entityQuery = getEntityQuery(this.entity.id);
-            overrideParams.qf.push(entityQuery);
 
-            if (!this.$route.query.query) {
-              const englishPrefLabel = this.$store.getters['entity/englishPrefLabel'];
-              if (englishPrefLabel) {
-                overrideParams.query = englishPrefLabel;
-              }
+            if (this.$route.query.query) {
+              overrideParams.qf.push(entityQuery);
+            } else {
+              overrideParams.query = entityQuery;
             }
           }
         }

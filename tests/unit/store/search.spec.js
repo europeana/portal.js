@@ -7,45 +7,6 @@ describe('store/search', () => {
   });
   beforeEach(sinon.resetHistory);
 
-  describe('getters', () => {
-    describe('searchOptions', () => {
-      describe('.escape', () => {
-        it('is `true` when override params has query and user params does not', () => {
-          const state = {
-            overrideParams: { query: 'crumpet' },
-            userParams: {}
-          };
-
-          const escape = store.getters.searchOptions(state).escape;
-
-          expect(escape).toBe(true);
-        });
-
-        it('is `true` when override params has query and user params query is blank', () => {
-          const state = {
-            overrideParams: { query: 'crumpet' },
-            userParams: { query: '' }
-          };
-
-          const escape = store.getters.searchOptions(state).escape;
-
-          expect(escape).toBe(true);
-        });
-
-        it('is `false` when override params has no query', () => {
-          const state = {
-            overrideParams: {},
-            userParams: {}
-          };
-
-          const escape = store.getters.searchOptions(state).escape;
-
-          expect(escape).toBe(false);
-        });
-      });
-    });
-  });
-
   describe('actions', () => {
     describe('run', () => {
       it('derives the API params', async() => {

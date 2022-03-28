@@ -92,8 +92,7 @@ export default {
 
     searchOptions: (state) => {
       return {
-        ...state.apiOptions,
-        escape: (!state.userParams.query && !!state.overrideParams.query)
+        ...state.apiOptions
       };
     }
   },
