@@ -28,125 +28,111 @@
         </b-col>
       </b-row>
       <b-row>
-        <b-col class="p-0">
-          <b-tabs
+        <b-col class="p-0 mb-3">
+          <b-nav
+            tabs
             align="center"
-            class="mb-3"
           >
-            <b-tab
+            <b-nav-item
               data-qa="likes collection"
-              :title="$t('account.likes')"
-              active
+              :to="$path({ hash: tabHashes.likes})"
+              :active="activeTab === tabHashes.likes"
             >
-              <client-only>
-                <b-container>
-                  <b-row class="flex-md-row">
-                    <b-col cols="12">
-                      <template
-                        v-if="likedItems"
-                      >
-                        <ItemPreviewCardGroup
-                          v-if="likesId && likedItems.length !== 0"
-                          :items="likedItems"
-                          class="pb-5"
-                        />
-                        <div
-                          v-else
-                          class="text-center pb-4"
-                        >
-                          {{ $t('account.notifications.noLikedItems') }}
-                        </div>
-                      </template>
-                      <div
-                        v-else-if="$fetchState.pending"
-                        class="text-center pb-4"
-                      >
-                        <LoadingSpinner />
-                      </div>
-                      <AlertMessage
-                        v-else-if="$fetchState.error"
-                        :error="$fetchState.error.message"
-                      />
-                    </b-col>
-                  </b-row>
-                </b-container>
-              </client-only>
-            </b-tab>
-            <b-tab
+              {{ $t('account.likes') }}
+            </b-nav-item>
+            <b-nav-item
               data-qa="public collections"
-              :title="$t('account.publicCollections')"
+              :to="$path({ hash: tabHashes.publicGalleries})"
+              :active="activeTab === tabHashes.publicGalleries"
             >
-              <client-only>
-                <div
-                  v-if="$fetchState.pending"
-                  class="text-center pb-4"
-                >
-                  <LoadingSpinner />
-                </div>
-                <UserSets
-                  v-else
-                  :sets="publicCreations"
-                  visibility="public"
-                  :empty-text="$t('account.notifications.noCollections.public')"
-                  data-qa="public sets"
-                />
-              </client-only>
-            </b-tab>
-            <b-tab
+              {{ $t('account.publicCollections') }}
+            </b-nav-item>
+            <b-nav-item
               data-qa="private collections"
-              :title="$t('account.privateCollections')"
+              :to="$path({ hash: tabHashes.privateGalleries})"
+              :active="activeTab === tabHashes.privateGalleries"
             >
-              <client-only>
-                <div
-                  v-if="$fetchState.pending"
-                  class="text-center pb-4"
-                >
-                  <LoadingSpinner />
-                </div>
-                <UserSets
-                  v-else
-                  :sets="privateCreations"
-                  visibility="private"
-                  :empty-text="$t('account.notifications.noCollections.private')"
-                  data-qa="private sets"
-                />
-              </client-only>
-            </b-tab>
-            <b-tab
+              {{ $t('account.privateCollections') }}
+            </b-nav-item>
+            <b-nav-item
               v-if="userIsEditor"
               data-qa="curated collections"
-              :title="$t('account.curatedCollections')"
+              :to="$path({ hash: tabHashes.curatedCollections})"
+              :active="activeTab === tabHashes.curatedCollections"
             >
-              <client-only>
-                <div
-                  v-if="$fetchState.pending"
-                  class="text-center pb-4"
-                >
-                  <LoadingSpinner />
-                </div>
-                <UserSets
-                  v-else
-                  :sets="curations"
-                  :show-create-set-button="false"
-                  :empty-text="$t('account.notifications.noCollections.curated')"
-                  data-qa="curated sets"
-                >
-                  <template #header>
-                    <b-row
-                      class="w-100 px-3"
+              {{ $t('account.curatedCollections') }}
+            </b-nav-item>
+          </b-nav>
+          <client-only>
+            <div
+              v-if="$fetchState.pending"
+              class="text-center pb-4"
+            >
+              <LoadingSpinner />
+            </div>
+            <AlertMessage
+              v-else-if="$fetchState.error"
+              :error="$fetchState.error.message"
+            />
+            <b-container v-else-if="activeTab === tabHashes.likes">
+              <b-row class="flex-md-row">
+                <b-col cols="12">
+                  <template
+                    v-if="likedItems"
+                  >
+                    <ItemPreviewCardGroup
+                      v-if="likesId && likedItems.length !== 0"
+                      :items="likedItems"
+                      class="pb-5"
+                    />
+                    <div
+                      v-else
+                      class="text-center pb-4"
                     >
-                      <b-col class="related-heading d-inline-flex px-0">
-                        <span class="icon-info mr-1" />
-                        <h2 class="related-heading text-uppercase">
-                          {{ $t('account.curatedCollectionsInfo') }}
-                        </h2>
-                      </b-col>
-                    </b-row>
+                      {{ $t('account.notifications.noLikedItems') }}
+                    </div>
                   </template>
-                </UserSets>
-              </client-only>
-            </b-tab>
-          </b-tabs>
+                </b-col>
+              </b-row>
+            </b-container>
+            <template v-else-if="activeTab === tabHashes.publicGalleries">
+              <UserSets
+                :sets="publicCreations"
+                visibility="public"
+                :empty-text="$t('account.notifications.noCollections.public')"
+                data-qa="public sets"
+              />
+            </template>
+            <template v-else-if="activeTab === tabHashes.privateGalleries">
+              <UserSets
+                :sets="privateCreations"
+                visibility="private"
+                :empty-text="$t('account.notifications.noCollections.private')"
+                data-qa="private sets"
+              />
+            </template>
+            <template v-else-if="userIsEditor && activeTab === tabHashes.curatedCollections">
+              <UserSets
+                :sets="curations"
+                :show-create-set-button="false"
+                :empty-text="$t('account.notifications.noCollections.curated')"
+                data-qa="curated sets"
+              >
+                <template slot="header">
+                  <b-row
+                    class="w-100 px-3"
+                  >
+                    <b-col class="related-heading d-inline-flex px-0">
+                      <span class="icon-info mr-1" />
+                      <h2 class="related-heading text-uppercase">
+                        {{ $t('account.curatedCollectionsInfo') }}
+                      </h2>
+                    </b-col>
+                  </b-row>
+                </template>
+              </UserSets>
+            </template>
+          </client-only>
         </b-col>
       </b-row>
     </b-container>
@@ -154,7 +140,7 @@
 </template>
 
 <script>
-  import { BTabs, BTab } from 'bootstrap-vue';
+  import { BNav } from 'bootstrap-vue';
   import { mapState } from 'vuex';
 
   import keycloak from '../../mixins/keycloak';
@@ -167,8 +153,7 @@
     name: 'AccountIndexPage',
 
     components: {
-      BTabs,
-      BTab,
+      BNav,
       ItemPreviewCardGroup,
       UserSets,
       AlertMessage,
@@ -183,7 +168,13 @@
 
     data() {
       return {
-        loggedInUser: this.$store.state.auth.user
+        loggedInUser: this.$store.state.auth.user,
+        tabHashes: {
+          likes: '#likes',
+          publicGalleries: '#public-galleries',
+          privateGalleries: '#private-galleries',
+          curatedCollections: '#curated-collections'
+        }
       };
     },
 
@@ -214,7 +205,10 @@
         curations: state => state.set.curations,
         publicCreations: state => state.set.creations.filter(set => set.visibility === 'public'),
         privateCreations: state => state.set.creations.filter(set => set.visibility === 'private')
-      })
+      }),
+      activeTab() {
+        return this.$route.hash || this.tabHashes.likes;
+      }
     },
 
     methods: {
