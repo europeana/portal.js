@@ -110,9 +110,15 @@
               @click="setSearchFocus()"
               @selected="setSearchFocus()"
             >
-              <span>
-                {{ $t('facets.moreOptions', [truncatedAmmount, facetName]) }}
-              </span>
+              <i18n
+                path="facets.moreOptions"
+                tag="span"
+              >
+                <span class="font-weight-bold">
+                  {{ truncatedAmount | localise }}
+                </span>
+                {{ $tc(moreOptionsLabelKey, truncatedAmount) }}<!-- This comment removes white space
+              --></i18n>
             </b-dropdown-text>
             <b-dropdown-text
               v-if="$fetchState.pending"
@@ -138,7 +144,6 @@
   import { escapeLuceneSpecials, unescapeLuceneSpecials } from '@/plugins/europeana/utils';
   import facetsMixin from '@/mixins/facets';
 
-  const MAXIMUM_VALUES_DISPLAY_COUNT = 50;
   /**
    * Dropdown for search facet, with removable tags and optional search.
    */
@@ -212,6 +217,8 @@
         searchFacet: '',
         RADIO: 'radio',
         CHECKBOX: 'checkbox',
+        MAXIMUM_VALUES_DISPLAY_COUNT: 50,
+        MAXIMUM_VALUES_RETRIEVAL_COUNT: 125000, // Beyond 140000 we've seen solr errors. 125000 to have plenty of buffer before that happens.
         preSelected: null,
         fetched: !!this.staticFields,
         fields: this.staticFields || [],
@@ -245,7 +252,7 @@
 
     computed: {
       searchable() {
-        return this.search && this.availableSortedOptions.length > 0;
+        return this.search && this.fields.length > 0;
       },
 
       selectedFilters() {
@@ -309,18 +316,18 @@
       },
 
       availableSortedDisplayableOptions() {
-        if (this.search && this.availableSortedOptions.length > MAXIMUM_VALUES_DISPLAY_COUNT) {
-          return this.availableSortedOptions.slice(0, MAXIMUM_VALUES_DISPLAY_COUNT);
+        if (this.search && this.availableSortedOptions.length > this.MAXIMUM_VALUES_DISPLAY_COUNT) {
+          return this.availableSortedOptions.slice(0, this.MAXIMUM_VALUES_DISPLAY_COUNT);
         }
         return this.availableSortedOptions;
       },
 
       truncated() {
-        return this.search && (this.availableSortedOptions.length - MAXIMUM_VALUES_DISPLAY_COUNT) >= 0;
+        return this.search && (this.availableSortedOptions.length - this.MAXIMUM_VALUES_DISPLAY_COUNT) >= 0;
       },
 
-      truncatedAmmount() {
-        return this.truncated ? this.availableSortedOptions.length - MAXIMUM_VALUES_DISPLAY_COUNT : 0;
+      truncatedAmount() {
+        return this.truncated ? this.availableSortedOptions.length - this.MAXIMUM_VALUES_DISPLAY_COUNT : 0;
       },
 
       isColourPalette() {
@@ -347,6 +354,10 @@
         return themes.find(theme => theme.qf === this.collection);
       },
 
+      moreOptionsLabelKey() {
+        return this.tFacetName(this.name, this.truncatedAmount);
+      },
+
       themeSpecificFieldLabelPattern() {
         return (this.theme?.facets || []).find((facet) => facet.field === this.name)?.label;
       },
@@ -359,7 +370,7 @@
           facet: this.name
         };
         if (this.search) {
-          params[`f.${this.name}.facet.limit`] = 125000;
+          params[`f.${this.name}.facet.limit`] = this.MAXIMUM_VALUES_RETRIEVAL_COUNT;
         }
         return params;
       },

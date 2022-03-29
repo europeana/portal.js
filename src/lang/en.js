@@ -89,16 +89,16 @@ export default {
     "fashion": {
       "facets": {
         "CREATOR": {
-          "name": "Designer | Designers"
+          "name": "designer | designers"
         },
         "proxy_dc_format": {
-          "name": "Technique | Techniques"
+          "name": "technique | techniques"
         },
         "proxy_dc_type": {
-          "name": "Item type | Item types"
+          "name": "item type | item types"
         },
         "proxy_dcterms_medium": {
-          "name": "Material | Materials"
+          "name": "material | materials"
         }
       }
     },
@@ -544,7 +544,7 @@ export default {
         "4": "High quality & freely reusable"
       }
     },
-    "moreOptions": "Search to find  {0} more {1} values.",
+    "moreOptions": "Search to find {0} more {1}.",
     "proxy_dc_format": {
       "name": "format | formats"
     },
