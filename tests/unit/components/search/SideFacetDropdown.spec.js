@@ -93,7 +93,7 @@ const factory = (options = {}) => shallowMountNuxt(SideFacetDropdown, {
       query: {}
     },
     $t: (key) => key,
-    $tc: (key) => key,
+    $tc: (key, count) => `${key} - ${count}`,
     $te: () => true,
     $store: {
       commit: storeCommitSpy,
@@ -499,6 +499,39 @@ describe('components/search/SideFacetDropdown', () => {
           expect(wrapper.vm.truncatedAmount).toBe(5);
         });
       });
+      describe('when there are less than 50 options available to display', () => {
+        it('returns 0', () => {
+          const wrapper = factory({
+            propsData: {
+              search: true
+            }
+          });
+          wrapper.setData({
+            fetched: true,
+            fields: countryFields
+          });
+
+          expect(wrapper.vm.truncatedAmount).toBe(0);
+        });
+      });
+    });
+
+    describe('moreOptionsLabel', () => {
+      describe('when there are multiple extra options available to display', () => {
+        it('returns the pluralised name', () => {
+          const wrapper = factory({
+            propsData: {
+              search: true
+            }
+          });
+          wrapper.setData({
+            fetched: true,
+            fields: providerFields
+          });
+
+          expect(wrapper.vm.moreOptionsLabel).toBe('facets.COUNTRY.name - 5');
+        });
+      });
     });
 
     describe('criteria', () => {
@@ -559,7 +592,7 @@ describe('components/search/SideFacetDropdown', () => {
     describe('facetName', () => {
       it('returns a translated facet name', () => {
         const wrapper = factory();
-        expect(wrapper.vm.facetName).toBe('facets.COUNTRY.name');
+        expect(wrapper.vm.facetName).toBe('facets.COUNTRY.name - 1');
       });
     });
   });
