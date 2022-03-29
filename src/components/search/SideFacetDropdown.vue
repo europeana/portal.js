@@ -117,8 +117,8 @@
                 <span class="font-weight-bold">
                   {{ truncatedAmount | localise }}
                 </span>
-                {{ $tc(moreOptionsLabelKey, truncatedAmount) }}<!-- This comment removes white space
-              --></i18n>
+                {{ $tc(moreOptionsLabelKey, truncatedAmount) }}<!-- This comment removes white space-->
+              </i18n>
             </b-dropdown-text>
             <b-dropdown-text
               v-if="$fetchState.pending"
