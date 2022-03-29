@@ -284,11 +284,9 @@
             overrideParams.qf.push(`collection:${curatedEntity.genre}`);
           } else {
             const entityQuery = getEntityQuery(this.entity.id);
-
-            if (this.$route.query.query) {
-              overrideParams.qf.push(entityQuery);
-            } else {
-              overrideParams.query = entityQuery;
+            overrideParams.qf.push(entityQuery);
+            if (!this.$route.query.query) {
+              overrideParams.query = entityQuery; // Triggering best bets.
             }
           }
         }

@@ -88,12 +88,6 @@ export default {
 
     theme(state, getters) {
       return themes.find(theme => theme.qf === getters.collection);
-    },
-
-    searchOptions: (state) => {
-      return {
-        ...state.apiOptions
-      };
     }
   },
 
@@ -148,13 +142,13 @@ export default {
       return dispatch('queryItems');
     },
 
-    queryItems({ dispatch, state, getters }) {
+    queryItems({ dispatch, state }) {
       const paramsForItems = {
         ...state.apiParams
       };
       delete paramsForItems.facet;
 
-      return this.$apis.record.search(paramsForItems, { ...getters.searchOptions, locale: this.$i18n.locale })
+      return this.$apis.record.search(paramsForItems, { ...state.apiOptions, locale: this.$i18n.locale })
         .then(async(response) => {
           await dispatch('updateForSuccess', response);
         })
