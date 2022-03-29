@@ -118,6 +118,7 @@
   import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
   import similarItemsQuery from '@/plugins/europeana/record/similar-items';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import stringify from '@/mixins/stringify';
 
   export default {
     name: 'ItemPage',
@@ -130,6 +131,10 @@
       MetadataBox,
       ItemLanguageSelector: () => import('@/components/item/ItemLanguageSelector')
     },
+
+    mixins: [
+      stringify
+    ],
 
     async beforeRouteUpdate(to, from, next) {
       if (to.path !== from.path) {
@@ -277,15 +282,6 @@
         }
         return this.descriptionInCurrentLanguage.values[0] || '';
       },
-      dataProvider() {
-        const edmDataProvider = langMapValueForLocale(this.metadata.edmDataProvider, this.$i18n.locale);
-
-        if (edmDataProvider.values[0].about) {
-          return edmDataProvider.values[0];
-        }
-
-        return edmDataProvider;
-      },
       pageHeadMetaOgImage() {
         return this.media[0]?.thumbnails?.large || null;
       },
@@ -391,8 +387,8 @@
       matomoOptions() {
         return {
           dimension1: langMapValueForLocale(this.metadata.edmCountry, 'en').values[0],
-          dimension2: langMapValueForLocale(this.metadata.edmDataProvider.value, 'en').values[0],
-          dimension3: langMapValueForLocale(this.metadata.edmProvider, 'en').values[0],
+          dimension2: this.stringify(langMapValueForLocale(this.metadata.edmDataProvider?.value, 'en').values[0]),
+          dimension3: this.stringify(langMapValueForLocale(this.metadata.edmProvider, 'en').values[0]),
           dimension4: langMapValueForLocale(this.metadata.edmRights, 'en').values[0]
         };
       }
