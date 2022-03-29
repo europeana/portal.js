@@ -117,7 +117,7 @@
                 <span class="font-weight-bold">
                   {{ truncatedAmount | localise }}
                 </span>
-                {{ $tc(moreOptionsLabelKey, truncatedAmount) }}<!-- This comment removes white space-->
+                {{ moreOptionsLabel }}<!-- This comment removes white space-->
               </i18n>
             </b-dropdown-text>
             <b-dropdown-text
@@ -354,7 +354,7 @@
         return themes.find(theme => theme.qf === this.collection);
       },
 
-      moreOptionsLabelKey() {
+      moreOptionsLabel() {
         return this.tFacetName(this.name, this.truncatedAmount);
       },
 

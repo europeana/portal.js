@@ -155,6 +155,22 @@ describe('components/search/SideFacetDropdown', () => {
 
             expect(wrapper.vm.fetched).toBe(true);
           });
+
+          describe('when the facet is searchable', () => {
+            it('fetches facet from Record API with the maximum limit', async() => {
+              const wrapper = factory({
+                propsData: { search: true, name: 'PROVIDER' }
+              });
+              wrapper.setData({
+                mayFetch,
+                fetched
+              });
+
+              await wrapper.vm.fetch();
+
+              expect(apisRecordSearchStub.calledWith({ rows: 0, profile: 'facets', facet: 'PROVIDER', 'f.PROVIDER.facet.limit': 125000  }, { locale: 'en' })).toBe(true);
+            });
+          });
         });
 
         describe('and may not be fetched', () => {
@@ -394,6 +410,15 @@ describe('components/search/SideFacetDropdown', () => {
     });
 
     describe('availableSortedDisplayableOptions', () => {
+      describe('when not searchable', () => {
+        it('returns all available options', () => {
+          const wrapper = factory();
+          wrapper.setData({ fetched: true, fields: countryFields });
+
+          expect(wrapper.vm.availableSortedDisplayableOptions).toBe(wrapper.vm.availableSortedOptions);
+        });
+      });
+
       describe('when nothing selected and no search term input', () => {
         it('returns the first 50 options', async() => {
           const wrapper = factory({
@@ -436,6 +461,42 @@ describe('components/search/SideFacetDropdown', () => {
 
           expect(wrapper.vm.availableSortedOptions.some(option => option.label === 'The European Library')).toBe(true);
           expect(wrapper.vm.availableSortedOptions.some(option => option.label === 'German Digital Library')).toBe(false);
+        });
+      });
+    });
+
+    describe('truncated', () => {
+      describe('when there are more than 50 options available to display', () => {
+        it('returns true', () => {
+          const wrapper = factory({
+            propsData: {
+              search: true
+            }
+          });
+          wrapper.setData({
+            fetched: true,
+            fields: providerFields
+          });
+
+          expect(wrapper.vm.truncated).toBe(true);
+        });
+      });
+    });
+
+    describe('truncatedAmount', () => {
+      describe('when there are more than 50 options available to display', () => {
+        it('returns the remaining number of facets', () => {
+          const wrapper = factory({
+            propsData: {
+              search: true
+            }
+          });
+          wrapper.setData({
+            fetched: true,
+            fields: providerFields
+          });
+
+          expect(wrapper.vm.truncatedAmount).toBe(5);
         });
       });
     });
