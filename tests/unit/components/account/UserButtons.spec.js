@@ -29,6 +29,9 @@ const factory = ({ storeState = {}, $auth = {} } = {}) => mount(UserButtons, {
   mocks: {
     $auth,
     $goto,
+    $matomo: {
+      trackEvent: sinon.spy()
+    },
     $path: () => 'mocked path',
     $store: {
       state: {
@@ -195,6 +198,17 @@ describe('components/account/UserButtons', () => {
 
             await wrapper.vm.$nextTick();
             expect(wrapper.emitted('like')).toEqual([[identifier]]);
+          });
+
+          it('tracks the event in Matomo', async() => {
+            const wrapper = factory({ $auth, storeState: { liked: [] } });
+
+            const likeButton = wrapper.find('[data-qa="like button"]');
+            likeButton.trigger('click');
+
+            await wrapper.vm.$nextTick();
+
+            expect(wrapper.vm.$matomo.trackEvent.called).toBe(true);
           });
         });
       });
