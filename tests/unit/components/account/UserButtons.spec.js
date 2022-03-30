@@ -11,6 +11,7 @@ const storeDispatch = sinon.spy();
 const storeIsLikedGetter = sinon.stub();
 const storeIsPinnedGetter = sinon.stub();
 const makeToastSpy = sinon.spy();
+const $goto = sinon.spy();
 
 const mixins = [
   {
@@ -27,6 +28,8 @@ const factory = ({ storeState = {}, $auth = {} } = {}) => mount(UserButtons, {
   mixins,
   mocks: {
     $auth,
+    $goto,
+    $path: () => 'mocked path',
     $store: {
       state: {
         set: { ...{ liked: [] }, ...storeState },
@@ -284,6 +287,14 @@ describe('components/account/UserButtons', () => {
         expect(pinButton.attributes('aria-pressed')).toBe('false');
       });
       describe('when pressed', () => {
+        it('creates a set', async() => {
+          const wrapper = factory({ storeState: { featuredSetId: null } });
+
+          const pinButton = wrapper.find('[data-qa="pin button"]');
+          await pinButton.trigger('click');
+
+          expect(storeDispatch.calledWith('entity/createFeaturedSet')).toBe(true);
+        });
         it('pins the item', async() => {
           const wrapper = factory();
           await wrapper.setProps({ showPins: true });
@@ -369,6 +380,14 @@ describe('components/account/UserButtons', () => {
         await wrapper.vm.refreshSet();
 
         expect(storeDispatch.calledWith('set/refreshSet')).toBe(true);
+      });
+    });
+    describe('goToPins', () => {
+      it('links to pins page', async() => {
+        const wrapper = factory();
+        await wrapper.vm.goToPins();
+
+        expect($goto.calledWith('mocked path')).toBe(true);
       });
     });
   });
