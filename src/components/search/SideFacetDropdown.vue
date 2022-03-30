@@ -44,7 +44,6 @@
               </b-form-tag>
             </li>
           </ul>
-
           <b-dropdown
             ref="dropdown"
             block

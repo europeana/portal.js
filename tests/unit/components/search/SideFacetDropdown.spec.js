@@ -1,12 +1,24 @@
 import sinon from 'sinon';
 import { createLocalVue } from '@vue/test-utils';
-import { shallowMountNuxt } from '../../utils';
+import { shallowMountNuxt, mountNuxt } from '../../utils';
+import VueI18n from 'vue-i18n'
 import BootstrapVue from 'bootstrap-vue';
 
 import SideFacetDropdown from '@/components/search/SideFacetDropdown.vue';
+import messages from '@/lang/en';
 
 const localVue = createLocalVue();
+
+localVue.use(VueI18n);
 localVue.use(BootstrapVue);
+
+const i18n = new VueI18n({
+  locale: 'en',
+  messages: {
+    en: messages
+  }
+});
+
 
 const storeDispatchStub = sinon.stub();
 
@@ -88,7 +100,6 @@ const factory = (options = {}) => shallowMountNuxt(SideFacetDropdown, {
       }
     },
     $fetchState: options.fetchState || {},
-    $i18n: { locale: 'en' },
     $route: {
       query: {}
     },
@@ -112,7 +123,45 @@ const factory = (options = {}) => shallowMountNuxt(SideFacetDropdown, {
     type: 'checkbox',
     name: 'COUNTRY',
     ...options.propsData
-  }
+  },
+  i18n
+});
+
+const fullFactory = (options = {}) => mountNuxt(SideFacetDropdown, {
+  localVue,
+  mocks: {
+    $apis: {
+      record: {
+        search: apisRecordSearchStub
+      }
+    },
+    $fetchState: options.fetchState || {},
+    $route: {
+      query: {}
+    },
+    $t: (key) => key,
+    $tc: (key, count) => `${key} - ${count}`,
+    $te: () => true,
+    $store: {
+      commit: storeCommitSpy,
+      dispatch: storeDispatchStub,
+      getters: {
+        'search/collection': false,
+        'entity/id': null
+      },
+      state: {
+        search: {}
+      }
+    }
+  },
+  stubs: [],
+  propsData: {
+    type: 'checkbox',
+    name: 'COUNTRY',
+    ...options.propsData
+  },
+  i18n,
+  attachTo: document.body
 });
 
 describe('components/search/SideFacetDropdown', () => {
@@ -781,6 +830,53 @@ describe('components/search/SideFacetDropdown', () => {
         wrapper.vm.selectOption({ 'option': { 'count': '1000', 'label': 'Sweden' }, addTag() {}, removeTag() {} });
 
         expect(wrapper.emitted().changed).toBeTruthy();
+      });
+    });
+
+    describe('shownDropdown', () => {
+      describe('when searchable', () => {
+        it('sets the focus to the search-input', async() => {
+          const wrapper = fullFactory({
+            propsData: {
+              search: true,
+              name: 'PROVIDER'
+            }
+          });
+          await wrapper.setData({ fetched: true, fields: providerFields });
+          await wrapper.find('[data-qa="PROVIDER side facet dropdown button"]').trigger('click');
+          wrapper.vm.shownDropdown();
+          const focusedSearchInput = wrapper.find('[data-qa="side facet dropdown search input"]:focus');
+          expect(focusedSearchInput.exists()).toBe(true);
+        });
+      });
+      describe('when not searchable', () => {
+        it('retruns false', async() => {
+          const wrapper = fullFactory();
+          await wrapper.setData({ fetched: true, fields: countryFields });
+
+          expect(wrapper.vm.shownDropdown()).not.toBeTruthy();
+        });
+      });
+
+    });
+
+    describe('setSearchFocus', () => {
+      it('sets the focus to the search-input', async() => {
+        const wrapper = fullFactory({
+          propsData: {
+            search: true,
+            name: 'PROVIDER'
+          },
+          fetchState: {
+            pending: false
+          }
+        });
+        await wrapper.setData({ fetched: true, fields: providerFields });
+        await wrapper.find('[data-qa="PROVIDER side facet dropdown button"]').trigger('click');
+        wrapper.vm.setSearchFocus();
+
+        const focusedSearchInput = wrapper.find('[data-qa="side facet dropdown search input"]:focus');
+        expect(focusedSearchInput.exists()).toBe(true);
       });
     });
   });
