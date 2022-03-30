@@ -103,13 +103,11 @@
               </template>
             </b-dropdown-item-button>
             <template v-if="truncated">
-              <b-dropdown-divider/>
-              <b-dropdown-text
-
-                data-qa="more facet values available label"
-                class="more-facet-values-label dropdown-item"
-                @click="setSearchFocus()"
-                @selected="setSearchFocus()"
+              <b-dropdown-divider />
+              <b-dropdown-item-button
+                data-qa="more facet values available button"
+                class="more-facet-values-button"
+                @click.capture.native.stop="setSearchFocus"
               >
                 <i18n
                   path="facets.moreOptions"
@@ -120,7 +118,7 @@
                   </span>
                   {{ moreOptionsLabel }}<!-- This comment removes white space-->
                 </i18n>
-              </b-dropdown-text>
+              </b-dropdown-item-button>
             </template>
             <b-dropdown-text
               v-if="$fetchState.pending"
@@ -514,7 +512,10 @@
         this.searchable && this.setSearchFocus();
       },
 
-      setSearchFocus() {
+      setSearchFocus(bvEvent) {
+        if (bvEvent) {
+          bvEvent.preventDefault();
+        }
         this.$refs['search-input'].focus();
       },
 
@@ -522,6 +523,9 @@
         this.searchFacet = '';
         this.$refs.dropdown.$refs.menu.scrollTop = 0;
         this.mayFetch = false;
+      },
+      preventDropdownClose(bvEvent) {
+        bvEvent.preventDefault();
       }
     }
   };

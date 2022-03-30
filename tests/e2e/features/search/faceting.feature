@@ -55,7 +55,7 @@ Feature: Search faceting
 Scenario: Filtering beyond the first 50 facet values using facet search
     Given I am on the `search page`
     When I click the `PROVIDER side facet dropdown button`
-    And I click the `more facet values available label`
+    And I click the `more facet values available button`
     And I enter "National Library of Spain" in the `side facet dropdown search input`
     And I click the `National Library of Spain PROVIDER field`
     And I don't have a `loading spinner`

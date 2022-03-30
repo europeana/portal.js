@@ -1,7 +1,7 @@
 import sinon from 'sinon';
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt, mountNuxt } from '../../utils';
-import VueI18n from 'vue-i18n'
+import VueI18n from 'vue-i18n';
 import BootstrapVue from 'bootstrap-vue';
 
 import SideFacetDropdown from '@/components/search/SideFacetDropdown.vue';
@@ -18,7 +18,6 @@ const i18n = new VueI18n({
     en: messages
   }
 });
-
 
 const storeDispatchStub = sinon.stub();
 
@@ -857,7 +856,6 @@ describe('components/search/SideFacetDropdown', () => {
           expect(wrapper.vm.shownDropdown()).not.toBeTruthy();
         });
       });
-
     });
 
     describe('setSearchFocus', () => {
