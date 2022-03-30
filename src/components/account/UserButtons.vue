@@ -11,7 +11,7 @@
       :pressed="pinned"
       data-qa="pin button"
       :aria-label="$t('entity.actions.pin')"
-      @click="togglePinned"
+      @click="togglePin"
     >
       <span class="icon-push-pin" />
       {{ pinButtonText }}
@@ -55,12 +55,6 @@
         :item-context="identifier"
         @response="setCreatedOrUpdated"
       />
-      <PinToEntityModal
-        :modal-id="pinModalId"
-        :item-id="identifier"
-        :pinned="pinned"
-        data-qa="pin item to entity modal"
-      />
       <!-- TODO: remove when 100-item like limit removed -->
       <b-modal
         :id="likeLimitModalId"
@@ -99,17 +93,18 @@
 
 <script>
   import keycloak from '@/mixins/keycloak';
+  import makeToastMixin from '@/mixins/makeToast';
 
   export default {
     name: 'UserButtons',
 
     components: {
       AddItemToSetModal: () => import('../set/AddItemToSetModal'),
-      SetFormModal: () => import('../set/SetFormModal'),
-      PinToEntityModal: () => import('../entity/PinModal')
+      SetFormModal: () => import('../set/SetFormModal')
     },
     mixins: [
-      keycloak
+      keycloak,
+      makeToastMixin
     ],
 
     props: {
@@ -137,7 +132,6 @@
         addItemToSetModalId: `add-item-to-set-modal-${this.identifier}`,
         setFormModalId: `set-form-modal-${this.identifier}`,
         likeLimitModalId: `like-limit-modal-${this.identifier}`,
-        pinModalId: `pin-modal-${this.identifier}`,
         pinnedLimitModalId: `pinned-limit-modal-${this.identifier}`,
         showFormModal: false,
         newSetCreated: false
@@ -198,9 +192,6 @@
           this.keycloakLogin();
         }
       },
-      togglePinned() {
-        this.$bvModal.show(this.pinModalId);
-      },
       goToPins() {
         const path = this.$path(`/set/${this.$store.state.entity.featuredSetId}`);
         this.$goto(path);
@@ -234,6 +225,32 @@
           this.$matomo && this.$matomo.trackEvent('Item_add', 'Click add item button', this.identifier);
         } else {
           this.keycloakLogin();
+        }
+      },
+      async pin() {
+        if (this.$store.state.entity.featuredSetId === null) {
+          await this.$store.dispatch('entity/createFeaturedSet');
+        }
+        try {
+          await this.$store.dispatch('entity/pin', this.identifier);
+          this.makeToast(this.$t('entity.notifications.pinned', { entity: this.$store.getters['entity/englishPrefLabel'] }));
+        } catch (e) {
+          if (e.message === 'too many pins') {
+            this.$bvModal.show(`pinned-limit-modal-${this.identifier}`);
+          } else {
+            throw e;
+          }
+        }
+      },
+      async unpin() {
+        await this.$store.dispatch('entity/unpin', this.identifier);
+        this.makeToast(this.$t('entity.notifications.unpinned'));
+      },
+      async togglePin() {
+        if (this.pinned) {
+          await this.unpin();
+        } else {
+          await this.pin();
         }
       }
     }

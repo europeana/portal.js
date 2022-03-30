@@ -163,10 +163,8 @@ export default {
         "body": "For now you can only pin 24 items on the first page. If you want to pin this item, make sure you unpin another one and then try to pin this one again.",
         "title": "Too many pinned items"
       },
-      "pinned": "The item has been pinned. It is now at the top of the first page of this collection. It might take up to 24 hours to appear for everyone.",
-      "pinnedFirstPage": "The item has been pinned. It might take up to 24 hours to appear for everyone.",
-      "unpinned": "The item has been unpinned. It is no longer at the top of the first page of this collection. It might take up to 24 hours to disappear for everyone.",
-      "unpinnedFirstPage": "The item has been unpinned. It might take up to 24 hours to disappear for everyone."
+      "pinned": "The item has been pinned. It will appear as the first item on the \"{entity}\" collection. We will notify you when this change will be visible on the collection page.",
+      "unpinned": "The item has been unpinned. We will notify you when this change will be visible on the collection page."
     },
     "prompts": {
       "pin": "Are you sure you want to pin this item? This item will show at the top of the \"{entity}\" collection. This change might take up to 24 hours to take effect.",

@@ -10,11 +10,21 @@ const identifier = '/123/abc';
 const storeDispatch = sinon.spy();
 const storeIsLikedGetter = sinon.stub();
 const storeIsPinnedGetter = sinon.stub();
+const makeToastSpy = sinon.spy();
+
+const mixins = [
+  {
+    methods: {
+      makeToast: makeToastSpy
+    }
+  }
+];
 
 const factory = ({ storeState = {}, $auth = {} } = {}) => mount(UserButtons, {
   localVue,
   stubs: ['AddItemToSetModal', 'SetFormModal'],
   propsData: { identifier },
+  mixins,
   mocks: {
     $auth,
     $store: {
@@ -274,16 +284,14 @@ describe('components/account/UserButtons', () => {
         expect(pinButton.attributes('aria-pressed')).toBe('false');
       });
       describe('when pressed', () => {
-        it('shows the pin modal', async() => {
+        it('shows the pin toast', async() => {
           const wrapper = factory();
           await wrapper.setProps({ showPins: true });
 
           const pinButton = wrapper.find('[data-qa="pin button"]');
-          const bvModalShow = sinon.spy(wrapper.vm.$bvModal, 'show');
+          await pinButton.trigger('click');
 
-          pinButton.trigger('click');
-
-          expect(bvModalShow.calledWith(`pin-modal-${identifier}`)).toBe(true);
+          expect(makeToastSpy.calledWith('entity.notifications.pinned')).toBe(true);
         });
       });
     });
@@ -312,11 +320,9 @@ describe('components/account/UserButtons', () => {
           await wrapper.setProps({ showPins: true });
 
           const pinButton = wrapper.find('[data-qa="pin button"]');
-          const bvModalShow = sinon.spy(wrapper.vm.$bvModal, 'show');
+          await pinButton.trigger('click');
 
-          pinButton.trigger('click');
-
-          expect(bvModalShow.calledWith(`pin-modal-${identifier}`)).toBe(true);
+          expect(makeToastSpy.calledWith('entity.notifications.unpinned')).toBe(true);
         });
       });
     });
