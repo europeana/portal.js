@@ -512,10 +512,7 @@
         this.searchable && this.setSearchFocus();
       },
 
-      setSearchFocus(bvEvent) {
-        if (bvEvent) {
-          bvEvent.preventDefault(); // Prevent the dropdown from closing.
-        }
+      setSearchFocus() {
         this.$refs['search-input'].focus();
       },
 
