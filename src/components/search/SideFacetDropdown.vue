@@ -362,7 +362,7 @@
     methods: {
       queryFacet() {
         return this.$apis.record.search(this.paramsForFacets, {
-          ...this.$store.getters['search/searchOptions'],
+          ...this.$store.state['search/apiOptions'],
           locale: this.$i18n.locale
         })
           .then((response) => response.facets?.[0]?.fields || [])

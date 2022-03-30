@@ -285,12 +285,8 @@
           } else {
             const entityQuery = getEntityQuery(this.entity.id);
             overrideParams.qf.push(entityQuery);
-
             if (!this.$route.query.query) {
-              const englishPrefLabel = this.$store.getters['entity/englishPrefLabel'];
-              if (englishPrefLabel) {
-                overrideParams.query = englishPrefLabel;
-              }
+              overrideParams.query = entityQuery; // Triggering best bets.
             }
           }
         }
