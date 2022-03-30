@@ -103,23 +103,26 @@
                 <span>({{ option.count | localise }})</span>
               </template>
             </b-dropdown-item-button>
-            <b-dropdown-text
-              v-if="truncated"
-              data-qa="more facet values available label"
-              class="more-facet-values-label dropdown-item"
-              @click="setSearchFocus()"
-              @selected="setSearchFocus()"
-            >
-              <i18n
-                path="facets.moreOptions"
-                tag="span"
+            <template v-if="truncated">
+              <b-dropdown-divider/>
+              <b-dropdown-text
+
+                data-qa="more facet values available label"
+                class="more-facet-values-label dropdown-item"
+                @click="setSearchFocus()"
+                @selected="setSearchFocus()"
               >
-                <span class="font-weight-bold">
-                  {{ truncatedAmount | localise }}
-                </span>
-                {{ moreOptionsLabel }}<!-- This comment removes white space-->
-              </i18n>
-            </b-dropdown-text>
+                <i18n
+                  path="facets.moreOptions"
+                  tag="span"
+                >
+                  <span class="font-weight-bold">
+                    {{ truncatedAmount | localise }}
+                  </span>
+                  {{ moreOptionsLabel }}<!-- This comment removes white space-->
+                </i18n>
+              </b-dropdown-text>
+            </template>
             <b-dropdown-text
               v-if="$fetchState.pending"
               class="text-center"
