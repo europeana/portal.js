@@ -1,12 +1,23 @@
 import sinon from 'sinon';
 import { createLocalVue } from '@vue/test-utils';
-import { shallowMountNuxt } from '../../utils';
+import { shallowMountNuxt, mountNuxt } from '../../utils';
+import VueI18n from 'vue-i18n';
 import BootstrapVue from 'bootstrap-vue';
 
 import SideFacetDropdown from '@/components/search/SideFacetDropdown.vue';
+import messages from '@/lang/en';
 
 const localVue = createLocalVue();
+
+localVue.use(VueI18n);
 localVue.use(BootstrapVue);
+
+const i18n = new VueI18n({
+  locale: 'en',
+  messages: {
+    en: messages
+  }
+});
 
 const storeDispatchStub = sinon.stub();
 
@@ -21,6 +32,64 @@ const countryFields = [
   { label: 'Spain', count: 44 }
 ];
 
+const providerFields = [
+  { label: 'OpenUp!', count: 10002274 },
+  { label: 'The European Library', count: 6860099 },
+  { label: 'German Digital Library', count: 4101384 },
+  { label: 'Swedish Open Cultural Heritage | K-samsök', count: 3515682 },
+  { label: 'LoCloud', count: 3255930 },
+  { label: 'Digital Libraries Federation', count: 2493080 },
+  { label: 'CARARE', count: 2238128 },
+  { label: 'Hispana', count: 1720541 },
+  { label: 'Digitale Collectie', count: 1365031 },
+  { label: 'National Library of France', count: 1196751 },
+  { label: 'Formula Aggregation Service of the National Library of Finland', count: 971369 },
+  { label: 'CulturaItalia', count: 874844 },
+  { label: 'European Fashion Heritage Association', count: 863851 },
+  { label: 'Europeana Sounds', count: 774239 },
+  { label: 'AthenaPlus', count: 725854 },
+  { label: 'Judaica Europeana/Jewish Heritage Network', count: 679909 },
+  { label: 'National Library of Poland', count: 600413 },
+  { label: 'Kulturpool', count: 592678 },
+  { label: 'EFG - The European Film Gateway', count: 551025 },
+  { label: 'Greek Aggregator SearchCulture.gr | National Documentation Centre (EKT)', count: 493768 },
+  { label: 'Museu', count: 466937 },
+  { label: 'PHOTOCONSORTIUM', count: 426155 },
+  { label: 'Estonian e-Repository and Conservation of Collections', count: 401520 },
+  { label: 'HOPE - Heritage of the People\'s Europe', count: 399319 },
+  { label: 'Slovenian National E-content Aggregator', count: 396375 },
+  { label: 'Forum Hungaricum Non-profit Ltd.', count: 392535 },
+  { label: 'EUscreen', count: 376601 },
+  { label: 'Rijksmuseum', count: 337263 },
+  { label: 'Linked Heritage', count: 320881 },
+  { label: 'DK-National Aggregation Service', count: 275775 },
+  { label: 'EAGLE', count: 249986 },
+  { label: 'DC4EU - Dutch Collections for Europe', count: 206968 },
+  { label: 'Athena', count: 199267 },
+  { label: 'moteur Collections ; France', count: 187429 },
+  { label: 'International Association of Labour History Institutions', count: 170429 },
+  { label: 'Heritage plus.be', count: 136579 },
+  { label: 'LT-Aggregator Service National Library of Lithuania', count: 135624 },
+  { label: 'DM2E', count: 117038 },
+  { label: 'National Library of the Czech Republic', count: 116098 },
+  { label: 'RNOD-Portugal', count: 114552 },
+  { label: 'Регионална библиотека ПЕНЧО СЛАВЕЙКОВ - Варна / Public Library - Varna', count: 109753 },
+  { label: 'Archives Portal Europe', count: 106619 },
+  { label: 'Digiphil', count: 105885 },
+  { label: 'DigiPhil', count: 100243 },
+  { label: 'Museumap.hu', count: 97130 },
+  { label: 'Wellcome Collection', count: 92178 },
+  { label: 'EUInsideDA', count: 91343 },
+  { label: 'CultureGrid', count: 83714 },
+  { label: 'AMSHistorica - University of Bologna', count: 75075 },
+  { label: 'eSbírky', count: 75066 },
+  { label: 'EuropeanaLocal Deutschland', count: 74549 },
+  { label: 'Foundation Virtual Library Miguel de Cervantes', count: 70473 },
+  { label: 'Czech digital library/Česká digitální knihovna', count: 65495 },
+  { label: 'MIMO - Musical Instrument Museums Online', count: 61896 },
+  { label: 'Lucian Blaga Central University Library, Cluj-Napoca, Romania', count: 58370 }
+];
+
 const factory = (options = {}) => shallowMountNuxt(SideFacetDropdown, {
   localVue,
   mocks: {
@@ -30,12 +99,11 @@ const factory = (options = {}) => shallowMountNuxt(SideFacetDropdown, {
       }
     },
     $fetchState: options.fetchState || {},
-    $i18n: { locale: 'en' },
     $route: {
       query: {}
     },
     $t: (key) => key,
-    $tc: (key) => key,
+    $tc: (key, count) => `${key} - ${count}`,
     $te: () => true,
     $store: {
       commit: storeCommitSpy,
@@ -54,7 +122,45 @@ const factory = (options = {}) => shallowMountNuxt(SideFacetDropdown, {
     type: 'checkbox',
     name: 'COUNTRY',
     ...options.propsData
-  }
+  },
+  i18n
+});
+
+const fullFactory = (options = {}) => mountNuxt(SideFacetDropdown, {
+  localVue,
+  mocks: {
+    $apis: {
+      record: {
+        search: apisRecordSearchStub
+      }
+    },
+    $fetchState: options.fetchState || {},
+    $route: {
+      query: {}
+    },
+    $t: (key) => key,
+    $tc: (key, count) => `${key} - ${count}`,
+    $te: () => true,
+    $store: {
+      commit: storeCommitSpy,
+      dispatch: storeDispatchStub,
+      getters: {
+        'search/collection': false,
+        'entity/id': null
+      },
+      state: {
+        search: {}
+      }
+    }
+  },
+  stubs: [],
+  propsData: {
+    type: 'checkbox',
+    name: 'COUNTRY',
+    ...options.propsData
+  },
+  i18n,
+  attachTo: document.body
 });
 
 describe('components/search/SideFacetDropdown', () => {
@@ -96,6 +202,22 @@ describe('components/search/SideFacetDropdown', () => {
             await wrapper.vm.fetch();
 
             expect(wrapper.vm.fetched).toBe(true);
+          });
+
+          describe('when the facet is searchable', () => {
+            it('fetches facet from Record API with the maximum limit', async() => {
+              const wrapper = factory({
+                propsData: { search: true, name: 'PROVIDER' }
+              });
+              wrapper.setData({
+                mayFetch,
+                fetched
+              });
+
+              await wrapper.vm.fetch();
+
+              expect(apisRecordSearchStub.calledWith({ rows: 0, profile: 'facets', facet: 'PROVIDER', 'f.PROVIDER.facet.limit': 125000  }, { locale: 'en' })).toBe(true);
+            });
           });
         });
 
@@ -335,6 +457,131 @@ describe('components/search/SideFacetDropdown', () => {
       });
     });
 
+    describe('availableSortedDisplayableOptions', () => {
+      describe('when not searchable', () => {
+        it('returns all available options', () => {
+          const wrapper = factory();
+          wrapper.setData({ fetched: true, fields: countryFields });
+
+          expect(wrapper.vm.availableSortedDisplayableOptions).toBe(wrapper.vm.availableSortedOptions);
+        });
+      });
+
+      describe('when nothing selected and no search term input', () => {
+        it('returns the first 50 options', async() => {
+          const wrapper = factory({
+            propsData: {
+              search: true
+            }
+          });
+          wrapper.setData({ fetched: true, fields: providerFields });
+
+          expect(wrapper.vm.availableSortedDisplayableOptions.length).toBe(50);
+        });
+      });
+      describe('when options selected', () => {
+        it('returns the first 50 options that are not yet selected', async() => {
+          const wrapper = factory({
+            propsData: {
+              search: true,
+              selected: ['OpenUp!']
+            }
+          });
+          wrapper.setData({ fetched: true, fields: providerFields });
+
+          expect(wrapper.vm.availableSortedDisplayableOptions.some(option => option.label === 'OpenUp!')).toBe(false);
+          expect(wrapper.vm.availableSortedDisplayableOptions.length).toBe(50);
+        });
+      });
+      describe('when a search term is inserted', () => {
+        it('returns the options that match the search term', () => {
+          const wrapper = factory({
+            propsData: {
+              selected: ['OpenUp!']
+            }
+          });
+
+          wrapper.setData({
+            fetched: true,
+            fields: providerFields,
+            searchFacet: 'the european'
+          });
+
+          expect(wrapper.vm.availableSortedOptions.some(option => option.label === 'The European Library')).toBe(true);
+          expect(wrapper.vm.availableSortedOptions.some(option => option.label === 'German Digital Library')).toBe(false);
+        });
+      });
+    });
+
+    describe('truncated', () => {
+      describe('when there are more than 50 options available to display', () => {
+        it('returns true', () => {
+          const wrapper = factory({
+            propsData: {
+              search: true
+            }
+          });
+          wrapper.setData({
+            fetched: true,
+            fields: providerFields
+          });
+
+          expect(wrapper.vm.truncated).toBe(true);
+        });
+      });
+    });
+
+    describe('truncatedAmount', () => {
+      describe('when there are more than 50 options available to display', () => {
+        it('returns the remaining number of facets', () => {
+          const wrapper = factory({
+            propsData: {
+              search: true
+            }
+          });
+          wrapper.setData({
+            fetched: true,
+            fields: providerFields
+          });
+
+          expect(wrapper.vm.truncatedAmount).toBe(5);
+        });
+      });
+      describe('when there are less than 50 options available to display', () => {
+        it('returns 0', () => {
+          const wrapper = factory({
+            propsData: {
+              search: true
+            }
+          });
+          wrapper.setData({
+            fetched: true,
+            fields: countryFields
+          });
+
+          expect(wrapper.vm.truncatedAmount).toBe(0);
+        });
+      });
+    });
+
+    describe('moreOptionsLabel', () => {
+      describe('when there are multiple extra options available to display', () => {
+        it('returns the pluralised name', () => {
+          const wrapper = factory({
+            propsData: {
+              search: true
+            }
+          });
+          wrapper.setData({
+            fetched: true,
+            fields: providerFields
+          });
+
+          expect(wrapper.vm.moreOptionsLabel).toBe('facets.COUNTRY.name - 5');
+        });
+      });
+    });
+
     describe('criteria', () => {
       it('turns the facet search term in a trimmed and lower cased string', () => {
         const wrapper = factory();
@@ -393,7 +640,7 @@ describe('components/search/SideFacetDropdown', () => {
     describe('facetName', () => {
       it('returns a translated facet name', () => {
         const wrapper = factory();
-        expect(wrapper.vm.facetName).toBe('facets.COUNTRY.name');
+        expect(wrapper.vm.facetName).toBe('facets.COUNTRY.name - 1');
       });
     });
   });
@@ -582,6 +829,52 @@ describe('components/search/SideFacetDropdown', () => {
         wrapper.vm.selectOption({ 'option': { 'count': '1000', 'label': 'Sweden' }, addTag() {}, removeTag() {} });
 
         expect(wrapper.emitted().changed).toBeTruthy();
+      });
+    });
+
+    describe('shownDropdown', () => {
+      describe('when searchable', () => {
+        it('sets the focus to the search-input', async() => {
+          const wrapper = fullFactory({
+            propsData: {
+              search: true,
+              name: 'PROVIDER'
+            }
+          });
+          await wrapper.setData({ fetched: true, fields: providerFields });
+          await wrapper.find('[data-qa="PROVIDER side facet dropdown button"]').trigger('click');
+          wrapper.vm.shownDropdown();
+          const focusedSearchInput = wrapper.find('[data-qa="side facet dropdown search input"]:focus');
+          expect(focusedSearchInput.exists()).toBe(true);
+        });
+      });
+      describe('when not searchable', () => {
+        it('retruns false', async() => {
+          const wrapper = fullFactory();
+          await wrapper.setData({ fetched: true, fields: countryFields });
+
+          expect(wrapper.vm.shownDropdown()).not.toBeTruthy();
+        });
+      });
+    });
+
+    describe('setSearchFocus', () => {
+      it('sets the focus to the search-input', async() => {
+        const wrapper = fullFactory({
+          propsData: {
+            search: true,
+            name: 'PROVIDER'
+          },
+          fetchState: {
+            pending: false
+          }
+        });
+        await wrapper.setData({ fetched: true, fields: providerFields });
+        await wrapper.find('[data-qa="PROVIDER side facet dropdown button"]').trigger('click');
+        wrapper.vm.setSearchFocus();
+
+        const focusedSearchInput = wrapper.find('[data-qa="side facet dropdown search input"]:focus');
+        expect(focusedSearchInput.exists()).toBe(true);
       });
     });
   });

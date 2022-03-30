@@ -44,7 +44,6 @@
               </b-form-tag>
             </li>
           </ul>
-
           <b-dropdown
             ref="dropdown"
             block
@@ -84,7 +83,7 @@
               </b-dropdown-form>
             </template>
             <b-dropdown-item-button
-              v-for="(option, index) in availableSortedOptions"
+              v-for="(option, index) in availableSortedDisplayableOptions"
               :key="index"
               :data-qa="`${isRadio ? option : option.label} ${name} field`"
               @click="selectOption({ option, addTag, removeTag })"
@@ -103,13 +102,31 @@
                 <span>({{ option.count | localise }})</span>
               </template>
             </b-dropdown-item-button>
+            <template v-if="truncated">
+              <b-dropdown-divider />
+              <b-dropdown-item-button
+                data-qa="more facet values available button"
+                class="more-facet-values-button"
+                @click.capture.native.stop="setSearchFocus"
+              >
+                <i18n
+                  path="facets.moreOptions"
+                  tag="span"
+                >
+                  <span class="font-weight-bold">
+                    {{ truncatedAmount | localise }}
+                  </span>
+                  {{ moreOptionsLabel }}<!-- This comment removes white space-->
+                </i18n>
+              </b-dropdown-item-button>
+            </template>
             <b-dropdown-text
               v-if="$fetchState.pending"
               class="text-center"
             >
               <LoadingSpinner />
             </b-dropdown-text>
-            <b-dropdown-text v-else-if="fetched && availableSortedOptions.length === 0">
+            <b-dropdown-text v-else-if="fetched && availableSortedDisplayableOptions.length === 0">
               {{ $t('sideFilters.noOptions') }}
             </b-dropdown-text>
           </b-dropdown>
@@ -200,6 +217,8 @@
         searchFacet: '',
         RADIO: 'radio',
         CHECKBOX: 'checkbox',
+        MAXIMUM_VALUES_DISPLAY_COUNT: 50,
+        MAXIMUM_VALUES_RETRIEVAL_COUNT: 125000, // Beyond 140000 we've seen solr errors. 125000 to have plenty of buffer before that happens.
         preSelected: null,
         fetched: !!this.staticFields,
         fields: this.staticFields || [],
@@ -233,7 +252,7 @@
 
     computed: {
       searchable() {
-        return this.search && this.availableSortedOptions.length > 0;
+        return this.search && this.fields.length > 0;
       },
 
       selectedFilters() {
@@ -293,8 +312,22 @@
             return exactMatch || facetValueMatch;
           });
         }
-
         return options;
+      },
+
+      availableSortedDisplayableOptions() {
+        if (this.search && this.availableSortedOptions.length > this.MAXIMUM_VALUES_DISPLAY_COUNT) {
+          return this.availableSortedOptions.slice(0, this.MAXIMUM_VALUES_DISPLAY_COUNT);
+        }
+        return this.availableSortedOptions;
+      },
+
+      truncated() {
+        return this.search && (this.availableSortedOptions.length - this.MAXIMUM_VALUES_DISPLAY_COUNT) >= 0;
+      },
+
+      truncatedAmount() {
+        return this.truncated ? this.availableSortedOptions.length - this.MAXIMUM_VALUES_DISPLAY_COUNT : 0;
       },
 
       isColourPalette() {
@@ -321,17 +354,25 @@
         return themes.find(theme => theme.qf === this.collection);
       },
 
+      moreOptionsLabel() {
+        return this.tFacetName(this.name, this.truncatedAmount);
+      },
+
       themeSpecificFieldLabelPattern() {
         return (this.theme?.facets || []).find((facet) => facet.field === this.name)?.label;
       },
 
       paramsForFacets() {
-        return {
+        const params = {
           ...this.$store.state.search.apiParams,
           rows: 0,
           profile: 'facets',
           facet: this.name
         };
+        if (this.search) {
+          params[`f.${this.name}.facet.limit`] = this.MAXIMUM_VALUES_RETRIEVAL_COUNT;
+        }
+        return params;
       },
 
       criteria() {
@@ -468,7 +509,11 @@
       },
 
       shownDropdown() {
-        this.searchable && this.$refs['search-input'].focus();
+        this.searchable && this.setSearchFocus();
+      },
+
+      setSearchFocus() {
+        this.$refs['search-input'].focus();
       },
 
       resetDropdown() {
