@@ -5,7 +5,6 @@ import Vuex from 'vuex';
 import sinon from 'sinon';
 
 import SideFilters from '@/components/search/SideFilters.vue';
-import { defaultFacetNames } from '@/store/search';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -56,9 +55,6 @@ const factory = (options = {}) => {
           ...options.searchStoreState
         },
         getters: {
-          facetNames() {
-            return defaultFacetNames;
-          },
           filters: () => {
             return {};
           },

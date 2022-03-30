@@ -144,6 +144,7 @@
           'IMAGE_ASPECTRATIO',
           'IMAGE_SIZE',
           'MIME_TYPE',
+          'RIGHTS',
           'contentTier'
         ],
         SEARCHABLE_FACETS: [
