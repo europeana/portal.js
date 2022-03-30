@@ -93,17 +93,6 @@ describe('components/search/SearchInterface', () => {
     });
   });
 
-  describe('context label', () => {
-    // TODO: add tests for new context label when entity switchover is complete.
-    it('does not show a context label while the headerCards are not enabled', () => {
-      const wrapper = factory({ propsData: { contextLabel: 'topic' }, storeState: { totalResults: 100 } });
-
-      const label = wrapper.find('[data-qa="context label"]');
-
-      expect(label.exists()).toBe(false);
-    });
-  });
-
   describe('computed properties', () => {
     describe('errorMessage', () => {
       describe('when there was a pagination error', () => {

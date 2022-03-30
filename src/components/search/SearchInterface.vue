@@ -16,51 +16,18 @@
     </b-row>
   </b-container>
   <b-container v-else>
-    <template v-if="headerCardsEnabled">
-      <div
-        v-if="hasAnyResults"
-        class="mb-3 d-flex align-items-start align-items-md-center justify-content-between"
-      >
-        <SearchResultsContext
-          :label-override="editorialEntityLabel"
-        />
-        <ViewToggles
-          v-model="view"
-          :link-gen-route="route"
-          class="flex-nowrap mt-1 mt-md-0"
-        />
-      </div>
-    </template>
-    <template v-else>
-      <b-row
-        v-if="hasAnyResults"
-        class="mb-3"
-        :class="{ 'd-flex align-items-center': contextLabel }"
-      >
-        <b-col
-          col
-          md="8"
-        >
-          <p
-            data-qa="total results"
-          >
-            {{ $t('results') }}: {{ totalResults | localise }}
-          </p>
-          <div
-            class="visually-hidden"
-            role="status"
-          >
-            {{ $t('searchHasLoaded', [totalResults | localise]) }}
-          </div>
-        </b-col>
-        <b-col>
-          <ViewToggles
-            v-model="view"
-            :link-gen-route="route"
-          />
-        </b-col>
-      </b-row>
-    </template>
+    <div
+      class="mb-3 d-flex align-items-start align-items-md-center justify-content-between"
+    >
+      <SearchResultsContext
+        :label-override="editorialEntityLabel"
+      />
+      <ViewToggles
+        v-model="view"
+        :link-gen-route="route"
+        class="flex-nowrap mt-1 mt-md-0"
+      />
+    </div>
     <b-row
       class="mb-3"
     >
@@ -178,10 +145,6 @@
         type: Boolean,
         default: true
       },
-      contextLabel: { // TODO: Remove when ENABLE_ENTITY_HEADER_CARDS is always-on
-        type: String,
-        default: null
-      },
       editorialEntityLabel: {
         type: String,
         default: null
@@ -267,9 +230,6 @@
         set(value) {
           this.$store.commit('search/setView', value);
         }
-      },
-      headerCardsEnabled() {
-        return this.$features.entityHeaderCards;
       }
     },
 
@@ -297,11 +257,3 @@
     }
   };
 </script>
-
-<style lang="scss" scoped>
-  @import '@/assets/scss/variables';
-
-  .context-label {
-    font-size: $font-size-small;
-  }
-</style>
