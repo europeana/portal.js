@@ -284,6 +284,15 @@ describe('components/account/UserButtons', () => {
         expect(pinButton.attributes('aria-pressed')).toBe('false');
       });
       describe('when pressed', () => {
+        it('pins the item', async() => {
+          const wrapper = factory();
+          await wrapper.setProps({ showPins: true });
+
+          const pinButton = wrapper.find('[data-qa="pin button"]');
+          await pinButton.trigger('click');
+
+          expect(storeDispatch.calledWith('entity/pin')).toBe(true);
+        });
         it('shows the pin toast', async() => {
           const wrapper = factory();
           await wrapper.setProps({ showPins: true });
@@ -315,7 +324,16 @@ describe('components/account/UserButtons', () => {
         expect(pinButton.attributes('aria-pressed')).toBe('true');
       });
       describe('when pressed', () => {
-        it('shows the pin modal', async() => {
+        it('unpins the item', async() => {
+          const wrapper = factory();
+          await wrapper.setProps({ showPins: true });
+
+          const pinButton = wrapper.find('[data-qa="pin button"]');
+          await pinButton.trigger('click');
+
+          expect(storeDispatch.calledWith('entity/unpin')).toBe(true);
+        });
+        it('shows the pin toast', async() => {
           const wrapper = factory();
           await wrapper.setProps({ showPins: true });
 
@@ -324,6 +342,33 @@ describe('components/account/UserButtons', () => {
 
           expect(makeToastSpy.calledWith('entity.notifications.unpinned')).toBe(true);
         });
+      });
+    });
+  });
+
+  describe('methods', () => {
+    describe('clickCreateSet', () => {
+      it('shows the form modal', async() => {
+        const wrapper = factory();
+        await wrapper.vm.clickCreateSet();
+
+        expect(wrapper.vm.showFormModal).toBe(true);
+      });
+    });
+    describe('setCreatedOrUpdated', () => {
+      it('shows the create/update modal', async() => {
+        const wrapper = factory();
+        await wrapper.vm.setCreatedOrUpdated();
+
+        expect(wrapper.vm.newSetCreated).toBe(true);
+      });
+    });
+    describe('refreshSet', () => {
+      it('refreshes the set', async() => {
+        const wrapper = factory();
+        await wrapper.vm.refreshSet();
+
+        expect(storeDispatch.calledWith('set/refreshSet')).toBe(true);
       });
     });
   });
