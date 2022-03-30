@@ -514,7 +514,7 @@
 
       setSearchFocus(bvEvent) {
         if (bvEvent) {
-          bvEvent.preventDefault();
+          bvEvent.preventDefault(); // Prevent the dropdown from closing.
         }
         this.$refs['search-input'].focus();
       },
@@ -523,9 +523,6 @@
         this.searchFacet = '';
         this.$refs.dropdown.$refs.menu.scrollTop = 0;
         this.mayFetch = false;
-      },
-      preventDropdownClose(bvEvent) {
-        bvEvent.preventDefault();
       }
     }
   };
