@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mitt konto",
     "linkLogin": "Logga in",
-    "linkLoginJoin": "Logga in\/Gå med",
+    "linkLoginJoin": "Logga in/Gå med",
     "linkLogout": "Logga ut",
     "myProfile": "Min profil",
     "notifications": {
@@ -451,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Filformat | Filformat",
       "options": {
-        "text\/plain": "Oformaterad text"
+        "text/plain": "Oformaterad text"
       }
     },
     "PROVIDER": {
@@ -469,23 +469,23 @@ export default {
     "RIGHTS": {
       "name": "Rättighetsförklaring",
       "options": {
-        "*\/CNE\/*": "Upphovsrätt Ej utvärderad",
-        "*\/InC-EDU\/*": "I upphovsrätt - pedagogisk användning tillåten",
-        "*\/InC-OW-EU\/*": "I upphovsrätten - OW-EU",
-        "*\/InC\/*": "I upphovsrätt",
-        "*\/NoC-NC\/*": "Ingen upphovsrätt - Endast icke-kommersiell användning",
-        "*\/NoC-OKLR\/*": "Nej Upphovsrätt - Andra kända juridiska begränsningar",
-        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
-        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
-        "*\/licenses\/by-nc\/*": "CC BY-NC",
-        "*\/licenses\/by-nd\/*": "CC BY-ND",
-        "*\/licenses\/by-sa\/*": "CC BY-SA",
-        "*\/licenses\/by\/*": "CC BY",
-        "*\/publicdomain\/mark\/*": "Mark för offentlig egendom",
-        "*\/publicdomain\/zero\/*": "CC0",
-        "*\/rights\/out-of-copyright-non-commercial\/*": "Utan upphovsrätt - icke kommersiell återanvändning",
-        "*\/rights\/rr-f\/*": "Rättigheter reserverade - Fri tillgång",
-        "*\/rights\/unknown\/*": "Okänd upphovsrättsstatus"
+        "*/CNE/*": "Upphovsrätt Ej utvärderad",
+        "*/InC-EDU/*": "I upphovsrätt - pedagogisk användning tillåten",
+        "*/InC-OW-EU/*": "I upphovsrätten - OW-EU",
+        "*/InC/*": "I upphovsrätt",
+        "*/NoC-NC/*": "Ingen upphovsrätt - Endast icke-kommersiell användning",
+        "*/NoC-OKLR/*": "Nej Upphovsrätt - Andra kända juridiska begränsningar",
+        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
+        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
+        "*/licenses/by-nc/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-ND",
+        "*/licenses/by-sa/*": "CC BY-SA",
+        "*/licenses/by/*": "CC BY",
+        "*/publicdomain/mark/*": "Mark för offentlig egendom",
+        "*/publicdomain/zero/*": "CC0",
+        "*/rights/out-of-copyright-non-commercial/*": "Utan upphovsrätt - icke kommersiell återanvändning",
+        "*/rights/rr-f/*": "Rättigheter reserverade - Fri tillgång",
+        "*/rights/unknown/*": "Okänd upphovsrättsstatus"
       }
     },
     "TYPE": {
@@ -738,7 +738,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Hjälper till att förbättra vår webbplats genom att ibland tillämpa experimentella förändringar.",
-        "title": "A\/B -testning"
+        "title": "A/B -testning"
       },
       "auth-strategy": {
         "description": "Kommer ihåg den auktoriserings strategi som ska användas för att logga in.",
@@ -770,7 +770,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Kommer ihåg om du föredrar att se sökresultaten i en lista eller rutnät.",
-        "title": "Visa sökresultat (lista\/rutnät)"
+        "title": "Visa sökresultat (lista/rutnät)"
       }
     }
   },

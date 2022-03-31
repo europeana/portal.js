@@ -6,7 +6,7 @@ export default {
     "likes": "Kedvelések",
     "linkAccount": "Fiókom",
     "linkLogin": "Bejelentkezés",
-    "linkLoginJoin": "Bejelentkezés\/Csatlakozás",
+    "linkLoginJoin": "Bejelentkezés/Csatlakozás",
     "linkLogout": "Bejelentkezés",
     "myProfile": "A profilom",
     "notifications": {
@@ -451,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Fájlformátum | Fájlformátumok",
       "options": {
-        "text\/plain": "Egyszerű szöveg"
+        "text/plain": "Egyszerű szöveg"
       }
     },
     "PROVIDER": {
@@ -469,23 +469,23 @@ export default {
     "RIGHTS": {
       "name": "Jogokról szóló nyilatkozat",
       "options": {
-        "*\/CNE\/*": "A szerzői jog nincs értékelve",
-        "*\/InC-EDU\/*": "A szerzői jog - Oktatási felhasználás megengedett",
-        "*\/InC-OW-EU\/*": "A szerzői jogról - OW-EU",
-        "*\/InC\/*": "A szerzői jogban",
-        "*\/NoC-NC\/*": "Nincs szerzői jog – csak nem kereskedelmi használatra",
-        "*\/NoC-OKLR\/*": "Nincs szerzői jog – egyéb ismert jogi korlátozások",
-        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
-        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
-        "*\/licenses\/by-nc\/*": "CC BY-NC",
-        "*\/licenses\/by-nd\/*": "CC BY-ND",
-        "*\/licenses\/by-sa\/*": "CC BY-SA",
-        "*\/licenses\/by\/*": "CC BY",
-        "*\/publicdomain\/mark\/*": "Public Domain Mark",
-        "*\/publicdomain\/zero\/*": "CC0",
-        "*\/rights\/out-of-copyright-non-commercial\/*": "Szerzői jogon kívül - nem kereskedelmi újrafelhasználás",
-        "*\/rights\/rr-f\/*": "Jogok fenntartva - Ingyenes hozzáférés",
-        "*\/rights\/unknown\/*": "Ismeretlen szerzői jogi állapot"
+        "*/CNE/*": "A szerzői jog nincs értékelve",
+        "*/InC-EDU/*": "A szerzői jog - Oktatási felhasználás megengedett",
+        "*/InC-OW-EU/*": "A szerzői jogról - OW-EU",
+        "*/InC/*": "A szerzői jogban",
+        "*/NoC-NC/*": "Nincs szerzői jog – csak nem kereskedelmi használatra",
+        "*/NoC-OKLR/*": "Nincs szerzői jog – egyéb ismert jogi korlátozások",
+        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
+        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
+        "*/licenses/by-nc/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-ND",
+        "*/licenses/by-sa/*": "CC BY-SA",
+        "*/licenses/by/*": "CC BY",
+        "*/publicdomain/mark/*": "Public Domain Mark",
+        "*/publicdomain/zero/*": "CC0",
+        "*/rights/out-of-copyright-non-commercial/*": "Szerzői jogon kívül - nem kereskedelmi újrafelhasználás",
+        "*/rights/rr-f/*": "Jogok fenntartva - Ingyenes hozzáférés",
+        "*/rights/unknown/*": "Ismeretlen szerzői jogi állapot"
       }
     },
     "TYPE": {
@@ -738,7 +738,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Segít weboldalunk fejlesztésében azáltal, hogy alkalmanként kísérleti változtatásokat alkalmaz.",
-        "title": "A\/B tesztelés"
+        "title": "A/B tesztelés"
       },
       "auth-strategy": {
         "description": "Emlékszik a bejelentkezéshez használandó engedélyezési stratégiára.",
@@ -770,7 +770,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Emlékszik arra, hogy a keresési eredményeket inkább lista- vagy rácsnézetben szeretné-e látni.",
-        "title": "Keresési eredmény nézet (lista \/ rács)"
+        "title": "Keresési eredmény nézet (lista / rács)"
       }
     }
   },

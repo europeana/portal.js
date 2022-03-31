@@ -6,7 +6,7 @@ export default {
     "likes": "Patinka",
     "linkAccount": "Mano paskyra",
     "linkLogin": "Prisijungti",
-    "linkLoginJoin": "Prisijungti\/Prisijungti",
+    "linkLoginJoin": "Prisijungti/Prisijungti",
     "linkLogout": "Atsijungti",
     "myProfile": "Mano profilis",
     "notifications": {
@@ -451,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Failo formatas | Failų formatai",
       "options": {
-        "text\/plain": "Paprastas tekstas"
+        "text/plain": "Paprastas tekstas"
       }
     },
     "PROVIDER": {
@@ -469,23 +469,23 @@ export default {
     "RIGHTS": {
       "name": "Teisių pareiškimas",
       "options": {
-        "*\/CNE\/*": "Autorių teisės Neįvertinta",
-        "*\/InC-EDU\/*": "Autorių teisės saugomos - leidžiama naudoti švietimo tikslais",
-        "*\/InC-OW-EU\/*": "Autorių teisės – OW-EU",
-        "*\/InC\/*": "Autorių teisės",
-        "*\/NoC-NC\/*": "Nėra autorių teisių - Tik nekomerciniam naudojimui",
-        "*\/NoC-OKLR\/*": "Nėra autorių teisių – Kiti žinomi teisiniai apribojimai",
-        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
-        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
-        "*\/licenses\/by-nc\/*": "CC BY-NC",
-        "*\/licenses\/by-nd\/*": "CC BY-ND",
-        "*\/licenses\/by-sa\/*": "CC BY-SA",
-        "*\/licenses\/by\/*": "CC BY",
-        "*\/publicdomain\/mark\/*": "Viešojo domeno ženklas",
-        "*\/publicdomain\/zero\/*": "CC0",
-        "*\/rights\/out-of-copyright-non-commercial\/*": "Ne autorių teisių apsauga - nekomercinis pakartotinis naudojimas",
-        "*\/rights\/rr-f\/*": "Teisės saugomos – Nemokama prieiga",
-        "*\/rights\/unknown\/*": "Nežinomas autorių teisių statusas"
+        "*/CNE/*": "Autorių teisės Neįvertinta",
+        "*/InC-EDU/*": "Autorių teisės saugomos - leidžiama naudoti švietimo tikslais",
+        "*/InC-OW-EU/*": "Autorių teisės – OW-EU",
+        "*/InC/*": "Autorių teisės",
+        "*/NoC-NC/*": "Nėra autorių teisių - Tik nekomerciniam naudojimui",
+        "*/NoC-OKLR/*": "Nėra autorių teisių – Kiti žinomi teisiniai apribojimai",
+        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
+        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
+        "*/licenses/by-nc/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-ND",
+        "*/licenses/by-sa/*": "CC BY-SA",
+        "*/licenses/by/*": "CC BY",
+        "*/publicdomain/mark/*": "Viešojo domeno ženklas",
+        "*/publicdomain/zero/*": "CC0",
+        "*/rights/out-of-copyright-non-commercial/*": "Ne autorių teisių apsauga - nekomercinis pakartotinis naudojimas",
+        "*/rights/rr-f/*": "Teisės saugomos – Nemokama prieiga",
+        "*/rights/unknown/*": "Nežinomas autorių teisių statusas"
       }
     },
     "TYPE": {
@@ -738,7 +738,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Padeda tobulinti mūsų svetainę, retkarčiais pritaikant eksperimentinius pakeitimus.",
-        "title": "A\/B testavimas"
+        "title": "A/B testavimas"
       },
       "auth-strategy": {
         "description": "Prisimena autorizacijos strategiją, kurią reikia naudoti prisijungiant.",
@@ -770,7 +770,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Prisimena, ar norite paieškos rezultatus matyti sąrašo ar tinklelio rodinyje.",
-        "title": "Paieškos rezultatų rodinys (sąrašas \/ tinklelis)"
+        "title": "Paieškos rezultatų rodinys (sąrašas / tinklelis)"
       }
     }
   },

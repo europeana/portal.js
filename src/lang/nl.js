@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mijn account",
     "linkLogin": "Inloggen",
-    "linkLoginJoin": "Inloggen\/Aanmelden",
+    "linkLoginJoin": "Inloggen/Aanmelden",
     "linkLogout": "Uitloggen",
     "myProfile": "Mijn profiel",
     "notifications": {
@@ -451,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Bestandsformaat | Bestandsformaten",
       "options": {
-        "text\/plain": "Platte tekst"
+        "text/plain": "Platte tekst"
       }
     },
     "PROVIDER": {
@@ -469,23 +469,23 @@ export default {
     "RIGHTS": {
       "name": "Rechtenverklaring",
       "options": {
-        "*\/CNE\/*": "Auteursrecht niet geëvalueerd",
-        "*\/InC-EDU\/*": "Onder auteursrecht - Educatief gebruik toegestaan",
-        "*\/InC-OW-EU\/*": "In auteursrecht - OW-EU",
-        "*\/InC\/*": "In auteursrecht",
-        "*\/NoC-NC\/*": "Geen auteursrecht - alleen voor niet-commercieel gebruik",
-        "*\/NoC-OKLR\/*": "Geen auteursrecht - Andere bekende wettelijke beperkingen",
-        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
-        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
-        "*\/licenses\/by-nc\/*": "CC BY-NC",
-        "*\/licenses\/by-nd\/*": "CC BY-ND",
-        "*\/licenses\/by-sa\/*": "CC BY-SA",
-        "*\/licenses\/by\/*": "CC BY",
-        "*\/publicdomain\/mark\/*": "Markering voor openbaar domein",
-        "*\/publicdomain\/zero\/*": "CC0",
-        "*\/rights\/out-of-copyright-non-commercial\/*": "Buiten het auteursrecht - niet-commercieel hergebruik",
-        "*\/rights\/rr-f\/*": "Rechten voorbehouden - Gratis toegang",
-        "*\/rights\/unknown\/*": "Onbekende auteursrechtelijke status"
+        "*/CNE/*": "Auteursrecht niet geëvalueerd",
+        "*/InC-EDU/*": "Onder auteursrecht - Educatief gebruik toegestaan",
+        "*/InC-OW-EU/*": "In auteursrecht - OW-EU",
+        "*/InC/*": "In auteursrecht",
+        "*/NoC-NC/*": "Geen auteursrecht - alleen voor niet-commercieel gebruik",
+        "*/NoC-OKLR/*": "Geen auteursrecht - Andere bekende wettelijke beperkingen",
+        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
+        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
+        "*/licenses/by-nc/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-ND",
+        "*/licenses/by-sa/*": "CC BY-SA",
+        "*/licenses/by/*": "CC BY",
+        "*/publicdomain/mark/*": "Markering voor openbaar domein",
+        "*/publicdomain/zero/*": "CC0",
+        "*/rights/out-of-copyright-non-commercial/*": "Buiten het auteursrecht - niet-commercieel hergebruik",
+        "*/rights/rr-f/*": "Rechten voorbehouden - Gratis toegang",
+        "*/rights/unknown/*": "Onbekende auteursrechtelijke status"
       }
     },
     "TYPE": {
@@ -738,7 +738,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Helpt onze website te verbeteren door af en toe experimentele wijzigingen aan te brengen.",
-        "title": "A\/B-testen"
+        "title": "A/B-testen"
       },
       "auth-strategy": {
         "description": "Onthoudt de autorisatie strategie die moet worden gebruikt om in te loggen.",
@@ -770,7 +770,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Onthoudt of u de zoekresultaten liever in een lijst- of rasterweergave wilt zien.",
-        "title": "Zoekresultaatweergave (lijst\/raster)"
+        "title": "Zoekresultaatweergave (lijst/raster)"
       }
     }
   },

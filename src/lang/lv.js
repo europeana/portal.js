@@ -6,7 +6,7 @@ export default {
     "likes": "Patīk",
     "linkAccount": "Mans konts",
     "linkLogin": "Pieteikties",
-    "linkLoginJoin": "Pieteikties\/Pievienoties",
+    "linkLoginJoin": "Pieteikties/Pievienoties",
     "linkLogout": "Atteikties",
     "myProfile": "Mans profils",
     "notifications": {
@@ -451,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Datnes formāts | Datņu formāti",
       "options": {
-        "text\/plain": "Vienkāršs teksts"
+        "text/plain": "Vienkāršs teksts"
       }
     },
     "PROVIDER": {
@@ -469,23 +469,23 @@ export default {
     "RIGHTS": {
       "name": "Paziņojums par tiesībām",
       "options": {
-        "*\/CNE\/*": "Autortiesības Nav novērtēts",
-        "*\/InC-EDU\/*": "Autortiesības - izglītojoša izmantošana atļauta",
-        "*\/InC-OW-EU\/*": "Autortiesībās - OW-EU",
-        "*\/InC\/*": "Autortiesībās",
-        "*\/NoC-NC\/*": "Nav autortiesību — tikai nekomerciālai lietošanai",
-        "*\/NoC-OKLR\/*": "Nav autortiesību — citi zināmi juridiski ierobežojumi",
-        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
-        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
-        "*\/licenses\/by-nc\/*": "CC BY-NC",
-        "*\/licenses\/by-nd\/*": "CC BY-ND",
-        "*\/licenses\/by-sa\/*": "CC BY-SA",
-        "*\/licenses\/by\/*": "CC BY",
-        "*\/publicdomain\/mark\/*": "Publiskā domēna zīme",
-        "*\/publicdomain\/zero\/*": "CC0",
-        "*\/rights\/out-of-copyright-non-commercial\/*": "Ārpus autortiesībām - nekomerciāla atkalizmantošana",
-        "*\/rights\/rr-f\/*": "Tiesības aizsargātas - Bezmaksas piekļuve",
-        "*\/rights\/unknown\/*": "Nezināms autortiesību statuss"
+        "*/CNE/*": "Autortiesības Nav novērtēts",
+        "*/InC-EDU/*": "Autortiesības - izglītojoša izmantošana atļauta",
+        "*/InC-OW-EU/*": "Autortiesībās - OW-EU",
+        "*/InC/*": "Autortiesībās",
+        "*/NoC-NC/*": "Nav autortiesību — tikai nekomerciālai lietošanai",
+        "*/NoC-OKLR/*": "Nav autortiesību — citi zināmi juridiski ierobežojumi",
+        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
+        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
+        "*/licenses/by-nc/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-ND",
+        "*/licenses/by-sa/*": "CC BY-SA",
+        "*/licenses/by/*": "CC BY",
+        "*/publicdomain/mark/*": "Publiskā domēna zīme",
+        "*/publicdomain/zero/*": "CC0",
+        "*/rights/out-of-copyright-non-commercial/*": "Ārpus autortiesībām - nekomerciāla atkalizmantošana",
+        "*/rights/rr-f/*": "Tiesības aizsargātas - Bezmaksas piekļuve",
+        "*/rights/unknown/*": "Nezināms autortiesību statuss"
       }
     },
     "TYPE": {
@@ -555,7 +555,7 @@ export default {
       "name": "Izdošanas datums"
     },
     "proxy_dcterms_medium": {
-      "name": "Līdzeklis\/ Līdzekļi"
+      "name": "Līdzeklis/ Līdzekļi"
     }
   },
   "feedback": {
@@ -738,7 +738,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Palīdz uzlabot mūsu vietni, laiku pa laikam veicot eksperimentālas izmaiņas.",
-        "title": "A\/B testēšana"
+        "title": "A/B testēšana"
       },
       "auth-strategy": {
         "description": "Atceras autorizācijas stratēģiju, kas jāizmanto, lai pieteiktos.",
@@ -770,7 +770,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Atceras, vai vēlaties redzēt meklēšanas rezultātus saraksta vai režģa skatā.",
-        "title": "Meklēšanas rezultātu skats (saraksts \/ režģis)"
+        "title": "Meklēšanas rezultātu skats (saraksts / režģis)"
       }
     }
   },

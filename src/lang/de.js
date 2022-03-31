@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mein Konto",
     "linkLogin": "Anmelden",
-    "linkLoginJoin": "Anmelden\/Beitreten",
+    "linkLoginJoin": "Anmelden/Beitreten",
     "linkLogout": "Abmelden",
     "myProfile": "Mein Profil",
     "notifications": {
@@ -451,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Dateiformat | Dateiformate",
       "options": {
-        "text\/plain": "Klartext"
+        "text/plain": "Klartext"
       }
     },
     "PROVIDER": {
@@ -469,23 +469,23 @@ export default {
     "RIGHTS": {
       "name": "Erklärung zu den Rechten",
       "options": {
-        "*\/CNE\/*": "Urheberrecht nicht bewertet",
-        "*\/InC-EDU\/*": "Urheberrechtlich geschützt – Verwendung zu Bildungszwecken gestattet",
-        "*\/InC-OW-EU\/*": "Im Urheberrecht - OW-EU",
-        "*\/InC\/*": "Im Urheberrecht",
-        "*\/NoC-NC\/*": "Kein Urheberrecht – nur nicht-kommerzielle Nutzung",
-        "*\/NoC-OKLR\/*": "Kein Urheberrecht – andere bekannte gesetzliche Beschränkungen",
-        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
-        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
-        "*\/licenses\/by-nc\/*": "CC BY-NC",
-        "*\/licenses\/by-nd\/*": "CC BY-ND",
-        "*\/licenses\/by-sa\/*": "CC BY-SA",
-        "*\/licenses\/by\/*": "CC BY",
-        "*\/publicdomain\/mark\/*": "Gemeingut-Marke",
-        "*\/publicdomain\/zero\/*": "CC0",
-        "*\/rights\/out-of-copyright-non-commercial\/*": "Außerhalb des Urheberrechts - nicht kommerzielle Wiederverwendung",
-        "*\/rights\/rr-f\/*": "Rechte vorbehalten – Freier Zugang",
-        "*\/rights\/unknown\/*": "Unbekannter Urheberrechtsstatus"
+        "*/CNE/*": "Urheberrecht nicht bewertet",
+        "*/InC-EDU/*": "Urheberrechtlich geschützt – Verwendung zu Bildungszwecken gestattet",
+        "*/InC-OW-EU/*": "Im Urheberrecht - OW-EU",
+        "*/InC/*": "Im Urheberrecht",
+        "*/NoC-NC/*": "Kein Urheberrecht – nur nicht-kommerzielle Nutzung",
+        "*/NoC-OKLR/*": "Kein Urheberrecht – andere bekannte gesetzliche Beschränkungen",
+        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
+        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
+        "*/licenses/by-nc/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-ND",
+        "*/licenses/by-sa/*": "CC BY-SA",
+        "*/licenses/by/*": "CC BY",
+        "*/publicdomain/mark/*": "Gemeingut-Marke",
+        "*/publicdomain/zero/*": "CC0",
+        "*/rights/out-of-copyright-non-commercial/*": "Außerhalb des Urheberrechts - nicht kommerzielle Wiederverwendung",
+        "*/rights/rr-f/*": "Rechte vorbehalten – Freier Zugang",
+        "*/rights/unknown/*": "Unbekannter Urheberrechtsstatus"
       }
     },
     "TYPE": {
@@ -738,7 +738,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Hilft, unsere Website zu verbessern, indem gelegentlich experimentelle Änderungen vorgenommen werden.",
-        "title": "A\/B-Tests"
+        "title": "A/B-Tests"
       },
       "auth-strategy": {
         "description": "Erinnert an die Berechtigungsstrategie, die für die Anmeldung verwendet werden soll.",
@@ -770,7 +770,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Merkt sich, ob Sie die Suchergebnisse lieber in einer Listen- oder Rasteransicht anzeigen möchten.",
-        "title": "Suchergebnisansicht (Liste\/Raster)"
+        "title": "Suchergebnisansicht (Liste/Raster)"
       }
     }
   },

@@ -6,7 +6,7 @@ export default {
     "likes": "Mentions J’aime",
     "linkAccount": "Mon compte",
     "linkLogin": "Se connecter",
-    "linkLoginJoin": "Connexion\/Rejoignez-nous",
+    "linkLoginJoin": "Connexion/Rejoignez-nous",
     "linkLogout": "Déconnexion",
     "myProfile": "Mon profil",
     "notifications": {
@@ -451,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format de fichier | Formats de fichiers",
       "options": {
-        "text\/plain": "Texte brut"
+        "text/plain": "Texte brut"
       }
     },
     "PROVIDER": {
@@ -469,23 +469,23 @@ export default {
     "RIGHTS": {
       "name": "Déclaration de droits",
       "options": {
-        "*\/CNE\/*": "Droits d'auteur non évalués",
-        "*\/InC-EDU\/*": "Droits d'auteur - Utilisation à des fins éducatives autorisée",
-        "*\/InC-OW-EU\/*": "En droit d'auteur - OW-EU",
-        "*\/InC\/*": "En droit d'auteur",
-        "*\/NoC-NC\/*": "Pas de droit d'auteur - Utilisation non commerciale uniquement",
-        "*\/NoC-OKLR\/*": "Pas de droit d'auteur - Autres restrictions légales connues",
-        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
-        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
-        "*\/licenses\/by-nc\/*": "CC BY-NC",
-        "*\/licenses\/by-nd\/*": "CC BY-ND",
-        "*\/licenses\/by-sa\/*": "CC BY-SA",
-        "*\/licenses\/by\/*": "CC BY",
-        "*\/publicdomain\/mark\/*": "Marque du domaine public",
-        "*\/publicdomain\/zero\/*": "CC0",
-        "*\/rights\/out-of-copyright-non-commercial\/*": "Hors droits d'auteur - réutilisation non commerciale",
-        "*\/rights\/rr-f\/*": "Droits réservés - Accès gratuit",
-        "*\/rights\/unknown\/*": "Statut de copyright inconnu"
+        "*/CNE/*": "Droits d'auteur non évalués",
+        "*/InC-EDU/*": "Droits d'auteur - Utilisation à des fins éducatives autorisée",
+        "*/InC-OW-EU/*": "En droit d'auteur - OW-EU",
+        "*/InC/*": "En droit d'auteur",
+        "*/NoC-NC/*": "Pas de droit d'auteur - Utilisation non commerciale uniquement",
+        "*/NoC-OKLR/*": "Pas de droit d'auteur - Autres restrictions légales connues",
+        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
+        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
+        "*/licenses/by-nc/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-ND",
+        "*/licenses/by-sa/*": "CC BY-SA",
+        "*/licenses/by/*": "CC BY",
+        "*/publicdomain/mark/*": "Marque du domaine public",
+        "*/publicdomain/zero/*": "CC0",
+        "*/rights/out-of-copyright-non-commercial/*": "Hors droits d'auteur - réutilisation non commerciale",
+        "*/rights/rr-f/*": "Droits réservés - Accès gratuit",
+        "*/rights/unknown/*": "Statut de copyright inconnu"
       }
     },
     "TYPE": {
@@ -738,7 +738,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Aide à améliorer notre site Web en appliquant occasionnellement des modifications expérimentales.",
-        "title": "Tests A\/B"
+        "title": "Tests A/B"
       },
       "auth-strategy": {
         "description": "Se souvient de la stratégie d'autorisation à utiliser pour se connecter.",
@@ -770,7 +770,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Se souvient si vous préférez voir les résultats de la recherche sous forme de liste ou de grille.",
-        "title": "Affichage des résultats de recherche (liste\/grille)"
+        "title": "Affichage des résultats de recherche (liste/grille)"
       }
     }
   },

@@ -6,7 +6,7 @@ export default {
     "likes": "Me gusta",
     "linkAccount": "Mi cuenta",
     "linkLogin": "Iniciar sesión",
-    "linkLoginJoin": "Iniciar sesión\/Unirse",
+    "linkLoginJoin": "Iniciar sesión/Unirse",
     "linkLogout": "Cerrar sesión",
     "myProfile": "Mi perfil",
     "notifications": {
@@ -451,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formato de archivo | Formatos de archivo",
       "options": {
-        "text\/plain": "Texto sin formato"
+        "text/plain": "Texto sin formato"
       }
     },
     "PROVIDER": {
@@ -469,23 +469,23 @@ export default {
     "RIGHTS": {
       "name": "Declaración de derechos",
       "options": {
-        "*\/CNE\/*": "Derechos de autor no evaluados",
-        "*\/InC-EDU\/*": "En derechos de autor - Uso educativo permitido",
-        "*\/InC-OW-EU\/*": "En derechos de autor - OW-EU",
-        "*\/InC\/*": "En derechos de autor",
-        "*\/NoC-NC\/*": "Sin derechos de autor - Sólo para uso no comercial",
-        "*\/NoC-OKLR\/*": "Sin derechos de autor - Otras restricciones legales conocidas",
-        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
-        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
-        "*\/licenses\/by-nc\/*": "CC BY-NC",
-        "*\/licenses\/by-nd\/*": "CC BY-ND",
-        "*\/licenses\/by-sa\/*": "CC BY-SA",
-        "*\/licenses\/by\/*": "CC BY",
-        "*\/publicdomain\/mark\/*": "Marca de dominio público",
-        "*\/publicdomain\/zero\/*": "CC0",
-        "*\/rights\/out-of-copyright-non-commercial\/*": "Fuera de derechos de autor - Reutilización no comercial",
-        "*\/rights\/rr-f\/*": "Derechos Reservados - Acceso gratuito",
-        "*\/rights\/unknown\/*": "Estado de copyright desconocido"
+        "*/CNE/*": "Derechos de autor no evaluados",
+        "*/InC-EDU/*": "En derechos de autor - Uso educativo permitido",
+        "*/InC-OW-EU/*": "En derechos de autor - OW-EU",
+        "*/InC/*": "En derechos de autor",
+        "*/NoC-NC/*": "Sin derechos de autor - Sólo para uso no comercial",
+        "*/NoC-OKLR/*": "Sin derechos de autor - Otras restricciones legales conocidas",
+        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
+        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
+        "*/licenses/by-nc/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-ND",
+        "*/licenses/by-sa/*": "CC BY-SA",
+        "*/licenses/by/*": "CC BY",
+        "*/publicdomain/mark/*": "Marca de dominio público",
+        "*/publicdomain/zero/*": "CC0",
+        "*/rights/out-of-copyright-non-commercial/*": "Fuera de derechos de autor - Reutilización no comercial",
+        "*/rights/rr-f/*": "Derechos Reservados - Acceso gratuito",
+        "*/rights/unknown/*": "Estado de copyright desconocido"
       }
     },
     "TYPE": {
@@ -738,7 +738,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Ayuda a mejorar nuestro sitio web aplicando ocasionalmente cambios experimentales.",
-        "title": "Pruebas A\/B"
+        "title": "Pruebas A/B"
       },
       "auth-strategy": {
         "description": "Recuerda la estrategia de autorización que se debe utilizar para iniciar sesión.",
@@ -770,7 +770,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Recuerda si prefiere ver los resultados de la búsqueda en una vista de lista o cuadrícula.",
-        "title": "Vista de resultados de búsqueda (lista \/ cuadrícula)"
+        "title": "Vista de resultados de búsqueda (lista / cuadrícula)"
       }
     }
   },

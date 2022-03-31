@@ -6,7 +6,7 @@ export default {
     "likes": "Sviđanja",
     "linkAccount": "Moj račun",
     "linkLogin": "Prijava",
-    "linkLoginJoin": "Prijavi se\/Pridruži se",
+    "linkLoginJoin": "Prijavi se/Pridruži se",
     "linkLogout": "Odjava",
     "myProfile": "Moj profil",
     "notifications": {
@@ -51,7 +51,7 @@ export default {
   },
   "attribution": {
     "country": "Država:",
-    "creator": "Stvorio\/la:",
+    "creator": "Stvorio/la:",
     "date": "Datum:",
     "institution": "Institucija:",
     "title": "Naslov:"
@@ -451,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format datoteke | Formati datoteka",
       "options": {
-        "text\/plain": "Jednostavni tekst"
+        "text/plain": "Jednostavni tekst"
       }
     },
     "PROVIDER": {
@@ -469,23 +469,23 @@ export default {
     "RIGHTS": {
       "name": "Izjava o pravima",
       "options": {
-        "*\/CNE\/*": "Autorsko pravo nije procijenjeno",
-        "*\/InC-EDU\/*": "U autorskim pravima - dopuštena je obrazovna upotreba",
-        "*\/InC-OW-EU\/*": "U autorskom pravu - OW-EU",
-        "*\/InC\/*": "U autorskom pravu",
-        "*\/NoC-NC\/*": "Bez autorskih prava - samo za nekomercijalnu upotrebu",
-        "*\/NoC-OKLR\/*": "Bez autorskih prava - druga poznata zakonska ograničenja",
-        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
-        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
-        "*\/licenses\/by-nc\/*": "CC BY-NC",
-        "*\/licenses\/by-nd\/*": "CC BY-ND",
-        "*\/licenses\/by-sa\/*": "CC BY-SA",
-        "*\/licenses\/by\/*": "CC BY",
-        "*\/publicdomain\/mark\/*": "Oznaka javne domene",
-        "*\/publicdomain\/zero\/*": "CC0",
-        "*\/rights\/out-of-copyright-non-commercial\/*": "Izvan autorskih prava - nekomercijalna ponovna upotreba",
-        "*\/rights\/rr-f\/*": "Prava pridržana - slobodan pristup",
-        "*\/rights\/unknown\/*": "Nepoznat status autorskih prava"
+        "*/CNE/*": "Autorsko pravo nije procijenjeno",
+        "*/InC-EDU/*": "U autorskim pravima - dopuštena je obrazovna upotreba",
+        "*/InC-OW-EU/*": "U autorskom pravu - OW-EU",
+        "*/InC/*": "U autorskom pravu",
+        "*/NoC-NC/*": "Bez autorskih prava - samo za nekomercijalnu upotrebu",
+        "*/NoC-OKLR/*": "Bez autorskih prava - druga poznata zakonska ograničenja",
+        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
+        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
+        "*/licenses/by-nc/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-ND",
+        "*/licenses/by-sa/*": "CC BY-SA",
+        "*/licenses/by/*": "CC BY",
+        "*/publicdomain/mark/*": "Oznaka javne domene",
+        "*/publicdomain/zero/*": "CC0",
+        "*/rights/out-of-copyright-non-commercial/*": "Izvan autorskih prava - nekomercijalna ponovna upotreba",
+        "*/rights/rr-f/*": "Prava pridržana - slobodan pristup",
+        "*/rights/unknown/*": "Nepoznat status autorskih prava"
       }
     },
     "TYPE": {
@@ -580,7 +580,7 @@ export default {
     "default": {
       "dcContributor": "Suradnici",
       "dcCoverage": "Mjesto-vrijeme",
-      "dcCreator": "Stvorio\/la",
+      "dcCreator": "Stvorio/la",
       "dcDate": "Datum",
       "dcDescription": "Opis",
       "dcDuration": "Trajanje",
@@ -738,7 +738,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Pomaže poboljšati našu web stranicu povremenom primjenom eksperimentalnih promjena.",
-        "title": "A\/B testiranje"
+        "title": "A/B testiranje"
       },
       "auth-strategy": {
         "description": "Sjeća se strategije autorizacije za prijavu.",
@@ -770,7 +770,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Sjeća ako radije vidite rezultate pretraživanja u prikazu popisa ili mreže.",
-        "title": "Prikaz rezultata pretraživanja (popis \/ mreža)"
+        "title": "Prikaz rezultata pretraživanja (popis / mreža)"
       }
     }
   },
