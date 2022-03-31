@@ -7,7 +7,7 @@
       <b-row class="bg-white">
         <b-col class="pt-5 pb-4">
           <h1 class="text-center">
-            @{{ loggedInUser.preferred_username }}
+            @{{ loggedInUser && loggedInUser.preferred_username }}
           </h1>
           <div class="text-center">
             <b-button
@@ -74,7 +74,10 @@
               v-else-if="$fetchState.error"
               :error="$fetchState.error.message"
             />
-            <b-container v-else-if="activeTab === tabHashes.likes">
+            <b-container
+              v-else-if="activeTab === tabHashes.likes"
+              data-qa="liked items"
+            >
               <b-row class="flex-md-row">
                 <b-col cols="12">
                   <template
