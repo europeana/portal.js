@@ -6,7 +6,7 @@ export default {
     "likes": "Označenia Páči sa mi",
     "linkAccount": "Môj účet",
     "linkLogin": "Prihlásiť sa",
-    "linkLoginJoin": "Prihlásiť sa/Zaregistrovať sa",
+    "linkLoginJoin": "Prihlásiť sa\/Zaregistrovať sa",
     "linkLogout": "Odhlásiť sa",
     "myProfile": "Môj profil",
     "notifications": {
@@ -451,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formát súboru | Formáty súborov",
       "options": {
-        "text/plain": "Obyčajný text"
+        "text\/plain": "Obyčajný text"
       }
     },
     "PROVIDER": {
@@ -467,7 +467,26 @@ export default {
       }
     },
     "RIGHTS": {
-      "name": "Vyhlásenie o právach"
+      "name": "Vyhlásenie o právach",
+      "options": {
+        "*\/CNE\/*": "Autorské práva sa nehodnotia",
+        "*\/InC-EDU\/*": "V autorských právach – Povolené použitie na vzdelávacie účely",
+        "*\/InC-OW-EU\/*": "V autorských právach - OW-EU",
+        "*\/InC\/*": "V autorských právach",
+        "*\/NoC-NC\/*": "Žiadne autorské práva – len na nekomerčné použitie",
+        "*\/NoC-OKLR\/*": "Žiadne autorské práva – iné známe právne obmedzenia",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Značka verejnej domény",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "Mimo autorských práv – nekomerčné opakované použitie",
+        "*\/rights\/rr-f\/*": "Práva vyhradené – Voľný prístup",
+        "*\/rights\/unknown\/*": "Neznámy stav autorských práv"
+      }
     },
     "TYPE": {
       "name": "Typ média",
@@ -525,6 +544,7 @@ export default {
         "4": "Vysoká kvalita a voľné opakované použitie"
       }
     },
+    "moreOptions": "Hľadajte, aby ste našli {0} viac {1}.",
     "proxy_dc_format": {
       "name": "Formát | Formáty"
     },
@@ -588,6 +608,7 @@ export default {
       "dctermsProvenance": "Proveniencia",
       "dctermsReferences": "Odkazy",
       "dctermsSpatial": "Miesta",
+      "dctermsTOC": "Obsah",
       "dctermsTemporal": "Časové obdobie",
       "edmCountry": "Poskytujúca krajina",
       "edmCurrentLocation": "Aktuálna poloha",
@@ -644,7 +665,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label} : {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -718,7 +738,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Pomáha zlepšovať náš web príležitostným použitím experimentálnych zmien.",
-        "title": "A/B testovanie"
+        "title": "A\/B testovanie"
       },
       "auth-strategy": {
         "description": "Pamätá si stratégiu autorizácie, ktorá sa má použiť na prihlásenie.",
@@ -750,7 +770,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Pamätá si, či chcete radšej zobraziť výsledky vyhľadávania v zozname alebo mriežke.",
-        "title": "Zobrazenie výsledkov hľadania (zoznam / mriežka)"
+        "title": "Zobrazenie výsledkov hľadania (zoznam \/ mriežka)"
       }
     }
   },
@@ -785,7 +805,7 @@ export default {
     "dismiss": "Zatvoriť",
     "readMore": "Viac",
     "text": {
-      "sideFilters": "Pozrite si nové filtre! Všetky sú teraz viditeľné na pravej strane výsledkov vyhľadávania."
+      "searchFilters": "Naše vyhľadávacie filtre teraz podporujú vyhľadávanie; Pozrite sa na to! Tiež sme prepracovali naše výsledky a stránky zbierky."
     }
   },
   "newWindow": "otvorí sa v novom okne",
@@ -848,13 +868,14 @@ export default {
   "reset": "Obnoviť",
   "resourceWikimedia": "Zdroj z Wikimedia Commons",
   "results": "Výsledky",
+  "resultsFor": "Výsledky pre {0}",
   "resultsLimitWarning": "Ďalšie výsledky sa nezobrazujú, pretože sa zobrazuje iba prvých 1000 najrelevantnejších výsledkov. Ak ste nenašli, čo hľadáte, upresnite vyhľadávanie.",
+  "resultsWithin": "Výsledky v rámci {0} {1} pre {2}",
   "search": "Hľadať",
   "searchHasLoaded": "{0} vrátené výsledky",
   "searchPlaceholder": "Čo hľadáte?",
   "searchResults": "Vyhľadávať",
   "searchResultsFor": "{0} – vyhľadávať",
-  "searchResultsForIn": "{0} – vyhľadávať v rámci {1}",
   "searchSuggestions": "Návrhy na vyhľadávanie",
   "searchTier": {
     "button": {
@@ -905,6 +926,11 @@ export default {
   },
   "showLess": "Zobraziť menej",
   "showMore": "Zobraziť viac",
+  "sideFilters": {
+    "noOptions": "Nie sú k dispozícii žiadne možnosti na výber",
+    "search": "Vyhľadávanie",
+    "select": "Vyberte {filter} | Vyberte {filter}"
+  },
   "statuses": {
     "liked": "Obľúbené",
     "pinned": "Pripnuté"

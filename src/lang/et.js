@@ -6,7 +6,7 @@ export default {
     "likes": "Meeldimised",
     "linkAccount": "Minu konto",
     "linkLogin": "Logi sisse",
-    "linkLoginJoin": "Logi sisse/Liitu",
+    "linkLoginJoin": "Logi sisse\/Liitu",
     "linkLogout": "Logi välja",
     "myProfile": "Minu profiil",
     "notifications": {
@@ -451,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Failivorming | Failivormingud",
       "options": {
-        "text/plain": "Lihttekst"
+        "text\/plain": "Lihttekst"
       }
     },
     "PROVIDER": {
@@ -467,7 +467,26 @@ export default {
       }
     },
     "RIGHTS": {
-      "name": "Õiguste deklaratsioon"
+      "name": "Õiguste deklaratsioon",
+      "options": {
+        "*\/CNE\/*": "Autoriõigust ei hinnatud",
+        "*\/InC-EDU\/*": "Autoriõigusega - kasutamine hariduslikul eesmärgil lubatud",
+        "*\/InC-OW-EU\/*": "Autoriõigus – OW-EU",
+        "*\/InC\/*": "Autoriõigus",
+        "*\/NoC-NC\/*": "Autoriõigus puudub – ainult mitteäriliseks kasutamiseks",
+        "*\/NoC-OKLR\/*": "Autoriõigus puudub – muud teadaolevad juriidilised piirangud",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Avaliku domeeni märk",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "Autoriõigusest väljas - mitteäriline taaskasutamine",
+        "*\/rights\/rr-f\/*": "Õigused reserveeritud – tasuta juurdepääs",
+        "*\/rights\/unknown\/*": "Autoriõiguse staatus teadmata"
+      }
     },
     "TYPE": {
       "name": "Meediumitüüp",
@@ -525,6 +544,7 @@ export default {
         "4": "Kvaliteetne ja vabalt taaskasutatav"
       }
     },
+    "moreOptions": "Otsi, et leida {0} rohkem {1}.",
     "proxy_dc_format": {
       "name": "Vorming | Vormingud"
     },
@@ -588,6 +608,7 @@ export default {
       "dctermsProvenance": "Päritolu",
       "dctermsReferences": "Viitab",
       "dctermsSpatial": "Kohad",
+      "dctermsTOC": "Sisukord",
       "dctermsTemporal": "Ajaline",
       "edmCountry": "Pakkuja riik",
       "edmCurrentLocation": "Praegune asukoht",
@@ -644,7 +665,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label}: {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -679,7 +699,7 @@ export default {
   },
   "items": {
     "itemCount": "1 toode | {count} toodet",
-    "itemOf": "{max} / {count} tootest",
+    "itemOf": "{max} \/ {count} tootest",
     "recent": "Hiljutised esemed",
     "recommended": "Soovitatavad esemed",
     "youMightLike": "Tooted, mis võivad teile meeldida"
@@ -718,7 +738,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Aitab meie veebisaiti täiustada, rakendades aeg -ajalt eksperimentaalseid muudatusi.",
-        "title": "A/B testimine"
+        "title": "A\/B testimine"
       },
       "auth-strategy": {
         "description": "Mäletab sisselogimiseks kasutatava autoriseerimisstrateegia.",
@@ -750,7 +770,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Mäletab, kas eelistate näha otsingutulemusi loendi või ruudustiku kujul.",
-        "title": "Otsingutulemite vaade (loend / ruudustik)"
+        "title": "Otsingutulemite vaade (loend \/ ruudustik)"
       }
     }
   },
@@ -785,7 +805,7 @@ export default {
     "dismiss": "Sulge",
     "readMore": "Loe lähemalt",
     "text": {
-      "sideFilters": "Vaata uusi filtreid! Nüüd on need kõik nähtavad otsingutulemuste paremal küljel."
+      "searchFilters": "Meie otsingufiltrid toetavad nüüd otsimist; Vaata järgi! Samuti kujundasime ümber oma tulemuste ja kogumislehed."
     }
   },
   "newWindow": "avaneb uues aknas",
@@ -848,13 +868,14 @@ export default {
   "reset": "Lähtesta",
   "resourceWikimedia": "Wikimedia Commonsist saadud ressurss",
   "results": "Tulemused",
+  "resultsFor": "Tulemused päringule {0}",
   "resultsLimitWarning": "Täiendavaid tulemusi ei kuvata, kuna kuvatakse ainult esimesed 1000 kõige asjakohasemat tulemust. Kui te pole leidnud seda, mida otsite, kaaluge oma otsingu täpsustamist.",
+  "resultsWithin": "Tulemused {0} {1} piires {2} päringule {1}",
   "search": "Otsing",
   "searchHasLoaded": "{0} tagastatud tulemused",
   "searchPlaceholder": "Mida te otsite?",
   "searchResults": "Otsing",
   "searchResultsFor": "{0} - otsing",
-  "searchResultsForIn": "{0} - Otsi asukohast {1}",
   "searchSuggestions": "Otsige soovitusi",
   "searchTier": {
     "button": {
@@ -905,6 +926,11 @@ export default {
   },
   "showLess": "Näita vähem",
   "showMore": "Näita rohkem",
+  "sideFilters": {
+    "noOptions": "Valimiseks pole valikuid",
+    "search": "Otsing",
+    "select": "Valige {filter} | Valige {filter}"
+  },
   "statuses": {
     "liked": "Meeldis",
     "pinned": "Kinnitatud"

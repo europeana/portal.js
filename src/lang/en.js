@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "My Account",
     "linkLogin": "Login",
-    "linkLoginJoin": "Log in / Join",
+    "linkLoginJoin": "Log in \/ Join",
     "linkLogout": "Log out",
     "myProfile": "My Profile",
     "notifications": {
@@ -451,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "file format | file formats",
       "options": {
-        "text/plain": "Plain text"
+        "text\/plain": "Plain text"
       }
     },
     "PROVIDER": {
@@ -469,23 +469,23 @@ export default {
     "RIGHTS": {
       "name": "Rights statement",
       "options": {
-        "*/CNE/*": "Copyright Not Evaluated",
-        "*/InC-EDU/*": "In Copyright - Educational Use Permitted",
-        "*/InC-OW-EU/*": "In Copyright - OW-EU",
-        "*/InC/*": "In Copyright",
-        "*/NoC-NC/*": "No Copyright - Non-Commercial Use Only",
-        "*/NoC-OKLR/*": "No Copyright - Other Known Legal Restrictions",
-        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
-        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
-        "*/licenses/by-nc/*": "CC BY-NC",
-        "*/licenses/by-nd/*": "CC BY-ND",
-        "*/licenses/by-sa/*": "CC BY-SA",
-        "*/licenses/by/*": "CC BY",
-        "*/publicdomain/mark/*": "Public Domain Mark",
-        "*/publicdomain/zero/*": "CC0",
-        "*/rights/out-of-copyright-non-commercial/*": "Out of copyright - non commercial re-use",
-        "*/rights/rr-f/*": "Rights Reserved - Free access",
-        "*/rights/unknown/*": "Unknown copyright status"
+        "*\/CNE\/*": "Copyright Not Evaluated",
+        "*\/InC-EDU\/*": "In Copyright - Educational Use Permitted",
+        "*\/InC-OW-EU\/*": "In Copyright - OW-EU",
+        "*\/InC\/*": "In Copyright",
+        "*\/NoC-NC\/*": "No Copyright - Non-Commercial Use Only",
+        "*\/NoC-OKLR\/*": "No Copyright - Other Known Legal Restrictions",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Public Domain Mark",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "Out of copyright - non commercial re-use",
+        "*\/rights\/rr-f\/*": "Rights Reserved - Free access",
+        "*\/rights\/unknown\/*": "Unknown copyright status"
       }
     },
     "TYPE": {
@@ -608,8 +608,8 @@ export default {
       "dctermsProvenance": "Provenance",
       "dctermsReferences": "References",
       "dctermsSpatial": "Places",
-      "dctermsTemporal": "Temporal",
       "dctermsTOC": "Table of contents",
+      "dctermsTemporal": "Temporal",
       "edmCountry": "Providing country",
       "edmCurrentLocation": "Current location",
       "edmDataProvider": "Providing institution",
@@ -709,7 +709,7 @@ export default {
       "acceptAll": "Accept all",
       "acceptSelected": "Accept selected",
       "consentModal": {
-        "description": "Here you can see and customise the services that we'd like to use on this website. To learn more please read our <a href='/rights/privacy-policy'>privacy policy</a>.",
+        "description": "Here you can see and customise the services that we'd like to use on this website. To learn more please read our <a href='\/rights\/privacy-policy'>privacy policy<\/a>.",
         "title": "Services we would like to use."
       },
       "consentNotice": {
@@ -738,7 +738,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Helps to improve our website by occasionally applying experimental changes.",
-        "title": "A/B testing"
+        "title": "A\/B testing"
       },
       "auth-strategy": {
         "description": "Remembers the authorization strategy to use to log in.",
@@ -770,7 +770,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Remembers if you prefer to see the search results in a list or grid view.",
-        "title": "Search result view (list/grid)"
+        "title": "Search result view (list\/grid)"
       }
     }
   },
@@ -869,8 +869,8 @@ export default {
   "resourceWikimedia": "Resource from Wikimedia Commons",
   "results": "Results",
   "resultsFor": "Results for {0}",
-  "resultsWithin": "Results within {0} {1} for {2}",
   "resultsLimitWarning": "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
+  "resultsWithin": "Results within {0} {1} for {2}",
   "search": "Search",
   "searchHasLoaded": "{0} results returned",
   "searchPlaceholder": "Search millions of items",
@@ -927,9 +927,9 @@ export default {
   "showLess": "Show less",
   "showMore": "Show more",
   "sideFilters": {
-    "select": "Select a {filter} | Select {filter}",
+    "noOptions": "There are no options available to select",
     "search": "Search",
-    "noOptions": "There are no options available to select"
+    "select": "Select a {filter} | Select {filter}"
   },
   "statuses": {
     "liked": "Liked",

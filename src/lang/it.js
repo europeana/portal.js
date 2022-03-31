@@ -6,7 +6,7 @@ export default {
     "likes": "Mi piace",
     "linkAccount": "Il mio account",
     "linkLogin": "Accedi",
-    "linkLoginJoin": "Accedi/Iscriviti",
+    "linkLoginJoin": "Accedi\/Iscriviti",
     "linkLogout": "Esci",
     "myProfile": "Il mio profilo",
     "notifications": {
@@ -451,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formato file | Formati file",
       "options": {
-        "text/plain": "Testo semplice"
+        "text\/plain": "Testo semplice"
       }
     },
     "PROVIDER": {
@@ -467,7 +467,26 @@ export default {
       }
     },
     "RIGHTS": {
-      "name": "Dichiarazione dei diritti"
+      "name": "Dichiarazione dei diritti",
+      "options": {
+        "*\/CNE\/*": "Diritto d'autore non valutato",
+        "*\/InC-EDU\/*": "Nel diritto d'autore - Uso educativo permesso",
+        "*\/InC-OW-EU\/*": "Nel diritto d'autore - OW-EU",
+        "*\/InC\/*": "Nel diritto d'autore",
+        "*\/NoC-NC\/*": "Nessun diritto d'autore - Solo per uso non commerciale",
+        "*\/NoC-OKLR\/*": "Nessun diritto d'autore - Altre restrizioni legali note",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Marchio di pubblico dominio",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "Fuori copyright - riutilizzo non commerciale",
+        "*\/rights\/rr-f\/*": "Diritti riservati - Accesso gratuito",
+        "*\/rights\/unknown\/*": "Stato del copyright sconosciuto"
+      }
     },
     "TYPE": {
       "name": "Tipo di supporto",
@@ -525,6 +544,7 @@ export default {
         "4": "Alta qualità e liberamente riutilizzabile"
       }
     },
+    "moreOptions": "Cerca di trovare {0} più {1}.",
     "proxy_dc_format": {
       "name": "Formato | Formati"
     },
@@ -588,6 +608,7 @@ export default {
       "dctermsProvenance": "Provenienza",
       "dctermsReferences": "Fa riferimento a",
       "dctermsSpatial": "Luoghi",
+      "dctermsTOC": "Tabella dei contenuti",
       "dctermsTemporal": "Periodo",
       "edmCountry": "Paese fornitore",
       "edmCurrentLocation": "Posizione attuale",
@@ -644,7 +665,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label}: {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -718,7 +738,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Aiuta a migliorare il nostro sito Web applicando occasionalmente modifiche sperimentali.",
-        "title": "Test A/B"
+        "title": "Test A\/B"
       },
       "auth-strategy": {
         "description": "Ricorda la strategia di autorizzazione da utilizzare per accedere.",
@@ -750,7 +770,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Ricorda se preferisci vedere i risultati della ricerca in una visualizzazione elenco o griglia.",
-        "title": "Visualizzazione dei risultati di ricerca (elenco/griglia)"
+        "title": "Visualizzazione dei risultati di ricerca (elenco\/griglia)"
       }
     }
   },
@@ -785,7 +805,7 @@ export default {
     "dismiss": "Chiudi",
     "readMore": "Leggi di più",
     "text": {
-      "sideFilters": "Scopri i nuovi filtri! Ora sono tutti visibili sul lato destro dei risultati della ricerca."
+      "searchFilters": "I nostri filtri di ricerca ora supportano la ricerca; controlla! Abbiamo anche ridisegnato le nostre pagine dei risultati e delle collezioni."
     }
   },
   "newWindow": "si apre in una nuova finestra",
@@ -848,13 +868,14 @@ export default {
   "reset": "Ripristina",
   "resourceWikimedia": "Risorsa da Wikimedia Commons",
   "results": "Risultati",
+  "resultsFor": "Risultati per {0}",
   "resultsLimitWarning": "Non vengono mostrati risultati aggiuntivi perché vengono visualizzati solo i primi 1.000 risultati più rilevanti. Se non hai trovato quello che stai cercando, considera la possibilità di perfezionare la tua ricerca.",
+  "resultsWithin": "Risultati entro {0} {1} per {2}",
   "search": "Cerca",
   "searchHasLoaded": "{0} risultati restituiti",
   "searchPlaceholder": "Cosa stai cercando?",
   "searchResults": "Cerca",
   "searchResultsFor": "{0} - Cerca",
-  "searchResultsForIn": "{0} - Cerca in {1}",
   "searchSuggestions": "Suggerimenti di ricerca",
   "searchTier": {
     "button": {
@@ -905,6 +926,11 @@ export default {
   },
   "showLess": "Mostra meno",
   "showMore": "Mostra di più",
+  "sideFilters": {
+    "noOptions": "Non ci sono opzioni disponibili da selezionare",
+    "search": "Cerca",
+    "select": "Seleziona un {filter} | Seleziona {filter}"
+  },
   "statuses": {
     "liked": "Piaciuto",
     "pinned": "Appuntato"

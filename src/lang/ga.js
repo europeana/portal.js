@@ -451,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formáid chomhaid | Formáidí comhaid",
       "options": {
-        "text/plain": "Téacs simplí"
+        "text\/plain": "Téacs simplí"
       }
     },
     "PROVIDER": {
@@ -467,7 +467,26 @@ export default {
       }
     },
     "RIGHTS": {
-      "name": "Ráiteas um chearta"
+      "name": "Ráiteas um chearta",
+      "options": {
+        "*\/CNE\/*": "Cóipcheart Gan Meastóireacht",
+        "*\/InC-EDU\/*": "I gCóipcheart - Ceadaithe Úsáid Oideachais",
+        "*\/InC-OW-EU\/*": "I gCóipcheart - OW-EU",
+        "*\/InC\/*": "I gCóipcheart",
+        "*\/NoC-NC\/*": "Gan Cóipcheart - Úsáid Neamhthráchtála Amháin",
+        "*\/NoC-OKLR\/*": "Gan Cóipcheart - Srianta Dlíthiúla Eile Aitheanta",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Marc Fearainn Poiblí",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "As cóipcheart - athúsáid neamhthráchtála",
+        "*\/rights\/rr-f\/*": "Cearta ar Cosaint - Rochtain saor in aisce",
+        "*\/rights\/unknown\/*": "Stádas cóipchirt anaithnid"
+      }
     },
     "TYPE": {
       "name": "Cineál meán",
@@ -525,6 +544,7 @@ export default {
         "4": "Ardchaighdeán & in-athúsáidte go saor in aisce"
       }
     },
+    "moreOptions": "Cuardaigh chun {0} níos mó {1} a aimsiú.",
     "proxy_dc_format": {
       "name": "Formáid | Formáidí"
     },
@@ -588,6 +608,7 @@ export default {
       "dctermsProvenance": "Bunadh",
       "dctermsReferences": "Tagairtí",
       "dctermsSpatial": "Áiteanna",
+      "dctermsTOC": "Clár ábhair",
       "dctermsTemporal": "Ama",
       "edmCountry": "Tír sholáthair",
       "edmCurrentLocation": "Suíomh reatha",
@@ -601,7 +622,7 @@ export default {
       "edmIsSimilarTo": "Is cosúil leis",
       "edmIsSuccessorOf": "Is comharba é ar",
       "edmProvider": "Soláthraí",
-      "edmRealizes": "Tuigeann sé/sí",
+      "edmRealizes": "Tuigeann sé\/sí",
       "edmRights": "Ráiteas Ceadúnas do na meáin sa mhír seo (mura sonraítear a mhalairt)",
       "edmUgc": "Inneachar ginte le húsáideoirí",
       "europeanaCollectionName": "Ainm bailiúcháin",
@@ -644,7 +665,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label}: {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -718,7 +738,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Cuidíonn sé lenár suíomh Gréasáin a fheabhsú trí athruithe turgnamhacha a chur i bhfeidhm ó am go chéile.",
-        "title": "Tástáil A/B"
+        "title": "Tástáil A\/B"
       },
       "auth-strategy": {
         "description": "Is cuimhin leis an straitéis údaraithe a úsáid chun logáil isteach.",
@@ -750,7 +770,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Cuimhníonn sé más fearr leat na torthaí cuardaigh a fheiceáil i liosta nó in amharc greille.",
-        "title": "Amharc toraidh cuardaigh (liosta/greille)"
+        "title": "Amharc toraidh cuardaigh (liosta\/greille)"
       }
     }
   },
@@ -785,7 +805,7 @@ export default {
     "dismiss": "Dún",
     "readMore": "Léigh níos mó",
     "text": {
-      "sideFilters": "Amharc ar na scagairí nua! Tá siad go léir le feiceáil anois ar thaobh na láimhe deise de na torthaí cuardaigh."
+      "searchFilters": "Tacaíonn ár scagairí cuardaigh le cuardach anois; seiceáil amach é! Rinneamar ár gcuid torthaí agus leathanaigh bailiúcháin a athdhearadh freisin."
     }
   },
   "newWindow": "osclaítear i bhfuinneog nua é",
@@ -848,13 +868,14 @@ export default {
   "reset": "Athshocraigh",
   "resourceWikimedia": "Acmhainn ó Wikimedia Commons",
   "results": "Torthaí",
+  "resultsFor": "Torthaí le haghaidh {0}",
   "resultsLimitWarning": "Ní thaispeántar torthaí breise óir nach dtaispeántar ach amháin an chéad 1000 toradh is ábhartha. Murar aimsigh tú a raibh uait, déan machnamh do chuardach a leasú.",
+  "resultsWithin": "Torthaí laistigh de {0} {1} le haghaidh {2}",
   "search": "Cuardaigh",
   "searchHasLoaded": "{0} torthaí ar ais",
   "searchPlaceholder": "Cuardaigh na mílte míreanna",
   "searchResults": "Cuardaigh",
   "searchResultsFor": "{0} - Cuardaigh",
-  "searchResultsForIn": "{0} - Cuardaigh isteach {1}",
   "searchSuggestions": "Cuardaigh moltaí",
   "searchTier": {
     "button": {
@@ -905,6 +926,11 @@ export default {
   },
   "showLess": "Taispeáin níos lú",
   "showMore": "Taispeáin níos mó",
+  "sideFilters": {
+    "noOptions": "Níl aon roghanna ar fáil le roghnú",
+    "search": "Cuardaigh",
+    "select": "Roghnaigh {filter} | Roghnaigh {filter}"
+  },
   "statuses": {
     "liked": "Thaitin sé",
     "pinned": "Pionnáilte"
@@ -912,4 +938,3 @@ export default {
   "website": "Suíomh Gréasáin",
   "youMightAlsoLike": "B'fhéidir gur mhaith leat freisin"
 };
-

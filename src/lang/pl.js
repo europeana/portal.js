@@ -6,7 +6,7 @@ export default {
     "likes": "Polubienia",
     "linkAccount": "Moje konto",
     "linkLogin": "Zaloguj się",
-    "linkLoginJoin": "Zaloguj/Dołącz",
+    "linkLoginJoin": "Zaloguj\/Dołącz",
     "linkLogout": "Wyloguj",
     "myProfile": "Mój profil",
     "notifications": {
@@ -451,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format plików | Formaty plików",
       "options": {
-        "text/plain": "Zwykły tekst"
+        "text\/plain": "Zwykły tekst"
       }
     },
     "PROVIDER": {
@@ -467,7 +467,26 @@ export default {
       }
     },
     "RIGHTS": {
-      "name": "Oświadczenie o prawach"
+      "name": "Oświadczenie o prawach",
+      "options": {
+        "*\/CNE\/*": "Prawa autorskie nie zostały ocenione",
+        "*\/InC-EDU\/*": "W prawie autorskim — dozwolone użycie edukacyjne",
+        "*\/InC-OW-EU\/*": "Prawa autorskie - OW-EU",
+        "*\/InC\/*": "W prawach autorskich",
+        "*\/NoC-NC\/*": "Brak praw autorskich - Tylko do użytku niekomercyjnego",
+        "*\/NoC-OKLR\/*": "Brak praw autorskich - Inne znane ograniczenia prawne",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Znak domeny publicznej",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "Poza prawami autorskimi – Ponowne wykorzystanie niekomercyjne",
+        "*\/rights\/rr-f\/*": "Prawa zastrzeżone — Bezpłatny dostęp",
+        "*\/rights\/unknown\/*": "Nieznany status praw autorskich"
+      }
     },
     "TYPE": {
       "name": "Rodzaj mediów",
@@ -525,6 +544,7 @@ export default {
         "4": "Wysoka jakość & swobodnie wielokrotnego użytku"
       }
     },
+    "moreOptions": "Wyszukaj, aby znaleźć {0} więcej {1}.",
     "proxy_dc_format": {
       "name": "Format | Formaty"
     },
@@ -588,6 +608,7 @@ export default {
       "dctermsProvenance": "Pochodzenie",
       "dctermsReferences": "Przywołuje",
       "dctermsSpatial": "Miejsca",
+      "dctermsTOC": "Spis treści",
       "dctermsTemporal": "Okres",
       "edmCountry": "Kraj dostarczający",
       "edmCurrentLocation": "Aktualna lokalizacja",
@@ -608,7 +629,7 @@ export default {
       "keywords": "Słowa kluczowe (dostarczone przez społeczność)",
       "timestampCreated": "Data utworzenia rekordu",
       "timestampUpdate": "Data zaktualizowania rekordu",
-      "wasPresentAt": "Był obecny w/na",
+      "wasPresentAt": "Był obecny w\/na",
       "year": "Rok"
     },
     "webResource": {
@@ -644,7 +665,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label}: {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -718,7 +738,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Pomaga ulepszyć naszą stronę internetową, od czasu do czasu stosując eksperymentalne zmiany.",
-        "title": "Testy A/B"
+        "title": "Testy A\/B"
       },
       "auth-strategy": {
         "description": "Zapamiętuje strategię autoryzacji używaną do logowania.",
@@ -750,7 +770,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Zapamiętuje czy wolisz widzieć wyniki wyszukiwania w widoku listy lub siatki.",
-        "title": "Widok wyników wyszukiwania (lista/siatka)"
+        "title": "Widok wyników wyszukiwania (lista\/siatka)"
       }
     }
   },
@@ -785,7 +805,7 @@ export default {
     "dismiss": "Zamknij",
     "readMore": "Czytaj więcej",
     "text": {
-      "sideFilters": "Sprawdź nowe filtry! Wszystkie są teraz widoczne po prawej stronie wyników wyszukiwania."
+      "searchFilters": "Nasze filtry wyszukiwania obsługują teraz wyszukiwanie; Sprawdź to! Przeprojektowaliśmy również nasze strony wyników i kolekcji."
     }
   },
   "newWindow": "otwiera się w nowym oknie",
@@ -848,13 +868,14 @@ export default {
   "reset": "Resetuj",
   "resourceWikimedia": "Źródło z Wikimedia Commons",
   "results": "Wyniki",
+  "resultsFor": "Wyniki dla {0}",
   "resultsLimitWarning": "Dodatkowe wyniki nie są wyświetlane, ponieważ wyświetlanych jest tylko pierwsze 1000 najbardziej odpowiednich wyników. Jeśli nie znalazłeś tego, czego szukasz, rozważ zawężenie wyszukiwania.",
+  "resultsWithin": "Wyniki w granicach {0} {1} dla {2}",
   "search": "Szukaj",
   "searchHasLoaded": "{0} zwróconych wyników",
   "searchPlaceholder": "Odkryj miliony obiektów",
   "searchResults": "Szukaj",
   "searchResultsFor": "{0} - Szukaj",
-  "searchResultsForIn": "{0} - Szukaj w {1}",
   "searchSuggestions": "Sugestie wyszukiwania",
   "searchTier": {
     "button": {
@@ -905,6 +926,11 @@ export default {
   },
   "showLess": "Pokaż mniej",
   "showMore": "Pokaż więcej",
+  "sideFilters": {
+    "noOptions": "Nie ma dostępnych opcji do wyboru",
+    "search": "Szukaj",
+    "select": "Wybierz {filtr} | Wybierz {filtr}"
+  },
   "statuses": {
     "liked": "Lubiana",
     "pinned": "Przypięty"

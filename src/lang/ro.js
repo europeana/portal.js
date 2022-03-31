@@ -6,7 +6,7 @@ export default {
     "likes": "Aprecieri",
     "linkAccount": "Contul meu",
     "linkLogin": "Autentificare",
-    "linkLoginJoin": "Autentificare/Înscriere",
+    "linkLoginJoin": "Autentificare\/Înscriere",
     "linkLogout": "Deconectare",
     "myProfile": "Profilul meu",
     "notifications": {
@@ -451,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format fișier| Formate fișier",
       "options": {
-        "text/plain": "Text simplu"
+        "text\/plain": "Text simplu"
       }
     },
     "PROVIDER": {
@@ -467,7 +467,26 @@ export default {
       }
     },
     "RIGHTS": {
-      "name": "Declarație de drepturi"
+      "name": "Declarație de drepturi",
+      "options": {
+        "*\/CNE\/*": "Drepturi de autor Neevaluate",
+        "*\/InC-EDU\/*": "În drepturi de autor - Utilizarea educațională permisă",
+        "*\/InC-OW-EU\/*": "În dreptul de autor - OW-EU",
+        "*\/InC\/*": "În dreptul de autor",
+        "*\/NoC-NC\/*": "Fără drepturi de autor - Numai pentru utilizare necomercială",
+        "*\/NoC-OKLR\/*": "Fără drepturi de autor - Alte restricții legale cunoscute",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Marca domeniului public",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "În afara dreptului de autor - reutilizare fără scop comercial",
+        "*\/rights\/rr-f\/*": "Drepturi rezervate - Acces gratuit",
+        "*\/rights\/unknown\/*": "Starea drepturilor de autor necunoscută"
+      }
     },
     "TYPE": {
       "name": "Tip de media",
@@ -525,6 +544,7 @@ export default {
         "4": "De înaltă calitate și reutilizabil gratuit"
       }
     },
+    "moreOptions": "Căutați pentru a găsi {0} mai mult {1}.",
     "proxy_dc_format": {
       "name": "Format | Formate"
     },
@@ -588,6 +608,7 @@ export default {
       "dctermsProvenance": "Provenienţă",
       "dctermsReferences": "Referințe",
       "dctermsSpatial": "Locații",
+      "dctermsTOC": "Cuprins",
       "dctermsTemporal": "Temporal",
       "edmCountry": "Țara de proveniență",
       "edmCurrentLocation": "Locația curenta",
@@ -644,7 +665,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "...",
-    "labelledValue": "{label}: {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -718,7 +738,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Ajută la îmbunătățirea site-ului nostru web aplicând ocazional modificări experimentale.",
-        "title": "Testarea A/B"
+        "title": "Testarea A\/B"
       },
       "auth-strategy": {
         "description": "Reține strategia de autorizare de utilizat pentru a vă conecta.",
@@ -750,7 +770,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Rețineți dacă preferați să vedeți rezultatele căutării într-o vizualizare listă sau grilă.",
-        "title": "Vizualizarea rezultatelor căutării (listă / grilă)"
+        "title": "Vizualizarea rezultatelor căutării (listă \/ grilă)"
       }
     }
   },
@@ -785,7 +805,7 @@ export default {
     "dismiss": "Închidere",
     "readMore": "Citește mai mult",
     "text": {
-      "sideFilters": "Vezi noile filtre! Acestea sunt acum toate vizibile în partea dreaptă a rezultatelor căutării."
+      "searchFilters": "Filtrele noastre de căutare acceptă acum căutarea; verifică! De asemenea, ne-am reproiectat rezultatele și paginile de colecție."
     }
   },
   "newWindow": "se deschide într-o fereastră nouă",
@@ -848,13 +868,14 @@ export default {
   "reset": "Resetează",
   "resourceWikimedia": "Material de la Wikimedia Commons",
   "results": "Rezultate",
+  "resultsFor": "Rezultate pentru {0}",
   "resultsLimitWarning": "Nu sunt afișate rezultate suplimentare deoarece sunt afișate doar primele 1000 dintre cele mai relevante rezultate. Dacă nu ai găsit ceea ce căutai, te rugăm să restrângi căutarea.",
+  "resultsWithin": "Rezultatele în cadrul {0} {1} pentru {2}",
   "search": "Căutare",
   "searchHasLoaded": "{0} rezultate returnate",
   "searchPlaceholder": "Ce anume cauți?",
   "searchResults": "Căutare",
   "searchResultsFor": "{0} - Căutare",
-  "searchResultsForIn": "{0} - Căutare în {1}",
   "searchSuggestions": "Sugestii de căutare",
   "searchTier": {
     "button": {
@@ -905,6 +926,11 @@ export default {
   },
   "showLess": "Afișează mai puțin",
   "showMore": "Afișează mai multe",
+  "sideFilters": {
+    "noOptions": "Nu există opțiuni disponibile de selectat",
+    "search": "Căutare",
+    "select": "Selectați un {filter} | Selectați {filter}"
+  },
   "statuses": {
     "liked": "A apreciat",
     "pinned": "Fixat"

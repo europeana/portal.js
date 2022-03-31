@@ -6,7 +6,7 @@ export default {
     "likes": "Oblíbené",
     "linkAccount": "Můj účet",
     "linkLogin": "Přihlásit se",
-    "linkLoginJoin": "Přihlášení/Připojení",
+    "linkLoginJoin": "Přihlášení\/Připojení",
     "linkLogout": "Odhlásit se",
     "myProfile": "Můj profil",
     "notifications": {
@@ -14,10 +14,10 @@ export default {
       "loggedOut": "Nyní jste odhlášeni.",
       "noCollections": {
         "curated": "Zatím jste nevybrali žádné kolekce",
-        "private": "Ještě jste nevytvořil/a žádné soukromé galerie.",
-        "public": "Ještě jste nevytvořil/a žádné veřejné galerie."
+        "private": "Ještě jste nevytvořil\/a žádné soukromé galerie.",
+        "public": "Ještě jste nevytvořil\/a žádné veřejné galerie."
       },
-      "noLikedItems": "Ještě jste neoznačil/a žádné položky jako oblíbené."
+      "noLikedItems": "Ještě jste neoznačil\/a žádné položky jako oblíbené."
     },
     "privateCollections": "Soukromé galerie",
     "profile": "Moje oblíbené a moje galerie",
@@ -451,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formát souboru | Formáty souborů",
       "options": {
-        "text/plain": "Prostý text"
+        "text\/plain": "Prostý text"
       }
     },
     "PROVIDER": {
@@ -467,7 +467,26 @@ export default {
       }
     },
     "RIGHTS": {
-      "name": "Prohlášení o právech"
+      "name": "Prohlášení o právech",
+      "options": {
+        "*\/CNE\/*": "Autorská práva nebyla vyhodnocena",
+        "*\/InC-EDU\/*": "V autorských právech - použití pro vzdělávací účely povoleno",
+        "*\/InC-OW-EU\/*": "V Copyrightu - OW-EU",
+        "*\/InC\/*": "V Copyrightu",
+        "*\/NoC-NC\/*": "Žádná autorská práva – pouze pro nekomerční použití",
+        "*\/NoC-OKLR\/*": "Žádná autorská práva – jiná známá právní omezení",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Značka volné domény",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "Mimo autorská práva – nekomerční opětovné použití",
+        "*\/rights\/rr-f\/*": "Práva vyhrazena - Volný přístup",
+        "*\/rights\/unknown\/*": "Neznámý stav autorských práv"
+      }
     },
     "TYPE": {
       "name": "Druh média",
@@ -525,6 +544,7 @@ export default {
         "4": "Vysoká kvalita a volné opakované použití"
       }
     },
+    "moreOptions": "Hledejte, abyste našli {0} více {1}.",
     "proxy_dc_format": {
       "name": "Formát | Formáty"
     },
@@ -580,7 +600,7 @@ export default {
       "dctermsHasVersion": "vlastní verzi",
       "dctermsIsFormatOf": "je formou",
       "dctermsIsPartOf": "je součástí",
-      "dctermsIsReferencedBy": "je zmiňován/a",
+      "dctermsIsReferencedBy": "je zmiňován\/a",
       "dctermsIsReplacedBy": "se nahradí",
       "dctermsIsRequiredBy": "je potřeba pro",
       "dctermsIssued": "Datum vydání",
@@ -588,11 +608,12 @@ export default {
       "dctermsProvenance": "Původ",
       "dctermsReferences": "odkazuje na",
       "dctermsSpatial": "Místa",
+      "dctermsTOC": "Obsah",
       "dctermsTemporal": "Časové",
       "edmCountry": "Země původu",
       "edmCurrentLocation": "Aktuální umístění",
       "edmDataProvider": "Poskytovatelská instituce",
-      "edmHasMet": "se setkal/a s",
+      "edmHasMet": "se setkal\/a s",
       "edmIncorporates": "zahrnuje",
       "edmIntermediateProvider": "Zprostředkovatel třetí strany",
       "edmIsDerivativeOf": "je zpodobněním",
@@ -608,7 +629,7 @@ export default {
       "keywords": "Klíčová slova (poskytnutá komunitou)",
       "timestampCreated": "Časové razítko vytvořeno",
       "timestampUpdate": "Časové razítko bylo aktualizováno",
-      "wasPresentAt": "se účastnil/a",
+      "wasPresentAt": "se účastnil\/a",
       "year": "Rok"
     },
     "webResource": {
@@ -644,7 +665,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label}: {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -718,7 +738,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Pomáhá vylepšovat náš web občasným použitím experimentálních změn.",
-        "title": "A/B testování"
+        "title": "A\/B testování"
       },
       "auth-strategy": {
         "description": "Pamatuje si strategii autorizace, která se má použít k přihlášení.",
@@ -750,7 +770,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Pamatuje si, zda chcete výsledky hledání zobrazit v seznamu nebo v mřížce.",
-        "title": "Zobrazení výsledků hledání (seznam / mřížka)"
+        "title": "Zobrazení výsledků hledání (seznam \/ mřížka)"
       }
     }
   },
@@ -785,7 +805,7 @@ export default {
     "dismiss": "Zavřít",
     "readMore": "Přečtěte si více",
     "text": {
-      "sideFilters": "Podívejte se na nové filtry! Všechny jsou nyní viditelné na pravé straně výsledků vyhledávání."
+      "searchFilters": "Naše vyhledávací filtry nyní podporují vyhledávání; Koukni na to! Přepracovali jsme také stránky s výsledky a kolekcemi."
     }
   },
   "newWindow": "otevře se v novém okně",
@@ -848,13 +868,14 @@ export default {
   "reset": "Obnovit",
   "resourceWikimedia": "Zdroj z Wikimedia Commons",
   "results": "Výsledky",
+  "resultsFor": "Výsledky pro {0}",
   "resultsLimitWarning": "Zobrazuje se pouze prvních tisíc nejvhodnějších výsledků, další výsledky se nezobrazují. Pokud jste nenašli, co jste hledali, zvažte upřesnění vyhledávání.",
+  "resultsWithin": "Výsledky v rámci {0} {1} pro {2}",
   "search": "Vyhledat",
   "searchHasLoaded": "Počet vrácených výsledků: {0}",
   "searchPlaceholder": "Co hledáte?",
   "searchResults": "Vyhledat",
   "searchResultsFor": "{0} - vyhledat",
-  "searchResultsForIn": "{0} - vyhledat v {1}",
   "searchSuggestions": "Návrhy vyhledávání",
   "searchTier": {
     "button": {
@@ -888,7 +909,7 @@ export default {
       "title": "Název galerie"
     },
     "labels": {
-      "curatedBy": "Kurátor/ka",
+      "curatedBy": "Kurátor\/ka",
       "private": "Soukromá galerie"
     },
     "notifications": {
@@ -905,6 +926,11 @@ export default {
   },
   "showLess": "Zobrazit méně",
   "showMore": "Zobrazit více",
+  "sideFilters": {
+    "noOptions": "Nejsou k dispozici žádné možnosti k výběru",
+    "search": "Vyhledat",
+    "select": "Vyberte {filter} | Vyberte {filter}"
+  },
   "statuses": {
     "liked": "Oblíbené",
     "pinned": "Připnuté"

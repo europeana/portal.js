@@ -6,7 +6,7 @@ export default {
     "likes": "Харесвания",
     "linkAccount": "Моят профил",
     "linkLogin": "Влизане",
-    "linkLoginJoin": "Вход/Регистрация",
+    "linkLoginJoin": "Вход\/Регистрация",
     "linkLogout": "Излизане",
     "myProfile": "Моят профил",
     "notifications": {
@@ -44,7 +44,7 @@ export default {
     "reject": "Отхвърляне",
     "send": "Изпрати",
     "share": "Споделяне",
-    "shareOn": "Споделяне в/във {social}",
+    "shareOn": "Споделяне в\/във {social}",
     "skip": "Пропуснете",
     "viewAt": "Преглед на {link}",
     "viewDocument": "Преглед на документа"
@@ -451,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Формат на файла | Формат на файловете",
       "options": {
-        "text/plain": "Само текст"
+        "text\/plain": "Само текст"
       }
     },
     "PROVIDER": {
@@ -467,7 +467,26 @@ export default {
       }
     },
     "RIGHTS": {
-      "name": "Декларация за правата"
+      "name": "Декларация за правата",
+      "options": {
+        "*\/CNE\/*": "Авторското право не е оценено",
+        "*\/InC-EDU\/*": "В авторско право - Разрешена е образователна употреба",
+        "*\/InC-OW-EU\/*": "В авторско право - OW-EU",
+        "*\/InC\/*": "В авторско право",
+        "*\/NoC-NC\/*": "Без авторско право - само за нетърговска употреба",
+        "*\/NoC-OKLR\/*": "Без авторско право - други известни правни ограничения",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Марка за обществено достояние",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "Извън авторските права - повторна употреба с нетърговска цел",
+        "*\/rights\/rr-f\/*": "Права запазени - безплатен достъп",
+        "*\/rights\/unknown\/*": "Неизвестен статус на авторски права"
+      }
     },
     "TYPE": {
       "name": "Вид медия",
@@ -525,6 +544,7 @@ export default {
         "4": "Високо качество и свободно многоизползваема"
       }
     },
+    "moreOptions": "Търсене, за да намерите {0} още {1}.",
     "proxy_dc_format": {
       "name": "Формат | Формати"
     },
@@ -588,6 +608,7 @@ export default {
       "dctermsProvenance": "Произход",
       "dctermsReferences": "Препратки",
       "dctermsSpatial": "Места",
+      "dctermsTOC": "Таблица на съдържанието",
       "dctermsTemporal": "Времеви",
       "edmCountry": "Предоставяне на държава",
       "edmCurrentLocation": "Настоящо местоположение",
@@ -644,7 +665,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label}: {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -718,7 +738,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Помага за подобряване на нашия уебсайт, като периодично прилага експериментални промени.",
-        "title": "A/B тестване"
+        "title": "A\/B тестване"
       },
       "auth-strategy": {
         "description": "Спомня си стратегията за оторизация, която да се използва за влизане.",
@@ -750,7 +770,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Помни, ако предпочитате да виждате резултатите от търсенето в списъчен или решетъчен изглед.",
-        "title": "Преглед на резултатите от търсенето (списък / мрежа)"
+        "title": "Преглед на резултатите от търсенето (списък \/ мрежа)"
       }
     }
   },
@@ -785,7 +805,7 @@ export default {
     "dismiss": "Отхвърляне",
     "readMore": "Прочетете повече",
     "text": {
-      "sideFilters": "Вижте новите филтри! Всички те вече се виждат от дясната страна на резултатите от търсенето."
+      "searchFilters": "Нашите филтри за търсене вече поддържат търсене; виж това! Ние също така преработихме нашите страници с резултати и колекция."
     }
   },
   "newWindow": "отваря се в нов прозорец",
@@ -848,13 +868,14 @@ export default {
   "reset": "Нулиране",
   "resourceWikimedia": "Източник от Wikimedia Commons",
   "results": "Резултати",
+  "resultsFor": "Резултати за {0}",
   "resultsLimitWarning": "Допълнителните резултати не са показани, тъй като са показани само първите 1000 най-подходящи резултата. Ако не сте намерили това, което търсите, моля, помислете за прецизиране на търсенето.",
+  "resultsWithin": "Резултати в рамките на {0} {1} за {2}",
   "search": "Търсене",
   "searchHasLoaded": "{0} върнати резултати",
   "searchPlaceholder": "Какво търсите?",
   "searchResults": "Търсене",
   "searchResultsFor": "{0} – търсене",
-  "searchResultsForIn": "{0} – търсене в {1}",
   "searchSuggestions": "Предложения за търсене",
   "searchTier": {
     "button": {
@@ -905,6 +926,11 @@ export default {
   },
   "showLess": "Показване на по-малко",
   "showMore": "Показване на повече",
+  "sideFilters": {
+    "noOptions": "Няма налични опции за избор",
+    "search": "Търсене",
+    "select": "Изберете {филтър} | Изберете {филтър}"
+  },
   "statuses": {
     "liked": "Харесвах",
     "pinned": "Закрепен"

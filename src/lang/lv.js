@@ -6,7 +6,7 @@ export default {
     "likes": "Patīk",
     "linkAccount": "Mans konts",
     "linkLogin": "Pieteikties",
-    "linkLoginJoin": "Pieteikties/Pievienoties",
+    "linkLoginJoin": "Pieteikties\/Pievienoties",
     "linkLogout": "Atteikties",
     "myProfile": "Mans profils",
     "notifications": {
@@ -451,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Datnes formāts | Datņu formāti",
       "options": {
-        "text/plain": "Vienkāršs teksts"
+        "text\/plain": "Vienkāršs teksts"
       }
     },
     "PROVIDER": {
@@ -467,7 +467,26 @@ export default {
       }
     },
     "RIGHTS": {
-      "name": "Paziņojums par tiesībām"
+      "name": "Paziņojums par tiesībām",
+      "options": {
+        "*\/CNE\/*": "Autortiesības Nav novērtēts",
+        "*\/InC-EDU\/*": "Autortiesības - izglītojoša izmantošana atļauta",
+        "*\/InC-OW-EU\/*": "Autortiesībās - OW-EU",
+        "*\/InC\/*": "Autortiesībās",
+        "*\/NoC-NC\/*": "Nav autortiesību — tikai nekomerciālai lietošanai",
+        "*\/NoC-OKLR\/*": "Nav autortiesību — citi zināmi juridiski ierobežojumi",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Publiskā domēna zīme",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "Ārpus autortiesībām - nekomerciāla atkalizmantošana",
+        "*\/rights\/rr-f\/*": "Tiesības aizsargātas - Bezmaksas piekļuve",
+        "*\/rights\/unknown\/*": "Nezināms autortiesību statuss"
+      }
     },
     "TYPE": {
       "name": "Līdzekļu veids",
@@ -525,6 +544,7 @@ export default {
         "4": "Augstas kvalitātes un brīvi atkārtoti lietojams"
       }
     },
+    "moreOptions": "Meklēt, lai atrastu {0} vairāk {1}.",
     "proxy_dc_format": {
       "name": "Formāts | Formāti"
     },
@@ -535,7 +555,7 @@ export default {
       "name": "Izdošanas datums"
     },
     "proxy_dcterms_medium": {
-      "name": "Līdzeklis/ Līdzekļi"
+      "name": "Līdzeklis\/ Līdzekļi"
     }
   },
   "feedback": {
@@ -588,6 +608,7 @@ export default {
       "dctermsProvenance": "Izcelsme",
       "dctermsReferences": "Atsaucas uz",
       "dctermsSpatial": "Vietas",
+      "dctermsTOC": "Satura rādītājs",
       "dctermsTemporal": "Periods",
       "edmCountry": "Nodrošinošā valsts",
       "edmCurrentLocation": "Pašreizējā atrašanās vieta",
@@ -644,7 +665,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label} : {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -718,7 +738,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Palīdz uzlabot mūsu vietni, laiku pa laikam veicot eksperimentālas izmaiņas.",
-        "title": "A/B testēšana"
+        "title": "A\/B testēšana"
       },
       "auth-strategy": {
         "description": "Atceras autorizācijas stratēģiju, kas jāizmanto, lai pieteiktos.",
@@ -750,7 +770,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Atceras, vai vēlaties redzēt meklēšanas rezultātus saraksta vai režģa skatā.",
-        "title": "Meklēšanas rezultātu skats (saraksts / režģis)"
+        "title": "Meklēšanas rezultātu skats (saraksts \/ režģis)"
       }
     }
   },
@@ -785,7 +805,7 @@ export default {
     "dismiss": "Aizvērt",
     "readMore": "Lasīt vairāk",
     "text": {
-      "sideFilters": "Apskatiet jaunos filtrus! Tagad tie visi ir redzami meklēšanas rezultātu labajā pusē."
+      "searchFilters": "Mūsu meklēšanas filtri tagad atbalsta meklēšanu; pārbaudiet to! Mēs arī pārveidojām mūsu rezultātu un apkopojuma lapas."
     }
   },
   "newWindow": "tiek atvērts jaunā logā",
@@ -848,13 +868,14 @@ export default {
   "reset": "Atiestatīt",
   "resourceWikimedia": "Resurss no Wikimedia Commons",
   "results": "Rezultāti",
+  "resultsFor": "Rezultāti vaicājumam {0}",
   "resultsLimitWarning": "Papildu rezultāti netiek parādīti, jo tiek parādīti tikai pirmie 1000 atbilstošākie rezultāti. Ja neesat atradis to, ko meklējat, lūdzu, apsveriet iespēju precizēt meklēšanu.",
+  "resultsWithin": "Rezultāti {0} {1} ietvaros {2}",
   "search": "Meklēt",
   "searchHasLoaded": "{0} atgriezti rezultāti",
   "searchPlaceholder": "Meklēt starp miljoniem vienumu",
   "searchResults": "Meklēt",
   "searchResultsFor": "{0} - Meklēšana",
-  "searchResultsForIn": "{0} - Meklēšana {1} ietvaros",
   "searchSuggestions": "Meklēšanas ieteikumi",
   "searchTier": {
     "button": {
@@ -905,6 +926,11 @@ export default {
   },
   "showLess": "Rādīt mazāk",
   "showMore": "Rādīt vairāk",
+  "sideFilters": {
+    "noOptions": "Nav pieejamas opcijas , lai atlasītu",
+    "search": "Meklēt",
+    "select": "Izvēlieties {filtru} | Izvēlieties {filtru}"
+  },
   "statuses": {
     "liked": "Patika",
     "pinned": "Piesprausts"

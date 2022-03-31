@@ -6,7 +6,7 @@ export default {
     "likes": "Gostos",
     "linkAccount": "A minha conta",
     "linkLogin": "Inicie sessão",
-    "linkLoginJoin": "Entrar/Criar conta",
+    "linkLoginJoin": "Entrar\/Criar conta",
     "linkLogout": "Encerrar sessão",
     "myProfile": "Meu perfil",
     "notifications": {
@@ -451,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formato de ficheiro | Formatos de ficheiros",
       "options": {
-        "text/plain": "Texto simples"
+        "text\/plain": "Texto simples"
       }
     },
     "PROVIDER": {
@@ -467,7 +467,26 @@ export default {
       }
     },
     "RIGHTS": {
-      "name": "Declaração de direitos"
+      "name": "Declaração de direitos",
+      "options": {
+        "*\/CNE\/*": "Direitos de Autor Não Avaliados",
+        "*\/InC-EDU\/*": "Em Direitos Autorais - Uso Educacional Permitido",
+        "*\/InC-OW-EU\/*": "Em Direitos Autorais - OW-EU",
+        "*\/InC\/*": "Em direitos autorais",
+        "*\/NoC-NC\/*": "Sem direitos autorais - Apenas para uso não comercial",
+        "*\/NoC-OKLR\/*": "Sem Direitos Autorais - Outras Restrições Legais Conhecidas",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Marca de Domínio Público",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "Fora de direitos autorais - reutilização não comercial",
+        "*\/rights\/rr-f\/*": "Direitos Reservados - Acesso Gratuito",
+        "*\/rights\/unknown\/*": "Status de direitos autorais desconhecido"
+      }
     },
     "TYPE": {
       "name": "Tipo de média",
@@ -525,6 +544,7 @@ export default {
         "4": "Alta qualidade & livremente reutilizável"
       }
     },
+    "moreOptions": "Pesquise para encontrar {0} mais {1}.",
     "proxy_dc_format": {
       "name": "Formato | Formatos"
     },
@@ -588,6 +608,7 @@ export default {
       "dctermsProvenance": "Proveniência",
       "dctermsReferences": "Referências",
       "dctermsSpatial": "Locais",
+      "dctermsTOC": "Tabela de conteúdos",
       "dctermsTemporal": "Temporal",
       "edmCountry": "País fornecedor",
       "edmCurrentLocation": "Localização atual",
@@ -644,7 +665,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label} : {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -718,7 +738,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Ajuda a melhorar o nosso site, aplicando ocasionalmente alterações experimentais.",
-        "title": "Teste A/B"
+        "title": "Teste A\/B"
       },
       "auth-strategy": {
         "description": "Lembra a estratégia de autorização a ser usada para fazer login.",
@@ -750,7 +770,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Lembra-se se preferir ver os resultados da pesquisa numa lista ou numa visualização em grelha.",
-        "title": "Visualização de resultado de pesquisa (lista/grade)"
+        "title": "Visualização de resultado de pesquisa (lista\/grade)"
       }
     }
   },
@@ -785,7 +805,7 @@ export default {
     "dismiss": "Fechar",
     "readMore": "Ler mais",
     "text": {
-      "sideFilters": "Confira os novos filtros! Eles agora estão todos visíveis no lado direito dos resultados da pesquisa."
+      "searchFilters": "Os nossos filtros de pesquisa agora suportam a pesquisa; confira! Também redesenhamos os nossos resultados e páginas de coleta."
     }
   },
   "newWindow": "abre numa nova janela",
@@ -848,13 +868,14 @@ export default {
   "reset": "Repor",
   "resourceWikimedia": "Recurso do Wikimedia Commons",
   "results": "Resultados",
+  "resultsFor": "Resultados para {0}",
   "resultsLimitWarning": "Resultados adicionais não são mostrados, apenas os primeiros 1000 resultados mais relevantes são mostrados. Se não encontrou o que procurava, considere refinar a sua pesquisa.",
+  "resultsWithin": "Resultados dentro de {0} {1} para {2}",
   "search": "Procurar",
   "searchHasLoaded": "{0} resultados retornados",
   "searchPlaceholder": "Procure milhões de itens",
   "searchResults": "Procurar",
   "searchResultsFor": "{0} - Procurar",
-  "searchResultsForIn": "{0} - Procurar em {1}",
   "searchSuggestions": "Sugestões de pesquisa",
   "searchTier": {
     "button": {
@@ -905,6 +926,11 @@ export default {
   },
   "showLess": "Mostrar menos",
   "showMore": "Mostrar mais",
+  "sideFilters": {
+    "noOptions": "Não há opções disponíveis para selecionar",
+    "search": "Procurar",
+    "select": "Seleccione um {filtro}. | Seleccionar {filtro}"
+  },
   "statuses": {
     "liked": "Apreciado",
     "pinned": "Fixado"

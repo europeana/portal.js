@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mijn account",
     "linkLogin": "Inloggen",
-    "linkLoginJoin": "Inloggen/Aanmelden",
+    "linkLoginJoin": "Inloggen\/Aanmelden",
     "linkLogout": "Uitloggen",
     "myProfile": "Mijn profiel",
     "notifications": {
@@ -451,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Bestandsformaat | Bestandsformaten",
       "options": {
-        "text/plain": "Platte tekst"
+        "text\/plain": "Platte tekst"
       }
     },
     "PROVIDER": {
@@ -467,7 +467,26 @@ export default {
       }
     },
     "RIGHTS": {
-      "name": "Rechtenverklaring"
+      "name": "Rechtenverklaring",
+      "options": {
+        "*\/CNE\/*": "Auteursrecht niet geëvalueerd",
+        "*\/InC-EDU\/*": "Onder auteursrecht - Educatief gebruik toegestaan",
+        "*\/InC-OW-EU\/*": "In auteursrecht - OW-EU",
+        "*\/InC\/*": "In auteursrecht",
+        "*\/NoC-NC\/*": "Geen auteursrecht - alleen voor niet-commercieel gebruik",
+        "*\/NoC-OKLR\/*": "Geen auteursrecht - Andere bekende wettelijke beperkingen",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Markering voor openbaar domein",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "Buiten het auteursrecht - niet-commercieel hergebruik",
+        "*\/rights\/rr-f\/*": "Rechten voorbehouden - Gratis toegang",
+        "*\/rights\/unknown\/*": "Onbekende auteursrechtelijke status"
+      }
     },
     "TYPE": {
       "name": "Soort media",
@@ -525,6 +544,7 @@ export default {
         "4": "Hoge kwaliteit & vrij herbruikbaar"
       }
     },
+    "moreOptions": "Zoek naar {0} meer {1}.",
     "proxy_dc_format": {
       "name": "Formaat | Formaten"
     },
@@ -588,6 +608,7 @@ export default {
       "dctermsProvenance": "Herkomst",
       "dctermsReferences": "Verwijst naar",
       "dctermsSpatial": "Plaatsen",
+      "dctermsTOC": "Inhoudsopgave",
       "dctermsTemporal": "Tijdsperiode",
       "edmCountry": "Land",
       "edmCurrentLocation": "Huidige locatie",
@@ -644,7 +665,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "...",
-    "labelledValue": "{label}: {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -718,7 +738,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Helpt onze website te verbeteren door af en toe experimentele wijzigingen aan te brengen.",
-        "title": "A/B-testen"
+        "title": "A\/B-testen"
       },
       "auth-strategy": {
         "description": "Onthoudt de autorisatie strategie die moet worden gebruikt om in te loggen.",
@@ -750,7 +770,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Onthoudt of u de zoekresultaten liever in een lijst- of rasterweergave wilt zien.",
-        "title": "Zoekresultaatweergave (lijst/raster)"
+        "title": "Zoekresultaatweergave (lijst\/raster)"
       }
     }
   },
@@ -785,7 +805,7 @@ export default {
     "dismiss": "Sluiten",
     "readMore": "Lees verder",
     "text": {
-      "sideFilters": "Bekijk de nieuwe filters! Ze zijn nu allemaal zichtbaar aan de rechterkant van de zoekresultaten."
+      "searchFilters": "Onze zoekfilters ondersteunen nu zoeken; kijk maar! We hebben ook onze resultaten en collectie pagina's opnieuw ontworpen."
     }
   },
   "newWindow": "opent in nieuw venster",
@@ -848,13 +868,14 @@ export default {
   "reset": "Opnieuw instellen",
   "resourceWikimedia": "Bron van Wikimedia Commons",
   "results": "Resultaten",
+  "resultsFor": "Resultaten voor {0}",
   "resultsLimitWarning": "Aanvullende resultaten worden niet getoond, aangezien alleen de 1000 meest relevante resultaten worden getoond. Indien u niet hebt gevonden wat u zoekt, overweeg dan om uw zoekopdracht te verfijnen.",
+  "resultsWithin": "Resultaten binnen {0} {1} voor {2}",
   "search": "Zoeken",
   "searchHasLoaded": "{0} resultaten geretourneerd",
   "searchPlaceholder": "Doorzoek miljoenen Items",
   "searchResults": "Zoeken",
   "searchResultsFor": "{0} - Zoeken",
-  "searchResultsForIn": "{0} - Zoeken in {1}",
   "searchSuggestions": "Zoeksuggesties",
   "searchTier": {
     "button": {
@@ -905,6 +926,11 @@ export default {
   },
   "showLess": "Minder weergeven",
   "showMore": "Meer weergeven",
+  "sideFilters": {
+    "noOptions": "Er zijn geen opties beschikbaar om te selecteren",
+    "search": "Zoeken",
+    "select": "Selecteer een {filter} | Selecteer {filter}"
+  },
   "statuses": {
     "liked": "Liked",
     "pinned": "Pinned"

@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mitt konto",
     "linkLogin": "Logga in",
-    "linkLoginJoin": "Logga in/Gå med",
+    "linkLoginJoin": "Logga in\/Gå med",
     "linkLogout": "Logga ut",
     "myProfile": "Min profil",
     "notifications": {
@@ -451,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Filformat | Filformat",
       "options": {
-        "text/plain": "Oformaterad text"
+        "text\/plain": "Oformaterad text"
       }
     },
     "PROVIDER": {
@@ -467,7 +467,26 @@ export default {
       }
     },
     "RIGHTS": {
-      "name": "Rättighetsförklaring"
+      "name": "Rättighetsförklaring",
+      "options": {
+        "*\/CNE\/*": "Upphovsrätt Ej utvärderad",
+        "*\/InC-EDU\/*": "I upphovsrätt - pedagogisk användning tillåten",
+        "*\/InC-OW-EU\/*": "I upphovsrätten - OW-EU",
+        "*\/InC\/*": "I upphovsrätt",
+        "*\/NoC-NC\/*": "Ingen upphovsrätt - Endast icke-kommersiell användning",
+        "*\/NoC-OKLR\/*": "Nej Upphovsrätt - Andra kända juridiska begränsningar",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Mark för offentlig egendom",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "Utan upphovsrätt - icke kommersiell återanvändning",
+        "*\/rights\/rr-f\/*": "Rättigheter reserverade - Fri tillgång",
+        "*\/rights\/unknown\/*": "Okänd upphovsrättsstatus"
+      }
     },
     "TYPE": {
       "name": "Typ av media",
@@ -525,6 +544,7 @@ export default {
         "4": "Hög kvalitet och fritt återanvändbar"
       }
     },
+    "moreOptions": "Sök för att hitta {0} mer {1}.",
     "proxy_dc_format": {
       "name": "Format | Format"
     },
@@ -588,6 +608,7 @@ export default {
       "dctermsProvenance": "Proveniens",
       "dctermsReferences": "Hänvisar till",
       "dctermsSpatial": "Platser",
+      "dctermsTOC": "Innehållsförteckning",
       "dctermsTemporal": "Temporal",
       "edmCountry": "Tillhandahållande land",
       "edmCurrentLocation": "Nuvarande plats",
@@ -644,7 +665,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label}: {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -718,7 +738,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Hjälper till att förbättra vår webbplats genom att ibland tillämpa experimentella förändringar.",
-        "title": "A/B -testning"
+        "title": "A\/B -testning"
       },
       "auth-strategy": {
         "description": "Kommer ihåg den auktoriserings strategi som ska användas för att logga in.",
@@ -750,7 +770,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Kommer ihåg om du föredrar att se sökresultaten i en lista eller rutnät.",
-        "title": "Visa sökresultat (lista/rutnät)"
+        "title": "Visa sökresultat (lista\/rutnät)"
       }
     }
   },
@@ -785,7 +805,7 @@ export default {
     "dismiss": "Stäng",
     "readMore": "Läs mer",
     "text": {
-      "sideFilters": "Kolla in de nya filtren! De är nu alla synliga på höger sida av sökresultaten."
+      "searchFilters": "Våra sökfilter stödjer nu sökning; Kolla in det! Vi har också gjort om våra resultat- och samlingssidor."
     }
   },
   "newWindow": "öppnas i nytt fönster",
@@ -848,13 +868,14 @@ export default {
   "reset": "Återställ",
   "resourceWikimedia": "Resurs från Wikimedia Commons",
   "results": "Resultat",
+  "resultsFor": "Resultat för {0}",
   "resultsLimitWarning": "Ytterligare resultat visas inte eftersom endast de 1000 första mest relevanta resultaten visas. Om du inte har hittat det du letar efter kan du prova att förfina din sökning.",
+  "resultsWithin": "Resultat inom {0} {1} för {2}",
   "search": "Sök",
   "searchHasLoaded": "{0} resultat returnerade",
   "searchPlaceholder": "Vad letar du efter?",
   "searchResults": "Sök",
   "searchResultsFor": "{0} – Sök",
-  "searchResultsForIn": "{0} – Sök i {1}",
   "searchSuggestions": "Sök förslag",
   "searchTier": {
     "button": {
@@ -905,6 +926,11 @@ export default {
   },
   "showLess": "Visa mindre",
   "showMore": "Visa mer",
+  "sideFilters": {
+    "noOptions": "Det finns inga tillgängliga alternativ att välja",
+    "search": "Sök",
+    "select": "Välj ett {filter} | Välj {filter}"
+  },
   "statuses": {
     "liked": "Gillade",
     "pinned": "Fäst"
