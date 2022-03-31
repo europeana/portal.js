@@ -5,20 +5,27 @@ import ItemHero from '@/components/item/ItemHero.vue';
 import sinon from 'sinon';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
+
 const storeDispatch = sinon.spy();
 const storeIsLikedGetter = sinon.stub();
 const storeIsPinnedGetter = sinon.stub();
 
-const factory = (propsData) => mount(ItemHero, {
+const factory = (propsData, options = {}) => mount(ItemHero, {
   localVue,
   propsData,
   mocks: {
     $t: (key) => key,
+    $i18n: { locale: 'en' },
     $features: { itemEmbedCode: false },
-    $auth: { loggedIn: false },
-    $store: {
+    $auth: { loggedIn: true },
+    $store: options.store || {
       state: {
-        set: { ...{ liked: [] }, ...{} }
+        set: { ...{ liked: [] }, ...{} },
+        auth: {
+          user: {
+            resource_access: null
+          }
+        }
       },
       getters: {
         'set/isLiked': storeIsLikedGetter,
@@ -164,6 +171,47 @@ describe('components/item/ItemHero', () => {
       it('returns false', () => {
         const wrapper = factory(propsData);
         expect(wrapper.vm.downloadViaProxy('http://www.example.org/another-resource')).toBe(false);
+      });
+    });
+  });
+
+  describe('UserButtons', () => {
+    describe('when the user is an editor', () => {
+      const store = {
+        state: {
+          set: { ...{ liked: [] }, ...{} },
+          auth: {
+            user: {
+              resource_access: {
+                entities: {
+                  roles: ['editor']
+                },
+                usersets: {
+                  roles: ['editor']
+                }
+              }
+            }
+          }
+        }
+      };
+      it('shows the pinning, add and like buttons', () => {
+        const wrapper = factory({ media, identifier }, { store });
+
+        const userButtons = wrapper.find('[data-qa="user buttons"]');
+        expect(userButtons.find('[data-qa="pin button"]').isVisible()).toBe(true);
+        expect(userButtons.find('[data-qa="add button"]').isVisible()).toBe(true);
+        expect(userButtons.find('[data-qa="like button"]').isVisible()).toBe(true);
+      });
+    });
+
+    describe(' ', () => {
+      it('shows add and like buttons only', () => {
+        const wrapper = factory({ media, identifier });
+
+        const userButtons = wrapper.find('[data-qa="user buttons"]');
+        expect(userButtons.find('[data-qa="pin button"]').isVisible()).toBe(false);
+        expect(userButtons.find('[data-qa="add button"]').isVisible()).toBe(true);
+        expect(userButtons.find('[data-qa="like button"]').isVisible()).toBe(true);
       });
     });
   });
