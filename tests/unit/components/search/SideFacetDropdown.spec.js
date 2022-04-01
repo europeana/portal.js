@@ -564,7 +564,7 @@ describe('components/search/SideFacetDropdown', () => {
       });
     });
 
-    describe('moreOptionsLabel', () => {
+    describe('moreOptionsName', () => {
       describe('when there are multiple extra options available to display', () => {
         it('returns the pluralised name', () => {
           const wrapper = factory({
@@ -577,7 +577,7 @@ describe('components/search/SideFacetDropdown', () => {
             fields: providerFields
           });
 
-          expect(wrapper.vm.moreOptionsLabel).toBe('facets.COUNTRY.name - 5');
+          expect(wrapper.vm.moreOptionsName).toBe('facets.COUNTRY.moreName - 1');
         });
       });
     });

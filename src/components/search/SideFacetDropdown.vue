@@ -56,7 +56,9 @@
             @focusin.native="prefetch"
           >
             <template #button-content>
-              {{ $tc('sideFilters.select', isRadio ? 1 : 2, {filter: facetName.toLowerCase()}) }}
+              <span class="select-label">
+                {{ tFacetKey(name, 'select') }}
+              </span>
             </template>
             <template
               v-if="searchable"
@@ -116,7 +118,7 @@
                   <span class="font-weight-bold">
                     {{ truncatedAmount | localise }}
                   </span>
-                  {{ moreOptionsLabel }}<!-- This comment removes white space-->
+                  {{ moreOptionsName }}<!-- This comment removes white space-->
                 </i18n>
               </b-dropdown-item-button>
             </template>
@@ -354,8 +356,8 @@
         return themes.find(theme => theme.qf === this.collection);
       },
 
-      moreOptionsLabel() {
-        return this.tFacetName(this.name, this.truncatedAmount);
+      moreOptionsName() {
+        return this.tFacetKey(this.name, 'moreName');
       },
 
       themeSpecificFieldLabelPattern() {

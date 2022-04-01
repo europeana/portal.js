@@ -89,16 +89,24 @@ export default {
     "fashion": {
       "facets": {
         "CREATOR": {
-          "name": "designer | designers"
+          "name": "Designer",
+          "select": "Select designers",
+          "moreName": "designers"
         },
         "proxy_dc_format": {
-          "name": "technique | techniques"
+          "name": "Technique",
+          "select": "Select techniques",
+          "moreName": "techniques"
         },
         "proxy_dc_type": {
-          "name": "item type | item types"
+          "name": "Item type",
+          "select": "Select item types",
+          "moreName": "item types"
         },
         "proxy_dcterms_medium": {
-          "name": "material | materials"
+          "name": "Material",
+          "select": "Select materials",
+          "moreName": "materials"
         }
       }
     },
@@ -183,7 +191,9 @@ export default {
   },
   "facets": {
     "COLOURPALETTE": {
-      "name": "colour | colours",
+      "name": "Colour",
+      "select": "Select colours",
+      "moreName": "colours",
       "options": {
         "#000000": "Black",
         "#000080": "Navy Blue",
@@ -333,6 +343,7 @@ export default {
     },
     "COUNTRY": {
       "name": "Providing country",
+      "select": "Select providing countries",
       "options": {
         "Albania": "Albania",
         "Austria": "Austria",
@@ -383,20 +394,26 @@ export default {
       }
     },
     "CREATOR": {
-      "name": "creator | creators"
+      "name": "Creator",
+      "select": "Select creators",
+      "moreName": "creators"
     },
     "DATA_PROVIDER": {
-      "name": "institution | institutions"
+      "name": "Institution",
+      "select": "Select institutions",
+      "moreName": "institutions"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "image orientation | image orientations",
+      "name": "Image orientation",
+      "select": "Select image orientations",
       "options": {
         "landscape": "Landscape",
         "portrait": "Portrait"
       }
     },
     "IMAGE_SIZE": {
-      "name": "image size | image sizes",
+      "name": "Image size",
+      "select": "Select image sizes",
       "options": {
         "extra_large": "Extra Large 4MP+ (e.g. 2688 x 1520px)",
         "large": "Large 1-4MP (e.g. 1920x1080px)",
@@ -405,7 +422,8 @@ export default {
       }
     },
     "LANGUAGE": {
-      "name": "language | languages",
+      "name": "Language",
+      "select": "Select languages",
       "options": {
         "ar": "Arabic",
         "bg": "Bulgarian",
@@ -449,16 +467,20 @@ export default {
       }
     },
     "MIME_TYPE": {
-      "name": "file format | file formats",
+      "name": "File format",
+      "select": "Select file formats",
       "options": {
         "text/plain": "Plain text"
       }
     },
     "PROVIDER": {
-      "name": "aggregator | aggregators"
+      "name": "Aggregator",
+      "select": "Select aggregators",
+      "moreName": "aggregators"
     },
     "REUSABILITY": {
       "name": "Can I use this?",
+      "select": "Select whether you can use this",
       "options": {
         "open": "Yes",
         "permission": "Maybe, seek permission",
@@ -468,6 +490,7 @@ export default {
     },
     "RIGHTS": {
       "name": "Rights statement",
+      "select": "Select rights statements",
       "options": {
         "*/CNE/*": "Copyright Not Evaluated",
         "*/InC-EDU/*": "In Copyright - Educational Use Permitted",
@@ -490,6 +513,7 @@ export default {
     },
     "TYPE": {
       "name": "Type of media",
+      "select": "Select types of media",
       "options": {
         "3D": "3D",
         "IMAGE": "Image",
@@ -517,6 +541,7 @@ export default {
     },
     "collection": {
       "name": "Theme",
+      "select": "Select a theme",
       "options": {
         "archaeology": "Archaeology",
         "art": "Art",
@@ -534,7 +559,8 @@ export default {
       }
     },
     "contentTier": {
-      "name": "item quality",
+      "name": "Item quality",
+      "select": "Select item qualities",
       "options": {
         "*": "Includes items not meeting our publishing criteria",
         "0": "Not meeting publishing criteria",
@@ -546,16 +572,19 @@ export default {
     },
     "moreOptions": "Search to find {0} more {1}.",
     "proxy_dc_format": {
-      "name": "format | formats"
+      "name": "Format",
+      "select": "Select formats"
     },
     "proxy_dc_type": {
-      "name": "type | types"
+      "name": "Type | types",
+      "select": "Select types"
     },
     "proxy_dcterms_issued": {
-      "name": "date issued"
+      "name": "Date issued"
     },
     "proxy_dcterms_medium": {
-      "name": "medium | media"
+      "name": "Medium",
+      "select": "Select media"
     }
   },
   "feedback": {
@@ -927,7 +956,6 @@ export default {
   "showLess": "Show less",
   "showMore": "Show more",
   "sideFilters": {
-    "select": "Select a {filter} | Select {filter}",
     "search": "Search",
     "noOptions": "There are no options available to select"
   },
