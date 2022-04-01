@@ -90,19 +90,23 @@ export default {
       "facets": {
         "CREATOR": {
           "name": "Designer",
-          "select": "Select designers"
+          "select": "Select designers",
+          "moreName": "designers"
         },
         "proxy_dc_format": {
           "name": "Technique",
-          "select": "Select techniques"
+          "select": "Select techniques",
+          "moreName": "techniques"
         },
         "proxy_dc_type": {
           "name": "Item type",
-          "select": "Select item types"
+          "select": "Select item types",
+          "moreName": "item types"
         },
         "proxy_dcterms_medium": {
           "name": "Material",
-          "select": "Select materials"
+          "select": "Select materials",
+          "moreName": "materials"
         }
       }
     },
@@ -189,6 +193,7 @@ export default {
     "COLOURPALETTE": {
       "name": "Colour",
       "select": "Select colours",
+      "moreName": "colours",
       "options": {
         "#000000": "Black",
         "#000080": "Navy Blue",
@@ -390,11 +395,13 @@ export default {
     },
     "CREATOR": {
       "name": "Creator",
-      "select": "Select creators"
+      "select": "Select creators",
+      "moreName": "creators"
     },
     "DATA_PROVIDER": {
       "name": "Institution",
-      "select": "Select institutions"
+      "select": "Select institutions",
+      "moreName": "institutions"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Image orientation",
@@ -468,7 +475,8 @@ export default {
     },
     "PROVIDER": {
       "name": "Aggregator",
-      "select": "Select aggregators"
+      "select": "Select aggregators",
+      "moreName": "aggregators"
     },
     "REUSABILITY": {
       "name": "Can I use this?",

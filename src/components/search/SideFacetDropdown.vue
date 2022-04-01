@@ -57,7 +57,7 @@
           >
             <template #button-content>
               <span class="select-label">
-                {{ tFacetKey(name, 'select', count) }}
+                {{ tFacetKey(name, 'select') }}
               </span>
             </template>
             <template
@@ -118,7 +118,7 @@
                   <span class="font-weight-bold">
                     {{ truncatedAmount | localise }}
                   </span>
-                  {{ moreOptionsLabel }}<!-- This comment removes white space-->
+                  {{ moreOptionsName }}<!-- This comment removes white space-->
                 </i18n>
               </b-dropdown-item-button>
             </template>
@@ -356,8 +356,8 @@
         return themes.find(theme => theme.qf === this.collection);
       },
 
-      moreOptionsLabel() {
-        return this.tFacetName(this.name, this.truncatedAmount);
+      moreOptionsName() {
+        return this.tFacetKey(this.name, 'moreName');
       },
 
       themeSpecificFieldLabelPattern() {
