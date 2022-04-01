@@ -56,7 +56,9 @@
             @focusin.native="prefetch"
           >
             <template #button-content>
-              {{ $tc('sideFilters.select', isRadio ? 1 : 2, {filter: tFacetName(name, isRadio ? 1 : 2)}) }}
+              <span class="select-label">
+                {{ $tc('sideFilters.select', isRadio ? 1 : 2, {filter: tFacetName(name, isRadio ? 1 : 2)}) }}
+              </span>
             </template>
             <template
               v-if="searchable"
