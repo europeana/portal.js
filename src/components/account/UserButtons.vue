@@ -95,6 +95,9 @@
   import keycloak from '@/mixins/keycloak';
   import makeToastMixin from '@/mixins/makeToast';
 
+  /**
+   * User buttons for user interaction with items
+   */
   export default {
     name: 'UserButtons',
 
@@ -108,19 +111,30 @@
     ],
 
     props: {
-      // Identifier of the item
+      /**
+       * Identifier of the item
+       */
       identifier: {
         type: String,
         required: true
       },
+      /**
+       * If `true`, pin button will be rendered
+       */
       showPins: {
         type: Boolean,
         default: false
       },
+      /**
+       * Button variant to use for styling the buttons
+       */
       buttonVariant: {
         type: String,
         default: 'outline-light'
       },
+      /**
+       * If `true`, button text will be rendered
+       */
       buttonText: {
         type: Boolean,
         default: false
@@ -203,6 +217,11 @@
 
         try {
           await this.$store.dispatch('set/like', this.identifier);
+          /**
+           * triggers on like button click when not yet liked
+           * @event like
+           * @property {string} identifier - identifier of the item to be liked
+           */
           this.$emit('like', this.identifier);
           this.$matomo && this.$matomo.trackEvent('Item_like', 'Click like item button', this.identifier);
         } catch (e) {
@@ -216,11 +235,21 @@
       },
       async unlike() {
         await this.$store.dispatch('set/unlike', this.identifier);
+        /**
+         * triggers on like button click when already liked
+         * @event unlike
+         * @property {string} identifier - identifier of the item to be unliked
+         */
         this.$emit('unlike', this.identifier);
       },
       addToSet() {
         if (this.$auth.loggedIn) {
           this.$bvModal.show(this.addItemToSetModalId);
+          /**
+           * triggers on add to set button click
+           * @event add
+           * @property {string} identifier - identifier of the item to be added to the set
+           */
           this.$emit('add', this.identifier);
           this.$matomo && this.$matomo.trackEvent('Item_add', 'Click add item button', this.identifier);
         } else {
@@ -256,3 +285,32 @@
     }
   };
 </script>
+
+<docs lang="md">
+  Default format:
+  ```jsx
+  <UserButtons
+      identifier="123"
+      :showPins="true"
+  />
+  ```
+
+  With buttonVariant set to "secondary":
+  ```jsx
+  <UserButtons
+    identifier="123"
+    :showPins="true"
+    buttonVariant="secondary"
+  />
+  ```
+
+  With buttonVariant set to "light-flat" and buttonText to true:
+  ```jsx
+  <UserButtons
+    identifier="123"
+    :showPins="true"
+    buttonVariant="light-flat"
+    :buttonText="true"
+  />
+  ```
+</docs>

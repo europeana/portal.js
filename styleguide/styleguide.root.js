@@ -41,7 +41,6 @@ Vue.prototype.$fetchState = {};
 
 import messages from '@/lang/en';
 import '@/plugins/vue-filters';
-import '@/plugins/vue/index.js';
 
 const i18n = new VueI18n({
   locale: 'en',
