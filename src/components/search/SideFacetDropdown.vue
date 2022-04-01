@@ -57,7 +57,7 @@
           >
             <template #button-content>
               <span class="select-label">
-                {{ $tc('sideFilters.select', isRadio ? 1 : 2, {filter: tFacetName(name, isRadio ? 1 : 2)}) }}
+                {{ tFacetKey(name, 'select', count) }}
               </span>
             </template>
             <template

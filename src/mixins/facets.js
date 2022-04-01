@@ -31,20 +31,24 @@ export default {
       return translateWithFallbackOrNull(this, key, (locale) => this.$tc(key, count, locale, values));
     },
 
-    tFacetName(facetName, count = 1) {
+    tFacetKey(facetName, key, count = 1) {
       const facetNameKey = facetName.replace(/\..*$/, '');
 
       const collection = this.$store.getters['search/collection'];
       if (collection) {
-        const collectionLabel = this.tcNull(`collections.${collection}.facets.${facetNameKey}.name`, count);
+        const collectionLabel = this.tcNull(`collections.${collection}.facets.${facetNameKey}.${key}`, count);
         if (collectionLabel) {
           return collectionLabel;
         }
       }
 
-      const genericLabel = this.tcNull(`facets.${facetNameKey}.name`, count);
+      const genericLabel = this.tcNull(`facets.${facetNameKey}.${key}`, count);
 
       return genericLabel || facetNameKey;
+    },
+
+    tFacetName(facetName, count = 1) {
+      return this.tFacetKey(facetName, 'name', count);
     },
 
     tFacetOption(facetName, fieldValue, escaped) {
