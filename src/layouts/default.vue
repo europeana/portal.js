@@ -64,7 +64,6 @@
   import { mapGetters, mapState } from 'vuex';
   import { BBreadcrumb } from 'bootstrap-vue';
   import ClientOnly from 'vue-client-only';
-  import semver from 'semver';
   import PageHeader from '../components/PageHeader';
   import makeToastMixin from '@/mixins/makeToast';
   import klaroConfig, { version as klaroVersion } from '../plugins/klaro-config';
@@ -94,7 +93,8 @@
         enableAnnouncer: true,
         klaro: null,
         toastBottomOffset: '20px',
-        featureNotification: featureNotifications.find(feature => feature.name === this.$config?.app?.featureNotification)
+        featureNotification: featureNotifications.find(feature => feature.name === this.$config?.app?.featureNotification),
+        featureNotificationExpiration: this.$config.app.featureNotificationExpiration
       };
     },
 
@@ -139,8 +139,7 @@
 
       newFeatureNotificationEnabled() {
         return !!this.featureNotification &&
-          (!this.featureNotification.version || semver.satisfies(versions['@europeana/portal'], this.featureNotification.version)) &&
-          (!this.featureNotification.expiration || (this.dateNow < new Date(this.featureNotification.expiration))) &&
+          (!this.featureNotificationExpiration || (this.dateNow < this.featureNotificationExpiration)) &&
           (!this.$cookies.get('new_feature_notification') || this.$cookies.get('new_feature_notification') !== this.featureNotification.name);
       }
     },
