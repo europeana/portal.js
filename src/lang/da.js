@@ -6,7 +6,7 @@ export default {
     "likes": "Synes om'er",
     "linkAccount": "Min konto",
     "linkLogin": "Log ind",
-    "linkLoginJoin": "Login/Deltag",
+    "linkLoginJoin": "Login\/Deltag",
     "linkLogout": "Log ud",
     "myProfile": "Min profil",
     "notifications": {
@@ -451,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Filformat | Filformater",
       "options": {
-        "text/plain": "Almindelig tekst"
+        "text\/plain": "Almindelig tekst"
       }
     },
     "PROVIDER": {
@@ -465,9 +465,6 @@ export default {
         "restricted": "Ja, med betingelser",
         "uncategorized": "Ikke kategoriseret"
       }
-    },
-    "RIGHTS": {
-      "name": "Erklæring om rettigheder"
     },
     "TYPE": {
       "name": "Medietype",
@@ -525,6 +522,7 @@ export default {
         "4": "Høj kvalitet og frit genanvendelig"
       }
     },
+    "moreOptions": "Søg for at finde {0} mere {1}.",
     "proxy_dc_format": {
       "name": "Format | Formater"
     },
@@ -588,6 +586,7 @@ export default {
       "dctermsProvenance": "Oprindelse",
       "dctermsReferences": "Referencer",
       "dctermsSpatial": "Steder",
+      "dctermsTOC": "Indholdsfortegnelse",
       "dctermsTemporal": "Tidsmæssig",
       "edmCountry": "Leverende land",
       "edmCurrentLocation": "Nuværende placering",
@@ -644,7 +643,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label}: {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -718,7 +716,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Hjælper med at forbedre vores websted ved lejlighedsvis at anvende eksperimentelle ændringer.",
-        "title": "A/B-testning"
+        "title": "A\/B-testning"
       },
       "auth-strategy": {
         "description": "Husker autorisationsstrategien, der skal bruges til at logge ind.",
@@ -750,7 +748,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Husk, hvis du foretrækker at se søgeresultaterne i en liste- eller gittervisning.",
-        "title": "Visning af søgeresultater (liste / gitter)"
+        "title": "Visning af søgeresultater (liste \/ gitter)"
       }
     }
   },
@@ -785,7 +783,7 @@ export default {
     "dismiss": "Luk",
     "readMore": "Læs mere",
     "text": {
-      "sideFilters": "Tjek de nye filtre! De er nu alle synlige på højre side af søgeresultaterne."
+      "searchFilters": "Vores søgefiltre understøtter nu søgning; tjek det ud! Vi har også redesignet vores resultat- og samlingssider."
     }
   },
   "newWindow": "åbner i nyt vindue",
@@ -848,13 +846,14 @@ export default {
   "reset": "Nulstil",
   "resourceWikimedia": "Ressource fra Wikimedia Commons",
   "results": "Resultater",
+  "resultsFor": "Resultater for {0}",
   "resultsLimitWarning": "Yderligere resultater vises ikke, da kun de første 1000 mest relevante resultater vises. Hvis du ikke har fundet det, du leder efter, kan du overveje at præcisere søgningen.",
+  "resultsWithin": "Resultater inden for {0} {1} for {2}",
   "search": "Søg",
   "searchHasLoaded": "{0} resultater returneret",
   "searchPlaceholder": "Hvad leder du efter?",
   "searchResults": "Søg",
   "searchResultsFor": "{0} - Søg",
-  "searchResultsForIn": "{0} - Søg i {1}",
   "searchSuggestions": "Søgeforslag",
   "searchTier": {
     "button": {
@@ -905,6 +904,10 @@ export default {
   },
   "showLess": "Vis mindre",
   "showMore": "Vis mere",
+  "sideFilters": {
+    "noOptions": "Der er ingen tilgængelige muligheder at vælge",
+    "search": "Søg"
+  },
   "statuses": {
     "liked": "Kunne lide",
     "pinned": "Fastgjort"

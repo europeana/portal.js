@@ -6,7 +6,7 @@ export default {
     "likes": "Patinka",
     "linkAccount": "Mano paskyra",
     "linkLogin": "Prisijungti",
-    "linkLoginJoin": "Prisijungti/Prisijungti",
+    "linkLoginJoin": "Prisijungti\/Prisijungti",
     "linkLogout": "Atsijungti",
     "myProfile": "Mano profilis",
     "notifications": {
@@ -451,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Failo formatas | Failų formatai",
       "options": {
-        "text/plain": "Paprastas tekstas"
+        "text\/plain": "Paprastas tekstas"
       }
     },
     "PROVIDER": {
@@ -465,9 +465,6 @@ export default {
         "restricted": "Taip, su sąlygomis",
         "uncategorized": "Neklasifikuota"
       }
-    },
-    "RIGHTS": {
-      "name": "Teisių pareiškimas"
     },
     "TYPE": {
       "name": "Medijos tipas",
@@ -525,6 +522,7 @@ export default {
         "4": "Aukštos kokybės ir laisvai daugkartinio naudojimo"
       }
     },
+    "moreOptions": "Leškoti, kad rastumėte {0} daugiau {1}.",
     "proxy_dc_format": {
       "name": "Formatas | Formatai"
     },
@@ -588,6 +586,7 @@ export default {
       "dctermsProvenance": "Kilmė",
       "dctermsReferences": "Nurodo",
       "dctermsSpatial": "Vietos",
+      "dctermsTOC": "Turinio lentelė",
       "dctermsTemporal": "Laiko",
       "edmCountry": "Teikianti šalis",
       "edmCurrentLocation": "Dabartinė vieta",
@@ -644,7 +643,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label} : {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -718,7 +716,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Padeda tobulinti mūsų svetainę, retkarčiais pritaikant eksperimentinius pakeitimus.",
-        "title": "A/B testavimas"
+        "title": "A\/B testavimas"
       },
       "auth-strategy": {
         "description": "Prisimena autorizacijos strategiją, kurią reikia naudoti prisijungiant.",
@@ -750,7 +748,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Prisimena, ar norite paieškos rezultatus matyti sąrašo ar tinklelio rodinyje.",
-        "title": "Paieškos rezultatų rodinys (sąrašas / tinklelis)"
+        "title": "Paieškos rezultatų rodinys (sąrašas \/ tinklelis)"
       }
     }
   },
@@ -785,7 +783,7 @@ export default {
     "dismiss": "Uždaryti",
     "readMore": "Skaityti daugiau",
     "text": {
-      "sideFilters": "Patikrinkite naujus filtrus! Dabar jie visi matomi dešinėje paieškos rezultatų pusėje."
+      "searchFilters": "Mūsų paieškos filtrai dabar palaiko paiešką; išbandykite tai! Taip pat pakeitėme rezultatų ir kolekcijų puslapių dizainą."
     }
   },
   "newWindow": "atsidaro naujame lange",
@@ -848,13 +846,14 @@ export default {
   "reset": "Atstatyti",
   "resourceWikimedia": "Šaltinis iš „Wikimedia Commons“",
   "results": "Rezultatai",
+  "resultsFor": "Rezultatai pagal užklausą {0}",
   "resultsLimitWarning": "Papildomi rezultatai nerodomi, nes parodomi tik pirmieji 1000 tinkamiausių rezultatų. Jei neradote to, ko ieškote, apsvarstykite galimybę patikslinti paiešką.",
+  "resultsWithin": "Rezultatai pagal {0} {1} už {2}",
   "search": "Paieška",
   "searchHasLoaded": "{0} grąžinti rezultatai",
   "searchPlaceholder": "Ko jūs ieškote?",
   "searchResults": "Paieška",
   "searchResultsFor": "{0} - Ieškoti",
-  "searchResultsForIn": "{0} - Ieškoti {1}",
   "searchSuggestions": "Paieškos pasiūlymai",
   "searchTier": {
     "button": {
@@ -905,6 +904,10 @@ export default {
   },
   "showLess": "Rodyti mažiau",
   "showMore": "Rodyti daugiau",
+  "sideFilters": {
+    "noOptions": "Nėra parinkčių, kurias būtų galima pasirinkti",
+    "search": "Paieška"
+  },
   "statuses": {
     "liked": "Patiko",
     "pinned": "Prisegtas"

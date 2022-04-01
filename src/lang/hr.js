@@ -6,7 +6,7 @@ export default {
     "likes": "Sviđanja",
     "linkAccount": "Moj račun",
     "linkLogin": "Prijava",
-    "linkLoginJoin": "Prijavi se/Pridruži se",
+    "linkLoginJoin": "Prijavi se\/Pridruži se",
     "linkLogout": "Odjava",
     "myProfile": "Moj profil",
     "notifications": {
@@ -51,7 +51,7 @@ export default {
   },
   "attribution": {
     "country": "Država:",
-    "creator": "Stvorio/la:",
+    "creator": "Stvorio\/la:",
     "date": "Datum:",
     "institution": "Institucija:",
     "title": "Naslov:"
@@ -451,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format datoteke | Formati datoteka",
       "options": {
-        "text/plain": "Jednostavni tekst"
+        "text\/plain": "Jednostavni tekst"
       }
     },
     "PROVIDER": {
@@ -465,9 +465,6 @@ export default {
         "restricted": "Da, s uvjetima",
         "uncategorized": "Nekategorizirano"
       }
-    },
-    "RIGHTS": {
-      "name": "Izjava o pravima"
     },
     "TYPE": {
       "name": "Vrsta medija",
@@ -525,6 +522,7 @@ export default {
         "4": "Visoka kvaliteta i slobodna ponovna upotreba"
       }
     },
+    "moreOptions": "Pretražite da biste pronašli {0} više {1}.",
     "proxy_dc_format": {
       "name": "Format | formati"
     },
@@ -560,7 +558,7 @@ export default {
     "default": {
       "dcContributor": "Suradnici",
       "dcCoverage": "Mjesto-vrijeme",
-      "dcCreator": "Stvorio/la",
+      "dcCreator": "Stvorio\/la",
       "dcDate": "Datum",
       "dcDescription": "Opis",
       "dcDuration": "Trajanje",
@@ -588,6 +586,7 @@ export default {
       "dctermsProvenance": "Podrijetlo",
       "dctermsReferences": "Reference",
       "dctermsSpatial": "Mjesta",
+      "dctermsTOC": "Tablica sadržaja",
       "dctermsTemporal": "Vremenski",
       "edmCountry": "Država iz koje dolazi",
       "edmCurrentLocation": "Trenutna lokacija",
@@ -644,7 +643,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label} : {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -718,7 +716,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Pomaže poboljšati našu web stranicu povremenom primjenom eksperimentalnih promjena.",
-        "title": "A/B testiranje"
+        "title": "A\/B testiranje"
       },
       "auth-strategy": {
         "description": "Sjeća se strategije autorizacije za prijavu.",
@@ -750,7 +748,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Sjeća ako radije vidite rezultate pretraživanja u prikazu popisa ili mreže.",
-        "title": "Prikaz rezultata pretraživanja (popis / mreža)"
+        "title": "Prikaz rezultata pretraživanja (popis \/ mreža)"
       }
     }
   },
@@ -785,7 +783,7 @@ export default {
     "dismiss": "Zatvoriti",
     "readMore": "Pročitaj više",
     "text": {
-      "sideFilters": "Pogledajte nove filtre! Sada su svi vidljivi na desnoj strani rezultata pretraživanja."
+      "searchFilters": "Naši filteri za pretraživanje sada podržavaju pretraživanje; provjerite to! Također smo redizajnirali naše stranice s rezultatima i zbirkama."
     }
   },
   "newWindow": "otvara se u novom prozoru",
@@ -848,13 +846,14 @@ export default {
   "reset": "Resetiraj",
   "resourceWikimedia": "Resurs s Wikimedia Commonsa",
   "results": "Rezultati",
+  "resultsFor": "Rezultati za {0}",
   "resultsLimitWarning": "Dodatni rezultati nisu prikazani jer je prikazano samo prvih 1000 najrelevantnijih rezultata. Ako niste pronašli ono što tražite, razmislite o preciziranju pretraživanja.",
+  "resultsWithin": "Rezultati unutar {0} {1} za {2}",
   "search": "Traži",
   "searchHasLoaded": "Vraćeno je {0} rezultata",
   "searchPlaceholder": "Što tražite?",
   "searchResults": "Traži",
   "searchResultsFor": "{0} - Pretraži",
-  "searchResultsForIn": "{0} - Pretraži u {1}",
   "searchSuggestions": "Traži prijedloge",
   "searchTier": {
     "button": {
@@ -905,6 +904,10 @@ export default {
   },
   "showLess": "Prikaži manje",
   "showMore": "Prikaži više",
+  "sideFilters": {
+    "noOptions": "Nema dostupnih opcija za odabir",
+    "search": "traži"
+  },
   "statuses": {
     "liked": "Volio",
     "pinned": "Prikvačeno"

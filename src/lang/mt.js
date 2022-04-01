@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Il-Kont Tiegħi",
     "linkLogin": "Illoggja",
-    "linkLoginJoin": "Idħol/Ingħaqad",
+    "linkLoginJoin": "Idħol\/Ingħaqad",
     "linkLogout": "Oħroġ",
     "myProfile": "Il-profil Tiegħi",
     "notifications": {
@@ -451,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format tal-fajl | Formati tal-fajl",
       "options": {
-        "text/plain": "Test bla format"
+        "text\/plain": "Test bla format"
       }
     },
     "PROVIDER": {
@@ -465,9 +465,6 @@ export default {
         "restricted": "Iva, bil-kundizzjonijiet",
         "uncategorized": "Mhux kategorizzati"
       }
-    },
-    "RIGHTS": {
-      "name": "Dikjarazzjoni tad-drittijiet"
     },
     "TYPE": {
       "name": "Tip ta' midja",
@@ -525,6 +522,7 @@ export default {
         "4": "Kwalità għolja & li jistgħu jerġgħu jintużaw liberament"
       }
     },
+    "moreOptions": "Fittex biex issib {0} aktar {1}.",
     "proxy_dc_format": {
       "name": "Format | Formati"
     },
@@ -588,6 +586,7 @@ export default {
       "dctermsProvenance": "Provenjenza",
       "dctermsReferences": "Jagħmel referenza għal",
       "dctermsSpatial": "Postijiet",
+      "dctermsTOC": "Werrej",
       "dctermsTemporal": "Temporali",
       "edmCountry": "Pajjiż fornitur",
       "edmCurrentLocation": "Post attwali",
@@ -644,7 +643,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label}: {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -718,7 +716,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Jgħin biex intejbu l-websajt tagħna billi kultant napplikaw bidliet sperimentali.",
-        "title": "Ittestjar A / B"
+        "title": "Ittestjar A \/ B"
       },
       "auth-strategy": {
         "description": "Jiftakar l-istrateġija ta' awtorizzazzjoni biex tużaha biex tilloggja.",
@@ -750,7 +748,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Tiftakar jekk tippreferi tara r-riżultati tat-tfittxija f'lista jew viżjoni tal-grilja.",
-        "title": "Veduta tar-riżultat tat-tfittxija (lista / gradilja)"
+        "title": "Veduta tar-riżultat tat-tfittxija (lista \/ gradilja)"
       }
     }
   },
@@ -785,7 +783,7 @@ export default {
     "dismiss": "Agħlaq",
     "readMore": "Aqra iktar",
     "text": {
-      "sideFilters": "Iċċekkja l-filtri l-ġodda! Issa huma kollha viżibbli fuq in-naħa tal-lemin tar-riżultati tat-tfittxija."
+      "searchFilters": "Il-filtri tat-tfittxija tagħna issa jappoġġjaw it-tiftix; iċċekkjaha! Aħna fasslu mill-ġdid ukoll ir-riżultati u l-paġni tal-ġbir tagħna."
     }
   },
   "newWindow": "tiftaħ fit-tieqa l-ġdida",
@@ -848,13 +846,14 @@ export default {
   "reset": "Irrisettja",
   "resourceWikimedia": "Riżorsa minn Wikimedia Commons",
   "results": "Riżultati",
+  "resultsFor": "Riżultati għal {0}",
   "resultsLimitWarning": "Riżultati addizzjonali ma jidhrux minħabba li l-ewwel 1000 riżultat l-aktar rilevanti jintwerew. Jekk ma sibtx dak li qed tfittex, jekk jogħġbok ikkunsidra li tirfina it-tfittxija tiegħek.",
+  "resultsWithin": "Riżultati fi ħdan {0} {1} għal {2}",
   "search": "Fittex",
   "searchHasLoaded": "{0} riżultati rritornati",
   "searchPlaceholder": "Fittex miljun oġġett",
   "searchResults": "Fittex",
   "searchResultsFor": "{0} - Fittex",
-  "searchResultsForIn": "{0} - Fittex fi {1}",
   "searchSuggestions": "Fittex is-suġġerimenti",
   "searchTier": {
     "button": {
@@ -905,6 +904,10 @@ export default {
   },
   "showLess": "Uri inqas",
   "showMore": "Uri aktar",
+  "sideFilters": {
+    "noOptions": "M'hemm l-ebda għażliet disponibbli biex tagħżel",
+    "search": "Fittex"
+  },
   "statuses": {
     "liked": "Għoġobni",
     "pinned": "Mehmuż"

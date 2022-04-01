@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mein Konto",
     "linkLogin": "Anmelden",
-    "linkLoginJoin": "Anmelden/Beitreten",
+    "linkLoginJoin": "Anmelden\/Beitreten",
     "linkLogout": "Abmelden",
     "myProfile": "Mein Profil",
     "notifications": {
@@ -451,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Dateiformat | Dateiformate",
       "options": {
-        "text/plain": "Klartext"
+        "text\/plain": "Klartext"
       }
     },
     "PROVIDER": {
@@ -465,9 +465,6 @@ export default {
         "restricted": "Ja, mit Bedingungen",
         "uncategorized": "Nicht kategorisiert"
       }
-    },
-    "RIGHTS": {
-      "name": "Erklärung zu den Rechten"
     },
     "TYPE": {
       "name": "Art des Mediums",
@@ -525,6 +522,7 @@ export default {
         "4": "Hohe Qualität & frei wiederverwendbar"
       }
     },
+    "moreOptions": "Suchen, um {0} mehr {1} zu finden.",
     "proxy_dc_format": {
       "name": "Format | Formate"
     },
@@ -588,6 +586,7 @@ export default {
       "dctermsProvenance": "Herkunft",
       "dctermsReferences": "Verweisen auf",
       "dctermsSpatial": "Orte",
+      "dctermsTOC": "Inhaltsverzeichnis",
       "dctermsTemporal": "Zeitlich",
       "edmCountry": "Bereitstellendes Land",
       "edmCurrentLocation": "Aktueller Standort",
@@ -644,7 +643,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label}: {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -718,7 +716,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Hilft, unsere Website zu verbessern, indem gelegentlich experimentelle Änderungen vorgenommen werden.",
-        "title": "A/B-Tests"
+        "title": "A\/B-Tests"
       },
       "auth-strategy": {
         "description": "Erinnert an die Berechtigungsstrategie, die für die Anmeldung verwendet werden soll.",
@@ -750,7 +748,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Merkt sich, ob Sie die Suchergebnisse lieber in einer Listen- oder Rasteransicht anzeigen möchten.",
-        "title": "Suchergebnisansicht (Liste/Raster)"
+        "title": "Suchergebnisansicht (Liste\/Raster)"
       }
     }
   },
@@ -785,7 +783,7 @@ export default {
     "dismiss": "Schließen",
     "readMore": "Mehr anzeigen",
     "text": {
-      "sideFilters": "Schauen Sie sich die neuen Filter an! Sie sind jetzt alle auf der rechten Seite der Suchergebnisse sichtbar."
+      "searchFilters": "Unsere Suchfilter unterstützen jetzt die Suche; probieren Sie es aus! Außerdem haben wir unsere Ergebnis- und Sammlungsseiten neu gestaltet."
     }
   },
   "newWindow": "öffnet sich in einem neuen Fenster",
@@ -848,13 +846,14 @@ export default {
   "reset": "Zurücksetzen",
   "resourceWikimedia": "Ressource aus Wikimedia Commons",
   "results": "Ergebnisse",
+  "resultsFor": "Ergebnisse für {0}",
   "resultsLimitWarning": "Zusätzliche Ergebnisse werden nicht angezeigt, da nur die ersten 1000 relevantesten Ergebnisse angezeigt werden. Wenn Sie nicht gefunden haben, wonach Sie suchen, können Sie Ihre Suche verfeinern.",
+  "resultsWithin": "Ergebnisse innerhalb {0} {1} für {2}",
   "search": "Suchen",
   "searchHasLoaded": "{0} Ergebnisse zurückgegeben",
   "searchPlaceholder": "Durchsuche Millionen von Objekten",
   "searchResults": "Suche",
   "searchResultsFor": "{0} - Suche",
-  "searchResultsForIn": "{0} - Suchen Sie in {1}",
   "searchSuggestions": "Suchvorschläge",
   "searchTier": {
     "button": {
@@ -905,6 +904,10 @@ export default {
   },
   "showLess": "Weniger anzeigen",
   "showMore": "Mehr anzeigen",
+  "sideFilters": {
+    "noOptions": "Es sind keine Optionen zur Auswahl verfügbar",
+    "search": "Suche"
+  },
   "statuses": {
     "liked": "Gemocht",
     "pinned": "Angeheftet"

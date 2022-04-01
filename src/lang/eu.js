@@ -6,7 +6,7 @@ export default {
     "likes": "Atsegin |",
     "linkAccount": "Nire kontua",
     "linkLogin": "Saioa hasi",
-    "linkLoginJoin": "Saioa hasi/Sartu",
+    "linkLoginJoin": "Saioa hasi\/Sartu",
     "linkLogout": "Saioa amaitu",
     "myProfile": "Nire profila",
     "notifications": {
@@ -451,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Fitxategiaren formatua | Fitxategien formatuak",
       "options": {
-        "text/plain": "Testu arrunta"
+        "text\/plain": "Testu arrunta"
       }
     },
     "PROVIDER": {
@@ -465,9 +465,6 @@ export default {
         "restricted": "Bai, baldintzekin",
         "uncategorized": "Sailkatu gabe"
       }
-    },
-    "RIGHTS": {
-      "name": "Eskubideen adierazpena"
     },
     "TYPE": {
       "name": "Euskarri mota",
@@ -525,6 +522,7 @@ export default {
         "4": "Kalitate handikoa eta libreki berrerabil daitekeena"
       }
     },
+    "moreOptions": "Bilatu {0} gehiago {1} aurkitzeko.",
     "proxy_dc_format": {
       "name": "Formatua | Formatuak"
     },
@@ -588,6 +586,7 @@ export default {
       "dctermsProvenance": "Jatorria",
       "dctermsReferences": "erreferentzia egiten du",
       "dctermsSpatial": "Lekuak",
+      "dctermsTOC": "Edukien taula",
       "dctermsTemporal": "Aldi baterako",
       "edmCountry": "Herrialde hornitzailea",
       "edmCurrentLocation": "Egungo kokapena",
@@ -644,7 +643,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label} : {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -679,7 +677,7 @@ export default {
   },
   "items": {
     "itemCount": "Elementu 1 | {count} elementu",
-    "itemOf": "{max}/{count} elementu",
+    "itemOf": "{max}\/{count} elementu",
     "recent": "Azken elementuak",
     "recommended": "Gomendatutako elementuak",
     "youMightLike": "Gustatu ahal zaizkizun elementuak"
@@ -718,7 +716,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Gure webgunea hobetzen laguntzen du noizean behin aldaketa esperimentalak aplikatuz.",
-        "title": "A / B probak"
+        "title": "A \/ B probak"
       },
       "auth-strategy": {
         "description": "Saioa hasteko erabili beharreko baimen estrategia gogoratzen du.",
@@ -750,7 +748,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Gogoratzen duzu bilaketa-emaitzak zerrenda edo sareta ikuspegian ikustea nahiago baduzu.",
-        "title": "Bilaketaren emaitzen ikuspegia (zerrenda / sareta)"
+        "title": "Bilaketaren emaitzen ikuspegia (zerrenda \/ sareta)"
       }
     }
   },
@@ -785,7 +783,7 @@ export default {
     "dismiss": "Itxi",
     "readMore": "Gehiago irakurri",
     "text": {
-      "sideFilters": "Ikusi iragazki berriak! Orain bilaketa-emaitzen eskuinaldean ikusgai daude guztiak."
+      "searchFilters": "Gure bilaketa-iragazkiak orain bilaketa onartzen dute; begiratu ezazu! Gure emaitzak eta bilduma-orriak ere birmoldatu ditugu."
     }
   },
   "newWindow": "leiho berrian irekiko da",
@@ -848,13 +846,14 @@ export default {
   "reset": "Berrezarri",
   "resourceWikimedia": "Wikimedia Commons-eko baliabidea",
   "results": "Emaitzak",
+  "resultsFor": "{0} emaitzak",
   "resultsLimitWarning": "Emaitza osagarriak ez dira erakusten, izan ere, bakarrik erakusten dira lehenengo 1000 emaitza garrantzitsuenak. BIlatzen duzuna aurkitu ez baduzu, bilaketa zehatzagoa egin.",
+  "resultsWithin": "{0} {1} barruko emaitzak {2}",
   "search": "Bilatu",
   "searchHasLoaded": "{0} emaitza itzuli dira",
   "searchPlaceholder": "Milioika elementu bilatu",
   "searchResults": "Bilatu",
   "searchResultsFor": "{0} - Bilatu",
-  "searchResultsForIn": "{0} - Hemen bilatu {1}",
   "searchSuggestions": "Iradokizunak bilatu",
   "searchTier": {
     "button": {
@@ -905,6 +904,10 @@ export default {
   },
   "showLess": "Gutxiago erakutsi",
   "showMore": "Gehiago erakutsi",
+  "sideFilters": {
+    "noOptions": "Ez dago aukerarik aukeratzeko",
+    "search": "Bilatu"
+  },
   "statuses": {
     "liked": "Gustatu",
     "pinned": "Ainguratuta"

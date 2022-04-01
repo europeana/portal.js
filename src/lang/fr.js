@@ -6,7 +6,7 @@ export default {
     "likes": "Mentions J’aime",
     "linkAccount": "Mon compte",
     "linkLogin": "Se connecter",
-    "linkLoginJoin": "Connexion/Rejoignez-nous",
+    "linkLoginJoin": "Connexion\/Rejoignez-nous",
     "linkLogout": "Déconnexion",
     "myProfile": "Mon profil",
     "notifications": {
@@ -451,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format de fichier | Formats de fichiers",
       "options": {
-        "text/plain": "Texte brut"
+        "text\/plain": "Texte brut"
       }
     },
     "PROVIDER": {
@@ -465,9 +465,6 @@ export default {
         "restricted": "Oui, sous certaines conditions",
         "uncategorized": "Non classé"
       }
-    },
-    "RIGHTS": {
-      "name": "Déclaration de droits"
     },
     "TYPE": {
       "name": "Type de support",
@@ -525,6 +522,7 @@ export default {
         "4": "Haute qualité et librement réutilisable"
       }
     },
+    "moreOptions": "Cherchez pour trouver {0} plus {1}.",
     "proxy_dc_format": {
       "name": "Format | Formats"
     },
@@ -588,6 +586,7 @@ export default {
       "dctermsProvenance": "Provenance",
       "dctermsReferences": "Se réfère à",
       "dctermsSpatial": "Lieux",
+      "dctermsTOC": "Table des matières",
       "dctermsTemporal": "Période",
       "edmCountry": "Pays fournisseur",
       "edmCurrentLocation": "Emplacement actuel",
@@ -644,7 +643,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label} : {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -718,7 +716,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Aide à améliorer notre site Web en appliquant occasionnellement des modifications expérimentales.",
-        "title": "Tests A/B"
+        "title": "Tests A\/B"
       },
       "auth-strategy": {
         "description": "Se souvient de la stratégie d'autorisation à utiliser pour se connecter.",
@@ -750,7 +748,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Se souvient si vous préférez voir les résultats de la recherche sous forme de liste ou de grille.",
-        "title": "Affichage des résultats de recherche (liste/grille)"
+        "title": "Affichage des résultats de recherche (liste\/grille)"
       }
     }
   },
@@ -785,7 +783,7 @@ export default {
     "dismiss": "Fermer",
     "readMore": "Lire la suite",
     "text": {
-      "sideFilters": "Découvrez les nouveaux filtres ! Ils sont désormais tous visibles sur le côté droit des résultats de la recherche."
+      "searchFilters": "Nos filtres de recherche prennent désormais en charge la recherche ; Vérifiez-le! Nous avons également repensé nos pages de résultats et de collecte."
     }
   },
   "newWindow": "s'ouvre dans une nouvelle fenêtre",
@@ -848,13 +846,14 @@ export default {
   "reset": "Réinitialiser",
   "resourceWikimedia": "Ressource de Wikimedia Commons",
   "results": "Résultats",
+  "resultsFor": "Résultats pour {0}",
   "resultsLimitWarning": "Les résultats supplémentaires ne sont pas affichés, car seuls les 1000 premiers résultats les plus pertinents sont affichés. Si vous n'avez pas trouvé ce que vous cherchez, veuillez affiner votre recherche.",
+  "resultsWithin": "Résultats dans les {0} {1} pour {2}",
   "search": "Rechercher",
   "searchHasLoaded": "{0} résultats retournés",
   "searchPlaceholder": "Que cherchez-vous ?",
   "searchResults": "Rechercher",
   "searchResultsFor": "{0} - Rechercher",
-  "searchResultsForIn": "{0} - Rechercher dans {1}",
   "searchSuggestions": "Suggestions de recherche",
   "searchTier": {
     "button": {
@@ -905,6 +904,10 @@ export default {
   },
   "showLess": "Afficher moins",
   "showMore": "Afficher plus",
+  "sideFilters": {
+    "noOptions": "Il n'y a pas d'options disponibles pour sélectionner",
+    "search": "Rechercher"
+  },
   "statuses": {
     "liked": "Aimé",
     "pinned": "Épinglé"

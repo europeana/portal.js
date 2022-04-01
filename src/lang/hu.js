@@ -6,7 +6,7 @@ export default {
     "likes": "Kedvelések",
     "linkAccount": "Fiókom",
     "linkLogin": "Bejelentkezés",
-    "linkLoginJoin": "Bejelentkezés/Csatlakozás",
+    "linkLoginJoin": "Bejelentkezés\/Csatlakozás",
     "linkLogout": "Bejelentkezés",
     "myProfile": "A profilom",
     "notifications": {
@@ -451,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Fájlformátum | Fájlformátumok",
       "options": {
-        "text/plain": "Egyszerű szöveg"
+        "text\/plain": "Egyszerű szöveg"
       }
     },
     "PROVIDER": {
@@ -465,9 +465,6 @@ export default {
         "restricted": "Igen, feltételekkel",
         "uncategorized": "Uncategorized"
       }
-    },
-    "RIGHTS": {
-      "name": "Jogokról szóló nyilatkozat"
     },
     "TYPE": {
       "name": "Adathordozó típusa",
@@ -525,6 +522,7 @@ export default {
         "4": "Kiváló minőségű és szabadon újrafelhasználható"
       }
     },
+    "moreOptions": "Keresés, hogy találjon {0} több {1}.",
     "proxy_dc_format": {
       "name": "Formátum | formátumok"
     },
@@ -588,6 +586,7 @@ export default {
       "dctermsProvenance": "Származási hely",
       "dctermsReferences": "Hivatkozások",
       "dctermsSpatial": "Helyek",
+      "dctermsTOC": "Tartalomjegyzék",
       "dctermsTemporal": "Időbeli",
       "edmCountry": "Szolgáltató ország",
       "edmCurrentLocation": "Jelenlegi tartózkodási hely",
@@ -644,7 +643,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label} : {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -718,7 +716,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Segít weboldalunk fejlesztésében azáltal, hogy alkalmanként kísérleti változtatásokat alkalmaz.",
-        "title": "A/B tesztelés"
+        "title": "A\/B tesztelés"
       },
       "auth-strategy": {
         "description": "Emlékszik a bejelentkezéshez használandó engedélyezési stratégiára.",
@@ -750,7 +748,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Emlékszik arra, hogy a keresési eredményeket inkább lista- vagy rácsnézetben szeretné-e látni.",
-        "title": "Keresési eredmény nézet (lista / rács)"
+        "title": "Keresési eredmény nézet (lista \/ rács)"
       }
     }
   },
@@ -785,7 +783,7 @@ export default {
     "dismiss": "Bezárás",
     "readMore": "Bővebben",
     "text": {
-      "sideFilters": "Nézd meg az új szűrőket! Ezek mostantól mind láthatóak a keresési eredmények jobb oldalán."
+      "searchFilters": "Keresési szűrőink mostantól támogatják a keresést; Nézd meg! Újraterveztük az eredményeinket és a gyűjtési oldalainkat is."
     }
   },
   "newWindow": "új ablakban nyílik meg",
@@ -848,13 +846,14 @@ export default {
   "reset": "Visszaállítás",
   "resourceWikimedia": "Forrás: Wikimedia Commons",
   "results": "Találatok",
+  "resultsFor": "Találatok a következőre: {0}",
   "resultsLimitWarning": "Nem jelennek meg további eredmények, mivel csak az első 1000 legrelevánsabb eredmény látható. Ha nem találta meg azt, amit keres, kérjük, finomítsa a keresést.",
+  "resultsWithin": "Találatok a következőn belül {0} {1} a következőre: {2}",
   "search": "Keresés",
   "searchHasLoaded": "{0} eredmények visszaadva",
   "searchPlaceholder": "Mit keres?",
   "searchResults": "Keresés",
   "searchResultsFor": "{0} - Keresés",
-  "searchResultsForIn": "{0} - Keresés a következőben: {1}",
   "searchSuggestions": "Keresési javaslatok",
   "searchTier": {
     "button": {
@@ -905,6 +904,10 @@ export default {
   },
   "showLess": "Kevesebb megjelenítése",
   "showMore": "Továbbiak megjelenítése",
+  "sideFilters": {
+    "noOptions": "Nincsenek választható opciók",
+    "search": "Keresés"
+  },
   "statuses": {
     "liked": "Tetszett",
     "pinned": "Odatűzött"
