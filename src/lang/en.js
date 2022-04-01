@@ -332,7 +332,7 @@ export default {
       }
     },
     "COUNTRY": {
-      "name": "Providing country",
+      "name": "providing country | providing countries",
       "options": {
         "Albania": "Albania",
         "Austria": "Austria",
@@ -467,7 +467,7 @@ export default {
       }
     },
     "RIGHTS": {
-      "name": "Rights statement",
+      "name": "rights statement | rights statements",
       "options": {
         "*/CNE/*": "Copyright Not Evaluated",
         "*/InC-EDU/*": "In Copyright - Educational Use Permitted",
@@ -489,7 +489,7 @@ export default {
       }
     },
     "TYPE": {
-      "name": "Type of media",
+      "name": "type of media | types of media",
       "options": {
         "3D": "3D",
         "IMAGE": "Image",

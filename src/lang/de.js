@@ -470,7 +470,7 @@ export default {
       "name": "Erklärung zu den Rechten"
     },
     "TYPE": {
-      "name": "Art des Mediums",
+      "name": "Art des Mediums | Arten des mediums",
       "options": {
         "3D": "3D",
         "IMAGE": "Bild",
@@ -905,6 +905,11 @@ export default {
   },
   "showLess": "Weniger anzeigen",
   "showMore": "Mehr anzeigen",
+  "sideFilters": {
+    "select": "Ein {filter} auswählen | {filter} auswählen",
+    "search": "Suchen",
+    "noOptions": "Es sind keine Optionen zur Auswahl verfügbar"
+  },
   "statuses": {
     "liked": "Gemocht",
     "pinned": "Angeheftet"
