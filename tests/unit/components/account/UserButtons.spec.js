@@ -7,7 +7,7 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const identifier = '/123/abc';
-const storeDispatch = sinon.spy();
+const storeDispatchSuccess = sinon.spy();
 const storeIsLikedGetter = sinon.stub();
 const storeIsPinnedGetter = sinon.stub();
 const makeToastSpy = sinon.spy();
@@ -21,7 +21,7 @@ const mixins = [
   }
 ];
 
-const factory = ({ storeState = {}, $auth = {} } = {}) => mount(UserButtons, {
+const factory = ({ storeState = {}, $auth = {}, storeDispatch = storeDispatchSuccess } = {}) => mount(UserButtons, {
   localVue,
   stubs: ['AddItemToSetModal', 'SetFormModal'],
   propsData: { identifier },
@@ -178,7 +178,7 @@ describe('components/account/UserButtons', () => {
             const likeButton = wrapper.find('[data-qa="like button"]');
             likeButton.trigger('click');
 
-            expect(storeDispatch.calledWith('set/createLikes')).toBe(true);
+            expect(storeDispatchSuccess.calledWith('set/createLikes')).toBe(true);
           });
 
           it('dispatches to add item to likes set', () => {
@@ -187,7 +187,7 @@ describe('components/account/UserButtons', () => {
             const likeButton = wrapper.find('[data-qa="like button"]');
             likeButton.trigger('click');
 
-            expect(storeDispatch.calledWith('set/like', identifier)).toBe(true);
+            expect(storeDispatchSuccess.calledWith('set/like', identifier)).toBe(true);
           });
 
           it('emits "like" event', async() => {
@@ -209,6 +209,31 @@ describe('components/account/UserButtons', () => {
             await wrapper.vm.$nextTick();
 
             expect(wrapper.vm.$matomo.trackEvent.called).toBe(true);
+          });
+          describe('when the like limit is reached', () => {
+            it('shows the like limit modal', async() => {
+              const wrapper = factory({ $auth,
+                storeState: { liked: [] },
+                storeDispatch: sinon.stub().rejects({ message: '100 likes' }) });
+
+              const bvModalShow = sinon.spy(wrapper.vm.$bvModal, 'show');
+              const likeButton = wrapper.find('[data-qa="like button"]');
+              await likeButton.trigger('click');
+
+              expect(bvModalShow.calledWith(wrapper.vm.likeLimitModalId)).toBe(true);
+            });
+          });
+          describe('when there is any other error', () => {
+            it('throws an error', async() => {
+              const wrapper = factory({ $auth,
+                storeState: { liked: [] },
+                storeDispatch: sinon.stub().rejects() });
+
+              const likeButton = wrapper.find('[data-qa="like button"]');
+              await likeButton.trigger('click');
+
+              await expect(wrapper.vm.$store.dispatch()).rejects.toThrowError();
+            });
           });
         });
       });
@@ -241,7 +266,7 @@ describe('components/account/UserButtons', () => {
             const likeButton = wrapper.find('[data-qa="like button"]');
             likeButton.trigger('click');
 
-            expect(storeDispatch.calledWith('set/unlike', identifier)).toBe(true);
+            expect(storeDispatchSuccess.calledWith('set/unlike', identifier)).toBe(true);
           });
 
           it('emits "unlike" event', async() => {
@@ -301,31 +326,55 @@ describe('components/account/UserButtons', () => {
         expect(pinButton.attributes('aria-pressed')).toBe('false');
       });
       describe('when pressed', () => {
-        it('creates a set', async() => {
-          const wrapper = factory({ storeState: { featuredSetId: null } });
-
-          const pinButton = wrapper.find('[data-qa="pin button"]');
-          await pinButton.trigger('click');
-
-          expect(storeDispatch.calledWith('entity/createFeaturedSet')).toBe(true);
-        });
+        const wrapper = factory();
         it('pins the item', async() => {
-          const wrapper = factory();
           await wrapper.setProps({ showPins: true });
 
           const pinButton = wrapper.find('[data-qa="pin button"]');
           await pinButton.trigger('click');
 
-          expect(storeDispatch.calledWith('entity/pin')).toBe(true);
+          expect(storeDispatchSuccess.calledWith('entity/pin')).toBe(true);
         });
         it('shows the pin toast', async() => {
-          const wrapper = factory();
           await wrapper.setProps({ showPins: true });
 
           const pinButton = wrapper.find('[data-qa="pin button"]');
           await pinButton.trigger('click');
 
           expect(makeToastSpy.calledWith('entity.notifications.pinned')).toBe(true);
+        });
+        describe('when there is no set yet for the curated collection', () => {
+          it('creates a set', async() => {
+            const wrapper = factory({ storeState: { featuredSetId: null } });
+
+            const pinButton = wrapper.find('[data-qa="pin button"]');
+            await pinButton.trigger('click');
+
+            expect(storeDispatchSuccess.calledWith('entity/createFeaturedSet')).toBe(true);
+          });
+        });
+        describe('when the pin limit is reached', () => {
+          it('shows the pinned limit modal', async() => {
+            const wrapper = factory({ storeDispatch: sinon.stub().rejects({ message: 'too many pins' }) });
+            await wrapper.setProps({ showPins: true });
+            const bvModalShow = sinon.spy(wrapper.vm.$bvModal, 'show');
+
+            const pinButton = wrapper.find('[data-qa="pin button"]');
+            await pinButton.trigger('click');
+
+            expect(bvModalShow.calledWith(`pinned-limit-modal-${identifier}`)).toBe(true);
+          });
+        });
+        describe('when there is any other error', () => {
+          it('throws an error', async() => {
+            const wrapper = factory({ storeDispatch: sinon.stub().rejects() });
+            await wrapper.setProps({ showPins: true });
+
+            const pinButton = wrapper.find('[data-qa="pin button"]');
+            await pinButton.trigger('click');
+
+            await expect(wrapper.vm.$store.dispatch()).rejects.toThrowError();
+          });
         });
       });
     });
@@ -356,7 +405,7 @@ describe('components/account/UserButtons', () => {
           const pinButton = wrapper.find('[data-qa="pin button"]');
           await pinButton.trigger('click');
 
-          expect(storeDispatch.calledWith('entity/unpin')).toBe(true);
+          expect(storeDispatchSuccess.calledWith('entity/unpin')).toBe(true);
         });
         it('shows the pin toast', async() => {
           const wrapper = factory();
@@ -393,7 +442,7 @@ describe('components/account/UserButtons', () => {
         const wrapper = factory();
         await wrapper.vm.refreshSet();
 
-        expect(storeDispatch.calledWith('set/refreshSet')).toBe(true);
+        expect(storeDispatchSuccess.calledWith('set/refreshSet')).toBe(true);
       });
     });
     describe('goToPins', () => {
