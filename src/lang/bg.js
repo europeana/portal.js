@@ -36,6 +36,7 @@ export default {
     "feedback": "Обратна връзка",
     "goBack": "Назад",
     "goHome": "Отидете на началната страница",
+    "learnMore": "Научете повече",
     "like": "Харесвам",
     "next": "Следваща",
     "pin": "Щифт",
@@ -331,7 +332,55 @@ export default {
       }
     },
     "COUNTRY": {
-      "name": "Предоставяне на държава"
+      "name": "Предоставяне на държава",
+      "options": {
+        "Albania": "Албания",
+        "Austria": "Австрия",
+        "Belarus": "Беларус",
+        "Belgium": "Белгия",
+        "Bosnia and Herzegovina": "Босна и Херцеговина",
+        "Bulgaria": "България",
+        "Croatia": "Хърватия",
+        "Cyprus": "Кипър",
+        "Czech Republic": "Чешка република",
+        "Denmark": "Дания",
+        "Estonia": "Естония",
+        "Europe": "Европа",
+        "Finland": "Финландия",
+        "France": "Франция",
+        "Georgia": "Грузия",
+        "Germany": "Германия",
+        "Greece": "Гърция",
+        "Holy See (Vatican City State)": "Светия престол (държава Ватикана)",
+        "Hungary": "Унгария",
+        "Iceland": "Исландия",
+        "Ireland": "Ирландия",
+        "Israel": "Израел",
+        "Italy": "Италия",
+        "Latvia": "Латвия",
+        "Lithuania": "Литва",
+        "Luxembourg": "Люксембург",
+        "Macedonia": "Македония",
+        "Malta": "Малта",
+        "Moldova": "Молдова",
+        "Montenegro": "Черна гора",
+        "Netherlands": "Холандия",
+        "Norway": "Норвегия",
+        "Poland": "Полша",
+        "Portugal": "Португалия",
+        "Romania": "Румъния",
+        "Russia": "Русия",
+        "Serbia": "Сърбия",
+        "Slovakia": "Словакия",
+        "Slovenia": "Словения",
+        "Spain": "Испания",
+        "Sweden": "Швеция",
+        "Switzerland": "Швейцария",
+        "Turkey": "Турция",
+        "Ukraine": "Украйна",
+        "United Kingdom": "Великобритания",
+        "United States of America": "Съединени Американски щати"
+      }
     },
     "CREATOR": {
       "name": "Създател | Създатели"
@@ -417,6 +466,9 @@ export default {
         "uncategorized": "Без категория"
       }
     },
+    "RIGHTS": {
+      "name": "Декларация за правата"
+    },
     "TYPE": {
       "name": "Вид медия",
       "options": {
@@ -445,7 +497,7 @@ export default {
       "showLess": "Показване на по-малко {label}"
     },
     "collection": {
-      "name": "Категория",
+      "name": "Тема",
       "options": {
         "archaeology": "Археология",
         "art": "Изкуство",
@@ -464,7 +516,6 @@ export default {
     },
     "contentTier": {
       "name": "Качество на артикула",
-      "notification": "Налични са някои елементи, които не отговарят на нашите критерии за публикуване. Можете да ги видите, като активирате филтъра „Качество на елемента“ от „Още филтри“.",
       "options": {
         "*": "Включва елементи, които не отговарят на нашите критерии за публикуване",
         "0": "Покажи само елементи, които не отговарят на нашите критерии за публикуване",
@@ -740,6 +791,11 @@ export default {
   "newWindow": "отваря се в нов прозорец",
   "noMoreResults": "Няма повече резултати за вашата заявка за търсене.",
   "noResults": "Няма получени резултати",
+  "organisation": {
+    "city": "град",
+    "country": "Държава:",
+    "nameAcronym": "Акроним на името"
+  },
   "pageHasLoaded": "е зареден",
   "pages": {
     "collections": {
@@ -794,6 +850,7 @@ export default {
   "results": "Резултати",
   "resultsLimitWarning": "Допълнителните резултати не са показани, тъй като са показани само първите 1000 най-подходящи резултата. Ако не сте намерили това, което търсите, моля, помислете за прецизиране на търсенето.",
   "search": "Търсене",
+  "searchHasLoaded": "{0} върнати резултати",
   "searchPlaceholder": "Какво търсите?",
   "searchResults": "Търсене",
   "searchResultsFor": "{0} – търсене",
@@ -852,5 +909,6 @@ export default {
     "liked": "Харесвах",
     "pinned": "Закрепен"
   },
-  "website": "Уебсайт"
+  "website": "Уебсайт",
+  "youMightAlsoLike": "Може да харесате също и"
 };

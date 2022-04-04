@@ -54,6 +54,10 @@ module.exports = async() => {
         name: 'Components',
         sections: [
           {
+            name: 'Entity',
+            components: './src/components/entity/[A-Z]*.vue'
+          },
+          {
             name: 'Generic',
             components: './src/components/generic/[A-Z]*.vue'
           },
@@ -78,8 +82,6 @@ module.exports = async() => {
     template: {
       head: {
         links: [
-          { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700&subset=latin,greek,cyrillic&display=swap',
-            body: true },
           { rel: 'stylesheet', href: `https://unpkg.com/bootstrap@${bootstrapVersion}/dist/css/bootstrap.min.css` },
           { rel: 'stylesheet', href: `https://unpkg.com/bootstrap-vue@${bootstrapVueVersion}/dist/bootstrap-vue.min.css` }
         ]

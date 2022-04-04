@@ -36,6 +36,7 @@ export default {
     "feedback": "Tagasiside",
     "goBack": "Mine tagasi",
     "goHome": "Minge avalehele",
+    "learnMore": "Lisateave",
     "like": "Meeldib",
     "next": "Järgmine",
     "pin": "Pin",
@@ -331,7 +332,55 @@ export default {
       }
     },
     "COUNTRY": {
-      "name": "Pakkuja riik"
+      "name": "Pakkuja riik",
+      "options": {
+        "Albania": "Albaania",
+        "Austria": "Austria",
+        "Belarus": "Valgevene",
+        "Belgium": "Belgia",
+        "Bosnia and Herzegovina": "Bosnia ja Hertsegoviina",
+        "Bulgaria": "Bulgaaria",
+        "Croatia": "Horvaatia",
+        "Cyprus": "Küpros",
+        "Czech Republic": "Tšehhi Vabariik",
+        "Denmark": "Taani",
+        "Estonia": "Eesti",
+        "Europe": "Euroopa",
+        "Finland": "Soome",
+        "France": "Prantsusmaa",
+        "Georgia": "Gruusia",
+        "Germany": "Saksamaa",
+        "Greece": "Kreeka",
+        "Holy See (Vatican City State)": "Püha Tool (Vatikani Linnriik)",
+        "Hungary": "Ungari",
+        "Iceland": "Island",
+        "Ireland": "Iirimaa",
+        "Israel": "Iisrael",
+        "Italy": "Itaalia",
+        "Latvia": "Läti",
+        "Lithuania": "Leedu",
+        "Luxembourg": "Luksemburg",
+        "Macedonia": "Makedoonia",
+        "Malta": "Malta",
+        "Moldova": "Moldova",
+        "Montenegro": "Montenegro",
+        "Netherlands": "Holland",
+        "Norway": "Norra",
+        "Poland": "Poola",
+        "Portugal": "Portugal",
+        "Romania": "Rumeenia",
+        "Russia": "Venemaa",
+        "Serbia": "Serbia",
+        "Slovakia": "Slovakkia",
+        "Slovenia": "Sloveenia",
+        "Spain": "Hispaania",
+        "Sweden": "Rootsi",
+        "Switzerland": "Šveits",
+        "Turkey": "Türgi",
+        "Ukraine": "Ukraina",
+        "United Kingdom": "Ühendkuningriik",
+        "United States of America": "Ameerika Ühendriigid"
+      }
     },
     "CREATOR": {
       "name": "Looja | Loojad"
@@ -417,6 +466,9 @@ export default {
         "uncategorized": "Kategoriseerimata"
       }
     },
+    "RIGHTS": {
+      "name": "Õiguste deklaratsioon"
+    },
     "TYPE": {
       "name": "Meediumitüüp",
       "options": {
@@ -445,7 +497,7 @@ export default {
       "showLess": "Näita vähem {label}"
     },
     "collection": {
-      "name": "Kategooria",
+      "name": "Teema",
       "options": {
         "archaeology": "Arheoloogia",
         "art": "Kunst",
@@ -464,7 +516,6 @@ export default {
     },
     "contentTier": {
       "name": "Eseme kvaliteet",
-      "notification": "Mõned tooted, mis ei vasta meie avaldamiskriteeriumidele, on saadaval. Nendele toodetele pääsete juurde, kui aktiveerite jaotises „Veel filtreid” filtri „Toote kvaliteet”.",
       "options": {
         "*": "Sisaldab üksusi, mis ei vasta meie avaldamiskriteeriumidele",
         "0": "Kuva ainult üksused, mis ei vasta meie avaldamiskriteeriumidele",
@@ -731,7 +782,7 @@ export default {
     "translateQuotaError": "Tõlketeenus pole ajutiselt saadaval. Palun proovi hiljem uuesti."
   },
   "newFeatureNotification": {
-    "dismiss": "Jätta",
+    "dismiss": "Sulge",
     "readMore": "Loe lähemalt",
     "text": {
       "sideFilters": "Vaata uusi filtreid! Nüüd on need kõik nähtavad otsingutulemuste paremal küljel."
@@ -740,6 +791,11 @@ export default {
   "newWindow": "avaneb uues aknas",
   "noMoreResults": "Teie otsingupäringule pole rohkem tulemusi.",
   "noResults": "Ühtki tulemust",
+  "organisation": {
+    "city": "Linn",
+    "country": "Riik",
+    "nameAcronym": "Nime akronüüm"
+  },
   "pageHasLoaded": "on laaditud",
   "pages": {
     "collections": {
@@ -794,6 +850,7 @@ export default {
   "results": "Tulemused",
   "resultsLimitWarning": "Täiendavaid tulemusi ei kuvata, kuna kuvatakse ainult esimesed 1000 kõige asjakohasemat tulemust. Kui te pole leidnud seda, mida otsite, kaaluge oma otsingu täpsustamist.",
   "search": "Otsing",
+  "searchHasLoaded": "{0} tagastatud tulemused",
   "searchPlaceholder": "Mida te otsite?",
   "searchResults": "Otsing",
   "searchResultsFor": "{0} - otsing",
@@ -852,5 +909,6 @@ export default {
     "liked": "Meeldis",
     "pinned": "Kinnitatud"
   },
-  "website": "Veebisait"
+  "website": "Veebisait",
+  "youMightAlsoLike": "Sulle võib ka meeldida"
 };

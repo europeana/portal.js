@@ -5,7 +5,6 @@ import Vuex from 'vuex';
 import sinon from 'sinon';
 
 import SideFilters from '@/components/search/SideFilters.vue';
-import { defaultFacetNames } from '@/store/search';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -29,8 +28,8 @@ const factory = (options = {}) => {
   const mocks = {
     $t: (key) => key,
     $tc: (key) => key,
+    $te: () => true,
     $features: { entityHeaderCards: true },
-    $tFacetName: (key) => key,
     $path: () => '/',
     $goto: () => null,
     ...options.mocks
@@ -50,15 +49,12 @@ const factory = (options = {}) => {
         state: {
           facets: [],
           userParams: {},
+          apiParams: {},
           collectionFacetEnabled: true,
-          resettableFilters: [],
           liveQueries: [],
           ...options.searchStoreState
         },
         getters: {
-          facetNames() {
-            return defaultFacetNames;
-          },
           filters: () => {
             return {};
           },
@@ -100,10 +96,12 @@ describe('components/search/SideFilters', () => {
     });
 
     it('is present when filters are selected', () => {
-      const searchStoreGetters = {
-        hasResettableFilters: () => true
+      const searchStoreState = {
+        userParams: {
+          qf: 'TYPE:"IMAGE"'
+        }
       };
-      const wrapper = factory({ searchStoreGetters });
+      const wrapper = factory({ searchStoreState });
 
       const resetButton = wrapper.find('[data-qa="reset filters button"]');
 
@@ -112,13 +110,13 @@ describe('components/search/SideFilters', () => {
     });
 
     it('is disabled while search queries are running', () => {
-      const searchStoreGetters = {
-        hasResettableFilters: () => true
-      };
       const searchStoreState = {
+        userParams: {
+          qf: 'TYPE:"IMAGE"'
+        },
         liveQueries: [{ query: 'river' }]
       };
-      const wrapper = factory({ searchStoreGetters, searchStoreState });
+      const wrapper = factory({ searchStoreState });
 
       const resetButton = wrapper.find('[data-qa="reset filters button"]');
 
@@ -152,6 +150,102 @@ describe('components/search/SideFilters', () => {
   });
 
   describe('computed', () => {
+    describe('filters()', () => {
+      describe('with `null` query qf', () => {
+        it('returns {}', async() => {
+          const searchStoreState = {
+            apiParams: {},
+            userParams: {
+              qf: null
+            }
+          };
+
+          const wrapper = factory({ searchStoreState });
+
+          expect(wrapper.vm.filters).toEqual({});
+        });
+      });
+
+      describe('with single query qf value', () => {
+        it('returns it in an array on a property named for the facet', async() => {
+          const searchStoreState = {
+            apiParams: {},
+            userParams: {
+              qf: 'TYPE:"IMAGE"'
+            }
+          };
+
+          const wrapper = factory({ searchStoreState });
+
+          expect(wrapper.vm.filters).toEqual({ 'TYPE': ['"IMAGE"'] });
+        });
+      });
+
+      describe('with multiple query qf values', () => {
+        it('returns them in arrays on properties named for each facet', async() => {
+          const query = { qf: ['TYPE:"IMAGE"', 'TYPE:"VIDEO"', 'REUSABILITY:open'] };
+          const expected = { 'TYPE': ['"IMAGE"', '"VIDEO"'], 'REUSABILITY': ['open'] };
+
+          const searchStoreState = {
+            apiParams: {},
+            userParams: query
+          };
+
+          const wrapper = factory({ searchStoreState });
+
+          expect(wrapper.vm.filters).toEqual(expected);
+        });
+      });
+
+      describe('with reusability values', () => {
+        it('returns them in an array on REUSABILITY property', async() => {
+          const query = { reusability: 'open,restricted' };
+          const expected = { 'REUSABILITY': ['open', 'restricted'] };
+
+          const searchStoreState = {
+            apiParams: {},
+            userParams: query
+          };
+
+          const wrapper = factory({ searchStoreState });
+
+          expect(wrapper.vm.filters).toEqual(expected);
+        });
+      });
+
+      describe('with api value', () => {
+        it('returns it as a string on api property', async() => {
+          const query = { api: 'metadata' };
+          const expected = { 'api': 'metadata' };
+
+          const searchStoreState = {
+            apiParams: query,
+            userParams: {}
+          };
+
+          const wrapper = factory({ searchStoreState });
+
+          expect(wrapper.vm.filters).toEqual(expected);
+        });
+      });
+
+      describe('with query that has two colons', () => {
+        it('returns an array with a string seperated by a colon', async() => {
+          const query = { qf: 'DATA_PROVIDER:"Galiciana: Biblioteca Digital de Galicia"' };
+          const expected = { 'DATA_PROVIDER': ['"Galiciana: Biblioteca Digital de Galicia"'] };
+
+          const searchStoreState = {
+            apiParams: {},
+            userParams: query
+          };
+
+          const wrapper = factory({ searchStoreState });
+
+          expect(wrapper.vm.filters).toEqual(expected);
+        });
+      });
+    });
+
     describe('filterableFacets', () => {
       const facetNames = ['TYPE', 'COUNTRY'];
       const searchStoreGetters = {
@@ -237,21 +331,29 @@ describe('components/search/SideFilters', () => {
       });
 
       it('is a range if date query filter value is a range', () => {
-        const searchStoreGetters = {
-          collection: () => 'newspaper',
-          filters: () => ({ 'proxy_dcterms_issued': ['[1900-01-01 TO 1910-01-01]'] })
+        const searchStoreState = {
+          userParams: {
+            qf: 'proxy_dcterms_issued:[1900-01-01 TO 1910-01-01]'
+          }
         };
-        const wrapper = factory({ searchStoreGetters });
+        const searchStoreGetters = {
+          collection: () => 'newspaper'
+        };
+        const wrapper = factory({ searchStoreGetters, searchStoreState });
 
         expect(wrapper.vm.dateFilter).toEqual({ start: '1900-01-01', end: '1910-01-01', specific: false });
       });
 
       it('is a specific date if date query filter value is not a range', () => {
-        const searchStoreGetters = {
-          collection: () => 'newspaper',
-          filters: () => ({ 'proxy_dcterms_issued': ['1900-01-01'] })
+        const searchStoreState = {
+          userParams: {
+            qf: 'proxy_dcterms_issued:1900-01-01'
+          }
         };
-        const wrapper = factory({ searchStoreGetters });
+        const searchStoreGetters = {
+          collection: () => 'newspaper'
+        };
+        const wrapper = factory({ searchStoreGetters, searchStoreState });
 
         expect(wrapper.vm.dateFilter).toEqual({ start: '1900-01-01', end: null, specific: true });
       });
@@ -362,9 +464,9 @@ describe('components/search/SideFilters', () => {
 
       describe('when facet had selected values', () => {
         const initialSelectedValues = ['"IMAGE"'];
-        const searchStoreGetters = {
-          filters: () => {
-            return { 'TYPE': ['"IMAGE"'] };
+        const searchStoreState = {
+          userParams: {
+            qf: ['TYPE:"IMAGE"']
           }
         };
 
@@ -372,7 +474,7 @@ describe('components/search/SideFilters', () => {
           const newSelectedValues = ['"IMAGE"', '"TEXT"'];
 
           it('triggers rerouting', async() => {
-            const wrapper = factory({ searchStoreGetters });
+            const wrapper = factory({ searchStoreState });
             const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
 
             await wrapper.vm.changeFacet(facetName, newSelectedValues);
@@ -382,7 +484,7 @@ describe('components/search/SideFilters', () => {
 
         describe('and they were unchanged', () => {
           it('does not trigger rerouting', async() => {
-            const wrapper = factory({ searchStoreGetters });
+            const wrapper = factory({ searchStoreState });
             const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
 
             await wrapper.vm.changeFacet(facetName, initialSelectedValues);
@@ -392,9 +494,9 @@ describe('components/search/SideFilters', () => {
       });
 
       describe('when facet had no selected values', () => {
-        const searchStoreGetters = {
-          filters: () => {
-            return {};
+        const searchStoreState = {
+          userParams: {
+            qf: []
           }
         };
 
@@ -402,7 +504,7 @@ describe('components/search/SideFilters', () => {
           const newSelectedValues = ['"IMAGE"', '"TEXT"'];
 
           it('triggers rerouting', async() => {
-            const wrapper = await factory({ searchStoreGetters });
+            const wrapper = await factory({ searchStoreState });
             const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
 
             await wrapper.vm.changeFacet(facetName, newSelectedValues);
@@ -414,7 +516,7 @@ describe('components/search/SideFilters', () => {
           const newSelectedValues = [];
 
           it('does not trigger rerouting', async() => {
-            const wrapper = factory({ searchStoreGetters });
+            const wrapper = factory({ searchStoreState });
             const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
 
             await wrapper.vm.changeFacet(facetName, newSelectedValues);
@@ -425,16 +527,13 @@ describe('components/search/SideFilters', () => {
     });
 
     describe('queryUpdatesForFacetChanges', () => {
-      const searchStoreState = {
-        resettableFilters: []
-      };
       const searchStoreGetters = {};
 
       describe('when facet is REUSABILITY', () => {
         describe('with values selected', () => {
           const selected = { 'REUSABILITY': ['open', 'permission'] };
           it('sets `reusability` to values joined with ","', () => {
-            const wrapper = factory({ searchStoreState, searchStoreGetters });
+            const wrapper = factory({ searchStoreGetters });
 
             const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
 
@@ -444,7 +543,7 @@ describe('components/search/SideFilters', () => {
 
         describe('with no values selected', () => {
           it('sets `reusability` to `null`', () => {
-            const wrapper = factory({ searchStoreState, searchStoreGetters });
+            const wrapper = factory({ searchStoreGetters });
 
             const updates = wrapper.vm.queryUpdatesForFacetChanges();
 
@@ -455,7 +554,7 @@ describe('components/search/SideFilters', () => {
 
       describe('for default facets from search plugin supporting quotes', () => {
         it('includes fielded and quoted queries for each value in `qf`', () => {
-          const wrapper = factory({ searchStoreState, searchStoreGetters });
+          const wrapper = factory({ searchStoreGetters });
           const selected = { 'TYPE': ['"IMAGE"', '"SOUND"'] };
 
           const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
@@ -467,7 +566,7 @@ describe('components/search/SideFilters', () => {
 
       describe('for default facets from search plugin not supporting quotes', () => {
         it('includes fielded but unquoted queries for each value in `qf`', () => {
-          const wrapper = factory({ searchStoreState, searchStoreGetters });
+          const wrapper = factory({ searchStoreGetters });
           const selected = { 'MIME_TYPE': ['application/pdf'] };
 
           const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
@@ -478,7 +577,7 @@ describe('components/search/SideFilters', () => {
 
       describe('for any other facets', () => {
         it('includes fielded but unquoted queries for each value in `qf`', () => {
-          const wrapper = factory({ searchStoreState, searchStoreGetters });
+          const wrapper = factory({ searchStoreGetters });
           const selected = { 'contentTier': ['4'] };
 
           const updates = wrapper.vm.queryUpdatesForFacetChanges(selected);
@@ -491,8 +590,7 @@ describe('components/search/SideFilters', () => {
         const searchStoreState = {
           userParams: {
             qf: ['proxy_dcterms_issued:1900-01-01']
-          },
-          resettableFilters: ['proxy_dcterms_issued']
+          }
         };
         const searchStoreGetters = {
           collection: () => 'newspaper'
@@ -511,14 +609,15 @@ describe('components/search/SideFilters', () => {
 
       describe('with collection-specific facets already selected', () => {
         const searchStoreState = {
-          resettableFilters: ['collection', 'CREATOR', 'TYPE']
+          userParams: {
+            qf: [
+              'CREATOR:"Missoni (Designer)"',
+              'TYPE:"IMAGE"',
+              'contentTier:*'
+            ]
+          }
         };
         const searchStoreGetters = {
-          filters: () => ({
-            'CREATOR': ['"Missoni (Designer)"'],
-            'TYPE': ['"IMAGE"'],
-            'contentTier': ['*']
-          }),
           collection: () => 'fashion'
         };
 

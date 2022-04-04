@@ -36,6 +36,7 @@ export default {
     "feedback": "Atsauksmes",
     "goBack": "Atpakaļ",
     "goHome": "Dodieties uz sākumlapu",
+    "learnMore": "Apgūt vairāk",
     "like": "Patīk",
     "next": "Nākamais",
     "pin": "Pin",
@@ -331,7 +332,55 @@ export default {
       }
     },
     "COUNTRY": {
-      "name": "Nodrošinošā valsts"
+      "name": "Nodrošinošā valsts",
+      "options": {
+        "Albania": "Albānija",
+        "Austria": "Austrija",
+        "Belarus": "Baltkrievija",
+        "Belgium": "Beļģija",
+        "Bosnia and Herzegovina": "Bosnija un Hercegovina",
+        "Bulgaria": "Bulgārija",
+        "Croatia": "Horvātija",
+        "Cyprus": "Kipra",
+        "Czech Republic": "Čehija",
+        "Denmark": "Dānija",
+        "Estonia": "Igaunija",
+        "Europe": "Eiropa",
+        "Finland": "Somija",
+        "France": "Francija",
+        "Georgia": "Gruzija",
+        "Germany": "Vācija",
+        "Greece": "Grieķija",
+        "Holy See (Vatican City State)": "Svētais Krēsls (Vatikāna Pilsētvalsts)",
+        "Hungary": "Ungārija",
+        "Iceland": "Islande",
+        "Ireland": "Īrija",
+        "Israel": "Izraēla",
+        "Italy": "Itālija",
+        "Latvia": "Latvija",
+        "Lithuania": "Lietuva",
+        "Luxembourg": "Luksemburga",
+        "Macedonia": "Maķedonija",
+        "Malta": "Malta",
+        "Moldova": "Moldova",
+        "Montenegro": "Melnkalne",
+        "Netherlands": "Nīderlande",
+        "Norway": "Norvēģija",
+        "Poland": "Polija",
+        "Portugal": "Portugāle",
+        "Romania": "Rumānija",
+        "Russia": "Krievija",
+        "Serbia": "Serbija",
+        "Slovakia": "Slovākija",
+        "Slovenia": "Slovēnija",
+        "Spain": "Spānija",
+        "Sweden": "Zviedrija",
+        "Switzerland": "Šveice",
+        "Turkey": "Turcija",
+        "Ukraine": "Ukraina",
+        "United Kingdom": "Apvienotā Karaliste",
+        "United States of America": "Amerikas Savienotās Valstis"
+      }
     },
     "CREATOR": {
       "name": "Radītājs | Radītāji"
@@ -417,6 +466,9 @@ export default {
         "uncategorized": "Bez kategorijas"
       }
     },
+    "RIGHTS": {
+      "name": "Paziņojums par tiesībām"
+    },
     "TYPE": {
       "name": "Līdzekļu veids",
       "options": {
@@ -445,7 +497,7 @@ export default {
       "showLess": "Rādīt mazāk {label}"
     },
     "collection": {
-      "name": "Kolekcija",
+      "name": "Tēma",
       "options": {
         "archaeology": "Arheoloģija",
         "art": "Māksla",
@@ -464,7 +516,6 @@ export default {
     },
     "contentTier": {
       "name": "Preces kvalitāte",
-      "notification": "Ir pieejami daži vienumi, kas neatbilst mūsu publicēšanas kritērijiem. Šiem vienumiem var piekļūt, aktivizējot filtru \"Vienumu kvalitāte\", kas pieejams sadaļā \"Vairāk filtru\".",
       "options": {
         "*": "Ietver vienumus, kas neatbilst mūsu publicēšanas kritērijiem",
         "0": "Rādīt tikai vienumus, kas neatbilst mūsu publicēšanas kritērijiem.",
@@ -731,7 +782,7 @@ export default {
     "translateQuotaError": "Tulkošanas pakalpojums īslaicīgi nav pieejams. Lūdzu, pamēģiniet vēlreiz vēlāk."
   },
   "newFeatureNotification": {
-    "dismiss": "Atbrīvot",
+    "dismiss": "Aizvērt",
     "readMore": "Lasīt vairāk",
     "text": {
       "sideFilters": "Apskatiet jaunos filtrus! Tagad tie visi ir redzami meklēšanas rezultātu labajā pusē."
@@ -740,6 +791,11 @@ export default {
   "newWindow": "tiek atvērts jaunā logā",
   "noMoreResults": "Jūsu meklēšanas vaicājumam vairs nav rezultātu.",
   "noResults": "Nav rezultātu",
+  "organisation": {
+    "city": "Pilsēta",
+    "country": "Valsts",
+    "nameAcronym": "Vārda akronīms"
+  },
   "pageHasLoaded": "ir ielādēts",
   "pages": {
     "collections": {
@@ -794,6 +850,7 @@ export default {
   "results": "Rezultāti",
   "resultsLimitWarning": "Papildu rezultāti netiek parādīti, jo tiek parādīti tikai pirmie 1000 atbilstošākie rezultāti. Ja neesat atradis to, ko meklējat, lūdzu, apsveriet iespēju precizēt meklēšanu.",
   "search": "Meklēt",
+  "searchHasLoaded": "{0} atgriezti rezultāti",
   "searchPlaceholder": "Meklēt starp miljoniem vienumu",
   "searchResults": "Meklēt",
   "searchResultsFor": "{0} - Meklēšana",
@@ -852,5 +909,6 @@ export default {
     "liked": "Patika",
     "pinned": "Piesprausts"
   },
-  "website": "Vietne"
+  "website": "Vietne",
+  "youMightAlsoLike": "Jums varētu arī patikt"
 };

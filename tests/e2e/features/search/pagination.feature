@@ -17,10 +17,10 @@ Feature: Search pagination
     And I click the `show search button`
     And I enter "paris" in the `search box`
     And I press the ENTER key
-    And I see a `search query` with the text "paris"
+    And I see a `context label` with the text "paris"
     And I wait for an `item preview`
-    And I click the `TYPE facet dropdown`
-    And I check the "\"IMAGE\"" "TYPE" checkbox
+    And I click the `TYPE side facet dropdown button`
+    And I click the `IMAGE TYPE field`
     Then I should be on `/en/search?page=1&qf=TYPE%3A%22IMAGE%22&query=paris&view=grid`
     And I see a link to "/en/search?page=2&qf=TYPE%3A%22IMAGE%22&query=paris&view=grid" in the `pagination navigation`
 
@@ -30,7 +30,7 @@ Feature: Search pagination
     When I click the `show search button`
     And I enter "paris" in the `search box`
     And I press the ENTER key
-    And I see a `search query` with the text "paris"
+    And I see a `context label` with the text "paris"
     And I go to page number 2
     And I am on page number 2
     And I go back

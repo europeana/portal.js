@@ -36,6 +36,7 @@ export default {
     "feedback": "Atsiliepimas",
     "goBack": "Grįžti",
     "goHome": "Eikite į pagrindinį puslapį",
+    "learnMore": "Sužinokite daugiau",
     "like": "Patinka",
     "next": "Kitas",
     "pin": "Kaištis",
@@ -331,7 +332,55 @@ export default {
       }
     },
     "COUNTRY": {
-      "name": "Teikianti šalis"
+      "name": "Teikianti šalis",
+      "options": {
+        "Albania": "Albanija",
+        "Austria": "Austrija",
+        "Belarus": "Baltarusija",
+        "Belgium": "Belgija",
+        "Bosnia and Herzegovina": "Bosnija ir Hercegovina",
+        "Bulgaria": "Bulgarija",
+        "Croatia": "Kroatija",
+        "Cyprus": "Kipras",
+        "Czech Republic": "Čekijos Respublika",
+        "Denmark": "Danija",
+        "Estonia": "Estija",
+        "Europe": "Europa",
+        "Finland": "Suomija",
+        "France": "Prancūzija",
+        "Georgia": "Gruzija",
+        "Germany": "Vokietija",
+        "Greece": "Graikija",
+        "Holy See (Vatican City State)": "Šventasis Sostas (Vatikano Miesto Valstybė)",
+        "Hungary": "Vengrija",
+        "Iceland": "Islandija",
+        "Ireland": "Airija",
+        "Israel": "Izraelis",
+        "Italy": "Italija",
+        "Latvia": "Latvija",
+        "Lithuania": "Lietuva",
+        "Luxembourg": "Liuksemburgas",
+        "Macedonia": "Makedonija",
+        "Malta": "Malta",
+        "Moldova": "Moldova",
+        "Montenegro": "Juodkalnija",
+        "Netherlands": "Nyderlandai",
+        "Norway": "Norvegija",
+        "Poland": "Lenkija",
+        "Portugal": "Portugalija",
+        "Romania": "Rumunija",
+        "Russia": "Rusija",
+        "Serbia": "Serbija",
+        "Slovakia": "Slovakija",
+        "Slovenia": "Slovėnija",
+        "Spain": "Ispanija",
+        "Sweden": "Švedija",
+        "Switzerland": "Šveicarija",
+        "Turkey": "Turkija",
+        "Ukraine": "Ukraina",
+        "United Kingdom": "Jungtinė Karalystė",
+        "United States of America": "Jungtinės Amerikos Valstijos"
+      }
     },
     "CREATOR": {
       "name": "Autorius | Autoriai"
@@ -417,6 +466,9 @@ export default {
         "uncategorized": "Neklasifikuota"
       }
     },
+    "RIGHTS": {
+      "name": "Teisių pareiškimas"
+    },
     "TYPE": {
       "name": "Medijos tipas",
       "options": {
@@ -445,7 +497,7 @@ export default {
       "showLess": "Rodyti mažiau {label}"
     },
     "collection": {
-      "name": "Kategorija",
+      "name": "Tema",
       "options": {
         "archaeology": "Archeologija",
         "art": "Menas",
@@ -464,7 +516,6 @@ export default {
     },
     "contentTier": {
       "name": "Prekės kokybė",
-      "notification": "Yra prekių, kurios neatitinka mūsų skelbiamų prekių kriterijų. Šias prekes rasite aktyvavę filtrą „Prekių kokybė“, esantį skiltyje „Daugiau filtrų“.",
       "options": {
         "*": "Rodomi elementai, neatitinkantys mūsų paskelbimo kriterijų.",
         "0": "Tik elementai, neatitinkantys mūsų paskelbimo kriterijų",
@@ -731,7 +782,7 @@ export default {
     "translateQuotaError": "Vertimo paslauga laikinai nepasiekiama. Pabandykite dar kartą vėliau."
   },
   "newFeatureNotification": {
-    "dismiss": "Atmesti",
+    "dismiss": "Uždaryti",
     "readMore": "Skaityti daugiau",
     "text": {
       "sideFilters": "Patikrinkite naujus filtrus! Dabar jie visi matomi dešinėje paieškos rezultatų pusėje."
@@ -740,6 +791,11 @@ export default {
   "newWindow": "atsidaro naujame lange",
   "noMoreResults": "Daugiau nėra rezultatų pagal jūsų paieškos užklausą.",
   "noResults": "Rezultatų nėra",
+  "organisation": {
+    "city": "Miestas",
+    "country": "Šalis",
+    "nameAcronym": "Pavadinimo akronimas"
+  },
   "pageHasLoaded": "įkelta",
   "pages": {
     "collections": {
@@ -794,6 +850,7 @@ export default {
   "results": "Rezultatai",
   "resultsLimitWarning": "Papildomi rezultatai nerodomi, nes parodomi tik pirmieji 1000 tinkamiausių rezultatų. Jei neradote to, ko ieškote, apsvarstykite galimybę patikslinti paiešką.",
   "search": "Paieška",
+  "searchHasLoaded": "{0} grąžinti rezultatai",
   "searchPlaceholder": "Ko jūs ieškote?",
   "searchResults": "Paieška",
   "searchResultsFor": "{0} - Ieškoti",
@@ -852,5 +909,6 @@ export default {
     "liked": "Patiko",
     "pinned": "Prisegtas"
   },
-  "website": "Interneto svetainė"
+  "website": "Interneto svetainė",
+  "youMightAlsoLike": "Jums taip pat gali patikti"
 };

@@ -64,6 +64,16 @@ Example:
       <td><span class="icon icon-close" /></td>
     </tr>
     <tr>
+      <td>Download</td>
+      <td><code>icon-ic-download</code></td>
+      <td><span class="icon icon-ic-download" /></td>
+    </tr>
+    <tr>
+      <td>Edit</td>
+      <td><code>icon-edit</code></td>
+      <td><span class="icon icon-edit" /></td>
+    </tr>
+    <tr>
       <td>External link</td>
       <td><code>icon-external-link</code></td>
       <td><span class="icon icon-external-link" /></td>
@@ -77,6 +87,11 @@ Example:
       <td>Feedback</td>
       <td><code>icon-ic-feedback</code></td>
       <td><span class="icon icon-ic-feedback" /></td>
+    </tr>
+    <tr>
+      <td>File</td>
+      <td><code>icon-file</code></td>
+      <td><span class="icon icon-file" /></td>
     </tr>
     <tr>
       <td>Filter</td>
@@ -112,6 +127,21 @@ Example:
       <td>Language</td>
       <td><code>icon-language</code></td>
       <td><span class="icon icon-language" /></td>
+    </tr>
+    <tr>
+      <td>License</td>
+      <td><code>icon-license</code></td>
+      <td><span class="icon icon-license" /></td>
+    </tr>
+    <tr>
+      <td>Link</td>
+      <td><code>icon-link</code></td>
+      <td><span class="icon icon-link" /></td>
+    </tr>
+    <tr>
+      <td>LinkedIn</td>
+      <td><code>icon-linkedin</code></td>
+      <td><span class="icon icon-linkedin" /></td>
     </tr>
     <tr>
       <td>Pinterest</td>

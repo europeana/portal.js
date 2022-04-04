@@ -36,6 +36,7 @@ export default {
     "feedback": "Feedback",
     "goBack": "Mur lura",
     "goHome": "Mur fil-homepage",
+    "learnMore": "Itagħllem iżjed",
     "like": "Like",
     "next": "Li jmiss",
     "pin": "Pin",
@@ -331,7 +332,55 @@ export default {
       }
     },
     "COUNTRY": {
-      "name": "Pajjiż fornitur"
+      "name": "Pajjiż fornitur",
+      "options": {
+        "Albania": "L-Albanija",
+        "Austria": "L-Awstrija",
+        "Belarus": "Belarus",
+        "Belgium": "Il-Belġju",
+        "Bosnia and Herzegovina": "Bosnja u Ħerzegovina",
+        "Bulgaria": "Bulgarija",
+        "Croatia": "Il-Kroazja",
+        "Cyprus": "Ċipru",
+        "Czech Republic": "Repubblika Ċeka",
+        "Denmark": "Id-Danimarka",
+        "Estonia": "Estonja",
+        "Europe": "Ewropa",
+        "Finland": "Finlandja",
+        "France": "Franza",
+        "Georgia": "Ġeorġja",
+        "Germany": "Il-Ġermanja",
+        "Greece": "Il-Greċja",
+        "Holy See (Vatican City State)": "Santa Sede (Stat tal-Belt tal-Vatikan)",
+        "Hungary": "Ungerija",
+        "Iceland": "L-Islanda",
+        "Ireland": "L-Irlanda",
+        "Israel": "Iżrael",
+        "Italy": "L-Italja",
+        "Latvia": "Il-Latvja",
+        "Lithuania": "Il-Litwanja",
+        "Luxembourg": "Lussemburgu",
+        "Macedonia": "Maċedonja",
+        "Malta": "Malta",
+        "Moldova": "Moldova",
+        "Montenegro": "Montenegro",
+        "Netherlands": "L-Olanda",
+        "Norway": "Norveġja",
+        "Poland": "Polonja",
+        "Portugal": "Portugall",
+        "Romania": "Ir-Rumanija",
+        "Russia": "Ir-Russja",
+        "Serbia": "Serbja",
+        "Slovakia": "Is-Slovakkja",
+        "Slovenia": "Is-Slovenja",
+        "Spain": "Spanja",
+        "Sweden": "l-Isvezja",
+        "Switzerland": "L-Isvizzera",
+        "Turkey": "Turkija",
+        "Ukraine": "l-Ukrajna",
+        "United Kingdom": "Ir-Renju Unit",
+        "United States of America": "Stati Uniti ta 'l-Amerika"
+      }
     },
     "CREATOR": {
       "name": "Kreatur | Kreaturi"
@@ -417,6 +466,9 @@ export default {
         "uncategorized": "Mhux kategorizzati"
       }
     },
+    "RIGHTS": {
+      "name": "Dikjarazzjoni tad-drittijiet"
+    },
     "TYPE": {
       "name": "Tip ta' midja",
       "options": {
@@ -445,7 +497,7 @@ export default {
       "showLess": "Uri inqas {label}"
     },
     "collection": {
-      "name": "Kollezzjoni",
+      "name": "Tema",
       "options": {
         "archaeology": "Arkeoloġija",
         "art": "Arti",
@@ -464,7 +516,6 @@ export default {
     },
     "contentTier": {
       "name": "Kwalità tal-oġġett",
-      "notification": "Xi oġġetti li ma jikkonformawx mal-kriterji tal-pubblikazzjoni tagħna huma disponibbli. Tista' taċċessa dawk l-oġġetti billi tattiva l-filtru 'Kwalità tal-Oġġett' taħt 'Aktar filtri'.",
       "options": {
         "*": "Jinkludi oġġetti li ma jissodisfawx il-kriterji tal-pubblikazzjoni tagħna",
         "0": "Uri biss l-oġġetti li ma jissodisfawx il-kriterji tal-pubblikazzjoni tagħna",
@@ -731,7 +782,7 @@ export default {
     "translateQuotaError": "Is-servizz tat-traduzzjoni temporanjament mhux disponibbli. Jekk jogħġbok erġa' pprova aktar tard."
   },
   "newFeatureNotification": {
-    "dismiss": "Tkeċċija",
+    "dismiss": "Agħlaq",
     "readMore": "Aqra iktar",
     "text": {
       "sideFilters": "Iċċekkja l-filtri l-ġodda! Issa huma kollha viżibbli fuq in-naħa tal-lemin tar-riżultati tat-tfittxija."
@@ -740,6 +791,11 @@ export default {
   "newWindow": "tiftaħ fit-tieqa l-ġdida",
   "noMoreResults": "M'hemmx aktar riżultati għall-mistoqsija tat-tfittxija tiegħek.",
   "noResults": "M'hawnx riżultati",
+  "organisation": {
+    "city": "Belt",
+    "country": "Pajjiż",
+    "nameAcronym": "Isem akronimu"
+  },
   "pageHasLoaded": "ġie illowdjat",
   "pages": {
     "collections": {
@@ -794,6 +850,7 @@ export default {
   "results": "Riżultati",
   "resultsLimitWarning": "Riżultati addizzjonali ma jidhrux minħabba li l-ewwel 1000 riżultat l-aktar rilevanti jintwerew. Jekk ma sibtx dak li qed tfittex, jekk jogħġbok ikkunsidra li tirfina it-tfittxija tiegħek.",
   "search": "Fittex",
+  "searchHasLoaded": "{0} riżultati rritornati",
   "searchPlaceholder": "Fittex miljun oġġett",
   "searchResults": "Fittex",
   "searchResultsFor": "{0} - Fittex",
@@ -852,5 +909,6 @@ export default {
     "liked": "Għoġobni",
     "pinned": "Mehmuż"
   },
-  "website": "Websajt"
+  "website": "Websajt",
+  "youMightAlsoLike": "Inti tista 'wkoll tixtieq"
 };

@@ -36,6 +36,7 @@ export default {
     "feedback": "Feedback",
     "goBack": "Înapoi",
     "goHome": "Mergeți la pagina de pornire",
+    "learnMore": "Află mai multe",
     "like": "Apreciere",
     "next": "Următorul",
     "pin": "Pin",
@@ -331,7 +332,55 @@ export default {
       }
     },
     "COUNTRY": {
-      "name": "Țara de proveniență"
+      "name": "Țara de proveniență",
+      "options": {
+        "Albania": "Albania",
+        "Austria": "Austria",
+        "Belarus": "Belarus",
+        "Belgium": "Belgia",
+        "Bosnia and Herzegovina": "Bosnia și Herțegovina",
+        "Bulgaria": "Bulgaria",
+        "Croatia": "Croația",
+        "Cyprus": "Cipru",
+        "Czech Republic": "Republica Cehă",
+        "Denmark": "Danemarca",
+        "Estonia": "Estonia",
+        "Europe": "Europa",
+        "Finland": "Finlanda",
+        "France": "Franța",
+        "Georgia": "Georgia",
+        "Germany": "Germania",
+        "Greece": "Grecia",
+        "Holy See (Vatican City State)": "Sfântul Scaun (statul orașului Vatican)",
+        "Hungary": "Ungaria",
+        "Iceland": "Islanda",
+        "Ireland": "Irlanda",
+        "Israel": "Israel",
+        "Italy": "Italia",
+        "Latvia": "Letonia",
+        "Lithuania": "Lituania",
+        "Luxembourg": "Luxemburg",
+        "Macedonia": "Macedonia",
+        "Malta": "Malta",
+        "Moldova": "Moldova",
+        "Montenegro": "Muntenegru",
+        "Netherlands": "Olanda",
+        "Norway": "Norvegia",
+        "Poland": "Polonia",
+        "Portugal": "Portugalia",
+        "Romania": "România",
+        "Russia": "Rusia",
+        "Serbia": "Serbia",
+        "Slovakia": "Slovacia",
+        "Slovenia": "Slovenia",
+        "Spain": "Spania",
+        "Sweden": "Suedia",
+        "Switzerland": "Elveția",
+        "Turkey": "Turcia",
+        "Ukraine": "Ucraina",
+        "United Kingdom": "Regatul Unit",
+        "United States of America": "Statele Unite ale Americii"
+      }
     },
     "CREATOR": {
       "name": "Creator | Creatori"
@@ -417,6 +466,9 @@ export default {
         "uncategorized": "Fără categorie"
       }
     },
+    "RIGHTS": {
+      "name": "Declarație de drepturi"
+    },
     "TYPE": {
       "name": "Tip de media",
       "options": {
@@ -445,7 +497,7 @@ export default {
       "showLess": "Afișează mai puțin {label}"
     },
     "collection": {
-      "name": "Categorie",
+      "name": "Temă",
       "options": {
         "archaeology": "Arheologie",
         "art": "Artă",
@@ -464,7 +516,6 @@ export default {
     },
     "contentTier": {
       "name": "Calitatea articolelor",
-      "notification": "Unele articole care nu corespund criteriilor noastre de publicare sunt disponibile. Poți accesa aceste articole activând filtrul „Calitatea articolelor” din „Mai multe filtre”.",
       "options": {
         "*": "Sunt incluse articole care nu îndeplinesc criteriile noastre de publicare",
         "0": "Afișează doar articolele care nu îndeplinesc criteriile noastre de publicare",
@@ -731,7 +782,7 @@ export default {
     "translateQuotaError": "Serviciul de traducere este temporar indisponibil. Vă rugăm să încercați din nou mai târziu."
   },
   "newFeatureNotification": {
-    "dismiss": "Respingeți",
+    "dismiss": "Închidere",
     "readMore": "Citește mai mult",
     "text": {
       "sideFilters": "Vezi noile filtre! Acestea sunt acum toate vizibile în partea dreaptă a rezultatelor căutării."
@@ -740,6 +791,11 @@ export default {
   "newWindow": "se deschide într-o fereastră nouă",
   "noMoreResults": "Nu mai există rezultate pentru interogarea de căutare.",
   "noResults": "Niciun rezultat",
+  "organisation": {
+    "city": "Oraș",
+    "country": "Țara",
+    "nameAcronym": "Acronim de nume"
+  },
   "pageHasLoaded": "a încărcat",
   "pages": {
     "collections": {
@@ -794,6 +850,7 @@ export default {
   "results": "Rezultate",
   "resultsLimitWarning": "Nu sunt afișate rezultate suplimentare deoarece sunt afișate doar primele 1000 dintre cele mai relevante rezultate. Dacă nu ai găsit ceea ce căutai, te rugăm să restrângi căutarea.",
   "search": "Căutare",
+  "searchHasLoaded": "{0} rezultate returnate",
   "searchPlaceholder": "Ce anume cauți?",
   "searchResults": "Căutare",
   "searchResultsFor": "{0} - Căutare",
@@ -852,5 +909,6 @@ export default {
     "liked": "A apreciat",
     "pinned": "Fixat"
   },
-  "website": "Site-ul web"
+  "website": "Site-ul web",
+  "youMightAlsoLike": "S-ar putea să vă placă și"
 };

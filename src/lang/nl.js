@@ -36,11 +36,12 @@ export default {
     "feedback": "Feedback",
     "goBack": "Ga terug",
     "goHome": "Ga naar de homepage",
+    "learnMore": "Leer meer",
     "like": "Liken",
     "next": "Volgende",
     "pin": "Pin",
     "providedBy": "Aangeboden door {provider}",
-    "reject": "afwijzen",
+    "reject": "Afwijzen",
     "send": "Verzenden",
     "share": "Delen",
     "shareOn": "Delen op {social}",
@@ -331,7 +332,55 @@ export default {
       }
     },
     "COUNTRY": {
-      "name": "Land van levering"
+      "name": "Land van levering",
+      "options": {
+        "Albania": "Albanië",
+        "Austria": "Oostenrijk",
+        "Belarus": "Belarus",
+        "Belgium": "België",
+        "Bosnia and Herzegovina": "Bosnië-Herzegovina",
+        "Bulgaria": "Bulgarije",
+        "Croatia": "Kroatië",
+        "Cyprus": "Cyprus",
+        "Czech Republic": "Tsjechische Republiek",
+        "Denmark": "Denemarken",
+        "Estonia": "Estland",
+        "Europe": "Europa",
+        "Finland": "Finland",
+        "France": "Frankrijk",
+        "Georgia": "Georgië",
+        "Germany": "Duitsland",
+        "Greece": "Griekenland",
+        "Holy See (Vatican City State)": "Heilige Stoel (Vaticaanstad)",
+        "Hungary": "Hongarije",
+        "Iceland": "IJsland",
+        "Ireland": "Ierland",
+        "Israel": "Israël",
+        "Italy": "Italië",
+        "Latvia": "Letland",
+        "Lithuania": "Litouwen",
+        "Luxembourg": "Luxemburg",
+        "Macedonia": "Macedonië",
+        "Malta": "Malta",
+        "Moldova": "Moldavië",
+        "Montenegro": "Montenegro",
+        "Netherlands": "Nederland",
+        "Norway": "Noorwegen",
+        "Poland": "Polen",
+        "Portugal": "Portugal",
+        "Romania": "Roemenië",
+        "Russia": "Rusland",
+        "Serbia": "Servië",
+        "Slovakia": "Slowakije",
+        "Slovenia": "Slovenië",
+        "Spain": "Spanje",
+        "Sweden": "Zweden",
+        "Switzerland": "Zwitserland",
+        "Turkey": "Turkije",
+        "Ukraine": "Oekraïne",
+        "United Kingdom": "Verenigd Koninkrijk",
+        "United States of America": "Verenigde Staten van Amerika"
+      }
     },
     "CREATOR": {
       "name": "Maker | Makers"
@@ -417,6 +466,9 @@ export default {
         "uncategorized": "Ongecategoriseerd"
       }
     },
+    "RIGHTS": {
+      "name": "Rechtenverklaring"
+    },
     "TYPE": {
       "name": "Soort media",
       "options": {
@@ -445,7 +497,7 @@ export default {
       "showLess": "Minder weergeven {label}"
     },
     "collection": {
-      "name": "Categorie",
+      "name": "Thema",
       "options": {
         "archaeology": "Archeologie",
         "art": "Kunst",
@@ -464,7 +516,6 @@ export default {
     },
     "contentTier": {
       "name": "Item kwaliteit",
-      "notification": "Sommige artikelen die niet passen bij onze publicatiecriteria, zijn beschikbaar. U kunt deze artikelen inzien door het filter \"Kwaliteit van artikel\" onder \"Meer filters\" te activeren.",
       "options": {
         "*": "Bevat items die niet voldoen aan onze publicatiecriteria",
         "0": "Geef items weer die niet voldoen aan onze publicatiecriteria",
@@ -731,7 +782,7 @@ export default {
     "translateQuotaError": "De vertaalservice is tijdelijk niet beschikbaar. Probeer het later opnieuw."
   },
   "newFeatureNotification": {
-    "dismiss": "Afwijzen",
+    "dismiss": "Sluiten",
     "readMore": "Lees verder",
     "text": {
       "sideFilters": "Bekijk de nieuwe filters! Ze zijn nu allemaal zichtbaar aan de rechterkant van de zoekresultaten."
@@ -740,6 +791,11 @@ export default {
   "newWindow": "opent in nieuw venster",
   "noMoreResults": "Er zijn geen resultaten meer voor uw zoekopdracht.",
   "noResults": "Geen resultaten",
+  "organisation": {
+    "city": "Stad",
+    "country": "Land",
+    "nameAcronym": "Naam acroniem"
+  },
   "pageHasLoaded": "heeft geladen",
   "pages": {
     "collections": {
@@ -794,6 +850,7 @@ export default {
   "results": "Resultaten",
   "resultsLimitWarning": "Aanvullende resultaten worden niet getoond, aangezien alleen de 1000 meest relevante resultaten worden getoond. Indien u niet hebt gevonden wat u zoekt, overweeg dan om uw zoekopdracht te verfijnen.",
   "search": "Zoeken",
+  "searchHasLoaded": "{0} resultaten geretourneerd",
   "searchPlaceholder": "Doorzoek miljoenen Items",
   "searchResults": "Zoeken",
   "searchResultsFor": "{0} - Zoeken",
@@ -852,5 +909,6 @@ export default {
     "liked": "Liked",
     "pinned": "Pinned"
   },
-  "website": "Website"
+  "website": "Website",
+  "youMightAlsoLike": "Misschien vind je dit ook leuk"
 };

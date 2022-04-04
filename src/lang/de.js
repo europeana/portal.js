@@ -36,6 +36,7 @@ export default {
     "feedback": "Feedback",
     "goBack": "Zurückgehen",
     "goHome": "Zur Homepage gehen",
+    "learnMore": "Mehr erfahren",
     "like": "Like",
     "next": "Weiter",
     "pin": "Stift",
@@ -331,7 +332,55 @@ export default {
       }
     },
     "COUNTRY": {
-      "name": "Bereitstellendes Land"
+      "name": "Bereitstellendes Land",
+      "options": {
+        "Albania": "Albanien",
+        "Austria": "Österreich",
+        "Belarus": "Belarus",
+        "Belgium": "Belgien",
+        "Bosnia and Herzegovina": "Bosnien und Herzegowina",
+        "Bulgaria": "Bulgarien",
+        "Croatia": "Kroatien",
+        "Cyprus": "Zypern",
+        "Czech Republic": "Tschechische Republik",
+        "Denmark": "Dänemark",
+        "Estonia": "Estland",
+        "Europe": "Europa",
+        "Finland": "Finnland",
+        "France": "Frankreich",
+        "Georgia": "Georgien",
+        "Germany": "Deutschland",
+        "Greece": "Griechenland",
+        "Holy See (Vatican City State)": "Heiliger Stuhl (Staat Vatikanstadt)",
+        "Hungary": "Ungarn",
+        "Iceland": "Island",
+        "Ireland": "Irland",
+        "Israel": "Israel",
+        "Italy": "Italien",
+        "Latvia": "Lettland",
+        "Lithuania": "Litauen",
+        "Luxembourg": "Luxemburg",
+        "Macedonia": "Mazedonien",
+        "Malta": "Malta",
+        "Moldova": "Moldawien",
+        "Montenegro": "Montenegro",
+        "Netherlands": "Niederlande",
+        "Norway": "Norwegen",
+        "Poland": "Polen",
+        "Portugal": "Portugal",
+        "Romania": "Rumänien",
+        "Russia": "Russland",
+        "Serbia": "Serbien",
+        "Slovakia": "Slowakei",
+        "Slovenia": "Slowenien",
+        "Spain": "Spanien",
+        "Sweden": "Schweden",
+        "Switzerland": "Schweiz",
+        "Turkey": "Turkei",
+        "Ukraine": "Ukraine",
+        "United Kingdom": "Vereinigtes Königreich",
+        "United States of America": "Vereinigte Staaten von Amerika"
+      }
     },
     "CREATOR": {
       "name": "Ersteller | Ersteller"
@@ -417,6 +466,9 @@ export default {
         "uncategorized": "Nicht kategorisiert"
       }
     },
+    "RIGHTS": {
+      "name": "Erklärung zu den Rechten"
+    },
     "TYPE": {
       "name": "Art des Mediums",
       "options": {
@@ -445,7 +497,7 @@ export default {
       "showLess": "Weniger anzeigen {label}"
     },
     "collection": {
-      "name": "Kategorie",
+      "name": "Thema",
       "options": {
         "archaeology": "Archäologie",
         "art": "Kunst",
@@ -464,7 +516,6 @@ export default {
     },
     "contentTier": {
       "name": "Objektqualität",
-      "notification": "Es sind einige Objekte verfügbar, die nicht unseren Veröffentlichungskriterien entsprechen. Sie können auf diese Objekte zugreifen, indem Sie den Filter 'Objektqualität' unter 'Weitere Filter' aktivieren.",
       "options": {
         "*": "Enthält Objekte, die nicht unseren Veröffentlichungskriterien entsprechen",
         "0": "Nur Objekte anzeigen, die unsere Veröffentlichungskriterien nicht erfüllen",
@@ -731,7 +782,7 @@ export default {
     "translateQuotaError": "Der Übersetzungsdienst ist vorübergehend nicht verfügbar. Bitte versuchen Sie es später erneut."
   },
   "newFeatureNotification": {
-    "dismiss": "Ablehnen",
+    "dismiss": "Schließen",
     "readMore": "Mehr anzeigen",
     "text": {
       "sideFilters": "Schauen Sie sich die neuen Filter an! Sie sind jetzt alle auf der rechten Seite der Suchergebnisse sichtbar."
@@ -740,6 +791,11 @@ export default {
   "newWindow": "öffnet sich in einem neuen Fenster",
   "noMoreResults": "Es gibt keine weiteren Ergebnisse für Ihre Suchanfrage.",
   "noResults": "Keine Ergebnisse",
+  "organisation": {
+    "city": "Stadt",
+    "country": "Land",
+    "nameAcronym": "Name Akronym"
+  },
   "pageHasLoaded": "hat geladen",
   "pages": {
     "collections": {
@@ -794,6 +850,7 @@ export default {
   "results": "Ergebnisse",
   "resultsLimitWarning": "Zusätzliche Ergebnisse werden nicht angezeigt, da nur die ersten 1000 relevantesten Ergebnisse angezeigt werden. Wenn Sie nicht gefunden haben, wonach Sie suchen, können Sie Ihre Suche verfeinern.",
   "search": "Suchen",
+  "searchHasLoaded": "{0} Ergebnisse zurückgegeben",
   "searchPlaceholder": "Durchsuche Millionen von Objekten",
   "searchResults": "Suche",
   "searchResultsFor": "{0} - Suche",
@@ -852,5 +909,6 @@ export default {
     "liked": "Gemocht",
     "pinned": "Angeheftet"
   },
-  "website": "Webseite"
+  "website": "Webseite",
+  "youMightAlsoLike": "Das könnte Ihnen auch gefallen"
 };

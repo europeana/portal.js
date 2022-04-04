@@ -36,6 +36,7 @@ export default {
     "feedback": "Palaute",
     "goBack": "Palaa takaisin",
     "goHome": "Siirry kotisivulle",
+    "learnMore": "Opi lisää",
     "like": "Tykkää",
     "next": "Seuraava",
     "pin": "Pin",
@@ -331,7 +332,55 @@ export default {
       }
     },
     "COUNTRY": {
-      "name": "Alkuperämaa"
+      "name": "Alkuperämaa",
+      "options": {
+        "Albania": "Albania",
+        "Austria": "Itävalta",
+        "Belarus": "Valko-Venäjä",
+        "Belgium": "Belgia",
+        "Bosnia and Herzegovina": "Bosnia ja Hertsegovina",
+        "Bulgaria": "Bulgaria",
+        "Croatia": "Kroatia",
+        "Cyprus": "Kypros",
+        "Czech Republic": "Tšekin tasavalta",
+        "Denmark": "Tanska",
+        "Estonia": "Viro",
+        "Europe": "Eurooppa",
+        "Finland": "Suomi",
+        "France": "Ranska",
+        "Georgia": "Georgia",
+        "Germany": "Saksa",
+        "Greece": "Kreikka",
+        "Holy See (Vatican City State)": "Pyhä istuin (Vatikaanivaltio)",
+        "Hungary": "Unkari",
+        "Iceland": "Islanti",
+        "Ireland": "Irlanti",
+        "Israel": "Israel",
+        "Italy": "Italia",
+        "Latvia": "Latvia",
+        "Lithuania": "Liettua",
+        "Luxembourg": "Luxemburg",
+        "Macedonia": "Makedonia",
+        "Malta": "Malta",
+        "Moldova": "Moldova",
+        "Montenegro": "Montenegro",
+        "Netherlands": "Alankomaat",
+        "Norway": "Norja",
+        "Poland": "Puola",
+        "Portugal": "Portugali",
+        "Romania": "Romania",
+        "Russia": "Venäjä",
+        "Serbia": "Serbia",
+        "Slovakia": "Slovakia",
+        "Slovenia": "Slovenia",
+        "Spain": "Espanja",
+        "Sweden": "Ruotsi",
+        "Switzerland": "Sveitsi",
+        "Turkey": "Turkki",
+        "Ukraine": "Ukraina",
+        "United Kingdom": "Yhdistynyt kuningaskunta",
+        "United States of America": "Yhdysvallat"
+      }
     },
     "CREATOR": {
       "name": "Tekijä  |  Tekijät"
@@ -417,6 +466,9 @@ export default {
         "uncategorized": "Ei luokiteltu"
       }
     },
+    "RIGHTS": {
+      "name": "Oikeuksia koskeva lausunto"
+    },
     "TYPE": {
       "name": "Mediatyyppi",
       "options": {
@@ -445,7 +497,7 @@ export default {
       "showLess": "Näytä vähemmän {label}"
     },
     "collection": {
-      "name": "Kategoria",
+      "name": "Teema",
       "options": {
         "archaeology": "Arkeologia",
         "art": "Taide",
@@ -464,7 +516,6 @@ export default {
     },
     "contentTier": {
       "name": "Kohde laatu",
-      "notification": "Jotkin saatavilla olevista kohteista eivät täytä julkaisuehtojamme. Voit näyttää nämä kohteet aktivoimalla \"Lisää suodattimia\" -kohdan \"Kohteiden laatu\" -suodattimen.",
       "options": {
         "*": "Sisältää kohteita, jotka eivät täytä julkaisuehtojamme",
         "0": "Näytä ainoastaan kohteet, jotka eivät täytä julkaisuehtojamme",
@@ -731,7 +782,7 @@ export default {
     "translateQuotaError": "Käännöspalvelu ei ole tilapäisesti käytettävissä. Yritä uudelleen myöhemmin."
   },
   "newFeatureNotification": {
-    "dismiss": "Vapauttakaa",
+    "dismiss": "Sulje",
     "readMore": "Lue lisää",
     "text": {
       "sideFilters": "Tutustu uusiin suodattimiin! Ne näkyvät nyt kaikki hakutulosten oikealla puolella."
@@ -740,6 +791,11 @@ export default {
   "newWindow": "avautuu uuteen ikkunaan",
   "noMoreResults": "Hakusi ei tuottanut enempää tuloksia.",
   "noResults": "Ei tuloksia",
+  "organisation": {
+    "city": "Kaupunki",
+    "country": "Maa",
+    "nameAcronym": "Nimen lyhenne"
+  },
   "pageHasLoaded": "on ladattu",
   "pages": {
     "collections": {
@@ -794,6 +850,7 @@ export default {
   "results": "Tulokset",
   "resultsLimitWarning": "Enempää tuloksia ei näytetä, koska vain ensimmäiset 1000 merkityksellisintä tulosta näytetään. Jos et löytänyt etsimääsi, voit tarkentaa hakuasi.",
   "search": "Hae",
+  "searchHasLoaded": "{0} tulosta palautettu",
   "searchPlaceholder": "Mitä etsit?",
   "searchResults": "Hae",
   "searchResultsFor": "{0} – hae",
@@ -852,5 +909,6 @@ export default {
     "liked": "Pidetty",
     "pinned": "Kiinnitetty"
   },
-  "website": "Verkkosivusto"
+  "website": "Verkkosivusto",
+  "youMightAlsoLike": "Saatat myös pitää"
 };

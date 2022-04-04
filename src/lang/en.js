@@ -36,6 +36,7 @@ export default {
     "feedback": "Feedback",
     "goBack": "Go back",
     "goHome": "Go to the homepage",
+    "learnMore": "Learn more",
     "like": "Like",
     "next": "Next",
     "pin": "Pin",
@@ -88,16 +89,24 @@ export default {
     "fashion": {
       "facets": {
         "CREATOR": {
-          "name": "Designer | Designers"
+          "name": "Designer",
+          "select": "Select designers",
+          "moreName": "designers"
         },
         "proxy_dc_format": {
-          "name": "Technique | Techniques"
+          "name": "Technique",
+          "select": "Select techniques",
+          "moreName": "techniques"
         },
         "proxy_dc_type": {
-          "name": "Item type | Item types"
+          "name": "Item type",
+          "select": "Select item types",
+          "moreName": "item types"
         },
         "proxy_dcterms_medium": {
-          "name": "Material | Materials"
+          "name": "Material",
+          "select": "Select materials",
+          "moreName": "materials"
         }
       }
     },
@@ -182,7 +191,9 @@ export default {
   },
   "facets": {
     "COLOURPALETTE": {
-      "name": "Colour | Colours",
+      "name": "Colour",
+      "select": "Select colours",
+      "moreName": "colours",
       "options": {
         "#000000": "Black",
         "#000080": "Navy Blue",
@@ -331,23 +342,78 @@ export default {
       }
     },
     "COUNTRY": {
-      "name": "Providing country"
+      "name": "Providing country",
+      "select": "Select providing countries",
+      "options": {
+        "Albania": "Albania",
+        "Austria": "Austria",
+        "Belarus": "Belarus",
+        "Belgium": "Belgium",
+        "Bosnia and Herzegovina": "Bosnia and Herzegovina",
+        "Bulgaria": "Bulgaria",
+        "Croatia": "Croatia",
+        "Cyprus": "Cyprus",
+        "Czech Republic": "Czech Republic",
+        "Denmark": "Denmark",
+        "Estonia": "Estonia",
+        "Europe": "Europe",
+        "Finland": "Finland",
+        "France": "France",
+        "Georgia": "Georgia",
+        "Germany": "Germany",
+        "Greece": "Greece",
+        "Holy See (Vatican City State)": "Holy See (Vatican City State)",
+        "Hungary": "Hungary",
+        "Iceland": "Iceland",
+        "Ireland": "Ireland",
+        "Israel": "Israel",
+        "Italy": "Italy",
+        "Latvia": "Latvia",
+        "Lithuania": "Lithuania",
+        "Luxembourg": "Luxembourg",
+        "Macedonia": "Macedonia",
+        "Malta": "Malta",
+        "Moldova": "Moldova",
+        "Montenegro": "Montenegro",
+        "Netherlands": "Netherlands",
+        "Norway": "Norway",
+        "Poland": "Poland",
+        "Portugal": "Portugal",
+        "Romania": "Romania",
+        "Russia": "Russia",
+        "Serbia": "Serbia",
+        "Slovakia": "Slovakia",
+        "Slovenia": "Slovenia",
+        "Spain": "Spain",
+        "Sweden": "Sweden",
+        "Switzerland": "Switzerland",
+        "Turkey": "Turkey",
+        "Ukraine": "Ukraine",
+        "United Kingdom": "United Kingdom",
+        "United States of America": "United States of America"
+      }
     },
     "CREATOR": {
-      "name": "Creator | Creators"
+      "name": "Creator",
+      "select": "Select creators",
+      "moreName": "creators"
     },
     "DATA_PROVIDER": {
-      "name": "Institution | Institutions"
+      "name": "Institution",
+      "select": "Select institutions",
+      "moreName": "institutions"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Image orientation | Image orientations",
+      "name": "Image orientation",
+      "select": "Select image orientations",
       "options": {
         "landscape": "Landscape",
         "portrait": "Portrait"
       }
     },
     "IMAGE_SIZE": {
-      "name": "Image size | Image sizes",
+      "name": "Image size",
+      "select": "Select image sizes",
       "options": {
         "extra_large": "Extra Large 4MP+ (e.g. 2688 x 1520px)",
         "large": "Large 1-4MP (e.g. 1920x1080px)",
@@ -356,7 +422,8 @@ export default {
       }
     },
     "LANGUAGE": {
-      "name": "Language | Languages",
+      "name": "Language",
+      "select": "Select languages",
       "options": {
         "ar": "Arabic",
         "bg": "Bulgarian",
@@ -400,16 +467,20 @@ export default {
       }
     },
     "MIME_TYPE": {
-      "name": "File format | File formats",
+      "name": "File format",
+      "select": "Select file formats",
       "options": {
         "text/plain": "Plain text"
       }
     },
     "PROVIDER": {
-      "name": "Aggregator | Aggregators"
+      "name": "Aggregator",
+      "select": "Select aggregators",
+      "moreName": "aggregators"
     },
     "REUSABILITY": {
       "name": "Can I use this?",
+      "select": "Select whether you can use this",
       "options": {
         "open": "Yes",
         "permission": "Maybe, seek permission",
@@ -417,8 +488,32 @@ export default {
         "uncategorized": "Uncategorized"
       }
     },
+    "RIGHTS": {
+      "name": "Rights statement",
+      "select": "Select rights statements",
+      "options": {
+        "*/CNE/*": "Copyright Not Evaluated",
+        "*/InC-EDU/*": "In Copyright - Educational Use Permitted",
+        "*/InC-OW-EU/*": "In Copyright - OW-EU",
+        "*/InC/*": "In Copyright",
+        "*/NoC-NC/*": "No Copyright - Non-Commercial Use Only",
+        "*/NoC-OKLR/*": "No Copyright - Other Known Legal Restrictions",
+        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
+        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
+        "*/licenses/by-nc/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-ND",
+        "*/licenses/by-sa/*": "CC BY-SA",
+        "*/licenses/by/*": "CC BY",
+        "*/publicdomain/mark/*": "Public Domain Mark",
+        "*/publicdomain/zero/*": "CC0",
+        "*/rights/out-of-copyright-non-commercial/*": "Out of copyright - non commercial re-use",
+        "*/rights/rr-f/*": "Rights Reserved - Free access",
+        "*/rights/unknown/*": "Unknown copyright status"
+      }
+    },
     "TYPE": {
       "name": "Type of media",
+      "select": "Select types of media",
       "options": {
         "3D": "3D",
         "IMAGE": "Image",
@@ -445,7 +540,8 @@ export default {
       "showLess": "Show less {label}"
     },
     "collection": {
-      "name": "Collection",
+      "name": "Theme",
+      "select": "Select a theme",
       "options": {
         "archaeology": "Archaeology",
         "art": "Art",
@@ -464,6 +560,7 @@ export default {
     },
     "contentTier": {
       "name": "Item quality",
+      "select": "Select item qualities",
       "options": {
         "*": "Includes items not meeting our publishing criteria",
         "0": "Not meeting publishing criteria",
@@ -473,17 +570,21 @@ export default {
         "4": "High quality & freely reusable"
       }
     },
+    "moreOptions": "Search to find {0} more {1}.",
     "proxy_dc_format": {
-      "name": "Format | Formats"
+      "name": "Format",
+      "select": "Select formats"
     },
     "proxy_dc_type": {
-      "name": "Type | Types"
+      "name": "Type | types",
+      "select": "Select types"
     },
     "proxy_dcterms_issued": {
       "name": "Date issued"
     },
     "proxy_dcterms_medium": {
-      "name": "Medium | Media"
+      "name": "Medium",
+      "select": "Select media"
     }
   },
   "feedback": {
@@ -537,6 +638,7 @@ export default {
       "dctermsReferences": "References",
       "dctermsSpatial": "Places",
       "dctermsTemporal": "Temporal",
+      "dctermsTOC": "Table of contents",
       "edmCountry": "Providing country",
       "edmCurrentLocation": "Current location",
       "edmDataProvider": "Providing institution",
@@ -592,7 +694,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label}: {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -733,12 +834,17 @@ export default {
     "dismiss": "Dismiss",
     "readMore": "Read more",
     "text": {
-      "sideFilters": "Check out the new filters! They are now all visible on the right-hand side of the search results."
+      "searchFilters": "Our search filters now support searching; check it out! We also redesigned our results and collection pages."
     }
   },
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
   "noResults": "No results",
+  "organisation": {
+    "city": "City",
+    "country": "Country",
+    "nameAcronym": "Name acronym"
+  },
   "pageHasLoaded": "has loaded",
   "pages": {
     "collections": {
@@ -791,12 +897,14 @@ export default {
   "reset": "Reset",
   "resourceWikimedia": "Resource from Wikimedia Commons",
   "results": "Results",
+  "resultsFor": "Results for {0}",
+  "resultsWithin": "Results within {0} {1} for {2}",
   "resultsLimitWarning": "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
   "search": "Search",
+  "searchHasLoaded": "{0} results returned",
   "searchPlaceholder": "Search millions of items",
   "searchResults": "Search",
   "searchResultsFor": "{0} - Search",
-  "searchResultsForIn": "{0} - Search in {1}",
   "searchSuggestions": "Search suggestions",
   "searchTier": {
     "button": {
@@ -847,9 +955,14 @@ export default {
   },
   "showLess": "Show less",
   "showMore": "Show more",
+  "sideFilters": {
+    "search": "Search",
+    "noOptions": "There are no options available to select"
+  },
   "statuses": {
     "liked": "Liked",
     "pinned": "Pinned"
   },
-  "website": "Website"
+  "website": "Website",
+  "youMightAlsoLike": "You might also like"
 };

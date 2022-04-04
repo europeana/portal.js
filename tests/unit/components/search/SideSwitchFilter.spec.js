@@ -15,10 +15,14 @@ const factory = (propsData = {}, keyMock) => {
     propsData,
     mocks: {
       $store: {
-        dispatch: storeDispatchSpy
+        dispatch: storeDispatchSpy,
+        getters: {
+          'search/collection': false
+        }
       },
       $t: (key) => keyMock || key,
-      $tFacetName: (key) => key
+      $tc: (key) => key,
+      $te: () => true
     }
   });
 };
@@ -76,46 +80,6 @@ describe('components/search/SideSwitchFilter', () => {
         wrapper.vm.init();
 
         expect(wrapper.vm.localValue).toBe('metadata');
-      });
-
-      it('flags the filter as resettable if not at its default value', () => {
-        const wrapper = factory({
-          value: 'metadata',
-          name: 'api',
-          checkedValue: 'fulltext',
-          uncheckedValue: 'metadata',
-          defaultValue: 'fulltext'
-        });
-
-        wrapper.vm.init();
-
-        expect(storeDispatchSpy.calledWith(
-          'search/setResettableFilter',
-          {
-            name: 'api',
-            selected: 'metadata'
-          }
-        )).toBe(true);
-      });
-
-      it('flags the filter as not resettable if at its default value', () => {
-        const wrapper = factory({
-          value: 'fulltext',
-          name: 'api',
-          checkedValue: 'fulltext',
-          uncheckedValue: 'metadata',
-          defaultValue: 'fulltext'
-        });
-
-        wrapper.vm.init();
-
-        expect(storeDispatchSpy.calledWith(
-          'search/setResettableFilter',
-          {
-            name: 'api',
-            selected: null
-          }
-        )).toBe(true);
       });
     });
   });

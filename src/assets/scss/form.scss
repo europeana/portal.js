@@ -7,6 +7,10 @@
   &::placeholder {
     color: $grey;
   }
+
+  &:focus {
+    box-shadow: none;
+  }
 }
 
 .form-text {
@@ -48,6 +52,11 @@
   text-transform: uppercase;
   color: $mediumgrey;
   margin-bottom: 0.25rem;
+
+  @at-root .focus &,
+  &.facet-label-active {
+    color: $blue;
+  }
 }
 
 .custom-switch {

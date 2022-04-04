@@ -49,7 +49,9 @@
 
     created() {
       this.trackEvent('show');
-      this.$cookies.set('new_feature_notification', this.feature);
+      this.$cookies.set('new_feature_notification', this.feature, {
+        maxAge: 2678400
+      });
     },
 
     methods: {

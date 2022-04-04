@@ -1,7 +1,8 @@
 // Outputs as plain text the version of the app that is running
-import { version } from '../../../package.json';
+
+import versions from '../../../pkg-versions.js';
 
 export default (req, res) => {
   res.setHeader('Content-Type', 'text/plain');
-  res.end(version);
+  res.end(versions['@europeana/portal']);
 };

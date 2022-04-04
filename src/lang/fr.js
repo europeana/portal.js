@@ -36,6 +36,7 @@ export default {
     "feedback": "Commentaires",
     "goBack": "Retour en arrière",
     "goHome": "Aller à la page d'accueil",
+    "learnMore": "Apprendre encore plus",
     "like": "Mention J'aime",
     "next": "Suivant",
     "pin": "Épingler",
@@ -331,7 +332,55 @@ export default {
       }
     },
     "COUNTRY": {
-      "name": "Pays fournisseur"
+      "name": "Pays fournisseur",
+      "options": {
+        "Albania": "Albanie",
+        "Austria": "Autriche",
+        "Belarus": "Biélorussie",
+        "Belgium": "Belgique",
+        "Bosnia and Herzegovina": "Bosnie Herzégovine",
+        "Bulgaria": "Bulgarie",
+        "Croatia": "Croatie",
+        "Cyprus": "Chypre",
+        "Czech Republic": "République tchèque",
+        "Denmark": "Danemark",
+        "Estonia": "Estonie",
+        "Europe": "Europe",
+        "Finland": "Finlande",
+        "France": "France",
+        "Georgia": "Géorgie",
+        "Germany": "Allemagne",
+        "Greece": "Grèce",
+        "Holy See (Vatican City State)": "Saint-Siège (État de la Cité du Vatican)",
+        "Hungary": "Hongrie",
+        "Iceland": "Islande",
+        "Ireland": "Irlande",
+        "Israel": "Israël",
+        "Italy": "Italie",
+        "Latvia": "Lettonie",
+        "Lithuania": "Lituanie",
+        "Luxembourg": "Luxembourg",
+        "Macedonia": "Macédoine",
+        "Malta": "Malte",
+        "Moldova": "Moldavie",
+        "Montenegro": "Monténégro",
+        "Netherlands": "Pays-Bas",
+        "Norway": "Norvège",
+        "Poland": "Pologne",
+        "Portugal": "Portugal",
+        "Romania": "Roumanie",
+        "Russia": "Russie",
+        "Serbia": "Serbie",
+        "Slovakia": "Slovaquie",
+        "Slovenia": "Slovénie",
+        "Spain": "Espagne",
+        "Sweden": "Suède",
+        "Switzerland": "Suisse",
+        "Turkey": "Turquie",
+        "Ukraine": "Ukraine",
+        "United Kingdom": "Royaume-Uni",
+        "United States of America": "États-Unis d'Amérique"
+      }
     },
     "CREATOR": {
       "name": "Créateur | Créateurs"
@@ -417,6 +466,9 @@ export default {
         "uncategorized": "Non classé"
       }
     },
+    "RIGHTS": {
+      "name": "Déclaration de droits"
+    },
     "TYPE": {
       "name": "Type de support",
       "options": {
@@ -445,7 +497,7 @@ export default {
       "showLess": "Afficher moins {label}"
     },
     "collection": {
-      "name": "Catégorie",
+      "name": "Thème",
       "options": {
         "archaeology": "Archéologie",
         "art": "Art",
@@ -464,7 +516,6 @@ export default {
     },
     "contentTier": {
       "name": "Qualité de l'article",
-      "notification": "Certains articles ne correspondant pas à nos critères de publication sont disponibles. Vous pouvez y accéder en activant le filtre « Qualité des articles » sous « Autres filtres ».",
       "options": {
         "*": "Inclut les éléments ne répondant pas à nos critères de publication",
         "0": "Afficher uniquement les articles ne répondant pas à nos critères de publication",
@@ -731,7 +782,7 @@ export default {
     "translateQuotaError": "Le service de traduction est temporairement indisponible. Veuillez réessayer plus tard."
   },
   "newFeatureNotification": {
-    "dismiss": "Rejeter",
+    "dismiss": "Fermer",
     "readMore": "Lire la suite",
     "text": {
       "sideFilters": "Découvrez les nouveaux filtres ! Ils sont désormais tous visibles sur le côté droit des résultats de la recherche."
@@ -740,6 +791,11 @@ export default {
   "newWindow": "s'ouvre dans une nouvelle fenêtre",
   "noMoreResults": "Il n'y a plus de résultats pour votre requête de recherche.",
   "noResults": "Pas de résultat",
+  "organisation": {
+    "city": "Ville",
+    "country": "Pays",
+    "nameAcronym": "Acronyme du nom"
+  },
   "pageHasLoaded": "a chargé",
   "pages": {
     "collections": {
@@ -794,6 +850,7 @@ export default {
   "results": "Résultats",
   "resultsLimitWarning": "Les résultats supplémentaires ne sont pas affichés, car seuls les 1000 premiers résultats les plus pertinents sont affichés. Si vous n'avez pas trouvé ce que vous cherchez, veuillez affiner votre recherche.",
   "search": "Rechercher",
+  "searchHasLoaded": "{0} résultats retournés",
   "searchPlaceholder": "Que cherchez-vous ?",
   "searchResults": "Rechercher",
   "searchResultsFor": "{0} - Rechercher",
@@ -852,5 +909,6 @@ export default {
     "liked": "Aimé",
     "pinned": "Épinglé"
   },
-  "website": "Site Internet"
+  "website": "Site Internet",
+  "youMightAlsoLike": "Vous pourriez aussi aimer"
 };

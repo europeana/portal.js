@@ -16,11 +16,17 @@
           class="border-bottom border-top d-flex justify-content-between align-items-center flex-nowrap"
         >
           <div
-            v-if="entityHeaderCardsEnabled && totalResults"
+            v-if="totalResults"
             class="filters-title"
             data-qa="total results"
           >
             {{ $tc('items.itemCount', totalResultsLocalised, { count: totalResultsLocalised }) }}
+            <div
+              class="visually-hidden"
+              role="status"
+            >
+              {{ $t('searchHasLoaded', [totalResultsLocalised]) }}
+            </div>
           </div>
           <h2
             v-else
@@ -29,7 +35,7 @@
             {{ $t('filterResults') }}
           </h2>
           <button
-            v-if="isFilteredByDropdowns()"
+            v-if="hasResettableFilters()"
             :disabled="resetButtonDisabled"
             class="btn btn-outline-primary mr-3"
             data-qa="reset filters button"
@@ -76,6 +82,8 @@
                 :type="facetDropdownType(facet.name)"
                 :selected="filters[facet.name]"
                 :static-fields="facet.staticFields"
+                :search="facet.search"
+                :group-by="sideFacetDropdownGroupBy(facet.name)"
                 role="search"
                 :aria-label="facet.name"
                 @changed="changeFacet"
@@ -102,9 +110,8 @@
   import ClientOnly from 'vue-client-only';
   import isEqual from 'lodash/isEqual';
   import { mapState, mapGetters } from 'vuex';
-  import { rangeToQueryParam, rangeFromQueryParam } from '@/plugins/europeana/search';
+  import { rangeToQueryParam, rangeFromQueryParam, filtersFromQf } from '@/plugins/europeana/search';
   import themes from '@/plugins/europeana/themes';
-  import { defaultFacetNames } from '@/store/search';
   import SideFacetDropdown from './SideFacetDropdown';
 
   export default {
@@ -126,25 +133,84 @@
     },
     data() {
       return {
+        DEFAULT_FACET_NAMES: [
+          'TYPE',
+          'REUSABILITY',
+          'COUNTRY',
+          'LANGUAGE',
+          'PROVIDER',
+          'DATA_PROVIDER',
+          'COLOURPALETTE',
+          'IMAGE_ASPECTRATIO',
+          'IMAGE_SIZE',
+          'MIME_TYPE',
+          'RIGHTS',
+          'contentTier'
+        ],
+        SEARCHABLE_FACETS: [
+          'COUNTRY',
+          'LANGUAGE',
+          'PROVIDER',
+          'DATA_PROVIDER',
+          'COLOURPALETTE',
+          'MIME_TYPE',
+          'CREATOR',
+          'proxy_dc_type.en',
+          'proxy_dc_format.en',
+          'proxy_dcterms_medium.en'
+        ],
         hideFilterSheet: true
       };
     },
     computed: {
       ...mapState({
         collectionFacetEnabled: state => state.search.collectionFacetEnabled,
-        facets: state => state.search.facets,
-        resettableFilters: state => state.search.resettableFilters,
         showFiltersSheet: state => state.search.showFiltersSheet,
         totalResults: state => state.search.totalResults,
         userParams: state => state.search.userParams
       }),
       ...mapGetters({
-        facetNames: 'search/facetNames',
-        filters: 'search/filters',
         collection: 'search/collection'
       }),
+      // TODO: do not assume filters are fielded, e.g. `qf=whale`
+      filters() {
+        const filters = filtersFromQf(this.$store.state.search.userParams?.qf);
+
+        if (this.$store.state.search.userParams?.reusability) {
+          filters['REUSABILITY'] = this.$store.state.search.userParams.reusability.split(',');
+        }
+
+        if (this.$store.state.search.apiParams?.api) {
+          filters['api'] = this.$store.state.search.apiParams.api;
+        }
+
+        return filters;
+      },
+      resettableFilters() {
+        const filters = this.filterableFacets
+          .map(facet => facet.name)
+          .filter(name => this.filters[name]);
+
+        if (this.contentTierFacetSwitch && this.filters.contentTier) {
+          filters.push('contentTier');
+        }
+        if (this.enableApiFilter && (this.filters.api !== this.apiFilterDefaultValue)) {
+          filters.push('api');
+        }
+        if (this.enableDateFilter && this.filters[this.dateFilterField]) {
+          filters.push(this.dateFilterField);
+        }
+
+        return filters;
+      },
       theme() {
         return themes.find(theme => theme.qf === this.collection);
+      },
+      themeSpecificFacetNames() {
+        return (this.theme?.facets || []).map((facet) => facet.field);
+      },
+      facetNames() {
+        return this.themeSpecificFacetNames.concat(this.DEFAULT_FACET_NAMES);
       },
       resetButtonDisabled() {
         // Disable reset button while queries are running
@@ -152,7 +218,8 @@
       },
       filterableFacets() {
         let facets = this.facetNames.map(facetName => ({
-          name: facetName
+          name: facetName,
+          search: this.SEARCHABLE_FACETS.includes(facetName)
         }));
 
         if (this.collectionFacetEnabled) {
@@ -216,9 +283,6 @@
 
         return range ? { ...range, specific: false } : { start: dateFilterValue[0], end: null, specific: true };
       },
-      entityHeaderCardsEnabled() {
-        return this.$features.entityHeaderCards;
-      },
       totalResultsLocalised() {
         return this.$options.filters.localise(this.totalResults);
       }
@@ -264,7 +328,7 @@
         // Remove collection-specific filters when collection is changed
         if (Object.prototype.hasOwnProperty.call(selected, 'collection') || !this.collection) {
           for (const name in filters) {
-            if (name !== 'collection' && !defaultFacetNames.includes(name) && this.resettableFilters.includes(name)) {
+            if (name !== 'collection' && !this.DEFAULT_FACET_NAMES.includes(name) && this.resettableFilters.includes(name)) {
               filters[name] = [];
             }
           }
@@ -344,11 +408,10 @@
         for (const filterName of this.resettableFilters) {
           filters[filterName] = [];
         }
-        this.$store.commit('search/clearResettableFilters');
         return this.rerouteSearch(this.queryUpdatesForFilters(filters));
       },
-      isFilteredByDropdowns() {
-        return this.$store.getters['search/hasResettableFilters'];
+      hasResettableFilters() {
+        return this.resettableFilters.length > 0;
       },
       dateFilterSelected(facetName, dateRange) {
         let dateQuery = [];
@@ -364,6 +427,31 @@
       },
       toggleFilterSheet() {
         this.$store.commit('search/setShowFiltersSheet', !this.$store.state.search.showFiltersSheet);
+      },
+      sideFacetDropdownGroupBy(facetName) {
+        if (facetName === 'RIGHTS') {
+          return [
+            '/CNE/',
+            '/InC-EDU/',
+            '/InC-OW-EU/',
+            '/InC/',
+            '/licenses/by-nc-nd/',
+            '/licenses/by-nc-sa/',
+            '/licenses/by-nc/',
+            '/licenses/by-nd/',
+            '/licenses/by-sa/',
+            '/licenses/by/',
+            '/NoC-NC/',
+            '/NoC-OKLR/',
+            '/publicdomain/mark/',
+            '/publicdomain/zero/',
+            '/rights/out-of-copyright-non-commercial/',
+            '/rights/rr-f/',
+            '/rights/unknown/'
+          ];
+        } else {
+          return null;
+        }
       }
     }
   };

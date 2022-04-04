@@ -12,7 +12,7 @@ COPY package.json package-lock.json ./
 
 RUN npm ci
 
-COPY nuxt.config.js babel.config.cjs jest.config.js *.md .env.example ./
+COPY nuxt.config.js pkg-versions.js babel.config.cjs jest.config.js *.md .env.example ./
 COPY src ./src
 COPY styleguide ./styleguide
 
@@ -28,8 +28,7 @@ FROM gcr.io/distroless/nodejs:16
 
 ENV PORT=8080 \
     HOST=0.0.0.0 \
-    NODE_ENV=production \
-    NODE_OPTIONS=--experimental-json-modules
+    NODE_ENV=production
 
 EXPOSE ${PORT}
 

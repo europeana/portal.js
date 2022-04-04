@@ -36,6 +36,7 @@ export default {
     "feedback": "Spätná väzba",
     "goBack": "Späť",
     "goHome": "Prejsť na domovskú stránku",
+    "learnMore": "Uč sa viac",
     "like": "Označenie Páči sa mi",
     "next": "Ďalšie",
     "pin": "Kolík",
@@ -331,7 +332,55 @@ export default {
       }
     },
     "COUNTRY": {
-      "name": "Poskytujúca krajina"
+      "name": "Poskytujúca krajina",
+      "options": {
+        "Albania": "Albánsko",
+        "Austria": "Rakúsko",
+        "Belarus": "Bielorusko",
+        "Belgium": "Belgicko",
+        "Bosnia and Herzegovina": "Bosna a Hercegovina",
+        "Bulgaria": "Bulharsko",
+        "Croatia": "Chorvátsko",
+        "Cyprus": "Cyprus",
+        "Czech Republic": "Česká republika",
+        "Denmark": "Dánsko",
+        "Estonia": "Estónsko",
+        "Europe": "Európa",
+        "Finland": "Fínsko",
+        "France": "Francúzsko",
+        "Georgia": "Gruzínsko",
+        "Germany": "Nemecko",
+        "Greece": "Grécko",
+        "Holy See (Vatican City State)": "Svätá stolica (Vatikánsky mestský štát)",
+        "Hungary": "Maďarsko",
+        "Iceland": "Island",
+        "Ireland": "Írsko",
+        "Israel": "Izrael",
+        "Italy": "Taliansko",
+        "Latvia": "Lotyšsko",
+        "Lithuania": "Litva",
+        "Luxembourg": "Luxembursko",
+        "Macedonia": "Macedónsko",
+        "Malta": "Malta",
+        "Moldova": "Moldavsko",
+        "Montenegro": "Čierna Hora",
+        "Netherlands": "Holandsko",
+        "Norway": "Nórsko",
+        "Poland": "Poľsko",
+        "Portugal": "Portugalsko",
+        "Romania": "Rumunsko",
+        "Russia": "Rusko",
+        "Serbia": "Srbsko",
+        "Slovakia": "Slovensko",
+        "Slovenia": "Slovinsko",
+        "Spain": "Španielsko",
+        "Sweden": "Švédsko",
+        "Switzerland": "Švajčiarsko",
+        "Turkey": "Turecko",
+        "Ukraine": "Ukrajina",
+        "United Kingdom": "Spojené kráľovstvo",
+        "United States of America": "Spojené Štáty Americké"
+      }
     },
     "CREATOR": {
       "name": "Tvorca | Tvorcovia"
@@ -417,6 +466,9 @@ export default {
         "uncategorized": "Nekategorizované"
       }
     },
+    "RIGHTS": {
+      "name": "Vyhlásenie o právach"
+    },
     "TYPE": {
       "name": "Typ média",
       "options": {
@@ -445,7 +497,7 @@ export default {
       "showLess": "Zobraziť menej {label}"
     },
     "collection": {
-      "name": "Kategória",
+      "name": "Téma",
       "options": {
         "archaeology": "Archeológia",
         "art": "Umenie",
@@ -464,7 +516,6 @@ export default {
     },
     "contentTier": {
       "name": "Kvalita položky",
-      "notification": "K dispozícii sú určité položky, ktoré sa nezhodujú s našimi kritériami. Tieto položky si môžete zobraziť aktiváciou filtra „Kvalita položky“ v časti „Ďalšie filtre“.",
       "options": {
         "*": "Obsahuje položky, ktoré nespĺňajú naše publikačné kritériá",
         "0": "Zobraziť iba položky, ktoré nespĺňajú kritéria zverejnenia",
@@ -731,7 +782,7 @@ export default {
     "translateQuotaError": "Prekladateľská služba je dočasne nedostupná. Skúste neskôr prosím."
   },
   "newFeatureNotification": {
-    "dismiss": "Odmietnuť",
+    "dismiss": "Zatvoriť",
     "readMore": "Viac",
     "text": {
       "sideFilters": "Pozrite si nové filtre! Všetky sú teraz viditeľné na pravej strane výsledkov vyhľadávania."
@@ -740,6 +791,11 @@ export default {
   "newWindow": "otvorí sa v novom okne",
   "noMoreResults": "Pre vaše vyhľadávanie neexistujú žiadne ďalšie výsledky.",
   "noResults": "Žiadne výsledky",
+  "organisation": {
+    "city": "Mesto",
+    "country": "Krajina",
+    "nameAcronym": "Názov akronym"
+  },
   "pageHasLoaded": "načítal",
   "pages": {
     "collections": {
@@ -794,6 +850,7 @@ export default {
   "results": "Výsledky",
   "resultsLimitWarning": "Ďalšie výsledky sa nezobrazujú, pretože sa zobrazuje iba prvých 1000 najrelevantnejších výsledkov. Ak ste nenašli, čo hľadáte, upresnite vyhľadávanie.",
   "search": "Hľadať",
+  "searchHasLoaded": "{0} vrátené výsledky",
   "searchPlaceholder": "Čo hľadáte?",
   "searchResults": "Vyhľadávať",
   "searchResultsFor": "{0} – vyhľadávať",
@@ -852,5 +909,6 @@ export default {
     "liked": "Obľúbené",
     "pinned": "Pripnuté"
   },
-  "website": "Webové stránky"
+  "website": "Webové stránky",
+  "youMightAlsoLike": "Tiež sa vám môže páčiť"
 };
