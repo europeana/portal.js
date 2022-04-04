@@ -175,11 +175,6 @@
         return '';
       }
     },
-    created() {
-      this.$root.$on('clickCreateSet', () => {
-        this.clickCreateSet();
-      });
-    },
     methods: {
       clickCreateSet() {
         if (this.showFormModal === false) {
