@@ -88,13 +88,13 @@
                       :items="likedItems"
                       class="pb-5"
                     />
-                    <div
-                      v-else
-                      class="text-center pb-4"
-                    >
-                      {{ $t('account.notifications.noLikedItems') }}
-                    </div>
                   </template>
+                  <div
+                    v-else
+                    class="text-center pb-4"
+                  >
+                    {{ $t('account.notifications.noLikedItems') }}
+                  </div>
                 </b-col>
               </b-row>
             </b-container>
