@@ -11,32 +11,13 @@
         <b-col
           class="results-col"
         >
-          <b-container>
-            <b-row>
-              <b-col>
-                <i18n
-                  :path="searchQuery ? 'searchResultsFor' : 'searchResults'"
-                  tag="h1"
-                >
-                  <span data-qa="search query">{{ searchQuery }}</span>
-                </i18n>
-              </b-col>
-            </b-row>
-          </b-container>
-          <RelatedSection
-            v-if="searchQuery && !headerCardsEnabled"
-            :query="searchQuery"
-            badge-variant="light"
-            class="mb-4"
-          />
           <SearchInterface
             id="search-interface"
             :per-row="4"
-            :context-label="headerCardsEnabled ? '' : null"
             :show-related="showRelated"
           >
             <template
-              v-if="searchQuery && headerCardsEnabled"
+              v-if="searchQuery"
               #related
             >
               <client-only>
@@ -95,9 +76,6 @@
     computed: {
       searchQuery() {
         return this.$route.query.query;
-      },
-      headerCardsEnabled() {
-        return this.$features.entityHeaderCards;
       }
     },
 
@@ -133,12 +111,6 @@
 
   .page-container {
     max-width: none;
-
-    ::v-deep .related-collections .badge {
-      // TODO: Remove this when the badges move into the search results
-      margin-top: 0.25rem;
-      margin-right: 0.5rem;
-    }
   }
 
   .results-col {

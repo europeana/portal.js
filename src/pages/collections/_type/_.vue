@@ -2,7 +2,6 @@
   <div
     data-qa="entity page"
     class="entity-page"
-    :class="{'top-header': !headerCardsEnabled}"
   >
     <b-container
       v-if="$fetchState.error"
@@ -17,133 +16,68 @@
         </b-col>
       </b-row>
     </b-container>
-    <template
-      v-else
-    >
+    <client-only v-else>
       <b-container
-        v-if="!headerCardsEnabled"
-        fluid
+        class="page-container side-filters-enabled"
       >
-        <b-row class="flex-md-row pt-5 bg-white mb-3">
-          <b-col
-            cols="12"
-          >
-            <b-container class="mb-5">
-              <EntityDetails
-                :description="description"
-                :is-editorial-description="hasEditorialDescription"
-                :title="title"
-                :logo="logo"
-                :external-link="homepage"
-                :context-label="contextLabel"
-              />
-              <client-only>
-                <section
-                  v-if="isEditable && userIsEditor"
+        <b-row class="flex-nowrap">
+          <b-col>
+            <b-container class="px-0 pb-3">
+              <SearchInterface
+                v-if="!$fetchState.pending"
+                class="px-0"
+                :per-page="recordsPerPage"
+                :route="route"
+                :show-content-tier-toggle="false"
+                :show-pins="userIsEditor && userIsSetsEditor"
+                :editorial-entity-label="editorialTitle"
+                :show-related="showRelated"
+              >
+                <EntityHeader
+                  v-if="!hasUserQuery"
+                  :description="description"
+                  :title="title"
+                  :logo="logo"
+                  :image="thumbnail"
+                  :editable="isEditable && userIsEditor"
+                  :external-link="homepage"
+                  :proxy="entity ? entity.proxy : null"
+                  :more-info="moreInfo"
+                />
+                <template
+                  #related
                 >
-                  <div class="d-inline-flex">
-                    <b-button
-                      variant="outline-primary"
-                      @click="$bvModal.show('entityUpdateModal')"
-                    >
-                      {{ $t('actions.edit') }}
-                    </b-button>
-                    <EntityUpdateModal
-                      :body="entity.proxy"
-                      :description="descriptionText"
+                  <client-only>
+                    <RelatedCollections
+                      :title="$t('youMightAlsoLike')"
+                      :related-collections="relatedCollections"
+                      data-qa="related entities"
+                      @show="showRelatedCollections"
+                      @hide="hideRelatedCollections"
                     />
-                  </div>
-                </section>
-              </client-only>
-              <client-only>
-                <section
-                  v-if="relatedCollectionsFound"
-                  data-qa="related entities"
-                >
-                  <RelatedCollections
-                    :title="$t('collectionsYouMightLike')"
-                    :related-collections="relatedCollections"
-                  />
-                </section>
-              </client-only>
+                  </client-only>
+                </template>
+              </SearchInterface>
+            </b-container>
+            <b-container class="px-0">
+              <BrowseSections
+                v-if="page"
+                :sections="page.hasPartCollection.items"
+              />
             </b-container>
           </b-col>
+          <SideFilters
+            :route="route"
+          />
         </b-row>
       </b-container>
-      <client-only>
-        <b-container
-          class="page-container side-filters-enabled"
-        >
-          <b-row class="flex-nowrap">
-            <b-col>
-              <b-container class="px-0 pb-3">
-                <i18n
-                  v-if="$route.query.query"
-                  path="searchResultsForIn"
-                  tag="h2"
-                  class="px-0 container"
-                >
-                  <span>{{ $route.query.query }}</span>
-                  <span>{{ title.values[0] }}</span>
-                </i18n>
-                <SearchInterface
-                  v-if="!$fetchState.pending"
-                  class="px-0"
-                  :per-page="recordsPerPage"
-                  :route="route"
-                  :show-content-tier-toggle="false"
-                  :show-pins="userIsEditor && userIsSetsEditor"
-                  :context-label="headerCardsEnabled ? contextLabel : null"
-                  :show-related="showRelated"
-                >
-                  <EntityHeader
-                    v-if="headerCardsEnabled"
-                    :description="description"
-                    :title="title"
-                    :logo="logo"
-                    :image="thumbnail"
-                    :editable="isEditable && userIsEditor"
-                    :external-link="homepage"
-                    :proxy="entity ? entity.proxy : null"
-                    :more-info="moreInfo"
-                  />
-                  <template
-                    v-if="headerCardsEnabled"
-                    #related
-                  >
-                    <client-only>
-                      <RelatedCollections
-                        :title="$t('youMightAlsoLike')"
-                        :related-collections="relatedCollections"
-                        data-qa="related entities"
-                        @show="showRelatedCollections"
-                        @hide="hideRelatedCollections"
-                      />
-                    </client-only>
-                  </template>
-                </SearchInterface>
-              </b-container>
-              <b-container class="px-0">
-                <BrowseSections
-                  v-if="page"
-                  :sections="page.hasPartCollection.items"
-                />
-              </b-container>
-            </b-col>
-            <SideFilters
-              :route="route"
-            />
-          </b-row>
-        </b-container>
-      </client-only>
-    </template>
+    </client-only>
   </div>
 </template>
 
 <script>
   import pick from 'lodash/pick';
   import ClientOnly from 'vue-client-only';
-  import EntityDetails from '@/components/entity/EntityDetails';
   import SearchInterface from '@/components/search/SearchInterface';
   import { mapState } from 'vuex';
 
@@ -160,11 +94,9 @@
       AlertMessage: () => import('@/components/generic/AlertMessage'),
       BrowseSections: () => import('@/components/browse/BrowseSections'),
       ClientOnly,
-      EntityDetails,
       SearchInterface,
       SideFilters: () => import('@/components/search/SideFilters'),
       EntityHeader: () => import('@/components/entity/EntityHeader'),
-      EntityUpdateModal: () => import('@/components/entity/EntityUpdateModal'),
       RelatedCollections: () => import('@/components/generic/RelatedCollections')
     },
 
@@ -283,12 +215,8 @@
           } else {
             const entityQuery = getEntityQuery(this.entity.id);
             overrideParams.qf.push(entityQuery);
-
             if (!this.$route.query.query) {
-              const englishPrefLabel = this.$store.getters['entity/englishPrefLabel'];
-              if (englishPrefLabel) {
-                overrideParams.query = englishPrefLabel;
-              }
+              overrideParams.query = entityQuery; // Triggering best bets.
             }
           }
         }
@@ -392,8 +320,8 @@
       isEditable() {
         return this.entity && this.editable;
       },
-      headerCardsEnabled() {
-        return this.$features.entityHeaderCards;
+      hasUserQuery() {
+        return this.$route.query.query &&  this.$route.query.query !== '';
       },
       thumbnail() {
         return this.entity?.isShownBy?.thumbnail || null;

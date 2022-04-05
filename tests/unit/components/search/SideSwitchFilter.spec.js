@@ -15,10 +15,14 @@ const factory = (propsData = {}, keyMock) => {
     propsData,
     mocks: {
       $store: {
-        dispatch: storeDispatchSpy
+        dispatch: storeDispatchSpy,
+        getters: {
+          'search/collection': false
+        }
       },
       $t: (key) => keyMock || key,
-      $tFacetName: (key) => key
+      $tc: (key) => key,
+      $te: () => true
     }
   });
 };

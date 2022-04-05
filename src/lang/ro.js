@@ -89,16 +89,24 @@ export default {
     "fashion": {
       "facets": {
         "CREATOR": {
-          "name": "Designer | Designeri"
+          "moreName": "designeri",
+          "name": "Designer | Designeri",
+          "select": "Selectați designeri"
         },
         "proxy_dc_format": {
-          "name": "Tehnică | Tehnici"
+          "moreName": "tehnici",
+          "name": "Tehnică | Tehnici",
+          "select": "Selectați tehnici"
         },
         "proxy_dc_type": {
-          "name": "Tip articol | Tipuri articole"
+          "moreName": "tipuri de articole",
+          "name": "Tip articol | Tipuri articole",
+          "select": "Selectați tipurile de articole"
         },
         "proxy_dcterms_medium": {
-          "name": "Material | Materiale"
+          "moreName": "materiale",
+          "name": "Material | Materiale",
+          "select": "Selectați materiale"
         }
       }
     },
@@ -183,6 +191,7 @@ export default {
   },
   "facets": {
     "COLOURPALETTE": {
+      "moreName": "culori",
       "name": "Culoare | Culori",
       "options": {
         "#000000": "Negru",
@@ -329,7 +338,8 @@ export default {
         "#FFFFE0": "Lumină galbenă",
         "#FFFFF0": "Fildeş",
         "#FFFFFF": "alb"
-      }
+      },
+      "select": "Selectați culorile"
     },
     "COUNTRY": {
       "name": "Țara de proveniență",
@@ -380,20 +390,26 @@ export default {
         "Ukraine": "Ucraina",
         "United Kingdom": "Regatul Unit",
         "United States of America": "Statele Unite ale Americii"
-      }
+      },
+      "select": "Selectați țările furnizoare"
     },
     "CREATOR": {
-      "name": "Creator | Creatori"
+      "moreName": "creatori",
+      "name": "Creator | Creatori",
+      "select": "Selectați creatori"
     },
     "DATA_PROVIDER": {
-      "name": "Instituție"
+      "moreName": "instituții",
+      "name": "Instituție",
+      "select": "Selectați instituții"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Orientare imagine | Orientări imagine",
       "options": {
         "landscape": "Peisaj",
         "portrait": "Portret"
-      }
+      },
+      "select": "Selectați orientările imaginii"
     },
     "IMAGE_SIZE": {
       "name": "Dimensiune imagine | Dimensiuni imagine",
@@ -402,7 +418,8 @@ export default {
         "large": "Mare 1-4 MP (de ex. 1920 x 1080 px)",
         "medium": "Mediu 0,5-1 MP (de ex. 850 x 850 px)",
         "small": "Mic <0,5MP (de ex. 650 x 600 px)"
-      }
+      },
+      "select": "Selectați dimensiunile imaginii"
     },
     "LANGUAGE": {
       "name": "Limbă",
@@ -446,16 +463,20 @@ export default {
         "sv": "Suedeză",
         "tr": "Turcă",
         "uk": "Ucraineană"
-      }
+      },
+      "select": "Selectați limbile"
     },
     "MIME_TYPE": {
       "name": "Format fișier| Formate fișier",
       "options": {
         "text/plain": "Text simplu"
-      }
+      },
+      "select": "Selectați formatele de fișiere"
     },
     "PROVIDER": {
-      "name": "Agregator"
+      "moreName": "agregatoare",
+      "name": "Agregator",
+      "select": "Selectați agregatorii"
     },
     "REUSABILITY": {
       "name": "Pot reutiliza acest lucru?",
@@ -464,10 +485,8 @@ export default {
         "permission": "Poate, obțineți permisiunea",
         "restricted": "Da, cu condiții",
         "uncategorized": "Fără categorie"
-      }
-    },
-    "RIGHTS": {
-      "name": "Declarație de drepturi"
+      },
+      "select": "Selectați dacă puteți utiliza acest lucru"
     },
     "TYPE": {
       "name": "Tip de media",
@@ -477,7 +496,8 @@ export default {
         "SOUND": "Sunet",
         "TEXT": "Text",
         "VIDEO": "Video"
-      }
+      },
+      "select": "Selectați tipurile de media"
     },
     "api": {
       "name": "Căutare după",
@@ -512,7 +532,8 @@ export default {
         "photography": "Fotografie",
         "sport": "Sport",
         "ww1": "1914-1918"
-      }
+      },
+      "select": "Selectați o temă"
     },
     "contentTier": {
       "name": "Calitatea articolelor",
@@ -523,19 +544,24 @@ export default {
         "2": "Calitate medie",
         "3": "De înaltă calitate și reutilizabil cu condiții",
         "4": "De înaltă calitate și reutilizabil gratuit"
-      }
+      },
+      "select": "Selectați calitățile articolului"
     },
+    "moreOptions": "Căutați pentru a găsi {0} mai mult {1}.",
     "proxy_dc_format": {
-      "name": "Format | Formate"
+      "name": "Format | Formate",
+      "select": "Selectați formate"
     },
     "proxy_dc_type": {
-      "name": "Tip | Tipuri"
+      "name": "Tip | Tipuri",
+      "select": "Selectați tipuri"
     },
     "proxy_dcterms_issued": {
       "name": "Data emiterii"
     },
     "proxy_dcterms_medium": {
-      "name": "Medii | Media"
+      "name": "Medii | Media",
+      "select": "Selectați media"
     }
   },
   "feedback": {
@@ -588,6 +614,7 @@ export default {
       "dctermsProvenance": "Provenienţă",
       "dctermsReferences": "Referințe",
       "dctermsSpatial": "Locații",
+      "dctermsTOC": "Cuprins",
       "dctermsTemporal": "Temporal",
       "edmCountry": "Țara de proveniență",
       "edmCurrentLocation": "Locația curenta",
@@ -644,7 +671,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "...",
-    "labelledValue": "{label}: {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -785,7 +811,7 @@ export default {
     "dismiss": "Închidere",
     "readMore": "Citește mai mult",
     "text": {
-      "sideFilters": "Vezi noile filtre! Acestea sunt acum toate vizibile în partea dreaptă a rezultatelor căutării."
+      "searchFilters": "Filtrele noastre de căutare acceptă acum căutarea; verifică! De asemenea, ne-am reproiectat rezultatele și paginile de colecție."
     }
   },
   "newWindow": "se deschide într-o fereastră nouă",
@@ -848,13 +874,14 @@ export default {
   "reset": "Resetează",
   "resourceWikimedia": "Material de la Wikimedia Commons",
   "results": "Rezultate",
+  "resultsFor": "Rezultate pentru {0}",
   "resultsLimitWarning": "Nu sunt afișate rezultate suplimentare deoarece sunt afișate doar primele 1000 dintre cele mai relevante rezultate. Dacă nu ai găsit ceea ce căutai, te rugăm să restrângi căutarea.",
+  "resultsWithin": "Rezultatele în cadrul {0} {1} pentru {2}",
   "search": "Căutare",
   "searchHasLoaded": "{0} rezultate returnate",
   "searchPlaceholder": "Ce anume cauți?",
   "searchResults": "Căutare",
   "searchResultsFor": "{0} - Căutare",
-  "searchResultsForIn": "{0} - Căutare în {1}",
   "searchSuggestions": "Sugestii de căutare",
   "searchTier": {
     "button": {
@@ -905,6 +932,10 @@ export default {
   },
   "showLess": "Afișează mai puțin",
   "showMore": "Afișează mai multe",
+  "sideFilters": {
+    "noOptions": "Nu există opțiuni disponibile de selectat",
+    "search": "Căutare"
+  },
   "statuses": {
     "liked": "A apreciat",
     "pinned": "Fixat"

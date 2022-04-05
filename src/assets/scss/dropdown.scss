@@ -7,131 +7,133 @@
     text-decoration: none;
   }
 
-  .btn-selected {
-    background: $white;
-    border-color: $blue;
-    color: $mediumgrey;
-    padding: 0.75rem 1rem;
-  }
-
   .dropdown-item {
     text-decoration: none;
-  }
-
-  &.show {
-    .btn-light {
-      background: $white;
-      border-color: $blue;
-    }
   }
 
   &.multilingual-selector .dropdown-menu {
     max-height: 50vh;
     overflow: auto;
   }
+}
 
-  &.facet-dropdown {
-    margin-bottom: 5px;
-    width: 100%;
+.b-form-tags.form-control {
+  padding: 0;
+  margin-bottom: 1.25rem;
+  background-color: $white;
+  border-radius: 0;
 
-    &:last-child {
-      margin-bottom: 0;
+  > ul {
+    padding-left: 0;
+    margin-bottom: 0.25rem;
+
+    .list-inline-item {
+      margin-bottom: 0.5rem;
     }
+  }
 
-    @media (min-width: $bp-large) {
-      width: auto;
-      margin-bottom: 0;
-    }
-
-    .dropdown-menu {
+  .dropdown {
+    .dropdown-toggle {
+      background: $white;
       font-size: $font-size-small;
-      margin-top: 0.5rem;
-      width: 100%;
+      color: $mediumgrey-light;
+      height: 3rem;
+      border: 1px solid $middlegrey;
+      text-align: left;
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      border-radius: 0.375rem;
+      text-transform: none;
+      font-weight: normal;
 
-      @media (min-width: $bp-large) {
-        min-width: 280px;
-
-        &.show {
-          transform: translate3d(0, 3rem, 0) !important;
-        }
+      &:focus {
+        border: 1px solid $blue;
       }
 
-      .custom-control {
-        margin-bottom: 4px;
-        min-height: auto;
-
-        label span {
-          font-size: $font-size-extrasmall;
-        }
+      &::after {
+        color: $mediumgrey;
       }
 
-      .custom-checkbox-colour {
-        .custom-control-label {
-          display: inline-flex;
-          align-items: center;
-          flex: 1;
-          flex-wrap: wrap;
-
-          span {
-            margin-right: 0.25rem;
-          }
-
-          .colour-palette {
-            border: 1px solid $whitegrey;
-            border-radius: 50%;
-            height: 1rem;
-            width: 1rem;
-            display: inline-block;
-          }
-        }
+      span.select-label {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
 
-    .options-container {
-      overflow: auto;
-      max-height: 50vh;
-
-      &::-webkit-scrollbar {
-        width: 0.25rem;
-      }
-
-      &::-webkit-scrollbar-thumb {
-        background-color: $grey;
+    &.show {
+      .dropdown-toggle {
+        border-color: $blue;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
       }
     }
   }
 
-  &.side-facet {
+  .dropdown-menu {
     width: 100%;
-    margin-bottom: 1.25rem;
+    font-size: $font-size-small;
+    max-height: 15rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-top: 0;
+    border-radius: 0 0 0.375rem 0.375rem;
+    box-shadow: $boxshadow-large;
+    border: 0;
 
-    &:last-child {
-      margin-bottom: 1.25rem;
+    .b-dropdown-form {
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
     }
 
-    .btn {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: $font-size-small;
+    .form-group {
+      margin-bottom: 0.3rem;
+
+      > div {
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid $blue;
+
+        input[type='text'] {
+          background: none;
+          border-radius: 0;
+          font-size: $font-size-small;
+          padding-right: 0.5rem;
+          padding-left: 0;
+          color: $mediumgrey;
+          height: 2rem;
+        }
+      }
     }
 
-    .btn-light {
-      border: 1px solid $middlegrey;
+    .dropdown-item {
+      padding: 1rem 0.75rem;
+      color: $black;
+      line-height: 1rem;
+
+      &:hover {
+        background-color: $lightblue-light;
+        color: $innovationblue-dark;
+      }
+
+      span {
+        white-space: normal;
+      }
+
+      .colour-palette {
+        border: 1px solid $whitegrey;
+        border-radius: 50%;
+        height: 1rem;
+        width: 1rem;
+        display: inline-block;
+        vertical-align: top;
+      }
     }
 
-    .dropdown-toggle-text {
-      opacity: 0;
-      min-width: 0;
-      overflow: hidden;
-    }
-
-    .dropdown-toggle {
-      min-height: 1.5rem;
-    }
-
-    .dropdown-menu {
-      min-width: auto;
+    .b-dropdown-text {
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
     }
   }
 }

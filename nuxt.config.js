@@ -257,7 +257,6 @@ export default {
   */
   plugins: [
     '~/plugins/vue-matomo.client',
-    '~/plugins/vue',
     '~/plugins/i18n/iso-locale',
     '~/plugins/hotjar.client',
     '~/plugins/link',
@@ -266,6 +265,7 @@ export default {
     '~/plugins/vue-directives',
     '~/plugins/vue-announcer.client',
     '~/plugins/vue-masonry.client',
+    '~/plugins/vue-scrollto',
     '~/plugins/ab-testing',
     '~/plugins/features'
   ],

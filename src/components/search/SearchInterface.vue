@@ -16,40 +16,18 @@
     </b-row>
   </b-container>
   <b-container v-else>
-    <b-row
-      v-if="hasAnyResults"
-      class="mb-3 "
-      :class="{ 'd-flex align-items-center': contextLabel }"
+    <div
+      class="mb-3 d-flex align-items-start align-items-md-center justify-content-between"
     >
-      <b-col>
-        <div
-          v-if="contextLabel || contextLabel === ''"
-          class="context-label"
-          data-qa="context label"
-        >
-          {{ contextLabel }}
-        </div>
-        <template v-else>
-          <p
-            data-qa="total results"
-          >
-            {{ $t('results') }}: {{ totalResults | localise }}
-          </p>
-          <div
-            class="visually-hidden"
-            role="status"
-          >
-            {{ $t('searchHasLoaded', [totalResults | localise]) }}
-          </div>
-        </template>
-      </b-col>
-      <b-col>
-        <ViewToggles
-          v-model="view"
-          :link-gen-route="route"
-        />
-      </b-col>
-    </b-row>
+      <SearchResultsContext
+        :label-override="editorialEntityLabel"
+      />
+      <ViewToggles
+        v-model="view"
+        :link-gen-route="route"
+        class="flex-nowrap mt-1 mt-md-0"
+      />
+    </div>
     <b-row
       class="mb-3"
     >
@@ -132,12 +110,13 @@
     name: 'SearchInterface',
 
     components: {
-      AlertMessage: () => import('../../components/generic/AlertMessage'),
+      AlertMessage: () => import('../generic/AlertMessage'),
       ClientOnly,
+      SearchResultsContext: () => import('./SearchResultsContext'),
       InfoMessage,
       ItemPreviewCardGroup,
-      LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
-      PaginationNav: () => import('../../components/generic/PaginationNav'),
+      LoadingSpinner: () => import('../generic/LoadingSpinner'),
+      PaginationNav: () => import('../generic/PaginationNav'),
       ViewToggles
     },
     mixins: [
@@ -166,7 +145,7 @@
         type: Boolean,
         default: true
       },
-      contextLabel: {
+      editorialEntityLabel: {
         type: String,
         default: null
       }
@@ -195,8 +174,6 @@
     computed: {
       ...mapState({
         userParams: state => state.search.userParams,
-        entityId: state => state.entity.id,
-        error: state => state.search.error,
         hits: state => state.search.hits,
         lastAvailablePage: state => state.search.lastAvailablePage,
         results: state => state.search.results,
@@ -280,19 +257,3 @@
     }
   };
 </script>
-
-<style lang="scss" scoped>
-  @import '@/assets/scss/variables';
-
-  .reset {
-    background: none;
-    border: none;
-    color: $black;
-    font-size: $font-size-small;
-    text-transform: uppercase;
-  }
-
-  .context-label {
-    font-size: $font-size-small;
-  }
-</style>

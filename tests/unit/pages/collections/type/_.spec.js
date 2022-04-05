@@ -114,7 +114,8 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
   mocks: {
     $fetchState: {},
     $t: key => key,
-    $tFacetName: key => key,
+    $tc: (key) => key,
+    $te: () => true,
     $route: { query: '', params: { type: options.type, pathMatch: options.pathMatch } },
     $contentful: {
       query: sinon.stub().resolves(contentfulPageResponse)

@@ -198,6 +198,7 @@
     'europeanaCollectionName',
     'timestampCreated',
     'timestampUpdate',
-    'keywords'
+    'keywords',
+    'dctermsTOC'
   ]);
 </script>
