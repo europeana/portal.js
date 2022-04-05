@@ -112,7 +112,8 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
       },
       dispatch: sinon.spy(),
       commit: sinon.spy()
-    }
+    },
+    ...options.mocks
   }
 });
 
@@ -291,73 +292,92 @@ describe('pages/collections/type/_', () => {
     });
   });
 
-  describe('contextLabel', () => {
-    it('returns the label for an organisation', () => {
-      const wrapper = factory(organisationEntity);
+  describe('computed', () => {
+    describe('contextLabel', () => {
+      it('returns the label for an organisation', () => {
+        const wrapper = factory(organisationEntity);
 
-      const contextLabel = wrapper.vm.contextLabel;
-      expect(contextLabel).toBe('cardLabels.organisation');
+        const contextLabel = wrapper.vm.contextLabel;
+        expect(contextLabel).toBe('cardLabels.organisation');
+      });
+      it('returns the label for a theme', () => {
+        const wrapper = factory(themeEntity);
+
+        const contextLabel = wrapper.vm.contextLabel;
+        expect(contextLabel).toBe('cardLabels.theme');
+      });
     });
-    it('returns the label for a theme', () => {
-      const wrapper = factory(themeEntity);
 
-      const contextLabel = wrapper.vm.contextLabel;
-      expect(contextLabel).toBe('cardLabels.theme');
+    describe('collectionType', () => {
+      it('returns the collection type', () => {
+        const wrapper = factory(organisationEntity);
+
+        const collectionType = wrapper.vm.collectionType;
+        expect(collectionType).toBe('organisation');
+      });
     });
-  });
 
-  describe('collectionType', () => {
-    it('returns the collection type', () => {
-      const wrapper = factory(organisationEntity);
+    describe('logo', () => {
+      it('returns a logo on organisation pages', () => {
+        const wrapper = factory(organisationEntity);
 
-      const collectionType = wrapper.vm.collectionType;
-      expect(collectionType).toBe('organisation');
+        const logo = wrapper.vm.logo;
+        expect(logo).toBe(organisationEntity.entity.logo.id);
+      });
     });
-  });
 
-  describe('logo', () => {
-    it('returns a logo on organisation pages', () => {
-      const wrapper = factory(organisationEntity);
+    describe('description', () => {
+      it('returns a description for an organisation when provided', () => {
+        const wrapper = factory(organisationEntity);
 
-      const logo = wrapper.vm.logo;
-      expect(logo).toBe(organisationEntity.entity.logo.id);
+        const description = wrapper.vm.description.values[0];
+        expect(description).toBe(organisationEntity.entity.description.en);
+      });
     });
-  });
+    describe('homepage', () => {
+      it('returns a homepage on organisation pages', () => {
+        const wrapper = factory(organisationEntity);
 
-  describe('description', () => {
-    it('returns a description for an organisation when provided', () => {
-      const wrapper = factory(organisationEntity);
-
-      const description = wrapper.vm.description.values[0];
-      expect(description).toBe(organisationEntity.entity.description.en);
+        const homepage = wrapper.vm.homepage;
+        expect(homepage).toBe(organisationEntity.entity.homepage);
+      });
     });
-  });
-  describe('homepage', () => {
-    it('returns a homepage on organisation pages', () => {
-      const wrapper = factory(organisationEntity);
+    describe('thumbnail', () => {
+      it('returns a thumbnail when available', () => {
+        const wrapper = factory(topicEntity);
 
-      const homepage = wrapper.vm.homepage;
-      expect(homepage).toBe(organisationEntity.entity.homepage);
+        const thumbnail = wrapper.vm.thumbnail;
+        expect(thumbnail).toBe(topicEntity.entity.isShownBy.thumbnail);
+      });
     });
-  });
-  describe('thumbnail', () => {
-    it('returns a thumbnail when available', () => {
-      const wrapper = factory(topicEntity);
+    describe('moreInfo', () => {
+      it('returns an object with more entity data on organisation pages', () => {
+        const wrapper = factory(organisationEntity);
 
-      const thumbnail = wrapper.vm.thumbnail;
-      expect(thumbnail).toBe(topicEntity.entity.isShownBy.thumbnail);
+        const moreInfo = wrapper.vm.moreInfo;
+        expect(moreInfo[0].value).toBe(organisationEntity.entity.homepage);
+        expect(moreInfo[1].value).toBe(organisationEntity.entity.hasAddress.countryName);
+        expect(moreInfo[2].value).toBe(organisationEntity.entity.acronym.en);
+        expect(moreInfo[3].value).toBe(organisationEntity.entity.hasAddress.locality);
+      });
     });
-  });
-  describe('moreInfo', () => {
-    it('returns an object with more entity data on organisation pages', () => {
-      const wrapper = factory(organisationEntity);
 
-      const moreInfo = wrapper.vm.moreInfo;
-      expect(moreInfo[0].value).toBe(organisationEntity.entity.homepage);
-      expect(moreInfo[1].value).toBe(organisationEntity.entity.hasAddress.countryName);
-      expect(moreInfo[2].value).toBe(organisationEntity.entity.acronym.en);
-      expect(moreInfo[3].value).toBe(organisationEntity.entity.hasAddress.locality);
-    });
+    describe('pageTitle', () => {
+      describe('when fetchState has error', () => {
+        it('uses translation of "Error"', () => {
+          const wrapper = factory({ ...topicEntity, mocks: { $fetchState: { error: true } } });
+          expect(wrapper.vm.pageTitle).toBe('error');
+        });
+      });
+
+      describe('when fetchState has no error', () => {
+        it('uses entity title', () => {
+          const wrapper = factory(topicEntity);
+          wrapper.vm.$fetchState.error = false;
+          expect(wrapper.vm.pageTitle).toBe('Topic');
+        });
+      })
+    })
   });
 
   describe('methods', () => {
@@ -374,7 +394,7 @@ describe('pages/collections/type/_', () => {
       };
 
       describe('when entity has a named collection page', () => {
-        const data = { page: { name: 'Geography' } };
+        const data = { page: { name: 'Geography', hasPartCollection: { items: [] } } };
 
         describe('and URL slug already uses the name', () => {
           const pathMatch = '01234567890-geography';
