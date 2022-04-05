@@ -181,29 +181,17 @@ describe('pages/collections/type/_', () => {
         disabled: { entityManagement: false }
       };
       const auth = {
-        authorized: { user: { resource_access: { entities: { roles: ['editor'] } } } },
-        unauthorized: { user: { resource_access: { entities: { roles: [] } } } }
+        authorized: { user: { 'resource_access': { entities: { roles: ['editor'] } } } },
+        unauthorized: { user: { 'resource_access': { entities: { roles: [] } } } }
       };
-      const tests = {
-        doesRequest: ($features, $auth) => async() => {
-          const wrapper = factory(topicEntity);
-          wrapper.vm.$features = $features;
-          wrapper.vm.$auth = $auth;
+      const requestMade = async($features, $auth) => {
+        const wrapper = factory(topicEntity);
+        wrapper.vm.$features = $features;
+        wrapper.vm.$auth = $auth;
 
-          await wrapper.vm.fetch();
+        await wrapper.vm.fetch();
 
-          expect(wrapper.vm.$apis.entityManagement.get.calledWith('topic', '01234567890-topic')).toBe(true);
-        },
-
-        doesNotRequest: ($features, $auth) => async() => {
-          const wrapper = factory(topicEntity);
-          wrapper.vm.$features = $features;
-          wrapper.vm.$auth = $auth;
-
-          await wrapper.vm.fetch();
-
-          expect(wrapper.vm.$apis.entityManagement.get.called).toBe(false);
-        }
+        return wrapper.vm.$apis.entityManagement.get.calledWith('topic', '01234567890-topic');
       };
 
       describe('when feature is enabled', () => {
@@ -211,12 +199,16 @@ describe('pages/collections/type/_', () => {
 
         describe('and user is authenticated with "entities" roles including "editor"', () => {
           const $auth = auth.authorized;
-          it('requests entity management data', tests.doesRequest($features, $auth));
+          it('requests entity management data', async() => {
+            expect(await requestMade($features, $auth)).toBe(true);
+          });
         });
 
         describe('but user is not authenticated with "entities" roles including "editor"', () => {
           const $auth = auth.unauthorized;
-          it('does not request entity management data', tests.doesNotRequest($features, $auth));
+          it('does not request entity management data', async() => {
+            expect(await requestMade($features, $auth)).toBe(false);
+          });
         });
       });
 
@@ -225,12 +217,16 @@ describe('pages/collections/type/_', () => {
 
         describe('and user is authenticated with "entities" roles including "editor"', () => {
           const $auth = auth.authorized;
-          it('does not request entity management data', tests.doesNotRequest($features, $auth));
+          it('does not request entity management data', async() => {
+            expect(await requestMade($features, $auth)).toBe(false);
+          });
         });
 
         describe('but user is not authenticated with "entities" roles including "editor"', () => {
           const $auth = auth.unauthorized;
-          it('does not request entity management data', tests.doesNotRequest($features, $auth));
+          it('does not request entity management data', async() => {
+            expect(await requestMade($features, $auth)).toBe(false);
+          });
         });
       });
     });
