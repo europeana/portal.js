@@ -488,6 +488,29 @@ export default {
       },
       "select": "Select whether you can use this"
     },
+    "RIGHTS": {
+      "name": "Rights statement",
+      "select": "Select rights statements",
+      "options": {
+        "*/CNE/*": "Copyright Not Evaluated",
+        "*/InC-EDU/*": "In Copyright - Educational Use Permitted",
+        "*/InC-OW-EU/*": "In Copyright - OW-EU",
+        "*/InC/*": "In Copyright",
+        "*/NoC-NC/*": "No Copyright - Non-Commercial Use Only",
+        "*/NoC-OKLR/*": "No Copyright - Other Known Legal Restrictions",
+        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
+        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
+        "*/licenses/by-nc/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-ND",
+        "*/licenses/by-sa/*": "CC BY-SA",
+        "*/licenses/by/*": "CC BY",
+        "*/publicdomain/mark/*": "Public Domain Mark",
+        "*/publicdomain/zero/*": "CC0",
+        "*/rights/out-of-copyright-non-commercial/*": "Out of copyright - non commercial re-use",
+        "*/rights/rr-f/*": "Rights Reserved - Free access",
+        "*/rights/unknown/*": "Unknown copyright status"
+      }
+    },
     "TYPE": {
       "name": "Type of media",
       "options": {
