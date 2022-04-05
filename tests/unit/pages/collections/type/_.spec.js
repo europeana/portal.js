@@ -364,27 +364,27 @@ describe('pages/collections/type/_', () => {
     describe('redirectToPrefPath', () => {
       const redirectIssued = async({ data, entity, pathMatch }) => {
         const wrapper = factory(topicEntity);
-        wrapper.setData(data);
+        await wrapper.setData(data || {});
         entity && (wrapper.vm.$store.state.entity.entity = entity);
         wrapper.vm.$route.params.pathMatch = pathMatch;
 
-        await wrapper.vm.fetch();
+        await wrapper.vm.redirectToPrefPath();
 
         return wrapper.vm.$nuxt.context.redirect.calledWith(302, '/');
       }
 
       describe('when entity has a named collection page', () => {
-        const data = { page: { name: 'Topic' } };
+        const data = { page: { name: 'Geography' } };
 
         describe('and URL slug already uses the name', () => {
-          const pathMatch = '01234567890-topic';
+          const pathMatch = '01234567890-geography';
           it('does not redirect', async() => {
             expect(await redirectIssued({ data, pathMatch })).toBe(false);
           });
         });
 
         describe('and URL slug does not use the name', () => {
-          const pathMatch = '01234567890-top';
+          const pathMatch = '01234567890-geo';
           it('redirects', async() => {
             expect(await redirectIssued({ data, pathMatch })).toBe(true);
           });
@@ -392,20 +392,19 @@ describe('pages/collections/type/_', () => {
       });
 
       describe('when entity has no named collection page, but an English prefLabel', () => {
-        const data = { page: { name: null } };
-        const entity = topicEntity.entity;
+        const entity = { ...topicEntity.entity, prefLabel: { en: 'Geography' } };
 
         describe('and URL slug already uses the name', () => {
-          const pathMatch = '01234567890-topic';
+          const pathMatch = '01234567890-geography';
           it('does not redirect', async() => {
-            expect(await redirectIssued({ data, pathMatch, entity })).toBe(false);
+            expect(await redirectIssued({ pathMatch, entity })).toBe(false);
           });
         });
 
         describe('and URL slug does not use the name', () => {
-          const pathMatch = '01234567890-top';
+          const pathMatch = '01234567890-geo';
           it('redirects', async() => {
-            expect(await redirectIssued({ data, pathMatch, entity })).toBe(true);
+            expect(await redirectIssued({ pathMatch, entity })).toBe(true);
           });
         });
       });
