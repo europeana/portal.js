@@ -29,7 +29,8 @@ const factory = (propsData = {}) => mount(DeleteSetModal, {
   mocks: {
     $store: {
       dispatch: storeDispatch
-    }
+    },
+    $route: null
   }
 });
 

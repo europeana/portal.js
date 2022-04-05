@@ -70,7 +70,7 @@ describe('components/item/ItemPreviewCardGroup', () => {
 
       expect(renderedResults.at(0).find('a').attributes().href.endsWith(`/item${results[0].id}`)).toBe(true);
       expect(renderedResults.at(1).find('a').attributes().href.endsWith(`/item${results[1].id}`)).toBe(true);
-      expect(redrawMasonry.calledWith('searchResultsGrid')).toBe(true);
+      expect(redrawMasonry.called).toBe(true);
     });
   });
 
@@ -84,7 +84,7 @@ describe('components/item/ItemPreviewCardGroup', () => {
 
       expect(renderedResults.at(0).find('a').attributes().href.endsWith(`/item${results[0].id}`)).toBe(true);
       expect(renderedResults.at(1).find('a').attributes().href.endsWith(`/item${results[1].id}`)).toBe(true);
-      expect(redrawMasonry.calledWith('searchResultsGrid')).toBe(true);
+      expect(redrawMasonry.called).toBe(true);
     });
   });
 
