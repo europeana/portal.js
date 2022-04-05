@@ -489,7 +489,7 @@ export default {
       "select": "Selecione se pode usar isto"
     },
     "TYPE": {
-      "name": "Tipo de média",
+      "name": "Tipo de media",
       "options": {
         "3D": "3D",
         "IMAGE": "Imagem",
