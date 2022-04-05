@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mitt konto",
     "linkLogin": "Logga in",
-    "linkLoginJoin": "Logga in/Gå med",
+    "linkLoginJoin": "Logga in\/Gå med",
     "linkLogout": "Logga ut",
     "myProfile": "Min profil",
     "notifications": {
@@ -89,16 +89,24 @@ export default {
     "fashion": {
       "facets": {
         "CREATOR": {
-          "name": "Designer | Designers"
+          "moreName": "designers",
+          "name": "Designer | Designers",
+          "select": "Välj designers"
         },
         "proxy_dc_format": {
-          "name": "Teknik | Tekniker"
+          "moreName": "tekniker",
+          "name": "Teknik | Tekniker",
+          "select": "Välj tekniker"
         },
         "proxy_dc_type": {
-          "name": "Objektstyp | Objektstyper"
+          "moreName": "objekt typer",
+          "name": "Objektstyp | Objektstyper",
+          "select": "Välj objekt typer"
         },
         "proxy_dcterms_medium": {
-          "name": "Material | Material"
+          "moreName": "material",
+          "name": "Material | Material",
+          "select": "Välj material"
         }
       }
     },
@@ -183,6 +191,7 @@ export default {
   },
   "facets": {
     "COLOURPALETTE": {
+      "moreName": "färger",
       "name": "Färg | Färger",
       "options": {
         "#000000": "Black",
@@ -329,7 +338,8 @@ export default {
         "#FFFFE0": "Ljusgul",
         "#FFFFF0": "Elfenben",
         "#FFFFFF": "Vit"
-      }
+      },
+      "select": "Välj färger"
     },
     "COUNTRY": {
       "name": "Tillhandahållande land",
@@ -380,20 +390,26 @@ export default {
         "Ukraine": "Ukraina",
         "United Kingdom": "Storbritannien",
         "United States of America": "Amerikas förenta stater"
-      }
+      },
+      "select": "Välj tillhandahållande länder"
     },
     "CREATOR": {
-      "name": "Skapare | Skapare"
+      "moreName": "skapare",
+      "name": "Skapare | Skapare",
+      "select": "Välj skapare"
     },
     "DATA_PROVIDER": {
-      "name": "Institution"
+      "moreName": "institutioner",
+      "name": "Institution",
+      "select": "Välj institutioner"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Bildorientering | Bildorienteringar",
       "options": {
         "landscape": "Landskap",
         "portrait": "Porträtt"
-      }
+      },
+      "select": "Välj bildorienteringar"
     },
     "IMAGE_SIZE": {
       "name": "Bildstorlek | Bildstorlekar",
@@ -402,7 +418,8 @@ export default {
         "large": "Stor 1-4MP (t.ex. 1920x1080px)",
         "medium": "Medium 0,5-1MP (t.ex. 850x850px)",
         "small": "Liten < 0,5MP (t.ex. 650x600 px)"
-      }
+      },
+      "select": "Välj bildstorlekar"
     },
     "LANGUAGE": {
       "name": "Språk",
@@ -446,16 +463,20 @@ export default {
         "sv": "Svenska",
         "tr": "Turkiska",
         "uk": "Ukrainska"
-      }
+      },
+      "select": "Välj språk"
     },
     "MIME_TYPE": {
       "name": "Filformat | Filformat",
       "options": {
-        "text/plain": "Oformaterad text"
-      }
+        "text\/plain": "Oformaterad text"
+      },
+      "select": "Välj filformat"
     },
     "PROVIDER": {
-      "name": "Sammanställare"
+      "moreName": "aggregatorer",
+      "name": "Sammanställare",
+      "select": "Välj aggregatorer"
     },
     "REUSABILITY": {
       "name": "Kan jag återanvända det här?",
@@ -464,7 +485,8 @@ export default {
         "permission": "Kanske, sök tillstånd",
         "restricted": "Ja, med villkor",
         "uncategorized": "Okategoriserad"
-      }
+      },
+      "select": "Välj om du kan använda detta"
     },
     "TYPE": {
       "name": "Typ av media",
@@ -474,7 +496,8 @@ export default {
         "SOUND": "Ljud",
         "TEXT": "Text",
         "VIDEO": "Video"
-      }
+      },
+      "select": "Välj typer av media"
     },
     "api": {
       "name": "Sök efter",
@@ -509,7 +532,8 @@ export default {
         "photography": "Fotografi",
         "sport": "Sport",
         "ww1": "1914–1918"
-      }
+      },
+      "select": "Välj ett tema"
     },
     "contentTier": {
       "name": "Objektets kvalitet",
@@ -520,20 +544,24 @@ export default {
         "2": "Medium kvalité",
         "3": "Hög kvalitet & återanvändbar med villkor",
         "4": "Hög kvalitet och fritt återanvändbar"
-      }
+      },
+      "select": "Välj objektkvaliteter"
     },
     "moreOptions": "Sök för att hitta {0} mer {1}.",
     "proxy_dc_format": {
-      "name": "Format | Format"
+      "name": "Format | Format",
+      "select": "Välj format"
     },
     "proxy_dc_type": {
-      "name": "Typ | Typer"
+      "name": "Typ | Typer",
+      "select": "Välj typer"
     },
     "proxy_dcterms_issued": {
       "name": "Datum för utfärdande"
     },
     "proxy_dcterms_medium": {
-      "name": "Medium | Media"
+      "name": "Medium | Media",
+      "select": "Välj media"
     }
   },
   "feedback": {
@@ -716,7 +744,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Hjälper till att förbättra vår webbplats genom att ibland tillämpa experimentella förändringar.",
-        "title": "A/B -testning"
+        "title": "A\/B -testning"
       },
       "auth-strategy": {
         "description": "Kommer ihåg den auktoriserings strategi som ska användas för att logga in.",
@@ -748,7 +776,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Kommer ihåg om du föredrar att se sökresultaten i en lista eller rutnät.",
-        "title": "Visa sökresultat (lista/rutnät)"
+        "title": "Visa sökresultat (lista\/rutnät)"
       }
     }
   },

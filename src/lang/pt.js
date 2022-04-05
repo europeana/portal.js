@@ -6,7 +6,7 @@ export default {
     "likes": "Gostos",
     "linkAccount": "A minha conta",
     "linkLogin": "Inicie sessão",
-    "linkLoginJoin": "Entrar/Criar conta",
+    "linkLoginJoin": "Entrar\/Criar conta",
     "linkLogout": "Encerrar sessão",
     "myProfile": "Meu perfil",
     "notifications": {
@@ -89,16 +89,24 @@ export default {
     "fashion": {
       "facets": {
         "CREATOR": {
-          "name": "Designer | Designers"
+          "moreName": "designers",
+          "name": "Designer | Designers",
+          "select": "Selecionar designers"
         },
         "proxy_dc_format": {
-          "name": "Técnica | Técnicas"
+          "moreName": "técnicas",
+          "name": "Técnica | Técnicas",
+          "select": "Selecionar técnicas"
         },
         "proxy_dc_type": {
-          "name": "Tipo de item | Tipos de itens"
+          "moreName": "tipos de itens",
+          "name": "Tipo de item | Tipos de itens",
+          "select": "Selecionar tipos de itens"
         },
         "proxy_dcterms_medium": {
-          "name": "Material | Materiais"
+          "moreName": "materiais",
+          "name": "Material | Materiais",
+          "select": "Selecionar materiais"
         }
       }
     },
@@ -183,6 +191,7 @@ export default {
   },
   "facets": {
     "COLOURPALETTE": {
+      "moreName": "cores",
       "name": "Cor | Cores",
       "options": {
         "#000000": "Preto",
@@ -329,7 +338,8 @@ export default {
         "#FFFFE0": "Luz amarela",
         "#FFFFF0": "Marfim",
         "#FFFFFF": "Branco"
-      }
+      },
+      "select": "Selecionar cores"
     },
     "COUNTRY": {
       "name": "País fornecedor",
@@ -380,20 +390,26 @@ export default {
         "Ukraine": "Ucrânia",
         "United Kingdom": "Reino Unido",
         "United States of America": "Estados Unidos da América"
-      }
+      },
+      "select": "Selecione os países fornecedores"
     },
     "CREATOR": {
-      "name": "Criador | Criadores"
+      "moreName": "criadores",
+      "name": "Criador | Criadores",
+      "select": "Selecionar criadores"
     },
     "DATA_PROVIDER": {
-      "name": "Instituição | Instituições"
+      "moreName": "instituições",
+      "name": "Instituição | Instituições",
+      "select": "Selecionar instituições"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Orientação da imagem | Orientações da imagem",
       "options": {
         "landscape": "Panorama",
         "portrait": "Retrato"
-      }
+      },
+      "select": "Selecionar orientações de imagem"
     },
     "IMAGE_SIZE": {
       "name": "Tamanho da imagem | Tamanhos de imagem",
@@ -402,7 +418,8 @@ export default {
         "large": "1-4MP grande (por exemplo, 1920x1080px)",
         "medium": "Médio 0,5-1MP (por exemplo, 850x850px)",
         "small": "Pequeno < 0.5MP (por exemplo, 650x600px)"
-      }
+      },
+      "select": "Selecionar tamanhos de imagem"
     },
     "LANGUAGE": {
       "name": "Língua | Línguas",
@@ -446,16 +463,20 @@ export default {
         "sv": "Sueco",
         "tr": "Turco",
         "uk": "Ucraniano"
-      }
+      },
+      "select": "Selecionar idiomas"
     },
     "MIME_TYPE": {
       "name": "Formato de ficheiro | Formatos de ficheiros",
       "options": {
-        "text/plain": "Texto simples"
-      }
+        "text\/plain": "Texto simples"
+      },
+      "select": "Selecione os formatos de arquivo"
     },
     "PROVIDER": {
-      "name": "Agregador | Agregadores"
+      "moreName": "agregadores",
+      "name": "Agregador | Agregadores",
+      "select": "Selecionar agregadores"
     },
     "REUSABILITY": {
       "name": "Posso usar isto?",
@@ -464,7 +485,8 @@ export default {
         "permission": "Talvez, peça permissão",
         "restricted": "Sim, com condições",
         "uncategorized": "Sem categoria"
-      }
+      },
+      "select": "Selecione se pode usar este"
     },
     "TYPE": {
       "name": "Tipo de média",
@@ -474,7 +496,8 @@ export default {
         "SOUND": "Som",
         "TEXT": "Texto",
         "VIDEO": "Vídeo"
-      }
+      },
+      "select": "Selecione os tipos de mídia"
     },
     "api": {
       "name": "Procurar por",
@@ -509,7 +532,8 @@ export default {
         "photography": "Fotografia",
         "sport": "Desporto",
         "ww1": "1914-1918"
-      }
+      },
+      "select": "Selecione um tema"
     },
     "contentTier": {
       "name": "Qualidade do item",
@@ -520,20 +544,24 @@ export default {
         "2": "Qualidade média",
         "3": "Alta qualidade & reutilizável com condições",
         "4": "Alta qualidade & livremente reutilizável"
-      }
+      },
+      "select": "Selecione as qualidades do item"
     },
     "moreOptions": "Pesquise para encontrar {0} mais {1}.",
     "proxy_dc_format": {
-      "name": "Formato | Formatos"
+      "name": "Formato | Formatos",
+      "select": "Selecionar formatos"
     },
     "proxy_dc_type": {
-      "name": "Tipo | Tipos"
+      "name": "Tipo | Tipos",
+      "select": "Selecionar tipos"
     },
     "proxy_dcterms_issued": {
       "name": "Data de emissão"
     },
     "proxy_dcterms_medium": {
-      "name": "Médio | Meios de comunicação"
+      "name": "Médio | Meios de comunicação",
+      "select": "Selecionar mídia"
     }
   },
   "feedback": {
@@ -716,7 +744,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Ajuda a melhorar o nosso site, aplicando ocasionalmente alterações experimentais.",
-        "title": "Teste A/B"
+        "title": "Teste A\/B"
       },
       "auth-strategy": {
         "description": "Lembra a estratégia de autorização a ser usada para fazer login.",
@@ -748,7 +776,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Lembra-se se preferir ver os resultados da pesquisa numa lista ou numa visualização em grelha.",
-        "title": "Visualização de resultado de pesquisa (lista/grade)"
+        "title": "Visualização de resultado de pesquisa (lista\/grade)"
       }
     }
   },
