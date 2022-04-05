@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mein Konto",
     "linkLogin": "Anmelden",
-    "linkLoginJoin": "Anmelden/Beitreten",
+    "linkLoginJoin": "Anmelden\/Beitreten",
     "linkLogout": "Abmelden",
     "myProfile": "Mein Profil",
     "notifications": {
@@ -89,16 +89,24 @@ export default {
     "fashion": {
       "facets": {
         "CREATOR": {
-          "name": "Designer | Designer"
+          "moreName": "Designer",
+          "name": "Designer | Designer",
+          "select": "Designer auswählen"
         },
         "proxy_dc_format": {
-          "name": "Technik | Techniken"
+          "moreName": "Techniken",
+          "name": "Technik | Techniken",
+          "select": "Techniken auswählen"
         },
         "proxy_dc_type": {
-          "name": "Objekttyp | Objekttypen"
+          "moreName": "Objekttypen",
+          "name": "Objekttyp | Objekttypen",
+          "select": "Objekttypen auswählen"
         },
         "proxy_dcterms_medium": {
-          "name": "Material | Materialien"
+          "moreName": "Materialien",
+          "name": "Material | Materialien",
+          "select": "Materialien auswählen"
         }
       }
     },
@@ -183,6 +191,7 @@ export default {
   },
   "facets": {
     "COLOURPALETTE": {
+      "moreName": "Farben",
       "name": "Farbe | Farben",
       "options": {
         "#000000": "Schwarz",
@@ -329,7 +338,8 @@ export default {
         "#FFFFE0": "Hellgelb",
         "#FFFFF0": "Elfenbein",
         "#FFFFFF": "Weiß"
-      }
+      },
+      "select": "Farben auswählen"
     },
     "COUNTRY": {
       "name": "Bereitstellendes Land",
@@ -380,20 +390,26 @@ export default {
         "Ukraine": "Ukraine",
         "United Kingdom": "Vereinigtes Königreich",
         "United States of America": "Vereinigte Staaten von Amerika"
-      }
+      },
+      "select": "Bereitstellende Länder auswählen"
     },
     "CREATOR": {
-      "name": "Ersteller | Ersteller"
+      "moreName": "Ersteller",
+      "name": "Ersteller | Ersteller",
+      "select": "Ersteller auswählen"
     },
     "DATA_PROVIDER": {
-      "name": "Institution | Institutionen"
+      "moreName": "Institutionen",
+      "name": "Institution | Institutionen",
+      "select": "Institutionen auswählen"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Bildausrichtung | Bildausrichtungen",
       "options": {
         "landscape": "Querformat",
         "portrait": "Hochformat"
-      }
+      },
+      "select": "Bildausrichtungen auswählen"
     },
     "IMAGE_SIZE": {
       "name": "Bildgröße | Bildgrößen",
@@ -402,7 +418,8 @@ export default {
         "large": "Große 1-4MP (z. B. 1920x1080px)",
         "medium": "Mittel 0,5-1 MP (z. B. 850 x 850 Pixel)",
         "small": "Klein < 0,5 MP (z. B. 650 x 600 Pixel)"
-      }
+      },
+      "select": "Bildgrößen auswählen"
     },
     "LANGUAGE": {
       "name": "Sprache | Sprachen",
@@ -446,16 +463,20 @@ export default {
         "sv": "Schwedisch",
         "tr": "Türkisch",
         "uk": "Ukrainisch"
-      }
+      },
+      "select": "Sprachen auswählen"
     },
     "MIME_TYPE": {
       "name": "Dateiformat | Dateiformate",
       "options": {
-        "text/plain": "Klartext"
-      }
+        "text\/plain": "Klartext"
+      },
+      "select": "Dateiformate auswählen"
     },
     "PROVIDER": {
-      "name": "Aggregator | Aggregatoren"
+      "moreName": "Aggregatoren",
+      "name": "Aggregator | Aggregatoren",
+      "select": "Aggregatoren auswählen"
     },
     "REUSABILITY": {
       "name": "Kann ich es wiederverwenden?",
@@ -464,10 +485,8 @@ export default {
         "permission": "Vielleicht, bitten Sie um Erlaubnis",
         "restricted": "Ja, mit Bedingungen",
         "uncategorized": "Nicht kategorisiert"
-      }
-    },
-    "RIGHTS": {
-      "name": "Erklärung zu den Rechten"
+      },
+      "select": "Wählen Sie aus, ob Sie diese verwenden können"
     },
     "TYPE": {
       "name": "Art des Mediums",
@@ -477,7 +496,8 @@ export default {
         "SOUND": "Ton",
         "TEXT": "Text",
         "VIDEO": "Video"
-      }
+      },
+      "select": "Medientypen auswählen"
     },
     "api": {
       "name": "Suche nach",
@@ -512,7 +532,8 @@ export default {
         "photography": "Fotografie",
         "sport": "Sport",
         "ww1": "1914-1918"
-      }
+      },
+      "select": "Ein thema auswählen"
     },
     "contentTier": {
       "name": "Objektqualität",
@@ -523,19 +544,24 @@ export default {
         "2": "Mittlere Qualität",
         "3": "Hohe Qualität & wiederverwendbar mit Bedingungen",
         "4": "Hohe Qualität & frei wiederverwendbar"
-      }
+      },
+      "select": "Artikelqualitäten auswählen"
     },
+    "moreOptions": "Suchen, um {0} mehr {1} zu finden.",
     "proxy_dc_format": {
-      "name": "Format | Formate"
+      "name": "Format | Formate",
+      "select": "Formate auswählen"
     },
     "proxy_dc_type": {
-      "name": "Typ | Typen"
+      "name": "Typ | Typen",
+      "select": "Typen auswählen"
     },
     "proxy_dcterms_issued": {
       "name": "Ausstellungsdatum"
     },
     "proxy_dcterms_medium": {
-      "name": "Medium | Medien"
+      "name": "Medium | Medien",
+      "select": "Medien auswählen"
     }
   },
   "feedback": {
@@ -588,6 +614,7 @@ export default {
       "dctermsProvenance": "Herkunft",
       "dctermsReferences": "Verweisen auf",
       "dctermsSpatial": "Orte",
+      "dctermsTOC": "Inhaltsverzeichnis",
       "dctermsTemporal": "Zeitlich",
       "edmCountry": "Bereitstellendes Land",
       "edmCurrentLocation": "Aktueller Standort",
@@ -644,7 +671,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label}: {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -718,7 +744,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Hilft, unsere Website zu verbessern, indem gelegentlich experimentelle Änderungen vorgenommen werden.",
-        "title": "A/B-Tests"
+        "title": "A\/B-Tests"
       },
       "auth-strategy": {
         "description": "Erinnert an die Berechtigungsstrategie, die für die Anmeldung verwendet werden soll.",
@@ -750,7 +776,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Merkt sich, ob Sie die Suchergebnisse lieber in einer Listen- oder Rasteransicht anzeigen möchten.",
-        "title": "Suchergebnisansicht (Liste/Raster)"
+        "title": "Suchergebnisansicht (Liste\/Raster)"
       }
     }
   },
@@ -785,7 +811,7 @@ export default {
     "dismiss": "Schließen",
     "readMore": "Mehr anzeigen",
     "text": {
-      "sideFilters": "Schauen Sie sich die neuen Filter an! Sie sind jetzt alle auf der rechten Seite der Suchergebnisse sichtbar."
+      "searchFilters": "Unsere Suchfilter unterstützen jetzt die Suche; probieren Sie es aus! Außerdem haben wir unsere Ergebnis- und Sammlungsseiten neu gestaltet."
     }
   },
   "newWindow": "öffnet sich in einem neuen Fenster",
@@ -848,13 +874,14 @@ export default {
   "reset": "Zurücksetzen",
   "resourceWikimedia": "Ressource aus Wikimedia Commons",
   "results": "Ergebnisse",
+  "resultsFor": "Ergebnisse für {0}",
   "resultsLimitWarning": "Zusätzliche Ergebnisse werden nicht angezeigt, da nur die ersten 1000 relevantesten Ergebnisse angezeigt werden. Wenn Sie nicht gefunden haben, wonach Sie suchen, können Sie Ihre Suche verfeinern.",
+  "resultsWithin": "Ergebnisse innerhalb {0} {1} für {2}",
   "search": "Suchen",
   "searchHasLoaded": "{0} Ergebnisse zurückgegeben",
   "searchPlaceholder": "Durchsuche Millionen von Objekten",
   "searchResults": "Suche",
   "searchResultsFor": "{0} - Suche",
-  "searchResultsForIn": "{0} - Suchen Sie in {1}",
   "searchSuggestions": "Suchvorschläge",
   "searchTier": {
     "button": {
@@ -905,6 +932,10 @@ export default {
   },
   "showLess": "Weniger anzeigen",
   "showMore": "Mehr anzeigen",
+  "sideFilters": {
+    "noOptions": "Es sind keine Optionen zur Auswahl verfügbar",
+    "search": "Suche"
+  },
   "statuses": {
     "liked": "Gemocht",
     "pinned": "Angeheftet"

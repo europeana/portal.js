@@ -89,16 +89,24 @@ export default {
     "fashion": {
       "facets": {
         "CREATOR": {
-          "name": "Dearthóir | Dearthóirí"
+          "moreName": "dearthóirí",
+          "name": "Dearthóir | Dearthóirí",
+          "select": "Roghnaigh dearthóirí"
         },
         "proxy_dc_format": {
-          "name": "Teicníc | Teicnící"
+          "moreName": "teicnící",
+          "name": "Teicníc | Teicnící",
+          "select": "Roghnaigh teicnící"
         },
         "proxy_dc_type": {
-          "name": "Cineál míre | Cineálacha míreanna"
+          "moreName": "cineálacha míreanna",
+          "name": "Cineál míre | Cineálacha míreanna",
+          "select": "Roghnaigh cineálacha míreanna"
         },
         "proxy_dcterms_medium": {
-          "name": "Ábhar | Ábhair"
+          "moreName": "ábhair",
+          "name": "Ábhar | Ábhair",
+          "select": "Roghnaigh ábhair"
         }
       }
     },
@@ -183,6 +191,7 @@ export default {
   },
   "facets": {
     "COLOURPALETTE": {
+      "moreName": "dathanna",
       "name": "Dath | Dathanna",
       "options": {
         "#000000": "Dubh",
@@ -329,7 +338,8 @@ export default {
         "#FFFFE0": "Buí Éadrom",
         "#FFFFF0": "Eabhair",
         "#FFFFFF": "Bán"
-      }
+      },
+      "select": "Roghnaigh dathanna"
     },
     "COUNTRY": {
       "name": "Tír sholáthair",
@@ -380,20 +390,26 @@ export default {
         "Ukraine": "An Úcráin",
         "United Kingdom": "An Ríocht Aontaithe",
         "United States of America": "Stáit Aontaithe Mhéiriceá"
-      }
+      },
+      "select": "Roghnaigh tíortha soláthair"
     },
     "CREATOR": {
-      "name": "Cruthaitheoir | Cruthaitheoirí"
+      "moreName": "cruthaitheoirí",
+      "name": "Cruthaitheoir | Cruthaitheoirí",
+      "select": "Roghnaigh cruthaitheoirí"
     },
     "DATA_PROVIDER": {
-      "name": "Institiúid | Institiúidí"
+      "moreName": "institiúidí",
+      "name": "Institiúid | Institiúidí",
+      "select": "Roghnaigh institiúidí"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Treoshuíomh na híomhá | Treoshuímh na n-íomhánna",
       "options": {
         "landscape": "Tírdhreach",
         "portrait": "Portráid"
-      }
+      },
+      "select": "Roghnaigh treoshuíomhanna íomhá"
     },
     "IMAGE_SIZE": {
       "name": "Méid íomhá | Méideanna íomhá",
@@ -402,7 +418,8 @@ export default {
         "large": "Mór 1-4MP (m.sh. 1920x1080px)",
         "medium": "Meán 0.5-1MP (m.sh. 850x850px)",
         "small": "Beag <0.5MP (m.sh. 650x600px)"
-      }
+      },
+      "select": "Roghnaigh méideanna íomhá"
     },
     "LANGUAGE": {
       "name": "Teanga | Teangacha",
@@ -446,16 +463,20 @@ export default {
         "sv": "Sualainnis",
         "tr": "Tuircis",
         "uk": "Úcráinis"
-      }
+      },
+      "select": "Roghnaigh teangacha"
     },
     "MIME_TYPE": {
       "name": "Formáid chomhaid | Formáidí comhaid",
       "options": {
-        "text/plain": "Téacs simplí"
-      }
+        "text\/plain": "Téacs simplí"
+      },
+      "select": "Roghnaigh formáidí comhaid"
     },
     "PROVIDER": {
-      "name": "Comhbhailitheoir | Comhbhailitheoirí"
+      "moreName": "comhbhailitheoirí",
+      "name": "Comhbhailitheoir | Comhbhailitheoirí",
+      "select": "Roghnaigh comhbhailitheoirí"
     },
     "REUSABILITY": {
       "name": "An féidir liom é seo a úsáid?",
@@ -464,10 +485,8 @@ export default {
         "permission": "B’fhéidir, iarraidh ar chead a fháil",
         "restricted": "Is féidir, ach amháin faoi réir coinníollacha áirithe",
         "uncategorized": "Gan catagóir"
-      }
-    },
-    "RIGHTS": {
-      "name": "Ráiteas um chearta"
+      },
+      "select": "Roghnaigh cé acu an féidir leat é seo a úsáid"
     },
     "TYPE": {
       "name": "Cineál meán",
@@ -477,7 +496,8 @@ export default {
         "SOUND": "Fuaim",
         "TEXT": "Téacs",
         "VIDEO": "Físeán"
-      }
+      },
+      "select": "Roghnaigh cineálacha meán"
     },
     "api": {
       "name": "Cuardaigh",
@@ -512,7 +532,8 @@ export default {
         "photography": "Grianghrafadóireacht",
         "sport": "Spórt",
         "ww1": "1914-1918"
-      }
+      },
+      "select": "Roghnaigh téama"
     },
     "contentTier": {
       "name": "Cáilíocht na míre",
@@ -523,19 +544,24 @@ export default {
         "2": "Caighdeán meánach",
         "3": "Ardchaighdeán & in-athúsáidte le coinníollacha",
         "4": "Ardchaighdeán & in-athúsáidte go saor in aisce"
-      }
+      },
+      "select": "Roghnaigh cáilíochtaí mír"
     },
+    "moreOptions": "Cuardaigh chun {0} níos mó {1} a aimsiú.",
     "proxy_dc_format": {
-      "name": "Formáid | Formáidí"
+      "name": "Formáid | Formáidí",
+      "select": "Roghnaigh formáidí"
     },
     "proxy_dc_type": {
-      "name": "Cineál | Cineálacha"
+      "name": "Cineál | Cineálacha",
+      "select": "Roghnaigh cineálacha"
     },
     "proxy_dcterms_issued": {
       "name": "Dáta eisithe"
     },
     "proxy_dcterms_medium": {
-      "name": "Meán | Meáin"
+      "name": "Meán | Meáin",
+      "select": "Roghnaigh meáin"
     }
   },
   "feedback": {
@@ -588,6 +614,7 @@ export default {
       "dctermsProvenance": "Bunadh",
       "dctermsReferences": "Tagairtí",
       "dctermsSpatial": "Áiteanna",
+      "dctermsTOC": "Clár ábhair",
       "dctermsTemporal": "Ama",
       "edmCountry": "Tír sholáthair",
       "edmCurrentLocation": "Suíomh reatha",
@@ -601,7 +628,7 @@ export default {
       "edmIsSimilarTo": "Is cosúil leis",
       "edmIsSuccessorOf": "Is comharba é ar",
       "edmProvider": "Soláthraí",
-      "edmRealizes": "Tuigeann sé/sí",
+      "edmRealizes": "Tuigeann sé\/sí",
       "edmRights": "Ráiteas Ceadúnas do na meáin sa mhír seo (mura sonraítear a mhalairt)",
       "edmUgc": "Inneachar ginte le húsáideoirí",
       "europeanaCollectionName": "Ainm bailiúcháin",
@@ -644,7 +671,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label}: {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -718,7 +744,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Cuidíonn sé lenár suíomh Gréasáin a fheabhsú trí athruithe turgnamhacha a chur i bhfeidhm ó am go chéile.",
-        "title": "Tástáil A/B"
+        "title": "Tástáil A\/B"
       },
       "auth-strategy": {
         "description": "Is cuimhin leis an straitéis údaraithe a úsáid chun logáil isteach.",
@@ -750,7 +776,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Cuimhníonn sé más fearr leat na torthaí cuardaigh a fheiceáil i liosta nó in amharc greille.",
-        "title": "Amharc toraidh cuardaigh (liosta/greille)"
+        "title": "Amharc toraidh cuardaigh (liosta\/greille)"
       }
     }
   },
@@ -785,7 +811,7 @@ export default {
     "dismiss": "Dún",
     "readMore": "Léigh níos mó",
     "text": {
-      "sideFilters": "Amharc ar na scagairí nua! Tá siad go léir le feiceáil anois ar thaobh na láimhe deise de na torthaí cuardaigh."
+      "searchFilters": "Tacaíonn ár scagairí cuardaigh le cuardach anois; seiceáil amach é! Rinneamar ár gcuid torthaí agus leathanaigh bailiúcháin a athdhearadh freisin."
     }
   },
   "newWindow": "osclaítear i bhfuinneog nua é",
@@ -848,13 +874,14 @@ export default {
   "reset": "Athshocraigh",
   "resourceWikimedia": "Acmhainn ó Wikimedia Commons",
   "results": "Torthaí",
+  "resultsFor": "Torthaí le haghaidh {0}",
   "resultsLimitWarning": "Ní thaispeántar torthaí breise óir nach dtaispeántar ach amháin an chéad 1000 toradh is ábhartha. Murar aimsigh tú a raibh uait, déan machnamh do chuardach a leasú.",
+  "resultsWithin": "Torthaí laistigh de {0} {1} le haghaidh {2}",
   "search": "Cuardaigh",
   "searchHasLoaded": "{0} torthaí ar ais",
   "searchPlaceholder": "Cuardaigh na mílte míreanna",
   "searchResults": "Cuardaigh",
   "searchResultsFor": "{0} - Cuardaigh",
-  "searchResultsForIn": "{0} - Cuardaigh isteach {1}",
   "searchSuggestions": "Cuardaigh moltaí",
   "searchTier": {
     "button": {
@@ -905,6 +932,10 @@ export default {
   },
   "showLess": "Taispeáin níos lú",
   "showMore": "Taispeáin níos mó",
+  "sideFilters": {
+    "noOptions": "Níl aon roghanna ar fáil le roghnú",
+    "search": "Cuardaigh"
+  },
   "statuses": {
     "liked": "Thaitin sé",
     "pinned": "Pionnáilte"
@@ -912,4 +943,3 @@ export default {
   "website": "Suíomh Gréasáin",
   "youMightAlsoLike": "B'fhéidir gur mhaith leat freisin"
 };
-

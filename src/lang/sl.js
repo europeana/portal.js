@@ -6,7 +6,7 @@ export default {
     "likes": "Všečki",
     "linkAccount": "Moj račun",
     "linkLogin": "Vpis",
-    "linkLoginJoin": "Prijava/Pridruži se",
+    "linkLoginJoin": "Prijava\/Pridruži se",
     "linkLogout": "Izpis",
     "myProfile": "Moj profil",
     "notifications": {
@@ -451,7 +451,7 @@ export default {
     "MIME_TYPE": {
       "name": "Oblika zapisa datoteke | Oblike zapisov datotek",
       "options": {
-        "text/plain": "Golo besedilo"
+        "text\/plain": "Golo besedilo"
       }
     },
     "PROVIDER": {
@@ -465,9 +465,6 @@ export default {
         "restricted": "Da, s pogoji",
         "uncategorized": "Nekategorizirano"
       }
-    },
-    "RIGHTS": {
-      "name": "Izjava o pravicah"
     },
     "TYPE": {
       "name": "Vrsta medija",
@@ -525,17 +522,21 @@ export default {
         "4": "Visoka kakovost & prosto večkratno uporabo"
       }
     },
+    "moreOptions": "Poiščite {0} več {1}.",
     "proxy_dc_format": {
-      "name": "Format | Formati"
+      "name": "Format | Formati",
+      "select": "Izberite formate"
     },
     "proxy_dc_type": {
-      "name": "Vrsta | Vrste"
+      "name": "Vrsta | Vrste",
+      "select": "Izberite vrste"
     },
     "proxy_dcterms_issued": {
       "name": "Datum izdaje"
     },
     "proxy_dcterms_medium": {
-      "name": "Medij | Mediji"
+      "name": "Medij | Mediji",
+      "select": "Izberite medija"
     }
   },
   "feedback": {
@@ -588,6 +589,7 @@ export default {
       "dctermsProvenance": "Poreklo",
       "dctermsReferences": "Sklici",
       "dctermsSpatial": "Kraji",
+      "dctermsTOC": "Kazalo vsebine",
       "dctermsTemporal": "Časovno obdobje",
       "edmCountry": "Država izvora",
       "edmCurrentLocation": "Trenutna lokacija",
@@ -644,7 +646,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label}: {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -718,7 +719,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Pomaga izboljšati naše spletno mesto z občasno uporabo eksperimentalnih sprememb.",
-        "title": "A/B testiranje"
+        "title": "A\/B testiranje"
       },
       "auth-strategy": {
         "description": "Zapomni si strategijo avtorizacije, ki jo je treba uporabiti za prijavo.",
@@ -750,7 +751,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Zapomni si, če želite rezultate iskanja raje videti v pogledu seznama ali mreže.",
-        "title": "Pogled rezultatov iskanja (seznam / mreža)"
+        "title": "Pogled rezultatov iskanja (seznam \/ mreža)"
       }
     }
   },
@@ -785,7 +786,7 @@ export default {
     "dismiss": "Zapri",
     "readMore": "Preberi več",
     "text": {
-      "sideFilters": "Oglejte si nove filtre! Vsi so zdaj vidni na desni strani rezultatov iskanja."
+      "searchFilters": "Naši filtri za iskanje zdaj podpirajo iskanje; preverite to! Prenovili smo tudi strani z rezultati in zbirkami."
     }
   },
   "newWindow": "odpre se v novem oknu",
@@ -848,13 +849,14 @@ export default {
   "reset": "Ponastavi",
   "resourceWikimedia": "Vir iz Wikimedia Commons",
   "results": "Rezultati",
+  "resultsFor": "Rezultati za {0}",
   "resultsLimitWarning": "Dodatni rezultati niso prikazani, ker je prikazanih samo prvih 1000 najbolj relevantnih rezultatov. Če niste našli, kar iščete, razmislite o natančnejšem iskanju.",
+  "resultsWithin": "Rezultati znotraj {0} {1} za {2}",
   "search": "Išči",
   "searchHasLoaded": "{0} vrnjeni rezultati",
   "searchPlaceholder": "Kaj iščete?",
   "searchResults": "Išči",
   "searchResultsFor": "{0} - Išči",
-  "searchResultsForIn": "{0} - Išči v {1}",
   "searchSuggestions": "Predlogi za iskanje",
   "searchTier": {
     "button": {
@@ -905,6 +907,10 @@ export default {
   },
   "showLess": "Prikaži manj",
   "showMore": "Prikaži več",
+  "sideFilters": {
+    "noOptions": "Na voljo ni nobenih možnosti za izbiro",
+    "search": "Išči"
+  },
   "statuses": {
     "liked": "Všeč",
     "pinned": "Pripet"

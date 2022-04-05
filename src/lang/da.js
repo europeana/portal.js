@@ -6,7 +6,7 @@ export default {
     "likes": "Synes om'er",
     "linkAccount": "Min konto",
     "linkLogin": "Log ind",
-    "linkLoginJoin": "Login/Deltag",
+    "linkLoginJoin": "Login\/Deltag",
     "linkLogout": "Log ud",
     "myProfile": "Min profil",
     "notifications": {
@@ -89,16 +89,24 @@ export default {
     "fashion": {
       "facets": {
         "CREATOR": {
-          "name": "Designer | Designere"
+          "moreName": "designere",
+          "name": "Designer | Designere",
+          "select": "Vælg designere"
         },
         "proxy_dc_format": {
-          "name": "Teknik | Teknikker"
+          "moreName": "teknikker",
+          "name": "Teknik | Teknikker",
+          "select": "Vælg teknikker"
         },
         "proxy_dc_type": {
-          "name": "Artikeltype | Artikeltyper"
+          "moreName": "varetyper",
+          "name": "Artikeltype | Artikeltyper",
+          "select": "Vælg varetyper"
         },
         "proxy_dcterms_medium": {
-          "name": "Materiale | Materialer"
+          "moreName": "materialer",
+          "name": "Materiale | Materialer",
+          "select": "Vælg materialer"
         }
       }
     },
@@ -183,6 +191,7 @@ export default {
   },
   "facets": {
     "COLOURPALETTE": {
+      "moreName": "farver",
       "name": "Farve | Farver",
       "options": {
         "#000000": "Sort",
@@ -329,7 +338,8 @@ export default {
         "#FFFFE0": "Lysegul",
         "#FFFFF0": "Elfenben",
         "#FFFFFF": "hvid"
-      }
+      },
+      "select": "Vælg farver"
     },
     "COUNTRY": {
       "name": "Leverende land",
@@ -380,20 +390,26 @@ export default {
         "Ukraine": "Ukraine",
         "United Kingdom": "Det Forenede Kongerige",
         "United States of America": "Amerikas Forenede Stater"
-      }
+      },
+      "select": "Vælg leverer lande"
     },
     "CREATOR": {
-      "name": "Skaber | Skaberne"
+      "moreName": "skabere",
+      "name": "Skaber | Skaberne",
+      "select": "Vælg skabere"
     },
     "DATA_PROVIDER": {
-      "name": "Institution"
+      "moreName": "institutioner",
+      "name": "Institution",
+      "select": "Vælg institutioner"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Billedretning | Billedretninger",
       "options": {
         "landscape": "Landskab",
         "portrait": "Portræt"
-      }
+      },
+      "select": "Vælg billedorienteringer"
     },
     "IMAGE_SIZE": {
       "name": "Billedstørrelse | Billedstørrelser",
@@ -402,7 +418,8 @@ export default {
         "large": "Stor 1-4MP (f.eks 1920x1080px)",
         "medium": "Medium 0,5-1MP (f.eks. 850x850px)",
         "small": "Lille < 0,5MP (f.eks. 650x600px)"
-      }
+      },
+      "select": "Vælg billedstørrelser"
     },
     "LANGUAGE": {
       "name": "Sprog",
@@ -446,16 +463,20 @@ export default {
         "sv": "Svensk",
         "tr": "Tyrkisk",
         "uk": "Ukrainsk"
-      }
+      },
+      "select": "Vælg sprog"
     },
     "MIME_TYPE": {
       "name": "Filformat | Filformater",
       "options": {
-        "text/plain": "Almindelig tekst"
-      }
+        "text\/plain": "Almindelig tekst"
+      },
+      "select": "Vælg filformater"
     },
     "PROVIDER": {
-      "name": "Aggregator"
+      "moreName": "aggregatorer",
+      "name": "Aggregator",
+      "select": "Vælg aggregatorer"
     },
     "REUSABILITY": {
       "name": "Må jeg videreformidle dette?",
@@ -464,10 +485,8 @@ export default {
         "permission": "Måske, søg tilladelse",
         "restricted": "Ja, med betingelser",
         "uncategorized": "Ikke kategoriseret"
-      }
-    },
-    "RIGHTS": {
-      "name": "Erklæring om rettigheder"
+      },
+      "select": "Vælg, om du kan bruge dette"
     },
     "TYPE": {
       "name": "Medietype",
@@ -477,7 +496,8 @@ export default {
         "SOUND": "Lyd",
         "TEXT": "Tekst",
         "VIDEO": "Video"
-      }
+      },
+      "select": "Vælg typer af medier"
     },
     "api": {
       "name": "Søg efter",
@@ -512,7 +532,8 @@ export default {
         "photography": "Fotografi",
         "sport": "Sport",
         "ww1": "1914-1918"
-      }
+      },
+      "select": "Vælg et tema"
     },
     "contentTier": {
       "name": "Varekvalitet",
@@ -523,19 +544,24 @@ export default {
         "2": "Mellem kvalitet",
         "3": "Høj kvalitet og genanvendelig med betingelser",
         "4": "Høj kvalitet og frit genanvendelig"
-      }
+      },
+      "select": "Vælg varekvaliteter"
     },
+    "moreOptions": "Søg for at finde {0} mere {1}.",
     "proxy_dc_format": {
-      "name": "Format | Formater"
+      "name": "Format | Formater",
+      "select": "Vælg formater"
     },
     "proxy_dc_type": {
-      "name": "Type | typer"
+      "name": "Type | typer",
+      "select": "Vælg typer"
     },
     "proxy_dcterms_issued": {
       "name": "Udstedelsesdato"
     },
     "proxy_dcterms_medium": {
-      "name": "Medie | Medier"
+      "name": "Medie | Medier",
+      "select": "Vælg medie"
     }
   },
   "feedback": {
@@ -588,6 +614,7 @@ export default {
       "dctermsProvenance": "Oprindelse",
       "dctermsReferences": "Referencer",
       "dctermsSpatial": "Steder",
+      "dctermsTOC": "Indholdsfortegnelse",
       "dctermsTemporal": "Tidsmæssig",
       "edmCountry": "Leverende land",
       "edmCurrentLocation": "Nuværende placering",
@@ -644,7 +671,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label}: {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -718,7 +744,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Hjælper med at forbedre vores websted ved lejlighedsvis at anvende eksperimentelle ændringer.",
-        "title": "A/B-testning"
+        "title": "A\/B-testning"
       },
       "auth-strategy": {
         "description": "Husker autorisationsstrategien, der skal bruges til at logge ind.",
@@ -750,7 +776,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Husk, hvis du foretrækker at se søgeresultaterne i en liste- eller gittervisning.",
-        "title": "Visning af søgeresultater (liste / gitter)"
+        "title": "Visning af søgeresultater (liste \/ gitter)"
       }
     }
   },
@@ -785,7 +811,7 @@ export default {
     "dismiss": "Luk",
     "readMore": "Læs mere",
     "text": {
-      "sideFilters": "Tjek de nye filtre! De er nu alle synlige på højre side af søgeresultaterne."
+      "searchFilters": "Vores søgefiltre understøtter nu søgning; tjek det ud! Vi har også redesignet vores resultat- og samlingssider."
     }
   },
   "newWindow": "åbner i nyt vindue",
@@ -848,13 +874,14 @@ export default {
   "reset": "Nulstil",
   "resourceWikimedia": "Ressource fra Wikimedia Commons",
   "results": "Resultater",
+  "resultsFor": "Resultater for {0}",
   "resultsLimitWarning": "Yderligere resultater vises ikke, da kun de første 1000 mest relevante resultater vises. Hvis du ikke har fundet det, du leder efter, kan du overveje at præcisere søgningen.",
+  "resultsWithin": "Resultater inden for {0} {1} for {2}",
   "search": "Søg",
   "searchHasLoaded": "{0} resultater returneret",
   "searchPlaceholder": "Hvad leder du efter?",
   "searchResults": "Søg",
   "searchResultsFor": "{0} - Søg",
-  "searchResultsForIn": "{0} - Søg i {1}",
   "searchSuggestions": "Søgeforslag",
   "searchTier": {
     "button": {
@@ -905,6 +932,10 @@ export default {
   },
   "showLess": "Vis mindre",
   "showMore": "Vis mere",
+  "sideFilters": {
+    "noOptions": "Der er ingen tilgængelige muligheder at vælge",
+    "search": "Søg"
+  },
   "statuses": {
     "liked": "Kunne lide",
     "pinned": "Fastgjort"
