@@ -6,7 +6,7 @@ export default {
     "likes": "Všečki",
     "linkAccount": "Moj račun",
     "linkLogin": "Vpis",
-    "linkLoginJoin": "Prijava/Pridruži se",
+    "linkLoginJoin": "Prijava\/Pridruži se",
     "linkLogout": "Izpis",
     "myProfile": "Moj profil",
     "notifications": {
@@ -469,7 +469,7 @@ export default {
     "MIME_TYPE": {
       "name": "Oblika zapisa datoteke | Oblike zapisov datotek",
       "options": {
-        "text/plain": "Golo besedilo"
+        "text\/plain": "Golo besedilo"
       },
       "select": "Izberite formate datotek"
     },
@@ -744,7 +744,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Pomaga izboljšati naše spletno mesto z občasno uporabo eksperimentalnih sprememb.",
-        "title": "A/B testiranje"
+        "title": "A\/B testiranje"
       },
       "auth-strategy": {
         "description": "Zapomni si strategijo avtorizacije, ki jo je treba uporabiti za prijavo.",
@@ -776,7 +776,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Zapomni si, če želite rezultate iskanja raje videti v pogledu seznama ali mreže.",
-        "title": "Pogled rezultatov iskanja (seznam / mreža)"
+        "title": "Pogled rezultatov iskanja (seznam \/ mreža)"
       }
     }
   },
@@ -811,7 +811,7 @@ export default {
     "dismiss": "Zapri",
     "readMore": "Preberi več",
     "text": {
-      "searchFilters": "Naši filtri za iskanje zdaj podpirajo iskanje; preverite to! Prenovili smo tudi strani z rezultati in zbirkami."
+      "searchFilters": "Zdaj lahko iščete vrednosti v posameznih filtrih; preverite!"
     }
   },
   "newWindow": "odpre se v novem oknu",

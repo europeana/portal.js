@@ -6,7 +6,7 @@ export default {
     "likes": "Mi piace",
     "linkAccount": "Il mio account",
     "linkLogin": "Accedi",
-    "linkLoginJoin": "Accedi/Iscriviti",
+    "linkLoginJoin": "Accedi\/Iscriviti",
     "linkLogout": "Esci",
     "myProfile": "Il mio profilo",
     "notifications": {
@@ -469,7 +469,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formato file | Formati file",
       "options": {
-        "text/plain": "Testo semplice"
+        "text\/plain": "Testo semplice"
       },
       "select": "Seleziona i formati di file"
     },
@@ -744,7 +744,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Aiuta a migliorare il nostro sito Web applicando occasionalmente modifiche sperimentali.",
-        "title": "Test A/B"
+        "title": "Test A\/B"
       },
       "auth-strategy": {
         "description": "Ricorda la strategia di autorizzazione da utilizzare per accedere.",
@@ -776,7 +776,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Ricorda se preferisci vedere i risultati della ricerca in una visualizzazione elenco o griglia.",
-        "title": "Visualizzazione dei risultati di ricerca (elenco/griglia)"
+        "title": "Visualizzazione dei risultati di ricerca (elenco\/griglia)"
       }
     }
   },
@@ -811,7 +811,7 @@ export default {
     "dismiss": "Chiudi",
     "readMore": "Leggi di più",
     "text": {
-      "searchFilters": "I nostri filtri di ricerca ora supportano la ricerca; controlla! Abbiamo anche ridisegnato le nostre pagine dei risultati e delle collezioni."
+      "searchFilters": "Ora puoi cercare i valori nei singoli filtri; controlla!"
     }
   },
   "newWindow": "si apre in una nuova finestra",

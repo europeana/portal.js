@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mein Konto",
     "linkLogin": "Anmelden",
-    "linkLoginJoin": "Anmelden/Beitreten",
+    "linkLoginJoin": "Anmelden\/Beitreten",
     "linkLogout": "Abmelden",
     "myProfile": "Mein Profil",
     "notifications": {
@@ -469,7 +469,7 @@ export default {
     "MIME_TYPE": {
       "name": "Dateiformat | Dateiformate",
       "options": {
-        "text/plain": "Klartext"
+        "text\/plain": "Klartext"
       },
       "select": "Dateiformate auswählen"
     },
@@ -486,7 +486,7 @@ export default {
         "restricted": "Ja, mit Bedingungen",
         "uncategorized": "Nicht kategorisiert"
       },
-      "select": "Wählen Sie aus, ob Sie diese verwenden können"
+      "select": "Wählen Sie aus, ob die Artikel wiederverwendbar sind"
     },
     "TYPE": {
       "name": "Art des Mediums",
@@ -744,7 +744,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Hilft, unsere Website zu verbessern, indem gelegentlich experimentelle Änderungen vorgenommen werden.",
-        "title": "A/B-Tests"
+        "title": "A\/B-Tests"
       },
       "auth-strategy": {
         "description": "Erinnert an die Berechtigungsstrategie, die für die Anmeldung verwendet werden soll.",
@@ -776,7 +776,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Merkt sich, ob Sie die Suchergebnisse lieber in einer Listen- oder Rasteransicht anzeigen möchten.",
-        "title": "Suchergebnisansicht (Liste/Raster)"
+        "title": "Suchergebnisansicht (Liste\/Raster)"
       }
     }
   },
@@ -811,7 +811,7 @@ export default {
     "dismiss": "Schließen",
     "readMore": "Mehr anzeigen",
     "text": {
-      "searchFilters": "Unsere Suchfilter unterstützen jetzt die Suche; probieren Sie es aus! Außerdem haben wir unsere Ergebnis- und Sammlungsseiten neu gestaltet."
+      "searchFilters": "Sie können jetzt nach bestimmten Werten in den Filtern suchen; probieren Sie es aus!"
     }
   },
   "newWindow": "öffnet sich in einem neuen Fenster",

@@ -6,7 +6,7 @@ export default {
     "likes": "Oblíbené",
     "linkAccount": "Můj účet",
     "linkLogin": "Přihlásit se",
-    "linkLoginJoin": "Přihlášení/Připojení",
+    "linkLoginJoin": "Přihlášení\/Připojení",
     "linkLogout": "Odhlásit se",
     "myProfile": "Můj profil",
     "notifications": {
@@ -14,10 +14,10 @@ export default {
       "loggedOut": "Nyní jste odhlášeni.",
       "noCollections": {
         "curated": "Zatím jste nevybrali žádné kolekce",
-        "private": "Ještě jste nevytvořil/a žádné soukromé galerie.",
-        "public": "Ještě jste nevytvořil/a žádné veřejné galerie."
+        "private": "Ještě jste nevytvořil\/a žádné soukromé galerie.",
+        "public": "Ještě jste nevytvořil\/a žádné veřejné galerie."
       },
-      "noLikedItems": "Ještě jste neoznačil/a žádné položky jako oblíbené."
+      "noLikedItems": "Ještě jste neoznačil\/a žádné položky jako oblíbené."
     },
     "privateCollections": "Soukromé galerie",
     "profile": "Moje oblíbené a moje galerie",
@@ -469,7 +469,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formát souboru | Formáty souborů",
       "options": {
-        "text/plain": "Prostý text"
+        "text\/plain": "Prostý text"
       },
       "select": "Vyberte formáty souborů"
     },
@@ -606,7 +606,7 @@ export default {
       "dctermsHasVersion": "vlastní verzi",
       "dctermsIsFormatOf": "je formou",
       "dctermsIsPartOf": "je součástí",
-      "dctermsIsReferencedBy": "je zmiňován/a",
+      "dctermsIsReferencedBy": "je zmiňován\/a",
       "dctermsIsReplacedBy": "se nahradí",
       "dctermsIsRequiredBy": "je potřeba pro",
       "dctermsIssued": "Datum vydání",
@@ -619,7 +619,7 @@ export default {
       "edmCountry": "Země původu",
       "edmCurrentLocation": "Aktuální umístění",
       "edmDataProvider": "Poskytovatelská instituce",
-      "edmHasMet": "se setkal/a s",
+      "edmHasMet": "se setkal\/a s",
       "edmIncorporates": "zahrnuje",
       "edmIntermediateProvider": "Zprostředkovatel třetí strany",
       "edmIsDerivativeOf": "je zpodobněním",
@@ -635,7 +635,7 @@ export default {
       "keywords": "Klíčová slova (poskytnutá komunitou)",
       "timestampCreated": "Časové razítko vytvořeno",
       "timestampUpdate": "Časové razítko bylo aktualizováno",
-      "wasPresentAt": "se účastnil/a",
+      "wasPresentAt": "se účastnil\/a",
       "year": "Rok"
     },
     "webResource": {
@@ -744,7 +744,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Pomáhá vylepšovat náš web občasným použitím experimentálních změn.",
-        "title": "A/B testování"
+        "title": "A\/B testování"
       },
       "auth-strategy": {
         "description": "Pamatuje si strategii autorizace, která se má použít k přihlášení.",
@@ -776,7 +776,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Pamatuje si, zda chcete výsledky hledání zobrazit v seznamu nebo v mřížce.",
-        "title": "Zobrazení výsledků hledání (seznam / mřížka)"
+        "title": "Zobrazení výsledků hledání (seznam \/ mřížka)"
       }
     }
   },
@@ -811,7 +811,7 @@ export default {
     "dismiss": "Zavřít",
     "readMore": "Přečtěte si více",
     "text": {
-      "searchFilters": "Naše vyhledávací filtry nyní podporují vyhledávání; Koukni na to! Přepracovali jsme také stránky s výsledky a kolekcemi."
+      "searchFilters": "Nyní můžete vyhledávat hodnoty v jednotlivých filtrech; Koukni na to!"
     }
   },
   "newWindow": "otevře se v novém okně",
@@ -915,7 +915,7 @@ export default {
       "title": "Název galerie"
     },
     "labels": {
-      "curatedBy": "Kurátor/ka",
+      "curatedBy": "Kurátor\/ka",
       "private": "Soukromá galerie"
     },
     "notifications": {

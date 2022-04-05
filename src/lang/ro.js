@@ -6,7 +6,7 @@ export default {
     "likes": "Aprecieri",
     "linkAccount": "Contul meu",
     "linkLogin": "Autentificare",
-    "linkLoginJoin": "Autentificare/Înscriere",
+    "linkLoginJoin": "Autentificare\/Înscriere",
     "linkLogout": "Deconectare",
     "myProfile": "Profilul meu",
     "notifications": {
@@ -469,7 +469,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format fișier| Formate fișier",
       "options": {
-        "text/plain": "Text simplu"
+        "text\/plain": "Text simplu"
       },
       "select": "Selectați formatele de fișiere"
     },
@@ -744,7 +744,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Ajută la îmbunătățirea site-ului nostru web aplicând ocazional modificări experimentale.",
-        "title": "Testarea A/B"
+        "title": "Testarea A\/B"
       },
       "auth-strategy": {
         "description": "Reține strategia de autorizare de utilizat pentru a vă conecta.",
@@ -776,7 +776,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Rețineți dacă preferați să vedeți rezultatele căutării într-o vizualizare listă sau grilă.",
-        "title": "Vizualizarea rezultatelor căutării (listă / grilă)"
+        "title": "Vizualizarea rezultatelor căutării (listă \/ grilă)"
       }
     }
   },
@@ -811,7 +811,7 @@ export default {
     "dismiss": "Închidere",
     "readMore": "Citește mai mult",
     "text": {
-      "searchFilters": "Filtrele noastre de căutare acceptă acum căutarea; verifică! De asemenea, ne-am reproiectat rezultatele și paginile de colecție."
+      "searchFilters": "Acum puteți căuta valori în filtrele individuale; verifică!"
     }
   },
   "newWindow": "se deschide într-o fereastră nouă",

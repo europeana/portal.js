@@ -6,7 +6,7 @@ export default {
     "likes": "Gostos",
     "linkAccount": "A minha conta",
     "linkLogin": "Inicie sessão",
-    "linkLoginJoin": "Entrar/Criar conta",
+    "linkLoginJoin": "Entrar\/Criar conta",
     "linkLogout": "Encerrar sessão",
     "myProfile": "Meu perfil",
     "notifications": {
@@ -469,7 +469,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formato de ficheiro | Formatos de ficheiros",
       "options": {
-        "text/plain": "Texto simples"
+        "text\/plain": "Texto simples"
       },
       "select": "Selecione os formatos de arquivo"
     },
@@ -486,7 +486,7 @@ export default {
         "restricted": "Sim, com condições",
         "uncategorized": "Sem categoria"
       },
-      "select": "Selecione se pode usar este"
+      "select": "Selecione se pode usar isto"
     },
     "TYPE": {
       "name": "Tipo de média",
@@ -497,7 +497,7 @@ export default {
         "TEXT": "Texto",
         "VIDEO": "Vídeo"
       },
-      "select": "Selecione os tipos de mídia"
+      "select": "Selecione os tipos de media"
     },
     "api": {
       "name": "Procurar por",
@@ -539,7 +539,7 @@ export default {
       "name": "Qualidade do item",
       "options": {
         "*": "Inclui itens que não atendem aos nossos critérios de publicação",
-        "0": "Mostrar apenas os itens que não atendem aos nossos critérios de publicação",
+        "0": "Mostrar apenas itens que não correspondem aos nossos critérios de publicação",
         "1": "Baixa qualidade",
         "2": "Qualidade média",
         "3": "Alta qualidade & reutilizável com condições",
@@ -719,7 +719,7 @@ export default {
         "title": "Serviços que gostaríamos de usar."
       },
       "consentNotice": {
-        "description": "Nos preocupamos com a sua privacidade e apenas usamos os dados para melhorar a sua experiência. Não usamos nenhuma informação pessoal para publicidade. Você pode alterar seu consentimento a cada 15 dias.",
+        "description": "Preocupamo-nos com a sua privacidade e apenas usamos os dados para melhorar a sua experiência. Não usamos nenhuma informação pessoal para publicidade. Pode alterar o seu consentimento a cada 15 dias.",
         "learnMore": "Deixe-me escolher"
       },
       "decline": "Eu recuso",
@@ -744,7 +744,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Ajuda a melhorar o nosso site, aplicando ocasionalmente alterações experimentais.",
-        "title": "Teste A/B"
+        "title": "Teste A\/B"
       },
       "auth-strategy": {
         "description": "Lembra a estratégia de autorização a ser usada para fazer login.",
@@ -776,7 +776,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Lembra-se se preferir ver os resultados da pesquisa numa lista ou numa visualização em grelha.",
-        "title": "Visualização de resultado de pesquisa (lista/grade)"
+        "title": "Visualização de resultado de pesquisa (lista\/grade)"
       }
     }
   },
@@ -811,7 +811,7 @@ export default {
     "dismiss": "Fechar",
     "readMore": "Ler mais",
     "text": {
-      "searchFilters": "Os nossos filtros de pesquisa agora suportam a pesquisa; confira! Também redesenhamos os nossos resultados e páginas de coleta."
+      "searchFilters": "Agora você pode pesquisar valores nos filtros individuais; Confira!"
     }
   },
   "newWindow": "abre numa nova janela",

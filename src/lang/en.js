@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "My Account",
     "linkLogin": "Login",
-    "linkLoginJoin": "Log in / Join",
+    "linkLoginJoin": "Log in \/ Join",
     "linkLogout": "Log out",
     "myProfile": "My Profile",
     "notifications": {
@@ -469,7 +469,7 @@ export default {
     "MIME_TYPE": {
       "name": "File format",
       "options": {
-        "text/plain": "Plain text"
+        "text\/plain": "Plain text"
       },
       "select": "Select file formats"
     },
@@ -487,29 +487,6 @@ export default {
         "uncategorized": "Uncategorized"
       },
       "select": "Select whether you can use this"
-    },
-    "RIGHTS": {
-      "name": "Rights statement",
-      "select": "Select rights statements",
-      "options": {
-        "*/CNE/*": "Copyright Not Evaluated",
-        "*/InC-EDU/*": "In Copyright - Educational Use Permitted",
-        "*/InC-OW-EU/*": "In Copyright - OW-EU",
-        "*/InC/*": "In Copyright",
-        "*/NoC-NC/*": "No Copyright - Non-Commercial Use Only",
-        "*/NoC-OKLR/*": "No Copyright - Other Known Legal Restrictions",
-        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
-        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
-        "*/licenses/by-nc/*": "CC BY-NC",
-        "*/licenses/by-nd/*": "CC BY-ND",
-        "*/licenses/by-sa/*": "CC BY-SA",
-        "*/licenses/by/*": "CC BY",
-        "*/publicdomain/mark/*": "Public Domain Mark",
-        "*/publicdomain/zero/*": "CC0",
-        "*/rights/out-of-copyright-non-commercial/*": "Out of copyright - non commercial re-use",
-        "*/rights/rr-f/*": "Rights Reserved - Free access",
-        "*/rights/unknown/*": "Unknown copyright status"
-      }
     },
     "TYPE": {
       "name": "Type of media",
@@ -738,7 +715,7 @@ export default {
       "acceptAll": "Accept all",
       "acceptSelected": "Accept selected",
       "consentModal": {
-        "description": "Here you can see and customise the services that we'd like to use on this website. To learn more please read our <a href='/rights/privacy-policy'>privacy policy</a>.",
+        "description": "Here you can see and customise the services that we'd like to use on this website. To learn more please read our <a href='\/rights\/privacy-policy'>privacy policy<\/a>.",
         "title": "Services we would like to use."
       },
       "consentNotice": {
@@ -767,7 +744,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Helps to improve our website by occasionally applying experimental changes.",
-        "title": "A/B testing"
+        "title": "A\/B testing"
       },
       "auth-strategy": {
         "description": "Remembers the authorization strategy to use to log in.",
@@ -799,7 +776,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Remembers if you prefer to see the search results in a list or grid view.",
-        "title": "Search result view (list/grid)"
+        "title": "Search result view (list\/grid)"
       }
     }
   },
@@ -834,7 +811,7 @@ export default {
     "dismiss": "Dismiss",
     "readMore": "Read more",
     "text": {
-      "searchFilters": "Our search filters now support searching; check it out! We also redesigned our results and collection pages."
+      "searchFilters": "You can now search for values in the individual filters; check it out!"
     }
   },
   "newWindow": "opens in new window",
