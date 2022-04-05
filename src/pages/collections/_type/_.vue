@@ -166,17 +166,7 @@
             this.page = pageResponseData.entityPage.items[0];
             this.$store.commit('entity/setCuratedEntities', pageResponseData.curatedEntities.items);
           }
-          const entity = this.$store.state.entity.entity;
-          const entityName = this.page ? this.page.name : entity.prefLabel.en;
-          const desiredPath = getEntitySlug(entity.id, entityName);
-          if (this.$route.params.pathMatch !== desiredPath) {
-            const redirectPath = this.$path({
-              name: 'collections-type-all',
-              params: { type: this.$route.params.type, pathMatch: desiredPath }
-            });
-            return this.$nuxt.context.redirect(302, redirectPath);
-          }
-          return true;
+          return this.redirectToPrefPath();
         });
     },
 
@@ -373,6 +363,18 @@
       }
     },
     methods: {
+      redirectToPrefPath() {
+        const entityName = this.page ? this.page.name : this.entity.prefLabel.en;
+        const desiredPath = getEntitySlug(this.entity.id, entityName);
+        if (this.$route.params.pathMatch !== desiredPath) {
+          const redirectPath = this.$path({
+            name: 'collections-type-all',
+            params: { type: this.$route.params.type, pathMatch: desiredPath }
+          });
+          return this.$nuxt.context.redirect(302, redirectPath);
+        }
+        return true;
+      },
       storeSearchOverrides() {
         this.$store.commit('search/set', ['overrideParams', this.searchOverrides]);
       },

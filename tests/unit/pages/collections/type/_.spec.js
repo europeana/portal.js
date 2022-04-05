@@ -136,16 +136,40 @@ describe('pages/collections/type/_', () => {
       expect(wrapper.vm.$apis.entity.get.calledWith(topicEntity.type, topicEntity.pathMatch)).toBe(true);
     });
 
-    it('requests collection page from Contentful', async() => {
-      const wrapper = factory(topicEntity);
+    describe('collection page', () => {
+      const requestMade = async(curatedEntities) => {
+        const wrapper = factory(topicEntity);
+        wrapper.vm.$store.state.entity.curatedEntities = curatedEntities;
 
-      await wrapper.vm.fetch();
+        await wrapper.vm.fetch();
 
-      expect(wrapper.vm.$contentful.query.calledWith('collectionPage', {
-        identifier: topicEntity.entity.id,
-        locale: 'en-GB',
-        preview: false
-      })).toBe(true);
+        return wrapper.vm.$contentful.query.calledWith('collectionPage', {
+          identifier: topicEntity.entity.id,
+          locale: 'en-GB',
+          preview: false
+        });
+      }
+
+      describe('when it is not known whether the entity has one', () => {
+        const curatedEntities = null;
+        it('is requested from Contentful', async() => {
+          expect(await requestMade(curatedEntities)).toBe(true);
+        });
+      });
+
+      describe('when it is known that the entity has one', () => {
+        const curatedEntities = [{ identifier: topicEntity.entity.id }];
+        it('is requested from Contentful', async() => {
+          expect(await requestMade(curatedEntities)).toBe(true);
+        });
+      });
+
+      describe('when it is known that the entity does not have one', () => {
+        const curatedEntities = [{}];
+        it('is not requested from Contentful', async() => {
+          expect(await requestMade(curatedEntities)).toBe(false);
+        });
+      });
     });
 
     describe('entity management', () => {
@@ -337,6 +361,56 @@ describe('pages/collections/type/_', () => {
   });
 
   describe('methods', () => {
+    describe('redirectToPrefPath', () => {
+      const redirectIssued = async({ data, entity, pathMatch }) => {
+        const wrapper = factory(topicEntity);
+        wrapper.setData(data);
+        entity && (wrapper.vm.$store.state.entity.entity = entity);
+        wrapper.vm.$route.params.pathMatch = pathMatch;
+
+        await wrapper.vm.fetch();
+
+        return wrapper.vm.$nuxt.context.redirect.calledWith(302, '/');
+      }
+
+      describe('when entity has a named collection page', () => {
+        const data = { page: { name: 'Topic' } };
+
+        describe('and URL slug already uses the name', () => {
+          const pathMatch = '01234567890-topic';
+          it('does not redirect', async() => {
+            expect(await redirectIssued({ data, pathMatch })).toBe(false);
+          });
+        });
+
+        describe('and URL slug does not use the name', () => {
+          const pathMatch = '01234567890-top';
+          it('redirects', async() => {
+            expect(await redirectIssued({ data, pathMatch })).toBe(true);
+          });
+        });
+      });
+
+      describe('when entity has no named collection page, but an English prefLabel', () => {
+        const data = { page: { name: null } };
+        const entity = topicEntity.entity;
+
+        describe('and URL slug already uses the name', () => {
+          const pathMatch = '01234567890-topic';
+          it('does not redirect', async() => {
+            expect(await redirectIssued({ data, pathMatch, entity })).toBe(false);
+          });
+        });
+
+        describe('and URL slug does not use the name', () => {
+          const pathMatch = '01234567890-top';
+          it('redirects', async() => {
+            expect(await redirectIssued({ data, pathMatch, entity })).toBe(true);
+          });
+        });
+      });
+    });
+
     describe('showRelatedCollections()', () => {
       it('sets showRelated to true', async() => {
         const wrapper = factory(topicEntity);
