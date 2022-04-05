@@ -89,16 +89,24 @@ export default {
     "fashion": {
       "facets": {
         "CREATOR": {
-          "name": "Designer | Designer"
+          "moreName": "designer",
+          "name": "Designer | Designer",
+          "select": "Seleziona designer"
         },
         "proxy_dc_format": {
-          "name": "Tecnica | Tecniche"
+          "moreName": "tecniche",
+          "name": "Tecnica | Tecniche",
+          "select": "Seleziona le tecniche"
         },
         "proxy_dc_type": {
-          "name": "Tipo di elemento | Tipi di elementi"
+          "moreName": "tipi di articoli",
+          "name": "Tipo di elemento | Tipi di elementi",
+          "select": "Seleziona i tipi di articoli"
         },
         "proxy_dcterms_medium": {
-          "name": "Materiale | Materiali"
+          "moreName": "materiali",
+          "name": "Materiale | Materiali",
+          "select": "Seleziona i materiali"
         }
       }
     },
@@ -183,6 +191,7 @@ export default {
   },
   "facets": {
     "COLOURPALETTE": {
+      "moreName": "colori",
       "name": "Colore | Colori",
       "options": {
         "#000000": "Nero",
@@ -329,7 +338,8 @@ export default {
         "#FFFFE0": "Giallo chiaro",
         "#FFFFF0": "Avorio",
         "#FFFFFF": "bianca"
-      }
+      },
+      "select": "Seleziona i colori"
     },
     "COUNTRY": {
       "name": "Paese fornitore",
@@ -380,20 +390,26 @@ export default {
         "Ukraine": "Ucraina",
         "United Kingdom": "Regno Unito",
         "United States of America": "Stati Uniti d'America"
-      }
+      },
+      "select": "Seleziona i paesi fornitori"
     },
     "CREATOR": {
-      "name": "Creatore | Creatori"
+      "moreName": "creatori",
+      "name": "Creatore | Creatori",
+      "select": "Seleziona i creatori"
     },
     "DATA_PROVIDER": {
-      "name": "Istituzione"
+      "moreName": "istituzioni",
+      "name": "Istituzione",
+      "select": "Seleziona le istituzioni"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Orientamento immagine | Orientamenti immagini",
       "options": {
         "landscape": "Paesaggio",
         "portrait": "Ritratto"
-      }
+      },
+      "select": "Seleziona gli orientamenti dell'immagine"
     },
     "IMAGE_SIZE": {
       "name": "Dimensioni immagine | Dimensioni immagini",
@@ -402,7 +418,8 @@ export default {
         "large": "Grande 1-4 MP (es. 1920x1080 px)",
         "medium": "Media 0,5-1 MP (es. 850x850 px)",
         "small": "Piccola < 0,5 MP (es. 650x600 px)"
-      }
+      },
+      "select": "Seleziona le dimensioni dell'immagine"
     },
     "LANGUAGE": {
       "name": "Lingua",
@@ -446,16 +463,20 @@ export default {
         "sv": "Svedese",
         "tr": "Turco",
         "uk": "Ucraino"
-      }
+      },
+      "select": "Seleziona le lingue"
     },
     "MIME_TYPE": {
       "name": "Formato file | Formati file",
       "options": {
         "text/plain": "Testo semplice"
-      }
+      },
+      "select": "Seleziona i formati di file"
     },
     "PROVIDER": {
-      "name": "Aggregatore"
+      "moreName": "aggregatori",
+      "name": "Aggregatore",
+      "select": "Seleziona aggregatori"
     },
     "REUSABILITY": {
       "name": "Posso riutilizzarlo?",
@@ -464,7 +485,8 @@ export default {
         "permission": "Forse, meglio chiedere il permesso",
         "restricted": "Sì, ad alcune condizioni",
         "uncategorized": "Non specificato"
-      }
+      },
+      "select": "Selezionare se è possibile utilizzarlo"
     },
     "TYPE": {
       "name": "Tipo di supporto",
@@ -474,7 +496,8 @@ export default {
         "SOUND": "Audio",
         "TEXT": "Testo",
         "VIDEO": "Video"
-      }
+      },
+      "select": "Seleziona i tipi di media"
     },
     "api": {
       "name": "Cerca",
@@ -509,7 +532,8 @@ export default {
         "photography": "Fotografia",
         "sport": "Sport",
         "ww1": "1914-1918"
-      }
+      },
+      "select": "Seleziona un tema"
     },
     "contentTier": {
       "name": "Qualità dell'articolo",
@@ -520,20 +544,24 @@ export default {
         "2": "Qualità media",
         "3": "Alta qualità e riutilizzabile con condizioni",
         "4": "Alta qualità e liberamente riutilizzabile"
-      }
+      },
+      "select": "Seleziona le qualità dell'articolo"
     },
     "moreOptions": "Cerca di trovare {0} più {1}.",
     "proxy_dc_format": {
-      "name": "Formato | Formati"
+      "name": "Formato | Formati",
+      "select": "Seleziona i formati"
     },
     "proxy_dc_type": {
-      "name": "Tipo | Tipi"
+      "name": "Tipo | Tipi",
+      "select": "Seleziona i tipi"
     },
     "proxy_dcterms_issued": {
       "name": "Data di emissione"
     },
     "proxy_dcterms_medium": {
-      "name": "Medium | Media"
+      "name": "Medium | Media",
+      "select": "Seleziona media"
     }
   },
   "feedback": {

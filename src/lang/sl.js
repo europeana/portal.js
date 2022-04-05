@@ -89,16 +89,24 @@ export default {
     "fashion": {
       "facets": {
         "CREATOR": {
-          "name": "Oblikovalec | Oblikovalci"
+          "moreName": "oblikovalci",
+          "name": "Oblikovalec | Oblikovalci",
+          "select": "Izberite oblikovalce"
         },
         "proxy_dc_format": {
-          "name": "Tehnika | Tehnike"
+          "moreName": "tehnike",
+          "name": "Tehnika | Tehnike",
+          "select": "Izberite tehnike"
         },
         "proxy_dc_type": {
-          "name": "Vrsta dela | Vrste dela"
+          "moreName": "vrste elementov",
+          "name": "Vrsta dela | Vrste dela",
+          "select": "Izberite vrste elementov"
         },
         "proxy_dcterms_medium": {
-          "name": "Material | Materiali"
+          "moreName": "materiali",
+          "name": "Material | Materiali",
+          "select": "Izberite materiale"
         }
       }
     },
@@ -183,6 +191,7 @@ export default {
   },
   "facets": {
     "COLOURPALETTE": {
+      "moreName": "barve",
       "name": "Barva | Barve",
       "options": {
         "#000000": "Črna",
@@ -329,7 +338,8 @@ export default {
         "#FFFFE0": "Svetlo rumena",
         "#FFFFF0": "Slonokoščena",
         "#FFFFFF": "Bela"
-      }
+      },
+      "select": "Izberite barve"
     },
     "COUNTRY": {
       "name": "Država izvora",
@@ -380,20 +390,26 @@ export default {
         "Ukraine": "Ukrajina",
         "United Kingdom": "Združeno kraljestvo",
         "United States of America": "Združene države Amerike"
-      }
+      },
+      "select": "Izberite države ponudnika"
     },
     "CREATOR": {
-      "name": "Ustvarjalec | Ustvarjalci"
+      "moreName": "ustvarjalci",
+      "name": "Ustvarjalec | Ustvarjalci",
+      "select": "Izberite ustvarjalce"
     },
     "DATA_PROVIDER": {
-      "name": "Ustanova"
+      "moreName": "institucije",
+      "name": "Ustanova",
+      "select": "Izberite institucije"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Usmerjenost slike | Usmerjenosti slik",
       "options": {
         "landscape": "Ležeče",
         "portrait": "Pokončno"
-      }
+      },
+      "select": "Izberite usmeritve slike"
     },
     "IMAGE_SIZE": {
       "name": "Velikost slike | Velikosti slik",
@@ -402,7 +418,8 @@ export default {
         "large": "Velika 1-4MP (npr. 1920x1080px)",
         "medium": "Srednja 0,5-1MP (npr. 850x850px)",
         "small": "Majhna < 0,5MP (npr. 650x600px)"
-      }
+      },
+      "select": "Izberite velikosti slike"
     },
     "LANGUAGE": {
       "name": "Jezik",
@@ -446,16 +463,20 @@ export default {
         "sv": "Švedski",
         "tr": "Turški",
         "uk": "Ukrajinski"
-      }
+      },
+      "select": "Izberite jezike"
     },
     "MIME_TYPE": {
       "name": "Oblika zapisa datoteke | Oblike zapisov datotek",
       "options": {
         "text/plain": "Golo besedilo"
-      }
+      },
+      "select": "Izberite formate datotek"
     },
     "PROVIDER": {
-      "name": "Zbiralnik"
+      "moreName": "agregatorji",
+      "name": "Zbiralnik",
+      "select": "Izberite agregatorje"
     },
     "REUSABILITY": {
       "name": "Ali lahko to ponovno uporabim?",
@@ -464,7 +485,8 @@ export default {
         "permission": "Morda, prosi za dovoljenje",
         "restricted": "Da, s pogoji",
         "uncategorized": "Nekategorizirano"
-      }
+      },
+      "select": "Izberite, ali lahko to uporabite"
     },
     "TYPE": {
       "name": "Vrsta medija",
@@ -474,7 +496,8 @@ export default {
         "SOUND": "Zvok",
         "TEXT": "Besedilo",
         "VIDEO": "Videoposnetek"
-      }
+      },
+      "select": "Izberite vrste medijev"
     },
     "api": {
       "name": "Išči",
@@ -509,7 +532,8 @@ export default {
         "photography": "Fotografija",
         "sport": "Šport",
         "ww1": "1914-1918"
-      }
+      },
+      "select": "Izberite temo"
     },
     "contentTier": {
       "name": "Kakovost artikla",
@@ -520,7 +544,8 @@ export default {
         "2": "Srednja kakovost",
         "3": "Visoka kakovost in ponovna uporaba s pogoji",
         "4": "Visoka kakovost & prosto večkratno uporabo"
-      }
+      },
+      "select": "Izberite kvalitete artikla"
     },
     "moreOptions": "Poiščite {0} več {1}.",
     "proxy_dc_format": {

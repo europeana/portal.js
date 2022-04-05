@@ -89,16 +89,24 @@ export default {
     "fashion": {
       "facets": {
         "CREATOR": {
-          "name": "Diseñador | Diseñadores"
+          "moreName": "diseñadores",
+          "name": "Diseñador | Diseñadores",
+          "select": "Seleccionar diseñadores"
         },
         "proxy_dc_format": {
-          "name": "Técnica | Técnicas"
+          "moreName": "técnicas",
+          "name": "Técnica | Técnicas",
+          "select": "Seleccionar técnicas"
         },
         "proxy_dc_type": {
-          "name": "Tipo de objeto | Tipos de objeto"
+          "moreName": "tipos de elementos",
+          "name": "Tipo de objeto | Tipos de objeto",
+          "select": "Seleccionar tipos de elementos"
         },
         "proxy_dcterms_medium": {
-          "name": "Material | Materiales"
+          "moreName": "materiales",
+          "name": "Material | Materiales",
+          "select": "Seleccionar materiales"
         }
       }
     },
@@ -183,6 +191,7 @@ export default {
   },
   "facets": {
     "COLOURPALETTE": {
+      "moreName": "colores",
       "name": "Color | Colores",
       "options": {
         "#000000": "Negro",
@@ -329,7 +338,8 @@ export default {
         "#FFFFE0": "Amarillo claro",
         "#FFFFF0": "Marfil",
         "#FFFFFF": "Blanco"
-      }
+      },
+      "select": "Seleccionar colores"
     },
     "COUNTRY": {
       "name": "País proveedor",
@@ -380,20 +390,26 @@ export default {
         "Ukraine": "Ucrania",
         "United Kingdom": "Reino Unido",
         "United States of America": "Estados Unidos de América"
-      }
+      },
+      "select": "Seleccionar países proveedores"
     },
     "CREATOR": {
-      "name": "Creador | Creadores"
+      "moreName": "creadores",
+      "name": "Creador | Creadores",
+      "select": "Seleccionar creadores"
     },
     "DATA_PROVIDER": {
-      "name": "Institución"
+      "moreName": "instituciones",
+      "name": "Institución",
+      "select": "Seleccionar instituciones"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Orientación de la imagen | Orientaciones de la imagen",
       "options": {
         "landscape": "Horizontal",
         "portrait": "Vertical"
-      }
+      },
+      "select": "Seleccionar orientaciones de imagen"
     },
     "IMAGE_SIZE": {
       "name": "Tamaño de imagen | Tamaños de imagen",
@@ -402,7 +418,8 @@ export default {
         "large": "Grande, entre 1 y 4 MP (por ejemplo, 1920 × 1080 px)",
         "medium": "Mediano, entre 0,5 y 1 MP (por ejemplo 850 × 850 px)",
         "small": "Pequeño, inferior a 0,5 MP (por ejemplo, 650 × 600 px)"
-      }
+      },
+      "select": "Seleccionar tamaños de imagen"
     },
     "LANGUAGE": {
       "name": "Idioma",
@@ -446,16 +463,20 @@ export default {
         "sv": "Sueco",
         "tr": "Turco",
         "uk": "Ucraniano"
-      }
+      },
+      "select": "Seleccionar idiomas"
     },
     "MIME_TYPE": {
       "name": "Formato de archivo | Formatos de archivo",
       "options": {
         "text/plain": "Texto sin formato"
-      }
+      },
+      "select": "Seleccionar formatos de archivo"
     },
     "PROVIDER": {
-      "name": "Agregador"
+      "moreName": "agregadores",
+      "name": "Agregador",
+      "select": "Seleccionar agregadores"
     },
     "REUSABILITY": {
       "name": "¿Puede reutilizarse?",
@@ -464,7 +485,8 @@ export default {
         "permission": "Tal vez, solicite permiso",
         "restricted": "Sí, con condiciones",
         "uncategorized": "Sin categoría"
-      }
+      },
+      "select": "Seleccione si puede usar esto"
     },
     "TYPE": {
       "name": "Tipo de medio",
@@ -474,7 +496,8 @@ export default {
         "SOUND": "Sonido",
         "TEXT": "Texto",
         "VIDEO": "Vídeo"
-      }
+      },
+      "select": "Seleccionar tipos de medios"
     },
     "api": {
       "name": "Buscar",
@@ -509,7 +532,8 @@ export default {
         "photography": "Fotografía",
         "sport": "Deporte",
         "ww1": "1914-1918"
-      }
+      },
+      "select": "Selecciona un tema"
     },
     "contentTier": {
       "name": "Calidad del artículo",
@@ -520,20 +544,24 @@ export default {
         "2": "Calidad media",
         "3": "Alta calidad y reutilizable con condiciones",
         "4": "Alta calidad y libremente reutilizable"
-      }
+      },
+      "select": "Seleccione las calidades del artículo"
     },
     "moreOptions": "Busque para encontrar {0} más {1}.",
     "proxy_dc_format": {
-      "name": "Formato | Formatos"
+      "name": "Formato | Formatos",
+      "select": "Seleccionar formatos"
     },
     "proxy_dc_type": {
-      "name": "Tipo | Tipos"
+      "name": "Tipo | Tipos",
+      "select": "Seleccionar tipos"
     },
     "proxy_dcterms_issued": {
       "name": "Fecha de publicación"
     },
     "proxy_dcterms_medium": {
-      "name": "Medio | Medios"
+      "name": "Medio | Medios",
+      "select": "Seleccionar medios"
     }
   },
   "feedback": {
