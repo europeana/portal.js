@@ -7,6 +7,7 @@ import sinon from 'sinon';
 import collection from '@/pages/collections/_type/_';
 
 const localVue = createLocalVue();
+localVue.directive('masonry-tile', {});
 localVue.use(BootstrapVue);
 localVue.use(Vuex);
 
@@ -125,6 +126,9 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
         get: sinon.stub().resolves({}),
         facets: sinon.stub().resolves([])
       },
+      entityManagement: {
+        get: sinon.stub().resolves({})
+      },
       record: {
         relatedEntities: sinon.stub().resolves({})
       }
@@ -169,6 +173,66 @@ describe('pages/collections/type/_', () => {
         locale: 'en-GB',
         preview: false
       })).toBe(true);
+    });
+
+    describe('entity management', () => {
+      const features = {
+        enabled: { entityManagement: true },
+        disabled: { entityManagement: false }
+      };
+      const auth = {
+        authorized: { user: { resource_access: { entities: { roles: ['editor'] } } } },
+        unauthorized: { user: { resource_access: { entities: { roles: [] } } } }
+      };
+      const tests = {
+        doesRequest: ($features, $auth) => async() => {
+          const wrapper = factory(topicEntity);
+          wrapper.vm.$features = $features;
+          wrapper.vm.$auth = $auth;
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.$apis.entityManagement.get.calledWith('topic', '01234567890-topic')).toBe(true);
+        },
+
+        doesNotRequest: ($features, $auth) => async() => {
+          const wrapper = factory(topicEntity);
+          wrapper.vm.$features = $features;
+          wrapper.vm.$auth = $auth;
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.$apis.entityManagement.get.called).toBe(false);
+        }
+      };
+
+      describe('when feature is enabled', () => {
+        const $features = features.enabled;
+
+        describe('and user is authenticated with "entities" roles including "editor"', () => {
+          const $auth = auth.authorized;
+          it('requests entity management data', tests.doesRequest($features, $auth));
+        });
+
+        describe('but user is not authenticated with "entities" roles including "editor"', () => {
+          const $auth = auth.unauthorized;
+          it('does not request entity management data', tests.doesNotRequest($features, $auth));
+        });
+      });
+
+      describe('when feature is disabled', () => {
+        const $features = features.disabled;
+
+        describe('and user is authenticated with "entities" roles including "editor"', () => {
+          const $auth = auth.authorized;
+          it('does not request entity management data', tests.doesNotRequest($features, $auth));
+        });
+
+        describe('but user is not authenticated with "entities" roles including "editor"', () => {
+          const $auth = auth.unauthorized;
+          it('does not request entity management data', tests.doesNotRequest($features, $auth));
+        });
+      });
     });
   });
 

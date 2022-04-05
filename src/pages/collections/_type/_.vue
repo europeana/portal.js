@@ -136,7 +136,8 @@
       this.$store.commit('entity/setId', entityUri);
 
       // Fetch entity management data if feature enabled and user has required access
-      const fetchEntityManagement = this.$features.entityManagement && this.$auth.user?.resource_access?.entities?.roles.includes('editor');
+      const fetchEntityManagement = this.$features.entityManagement &&
+        this.$auth.user?.resource_access?.entities?.roles.includes('editor');
       // Get the full page for this entity if not known needed, or known to be needed, and store for reuse
       const fetchEntityPage = !this.$store.state.entity.curatedEntities ||
         this.$store.state.entity.curatedEntities.some(entity => entity.identifier === entityUri);
