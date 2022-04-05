@@ -79,7 +79,6 @@
   import pick from 'lodash/pick';
   import ClientOnly from 'vue-client-only';
   import SearchInterface from '@/components/search/SearchInterface';
-  import { mapState } from 'vuex';
 
   import themes from '@/plugins/europeana/themes';
   import {
@@ -197,11 +196,15 @@
     },
 
     computed: {
-      ...mapState({
-        entity: state => state.entity.entity,
-        recordsPerPage: state => state.entity.recordsPerPage,
-        editable: state => state.entity.editable
-      }),
+      entity() {
+        return this.$store.state.entity.entity;
+      },
+      recordsPerPage() {
+        return this.$store.state.entity.recordsPerPage;
+      },
+      editable() {
+        return this.$store.state.entity.editable;
+      },
       pageTitle() {
         return this.$fetchState.error ? this.$t('error') : this.title.values[0];
       },
