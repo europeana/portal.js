@@ -466,9 +466,6 @@ export default {
         "uncategorized": "Sem categoria"
       }
     },
-    "RIGHTS": {
-      "name": "Declaração de direitos"
-    },
     "TYPE": {
       "name": "Tipo de média",
       "options": {
@@ -525,6 +522,7 @@ export default {
         "4": "Alta qualidade & livremente reutilizável"
       }
     },
+    "moreOptions": "Pesquise para encontrar {0} mais {1}.",
     "proxy_dc_format": {
       "name": "Formato | Formatos"
     },
@@ -588,6 +586,7 @@ export default {
       "dctermsProvenance": "Proveniência",
       "dctermsReferences": "Referências",
       "dctermsSpatial": "Locais",
+      "dctermsTOC": "Tabela de conteúdos",
       "dctermsTemporal": "Temporal",
       "edmCountry": "País fornecedor",
       "edmCurrentLocation": "Localização atual",
@@ -644,7 +643,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label} : {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -785,7 +783,7 @@ export default {
     "dismiss": "Fechar",
     "readMore": "Ler mais",
     "text": {
-      "sideFilters": "Confira os novos filtros! Eles agora estão todos visíveis no lado direito dos resultados da pesquisa."
+      "searchFilters": "Os nossos filtros de pesquisa agora suportam a pesquisa; confira! Também redesenhamos os nossos resultados e páginas de coleta."
     }
   },
   "newWindow": "abre numa nova janela",
@@ -848,13 +846,14 @@ export default {
   "reset": "Repor",
   "resourceWikimedia": "Recurso do Wikimedia Commons",
   "results": "Resultados",
+  "resultsFor": "Resultados para {0}",
   "resultsLimitWarning": "Resultados adicionais não são mostrados, apenas os primeiros 1000 resultados mais relevantes são mostrados. Se não encontrou o que procurava, considere refinar a sua pesquisa.",
+  "resultsWithin": "Resultados dentro de {0} {1} para {2}",
   "search": "Procurar",
   "searchHasLoaded": "{0} resultados retornados",
   "searchPlaceholder": "Procure milhões de itens",
   "searchResults": "Procurar",
   "searchResultsFor": "{0} - Procurar",
-  "searchResultsForIn": "{0} - Procurar em {1}",
   "searchSuggestions": "Sugestões de pesquisa",
   "searchTier": {
     "button": {
@@ -905,6 +904,10 @@ export default {
   },
   "showLess": "Mostrar menos",
   "showMore": "Mostrar mais",
+  "sideFilters": {
+    "noOptions": "Não há opções disponíveis para selecionar",
+    "search": "Procurar"
+  },
   "statuses": {
     "liked": "Apreciado",
     "pinned": "Fixado"

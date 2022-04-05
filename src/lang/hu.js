@@ -89,16 +89,24 @@ export default {
     "fashion": {
       "facets": {
         "CREATOR": {
-          "name": "Tervező | Tervezők"
+          "moreName": "tervezők",
+          "name": "Tervező | Tervezők",
+          "select": "Tervezők kiválasztása"
         },
         "proxy_dc_format": {
-          "name": "Technika | Technikák"
+          "moreName": "technikák",
+          "name": "Technika | Technikák",
+          "select": "Technikák kiválasztása"
         },
         "proxy_dc_type": {
-          "name": "Elemtípus | Elemtípusok"
+          "moreName": "elemtípusok",
+          "name": "Elemtípus | Elemtípusok",
+          "select": "Elemtípusok kiválasztása"
         },
         "proxy_dcterms_medium": {
-          "name": "Anyag | Anyagok"
+          "moreName": "anyagok",
+          "name": "Anyag | Anyagok",
+          "select": "Anyagok kiválasztása"
         }
       }
     },
@@ -183,6 +191,7 @@ export default {
   },
   "facets": {
     "COLOURPALETTE": {
+      "moreName": "színek",
       "name": "Szín | Színek",
       "options": {
         "#000000": "Fekete",
@@ -329,7 +338,8 @@ export default {
         "#FFFFE0": "Halványsárga",
         "#FFFFF0": "Elefántcsont",
         "#FFFFFF": "fehér"
-      }
+      },
+      "select": "Válasszon színeket"
     },
     "COUNTRY": {
       "name": "Szolgáltató ország",
@@ -380,20 +390,26 @@ export default {
         "Ukraine": "Ukrajna",
         "United Kingdom": "Egyesült Királyság",
         "United States of America": "Amerikai Egyesült Államok"
-      }
+      },
+      "select": "Válassza ki az ellátó országokat"
     },
     "CREATOR": {
-      "name": "Alkotó | Alkotók"
+      "moreName": "alkotók",
+      "name": "Alkotó | Alkotók",
+      "select": "Válasszon alkotókat"
     },
     "DATA_PROVIDER": {
-      "name": "Intézmény"
+      "moreName": "intézmények",
+      "name": "Intézmény",
+      "select": "Válasszon intézményeket"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Képtájolás | Képtájolások",
       "options": {
         "landscape": "Fekvő",
         "portrait": "Álló"
-      }
+      },
+      "select": "Válassza ki a kép tájolását"
     },
     "IMAGE_SIZE": {
       "name": "Képméret | Képméretek",
@@ -402,7 +418,8 @@ export default {
         "large": "Nagy, 1-4 MP + (pl.1920 x 1080 képpont)",
         "medium": "Közepes, 0,5-1MP (pl. 850 x 850 képpont)",
         "small": "Kicsi, < 0,5 MP (pl. 650 x 600 képpont)"
-      }
+      },
+      "select": "Válassza ki a képméreteket"
     },
     "LANGUAGE": {
       "name": "Nyelv",
@@ -446,16 +463,20 @@ export default {
         "sv": "Svéd",
         "tr": "Török",
         "uk": "Ukrán"
-      }
+      },
+      "select": "Nyelvek kiválasztása"
     },
     "MIME_TYPE": {
       "name": "Fájlformátum | Fájlformátumok",
       "options": {
         "text/plain": "Egyszerű szöveg"
-      }
+      },
+      "select": "Válassza ki a fájlformátumokat"
     },
     "PROVIDER": {
-      "name": "Aggregátor"
+      "moreName": "aggregátorok",
+      "name": "Aggregátor",
+      "select": "Válasszon aggregátorokat"
     },
     "REUSABILITY": {
       "name": "Használhatom ezt újból?",
@@ -464,10 +485,8 @@ export default {
         "permission": "Talán, kérjen engedélyt",
         "restricted": "Igen, feltételekkel",
         "uncategorized": "Uncategorized"
-      }
-    },
-    "RIGHTS": {
-      "name": "Jogokról szóló nyilatkozat"
+      },
+      "select": "Válassza ki, hogy használhatja-e ezt"
     },
     "TYPE": {
       "name": "Adathordozó típusa",
@@ -477,7 +496,8 @@ export default {
         "SOUND": "Hang",
         "TEXT": "Szöveg",
         "VIDEO": "Videó"
-      }
+      },
+      "select": "Adathordozó-típusok kiválasztása"
     },
     "api": {
       "name": "Keresés erre",
@@ -512,7 +532,8 @@ export default {
         "photography": "Fotózás",
         "sport": "Sport",
         "ww1": "1914-1918"
-      }
+      },
+      "select": "Téma kiválasztása"
     },
     "contentTier": {
       "name": "Minősége elemek",
@@ -523,19 +544,24 @@ export default {
         "2": "Közepes minőség",
         "3": "Kiváló minőségű és újrafelhasználható feltételekkel",
         "4": "Kiváló minőségű és szabadon újrafelhasználható"
-      }
+      },
+      "select": "Cikkminőségek kiválasztása"
     },
+    "moreOptions": "Keresés, hogy találjon {0} több {1}.",
     "proxy_dc_format": {
-      "name": "Formátum | formátumok"
+      "name": "Formátum | formátumok",
+      "select": "Formátumok kiválasztása"
     },
     "proxy_dc_type": {
-      "name": "Típus | Típusok"
+      "name": "Típus | Típusok",
+      "select": "Típusok kiválasztása"
     },
     "proxy_dcterms_issued": {
       "name": "Kibocsátás dátuma"
     },
     "proxy_dcterms_medium": {
-      "name": "Adathordozó | Adathordozók"
+      "name": "Adathordozó | Adathordozók",
+      "select": "Adathordozó kiválasztása"
     }
   },
   "feedback": {
@@ -588,6 +614,7 @@ export default {
       "dctermsProvenance": "Származási hely",
       "dctermsReferences": "Hivatkozások",
       "dctermsSpatial": "Helyek",
+      "dctermsTOC": "Tartalomjegyzék",
       "dctermsTemporal": "Időbeli",
       "edmCountry": "Szolgáltató ország",
       "edmCurrentLocation": "Jelenlegi tartózkodási hely",
@@ -644,7 +671,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label} : {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -785,7 +811,7 @@ export default {
     "dismiss": "Bezárás",
     "readMore": "Bővebben",
     "text": {
-      "sideFilters": "Nézd meg az új szűrőket! Ezek mostantól mind láthatóak a keresési eredmények jobb oldalán."
+      "searchFilters": "Keresési szűrőink mostantól támogatják a keresést; Nézd meg! Újraterveztük az eredményeinket és a gyűjtési oldalainkat is."
     }
   },
   "newWindow": "új ablakban nyílik meg",
@@ -848,13 +874,14 @@ export default {
   "reset": "Visszaállítás",
   "resourceWikimedia": "Forrás: Wikimedia Commons",
   "results": "Találatok",
+  "resultsFor": "Találatok a következőre: {0}",
   "resultsLimitWarning": "Nem jelennek meg további eredmények, mivel csak az első 1000 legrelevánsabb eredmény látható. Ha nem találta meg azt, amit keres, kérjük, finomítsa a keresést.",
+  "resultsWithin": "Találatok a következőn belül {0} {1} a következőre: {2}",
   "search": "Keresés",
   "searchHasLoaded": "{0} eredmények visszaadva",
   "searchPlaceholder": "Mit keres?",
   "searchResults": "Keresés",
   "searchResultsFor": "{0} - Keresés",
-  "searchResultsForIn": "{0} - Keresés a következőben: {1}",
   "searchSuggestions": "Keresési javaslatok",
   "searchTier": {
     "button": {
@@ -905,6 +932,10 @@ export default {
   },
   "showLess": "Kevesebb megjelenítése",
   "showMore": "Továbbiak megjelenítése",
+  "sideFilters": {
+    "noOptions": "Nincsenek választható opciók",
+    "search": "Keresés"
+  },
   "statuses": {
     "liked": "Tetszett",
     "pinned": "Odatűzött"
