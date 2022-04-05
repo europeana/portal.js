@@ -100,7 +100,7 @@
       RelatedCollections: () => import('@/components/generic/RelatedCollections')
     },
 
-    async beforeRouteLeave(to, from, next) {
+    beforeRouteLeave(to, from, next) {
       if (to.matched[0].path !== `/${this.$i18n.locale}/search`) {
         this.$store.commit('search/setShowSearchBar', false);
       }
@@ -114,6 +114,7 @@
     data() {
       return {
         page: null,
+        relatedEntities: null,
         showRelated: false,
         themes: themes.map(theme => theme.id)
       };
@@ -127,7 +128,6 @@
         // TODO: group as a reset action on the store?
         this.$store.commit('entity/setId', null);
         this.$store.commit('entity/setEntity', null);
-        this.$store.commit('entity/setRelatedEntities', null);
         this.$store.commit('entity/setFeaturedSetId', null);
         this.$store.commit('entity/setPinned', null);
         this.$store.commit('entity/setEditable', false);
@@ -198,7 +198,6 @@
     computed: {
       ...mapState({
         entity: state => state.entity.entity,
-        relatedEntities: state => state.entity.relatedEntities,
         recordsPerPage: state => state.entity.recordsPerPage,
         editable: state => state.entity.editable
       }),
@@ -354,14 +353,13 @@
     mounted() {
       this.$store.commit('search/setCollectionLabel', this.title.values[0]);
       this.storeSearchOverrides();
-      // TODO: move into a new entity store action?
-      // Disable related collections for organisation for now
+      // Disable related collections for organisation (for now)
       if (!this.relatedCollectionCards && this.collectionType !== 'organisation') {
         this.$apis.record.relatedEntities(this.$route.params.type, this.$route.params.pathMatch)
           .then(facets => facets ? this.$apis.entity.facets(facets, this.$route.params.pathMatch) : [])
-          .then(related => this.$store.commit('entity/setRelatedEntities', related.map(entity => {
+          .then(related => this.relatedEntities = related.map(entity => {
             return pick(entity, ['id', 'prefLabel', 'isShownBy']);
-          })));
+          }));
       }
       if (this.userIsEditor) {
         this.$store.dispatch('entity/getFeatured');
