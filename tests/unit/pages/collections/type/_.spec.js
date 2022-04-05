@@ -376,8 +376,8 @@ describe('pages/collections/type/_', () => {
           wrapper.vm.$fetchState.error = false;
           expect(wrapper.vm.pageTitle).toBe('Topic');
         });
-      })
-    })
+      });
+    });
   });
 
   describe('methods', () => {
