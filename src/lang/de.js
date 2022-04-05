@@ -486,7 +486,7 @@ export default {
         "restricted": "Ja, mit Bedingungen",
         "uncategorized": "Nicht kategorisiert"
       },
-      "select": "Wählen Sie aus, ob die Artikel wiederverwendbar sind"
+      "select": "Wählen Sie aus, ob die Objekte wiederverwendbar sind"
     },
     "TYPE": {
       "name": "Art des Mediums",
@@ -545,7 +545,7 @@ export default {
         "3": "Hohe Qualität & wiederverwendbar mit Bedingungen",
         "4": "Hohe Qualität & frei wiederverwendbar"
       },
-      "select": "Artikelqualitäten auswählen"
+      "select": "Objektqualitäten auswählen"
     },
     "moreOptions": "Suchen, um {0} mehr {1} zu finden.",
     "proxy_dc_format": {
