@@ -182,11 +182,11 @@
 
     head() {
       return {
-        title: this.$pageHeadTitle(this.title.values[0]),
+        title: this.$pageHeadTitle(this.pageTitle),
         meta: [
           { hid: 'og:type', property: 'og:type', content: 'article' },
-          { hid: 'title', name: 'title', content: this.title.values[0] },
-          { hid: 'og:title', property: 'og:title', content: this.title.values[0] }
+          { hid: 'title', name: 'title', content: this.pageTitle },
+          { hid: 'og:title', property: 'og:title', content: this.pageTitle }
         ]
           .concat(this.descriptionText ? [
             { hid: 'description', name: 'description', content: this.descriptionText },
@@ -201,6 +201,9 @@
         recordsPerPage: state => state.entity.recordsPerPage,
         editable: state => state.entity.editable
       }),
+      pageTitle() {
+        return this.$fetchState.error ? this.$t('error') : this.title.values[0];
+      },
       searchOverrides() {
         const overrideParams = {
           qf: [],
@@ -351,7 +354,7 @@
       searchOverrides: 'storeSearchOverrides'
     },
     mounted() {
-      this.$store.commit('search/setCollectionLabel', this.title.values[0]);
+      this.$store.commit('search/setCollectionLabel', this.pageTitle);
       this.storeSearchOverrides();
       // Disable related collections for organisation (for now)
       if (!this.relatedCollectionCards && this.collectionType !== 'organisation') {
