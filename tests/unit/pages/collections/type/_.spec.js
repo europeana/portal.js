@@ -1,7 +1,6 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../../utils';
 import BootstrapVue from 'bootstrap-vue';
-import Vuex from 'vuex';
 import sinon from 'sinon';
 
 import collection from '@/pages/collections/_type/_';
@@ -9,7 +8,6 @@ import collection from '@/pages/collections/_type/_';
 const localVue = createLocalVue();
 localVue.directive('masonry-tile', {});
 localVue.use(BootstrapVue);
-localVue.use(Vuex);
 
 const organisationEntity = {
   entity: {
@@ -62,56 +60,8 @@ const contentfulPageResponse = {
   }
 };
 
-const mutations = {
-  disableCollectionFacet: sinon.spy(),
-  setId: sinon.spy(),
-  setEntity: sinon.spy(),
-  setShowSearchBar: sinon.spy()
-};
-
-const store = (entity = {}) => {
-  return new Vuex.Store({
-    state: {
-      entity: { entity },
-      i18n: {
-        locale: 'en'
-      },
-      auth: {},
-      search: {
-        showSearchBar: true
-      }
-    },
-    getters: {
-      'entity/curatedEntity': () => () => null,
-      'search/facetNames': () => [],
-      'search/filters': () => ({}),
-      'search/queryUpdatesForFacetChanges': () => () => ({}),
-      'search/collection': () => false
-    },
-    mutations: {
-      'entity/setCuratedEntities': () => null,
-      'entity/setEditable': () => null,
-      'entity/setEntity': (state, val) => mutations.setEntity(val),
-      'entity/setFeaturedSetId': () => null,
-      'entity/setId': (state, val) => mutations.setId(val),
-      'entity/setPinned': () => null,
-      'entity/setRelatedEntities': () => null,
-      'search/disableCollectionFacet': mutations.disableCollectionFacet,
-      'search/set': () => null,
-      'search/setCollectionLabel': () => null,
-      'search/setShowFiltersToggle': () => null,
-      'search/setShowSearchBar': (state, val) => mutations.setShowSearchBar(val)
-    },
-    actions: {
-      'entity/searchForRecords': () => null,
-      'search/setResettableFilter': () => ({})
-    }
-  });
-};
-
 const factory = (options = {}) => shallowMountNuxt(collection, {
   localVue,
-  store: store(options.entity),
   mocks: {
     $fetchState: {},
     $t: key => key,
@@ -139,7 +89,30 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
     },
     $features: { sideFilters: false },
     $path: () => '/',
-    $nuxt: { context: { redirect: sinon.spy() } }
+    $nuxt: { context: { redirect: sinon.spy() } },
+    $store: {
+      state: {
+        entity: {
+          entity: options.entity
+        },
+        i18n: {
+          locale: 'en'
+        },
+        auth: {},
+        search: {
+          showSearchBar: true
+        }
+      },
+      getters: {
+        'entity/curatedEntity': sinon.stub().returns(null),
+        'search/facetNames': sinon.stub().returns([]),
+        'search/filters': sinon.stub().returns({}),
+        'search/queryUpdatesForFacetChanges': sinon.stub().returns({}),
+        'search/collection': sinon.stub().returns(false)
+      },
+      dispatch: sinon.spy(),
+      commit: sinon.spy()
+    }
   }
 });
 
@@ -152,7 +125,7 @@ describe('pages/collections/type/_', () => {
 
       await wrapper.vm.fetch();
 
-      expect(mutations.disableCollectionFacet.called).toBe(true);
+      expect(wrapper.vm.$store.commit.calledWith('search/disableCollectionFacet')).toBe(true);
     });
 
     it('requests entity from Entity API', async() => {
@@ -202,6 +175,42 @@ describe('pages/collections/type/_', () => {
           it('requests entity management data', async() => {
             expect(await requestMade($features, $auth)).toBe(true);
           });
+
+          describe('and there is a note in the response', () => {
+            const proxy = { id: '#proxy_europeana' };
+            const response = { note: 'About the topic', proxies: [proxy] };
+
+            it('stores that the entity is editable', async() => {
+              const wrapper = factory(topicEntity);
+              wrapper.vm.$features = $features;
+              wrapper.vm.$auth = $auth;
+              wrapper.vm.$apis.entityManagement.get.resolves(response);
+
+              await wrapper.vm.fetch();
+
+              expect(wrapper.vm.$store.commit.calledWith('entity/setEditable', true)).toBe(true);
+            });
+            it('stores the note as the entity description', async() => {
+              const wrapper = factory(topicEntity);
+              wrapper.vm.$features = $features;
+              wrapper.vm.$auth = $auth;
+              wrapper.vm.$apis.entityManagement.get.resolves(response);
+
+              await wrapper.vm.fetch();
+
+              expect(wrapper.vm.$store.commit.calledWith('entity/setEntityDescription', response.note)).toBe(true);
+            });
+            it('stores the Europeana proxy as the entity proxy', async() => {
+              const wrapper = factory(topicEntity);
+              wrapper.vm.$features = $features;
+              wrapper.vm.$auth = $auth;
+              wrapper.vm.$apis.entityManagement.get.resolves(response);
+
+              await wrapper.vm.fetch();
+
+              expect(wrapper.vm.$store.commit.calledWith('entity/setProxy', response.proxies[0])).toBe(true);
+            });
+          });
         });
 
         describe('but user is not authenticated with "entities" roles including "editor"', () => {
@@ -241,8 +250,8 @@ describe('pages/collections/type/_', () => {
 
       await wrapper.vm.$options.beforeRouteLeave.call(wrapper.vm, to, null, next);
 
-      expect(mutations.setEntity.calledWith(null)).toBe(true);
-      expect(mutations.setId.calledWith(null)).toBe(true);
+      expect(wrapper.vm.$store.commit.calledWith('entity/setEntity', null)).toBe(true);
+      expect(wrapper.vm.$store.commit.calledWith('entity/setId', null)).toBe(true);
       expect(next.called).toBe(true);
     });
     it('hides search bar when not navigating to search page', async() => {
@@ -253,7 +262,7 @@ describe('pages/collections/type/_', () => {
 
       await wrapper.vm.$options.beforeRouteLeave.call(wrapper.vm, to, null, next);
 
-      expect(mutations.setShowSearchBar.calledWith(false)).toBe(true);
+      expect(wrapper.vm.$store.commit.calledWith('search/setShowSearchBar', false)).toBe(true);
       expect(next.called).toBe(true);
     });
   });
