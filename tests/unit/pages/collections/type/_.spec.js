@@ -148,7 +148,7 @@ describe('pages/collections/type/_', () => {
           locale: 'en-GB',
           preview: false
         });
-      }
+      };
 
       describe('when it is not known whether the entity has one', () => {
         const curatedEntities = null;
@@ -371,7 +371,7 @@ describe('pages/collections/type/_', () => {
         await wrapper.vm.redirectToPrefPath();
 
         return wrapper.vm.$nuxt.context.redirect.calledWith(302, '/');
-      }
+      };
 
       describe('when entity has a named collection page', () => {
         const data = { page: { name: 'Geography' } };
