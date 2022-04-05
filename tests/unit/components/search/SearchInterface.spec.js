@@ -14,7 +14,6 @@ localVue.use(Vuex);
 
 const searchSetViewMutation = sinon.spy();
 const searchSetMutation = sinon.spy();
-const makeToastSpy = sinon.spy();
 
 const factory = (options = {}) => {
   const mocks = {
@@ -56,19 +55,10 @@ const factory = (options = {}) => {
     }
   });
 
-  const mixins = [
-    {
-      methods: {
-        makeToast: makeToastSpy
-      }
-    }
-  ];
-
   return shallowMount(SearchInterface, {
     localVue,
     mocks,
     store,
-    mixins,
     propsData: options.propsData
   });
 };
