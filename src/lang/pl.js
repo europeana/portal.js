@@ -811,7 +811,7 @@ export default {
     "dismiss": "Zamknij",
     "readMore": "Czytaj więcej",
     "text": {
-      "searchFilters": "Nasze filtry wyszukiwania obsługują teraz wyszukiwanie; Sprawdź to! Przeprojektowaliśmy również nasze strony wyników i kolekcji."
+      "searchFilters": "Możesz teraz wyszukiwać wartości w poszczególnych filtrach; Sprawdź to!"
     }
   },
   "newWindow": "otwiera się w nowym oknie",

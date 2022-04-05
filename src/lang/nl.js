@@ -811,7 +811,7 @@ export default {
     "dismiss": "Sluiten",
     "readMore": "Lees verder",
     "text": {
-      "searchFilters": "Onze zoekfilters ondersteunen nu zoeken; kijk maar! We hebben ook onze resultaten en collectie pagina's opnieuw ontworpen."
+      "searchFilters": "U kunt nu zoeken naar waarden in de afzonderlijke filters; bekijk het hier!"
     }
   },
   "newWindow": "opent in nieuw venster",

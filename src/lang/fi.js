@@ -811,7 +811,7 @@ export default {
     "dismiss": "Sulje",
     "readMore": "Lue lisää",
     "text": {
-      "searchFilters": "Hakusuodattimemme tukevat nyt hakua; Tarkista se! Suunnittelimme myös tulos- ja kokoelmasivumme uudelleen."
+      "searchFilters": "Voit nyt etsiä arvoja yksittäisistä suodattimista; Tarkista se!"
     }
   },
   "newWindow": "avautuu uuteen ikkunaan",

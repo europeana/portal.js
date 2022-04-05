@@ -811,7 +811,7 @@ export default {
     "dismiss": "Cerrar",
     "readMore": "Leer más",
     "text": {
-      "searchFilters": "Nuestros filtros de búsqueda ahora admiten la búsqueda; ¡Echale un vistazo! También rediseñamos nuestras páginas de resultados y colecciones."
+      "searchFilters": "Ahora puede buscar valores en los filtros individuales; ¡Echale un vistazo!"
     }
   },
   "newWindow": "se abre en una nueva ventana",

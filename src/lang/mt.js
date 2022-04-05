@@ -811,7 +811,7 @@ export default {
     "dismiss": "Agħlaq",
     "readMore": "Aqra iktar",
     "text": {
-      "searchFilters": "Il-filtri tat-tfittxija tagħna issa jappoġġjaw it-tiftix; iċċekkjaha! Aħna fasslu mill-ġdid ukoll ir-riżultati u l-paġni tal-ġbir tagħna."
+      "searchFilters": "Issa tista' tfittex valuri fil-filtri individwali; iċċekkjah!"
     }
   },
   "newWindow": "tiftaħ fit-tieqa l-ġdida",

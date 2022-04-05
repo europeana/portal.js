@@ -811,7 +811,7 @@ export default {
     "dismiss": "Închidere",
     "readMore": "Citește mai mult",
     "text": {
-      "searchFilters": "Filtrele noastre de căutare acceptă acum căutarea; verifică! De asemenea, ne-am reproiectat rezultatele și paginile de colecție."
+      "searchFilters": "Acum puteți căuta valori în filtrele individuale; verifică!"
     }
   },
   "newWindow": "se deschide într-o fereastră nouă",

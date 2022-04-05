@@ -811,7 +811,7 @@ export default {
     "dismiss": "Zavřít",
     "readMore": "Přečtěte si více",
     "text": {
-      "searchFilters": "Naše vyhledávací filtry nyní podporují vyhledávání; Koukni na to! Přepracovali jsme také stránky s výsledky a kolekcemi."
+      "searchFilters": "Nyní můžete vyhledávat hodnoty v jednotlivých filtrech; Koukni na to!"
     }
   },
   "newWindow": "otevře se v novém okně",

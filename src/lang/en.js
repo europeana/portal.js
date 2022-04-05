@@ -834,7 +834,7 @@ export default {
     "dismiss": "Dismiss",
     "readMore": "Read more",
     "text": {
-      "searchFilters": "Our search filters now support searching; check it out! We also redesigned our results and collection pages."
+      "searchFilters": "You can now search for values in the individual filters; check it out!"
     }
   },
   "newWindow": "opens in new window",

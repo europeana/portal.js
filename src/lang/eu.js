@@ -811,7 +811,7 @@ export default {
     "dismiss": "Itxi",
     "readMore": "Gehiago irakurri",
     "text": {
-      "searchFilters": "Gure bilaketa-iragazkiak orain bilaketa onartzen dute; begiratu ezazu! Gure emaitzak eta bilduma-orriak ere birmoldatu ditugu."
+      "searchFilters": "Orain balioak bila ditzakezu iragazki indibidualetan; begiratu ezazu!"
     }
   },
   "newWindow": "leiho berrian irekiko da",

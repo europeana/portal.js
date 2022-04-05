@@ -811,7 +811,7 @@ export default {
     "dismiss": "Bezárás",
     "readMore": "Bővebben",
     "text": {
-      "searchFilters": "Keresési szűrőink mostantól támogatják a keresést; Nézd meg! Újraterveztük az eredményeinket és a gyűjtési oldalainkat is."
+      "searchFilters": "Most már kereshet értékeket az egyes szűrőkben; nézd meg!"
     }
   },
   "newWindow": "új ablakban nyílik meg",

@@ -811,7 +811,7 @@ export default {
     "dismiss": "Dún",
     "readMore": "Léigh níos mó",
     "text": {
-      "searchFilters": "Tacaíonn ár scagairí cuardaigh le cuardach anois; seiceáil amach é! Rinneamar ár gcuid torthaí agus leathanaigh bailiúcháin a athdhearadh freisin."
+      "searchFilters": "Is féidir leat luachanna a chuardach anois sna scagairí aonair; seiceáil amach é!"
     }
   },
   "newWindow": "osclaítear i bhfuinneog nua é",

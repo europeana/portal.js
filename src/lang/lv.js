@@ -811,7 +811,7 @@ export default {
     "dismiss": "Aizvērt",
     "readMore": "Lasīt vairāk",
     "text": {
-      "searchFilters": "Mūsu meklēšanas filtri tagad atbalsta meklēšanu; pārbaudiet to! Mēs arī pārveidojām mūsu rezultātu un apkopojuma lapas."
+      "searchFilters": "Tagad varat meklēt vērtības atsevišķos filtros; pārbaudiet to!"
     }
   },
   "newWindow": "tiek atvērts jaunā logā",

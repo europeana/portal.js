@@ -811,7 +811,7 @@ export default {
     "dismiss": "Zatvoriť",
     "readMore": "Viac",
     "text": {
-      "searchFilters": "Naše vyhľadávacie filtre teraz podporujú vyhľadávanie; Pozrite sa na to! Tiež sme prepracovali naše výsledky a stránky zbierky."
+      "searchFilters": "Teraz môžete vyhľadávať hodnoty v jednotlivých filtroch; skontrolovať to!"
     }
   },
   "newWindow": "otvorí sa v novom okne",

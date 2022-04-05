@@ -811,7 +811,7 @@ export default {
     "dismiss": "Zapri",
     "readMore": "Preberi več",
     "text": {
-      "searchFilters": "Naši filtri za iskanje zdaj podpirajo iskanje; preverite to! Prenovili smo tudi strani z rezultati in zbirkami."
+      "searchFilters": "Zdaj lahko iščete vrednosti v posameznih filtrih; preverite!"
     }
   },
   "newWindow": "odpre se v novem oknu",

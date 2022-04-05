@@ -811,7 +811,7 @@ export default {
     "dismiss": "Uždaryti",
     "readMore": "Skaityti daugiau",
     "text": {
-      "searchFilters": "Mūsų paieškos filtrai dabar palaiko paiešką; išbandykite tai! Taip pat pakeitėme rezultatų ir kolekcijų puslapių dizainą."
+      "searchFilters": "Dabar galite ieškoti reikšmių atskiruose filtruose; patikrinkite!"
     }
   },
   "newWindow": "atsidaro naujame lange",

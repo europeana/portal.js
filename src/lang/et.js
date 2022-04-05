@@ -811,7 +811,7 @@ export default {
     "dismiss": "Sulge",
     "readMore": "Loe lähemalt",
     "text": {
-      "searchFilters": "Meie otsingufiltrid toetavad nüüd otsimist; Vaata järgi! Samuti kujundasime ümber oma tulemuste ja kogumislehed."
+      "searchFilters": "Nüüd saate otsida väärtusi üksikutes filtrites; vaadake seda!"
     }
   },
   "newWindow": "avaneb uues aknas",

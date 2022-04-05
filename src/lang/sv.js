@@ -811,7 +811,7 @@ export default {
     "dismiss": "Stäng",
     "readMore": "Läs mer",
     "text": {
-      "searchFilters": "Våra sökfilter stödjer nu sökning; Kolla in det! Vi har också gjort om våra resultat- och samlingssidor."
+      "searchFilters": "Du kan nu söka efter värden i de enskilda filtren; Kolla in det!"
     }
   },
   "newWindow": "öppnas i nytt fönster",
