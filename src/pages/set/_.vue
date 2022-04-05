@@ -123,6 +123,7 @@
               <b-col cols="12">
                 <ItemPreviewCardGroup
                   :items="set.items"
+                  :show-pins="setIsEntityBestItems && userIsEntityEditor"
                 />
               </b-col>
             </b-row>
@@ -172,20 +173,13 @@
 
     middleware: 'sanitisePageQuery',
 
-    data() {
-      return {
-        setFormModalId: `set-form-modal-${this.id}`
-      };
-    },
+    async fetch() {
+      await this.$store.dispatch('set/fetchActive', this.setId);
 
-    fetch() {
-      return this.$store.dispatch('set/fetchActive', this.$route.params.pathMatch)
-        .catch((apiError) => {
-          if (process.server) {
-            this.$nuxt.context.res.statusCode = apiError.statusCode;
-          }
-          throw apiError;
-        });
+      if (this.setIsEntityBestItems && this.userIsEntityEditor) {
+        await this.$store.commit('entity/setFeaturedSetId', this.setId);
+        await this.$store.dispatch('entity/getPins');
+      }
     },
 
     head() {
@@ -207,6 +201,12 @@
     computed: {
       set() {
         return this.$store.state.set.active || {};
+      },
+      setId() {
+        return this.$route.params.pathMatch;
+      },
+      setFormModalId() {
+        return `set-form-modal-${this.setId}`;
       },
       itemCount() {
         return this.set.total || 0;

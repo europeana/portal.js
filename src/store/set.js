@@ -136,7 +136,13 @@ export default {
       return this.$apis.set.get(setId, {
         profile: 'itemDescriptions'
       })
-        .then(set => commit('setActive', set));
+        .then(set => commit('setActive', set))
+        .catch((apiError) => {
+          if (process.server) {
+            this.$nuxt.context.res.statusCode = apiError.statusCode;
+          }
+          throw apiError;
+        });
     },
     createSet({ dispatch }, body) {
       return this.$apis.set.create(body)
