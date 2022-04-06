@@ -1,7 +1,7 @@
 export default {
   "account": {
-    "curatedCollections": "Kurátorské zbierky",
-    "curatedCollectionsInfo": "Nájdite nižšie všetky zbierky, ktoré ste kurátori",
+    "curatedCollections": "Spravované zbierky",
+    "curatedCollectionsInfo": "Nájdite nižšie všetky zbierky, ktorých ste správcami",
     "editProfile": "Upraviť profil",
     "likes": "Označenia Páči sa mi",
     "linkAccount": "Môj účet",
@@ -30,12 +30,16 @@ export default {
     "accept": "Prijať",
     "cancel": "Zrušiť",
     "close": "zatvoriť",
+    "continue": "pokračovať",
     "download": "Stiahnuť",
     "edit": "Upraviť",
     "feedback": "Spätná väzba",
     "goBack": "Späť",
+    "goHome": "Prejsť na domovskú stránku",
+    "learnMore": "Uč sa viac",
     "like": "Označenie Páči sa mi",
     "next": "Ďalšie",
+    "pin": "Kolík",
     "providedBy": "Poskytovateľ:  {provider}",
     "reject": "Odmietnuť",
     "send": "poslať",
@@ -72,6 +76,7 @@ export default {
   "cardLabels": {
     "organisation": "Organizácia",
     "person": "Osoba",
+    "theme": "Téma",
     "time": "Storočia",
     "topic": "Téma"
   },
@@ -84,16 +89,24 @@ export default {
     "fashion": {
       "facets": {
         "CREATOR": {
-          "name": "Dizajnér | Dizajnéri"
+          "moreName": "dizajnéri",
+          "name": "Dizajnér | Dizajnéri",
+          "select": "Vyberte dizajnéri"
         },
         "proxy_dc_format": {
-          "name": "Technika | Techniky"
+          "moreName": "techniky",
+          "name": "Technika | Techniky",
+          "select": "Vyberte techniky"
         },
         "proxy_dc_type": {
-          "name": "Typ položky | Typy položiek"
+          "moreName": "typy položiek",
+          "name": "Typ položky | Typy položiek",
+          "select": "Vyberte typy položiek"
         },
         "proxy_dcterms_medium": {
-          "name": "Materiál | Materiály"
+          "moreName": "materiály",
+          "name": "Materiál | Materiály",
+          "select": "Vyberte materiály"
         }
       }
     },
@@ -178,6 +191,7 @@ export default {
   },
   "facets": {
     "COLOURPALETTE": {
+      "moreName": "farby",
       "name": "Farba | Farby",
       "options": {
         "#000000": "Čierna",
@@ -185,14 +199,14 @@ export default {
         "#00008B": "Tmavomodrá",
         "#0000CD": "Stredná modrá",
         "#0000FF": "Modrá",
-        "#006400": "Tmavozelený",
-        "#008000": "Web Green",
-        "#008080": "Modrozelený",
-        "#008B8B": "Dark Cyan",
-        "#00BFFF": "Deep Sky Blue",
+        "#006400": "Tmavozelená",
+        "#008000": "Webová zelená",
+        "#008080": "Modrozelená",
+        "#008B8B": "Tmavá azúrová",
+        "#00BFFF": "Hlboká nebeská modrá",
         "#00CED1": "Tmavo tyrkysová",
         "#00FA9A": "Stredne jarná zelená",
-        "#00FF00": "zelená",
+        "#00FF00": "Zelená",
         "#00FF7F": "Jarná zelená",
         "#00FFFF": "Tyrkysový",
         "#191970": "Polnočná modrá",
@@ -200,51 +214,51 @@ export default {
         "#20B2AA": "Svetlo morská zelená",
         "#228B22": "Lesná zelená",
         "#2E8B57": "Morská zelená",
-        "#2F4F4F": "Dark Slate Grey",
+        "#2F4F4F": "Tmavá bridlicovo šedá",
         "#32CD32": "Limetková zelená",
         "#3CB371": "Stredne morská zelená",
         "#40E0D0": "tyrkysová",
         "#4169E1": "Kráľovská modrá",
         "#4682B4": "Oceľovo modrá",
-        "#483D8B": "Dark Slate Blue",
+        "#483D8B": "Tmavá bridlicovo modrá",
         "#48D1CC": "Stredne tyrkysová",
         "#4B0082": "indigo",
         "#556B2F": "Tmavo olivová zelená",
-        "#5F9EA0": "Cadet Blue",
-        "#6495ED": "nevädza",
-        "#663399": "Rebecca Purple",
+        "#5F9EA0": "Kadetská modrá",
+        "#6495ED": "Nevädza",
+        "#663399": "Rebecca fialová farba",
         "#66CDAA": "Stredný akvamarín",
-        "#696969": "Dim Gray",
+        "#696969": "Matná šedá",
         "#6A5ACD": "Bridlicová modrá",
-        "#6B8E23": "Olive Drab",
+        "#6B8E23": "Olivová fádna",
         "#708090": "Bridlica šedá",
         "#778899": "Svetlá bridlica šedá",
         "#7B68EE": "Stredne bridlicová modrá",
         "#7CFC00": "Trávniková zelená",
-        "#7F0000": "Web Maroon",
-        "#7F007F": "Web Purple",
+        "#7F0000": "Web gaštanová",
+        "#7F007F": "Web fialová",
         "#7FFF00": "chartreuska",
         "#7FFFD4": "akvamarín",
         "#800000": "Gaštanová",
         "#800080": "Fialová",
-        "#808000": "Olivový",
-        "#808080": "Web Grey",
-        "#87CEEB": "Modrá obloha",
+        "#808000": "Olivová",
+        "#808080": "Web šedá",
+        "#87CEEB": "Nebesky modrá",
         "#87CEFA": "Svetlá obloha modrá",
         "#8A2BE2": "Modrá Fialová",
         "#8B0000": "Tmavo červená",
         "#8B008B": "Tmavo purpurová",
-        "#8B4513": "Saddle Brown",
+        "#8B4513": "Sedlová hnedá",
         "#8FBC8F": "Tmavo morská zelená",
         "#90EE90": "Svetlo zelená",
         "#9370DB": "Stredne fialová",
         "#9400D3": "Tmavofialová",
         "#98FB98": "Svetlo zelená",
-        "#9932CC": "Dark Orchid",
+        "#9932CC": "Tmavá orchidea",
         "#9ACD32": "Žltá zelená",
         "#A020F0": "Fialová",
         "#A0522D": "Sienna",
-        "#A52A2A": "hnedý",
+        "#A52A2A": "Hnedá",
         "#A9A9A9": "Tmavošedý",
         "#ADD8E6": "Svetlo modrá",
         "#ADFF2F": "Zelená Žltá",
@@ -253,94 +267,149 @@ export default {
         "#B0C4DE": "Svetlá oceľovomodrá",
         "#B0E0E6": "Prášková modrá",
         "#B22222": "tehla",
-        "#B8860B": "Tmavý zlatobyľ",
-        "#BA55D3": "Medium Orchid",
-        "#BC8F8F": "Rosy Brown",
-        "#BDB76B": "Dark Khaki",
+        "#B8860B": "Tmavá zlatobyľová",
+        "#BA55D3": "Stredná orchidea",
+        "#BC8F8F": "Ružová hnedá",
+        "#BDB76B": "Tmavá kaki",
         "#BEBEBE": "šedá",
-        "#C0C0C0": "striebro",
+        "#C0C0C0": "Strieborná",
         "#C71585": "Stredná fialová červená",
         "#CD5C5C": "Indická červená",
-        "#CD853F": "peru",
-        "#D2691E": "čokoláda",
-        "#D2B48C": "opálenie",
+        "#CD853F": "Peruánska",
+        "#D2691E": "Čokoládová",
+        "#D2B48C": "Opálená",
         "#D3D3D3": "Svetlo šedá",
-        "#D8BFD8": "bodliak",
-        "#DA70D6": "orchidea",
-        "#DAA520": "zlatobyľ",
+        "#D8BFD8": "Farba bodliaka",
+        "#DA70D6": "Orchidea",
+        "#DAA520": "Zlatobyľová",
         "#DB7093": "Svetlá fialová červená",
         "#DC143C": "karmínová",
         "#DCDCDC": "Gainsboro",
-        "#DDA0DD": "slivka",
-        "#DEB887": "pieskovo hnedá",
+        "#DDA0DD": "Slivková",
+        "#DEB887": "Pieskovo hnedá",
         "#E0FFFF": "Svetlo azúrová",
-        "#E6E6FA": "levanduľa",
-        "#E9967A": "Tmavý losos",
-        "#EE82EE": "fialový",
-        "#EEE8AA": "Svetlý Goldenrod",
-        "#F08080": "Light Coral",
-        "#F0E68C": "hnedožltý",
-        "#F0F8FF": "Alice Blue",
-        "#F0FFF0": "Medová Rosa",
-        "#F0FFFF": "blankyt",
-        "#F4A460": "Sandy Brown",
-        "#F5DEB3": "Pšenica",
-        "#F5F5DC": "béžový",
-        "#F5F5F5": "Biely dym",
-        "#F5FFFA": "Mätový krém",
-        "#F8F8FF": "Ghost White",
-        "#FA8072": "losos",
-        "#FAEBD7": "Antique White",
-        "#FAF0E6": "bielizeň",
-        "#FAFAD2": "Svetlo Goldenrod",
-        "#FDF5E6": "Old Lace",
+        "#E6E6FA": "Levanduľová",
+        "#E9967A": "Tmavá lososová",
+        "#EE82EE": "Fialová",
+        "#EEE8AA": "Bledá zlatá",
+        "#F08080": "Svetlo koralová",
+        "#F0E68C": "Hnedožltá",
+        "#F0F8FF": "Alice modrá",
+        "#F0FFF0": "Medová",
+        "#F0FFFF": "Blankytová",
+        "#F4A460": "Pieskovo hnedá",
+        "#F5DEB3": "Farba pšenice",
+        "#F5F5DC": "Béžová",
+        "#F5F5F5": "Biela dymová",
+        "#F5FFFA": "Mätová krémová",
+        "#F8F8FF": "Biela",
+        "#FA8072": "Lososová",
+        "#FAEBD7": "Starožitná biela",
+        "#FAF0E6": "Farba ľanu",
+        "#FAFAD2": "Svetlá zlatobyľová",
+        "#FDF5E6": "Farba stará čipka",
         "#FF0000": "červená",
-        "#FF00FF": "fuchsie",
-        "#FF1493": "Deep Pink",
-        "#FF4500": "Oranžovo červená",
-        "#FF6347": "Paradajka",
-        "#FF69B4": "Hot Pink",
-        "#FF7F50": "koralový",
+        "#FF00FF": "Fuchsiová",
+        "#FF1493": "Tmavo ružová",
+        "#FF4500": "Oranžová Červená",
+        "#FF6347": "Paradajková ",
+        "#FF69B4": "Ružová",
+        "#FF7F50": "Horúca ružová",
         "#FF8C00": "Tmavo oranžová",
-        "#FFA07A": "Light Salmon",
-        "#FFA500": "oranžový",
+        "#FFA07A": "Svetlá lososová",
+        "#FFA500": "Oranžová",
         "#FFB6C1": "Svetlo ružová",
         "#FFC0CB": "Ružová",
-        "#FFD700": "zlato",
-        "#FFDAB9": "Peach Puff",
-        "#FFDEAD": "Navajo White",
-        "#FFE4B5": "Moccasin",
+        "#FFD700": "Zlatá",
+        "#FFDAB9": "Broskyňová",
+        "#FFDEAD": "Navajo biela",
+        "#FFE4B5": "Mokasínová",
         "#FFE4C4": "Bisque",
         "#FFE4E1": "Misty Rose",
-        "#FFEBCD": "Blanched Almond",
+        "#FFEBCD": "Blanšírovaná mandľová",
         "#FFEFD5": "Papaya Whip",
-        "#FFF0F5": "Lavender Blush",
-        "#FFF5EE": "mušle",
+        "#FFF0F5": "Levanduľová",
+        "#FFF5EE": "Mušlová",
         "#FFF8DC": "Cornsilk",
-        "#FFFACD": "Citrónový šifón",
+        "#FFFACD": "Citrónová šifónová",
         "#FFFAF0": "Kvetinová biela",
-        "#FFFAFA": "Sneh",
+        "#FFFAFA": "Snehová",
         "#FFFF00": "žltá",
         "#FFFFE0": "Svetlo žltá",
-        "#FFFFF0": "Slonovina",
-        "#FFFFFF": "biely"
-      }
+        "#FFFFF0": "Slonovinová",
+        "#FFFFFF": "Biela"
+      },
+      "select": "Vyberte farby"
     },
     "COUNTRY": {
-      "name": "Poskytujúca krajina"
+      "name": "Poskytujúca krajina",
+      "options": {
+        "Albania": "Albánsko",
+        "Austria": "Rakúsko",
+        "Belarus": "Bielorusko",
+        "Belgium": "Belgicko",
+        "Bosnia and Herzegovina": "Bosna a Hercegovina",
+        "Bulgaria": "Bulharsko",
+        "Croatia": "Chorvátsko",
+        "Cyprus": "Cyprus",
+        "Czech Republic": "Česká republika",
+        "Denmark": "Dánsko",
+        "Estonia": "Estónsko",
+        "Europe": "Európa",
+        "Finland": "Fínsko",
+        "France": "Francúzsko",
+        "Georgia": "Gruzínsko",
+        "Germany": "Nemecko",
+        "Greece": "Grécko",
+        "Holy See (Vatican City State)": "Svätá stolica (Vatikánsky mestský štát)",
+        "Hungary": "Maďarsko",
+        "Iceland": "Island",
+        "Ireland": "Írsko",
+        "Israel": "Izrael",
+        "Italy": "Taliansko",
+        "Latvia": "Lotyšsko",
+        "Lithuania": "Litva",
+        "Luxembourg": "Luxembursko",
+        "Macedonia": "Macedónsko",
+        "Malta": "Malta",
+        "Moldova": "Moldavsko",
+        "Montenegro": "Čierna Hora",
+        "Netherlands": "Holandsko",
+        "Norway": "Nórsko",
+        "Poland": "Poľsko",
+        "Portugal": "Portugalsko",
+        "Romania": "Rumunsko",
+        "Russia": "Rusko",
+        "Serbia": "Srbsko",
+        "Slovakia": "Slovensko",
+        "Slovenia": "Slovinsko",
+        "Spain": "Španielsko",
+        "Sweden": "Švédsko",
+        "Switzerland": "Švajčiarsko",
+        "Turkey": "Turecko",
+        "Ukraine": "Ukrajina",
+        "United Kingdom": "Spojené kráľovstvo",
+        "United States of America": "Spojené Štáty Americké"
+      },
+      "select": "Vyberte poskytujúce krajiny"
     },
     "CREATOR": {
-      "name": "Tvorca | Tvorcovia"
+      "moreName": "tvorcovia",
+      "name": "Tvorca | Tvorcovia",
+      "select": "Vyberte tvorcov"
     },
     "DATA_PROVIDER": {
-      "name": "Inštitúcia"
+      "moreName": "inštitúcií",
+      "name": "Inštitúcia",
+      "select": "Vyberte inštitúcií"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Orientácia obrázka | Orientácie obrázkov",
       "options": {
         "landscape": "Na šírku",
         "portrait": "Na výšku"
-      }
+      },
+      "select": "Vyberte orientáciu obrázka"
     },
     "IMAGE_SIZE": {
       "name": "Veľkosť obrázka | Veľkosti obrázkov",
@@ -349,19 +418,65 @@ export default {
         "large": "Veľký,  1 – 4 MP (napr. 1920 x 1080 pixelov)",
         "medium": "Stredný 0,5 – 1 MP (napr. 850 x 850 pixelov)",
         "small": "Malý, menej ako 0,5 MP (napr. 650 x 600 pixelov)"
-      }
+      },
+      "select": "Vyberte veľkosti obrázkov"
     },
     "LANGUAGE": {
-      "name": "Jazyk"
+      "name": "Jazyk",
+      "options": {
+        "ar": "Arabčina",
+        "bg": "Bulharský",
+        "bs": "Bosnianska",
+        "ca": "Katalánčina",
+        "cs": "Český",
+        "cy": "Waleština",
+        "da": "Dánsky",
+        "de": "Nemčina",
+        "el": "Grécky",
+        "en": "Angličtina",
+        "es": "Španielčina",
+        "et": "Estónčina",
+        "fi": "Fínsky",
+        "fr": "Francúzsky",
+        "ga": "Írsky",
+        "gd": "Gaelčina",
+        "he": "Hebrejčina",
+        "hr": "Chorvátsky",
+        "hu": "Maďarský",
+        "is": "Islandský",
+        "it": "Taliansky",
+        "lt": "Litovský",
+        "lv": "Lotyšský",
+        "mk": "Macedónsky",
+        "mt": "Maltčina",
+        "mul": "Viaceré jazyky",
+        "nl": "Holandský",
+        "no": "Nórsky",
+        "pl": "Poľský",
+        "pt": "Portugalčina",
+        "ro": "Rumunský",
+        "ru": "Ruský",
+        "sk": "Slovenská",
+        "sl": "Slovinčina",
+        "sq": "Albánsky",
+        "sr": "Srbský",
+        "sv": "Švédsky",
+        "tr": "Turecký",
+        "uk": "Ukrajinský"
+      },
+      "select": "Vyberte jazyky"
     },
     "MIME_TYPE": {
       "name": "Formát súboru | Formáty súborov",
       "options": {
         "text/plain": "Obyčajný text"
-      }
+      },
+      "select": "Vyberte formáty súborov"
     },
     "PROVIDER": {
-      "name": "Agregátor"
+      "moreName": "agregátory",
+      "name": "Agregátor",
+      "select": "Vyberte agregátory"
     },
     "REUSABILITY": {
       "name": "Môžem to znova použiť?",
@@ -370,7 +485,8 @@ export default {
         "permission": "Možno; získajte povolenie",
         "restricted": "Áno; s výhradami",
         "uncategorized": "Nekategorizované"
-      }
+      },
+      "select": "Vyberte, či to môžete použiť"
     },
     "TYPE": {
       "name": "Typ média",
@@ -380,14 +496,17 @@ export default {
         "SOUND": "Zvuk",
         "TEXT": "Text",
         "VIDEO": "Video"
-      }
+      },
+      "select": "Vyberte typy médií"
     },
     "api": {
       "name": "Vyhľadávať",
       "options": {
         "fulltext": "Záznamy s plným textom",
         "metadata": "Výhradne záznamy s metaúdajmi"
-      }
+      },
+      "switch": "Vyhľadávanie len v obsahu položiek s plným textom",
+      "switchMoreInfo": "V tejto zbierke si môžete vybrať, čo chcete vyhľadávať: ak je tento prepínač zapnutý, budete vyhľadávať v texte novín a dokumentov; ak je vypnutý, budete namiesto toho vyhľadávať v informáciách popisujúcich položku, rovnako ako vždy vo väčšine iných zbierok."
     },
     "button": {
       "apply": "Použiť",
@@ -398,7 +517,7 @@ export default {
       "showLess": "Zobraziť menej {label}"
     },
     "collection": {
-      "name": "Kategória",
+      "name": "Téma",
       "options": {
         "archaeology": "Archeológia",
         "art": "Umenie",
@@ -413,27 +532,36 @@ export default {
         "photography": "Fotografie",
         "sport": "Šport",
         "ww1": "1914 – 1918"
-      }
+      },
+      "select": "Vyberte tému"
     },
     "contentTier": {
-      "name": "Obsahuje položky, ktoré nespĺňajú naše publikačné kritériá",
-      "notification": "K dispozícii sú určité položky, ktoré sa nezhodujú s našimi kritériami. Tieto položky si môžete zobraziť aktiváciou filtra „Kvalita položky“ v časti „Ďalšie filtre“.",
+      "name": "Kvalita položky",
       "options": {
         "*": "Obsahuje položky, ktoré nespĺňajú naše publikačné kritériá",
-        "0": "Zobraziť iba položky, ktoré nespĺňajú kritéria zverejnenia"
-      }
+        "0": "Zobraziť iba položky, ktoré nespĺňajú kritéria zverejnenia",
+        "1": "Nízka kvalita",
+        "2": "Stredná kvalita",
+        "3": "Vysoká kvalita a opakované použitie s podmienkami",
+        "4": "Vysoká kvalita a voľné opakované použitie"
+      },
+      "select": "Vyberte vlastnosti položky"
     },
+    "moreOptions": "Hľadajte, aby ste našli {0} viac {1}.",
     "proxy_dc_format": {
-      "name": "Formát | Formáty"
+      "name": "Formát | Formáty",
+      "select": "Vyberte formáty"
     },
     "proxy_dc_type": {
-      "name": "Typ | Typy"
+      "name": "Typ | Typy",
+      "select": "Vyberte typy"
     },
     "proxy_dcterms_issued": {
       "name": "Dátum vydania"
     },
     "proxy_dcterms_medium": {
-      "name": "Médium | Mediá"
+      "name": "Médium | Mediá",
+      "select": "Vyberte média"
     }
   },
   "feedback": {
@@ -484,8 +612,9 @@ export default {
       "dctermsIssued": "Dátum vydania",
       "dctermsMedium": "Médium",
       "dctermsProvenance": "Proveniencia",
-      "dctermsReferences": "Odkazuje na",
+      "dctermsReferences": "Odkazy",
       "dctermsSpatial": "Miesta",
+      "dctermsTOC": "Obsah",
       "dctermsTemporal": "Časové obdobie",
       "edmCountry": "Poskytujúca krajina",
       "edmCurrentLocation": "Aktuálna poloha",
@@ -542,7 +671,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label} : {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -579,7 +707,6 @@ export default {
     "itemCount": "1 položka | Počet položiek: {count}",
     "itemOf": "Max. {max} z {count} položiek",
     "recent": "Nedávne položky",
-    "recommendationsDisclaimer": "Palec hore pre pridanie do galérie - Palec dole, ak sa vám nepáči",
     "recommended": "Odporúčané položky",
     "youMightLike": "Položky, ktoré by sa vám mohli páčiť"
   },
@@ -593,7 +720,7 @@ export default {
       },
       "consentNotice": {
         "description": "Záleží nám na vašom súkromí a údaje používame iba na zlepšenie vášho zážitku. Na reklamu nepoužívame žiadne osobné informácie. Svoj súhlas môžete zmeniť každých 15 dní.",
-        "learnMore": "Nechaj ma vybrat si"
+        "learnMore": "Nechaj ma vybrať si"
       },
       "decline": "zamietam",
       "ok": "Dobre",
@@ -643,6 +770,10 @@ export default {
         "description": "Zhromažďuje anonymné štatistiky o tom, ako návštevníci interagujú s webovou stránkou.",
         "title": "Matomo"
       },
+      "newFeatureNotification": {
+        "description": "Zobrazí upozornenie, keď budú k dispozícii nové funkcie.",
+        "title": "Oznámenie o novej funkcii"
+      },
       "searchResultsView": {
         "description": "Pamätá si, či chcete radšej zobraziť výsledky vyhľadávania v zozname alebo mriežke.",
         "title": "Zobrazenie výsledkov hľadania (zoznam / mriežka)"
@@ -653,25 +784,8 @@ export default {
     "skipToMain": "Preskočiť na stránku s obsahom"
   },
   "learnMore": "Zistite viac o zdroji tohto popisu",
-  "linksToClassic": {
-    "home": {
-      "linkText": "Pozrite si túto stránku na pôvodnej webovej stránke Europeana do 20. decembra 2021.",
-      "text": "Prezeráte si novú verziu webovej lokality Europeana."
-    },
-    "record": {
-      "linkText": "Pozrite si túto položku na pôvodnej webovej stránke Europeana do 20. decembra 2021.",
-      "text": "Túto položku si prezeráte na novej webovej lokalite Europeana."
-    },
-    "search": {
-      "linkText": "Hľadajte na pôvodnej webovej stránke Europeana do 20. decembra 2021.",
-      "text": "Vyhľadávate na našej novej a rýchlejšej webovej lokalite."
-    }
-  },
-  "loading": "Načítava",
+  "loading": "Načítava sa",
   "loadingResults": "Načítavajú sa výsledky",
-  "mediaPreview": {
-    "selectItem": "Vyberte položku {src}"
-  },
   "messages": {
     "copyToClipboardSuccess": "Skopírované do schránky",
     "externalContentError": "Nepodarilo sa načítať externý obsah",
@@ -693,9 +807,21 @@ export default {
     "translateLanguage": "Chceli by ste túto položku vidieť v položke {0}?",
     "translateQuotaError": "Prekladateľská služba je dočasne nedostupná. Skúste neskôr prosím."
   },
+  "newFeatureNotification": {
+    "dismiss": "Zatvoriť",
+    "readMore": "Viac",
+    "text": {
+      "searchFilters": "Teraz môžete vyhľadávať hodnoty v jednotlivých filtroch; skontrolovať to!"
+    }
+  },
   "newWindow": "otvorí sa v novom okne",
   "noMoreResults": "Pre vaše vyhľadávanie neexistujú žiadne ďalšie výsledky.",
   "noResults": "Žiadne výsledky",
+  "organisation": {
+    "city": "Mesto",
+    "country": "Krajina",
+    "nameAcronym": "Názov akronym"
+  },
   "pageHasLoaded": "načítal",
   "pages": {
     "collections": {
@@ -720,11 +846,16 @@ export default {
     }
   },
   "readMore": "Viac",
+  "recommendation": {
+    "prompts": {
+      "accept": "Palec hore pre pridanie do galérie",
+      "reject": "Palec dole, ak sa vám nepáči"
+    }
+  },
   "record": {
     "IIIFViewer": "Divák IIIF",
     "allMetaData": "Všetky metadáta",
     "copyEmbedLabel": "Vložiť kód (kliknutím skopírujete)",
-    "downloadCopyrightInfo": "Táto položka je chránená autorským zákonom a nie je možné ju stiahnuť.",
     "exploreMore": "Preskúmať viac",
     "extendedInformation": "Rozšírené informácie",
     "goodToKnow": "Dobré vedieť",
@@ -736,24 +867,21 @@ export default {
     "showAll": "Zobraziť všetky informácie",
     "similarItems": "Podobné položky",
     "transcription": "Prepis",
-    "transcriptionDisclaimer": "Obsah pridáva verejnosť, nie inštitúcia, ktorá túto položku poskytla.",
-    "view": {
-      "image": "Zobraziť obrázok",
-      "media": "Zobraziť médiá",
-      "pdf": "Zobraziť PDF"
-    }
+    "transcriptionDisclaimer": "Obsah pridáva verejnosť, nie inštitúcia, ktorá túto položku poskytla."
   },
   "relatedCollections": "Súvisiace zbierky",
   "removeFilter": "Odstrániť filter {filterLabel}",
   "reset": "Obnoviť",
   "resourceWikimedia": "Zdroj z Wikimedia Commons",
   "results": "Výsledky",
+  "resultsFor": "Výsledky pre {0}",
   "resultsLimitWarning": "Ďalšie výsledky sa nezobrazujú, pretože sa zobrazuje iba prvých 1000 najrelevantnejších výsledkov. Ak ste nenašli, čo hľadáte, upresnite vyhľadávanie.",
+  "resultsWithin": "Výsledky v rámci {0} {1} pre {2}",
   "search": "Hľadať",
+  "searchHasLoaded": "{0} vrátené výsledky",
   "searchPlaceholder": "Čo hľadáte?",
   "searchResults": "Vyhľadávať",
   "searchResultsFor": "{0} – vyhľadávať",
-  "searchResultsForIn": "{0} – vyhľadávať v rámci {1}",
   "searchSuggestions": "Návrhy na vyhľadávanie",
   "searchTier": {
     "button": {
@@ -767,7 +895,8 @@ export default {
   },
   "searchViews": {
     "grid": "Zobrazenie mriežky",
-    "list": "Zobrazenie zoznamu"
+    "list": "Zobrazenie zoznamu",
+    "mosaic": "Mozaikový pohľad"
   },
   "set": {
     "actions": {
@@ -776,6 +905,7 @@ export default {
       "createNew": "Vytvoriť novú galériu",
       "delete": "Vymazať galériu",
       "edit": "Upraviť galériu",
+      "save": "Uložiť",
       "update": "Aktualizovať galériu"
     },
     "form": {
@@ -802,5 +932,14 @@ export default {
   },
   "showLess": "Zobraziť menej",
   "showMore": "Zobraziť viac",
-  "website": "Webové stránky"
+  "sideFilters": {
+    "noOptions": "Nie sú k dispozícii žiadne možnosti na výber",
+    "search": "Vyhľadávanie"
+  },
+  "statuses": {
+    "liked": "Obľúbené",
+    "pinned": "Pripnuté"
+  },
+  "website": "Webové stránky",
+  "youMightAlsoLike": "Tiež sa vám môže páčiť"
 };

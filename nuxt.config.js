@@ -6,29 +6,18 @@
 */
 
 const APP_SITE_NAME = 'Europeana';
+const APP_PKG_NAME = '@europeana/portal';
 
-import decamelize from 'decamelize';
-
-import pkg from './package.json';
-import nuxtCorePkg from '@nuxt/core/package.json';
+import versions from './pkg-versions.js';
 
 import i18nLocales from './src/plugins/i18n/locales.js';
 import i18nDateTime from './src/plugins/i18n/datetime.js';
 import { parseQuery, stringifyQuery } from './src/plugins/vue-router.cjs';
-
-const features = (ids) => {
-  return ids.reduce((memo, id) => {
-    const envKey = `ENABLE_${decamelize(id).toUpperCase()}`;
-    memo[id] = featureIsEnabled(process.env[envKey]);
-    return memo;
-  }, {});
-};
-
-const featureIsEnabled = (value) => Boolean(Number(value));
+import features, { featureIsEnabled, featureNotificationExpiration } from './src/features/index.js';
 
 const buildPublicPath = () => {
   if (featureIsEnabled(process.env.ENABLE_JSDELIVR_BUILD_PUBLIC_PATH)) {
-    return `https://cdn.jsdelivr.net/npm/${pkg.name}@${pkg.version}/.nuxt/dist/client`;
+    return `https://cdn.jsdelivr.net/npm/${APP_PKG_NAME}@${versions[APP_PKG_NAME]}/.nuxt/dist/client`;
   } else {
     return process.env.NUXT_BUILD_PUBLIC_PATH;
   }
@@ -43,6 +32,8 @@ export default {
       // TODO: rename env vars to prefix w/ APP_, except feature toggles
       baseUrl: process.env.PORTAL_BASE_URL,
       internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
+      featureNotification: process.env.APP_FEATURE_NOTIFICATION,
+      featureNotificationExpiration: featureNotificationExpiration(process.env.APP_FEATURE_NOTIFICATION_EXPIRATION),
       schemaOrgDatasetId: process.env.SCHEMA_ORG_DATASET_ID,
       siteName: APP_SITE_NAME,
       search: {
@@ -82,9 +73,9 @@ export default {
         environment: process.env.ELASTIC_APM_ENVIRONMENT || 'development',
         logLevel: process.env.ELASTIC_APM_LOG_LEVEL || 'info',
         serviceName: 'portal-js',
-        serviceVersion: pkg.version,
+        serviceVersion: versions[APP_PKG_NAME],
         frameworkName: 'Nuxt',
-        frameworkVersion: nuxtCorePkg.version,
+        frameworkVersion: versions['@nuxt/core'],
         ignoreUrls: [
           /^\/(_nuxt|__webpack_hmr)\//
         ],
@@ -130,16 +121,7 @@ export default {
         }
       }
     },
-    features: features([
-      'abTests',
-      'acceptEntityRecommendations',
-      'acceptSetRecommendations',
-      'entityManagement',
-      'jiraServiceDeskFeedbackForm',
-      'rejectEntityRecommendations',
-      'sideFilters',
-      'translatedItems'
-    ]),
+    features: features(),
     hotjar: {
       id: process.env.HOTJAR_ID,
       sv: process.env.HOTJAR_SNIPPET_VERSION
@@ -205,7 +187,7 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: pkg.description }
+      { hid: 'description', name: 'description', content: APP_SITE_NAME }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
@@ -276,7 +258,6 @@ export default {
   */
   plugins: [
     '~/plugins/vue-matomo.client',
-    '~/plugins/vue',
     '~/plugins/i18n/iso-locale',
     '~/plugins/hotjar.client',
     '~/plugins/link',
@@ -285,6 +266,7 @@ export default {
     '~/plugins/vue-directives',
     '~/plugins/vue-announcer.client',
     '~/plugins/vue-masonry.client',
+    '~/plugins/vue-scrollto',
     '~/plugins/ab-testing',
     '~/plugins/features'
   ],

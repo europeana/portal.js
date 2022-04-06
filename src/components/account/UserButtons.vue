@@ -5,26 +5,40 @@
   >
     <b-button
       v-show="showPins"
+      class="pin-button text-uppercase"
+      :class="{ 'button-icon-only': !buttonText }"
+      :variant="buttonVariant"
       :pressed="pinned"
-      class="icon-push-pin"
       data-qa="pin button"
       :aria-label="$t('entity.actions.pin')"
-      @click="togglePinned"
-    />
+      @click="togglePin"
+    >
+      <span class="icon-push-pin" />
+      {{ pinButtonText }}
+    </b-button>
     <b-button
-      class="icon-ic-add"
+      class="add-button text-uppercase d-inline-flex align-items-center"
+      :class="{ 'button-icon-only': !buttonText }"
       data-qa="add button"
+      :variant="buttonVariant"
       :aria-label="$t('set.actions.addTo')"
       @click="addToSet"
-    />
+    >
+      <span class="icon-ic-add" />
+      {{ buttonText ? $t('set.actions.save') : '' }}
+    </b-button>
     <b-button
+      class="like-button text-uppercase d-inline-flex align-items-center"
+      :class="{ 'button-icon-only': !buttonText }"
       :pressed="liked"
-      class="icon-heart"
+      :variant="buttonVariant"
       data-qa="like button"
       :aria-label="$t('actions.like')"
-      size="sm"
       @click="toggleLiked"
-    />
+    >
+      <span class="icon-heart" />
+      {{ likeButtonText }}
+    </b-button>
     <template
       v-if="$auth.loggedIn"
     >
@@ -40,12 +54,6 @@
         :modal-id="setFormModalId"
         :item-context="identifier"
         @response="setCreatedOrUpdated"
-      />
-      <PinToEntityModal
-        :modal-id="pinModalId"
-        :item-id="identifier"
-        :pinned="pinned"
-        data-qa="pin item to entity modal"
       />
       <!-- TODO: remove when 100-item like limit removed -->
       <b-modal
@@ -85,26 +93,49 @@
 
 <script>
   import keycloak from '@/mixins/keycloak';
+  import makeToastMixin from '@/mixins/makeToast';
 
+  /**
+   * User buttons for user interaction with items
+   */
   export default {
     name: 'UserButtons',
 
     components: {
       AddItemToSetModal: () => import('../set/AddItemToSetModal'),
-      SetFormModal: () => import('../set/SetFormModal'),
-      PinToEntityModal: () => import('../entity/PinModal')
+      SetFormModal: () => import('../set/SetFormModal')
     },
     mixins: [
-      keycloak
+      keycloak,
+      makeToastMixin
     ],
 
     props: {
-      // Identifier of the item
+      /**
+       * Identifier of the item
+       */
       identifier: {
         type: String,
         required: true
       },
+      /**
+       * If `true`, pin button will be rendered
+       */
       showPins: {
+        type: Boolean,
+        default: false
+      },
+      /**
+       * Button variant to use for styling the buttons
+       */
+      buttonVariant: {
+        type: String,
+        default: 'outline-light'
+      },
+      /**
+       * If `true`, button text will be rendered
+       */
+      buttonText: {
         type: Boolean,
         default: false
       }
@@ -115,7 +146,6 @@
         addItemToSetModalId: `add-item-to-set-modal-${this.identifier}`,
         setFormModalId: `set-form-modal-${this.identifier}`,
         likeLimitModalId: `like-limit-modal-${this.identifier}`,
-        pinModalId: `pin-modal-${this.identifier}`,
         pinnedLimitModalId: `pinned-limit-modal-${this.identifier}`,
         showFormModal: false,
         newSetCreated: false
@@ -131,12 +161,19 @@
       },
       pinned() {
         return this.$store.getters['entity/isPinned'](this.identifier);
+      },
+      pinButtonText() {
+        if (this.buttonText) {
+          return this.pinned ? this.$t('statuses.pinned') : this.$t('actions.pin');
+        }
+        return '';
+      },
+      likeButtonText() {
+        if (this.buttonText) {
+          return this.liked ? this.$t('statuses.liked') : this.$t('actions.like');
+        }
+        return '';
       }
-    },
-    created() {
-      this.$root.$on('clickCreateSet', () => {
-        this.clickCreateSet();
-      });
     },
     methods: {
       clickCreateSet() {
@@ -164,9 +201,6 @@
           this.keycloakLogin();
         }
       },
-      togglePinned() {
-        this.$bvModal.show(this.pinModalId);
-      },
       goToPins() {
         const path = this.$path(`/set/${this.$store.state.entity.featuredSetId}`);
         this.$goto(path);
@@ -178,6 +212,11 @@
 
         try {
           await this.$store.dispatch('set/like', this.identifier);
+          /**
+           * triggers on like button click when not yet liked
+           * @event like
+           * @property {string} identifier - identifier of the item to be liked
+           */
           this.$emit('like', this.identifier);
           this.$matomo && this.$matomo.trackEvent('Item_like', 'Click like item button', this.identifier);
         } catch (e) {
@@ -191,17 +230,82 @@
       },
       async unlike() {
         await this.$store.dispatch('set/unlike', this.identifier);
+        /**
+         * triggers on like button click when already liked
+         * @event unlike
+         * @property {string} identifier - identifier of the item to be unliked
+         */
         this.$emit('unlike', this.identifier);
       },
       addToSet() {
         if (this.$auth.loggedIn) {
           this.$bvModal.show(this.addItemToSetModalId);
+          /**
+           * triggers on add to set button click
+           * @event add
+           * @property {string} identifier - identifier of the item to be added to the set
+           */
           this.$emit('add', this.identifier);
           this.$matomo && this.$matomo.trackEvent('Item_add', 'Click add item button', this.identifier);
         } else {
           this.keycloakLogin();
         }
+      },
+      async pin() {
+        if (this.$store.state.entity.featuredSetId === null) {
+          await this.$store.dispatch('entity/createFeaturedSet');
+        }
+        try {
+          await this.$store.dispatch('entity/pin', this.identifier);
+          this.makeToast(this.$t('entity.notifications.pinned', { entity: this.$store.getters['entity/englishPrefLabel'] }));
+        } catch (e) {
+          if (e.message === 'too many pins') {
+            this.$bvModal.show(`pinned-limit-modal-${this.identifier}`);
+          } else {
+            throw e;
+          }
+        }
+      },
+      async unpin() {
+        await this.$store.dispatch('entity/unpin', this.identifier);
+        this.makeToast(this.$t('entity.notifications.unpinned'));
+      },
+      async togglePin() {
+        if (this.pinned) {
+          await this.unpin();
+        } else {
+          await this.pin();
+        }
       }
     }
   };
 </script>
+
+<docs lang="md">
+  Default format:
+  ```jsx
+  <UserButtons
+      identifier="123"
+      :showPins="true"
+  />
+  ```
+
+  With buttonVariant set to "secondary":
+  ```jsx
+  <UserButtons
+    identifier="123"
+    :showPins="true"
+    buttonVariant="secondary"
+  />
+  ```
+
+  With buttonVariant set to "light-flat" and buttonText to true:
+  ```jsx
+  <UserButtons
+    identifier="123"
+    :showPins="true"
+    buttonVariant="light-flat"
+    :buttonText="true"
+  />
+  ```
+</docs>

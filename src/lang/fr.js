@@ -30,12 +30,16 @@ export default {
     "accept": "Accepter",
     "cancel": "Annuler",
     "close": "fermer",
+    "continue": "continuer",
     "download": "Télécharger",
     "edit": "Modifier",
     "feedback": "Commentaires",
     "goBack": "Retour en arrière",
+    "goHome": "Aller à la page d'accueil",
+    "learnMore": "Apprendre encore plus",
     "like": "Mention J'aime",
     "next": "Suivant",
+    "pin": "Épingler",
     "providedBy": "Fourni par {provider}",
     "reject": "Rejeter",
     "send": "Envoyer",
@@ -72,6 +76,7 @@ export default {
   "cardLabels": {
     "organisation": "Organisation",
     "person": "Personne",
+    "theme": "Thème",
     "time": "Siècle",
     "topic": "Sujet"
   },
@@ -84,16 +89,24 @@ export default {
     "fashion": {
       "facets": {
         "CREATOR": {
-          "name": "Concepteur | Concepteurs"
+          "moreName": "concepteurs",
+          "name": "Concepteur | Concepteurs",
+          "select": "Sélectionnez des concepteurs"
         },
         "proxy_dc_format": {
-          "name": "Technique | Techniques"
+          "moreName": "techniques",
+          "name": "Technique | Techniques",
+          "select": "Sélectionner les techniques"
         },
         "proxy_dc_type": {
-          "name": "Type d'élément | Types d'éléments"
+          "moreName": "types d’éléments",
+          "name": "Type d'élément | Types d'éléments",
+          "select": "Sélectionnez les types d'éléments"
         },
         "proxy_dcterms_medium": {
-          "name": "Matériel | Matériaux"
+          "moreName": "matériaux",
+          "name": "Matériel | Matériaux",
+          "select": "Sélectionnez les matériaux"
         }
       }
     },
@@ -178,6 +191,7 @@ export default {
   },
   "facets": {
     "COLOURPALETTE": {
+      "moreName": "couleurs",
       "name": "Couleur | Couleurs",
       "options": {
         "#000000": "Noir",
@@ -324,23 +338,78 @@ export default {
         "#FFFFE0": "Jaune clair",
         "#FFFFF0": "Ivoire",
         "#FFFFFF": "blanc"
-      }
+      },
+      "select": "Sélectionnez les couleurs"
     },
     "COUNTRY": {
-      "name": "Pays fournisseur"
+      "name": "Pays fournisseur",
+      "options": {
+        "Albania": "Albanie",
+        "Austria": "Autriche",
+        "Belarus": "Biélorussie",
+        "Belgium": "Belgique",
+        "Bosnia and Herzegovina": "Bosnie Herzégovine",
+        "Bulgaria": "Bulgarie",
+        "Croatia": "Croatie",
+        "Cyprus": "Chypre",
+        "Czech Republic": "République tchèque",
+        "Denmark": "Danemark",
+        "Estonia": "Estonie",
+        "Europe": "Europe",
+        "Finland": "Finlande",
+        "France": "France",
+        "Georgia": "Géorgie",
+        "Germany": "Allemagne",
+        "Greece": "Grèce",
+        "Holy See (Vatican City State)": "Saint-Siège (État de la Cité du Vatican)",
+        "Hungary": "Hongrie",
+        "Iceland": "Islande",
+        "Ireland": "Irlande",
+        "Israel": "Israël",
+        "Italy": "Italie",
+        "Latvia": "Lettonie",
+        "Lithuania": "Lituanie",
+        "Luxembourg": "Luxembourg",
+        "Macedonia": "Macédoine",
+        "Malta": "Malte",
+        "Moldova": "Moldavie",
+        "Montenegro": "Monténégro",
+        "Netherlands": "Pays-Bas",
+        "Norway": "Norvège",
+        "Poland": "Pologne",
+        "Portugal": "Portugal",
+        "Romania": "Roumanie",
+        "Russia": "Russie",
+        "Serbia": "Serbie",
+        "Slovakia": "Slovaquie",
+        "Slovenia": "Slovénie",
+        "Spain": "Espagne",
+        "Sweden": "Suède",
+        "Switzerland": "Suisse",
+        "Turkey": "Turquie",
+        "Ukraine": "Ukraine",
+        "United Kingdom": "Royaume-Uni",
+        "United States of America": "États-Unis d'Amérique"
+      },
+      "select": "Sélectionnez les pays fournisseurs"
     },
     "CREATOR": {
-      "name": "Créateur | Créateurs"
+      "moreName": "créateurs",
+      "name": "Créateur | Créateurs",
+      "select": "Sélectionnez les créateurs"
     },
     "DATA_PROVIDER": {
-      "name": "Institution"
+      "moreName": "institutions",
+      "name": "Institution",
+      "select": "Sélectionner les institutions"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Orientation de l'image | Orientations de l'image",
       "options": {
         "landscape": "Paysage",
         "portrait": "Portrait"
-      }
+      },
+      "select": "Sélectionnez les orientations de l'image"
     },
     "IMAGE_SIZE": {
       "name": "Taille d'image | Tailles d'image",
@@ -349,19 +418,65 @@ export default {
         "large": "Grand 1-4MP (par exemple 1 920 x 1 080 px)",
         "medium": "Moyen 0,5-1MP (par exemple 850 x 850 px)",
         "small": "Petit < 0,5MP (par exemple 650 x 600 px)"
-      }
+      },
+      "select": "Sélectionnez les tailles d'image"
     },
     "LANGUAGE": {
-      "name": "Langue"
+      "name": "Langue",
+      "options": {
+        "ar": "Arabe",
+        "bg": "Bulgare",
+        "bs": "Bosniaque",
+        "ca": "Catalan",
+        "cs": "Tchèque",
+        "cy": "Gallois",
+        "da": "Danois",
+        "de": "Allemand",
+        "el": "Grec",
+        "en": "Anglais",
+        "es": "Espagnol",
+        "et": "Estonien",
+        "fi": "Finlandais",
+        "fr": "Français",
+        "ga": "Irlandais",
+        "gd": "Gaélique",
+        "he": "Hébreu",
+        "hr": "Croate",
+        "hu": "Hongrois",
+        "is": "Islandais",
+        "it": "Italien",
+        "lt": "Lituanien",
+        "lv": "Letton",
+        "mk": "Macédonien",
+        "mt": "Maltais",
+        "mul": "Plusieurs langues",
+        "nl": "Néerlandais",
+        "no": "Norvégien",
+        "pl": "Polonais",
+        "pt": "Portugais",
+        "ro": "Roumain",
+        "ru": "Russe",
+        "sk": "Slovaquie",
+        "sl": "Slovène",
+        "sq": "Albanais",
+        "sr": "Serbe",
+        "sv": "Suédois",
+        "tr": "Turc",
+        "uk": "Ukrainien"
+      },
+      "select": "Sélectionnez les langues"
     },
     "MIME_TYPE": {
       "name": "Format de fichier | Formats de fichiers",
       "options": {
         "text/plain": "Texte brut"
-      }
+      },
+      "select": "Sélectionnez les formats de fichier"
     },
     "PROVIDER": {
-      "name": "Agrégateur"
+      "moreName": "agrégateurs",
+      "name": "Agrégateur",
+      "select": "Sélectionnez les agrégateurs"
     },
     "REUSABILITY": {
       "name": "Puis-je le réutiliser ?",
@@ -370,7 +485,8 @@ export default {
         "permission": "Peut-être, demandez la permission",
         "restricted": "Oui, sous certaines conditions",
         "uncategorized": "Non classé"
-      }
+      },
+      "select": "Sélectionnez si vous pouvez utiliser ce"
     },
     "TYPE": {
       "name": "Type de support",
@@ -380,14 +496,17 @@ export default {
         "SOUND": "Audio",
         "TEXT": "Texte",
         "VIDEO": "Vidéo"
-      }
+      },
+      "select": "Sélectionnez les types de médias"
     },
     "api": {
       "name": "Rechercher",
       "options": {
         "fulltext": "Enregistrements avec texte intégral",
         "metadata": "Enregistrements de métadonnées uniquement"
-      }
+      },
+      "switch": "Recherche uniquement dans le contenu des articles avec texte intégral",
+      "switchMoreInfo": "Dans cette collection, vous pouvez choisir ce que vous voulez rechercher: si ce bouton est activé, vous chercherez dans le texte du journal et du document; s'il est désactivé, vous chercherez plutôt dans les informations décrivant l'article, comme vous le faites toujours dans la plupart des autres collections."
     },
     "button": {
       "apply": "Appliquer",
@@ -398,7 +517,7 @@ export default {
       "showLess": "Afficher moins {label}"
     },
     "collection": {
-      "name": "Catégorie",
+      "name": "Thème",
       "options": {
         "archaeology": "Archéologie",
         "art": "Art",
@@ -413,27 +532,36 @@ export default {
         "photography": "Photographie",
         "sport": "Sport",
         "ww1": "1914-1918"
-      }
+      },
+      "select": "Sélectionnez un thème"
     },
     "contentTier": {
-      "name": "Inclut les éléments ne répondant pas à nos critères de publication",
-      "notification": "Certains articles ne correspondant pas à nos critères de publication sont disponibles. Vous pouvez y accéder en activant le filtre « Qualité des articles » sous « Autres filtres ».",
+      "name": "Qualité de l'article",
       "options": {
         "*": "Inclut les éléments ne répondant pas à nos critères de publication",
-        "0": "Afficher uniquement les articles ne répondant pas à nos critères de publication"
-      }
+        "0": "Afficher uniquement les articles ne répondant pas à nos critères de publication",
+        "1": "Basse qualité",
+        "2": "Qualité moyenne",
+        "3": "Haute qualité et réutilisable sous certaines conditions",
+        "4": "Haute qualité et librement réutilisable"
+      },
+      "select": "Sélectionnez les qualités de l'article"
     },
+    "moreOptions": "Cherchez pour trouver {0} plus {1}.",
     "proxy_dc_format": {
-      "name": "Format | Formats"
+      "name": "Format | Formats",
+      "select": "Sélectionnez les formats"
     },
     "proxy_dc_type": {
-      "name": "Type | Types"
+      "name": "Type | Types",
+      "select": "Sélectionnez les types"
     },
     "proxy_dcterms_issued": {
       "name": "Date de publication"
     },
     "proxy_dcterms_medium": {
-      "name": "Média | Médias"
+      "name": "Média | Médias",
+      "select": "Sélectionnez le média"
     }
   },
   "feedback": {
@@ -486,6 +614,7 @@ export default {
       "dctermsProvenance": "Provenance",
       "dctermsReferences": "Se réfère à",
       "dctermsSpatial": "Lieux",
+      "dctermsTOC": "Table des matières",
       "dctermsTemporal": "Période",
       "edmCountry": "Pays fournisseur",
       "edmCurrentLocation": "Emplacement actuel",
@@ -542,7 +671,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label} : {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -579,7 +707,6 @@ export default {
     "itemCount": "1 article |{count} éléments",
     "itemOf": "{max} sur {count} éléments",
     "recent": "Éléments récents",
-    "recommendationsDisclaimer": "Pouce vers le haut pour ajouter à la galerie - Pouce vers le bas si vous ne l'aimez pas",
     "recommended": "Éléments recommandés",
     "youMightLike": "Articles susceptibles de vous intéresser"
   },
@@ -643,6 +770,10 @@ export default {
         "description": "Recueille des statistiques anonymes sur la façon dont les visiteurs interagissent avec le site Web.",
         "title": "Matomo"
       },
+      "newFeatureNotification": {
+        "description": "Affiche une notification lorsque de nouvelles fonctionnalités sont disponibles.",
+        "title": "Notification des nouvelles fonctionnalités"
+      },
       "searchResultsView": {
         "description": "Se souvient si vous préférez voir les résultats de la recherche sous forme de liste ou de grille.",
         "title": "Affichage des résultats de recherche (liste/grille)"
@@ -653,25 +784,8 @@ export default {
     "skipToMain": "Passer au contenu de la page"
   },
   "learnMore": "Découvrez la source de cette description",
-  "linksToClassic": {
-    "home": {
-      "linkText": "Consultez cette page sur le site Web original d'Europeana jusqu'au 20 décembre 2021.",
-      "text": "Vous consultez la nouvelle expérience Europeana."
-    },
-    "record": {
-      "linkText": "Vous pouvez consulter cet article sur le site original d'Europeana jusqu'au 20 décembre 2021.",
-      "text": "Vous consultez cet élément dans le nouveau site web d'Europeana."
-    },
-    "search": {
-      "linkText": "Recherchez sur le site Web original d'Europeana jusqu'au 20 décembre 2021.",
-      "text": "Vous effectuez vos recherches sur notre nouveau site web plus rapide."
-    }
-  },
   "loading": "Chargement",
   "loadingResults": "Chargement des résultats",
-  "mediaPreview": {
-    "selectItem": "Sélectionnez l'élément {src}"
-  },
   "messages": {
     "copyToClipboardSuccess": "Copié dans le presse-papier",
     "externalContentError": "Échec du chargement du contenu externe",
@@ -693,9 +807,21 @@ export default {
     "translateLanguage": "Souhaitez-vous voir cet article dans {0} ?",
     "translateQuotaError": "Le service de traduction est temporairement indisponible. Veuillez réessayer plus tard."
   },
+  "newFeatureNotification": {
+    "dismiss": "Fermer",
+    "readMore": "Lire la suite",
+    "text": {
+      "searchFilters": "Vous pouvez maintenant rechercher des valeurs dans les filtres individuels; Vérifiez-le!"
+    }
+  },
   "newWindow": "s'ouvre dans une nouvelle fenêtre",
   "noMoreResults": "Il n'y a plus de résultats pour votre requête de recherche.",
   "noResults": "Pas de résultat",
+  "organisation": {
+    "city": "Ville",
+    "country": "Pays",
+    "nameAcronym": "Acronyme du nom"
+  },
   "pageHasLoaded": "a chargé",
   "pages": {
     "collections": {
@@ -720,11 +846,16 @@ export default {
     }
   },
   "readMore": "Lire la suite",
+  "recommendation": {
+    "prompts": {
+      "accept": "Pouce vers le haut pour ajouter à la galerie",
+      "reject": "Pouce vers le bas si vous ne l'aimez pas"
+    }
+  },
   "record": {
     "IIIFViewer": "Visionneuse IIIF",
     "allMetaData": "Toutes les métadonnées",
     "copyEmbedLabel": "Code d’intégration (Cliquez pour copier)",
-    "downloadCopyrightInfo": "Cet élément est protégé par des droits d'auteur et ne peut pas être téléchargé.",
     "exploreMore": "En savoir plus",
     "extendedInformation": "Informations complémentaires",
     "goodToKnow": "Bon à savoir",
@@ -736,24 +867,21 @@ export default {
     "showAll": "Afficher toutes les informations",
     "similarItems": "Éléments similaires",
     "transcription": "Transcription",
-    "transcriptionDisclaimer": "Ce contenu est fourni par le public, et non par l'institution qui a fourni cet article.",
-    "view": {
-      "image": "Afficher l'image",
-      "media": "Afficher le média",
-      "pdf": "Afficher le PDF"
-    }
+    "transcriptionDisclaimer": "Ce contenu est fourni par le public, et non par l'institution qui a fourni cet article."
   },
   "relatedCollections": "Collections similaires",
   "removeFilter": "Supprimer le filtre {filterLabel}",
   "reset": "Réinitialiser",
   "resourceWikimedia": "Ressource de Wikimedia Commons",
   "results": "Résultats",
+  "resultsFor": "Résultats pour {0}",
   "resultsLimitWarning": "Les résultats supplémentaires ne sont pas affichés, car seuls les 1000 premiers résultats les plus pertinents sont affichés. Si vous n'avez pas trouvé ce que vous cherchez, veuillez affiner votre recherche.",
+  "resultsWithin": "Résultats dans les {0} {1} pour {2}",
   "search": "Rechercher",
+  "searchHasLoaded": "{0} résultats retournés",
   "searchPlaceholder": "Que cherchez-vous ?",
   "searchResults": "Rechercher",
   "searchResultsFor": "{0} - Rechercher",
-  "searchResultsForIn": "{0} - Rechercher dans {1}",
   "searchSuggestions": "Suggestions de recherche",
   "searchTier": {
     "button": {
@@ -767,7 +895,8 @@ export default {
   },
   "searchViews": {
     "grid": "Vue grille",
-    "list": "Vue liste"
+    "list": "Vue liste",
+    "mosaic": "Vue mosaïque"
   },
   "set": {
     "actions": {
@@ -776,6 +905,7 @@ export default {
       "createNew": "Créer une nouvelle galerie",
       "delete": "Supprimer la galerie",
       "edit": "Modifier la galerie",
+      "save": "Sauvegarder",
       "update": "Mettre à jour la galerie"
     },
     "form": {
@@ -802,5 +932,14 @@ export default {
   },
   "showLess": "Afficher moins",
   "showMore": "Afficher plus",
-  "website": "Site Internet"
+  "sideFilters": {
+    "noOptions": "Il n'y a pas d'options disponibles pour sélectionner",
+    "search": "Rechercher"
+  },
+  "statuses": {
+    "liked": "Aimé",
+    "pinned": "Épinglé"
+  },
+  "website": "Site Internet",
+  "youMightAlsoLike": "Vous pourriez aussi aimer"
 };

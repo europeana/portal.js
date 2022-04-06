@@ -2,38 +2,33 @@
   <div>
     <b-container
       data-qa="search page"
-      :class="{'page-container side-filters-enabled': sideFiltersEnabled}"
+      class="page-container side-filters-enabled"
     >
       <b-row
-        class="flex-row-reverse"
+        class="flex-row-reverse flex-nowrap"
       >
-        <SideFilters
-          v-if="sideFiltersEnabled"
-        />
+        <SideFilters />
         <b-col
-          :class="{'px-0': !sideFiltersEnabled}"
+          class="results-col"
         >
-          <b-container>
-            <b-row>
-              <b-col>
-                <i18n
-                  :path="searchQuery ? 'searchResultsFor' : 'searchResults'"
-                  tag="h1"
-                >
-                  <span data-qa="search query">{{ searchQuery }}</span>
-                </i18n>
-              </b-col>
-            </b-row>
-          </b-container>
-          <RelatedSection
-            v-if="searchQuery"
-            :query="searchQuery"
-            class="mb-4"
-          />
           <SearchInterface
             id="search-interface"
             :per-row="4"
-          />
+            :show-related="showRelated"
+          >
+            <template
+              v-if="searchQuery"
+              #related
+            >
+              <client-only>
+                <RelatedSection
+                  :query="searchQuery"
+                  @show="showRelatedSection"
+                  @hide="hideRelatedSection"
+                />
+              </client-only>
+            </template>
+          </SearchInterface>
         </b-col>
       </b-row>
     </b-container>
@@ -41,12 +36,14 @@
 </template>
 
 <script>
+  import ClientOnly from 'vue-client-only';
   import SearchInterface from '@/components/search/SearchInterface';
 
   export default {
     name: 'SearchPage',
 
     components: {
+      ClientOnly,
       SearchInterface,
       RelatedSection: () => import('@/components/search/RelatedSection'),
       SideFilters: () => import('@/components/search/SideFilters')
@@ -59,6 +56,12 @@
     },
 
     middleware: 'sanitisePageQuery',
+
+    data() {
+      return {
+        showRelated: false
+      };
+    },
 
     fetch() {
       this.$store.commit('search/set', ['overrideParams', {}]);
@@ -73,14 +76,21 @@
     computed: {
       searchQuery() {
         return this.$route.query.query;
-      },
-      sideFiltersEnabled() {
-        return this.$features.sideFilters;
       }
     },
 
     mounted() {
       this.$store.commit('search/enableCollectionFacet');
+    },
+
+    methods: {
+      showRelatedSection() {
+        this.showRelated = true;
+      },
+
+      hideRelatedSection() {
+        this.showRelated = false;
+      }
     }
   };
 </script>
@@ -101,5 +111,9 @@
 
   .page-container {
     max-width: none;
+  }
+
+  .results-col {
+    min-width: 0;
   }
 </style>

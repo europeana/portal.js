@@ -20,14 +20,30 @@ env:
   CTF_GRAPHQL_ORIGIN: https://contentful-proxy-cache.test.eanadev.org
   CTF_SPACE_ID: ${{ secrets.CTF_SPACE_ID }}
   DOCKER_REPOSITORY: europeana/portal.js
-  ELASTIC_APM_SERVER_URL: https://apm.eanadev.org:8200
   EUROPEANA_API_KEY: ${{ secrets.EUROPEANA_API_KEY }}
   EUROPEANA_RECORD_API_KEY: ${{ secrets.EUROPEANA_RECORD_API_KEY }}
   OAUTH_CLIENT: ${{ secrets.OAUTH_CLIENT }}
-  REDIS_URL: ${{ secrets.REDIS_URL }}
-  REDIS_TLS_CA: ${{ secrets.REDIS_TLS_CA }}
 
 jobs:
+  annotate:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && contains(github.head_ref, '/EC-') && github.event.action == 'opened'
+    steps:
+      -
+        name: Extract JIRA ticket number
+        run: echo "JIRA_TICKET_NUMBER=$(echo ${{ github.head_ref }} | sed -r 's|^.*/(EC-[0-9]+).*$|\1|')" >> $GITHUB_ENV
+      -
+        name: Link to JIRA ticket on pull request
+        uses: actions/github-script@v5
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `JIRA ticket: ${process.env.JIRA_TICKET_NUMBER}`
+            })
+
   # Build the base stage of the Docker image first so that unit tests can run,
   # as they do not require the full production image to be built.
   docker-base-stage:
@@ -72,6 +88,9 @@ jobs:
       -
         name: Checkout
         uses: actions/checkout@v2
+        with:
+          # For SonarCloud to blame culprits
+          fetch-depth: 0
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
@@ -283,6 +302,16 @@ jobs:
         run: |
           echo "APP_IMAGE_VERSION=${{ steps.meta.outputs.version }}" >> $GITHUB_ENV
           echo "PERCY_COMMIT=${GITHUB_SHA}" >> $GITHUB_ENV
+          echo "PERCY_BRANCH=$(echo ${GITHUB_HEAD_REF:-${GITHUB_REF}} | sed 's|refs/heads/||')" >> $GITHUB_ENV
+      -
+        name: Prepare env for visual tests (PRs only)
+        if: github.event_name == 'pull_request'
+        run:
+          echo "PERCY_PULL_REQUEST=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
+      -
+        name: Check Percy env vars
+        run:
+          echo
       -
         name: Create visual test container .env files
         run: |
@@ -383,9 +412,18 @@ jobs:
       -
         name: Restart deployment
         run: kubectl rollout restart --namespace ${K8S_NAMESPACE} deployment/${K8S_RESOURCE_NAME}
-    outputs:
-      k8s-ingress-host: ${{ env.K8S_INGRESS_HOST }}
-      k8s-new-deployment: ${{ env.K8S_NEW_DEPLOYMENT }}
+      -
+        name: Comment with deployment link on pull request
+        if: env.K8S_NEW_DEPLOYMENT == 'true'
+        uses: actions/github-script@v5
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `Preview deployment: https://${process.env.K8S_INGRESS_HOST}/`
+            })
 
   # Publish tagged versions to NPM
   npm-publish:
@@ -402,7 +440,7 @@ jobs:
         name: Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '16'
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
@@ -438,27 +476,3 @@ jobs:
       -
         name: Warm up jsDelivr
         run: .github/workflows/support/docker-images/warm-up-jsdelivr.sh ./tmp/app
-
-  # Send a notification to Slack channel with details of new PR deployments
-  notify:
-    runs-on: ubuntu-latest
-    needs: [deploy-ibm-cloud]
-    if: github.event_name == 'pull_request' && github.event.pull_request.draft == false && needs.deploy-ibm-cloud.outputs.k8s-new-deployment == 'true'
-    env:
-      PULL_REQUEST_TITLE: ${{ github.event.pull_request.title }}
-      PULL_REQUEST_USER_LOGIN: ${{ github.event.pull_request.user.login }}
-      PULL_REQUEST_USER_HTML_URL: ${{ github.event.pull_request.user.html_url }}
-      K8S_INGRESS_HOST: ${{ needs.deploy-ibm-cloud.outputs.k8s-ingress-host }}
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-    steps:
-      -
-        name: Checkout
-        uses: actions/checkout@v2
-      -
-        name: Prepare env for notification to Slack
-        run: echo "PULL_REQUEST_NUMBER=$(jq .pull_request.number ${GITHUB_EVENT_PATH})" >> $GITHUB_ENV
-      -
-        name: Notify Slack
-        run: |
-          envsubst < .github/workflows/support/ci/slack-notification.json > ./slack-notification.json
-          curl -d "@./slack-notification.json" -X POST ${SLACK_WEBHOOK_URL}

@@ -174,7 +174,7 @@ describe('components/browse/AutomatedCardGroup', () => {
       it('includes type', () => {
         const wrapper = shallowFactory({ sectionType: ITEM_COUNTS_MEDIA_TYPE });
 
-        expect(wrapper.vm.contentCardSection.type).toBe('items/typeCounts');
+        expect(wrapper.vm.contentCardSection.type).toBe('items/type-counts');
       });
       it('sets the relevant fields for the items in the hasPartCollection', async() => {
         const expected = {

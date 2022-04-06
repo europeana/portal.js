@@ -393,6 +393,7 @@
       .icon-ic-feedback {
         padding-right: 0;
         font-size: 1.25rem;
+        line-height: 1;
       }
 
       .feedback-button-text {

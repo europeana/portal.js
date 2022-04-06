@@ -47,8 +47,14 @@
 </template>
 
 <script>
+  import stringify from '@/mixins/stringify';
+
   export default {
     name: 'DownloadModal',
+
+    mixins: [
+      stringify
+    ],
 
     props: {
       title: {
@@ -135,16 +141,6 @@
     },
 
     methods: {
-      stringify(field) {
-        let stringified = field;
-
-        if (field && !Array.isArray(field) && (typeof field === 'object') && field.values) {
-          stringified = field.values[0];
-        }
-
-        return stringified;
-      },
-
       copySnippet() {
         this.$refs.attributionSnippet.select();
         document.execCommand('copy');

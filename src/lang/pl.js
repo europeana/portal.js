@@ -1,7 +1,7 @@
 export default {
   "account": {
-    "curatedCollections": "Kolekcje kuratorskie",
-    "curatedCollectionsInfo": "Znajdź poniżej wszystkie kolekcje, których byłeś kuratorem",
+    "curatedCollections": "Kolekcje kuratorowane",
+    "curatedCollectionsInfo": "Poniżej znajdziesz wszystkie kolekcje, których jesteś kuratorem",
     "editProfile": "Edytuj profil",
     "likes": "Polubienia",
     "linkAccount": "Moje konto",
@@ -27,17 +27,21 @@ export default {
     "title": "Moje konto"
   },
   "actions": {
-    "accept": "Zaakceptować",
+    "accept": "Akceptuj",
     "cancel": "Anuluj",
     "close": "zamknij",
+    "continue": "kontynuuj",
     "download": "Ściągnij",
     "edit": "Edytuj",
     "feedback": "Twoja opinia",
     "goBack": "Wróć",
+    "goHome": "Przejdź do strony głównej",
+    "learnMore": "Ucz się więcej",
     "like": "Lubię",
     "next": "Następny",
+    "pin": "Szpilka",
     "providedBy": "Dostarczone przez {provider}",
-    "reject": "Odrzucić",
+    "reject": "Odrzuć",
     "send": "Wyślij",
     "share": "Udostępnij",
     "shareOn": "Udostępnij na {social}",
@@ -72,6 +76,7 @@ export default {
   "cardLabels": {
     "organisation": "Organizacja",
     "person": "Osoba",
+    "theme": "Temat",
     "time": "Stulecie",
     "topic": "Temat"
   },
@@ -79,21 +84,29 @@ export default {
   "collections": {
     "actions": {
       "edit": "Edytuj kolekcję",
-      "update": "Aktualizacja Kolekcja"
+      "update": "Zaktualizuj kolekcję"
     },
     "fashion": {
       "facets": {
         "CREATOR": {
-          "name": "Projektant | Projektanci"
+          "moreName": "projektanci",
+          "name": "Projektant | Projektanci",
+          "select": "Wybierz projektantów"
         },
         "proxy_dc_format": {
-          "name": "Technika | Techniki"
+          "moreName": "techniki",
+          "name": "Technika | Techniki",
+          "select": "Wybierz techniki"
         },
         "proxy_dc_type": {
-          "name": "Typ elementu | Typy elementu"
+          "moreName": "typy przedmiotów",
+          "name": "Typ elementu | Typy elementu",
+          "select": "Wybierz typy przedmiotów"
         },
         "proxy_dcterms_medium": {
-          "name": "Materiał | Materiały"
+          "moreName": "materiały",
+          "name": "Materiał | Materiały",
+          "select": "Wybierz materiały"
         }
       }
     },
@@ -145,27 +158,27 @@ export default {
   "entity": {
     "actions": {
       "cancel": "Anuluj",
-      "pin": "Element szpilkowy",
-      "unpin": "Odepnij element",
+      "pin": "Przypnij obiekt",
+      "unpin": "Odepnij obiekt",
       "viewPinned": "Zobacz przypięte elementy"
     },
     "labels": {
-      "entity": "Jednostka"
+      "entity": "Podmiot"
     },
     "notifications": {
       "deleted": "Twoja galeria została usunięta.",
       "pinLimit": {
-        "body": "Na razie możesz przypiąć tylko 24 elementy na pierwszej stronie. Jeśli chcesz przypiąć ten element, upewnij się, że odpiąłeś inny, a następnie spróbuj ponownie przypiąć ten element.",
-        "title": "Za dużo przypiętych elementów"
+        "body": "Na razie możesz przypiąć tylko 24 obiekty na pierwszej stronie. Jeśli chcesz przypiąć ten obiekt, upewnij się, że najpierw odpiąłeś inny i spróbuj ponownie.",
+        "title": "Za dużo przpiętych obiektów"
       },
-      "pinned": "Przedmiot został przypięty. Znajduje się teraz na górze pierwszej strony tej kolekcji. Pojawienie się u wszystkich może potrwać do 24 godzin.",
-      "pinnedFirstPage": "Element został przypięty. Może to potrwać do 24 godzin, aby pojawić się dla wszystkich.",
-      "unpinned": "Element został odpięty. Nie znajduje się już na górze pierwszej strony tej kolekcji. Może minąć do 24 godzin, zanim wszyscy znikną.",
-      "unpinnedFirstPage": "Element został odpięty. Może minąć do 24 godzin, zanim wszyscy znikną."
+      "pinned": "Obiekt został przypięty. Znajduje się teraz na górze pierwszej strony tej kolekcji. Synchronizacja u wszystkich użytkowników może potrwać do 24 godzin.",
+      "pinnedFirstPage": "Obiekt został przypięty. Synchronizacja u wszystkich użytkowników może potrwać do 24 godzin.",
+      "unpinned": "Obiekt został odpięty. Nie znajduje się już na górze pierwszej strony tej kolekcji. Może minąć do 24 godzin, zanim zniknie dla wszystkich użytkowników.",
+      "unpinnedFirstPage": "Obiekt został odpięty. Może minąć do 24 godzin, zanim zniknie dla wszystkich użytkowników."
     },
     "prompts": {
-      "pin": "Czy na pewno chcesz przypiąć ten przedmiot? Ten element będzie wyświetlany u góry kolekcji \"{encja}\". Ta zmiana może potrwać do 24 godzin.",
-      "unpin": "Czy na pewno chcesz odpiąć ten element? Ten element przestanie być wyświetlany u góry kolekcji \"{encja}\". Ta zmiana może potrwać do 24 godzin."
+      "pin": "Czy na pewno chcesz przypiąć ten obiekt? Będzie on wtedy  wyświetlany u góry kolekcji  „ {entity} ”. Ta zmiana może potrwać do 24 godzin.",
+      "unpin": "Czy na pewno chcesz odpiąć ten obiekt? Przestanie on wtedy być wyświetlany u góry kolekcji  „ {entity} ”. Ta zmiana może potrwać do 24 godzin."
     }
   },
   "error": "Błąd",
@@ -174,17 +187,18 @@ export default {
     "credits": "Twórcy",
     "currentChapter": "Aktualny rozdział",
     "description": "Przeglądaj wystawy",
-    "exhibitions": "Wystawy"
+    "exhibitions": "Wystawa | Wystawy"
   },
   "facets": {
     "COLOURPALETTE": {
+      "moreName": "kolory",
       "name": "Kolor | Kolory",
       "options": {
         "#000000": "Czarny",
         "#000080": "Ciemnoniebieski",
         "#00008B": "Ciemny niebieski",
         "#0000CD": "Średni niebieski",
-        "#0000FF": "niebieski",
+        "#0000FF": "Niebieski",
         "#006400": "Ciemnozielony",
         "#008000": "Web Green",
         "#008080": "Cyraneczka",
@@ -244,7 +258,7 @@ export default {
         "#9ACD32": "Żółty zielony",
         "#A020F0": "Fioletowy",
         "#A0522D": "Sjena",
-        "#A52A2A": "brązowy",
+        "#A52A2A": "Brązowy",
         "#A9A9A9": "Ciemno szary",
         "#ADD8E6": "Jasny niebieski",
         "#ADFF2F": "Zielony żółty",
@@ -324,23 +338,78 @@ export default {
         "#FFFFE0": "Jasny zółty",
         "#FFFFF0": "kość słoniowa",
         "#FFFFFF": "Biały"
-      }
+      },
+      "select": "Wybierz kolory"
     },
     "COUNTRY": {
-      "name": "Kraj dostarczający"
+      "name": "Kraj dostarczający",
+      "options": {
+        "Albania": "Albania",
+        "Austria": "Austria",
+        "Belarus": "Białoruś",
+        "Belgium": "Belgia",
+        "Bosnia and Herzegovina": "Bośnia i Hercegowina",
+        "Bulgaria": "Bułgaria",
+        "Croatia": "Chorwacja",
+        "Cyprus": "Cypr",
+        "Czech Republic": "Republika Czeska",
+        "Denmark": "Dania",
+        "Estonia": "Estonia",
+        "Europe": "Europa",
+        "Finland": "Finlandia",
+        "France": "Francja",
+        "Georgia": "Gruzja",
+        "Germany": "Niemcy",
+        "Greece": "Grecja",
+        "Holy See (Vatican City State)": "Stolica Apostolska (Państwo Watykańskie)",
+        "Hungary": "Węgry",
+        "Iceland": "Islandia",
+        "Ireland": "Irlandia",
+        "Israel": "Izrael",
+        "Italy": "Włochy",
+        "Latvia": "Łotwa",
+        "Lithuania": "Litwa",
+        "Luxembourg": "Luksemburg",
+        "Macedonia": "Macedonia",
+        "Malta": "Malta",
+        "Moldova": "Moldova",
+        "Montenegro": "Czarnogóra",
+        "Netherlands": "Holandia",
+        "Norway": "Norwegia",
+        "Poland": "Polska",
+        "Portugal": "Portugalia",
+        "Romania": "Rumunia",
+        "Russia": "Rosja",
+        "Serbia": "Serbia",
+        "Slovakia": "Słowacja",
+        "Slovenia": "Słowenia",
+        "Spain": "Hiszpania",
+        "Sweden": "Szwecja",
+        "Switzerland": "Szwajcaria",
+        "Turkey": "Turcja",
+        "Ukraine": "Ukraina",
+        "United Kingdom": "Zjednoczone Królestwo",
+        "United States of America": "Stany Zjednoczone Ameryki"
+      },
+      "select": "Wybierz kraje dostarczające"
     },
     "CREATOR": {
-      "name": "Twórca | Twórcy"
+      "moreName": "twórcy",
+      "name": "Twórca | Twórcy",
+      "select": "Wybierz twórców"
     },
     "DATA_PROVIDER": {
-      "name": "Instytucja"
+      "moreName": "instytucje",
+      "name": "Instytucja | Instytucje",
+      "select": "Wybierz instytucje"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Orientacja wizualna | Orientacje wizualne",
+      "name": "Układ obrazu",
       "options": {
-        "landscape": "Krajobraz",
-        "portrait": "Portret"
-      }
+        "landscape": "Poziomy",
+        "portrait": "Pionowy"
+      },
+      "select": "Wybierz orientacje obrazu"
     },
     "IMAGE_SIZE": {
       "name": "Rozmiar obrazu | Rozmiary obrazu",
@@ -349,19 +418,65 @@ export default {
         "large": "Duży 1-4 MP (np. 1920 x 1080 px)",
         "medium": "Średni 0,5-1 MP (np. 850 x 850 px)",
         "small": "Mały < 0,5 MP (np. 650 x 600 px)"
-      }
+      },
+      "select": "Wybierz rozmiary obrazu"
     },
     "LANGUAGE": {
-      "name": "Język"
+      "name": "Język | Języki",
+      "options": {
+        "ar": "Arabski",
+        "bg": "Bułgarski",
+        "bs": "Bośniacki",
+        "ca": "Kataloński",
+        "cs": "Czeski",
+        "cy": "Walijski",
+        "da": "Duński",
+        "de": "Niemiecki",
+        "el": "Grecki",
+        "en": "Angielski",
+        "es": "Hiszpański",
+        "et": "Estoński",
+        "fi": "Fiński",
+        "fr": "Francuski",
+        "ga": "Irlandzki",
+        "gd": "Gaelicki",
+        "he": "Hebrajski",
+        "hr": "Chorwacki",
+        "hu": "Węgierski",
+        "is": "Islandzki",
+        "it": "Włoski",
+        "lt": "Litewski",
+        "lv": "Łotewski",
+        "mk": "Macedoński",
+        "mt": "Maltański",
+        "mul": "Wiele języków",
+        "nl": "Niderlandzki",
+        "no": "Norweski",
+        "pl": "Polski",
+        "pt": "Portugalski",
+        "ro": "Rumuński",
+        "ru": "Rosyjski",
+        "sk": "Słowacki",
+        "sl": "Słoweński",
+        "sq": "Albański",
+        "sr": "Serbski",
+        "sv": "Szwedzki",
+        "tr": "Turecki",
+        "uk": "Ukraiński"
+      },
+      "select": "Wybierz języki"
     },
     "MIME_TYPE": {
       "name": "Format plików | Formaty plików",
       "options": {
         "text/plain": "Zwykły tekst"
-      }
+      },
+      "select": "Wybierz formaty plików"
     },
     "PROVIDER": {
-      "name": "Agregator"
+      "moreName": "agregatory",
+      "name": "Agregator | Agregatorzy",
+      "select": "Wybierz agregatorów"
     },
     "REUSABILITY": {
       "name": "Czy mogę to wykorzystać?",
@@ -370,24 +485,28 @@ export default {
         "permission": "Może, poproś o pozwolenie",
         "restricted": "Tak, z warunkami",
         "uncategorized": "Bez kategorii"
-      }
+      },
+      "select": "Wybierz, czy możesz używać tego"
     },
     "TYPE": {
       "name": "Rodzaj mediów",
       "options": {
         "3D": "3D",
         "IMAGE": "Obraz",
-        "SOUND": "Dźwięk",
+        "SOUND": "Audio",
         "TEXT": "Tekst",
         "VIDEO": "Wideo"
-      }
+      },
+      "select": "Wybierz rodzaje mediów"
     },
     "api": {
       "name": "Szukaj",
       "options": {
         "fulltext": "Zapisy z pełnym tekstem",
         "metadata": "Zapisy tylko z metadanymi"
-      }
+      },
+      "switch": "Wyszukiwanie tylko w treści artykułów z pełnym tekstem",
+      "switchMoreInfo": "W tej kolekcji możesz wybrać, czego chcesz szukać: jeśli ten przełącznik jest włączony, wtedy będziesz szukał w tekście gazety i dokumentu; jeśli jest wyłączony, wtedy będziesz szukał w informacjach opisujących dany artykuł, tak jak zawsze robisz to w większości innych kolekcji."
     },
     "button": {
       "apply": "Zastosuj",
@@ -398,7 +517,7 @@ export default {
       "showLess": "Pokaż mniej {label}"
     },
     "collection": {
-      "name": "Kategoria",
+      "name": "Temat",
       "options": {
         "archaeology": "Archeologia",
         "art": "Sztuka",
@@ -413,27 +532,36 @@ export default {
         "photography": "Fotografia",
         "sport": "Sport",
         "ww1": "1914–1918"
-      }
+      },
+      "select": "Wybierz motyw"
     },
     "contentTier": {
-      "name": "Obejmuje elementy niespełniające naszych kryteriów publikowania",
-      "notification": "Dostępne są niektóre elementy niespełniające naszych kryteriów publikacji. Dostęp do tych pozycji można uzyskać, aktywując filtr „Jakość pozycji” w sekcji „Więcej filtrów”.",
+      "name": "Jakość obiektu",
       "options": {
         "*": "Obejmuje elementy niespełniające naszych kryteriów publikowania",
-        "0": "Pokaż tylko elementy, które nie spełniają naszych kryteriów publikacji"
-      }
+        "0": "Pokaż tylko elementy, które nie spełniają naszych kryteriów publikacji",
+        "1": "Niska jakość",
+        "2": "Średnia jakość",
+        "3": "Wysoka jakość & wielokrotnego użytku z warunkami",
+        "4": "Wysoka jakość & swobodnie wielokrotnego użytku"
+      },
+      "select": "Wybierz jakość pozycji"
     },
+    "moreOptions": "Wyszukaj, aby znaleźć {0} więcej {1}.",
     "proxy_dc_format": {
-      "name": "Format | Formaty"
+      "name": "Format | Formaty",
+      "select": "Wybierz formaty"
     },
     "proxy_dc_type": {
-      "name": "Typ | Typy"
+      "name": "Typ | Typy",
+      "select": "Wybierz typy"
     },
     "proxy_dcterms_issued": {
       "name": "Data wydania"
     },
     "proxy_dcterms_medium": {
-      "name": "Medium | Media"
+      "name": "Medium | Media",
+      "select": "Wybierz media"
     }
   },
   "feedback": {
@@ -467,46 +595,47 @@ export default {
       "dcLanguage": "Język",
       "dcPublisher": "Wydawca",
       "dcRelation": "Relacje",
-      "dcRights": "Prawa",
+      "dcRights": "Prawa autorskie",
       "dcSource": "Źródło",
       "dcSubject": "Temat",
       "dcTitle": "Tytuł",
       "dcType": "Rodzaj przedmiotu",
       "dctermsCreated": "Data utworzenia",
       "dctermsExtent": "Zakres",
-      "dctermsHasPart": "składa się z",
-      "dctermsHasVersion": "ma wersję",
-      "dctermsIsFormatOf": "jest rodzajem",
+      "dctermsHasPart": "Składa się z",
+      "dctermsHasVersion": "Ma wersję",
+      "dctermsIsFormatOf": "Jest formatu",
       "dctermsIsPartOf": "jest częścią",
-      "dctermsIsReferencedBy": "jest przywoływany przez",
-      "dctermsIsReplacedBy": "wymienia",
-      "dctermsIsRequiredBy": "wymaga",
+      "dctermsIsReferencedBy": "Jest przywoływany przez",
+      "dctermsIsReplacedBy": "Jest zastąpione przez",
+      "dctermsIsRequiredBy": "Jest wymagane przez",
       "dctermsIssued": "Data wydania",
       "dctermsMedium": "Medium",
       "dctermsProvenance": "Pochodzenie",
-      "dctermsReferences": "przywołuje",
+      "dctermsReferences": "Przywołuje",
       "dctermsSpatial": "Miejsca",
+      "dctermsTOC": "Spis treści",
       "dctermsTemporal": "Okres",
       "edmCountry": "Kraj dostarczający",
       "edmCurrentLocation": "Aktualna lokalizacja",
       "edmDataProvider": "Instytucja dostarczająca",
-      "edmHasMet": "spotkał",
-      "edmIncorporates": "zawiera",
+      "edmHasMet": "Spotkał",
+      "edmIncorporates": "Zawiera",
       "edmIntermediateProvider": "Dostawca pośredni",
-      "edmIsDerivativeOf": "jest pochodną",
+      "edmIsDerivativeOf": "Jest pochodną",
       "edmIsRelatedTo": "Odnosi się do",
-      "edmIsRepresentationOf": "reprezentuje",
-      "edmIsSimilarTo": "jest podobna do",
-      "edmIsSuccessorOf": "jest następcą",
+      "edmIsRepresentationOf": "Reprezentuje",
+      "edmIsSimilarTo": "Jest podobna do",
+      "edmIsSuccessorOf": "Jest następcą",
       "edmProvider": "Dostawca",
       "edmRealizes": "Realizuje",
       "edmRights": "Licencja na media w tym rekordzie (chyba że określono inaczej)",
-      "edmUgc": "Treści użytkownika",
-      "europeanaCollectionName": "Nazwa kolejki",
+      "edmUgc": "Treści dodane przez użytkowników",
+      "europeanaCollectionName": "Nazwa Kolekcji",
       "keywords": "Słowa kluczowe (dostarczone przez społeczność)",
-      "timestampCreated": "Utworzono znacznik czasu",
-      "timestampUpdate": "Zaktualizowano znacznik czasu",
-      "wasPresentAt": "Był obecny w",
+      "timestampCreated": "Data utworzenia rekordu",
+      "timestampUpdate": "Data zaktualizowania rekordu",
+      "wasPresentAt": "Był obecny w/na",
       "year": "Rok"
     },
     "webResource": {
@@ -542,7 +671,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label}: {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -579,8 +707,7 @@ export default {
     "itemCount": "1 pozycja |Pozycje: {count}",
     "itemOf": "{max} z {count} elementów",
     "recent": "Ostatnie pozycje",
-    "recommendationsDisclaimer": "Kciuk w górę, aby dodać do galerii – Kciuk w dół, jeśli Ci się nie podoba",
-    "recommended": "Zalecane elementy",
+    "recommended": "Polecane obiekty",
     "youMightLike": "Przedmioty, które mogą Ci się spodobać"
   },
   "klaro": {
@@ -643,8 +770,12 @@ export default {
         "description": "Gromadzi anonimowe statystyki dotyczące interakcji odwiedzających z witryną.",
         "title": "Matomo"
       },
+      "newFeatureNotification": {
+        "description": "Wyświetla powiadomienie, gdy nowe funkcje stają się dostępne.",
+        "title": "Powiadomienie o nowej funkcji"
+      },
       "searchResultsView": {
-        "description": "Zapamiętuje się, jeśli wolisz widzieć wyniki wyszukiwania w widoku listy lub siatki.",
+        "description": "Zapamiętuje czy wolisz widzieć wyniki wyszukiwania w widoku listy lub siatki.",
         "title": "Widok wyników wyszukiwania (lista/siatka)"
       }
     }
@@ -653,25 +784,8 @@ export default {
     "skipToMain": "Przejdź do zawartości strony"
   },
   "learnMore": "Dowiedz się o źródle tego opisu",
-  "linksToClassic": {
-    "home": {
-      "linkText": "Zobacz tę stronę na oryginalnej stronie Europeany do 20 grudnia 2021 r.",
-      "text": "Oglądasz nowe doświadczenie Europeana."
-    },
-    "record": {
-      "linkText": "Zobacz ten element na oryginalnej stronie Europeany do 20 grudnia 2021 r.",
-      "text": "Oglądasz ten element w nowej witrynie Europeana."
-    },
-    "search": {
-      "linkText": "Szukaj na oryginalnej stronie Europeany do 20 grudnia 2021 r.",
-      "text": "Przeszukujesz naszą nową i szybszą stronę internetową."
-    }
-  },
   "loading": "Ładowanie",
   "loadingResults": "Ładowanie wyników",
-  "mediaPreview": {
-    "selectItem": "Wybierz element {src}"
-  },
   "messages": {
     "copyToClipboardSuccess": "Skopiowane do schowka",
     "externalContentError": "Nie można załadować treści zewnętrznej",
@@ -680,22 +794,34 @@ export default {
   },
   "modal": {
     "download": {
-      "clickToCopy": "Kliknij atrybucję, aby ją skopiować",
-      "modalIntro": "Jeśli używasz tego elementu w Internecie lub w innym miejscu, nie zapomnij wyświetlić obok niego następującej atrybucji:",
+      "clickToCopy": "Kilknij na opis, aby go skopiować",
+      "modalIntro": "Jeśli używasz tego elementu w Internecie lub w innym miejscu, nie zapomnij wyświetlić obok niego następującego opisu:",
       "modalTitle": "Powiedz dziękuję"
     }
   },
   "multilingual": {
     "automated": "Tłumaczenie zautomatyzowane",
-    "enrichment": "Wzbogacanie o projekty partnerskie",
+    "enrichment": "Rozszerzenie w ramach projektów partnerskich",
     "other": "Inne języki",
     "stopTranslating": "Przestań tłumaczyć ten element na {0}.",
     "translateLanguage": "Czy chciałbyś zobaczyć ten element w {0}?",
     "translateQuotaError": "Usługa tłumaczeń jest chwilowo niedostępna. Spróbuj ponownie później."
   },
+  "newFeatureNotification": {
+    "dismiss": "Zamknij",
+    "readMore": "Czytaj więcej",
+    "text": {
+      "searchFilters": "Możesz teraz wyszukiwać wartości w poszczególnych filtrach; Sprawdź to!"
+    }
+  },
   "newWindow": "otwiera się w nowym oknie",
   "noMoreResults": "Nie ma więcej wyników dla zapytania wyszukiwania.",
-  "noResults": "Brak Wyników",
+  "noResults": "Brak wyników",
+  "organisation": {
+    "city": "Miasto",
+    "country": "Kraj",
+    "nameAcronym": "Nazwa akronim"
+  },
   "pageHasLoaded": "załadował",
   "pages": {
     "collections": {
@@ -720,40 +846,42 @@ export default {
     }
   },
   "readMore": "Czytaj więcej",
+  "recommendation": {
+    "prompts": {
+      "accept": "Kciuk w górę, aby dodać do galerii",
+      "reject": "Kciuk w dół, jeśli ci się nie podoba"
+    }
+  },
   "record": {
     "IIIFViewer": "Przeglądarka IIIF",
     "allMetaData": "Wszystkie metadane",
     "copyEmbedLabel": "Kod do umieszczenia (kliknij, aby skopiować)",
-    "downloadCopyrightInfo": "Ten element jest chroniony prawami autorskimi i nie można go pobrać.",
     "exploreMore": "Odkryj więcej",
     "extendedInformation": "Informacje rozszerzone",
     "goodToKnow": "Warto wiedzieć",
     "hideAll": "Ukryj wszystkie informacje",
     "location": "Lokalizacja",
     "locationOnMap": "Lokalizacja na mapie",
-    "mediaPlayer": "Odtwarzacz multimedialny",
+    "mediaPlayer": "Odtwarzacz multimediów",
     "record": "Rekord",
     "showAll": "Pokaż wszystkie informacje",
-    "similarItems": "Podobne elementy",
+    "similarItems": "Podobne obiekty",
     "transcription": "Transkrypcja",
-    "transcriptionDisclaimer": "Treść ta jest tworzona przez społeczeństwo, a nie przez instytucję, która dostarczyła tę pozycję.",
-    "view": {
-      "image": "Zobacz obraz",
-      "media": "Zobacz media",
-      "pdf": "Zobacz PDF"
-    }
+    "transcriptionDisclaimer": "Treść ta jest tworzona przez społeczeństwo, a nie przez instytucję, która dostarczyła tę pozycję."
   },
   "relatedCollections": "Powiązane kolekcje",
   "removeFilter": "Usuń filtr {filterLabel}",
   "reset": "Resetuj",
   "resourceWikimedia": "Źródło z Wikimedia Commons",
   "results": "Wyniki",
+  "resultsFor": "Wyniki dla {0}",
   "resultsLimitWarning": "Dodatkowe wyniki nie są wyświetlane, ponieważ wyświetlanych jest tylko pierwsze 1000 najbardziej odpowiednich wyników. Jeśli nie znalazłeś tego, czego szukasz, rozważ zawężenie wyszukiwania.",
+  "resultsWithin": "Wyniki w granicach {0} {1} dla {2}",
   "search": "Szukaj",
+  "searchHasLoaded": "{0} zwróconych wyników",
   "searchPlaceholder": "Odkryj miliony obiektów",
   "searchResults": "Szukaj",
   "searchResultsFor": "{0} - Szukaj",
-  "searchResultsForIn": "{0} - Szukaj w {1}",
   "searchSuggestions": "Sugestie wyszukiwania",
   "searchTier": {
     "button": {
@@ -767,7 +895,8 @@ export default {
   },
   "searchViews": {
     "grid": "Widok siatki",
-    "list": "Widok listy"
+    "list": "Widok listy",
+    "mosaic": "Widok mozaiki"
   },
   "set": {
     "actions": {
@@ -776,6 +905,7 @@ export default {
       "createNew": "Utwórz nową galerię",
       "delete": "Usuń galerię",
       "edit": "Edytuj galerię",
+      "save": "Zapisać",
       "update": "Zaktualizuj galerię"
     },
     "form": {
@@ -794,7 +924,7 @@ export default {
         "body": "Przepraszamy, ale w tej chwili możesz polubić maksymalnie 100 pozycji. Wkrótce usuniemy ten limit!",
         "title": "100 polubień"
       },
-      "updated": "Przedmiot został dodany do galerii."
+      "updated": "Obiekt został dodany do galerii."
     },
     "prompts": {
       "delete": "Czy na pewno chcesz usunąć tę galerię? Jeśli ją usuniesz, utracisz wszystkie dodane do niej elementy."
@@ -802,5 +932,14 @@ export default {
   },
   "showLess": "Pokaż mniej",
   "showMore": "Pokaż więcej",
-  "website": "Strona internetowa"
+  "sideFilters": {
+    "noOptions": "Nie ma dostępnych opcji do wyboru",
+    "search": "Szukaj"
+  },
+  "statuses": {
+    "liked": "Lubiana",
+    "pinned": "Przypięty"
+  },
+  "website": "Strona internetowa",
+  "youMightAlsoLike": "Możesz też polubić"
 };

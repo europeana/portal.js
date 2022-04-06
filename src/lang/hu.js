@@ -30,12 +30,16 @@ export default {
     "accept": "Elfogad",
     "cancel": "Mégse",
     "close": "bezárás",
+    "continue": "folytatás",
     "download": "Letöltés",
     "edit": "Szerkesztés",
     "feedback": "Visszacsatolás",
     "goBack": "Vissza",
+    "goHome": "Ugrás a kezdőlapra",
+    "learnMore": "Tudj meg többet",
     "like": "Kedvelés",
     "next": "Következő",
+    "pin": "Pin",
     "providedBy": "Szolgáltató: {provider}",
     "reject": "Elutasít",
     "send": "Küld",
@@ -72,6 +76,7 @@ export default {
   "cardLabels": {
     "organisation": "Szervezet",
     "person": "Személy",
+    "theme": "Téma",
     "time": "Század",
     "topic": "Téma"
   },
@@ -84,16 +89,24 @@ export default {
     "fashion": {
       "facets": {
         "CREATOR": {
-          "name": "Tervező | Tervezők"
+          "moreName": "tervezők",
+          "name": "Tervező | Tervezők",
+          "select": "Tervezők kiválasztása"
         },
         "proxy_dc_format": {
-          "name": "Technika | Technikák"
+          "moreName": "technikák",
+          "name": "Technika | Technikák",
+          "select": "Technikák kiválasztása"
         },
         "proxy_dc_type": {
-          "name": "Elemtípus | Elemtípusok"
+          "moreName": "elemtípusok",
+          "name": "Elemtípus | Elemtípusok",
+          "select": "Elemtípusok kiválasztása"
         },
         "proxy_dcterms_medium": {
-          "name": "Anyag | Anyagok"
+          "moreName": "anyagok",
+          "name": "Anyag | Anyagok",
+          "select": "Anyagok kiválasztása"
         }
       }
     },
@@ -178,6 +191,7 @@ export default {
   },
   "facets": {
     "COLOURPALETTE": {
+      "moreName": "színek",
       "name": "Szín | Színek",
       "options": {
         "#000000": "Fekete",
@@ -324,23 +338,78 @@ export default {
         "#FFFFE0": "Halványsárga",
         "#FFFFF0": "Elefántcsont",
         "#FFFFFF": "fehér"
-      }
+      },
+      "select": "Válasszon színeket"
     },
     "COUNTRY": {
-      "name": "Szolgáltató ország"
+      "name": "Szolgáltató ország",
+      "options": {
+        "Albania": "Albánia",
+        "Austria": "Ausztria",
+        "Belarus": "Fehéroroszország",
+        "Belgium": "Belgium",
+        "Bosnia and Herzegovina": "Bosznia-Hercegovina",
+        "Bulgaria": "Bulgária",
+        "Croatia": "Horvátország",
+        "Cyprus": "Ciprus",
+        "Czech Republic": "Cseh Köztársaság",
+        "Denmark": "Dánia",
+        "Estonia": "Észtország",
+        "Europe": "Európa",
+        "Finland": "Finnország",
+        "France": "Franciaország",
+        "Georgia": "Grúzia",
+        "Germany": "Németország",
+        "Greece": "Görögország",
+        "Holy See (Vatican City State)": "Szentszék (Vatikánváros Állam)",
+        "Hungary": "Magyarország",
+        "Iceland": "Izland",
+        "Ireland": "Írország",
+        "Israel": "Izrael",
+        "Italy": "Olaszország",
+        "Latvia": "Lettország",
+        "Lithuania": "Litvánia",
+        "Luxembourg": "Luxemburg",
+        "Macedonia": "Macedónia",
+        "Malta": "Málta",
+        "Moldova": "Moldova",
+        "Montenegro": "Montenegró",
+        "Netherlands": "Hollandia",
+        "Norway": "Norvégia",
+        "Poland": "Lengyelország",
+        "Portugal": "Portugália",
+        "Romania": "Románia",
+        "Russia": "Oroszország",
+        "Serbia": "Szerbia",
+        "Slovakia": "Szlovákia",
+        "Slovenia": "Szlovénia",
+        "Spain": "Spanyolország",
+        "Sweden": "Svédország",
+        "Switzerland": "Svájc",
+        "Turkey": "Törökország",
+        "Ukraine": "Ukrajna",
+        "United Kingdom": "Egyesült Királyság",
+        "United States of America": "Amerikai Egyesült Államok"
+      },
+      "select": "Válassza ki az ellátó országokat"
     },
     "CREATOR": {
-      "name": "Alkotó | Alkotók"
+      "moreName": "alkotók",
+      "name": "Alkotó | Alkotók",
+      "select": "Válasszon alkotókat"
     },
     "DATA_PROVIDER": {
-      "name": "Intézmény"
+      "moreName": "intézmények",
+      "name": "Intézmény",
+      "select": "Válasszon intézményeket"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Képtájolás | Képtájolások",
       "options": {
         "landscape": "Fekvő",
         "portrait": "Álló"
-      }
+      },
+      "select": "Válassza ki a kép tájolását"
     },
     "IMAGE_SIZE": {
       "name": "Képméret | Képméretek",
@@ -349,19 +418,65 @@ export default {
         "large": "Nagy, 1-4 MP + (pl.1920 x 1080 képpont)",
         "medium": "Közepes, 0,5-1MP (pl. 850 x 850 képpont)",
         "small": "Kicsi, < 0,5 MP (pl. 650 x 600 képpont)"
-      }
+      },
+      "select": "Válassza ki a képméreteket"
     },
     "LANGUAGE": {
-      "name": "Nyelv"
+      "name": "Nyelv",
+      "options": {
+        "ar": "Arab",
+        "bg": "Bolgár",
+        "bs": "Boszniai",
+        "ca": "Katalán",
+        "cs": "Cseh",
+        "cy": "Walesi",
+        "da": "Dán",
+        "de": "Német",
+        "el": "Görög",
+        "en": "Angol",
+        "es": "Spanyol",
+        "et": "Észt",
+        "fi": "Finn",
+        "fr": "Francia",
+        "ga": "Ír",
+        "gd": "Gael",
+        "he": "Héber",
+        "hr": "Horvát",
+        "hu": "Magyar",
+        "is": "Izlandi",
+        "it": "Olasz",
+        "lt": "Litván",
+        "lv": "Lett",
+        "mk": "Macedón",
+        "mt": "Máltai",
+        "mul": "Több nyelv",
+        "nl": "Holland",
+        "no": "Norvég",
+        "pl": "Lengyel",
+        "pt": "Portugál",
+        "ro": "Román",
+        "ru": "Orosz",
+        "sk": "Szlovák",
+        "sl": "Szlovén",
+        "sq": "Albán",
+        "sr": "Szerb",
+        "sv": "Svéd",
+        "tr": "Török",
+        "uk": "Ukrán"
+      },
+      "select": "Nyelvek kiválasztása"
     },
     "MIME_TYPE": {
       "name": "Fájlformátum | Fájlformátumok",
       "options": {
         "text/plain": "Egyszerű szöveg"
-      }
+      },
+      "select": "Válassza ki a fájlformátumokat"
     },
     "PROVIDER": {
-      "name": "Aggregátor"
+      "moreName": "aggregátorok",
+      "name": "Aggregátor",
+      "select": "Válasszon aggregátorokat"
     },
     "REUSABILITY": {
       "name": "Használhatom ezt újból?",
@@ -370,7 +485,8 @@ export default {
         "permission": "Talán, kérjen engedélyt",
         "restricted": "Igen, feltételekkel",
         "uncategorized": "Uncategorized"
-      }
+      },
+      "select": "Válassza ki, hogy használhatja-e ezt"
     },
     "TYPE": {
       "name": "Adathordozó típusa",
@@ -380,14 +496,17 @@ export default {
         "SOUND": "Hang",
         "TEXT": "Szöveg",
         "VIDEO": "Videó"
-      }
+      },
+      "select": "Adathordozó-típusok kiválasztása"
     },
     "api": {
       "name": "Keresés erre",
       "options": {
         "fulltext": "Rekordok teljes szöveggel",
         "metadata": "Csak metaadatokat tartalmazó rekordok"
-      }
+      },
+      "switch": "Keresés csak a teljes szövegű elemek tartalmában",
+      "switchMoreInfo": "Ebben a gyűjteményben kiválaszthatja, hogy mit szeretne keresni: ha ez a kapcsoló be van kapcsolva, akkor az újság és a dokumentum szövegében fog keresni; ha ki van kapcsolva, akkor inkább a tárgyat leíró információk között fog keresni, ahogyan a legtöbb más gyűjteményben is."
     },
     "button": {
       "apply": "Alkalmaz",
@@ -398,7 +517,7 @@ export default {
       "showLess": "Kevesebb {label} megjelenítése"
     },
     "collection": {
-      "name": "Kategória",
+      "name": "Téma",
       "options": {
         "archaeology": "Régészet",
         "art": "Művészet",
@@ -413,27 +532,36 @@ export default {
         "photography": "Fotózás",
         "sport": "Sport",
         "ww1": "1914-1918"
-      }
+      },
+      "select": "Téma kiválasztása"
     },
     "contentTier": {
-      "name": "Tartalmaz olyan elemeket, melyek nem felelnek meg a közzétételi kritériumoknak.",
-      "notification": "Olyan cikkek is elérhetőek, amelyek nem felelnek meg az általunk felállított közzétételi kritériumoknak. Ezeket a cikkeket a \"Több szűrő\", \"Cikkek minősége\" opció aktiválásával érheti el.",
+      "name": "Minősége elemek",
       "options": {
         "*": "A közzétételi feltételeknek meg nem felelő elemek kizárása",
-        "0": "Csak olyan cikkek megjelenítése, amelyek nem felelnek meg a közzétételi kritériumoknak"
-      }
+        "0": "Csak olyan cikkek megjelenítése, amelyek nem felelnek meg a közzétételi kritériumoknak",
+        "1": "Gyenge minőség",
+        "2": "Közepes minőség",
+        "3": "Kiváló minőségű és újrafelhasználható feltételekkel",
+        "4": "Kiváló minőségű és szabadon újrafelhasználható"
+      },
+      "select": "Cikkminőségek kiválasztása"
     },
+    "moreOptions": "Keresés, hogy találjon {0} több {1}.",
     "proxy_dc_format": {
-      "name": "Formátum | formátumok"
+      "name": "Formátum | formátumok",
+      "select": "Formátumok kiválasztása"
     },
     "proxy_dc_type": {
-      "name": "Típus | Típusok"
+      "name": "Típus | Típusok",
+      "select": "Típusok kiválasztása"
     },
     "proxy_dcterms_issued": {
       "name": "Kibocsátás dátuma"
     },
     "proxy_dcterms_medium": {
-      "name": "Adathordozó | Adathordozók"
+      "name": "Adathordozó | Adathordozók",
+      "select": "Adathordozó kiválasztása"
     }
   },
   "feedback": {
@@ -486,6 +614,7 @@ export default {
       "dctermsProvenance": "Származási hely",
       "dctermsReferences": "Hivatkozások",
       "dctermsSpatial": "Helyek",
+      "dctermsTOC": "Tartalomjegyzék",
       "dctermsTemporal": "Időbeli",
       "edmCountry": "Szolgáltató ország",
       "edmCurrentLocation": "Jelenlegi tartózkodási hely",
@@ -542,7 +671,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label} : {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -579,7 +707,6 @@ export default {
     "itemCount": "1 cikk |{count} cikk",
     "itemOf": "{max} {count} cikk",
     "recent": "Legutóbbi elemek",
-    "recommendationsDisclaimer": "Hüvelykujj felfelé, hogy felvegye a galériába - Hüvelykujját lefelé, ha nem tetszik",
     "recommended": "Ajánlott tételek",
     "youMightLike": "Cikkek, amik tetszhetnek Önnek"
   },
@@ -643,6 +770,10 @@ export default {
         "description": "Névtelen statisztikákat gyűjt arról, hogy a látogatók hogyan lépnek kapcsolatba a weboldallal.",
         "title": "Matomo"
       },
+      "newFeatureNotification": {
+        "description": "Értesítést jelenít meg, ha új funkciók válnak elérhetővé.",
+        "title": "Új funkció értesítése"
+      },
       "searchResultsView": {
         "description": "Emlékszik arra, hogy a keresési eredményeket inkább lista- vagy rácsnézetben szeretné-e látni.",
         "title": "Keresési eredmény nézet (lista / rács)"
@@ -653,25 +784,8 @@ export default {
     "skipToMain": "Ugrás az oldal tartalmához"
   },
   "learnMore": "Tudjon meg többet a leírás forrásáról",
-  "linksToClassic": {
-    "home": {
-      "linkText": "Tekintse meg ezt az oldalt az eredeti Europeana webhelyen 2021. december 20-ig.",
-      "text": "Ön az új Europeana élményt látja."
-    },
-    "record": {
-      "linkText": "Tekintse meg ezt az elemet az eredeti Europeana webhelyen 2021. december 20-ig.",
-      "text": "Ezt az elemet az új Europeana webhelyen látja."
-    },
-    "search": {
-      "linkText": "Keresés az eredeti Europeana weboldalon 2021. december 20-ig.",
-      "text": "Ön az új és gyorsabb weboldalunkon keres."
-    }
-  },
   "loading": "Betöltés",
   "loadingResults": "Eredmények betöltése",
-  "mediaPreview": {
-    "selectItem": "Elem kiválasztása {src}"
-  },
   "messages": {
     "copyToClipboardSuccess": "Vágólapra másolva",
     "externalContentError": "A külső tartalom betöltése sikertelen",
@@ -693,9 +807,21 @@ export default {
     "translateLanguage": "Szeretné látni ezt az elemet itt: {0} ?",
     "translateQuotaError": "A fordítási szolgáltatás ideiglenesen nem érhető el. Kérlek, próbáld újra később."
   },
+  "newFeatureNotification": {
+    "dismiss": "Bezárás",
+    "readMore": "Bővebben",
+    "text": {
+      "searchFilters": "Most már kereshet értékeket az egyes szűrőkben; nézd meg!"
+    }
+  },
   "newWindow": "új ablakban nyílik meg",
   "noMoreResults": "Nincs további eredmény a keresési lekérdezéshez.",
   "noResults": "Nincs találat",
+  "organisation": {
+    "city": "Város",
+    "country": "Ország",
+    "nameAcronym": "Név rövidítés"
+  },
   "pageHasLoaded": "betöltődött",
   "pages": {
     "collections": {
@@ -720,11 +846,16 @@ export default {
     }
   },
   "readMore": "Bővebben",
+  "recommendation": {
+    "prompts": {
+      "accept": "Hüvelykujj felfelé, hogy hozzáadjuk a galériához",
+      "reject": "Hüvelykujj le, ha nem tetszik"
+    }
+  },
   "record": {
     "IIIFViewer": "IIIF néző",
     "allMetaData": "Minden metaadat",
     "copyEmbedLabel": "Beágyazási kód (Kattintson a másoláshoz)",
-    "downloadCopyrightInfo": "Ez az elem szerzői jogi védelem alatt áll, és nem tölthető le.",
     "exploreMore": "Több felfedezés",
     "extendedInformation": "Kiterjesztett információk",
     "goodToKnow": "Jó tudni",
@@ -736,24 +867,21 @@ export default {
     "showAll": "Az összes információ megjelenítése",
     "similarItems": "Hasonló elemek",
     "transcription": "Átírás",
-    "transcriptionDisclaimer": "Ezt a tartalmat a nyilvánosság hozza létre, nem az intézmény, amely a cikket szolgáltatta.",
-    "view": {
-      "image": "Kép megtekintése",
-      "media": "Adathordozó megtekintése",
-      "pdf": "PDF megtekintése"
-    }
+    "transcriptionDisclaimer": "Ezt a tartalmat a nyilvánosság hozza létre, nem az intézmény, amely a cikket szolgáltatta."
   },
   "relatedCollections": "Kapcsolódó gyűjtemények",
   "removeFilter": "{filterLabel} szűrő eltávolítása",
   "reset": "Visszaállítás",
   "resourceWikimedia": "Forrás: Wikimedia Commons",
   "results": "Találatok",
+  "resultsFor": "Találatok a következőre: {0}",
   "resultsLimitWarning": "Nem jelennek meg további eredmények, mivel csak az első 1000 legrelevánsabb eredmény látható. Ha nem találta meg azt, amit keres, kérjük, finomítsa a keresést.",
+  "resultsWithin": "Találatok a következőn belül {0} {1} a következőre: {2}",
   "search": "Keresés",
+  "searchHasLoaded": "{0} eredmények visszaadva",
   "searchPlaceholder": "Mit keres?",
   "searchResults": "Keresés",
   "searchResultsFor": "{0} - Keresés",
-  "searchResultsForIn": "{0} - Keresés a következőben: {1}",
   "searchSuggestions": "Keresési javaslatok",
   "searchTier": {
     "button": {
@@ -767,7 +895,8 @@ export default {
   },
   "searchViews": {
     "grid": "Rácsnézet",
-    "list": "Listanézet"
+    "list": "Listanézet",
+    "mosaic": "Mozaik nézet"
   },
   "set": {
     "actions": {
@@ -776,6 +905,7 @@ export default {
       "createNew": "Új galéria létrehozása",
       "delete": "Galéria törlése",
       "edit": "Galéria szerkesztése",
+      "save": "Mentse",
       "update": "Galéria frissítése"
     },
     "form": {
@@ -802,5 +932,14 @@ export default {
   },
   "showLess": "Kevesebb megjelenítése",
   "showMore": "Továbbiak megjelenítése",
-  "website": "Weboldal"
+  "sideFilters": {
+    "noOptions": "Nincsenek választható opciók",
+    "search": "Keresés"
+  },
+  "statuses": {
+    "liked": "Tetszett",
+    "pinned": "Odatűzött"
+  },
+  "website": "Weboldal",
+  "youMightAlsoLike": "Ez is érdekelheti Önt"
 };

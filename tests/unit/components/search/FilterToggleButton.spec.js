@@ -13,7 +13,7 @@ const factory = (options = {}) => shallowMount(FilterToggleButton, {
   mocks: {
     $t: (key) => key
   },
-  store: store({ showFiltersToggle: options.showFiltersToggle || false })
+  store: store({ showFiltersToggle: options.showFiltersToggle || false, resettableFilters: options.resettableFilters || [] })
 });
 
 const store = (searchState = {}) => {
@@ -31,20 +31,20 @@ describe('components/search/FilterToggleButton', () => {
   describe('when no side filters are on the page', () => {
     describe('the filter toggle button', () => {
       it('should not exist', () => {
-        const wrapper = factory({ showFiltersToggle: false });
+        const wrapper = factory({ showFiltersToggle: false, resettableFilters: [] });
 
         const filterButton = wrapper.find('[data-qa="search filter button"]');
-        expect(filterButton.exists()).toBe(true);
+        expect(filterButton.isVisible()).toBe(false);
       });
     });
   });
   describe('when side filters are on the page', () => {
     describe('the filter toggle button', () => {
       it('should exist', () => {
-        const wrapper = factory({ showFiltersToggle: true });
+        const wrapper = factory({ showFiltersToggle: true, resettableFilters: [] });
 
         const filterButton = wrapper.find('[data-qa="search filter button"]');
-        expect(filterButton.exists()).toBe(true);
+        expect(filterButton.isVisible()).toBe(true);
       });
     });
   });

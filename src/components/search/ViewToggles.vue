@@ -28,10 +28,19 @@
       BNav
     },
     props: {
+      /**
+       * Selected search results view
+       *
+       * @values grid, list, mosaic
+       */
       value: {
         type: String,
         default: 'grid'
       },
+
+      /**
+       * Vue route to generate a link for switching the view
+       */
       linkGenRoute: {
         type: Object,
         default: () => {
@@ -41,16 +50,17 @@
     },
     data() {
       return {
-        views: ['list', 'grid'],
+        views: ['list', 'grid', 'mosaic'],
         activeView: this.value
       };
     },
     watch: {
       value() {
         this.activeView = this.value;
-        if (this.$matomo) {
-          this.$matomo.trackEvent('View search results', 'Select view', this.value);
-        }
+
+        this.$cookies && this.$cookies.set('searchResultsView', this.value);
+
+        this.$matomo && this.$matomo.trackEvent('View search results', 'Select view', this.value);
       }
     },
     methods: {
@@ -83,6 +93,10 @@
 
       &.grid::before {
         content: '\e92a';
+      }
+
+      &.mosaic::before {
+        content: '\e94a';
       }
     }
 

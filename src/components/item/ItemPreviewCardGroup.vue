@@ -1,32 +1,53 @@
 <template>
   <div
-    v-if="view === 'grid'"
+    v-if="view === 'grid' || view === 'mosaic'"
   >
     <div
+      id="searchResultsGrid"
+      :key="`searchResultsGrid${view}`"
       v-masonry
       transition-duration="0.1"
       item-selector=".card"
       horizontal-order="true"
-      column-width=".masonry-container .card"
+      column-width=".masonry-container .card:not(.header-card)"
       class="masonry-container"
-      data-qa="item previews grid"
+      :data-qa="`item previews ${view}`"
     >
-      <ItemPreviewCard
-        v-for="item in items"
-        :key="item.id"
-        v-masonry-tile
-        :item="item"
-        :hit-selector="itemHitSelector(item)"
-        :variant="cardVariant"
-        class="item"
-        :lazy="false"
-        :enable-accept-recommendation="enableAcceptRecommendations"
-        :enable-reject-recommendation="enableRejectRecommendations"
-        :show-pins="showPins"
-        data-qa="item preview"
-        @like="$emit('like', item.id)"
-        @unlike="$emit('unlike', item.id)"
-      />
+      <slot />
+      <template
+        v-for="(card, index) in cards"
+      >
+        <template
+          v-if="card === 'related'"
+        >
+          <b-card
+            v-show="showRelated"
+            :key="index"
+            class="text-left related-collections-card mb-4"
+          >
+            <slot
+              v-masonry-tile
+              name="related"
+            />
+          </b-card>
+        </template>
+        <ItemPreviewCard
+          v-else
+          :key="index"
+          v-masonry-tile
+          :item="card"
+          :hit-selector="itemHitSelector(card)"
+          :variant="cardVariant"
+          class="item"
+          :lazy="false"
+          :enable-accept-recommendation="enableAcceptRecommendations"
+          :enable-reject-recommendation="enableRejectRecommendations"
+          :show-pins="showPins"
+          data-qa="item preview"
+          @like="$emit('like', card.id)"
+          @unlike="$emit('unlike', card.id)"
+        />
+      </template>
     </div>
   </div>
   <b-card-group
@@ -35,17 +56,35 @@
     :class="cardGroupClass"
     deck
   >
-    <ItemPreviewCard
-      v-for="item in items"
-      :key="item.id"
-      :item="item"
-      :hit-selector="itemHitSelector(item)"
-      :variant="cardVariant"
-      :show-pins="showPins"
-      data-qa="item preview"
-      @like="$emit('like', item.id)"
-      @unlike="$emit('unlike', item.id)"
-    />
+    <slot />
+    <template
+      v-for="(card, index) in cards"
+    >
+      <template
+        v-if="card === 'related'"
+      >
+        <b-card
+          v-show="showRelated"
+          :key="index"
+          class="text-left related-collections-card mb-4"
+        >
+          <slot
+            name="related"
+          />
+        </b-card>
+      </template>
+      <ItemPreviewCard
+        v-else
+        :key="card.id"
+        :item="card"
+        :hit-selector="itemHitSelector(card)"
+        :variant="cardVariant"
+        :show-pins="showPins"
+        data-qa="item preview"
+        @like="$emit('like', card.id)"
+        @unlike="$emit('unlike', card.id)"
+      />
+    </template>
   </b-card-group>
 </template>
 
@@ -81,6 +120,10 @@
         type: Boolean,
         default: false
       },
+      showRelated: {
+        type: Boolean,
+        default: false
+      },
       enableAcceptRecommendations: {
         type: Boolean,
         default: false
@@ -92,6 +135,10 @@
     },
 
     computed: {
+      cards() {
+        return this.items.slice(0, 4).concat('related').concat(this.items.slice(4));
+      },
+
       cardGroupClass() {
         let cardGroupClass;
 
@@ -119,8 +166,9 @@
     },
 
     mounted() {
-      if (typeof this.$redrawVueMasonry === 'function' && this.view === 'grid') {
-        this.$redrawVueMasonry();
+      const masonryViews = ['grid', 'mosaic'];
+      if (typeof this.$redrawVueMasonry === 'function' && masonryViews.includes(this.view)) {
+        this.$redrawVueMasonry('searchResultsGrid');
       }
     },
 

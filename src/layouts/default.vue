@@ -21,7 +21,9 @@
     <client-only
       v-if="feedbackEnabled"
     >
-      <FeedbackWidget />
+      <FeedbackWidget
+        data-qa="feedback widget"
+      />
     </client-only>
     <main
       id="default"
@@ -36,6 +38,17 @@
         id="main"
       />
     </main>
+    <client-only
+      v-if="newFeatureNotificationEnabled"
+    >
+      <NewFeatureNotification
+        :feature="featureNotification.name"
+        :url="featureNotification.url"
+        data-qa="new feature notification"
+      >
+        <p>{{ $t(`newFeatureNotification.text.${featureNotification.name}`) }}</p>
+      </NewFeatureNotification>
+    </client-only>
     <client-only>
       <PageFooter />
     </client-only>
@@ -54,8 +67,8 @@
   import PageHeader from '../components/PageHeader';
   import makeToastMixin from '@/mixins/makeToast';
   import klaroConfig, { version as klaroVersion } from '../plugins/klaro-config';
-  import { version as bootstrapVersion } from 'bootstrap/package.json';
-  import { version as bootstrapVueVersion } from 'bootstrap-vue/package.json';
+  import versions from '../../pkg-versions';
+  import featureNotifications from '@/features/notifications';
 
   export default {
     name: 'DefaultLayout',
@@ -65,7 +78,8 @@
       ClientOnly,
       PageHeader,
       PageFooter: () => import('../components/PageFooter'),
-      FeedbackWidget: () => import('../components/feedback/FeedbackWidget')
+      FeedbackWidget: () => import('../components/feedback/FeedbackWidget'),
+      NewFeatureNotification: () => import('../components/generic/NewFeatureNotification')
     },
 
     mixins: [
@@ -74,10 +88,13 @@
 
     data() {
       return {
+        dateNow: Date.now(),
         linkGroups: {},
         enableAnnouncer: true,
         klaro: null,
-        toastBottomOffset: '20px'
+        toastBottomOffset: '20px',
+        featureNotification: featureNotifications.find(feature => feature.name === this.$config?.app?.featureNotification),
+        featureNotificationExpiration: this.$config.app.featureNotificationExpiration
       };
     },
 
@@ -89,16 +106,14 @@
           ...i18nHead.htmlAttrs
         },
         link: [
-          { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700&subset=latin,greek,cyrillic&display=swap',
-            body: true },
-          { rel: 'stylesheet', href: `https://unpkg.com/bootstrap@${bootstrapVersion}/dist/css/bootstrap.min.css` },
-          { rel: 'stylesheet', href: `https://unpkg.com/klaro@${klaroVersion}/dist/klaro.min.css` },
-          { rel: 'stylesheet', href: `https://unpkg.com/bootstrap-vue@${bootstrapVueVersion}/dist/bootstrap-vue.min.css` },
+          { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap@${versions.bootstrap}/dist/css/bootstrap.min.css` },
+          { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/klaro@${klaroVersion}/dist/klaro.min.css` },
+          { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap-vue@${versions['bootstrap-vue']}/dist/bootstrap-vue.min.css` },
           { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrlWithoutLocale },
           ...i18nHead.link
         ],
         script: [
-          { src: `https://unpkg.com/klaro@${klaroVersion}/dist/klaro-no-css.js`, defer: true }
+          { src: `https://cdn.jsdelivr.net/npm/klaro@${klaroVersion}/dist/klaro-no-css.js`, defer: true }
         ],
         meta: [
           { hid: 'description', property: 'description', content: 'Europeana' },
@@ -120,6 +135,12 @@
 
       feedbackEnabled() {
         return this.$features.jiraServiceDeskFeedbackForm && this.$config.app.baseUrl;
+      },
+
+      newFeatureNotificationEnabled() {
+        return !!this.featureNotification &&
+          (!this.featureNotificationExpiration || (this.dateNow < this.featureNotificationExpiration)) &&
+          (!this.$cookies.get('new_feature_notification') || this.$cookies.get('new_feature_notification') !== this.featureNotification.name);
       }
     },
 

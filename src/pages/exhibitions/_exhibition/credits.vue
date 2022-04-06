@@ -61,7 +61,7 @@
 </template>
 
 <script>
-  import marked from 'marked';
+  import { marked } from 'marked';
   import SocialShareModal from '../../../components/sharing/SocialShareModal.vue';
   import ShareButton from '../../../components/sharing/ShareButton.vue';
   import exhibitionChapters from '../../../mixins/exhibitionChapters';
@@ -138,7 +138,7 @@
         if (this.credits === undefined) {
           return false;
         }
-        return marked(this.credits);
+        return marked.parse(this.credits);
       },
       title() {
         return `${this.name} - ${this.$t('exhibitions.credits')}`;

@@ -30,12 +30,16 @@ export default {
     "accept": "Přijmout",
     "cancel": "Zrušit",
     "close": "zavřít",
+    "continue": "pokračovat",
     "download": "Stáhnout",
     "edit": "Upravit",
     "feedback": "Zpětná vazba",
     "goBack": "Zpět",
+    "goHome": "Přejít na domovskou stránku",
+    "learnMore": "Zjistěte více",
     "like": "Oblíbené",
     "next": "Další",
+    "pin": "Kolík",
     "providedBy": "Poskytl {provider}",
     "reject": "Odmítnout",
     "send": "Poslat",
@@ -72,6 +76,7 @@ export default {
   "cardLabels": {
     "organisation": "Organizace",
     "person": "Osoba",
+    "theme": "Téma",
     "time": "Století",
     "topic": "Téma"
   },
@@ -84,16 +89,24 @@ export default {
     "fashion": {
       "facets": {
         "CREATOR": {
-          "name": "Návrhář | Návrháři"
+          "moreName": "návrháři",
+          "name": "Návrhář | Návrháři",
+          "select": "Vyberte návrháři"
         },
         "proxy_dc_format": {
-          "name": "Technika | Techniky"
+          "moreName": "techniky",
+          "name": "Technika | Techniky",
+          "select": "Vyberte techniky"
         },
         "proxy_dc_type": {
-          "name": "Druh položky | Druhy položek"
+          "moreName": "typy položek",
+          "name": "Druh položky | Druhy položek",
+          "select": "Vyberte typy položek"
         },
         "proxy_dcterms_medium": {
-          "name": "Materiál | Materiály"
+          "moreName": "materiálů",
+          "name": "Materiál | Materiály",
+          "select": "Vyberte materiály"
         }
       }
     },
@@ -178,6 +191,7 @@ export default {
   },
   "facets": {
     "COLOURPALETTE": {
+      "moreName": "barvy",
       "name": "Barva | Barvy",
       "options": {
         "#000000": "Černá",
@@ -324,23 +338,78 @@ export default {
         "#FFFFE0": "Světle žlutá",
         "#FFFFF0": "Slonová kost",
         "#FFFFFF": "Bílý"
-      }
+      },
+      "select": "Vyberte barvy"
     },
     "COUNTRY": {
-      "name": "Země původu"
+      "name": "Země původu",
+      "options": {
+        "Albania": "Albánie",
+        "Austria": "Rakousko",
+        "Belarus": "Bělorusko",
+        "Belgium": "Belgie",
+        "Bosnia and Herzegovina": "Bosna a Hercegovina",
+        "Bulgaria": "Bulharsko",
+        "Croatia": "Chorvatsko",
+        "Cyprus": "Kypr",
+        "Czech Republic": "Česká republika",
+        "Denmark": "Dánsko",
+        "Estonia": "Estonsko",
+        "Europe": "Evropa",
+        "Finland": "Finsko",
+        "France": "Francie",
+        "Georgia": "Gruzie",
+        "Germany": "Německo",
+        "Greece": "Řecko",
+        "Holy See (Vatican City State)": "Svatý stolec (Vatikánský městský stát)",
+        "Hungary": "Maďarsko",
+        "Iceland": "Island",
+        "Ireland": "Irsko",
+        "Israel": "Izrael",
+        "Italy": "Itálie",
+        "Latvia": "Lotyšsko",
+        "Lithuania": "Litva",
+        "Luxembourg": "Lucembursko",
+        "Macedonia": "Makedonie",
+        "Malta": "Malta",
+        "Moldova": "Moldavsko",
+        "Montenegro": "Černá Hora",
+        "Netherlands": "Nizozemsko",
+        "Norway": "Norsko",
+        "Poland": "Polsko",
+        "Portugal": "Portugalsko",
+        "Romania": "Rumunsko",
+        "Russia": "Rusko",
+        "Serbia": "Srbsko",
+        "Slovakia": "Slovensko",
+        "Slovenia": "Slovinsko",
+        "Spain": "Španělsko",
+        "Sweden": "Švédsko",
+        "Switzerland": "Švýcarsko",
+        "Turkey": "Krocan",
+        "Ukraine": "Ukrajina",
+        "United Kingdom": "Spojené království",
+        "United States of America": "Spojené státy americké"
+      },
+      "select": "Vyberte poskytující země"
     },
     "CREATOR": {
-      "name": "Tvůrce | Tvůrci"
+      "moreName": "tvůrci",
+      "name": "Tvůrce | Tvůrci",
+      "select": "Vyberte tvůrce"
     },
     "DATA_PROVIDER": {
-      "name": "Instituce"
+      "moreName": "institucí",
+      "name": "Instituce",
+      "select": "Vyberte instituce"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Orientace obrázku | Orientace obrázků",
       "options": {
         "landscape": "Krajina",
         "portrait": "Portrét"
-      }
+      },
+      "select": "Vyberte orientaci obrázku"
     },
     "IMAGE_SIZE": {
       "name": "Velikost obrázku | Velikosti obrázků",
@@ -349,19 +418,65 @@ export default {
         "large": "Velký 1–4 Mpx (např. 1920 x 1080 px)",
         "medium": "Střední 0,5–1 Mpx (např. 850 x 850 px)",
         "small": "Malý < 0,5 Mpx (např. 650 x 650 px)"
-      }
+      },
+      "select": "Vyberte velikosti obrázku"
     },
     "LANGUAGE": {
-      "name": "Jazyk"
+      "name": "Jazyk",
+      "options": {
+        "ar": "Arabština",
+        "bg": "Bulharský",
+        "bs": "Bosenský",
+        "ca": "Katalánština",
+        "cs": "Česky",
+        "cy": "Velština",
+        "da": "Dánský",
+        "de": "Němčina",
+        "el": "Řecký",
+        "en": "Angličtina",
+        "es": "Španělština",
+        "et": "Estonština",
+        "fi": "Finština",
+        "fr": "Francouzština",
+        "ga": "Irština",
+        "gd": "Gaelština",
+        "he": "Hebrejština",
+        "hr": "Chorvatský",
+        "hu": "Maďarština",
+        "is": "Islandské",
+        "it": "Italský",
+        "lt": "Litevština",
+        "lv": "Lotyšský",
+        "mk": "Makedonština",
+        "mt": "Maltský",
+        "mul": "Více jazyků",
+        "nl": "Holandský",
+        "no": "Norština",
+        "pl": "Polský",
+        "pt": "Portugalština",
+        "ro": "Rumunština",
+        "ru": "Ruský",
+        "sk": "Slovenská",
+        "sl": "Slovinština",
+        "sq": "Albánština",
+        "sr": "Srbština",
+        "sv": "Švédský",
+        "tr": "Turecký",
+        "uk": "Ukrajinský"
+      },
+      "select": "Vyberte jazyky"
     },
     "MIME_TYPE": {
       "name": "Formát souboru | Formáty souborů",
       "options": {
         "text/plain": "Prostý text"
-      }
+      },
+      "select": "Vyberte formáty souborů"
     },
     "PROVIDER": {
-      "name": "Agregátor"
+      "moreName": "agregátory",
+      "name": "Agregátor",
+      "select": "Vyberte agregátory"
     },
     "REUSABILITY": {
       "name": "Mohu to znovu použít?",
@@ -370,7 +485,8 @@ export default {
         "permission": "Možná, požádejte o povolení",
         "restricted": "Ano, za určitých podmínek",
         "uncategorized": "Nezařazeno"
-      }
+      },
+      "select": "Vyberte, zda toto můžete použít"
     },
     "TYPE": {
       "name": "Druh média",
@@ -380,14 +496,17 @@ export default {
         "SOUND": "Zvuk",
         "TEXT": "Text",
         "VIDEO": "Video"
-      }
+      },
+      "select": "Vyberte typy médií"
     },
     "api": {
       "name": "Vyhledat",
       "options": {
         "fulltext": "Záznamy s fulltextem",
         "metadata": "Pouze záznamy s metadaty"
-      }
+      },
+      "switch": "Vyhledávání pouze v obsahu položek s plným textem",
+      "switchMoreInfo": "V této kolekci si můžete vybrat, co chcete vyhledávat: pokud je tento přepínač zapnutý, budete vyhledávat v textu novin a dokumentů; pokud je vypnutý, budete místo toho vyhledávat v informacích popisujících položku, stejně jako ve většině ostatních kolekcí."
     },
     "button": {
       "apply": "Použít",
@@ -398,7 +517,7 @@ export default {
       "showLess": "Zobrazit méně {label}"
     },
     "collection": {
-      "name": "Kategorie",
+      "name": "Téma",
       "options": {
         "archaeology": "Archeologie",
         "art": "Umění",
@@ -413,27 +532,36 @@ export default {
         "photography": "Fotografie",
         "sport": "Sport",
         "ww1": "1914–1918"
-      }
+      },
+      "select": "Vyberte motiv"
     },
     "contentTier": {
-      "name": "Jsou zahrnuty položky, které nesplňují naše publikační kritéria.",
-      "notification": "Několik dostupných položek nesplňuje naše publikační kritéria. K těmto položkám získáte přístup po aktivaci filtru „přijatelnost položky“ v nabídce „více filtrů“.",
+      "name": "Kvalita položky",
       "options": {
         "*": "Jsou zahrnuty položky, které nesplňují naše publikační kritéria.",
-        "0": "Zobrazit pouze položky, které nesplňují naše publikační kritéria."
-      }
+        "0": "Zobrazit pouze položky, které nesplňují naše publikační kritéria.",
+        "1": "Nízká kvalita",
+        "2": "Střední kvalita",
+        "3": "Vysoká kvalita a opakované použití s podmínkami",
+        "4": "Vysoká kvalita a volné opakované použití"
+      },
+      "select": "Vyberte vlastnosti položky"
     },
+    "moreOptions": "Hledejte, abyste našli {0} více {1}.",
     "proxy_dc_format": {
-      "name": "Formát | Formáty"
+      "name": "Formát | Formáty",
+      "select": "Vyberte formáty"
     },
     "proxy_dc_type": {
-      "name": "Druh | Druhy"
+      "name": "Druh | Druhy",
+      "select": "Vyberte typy"
     },
     "proxy_dcterms_issued": {
       "name": "Datum vydání"
     },
     "proxy_dcterms_medium": {
-      "name": "Médium | Média"
+      "name": "Médium | Média",
+      "select": "Vyberte média"
     }
   },
   "feedback": {
@@ -486,6 +614,7 @@ export default {
       "dctermsProvenance": "Původ",
       "dctermsReferences": "odkazuje na",
       "dctermsSpatial": "Místa",
+      "dctermsTOC": "Obsah",
       "dctermsTemporal": "Časové",
       "edmCountry": "Země původu",
       "edmCurrentLocation": "Aktuální umístění",
@@ -542,7 +671,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label}: {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -579,7 +707,6 @@ export default {
     "itemCount": "1 položka |{count} položek",
     "itemOf": "{max} z {count} položek",
     "recent": "Poslední položky",
-    "recommendationsDisclaimer": "Palec nahoru pro přidání do galerie - Palec dolů, pokud se vám nelíbí",
     "recommended": "Doporučené položky",
     "youMightLike": "Položky, které by se vám mohly líbit"
   },
@@ -643,6 +770,10 @@ export default {
         "description": "Shromažďuje anonymní statistiky o tom, jak návštěvníci interagují s webem.",
         "title": "Matomo"
       },
+      "newFeatureNotification": {
+        "description": "Zobrazí oznámení, když jsou k dispozici nové funkce.",
+        "title": "Oznámení o nové funkci"
+      },
       "searchResultsView": {
         "description": "Pamatuje si, zda chcete výsledky hledání zobrazit v seznamu nebo v mřížce.",
         "title": "Zobrazení výsledků hledání (seznam / mřížka)"
@@ -653,29 +784,12 @@ export default {
     "skipToMain": "Přeskočit na obsah stránky"
   },
   "learnMore": "Údaje o zdroji tohoto popisu",
-  "linksToClassic": {
-    "home": {
-      "linkText": "Tuto stránku si můžete prohlédnout na původních stránkách Europeana do 20. prosince 2021.",
-      "text": "Prohlížíte si novou stránku Europeana."
-    },
-    "record": {
-      "linkText": "Prohlédněte si tuto položku na původní webové stránce Europeana do 20. prosince 2021.",
-      "text": "Tuto položku si prohlížíte na nové stránce Europeana."
-    },
-    "search": {
-      "linkText": "Hledejte na původních webových stránkách Europeana do 20. prosince 2021.",
-      "text": "Vyhledáváte na naší nové a rychlejší stránce."
-    }
-  },
   "loading": "Načítání",
   "loadingResults": "Načítání výsledků",
-  "mediaPreview": {
-    "selectItem": "Vyberte položku {src}"
-  },
   "messages": {
     "copyToClipboardSuccess": "Zkopírováno do schránky",
     "externalContentError": "Načtení externího obsahu se nezdařilo.",
-    "notFound": "Nenalezno",
+    "notFound": "Nenalezeno",
     "paginationLimitExceeded": "Lze zobrazit pouze prvních {limit} výsledků vyhledávání."
   },
   "modal": {
@@ -693,9 +807,21 @@ export default {
     "translateLanguage": "Chcete tuto položku vidět v {0}?",
     "translateQuotaError": "Překladatelská služba je dočasně nedostupná. Prosím zkuste to znovu později."
   },
+  "newFeatureNotification": {
+    "dismiss": "Zavřít",
+    "readMore": "Přečtěte si více",
+    "text": {
+      "searchFilters": "Nyní můžete vyhledávat hodnoty v jednotlivých filtrech; Koukni na to!"
+    }
+  },
   "newWindow": "otevře se v novém okně",
   "noMoreResults": "Pro vaše zadání neexistují žádné další výsledky vyhledávání.",
   "noResults": "Žádné výsledky",
+  "organisation": {
+    "city": "Město",
+    "country": "Země",
+    "nameAcronym": "Zkratka jména"
+  },
   "pageHasLoaded": "načteno",
   "pages": {
     "collections": {
@@ -720,11 +846,16 @@ export default {
     }
   },
   "readMore": "Více informací",
+  "recommendation": {
+    "prompts": {
+      "accept": "Palec nahoru pro přidání do galerie",
+      "reject": "Palec dolů, pokud se vám to nelíbí"
+    }
+  },
   "record": {
     "IIIFViewer": "Prohlížeč IIIF",
     "allMetaData": "Všechna metadata",
     "copyEmbedLabel": "Vložit kód (kliknutím zkopírujete)",
-    "downloadCopyrightInfo": "Tato položka je chráněna autorskými právy a nelze ji stáhnout.",
     "exploreMore": "Prozkoumat více",
     "extendedInformation": "Bližší informace",
     "goodToKnow": "Užitečné informace",
@@ -736,24 +867,21 @@ export default {
     "showAll": "Zobrazit všechny informace",
     "similarItems": "Podobné položky",
     "transcription": "Přepis",
-    "transcriptionDisclaimer": "Tento obsah pochází z veřejných zdrojů, nikoliv od poskytovatelské instituce.",
-    "view": {
-      "image": "Zobrazit obrázek",
-      "media": "Zobrazit média",
-      "pdf": "Zobrazit PDF"
-    }
+    "transcriptionDisclaimer": "Tento obsah pochází z veřejných zdrojů, nikoliv od poskytovatelské instituce."
   },
   "relatedCollections": "Související sbírky",
   "removeFilter": "Odstranit {filterLabel} filtr",
   "reset": "Obnovit",
   "resourceWikimedia": "Zdroj z Wikimedia Commons",
   "results": "Výsledky",
+  "resultsFor": "Výsledky pro {0}",
   "resultsLimitWarning": "Zobrazuje se pouze prvních tisíc nejvhodnějších výsledků, další výsledky se nezobrazují. Pokud jste nenašli, co jste hledali, zvažte upřesnění vyhledávání.",
+  "resultsWithin": "Výsledky v rámci {0} {1} pro {2}",
   "search": "Vyhledat",
+  "searchHasLoaded": "Počet vrácených výsledků: {0}",
   "searchPlaceholder": "Co hledáte?",
   "searchResults": "Vyhledat",
   "searchResultsFor": "{0} - vyhledat",
-  "searchResultsForIn": "{0} - vyhledat v {1}",
   "searchSuggestions": "Návrhy vyhledávání",
   "searchTier": {
     "button": {
@@ -767,7 +895,8 @@ export default {
   },
   "searchViews": {
     "grid": "Zobrazení mřížky",
-    "list": "Zobrazení seznamu"
+    "list": "Zobrazení seznamu",
+    "mosaic": "Pohled na mozaiku"
   },
   "set": {
     "actions": {
@@ -776,6 +905,7 @@ export default {
       "createNew": "Vytvořit novou galerii",
       "delete": "Smazat galerii",
       "edit": "Upravit galerii",
+      "save": "Uložit",
       "update": "Aktualizovat galerii"
     },
     "form": {
@@ -802,5 +932,14 @@ export default {
   },
   "showLess": "Zobrazit méně",
   "showMore": "Zobrazit více",
-  "website": "Webové stránky"
+  "sideFilters": {
+    "noOptions": "Nejsou k dispozici žádné možnosti k výběru",
+    "search": "Vyhledat"
+  },
+  "statuses": {
+    "liked": "Oblíbené",
+    "pinned": "Připnuté"
+  },
+  "website": "Webové stránky",
+  "youMightAlsoLike": "Mohlo by se vám také líbit"
 };
