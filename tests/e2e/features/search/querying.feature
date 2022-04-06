@@ -8,7 +8,7 @@ Feature: Search querying
     And I enter "paris" in the `search box`
     And I press the ENTER key
     Then I see a `loading spinner`
-    And I see a `search query` with the text "paris"
+    And I see a `context label` with the text "paris"
     And I see "paris" in the `search box`
     And I don't have a `loading spinner`
     And I see the `total results`
@@ -20,7 +20,7 @@ Feature: Search querying
     And I click the `show search button`
     And I enter "no results for GIBBERISHABCDEFGHIJKLMONP" in the `search box`
     And I press the ENTER key
-    And I see a `search query` with the text "no results for GIBBERISHABCDEFGHIJKLMONP"
+    And I see a `context label` with the text "no results for GIBBERISHABCDEFGHIJKLMONP"
     Then I don't have a `item preview`
     And I see an `error notice` with the text "Error: No results"
 
@@ -29,7 +29,7 @@ Feature: Search querying
     And I click the `show search button`
     And I enter "*:*:*" in the `search box`
     And I press the ENTER key
-    And I see a `search query` with the text "*:*:*"
+    And I see a `context label` with the text "*:*:*"
     Then I don't have a `item preview`
     And I see an `error notice` with the text "Error"
 
@@ -38,7 +38,7 @@ Feature: Search querying
     And I click the `show search button`
     And I enter "paris" in the `search box`
     And I press the ENTER key
-    And I see a `search query` with the text "paris"
+    And I see a `context label` with the text "paris"
     And I click a `item preview`
     Then I see an `item page`
     And I click the `show search button`
@@ -78,10 +78,10 @@ Feature: Search querying
     And I click the `show search button`
     And I enter "frog" in the `search box`
     And I press the ENTER key
-    And I see a `search query` with the text "frog"
+    And I see a `context label` with the text "frog"
     And I enter "spawn" in the `search box`
     And I press the ENTER key
-    And I see a `search query` with the text "spawn"
+    And I see a `context label` with the text "spawn"
     And I go back
     And I wait 1 second
     Then I see "frog" in the `search box`

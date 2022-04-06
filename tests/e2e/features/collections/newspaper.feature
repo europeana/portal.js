@@ -27,8 +27,8 @@ Feature: Newspapers collection
 
   Scenario: Newspapers collection API toggle is removed when switching collection
     Given I am on `/en/search?page=1&qf=collection%3Anewspaper&api=metadata`
-    When I click the `collection facet dropdown`
-    And I check the "sport" "collection" radio
+    When I click the `collection side facet dropdown button`
+    And I click the `sport collection field`
     Then I should be on `/en/search?page=1&qf=collection%3Asport`
 
   Scenario: Newspapers collection API toggle is removed by reset button

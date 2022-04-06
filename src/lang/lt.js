@@ -36,6 +36,7 @@ export default {
     "feedback": "Atsiliepimas",
     "goBack": "Grįžti",
     "goHome": "Eikite į pagrindinį puslapį",
+    "learnMore": "Sužinokite daugiau",
     "like": "Patinka",
     "next": "Kitas",
     "pin": "Kaištis",
@@ -88,16 +89,24 @@ export default {
     "fashion": {
       "facets": {
         "CREATOR": {
-          "name": "Projektuotojas | Projektuotojai"
+          "moreName": "dizaineriai",
+          "name": "Projektuotojas | Projektuotojai",
+          "select": "Pasirinkite dizainerius"
         },
         "proxy_dc_format": {
-          "name": "Technika | Technikos"
+          "moreName": "technikos",
+          "name": "Technika | Technikos",
+          "select": "Pasirinkite technikos"
         },
         "proxy_dc_type": {
-          "name": "Elemento tipas | Elementų tipai"
+          "moreName": "elementų tipai",
+          "name": "Elemento tipas | Elementų tipai",
+          "select": "Pasirinkite elementų tipus"
         },
         "proxy_dcterms_medium": {
-          "name": "Medžiaga | Medžiagos"
+          "moreName": "medžiagos",
+          "name": "Medžiaga | Medžiagos",
+          "select": "Pasirinkite medžiagas"
         }
       }
     },
@@ -182,6 +191,7 @@ export default {
   },
   "facets": {
     "COLOURPALETTE": {
+      "moreName": "spalvos",
       "name": "Spalva | Spalvos",
       "options": {
         "#000000": "Juoda",
@@ -328,23 +338,78 @@ export default {
         "#FFFFE0": "Šviesiai geltona",
         "#FFFFF0": "Dramblio kaulas",
         "#FFFFFF": "Balta"
-      }
+      },
+      "select": "Pasirinkite spalvas"
     },
     "COUNTRY": {
-      "name": "Teikianti šalis"
+      "name": "Teikianti šalis",
+      "options": {
+        "Albania": "Albanija",
+        "Austria": "Austrija",
+        "Belarus": "Baltarusija",
+        "Belgium": "Belgija",
+        "Bosnia and Herzegovina": "Bosnija ir Hercegovina",
+        "Bulgaria": "Bulgarija",
+        "Croatia": "Kroatija",
+        "Cyprus": "Kipras",
+        "Czech Republic": "Čekijos Respublika",
+        "Denmark": "Danija",
+        "Estonia": "Estija",
+        "Europe": "Europa",
+        "Finland": "Suomija",
+        "France": "Prancūzija",
+        "Georgia": "Gruzija",
+        "Germany": "Vokietija",
+        "Greece": "Graikija",
+        "Holy See (Vatican City State)": "Šventasis Sostas (Vatikano Miesto Valstybė)",
+        "Hungary": "Vengrija",
+        "Iceland": "Islandija",
+        "Ireland": "Airija",
+        "Israel": "Izraelis",
+        "Italy": "Italija",
+        "Latvia": "Latvija",
+        "Lithuania": "Lietuva",
+        "Luxembourg": "Liuksemburgas",
+        "Macedonia": "Makedonija",
+        "Malta": "Malta",
+        "Moldova": "Moldova",
+        "Montenegro": "Juodkalnija",
+        "Netherlands": "Nyderlandai",
+        "Norway": "Norvegija",
+        "Poland": "Lenkija",
+        "Portugal": "Portugalija",
+        "Romania": "Rumunija",
+        "Russia": "Rusija",
+        "Serbia": "Serbija",
+        "Slovakia": "Slovakija",
+        "Slovenia": "Slovėnija",
+        "Spain": "Ispanija",
+        "Sweden": "Švedija",
+        "Switzerland": "Šveicarija",
+        "Turkey": "Turkija",
+        "Ukraine": "Ukraina",
+        "United Kingdom": "Jungtinė Karalystė",
+        "United States of America": "Jungtinės Amerikos Valstijos"
+      },
+      "select": "Pasirinkite teikiančias šalis"
     },
     "CREATOR": {
-      "name": "Autorius | Autoriai"
+      "moreName": "kūrėjai",
+      "name": "Autorius | Autoriai",
+      "select": "Pasirinkite kūrėjus"
     },
     "DATA_PROVIDER": {
-      "name": "Institucija"
+      "moreName": "institucijose",
+      "name": "Institucija",
+      "select": "Pasirinkite institucijas"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Vaizdo orientacija | Vaizdo orientacijos",
       "options": {
         "landscape": "Gulsčias",
         "portrait": "Statmenas"
-      }
+      },
+      "select": "Pasirinkite vaizdo orientaciją"
     },
     "IMAGE_SIZE": {
       "name": "Vaizdo dydis | Vaizdo dydžiai",
@@ -353,7 +418,8 @@ export default {
         "large": "Didelis 1–4 MP (pvz., 1920 x 1080 pikselių)",
         "medium": "Vidutinis 0,5–1 MP (pvz., 850 x 850 pikselių)",
         "small": "Mažas < 0,5 MP (pvz., 650 x 600 pikselių)"
-      }
+      },
+      "select": "Pasirinkite vaizdo dydžius"
     },
     "LANGUAGE": {
       "name": "Kalba",
@@ -397,16 +463,20 @@ export default {
         "sv": "Švedų",
         "tr": "Turkų",
         "uk": "Ukrainiečių"
-      }
+      },
+      "select": "Pasirinkite kalbas"
     },
     "MIME_TYPE": {
       "name": "Failo formatas | Failų formatai",
       "options": {
         "text/plain": "Paprastas tekstas"
-      }
+      },
+      "select": "Pasirinkite failų formatus"
     },
     "PROVIDER": {
-      "name": "Kaupykla"
+      "moreName": "agregatoriai",
+      "name": "Kaupykla",
+      "select": "Pasirinkite agregatorius"
     },
     "REUSABILITY": {
       "name": "Ar galiu tai pakartotinai naudoti?",
@@ -415,7 +485,8 @@ export default {
         "permission": "Galbūt, kreipkitės leidimo",
         "restricted": "Taip, su sąlygomis",
         "uncategorized": "Neklasifikuota"
-      }
+      },
+      "select": "Pasirinkite, ar galite tai naudoti"
     },
     "TYPE": {
       "name": "Medijos tipas",
@@ -425,7 +496,8 @@ export default {
         "SOUND": "Garsas",
         "TEXT": "Tekstas",
         "VIDEO": "Vaizdo įrašas"
-      }
+      },
+      "select": "Pasirinkite laikmenos tipus"
     },
     "api": {
       "name": "Ieškoti",
@@ -445,7 +517,7 @@ export default {
       "showLess": "Rodyti mažiau {label}"
     },
     "collection": {
-      "name": "Kategorija",
+      "name": "Tema",
       "options": {
         "archaeology": "Archeologija",
         "art": "Menas",
@@ -460,11 +532,11 @@ export default {
         "photography": "Fotografija",
         "sport": "Sportas",
         "ww1": "1914-1918"
-      }
+      },
+      "select": "Pasirinkite temą"
     },
     "contentTier": {
       "name": "Prekės kokybė",
-      "notification": "Yra prekių, kurios neatitinka mūsų skelbiamų prekių kriterijų. Šias prekes rasite aktyvavę filtrą „Prekių kokybė“, esantį skiltyje „Daugiau filtrų“.",
       "options": {
         "*": "Rodomi elementai, neatitinkantys mūsų paskelbimo kriterijų.",
         "0": "Tik elementai, neatitinkantys mūsų paskelbimo kriterijų",
@@ -472,19 +544,24 @@ export default {
         "2": "Vidutinė kokybė",
         "3": "Aukštos kokybės ir daugkartinio naudojimo sąlygos",
         "4": "Aukštos kokybės ir laisvai daugkartinio naudojimo"
-      }
+      },
+      "select": "Pasirinkite elemento savybes"
     },
+    "moreOptions": "Leškoti, kad rastumėte {0} daugiau {1}.",
     "proxy_dc_format": {
-      "name": "Formatas | Formatai"
+      "name": "Formatas | Formatai",
+      "select": "Pasirinkite formatus"
     },
     "proxy_dc_type": {
-      "name": "Tipas | Tipai"
+      "name": "Tipas | Tipai",
+      "select": "Pasirinkite tipus"
     },
     "proxy_dcterms_issued": {
       "name": "Išleidimo data"
     },
     "proxy_dcterms_medium": {
-      "name": "Laikmenos | Laikmena"
+      "name": "Laikmenos | Laikmena",
+      "select": "Pasirinkite laikmeną"
     }
   },
   "feedback": {
@@ -537,6 +614,7 @@ export default {
       "dctermsProvenance": "Kilmė",
       "dctermsReferences": "Nurodo",
       "dctermsSpatial": "Vietos",
+      "dctermsTOC": "Turinio lentelė",
       "dctermsTemporal": "Laiko",
       "edmCountry": "Teikianti šalis",
       "edmCurrentLocation": "Dabartinė vieta",
@@ -593,7 +671,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label} : {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -731,15 +808,20 @@ export default {
     "translateQuotaError": "Vertimo paslauga laikinai nepasiekiama. Pabandykite dar kartą vėliau."
   },
   "newFeatureNotification": {
-    "dismiss": "Atmesti",
+    "dismiss": "Uždaryti",
     "readMore": "Skaityti daugiau",
     "text": {
-      "sideFilters": "Patikrinkite naujus filtrus! Dabar jie visi matomi dešinėje paieškos rezultatų pusėje."
+      "searchFilters": "Dabar galite ieškoti reikšmių atskiruose filtruose; patikrinkite!"
     }
   },
   "newWindow": "atsidaro naujame lange",
   "noMoreResults": "Daugiau nėra rezultatų pagal jūsų paieškos užklausą.",
   "noResults": "Rezultatų nėra",
+  "organisation": {
+    "city": "Miestas",
+    "country": "Šalis",
+    "nameAcronym": "Pavadinimo akronimas"
+  },
   "pageHasLoaded": "įkelta",
   "pages": {
     "collections": {
@@ -792,12 +874,14 @@ export default {
   "reset": "Atstatyti",
   "resourceWikimedia": "Šaltinis iš „Wikimedia Commons“",
   "results": "Rezultatai",
+  "resultsFor": "Rezultatai pagal užklausą {0}",
   "resultsLimitWarning": "Papildomi rezultatai nerodomi, nes parodomi tik pirmieji 1000 tinkamiausių rezultatų. Jei neradote to, ko ieškote, apsvarstykite galimybę patikslinti paiešką.",
+  "resultsWithin": "Rezultatai pagal {0} {1} už {2}",
   "search": "Paieška",
+  "searchHasLoaded": "{0} grąžinti rezultatai",
   "searchPlaceholder": "Ko jūs ieškote?",
   "searchResults": "Paieška",
   "searchResultsFor": "{0} - Ieškoti",
-  "searchResultsForIn": "{0} - Ieškoti {1}",
   "searchSuggestions": "Paieškos pasiūlymai",
   "searchTier": {
     "button": {
@@ -848,9 +932,14 @@ export default {
   },
   "showLess": "Rodyti mažiau",
   "showMore": "Rodyti daugiau",
+  "sideFilters": {
+    "noOptions": "Nėra parinkčių, kurias būtų galima pasirinkti",
+    "search": "Paieška"
+  },
   "statuses": {
     "liked": "Patiko",
     "pinned": "Prisegtas"
   },
-  "website": "Interneto svetainė"
+  "website": "Interneto svetainė",
+  "youMightAlsoLike": "Jums taip pat gali patikti"
 };

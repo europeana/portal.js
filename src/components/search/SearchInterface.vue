@@ -16,43 +16,18 @@
     </b-row>
   </b-container>
   <b-container v-else>
-    <b-row
-      v-if="noResults"
-      class="mb-3"
+    <div
+      class="mb-3 d-flex align-items-start align-items-md-center justify-content-between"
     >
-      <b-col>
-        <AlertMessage
-          :error="$t('noResults')"
-        />
-      </b-col>
-    </b-row>
-    <b-row
-      v-if="hasAnyResults"
-      class="mb-3 "
-      :class="{ 'd-flex align-items-center': contextLabel }"
-    >
-      <b-col>
-        <div
-          v-if="contextLabel || contextLabel === ''"
-          class="context-label"
-          data-qa="context label"
-        >
-          {{ contextLabel }}
-        </div>
-        <p
-          v-else
-          data-qa="total results"
-        >
-          {{ $t('results') }}: {{ totalResults | localise }}
-        </p>
-      </b-col>
-      <b-col>
-        <ViewToggles
-          v-model="view"
-          :link-gen-route="route"
-        />
-      </b-col>
-    </b-row>
+      <SearchResultsContext
+        :label-override="editorialEntityLabel"
+      />
+      <ViewToggles
+        v-model="view"
+        :link-gen-route="route"
+        class="flex-nowrap mt-1 mt-md-0"
+      />
+    </div>
     <b-row
       class="mb-3"
     >
@@ -71,8 +46,12 @@
           class="mb-3"
         >
           <b-col>
+            <AlertMessage
+              v-if="noResults"
+              :error="$t('noResults')"
+            />
             <p
-              v-if="noMoreResults"
+              v-else-if="noMoreResults"
               data-qa="warning notice"
             >
               {{ $t('noMoreResults') }}
@@ -83,7 +62,17 @@
               :view="view"
               :per-row="perRow"
               :show-pins="showPins"
-            />
+              :show-related="showRelated"
+            >
+              <slot />
+              <template
+                #related
+              >
+                <slot
+                  name="related"
+                />
+              </template>
+            </ItemPreviewCardGroup>
             <InfoMessage
               v-if="lastAvailablePage"
             >
@@ -115,18 +104,19 @@
 
   import makeToastMixin from '@/mixins/makeToast';
 
-  import { mapState, mapGetters } from 'vuex';
+  import { mapState } from 'vuex';
 
   export default {
     name: 'SearchInterface',
 
     components: {
-      AlertMessage: () => import('../../components/generic/AlertMessage'),
+      AlertMessage: () => import('../generic/AlertMessage'),
       ClientOnly,
+      SearchResultsContext: () => import('./SearchResultsContext'),
       InfoMessage,
       ItemPreviewCardGroup,
-      LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
-      PaginationNav: () => import('../../components/generic/PaginationNav'),
+      LoadingSpinner: () => import('../generic/LoadingSpinner'),
+      PaginationNav: () => import('../generic/PaginationNav'),
       ViewToggles
     },
     mixins: [
@@ -151,7 +141,11 @@
         type: Boolean,
         default: false
       },
-      contextLabel: {
+      showRelated: {
+        type: Boolean,
+        default: true
+      },
+      editorialEntityLabel: {
         type: String,
         default: null
       }
@@ -180,16 +174,10 @@
     computed: {
       ...mapState({
         userParams: state => state.search.userParams,
-        entityId: state => state.entity.id,
-        error: state => state.search.error,
-        facets: state => state.search.facets,
         hits: state => state.search.hits,
         lastAvailablePage: state => state.search.lastAvailablePage,
         results: state => state.search.results,
         totalResults: state => state.search.totalResults
-      }),
-      ...mapGetters({
-        filters: 'search/filters'
       }),
       qf() {
         return this.userParams.qf;
@@ -244,6 +232,7 @@
         }
       }
     },
+
     watch: {
       routeQueryView: 'viewFromRouteQuery',
       '$route.query.api': '$fetch',
@@ -252,9 +241,11 @@
       '$route.query.qf': '$fetch',
       '$route.query.page': '$fetch'
     },
+
     destroyed() {
       this.$store.dispatch('search/deactivate');
     },
+
     methods: {
       viewFromRouteQuery() {
         if (this.routeQueryView) {
@@ -262,56 +253,7 @@
           this.$cookies && this.$cookies.set('searchResultsView', this.routeQueryView);
           this.$store.commit('search/set', ['userParams', this.$route.query]);
         }
-      },
-      rerouteSearch(queryUpdates) {
-        const query = this.updateCurrentSearchQuery(queryUpdates);
-        this.$goto(this.$path({ ...this.route, ...{ query } }));
-        if (queryUpdates.qf) {
-          queryUpdates.qf.forEach(filter =>
-            this.$matomo && this.$matomo.trackEvent('Filters', 'Filter selected', filter)
-          );
-        }
-        if (queryUpdates.reusability) {
-          this.$matomo && this.$matomo.trackEvent('Filters', 'Reusability filter selected', queryUpdates.reusability);
-        }
-      },
-      updateCurrentSearchQuery(updates = {}) {
-        const current = {
-          page: this.page,
-          qf: this.qf,
-          query: this.query,
-          reusability: this.reusability,
-          view: this.view,
-          api: this.api
-        };
-
-        const updated = { ...current, ...updates };
-
-        for (const key in updated) {
-          // If any updated values are `null`, remove them from the query
-          if (updated[key] === null) {
-            delete updated[key];
-          }
-        }
-
-        return updated;
       }
     }
   };
 </script>
-
-<style lang="scss" scoped>
-  @import '@/assets/scss/variables';
-
-  .reset {
-    background: none;
-    border: none;
-    color: $black;
-    font-size: $font-size-small;
-    text-transform: uppercase;
-  }
-
-  .context-label {
-    font-size: $font-size-small;
-  }
-</style>

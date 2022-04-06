@@ -1,6 +1,6 @@
 <template>
   <b-form-group
-    :label="$tFacetName(name)"
+    :label="tFacetName(name)"
     label-class="facet-label"
     :data-qa="`${name} switch filter`"
   >
@@ -33,6 +33,7 @@
 
 <script>
   import { VBTooltip } from 'bootstrap-vue';
+  import facetsMixin from '@/mixins/facets';
 
   export default {
     name: 'SideSwitchFilter',
@@ -40,6 +41,8 @@
     directives: {
       'b-tooltip': VBTooltip
     },
+
+    mixins: [facetsMixin],
 
     props: {
       /**
@@ -123,17 +126,9 @@
       this.init();
     },
 
-    destroyed() {
-      this.$store.commit('search/removeResettableFilter', this.name);
-    },
-
     methods: {
       init() {
         this.localValue = this.value;
-        this.$store.dispatch('search/setResettableFilter', {
-          name: this.name,
-          selected: this.localValueUnlessDefault
-        });
       }
     }
   };

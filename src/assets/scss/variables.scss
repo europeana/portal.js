@@ -4,6 +4,9 @@ $font-family-sans-serif: 'Open Sans', 'Arial', sans-serif;
 $white: #fff;
 $middlegrey: #d8d8d8;
 
+// Text colors
+$mediumgrey-light: #767676;
+
 /* https://pro.europeana.eu/resources/europeana-brand/brand-guidelines */
 $grey: #777;
 $offwhite: #f1f1ee;
@@ -17,10 +20,14 @@ $darkgrey: #232323;
 $bodygrey: #ededed;
 $black: #1a1a1a;
 $innovationblue: #0a72cc;
+$innovationblue-dark: #0963b3;
 $blue: $innovationblue;
+$blue-20: #0a72cc20;
 $midnight: #293745;
 $darkblue: #085395;
-$lightblue: #79b2e3;
+$lightblue: #daeaf8;
+$lightblue-dark: #c1dbf2;
+$lightblue-light: #e2f2fe;
 $skyblue: #bcd8f1;
 $red: #e02020;
 $yellow: #ffae00;
@@ -31,7 +38,7 @@ $darkgreen: #197324;
 $textcolor: $black;
 $textcolor-light: $grey;
 $textcolor-coloured: $darkblue;
-$boxshadow: 0 2px 4px 0 rgb(0 0 0 / 50%);
+$boxshadow: 0 4px 8px 0 rgb(0 0 0 / 15%);
 $boxshadow-small: 0 1px 3px 0 rgb(0 0 0 / 25%);
 $boxshadow-large: 0 4px 12px 0 rgb(0 0 0 / 40%);
 $boxshadow-light: 2px 2px 4px 0 rgb(0 0 0 / 10%);
@@ -48,6 +55,7 @@ $font-size-extrasmall: 0.75rem;
 $font-size-smallest: 0.625rem;
 $grid-gutter: 15px;
 $grid-gutter-narrow: 0.25rem;
+$masonry-gutter: 1.5rem;
 $bp-small: 576px;
 $bp-medium: 768px;
 $bp-large: 992px;

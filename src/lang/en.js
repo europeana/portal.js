@@ -36,6 +36,7 @@ export default {
     "feedback": "Feedback",
     "goBack": "Go back",
     "goHome": "Go to the homepage",
+    "learnMore": "Learn more",
     "like": "Like",
     "next": "Next",
     "pin": "Pin",
@@ -88,16 +89,24 @@ export default {
     "fashion": {
       "facets": {
         "CREATOR": {
-          "name": "Designer | Designers"
+          "moreName": "designers",
+          "name": "Designer",
+          "select": "Select designers"
         },
         "proxy_dc_format": {
-          "name": "Technique | Techniques"
+          "moreName": "techniques",
+          "name": "Technique",
+          "select": "Select techniques"
         },
         "proxy_dc_type": {
-          "name": "Item type | Item types"
+          "moreName": "item types",
+          "name": "Item type",
+          "select": "Select item types"
         },
         "proxy_dcterms_medium": {
-          "name": "Material | Materials"
+          "moreName": "materials",
+          "name": "Material",
+          "select": "Select materials"
         }
       }
     },
@@ -162,10 +171,8 @@ export default {
         "body": "For now you can only pin 24 items on the first page. If you want to pin this item, make sure you unpin another one and then try to pin this one again.",
         "title": "Too many pinned items"
       },
-      "pinned": "The item has been pinned. It is now at the top of the first page of this collection. It might take up to 24 hours to appear for everyone.",
-      "pinnedFirstPage": "The item has been pinned. It might take up to 24 hours to appear for everyone.",
-      "unpinned": "The item has been unpinned. It is no longer at the top of the first page of this collection. It might take up to 24 hours to disappear for everyone.",
-      "unpinnedFirstPage": "The item has been unpinned. It might take up to 24 hours to disappear for everyone."
+      "pinned": "The item has been pinned. It will appear as the first item on the \"{entity}\" collection. We will notify you when this change will be visible on the collection page.",
+      "unpinned": "The item has been unpinned. We will notify you when this change will be visible on the collection page."
     },
     "prompts": {
       "pin": "Are you sure you want to pin this item? This item will show at the top of the \"{entity}\" collection. This change might take up to 24 hours to take effect.",
@@ -182,7 +189,8 @@ export default {
   },
   "facets": {
     "COLOURPALETTE": {
-      "name": "Colour | Colours",
+      "moreName": "colours",
+      "name": "Colour",
       "options": {
         "#000000": "Black",
         "#000080": "Navy Blue",
@@ -328,35 +336,91 @@ export default {
         "#FFFFE0": "Light Yellow",
         "#FFFFF0": "Ivory",
         "#FFFFFF": "White"
-      }
+      },
+      "select": "Select colours"
     },
     "COUNTRY": {
-      "name": "Providing country"
+      "name": "Providing country",
+      "options": {
+        "Albania": "Albania",
+        "Austria": "Austria",
+        "Belarus": "Belarus",
+        "Belgium": "Belgium",
+        "Bosnia and Herzegovina": "Bosnia and Herzegovina",
+        "Bulgaria": "Bulgaria",
+        "Croatia": "Croatia",
+        "Cyprus": "Cyprus",
+        "Czech Republic": "Czech Republic",
+        "Denmark": "Denmark",
+        "Estonia": "Estonia",
+        "Europe": "Europe",
+        "Finland": "Finland",
+        "France": "France",
+        "Georgia": "Georgia",
+        "Germany": "Germany",
+        "Greece": "Greece",
+        "Holy See (Vatican City State)": "Holy See (Vatican City State)",
+        "Hungary": "Hungary",
+        "Iceland": "Iceland",
+        "Ireland": "Ireland",
+        "Israel": "Israel",
+        "Italy": "Italy",
+        "Latvia": "Latvia",
+        "Lithuania": "Lithuania",
+        "Luxembourg": "Luxembourg",
+        "Macedonia": "Macedonia",
+        "Malta": "Malta",
+        "Moldova": "Moldova",
+        "Montenegro": "Montenegro",
+        "Netherlands": "Netherlands",
+        "Norway": "Norway",
+        "Poland": "Poland",
+        "Portugal": "Portugal",
+        "Romania": "Romania",
+        "Russia": "Russia",
+        "Serbia": "Serbia",
+        "Slovakia": "Slovakia",
+        "Slovenia": "Slovenia",
+        "Spain": "Spain",
+        "Sweden": "Sweden",
+        "Switzerland": "Switzerland",
+        "Turkey": "Turkey",
+        "Ukraine": "Ukraine",
+        "United Kingdom": "United Kingdom",
+        "United States of America": "United States of America"
+      },
+      "select": "Select providing countries"
     },
     "CREATOR": {
-      "name": "Creator | Creators"
+      "moreName": "creators",
+      "name": "Creator",
+      "select": "Select creators"
     },
     "DATA_PROVIDER": {
-      "name": "Institution | Institutions"
+      "moreName": "institutions",
+      "name": "Institution",
+      "select": "Select institutions"
     },
     "IMAGE_ASPECTRATIO": {
-      "name": "Image orientation | Image orientations",
+      "name": "Image orientation",
       "options": {
         "landscape": "Landscape",
         "portrait": "Portrait"
-      }
+      },
+      "select": "Select image orientations"
     },
     "IMAGE_SIZE": {
-      "name": "Image size | Image sizes",
+      "name": "Image size",
       "options": {
         "extra_large": "Extra Large 4MP+ (e.g. 2688 x 1520px)",
         "large": "Large 1-4MP (e.g. 1920x1080px)",
         "medium": "Medium 0.5-1MP (e.g. 850x850px)",
         "small": "Small <0.5MP (e.g. 650x600px)"
-      }
+      },
+      "select": "Select image sizes"
     },
     "LANGUAGE": {
-      "name": "Language | Languages",
+      "name": "Language",
       "options": {
         "ar": "Arabic",
         "bg": "Bulgarian",
@@ -397,16 +461,20 @@ export default {
         "sv": "Swedish",
         "tr": "Turkish",
         "uk": "Ukrainian"
-      }
+      },
+      "select": "Select languages"
     },
     "MIME_TYPE": {
-      "name": "File format | File formats",
+      "name": "File format",
       "options": {
         "text/plain": "Plain text"
-      }
+      },
+      "select": "Select file formats"
     },
     "PROVIDER": {
-      "name": "Aggregator | Aggregators"
+      "moreName": "aggregators",
+      "name": "Aggregator",
+      "select": "Select aggregators"
     },
     "REUSABILITY": {
       "name": "Can I use this?",
@@ -415,6 +483,30 @@ export default {
         "permission": "Maybe, seek permission",
         "restricted": "Yes, with conditions",
         "uncategorized": "Uncategorized"
+      },
+      "select": "Select whether you can use this"
+    },
+    "RIGHTS": {
+      "name": "Rights statement",
+      "select": "Select rights statements",
+      "options": {
+        "*/CNE/*": "Copyright Not Evaluated",
+        "*/InC-EDU/*": "In Copyright - Educational Use Permitted",
+        "*/InC-OW-EU/*": "In Copyright - OW-EU",
+        "*/InC/*": "In Copyright",
+        "*/NoC-NC/*": "No Copyright - Non-Commercial Use Only",
+        "*/NoC-OKLR/*": "No Copyright - Other Known Legal Restrictions",
+        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
+        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
+        "*/licenses/by-nc/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-ND",
+        "*/licenses/by-sa/*": "CC BY-SA",
+        "*/licenses/by/*": "CC BY",
+        "*/publicdomain/mark/*": "Public Domain Mark",
+        "*/publicdomain/zero/*": "CC0",
+        "*/rights/out-of-copyright-non-commercial/*": "Out of copyright - non commercial re-use",
+        "*/rights/rr-f/*": "Rights Reserved - Free access",
+        "*/rights/unknown/*": "Unknown copyright status"
       }
     },
     "TYPE": {
@@ -425,7 +517,8 @@ export default {
         "SOUND": "Sound",
         "TEXT": "Text",
         "VIDEO": "Video"
-      }
+      },
+      "select": "Select types of media"
     },
     "api": {
       "name": "Search within documents",
@@ -445,7 +538,7 @@ export default {
       "showLess": "Show less {label}"
     },
     "collection": {
-      "name": "Collection",
+      "name": "Theme",
       "options": {
         "archaeology": "Archaeology",
         "art": "Art",
@@ -460,7 +553,8 @@ export default {
         "photography": "Photography",
         "sport": "Sport",
         "ww1": "1914-1918"
-      }
+      },
+      "select": "Select a theme"
     },
     "contentTier": {
       "name": "Item quality",
@@ -471,19 +565,24 @@ export default {
         "2": "Medium quality",
         "3": "High quality & reusable with conditions",
         "4": "High quality & freely reusable"
-      }
+      },
+      "select": "Select item qualities"
     },
+    "moreOptions": "Search to find {0} more {1}.",
     "proxy_dc_format": {
-      "name": "Format | Formats"
+      "name": "Format",
+      "select": "Select formats"
     },
     "proxy_dc_type": {
-      "name": "Type | Types"
+      "name": "Type | types",
+      "select": "Select types"
     },
     "proxy_dcterms_issued": {
       "name": "Date issued"
     },
     "proxy_dcterms_medium": {
-      "name": "Medium | Media"
+      "name": "Medium",
+      "select": "Select media"
     }
   },
   "feedback": {
@@ -536,6 +635,7 @@ export default {
       "dctermsProvenance": "Provenance",
       "dctermsReferences": "References",
       "dctermsSpatial": "Places",
+      "dctermsTOC": "Table of contents",
       "dctermsTemporal": "Temporal",
       "edmCountry": "Providing country",
       "edmCurrentLocation": "Current location",
@@ -592,7 +692,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label}: {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -733,12 +832,17 @@ export default {
     "dismiss": "Dismiss",
     "readMore": "Read more",
     "text": {
-      "sideFilters": "Check out the new filters! They are now all visible on the right-hand side of the search results."
+      "searchFilters": "You can now search for values in the individual filters; check it out!"
     }
   },
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
   "noResults": "No results",
+  "organisation": {
+    "city": "City",
+    "country": "Country",
+    "nameAcronym": "Name acronym"
+  },
   "pageHasLoaded": "has loaded",
   "pages": {
     "collections": {
@@ -791,12 +895,14 @@ export default {
   "reset": "Reset",
   "resourceWikimedia": "Resource from Wikimedia Commons",
   "results": "Results",
+  "resultsFor": "Results for {0}",
   "resultsLimitWarning": "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
+  "resultsWithin": "Results within {0} {1} for {2}",
   "search": "Search",
+  "searchHasLoaded": "{0} results returned",
   "searchPlaceholder": "Search millions of items",
   "searchResults": "Search",
   "searchResultsFor": "{0} - Search",
-  "searchResultsForIn": "{0} - Search in {1}",
   "searchSuggestions": "Search suggestions",
   "searchTier": {
     "button": {
@@ -847,9 +953,14 @@ export default {
   },
   "showLess": "Show less",
   "showMore": "Show more",
+  "sideFilters": {
+    "noOptions": "There are no options available to select",
+    "search": "Search"
+  },
   "statuses": {
     "liked": "Liked",
     "pinned": "Pinned"
   },
-  "website": "Website"
+  "website": "Website",
+  "youMightAlsoLike": "You might also like"
 };

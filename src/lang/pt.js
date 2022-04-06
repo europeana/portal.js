@@ -36,6 +36,7 @@ export default {
     "feedback": "Comentários",
     "goBack": "Voltar",
     "goHome": "Vá para a página inicial",
+    "learnMore": "Saiba mais",
     "like": "Gosto",
     "next": "Próximo",
     "pin": "Alfinete",
@@ -88,16 +89,24 @@ export default {
     "fashion": {
       "facets": {
         "CREATOR": {
-          "name": "Designer | Designers"
+          "moreName": "designers",
+          "name": "Designer | Designers",
+          "select": "Selecionar designers"
         },
         "proxy_dc_format": {
-          "name": "Técnica | Técnicas"
+          "moreName": "técnicas",
+          "name": "Técnica | Técnicas",
+          "select": "Selecionar técnicas"
         },
         "proxy_dc_type": {
-          "name": "Tipo de item | Tipos de itens"
+          "moreName": "tipos de itens",
+          "name": "Tipo de item | Tipos de itens",
+          "select": "Selecionar tipos de itens"
         },
         "proxy_dcterms_medium": {
-          "name": "Material | Materiais"
+          "moreName": "materiais",
+          "name": "Material | Materiais",
+          "select": "Selecionar materiais"
         }
       }
     },
@@ -182,6 +191,7 @@ export default {
   },
   "facets": {
     "COLOURPALETTE": {
+      "moreName": "cores",
       "name": "Cor | Cores",
       "options": {
         "#000000": "Preto",
@@ -328,23 +338,78 @@ export default {
         "#FFFFE0": "Luz amarela",
         "#FFFFF0": "Marfim",
         "#FFFFFF": "Branco"
-      }
+      },
+      "select": "Selecionar cores"
     },
     "COUNTRY": {
-      "name": "País fornecedor"
+      "name": "País fornecedor",
+      "options": {
+        "Albania": "Albânia",
+        "Austria": "Áustria",
+        "Belarus": "Bielorrússia",
+        "Belgium": "Bélgica",
+        "Bosnia and Herzegovina": "Bósnia e Herzegovina",
+        "Bulgaria": "Bulgária",
+        "Croatia": "Croácia",
+        "Cyprus": "Chipre",
+        "Czech Republic": "República Checa",
+        "Denmark": "Dinamarca",
+        "Estonia": "Estónia",
+        "Europe": "Europa",
+        "Finland": "Finlândia",
+        "France": "França",
+        "Georgia": "Geórgia",
+        "Germany": "Alemanha",
+        "Greece": "Grécia",
+        "Holy See (Vatican City State)": "Santa Sé (Estado da Cidade do Vaticano)",
+        "Hungary": "Hungria",
+        "Iceland": "Islândia",
+        "Ireland": "Irlanda",
+        "Israel": "Israel",
+        "Italy": "Itália",
+        "Latvia": "Letónia",
+        "Lithuania": "Lituânia",
+        "Luxembourg": "Luxemburgo",
+        "Macedonia": "Macedónia",
+        "Malta": "Malta",
+        "Moldova": "Moldávia",
+        "Montenegro": "Montenegro",
+        "Netherlands": "Países Baixos",
+        "Norway": "Noruega",
+        "Poland": "Polônia",
+        "Portugal": "Portugal",
+        "Romania": "Roménia",
+        "Russia": "Rússia",
+        "Serbia": "Sérvia",
+        "Slovakia": "Eslováquia",
+        "Slovenia": "Eslovênia",
+        "Spain": "Espanha",
+        "Sweden": "Suécia",
+        "Switzerland": "Suíça",
+        "Turkey": "Turquia",
+        "Ukraine": "Ucrânia",
+        "United Kingdom": "Reino Unido",
+        "United States of America": "Estados Unidos da América"
+      },
+      "select": "Selecione os países fornecedores"
     },
     "CREATOR": {
-      "name": "Criador | Criadores"
+      "moreName": "criadores",
+      "name": "Criador | Criadores",
+      "select": "Selecionar criadores"
     },
     "DATA_PROVIDER": {
-      "name": "Instituição | Instituições"
+      "moreName": "instituições",
+      "name": "Instituição | Instituições",
+      "select": "Selecionar instituições"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Orientação da imagem | Orientações da imagem",
       "options": {
         "landscape": "Panorama",
         "portrait": "Retrato"
-      }
+      },
+      "select": "Selecionar orientações de imagem"
     },
     "IMAGE_SIZE": {
       "name": "Tamanho da imagem | Tamanhos de imagem",
@@ -353,7 +418,8 @@ export default {
         "large": "1-4MP grande (por exemplo, 1920x1080px)",
         "medium": "Médio 0,5-1MP (por exemplo, 850x850px)",
         "small": "Pequeno < 0.5MP (por exemplo, 650x600px)"
-      }
+      },
+      "select": "Selecionar tamanhos de imagem"
     },
     "LANGUAGE": {
       "name": "Língua | Línguas",
@@ -397,16 +463,20 @@ export default {
         "sv": "Sueco",
         "tr": "Turco",
         "uk": "Ucraniano"
-      }
+      },
+      "select": "Selecionar idiomas"
     },
     "MIME_TYPE": {
       "name": "Formato de ficheiro | Formatos de ficheiros",
       "options": {
         "text/plain": "Texto simples"
-      }
+      },
+      "select": "Selecione os formatos de arquivo"
     },
     "PROVIDER": {
-      "name": "Agregador | Agregadores"
+      "moreName": "agregadores",
+      "name": "Agregador | Agregadores",
+      "select": "Selecionar agregadores"
     },
     "REUSABILITY": {
       "name": "Posso usar isto?",
@@ -415,17 +485,19 @@ export default {
         "permission": "Talvez, peça permissão",
         "restricted": "Sim, com condições",
         "uncategorized": "Sem categoria"
-      }
+      },
+      "select": "Selecione se pode usar isto"
     },
     "TYPE": {
-      "name": "Tipo de média",
+      "name": "Tipo de media",
       "options": {
         "3D": "3D",
         "IMAGE": "Imagem",
         "SOUND": "Som",
         "TEXT": "Texto",
         "VIDEO": "Vídeo"
-      }
+      },
+      "select": "Selecione os tipos de media"
     },
     "api": {
       "name": "Procurar por",
@@ -445,7 +517,7 @@ export default {
       "showLess": "Mostrar menos {label}"
     },
     "collection": {
-      "name": "Coleção",
+      "name": "Tema",
       "options": {
         "archaeology": "Arqueologia",
         "art": "Arte",
@@ -460,31 +532,36 @@ export default {
         "photography": "Fotografia",
         "sport": "Desporto",
         "ww1": "1914-1918"
-      }
+      },
+      "select": "Selecione um tema"
     },
     "contentTier": {
       "name": "Qualidade do item",
-      "notification": "Alguns itens que não correspondem aos nossos critérios de publicação estão disponíveis. Pode aceder a esses itens ativando o filtro 'Qualidade do item' em 'Mais filtros'.",
       "options": {
         "*": "Inclui itens que não atendem aos nossos critérios de publicação",
-        "0": "Mostrar apenas os itens que não atendem aos nossos critérios de publicação",
+        "0": "Mostrar apenas itens que não correspondem aos nossos critérios de publicação",
         "1": "Baixa qualidade",
         "2": "Qualidade média",
         "3": "Alta qualidade & reutilizável com condições",
         "4": "Alta qualidade & livremente reutilizável"
-      }
+      },
+      "select": "Selecione as qualidades do item"
     },
+    "moreOptions": "Pesquise para encontrar {0} mais {1}.",
     "proxy_dc_format": {
-      "name": "Formato | Formatos"
+      "name": "Formato | Formatos",
+      "select": "Selecionar formatos"
     },
     "proxy_dc_type": {
-      "name": "Tipo | Tipos"
+      "name": "Tipo | Tipos",
+      "select": "Selecionar tipos"
     },
     "proxy_dcterms_issued": {
       "name": "Data de emissão"
     },
     "proxy_dcterms_medium": {
-      "name": "Médio | Meios de comunicação"
+      "name": "Médio | Meios de comunicação",
+      "select": "Selecionar mídia"
     }
   },
   "feedback": {
@@ -537,6 +614,7 @@ export default {
       "dctermsProvenance": "Proveniência",
       "dctermsReferences": "Referências",
       "dctermsSpatial": "Locais",
+      "dctermsTOC": "Tabela de conteúdos",
       "dctermsTemporal": "Temporal",
       "edmCountry": "País fornecedor",
       "edmCurrentLocation": "Localização atual",
@@ -593,7 +671,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label} : {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -642,7 +719,7 @@ export default {
         "title": "Serviços que gostaríamos de usar."
       },
       "consentNotice": {
-        "description": "Nos preocupamos com a sua privacidade e apenas usamos os dados para melhorar a sua experiência. Não usamos nenhuma informação pessoal para publicidade. Você pode alterar seu consentimento a cada 15 dias.",
+        "description": "Preocupamo-nos com a sua privacidade e apenas usamos os dados para melhorar a sua experiência. Não usamos nenhuma informação pessoal para publicidade. Pode alterar o seu consentimento a cada 15 dias.",
         "learnMore": "Deixe-me escolher"
       },
       "decline": "Eu recuso",
@@ -731,15 +808,20 @@ export default {
     "translateQuotaError": "O serviço de tradução está temporariamente indisponível. Por favor, tente novamente mais tarde."
   },
   "newFeatureNotification": {
-    "dismiss": "Liberar",
+    "dismiss": "Fechar",
     "readMore": "Ler mais",
     "text": {
-      "sideFilters": "Confira os novos filtros! Eles agora estão todos visíveis no lado direito dos resultados da pesquisa."
+      "searchFilters": "Agora você pode pesquisar valores nos filtros individuais; Confira!"
     }
   },
   "newWindow": "abre numa nova janela",
   "noMoreResults": "Não há mais resultados para a sua pesquisa.",
   "noResults": "Sem Resultados",
+  "organisation": {
+    "city": "Cidade",
+    "country": "País",
+    "nameAcronym": "Acrônimo do nome"
+  },
   "pageHasLoaded": "carregou",
   "pages": {
     "collections": {
@@ -792,12 +874,14 @@ export default {
   "reset": "Repor",
   "resourceWikimedia": "Recurso do Wikimedia Commons",
   "results": "Resultados",
+  "resultsFor": "Resultados para {0}",
   "resultsLimitWarning": "Resultados adicionais não são mostrados, apenas os primeiros 1000 resultados mais relevantes são mostrados. Se não encontrou o que procurava, considere refinar a sua pesquisa.",
+  "resultsWithin": "Resultados dentro de {0} {1} para {2}",
   "search": "Procurar",
+  "searchHasLoaded": "{0} resultados retornados",
   "searchPlaceholder": "Procure milhões de itens",
   "searchResults": "Procurar",
   "searchResultsFor": "{0} - Procurar",
-  "searchResultsForIn": "{0} - Procurar em {1}",
   "searchSuggestions": "Sugestões de pesquisa",
   "searchTier": {
     "button": {
@@ -848,9 +932,14 @@ export default {
   },
   "showLess": "Mostrar menos",
   "showMore": "Mostrar mais",
+  "sideFilters": {
+    "noOptions": "Não há opções disponíveis para selecionar",
+    "search": "Procurar"
+  },
   "statuses": {
     "liked": "Apreciado",
     "pinned": "Fixado"
   },
-  "website": "Sítio Web"
+  "website": "Sítio Web",
+  "youMightAlsoLike": "Também pode gostar"
 };

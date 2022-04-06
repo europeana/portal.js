@@ -36,6 +36,7 @@ export default {
     "feedback": "Feedback",
     "goBack": "Indietro",
     "goHome": "Vai alla homepage",
+    "learnMore": "Per saperne di più",
     "like": "Mi piace",
     "next": "Prossimo",
     "pin": "Spilla",
@@ -88,16 +89,24 @@ export default {
     "fashion": {
       "facets": {
         "CREATOR": {
-          "name": "Designer | Designer"
+          "moreName": "designer",
+          "name": "Designer | Designer",
+          "select": "Seleziona designer"
         },
         "proxy_dc_format": {
-          "name": "Tecnica | Tecniche"
+          "moreName": "tecniche",
+          "name": "Tecnica | Tecniche",
+          "select": "Seleziona le tecniche"
         },
         "proxy_dc_type": {
-          "name": "Tipo di elemento | Tipi di elementi"
+          "moreName": "tipi di articoli",
+          "name": "Tipo di elemento | Tipi di elementi",
+          "select": "Seleziona i tipi di articoli"
         },
         "proxy_dcterms_medium": {
-          "name": "Materiale | Materiali"
+          "moreName": "materiali",
+          "name": "Materiale | Materiali",
+          "select": "Seleziona i materiali"
         }
       }
     },
@@ -182,6 +191,7 @@ export default {
   },
   "facets": {
     "COLOURPALETTE": {
+      "moreName": "colori",
       "name": "Colore | Colori",
       "options": {
         "#000000": "Nero",
@@ -328,23 +338,78 @@ export default {
         "#FFFFE0": "Giallo chiaro",
         "#FFFFF0": "Avorio",
         "#FFFFFF": "bianca"
-      }
+      },
+      "select": "Seleziona i colori"
     },
     "COUNTRY": {
-      "name": "Paese fornitore"
+      "name": "Paese fornitore",
+      "options": {
+        "Albania": "Albania",
+        "Austria": "Austria",
+        "Belarus": "Bielorussia",
+        "Belgium": "Belgio",
+        "Bosnia and Herzegovina": "Bosnia ed Erzegovina",
+        "Bulgaria": "Bulgaria",
+        "Croatia": "Croazia",
+        "Cyprus": "Cipro",
+        "Czech Republic": "Repubblica Ceca",
+        "Denmark": "Danimarca",
+        "Estonia": "Estonia",
+        "Europe": "Europa",
+        "Finland": "Finlandia",
+        "France": "Francia",
+        "Georgia": "Georgia",
+        "Germany": "Germania",
+        "Greece": "Grecia",
+        "Holy See (Vatican City State)": "Santa Sede (Stato della Città del Vaticano)",
+        "Hungary": "Ungheria",
+        "Iceland": "Islanda",
+        "Ireland": "Irlanda",
+        "Israel": "Israele",
+        "Italy": "Italia",
+        "Latvia": "Lettonia",
+        "Lithuania": "Lituania",
+        "Luxembourg": "Lussemburgo",
+        "Macedonia": "Macedonia",
+        "Malta": "Malta",
+        "Moldova": "Moldova",
+        "Montenegro": "Montenegro",
+        "Netherlands": "Paesi Bassi",
+        "Norway": "Norvegia",
+        "Poland": "Polonia",
+        "Portugal": "Portogallo",
+        "Romania": "Romania",
+        "Russia": "Russia",
+        "Serbia": "Serbia",
+        "Slovakia": "Slovacchia",
+        "Slovenia": "Slovenia",
+        "Spain": "Spagna",
+        "Sweden": "Svezia",
+        "Switzerland": "Svizzera",
+        "Turkey": "Turchia",
+        "Ukraine": "Ucraina",
+        "United Kingdom": "Regno Unito",
+        "United States of America": "Stati Uniti d'America"
+      },
+      "select": "Seleziona i paesi fornitori"
     },
     "CREATOR": {
-      "name": "Creatore | Creatori"
+      "moreName": "creatori",
+      "name": "Creatore | Creatori",
+      "select": "Seleziona i creatori"
     },
     "DATA_PROVIDER": {
-      "name": "Istituzione"
+      "moreName": "istituzioni",
+      "name": "Istituzione",
+      "select": "Seleziona le istituzioni"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Orientamento immagine | Orientamenti immagini",
       "options": {
         "landscape": "Paesaggio",
         "portrait": "Ritratto"
-      }
+      },
+      "select": "Seleziona gli orientamenti dell'immagine"
     },
     "IMAGE_SIZE": {
       "name": "Dimensioni immagine | Dimensioni immagini",
@@ -353,7 +418,8 @@ export default {
         "large": "Grande 1-4 MP (es. 1920x1080 px)",
         "medium": "Media 0,5-1 MP (es. 850x850 px)",
         "small": "Piccola < 0,5 MP (es. 650x600 px)"
-      }
+      },
+      "select": "Seleziona le dimensioni dell'immagine"
     },
     "LANGUAGE": {
       "name": "Lingua",
@@ -397,16 +463,20 @@ export default {
         "sv": "Svedese",
         "tr": "Turco",
         "uk": "Ucraino"
-      }
+      },
+      "select": "Seleziona le lingue"
     },
     "MIME_TYPE": {
       "name": "Formato file | Formati file",
       "options": {
         "text/plain": "Testo semplice"
-      }
+      },
+      "select": "Seleziona i formati di file"
     },
     "PROVIDER": {
-      "name": "Aggregatore"
+      "moreName": "aggregatori",
+      "name": "Aggregatore",
+      "select": "Seleziona aggregatori"
     },
     "REUSABILITY": {
       "name": "Posso riutilizzarlo?",
@@ -415,7 +485,8 @@ export default {
         "permission": "Forse, meglio chiedere il permesso",
         "restricted": "Sì, ad alcune condizioni",
         "uncategorized": "Non specificato"
-      }
+      },
+      "select": "Selezionare se è possibile utilizzarlo"
     },
     "TYPE": {
       "name": "Tipo di supporto",
@@ -425,7 +496,8 @@ export default {
         "SOUND": "Audio",
         "TEXT": "Testo",
         "VIDEO": "Video"
-      }
+      },
+      "select": "Seleziona i tipi di media"
     },
     "api": {
       "name": "Cerca",
@@ -445,7 +517,7 @@ export default {
       "showLess": "{label}: mostra meno"
     },
     "collection": {
-      "name": "Categoria",
+      "name": "Tema",
       "options": {
         "archaeology": "Archeologia",
         "art": "Arte",
@@ -460,11 +532,11 @@ export default {
         "photography": "Fotografia",
         "sport": "Sport",
         "ww1": "1914-1918"
-      }
+      },
+      "select": "Seleziona un tema"
     },
     "contentTier": {
       "name": "Qualità dell'articolo",
-      "notification": "Sono disponibili oggetti che non soddisfano i nostri criteri di pubblicazione. Per accedervi, attiva il filtro \"Qualità oggetti\" posizionato sotto \"Più filtri\".",
       "options": {
         "*": "Comprende oggetti che non soddisfano i nostri criteri di pubblicazione",
         "0": "Mostra solo gli oggetti che non soddisfano i nostri criteri di pubblicazione",
@@ -472,19 +544,24 @@ export default {
         "2": "Qualità media",
         "3": "Alta qualità e riutilizzabile con condizioni",
         "4": "Alta qualità e liberamente riutilizzabile"
-      }
+      },
+      "select": "Seleziona le qualità dell'articolo"
     },
+    "moreOptions": "Cerca di trovare {0} più {1}.",
     "proxy_dc_format": {
-      "name": "Formato | Formati"
+      "name": "Formato | Formati",
+      "select": "Seleziona i formati"
     },
     "proxy_dc_type": {
-      "name": "Tipo | Tipi"
+      "name": "Tipo | Tipi",
+      "select": "Seleziona i tipi"
     },
     "proxy_dcterms_issued": {
       "name": "Data di emissione"
     },
     "proxy_dcterms_medium": {
-      "name": "Medium | Media"
+      "name": "Medium | Media",
+      "select": "Seleziona media"
     }
   },
   "feedback": {
@@ -537,6 +614,7 @@ export default {
       "dctermsProvenance": "Provenienza",
       "dctermsReferences": "Fa riferimento a",
       "dctermsSpatial": "Luoghi",
+      "dctermsTOC": "Tabella dei contenuti",
       "dctermsTemporal": "Periodo",
       "edmCountry": "Paese fornitore",
       "edmCurrentLocation": "Posizione attuale",
@@ -593,7 +671,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label}: {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -731,15 +808,20 @@ export default {
     "translateQuotaError": "Il servizio di traduzione è momentaneamente non disponibile. Per favore riprova più tardi."
   },
   "newFeatureNotification": {
-    "dismiss": "Licenziare",
+    "dismiss": "Chiudi",
     "readMore": "Leggi di più",
     "text": {
-      "sideFilters": "Scopri i nuovi filtri! Ora sono tutti visibili sul lato destro dei risultati della ricerca."
+      "searchFilters": "Ora puoi cercare i valori nei singoli filtri; controlla!"
     }
   },
   "newWindow": "si apre in una nuova finestra",
   "noMoreResults": "Non ci sono altri risultati per la tua query di ricerca.",
   "noResults": "Nessun Risultato",
+  "organisation": {
+    "city": "Città",
+    "country": "Paese",
+    "nameAcronym": "Nome acronimo"
+  },
   "pageHasLoaded": "ha caricato",
   "pages": {
     "collections": {
@@ -792,12 +874,14 @@ export default {
   "reset": "Ripristina",
   "resourceWikimedia": "Risorsa da Wikimedia Commons",
   "results": "Risultati",
+  "resultsFor": "Risultati per {0}",
   "resultsLimitWarning": "Non vengono mostrati risultati aggiuntivi perché vengono visualizzati solo i primi 1.000 risultati più rilevanti. Se non hai trovato quello che stai cercando, considera la possibilità di perfezionare la tua ricerca.",
+  "resultsWithin": "Risultati entro {0} {1} per {2}",
   "search": "Cerca",
+  "searchHasLoaded": "{0} risultati restituiti",
   "searchPlaceholder": "Cosa stai cercando?",
   "searchResults": "Cerca",
   "searchResultsFor": "{0} - Cerca",
-  "searchResultsForIn": "{0} - Cerca in {1}",
   "searchSuggestions": "Suggerimenti di ricerca",
   "searchTier": {
     "button": {
@@ -848,9 +932,14 @@ export default {
   },
   "showLess": "Mostra meno",
   "showMore": "Mostra di più",
+  "sideFilters": {
+    "noOptions": "Non ci sono opzioni disponibili da selezionare",
+    "search": "Cerca"
+  },
   "statuses": {
     "liked": "Piaciuto",
     "pinned": "Appuntato"
   },
-  "website": "Sito web"
+  "website": "Sito web",
+  "youMightAlsoLike": "Potrebbe piacerti anche"
 };

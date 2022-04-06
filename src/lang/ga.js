@@ -36,6 +36,7 @@ export default {
     "feedback": "Aiseolas",
     "goBack": "Dul siar",
     "goHome": "Téigh go dtí an leathanach baile",
+    "learnMore": "Foghlaim níos mó",
     "like": "Is maith liom",
     "next": "Ar Aghaidh",
     "pin": "Bioráin",
@@ -88,16 +89,24 @@ export default {
     "fashion": {
       "facets": {
         "CREATOR": {
-          "name": "Dearthóir | Dearthóirí"
+          "moreName": "dearthóirí",
+          "name": "Dearthóir | Dearthóirí",
+          "select": "Roghnaigh dearthóirí"
         },
         "proxy_dc_format": {
-          "name": "Teicníc | Teicnící"
+          "moreName": "teicnící",
+          "name": "Teicníc | Teicnící",
+          "select": "Roghnaigh teicnící"
         },
         "proxy_dc_type": {
-          "name": "Cineál míre | Cineálacha míreanna"
+          "moreName": "cineálacha míreanna",
+          "name": "Cineál míre | Cineálacha míreanna",
+          "select": "Roghnaigh cineálacha míreanna"
         },
         "proxy_dcterms_medium": {
-          "name": "Ábhar | Ábhair"
+          "moreName": "ábhair",
+          "name": "Ábhar | Ábhair",
+          "select": "Roghnaigh ábhair"
         }
       }
     },
@@ -182,6 +191,7 @@ export default {
   },
   "facets": {
     "COLOURPALETTE": {
+      "moreName": "dathanna",
       "name": "Dath | Dathanna",
       "options": {
         "#000000": "Dubh",
@@ -328,23 +338,78 @@ export default {
         "#FFFFE0": "Buí Éadrom",
         "#FFFFF0": "Eabhair",
         "#FFFFFF": "Bán"
-      }
+      },
+      "select": "Roghnaigh dathanna"
     },
     "COUNTRY": {
-      "name": "Tír sholáthair"
+      "name": "Tír sholáthair",
+      "options": {
+        "Albania": "An Albáin",
+        "Austria": "An Ostair",
+        "Belarus": "An Bhealarúis",
+        "Belgium": "An Bheilg",
+        "Bosnia and Herzegovina": "An Bhoisnia agus an Heirseagaivéin",
+        "Bulgaria": "An Bhulgáir",
+        "Croatia": "An Chróit",
+        "Cyprus": "An Chipir",
+        "Czech Republic": "Poblacht na Seice",
+        "Denmark": "An Danmhairg",
+        "Estonia": "An Eastóin",
+        "Europe": "An Eoraip",
+        "Finland": "An Fhionlann",
+        "France": "An Fhrainc",
+        "Georgia": "An tSeoirsia",
+        "Germany": "An Ghearmáin",
+        "Greece": "An Ghréig",
+        "Holy See (Vatican City State)": "An Suí Naofa (Stát Chathair na Vatacáine)",
+        "Hungary": "An Ungáir",
+        "Iceland": "An Íoslainn",
+        "Ireland": "Éire",
+        "Israel": "Iosrael",
+        "Italy": "An Iodáil",
+        "Latvia": "An Laitvia",
+        "Lithuania": "An Liotuáin",
+        "Luxembourg": "Lucsamburg",
+        "Macedonia": "An Mhacadóin",
+        "Malta": "Málta",
+        "Moldova": "An Mholdóiv",
+        "Montenegro": "Montainéagró",
+        "Netherlands": "An Ísiltír",
+        "Norway": "An Iorua",
+        "Poland": "An Pholainn",
+        "Portugal": "An Phortaingéil",
+        "Romania": "An Rómáin",
+        "Russia": "An Rúis",
+        "Serbia": "An tSeirbia",
+        "Slovakia": "An tSlóvaic",
+        "Slovenia": "An tSlóvéin",
+        "Spain": "An Spáinn",
+        "Sweden": "An tSualainn",
+        "Switzerland": "An Eilvéis",
+        "Turkey": "An Tuirc",
+        "Ukraine": "An Úcráin",
+        "United Kingdom": "An Ríocht Aontaithe",
+        "United States of America": "Stáit Aontaithe Mhéiriceá"
+      },
+      "select": "Roghnaigh tíortha soláthair"
     },
     "CREATOR": {
-      "name": "Cruthaitheoir | Cruthaitheoirí"
+      "moreName": "cruthaitheoirí",
+      "name": "Cruthaitheoir | Cruthaitheoirí",
+      "select": "Roghnaigh cruthaitheoirí"
     },
     "DATA_PROVIDER": {
-      "name": "Institiúid | Institiúidí"
+      "moreName": "institiúidí",
+      "name": "Institiúid | Institiúidí",
+      "select": "Roghnaigh institiúidí"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Treoshuíomh na híomhá | Treoshuímh na n-íomhánna",
       "options": {
         "landscape": "Tírdhreach",
         "portrait": "Portráid"
-      }
+      },
+      "select": "Roghnaigh treoshuíomhanna íomhá"
     },
     "IMAGE_SIZE": {
       "name": "Méid íomhá | Méideanna íomhá",
@@ -353,7 +418,8 @@ export default {
         "large": "Mór 1-4MP (m.sh. 1920x1080px)",
         "medium": "Meán 0.5-1MP (m.sh. 850x850px)",
         "small": "Beag <0.5MP (m.sh. 650x600px)"
-      }
+      },
+      "select": "Roghnaigh méideanna íomhá"
     },
     "LANGUAGE": {
       "name": "Teanga | Teangacha",
@@ -397,16 +463,20 @@ export default {
         "sv": "Sualainnis",
         "tr": "Tuircis",
         "uk": "Úcráinis"
-      }
+      },
+      "select": "Roghnaigh teangacha"
     },
     "MIME_TYPE": {
       "name": "Formáid chomhaid | Formáidí comhaid",
       "options": {
         "text/plain": "Téacs simplí"
-      }
+      },
+      "select": "Roghnaigh formáidí comhaid"
     },
     "PROVIDER": {
-      "name": "Comhbhailitheoir | Comhbhailitheoirí"
+      "moreName": "comhbhailitheoirí",
+      "name": "Comhbhailitheoir | Comhbhailitheoirí",
+      "select": "Roghnaigh comhbhailitheoirí"
     },
     "REUSABILITY": {
       "name": "An féidir liom é seo a úsáid?",
@@ -415,7 +485,8 @@ export default {
         "permission": "B’fhéidir, iarraidh ar chead a fháil",
         "restricted": "Is féidir, ach amháin faoi réir coinníollacha áirithe",
         "uncategorized": "Gan catagóir"
-      }
+      },
+      "select": "Roghnaigh cé acu an féidir leat é seo a úsáid"
     },
     "TYPE": {
       "name": "Cineál meán",
@@ -425,7 +496,8 @@ export default {
         "SOUND": "Fuaim",
         "TEXT": "Téacs",
         "VIDEO": "Físeán"
-      }
+      },
+      "select": "Roghnaigh cineálacha meán"
     },
     "api": {
       "name": "Cuardaigh",
@@ -445,7 +517,7 @@ export default {
       "showLess": "Taispeáin níos lú {label}"
     },
     "collection": {
-      "name": "Bailiúchán",
+      "name": "Téama",
       "options": {
         "archaeology": "Seandálaíocht",
         "art": "Ealaín",
@@ -460,11 +532,11 @@ export default {
         "photography": "Grianghrafadóireacht",
         "sport": "Spórt",
         "ww1": "1914-1918"
-      }
+      },
+      "select": "Roghnaigh téama"
     },
     "contentTier": {
       "name": "Cáilíocht na míre",
-      "notification": "Tá roinnt míreanna nach gcomhlíonann ár gcritéir foilsitheoireachta ar fáil. Is féidir leat rochtain a fháil ar na míreanna sin tríd an scagaire 'Cáilíocht Míre' a ghníomhachtú faoi 'Tuilleadh scagairí'.",
       "options": {
         "*": "Áirítear leis míreanna nach gcomhlíonann ár riachtanais foilsitheoireachta",
         "0": "Ná taispeáin ach míreanna nach gcomhlíonann ár gcritéir foilsitheoireachta",
@@ -472,19 +544,24 @@ export default {
         "2": "Caighdeán meánach",
         "3": "Ardchaighdeán & in-athúsáidte le coinníollacha",
         "4": "Ardchaighdeán & in-athúsáidte go saor in aisce"
-      }
+      },
+      "select": "Roghnaigh cáilíochtaí mír"
     },
+    "moreOptions": "Cuardaigh chun {0} níos mó {1} a aimsiú.",
     "proxy_dc_format": {
-      "name": "Formáid | Formáidí"
+      "name": "Formáid | Formáidí",
+      "select": "Roghnaigh formáidí"
     },
     "proxy_dc_type": {
-      "name": "Cineál | Cineálacha"
+      "name": "Cineál | Cineálacha",
+      "select": "Roghnaigh cineálacha"
     },
     "proxy_dcterms_issued": {
       "name": "Dáta eisithe"
     },
     "proxy_dcterms_medium": {
-      "name": "Meán | Meáin"
+      "name": "Meán | Meáin",
+      "select": "Roghnaigh meáin"
     }
   },
   "feedback": {
@@ -537,6 +614,7 @@ export default {
       "dctermsProvenance": "Bunadh",
       "dctermsReferences": "Tagairtí",
       "dctermsSpatial": "Áiteanna",
+      "dctermsTOC": "Clár ábhair",
       "dctermsTemporal": "Ama",
       "edmCountry": "Tír sholáthair",
       "edmCurrentLocation": "Suíomh reatha",
@@ -593,7 +671,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label}: {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -731,15 +808,20 @@ export default {
     "translateQuotaError": "Níl an tseirbhís aistriúcháin ar fáil go sealadach. Bain triail eile as níos déanaí."
   },
   "newFeatureNotification": {
-    "dismiss": "Dífhostú",
+    "dismiss": "Dún",
     "readMore": "Léigh níos mó",
     "text": {
-      "sideFilters": "Amharc ar na scagairí nua! Tá siad go léir le feiceáil anois ar thaobh na láimhe deise de na torthaí cuardaigh."
+      "searchFilters": "Is féidir leat luachanna a chuardach anois sna scagairí aonair; seiceáil amach é!"
     }
   },
   "newWindow": "osclaítear i bhfuinneog nua é",
   "noMoreResults": "Níl aon toradh eile ann ar d'iarratas cuardaigh.",
   "noResults": "Níor aimsíodh aon Torthaí",
+  "organisation": {
+    "city": "Cathair",
+    "country": "Tír",
+    "nameAcronym": "Acrainm ainm"
+  },
   "pageHasLoaded": "luchtaithe",
   "pages": {
     "collections": {
@@ -792,12 +874,14 @@ export default {
   "reset": "Athshocraigh",
   "resourceWikimedia": "Acmhainn ó Wikimedia Commons",
   "results": "Torthaí",
+  "resultsFor": "Torthaí le haghaidh {0}",
   "resultsLimitWarning": "Ní thaispeántar torthaí breise óir nach dtaispeántar ach amháin an chéad 1000 toradh is ábhartha. Murar aimsigh tú a raibh uait, déan machnamh do chuardach a leasú.",
+  "resultsWithin": "Torthaí laistigh de {0} {1} le haghaidh {2}",
   "search": "Cuardaigh",
+  "searchHasLoaded": "{0} torthaí ar ais",
   "searchPlaceholder": "Cuardaigh na mílte míreanna",
   "searchResults": "Cuardaigh",
   "searchResultsFor": "{0} - Cuardaigh",
-  "searchResultsForIn": "{0} - Cuardaigh isteach {1}",
   "searchSuggestions": "Cuardaigh moltaí",
   "searchTier": {
     "button": {
@@ -848,9 +932,14 @@ export default {
   },
   "showLess": "Taispeáin níos lú",
   "showMore": "Taispeáin níos mó",
+  "sideFilters": {
+    "noOptions": "Níl aon roghanna ar fáil le roghnú",
+    "search": "Cuardaigh"
+  },
   "statuses": {
     "liked": "Thaitin sé",
     "pinned": "Pionnáilte"
   },
-  "website": "Suíomh Gréasáin"
+  "website": "Suíomh Gréasáin",
+  "youMightAlsoLike": "B'fhéidir gur mhaith leat freisin"
 };

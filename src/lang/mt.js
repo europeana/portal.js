@@ -36,6 +36,7 @@ export default {
     "feedback": "Feedback",
     "goBack": "Mur lura",
     "goHome": "Mur fil-homepage",
+    "learnMore": "Itagħllem iżjed",
     "like": "Like",
     "next": "Li jmiss",
     "pin": "Pin",
@@ -88,16 +89,24 @@ export default {
     "fashion": {
       "facets": {
         "CREATOR": {
-          "name": "Disinjatur | Disinjaturi"
+          "moreName": "disinjaturi",
+          "name": "Disinjatur | Disinjaturi",
+          "select": "Agħżel disinjaturi"
         },
         "proxy_dc_format": {
-          "name": "Teknika | Tekniki"
+          "moreName": "tekniki",
+          "name": "Teknika | Tekniki",
+          "select": "Agħżel tekniki"
         },
         "proxy_dc_type": {
-          "name": "Tip ta' oġġett | Tipi ta' oġġett"
+          "moreName": "tipi ta' oġġetti",
+          "name": "Tip ta' oġġett | Tipi ta' oġġett",
+          "select": "Agħżel tipi ta 'oġġetti"
         },
         "proxy_dcterms_medium": {
-          "name": "Materjal | Materjali"
+          "moreName": "materjali",
+          "name": "Materjal | Materjali",
+          "select": "Agħżel materjali"
         }
       }
     },
@@ -182,6 +191,7 @@ export default {
   },
   "facets": {
     "COLOURPALETTE": {
+      "moreName": "kuluri",
       "name": "Kulur | Kuluri",
       "options": {
         "#000000": "Iswed",
@@ -328,23 +338,78 @@ export default {
         "#FFFFE0": "Isfar Ċar",
         "#FFFFF0": "Ivory",
         "#FFFFFF": "Abjad"
-      }
+      },
+      "select": "Agħżel kuluri"
     },
     "COUNTRY": {
-      "name": "Pajjiż fornitur"
+      "name": "Pajjiż fornitur",
+      "options": {
+        "Albania": "L-Albanija",
+        "Austria": "L-Awstrija",
+        "Belarus": "Belarus",
+        "Belgium": "Il-Belġju",
+        "Bosnia and Herzegovina": "Bosnja u Ħerzegovina",
+        "Bulgaria": "Bulgarija",
+        "Croatia": "Il-Kroazja",
+        "Cyprus": "Ċipru",
+        "Czech Republic": "Repubblika Ċeka",
+        "Denmark": "Id-Danimarka",
+        "Estonia": "Estonja",
+        "Europe": "Ewropa",
+        "Finland": "Finlandja",
+        "France": "Franza",
+        "Georgia": "Ġeorġja",
+        "Germany": "Il-Ġermanja",
+        "Greece": "Il-Greċja",
+        "Holy See (Vatican City State)": "Santa Sede (Stat tal-Belt tal-Vatikan)",
+        "Hungary": "Ungerija",
+        "Iceland": "L-Islanda",
+        "Ireland": "L-Irlanda",
+        "Israel": "Iżrael",
+        "Italy": "L-Italja",
+        "Latvia": "Il-Latvja",
+        "Lithuania": "Il-Litwanja",
+        "Luxembourg": "Lussemburgu",
+        "Macedonia": "Maċedonja",
+        "Malta": "Malta",
+        "Moldova": "Moldova",
+        "Montenegro": "Montenegro",
+        "Netherlands": "L-Olanda",
+        "Norway": "Norveġja",
+        "Poland": "Polonja",
+        "Portugal": "Portugall",
+        "Romania": "Ir-Rumanija",
+        "Russia": "Ir-Russja",
+        "Serbia": "Serbja",
+        "Slovakia": "Is-Slovakkja",
+        "Slovenia": "Is-Slovenja",
+        "Spain": "Spanja",
+        "Sweden": "l-Isvezja",
+        "Switzerland": "L-Isvizzera",
+        "Turkey": "Turkija",
+        "Ukraine": "l-Ukrajna",
+        "United Kingdom": "Ir-Renju Unit",
+        "United States of America": "Stati Uniti ta 'l-Amerika"
+      },
+      "select": "Agħżel pajjiżi li jipprovdu"
     },
     "CREATOR": {
-      "name": "Kreatur | Kreaturi"
+      "moreName": "ħallieqa",
+      "name": "Kreatur | Kreaturi",
+      "select": "Agħżel ħallieqa"
     },
     "DATA_PROVIDER": {
-      "name": "Istituzzjoni | Istituzzjonijiet"
+      "moreName": "istituzzjonijiet",
+      "name": "Istituzzjoni | Istituzzjonijiet",
+      "select": "Agħżel istituzzjonijiet"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Orjentazzjoni tal-istampa | Orjentazzjonijiet tal-istampa",
       "options": {
         "landscape": "Pajsaġġ",
         "portrait": "Ritratt"
-      }
+      },
+      "select": "Agħżel l-orjentazzjonijiet tal-immaġni"
     },
     "IMAGE_SIZE": {
       "name": "Daqs tal-istampa | Daqsijiet tal-istampa",
@@ -353,7 +418,8 @@ export default {
         "large": "Kbar 1-4MP (eż. 1920x1080px)",
         "medium": "Medji 0.5-1MP (eż. 850x850px)",
         "small": "Żgħar <0.5MP (eż. 650x600px)"
-      }
+      },
+      "select": "Agħżel daqsijiet tal-immaġni"
     },
     "LANGUAGE": {
       "name": "Lingwa | Lingwi",
@@ -397,16 +463,20 @@ export default {
         "sv": "Svediż",
         "tr": "Tork",
         "uk": "Ukren"
-      }
+      },
+      "select": "Agħżel il-lingwi"
     },
     "MIME_TYPE": {
       "name": "Format tal-fajl | Formati tal-fajl",
       "options": {
         "text/plain": "Test bla format"
-      }
+      },
+      "select": "Agħżel il-formati tal-fajl"
     },
     "PROVIDER": {
-      "name": "Aggregatur | Aggregaturi"
+      "moreName": "aggregaturi",
+      "name": "Aggregatur | Aggregaturi",
+      "select": "Agħżel aggregaturi"
     },
     "REUSABILITY": {
       "name": "Nista' nuża dan?",
@@ -415,7 +485,8 @@ export default {
         "permission": "Forsi, ġib permess",
         "restricted": "Iva, bil-kundizzjonijiet",
         "uncategorized": "Mhux kategorizzati"
-      }
+      },
+      "select": "Agħżel jekk tistax tuża dan"
     },
     "TYPE": {
       "name": "Tip ta' midja",
@@ -425,7 +496,8 @@ export default {
         "SOUND": "Awdjo",
         "TEXT": "Test",
         "VIDEO": "Vidjo"
-      }
+      },
+      "select": "Agħżel tipi ta 'midja"
     },
     "api": {
       "name": "Fittex",
@@ -445,7 +517,7 @@ export default {
       "showLess": "Uri inqas {label}"
     },
     "collection": {
-      "name": "Kollezzjoni",
+      "name": "Tema",
       "options": {
         "archaeology": "Arkeoloġija",
         "art": "Arti",
@@ -460,11 +532,11 @@ export default {
         "photography": "Fotografija",
         "sport": "Sport",
         "ww1": "1914-1918"
-      }
+      },
+      "select": "Agħżel tema"
     },
     "contentTier": {
       "name": "Kwalità tal-oġġett",
-      "notification": "Xi oġġetti li ma jikkonformawx mal-kriterji tal-pubblikazzjoni tagħna huma disponibbli. Tista' taċċessa dawk l-oġġetti billi tattiva l-filtru 'Kwalità tal-Oġġett' taħt 'Aktar filtri'.",
       "options": {
         "*": "Jinkludi oġġetti li ma jissodisfawx il-kriterji tal-pubblikazzjoni tagħna",
         "0": "Uri biss l-oġġetti li ma jissodisfawx il-kriterji tal-pubblikazzjoni tagħna",
@@ -472,19 +544,24 @@ export default {
         "2": "Kwalità medja",
         "3": "Kwalità għolja & li jistgħu jerġgħu jintużaw b'kundizzjonijiet",
         "4": "Kwalità għolja & li jistgħu jerġgħu jintużaw liberament"
-      }
+      },
+      "select": "Agħżel il-kwalitajiet tal-oġġett"
     },
+    "moreOptions": "Fittex biex issib {0} aktar {1}.",
     "proxy_dc_format": {
-      "name": "Format | Formati"
+      "name": "Format | Formati",
+      "select": "Agħżel formati"
     },
     "proxy_dc_type": {
-      "name": "Tip | Tipi"
+      "name": "Tip | Tipi",
+      "select": "Agħżel tipi"
     },
     "proxy_dcterms_issued": {
       "name": "Data ta' ħruġ"
     },
     "proxy_dcterms_medium": {
-      "name": "Mezz | Midja"
+      "name": "Mezz | Midja",
+      "select": "Agħżel il-midja"
     }
   },
   "feedback": {
@@ -537,6 +614,7 @@ export default {
       "dctermsProvenance": "Provenjenza",
       "dctermsReferences": "Jagħmel referenza għal",
       "dctermsSpatial": "Postijiet",
+      "dctermsTOC": "Werrej",
       "dctermsTemporal": "Temporali",
       "edmCountry": "Pajjiż fornitur",
       "edmCurrentLocation": "Post attwali",
@@ -593,7 +671,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label}: {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -731,15 +808,20 @@ export default {
     "translateQuotaError": "Is-servizz tat-traduzzjoni temporanjament mhux disponibbli. Jekk jogħġbok erġa' pprova aktar tard."
   },
   "newFeatureNotification": {
-    "dismiss": "Tkeċċija",
+    "dismiss": "Agħlaq",
     "readMore": "Aqra iktar",
     "text": {
-      "sideFilters": "Iċċekkja l-filtri l-ġodda! Issa huma kollha viżibbli fuq in-naħa tal-lemin tar-riżultati tat-tfittxija."
+      "searchFilters": "Issa tista' tfittex valuri fil-filtri individwali; iċċekkjah!"
     }
   },
   "newWindow": "tiftaħ fit-tieqa l-ġdida",
   "noMoreResults": "M'hemmx aktar riżultati għall-mistoqsija tat-tfittxija tiegħek.",
   "noResults": "M'hawnx riżultati",
+  "organisation": {
+    "city": "Belt",
+    "country": "Pajjiż",
+    "nameAcronym": "Isem akronimu"
+  },
   "pageHasLoaded": "ġie illowdjat",
   "pages": {
     "collections": {
@@ -792,12 +874,14 @@ export default {
   "reset": "Irrisettja",
   "resourceWikimedia": "Riżorsa minn Wikimedia Commons",
   "results": "Riżultati",
+  "resultsFor": "Riżultati għal {0}",
   "resultsLimitWarning": "Riżultati addizzjonali ma jidhrux minħabba li l-ewwel 1000 riżultat l-aktar rilevanti jintwerew. Jekk ma sibtx dak li qed tfittex, jekk jogħġbok ikkunsidra li tirfina it-tfittxija tiegħek.",
+  "resultsWithin": "Riżultati fi ħdan {0} {1} għal {2}",
   "search": "Fittex",
+  "searchHasLoaded": "{0} riżultati rritornati",
   "searchPlaceholder": "Fittex miljun oġġett",
   "searchResults": "Fittex",
   "searchResultsFor": "{0} - Fittex",
-  "searchResultsForIn": "{0} - Fittex fi {1}",
   "searchSuggestions": "Fittex is-suġġerimenti",
   "searchTier": {
     "button": {
@@ -848,9 +932,14 @@ export default {
   },
   "showLess": "Uri inqas",
   "showMore": "Uri aktar",
+  "sideFilters": {
+    "noOptions": "M'hemm l-ebda għażliet disponibbli biex tagħżel",
+    "search": "Fittex"
+  },
   "statuses": {
     "liked": "Għoġobni",
     "pinned": "Mehmuż"
   },
-  "website": "Websajt"
+  "website": "Websajt",
+  "youMightAlsoLike": "Inti tista 'wkoll tixtieq"
 };

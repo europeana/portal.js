@@ -36,6 +36,7 @@ export default {
     "feedback": "Iritzia",
     "goBack": "Atzera egin",
     "goHome": "Joan hasierako orrialdera",
+    "learnMore": "Gehiago ikasi",
     "like": "Atsegin dut",
     "next": "Hurrengoa",
     "pin": "Pin",
@@ -88,16 +89,24 @@ export default {
     "fashion": {
       "facets": {
         "CREATOR": {
-          "name": "Diseinatzailea | Diseinatzaileak"
+          "moreName": "diseinatzaileak",
+          "name": "Diseinatzailea | Diseinatzaileak",
+          "select": "Hautatu diseinatzaileak"
         },
         "proxy_dc_format": {
-          "name": "Teknika | Teknikak"
+          "moreName": "teknikak",
+          "name": "Teknika | Teknikak",
+          "select": "Hautatu teknikak"
         },
         "proxy_dc_type": {
-          "name": "Elementu mota | Elementu motak"
+          "moreName": "elementu motak",
+          "name": "Elementu mota | Elementu motak",
+          "select": "Hautatu elementu motak"
         },
         "proxy_dcterms_medium": {
-          "name": "Materiala | Materialak"
+          "moreName": "materialak",
+          "name": "Materiala | Materialak",
+          "select": "Hautatu materialak"
         }
       }
     },
@@ -182,6 +191,7 @@ export default {
   },
   "facets": {
     "COLOURPALETTE": {
+      "moreName": "koloreak",
       "name": "Kolorea | Koloreak",
       "options": {
         "#000000": "Beltza",
@@ -328,23 +338,78 @@ export default {
         "#FFFFE0": "Hori argia",
         "#FFFFF0": "Boli",
         "#FFFFFF": "Zuria"
-      }
+      },
+      "select": "Hautatu koloreak"
     },
     "COUNTRY": {
-      "name": "Herrialde hornitzailea"
+      "name": "Herrialde hornitzailea",
+      "options": {
+        "Albania": "Albania",
+        "Austria": "Austria",
+        "Belarus": "Bielorrusia",
+        "Belgium": "Belgika",
+        "Bosnia and Herzegovina": "Bosnia eta Herzegovina",
+        "Bulgaria": "Bulgaria",
+        "Croatia": "Kroazia",
+        "Cyprus": "Zipre",
+        "Czech Republic": "Txekiar Errepublika",
+        "Denmark": "Danimarka",
+        "Estonia": "Estonia",
+        "Europe": "Europa",
+        "Finland": "Finlandia",
+        "France": "Frantzia",
+        "Georgia": "Georgia",
+        "Germany": "Alemania",
+        "Greece": "Grezia",
+        "Holy See (Vatican City State)": "Egoitza Santua (Vatikano Hiria)",
+        "Hungary": "Hungaria",
+        "Iceland": "Islandia",
+        "Ireland": "Irlanda",
+        "Israel": "Israel",
+        "Italy": "Italia",
+        "Latvia": "Letonia",
+        "Lithuania": "Lituania",
+        "Luxembourg": "Luxenburgo",
+        "Macedonia": "Mazedonia",
+        "Malta": "Malta",
+        "Moldova": "Moldavia",
+        "Montenegro": "Montenegro",
+        "Netherlands": "Herbehereak",
+        "Norway": "Norvegia",
+        "Poland": "Polonia",
+        "Portugal": "Portugal",
+        "Romania": "Errumania",
+        "Russia": "Errusia",
+        "Serbia": "Serbia",
+        "Slovakia": "Eslovakia",
+        "Slovenia": "Eslovenia",
+        "Spain": "Espainia",
+        "Sweden": "Suedia",
+        "Switzerland": "Suitza",
+        "Turkey": "Turkia",
+        "Ukraine": "Ukraina",
+        "United Kingdom": "Erresuma Batua",
+        "United States of America": "Ameriketako Estatu Batuak"
+      },
+      "select": "Hautatu herrialde hornitzaileak"
     },
     "CREATOR": {
-      "name": "Sortzailea | Sortzaileak"
+      "moreName": "sortzaileak",
+      "name": "Sortzailea | Sortzaileak",
+      "select": "Hautatu agregatzaileak"
     },
     "DATA_PROVIDER": {
-      "name": "Erakundea | Erakundeak"
+      "moreName": "erakundeak",
+      "name": "Erakundea | Erakundeak",
+      "select": "Aukeratu erakundeak"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Irudiaren orientazioa | Irudiaren orientazioak",
       "options": {
         "landscape": "Paisaia",
         "portrait": "Erretratua"
-      }
+      },
+      "select": "Hautatu irudien orientazioak"
     },
     "IMAGE_SIZE": {
       "name": "Irudiaren tamaina | Irudiaren tamainak",
@@ -353,7 +418,8 @@ export default {
         "large": "1-4MP handia (adibidez 1920x1080px)",
         "medium": "0,5-1MP ertaina (adibidez 850x850px)",
         "small": "< 0,5MP txikia (adibidez 650x600px)"
-      }
+      },
+      "select": "Hautatu irudien tamainak"
     },
     "LANGUAGE": {
       "name": "Hizkuntza | Hizkuntzak",
@@ -397,16 +463,20 @@ export default {
         "sv": "Suediera",
         "tr": "Turkiera",
         "uk": "Ukrainara"
-      }
+      },
+      "select": "Hautatu hizkuntzak"
     },
     "MIME_TYPE": {
       "name": "Fitxategiaren formatua | Fitxategien formatuak",
       "options": {
         "text/plain": "Testu arrunta"
-      }
+      },
+      "select": "Hautatu fitxategi formatuak"
     },
     "PROVIDER": {
-      "name": "Agregatzailea | Agregatzaileak"
+      "moreName": "agregatzaileak",
+      "name": "Agregatzailea | Agregatzaileak",
+      "select": "Hautatu agregatzaileak"
     },
     "REUSABILITY": {
       "name": "Hau erabili dezaket?",
@@ -415,7 +485,8 @@ export default {
         "permission": "Agian, baimena beharrezkoa",
         "restricted": "Bai, baldintzekin",
         "uncategorized": "Sailkatu gabe"
-      }
+      },
+      "select": "Hautatu hau erabil dezakezun ala ez"
     },
     "TYPE": {
       "name": "Euskarri mota",
@@ -425,7 +496,8 @@ export default {
         "SOUND": "Soinua",
         "TEXT": "Testua",
         "VIDEO": "Bideoa"
-      }
+      },
+      "select": "Hautatu euskarri motak"
     },
     "api": {
       "name": "Bilatu",
@@ -445,7 +517,7 @@ export default {
       "showLess": "Erakutsi gutxiago {label}"
     },
     "collection": {
-      "name": "Bilduma",
+      "name": "Gaia",
       "options": {
         "archaeology": "Arkeologia",
         "art": "Artea",
@@ -460,11 +532,11 @@ export default {
         "photography": "Argazkilaritza",
         "sport": "Kirola",
         "ww1": "1914-1918"
-      }
+      },
+      "select": "Hautatu gai bat"
     },
     "contentTier": {
       "name": "Elementuaren kalitatea",
-      "notification": "Gure argitalpen irizpideekin bat ez datozen zenbait elementu eskuragarri daude. Elementu horietara sar zaitezke \"Elementuen kalitatea\" iragazkia aktibatuta, \"Iragazki gehiago\" aukeraren azpian.",
       "options": {
         "*": "Gure argitalpen irizpideak betetzen ez dituzten elementuak barne hartzen ditu",
         "0": "Erakutsi soilik gure argitalpen irizpideak betetzen ez dituzten elementuak",
@@ -472,19 +544,24 @@ export default {
         "2": "Kalitate ertaina",
         "3": "Kalitate handiko eta baldintzarekin berrerabilgarria",
         "4": "Kalitate handikoa eta libreki berrerabil daitekeena"
-      }
+      },
+      "select": "Hautatu elementuen kalitateak"
     },
+    "moreOptions": "Bilatu {0} gehiago {1} aurkitzeko.",
     "proxy_dc_format": {
-      "name": "Formatua | Formatuak"
+      "name": "Formatua | Formatuak",
+      "select": "Hautatu  formatuak"
     },
     "proxy_dc_type": {
-      "name": "Mota | Motak"
+      "name": "Mota | Motak",
+      "select": "Hautatu motak"
     },
     "proxy_dcterms_issued": {
       "name": "Igortze data"
     },
     "proxy_dcterms_medium": {
-      "name": "Komunikabidea | Komunikabideak"
+      "name": "Komunikabidea | Komunikabideak",
+      "select": "Hautatu euskarria"
     }
   },
   "feedback": {
@@ -537,6 +614,7 @@ export default {
       "dctermsProvenance": "Jatorria",
       "dctermsReferences": "erreferentzia egiten du",
       "dctermsSpatial": "Lekuak",
+      "dctermsTOC": "Edukien taula",
       "dctermsTemporal": "Aldi baterako",
       "edmCountry": "Herrialde hornitzailea",
       "edmCurrentLocation": "Egungo kokapena",
@@ -593,7 +671,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label} : {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -731,15 +808,20 @@ export default {
     "translateQuotaError": "Itzulpen zerbitzua ez dago aldi baterako erabilgarri. Saiatu berriro geroago."
   },
   "newFeatureNotification": {
-    "dismiss": "Baztertu",
+    "dismiss": "Itxi",
     "readMore": "Gehiago irakurri",
     "text": {
-      "sideFilters": "Ikusi iragazki berriak! Orain bilaketa-emaitzen eskuinaldean ikusgai daude guztiak."
+      "searchFilters": "Orain balioak bila ditzakezu iragazki indibidualetan; begiratu ezazu!"
     }
   },
   "newWindow": "leiho berrian irekiko da",
   "noMoreResults": "Ez dago emaitza gehiagorik zure bilaketarako.",
   "noResults": "Emaitzarik ez",
+  "organisation": {
+    "city": "Hiria",
+    "country": "Herrialdea",
+    "nameAcronym": "Izenaren akronimoa"
+  },
   "pageHasLoaded": "kargatu du",
   "pages": {
     "collections": {
@@ -792,12 +874,14 @@ export default {
   "reset": "Berrezarri",
   "resourceWikimedia": "Wikimedia Commons-eko baliabidea",
   "results": "Emaitzak",
+  "resultsFor": "{0} emaitzak",
   "resultsLimitWarning": "Emaitza osagarriak ez dira erakusten, izan ere, bakarrik erakusten dira lehenengo 1000 emaitza garrantzitsuenak. BIlatzen duzuna aurkitu ez baduzu, bilaketa zehatzagoa egin.",
+  "resultsWithin": "{0} {1} barruko emaitzak {2}",
   "search": "Bilatu",
+  "searchHasLoaded": "{0} emaitza itzuli dira",
   "searchPlaceholder": "Milioika elementu bilatu",
   "searchResults": "Bilatu",
   "searchResultsFor": "{0} - Bilatu",
-  "searchResultsForIn": "{0} - Hemen bilatu {1}",
   "searchSuggestions": "Iradokizunak bilatu",
   "searchTier": {
     "button": {
@@ -848,9 +932,14 @@ export default {
   },
   "showLess": "Gutxiago erakutsi",
   "showMore": "Gehiago erakutsi",
+  "sideFilters": {
+    "noOptions": "Ez dago aukerarik aukeratzeko",
+    "search": "Bilatu"
+  },
   "statuses": {
     "liked": "Gustatu",
     "pinned": "Ainguratuta"
   },
-  "website": "Webgunea"
+  "website": "Webgunea",
+  "youMightAlsoLike": "Baliteke ere gustatzea"
 };
