@@ -1,7 +1,100 @@
 import store from '@/store/set';
 import sinon from 'sinon';
 
+const likesId = 'http://data.europeana.eu/set/likesset';
+const likedItems = [{ id: 'item001' }];
+const active = { id: 'set001', items: [] };
+const activeRecommendations = [{ id: 'recommendation001' }];
+const creations = [{ id: 'set002' }];
+const creationPreviews = { set003: 'https://thumbnail.example.eu' };
+const curations = [{ id: 'curatedSet001' }];
+
 describe('store/set', () => {
+  describe('mutations', () => {
+    describe('setLikesId()', () => {
+      it('sets the likesId state', () => {
+        const state = { likesId: null };
+        store.mutations.setLikesId(state, likesId);
+        expect(state.likesId).toEqual(likesId);
+      });
+    });
+    describe('setLikedItems()', () => {
+      it('sets the likedItems state', () => {
+        const state = { likedItems: null, likedItemIds: [] };
+        store.mutations.setLikedItems(state, likedItems);
+        expect(state.likedItems).toEqual(likedItems);
+      });
+      it('sets the likedItemIds state when there are any', () => {
+        const state = { likedItems: null, likedItemIds: [] };
+        store.mutations.setLikedItems(state, likedItems);
+        expect(state.likedItemIds).toEqual(likedItems.map(item => item.id));
+      });
+      it('does not set the likedItemIds state when there is a falsy value', () => {
+        const state = { likedItems: [{ id: '006' }], likedItemIds: ['006'] };
+        store.mutations.setLikedItems(state, null);
+        expect(state.likedItems).toEqual(null);
+        expect(state.likedItemIds).toEqual(['006']);
+      });
+    });
+    describe('like()', () => {
+      it('pushes the liked item id to likedItemIds state', () => {
+        const state = { likedItems: [{ id: '006' }], likedItemIds: ['006'] };
+        store.mutations.like(state, '007');
+        expect(state.likedItemIds).toEqual(['006', '007']);
+      });
+    });
+    describe('unlike()', () => {
+      it('removes the unliked item id from likedItemIds state', () => {
+        const state = { likedItems: [{ id: '006' }], likedItemIds: ['006', '007'] };
+        store.mutations.unlike(state, '007');
+        expect(state.likedItemIds).toEqual(['006']);
+      });
+    });
+    describe('setActive()', () => {
+      it('sets the setActive state', () => {
+        const state = { active: null };
+        store.mutations.setActive(state, active);
+        expect(state.active).toEqual(active);
+      });
+    });
+    describe('setActiveRecommendations()', () => {
+      it('sets the activeRecommendations state', () => {
+        const state = { activeRecommendations: [] };
+        store.mutations.setActiveRecommendations(state, activeRecommendations);
+        expect(state.activeRecommendations).toEqual(activeRecommendations);
+      });
+    });
+    describe('addItemToActive()', () => {
+      it('adds an item to the items from the active state', () => {
+        const newItem = { id: 'item002' };
+        const state = { active: { id: 'set001', items: [{ id: 'item001' }] } };
+        store.mutations.addItemToActive(state, newItem);
+        expect(state.active.items).toEqual([{ id: 'item001' }, newItem]);
+      });
+    });
+    describe('setCreations()', () => {
+      it('sets the creations state', () => {
+        const state = { creations: [] };
+        store.mutations.setCreations(state, creations);
+        expect(state.creations).toEqual(creations);
+      });
+    });
+    describe('setCreationPreview()', () => {
+      it('sets the creationPreviews state', () => {
+        const state = { creationPreviews: [] };
+        store.mutations.setCreationPreviews(state, creationPreviews);
+        expect(state.creationPreviews).toEqual(creationPreviews);
+      });
+    });
+    describe('setCurations()', () => {
+      it('sets the curations state', () => {
+        const state = { curations: [] };
+        store.mutations.setCurations(state, curations);
+        expect(state.curations).toEqual(curations);
+      });
+    });
+  });
+
   describe('getters', () => {
     describe('isLiked()', () => {
       it('is `true` if likedItemIds state includes item ID', () => {
@@ -47,6 +140,7 @@ describe('store/set', () => {
       dispatch.resetHistory();
       store.actions.$apis = { set: {}, recommendation: {}, record: {} };
       store.actions.$auth = {};
+      store.actions.app = { context: { res: {} } };
     });
 
     describe('reset()', () => {
@@ -174,6 +268,29 @@ describe('store/set', () => {
           profile: 'itemDescriptions'
         })).toBe(true);
         expect(commit.calledWith('setActive', set)).toBe(true);
+      });
+      describe('when API request doesn\'t return a set', () => {
+        const apiError = new Error({ message: 'No set found' });
+        apiError.statusCode = 404;
+
+        it('throws the API error', async() => {
+          store.actions.$apis.set.get = sinon.stub().rejects(apiError);
+          await expect(store.actions.fetchActive({ commit }, setId)).rejects.toThrow(apiError);
+        });
+        it('sets the error\'s status code for the app response', async() => {
+          store.actions.$apis.set.get = sinon.stub().rejects(apiError);
+          process.server = true;
+
+          let error;
+          try {
+            await store.actions.fetchActive({ commit }, setId);
+          } catch (e) {
+            error = e;
+          }
+
+          expect(error.statusCode).toBe(apiError.statusCode);
+          expect(store.actions.app.context.res.statusCode).toEqual(apiError.statusCode);
+        });
       });
     });
 

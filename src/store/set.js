@@ -18,6 +18,7 @@ export default {
     },
     setLikedItems(state, value) {
       state.likedItems = value;
+      // TODO should likedItemIds be reset to empty array when falsy value?
       if (value) {
         state.likedItemIds = value.map(item => item.id);
       }
@@ -139,7 +140,7 @@ export default {
         .then(set => commit('setActive', set))
         .catch((apiError) => {
           if (process.server) {
-            this.$nuxt.context.res.statusCode = apiError.statusCode;
+            this.app.context.res.statusCode = apiError.statusCode;
           }
           throw apiError;
         });

@@ -15,8 +15,6 @@ const $i18n = {
   locale: 'en'
 };
 
-const $goto = sinon.spy();
-
 const testSet1 = { id: '123',
   title: { en: 'My set' },
   description: { en: 'A test set' },
@@ -60,8 +58,6 @@ const factory = (options = {}) => shallowMountNuxt(page, {
       loggedIn: true
     },
     $fetchState: options.fetchState || {},
-    $goto,
-    $path: path => path,
     $route: {
       params: {
         pathMatch: options.set?.id || '111'
