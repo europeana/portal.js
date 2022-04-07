@@ -172,9 +172,7 @@ export default {
         "title": "Příliš mnoho připnutých položek"
       },
       "pinned": "Položka byla připnutím. Nyní je v horní části první stránky této kolekce. Může trvat až 24 hodin, než se objeví pro všechny.",
-      "pinnedFirstPage": "Položka byla připnuta. Může trvat až 24 hodin, než se zobrazí všem.",
-      "unpinned": "Položka byla odepnuta. Už není v horní části první stránky této sbírky. Zmizení pro všechny může trvat až 24 hodin.",
-      "unpinnedFirstPage": "Položka byla odepnuta. Může trvat až 24 hodin, než zmizí pro všechny."
+      "unpinned": "Položka byla odepnuta. Už není v horní části první stránky této sbírky. Zmizení pro všechny může trvat až 24 hodin."
     },
     "prompts": {
       "pin": "Opravdu chcete tuto položku připnout? Tato položka se zobrazí na začátku kolekce \"{entity}\". Tato změna se může projevit až za 24 hodin.",

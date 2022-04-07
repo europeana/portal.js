@@ -172,9 +172,7 @@ export default {
         "title": "Za dużo przpiętych obiektów"
       },
       "pinned": "Obiekt został przypięty. Znajduje się teraz na górze pierwszej strony tej kolekcji. Synchronizacja u wszystkich użytkowników może potrwać do 24 godzin.",
-      "pinnedFirstPage": "Obiekt został przypięty. Synchronizacja u wszystkich użytkowników może potrwać do 24 godzin.",
-      "unpinned": "Obiekt został odpięty. Nie znajduje się już na górze pierwszej strony tej kolekcji. Może minąć do 24 godzin, zanim zniknie dla wszystkich użytkowników.",
-      "unpinnedFirstPage": "Obiekt został odpięty. Może minąć do 24 godzin, zanim zniknie dla wszystkich użytkowników."
+      "unpinned": "Obiekt został odpięty. Nie znajduje się już na górze pierwszej strony tej kolekcji. Może minąć do 24 godzin, zanim zniknie dla wszystkich użytkowników."
     },
     "prompts": {
       "pin": "Czy na pewno chcesz przypiąć ten obiekt? Będzie on wtedy  wyświetlany u góry kolekcji  „ {entity} ”. Ta zmiana może potrwać do 24 godzin.",

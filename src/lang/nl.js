@@ -172,9 +172,7 @@ export default {
         "title": "Te veel vastgezette items"
       },
       "pinned": "Het item is vastgezet. Het staat nu bovenaan de eerste pagina van deze collectie. Het kan tot 24 uur duren om voor iedereen te verschijnen.",
-      "pinnedFirstPage": "Het item is vastgezet. Het kan tot 24 uur duren om voor iedereen te verschijnen.",
-      "unpinned": "Het item is losgemaakt. Het staat niet meer bovenaan de eerste pagina van deze collectie. Het kan tot 24 uur duren om voor iedereen te verdwijnen.",
-      "unpinnedFirstPage": "Het item is losgemaakt. Het kan tot 24 uur duren om voor iedereen te verdwijnen."
+      "unpinned": "Het item is losgemaakt. Het staat niet meer bovenaan de eerste pagina van deze collectie. Het kan tot 24 uur duren om voor iedereen te verdwijnen."
     },
     "prompts": {
       "pin": "Weet u zeker dat u dit item wilt vastzetten? Dit item wordt boven aan de verzameling {entiteit} weergegeven. Het kan tot 24 uur duren voordat deze wijziging van kracht wordt.",

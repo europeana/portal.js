@@ -172,9 +172,7 @@ export default {
         "title": "Zu viele angeheftete Objekte"
       },
       "pinned": "Das Objekt wurde angeheftet. Es befindet sich jetzt oben auf der ersten Seite dieser Sammlung. Es kann bis zu 24 Stunden dauern, bis es für alle erscheint.",
-      "pinnedFirstPage": "Das Objekt wurde angeheftet. Es kann bis zu 24 Stunden dauern, bis es für alle erscheint.",
-      "unpinned": "Das Objekt wurde nicht mehr angepinnt. Es steht nicht mehr oben auf der ersten Seite dieser Sammlung. Es kann bis zu 24 Stunden dauern, bis es für alle verschwindet.",
-      "unpinnedFirstPage": "Das Objekt wurde nicht mehr angepinnt. Es kann bis zu 24 Stunden dauern, bis es für alle verschwindet."
+      "unpinned": "Das Objekt wurde nicht mehr angepinnt. Es steht nicht mehr oben auf der ersten Seite dieser Sammlung. Es kann bis zu 24 Stunden dauern, bis es für alle verschwindet."
     },
     "prompts": {
       "pin": "Sind Sie sicher, dass Sie dieses Objekt anheften möchten? Dieses Objekt wird oben in der Auflistung \"{entity}\" angezeigt. Es kann bis zu 24 Stunden dauern, bis diese Änderung wirksam wird.",

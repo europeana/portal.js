@@ -172,9 +172,7 @@ export default {
         "title": "For mange fastgjorte emner"
       },
       "pinned": "Elementet er blevet fastgjort. Det er nu øverst på den første side i denne samling. Det kan tage op til 24 timer at vises for alle.",
-      "pinnedFirstPage": "Elementet er blevet fastgjort. Det kan tage op til 24 timer at vises for alle.",
-      "unpinned": "Elementet er blevet fastgjort. Det er ikke længere øverst på den første side i denne samling. Det kan tage op til 24 timer at forsvinde for alle.",
-      "unpinnedFirstPage": "Elementet er blevet frigjort. Det kan tage op til 24 timer at forsvinde for alle."
+      "unpinned": "Elementet er blevet fastgjort. Det er ikke længere øverst på den første side i denne samling. Det kan tage op til 24 timer at forsvinde for alle."
     },
     "prompts": {
       "pin": "Er du sikker på, at du vil fastgøre denne vare? Dette element vises øverst i {entity} \". Det kan tage op til 24 timer, før denne ændring træder i kraft.",

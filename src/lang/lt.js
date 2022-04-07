@@ -172,9 +172,7 @@ export default {
         "title": "Per daug prisegtų elementų"
       },
       "pinned": "Elementas prisegtas. Dabar jis yra pirmojo šios kolekcijos puslapio viršuje. Gali užtrukti iki 24 valandų, kol visi pasirodys.",
-      "pinnedFirstPage": "Elementas buvo prisegtas. Gali prireikti iki 24 valandų, kad jis būtų rodomas visiems.",
-      "unpinned": "Elementas buvo atsegtas. Jo nebėra šio rinkinio pirmojo puslapio viršuje. Gali prireikti iki 24 valandų, kol jis išnyks visiems.",
-      "unpinnedFirstPage": "Elementas buvo atsegtas. Tai gali užtrukti iki 24 valandų, kol išnyks visiems."
+      "unpinned": "Elementas buvo atsegtas. Jo nebėra šio rinkinio pirmojo puslapio viršuje. Gali prireikti iki 24 valandų, kol jis išnyks visiems."
     },
     "prompts": {
       "pin": "Ar tikrai norite prisegti šį elementą? Šis elementas bus rodomas kolekcijos \"{entity}\" viršuje. Šis pakeitimas gali įsigalioti per 24 valandas.",

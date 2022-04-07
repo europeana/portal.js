@@ -172,9 +172,7 @@ export default {
         "title": "Pārāk daudz piesprausto vienumu"
       },
       "pinned": "Vienums ir piespraustas. Tagad tas atrodas šīs kolekcijas pirmās lapas augšpusē. Var paiet līdz pat 24 stundām, līdz tas parādās visiem.",
-      "pinnedFirstPage": "Vienums ir piespraustas. Var paiet līdz pat 24 stundām, līdz tas parādās visiem.",
-      "unpinned": "Vienums ir atspraustas. Tas vairs nav šīs kolekcijas pirmās lapas augšpusē. Var paiet pat 24 stundas, līdz visi pazūd.",
-      "unpinnedFirstPage": "Vienums ir atspraustas. Var paiet pat 24 stundas, līdz visi pazūd."
+      "unpinned": "Vienums ir atspraustas. Tas vairs nav šīs kolekcijas pirmās lapas augšpusē. Var paiet pat 24 stundas, līdz visi pazūd."
     },
     "prompts": {
       "pin": "Vai tiešām vēlaties piespraust šo vienumu? Šis vienums tiks rādīts kolekcijas \"{entity}\" augšdaļā. Šo izmaiņu stāšanās spēkā var ilgt līdz 24 stundām.",

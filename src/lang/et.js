@@ -172,9 +172,7 @@ export default {
         "title": "Liiga palju kinnitatud üksusi"
       },
       "pinned": "Üksus on kinnitatud. See on nüüd selle kogumiku esimese lehe ülaosas. Kõigi kuvamiseks võib kuluda kuni 24 tundi.",
-      "pinnedFirstPage": "Objekt on kinnitatud. See võib võtta kuni 24 tundi, et see kõigile ilmuks.",
-      "unpinned": "Üksus on vabastatud. Seda pole enam selle kogumiku esimese lehe ülaosas. Kõigi kadumiseks võib kuluda kuni 24 tundi.",
-      "unpinnedFirstPage": "Üksus on vabastatud. Kõigi kadumiseks võib kuluda kuni 24 tundi."
+      "unpinned": "Üksus on vabastatud. Seda pole enam selle kogumiku esimese lehe ülaosas. Kõigi kadumiseks võib kuluda kuni 24 tundi."
     },
     "prompts": {
       "pin": "Kas soovite kindlasti selle üksuse kinnitada? See üksus kuvatakse kogumi {entity} ülaosas. Selle muudatuse jõustumiseks võib kuluda kuni 24 tundi.",

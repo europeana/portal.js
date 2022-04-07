@@ -172,9 +172,7 @@ export default {
         "title": "Previše prikvačenih stavki"
       },
       "pinned": "Stavka je prikvačena. Sada je na vrhu prve stranice ove zbirke. Možda će trebati i do 24 sata da se svi pojave.",
-      "pinnedFirstPage": "Stavka je prikvačena. Možda će trebati i do 24 sata da se svi pojave.",
-      "unpinned": "Stavka je otkvačena. Više nije na vrhu prve stranice ove zbirke. Moglo bi potrajati do 24 sata da nestane za sve.",
-      "unpinnedFirstPage": "Stavka je otkvačena. Moglo bi potrajati do 24 sata da nestane za sve."
+      "unpinned": "Stavka je otkvačena. Više nije na vrhu prve stranice ove zbirke. Moglo bi potrajati do 24 sata da nestane za sve."
     },
     "prompts": {
       "pin": "Jeste li sigurni da želite prikvačiti ovu stavku? Ova će se stavka prikazati na vrhu zbirke \"{entitet}\". Ta promjena može potrajati do 24 sata.",

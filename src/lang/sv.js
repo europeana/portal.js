@@ -172,9 +172,7 @@ export default {
         "title": "För många pinnade objekt"
       },
       "pinned": "Objektet har fästs. Det är nu högst upp på den första sidan i den här samlingen. Det kan ta upp till 24 timmar innan alla visas.",
-      "pinnedFirstPage": "Objektet har fästs. Det kan ta upp till 24 timmar innan alla visas.",
-      "unpinned": "Objektet har lossats. Det är inte längre högst upp på den första sidan i den här samlingen. Det kan ta upp till 24 timmar innan alla försvinner.",
-      "unpinnedFirstPage": "Objektet har tagits bort. Det kan ta upp till 24 timmar att försvinna för alla."
+      "unpinned": "Objektet har lossats. Det är inte längre högst upp på den första sidan i den här samlingen. Det kan ta upp till 24 timmar innan alla försvinner."
     },
     "prompts": {
       "pin": "Är du säker på att du vill fästa den här artikeln? Det här objektet kommer att visas högst upp i samlingen \"{entity}\". Det kan ta upp till 24 timmar innan den här ändringen träder i kraft.",

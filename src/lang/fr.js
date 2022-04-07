@@ -172,9 +172,7 @@ export default {
         "title": "Trop d'éléments épinglés"
       },
       "pinned": "L'élément a été épinglé. Il est maintenant en haut de la première page de cette collection. Cela peut prendre jusqu'à 24 heures pour apparaître pour tout le monde.",
-      "pinnedFirstPage": "L'élément a été épinglé. Cela peut prendre jusqu'à 24 heures pour apparaître pour tout le monde.",
-      "unpinned": "L'élément a été désépinglé. Il n'est plus en haut de la première page de cette collection. Cela peut prendre jusqu'à 24 heures pour disparaître pour tout le monde.",
-      "unpinnedFirstPage": "L'élément a été désépinglé. Cela peut prendre jusqu'à 24 heures pour disparaître pour tout le monde."
+      "unpinned": "L'élément a été désépinglé. Il n'est plus en haut de la première page de cette collection. Cela peut prendre jusqu'à 24 heures pour disparaître pour tout le monde."
     },
     "prompts": {
       "pin": "Voulez-vous vraiment épingler cet élément ? Cet élément apparaîtra en haut de la collection \" {entity} \". Ce changement peut prendre jusqu'à 24 heures pour prendre effet.",

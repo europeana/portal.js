@@ -172,9 +172,7 @@ export default {
         "title": "Preveč pripete predmete"
       },
       "pinned": "Element je bil pripet. Zdaj je na vrhu prve strani te zbirke. Lahko traja do 24 ur, da se prikaže vsem.",
-      "pinnedFirstPage": "Element je bil pripet. Lahko traja do 24 ur, da se prikaže vsem.",
-      "unpinned": "Element je bil odpenjen. Ni več na vrhu prve strani te zbirke. Lahko traja do 24 ur, da izgine za vse.",
-      "unpinnedFirstPage": "Element je bil odpenjen. Lahko traja do 24 ur, da izgine za vse."
+      "unpinned": "Element je bil odpenjen. Ni več na vrhu prve strani te zbirke. Lahko traja do 24 ur, da izgine za vse."
     },
     "prompts": {
       "pin": "Ali ste prepričani, da želite pripeti ta element? Ta element bo prikazan na vrhu zbirke \" {entity} \". Ta sprememba lahko začne veljati do 24 ur.",

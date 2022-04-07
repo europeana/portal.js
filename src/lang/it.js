@@ -172,9 +172,7 @@ export default {
         "title": "Troppi oggetti appuntati"
       },
       "pinned": "L'articolo è stato appuntato. Ora è in cima alla prima pagina di questa collezione. Potrebbe richiedere fino a 24 ore per apparire per tutti.",
-      "pinnedFirstPage": "L'articolo è stato appuntato. Potrebbe richiedere fino a 24 ore per apparire per tutti.",
-      "unpinned": "L'elemento è stato sbloccato. Non è più in cima alla prima pagina di questa raccolta. Potrebbero essere necessarie fino a 24 ore per scomparire per tutti.",
-      "unpinnedFirstPage": "L'elemento è stato sbloccato. Potrebbero essere necessari fino a 24 ore per scomparire per tutti."
+      "unpinned": "L'elemento è stato sbloccato. Non è più in cima alla prima pagina di questa raccolta. Potrebbero essere necessarie fino a 24 ore per scomparire per tutti."
     },
     "prompts": {
       "pin": "Sei sicuro di voler appuntare questo elemento? Questo elemento verrà visualizzato nella parte superiore della {entity} \". Questa modifica potrebbe richiedere fino a 24 ore per avere effetto.",

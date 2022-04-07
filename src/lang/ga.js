@@ -172,9 +172,7 @@ export default {
         "title": "An iomarca míreanna pinned"
       },
       "pinned": "Tá an t-earra pinned. Tá sé anois ag barr an chéad leathanaigh den bhailiúchán seo. Thógfadh sé suas le 24 uair an chloig láithriú do gach duine.",
-      "pinnedFirstPage": "Tá an t-earra pinned. Thógfadh sé suas le 24 uair an chloig láithriú do gach duine.",
-      "unpinned": "Tá an mhír díphionnáilte. Níl sé ag barr an chéad leathanaigh den bhailiúchán seo a thuilleadh. D'fhéadfadh sé suas le 24 uair an chloig a thógáil chun imeacht do gach duine.",
-      "unpinnedFirstPage": "Tá an mhír díphionnáilte. D'fhéadfadh sé suas le 24 uair an chloig a thógáil chun imeacht do gach duine."
+      "unpinned": "Tá an mhír díphionnáilte. Níl sé ag barr an chéad leathanaigh den bhailiúchán seo a thuilleadh. D'fhéadfadh sé suas le 24 uair an chloig a thógáil chun imeacht do gach duine."
     },
     "prompts": {
       "pin": "An bhfuil tú cinnte go bhfuil fonn ort an mhír seo a phionnáil? Taispeánfar an mhír seo ag barr an bhailiúcháin \"{entity}\". D'fhéadfadh sé go dtógfadh an t-athrú seo suas le 24 uair an chloig le teacht i bhfeidhm.",

@@ -172,9 +172,7 @@ export default {
         "title": "Muitos itens fixados"
       },
       "pinned": "O item foi fixado. Agora está no topo da primeira página desta coleção. Pode levar até 24 horas para aparecer para todos.",
-      "pinnedFirstPage": "O item foi fixado com alfinete. Pode demorar até 24 horas a aparecer para todos.",
-      "unpinned": "O item foi desafixado. Não está mais no topo da primeira página desta coleção. Pode levar até 24 horas para desaparecer para todos.",
-      "unpinnedFirstPage": "O item foi desafixado. Pode levar até 24 horas para desaparecer para todos."
+      "unpinned": "O item foi desafixado. Não está mais no topo da primeira página desta coleção. Pode levar até 24 horas para desaparecer para todos."
     },
     "prompts": {
       "pin": "Tem certeza de que deseja fixar este item? Este item será mostrado no topo da {entity} \". Essa alteração pode levar até 24 horas para entrar em vigor.",

@@ -172,9 +172,7 @@ export default {
         "title": "Túl sok rögzített elem"
       },
       "pinned": "Az elemet kitűzték. Most a gyűjtemény első oldalának tetején található. Lehet, hogy 24 óráig is eltarthat, amíg mindenki számára megjelenik.",
-      "pinnedFirstPage": "Az elemet kitűzték. Lehet, hogy 24 óráig is eltarthat, amíg mindenki számára megjelenik.",
-      "unpinned": "Az elem rögzítése megszűnt. Már nincs a gyűjtemény első oldalának tetején. Akár 24 órát is igénybe vehet, amíg mindenki eltűnik.",
-      "unpinnedFirstPage": "Az elem rögzítése megszűnt. Akár 24 órát is igénybe vehet, amíg mindenki eltűnik."
+      "unpinned": "Az elem rögzítése megszűnt. Már nincs a gyűjtemény első oldalának tetején. Akár 24 órát is igénybe vehet, amíg mindenki eltűnik."
     },
     "prompts": {
       "pin": "Biztos vagy benne, hogy fel akarod tűzni ezt az elemet? Ez az elem a \"{entity}\" kollekció tetején jelenik meg. Ez a változás 24 órát vehet igénybe, mire érvénybe lép.",

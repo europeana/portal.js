@@ -172,9 +172,7 @@ export default {
         "title": "Príliš veľa pripnutých položiek"
       },
       "pinned": "Položka bola pripnutá. Teraz je v hornej časti prvej stránky tejto zbierky. Zobrazenie pre všetkých môže trvať až 24 hodín.",
-      "pinnedFirstPage": "Položka bola pripnutá. Môže trvať až 24 hodín, aby sa objavil pre každého.",
-      "unpinned": "Položka bola odopnutá. Už sa nenachádza v hornej časti prvej stránky tejto zbierky. Zmiznutie pre každého môže trvať až 24 hodín.",
-      "unpinnedFirstPage": "Položka bola odopnutá. Zmiznutie pre každého môže trvať až 24 hodín."
+      "unpinned": "Položka bola odopnutá. Už sa nenachádza v hornej časti prvej stránky tejto zbierky. Zmiznutie pre každého môže trvať až 24 hodín."
     },
     "prompts": {
       "pin": "Naozaj chcete pripnúť túto položku? Táto položka sa zobrazí v hornej časti {entity} “. Účinnosť tejto zmeny môže trvať až 24 hodín.",

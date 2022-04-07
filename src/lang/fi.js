@@ -172,9 +172,7 @@ export default {
         "title": "Liian monta kiinnitettyä kohdetta"
       },
       "pinned": "Kohde on kiinnitetty. Se on nyt tämän kokoelman ensimmäisen sivun yläosassa. Saattaa kestää jopa 24 tuntia, ennen kuin se näkyy kaikille.",
-      "pinnedFirstPage": "Kohde on kiinnitetty. Saattaa kestää jopa 24 tuntia, ennen kuin se näkyy kaikille.",
-      "unpinned": "Kohde on irrotettu. Se ei ole enää tämän kokoelman ensimmäisen sivun yläosassa. Kaikkien katoaminen voi kestää jopa 24 tuntia.",
-      "unpinnedFirstPage": "Kohde on irrotettu. Kaikkien katoaminen voi kestää jopa 24 tuntia."
+      "unpinned": "Kohde on irrotettu. Se ei ole enää tämän kokoelman ensimmäisen sivun yläosassa. Kaikkien katoaminen voi kestää jopa 24 tuntia."
     },
     "prompts": {
       "pin": "Haluatko varmasti kiinnittää tämän kohteen? Tämä kohde näkyy kokoelman {entity} Muutoksen voimaantulo voi kestää jopa 24 tuntia.",

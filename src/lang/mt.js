@@ -172,9 +172,7 @@ export default {
         "title": "Wisq oġġetti pinned"
       },
       "pinned": "L-item ġie mwaħħal. Issa tinsab fin-naħa ta' fuq tal-ewwel paġna ta' din il-ġabra. Jista' jieħu sa 24 siegħa biex jidher għal kulħadd.",
-      "pinnedFirstPage": "L-oġġett ġie mwaħħal. Jista 'jieħu sa 24 siegħa biex jidher għal kulħadd.",
-      "unpinned": "L-oġġett ma tpoġġiex. M’għadux fil-quċċata tal-ewwel paġna ta ’din il-kollezzjoni. Jista 'jieħu sa 24 siegħa biex jisparixxi għal kulħadd.",
-      "unpinnedFirstPage": "L-oġġett ma tpoġġiex. Jista 'jieħu sa 24 siegħa biex jisparixxi għal kulħadd."
+      "unpinned": "L-oġġett ma tpoġġiex. M’għadux fil-quċċata tal-ewwel paġna ta ’din il-kollezzjoni. Jista 'jieħu sa 24 siegħa biex jisparixxi għal kulħadd."
     },
     "prompts": {
       "pin": "Int żgur li trid tpoġġi din il-partita? Dan l-oġġett se juri fil-quċċata tal-kollezzjoni \" {entity} Din il-bidla tista 'tieħu sa 24 siegħa biex tidħol fis-seħħ.",

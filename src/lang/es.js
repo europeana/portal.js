@@ -172,9 +172,7 @@ export default {
         "title": "Demasiados elementos fijados"
       },
       "pinned": "El elemento se ha anclado. Ahora está en la parte superior de la primera página de esta colección. Puede tardar hasta 24 horas en aparecer para todos.",
-      "pinnedFirstPage": "El elemento se ha anclado. Puede tardar hasta 24 horas en aparecer para todos.",
-      "unpinned": "El elemento se ha desanclarado. Ya no está en la parte superior de la primera página de esta colección. Puede tardar hasta 24 horas en desaparecer para todos.",
-      "unpinnedFirstPage": "El elemento se ha desanclarado. Puede tardar hasta 24 horas en desaparecer para todos."
+      "unpinned": "El elemento se ha desanclarado. Ya no está en la parte superior de la primera página de esta colección. Puede tardar hasta 24 horas en desaparecer para todos."
     },
     "prompts": {
       "pin": "¿Estás seguro de que deseas fijar este elemento? Este elemento se mostrará en la parte superior de la {entity} \". Este cambio puede tardar hasta 24 horas en surtir efecto.",
