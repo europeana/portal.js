@@ -96,6 +96,19 @@ describe('store/set', () => {
   });
 
   describe('getters', () => {
+    describe('creationPreview()', () => {
+      it('returns the set\'s creation preview', () => {
+        const setId = 'set003';
+        const state = {
+          creationPreviews
+        };
+
+        const creationPreview = store.getters.creationPreview(state)(setId);
+
+        expect(creationPreview).toEqual(creationPreviews[setId]);
+      });
+    });
+
     describe('isLiked()', () => {
       it('is `true` if likedItemIds state includes item ID', () => {
         const itemId = '/123/ghi';
@@ -162,6 +175,19 @@ describe('store/set', () => {
     });
 
     describe('like()', () => {
+      // describe('when amount of likes limit is reached', () => {
+      //   it('throws an error', async() => {
+      //     const likedItems = Array.from(Array(100).keys()).map(item => {
+      //       return { id: `${item}` };
+      //     });
+      //     const state = { likedItems };
+
+      //     await store.actions.like({ dispatch, commit, state }, itemId);
+
+      //     // expect().toThrowError(new Error('100 likes'));
+      //   });
+      // });
+
       it('adds to likes set via $apis.set, then commits with "like"', async() => {
         store.actions.$apis.set.modifyItems = sinon.stub().resolves({});
         const state = { likesId: setId };
@@ -171,6 +197,16 @@ describe('store/set', () => {
         expect(store.actions.$apis.set.modifyItems.calledWith('add', state.likesId, itemId)).toBe(true);
         expect(commit.calledWith('like', itemId)).toBe(true);
       });
+
+      // describe('when something goes wrong while fetching the likes', () => {
+      //   it('fetches likes', async() => {
+      //     const state = {};
+
+      //     await store.actions.like({ dispatch: dispatchRejects, commit, state }, itemId);
+
+      //     await expect(dispatchRejects.calledWith('fetchLikes')).toBe(true);
+      //   });
+      // });
     });
 
     describe('unlike()', () => {
@@ -182,6 +218,16 @@ describe('store/set', () => {
 
         expect(store.actions.$apis.set.modifyItems.calledWith('delete', state.likesId, itemId)).toBe(true);
         expect(commit.calledWith('unlike', itemId)).toBe(true);
+      });
+      describe('when api call errors', () => {
+        it('fetches likes', async() => {
+          store.actions.$apis.set.modifyItems = sinon.stub().rejects({});
+          const state = { likesId: setId };
+
+          await store.actions.unlike({ dispatch, commit, state }, itemId);
+
+          expect(dispatch.calledWith('fetchLikes')).toBe(true);
+        });
       });
     });
 
@@ -195,6 +241,16 @@ describe('store/set', () => {
         expect(store.actions.$apis.set.modifyItems.calledWith('add', setId, itemId)).toBe(true);
         expect(dispatch.calledWith('refreshCreation', setId)).toBe(true);
       });
+      describe('when api call errors', () => {
+        it('refreshes creation', async() => {
+          store.actions.$apis.set.modifyItems = sinon.stub().rejects({});
+          const state = {};
+
+          await store.actions.addItem({ dispatch, state }, { setId, itemId });
+
+          expect(dispatch.calledWith('refreshCreation', setId)).toBe(true);
+        });
+      });
     });
 
     describe('removeItem()', () => {
@@ -206,6 +262,16 @@ describe('store/set', () => {
 
         expect(store.actions.$apis.set.modifyItems.calledWith('delete', setId, itemId)).toBe(true);
         expect(dispatch.calledWith('refreshCreation', setId)).toBe(true);
+      });
+      describe('when api call errors', () => {
+        it('refreshes creation', async() => {
+          store.actions.$apis.set.modifyItems = sinon.stub().rejects({});
+          const state = {};
+
+          await store.actions.removeItem({ dispatch, state }, { setId, itemId });
+
+          expect(dispatch.calledWith('refreshCreation', setId)).toBe(true);
+        });
       });
     });
 
@@ -457,6 +523,23 @@ describe('store/set', () => {
 
         expect(commit.calledWith('setCreationPreviews', { '01': 'http://www.example.eu/img/111', '02': 'http://www.example.eu/img/222' })).toBe(true);
       });
+
+      describe('when there are no creations', () => {
+        it('returns resolved promise', async() => {
+          const stateWithoutCreations = { creations: [] };
+
+          await expect(store.actions.fetchCreationPreviews({ state: stateWithoutCreations, commit })).resolves.toEqual();
+        });
+      });
+      // describe('firstItemsInSets', () => {
+      //   it('returns false for sets that do not have items', async() => {
+      //     store.actions.$apis.record.search = sinon.stub().resolves({});
+      //     const stateWithCreationsWithoutItems = { creations: [{ id: '01' },
+      //       { id: '02' }] };
+
+      //     await store.actions.fetchCreationPreviews({ state: stateWithCreationsWithoutItems, commit });
+      //   });
+      // });
     });
 
     describe('fetchCurations()', () => {
