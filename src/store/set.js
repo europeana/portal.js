@@ -70,15 +70,15 @@ export default {
       return dispatch('fetchLikes')
         .then(() => {
           if (state.likedItems && state.likedItems.length >= 100) {
-            throw new Error('100 likes');
+            return Promise.reject(new Error('100 likes'));
+          } else {
+            return this.$apis.set.modifyItems('add', state.likesId, itemId)
+              .then(commit('like', itemId));
           }
         })
-        .then(() => {
-          return this.$apis.set.modifyItems('add', state.likesId, itemId)
-            .then(commit('like', itemId));
-        })
-        .catch(() => {
-          return dispatch('fetchLikes');
+        .catch((e) => {
+          dispatch('fetchLikes');
+          throw e;
         });
     },
     unlike({ dispatch, commit, state }, itemId) {
