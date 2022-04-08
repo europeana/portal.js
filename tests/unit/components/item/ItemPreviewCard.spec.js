@@ -24,7 +24,9 @@ const factory = (propsData) => {
     localVue,
     propsData,
     mocks: {
-      $apis: { thumbnail: { edmPreview: (item) => item.edmPreview[0] } },
+      $apis: {
+        thumbnail: { edmPreview: (img) => img?.edmPreview?.[0] }
+      },
       $auth: { loggedIn: false },
       $config: { app: { internalLinkDomain: null } },
       $path: (opts) => `/item/${opts.params.pathMatch}`,

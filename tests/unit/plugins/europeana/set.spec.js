@@ -128,20 +128,4 @@ describe('describe./@/plugins/europeana/set', () => {
       expect(nock.isDone()).toBe(true);
     });
   });
-
-  describe('getSetThumbnail', () => {
-    it('uses edm:preview of first item for thumbnail', () => {
-      const setData = {
-        items: [
-          {
-            edmPreview: ['http://www.example.org/image.jpg']
-          }
-        ]
-      };
-
-      const thumbnail = set().getSetThumbnail(setData);
-
-      expect(thumbnail).toBe('http://www.example.org/image.jpg');
-    });
-  });
 });

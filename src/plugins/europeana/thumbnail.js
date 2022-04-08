@@ -49,10 +49,11 @@ export default (context = {}) => {
     return url(uri, params);
   };
 
-  const edmPreview = (item, size = 200) => {
-    if (!item) {
+  const edmPreview = (itemOrEdmPreview, size = 200) => {
+    if (!itemOrEdmPreview) {
       return null;
     }
+    const item = (typeof itemOrEdmPreview === 'string') ? { edmPreview: [itemOrEdmPreview] } : itemOrEdmPreview;
 
     const params = { type: item.type, size: `w${size}` };
 

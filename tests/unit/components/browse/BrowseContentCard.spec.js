@@ -13,7 +13,8 @@ const factory = (props = { fields: {} }) => shallowMount(BrowseContentCard, {
   mocks: {
     $apis: {
       config: { data: { url: 'http://data.europeana.eu' } },
-      entity: { getEntityTypeHumanReadable: () => 'person' }
+      entity: { getEntityTypeHumanReadable: () => 'person' },
+      thumbnail: { edmPreview: (img) => img?.edmPreview?.[0] }
     },
     $path: (opts) => opts,
     $i18n: { locale: 'en' },
@@ -48,15 +49,6 @@ describe('components/browse/BrowseContentCard', () => {
   });
 
   describe('imageUrl()', () => {
-    describe('when `fields.thumbnailUrl` is present', () => {
-      it('is used', () => {
-        const thumbnailUrl = 'https://www.example.org/image.jpg';
-        const wrapper = factory({ fields: { thumbnailUrl } });
-
-        expect(wrapper.vm.imageUrl).toBe(thumbnailUrl);
-      });
-    });
-
     describe('when `fields.image` is a string', () => {
       it('is used', () => {
         const image = 'https://www.example.org/image.jpg';
@@ -78,7 +70,7 @@ describe('components/browse/BrowseContentCard', () => {
           }
         });
 
-        expect(wrapper.vm.imageUrl).toBe(`${edmPreview}&size=w400`);
+        expect(wrapper.vm.imageUrl).toBe(edmPreview);
       });
     });
 

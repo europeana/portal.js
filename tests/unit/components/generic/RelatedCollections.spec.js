@@ -16,6 +16,7 @@ const factory = (options = {}) => {
     stubs: ['b-container'],
     mocks: {
       ...{
+        $apis: { thumbnail: { edmPreview: (img, size) => `${img}&size=w${size}` } },
         $i18n: { locale: 'en' },
         $t: () => {},
         $fetch: () => {},

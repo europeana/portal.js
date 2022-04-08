@@ -114,17 +114,9 @@
         };
       },
       galleryCardData(card) {
-        let imageUrl;
-
-        if (card.hasPartCollection.items[0].encoding) {
-          imageUrl = this.$apis.thumbnail.edmPreview(card.hasPartCollection.items[0].encoding, 400);
-        } else {
-          imageUrl = card.hasPartCollection.items[0].thumbnailUrl;
-        }
-
         return {
           cardLink: { name: 'galleries-all', params: { pathMatch: card.identifier } },
-          imageUrl
+          imageUrl: this.$apis.thumbnail.edmPreview(card.hasPartCollection.items[0].encoding, 400)
         };
       }
     }
