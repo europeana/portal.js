@@ -847,6 +847,9 @@ export default {
   },
   "record": {
     "IIIFViewer": "IIIF viewer",
+    "actions": {
+      "pin": "Pin Item to available Entities"
+    },
     "allMetaData": "All metadata",
     "copyEmbedLabel": "Embed code (Click to copy)",
     "exploreMore": "Explore More",

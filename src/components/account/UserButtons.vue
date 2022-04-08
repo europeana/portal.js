@@ -56,10 +56,17 @@
         @response="setCreatedOrUpdated"
       />
       <PinToEntityModal
+        v-if="entity"
         :modal-id="pinModalId"
         :item-id="identifier"
         :pinned="pinned"
         data-qa="pin item to entity modal"
+      />
+      <PinItemModal
+        v-else-if="item && entities.length > 0"
+        :modal-id="pinModalId"
+        :entities="entities"
+        data-qa="pin item to entities modal"
       />
       <!-- TODO: remove when 100-item like limit removed -->
       <b-modal
@@ -98,6 +105,7 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
   import keycloak from '@/mixins/keycloak';
 
   export default {
@@ -106,7 +114,8 @@
     components: {
       AddItemToSetModal: () => import('../set/AddItemToSetModal'),
       SetFormModal: () => import('../set/SetFormModal'),
-      PinToEntityModal: () => import('../entity/PinModal')
+      PinToEntityModal: () => import('../entity/PinModal'),
+      PinItemModal: () => import('../item/PinModal')
     },
     mixins: [
       keycloak
@@ -117,6 +126,11 @@
       identifier: {
         type: String,
         required: true
+      },
+      // Entities related to the item, used on item page.
+      entities: {
+        type: Array,
+        default: () => []
       },
       showPins: {
         type: Boolean,
@@ -165,7 +179,11 @@
           return this.liked ? this.$t('statuses.liked') : this.$t('actions.like');
         }
         return '';
-      }
+      },
+      ...mapGetters({
+        entity: 'entity/id',
+        item: 'item/id'
+      })
     },
     created() {
       this.$root.$on('clickCreateSet', () => {

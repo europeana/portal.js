@@ -28,6 +28,7 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
   import makeToastMixin from '@/mixins/makeToast';
 
   export default {
@@ -61,6 +62,12 @@
         description: '',
         buttonLabel: ''
       };
+    },
+
+    computed: {
+      ...mapGetters({
+        entityId: 'entity/id'
+      })
     },
 
     methods: {

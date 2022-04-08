@@ -32,6 +32,7 @@
                 <UserButtons
                   :identifier="identifier"
                   :show-pins="userIsEditor && userIsSetsEditor"
+                  :entities="entities"
                   button-variant="secondary"
                 />
               </client-only>
@@ -116,6 +117,11 @@
       attributionFields: {
         type: Object,
         default: () => ({})
+      },
+      // Entities related to the item, used for pinning.
+      entities: {
+        type: Array,
+        default: () => []
       }
     },
     data() {

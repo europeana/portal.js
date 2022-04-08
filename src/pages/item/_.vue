@@ -25,6 +25,7 @@
           :media="media"
           :edm-rights="edmRights"
           :attribution-fields="attributionFields"
+          :entities="allEuropeanEntityUris"
         />
       </b-container>
       <b-container>
@@ -188,6 +189,7 @@
     },
 
     fetch() {
+      this.$store.commit('item/setId', this.identifier);
       this.fetchAnnotations();
       this.fetchRelatedEntities();
       this.fetchSimilarItems();
@@ -241,6 +243,10 @@
       europeanaEntityUris() {
         return this.europeanaEntities
           .slice(0, 5)
+          .map(entity => entity.about);
+      },
+      allEuropeanEntityUris() {
+        return this.europeanaEntities
           .map(entity => entity.about);
       },
       attributionFields() {
