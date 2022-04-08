@@ -15,6 +15,10 @@ query ExhibitionChapterPage(
       name
       identifier
       credits
+      contentWarning {
+        name
+        description
+      }
       hasPartCollection(limit: 40) {
         items {
           name

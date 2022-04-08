@@ -53,7 +53,7 @@ describe('components/entity/EntityUpdateModal', () => {
       await wrapper.find('#entity-description').setValue('Updated');
       await wrapper.find('form').trigger('submit.stop.prevent');
 
-      storeDispatch.should.have.been.calledWith('entity/update', {
+      expect(storeDispatch.calledWith('entity/update', {
         id: '1-art',
         body: {
           type: 'concept',
@@ -64,7 +64,7 @@ describe('components/entity/EntityUpdateModal', () => {
             en: ['Updated']
           }
         }
-      });
+      })).toBe(true);
     });
     it('hides the modal', async() => {
       const wrapper = factory(existingEntityPropsData);
@@ -72,7 +72,7 @@ describe('components/entity/EntityUpdateModal', () => {
 
       await wrapper.find('form').trigger('submit.stop.prevent');
 
-      bvModalHide.should.have.been.calledWith('entityUpdateModal');
+      expect(bvModalHide.calledWith('entityUpdateModal')).toBe(true);
     });
 
     it('makes toast', async() => {
@@ -81,26 +81,26 @@ describe('components/entity/EntityUpdateModal', () => {
 
       await wrapper.find('form').trigger('submit.stop.prevent');
 
-      rootBvToast.should.have.been.calledWith('The collection has been updated', sinon.match.any);
+      expect(rootBvToast.calledWith('The collection has been updated', sinon.match.any)).toBe(true);
     });
   });
 
   describe('update button', () => {
-    context('when there is no description update', () => {
+    describe('when there is no description update', () => {
       it('is disabled', () => {
         const wrapper = factory(existingEntityPropsData);
 
         wrapper.find('#entity-description').setValue(existingEntityPropsData.description);
-        wrapper.find('[data-qa="submit button"]').attributes('disabled').should.eq('disabled');
+        expect(wrapper.find('[data-qa="submit button"]').attributes('disabled')).toBe('disabled');
       });
     });
-    context('when description is filled with emptry string', () => {
+    describe('when description is filled with emptry string', () => {
       it('is disabled', () => {
         const wrapper = factory({ description: undefined });
 
         wrapper.find('#entity-description').setValue('');
 
-        wrapper.find('[data-qa="submit button"]').attributes('disabled').should.eq('disabled');
+        expect(wrapper.find('[data-qa="submit button"]').attributes('disabled')).toBe('disabled');
       });
     });
   });

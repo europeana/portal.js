@@ -5,13 +5,17 @@
     no-body
     :class="cardClass"
   >
-    <SmartLink
-      :destination="url"
-      link-class="card-link"
-    >
+    <div class="card-wrapper">
+      <SmartLink
+        :destination="url"
+        link-class="card-link"
+        :aria-label="displayTitle ? displayTitle.value : null"
+        :title="(variant === 'mosaic' && displayTitle) ? displayTitle.value : null"
+      />
       <div
         v-if="cardImageUrl"
         class="card-img"
+        :class="{ logo }"
       >
         <b-img-lazy
           v-if="lazy"
@@ -33,10 +37,13 @@
         />
       </div>
       <div
-        v-else
+        v-else-if="!cardImageUrl && variant !== 'mini'"
         class="placeholder card-img"
       />
-      <b-card-body data-qa="card body">
+      <b-card-body
+        v-if="variant !== 'mosaic'"
+        data-qa="card body"
+      >
         <b-card-sub-title
           v-if="(displaySubTitle && variant !== 'mini') && showSubtitle"
           sub-title-tag="div"
@@ -45,37 +52,29 @@
         >
           {{ displaySubTitle }}
         </b-card-sub-title>
-        <b-card-title
-          v-if="displayTitle"
-          title-tag="div"
-          data-qa="card title"
-          :lang="displayTitle.code"
-        >
-          <span>
-            {{ displayTitle.values[0] | truncate(90, $t('formatting.ellipsis')) }}
-          </span>
-        </b-card-title>
-        <time
-          v-if="datetime"
-          class="font-weight-bold pb-3"
-          data-qa="date"
-          :datetime="datetime"
-        >
-          {{ $d(new Date(datetime), 'short') }}
-        </time>
-        <template v-if="hitsText">
+        <div class="title-texts-wrapper">
+          <b-card-title
+            v-if="displayTitle"
+            title-tag="div"
+            data-qa="card title"
+            :lang="displayTitle.code"
+          >
+            <span>
+              {{ displayTitle.value | truncate(90, $t('formatting.ellipsis')) }}
+            </span>
+          </b-card-title>
           <b-card-text
+            v-if="hitsText"
             text-tag="div"
             data-qa="highlighted search term"
           >
-            <p>{{ hitsText.prefix }}<strong class="has-text-highlight">{{ hitsText.exact }}</strong>{{ hitsText.suffix }}</p>
+            <p>
+              {{ hitsText.prefix }}<strong class="has-text-highlight">{{ hitsText.exact }}</strong>{{ hitsText.suffix }}
+            </p>
           </b-card-text>
-        </template>
-        <template v-if="displayTexts.length > 0">
-          <template
-            v-for="(text, index) in displayTexts"
-          >
+          <template v-if="displayTexts.length > 0">
             <b-card-text
+              v-for="(text, index) in displayTexts"
               :key="index"
               :lang="text.code"
               text-tag="div"
@@ -84,14 +83,19 @@
               <p
                 v-html="cardText(text.values)"
               />
-              <!-- eslint-enable vue/no-v-html -->
+            <!-- eslint-enable vue/no-v-html -->
             </b-card-text>
           </template>
-        </template>
+        </div>
+        <client-only>
+          <!-- @slot footer rendered at the bottom left of the card, client-side only -->
+          <slot name="footer" />
+        </client-only>
       </b-card-body>
-    </SmartLink>
+    </div>
     <client-only>
-      <slot name="buttons" />
+      <!-- @slot image-overlay rendered over the card, client-side only -->
+      <slot name="image-overlay" />
     </client-only>
   </b-card>
 </template>
@@ -101,6 +105,7 @@
   import SmartLink from './SmartLink';
   import stripMarkdown from '@/mixins/stripMarkdown';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import themes from '@/plugins/europeana/themes';
 
   export default {
     name: 'ContentCard',
@@ -115,93 +120,163 @@
     ],
 
     props: {
+      /**
+       * Card title
+       *
+       * If an object is supplied, it is expected to be a LangMap.
+       */
       title: {
-        // may be a string or a lang map
         type: [String, Object],
         default: ''
       },
+      /**
+       * Card subtitle
+       */
       subTitle: {
         type: String,
         default: null
       },
-      // each element may be a string, an array of strings, or a lang map
+      /**
+       * Card texts
+       *
+       * Each element may be a string, an array of strings, or a LangMap
+       */
       texts: {
         type: Array,
         default: () => []
       },
+      /**
+       * Hits from a search to highlight in the card texts
+       */
       hitsText: {
         type: Object,
         default: null
       },
+      /**
+       * URL for the card to link to
+       *
+       * An object should be a Vue route
+       */
       url: {
         type: [String, Object],
         default: ''
       },
+      /**
+       * URL of an image to display
+       */
       imageUrl: {
         type: String,
         default: ''
       },
+      /**
+       * Content type of the image
+       */
       imageContentType: {
         type: String,
         default: null
       },
+      /**
+       * Width of the image
+       */
       imageWidth: {
         type: Number,
         default: null
       },
+      /**
+       * Height of the image
+       */
       imageHeight: {
         type: Number,
         default: null
       },
+      /**
+       * Image alt text
+       */
       imageAlt: {
         type: String,
         default: ''
       },
+      /**
+       * Image optimisation options
+       *
+       * Passed to `optimisedImageUrl` filter
+       */
       imageOptimisationOptions: {
         type: Object,
         default: () => ({})
       },
+      /**
+       * If `true`, image will be lazy-loaded
+       */
       lazy: {
         type: Boolean,
         default: true
       },
+      /**
+       * If `true`, subtitle will be shown
+       */
       showSubtitle: {
         type: Boolean,
         default: true
       },
-      datetime: {
-        type: String,
-        default: ''
-      },
+      /**
+       * Style variant to use
+       * @values default, entity, mini, list, mosaic
+       */
       variant: {
         type: String,
-        default: 'default' // other options: entity, mini, list
+        default: 'default'
       },
+      /**
+       * If `true`, will omit all URIs from texts
+       */
       omitAllUris: {
         type: Boolean,
         default: false
       },
+      /**
+       * If `true`, will omit URIs from texts only if other values are present
+       */
       omitUrisIfOtherValues: {
         type: Boolean,
         default: false
       },
+      /**
+       * For each element of `texts`, limit the number of values shown
+       *
+       * Default is no limit
+       */
       limitValuesWithinEachText: {
         type: Number,
         default: -1
       },
+      /**
+       * Height of image placeholder when lazy-loading image
+       */
       blankImageHeight: {
         type: Number,
         default: null
       },
+      /**
+       * Width of image placeholder when lazy-loading image
+       */
       blankImageWidth: {
         type: Number,
         default: null
+      },
+      /**
+       * If `true`, the image is a logo and will be styled differently
+       */
+      logo: {
+        type: Boolean,
+        default: false
       }
     },
     data() {
       return {
         cardImageUrl: this.imageUrl,
-        displayLabelTypes: 'exhibitions|galleries|blog|collections'
+        displayLabelTypes: 'exhibitions|galleries|blog|collections',
+        themes: themes.map(theme => theme.id)
       };
     },
 
@@ -214,9 +289,10 @@
         if (!this.title) {
           return null;
         } else if (typeof this.title === 'string') {
-          return { values: [this.title], code: null };
+          return { value: this.title, code: null };
         } else {
-          return langMapValueForLocale(this.title, this.$i18n.locale);
+          const langMapValue = langMapValueForLocale(this.title, this.$i18n.locale);
+          return { value: langMapValue.values[0], code: langMapValue.code };
         }
       },
 
@@ -230,7 +306,14 @@
         }
 
         if (this.displayLabelType === 'collections') {
-          return this.$t(`cardLabels.${this.displayLabelTypeCollections}`);
+          const entityId = (typeof this.url === 'string') ?
+            this.url.split('/').pop().split('-').shift() :
+            this.url.params.pathMatch;
+
+          // TODO: remove when thematic collections topics get their own 'theme' type
+          return this.themes.includes(entityId) ?
+            this.$t('cardLabels.theme') :
+            this.$t(`cardLabels.${this.displayLabelTypeCollections}`);
         }
 
         if (this.displayLabelType === 'blog') {
@@ -300,3 +383,46 @@
     }
   };
 </script>
+
+<docs lang="md">
+  Variant "default":
+  ```jsx
+  <ContentCard
+    title="Debarquement a l'Ile de Malte (Bonaparte landing on Malta)"
+    image-url="https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=http%3A%2F%2Fcollections.rmg.co.uk%2FmediaLib%2F323%2Fmedia-323744%2Flarge.jpg"
+    :texts="['Royal Museums Greenwich']"
+    url="https://www.europeana.eu/item/2022362/_Royal_Museums_Greenwich__http___collections_rmg_co_uk_collections_objects_147879"
+  />
+  ```
+
+  Variant "mini":
+  ```jsx
+  <ContentCard
+    variant="mini"
+    title="Photograph"
+    image-url="https://api.europeana.eu/api/v2/thumbnail-by-url.json?uri=https%3A%2F%2Fwww.rijksmuseum.nl%2Fassetimage2.jsp%3Fid%3DRP-F-2000-21-40&type=IMAGE"
+    url="https://www.europeana.eu/collections/topic/48"
+  />
+  ```
+
+  Variant "mosaic":
+  ```jsx
+  <ContentCard
+    variant="mosaic"
+    title="Debarquement a l'Ile de Malte (Bonaparte landing on Malta)"
+    image-url="https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=http%3A%2F%2Fcollections.rmg.co.uk%2FmediaLib%2F323%2Fmedia-323744%2Flarge.jpg"
+    url="https://www.europeana.eu/item/2022362/_Royal_Museums_Greenwich__http___collections_rmg_co_uk_collections_objects_147879"
+  />
+  ```
+
+  Variant "list":
+  ```jsx
+  <ContentCard
+    variant="list"
+    title="Debarquement a l'Ile de Malte (Bonaparte landing on Malta)"
+    image-url="https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=http%3A%2F%2Fcollections.rmg.co.uk%2FmediaLib%2F323%2Fmedia-323744%2Flarge.jpg"
+    :hitsText="{ prefix: 'This shows a ', exact: 'Hit-Highlight', suffix: ' appearing in the middle of the description!' }"
+    url="https://www.europeana.eu/item/2022362/_Royal_Museums_Greenwich__http___collections_rmg_co_uk_collections_objects_147879"
+  />
+  ```
+</docs>

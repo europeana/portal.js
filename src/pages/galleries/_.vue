@@ -1,5 +1,11 @@
 <template>
   <b-container>
+    <ContentWarningModal
+      v-if="contentWarning"
+      :title="contentWarning.name"
+      :description="contentWarning.description"
+      :page-slug="`galleries/${identifier}`"
+    />
     <ContentHeader
       :title="title"
       :description="htmlDescription"
@@ -35,14 +41,15 @@
 <script>
   import ContentHeader from '../../components/generic/ContentHeader';
 
-  import marked from 'marked';
+  import { marked } from 'marked';
   import stripMarkdown from '@/mixins/stripMarkdown';
 
   export default {
-    name: 'ImageGallery',
+    name: 'GalleryPage',
     components: {
       ContentHeader,
-      ContentCard: () => import('../../components/generic/ContentCard')
+      ContentCard: () => import('../../components/generic/ContentCard'),
+      ContentWarningModal: () => import('@/components/generic/ContentWarningModal')
     },
     mixins: [
       stripMarkdown
@@ -65,14 +72,31 @@
           const gallery = data.imageGalleryCollection.items[0];
 
           return {
-            rawDescription: gallery.description,
+            contentWarning: gallery.contentWarning,
+            identifier: variables.identifier,
             images: gallery.hasPartCollection.items.filter(image => image !== null),
+            rawDescription: gallery.description,
             title: gallery.name
           };
         })
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
+    },
+    head() {
+      return {
+        title: this.$pageHeadTitle(this.title),
+        meta: [
+          { hid: 'title', name: 'title', content: this.title },
+          { hid: 'og:title', property: 'og:title', content: this.title },
+          { hid: 'og:image', property: 'og:image', content: this.shareMediaUrl },
+          { hid: 'og:type', property: 'og:type', content: 'article' }
+        ]
+          .concat(this.description ? [
+            { hid: 'description', name: 'description', content: this.description },
+            { hid: 'og:description', property: 'og:description', content: this.description }
+          ] : [])
+      };
     },
     computed: {
       shareMediaUrl() {
@@ -82,7 +106,7 @@
         return this.stripMarkdown(this.rawDescription);
       },
       htmlDescription() {
-        return marked(this.rawDescription);
+        return marked.parse(this.rawDescription);
       }
     },
 
@@ -102,21 +126,6 @@
       imageUrl(data) {
         return (data.encoding ? data.encoding.edmPreview : data.thumbnailUrl) + '&size=w400';
       }
-    },
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.title),
-        meta: [
-          { hid: 'title', name: 'title', content: this.title },
-          { hid: 'og:title', property: 'og:title', content: this.title },
-          { hid: 'og:image', property: 'og:image', content: this.shareMediaUrl },
-          { hid: 'og:type', property: 'og:type', content: 'article' }
-        ]
-          .concat(this.description ? [
-            { hid: 'description', name: 'description', content: this.description },
-            { hid: 'og:description', property: 'og:description', content: this.description }
-          ] : [])
-      };
     }
   };
 </script>

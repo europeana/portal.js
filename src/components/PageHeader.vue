@@ -1,5 +1,6 @@
 <template>
   <header
+    id="header"
     v-visible-on-scroll
     class="m-0 navbar-brand container-fluid d-flex justify-content-between show"
     role="banner"
@@ -12,8 +13,8 @@
     >
       <b-button
         data-qa="back button"
-        class="back"
-        variant="light"
+        class="button-icon-only icon-back"
+        variant="light-flat"
         :aria-label="$t('header.backToMenu')"
         @click="toggleSearchBar"
       />
@@ -28,8 +29,8 @@
     >
       <b-button
         v-b-toggle.sidebar
-        variant="light"
-        class="navbar-toggle collapsed flex-column align-items-center justify-content-center align-self-center ml-3"
+        variant="light-flat"
+        class="navbar-toggle collapsed button-icon-only flex-column align-self-center ml-3"
         :aria-label="$t('header.showSidebar')"
         data-qa="hamburger button"
       >
@@ -60,11 +61,12 @@
         />
         <b-button
           data-qa="show search button"
-          class="search ml-lg-3"
-          variant="light"
+          class="button-icon-only icon-search ml-lg-3"
+          variant="light-flat"
           :aria-label="$t('search')"
           @click="toggleSearchBar"
         />
+        <FilterToggleButton />
       </b-navbar>
       <b-sidebar
         id="sidebar"
@@ -83,8 +85,8 @@
             <b-button
               v-b-toggle.sidebar
               data-qa="close menu button"
-              class="close"
-              variant="light"
+              class="button-icon-only icon-clear"
+              variant="light-flat"
               :aria-label="$t('header.closeSidebar')"
             />
             <SmartLink
@@ -115,6 +117,7 @@
   import SmartLink from './generic/SmartLink';
   import SearchForm from './search/SearchForm';
   import PageNavigation from './PageNavigation';
+  import FilterToggleButton from '@/components/search/FilterToggleButton';
   import { mapState } from 'vuex';
 
   export default {
@@ -123,7 +126,8 @@
     components: {
       SmartLink,
       SearchForm,
-      PageNavigation
+      PageNavigation,
+      FilterToggleButton
     },
 
     data() {
@@ -133,9 +137,7 @@
     },
 
     computed: {
-      ...mapState({
-        showSearch: state => state.search.showSearchBar
-      })
+      ...mapState({ showSearch: state => state.search.showSearchBar      })
     },
 
     methods: {
@@ -147,8 +149,8 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
-  @import '@/assets/scss/icons.scss';
+  @import '@/assets/scss/variables';
+  @import '@/assets/scss/icons';
 
   .container-fluid {
     background: $white;
@@ -159,7 +161,7 @@
     left: 0;
     z-index: 1030;
     padding: 0;
-    box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.08);
+    box-shadow: 2px 2px 4px 0 rgb(0 0 0 / 8%);
 
     &:not(.show) ::v-deep .search-query,
     &:not(.show) ::v-deep .auto-suggest-dropdown {
@@ -174,6 +176,7 @@
     .logo {
       min-width: 9.5625rem;
       transition: 0.3s ease-in-out;
+
       img {
         margin: auto 0;
       }
@@ -184,87 +187,34 @@
     .logo {
       min-width: auto;
     }
+
     .navbar-nav {
       flex-direction: column;
       width: 100%;
     }
   }
 
-  .btn {
-    align-items: center;
-    background: none;
-    border-radius: 0;
-    border: 0;
-    box-shadow: none;
-    color: $black;
-    display: flex;
-    font-size: 1rem;
-    height: 1.5rem;
-    justify-content: center;
-    padding: 0;
-    width: 1.5rem;
-
-    &:before {
-      @extend .icon-font;
-      display: inline-block;
-      font-size: 1.1rem;
-    }
-
-    &.search {
-      &:before {
-        content: '\e92b';
-        transition: $standard-transition;
-      }
-    }
-
-    &.close {
-      opacity: 1;
-      &:before {
-        content: '\e931';
-        transition: $standard-transition;
-        font-weight: 400;
-        font-size: 1.5rem;
-      }
-    }
-
-    &.search, &.close {
-      &:hover:before {
-        color: $innovationblue;
-      }
-    }
-
-    &.back {
-      position: absolute;
-      left: 1rem;
-      top: 1rem;
-      z-index: 99;
-
-      &:before {
-        content: '\ea40';
-      }
-    }
+  .icon-back {
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    z-index: 99;
   }
 
   .navbar-toggle {
-    display: flex;
-    align-items: center;
-    width: 1.5rem;
-    height: 1.5rem;
-    box-shadow: none;
-
     span {
       width: 1.125rem;
       background: $black;
       height: 2px;
       margin-bottom: 3px;
       transition: $standard-transition;
-
       &:last-of-type { margin-bottom: 0; }
     }
 
     &:hover {
       span {
         background: $innovationblue;
+        transition: $standard-transition;
       }
     }
   }
@@ -285,16 +235,19 @@
       top: initial;
       width: auto;
       padding: 0;
+
       .navbar-nav {
         padding-top: 0;
         flex-direction: row;
         width: 100%;
       }
     }
+
     .container-fluid {
       transition: $standard-transition;
     }
   }
+
   @media (min-width: $bp-extralarge) {
     .navbar-brand {
       .logo {
@@ -302,4 +255,11 @@
       }
     }
   }
+
+  .filters-toggle {
+    @media (min-width: $bp-medium) {
+      display: none;
+    }
+  }
+
 </style>

@@ -125,16 +125,20 @@
 </script>
 
 <style lang="scss">
-  @import '@/assets/scss/variables.scss';
+  @import '@/assets/scss/variables';
 
-  .swiper-outer, .swiper-container {
+  .swiper-outer,
+  .swiper-container {
     height: $swiper-height;
+
     @media (max-height: $bp-medium) {
       max-height: $swiper-height;
     }
+
     @media (min-height: $bp-medium) {
       max-height: $swiper-height-max;
     }
+
     @media (max-width: $bp-medium) {
       max-height: $swiper-height-medium;
       height: $swiper-height-medium;
@@ -147,13 +151,14 @@
       @media (min-width: $bp-medium) {
         width: auto;
       }
-      :before {
+
+      ::before {
         content: '';
         transition: $standard-transition;
       }
 
       &:not(.swiper-slide-active) {
-        &:before {
+        &::before {
           content: '';
           width: 100%;
           left: 0;
@@ -161,6 +166,7 @@
           height: 100%;
           position: absolute;
         }
+
         .audio-slide {
           pointer-events: none;
         }
@@ -173,7 +179,8 @@
       }
     }
 
-    .swiper-button-prev, .swiper-button-next {
+    .swiper-button-prev,
+    .swiper-button-next {
       color: $lightgrey;
       background: $white;
       border-radius: 50%;
@@ -181,7 +188,8 @@
       opacity: 0.7;
     }
 
-    .swiper-button-prev:after, .swiper-button-next:after {
+    .swiper-button-prev::after,
+    .swiper-button-next::after {
       font-size: 22px;
     }
 

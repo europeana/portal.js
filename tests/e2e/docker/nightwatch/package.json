@@ -18,5 +18,9 @@
     "nightwatch": "^1.7.11",
     "nightwatch-accessibility": "^1.11.0",
     "nightwatch-api": "^3.0.2"
+  },
+  "engines": {
+    "node": "^16",
+    "npm": "^8"
   }
 }

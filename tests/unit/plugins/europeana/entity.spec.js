@@ -87,10 +87,10 @@ describe('plugins/europeana/entity', () => {
 
   describe('get()', () => {
     describe('API response', () => {
-      context('with "No resource found with ID: ..." error', () => {
+      describe('with "No resource found with ID: ..." error', () => {
         const errorMessage = 'No resource found with ID:';
 
-        beforeEach('stub API response', () => {
+        beforeEach(() => {
           baseRequest
             .query(true)
             .reply(404, {
@@ -106,15 +106,15 @@ describe('plugins/europeana/entity', () => {
             error = e;
           }
 
-          error.message.should.eq(errorMessage);
-          error.statusCode.should.eq(404);
+          expect(error.message).toBe(errorMessage);
+          expect(error.statusCode).toBe(404);
         });
       });
 
-      context('with object in response', () => {
+      describe('with object in response', () => {
         const apiResponse = entitiesResponse.items[0];
 
-        beforeEach('stub API response', () => {
+        beforeEach(() => {
           baseRequest
             .query(true)
             .reply(200, apiResponse);
@@ -122,17 +122,17 @@ describe('plugins/europeana/entity', () => {
 
         it('returns entity title', async() => {
           const response = await api().get(entityType, entityId);
-          response.entity.prefLabel.en.should.eq('Architecture');
+          expect(response.entity.prefLabel.en).toBe('Architecture');
         });
 
         it('returns entity description', async() => {
           const response = await api().get(entityType, entityId);
-          response.entity.note.en[0].should.contain('Architecture is both the process and the product of planning');
+          expect(response.entity.note.en[0]).toContain('Architecture is both the process and the product of planning');
         });
 
         it('has a misspelled id and returns entity title', async() => {
           const response = await api().get(entityType, entityIdMisspelled);
-          response.entity.prefLabel.en.should.eq('Architecture');
+          expect(response.entity.prefLabel.en).toBe('Architecture');
         });
       });
     });
@@ -156,7 +156,7 @@ describe('plugins/europeana/entity', () => {
 
       await api().find(uris);
 
-      nock.isDone().should.be.true;
+      expect(nock.isDone()).toBe(true);
     });
   });
 
@@ -174,7 +174,7 @@ describe('plugins/europeana/entity', () => {
 
       await api().suggest(text);
 
-      nock.isDone().should.be.true;
+      expect(nock.isDone()).toBe(true);
     });
 
     it('passes `language` to API', async() => {
@@ -187,34 +187,20 @@ describe('plugins/europeana/entity', () => {
 
       await api().suggest(text, { language: 'fr' });
 
-      nock.isDone().should.be.true;
+      expect(nock.isDone()).toBe(true);
     });
 
-    it('restricts types to agent, concept & timespan', async() => {
-      nock(BASE_URL)
-        .get(suggestEndpoint)
-        .query(query => {
-          return query.type === 'agent,concept,timespan';
-        })
-        .reply(200, entitySuggestionsResponse);
-
-      await api().suggest(text);
-
-      nock.isDone().should.be.true;
-    });
-
-    it('feature-toggles inclusion of organisations', async() => {
+    it('restricts types to agent, concept, timespan & organization', async() => {
       nock(BASE_URL)
         .get(suggestEndpoint)
         .query(query => {
           return query.type === 'agent,concept,timespan,organization';
         })
         .reply(200, entitySuggestionsResponse);
-      const context = { $config: { app: { features: { organisationSearchSuggestions: true } } } };
 
-      await api(context).suggest(text);
+      await api().suggest(text);
 
-      nock.isDone().should.be.true;
+      expect(nock.isDone()).toBe(true);
     });
 
     it('returns the "items"', async() => {
@@ -225,159 +211,159 @@ describe('plugins/europeana/entity', () => {
 
       const items = await api().suggest(text);
 
-      items.should.deep.eq(entitySuggestionsResponse.items);
+      expect(items).toEqual(entitySuggestionsResponse.items);
     });
   });
 
   describe('getEntityUri', () => {
-    context('with an id of "100-test-slug"', () => {
+    describe('with an id of "100-test-slug"', () => {
       const id = '100-test-slug';
-      context('with type Agent', () => {
+      describe('with type Agent', () => {
         const type = 'person';
         it('returns an agent URI, with base infix, without any human readable labels', () => {
           const uri = getEntityUri(type, id);
-          return uri.should.eq('http://data.europeana.eu/agent/base/100');
+          expect(uri).toBe('http://data.europeana.eu/agent/base/100');
         });
       });
 
-      context('with type Concept', () => {
+      describe('with type Concept', () => {
         const type = 'topic';
         it('returns a concept URI, with base infix, without any human readable labels', () => {
           const uri = getEntityUri(type, id);
-          return uri.should.eq('http://data.europeana.eu/concept/base/100');
+          expect(uri).toBe('http://data.europeana.eu/concept/base/100');
         });
       });
 
-      context('with type Timespan', () => {
+      describe('with type Timespan', () => {
         const type = 'time';
         it('returns a timespan URI, without any human readable labels, or base infix', () => {
           const uri = getEntityUri(type, id);
-          return uri.should.eq('http://data.europeana.eu/timespan/100');
+          expect(uri).toBe('http://data.europeana.eu/timespan/100');
         });
       });
 
-      context('with type Organization', () => {
+      describe('with type Organization', () => {
         const type = 'organisation';
         it('returns an organization URI, without any human readable labels, or base infix', () => {
           const uri = getEntityUri(type, id);
-          return uri.should.eq('http://data.europeana.eu/organization/100');
+          expect(uri).toBe('http://data.europeana.eu/organization/100');
         });
       });
     });
   });
 
   describe('isEntityUri', () => {
-    context('with an uri of "http://data.europeana.eu/agent/base/100"', () => {
+    describe('with an uri of "http://data.europeana.eu/agent/base/100"', () => {
       const uri = 'http://data.europeana.eu/agent/base/100';
       it('returns true', () => {
         const ret = isEntityUri(uri);
-        ret.should.eq(true);
+        expect(ret).toBe(true);
       });
     });
 
-    context('with an uri of "http://data.europeana.eu/timespan/20"', () => {
+    describe('with an uri of "http://data.europeana.eu/timespan/20"', () => {
       const uri = 'http://data.europeana.eu/timespan/20';
       it('returns true', () => {
         const ret = isEntityUri(uri);
-        ret.should.eq(true);
+        expect(ret).toBe(true);
       });
     });
 
-    context('with an uri of "http://data.europeana.eu/concept/base/100"', () => {
+    describe('with an uri of "http://data.europeana.eu/concept/base/100"', () => {
       const uri = 'http://data.europeana.eu/concept/base/100';
       it('returns true', () => {
         const ret = isEntityUri(uri);
-        ret.should.eq(true);
+        expect(ret).toBe(true);
       });
     });
 
-    context('with an uri of "http://data.europeana.eu/place/base/100"', () => {
+    describe('with an uri of "http://data.europeana.eu/place/base/100"', () => {
       const uri = 'http://data.europeana.eu/place/base/100';
       it('returns true', () => {
         const ret = isEntityUri(uri);
-        ret.should.eq(true);
+        expect(ret).toBe(true);
       });
     });
 
-    context('with an uri of "http://data.europeana.eu/organization/999"', () => {
+    describe('with an uri of "http://data.europeana.eu/organization/999"', () => {
       const uri = 'http://data.europeana.eu/organization/999';
       it('returns true', () => {
         const ret = isEntityUri(uri);
-        ret.should.eq(true);
+        expect(ret).toBe(true);
       });
     });
 
-    context('with an uri of "http://example.org/not-an-entity"', () => {
+    describe('with an uri of "http://example.org/not-an-entity"', () => {
       const uri = 'http://example.org/not-an-entity';
       it('returns true', () => {
         const ret = isEntityUri(uri);
-        ret.should.eq(false);
+        expect(ret).toBe(false);
       });
     });
   });
 
   describe('entityParamsFromUri', () => {
-    context('with an agent uri of "http://data.europeana.eu/agent/base/100"', () => {
+    describe('with an agent uri of "http://data.europeana.eu/agent/base/100"', () => {
       const uri = 'http://data.europeana.eu/agent/base/100';
       it('returns the id and type', () => {
         const params = entityParamsFromUri(uri);
-        params.id.should.eq('100');
-        params.type.should.eq('person');
+        expect(params.id).toBe('100');
+        expect(params.type).toBe('person');
       });
     });
 
-    context('with a timespan uri of "http://data.europeana.eu/timespan/20"', () => {
+    describe('with a timespan uri of "http://data.europeana.eu/timespan/20"', () => {
       const uri = 'http://data.europeana.eu/timespan/20';
       it('returns the id and type', () => {
         const params = entityParamsFromUri(uri);
-        params.id.should.eq('20');
-        params.type.should.eq('time');
+        expect(params.id).toBe('20');
+        expect(params.type).toBe('time');
       });
     });
 
-    context('with an organisation uri of "http://data.europeana.eu/organization/999"', () => {
+    describe('with an organisation uri of "http://data.europeana.eu/organization/999"', () => {
       const uri = 'http://data.europeana.eu/organization/999';
       it('returns the id and type', () => {
         const params = entityParamsFromUri(uri);
-        params.id.should.eq('999');
-        params.type.should.eq('organisation');
+        expect(params.id).toBe('999');
+        expect(params.type).toBe('organisation');
       });
     });
   });
 
   describe('getEntityQuery', () => {
-    context('when entity is a concept', () => {
+    describe('when entity is a concept', () => {
       const uri = 'http://data.europeana.eu/concept/base/12345';
       it('queries on skos_concept', () => {
-        getEntityQuery(uri).should.eq(`skos_concept:"${uri}"`);
+        expect(getEntityQuery(uri)).toBe(`skos_concept:"${uri}"`);
       });
     });
 
-    context('when entity is an agent', () => {
+    describe('when entity is an agent', () => {
       const uri = 'http://data.europeana.eu/agent/base/12345';
       it('queries on edm_agent', () => {
-        getEntityQuery(uri).should.eq(`edm_agent:"${uri}"`);
+        expect(getEntityQuery(uri)).toBe(`edm_agent:"${uri}"`);
       });
     });
 
-    context('when entity is a timespan', () => {
+    describe('when entity is a timespan', () => {
       const uri = 'http://data.europeana.eu/timespan/20';
       it('queries on edm_timespan', () => {
-        getEntityQuery(uri).should.eq(`edm_timespan:"${uri}"`);
+        expect(getEntityQuery(uri)).toBe(`edm_timespan:"${uri}"`);
       });
     });
 
-    context('when entity is an organization', () => {
+    describe('when entity is an organization', () => {
       const uri = 'http://data.europeana.eu/organization/12345';
       it('queries on foaf_organization', () => {
-        getEntityQuery(uri).should.eq(`foaf_organization:"${uri}"`);
+        expect(getEntityQuery(uri)).toBe(`foaf_organization:"${uri}"`);
       });
     });
 
-    context('otherwise', () => {
+    describe('otherwise', () => {
       const uri = 'http://data.europeana.eu/place/base/12345';
       it('throws an error', () => {
-        (() => getEntityQuery(uri) === null).should.throw(`Unsupported entity URI "${uri}"`);
+        expect(() => getEntityQuery(uri) === null).toThrow(`Unsupported entity URI "${uri}"`);
       });
     });
   });
@@ -387,7 +373,7 @@ describe('plugins/europeana/entity', () => {
 
     it('constructs URL slug from numeric ID and prefLabel.en', () => {
       const slug = getEntitySlug(entity.id, entity.prefLabel.en);
-      return slug.should.eq('147831-architecture');
+      expect(slug).toBe('147831-architecture');
     });
   });
 
@@ -396,19 +382,19 @@ describe('plugins/europeana/entity', () => {
 
     it('returns an wikimedia thumbnail url starting with https://upload.wikimedia.org', () => {
       const thumbnail = getWikimediaThumbnailUrl(logo, 60);
-      return thumbnail.should.contain('https://upload.wikimedia.org');
+      expect(thumbnail).toContain('https://upload.wikimedia.org');
     });
   });
 
   describe('search()', () => {
-    beforeEach('stub API response', () => {
+    beforeEach(() => {
       nock(BASE_URL)
         .get('/search')
         .query(true)
         .reply(200, conceptEntitiesResponse);
     });
 
-    context('with a Concept entity', () => {
+    describe('with a Concept entity', () => {
       const eParams = {
         query: '*:*',
         page: 1,
@@ -419,17 +405,17 @@ describe('plugins/europeana/entity', () => {
 
       it('returns a list of concept entities', async() => {
         const response = await api().search(eParams, 'topic');
-        response.entities.length.should.eq(conceptEntitiesResponse.items.length);
+        expect(response.entities.length).toBe(conceptEntitiesResponse.items.length);
       });
 
       it('returns the total number of entities', async() => {
         const response = await api().search(eParams, 'topic');
-        response.total.should.eq(conceptEntitiesResponse.partOf.total);
+        expect(response.total).toBe(conceptEntitiesResponse.partOf.total);
       });
 
       it('returns a thumbnail for each entity', async() => {
         const response = await api().search(eParams, 'topic');
-        response.entities[0].isShownBy.thumbnail.should.eq(conceptEntitiesResponse.items[0].isShownBy.thumbnail);
+        expect(response.entities[0].isShownBy.thumbnail).toBe(conceptEntitiesResponse.items[0].isShownBy.thumbnail);
       });
     });
   });

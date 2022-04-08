@@ -75,3 +75,26 @@
     }
   };
 </script>
+
+<docs lang="md">
+  Variant "default":
+  ```jsx
+  <InfoCard
+    url="https://www.europeana.eu/en/search?query=&qf=TYPE%3A%22IMAGE%22"
+    info="29,734,524"
+    label="image"
+    image="ic-image"
+  />
+  ```
+
+  Variant "dark":
+  ```jsx
+  <InfoCard
+    url="https://www.europeana.eu/en/search?query=&qf=TYPE%3A%22IMAGE%22"
+    info="29,734,524"
+    label="image"
+    image="ic-image"
+    variant="dark"
+  />
+  ```
+</docs>

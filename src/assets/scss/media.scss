@@ -1,4 +1,9 @@
 .swiper {
+  .swiper-button-prev,
+  .swiper-button-next {
+    margin-top: 0;
+  }
+
   iframe {
     &.iiif-iframe {
       width: 100%;
@@ -8,6 +13,7 @@
       box-shadow: $boxshadow-small;
     }
   }
+
   .media-player-wrapper {
     position: relative;
     height: 100%;
@@ -45,10 +51,12 @@
 
     .sketchfab-embed-wrapper {
       width: 100%;
+
       iframe {
         width: 100%;
         max-height: $swiper-height-max;
         height: $swiper-height;
+
         @media (max-width: $bp-medium) {
           height: 22.5rem;
         }
@@ -81,7 +89,7 @@
       }
     }
   }
-  
+
   .container {
     text-align: center;
   }

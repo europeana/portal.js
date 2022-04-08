@@ -3,6 +3,12 @@
     data-qa="exhibition chapter"
     class="text-page figure-attribution"
   >
+    <ContentWarningModal
+      v-if="exhibitionContentWarning"
+      :title="exhibitionContentWarning.name"
+      :description="exhibitionContentWarning.description"
+      :page-slug="`exhibition/${exhibitionIdentifier}`"
+    />
     <AuthoredHead
       :title="page.name"
       :exhibition-title="exhibitionTitle"
@@ -70,17 +76,24 @@
   import exhibitionChapters from '../../../mixins/exhibitionChapters';
 
   export default {
+    name: 'ExhibitionChapterPage',
+
     components: {
       BrowseSections,
       ClientOnly,
       ShareButton,
       SocialShareModal,
       AuthoredHead: () => import('../../../components/authored/AuthoredHead'),
-      LinkList: () => import('../../../components/generic/LinkList')
+      LinkList: () => import('../../../components/generic/LinkList'),
+      ContentWarningModal: () => import('@/components/generic/ContentWarningModal')
     },
     mixins: [
       exhibitionChapters
     ],
+    beforeRouteLeave(to, from, next) {
+      this.$store.commit('breadcrumb/clearBreadcrumb');
+      next();
+    },
     asyncData({ params, query, error, app, store }) {
       const variables = {
         identifier: params.exhibition,
@@ -128,12 +141,31 @@
             credits: exhibition.credits,
             exhibitionIdentifier: params.exhibition,
             exhibitionTitle: exhibition.name,
+            exhibitionContentWarning: exhibition.contentWarning,
             page: chapter
           };
         })
         .catch((e) => {
           error({ statusCode: 500, message: e.toString() });
         });
+    },
+    head() {
+      return {
+        title: this.$pageHeadTitle(this.page.name),
+        meta: [
+          { hid: 'title', name: 'title', content: this.page.name },
+          { hid: 'og:title', property: 'og:title', content: this.page.name },
+          { hid: 'og:type', property: 'og:type', content: 'article' }
+        ]
+          .concat(this.heroImage ? [
+            { hid: 'og:image', property: 'og:image', content: this.optimisedImageUrl },
+            { hid: 'og:image:alt', property: 'og:image:alt', content: this.heroImage.description || '' }
+          ] : [])
+          .concat(this.page.description ? [
+            { hid: 'description', name: 'description', content: this.page.description },
+            { hid: 'og:description', property: 'og:description', content: this.page.description }
+          ] : [])
+      };
     },
     computed: {
       chapterNavigation() {
@@ -169,28 +201,6 @@
           }
         });
       }
-    },
-    beforeRouteLeave(to, from, next) {
-      this.$store.commit('breadcrumb/clearBreadcrumb');
-      next();
-    },
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.page.name),
-        meta: [
-          { hid: 'title', name: 'title', content: this.page.name },
-          { hid: 'og:title', property: 'og:title', content: this.page.name },
-          { hid: 'og:type', property: 'og:type', content: 'article' }
-        ]
-          .concat(this.heroImage ? [
-            { hid: 'og:image', property: 'og:image', content: this.optimisedImageUrl },
-            { hid: 'og:image:alt', property: 'og:image:alt', content: this.heroImage.description || '' }
-          ] : [])
-          .concat(this.page.description ? [
-            { hid: 'description', name: 'description', content: this.page.description },
-            { hid: 'og:description', property: 'og:description', content: this.page.description }
-          ] : [])
-      };
     }
   };
 </script>

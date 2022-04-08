@@ -52,10 +52,7 @@
               tag="span"
               class="pr-1"
             >
-              <span><!-- This comment removes white space
-              -->{{ metadataLanguageLabel }}<!-- This comment removes white space which gets underlined
-              -->
-              </span>
+              <span>{{ metadataLanguageLabel }}</span>
             </i18n>
           </b-link>
         </b-col>
@@ -106,14 +103,16 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
+  @import '@/assets/scss/variables';
 
-  .icon-translate:before {
+  .icon-translate::before {
     font-size: 1.4375rem;
   }
+
   .multilingual-selector {
     vertical-align: baseline;
   }
+
   .multilingual-dropdown-item {
     font-size: $font-size-small;
   }

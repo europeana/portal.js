@@ -5,9 +5,9 @@
     class="mt-3"
     @submit.stop.prevent="submitForm"
   >
-    <label for="shareEmbed">{{ $t('record.copyEmbedLabel') }}</label>
+    <label for="share-embed">{{ $t('record.copyEmbedLabel') }}</label>
     <b-form-textarea
-      id="shareEmbed"
+      id="share-embed"
       ref="shareEmbed"
       v-model="embedHtml"
       readonly
@@ -20,7 +20,7 @@
       class="copy-to-clipboard-success"
       data-qa="share embed copied notice"
     >
-      <span class="icon-check_circle d-inline-flex pr-1" />
+      <span class="icon-check-circle d-inline-flex pr-1" />
       {{ $t('messages.copyToClipboardSuccess') }}
     </span>
   </b-form>
@@ -40,6 +40,13 @@
       }
     },
 
+    data() {
+      return {
+        embedCopied: false,
+        embedHtml: null
+      };
+    },
+
     // TODO: write to the store the response to prevent rerequesting same on
     //       subsequent instantiations?
     async fetch() {
@@ -49,13 +56,6 @@
       if (response.data.html) {
         this.embedHtml = response.data.html;
       }
-    },
-
-    data() {
-      return {
-        embedCopied: false,
-        embedHtml: null
-      };
     },
 
     methods: {
@@ -69,18 +69,20 @@
 </script>
 
 <style lang="scss">
-  @import '@/assets/scss/variables.scss';
+  @import '@/assets/scss/variables';
 
-  #shareEmbed {
+  #share-embed {
     cursor: pointer;
     height: 3.5rem;
     padding: 0.312rem 0.625rem;
     resize: none;
   }
+
   .copy-to-clipboard-success {
     display: none;
     vertical-align: middle;
     font-size: $font-size-small;
+
     &.active {
       display: inline-flex;
       align-items: center;

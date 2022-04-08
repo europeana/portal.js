@@ -1,575 +1,98 @@
-import store, { defaultFacetNames } from '@/store/search';
+import store from '@/store/search';
 import sinon from 'sinon';
 
 describe('store/search', () => {
-  before('mock $i18n', () => {
+  beforeAll(() => {
     store.actions.$i18n = { locale: 'es' };
   });
-
-  describe('getters', () => {
-    describe('filters()', () => {
-      context('when collection param is absent', () => {
-        const collection = undefined;
-
-        it('is false', () => {
-          store.getters.hasCollectionSpecificSettings({})(collection).should.be.false;
-        });
-      });
-
-      context('with `null` query qf', () => {
-        it('returns {}', async() => {
-          const state = {
-            apiParams: {},
-            userParams: {
-              qf: null
-            }
-          };
-
-          store.getters.filters(state).should.eql({});
-        });
-      });
-
-      context('with single query qf value', () => {
-        it('returns it in an array on a property named for the facet', async() => {
-          const state = {
-            apiParams: {},
-            userParams: {
-              qf: 'TYPE:"IMAGE"'
-            }
-          };
-
-          store.getters.filters(state).should.deep.eql({ 'TYPE': ['"IMAGE"'] });
-        });
-      });
-
-      context('with multiple query qf values', () => {
-        it('returns them in arrays on properties named for each facet', async() => {
-          const query = { qf: ['TYPE:"IMAGE"', 'TYPE:"VIDEO"', 'REUSABILITY:open'] };
-          const expected = { 'TYPE': ['"IMAGE"', '"VIDEO"'], 'REUSABILITY': ['open'] };
-
-          const state = {
-            apiParams: {},
-            userParams: query
-          };
-
-          store.getters.filters(state).should.deep.eql(expected);
-        });
-      });
-
-      context('with reusability values', () => {
-        it('returns them in an array on REUSABILITY property', async() => {
-          const query = { reusability: 'open,restricted' };
-          const expected = { 'REUSABILITY': ['open', 'restricted'] };
-
-          const state = {
-            apiParams: {},
-            userParams: query
-          };
-
-          store.getters.filters(state).should.deep.eql(expected);
-        });
-      });
-
-      context('with api value', () => {
-        it('returns it as a string on api property', async() => {
-          const query = { api: 'metadata' };
-          const expected = { 'api': 'metadata' };
-
-          const state = {
-            apiParams: query,
-            userParams: {}
-          };
-
-          store.getters.filters(state).should.deep.eql(expected);
-        });
-      });
-
-      context('with query that has two colons', () => {
-        it('returns an array with a string seperated by a colon ', async() => {
-          const query = { qf: 'DATA_PROVIDER:"Galiciana: Biblioteca Digital de Galicia"' };
-          const expected = { 'DATA_PROVIDER': ['"Galiciana: Biblioteca Digital de Galicia"'] };
-
-          const state = {
-            apiParams: {},
-            userParams: query
-          };
-
-          store.getters.filters(state).should.deep.eql(expected);
-        });
-      });
-    });
-
-    describe('queryUpdatesForFacetChanges', () => {
-      const state = {
-        resettableFilters: []
-      };
-      const getters = {};
-
-      context('when facet is REUSABILITY', () => {
-        context('with values selected', () => {
-          const selected = { 'REUSABILITY': ['open', 'permission'] };
-          it('sets `reusability` to values joined with ","', () => {
-            const updates = store.getters.queryUpdatesForFacetChanges(state, getters)(selected);
-            updates.reusability.should.eq('open,permission');
-          });
-        });
-
-        context('with no values selected', () => {
-          it('sets `reusability` to `null`', () => {
-            const updates = store.getters.queryUpdatesForFacetChanges(state, getters)();
-            updates.should.eql({ qf: [], page: 1 });
-          });
-        });
-      });
-
-      context('for default facets from search plugin supporting quotes', () => {
-        it('includes fielded and quoted queries for each value in `qf`', () => {
-          const selected = { 'TYPE': ['"IMAGE"', '"SOUND"'] };
-          const updates = store.getters.queryUpdatesForFacetChanges(state, getters)(selected);
-          updates.qf.should.include('TYPE:"IMAGE"');
-          updates.qf.should.include('TYPE:"SOUND"');
-        });
-      });
-
-      context('for default facets from search plugin not supporting quotes', () => {
-        it('includes fielded but unquoted queries for each value in `qf`', () => {
-          const selected = { 'MIME_TYPE': ['application/pdf'] };
-          const updates = store.getters.queryUpdatesForFacetChanges(state, getters)(selected);
-          updates.qf.should.include('MIME_TYPE:application/pdf');
-        });
-      });
-
-      context('for any other facets', () => {
-        it('includes fielded but unquoted queries for each value in `qf`', () => {
-          const selected = { 'contentTier': ['4'] };
-          const updates = store.getters.queryUpdatesForFacetChanges(state, getters)(selected);
-          updates.qf.should.include('contentTier:4');
-        });
-      });
-
-      context('in a collection having custom filters', () => {
-        const state = {
-          userParams: {
-            qf: ['proxy_dcterms_issued:1900-01-01']
-          },
-          resettableFilters: ['proxy_dcterms_issued']
-        };
-        const getters = {
-          collection: () => 'newspaper'
-        };
-
-        it('applies them', () => {
-          const selected = { api: 'metadata', 'proxy_dcterms_issued': ['1900-01-02'] };
-
-          const updates = store.getters.queryUpdatesForFacetChanges(state, getters)(selected);
-
-          updates.qf.should.include('proxy_dcterms_issued:1900-01-02');
-          updates.api.should.eq('metadata');
-        });
-      });
-
-      context('with collection-specific facets already selected', () => {
-        const state = {
-          resettableFilters: ['collection', 'CREATOR', 'TYPE']
-        };
-        const getters = {
-          filters: {
-            'CREATOR': ['"Missoni (Designer)"'],
-            'TYPE': ['"IMAGE"'],
-            'contentTier': ['*']
-          },
-          collection: 'fashion'
-        };
-
-        context('when collection is changed', () => {
-          const selected = { 'collection': 'art' };
-
-          it('removes collection-specific facet filters', () => {
-            const updates = store.getters.queryUpdatesForFacetChanges(state, getters)(selected);
-
-            updates.qf.should.not.include('CREATOR:"Missoni (Designer)"');
-          });
-
-          it('preserves generic facet filters', () => {
-            const updates = store.getters.queryUpdatesForFacetChanges(state, getters)(selected);
-
-            updates.qf.should.include('TYPE:"IMAGE"');
-          });
-
-          it('removes tier filter', () => {
-            const updates = store.getters.queryUpdatesForFacetChanges(state, getters)(selected);
-
-            updates.qf.should.not.include('contentTier:*');
-          });
-        });
-
-        context('when collection is removed', () => {
-          const selected = { 'collection': null };
-
-          it('removes collection-specific facet filters', () => {
-            const updates = store.getters.queryUpdatesForFacetChanges(state, getters)(selected);
-
-            updates.qf.should.not.include('CREATOR:"Missoni (Designer)"');
-          });
-
-          it('preserves generic facet filters', () => {
-            const updates = store.getters.queryUpdatesForFacetChanges(state, getters)(selected);
-
-            updates.qf.should.include('TYPE:"IMAGE"');
-          });
-        });
-      });
-    });
-
-    describe('hasCollectionSpecificSettings', () => {
-      context('when collection param is absent', () => {
-        const collection = undefined;
-
-        it('is false', () => {
-          store.getters.hasCollectionSpecificSettings({})(collection).should.be.false;
-        });
-      });
-
-      context('when collection param is present', () => {
-        const collection = 'music';
-
-        context('when rootState has collection store for the collection', () => {
-          context('with `enabled` property', () => {
-            context('that is enabled', () => {
-              const rootState = { collections: { [collection]: { enabled: true } } };
-              it('is true', () => {
-                store.getters.hasCollectionSpecificSettings({}, {}, rootState)(collection).should.be.true;
-              });
-            });
-
-            context('that is disabled', () => {
-              const rootState = { collections: { [collection]: { enabled: false } } };
-              it('is false', () => {
-                store.getters.hasCollectionSpecificSettings({}, {}, rootState)(collection).should.be.false;
-              });
-            });
-          });
-
-          context('without `enabled` property', () => {
-            const rootState = { collections: { [collection]: {} } };
-            it('is true', () => {
-              store.getters.hasCollectionSpecificSettings({}, {}, rootState)(collection).should.be.true;
-            });
-          });
-        });
-
-        context('when rootState lacks collection store for the collection', () => {
-          const rootState = { collections: {} };
-          it('is false', () => {
-            store.getters.hasCollectionSpecificSettings({}, {}, rootState)(collection).should.be.false;
-          });
-        });
-      });
-    });
-
-    describe('apiParamsChanged', () => {
-      context('with params added', () => {
-        it('returns their names', () => {
-          const state = {
-            previousApiParams: {
-              query: '*:*'
-            },
-            apiParams: {
-              query: '*:*',
-              qf: ['TYPE:"IMAGE"']
-            }
-          };
-
-          const apiParamsChanged = store.getters.apiParamsChanged(state);
-
-          apiParamsChanged.should.eql(['qf']);
-        });
-      });
-
-      context('with params removed', () => {
-        it('returns their names', () => {
-          const state = {
-            previousApiParams: {
-              query: '*:*',
-              qf: ['TYPE:"IMAGE"']
-            },
-            apiParams: {
-              query: '*:*'
-            }
-          };
-
-          const apiParamsChanged = store.getters.apiParamsChanged(state);
-
-          apiParamsChanged.should.eql(['qf']);
-        });
-      });
-
-      context('without changed params', () => {
-        it('returns their names', () => {
-          const state = {
-            previousApiParams: {
-              query: '*:*',
-              qf: ['TYPE:"IMAGE"']
-            },
-            apiParams: {
-              query: '*:*',
-              qf: ['TYPE:"IMAGE"']
-            }
-          };
-
-          const apiParamsChanged = store.getters.apiParamsChanged(state);
-
-          apiParamsChanged.should.eql([]);
-        });
-      });
-    });
-
-    describe('itemUpdateNeeded', () => {
-      context('without previous API params', () => {
-        const previousApiParams = null;
-
-        it('is `true`', () => {
-          const itemUpdateNeeded = store.getters.itemUpdateNeeded(
-            { previousApiParams }
-          );
-
-          itemUpdateNeeded.should.be.true;
-        });
-      });
-
-      context('with previous API params', () => {
-        const previousApiParams = {
-          query: '*:*'
-        };
-
-        for (const param of ['query', 'qf', 'reusability', 'api', 'page']) {
-          context(`when ${param} param changes`, () => {
-            it('is `true`', () => {
-              const apiParamsChanged = [param];
-
-              const itemUpdateNeeded = store.getters.itemUpdateNeeded(
-                { previousApiParams },
-                { apiParamsChanged }
-              );
-
-              itemUpdateNeeded.should.be.true;
-            });
-          });
-        }
-
-        for (const param of ['view']) {
-          context(`when ${param} param changes`, () => {
-            it('is `false`', () => {
-              const apiParamsChanged = [param];
-
-              const itemUpdateNeeded = store.getters.itemUpdateNeeded(
-                { previousApiParams },
-                { apiParamsChanged }
-              );
-
-              itemUpdateNeeded.should.be.false;
-            });
-          });
-        }
-      });
-    });
-
-    describe('facetUpdateNeeded', () => {
-      context('without previous API params', () => {
-        const previousApiParams = null;
-
-        it('is `true`', () => {
-          const facetUpdateNeeded = store.getters.facetUpdateNeeded(
-            { previousApiParams }
-          );
-
-          facetUpdateNeeded.should.be.true;
-        });
-      });
-
-      context('with previous API params', () => {
-        const previousApiParams = {
-          query: '*:*'
-        };
-
-        for (const param of ['query', 'qf', 'reusability', 'api']) {
-          context(`when ${param} param changes`, () => {
-            it('is `true`', () => {
-              const apiParamsChanged = [param];
-
-              const facetUpdateNeeded = store.getters.facetUpdateNeeded(
-                { previousApiParams },
-                { apiParamsChanged }
-              );
-
-              facetUpdateNeeded.should.be.true;
-            });
-          });
-        }
-
-        for (const param of ['page', 'view']) {
-          context(`when ${param} param changes`, () => {
-            it('is `false`', () => {
-              const apiParamsChanged = [param];
-
-              const facetUpdateNeeded = store.getters.facetUpdateNeeded(
-                { previousApiParams },
-                { apiParamsChanged }
-              );
-
-              facetUpdateNeeded.should.be.false;
-            });
-          });
-        }
-      });
-    });
-
-    describe('searchOptions', () => {
-      describe('.escape', () => {
-        it('is `true` when override params has query and user params does not', () => {
-          const state = {
-            overrideParams: { query: 'crumpet' },
-            userParams: {}
-          };
-
-          const escape = store.getters.searchOptions(state).escape;
-
-          escape.should.be.true;
-        });
-
-        it('is `true` when override params has query and user params query is blank', () => {
-          const state = {
-            overrideParams: { query: 'crumpet' },
-            userParams: { query: '' }
-          };
-
-          const escape = store.getters.searchOptions(state).escape;
-
-          escape.should.be.true;
-        });
-
-        it('is `false` when override params has no query', () => {
-          const state = {
-            overrideParams: {},
-            userParams: {}
-          };
-
-          const escape = store.getters.searchOptions(state).escape;
-
-          escape.should.be.false;
-        });
-      });
-    });
-  });
+  beforeEach(sinon.resetHistory);
 
   describe('actions', () => {
     describe('run', () => {
       it('derives the API params', async() => {
-        const dispatch = sinon.spy();
+        const dispatch = sinon.stub().resolves();
 
         await store.actions.run({ dispatch, getters: {} });
 
-        dispatch.should.have.been.calledWith('deriveApiSettings');
+        expect(dispatch.calledWith('deriveApiSettings')).toBe(true);
       });
 
-      it('queries for items and facets if needed', async() => {
-        const dispatch = sinon.spy();
+      it('queries for items', async() => {
+        const dispatch = sinon.stub().resolves();
 
-        await store.actions.run({ dispatch, getters: { itemUpdateNeeded: true, facetUpdateNeeded: true } });
+        await store.actions.run({ dispatch });
 
-        dispatch.should.have.been.calledWith('queryItems');
-        dispatch.should.have.been.calledWith('queryFacets');
-      });
-
-      it('omits query for items if not needed', async() => {
-        const dispatch = sinon.spy();
-
-        await store.actions.run({ dispatch, getters: { itemUpdateNeeded: false, facetUpdateNeeded: true } });
-
-        dispatch.should.not.have.been.calledWith('queryItems');
-        dispatch.should.been.calledWith('queryFacets');
-      });
-
-      it('omits query for facets if not needed', async() => {
-        const dispatch = sinon.spy();
-
-        await store.actions.run({ dispatch, getters: { itemUpdateNeeded: true, facetUpdateNeeded: false } });
-
-        dispatch.should.have.been.calledWith('queryItems');
-        dispatch.should.not.have.been.calledWith('queryFacets');
+        expect(dispatch.calledWith('queryItems')).toBe(true);
       });
     });
 
     describe('queryItems', () => {
+      const dispatch = sinon.stub().resolves();
+      const commit = sinon.spy();
+      const getters = {};
+      const searchQuery = 'anything';
+      const typeQf = 'TYPE:"IMAGE"';
+      const collectionQf = 'collection:"migration"';
+      const state = { apiParams: { query: searchQuery, qf: [typeQf, collectionQf] } };
+
       it('searches the Record API', async() => {
-        const searchQuery = 'anything';
-        const typeQf = 'TYPE:"IMAGE"';
-        const collectionQf = 'collection:"migration"';
-        const dispatch = sinon.spy();
-        const state = { apiParams: { query: searchQuery, qf: [typeQf, collectionQf] } };
-        const getters = {};
         store.actions.$apis = {
           record: {
             search: sinon.stub().resolves({})
           }
         };
 
-        await store.actions.queryItems({ dispatch, state, getters });
+        await store.actions.queryItems({ dispatch, state, getters, commit });
 
-        store.actions.$apis.record.search.should.have.been.called;
+        expect(store.actions.$apis.record.search.called).toBe(true);
       });
 
-      context('on success', () => {
-        it('dispatches updateForSuccess', async() => {
-          const dispatch = sinon.spy();
-          const state = {};
-          const getters = {};
+      describe('on success', () => {
+        beforeAll(() => {
           store.actions.$apis = {
             record: {
               search: sinon.stub().resolves({})
             }
           };
+        });
 
-          await store.actions.queryItems({ dispatch, state, getters });
+        it('dispatches updateForSuccess', async() => {
+          await store.actions.queryItems({ dispatch, state, getters, commit });
 
-          dispatch.should.have.been.calledWith('updateForSuccess');
+          expect(dispatch.calledWith('updateForSuccess')).toBe(true);
         });
       });
 
-      context('on failure', () => {
-        it('dispatches updateForFailure', async() => {
-          const dispatch = sinon.spy();
-          const state = {};
-          const getters = {};
+      describe('on failure', () => {
+        beforeAll(() => {
           store.actions.$apis = {
             record: {
               search: sinon.stub().rejects({})
             }
           };
+        });
 
-          await store.actions.queryItems({ dispatch, state, getters });
+        it('dispatches updateForFailure', async() => {
+          await store.actions.queryItems({ dispatch, state, getters, commit });
 
-          dispatch.should.have.been.calledWith('updateForFailure');
+          expect(dispatch.calledWith('updateForFailure')).toBe(true);
         });
       });
     });
 
-    describe('applyCollectionSpecificSettings', () => {
-      it('TODO');
-    });
-
     describe('deriveApiSettings', () => {
-      it('combines userParams and overrideParams into apiParams', async() => {
+      const commit = sinon.spy();
+      const dispatch = sinon.stub().resolves();
+      const state = {};
+      const getters = sinon.spy();
+      const rootGetters = sinon.spy();
+
+      it('combines userParams and overrideParams into apiParams', () => {
         const userQuery = 'calais';
         const userQf = 'TYPE:"IMAGE"';
         const overrideQf = 'edm_agent:"http://data.europeana.eu/agent/base/200"';
         const profile = 'minimal';
-        const facet = defaultFacetNames.join(',');
 
-        const commit = sinon.spy();
-        const dispatch = sinon.spy();
-        const getters = sinon.spy();
-        const rootGetters = sinon.spy();
         const state = {
           userParams: {
             query: userQuery,
@@ -580,109 +103,91 @@ describe('store/search', () => {
           }
         };
 
-        await store.actions.deriveApiSettings({ commit, dispatch, state, getters, rootGetters });
+        store.actions.deriveApiSettings({ commit, dispatch, state, getters, rootGetters });
 
-        commit.should.have.been.calledWith('set', [
+        expect(commit.calledWith('set', [
           'apiParams',
           {
             query: userQuery,
             qf: [userQf, overrideQf],
-            profile,
-            facet
+            profile
           }
-        ]);
-      });
-    });
-
-    describe('setResettableFilter', () => {
-      it('commits removeResettableFilter for empty arrays', async() => {
-        const name = 'TYPE';
-        const selected = [];
-        const commit = sinon.spy();
-
-        await store.actions.setResettableFilter({ commit }, { name, selected });
-
-        commit.should.have.been.calledWith('removeResettableFilter', name);
+        ])).toBe(true);
       });
 
-      it('commits removeResettableFilter for falsy values', async() => {
-        const name = 'proxy_dcterms_issued';
-        const selected = false;
-        const commit = sinon.spy();
+      describe('within a theme having fulltext API support', () => {
+        const getters = { theme: { filters: { api: {} } } };
 
-        await store.actions.setResettableFilter({ commit }, { name, selected });
+        describe('metadata/fulltext API selection', () => {
+          it('applies user selection if present', () => {
+            const state = { userParams: { api: 'metadata' } };
+            const getters = { theme: { filters: { api: { default: 'fulltext' } } } };
 
-        commit.should.have.been.calledWith('removeResettableFilter', name);
-      });
+            store.actions.deriveApiSettings({ commit, dispatch, state, getters, rootGetters });
 
-      it('commits addResettableFilter for non-empty arrays', async() => {
-        const name = 'TYPE';
-        const selected = ['IMAGE'];
-        const commit = sinon.spy();
+            expect(
+              commit.calledWith('set', ['apiParams', sinon.match.has('api', 'metadata')])
+            ).toBe(true);
+          });
 
-        await store.actions.setResettableFilter({ commit }, { name, selected });
+          it('falls back to theme-specific default if set', () => {
+            const getters = { theme: { filters: { api: { default: 'metadata' } } } };
 
-        commit.should.have.been.calledWith('addResettableFilter', name);
-      });
+            store.actions.deriveApiSettings({ commit, dispatch, state, getters, rootGetters });
 
-      it('commits addResettableFilter for truthy values', async() => {
-        const name = 'proxy_dcterms_issued';
-        const selected = true;
-        const commit = sinon.spy();
+            expect(
+              commit.calledWith('set', ['apiParams', sinon.match.has('api', 'metadata')])
+            ).toBe(true);
+          });
 
-        await store.actions.setResettableFilter({ commit }, { name, selected });
+          it('falls back to fulltext if no theme-specific default', () => {
+            store.actions.deriveApiSettings({ commit, dispatch, state, getters, rootGetters });
 
-        commit.should.have.been.calledWith('addResettableFilter', name);
-      });
-    });
-  });
+            expect(
+              commit.calledWith('set', ['apiParams', sinon.match.has('api', 'fulltext')])
+            ).toBe(true);
+          });
+        });
 
-  describe('mutations', () => {
-    describe('setFacets()', () => {
-      it('enquotes values for quotable facets', () => {
-        const state = { facets: [] };
-        const unquotedFacets = [
-          {
-            name: 'TYPE',
-            fields: [
-              { label: 'IMAGE' }
-            ]
-          }
-        ];
-        const quotedFacets = [
-          {
-            name: 'TYPE',
-            fields: [
-              { label: '"IMAGE"' }
-            ]
-          }
-        ];
+        describe('and fulltext API is selected', () => {
+          const state = { userParams: { api: 'fulltext' } };
 
-        store.mutations.setFacets(state, unquotedFacets);
-        state.facets.should.eql(quotedFacets);
-      });
+          it('sets profile param to "minimal,hits"', () => {
+            store.actions.deriveApiSettings({ commit, dispatch, state, getters, rootGetters });
 
-      it('escapes Lucene special characters', () => {
-        const state = { facets: [] };
-        const unescapedFacets = [
-          {
-            name: 'DATA_PROVIDER',
-            fields: [
-              { label: 'Nederlands Bakkerijmuseum "Het Warme Land"' }
-            ]
-          }
-        ];
-        const escapedFacets = [
-          {
-            name: 'DATA_PROVIDER',
-            fields: [
-              { label: '"Nederlands Bakkerijmuseum \\"Het Warme Land\\""' }
-            ]
-          }
-        ];
+            expect(
+              commit.calledWith('set', ['apiParams', sinon.match.has('profile', 'minimal,hits')])
+            ).toBe(true);
+          });
 
-        store.mutations.setFacets(state, unescapedFacets);
-        state.facets.should.eql(escapedFacets);
+          it('sets fulltext API URL option', () => {
+            store.actions.deriveApiSettings({ commit, dispatch, state, getters, rootGetters });
+
+            expect(
+              commit.calledWith('set', ['apiOptions', sinon.match.has('url', 'https://newspapers.eanadev.org/api/v2')])
+            ).toBe(true);
+          });
+        });
+
+        describe('and metadata API is selected', () => {
+          const state = { userParams: { api: 'metadata' } };
+
+          it('does not set profile param to "minimal,hits"', () => {
+            store.actions.deriveApiSettings({ commit, dispatch, state, getters, rootGetters });
+
+            expect(
+              commit.calledWith('set', ['apiParams', sinon.match.has('profile', 'minimal,hits')])
+            ).toBe(false);
+          });
+
+          it('does not set fulltext API URL option', () => {
+            store.actions.deriveApiSettings({ commit, dispatch, state, getters, rootGetters });
+
+            expect(
+              commit.calledWith('set', ['apiOptions', sinon.match.has('url', 'https://newspapers.eanadev.org/api/v2')])
+            ).toBe(false);
+          });
+        });
       });
     });
   });

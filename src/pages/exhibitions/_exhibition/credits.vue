@@ -61,12 +61,13 @@
 </template>
 
 <script>
-  import marked from 'marked';
+  import { marked } from 'marked';
   import SocialShareModal from '../../../components/sharing/SocialShareModal.vue';
   import ShareButton from '../../../components/sharing/ShareButton.vue';
   import exhibitionChapters from '../../../mixins/exhibitionChapters';
 
   export default {
+    name: 'ExhibitionCreditsPage',
     components: {
       ShareButton,
       SocialShareModal,
@@ -75,6 +76,10 @@
     mixins: [
       exhibitionChapters
     ],
+    beforeRouteLeave(to, from, next) {
+      this.$store.commit('breadcrumb/clearBreadcrumb');
+      next();
+    },
 
     asyncData({ params, query, error, app, store }) {
       const variables = {
@@ -118,24 +123,6 @@
           error({ statusCode: 500, message: e.toString() });
         });
     },
-    computed: {
-      htmlCredits() {
-        if (this.credits === undefined) {
-          return false;
-        }
-        return marked(this.credits);
-      },
-      title() {
-        return `${this.name} - ${this.$t('exhibitions.credits')}`;
-      },
-      exhibitionTitle() {
-        return this.name;
-      }
-    },
-    beforeRouteLeave(to, from, next) {
-      this.$store.commit('breadcrumb/clearBreadcrumb');
-      next();
-    },
     head() {
       return {
         title: this.$pageHeadTitle(this.title),
@@ -145,6 +132,20 @@
           { hid: 'og:type', property: 'og:type', content: 'article' }
         ]
       };
+    },
+    computed: {
+      htmlCredits() {
+        if (this.credits === undefined) {
+          return false;
+        }
+        return marked.parse(this.credits);
+      },
+      title() {
+        return `${this.name} - ${this.$t('exhibitions.credits')}`;
+      },
+      exhibitionTitle() {
+        return this.name;
+      }
     }
   };
 </script>

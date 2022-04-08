@@ -16,7 +16,11 @@ body {
   }
 }
 
-h1, h2, h3, h4, h5 {
+h1,
+h2,
+h3,
+h4,
+h5 {
   font-weight: 300;
   line-height: 1.375;
   margin-bottom: 1rem;
@@ -30,12 +34,14 @@ h1 {
 
 h2 {
   font-size: 1.875rem;
+
   span {
     font-weight: 600;
   }
 }
 
-h3, h4 {
+h3,
+h4 {
   font-size: 1.25rem;
 }
 
@@ -62,7 +68,8 @@ small {
   }
 }
 
-p, ul {
+p,
+ul {
   margin-bottom: 1rem;
 }
 
@@ -79,14 +86,14 @@ blockquote {
   margin-right: 1rem;
   text-align: center;
 
-  p:before {
+  p::before {
     content: '\201C';
     display: inline-block;
     font-size: 1.75rem;
     padding-right: 0.25rem;
   }
 
-  p:after {
+  p::after {
     content: '\201D';
     display: inline-block;
   }
@@ -139,6 +146,7 @@ figcaption {
 
     .attribution > span {
       margin-left: 0.25rem;
+
       .license {
         font-size: $font-size-small;
         margin-top: -0.1rem;
@@ -187,9 +195,11 @@ a {
 input[type='checkbox']:focus + label {
   outline: auto;
 
-  @media (-webkit-min-device-pixel-ratio:0) {
+  /* stylelint-disable */
+  @media (-webkit-min-device-pixel-ratio: 0) {
     outline: -webkit-focus-ring-color auto 5px;
   }
+  /* stylelint-enable */
 }
 
 main#default {
@@ -197,8 +207,8 @@ main#default {
 }
 
 .organisation-logo {
-  height: 60px;
-  width: 60px;
+  height: 72px;
+  width: 72px;
   border-radius: 50%;
   object-fit: cover;
   display: flex;
@@ -210,4 +220,14 @@ main#default {
   background-position: center;
   background-size: 66.67%;
   background-blend-mode: multiply;
+}
+
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
 }

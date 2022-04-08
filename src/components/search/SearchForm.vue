@@ -11,7 +11,7 @@
       role="combobox"
       :aria-owns="showSearchOptions ? 'search-form-options' : null"
       :aria-expanded="showSearchOptions"
-      class="auto-suggest"
+      class="auto-suggest pr-3"
     >
       <b-form-input
         ref="searchbox"
@@ -30,14 +30,15 @@
       <b-button
         v-show="query"
         data-qa="clear button"
-        class="clear"
-        variant="light"
+        class="button-icon-only icon-clear ml-3 my-3"
+        variant="light-flat"
         :aria-label="$t('header.clearQuery')"
         @click="clearQuery"
       />
+      <FilterToggleButton />
       <SearchQueryOptions
         v-if="showSearchOptions"
-        v-model="searchQueryOptions"
+        :options="searchQueryOptions"
         element-id="search-form-options"
         @select="selectSearchOption"
       />
@@ -47,6 +48,7 @@
 
 <script>
   import SearchQueryOptions from './SearchQueryOptions';
+  import FilterToggleButton from './FilterToggleButton';
   import { mapGetters } from 'vuex';
   import match from 'autosuggest-highlight/match';
   import parse from 'autosuggest-highlight/parse';
@@ -55,7 +57,8 @@
     name: 'SearchForm',
 
     components: {
-      SearchQueryOptions
+      SearchQueryOptions,
+      FilterToggleButton
     },
 
     data() {
@@ -71,7 +74,6 @@
 
     computed: {
       ...mapGetters({
-        queryUpdatesForFacetChanges: 'search/queryUpdatesForFacetChanges',
         view: 'search/activeView'
       }),
 
@@ -142,20 +144,6 @@
 
       routePath() {
         return this.onSearchablePage ? this.$route.path : this.$path({ name: 'search' });
-      },
-
-      removeCollectionLinkTo() {
-        const query = {
-          ...this.queryUpdatesForFacetChanges({ collection: null }),
-          view: this.view,
-          query: this.query || ''
-        };
-        return {
-          path: this.$path({
-            name: 'search'
-          }),
-          query
-        };
       }
     },
 
@@ -313,18 +301,14 @@
             this.$refs.searchbox.$el.focus();
           }
         });
-      },
-
-      async toggleSearchAndRemoveLabel() {
-        await this.$goto(this.removeCollectionLinkTo);
       }
     }
   };
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
-  @import '@/assets/scss/icons.scss';
+  @import '@/assets/scss/variables';
+  @import '@/assets/scss/icons';
 
   .form-inline {
     align-items: flex-start;
@@ -338,9 +322,9 @@
       width: 100%;
 
       .form-control {
-        padding: 0.375rem 3.5rem 0.375rem 3.5rem;
+        padding: 0.375rem 1rem 0.375rem 3.5rem;
         height: 3.4rem;
-        box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.08);
+        box-shadow: none;
         border-radius: 0;
         color: $mediumgrey;
         width: 100%;
@@ -376,7 +360,7 @@
             }
           }
 
-          &:before {
+          &::before {
             left: 1rem;
             top: 1rem;
             position: absolute;
@@ -393,53 +377,12 @@
 
   .input-group {
     width: 100%;
+    flex-wrap: nowrap;
+    height: 3.4rem;
+    box-shadow: 2px 2px 4px 0 rgba(0 0 0 / 8%);
+
     .input-group-prepend {
       display: none;
-    }
-  }
-
-  .btn {
-    align-items: center;
-    background: none;
-    border-radius: 0;
-    border: 0;
-    box-shadow: none;
-    color: $black;
-    display: flex;
-    font-size: 1rem;
-    height: 1.5rem;
-    justify-content: center;
-    padding: 0;
-    width: 1.5rem;
-
-    &:before {
-      @extend .icon-font;
-      display: inline-block;
-      font-size: 1.1rem;
-    }
-
-    &.search:before {
-      content: '\e92b';
-    }
-
-    &.btn-primary {
-      text-transform: none;
-
-      &:hover {
-        background: $blue;
-        color: $white;
-      }
-    }
-
-    &.clear {
-      position: absolute;
-      right: 1rem;
-      top: 1rem;
-      z-index: 99;
-
-      &:before {
-        content: '\e904';
-      }
     }
   }
 </style>

@@ -20,33 +20,33 @@ describe('components/generic/InfoCard', () => {
   it('shows a card', () => {
     const wrapper = factory();
 
-    wrapper.findAll('[data-qa="info card"]').length.should.eq(1);
+    expect(wrapper.findAll('[data-qa="info card"]').length).toBe(1);
   });
   it('shows a smartlink for the url', async() => {
     const wrapper = factory();
 
-    wrapper.findAll('smartlink-stub').length.should.eq(1);
+    expect(wrapper.findAll('smartlink-stub').length).toBe(1);
   });
   it('shows an icon based of the passed in image', async() => {
     const wrapper = factory();
 
-    wrapper.findAll('.card-img span.ic-image').length.should.eq(1);
+    expect(wrapper.findAll('.card-img span.ic-image').length).toBe(1);
   });
   it('contains the info', async() => {
     const wrapper = factory();
 
-    wrapper.find('[data-qa="card info"]').text().should.eq('12,000,000');
+    expect(wrapper.find('[data-qa="card info"]').text()).toBe('12,000,000');
   });
   it('contains the label', async() => {
     const wrapper = factory();
 
-    wrapper.find('b-card-text-stub').text().should.eq('IMAGE');
+    expect(wrapper.find('b-card-text-stub').text()).toBe('IMAGE');
   });
   describe('cardClass', () => {
     it('is based on the variant', async() => {
       const wrapper = factory();
 
-      wrapper.vm.cardClass.should.eq('default-card');
+      expect(wrapper.vm.cardClass).toBe('default-card');
     });
   });
 });

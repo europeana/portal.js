@@ -48,34 +48,34 @@ const factory = (propsData = {}) => mount(ItemLanguageSelector, {
 });
 
 describe('components/item/ItemLanguageSelector', () => {
-  context('when no translations are applied', () => {
+  describe('when no translations are applied', () => {
     it('suggests to translate the item metadata to other languages', () => {
       const wrapper = factory();
 
       const suggestion = wrapper.find('[data-qa="translate item suggestion"]');
-      suggestion.text().should.contain('Would you like to see this item in');
+      expect(suggestion.text()).toContain('Would you like to see this item in');
 
-      wrapper.findAll('[data-qa="remove item translation button"]').exists().should.be.false;
+      expect(wrapper.findAll('[data-qa="remove item translation button"]').exists()).toBe(false);
     });
   });
-  context('when tanslations are requested to a language other than the UI language', () => {
+  describe('when tanslations are requested to a language other than the UI language', () => {
     it('suggests to translate the item metadata to other languages and offers to remove translations', () => {
       const wrapper = factory({ metadataLanguage: 'de' });
 
       const suggestion = wrapper.find('[data-qa="translate item suggestion"]');
       const removeButton = wrapper.find('[data-qa="remove item translation button"]');
-      suggestion.text().should.contain('Would you like to see this item in');
-      removeButton.text().should.eq('Stop translating this item to Deutsch.');
+      expect(suggestion.text()).toContain('Would you like to see this item in');
+      expect(removeButton.text()).toBe('Stop translating this item to Deutsch.');
     });
   });
-  context('when tanslations are requested to the UI language', () => {
+  describe('when tanslations are requested to the UI language', () => {
     it('suggests to translate the item metadata to other languages and offers to remove translations', () => {
       const wrapper = factory({ metadataLanguage: 'en'  });
 
       const suggestion = wrapper.find('[data-qa="translate item suggestion"]');
       const removeButton = wrapper.find('[data-qa="remove item translation button"]');
-      suggestion.text().should.contain('Would you like to see this item in');
-      removeButton.text().should.eq('Stop translating this item to English.');
+      expect(suggestion.text()).toContain('Would you like to see this item in');
+      expect(removeButton.text()).toBe('Stop translating this item to English.');
     });
   });
 
@@ -83,19 +83,19 @@ describe('components/item/ItemLanguageSelector', () => {
     it('adds the lang query with the provided language code', () => {
       const wrapper = factory();
       const newParams = wrapper.vm.translateParams('de');
-      newParams.query.lang.should.eq('de');
+      expect(newParams.query.lang).toBe('de');
     });
   });
 
-  context('when the recuested translation failed', () => {
+  describe('when the recuested translation failed', () => {
     it('shows an error message', () => {
       const wrapper = factory({ fromTranslationError: true });
 
       const suggestion = wrapper.find('[data-qa="translate item error"]');
-      suggestion.text().should.contain('Translation service is temporarily unavailable. Please try again later.');
+      expect(suggestion.text()).toContain('Translation service is temporarily unavailable. Please try again later.');
 
-      wrapper.findAll('[data-qa="translate item suggestion"]').exists().should.be.false;
-      wrapper.findAll('[data-qa="remove item translation button"]').exists().should.be.false;
+      expect(wrapper.findAll('[data-qa="translate item suggestion"]').exists()).toBe(false);
+      expect(wrapper.findAll('[data-qa="remove item translation button"]').exists()).toBe(false);
     });
   });
 });

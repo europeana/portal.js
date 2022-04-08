@@ -47,13 +47,6 @@ const entityResponse = {
 
 const factory = () => shallowMountNuxt(page, {
   localVue,
-  data() {
-    return {
-      contentfulExtensionSdk: null,
-      entry: null,
-      message: null
-    };
-  },
   mocks: {
     $t: key => key,
     $pageHeadTitle: key => key,
@@ -79,21 +72,8 @@ const responseError = {
 const entityFields = ['identifier', 'slug', 'type', 'name', 'description', 'image'];
 
 describe('pages/contentful/entity-harvester/index', () => {
-  before('supply fake contentful extension', () => {
+  beforeAll(() => {
     window.contentfulExtension = fakeContentfulExtension(entityFields);
-  });
-
-  describe('mounting', () => {
-    it('sets entry with all expected fields from the SDK', async() => {
-      const wrapper = factory();
-      const extensionSdk = wrapper.vm.contentfulExtensionSdk;
-      extensionSdk.should.exist;
-      const entry = wrapper.vm.entry;
-
-      entityFields.forEach(field => {
-        Object.keys(entry.fields).should.contain(field);
-      });
-    });
   });
 
   describe('methods', () => {
@@ -101,7 +81,7 @@ describe('pages/contentful/entity-harvester/index', () => {
     const id = '20';
 
     describe('harvestEntity', () => {
-      context('when the entity can be retrieved', () => {
+      describe('when the entity can be retrieved', () => {
         it('calls populateFields for the entity', async() => {
           const wrapper = factory();
           sinon.replaceGetter(wrapper.vm.$apis.entity, 'get', () => {
@@ -111,11 +91,12 @@ describe('pages/contentful/entity-harvester/index', () => {
           wrapper.vm.populateFields = sinon.spy();
 
           await wrapper.vm.harvestEntity();
-          wrapper.vm.populateFields.should.have.been.called;
-          wrapper.vm.message.should.eq('Success');
+          expect(wrapper.vm.populateFields.called).toBe(true);
+          expect(wrapper.vm.message).toBe('Success');
         });
       });
-      context('when the entity URL can NOT be parsed', () => {
+
+      describe('when the entity URL can NOT be parsed', () => {
         it('shows an error for the URL', async() => {
           const wrapper = factory();
           sinon.replace(wrapper.vm, 'getUrlFromUser', sinon.fake.returns('https://example.org/failure'));
@@ -123,11 +104,12 @@ describe('pages/contentful/entity-harvester/index', () => {
           wrapper.vm.populateFields = sinon.spy();
 
           await wrapper.vm.harvestEntity();
-          wrapper.vm.showError.should.have.been.calledWith('Unable to parse URL: https://example.org/failure Please make sure the URL conforms to the accepted formats.');
-          wrapper.vm.populateFields.should.not.have.been.called;
+          expect(wrapper.vm.showError.calledWith('Unable to parse URL: https://example.org/failure Please make sure the URL conforms to the accepted formats.')).toBe(true);
+          expect(wrapper.vm.populateFields.called).toBe(false);
         });
       });
-      context('when the entity can NOT be retrieved', () => {
+
+      describe('when the entity can NOT be retrieved', () => {
         it('shows an error for the response', async() => {
           const wrapper = factory();
           sinon.replaceGetter(wrapper.vm.$apis.entity, 'get', () => {
@@ -138,11 +120,12 @@ describe('pages/contentful/entity-harvester/index', () => {
           wrapper.vm.populateFields = sinon.spy();
 
           await wrapper.vm.harvestEntity();
-          wrapper.vm.populateFields.should.not.have.been.called;
-          wrapper.vm.showError.should.have.been.calledWith(`Unable to harvest: http://data.europeana.eu/${type}/base/${id} Please make sure the entity can be accessed on the entity API. ${responseError.response.data.error}`);
+          expect(wrapper.vm.populateFields.called).toBe(false);
+          expect(wrapper.vm.showError.calledWith(`Unable to harvest: http://data.europeana.eu/${type}/base/${id} Please make sure the entity can be accessed on the entity API. ${responseError.response.data.error}`)).toBe(true);
         });
       });
-      context('when the entry fields can NOT be set', () => {
+
+      describe('when the entry fields can NOT be set', () => {
         it('shows an error', async() => {
           const wrapper = factory();
           sinon.replaceGetter(wrapper.vm.$apis.entity, 'get', () => {
@@ -155,7 +138,7 @@ describe('pages/contentful/entity-harvester/index', () => {
           wrapper.vm.showError = sinon.spy();
 
           await wrapper.vm.harvestEntity();
-          wrapper.vm.showError.should.have.been.calledWith('There was a problem updating the entry. Contentful error');
+          expect(wrapper.vm.showError.calledWith('There was a problem updating the entry. Contentful error')).toBe(true);
         });
       });
     }),
@@ -164,37 +147,37 @@ describe('pages/contentful/entity-harvester/index', () => {
       it('uses the contentfulExtension to get a URL', async() => {
         const wrapper = factory();
         await wrapper.vm.getUrlFromUser();
-        wrapper.vm.contentfulExtensionSdk.dialogs.openPrompt.should.have.been.called;
+        expect(wrapper.vm.contentfulExtensionSdk.dialogs.openPrompt.called).toBe(true);
       });
-    }),
+    });
 
     describe('entityParamsFromUrl', () => {
-      context('when the url is a europeana data URI', () => {
+      describe('when the url is a europeana data URI', () => {
         it('returns the params split from the URI', () => {
           const wrapper = factory();
 
-          wrapper.vm.entityParamsFromUrl(`http://data.europeana.eu/${type}/base/${id}`).should.eql({ type: 'person', id });
+          expect(wrapper.vm.entityParamsFromUrl(`http://data.europeana.eu/${type}/base/${id}`)).toEqual({ type: 'person', id });
         });
       });
 
-      context('when the url is a europeana api URL', () => {
+      describe('when the url is a europeana api URL', () => {
         it('returns the params split from the URI', () => {
           const wrapper = factory();
 
-          wrapper.vm.entityParamsFromUrl(`https://api.europeana.eu/entity/${type}/base/${id}`).should.eql({ type: 'person', id });
+          expect(wrapper.vm.entityParamsFromUrl(`https://api.europeana.eu/entity/${type}/base/${id}`)).toEqual({ type: 'person', id });
         });
       });
 
-      context('when the url is a europeana portal collection page url', () => {
+      describe('when the url is a europeana portal collection page url', () => {
         it('returns the params split from the URI', () => {
           // type: 'agent' is person
           const wrapper = factory();
 
-          wrapper.vm.entityParamsFromUrl(`https://www.europeana.eu/collections/person/${id}-giovnanni-francesco-straparola`).should.eql({ type: 'person', id });
+          expect(wrapper.vm.entityParamsFromUrl(`https://www.europeana.eu/collections/person/${id}-giovnanni-francesco-straparola`)).toEqual({ type: 'person', id });
         });
       });
 
-      context('when the url is not a recognized format', () => {
+      describe('when the url is not a recognized format', () => {
         it('shows an error', () => {
           const wrapper = factory();
           let error;
@@ -203,17 +186,8 @@ describe('pages/contentful/entity-harvester/index', () => {
           } catch (e) {
             error = e;
           }
-          error.name.should.eq('Error');
+          expect(error.name).toBe('Error');
         });
-      });
-    });
-
-    describe('showError', () => {
-      it('uses a contentful dialog and sets the message to failed', () => {
-        const wrapper = factory();
-        wrapper.vm.showError('this is the message');
-        wrapper.vm.contentfulExtensionSdk.dialogs.openAlert.should.have.been.calledWith({ title: 'Error', message: 'this is the message' });
-        wrapper.vm.message.should.eq('Failed');
       });
     });
 
@@ -236,95 +210,101 @@ describe('pages/contentful/entity-harvester/index', () => {
       it('sets the field identifier', () => {
         const wrapper = factory();
         wrapper.vm.populateFields(response, id);
-        wrapper.vm.entry.fields.identifier.setValue.should.have.been.calledWith(response.id);
+        expect(wrapper.vm.entry.fields.identifier.setValue.calledWith(response.id)).toBe(true);
       });
 
-      context('when entry has a slug', () => {
+      describe('when entry has a slug', () => {
         it('sets the entity Slug from the response', () => {
           const wrapper = factory();
           wrapper.vm.populateFields(response, id);
-          wrapper.vm.entry.fields.slug.setValue.should.have.been.calledWith('20-giovnanni-francesco-straparola');
+          expect(wrapper.vm.entry.fields.slug.setValue.calledWith('20-giovnanni-francesco-straparola')).toBe(true);
         });
       });
 
-      context('when entry has a type', () => {
+      describe('when entry has a type', () => {
         it('sets the human readable entity type from the response', () => {
           const wrapper = factory();
           wrapper.vm.populateFields(response, id);
-          wrapper.vm.entry.fields.type.setValue.should.have.been.calledWith('person');
+          expect(wrapper.vm.entry.fields.type.setValue.calledWith('person')).toBe(true);
         });
       });
 
-      context('when entry has a name field', () => {
+      describe('when entry has a name field', () => {
         it('sets the entity name from the response', () => {
           const wrapper = factory();
           wrapper.vm.populateFields(response, id);
-          wrapper.vm.entry.fields.name.setValue.should.have.been.calledWith('Giovnanni Francesco Straparola');
+          expect(wrapper.vm.entry.fields.name.setValue.calledWith('Giovnanni Francesco Straparola')).toBe(true);
         });
       });
-      context('when entry has a description field', () => {
+
+      describe('when entry has a description field', () => {
         it('sets the entity description from the response', () => {
           const wrapper = factory();
           wrapper.vm.populateFields(response, id);
-          wrapper.vm.entry.fields.description.setValue.should.have.been.calledWith('Desc');
+          expect(wrapper.vm.entry.fields.description.setValue.calledWith('Desc')).toBe(true);
         });
       });
-      context('when entry has an image field', () => {
+
+      describe('when entry has an image field', () => {
         it('sets the image from the response isShownBy thumbnail', () => {
           const wrapper = factory();
           wrapper.vm.populateFields(response, id);
-          wrapper.vm.entry.fields.image.setValue.should.have.been.calledWith('thumbnailUrl');
+          expect(wrapper.vm.entry.fields.image.setValue.calledWith('thumbnailUrl')).toBe(true);
         });
       });
     });
 
     describe('entityDescriptionFromResponse', () => {
-      context('when entry is an Agent type entity', () => {
+      describe('when entry is an Agent type entity', () => {
         const response = {
           type: 'Agent',
           biographicalInformation: { en: 'Bio' }
         };
         it('returns the description from the biographicalInformation', () => {
           const wrapper = factory();
-          wrapper.vm.entityDescriptionFromResponse(response).should.eq('Bio');
+          expect(wrapper.vm.entityDescriptionFromResponse(response)).toBe('Bio');
         });
       });
-      context('when entry is a Concept type entity', () => {
+
+      describe('when entry is a Concept type entity', () => {
         const response = {
           type: 'Concept',
           note: { en: 'Note' }
         };
         it('returns the description from the note field', () => {
           const wrapper = factory();
-          wrapper.vm.entityDescriptionFromResponse(response).should.eq('Note');
+          expect(wrapper.vm.entityDescriptionFromResponse(response)).toBe('Note');
         });
       });
-      context('when entry is an Organization type entity', () => {
+
+      describe('when entry is an Organization type entity', () => {
         const response = {
           type: 'Organization',
           description: { en: 'Desc' }
         };
         it('returns the description from the descriptoin field', () => {
           const wrapper = factory();
-          wrapper.vm.entityDescriptionFromResponse(response).should.eq('Desc');
+          expect(wrapper.vm.entityDescriptionFromResponse(response)).toBe('Desc');
         });
       });
-      context('when entry is a Timespan type entity', () => {
+
+      describe('when entry is a Timespan type entity', () => {
         const response = {
           type: 'Timespan'
         };
         it('returns an empty string', () => {
           const wrapper = factory();
-          wrapper.vm.entityDescriptionFromResponse(response).should.eq('');
+          expect(wrapper.vm.entityDescriptionFromResponse(response)).toBe('');
         });
       });
-      context('when entry is a Place type entity', () => {
+
+      describe('when entry is a Place type entity', () => {
         const response = {
           type: 'Place'
         };
         it('returns an empty string', () => {
           const wrapper = factory();
-          wrapper.vm.entityDescriptionFromResponse(response).should.eq('');
+          expect(wrapper.vm.entityDescriptionFromResponse(response)).toBe('');
         });
       });
     });
@@ -334,7 +314,7 @@ describe('pages/contentful/entity-harvester/index', () => {
     it('sets the title to: Entity harvester - Contentful app', () => {
       const wrapper = factory();
 
-      wrapper.vm.head().title.should.eq('Entity harvester - Contentful app');
+      expect(wrapper.vm.head().title).toBe('Entity harvester - Contentful app');
     });
   });
 });

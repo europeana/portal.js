@@ -30,14 +30,18 @@ export default {
     "accept": "Accepteren",
     "cancel": "Annuleren",
     "close": "sluiten",
+    "continue": "doorgaan",
     "download": "Download",
     "edit": "Bewerken",
     "feedback": "Feedback",
     "goBack": "Ga terug",
+    "goHome": "Ga naar de homepage",
+    "learnMore": "Leer meer",
     "like": "Liken",
     "next": "Volgende",
+    "pin": "Pin",
     "providedBy": "Aangeboden door {provider}",
-    "reject": "afwijzen",
+    "reject": "Afwijzen",
     "send": "Verzenden",
     "share": "Delen",
     "shareOn": "Delen op {social}",
@@ -54,6 +58,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Recente items",
+    "organisation": "Organisaties",
     "time": "Aanbevolen eeuwen",
     "topic": "Aanbevolen onderwerpen"
   },
@@ -71,6 +76,7 @@ export default {
   "cardLabels": {
     "organisation": "Organisatie",
     "person": "Persoon",
+    "theme": "Thema",
     "time": "Eeuw",
     "topic": "Onderwerp"
   },
@@ -83,16 +89,24 @@ export default {
     "fashion": {
       "facets": {
         "CREATOR": {
-          "name": "Ontwerper | Ontwerpers"
+          "moreName": "Ontwerpers",
+          "name": "Ontwerper | Ontwerpers",
+          "select": "Selecteer ontwerpers"
         },
         "proxy_dc_format": {
-          "name": "Techniek | Technieken"
+          "moreName": "technieken",
+          "name": "Techniek | Technieken",
+          "select": "Selecteer technieken"
         },
         "proxy_dc_type": {
-          "name": "Itemtype | Itemtypes"
+          "moreName": "item types",
+          "name": "Itemtype | Itemtypes",
+          "select": "Selecteer item types"
         },
         "proxy_dcterms_medium": {
-          "name": "Materiaal | Materialen"
+          "moreName": "materialen",
+          "name": "Materiaal | Materialen",
+          "select": "Selecteer materialen"
         }
       }
     },
@@ -158,9 +172,7 @@ export default {
         "title": "Te veel vastgezette items"
       },
       "pinned": "Het item is vastgezet. Het staat nu bovenaan de eerste pagina van deze collectie. Het kan tot 24 uur duren om voor iedereen te verschijnen.",
-      "pinnedFirstPage": "Het item is vastgezet. Het kan tot 24 uur duren om voor iedereen te verschijnen.",
-      "unpinned": "Het item is losgemaakt. Het staat niet meer bovenaan de eerste pagina van deze collectie. Het kan tot 24 uur duren om voor iedereen te verdwijnen.",
-      "unpinnedFirstPage": "Het item is losgemaakt. Het kan tot 24 uur duren om voor iedereen te verdwijnen."
+      "unpinned": "Het item is losgemaakt. Het staat niet meer bovenaan de eerste pagina van deze collectie. Het kan tot 24 uur duren om voor iedereen te verdwijnen."
     },
     "prompts": {
       "pin": "Weet u zeker dat u dit item wilt vastzetten? Dit item wordt boven aan de verzameling {entiteit} weergegeven. Het kan tot 24 uur duren voordat deze wijziging van kracht wordt.",
@@ -177,6 +189,7 @@ export default {
   },
   "facets": {
     "COLOURPALETTE": {
+      "moreName": "kleuren",
       "name": "Kleur | Kleuren",
       "options": {
         "#000000": "Zwart",
@@ -323,23 +336,78 @@ export default {
         "#FFFFE0": "Licht geel",
         "#FFFFF0": "ivoor",
         "#FFFFFF": "Wit"
-      }
+      },
+      "select": "Selecteer kleuren"
     },
     "COUNTRY": {
-      "name": "Land van levering"
+      "name": "Land van levering",
+      "options": {
+        "Albania": "Albanië",
+        "Austria": "Oostenrijk",
+        "Belarus": "Belarus",
+        "Belgium": "België",
+        "Bosnia and Herzegovina": "Bosnië-Herzegovina",
+        "Bulgaria": "Bulgarije",
+        "Croatia": "Kroatië",
+        "Cyprus": "Cyprus",
+        "Czech Republic": "Tsjechische Republiek",
+        "Denmark": "Denemarken",
+        "Estonia": "Estland",
+        "Europe": "Europa",
+        "Finland": "Finland",
+        "France": "Frankrijk",
+        "Georgia": "Georgië",
+        "Germany": "Duitsland",
+        "Greece": "Griekenland",
+        "Holy See (Vatican City State)": "Heilige Stoel (Vaticaanstad)",
+        "Hungary": "Hongarije",
+        "Iceland": "IJsland",
+        "Ireland": "Ierland",
+        "Israel": "Israël",
+        "Italy": "Italië",
+        "Latvia": "Letland",
+        "Lithuania": "Litouwen",
+        "Luxembourg": "Luxemburg",
+        "Macedonia": "Macedonië",
+        "Malta": "Malta",
+        "Moldova": "Moldavië",
+        "Montenegro": "Montenegro",
+        "Netherlands": "Nederland",
+        "Norway": "Noorwegen",
+        "Poland": "Polen",
+        "Portugal": "Portugal",
+        "Romania": "Roemenië",
+        "Russia": "Rusland",
+        "Serbia": "Servië",
+        "Slovakia": "Slowakije",
+        "Slovenia": "Slovenië",
+        "Spain": "Spanje",
+        "Sweden": "Zweden",
+        "Switzerland": "Zwitserland",
+        "Turkey": "Turkije",
+        "Ukraine": "Oekraïne",
+        "United Kingdom": "Verenigd Koninkrijk",
+        "United States of America": "Verenigde Staten van Amerika"
+      },
+      "select": "Selecteer leverende landen"
     },
     "CREATOR": {
-      "name": "Maker | Makers"
+      "moreName": "Makers",
+      "name": "Maker | Makers",
+      "select": "Selecteer makers"
     },
     "DATA_PROVIDER": {
-      "name": "Instelling | Instellingen"
+      "moreName": "instellingen",
+      "name": "Instelling | Instellingen",
+      "select": "Selecteer instellingen"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Beeldoriëntatie | Beeldoriëntaties",
       "options": {
         "landscape": "Landschap",
         "portrait": "Portret"
-      }
+      },
+      "select": "Selecteer beeldoriëntaties"
     },
     "IMAGE_SIZE": {
       "name": "Afbeeldingsgrootte | Afbeeldingsgroottes",
@@ -348,19 +416,65 @@ export default {
         "large": "Groot 1-4 MP (bijv. 1920x1080px)",
         "medium": "Gemiddeld 0,5-1MP (bijv. 850x850px)",
         "small": "Klein < 0,5 MP (bijv. 650x600px)"
-      }
+      },
+      "select": "Selecteer afbeeldingsformaten"
     },
     "LANGUAGE": {
-      "name": "Taal | Talen"
+      "name": "Taal | Talen",
+      "options": {
+        "ar": "Arabisch",
+        "bg": "Bulgaars",
+        "bs": "Bosnisch",
+        "ca": "Catalaans",
+        "cs": "Tsjechisch",
+        "cy": "Welsh",
+        "da": "Deens",
+        "de": "Duits",
+        "el": "Grieks",
+        "en": "Engels",
+        "es": "Spaans",
+        "et": "Ests",
+        "fi": "Fins",
+        "fr": "Frans",
+        "ga": "Iers",
+        "gd": "Gaelic",
+        "he": "Hebreeuws",
+        "hr": "Kroatisch",
+        "hu": "Hongaars",
+        "is": "IJslands",
+        "it": "Italiaans",
+        "lt": "Litouws",
+        "lv": "Lets",
+        "mk": "Macedonisch",
+        "mt": "Maltees",
+        "mul": "Meerdere talen",
+        "nl": "Nederlands",
+        "no": "Noors",
+        "pl": "Pools",
+        "pt": "Portugees",
+        "ro": "Roemeens",
+        "ru": "Russisch",
+        "sk": "Slowaaks",
+        "sl": "Sloveens",
+        "sq": "Albanees",
+        "sr": "Servisch",
+        "sv": "Zweeds",
+        "tr": "Turks",
+        "uk": "Oekraïens"
+      },
+      "select": "Selecteer talen"
     },
     "MIME_TYPE": {
       "name": "Bestandsformaat | Bestandsformaten",
       "options": {
         "text/plain": "Platte tekst"
-      }
+      },
+      "select": "Selecteer bestandsformaten"
     },
     "PROVIDER": {
-      "name": "Aggregator | Aggregatoren"
+      "moreName": "aggregators",
+      "name": "Aggregator | Aggregatoren",
+      "select": "Selecteer aggregators"
     },
     "REUSABILITY": {
       "name": "Kan ik dit hergebruiken?",
@@ -369,7 +483,8 @@ export default {
         "permission": "Misschien, vraag toestemming",
         "restricted": "Ja, onder voorwaarden",
         "uncategorized": "Ongecategoriseerd"
-      }
+      },
+      "select": "Selecteer of je dit kunt gebruiken"
     },
     "TYPE": {
       "name": "Soort media",
@@ -379,14 +494,17 @@ export default {
         "SOUND": "Geluid",
         "TEXT": "Tekst",
         "VIDEO": "Video"
-      }
+      },
+      "select": "Selecteer soorten media"
     },
     "api": {
       "name": "Zoeken naar",
       "options": {
         "fulltext": "Records met full-text",
         "metadata": "Alleen records met Metadata"
-      }
+      },
+      "switch": "Zoek alleen in de inhoud van items met full-text",
+      "switchMoreInfo": "In deze collectie kunt u kiezen waarnaar u wilt zoeken: als deze schakelaar aan staat, zoekt u binnen de krant en documenttekst; als het is uitgeschakeld, zoekt u in plaats daarvan binnen de informatie die het item beschrijft, net zoals u altijd doet in de meeste andere collecties."
     },
     "button": {
       "apply": "Toepassen",
@@ -397,7 +515,7 @@ export default {
       "showLess": "Minder weergeven {label}"
     },
     "collection": {
-      "name": "Categorie",
+      "name": "Thema",
       "options": {
         "archaeology": "Archeologie",
         "art": "Kunst",
@@ -412,27 +530,36 @@ export default {
         "photography": "Fotografie",
         "sport": "Sport",
         "ww1": "1914-1918"
-      }
+      },
+      "select": "Selecteer een thema"
     },
     "contentTier": {
-      "name": "Bevat items die niet voldoen aan onze publicatiecriteria",
-      "notification": "Sommige artikelen die niet passen bij onze publicatiecriteria, zijn beschikbaar. U kunt deze artikelen inzien door het filter \"Kwaliteit van artikel\" onder \"Meer filters\" te activeren.",
+      "name": "Item kwaliteit",
       "options": {
         "*": "Bevat items die niet voldoen aan onze publicatiecriteria",
-        "0": "Geef items weer die niet voldoen aan onze publicatiecriteria"
-      }
+        "0": "Geef items weer die niet voldoen aan onze publicatiecriteria",
+        "1": "Lage kwaliteit",
+        "2": "Middelmatige kwaliteit",
+        "3": "Hoge kwaliteit & herbruikbaar onder voorwaarden",
+        "4": "Hoge kwaliteit & vrij herbruikbaar"
+      },
+      "select": "Selecteer item kwaliteit"
     },
+    "moreOptions": "Zoek naar {0} meer {1}.",
     "proxy_dc_format": {
-      "name": "Formaat | Formaten"
+      "name": "Formaat | Formaten",
+      "select": "Selecteer formaten"
     },
     "proxy_dc_type": {
-      "name": "Type | Types"
+      "name": "Type | Types",
+      "select": "Selecteer typen"
     },
     "proxy_dcterms_issued": {
       "name": "Datum van afgifte"
     },
     "proxy_dcterms_medium": {
-      "name": "Medium | Media"
+      "name": "Medium | Media",
+      "select": "Selecteer media"
     }
   },
   "feedback": {
@@ -485,6 +612,7 @@ export default {
       "dctermsProvenance": "Herkomst",
       "dctermsReferences": "Verwijst naar",
       "dctermsSpatial": "Plaatsen",
+      "dctermsTOC": "Inhoudsopgave",
       "dctermsTemporal": "Tijdsperiode",
       "edmCountry": "Land",
       "edmCurrentLocation": "Huidige locatie",
@@ -516,6 +644,8 @@ export default {
       "rdfAbout": "RDF Over"
     }
   },
+  "filter": "Filter",
+  "filterResults": "Resultaten filteren",
   "footer": {
     "customiseWebsiteLanguage": "Pas de taal van de website aan",
     "disclaimerLine1": "Europeana is een initiatief van de Europese Unie, gefinancierd door de Connecting Europe Facility van de Europese Unie en de lidstaten van de Europese Unie. De Europeana-diensten, waaronder deze website, worden beheerd door een consortium onder leiding van de Europeana Foundation in het kader van een servicecontract met de Europese Commissie.",
@@ -539,7 +669,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "...",
-    "labelledValue": "{label}: {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -576,7 +705,6 @@ export default {
     "itemCount": "1 artikel |{count} artikelen",
     "itemOf": "{max} van {count} artikelen",
     "recent": "Recente items",
-    "recommendationsDisclaimer": "Duim omhoog om toe te voegen aan de galerij - Duim omlaag als je het niet leuk vindt",
     "recommended": "Aanbevolen items",
     "youMightLike": "Artikelen die u misschien interessant vindt"
   },
@@ -640,6 +768,10 @@ export default {
         "description": "Verzamelt anonieme statistieken over hoe bezoekers omgaan met de website.",
         "title": "Matomo"
       },
+      "newFeatureNotification": {
+        "description": "Toont een melding wanneer nieuwe functies beschikbaar komen.",
+        "title": "Melding van nieuwe functie"
+      },
       "searchResultsView": {
         "description": "Onthoudt of u de zoekresultaten liever in een lijst- of rasterweergave wilt zien.",
         "title": "Zoekresultaatweergave (lijst/raster)"
@@ -650,25 +782,8 @@ export default {
     "skipToMain": "Ga naar pagina-inhoud"
   },
   "learnMore": "Meer informatie over de bron van deze beschrijving",
-  "linksToClassic": {
-    "home": {
-      "linkText": "Ga naar de originele Europeana.",
-      "text": "U bekijkt de nieuwe Europeana-experience."
-    },
-    "record": {
-      "linkText": "Bekijk dit item in de originele Europeana.",
-      "text": "U bekijkt dit item op de nieuwe Europeana-website."
-    },
-    "search": {
-      "linkText": "Bekijk deze zoekresultaten in de originele Europeana.",
-      "text": "U zoekt op onze nieuwe en snellere website."
-    }
-  },
   "loading": "Bezig met laden",
   "loadingResults": "Resultaten worden geladen",
-  "mediaPreview": {
-    "selectItem": "Selecteer item {src}"
-  },
   "messages": {
     "copyToClipboardSuccess": "Gekopieerd naar klembord",
     "externalContentError": "De externe inhoud kan niet worden geladen",
@@ -686,13 +801,25 @@ export default {
     "automated": "Geautomatiseerde vertaling",
     "enrichment": "Verrijking door partnerprojecten",
     "other": "Andere talen",
-    "stopTranslating": "Stop met het vertalen van dit item naar {0} .",
+    "stopTranslating": "Stop met het vertalen van dit item naar {0}.",
     "translateLanguage": "Wilt u dit item in {0} zien?",
     "translateQuotaError": "De vertaalservice is tijdelijk niet beschikbaar. Probeer het later opnieuw."
+  },
+  "newFeatureNotification": {
+    "dismiss": "Sluiten",
+    "readMore": "Lees verder",
+    "text": {
+      "searchFilters": "U kunt nu zoeken naar waarden in de afzonderlijke filters; bekijk het hier!"
+    }
   },
   "newWindow": "opent in nieuw venster",
   "noMoreResults": "Er zijn geen resultaten meer voor uw zoekopdracht.",
   "noResults": "Geen resultaten",
+  "organisation": {
+    "city": "Stad",
+    "country": "Land",
+    "nameAcronym": "Naam acroniem"
+  },
   "pageHasLoaded": "heeft geladen",
   "pages": {
     "collections": {
@@ -717,11 +844,16 @@ export default {
     }
   },
   "readMore": "Lees verder",
+  "recommendation": {
+    "prompts": {
+      "accept": "Duim omhoog om toe te voegen aan de galerij",
+      "reject": "Duim omlaag als je het niet leuk vindt"
+    }
+  },
   "record": {
     "IIIFViewer": "IIIF-viewer",
     "allMetaData": "Alle metadata",
     "copyEmbedLabel": "Embed code (klik om te kopiëren)",
-    "downloadCopyrightInfo": "Dit item is auteursrechtelijk beschermd en kan niet worden gedownload.",
     "exploreMore": "Meer verkennen",
     "extendedInformation": "Uitgebreide informatie",
     "goodToKnow": "Goed om te weten",
@@ -733,24 +865,21 @@ export default {
     "showAll": "Toon alle informatie",
     "similarItems": "Vergelijkbare items",
     "transcription": "Transcript",
-    "transcriptionDisclaimer": "Deze content is een bijdrage van ons publiek, niet door de instelling die dit artikel heeft verstrekt.",
-    "view": {
-      "image": "Afbeelding weergeven",
-      "media": "Media weergeven",
-      "pdf": "PDF weergeven"
-    }
+    "transcriptionDisclaimer": "Deze content is een bijdrage van ons publiek, niet door de instelling die dit artikel heeft verstrekt."
   },
   "relatedCollections": "Gerelateerde collecties",
   "removeFilter": "Verwijder het filter {filterLabel}",
   "reset": "Opnieuw instellen",
   "resourceWikimedia": "Bron van Wikimedia Commons",
   "results": "Resultaten",
+  "resultsFor": "Resultaten voor {0}",
   "resultsLimitWarning": "Aanvullende resultaten worden niet getoond, aangezien alleen de 1000 meest relevante resultaten worden getoond. Indien u niet hebt gevonden wat u zoekt, overweeg dan om uw zoekopdracht te verfijnen.",
+  "resultsWithin": "Resultaten binnen {0} {1} voor {2}",
   "search": "Zoeken",
+  "searchHasLoaded": "{0} resultaten geretourneerd",
   "searchPlaceholder": "Doorzoek miljoenen Items",
   "searchResults": "Zoeken",
   "searchResultsFor": "{0} - Zoeken",
-  "searchResultsForIn": "{0} - Zoeken in {1}",
   "searchSuggestions": "Zoeksuggesties",
   "searchTier": {
     "button": {
@@ -764,7 +893,8 @@ export default {
   },
   "searchViews": {
     "grid": "Grid-weergave",
-    "list": "Lijstweergave"
+    "list": "Lijstweergave",
+    "mosaic": "Mozaïek weergave"
   },
   "set": {
     "actions": {
@@ -773,6 +903,7 @@ export default {
       "createNew": "Nieuwe galerij aanmaken",
       "delete": "Galerij verwijderen",
       "edit": "Galerij bewerken",
+      "save": "Opslaan",
       "update": "Galerij bijwerken"
     },
     "form": {
@@ -799,5 +930,14 @@ export default {
   },
   "showLess": "Minder weergeven",
   "showMore": "Meer weergeven",
-  "website": "Website"
+  "sideFilters": {
+    "noOptions": "Er zijn geen opties beschikbaar om te selecteren",
+    "search": "Zoeken"
+  },
+  "statuses": {
+    "liked": "Liked",
+    "pinned": "Pinned"
+  },
+  "website": "Website",
+  "youMightAlsoLike": "Misschien vind je dit ook leuk"
 };

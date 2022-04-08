@@ -6,7 +6,7 @@ import { apiError, createAxios, reduceLangMapsForLocale, isLangMap } from './uti
 import search from './search';
 import thumbnail, { thumbnailTypeForMimeType } from  './thumbnail';
 import { getEntityUri, getEntityQuery } from './entity';
-import { isIIIFPresentation } from '../media';
+import { isIIIFPresentation, isIIIFImage } from '../media';
 
 export const BASE_URL = process.env.EUROPEANA_RECORD_API_URL || 'https://api.europeana.eu/record';
 const MAX_VALUES_PER_PROXY_FIELD = 10;
@@ -122,6 +122,11 @@ const localeSpecificFieldValueIsFromEnrichment = (field, aggregatorProxy, provid
 };
 
 const proxyHasEntityForField = (proxy, field, entities) => {
+  if (Array.isArray(proxy?.[field]?.def)) {
+    return proxy?.[field]?.def.some(key => {
+      return entities[key];
+    });
+  }
   return entities[proxy?.[field]?.def];
 };
 
@@ -179,7 +184,7 @@ export default (context = {}) => {
       }
 
       let prefLang;
-      if (context.$config?.app?.features?.translatedItems) {
+      if (context.$features?.translatedItems) {
         prefLang = options.metadataLanguage ? options.metadataLanguage : null;
       }
       const predictedUiLang = prefLang || options.locale;
@@ -192,7 +197,7 @@ export default (context = {}) => {
       for (const field in proxies) {
         if (aggregatorProxy?.[field] && localeSpecificFieldValueIsFromEnrichment(field, aggregatorProxy, providerProxy, predictedUiLang, entities)) {
           proxies[field].translationSource = 'enrichment';
-        } else if (europeanaProxy?.[field]?.[predictedUiLang] && context.$config?.app?.features?.translatedItems) {
+        } else if (europeanaProxy?.[field]?.[predictedUiLang] && context.$features?.translatedItems) {
           proxies[field].translationSource = 'automated';
         }
       }
@@ -201,7 +206,10 @@ export default (context = {}) => {
         ...lookupEntities(
           merge.all([proxies, edm.aggregations[0], edm.europeanaAggregation]), entities
         ),
-        europeanaCollectionName: edm.europeanaCollectionName,
+        europeanaCollectionName: edm.europeanaCollectionName ? {
+          url: { name: 'search', query: { query: `europeana_collectionName:"${edm.europeanaCollectionName[0]}"` } },
+          value: edm.europeanaCollectionName
+        } : null,
         timestampCreated: edm.timestamp_created,
         timestampUpdate: edm.timestamp_update
       };
@@ -280,7 +288,14 @@ export default (context = {}) => {
       //
       // Also greatly minimises response size, and hydration cost, for IIIF with
       // many web resources, all of which are contained in a single manifest anyway.
-      const displayable = isIIIFPresentation(media[0]) ? [media[0]] : media;
+      let displayable;
+      if (isIIIFPresentation(media[0])) {
+        displayable = [media[0]];
+      } else if (media.some(isIIIFImage)) {
+        displayable = [media.find(isIIIFImage)];
+      } else {
+        displayable = media;
+      }
 
       // Sort by isNextInSequence property if present
       return sortByIsNextInSequence(displayable).map(Object.freeze);
@@ -298,7 +313,7 @@ export default (context = {}) => {
       }
 
       const params = { ...this.$axios.defaults.params };
-      if (context.$config?.app?.features?.translatedItems) {
+      if (context.$features?.translatedItems) {
         if (options.metadataLanguage) {
           params.profile = 'translate';
           params.lang = options.metadataLanguage;

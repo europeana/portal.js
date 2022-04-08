@@ -1,6 +1,7 @@
 .figure-attribution {
   .image-wrapper.container-fluid {
     max-width: 51.25rem;
+
     figure {
       overflow: hidden;
       margin: 0;
@@ -8,16 +9,20 @@
       width: auto;
       height: 100%;
       background: $white;
+
       &.empty {
         min-width: 100%;
         min-height: $jumbotron-height-min;
       }
+
       img {
         width: auto;
         object-fit: contain;
       }
+
       figcaption {
         z-index: 4;
+
         .icon-info {
           position: absolute;
           bottom: 1rem;
@@ -25,16 +30,19 @@
           width: 1.5rem;
           height: 1.5rem;
           transition: $standard-transition;
+
           &:hover {
             opacity: 0.8;
             cursor: pointer;
           }
-          &:before {
+
+          &::before {
             content: '\e91f';
             font-size: 1.5rem;
             text-shadow: $textshadow-light;
           }
         }
+
         cite {
           left: initial;
           right: 0.5rem;
@@ -45,19 +53,23 @@
           font-size: 0.75rem;
           max-width: 75%;
           box-shadow: $boxshadow-small;
+
           p {
             color: $mediumgrey;
-            display: -webkit-box;
+            display: box;
             -webkit-line-clamp: 1;
             -webkit-box-orient: vertical;
             overflow: hidden;
             margin-bottom: 0.25rem;
+
             a {
               text-decoration: none;
             }
           }
+
           .attribution {
             margin-top: 0.5rem;
+
             > span {
               margin-left: 0;
             }
@@ -66,16 +78,18 @@
       }
     }
   }
+
   .jumbotron {
     height: auto;
     background: $white;
-    &:before {
+
+    &::before {
       display: none;
     }
 
     &.hero {
       min-height: initial;
-      
+
       figure {
         height: 0;
         padding-top: 56.25%;
@@ -83,8 +97,9 @@
         width: 100%;
         display: flex;
         justify-content: center;
-        &:before {
-          background: rgba(41, 55, 69, 0.35);
+
+        &::before {
+          background: rgb(41 55 69 / 35%);
           content: '';
           display: block;
           height: 100%;
@@ -92,6 +107,7 @@
           width: 100%;
           z-index: 3;
         }
+
         img {
           position: absolute;
           top: 0;
@@ -109,11 +125,14 @@
       align-items: center;
     }
   }
+
   @media (max-width: $bp-large) {
     .hero-wrapper figcaption cite {
       max-width: 17rem;
+
       .attribution.is-external-link {
         max-width: 12rem;
+
         > span {
           white-space: normal;
         }
@@ -121,4 +140,3 @@
     }
   }
 }
-

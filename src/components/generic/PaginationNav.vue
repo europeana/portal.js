@@ -1,7 +1,7 @@
 <template>
   <b-pagination-nav
     v-if="totalResults > perPage"
-    v-model="currentPage"
+    v-model="page"
     :limit="limit"
     :hide-ellipsis="hideEllipsis"
     :number-of-pages="totalPages"
@@ -18,9 +18,12 @@
   import { BPaginationNav } from 'bootstrap-vue';
 
   export default {
+    name: 'PaginationNav',
+
     components: {
       BPaginationNav
     },
+
     props: {
       perPage: {
         type: Number,
@@ -38,43 +41,32 @@
         type: Number,
         default: 0
       },
-      value: {
-        type: Number,
-        default: 1
-      },
       scrollToId: {
         type: String,
-        default: '__nuxt'
+        default: 'header'
       },
       maxResults: {
         type: Number,
         default: null
       }
     },
-    data() {
-      return {
-        currentPage: this.value
-      };
-    },
+
     computed: {
       totalPages() {
         const atLeastOne = Math.max(this.totalResults, 1);
         return Math.ceil(Math.min(atLeastOne, this.maxResults || atLeastOne) / this.perPage);
+      },
+
+      page() {
+        return Number(this.$route?.query?.page) || 1;
       }
     },
-    watch: {
-      value: {
-        immediate: true,
-        handler(val) {
-          // Without this, using the browser back button will not update the highlighted pagination
-          this.currentPage = val;
-        }
-      }
-    },
+
     methods: {
       changePaginationNav() {
         this.$scrollTo(`#${this.scrollToId}`);
       },
+
       linkGen(page) {
         return {
           ...this.$route,

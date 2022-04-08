@@ -30,12 +30,16 @@ export default {
     "accept": "Onartu",
     "cancel": "Utzi",
     "close": "itxi",
+    "continue": "jarraitu",
     "download": "Deskargatu",
     "edit": "Editatu",
     "feedback": "Iritzia",
     "goBack": "Atzera egin",
+    "goHome": "Joan hasierako orrialdera",
+    "learnMore": "Gehiago ikasi",
     "like": "Atsegin dut",
     "next": "Hurrengoa",
+    "pin": "Pin",
     "providedBy": "{provider} emanda",
     "reject": "Baztertu",
     "send": "Bidali",
@@ -54,6 +58,7 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Azken elementuak",
+    "organisation": "Erakundeak",
     "time": "Mende aipagarriak",
     "topic": "Nabarmendutako gaiak"
   },
@@ -71,6 +76,7 @@ export default {
   "cardLabels": {
     "organisation": "Antolaketa",
     "person": "Pertsona",
+    "theme": "Gaia",
     "time": "Mendea",
     "topic": "Gai"
   },
@@ -83,16 +89,24 @@ export default {
     "fashion": {
       "facets": {
         "CREATOR": {
-          "name": "Diseinatzailea | Diseinatzaileak"
+          "moreName": "diseinatzaileak",
+          "name": "Diseinatzailea | Diseinatzaileak",
+          "select": "Hautatu diseinatzaileak"
         },
         "proxy_dc_format": {
-          "name": "Teknika | Teknikak"
+          "moreName": "teknikak",
+          "name": "Teknika | Teknikak",
+          "select": "Hautatu teknikak"
         },
         "proxy_dc_type": {
-          "name": "Elementu mota | Elementu motak"
+          "moreName": "elementu motak",
+          "name": "Elementu mota | Elementu motak",
+          "select": "Hautatu elementu motak"
         },
         "proxy_dcterms_medium": {
-          "name": "Materiala | Materialak"
+          "moreName": "materialak",
+          "name": "Materiala | Materialak",
+          "select": "Hautatu materialak"
         }
       }
     },
@@ -158,9 +172,7 @@ export default {
         "title": "Ainguratutako elementu gehiegi"
       },
       "pinned": "Elementua ainguratu da. Bilduma honen lehen orrialdearen goialdean dago orain. 24 ordu behar izan ditzake guztientzat agertzeko.",
-      "pinnedFirstPage": "Elementua ainguratu da. 24 ordu behar izan ditzake guztientzat agertzeko.",
-      "unpinned": "Elementua ainguratu egin da. Jada ez dago bilduma honetako lehen orrialdearen goialdean. 24 ordu behar izan ditzake guztientzat desagertzeko.",
-      "unpinnedFirstPage": "Elementua ainguratu egin da. 24 ordu behar izan ditzake guztientzat desagertzeko."
+      "unpinned": "Elementua ainguratu egin da. Jada ez dago bilduma honetako lehen orrialdearen goialdean. 24 ordu behar izan ditzake guztientzat desagertzeko."
     },
     "prompts": {
       "pin": "Ziur zaude elementu hau ainguratu nahi duzula? Elementu hau \" {entity} \" bildumaren goialdean erakutsiko da. Baliteke aldaketa hori 24 ordu behar izatea indarrean jartzeko.",
@@ -177,6 +189,7 @@ export default {
   },
   "facets": {
     "COLOURPALETTE": {
+      "moreName": "koloreak",
       "name": "Kolorea | Koloreak",
       "options": {
         "#000000": "Beltza",
@@ -323,23 +336,78 @@ export default {
         "#FFFFE0": "Hori argia",
         "#FFFFF0": "Boli",
         "#FFFFFF": "Zuria"
-      }
+      },
+      "select": "Hautatu koloreak"
     },
     "COUNTRY": {
-      "name": "Herrialde hornitzailea"
+      "name": "Herrialde hornitzailea",
+      "options": {
+        "Albania": "Albania",
+        "Austria": "Austria",
+        "Belarus": "Bielorrusia",
+        "Belgium": "Belgika",
+        "Bosnia and Herzegovina": "Bosnia eta Herzegovina",
+        "Bulgaria": "Bulgaria",
+        "Croatia": "Kroazia",
+        "Cyprus": "Zipre",
+        "Czech Republic": "Txekiar Errepublika",
+        "Denmark": "Danimarka",
+        "Estonia": "Estonia",
+        "Europe": "Europa",
+        "Finland": "Finlandia",
+        "France": "Frantzia",
+        "Georgia": "Georgia",
+        "Germany": "Alemania",
+        "Greece": "Grezia",
+        "Holy See (Vatican City State)": "Egoitza Santua (Vatikano Hiria)",
+        "Hungary": "Hungaria",
+        "Iceland": "Islandia",
+        "Ireland": "Irlanda",
+        "Israel": "Israel",
+        "Italy": "Italia",
+        "Latvia": "Letonia",
+        "Lithuania": "Lituania",
+        "Luxembourg": "Luxenburgo",
+        "Macedonia": "Mazedonia",
+        "Malta": "Malta",
+        "Moldova": "Moldavia",
+        "Montenegro": "Montenegro",
+        "Netherlands": "Herbehereak",
+        "Norway": "Norvegia",
+        "Poland": "Polonia",
+        "Portugal": "Portugal",
+        "Romania": "Errumania",
+        "Russia": "Errusia",
+        "Serbia": "Serbia",
+        "Slovakia": "Eslovakia",
+        "Slovenia": "Eslovenia",
+        "Spain": "Espainia",
+        "Sweden": "Suedia",
+        "Switzerland": "Suitza",
+        "Turkey": "Turkia",
+        "Ukraine": "Ukraina",
+        "United Kingdom": "Erresuma Batua",
+        "United States of America": "Ameriketako Estatu Batuak"
+      },
+      "select": "Hautatu herrialde hornitzaileak"
     },
     "CREATOR": {
-      "name": "Sortzailea | Sortzaileak"
+      "moreName": "sortzaileak",
+      "name": "Sortzailea | Sortzaileak",
+      "select": "Hautatu agregatzaileak"
     },
     "DATA_PROVIDER": {
-      "name": "Erakundea | Erakundeak"
+      "moreName": "erakundeak",
+      "name": "Erakundea | Erakundeak",
+      "select": "Aukeratu erakundeak"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Irudiaren orientazioa | Irudiaren orientazioak",
       "options": {
         "landscape": "Paisaia",
         "portrait": "Erretratua"
-      }
+      },
+      "select": "Hautatu irudien orientazioak"
     },
     "IMAGE_SIZE": {
       "name": "Irudiaren tamaina | Irudiaren tamainak",
@@ -348,19 +416,65 @@ export default {
         "large": "1-4MP handia (adibidez 1920x1080px)",
         "medium": "0,5-1MP ertaina (adibidez 850x850px)",
         "small": "< 0,5MP txikia (adibidez 650x600px)"
-      }
+      },
+      "select": "Hautatu irudien tamainak"
     },
     "LANGUAGE": {
-      "name": "Hizkuntza | Hizkuntzak"
+      "name": "Hizkuntza | Hizkuntzak",
+      "options": {
+        "ar": "Arabiera",
+        "bg": "Bulgariera",
+        "bs": "Bosniarra",
+        "ca": "Katalana",
+        "cs": "Txekiar",
+        "cy": "Galesera",
+        "da": "Daniera",
+        "de": "Alemana",
+        "el": "Grekoa",
+        "en": "Ingelesa",
+        "es": "Gaztelania",
+        "et": "Estoniarra",
+        "fi": "Finlandiera",
+        "fr": "Frantsesa",
+        "ga": "Irlandarra",
+        "gd": "Gaelikoa",
+        "he": "Hebreera",
+        "hr": "Kroaziera",
+        "hu": "Hungariera",
+        "is": "Islandiera",
+        "it": "Italiera",
+        "lt": "Lituaniera",
+        "lv": "Letoniera",
+        "mk": "Mazedoniera",
+        "mt": "Maltera",
+        "mul": "Hainbat hizkuntza",
+        "nl": "Holandarra",
+        "no": "Norvegiarra",
+        "pl": "Poloniarra",
+        "pt": "Portugesa",
+        "ro": "Errumaniera",
+        "ru": "Errusiera",
+        "sk": "Eslovakiera",
+        "sl": "Esloveniera",
+        "sq": "Albaniarra",
+        "sr": "Serbiarra",
+        "sv": "Suediera",
+        "tr": "Turkiera",
+        "uk": "Ukrainara"
+      },
+      "select": "Hautatu hizkuntzak"
     },
     "MIME_TYPE": {
       "name": "Fitxategiaren formatua | Fitxategien formatuak",
       "options": {
         "text/plain": "Testu arrunta"
-      }
+      },
+      "select": "Hautatu fitxategi formatuak"
     },
     "PROVIDER": {
-      "name": "Agregatzailea | Agregatzaileak"
+      "moreName": "agregatzaileak",
+      "name": "Agregatzailea | Agregatzaileak",
+      "select": "Hautatu agregatzaileak"
     },
     "REUSABILITY": {
       "name": "Hau erabili dezaket?",
@@ -369,7 +483,8 @@ export default {
         "permission": "Agian, baimena beharrezkoa",
         "restricted": "Bai, baldintzekin",
         "uncategorized": "Sailkatu gabe"
-      }
+      },
+      "select": "Hautatu hau erabil dezakezun ala ez"
     },
     "TYPE": {
       "name": "Euskarri mota",
@@ -379,14 +494,17 @@ export default {
         "SOUND": "Soinua",
         "TEXT": "Testua",
         "VIDEO": "Bideoa"
-      }
+      },
+      "select": "Hautatu euskarri motak"
     },
     "api": {
       "name": "Bilatu",
       "options": {
         "fulltext": "Testu osoko elementuak",
         "metadata": "Metadatuak soilik diren elementuak"
-      }
+      },
+      "switch": "Bilatu testu osoa duten elementuen edukian soilik",
+      "switchMoreInfo": "Bilduma honetan, zer bilatu nahi duzun aukeratu dezakezu: etengailu hau aktibatuta badago, egunkariaren eta dokumentuaren testuaren barruan bilatuko duzu; desaktibatuta badago, elementua deskribatzen duen informazioaren barruan bilatuko duzu, beste bilduma gehienetan beti egiten duzun bezala."
     },
     "button": {
       "apply": "Aplikatu",
@@ -397,7 +515,7 @@ export default {
       "showLess": "Erakutsi gutxiago {label}"
     },
     "collection": {
-      "name": "Bilduma",
+      "name": "Gaia",
       "options": {
         "archaeology": "Arkeologia",
         "art": "Artea",
@@ -412,27 +530,36 @@ export default {
         "photography": "Argazkilaritza",
         "sport": "Kirola",
         "ww1": "1914-1918"
-      }
+      },
+      "select": "Hautatu gai bat"
     },
     "contentTier": {
       "name": "Elementuaren kalitatea",
-      "notification": "Gure argitalpen irizpideekin bat ez datozen zenbait elementu eskuragarri daude. Elementu horietara sar zaitezke \"Elementuen kalitatea\" iragazkia aktibatuta, \"Iragazki gehiago\" aukeraren azpian.",
       "options": {
         "*": "Gure argitalpen irizpideak betetzen ez dituzten elementuak barne hartzen ditu",
-        "0": "Erakutsi soilik gure argitalpen irizpideak betetzen ez dituzten elementuak"
-      }
+        "0": "Erakutsi soilik gure argitalpen irizpideak betetzen ez dituzten elementuak",
+        "1": "Kalitate baxua",
+        "2": "Kalitate ertaina",
+        "3": "Kalitate handiko eta baldintzarekin berrerabilgarria",
+        "4": "Kalitate handikoa eta libreki berrerabil daitekeena"
+      },
+      "select": "Hautatu elementuen kalitateak"
     },
+    "moreOptions": "Bilatu {0} gehiago {1} aurkitzeko.",
     "proxy_dc_format": {
-      "name": "Formatua | Formatuak"
+      "name": "Formatua | Formatuak",
+      "select": "Hautatu  formatuak"
     },
     "proxy_dc_type": {
-      "name": "Mota | Motak"
+      "name": "Mota | Motak",
+      "select": "Hautatu motak"
     },
     "proxy_dcterms_issued": {
       "name": "Igortze data"
     },
     "proxy_dcterms_medium": {
-      "name": "Komunikabidea | Komunikabideak"
+      "name": "Komunikabidea | Komunikabideak",
+      "select": "Hautatu euskarria"
     }
   },
   "feedback": {
@@ -485,6 +612,7 @@ export default {
       "dctermsProvenance": "Jatorria",
       "dctermsReferences": "erreferentzia egiten du",
       "dctermsSpatial": "Lekuak",
+      "dctermsTOC": "Edukien taula",
       "dctermsTemporal": "Aldi baterako",
       "edmCountry": "Herrialde hornitzailea",
       "edmCurrentLocation": "Egungo kokapena",
@@ -516,6 +644,8 @@ export default {
       "rdfAbout": "RDF"
     }
   },
+  "filter": "Iragazkia",
+  "filterResults": "Iragazi emaitzak",
   "footer": {
     "customiseWebsiteLanguage": "Pertsonalizatu webgunearen hizkuntza",
     "disclaimerLine1": "Europeana Europar Batasunaren ekimena da, Europar Batasuneko Connecting Europe Facility eta Europar Batasuneko estatu kideek finantzatua. Europeana zerbitzuak, webgune hau barne, Europeana Fundazioak zuzentzen duen partzuergo batek kudeatzen ditu Europako Batzordearekiko zerbitzu kontratu baten pean.",
@@ -539,7 +669,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label} : {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -576,7 +705,6 @@ export default {
     "itemCount": "Elementu 1 | {count} elementu",
     "itemOf": "{max}/{count} elementu",
     "recent": "Azken elementuak",
-    "recommendationsDisclaimer": "Erpurua gora galerian gehitzeko - Erpurua behera gustatzen ez bazaizu",
     "recommended": "Gomendatutako elementuak",
     "youMightLike": "Gustatu ahal zaizkizun elementuak"
   },
@@ -640,6 +768,10 @@ export default {
         "description": "Bisitariek webgunearekin duten harremanari buruzko estatistika anonimoak biltzen ditu.",
         "title": "Matomo"
       },
+      "newFeatureNotification": {
+        "description": "Jakinarazpen bat erakusten du funtzio berriak erabilgarri daudenean.",
+        "title": "Ezaugarri berrien jakinarazpena"
+      },
       "searchResultsView": {
         "description": "Gogoratzen duzu bilaketa-emaitzak zerrenda edo sareta ikuspegian ikustea nahiago baduzu.",
         "title": "Bilaketaren emaitzen ikuspegia (zerrenda / sareta)"
@@ -650,25 +782,8 @@ export default {
     "skipToMain": "Orrialdearen edukietara joan"
   },
   "learnMore": "Deskribapen honen iturria ezagutu",
-  "linksToClassic": {
-    "home": {
-      "linkText": "Jatorrizko Europeanara joan.",
-      "text": "Europeana esperientzia berria ikusten ari zara."
-    },
-    "record": {
-      "linkText": "Ikusi elementu hau jatorrizko Europeanan.",
-      "text": "Elementu hau Europeanaren webgune berrian ikusten ari zara."
-    },
-    "search": {
-      "linkText": "Ikusi bilaketa-emaitza hauek jatorrizko Europeanan.",
-      "text": "Gure webgune berri eta azkarragoan bilatzen ari zara."
-    }
-  },
   "loading": "Kargatzen",
   "loadingResults": "Emaitzak kargatzen",
-  "mediaPreview": {
-    "selectItem": "Aukeratu elementua {src}"
-  },
   "messages": {
     "copyToClipboardSuccess": "Arbelera kopiatu da",
     "externalContentError": "Ezin izan da kanpoko edukia kargatu",
@@ -686,13 +801,25 @@ export default {
     "automated": "Itzulpen automatizatua",
     "enrichment": "Bazkide proiektuen aberastea",
     "other": "Beste hizkuntza batzuk",
-    "stopTranslating": "Utzi elementu hau itzultzeari {0} .",
+    "stopTranslating": "Utzi elementu hau itzultzeari {0}.",
     "translateLanguage": "{0} -n ikusi nahi duzu?",
     "translateQuotaError": "Itzulpen zerbitzua ez dago aldi baterako erabilgarri. Saiatu berriro geroago."
+  },
+  "newFeatureNotification": {
+    "dismiss": "Itxi",
+    "readMore": "Gehiago irakurri",
+    "text": {
+      "searchFilters": "Orain balioak bila ditzakezu iragazki indibidualetan; begiratu ezazu!"
+    }
   },
   "newWindow": "leiho berrian irekiko da",
   "noMoreResults": "Ez dago emaitza gehiagorik zure bilaketarako.",
   "noResults": "Emaitzarik ez",
+  "organisation": {
+    "city": "Hiria",
+    "country": "Herrialdea",
+    "nameAcronym": "Izenaren akronimoa"
+  },
   "pageHasLoaded": "kargatu du",
   "pages": {
     "collections": {
@@ -717,11 +844,16 @@ export default {
     }
   },
   "readMore": "Gehiago irakurri",
+  "recommendation": {
+    "prompts": {
+      "accept": "Erpurua gora galerian gehitzeko",
+      "reject": "Erpurua behera gustatzen ez bazaizu"
+    }
+  },
   "record": {
     "IIIFViewer": "IIIF ikuslea",
     "allMetaData": "Metadatu guztiak",
     "copyEmbedLabel": "Embed kodea (Egin klik kopiatzeko)",
-    "downloadCopyrightInfo": "Elementu horrek copyright dauka eta ezin da deskargatu.",
     "exploreMore": "Gehiago arakatu",
     "extendedInformation": "Informazio zabaldua",
     "goodToKnow": "Ondo dago jakitea",
@@ -733,24 +865,21 @@ export default {
     "showAll": "Informazio guztia erakutsi",
     "similarItems": "Antzeko elementuak",
     "transcription": "Transkripzioa",
-    "transcriptionDisclaimer": "Eduki hori jendeak egin du, eta ez elementu hau eman duen erakundeak",
-    "view": {
-      "image": "Irudia ikusi",
-      "media": "Materialak ikusi",
-      "pdf": "PDFa ikusi"
-    }
+    "transcriptionDisclaimer": "Eduki hori jendeak egin du, eta ez elementu hau eman duen erakundeak"
   },
   "relatedCollections": "Lotutako bildumak",
   "removeFilter": "Kendu {filterLabel} iragazkia",
   "reset": "Berrezarri",
   "resourceWikimedia": "Wikimedia Commons-eko baliabidea",
   "results": "Emaitzak",
+  "resultsFor": "{0} emaitzak",
   "resultsLimitWarning": "Emaitza osagarriak ez dira erakusten, izan ere, bakarrik erakusten dira lehenengo 1000 emaitza garrantzitsuenak. BIlatzen duzuna aurkitu ez baduzu, bilaketa zehatzagoa egin.",
+  "resultsWithin": "{0} {1} barruko emaitzak {2}",
   "search": "Bilatu",
+  "searchHasLoaded": "{0} emaitza itzuli dira",
   "searchPlaceholder": "Milioika elementu bilatu",
   "searchResults": "Bilatu",
   "searchResultsFor": "{0} - Bilatu",
-  "searchResultsForIn": "{0} - Hemen bilatu {1}",
   "searchSuggestions": "Iradokizunak bilatu",
   "searchTier": {
     "button": {
@@ -764,7 +893,8 @@ export default {
   },
   "searchViews": {
     "grid": "Lauki-sare ikuspegia",
-    "list": "Zerrenda ikuspegia"
+    "list": "Zerrenda ikuspegia",
+    "mosaic": "Mosaiko ikuspegia"
   },
   "set": {
     "actions": {
@@ -773,6 +903,7 @@ export default {
       "createNew": "Bilduma berria sortu",
       "delete": "Bilduma ezabatu",
       "edit": "Bilduma editatu",
+      "save": "Gorde",
       "update": "Bilduma eguneratu"
     },
     "form": {
@@ -799,5 +930,14 @@ export default {
   },
   "showLess": "Gutxiago erakutsi",
   "showMore": "Gehiago erakutsi",
-  "website": "Webgunea"
+  "sideFilters": {
+    "noOptions": "Ez dago aukerarik aukeratzeko",
+    "search": "Bilatu"
+  },
+  "statuses": {
+    "liked": "Gustatu",
+    "pinned": "Ainguratuta"
+  },
+  "website": "Webgunea",
+  "youMightAlsoLike": "Baliteke ere gustatzea"
 };

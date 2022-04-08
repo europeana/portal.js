@@ -7,7 +7,7 @@ Feature: Entity page
     And I don't have an `entity description`
     And I see `total results`
     And I see a `search list view toggle`
-    And I see a `search facet`
+    And I see the `side filters`
     And I should see 24 `item preview`s
     And I see a `pagination navigation`
     And I don't have a `contentTier facet`

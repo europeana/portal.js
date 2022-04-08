@@ -22,62 +22,60 @@
       </SmartLink>
     </li>
     <!-- sso links -->
-    <template>
-      <template v-if="isAuthenticated">
-        <li
-          v-if="!sidebarNav"
-          class="nav-item d-none d-lg-inline-block"
-        >
-          <SmartLink
-            v-b-toggle.menu
-            :destination="'/account'"
-            link-class="nav-link"
-            exact
-          >
-            <span class="label">
-              {{ $t('account.myProfile') }}
-            </span>
-          </SmartLink>
-        </li>
-        <li
-          v-for="item in authLinks"
-          :key="item.url"
-          class="nav-item d-block"
-          :class="sidebarNav ? 'sidebar-nav-item' : 'd-lg-none'"
-        >
-          <b-link
-            v-b-toggle.menu
-            :to="item.to"
-            :href="item.href"
-            :data-qa="item.dataQa"
-            class="nav-link"
-          >
-            <span :class="renderIcon(item.url)" />
-            <span>
-              {{ item.text }}
-            </span>
-          </b-link>
-        </li>
-      </template>
+    <template v-if="isAuthenticated">
       <li
-        v-else
-        class="nav-item"
-        :class="sidebarNav ? 'sidebar-nav-item' : ''"
+        v-if="!sidebarNav"
+        class="nav-item d-none d-lg-inline-block"
+      >
+        <SmartLink
+          v-b-toggle.menu
+          :destination="'/account'"
+          link-class="nav-link"
+          exact
+        >
+          <span class="label">
+            {{ $t('account.myProfile') }}
+          </span>
+        </SmartLink>
+      </li>
+      <li
+        v-for="item in authLinks"
+        :key="item.url"
+        class="nav-item d-block"
+        :class="sidebarNav ? 'sidebar-nav-item' : 'd-lg-none'"
       >
         <b-link
           v-b-toggle.menu
-          data-qa="log in button"
+          :to="item.to"
+          :href="item.href"
+          :data-qa="item.dataQa"
           class="nav-link"
-          :href="$path({ name: 'account-login', query: { redirect: $route.fullPath } })"
-          @click.prevent="keycloakLogin"
         >
-          <span :class="renderIcon('/account/login')" />
+          <span :class="renderIcon(item.url)" />
           <span>
-            {{ $t('account.linkLoginJoin') }}
+            {{ item.text }}
           </span>
         </b-link>
       </li>
     </template>
+    <li
+      v-else
+      class="nav-item"
+      :class="sidebarNav ? 'sidebar-nav-item' : ''"
+    >
+      <b-link
+        v-b-toggle.menu
+        data-qa="log in button"
+        class="nav-link"
+        :href="$path({ name: 'account-login', query: { redirect: $route.fullPath } })"
+        @click.prevent="keycloakLogin"
+      >
+        <span :class="renderIcon('/account/login')" />
+        <span>
+          {{ $t('account.linkLoginJoin') }}
+        </span>
+      </b-link>
+    </li>
   </b-navbar-nav>
 </template>
 
@@ -174,11 +172,12 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
-  @import '@/assets/scss/icons.scss';
+  @import '@/assets/scss/variables';
+  @import '@/assets/scss/icons';
 
   .nav-item {
     margin-right: 1rem;
+
     &:nth-last-child(2) {
       margin-right: 0;
     }
@@ -195,7 +194,7 @@
       }
 
       &.exact-active-link {
-        &:after {
+        &::after {
           content: '';
           position: absolute;
           border-bottom: solid 3px $blue;
@@ -208,8 +207,9 @@
         }
       }
 
-      &.is-external-link:after {
-        @extend .icon-font;
+      &.is-external-link::after {
+        @extend %icon-font;
+
         content: '\e900';
       }
 
@@ -218,44 +218,57 @@
         font-size: 1rem;
         z-index: 1;
         margin-right: 0.75rem;
-        &:before {
-          @extend .icon-font;
+
+        &::before {
+          @extend %icon-font;
+
           content: '';
           color: $black;
           transition: $standard-transition;
           font-size: 1.5rem;
         }
-        &.icon-home:before {
+
+        &.icon-home::before {
           content: '\e922';
         }
-        &.icon-collections:before {
+
+        &.icon-collections::before {
           content: '\e91d';
         }
-        &.icon-school:before {
+
+        &.icon-school::before {
           content: '\e947';
         }
-        &.icon-info:before {
+
+        &.icon-info::before {
           content: '\e91f';
         }
-        &.icon-help:before {
+
+        &.icon-help::before {
           content: '\e921';
         }
-        &.icon-login:before {
+
+        &.icon-login::before {
           content: '\e926';
         }
-        &.icon-logout:before {
+
+        &.icon-logout::before {
           content: '\e927';
         }
-        &.icon-settings:before {
+
+        &.icon-settings::before {
           content: '\e928';
         }
-        &.icon-account:before {
+
+        &.icon-account::before {
           content: '\e932';
         }
-        &.icon-stories:before {
+
+        &.icon-stories::before {
           content: '\e935';
         }
-        &.blank:before {
+
+        &.blank::before {
           color: transparent;
         }
       }
@@ -263,15 +276,19 @@
 
     &.sidebar-nav-item {
       width: 100%;
-      margin: 0 0 0.25rem 0;
+      margin: 0 0 0.25rem;
       position: relative;
       margin-right: 0;
+
       &:nth-last-child(2) {
         margin-right: 0;
       }
-      &:first-of-type, &:last-of-type {
+
+      &:first-of-type,
+      &:last-of-type {
         display: block;
       }
+
       .nav-link {
         text-transform: capitalize;
         font-weight: 400;
@@ -279,16 +296,21 @@
         transition: $standard-transition;
         font-size: $font-size-base;
 
-        &.exact-active-link, &:hover {
+        &.exact-active-link,
+        &:hover {
           color: $white;
           background: $blue;
-          &:before, &:after {
+
+          &::before,
+          &::after {
             display: none;
           }
-          .nav-link-icon:before {
+
+          .nav-link-icon::before {
             color: $white;
           }
         }
+
         span {
           overflow: hidden;
           white-space: nowrap;
@@ -307,9 +329,11 @@
           text-transform: uppercase;
           font-size: $font-size-small;
           font-weight: 600;
+
           span {
             position: relative;
           }
+
           .nav-link-icon {
             display: none;
           }

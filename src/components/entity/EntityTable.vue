@@ -54,16 +54,6 @@
         required: true
       }
     },
-    fetch() {
-      return this.$axios.get(this.apiEndpoint)
-        .then(response => {
-          this.collections = response.data.map(Object.freeze);
-        })
-        .catch((e) => {
-          // TODO: set fetch state error from message
-          console.error({ statusCode: 500, message: e.toString() });
-        });
-    },
     data() {
       return {
         collections: null,
@@ -77,6 +67,17 @@
         ]
       };
     },
+    fetch() {
+      return this.$axios.get(this.apiEndpoint, { baseURL: window.location.origin })
+        .then(response => {
+          this.collections = response.data.map(Object.freeze);
+        })
+        .catch((e) => {
+          // TODO: set fetch state error from message
+          console.error({ statusCode: 500, message: e.toString() });
+        });
+    },
+    fetchOnServer: false,
     computed: {
       apiEndpoint() {
         // For organisations, only get English labels (for now).

@@ -11,6 +11,7 @@
     :variant="cardVariant"
     :omit-all-uris="true"
     :image-optimisation-options="{ width: 510 }"
+    :logo="fields.logo"
   />
 </template>
 
@@ -30,6 +31,10 @@
         default: () => ({})
       },
       cardType: {
+        type: String,
+        default: null
+      },
+      variant: {
         type: String,
         default: null
       }
@@ -122,6 +127,9 @@
         return texts;
       },
       cardVariant() {
+        if (this.variant) {
+          return this.variant;
+        }
         return this.cardType === 'AutomatedEntityCard' ? 'entity' : 'default';
       }
     },

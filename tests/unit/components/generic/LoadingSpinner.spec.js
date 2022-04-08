@@ -8,6 +8,6 @@ describe('components/generic/LoadingSpinner', () => {
     const wrapper = factory();
 
     const spinner =  wrapper.find('[data-qa="loading spinner"]');
-    spinner.attributes().class.should.contain('spinner-border');
+    expect(spinner.attributes().class).toContain('spinner-border');
   });
 });

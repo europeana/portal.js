@@ -1,5 +1,8 @@
 module.exports = {
-  extends: 'stylelint-config-recommended',
+  extends: [
+    'stylelint-config-standard-scss',
+    'stylelint-config-recommended-vue'
+  ],
   rules: {
     'at-rule-no-unknown': null,
     'block-closing-brace-newline-after': 'always',
@@ -19,5 +22,9 @@ module.exports = {
       }
     ],
     'string-quotes': 'single',
+    'value-no-vendor-prefix': [
+      true, 
+      { ignoreValues: ['box'] }
+    ]
   }
 }

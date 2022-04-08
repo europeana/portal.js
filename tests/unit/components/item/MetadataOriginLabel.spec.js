@@ -18,24 +18,24 @@ const factory = () => shallowMount(MetadataOriginLabel, {
 });
 
 describe('components/item/MetadataOriginLabel', () => {
-  context('when the field was translated', async() => {
+  describe('when the field was translated', () => {
     const props = { translationSource: 'automated' };
     const wrapper = factory();
     it('shows a label', async() => {
       await wrapper.setProps(props);
 
       const button = wrapper.find('[data-qa="translation tooltip"]');
-      button.attributes().title.should.eq('multilingual.automated');
+      expect(button.attributes().title).toBe('multilingual.automated');
     });
   });
-  context('when the field was enriched', async() => {
+  describe('when the field was enriched', () => {
     const props = { translationSource: 'enrichment' };
     const wrapper = factory();
     it('shows a label', async() => {
       await wrapper.setProps(props);
 
       const button = wrapper.find('[data-qa="translation tooltip"]');
-      button.attributes().title.should.eq('multilingual.enrichment');
+      expect(button.attributes().title).toBe('multilingual.enrichment');
     });
   });
 });
