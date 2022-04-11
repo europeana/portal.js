@@ -95,7 +95,7 @@
         // should this attempt to use the entities already present in related entities, so as to not need to query for them again?
         return this.$apis.entity.find(this.entities)
           .then(entities => entities.map(entity => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo'])))
-          .then(async (reduced) => {
+          .then(async(reduced) => {
             await this.$store.commit('item/setAllRelatedEntities', reduced);
             const entityIds = reduced.map(entity => entity.id);
             console.log(entityIds);
@@ -110,39 +110,38 @@
         // TODO: reduce cognitive complexity in this method?
         console.log('in fetchFeaturedSetIds');
         console.log(entityIds);
-        const setIds = [];
         const searchParams = {
           query: 'type:EntityBestItemsSet',
           profile: 'itemDescriptions'
         };
         for (const entityId of entityIds) { // maybe, it'd be nicer to "OR" the ids, but doesn't seem supported. So loop here. On the plus side this enables fetching specific sets only by passing a subset of entityIds
-          console.log(entityId)
+          console.log(entityId);
           searchParams.qf = `subject:${entityId}`;
           await this.$apis.set.search(searchParams)
-            .then(async (searchResponse) => {
+            .then(async(searchResponse) => {
               console.log(searchResponse);
               if (searchResponse.data?.total > 0) {
                 console.log(searchResponse.data.items[0].id.split('/').pop());
                 const setId = searchResponse.data.items[0].id.split('/').pop();
                 this.$store.commit('item/addToFeaturedSetIds', {
-                   entityUri: searchResponse.data.items[0].subject[0],
-                   setId: setId
-                 });
-                 if (searchResponse.data.items[0].pinned){
-                   const pinnedItemIds = searchResponse.data.items[0].items.map(item => item.id).slice(0, searchResponse.data.items[0].pinned);  // why slice here?
-                   console.log('pinnedItemIds:');
-                   console.log(pinnedItemIds);
-                   this.$store.commit('item/addToFeaturedSetPins', {
-                     entityUri: entityId,
-                     pins: pinnedItemIds
-                   });
-                 } else {
-                   console.log('setting empty pins');
-                   this.$store.commit('item/addToFeaturedSetPins', {
-                     entityUri: entityId,
-                     pins: []
-                   });
-                 }
+                  entityUri: searchResponse.data.items[0].subject[0],
+                  setId
+                });
+                if (searchResponse.data.items[0].pinned) {
+                  const pinnedItemIds = searchResponse.data.items[0].items.map(item => item.id).slice(0, searchResponse.data.items[0].pinned);  // why slice here?
+                  console.log('pinnedItemIds:');
+                  console.log(pinnedItemIds);
+                  this.$store.commit('item/addToFeaturedSetPins', {
+                    entityUri: entityId,
+                    pins: pinnedItemIds
+                  });
+                } else {
+                  console.log('setting empty pins');
+                  this.$store.commit('item/addToFeaturedSetPins', {
+                    entityUri: entityId,
+                    pins: []
+                  });
+                }
               }
             });
         }
@@ -160,7 +159,6 @@
           };
           return this.$apis.set.create(featuredSetBody)
             .then(response => this.$store.commit('item/addToFeaturedSetIds', { entityUri: this.selected, setId: response.id }));
-
         }
       },
 
@@ -179,8 +177,6 @@
           })
           .catch((e) => {
             console.log(e);
-            console.log(entityUri);
-            console.log(state.id);
             if (e.message === 'too many pins') {
               this.hide();
               this.$bvModal.show(`pinned-limit-modal-${this.itemId}`);

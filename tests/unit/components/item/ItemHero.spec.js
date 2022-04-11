@@ -23,7 +23,7 @@ const factory = (propsData, options = {}) => mount(ItemHero, {
         set: { ...{ liked: [] }, ...{} },
         auth: {
           user: {
-            resource_access: null
+            'resource_access': null
           }
         }
       },
@@ -182,7 +182,7 @@ describe('components/item/ItemHero', () => {
           set: { ...{ liked: [] }, ...{} },
           auth: {
             user: {
-              resource_access: {
+              'resource_access': {
                 entities: {
                   roles: ['editor']
                 },
@@ -204,7 +204,7 @@ describe('components/item/ItemHero', () => {
       });
     });
 
-    describe(' ', () => {
+    describe('when the user is NOT an editor', () => {
       it('shows add and like buttons only', () => {
         const wrapper = factory({ media, identifier });
 

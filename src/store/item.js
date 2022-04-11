@@ -74,7 +74,10 @@ export default {
       if (!entity) {
         return;
       }
-      return entity.isShownBy ? entity.isShownBy : (entity.logo ? entity.logo : null);
+      if (entity.isShownBy) {
+        return entity.isShownBy;
+      }
+      return entity.logo ? entity.logo : null;
     }
   },
 

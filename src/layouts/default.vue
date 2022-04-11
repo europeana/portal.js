@@ -88,11 +88,13 @@
 
     data() {
       return {
+        dateNow: Date.now(),
         linkGroups: {},
         enableAnnouncer: true,
         klaro: null,
         toastBottomOffset: '20px',
-        featureNotification: featureNotifications.find(feature => feature.name === this.$config?.app?.featureNotification)
+        featureNotification: featureNotifications.find(feature => feature.name === this.$config?.app?.featureNotification),
+        featureNotificationExpiration: this.$config.app.featureNotificationExpiration
       };
     },
 
@@ -136,10 +138,9 @@
       },
 
       newFeatureNotificationEnabled() {
-        return !!this.featureNotification && (
-          !this.$cookies.get('new_feature_notification') ||
-          this.$cookies.get('new_feature_notification') !== this.featureNotification.name
-        );
+        return !!this.featureNotification &&
+          (!this.featureNotificationExpiration || (this.dateNow < this.featureNotificationExpiration)) &&
+          (!this.$cookies.get('new_feature_notification') || this.$cookies.get('new_feature_notification') !== this.featureNotification.name);
       }
     },
 

@@ -89,16 +89,24 @@ export default {
     "fashion": {
       "facets": {
         "CREATOR": {
-          "name": "Návrhář | Návrháři"
+          "moreName": "návrháři",
+          "name": "Návrhář | Návrháři",
+          "select": "Vyberte návrháři"
         },
         "proxy_dc_format": {
-          "name": "Technika | Techniky"
+          "moreName": "techniky",
+          "name": "Technika | Techniky",
+          "select": "Vyberte techniky"
         },
         "proxy_dc_type": {
-          "name": "Druh položky | Druhy položek"
+          "moreName": "typy položek",
+          "name": "Druh položky | Druhy položek",
+          "select": "Vyberte typy položek"
         },
         "proxy_dcterms_medium": {
-          "name": "Materiál | Materiály"
+          "moreName": "materiálů",
+          "name": "Materiál | Materiály",
+          "select": "Vyberte materiály"
         }
       }
     },
@@ -164,9 +172,7 @@ export default {
         "title": "Příliš mnoho připnutých položek"
       },
       "pinned": "Položka byla připnutím. Nyní je v horní části první stránky této kolekce. Může trvat až 24 hodin, než se objeví pro všechny.",
-      "pinnedFirstPage": "Položka byla připnuta. Může trvat až 24 hodin, než se zobrazí všem.",
-      "unpinned": "Položka byla odepnuta. Už není v horní části první stránky této sbírky. Zmizení pro všechny může trvat až 24 hodin.",
-      "unpinnedFirstPage": "Položka byla odepnuta. Může trvat až 24 hodin, než zmizí pro všechny."
+      "unpinned": "Položka byla odepnuta. Už není v horní části první stránky této sbírky. Zmizení pro všechny může trvat až 24 hodin."
     },
     "prompts": {
       "pin": "Opravdu chcete tuto položku připnout? Tato položka se zobrazí na začátku kolekce \"{entity}\". Tato změna se může projevit až za 24 hodin.",
@@ -183,6 +189,7 @@ export default {
   },
   "facets": {
     "COLOURPALETTE": {
+      "moreName": "barvy",
       "name": "Barva | Barvy",
       "options": {
         "#000000": "Černá",
@@ -329,7 +336,8 @@ export default {
         "#FFFFE0": "Světle žlutá",
         "#FFFFF0": "Slonová kost",
         "#FFFFFF": "Bílý"
-      }
+      },
+      "select": "Vyberte barvy"
     },
     "COUNTRY": {
       "name": "Země původu",
@@ -380,20 +388,26 @@ export default {
         "Ukraine": "Ukrajina",
         "United Kingdom": "Spojené království",
         "United States of America": "Spojené státy americké"
-      }
+      },
+      "select": "Vyberte poskytující země"
     },
     "CREATOR": {
-      "name": "Tvůrce | Tvůrci"
+      "moreName": "tvůrci",
+      "name": "Tvůrce | Tvůrci",
+      "select": "Vyberte tvůrce"
     },
     "DATA_PROVIDER": {
-      "name": "Instituce"
+      "moreName": "institucí",
+      "name": "Instituce",
+      "select": "Vyberte instituce"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Orientace obrázku | Orientace obrázků",
       "options": {
         "landscape": "Krajina",
         "portrait": "Portrét"
-      }
+      },
+      "select": "Vyberte orientaci obrázku"
     },
     "IMAGE_SIZE": {
       "name": "Velikost obrázku | Velikosti obrázků",
@@ -402,7 +416,8 @@ export default {
         "large": "Velký 1–4 Mpx (např. 1920 x 1080 px)",
         "medium": "Střední 0,5–1 Mpx (např. 850 x 850 px)",
         "small": "Malý < 0,5 Mpx (např. 650 x 650 px)"
-      }
+      },
+      "select": "Vyberte velikosti obrázku"
     },
     "LANGUAGE": {
       "name": "Jazyk",
@@ -446,16 +461,20 @@ export default {
         "sv": "Švédský",
         "tr": "Turecký",
         "uk": "Ukrajinský"
-      }
+      },
+      "select": "Vyberte jazyky"
     },
     "MIME_TYPE": {
       "name": "Formát souboru | Formáty souborů",
       "options": {
         "text/plain": "Prostý text"
-      }
+      },
+      "select": "Vyberte formáty souborů"
     },
     "PROVIDER": {
-      "name": "Agregátor"
+      "moreName": "agregátory",
+      "name": "Agregátor",
+      "select": "Vyberte agregátory"
     },
     "REUSABILITY": {
       "name": "Mohu to znovu použít?",
@@ -464,10 +483,8 @@ export default {
         "permission": "Možná, požádejte o povolení",
         "restricted": "Ano, za určitých podmínek",
         "uncategorized": "Nezařazeno"
-      }
-    },
-    "RIGHTS": {
-      "name": "Prohlášení o právech"
+      },
+      "select": "Vyberte, zda toto můžete použít"
     },
     "TYPE": {
       "name": "Druh média",
@@ -477,7 +494,8 @@ export default {
         "SOUND": "Zvuk",
         "TEXT": "Text",
         "VIDEO": "Video"
-      }
+      },
+      "select": "Vyberte typy médií"
     },
     "api": {
       "name": "Vyhledat",
@@ -512,7 +530,8 @@ export default {
         "photography": "Fotografie",
         "sport": "Sport",
         "ww1": "1914–1918"
-      }
+      },
+      "select": "Vyberte motiv"
     },
     "contentTier": {
       "name": "Kvalita položky",
@@ -523,19 +542,24 @@ export default {
         "2": "Střední kvalita",
         "3": "Vysoká kvalita a opakované použití s podmínkami",
         "4": "Vysoká kvalita a volné opakované použití"
-      }
+      },
+      "select": "Vyberte vlastnosti položky"
     },
+    "moreOptions": "Hledejte, abyste našli {0} více {1}.",
     "proxy_dc_format": {
-      "name": "Formát | Formáty"
+      "name": "Formát | Formáty",
+      "select": "Vyberte formáty"
     },
     "proxy_dc_type": {
-      "name": "Druh | Druhy"
+      "name": "Druh | Druhy",
+      "select": "Vyberte typy"
     },
     "proxy_dcterms_issued": {
       "name": "Datum vydání"
     },
     "proxy_dcterms_medium": {
-      "name": "Médium | Média"
+      "name": "Médium | Média",
+      "select": "Vyberte média"
     }
   },
   "feedback": {
@@ -588,6 +612,7 @@ export default {
       "dctermsProvenance": "Původ",
       "dctermsReferences": "odkazuje na",
       "dctermsSpatial": "Místa",
+      "dctermsTOC": "Obsah",
       "dctermsTemporal": "Časové",
       "edmCountry": "Země původu",
       "edmCurrentLocation": "Aktuální umístění",
@@ -644,7 +669,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label}: {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -785,7 +809,7 @@ export default {
     "dismiss": "Zavřít",
     "readMore": "Přečtěte si více",
     "text": {
-      "sideFilters": "Podívejte se na nové filtry! Všechny jsou nyní viditelné na pravé straně výsledků vyhledávání."
+      "searchFilters": "Nyní můžete vyhledávat hodnoty v jednotlivých filtrech; Koukni na to!"
     }
   },
   "newWindow": "otevře se v novém okně",
@@ -848,13 +872,14 @@ export default {
   "reset": "Obnovit",
   "resourceWikimedia": "Zdroj z Wikimedia Commons",
   "results": "Výsledky",
+  "resultsFor": "Výsledky pro {0}",
   "resultsLimitWarning": "Zobrazuje se pouze prvních tisíc nejvhodnějších výsledků, další výsledky se nezobrazují. Pokud jste nenašli, co jste hledali, zvažte upřesnění vyhledávání.",
+  "resultsWithin": "Výsledky v rámci {0} {1} pro {2}",
   "search": "Vyhledat",
   "searchHasLoaded": "Počet vrácených výsledků: {0}",
   "searchPlaceholder": "Co hledáte?",
   "searchResults": "Vyhledat",
   "searchResultsFor": "{0} - vyhledat",
-  "searchResultsForIn": "{0} - vyhledat v {1}",
   "searchSuggestions": "Návrhy vyhledávání",
   "searchTier": {
     "button": {
@@ -905,6 +930,10 @@ export default {
   },
   "showLess": "Zobrazit méně",
   "showMore": "Zobrazit více",
+  "sideFilters": {
+    "noOptions": "Nejsou k dispozici žádné možnosti k výběru",
+    "search": "Vyhledat"
+  },
   "statuses": {
     "liked": "Oblíbené",
     "pinned": "Připnuté"

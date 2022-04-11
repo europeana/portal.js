@@ -89,16 +89,24 @@ export default {
     "fashion": {
       "facets": {
         "CREATOR": {
-          "name": "Suunnittelija | Suunnittelijat"
+          "moreName": "suunnittelijat",
+          "name": "Suunnittelija | Suunnittelijat",
+          "select": "Valitse suunnittelijat"
         },
         "proxy_dc_format": {
-          "name": "Tekniikka | Tekniikat"
+          "moreName": "tekniikat",
+          "name": "Tekniikka | Tekniikat",
+          "select": "Valitse tekniikat"
         },
         "proxy_dc_type": {
-          "name": "Kohteen tyyppi | Kohdetyypit"
+          "moreName": "esine tyypit",
+          "name": "Kohteen tyyppi | Kohdetyypit",
+          "select": "Valitse esine tyypit"
         },
         "proxy_dcterms_medium": {
-          "name": "Materiaali | Materiaalit"
+          "moreName": "materiaaleja",
+          "name": "Materiaali | Materiaalit",
+          "select": "Valitse materiaalit"
         }
       }
     },
@@ -164,9 +172,7 @@ export default {
         "title": "Liian monta kiinnitettyä kohdetta"
       },
       "pinned": "Kohde on kiinnitetty. Se on nyt tämän kokoelman ensimmäisen sivun yläosassa. Saattaa kestää jopa 24 tuntia, ennen kuin se näkyy kaikille.",
-      "pinnedFirstPage": "Kohde on kiinnitetty. Saattaa kestää jopa 24 tuntia, ennen kuin se näkyy kaikille.",
-      "unpinned": "Kohde on irrotettu. Se ei ole enää tämän kokoelman ensimmäisen sivun yläosassa. Kaikkien katoaminen voi kestää jopa 24 tuntia.",
-      "unpinnedFirstPage": "Kohde on irrotettu. Kaikkien katoaminen voi kestää jopa 24 tuntia."
+      "unpinned": "Kohde on irrotettu. Se ei ole enää tämän kokoelman ensimmäisen sivun yläosassa. Kaikkien katoaminen voi kestää jopa 24 tuntia."
     },
     "prompts": {
       "pin": "Haluatko varmasti kiinnittää tämän kohteen? Tämä kohde näkyy kokoelman {entity} Muutoksen voimaantulo voi kestää jopa 24 tuntia.",
@@ -183,6 +189,7 @@ export default {
   },
   "facets": {
     "COLOURPALETTE": {
+      "moreName": "värit",
       "name": "Väri | värit",
       "options": {
         "#000000": "Musta",
@@ -329,7 +336,8 @@ export default {
         "#FFFFE0": "Vaaleankeltainen",
         "#FFFFF0": "Norsunluu",
         "#FFFFFF": "Valkoinen"
-      }
+      },
+      "select": "Valitse värit"
     },
     "COUNTRY": {
       "name": "Alkuperämaa",
@@ -380,20 +388,26 @@ export default {
         "Ukraine": "Ukraina",
         "United Kingdom": "Yhdistynyt kuningaskunta",
         "United States of America": "Yhdysvallat"
-      }
+      },
+      "select": "Valitse tarjottavat maat"
     },
     "CREATOR": {
-      "name": "Tekijä  |  Tekijät"
+      "moreName": "luojat",
+      "name": "Tekijä  |  Tekijät",
+      "select": "Valitse tekijät"
     },
     "DATA_PROVIDER": {
-      "name": "Instituutio"
+      "moreName": "toimielimet",
+      "name": "Instituutio",
+      "select": "Valitse laitokset"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Kuvan suunta | Kuvan suunnat",
       "options": {
         "landscape": "Maisema",
         "portrait": "Muotokuva"
-      }
+      },
+      "select": "Valitse kuvan suunnat"
     },
     "IMAGE_SIZE": {
       "name": "Kuvakoko | Kuvien koot",
@@ -402,7 +416,8 @@ export default {
         "large": "Suuri, 1-4 megapikseliä (esim. 1920 x 1080 pikseliä)",
         "medium": "Keskikokoinen, 0,5–1 megapikseliä (esim. 850 x 850 pikseliä)",
         "small": "Pieni, < 0,5 megapikseliä (esim. 650 x 600 pikseliä)"
-      }
+      },
+      "select": "Valitse kuvakoot"
     },
     "LANGUAGE": {
       "name": "Kieli",
@@ -446,16 +461,20 @@ export default {
         "sv": "Ruotsalainen",
         "tr": "Turkkilainen",
         "uk": "Ukrainan"
-      }
+      },
+      "select": "Valitse kielet"
     },
     "MIME_TYPE": {
       "name": "Tiedostomuoto | Tiedostomuodot",
       "options": {
         "text/plain": "Pelkkä teksti"
-      }
+      },
+      "select": "Valitse tiedostomuodot"
     },
     "PROVIDER": {
-      "name": "Kokoaja"
+      "moreName": "aggregaattoreita",
+      "name": "Kokoaja",
+      "select": "Valitse aggregaattoreita"
     },
     "REUSABILITY": {
       "name": "Voinko käyttää tätä?",
@@ -464,10 +483,8 @@ export default {
         "permission": "Ehkä, pyydä lupaa",
         "restricted": "Kyllä, tietyin ehdoin",
         "uncategorized": "Ei luokiteltu"
-      }
-    },
-    "RIGHTS": {
-      "name": "Oikeuksia koskeva lausunto"
+      },
+      "select": "Valitse, voitko käyttää tätä"
     },
     "TYPE": {
       "name": "Mediatyyppi",
@@ -477,7 +494,8 @@ export default {
         "SOUND": "Ääni",
         "TEXT": "Teksti",
         "VIDEO": "Video"
-      }
+      },
+      "select": "Valitse mediatyypit"
     },
     "api": {
       "name": "Hae",
@@ -512,7 +530,8 @@ export default {
         "photography": "Valokuvaus",
         "sport": "Urheilu",
         "ww1": "1914–1918"
-      }
+      },
+      "select": "Valitse teema"
     },
     "contentTier": {
       "name": "Kohde laatu",
@@ -523,19 +542,24 @@ export default {
         "2": "Keskilaatuinen",
         "3": "Korkealaatuinen ja uudelleenkäytettävä olosuhteissa",
         "4": "Korkealaatuinen & vapaasti uudelleenkäytettävissä"
-      }
+      },
+      "select": "Valitse tuotteiden ominaisuudet"
     },
+    "moreOptions": "Hae löytääksesi {0} lisää {1} .",
     "proxy_dc_format": {
-      "name": "Muoto | Muodot"
+      "name": "Muoto | Muodot",
+      "select": "Valitse formaatit"
     },
     "proxy_dc_type": {
-      "name": "Tyyppi | Tyypit"
+      "name": "Tyyppi | Tyypit",
+      "select": "Valitse tyypit"
     },
     "proxy_dcterms_issued": {
       "name": "Päivämäärä"
     },
     "proxy_dcterms_medium": {
-      "name": "Media | Mediat"
+      "name": "Media | Mediat",
+      "select": "Valitse media"
     }
   },
   "feedback": {
@@ -588,6 +612,7 @@ export default {
       "dctermsProvenance": "Alkuperä",
       "dctermsReferences": "Viittaa kohteeseen",
       "dctermsSpatial": "Paikat",
+      "dctermsTOC": "Sisällysluettelo",
       "dctermsTemporal": "Ajoitus",
       "edmCountry": "Alkuperämaa",
       "edmCurrentLocation": "Nykyinen sijainti",
@@ -644,7 +669,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "...",
-    "labelledValue": "{label}: {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -785,7 +809,7 @@ export default {
     "dismiss": "Sulje",
     "readMore": "Lue lisää",
     "text": {
-      "sideFilters": "Tutustu uusiin suodattimiin! Ne näkyvät nyt kaikki hakutulosten oikealla puolella."
+      "searchFilters": "Voit nyt etsiä arvoja yksittäisistä suodattimista; Tarkista se!"
     }
   },
   "newWindow": "avautuu uuteen ikkunaan",
@@ -848,13 +872,14 @@ export default {
   "reset": "Nollaa",
   "resourceWikimedia": "Sisältö Wikimedia Commonsista",
   "results": "Tulokset",
+  "resultsFor": "Tulokset {0}",
   "resultsLimitWarning": "Enempää tuloksia ei näytetä, koska vain ensimmäiset 1000 merkityksellisintä tulosta näytetään. Jos et löytänyt etsimääsi, voit tarkentaa hakuasi.",
+  "resultsWithin": "tulokset {0} {1} sisällä {2}",
   "search": "Hae",
   "searchHasLoaded": "{0} tulosta palautettu",
   "searchPlaceholder": "Mitä etsit?",
   "searchResults": "Hae",
   "searchResultsFor": "{0} – hae",
-  "searchResultsForIn": "{0} – hae kokoelmasta {1}",
   "searchSuggestions": "Hakuehdotuksia",
   "searchTier": {
     "button": {
@@ -905,6 +930,10 @@ export default {
   },
   "showLess": "Näytä vähemmän",
   "showMore": "Näytä lisää",
+  "sideFilters": {
+    "noOptions": "Valittavissa ei ole vaihtoehtoja",
+    "search": "Hae"
+  },
   "statuses": {
     "liked": "Pidetty",
     "pinned": "Kiinnitetty"
