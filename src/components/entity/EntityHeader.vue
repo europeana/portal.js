@@ -10,7 +10,7 @@
       :style="`background-image: url(${resizedLogo})`"
     />
     <b-card-title
-      title-tag="h1"
+      title-tag="h2"
       :lang="title.code"
       data-qa="entity title"
     >
