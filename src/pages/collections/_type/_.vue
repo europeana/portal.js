@@ -45,12 +45,14 @@
                   :more-info="moreInfo"
                 />
                 <template
+                  v-if="collectionType !== 'organisation'"
                   #related
                 >
                   <client-only>
-                    <RelatedCollections
-                      :title="$t('youMightAlsoLike')"
-                      :related-collections="relatedCollections"
+                    <EntityRelatedCollections
+                      :type="$route.params.type"
+                      :identifier="$route.params.pathMatch"
+                      :overrides="relatedCollectionCards"
                       data-qa="related entities"
                       @show="showRelatedCollections"
                       @hide="hideRelatedCollections"
@@ -96,7 +98,7 @@
       SearchInterface,
       SideFilters: () => import('@/components/search/SideFilters'),
       EntityHeader: () => import('@/components/entity/EntityHeader'),
-      RelatedCollections: () => import('@/components/generic/RelatedCollections')
+      EntityRelatedCollections: () => import('@/components/entity/EntityRelatedCollections')
     },
 
     beforeRouteLeave(to, from, next) {
@@ -283,12 +285,6 @@
       relatedCollectionCards() {
         return ((this.page?.relatedLinksCollection?.items?.length || 0) > 0) ? this.page.relatedLinksCollection.items : null;
       },
-      relatedCollections() {
-        return this.relatedEntities || this.relatedCollectionCards || [];
-      },
-      relatedCollectionsFound() {
-        return this.relatedCollections.length > 0;
-      },
       userIsEditor() {
         return this.$store.state.auth.user?.resource_access?.entities?.roles?.includes('editor') || false;
       },
@@ -350,14 +346,6 @@
     mounted() {
       this.$store.commit('search/setCollectionLabel', this.pageTitle);
       this.storeSearchOverrides();
-      // Disable related collections for organisation (for now)
-      if (!this.relatedCollectionCards && this.collectionType !== 'organisation') {
-        this.$apis.record.relatedEntities(this.$route.params.type, this.$route.params.pathMatch)
-          .then(facets => facets ? this.$apis.entity.facets(facets, this.$route.params.pathMatch) : [])
-          .then(related => this.relatedEntities = related.map(entity => {
-            return pick(entity, ['id', 'prefLabel', 'isShownBy']);
-          }));
-      }
       if (this.userIsEditor) {
         this.$store.dispatch('entity/getFeatured');
       }
