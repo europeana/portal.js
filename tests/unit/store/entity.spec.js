@@ -3,8 +3,6 @@ import sinon from 'sinon';
 
 const entity = { id: 'http://data.europeana.eu/concept/base/001' };
 const id = 'http://data.europeana.eu/concept/base/001';
-const page = { name: 'Art' };
-const relatedEntities = [{ id: 'http://data.europeana.eu/concept/base/002' }, { id: 'http://data.europeana.eu/concept/base/003' }];
 const itemsToPin = [{ id: '/123/abc' }, { id: '/234/abc' }];
 const pinned = ['/123/abc', '/234/abc'];
 const unPinned = ['/234/abc'];
@@ -37,20 +35,6 @@ describe('store/entity', () => {
         const state = { id: null };
         store.mutations.setId(state, id);
         expect(state.id).toEqual(id);
-      });
-    });
-    describe('setPage()', () => {
-      it('sets the page state', () => {
-        const state = { page: null };
-        store.mutations.setPage(state, page);
-        expect(state.page).toEqual(page);
-      });
-    });
-    describe('setRelatedEntities()', () => {
-      it('sets the relatedEntities state', () => {
-        const state = { relatedEntities: null };
-        store.mutations.setRelatedEntities(state, relatedEntities);
-        expect(state.relatedEntities).toEqual(relatedEntities);
       });
     });
     describe('setCuratedEntities()', () => {
