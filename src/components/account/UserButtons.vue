@@ -287,9 +287,10 @@
       },
       async pinAction() {
         if (this.entity) {
-          this.togglePin();
+          await this.togglePin(); // On an entity/entity set page all info is in the store.
+        } else {
+          this.$bvModal.show(this.pinModalId); // Open the modal to find which entity to pin to.
         }
-        this.$bvModal.show(this.pinModalId);
       },
       async togglePin() {
         if (this.pinned) {
