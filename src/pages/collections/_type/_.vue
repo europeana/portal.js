@@ -196,7 +196,13 @@
         return this.$store.state.entity.editable;
       },
       pageTitle() {
-        return this.$fetchState.error ? this.$t('error') : this.title.values[0];
+        if (this.$fetchState.error) {
+          return this.$t('error');
+        } else if (this.hasUserQuery) {
+          return this.$t('resultsWithin', [this.contextLabel, `"${this.title.values[0]}"`, `"${this.$route.query.query}"`]);
+        } else {
+          return `${this.contextLabel} "${this.title.values[0]}"`;
+        }
       },
       searchOverrides() {
         const overrideParams = {
@@ -348,7 +354,7 @@
       searchOverrides: 'storeSearchOverrides'
     },
     mounted() {
-      this.$store.commit('search/setCollectionLabel', this.pageTitle);
+      this.$store.commit('search/setCollectionLabel', this.title.values[0]);
       this.storeSearchOverrides();
       // Disable related collections for organisation (for now)
       if (!this.relatedCollectionCards && this.collectionType !== 'organisation') {
