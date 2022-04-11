@@ -3,7 +3,20 @@
     data-qa="entity page"
     class="entity-page"
   >
-    <client-only>
+    <b-container
+      v-if="$fetchState.error"
+    >
+      <b-row
+        class="flex-md-row py-4"
+      >
+        <b-col cols="12">
+          <AlertMessage
+            :error="$fetchState.error.message"
+          />
+        </b-col>
+      </b-row>
+    </b-container>
+    <client-only v-else>
       <b-container
         class="page-container side-filters-enabled"
       >
@@ -11,6 +24,7 @@
           <b-col>
             <b-container class="px-0 pb-3">
               <SearchInterface
+                v-if="!$fetchState.pending"
                 class="px-0"
                 :per-page="recordsPerPage"
                 :route="route"
@@ -65,7 +79,6 @@
   import pick from 'lodash/pick';
   import ClientOnly from 'vue-client-only';
   import SearchInterface from '@/components/search/SearchInterface';
-  import { mapState } from 'vuex';
 
   import themes from '@/plugins/europeana/themes';
   import {
@@ -77,6 +90,7 @@
     name: 'CollectionPage',
 
     components: {
+      AlertMessage: () => import('@/components/generic/AlertMessage'),
       BrowseSections: () => import('@/components/browse/BrowseSections'),
       ClientOnly,
       SearchInterface,
@@ -85,7 +99,7 @@
       RelatedCollections: () => import('@/components/generic/RelatedCollections')
     },
 
-    async beforeRouteLeave(to, from, next) {
+    beforeRouteLeave(to, from, next) {
       if (to.matched[0].path !== `/${this.$i18n.locale}/search`) {
         this.$store.commit('search/setShowSearchBar', false);
       }
@@ -98,99 +112,71 @@
 
     data() {
       return {
+        page: null,
+        relatedEntities: null,
         showRelated: false,
         themes: themes.map(theme => theme.id)
       };
     },
 
-    fetch({ query, params, redirect, error, app, store }) {
-      store.commit('search/disableCollectionFacet');
+    fetch() {
+      this.$store.commit('search/disableCollectionFacet');
 
-      const entityUri = getEntityUri(params.type, params.pathMatch);
-      if (entityUri !== store.state.entity.id) {
+      const entityUri = getEntityUri(this.$route.params.type, this.$route.params.pathMatch);
+      if (entityUri !== this.$store.state.entity.id) {
         // TODO: group as a reset action on the store?
-        store.commit('entity/setId', null);
-        store.commit('entity/setEntity', null);
-        store.commit('entity/setPage', null);
-        store.commit('entity/setRelatedEntities', null);
-        store.commit('entity/setFeaturedSetId', null);
-        store.commit('entity/setPinned', null);
-        store.commit('entity/setEditable', false);
+        this.$store.commit('entity/setId', null);
+        this.$store.commit('entity/setEntity', null);
+        this.$store.commit('entity/setFeaturedSetId', null);
+        this.$store.commit('entity/setPinned', null);
+        this.$store.commit('entity/setEditable', false);
+        this.page = null;
       }
-      store.commit('entity/setId', entityUri);
+      this.$store.commit('entity/setId', entityUri);
 
+      // Fetch entity management data if feature enabled and user has required access
+      const fetchEntityManagement = this.$features.entityManagement &&
+        this.$auth.user?.resource_access?.entities?.roles.includes('editor');
       // Get the full page for this entity if not known needed, or known to be needed, and store for reuse
-      const fetchEntityPage = !store.state.entity.curatedEntities ||
-        store.state.entity.curatedEntities.some(entity => entity.identifier === entityUri);
-      // Prevent re-requesting entity content from APIs if already loaded,
-      // e.g. when paginating through entity search results
-      const fetchEntity = !store.state.entity.entity;
-      const fetchEntityManagement = fetchEntity && app.$features.entityManagement && app.$auth.user?.resource_access?.entities?.roles.includes('editor');
+      const fetchEntityPage = !this.$store.state.entity.curatedEntities ||
+        this.$store.state.entity.curatedEntities.some(entity => entity.identifier === entityUri);
 
       const contentfulVariables = {
         identifier: entityUri,
-        locale: app.i18n.isoLocale(),
-        preview: query.mode === 'preview'
+        locale: this.$i18n.isoLocale(),
+        preview: this.$route.query.mode === 'preview'
       };
 
       return Promise.all([
-        fetchEntity ? app.$apis.entity.get(params.type, params.pathMatch) : () => null,
-        fetchEntityManagement ? app.$apis.entityManagement.get(params.type, params.pathMatch) : () => null,
-        fetchEntityPage ? app.$contentful.query('collectionPage', contentfulVariables) : () => null
+        this.$apis.entity.get(this.$route.params.type, this.$route.params.pathMatch),
+        fetchEntityManagement ? this.$apis.entityManagement.get(this.$route.params.type, this.$route.params.pathMatch) : () => null,
+        fetchEntityPage ? this.$contentful.query('collectionPage', contentfulVariables) : () => null
       ])
         .then(responses => {
-          if (fetchEntity) {
-            store.commit('entity/setEntity', pick(responses[0].entity, [
-              'id',
-              'logo',
-              'note',
-              'description',
-              'homepage',
-              'prefLabel',
-              'isShownBy',
-              'hasAddress',
-              'acronym'
-            ]));
-          }
+          this.$store.commit('entity/setEntity', pick(responses[0].entity, [
+            'id', 'logo', 'note', 'description', 'homepage', 'prefLabel', 'isShownBy', 'hasAddress', 'acronym'
+          ]));
           if (responses[1].note) {
-            store.commit('entity/setEditable', true);
-            store.commit('entity/setEntityDescription', responses[1].note);
-            store.commit('entity/setProxy', responses[1].proxies.find(proxy => proxy.id.includes('#proxy_europeana')));
+            this.$store.commit('entity/setEditable', true);
+            this.$store.commit('entity/setEntityDescription', responses[1].note);
+            this.$store.commit('entity/setProxy', responses[1].proxies.find(proxy => proxy.id.includes('#proxy_europeana')));
           }
           if (fetchEntityPage) {
             const pageResponseData = responses[2].data.data;
-            if (fetchEntityPage) {
-              store.commit('entity/setPage', pageResponseData.entityPage.items[0]);
-              store.commit('entity/setCuratedEntities', pageResponseData.curatedEntities.items);
-            }
+            this.page = pageResponseData.entityPage.items[0];
+            this.$store.commit('entity/setCuratedEntities', pageResponseData.curatedEntities.items);
           }
-          const entity = store.state.entity.entity;
-          const page = store.state.entity.page;
-          const entityName = page ? page.name : entity.prefLabel.en;
-          const desiredPath = getEntitySlug(entity.id, entityName);
-          if (params.pathMatch !== desiredPath) {
-            const redirectPath = app.$path({
-              name: 'collections-type-all',
-              params: { type: params.type, pathMatch: desiredPath }
-            });
-            return redirect(302, redirectPath);
-          }
-          return true;
-        })
-        .catch((e) => {
-          const statusCode = (e.statusCode === undefined) ? 500 : e.statusCode;
-          store.commit('entity/setId', null);
-          error({ statusCode, message: e.toString() });
+          return this.redirectToPrefPath();
         });
     },
 
     head() {
       return {
-        title: this.$pageHeadTitle(this.title.values[0]),
+        title: this.$pageHeadTitle(this.pageTitle),
         meta: [
           { hid: 'og:type', property: 'og:type', content: 'article' },
-          { hid: 'title', name: 'title', content: this.title.values[0] },
-          { hid: 'og:title', property: 'og:title', content: this.title.values[0] }
+          { hid: 'title', name: 'title', content: this.pageTitle },
+          { hid: 'og:title', property: 'og:title', content: this.pageTitle }
         ]
           .concat(this.descriptionText ? [
             { hid: 'description', name: 'description', content: this.descriptionText },
@@ -200,13 +186,18 @@
     },
 
     computed: {
-      ...mapState({
-        entity: state => state.entity.entity,
-        page: state => state.entity.page,
-        relatedEntities: state => state.entity.relatedEntities,
-        recordsPerPage: state => state.entity.recordsPerPage,
-        editable: state => state.entity.editable
-      }),
+      entity() {
+        return this.$store.state.entity.entity;
+      },
+      recordsPerPage() {
+        return this.$store.state.entity.recordsPerPage;
+      },
+      editable() {
+        return this.$store.state.entity.editable;
+      },
+      pageTitle() {
+        return this.$fetchState.error ? this.$t('error') : this.title.values[0];
+      },
       searchOverrides() {
         const overrideParams = {
           qf: [],
@@ -357,22 +348,33 @@
       searchOverrides: 'storeSearchOverrides'
     },
     mounted() {
-      this.$store.commit('search/setCollectionLabel', this.title.values[0]);
+      this.$store.commit('search/setCollectionLabel', this.pageTitle);
       this.storeSearchOverrides();
-      // TODO: move into a new entity store action?
-      // Disable related collections for organisation for now
+      // Disable related collections for organisation (for now)
       if (!this.relatedCollectionCards && this.collectionType !== 'organisation') {
         this.$apis.record.relatedEntities(this.$route.params.type, this.$route.params.pathMatch)
           .then(facets => facets ? this.$apis.entity.facets(facets, this.$route.params.pathMatch) : [])
-          .then(related => this.$store.commit('entity/setRelatedEntities', related.map(entity => {
+          .then(related => this.relatedEntities = related.map(entity => {
             return pick(entity, ['id', 'prefLabel', 'isShownBy']);
-          })));
+          }));
       }
       if (this.userIsEditor) {
         this.$store.dispatch('entity/getFeatured');
       }
     },
     methods: {
+      redirectToPrefPath() {
+        const entityName = this.page ? this.page.name : this.entity.prefLabel.en;
+        const desiredPath = getEntitySlug(this.entity.id, entityName);
+        if (this.$route.params.pathMatch !== desiredPath) {
+          const redirectPath = this.$path({
+            name: 'collections-type-all',
+            params: { type: this.$route.params.type, pathMatch: desiredPath }
+          });
+          return this.$nuxt.context.redirect(302, redirectPath);
+        }
+        return true;
+      },
       storeSearchOverrides() {
         this.$store.commit('search/set', ['overrideParams', this.searchOverrides]);
       },

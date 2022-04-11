@@ -3,9 +3,7 @@ export default {
     curatedEntities: null,
     entity: null,
     id: null,
-    page: null,
     recordsPerPage: 24,
-    relatedEntities: null,
     pinned: null,
     featuredSetId: null,
     editable: false
@@ -17,12 +15,6 @@ export default {
     },
     setId(state, value) {
       state.id = value;
-    },
-    setPage(state, value) {
-      state.page = value;
-    },
-    setRelatedEntities(state, value) {
-      state.relatedEntities = value;
     },
     setCuratedEntities(state, value) {
       state.curatedEntities = value;

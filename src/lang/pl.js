@@ -89,16 +89,24 @@ export default {
     "fashion": {
       "facets": {
         "CREATOR": {
-          "name": "Projektant | Projektanci"
+          "moreName": "projektanci",
+          "name": "Projektant | Projektanci",
+          "select": "Wybierz projektantów"
         },
         "proxy_dc_format": {
-          "name": "Technika | Techniki"
+          "moreName": "techniki",
+          "name": "Technika | Techniki",
+          "select": "Wybierz techniki"
         },
         "proxy_dc_type": {
-          "name": "Typ elementu | Typy elementu"
+          "moreName": "typy przedmiotów",
+          "name": "Typ elementu | Typy elementu",
+          "select": "Wybierz typy przedmiotów"
         },
         "proxy_dcterms_medium": {
-          "name": "Materiał | Materiały"
+          "moreName": "materiały",
+          "name": "Materiał | Materiały",
+          "select": "Wybierz materiały"
         }
       }
     },
@@ -164,9 +172,7 @@ export default {
         "title": "Za dużo przpiętych obiektów"
       },
       "pinned": "Obiekt został przypięty. Znajduje się teraz na górze pierwszej strony tej kolekcji. Synchronizacja u wszystkich użytkowników może potrwać do 24 godzin.",
-      "pinnedFirstPage": "Obiekt został przypięty. Synchronizacja u wszystkich użytkowników może potrwać do 24 godzin.",
-      "unpinned": "Obiekt został odpięty. Nie znajduje się już na górze pierwszej strony tej kolekcji. Może minąć do 24 godzin, zanim zniknie dla wszystkich użytkowników.",
-      "unpinnedFirstPage": "Obiekt został odpięty. Może minąć do 24 godzin, zanim zniknie dla wszystkich użytkowników."
+      "unpinned": "Obiekt został odpięty. Nie znajduje się już na górze pierwszej strony tej kolekcji. Może minąć do 24 godzin, zanim zniknie dla wszystkich użytkowników."
     },
     "prompts": {
       "pin": "Czy na pewno chcesz przypiąć ten obiekt? Będzie on wtedy  wyświetlany u góry kolekcji  „ {entity} ”. Ta zmiana może potrwać do 24 godzin.",
@@ -183,6 +189,7 @@ export default {
   },
   "facets": {
     "COLOURPALETTE": {
+      "moreName": "kolory",
       "name": "Kolor | Kolory",
       "options": {
         "#000000": "Czarny",
@@ -329,7 +336,8 @@ export default {
         "#FFFFE0": "Jasny zółty",
         "#FFFFF0": "kość słoniowa",
         "#FFFFFF": "Biały"
-      }
+      },
+      "select": "Wybierz kolory"
     },
     "COUNTRY": {
       "name": "Kraj dostarczający",
@@ -380,20 +388,26 @@ export default {
         "Ukraine": "Ukraina",
         "United Kingdom": "Zjednoczone Królestwo",
         "United States of America": "Stany Zjednoczone Ameryki"
-      }
+      },
+      "select": "Wybierz kraje dostarczające"
     },
     "CREATOR": {
-      "name": "Twórca | Twórcy"
+      "moreName": "twórcy",
+      "name": "Twórca | Twórcy",
+      "select": "Wybierz twórców"
     },
     "DATA_PROVIDER": {
-      "name": "Instytucja | Instytucje"
+      "moreName": "instytucje",
+      "name": "Instytucja | Instytucje",
+      "select": "Wybierz instytucje"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Układ obrazu",
       "options": {
         "landscape": "Poziomy",
         "portrait": "Pionowy"
-      }
+      },
+      "select": "Wybierz orientacje obrazu"
     },
     "IMAGE_SIZE": {
       "name": "Rozmiar obrazu | Rozmiary obrazu",
@@ -402,7 +416,8 @@ export default {
         "large": "Duży 1-4 MP (np. 1920 x 1080 px)",
         "medium": "Średni 0,5-1 MP (np. 850 x 850 px)",
         "small": "Mały < 0,5 MP (np. 650 x 600 px)"
-      }
+      },
+      "select": "Wybierz rozmiary obrazu"
     },
     "LANGUAGE": {
       "name": "Język | Języki",
@@ -446,16 +461,20 @@ export default {
         "sv": "Szwedzki",
         "tr": "Turecki",
         "uk": "Ukraiński"
-      }
+      },
+      "select": "Wybierz języki"
     },
     "MIME_TYPE": {
       "name": "Format plików | Formaty plików",
       "options": {
         "text/plain": "Zwykły tekst"
-      }
+      },
+      "select": "Wybierz formaty plików"
     },
     "PROVIDER": {
-      "name": "Agregator | Agregatorzy"
+      "moreName": "agregatory",
+      "name": "Agregator | Agregatorzy",
+      "select": "Wybierz agregatorów"
     },
     "REUSABILITY": {
       "name": "Czy mogę to wykorzystać?",
@@ -464,10 +483,8 @@ export default {
         "permission": "Może, poproś o pozwolenie",
         "restricted": "Tak, z warunkami",
         "uncategorized": "Bez kategorii"
-      }
-    },
-    "RIGHTS": {
-      "name": "Oświadczenie o prawach"
+      },
+      "select": "Wybierz, czy możesz używać tego"
     },
     "TYPE": {
       "name": "Rodzaj mediów",
@@ -477,7 +494,8 @@ export default {
         "SOUND": "Audio",
         "TEXT": "Tekst",
         "VIDEO": "Wideo"
-      }
+      },
+      "select": "Wybierz rodzaje mediów"
     },
     "api": {
       "name": "Szukaj",
@@ -512,7 +530,8 @@ export default {
         "photography": "Fotografia",
         "sport": "Sport",
         "ww1": "1914–1918"
-      }
+      },
+      "select": "Wybierz motyw"
     },
     "contentTier": {
       "name": "Jakość obiektu",
@@ -523,19 +542,24 @@ export default {
         "2": "Średnia jakość",
         "3": "Wysoka jakość & wielokrotnego użytku z warunkami",
         "4": "Wysoka jakość & swobodnie wielokrotnego użytku"
-      }
+      },
+      "select": "Wybierz jakość pozycji"
     },
+    "moreOptions": "Wyszukaj, aby znaleźć {0} więcej {1}.",
     "proxy_dc_format": {
-      "name": "Format | Formaty"
+      "name": "Format | Formaty",
+      "select": "Wybierz formaty"
     },
     "proxy_dc_type": {
-      "name": "Typ | Typy"
+      "name": "Typ | Typy",
+      "select": "Wybierz typy"
     },
     "proxy_dcterms_issued": {
       "name": "Data wydania"
     },
     "proxy_dcterms_medium": {
-      "name": "Medium | Media"
+      "name": "Medium | Media",
+      "select": "Wybierz media"
     }
   },
   "feedback": {
@@ -588,6 +612,7 @@ export default {
       "dctermsProvenance": "Pochodzenie",
       "dctermsReferences": "Przywołuje",
       "dctermsSpatial": "Miejsca",
+      "dctermsTOC": "Spis treści",
       "dctermsTemporal": "Okres",
       "edmCountry": "Kraj dostarczający",
       "edmCurrentLocation": "Aktualna lokalizacja",
@@ -644,7 +669,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label}: {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -680,7 +704,7 @@ export default {
   "items": {
     "itemCount": "1 pozycja |Pozycje: {count}",
     "itemOf": "{max} z {count} elementów",
-    "recent": "Ostatnio dodane obiekty",
+    "recent": "Ostatnie pozycje",
     "recommended": "Polecane obiekty",
     "youMightLike": "Przedmioty, które mogą Ci się spodobać"
   },
@@ -785,7 +809,7 @@ export default {
     "dismiss": "Zamknij",
     "readMore": "Czytaj więcej",
     "text": {
-      "sideFilters": "Sprawdź nowe filtry! Wszystkie są teraz widoczne po prawej stronie wyników wyszukiwania."
+      "searchFilters": "Możesz teraz wyszukiwać wartości w poszczególnych filtrach; Sprawdź to!"
     }
   },
   "newWindow": "otwiera się w nowym oknie",
@@ -848,13 +872,14 @@ export default {
   "reset": "Resetuj",
   "resourceWikimedia": "Źródło z Wikimedia Commons",
   "results": "Wyniki",
+  "resultsFor": "Wyniki dla {0}",
   "resultsLimitWarning": "Dodatkowe wyniki nie są wyświetlane, ponieważ wyświetlanych jest tylko pierwsze 1000 najbardziej odpowiednich wyników. Jeśli nie znalazłeś tego, czego szukasz, rozważ zawężenie wyszukiwania.",
+  "resultsWithin": "Wyniki w granicach {0} {1} dla {2}",
   "search": "Szukaj",
   "searchHasLoaded": "{0} zwróconych wyników",
   "searchPlaceholder": "Odkryj miliony obiektów",
   "searchResults": "Szukaj",
   "searchResultsFor": "{0} - Szukaj",
-  "searchResultsForIn": "{0} - Szukaj w {1}",
   "searchSuggestions": "Sugestie wyszukiwania",
   "searchTier": {
     "button": {
@@ -905,6 +930,10 @@ export default {
   },
   "showLess": "Pokaż mniej",
   "showMore": "Pokaż więcej",
+  "sideFilters": {
+    "noOptions": "Nie ma dostępnych opcji do wyboru",
+    "search": "Szukaj"
+  },
   "statuses": {
     "liked": "Lubiana",
     "pinned": "Przypięty"
