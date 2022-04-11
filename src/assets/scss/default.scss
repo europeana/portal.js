@@ -207,8 +207,8 @@ main#default {
 }
 
 .organisation-logo {
-  height: 60px;
-  width: 60px;
+  height: 72px;
+  width: 72px;
   border-radius: 50%;
   object-fit: cover;
   display: flex;
@@ -220,4 +220,14 @@ main#default {
   background-position: center;
   background-size: 66.67%;
   background-blend-mode: multiply;
+}
+
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
 }

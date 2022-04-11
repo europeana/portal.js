@@ -52,11 +52,11 @@ const factory = (propsData) => mount(UserSets, {
 
 describe('components/account/UserSets', () => {
   it('renders a card for every user set', () => {
-    const wrapper = factory({ value: sets });
+    const wrapper = factory({ sets });
 
     const renderedSets =  wrapper.findAll('[data-qa="user set"]');
 
-    renderedSets.at(0).find('[data-qa="card title"]').text().should.equal('A new collection');
-    renderedSets.at(1).find('[data-qa="card title"]').text().should.equal('A second collection');
+    expect(renderedSets.at(0).find('[data-qa="card title"]').text()).toBe('A new collection');
+    expect(renderedSets.at(1).find('[data-qa="card title"]').text()).toBe('A second collection');
   });
 });

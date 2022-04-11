@@ -1,4 +1,4 @@
-import marked from 'marked';
+import { marked } from 'marked';
 
 const htmlRemovalPatternsFromTags = (tags) => {
   return [/\n$/].concat(tags.map((tag) => new RegExp(`</?${tag}.*?>`, 'gi')));
@@ -18,7 +18,7 @@ export default {
      * @return {String} text value with HTML breaks
      */
     stripMarkdown(text, tags = ['']) {
-      text = marked(text); // Marked adds newlines to the end of the string, and wraps it in a <p> tag.
+      text = marked.parse(text); // Marked adds newlines to the end of the string, and wraps it in a <p> tag.
       for (const pattern of htmlRemovalPatternsFromTags(tags)) {
         text = text.replace(pattern, '');
       }

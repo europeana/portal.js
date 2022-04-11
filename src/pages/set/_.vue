@@ -1,12 +1,18 @@
 <template>
-  <b-container v-if="$fetchState.pending">
+  <b-container
+    v-if="$fetchState.pending"
+    data-qa="loading spinner container"
+  >
     <b-row class="flex-md-row py-4 text-center">
       <b-col cols="12">
         <LoadingSpinner />
       </b-col>
     </b-row>
   </b-container>
-  <b-container v-else-if="$fetchState.error">
+  <b-container
+    v-else-if="$fetchState.error"
+    data-qa="alert message container"
+  >
     <b-row class="flex-md-row py-4">
       <b-col cols="12">
         <AlertMessage
@@ -76,6 +82,7 @@
                 <b-button
                   variant="outline-primary"
                   class="text-decoration-none mr-2"
+                  data-qa="edit set button"
                   @click="$bvModal.show(setFormModalId)"
                 >
                   {{ $t('actions.edit') }}
@@ -86,7 +93,6 @@
                   :title="set.title"
                   :description="set.description"
                   :visibility="set.visibility"
-                  @update="update"
                 />
               </template>
               <b-button
@@ -122,56 +128,45 @@
             <b-row class="mb-3">
               <b-col cols="12">
                 <ItemPreviewCardGroup
-                  v-model="set.items"
+                  :items="set.items"
+                  :show-pins="setIsEntityBestItems && userIsEntityEditor"
                 />
               </b-col>
             </b-row>
           </b-container>
         </b-col>
       </b-row>
-      <b-row
-        v-if="recommendations.length > 0"
-        class="recommendations"
-      >
-        <b-col>
-          <h2 class="related-heading">
-            {{ $t('items.recommended') }}
-          </h2>
-          <h5
-            v-if="enableAcceptRecommendations"
-            class="related-subtitle"
-          >
-            <span class="icon-info-outline" />
-            {{ $t('items.recommendationsDisclaimer') }}
-          </h5>
-          <ItemPreviewCardGroup
-            v-model="recommendations"
-            :recommendations="enableAcceptRecommendations"
-          />
-        </b-col>
-      </b-row>
+      <client-only>
+        <SetRecommendations
+          v-if="displayRecommendations"
+          :identifier="`/${$route.params.pathMatch}`"
+          :type="set.type"
+        />
+      </client-only>
     </b-container>
   </div>
 </template>
 
 <script>
-  import { langMapValueForLocale } from  '../../plugins/europeana/utils';
-  import { genericThumbnail } from '../../plugins/europeana/thumbnail';
+  import ClientOnly from 'vue-client-only';
 
-  import AlertMessage from '../../components/generic/AlertMessage';
-  import ItemPreviewCardGroup from '../../components/item/ItemPreviewCardGroup';
-  import LoadingSpinner from '../../components/generic/LoadingSpinner';
-  import SocialShareModal from '../../components/sharing/SocialShareModal.vue';
+  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import { genericThumbnail } from '@/plugins/europeana/thumbnail';
+
+  import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
+  import SocialShareModal from '@/components/sharing/SocialShareModal.vue';
 
   export default {
     name: 'SetPage',
 
     components: {
-      LoadingSpinner,
-      AlertMessage,
+      ClientOnly,
+      LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
+      AlertMessage: () => import('@/components/generic/AlertMessage'),
       ItemPreviewCardGroup,
       SocialShareModal,
-      SetFormModal: () => import('../../components/set/SetFormModal')
+      SetFormModal: () => import('@/components/set/SetFormModal'),
+      SetRecommendations: () => import('@/components/set/SetRecommendations')
     },
 
     async beforeRouteLeave(to, from, next) {
@@ -182,23 +177,12 @@
 
     middleware: 'sanitisePageQuery',
 
-    data() {
-      return {
-        setFormModalId: `set-form-modal-${this.id}`
-      };
-    },
-
     async fetch() {
-      try {
-        await this.$store.dispatch('set/fetchActive', this.$route.params.pathMatch);
-        if (this.enableRecommendations && this.$auth.loggedIn && this.userCanEdit) {
-          this.$store.dispatch('set/fetchActiveRecommendations', `/${this.$route.params.pathMatch}`);
-        }
-      } catch (apiError) {
-        if (process.server) {
-          this.$nuxt.context.res.statusCode = apiError.statusCode;
-        }
-        throw apiError;
+      await this.$store.dispatch('set/fetchActive', this.setId);
+
+      if (this.setIsEntityBestItems && this.userIsEntityEditor) {
+        await this.$store.commit('entity/setFeaturedSetId', this.setId);
+        await this.$store.dispatch('entity/getPins');
       }
     },
 
@@ -222,18 +206,14 @@
       set() {
         return this.$store.state.set.active || {};
       },
-      recommendations() {
-        return this.$store.state.set.activeRecommendations || [];
+      setId() {
+        return this.$route.params.pathMatch;
       },
-      itemCount() {
-        return this.set.total || 0;
+      setFormModalId() {
+        return `set-form-modal-${this.setId}`;
       },
       setCreatorId() {
-        if (this.set.creator) {
-          return typeof this.set.creator === 'string' ? this.set.creator : this.set.creator.id;
-        } else {
-          return null;
-        }
+        return this.set.creator && typeof this.set.creator === 'string' ? this.set.creator : this.set.creator.id;
       },
       userIsOwner() {
         return this.$auth.loggedIn && this.$store.state.auth.user &&
@@ -261,17 +241,15 @@
       displayDescription() {
         return langMapValueForLocale(this.set.description, this.$i18n.locale);
       },
+      displayRecommendations() {
+        return this.enableRecommendations && this.$auth.loggedIn && this.userCanEdit;
+      },
       enableRecommendations() {
         if (this.setIsEntityBestItems) {
-          return this.$config.app.features.acceptEntityRecommendations;
+          return this.$features.acceptEntityRecommendations ||
+            this.$features.rejectEntityRecommendations;
         }
         return true;
-      },
-      enableAcceptRecommendations() {
-        if (this.setIsEntityBestItems) {
-          return this.$config.app.features.acceptEntityRecommendations;
-        }
-        return this.$config.app.features.acceptSetRecommendations;
       },
       displayItemCount() {
         const max = 100;
@@ -285,34 +263,6 @@
           return this.set.items[0].edmPreview ?
             `${this.set.items[0].edmPreview[0]}&size=w400` :
             genericThumbnail(this.set.items[0].id, { type: this.set.items[0].type, size: 'w400' });
-        }
-      }
-    },
-
-    watch: {
-      'set'() {
-        if (this.set === 'DELETED') {
-          // Set was deleted
-          const path = this.$path({ name: 'account' });
-          this.$goto(path);
-        }
-      }
-    },
-
-    mounted() {
-      if (!this.$fetchState.pending) {
-        this.getRecommendations();
-      }
-    },
-
-    methods: {
-      update() {
-        this.$bvModal.hide(this.setFormModalId);
-      },
-
-      getRecommendations() {
-        if (this.enableRecommendations && this.$auth.loggedIn && this.userCanEdit) {
-          this.$store.dispatch('set/fetchActiveRecommendations', `/${this.$route.params.pathMatch}`);
         }
       }
     }
@@ -369,10 +319,5 @@
     .text {
       font-weight: 600;
     }
-  }
-
-  .recommendations h2 {
-    color: $mediumgrey;
-    font-size: $font-size-medium;
   }
 </style>

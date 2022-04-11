@@ -14,9 +14,7 @@ const factory = (propsData) => mount(ItemHero, {
   propsData,
   mocks: {
     $t: (key) => key,
-    $config: {
-      app: { features: { itemEmbedCode: false } }
-    },
+    $features: { itemEmbedCode: false },
     $auth: { loggedIn: false },
     $store: {
       state: {
@@ -85,43 +83,43 @@ const identifier = '/2020601/https___1914_1918_europeana_eu_contributions_10265'
 
 describe('components/item/ItemHero', () => {
   describe('selectMedia', () => {
-    context('when a new item is selected', () => {
+    describe('when a new item is selected', () => {
       it('updates the identifier', () => {
         const wrapper = factory({ media, identifier });
         wrapper.vm.selectMedia(media[1].about);
-        wrapper.vm.selectedMedia.about.should.eq(media[1].about);
+        expect(wrapper.vm.selectedMedia.about).toBe(media[1].about);
       });
       it('updates the rights statement', () => {
         const wrapper = factory({ media, identifier });
         wrapper.vm.selectMedia(media[1].about);
-        wrapper.vm.selectedMedia.webResourceEdmRights.def[0].should.eq(media[1].webResourceEdmRights.def[0]);
+        expect(wrapper.vm.selectedMedia.webResourceEdmRights.def[0]).toBe(media[1].webResourceEdmRights.def[0]);
       });
       it('unsets any selected IIIF canvas', async() => {
         const wrapper = factory({ media, identifier });
         await wrapper.setData({ selectedCanvas: { about: 'http://www.example.org/canvas' } });
         wrapper.vm.selectMedia(media[1].about);
-        (wrapper.vm.selectedCanvas === null).should.eq(true);
+        expect(wrapper.vm.selectedCanvas === null).toBe(true);
       });
     });
   });
 
   describe('downloadEnabled', () => {
-    context('when the rightsstatement is in copyright', () => {
+    describe('when the rightsstatement is in copyright', () => {
       it('is false', () => {
         const wrapper = factory({ media: [media[1]], identifier });
-        wrapper.vm.downloadEnabled.should.eq(false);
+        expect(wrapper.vm.downloadEnabled).toBe(false);
       });
     });
-    context('when the selected media is the isShownAt and not downloadable', () => {
+    describe('when the selected media is the isShownAt and not downloadable', () => {
       it('is false', () => {
         const wrapper = factory({ media: [media[5]], identifier });
-        wrapper.vm.downloadEnabled.should.eq(false);
+        expect(wrapper.vm.downloadEnabled).toBe(false);
       });
     });
-    context('when the rightsstatement is not in copyright and the selected media is not the isShownAt', () => {
+    describe('when the rightsstatement is not in copyright and the selected media is not the isShownAt', () => {
       it('is true', () => {
         const wrapper = factory({ media: [media[0]], identifier });
-        wrapper.vm.downloadEnabled.should.eq(true);
+        expect(wrapper.vm.downloadEnabled).toBe(true);
       });
     });
   });
@@ -129,43 +127,43 @@ describe('components/item/ItemHero', () => {
   describe('downloadUrl', () => {
     // allMediaUris set to existing media plus one iiif canvas
     const propsData = { allMediaUris: media.map((media) => media.about).concat('http://www.example.org/canvas'), media, identifier };
-    context('when the webresource is the isShownBy', () => {
+    describe('when the webresource is the isShownBy', () => {
       it('uses the proxy', async() => {
         const wrapper = factory(propsData);
         await wrapper.setData({ selectedMedia: media[0] });
-        wrapper.vm.downloadUrl.should.eq('proxied - https://europeana1914-1918.s3.amazonaws.com/attachments/119112/10265.119112.original.jpg');
+        expect(wrapper.vm.downloadUrl).toBe('proxied - https://europeana1914-1918.s3.amazonaws.com/attachments/119112/10265.119112.original.jpg');
       });
     });
-    context('when the webresource is a newspaper IIIF canvas', () => {
+    describe('when the webresource is a newspaper IIIF canvas', () => {
       it('uses the proxy', async() => {
         const wrapper = factory(propsData);
         await wrapper.setData({ selectedMedia: media[0] });
         await wrapper.setData({ selectedCanvas: { about: 'http://www.example.org/canvas' } });
-        wrapper.vm.downloadUrl.should.eq('proxied - http://www.example.org/canvas');
+        expect(wrapper.vm.downloadUrl).toBe('proxied - http://www.example.org/canvas');
       });
     });
-    context('when the webresource is an unknown IIIF canvas', () => {
+    describe('when the webresource is an unknown IIIF canvas', () => {
       it('does not use the proxy', async() => {
         const wrapper = factory(propsData);
         await wrapper.setData({ selectedMedia: media[0] });
         await wrapper.setData({ selectedCanvas: { about: 'http://www.example.org/another-canvas' } });
-        wrapper.vm.downloadUrl.should.eq('http://www.example.org/another-canvas');
+        expect(wrapper.vm.downloadUrl).toBe('http://www.example.org/another-canvas');
       });
     });
   });
 
   describe('downloadViaProxy', () => {
     const propsData = { allMediaUris: ['http://www.example.org/canvas'], media: [media[0]], identifier };
-    context('when the url is in the list of allMediaUris', () => {
+    describe('when the url is in the list of allMediaUris', () => {
       it('returns true', () => {
         const wrapper = factory(propsData);
-        wrapper.vm.downloadViaProxy('http://www.example.org/canvas').should.eq(true);
+        expect(wrapper.vm.downloadViaProxy('http://www.example.org/canvas')).toBe(true);
       });
     });
-    context('when the url is NOT in the list of allMediaUris', () => {
+    describe('when the url is NOT in the list of allMediaUris', () => {
       it('returns false', () => {
         const wrapper = factory(propsData);
-        wrapper.vm.downloadViaProxy('http://www.example.org/another-resource').should.eq(false);
+        expect(wrapper.vm.downloadViaProxy('http://www.example.org/another-resource')).toBe(false);
       });
     });
   });

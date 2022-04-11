@@ -6,8 +6,9 @@ import CompareImageSlider from '@/components/generic/CompareImageSlider.vue';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = (setImageWidthSpy) => shallowMount(CompareImageSlider, {
+const factory = (propsData) => shallowMount(CompareImageSlider, {
   localVue,
+  attachTo: document.body,
   propsData: {
     leftImageSrc: '/img/portrait.jpg',
     leftImageAttribution: {
@@ -20,9 +21,10 @@ const factory = (setImageWidthSpy) => shallowMount(CompareImageSlider, {
       rightsStatement: 'http://creativecommons.org/publicdomain/mark/1.0/'
     },
     rightImageWidth: 400,
-    rightImageHeight: 596
+    rightImageHeight: 596,
+    lazy: false,
+    ...propsData
   },
-  methods: { setImageWidth: setImageWidthSpy || sinon.spy() },
   mocks: {
     $t: (key) => key
   }
@@ -33,28 +35,28 @@ describe('components/generic/CompareImageSlider', () => {
     const wrapper = factory();
 
     const leftImage = wrapper.find('[data-qa="compare image left image"]');
-    leftImage.attributes().src.should.contain('/img/portrait.jpg');
+    expect(leftImage.attributes().src).toContain('/img/portrait.jpg');
   });
 
   it('has right image', () => {
     const wrapper = factory();
 
     const rightImage = wrapper.find('[data-qa="compare image right image"]');
-    rightImage.attributes().src.should.contain('/img/portrait-monochrome.jpg');
+    expect(rightImage.attributes().src).toContain('/img/portrait-monochrome.jpg');
   });
 
   it('cites left image attribution', () => {
     const wrapper = factory();
 
     const leftCite = wrapper.find('figcaption [data-qa="compare image left attribution"]');
-    leftCite.should.exist;
+    expect(leftCite).toBeDefined();
   });
 
   it('cites right image attribution', () => {
     const wrapper = factory();
 
     const rightCite = wrapper.find('figcaption [data-qa="compare image right attribution"]');
-    rightCite.should.exist;
+    expect(rightCite).toBeDefined();
   });
 
   it('generates the correct clip sizing', async() => {
@@ -64,7 +66,7 @@ describe('components/generic/CompareImageSlider', () => {
       sliderPosition: 0.5
     });
 
-    wrapper.vm.leftImageClip.clip.should.eq('rect(auto, 310px, auto, auto)');
+    expect(wrapper.vm.leftImageClip.clip).toBe('rect(auto, 310px, auto, auto)');
   });
 
   it('places the slider bar in the correct position', async() => {
@@ -75,33 +77,46 @@ describe('components/generic/CompareImageSlider', () => {
       sliderWidth: 20
     });
 
-    wrapper.vm.sliderBarPosition.left.should.eq('300px');
+    expect(wrapper.vm.sliderBarPosition.left).toBe('300px');
   });
 
-  it('sets dragging property to `true` when the user clicks on the slider', async() => {
-    const wrapper = factory();
-    const slider = wrapper.find('[data-qa="compare image slider"]');
+  describe('dragging the slider', () => {
+    it('sets dragging property to `true` when the user mouses down on the slider', () => {
+      const wrapper = factory();
+      const slider = wrapper.find('[data-qa="compare image slider"]');
 
-    slider.trigger('mousedown');
+      slider.trigger('mousedown');
 
-    wrapper.vm.dragging.should.eq(true);
-  });
+      expect(wrapper.vm.dragging).toBe(true);
+    });
 
-  it('sets dragging property to `false` when the user clicks off the slider', async() => {
-    const wrapper = factory();
-    const slider = wrapper.find('[data-qa="compare image slider"]');
+    it('calls `drag` when dragging mouse', () => {
+      const wrapper = factory();
+      wrapper.setData({ dragging: true });
+      sinon.spy(wrapper.vm, 'drag');
 
-    slider.trigger('mouseup');
+      const slider = wrapper.find('[data-qa="compare image slider"]');
+      slider.trigger('mousemove');
 
-    wrapper.vm.dragging.should.eq(false);
+      expect(wrapper.vm.drag.calledOnce).toBe(true);
+    });
+
+    it('sets dragging property to `false` when the user mouses up off the slider', () => {
+      const wrapper = factory();
+      const slider = wrapper.find('[data-qa="compare image slider"]');
+
+      slider.trigger('mouseup');
+
+      expect(wrapper.vm.dragging).toBe(false);
+    });
   });
 
   it('calls `setImageWidth` method when browser has been resized', () => {
-    const setImageWidth = sinon.spy();
-    factory(setImageWidth);
+    const wrapper = factory();
+    sinon.spy(wrapper.vm, 'setImageWidth');
 
-    global.window.dispatchEvent(new Event('resize'));
+    window.dispatchEvent(new Event('resize'));
 
-    setImageWidth.should.have.callCount(1);
+    expect(wrapper.vm.setImageWidth.calledOnce).toBe(true);
   });
 });

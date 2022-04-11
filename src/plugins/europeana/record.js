@@ -183,7 +183,7 @@ export default (context = {}) => {
       }
 
       let prefLang;
-      if (context.$config?.app?.features?.translatedItems) {
+      if (context.$features?.translatedItems) {
         prefLang = options.metadataLanguage ? options.metadataLanguage : null;
       }
       const predictedUiLang = prefLang || options.locale;
@@ -196,7 +196,7 @@ export default (context = {}) => {
       for (const field in proxies) {
         if (aggregatorProxy?.[field] && localeSpecificFieldValueIsFromEnrichment(field, aggregatorProxy, providerProxy, predictedUiLang, entities)) {
           proxies[field].translationSource = 'enrichment';
-        } else if (europeanaProxy?.[field]?.[predictedUiLang] && context.$config?.app?.features?.translatedItems) {
+        } else if (europeanaProxy?.[field]?.[predictedUiLang] && context.$features?.translatedItems) {
           proxies[field].translationSource = 'automated';
         }
       }
@@ -205,7 +205,10 @@ export default (context = {}) => {
         ...lookupEntities(
           merge.all([proxies, edm.aggregations[0], edm.europeanaAggregation]), entities
         ),
-        europeanaCollectionName: edm.europeanaCollectionName,
+        europeanaCollectionName: edm.europeanaCollectionName ? {
+          url: { name: 'search', query: { query: `europeana_collectionName:"${edm.europeanaCollectionName[0]}"` } },
+          value: edm.europeanaCollectionName
+        } : null,
         timestampCreated: edm.timestamp_created,
         timestampUpdate: edm.timestamp_update
       };
@@ -309,7 +312,7 @@ export default (context = {}) => {
       }
 
       const params = { ...this.$axios.defaults.params };
-      if (context.$config?.app?.features?.translatedItems) {
+      if (context.$features?.translatedItems) {
         if (options.metadataLanguage) {
           params.profile = 'translate';
           params.lang = options.metadataLanguage;

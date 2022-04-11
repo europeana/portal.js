@@ -10,9 +10,9 @@ const identifier = '/123/abc';
 const setId = '/123/def';
 const storeDispatch = sinon.spy();
 
-const factory = ({ storeState = {}, $auth = {}, recommendationFlag = false } = {}) => mount(RecommendationButtons, {
+const factory = ({ storeState = {}, $auth = {}, propsData = {} } = {}) => mount(RecommendationButtons, {
   localVue,
-  propsData: { value: identifier, recommendedItem: recommendationFlag },
+  propsData: { identifier, ...propsData },
   mocks: {
     $auth,
     $store: {
@@ -30,51 +30,81 @@ const factory = ({ storeState = {}, $auth = {}, recommendationFlag = false } = {
 
 describe('components/recommendation/RecommendationButtons', () => {
   describe('accept button', () => {
-    it('is visible', () => {
-      const wrapper = factory({ recommendationFlag: true });
+    it('is present and visible if enabled', () => {
+      const wrapper = factory({
+        propsData: { enableAcceptButton: true },
+        storeState: { active: { type: 'EntityBestItemsSet' } }
+      });
 
       const acceptButton = wrapper.find('[data-qa="accept button"]');
 
-      acceptButton.isVisible().should.be.true;
+      expect(acceptButton.exists()).toBe(true);
+      expect(acceptButton.isVisible()).toBe(true);
     });
 
-    context('when user is logged in', () => {
+    it('is not present if disabled', () => {
+      const wrapper = factory({
+        propsData: { enableAcceptButton: false },
+        storeState: { active: { type: 'EntityBestItemsSet' } }
+      });
+
+      const acceptButton = wrapper.find('[data-qa="accept button"]');
+
+      expect(acceptButton.exists()).toBe(false);
+    });
+
+    describe('when user is logged in', () => {
       const $auth = { loggedIn: true };
 
-      context('when pressed', () => {
+      describe('when pressed', () => {
         it('dispatches to accept recommended item', async() => {
-          const wrapper = factory({ $auth, recommendationFlag: true });
+          const wrapper = factory({ $auth });
 
           const acceptButton = wrapper.find('[data-qa="accept button"]');
           acceptButton.trigger('click');
 
-          storeDispatch.should.have.been.calledWith('set/reviewRecommendation', { setId, itemIds: ['/123/abc'], action: 'accept' });
-          storeDispatch.should.have.been.calledWith('set/addItem', { setId: `http://data.europeana.eu/set${setId}`, itemId: identifier });
+          expect(storeDispatch.calledWith('set/reviewRecommendation', { setId, itemIds: ['/123/abc'], action: 'accept' })).toBe(true);
+          expect(storeDispatch.calledWith('set/addItem', { setId: `http://data.europeana.eu/set${setId}`, itemId: identifier })).toBe(true);
         });
       });
     });
   });
 
   describe('reject button', () => {
-    it('is visible', () => {
-      const wrapper = factory({ recommendationFlag: true });
+    it('is present and visible if enabled', () => {
+      const wrapper = factory({
+        propsData: { enableRejectButton: true },
+        storeState: { active: { type: 'EntityBestItemsSet' } }
+      });
 
       const rejectButton = wrapper.find('[data-qa="reject button"]');
 
-      rejectButton.isVisible().should.be.true;
+      expect(rejectButton.exists()).toBe(true);
+      expect(rejectButton.isVisible()).toBe(true);
     });
 
-    context('when user is logged in', () => {
+    it('is not present if disabled', () => {
+      const wrapper = factory({
+        propsData: { enableRejectButton: false },
+        storeState: { active: { type: 'EntityBestItemsSet' } }
+      });
+
+      const rejectButton = wrapper.find('[data-qa="reject button"]');
+
+      expect(rejectButton.exists()).toBe(false);
+    });
+
+    describe('when user is logged in', () => {
       const $auth = { loggedIn: true };
 
-      context('when pressed', () => {
+      describe('when pressed', () => {
         it('dispatches to reject recommended item', async() => {
-          const wrapper = factory({ $auth, recommendationFlag: true });
+          const wrapper = factory({ $auth });
 
           const rejectButton = wrapper.find('[data-qa="reject button"]');
           rejectButton.trigger('click');
 
-          storeDispatch.should.have.been.calledWith('set/reviewRecommendation', { setId, itemIds: ['/123/abc'], action: 'reject' });
+          expect(storeDispatch.calledWith('set/reviewRecommendation', { setId, itemIds: ['/123/abc'], action: 'reject' })).toBe(true);
         });
       });
     });

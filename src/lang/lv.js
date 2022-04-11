@@ -30,12 +30,16 @@ export default {
     "accept": "Pieņemt",
     "cancel": "Atcelt",
     "close": "aizvērt",
+    "continue": "turpināt",
     "download": "Lejupielādēt",
     "edit": "Rediģēt",
     "feedback": "Atsauksmes",
     "goBack": "Atpakaļ",
+    "goHome": "Dodieties uz sākumlapu",
+    "learnMore": "Apgūt vairāk",
     "like": "Patīk",
     "next": "Nākamais",
+    "pin": "Pin",
     "providedBy": "Nodrošina {provider}",
     "reject": "Noraidīt",
     "send": "Sūtīt",
@@ -72,6 +76,7 @@ export default {
   "cardLabels": {
     "organisation": "Organizācija",
     "person": "Persona",
+    "theme": "Tēma",
     "time": "Gadsimts",
     "topic": "Temats"
   },
@@ -84,16 +89,24 @@ export default {
     "fashion": {
       "facets": {
         "CREATOR": {
-          "name": "Dizainers | Dizaineri"
+          "moreName": "dizaineri",
+          "name": "Dizainers | Dizaineri",
+          "select": "Atlasīt dizaineri"
         },
         "proxy_dc_format": {
-          "name": "Metode | Metodes"
+          "moreName": "metodes",
+          "name": "Metode | Metodes",
+          "select": "Atlasīt metodes"
         },
         "proxy_dc_type": {
-          "name": "Vienuma veids | Vienuma veidi"
+          "moreName": "vienumu veidi",
+          "name": "Vienuma veids | Vienuma veidi",
+          "select": "Atlasiet vienumu veidus"
         },
         "proxy_dcterms_medium": {
-          "name": "Materiāls | Materiāli"
+          "moreName": "materiāli",
+          "name": "Materiāls | Materiāli",
+          "select": "Atlasīt materiālus"
         }
       }
     },
@@ -159,9 +172,7 @@ export default {
         "title": "Pārāk daudz piesprausto vienumu"
       },
       "pinned": "Vienums ir piespraustas. Tagad tas atrodas šīs kolekcijas pirmās lapas augšpusē. Var paiet līdz pat 24 stundām, līdz tas parādās visiem.",
-      "pinnedFirstPage": "Vienums ir piespraustas. Var paiet līdz pat 24 stundām, līdz tas parādās visiem.",
-      "unpinned": "Vienums ir atspraustas. Tas vairs nav šīs kolekcijas pirmās lapas augšpusē. Var paiet pat 24 stundas, līdz visi pazūd.",
-      "unpinnedFirstPage": "Vienums ir atspraustas. Var paiet pat 24 stundas, līdz visi pazūd."
+      "unpinned": "Vienums ir atspraustas. Tas vairs nav šīs kolekcijas pirmās lapas augšpusē. Var paiet pat 24 stundas, līdz visi pazūd."
     },
     "prompts": {
       "pin": "Vai tiešām vēlaties piespraust šo vienumu? Šis vienums tiks rādīts kolekcijas \"{entity}\" augšdaļā. Šo izmaiņu stāšanās spēkā var ilgt līdz 24 stundām.",
@@ -178,6 +189,7 @@ export default {
   },
   "facets": {
     "COLOURPALETTE": {
+      "moreName": "krāsas",
       "name": "Krāsa | Krāsas",
       "options": {
         "#000000": "Melna",
@@ -324,23 +336,78 @@ export default {
         "#FFFFE0": "Gaiši dzeltens",
         "#FFFFF0": "Ziloņkaula",
         "#FFFFFF": "Balts"
-      }
+      },
+      "select": "Izvēlieties krāsas"
     },
     "COUNTRY": {
-      "name": "Nodrošinošā valsts"
+      "name": "Nodrošinošā valsts",
+      "options": {
+        "Albania": "Albānija",
+        "Austria": "Austrija",
+        "Belarus": "Baltkrievija",
+        "Belgium": "Beļģija",
+        "Bosnia and Herzegovina": "Bosnija un Hercegovina",
+        "Bulgaria": "Bulgārija",
+        "Croatia": "Horvātija",
+        "Cyprus": "Kipra",
+        "Czech Republic": "Čehija",
+        "Denmark": "Dānija",
+        "Estonia": "Igaunija",
+        "Europe": "Eiropa",
+        "Finland": "Somija",
+        "France": "Francija",
+        "Georgia": "Gruzija",
+        "Germany": "Vācija",
+        "Greece": "Grieķija",
+        "Holy See (Vatican City State)": "Svētais Krēsls (Vatikāna Pilsētvalsts)",
+        "Hungary": "Ungārija",
+        "Iceland": "Islande",
+        "Ireland": "Īrija",
+        "Israel": "Izraēla",
+        "Italy": "Itālija",
+        "Latvia": "Latvija",
+        "Lithuania": "Lietuva",
+        "Luxembourg": "Luksemburga",
+        "Macedonia": "Maķedonija",
+        "Malta": "Malta",
+        "Moldova": "Moldova",
+        "Montenegro": "Melnkalne",
+        "Netherlands": "Nīderlande",
+        "Norway": "Norvēģija",
+        "Poland": "Polija",
+        "Portugal": "Portugāle",
+        "Romania": "Rumānija",
+        "Russia": "Krievija",
+        "Serbia": "Serbija",
+        "Slovakia": "Slovākija",
+        "Slovenia": "Slovēnija",
+        "Spain": "Spānija",
+        "Sweden": "Zviedrija",
+        "Switzerland": "Šveice",
+        "Turkey": "Turcija",
+        "Ukraine": "Ukraina",
+        "United Kingdom": "Apvienotā Karaliste",
+        "United States of America": "Amerikas Savienotās Valstis"
+      },
+      "select": "Atlasiet nodrošinātājas valstis"
     },
     "CREATOR": {
-      "name": "Radītājs | Radītāji"
+      "moreName": "radītāji",
+      "name": "Radītājs | Radītāji",
+      "select": "Atlasīt radītāji"
     },
     "DATA_PROVIDER": {
-      "name": "Iestāde | Iestādes"
+      "moreName": "Iestādes",
+      "name": "Iestāde | Iestādes",
+      "select": "Atlasīt iestādes"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Attēla orientācija | Attēla orientācijas",
       "options": {
         "landscape": "Ainava",
         "portrait": "Portrets"
-      }
+      },
+      "select": "Atlasīt attēlu orientācijas"
     },
     "IMAGE_SIZE": {
       "name": "Attēla izmērs | Attēlu izmēri",
@@ -349,19 +416,65 @@ export default {
         "large": "Liels 1-4 MP (piemēram, 1920x1080px)",
         "medium": "Vidējs 0,5–1 MP (piemēram, 850x850 pikseļi)",
         "small": "Mazs < 0,5 MP (piemēram, 650x600 pikseļi)"
-      }
+      },
+      "select": "Atlasīt attēlu izmērus"
     },
     "LANGUAGE": {
-      "name": "Valoda | Valodas"
+      "name": "Valoda | Valodas",
+      "options": {
+        "ar": "Arābu valodā",
+        "bg": "Bulgāru",
+        "bs": "Bosniešu",
+        "ca": "Kataloniski",
+        "cs": "Čehu",
+        "cy": "Velsiešu",
+        "da": "Dāņu",
+        "de": "Vācu",
+        "el": "Grieķu",
+        "en": "Angļu",
+        "es": "Spāņu",
+        "et": "Igauņu",
+        "fi": "Somu",
+        "fr": "Franču",
+        "ga": "Īru",
+        "gd": "Gēlu",
+        "he": "Ebreju valodā",
+        "hr": "Horvātu",
+        "hu": "Ungāru",
+        "is": "Islandiešu",
+        "it": "Itāļu",
+        "lt": "Lietuviešu",
+        "lv": "Latviešu",
+        "mk": "Maķedonijas",
+        "mt": "Maltiešu",
+        "mul": "Vairākas valodas",
+        "nl": "Holandiešu",
+        "no": "Norvēģu",
+        "pl": "Poļu",
+        "pt": "Portugāļu",
+        "ro": "Rumāņu",
+        "ru": "Krievu",
+        "sk": "Slovāku",
+        "sl": "Slovēņu",
+        "sq": "Albāņu",
+        "sr": "Serbu",
+        "sv": "Zviedru",
+        "tr": "Turku",
+        "uk": "Ukraiņu"
+      },
+      "select": "Atlasīt valodas"
     },
     "MIME_TYPE": {
       "name": "Datnes formāts | Datņu formāti",
       "options": {
         "text/plain": "Vienkāršs teksts"
-      }
+      },
+      "select": "Atlasīt failu formātus"
     },
     "PROVIDER": {
-      "name": "Agregators | Agregatori"
+      "moreName": "agregatori",
+      "name": "Agregators | Agregatori",
+      "select": "Atlasīt agregatorus"
     },
     "REUSABILITY": {
       "name": "Vai drīkst šo izmantot?",
@@ -370,7 +483,8 @@ export default {
         "permission": "Varbūt, meklējiet atļauju",
         "restricted": "Jā, ar nosacījumiem",
         "uncategorized": "Bez kategorijas"
-      }
+      },
+      "select": "Atlasit , vai varat izmantot šo"
     },
     "TYPE": {
       "name": "Līdzekļu veids",
@@ -380,14 +494,17 @@ export default {
         "SOUND": "Skaņa",
         "TEXT": "Teksts",
         "VIDEO": "Video"
-      }
+      },
+      "select": "Atlasīt multivides veidus"
     },
     "api": {
       "name": "Meklēt",
       "options": {
         "fulltext": "Vienumi ar pilnu tekstu",
         "metadata": "Tikai metadatu vienumi"
-      }
+      },
+      "switch": "Meklēt tikai to vienumu saturā, kuriem ir pilnteksta",
+      "switchMoreInfo": "Šajā kolekcijā varat izvēlēties, ko vēlaties meklēt: ja šis slēdzis ir ieslēgts, tad meklēsiet laikraksta un dokumenta tekstā; ja tas ir izslēgts, tad meklēsiet informāciju, kas raksturo attiecīgo priekšmetu, tāpat kā to vienmēr darāt vairumā citu kolekciju."
     },
     "button": {
       "apply": "Lietot",
@@ -398,7 +515,7 @@ export default {
       "showLess": "Rādīt mazāk {label}"
     },
     "collection": {
-      "name": "Kolekcija",
+      "name": "Tēma",
       "options": {
         "archaeology": "Arheoloģija",
         "art": "Māksla",
@@ -413,27 +530,36 @@ export default {
         "photography": "Fotogrāfija",
         "sport": "Sports",
         "ww1": "1914.–1918. gads"
-      }
+      },
+      "select": "Izvēlieties motīvu"
     },
     "contentTier": {
-      "name": "Vienuma kvalitāte",
-      "notification": "Ir pieejami daži vienumi, kas neatbilst mūsu publicēšanas kritērijiem. Šiem vienumiem var piekļūt, aktivizējot filtru \"Vienumu kvalitāte\", kas pieejams sadaļā \"Vairāk filtru\".",
+      "name": "Preces kvalitāte",
       "options": {
         "*": "Ietver vienumus, kas neatbilst mūsu publicēšanas kritērijiem",
-        "0": "Rādīt tikai vienumus, kas neatbilst mūsu publicēšanas kritērijiem."
-      }
+        "0": "Rādīt tikai vienumus, kas neatbilst mūsu publicēšanas kritērijiem.",
+        "1": "Zema kvalitāte",
+        "2": "Vidēja kvalitāte",
+        "3": "Augsta kvalitāte & atkārtoti lietojama ar apstākļiem",
+        "4": "Augstas kvalitātes un brīvi atkārtoti lietojams"
+      },
+      "select": "Atlasīt vienumi īpašības"
     },
+    "moreOptions": "Meklēt, lai atrastu {0} vairāk {1}.",
     "proxy_dc_format": {
-      "name": "Formāts | Formāti"
+      "name": "Formāts | Formāti",
+      "select": "Atlasīt formātus"
     },
     "proxy_dc_type": {
-      "name": "Veids | Veidi"
+      "name": "Veids | Veidi",
+      "select": "Atlasīt tipus"
     },
     "proxy_dcterms_issued": {
       "name": "Izdošanas datums"
     },
     "proxy_dcterms_medium": {
-      "name": "Līdzeklis/ Līdzekļi"
+      "name": "Līdzeklis/ Līdzekļi",
+      "select": "Atlasīt multividi"
     }
   },
   "feedback": {
@@ -486,6 +612,7 @@ export default {
       "dctermsProvenance": "Izcelsme",
       "dctermsReferences": "Atsaucas uz",
       "dctermsSpatial": "Vietas",
+      "dctermsTOC": "Satura rādītājs",
       "dctermsTemporal": "Periods",
       "edmCountry": "Nodrošinošā valsts",
       "edmCurrentLocation": "Pašreizējā atrašanās vieta",
@@ -542,7 +669,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label} : {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -579,7 +705,6 @@ export default {
     "itemCount": "1 vienums |{count} vienumiem",
     "itemOf": "{max} no {count} vienumiem",
     "recent": "Nesenie vienumi",
-    "recommendationsDisclaimer": "Īkšķis uz augšu, lai pievienotu galerijai - īkšķis uz leju, ja jums tas nepatīk",
     "recommended": "Ieteiktie priekšmeti",
     "youMightLike": "Iespējams, Tev patiks arī šie"
   },
@@ -643,6 +768,10 @@ export default {
         "description": "Apkopo anonīmu statistiku par to, kā apmeklētāji mijiedarbojas ar vietni.",
         "title": "Matomo"
       },
+      "newFeatureNotification": {
+        "description": "Rāda paziņojumu, kad kļūst pieejamas jaunas funkcijas.",
+        "title": "Jaunas funkcijas paziņojums"
+      },
       "searchResultsView": {
         "description": "Atceras, vai vēlaties redzēt meklēšanas rezultātus saraksta vai režģa skatā.",
         "title": "Meklēšanas rezultātu skats (saraksts / režģis)"
@@ -653,25 +782,8 @@ export default {
     "skipToMain": "Pāriet uz lapas saturu"
   },
   "learnMore": "Uzziniet par šī apraksta avotu",
-  "linksToClassic": {
-    "home": {
-      "linkText": "Skatiet šo lapu sākotnējā Europeana vietnē līdz 2021. gada 20. decembrim.",
-      "text": "Jūs izbaudāt jauno Europeana pieredzi."
-    },
-    "record": {
-      "linkText": "Skatiet šo vienumu sākotnējā Europeana vietnē līdz 2021. gada 20. decembrim.",
-      "text": "Jūs skatāties šo vienumu jaunajā Europeana vietnē."
-    },
-    "search": {
-      "linkText": "Meklējiet sākotnējā Europeana tīmekļa vietnē līdz 2021. gada 20. decembrim.",
-      "text": "Jūs meklējat mūsu jaunajā un ātrākajā vietnē."
-    }
-  },
   "loading": "Notiek ielāde",
   "loadingResults": "Notiek rezultātu ielāde",
-  "mediaPreview": {
-    "selectItem": "Atlasīt vienumu {src}"
-  },
   "messages": {
     "copyToClipboardSuccess": "Kopēts starpliktuvē",
     "externalContentError": "Neizdevās ielādēt ārējo saturu",
@@ -693,9 +805,21 @@ export default {
     "translateLanguage": "Vai jūs vēlētos redzēt šo preci {0}?",
     "translateQuotaError": "Tulkošanas pakalpojums īslaicīgi nav pieejams. Lūdzu, pamēģiniet vēlreiz vēlāk."
   },
+  "newFeatureNotification": {
+    "dismiss": "Aizvērt",
+    "readMore": "Lasīt vairāk",
+    "text": {
+      "searchFilters": "Tagad varat meklēt vērtības atsevišķos filtros; pārbaudiet to!"
+    }
+  },
   "newWindow": "tiek atvērts jaunā logā",
   "noMoreResults": "Jūsu meklēšanas vaicājumam vairs nav rezultātu.",
   "noResults": "Nav rezultātu",
+  "organisation": {
+    "city": "Pilsēta",
+    "country": "Valsts",
+    "nameAcronym": "Vārda akronīms"
+  },
   "pageHasLoaded": "ir ielādēts",
   "pages": {
     "collections": {
@@ -720,11 +844,16 @@ export default {
     }
   },
   "readMore": "Lasīt vairāk",
+  "recommendation": {
+    "prompts": {
+      "accept": "Īkšķis augšā , lai pievienotu galerijai",
+      "reject": "Īkšķis uz leju , ja jums tas nepatīk"
+    }
+  },
   "record": {
     "IIIFViewer": "IIIF skatītājs",
     "allMetaData": "Visi metadati",
     "copyEmbedLabel": "Iegulšanas kods (noklikšķiniet, lai kopētu)",
-    "downloadCopyrightInfo": "Šis vienums ir aizsargāts ar autortiesībām, un to nevar lejupielādēt.",
     "exploreMore": "Pārlūkot vairāk",
     "extendedInformation": "Paplašināta informācija",
     "goodToKnow": "Vērts zināt",
@@ -736,24 +865,21 @@ export default {
     "showAll": "Rādīt visu informāciju",
     "similarItems": "Līdzīgi vienumi",
     "transcription": "Kopija",
-    "transcriptionDisclaimer": "Šī satura veidošanā līdzdarbojušies iedzīvotāji, nevis šo vienumu nodrošinošā iestāde.",
-    "view": {
-      "image": "Skatīt attēlu",
-      "media": "Skatīt multividi",
-      "pdf": "Skatīt PDF"
-    }
+    "transcriptionDisclaimer": "Šī satura veidošanā līdzdarbojušies iedzīvotāji, nevis šo vienumu nodrošinošā iestāde."
   },
   "relatedCollections": "Saistītās kolekcijas",
   "removeFilter": "Noņemt filtru {filterLabel}",
   "reset": "Atiestatīt",
   "resourceWikimedia": "Resurss no Wikimedia Commons",
   "results": "Rezultāti",
+  "resultsFor": "Rezultāti vaicājumam {0}",
   "resultsLimitWarning": "Papildu rezultāti netiek parādīti, jo tiek parādīti tikai pirmie 1000 atbilstošākie rezultāti. Ja neesat atradis to, ko meklējat, lūdzu, apsveriet iespēju precizēt meklēšanu.",
+  "resultsWithin": "Rezultāti {0} {1} ietvaros {2}",
   "search": "Meklēt",
+  "searchHasLoaded": "{0} atgriezti rezultāti",
   "searchPlaceholder": "Meklēt starp miljoniem vienumu",
   "searchResults": "Meklēt",
   "searchResultsFor": "{0} - Meklēšana",
-  "searchResultsForIn": "{0} - Meklēšana {1} ietvaros",
   "searchSuggestions": "Meklēšanas ieteikumi",
   "searchTier": {
     "button": {
@@ -767,7 +893,8 @@ export default {
   },
   "searchViews": {
     "grid": "Režģa skats",
-    "list": "Saraksta skats"
+    "list": "Saraksta skats",
+    "mosaic": "Mozaīkas skats"
   },
   "set": {
     "actions": {
@@ -776,6 +903,7 @@ export default {
       "createNew": "Izveidot jaunu galeriju",
       "delete": "Dzēst galeriju",
       "edit": "Rediģēt galeriju",
+      "save": "Glābt",
       "update": "Atjaunināt galeriju"
     },
     "form": {
@@ -802,5 +930,14 @@ export default {
   },
   "showLess": "Rādīt mazāk",
   "showMore": "Rādīt vairāk",
-  "website": "Vietne"
+  "sideFilters": {
+    "noOptions": "Nav pieejamas opcijas , lai atlasītu",
+    "search": "Meklēt"
+  },
+  "statuses": {
+    "liked": "Patika",
+    "pinned": "Piesprausts"
+  },
+  "website": "Vietne",
+  "youMightAlsoLike": "Jums varētu arī patikt"
 };

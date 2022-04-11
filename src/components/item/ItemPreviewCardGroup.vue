@@ -1,31 +1,53 @@
 <template>
   <div
-    v-if="view === 'grid'"
+    v-if="masonryActive"
   >
     <div
+      id="searchResultsGrid"
+      :key="`searchResultsGrid${view}`"
       v-masonry
       transition-duration="0.1"
       item-selector=".card"
       horizontal-order="true"
-      column-width=".masonry-container .card"
+      column-width=".masonry-container .card:not(.header-card)"
       class="masonry-container"
-      data-qa="item previews grid"
+      :data-qa="`item previews ${view}`"
     >
-      <ItemPreviewCard
-        v-for="(item, index) in value"
-        :key="item.id"
-        v-masonry-tile
-        :item="value[index]"
-        :hit-selector="itemHitSelector(item)"
-        :variant="cardVariant"
-        class="item"
-        :lazy="false"
-        :recommended-item="recommendations"
-        :show-pins="showPins"
-        data-qa="item preview"
-        @like="$emit('like', item.id)"
-        @unlike="$emit('unlike', item.id)"
-      />
+      <slot />
+      <template
+        v-for="(card, index) in cards"
+      >
+        <template
+          v-if="card === 'related'"
+        >
+          <b-card
+            v-show="showRelated"
+            :key="index"
+            class="text-left related-collections-card mb-4"
+          >
+            <slot
+              v-masonry-tile
+              name="related"
+            />
+          </b-card>
+        </template>
+        <ItemPreviewCard
+          v-else
+          :key="index"
+          v-masonry-tile
+          :item="card"
+          :hit-selector="itemHitSelector(card)"
+          :variant="cardVariant"
+          class="item"
+          :lazy="false"
+          :enable-accept-recommendation="enableAcceptRecommendations"
+          :enable-reject-recommendation="enableRejectRecommendations"
+          :show-pins="showPins"
+          data-qa="item preview"
+          @like="$emit('like', card.id)"
+          @unlike="$emit('unlike', card.id)"
+        />
+      </template>
     </div>
   </div>
   <b-card-group
@@ -34,17 +56,35 @@
     :class="cardGroupClass"
     deck
   >
-    <ItemPreviewCard
-      v-for="(item, index) in value"
-      :key="item.id"
-      :item="value[index]"
-      :hit-selector="itemHitSelector(item)"
-      :variant="cardVariant"
-      :show-pins="showPins"
-      data-qa="item preview"
-      @like="$emit('like', item.id)"
-      @unlike="$emit('unlike', item.id)"
-    />
+    <slot />
+    <template
+      v-for="(card, index) in cards"
+    >
+      <template
+        v-if="card === 'related'"
+      >
+        <b-card
+          v-show="showRelated"
+          :key="index"
+          class="text-left related-collections-card mb-4"
+        >
+          <slot
+            name="related"
+          />
+        </b-card>
+      </template>
+      <ItemPreviewCard
+        v-else
+        :key="card.id"
+        :item="card"
+        :hit-selector="itemHitSelector(card)"
+        :variant="cardVariant"
+        :show-pins="showPins"
+        data-qa="item preview"
+        @like="$emit('like', card.id)"
+        @unlike="$emit('unlike', card.id)"
+      />
+    </template>
   </b-card-group>
 </template>
 
@@ -59,7 +99,7 @@
     },
 
     props: {
-      value: {
+      items: {
         type: Array,
         default: () => []
       },
@@ -80,13 +120,25 @@
         type: Boolean,
         default: false
       },
-      recommendations: {
+      showRelated: {
+        type: Boolean,
+        default: false
+      },
+      enableAcceptRecommendations: {
+        type: Boolean,
+        default: false
+      },
+      enableRejectRecommendations: {
         type: Boolean,
         default: false
       }
     },
 
     computed: {
+      cards() {
+        return this.items.slice(0, 4).concat('related').concat(this.items.slice(4));
+      },
+
       cardGroupClass() {
         let cardGroupClass;
 
@@ -110,13 +162,21 @@
 
       cardVariant() {
         return this.view === 'grid' ? 'default' : this.view;
+      },
+
+      masonryActive() {
+        return this.view === 'grid' || this.view === 'mosaic';
+      }
+    },
+
+    watch: {
+      'cards.length'() {
+        this.redrawMasonry();
       }
     },
 
     mounted() {
-      if (typeof this.$redrawVueMasonry === 'function' && this.view === 'grid') {
-        this.$redrawVueMasonry();
-      }
+      this.redrawMasonry();
     },
 
     methods: {
@@ -127,6 +187,13 @@
 
         const hit = this.hits.find(hit => item.id === hit.scope);
         return hit ? hit.selectors[0] : null;
+      },
+      redrawMasonry() {
+        if (typeof this.$redrawVueMasonry === 'function' && this.masonryActive) {
+          this.$nextTick(() => {
+            this.$redrawVueMasonry();
+          });
+        }
       }
     }
   };

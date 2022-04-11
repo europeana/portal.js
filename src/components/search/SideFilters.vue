@@ -9,37 +9,67 @@
     />
     <b-container
       class="side-filters"
+      data-qa="side filters"
     >
-      <b-row
-        class="border-bottom border-top d-flex justify-content-between align-items-center"
-      >
-        <h2 class="filters-title">
-          {{ $t('filterResults') }}
-        </h2>
-        <button
-          v-if="isFilteredByDropdowns()"
-          class="btn btn-outline-primary mr-3"
-          data-qa="reset filters button"
-          @click="resetFilters"
-        >
-          {{ $t('reset') }}
-        </button>
-        <b-button
-          data-qa="close filters button"
-          class="close"
-          :aria-label="$t('header.closeSidebar')"
-          @click="toggleFilterSheet"
-        />
-      </b-row>
       <client-only>
+        <b-row
+          class="border-bottom border-top d-flex justify-content-between align-items-center flex-nowrap"
+        >
+          <div
+            v-if="totalResults"
+            class="filters-title"
+            data-qa="total results"
+          >
+            {{ $tc('items.itemCount', totalResultsLocalised, { count: totalResultsLocalised }) }}
+            <div
+              class="visually-hidden"
+              role="status"
+            >
+              {{ $t('searchHasLoaded', [totalResultsLocalised]) }}
+            </div>
+          </div>
+          <h2
+            v-else
+            class="filters-title"
+          >
+            {{ $t('filterResults') }}
+          </h2>
+          <button
+            v-if="hasResettableFilters()"
+            :disabled="resetButtonDisabled"
+            class="btn btn-outline-primary mr-3"
+            data-qa="reset filters button"
+            @click="resetFilters"
+          >
+            {{ $t('reset') }}
+          </button>
+          <b-button
+            data-qa="close filters button"
+            class="button-icon-only icon-clear mx-3"
+            variant="light-flat"
+            :aria-label="$t('header.closeSidebar')"
+            @click="toggleFilterSheet"
+          />
+        </b-row>
         <b-row class="mb-3 mt-4">
           <b-col
             data-qa="search filters"
           >
             <div class="position-relative">
+              <SideSwitchFilter
+                v-if="enableApiFilter"
+                :value="filters.api"
+                name="api"
+                :label="$t('facets.api.switch')"
+                :tooltip="$t('facets.api.switchMoreInfo')"
+                checked-value="fulltext"
+                unchecked-value="metadata"
+                :default-value="apiFilterDefaultValue"
+                @changed="changeFacet"
+              />
               <SideDateFilter
-                v-if="collection === 'newspaper'"
-                :name="PROXY_DCTERMS_ISSUED"
+                v-if="enableDateFilter"
+                :name="dateFilterField"
                 :start="dateFilter.start"
                 :end="dateFilter.end"
                 :specific="dateFilter.specific"
@@ -52,8 +82,20 @@
                 :type="facetDropdownType(facet.name)"
                 :selected="filters[facet.name]"
                 :static-fields="facet.staticFields"
+                :search="facet.search"
+                :group-by="sideFacetDropdownGroupBy(facet.name)"
                 role="search"
                 :aria-label="facet.name"
+                @changed="changeFacet"
+              />
+              <SideSwitchFilter
+                v-if="contentTierFacetSwitch"
+                :value="filters.contentTier"
+                name="contentTier"
+                :label="$t('facets.contentTier.options.0')"
+                checked-value="&quot;0&quot;"
+                :unchecked-value="null"
+                :default-value="null"
                 @changed="changeFacet"
               />
             </div>
@@ -68,9 +110,8 @@
   import ClientOnly from 'vue-client-only';
   import isEqual from 'lodash/isEqual';
   import { mapState, mapGetters } from 'vuex';
-  import { rangeToQueryParam, rangeFromQueryParam } from '@/plugins/europeana/search';
+  import { rangeToQueryParam, rangeFromQueryParam, filtersFromQf } from '@/plugins/europeana/search';
   import themes from '@/plugins/europeana/themes';
-  import { queryUpdatesForFilters } from '../../store/search';
   import SideFacetDropdown from './SideFacetDropdown';
 
   export default {
@@ -79,7 +120,8 @@
     components: {
       ClientOnly,
       SideFacetDropdown,
-      SideDateFilter: () => import('./SideDateFilter')
+      SideDateFilter: () => import('./SideDateFilter'),
+      SideSwitchFilter: () => import('./SideSwitchFilter')
     },
     props: {
       route: {
@@ -91,36 +133,95 @@
     },
     data() {
       return {
-        PROXY_DCTERMS_ISSUED: 'proxy_dcterms_issued',
-        API_FILTER_COLLECTIONS: ['newspaper', 'ww1'],
+        DEFAULT_FACET_NAMES: [
+          'TYPE',
+          'REUSABILITY',
+          'COUNTRY',
+          'LANGUAGE',
+          'PROVIDER',
+          'DATA_PROVIDER',
+          'COLOURPALETTE',
+          'IMAGE_ASPECTRATIO',
+          'IMAGE_SIZE',
+          'MIME_TYPE',
+          'RIGHTS',
+          'contentTier'
+        ],
+        SEARCHABLE_FACETS: [
+          'COUNTRY',
+          'LANGUAGE',
+          'PROVIDER',
+          'DATA_PROVIDER',
+          'COLOURPALETTE',
+          'MIME_TYPE',
+          'CREATOR',
+          'proxy_dc_type.en',
+          'proxy_dc_format.en',
+          'proxy_dcterms_medium.en'
+        ],
         hideFilterSheet: true
       };
     },
     computed: {
       ...mapState({
         collectionFacetEnabled: state => state.search.collectionFacetEnabled,
-        facets: state => state.search.facets,
-        resettableFilters: state => state.search.resettableFilters,
         showFiltersSheet: state => state.search.showFiltersSheet,
+        totalResults: state => state.search.totalResults,
         userParams: state => state.search.userParams
       }),
       ...mapGetters({
-        facetNames: 'search/facetNames',
-        filters: 'search/filters',
-        queryUpdatesForFacetChanges: 'search/queryUpdatesForFacetChanges',
         collection: 'search/collection'
       }),
+      // TODO: do not assume filters are fielded, e.g. `qf=whale`
+      filters() {
+        const filters = filtersFromQf(this.$store.state.search.userParams?.qf);
+
+        if (this.$store.state.search.userParams?.reusability) {
+          filters['REUSABILITY'] = this.$store.state.search.userParams.reusability.split(',');
+        }
+
+        if (this.$store.state.search.apiParams?.api) {
+          filters['api'] = this.$store.state.search.apiParams.api;
+        }
+
+        return filters;
+      },
+      resettableFilters() {
+        const filters = this.filterableFacets
+          .map(facet => facet.name)
+          .filter(name => this.filters[name]);
+
+        if (this.contentTierFacetSwitch && this.filters.contentTier) {
+          filters.push('contentTier');
+        }
+        if (this.enableApiFilter && (this.filters.api !== this.apiFilterDefaultValue)) {
+          filters.push('api');
+        }
+        if (this.enableDateFilter && this.filters[this.dateFilterField]) {
+          filters.push(this.dateFilterField);
+        }
+
+        return filters;
+      },
+      theme() {
+        return themes.find(theme => theme.qf === this.collection);
+      },
+      themeSpecificFacetNames() {
+        return (this.theme?.facets || []).map((facet) => facet.field);
+      },
+      facetNames() {
+        return this.themeSpecificFacetNames.concat(this.DEFAULT_FACET_NAMES);
+      },
+      resetButtonDisabled() {
+        // Disable reset button while queries are running
+        return this.$store.state.search.liveQueries.length > 0;
+      },
       filterableFacets() {
-        const facets = this.facetNames.map(facetName => ({
-          name: facetName
+        let facets = this.facetNames.map(facetName => ({
+          name: facetName,
+          search: this.SEARCHABLE_FACETS.includes(facetName)
         }));
 
-        if (this.enableApiFilter) {
-          facets.unshift({
-            name: 'api',
-            staticFields: ['fulltext', 'metadata']
-          });
-        }
         if (this.collectionFacetEnabled) {
           facets.unshift({
             name: 'collection',
@@ -128,7 +229,14 @@
           });
         }
 
+        if (this.contentTierFacetSwitch) {
+          facets = facets.filter((facet) => facet.name !== 'contentTier');
+        }
+
         return facets;
+      },
+      contentTierFacetSwitch() {
+        return !this.$store.getters['search/collection'] && !this.$store.getters['entity/id'];
       },
       qf() {
         return this.userParams.qf;
@@ -142,6 +250,9 @@
       api() {
         return this.userParams.api;
       },
+      view() {
+        return this.userParams.view;
+      },
       page() {
         // This causes double jumps on pagination when using the > arrow, for some reason
         // return this.userParams.page;
@@ -150,18 +261,30 @@
         return Number(this.$route.query.page || 1);
       },
       enableApiFilter() {
-        return this.API_FILTER_COLLECTIONS.includes(this.collection);
+        return !!this.theme?.filters?.api;
+      },
+      apiFilterDefaultValue() {
+        return this.theme?.filters?.api?.default || null;
+      },
+      enableDateFilter() {
+        return !!this.theme?.filters?.date;
+      },
+      dateFilterField() {
+        return this.theme?.filters?.date?.field || null;
       },
       dateFilter() {
-        const proxyDctermsIssued = this.filters[this.PROXY_DCTERMS_ISSUED];
-        if (!proxyDctermsIssued || proxyDctermsIssued.length < 1) {
+        const dateFilterValue = this.filters[this.dateFilterField];
+
+        if (!dateFilterValue || dateFilterValue.length < 1) {
           return { start: null, end: null, specific: this.isCheckedSpecificDate };
         }
-        const range = rangeFromQueryParam(proxyDctermsIssued[0]);
-        if (!range) {
-          return { start: proxyDctermsIssued[0], end: null, specific: true };
-        }
-        return range;
+
+        const range = rangeFromQueryParam(dateFilterValue[0]);
+
+        return range ? { ...range, specific: false } : { start: dateFilterValue[0], end: null, specific: true };
+      },
+      totalResultsLocalised() {
+        return this.$options.filters.localise(this.totalResults);
       }
     },
     watch: {
@@ -194,6 +317,57 @@
         }
 
         this.rerouteSearch(this.queryUpdatesForFacetChanges({ [name]: selected }));
+      },
+      queryUpdatesForFacetChanges(selected = {}) {
+        const filters = Object.assign({}, this.filters);
+
+        for (const name in selected) {
+          filters[name] = selected[name];
+        }
+
+        // Remove collection-specific filters when collection is changed
+        if (Object.prototype.hasOwnProperty.call(selected, 'collection') || !this.collection) {
+          for (const name in filters) {
+            if (name !== 'collection' && !this.DEFAULT_FACET_NAMES.includes(name) && this.resettableFilters.includes(name)) {
+              filters[name] = [];
+            }
+          }
+        }
+
+        // Remove filters incompatible with change of collection filter
+        if (Object.prototype.hasOwnProperty.call(selected, 'collection') && Object.prototype.hasOwnProperty.call(filters, 'contentTier')) {
+          filters['contentTier'] = [];
+        }
+
+        return this.queryUpdatesForFilters(filters);
+      },
+      queryUpdatesForFilters(filters) {
+        const queryUpdates = {
+          qf: [],
+          page: 1
+        };
+
+        for (const name in filters) {
+          switch (name) {
+          case 'REUSABILITY':
+            // `reusability` has its own API parameter and can not be queried in `qf`
+            queryUpdates.reusability = filters[name].length > 0 ? filters[name].join(',') : null;
+            break;
+          case 'api':
+            // `api` is an option to /plugins/europeana/search/search()
+            queryUpdates.api = filters[name];
+            break;
+          default:
+            // Everything else goes in `qf`
+            queryUpdates.qf = queryUpdates.qf.concat(this.queryUpdatesForFilter(name, filters[name]));
+          }
+        }
+        return queryUpdates;
+      },
+      queryUpdatesForFilter(name, values) {
+        return [].concat(values)
+          .filter((value) => (value !== undefined) && (value !== null))
+          .map((value) => `${name}:${value}`);
       },
       rerouteSearch(queryUpdates) {
         const query = this.updateCurrentSearchQuery(queryUpdates);
@@ -234,11 +408,10 @@
         for (const filterName of this.resettableFilters) {
           filters[filterName] = [];
         }
-        this.$store.commit('search/clearResettableFilters');
-        return this.rerouteSearch(queryUpdatesForFilters(filters));
+        return this.rerouteSearch(this.queryUpdatesForFilters(filters));
       },
-      isFilteredByDropdowns() {
-        return this.$store.getters['search/hasResettableFilters'];
+      hasResettableFilters() {
+        return this.resettableFilters.length > 0;
       },
       dateFilterSelected(facetName, dateRange) {
         let dateQuery = [];
@@ -254,6 +427,31 @@
       },
       toggleFilterSheet() {
         this.$store.commit('search/setShowFiltersSheet', !this.$store.state.search.showFiltersSheet);
+      },
+      sideFacetDropdownGroupBy(facetName) {
+        if (facetName === 'RIGHTS') {
+          return [
+            '/CNE/',
+            '/InC-EDU/',
+            '/InC-OW-EU/',
+            '/InC/',
+            '/licenses/by-nc-nd/',
+            '/licenses/by-nc-sa/',
+            '/licenses/by-nc/',
+            '/licenses/by-nd/',
+            '/licenses/by-sa/',
+            '/licenses/by/',
+            '/NoC-NC/',
+            '/NoC-OKLR/',
+            '/publicdomain/mark/',
+            '/publicdomain/zero/',
+            '/rights/out-of-copyright-non-commercial/',
+            '/rights/rr-f/',
+            '/rights/unknown/'
+          ];
+        } else {
+          return null;
+        }
       }
     }
   };
@@ -355,35 +553,14 @@
       height: 100%;
     }
 
-    .btn.close {
+    .icon-clear {
       @media (min-width: $bp-large) {
         display: none;
       }
-
-      background: none;
-      border-radius: 0;
-      border: 0;
-      box-shadow: none;
-      color: $black;
-      font-size: 1rem;
-      padding: 0 15px;
-      opacity: 1;
-      height: 3.5rem;
-      transition: $standard-transition;
-
-      &::before {
-        @extend %icon-font;
-
-        display: inline-block;
-        content: '\e931';
-        font-weight: 400;
-        font-size: 1.5rem;
-      }
-
-      &:hover {
-        color: $blue;
-        transition: $standard-transition;
-      }
     }
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
   }
 </style>

@@ -3,6 +3,12 @@
     data-qa="exhibition page"
     class="text-page figure-attribution"
   >
+    <ContentWarningModal
+      v-if="contentWarning"
+      :title="contentWarning.name"
+      :description="contentWarning.description"
+      :page-slug="`exhibition/${identifier}`"
+    />
     <AuthoredHead
       :title="name"
       :description="headline"
@@ -47,7 +53,7 @@
 </template>
 
 <script>
-  import marked from 'marked';
+  import { marked } from 'marked';
   import SocialShareModal from '../../../components/sharing/SocialShareModal.vue';
   import ShareButton from '../../../components/sharing/ShareButton.vue';
   import exhibitionChapters from '../../../mixins/exhibitionChapters';
@@ -58,7 +64,8 @@
       LinkList: () => import('../../../components/generic/LinkList'),
       ShareButton,
       SocialShareModal,
-      AuthoredHead: () => import('../../../components/authored/AuthoredHead')
+      AuthoredHead: () => import('../../../components/authored/AuthoredHead'),
+      ContentWarningModal: () => import('@/components/generic/ContentWarningModal')
     },
     mixins: [
       exhibitionChapters
@@ -126,7 +133,7 @@
         return this.hero?.image || null;
       },
       mainContent() {
-        return this.text ? marked(this.text) : null;
+        return this.text ? marked.parse(this.text) : null;
       },
       optimisedImageUrl() {
         return this.$options.filters.optimisedImageUrl(

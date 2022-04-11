@@ -1,4 +1,4 @@
-footer {
+.page-footer {
   background: $midnight;
   color: $white;
   position: relative;
@@ -15,7 +15,7 @@ footer {
     width: 0;
   }
 
-  figcaption {
+  .group-title {
     font-size: $font-size-small;
     color: $paper;
     margin-bottom: 1rem;

@@ -18,6 +18,10 @@ query GalleryPage(
           name
         }
       }
+      contentWarning {
+        name
+        description
+      }
     }
   }
 }

@@ -1,51 +1,34 @@
 <template>
   <div>
-    <NotificationBanner
-      v-if="redirectNotificationsEnabled && !sideFiltersEnabled"
-      :notification-url="notificationUrl"
-      :notification-link-text="$t('linksToClassic.search.linkText')"
-      class="mb-3"
-    />
     <b-container
       data-qa="search page"
-      :class="{'page-container side-filters-enabled': sideFiltersEnabled}"
+      class="page-container side-filters-enabled"
     >
       <b-row
-        class="flex-row-reverse"
+        class="flex-row-reverse flex-nowrap"
       >
-        <SideFilters
-          v-if="sideFiltersEnabled"
-        />
+        <SideFilters />
         <b-col
-          :class="{'px-0': !sideFiltersEnabled}"
+          class="results-col"
         >
-          <NotificationBanner
-            v-if="redirectNotificationsEnabled && sideFiltersEnabled"
-            :notification-url="notificationUrl"
-            :notification-link-text="$t('linksToClassic.search.linkText')"
-            class="notification-banner mb-3"
-          />
-          <b-container>
-            <b-row>
-              <b-col>
-                <i18n
-                  :path="searchQuery ? 'searchResultsFor' : 'searchResults'"
-                  tag="h1"
-                >
-                  <span data-qa="search query">{{ searchQuery }}</span>
-                </i18n>
-              </b-col>
-            </b-row>
-          </b-container>
-          <RelatedSection
-            v-if="searchQuery"
-            :query="searchQuery"
-            class="mb-4"
-          />
           <SearchInterface
             id="search-interface"
             :per-row="4"
-          />
+            :show-related="showRelated"
+          >
+            <template
+              v-if="searchQuery"
+              #related
+            >
+              <client-only>
+                <RelatedSection
+                  :query="searchQuery"
+                  @show="showRelatedSection"
+                  @hide="hideRelatedSection"
+                />
+              </client-only>
+            </template>
+          </SearchInterface>
         </b-col>
       </b-row>
     </b-container>
@@ -53,16 +36,15 @@
 </template>
 
 <script>
+  import ClientOnly from 'vue-client-only';
   import SearchInterface from '@/components/search/SearchInterface';
-  import legacyUrl from '@/plugins/europeana/legacy-search';
-  import NotificationBanner from '@/components/generic/NotificationBanner';
 
   export default {
     name: 'SearchPage',
 
     components: {
+      ClientOnly,
       SearchInterface,
-      NotificationBanner,
       RelatedSection: () => import('@/components/search/RelatedSection'),
       SideFilters: () => import('@/components/search/SideFilters')
     },
@@ -75,6 +57,12 @@
 
     middleware: 'sanitisePageQuery',
 
+    data() {
+      return {
+        showRelated: false
+      };
+    },
+
     fetch() {
       this.$store.commit('search/set', ['overrideParams', {}]);
     },
@@ -86,23 +74,23 @@
     },
 
     computed: {
-      notificationUrl() {
-        return legacyUrl(this.$route.query, this.$i18n.locale) +
-          '&utm_source=new-website&utm_medium=button';
-      },
-      redirectNotificationsEnabled() {
-        return this.$config.app.features.linksToClassic;
-      },
       searchQuery() {
         return this.$route.query.query;
-      },
-      sideFiltersEnabled() {
-        return this.$config.app.features.sideFilters;
       }
     },
 
     mounted() {
       this.$store.commit('search/enableCollectionFacet');
+    },
+
+    methods: {
+      showRelatedSection() {
+        this.showRelated = true;
+      },
+
+      hideRelatedSection() {
+        this.showRelated = false;
+      }
     }
   };
 </script>
@@ -125,10 +113,7 @@
     max-width: none;
   }
 
-  .notification-banner {
-    margin-left: -15px;
-    margin-right: -15px;
-    width: auto;
-    min-height: 2.5rem; // aligns with the side filters header
+  .results-col {
+    min-width: 0;
   }
 </style>

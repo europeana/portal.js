@@ -3,6 +3,12 @@
     data-qa="blog post"
     class="text-page figure-attribution"
   >
+    <ContentWarningModal
+      v-if="post.contentWarning"
+      :title="post.contentWarning.name"
+      :description="post.contentWarning.description"
+      :page-slug="`blog/${post.identifier}`"
+    />
     <BlogPost
       :date-published="post.datePublished"
       :title="post.name"
@@ -24,7 +30,8 @@
     name: 'BlogPostPage',
 
     components: {
-      BlogPost
+      BlogPost,
+      ContentWarningModal: () => import('@/components/generic/ContentWarningModal')
     },
 
     beforeRouteLeave(to, from, next) {

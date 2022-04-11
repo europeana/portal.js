@@ -18,6 +18,7 @@ export default {
     },
     setLikedItems(state, value) {
       state.likedItems = value;
+      // TODO should likedItemIds be reset to empty array when falsy value?
       if (value) {
         state.likedItemIds = value.map(item => item.id);
       }
@@ -69,15 +70,15 @@ export default {
       return dispatch('fetchLikes')
         .then(() => {
           if (state.likedItems && state.likedItems.length >= 100) {
-            throw new Error('100 likes');
+            return Promise.reject(new Error('100 likes'));
+          } else {
+            return this.$apis.set.modifyItems('add', state.likesId, itemId)
+              .then(commit('like', itemId));
           }
         })
-        .then(() => {
-          return this.$apis.set.modifyItems('add', state.likesId, itemId)
-            .then(commit('like', itemId));
-        })
-        .catch(() => {
-          return dispatch('fetchLikes');
+        .catch((e) => {
+          dispatch('fetchLikes');
+          throw e;
         });
     },
     unlike({ dispatch, commit, state }, itemId) {
@@ -136,7 +137,13 @@ export default {
       return this.$apis.set.get(setId, {
         profile: 'itemDescriptions'
       })
-        .then(set => commit('setActive', set));
+        .then(set => commit('setActive', set))
+        .catch((apiError) => {
+          if (process.server) {
+            this.app.context.res.statusCode = apiError.statusCode;
+          }
+          throw apiError;
+        });
     },
     createSet({ dispatch }, body) {
       return this.$apis.set.create(body)
@@ -241,12 +248,6 @@ export default {
 
       return this.$apis.set.search(searchParams)
         .then(searchResponse => commit('setCurations', searchResponse.data.items || []));
-    },
-    fetchActiveRecommendations({ commit }, setId) {
-      return this.$apis.recommendation.recommend('set', setId)
-        .then(response => {
-          commit('setActiveRecommendations', response.items);
-        });
     },
     reviewRecommendation({ state, commit }, params) {
       return this.$apis.recommendation[params.action]('set', params.setId, params.itemIds)

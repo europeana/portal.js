@@ -151,30 +151,30 @@ describe('components/browse/AutomatedCardGroup', () => {
     afterEach(() => {
       $axiosGetStub.reset();
     });
-    context('when rendering on the client', () => {
+    describe('when rendering on the client', () => {
       it('gets the data from the cache API endpoint', async() => {
         const wrapper = nuxtFactory({ sectionType: FEATURED_TOPICS });
         await wrapper.vm.fetch();
-        $axiosGetStub.should.have.been.calledWith('/_api/cache/en/collections/topics/featured');
-        wrapper.vm.entries.should.deep.eq(entries.featuredTopics);
+        expect($axiosGetStub.calledWith('/_api/cache/en/collections/topics/featured')).toBe(true);
+        expect(wrapper.vm.entries).toEqual(entries.featuredTopics);
       });
     });
-    // context('when rendering on the server', () => {
+    // describe('when rendering on the server', () => {
     // TODO: SET SERVER HERE AND STUB CACHE
     // it('gets the data from the cache', async() => {
     //   const wrapper = factory({ sectionType: 'Featured topics' });
     //   await wrapper.vm.fetch();
-    //   wrapper.vm.entries.should.eq(entries.featuredTopics);
+    //   expect(wrapper.vm.entries).toBe(entries.featuredTopics);
     // });
     // });
   });
 
   describe('contentCardSection()', () => {
-    context('when the type is item counts by media type', () => {
+    describe('when the type is item counts by media type', () => {
       it('includes type', () => {
         const wrapper = shallowFactory({ sectionType: ITEM_COUNTS_MEDIA_TYPE });
 
-        wrapper.vm.contentCardSection.type.should.eq('items/typeCounts');
+        expect(wrapper.vm.contentCardSection.type).toBe('items/type-counts');
       });
       it('sets the relevant fields for the items in the hasPartCollection', async() => {
         const expected = {
@@ -191,15 +191,15 @@ describe('components/browse/AutomatedCardGroup', () => {
           entries: entries.itemTypeCounts
         });
         const section = wrapper.vm.contentCardSection;
-        section.hasPartCollection.items[0].should.deep.eq(expected);
-        section.hasPartCollection.items.length.should.eq(5);
+        expect(section.hasPartCollection.items[0]).toEqual(expected);
+        expect(section.hasPartCollection.items.length).toBe(5);
       });
     });
-    context('when the type is featured organisations', () => {
+    describe('when the type is featured organisations', () => {
       it('includes a headline', () => {
         const wrapper = shallowFactory({ sectionType: FEATURED_ORGANISATIONS });
 
-        wrapper.vm.contentCardSection.headline.should.eq('automatedCardGroup.organisation');
+        expect(wrapper.vm.contentCardSection.headline).toBe('automatedCardGroup.organisation');
       });
       it('sets the relevant fields for the items in the hasPartCollection', async() => {
         const expected = {
@@ -222,15 +222,15 @@ describe('components/browse/AutomatedCardGroup', () => {
           entries: entries.featuredOrganisations
         });
         const section = wrapper.vm.contentCardSection;
-        section.hasPartCollection.items[0].should.deep.eq(expected);
-        section.hasPartCollection.items.length.should.eq(4);
+        expect(section.hasPartCollection.items[0]).toEqual(expected);
+        expect(section.hasPartCollection.items.length).toBe(4);
       });
     });
-    context('when the type is featured topics', () => {
+    describe('when the type is featured topics', () => {
       it('includes a headline', () => {
         const wrapper = shallowFactory({ sectionType: FEATURED_TOPICS });
 
-        wrapper.vm.contentCardSection.headline.should.eq('automatedCardGroup.topic');
+        expect(wrapper.vm.contentCardSection.headline).toBe('automatedCardGroup.topic');
       });
       it('sets the relevant fields for the items in the hasPartCollection', async() => {
         const expected = {
@@ -255,15 +255,15 @@ describe('components/browse/AutomatedCardGroup', () => {
           entries: entries.featuredTopics
         });
         const section = wrapper.vm.contentCardSection;
-        section.hasPartCollection.items[0].should.deep.eq(expected);
-        section.hasPartCollection.items.length.should.eq(4);
+        expect(section.hasPartCollection.items[0]).toEqual(expected);
+        expect(section.hasPartCollection.items.length).toBe(4);
       });
     });
-    context('when the type is featured times', () => {
+    describe('when the type is featured times', () => {
       it('includes a headline', () => {
         const wrapper = shallowFactory({ sectionType: FEATURED_TIMES });
 
-        wrapper.vm.contentCardSection.headline.should.eq('automatedCardGroup.time');
+        expect(wrapper.vm.contentCardSection.headline).toBe('automatedCardGroup.time');
       });
       it('sets the relevant fields for the items in the hasPartCollection', async() => {
         const expected = {
@@ -288,20 +288,20 @@ describe('components/browse/AutomatedCardGroup', () => {
           entries: entries.featuredTimes
         });
         const section = wrapper.vm.contentCardSection;
-        section.hasPartCollection.items[0].should.deep.eq(expected);
-        section.hasPartCollection.items.length.should.eq(4);
+        expect(section.hasPartCollection.items[0]).toEqual(expected);
+        expect(section.hasPartCollection.items.length).toBe(4);
       });
     });
-    context('when the type is recent items', () => {
+    describe('when the type is recent items', () => {
       it('includes a headline', () => {
         const wrapper = shallowFactory({ sectionType: RECENT_ITEMS });
 
-        wrapper.vm.contentCardSection.headline.should.eq('automatedCardGroup.item');
+        expect(wrapper.vm.contentCardSection.headline).toBe('automatedCardGroup.item');
       });
       it('sets a more button', () => {
         const wrapper = shallowFactory({ sectionType: RECENT_ITEMS, moreButton: { 'url': '/search', 'text': 'Show all items' } });
-        wrapper.vm.contentCardSection.moreButton.text.should.eq('Show all items');
-        wrapper.vm.contentCardSection.moreButton.url.should.eq('/search');
+        expect(wrapper.vm.contentCardSection.moreButton.text).toBe('Show all items');
+        expect(wrapper.vm.contentCardSection.moreButton.url).toBe('/search');
       });
       it('sets the relevant fields for the items in the hasPartCollection', async() => {
         const expected = {
@@ -325,8 +325,8 @@ describe('components/browse/AutomatedCardGroup', () => {
           entries: entries.recentItems
         });
         const section = wrapper.vm.contentCardSection;
-        section.hasPartCollection.items[0].should.deep.eq(expected);
-        section.hasPartCollection.items.length.should.eq(1);
+        expect(section.hasPartCollection.items[0]).toEqual(expected);
+        expect(section.hasPartCollection.items.length).toBe(1);
       });
     });
   });
@@ -335,7 +335,7 @@ describe('components/browse/AutomatedCardGroup', () => {
     it('prefixes the type with "ic-" for the icon class', () => {
       const wrapper = shallowFactory({ sectionType: ITEM_COUNTS_MEDIA_TYPE });
       const imageFromType = wrapper.vm.infoImageFromType('Type');
-      imageFromType.should.eq('ic-type');
+      expect(imageFromType).toBe('ic-type');
     });
   });
   describe('searchFromType()', () => {
@@ -346,7 +346,7 @@ describe('components/browse/AutomatedCardGroup', () => {
       };
       const wrapper = shallowFactory({ sectionType: ITEM_COUNTS_MEDIA_TYPE });
       const searchFromType = wrapper.vm.searchFromType('IMAGE');
-      searchFromType.should.deep.eq(expected);
+      expect(searchFromType).toEqual(expected);
     });
   });
 });

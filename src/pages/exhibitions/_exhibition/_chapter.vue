@@ -3,6 +3,12 @@
     data-qa="exhibition chapter"
     class="text-page figure-attribution"
   >
+    <ContentWarningModal
+      v-if="exhibitionContentWarning"
+      :title="exhibitionContentWarning.name"
+      :description="exhibitionContentWarning.description"
+      :page-slug="`exhibition/${exhibitionIdentifier}`"
+    />
     <AuthoredHead
       :title="page.name"
       :exhibition-title="exhibitionTitle"
@@ -78,7 +84,8 @@
       ShareButton,
       SocialShareModal,
       AuthoredHead: () => import('../../../components/authored/AuthoredHead'),
-      LinkList: () => import('../../../components/generic/LinkList')
+      LinkList: () => import('../../../components/generic/LinkList'),
+      ContentWarningModal: () => import('@/components/generic/ContentWarningModal')
     },
     mixins: [
       exhibitionChapters

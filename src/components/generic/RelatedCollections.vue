@@ -16,6 +16,7 @@
         :title="relatedCollection.prefLabel ? relatedCollection.prefLabel : relatedCollection.name"
         :img="imageUrl(relatedCollection)"
         :type="relatedCollection.type"
+        :badge-variant="badgeVariant"
       />
     </div>
   </b-container>
@@ -42,10 +43,33 @@
       relatedCollections: {
         type: Array,
         default: () => []
+      },
+      badgeVariant: {
+        type: String,
+        default: 'secondary'
       }
     },
 
+    mounted() {
+      this.draw();
+    },
+
+    updated() {
+      this.draw();
+    },
+
+    beforeDestroy() {
+      this.draw('hide');
+    },
+
     methods: {
+      draw(showOrHide) {
+        this.$emit(showOrHide || (this.relatedCollections.length > 0 ? 'show' : 'hide'));
+        this.$nextTick(() => {
+          this.$redrawVueMasonry && this.$redrawVueMasonry();
+        });
+      },
+
       linkGen(item) {
         let id = '';
         let name = '';

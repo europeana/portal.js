@@ -30,12 +30,16 @@ export default {
     "accept": "Priimti",
     "cancel": "Atšaukti",
     "close": "uždaryti",
+    "continue": "tęsti",
     "download": "Parsisiųsti",
     "edit": "Redaguoti",
     "feedback": "Atsiliepimas",
     "goBack": "Grįžti",
+    "goHome": "Eikite į pagrindinį puslapį",
+    "learnMore": "Sužinokite daugiau",
     "like": "Patinka",
     "next": "Kitas",
+    "pin": "Kaištis",
     "providedBy": "Tiekėjas {provider}",
     "reject": "Atmesti",
     "send": "Siųsti",
@@ -72,6 +76,7 @@ export default {
   "cardLabels": {
     "organisation": "Organizacija",
     "person": "Asmuo",
+    "theme": "Tema",
     "time": "Amžius",
     "topic": "Tema"
   },
@@ -84,16 +89,24 @@ export default {
     "fashion": {
       "facets": {
         "CREATOR": {
-          "name": "Projektuotojas | Projektuotojai"
+          "moreName": "dizaineriai",
+          "name": "Projektuotojas | Projektuotojai",
+          "select": "Pasirinkite dizainerius"
         },
         "proxy_dc_format": {
-          "name": "Technika | Technikos"
+          "moreName": "technikos",
+          "name": "Technika | Technikos",
+          "select": "Pasirinkite technikos"
         },
         "proxy_dc_type": {
-          "name": "Elemento tipas | Elementų tipai"
+          "moreName": "elementų tipai",
+          "name": "Elemento tipas | Elementų tipai",
+          "select": "Pasirinkite elementų tipus"
         },
         "proxy_dcterms_medium": {
-          "name": "Medžiaga | Medžiagos"
+          "moreName": "medžiagos",
+          "name": "Medžiaga | Medžiagos",
+          "select": "Pasirinkite medžiagas"
         }
       }
     },
@@ -159,9 +172,7 @@ export default {
         "title": "Per daug prisegtų elementų"
       },
       "pinned": "Elementas prisegtas. Dabar jis yra pirmojo šios kolekcijos puslapio viršuje. Gali užtrukti iki 24 valandų, kol visi pasirodys.",
-      "pinnedFirstPage": "Elementas buvo prisegtas. Gali prireikti iki 24 valandų, kad jis būtų rodomas visiems.",
-      "unpinned": "Elementas buvo atsegtas. Jo nebėra šio rinkinio pirmojo puslapio viršuje. Gali prireikti iki 24 valandų, kol jis išnyks visiems.",
-      "unpinnedFirstPage": "Elementas buvo atsegtas. Tai gali užtrukti iki 24 valandų, kol išnyks visiems."
+      "unpinned": "Elementas buvo atsegtas. Jo nebėra šio rinkinio pirmojo puslapio viršuje. Gali prireikti iki 24 valandų, kol jis išnyks visiems."
     },
     "prompts": {
       "pin": "Ar tikrai norite prisegti šį elementą? Šis elementas bus rodomas kolekcijos \"{entity}\" viršuje. Šis pakeitimas gali įsigalioti per 24 valandas.",
@@ -178,6 +189,7 @@ export default {
   },
   "facets": {
     "COLOURPALETTE": {
+      "moreName": "spalvos",
       "name": "Spalva | Spalvos",
       "options": {
         "#000000": "Juoda",
@@ -324,23 +336,78 @@ export default {
         "#FFFFE0": "Šviesiai geltona",
         "#FFFFF0": "Dramblio kaulas",
         "#FFFFFF": "Balta"
-      }
+      },
+      "select": "Pasirinkite spalvas"
     },
     "COUNTRY": {
-      "name": "Teikianti šalis"
+      "name": "Teikianti šalis",
+      "options": {
+        "Albania": "Albanija",
+        "Austria": "Austrija",
+        "Belarus": "Baltarusija",
+        "Belgium": "Belgija",
+        "Bosnia and Herzegovina": "Bosnija ir Hercegovina",
+        "Bulgaria": "Bulgarija",
+        "Croatia": "Kroatija",
+        "Cyprus": "Kipras",
+        "Czech Republic": "Čekijos Respublika",
+        "Denmark": "Danija",
+        "Estonia": "Estija",
+        "Europe": "Europa",
+        "Finland": "Suomija",
+        "France": "Prancūzija",
+        "Georgia": "Gruzija",
+        "Germany": "Vokietija",
+        "Greece": "Graikija",
+        "Holy See (Vatican City State)": "Šventasis Sostas (Vatikano Miesto Valstybė)",
+        "Hungary": "Vengrija",
+        "Iceland": "Islandija",
+        "Ireland": "Airija",
+        "Israel": "Izraelis",
+        "Italy": "Italija",
+        "Latvia": "Latvija",
+        "Lithuania": "Lietuva",
+        "Luxembourg": "Liuksemburgas",
+        "Macedonia": "Makedonija",
+        "Malta": "Malta",
+        "Moldova": "Moldova",
+        "Montenegro": "Juodkalnija",
+        "Netherlands": "Nyderlandai",
+        "Norway": "Norvegija",
+        "Poland": "Lenkija",
+        "Portugal": "Portugalija",
+        "Romania": "Rumunija",
+        "Russia": "Rusija",
+        "Serbia": "Serbija",
+        "Slovakia": "Slovakija",
+        "Slovenia": "Slovėnija",
+        "Spain": "Ispanija",
+        "Sweden": "Švedija",
+        "Switzerland": "Šveicarija",
+        "Turkey": "Turkija",
+        "Ukraine": "Ukraina",
+        "United Kingdom": "Jungtinė Karalystė",
+        "United States of America": "Jungtinės Amerikos Valstijos"
+      },
+      "select": "Pasirinkite teikiančias šalis"
     },
     "CREATOR": {
-      "name": "Autorius | Autoriai"
+      "moreName": "kūrėjai",
+      "name": "Autorius | Autoriai",
+      "select": "Pasirinkite kūrėjus"
     },
     "DATA_PROVIDER": {
-      "name": "Institucija"
+      "moreName": "institucijose",
+      "name": "Institucija",
+      "select": "Pasirinkite institucijas"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Vaizdo orientacija | Vaizdo orientacijos",
       "options": {
         "landscape": "Gulsčias",
         "portrait": "Statmenas"
-      }
+      },
+      "select": "Pasirinkite vaizdo orientaciją"
     },
     "IMAGE_SIZE": {
       "name": "Vaizdo dydis | Vaizdo dydžiai",
@@ -349,19 +416,65 @@ export default {
         "large": "Didelis 1–4 MP (pvz., 1920 x 1080 pikselių)",
         "medium": "Vidutinis 0,5–1 MP (pvz., 850 x 850 pikselių)",
         "small": "Mažas < 0,5 MP (pvz., 650 x 600 pikselių)"
-      }
+      },
+      "select": "Pasirinkite vaizdo dydžius"
     },
     "LANGUAGE": {
-      "name": "Kalba"
+      "name": "Kalba",
+      "options": {
+        "ar": "Arabų",
+        "bg": "Bulgarų",
+        "bs": "Bosnių",
+        "ca": "Katalonų",
+        "cs": "Čekų",
+        "cy": "Valų",
+        "da": "Danų",
+        "de": "Vokiečių",
+        "el": "Graikų",
+        "en": "Anglų",
+        "es": "Ispanų",
+        "et": "Estų",
+        "fi": "Suomių",
+        "fr": "Prancūzų",
+        "ga": "Airių",
+        "gd": "Gėlų",
+        "he": "Hebrajų",
+        "hr": "Kroatų",
+        "hu": "Vengrų",
+        "is": "Islandų",
+        "it": "Italų",
+        "lt": "Lietuvių",
+        "lv": "Latvių",
+        "mk": "Makedonų",
+        "mt": "Maltiečių",
+        "mul": "Kelios kalbos",
+        "nl": "Olandų",
+        "no": "Norvegų",
+        "pl": "Lenkų",
+        "pt": "Portugalų",
+        "ro": "Rumunų",
+        "ru": "Rusų",
+        "sk": "Slovakų",
+        "sl": "Slovėnų",
+        "sq": "Albanų",
+        "sr": "Serbų",
+        "sv": "Švedų",
+        "tr": "Turkų",
+        "uk": "Ukrainiečių"
+      },
+      "select": "Pasirinkite kalbas"
     },
     "MIME_TYPE": {
       "name": "Failo formatas | Failų formatai",
       "options": {
         "text/plain": "Paprastas tekstas"
-      }
+      },
+      "select": "Pasirinkite failų formatus"
     },
     "PROVIDER": {
-      "name": "Kaupykla"
+      "moreName": "agregatoriai",
+      "name": "Kaupykla",
+      "select": "Pasirinkite agregatorius"
     },
     "REUSABILITY": {
       "name": "Ar galiu tai pakartotinai naudoti?",
@@ -370,7 +483,8 @@ export default {
         "permission": "Galbūt, kreipkitės leidimo",
         "restricted": "Taip, su sąlygomis",
         "uncategorized": "Neklasifikuota"
-      }
+      },
+      "select": "Pasirinkite, ar galite tai naudoti"
     },
     "TYPE": {
       "name": "Medijos tipas",
@@ -380,14 +494,17 @@ export default {
         "SOUND": "Garsas",
         "TEXT": "Tekstas",
         "VIDEO": "Vaizdo įrašas"
-      }
+      },
+      "select": "Pasirinkite laikmenos tipus"
     },
     "api": {
       "name": "Ieškoti",
       "options": {
         "fulltext": "Įrašai su visu tekstu",
         "metadata": "Tik metaduomenų įrašai"
-      }
+      },
+      "switch": "Ieškoti tik pilno teksto elementų turinyje",
+      "switchMoreInfo": "Šioje kolekcijoje galite pasirinkti, ko norite ieškoti: jei šis jungiklis įjungtas, tada ieškosite laikraščio ir dokumento tekste; jei jis išjungtas, tada ieškosite informacijos, apibūdinančios elementą, kaip ir daugumoje kitų kolekcijų."
     },
     "button": {
       "apply": "Taikyti",
@@ -398,7 +515,7 @@ export default {
       "showLess": "Rodyti mažiau {label}"
     },
     "collection": {
-      "name": "Kategorija",
+      "name": "Tema",
       "options": {
         "archaeology": "Archeologija",
         "art": "Menas",
@@ -413,27 +530,36 @@ export default {
         "photography": "Fotografija",
         "sport": "Sportas",
         "ww1": "1914-1918"
-      }
+      },
+      "select": "Pasirinkite temą"
     },
     "contentTier": {
-      "name": "Rodomi elementai, neatitinkantys mūsų paskelbimo kriterijų.",
-      "notification": "Yra prekių, kurios neatitinka mūsų skelbiamų prekių kriterijų. Šias prekes rasite aktyvavę filtrą „Prekių kokybė“, esantį skiltyje „Daugiau filtrų“.",
+      "name": "Prekės kokybė",
       "options": {
         "*": "Rodomi elementai, neatitinkantys mūsų paskelbimo kriterijų.",
-        "0": "Tik elementai, neatitinkantys mūsų paskelbimo kriterijų"
-      }
+        "0": "Tik elementai, neatitinkantys mūsų paskelbimo kriterijų",
+        "1": "Žema kokybė",
+        "2": "Vidutinė kokybė",
+        "3": "Aukštos kokybės ir daugkartinio naudojimo sąlygos",
+        "4": "Aukštos kokybės ir laisvai daugkartinio naudojimo"
+      },
+      "select": "Pasirinkite elemento savybes"
     },
+    "moreOptions": "Leškoti, kad rastumėte {0} daugiau {1}.",
     "proxy_dc_format": {
-      "name": "Formatas | Formatai"
+      "name": "Formatas | Formatai",
+      "select": "Pasirinkite formatus"
     },
     "proxy_dc_type": {
-      "name": "Tipas | Tipai"
+      "name": "Tipas | Tipai",
+      "select": "Pasirinkite tipus"
     },
     "proxy_dcterms_issued": {
       "name": "Išleidimo data"
     },
     "proxy_dcterms_medium": {
-      "name": "Laikmenos | Laikmena"
+      "name": "Laikmenos | Laikmena",
+      "select": "Pasirinkite laikmeną"
     }
   },
   "feedback": {
@@ -486,6 +612,7 @@ export default {
       "dctermsProvenance": "Kilmė",
       "dctermsReferences": "Nurodo",
       "dctermsSpatial": "Vietos",
+      "dctermsTOC": "Turinio lentelė",
       "dctermsTemporal": "Laiko",
       "edmCountry": "Teikianti šalis",
       "edmCurrentLocation": "Dabartinė vieta",
@@ -542,7 +669,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label} : {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -579,7 +705,6 @@ export default {
     "itemCount": "1 prekė iš |{count} prekių",
     "itemOf": "{max} iš {count} prekių",
     "recent": "Naujausi elementai",
-    "recommendationsDisclaimer": "Nykštis aukštyn ir įtraukimas į galeriją - Nykštis žemyn, jei jums tai nepatinka",
     "recommended": "Rekomenduojami daiktai",
     "youMightLike": "Prekės, kurios jums gali patikti"
   },
@@ -643,6 +768,10 @@ export default {
         "description": "Renka anoniminę statistiką apie tai, kaip lankytojai sąveikauja su svetaine.",
         "title": "Matomo"
       },
+      "newFeatureNotification": {
+        "description": "Rodomas pranešimas, kai atsiranda naujų funkcijų.",
+        "title": "Pranešimas apie naują funkciją"
+      },
       "searchResultsView": {
         "description": "Prisimena, ar norite paieškos rezultatus matyti sąrašo ar tinklelio rodinyje.",
         "title": "Paieškos rezultatų rodinys (sąrašas / tinklelis)"
@@ -653,25 +782,8 @@ export default {
     "skipToMain": "Pereiti į puslapio turinį"
   },
   "learnMore": "Sužinokite apie šio aprašymo šaltinį",
-  "linksToClassic": {
-    "home": {
-      "linkText": "Peržiūrėkite šį puslapį originalioje Europeana svetainėje iki 2021 m. gruodžio 20 d.",
-      "text": "Jūs žiūrite naująjį „Europeana“."
-    },
-    "record": {
-      "linkText": "Peržiūrėkite šį elementą originalioje Europeana svetainėje iki 2021 m. gruodžio 20 d.",
-      "text": "Jūs žiūrite šį elementą originaliame „Europeana“ tinklalapyje."
-    },
-    "search": {
-      "linkText": "Ieškokite originalioje Europeana svetainėje iki 2021 m. gruodžio 20 d.",
-      "text": "Jūs ieškote mūsų naujajame ir greitesniajame tinklalapyje."
-    }
-  },
   "loading": "Įkeliama",
   "loadingResults": "Įkeliami rezultatai",
-  "mediaPreview": {
-    "selectItem": "Pasirinkite elementą {src}"
-  },
   "messages": {
     "copyToClipboardSuccess": "Nukopijuota į mainų sritį",
     "externalContentError": "Nepavyko įkelti išorinio turinio",
@@ -693,9 +805,21 @@ export default {
     "translateLanguage": "Ar norėtumėte pamatyti šį elementą {0} ?",
     "translateQuotaError": "Vertimo paslauga laikinai nepasiekiama. Pabandykite dar kartą vėliau."
   },
+  "newFeatureNotification": {
+    "dismiss": "Uždaryti",
+    "readMore": "Skaityti daugiau",
+    "text": {
+      "searchFilters": "Dabar galite ieškoti reikšmių atskiruose filtruose; patikrinkite!"
+    }
+  },
   "newWindow": "atsidaro naujame lange",
   "noMoreResults": "Daugiau nėra rezultatų pagal jūsų paieškos užklausą.",
   "noResults": "Rezultatų nėra",
+  "organisation": {
+    "city": "Miestas",
+    "country": "Šalis",
+    "nameAcronym": "Pavadinimo akronimas"
+  },
   "pageHasLoaded": "įkelta",
   "pages": {
     "collections": {
@@ -720,11 +844,16 @@ export default {
     }
   },
   "readMore": "Skaityti daugiau",
+  "recommendation": {
+    "prompts": {
+      "accept": "Nykščiu aukštyn, kad pridėtumėte į galeriją",
+      "reject": "Nykščiu žemyn, jei nepatinka"
+    }
+  },
   "record": {
     "IIIFViewer": "IIIF žiūrovas",
     "allMetaData": "Visi metaduomenys",
     "copyEmbedLabel": "Įterpti kodą (spustelėkite, jei norite kopijuoti)",
-    "downloadCopyrightInfo": "Šis elementas apsaugos autorių teisėmis, jo negalima atsisiųsti.",
     "exploreMore": "Sužinokite daugiau",
     "extendedInformation": "Išplėstinė informacija",
     "goodToKnow": "Naudinga žinoti",
@@ -736,24 +865,21 @@ export default {
     "showAll": "Rodyti visą informaciją",
     "similarItems": "Panašūs elementai",
     "transcription": "Transkripcija",
-    "transcriptionDisclaimer": "Šį turinį patalpino visuomenės narys, o ne prekę pateikusi įstaiga.",
-    "view": {
-      "image": "Peržiūrėti vaizdą",
-      "media": "Peržiūrėti laikmeną",
-      "pdf": "Peržiūrėti PDF"
-    }
+    "transcriptionDisclaimer": "Šį turinį patalpino visuomenės narys, o ne prekę pateikusi įstaiga."
   },
   "relatedCollections": "Susiję rinkiniai",
   "removeFilter": "Pašalinkite filtrą {filterLabel}",
   "reset": "Atstatyti",
   "resourceWikimedia": "Šaltinis iš „Wikimedia Commons“",
   "results": "Rezultatai",
+  "resultsFor": "Rezultatai pagal užklausą {0}",
   "resultsLimitWarning": "Papildomi rezultatai nerodomi, nes parodomi tik pirmieji 1000 tinkamiausių rezultatų. Jei neradote to, ko ieškote, apsvarstykite galimybę patikslinti paiešką.",
+  "resultsWithin": "Rezultatai pagal {0} {1} už {2}",
   "search": "Paieška",
+  "searchHasLoaded": "{0} grąžinti rezultatai",
   "searchPlaceholder": "Ko jūs ieškote?",
   "searchResults": "Paieška",
   "searchResultsFor": "{0} - Ieškoti",
-  "searchResultsForIn": "{0} - Ieškoti {1}",
   "searchSuggestions": "Paieškos pasiūlymai",
   "searchTier": {
     "button": {
@@ -767,7 +893,8 @@ export default {
   },
   "searchViews": {
     "grid": "Tinklelio rodinys",
-    "list": "Sąrašo rodinys"
+    "list": "Sąrašo rodinys",
+    "mosaic": "Mozaikos vaizdas"
   },
   "set": {
     "actions": {
@@ -776,6 +903,7 @@ export default {
       "createNew": "Kurti naują galeriją",
       "delete": "Naikinti galeriją",
       "edit": "Redaguoti galeriją",
+      "save": "Išsaugoti",
       "update": "Atnaujinti galeriją"
     },
     "form": {
@@ -802,5 +930,14 @@ export default {
   },
   "showLess": "Rodyti mažiau",
   "showMore": "Rodyti daugiau",
-  "website": "Interneto svetainė"
+  "sideFilters": {
+    "noOptions": "Nėra parinkčių, kurias būtų galima pasirinkti",
+    "search": "Paieška"
+  },
+  "statuses": {
+    "liked": "Patiko",
+    "pinned": "Prisegtas"
+  },
+  "website": "Interneto svetainė",
+  "youMightAlsoLike": "Jums taip pat gali patikti"
 };

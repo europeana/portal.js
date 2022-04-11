@@ -1,24 +1,53 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
+import Vuex from 'vuex';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
 import page from '@/pages/item/_';
 
 const localVue = createLocalVue();
+localVue.use(Vuex);
 localVue.use(BootstrapVue);
 
 const item = {
   identifier: '/123/abc',
-  coreFields: {
+  metadata: {
+    edmCountry: ['Netherlands'],
     edmDataProvider: {
       url: 'https://www.example.eu',
       value: ['Data Provider']
-    }
+    },
+    edmProvider: [{ en: ['Provider'] }],
+    edmRights: { def: [
+      'http://rightsstatements.org/vocab/InC/1.0/'
+    ] }
   }
 };
 
-const storeDispatch = sinon.spy();
+const itemSetRelatedEntities = sinon.spy();
+const store = new Vuex.Store({
+  state: {
+    item: {
+      active: false,
+      annotations: [],
+      relatedEntities: [],
+      similarItems: []
+    }
+  },
+  mutations: {
+    'item/setRelatedEntities': itemSetRelatedEntities
+  },
+  getters: {
+    'entity/isPinned': () => () => false,
+    'http/canonicalUrl': () => () => null,
+    'set/isLiked': () => () => null,
+    'item/annotationsByMotivation': () => () => null
+  },
+  actions: {
+    'item/reset': () => null
+  }
+});
 
 const factory = () => shallowMountNuxt(page, {
   localVue,
@@ -27,7 +56,7 @@ const factory = () => shallowMountNuxt(page, {
   },
   stubs: ['client-only'],
   mocks: {
-    $config: { app: { features: {} } },
+    $features: {},
     $pageHeadTitle: key => key,
     $route: {
       query: {}
@@ -51,32 +80,25 @@ const factory = () => shallowMountNuxt(page, {
         search: sinon.spy()
       }
     },
-    $store: {
-      state: {
-        item: {
-          active: false,
-          annotations: [],
-          relatedEntities: [],
-          similarItems: []
-        }
-      },
-      getters: {
-        'set/isLiked': sinon.stub(),
-        'item/annotationsByMotivation': sinon.stub()
-      },
-      dispatch: storeDispatch
+    $matomo: {
+      trackPageView: sinon.spy()
     }
-  }
+  },
+  store
 });
 
 describe('pages/item/_.vue', () => {
+  afterEach(() => {
+    sinon.resetHistory();
+  });
+
   describe('asyncData()', () => {
     const params = { pathMatch: '123/abc' };
     const record = { id: '/123/abc' };
     const $apis = { record: { getRecord: sinon.stub().resolves({ record }) } };
     const app = { i18n: { locale: 'en' } };
 
-    context('when the page is loaded without a metadataLanguage', () => {
+    describe('when the page is loaded without a metadataLanguage', () => {
       const route = { query: {} };
 
       it('gets a record from the API for the ID in the params pathMatch, for the current locale', async() => {
@@ -84,11 +106,11 @@ describe('pages/item/_.vue', () => {
 
         const response = await wrapper.vm.asyncData({ params, app, route, $apis });
 
-        $apis.record.getRecord.should.have.been.calledWith('/123/abc', { locale: 'en', metadataLanguage: undefined });
-        response.should.eql(record);
+        expect($apis.record.getRecord.calledWith('/123/abc', { locale: 'en', metadataLanguage: undefined })).toBe(true);
+        expect(response).toEqual(record);
       });
     });
-    context('when the page is loaded with a metadataLanguage', () => {
+    describe('when the page is loaded with a metadataLanguage', () => {
       const route = { query: { lang: 'fr' } };
 
       it('gets a record from the API for the ID in the params pathMatch, with metadataLanguage from `lang` query', async() => {
@@ -96,8 +118,87 @@ describe('pages/item/_.vue', () => {
 
         const response = await wrapper.vm.asyncData({ params, app, route, $apis });
 
-        $apis.record.getRecord.should.have.been.calledWith('/123/abc', { locale: 'en', metadataLanguage: 'fr' });
-        response.should.eql(record);
+        expect($apis.record.getRecord.calledWith('/123/abc', { locale: 'en', metadataLanguage: 'fr' })).toBe(true);
+        expect(response).toEqual(record);
+      });
+    });
+  });
+
+  describe('mounted', () => {
+    describe('when matomo is active', () => {
+      it('sends custom dimensions in English', () => {
+        const wrapper = factory();
+
+        expect(wrapper.vm.$matomo.trackPageView.calledWith('item page custom dimensions',
+          wrapper.vm.matomoOptions())).toBe(true);
+      });
+    });
+  });
+
+  describe('methods', () => {
+    describe('fetchRelatedEntities()', () => {
+      const organizations = [
+        {
+          about: 'http://data.europeana.eu/organization/12345'
+        }
+      ];
+      const concepts = [
+        {
+          about: 'http://data.europeana.eu/concept/base/12345'
+        }
+      ];
+      const pluginResponse = [
+        {
+          id: 'http://data.europeana.eu/concept/base/12345',
+          prefLabel: { en: 'concept' },
+          isShownBy: 'http://example.org/image.jpeg',
+          altLabel: { en: 'alt concept' }
+        },
+        {
+          id: 'http://data.europeana.eu/organization/12345',
+          prefLabel: { en: 'organization' },
+          logo: 'http://example.org/logo.jpeg',
+          altLabel: { en: 'alt organization' }
+        }
+      ];
+      const dataToStore = [
+        {
+          id: 'http://data.europeana.eu/concept/base/12345',
+          prefLabel: { en: 'concept' },
+          isShownBy: 'http://example.org/image.jpeg'
+        },
+        {
+          id: 'http://data.europeana.eu/organization/12345',
+          prefLabel: { en: 'organization' },
+          logo: 'http://example.org/logo.jpeg'
+        }
+      ];
+
+      it('fetches related entities from API plugin', async() => {
+        const wrapper = factory();
+        await wrapper.setData({
+          concepts,
+          organizations
+        });
+        wrapper.vm.$apis.entity.find = sinon.stub().resolves(pluginResponse);
+        await wrapper.vm.fetchRelatedEntities();
+
+        expect(wrapper.vm.$apis.entity.find.calledWith([
+          'http://data.europeana.eu/concept/base/12345',
+          'http://data.europeana.eu/organization/12345'
+        ])).toBe(true);
+      });
+
+      it('picks fields from response and commits to store', async() => {
+        const wrapper = factory();
+        await wrapper.setData({
+          concepts,
+          organizations
+        });
+        wrapper.vm.$apis.entity.find = sinon.stub().resolves(pluginResponse);
+        await wrapper.vm.fetchRelatedEntities();
+
+        expect(itemSetRelatedEntities.calledWith(sinon.match.any, dataToStore)).toBe(true);
       });
     });
   });
@@ -118,8 +219,8 @@ describe('pages/item/_.vue', () => {
 
       const headMeta = wrapper.vm.head().meta;
 
-      headMeta.filter(meta => meta.property === 'og:image').length.should.eq(1);
-      headMeta.find(meta => meta.property === 'og:image').content.should.eq(thumbnailUrl);
+      expect(headMeta.filter(meta => meta.property === 'og:image').length).toBe(1);
+      expect(headMeta.find(meta => meta.property === 'og:image').content).toBe(thumbnailUrl);
     });
   });
 });

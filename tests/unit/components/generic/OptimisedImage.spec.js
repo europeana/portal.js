@@ -10,6 +10,29 @@ const factory = (propsData) => shallowMount(OptimisedImage, {
 });
 
 describe('components/generic/OptimisedImage', () => {
+  it('uses a lazy loading image by default', () => {
+    const wrapper = factory({
+      src: 'https://www.example.org/image.jpeg',
+      width: 2000,
+      height: 1250
+    });
+    const lazyImage = wrapper.find('b-img-lazy-stub');
+    expect(lazyImage.exists()).toBeTruthy();
+  });
+
+  describe('when lazy is set to false', () => {
+    it('uses a non-lazy loading image', () => {
+      const wrapper = factory({
+        src: 'https://www.example.org/image.jpeg',
+        width: 2000,
+        height: 1250,
+        lazy: false
+      });
+      const image = wrapper.find('b-img-stub');
+      expect(image.exists()).toBeTruthy();
+    });
+  });
+
   describe('aspectRatio', () => {
     it('equals width / height', () => {
       const wrapper = factory({
@@ -20,12 +43,12 @@ describe('components/generic/OptimisedImage', () => {
 
       const aspectRatio = wrapper.vm.aspectRatio;
 
-      aspectRatio.should.eq(1.6);
+      expect(aspectRatio).toBe(1.6);
     });
   });
 
   describe('optimisedWidth', () => {
-    context('with no maxWidth', () => {
+    describe('with no maxWidth', () => {
       it('is unaltered image width', () => {
         const wrapper = factory({
           src: 'https://www.example.org/image.jpeg',
@@ -35,11 +58,11 @@ describe('components/generic/OptimisedImage', () => {
 
         const optimisedWidth = wrapper.vm.optimisedWidth;
 
-        optimisedWidth.should.eq(2000);
+        expect(optimisedWidth).toBe(2000);
       });
     });
 
-    context('when width is less than maxWidth', () => {
+    describe('when width is less than maxWidth', () => {
       it('is unaltered image width', () => {
         const wrapper = factory({
           src: 'https://www.example.org/image.jpeg',
@@ -50,11 +73,11 @@ describe('components/generic/OptimisedImage', () => {
 
         const optimisedWidth = wrapper.vm.optimisedWidth;
 
-        optimisedWidth.should.eq(2000);
+        expect(optimisedWidth).toBe(2000);
       });
     });
 
-    context('when width exceeds maxWidth', () => {
+    describe('when width exceeds maxWidth', () => {
       it('is maxWidth', () => {
         const wrapper = factory({
           src: 'https://www.example.org/image.jpeg',
@@ -65,7 +88,7 @@ describe('components/generic/OptimisedImage', () => {
 
         const optimisedWidth = wrapper.vm.optimisedWidth;
 
-        optimisedWidth.should.eq(1500);
+        expect(optimisedWidth).toBe(1500);
       });
     });
   });
@@ -81,7 +104,7 @@ describe('components/generic/OptimisedImage', () => {
 
       const optimisedHeight = wrapper.vm.optimisedHeight;
 
-      optimisedHeight.should.eq(938);
+      expect(optimisedHeight).toBe(938);
     });
   });
 
@@ -95,7 +118,7 @@ describe('components/generic/OptimisedImage', () => {
 
       const forContentfulAsset = wrapper.vm.forContentfulAsset;
 
-      forContentfulAsset.should.be.true;
+      expect(forContentfulAsset).toBe(true);
     });
 
     it('is `false` for other URLs', () => {
@@ -107,12 +130,12 @@ describe('components/generic/OptimisedImage', () => {
 
       const forContentfulAsset = wrapper.vm.forContentfulAsset;
 
-      forContentfulAsset.should.be.false;
+      expect(forContentfulAsset).toBe(false);
     });
   });
 
   describe('optimisedSrc', () => {
-    context('when src is not for Contentful image', () => {
+    describe('when src is not for Contentful image', () => {
       const src = 'https://www.example.org/image.jpeg';
 
       it('uses src unaltered', () => {
@@ -124,13 +147,13 @@ describe('components/generic/OptimisedImage', () => {
 
         const optimisedSrc = wrapper.vm.optimisedSrc;
 
-        optimisedSrc.should.eq(src);
+        expect(optimisedSrc).toBe(src);
       });
     });
 
-    context('when src is for Contentful image', () => {
+    describe('when src is for Contentful image', () => {
       const src = '//images.ctfassets.net/asset';
-      context('and contentType is "image/jpeg"', () => {
+      describe('and contentType is "image/jpeg"', () => {
         const contentType = 'image/jpeg';
 
         const propsData = {
@@ -146,8 +169,8 @@ describe('components/generic/OptimisedImage', () => {
 
           const optimisedSrc = wrapper.vm.optimisedSrc;
 
-          optimisedSrc.should.include('fm=jpg');
-          optimisedSrc.should.include('fl=progressive');
+          expect(optimisedSrc).toContain('fm=jpg');
+          expect(optimisedSrc).toContain('fl=progressive');
         });
 
         it('scales down to max width', () => {
@@ -155,7 +178,7 @@ describe('components/generic/OptimisedImage', () => {
 
           const optimisedSrc = wrapper.vm.optimisedSrc;
 
-          optimisedSrc.should.include('w=1500');
+          expect(optimisedSrc).toContain('w=1500');
         });
 
         it('reduces quality', () => {
@@ -163,7 +186,7 @@ describe('components/generic/OptimisedImage', () => {
 
           const optimisedSrc = wrapper.vm.optimisedSrc;
 
-          optimisedSrc.should.include('q=80');
+          expect(optimisedSrc).toContain('q=80');
         });
       });
     });

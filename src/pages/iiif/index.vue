@@ -22,7 +22,7 @@
     data() {
       return {
         manifest: null,
-        MIRADOR_BUILD_PATH: 'https://unpkg.com/mirador@3.0.0/dist',
+        MIRADOR_BUILD_PATH: 'https://cdn.jsdelivr.net/npm/mirador@3.0.0/dist',
         page: null,
         imageToCanvasMap: {},
         mirador: null,

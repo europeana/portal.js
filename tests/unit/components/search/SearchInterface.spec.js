@@ -1,44 +1,32 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import VueRouter from 'vue-router';
 import Vuex from 'vuex';
 import sinon from 'sinon';
 
 import SearchInterface from '@/components/search/SearchInterface.vue';
-import { defaultFacetNames } from '@/store/search';
 
 const localVue = createLocalVue();
 localVue.filter('localise', (number) => number);
 localVue.filter('truncate', (string) => string);
 localVue.filter('optimisedImageUrl', (string) => string);
 localVue.use(BootstrapVue);
-localVue.use(VueRouter);
 localVue.use(Vuex);
 
 const searchSetViewMutation = sinon.spy();
+const searchSetMutation = sinon.spy();
 
 const factory = (options = {}) => {
-  const router = new VueRouter({
-    routes: [
-      {
-        path: '/search',
-        name: 'search'
-      },
-      {
-        path: '/item/*',
-        name: 'item-all'
-      }
-    ]
-  });
-
   const mocks = {
     $t: (key) => key,
     $path: () => '/',
     $goto: () => null,
-    $config: { app: { features: { sideFilters: false } } },
+    $features: { sideFilters: false, entityHeaderCards: false },
     $fetchState: options.fetchState || {},
+    $route: { path: '/search', name: 'search', query: {} },
+    localise: (val) => val,
     ...options.mocks
   };
+
   const store = new Vuex.Store({
     modules: {
       search: {
@@ -48,47 +36,38 @@ const factory = (options = {}) => {
           userParams: {},
           apiParams: {},
           results: [],
-          collectionFacetEnabled: true,
-          resettableFilters: [],
+          entity: {},
           ...options.storeState
         },
         getters: {
-          facetNames() {
-            return defaultFacetNames;
-          },
-          filters: () => {
-            return {};
-          },
-          collection: () => null,
-          queryUpdatesForFacetChanges: () => () => {
-            return {};
-          },
+          filters: () => ({}),
           ...options.storeGetters
         },
         mutations: {
+          set: searchSetMutation,
           setUserParams: () => null,
-          setView: (state, view) => searchSetViewMutation(state, view)
+          setView: searchSetViewMutation
         },
         actions: {
-          queryFacets: () => null,
-          run: () => null,
-          setResettableFilter: () => null
+          run: () => null
         }
       }
     }
   });
+
   return shallowMount(SearchInterface, {
     localVue,
     mocks,
-    router,
     store,
     propsData: options.propsData
   });
 };
 
 describe('components/search/SearchInterface', () => {
+  beforeEach(() => sinon.resetHistory());
+
   describe('output', () => {
-    context('with `error` in search state', () => {
+    describe('with `error` in search state', () => {
       it('displays the message', () => {
         const errorMessage = 'Something went very wrong';
         const wrapper = factory({
@@ -99,14 +78,14 @@ describe('components/search/SearchInterface', () => {
 
         const errorNotice = wrapper.find(`[error="${errorMessage}"]`);
 
-        errorNotice.should.exist;
+        expect(errorNotice).toBeDefined();
       });
     });
   });
 
   describe('computed properties', () => {
     describe('errorMessage', () => {
-      context('when there was a pagination error', () => {
+      describe('when there was a pagination error', () => {
         it('returns a user-friendly error message', async() => {
           const wrapper = factory({
             fetchState: {
@@ -116,24 +95,24 @@ describe('components/search/SearchInterface', () => {
             }
           });
 
-          wrapper.vm.errorMessage.should.eq('messages.paginationLimitExceeded');
+          expect(wrapper.vm.errorMessage).toBe('messages.paginationLimitExceeded');
         });
       });
     });
 
     describe('noMoreResults', () => {
-      context('when there are 0 results in total', () => {
+      describe('when there are 0 results in total', () => {
         const wrapper = factory({
           storeState: { totalResults: 0 }
         });
 
         it('is `false`', () => {
-          wrapper.vm.noMoreResults.should.be.false;
+          expect(wrapper.vm.noMoreResults).toBe(false);
         });
       });
 
-      context('when there are some results in total', () => {
-        context('and results here', () => {
+      describe('when there are some results in total', () => {
+        describe('and results here', () => {
           const wrapper = factory({
             storeState: {
               totalResults: 100,
@@ -149,11 +128,11 @@ describe('components/search/SearchInterface', () => {
           });
 
           it('is `false`', () => {
-            wrapper.vm.noMoreResults.should.be.false;
+            expect(wrapper.vm.noMoreResults).toBe(false);
           });
         });
 
-        context('but no results here', () => {
+        describe('but no results here', () => {
           const wrapper = factory({
             storeState: {
               totalResults: 100
@@ -161,86 +140,9 @@ describe('components/search/SearchInterface', () => {
           });
 
           it('is `true`', () => {
-            wrapper.vm.noMoreResults.should.be.true;
+            expect(wrapper.vm.noMoreResults).toBe(true);
           });
         });
-      });
-    });
-
-    describe('orderedFacets', () => {
-      const wrapper = factory({
-        storeState: {
-          facets: [
-            { name: 'COUNTRY' },
-            { name: 'RIGHTS' },
-            { name: 'CONTRIBUTOR' },
-            { name: 'DATA_PROVIDER' },
-            { name: 'PROVIDER' },
-            { name: 'LANGUAGE' },
-            { name: 'REUSABILITY' },
-            { name: 'TYPE' }
-          ]
-        }
-      });
-
-      it('injects collection first', () => {
-        wrapper.vm.orderedFacets[0].name.should.eq('collection');
-      });
-
-      it('follows with ordered default facets from search plugin', () => {
-        wrapper.vm.orderedFacets[1].name.should.eq('TYPE');
-        wrapper.vm.orderedFacets[2].name.should.eq('REUSABILITY');
-        wrapper.vm.orderedFacets[3].name.should.eq('COUNTRY');
-        wrapper.vm.orderedFacets[4].name.should.eq('LANGUAGE');
-        wrapper.vm.orderedFacets[5].name.should.eq('PROVIDER');
-        wrapper.vm.orderedFacets[6].name.should.eq('DATA_PROVIDER');
-      });
-
-      it('ends with any other facets in their original order', () => {
-        wrapper.vm.orderedFacets[7].name.should.eq('RIGHTS');
-        wrapper.vm.orderedFacets[8].name.should.eq('CONTRIBUTOR');
-      });
-    });
-
-    describe('coreFacets', () => {
-      const wrapper = factory({
-        storeState: {
-          facets: [
-            { name: 'COUNTRY' },
-            { name: 'RIGHTS' },
-            { name: 'CONTRIBUTOR' },
-            { name: 'DATA_PROVIDER' },
-            { name: 'PROVIDER' },
-            { name: 'LANGUAGE' },
-            { name: 'REUSABILITY' },
-            { name: 'TYPE' }
-          ]
-        }
-      });
-
-      it('returns core facets only', () => {
-        wrapper.vm.coreFacets.map(coreFacet => coreFacet.name).should.eql(['collection', 'TYPE', 'REUSABILITY', 'COUNTRY']);
-      });
-    });
-
-    describe('moreFacets', () => {
-      const wrapper = factory({
-        storeState: {
-          facets: [
-            { name: 'COUNTRY' },
-            { name: 'RIGHTS' },
-            { name: 'CONTRIBUTOR' },
-            { name: 'DATA_PROVIDER' },
-            { name: 'PROVIDER' },
-            { name: 'LANGUAGE' },
-            { name: 'REUSABILITY' },
-            { name: 'TYPE' }
-          ]
-        }
-      });
-
-      it('returns non-core facets only', () => {
-        wrapper.vm.moreFacets.map(moreFacet => moreFacet.name).should.eql(['LANGUAGE', 'PROVIDER', 'DATA_PROVIDER']);
       });
     });
 
@@ -252,169 +154,76 @@ describe('components/search/SearchInterface', () => {
 
           wrapper.vm.view = view;
 
-          searchSetViewMutation.should.have.been.calledWith(sinon.match.any, view);
+          expect(searchSetViewMutation.calledWith(sinon.match.any, view)).toBe(true);
         });
       });
     });
   });
 
   describe('methods', () => {
-    describe('changeFacet', () => {
-      const facetName = 'TYPE';
+    describe('viewFromRouteQuery', () => {
+      describe('with view in route query', () => {
+        const route = { query: { view: 'mosaic', query: 'sport' } };
 
-      context('when facet had selected values', () => {
-        const initialSelectedValues = ['"IMAGE"'];
-        const storeGetters = {
-          filters: () => {
-            return { 'TYPE': ['"IMAGE"'] };
-          }
-        };
+        it('updates the stored view', () => {
+          const wrapper = factory({ mocks: { $route: route } });
+          wrapper.setData({ view: 'list' });
 
-        context('and they changed', () => {
-          const newSelectedValues = ['"IMAGE"', '"TEXT"'];
+          wrapper.vm.viewFromRouteQuery();
 
-          it('triggers rerouting', async() => {
-            const wrapper = factory({ storeGetters });
-            const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
-
-            await wrapper.vm.changeFacet(facetName, newSelectedValues);
-            searchRerouter.should.have.been.called;
-          });
+          expect(searchSetViewMutation.calledWith(sinon.match.any, 'mosaic')).toBe(true);
         });
 
-        context('and they were unchanged', () => {
-          it('does not trigger rerouting', async() => {
-            const wrapper = factory({ storeGetters });
-            const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
+        it('sets searchResultsView cookie', () => {
+          const wrapper = factory({ mocks: { $route: route, $cookies: { set: sinon.spy() } } });
+          wrapper.setData({ view: 'list' });
 
-            await wrapper.vm.changeFacet(facetName, initialSelectedValues);
-            searchRerouter.should.not.have.been.called;
-          });
-        });
-      });
+          wrapper.vm.viewFromRouteQuery();
 
-      context('when facet had no selected values', () => {
-        const storeGetters = {
-          filters: () => {
-            return {};
-          }
-        };
-
-        context('and some were selected', () => {
-          const newSelectedValues = ['"IMAGE"', '"TEXT"'];
-
-          it('triggers rerouting', async() => {
-            const wrapper = await factory({ storeGetters });
-            const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
-
-            await wrapper.vm.changeFacet(facetName, newSelectedValues);
-            searchRerouter.should.have.been.called;
-          });
+          expect(wrapper.vm.$cookies.set.calledWith('searchResultsView', 'mosaic')).toBe(true);
         });
 
-        context('and none were selected', () => {
-          const newSelectedValues = [];
+        it('commit route query to store as userParams', () => {
+          const wrapper = factory({ mocks: { $route: route } });
+          wrapper.setData({ view: 'list' });
 
-          it('does not trigger rerouting', async() => {
-            const wrapper = factory({ storeGetters });
-            const searchRerouter = sinon.spy(wrapper.vm, 'rerouteSearch');
+          wrapper.vm.viewFromRouteQuery();
 
-            await wrapper.vm.changeFacet(facetName, newSelectedValues);
-            searchRerouter.should.not.have.been.called;
-          });
-        });
-      });
-    });
-
-    describe('showContentTierToast', () => {
-      let facets = [];
-
-      context('in browser', () => {
-        beforeEach(() => {
-          process.browser = true;
-          global.sessionStorage = {};
-        });
-
-        context('with contentTier "0" facet field', () => {
-          beforeEach(() => {
-            facets = [
-              { name: 'contentTier', fields: [{ label: '"0"' }] }
-            ];
-          });
-
-          context('when toast has not yet been shown this session', () => {
-            it('shows the toast', async() => {
-              const wrapper = factory({
-                storeState: { facets }
-              });
-              const rootBvToast = sinon.spy(wrapper.vm.$root.$bvToast, 'toast');
-              global.sessionStorage.contentTierToastShown = false;
-              await wrapper.vm.showContentTierToast();
-              rootBvToast.should.have.been.calledWith('facets.contentTier.notification', sinon.match.any);
-            });
-
-            it('updates session storage after toast is shown', async() => {
-              const wrapper = factory({
-                storeState: { facets }
-              });
-              global.sessionStorage.contentTierToastShown = false;
-              await wrapper.vm.showContentTierToast();
-              await wrapper.vm.$root.$emit('bv::toast:shown');
-
-              global.sessionStorage.contentTierToastShown.should.eql('true');
-            });
-          });
-
-          context('when toast has previously been shown this session', () => {
-            beforeEach(() => {
-              global.sessionStorage.contentTierToastShown = true;
-            });
-
-            it('does not show the toast', async() => {
-              const wrapper = factory({
-                storeState: { facets }
-              });
-              const rootBvToast = sinon.spy(wrapper.vm.$root.$bvToast, 'toast');
-
-              await wrapper.vm.showContentTierToast();
-
-              rootBvToast.should.not.have.been.called;
-            });
-          });
-        });
-
-        context('without contentTier 0 facet field', () => {
-          beforeEach(() => {
-            facets = [
-              { name: 'contentTier', fields: [{ label: '"1"' }] }
-            ];
-          });
-
-          it('does not show the toast', async() => {
-            const wrapper = factory({
-              storeState: { facets }
-            });
-            const rootBvToast = sinon.spy(wrapper.vm.$root.$bvToast, 'toast');
-
-            await wrapper.vm.showContentTierToast();
-
-            rootBvToast.should.not.have.been.called;
-          });
+          expect(searchSetMutation.calledWith(
+            sinon.match.any, ['userParams', sinon.match(route.query)]
+          )).toBe(true);
         });
       });
 
-      context('when not in browser', () => {
-        beforeEach(() => {
-          process.browser = false;
+      describe('without view in route query', () => {
+        const route = { query: { query: 'sport' } };
+
+        it('does not update the stored view', () => {
+          const wrapper = factory({ mocks: { $route: route } });
+          wrapper.setData({ view: 'list' });
+          sinon.resetHistory();
+
+          wrapper.vm.viewFromRouteQuery();
+
+          expect(searchSetViewMutation.called).toBe(false);
         });
 
-        it('does not show the toast', async() => {
-          const wrapper = factory();
-          const rootBvToast = sinon.spy(wrapper.vm.$root.$bvToast, 'toast');
+        it('does not set searchResultsView cookie', () => {
+          const wrapper = factory({ mocks: { $route: route, $cookies: { set: sinon.spy() } } });
+          wrapper.setData({ view: 'list' });
 
-          await wrapper.vm.showContentTierToast();
+          wrapper.vm.viewFromRouteQuery();
 
-          rootBvToast.should.not.have.been.called;
+          expect(wrapper.vm.$cookies.set.called).toBe(false);
+        });
+
+        it('does not commit route query to store as userParams', () => {
+          const wrapper = factory({ mocks: { $route: route } });
+          wrapper.setData({ view: 'list' });
+
+          wrapper.vm.viewFromRouteQuery();
+
+          expect(searchSetMutation.called).toBe(false);
         });
       });
     });
