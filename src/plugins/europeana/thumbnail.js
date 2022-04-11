@@ -55,7 +55,10 @@ export default (context = {}) => {
     }
     const item = (typeof itemOrEdmPreview === 'string') ? { edmPreview: [itemOrEdmPreview] } : itemOrEdmPreview;
 
-    const params = { type: item.type, size: `w${size}` };
+    const params = { size: `w${size}` };
+    if (item.type) {
+      params.type = item.type;
+    }
 
     if (item.edmPreview) {
       const edmPreviewUrl = new URL(item.edmPreview[0]);

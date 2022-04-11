@@ -39,6 +39,16 @@ describe('plugins/europeana/thumbnail', () => {
     describe('edmPreview()', () => {
       const size = 400;
 
+      describe('when arg is a string', () => {
+        it('uses it as edmPreview for URL', () => {
+          const url = 'https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fexample.org%2Fpreview.jpg';
+
+          const edmPreview = thumbnail().edmPreview(url, size);
+
+          expect(edmPreview).toBe('https://api.europeana.eu/thumbnail/v2/url.json?size=w400&uri=https%3A%2F%2Fexample.org%2Fpreview.jpg');
+        });
+      });
+
       describe('when edmPreview property is present on item', () => {
         it('uses edmPreview property for URL', () => {
           const item = {
@@ -48,7 +58,7 @@ describe('plugins/europeana/thumbnail', () => {
 
           const edmPreview = thumbnail().edmPreview(item, size);
 
-          expect(edmPreview).toBe('https://api.europeana.eu/thumbnail/v2/url.json?type=VIDEO&size=w400&uri=https%3A%2F%2Fexample.org%2Fpreview.jpg');
+          expect(edmPreview).toBe('https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=VIDEO&uri=https%3A%2F%2Fexample.org%2Fpreview.jpg');
         });
       });
 
@@ -61,7 +71,7 @@ describe('plugins/europeana/thumbnail', () => {
 
           const edmPreview = thumbnail().edmPreview(item, size);
 
-          expect(edmPreview).toBe('https://api.europeana.eu/thumbnail/v2/url.json?type=IMAGE&size=w400&uri=http%3A%2F%2Fdata.europeana.eu%2Fitem%2F123%2Fabc');
+          expect(edmPreview).toBe('https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=http%3A%2F%2Fdata.europeana.eu%2Fitem%2F123%2Fabc');
         });
       });
 
