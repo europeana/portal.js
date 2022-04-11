@@ -287,7 +287,7 @@
       },
       async pinAction() {
         if (this.entity) {
-          this.togglePin()
+          this.togglePin();
         }
         this.$bvModal.show(this.pinModalId);
       },

@@ -2,9 +2,9 @@
   <b-modal
     :id="modalId"
     :title="$t('record.actions.pin')"
-    @show="fetchPinningData"
     hide-footer
     hide-header-close
+    @show="fetchPinningData"
   >
     <b-button
       v-for="(entity, index) in allRelatedEntities"
