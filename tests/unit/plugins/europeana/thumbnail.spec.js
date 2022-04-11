@@ -75,6 +75,16 @@ describe('plugins/europeana/thumbnail', () => {
         });
       });
 
+      describe('when size is not specified', () => {
+        it('defaults to 200', () => {
+          const url = 'https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fexample.org%2Fpreview.jpg';
+
+          const edmPreview = thumbnail().edmPreview(url);
+
+          expect(edmPreview).toBe('https://api.europeana.eu/thumbnail/v2/url.json?size=w200&uri=https%3A%2F%2Fexample.org%2Fpreview.jpg');
+        });
+      });
+
       describe('when item is blank', () => {
         it('returns `null`', () => {
           const item = undefined;
