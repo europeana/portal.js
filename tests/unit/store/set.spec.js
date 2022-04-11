@@ -521,15 +521,21 @@ describe('store/set', () => {
           await expect(store.actions.fetchCreationPreviews({ state: stateWithoutCreations, commit })).resolves.toEqual();
         });
       });
-      // describe('firstItemsInSets', () => {
-      //   it('returns false for sets that do not have items', async() => {
-      //     store.actions.$apis.record.search = sinon.stub().resolves({});
-      //     const stateWithCreationsWithoutItems = { creations: [{ id: '01' },
-      //       { id: '02' }] };
+      describe('when there are sets with no items', () => {
+        it('skips to set a preview for those sets', async() => {
+          const searchResponseCreationsWithoutItems = { items: [{ id: '/222',
+            edmPreview: ['http://www.example.eu/img/222'] }] };
+          store.actions.$apis.record.search = sinon.stub().resolves(searchResponseCreationsWithoutItems);
+          const stateWithCreationsWithoutItems = { creations: [{ id: '01' },
+            { id: '02', items: [
+              'http://data.europeana.eu/item/222',
+              'http://data.europeana.eu/item/223'
+            ] }] };
 
-      //     await store.actions.fetchCreationPreviews({ state: stateWithCreationsWithoutItems, commit });
-      //   });
-      // });
+          await store.actions.fetchCreationPreviews({ state: stateWithCreationsWithoutItems, commit });
+          expect(commit.calledWith('setCreationPreviews', { '02': 'http://www.example.eu/img/222' })).toBe(true);
+        });
+      });
     });
 
     describe('fetchCurations()', () => {

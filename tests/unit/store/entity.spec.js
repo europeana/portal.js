@@ -241,15 +241,15 @@ describe('store/entity', () => {
         expect(dispatch.calledWith('set/fetchActive', state.featuredSetId, { root: true })).toBe(true);
         expect(dispatch.calledWith('getPins')).toBe(true);
       });
-      // describe('when api call errors', () => {
-      //   it('throws an error and gets pins', async() => {
-      //     store.actions.$apis.set.modifyItems = sinon.stub().rejects({});
-      //     const state = { featuredSetId };
+      describe('when api call errors', () => {
+        it('throws an error and gets pins', async() => {
+          store.actions.$apis.set.modifyItems = sinon.stub().rejects(new Error('unpinning failed'));
+          const state = { featuredSetId };
 
-      //     await expect(store.actions.unpin({ dispatch, state }, itemId)).rejects.toThrowError();
-      //     expect(dispatch.calledWith('getPins')).toBe(true);
-      //   });
-      // });
+          await expect(store.actions.unpin({ dispatch, state }, itemId)).rejects.toThrowError();
+          expect(dispatch.calledWith('getPins')).toBe(true);
+        });
+      });
     });
     describe('getPins()', () => {
       it('gets the featured set and sets the pins', async() => {
