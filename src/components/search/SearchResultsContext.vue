@@ -1,5 +1,5 @@
 <template>
-  <div
+  <h1
     class="context-label"
     data-qa="context label"
   >
@@ -58,7 +58,7 @@
         {{ $t('results') }}
       </span>
     </template>
-  </div>
+  </h1>
 </template>
 
 <script>
