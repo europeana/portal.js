@@ -40,7 +40,8 @@ const factory = () => {
           mediaProxyUrl: () => 'proxied'
         },
         thumbnail: {
-          edmPreview: () => ''
+          edmPreview: () => '',
+          generic: (id) => id
         }
       }
     }

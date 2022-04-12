@@ -35,41 +35,49 @@ export const thumbnailTypeForMimeType = (mimeType) => {
 export default (context = {}) => {
   const config = apiConfig(context.$config, 'thumbnail');
 
-  const url = (uri, params = {}) => {
+  const media = (uri, { size, type } = {}) => {
     const apiUrl = new URL(`${config.url || BASE_URL}/url.json`);
-    for (const key of Object.keys(params)) {
-      apiUrl.searchParams.set(key, params[key]);
-    }
+
     apiUrl.searchParams.set('uri', uri);
+
+    if (!size) {
+      size = 200;
+    }
+    apiUrl.searchParams.set('size', (typeof size === 'number' ? `w${size}` : size));
+
+    if (type) {
+      apiUrl.searchParams.set('type', type);
+    }
+
     return apiUrl.toString();
   };
 
-  const generic = (itemId, params = {}) => {
+  const generic = (itemId, { size, type } = {}) => {
     const uri = `${EUROPEANA_DATA_URL}/item${itemId}`;
-    return url(uri, params);
+    return media(uri, { size, type });
   };
 
-  const edmPreview = (itemOrEdmPreview, size = 200) => {
-    if (!itemOrEdmPreview) {
+  const edmPreview = (url, { size, type } = {}) => {
+    if (!url) {
       return null;
     }
-    const item = (typeof itemOrEdmPreview === 'string') ? { edmPreview: [itemOrEdmPreview] } : itemOrEdmPreview;
 
-    const params = { size: `w${size}` };
-    if (item.type) {
-      params.type = item.type;
-    }
-
-    if (item.edmPreview) {
-      const edmPreviewUrl = new URL(item.edmPreview[0]);
-      return url(edmPreviewUrl.searchParams.get('uri'), params);
+    if (url) {
+      const edmPreviewUrl = new URL(url);
+      if (!size) {
+        size = edmPreviewUrl.searchParams.get('size');
+      }
+      if (!type) {
+        type = edmPreviewUrl.searchParams.get('type');
+      }
+      return media(edmPreviewUrl.searchParams.get('uri'), { size, type });
     } else {
-      return generic(item.id, params);
+      return null;
     }
   };
 
   return {
-    url,
+    media,
     generic,
     edmPreview
   };

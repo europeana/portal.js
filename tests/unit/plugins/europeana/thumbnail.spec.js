@@ -4,27 +4,31 @@ import thumbnail, {
 
 describe('plugins/europeana/thumbnail', () => {
   describe('default export', () => {
-    describe('url()', () => {
+    describe('media()', () => {
       const uri = 'https://www.example.org/doc.pdf';
 
       it('defaults to the production thumbnail API', () => {
-        expect(thumbnail().url(uri).startsWith('https://api.europeana.eu/thumbnail/v2/url.json')).toBe(true);
+        expect(thumbnail().media(uri).startsWith('https://api.europeana.eu/thumbnail/v2/url.json')).toBe(true);
       });
 
       it('favours a thumbnail API in the describe', () => {
         const describe = { $config: { europeana: { apis: { thumbnail: { url: 'https://thumbnail.example.org' } } } } };
 
-        expect(thumbnail(describe).url(uri).startsWith('https://thumbnail.example.org/url.json')).toBe(true);
+        expect(thumbnail(describe).media(uri).startsWith('https://thumbnail.example.org/url.json')).toBe(true);
       });
 
       it('URL-encodes URI', () => {
         const encoded = 'https%3A%2F%2Fwww.example.org%2Fdoc.pdf';
-        expect(thumbnail().url(uri)).toContain(`uri=${encoded}`);
+        expect(thumbnail().media(uri)).toContain(`uri=${encoded}`);
       });
 
       it('adds any additional parameters', () => {
-        const params = { size: 'w200' };
-        expect(thumbnail().url(uri, params)).toContain('size=w200');
+        const params = { size: 'w400' };
+        expect(thumbnail().media(uri, params)).toContain('size=w400');
+      });
+
+      it('defaults size to 200', () => {
+        expect(thumbnail().media(uri)).toContain('size=w200');
       });
     });
 
@@ -39,60 +43,18 @@ describe('plugins/europeana/thumbnail', () => {
     describe('edmPreview()', () => {
       const size = 400;
 
-      describe('when arg is a string', () => {
-        it('uses it as edmPreview for URL', () => {
-          const url = 'https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fexample.org%2Fpreview.jpg';
+      it('uses arg as edmPreview for URL', () => {
+        const url = 'https://example.org/thumbnail/v2/url.json?uri=https%3A%2F%2Fexample.org%2Fpreview.jpg';
 
-          const edmPreview = thumbnail().edmPreview(url, size);
+        const edmPreview = thumbnail().edmPreview(url, { size });
 
-          expect(edmPreview).toBe('https://api.europeana.eu/thumbnail/v2/url.json?size=w400&uri=https%3A%2F%2Fexample.org%2Fpreview.jpg');
-        });
+        expect(edmPreview).toBe('https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fexample.org%2Fpreview.jpg&size=w400');
       });
 
-      describe('when edmPreview property is present on item', () => {
-        it('uses edmPreview property for URL', () => {
-          const item = {
-            edmPreview: ['https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fexample.org%2Fpreview.jpg'],
-            type: 'VIDEO'
-          };
+      it('is `null` if edmPreview is absent', () => {
+        const edmPreview = thumbnail().edmPreview();
 
-          const edmPreview = thumbnail().edmPreview(item, size);
-
-          expect(edmPreview).toBe('https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=VIDEO&uri=https%3A%2F%2Fexample.org%2Fpreview.jpg');
-        });
-      });
-
-      describe('when edmPreview property is absent from item', () => {
-        it('falls back to generic URL', () => {
-          const item = {
-            type: 'IMAGE',
-            id: '/123/abc'
-          };
-
-          const edmPreview = thumbnail().edmPreview(item, size);
-
-          expect(edmPreview).toBe('https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=http%3A%2F%2Fdata.europeana.eu%2Fitem%2F123%2Fabc');
-        });
-      });
-
-      describe('when size is not specified', () => {
-        it('defaults to 200', () => {
-          const url = 'https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fexample.org%2Fpreview.jpg';
-
-          const edmPreview = thumbnail().edmPreview(url);
-
-          expect(edmPreview).toBe('https://api.europeana.eu/thumbnail/v2/url.json?size=w200&uri=https%3A%2F%2Fexample.org%2Fpreview.jpg');
-        });
-      });
-
-      describe('when item is blank', () => {
-        it('returns `null`', () => {
-          const item = undefined;
-
-          const edmPreview = thumbnail().edmPreview(item, size);
-
-          expect(edmPreview).toBe(null);
-        });
+        expect(edmPreview).toBe(null);
       });
     });
   });

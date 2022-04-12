@@ -140,7 +140,7 @@ const proxyHasFallbackField = (proxy, fallbackProxy, field, targetLanguage) => {
 
 export default (context = {}) => {
   const $axios = createAxios({ id: 'record', baseURL: BASE_URL }, context);
-  const thumbnailUrl = thumbnail(context).url;
+  const thumbnailUrl = thumbnail(context).media;
 
   return {
     $axios,

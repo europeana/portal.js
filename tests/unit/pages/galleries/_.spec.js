@@ -92,7 +92,7 @@ const factory = () => shallowMountNuxt(page, {
   },
   mocks: {
     $apis: {
-      thumbnail: { edmPreview: (img) => img?.edmPreview?.[0] }
+      thumbnail: { edmPreview: (img) => img }
     },
     $features: {},
     $pageHeadTitle: key => key,

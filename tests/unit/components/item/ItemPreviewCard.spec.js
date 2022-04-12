@@ -25,7 +25,10 @@ const factory = (propsData) => {
     propsData,
     mocks: {
       $apis: {
-        thumbnail: { edmPreview: (img) => img?.edmPreview?.[0] }
+        thumbnail: {
+          edmPreview: (img) => img?.edmPreview?.[0],
+          generic: (id) => id
+        }
       },
       $auth: { loggedIn: false },
       $config: { app: { internalLinkDomain: null } },

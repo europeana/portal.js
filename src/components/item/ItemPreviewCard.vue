@@ -169,7 +169,8 @@
       },
 
       imageUrl() {
-        return this.$apis.thumbnail.edmPreview(this.item, 400);
+        return this.$apis.thumbnail.edmPreview(this.item.edmPreview?.[0], { size: 400, type: this.item.type }) ||
+          this.$apis.thumbnail.generic(this.item.id, { size: 400, type: this.item.type });
       },
 
       subTitle() {

@@ -96,9 +96,9 @@
         let url = null;
 
         if (item.image) {
-          url = this.$apis.thumbnail.edmPreview(item.image, 200);
+          url = this.$apis.thumbnail.edmPreview(item.image, { size: 200 });
         } else if (item.isShownBy?.thumbnail) {
-          url = this.$apis.thumbnail.edmPreview(item.isShownBy.thumbnail, 200);
+          url = this.$apis.thumbnail.edmPreview(item.isShownBy.thumbnail, { size: 200 });
         } else if (item.logo) {
           url = getWikimediaThumbnailUrl(item.logo.id, 28);
         }

@@ -114,11 +114,10 @@
         };
       },
       galleryCardData(card) {
+        const edmPreview = card.hasPartCollection.items[0].encoding?.edmPreview?.[0] || card.hasPartCollection.items[0].thumbnailUrl;
         return {
           cardLink: { name: 'galleries-all', params: { pathMatch: card.identifier } },
-          imageUrl: this.$apis.thumbnail.edmPreview(
-            (card.hasPartCollection.items[0].encoding || card.hasPartCollection.items[0].thumbnailUrl), 400
-          )
+          imageUrl: this.$apis.thumbnail.edmPreview(edmPreview, { size: 400 })
         };
       }
     }

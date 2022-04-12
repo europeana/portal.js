@@ -259,7 +259,7 @@
         return this.$tc(label, this.set.total, { max });
       },
       shareMediaUrl() {
-        return this.$apis.thumbnail.edmPreview(this.set?.items?.[0], 400);
+        return this.$apis.thumbnail.edmPreview(this.set?.items?.[0]?.edmPreview?.[0], { size: 400 });
       }
     },
 
