@@ -386,6 +386,22 @@ describe('plugins/europeana/entity', () => {
     });
   });
 
+  // TODO: populate tests
+  describe('imageUrl', () => {
+    describe('when the item has an image attribute', () => {
+      test.todo('uses the image at a width of 200');
+    });
+    describe('when the item has an isShownBy with a thumbnail', () => {
+      test.todo('uses the thumbnail at a width of 200');
+    });
+    describe('when the item has a logo attribute', () => {
+      test.todo('uses the logo URL from wikimedia at a size of 28');
+    });
+    describe('when there is no relevant attribute', () => {
+      test.todo('returns `null`');
+    });
+  });
+
   describe('search()', () => {
     beforeEach(() => {
       nock(BASE_URL)

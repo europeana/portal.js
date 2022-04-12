@@ -74,7 +74,8 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
     $apis: {
       entity: {
         get: sinon.stub().resolves({}),
-        facets: sinon.stub().resolves([])
+        facets: sinon.stub().resolves([]),
+        imageUrl: sinon.spy()
       },
       entityManagement: {
         get: sinon.stub().resolves({})
@@ -347,7 +348,7 @@ describe('pages/collections/type/_', () => {
         const wrapper = factory(topicEntity);
 
         const thumbnail = wrapper.vm.thumbnail;
-        expect(thumbnail).toBe(topicEntity.entity.isShownBy.thumbnail);
+        expect(wrapper.vm.$apis.entity.imageUrl.called).toBe(true);
       });
     });
     describe('moreInfo', () => {
