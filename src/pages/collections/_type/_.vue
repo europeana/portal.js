@@ -156,6 +156,7 @@
           this.$store.commit('entity/setEntity', pick(responses[0].entity, [
             'id', 'logo', 'note', 'description', 'homepage', 'prefLabel', 'isShownBy', 'hasAddress', 'acronym'
           ]));
+          this.$store.commit('search/setCollectionLabel', this.pageTitle);
           if (responses[1].note) {
             this.$store.commit('entity/setEditable', true);
             this.$store.commit('entity/setEntityDescription', responses[1].note);
@@ -348,7 +349,6 @@
       searchOverrides: 'storeSearchOverrides'
     },
     mounted() {
-      this.$store.commit('search/setCollectionLabel', this.pageTitle);
       this.storeSearchOverrides();
       // Disable related collections for organisation (for now)
       if (!this.relatedCollectionCards && this.collectionType !== 'organisation') {
