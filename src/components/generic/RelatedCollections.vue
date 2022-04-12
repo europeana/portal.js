@@ -70,16 +70,16 @@
         });
       },
 
-      linkGen(item) {
+      linkGen(collection) {
         let id = '';
         let name = '';
 
-        if (item.id) {
-          id = item.id;
-          name = item.prefLabel[this.$i18n.locale];
+        if (collection.id) {
+          id = collection.id;
+          name = collection.prefLabel[this.$i18n.locale];
         } else {
-          id = item.identifier;
-          name = item.name;
+          id = collection.identifier;
+          name = collection.name;
         }
 
         const uriMatch = id.match(`^${EUROPEANA_DATA_URL}/([^/]+)(/base)?/(.+)$`);
@@ -92,18 +92,8 @@
         });
       },
 
-      imageUrl(item) {
-        let url = null;
-
-        if (item.image) {
-          url = this.$apis.thumbnail.edmPreview(item.image, { size: 200 });
-        } else if (item.isShownBy?.thumbnail) {
-          url = this.$apis.thumbnail.edmPreview(item.isShownBy.thumbnail, { size: 200 });
-        } else if (item.logo) {
-          url = getWikimediaThumbnailUrl(item.logo.id, 28);
-        }
-
-        return url;
+      imageUrl(collection) {
+        return this.$apis.entity.imageUrl(collection);
       }
     }
   };

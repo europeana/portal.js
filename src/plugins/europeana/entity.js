@@ -1,5 +1,6 @@
 import { BASE_URL as EUROPEANA_DATA_URL } from './data.js';
 import { apiError, createAxios } from './utils.js';
+import thumbnail from './thumbnail.js';
 import md5 from 'md5';
 
 export const BASE_URL = process.env.EUROPEANA_ENTITY_API_URL || 'https://api.europeana.eu/entity';
@@ -9,6 +10,20 @@ export default (context = {}) => {
 
   return {
     $axios,
+
+    $thumbnail: thumbnail(context),
+
+    imageUrl(entity) {
+      let url = null;
+      if (entity.image) {
+        url = this.$thumbnail.edmPreview(entity.image, { size: 200 });
+      } else if (entity.isShownBy?.thumbnail) {
+        url = this.$thumbnail.edmPreview(entity.isShownBy.thumbnail, { size: 200 });
+      } else if (entity.logo) {
+        url = getWikimediaThumbnailUrl(entity.logo.id, 28);
+      }
+      return url;
+    },
 
     /**
      * Get data for one entity from the API

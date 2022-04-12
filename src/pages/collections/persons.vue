@@ -104,7 +104,7 @@
         };
       },
       thumbnail(entity) {
-        return entity?.isShownBy?.thumbnail;
+        return this.$apis.entity.imageUrl(entity);
       }
     }
   };

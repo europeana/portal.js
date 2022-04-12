@@ -114,7 +114,7 @@
               __variant: (this.sectionType === RECENT_ITEMS) ? null : 'mini',
               name: entry.prefLabel,
               identifier: entry.id,
-              image: entry.isShownBy?.thumbnail || (entry.logo ? getWikimediaThumbnailUrl(entry.logo.id, 80) : null),
+              image: this.$apis.entity.imageUrl(entry),
               encoding: entry,
               logo: !!entry.logo
             }))

@@ -320,7 +320,7 @@
         return this.$route.query.query &&  this.$route.query.query !== '';
       },
       thumbnail() {
-        return this.entity?.isShownBy?.thumbnail || null;
+        return this.$apis.entity.imageUrl(this.entity);
       },
       moreInfo() {
         const labelledMoreInfo = [];
