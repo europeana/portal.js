@@ -156,7 +156,6 @@
           this.$store.commit('entity/setEntity', pick(responses[0].entity, [
             'id', 'logo', 'note', 'description', 'homepage', 'prefLabel', 'isShownBy', 'hasAddress', 'acronym'
           ]));
-          this.$store.commit('search/setCollectionLabel', this.pageTitle);
           if (responses[1].note) {
             this.$store.commit('entity/setEditable', true);
             this.$store.commit('entity/setEntityDescription', responses[1].note);
@@ -346,7 +345,8 @@
       }
     },
     watch: {
-      searchOverrides: 'storeSearchOverrides'
+      searchOverrides: 'storeSearchOverrides',
+      pageTitle: 'storeCollectionLabel'
     },
     mounted() {
       this.storeSearchOverrides();
@@ -363,6 +363,9 @@
       }
     },
     methods: {
+      storeCollectionLabel() {
+        this.$store.commit('search/setCollectionLabel', this.pageTitle);
+      },
       redirectToPrefPath() {
         const entityName = this.page ? this.page.name : this.entity.prefLabel.en;
         const desiredPath = getEntitySlug(this.entity.id, entityName);
