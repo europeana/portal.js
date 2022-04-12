@@ -15,6 +15,7 @@ query GalleryFoyerPage(
         items {
           identifier
           encoding
+          thumbnailUrl
         }
       }
     }

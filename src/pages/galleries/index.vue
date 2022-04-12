@@ -85,7 +85,7 @@
     watchQuery: ['page'],
     methods: {
       imageUrl(data) {
-        return this.$apis.thumbnail.edmPreview(data.encoding, 400);
+        return this.$apis.thumbnail.edmPreview((data.encoding || data.thumbnailUrl), 400);
       }
     }
   };

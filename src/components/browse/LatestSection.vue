@@ -116,7 +116,9 @@
       galleryCardData(card) {
         return {
           cardLink: { name: 'galleries-all', params: { pathMatch: card.identifier } },
-          imageUrl: this.$apis.thumbnail.edmPreview(card.hasPartCollection.items[0].encoding, 400)
+          imageUrl: this.$apis.thumbnail.edmPreview(
+            (card.hasPartCollection.items[0].encoding || card.hasPartCollection.items[0].thumbnailUrl), 400
+          )
         };
       }
     }
