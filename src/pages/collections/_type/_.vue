@@ -345,10 +345,10 @@
       }
     },
     watch: {
-      searchOverrides: 'storeSearchOverrides',
-      pageTitle: 'storeCollectionLabel'
+      searchOverrides: 'storeSearchOverrides'
     },
     mounted() {
+      this.$store.commit('search/setCollectionLabel', this.title.values[0]);
       this.storeSearchOverrides();
       // Disable related collections for organisation (for now)
       if (!this.relatedCollectionCards && this.collectionType !== 'organisation') {
@@ -363,9 +363,6 @@
       }
     },
     methods: {
-      storeCollectionLabel() {
-        this.$store.commit('search/setCollectionLabel', this.title.values[0]);
-      },
       redirectToPrefPath() {
         const entityName = this.page ? this.page.name : this.entity.prefLabel.en;
         const desiredPath = getEntitySlug(this.entity.id, entityName);
