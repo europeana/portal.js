@@ -88,12 +88,11 @@ export default {
       return dispatch('getPins')
         .then(() => {
           if (state.pinned && state.pinned.length >= 24) {
-            throw new Error('too many pins');
+            return Promise.reject(new Error('too many pins'));
+          } else {
+            return this.$apis.set.modifyItems('add', state.featuredSetId, itemId, true)
+              .then(() =>  commit('pin', itemId));
           }
-        })
-        .then(() => {
-          return this.$apis.set.modifyItems('add', state.featuredSetId, itemId, true)
-            .then(() =>  commit('pin', itemId));
         })
         .catch((e) => {
           dispatch('getPins');
@@ -103,6 +102,7 @@ export default {
     unpin({ dispatch, state }, itemId) {
       return this.$apis.set.modifyItems('delete', state.featuredSetId, itemId)
         .then(() =>  {
+          dispatch('set/fetchActive', state.featuredSetId, { root: true });
           dispatch('getPins');
         })
         .catch((e) => {
