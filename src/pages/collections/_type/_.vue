@@ -168,6 +168,7 @@
             this.page = pageResponseData.entityPage.items[0];
             this.$store.commit('entity/setCuratedEntities', pageResponseData.curatedEntities.items);
           }
+          this.$store.commit('search/setCollectionLabel', this.pageTitle);
           return this.redirectToPrefPath();
         });
     },
@@ -344,7 +345,6 @@
       searchOverrides: 'storeSearchOverrides'
     },
     mounted() {
-      this.$store.commit('search/setCollectionLabel', this.pageTitle);
       this.storeSearchOverrides();
       if (this.userIsEditor) {
         this.$store.dispatch('entity/getFeatured');

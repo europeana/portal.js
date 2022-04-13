@@ -77,9 +77,9 @@
         view: 'search/activeView'
       }),
 
-      onCollectionPage() {
+      onSearchableCollectionPage() {
         // Auto suggest on search form will be disabled on entity pages.
-        return !!this.$store.state.entity?.id;
+        return !!this.$store.state.entity?.id && !!this.collectionLabel;
       },
 
       suggestionSearchOptions() {
@@ -103,7 +103,7 @@
           }
         };
 
-        if (this.onCollectionPage) {
+        if (this.onSearchableCollectionPage) {
           globalSearchOption.i18n.path = this.query ? 'header.entireCollection' : 'header.searchForEverythingInEntireCollection';
         } else {
           globalSearchOption.i18n.path = this.query ? 'header.searchFor' : 'header.searchForEverything';
@@ -127,7 +127,7 @@
       },
 
       searchQueryOptions() {
-        if (this.onCollectionPage) {
+        if (this.onSearchableCollectionPage) {
           return [this.collectionSearchOption, this.globalSearchOption];
         } else {
           return [this.globalSearchOption].concat(this.suggestionSearchOptions);
@@ -191,7 +191,7 @@
 
           // This only tracks keyboard events, click events are tracked in the SearchQueryOptions component.
           // Make sure you are not on a collection page
-          if (!this.onCollectionPage) {
+          if (!this.onSearchableCollectionPage) {
             this.$matomo?.trackEvent('Autosuggest_option_selected', 'Autosuggest option is selected', this.query);
           }
 
@@ -233,7 +233,7 @@
           return;
         }
 
-        if (this.onCollectionPage) {
+        if (this.onSearchableCollectionPage) {
           return;
         }
 
