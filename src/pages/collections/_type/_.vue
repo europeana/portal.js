@@ -166,7 +166,7 @@
             this.page = pageResponseData.entityPage.items[0];
             this.$store.commit('entity/setCuratedEntities', pageResponseData.curatedEntities.items);
           }
-          this.$store.commit('search/setCollectionLabel', this.pageTitle);
+          this.$store.commit('search/setCollectionLabel', this.title.values[0]);
           return this.redirectToPrefPath();
         });
     },

@@ -64,10 +64,10 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
   localVue,
   mocks: {
     $fetchState: {},
-    $t: key => key,
+    $t: (key, args) => args ? `${key} ${args}` : key,
     $tc: (key) => key,
     $te: () => true,
-    $route: { query: '', params: { type: options.type, pathMatch: options.pathMatch } },
+    $route: { query: options.query || '', params: { type: options.type, pathMatch: options.pathMatch } },
     $contentful: {
       query: sinon.stub().resolves(contentfulPageResponse)
     },
@@ -88,6 +88,7 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
       isoLocale: () => 'en-GB'
     },
     $features: { sideFilters: false },
+    $pageHeadTitle: key => key,
     $path: () => '/',
     $nuxt: { context: { redirect: sinon.spy() } },
     $store: {
@@ -369,23 +370,6 @@ describe('pages/collections/type/_', () => {
         expect(moreInfo[3].value).toBe(organisationEntity.entity.hasAddress.locality);
       });
     });
-
-    describe('pageTitle', () => {
-      describe('when fetchState has error', () => {
-        it('uses translation of "Error"', () => {
-          const wrapper = factory({ ...topicEntity, mocks: { $fetchState: { error: true } } });
-          expect(wrapper.vm.pageTitle).toBe('error');
-        });
-      });
-
-      describe('when fetchState has no error', () => {
-        it('uses entity title', () => {
-          const wrapper = factory(topicEntity);
-          wrapper.vm.$fetchState.error = false;
-          expect(wrapper.vm.pageTitle).toBe('Topic');
-        });
-      });
-    });
   });
 
   describe('methods', () => {
@@ -455,6 +439,28 @@ describe('pages/collections/type/_', () => {
         await wrapper.vm.hideRelatedCollections();
 
         expect(wrapper.vm.showRelated).toBe(false);
+      });
+    });
+  });
+
+  describe('the head title', () => {
+    describe('when fetchState has error', () => {
+      it('uses translation of "Error"', () => {
+        const wrapper = factory({ ...topicEntity, mocks: { $fetchState: { error: true } } });
+
+        const headTitle = wrapper.vm.head().title;
+
+        expect(headTitle).toBe('error');
+      });
+    });
+
+    describe('when fetchState has no error', () => {
+      it('uses entity title', () => {
+        const wrapper = factory(topicEntity);
+
+        const headTitle = wrapper.vm.head().title;
+
+        expect(headTitle).toBe('Topic');
       });
     });
   });

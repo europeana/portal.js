@@ -16,6 +16,7 @@ localVue.use(VueI18n);
 const searchEnableCollectionFacet = sinon.spy();
 const searchSetShowFiltersToggle = sinon.spy();
 const searchSet = sinon.spy();
+const setShowSearchBar = sinon.spy();
 
 const store = new Vuex.Store({
   state: {
@@ -29,7 +30,8 @@ const store = new Vuex.Store({
   mutations: {
     'search/enableCollectionFacet': searchEnableCollectionFacet,
     'search/setShowFiltersToggle': searchSetShowFiltersToggle,
-    'search/set': searchSet
+    'search/set': searchSet,
+    'search/setShowSearchBar': (state, value) => setShowSearchBar(value)
   },
   getters: {
     'search/showFiltersSheet': () => () => false,
@@ -50,7 +52,7 @@ const factory = (query) => shallowMountNuxt(page, {
       }
     },
     $fetchState: {},
-    $t: (key, args) => `${key} ${args}`,
+    $t: (key, args) => args ? `${key} ${args}` : key,
     $auth: {
       loggedIn: false
     },
@@ -114,7 +116,7 @@ describe('pages/item/_.vue', () => {
 
         const headTitle = wrapper.vm.head().title;
 
-        expect(headTitle).toBe('search undefined'); // 'undefined' because $t is mocked
+        expect(headTitle).toBe('search');
       });
     });
 
@@ -126,6 +128,20 @@ describe('pages/item/_.vue', () => {
 
         expect(headTitle).toBe('searchResultsFor test');
       });
+    });
+  });
+
+  describe('beforeRouteLeave', () => {
+    it('hides search bar', async() => {
+      const to = { name: 'item___eu', fullPath: '/eu/item/123', matched: [{ path: '/eu/item/123' }] };
+      const wrapper = factory();
+
+      const next = sinon.stub();
+
+      await wrapper.vm.$options.beforeRouteLeave.call(wrapper.vm, to, null, next);
+
+      expect(setShowSearchBar.calledWith(false)).toBe(true);
+      expect(next.called).toBe(true);
     });
   });
 });
