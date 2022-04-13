@@ -53,26 +53,6 @@ describe('components/entity/EntityRelatedCollections', () => {
 
         expect(wrapper.vm.$apis.entity.find.called).toBe(false);
       });
-
-
-      // it('queries the Entity API for suggestions via $apis plugin', () => {
-      //   const wrapper = factory({ propsData });
-      //
-      //   wrapper.vm.fetch();
-      //
-      //   expect(wrapper.vm.$apis.entity.suggest.calledWith(propsData.query, {
-      //     language: wrapper.vm.$i18n.locale,
-      //     rows: 4
-      //   })).toBe(true);
-      // });
-      //
-      // it('stores response as relatedCollections', async() => {
-      //   const wrapper = factory({ propsData });
-      //
-      //   await wrapper.vm.fetch();
-      //
-      //   expect(wrapper.vm.relatedCollections).toEqual(relatedCollections);
-      // });
     });
 
     describe('without overrides', () => {

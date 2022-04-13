@@ -12,7 +12,7 @@
   import pick from 'lodash/pick';
 
   import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
-  import { normalizeEntityId, getEntityUri, getEntityQuery } from '@/plugins/europeana/entity';
+  import { getEntityUri, getEntityQuery } from '@/plugins/europeana/entity';
 
   import RelatedCollections from '../generic/RelatedCollections';
 
