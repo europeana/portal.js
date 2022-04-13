@@ -364,7 +364,7 @@
     },
     methods: {
       storeCollectionLabel() {
-        this.$store.commit('search/setCollectionLabel', this.pageTitle);
+        this.$store.commit('search/setCollectionLabel', this.title.values[0]);
       },
       redirectToPrefPath() {
         const entityName = this.page ? this.page.name : this.entity.prefLabel.en;
