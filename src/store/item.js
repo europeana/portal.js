@@ -61,24 +61,9 @@ export default {
       return state.id ? state.id : null;
     },
 
-    allRelatedEntities(state) {
-      state.allRelatedEntities ? state.allRelatedEntities : null;
-    },
-
     annotationsByMotivation: (state) => (motivation) => {
       return state.annotations?.filter(annotation => annotation.motivation === motivation) || [];
     },
-
-    entityPreview: (state) => (uri) => {
-      let entity = state.allRelatedEntities?.find(entity => entity.identifier === uri);
-      if (!entity) {
-        return;
-      }
-      if (entity.isShownBy) {
-        return entity.isShownBy;
-      }
-      return entity.logo ? entity.logo : null;
-    }
   },
 
   actions: {

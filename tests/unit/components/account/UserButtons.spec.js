@@ -23,7 +23,7 @@ const mixins = [
   }
 ];
 
-const factory = ({ storeState = {}, $auth = {}, storeDispatch = storeDispatchSuccess } = {}) => shallowMount(UserButtons, {
+const factory = ({ storeState = {},  $auth = {}, storeDispatch = storeDispatchSuccess } = {}) => shallowMount(UserButtons, {
   localVue,
   propsData: { identifier },
   mixins,
@@ -401,14 +401,35 @@ describe('components/account/UserButtons', () => {
         });
       });
     });
+
     describe('when on an item page', () => {
       beforeEach(() => {
-        storeItemIdGetter.returns('http://data.europeana.eu/topic/123');
+        storeItemIdGetter.returns('/123/abc');
       });
-      describe('when clicked', () => {
-        it('opens the modal', () => {
-          expect(modalStub.calledWith('pin-modal-id')).toBe(true);
+
+      describe('when the item has related entities', () => {
+        it('is visible', async() => {
+          const wrapper = factory();
+          await wrapper.setProps({ showPins: true, entities: ['http://data.europeana.eu/topic/123'] });
+
+          const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
+
+          expect(pinButton.isVisible()).toBe(true);
         });
+
+        // describe('when clicked', () => {
+        //   it('opens the modal', async() => {
+        //     const wrapper = factory();
+        //     await wrapper.setProps({ showPins: true, entities: ['http://data.europeana.eu/topic/123'] });
+        //     const bvModalShow = sinon.spy(wrapper.vm.$bvModal, 'show');
+        //
+        //     const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
+        //     console.log('clicking');
+        //     await pinButton.trigger('click');
+        //
+        //     expect(bvModalShow.calledWith(`pin-modal-${identifier}`)).toBe(true);
+        //   });
+        // });
       });
     });
   });

@@ -4,12 +4,12 @@
     :title="$t('record.actions.pin')"
     hide-footer
     hide-header-close
+    :static="modalStatic"
     @show="fetchPinningData"
   >
     <b-button
       v-for="(entity, index) in allRelatedEntities"
       :key="index"
-      :img="entityPreview(entity.id)"
       :disabled="!fetched"
       :pressed="selected === entity.id"
       :data-qa="`pin item to entity choice ${index}`"
@@ -65,6 +65,11 @@
       entities: {
         type: Array,
         default: () => []
+      },
+      // Used for testing, in order to render the modal.
+      modalStatic: {
+        type: Boolean,
+        default: false
       }
     },
     data() {
@@ -78,9 +83,11 @@
       selectedIsPinned() {
         return this.selected && this.pinnedTo(this.selected);
       },
+      selectedEntityPrefLabel() {
+        return this.allRelatedEntities.find(entity => entity.id === this.selected).prefLabel.en;
+      },
       ...mapGetters({
-        itemId: 'item/id',
-        entityPreview: 'item/entityPreview',
+        itemId: 'item/id', // ID could probably be in mappedState, does it make a difference?
         featuredSetIds: 'item/featuredSetIds',
         pinnedTo: 'item/pinnedTo'
       }),
@@ -151,10 +158,9 @@
         console.log(this.featuredSetIds[this.selected]);
         if (this.featuredSetIds[this.selected] === undefined) {
           console.log('set id was undefined');
-          const prefLabel = this.allRelatedEntities.find(entity => entity.id === this.selected).prefLabel.en;
           const featuredSetBody = {
             type: 'EntityBestItemsSet',
-            title: { 'en': prefLabel + ' Page' },
+            title: { 'en': selectedEntityPrefLabel + ' Page' },
             subject: [this.selected]
           };
           return this.$apis.set.create(featuredSetBody)
@@ -173,7 +179,7 @@
           }))
           .then(() => {
             this.hide(); // should the box stay open?
-            this.makeToast(this.$t('entity.notifications.pinned'));
+            this.makeToast(this.$t('entity.notifications.pinned', { entity: this.selectedEntityPrefLabel}));
           })
           .catch((e) => {
             console.log(e);
