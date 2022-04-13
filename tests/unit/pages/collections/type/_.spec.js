@@ -455,22 +455,12 @@ describe('pages/collections/type/_', () => {
     });
 
     describe('when fetchState has no error', () => {
-      it('uses entity type label and entity title', () => {
+      it('uses entity title', () => {
         const wrapper = factory(topicEntity);
-        // wrapper.vm.$fetchState.error = false;
 
         const headTitle = wrapper.vm.head().title;
 
-        expect(headTitle).toBe('cardLabels.topic "Topic"');
-      });
-      describe('with a query', () => {
-        it('uses the search query in the title', async() => {
-          const wrapper = factory({ ...topicEntity, query: { query: 'test' } });
-
-          const headTitle = wrapper.vm.head().title;
-
-          expect(headTitle).toBe('resultsWithin cardLabels.topic,"Topic","test"');
-        });
+        expect(headTitle).toBe('Topic');
       });
     });
   });

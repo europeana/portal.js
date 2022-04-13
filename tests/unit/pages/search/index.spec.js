@@ -111,12 +111,12 @@ describe('pages/item/_.vue', () => {
 
   describe('head()', () => {
     describe('with no query', () => {
-      it('is only "results"', async() => {
+      it('is only "search"', async() => {
         const wrapper = factory();
 
         const headTitle = wrapper.vm.head().title;
 
-        expect(headTitle).toBe('results');
+        expect(headTitle).toBe('search');
       });
     });
 
@@ -126,7 +126,7 @@ describe('pages/item/_.vue', () => {
 
         const headTitle = wrapper.vm.head().title;
 
-        expect(headTitle).toBe('resultsFor "test"');
+        expect(headTitle).toBe('searchResultsFor test');
       });
     });
   });
