@@ -82,7 +82,8 @@ export default (context = {}) => {
       }
       const q = entityUris.join('" OR "');
       const params = {
-        query: `entity_uri:("${q}")`
+        query: `entity_uri:("${q}")`,
+        pageSize: entityUris.length
       };
       return this.search(params)
         .then(response => response.entities || []);

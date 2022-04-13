@@ -718,7 +718,8 @@ export default {
     "searchForEverything": "Search for everything",
     "searchForEverythingInCollection": "Search for everything in {collection}",
     "searchForEverythingInEntireCollection": "Search for everything in our entire collection",
-    "showSidebar": "Show Menu"
+    "showSidebar": "Show Menu",
+    "quickSearch": "Quick Search"
   },
   "homeLinkAlt": "Europeana home",
   "imageSlider": {

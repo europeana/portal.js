@@ -1,4 +1,3 @@
-
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import FilterToggleButton from '@/components/search/FilterToggleButton.vue';
 import BootstrapVue from 'bootstrap-vue';

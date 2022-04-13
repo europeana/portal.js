@@ -2,8 +2,8 @@
   <b-list-group
     :id="elementId"
     class="auto-suggest-dropdown"
-    data-qa="search query options"
     role="listbox"
+    data-qa="search query options"
     :aria-label="$t('searchSuggestions')"
   >
     <b-list-group-item
@@ -43,16 +43,27 @@
         />
       </template>
     </b-list-group-item>
+    <div
+      v-if="quickSearch"
+      class="list-group-item list-item-quick-search"
+      role="option"
+    >
+      <QuickSearch
+        :links="quickSearch"
+      />
+    </div>
   </b-list-group>
 </template>
 
 <script>
   import TextHighlighter from '../generic/TextHighlighter';
+  import QuickSearch from '../search/QuickSearch';
 
   export default {
     name: 'SearchQueryOptions',
 
     components: {
+      QuickSearch,
       TextHighlighter
     },
 
@@ -96,6 +107,11 @@
       inputRefName: {
         type: String,
         default: 'searchbox'
+      },
+
+      quickSearch: {
+        type: Array,
+        default: null
       }
     },
 
@@ -262,6 +278,14 @@
       &.hover {
         background-color: $blue;
         color: $white;
+      }
+
+      &.list-item-quick-search {
+        padding: 0 1.25rem 1.3125rem;
+
+        &::before {
+          display: none;
+        }
       }
     }
 

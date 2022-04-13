@@ -204,7 +204,7 @@ describe('components/search/SearchForm', () => {
         expect($goto.calledWith(newRouteParams)).toBe(true);
       });
 
-      it('does not carry non-seearch query params', async() => {
+      it('does not carry non-search query params', async() => {
         const wrapper = factory({ store: store(state), mocks: { $route: { query: { lang: 'it' } } } });
 
         await wrapper.setData({
@@ -287,6 +287,24 @@ describe('components/search/SearchForm', () => {
       //
       //   expect(wrapper.vm.suggestions).toEqual(parsedSuggestions);
       // });
+    });
+  });
+
+  describe('getThemesData', () => {
+    const mocks = {
+      $apis: {
+        entity: {
+          find: sinon.stub().resolves([])
+        }
+      }
+    };
+
+    it('finds theme data', async() => {
+      const uris = ['http://data.europeana.eu/concept/base/83', 'http://data.europeana.eu/concept/base/80'];
+      const wrapper = factory({ mocks });
+
+      await wrapper.vm.getThemesData(uris);
+      expect(mocks.$apis.entity.find.called).toBe(true);
     });
   });
 });
