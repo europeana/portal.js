@@ -382,10 +382,10 @@ describe('pages/collections/type/_', () => {
 
   describe('methods', () => {
     describe('storeCollectionLabel', () => {
-      it('stores the collection label in search store', () => {
+      it('stores the collection label in search store', async() => {
         const wrapper = factory(topicEntity);
 
-        wrapper.vm.storeCollectionLabel();
+        await wrapper.vm.fetch();
 
         expect(wrapper.vm.$store.commit.calledWith('search/setCollectionLabel', 'Topic')).toBe(true);
       });

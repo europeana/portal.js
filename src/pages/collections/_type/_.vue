@@ -166,6 +166,7 @@
             this.page = pageResponseData.entityPage.items[0];
             this.$store.commit('entity/setCuratedEntities', pageResponseData.curatedEntities.items);
           }
+          this.$store.commit('search/setCollectionLabel', this.title.values[0]);
           return this.redirectToPrefPath();
         });
     },
@@ -348,7 +349,6 @@
       searchOverrides: 'storeSearchOverrides'
     },
     mounted() {
-      this.storeCollectionLabel();
       this.storeSearchOverrides();
       // Disable related collections for organisation (for now)
       if (!this.relatedCollectionCards && this.collectionType !== 'organisation') {
@@ -363,9 +363,6 @@
       }
     },
     methods: {
-      storeCollectionLabel() {
-        this.$store.commit('search/setCollectionLabel', this.title.values[0]);
-      },
       redirectToPrefPath() {
         const entityName = this.page ? this.page.name : this.entity.prefLabel.en;
         const desiredPath = getEntitySlug(this.entity.id, entityName);
