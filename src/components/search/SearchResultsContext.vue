@@ -9,7 +9,7 @@
       <i18n
         v-if="hasQuery"
         path="resultsWithin"
-        tag="span"
+        :tag="false"
       >
         {{ entityTypeLabel }}
         <RemovalChip
@@ -45,7 +45,7 @@
       <i18n
         v-if="hasQuery"
         path="resultsFor"
-        tag="span"
+        :tag="false"
       >
         <RemovalChip
           :title="query"
@@ -54,9 +54,9 @@
           class="mt-1 mx-1"
         />
       </i18n>
-      <span v-else>
+      <template v-else>
         {{ $t('results') }}
-      </span>
+      </template>
     </template>
   </h1>
 </template>
