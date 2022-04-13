@@ -125,6 +125,30 @@ describe('components/entity/EntityRelatedCollections', () => {
 
         expect(wrapper.vm.relatedCollections).toEqual(relatedCollections);
       });
+
+      describe('but Record API returned no related collections', () => {
+        const responses = {
+          record: {
+            search: {}
+          }
+        };
+
+        it('records blank array for related collections', async() => {
+          const wrapper = factory({ propsData, responses });
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.relatedCollections).toEqual([]);
+        });
+
+        it('does not query Entity API for related collection details', async() => {
+          const wrapper = factory({ propsData, responses });
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.$apis.entity.find.called).toBe(false);
+        });
+      });
     });
   });
 });
