@@ -12,7 +12,7 @@
   import pick from 'lodash/pick';
 
   import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
-  import { normalizeEntityId } from '@/plugins/europeana/entity';
+  import { normalizeEntityId, getEntityUri, getEntityQuery } from '@/plugins/europeana/entity';
 
   import RelatedCollections from '../generic/RelatedCollections';
 
@@ -47,14 +47,31 @@
     fetch() {
       if (this.overrides) {
         this.relatedCollections = this.overrides;
+        return Promise.resolve();
       } else {
-        this.$apis.record.relatedEntities(this.type, this.identifier)
-          .then(facets => facets ? this.facets(facets) : [])
+        const recordSearchParams = {
+          profile: 'facets',
+          facet: 'skos_concept',
+          query: this.entityQuery,
+          qf: ['contentTier:*'],
+          rows: 0
+        };
+
+        return this.$apis.record.search(recordSearchParams)
+          .then(response => response?.facets ? this.fetchEntities(response.facets) : [])
           // TODO: why are we doing this? (formerly in entity plugin's `getRelatedEntityData` fn)
           .then(related => related.filter(entity => !!entity.prefLabel.en))
-          .then(related => this.relatedCollections = related.map(entity => {
-            return pick(entity, ['id', 'prefLabel', 'isShownBy']);
-          }));
+          .then(related => this.relatedCollections = related.map(entity => pick(entity, ['id', 'prefLabel', 'isShownBy'])));
+      }
+    },
+
+    computed: {
+      entityUri() {
+        return getEntityUri(this.type, this.identifier);
+      },
+
+      entityQuery() {
+        return getEntityQuery(this.entityUri);
       }
     },
 
@@ -64,24 +81,13 @@
     },
 
     methods: {
-      /**
-       * Return the facets that include data.europeana.eu
-       * @param {Object} facets the facets retrieved from the search
-       * @param {String} id id of the current entity
-       * @return {Object} related entities
-       * TODO: limit results
-       */
-      facets(facets) {
-        const currentId = normalizeEntityId(this.identifier);
-        let entities = [];
-        for (const facet of facets) {
-          const facetFilter = (value) => value['label'].includes(EUROPEANA_DATA_URL) && value['label'].split('/').pop() !== currentId;
-          entities = entities.concat(facet['fields'].filter(facetFilter));
-        }
-
-        const entityUris = entities.slice(0, 4).map(entity => {
-          return entity['label'];
-        });
+      fetchEntities(facets) {
+        const entityUris = facets.reduce((memo, facet) => {
+          memo = memo.concat(facet.fields.map(entity => entity.label));
+          return memo;
+        }, [])
+          .filter(uri => uri.startsWith(EUROPEANA_DATA_URL) && (uri !== this.entityUri))
+          .slice(0, 4);
 
         return this.$apis.entity.find(entityUris);
       }
