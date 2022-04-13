@@ -137,6 +137,14 @@ describe('pages/collections/type/_', () => {
       expect(wrapper.vm.$apis.entity.get.calledWith(topicEntity.type, topicEntity.pathMatch)).toBe(true);
     });
 
+    it('stores the collection label in search store', async() => {
+      const wrapper = factory(topicEntity);
+
+      await wrapper.vm.fetch();
+
+      expect(wrapper.vm.$store.commit.calledWith('search/setCollectionLabel', 'Topic')).toBe(true);
+    });
+
     describe('collection page', () => {
       const requestMade = async(curatedEntities) => {
         const wrapper = factory(topicEntity);
@@ -381,16 +389,6 @@ describe('pages/collections/type/_', () => {
   });
 
   describe('methods', () => {
-    describe('storeCollectionLabel', () => {
-      it('stores the collection label in search store', () => {
-        const wrapper = factory(topicEntity);
-
-        wrapper.vm.storeCollectionLabel();
-
-        expect(wrapper.vm.$store.commit.calledWith('search/setCollectionLabel', 'Topic')).toBe(true);
-      });
-    });
-
     describe('redirectToPrefPath', () => {
       const redirectIssued = async({ data, entity, pathMatch }) => {
         const wrapper = factory(topicEntity);

@@ -166,6 +166,7 @@
             this.page = pageResponseData.entityPage.items[0];
             this.$store.commit('entity/setCuratedEntities', pageResponseData.curatedEntities.items);
           }
+          this.$store.commit('search/setCollectionLabel', this.pageTitle);
           return this.redirectToPrefPath();
         });
     },
@@ -345,8 +346,7 @@
       }
     },
     watch: {
-      searchOverrides: 'storeSearchOverrides',
-      pageTitle: 'storeCollectionLabel'
+      searchOverrides: 'storeSearchOverrides'
     },
     mounted() {
       this.storeSearchOverrides();
@@ -363,9 +363,6 @@
       }
     },
     methods: {
-      storeCollectionLabel() {
-        this.$store.commit('search/setCollectionLabel', this.pageTitle);
-      },
       redirectToPrefPath() {
         const entityName = this.page ? this.page.name : this.entity.prefLabel.en;
         const desiredPath = getEntitySlug(this.entity.id, entityName);
