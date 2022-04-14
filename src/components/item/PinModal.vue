@@ -161,11 +161,14 @@
           console.log('set id was undefined');
           const featuredSetBody = {
             type: 'EntityBestItemsSet',
-            title: { 'en': selectedEntityPrefLabel + ' Page' },
+            title: { 'en': this.selectedEntityPrefLabel + ' Page' },
             subject: [this.selected]
           };
           return this.$apis.set.create(featuredSetBody)
-            .then(response => this.$store.commit('item/addToFeaturedSetIds', { entityUri: this.selected, setId: response.id }));
+            .then(async(response) => {
+              await this.$store.commit('item/addToFeaturedSetIds', { entityUri: this.selected, setId: response.id });
+              await this.$store.commit('item/addToFeaturedSetPins', { entityUri: this.selected, pins: []});
+            });
         }
       },
 
@@ -173,11 +176,11 @@
         console.log(`in pin: ${this.selected}`);
         await this.ensureSelectedSetExists();
         console.log('about to send pin request to set api');
-        return this.$apis.set.modifyItems('add', this.featuredSetIds[this.selected], this.itemId, true)
-          .then(() => this.$store.commit('item/addPinToFeaturedSetPins', {
-            entityUri: this.selected,
-            pin: this.itemId
-          }))
+        await this.$apis.set.modifyItems('add', this.featuredSetIds[this.selected], this.itemId, true)
+          .then(() => {
+            const pinOnSetArgs = { entityUri: this.selected, pin: this.itemId };
+            return this.$store.commit('item/addPinToFeaturedSetPins', pinOnSetArgs);
+          })
           .then(() => {
             console.log('about to make toast');
             this.makeToast(this.$t('entity.notifications.pinned', { entity: this.selectedEntityPrefLabel}));

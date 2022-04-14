@@ -37,6 +37,8 @@ export default {
       state.featuredSetPins[entityUri] = pins;
     },
     addPinToFeaturedSetPins(state, { entityUri, pin }) {
+      console.log('in store addPinToFeaturedSetPins');
+      console.log(state.featuredSetPins[entityUri]);
       state.featuredSetPins[entityUri].push(pin); // pin will likely always be state.id
     },
     setSimilarItems(state, value) {
@@ -60,12 +62,12 @@ export default {
 
   actions: {
     reset({ commit }) {
-      commit('id', null);
+      commit('setId', { value: null });
       commit('setAnnotations', []);
       commit('setRelatedEntities', []);
       commit('setAllRelatedEntities', []);
-      commit('setfeaturedSetIds', {});
-      commit('setfeaturedSetPins', {});
+      commit('setFeaturedSetIds', { value: {} });
+      commit('setFeaturedSetPins', { value: {} });
       commit('setSimilarItems', []);
     }
   }
