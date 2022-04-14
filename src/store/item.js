@@ -57,7 +57,7 @@ export default {
 
     annotationsByMotivation: (state) => (motivation) => {
       return state.annotations?.filter(annotation => annotation.motivation === motivation) || [];
-    },
+    }
   },
 
   actions: {

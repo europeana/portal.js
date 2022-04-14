@@ -14,7 +14,7 @@ localVue.use(Vuex);
 const defaultEntityFindResponse = [
   {
     id: 'http://data.europeana.eu/agent/base/123',
-    prefLabel: { en: 'Agent entity'}
+    prefLabel: { en: 'Agent entity' }
   },
   {
     id: 'http://data.europeana.eu/topic/base/123',
@@ -23,14 +23,14 @@ const defaultEntityFindResponse = [
   },
   {
     id: 'http://data.europeana.eu/organisation/base/123456789',
-    prefLabel: { en: 'Organisation entity'},
+    prefLabel: { en: 'Organisation entity' },
     logo: 'https://example.org/organisation/logo.jpg'
   }
 ];
 
 const defaultFeaturedSetIds = {
   'http://data.europeana.eu/agent/base/123': '456'
-}
+};
 
 const setApiSearchStub = sinon.stub().resolves({});
 const setApiCreateStub = sinon.stub().resolves({});
@@ -69,7 +69,7 @@ const store = new Vuex.Store({
   },
   getters: {
     'item/id': () => '/123/abc',
-    'item/pinnedTo': (id) => itemPinnedToGetterStub
+    'item/pinnedTo': () => itemPinnedToGetterStub
   }
 });
 
@@ -77,7 +77,7 @@ const defaultPropsData = {
   entities: [
     'http://data.europeana.eu/agent/base/123',
     'http://data.europeana.eu/topic/base/123',
-    'http://data.europeana.eu/organisation/base/123456789',
+    'http://data.europeana.eu/organisation/base/123456789'
   ]
 };
 
@@ -132,7 +132,6 @@ describe('components/item/PinModal', () => {
     });
     describe('when an option is pinned', () => {
       it('shows the pin icon on the pinned optoion', () => {
-        const wrapper = factory();
         // pending
       });
     });

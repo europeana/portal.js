@@ -59,8 +59,7 @@ describe('store/item', () => {
           id: '/123/abc'
         };
         it('returns the id', () => {
-            const id = store.getters.id(state);
-            expect(store.getters.id(state)).toBe('/123/abc');
+          expect(store.getters.id(state)).toBe('/123/abc');
         });
       });
       describe('when there is NO item id', () => {
@@ -68,8 +67,7 @@ describe('store/item', () => {
           id: null
         };
         it('returns the id', () => {
-            const id = store.getters.id(state);
-            expect(store.getters.id(state)).toBeNull;
+          expect(store.getters.id(state)).toBeNull();
         });
       });
     });
@@ -174,10 +172,10 @@ describe('store/item', () => {
         expect(state.featuredSetPins['entityIdThree']).toEqual([]);
       });
     });
-    describe('addToFeaturedSetPins()', () => {
+    describe('addPinToFeaturedSetPins()', () => {
       it('sets the featuredset state', async() => {
         const state = { featuredSetPins };
-        await store.mutations.addPinToFeaturedSetPins(state, { entityUri: 'entityIdWithoutPin', pin: '/123/abc'});
+        await store.mutations.addPinToFeaturedSetPins(state, { entityUri: 'entityIdWithoutPin', pin: '/123/abc' });
         expect(state.featuredSetPins['entityIdWithoutPin'].includes('/123/abc')).toEqual(true);
       });
     });

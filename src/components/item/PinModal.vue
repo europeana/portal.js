@@ -167,7 +167,7 @@
           return this.$apis.set.create(featuredSetBody)
             .then(async(response) => {
               await this.$store.commit('item/addToFeaturedSetIds', { entityUri: this.selected, setId: response.id });
-              await this.$store.commit('item/addToFeaturedSetPins', { entityUri: this.selected, pins: []});
+              await this.$store.commit('item/addToFeaturedSetPins', { entityUri: this.selected, pins: [] });
             });
         }
       },
@@ -183,7 +183,7 @@
           })
           .then(() => {
             console.log('about to make toast');
-            this.makeToast(this.$t('entity.notifications.pinned', { entity: this.selectedEntityPrefLabel}));
+            this.makeToast(this.$t('entity.notifications.pinned', { entity: this.selectedEntityPrefLabel }));
             this.hide(); // should the box stay open?
           })
           .catch((e) => {
