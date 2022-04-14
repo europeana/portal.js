@@ -13,18 +13,6 @@ export default (context = {}) => {
 
     $thumbnail: thumbnail(context),
 
-    imageUrl(entity) {
-      let url = null;
-      if (entity.image) {
-        url = this.$thumbnail.edmPreview(entity.image, { size: 200 });
-      } else if (entity.isShownBy?.thumbnail) {
-        url = this.$thumbnail.edmPreview(entity.isShownBy.thumbnail, { size: 200 });
-      } else if (entity.logo) {
-        url = getWikimediaThumbnailUrl(entity.logo.id, 28);
-      }
-      return url;
-    },
-
     /**
      * Get data for one entity from the API
      * @param {string} type the type of the entity, will be normalized to the EntityAPI type if it's a human readable type
@@ -123,6 +111,23 @@ export default (context = {}) => {
         .catch((error) => {
           throw apiError(error, context);
         });
+    },
+
+    imageUrl(entity) {
+      let url = null;
+
+      // `image` is a property on automated entity cards in Contentful
+      if (entity.image) {
+        url = this.$thumbnail.edmPreview(entity.image, { size: 200 });
+      // `isShownBy` is a property on most entity types
+      } else if (entity.isShownBy?.thumbnail) {
+        url = this.$thumbnail.edmPreview(entity.isShownBy.thumbnail, { size: 200 });
+      // `logo` is a property on organization-type entities
+      } else if (entity.logo?.id) {
+        url = getWikimediaThumbnailUrl(entity.logo.id, 28);
+      }
+
+      return url;
     }
   };
 };
