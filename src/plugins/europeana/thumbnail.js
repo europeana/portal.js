@@ -62,18 +62,16 @@ export default (context = {}) => {
       return null;
     }
 
-    if (url) {
-      const edmPreviewUrl = new URL(url);
-      if (!size) {
-        size = edmPreviewUrl.searchParams.get('size');
-      }
-      if (!type) {
-        type = edmPreviewUrl.searchParams.get('type');
-      }
-      return media(edmPreviewUrl.searchParams.get('uri'), { size, type });
-    } else {
-      return null;
+    const edmPreviewUrl = new URL(url);
+
+    if (!size) {
+      size = edmPreviewUrl.searchParams.get('size');
     }
+    if (!type) {
+      type = edmPreviewUrl.searchParams.get('type');
+    }
+
+    return media(edmPreviewUrl.searchParams.get('uri'), { size, type });
   };
 
   return {
