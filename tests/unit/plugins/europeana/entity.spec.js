@@ -266,7 +266,7 @@ describe('plugins/europeana/entity', () => {
         it('is `null`', () => {
           const imageUrl = api().imageUrl(entity);
 
-          expect(imageUrl).toBeNull;
+          expect(imageUrl).toBe(null);
         });
       });
     });
