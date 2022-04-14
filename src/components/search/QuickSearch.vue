@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="allThemes.length"
     class="quick-search pt-2"
   >
     <div class="context-label">
@@ -7,7 +8,7 @@
     </div>
     <div class="quick-search-chips">
       <RelatedChip
-        v-for="(link, index) in links"
+        v-for="(link, index) in allThemes"
         :key="index"
         :title="link.prefLabel ? link.prefLabel : link.name"
         :link-to="linkGen(link)"
@@ -22,8 +23,11 @@
 <script>
   import RelatedChip from '../generic/RelatedChip';
 
-  import { BASE_URL as EUROPEANA_DATA_URL } from '../../plugins/europeana/data';
-  import { getEntityTypeHumanReadable, getEntitySlug, getWikimediaThumbnailUrl } from '../../plugins/europeana/entity';
+  import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
+  import { getEntityTypeHumanReadable, getEntitySlug, getWikimediaThumbnailUrl } from '@/plugins/europeana/entity';
+  import { getEntityUri } from '@/plugins/europeana/entity';
+  import themes from '@/plugins/europeana/themes';
+  import { mapState } from 'vuex';
 
   export default {
     name: 'QuickSearch',
@@ -32,11 +36,16 @@
       RelatedChip
     },
 
-    props: {
-      links: {
-        type: Array,
-        default: null
+    async fetch() {
+      if (this.allThemes.length === 0) {
+        const themesURIs = themes.map(theme => getEntityUri('topic', theme.id));
+        const allThemesFromAPI = await this.$apis.entity.find(themesURIs);
+        this.$store.commit('search/set', ['allThemes', allThemesFromAPI]);
       }
+    },
+
+    computed: {
+      ...mapState({ allThemes: state => state.search.allThemes })
     },
 
     methods: {

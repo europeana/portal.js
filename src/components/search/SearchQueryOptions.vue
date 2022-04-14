@@ -1,7 +1,6 @@
 <template>
   <b-list-group
     :id="elementId"
-    class="auto-suggest-dropdown"
     role="listbox"
     data-qa="search query options"
     :aria-label="$t('searchSuggestions')"
@@ -43,27 +42,16 @@
         />
       </template>
     </b-list-group-item>
-    <div
-      v-if="quickSearch"
-      class="list-group-item list-item-quick-search"
-      role="option"
-    >
-      <QuickSearch
-        :links="quickSearch"
-      />
-    </div>
   </b-list-group>
 </template>
 
 <script>
   import TextHighlighter from '../generic/TextHighlighter';
-  import QuickSearch from '../search/QuickSearch';
 
   export default {
     name: 'SearchQueryOptions',
 
     components: {
-      QuickSearch,
       TextHighlighter
     },
 
@@ -107,11 +95,6 @@
       inputRefName: {
         type: String,
         default: 'searchbox'
-      },
-
-      quickSearch: {
-        type: Array,
-        default: null
       }
     },
 
@@ -235,17 +218,6 @@
   @import '@/assets/scss/variables';
   @import '@/assets/scss/icons';
 
-  .auto-suggest-dropdown {
-    display: block;
-    box-shadow: $boxshadow-light;
-    position: absolute;
-    top: 3.45rem;
-    width: 100%;
-    z-index: 20;
-    border-radius: 0;
-    background-color: $white;
-    transition: $standard-transition;
-
     .list-group-item {
       border: 0;
       border-radius: 0;
@@ -292,7 +264,6 @@
     .loading {
       font-size: 0.75rem;
     }
-  }
 
   form:focus-within .auto-suggest-dropdown {
     display: block;

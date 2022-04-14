@@ -36,13 +36,21 @@
         @click="clearQuery"
       />
       <FilterToggleButton />
-      <SearchQueryOptions
+      <div
         v-if="showSearchOptions"
-        :options="searchQueryOptions"
-        :quick-search="showQuickSearch ? themesData : null"
-        element-id="search-form-options"
-        @select="selectSearchOption"
-      />
+        class="auto-suggest-dropdown"
+        :aria-label="$t('searchSuggestions')"
+        data-qa="search form dropdown"
+      >
+        <SearchQueryOptions
+          :options="searchQueryOptions"
+          @select="selectSearchOption"
+        />
+        <QuickSearch
+          v-if="showQuickSearch"
+          :query="query"
+        />
+      </div>
     </b-input-group>
   </b-form>
 </template>
@@ -54,15 +62,13 @@
   import match from 'autosuggest-highlight/match';
   import parse from 'autosuggest-highlight/parse';
 
-  import { getEntityUri } from '../../plugins/europeana/entity';
-  import themes from '@/plugins/europeana/themes';
-
   export default {
     name: 'SearchForm',
 
     components: {
       SearchQueryOptions,
-      FilterToggleButton
+      FilterToggleButton,
+      QuickSearch: () => import('@/components/search/QuickSearch')
     },
 
     data() {
@@ -72,17 +78,8 @@
         suggestions: {},
         activeSuggestionsQueryTerm: null,
         showSearchOptions: false,
-        selectedOptionLink: null,
-        themes,
-        themesData: []
+        selectedOptionLink: null
       };
-    },
-
-    fetch() {
-      return this.getThemesData(this.themesURIs)
-        .then(response => {
-          this.themesData = response;
-        });
     },
 
     computed: {
@@ -93,10 +90,6 @@
       onCollectionPage() {
         // Auto suggest on search form will be disabled on entity pages.
         return !!this.$store.state.entity?.id;
-      },
-
-      showQuickSearch() {
-        return !this.onCollectionPage && !this.query;
       },
 
       suggestionSearchOptions() {
@@ -162,9 +155,8 @@
       routePath() {
         return this.onSearchablePage ? this.$route.path : this.$path({ name: 'search' });
       },
-
-      themesURIs() {
-        return this.themes.map(theme => getEntityUri('topic', theme.id));
+      showQuickSearch() {
+        return !this.onCollectionPage && !this.query;
       }
     },
 
@@ -309,14 +301,6 @@
         };
       },
 
-      getThemesData(uris) {
-        if (!uris || !this.showQuickSearch) {
-          return Promise.resolve([]);
-        }
-
-        return this.$apis.entity.find(uris);
-      },
-
       searchInCollectionLinkGen(query) {
         return this.linkGen(query, this.$route.path);
       },
@@ -413,5 +397,17 @@
     .input-group-prepend {
       display: none;
     }
+  }
+
+  .auto-suggest-dropdown {
+    display: block;
+    box-shadow: $boxshadow-light;
+    position: absolute;
+    top: 3.45rem;
+    width: 100%;
+    z-index: 20;
+    border-radius: 0;
+    background-color: $white;
+    transition: $standard-transition;
   }
 </style>

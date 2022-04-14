@@ -34,6 +34,9 @@ const factory = (options = {}) => {
         $link: {
           to: (route, query) => route.toString() + '?' + new URLSearchParams(query).toString(),
           href: () => null
+        },
+        $store: {
+          state: { search: { themes: [] } }
         }
       }, ...(options.mocks || {})
     }

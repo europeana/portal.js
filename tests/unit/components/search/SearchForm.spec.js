@@ -289,22 +289,14 @@ describe('components/search/SearchForm', () => {
       // });
     });
   });
+  describe('when search options show, not on a collection page and no query set', () => {
+    it('shows search options dropdown', async() => {
+      const wrapper = factory({ store: store({ search: { allThemes: [], view: 'grid' } }) });
 
-  describe('getThemesData', () => {
-    const mocks = {
-      $apis: {
-        entity: {
-          find: sinon.stub().resolves([])
-        }
-      }
-    };
+      await wrapper.setData({ showSearchOptions: true });
+      const searchFormDropdown = wrapper.find('[data-qa="search form dropdown"]');
 
-    it('finds theme data', async() => {
-      const uris = ['http://data.europeana.eu/concept/base/83', 'http://data.europeana.eu/concept/base/80'];
-      const wrapper = factory({ mocks });
-
-      await wrapper.vm.getThemesData(uris);
-      expect(mocks.$apis.entity.find.called).toBe(true);
+      expect(searchFormDropdown.exists()).toBe(true);
     });
   });
 });
