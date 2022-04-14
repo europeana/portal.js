@@ -22,7 +22,7 @@ const factory = (props = { sectionType: FEATURED_TOPICS })  => shallowMountNuxt(
   mocks: {
     $apis: {
       entity: {
-        imageUrl: (img) => 'image URL'
+        imageUrl: () => 'image URL'
       }
     },
     $fetchState: {

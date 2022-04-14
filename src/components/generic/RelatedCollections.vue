@@ -24,7 +24,7 @@
 
 <script>
   import { BASE_URL as EUROPEANA_DATA_URL } from '../../plugins/europeana/data';
-  import { getEntityTypeHumanReadable, getEntitySlug, getWikimediaThumbnailUrl } from '../../plugins/europeana/entity';
+  import { getEntityTypeHumanReadable, getEntitySlug } from '../../plugins/europeana/entity';
 
   import RelatedChip from './RelatedChip';
 

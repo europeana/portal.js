@@ -63,7 +63,7 @@
 
 <script>
   import RemovalChip from './RemovalChip';
-  import { getWikimediaThumbnailUrl, entityParamsFromUri } from '@/plugins/europeana/entity';
+  import { entityParamsFromUri } from '@/plugins/europeana/entity';
   import themes from '@/plugins/europeana/themes';
   import { mapState } from 'vuex';
 

@@ -14,7 +14,6 @@
 </template>
 
 <script>
-  import { getWikimediaThumbnailUrl } from '@/plugins/europeana/entity';
   import ContentCardSection from './ContentCardSection';
   import InfoCardSection from './InfoCardSection';
 

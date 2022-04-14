@@ -347,7 +347,7 @@ describe('pages/collections/type/_', () => {
       it('returns a thumbnail when available', () => {
         const wrapper = factory(topicEntity);
 
-        const thumbnail = wrapper.vm.thumbnail;
+        wrapper.vm.thumbnail;
         expect(wrapper.vm.$apis.entity.imageUrl.called).toBe(true);
       });
     });
