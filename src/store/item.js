@@ -45,16 +45,8 @@ export default {
   },
 
   getters: {
-    featuredSetIds(state) {
-      return state.featuredSetIds;
-    },
-
-    featuredSetPins(state) {
-      return state.featuredSetPins;
-    },
-
-    pinnedTo: (state, getters) => (entityUri) => {
-      return getters.featuredSetPins[entityUri]?.includes(getters.id);
+    pinnedTo: (state) => (entityUri) => {
+      return state.featuredSetPins[entityUri]?.includes(state.id);
     },
 
     id(state) {

@@ -289,7 +289,6 @@
         if (this.entity) {
           await this.togglePin(); // On an entity/entity set page all info is in the store.
         } else {
-          console.log('yep');
           await this.$bvModal.show(this.pinModalId); // Open the modal to find which entity to pin to.
         }
       },

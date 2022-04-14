@@ -2,6 +2,7 @@ import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import VueI18n from 'vue-i18n';
 import Vuex from 'vuex';
+import flushPromises from 'flush-promises';
 import EntityUpdateModal from '@/components/item/PinModal';
 import sinon from 'sinon';
 
@@ -25,17 +26,20 @@ const defaultEntityFindResponse = [
     prefLabel: { en: 'Organisation entity'},
     logo: 'https://example.org/organisation/logo.jpg'
   }
-
 ];
 
-const setApiSearchStub = sinon.stub();
-const setApiCreateStub = sinon.stub();
-const setApiModifyItemsStub = sinon.stub();
+const defaultFeaturedSetIds = {
+  'http://data.europeana.eu/agent/base/123': '456'
+}
+
+const setApiSearchStub = sinon.stub().resolves({});
+const setApiCreateStub = sinon.stub().resolves({});
+const setApiModifyItemsStub = sinon.stub().resolves({});
 const entityApiFindStub = sinon.stub().resolves(defaultEntityFindResponse);
 
-// const itemEntityPreviewGetterStub = sinon.stub().returns('');
 const itemPinnedToGetterStub = sinon.stub();
 const itemAllRelatedEntitiesGetterStub = sinon.stub();
+const itemAddPinToFeaturedSetPinsMutationStub = sinon.stub();
 
 import messages from '@/lang/en';
 
@@ -53,14 +57,19 @@ const store = new Vuex.Store({
       annotations: [],
       relatedEntities: [],
       allRelatedEntities: defaultEntityFindResponse,
-      featuredSetIds: {},
+      featuredSetIds: defaultFeaturedSetIds,
       featuredSetPins: {},
       similarItems: []
     }
   },
+  mutations: {
+    'item/addToFeaturedSetIds': sinon.stub(),
+    'item/addPinToFeaturedSetPins': itemAddPinToFeaturedSetPinsMutationStub,
+    'item/addToFeaturedSetPins': sinon.stub()
+  },
   getters: {
-    'item/pinnedTo': itemPinnedToGetterStub,
-    'item/allRelatedEntities': itemAllRelatedEntitiesGetterStub
+    'item/id': () => '/123/abc',
+    'item/pinnedTo': (id) => itemPinnedToGetterStub
   }
 });
 
@@ -110,8 +119,8 @@ describe('components/item/PinModal', () => {
     it('show a button for each entity option', () => {
       itemAllRelatedEntitiesGetterStub.returns(defaultEntityFindResponse);
       const wrapper = factory();
-      console.log(wrapper.html());
-      expect(wrapper.findAll('b-button').length).toEqual(3);
+
+      expect(wrapper.findAll('button[data-qa="pin item to entity choice"]').length).toEqual(3);
     });
 
     describe('when an option is selected', () => {
@@ -131,24 +140,43 @@ describe('components/item/PinModal', () => {
 
   describe('toggle pin button', () => {
     describe('on success', () => {
-      it('makes toast', async() => {
-        const wrapper = factory();
-        wrapper.setData({ selected: 'http://data.europeana.eu/agent/base/123' });
+      describe('when unpinning', () => {
+        it('makes a toast', async() => {
+          itemPinnedToGetterStub.returns(true);
+          const wrapper = factory();
+          await wrapper.setData({ selected: 'http://data.europeana.eu/agent/base/123' });
 
-        // Setup state
-        const rootBvToast = sinon.spy(wrapper.vm.$root.$bvToast, 'toast');
+          const rootBvToast = sinon.spy(wrapper.vm.$root.$bvToast, 'toast');
 
-        await wrapper.find('[data-qa="toggle pin button"]').trigger('click');
+          await wrapper.find('[data-qa="toggle pin button"]').trigger('click').then(() => {
+            expect(rootBvToast.calledWith('The item has been unpinned. We will notify you when this change will be visible on the collection page.', sinon.match.any)).toBe(true); //
+          });
+        });
+      });
 
-        expect(rootBvToast.called()).toBe(true); //calledWith('The item has been pinned. It will appear as the first item on the \"{entity}\" collection. We will notify you when this change will be visible on the collection page.', sinon.match.any)
+      describe('when pinning', () => {
+        it('makes a toast', async() => {
+          itemPinnedToGetterStub.returns(false);
+          const wrapper = factory();
+          await wrapper.setData({ selected: 'http://data.europeana.eu/agent/base/123' });
+
+          const rootBvToast = sinon.spy(wrapper.vm.$root.$bvToast, 'toast');
+
+          await wrapper.find('[data-qa="toggle pin button"]').trigger('click').then(async() => {
+            await flushPromises();
+            expect(rootBvToast.calledWith('The item has been pinned. It will appear as the first item on the "Agent entity" collection. We will notify you when this change will be visible on the collection page.', sinon.match.any)).toBe(true); //
+          });
+        });
       });
     });
+
     describe('when there is NO existing set', () => {
       it('creates a set and pins the item', async() => {
         const wrapper = factory();
         wrapper.setData({ selected: 'http://data.europeana.eu/agent/base/123' });
 
         // Setup state for no set.
+
         await wrapper.find('[data-qa="toggle pin button"]').trigger('click');
 
         // pending
@@ -159,15 +187,25 @@ describe('components/item/PinModal', () => {
       describe('when the selected entity does NOT have the item pinned', () => {
         it('updates the set to add the item', async() => {
           const wrapper = factory();
-          await wrapper.find('form').trigger('submit.stop.prevent');
-          expect(set).toBe(true);
+          wrapper.setData({ selected: 'http://data.europeana.eu/agent/base/123' });
+
+          // Setup state for existing set.
+
+          await wrapper.find('[data-qa="toggle pin button"]').trigger('click');
+
+          // pending
         });
       });
-      describe('when the selected entity does not have the item pinned', () => {
+      describe('when the selected entity does has the item pinned already', () => {
         it('updates the set to remove the item', async() => {
           const wrapper = factory();
-          await wrapper.find('form').trigger('submit.stop.prevent');
-          expect(set).toBe(true);
+          wrapper.setData({ selected: 'http://data.europeana.eu/agent/base/123' });
+
+          // Setup state for eisting set with pinned item.
+
+          await wrapper.find('[data-qa="toggle pin button"]').trigger('click');
+
+          // pending
         });
       });
     });

@@ -12,7 +12,7 @@
       :key="index"
       :disabled="!fetched"
       :pressed="selected === entity.id"
-      :data-qa="`pin item to entity choice ${index}`"
+      :data-qa="`pin item to entity choice`"
       @click="selectEntity(entity.id)"
     >
       <span>{{ entity.prefLabel.en }}</span>
@@ -84,14 +84,15 @@
         return this.selected && this.pinnedTo(this.selected);
       },
       selectedEntityPrefLabel() {
+        console.log(`prefLabel for ${this.selected}`);
         return this.allRelatedEntities.find(entity => entity.id === this.selected).prefLabel.en;
       },
       ...mapGetters({
-        itemId: 'item/id', // ID could probably be in mappedState, does it make a difference?
-        featuredSetIds: 'item/featuredSetIds',
+        itemId: 'item/id',
         pinnedTo: 'item/pinnedTo'
       }),
       ...mapState({
+        featuredSetIds: state => state.item.featuredSetIds,
         allRelatedEntities: state => state.item.allRelatedEntities
       })
     },
@@ -115,7 +116,7 @@
 
       async fetchFeaturedSetData(entityIds) {
         // TODO: reduce cognitive complexity in this method?
-        console.log('in fetchFeaturedSetIds');
+        console.log('in fetchFeaturedSetData');
         console.log(entityIds);
         const searchParams = {
           query: 'type:EntityBestItemsSet',
@@ -172,14 +173,15 @@
         console.log(`in pin: ${this.selected}`);
         await this.ensureSelectedSetExists();
         console.log('about to send pin request to set api');
-        this.$apis.set.modifyItems('add', this.featuredSetIds[this.selected], this.itemId, true)
+        return this.$apis.set.modifyItems('add', this.featuredSetIds[this.selected], this.itemId, true)
           .then(() => this.$store.commit('item/addPinToFeaturedSetPins', {
             entityUri: this.selected,
             pin: this.itemId
           }))
           .then(() => {
-            this.hide(); // should the box stay open?
+            console.log('about to make toast');
             this.makeToast(this.$t('entity.notifications.pinned', { entity: this.selectedEntityPrefLabel}));
+            this.hide(); // should the box stay open?
           })
           .catch((e) => {
             console.log(e);
@@ -187,6 +189,7 @@
               this.hide();
               this.$bvModal.show(`pinned-limit-modal-${this.itemId}`);
             } else {
+              // TODO: Handle an error differently here? Notify via toast?
               throw e;
             }
           });
@@ -195,20 +198,24 @@
         await this.$apis.set.modifyItems('delete', this.featuredSetIds[this.selected], this.itemId)
           .then(() =>  {
             this.fetchFeaturedSetData([this.selected]);
+          }).then(() => {
+            const msg = this.$t('entity.notifications.unpinned');
+            console.log('about to make toast');
+            this.makeToast(msg);
           })
           .catch((e) => {
             this.fetchFeaturedSetData([this.selected]); // not sure if refetching makes sense here.
+            // TODO: notify the user with a toast?
             throw e;
           });
         this.hide(); // should the box stay open?
-        const msg = this.$store.state.sanitised.page === 1 ?  this.$t('entity.notifications.unpinnedFirstPage') : this.$t('entity.notifications.unpinned');
-        this.makeToast(msg);
       },
       selectEntity(id) {
         // we could re-fetch the sets/pins at this point, but it seems overkill at the moment.
         this.selected = id;
       },
       async togglePin() {
+        console.log('in toggle pin');
         if (this.selectedIsPinned) {
           await this.unpin();
         } else {
