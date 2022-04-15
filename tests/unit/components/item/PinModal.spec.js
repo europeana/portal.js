@@ -28,18 +28,37 @@ const defaultEntityFindResponse = [
   }
 ];
 
+const setApiResponseWithPinnedItem = {
+  data: {
+    total: 1,
+    items: [
+      {
+        id: 'http://data.europeana.eu/set/456',
+        pinned: 1,
+        items: [
+          { id: '/123/abc' }
+        ],
+        subject: ['http://data.europeana.eu/agent/base/123']
+      }
+    ]
+  }
+};
+
 const defaultFeaturedSetIds = {
   'http://data.europeana.eu/agent/base/123': '456'
 };
 
 const setApiSearchStub = sinon.stub().resolves({});
-const setApiCreateStub = sinon.stub().resolves({});
+const setApiCreateStub = sinon.stub().resolves({ id: '457' });
 const setApiModifyItemsStub = sinon.stub().resolves({});
 const entityApiFindStub = sinon.stub().resolves(defaultEntityFindResponse);
 
 const itemPinnedToGetterStub = sinon.stub();
 const itemAllRelatedEntitiesGetterStub = sinon.stub();
+const itemSetAllRelatedEntitiesMutationStub = sinon.stub();
+const itemAddToFeaturedSetIdsMutationStub = sinon.stub();
 const itemAddPinToFeaturedSetPinsMutationStub = sinon.stub();
+const itemAddToFeaturedSetPinsMutationStub = sinon.stub();
 
 import messages from '@/lang/en';
 
@@ -50,22 +69,25 @@ const i18n = new VueI18n({
   }
 });
 
+const initialStoreState = {
+  item: {
+    id: '/123/abc',
+    annotations: [],
+    relatedEntities: [],
+    allRelatedEntities: defaultEntityFindResponse,
+    featuredSetIds: defaultFeaturedSetIds,
+    featuredSetPins: {},
+    similarItems: []
+  }
+};
+
 const store = new Vuex.Store({
-  state: {
-    item: {
-      id: '/123/abc',
-      annotations: [],
-      relatedEntities: [],
-      allRelatedEntities: defaultEntityFindResponse,
-      featuredSetIds: defaultFeaturedSetIds,
-      featuredSetPins: {},
-      similarItems: []
-    }
-  },
+  state: initialStoreState,
   mutations: {
-    'item/addToFeaturedSetIds': sinon.stub(),
+    'item/setAllRelatedEntities': itemSetAllRelatedEntitiesMutationStub,
+    'item/addToFeaturedSetIds': itemAddToFeaturedSetIdsMutationStub,
     'item/addPinToFeaturedSetPins': itemAddPinToFeaturedSetPinsMutationStub,
-    'item/addToFeaturedSetPins': sinon.stub()
+    'item/addToFeaturedSetPins': itemAddToFeaturedSetPinsMutationStub
   },
   getters: {
     'item/id': () => '/123/abc',
@@ -106,6 +128,26 @@ const factory = (propsData = defaultPropsData, apiOverrides = {}) => mount(Entit
 });
 
 describe('components/item/PinModal', () => {
+  beforeEach(async() => {
+    // TODO: Consider using AfterEach on specs that modify these instead.
+    setApiSearchStub.resetHistory();
+    setApiCreateStub.resetHistory();
+    setApiModifyItemsStub.resetHistory();
+    entityApiFindStub.resetHistory();
+
+    itemPinnedToGetterStub.resetHistory();
+    itemAllRelatedEntitiesGetterStub.resetHistory();
+    itemSetAllRelatedEntitiesMutationStub.resetHistory();
+    itemAddToFeaturedSetIdsMutationStub.resetHistory();
+    itemAddPinToFeaturedSetPinsMutationStub.resetHistory();
+    itemAddToFeaturedSetPinsMutationStub.resetHistory();
+
+    // TODO: Reliably reset the store state.
+
+    // TODO: prevent b-toaster-bootm-left-dynamic re-regristration warning.
+    // Maybe caused by the toast being registered on localVue?
+  });
+
   describe('while NO entity is selected', () => {
     it('disables the pin button', () => {
       const wrapper = factory();
@@ -124,21 +166,41 @@ describe('components/item/PinModal', () => {
     });
 
     describe('when an option is selected', () => {
-      it('shows the check icon on the selected optoion', () => {
+      it('shows the check icon on the selected option', async() => {
         const wrapper = factory();
-        wrapper.setData({ selected: 'http://data.europeana.eu/agent/base/123' });
-        // pending
+        await wrapper.setData({ selected: 'http://data.europeana.eu/agent/base/123' });
+        const button = wrapper.find('button[data-qa="pin item to entity choice"]');
+
+        expect(button.find('span.icon-check-circle').exists()).toEqual(true);
       });
     });
     describe('when an option is pinned', () => {
-      it('shows the pin icon on the pinned optoion', () => {
-        // pending
+      it('shows the pin icon on the pinned option', () => {
+        itemPinnedToGetterStub.returns(true);
+        const wrapper = factory();
+        const button = wrapper.find('button[data-qa="pin item to entity choice"]');
+
+        expect(button.find('span.icon-push-pin').exists()).toEqual(true);
       });
     });
   });
 
   describe('toggle pin button', () => {
     describe('on success', () => {
+      describe('when pinning', () => {
+        it('makes a toast', async() => {
+          itemPinnedToGetterStub.returns(false);
+          const wrapper = factory();
+          await wrapper.setData({ selected: 'http://data.europeana.eu/agent/base/123' });
+
+          const rootBvToast = sinon.spy(wrapper.vm.$root.$bvToast, 'toast');
+
+          await wrapper.find('[data-qa="toggle pin button"]').trigger('click');
+          await flushPromises();
+          expect(rootBvToast.calledWith('The item has been pinned. It will appear as the first item on the "Agent entity" collection. We will notify you when this change will be visible on the collection page.', sinon.match.any)).toBe(true);
+        });
+      });
+
       describe('when unpinning', () => {
         it('makes a toast', async() => {
           itemPinnedToGetterStub.returns(true);
@@ -148,63 +210,71 @@ describe('components/item/PinModal', () => {
           const rootBvToast = sinon.spy(wrapper.vm.$root.$bvToast, 'toast');
 
           await wrapper.find('[data-qa="toggle pin button"]').trigger('click').then(() => {
-            expect(rootBvToast.calledWith('The item has been unpinned. We will notify you when this change will be visible on the collection page.', sinon.match.any)).toBe(true); //
-          });
-        });
-      });
-
-      describe('when pinning', () => {
-        it('makes a toast', async() => {
-          itemPinnedToGetterStub.returns(false);
-          const wrapper = factory();
-          await wrapper.setData({ selected: 'http://data.europeana.eu/agent/base/123' });
-
-          const rootBvToast = sinon.spy(wrapper.vm.$root.$bvToast, 'toast');
-
-          await wrapper.find('[data-qa="toggle pin button"]').trigger('click').then(async() => {
-            await flushPromises();
-            expect(rootBvToast.calledWith('The item has been pinned. It will appear as the first item on the "Agent entity" collection. We will notify you when this change will be visible on the collection page.', sinon.match.any)).toBe(true); //
+            expect(rootBvToast.calledWith('The item has been unpinned. We will notify you when this change will be visible on the collection page.', sinon.match.any)).toBe(true);
           });
         });
       });
     });
 
     describe('when there is NO existing set', () => {
-      it('creates a set and pins the item', async() => {
+      it('creates a set and pins the item, updates the store', async() => {
+        itemPinnedToGetterStub.returns(false);
         const wrapper = factory();
-        wrapper.setData({ selected: 'http://data.europeana.eu/agent/base/123' });
+        await wrapper.setData({ selected: 'http://data.europeana.eu/agent/base/123' });
 
-        // Setup state for no set.
+        wrapper.vm.$store.state.item.featuredSetIds = {};
 
         await wrapper.find('[data-qa="toggle pin button"]').trigger('click');
-
-        // pending
+        await flushPromises();
+        expect(setApiCreateStub.called).toBe(true);
+        expect(setApiModifyItemsStub.called).toBe(true);
+        expect(itemAddToFeaturedSetIdsMutationStub.called).toBe(true);
+        expect(itemAddToFeaturedSetPinsMutationStub.called).toBe(true);
+        expect(itemAddPinToFeaturedSetPinsMutationStub.called).toBe(true);
       });
     });
 
     describe('when there is an existing set', () => {
       describe('when the selected entity does NOT have the item pinned', () => {
         it('updates the set to add the item', async() => {
+          itemPinnedToGetterStub.returns(false);
           const wrapper = factory();
-          wrapper.setData({ selected: 'http://data.europeana.eu/agent/base/123' });
+          await wrapper.setData({ selected: 'http://data.europeana.eu/agent/base/123' });
+          wrapper.vm.$store.state.item.featuredSetPins = {};
+          wrapper.vm.$store.state.item.featuredSetIds = defaultFeaturedSetIds; // reset, for controlled state
 
-          // Setup state for existing set.
+          await  wrapper.find('[data-qa="toggle pin button"]').trigger('click');
+          await flushPromises();
 
-          await wrapper.find('[data-qa="toggle pin button"]').trigger('click');
+          expect(setApiModifyItemsStub.called).toBe(true);
+          expect(itemAddPinToFeaturedSetPinsMutationStub.called).toBe(true);
 
-          // pending
+          expect(setApiCreateStub.called).toBe(false);
+          expect(itemAddToFeaturedSetIdsMutationStub.called).toBe(false);
+          expect(itemAddToFeaturedSetPinsMutationStub.called).toBe(false);
         });
       });
-      describe('when the selected entity does has the item pinned already', () => {
-        it('updates the set to remove the item', async() => {
+      describe('when the selected entity has the item pinned already', () => {
+        it('updates the set to remove the item, then refetches the set', async() => {
+          itemPinnedToGetterStub.returns(true);
+          setApiSearchStub.resolves(setApiResponseWithPinnedItem);
           const wrapper = factory();
-          wrapper.setData({ selected: 'http://data.europeana.eu/agent/base/123' });
+          await wrapper.setData({ selected: 'http://data.europeana.eu/agent/base/123' });
+          wrapper.vm.$store.state.item.featuredSetIds = defaultFeaturedSetIds;
+          wrapper.vm.$store.state.item.featuredSetPins = {
+            'http://data.europeana.eu/agent/base/123': ['/123/abc']
+          };
 
-          // Setup state for eisting set with pinned item.
+          await  wrapper.find('[data-qa="toggle pin button"]').trigger('click');
+          await flushPromises();
 
-          await wrapper.find('[data-qa="toggle pin button"]').trigger('click');
+          expect(setApiModifyItemsStub.called).toBe(true);
+          expect(setApiSearchStub.called).toBe(true);
+          expect(itemAddToFeaturedSetIdsMutationStub.called).toBe(true);
+          expect(itemAddToFeaturedSetPinsMutationStub.called).toBe(true);
 
-          // pending
+          expect(setApiCreateStub.called).toBe(false);
+          expect(itemAddPinToFeaturedSetPinsMutationStub.called).toBe(false);
         });
       });
     });
@@ -228,32 +298,90 @@ describe('components/item/PinModal', () => {
   describe('methods', () => {
     describe('fetchPinningData', () => {
       it('fetches the entities and triggers retrieval of the featuredSetData, then sets fetched to true', async() => {
-        // pending
+        const wrapper = factory();
+        const fetchFeaturedSetDataMock = sinon.mock(wrapper.vm).expects('fetchFeaturedSetData').once().withArgs(defaultPropsData.entities);
+
+        await wrapper.vm.fetchPinningData();
+
+        await flushPromises();
+
+        expect(entityApiFindStub.calledWith(sinon.match.array.deepEquals(defaultPropsData.entities))).toBe(true);
+        expect(itemSetAllRelatedEntitiesMutationStub.calledWith(sinon.match.any, sinon.match.array)).toBe(true);
+        expect(fetchFeaturedSetDataMock.verify()).toBe(true);
+        expect(wrapper.vm.fetched).toBe(true);
       });
     });
 
     describe('fetchFeaturedSetData', () => {
+      afterEach(() => {
+        setApiSearchStub.resolves({});
+      });
       it('itterates over all entityIds and searches the set API for relevant sets', async() => {
-        // pending
+        const wrapper = factory();
+
+        await wrapper.vm.fetchFeaturedSetData(defaultPropsData.entities);
+
+        await flushPromises();
+
+        expect(setApiSearchStub.callCount).toBe(3);
       });
       describe('when there are no sets for any of the entities', () => {
         it('does NOT set anything in the store', async() => {
-          // Should this actually be RESETTING the store to empty values?
-          // pending
+          // TODO: Should this actually be RESETTING the store to empty values?
+          const wrapper = factory();
+
+          await wrapper.vm.fetchFeaturedSetData(defaultPropsData.entities);
+
+          await flushPromises();
+
+          expect(setApiSearchStub.callCount).toBe(3);
+          expect(itemAddToFeaturedSetIdsMutationStub.called).toBe(false);
+          expect(itemAddToFeaturedSetPinsMutationStub.called).toBe(false);
         });
       });
       describe('when an entity has an associated EntityBestItemsSet set', () => {
         it('sets the EntityBestItemsSet id in the store', async() => {
-          // pending
-        });
-        describe('when there are pinned items present', () => {
-          it('sets the FeaturedSetPins in the store', async() => {
-            // pending
-          });
+          setApiSearchStub.resolves(setApiResponseWithPinnedItem);
+          const wrapper = factory();
+
+          await wrapper.vm.fetchFeaturedSetData(defaultPropsData.entities);
+
+          await flushPromises();
+
+          expect(itemAddToFeaturedSetIdsMutationStub.calledWith(sinon.match.any, {
+            entityUri: 'http://data.europeana.eu/agent/base/123',
+            setId: '456'
+          })).toBe(true);
+          expect(itemAddToFeaturedSetPinsMutationStub.calledWith(sinon.match.any, {
+            entityUri: 'http://data.europeana.eu/agent/base/123',
+            pins: ['/123/abc']
+          })).toBe(true);
         });
         describe('when there are NO pinned items present', () => {
           it('sets the FeaturedSetPins in the store to be empty', async() => {
-            // pending
+            const setSearchResponse = {
+              data: {
+                total: 1,
+                items: [
+                  {
+                    id: 'http://data.europeana.eu/set/456',
+                    pinned: 0,
+                    subject: ['http://data.europeana.eu/agent/base/123']
+                  }
+                ]
+              }
+            };
+            setApiSearchStub.resolves(setSearchResponse);
+            const wrapper = factory();
+
+            await wrapper.vm.fetchFeaturedSetData(defaultPropsData.entities);
+
+            await flushPromises();
+
+            expect(itemAddToFeaturedSetPinsMutationStub.calledWith(sinon.match.any, {
+              entityUri: 'http://data.europeana.eu/agent/base/123',
+              pins: []
+            })).toBe(true);
           });
         });
       });
@@ -261,56 +389,147 @@ describe('components/item/PinModal', () => {
 
     describe('ensureSelectedSetExists', () => {
       describe('when there is NO set in the store', () => {
-        it('sends a create request to the set API', async() => {
-          // pending
+        afterEach(() => {
+          store.state.item.featuredSetIds = defaultFeaturedSetIds;
+        });
+        it('sends a create request to the set API, updates the store', async() => {
+          const wrapper = factory();
+          await wrapper.setData({ selected: 'http://data.europeana.eu/agent/base/123' });
+          wrapper.vm.$store.state.item.featuredSetIds = {};
+
+          await wrapper.vm.ensureSelectedSetExists();
+
+          await flushPromises();
+
+          expect(setApiCreateStub.calledWith({
+            type: 'EntityBestItemsSet',
+            title: { 'en': 'Agent entity Page' },
+            subject: ['http://data.europeana.eu/agent/base/123']
+          })).toBe(true);
+          expect(itemAddToFeaturedSetIdsMutationStub.calledWith(sinon.match.any, {
+            entityUri: 'http://data.europeana.eu/agent/base/123',
+            setId: '457'
+          })).toBe(true);
+          expect(itemAddToFeaturedSetPinsMutationStub.calledWith(sinon.match.any, {
+            entityUri: 'http://data.europeana.eu/agent/base/123',
+            pins: []
+          })).toBe(true);
         });
       });
+
       describe('when there is a set in the store', () => {
         it('does NOT send any create request to the set API', async() => {
-          // pending
+          const wrapper = factory();
+          await wrapper.setData({ selected: 'http://data.europeana.eu/agent/base/123' });
+          wrapper.vm.$store.state.item.featuredSetIds = defaultFeaturedSetIds;
+
+          await wrapper.vm.ensureSelectedSetExists();
+
+          await flushPromises();
+
+          expect(setApiCreateStub.called).toBe(false);
+          expect(itemAddToFeaturedSetIdsMutationStub.called).toBe(false);
+          expect(itemAddToFeaturedSetPinsMutationStub.called).toBe(false);
         });
       });
     });
 
     describe('pin', () => {
       it('ensures there is a selected set', async() => {
-        // pending
+        const wrapper = factory();
+        await wrapper.setData({ selected: 'http://data.europeana.eu/agent/base/123' });
+        const ensureSelectedSetExistsMock = sinon.mock(wrapper.vm).expects('ensureSelectedSetExists').once();
+
+        await  wrapper.vm.pin();
+
+        expect(ensureSelectedSetExistsMock.verify()).toBe(true);
       });
+
       describe('when when the item can be pinned', () => {
-        it('updates the store, closes the modal, and makes a toast', async() => {
-          // pending
+        it('adds the pin on the set Api, updates the store, hides the modal', async() => {
+          const wrapper = factory();
+          await wrapper.setData({ selected: 'http://data.europeana.eu/agent/base/123' });
+          const hideMock = sinon.mock(wrapper.vm).expects('hide').once();
+
+          await  wrapper.vm.pin();
+
+          expect(setApiModifyItemsStub.calledWith('add', '456', '/123/abc', true)).toBe(true);
+
+          // Update store expectations.
+          expect(itemAddPinToFeaturedSetPinsMutationStub.called).toBe(true);
+
+          expect(hideMock.verify()).toBe(true);
         });
       });
+
       describe('when when the item can NOT be pinned', () => {
+        afterEach(async() => {
+          await setApiModifyItemsStub.resolves({});
+        });
         describe('because the set is full', () => {
           it('closes the modal, makes a new modal to say the entity set is full', async() => {
-            // pending
-          });
-        });
-        describe('because of another error', () => {
-          it('??? this just throws the error ??? How should this be handled?', async() => {
-            // pending
+            setApiModifyItemsStub.rejects({ message: 'too many pins' });
+            const wrapper = factory();
+            await wrapper.setData({ selected: 'http://data.europeana.eu/agent/base/123' });
+            const hideMock = sinon.mock(wrapper.vm).expects('hide').once();
+
+            await  wrapper.vm.pin();
+
+            expect(setApiModifyItemsStub.calledWith('add', '456', '/123/abc', true)).toBe(true);
+
+            // expectations for: Update store.
+            expect(itemAddPinToFeaturedSetPinsMutationStub.called).toBe(false);
+
+            expect(hideMock.verify()).toBe(true);
           });
         });
       });
     });
+
     describe('unpin', () => {
       describe('when the deletion works', () => {
-        it('updates the featuredSetData, closes the modal, and makes a toast', async() => {
-          // pending
+        it('sends delte to the set API, re-retrieves the featuredSetData, hides the modal', async() => {
+          setApiSearchStub.resolves(setApiResponseWithPinnedItem);
+          const wrapper = factory();
+          await wrapper.setData({ selected: 'http://data.europeana.eu/agent/base/123' });
+          wrapper.vm.$store.state.item.featuredSetIds = defaultFeaturedSetIds;
+          wrapper.vm.$store.state.item.featuredSetPins = {
+            'http://data.europeana.eu/agent/base/123': ['/123/abc']
+          };
+          const hideMock = sinon.mock(wrapper.vm).expects('hide').once();
+
+          await  wrapper.vm.unpin();
+          await flushPromises();
+
+          expect(setApiModifyItemsStub.calledWith('delete', '456', '/123/abc')).toBe(true);
+
+          // expectations for: Re-fetch and update store.
+          expect(setApiSearchStub.called).toBe(true);
+          expect(itemAddToFeaturedSetIdsMutationStub.called).toBe(true);
+          expect(itemAddToFeaturedSetPinsMutationStub.called).toBe(true);
+
+          expect(hideMock.verify()).toBe(true);
         });
       });
     });
+
     describe('selectEntity', () => {
       it('sets the entity to the passed value', async() => {
+        const wrapper = factory();
+        await wrapper.setData({ selected: null });
+
+        await wrapper.vm.selectEntity('http://data.europeana.eu/agent/base/123');
+
+        expect(wrapper.vm.selected).toEqual('http://data.europeana.eu/agent/base/123');
       });
     });
+
     describe('togglePin', () => {
       describe('when the selected entity does not contain the item', () => {
         it('calls the pin method', async() => {
-          itemPinnedToGetterStub.returns(false); // double check this doesn't need to be reset.
+          itemPinnedToGetterStub.returns(false);
           const wrapper = factory();
-          wrapper.setData({ selected: 'http://data.europeana.eu/agent/base/123' });
+          await wrapper.setData({ selected: 'http://data.europeana.eu/agent/base/123' });
 
           const pinMock = sinon.mock(wrapper.vm).expects('pin').once();
 
@@ -322,9 +541,9 @@ describe('components/item/PinModal', () => {
 
       describe('when the selected entity has the current item pinned', () => {
         it('calls the unpin method', async() => {
-          itemPinnedToGetterStub.returns(true); // double check this doesn't need to be reset.
+          itemPinnedToGetterStub.returns(true);
           const wrapper = factory();
-          wrapper.setData({ selected: 'http://data.europeana.eu/agent/base/123' });
+          await wrapper.setData({ selected: 'http://data.europeana.eu/agent/base/123' });
 
           const unpinMock = sinon.mock(wrapper.vm).expects('unpin').once();
 

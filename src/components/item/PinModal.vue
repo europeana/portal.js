@@ -127,15 +127,16 @@
           searchParams.qf = `subject:${entityId}`;
           await this.$apis.set.search(searchParams)
             .then(async(searchResponse) => {
+              // this whole block could be it's own method, also allowing set(pin) re-rtrieval without needing to query for entities for set ids.
               console.log(searchResponse);
               if (searchResponse.data?.total > 0) {
                 console.log(searchResponse.data.items[0].id.split('/').pop());
                 const setId = searchResponse.data.items[0].id.split('/').pop();
                 this.$store.commit('item/addToFeaturedSetIds', {
-                  entityUri: searchResponse.data.items[0].subject[0],
+                  entityUri: searchResponse.data.items[0].subject[0], // could use entityID here?
                   setId
                 });
-                if (searchResponse.data.items[0].pinned) {
+                if (searchResponse.data.items[0].pinned) { // why bother checking this? It could just map out ids from ...data.items[0].items.
                   const pinnedItemIds = searchResponse.data.items[0].items.map(item => item.id).slice(0, searchResponse.data.items[0].pinned);  // why slice here?
                   console.log('pinnedItemIds:');
                   console.log(pinnedItemIds);
@@ -156,8 +157,8 @@
       },
 
       ensureSelectedSetExists() {
-        console.log(this.featuredSetIds[this.selected]);
-        if (this.featuredSetIds[this.selected] === undefined) {
+        console.log(`ensuring set exists: ${this.featuredSetIds[this.selected]}`);
+        if (!this.featuredSetIds[this.selected]) {
           console.log('set id was undefined');
           const featuredSetBody = {
             type: 'EntityBestItemsSet',
@@ -167,7 +168,7 @@
           return this.$apis.set.create(featuredSetBody)
             .then(async(response) => {
               await this.$store.commit('item/addToFeaturedSetIds', { entityUri: this.selected, setId: response.id });
-              await this.$store.commit('item/addToFeaturedSetPins', { entityUri: this.selected, pins: [] });
+              await this.$store.commit('item/addToFeaturedSetPins', { entityUri: this.selected, pins: [] }); // Instatniate blank pins on new set
             });
         }
       },
@@ -200,6 +201,7 @@
       async unpin() {
         await this.$apis.set.modifyItems('delete', this.featuredSetIds[this.selected], this.itemId)
           .then(() =>  {
+            // TODO: instead of refetching everything, this could update the store only.
             this.fetchFeaturedSetData([this.selected]);
           }).then(() => {
             const msg = this.$t('entity.notifications.unpinned');
@@ -218,7 +220,6 @@
         this.selected = id;
       },
       async togglePin() {
-        console.log('in toggle pin');
         if (this.selectedIsPinned) {
           await this.unpin();
         } else {
