@@ -64,8 +64,8 @@ export default {
       commit('setAnnotations', []);
       commit('setRelatedEntities', []);
       commit('setAllRelatedEntities', []);
-      commit('setFeaturedSetIds', { value: {} });
-      commit('setFeaturedSetPins', { value: {} });
+      commit('setFeaturedSetIds', {});
+      commit('setFeaturedSetPins', {});
       commit('setSimilarItems', []);
     }
   }

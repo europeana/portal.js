@@ -43,7 +43,7 @@
         {{ $t('entity.actions.cancel') }}
       </b-button>
       <b-button
-        :disabled="!selected"
+        :disabled="!selected || (selectedIsFull && !selectedIsPinned)"
         variant="primary"
         data-qa="toggle pin button"
         @click="togglePin"
@@ -94,6 +94,9 @@
       selectedIsPinned() {
         return this.selected && this.pinnedTo(this.selected);
       },
+      selectedIsFull() {
+        return this.selected && this.featuredSetPins[this.selected]?.length >= 24;
+      },
       selectedEntityPrefLabel() {
         return this.allRelatedEntities.find(entity => entity.id === this.selected).prefLabel.en;
       },
@@ -102,6 +105,7 @@
         pinnedTo: 'item/pinnedTo'
       }),
       ...mapState({
+        featuredSetPins: state => state.item.featuredSetPins,
         featuredSetIds: state => state.item.featuredSetIds,
         allRelatedEntities: state => state.item.allRelatedEntities
       })
@@ -123,38 +127,47 @@
       },
 
       async fetchFeaturedSetData(entityIds) {
-        // TODO: reduce cognitive complexity in this method
         const searchParams = {
           query: 'type:EntityBestItemsSet',
-          profile: 'itemDescriptions'
+          profile: 'minimal',
+          pageSize: 1
         };
         for (const entityId of entityIds) {
           // TODO: "OR" the ids to avoid looping, but doesn't seem supported.
           searchParams.qf = `subject:${entityId}`;
           await this.$apis.set.search(searchParams)
             .then(async(searchResponse) => {
-              // TODO: this whole block could be it's own method, also allowing set(pin) re-rtrieval without needing to query for entities for set ids.
               if (searchResponse.data?.total > 0) {
-                const setId = searchResponse.data.items[0].id.split('/').pop();
-                this.$store.commit('item/addToFeaturedSetIds', {
-                  entityUri: searchResponse.data.items[0].subject[0],
-                  setId
-                });
-                if (searchResponse.data.items[0].pinned) { // When pins exist, they need to be sliced from the items, as sets may in future contain recommended items too.
-                  const pinnedItemIds = searchResponse.data.items[0].items.map(item => item.id).slice(0, searchResponse.data.items[0].pinned);
-                  this.$store.commit('item/addToFeaturedSetPins', {
-                    entityUri: entityId,
-                    pins: pinnedItemIds
-                  });
-                } else {
-                  this.$store.commit('item/addToFeaturedSetPins', {
-                    entityUri: entityId,
-                    pins: []
-                  });
-                }
-              }
+                await this.getSetData(searchResponse.data.items[0].split('/').pop());
+              };
             });
         }
+      },
+
+      async getSetData(setId) {
+        const options = {
+          profile: 'standard',
+          pageSize: 100
+        };
+        await this.$apis.set.get(setId, options)
+          .then(async(response) => {
+            await this.$store.commit('item/addToFeaturedSetIds', {
+              entityUri: response.subject[0],
+              setId
+            });
+            if (response.pinned) { // When pins exist, they need to be sliced from the items, as sets may in future contain recommended items too.
+              const pinnedItemIds = response.items.map(item => item.replace('http://data.europeana.eu/item/', '')).slice(0, response.pinned);
+              await this.$store.commit('item/addToFeaturedSetPins', {
+                entityUri: response.subject[0],
+                pins: pinnedItemIds
+              });
+            } else {
+              await this.$store.commit('item/addToFeaturedSetPins', {
+                entityUri: response.subject[0],
+                pins: []
+              });
+            }
+          });
       },
 
       ensureSelectedSetExists() {
