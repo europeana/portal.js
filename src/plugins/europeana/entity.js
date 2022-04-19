@@ -117,13 +117,13 @@ export default (context = {}) => {
       let url = null;
 
       // `image` is a property on automated entity cards in Contentful
-      if (entity.image) {
+      if (entity?.image) {
         url = this.$thumbnail.edmPreview(entity.image, { size: 200 });
       // `isShownBy` is a property on most entity types
-      } else if (entity.isShownBy?.thumbnail) {
+      } else if (entity?.isShownBy?.thumbnail) {
         url = this.$thumbnail.edmPreview(entity.isShownBy.thumbnail, { size: 200 });
       // `logo` is a property on organization-type entities
-      } else if (entity.logo?.id) {
+      } else if (entity?.logo?.id) {
         url = getWikimediaThumbnailUrl(entity.logo.id, 28);
       }
 
