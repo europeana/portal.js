@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="view === 'grid' || view === 'mosaic'"
+    v-if="masonryActive"
   >
     <div
       id="searchResultsGrid"
@@ -162,14 +162,21 @@
 
       cardVariant() {
         return this.view === 'grid' ? 'default' : this.view;
+      },
+
+      masonryActive() {
+        return this.view === 'grid' || this.view === 'mosaic';
+      }
+    },
+
+    watch: {
+      'cards.length'() {
+        this.redrawMasonry();
       }
     },
 
     mounted() {
-      const masonryViews = ['grid', 'mosaic'];
-      if (typeof this.$redrawVueMasonry === 'function' && masonryViews.includes(this.view)) {
-        this.$redrawVueMasonry('searchResultsGrid');
-      }
+      this.redrawMasonry();
     },
 
     methods: {
@@ -180,6 +187,13 @@
 
         const hit = this.hits.find(hit => item.id === hit.scope);
         return hit ? hit.selectors[0] : null;
+      },
+      redrawMasonry() {
+        if (typeof this.$redrawVueMasonry === 'function' && this.masonryActive) {
+          this.$nextTick(() => {
+            this.$redrawVueMasonry();
+          });
+        }
       }
     }
   };

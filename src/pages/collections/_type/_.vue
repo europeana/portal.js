@@ -166,6 +166,7 @@
             this.page = pageResponseData.entityPage.items[0];
             this.$store.commit('entity/setCuratedEntities', pageResponseData.curatedEntities.items);
           }
+          this.$store.commit('search/setCollectionLabel', this.title.values[0]);
           return this.redirectToPrefPath();
         });
     },
@@ -348,7 +349,6 @@
       searchOverrides: 'storeSearchOverrides'
     },
     mounted() {
-      this.$store.commit('search/setCollectionLabel', this.pageTitle);
       this.storeSearchOverrides();
       // Disable related collections for organisation (for now)
       if (!this.relatedCollectionCards && this.collectionType !== 'organisation') {
