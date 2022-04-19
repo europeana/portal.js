@@ -37,8 +37,6 @@ export default {
       state.featuredSetPins[entityUri] = pins;
     },
     addPinToFeaturedSetPins(state, { entityUri, pin }) {
-      console.log('in store addPinToFeaturedSetPins');
-      console.log(state.featuredSetPins[entityUri]);
       state.featuredSetPins[entityUri].push(pin); // pin will likely always be state.id
     },
     setSimilarItems(state, value) {

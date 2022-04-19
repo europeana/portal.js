@@ -10,10 +10,10 @@ const identifier = '/123/abc';
 const storeDispatchSuccess = sinon.spy();
 const storeIsLikedGetter = sinon.stub();
 const storeIsPinnedGetter = sinon.stub();
-const storeEntityIdGetter = sinon.stub();
 const storeItemIdGetter = sinon.stub();
 const makeToastSpy = sinon.spy();
 const $goto = sinon.spy();
+let storeEntityId = 'http://data.europeana.eu/topic/123';
 
 const mixins = [
   {
@@ -43,7 +43,7 @@ const factory = ({ storeState = {},  $auth = {}, storeDispatch = storeDispatchSu
       getters: {
         'set/isLiked': storeIsLikedGetter,
         'entity/isPinned': storeIsPinnedGetter,
-        'entity/id': () => storeEntityIdGetter,
+        'entity/id': storeEntityId,
         'item/id': storeItemIdGetter
       },
       dispatch: storeDispatch
@@ -276,7 +276,7 @@ describe('components/account/UserButtons', () => {
   describe('pin button', () => {
     describe('when on an entity or entity-set page', () => {
       beforeEach(() => {
-        storeEntityIdGetter.returns('http://data.europeana.eu/topic/123');
+        storeEntityId = 'http://data.europeana.eu/topic/123';
       });
 
       it('is visible', async() => {
@@ -405,31 +405,32 @@ describe('components/account/UserButtons', () => {
     describe('when on an item page', () => {
       beforeEach(() => {
         storeItemIdGetter.returns('/123/abc');
+        storeEntityId = undefined;
       });
 
       describe('when the item has related entities', () => {
         it('is visible', async() => {
           const wrapper = factory();
           await wrapper.setProps({ showPins: true, entities: ['http://data.europeana.eu/topic/123'] });
+          sinon.stub(wrapper.vm, 'entity').returns(false);
 
           const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
 
           expect(pinButton.isVisible()).toBe(true);
         });
 
-        // describe('when clicked', () => {
-        //   it('opens the modal', async() => {
-        //     const wrapper = factory();
-        //     await wrapper.setProps({ showPins: true, entities: ['http://data.europeana.eu/topic/123'] });
-        //     const bvModalShow = sinon.spy(wrapper.vm.$bvModal, 'show');
-        //
-        //     const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
-        //     console.log('clicking');
-        //     await pinButton.trigger('click');
-        //
-        //     expect(bvModalShow.calledWith(`pin-modal-${identifier}`)).toBe(true);
-        //   });
-        // });
+        describe('when clicked', () => {
+          it('opens the modal', async() => {
+            const wrapper = factory();
+            await wrapper.setProps({ showPins: true, entities: ['http://data.europeana.eu/topic/123'] });
+            const bvModalShow = sinon.spy(wrapper.vm.$bvModal, 'show');
+
+            const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
+            await pinButton.trigger('click');
+
+            expect(bvModalShow.calledWith(`pin-modal-${identifier}`)).toBe(true);
+          });
+        });
       });
     });
   });

@@ -75,7 +75,9 @@
         type: Array,
         default: () => []
       },
-      // Used for testing, in order to render the modal.
+      /**
+       * Used for testing, in order to render the modal.
+       */
       modalStatic: {
         type: Boolean,
         default: false
@@ -93,7 +95,6 @@
         return this.selected && this.pinnedTo(this.selected);
       },
       selectedEntityPrefLabel() {
-        console.log(`prefLabel for ${this.selected}`);
         return this.allRelatedEntities.find(entity => entity.id === this.selected).prefLabel.en;
       },
       ...mapGetters({
@@ -108,15 +109,13 @@
 
     methods: {
       fetchPinningData() {
-        console.log('in fetch pinning data');
-        // should this attempt to use the entities already present in related entities, so as to not need to query for them again?
+        // TODO: Don't fetch all entities if related entities are already present and less than 5. Set all entities to related entities instead for that scenario.
         return this.$apis.entity.find(this.entities)
           .then(entities => entities.map(entity => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo'])))
           .then(async(reduced) => {
             await this.$store.commit('item/setAllRelatedEntities', reduced);
             const entityIds = reduced.map(entity => entity.id);
-            console.log(entityIds);
-            await this.fetchFeaturedSetData(entityIds); // awaiting here to ensure pins are set before rendering each button's pinned icon.
+            await this.fetchFeaturedSetData(entityIds);
           })
           .then(() => {
             this.fetched = true;
@@ -124,37 +123,30 @@
       },
 
       async fetchFeaturedSetData(entityIds) {
-        // TODO: reduce cognitive complexity in this method?
-        console.log('in fetchFeaturedSetData');
-        console.log(entityIds);
+        // TODO: reduce cognitive complexity in this method
         const searchParams = {
           query: 'type:EntityBestItemsSet',
           profile: 'itemDescriptions'
         };
-        for (const entityId of entityIds) { // maybe, it'd be nicer to "OR" the ids, but doesn't seem supported. So loop here. On the plus side this enables fetching specific sets only by passing a subset of entityIds
-          console.log(entityId);
+        for (const entityId of entityIds) {
+          // TODO: "OR" the ids to avoid looping, but doesn't seem supported.
           searchParams.qf = `subject:${entityId}`;
           await this.$apis.set.search(searchParams)
             .then(async(searchResponse) => {
-              // this whole block could be it's own method, also allowing set(pin) re-rtrieval without needing to query for entities for set ids.
-              console.log(searchResponse);
+              // TODO: this whole block could be it's own method, also allowing set(pin) re-rtrieval without needing to query for entities for set ids.
               if (searchResponse.data?.total > 0) {
-                console.log(searchResponse.data.items[0].id.split('/').pop());
                 const setId = searchResponse.data.items[0].id.split('/').pop();
                 this.$store.commit('item/addToFeaturedSetIds', {
-                  entityUri: searchResponse.data.items[0].subject[0], // could use entityID here?
+                  entityUri: searchResponse.data.items[0].subject[0],
                   setId
                 });
-                if (searchResponse.data.items[0].pinned) { // why bother checking this? It could just map out ids from ...data.items[0].items.
-                  const pinnedItemIds = searchResponse.data.items[0].items.map(item => item.id).slice(0, searchResponse.data.items[0].pinned);  // why slice here?
-                  console.log('pinnedItemIds:');
-                  console.log(pinnedItemIds);
+                if (searchResponse.data.items[0].pinned) { // When pins exist, they need to be sliced from the items, as sets may in future contain recommended items too.
+                  const pinnedItemIds = searchResponse.data.items[0].items.map(item => item.id).slice(0, searchResponse.data.items[0].pinned);
                   this.$store.commit('item/addToFeaturedSetPins', {
                     entityUri: entityId,
                     pins: pinnedItemIds
                   });
                 } else {
-                  console.log('setting empty pins');
                   this.$store.commit('item/addToFeaturedSetPins', {
                     entityUri: entityId,
                     pins: []
@@ -166,9 +158,7 @@
       },
 
       ensureSelectedSetExists() {
-        console.log(`ensuring set exists: ${this.featuredSetIds[this.selected]}`);
         if (!this.featuredSetIds[this.selected]) {
-          console.log('set id was undefined');
           const featuredSetBody = {
             type: 'EntityBestItemsSet',
             title: { 'en': this.selectedEntityPrefLabel + ' Page' },
@@ -183,22 +173,19 @@
       },
 
       async pin() {
-        console.log(`in pin: ${this.selected}`);
         await this.ensureSelectedSetExists();
-        console.log('about to send pin request to set api');
         await this.$apis.set.modifyItems('add', this.featuredSetIds[this.selected], this.itemId, true)
           .then(() => {
             const pinOnSetArgs = { entityUri: this.selected, pin: this.itemId };
             return this.$store.commit('item/addPinToFeaturedSetPins', pinOnSetArgs);
           })
           .then(() => {
-            console.log('about to make toast');
             this.makeToast(this.$t('entity.notifications.pinned', { entity: this.selectedEntityPrefLabel }));
             this.hide(); // should the box stay open?
           })
           .catch((e) => {
-            console.log(e);
             if (e.message === 'too many pins') {
+              // TODO: Disable the pin button when a set is known to be at it's limit.
               this.hide();
               this.$bvModal.show(`pinned-limit-modal-${this.itemId}`);
             } else {
@@ -214,18 +201,17 @@
             this.fetchFeaturedSetData([this.selected]);
           }).then(() => {
             const msg = this.$t('entity.notifications.unpinned');
-            console.log('about to make toast');
             this.makeToast(msg);
           })
           .catch((e) => {
-            this.fetchFeaturedSetData([this.selected]); // not sure if refetching makes sense here.
+            // TODO: instead of refetching everything, this could update the store only.
+            this.fetchFeaturedSetData([this.selected]);
             // TODO: notify the user with a toast?
             throw e;
           });
         this.hide(); // should the box stay open?
       },
       selectEntity(id) {
-        // we could re-fetch the sets/pins at this point, but it seems overkill at the moment.
         this.selected = id;
       },
       async togglePin() {
@@ -259,7 +245,8 @@
       position: relative;
       z-index: 10;
 
-      &.icon-check-circle, &.icon-push-pin {
+      &.icon-check-circle,
+      &.icon-push-pin {
         margin-left: auto;
         font-size: $font-size-large;
       }
