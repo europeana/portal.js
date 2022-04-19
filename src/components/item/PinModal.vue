@@ -170,6 +170,7 @@
               await this.$store.commit('item/addToFeaturedSetPins', { entityUri: this.selected, pins: [] }); // Instatniate blank pins on new set
             });
         }
+        return Promise.resolve();
       },
 
       async pin() {

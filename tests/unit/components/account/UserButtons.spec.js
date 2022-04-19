@@ -14,6 +14,7 @@ const storeItemIdGetter = sinon.stub();
 const makeToastSpy = sinon.spy();
 const $goto = sinon.spy();
 let storeEntityId = 'http://data.europeana.eu/topic/123';
+let storeFeaturedSetId = 'http://data.europeana.eu/set/567';
 
 const mixins = [
   {
@@ -43,6 +44,7 @@ const factory = ({ storeState = {},  $auth = {}, storeDispatch = storeDispatchSu
       getters: {
         'set/isLiked': storeIsLikedGetter,
         'entity/isPinned': storeIsPinnedGetter,
+        'entity/featuredSetId': storeFeaturedSetId,
         'entity/id': storeEntityId,
         'item/id': storeItemIdGetter
       },
@@ -221,16 +223,17 @@ describe('components/account/UserButtons', () => {
             });
           });
           describe('when there is any other error', () => {
-            it('throws an error', async() => {
-              const wrapper = factory({ $auth,
-                storeState: { liked: [] },
-                storeDispatch: sinon.stub().rejects() });
-
-              const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
-              await likeButton.trigger('click');
-
-              await expect(wrapper.vm.$store.dispatch()).rejects.toThrowError();
-            });
+            // TODO: this tests nothing, fix it.
+            // it('throws an error', async() => {
+            //   const wrapper = factory({ $auth,
+            //     storeState: { liked: [] },
+            //     storeDispatch: sinon.stub().rejects() });
+            //
+            //   const likeButton = wrapper.find('b-button-stub[data-qa="like button"]');
+            //   await likeButton.trigger('click');
+            //
+            //   await expect(wrapper.vm.$store.dispatch()).rejects.toThrowError();
+            // });
           });
         });
       });
@@ -274,9 +277,10 @@ describe('components/account/UserButtons', () => {
   });
 
   describe('pin button', () => {
-    describe('when on an entity or entity-set page', () => {
+    describe('when on an entity page', () => {
       beforeEach(() => {
         storeEntityId = 'http://data.europeana.eu/topic/123';
+        storeFeaturedSetId = 'http://data.europeana.eu/set/567';
       });
 
       it('is visible', async() => {
@@ -333,7 +337,8 @@ describe('components/account/UserButtons', () => {
           });
           describe('when there is no set yet for the curated collection', () => {
             it('creates a set', async() => {
-              const wrapper = factory({ storeState: { featuredSetId: null } });
+              storeFeaturedSetId = null;
+              const wrapper = factory();
 
               const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
               await pinButton.trigger('click');
@@ -354,15 +359,16 @@ describe('components/account/UserButtons', () => {
             });
           });
           describe('when there is any other error', () => {
-            it('throws an error', async() => {
-              const wrapper = factory({ storeDispatch: sinon.stub().rejects() });
-              await wrapper.setProps({ showPins: true });
-
-              const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
-              await pinButton.trigger('click');
-
-              await expect(wrapper.vm.$store.dispatch()).rejects.toThrowError();
-            });
+            // TODO: this tests nothing, fix it.
+            // it('throws an error', async() => {
+            //   const wrapper = factory({ storeDispatch: sinon.stub().rejects() });
+            //   await wrapper.setProps({ showPins: true });
+            //
+            //   const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
+            //   await pinButton.trigger('click');
+            //
+            //   await expect(wrapper.vm.$store.dispatch()).rejects.toThrowError();
+            // });
           });
         });
       });
@@ -402,10 +408,64 @@ describe('components/account/UserButtons', () => {
       });
     });
 
+    describe('when on an entity-set page', () => {
+      beforeEach(() => {
+        storeEntityId = null;
+        storeFeaturedSetId = 'http://data.europeana.eu/set/456';
+      });
+
+      it('is visible', async() => {
+        const wrapper = factory();
+        await wrapper.setProps({ showPins: true });
+
+        const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
+
+        expect(pinButton.isVisible()).toBe(true);
+      });
+
+      it('does not contain text', async() => {
+        const wrapper = factory();
+        await wrapper.setProps({ showPins: true });
+
+        const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
+
+        expect(pinButton.text()).toBe('');
+      });
+
+      describe('when item is pinned', () => {
+        beforeEach(() => {
+          storeIsPinnedGetter.returns(true);
+        });
+
+        describe('when pressed', () => {
+          it('unpins the item', async() => {
+            const wrapper = factory();
+            await wrapper.setProps({ showPins: true });
+
+            const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
+            await pinButton.trigger('click');
+
+            expect(storeDispatchSuccess.calledWith('entity/unpin')).toBe(true);
+          });
+
+          it('shows the pin toast', async() => {
+            const wrapper = factory();
+            await wrapper.setProps({ showPins: true });
+
+            const pinButton = wrapper.find('b-button-stub[data-qa="pin button"]');
+            await pinButton.trigger('click');
+
+            expect(makeToastSpy.calledWith('entity.notifications.unpinned')).toBe(true);
+          });
+        });
+      });
+    });
+
     describe('when on an item page', () => {
       beforeEach(() => {
         storeItemIdGetter.returns('/123/abc');
-        storeEntityId = undefined;
+        storeFeaturedSetId = null;
+        storeEntityId = null;
       });
 
       describe('when the item has related entities', () => {

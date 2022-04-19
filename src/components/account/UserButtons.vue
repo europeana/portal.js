@@ -187,6 +187,7 @@
       },
       ...mapGetters({
         entity: 'entity/id',
+        featuredSet: 'entity/featuredSetId',
         item: 'item/id'
       })
     },
@@ -217,7 +218,7 @@
         }
       },
       goToPins() {
-        const path = this.$path(`/set/${this.$store.state.entity.featuredSetId}`);
+        const path = this.$path(`/set/${this.featuredSet}`);
         this.$goto(path);
       },
       async like() {
@@ -267,7 +268,7 @@
         }
       },
       async pin() {
-        if (this.$store.state.entity.featuredSetId === null) {
+        if (this.featuredSet === null) {
           await this.$store.dispatch('entity/createFeaturedSet');
         }
         try {
@@ -286,7 +287,7 @@
         this.makeToast(this.$t('entity.notifications.unpinned'));
       },
       async pinAction() {
-        if (this.entity) {
+        if (this.entity || this.featuredSet) {
           await this.togglePin(); // On an entity/entity set page all info is in the store.
         } else {
           await this.$bvModal.show(this.pinModalId); // Open the modal to find which entity to pin to.

@@ -65,6 +65,10 @@ export default {
       return state.id ? state.id : null;
     },
 
+    featuredSetId(state) {
+      return state.featuredSetId ? state.featuredSetId : null;
+    },
+
     isPinned: (state) => (itemId) => {
       return state.pinned ? state.pinned.includes(itemId) : false;
     }
