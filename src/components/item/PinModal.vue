@@ -55,12 +55,12 @@
         v-else-if="selectedIsFull"
       >
         {{ $t('entity.notifications.pinLimit.body') }}
-        <b-link
-          data-qa="go to set button"
-          :href="selected"
+        <SmartLink
+          data-qa="go to set link"
+          :destination="selectedLink"
         >
           {{ $t('entity.actions.viewPinned') }}
-        </b-link>
+        </SmartLink>
       </span>
     </div>
   </b-modal>
@@ -70,9 +70,14 @@
   import pick from 'lodash/pick';
   import { mapGetters, mapState } from 'vuex';
   import makeToastMixin from '@/mixins/makeToast';
+  // import SmartLink from '@/components/generic/SmartLink';
 
   export default {
     name: 'PinModal',
+
+    components: {
+      SmartLink: () => import('@/components/generic/SmartLink')
+    },
 
     mixins: [
       makeToastMixin
@@ -109,8 +114,12 @@
       selectedIsFull() {
         return this.selected && this.featuredSetPins[this.selected]?.length >= 24;
       },
+      selectedLink() {
+        const destination = { name: 'set-all', params: { pathMatch: this.selected && this.featuredSetIds[this.selected].replace('http://data.europeana.eu/set/', '') } };
+        return destination;
+      },
       selectedEntityPrefLabel() {
-        return this.allRelatedEntities.find(entity => entity.id === this.selected).prefLabel.en;
+        return this.allRelatedEntities.find(entity => entity.id === this.selected)?.prefLabel?.en;
       },
       ...mapGetters({
         itemId: 'item/id',

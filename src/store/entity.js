@@ -116,7 +116,8 @@ export default {
     },
     getPins({ state, commit }) {
       return this.$apis.set.get(state.featuredSetId, {
-        profile: 'itemDescriptions'
+        profile: 'itemDescriptions',
+        pageSize: 100 // TODO: should this limit to 24?
       }).then(featured => featured.pinned > 0 ? commit('setPinned', featured.items.slice(0, featured.pinned)) : commit('setPinned', []));
     },
     createFeaturedSet({ getters, commit }) {
