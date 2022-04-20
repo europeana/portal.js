@@ -33,7 +33,7 @@
           <b-form-textarea
             id="set-description"
             v-model="descriptionValue"
-            maxlength="240"
+            maxlength="500"
             rows="4"
           />
         </b-form-group>

@@ -261,7 +261,7 @@ describe('components/search/SearchForm', () => {
       });
     });
 
-    describe('auto-suggest is disabled on collection page', () => {
+    describe('when on a collection page', () => {
       const mocks = {
         $apis: {
           entity: {
@@ -269,24 +269,34 @@ describe('components/search/SearchForm', () => {
           }
         }
       };
-      const store = new Vuex.Store({
-        state: { search: {}, ui: {}, entity: { id: '123' } }
+
+      describe('and a collection label is stored', () => {
+        const store = new Vuex.Store({
+          state: { search: { collectionLabel: 'Entity 123' }, ui: {}, entity: { id: '123' } }
+        });
+
+        it('does not get suggestions from the Entity API', async() => {
+          const wrapper = factory({ store, mocks });
+
+          await wrapper.vm.getSearchSuggestions(query);
+
+          expect(mocks.$apis.entity.suggest.called).toBe(false);
+        });
       });
 
-      const wrapper = factory({ store, mocks });
+      describe('but no collection label is stored', () => {
+        const store = new Vuex.Store({
+          state: { search: { collectionLabel: null }, ui: {}, entity: { id: '123' } }
+        });
 
-      it('gets suggestions from the Entity API', async() => {
-        await wrapper.vm.getSearchSuggestions(query);
+        it('does get suggestions from the Entity API', async() => {
+          const wrapper = factory({ store, mocks });
 
-        expect(mocks.$apis.entity.suggest.called).toBe(false);
+          await wrapper.vm.getSearchSuggestions(query);
+
+          expect(mocks.$apis.entity.suggest.called).toBe(true);
+        });
       });
-
-      // FIXME
-      // it('parses and stores suggestions locally', async() => {
-      //   await wrapper.vm.getSearchSuggestions();
-      //
-      //   expect(wrapper.vm.suggestions).toEqual(parsedSuggestions);
-      // });
     });
   });
 });

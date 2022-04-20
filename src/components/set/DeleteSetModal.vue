@@ -63,12 +63,16 @@
 
     methods: {
       // TODO: error handling
-      submitForm() {
-        this.$store.dispatch('set/deleteSet', this.setId)
-          .then(() => {
-            this.makeToast(this.toastMsg);
-            this.hide();
-          });
+      async submitForm() {
+        await this.$store.dispatch('set/deleteSet', this.setId);
+
+        this.makeToast(this.toastMsg);
+        this.hide();
+        // redirect away from deleted set page
+        if (this.setId.endsWith(`/${this.$route?.params?.pathMatch}`)) {
+          const path = this.$path({ name: 'account' });
+          this.$goto(path);
+        }
       },
 
       goBack() {
