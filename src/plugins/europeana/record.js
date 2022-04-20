@@ -350,26 +350,6 @@ export default (context = {}) => {
         });
     },
 
-    /**
-     * Search for specific facets for this entity to find the related entities
-     * @param {string} type the type of the entity
-     * @param {string} id the id of the entity, (can contain trailing slug parts as these will be normalized)
-     * @return {Object} related entities
-     * TODO: add people as related entities again
-     */
-    relatedEntities(type, id) {
-      const entityUri = getEntityUri(type, id);
-
-      return this.search({
-        profile: 'facets',
-        facet: 'skos_concept',
-        query: getEntityQuery(entityUri),
-        qf: ['contentTier:*'],
-        rows: 0
-      })
-        .then(response => response.facets);
-    },
-
     mediaProxyUrl(mediaUrl, europeanaId, params = {}) {
       if (!params['api_url']) {
         // TODO: it is not ideal to hard-code "/api" here, but the media proxy
