@@ -25,17 +25,20 @@ $path.withArgs({
 
 const factory = (options = {}) => shallowMount(SearchForm, {
   localVue,
-  stubs: ['b-input-group', 'b-button', 'b-form', 'b-form-input'],
+  stubs: { 'b-input-group': true,
+    'b-button': true,
+    'b-form': true,
+    'b-form-input': { template: '<input ref="searchinput" />' } },
   mocks: {
     ...{
       $i18n: { locale: 'en' },
       $t: () => {},
-      $route: { query: {} },
+      $route: { query: { query: '' } },
       $goto,
       $path
     }, ...(options.mocks || {})
   },
-  store: options.store || store({ search: {} })
+  store: options.store || store({ search: { allThemes: [] } })
 });
 
 const getters = {
@@ -113,33 +116,6 @@ describe('components/search/SearchForm', () => {
 
   describe('form submission', () => {
     const query = 'trees';
-
-    describe('with a selected entity suggestion', () => {
-      it('routes to the entity page', async() => {
-        const state = {
-          search: {
-            active: true,
-            view: 'grid'
-          }
-        };
-        const wrapper = factory({ store: store(state) });
-
-        await wrapper.setData({
-          selectedOptionLink: { path: '/search', query: { query: '"Fresco"', view: state.search.view } }
-        });
-        wrapper.vm.submitForm();
-
-        let searchRoute = {
-          path: '/search',
-          query: {
-            query: '"Fresco"',
-            view: 'grid'
-          }
-        };
-
-        expect($goto.calledWith(searchRoute)).toBe(true);
-      });
-    });
 
     describe('when on a search page', () => {
       const state = {
@@ -289,6 +265,7 @@ describe('components/search/SearchForm', () => {
       // });
     });
   });
+
   describe('when search options show, not on a collection page and no query set', () => {
     it('shows search options dropdown', async() => {
       const wrapper = factory({ store: store({ search: { allThemes: [], view: 'grid' } }) });
@@ -297,6 +274,42 @@ describe('components/search/SearchForm', () => {
       const searchFormDropdown = wrapper.find('[data-qa="search form dropdown"]');
 
       expect(searchFormDropdown.exists()).toBe(true);
+    });
+  });
+
+  describe('on route query changes', () => {
+    it('hides the search options', async() => {
+      const wrapper = factory();
+
+      await wrapper.setData({ showSearchOptions: true });
+      wrapper.vm.$route.query.query = 'new query';
+      await wrapper.vm.$nextTick();
+
+      expect(wrapper.vm.showSearchOptions).toBe(false);
+    });
+  });
+
+  describe('when user clicks outside the search form dropdown', () => {
+    it('hides the search options', async() => {
+      const clickOutsideEvent = new Event('click');
+      const wrapper = factory();
+
+      await wrapper.setData({ showSearchOptions: true });
+      wrapper.vm.clickOutside(clickOutsideEvent);
+
+      expect(wrapper.vm.showSearchOptions).toBe(false);
+    });
+  });
+
+  describe('when user tabs outside the search form dropdown', () => {
+    it('hides the search options', async() => {
+      const tabOutsideEvent = new KeyboardEvent('keydown', { 'key': 'Tab' });
+      const wrapper = factory();
+
+      await wrapper.setData({ showSearchOptions: true });
+      wrapper.vm.clickOutside(tabOutsideEvent);
+
+      expect(wrapper.vm.showSearchOptions).toBe(false);
     });
   });
 });

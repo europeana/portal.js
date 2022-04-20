@@ -16,14 +16,13 @@ const parentInputComponent = {
     SearchQueryOptions
   },
   props: ['options'],
-  template: '<div><input id="searchbox" ref="searchbox" type="text" /><SearchQueryOptions :options="options" /></div>'
+  template: '<div ref="searchdropdown"><input id="searchbox" ref="searchinput" type="text" /><SearchQueryOptions :options="options" /></div>'
 };
 
 const factory = (options = {}) => {
   return mount(parentInputComponent, {
     localVue,
     i18n: options.i18n || new VueI18n,
-    attachToDocument: true,
     propsData: options.propsData,
     mocks: {
       ...{
@@ -156,11 +155,22 @@ describe('components/search/SearchQueryOptions', () => {
     const searchInput = wrapper.find('#searchbox');
     const queryOptionsWrapper = wrapper.find('[data-qa="search query options"]');
 
-    searchInput.trigger('keydown.down');
+    searchInput.trigger('keydown', { key: 'ArrowDown' });
     expect(queryOptionsWrapper.vm.focus).toBe(0);
-    searchInput.trigger('keydown.down');
+    searchInput.trigger('keydown', { key: 'ArrowDown' });
     expect(queryOptionsWrapper.vm.focus).toBe(1);
-    searchInput.trigger('keydown.up');
+    searchInput.trigger('keydown', { key: 'ArrowUp' });
     expect(queryOptionsWrapper.vm.focus).toBe(0);
+  });
+
+  it('blurs the parent input on pressing Escape', () => {
+    const wrapper = factory({ propsData: { options: [] } });
+
+    const searchInput = wrapper.find('#searchbox');
+    const queryOptionsWrapper = wrapper.find('[data-qa="search query options"]');
+
+    searchInput.trigger('keydown', { key: 'Escape' });
+
+    expect(queryOptionsWrapper.emitted('blur').length).toEqual(1);
   });
 });

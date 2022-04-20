@@ -10,19 +10,9 @@
     <div
       v-if="showSearch"
       class="d-flex justify-content-center w-100"
+      data-qa="search form wrapper"
     >
-      <b-button
-        data-qa="back button"
-        class="button-icon-only icon-back"
-        variant="light-flat"
-        :aria-label="$t('header.backToMenu')"
-        @click="toggleSearchBar"
-      />
-      <SearchForm
-        role="search"
-        aria-label="search form"
-        data-qa="search form"
-      />
+      <SearchForm />
     </div>
     <template
       v-else
@@ -60,6 +50,7 @@
           data-qa="top navigation"
         />
         <b-button
+          id="show-search-button"
           data-qa="show search button"
           class="button-icon-only icon-search ml-lg-3"
           variant="light-flat"
@@ -192,13 +183,6 @@
       flex-direction: column;
       width: 100%;
     }
-  }
-
-  .icon-back {
-    position: absolute;
-    left: 1rem;
-    top: 1rem;
-    z-index: 99;
   }
 
   .navbar-toggle {

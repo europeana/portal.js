@@ -1,58 +1,71 @@
 <template>
-  <b-form
-    ref="form"
+  <div
+    ref="searchdropdown"
     class="open"
-    data-qa="search form"
-    inline
-    autocomplete="off"
-    @submit.prevent="submitForm"
   >
-    <b-input-group
-      role="combobox"
-      :aria-owns="showSearchOptions ? 'search-form-options' : null"
-      :aria-expanded="showSearchOptions"
-      class="auto-suggest pr-3"
+    <b-button
+      data-qa="back button"
+      class="button-icon-only icon-back back-button"
+      variant="light-flat"
+      :aria-label="$t('header.backToMenu')"
+      @click="toggleSearchBar()"
+    />
+    <b-form
+      ref="form"
+      role="search"
+      aria-label="search form"
+      data-qa="search form"
+      inline
+      autocomplete="off"
+      @submit.prevent="submitForm"
     >
-      <b-form-input
-        ref="searchbox"
-        v-model="query"
-        :placeholder="$t('searchPlaceholder')"
-        name="query"
-        data-qa="search box"
-        role="searchbox"
-        aria-autocomplete="list"
-        :aria-controls="showSearchOptions ? 'search-form-options' : null"
-        :aria-label="$t('search')"
-        @input="getSearchSuggestions(query);"
-        @focus="showSearchOptions = true; updateSuggestions();"
-        @blur="showSearchOptions = false;"
-      />
-      <b-button
-        v-show="query"
-        data-qa="clear button"
-        class="button-icon-only icon-clear ml-3 my-3"
-        variant="light-flat"
-        :aria-label="$t('header.clearQuery')"
-        @click="clearQuery"
-      />
-      <FilterToggleButton />
-      <div
-        v-if="showSearchOptions"
-        class="auto-suggest-dropdown"
-        :aria-label="$t('searchSuggestions')"
-        data-qa="search form dropdown"
+      <b-input-group
+        role="combobox"
+        :aria-owns="showSearchOptions ? 'search-form-options' : null"
+        :aria-expanded="showSearchOptions"
+        class="auto-suggest pr-3"
       >
-        <SearchQueryOptions
-          :options="searchQueryOptions"
-          @select="selectSearchOption"
+        <b-form-input
+          ref="searchinput"
+          v-model="query"
+          :placeholder="$t('searchPlaceholder')"
+          name="query"
+          data-qa="search box"
+          role="searchbox"
+          aria-autocomplete="list"
+          :aria-controls="showSearchOptions ? 'search-form-options' : null"
+          :aria-label="$t('search')"
+          @input="getSearchSuggestions(query);"
+          @focus="showSearchOptions = true; updateSuggestions();"
         />
-        <QuickSearch
-          v-if="showQuickSearch"
-          :query="query"
-        />
-      </div>
-    </b-input-group>
-  </b-form>
+      </b-input-group>
+    </b-form>
+    <b-button
+      v-show="query"
+      data-qa="clear button"
+      class="button-icon-only icon-clear clear-button"
+      variant="light-flat"
+      :aria-label="$t('header.clearQuery')"
+      @click="clearQuery"
+    />
+    <FilterToggleButton />
+    <div
+      v-if="showSearchOptions"
+      class="auto-suggest-dropdown"
+      :aria-label="$t('searchSuggestions')"
+      data-qa="search form dropdown"
+    >
+      <SearchQueryOptions
+        :options="searchQueryOptions"
+        @select="selectSearchOption"
+        @blur="showSearchOptions = false"
+      />
+      <QuickSearch
+        v-if="showQuickSearch"
+        :query="query"
+      />
+    </div>
+  </div>
 </template>
 
 <script>
@@ -162,17 +175,24 @@
 
     watch: {
       '$route.query.query'() {
-        if (this.$refs.searchbox) {
-          this.$refs.searchbox.$el.blur();
-        }
+        this.showSearchOptions = false;
         this.initQuery();
+      },
+      showSearchOptions(newVal) {
+        if (newVal === true) {
+          window.addEventListener('click', this.clickOutside);
+          window.addEventListener('keydown', this.clickOutside);
+        } else {
+          window.removeEventListener('click', this.clickOutside);
+          window.removeEventListener('keydown', this.clickOutside);
+        }
       }
     },
 
     mounted() {
       this.initQuery();
       this.$nextTick(() => {
-        this.$refs.searchbox.$el.focus();
+        this.$refs.searchinput.$el.focus();
       });
     },
 
@@ -198,36 +218,20 @@
       async submitForm() {
         let newRoute;
 
-        if (this.selectedOptionLink) {
-          newRoute = this.selectedOptionLink;
-          this.query = this.selectedOptionLink.query.query;
-
+        // Matomo event: suggestions are present, but none is selected
+        if (Object.keys(this.suggestions).length > 0) {
           // This only tracks keyboard events, click events are tracked in the SearchQueryOptions component.
-          // Make sure you are not on a collection page
-          if (!this.onCollectionPage) {
-            this.$matomo?.trackEvent('Autosuggest_option_selected', 'Autosuggest option is selected', this.query);
-          }
-
-          if (this.query !== this.activeSuggestionsQueryTerm) {
-            this.suggestions = {};
-          }
-        } else {
-          // Matomo event: suggestions are present, but none is selected
-          if (Object.keys(this.suggestions).length > 0) {
-            // This only tracks keyboard events, click events are tracked in the SearchQueryOptions component.
-            this.$matomo?.trackEvent('Autosuggest_option_not_selected', 'Autosuggest option is not selected', this.query);
-          }
-
-          const baseQuery = this.onSearchablePage ? this.$route.query : {};
-          // `query` must fall back to blank string to ensure inclusion in URL,
-          // which is required for analytics site search tracking
-          const newRouteQuery = { ...baseQuery, ...{ page: 1, view: this.view, query: this.query || '' } };
-          newRoute = { path: this.routePath, query: newRouteQuery };
+          this.$matomo?.trackEvent('Autosuggest_option_not_selected', 'Autosuggest option is not selected', this.query);
         }
 
-        if (this.$refs.searchbox) {
-          this.$refs.searchbox.$el.blur();
-        }
+        const baseQuery = this.onSearchablePage ? this.$route.query : {};
+        // `query` must fall back to blank string to ensure inclusion in URL,
+        // which is required for analytics site search tracking
+        const newRouteQuery = { ...baseQuery, ...{ page: 1, view: this.view, query: this.query || '' } };
+        newRoute = { path: this.routePath, query: newRouteQuery };
+
+        this.showSearchOptions = false;
+
         await this.$goto(newRoute);
         this.selectedOptionLink = null;
       },
@@ -310,10 +314,18 @@
         this.suggestions = {};
 
         this.$nextTick(() => {
-          if (this.$refs.searchbox) {
-            this.$refs.searchbox.$el.focus();
-          }
+          this.$refs.searchinput.$el.focus();
         });
+      },
+
+      clickOutside(event) {
+        const targetOutsideSearchDropdown = event.target?.id !== 'show-search-button' && this.$refs.searchdropdown && !this.$refs.searchdropdown.contains(event.target);
+        if ((event.type === 'click' || event.key === 'Tab') && targetOutsideSearchDropdown) {
+          this.showSearchOptions = false;
+        }
+      },
+      toggleSearchBar() {
+        this.$store.commit('search/setShowSearchBar', !this.$store.state.search.showSearchBar);
       }
     }
   };
@@ -330,62 +342,6 @@
     .form-control {
       background-color: $white;
     }
-
-    &.open {
-      width: 100%;
-
-      .form-control {
-        padding: 0.375rem 1rem 0.375rem 3.5rem;
-        height: 3.4rem;
-        box-shadow: none;
-        border-radius: 0;
-        color: $mediumgrey;
-        width: 100%;
-      }
-
-      .search-query {
-        box-shadow: $boxshadow-light;
-        width: 100%;
-        height: 3.5rem;
-        font-size: 1rem;
-        color: $mediumgrey;
-        display: flex;
-        align-items: center;
-        position: relative;
-        background: $white;
-
-        .search {
-          position: absolute;
-          width: 100%;
-          left: 0;
-          top: 0;
-          z-index: 99;
-          height: 3.5rem;
-          padding: 0.375rem 1rem 0.375rem 3.5rem;
-          justify-content: flex-start;
-
-          &:focus {
-            color: $black;
-            background-color: $offwhite;
-
-            ~ span {
-              z-index: 99;
-            }
-          }
-
-          &::before {
-            left: 1rem;
-            top: 1rem;
-            position: absolute;
-            width: 24px;
-            height: 24px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-          }
-        }
-      }
-    }
   }
 
   .input-group {
@@ -397,6 +353,76 @@
     .input-group-prepend {
       display: none;
     }
+  }
+
+  .open {
+    width: 100%;
+
+    .form-control {
+      padding: 0.375rem 1rem 0.375rem 3.5rem;
+      height: 3.4rem;
+      box-shadow: none;
+      border-radius: 0;
+      color: $mediumgrey;
+      width: 100%;
+    }
+
+    .search-query {
+      box-shadow: $boxshadow-light;
+      width: 100%;
+      height: 3.5rem;
+      font-size: 1rem;
+      color: $mediumgrey;
+      display: flex;
+      align-items: center;
+      position: relative;
+      background: $white;
+
+      .search {
+        position: absolute;
+        width: 100%;
+        left: 0;
+        top: 0;
+        z-index: 99;
+        height: 3.5rem;
+        padding: 0.375rem 1rem 0.375rem 3.5rem;
+        justify-content: flex-start;
+
+        &:focus {
+          color: $black;
+          background-color: $offwhite;
+
+          ~ span {
+            z-index: 99;
+          }
+        }
+
+        &::before {
+          left: 1rem;
+          top: 1rem;
+          position: absolute;
+          width: 24px;
+          height: 24px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+    }
+  }
+
+  .back-button {
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    z-index: 99;
+  }
+
+  .clear-button{
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    z-index: 99;
   }
 
   .auto-suggest-dropdown {

@@ -35,7 +35,7 @@ describe('components/PageHeader', () => {
   it('contains a search form', () => {
     const wrapper = factory({ showSearch: true });
 
-    const form = wrapper.find('[data-qa="search form"]');
+    const form = wrapper.find('[data-qa="search form wrapper"]');
     expect(form.isVisible()).toBe(true);
   });
 

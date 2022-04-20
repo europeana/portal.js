@@ -8,17 +8,13 @@
     <b-list-group-item
       v-for="(option, index) in options"
       :key="index"
+      ref="options"
       :data-qa="option.qa"
       :to="$link.to(option.link.path, option.link.query)"
       :href="$link.href(option.link.path, option.link.query)"
       role="option"
       :aria-selected="index === focus"
-      :class="{ 'hover': index === focus }"
       @click="trackSuggestionClick(index, option.link.query.query)"
-      @focus="index === focus"
-      @mouseover="focus = index"
-      @mouseout="focus = null"
-      @mousedown.prevent
     >
       <i18n
         v-if="option.i18n"
@@ -94,7 +90,12 @@
 
       inputRefName: {
         type: String,
-        default: 'searchbox'
+        default: 'searchinput'
+      },
+
+      searchDropwdownRefName: {
+        type: String,
+        default: 'searchdropdown'
       }
     },
 
@@ -122,46 +123,55 @@
       },
 
       inputElement() {
+        return this.inputRef?.$el || this.inputRef;
+      },
+
+      searchDropwdownRef() {
+        return this.$parent.$refs[this.searchDropwdownRefName];
+      },
+
+      searchDropwdownElement() {
         // refs may point to a component or direct to an HTML element
-        return this.inputRef.$el ? this.inputRef.$el : this.inputRef;
+        return this.searchDropwdownRef?.$el || this.searchDropwdownRef;
       }
     },
 
     mounted() {
-      this.inputElement.addEventListener('keydown', this.keydown);
-      document.addEventListener('mouseup', this.clickOutside);
+      this.searchDropwdownElement?.addEventListener('keydown', this.keydown);
     },
 
     methods: {
       keydown(event) {
-        switch (event.keyCode) {
-        case 27: // Escape key
+        switch (event.key) {
+        case 'Escape':
           this.blurInput();
           break;
-        case 9: // Tab key
-          this.closeDropdown();
+        case 'ArrowUp':
+          this.keydownUp(event);
           break;
-        case 38: // Up key
-          this.keydownUp();
-          break;
-        case 40: // Down key
-          this.keydownDown();
+        case 'ArrowDown':
+          this.keydownDown(event);
           break;
         }
       },
 
-      keydownUp() {
-        this.focus = (this.noOptionHasFocus || this.firstOptionHasFocus) ? this.options.length - 1 : this.focus - 1;
-        this.selectSuggestion();
+      keydownUp(event) {
+        event.preventDefault();
+        const newFocus = (this.noOptionHasFocus || this.firstOptionHasFocus) ? this.options.length - 1 : this.focus - 1;
+        this.focus = newFocus;
+        this.$refs.options[newFocus]?.focus();
       },
 
-      keydownDown() {
-        this.focus = (this.noOptionHasFocus || this.lastOptionHasFocus) ? 0 : this.focus + 1;
-        this.selectSuggestion();
+      keydownDown(event) {
+        event.preventDefault();
+        const newFocus = (this.noOptionHasFocus || this.lastOptionHasFocus) ? 0 : this.focus + 1;
+        this.focus = newFocus;
+        this.$refs.options[newFocus]?.focus();
       },
 
       blurInput() {
         this.inputElement.blur();
+        this.$emit('blur');
       },
 
       onCollectionPage() {
@@ -184,31 +194,6 @@
           }
         }
         this.blurInput();
-      },
-
-      clickOutside(event) {
-        const isParent = (event.target === this.inputElement);
-        const isChild = this.$el.contains(event.target);
-        const isSubmit = event.target.closest('.search-query');
-        const isClear = event.target.classList.contains('clear');
-
-        if (!(isParent || isChild || isSubmit)) {
-          this.closeDropdown(isClear);
-        }
-      },
-
-      closeDropdown() {
-        this.focus = null;
-        this.selectSuggestion();
-      },
-
-      selectSuggestion() {
-        if (this.focus && this.options[this.focus]) {
-          this.$emit('select', this.options[this.focus].link);
-        } else {
-          // fallback to the query by unselecting any suggestions.
-          this.$emit('select', null);
-        }
       }
     }
   };
@@ -228,10 +213,6 @@
       text-decoration: none;
       text-align: left;
 
-      &:focus {
-        background-color: $offwhite;
-      }
-
       &::before {
         @extend %icon-font;
 
@@ -247,7 +228,7 @@
         align-items: center;
       }
 
-      &.hover {
+      &:focus, &:hover {
         background-color: $blue;
         color: $white;
       }
