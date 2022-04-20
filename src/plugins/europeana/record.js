@@ -5,7 +5,6 @@ import merge from 'deepmerge';
 import { apiError, createAxios, reduceLangMapsForLocale, isLangMap } from './utils';
 import search from './search';
 import thumbnail, { thumbnailTypeForMimeType } from  './thumbnail';
-import { getEntityUri, getEntityQuery } from './entity';
 import { isIIIFPresentation, isIIIFImage } from '../media';
 
 export const BASE_URL = process.env.EUROPEANA_RECORD_API_URL || 'https://api.europeana.eu/record';
