@@ -528,36 +528,6 @@ describe('plugins/europeana/record', () => {
     });
   });
 
-  describe('record().relatedEntities()', () => {
-    const entityUri = 'http://data.europeana.eu/concept/base/94';
-    const entityFilterField = 'skos_concept';
-    const entityId = '94-architecture';
-    const entityType = 'topic';
-
-    const searchResponse = {
-      facets: [
-        {
-          name: 'skos_concept',
-          fields: [
-            { label: 'http://data.europeana.eu/agent/base/147831' },
-            { label: 'http://data.europeana.eu/agent/base/49928' }
-          ]
-        }
-      ]
-    };
-
-    it('filters on entity URI', async() => {
-      nock(BASE_URL)
-        .get('/search.json')
-        .query(query => query.query === `${entityFilterField}:"${entityUri}"`)
-        .reply(200, searchResponse);
-
-      await record().relatedEntities(entityType, entityId);
-
-      expect(nock.isDone()).toBe(true);
-    });
-  });
-
   describe('isEuropeanaRecordId()', () => {
     describe('with valid record ID', () => {
       it('returns `true`', () => {
