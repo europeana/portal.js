@@ -106,8 +106,8 @@ describe('store/item', () => {
         expect(commit.calledWith('setAnnotations', [])).toBe(true);
         expect(commit.calledWith('setRelatedEntities', [])).toBe(true);
         expect(commit.calledWith('setAllRelatedEntities', [])).toBe(true);
-        expect(commit.calledWith('setFeaturedSetIds', { value: {} })).toBe(true);
-        expect(commit.calledWith('setFeaturedSetPins', { value: {} })).toBe(true);
+        expect(commit.calledWith('setFeaturedSetIds', {})).toBe(true);
+        expect(commit.calledWith('setFeaturedSetPins', {})).toBe(true);
         expect(commit.calledWith('setSimilarItems', [])).toBe(true);
       });
     });

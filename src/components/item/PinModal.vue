@@ -43,13 +43,25 @@
         {{ $t('entity.actions.cancel') }}
       </b-button>
       <b-button
-        :disabled="!selected || (selectedIsFull && !selectedIsPinned)"
+        v-if="selectedIsPinned || !selectedIsFull"
+        :disabled="!selected"
         variant="primary"
         data-qa="toggle pin button"
         @click="togglePin"
       >
         {{ selectedIsPinned ? $t('entity.actions.unpin') : $t('entity.actions.pin') }}
       </b-button>
+      <span
+        v-else-if="selectedIsFull"
+      >
+        {{ $t('entity.notifications.pinLimit.body') }}
+        <b-link
+          data-qa="go to set button"
+          :href="selected"
+        >
+          {{ $t('entity.actions.viewPinned') }}
+        </b-link>
+      </span>
     </div>
   </b-modal>
 </template>
@@ -139,7 +151,8 @@
             .then(async(searchResponse) => {
               if (searchResponse.data?.total > 0) {
                 await this.getSetData(searchResponse.data.items[0].split('/').pop());
-              };
+              }
+              // TODO: Should  an else block actually be RESETTING the store to empty values?
             });
         }
       },
@@ -156,7 +169,7 @@
               setId
             });
             if (response.pinned) { // When pins exist, they need to be sliced from the items, as sets may in future contain recommended items too.
-              const pinnedItemIds = response.items.map(item => item.replace('http://data.europeana.eu/item/', '')).slice(0, response.pinned);
+              const pinnedItemIds = response.items.map(item => item.replace('http://data.europeana.eu/item', '')).slice(0, response.pinned);
               await this.$store.commit('item/addToFeaturedSetPins', {
                 entityUri: response.subject[0],
                 pins: pinnedItemIds
@@ -196,16 +209,6 @@
           .then(() => {
             this.makeToast(this.$t('entity.notifications.pinned', { entity: this.selectedEntityPrefLabel }));
             this.hide(); // should the box stay open?
-          })
-          .catch((e) => {
-            if (e.message === 'too many pins') {
-              // TODO: Disable the pin button when a set is known to be at it's limit.
-              this.hide();
-              this.$bvModal.show(`pinned-limit-modal-${this.itemId}`);
-            } else {
-              // TODO: Handle an error differently here? Notify via toast?
-              throw e;
-            }
           });
       },
       async unpin() {
