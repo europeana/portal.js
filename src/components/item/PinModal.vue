@@ -35,6 +35,9 @@
       </span>
     </b-button>
     <div class="modal-footer">
+      <span class="w-100 .help">
+        <span class="icon icon-info-outline d-inline-flex"/>{{ infoText }}
+      </span>
       <b-button
         variant="outline-primary"
         data-qa="cancel button"
@@ -54,13 +57,13 @@
       <span
         v-else-if="selectedIsFull"
       >
-        {{ $t('entity.notifications.pinLimit.body') }}
-        <SmartLink
+        <b-button
           data-qa="go to set link"
-          :destination="selectedLink"
+          :to="$path(selectedLink)"
+          variant="primary"
         >
           {{ $t('entity.actions.viewPinned') }}
-        </SmartLink>
+        </b-button>
       </span>
     </div>
   </b-modal>
@@ -70,14 +73,9 @@
   import pick from 'lodash/pick';
   import { mapGetters, mapState } from 'vuex';
   import makeToastMixin from '@/mixins/makeToast';
-  // import SmartLink from '@/components/generic/SmartLink';
 
   export default {
     name: 'PinModal',
-
-    components: {
-      SmartLink: () => import('@/components/generic/SmartLink')
-    },
 
     mixins: [
       makeToastMixin
@@ -108,6 +106,15 @@
     },
 
     computed: {
+      infoText() {
+        if (this.selected) {
+          if (this.selectedIsFull) {
+            return this.$t('entity.notifications.pinLimit.body');
+          }
+          return this.selectedIsPinned ? this.$t('entity.notifications.unpin', { entity: this.selectedEntityPrefLabel }) : this.$t('entity.notifications.pin', { entity: this.selectedEntityPrefLabel });
+        }
+        return this.$t('entity.notifications.select');
+      },
       selectedIsPinned() {
         return this.selected && this.pinnedTo(this.selected);
       },
@@ -257,6 +264,19 @@
 
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
+
+  .help {
+    font-size: $font-size-extrasmall;
+    color: $mediumgrey;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.25rem;
+
+    span {
+      display: inline-block;
+      margin-right: 0.5rem;
+    }
+  }
 
   .btn-collection {
     border: 0;

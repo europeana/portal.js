@@ -184,16 +184,16 @@ describe('components/item/PinModal', () => {
 
   describe('toggle pin button', () => {
     describe('while the selected set is full', () => {
-      describe('while the item is already pinned': () => {
-        it('is enabled', () => {
+      describe('while the item is already pinned', () => {
+        it('is enabled', async() => {
           const wrapper = factory();
           await wrapper.setData({ selected: 'http://data.europeana.eu/agent/base/123' });
 
           expect(wrapper.find('[data-qa="toggle pin button"]').attributes('disabled')).toBe('disabled');
         });
       });
-      describe('while the item NOT pinned': () => {
-        it('is disabled', () => {
+      describe('while the item NOT pinned', () => {
+        it('is disabled', async() => {
           const wrapper = factory();
           await wrapper.setData({ selected: 'http://data.europeana.eu/agent/base/123' });
 
