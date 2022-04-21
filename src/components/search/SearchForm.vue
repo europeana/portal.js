@@ -441,7 +441,7 @@
     z-index: 99;
   }
 
-  .clear-button{
+  .clear-button {
     position: absolute;
     right: 1rem;
     top: 1rem;

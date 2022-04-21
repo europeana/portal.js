@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="allThemes.length"
-    class="quick-search pt-2"
+    class="quick-search"
   >
     <div class="context-label">
       {{ $t('header.quickSearch') }}
@@ -85,6 +85,14 @@
 
   .quick-search {
     border-top: 1px solid $middlegrey;
+    padding: 0.5rem 1.25rem 1.25rem;
+    overflow: scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
     .context-label {
       margin-bottom: 0.75rem;

@@ -116,48 +116,49 @@
   @import '@/assets/scss/variables';
   @import '@/assets/scss/icons';
 
-    .list-group-item {
-      border: 0;
-      border-radius: 0;
-      box-shadow: none;
-      padding: 1rem 1.25rem 1rem 3.4rem;
-      color: $black;
-      font-size: 1rem;
-      text-decoration: none;
-      text-align: left;
+  .list-group-item {
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 1rem 1.25rem 1rem 3.4rem;
+    color: $black;
+    font-size: 1rem;
+    text-decoration: none;
+    text-align: left;
+
+    &::before {
+      @extend %icon-font;
+
+      font-size: 1.1rem;
+      content: '\e92b';
+      left: 1rem;
+      top: 1rem;
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &:focus,
+    &:hover {
+      background-color: $blue;
+      color: $white;
+    }
+
+    &.list-item-quick-search {
+      padding: 0 1.25rem 1.3125rem;
 
       &::before {
-        @extend %icon-font;
-
-        font-size: 1.1rem;
-        content: '\e92b';
-        left: 1rem;
-        top: 1rem;
-        position: absolute;
-        width: 24px;
-        height: 24px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      &:focus, &:hover {
-        background-color: $blue;
-        color: $white;
-      }
-
-      &.list-item-quick-search {
-        padding: 0 1.25rem 1.3125rem;
-
-        &::before {
-          display: none;
-        }
+        display: none;
       }
     }
+  }
 
-    .loading {
-      font-size: 0.75rem;
-    }
+  .loading {
+    font-size: 0.75rem;
+  }
 
   form:focus-within .auto-suggest-dropdown {
     display: block;
