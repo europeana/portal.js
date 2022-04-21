@@ -52,17 +52,15 @@
     <div
       v-if="showSearchOptions"
       class="auto-suggest-dropdown"
-      :aria-label="$t('searchSuggestions')"
       data-qa="search form dropdown"
     >
       <SearchQueryOptions
+        ref="searchoptions"
         :options="searchQueryOptions"
-        @select="selectSearchOption"
-        @blur="showSearchOptions = false"
       />
       <QuickSearch
         v-if="showQuickSearch"
-        :query="query"
+        ref="quicksearch"
       />
     </div>
   </div>
@@ -90,8 +88,7 @@
         gettingSuggestions: false,
         suggestions: {},
         activeSuggestionsQueryTerm: null,
-        showSearchOptions: false,
-        selectedOptionLink: null
+        showSearchOptions: false
       };
     },
 
@@ -181,10 +178,10 @@
       showSearchOptions(newVal) {
         if (newVal === true) {
           window.addEventListener('click', this.clickOutside);
-          window.addEventListener('keydown', this.clickOutside);
+          window.addEventListener('keydown', this.handleKeyDown);
         } else {
           window.removeEventListener('click', this.clickOutside);
-          window.removeEventListener('keydown', this.clickOutside);
+          window.removeEventListener('keydown', this.handleKeyDown);
         }
       }
     },
@@ -211,10 +208,6 @@
         this.query = this.$route.query.query;
       },
 
-      selectSearchOption(value) {
-        this.selectedOptionLink = value;
-      },
-
       async submitForm() {
         let newRoute;
 
@@ -233,7 +226,6 @@
         this.showSearchOptions = false;
 
         await this.$goto(newRoute);
-        this.selectedOptionLink = null;
       },
 
       updateSuggestions() {
@@ -326,6 +318,37 @@
       },
       toggleSearchBar() {
         this.$store.commit('search/setShowSearchBar', !this.$store.state.search.showSearchBar);
+      },
+
+      handleKeyDown(event) {
+        this.clickOutside(event);
+        if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+          event.preventDefault();
+          this.navigateWithArrowKeys(event);
+        }
+        if (event.key === 'Escape') {
+          this.$refs.searchinput.$el.blur();
+          this.showSearchOptions = false;
+        }
+      },
+
+      navigateWithArrowKeys(event) {
+        const searchQueryOptionsComponentOptions = this.$refs.searchoptions?.$refs.options || [];
+        const quickSearchComponentOptions = this.$refs.quicksearch?.$refs.options || [];
+        const searchDropdownOptions = searchQueryOptionsComponentOptions.concat(quickSearchComponentOptions);
+        const activeOption = searchDropdownOptions.map(option => option.$el || option).indexOf(event.target);
+
+        if (searchDropdownOptions.length) {
+          if (activeOption === -1) {
+            searchDropdownOptions[0].$el ? searchDropdownOptions[0].$el.focus() : searchDropdownOptions[0].focus();
+          }
+          if (event.key === 'ArrowDown' && activeOption < searchDropdownOptions.length - 1) {
+            searchDropdownOptions[activeOption + 1].$el ? searchDropdownOptions[activeOption + 1].$el.focus() : searchDropdownOptions[activeOption + 1].focus();
+          }
+          if (event.key === 'ArrowUp' && activeOption > 0) {
+            searchDropdownOptions[activeOption - 1].$el ? searchDropdownOptions[activeOption - 1].$el.focus() : searchDropdownOptions[activeOption - 1].focus();
+          }
+        }
       }
     }
   };

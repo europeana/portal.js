@@ -28,14 +28,18 @@ const factory = (options = {}) => shallowMount(SearchForm, {
   stubs: { 'b-input-group': true,
     'b-button': true,
     'b-form': true,
-    'b-form-input': { template: '<input ref="searchinput" />' } },
+    'b-form-input': { template: '<input ref="searchinput" />' },
+    ...options.stubs },
   mocks: {
     ...{
       $i18n: { locale: 'en' },
       $t: () => {},
       $route: { query: { query: '' } },
       $goto,
-      $path
+      $path,
+      $matomo: {
+        trackEvent: sinon.spy()
+      }
     }, ...(options.mocks || {})
   },
   store: options.store || store({ search: { allThemes: [] } })
@@ -138,6 +142,24 @@ describe('components/search/SearchForm', () => {
           query: { query, page: 1, view: state.search.view }
         };
         expect($goto.calledWith(newRouteParams)).toBe(true);
+      });
+
+      it('tracks the suggestion not selected event', async() => {
+        const wrapper = factory({ store: store(state) });
+
+        await wrapper.setData({
+          query,
+          suggestions: { ['http://data.europeana.eu/base/concept/123']: '"Trees"',
+            ['http://data.europeana.eu/base/concept/124']: '"Tree houses"' }
+        });
+        wrapper.vm.submitForm();
+
+        // const newRouteParams = {
+        //   path: wrapper.vm.$route.path,
+        //   query: { query, page: 1, view: state.search.view }
+        // };
+        // expect($goto.calledWith(newRouteParams)).toBe(true);
+        expect(wrapper.vm.$matomo.trackEvent.calledWith('Autosuggest_option_not_selected', 'Autosuggest option is not selected', query)).toBe(true);
       });
 
       describe('when query is blank', () => {
@@ -311,5 +333,35 @@ describe('components/search/SearchForm', () => {
 
       expect(wrapper.vm.showSearchOptions).toBe(false);
     });
+  });
+
+  it('suggestions and quick search is navigable by keyboard arrows', async() => {
+    const componentWithOptions = { template: '<ul><li v-for="(option, index) in [{ $el: {focus: () => {} } }, { $el: { focus: () => {} } }]" ref="options"></li></ul>' };
+    const arrowDownEvent = new KeyboardEvent('keydown', { 'key': 'ArrowDown' });
+
+    const wrapper = factory({ stubs: { SearchQueryOptions: componentWithOptions } });
+
+    await wrapper.setData({ showSearchOptions: true, query: 't', suggestions: { suggetion01: 'trees', suggestion02: 'Tiziano' } });
+
+    const focus0 = sinon.spy(wrapper.vm.$refs.searchoptions.$refs.options[0], 'focus');
+    const focus1 = sinon.spy(wrapper.vm.$refs.searchoptions.$refs.options[1], 'focus');
+
+    wrapper.vm.handleKeyDown(arrowDownEvent);
+    expect(focus0.called).toBe(true);
+    wrapper.vm.handleKeyDown({ key: 'ArrowDown', target: wrapper.vm.$refs.searchoptions.$refs.options[0], preventDefault: () => {} });
+    expect(focus1.called).toBe(true);
+    wrapper.vm.handleKeyDown({ key: 'ArrowUp', target: wrapper.vm.$refs.searchoptions.$refs.options[1], preventDefault: () => {} });
+    expect(focus0.called).toBe(true);
+  });
+
+  it('blurs the search input on pressing Escape', async() => {
+    const escapeEvent = new KeyboardEvent('keydown', { 'key': 'Escape' });
+    const wrapper = factory();
+
+    await wrapper.setData({ showSearchOptions: true });
+
+    wrapper.vm.handleKeyDown(escapeEvent);
+
+    expect(wrapper.vm.showSearchOptions).toBe(false);
   });
 });

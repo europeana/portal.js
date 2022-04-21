@@ -56,10 +56,4 @@ describe('components/search/QuickSearch', () => {
       expect(storeCommit.calledWith('search/set', ['allThemes', allThemes])).toBe(true);
     });
   });
-  // it('shows chips', async() => {
-  //   const wrapper = factory();
-
-  //   const chips =  wrapper.findAll('[data-qa="quick search chips"]');
-  //   expect(chips.length).toBe(3);
-  // });
 });

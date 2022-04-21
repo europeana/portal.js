@@ -10,6 +10,7 @@
       <RelatedChip
         v-for="(link, index) in allThemes"
         :key="index"
+        ref="options"
         :title="link.prefLabel ? link.prefLabel : link.name"
         :link-to="linkGen(link)"
         :img="imageUrl(link)"

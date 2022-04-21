@@ -1,176 +1,70 @@
-import SearchQueryOptions from '@/components/search/SearchQueryOptions.vue';
-
-import { createLocalVue, mount } from '@vue/test-utils';
+import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import VueRouter from 'vue-router';
-import VueI18n from 'vue-i18n';
+import SearchQueryOptions from '@/components/search/SearchQueryOptions.vue';
+import sinon from 'sinon';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
-localVue.use(VueRouter);
-localVue.use(VueI18n);
 
-const parentInputComponent = {
-  name: 'parentInputComponent',
-  components: {
-    SearchQueryOptions
-  },
-  props: ['options'],
-  template: '<div ref="searchdropdown"><input id="searchbox" ref="searchinput" type="text" /><SearchQueryOptions :options="options" /></div>'
-};
+const suggestions = [
+  { link: { path: '/en/search', query: { query: 'me' } }, qa: 'search link 1' },
+  { link: { path: '/en/search', query: { query: '"Medicine"' } }, qa: 'search link 2' }
+];
 
-const factory = (options = {}) => {
-  return mount(parentInputComponent, {
-    localVue,
-    i18n: options.i18n || new VueI18n,
-    propsData: options.propsData,
-    mocks: {
-      ...{
-        $t: () => {},
-        $path: (opts) => {
-          return router.resolve(opts).route.fullPath;
-        },
-        $link: {
-          to: (route, query) => route.toString() + '?' + new URLSearchParams(query).toString(),
-          href: () => null
-        },
-        $store: {
-          state: { search: { themes: [] } }
-        }
-      }, ...(options.mocks || {})
+const factory = (options = {}) => shallowMount(SearchQueryOptions, {
+  localVue,
+  propsData: options.propsData || { options: suggestions },
+  mocks: {
+    $t: (key) => key,
+    $i18n: { locale: 'en' },
+    $link: {
+      to: route => route,
+      href: () => null
+    },
+    $matomo: {
+      trackEvent: sinon.spy()
     }
-  });
-};
+  },
+  stubs: {
+    TextHighlighter: { template: '<div></div>' }
+  }
+});
 
 describe('components/search/SearchQueryOptions', () => {
-  it('shows a link for each option', () => {
-    const wrapper = factory({
-      propsData: {
-        options: [
-          { link: { path: '/en/search', query: { query: 'me' } }, qa: 'search link 1' },
-          { link: { path: '/en/search', query: { query: '"Medicine"' } }, qa: 'search link 2' }
-        ]
-      }
-    });
+  describe('when on collection page', () => {
+    it('does not track the suggestion click', () => {
+      const wrapper = factory();
+      delete window.location;
+      window.location = new URL('https://www.europeana.eu/en/collections/topic/01-topic');
 
-    const link1 = wrapper.find('[data-qa="search link 1"]');
-    expect(link1.isVisible()).toBe(true);
-    expect(link1.attributes('href')).toBe('/en/search?query=me');
+      const option = wrapper.find('[data-qa="search link 1"]');
+      option.trigger('click');
 
-    const link2 = wrapper.find('[data-qa="search link 2"]');
-    expect(link2.isVisible()).toBe(true);
-    expect(link2.attributes('href')).toBe('/en/search?query=%22Medicine%22');
-  });
-
-  describe('options with i18n', () => {
-    const i18n = new VueI18n({
-      locale: 'en',
-      messages: {
-        en: {
-          searchFor: 'Search for {query}'
-        }
-      }
-    });
-
-    const wrapper = factory({
-      i18n,
-      propsData: {
-        options: [
-          {
-            link: { path: '/en/search', query: { query: 'map' } },
-            qa: 'highlighted query',
-            i18n: {
-              path: 'searchFor', slots: [
-                { name: 'query', value: { text: 'map', highlight: true } }
-              ]
-            }
-          },
-          {
-            link: { path: '/en/search', query: { query: 'map' } },
-            qa: 'unhighlighted query',
-            i18n: {
-              path: 'searchFor', slots: [
-                { name: 'query', value: { text: 'map' } }
-              ]
-            }
-          }
-        ]
-      }
-    });
-
-    it('localises with named slots', () => {
-      const link = wrapper.find('[data-qa="highlighted query"]');
-
-      expect(link.text()).toBe('Search for map');
-    });
-
-    it('optionally highlights interpolated text', () => {
-      const highlighted = wrapper.find('[data-qa="highlighted query"] strong');
-      expect(highlighted.text()).toBe('map');
-
-      const unhighlighted = wrapper.find('[data-qa="unhighlighted query"] strong');
-      expect(unhighlighted.exists()).toBe(false);
+      expect(wrapper.vm.$matomo.trackEvent.called).toBe(false);
+      window.location = new URL('https://www.europeana.eu/en');
     });
   });
 
-  describe('options with texts', () => {
-    const wrapper = factory({
-      propsData: {
-        options: [
-          {
-            link: { path: '/en/search', query: { query: '"Charles Dickens"' } },
-            qa: 'texts link',
-            texts: [
-              { text: 'Charles ', highlight: false },
-              { text: 'D', highlight: true },
-              { text: 'ickens ', highlight: false }
-            ]
-          }
-        ]
-      }
+  describe('when not on a collection page', () => {
+    describe('and the first option is selected', () => {
+      it('tracks the not selected event', () => {
+        const wrapper = factory();
+
+        const option = wrapper.find('[data-qa="search link 1"]');
+        option.trigger('click');
+
+        expect(wrapper.vm.$matomo.trackEvent.calledWith('Autosuggest_option_not_selected', 'Autosuggest option is not selected', 'me')).toBe(true);
+      });
     });
+    describe('and not the first option', () => {
+      it('tracks the selected event and the clicked suggestion', () => {
+        const wrapper = factory();
 
-    it('outputs all texts in the link', () => {
-      const link = wrapper.find('[data-qa="texts link"]');
+        const option = wrapper.find('[data-qa="search link 2"]');
+        option.trigger('click');
 
-      expect(link.text()).toBe('Charles Dickens');
+        expect(wrapper.vm.$matomo.trackEvent.calledWith('Autosuggest_option_selected', 'Autosuggest option is selected', '"Medicine"')).toBe(true);
+      });
     });
-
-    it('optionally highlights text', () => {
-      const highlighted = wrapper.find('[data-qa="texts link"] strong');
-
-      expect(highlighted.text()).toBe('D');
-    });
-  });
-
-  it('is navigable by keyboard on the parent input', () => {
-    const wrapper = factory({
-      propsData: {
-        options: [
-          { link: { path: '/en/search', query: { query: 'me' } }, qa: 'search link 1' },
-          { link: { path: '/en/search', query: { query: '"Medicine"' } }, qa: 'search link 2' }
-        ]
-      }
-    });
-    const searchInput = wrapper.find('#searchbox');
-    const queryOptionsWrapper = wrapper.find('[data-qa="search query options"]');
-
-    searchInput.trigger('keydown', { key: 'ArrowDown' });
-    expect(queryOptionsWrapper.vm.focus).toBe(0);
-    searchInput.trigger('keydown', { key: 'ArrowDown' });
-    expect(queryOptionsWrapper.vm.focus).toBe(1);
-    searchInput.trigger('keydown', { key: 'ArrowUp' });
-    expect(queryOptionsWrapper.vm.focus).toBe(0);
-  });
-
-  it('blurs the parent input on pressing Escape', () => {
-    const wrapper = factory({ propsData: { options: [] } });
-
-    const searchInput = wrapper.find('#searchbox');
-    const queryOptionsWrapper = wrapper.find('[data-qa="search query options"]');
-
-    searchInput.trigger('keydown', { key: 'Escape' });
-
-    expect(queryOptionsWrapper.emitted('blur').length).toEqual(1);
   });
 });

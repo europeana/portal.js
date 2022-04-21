@@ -1,10 +1,16 @@
 <template>
   <b-list-group
-    :id="elementId"
+    id="search-form-options"
     role="listbox"
     data-qa="search query options"
     :aria-label="$t('searchSuggestions')"
   >
+    <!--
+      Will also fire on 'Enter' as @click event is also triggered on keyboard navigation
+      @event click
+      @property {string} index - option index
+      @property {string} query - option link query
+    -->
     <b-list-group-item
       v-for="(option, index) in options"
       :key="index"
@@ -13,7 +19,6 @@
       :to="$link.to(option.link.path, option.link.query)"
       :href="$link.href(option.link.path, option.link.query)"
       role="option"
-      :aria-selected="index === focus"
       @click="trackSuggestionClick(index, option.link.query.query)"
     >
       <i18n
@@ -81,99 +86,10 @@
       options: {
         type: Array,
         required: true
-      },
-
-      elementId: {
-        type: String,
-        default: null
-      },
-
-      inputRefName: {
-        type: String,
-        default: 'searchinput'
-      },
-
-      searchDropwdownRefName: {
-        type: String,
-        default: 'searchdropdown'
       }
-    },
-
-    data() {
-      return {
-        focus: null
-      };
-    },
-
-    computed: {
-      firstOptionHasFocus() {
-        return this.focus === 0;
-      },
-
-      lastOptionHasFocus() {
-        return this.focus === (this.options.length - 1);
-      },
-
-      noOptionHasFocus() {
-        return this.focus === null;
-      },
-
-      inputRef() {
-        return this.$parent.$refs[this.inputRefName];
-      },
-
-      inputElement() {
-        return this.inputRef?.$el || this.inputRef;
-      },
-
-      searchDropwdownRef() {
-        return this.$parent.$refs[this.searchDropwdownRefName];
-      },
-
-      searchDropwdownElement() {
-        // refs may point to a component or direct to an HTML element
-        return this.searchDropwdownRef?.$el || this.searchDropwdownRef;
-      }
-    },
-
-    mounted() {
-      this.searchDropwdownElement?.addEventListener('keydown', this.keydown);
     },
 
     methods: {
-      keydown(event) {
-        switch (event.key) {
-        case 'Escape':
-          this.blurInput();
-          break;
-        case 'ArrowUp':
-          this.keydownUp(event);
-          break;
-        case 'ArrowDown':
-          this.keydownDown(event);
-          break;
-        }
-      },
-
-      keydownUp(event) {
-        event.preventDefault();
-        const newFocus = (this.noOptionHasFocus || this.firstOptionHasFocus) ? this.options.length - 1 : this.focus - 1;
-        this.focus = newFocus;
-        this.$refs.options[newFocus]?.focus();
-      },
-
-      keydownDown(event) {
-        event.preventDefault();
-        const newFocus = (this.noOptionHasFocus || this.lastOptionHasFocus) ? 0 : this.focus + 1;
-        this.focus = newFocus;
-        this.$refs.options[newFocus]?.focus();
-      },
-
-      blurInput() {
-        this.inputElement.blur();
-        this.$emit('blur');
-      },
-
       onCollectionPage() {
         // Used for deciding if clicks on search suggestions should be tracked.
         // Uses window.location as the beforeRouteLeave call on collection pages
@@ -185,15 +101,12 @@
       trackSuggestionClick(index, query) {
         // Skip click tracking while on a collection page, there will never be suggestions.
         if (!this.onCollectionPage()) {
-          // While only triggered via @click here, these events are also tracked
-          // in the submitForm logic of the SearchForm component for keyboard events.
           if (index >= 1) {
             this.$matomo?.trackEvent('Autosuggest_option_selected', 'Autosuggest option is selected', query);
           } else if (this.options.length >= 2) {
             this.$matomo?.trackEvent('Autosuggest_option_not_selected', 'Autosuggest option is not selected', query);
           }
         }
-        this.blurInput();
       }
     }
   };
