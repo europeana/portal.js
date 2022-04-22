@@ -31,14 +31,14 @@ const allThemes = [
 const fetchThemes = sinon.stub().resolves(allThemes);
 const storeCommit = sinon.spy();
 
-const factory = () => shallowMountNuxt(QuickSearch, {
+const factory = (themes = []) => shallowMountNuxt(QuickSearch, {
   localVue,
   mocks: {
     $path: () => 'mocked path',
     $t: (key) => key,
     $i18n: { locale: 'en' },
     $store: {
-      state: { search: { allThemes: [] } },
+      state: { search: { allThemes: themes } },
       commit: storeCommit
     },
     $apis: { entity: { find: fetchThemes } }
@@ -54,6 +54,22 @@ describe('components/search/QuickSearch', () => {
 
       expect(fetchThemes.called).toBe(true);
       expect(storeCommit.calledWith('search/set', ['allThemes', allThemes])).toBe(true);
+    });
+  });
+  describe('when options or themes are available', () => {
+    it('is rendered', async() => {
+      const wrapper = factory(['theme1', 'theme2']);
+      const quickSearch = wrapper.find('[data-qa="quick-search"]');
+
+      expect(quickSearch.exists()).toBe(true);
+    });
+  });
+  describe('when no options and no themes', () => {
+    it('is empty', async() => {
+      const wrapper = factory();
+      const quickSearch = wrapper.find('[data-qa="quick-search"]');
+
+      expect(quickSearch.exists()).toBe(false);
     });
   });
 });

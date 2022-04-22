@@ -26,7 +26,8 @@ Vue.prototype.$store = {
     entity: { pinned: [] },
     search: {
       liveQueries: [],
-      showSearchBar: false
+      showSearchBar: false,
+      allThemes: []
     },
     set: { liked: [] }
   },

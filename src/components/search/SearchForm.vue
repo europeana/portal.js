@@ -307,7 +307,7 @@
         this.suggestions = {};
 
         this.$nextTick(() => {
-          this.$refs.searchinput.$el.focus();
+          this.getElement(this.$refs.searchinput).focus();
         });
       },
 
@@ -317,6 +317,7 @@
           this.showSearchOptions = false;
         }
       },
+
       toggleSearchBar() {
         this.$store.commit('search/setShowSearchBar', !this.$store.state.search.showSearchBar);
       },

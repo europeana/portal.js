@@ -2,6 +2,7 @@
   <div
     v-if="optionsAndThemes.length"
     class="quick-search"
+    data-qa="quick-search"
   >
     <RelatedCollections
       :title="$t('header.quickSearch')"
@@ -47,7 +48,7 @@
     computed: {
       ...mapState({ allThemes: state => state.search.allThemes }),
       optionsAndThemes() {
-        return this.options.concat(this.allThemes || []);
+        return this.options.concat(this.allThemes);
       }
     }
   };

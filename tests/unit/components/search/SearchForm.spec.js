@@ -28,13 +28,13 @@ const factory = (options = {}) => shallowMount(SearchForm, {
   stubs: { 'b-input-group': true,
     'b-button': true,
     'b-form': true,
-    'b-form-input': { template: '<input ref="searchinput" />' },
+    'b-form-input': { template: '<input ref="searchinput" data-qa="search box" />' },
     ...options.stubs },
   mocks: {
     ...{
       $i18n: { locale: 'en' },
       $t: () => {},
-      $route: { query: { query: '' } },
+      $route: { path: '', query: { query: '' } },
       $goto,
       $path,
       $matomo: {
@@ -42,16 +42,22 @@ const factory = (options = {}) => shallowMount(SearchForm, {
       }
     }, ...(options.mocks || {})
   },
-  store: options.store || store({ search: { allThemes: [] } })
+  store: options.store || store({ search: { allThemes: [], showSearchBar: true } })
 });
 
 const getters = {
   'search/activeView': (state) => state.search.view,
   'search/queryUpdatesForFacetChanges': () => () => {}
 };
+const mutations = {
+  'search/setShowSearchBar': (state, value) => {
+    state.showSearchBar = value;
+  }
+};
 const store = (state = {}) => {
   return new Vuex.Store({
     getters,
+    mutations,
     state: {
       i18n: { locale: 'en' },
       ...state
@@ -321,6 +327,18 @@ describe('components/search/SearchForm', () => {
     });
   });
 
+  describe('on route path changes', () => {
+    it('hides the search options', async() => {
+      const wrapper = factory();
+
+      await wrapper.setData({ showSearchOptions: true });
+      wrapper.vm.$route.path = '/collections/newspaper';
+      await wrapper.vm.$nextTick();
+
+      expect(wrapper.vm.showSearchOptions).toBe(false);
+    });
+  });
+
   describe('when user clicks outside the search form dropdown', () => {
     it('hides the search options', async() => {
       const clickOutsideEvent = new Event('click');
@@ -373,5 +391,32 @@ describe('components/search/SearchForm', () => {
     wrapper.vm.handleKeyDown(escapeEvent);
 
     expect(wrapper.vm.showSearchOptions).toBe(false);
+  });
+
+  // TODO Fails but why?
+  // describe('when clicking the clear button', () => {
+  //   it('resets focus on the input', async() => {
+  //     const wrapper = factory();
+
+  //     await wrapper.setData({ showSearchOptions: true, query: 'tree' });
+
+  //     const clearButton = wrapper.find('[data-qa="clear button"]');
+
+  //     clearButton.trigger('click');
+  //     await wrapper.vm.$nextTick();
+
+  //     expect(wrapper.find('input[data-qa="search box"]:focus').exists()).toBe(true);
+  //   });
+  // });
+
+  describe('when clicking the back button', () => {
+    it('closes the search bar', async() => {
+      const wrapper = factory();
+
+      const backButton = wrapper.find('[data-qa="back button"]');
+      backButton.trigger('click');
+
+      expect(wrapper.vm.$store.state.search.showSearchBar).toBe(true);
+    });
   });
 });

@@ -19,7 +19,7 @@
   {
     "name": "portal.js server",
     "running": false,
-    "limit": "560 KB",
+    "limit": "565 KB",
     "path": [
       ".nuxt/dist/server/*.js"
     ]
