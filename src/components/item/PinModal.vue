@@ -35,7 +35,7 @@
       </span>
     </b-button>
     <div class="modal-footer">
-      <span class="w-100 .help">
+      <span class="w-100 help">
         <span class="icon icon-info-outline d-inline-flex"/>{{ infoText }}
       </span>
       <b-button
@@ -45,6 +45,8 @@
       >
         {{ $t('entity.actions.cancel') }}
       </b-button>
+      {{ selectedIsPinned }}
+      {{ selectedIsFull }}
       <b-button
         v-if="selectedIsPinned || !selectedIsFull"
         :disabled="!selected"
@@ -109,7 +111,7 @@
       infoText() {
         if (this.selected) {
           if (this.selectedIsFull) {
-            return this.$t('entity.notifications.pinLimit.body');
+            return this.selectedIsPinned ? this.$t('entity.notifications.unpin', { entity: this.selectedEntityPrefLabel }) : this.$t('entity.notifications.pinLimit.body');
           }
           return this.selectedIsPinned ? this.$t('entity.notifications.unpin', { entity: this.selectedEntityPrefLabel }) : this.$t('entity.notifications.pin', { entity: this.selectedEntityPrefLabel });
         }

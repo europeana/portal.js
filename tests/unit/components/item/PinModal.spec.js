@@ -6,6 +6,23 @@ import flushPromises from 'flush-promises';
 import EntityUpdateModal from '@/components/item/PinModal';
 import sinon from 'sinon';
 
+/*
+** The pin modal has a lot of store and API dependencies.
+** This test file stubs a lot of these and by default instantiates a minimal 'happy path'.
+** This means there will be:
+** - An item present
+** - Three related entities for that item in the propsData
+** - Three related entities returned by a stubbed API find request
+** - One BestBets set (correlating to the first related entity), but always returned when a set is retrieved
+** - One pinned item (correlating to the main item) present in the bestBets set.
+**
+** Some specs may ovveride/stub/modify or use alterante values at differnt points,
+** but should then restore this main path after completion.
+**
+** All stub call histories are reset after each block, for simplicity and to
+** allow reusing the same stubs.
+*/
+
 // TODO: prevent b-toaster-bootm-left-dynamic re-regristration warning.
 // Maybe caused by the toast being registered on localVue?
 const localVue = createLocalVue();
@@ -48,6 +65,8 @@ const setGetApiResponseWithPinnedItem = {
 const defaultFeaturedSetIds = {
   'http://data.europeana.eu/agent/base/123': '456'
 };
+
+const fullPins = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24'];
 
 const setApiGetStub = sinon.stub().resolves(setGetApiResponseWithPinnedItem);
 const setApiSearchStub = sinon.stub().resolves({});
@@ -115,6 +134,7 @@ const factory = (propsData = defaultPropsData, apiOverrides = {}) => mount(Entit
   },
   i18n,
   mocks: {
+    $path: () => {},
     $apis: {
       entity: {
         find: entityApiFindStub
@@ -182,26 +202,112 @@ describe('components/item/PinModal', () => {
     });
   });
 
-  describe('toggle pin button', () => {
-    describe('while the selected set is full', () => {
+  describe('info/help text', () => {
+    describe('while no entity is selected', () => {
+      it('notifies that an entity needs to be selected', async() => {
+        const wrapper = factory();
+
+        await wrapper.setData({ selected: null });
+
+        const helpSpan = wrapper.find('span.help');
+        expect(helpSpan.exists()).toBe(true);
+        expect(helpSpan.text()).toBe('Select a related entity to pin/unpin the Item to/from it.');
+      });
+    });
+
+    describe('while an item is selected', () => {
+      afterEach(() => {
+        itemPinnedToGetterStub.returns(true); // deafault setup
+      });
       describe('while the item is already pinned', () => {
-        it('is enabled', async() => {
+        it('notifies about unpinning', async() => {
+          itemPinnedToGetterStub.returns(true);
           const wrapper = factory();
+
           await wrapper.setData({ selected: 'http://data.europeana.eu/agent/base/123' });
 
-          expect(wrapper.find('[data-qa="toggle pin button"]').attributes('disabled')).toBe('disabled');
+          const helpSpan = wrapper.find('span.help');
+          expect(helpSpan.exists()).toBe(true);
+          expect(helpSpan.text()).toBe('This item will stop showing at the top of the "Agent entity" collection. We will notify you when this change will be visible on the collection page.');
         });
       });
-      describe('while the item NOT pinned', () => {
-        it('is disabled', async() => {
+      describe('while the item not yet pinned', () => {
+        it('notifies about pinning', async() => {
+          itemPinnedToGetterStub.returns(false);
           const wrapper = factory();
+
           await wrapper.setData({ selected: 'http://data.europeana.eu/agent/base/123' });
 
-          expect(wrapper.find('[data-qa="toggle pin button"]').attributes('disabled')).toBe('disabled');
+          const helpSpan = wrapper.find('span.help');
+          expect(helpSpan.exists()).toBe(true);
+          expect(helpSpan.text()).toBe('This item will show at the top of the "Agent entity" collection. We will notify you when this change will be visible on the collection page.');
+        });
+      });
+      describe('while the selected set is full', () => {
+        afterEach(() => {
+          store.state.item.featuredSetPins = {};
+        });
+        describe('while the item is already pinned', () => {
+          it('notifies about unpinning', async() => {
+            itemPinnedToGetterStub.returns(true);
+            store.state.item.featuredSetPins['http://data.europeana.eu/agent/base/123'] = fullPins;
+            const wrapper = factory();
+
+            await wrapper.setData({ selected: 'http://data.europeana.eu/agent/base/123' });
+
+            const helpSpan = wrapper.find('span.help');
+            expect(helpSpan.exists()).toBe(true);
+            expect(helpSpan.text()).toBe('This item will stop showing at the top of the "Agent entity" collection. We will notify you when this change will be visible on the collection page.');
+          });
+        });
+
+        describe('while the item not yet pinned', () => {
+          it('notifies about unpinning', async() => {
+            itemPinnedToGetterStub.returns(false);
+            store.state.item.featuredSetPins['http://data.europeana.eu/agent/base/123'] = fullPins;
+            const wrapper = factory();
+
+            await wrapper.setData({ selected: 'http://data.europeana.eu/agent/base/123' });
+
+            const helpSpan = wrapper.find('span.help');
+            expect(helpSpan.exists()).toBe(true);
+            expect(helpSpan.text()).toBe('For now you can only pin 24 items on the first page. If you want to pin this item, make sure you unpin another one and then try to pin this one again.');
+          });
         });
       });
     });
-    describe('on success', () => {
+  });
+
+  describe('toggle pin button', () => {
+    describe('while the selected set is full', () => {
+      afterEach(() => {
+        store.state.item.featuredSetPins = {};
+      });
+      describe('while the item is already pinned', () => {
+        it('exsists and is enabled', async() => {
+          itemPinnedToGetterStub.returns(true);
+          store.state.item.featuredSetPins['http://data.europeana.eu/agent/base/123'] = fullPins;
+          const wrapper = factory();
+
+          await wrapper.setData({ selected: 'http://data.europeana.eu/agent/base/123' });
+
+          const button = wrapper.find('[data-qa="toggle pin button"]:enabled');
+          expect(button.exists()).toBe(true);
+          expect(button.text()).toBe('Unpin item');
+        });
+      });
+      describe('while the item NOT pinned', () => {
+        it('is not shown', async() => {
+          itemPinnedToGetterStub.returns(false);
+          store.state.item.featuredSetPins['http://data.europeana.eu/agent/base/123'] = fullPins;
+          const wrapper = factory();
+          await wrapper.setData({ selected: 'http://data.europeana.eu/agent/base/123' });
+
+          expect(wrapper.find('[data-qa="toggle pin button"]').exists()).toBe(false);
+        });
+      });
+    });
+    describe('when clicked', () => {
       describe('when pinning', () => {
         it('makes a toast', async() => {
           itemPinnedToGetterStub.returns(false);
@@ -290,6 +396,38 @@ describe('components/item/PinModal', () => {
 
           expect(setApiCreateStub.called).toBe(false);
           expect(itemAddPinToFeaturedSetPinsMutationStub.called).toBe(false);
+        });
+      });
+    });
+  });
+
+  describe('go to set link', () => {
+    describe('while the selected set is full', () => {
+      afterEach(() => {
+        store.state.item.featuredSetPins = {};
+      });
+      describe('while the item is already pinned', () => {
+        it('does not exist', async() => {
+          itemPinnedToGetterStub.returns(true);
+          store.state.item.featuredSetPins['http://data.europeana.eu/agent/base/123'] = fullPins;
+          const wrapper = factory();
+
+          await wrapper.setData({ selected: 'http://data.europeana.eu/agent/base/123' });
+
+          const button = wrapper.find('[data-qa="go to set link"]');
+          expect(button.exists()).toBe(false);
+        });
+      });
+      describe('while the item NOT pinned', () => {
+        it('is shown', async() => {
+          itemPinnedToGetterStub.returns(false);
+          store.state.item.featuredSetPins['http://data.europeana.eu/agent/base/123'] = fullPins;
+          const wrapper = factory();
+          await wrapper.setData({ selected: 'http://data.europeana.eu/agent/base/123' });
+
+          const button = wrapper.find('[data-qa="go to set link"]');
+          expect(button.exists()).toBe(true);
+          expect(button.text()).toBe('See pinned items');
         });
       });
     });
@@ -497,29 +635,6 @@ describe('components/item/PinModal', () => {
           expect(itemAddPinToFeaturedSetPinsMutationStub.called).toBe(true);
 
           expect(hideMock.verify()).toBe(true);
-        });
-      });
-
-      describe('when when the item can NOT be pinned', () => {
-        afterEach(async() => {
-          await setApiModifyItemsStub.resolves({});
-        });
-        describe('because the set is full', () => {
-          it('closes the modal, makes a new modal to say the entity set is full', async() => {
-            setApiModifyItemsStub.rejects({ message: 'too many pins' });
-            const wrapper = factory();
-            await wrapper.setData({ selected: 'http://data.europeana.eu/agent/base/123' });
-            const hideMock = sinon.mock(wrapper.vm).expects('hide').once();
-
-            await  wrapper.vm.pin();
-
-            expect(setApiModifyItemsStub.calledWith('add', '456', '/123/abc', true)).toBe(true);
-
-            // expectations for: Update store.
-            expect(itemAddPinToFeaturedSetPinsMutationStub.called).toBe(false);
-
-            expect(hideMock.verify()).toBe(true);
-          });
         });
       });
     });
