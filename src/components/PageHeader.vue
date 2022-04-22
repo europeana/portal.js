@@ -250,6 +250,6 @@
 
 <docs lang="md">
   ```jsx
-  <PageHeader style="position: relative"/>
+  <PageHeader style="position: relative;"/>
   ```
 </docs>
