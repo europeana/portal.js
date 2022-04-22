@@ -45,8 +45,6 @@
       >
         {{ $t('entity.actions.cancel') }}
       </b-button>
-      {{ selectedIsPinned }}
-      {{ selectedIsFull }}
       <b-button
         v-if="selectedIsPinned || !selectedIsFull"
         :disabled="!selected"
