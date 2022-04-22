@@ -8,7 +8,7 @@
     <!--
       Will also fire on 'Enter' as @click event is also triggered on keyboard navigation
       @event click
-      @property {string} index - option index
+      @property {number} index - option index
       @property {string} query - option link query
     -->
     <b-list-group-item
@@ -60,7 +60,8 @@
       /**
        * Array of objects for the query options to render as links
        *
-       * @example with i18n and named slots
+       * with i18n and named slots
+       * @example
        * [
        *   {
        *     link: { path: '/en/search', query: { query: 'map' } },
@@ -69,8 +70,9 @@
        *       { name: 'query', value: { text: 'map', highlight: true } }
        *     ] }
        *   }
-       * ]
-       * @example with non-i18n texts
+       * ];
+       * with non-i18n texts
+       * @example
        * [
        *   {
        *     link: { path: '/en/search', query: { query: '"Charles Dickens"' } },
@@ -81,7 +83,7 @@
        *       { text: 'ickens ', highlight: false }
        *     ]
        *   }
-       * ]
+       * ];
        */
       options: {
         type: Array,
@@ -172,3 +174,28 @@
     }
   }
 </style>
+
+<docs lang="md">
+  ```jsx
+  <SearchQueryOptions
+    :options="[
+      {
+        link: { path: '/en/search', query: { query: 'map' } },
+        qa: 'search button',
+        i18n: { path: 'header.searchFor', slots: [
+          { name: 'query', value: { text: 'map', highlight: true } }
+        ] }
+      },
+      {
+        link: { path: '/en/search', query: { query: 'Charles Dickens' } },
+        qa: 'Charles Dickens search suggestion',
+        texts: [
+          { text: 'Charles ', highlight: false },
+          { text: 'D', highlight: true },
+          { text: 'ickens ', highlight: false }
+        ]
+      }
+    ]"
+  />
+  ```
+</docs>

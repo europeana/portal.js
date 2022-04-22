@@ -128,7 +128,7 @@
     },
 
     computed: {
-      ...mapState({ showSearch: state => state.search.showSearchBar      })
+      ...mapState({ showSearch: state => state.search.showSearchBar })
     },
 
     methods: {
@@ -247,3 +247,9 @@
   }
 
 </style>
+
+<docs lang="md">
+  ```jsx
+  <PageHeader style="position: relative"/>
+  ```
+</docs>
