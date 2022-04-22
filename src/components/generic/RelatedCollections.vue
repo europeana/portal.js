@@ -1,17 +1,21 @@
 <template>
-  <b-container
+  <div
     v-if="relatedCollections.length > 0"
     data-qa="related collections"
     class="related-collections"
   >
-    <h2 class="related-heading text-uppercase mt-4 mb-2">
+    <h2 class="related-heading text-uppercase mb-2">
       {{ title }}
     </h2>
-    <div class="d-flex flex-wrap">
+    <div
+      class="d-flex"
+      :class="chipsWrapperClass"
+    >
       <RelatedChip
         v-for="relatedCollection in relatedCollections"
         :id="relatedCollection.id"
         :key="relatedCollection.id"
+        :ref="chipsRef"
         :link-to="linkGen(relatedCollection)"
         :title="relatedCollection.prefLabel ? relatedCollection.prefLabel : relatedCollection.name"
         :img="imageUrl(relatedCollection)"
@@ -19,7 +23,7 @@
         :badge-variant="badgeVariant"
       />
     </div>
-  </b-container>
+  </div>
 </template>
 
 <script>
@@ -47,6 +51,14 @@
       badgeVariant: {
         type: String,
         default: 'secondary'
+      },
+      chipsWrapperClass: {
+        type: String,
+        default: 'flex-wrap'
+      },
+      chipsRef: {
+        type: String,
+        default: null
       }
     },
 
@@ -108,3 +120,28 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  .quick-search-chips {
+    overflow: scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .context-label {
+      margin-bottom: 0.75rem;
+    }
+
+    .badge {
+      flex-shrink: 0;
+      margin-right: 0.75rem;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+</style>

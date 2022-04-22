@@ -45,7 +45,7 @@
         >
           <b-col
             cols="12"
-            class="col-lg-10"
+            class="col-lg-10 mt-4"
           >
             <RelatedCollections
               :title="$t('collectionsYouMightLike')"

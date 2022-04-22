@@ -51,6 +51,7 @@
     <FilterToggleButton />
     <div
       v-if="showSearchOptions"
+      id="search-suggest-dropdown"
       class="auto-suggest-dropdown"
       data-qa="search form dropdown"
     >
@@ -166,7 +167,7 @@
         return this.onSearchablePage ? this.$route.path : this.$path({ name: 'search' });
       },
       showQuickSearch() {
-        return !this.onCollectionPage && !this.query;
+        return !this.onSearchableCollectionPage && !this.query;
       }
     },
 
@@ -174,6 +175,9 @@
       '$route.query.query'() {
         this.showSearchOptions = false;
         this.initQuery();
+      },
+      '$route.path'() {
+        this.showSearchOptions = false;
       },
       showSearchOptions(newVal) {
         if (newVal === true) {
@@ -209,8 +213,6 @@
       },
 
       async submitForm() {
-        let newRoute;
-
         // Matomo event: suggestions are present, but none is selected
         if (Object.keys(this.suggestions).length > 0) {
           this.$matomo?.trackEvent('Autosuggest_option_not_selected', 'Autosuggest option is not selected', this.query);
@@ -220,7 +222,7 @@
         // `query` must fall back to blank string to ensure inclusion in URL,
         // which is required for analytics site search tracking
         const newRouteQuery = { ...baseQuery, ...{ page: 1, view: this.view, query: this.query || '' } };
-        newRoute = { path: this.routePath, query: newRouteQuery };
+        const newRoute = { path: this.routePath, query: newRouteQuery };
 
         this.showSearchOptions = false;
 
@@ -333,21 +335,25 @@
 
       navigateWithArrowKeys(event) {
         const searchQueryOptionsComponentOptions = this.$refs.searchoptions?.$refs.options || [];
-        const quickSearchComponentOptions = this.$refs.quicksearch?.$refs.options || [];
+        const quickSearchComponentOptions = this.$refs.quicksearch?.$children[0].$refs.options || [];
         const searchDropdownOptions = searchQueryOptionsComponentOptions.concat(quickSearchComponentOptions);
         const activeOption = searchDropdownOptions.map(option => option.$el || option).indexOf(event.target);
 
         if (searchDropdownOptions.length) {
           if (activeOption === -1) {
-            searchDropdownOptions[0].$el ? searchDropdownOptions[0].$el.focus() : searchDropdownOptions[0].focus();
+            this.getElement(searchDropdownOptions[0]).focus();
           }
           if (event.key === 'ArrowDown' && activeOption < searchDropdownOptions.length - 1) {
-            searchDropdownOptions[activeOption + 1].$el ? searchDropdownOptions[activeOption + 1].$el.focus() : searchDropdownOptions[activeOption + 1].focus();
+            this.getElement(searchDropdownOptions[activeOption + 1]).focus();
           }
           if (event.key === 'ArrowUp' && activeOption > 0) {
-            searchDropdownOptions[activeOption - 1].$el ? searchDropdownOptions[activeOption - 1].$el.focus() : searchDropdownOptions[activeOption - 1].focus();
+            this.getElement(searchDropdownOptions[activeOption - 1]).focus();
           }
         }
+      },
+
+      getElement(element) {
+        return element.$el || element;
       }
     }
   };
