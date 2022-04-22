@@ -90,7 +90,7 @@
       },
       entities: {
         type: Array,
-        default: () => []
+        required: true
       },
       /**
        * Used for testing, in order to render the modal.
@@ -241,7 +241,6 @@
             this.makeToast(msg);
           })
           .catch((e) => {
-            // TODO: instead of refetching everything, this could update the store only.
             this.fetchFeaturedSetData([this.selected]);
             // TODO: notify the user with a toast?
             throw e;
