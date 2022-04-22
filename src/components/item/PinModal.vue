@@ -113,7 +113,10 @@
           if (this.selectedIsFull) {
             return this.selectedIsPinned ? this.$t('entity.notifications.unpin', { entity: this.selectedEntityPrefLabel }) : this.$t('entity.notifications.pinLimit.body');
           }
-          return this.selectedIsPinned ? this.$t('entity.notifications.unpin', { entity: this.selectedEntityPrefLabel }) : this.$t('entity.notifications.pin', { entity: this.selectedEntityPrefLabel });
+          if (this.selectedIsPinned) {
+            return this.$t('entity.notifications.unpin', { entity: this.selectedEntityPrefLabel });
+          }
+          return this.$t('entity.notifications.pin', { entity: this.selectedEntityPrefLabel });
         }
         return this.$t('entity.notifications.select');
       },
@@ -124,8 +127,7 @@
         return this.selected && this.featuredSetPins[this.selected]?.length >= 24;
       },
       selectedLink() {
-        const destination = { name: 'set-all', params: { pathMatch: this.selected && this.featuredSetIds[this.selected].replace('http://data.europeana.eu/set/', '') } };
-        return destination;
+        return { name: 'set-all', params: { pathMatch: this.selected && this.featuredSetIds[this.selected].replace('http://data.europeana.eu/set/', '') } };
       },
       selectedEntityPrefLabel() {
         return this.allRelatedEntities.find(entity => entity.id === this.selected)?.prefLabel?.en;
