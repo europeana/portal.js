@@ -49,29 +49,6 @@ export default (context = {}) => {
     },
 
     /**
-     * Return the facets that include data.europeana.eu
-     * @param {Object} facets the facets retrieved from the search
-     * @param {String} id id of the current entity
-     * @return {Object} related entities
-     * TODO: limit results
-     */
-    facets(facets, id) {
-      const currentId = normalizeEntityId(id);
-      let entities = [];
-      for (const facet of facets) {
-        const facetFilter = (value) => value['label'].includes(EUROPEANA_DATA_URL) && value['label'].split('/').pop() !== currentId;
-        entities = entities.concat(facet['fields'].filter(facetFilter));
-      }
-
-      const entityUris = entities.slice(0, 4).map(entity => {
-        return entity['label'];
-      });
-
-      return this.find(entityUris)
-        .then(response => getRelatedEntityData(response));
-    },
-
-    /**
      * Lookup data for the given list of entity URIs
      * @param {Array} entityUris the URIs of the entities to retrieve
      * @return {Array} entity data
@@ -112,21 +89,6 @@ export default (context = {}) => {
     }
   };
 };
-
-/**
- * Format the entity data for a related entity
- * @param {Object} entities the data returned from the Entity API
- * @return {Object[]} entity data
- */
-function getRelatedEntityData(entities) {
-  const entityDetails = [];
-  for (const entity of entities || []) {
-    if (entity.prefLabel.en) {
-      entityDetails.push(entity);
-    }
-  }
-  return entityDetails;
-}
 
 /**
  * Remove any additional data from the slug in order to retrieve the entity id.

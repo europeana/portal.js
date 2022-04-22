@@ -97,9 +97,9 @@
         view: 'search/activeView'
       }),
 
-      onCollectionPage() {
+      onSearchableCollectionPage() {
         // Auto suggest on search form will be disabled on entity pages.
-        return !!this.$store.state.entity?.id;
+        return !!this.$store.state.entity?.id && !!this.collectionLabel;
       },
 
       suggestionSearchOptions() {
@@ -123,7 +123,7 @@
           }
         };
 
-        if (this.onCollectionPage) {
+        if (this.onSearchableCollectionPage) {
           globalSearchOption.i18n.path = this.query ? 'header.entireCollection' : 'header.searchForEverythingInEntireCollection';
         } else {
           globalSearchOption.i18n.path = this.query ? 'header.searchFor' : 'header.searchForEverything';
@@ -147,7 +147,7 @@
       },
 
       searchQueryOptions() {
-        if (this.onCollectionPage) {
+        if (this.onSearchableCollectionPage) {
           return [this.collectionSearchOption, this.globalSearchOption];
         } else {
           return [this.globalSearchOption].concat(this.suggestionSearchOptions);
@@ -213,7 +213,6 @@
 
         // Matomo event: suggestions are present, but none is selected
         if (Object.keys(this.suggestions).length > 0) {
-          // This only tracks keyboard events, click events are tracked in the SearchQueryOptions component.
           this.$matomo?.trackEvent('Autosuggest_option_not_selected', 'Autosuggest option is not selected', this.query);
         }
 
@@ -242,7 +241,7 @@
           return;
         }
 
-        if (this.onCollectionPage) {
+        if (this.onSearchableCollectionPage) {
           return;
         }
 

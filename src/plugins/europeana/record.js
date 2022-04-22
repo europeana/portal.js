@@ -5,7 +5,6 @@ import merge from 'deepmerge';
 import { apiError, createAxios, reduceLangMapsForLocale, isLangMap } from './utils';
 import search from './search';
 import { thumbnailUrl, thumbnailTypeForMimeType } from  './thumbnail';
-import { getEntityUri, getEntityQuery } from './entity';
 import { isIIIFPresentation, isIIIFImage } from '../media';
 
 export const BASE_URL = process.env.EUROPEANA_RECORD_API_URL || 'https://api.europeana.eu/record';
@@ -347,26 +346,6 @@ export default (context = {}) => {
           }
           throw apiError(error, context);
         });
-    },
-
-    /**
-     * Search for specific facets for this entity to find the related entities
-     * @param {string} type the type of the entity
-     * @param {string} id the id of the entity, (can contain trailing slug parts as these will be normalized)
-     * @return {Object} related entities
-     * TODO: add people as related entities again
-     */
-    relatedEntities(type, id) {
-      const entityUri = getEntityUri(type, id);
-
-      return this.search({
-        profile: 'facets',
-        facet: 'skos_concept',
-        query: getEntityQuery(entityUri),
-        qf: ['contentTier:*'],
-        rows: 0
-      })
-        .then(response => response.facets);
     },
 
     mediaProxyUrl(mediaUrl, europeanaId, params = {}) {
