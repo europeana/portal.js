@@ -173,7 +173,7 @@ export default {
         "title": "Too many pinned items"
       },
       "pinned": "The item has been pinned. It will appear as the first item on the \"{entity}\" collection. We will notify you when this change will be visible on the collection page.",
-      "select": "Select a related entity to pin/unpin the Item to/from it.",
+      "select": "Select a related entity to pin/unpin the item to/from it.",
       "unpin": "This item will stop showing at the top of the \"{entity}\" collection. We will notify you when this change will be visible on the collection page.",
       "unpinned": "The item has been unpinned. We will notify you when this change will be visible on the collection page."
     }
@@ -875,7 +875,7 @@ export default {
   "record": {
     "IIIFViewer": "IIIF viewer",
     "actions": {
-      "pin": "Pin Item to available Entities"
+      "pin": "Pin item to available Entities"
     },
     "allMetaData": "All metadata",
     "copyEmbedLabel": "Embed code (Click to copy)",
