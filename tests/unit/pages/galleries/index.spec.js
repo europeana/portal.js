@@ -64,7 +64,6 @@ const factory = () => shallowMountNuxt(page, {
     $i18n: {
       locale: () => 'en'
     },
-    // $redrawVueMasonry: () => true,
     $auth: {
       loggedIn: false
     },

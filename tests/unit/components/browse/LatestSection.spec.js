@@ -14,8 +14,8 @@ const cards = [
       image: {
         url: 'imageURLone.jpg',
         contentType: 'image/JPEG'
-       }
-     }
+      }
+    }
   },
   {
     identifier: 'some-identifier-two',
@@ -25,8 +25,8 @@ const cards = [
       image: {
         url: 'imageURLtwo.jpg',
         contentType: 'image/JPEG'
-       }
-     }
+      }
+    }
   },
   {
     identifier: 'some-identifier-three',
@@ -83,8 +83,8 @@ describe('components/browse/LatestCardSection', () => {
               thumbnailUrl: null
             }],
             total: 12
-          },
-        }
+          }
+        };
         const wrapper = factory();
 
         expect(wrapper.vm.galleryCardData(card).imageUrl).toBe('thumbnail https://api.europeana.eu/thumbnail/v2/url.json?uri=providersURI_two.jpg&type=IMAGE');
@@ -102,8 +102,8 @@ describe('components/browse/LatestCardSection', () => {
               thumbnailUrl: 'thumbnailUrl'
             }],
             total: 12
-          },
-        }
+          }
+        };
         const wrapper = factory();
 
         expect(wrapper.vm.galleryCardData(card).imageUrl).toBe('thumbnail thumbnailUrl');
