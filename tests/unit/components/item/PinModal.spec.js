@@ -211,7 +211,7 @@ describe('components/item/PinModal', () => {
 
         const helpSpan = wrapper.find('span.help');
         expect(helpSpan.exists()).toBe(true);
-        expect(helpSpan.text()).toBe('Select a related entity to pin/unpin the Item to/from it.');
+        expect(helpSpan.text()).toBe('Select a related entity to pin/unpin the item to/from it.');
       });
     });
 
