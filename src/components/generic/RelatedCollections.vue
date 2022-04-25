@@ -126,13 +126,10 @@
     overflow: scroll;
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
+    padding-top: 0.25rem;
 
     &::-webkit-scrollbar {
       display: none;
-    }
-
-    .context-label {
-      margin-bottom: 0.75rem;
     }
 
     .badge {

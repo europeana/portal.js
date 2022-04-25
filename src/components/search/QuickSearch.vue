@@ -60,6 +60,10 @@
   .quick-search {
     border-top: 1px solid $middlegrey;
     padding: 0.75rem 1.25rem 1.25rem;
+
+    ::v-deep .related-heading {
+      font-size: $font-size-extrasmall;
+    }
   }
 </style>
 
