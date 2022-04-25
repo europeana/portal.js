@@ -449,8 +449,19 @@
 
   .clear-button {
     position: absolute;
-    right: 1rem;
+    right: 3.5rem;
     top: 1rem;
+    z-index: 99;
+
+    @media (min-width: $bp-large) {
+      right: 1rem;
+    }
+  }
+
+  .icon-filter {
+    position: absolute;
+    right: 1rem;
+    top: 0;
     z-index: 99;
   }
 
