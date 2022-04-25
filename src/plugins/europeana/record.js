@@ -4,7 +4,7 @@ import merge from 'deepmerge';
 
 import { apiError, createAxios, reduceLangMapsForLocale, isLangMap } from './utils';
 import search from './search';
-import { thumbnailUrl, thumbnailTypeForMimeType } from  './thumbnail';
+import thumbnail, { thumbnailTypeForMimeType } from  './thumbnail';
 import { isIIIFPresentation, isIIIFImage } from '../media';
 
 export const BASE_URL = process.env.EUROPEANA_RECORD_API_URL || 'https://api.europeana.eu/record';
@@ -139,6 +139,7 @@ const proxyHasFallbackField = (proxy, fallbackProxy, field, targetLanguage) => {
 
 export default (context = {}) => {
   const $axios = createAxios({ id: 'record', baseURL: BASE_URL }, context);
+  const thumbnailUrl = thumbnail(context).media;
 
   return {
     $axios,

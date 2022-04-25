@@ -8,6 +8,11 @@ const factory = (options = {}) => shallowMount(SearchResultsContext, {
   localVue,
   propsData: options.propsData,
   mocks: {
+    $apis: {
+      entity: {
+        imageUrl: () => ''
+      }
+    },
     $t: (key) => key,
     $path: (args) => args,
     $route: () => ({}),

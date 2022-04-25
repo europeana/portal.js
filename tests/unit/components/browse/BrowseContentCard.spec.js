@@ -13,7 +13,10 @@ const factory = (props = { fields: {} }) => shallowMount(BrowseContentCard, {
   mocks: {
     $apis: {
       config: { data: { url: 'http://data.europeana.eu' } },
-      entity: { getEntityTypeHumanReadable: () => 'person' }
+      entity: { getEntityTypeHumanReadable: () => 'person' },
+      thumbnail: {
+        edmPreview: (img) => img
+      }
     },
     $path: (opts) => opts,
     $i18n: { locale: 'en' },
@@ -78,7 +81,7 @@ describe('components/browse/BrowseContentCard', () => {
           }
         });
 
-        expect(wrapper.vm.imageUrl).toBe(`${edmPreview}&size=w400`);
+        expect(wrapper.vm.imageUrl).toBe(edmPreview);
       });
     });
 

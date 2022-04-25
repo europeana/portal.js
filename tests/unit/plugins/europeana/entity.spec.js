@@ -85,133 +85,190 @@ describe('plugins/europeana/entity', () => {
     nock.cleanAll();
   });
 
-  describe('get()', () => {
-    describe('API response', () => {
-      describe('with "No resource found with ID: ..." error', () => {
-        const errorMessage = 'No resource found with ID:';
+  describe('default export', () => {
+    describe('get', () => {
+      describe('API response', () => {
+        describe('with "No resource found with ID: ..." error', () => {
+          const errorMessage = 'No resource found with ID:';
 
-        beforeEach(() => {
-          baseRequest
-            .query(true)
-            .reply(404, {
-              error: errorMessage
-            });
+          beforeEach(() => {
+            baseRequest
+              .query(true)
+              .reply(404, {
+                error: errorMessage
+              });
+          });
+
+          it('throws error with API error message and status code', async() => {
+            let error;
+            try {
+              await api().get(entityType, entityId);
+            } catch (e) {
+              error = e;
+            }
+
+            expect(error.message).toBe(errorMessage);
+            expect(error.statusCode).toBe(404);
+          });
         });
 
-        it('throws error with API error message and status code', async() => {
-          let error;
-          try {
-            await api().get(entityType, entityId);
-          } catch (e) {
-            error = e;
+        describe('with object in response', () => {
+          const apiResponse = entitiesResponse.items[0];
+
+          beforeEach(() => {
+            baseRequest
+              .query(true)
+              .reply(200, apiResponse);
+          });
+
+          it('returns entity title', async() => {
+            const response = await api().get(entityType, entityId);
+            expect(response.entity.prefLabel.en).toBe('Architecture');
+          });
+
+          it('returns entity description', async() => {
+            const response = await api().get(entityType, entityId);
+            expect(response.entity.note.en[0]).toContain('Architecture is both the process and the product of planning');
+          });
+
+          it('has a misspelled id and returns entity title', async() => {
+            const response = await api().get(entityType, entityIdMisspelled);
+            expect(response.entity.prefLabel.en).toBe('Architecture');
+          });
+        });
+      });
+    });
+
+    describe('find', () => {
+      const uris = ['http://data.europeana.eu/agent/base/123', 'http://data.europeana.eu/concept/base/456'];
+      const uriQuery = 'entity_uri:("http://data.europeana.eu/agent/base/123" OR "http://data.europeana.eu/concept/base/456")';
+      const entitySearchResponse = {
+        items: []
+      };
+      const searchEndpoint = '/search';
+
+      it('searches the API by entity URIs', async() => {
+        nock(BASE_URL)
+          .get(searchEndpoint)
+          .query(query => {
+            return query.query === uriQuery;
+          })
+          .reply(200, entitySearchResponse);
+
+        await api().find(uris);
+
+        expect(nock.isDone()).toBe(true);
+      });
+    });
+
+    describe('suggest', () => {
+      const text = 'world';
+      const suggestEndpoint = '/suggest';
+
+      it('passes `text` to the API', async() => {
+        nock(BASE_URL)
+          .get(suggestEndpoint)
+          .query(query => {
+            return query.text === text;
+          })
+          .reply(200, entitySuggestionsResponse);
+
+        await api().suggest(text);
+
+        expect(nock.isDone()).toBe(true);
+      });
+
+      it('passes `language` to API', async() => {
+        nock(BASE_URL)
+          .get(suggestEndpoint)
+          .query(query => {
+            return query.language === 'fr';
+          })
+          .reply(200, entitySuggestionsResponse);
+
+        await api().suggest(text, { language: 'fr' });
+
+        expect(nock.isDone()).toBe(true);
+      });
+
+      it('restricts types to agent, concept, timespan & organization', async() => {
+        nock(BASE_URL)
+          .get(suggestEndpoint)
+          .query(query => {
+            return query.type === 'agent,concept,timespan,organization';
+          })
+          .reply(200, entitySuggestionsResponse);
+
+        await api().suggest(text);
+
+        expect(nock.isDone()).toBe(true);
+      });
+
+      it('returns the "items"', async() => {
+        nock(BASE_URL)
+          .get(suggestEndpoint)
+          .query(true)
+          .reply(200, entitySuggestionsResponse);
+
+        const items = await api().suggest(text);
+
+        expect(items).toEqual(entitySuggestionsResponse.items);
+      });
+    });
+
+    describe('imageUrl', () => {
+      const europeanaThumbnailUrl = 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?uri=https%3A%2F%2Fwww.example.org%2Fimage.jpeg&type=IMAGE';
+      const wikimediaImageUrl = 'http://commons.wikimedia.org/wiki/Special:FilePath/Europeana_logo_2015_basic.svg';
+
+      describe('when entity has Europeana thumbnail in `image`', () => {
+        const entity = {
+          image: europeanaThumbnailUrl
+        };
+
+        it('uses it at 200px size', () => {
+          const imageUrl = api().imageUrl(entity);
+
+          expect(imageUrl).toBe('https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fwww.example.org%2Fimage.jpeg&size=w200&type=IMAGE');
+        });
+      });
+
+      describe('when entity has Europeana thumbnail in `isShownBy.thumbnail`', () => {
+        const entity = {
+          isShownBy: {
+            thumbnail: europeanaThumbnailUrl
           }
+        };
 
-          expect(error.message).toBe(errorMessage);
-          expect(error.statusCode).toBe(404);
+        it('uses it at 200px size', () => {
+          const imageUrl = api().imageUrl(entity);
+
+          expect(imageUrl).toBe('https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fwww.example.org%2Fimage.jpeg&size=w200&type=IMAGE');
         });
       });
 
-      describe('with object in response', () => {
-        const apiResponse = entitiesResponse.items[0];
+      describe('when entity has Wikimedia image in `logo.id`', () => {
+        const entity = {
+          logo: {
+            id: wikimediaImageUrl
+          }
+        };
 
-        beforeEach(() => {
-          baseRequest
-            .query(true)
-            .reply(200, apiResponse);
-        });
+        it('uses it at 28px size', () => {
+          const imageUrl = api().imageUrl(entity);
 
-        it('returns entity title', async() => {
-          const response = await api().get(entityType, entityId);
-          expect(response.entity.prefLabel.en).toBe('Architecture');
-        });
-
-        it('returns entity description', async() => {
-          const response = await api().get(entityType, entityId);
-          expect(response.entity.note.en[0]).toContain('Architecture is both the process and the product of planning');
-        });
-
-        it('has a misspelled id and returns entity title', async() => {
-          const response = await api().get(entityType, entityIdMisspelled);
-          expect(response.entity.prefLabel.en).toBe('Architecture');
+          expect(imageUrl).toBe('https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Europeana_logo_2015_basic.svg/28px-Europeana_logo_2015_basic.svg.png');
         });
       });
-    });
-  });
 
-  describe('find()', () => {
-    const uris = ['http://data.europeana.eu/agent/base/123', 'http://data.europeana.eu/concept/base/456'];
-    const uriQuery = 'entity_uri:("http://data.europeana.eu/agent/base/123" OR "http://data.europeana.eu/concept/base/456")';
-    const entitySearchResponse = {
-      items: []
-    };
-    const searchEndpoint = '/search';
+      describe('otherwise', () => {
+        const entity = {};
 
-    it('searches the API by entity URIs', async() => {
-      nock(BASE_URL)
-        .get(searchEndpoint)
-        .query(query => {
-          return query.query === uriQuery;
-        })
-        .reply(200, entitySearchResponse);
+        it('is `null`', () => {
+          const imageUrl = api().imageUrl(entity);
 
-      await api().find(uris);
-
-      expect(nock.isDone()).toBe(true);
-    });
-  });
-
-  describe('suggest()', () => {
-    const text = 'world';
-    const suggestEndpoint = '/suggest';
-
-    it('passes `text` to the API', async() => {
-      nock(BASE_URL)
-        .get(suggestEndpoint)
-        .query(query => {
-          return query.text === text;
-        })
-        .reply(200, entitySuggestionsResponse);
-
-      await api().suggest(text);
-
-      expect(nock.isDone()).toBe(true);
-    });
-
-    it('passes `language` to API', async() => {
-      nock(BASE_URL)
-        .get(suggestEndpoint)
-        .query(query => {
-          return query.language === 'fr';
-        })
-        .reply(200, entitySuggestionsResponse);
-
-      await api().suggest(text, { language: 'fr' });
-
-      expect(nock.isDone()).toBe(true);
-    });
-
-    it('restricts types to agent, concept, timespan & organization', async() => {
-      nock(BASE_URL)
-        .get(suggestEndpoint)
-        .query(query => {
-          return query.type === 'agent,concept,timespan,organization';
-        })
-        .reply(200, entitySuggestionsResponse);
-
-      await api().suggest(text);
-
-      expect(nock.isDone()).toBe(true);
-    });
-
-    it('returns the "items"', async() => {
-      nock(BASE_URL)
-        .get(suggestEndpoint)
-        .query(true)
-        .reply(200, entitySuggestionsResponse);
-
-      const items = await api().suggest(text);
-
-      expect(items).toEqual(entitySuggestionsResponse.items);
+          expect(imageUrl).toBe(null);
+        });
+      });
     });
   });
 

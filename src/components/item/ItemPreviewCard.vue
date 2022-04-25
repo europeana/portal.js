@@ -61,7 +61,6 @@
 </template>
 
 <script>
-  import { genericThumbnail } from '@/plugins/europeana/thumbnail';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
 
   import ContentCard from '../generic/ContentCard';
@@ -170,11 +169,8 @@
       },
 
       imageUrl() {
-        const size = 'w400';
-
-        return this.item.edmPreview ?
-          `${this.item.edmPreview[0]}&size=${size}` :
-          genericThumbnail(this.item.id, { type: this.item.type, size });
+        return this.$apis.thumbnail.edmPreview(this.item.edmPreview?.[0], { size: 400, type: this.item.type }) ||
+          this.$apis.thumbnail.generic(this.item.id, { size: 400, type: this.item.type });
       },
 
       subTitle() {

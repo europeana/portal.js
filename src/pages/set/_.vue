@@ -151,7 +151,6 @@
   import ClientOnly from 'vue-client-only';
 
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
-  import { genericThumbnail } from '@/plugins/europeana/thumbnail';
 
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
   import SocialShareModal from '@/components/sharing/SocialShareModal.vue';
@@ -257,13 +256,7 @@
         return this.$tc(label, this.set.total, { max });
       },
       shareMediaUrl() {
-        if ((this.set?.items?.length || 0) === 0) {
-          return null;
-        } else {
-          return this.set.items[0].edmPreview ?
-            `${this.set.items[0].edmPreview[0]}&size=w400` :
-            genericThumbnail(this.set.items[0].id, { type: this.set.items[0].type, size: 'w400' });
-        }
+        return this.$apis.thumbnail.edmPreview(this.set?.items?.[0]?.edmPreview?.[0], { size: 400 });
       }
     }
   };

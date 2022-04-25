@@ -70,6 +70,11 @@ const factory = (options = {}) => shallowMountNuxt(page, {
         auth: options.user || {},
         set: { active: options.set || null }
       }
+    },
+    $apis: {
+      thumbnail: {
+        edmPreview: () => ''
+      }
     }
   },
   stubs: ['SetRecommendations']
