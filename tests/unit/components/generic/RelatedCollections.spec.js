@@ -16,6 +16,9 @@ const factory = (options = {}) => {
     stubs: ['b-container'],
     mocks: {
       ...{
+        $apis: {
+          entity: { imageUrl: () => sinon.spy() }
+        },
         $i18n: { locale: 'en' },
         $t: () => {},
         $fetch: () => {},
@@ -147,33 +150,6 @@ describe('components/generic/RelatedCollections', () => {
         it('uses the id and the prefLabel for the name', () => {
           const wrapper = factory();
           expect(wrapper.vm.linkGen(relatedCollections[1])).toEqual('topic - 194-visual-arts');
-        });
-      });
-    });
-
-    describe('imageUrl', () => {
-      describe('when the item has an image attribute', () => {
-        it('uses the image at a width of 200', () => {
-          const wrapper = factory();
-          expect(wrapper.vm.imageUrl(relatedCollections[0])).toEqual('imageUrlItem1&size=w200');
-        });
-      });
-      describe('when the item has an isShownBy with a thumbnail', () => {
-        it('uses the thumbnail at a width of 200', () => {
-          const wrapper = factory();
-          expect(wrapper.vm.imageUrl(relatedCollections[1])).toEqual('thumbnailUrlItem2&size=w200');
-        });
-      });
-      describe('when the item has a logo attribute', () => {
-        it('uses the logo URL from wikimedia at a size of 28', () => {
-          const wrapper = factory();
-          expect(wrapper.vm.imageUrl(relatedCollections[2])).toEqual('https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/logoUrlItem3.jpg/28px-logoUrlItem3.jpg');
-        });
-      });
-      describe('when there is no relevant attribute', () => {
-        it('returns null', () => {
-          const wrapper = factory();
-          expect(wrapper.vm.imageUrl(relatedCollections[3])).toBeNull();
         });
       });
     });

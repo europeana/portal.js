@@ -29,9 +29,7 @@ const factory = (propsData = {}) => mount(AddItemToSetModal, {
     $tc: () => {},
     $i18n: {},
     $apis: {
-      set: {
-        getSetThumbnail: () => null
-      }
+      thumbnail: { edmPreview: (img) => img?.edmPreview?.[0] }
     },
     $store: {
       dispatch: storeDispatch,

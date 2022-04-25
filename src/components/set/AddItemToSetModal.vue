@@ -117,7 +117,7 @@
       },
 
       collectionPreview(setId) {
-        return this.$store.getters['set/creationPreview'](setId);
+        return this.$apis.thumbnail.edmPreview(this.$store.getters['set/creationPreview'](setId));
       },
 
       addItem(setId) {

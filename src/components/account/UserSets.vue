@@ -18,7 +18,7 @@
             :key="set.id"
             :sub-title="setSubTitle(set)"
             :title="set.title"
-            :image-url="$store.getters['set/creationPreview'](set.id)"
+            :image-url="creationPreview(set.id)"
             :texts="[set.description]"
             :url="{ name: 'set-all', params: { pathMatch: setPathMatch(set) } }"
             data-qa="user set"
@@ -62,6 +62,9 @@
       }
     },
     methods: {
+      creationPreview(setId) {
+        return this.$apis.thumbnail.edmPreview(this.$store.getters['set/creationPreview'](setId));
+      },
       setSubTitle(set) {
         const setTotal = set.total || 0;
         return this.$tc('items.itemCount', setTotal, { count: setTotal });

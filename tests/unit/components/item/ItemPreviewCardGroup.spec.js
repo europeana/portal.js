@@ -38,6 +38,10 @@ const factory = () => {
       $apis: {
         record: {
           mediaProxyUrl: () => 'proxied'
+        },
+        thumbnail: {
+          edmPreview: () => '',
+          generic: (id) => id
         }
       }
     }

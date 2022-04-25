@@ -1,5 +1,5 @@
-import { createLocalVue, shallowMount } from '@vue/test-utils';
-import { mountNuxt } from '../../utils';
+import { createLocalVue } from '@vue/test-utils';
+import { shallowMountNuxt } from '../../utils';
 import sinon from 'sinon';
 import BootstrapVue from 'bootstrap-vue';
 
@@ -16,42 +16,26 @@ const ITEM_COUNTS_MEDIA_TYPE = 'Item counts by media type';
 
 const $axiosGetStub = sinon.stub();
 
-const nuxtFactory = (props = { sectionType: FEATURED_TOPICS })  => mountNuxt(AutomatedCardGroup, {
+const factory = (props = { sectionType: FEATURED_TOPICS })  => shallowMountNuxt(AutomatedCardGroup, {
   localVue,
   propsData: props,
   mocks: {
+    $apis: {
+      entity: {
+        imageUrl: () => 'image URL'
+      }
+    },
     $fetchState: {
       error: false,
       pending: false
     },
     $path: () => 'mocked path',
-    $i18n: { locale: 'en', t: () => {} },
+    $i18n: { locale: 'en', t: (key) => key, n: (num) => `${num}` },
     $axios: {
       get: $axiosGetStub
     },
     $config: { app: { internalLinkDomain: 'https://europeana.eu' } },
-    $t: () => {}
-  }
-});
-
-const shallowFactory = (props = { sectionType: FEATURED_TOPICS })  => shallowMount(AutomatedCardGroup, {
-  localVue,
-  propsData: props,
-  mocks: {
-    $fetchState: {
-      error: false,
-      pending: false
-    },
-    $path: (opts) => opts,
-    $i18n: { locale: 'en', t: (input) => {
-      return input;
-    }, n: (input) => {
-      return `${input}`;
-    } },
-    $axios: {
-      get: $axiosGetStub
-    },
-    $t: (input) => input
+    $t: (key) => key
   }
 });
 
@@ -153,7 +137,7 @@ describe('components/browse/AutomatedCardGroup', () => {
     });
     describe('when rendering on the client', () => {
       it('gets the data from the cache API endpoint', async() => {
-        const wrapper = nuxtFactory({ sectionType: FEATURED_TOPICS });
+        const wrapper = factory({ sectionType: FEATURED_TOPICS });
         await wrapper.vm.fetch();
         expect($axiosGetStub.calledWith('/_api/cache/en/collections/topics/featured')).toBe(true);
         expect(wrapper.vm.entries).toEqual(entries.featuredTopics);
@@ -172,10 +156,11 @@ describe('components/browse/AutomatedCardGroup', () => {
   describe('contentCardSection()', () => {
     describe('when the type is item counts by media type', () => {
       it('includes type', () => {
-        const wrapper = shallowFactory({ sectionType: ITEM_COUNTS_MEDIA_TYPE });
+        const wrapper = factory({ sectionType: ITEM_COUNTS_MEDIA_TYPE });
 
         expect(wrapper.vm.contentCardSection.type).toBe('items/type-counts');
       });
+
       it('sets the relevant fields for the items in the hasPartCollection', async() => {
         const expected = {
           __typename: 'InfoCard',
@@ -185,7 +170,7 @@ describe('components/browse/AutomatedCardGroup', () => {
           image: 'ic-image'
         };
 
-        const wrapper = shallowFactory({ sectionType: ITEM_COUNTS_MEDIA_TYPE });
+        const wrapper = factory({ sectionType: ITEM_COUNTS_MEDIA_TYPE });
 
         await wrapper.setData({
           entries: entries.itemTypeCounts
@@ -197,7 +182,7 @@ describe('components/browse/AutomatedCardGroup', () => {
     });
     describe('when the type is featured organisations', () => {
       it('includes a headline', () => {
-        const wrapper = shallowFactory({ sectionType: FEATURED_ORGANISATIONS });
+        const wrapper = factory({ sectionType: FEATURED_ORGANISATIONS });
 
         expect(wrapper.vm.contentCardSection.headline).toBe('automatedCardGroup.organisation');
       });
@@ -207,7 +192,7 @@ describe('components/browse/AutomatedCardGroup', () => {
           __variant: 'mini',
           name: { en: 'organisation one' },
           identifier: 'http://data.europeana.eu/organization/1',
-          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/logo.jpg/80px-logo.jpg',
+          image: 'image URL',
           logo: true,
           encoding: {
             id: 'http://data.europeana.eu/organization/1',
@@ -216,7 +201,7 @@ describe('components/browse/AutomatedCardGroup', () => {
           }
         };
 
-        const wrapper = shallowFactory({ sectionType: FEATURED_ORGANISATIONS });
+        const wrapper = factory({ sectionType: FEATURED_ORGANISATIONS });
 
         await wrapper.setData({
           entries: entries.featuredOrganisations
@@ -228,7 +213,7 @@ describe('components/browse/AutomatedCardGroup', () => {
     });
     describe('when the type is featured topics', () => {
       it('includes a headline', () => {
-        const wrapper = shallowFactory({ sectionType: FEATURED_TOPICS });
+        const wrapper = factory({ sectionType: FEATURED_TOPICS });
 
         expect(wrapper.vm.contentCardSection.headline).toBe('automatedCardGroup.topic');
       });
@@ -238,7 +223,7 @@ describe('components/browse/AutomatedCardGroup', () => {
           __variant: 'mini',
           name: { en: 'topic one' },
           identifier: 'http://data.europeana.eu/concept/base/1',
-          image: 'thumbnail',
+          image: 'image URL',
           encoding: {
             id: 'http://data.europeana.eu/concept/base/1',
             isShownBy: {
@@ -249,7 +234,7 @@ describe('components/browse/AutomatedCardGroup', () => {
           logo: false
         };
 
-        const wrapper = shallowFactory({ sectionType: FEATURED_TOPICS });
+        const wrapper = factory({ sectionType: FEATURED_TOPICS });
 
         await wrapper.setData({
           entries: entries.featuredTopics
@@ -261,7 +246,7 @@ describe('components/browse/AutomatedCardGroup', () => {
     });
     describe('when the type is featured times', () => {
       it('includes a headline', () => {
-        const wrapper = shallowFactory({ sectionType: FEATURED_TIMES });
+        const wrapper = factory({ sectionType: FEATURED_TIMES });
 
         expect(wrapper.vm.contentCardSection.headline).toBe('automatedCardGroup.time');
       });
@@ -271,7 +256,7 @@ describe('components/browse/AutomatedCardGroup', () => {
           __variant: 'mini',
           name: { en: 'time one' },
           identifier: 'http://data.europeana.eu/timespan/1',
-          image: 'thumbnail',
+          image: 'image URL',
           encoding: {
             id: 'http://data.europeana.eu/timespan/1',
             isShownBy: {
@@ -282,7 +267,7 @@ describe('components/browse/AutomatedCardGroup', () => {
           logo: false
         };
 
-        const wrapper = shallowFactory({ sectionType: FEATURED_TIMES });
+        const wrapper = factory({ sectionType: FEATURED_TIMES });
 
         await wrapper.setData({
           entries: entries.featuredTimes
@@ -294,12 +279,12 @@ describe('components/browse/AutomatedCardGroup', () => {
     });
     describe('when the type is recent items', () => {
       it('includes a headline', () => {
-        const wrapper = shallowFactory({ sectionType: RECENT_ITEMS });
+        const wrapper = factory({ sectionType: RECENT_ITEMS });
 
         expect(wrapper.vm.contentCardSection.headline).toBe('automatedCardGroup.item');
       });
       it('sets a more button', () => {
-        const wrapper = shallowFactory({ sectionType: RECENT_ITEMS, moreButton: { 'url': '/search', 'text': 'Show all items' } });
+        const wrapper = factory({ sectionType: RECENT_ITEMS, moreButton: { 'url': '/search', 'text': 'Show all items' } });
         expect(wrapper.vm.contentCardSection.moreButton.text).toBe('Show all items');
         expect(wrapper.vm.contentCardSection.moreButton.url).toBe('/search');
       });
@@ -308,7 +293,7 @@ describe('components/browse/AutomatedCardGroup', () => {
           __typename: 'AutomatedRecordCard',
           __variant: null,
           identifier: '/500/identifier_1',
-          image: null,
+          image: 'image URL',
           name: undefined,
           encoding: {
             edmIsShownBy: 'isShownBy URL',
@@ -319,7 +304,7 @@ describe('components/browse/AutomatedCardGroup', () => {
           logo: false
         };
 
-        const wrapper = shallowFactory({ sectionType: RECENT_ITEMS });
+        const wrapper = factory({ sectionType: RECENT_ITEMS });
 
         await wrapper.setData({
           entries: entries.recentItems
@@ -333,7 +318,7 @@ describe('components/browse/AutomatedCardGroup', () => {
 
   describe('imageFromType()', () => {
     it('prefixes the type with "ic-" for the icon class', () => {
-      const wrapper = shallowFactory({ sectionType: ITEM_COUNTS_MEDIA_TYPE });
+      const wrapper = factory({ sectionType: ITEM_COUNTS_MEDIA_TYPE });
       const imageFromType = wrapper.vm.infoImageFromType('Type');
       expect(imageFromType).toBe('ic-type');
     });
@@ -344,7 +329,7 @@ describe('components/browse/AutomatedCardGroup', () => {
         name: 'search',
         query: { query: '', qf: 'TYPE:"IMAGE"' }
       };
-      const wrapper = shallowFactory({ sectionType: ITEM_COUNTS_MEDIA_TYPE });
+      const wrapper = factory({ sectionType: ITEM_COUNTS_MEDIA_TYPE });
       const searchFromType = wrapper.vm.searchFromType('IMAGE');
       expect(searchFromType).toEqual(expected);
     });

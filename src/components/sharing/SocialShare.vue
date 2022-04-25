@@ -55,7 +55,7 @@
           {
             identifier: 'pinterest',
             name: 'Pinterest',
-            url: `https://pinterest.com/pin/create/link/?url=${this.shareUrl}&media=${this.mediaUrl}`
+            url: `https://pinterest.com/pin/create/link/?url=${this.shareUrl}` + (this.mediaUrl ? `&media=${this.mediaUrl}` : '')
           }
         ];
       }

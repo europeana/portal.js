@@ -124,7 +124,8 @@
         return data.name;
       },
       imageUrl(data) {
-        return (data.encoding ? data.encoding.edmPreview : data.thumbnailUrl) + '&size=w400';
+        const edmPreview = data.encoding?.edmPreview?.[0] || data.thumbnailUrl;
+        return this.$apis.thumbnail.edmPreview(edmPreview, { size: 400 });
       }
     }
   };

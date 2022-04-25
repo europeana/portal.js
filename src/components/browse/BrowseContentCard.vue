@@ -66,7 +66,7 @@
         } else if (typeof this.cardFields.image === 'string') {
           imageUrl = this.cardFields.image;
         } else if (this.cardFields.edmPreview) {
-          imageUrl = `${this.cardFields.edmPreview[0]}&size=w400`;
+          imageUrl = this.$apis.thumbnail.edmPreview(this.cardFields.edmPreview[0], { size: 400 });
         } else if (this.cardFields.entityImage) {
           imageUrl = this.cardFields.entityImage;
         } else if (this.imageIsContentfulAsset) {

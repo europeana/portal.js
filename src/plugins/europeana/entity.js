@@ -1,5 +1,6 @@
 import { BASE_URL as EUROPEANA_DATA_URL } from './data.js';
 import { apiError, createAxios } from './utils.js';
+import thumbnail from './thumbnail.js';
 import md5 from 'md5';
 
 export const BASE_URL = process.env.EUROPEANA_ENTITY_API_URL || 'https://api.europeana.eu/entity';
@@ -9,6 +10,8 @@ export default (context = {}) => {
 
   return {
     $axios,
+
+    $thumbnail: thumbnail(context),
 
     /**
      * Get data for one entity from the API
@@ -86,6 +89,23 @@ export default (context = {}) => {
         .catch((error) => {
           throw apiError(error, context);
         });
+    },
+
+    imageUrl(entity) {
+      let url = null;
+
+      // `image` is a property on automated entity cards in Contentful
+      if (entity?.image) {
+        url = this.$thumbnail.edmPreview(entity.image, { size: 200 });
+      // `isShownBy` is a property on most entity types
+      } else if (entity?.isShownBy?.thumbnail) {
+        url = this.$thumbnail.edmPreview(entity.isShownBy.thumbnail, { size: 200 });
+      // `logo` is a property on organization-type entities
+      } else if (entity?.logo?.id) {
+        url = getWikimediaThumbnailUrl(entity.logo.id, 28);
+      }
+
+      return url;
     }
   };
 };
