@@ -271,7 +271,7 @@ describe('components/item/PinModal', () => {
 
             const helpSpan = wrapper.find('span.help');
             expect(helpSpan.exists()).toBe(true);
-            expect(helpSpan.text()).toBe('for now you can only pin 24 items. if you want to pin this item, make sure you unpin another one and try pinning this item again.');
+            expect(helpSpan.text()).toBe('For now you can only pin 24 items. If you want to pin this item, make sure you unpin another one and try pinning this item again.');
           });
         });
       });

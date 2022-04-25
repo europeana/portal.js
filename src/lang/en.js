@@ -169,7 +169,7 @@ export default {
       "deleted": "Your gallery has been deleted.",
       "pin": "This item will show at the top of the \"{entity}\" collection. We will notify you when this change will be visible on the collection page.",
       "pinLimit": {
-        "body": "for now you can only pin 24 items. if you want to pin this item, make sure you unpin another one and try pinning this item again.",
+        "body": "For now you can only pin 24 items. If you want to pin this item, make sure you unpin another one and try pinning this item again.",
         "title": "Too many pinned items"
       },
       "pinned": "The item has been pinned. It will appear as the first item on the \"{entity}\" collection. We will notify you when this change will be visible on the collection page.",
