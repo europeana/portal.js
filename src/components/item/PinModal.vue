@@ -36,7 +36,7 @@
     </b-button>
     <div class="modal-footer">
       <span class="w-100 help">
-        <span class="icon icon-info-outline d-inline-flex"/>{{ infoText }}
+        <span class="icon icon-info-outline d-inline-flex" />{{ infoText }}
       </span>
       <b-button
         variant="outline-primary"
@@ -107,16 +107,13 @@
 
     computed: {
       infoText() {
-        if (this.selected) {
-          if (this.selectedIsFull) {
-            return this.selectedIsPinned ? this.$t('entity.notifications.unpin', { entity: this.selectedEntityPrefLabel }) : this.$t('entity.notifications.pinLimit.body');
-          }
-          if (this.selectedIsPinned) {
-            return this.$t('entity.notifications.unpin', { entity: this.selectedEntityPrefLabel });
-          }
-          return this.$t('entity.notifications.pin', { entity: this.selectedEntityPrefLabel });
+        if (this.selectedIsFull) {
+          return this.selectedIsPinned ? this.$t('entity.notifications.unpin', { entity: this.selectedEntityPrefLabel }) : this.$t('entity.notifications.pinLimit.body');
         }
-        return this.$t('entity.notifications.select');
+        if (this.selectedIsPinned) {
+          return this.$t('entity.notifications.unpin', { entity: this.selectedEntityPrefLabel });
+        }
+        return this.selected ? this.$t('entity.notifications.pin', { entity: this.selectedEntityPrefLabel }) : this.$t('entity.notifications.select');
       },
       selectedIsPinned() {
         return this.selected && this.pinnedTo(this.selected);
@@ -145,7 +142,7 @@
       fetchPinningData() {
         // TODO: Don't fetch all entities if related entities are already present and less than 5. Set all entities to related entities instead for that scenario.
         return this.$apis.entity.find(this.entities)
-          .then(entities => entities.map(entity => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo'])))
+          .then(entities => entities.map(entity => pick(entity, ['id', 'prefLabel'])))
           .then(async(reduced) => {
             await this.$store.commit('item/setAllRelatedEntities', reduced);
             const entityIds = reduced.map(entity => entity.id);

@@ -37,13 +37,11 @@ const defaultEntityFindResponse = [
   },
   {
     id: 'http://data.europeana.eu/topic/base/123',
-    prefLabel: { en: 'Topic entity' },
-    isShownBy: 'https://example.org/topic/depiction.jpg'
+    prefLabel: { en: 'Topic entity' }
   },
   {
     id: 'http://data.europeana.eu/organisation/base/123456789',
-    prefLabel: { en: 'Organisation entity' },
-    logo: 'https://example.org/organisation/logo.jpg'
+    prefLabel: { en: 'Organisation entity' }
   }
 ];
 
@@ -152,17 +150,7 @@ const factory = (propsData = defaultPropsData, apiOverrides = {}) => mount(Entit
 
 describe('components/item/PinModal', () => {
   afterEach(async() => {
-    setApiSearchStub.resetHistory();
-    setApiCreateStub.resetHistory();
-    setApiModifyItemsStub.resetHistory();
-    entityApiFindStub.resetHistory();
-
-    itemPinnedToGetterStub.resetHistory();
-    itemAllRelatedEntitiesGetterStub.resetHistory();
-    itemSetAllRelatedEntitiesMutationStub.resetHistory();
-    itemAddToFeaturedSetIdsMutationStub.resetHistory();
-    itemAddPinToFeaturedSetPinsMutationStub.resetHistory();
-    itemAddToFeaturedSetPinsMutationStub.resetHistory();
+    sinon.resetHistory();
   });
 
   describe('while NO entity is selected', () => {

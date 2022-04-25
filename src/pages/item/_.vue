@@ -25,7 +25,7 @@
           :media="media"
           :edm-rights="edmRights"
           :attribution-fields="attributionFields"
-          :entities="allEuropeanEntityUris"
+          :entities="allEuropeanaEntityUris"
         />
       </b-container>
       <b-container>
@@ -245,7 +245,7 @@
           .slice(0, 5)
           .map(entity => entity.about);
       },
-      allEuropeanEntityUris() {
+      allEuropeanaEntityUris() {
         return this.europeanaEntities
           .map(entity => entity.about);
       },
