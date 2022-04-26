@@ -247,11 +247,11 @@ export default (context = {}) => {
 
       return {
         small: thumbnailUrl(uri, {
-          size: 'w200',
+          size: 200,
           type
         }),
         large: thumbnailUrl(uri, {
-          size: 'w400',
+          size: 400,
           type
         })
       };
