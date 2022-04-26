@@ -72,10 +72,11 @@ describe('plugins/europeana/thumbnail', () => {
       describe('for Thumbnail API v2 edm:preview URL', () => {
         describe('with v2 API URL in context', () => {
           const context = { $config: { europeana: { apis: { thumbnail: { url: 'https://api.europeana.eu/thumbnail/v2' } } } } };
+
           it('overwrites API URL using context', () => {
             const url = 'https://example.org/thumbnail/v2/url.json?uri=https%3A%2F%2Fexample.org%2Fpreview.jpg';
 
-            const edmPreview = thumbnail().edmPreview(url, { size: 400 });
+            const edmPreview = thumbnail(context).edmPreview(url, { size: 400 });
 
             expect(edmPreview).toBe('https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fexample.org%2Fpreview.jpg&size=w400');
           });
@@ -84,7 +85,7 @@ describe('plugins/europeana/thumbnail', () => {
             it('favours value in options', () => {
               const url = 'https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fexample.org%2Fpreview.jpg&size=w200';
 
-              const edmPreview = thumbnail().edmPreview(url, { size: 400 });
+              const edmPreview = thumbnail(context).edmPreview(url, { size: 400 });
 
               expect(edmPreview).toBe('https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fexample.org%2Fpreview.jpg&size=w400');
             });
@@ -92,7 +93,7 @@ describe('plugins/europeana/thumbnail', () => {
             it('falls back to value in URL query params', () => {
               const url = 'https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fexample.org%2Fpreview.jpg&size=w400';
 
-              const edmPreview = thumbnail().edmPreview(url);
+              const edmPreview = thumbnail(context).edmPreview(url);
 
               expect(edmPreview).toBe('https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fexample.org%2Fpreview.jpg&size=w400');
             });
@@ -100,7 +101,7 @@ describe('plugins/europeana/thumbnail', () => {
             it('defaults to 200', () => {
               const url = 'https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fexample.org%2Fpreview.jpg';
 
-              const edmPreview = thumbnail().edmPreview(url);
+              const edmPreview = thumbnail(context).edmPreview(url);
 
               expect(edmPreview).toBe('https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fexample.org%2Fpreview.jpg&size=w200');
             });
@@ -110,7 +111,7 @@ describe('plugins/europeana/thumbnail', () => {
             it('favours value in options', () => {
               const url = 'https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fexample.org%2Fpreview.jpg&type=VIDEO';
 
-              const edmPreview = thumbnail().edmPreview(url, { type: 'IMAGE' });
+              const edmPreview = thumbnail(context).edmPreview(url, { type: 'IMAGE' });
 
               expect(edmPreview).toBe('https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fexample.org%2Fpreview.jpg&size=w200&type=IMAGE');
             });
@@ -118,7 +119,7 @@ describe('plugins/europeana/thumbnail', () => {
             it('falls back to value in URL query params', () => {
               const url = 'https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fexample.org%2Fpreview.jpg&type=VIDEO';
 
-              const edmPreview = thumbnail().edmPreview(url);
+              const edmPreview = thumbnail(context).edmPreview(url);
 
               expect(edmPreview).toBe('https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fexample.org%2Fpreview.jpg&size=w200&type=VIDEO');
             });
@@ -126,7 +127,7 @@ describe('plugins/europeana/thumbnail', () => {
             it('is omitted if absent', () => {
               const url = 'https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fexample.org%2Fpreview.jpg';
 
-              const edmPreview = thumbnail().edmPreview(url);
+              const edmPreview = thumbnail(context).edmPreview(url);
 
               expect(edmPreview).toBe('https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fexample.org%2Fpreview.jpg&size=w200');
             });
