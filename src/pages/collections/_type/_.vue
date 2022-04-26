@@ -359,9 +359,13 @@
             name: 'collections-type-all',
             params: { type: this.$route.params.type, pathMatch: desiredPath }
           });
-          return this.$nuxt.context.redirect(302, redirectPath);
+          if (process.server) {
+            this.$nuxt.context.redirect(302, redirectPath);
+          } else {
+            // _Replace_ history entry to prevent interference with back button
+            this.$nuxt.context.app.router.replace(redirectPath);
+          }
         }
-        return true;
       },
       storeSearchOverrides() {
         this.$store.commit('search/set', ['overrideParams', this.searchOverrides]);

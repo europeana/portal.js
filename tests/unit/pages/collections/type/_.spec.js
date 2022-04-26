@@ -91,7 +91,7 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
     $features: { sideFilters: false },
     $pageHeadTitle: key => key,
     $path: () => '/',
-    $nuxt: { context: { redirect: sinon.spy() } },
+    $nuxt: { context: { redirect: sinon.spy(), app: { router: { replace: sinon.spy() } } } },
     $store: {
       state: {
         entity: {
@@ -375,7 +375,15 @@ describe('pages/collections/type/_', () => {
 
   describe('methods', () => {
     describe('redirectToPrefPath', () => {
-      const redirectIssued = async({ data, entity, pathMatch }) => {
+      const redirectIssued = async({ data, entity, pathMatch, serverOrClient = 'server' }) => {
+        if (serverOrClient === 'server') {
+          process.server = true;
+          process.client = false;
+        } else {
+          process.server = false;
+          process.client = true;
+        }
+
         const wrapper = factory(topicEntity);
         await wrapper.setData(data || {});
         entity && (wrapper.vm.$store.state.entity.entity = entity);
@@ -383,44 +391,54 @@ describe('pages/collections/type/_', () => {
 
         await wrapper.vm.redirectToPrefPath();
 
-        return wrapper.vm.$nuxt.context.redirect.calledWith(302, '/');
+        if (process.server) {
+          return wrapper.vm.$nuxt.context.redirect.calledWith(302, '/');
+        } else {
+          return wrapper.vm.$nuxt.context.app.router.replace.calledWith('/');
+        }
       };
 
-      describe('when entity has a named collection page', () => {
-        const data = { page: { name: 'Geography', hasPartCollection: { items: [] } } };
+      for (const serverOrClient of ['server', 'client']) {
+        const redirectOrReplace = serverOrClient === 'server' ? 'redirect' : 'replace';
 
-        describe('and URL slug already uses the name', () => {
-          const pathMatch = '01234567890-geography';
-          it('does not redirect', async() => {
-            expect(await redirectIssued({ data, pathMatch })).toBe(false);
+        describe(`${serverOrClient}-side`, () => {
+          describe('when entity has a named collection page', () => {
+            const data = { page: { name: 'Geography', hasPartCollection: { items: [] } } };
+
+            describe('and URL slug already uses the name', () => {
+              const pathMatch = '01234567890-geography';
+              it(`does not ${redirectOrReplace}`, async() => {
+                expect(await redirectIssued({ data, pathMatch, serverOrClient })).toBe(false);
+              });
+            });
+
+            describe('and URL slug does not use the name', () => {
+              const pathMatch = '01234567890-geo';
+              it(`${redirectOrReplace}s`, async() => {
+                expect(await redirectIssued({ data, pathMatch })).toBe(true);
+              });
+            });
+          });
+
+          describe('when entity has no named collection page, but an English prefLabel', () => {
+            const entity = { ...topicEntity.entity, prefLabel: { en: 'Geography' } };
+
+            describe('and URL slug already uses the name', () => {
+              const pathMatch = '01234567890-geography';
+              it(`does not ${redirectOrReplace}`, async() => {
+                expect(await redirectIssued({ pathMatch, entity })).toBe(false);
+              });
+            });
+
+            describe('and URL slug does not use the name', () => {
+              const pathMatch = '01234567890-geo';
+              it(`${redirectOrReplace}s`, async() => {
+                expect(await redirectIssued({ pathMatch, entity })).toBe(true);
+              });
+            });
           });
         });
-
-        describe('and URL slug does not use the name', () => {
-          const pathMatch = '01234567890-geo';
-          it('redirects', async() => {
-            expect(await redirectIssued({ data, pathMatch })).toBe(true);
-          });
-        });
-      });
-
-      describe('when entity has no named collection page, but an English prefLabel', () => {
-        const entity = { ...topicEntity.entity, prefLabel: { en: 'Geography' } };
-
-        describe('and URL slug already uses the name', () => {
-          const pathMatch = '01234567890-geography';
-          it('does not redirect', async() => {
-            expect(await redirectIssued({ pathMatch, entity })).toBe(false);
-          });
-        });
-
-        describe('and URL slug does not use the name', () => {
-          const pathMatch = '01234567890-geo';
-          it('redirects', async() => {
-            expect(await redirectIssued({ pathMatch, entity })).toBe(true);
-          });
-        });
-      });
+      }
     });
 
     describe('showRelatedCollections()', () => {
