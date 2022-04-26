@@ -415,7 +415,7 @@ describe('pages/collections/type/_', () => {
             describe('and URL slug does not use the name', () => {
               const pathMatch = '01234567890-geo';
               it(`${redirectOrReplace}s`, async() => {
-                expect(await redirectIssued({ data, pathMatch })).toBe(true);
+                expect(await redirectIssued({ data, pathMatch, serverOrClient })).toBe(true);
               });
             });
           });
@@ -426,14 +426,14 @@ describe('pages/collections/type/_', () => {
             describe('and URL slug already uses the name', () => {
               const pathMatch = '01234567890-geography';
               it(`does not ${redirectOrReplace}`, async() => {
-                expect(await redirectIssued({ pathMatch, entity })).toBe(false);
+                expect(await redirectIssued({ pathMatch, entity, serverOrClient })).toBe(false);
               });
             });
 
             describe('and URL slug does not use the name', () => {
               const pathMatch = '01234567890-geo';
               it(`${redirectOrReplace}s`, async() => {
-                expect(await redirectIssued({ pathMatch, entity })).toBe(true);
+                expect(await redirectIssued({ pathMatch, entity, serverOrClient })).toBe(true);
               });
             });
           });
