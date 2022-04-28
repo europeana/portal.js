@@ -87,7 +87,7 @@
           </b-button>
         </div>
       </b-modal>
-      <PinItemModal
+      <ItemPinModal
         v-if="showPins && identifier && entities.length > 0"
         :identifier="identifier"
         :modal-id="pinModalId"
@@ -109,7 +109,7 @@
     components: {
       AddItemToSetModal: () => import('../set/AddItemToSetModal'),
       SetFormModal: () => import('../set/SetFormModal'),
-      PinItemModal: () => import('../item/PinModal')
+      ItemPinModal: () => import('../item/ItemPinModal')
     },
     mixins: [
       keycloak,

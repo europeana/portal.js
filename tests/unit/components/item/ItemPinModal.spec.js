@@ -3,7 +3,7 @@ import BootstrapVue from 'bootstrap-vue';
 import VueI18n from 'vue-i18n';
 import Vuex from 'vuex';
 import flushPromises from 'flush-promises';
-import EntityUpdateModal from '@/components/item/PinModal';
+import EntityUpdateModal from '@/components/item/ItemPinModal';
 import sinon from 'sinon';
 
 /*
@@ -148,7 +148,7 @@ const factory = (propsData = defaultPropsData, apiOverrides = {}) => mount(Entit
   }
 });
 
-describe('components/item/PinModal', () => {
+describe('components/item/ItemPinModal', () => {
   afterEach(async() => {
     sinon.resetHistory();
   });

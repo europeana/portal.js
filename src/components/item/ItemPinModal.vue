@@ -74,7 +74,7 @@
   import makeToastMixin from '@/mixins/makeToast';
 
   export default {
-    name: 'PinModal',
+    name: 'ItemPinModal',
 
     mixins: [
       makeToastMixin
