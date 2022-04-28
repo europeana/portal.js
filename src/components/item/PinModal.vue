@@ -71,7 +71,6 @@
 
 <script>
   import pick from 'lodash/pick';
-  import { mapGetters, mapState } from 'vuex';
   import makeToastMixin from '@/mixins/makeToast';
 
   export default {
@@ -82,6 +81,13 @@
     ],
 
     props: {
+      /**
+       * Identifier of the item
+       */
+      identifier: {
+        type: String,
+        required: true
+      },
       modalId: {
         type: String,
         default: 'pin-modal'
@@ -101,7 +107,10 @@
     data() {
       return {
         fetched: false,
-        selected: null
+        selected: null,
+        allRelatedEntities: [],
+        featuredSetIds: {},
+        featuredSetPins: {}
       };
     },
 
@@ -126,31 +135,20 @@
       },
       selectedEntityPrefLabel() {
         return this.allRelatedEntities.find(entity => entity.id === this.selected)?.prefLabel?.en;
-      },
-      ...mapGetters({
-        itemId: 'item/id',
-        pinnedTo: 'item/pinnedTo'
-      }),
-      ...mapState({
-        featuredSetPins: state => state.item.featuredSetPins,
-        featuredSetIds: state => state.item.featuredSetIds,
-        allRelatedEntities: state => state.item.allRelatedEntities
-      })
+      }
     },
 
     methods: {
-      fetchPinningData() {
+      async fetchPinningData() {
+        if (this.fetched) {
+          return;
+        }
         // TODO: Don't fetch all entities if related entities are already present and less than 5. Set all entities to related entities instead for that scenario.
-        return this.$apis.entity.find(this.entities)
-          .then(entities => entities.map(entity => pick(entity, ['id', 'prefLabel'])))
-          .then(async(reduced) => {
-            await this.$store.commit('item/setAllRelatedEntities', reduced);
-            const entityIds = reduced.map(entity => entity.id);
-            await this.fetchFeaturedSetData(entityIds);
-          })
-          .then(() => {
-            this.fetched = true;
-          });
+        const entities = await this.$apis.entity.find(this.entities);
+        this.allRelatedEntities = entities.map(entity => pick(entity, ['id', 'prefLabel']));
+        const entityIds = this.allRelatedEntities.map(entity => entity.id);
+        await this.fetchFeaturedSetData(entityIds);
+        this.fetched = true;
       },
 
       async fetchFeaturedSetData(entityIds) {
@@ -159,17 +157,17 @@
           profile: 'minimal',
           pageSize: 1
         };
-        for (const entityId of entityIds) {
-          // TODO: "OR" the ids to avoid looping, but doesn't seem supported.
-          searchParams.qf = `subject:${entityId}`;
-          await this.$apis.set.search(searchParams)
-            .then(async(searchResponse) => {
-              if (searchResponse.data?.total > 0) {
-                await this.getSetData(searchResponse.data.items[0].split('/').pop());
-              }
-              // TODO: Should  an else block actually be RESETTING the store to empty values?
-            });
-        }
+        await Promise.all(entityIds.map(async(entityId) => {
+          // TODO: "OR" the ids to avoid multiple requests, but doesn't seem supported.
+          const searchResponse = await this.$apis.set.search({
+            ...searchParams,
+            qf: `subject:${entityId}`
+          });
+          if (searchResponse.data?.total > 0) {
+            await this.getSetData(searchResponse.data.items[0].split('/').pop());
+          }
+          // TODO: Should  an else block actually be RESETTING the data to empty values?
+        }));
       },
 
       async getSetData(setId) {
@@ -177,81 +175,58 @@
           profile: 'standard',
           pageSize: 100
         };
-        await this.$apis.set.get(setId, options)
-          .then(async(response) => {
-            await this.$store.commit('item/addToFeaturedSetIds', {
-              entityUri: response.subject[0],
-              setId
-            });
-            if (response.pinned) { // When pins exist, they need to be sliced from the items, as sets may in future contain recommended items too.
-              const pinnedItemIds = response.items.map(item => item.replace('http://data.europeana.eu/item', '')).slice(0, response.pinned);
-              await this.$store.commit('item/addToFeaturedSetPins', {
-                entityUri: response.subject[0],
-                pins: pinnedItemIds
-              });
-            } else {
-              await this.$store.commit('item/addToFeaturedSetPins', {
-                entityUri: response.subject[0],
-                pins: []
-              });
-            }
-          });
+        const response = await this.$apis.set.get(setId, options);
+        const entityUri = response.subject[0];
+        this.featuredSetIds[entityUri] = setId;
+        let pinnedItemIds = [];
+        if (response.pinned) { // When pins exist, they need to be sliced from the items, as sets may in future contain recommended items too.
+          pinnedItemIds = response.items.map(item => item.replace('http://data.europeana.eu/item', '')).slice(0, response.pinned);
+        }
+        this.featuredSetPins[entityUri] = pinnedItemIds;
       },
 
-      ensureSelectedSetExists() {
+      async ensureSelectedSetExists() {
         if (!this.featuredSetIds[this.selected]) {
           const featuredSetBody = {
             type: 'EntityBestItemsSet',
             title: { 'en': this.selectedEntityPrefLabel + ' Page' },
             subject: [this.selected]
           };
-          return this.$apis.set.create(featuredSetBody)
-            .then(async(response) => {
-              await this.$store.commit('item/addToFeaturedSetIds', { entityUri: this.selected, setId: response.id });
-              await this.$store.commit('item/addToFeaturedSetPins', { entityUri: this.selected, pins: [] }); // Instatniate blank pins on new set
-            });
+          const response = await this.$apis.set.create(featuredSetBody);
+          const entityUri = response.id;
+          this.featuredSetIds[this.selected] = entityUri;
+          this.featuredSetPins[entityUri] = []; // Instantiate blank pins on new set
         }
-        return Promise.resolve();
       },
 
       async pin() {
         await this.ensureSelectedSetExists();
-        await this.$apis.set.modifyItems('add', this.featuredSetIds[this.selected], this.itemId, true)
-          .then(() => {
-            const pinOnSetArgs = { entityUri: this.selected, pin: this.itemId };
-            return this.$store.commit('item/addPinToFeaturedSetPins', pinOnSetArgs);
-          })
-          .then(() => {
-            this.makeToast(this.$t('entity.notifications.pinned', { entity: this.selectedEntityPrefLabel }));
-            this.hide(); // should the box stay open?
-          });
+        await this.$apis.set.modifyItems('add', this.featuredSetIds[this.selected], this.identifier, true);
+        this.featuredSetPins[this.selected].push(this.identifier); // pin will likely always be state.id
+        this.makeToast(this.$t('entity.notifications.pinned', { entity: this.selectedEntityPrefLabel }));
+        this.hide(); // TODO: should the modal stay open?
       },
+
       async unpin() {
-        await this.$apis.set.modifyItems('delete', this.featuredSetIds[this.selected], this.itemId)
-          .then(() =>  {
-            // TODO: instead of refetching everything, this could update the store only.
-            this.fetchFeaturedSetData([this.selected]);
-          }).then(() => {
-            const msg = this.$t('entity.notifications.unpinned');
-            this.makeToast(msg);
-          })
-          .catch((e) => {
-            this.fetchFeaturedSetData([this.selected]);
-            // TODO: notify the user with a toast?
-            throw e;
-          });
-        this.hide(); // should the box stay open?
+        await this.$apis.set.modifyItems('delete', this.featuredSetIds[this.selected], this.identifier);
+        // TODO: instead of refetching everything, this could update the local data only.
+        await this.fetchFeaturedSetData([this.selected]);
+        this.makeToast(this.$t('entity.notifications.unpinned'));
+        this.hide(); // TODO: should the modal stay open?
       },
+
       selectEntity(id) {
         this.selected = id;
       },
-      async togglePin() {
-        if (this.selectedIsPinned) {
-          await this.unpin();
-        } else {
-          await this.pin();
-        }
+
+      pinnedTo(entityUri) {
+        return (this.featuredSetPins[entityUri] || []).includes(this.identifier);
       },
+
+      async togglePin() {
+        await (this.selectedIsPinned ? this.unpin() : this.pin());
+      },
+
       hide() {
         this.selected = null;
         this.$bvModal.hide(this.modalId);

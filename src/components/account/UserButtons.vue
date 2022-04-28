@@ -88,7 +88,8 @@
         </div>
       </b-modal>
       <PinItemModal
-        v-if="showPins && item && entities.length > 0"
+        v-if="showPins && identifier && entities.length > 0"
+        :identifier="identifier"
         :modal-id="pinModalId"
         :entities="entities"
         data-qa="pin item to entities modal"
@@ -187,8 +188,7 @@
       },
       ...mapGetters({
         entity: 'entity/id',
-        featuredSet: 'entity/featuredSetId',
-        item: 'item/id'
+        featuredSet: 'entity/featuredSetId'
       })
     },
     methods: {

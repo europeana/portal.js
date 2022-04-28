@@ -189,7 +189,6 @@
     },
 
     fetch() {
-      this.$store.commit('item/setId', this.identifier);
       this.fetchAnnotations();
       this.fetchRelatedEntities();
       this.fetchSimilarItems();
