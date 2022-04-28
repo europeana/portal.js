@@ -193,9 +193,9 @@
             subject: [this.selected]
           };
           const response = await this.$apis.set.create(featuredSetBody);
-          const entityUri = response.id;
-          this.featuredSetIds[this.selected] = entityUri;
-          this.featuredSetPins[entityUri] = []; // Instantiate blank pins on new set
+          const setId = response.id;
+          this.featuredSetIds[this.selected] = setId;
+          this.featuredSetPins[this.selected] = []; // Instantiate blank pins on new set
         }
       },
 
