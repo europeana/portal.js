@@ -31,7 +31,7 @@
               <client-only>
                 <UserButtons
                   :identifier="identifier"
-                  :show-pins="userIsEditor && userIsSetsEditor"
+                  :show-pins="showPins"
                   :entities="entities"
                   button-variant="secondary"
                 />
@@ -157,6 +157,9 @@
       },
       downloadEnabled() {
         return this.rightsStatement && !this.rightsStatement.includes('/InC/') && !this.selectedMedia.isShownAt;
+      },
+      showPins() {
+        return this.userIsEditor && this.userIsSetsEditor && this.entities.length > 0;
       },
       userIsEditor() {
         // TODO: check if this can be abstracted, it's the same as in  src/pages/collections/_type/_.vue
