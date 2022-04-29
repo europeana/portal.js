@@ -71,11 +71,4 @@ query CollectionPage(
       }
     }
   }
-  curatedEntities: entityPageCollection(preview: $preview, locale: $locale, limit: 1000) {
-    items {
-      name
-      identifier
-      genre
-    }
-  }
 }

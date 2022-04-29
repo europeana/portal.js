@@ -12,7 +12,7 @@
 
 <script>
   import { mapState } from 'vuex';
-  import themes from '@/plugins/europeana/themes';
+  import { themes } from '@/plugins/europeana/themes';
 
   export default {
     computed: {

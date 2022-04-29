@@ -105,7 +105,7 @@
   import SmartLink from './SmartLink';
   import stripMarkdown from '@/mixins/stripMarkdown';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
-  import themes from '@/plugins/europeana/themes';
+  import { themes } from '@/plugins/europeana/themes';
 
   export default {
     name: 'ContentCard',

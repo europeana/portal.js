@@ -64,7 +64,7 @@
 <script>
   import RemovalChip from './RemovalChip';
   import { entityParamsFromUri } from '@/plugins/europeana/entity';
-  import themes from '@/plugins/europeana/themes';
+  import { themes } from '@/plugins/europeana/themes';
   import { mapState } from 'vuex';
 
   export default {

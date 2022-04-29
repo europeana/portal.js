@@ -33,6 +33,20 @@ const store = new Vuex.Store({
       annotations: [],
       relatedEntities: [],
       similarItems: []
+    },
+    entity: {
+      curatedEntities: [
+        {
+          name: 'World War I',
+          identifier: 'http://data.europeana.eu/concept/base/83',
+          genre: 'ww1'
+        },
+        {
+          name: 'Manuscripts',
+          identifier: 'http://data.europeana.eu/concept/base/17',
+          genre: 'manuscript'
+        }
+      ]
     }
   },
   mutations: {

@@ -28,37 +28,98 @@ const allThemes = [
   }
 ];
 
+const contentfulResponse = {
+  data: {
+    data: {
+      curatedEntities: {
+        items: [
+          {
+            name: 'World War I',
+            identifier: 'http://data.europeana.eu/concept/base/83',
+            genre: 'ww1'
+          },
+          {
+            name: 'Manuscripts',
+            identifier: 'http://data.europeana.eu/concept/base/17',
+            genre: 'manuscript'
+          }
+        ]
+      }
+    }
+  }
+};
+
 const fetchThemes = sinon.stub().resolves(allThemes);
+const contentfulQuery = sinon.stub().resolves(contentfulResponse);
 const storeCommit = sinon.spy();
 
-const factory = (themes = []) => shallowMountNuxt(QuickSearch, {
+const factory = (options = {}) => shallowMountNuxt(QuickSearch, {
   localVue,
   mocks: {
     $path: () => 'mocked path',
     $t: (key) => key,
-    $i18n: { locale: 'en' },
+    $i18n: {
+      locale: 'en',
+      isoLocale: () => 'en-GB'
+    },
     $store: {
-      state: { search: { allThemes: themes } },
+      state: {
+        search: { allThemes: options.themes || [] },
+        entity: { curatedEntities: options.curatedEntities }
+      },
       commit: storeCommit
     },
+    $contentful: {
+      query: contentfulQuery
+    },
+    $route: { query: { mode: null } },
     $apis: { entity: { find: fetchThemes } }
   }
 });
 
 describe('components/search/QuickSearch', () => {
+  beforeEach(() => {
+    sinon.resetHistory();
+  });
   describe('displaying quick search for the first time', () => {
-    it('fetches the themes and saves them in search store', async() => {
+    it('fetches the themes and overrides and saves them in search an entity store', async() => {
       const wrapper = factory();
 
       await wrapper.vm.fetch();
 
       expect(fetchThemes.called).toBe(true);
+      expect(contentfulQuery.called).toBe(true);
+      expect(storeCommit.calledWith('entity/setCuratedEntities', sinon.match.any)).toBe(true);
       expect(storeCommit.calledWith('search/set', ['allThemes', allThemes])).toBe(true);
+    });
+  });
+  describe('displaying quick search with curatedEntities already stored', () => {
+    it('fetches the themes and saves them in search store, does not refetch curated data', async() => {
+      const wrapper = factory({ curatedEntities: contentfulResponse.data.data.curatedEntities.items });
+
+      await wrapper.vm.fetch();
+
+      expect(fetchThemes.called).toBe(true);
+      expect(contentfulQuery.called).toBe(false);
+      expect(storeCommit.calledWith('entity/setCuratedEntities', sinon.match.any)).toBe(false);
+      expect(storeCommit.calledWith('search/set', ['allThemes', allThemes])).toBe(true);
+    });
+  });
+  describe('displaying quick search with themes already stored', () => {
+    it('does not fetch anything', async() => {
+      const wrapper = factory({ themes: ['theme1', 'theme2'] });
+
+      await wrapper.vm.fetch();
+
+      expect(fetchThemes.called).toBe(false);
+      expect(contentfulQuery.called).toBe(false);
+      expect(storeCommit.calledWith('entity/setCuratedEntities', sinon.match.any)).toBe(false);
+      expect(storeCommit.calledWith('search/set', ['allThemes', allThemes])).toBe(false);
     });
   });
   describe('when options or themes are available', () => {
     it('is rendered', async() => {
-      const wrapper = factory(['theme1', 'theme2']);
+      const wrapper = factory({ themes: ['theme1', 'theme2'] });
       const quickSearch = wrapper.find('[data-qa="quick-search"]');
 
       expect(quickSearch.exists()).toBe(true);

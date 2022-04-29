@@ -111,7 +111,7 @@
   import isEqual from 'lodash/isEqual';
   import { mapState, mapGetters } from 'vuex';
   import { rangeToQueryParam, rangeFromQueryParam, filtersFromQf } from '@/plugins/europeana/search';
-  import themes from '@/plugins/europeana/themes';
+  import { themes } from '@/plugins/europeana/themes';
   import SideFacetDropdown from './SideFacetDropdown';
 
   export default {

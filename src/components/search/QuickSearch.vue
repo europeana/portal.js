@@ -14,9 +14,10 @@
 </template>
 
 <script>
+  import pick from 'lodash/pick';
   import RelatedCollections from '../generic/RelatedCollections';
   import { getEntityUri } from '@/plugins/europeana/entity';
-  import themes from '@/plugins/europeana/themes';
+  import { themes, themeOverrides } from '@/plugins/europeana/themes';
   import { mapState } from 'vuex';
 
   export default {
@@ -40,9 +41,16 @@
     async fetch() {
       if (this.allThemes.length === 0) {
         const themesURIs = themes.map(theme => getEntityUri('topic', theme.id));
-        const allThemesFromAPI = await this.$apis.entity.find(themesURIs);
-        this.$store.commit('search/set', ['allThemes', allThemesFromAPI]);
+        return this.$apis.entity.find(themesURIs)
+          .then((themesFromAPI) => {
+            return themesFromAPI.map(theme => pick(theme, ['id', 'prefLabel', 'isShownBy', 'thumbnail']));
+          })
+          .then(reduced => themeOverrides(this, reduced))
+          .then((themesForStore) => {
+            this.$store.commit('search/set', ['allThemes', themesForStore]);
+          });
       }
+      return Promise.resolve({});
     },
 
     computed: {
