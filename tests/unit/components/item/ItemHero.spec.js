@@ -87,6 +87,7 @@ const media = [
   }
 ];
 const identifier = '/2020601/https___1914_1918_europeana_eu_contributions_10265';
+const entities = [{ about: 'http://data.europeana.eu/agent/123' }];
 
 describe('components/item/ItemHero', () => {
   describe('selectMedia', () => {
@@ -195,18 +196,25 @@ describe('components/item/ItemHero', () => {
         }
       };
       it('shows the pinning, add and like buttons', () => {
-        const wrapper = factory({ media, identifier }, { store });
+        const wrapper = factory({ media, identifier, entities }, { store });
 
         const userButtons = wrapper.find('[data-qa="user buttons"]');
         expect(userButtons.find('[data-qa="pin button"]').isVisible()).toBe(true);
         expect(userButtons.find('[data-qa="add button"]').isVisible()).toBe(true);
         expect(userButtons.find('[data-qa="like button"]').isVisible()).toBe(true);
       });
+
+      it('omits the pinning button if there are no entities', () => {
+        const wrapper = factory({ media, identifier, entities: [] }, { store });
+
+        const userButtons = wrapper.find('[data-qa="user buttons"]');
+        expect(userButtons.find('[data-qa="pin button"]').isVisible()).toBe(false);
+      });
     });
 
     describe('when the user is NOT an editor', () => {
       it('shows add and like buttons only', () => {
-        const wrapper = factory({ media, identifier });
+        const wrapper = factory({ media, identifier, entities });
 
         const userButtons = wrapper.find('[data-qa="user buttons"]');
         expect(userButtons.find('[data-qa="pin button"]').isVisible()).toBe(false);
