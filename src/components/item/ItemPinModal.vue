@@ -71,7 +71,6 @@
 </template>
 
 <script>
-  import pick from 'lodash/pick';
   import makeToastMixin from '@/mixins/makeToast';
 
   export default {
