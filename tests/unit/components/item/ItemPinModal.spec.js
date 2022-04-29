@@ -271,6 +271,8 @@ describe('components/item/ItemPinModal', () => {
             const makeToast = sinon.spy(wrapper.vm, 'makeToast');
 
             await wrapper.find('[data-qa="toggle pin button"]').trigger('click');
+            await new Promise(process.nextTick);
+
             expect(makeToast.calledWith('The item has been pinned. It will appear as the first item on the "Agent entity" collection. We will notify you when this change will be visible on the collection page.')).toBe(true);
           });
         });
@@ -292,6 +294,7 @@ describe('components/item/ItemPinModal', () => {
           const wrapper = factory(fixtures.setDoesNotExist);
 
           await wrapper.find('[data-qa="toggle pin button"]').trigger('click');
+          await new Promise(process.nextTick);
           expect(setApiCreateStub.called).toBe(true);
           expect(setApiModifyItemsStub.called).toBe(true);
         });
@@ -399,7 +402,13 @@ describe('components/item/ItemPinModal', () => {
         });
       });
 
-      test.todo('sets `fetched` to `true`');
+      it('sets `fetched` to `true`', async() => {
+        const wrapper = factory();
+
+        await wrapper.vm.fetchEntityBestItemsSets();
+
+        expect(wrapper.vm.fetched).toBe(true);
+      });
     });
 
     describe('getOneSet', () => {
