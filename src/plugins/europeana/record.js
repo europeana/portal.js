@@ -330,6 +330,7 @@ export default (context = {}) => {
 
       return this.$axios.get(`${path}${europeanaId}.json`, { params })
         .then(response => this.parseRecordDataFromApiResponse(response.data, options))
+        // FIXME: restore `en` on entities, e.g. for use in EntityBestItemsSet-type sets
         .then(parsed => {
           return reduceLangMapsForLocale(parsed, parsed.metadataLanguage || options.locale, options);
         })

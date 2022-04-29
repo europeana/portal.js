@@ -25,7 +25,7 @@
           :media="media"
           :edm-rights="edmRights"
           :attribution-fields="attributionFields"
-          :entities="allEuropeanaEntityUris"
+          :entities="europeanaEntities"
         />
       </b-container>
       <b-container>
@@ -241,11 +241,6 @@
       },
       europeanaEntityUris() {
         return this.europeanaEntities
-          .slice(0, 5)
-          .map(entity => entity.about);
-      },
-      allEuropeanaEntityUris() {
-        return this.europeanaEntities
           .map(entity => entity.about);
       },
       attributionFields() {
@@ -332,7 +327,7 @@
       },
 
       fetchRelatedEntities() {
-        return this.$apis.entity.find(this.europeanaEntityUris)
+        return this.$apis.entity.find(this.europeanaEntityUris.slice(0, 5))
           .then(entities => entities.map(entity => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo'])))
           .then(reduced => this.$store.commit('item/setRelatedEntities', reduced));
       },
