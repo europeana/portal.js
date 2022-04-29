@@ -89,13 +89,21 @@
         type: String,
         required: true
       },
-      modalId: {
-        type: String,
-        default: 'pin-modal'
-      },
+      /**
+       * Entities associated with the item, to which it may be pinned
+       * @example
+       *   [
+       *     { about: 'entityUri1', prefLabel: { en: 'entity en label 1' } },
+       *     { about: 'entityUri2', prefLabel: { en: 'entity en label 2' } }
+       *   ]
+       */
       entities: {
         type: Array,
         required: true
+      },
+      modalId: {
+        type: String,
+        default: 'pin-modal'
       },
       /**
        * Used for testing, in order to render the modal.
@@ -111,13 +119,17 @@
         fetched: false,
         selected: null,
         /**
+         * EntityBestItemsSet-type sets for the item's entities
          * @example
          *   {
          *     'entityUri1': { id: 'setId1', pinned: ['itemUri1'] },
          *     'entityUri2': { id: 'setId2', pinned: ['itemUri1', 'itemUri2'] },
          *   }
          */
-        sets: {}
+        sets: this.entities.reduce((memo, entity) => {
+          memo[entity.about] = this.setFactory();
+          return memo;
+        }, {})
       };
     },
 
@@ -135,20 +147,30 @@
         return this.selected && this.pinnedTo(this.selected);
       },
       selectedIsFull() {
-        return this.selected && this.sets[this.selected]?.pinned?.length >= 24;
+        return this.selected && this.selectedEntitySet?.pinned?.length >= 24;
       },
       selectedLink() {
-        return { name: 'set-all', params: { pathMatch: this.selected && selectedEntitySet.id.replace('http://data.europeana.eu/set/', '') } };
+        return { name: 'set-all', params: { pathMatch: this.selected && this.selectedEntitySet.id.replace('http://data.europeana.eu/set/', '') } };
       },
       selectedEntityPrefLabel() {
         return this.selectedEntity?.prefLabel?.en?.[0];
       },
       selectedEntity() {
         return this.entities.find(entity => entity.about === this.selected);
+      },
+      selectedEntitySet() {
+        return this.sets[this.selected];
       }
     },
 
     methods: {
+      setFactory() {
+        return {
+          id: null,
+          pinned: []
+        };
+      },
+
       async fetchEntityBestItemsSets() {
         if (this.fetched) {
           return;
@@ -190,28 +212,28 @@
       },
 
       async ensureSelectedSetExists() {
-        if (!this.sets[this.selected]?.id) {
+        if (!this.selectedEntitySet?.id) {
           const setBody = {
             type: 'EntityBestItemsSet',
             title: { 'en': `${this.selectedEntityPrefLabel} Page` },
             subject: [this.selected]
           };
           const response = await this.$apis.set.create(setBody);
-          selectedEntitySet.id = response.id;
+          this.selectedEntitySet.id = response.id;
         }
       },
 
       async pin() {
         await this.ensureSelectedSetExists();
-        await this.$apis.set.modifyItems('add', this.sets[this.selected].id, this.identifier, true);
-        this.sets[this.selected].pinned.push(this.identifier);
+        await this.$apis.set.modifyItems('add', this.selectedEntitySet.id, this.identifier, true);
+        this.selectedEntitySet.pinned.push(this.identifier);
         this.makeToast(this.$t('entity.notifications.pinned', { entity: this.selectedEntityPrefLabel }));
         this.hide();
       },
 
       async unpin() {
-        await this.$apis.set.modifyItems('delete', this.sets[this.selected].id, this.identifier);
-        this.sets[this.selected].pinned = this.sets[this.selected].pinned.filter(itemId => itemId !== this.identifier);
+        await this.$apis.set.modifyItems('delete', this.selectedEntitySet.id, this.identifier);
+        this.selectedEntitySet.pinned = this.selectedEntitySet.pinned.filter(itemId => itemId !== this.identifier);
         this.makeToast(this.$t('entity.notifications.unpinned'));
         this.hide();
       },
