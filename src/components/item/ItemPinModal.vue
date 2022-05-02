@@ -231,9 +231,13 @@
       },
 
       async unpin() {
-        await this.$apis.set.modifyItems('delete', this.selectedEntitySet.id, this.identifier);
-        this.selectedEntitySet.pinned = this.selectedEntitySet.pinned.filter(itemId => itemId !== this.identifier);
-        this.makeToast(this.$t('entity.notifications.unpinned'));
+        try {
+          await this.$apis.set.modifyItems('delete', this.selectedEntitySet.id, this.identifier);
+          this.selectedEntitySet.pinned = this.selectedEntitySet.pinned.filter(itemId => itemId !== this.identifier);
+          this.makeToast(this.$t('entity.notifications.unpinned'));
+        } catch {
+          this.makeToast(this.$t('entity.notifications.error.unpin'));
+        }
         this.hide();
       },
 
