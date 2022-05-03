@@ -6,10 +6,12 @@
       v-if="imageLink && media.thumbnails.large && !media.isShownAt"
       :href="imageLink"
       target="_blank"
+      data-qa="media link"
     >
       <DefaultThumbnail
         v-if="showDefaultThumbnail"
         media-type="image"
+        data-qa="default thumbnail"
       />
       <component
         :is="lazy ? 'b-img-lazy' : 'b-img'"

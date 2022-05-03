@@ -4,7 +4,7 @@ import MediaCard from '@/components/item/MediaCard.vue';
 const localVue = createLocalVue();
 const factory = (propsData) => shallowMount(MediaCard, {
   localVue,
-  stubs: ['b-img-lazy'],
+  stubs: ['b-img-lazy', 'b-link'],
   propsData,
   mocks: {
     $t: (key) => key,
