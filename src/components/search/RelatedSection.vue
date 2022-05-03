@@ -57,7 +57,6 @@
           language: this.$i18n.locale,
           rows: 4
         }).then((related) => {
-          console.log(related);
           return themeOverrides(this, related);
         });
       }

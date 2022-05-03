@@ -85,7 +85,6 @@
       linkGen(collection) {
         let id = '';
         let name = '';
-        console.log(collection);
         if (collection.id) {
           id = collection.id;
           name = collection.prefLabel[this.$i18n.locale];
