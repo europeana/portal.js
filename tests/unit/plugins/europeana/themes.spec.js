@@ -4,7 +4,7 @@ import sinon from 'sinon';
 const themesData = [
   { id: 'http://data.europeana.eu/organization/1482250000002112001', prefLabel: 'National Library of France' },
   { id: 'http://data.europeana.eu/agent/base/59833', prefLabel: 'Voltaire' },
-  { id: 'http://data.europeana.eu/agent/base/146742', prefLabel: 'Louis XVI of France' },
+  { id: 'http://data.europeana.eu/concept/base/83', prefLabel: { en: 'World War I' } },
   { id: 'http://data.europeana.eu/concept/base/17', prefLabel: { en: 'Manusscript' } }
 ];
 
@@ -16,7 +16,13 @@ const contentfulResponse = {
           {
             name: 'World War I',
             identifier: 'http://data.europeana.eu/concept/base/83',
-            genre: 'ww1'
+            genre: 'ww1',
+            primaryImageOfPage: {
+              image: {
+                url: 'https://images.ctfassets.net/i01duvb6kq77/792bNsvUU5gai7bWidjZoz/1d6ce46c91d5fbcd840e8cf8bfe376a3/206_item_QCZITS4J5WNRUS7ESLVJH6PSOCRHBPMI.jpg',
+                contentType: 'image/jpeg'
+              }
+            }
           },
           {
             name: 'Manuscripts',
@@ -46,9 +52,7 @@ const stubbedContext = {
     isoLocale: () => 'en-GB'
   },
   $route: {
-    query: {
-
-    }
+    query: {}
   },
   $contentful: {
     query: contentfulQueryStub
@@ -70,6 +74,10 @@ describe('describe./@/plugins/europeana/themes', () => {
         const withOverrides = await themeOverrides(stubbedContext, themesData);
         const expectedOverrides = themesData;
         expectedOverrides[3].prefLabel = { en: 'Manuscripts' };
+        expectedOverrides[2].contentfulImage = {
+          url: 'https://images.ctfassets.net/i01duvb6kq77/792bNsvUU5gai7bWidjZoz/1d6ce46c91d5fbcd840e8cf8bfe376a3/206_item_QCZITS4J5WNRUS7ESLVJH6PSOCRHBPMI.jpg',
+          contentType: 'image/jpeg'
+        };
 
         expect(contentfulQueryStub.called).toBe(true);
         expect(storeCommitStub.called).toBe(true);

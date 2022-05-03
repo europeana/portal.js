@@ -85,7 +85,7 @@
       linkGen(collection) {
         let id = '';
         let name = '';
-
+        console.log(collection);
         if (collection.id) {
           id = collection.id;
           name = collection.prefLabel[this.$i18n.locale];
@@ -105,6 +105,9 @@
       },
 
       imageUrl(collection) {
+        if (collection.contentfulImage) {
+          // get contentful img url.
+        }
         return this.$apis.entity.imageUrl(collection);
       }
     }

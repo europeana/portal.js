@@ -7,27 +7,6 @@ import sinon from 'sinon';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const allThemes = [
-  {
-    id: 'http://data.europeana.eu/concept/base/80',
-    prefLabel: {
-      en: 'Archaeology'
-    }
-  },
-  {
-    id: 'http://data.europeana.eu/concept/base/83',
-    prefLabel: {
-      en: 'World War I'
-    }
-  },
-  {
-    id: 'http://data.europeana.eu/concept/base/114',
-    prefLabel: {
-      en: 'Sport'
-    }
-  }
-];
-
 const contentfulResponse = {
   data: {
     data: {
@@ -36,7 +15,13 @@ const contentfulResponse = {
           {
             name: 'World War I',
             identifier: 'http://data.europeana.eu/concept/base/83',
-            genre: 'ww1'
+            genre: 'ww1',
+            primaryImageOfPage: {
+              image: {
+                url: 'https://images.ctfassets.net/i01duvb6kq77/792bNsvUU5gai7bWidjZoz/1d6ce46c91d5fbcd840e8cf8bfe376a3/206_item_QCZITS4J5WNRUS7ESLVJH6PSOCRHBPMI.jpg',
+                contentType: 'image/jpeg'
+              }
+            }
           },
           {
             name: 'Manuscripts',
@@ -49,7 +34,6 @@ const contentfulResponse = {
   }
 };
 
-const fetchThemes = sinon.stub().resolves(allThemes);
 const contentfulQuery = sinon.stub().resolves(contentfulResponse);
 const storeCommit = sinon.spy();
 
@@ -72,8 +56,7 @@ const factory = (options = {}) => shallowMountNuxt(QuickSearch, {
     $contentful: {
       query: contentfulQuery
     },
-    $route: { query: { mode: null } },
-    $apis: { entity: { find: fetchThemes } }
+    $route: { query: { mode: null } }
   }
 });
 
@@ -82,39 +65,36 @@ describe('components/search/QuickSearch', () => {
     sinon.resetHistory();
   });
   describe('displaying quick search for the first time', () => {
-    it('fetches the themes and overrides and saves them in search an entity store', async() => {
+    it('fetches the overrides and saves them in search and entity store', async() => {
       const wrapper = factory();
 
       await wrapper.vm.fetch();
 
-      expect(fetchThemes.called).toBe(true);
       expect(contentfulQuery.called).toBe(true);
       expect(storeCommit.calledWith('entity/setCuratedEntities', sinon.match.any)).toBe(true);
-      expect(storeCommit.calledWith('search/set', ['allThemes', allThemes])).toBe(true);
+      expect(storeCommit.calledWith('search/set', ['allThemes', sinon.match.any])).toBe(true);
     });
   });
   describe('displaying quick search with curatedEntities already stored', () => {
-    it('fetches the themes and saves them in search store, does not refetch curated data', async() => {
+    it('saves the overrides in search store, does not refetch curated data', async() => {
       const wrapper = factory({ curatedEntities: contentfulResponse.data.data.curatedEntities.items });
 
       await wrapper.vm.fetch();
 
-      expect(fetchThemes.called).toBe(true);
       expect(contentfulQuery.called).toBe(false);
       expect(storeCommit.calledWith('entity/setCuratedEntities', sinon.match.any)).toBe(false);
-      expect(storeCommit.calledWith('search/set', ['allThemes', allThemes])).toBe(true);
+      expect(storeCommit.calledWith('search/set', ['allThemes', sinon.match.any])).toBe(true);
     });
   });
   describe('displaying quick search with themes already stored', () => {
-    it('does not fetch anything', async() => {
+    it('does not fetch or store anything', async() => {
       const wrapper = factory({ themes: ['theme1', 'theme2'] });
 
       await wrapper.vm.fetch();
 
-      expect(fetchThemes.called).toBe(false);
       expect(contentfulQuery.called).toBe(false);
       expect(storeCommit.calledWith('entity/setCuratedEntities', sinon.match.any)).toBe(false);
-      expect(storeCommit.calledWith('search/set', ['allThemes', allThemes])).toBe(false);
+      expect(storeCommit.calledWith('search/set', ['allThemes', sinon.match.any])).toBe(false);
     });
   });
   describe('when options or themes are available', () => {

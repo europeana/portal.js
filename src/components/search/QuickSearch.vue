@@ -14,7 +14,6 @@
 </template>
 
 <script>
-  import pick from 'lodash/pick';
   import RelatedCollections from '../generic/RelatedCollections';
   import { getEntityUri } from '@/plugins/europeana/entity';
   import { themes, themeOverrides } from '@/plugins/europeana/themes';
@@ -40,17 +39,11 @@
 
     async fetch() {
       if (this.allThemes.length === 0) {
-        const themesURIs = themes.map(theme => getEntityUri('topic', theme.id));
-        return this.$apis.entity.find(themesURIs)
-          .then((themesFromAPI) => {
-            return themesFromAPI.map(theme => pick(theme, ['id', 'prefLabel', 'isShownBy', 'thumbnail']));
-          })
-          .then(reduced => themeOverrides(this, reduced))
-          .then((themesForStore) => {
-            this.$store.commit('search/set', ['allThemes', themesForStore]);
-          });
+        const themesForStore = await themeOverrides(this, themes.map((theme) => {
+          return { id: getEntityUri('topic', theme.id) };
+        }));
+        this.$store.commit('search/set', ['allThemes', themesForStore]);
       }
-      return Promise.resolve({});
     },
 
     computed: {

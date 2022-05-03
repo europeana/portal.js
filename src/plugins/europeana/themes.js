@@ -44,11 +44,16 @@ export const themeOverrides = async({ $store, $i18n, $route, $contentful }, them
     $store.commit('entity/setCuratedEntities', curatedEntities);
   }
   return themes.map(theme => {
-    const contentfulData = curatedEntities.find((curatedEntity) => curatedEntity.identifier.match(theme.id)) || {};
+    const contentfulData = curatedEntities.find((curatedEntity) => curatedEntity.identifier === theme.id) || {};
     const override = {};
-
+    if (contentfulData.identifier) {
+      override.id = contentfulData.identifier;
+    }
     if (contentfulData.name) {
       override.prefLabel = { [$i18n.locale]: contentfulData.name };
+    }
+    if (contentfulData.primaryImageOfPage?.image) {
+      override.contentfulImage = contentfulData.primaryImageOfPage.image;
     }
 
     return  { ...theme, ...override };

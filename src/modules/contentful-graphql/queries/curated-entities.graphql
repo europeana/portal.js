@@ -7,6 +7,12 @@ query CollectionPage(
       name
       identifier
       genre
+      primaryImageOfPage {
+        image {
+          url
+          contentType
+        }
+      }
     }
   }
 }

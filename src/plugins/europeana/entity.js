@@ -93,9 +93,15 @@ export default (context = {}) => {
 
     imageUrl(entity) {
       let url = null;
-
+      // `contentfulImage` is an override used in theme chips, using contentful assets.
+      if (entity?.contentfulImage) {
+        if (entity.contentfulImage.contentType === 'image/jpeg') {
+          url = entity.contentfulImage.url + '?w=40&q=80&fm=jpg&fl=progressive';
+        } else {
+          url = entity.contentfulImage.url + '?w=40';
+        }
       // `image` is a property on automated entity cards in Contentful
-      if (entity?.image) {
+      } else if (entity?.image) {
         url = this.$thumbnail.edmPreview(entity.image, { size: 200 });
       // `isShownBy` is a property on most entity types
       } else if (entity?.isShownBy?.thumbnail) {
