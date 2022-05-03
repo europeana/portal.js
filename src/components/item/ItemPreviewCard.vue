@@ -13,6 +13,7 @@
     :lazy="lazy"
     :sub-title="subTitle"
     :media-type="type"
+    :offset="offset"
   >
     <template
       v-if="variant === 'list'"
@@ -128,6 +129,10 @@
       enableRejectRecommendation: {
         type: Boolean,
         default: false
+      },
+      offset: {
+        type: Number,
+        default: null
       }
     },
 

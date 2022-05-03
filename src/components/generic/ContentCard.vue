@@ -39,6 +39,7 @@
       <DefaultThumbnail
         v-else-if="!cardImageUrl && variant !== 'mini'"
         :media-type="mediaType"
+        :offset="offset"
       />
       <b-card-body
         v-if="variant !== 'mosaic'"
@@ -277,6 +278,10 @@
        */
       mediaType: {
         type: String,
+        default: null
+      },
+      offset: {
+        type: Number,
         default: null
       }
     },
