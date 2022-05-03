@@ -130,6 +130,9 @@
         type: Boolean,
         default: false
       },
+      /**
+       * Offset, used for random color picking
+       */
       offset: {
         type: Number,
         default: null

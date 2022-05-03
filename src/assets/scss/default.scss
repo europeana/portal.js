@@ -231,3 +231,16 @@ main#default {
   white-space: nowrap;
   width: 1px;
 }
+
+.default-thumbnail {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  [class^='icon-'],
+  [class*=' icon-'] {
+    font-size: 3.5rem;
+    opacity: 0.3;
+    mix-blend-mode: multiply;
+  }
+}

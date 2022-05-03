@@ -152,7 +152,7 @@
         width: auto;
       }
 
-      ::before {
+      &::before {
         content: '';
         transition: $standard-transition;
       }

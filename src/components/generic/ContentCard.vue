@@ -280,6 +280,9 @@
         type: String,
         default: null
       },
+      /**
+       * Offset, used for random color picking
+       */
       offset: {
         type: Number,
         default: null
