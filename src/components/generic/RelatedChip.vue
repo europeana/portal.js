@@ -4,23 +4,24 @@
     :href="$link.href(linkTo)"
     pill
     :variant="badgeVariant"
-    :class="{ 'img-chip': img }"
+    :class="{ 'img-chip': imageUrl }"
     :data-qa="localisedTitle.values[0] + ' related chip'"
     :lang="localisedTitle.code"
     @click.native="trackClickEvent"
   >
     <div
-      v-if="img && type === 'Organization'"
+      v-if="imageUrl && type === 'Organization'"
       class="organisation-logo mr-2"
       data-qa="entity logo"
-      :style="`background-image: url(${img})`"
+      :style="`background-image: url(${imageUrl})`"
     />
     <b-img
-      v-else-if="img"
-      :src="img"
+      v-else-if="imageUrl"
+      :src="imageUrl"
       alt=""
       rounded="circle"
       class="mr-2"
+      @error="imageNotFound"
     />
     <span>{{ localisedTitle.values[0] }}</span>
   </b-badge>
@@ -59,6 +60,12 @@
       }
     },
 
+    data() {
+      return {
+        imageUrl: this.img
+      };
+    },
+
     computed: {
       localisedTitle() {
         if (typeof this.title === 'string') {
@@ -76,6 +83,10 @@
         if (this.$matomo) {
           this.$matomo.trackEvent('Related_collections', 'Click related collection', this.linkTo);
         }
+      },
+
+      imageNotFound() {
+        this.imageUrl = '';
       }
     }
   };

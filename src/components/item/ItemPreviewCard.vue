@@ -12,6 +12,7 @@
     :variant="variant"
     :lazy="lazy"
     :sub-title="subTitle"
+    :media-type="type"
   >
     <template
       v-if="variant === 'list'"
@@ -182,7 +183,7 @@
       },
 
       type() {
-        return this.variant === 'list' ? this.item.type : null;
+        return this.item.type;
       }
     }
   };

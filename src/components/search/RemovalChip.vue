@@ -4,17 +4,18 @@
     :href="$link.href(linkTo)"
     pill
     variant="light"
-    :class="{ 'img-chip': img }"
+    :class="{ 'img-chip': imageUrl }"
     :data-qa="localisedTitle.values[0] + ' removal chip'"
     :lang="localisedTitle.code"
     @click.native="trackClickEvent"
   >
     <b-img
-      v-if="img"
-      :src="img"
+      v-if="imageUrl"
+      :src="imageUrl"
       alt=""
       rounded="circle"
       class="mr-2"
+      @error="imageNotFound"
     />
     {{ localisedTitle.values[0] }}
     <span class="icon icon-clear clear-indicator" />
@@ -42,6 +43,12 @@
       }
     },
 
+    data() {
+      return {
+        imageUrl: this.img
+      };
+    },
+
     computed: {
       localisedTitle() {
         if (typeof this.title === 'string') {
@@ -59,6 +66,10 @@
         if (this.$matomo) {
           this.$matomo.trackEvent('Remove_search_criterion', 'Click remove search criteria', this.linkTo);
         }
+      },
+
+      imageNotFound() {
+        this.imageUrl = '';
       }
     }
   };
