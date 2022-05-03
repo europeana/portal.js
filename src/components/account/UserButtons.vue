@@ -11,7 +11,7 @@
       :pressed="pinned"
       data-qa="pin button"
       :aria-label="$t('entity.actions.pin')"
-      @click="togglePin"
+      @click="pinAction"
     >
       <span class="icon-push-pin" />
       {{ pinButtonText }}
@@ -64,7 +64,7 @@
         <p>{{ $t('set.notifications.likeLimit.body') }}</p>
       </b-modal>
       <b-modal
-        v-if="showPins"
+        v-if="showPins && entity"
         :id="pinnedLimitModalId"
         :title="$t('entity.notifications.pinLimit.title')"
         hide-footer
@@ -87,23 +87,29 @@
           </b-button>
         </div>
       </b-modal>
+      <ItemPinModal
+        v-if="showPins && identifier && entities.length > 0"
+        :identifier="identifier"
+        :modal-id="pinModalId"
+        :entities="entities"
+        data-qa="pin item to entities modal"
+      />
     </template>
   </div>
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
   import keycloak from '@/mixins/keycloak';
   import makeToastMixin from '@/mixins/makeToast';
 
-  /**
-   * User buttons for user interaction with items
-   */
   export default {
     name: 'UserButtons',
 
     components: {
       AddItemToSetModal: () => import('../set/AddItemToSetModal'),
-      SetFormModal: () => import('../set/SetFormModal')
+      SetFormModal: () => import('../set/SetFormModal'),
+      ItemPinModal: () => import('../item/ItemPinModal')
     },
     mixins: [
       keycloak,
@@ -117,6 +123,11 @@
       identifier: {
         type: String,
         required: true
+      },
+      // Entities related to the item, used on item page.
+      entities: {
+        type: Array,
+        default: () => []
       },
       /**
        * If `true`, pin button will be rendered
@@ -146,6 +157,7 @@
         addItemToSetModalId: `add-item-to-set-modal-${this.identifier}`,
         setFormModalId: `set-form-modal-${this.identifier}`,
         likeLimitModalId: `like-limit-modal-${this.identifier}`,
+        pinModalId: `pin-modal-${this.identifier}`,
         pinnedLimitModalId: `pinned-limit-modal-${this.identifier}`,
         showFormModal: false,
         newSetCreated: false
@@ -173,7 +185,11 @@
           return this.liked ? this.$t('statuses.liked') : this.$t('actions.like');
         }
         return '';
-      }
+      },
+      ...mapGetters({
+        entity: 'entity/id',
+        featuredSet: 'entity/featuredSetId'
+      })
     },
     methods: {
       clickCreateSet() {
@@ -202,7 +218,7 @@
         }
       },
       goToPins() {
-        const path = this.$path(`/set/${this.$store.state.entity.featuredSetId}`);
+        const path = this.$path(`/set/${this.featuredSet}`);
         this.$goto(path);
       },
       async like() {
@@ -252,7 +268,7 @@
         }
       },
       async pin() {
-        if (this.$store.state.entity.featuredSetId === null) {
+        if (this.featuredSet === null) {
           await this.$store.dispatch('entity/createFeaturedSet');
         }
         try {
@@ -270,6 +286,13 @@
         await this.$store.dispatch('entity/unpin', this.identifier);
         this.makeToast(this.$t('entity.notifications.unpinned'));
       },
+      async pinAction() {
+        if (this.entity || this.featuredSet) {
+          await this.togglePin(); // On an entity/entity set page all info is in the store.
+        } else {
+          await this.$bvModal.show(this.pinModalId); // Open the modal to find which entity to pin to.
+        }
+      },
       async togglePin() {
         if (this.pinned) {
           await this.unpin();
@@ -280,32 +303,3 @@
     }
   };
 </script>
-
-<docs lang="md">
-  Default format:
-  ```jsx
-  <UserButtons
-      identifier="123"
-      :showPins="true"
-  />
-  ```
-
-  With buttonVariant set to "secondary":
-  ```jsx
-  <UserButtons
-    identifier="123"
-    :showPins="true"
-    buttonVariant="secondary"
-  />
-  ```
-
-  With buttonVariant set to "light-flat" and buttonText to true:
-  ```jsx
-  <UserButtons
-    identifier="123"
-    :showPins="true"
-    buttonVariant="light-flat"
-    :buttonText="true"
-  />
-  ```
-</docs>

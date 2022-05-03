@@ -65,6 +65,10 @@ export default {
       return state.id ? state.id : null;
     },
 
+    featuredSetId(state) {
+      return state.featuredSetId ? state.featuredSetId : null;
+    },
+
     isPinned: (state) => (itemId) => {
       return state.pinned ? state.pinned.includes(itemId) : false;
     }
@@ -112,7 +116,8 @@ export default {
     },
     getPins({ state, commit }) {
       return this.$apis.set.get(state.featuredSetId, {
-        profile: 'itemDescriptions'
+        profile: 'itemDescriptions',
+        pageSize: 100
       }).then(featured => featured.pinned > 0 ? commit('setPinned', featured.items.slice(0, featured.pinned)) : commit('setPinned', []));
     },
     createFeaturedSet({ getters, commit }) {

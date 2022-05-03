@@ -33,6 +33,9 @@ const store = new Vuex.Store({
       annotations: [],
       relatedEntities: [],
       similarItems: []
+    },
+    auth: {
+      user: null
     }
   },
   mutations: {
