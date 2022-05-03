@@ -39,7 +39,7 @@ query BrowseStaticPage(
                   identifier
                   description
                   slug
-                  entityImage: image
+                  entityImage: imageTmp
                 }
                 ... on AutomatedRecordCard {
                   identifier
@@ -48,7 +48,7 @@ query BrowseStaticPage(
                 ... on CuratedCard {
                   name
                   description
-                  url
+                  url: urlTmp
                   image {
                     ...imageFields
                   }
@@ -56,7 +56,7 @@ query BrowseStaticPage(
               }
             }
             moreButton {
-              url
+              url: urlTmp
               text
             }
         	}
@@ -66,7 +66,7 @@ query BrowseStaticPage(
           ... on AutomatedCardGroup {
             genre
             moreButton {
-              url
+              url: urlTmp
               text
             }
           }
@@ -112,25 +112,25 @@ query BrowseStaticPage(
           ... on AutomatedCardGroup {
             genre
             moreButton {
-              url
+              url: urlTmp
               text
             }
           }
           ... on Link {
-            url
+            url: urlTmp
             text
           }
           ... on PrimaryCallToAction {
             text
             relatedLink {
-              url
+              url: urlTmp
               text
             }
           }
         }
       }
       relatedLinks {
-          ...linkGroupFields
+        ...linkGroupFields
       }
     }
   }
@@ -147,22 +147,22 @@ fragment imageWithAttributionFields on ImageWithAttribution {
   creator
   provider
   license
-  url
+  url: urlTmp
   image {
     ...imageFields
   }
 }
 fragment linkFields on Link {
-  url
+  url: urlTmp
   text
 }
 fragment linkGroupFields on LinkGroup {
   identifier
   name
   links: linksCollection(limit: 10) {
-      items {
-        text
-        url
-      }
+    items {
+      text
+      url: urlTmp
+    }
   }
 }

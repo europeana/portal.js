@@ -1,5 +1,3 @@
-// const uniq = require('lodash/uniq');
-
 const genreToEntity = {
   'archaeology': 'http://data.europeana.eu/concept/base/80',
   'art': 'http://data.europeana.eu/concept/base/190',
