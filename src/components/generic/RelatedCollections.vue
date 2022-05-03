@@ -104,9 +104,6 @@
       },
 
       imageUrl(collection) {
-        if (collection.contentfulImage) {
-          // get contentful img url.
-        }
         return this.$apis.entity.imageUrl(collection);
       }
     }
