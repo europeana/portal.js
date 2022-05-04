@@ -1,7 +1,7 @@
 <template>
   <div
     class="card-img default-thumbnail"
-    :style="placeholderColor"
+    :style="{ 'background-color': placeholderColor }"
     data-qa="default thumbnail"
   >
     <span
@@ -46,9 +46,7 @@
           color = this.COLORS[this.offset % this.COLORS.length];
         }
 
-        return {
-          'background-color': color
-        };
+        return color;
       },
 
       iconClass() {
