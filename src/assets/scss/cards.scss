@@ -787,6 +787,8 @@
   @at-root .side-filters-enabled & {
     .content-card,
     .related-collections-card {
+      min-width: initial;
+      
       @media (min-width: $bp-medium) {
         width: calc(100% / 2 - $masonry-gutter);
       }

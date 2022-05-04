@@ -109,7 +109,7 @@
     }
   }
 
-  .page-container {
+  .container {
     max-width: none;
   }
 
