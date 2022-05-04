@@ -3,11 +3,11 @@ const urlFields = [
   { contentType: 'automatedRecordCard', id: 'thumbnailUrl', name: 'Thumbnail URL', required: true, disabled: true, control: 'singleLine' },
   { contentType: 'curatedCard', id: 'url', required: true, control: 'singleLine' },
   { contentType: 'imageWithAttribution', id: 'url', validations:
-    [{ regexp: { pattern: '^(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-/]))?$' } }]
+    [{ regexp: { pattern: '^(ftp|http|https):\\/\\/(\\w+:{0,1}\\w*@)?(\\S+)(:[0-9]+)?(\\/|\\/([\\w#!:.?+=&%@!\\-\\/]))?$' } }]
   },
   { contentType: 'link', id: 'url', required: true, control: 'singleLine', validations:
     [{
-      regexp: { pattern: '^(((ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?)|(\/|\/([\w#!:.?+=&%@!\-\/])*))$' },
+      regexp: { pattern: '^(((ftp|http|https):\\/\\/(\\w+:{0,1}\\w*@)?(\\S+)(:[0-9]+)?(\\/|\\/([\\w#!:.?+=&%@!\\-\\/]))?)|(\\/|\\/([\\w#!:.?+=&%@!\\-\\/])*))$' },
       message: 'Must be a URL or a URL path starting with "/"'
     }]
   },
