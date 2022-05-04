@@ -14,7 +14,7 @@ query GalleryPage(
         items {
           identifier
           encoding
-          thumbnailUrl: thumbnailUrlTmp
+          thumbnailUrl
           name
         }
       }

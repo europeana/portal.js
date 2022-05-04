@@ -50,7 +50,7 @@ query ExhibitionChapterPage(
                 }
               }
               ... on Link {
-                url: urlTmp
+                url
                 text
               }
               # CardGroup omitted intentionally
@@ -67,7 +67,7 @@ fragment imageWithAttributionFields on ImageWithAttribution {
   creator
   provider
   license
-  url: urlTmp
+  url
   image {
     url
     description
