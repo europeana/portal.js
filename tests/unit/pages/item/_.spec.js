@@ -47,7 +47,7 @@ const store = new Vuex.Store({
           genre: 'manuscript'
         }
       ]
-    }
+    },
     auth: {
       user: null
     }
