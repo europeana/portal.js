@@ -99,7 +99,7 @@
         const edmIsShownBy = providerAggregation.edmIsShownBy;
         const edmIsShownByWebResource = (providerAggregation.webResources || []).find(webResource => webResource.about === edmIsShownBy);
         const edmDataProvider = providerAggregation.edmDataProvider;
-        const edmDataProviderOrganization = item.organizations?.find(organization => organization.about === edmDataProvider.def[0]);
+        const edmDataProviderOrganization = item.organizations?.find(organization => organization.about === edmDataProvider.def?.[0]);
 
         if (!edmIsShownBy || !edmIsShownByWebResource?.ebucoreHasMimeType?.startsWith('image/')) {
           throw new Error('No edm:isShownBy image found.');
@@ -113,7 +113,7 @@
 
         const provider = this.localiseValue(edmDataProviderOrganization?.prefLabel || edmDataProvider);
 
-        const license = edmIsShownByWebResource?.webResourceEdmRights?.def?.[0] || providerAggregation.edmRights.def[0];
+        const license = edmIsShownByWebResource?.webResourceEdmRights?.def?.[0] || providerAggregation.edmRights.def?.[0];
 
         const url = `${BASE_URL}/item${item.about}`;
 

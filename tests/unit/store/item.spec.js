@@ -21,6 +21,7 @@ const annotations = [
     }
   }
 ];
+
 describe('store/item', () => {
   describe('getters', () => {
     describe('annotationsByMotivation()', () => {

@@ -48,6 +48,9 @@ const store = new Vuex.Store({
         }
       ]
     }
+    auth: {
+      user: null
+    }
   },
   mutations: {
     'item/setRelatedEntities': itemSetRelatedEntities

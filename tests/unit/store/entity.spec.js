@@ -9,6 +9,7 @@ const unPinned = ['/234/abc'];
 const curatedEntity1 = { id: '100', identifier: 'http://data.europeana.eu/concept/base/100' };
 const curatedEntity2 = { id: '200', identifier: 'http://data.europeana.eu/concept/base/200'  };
 const curatedEntities = [curatedEntity1, curatedEntity2];
+const featuredSetId = 'http://data.europeana.eu/set/123';
 const itemId = '/123/abc';
 const itemIdNotPinned = '/345/abc';
 const entityDescription = { en: 'example entity description' };
@@ -161,6 +162,26 @@ describe('store/entity', () => {
         });
       });
     });
+    describe('featuredSetId()', () => {
+      describe('when the featuredSetId state is set', () => {
+        it('returns the featuredSetId', () => {
+          const state = { featuredSetId };
+
+          const getfeaturedSetId = store.getters.featuredSetId(state);
+
+          expect(getfeaturedSetId).toEqual(featuredSetId);
+        });
+      });
+      describe('when the featuredSetId state is not set', () => {
+        it('returns null', () => {
+          const state = {};
+
+          const getfeaturedSetId = store.getters.featuredSetId(state);
+
+          expect(getfeaturedSetId).toEqual(null);
+        });
+      });
+    });
     describe('isPinned()', () => {
       describe('when there are pinned items', () => {
         it('returns whether the item is pinned', () => {
@@ -188,7 +209,6 @@ describe('store/entity', () => {
   describe('actions', () => {
     const commit = sinon.spy();
     const dispatch = sinon.stub().resolves({});
-    const featuredSetId = 'http://data.europeana.eu/set/123';
     const itemId = '/123/ghi';
 
     beforeEach(() => {
