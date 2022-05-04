@@ -1,9 +1,9 @@
 import { shallowMount } from '@vue/test-utils';
-import DefaultThumbnail from '@/components/generic/DefaultThumbnail.vue';
+import MediaDefaultThumbnail from '@/components/media/MediaDefaultThumbnail.vue';
 
-const factory = () => shallowMount(DefaultThumbnail);
+const factory = () => shallowMount(MediaDefaultThumbnail);
 
-describe('components/generic/DefaultThumbnail', () => {
+describe('components/media/MediaDefaultThumbnail', () => {
   it('shows a default thumbnail', async() => {
     const wrapper = factory();
     await wrapper.setProps({ mediaType: 'SOUND' });

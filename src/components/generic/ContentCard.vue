@@ -36,7 +36,7 @@
           @error="imageNotFound"
         />
       </div>
-      <DefaultThumbnail
+      <MediaDefaultThumbnail
         v-else-if="!cardImageUrl && variant !== 'mini'"
         :media-type="mediaType"
         :offset="offset"
@@ -114,7 +114,7 @@
     components: {
       ClientOnly,
       SmartLink,
-      DefaultThumbnail: () => import('./DefaultThumbnail')
+      MediaDefaultThumbnail: () => import('../media/MediaDefaultThumbnail')
     },
 
     mixins: [

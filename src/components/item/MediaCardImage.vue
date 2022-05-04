@@ -8,7 +8,7 @@
       target="_blank"
       data-qa="media link"
     >
-      <DefaultThumbnail
+      <MediaDefaultThumbnail
         v-if="showDefaultThumbnail"
         media-type="image"
         data-qa="default thumbnail"
@@ -34,7 +34,7 @@
     <div
       v-else-if="media.thumbnails.large"
     >
-      <DefaultThumbnail
+      <MediaDefaultThumbnail
         v-if="showDefaultThumbnail"
         media-type="image"
       />
@@ -59,7 +59,7 @@
     name: 'MediaCardImage',
 
     components: {
-      DefaultThumbnail: () => import('../generic/DefaultThumbnail')
+      MediaDefaultThumbnail: () => import('../media/MediaDefaultThumbnail')
     },
 
     props: {
