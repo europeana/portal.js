@@ -1,0 +1,41 @@
+query (
+  $entityUri: String!,
+  $locale: String!,
+  $preview: Boolean = false,
+  $limit: Int = 4
+) {
+  blogPostingCollection(
+    where: { relatedLink_contains_some: [$entityUri] },
+    preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit) {
+    items {
+      __typename
+      name
+      identifier
+      primaryImageOfPage {
+        image {
+          url
+          contentType
+          description
+        }
+      }
+      datePublished
+    }
+  }
+  exhibitionPageCollection(
+    where: { relatedLink_contains_some: [$entityUri] },
+    preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit) {
+    items {
+      __typename
+      name
+      identifier
+      primaryImageOfPage {
+        image {
+          url
+          contentType
+          description
+        }
+      }
+      datePublished
+    }
+  }
+}
