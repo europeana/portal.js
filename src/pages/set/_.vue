@@ -171,6 +171,8 @@
     async beforeRouteLeave(to, from, next) {
       await this.$store.commit('set/setActive', null);
       await this.$store.commit('set/setActiveRecommendations', []);
+      await this.$store.commit('entity/setFeaturedSetId', null);
+      await this.$store.commit('entity/setPinned', []);
       next();
     },
 

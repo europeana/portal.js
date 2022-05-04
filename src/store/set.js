@@ -135,6 +135,7 @@ export default {
     },
     fetchActive({ commit }, setId) {
       return this.$apis.set.get(setId, {
+        pageSize: 100,
         profile: 'itemDescriptions'
       })
         .then(set => commit('setActive', set))
