@@ -7,7 +7,7 @@
     :class="{ 'img-chip': imageUrl }"
     :data-qa="localisedTitle.values[0] + ' related chip'"
     :lang="localisedTitle.code"
-    @click.native="trackClickEvent"
+    @click.native="clickEventHandler"
   >
     <div
       v-if="imageUrl && type === 'Organization'"
@@ -24,6 +24,7 @@
       @error="imageNotFound"
     />
     <span>{{ localisedTitle.values[0] }}</span>
+    <slot />
   </b-badge>
 </template>
 
@@ -31,12 +32,12 @@
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
 
   export default {
-    name: 'RelatedChip',
+    name: 'LinkBadge',
 
     props: {
       linkTo: {
-        type: String,
-        default: ''
+        type: [String, Object],
+        default: null
       },
       title: {
         type: [String, Object],
@@ -57,6 +58,14 @@
       badgeVariant: {
         type: String,
         default: 'secondary'
+      },
+      clickEventHandler: {
+        type: Function,
+        default() {
+          if (this.$matomo) {
+            this.$matomo.trackEvent('Related_collections', 'Click related collection', this.linkTo);
+          }
+        }
       }
     },
 
@@ -79,12 +88,6 @@
     },
 
     methods: {
-      trackClickEvent() {
-        if (this.$matomo) {
-          this.$matomo.trackEvent('Related_collections', 'Click related collection', this.linkTo);
-        }
-      },
-
       imageNotFound() {
         this.imageUrl = '';
       }
