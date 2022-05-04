@@ -11,7 +11,7 @@
       :pressed="pinned"
       data-qa="pin button"
       :aria-label="$t('entity.actions.pin')"
-      @click="togglePinned"
+      @click="pinAction"
     >
       <span class="icon-push-pin" />
       {{ pinButtonText }}
@@ -55,12 +55,6 @@
         :item-context="identifier"
         @response="setCreatedOrUpdated"
       />
-      <PinToEntityModal
-        :modal-id="pinModalId"
-        :item-id="identifier"
-        :pinned="pinned"
-        data-qa="pin item to entity modal"
-      />
       <!-- TODO: remove when 100-item like limit removed -->
       <b-modal
         :id="likeLimitModalId"
@@ -70,7 +64,7 @@
         <p>{{ $t('set.notifications.likeLimit.body') }}</p>
       </b-modal>
       <b-modal
-        v-if="showPins"
+        v-if="showPins && entity"
         :id="pinnedLimitModalId"
         :title="$t('entity.notifications.pinLimit.title')"
         hide-footer
@@ -93,12 +87,21 @@
           </b-button>
         </div>
       </b-modal>
+      <ItemPinModal
+        v-if="showPins && identifier && entities.length > 0"
+        :identifier="identifier"
+        :modal-id="pinModalId"
+        :entities="entities"
+        data-qa="pin item to entities modal"
+      />
     </template>
   </div>
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
   import keycloak from '@/mixins/keycloak';
+  import makeToastMixin from '@/mixins/makeToast';
 
   export default {
     name: 'UserButtons',
@@ -106,26 +109,43 @@
     components: {
       AddItemToSetModal: () => import('../set/AddItemToSetModal'),
       SetFormModal: () => import('../set/SetFormModal'),
-      PinToEntityModal: () => import('../entity/PinModal')
+      ItemPinModal: () => import('../item/ItemPinModal')
     },
     mixins: [
-      keycloak
+      keycloak,
+      makeToastMixin
     ],
 
     props: {
-      // Identifier of the item
+      /**
+       * Identifier of the item
+       */
       identifier: {
         type: String,
         required: true
       },
+      // Entities related to the item, used on item page.
+      entities: {
+        type: Array,
+        default: () => []
+      },
+      /**
+       * If `true`, pin button will be rendered
+       */
       showPins: {
         type: Boolean,
         default: false
       },
+      /**
+       * Button variant to use for styling the buttons
+       */
       buttonVariant: {
         type: String,
         default: 'outline-light'
       },
+      /**
+       * If `true`, button text will be rendered
+       */
       buttonText: {
         type: Boolean,
         default: false
@@ -165,12 +185,11 @@
           return this.liked ? this.$t('statuses.liked') : this.$t('actions.like');
         }
         return '';
-      }
-    },
-    created() {
-      this.$root.$on('clickCreateSet', () => {
-        this.clickCreateSet();
-      });
+      },
+      ...mapGetters({
+        entity: 'entity/id',
+        featuredSet: 'entity/featuredSetId'
+      })
     },
     methods: {
       clickCreateSet() {
@@ -198,11 +217,8 @@
           this.keycloakLogin();
         }
       },
-      togglePinned() {
-        this.$bvModal.show(this.pinModalId);
-      },
       goToPins() {
-        const path = this.$path(`/set/${this.$store.state.entity.featuredSetId}`);
+        const path = this.$path(`/set/${this.featuredSet}`);
         this.$goto(path);
       },
       async like() {
@@ -212,6 +228,11 @@
 
         try {
           await this.$store.dispatch('set/like', this.identifier);
+          /**
+           * triggers on like button click when not yet liked
+           * @event like
+           * @property {string} identifier - identifier of the item to be liked
+           */
           this.$emit('like', this.identifier);
           this.$matomo && this.$matomo.trackEvent('Item_like', 'Click like item button', this.identifier);
         } catch (e) {
@@ -225,15 +246,58 @@
       },
       async unlike() {
         await this.$store.dispatch('set/unlike', this.identifier);
+        /**
+         * triggers on like button click when already liked
+         * @event unlike
+         * @property {string} identifier - identifier of the item to be unliked
+         */
         this.$emit('unlike', this.identifier);
       },
       addToSet() {
         if (this.$auth.loggedIn) {
           this.$bvModal.show(this.addItemToSetModalId);
+          /**
+           * triggers on add to set button click
+           * @event add
+           * @property {string} identifier - identifier of the item to be added to the set
+           */
           this.$emit('add', this.identifier);
           this.$matomo && this.$matomo.trackEvent('Item_add', 'Click add item button', this.identifier);
         } else {
           this.keycloakLogin();
+        }
+      },
+      async pin() {
+        if (this.featuredSet === null) {
+          await this.$store.dispatch('entity/createFeaturedSet');
+        }
+        try {
+          await this.$store.dispatch('entity/pin', this.identifier);
+          this.makeToast(this.$t('entity.notifications.pinned', { entity: this.$store.getters['entity/englishPrefLabel'] }));
+        } catch (e) {
+          if (e.message === 'too many pins') {
+            this.$bvModal.show(`pinned-limit-modal-${this.identifier}`);
+          } else {
+            throw e;
+          }
+        }
+      },
+      async unpin() {
+        await this.$store.dispatch('entity/unpin', this.identifier);
+        this.makeToast(this.$t('entity.notifications.unpinned'));
+      },
+      async pinAction() {
+        if (this.entity || this.featuredSet) {
+          await this.togglePin(); // On an entity/entity set page all info is in the store.
+        } else {
+          await this.$bvModal.show(this.pinModalId); // Open the modal to find which entity to pin to.
+        }
+      },
+      async togglePin() {
+        if (this.pinned) {
+          await this.unpin();
+        } else {
+          await this.pin();
         }
       }
     }

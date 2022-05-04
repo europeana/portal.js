@@ -31,6 +31,8 @@
               <client-only>
                 <UserButtons
                   :identifier="identifier"
+                  :show-pins="showPins"
+                  :entities="entities"
                   button-variant="secondary"
                 />
               </client-only>
@@ -115,6 +117,11 @@
       attributionFields: {
         type: Object,
         default: () => ({})
+      },
+      // Entities related to the item, used for pinning.
+      entities: {
+        type: Array,
+        default: () => []
       }
     },
     data() {
@@ -150,6 +157,17 @@
       },
       downloadEnabled() {
         return this.rightsStatement && !this.rightsStatement.includes('/InC/') && !this.selectedMedia.isShownAt;
+      },
+      showPins() {
+        return this.userIsEditor && this.userIsSetsEditor && this.entities.length > 0;
+      },
+      userIsEditor() {
+        // TODO: check if this can be abstracted, it's the same as in  src/pages/collections/_type/_.vue
+        return this.$store.state.auth.user?.resource_access?.entities?.roles?.includes('editor') || false;
+      },
+      userIsSetsEditor() {
+        // TODO: check if theis can be abstracted, it's the same as in  src/pages/collections/_type/_.vue
+        return this.$store.state.auth.user?.resource_access?.usersets?.roles.includes('editor') || false;
       }
     },
     mounted() {

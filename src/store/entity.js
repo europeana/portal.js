@@ -3,9 +3,7 @@ export default {
     curatedEntities: null,
     entity: null,
     id: null,
-    page: null,
     recordsPerPage: 24,
-    relatedEntities: null,
     pinned: null,
     featuredSetId: null,
     editable: false
@@ -17,12 +15,6 @@ export default {
     },
     setId(state, value) {
       state.id = value;
-    },
-    setPage(state, value) {
-      state.page = value;
-    },
-    setRelatedEntities(state, value) {
-      state.relatedEntities = value;
     },
     setCuratedEntities(state, value) {
       state.curatedEntities = value;
@@ -73,6 +65,10 @@ export default {
       return state.id ? state.id : null;
     },
 
+    featuredSetId(state) {
+      return state.featuredSetId ? state.featuredSetId : null;
+    },
+
     isPinned: (state) => (itemId) => {
       return state.pinned ? state.pinned.includes(itemId) : false;
     }
@@ -96,12 +92,11 @@ export default {
       return dispatch('getPins')
         .then(() => {
           if (state.pinned && state.pinned.length >= 24) {
-            throw new Error('too many pins');
+            return Promise.reject(new Error('too many pins'));
+          } else {
+            return this.$apis.set.modifyItems('add', state.featuredSetId, itemId, true)
+              .then(() =>  commit('pin', itemId));
           }
-        })
-        .then(() => {
-          return this.$apis.set.modifyItems('add', state.featuredSetId, itemId, true)
-            .then(() =>  commit('pin', itemId));
         })
         .catch((e) => {
           dispatch('getPins');
@@ -111,6 +106,7 @@ export default {
     unpin({ dispatch, state }, itemId) {
       return this.$apis.set.modifyItems('delete', state.featuredSetId, itemId)
         .then(() =>  {
+          dispatch('set/fetchActive', state.featuredSetId, { root: true });
           dispatch('getPins');
         })
         .catch((e) => {
@@ -120,7 +116,8 @@ export default {
     },
     getPins({ state, commit }) {
       return this.$apis.set.get(state.featuredSetId, {
-        profile: 'itemDescriptions'
+        profile: 'itemDescriptions',
+        pageSize: 100
       }).then(featured => featured.pinned > 0 ? commit('setPinned', featured.items.slice(0, featured.pinned)) : commit('setPinned', []));
     },
     createFeaturedSet({ getters, commit }) {

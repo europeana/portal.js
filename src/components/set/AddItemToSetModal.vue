@@ -10,7 +10,7 @@
   >
     <b-button
       variant="primary"
-      class="btn-collection w-100 mb-3 text-left"
+      class="btn-collection w-100 mb-3 text-left p-3"
       data-qa="create new gallery button"
       @click="$emit('clickCreateSet')"
     >
@@ -117,7 +117,7 @@
       },
 
       collectionPreview(setId) {
-        return this.$store.getters['set/creationPreview'](setId);
+        return this.$apis.thumbnail.edmPreview(this.$store.getters['set/creationPreview'](setId));
       },
 
       addItem(setId) {
@@ -142,9 +142,19 @@
 </script>
 
 <style lang="scss" scoped>
+  .btn-primary.btn-collection {
+    border: 0;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
   .collections {
     max-height: calc(100vh - 474px);
     overflow: auto;
+
+    .btn-collection {
+      font-weight: 600;
+    }
 
     .btn-collection:last-child {
       margin-bottom: 0;

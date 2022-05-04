@@ -134,11 +134,6 @@ export default (context = {}) => {
         .catch(error => {
           throw apiError(error, context);
         });
-    },
-
-    getSetThumbnail(set) {
-      const firstItemWithEdmPreview = (set.items || []).find(item => item.edmPreview);
-      return firstItemWithEdmPreview ? firstItemWithEdmPreview.edmPreview[0] : null;
     }
   };
 };

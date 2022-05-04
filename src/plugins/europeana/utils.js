@@ -25,15 +25,15 @@ export const createKeycloakAuthAxios = ({ id, baseURL, $axios }, context) => {
 };
 
 const storedAPIBaseURL = (store, id) => {
-  if (store && store.state && store.state.apis && store.state.apis.urls[id]) {
+  if (store?.state?.apis?.urls?.[id]) {
     return store.state.apis.urls[id];
   } else {
     return null;
   }
 };
 
-const apiConfig = ($config, id) => {
-  if ($config && $config.europeana && $config.europeana.apis && $config.europeana.apis[id]) {
+export const apiConfig = ($config, id) => {
+  if ($config?.europeana?.apis?.[id]) {
     return $config.europeana.apis[id];
   } else {
     return {};

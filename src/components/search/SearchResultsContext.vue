@@ -1,5 +1,5 @@
 <template>
-  <div
+  <h1
     class="context-label"
     data-qa="context label"
   >
@@ -9,7 +9,7 @@
       <i18n
         v-if="hasQuery"
         path="resultsWithin"
-        tag="span"
+        :tag="false"
       >
         {{ entityTypeLabel }}
         <RemovalChip
@@ -45,7 +45,7 @@
       <i18n
         v-if="hasQuery"
         path="resultsFor"
-        tag="span"
+        :tag="false"
       >
         <RemovalChip
           :title="query"
@@ -54,16 +54,16 @@
           class="mt-1 mx-1"
         />
       </i18n>
-      <span v-else>
+      <template v-else>
         {{ $t('results') }}
-      </span>
+      </template>
     </template>
-  </div>
+  </h1>
 </template>
 
 <script>
   import RemovalChip from './RemovalChip';
-  import { getWikimediaThumbnailUrl, entityParamsFromUri } from '@/plugins/europeana/entity';
+  import { entityParamsFromUri } from '@/plugins/europeana/entity';
   import themes from '@/plugins/europeana/themes';
   import { mapState } from 'vuex';
 
@@ -107,7 +107,7 @@
         return this.labelOverride ? { values: [this.labelOverride], code: null } : this.entity?.prefLabel;
       },
       entityImage() {
-        return this.entity?.isShownBy?.thumbnail || (this.entity?.logo ? getWikimediaThumbnailUrl(this.entity?.logo?.id, 80) : null);
+        return this.$apis.entity.imageUrl(this.entity);
       },
       entityTypeLabel() {
         return this.$t(`cardLabels.${this.contextType}`);

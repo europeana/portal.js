@@ -18,6 +18,7 @@ export default {
     },
     setLikedItems(state, value) {
       state.likedItems = value;
+      // TODO should likedItemIds be reset to empty array when falsy value?
       if (value) {
         state.likedItemIds = value.map(item => item.id);
       }
@@ -69,15 +70,15 @@ export default {
       return dispatch('fetchLikes')
         .then(() => {
           if (state.likedItems && state.likedItems.length >= 100) {
-            throw new Error('100 likes');
+            return Promise.reject(new Error('100 likes'));
+          } else {
+            return this.$apis.set.modifyItems('add', state.likesId, itemId)
+              .then(commit('like', itemId));
           }
         })
-        .then(() => {
-          return this.$apis.set.modifyItems('add', state.likesId, itemId)
-            .then(commit('like', itemId));
-        })
-        .catch(() => {
-          return dispatch('fetchLikes');
+        .catch((e) => {
+          dispatch('fetchLikes');
+          throw e;
         });
     },
     unlike({ dispatch, commit, state }, itemId) {
@@ -134,9 +135,16 @@ export default {
     },
     fetchActive({ commit }, setId) {
       return this.$apis.set.get(setId, {
+        pageSize: 100,
         profile: 'itemDescriptions'
       })
-        .then(set => commit('setActive', set));
+        .then(set => commit('setActive', set))
+        .catch((apiError) => {
+          if (process.server) {
+            this.app.context.res.statusCode = apiError.statusCode;
+          }
+          throw apiError;
+        });
     },
     createSet({ dispatch }, body) {
       return this.$apis.set.create(body)

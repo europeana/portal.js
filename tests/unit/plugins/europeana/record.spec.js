@@ -446,8 +446,8 @@ describe('plugins/europeana/record', () => {
               const item = edmHasViewWebResourceFirst;
               it('includes item-specific-type thumbnails', async() => {
                 const expectedThumbnails = {
-                  small: 'https://api.europeana.eu/thumbnail/v2/url.json?size=w200&type=IMAGE&uri=https%3A%2F%2Fexample.org%2Fimage1.jpeg',
-                  large: 'https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Fexample.org%2Fimage1.jpeg'
+                  small: 'https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fexample.org%2Fimage1.jpeg&size=w200&type=IMAGE',
+                  large: 'https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fexample.org%2Fimage1.jpeg&size=w400&type=IMAGE'
                 };
 
                 const response = await record().getRecord(europeanaId);
@@ -461,8 +461,8 @@ describe('plugins/europeana/record', () => {
               const item = edmHasViewWebResourceThird;
               it('includes record-type thumbnails', async() => {
                 const expectedThumbnails = {
-                  small: 'https://api.europeana.eu/thumbnail/v2/url.json?size=w200&type=TEXT&uri=https%3A%2F%2Fexample.org%2Funknown.bin',
-                  large: 'https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=TEXT&uri=https%3A%2F%2Fexample.org%2Funknown.bin'
+                  small: 'https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fexample.org%2Funknown.bin&size=w200&type=TEXT',
+                  large: 'https://api.europeana.eu/thumbnail/v2/url.json?uri=https%3A%2F%2Fexample.org%2Funknown.bin&size=w400&type=TEXT'
                 };
 
                 const response = await record().getRecord(europeanaId);
@@ -525,36 +525,6 @@ describe('plugins/europeana/record', () => {
       const proxyUrl = new URL(record().mediaProxyUrl(mediaUrl, europeanaId, { disposition: 'inline' }));
 
       expect(proxyUrl.searchParams.get('disposition')).toBe('inline');
-    });
-  });
-
-  describe('record().relatedEntities()', () => {
-    const entityUri = 'http://data.europeana.eu/concept/base/94';
-    const entityFilterField = 'skos_concept';
-    const entityId = '94-architecture';
-    const entityType = 'topic';
-
-    const searchResponse = {
-      facets: [
-        {
-          name: 'skos_concept',
-          fields: [
-            { label: 'http://data.europeana.eu/agent/base/147831' },
-            { label: 'http://data.europeana.eu/agent/base/49928' }
-          ]
-        }
-      ]
-    };
-
-    it('filters on entity URI', async() => {
-      nock(BASE_URL)
-        .get('/search.json')
-        .query(query => query.query === `${entityFilterField}:"${entityUri}"`)
-        .reply(200, searchResponse);
-
-      await record().relatedEntities(entityType, entityId);
-
-      expect(nock.isDone()).toBe(true);
     });
   });
 

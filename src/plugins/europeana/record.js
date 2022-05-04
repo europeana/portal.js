@@ -4,8 +4,7 @@ import merge from 'deepmerge';
 
 import { apiError, createAxios, reduceLangMapsForLocale, isLangMap } from './utils';
 import search from './search';
-import { thumbnailUrl, thumbnailTypeForMimeType } from  './thumbnail';
-import { getEntityUri, getEntityQuery } from './entity';
+import thumbnail, { thumbnailTypeForMimeType } from  './thumbnail';
 import { isIIIFPresentation, isIIIFImage } from '../media';
 
 export const BASE_URL = process.env.EUROPEANA_RECORD_API_URL || 'https://api.europeana.eu/record';
@@ -140,6 +139,7 @@ const proxyHasFallbackField = (proxy, fallbackProxy, field, targetLanguage) => {
 
 export default (context = {}) => {
   const $axios = createAxios({ id: 'record', baseURL: BASE_URL }, context);
+  const thumbnailUrl = thumbnail(context).media;
 
   return {
     $axios,
@@ -247,11 +247,11 @@ export default (context = {}) => {
 
       return {
         small: thumbnailUrl(uri, {
-          size: 'w200',
+          size: 200,
           type
         }),
         large: thumbnailUrl(uri, {
-          size: 'w400',
+          size: 400,
           type
         })
       };
@@ -330,14 +330,25 @@ export default (context = {}) => {
       }
 
       return this.$axios.get(`${path}${europeanaId}.json`, { params })
-        .then(response => this.parseRecordDataFromApiResponse(response.data, options))
-        .then(parsed => {
-          return reduceLangMapsForLocale(parsed, parsed.metadataLanguage || options.locale, options);
+        .then((response) => {
+          const parsed = this.parseRecordDataFromApiResponse(response.data, options);
+          const reduced = reduceLangMapsForLocale(parsed, parsed.metadataLanguage || options.locale, { freeze: false });
+
+          // Restore `en` prefLabel on entities, e.g. for use in EntityBestItemsSet-type sets
+          for (const entityType of ['agents', 'concepts', 'organizations', 'places', 'timespans']) {
+            for (const reducedEntity of (reduced[entityType] || [])) {
+              const fullEntity = parsed[entityType].find(entity => entity.about === reducedEntity.about);
+              if (fullEntity.prefLabel?.en !== reducedEntity.prefLabel?.en) {
+                reducedEntity.prefLabel.en = fullEntity.prefLabel.en;
+              }
+            }
+          }
+
+          return {
+            record: reduced,
+            error: null
+          };
         })
-        .then(reduced => ({
-          record: reduced,
-          error: null
-        }))
         .catch((error) => {
           const errorResponse = error.response;
           if (errorResponse?.status === 502 && errorResponse?.data.code === '502-TS' && !options.fromTranslationError) {
@@ -347,26 +358,6 @@ export default (context = {}) => {
           }
           throw apiError(error, context);
         });
-    },
-
-    /**
-     * Search for specific facets for this entity to find the related entities
-     * @param {string} type the type of the entity
-     * @param {string} id the id of the entity, (can contain trailing slug parts as these will be normalized)
-     * @return {Object} related entities
-     * TODO: add people as related entities again
-     */
-    relatedEntities(type, id) {
-      const entityUri = getEntityUri(type, id);
-
-      return this.search({
-        profile: 'facets',
-        facet: 'skos_concept',
-        query: getEntityQuery(entityUri),
-        qf: ['contentTier:*'],
-        rows: 0
-      })
-        .then(response => response.facets);
     },
 
     mediaProxyUrl(mediaUrl, europeanaId, params = {}) {

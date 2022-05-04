@@ -19,7 +19,7 @@ const i18n = new VueI18n({
   }
 });
 
-const factory = (propsData = {}) => mount(DeleteSetModal, {
+const factory = (propsData = {}, route = {}) => mount(DeleteSetModal, {
   localVue,
   propsData: {
     modalStatic: true,
@@ -29,7 +29,10 @@ const factory = (propsData = {}) => mount(DeleteSetModal, {
   mocks: {
     $store: {
       dispatch: storeDispatch
-    }
+    },
+    $route: route,
+    $goto: sinon.spy(),
+    $path: path => path
   }
 });
 
@@ -94,6 +97,16 @@ describe('components/set/DeleteSetModal', () => {
       await wrapper.find('form').trigger('submit.stop.prevent');
 
       expect(rootBvToast.calledWith('Your gallery has been deleted.', sinon.match.any)).toBe(true);
+    });
+
+    describe('when on the deleted set page', () => {
+      it('redirects to the account page', async() => {
+        const wrapper = factory({ setId: 'http://data.europeana.eu/set/123' }, { params: { pathMatch: '123' } });
+
+        await wrapper.find('form').trigger('submit.stop.prevent');
+
+        expect(wrapper.vm.$goto.calledWith({ name: 'account' })).toBe(true);
+      });
     });
   });
 });

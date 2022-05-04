@@ -54,6 +54,10 @@ module.exports = async() => {
         name: 'Components',
         sections: [
           {
+            name: 'Account',
+            components: './src/components/account/[A-Z]*.vue'
+          },
+          {
             name: 'Entity',
             components: './src/components/entity/[A-Z]*.vue'
           },

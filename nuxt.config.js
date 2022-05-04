@@ -13,7 +13,7 @@ import versions from './pkg-versions.js';
 import i18nLocales from './src/plugins/i18n/locales.js';
 import i18nDateTime from './src/plugins/i18n/datetime.js';
 import { parseQuery, stringifyQuery } from './src/plugins/vue-router.cjs';
-import features, { featureIsEnabled } from './src/features/index.js';
+import features, { featureIsEnabled, featureNotificationExpiration } from './src/features/index.js';
 
 const buildPublicPath = () => {
   if (featureIsEnabled(process.env.ENABLE_JSDELIVR_BUILD_PUBLIC_PATH)) {
@@ -33,6 +33,7 @@ export default {
       baseUrl: process.env.PORTAL_BASE_URL,
       internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
       featureNotification: process.env.APP_FEATURE_NOTIFICATION,
+      featureNotificationExpiration: featureNotificationExpiration(process.env.APP_FEATURE_NOTIFICATION_EXPIRATION),
       schemaOrgDatasetId: process.env.SCHEMA_ORG_DATASET_ID,
       siteName: APP_SITE_NAME,
       search: {

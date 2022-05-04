@@ -40,7 +40,7 @@ query BlogPostPage(
           # CardGroup omitted intentionally
         }
       }
-      genre
+      relatedLink
       keywords
       authorCollection {
         items {

@@ -89,16 +89,24 @@ export default {
     "fashion": {
       "facets": {
         "CREATOR": {
-          "name": "Disinjatur | Disinjaturi"
+          "moreName": "disinjaturi",
+          "name": "Disinjatur | Disinjaturi",
+          "select": "Agħżel disinjaturi"
         },
         "proxy_dc_format": {
-          "name": "Teknika | Tekniki"
+          "moreName": "tekniki",
+          "name": "Teknika | Tekniki",
+          "select": "Agħżel tekniki"
         },
         "proxy_dc_type": {
-          "name": "Tip ta' oġġett | Tipi ta' oġġett"
+          "moreName": "tipi ta' oġġetti",
+          "name": "Tip ta' oġġett | Tipi ta' oġġett",
+          "select": "Agħżel tipi ta 'oġġetti"
         },
         "proxy_dcterms_medium": {
-          "name": "Materjal | Materjali"
+          "moreName": "materjali",
+          "name": "Materjal | Materjali",
+          "select": "Agħżel materjali"
         }
       }
     },
@@ -164,9 +172,7 @@ export default {
         "title": "Wisq oġġetti pinned"
       },
       "pinned": "L-item ġie mwaħħal. Issa tinsab fin-naħa ta' fuq tal-ewwel paġna ta' din il-ġabra. Jista' jieħu sa 24 siegħa biex jidher għal kulħadd.",
-      "pinnedFirstPage": "L-oġġett ġie mwaħħal. Jista 'jieħu sa 24 siegħa biex jidher għal kulħadd.",
-      "unpinned": "L-oġġett ma tpoġġiex. M’għadux fil-quċċata tal-ewwel paġna ta ’din il-kollezzjoni. Jista 'jieħu sa 24 siegħa biex jisparixxi għal kulħadd.",
-      "unpinnedFirstPage": "L-oġġett ma tpoġġiex. Jista 'jieħu sa 24 siegħa biex jisparixxi għal kulħadd."
+      "unpinned": "L-oġġett ma tpoġġiex. M’għadux fil-quċċata tal-ewwel paġna ta ’din il-kollezzjoni. Jista 'jieħu sa 24 siegħa biex jisparixxi għal kulħadd."
     },
     "prompts": {
       "pin": "Int żgur li trid tpoġġi din il-partita? Dan l-oġġett se juri fil-quċċata tal-kollezzjoni \" {entity} Din il-bidla tista 'tieħu sa 24 siegħa biex tidħol fis-seħħ.",
@@ -183,6 +189,7 @@ export default {
   },
   "facets": {
     "COLOURPALETTE": {
+      "moreName": "kuluri",
       "name": "Kulur | Kuluri",
       "options": {
         "#000000": "Iswed",
@@ -329,7 +336,8 @@ export default {
         "#FFFFE0": "Isfar Ċar",
         "#FFFFF0": "Ivory",
         "#FFFFFF": "Abjad"
-      }
+      },
+      "select": "Agħżel kuluri"
     },
     "COUNTRY": {
       "name": "Pajjiż fornitur",
@@ -380,20 +388,26 @@ export default {
         "Ukraine": "l-Ukrajna",
         "United Kingdom": "Ir-Renju Unit",
         "United States of America": "Stati Uniti ta 'l-Amerika"
-      }
+      },
+      "select": "Agħżel pajjiżi li jipprovdu"
     },
     "CREATOR": {
-      "name": "Kreatur | Kreaturi"
+      "moreName": "ħallieqa",
+      "name": "Kreatur | Kreaturi",
+      "select": "Agħżel ħallieqa"
     },
     "DATA_PROVIDER": {
-      "name": "Istituzzjoni | Istituzzjonijiet"
+      "moreName": "istituzzjonijiet",
+      "name": "Istituzzjoni | Istituzzjonijiet",
+      "select": "Agħżel istituzzjonijiet"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Orjentazzjoni tal-istampa | Orjentazzjonijiet tal-istampa",
       "options": {
         "landscape": "Pajsaġġ",
         "portrait": "Ritratt"
-      }
+      },
+      "select": "Agħżel l-orjentazzjonijiet tal-immaġni"
     },
     "IMAGE_SIZE": {
       "name": "Daqs tal-istampa | Daqsijiet tal-istampa",
@@ -402,7 +416,8 @@ export default {
         "large": "Kbar 1-4MP (eż. 1920x1080px)",
         "medium": "Medji 0.5-1MP (eż. 850x850px)",
         "small": "Żgħar <0.5MP (eż. 650x600px)"
-      }
+      },
+      "select": "Agħżel daqsijiet tal-immaġni"
     },
     "LANGUAGE": {
       "name": "Lingwa | Lingwi",
@@ -446,16 +461,20 @@ export default {
         "sv": "Svediż",
         "tr": "Tork",
         "uk": "Ukren"
-      }
+      },
+      "select": "Agħżel il-lingwi"
     },
     "MIME_TYPE": {
       "name": "Format tal-fajl | Formati tal-fajl",
       "options": {
         "text/plain": "Test bla format"
-      }
+      },
+      "select": "Agħżel il-formati tal-fajl"
     },
     "PROVIDER": {
-      "name": "Aggregatur | Aggregaturi"
+      "moreName": "aggregaturi",
+      "name": "Aggregatur | Aggregaturi",
+      "select": "Agħżel aggregaturi"
     },
     "REUSABILITY": {
       "name": "Nista' nuża dan?",
@@ -464,10 +483,8 @@ export default {
         "permission": "Forsi, ġib permess",
         "restricted": "Iva, bil-kundizzjonijiet",
         "uncategorized": "Mhux kategorizzati"
-      }
-    },
-    "RIGHTS": {
-      "name": "Dikjarazzjoni tad-drittijiet"
+      },
+      "select": "Agħżel jekk tistax tuża dan"
     },
     "TYPE": {
       "name": "Tip ta' midja",
@@ -477,7 +494,8 @@ export default {
         "SOUND": "Awdjo",
         "TEXT": "Test",
         "VIDEO": "Vidjo"
-      }
+      },
+      "select": "Agħżel tipi ta 'midja"
     },
     "api": {
       "name": "Fittex",
@@ -512,7 +530,8 @@ export default {
         "photography": "Fotografija",
         "sport": "Sport",
         "ww1": "1914-1918"
-      }
+      },
+      "select": "Agħżel tema"
     },
     "contentTier": {
       "name": "Kwalità tal-oġġett",
@@ -523,19 +542,24 @@ export default {
         "2": "Kwalità medja",
         "3": "Kwalità għolja & li jistgħu jerġgħu jintużaw b'kundizzjonijiet",
         "4": "Kwalità għolja & li jistgħu jerġgħu jintużaw liberament"
-      }
+      },
+      "select": "Agħżel il-kwalitajiet tal-oġġett"
     },
+    "moreOptions": "Fittex biex issib {0} aktar {1}.",
     "proxy_dc_format": {
-      "name": "Format | Formati"
+      "name": "Format | Formati",
+      "select": "Agħżel formati"
     },
     "proxy_dc_type": {
-      "name": "Tip | Tipi"
+      "name": "Tip | Tipi",
+      "select": "Agħżel tipi"
     },
     "proxy_dcterms_issued": {
       "name": "Data ta' ħruġ"
     },
     "proxy_dcterms_medium": {
-      "name": "Mezz | Midja"
+      "name": "Mezz | Midja",
+      "select": "Agħżel il-midja"
     }
   },
   "feedback": {
@@ -588,6 +612,7 @@ export default {
       "dctermsProvenance": "Provenjenza",
       "dctermsReferences": "Jagħmel referenza għal",
       "dctermsSpatial": "Postijiet",
+      "dctermsTOC": "Werrej",
       "dctermsTemporal": "Temporali",
       "edmCountry": "Pajjiż fornitur",
       "edmCurrentLocation": "Post attwali",
@@ -644,7 +669,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label}: {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -785,7 +809,7 @@ export default {
     "dismiss": "Agħlaq",
     "readMore": "Aqra iktar",
     "text": {
-      "sideFilters": "Iċċekkja l-filtri l-ġodda! Issa huma kollha viżibbli fuq in-naħa tal-lemin tar-riżultati tat-tfittxija."
+      "searchFilters": "Issa tista' tfittex valuri fil-filtri individwali; iċċekkjah!"
     }
   },
   "newWindow": "tiftaħ fit-tieqa l-ġdida",
@@ -848,13 +872,14 @@ export default {
   "reset": "Irrisettja",
   "resourceWikimedia": "Riżorsa minn Wikimedia Commons",
   "results": "Riżultati",
+  "resultsFor": "Riżultati għal {0}",
   "resultsLimitWarning": "Riżultati addizzjonali ma jidhrux minħabba li l-ewwel 1000 riżultat l-aktar rilevanti jintwerew. Jekk ma sibtx dak li qed tfittex, jekk jogħġbok ikkunsidra li tirfina it-tfittxija tiegħek.",
+  "resultsWithin": "Riżultati fi ħdan {0} {1} għal {2}",
   "search": "Fittex",
   "searchHasLoaded": "{0} riżultati rritornati",
   "searchPlaceholder": "Fittex miljun oġġett",
   "searchResults": "Fittex",
   "searchResultsFor": "{0} - Fittex",
-  "searchResultsForIn": "{0} - Fittex fi {1}",
   "searchSuggestions": "Fittex is-suġġerimenti",
   "searchTier": {
     "button": {
@@ -905,6 +930,10 @@ export default {
   },
   "showLess": "Uri inqas",
   "showMore": "Uri aktar",
+  "sideFilters": {
+    "noOptions": "M'hemm l-ebda għażliet disponibbli biex tagħżel",
+    "search": "Fittex"
+  },
   "statuses": {
     "liked": "Għoġobni",
     "pinned": "Mehmuż"

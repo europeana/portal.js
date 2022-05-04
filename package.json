@@ -1,6 +1,6 @@
 {
   "name": "@europeana/portal",
-  "version": "1.64.3",
+  "version": "1.68.0",
   "description": "Europeana Portal",
   "scripts": {
     "analyze": "nuxt build --analyze",
@@ -89,13 +89,13 @@
     "properties-reader": "^2.2.0",
     "sass": "^1.44.0",
     "sass-loader": "^10.0.0",
-    "sinon": "^12.0.1",
+    "sinon": "^13.0.1",
     "style-resources-loader": "^1.4.1",
     "stylelint": "^14.1.0",
     "stylelint-config-recommended-vue": "^1.0.0",
     "stylelint-config-standard-scss": "^3.0.0",
     "svg-url-loader": "^7.1.1",
-    "vue-styleguidist": "^4.44.15"
+    "vue-styleguidist": "^4.44.27"
   },
   "contributors": [
     "Richard Doe <richard.doe@europeana.eu>",

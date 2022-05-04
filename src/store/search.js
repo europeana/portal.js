@@ -123,7 +123,6 @@ export default {
         if (!apiParams.api) {
           apiParams.api = getters.theme.filters.api.default || 'fulltext';
         }
-
         if (apiParams.api === 'fulltext') {
           apiParams.profile = 'minimal,hits';
           apiOptions.url = FULLTEXT_BASE_URL;

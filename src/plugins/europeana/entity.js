@@ -1,5 +1,6 @@
 import { BASE_URL as EUROPEANA_DATA_URL } from './data.js';
 import { apiError, createAxios } from './utils.js';
+import thumbnail from './thumbnail.js';
 import md5 from 'md5';
 
 export const BASE_URL = process.env.EUROPEANA_ENTITY_API_URL || 'https://api.europeana.eu/entity';
@@ -9,6 +10,8 @@ export default (context = {}) => {
 
   return {
     $axios,
+
+    $thumbnail: thumbnail(context),
 
     /**
      * Get data for one entity from the API
@@ -49,29 +52,6 @@ export default (context = {}) => {
     },
 
     /**
-     * Return the facets that include data.europeana.eu
-     * @param {Object} facets the facets retrieved from the search
-     * @param {String} id id of the current entity
-     * @return {Object} related entities
-     * TODO: limit results
-     */
-    facets(facets, id) {
-      const currentId = normalizeEntityId(id);
-      let entities = [];
-      for (const facet of facets) {
-        const facetFilter = (value) => value['label'].includes(EUROPEANA_DATA_URL) && value['label'].split('/').pop() !== currentId;
-        entities = entities.concat(facet['fields'].filter(facetFilter));
-      }
-
-      const entityUris = entities.slice(0, 4).map(entity => {
-        return entity['label'];
-      });
-
-      return this.find(entityUris)
-        .then(response => getRelatedEntityData(response));
-    },
-
-    /**
      * Lookup data for the given list of entity URIs
      * @param {Array} entityUris the URIs of the entities to retrieve
      * @return {Array} entity data
@@ -108,24 +88,26 @@ export default (context = {}) => {
         .catch((error) => {
           throw apiError(error, context);
         });
+    },
+
+    imageUrl(entity) {
+      let url = null;
+
+      // `image` is a property on automated entity cards in Contentful
+      if (entity?.image) {
+        url = this.$thumbnail.edmPreview(entity.image, { size: 200 });
+      // `isShownBy` is a property on most entity types
+      } else if (entity?.isShownBy?.thumbnail) {
+        url = this.$thumbnail.edmPreview(entity.isShownBy.thumbnail, { size: 200 });
+      // `logo` is a property on organization-type entities
+      } else if (entity?.logo?.id) {
+        url = getWikimediaThumbnailUrl(entity.logo.id, 28);
+      }
+
+      return url;
     }
   };
 };
-
-/**
- * Format the entity data for a related entity
- * @param {Object} entities the data returned from the Entity API
- * @return {Object[]} entity data
- */
-function getRelatedEntityData(entities) {
-  const entityDetails = [];
-  for (const entity of entities || []) {
-    if (entity.prefLabel.en) {
-      entityDetails.push(entity);
-    }
-  }
-  return entityDetails;
-}
 
 /**
  * Remove any additional data from the slug in order to retrieve the entity id.

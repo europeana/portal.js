@@ -89,16 +89,24 @@ export default {
     "fashion": {
       "facets": {
         "CREATOR": {
-          "name": "Oblikovalec | Oblikovalci"
+          "moreName": "oblikovalci",
+          "name": "Oblikovalec | Oblikovalci",
+          "select": "Izberite oblikovalce"
         },
         "proxy_dc_format": {
-          "name": "Tehnika | Tehnike"
+          "moreName": "tehnike",
+          "name": "Tehnika | Tehnike",
+          "select": "Izberite tehnike"
         },
         "proxy_dc_type": {
-          "name": "Vrsta dela | Vrste dela"
+          "moreName": "vrste elementov",
+          "name": "Vrsta dela | Vrste dela",
+          "select": "Izberite vrste elementov"
         },
         "proxy_dcterms_medium": {
-          "name": "Material | Materiali"
+          "moreName": "materiali",
+          "name": "Material | Materiali",
+          "select": "Izberite materiale"
         }
       }
     },
@@ -164,9 +172,7 @@ export default {
         "title": "Preveč pripete predmete"
       },
       "pinned": "Element je bil pripet. Zdaj je na vrhu prve strani te zbirke. Lahko traja do 24 ur, da se prikaže vsem.",
-      "pinnedFirstPage": "Element je bil pripet. Lahko traja do 24 ur, da se prikaže vsem.",
-      "unpinned": "Element je bil odpenjen. Ni več na vrhu prve strani te zbirke. Lahko traja do 24 ur, da izgine za vse.",
-      "unpinnedFirstPage": "Element je bil odpenjen. Lahko traja do 24 ur, da izgine za vse."
+      "unpinned": "Element je bil odpenjen. Ni več na vrhu prve strani te zbirke. Lahko traja do 24 ur, da izgine za vse."
     },
     "prompts": {
       "pin": "Ali ste prepričani, da želite pripeti ta element? Ta element bo prikazan na vrhu zbirke \" {entity} \". Ta sprememba lahko začne veljati do 24 ur.",
@@ -183,6 +189,7 @@ export default {
   },
   "facets": {
     "COLOURPALETTE": {
+      "moreName": "barve",
       "name": "Barva | Barve",
       "options": {
         "#000000": "Črna",
@@ -329,7 +336,8 @@ export default {
         "#FFFFE0": "Svetlo rumena",
         "#FFFFF0": "Slonokoščena",
         "#FFFFFF": "Bela"
-      }
+      },
+      "select": "Izberite barve"
     },
     "COUNTRY": {
       "name": "Država izvora",
@@ -380,20 +388,26 @@ export default {
         "Ukraine": "Ukrajina",
         "United Kingdom": "Združeno kraljestvo",
         "United States of America": "Združene države Amerike"
-      }
+      },
+      "select": "Izberite države ponudnika"
     },
     "CREATOR": {
-      "name": "Ustvarjalec | Ustvarjalci"
+      "moreName": "ustvarjalci",
+      "name": "Ustvarjalec | Ustvarjalci",
+      "select": "Izberite ustvarjalce"
     },
     "DATA_PROVIDER": {
-      "name": "Ustanova"
+      "moreName": "institucije",
+      "name": "Ustanova",
+      "select": "Izberite institucije"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Usmerjenost slike | Usmerjenosti slik",
       "options": {
         "landscape": "Ležeče",
         "portrait": "Pokončno"
-      }
+      },
+      "select": "Izberite usmeritve slike"
     },
     "IMAGE_SIZE": {
       "name": "Velikost slike | Velikosti slik",
@@ -402,7 +416,8 @@ export default {
         "large": "Velika 1-4MP (npr. 1920x1080px)",
         "medium": "Srednja 0,5-1MP (npr. 850x850px)",
         "small": "Majhna < 0,5MP (npr. 650x600px)"
-      }
+      },
+      "select": "Izberite velikosti slike"
     },
     "LANGUAGE": {
       "name": "Jezik",
@@ -446,16 +461,20 @@ export default {
         "sv": "Švedski",
         "tr": "Turški",
         "uk": "Ukrajinski"
-      }
+      },
+      "select": "Izberite jezike"
     },
     "MIME_TYPE": {
       "name": "Oblika zapisa datoteke | Oblike zapisov datotek",
       "options": {
         "text/plain": "Golo besedilo"
-      }
+      },
+      "select": "Izberite formate datotek"
     },
     "PROVIDER": {
-      "name": "Zbiralnik"
+      "moreName": "agregatorji",
+      "name": "Zbiralnik",
+      "select": "Izberite agregatorje"
     },
     "REUSABILITY": {
       "name": "Ali lahko to ponovno uporabim?",
@@ -464,10 +483,8 @@ export default {
         "permission": "Morda, prosi za dovoljenje",
         "restricted": "Da, s pogoji",
         "uncategorized": "Nekategorizirano"
-      }
-    },
-    "RIGHTS": {
-      "name": "Izjava o pravicah"
+      },
+      "select": "Izberite, ali lahko to uporabite"
     },
     "TYPE": {
       "name": "Vrsta medija",
@@ -477,7 +494,8 @@ export default {
         "SOUND": "Zvok",
         "TEXT": "Besedilo",
         "VIDEO": "Videoposnetek"
-      }
+      },
+      "select": "Izberite vrste medijev"
     },
     "api": {
       "name": "Išči",
@@ -512,7 +530,8 @@ export default {
         "photography": "Fotografija",
         "sport": "Šport",
         "ww1": "1914-1918"
-      }
+      },
+      "select": "Izberite temo"
     },
     "contentTier": {
       "name": "Kakovost artikla",
@@ -523,19 +542,24 @@ export default {
         "2": "Srednja kakovost",
         "3": "Visoka kakovost in ponovna uporaba s pogoji",
         "4": "Visoka kakovost & prosto večkratno uporabo"
-      }
+      },
+      "select": "Izberite kvalitete artikla"
     },
+    "moreOptions": "Poiščite {0} več {1}.",
     "proxy_dc_format": {
-      "name": "Format | Formati"
+      "name": "Format | Formati",
+      "select": "Izberite formate"
     },
     "proxy_dc_type": {
-      "name": "Vrsta | Vrste"
+      "name": "Vrsta | Vrste",
+      "select": "Izberite vrste"
     },
     "proxy_dcterms_issued": {
       "name": "Datum izdaje"
     },
     "proxy_dcterms_medium": {
-      "name": "Medij | Mediji"
+      "name": "Medij | Mediji",
+      "select": "Izberite medija"
     }
   },
   "feedback": {
@@ -588,6 +612,7 @@ export default {
       "dctermsProvenance": "Poreklo",
       "dctermsReferences": "Sklici",
       "dctermsSpatial": "Kraji",
+      "dctermsTOC": "Kazalo vsebine",
       "dctermsTemporal": "Časovno obdobje",
       "edmCountry": "Država izvora",
       "edmCurrentLocation": "Trenutna lokacija",
@@ -644,7 +669,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label}: {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -785,7 +809,7 @@ export default {
     "dismiss": "Zapri",
     "readMore": "Preberi več",
     "text": {
-      "sideFilters": "Oglejte si nove filtre! Vsi so zdaj vidni na desni strani rezultatov iskanja."
+      "searchFilters": "Zdaj lahko iščete vrednosti v posameznih filtrih; preverite!"
     }
   },
   "newWindow": "odpre se v novem oknu",
@@ -848,13 +872,14 @@ export default {
   "reset": "Ponastavi",
   "resourceWikimedia": "Vir iz Wikimedia Commons",
   "results": "Rezultati",
+  "resultsFor": "Rezultati za {0}",
   "resultsLimitWarning": "Dodatni rezultati niso prikazani, ker je prikazanih samo prvih 1000 najbolj relevantnih rezultatov. Če niste našli, kar iščete, razmislite o natančnejšem iskanju.",
+  "resultsWithin": "Rezultati znotraj {0} {1} za {2}",
   "search": "Išči",
   "searchHasLoaded": "{0} vrnjeni rezultati",
   "searchPlaceholder": "Kaj iščete?",
   "searchResults": "Išči",
   "searchResultsFor": "{0} - Išči",
-  "searchResultsForIn": "{0} - Išči v {1}",
   "searchSuggestions": "Predlogi za iskanje",
   "searchTier": {
     "button": {
@@ -905,6 +930,10 @@ export default {
   },
   "showLess": "Prikaži manj",
   "showMore": "Prikaži več",
+  "sideFilters": {
+    "noOptions": "Na voljo ni nobenih možnosti za izbiro",
+    "search": "Išči"
+  },
   "statuses": {
     "liked": "Všeč",
     "pinned": "Pripet"
