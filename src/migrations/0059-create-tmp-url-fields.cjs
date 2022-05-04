@@ -28,7 +28,7 @@ module.exports = function(migration) {
       .localized(false)
       .required(!!urlField.required)
       .validations(urlField.validations || [])
-      .disabled(!!urlField.disabled)
+      .disabled(true)
       .omitted(false);
     contentType.changeFieldControl(tmpFieldId, 'builtin', urlField.control || 'urlEditor', {});
 
@@ -50,5 +50,8 @@ module.exports = function(migration) {
       },
       shouldPublish: 'preserve'
     });
+
+    // 4. Enable temporary field (if required)
+    contentType.editField(tmpFieldId).disabled(!!urlField.disabled);
   }
 };
