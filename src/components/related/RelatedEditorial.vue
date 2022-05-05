@@ -16,7 +16,6 @@
           :url="entryUrl(entry)"
           :image-url="entry.primaryImageOfPage.image.url"
           :image-content-type="entry.primaryImageOfPage.image.contentType"
-          variant="mini"
         />
       </b-card-group>
     </div>
