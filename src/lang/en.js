@@ -154,6 +154,7 @@ export default {
     "left": "Left",
     "right": "Right"
   },
+  "editorialContentYouMayLike": "Editorial content you may like",
   "edmIsShownAtLinkAlt": "View at the provider's website",
   "entity": {
     "actions": {

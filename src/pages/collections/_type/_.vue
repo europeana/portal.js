@@ -69,9 +69,10 @@
             </b-container>
             <client-only>
               <b-container class="px-0">
-                <EntityRelatedEditorial
-                  v-if="entity"
-                  :identifier="entity.id"
+                <RelatedEditorial
+                  v-if="entity && $features.collectionPageRelatedEditorial"
+                  :entity-uri="entity.id"
+                  :query="$route.query.query"
                 />
               </b-container>
             </client-only>
@@ -105,7 +106,7 @@
       ClientOnly,
       EntityHeader: () => import('@/components/entity/EntityHeader'),
       EntityRelatedCollections: () => import('@/components/entity/EntityRelatedCollections'),
-      EntityRelatedEditorial: () => import('@/components/entity/EntityRelatedEditorial'),
+      RelatedEditorial: () => import('@/components/related/RelatedEditorial'),
       SearchInterface,
       SideFilters: () => import('@/components/search/SideFilters')
     },

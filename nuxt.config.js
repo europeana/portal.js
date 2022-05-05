@@ -413,5 +413,7 @@ export default {
   srcDir: 'src/',
 
   // Opt-out of telemetry
-  telemetry: false
+  telemetry: false,
+
+  watch: ['~/**/*.graphql']
 };

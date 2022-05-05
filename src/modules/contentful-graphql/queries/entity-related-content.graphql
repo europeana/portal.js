@@ -1,12 +1,13 @@
-query (
-  $entityUri: String!,
+query EntityRelatedContent(
   $locale: String!,
   $preview: Boolean = false,
-  $limit: Int = 4
+  $limit: Int = 4,
+  $entityUri: String!
 ) {
   blogPostingCollection(
     where: { relatedLink_contains_some: [$entityUri] },
-    preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit) {
+    preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit
+  ) {
     items {
       __typename
       name
@@ -23,7 +24,8 @@ query (
   }
   exhibitionPageCollection(
     where: { relatedLink_contains_some: [$entityUri] },
-    preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit) {
+    preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit
+  ) {
     items {
       __typename
       name

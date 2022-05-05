@@ -8,16 +8,16 @@
   import ContentCardSection from '../browse/ContentCardSection';
 
   export default {
-    name: 'EntityRelatedEditorial',
+    name: 'RelatedEditorial',
 
     components: {
       ContentCardSection
     },
 
     props: {
-      identifier: {
+      entityUri: {
         type: String,
-        required: true
+        default: null
       }
     },
 
@@ -29,11 +29,11 @@
 
     async fetch() {
       const variables = {
-        entityUri: this.identifier,
+        entityUri: this.entityUri,
         locale: this.$i18n.isoLocale(),
         preview: this.$route.query.mode === 'preview',
         limit: 4
-      }
+      };
       const response = await this.$contentful.query('entityRelatedContent', variables);
       const entries = response.data.data;
 
@@ -44,6 +44,8 @@
     },
 
     computed: {
+      // Adapt response to format expected by ContentCardSection
+      // TODO: refactor when design is implemented (EC-5798)
       contentCardHasPartCollection() {
         return this.related.map(entry => {
           let urlPrefix;
@@ -61,7 +63,7 @@
             image: entry.primaryImageOfPage.image,
             url
           };
-        })
+        });
       },
 
       contentCardSection() {
@@ -70,7 +72,7 @@
           hasPartCollection: {
             items: this.contentCardHasPartCollection
           },
-          headline: 'Editorial content you may like'
+          headline: this.$t('editorialContentYouMayLike')
         };
       }
     }
