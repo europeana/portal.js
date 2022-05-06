@@ -6,15 +6,24 @@
       v-if="imageLink && media.thumbnails.large && !media.isShownAt"
       :href="imageLink"
       target="_blank"
+      data-qa="media link"
     >
+      <MediaDefaultThumbnail
+        v-if="showDefaultThumbnail"
+        media-type="image"
+        data-qa="default thumbnail"
+      />
       <component
         :is="lazy ? 'b-img-lazy' : 'b-img'"
+        v-else
         :src="thumbnailSrc"
         :width="thumbnailWidth"
         :height="thumbnailHeight"
         class="w-auto"
         alt=""
         data-qa="media preview image"
+        @error="imageNotFound"
+        @error.native="imageNotFound"
       />
       <span
         class="sr-only"
@@ -25,14 +34,21 @@
     <div
       v-else-if="media.thumbnails.large"
     >
+      <MediaDefaultThumbnail
+        v-if="showDefaultThumbnail"
+        media-type="image"
+      />
       <component
         :is="lazy ? 'b-img-lazy' : 'b-img'"
+        v-else
         :src="thumbnailSrc"
         :width="thumbnailWidth"
         :height="thumbnailHeight"
         alt=""
         class="mw-100"
         data-qa="media preview image"
+        @error="imageNotFound"
+        @error.native="imageNotFound"
       />
     </div>
   </div>
@@ -41,6 +57,11 @@
 <script>
   export default {
     name: 'MediaCardImage',
+
+    components: {
+      MediaDefaultThumbnail: () => import('../media/MediaDefaultThumbnail')
+    },
+
     props: {
       media: {
         type: Object,
@@ -55,6 +76,13 @@
         default: ''
       }
     },
+
+    data() {
+      return {
+        showDefaultThumbnail: false
+      };
+    },
+
     computed: {
       imageLink() {
         return this.$apis.record.mediaProxyUrl(this.media.about, this.europeanaIdentifier, { disposition: 'inline' });
@@ -76,6 +104,12 @@
           return null;
         }
         return (this.media.ebucoreHeight / this.media.ebucoreWidth) * this.thumbnailWidth;
+      }
+    },
+
+    methods: {
+      imageNotFound() {
+        this.showDefaultThumbnail = true;
       }
     }
   };

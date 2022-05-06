@@ -12,6 +12,8 @@
     :variant="variant"
     :lazy="lazy"
     :sub-title="subTitle"
+    :media-type="type"
+    :offset="offset"
   >
     <template
       v-if="variant === 'list'"
@@ -127,6 +129,13 @@
       enableRejectRecommendation: {
         type: Boolean,
         default: false
+      },
+      /**
+       * Offset, used for random color picking
+       */
+      offset: {
+        type: Number,
+        default: null
       }
     },
 
@@ -182,7 +191,7 @@
       },
 
       type() {
-        return this.variant === 'list' ? this.item.type : null;
+        return this.item.type;
       }
     }
   };

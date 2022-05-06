@@ -36,9 +36,10 @@
           @error="imageNotFound"
         />
       </div>
-      <div
+      <MediaDefaultThumbnail
         v-else-if="!cardImageUrl && variant !== 'mini'"
-        class="placeholder card-img"
+        :media-type="mediaType"
+        :offset="offset"
       />
       <b-card-body
         v-if="variant !== 'mosaic'"
@@ -112,7 +113,8 @@
 
     components: {
       ClientOnly,
-      SmartLink
+      SmartLink,
+      MediaDefaultThumbnail: () => import('../media/MediaDefaultThumbnail')
     },
 
     mixins: [
@@ -270,6 +272,20 @@
       logo: {
         type: Boolean,
         default: false
+      },
+      /**
+       * Type of media
+       */
+      mediaType: {
+        type: String,
+        default: null
+      },
+      /**
+       * Offset, used for random color picking
+       */
+      offset: {
+        type: Number,
+        default: null
       }
     },
     data() {
@@ -423,6 +439,16 @@
     image-url="https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=http%3A%2F%2Fcollections.rmg.co.uk%2FmediaLib%2F323%2Fmedia-323744%2Flarge.jpg"
     :hitsText="{ prefix: 'This shows a ', exact: 'Hit-Highlight', suffix: ' appearing in the middle of the description!' }"
     url="https://www.europeana.eu/item/2022362/_Royal_Museums_Greenwich__http___collections_rmg_co_uk_collections_objects_147879"
+  />
+  ```
+  Variant "default" with colored default thumbnail:
+  ```jsx
+  <ContentCard
+    title="Debarquement a l'Ile de Malte (Bonaparte landing on Malta)"
+    image-url="https://api.europeana.eu/thumbnail/v3/400/d141fa1321a1eb8f0527e6526b7b39b2"
+    :texts="['Royal Museums Greenwich']"
+    url="https://www.europeana.eu/item/2022362/_Royal_Museums_Greenwich__http___collections_rmg_co_uk_collections_objects_147879"
+    media-type="SOUND"
   />
   ```
 </docs>
