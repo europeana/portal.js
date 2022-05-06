@@ -7,7 +7,7 @@
     :class="{ 'img-chip': imageUrl }"
     :data-qa="localisedTitle.values[0] + ' related chip'"
     :lang="localisedTitle.code"
-    @click.native="clickEventHandler"
+    @click.native="handleClickEvent"
   >
     <div
       v-if="imageUrl && type === 'Organization'"
@@ -61,11 +61,7 @@
       },
       clickEventHandler: {
         type: Function,
-        default() {
-          if (this.$matomo) {
-            this.$matomo.trackEvent('Related_collections', 'Click related collection', this.linkTo);
-          }
-        }
+        default: null
       }
     },
 
@@ -88,6 +84,14 @@
     },
 
     methods: {
+      handleClickEvent() {
+        if (this.clickEventHandler) {
+          this.clickEventHandler();
+        } else if (this.$matomo) {
+          this.$matomo.trackEvent('Related_collections', 'Click related collection', this.linkTo);
+        }
+      },
+
       imageNotFound() {
         this.imageUrl = '';
       }
