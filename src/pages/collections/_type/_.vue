@@ -67,6 +67,14 @@
                 :sections="page.hasPartCollection.items"
               />
             </b-container>
+            <client-only>
+              <b-container class="px-0">
+                <RelatedEditorial
+                  v-if="entity && $features.collectionPageRelatedEditorial"
+                  :entity-uri="entity.id"
+                />
+              </b-container>
+            </client-only>
           </b-col>
           <SideFilters
             :route="route"
@@ -95,10 +103,11 @@
       AlertMessage: () => import('@/components/generic/AlertMessage'),
       BrowseSections: () => import('@/components/browse/BrowseSections'),
       ClientOnly,
-      SearchInterface,
-      SideFilters: () => import('@/components/search/SideFilters'),
       EntityHeader: () => import('@/components/entity/EntityHeader'),
-      EntityRelatedCollections: () => import('@/components/entity/EntityRelatedCollections')
+      EntityRelatedCollections: () => import('@/components/entity/EntityRelatedCollections'),
+      RelatedEditorial: () => import('@/components/related/RelatedEditorial'),
+      SearchInterface,
+      SideFilters: () => import('@/components/search/SideFilters')
     },
 
     beforeRouteLeave(to, from, next) {
