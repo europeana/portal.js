@@ -32,6 +32,7 @@
           :height="imageHeight"
           :alt="imageAlt"
           @error.native="imageNotFound"
+          @load.native="imageLoaded"
         />
         <b-img
           v-else
@@ -40,6 +41,7 @@
           :height="imageHeight"
           :alt="imageAlt"
           @error="imageNotFound"
+          @load="imageLoaded"
         />
       </div>
       <b-card-body
@@ -396,6 +398,10 @@
 
       imageNotFound() {
         this.cardImageUrl = '';
+      },
+
+      imageLoaded() {
+        this.$redrawVueMasonry && this.$redrawVueMasonry();
       }
     }
   };
