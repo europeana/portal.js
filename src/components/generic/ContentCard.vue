@@ -12,6 +12,12 @@
         :aria-label="displayTitle ? displayTitle.value : null"
         :title="(variant === 'mosaic' && displayTitle) ? displayTitle.value : null"
       />
+      <MediaDefaultThumbnail
+        v-if="variant !== 'mini'"
+        v-show="!cardImageUrl"
+        :media-type="mediaType"
+        :offset="offset"
+      />
       <div
         v-if="cardImageUrl"
         class="card-img"
@@ -36,11 +42,6 @@
           @error="imageNotFound"
         />
       </div>
-      <MediaDefaultThumbnail
-        v-else-if="!cardImageUrl && variant !== 'mini'"
-        :media-type="mediaType"
-        :offset="offset"
-      />
       <b-card-body
         v-if="variant !== 'mosaic'"
         data-qa="card body"
