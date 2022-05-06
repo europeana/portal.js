@@ -14,41 +14,44 @@
       :data-qa="`item previews ${view}`"
     >
       <slot />
-      <template
-        v-for="(card, index) in cards"
-      >
+      <!-- client-only while we are using Masonry -->
+      <client-only>
         <template
-          v-if="card === 'related'"
+          v-for="(card, index) in cards"
         >
-          <b-card
-            v-show="showRelated"
-            :key="index"
-            class="text-left related-collections-card mb-4"
+          <template
+            v-if="card === 'related'"
           >
-            <slot
-              v-masonry-tile
-              name="related"
-            />
-          </b-card>
+            <b-card
+              v-show="showRelated"
+              :key="index"
+              class="text-left related-collections-card mb-4"
+            >
+              <slot
+                v-masonry-tile
+                name="related"
+              />
+            </b-card>
+          </template>
+          <ItemPreviewCard
+            v-else
+            :key="index"
+            v-masonry-tile
+            :item="card"
+            :hit-selector="itemHitSelector(card)"
+            :variant="cardVariant"
+            class="item"
+            :lazy="false"
+            :enable-accept-recommendation="enableAcceptRecommendations"
+            :enable-reject-recommendation="enableRejectRecommendations"
+            :show-pins="showPins"
+            :offset="items.findIndex(item => item.id === card.id)"
+            data-qa="item preview"
+            @like="$emit('like', card.id)"
+            @unlike="$emit('unlike', card.id)"
+          />
         </template>
-        <ItemPreviewCard
-          v-else
-          :key="index"
-          v-masonry-tile
-          :item="card"
-          :hit-selector="itemHitSelector(card)"
-          :variant="cardVariant"
-          class="item"
-          :lazy="false"
-          :enable-accept-recommendation="enableAcceptRecommendations"
-          :enable-reject-recommendation="enableRejectRecommendations"
-          :show-pins="showPins"
-          :offset="items.findIndex(item => item.id === card.id)"
-          data-qa="item preview"
-          @like="$emit('like', card.id)"
-          @unlike="$emit('unlike', card.id)"
-        />
-      </template>
+      </client-only>
     </div>
   </div>
   <b-card-group
@@ -92,6 +95,7 @@
 
 <script>
   import ItemPreviewCard from './ItemPreviewCard';
+  import ClientOnly from 'vue-client-only';
 
   export default {
     name: 'ItemPreviewCardGroup',
