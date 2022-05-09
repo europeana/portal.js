@@ -396,12 +396,24 @@
         return this.$options.filters.truncate(stripped, 255, this.$t('formatting.ellipsis'));
       },
 
-      imageNotFound() {
-        this.cardImageUrl = '';
+      redrawMasonry() {
+        if (this.$redrawVueMasonry) {
+          this.$nextTick(() => {
+            this.$redrawVueMasonry();
+          });
+        }
       },
 
-      imageLoaded() {
-        this.$redrawVueMasonry && this.$redrawVueMasonry();
+      imageNotFound() {
+        this.cardImageUrl = '';
+        this.redrawMasonry();
+      },
+
+      imageLoaded(event) {
+        // ignore b-img-lazy's blank placeholder images
+        if (!event.target.src.startsWith('data:')) {
+          this.redrawMasonry();
+        }
       }
     }
   };

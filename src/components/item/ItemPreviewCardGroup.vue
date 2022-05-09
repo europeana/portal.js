@@ -177,6 +177,10 @@
       }
     },
 
+    mounted() {
+      this.redrawMasonry();
+    },
+
     methods: {
       itemHitSelector(item) {
         if (!this.hits) {
