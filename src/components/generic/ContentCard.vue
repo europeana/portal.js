@@ -32,6 +32,7 @@
           :height="imageHeight"
           :alt="imageAlt"
           @error.native="imageNotFound"
+          @load.native="imageLoaded"
         />
         <b-img
           v-else
@@ -40,6 +41,7 @@
           :height="imageHeight"
           :alt="imageAlt"
           @error="imageNotFound"
+          @load="imageLoaded"
         />
       </div>
       <b-card-body
@@ -394,8 +396,24 @@
         return this.$options.filters.truncate(stripped, 255, this.$t('formatting.ellipsis'));
       },
 
+      redrawMasonry() {
+        if (this.$redrawVueMasonry) {
+          this.$nextTick(() => {
+            this.$redrawVueMasonry();
+          });
+        }
+      },
+
       imageNotFound() {
         this.cardImageUrl = '';
+        this.redrawMasonry();
+      },
+
+      imageLoaded(event) {
+        // ignore b-img-lazy's blank placeholder images
+        if (!event.target.src.startsWith('data:')) {
+          this.redrawMasonry();
+        }
       }
     }
   };

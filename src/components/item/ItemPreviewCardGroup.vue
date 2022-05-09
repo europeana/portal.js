@@ -39,7 +39,7 @@
           :hit-selector="itemHitSelector(card)"
           :variant="cardVariant"
           class="item"
-          :lazy="false"
+          :lazy="true"
           :enable-accept-recommendation="enableAcceptRecommendations"
           :enable-reject-recommendation="enableRejectRecommendations"
           :show-pins="showPins"
