@@ -42,14 +42,16 @@ describe('components/related/RelatedEditorial', () => {
   describe('fetch', () => {
     describe('when an entity URI is supplied', () => {
       const entityUri = 'http://data.europeana.eu/concept/base/123';
+      const query = 'spider';
 
       it('queries Contentful for content related to the entity', async() => {
-        const wrapper = factory({ propsData: { entityUri } });
+        const wrapper = factory({ propsData: { entityUri, query } });
 
         await wrapper.vm.fetch();
 
         expect(wrapper.vm.$contentful.query.calledWith('entityRelatedContent', {
           entityUri,
+          query,
           locale: 'en-GB',
           preview: false,
           limit: 4

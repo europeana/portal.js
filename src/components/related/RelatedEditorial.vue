@@ -36,6 +36,11 @@
       entityUri: {
         type: String,
         default: null
+      },
+
+      query: {
+        type: String,
+        default: null
       }
     },
 
@@ -54,6 +59,7 @@
 
       const variables = {
         entityUri: this.entityUri,
+        query: this.query,
         locale: this.$i18n.isoLocale(),
         preview: this.$route.query.mode === 'preview',
         limit: 4
@@ -65,6 +71,11 @@
         .concat(entries.exhibitionPageCollection.items)
         .sort((a, b) => (new Date(b.datePublished)).getTime() - (new Date(a.datePublished)).getTime())
         .slice(0, 4);
+    },
+
+    watch: {
+      query: '$fetch',
+      entityUri: '$fetch'
     },
 
     methods: {
