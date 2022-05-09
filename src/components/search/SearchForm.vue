@@ -165,6 +165,9 @@
 
     watch: {
       '$route.query.query'() {
+        if (this.$refs.searchinput.$el) {
+          this.$refs.searchinput.$el.blur();
+        }
         this.showSearchOptions = false;
         this.initQuery();
       },
