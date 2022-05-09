@@ -1,25 +1,25 @@
 <template>
   <b-list-group
-    :id="elementId"
-    class="auto-suggest-dropdown"
-    data-qa="search query options"
+    id="search-form-options"
     role="listbox"
+    data-qa="search query options"
     :aria-label="$t('searchSuggestions')"
   >
+    <!--
+      Will also fire on 'Enter' as @click event is also triggered on keyboard navigation
+      @event click
+      @property {number} index - option index
+      @property {string} query - option link query
+    -->
     <b-list-group-item
       v-for="(option, index) in options"
       :key="index"
+      ref="options"
       :data-qa="option.qa"
       :to="$link.to(option.link.path, option.link.query)"
       :href="$link.href(option.link.path, option.link.query)"
       role="option"
-      :aria-selected="index === focus"
-      :class="{ 'hover': index === focus }"
       @click="trackSuggestionClick(index, option.link.query.query)"
-      @focus="index === focus"
-      @mouseover="focus = index"
-      @mouseout="focus = null"
-      @mousedown.prevent
     >
       <i18n
         v-if="option.i18n"
@@ -60,7 +60,8 @@
       /**
        * Array of objects for the query options to render as links
        *
-       * @example with i18n and named slots
+       * with i18n and named slots
+       * @example
        * [
        *   {
        *     link: { path: '/en/search', query: { query: 'map' } },
@@ -69,8 +70,9 @@
        *       { name: 'query', value: { text: 'map', highlight: true } }
        *     ] }
        *   }
-       * ]
-       * @example with non-i18n texts
+       * ];
+       * with non-i18n texts
+       * @example
        * [
        *   {
        *     link: { path: '/en/search', query: { query: '"Charles Dickens"' } },
@@ -81,90 +83,15 @@
        *       { text: 'ickens ', highlight: false }
        *     ]
        *   }
-       * ]
+       * ];
        */
       options: {
         type: Array,
         required: true
-      },
-
-      elementId: {
-        type: String,
-        default: null
-      },
-
-      inputRefName: {
-        type: String,
-        default: 'searchbox'
       }
-    },
-
-    data() {
-      return {
-        focus: null
-      };
-    },
-
-    computed: {
-      firstOptionHasFocus() {
-        return this.focus === 0;
-      },
-
-      lastOptionHasFocus() {
-        return this.focus === (this.options.length - 1);
-      },
-
-      noOptionHasFocus() {
-        return this.focus === null;
-      },
-
-      inputRef() {
-        return this.$parent.$refs[this.inputRefName];
-      },
-
-      inputElement() {
-        // refs may point to a component or direct to an HTML element
-        return this.inputRef.$el ? this.inputRef.$el : this.inputRef;
-      }
-    },
-
-    mounted() {
-      this.inputElement.addEventListener('keydown', this.keydown);
-      document.addEventListener('mouseup', this.clickOutside);
     },
 
     methods: {
-      keydown(event) {
-        switch (event.keyCode) {
-        case 27: // Escape key
-          this.blurInput();
-          break;
-        case 9: // Tab key
-          this.closeDropdown();
-          break;
-        case 38: // Up key
-          this.keydownUp();
-          break;
-        case 40: // Down key
-          this.keydownDown();
-          break;
-        }
-      },
-
-      keydownUp() {
-        this.focus = (this.noOptionHasFocus || this.firstOptionHasFocus) ? this.options.length - 1 : this.focus - 1;
-        this.selectSuggestion();
-      },
-
-      keydownDown() {
-        this.focus = (this.noOptionHasFocus || this.lastOptionHasFocus) ? 0 : this.focus + 1;
-        this.selectSuggestion();
-      },
-
-      blurInput() {
-        this.inputElement.blur();
-      },
-
       onCollectionPage() {
         // Used for deciding if clicks on search suggestions should be tracked.
         // Uses window.location as the beforeRouteLeave call on collection pages
@@ -176,39 +103,11 @@
       trackSuggestionClick(index, query) {
         // Skip click tracking while on a collection page, there will never be suggestions.
         if (!this.onCollectionPage()) {
-          // While only triggered via @click here, these events are also tracked
-          // in the submitForm logic of the SearchForm component for keyboard events.
           if (index >= 1) {
             this.$matomo?.trackEvent('Autosuggest_option_selected', 'Autosuggest option is selected', query);
           } else if (this.options.length >= 2) {
             this.$matomo?.trackEvent('Autosuggest_option_not_selected', 'Autosuggest option is not selected', query);
           }
-        }
-        this.blurInput();
-      },
-
-      clickOutside(event) {
-        const isParent = (event.target === this.inputElement);
-        const isChild = this.$el.contains(event.target);
-        const isSubmit = event.target.closest('.search-query');
-        const isClear = event.target.classList.contains('clear');
-
-        if (!(isParent || isChild || isSubmit)) {
-          this.closeDropdown(isClear);
-        }
-      },
-
-      closeDropdown() {
-        this.focus = null;
-        this.selectSuggestion();
-      },
-
-      selectSuggestion() {
-        if (this.focus && this.options[this.focus]) {
-          this.$emit('select', this.options[this.focus].link);
-        } else {
-          // fallback to the query by unselecting any suggestions.
-          this.$emit('select', null);
         }
       }
     }
@@ -219,55 +118,48 @@
   @import '@/assets/scss/variables';
   @import '@/assets/scss/icons';
 
-  .auto-suggest-dropdown {
-    display: block;
-    box-shadow: $boxshadow-light;
-    position: absolute;
-    top: 3.45rem;
-    width: 100%;
-    z-index: 20;
+  .list-group-item {
+    border: 0;
     border-radius: 0;
-    background-color: $white;
-    transition: $standard-transition;
+    box-shadow: none;
+    padding: 1rem 1.25rem 1rem 3.4rem;
+    color: $black;
+    font-size: 1rem;
+    text-decoration: none;
+    text-align: left;
 
-    .list-group-item {
-      border: 0;
-      border-radius: 0;
-      box-shadow: none;
-      padding: 1rem 1.25rem 1rem 3.4rem;
-      color: $black;
-      font-size: 1rem;
-      text-decoration: none;
-      text-align: left;
+    &::before {
+      @extend %icon-font;
 
-      &:focus {
-        background-color: $offwhite;
-      }
+      font-size: 1.1rem;
+      content: '\e92b';
+      left: 1rem;
+      top: 1rem;
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &:focus,
+    &:hover {
+      background-color: $blue;
+      color: $white;
+    }
+
+    &.list-item-quick-search {
+      padding: 0 1.25rem 1.3125rem;
 
       &::before {
-        @extend %icon-font;
-
-        font-size: 1.1rem;
-        content: '\e92b';
-        left: 1rem;
-        top: 1rem;
-        position: absolute;
-        width: 24px;
-        height: 24px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      &.hover {
-        background-color: $blue;
-        color: $white;
+        display: none;
       }
     }
+  }
 
-    .loading {
-      font-size: 0.75rem;
-    }
+  .loading {
+    font-size: 0.75rem;
   }
 
   form:focus-within .auto-suggest-dropdown {
@@ -282,3 +174,28 @@
     }
   }
 </style>
+
+<docs lang="md">
+  ```jsx
+  <SearchQueryOptions
+    :options="[
+      {
+        link: { path: '/en/search', query: { query: 'map' } },
+        qa: 'search button',
+        i18n: { path: 'header.searchFor', slots: [
+          { name: 'query', value: { text: 'map', highlight: true } }
+        ] }
+      },
+      {
+        link: { path: '/en/search', query: { query: 'Charles Dickens' } },
+        qa: 'Charles Dickens search suggestion',
+        texts: [
+          { text: 'Charles ', highlight: false },
+          { text: 'D', highlight: true },
+          { text: 'ickens ', highlight: false }
+        ]
+      }
+    ]"
+  />
+  ```
+</docs>
