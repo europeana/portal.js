@@ -83,7 +83,7 @@ describe('components/generic/LinkBadge', () => {
       }
     });
 
-    wrapper.vm.clickEventHandler();
+    wrapper.vm.handleClickEvent();
     expect(wrapper.vm.$matomo.trackEvent.calledWith('Related_collections', 'Click related collection', '/collections/topic/33-costume')).toBe(true);
   });
 
