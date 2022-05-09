@@ -8,7 +8,7 @@
       {{ title }}
     </h2>
     <div class="d-flex flex-wrap">
-      <RelatedChip
+      <LinkBadge
         v-for="relatedCollection in relatedCollections"
         :id="relatedCollection.id"
         :key="relatedCollection.id"
@@ -26,13 +26,13 @@
   import { BASE_URL as EUROPEANA_DATA_URL } from '../../plugins/europeana/data';
   import { getEntityTypeHumanReadable, getEntitySlug } from '../../plugins/europeana/entity';
 
-  import RelatedChip from './RelatedChip';
+  import LinkBadge from './LinkBadge';
 
   export default {
     name: 'RelatedCollections',
 
     components: {
-      RelatedChip
+      LinkBadge
     },
 
     props: {

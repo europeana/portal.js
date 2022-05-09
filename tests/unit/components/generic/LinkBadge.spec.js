@@ -1,12 +1,12 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import RelatedChip from '@/components/generic/RelatedChip.vue';
+import LinkBadge from '@/components/generic/LinkBadge.vue';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = (mocks = {}) => shallowMount(RelatedChip, {
+const factory = (mocks = {}) => shallowMount(LinkBadge, {
   localVue,
   mocks,
   propsData: {
@@ -15,7 +15,7 @@ const factory = (mocks = {}) => shallowMount(RelatedChip, {
   }
 });
 
-describe('components/generic/RelatedChip', () => {
+describe('components/generic/LinkBadge', () => {
   it('renders a related collection chip', () => {
     const wrapper = factory({
       $link: {
@@ -83,7 +83,7 @@ describe('components/generic/RelatedChip', () => {
       }
     });
 
-    wrapper.vm.trackClickEvent();
+    wrapper.vm.handleClickEvent();
     expect(wrapper.vm.$matomo.trackEvent.calledWith('Related_collections', 'Click related collection', '/collections/topic/33-costume')).toBe(true);
   });
 
