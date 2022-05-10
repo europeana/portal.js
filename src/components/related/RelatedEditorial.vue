@@ -54,9 +54,6 @@
     },
 
     async fetch() {
-
-      console.log('fetch');
-
       // TODO: in future, this component may instead make other queries, e.g
       //       to search editorial content by title
       if (!this.entityUri) {
