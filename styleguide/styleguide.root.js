@@ -29,6 +29,7 @@ Vue.prototype.$store = {
 };
 Vue.prototype.$auth = {};
 Vue.prototype.$fetchState = {};
+Vue.prototype.contentful = {};
 
 // TODO: properly import store modules needed for components that use them
 // const store = new Vuex.Store({

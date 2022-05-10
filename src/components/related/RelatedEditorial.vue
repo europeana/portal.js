@@ -4,20 +4,25 @@
     class="row mb-5"
   >
     <div class="col-12">
-      <h2>{{ $t('editorialContentYouMayLike') }}</h2>
-      <b-card-group
-        class="card-deck-4-cols"
-        deck
+      <b-card
+        class="card-group-card"
+        :title="$t('editorialContentYouMayLike')"
+        title-tag="h2"
       >
-        <ContentCard
-          v-for="(entry, index) in related"
-          :key="index"
-          :title="entry.name"
-          :url="entryUrl(entry)"
-          :image-url="entry.primaryImageOfPage.image.url"
-          :image-content-type="entry.primaryImageOfPage.image.contentType"
-        />
-      </b-card-group>
+        <b-card-group
+          class="d-flex flex-wrap"
+        >
+          <ContentCard
+            v-for="(entry, index) in related"
+            :key="index"
+            :title="entry.name"
+            :url="entryUrl(entry)"
+            :image-url="entry.primaryImageOfPage.image.url"
+            :image-content-type="entry.primaryImageOfPage.image.contentType"
+            variant="list"
+          />
+        </b-card-group>
+      </b-card>
     </div>
   </section>
 </template>
@@ -33,6 +38,9 @@
     },
 
     props: {
+      /**
+       * URI of the entity
+      */
       entityUri: {
         type: String,
         default: null
@@ -46,6 +54,9 @@
     },
 
     async fetch() {
+
+      console.log('fetch');
+
       // TODO: in future, this component may instead make other queries, e.g
       //       to search editorial content by title
       if (!this.entityUri) {
@@ -82,3 +93,11 @@
     }
   };
 </script>
+
+<docs lang="md">
+  Related editorial content
+  ```jsx
+  <RelatedEditorial
+    entity-uri="http://data.europeana.eu/concept/base/190"
+  />
+</docs>
