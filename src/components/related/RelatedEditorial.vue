@@ -46,7 +46,7 @@
         default: null
       },
       /**
-       * URI of the entity
+       * related editorial entities
       */
       relatedEditorial: {
         type: Array,
