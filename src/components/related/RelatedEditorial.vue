@@ -40,7 +40,9 @@
 
       query: {
         type: String,
-        default: null
+        // Default to an empty string (rather than `null`), to ensure that only
+        // localised related editorial is returned.
+        default: ''
       }
     },
 

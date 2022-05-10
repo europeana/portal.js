@@ -42,20 +42,39 @@ describe('components/related/RelatedEditorial', () => {
   describe('fetch', () => {
     describe('when an entity URI is supplied', () => {
       const entityUri = 'http://data.europeana.eu/concept/base/123';
-      const query = 'spider';
 
-      it('queries Contentful for content related to the entity', async() => {
-        const wrapper = factory({ propsData: { entityUri, query } });
+      describe('and a query is supplied', () => {
+        const query = 'spider';
 
-        await wrapper.vm.fetch();
+        it('queries Contentful for content related to the entity, filtered by the query', async() => {
+          const wrapper = factory({ propsData: { entityUri, query } });
 
-        expect(wrapper.vm.$contentful.query.calledWith('entityRelatedContent', {
-          entityUri,
-          query,
-          locale: 'en-GB',
-          preview: false,
-          limit: 4
-        })).toBe(true);
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.$contentful.query.calledWith('entityRelatedContent', {
+            entityUri,
+            query,
+            locale: 'en-GB',
+            preview: false,
+            limit: 4
+          })).toBe(true);
+        });
+      });
+
+      describe('but no query is supplied', () => {
+        it('queries Contentful for content related to the entity, with an empty string for the query', async() => {
+          const wrapper = factory({ propsData: { entityUri } });
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.$contentful.query.calledWith('entityRelatedContent', {
+            entityUri,
+            query: '',
+            locale: 'en-GB',
+            preview: false,
+            limit: 4
+          })).toBe(true);
+        });
       });
 
       it('stores 4 most recent entries', async() => {
