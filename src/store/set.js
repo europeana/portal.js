@@ -229,9 +229,10 @@ export default {
           for (const set of sets) {
             if (set.items) {
               const firstItem = itemSearchResponse.items.find(item => item.id === set.items[0].replace(EUROPEANA_DATA_ITEM_PREFIX, ''));
-              if (firstItem?.edmPreview) {
-                creationPreviews[set.id] = firstItem.edmPreview[0];
-              }
+              creationPreviews[set.id] = {
+                url: firstItem.edmPreview?.[0],
+                type: firstItem.type
+              };
             }
           }
 
