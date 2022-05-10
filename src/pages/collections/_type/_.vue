@@ -363,7 +363,10 @@
     },
     methods: {
       redirectToPrefPath() {
-        const entityName = this.page ? this.page.name : this.entity.prefLabel.en;
+        // FIXME: this is a temporary workaround until we always have the English name
+        //        in the context of editorial overrides from Contentful. EC-5719
+        // const entityName = this.page ? this.page.name : this.entity.prefLabel.en;
+        const entityName = this.entity.prefLabel.en;
         const desiredPath = getEntitySlug(this.entity.id, entityName);
         if (this.$route.params.pathMatch !== desiredPath) {
           const redirectPath = this.$path({
