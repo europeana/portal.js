@@ -72,6 +72,7 @@
                 <RelatedEditorial
                   v-if="entity && $features.collectionPageRelatedEditorial"
                   :entity-uri="entity.id"
+                  :query="$route.query.query"
                 />
               </b-container>
             </client-only>

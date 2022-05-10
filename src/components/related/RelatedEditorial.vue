@@ -36,6 +36,13 @@
       entityUri: {
         type: String,
         default: null
+      },
+
+      query: {
+        type: String,
+        // Default to an empty string (rather than `null`), to ensure that only
+        // localised related editorial is returned.
+        default: ''
       }
     },
 
@@ -54,6 +61,7 @@
 
       const variables = {
         entityUri: this.entityUri,
+        query: this.query,
         locale: this.$i18n.isoLocale(),
         preview: this.$route.query.mode === 'preview',
         limit: 4
@@ -65,6 +73,11 @@
         .concat(entries.exhibitionPageCollection.items)
         .sort((a, b) => (new Date(b.datePublished)).getTime() - (new Date(a.datePublished)).getTime())
         .slice(0, 4);
+    },
+
+    watch: {
+      query: '$fetch',
+      entityUri: '$fetch'
     },
 
     methods: {
