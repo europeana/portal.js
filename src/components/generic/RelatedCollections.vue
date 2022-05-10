@@ -76,7 +76,7 @@
 
         if (collection.id) {
           id = collection.id;
-          name = collection.prefLabel[this.$i18n.locale];
+          name = collection.prefLabel.en;
         } else {
           id = collection.identifier;
           name = collection.name;
