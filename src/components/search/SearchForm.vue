@@ -166,9 +166,7 @@
 
     watch: {
       '$route.query.query'() {
-        if (this.$refs.searchinput.$el) {
-          this.$refs.searchinput.$el.blur();
-        }
+        this.blurInput();
         this.showSearchOptions = false;
         this.initQuery();
       },
@@ -222,6 +220,7 @@
 
         this.showSearchOptions = false;
 
+        this.blurInput();
         await this.$goto(newRoute);
       },
 
@@ -325,7 +324,7 @@
           this.navigateWithArrowKeys(event);
         }
         if (event.key === 'Escape') {
-          this.$refs.searchinput.$el.blur();
+          this.blurInput();
           this.showSearchOptions = false;
         }
       },
@@ -349,6 +348,12 @@
 
       getElement(element) {
         return element.$el || element;
+      },
+
+      blurInput() {
+        if (this.$refs.searchinput.$el) {
+          this.$refs.searchinput.$el.blur();
+        }
       }
     }
   };
