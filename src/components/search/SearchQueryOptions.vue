@@ -19,7 +19,7 @@
       :to="$link.to(option.link.path, option.link.query)"
       :href="$link.href(option.link.path, option.link.query)"
       role="option"
-      @click="trackSuggestionClick(index, option.link.query.query)"
+      @click="handleClick(index, option.link.query.query)"
     >
       <i18n
         v-if="option.i18n"
@@ -98,6 +98,11 @@
         // unsets the entity ID before the @click event fires on each search option.
         const collectionPagePattern = /(\/[a-z]{2})?\/collections\/(person|topic|time|organisation)\/([0-9]+)+/;
         return collectionPagePattern.test(window.location.href);
+      },
+
+      handleClick(index, query) {
+        this.$emit('select');
+        this.trackSuggestionClick(index, query);
       },
 
       trackSuggestionClick(index, query) {

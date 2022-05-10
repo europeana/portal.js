@@ -58,6 +58,7 @@
       <SearchQueryOptions
         ref="searchoptions"
         :options="searchQueryOptions"
+        @select="showSearchOptions = false;"
       />
     </div>
   </div>
