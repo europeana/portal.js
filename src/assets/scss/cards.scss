@@ -872,6 +872,7 @@
       @media (min-width: $bp-medium) {
         flex: calc(50% - 1rem);
         margin-bottom: 0.5rem;
+        max-width: calc(50% - 1rem);
       }
 
       &:hover {
