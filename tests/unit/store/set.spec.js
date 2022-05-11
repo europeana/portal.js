@@ -315,7 +315,7 @@ describe('store/set', () => {
     });
 
     describe('fetchActive()', () => {
-      it('fetches the active set and items via Set & Record APIs, then commits it with "setActive"', async() => {
+      it('fetches the active set and items via Set API, then commits it with "setActive"', async() => {
         store.actions.$apis.set.get = sinon.stub().resolves(set);
         store.actions.$apis.record.search = sinon.stub().resolves({ items: [] });
 
@@ -324,8 +324,7 @@ describe('store/set', () => {
         expect(store.actions.$apis.set.get.calledWith(setId, {
           profile: 'standard',
           pageSize: 100
-        })).toBe(true);
-        expect(store.actions.$apis.record.search.called).toBe(true);
+        }, { withMinimalItems: true })).toBe(true);
         expect(commit.calledWith('setActive', set)).toBe(true);
       });
       describe('when API request doesn\'t return a set', () => {
