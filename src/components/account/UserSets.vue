@@ -14,13 +14,15 @@
           deck
         >
           <ContentCard
-            v-for="set in sets"
+            v-for="(set, index) in sets"
             :key="set.id"
             :sub-title="setSubTitle(set)"
             :title="set.title"
-            :image-url="creationPreview(set.id)"
+            :image-url="creationPreviewUrl(set.id)"
+            :media-type="creationPreviewType(set.id)"
             :texts="[set.description]"
             :url="{ name: 'set-all', params: { pathMatch: setPathMatch(set) } }"
+            :offset="index"
             data-qa="user set"
           />
           <CreateSetButton
@@ -62,8 +64,11 @@
       }
     },
     methods: {
-      creationPreview(setId) {
-        return this.$apis.thumbnail.edmPreview(this.$store.getters['set/creationPreview'](setId));
+      creationPreviewUrl(setId) {
+        return this.$apis.thumbnail.edmPreview(this.$store.getters['set/creationPreview'](setId)?.url);
+      },
+      creationPreviewType(setId) {
+        return this.$store.getters['set/creationPreview'](setId)?.type;
       },
       setSubTitle(set) {
         const setTotal = set.total || 0;

@@ -1,12 +1,15 @@
-import { createLocalVue, shallowMount } from '@vue/test-utils';
+import { createLocalVue, shallowMount, mount } from '@vue/test-utils';
 import SearchForm from '@/components/search/SearchForm.vue';
+import BootstrapVue from 'bootstrap-vue';
 import Vuex from 'vuex';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
+localVue.use(BootstrapVue);
 
 const $goto = sinon.spy();
+const mutationStub = sinon.spy();
 
 const $path = sinon.stub();
 $path.withArgs({ name: 'search' }).returns('/search');
@@ -25,11 +28,7 @@ $path.withArgs({
 
 const factory = (options = {}) => shallowMount(SearchForm, {
   localVue,
-  stubs: { 'b-input-group': true,
-    'b-button': true,
-    'b-form': true,
-    'b-form-input': { template: '<input ref="searchinput" data-qa="search box" />' },
-    ...options.stubs },
+  stubs: { ...options.stubs },
   mocks: {
     ...{
       $i18n: { locale: 'en' },
@@ -45,14 +44,26 @@ const factory = (options = {}) => shallowMount(SearchForm, {
   store: options.store || store({ search: { allThemes: [], showSearchBar: true } })
 });
 
+const fullFactory = () => mount(SearchForm, {
+  localVue,
+  mocks: {
+    $i18n: { locale: 'en' },
+    $t: () => {},
+    $route: { path: '', query: { query: '' } },
+    $path,
+    $apis: { entity: { suggest: sinon.stub().resolves() } }
+  },
+  store: store({ search: { showSearchBar: true } }),
+  attachTo: document.body,
+  stubs: ['SearchQueryOptions']
+});
+
 const getters = {
   'search/activeView': (state) => state.search.view,
   'search/queryUpdatesForFacetChanges': () => () => {}
 };
 const mutations = {
-  'search/setShowSearchBar': (state, value) => {
-    state.showSearchBar = value;
-  }
+  'search/setShowSearchBar': mutationStub
 };
 const store = (state = {}) => {
   return new Vuex.Store({
@@ -393,30 +404,30 @@ describe('components/search/SearchForm', () => {
     expect(wrapper.vm.showSearchOptions).toBe(false);
   });
 
-  // TODO Fails but why?
-  // describe('when clicking the clear button', () => {
-  //   it('resets focus on the input', async() => {
-  //     const wrapper = factory();
+  describe('when clicking the clear button', () => {
+    it('resets focus on the input', async() => {
+      const wrapper = fullFactory();
 
-  //     await wrapper.setData({ showSearchOptions: true, query: 'tree' });
+      await wrapper.setData({ showSearchOptions: true, query: 'tree' });
 
-  //     const clearButton = wrapper.find('[data-qa="clear button"]');
+      const clearButton = wrapper.find('[data-qa="clear button"]');
 
-  //     clearButton.trigger('click');
-  //     await wrapper.vm.$nextTick();
+      clearButton.trigger('click');
 
-  //     expect(wrapper.find('input[data-qa="search box"]:focus').exists()).toBe(true);
-  //   });
-  // });
+      const focusedSearchInput = wrapper.find('[data-qa="search box"]:focus');
+
+      expect(focusedSearchInput.exists()).toBe(true);
+    });
+  });
 
   describe('when clicking the back button', () => {
-    it('closes the search bar', async() => {
+    it('closes the search bar', () => {
       const wrapper = factory();
 
       const backButton = wrapper.find('[data-qa="back button"]');
       backButton.trigger('click');
 
-      expect(wrapper.vm.$store.state.search.showSearchBar).toBe(true);
+      expect(mutationStub.calledWith(wrapper.vm.$store.state, false)).toBe(true);
     });
   });
 });

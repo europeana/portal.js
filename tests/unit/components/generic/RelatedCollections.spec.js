@@ -15,20 +15,18 @@ const factory = (options = {}) => {
     propsData: options.propsData,
     stubs: ['b-container'],
     mocks: {
-      ...{
-        $apis: {
-          entity: { imageUrl: () => sinon.spy() }
-        },
-        $i18n: { locale: 'en' },
-        $t: () => {},
-        $fetch: () => {},
-        $path: (args) => {
-          return `${args.params.type} - ${args.params.pathMatch}`;
-        },
-        $link: {
-          to: route => route,
-          href: () => null
-        }
+      $apis: {
+        entity: { imageUrl: () => sinon.spy() }
+      },
+      $i18n: { locale: 'de' },
+      $t: () => {},
+      $fetch: () => {},
+      $path: (args) => {
+        return `${args.params.type} - ${args.params.pathMatch}`;
+      },
+      $link: {
+        to: route => route,
+        href: () => null
       }, ...(options.mocks || {})
     },
     store: options.store || store()
@@ -147,7 +145,7 @@ describe('components/generic/RelatedCollections', () => {
       });
 
       describe('when the item has an id/it is a Europeana entity from a search request', () => {
-        it('uses the id and the prefLabel for the name', () => {
+        it('uses the id and the English prefLabel for the name', () => {
           const wrapper = factory();
           expect(wrapper.vm.linkGen(relatedCollections[1])).toEqual('topic - 194-visual-arts');
         });

@@ -12,6 +12,12 @@
         :aria-label="displayTitle ? displayTitle.value : null"
         :title="(variant === 'mosaic' && displayTitle) ? displayTitle.value : null"
       />
+      <MediaDefaultThumbnail
+        v-if="variant !== 'mini'"
+        v-show="!cardImageUrl"
+        :media-type="mediaType"
+        :offset="offset"
+      />
       <div
         v-if="cardImageUrl"
         class="card-img"
@@ -26,6 +32,7 @@
           :height="imageHeight"
           :alt="imageAlt"
           @error.native="imageNotFound"
+          @load.native="imageLoaded"
         />
         <b-img
           v-else
@@ -34,12 +41,9 @@
           :height="imageHeight"
           :alt="imageAlt"
           @error="imageNotFound"
+          @load="imageLoaded"
         />
       </div>
-      <div
-        v-else-if="!cardImageUrl && variant !== 'mini'"
-        class="placeholder card-img"
-      />
       <b-card-body
         v-if="variant !== 'mosaic'"
         data-qa="card body"
@@ -112,7 +116,8 @@
 
     components: {
       ClientOnly,
-      SmartLink
+      SmartLink,
+      MediaDefaultThumbnail: () => import('../media/MediaDefaultThumbnail')
     },
 
     mixins: [
@@ -270,6 +275,20 @@
       logo: {
         type: Boolean,
         default: false
+      },
+      /**
+       * Type of media
+       */
+      mediaType: {
+        type: String,
+        default: null
+      },
+      /**
+       * Offset, used for random color picking
+       */
+      offset: {
+        type: Number,
+        default: null
       }
     },
     data() {
@@ -377,8 +396,24 @@
         return this.$options.filters.truncate(stripped, 255, this.$t('formatting.ellipsis'));
       },
 
+      redrawMasonry() {
+        if (this.$redrawVueMasonry) {
+          this.$nextTick(() => {
+            this.$redrawVueMasonry();
+          });
+        }
+      },
+
       imageNotFound() {
         this.cardImageUrl = '';
+        this.redrawMasonry();
+      },
+
+      imageLoaded(event) {
+        // ignore b-img-lazy's blank placeholder images
+        if (!event.target.src.startsWith('data:')) {
+          this.redrawMasonry();
+        }
       }
     }
   };
@@ -423,6 +458,16 @@
     image-url="https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=http%3A%2F%2Fcollections.rmg.co.uk%2FmediaLib%2F323%2Fmedia-323744%2Flarge.jpg"
     :hitsText="{ prefix: 'This shows a ', exact: 'Hit-Highlight', suffix: ' appearing in the middle of the description!' }"
     url="https://www.europeana.eu/item/2022362/_Royal_Museums_Greenwich__http___collections_rmg_co_uk_collections_objects_147879"
+  />
+  ```
+  Variant "default" with colored default thumbnail:
+  ```jsx
+  <ContentCard
+    title="Debarquement a l'Ile de Malte (Bonaparte landing on Malta)"
+    image-url="https://api.europeana.eu/thumbnail/v3/400/d141fa1321a1eb8f0527e6526b7b39b2"
+    :texts="['Royal Museums Greenwich']"
+    url="https://www.europeana.eu/item/2022362/_Royal_Museums_Greenwich__http___collections_rmg_co_uk_collections_objects_147879"
+    media-type="SOUND"
   />
   ```
 </docs>
