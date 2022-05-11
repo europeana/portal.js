@@ -32,6 +32,14 @@
         </b-col>
       </b-row>
     </b-container>
+    <client-only>
+      <b-container class="px-0">
+        <RelatedEditorial
+          v-if="searchQuery && $features.collectionPageRelatedEditorial"
+          :query="searchQuery"
+        />
+      </b-container>
+    </client-only>
   </div>
 </template>
 
@@ -45,6 +53,7 @@
     components: {
       ClientOnly,
       SearchInterface,
+      RelatedEditorial: () => import('@/components/related/RelatedEditorial'),
       RelatedSection: () => import('@/components/search/RelatedSection'),
       SideFilters: () => import('@/components/search/SideFilters')
     },
