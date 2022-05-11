@@ -133,18 +133,28 @@ export default {
       })
         .then(likes => commit('setLikedItems', likes.items || []));
     },
-    fetchActive({ commit }, setId) {
-      return this.$apis.set.get(setId, {
-        pageSize: 100,
-        profile: 'itemDescriptions'
-      })
-        .then(set => commit('setActive', set))
-        .catch((apiError) => {
-          if (process.server) {
-            this.app.context.res.statusCode = apiError.statusCode;
-          }
-          throw apiError;
+    async fetchActive({ commit }, setId) {
+      try {
+        const set = await this.$apis.set.get(setId, {
+          pageSize: 100,
+          profile: 'standard'
         });
+        const itemIdentifiers = set.items.map(uri => uri.replace('http://data.europeana.eu/item', ''));
+        const itemQuery = `europeana_id:("${itemIdentifiers.join('" OR "')}")`;
+        const searchResponse = await this.$apis.record.search({
+          query: itemQuery,
+          profile: 'minimal',
+          rows: 100,
+          qf: ['contentTier:*']
+        });
+        set.items = itemIdentifiers.map(id => searchResponse.items.find(item => item.id === id) || { id });
+        commit('setActive', set);
+      } catch (error) {
+        if (process.server && error.statusCode) {
+          this.app.context.res.statusCode = error.statusCode;
+        }
+        throw error;
+      }
     },
     createSet({ dispatch }, body) {
       return this.$apis.set.create(body)
