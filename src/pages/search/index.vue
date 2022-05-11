@@ -35,7 +35,7 @@
     <client-only>
       <b-container class="px-0">
         <RelatedEditorial
-          v-if="searchQuery && $features.collectionPageRelatedEditorial"
+          v-if="searchQuery"
           :query="searchQuery"
         />
       </b-container>
