@@ -37,23 +37,36 @@ export default (context = {}) => {
     /**
      * Get a set with given id
      * @param {string} id the set's id
-     * @param {Object} options retrieval options
-     * @param {string} options.profile the set's metadata profile minimal/standard/itemDescriptions
+     * @param {Object} params retrieval options
+     * @param {string} params.profile the set's metadata profile minimal/standard/itemDescriptions
      * @return {Object} the set's object, containing the requested window of the set's items
      */
-    get(id, options = {}) {
+    async get(id, params = {}, options = {}) {
       const defaults = {
         profile: 'standard'
       };
-      const params = { ...$axios.defaults.params, ...defaults, ...options };
+      const paramsWithDefaults = { ...$axios.defaults.params, ...defaults, ...params };
 
-      return $axios.get(`/${setIdFromUri(id)}`, { params })
-        .then(response => {
-          return response.data;
-        })
-        .catch(error => {
-          throw apiError(error, context);
-        });
+      try {
+        const response = await $axios.get(`/${setIdFromUri(id)}`, { params: paramsWithDefaults });
+        const set = response.data;
+
+        if (options.withMinimalItems) {
+          const itemIdentifiers = set.items.map(uri => uri.replace('http://data.europeana.eu/item', ''));
+          const itemQuery = `europeana_id:("${itemIdentifiers.join('" OR "')}")`;
+          const searchResponse = await context.$apis.record.search({
+            query: itemQuery,
+            profile: 'minimal',
+            rows: 100,
+            qf: ['contentTier:*']
+          });
+          set.items = itemIdentifiers.map(id => searchResponse.items.find(item => item.id === id) || { id });
+        }
+
+        return set;
+      } catch (error) {
+        throw apiError(error, context);
+      }
     },
 
     /**
