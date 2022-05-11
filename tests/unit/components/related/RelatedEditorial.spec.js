@@ -6,23 +6,35 @@ import RelatedEditorial from '@/components/related/RelatedEditorial.vue';
 
 const localVue = createLocalVue();
 
+const primaryImageOfPage = { image: {} };
+const contentfulQueryResponse = {
+  data: {
+    data: {
+      blogPostingCollection: {
+        items: [
+          { identifier: 'blog-1', datePublished: '2022-04-30T00:00:00.000+00:00', primaryImageOfPage },
+          { identifier: 'blog-2', datePublished: '2022-04-20T00:00:00.000+00:00', primaryImageOfPage },
+          { identifier: 'blog-3', datePublished: '2022-04-10T00:00:00.000+00:00', primaryImageOfPage }
+        ]
+      },
+      exhibitionPageCollection: {
+        items: [
+          { identifier: 'exhibition-1', datePublished: '2022-04-25T00:00:00.000+00:00', primaryImageOfPage },
+          { identifier: 'exhibition-2', datePublished: '2022-04-24T00:00:00.000+00:00', primaryImageOfPage },
+          { identifier: 'exhibition-3', datePublished: '2022-04-05T00:00:00.000+00:00', primaryImageOfPage }
+        ]
+      }
+    }
+  }
+};
+const relatedEditorialIdentifiers = ['blog-1', 'exhibition-1', 'exhibition-2', 'blog-2'];
+
 const factory = ({ propsData, mocks } = {})  => shallowMountNuxt(RelatedEditorial, {
   localVue,
   propsData,
   mocks: {
     $contentful: {
-      query: sinon.stub().resolves({
-        data: {
-          data: {
-            blogPostingCollection: {
-              items: []
-            },
-            exhibitionPageCollection: {
-              items: []
-            }
-          }
-        }
-      })
+      query: sinon.stub().resolves(contentfulQueryResponse)
     },
     $i18n: {
       isoLocale: () => 'en-GB'
@@ -33,7 +45,7 @@ const factory = ({ propsData, mocks } = {})  => shallowMountNuxt(RelatedEditoria
     $t: (key) => key,
     ...mocks
   },
-  stubs: ['b-card-group']
+  stubs: ['b-card-group', 'b-card']
 });
 
 describe('components/related/RelatedEditorial', () => {
@@ -42,6 +54,16 @@ describe('components/related/RelatedEditorial', () => {
   describe('fetch', () => {
     describe('when an entity URI is supplied', () => {
       const entityUri = 'http://data.europeana.eu/concept/base/123';
+
+      it('stores 4 most recent entries', async() => {
+        const wrapper = factory({ propsData: { entityUri } });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.related.map(entry => entry.identifier)).toEqual([
+          'blog-1', 'exhibition-1', 'exhibition-2', 'blog-2'
+        ]);
+      });
 
       describe('and a query is supplied', () => {
         const query = 'spider';
@@ -59,6 +81,14 @@ describe('components/related/RelatedEditorial', () => {
             limit: 4
           })).toBe(true);
         });
+
+        it('stores 4 most recent entries', async() => {
+          const wrapper = factory({ propsData: { entityUri, query } });
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.related.map(entry => entry.identifier)).toEqual(relatedEditorialIdentifiers);
+        });
       });
 
       describe('but no query is supplied', () => {
@@ -75,51 +105,54 @@ describe('components/related/RelatedEditorial', () => {
             limit: 4
           })).toBe(true);
         });
-      });
 
-      it('stores 4 most recent entries', async() => {
-        const primaryImageOfPage = { image: {} };
-        const contentfulQueryResponse = {
-          data: {
-            data: {
-              blogPostingCollection: {
-                items: [
-                  { identifier: 'blog-1', datePublished: '2022-04-30T00:00:00.000+00:00', primaryImageOfPage },
-                  { identifier: 'blog-2', datePublished: '2022-04-20T00:00:00.000+00:00', primaryImageOfPage },
-                  { identifier: 'blog-3', datePublished: '2022-04-10T00:00:00.000+00:00', primaryImageOfPage }
-                ]
-              },
-              exhibitionPageCollection: {
-                items: [
-                  { identifier: 'exhibition-1', datePublished: '2022-04-25T00:00:00.000+00:00', primaryImageOfPage },
-                  { identifier: 'exhibition-2', datePublished: '2022-04-24T00:00:00.000+00:00', primaryImageOfPage },
-                  { identifier: 'exhibition-3', datePublished: '2022-04-05T00:00:00.000+00:00', primaryImageOfPage }
-                ]
-              }
-            }
-          }
-        };
+        it('stores 4 most recent entries', async() => {
+          const wrapper = factory({ propsData: { entityUri } });
 
-        const wrapper = factory({ propsData: { entityUri } });
-        wrapper.vm.$contentful.query.resolves(contentfulQueryResponse);
+          await wrapper.vm.fetch();
 
-        await wrapper.vm.fetch();
-
-        expect(wrapper.vm.related.map(entry => entry.identifier)).toEqual([
-          'blog-1', 'exhibition-1', 'exhibition-2', 'blog-2'
-        ]);
+          expect(wrapper.vm.related.map(entry => entry.identifier)).toEqual(relatedEditorialIdentifiers);
+        });
       });
     });
 
     describe('when no entity URI is supplied', () => {
       const entityUri = null;
 
-      it('does not query Contentful', async() => {
-        const wrapper = factory({ propsData: { entityUri } });
+      describe('but a query is supplied', () => {
+        const query = 'spider';
 
-        await wrapper.vm.fetch();
+        it('queries Contentful for content filtered by the query', async() => {
+          const wrapper = factory({ propsData: { query, entityUri } });
 
-        expect(wrapper.vm.$contentful.query.called).toBe(false);
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.$contentful.query.calledWith('relatedContent', {
+            entityUri,
+            query,
+            locale: 'en-GB',
+            preview: false,
+            limit: 4
+          })).toBe(true);
+        });
+
+        it('stores 4 most recent entries', async() => {
+          const wrapper = factory({ propsData: { query, entityUri } });
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.related.map(entry => entry.identifier)).toEqual(relatedEditorialIdentifiers);
+        });
+      });
+
+      describe('and no query is supplied', () => {
+        it('does not query Contentful', async() => {
+          const wrapper = factory();
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.$contentful.query.called).toBe(false);
+        });
       });
     });
   });
