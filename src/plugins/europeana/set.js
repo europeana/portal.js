@@ -60,7 +60,8 @@ export default (context = {}) => {
             rows: 100,
             qf: ['contentTier:*']
           });
-          set.items = itemIdentifiers.map(id => searchResponse.items.find(item => item.id === id) || { id });
+          const dcTitleLangAware = { en: [context.i18n.t('record.status.unpublished')] };
+          set.items = itemIdentifiers.map(id => searchResponse.items.find(item => item.id === id) || { id, dcTitleLangAware });
         }
 
         return set;
