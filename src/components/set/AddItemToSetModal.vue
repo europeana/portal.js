@@ -21,7 +21,7 @@
         v-for="(collection, index) in collections"
         :key="index"
         :set="collection"
-        :img="collectionPreview(collection.id)"
+        :img="collectionPreview(collection)"
         :disabled="!fetched"
         :added="added.includes(collection.id)"
         :checked="collectionsWithItem.includes(collection.id)"
@@ -116,8 +116,8 @@
         });
       },
 
-      collectionPreview(setId) {
-        return this.$apis.thumbnail.edmPreview(this.$store.getters['set/creationPreview'](setId)?.url);
+      collectionPreview(set) {
+        return this.$apis.thumbnail.edmPreview(set.items?.[0]?.edmPreview?.[0]);
       },
 
       addItem(setId) {

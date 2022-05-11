@@ -1,5 +1,3 @@
-import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
-
 export default {
   state: () => ({
     likesId: null,
@@ -8,7 +6,6 @@ export default {
     active: null,
     activeRecommendations: [],
     creations: [],
-    creationPreviews: {},
     curations: []
   }),
 
@@ -41,18 +38,12 @@ export default {
     setCreations(state, value) {
       state.creations = value;
     },
-    setCreationPreviews(state, value) {
-      state.creationPreviews = value;
-    },
     setCurations(state, value) {
       state.curations = value;
     }
   },
 
   getters: {
-    creationPreview: (state) => (setId) => {
-      return state.creationPreviews[setId];
-    },
     isLiked: (state) => (itemId) => {
       return state.likedItemIds.includes(itemId);
     }
@@ -167,7 +158,7 @@ export default {
           }
         });
     },
-    refreshCreation({ state, commit, dispatch }, setId) {
+    refreshCreation({ state, commit }, setId) {
       const setToReplaceIndex = state.creations.findIndex(set => set.id === setId);
       if (setToReplaceIndex === -1) {
         return Promise.resolve();
@@ -181,10 +172,9 @@ export default {
           creations[setToReplaceIndex] = set;
 
           commit('setCreations', creations);
-          dispatch('fetchCreationPreviews');
         });
     },
-    fetchCreations({ commit, dispatch }) {
+    async fetchCreations({ commit }) {
       const creatorId = this.$auth.user ? this.$auth.user.sub : null;
       const searchParams = {
         query: `creator:${creatorId}`,
@@ -193,65 +183,20 @@ export default {
         qf: 'type:Collection'
       };
 
-      return this.$apis.set.search(searchParams)
-        .then(searchResponse => {
-          const sets = searchResponse.data.items || [];
-
-          commit('setCreations', sets);
-          dispatch('fetchCreationPreviews');
-        });
-    },
-    fetchCreationPreviews({ state, commit }) {
-      const sets = state.creations;
-
-      if (sets.length === 0) {
-        return Promise.resolve();
-      }
-
-      const EUROPEANA_DATA_ITEM_PREFIX = `${EUROPEANA_DATA_URL}/item`;
-
-      const firstItemsInSets = sets.map(set => {
-        if (set.items) {
-          return set.items[0].replace(EUROPEANA_DATA_ITEM_PREFIX, '');
-        } else {
-          return false;
-        }
-      }).filter(item => item);
-
-      const itemsSearchQuery = `europeana_id:("${firstItemsInSets.join('" OR "')}")`;
-
-      return this.$apis.record.search({
-        query: itemsSearchQuery,
-        qf: ['contentTier:*'],
-        profile: 'minimal'
-      })
-        .then(itemSearchResponse => {
-          const creationPreviews = {};
-          for (const set of sets) {
-            if (set.items) {
-              const firstItem = itemSearchResponse.items.find(item => item.id === set.items[0].replace(EUROPEANA_DATA_ITEM_PREFIX, ''));
-              creationPreviews[set.id] = {
-                url: firstItem?.edmPreview?.[0],
-                type: firstItem?.type
-              };
-            }
-          }
-
-          commit('setCreationPreviews', creationPreviews || {});
-        });
+      const searchResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
+      const sets = searchResponse.data.items || [];
+      commit('setCreations', sets);
     },
     fetchCurations({ commit }) {
       const contributorId = this.$auth.user ? this.$auth.user.sub : null;
       const searchParams = {
         query: `contributor:${contributorId}`,
-        // TODO: 'itemDescriptions' profile is generally very expensive; refactor
-        //       to use a similar approach as `withMinimalItems` option on `$apis.set.get`
-        profile: 'itemDescriptions',
+        profile: 'standard',
         pageSize: 100, // TODO: pagination?
         qf: 'type:EntityBestItemsSet'
       };
 
-      return this.$apis.set.search(searchParams)
+      return this.$apis.set.search(searchParams, { withMinimalItemPreviews: true })
         .then(searchResponse => commit('setCurations', searchResponse.data.items || []));
     },
     reviewRecommendation({ state, commit }, params) {

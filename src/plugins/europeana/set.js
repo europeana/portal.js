@@ -1,6 +1,9 @@
+import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
 import { apiError, createKeycloakAuthAxios } from './utils';
 
 export const BASE_URL = process.env.EUROPEANA_SET_API_URL || 'https://api.europeana.eu/set';
+
+const EUROPEANA_DATA_ITEM_PREFIX = `${EUROPEANA_DATA_URL}/item`;
 
 const setIdFromUri = (uri) => uri.split('/').pop();
 
@@ -13,12 +16,36 @@ export default (context = {}) => {
   return {
     $axios,
 
-    search(params) {
-      return $axios.get('/search', { params: { ...$axios.defaults.params, ...params } })
-        .then(response => response)
-        .catch(error => {
-          throw apiError(error, context);
-        });
+    async search(params, options = {}) {
+      try {
+        const response = await $axios.get('/search', { params: { ...$axios.defaults.params, ...params } });
+
+        if (options.withMinimalItemPreviews && response.data.items) {
+          const itemIdentifiers = response.data.items
+            .filter(set => set.items)
+            .map(set => set.items[0])
+            .map(uri => uri.replace(EUROPEANA_DATA_ITEM_PREFIX, ''));
+          const itemQuery = `europeana_id:("${itemIdentifiers.join('" OR "')}")`;
+          const searchResponse = await context.$apis.record.search({
+            query: itemQuery,
+            profile: 'minimal',
+            rows: 100,
+            qf: ['contentTier:*']
+          });
+          for (const set of response.data.items) {
+            if (set.items) {
+              set.items = set.items.map(uri => {
+                const itemId = uri.replace(EUROPEANA_DATA_ITEM_PREFIX, '');
+                return searchResponse.items.find(item => item.id === itemId) || { itemId };
+              });
+            }
+          }
+        }
+
+        return response;
+      } catch (error) {
+        throw apiError(error, context);
+      }
     },
 
     /**
@@ -52,7 +79,7 @@ export default (context = {}) => {
         const set = response.data;
 
         if (options.withMinimalItems) {
-          const itemIdentifiers = set.items.map(uri => uri.replace('http://data.europeana.eu/item', ''));
+          const itemIdentifiers = set.items.map(uri => uri.replace(EUROPEANA_DATA_ITEM_PREFIX, ''));
           const itemQuery = `europeana_id:("${itemIdentifiers.join('" OR "')}")`;
           const searchResponse = await context.$apis.record.search({
             query: itemQuery,
