@@ -54,6 +54,12 @@
             v-if="tags"
             :tags="tags"
           />
+          <client-only>
+            <RelatedCollections
+              :entity-uris="relatedLink"
+              :title="$t('youMightAlsoLike')"
+            />
+          </client-only>
         </b-col>
       </b-row>
       <b-row class="footer-margin" />
@@ -62,7 +68,8 @@
 </template>
 
 <script>
-  import SocialShareModal from '../sharing/SocialShareModal.vue';
+  import ClientOnly from 'vue-client-only';
+  import SocialShareModal from '../sharing/SocialShareModal';
   import ShareButton from '../sharing/ShareButton.vue';
   import BrowseSections from '../browse/BrowseSections';
 
@@ -73,9 +80,11 @@
       AuthoredHead: () => import('../../components/authored/AuthoredHead'),
       BlogAuthor: () => import('./BlogAuthor'),
       BlogTags: () => import('../../components/blog/BlogTags'),
+      ClientOnly,
       SocialShareModal,
       ShareButton,
-      BrowseSections
+      BrowseSections,
+      RelatedCollections: () => import('@/components/related/RelatedCollections')
     },
 
     props: {
@@ -115,6 +124,11 @@
       },
 
       tags: {
+        type: Array,
+        default: () => []
+      },
+
+      relatedLink: {
         type: Array,
         default: () => []
       }

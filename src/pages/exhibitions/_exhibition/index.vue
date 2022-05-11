@@ -47,12 +47,19 @@
           />
         </b-col>
       </b-row>
+      <client-only>
+        <RelatedCollections
+          :entity-uris="relatedLink"
+          :title="$t('youMightAlsoLike')"
+        />
+      </client-only>
       <b-row class="footer-margin" />
     </b-container>
   </div>
 </template>
 
 <script>
+  import ClientOnly from 'vue-client-only';
   import { marked } from 'marked';
   import SocialShareModal from '../../../components/sharing/SocialShareModal.vue';
   import ShareButton from '../../../components/sharing/ShareButton.vue';
@@ -61,11 +68,13 @@
   export default {
     name: 'ExhibitionPage',
     components: {
+      ClientOnly,
       LinkList: () => import('../../../components/generic/LinkList'),
       ShareButton,
       SocialShareModal,
       AuthoredHead: () => import('../../../components/authored/AuthoredHead'),
-      ContentWarningModal: () => import('@/components/generic/ContentWarningModal')
+      ContentWarningModal: () => import('@/components/generic/ContentWarningModal'),
+      RelatedCollections: () => import('@/components/related/RelatedCollections')
     },
     mixins: [
       exhibitionChapters

@@ -3,7 +3,7 @@ import BootstrapVue from 'bootstrap-vue';
 import Vuex from 'vuex';
 import sinon from 'sinon';
 
-import RelatedCollections from '@/components/generic/RelatedCollections.vue';
+import RelatedCollections from '@/components/related/RelatedCollections.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -80,7 +80,7 @@ const relatedCollections = [
   }
 ];
 
-describe('components/generic/RelatedCollections', () => {
+describe('components/related/RelatedCollections', () => {
   describe('when related collections are found', () => {
     const wrapper = factory();
     wrapper.setProps({ relatedCollections });
