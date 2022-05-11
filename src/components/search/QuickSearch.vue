@@ -7,8 +7,6 @@
     <RelatedCollections
       :title="$t('header.quickSearch')"
       :related-collections="optionsAndThemes"
-      chips-wrapper-class="quick-search-chips"
-      chips-ref="options"
     />
   </div>
 </template>
@@ -60,7 +58,15 @@
 
   .quick-search {
     border-top: 1px solid $middlegrey;
-    padding: 0.75rem 1.25rem 1.25rem;
+    padding: 0.75rem 0;
+
+    .related-collections {
+      max-width: 100%;
+
+      ::v-deep .badge-pill {
+        margin-right: 0.5rem;
+      }
+    }
 
     ::v-deep .related-heading {
       font-size: $font-size-extrasmall;
