@@ -6,7 +6,6 @@ const likedItems = [{ id: 'item001' }];
 const active = { id: 'set001', items: [] };
 const activeRecommendations = [{ id: 'recommendation001' }];
 const creations = [{ id: 'set002' }];
-const creationPreviews = { set003: 'https://thumbnail.example.eu' };
 const curations = [{ id: 'curatedSet001' }];
 
 describe('store/set', () => {
@@ -79,13 +78,6 @@ describe('store/set', () => {
         expect(state.creations).toEqual(creations);
       });
     });
-    describe('setCreationPreview()', () => {
-      it('sets the creationPreviews state', () => {
-        const state = { creationPreviews: [] };
-        store.mutations.setCreationPreviews(state, creationPreviews);
-        expect(state.creationPreviews).toEqual(creationPreviews);
-      });
-    });
     describe('setCurations()', () => {
       it('sets the curations state', () => {
         const state = { curations: [] };
@@ -96,19 +88,6 @@ describe('store/set', () => {
   });
 
   describe('getters', () => {
-    describe('creationPreview()', () => {
-      it('returns the set\'s creation preview', () => {
-        const setId = 'set003';
-        const state = {
-          creationPreviews
-        };
-
-        const creationPreview = store.getters.creationPreview(state)(setId);
-
-        expect(creationPreview).toEqual(creationPreviews[setId]);
-      });
-    });
-
     describe('isLiked()', () => {
       it('is `true` if likedItemIds state includes item ID', () => {
         const itemId = '/123/ghi';
@@ -471,81 +450,6 @@ describe('store/set', () => {
 
         expect(commit.calledWith('setCreations', ['1', '2'])).toBe(true);
       });
-
-      it('triggers fetching of creation previews', async() => {
-        const searchResponse = { data: { items: ['1', '2'] } };
-        store.actions.$auth.user = { sub: userId };
-        store.actions.$apis.set.search = sinon.stub().resolves(searchResponse);
-
-        await store.actions.fetchCreations({ commit, dispatch });
-
-        expect(dispatch.calledWith('fetchCreationPreviews')).toBe(true);
-      });
-    });
-
-    describe('fetchCreationPreviews()', () => {
-      const state = {
-        creations: [
-          { id: '01', items: ['http://data.europeana.eu/item/111', 'http://data.europeana.eu/item/112'] },
-          { id: '02', items: ['http://data.europeana.eu/item/222', 'http://data.europeana.eu/item/223'] }
-        ]
-      };
-      const searchResponse = {
-        items: [
-          { id: '/111', edmPreview: ['http://www.example.eu/img/111'], type: 'IMAGE' },
-          { id: '/222', edmPreview: ['http://www.example.eu/img/222'], type: 'IMAGE' }
-        ]
-      };
-
-      it('fetches first items for each creation via $apis.record', async() => {
-        store.actions.$apis.record.search = sinon.stub().resolves(searchResponse);
-
-        await store.actions.fetchCreationPreviews({ state, commit });
-
-        expect(store.actions.$apis.record.search.calledWith({
-          query: 'europeana_id:("/111" OR "/222")',
-          qf: ['contentTier:*'],
-          profile: 'minimal'
-        })).toBe(true);
-      });
-
-      it('commits edm:preview of items with "setCreationPreviews"', async() => {
-        store.actions.$apis.record.search = sinon.stub().resolves(searchResponse);
-
-        await store.actions.fetchCreationPreviews({ state, commit });
-
-        expect(commit.calledWith('setCreationPreviews', { '01': { url: 'http://www.example.eu/img/111', type: 'IMAGE' }, '02': { url: 'http://www.example.eu/img/222', type: 'IMAGE' } })).toBe(true);
-      });
-
-      describe('when there are no creations', () => {
-        it('returns resolved promise', async() => {
-          const stateWithoutCreations = { creations: [] };
-
-          await expect(store.actions.fetchCreationPreviews({ state: stateWithoutCreations, commit })).resolves.toEqual();
-        });
-      });
-      describe('when there are sets with no items', () => {
-        it('skips to set a preview for those sets', async() => {
-          const searchResponseCreationsWithoutItems = {
-            items: [
-              { id: '/222', edmPreview: ['http://www.example.eu/img/222'], type: 'IMAGE' }
-            ]
-          };
-          store.actions.$apis.record.search = sinon.stub().resolves(searchResponseCreationsWithoutItems);
-          const stateWithCreationsWithoutItems = {
-            creations: [
-              { id: '01' },
-              { id: '02', items: [
-                'http://data.europeana.eu/item/222',
-                'http://data.europeana.eu/item/223'
-              ] }
-            ]
-          };
-
-          await store.actions.fetchCreationPreviews({ state: stateWithCreationsWithoutItems, commit });
-          expect(commit.calledWith('setCreationPreviews', { '02': { url: 'http://www.example.eu/img/222', type: 'IMAGE' } })).toBe(true);
-        });
-      });
     });
 
     describe('fetchCurations()', () => {
@@ -558,7 +462,7 @@ describe('store/set', () => {
 
         expect(store.actions.$apis.set.search.calledWith({
           query: `contributor:${userId}`,
-          profile: 'itemDescriptions',
+          profile: 'standard',
           pageSize: 100,
           qf: 'type:EntityBestItemsSet'
         })).toBe(true);
