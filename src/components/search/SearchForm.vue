@@ -1,49 +1,67 @@
 <template>
-  <b-form
-    ref="form"
+  <div
+    ref="searchdropdown"
     class="open"
-    data-qa="search form"
-    inline
-    autocomplete="off"
-    @submit.prevent="submitForm"
   >
-    <b-input-group
-      role="combobox"
-      :aria-owns="showSearchOptions ? 'search-form-options' : null"
-      :aria-expanded="showSearchOptions"
-      class="auto-suggest pr-3"
+    <b-button
+      data-qa="back button"
+      class="button-icon-only icon-back back-button"
+      variant="light-flat"
+      :aria-label="$t('header.backToMenu')"
+      @click="toggleSearchBar()"
+    />
+    <b-form
+      ref="form"
+      role="search"
+      aria-label="search form"
+      data-qa="search form"
+      inline
+      autocomplete="off"
+      @submit.prevent="submitForm"
     >
-      <b-form-input
-        ref="searchbox"
-        v-model="query"
-        :placeholder="$t('searchPlaceholder')"
-        name="query"
-        data-qa="search box"
-        role="searchbox"
-        aria-autocomplete="list"
-        :aria-controls="showSearchOptions ? 'search-form-options' : null"
-        :aria-label="$t('search')"
-        @input="getSearchSuggestions(query);"
-        @focus="showSearchOptions = true; updateSuggestions();"
-        @blur="showSearchOptions = false;"
-      />
-      <b-button
-        v-show="query"
-        data-qa="clear button"
-        class="button-icon-only icon-clear ml-3 my-3"
-        variant="light-flat"
-        :aria-label="$t('header.clearQuery')"
-        @click="clearQuery"
-      />
-      <FilterToggleButton />
+      <b-input-group
+        role="combobox"
+        :aria-owns="showSearchOptions ? 'search-form-options' : null"
+        :aria-expanded="showSearchOptions"
+        class="auto-suggest pr-3"
+      >
+        <b-form-input
+          ref="searchinput"
+          v-model="query"
+          :placeholder="$t('searchPlaceholder')"
+          name="query"
+          data-qa="search box"
+          role="searchbox"
+          aria-autocomplete="list"
+          :aria-controls="showSearchOptions ? 'search-form-options' : null"
+          :aria-label="$t('search')"
+          @input="getSearchSuggestions(query);"
+          @focus="showSearchOptions = true; updateSuggestions();"
+        />
+      </b-input-group>
+    </b-form>
+    <b-button
+      v-show="query"
+      data-qa="clear button"
+      class="button-icon-only icon-clear clear-button"
+      variant="light-flat"
+      :aria-label="$t('header.clearQuery')"
+      @click="clearQuery"
+    />
+    <FilterToggleButton />
+    <div
+      v-if="showSearchOptions"
+      id="search-suggest-dropdown"
+      class="auto-suggest-dropdown"
+      data-qa="search form dropdown"
+    >
       <SearchQueryOptions
-        v-if="showSearchOptions"
+        ref="searchoptions"
         :options="searchQueryOptions"
-        element-id="search-form-options"
-        @select="selectSearchOption"
+        @select="showSearchOptions = false;"
       />
-    </b-input-group>
-  </b-form>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -67,8 +85,7 @@
         gettingSuggestions: false,
         suggestions: {},
         activeSuggestionsQueryTerm: null,
-        showSearchOptions: false,
-        selectedOptionLink: null
+        showSearchOptions: false
       };
     },
 
@@ -149,17 +166,28 @@
 
     watch: {
       '$route.query.query'() {
-        if (this.$refs.searchbox) {
-          this.$refs.searchbox.$el.blur();
-        }
+        this.blurInput();
+        this.showSearchOptions = false;
         this.initQuery();
+      },
+      '$route.path'() {
+        this.showSearchOptions = false;
+      },
+      showSearchOptions(newVal) {
+        if (newVal === true) {
+          window.addEventListener('click', this.clickOutside);
+          window.addEventListener('keydown', this.handleKeyDown);
+        } else {
+          window.removeEventListener('click', this.clickOutside);
+          window.removeEventListener('keydown', this.handleKeyDown);
+        }
       }
     },
 
     mounted() {
       this.initQuery();
       this.$nextTick(() => {
-        this.$refs.searchbox.$el.focus();
+        this.$refs.searchinput.$el.focus();
       });
     },
 
@@ -178,45 +206,22 @@
         this.query = this.$route.query.query;
       },
 
-      selectSearchOption(value) {
-        this.selectedOptionLink = value;
-      },
-
       async submitForm() {
-        let newRoute;
-
-        if (this.selectedOptionLink) {
-          newRoute = this.selectedOptionLink;
-          this.query = this.selectedOptionLink.query.query;
-
-          // This only tracks keyboard events, click events are tracked in the SearchQueryOptions component.
-          // Make sure you are not on a collection page
-          if (!this.onSearchableCollectionPage) {
-            this.$matomo?.trackEvent('Autosuggest_option_selected', 'Autosuggest option is selected', this.query);
-          }
-
-          if (this.query !== this.activeSuggestionsQueryTerm) {
-            this.suggestions = {};
-          }
-        } else {
-          // Matomo event: suggestions are present, but none is selected
-          if (Object.keys(this.suggestions).length > 0) {
-            // This only tracks keyboard events, click events are tracked in the SearchQueryOptions component.
-            this.$matomo?.trackEvent('Autosuggest_option_not_selected', 'Autosuggest option is not selected', this.query);
-          }
-
-          const baseQuery = this.onSearchablePage ? this.$route.query : {};
-          // `query` must fall back to blank string to ensure inclusion in URL,
-          // which is required for analytics site search tracking
-          const newRouteQuery = { ...baseQuery, ...{ page: 1, view: this.view, query: this.query || '' } };
-          newRoute = { path: this.routePath, query: newRouteQuery };
+        // Matomo event: suggestions are present, but none is selected
+        if (Object.keys(this.suggestions).length > 0) {
+          this.$matomo?.trackEvent('Autosuggest_option_not_selected', 'Autosuggest option is not selected', this.query);
         }
 
-        if (this.$refs.searchbox) {
-          this.$refs.searchbox.$el.blur();
-        }
+        const baseQuery = this.onSearchablePage ? this.$route.query : {};
+        // `query` must fall back to blank string to ensure inclusion in URL,
+        // which is required for analytics site search tracking
+        const newRouteQuery = { ...baseQuery, ...{ page: 1, view: this.view, query: this.query || '' } };
+        const newRoute = { path: this.routePath, query: newRouteQuery };
+
+        this.showSearchOptions = false;
+
+        this.blurInput();
         await this.$goto(newRoute);
-        this.selectedOptionLink = null;
       },
 
       updateSuggestions() {
@@ -297,10 +302,58 @@
         this.suggestions = {};
 
         this.$nextTick(() => {
-          if (this.$refs.searchbox) {
-            this.$refs.searchbox.$el.focus();
-          }
+          this.getElement(this.$refs.searchinput).focus();
         });
+      },
+
+      clickOutside(event) {
+        const targetOutsideSearchDropdown = event.target?.id !== 'show-search-button' && this.$refs.searchdropdown && !this.$refs.searchdropdown.contains(event.target);
+        if ((event.type === 'click' || event.key === 'Tab') && targetOutsideSearchDropdown) {
+          this.showSearchOptions = false;
+        }
+      },
+
+      toggleSearchBar() {
+        this.$store.commit('search/setShowSearchBar', !this.$store.state.search.showSearchBar);
+      },
+
+      handleKeyDown(event) {
+        this.clickOutside(event);
+        if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+          event.preventDefault();
+          this.navigateWithArrowKeys(event);
+        }
+        if (event.key === 'Escape') {
+          this.blurInput();
+          this.showSearchOptions = false;
+        }
+      },
+
+      navigateWithArrowKeys(event) {
+        const searchDropdownOptions = this.$refs.searchoptions?.$refs.options || [];
+        const activeOption = searchDropdownOptions.map(option => option.$el || option).indexOf(event.target);
+
+        if (searchDropdownOptions.length) {
+          if (activeOption === -1) {
+            this.getElement(searchDropdownOptions[0]).focus();
+          }
+          if (event.key === 'ArrowDown' && activeOption < searchDropdownOptions.length - 1) {
+            this.getElement(searchDropdownOptions[activeOption + 1]).focus();
+          }
+          if (event.key === 'ArrowUp' && activeOption > 0) {
+            this.getElement(searchDropdownOptions[activeOption - 1]).focus();
+          }
+        }
+      },
+
+      getElement(element) {
+        return element.$el || element;
+      },
+
+      blurInput() {
+        if (this.$refs.searchinput.$el) {
+          this.$refs.searchinput.$el.blur();
+        }
       }
     }
   };
@@ -317,62 +370,6 @@
     .form-control {
       background-color: $white;
     }
-
-    &.open {
-      width: 100%;
-
-      .form-control {
-        padding: 0.375rem 1rem 0.375rem 3.5rem;
-        height: 3.4rem;
-        box-shadow: none;
-        border-radius: 0;
-        color: $mediumgrey;
-        width: 100%;
-      }
-
-      .search-query {
-        box-shadow: $boxshadow-light;
-        width: 100%;
-        height: 3.5rem;
-        font-size: 1rem;
-        color: $mediumgrey;
-        display: flex;
-        align-items: center;
-        position: relative;
-        background: $white;
-
-        .search {
-          position: absolute;
-          width: 100%;
-          left: 0;
-          top: 0;
-          z-index: 99;
-          height: 3.5rem;
-          padding: 0.375rem 1rem 0.375rem 3.5rem;
-          justify-content: flex-start;
-
-          &:focus {
-            color: $black;
-            background-color: $offwhite;
-
-            ~ span {
-              z-index: 99;
-            }
-          }
-
-          &::before {
-            left: 1rem;
-            top: 1rem;
-            position: absolute;
-            width: 24px;
-            height: 24px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-          }
-        }
-      }
-    }
   }
 
   .input-group {
@@ -384,5 +381,98 @@
     .input-group-prepend {
       display: none;
     }
+  }
+
+  .open {
+    width: 100%;
+
+    .form-control {
+      padding: 0.375rem 1rem 0.375rem 3.5rem;
+      height: 3.4rem;
+      box-shadow: none;
+      border-radius: 0;
+      color: $mediumgrey;
+      width: 100%;
+    }
+
+    .search-query {
+      box-shadow: $boxshadow-light;
+      width: 100%;
+      height: 3.5rem;
+      font-size: 1rem;
+      color: $mediumgrey;
+      display: flex;
+      align-items: center;
+      position: relative;
+      background: $white;
+
+      .search {
+        position: absolute;
+        width: 100%;
+        left: 0;
+        top: 0;
+        z-index: 99;
+        height: 3.5rem;
+        padding: 0.375rem 1rem 0.375rem 3.5rem;
+        justify-content: flex-start;
+
+        &:focus {
+          color: $black;
+          background-color: $offwhite;
+
+          ~ span {
+            z-index: 99;
+          }
+        }
+
+        &::before {
+          left: 1rem;
+          top: 1rem;
+          position: absolute;
+          width: 24px;
+          height: 24px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+    }
+  }
+
+  .back-button {
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    z-index: 99;
+  }
+
+  .clear-button {
+    position: absolute;
+    right: 3.5rem;
+    top: 1rem;
+    z-index: 99;
+
+    @media (min-width: $bp-large) {
+      right: 1rem;
+    }
+  }
+
+  .icon-filter {
+    position: absolute;
+    right: 1rem;
+    top: 0;
+    z-index: 99;
+  }
+
+  .auto-suggest-dropdown {
+    display: block;
+    box-shadow: $boxshadow-light;
+    position: absolute;
+    top: 3.45rem;
+    width: 100%;
+    z-index: 20;
+    border-radius: 0;
+    background-color: $white;
+    transition: $standard-transition;
   }
 </style>
