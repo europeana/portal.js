@@ -8,6 +8,7 @@
 
 <script>
   import { requiresDashJS } from '../../plugins/media';
+  import { apiConfig } from '@/plugins/europeana/utils.js';
 
   export default {
     name: 'MediaPage',
@@ -46,7 +47,7 @@
 
     computed: {
       manifest() {
-        return `https://iiif.europeana.eu/presentation${this.id}/manifest?format=3`;
+        return `${this.$config.europeana.apis.iiifPresentation.media.url}${this.id}/manifest?format=3`;
       },
       dashRequired() {
         return requiresDashJS(this.mediaType);
