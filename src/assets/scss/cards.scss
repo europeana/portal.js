@@ -824,6 +824,10 @@
   }
 }
 
+.card.card-group-card .card-body {
+  padding-bottom: 0.5rem;
+}
+
 .browse-section {
   .content-card:not(.mini-card) a .card-body {
     min-height: 10rem;
@@ -857,7 +861,7 @@
     font-weight: 600;
     line-height: 1rem;
     text-transform: uppercase;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
     color: $mediumgrey;
   }
 
@@ -868,6 +872,7 @@
       box-shadow: none;
       margin-bottom: 1.5rem;
       flex: 100%;
+      border-radius: 0;
 
       @media (min-width: $bp-medium) {
         flex: calc(50% - 1rem);
@@ -876,7 +881,7 @@
       }
 
       &:hover {
-        background: $offwhite;
+        background: $bodygrey;
       }
 
       .card-wrapper {

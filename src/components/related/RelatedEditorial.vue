@@ -70,9 +70,7 @@
     },
 
     async fetch() {
-      // TODO: in future, this component may instead make other queries, e.g
-      //       to search editorial content by title
-      if (!this.entityUri) {
+      if (!this.entityUri && !this.query) {
         return;
       }
 
@@ -84,7 +82,8 @@
         limit: 4
       };
 
-      const response = await this.$contentful.query('entityRelatedContent', variables);
+      const queryName = this.entityUri ? 'entityRelatedContent' : 'relatedContent';
+      const response = await this.$contentful.query(queryName, variables);
       const entries = response.data.data;
 
       this.related = entries.blogPostingCollection.items
