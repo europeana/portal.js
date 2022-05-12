@@ -32,7 +32,7 @@ export const themes = [
   { id: '114', qf: 'sport' }
 ];
 
-export const themeOverrides = async({ $store, $i18n, $route, $contentful }, themes) => {
+export const themeOverrides = async({ $store, $i18n, $route, $contentful }, apiThemes) => {
   let curatedEntities = $store.state.entity.curatedEntities;
   if (!curatedEntities) {
     const contentfulVariables = {
@@ -43,7 +43,7 @@ export const themeOverrides = async({ $store, $i18n, $route, $contentful }, them
     curatedEntities = contentfulResponse.data.data.curatedEntities.items;
     $store.commit('entity/setCuratedEntities', curatedEntities);
   }
-  return themes.map(theme => {
+  return apiThemes.map(theme => {
     const contentfulData = curatedEntities.find((curatedEntity) => curatedEntity.identifier === theme.id) || {};
     const override = {};
     if (contentfulData.identifier) {
