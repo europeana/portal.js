@@ -9,6 +9,9 @@ export default {
           redirect = this.$route.fullPath;
         }
       }
+      if (!redirect || redirect.endsWith('/account/login')) {
+        redirect = '/account';
+      }
       return redirect;
     },
 
