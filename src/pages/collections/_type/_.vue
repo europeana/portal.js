@@ -299,7 +299,20 @@
         return this.page?.name || null;
       },
       relatedCollectionCards() {
-        return ((this.page?.relatedLinksCollection?.items?.length || 0) > 0) ? this.page.relatedLinksCollection.items : null;
+        if ((this.page?.relatedLinksCollection?.items?.length || 0) > 0) {
+          return this.page.relatedLinksCollection.items.map(item => {
+            const prefLabel = {
+              [this.$i18n.locale]: item.name,
+              en: item.nameEN
+            };
+            return {
+              id: item.identifier,
+              prefLabel,
+              image: item.image
+            };
+          });
+        }
+        return null;
       },
       userIsEditor() {
         return this.$store.state.auth.user?.resource_access?.entities?.roles?.includes('editor') || false;
@@ -367,11 +380,8 @@
     },
     methods: {
       redirectToPrefPath() {
-        // FIXME: this is a temporary workaround until we always have the English name
-        //        in the context of editorial overrides from Contentful. EC-5719
-        // const entityName = this.page ? this.page.name : this.entity.prefLabel.en;
-        const entityName = this.entity.prefLabel.en;
-        const desiredPath = getEntitySlug(this.entity.id, entityName);
+        const entityNameEn = this.page ? this.page.nameEN : this.entity.prefLabel.en;
+        const desiredPath = getEntitySlug(this.entity.id, entityNameEn);
         if (this.$route.params.pathMatch !== desiredPath) {
           const redirectPath = this.$path({
             name: 'collections-type-all',

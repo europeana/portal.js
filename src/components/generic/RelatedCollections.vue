@@ -71,23 +71,12 @@
       },
 
       linkGen(collection) {
-        let id = '';
-        let name = '';
-
-        if (collection.id) {
-          id = collection.id;
-          name = collection.prefLabel.en;
-        } else {
-          id = collection.identifier;
-          name = collection.name;
-        }
-
-        const uriMatch = id.match(`^${EUROPEANA_DATA_URL}/([^/]+)(/base)?/(.+)$`);
+        const uriMatch = collection.id.match(`^${EUROPEANA_DATA_URL}/([^/]+)(/base)?/(.+)$`);
 
         return this.$path({
           name: 'collections-type-all', params: {
             type: getEntityTypeHumanReadable(uriMatch[1]),
-            pathMatch: getEntitySlug(id, name)
+            pathMatch: getEntitySlug(collection.id, collection.prefLabel.en)
           }
         });
       },

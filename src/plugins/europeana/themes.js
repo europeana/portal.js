@@ -51,6 +51,7 @@ export const themeOverrides = async({ $store, $i18n, $route, $contentful }, them
     }
     if (contentfulData.name) {
       override.prefLabel = { [$i18n.locale]: contentfulData.name };
+      override.prefLabel.en = contentfulData.nameEN;
     }
     if (contentfulData.primaryImageOfPage?.image) {
       override.contentfulImage = contentfulData.primaryImageOfPage.image;

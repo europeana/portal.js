@@ -5,6 +5,7 @@ query CollectionPage(
   curatedEntities: entityPageCollection(preview: $preview, locale: $locale, limit: 1000) {
     items {
       name
+      nameEN: name(locale: "en-GB")
       identifier
       genre
       primaryImageOfPage {

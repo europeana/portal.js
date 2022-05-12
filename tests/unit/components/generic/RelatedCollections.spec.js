@@ -16,7 +16,7 @@ const factory = (options = {}) => {
     stubs: ['b-container'],
     mocks: {
       $apis: {
-        entity: { imageUrl: () => sinon.spy() }
+        entity: { imageUrl: () => 'stubbedImageUrl' }
       },
       $i18n: { locale: 'de' },
       $t: () => {},
@@ -44,11 +44,12 @@ const store = (options = {}) => {
 
 const relatedCollections = [
   {
-    description: 'This is a scpecially curated chip!',
-    identifier: 'http://data.europeana.eu/agent/base/123',
-    image: 'imageUrlItem1',
-    name: 'Entity from contentful',
-    slug: '123-entity-from-contentful'
+    id: 'http://data.europeana.eu/agent/base/123',
+    prefLabel: {
+      de: 'Contentful title',
+      en: 'Contentful title EN'
+    },
+    image: 'http://data.europeana.eu/item/123/ABC'
   },
   {
     id: 'http://data.europeana.eu/concept/base/194',
@@ -138,9 +139,9 @@ describe('components/generic/RelatedCollections', () => {
 
     describe('linkGen', () => {
       describe('when the item has an identifier/it is a curated chip from contenful', () => {
-        it('uses the identifier and name for the slug', () => {
+        it('uses the identifier and english name for the slug', () => {
           const wrapper = factory();
-          expect(wrapper.vm.linkGen(relatedCollections[0])).toEqual('person - 123-entity-from-contentful');
+          expect(wrapper.vm.linkGen(relatedCollections[0])).toEqual('person - 123-contentful-title-en');
         });
       });
 
