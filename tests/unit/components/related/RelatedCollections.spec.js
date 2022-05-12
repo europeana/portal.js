@@ -1,4 +1,5 @@
-import { createLocalVue, mount } from '@vue/test-utils';
+import { createLocalVue } from '@vue/test-utils';
+import { shallowMountNuxt } from '../../utils';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
@@ -6,30 +7,6 @@ import RelatedCollections from '@/components/related/RelatedCollections.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
-
-const factory = ({ propsData, mocks } = {}) => {
-  return mount(RelatedCollections, {
-    localVue,
-    propsData,
-    stubs: ['b-container'],
-    mocks: {
-      $apis: {
-        entity: { imageUrl: () => sinon.spy() }
-      },
-      $i18n: { locale: 'de' },
-      $t: () => {},
-      $fetch: () => {},
-      $path: (args) => {
-        return `${args.params.type} - ${args.params.pathMatch}`;
-      },
-      $link: {
-        to: route => route,
-        href: () => null
-      },
-      ...mocks
-    }
-  });
-};
 
 const relatedCollections = [
   {
@@ -68,29 +45,129 @@ const relatedCollections = [
     }
   }
 ];
+const entityApiFindResponse = relatedCollections.filter(entity => entity.id);
+const entityUris = entityApiFindResponse.map(entity => entity.id);
+
+const factory = ({ propsData, mocks } = {}) => {
+  return shallowMountNuxt(RelatedCollections, {
+    localVue,
+    propsData,
+    stubs: ['b-container'],
+    mocks: {
+      $apis: {
+        entity: {
+          imageUrl: sinon.spy(),
+          find: sinon.stub().resolves(entityApiFindResponse)
+        }
+      },
+      $i18n: { locale: 'de' },
+      $t: () => {},
+      $fetch: () => {},
+      $path: (args) => {
+        return `${args.params.type} - ${args.params.pathMatch}`;
+      },
+      $link: {
+        to: route => route,
+        href: () => null
+      },
+      ...mocks
+    }
+  });
+};
 
 describe('components/related/RelatedCollections', () => {
   describe('template', () => {
-    describe('when related collections are supplied', () => {
-      const wrapper = factory({ propsData: { relatedCollections } });
+    describe('when related collections are present', () => {
+      const data = { collections: relatedCollections };
+      it('shows a section with related collections chips', async() => {
+        const wrapper = factory();
+        await wrapper.setData(data);
 
-      it('shows a section with related collections chips', () => {
-        const relatedCollections = wrapper.find('[data-qa="related collections"]');
-        expect(relatedCollections.isVisible()).toBe(true);
+        const section = wrapper.find('[data-qa="related collections"]');
+        expect(section.isVisible()).toBe(true);
       });
 
-      it('contains four related chips', () => {
-        const chips = wrapper.findAll('a.badge');
+      it('contains four related chips', async() => {
+        const wrapper = factory();
+        await wrapper.setData(data);
+
+        const chips = wrapper.findAll('linkbadge-stub');
         expect(chips.length).toBe(4);
       });
     });
 
     describe('when no related collections are supplied', () => {
-      const wrapper = factory({ propsData: { relatedCollections: [] } });
+      describe('and no entity URIs are supplied', () => {
+        it('is not visible', () => {
+          const wrapper = factory();
 
-      it('is not visible', () => {
-        const relatedCollections = wrapper.find('[data-qa="related collections"]');
-        expect(relatedCollections.isVisible()).toBe(false);
+          const relatedCollections = wrapper.find('[data-qa="related collections"]');
+          expect(relatedCollections.isVisible()).toBe(false);
+        });
+      });
+    });
+  });
+
+  describe('fetch', () => {
+    afterEach(sinon.resetHistory);
+
+    describe('when related collections are supplied', () => {
+      const propsData = { relatedCollections };
+
+      it('uses them', async() => {
+        const wrapper = factory({ propsData });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.collections).toEqual(relatedCollections);
+      });
+
+      it('does not query the Entity API', async() => {
+        const wrapper = factory({ propsData });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.$apis.entity.find.called).toBe(false);
+      });
+    });
+
+    describe('when no related collections are supplied', () => {
+      describe('but entity URIs are supplied', () => {
+        const propsData = { entityUris };
+
+        it('queries the Entity API', async() => {
+          const wrapper = factory({ propsData });
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.$apis.entity.find.calledWith(entityUris)).toBe(true);
+        });
+
+        it('uses the response', async() => {
+          const wrapper = factory({ propsData });
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.collections).toEqual(entityApiFindResponse);
+        });
+      });
+
+      describe('and no entity URIs are supplied', () => {
+        it('does not query the Entity API', async() => {
+          const wrapper = factory();
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.$apis.entity.find.called).toBe(false);
+        });
+
+        it('has no collections', async() => {
+          const wrapper = factory();
+
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.collections).toEqual([]);
+        });
       });
     });
   });
@@ -129,14 +206,21 @@ describe('components/related/RelatedCollections', () => {
       describe('when the item has an identifier/it is a curated chip from contenful', () => {
         it('uses the identifier and name for the slug', () => {
           const wrapper = factory();
-          expect(wrapper.vm.linkGen(relatedCollections[0])).toEqual('person - 123-entity-from-contentful');
+          expect(wrapper.vm.linkGen(relatedCollections[0])).toBe('person - 123-entity-from-contentful');
         });
       });
 
       describe('when the item has an id/it is a Europeana entity from a search request', () => {
         it('uses the id and the English prefLabel for the name', () => {
           const wrapper = factory();
-          expect(wrapper.vm.linkGen(relatedCollections[1])).toEqual('topic - 194-visual-arts');
+          expect(wrapper.vm.linkGen(relatedCollections[1])).toBe('topic - 194-visual-arts');
+        });
+      });
+
+      describe('when the item can not be identified as a Europeana entity', () => {
+        it('is `null`', () => {
+          const wrapper = factory();
+          expect(wrapper.vm.linkGen({})).toBe(null);
         });
       });
     });

@@ -9,7 +9,7 @@ const localVue = createLocalVue();
 const factory = ({ propsData, responses } = {}) => {
   return shallowMountNuxt(EntityRelatedCollections, {
     localVue,
-    propsData: propsData,
+    propsData,
     mocks: {
       $apis: {
         record: { search: sinon.stub().resolves(responses?.record?.search || {}) }

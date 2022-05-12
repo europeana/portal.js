@@ -67,7 +67,7 @@
       }
 
       const entities = await this.$apis.entity.find(this.entityUris);
-      this.collections = entities.map(entity => pick(entity, ['id', 'prefLabel', 'isShownBy']));
+      this.collections = entities.map(entity => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo']));
     },
 
     mounted() {
@@ -97,12 +97,15 @@
         if (collection.id) {
           id = collection.id;
           name = collection.prefLabel.en;
-        } else {
+        } else if (collection.identifier) {
           id = collection.identifier;
           name = collection.name;
         }
 
         const uriMatch = id.match(`^${EUROPEANA_DATA_URL}/([^/]+)(/base)?/(.+)$`);
+        if (!uriMatch) {
+          return null;
+        }
 
         return this.$path({
           name: 'collections-type-all', params: {
