@@ -13,7 +13,7 @@
     <b-form
       ref="form"
       role="search"
-      aria-label="search form"
+      :aria-label="$t('header.searchForm')"
       data-qa="search form"
       inline
       autocomplete="off"

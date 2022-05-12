@@ -1,7 +1,7 @@
 <template>
   <b-modal
     id="share-modal"
-    title="Share"
+    :title="$t('actions.share')"
     hide-header-close
     hide-footer
     data-qa="share modal"
