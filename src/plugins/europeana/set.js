@@ -88,7 +88,7 @@ export default (context = {}) => {
             qf: ['contentTier:*']
           });
           const dcTitleLangAware = { en: [context.i18n.t('record.status.unpublished')] };
-          set.items = itemIdentifiers.map(itemId => searchResponse.items.find(item => item.id === itemId) || { itemId, dcTitleLangAware });
+          set.items = itemIdentifiers.map(itemId => searchResponse.items.find(item => item.id === itemId) || { id: itemId, dcTitleLangAware });
         }
 
         return set;
