@@ -65,7 +65,7 @@
         no-header
         backdrop
         backdrop-variant="black"
-        aria-label="Side navigation"
+        :aria-label="$t('header.sideNavigation')"
       >
         <b-navbar
           class="sidebar-nav align-items-start flex-column pt-1 pl-2 pb-4 pr-2"

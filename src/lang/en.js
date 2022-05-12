@@ -721,7 +721,9 @@ export default {
     "searchForEverything": "Search for everything",
     "searchForEverythingInCollection": "Search for everything in {collection}",
     "searchForEverythingInEntireCollection": "Search for everything in our entire collection",
+    "searchForm": "Search form",
     "showSidebar": "Show Menu",
+    "sideNavigation": "Side navigation",
     "quickSearch": "Quick Search"
   },
   "homeLinkAlt": "Europeana home",
