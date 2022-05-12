@@ -1,18 +1,16 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import Vuex from 'vuex';
 import sinon from 'sinon';
 
 import RelatedCollections from '@/components/related/RelatedCollections.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
-localVue.use(Vuex);
 
-const factory = (options = {}) => {
+const factory = ({ propsData, mocks } = {}) => {
   return mount(RelatedCollections, {
     localVue,
-    propsData: options.propsData,
+    propsData,
     stubs: ['b-container'],
     mocks: {
       $apis: {
@@ -27,17 +25,8 @@ const factory = (options = {}) => {
       $link: {
         to: route => route,
         href: () => null
-      }, ...(options.mocks || {})
-    },
-    store: options.store || store()
-  });
-};
-const store = (options = {}) => {
-  return new Vuex.Store({
-    state: options.state || {
-      i18n: {
-        locale: 'en'
-      }
+      },
+      ...mocks
     }
   });
 };
@@ -81,28 +70,28 @@ const relatedCollections = [
 ];
 
 describe('components/related/RelatedCollections', () => {
-  describe('when related collections are found', () => {
-    const wrapper = factory();
-    wrapper.setProps({ relatedCollections });
+  describe('template', () => {
+    describe('when related collections are supplied', () => {
+      const wrapper = factory({ propsData: { relatedCollections } });
 
-    it('shows a section with related collections chips', () => {
-      const relatedCollections = wrapper.find('[data-qa="related collections"]');
-      expect(relatedCollections.isVisible()).toBe(true);
+      it('shows a section with related collections chips', () => {
+        const relatedCollections = wrapper.find('[data-qa="related collections"]');
+        expect(relatedCollections.isVisible()).toBe(true);
+      });
+
+      it('contains four related chips', () => {
+        const chips = wrapper.findAll('a.badge');
+        expect(chips.length).toBe(4);
+      });
     });
 
-    it('contains four related chips', () => {
-      const chips = wrapper.findAll('a.badge');
-      expect(chips.length).toBe(4);
-    });
-  });
+    describe('when no related collections are supplied', () => {
+      const wrapper = factory({ propsData: { relatedCollections: [] } });
 
-  describe('when no related collections are found', () => {
-    const wrapper = factory();
-    wrapper.setProps({ relatedCollections: [] });
-
-    it('related collections does not render', () => {
-      const relatedCollections = wrapper.find('[data-qa="related collections"]');
-      expect(relatedCollections.exists()).toBe(false);
+      it('is not visible', () => {
+        const relatedCollections = wrapper.find('[data-qa="related collections"]');
+        expect(relatedCollections.isVisible()).toBe(false);
+      });
     });
   });
 

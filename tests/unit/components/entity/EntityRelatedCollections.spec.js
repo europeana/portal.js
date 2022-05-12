@@ -6,14 +6,13 @@ import EntityRelatedCollections from '@/components/entity/EntityRelatedCollectio
 
 const localVue = createLocalVue();
 
-const factory = (options = {}) => {
+const factory = ({ propsData, responses } = {}) => {
   return shallowMountNuxt(EntityRelatedCollections, {
     localVue,
-    propsData: options.propsData,
+    propsData: propsData,
     mocks: {
       $apis: {
-        entity: { find: sinon.stub().resolves(options.responses?.entity?.find || []) },
-        record: { search: sinon.stub().resolves(options.responses?.record?.search || {}) }
+        record: { search: sinon.stub().resolves(responses?.record?.search || {}) }
       },
       $fetchState: {},
       $t: key => key
@@ -45,14 +44,6 @@ describe('components/entity/EntityRelatedCollections', () => {
 
         expect(wrapper.vm.$apis.record.search.called).toBe(false);
       });
-
-      it('does not query Entity API for related collection details', async() => {
-        const wrapper = factory({ propsData });
-
-        await wrapper.vm.fetch();
-
-        expect(wrapper.vm.$apis.entity.find.called).toBe(false);
-      });
     });
 
     describe('without overrides', () => {
@@ -66,11 +57,6 @@ describe('components/entity/EntityRelatedCollections', () => {
         'http://data.europeana.eu/concept/base/3',
         'http://data.europeana.eu/concept/base/4',
         'http://data.europeana.eu/concept/base/5'
-      ];
-      const relatedCollections = [
-        { id: 'http://data.europeana.eu/concept/base/2', prefLabel: { en: 'Concept 2' } },
-        { id: 'http://data.europeana.eu/concept/base/3', prefLabel: { en: 'Concept 3' } },
-        { id: 'http://data.europeana.eu/concept/base/4', prefLabel: { en: 'Concept 4' } }
       ];
       const responses = {
         record: {
@@ -91,14 +77,6 @@ describe('components/entity/EntityRelatedCollections', () => {
               }
             ]
           }
-        },
-        entity: {
-          find: [
-            { id: 'http://data.europeana.eu/concept/base/2', type: 'Concept', prefLabel: { en: 'Concept 2' } },
-            { id: 'http://data.europeana.eu/concept/base/3', type: 'Concept', prefLabel: { en: 'Concept 3' } },
-            { id: 'http://data.europeana.eu/concept/base/4', type: 'Concept', prefLabel: { en: 'Concept 4' } },
-            { id: 'http://data.europeana.eu/concept/base/5', type: 'Concept', prefLabel: { es: 'Concept 5' } }
-          ]
         }
       };
 
@@ -110,20 +88,12 @@ describe('components/entity/EntityRelatedCollections', () => {
         expect(wrapper.vm.$apis.record.search.calledWith(sinon.match.has('query', `skos_concept:"${uri}"`))).toBe(true);
       });
 
-      it('queries Entity API for up to 4 Europeana entity details', async() => {
+      it('filters, reduces, and records the related collection URIs', async() => {
         const wrapper = factory({ propsData, responses });
 
         await wrapper.vm.fetch();
 
-        expect(wrapper.vm.$apis.entity.find.calledWith(relatedUris)).toBe(true);
-      });
-
-      it('filters, reduces, and records the related collections', async() => {
-        const wrapper = factory({ propsData, responses });
-
-        await wrapper.vm.fetch();
-
-        expect(wrapper.vm.relatedCollections).toEqual(relatedCollections);
+        expect(wrapper.vm.entityUris).toEqual(relatedUris);
       });
 
       describe('but Record API returned no related collections', () => {
@@ -139,14 +109,6 @@ describe('components/entity/EntityRelatedCollections', () => {
           await wrapper.vm.fetch();
 
           expect(wrapper.vm.relatedCollections).toEqual([]);
-        });
-
-        it('does not query Entity API for related collection details', async() => {
-          const wrapper = factory({ propsData, responses });
-
-          await wrapper.vm.fetch();
-
-          expect(wrapper.vm.$apis.entity.find.called).toBe(false);
         });
       });
     });
