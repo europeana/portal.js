@@ -7,6 +7,7 @@
     <RelatedCollections
       :title="$t('header.quickSearch')"
       :related-collections="optionsAndThemes"
+      :wrap="false"
     />
   </div>
 </template>
@@ -63,13 +64,31 @@
     .related-collections {
       max-width: 100%;
 
+      &.container {
+        padding: 0;
+      }
+
       ::v-deep .badge-pill {
         margin-right: 0.5rem;
+        flex-shrink: 0;
+      }
+
+      ::v-deep .badges-wrapper {
+        margin: 1rem 0 0.5rem;
+        padding: 0 15px;
+        overflow: scroll;
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
       }
     }
 
     ::v-deep .related-heading {
       font-size: $font-size-extrasmall;
+      padding: 0 15px;
     }
   }
 </style>

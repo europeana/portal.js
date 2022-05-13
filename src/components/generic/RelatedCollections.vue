@@ -7,11 +7,15 @@
     <h2 class="related-heading text-uppercase mb-2">
       {{ title }}
     </h2>
-    <div class="d-flex flex-wrap">
+    <div
+      class="badges-wrapper d-flex"
+      :class="{ 'flex-wrap': wrap }"
+    >
       <LinkBadge
         v-for="relatedCollection in relatedCollections"
         :id="relatedCollection.id"
         :key="relatedCollection.id"
+        ref="options"
         :link-to="linkGen(relatedCollection)"
         :title="relatedCollection.prefLabel ? relatedCollection.prefLabel : relatedCollection.name"
         :img="imageUrl(relatedCollection)"
@@ -47,6 +51,10 @@
       badgeVariant: {
         type: String,
         default: 'secondary'
+      },
+      wrap: {
+        type: Boolean,
+        default: true
       }
     },
 
