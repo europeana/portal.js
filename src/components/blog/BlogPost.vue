@@ -140,4 +140,16 @@
   .author ~ .author::before {
     content: ', ';
   }
+
+  ::v-deep .related-collections {
+    &.container {
+      padding: 0;
+    }
+
+    .badge-pill {
+      margin-top: 0.25rem;
+      margin-right: 0.5rem;
+    }
+  }
+
 </style>
