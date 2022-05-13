@@ -59,6 +59,7 @@ const contentfulPageResponse = {
     }
   }
 };
+const contentfulQueryStub = sinon.stub().resolves(contentfulPageResponse);
 
 const factory = (options = {}) => shallowMountNuxt(collection, {
   localVue,
@@ -69,7 +70,7 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
     $te: () => true,
     $route: { query: options.query || '', params: { type: options.type, pathMatch: options.pathMatch } },
     $contentful: {
-      query: sinon.stub().resolves(contentfulPageResponse)
+      query: contentfulQueryStub
     },
     $apis: {
       entity: {
@@ -369,6 +370,66 @@ describe('pages/collections/type/_', () => {
         expect(moreInfo[1].value).toBe(organisationEntity.entity.hasAddress.countryName);
         expect(moreInfo[2].value).toBe(organisationEntity.entity.acronym.en);
         expect(moreInfo[3].value).toBe(organisationEntity.entity.hasAddress.locality);
+      });
+    });
+  });
+
+  describe('relatedCollectionCards', () => {
+    afterEach(() => {
+      contentfulQueryStub.resolves(contentfulPageResponse);
+    });
+    describe('when there are related collections', () => {
+      it('formats and returns the cards', async() => {
+        const contentfulPageResponseWithRelatedOverrides = {
+          data: {
+            data: {
+              entityPage: {
+                items: [
+                  {
+                    hasPartCollection: {
+                      items: []
+                    },
+                    relatedLinksCollection: {
+                      items: [
+                        {
+                          identifier: 'http://data.europeana.eu/concept/base/48',
+                          name: 'Photograph',
+                          nameEN: 'Photograph',
+                          image: 'Contentful image object'
+                        },
+                      ]
+                    }
+                  }
+                ]
+              },
+              curatedEntities: {
+                items: [{ identifier: topicEntity.entity.id }]
+              }
+            }
+          }
+        };
+        contentfulQueryStub.resolves(contentfulPageResponseWithRelatedOverrides);
+        const curatedEntities = [{ identifier: topicEntity.entity.id }];
+        const wrapper = factory(topicEntity);
+        wrapper.vm.$store.state.entity.curatedEntities = curatedEntities;
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.relatedCollectionCards).toStrictEqual([
+          {
+            id: 'http://data.europeana.eu/concept/base/48',
+            prefLabel: { en: 'Photograph' },
+            image: 'Contentful image object'
+          }
+        ]);
+      });
+    });
+
+    describe('when there are no related collections', () => {
+      it('returns null', () => {
+        const wrapper = factory(topicEntity);
+
+        expect(wrapper.vm.relatedCollectionCards).toBe(null);
       });
     });
   });

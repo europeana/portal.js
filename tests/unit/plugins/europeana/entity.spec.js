@@ -159,6 +159,12 @@ describe('plugins/europeana/entity', () => {
 
         expect(nock.isDone()).toBe(true);
       });
+
+      it('resolves with a blank array if there are no URIs', async() => {
+        const result = await api().find([]);
+
+        expect(result).toEqual([]);
+      });
     });
 
     describe('suggest', () => {
@@ -214,11 +220,54 @@ describe('plugins/europeana/entity', () => {
 
         expect(items).toEqual(entitySuggestionsResponse.items);
       });
+
+      it('returns an empty array when there are no items', async() => {
+        nock(BASE_URL)
+          .get(suggestEndpoint)
+          .query(true)
+          .reply(200,   { type: 'ResultPage', total: 0 });
+
+        const items = await api().suggest(text);
+
+        expect(items).toEqual([]);
+      });
     });
 
     describe('imageUrl', () => {
       const europeanaThumbnailUrl = 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?uri=https%3A%2F%2Fwww.example.org%2Fimage.jpeg&type=IMAGE';
       const wikimediaImageUrl = 'http://commons.wikimedia.org/wiki/Special:FilePath/Europeana_logo_2015_basic.svg';
+
+      describe('when entity has a Contentful image', () => {
+        describe('when the Contentful image is of type `image/jpeg`', () => {
+          const entity = {
+            contentfulImage: {
+              contentType: 'image/jpeg',
+              url: 'contentfulAssetUrl'
+            }
+          };
+
+          it('uses it at 40px size with compression', () => {
+            const imageUrl = api().imageUrl(entity);
+
+            expect(imageUrl).toBe('contentfulAssetUrl?w=40&q=80&fm=jpg&fl=progressive');
+          });
+        });
+
+        describe('when the Contentful image is not a jpeg', () => {
+          const entity = {
+            contentfulImage: {
+              contentType: 'image/png',
+              url: 'contentfulAssetUrl'
+            }
+          };
+
+          it('uses it at 40px size', () => {
+            const imageUrl = api().imageUrl(entity);
+
+            expect(imageUrl).toBe('contentfulAssetUrl?w=40');
+          });
+        });
+      });
 
       describe('when entity has Europeana thumbnail in `image`', () => {
         const entity = {
