@@ -396,7 +396,7 @@ describe('pages/collections/type/_', () => {
                           name: 'Photograph',
                           nameEN: 'Photograph',
                           image: 'Contentful image object'
-                        },
+                        }
                       ]
                     }
                   }
