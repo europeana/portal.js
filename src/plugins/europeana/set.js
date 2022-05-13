@@ -78,7 +78,7 @@ export default (context = {}) => {
         const response = await $axios.get(`/${setIdFromUri(id)}`, { params: paramsWithDefaults });
         const set = response.data;
 
-        if (options.withMinimalItems) {
+        if (options.withMinimalItems && set.items) {
           const itemIdentifiers = set.items.map(uri => uri.replace(EUROPEANA_DATA_ITEM_PREFIX, ''));
           const itemQuery = `europeana_id:("${itemIdentifiers.join('" OR "')}")`;
           const searchResponse = await context.$apis.record.search({
