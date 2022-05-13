@@ -7,7 +7,6 @@
     <RelatedCollections
       :title="$t('header.quickSearch')"
       :related-collections="optionsAndThemes"
-      :wrap="false"
     />
   </div>
 </template>
@@ -70,13 +69,13 @@
 
       ::v-deep .badge-pill {
         margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
         flex-shrink: 0;
       }
 
       ::v-deep .badges-wrapper {
-        margin: 1rem 0 0.5rem;
+        margin-top: 1rem;
         padding: 0 15px;
-        overflow: scroll;
         -ms-overflow-style: none;  /* IE and Edge */
         scrollbar-width: none;  /* Firefox */
 
