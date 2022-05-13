@@ -8,6 +8,7 @@
       {{ title }}
     </h2>
     <div
+      ref="wrapper"
       class="badges-wrapper d-flex"
       :class="{ 'flex-wrap': wrap }"
     >
@@ -60,6 +61,9 @@
 
     mounted() {
       this.draw();
+      if(!this.wrap) {
+        
+      }
     },
 
     updated() {

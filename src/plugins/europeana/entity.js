@@ -47,7 +47,6 @@ export default (context = {}) => {
       })
         .then(response => response.data.items ? response.data.items : [])
         .catch(error => {
-          console.log('we got in!');
           throw apiError(error, context);
         });
     },
