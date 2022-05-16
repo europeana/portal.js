@@ -108,66 +108,79 @@ describe('components/related/RelatedCollections', () => {
     });
   });
 
-  describe('fetch', () => {
-    afterEach(sinon.resetHistory);
+  describe('hooks', () => {
+    describe('fetch', () => {
+      afterEach(sinon.resetHistory);
 
-    describe('when related collections are supplied', () => {
-      const propsData = { relatedCollections };
+      describe('when related collections are supplied', () => {
+        const propsData = { relatedCollections };
 
-      it('uses them', async() => {
-        const wrapper = factory({ propsData });
-
-        await wrapper.vm.fetch();
-
-        expect(wrapper.vm.collections).toEqual(relatedCollections);
-      });
-
-      it('does not query the Entity API', async() => {
-        const wrapper = factory({ propsData });
-
-        await wrapper.vm.fetch();
-
-        expect(wrapper.vm.$apis.entity.find.called).toBe(false);
-      });
-    });
-
-    describe('when no related collections are supplied', () => {
-      describe('but entity URIs are supplied', () => {
-        const propsData = { entityUris };
-
-        it('queries the Entity API', async() => {
+        it('uses them', async() => {
           const wrapper = factory({ propsData });
 
           await wrapper.vm.fetch();
 
-          expect(wrapper.vm.$apis.entity.find.calledWith(entityUris)).toBe(true);
+          expect(wrapper.vm.collections).toEqual(relatedCollections);
         });
 
-        it('uses the response', async() => {
-          const wrapper = factory({ propsData });
-
-          await wrapper.vm.fetch();
-
-          expect(wrapper.vm.collections).toEqual(entityApiFindResponse);
-        });
-      });
-
-      describe('and no entity URIs are supplied', () => {
         it('does not query the Entity API', async() => {
-          const wrapper = factory();
+          const wrapper = factory({ propsData });
 
           await wrapper.vm.fetch();
 
           expect(wrapper.vm.$apis.entity.find.called).toBe(false);
         });
+      });
 
-        it('has no collections', async() => {
-          const wrapper = factory();
+      describe('when no related collections are supplied', () => {
+        describe('but entity URIs are supplied', () => {
+          const propsData = { entityUris };
 
-          await wrapper.vm.fetch();
+          it('queries the Entity API', async() => {
+            const wrapper = factory({ propsData });
 
-          expect(wrapper.vm.collections).toEqual([]);
+            await wrapper.vm.fetch();
+
+            expect(wrapper.vm.$apis.entity.find.calledWith(entityUris)).toBe(true);
+          });
+
+          it('uses the response', async() => {
+            const wrapper = factory({ propsData });
+
+            await wrapper.vm.fetch();
+
+            expect(wrapper.vm.collections).toEqual(entityApiFindResponse);
+          });
         });
+
+        describe('and no entity URIs are supplied', () => {
+          it('does not query the Entity API', async() => {
+            const wrapper = factory();
+
+            await wrapper.vm.fetch();
+
+            expect(wrapper.vm.$apis.entity.find.called).toBe(false);
+          });
+
+          it('has no collections', async() => {
+            const wrapper = factory();
+
+            await wrapper.vm.fetch();
+
+            expect(wrapper.vm.collections).toEqual([]);
+          });
+        });
+      });
+    });
+
+    describe('beforeDestroy', () => {
+      it('triggers `draw` to hide component', async() => {
+        const wrapper = factory();
+        wrapper.vm.draw = sinon.spy();
+
+        await wrapper.destroy();
+
+        expect(wrapper.vm.draw.calledWith('hide')).toBe(true);
       });
     });
   });
