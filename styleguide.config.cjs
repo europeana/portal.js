@@ -54,6 +54,10 @@ module.exports = async() => {
         name: 'Components',
         sections: [
           {
+            name: 'Page',
+            components: './src/components/[A-Z]*.vue'
+          },
+          {
             name: 'Account',
             components: './src/components/account/[A-Z]*.vue'
           },
@@ -68,6 +72,10 @@ module.exports = async() => {
           {
             name: 'Item',
             components: './src/components/item/[A-Z]*.vue'
+          },
+          {
+            name: 'Related',
+            components: './src/components/related/[A-Z]*.vue'
           },
           {
             name: 'Search',

@@ -10,14 +10,24 @@ Vue.use(VueI18n);
 Vue.use(BootstrapVue);
 Vue.use(VueMasonryPlugin);
 // Vue.use(VueRouter);
+Vue.directive('visible-on-scroll', () => {});
 
 Vue.prototype.$path = () => {
   return '/';
 };
+Vue.prototype.$route = () => ({}),
+Vue.prototype.$link = {
+  to: route => route,
+  href: () => null
+};
 Vue.prototype.$store = {
   state: {
+    auth: { loggedIn: false },
     entity: { pinned: [] },
-    search: { liveQueries: [] },
+    search: {
+      liveQueries: [],
+      showSearchBar: false
+    },
     set: { liked: [] }
   },
   getters: {
@@ -25,6 +35,10 @@ Vue.prototype.$store = {
     'search/formatFacetFieldLabel': (name, value) => value,
     'set/isLiked': () => {}
   },
+  mutations: {
+    'search/setShowSearchBar': (state, value) => state.search.showSearchBar = value
+  },
+  commit: () => {},
   dispatch: () => {}
 };
 Vue.prototype.$auth = {};

@@ -154,6 +154,7 @@ export default {
     "left": "Left",
     "right": "Right"
   },
+  "editorialContentYouMayLike": "Editorial content you may like",
   "edmIsShownAtLinkAlt": "View at the provider's website",
   "entity": {
     "actions": {
@@ -720,7 +721,9 @@ export default {
     "searchForEverything": "Search for everything",
     "searchForEverythingInCollection": "Search for everything in {collection}",
     "searchForEverythingInEntireCollection": "Search for everything in our entire collection",
-    "showSidebar": "Show Menu"
+    "searchForm": "Search form",
+    "showSidebar": "Show Menu",
+    "sideNavigation": "Side navigation"
   },
   "homeLinkAlt": "Europeana home",
   "imageSlider": {

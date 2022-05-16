@@ -10,19 +10,9 @@
     <div
       v-if="showSearch"
       class="d-flex justify-content-center w-100"
+      data-qa="search form wrapper"
     >
-      <b-button
-        data-qa="back button"
-        class="button-icon-only icon-back"
-        variant="light-flat"
-        :aria-label="$t('header.backToMenu')"
-        @click="toggleSearchBar"
-      />
-      <SearchForm
-        role="search"
-        aria-label="search form"
-        data-qa="search form"
-      />
+      <SearchForm />
     </div>
     <template
       v-else
@@ -60,6 +50,7 @@
           data-qa="top navigation"
         />
         <b-button
+          id="show-search-button"
           data-qa="show search button"
           class="button-icon-only icon-search ml-lg-3"
           variant="light-flat"
@@ -74,7 +65,7 @@
         no-header
         backdrop
         backdrop-variant="black"
-        aria-label="Side navigation"
+        :aria-label="$t('header.sideNavigation')"
       >
         <b-navbar
           class="sidebar-nav align-items-start flex-column pt-1 pl-2 pb-4 pr-2"
@@ -137,7 +128,7 @@
     },
 
     computed: {
-      ...mapState({ showSearch: state => state.search.showSearchBar      })
+      ...mapState({ showSearch: state => state.search.showSearchBar })
     },
 
     methods: {
@@ -192,13 +183,6 @@
       flex-direction: column;
       width: 100%;
     }
-  }
-
-  .icon-back {
-    position: absolute;
-    left: 1rem;
-    top: 1rem;
-    z-index: 99;
   }
 
   .navbar-toggle {
@@ -263,3 +247,9 @@
   }
 
 </style>
+
+<docs lang="md">
+  ```jsx
+  <PageHeader style="position: relative;"/>
+  ```
+</docs>
