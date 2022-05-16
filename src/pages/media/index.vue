@@ -8,7 +8,6 @@
 
 <script>
   import { requiresDashJS } from '../../plugins/media';
-  import { apiConfig } from '@/plugins/europeana/utils.js';
 
   export default {
     name: 'MediaPage',
