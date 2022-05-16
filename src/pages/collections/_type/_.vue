@@ -91,7 +91,7 @@
   import ClientOnly from 'vue-client-only';
   import SearchInterface from '@/components/search/SearchInterface';
 
-  import { themes } from '@/plugins/europeana/themes';
+  import themes from '@/plugins/europeana/themes';
   import {
     getEntitySlug, getEntityUri, getEntityQuery, normalizeEntityId
   } from '@/plugins/europeana/entity';

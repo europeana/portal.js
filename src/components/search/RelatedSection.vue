@@ -11,7 +11,7 @@
 
 <script>
   import RelatedCollections from '../generic/RelatedCollections';
-  import { themeOverrides } from '@/plugins/europeana/themes';
+  import { withEditorialContent } from '@/plugins/europeana/themes';
 
   export default {
     name: 'RelatedSection',
@@ -57,7 +57,7 @@
           language: this.$i18n.locale,
           rows: 4
         }).then((related) => {
-          return themeOverrides(this, related);
+          return withEditorialContent(this, related);
         });
       }
     }

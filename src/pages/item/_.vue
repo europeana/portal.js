@@ -119,7 +119,7 @@
   import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
   import similarItemsQuery from '@/plugins/europeana/record/similar-items';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
-  import { themeOverrides } from '@/plugins/europeana/themes';
+  import { withEditorialContent } from '@/plugins/europeana/themes';
   import stringify from '@/mixins/stringify';
 
   export default {
@@ -330,7 +330,7 @@
       fetchRelatedEntities() {
         return this.$apis.entity.find(this.europeanaEntityUris.slice(0, 5))
           .then(entities => entities.map(entity => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo'])))
-          .then(reduced => themeOverrides(this, reduced))
+          .then(reduced => withEditorialContent(this, reduced))
           .then(reducedWithOverrides => this.$store.commit('item/setRelatedEntities', reducedWithOverrides));
       },
 

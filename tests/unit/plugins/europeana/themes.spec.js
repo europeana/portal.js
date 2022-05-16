@@ -1,4 +1,4 @@
-import { themes, themeOverrides } from '@/plugins/europeana/themes';
+import themes, { withEditorialContent } from '@/plugins/europeana/themes';
 import sinon from 'sinon';
 
 const themesData = [
@@ -66,14 +66,14 @@ describe('describe./@/plugins/europeana/themes', () => {
     sinon.resetHistory();
   });
 
-  describe('themeOverrides()', () => {
+  describe('withEditorialContent()', () => {
     describe('when curatedEntites are not yet stored', () => {
       beforeEach(() => {
         stubbedContext.$store.state.entity.curatedEntities = null;
       });
 
       it('gets the curatedEntities and stores them, overrides the passed property with those from contentful', async() => {
-        const withOverrides = await themeOverrides(stubbedContext, themesData);
+        const withOverrides = await withEditorialContent(stubbedContext, themesData);
         const expectedOverrides = themesData;
         expectedOverrides[3].prefLabel = { en: 'Manuscripts' };
         expectedOverrides[2].contentfulImage = {
@@ -93,7 +93,7 @@ describe('describe./@/plugins/europeana/themes', () => {
       });
 
       it('does not re-retrieve or store the curatedEntities, overrides the passed property with those from the store', async() => {
-        const withOverrides = await themeOverrides(stubbedContext, themesData);
+        const withOverrides = await withEditorialContent(stubbedContext, themesData);
         const expectedOverrides = themesData;
         expectedOverrides[3].prefLabel = { en: 'Manuscripts' };
 

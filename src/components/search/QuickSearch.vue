@@ -14,7 +14,7 @@
 <script>
   import RelatedCollections from '../generic/RelatedCollections';
   import { getEntityUri } from '@/plugins/europeana/entity';
-  import { themes, themeOverrides } from '@/plugins/europeana/themes';
+  import themes, { withEditorialContent } from '@/plugins/europeana/themes';
   import { mapState } from 'vuex';
 
   export default {
@@ -37,7 +37,7 @@
 
     async fetch() {
       if (this.allThemes.length === 0) {
-        const themesForStore = await themeOverrides(this, themes.map((theme) => {
+        const themesForStore = await withEditorialContent(this, themes.map((theme) => {
           return { id: getEntityUri('topic', theme.id) };
         }));
         this.$store.commit('search/set', ['allThemes', themesForStore]);
