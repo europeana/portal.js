@@ -1,9 +1,7 @@
-import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
+import { ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX } from './data';
 import { apiError, createKeycloakAuthAxios } from './utils';
 
 export const BASE_URL = process.env.EUROPEANA_SET_API_URL || 'https://api.europeana.eu/set';
-
-const EUROPEANA_DATA_ITEM_PREFIX = `${EUROPEANA_DATA_URL}/item`;
 
 const setIdFromUri = (uri) => uri.split('/').pop();
 
@@ -21,22 +19,18 @@ export default (context = {}) => {
         const response = await $axios.get('/search', { params: { ...$axios.defaults.params, ...params } });
 
         if (options.withMinimalItemPreviews && response.data.items) {
-          const itemIdentifiers = response.data.items
-            .filter(set => set.items)
-            .map(set => set.items[0])
-            .map(uri => uri.replace(EUROPEANA_DATA_ITEM_PREFIX, ''));
-          const itemQuery = `europeana_id:("${itemIdentifiers.join('" OR "')}")`;
-          const searchResponse = await context.$apis.record.search({
-            query: itemQuery,
+          const itemUris = response.data.items.filter(set => set.items).map(set => set.items[0]);
+
+          const minimalItemPreviews = await context.$apis.record.find(itemUris, {
             profile: 'minimal',
-            rows: 100,
-            qf: ['contentTier:*']
+            rows: 100
           });
+
           for (const set of response.data.items) {
             if (set.items) {
               set.items = set.items.map(uri => {
-                const itemId = uri.replace(EUROPEANA_DATA_ITEM_PREFIX, '');
-                return searchResponse.items.find(item => item.id === itemId) || { itemId };
+                const itemId = uri.replace(EUROPEANA_DATA_URL_ITEM_PREFIX, '');
+                return minimalItemPreviews.items.find(item => item.id === itemId) || { itemId };
               });
             }
           }
@@ -64,10 +58,13 @@ export default (context = {}) => {
     /**
      * Get a set with given id
      * @param {string} id the set's id
-     * @param {Object} params retrieval options
+     * @param {Object} params retrieval params
      * @param {string} params.profile the set's metadata profile minimal/standard/itemDescriptions
+     * @param {Object} options retrieval options
+     * @param {Boolean} options.withMinimalItems retrieve minimal item metadata from Record API
      * @return {Object} the set's object, containing the requested window of the set's items
      */
+    // TODO: pagination for sets with > 100 items
     async get(id, params = {}, options = {}) {
       const defaults = {
         profile: 'standard'
@@ -79,16 +76,18 @@ export default (context = {}) => {
         const set = response.data;
 
         if (options.withMinimalItems && set.items) {
-          const itemIdentifiers = set.items.map(uri => uri.replace(EUROPEANA_DATA_ITEM_PREFIX, ''));
-          const itemQuery = `europeana_id:("${itemIdentifiers.join('" OR "')}")`;
-          const searchResponse = await context.$apis.record.search({
-            query: itemQuery,
+          const unpublishedItemDcTitleLangAware = { [context.i18n.locale]: [context.i18n.t('record.status.unpublished')] };
+
+          const minimalItems = await context.$apis.record.find(set.items, {
             profile: 'minimal',
-            rows: 100,
-            qf: ['contentTier:*']
+            rows: 100
           });
-          const dcTitleLangAware = { en: [context.i18n.t('record.status.unpublished')] };
-          set.items = itemIdentifiers.map(itemId => searchResponse.items.find(item => item.id === itemId) || { id: itemId, dcTitleLangAware });
+
+          set.items = set.items.map(uri => {
+            const itemId = uri.replace(EUROPEANA_DATA_URL_ITEM_PREFIX, '');
+            return minimalItems.items.find(item => item.id === itemId) ||
+              { id: itemId, dcTitleLangAware: unpublishedItemDcTitleLangAware };
+          });
         }
 
         return set;
