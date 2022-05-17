@@ -29,6 +29,14 @@
               </client-only>
             </template>
           </SearchInterface>
+          <client-only>
+            <b-container class="px-0">
+              <RelatedEditorial
+                v-if="searchQuery"
+                :query="searchQuery"
+              />
+            </b-container>
+          </client-only>
         </b-col>
       </b-row>
     </b-container>
@@ -45,6 +53,7 @@
     components: {
       ClientOnly,
       SearchInterface,
+      RelatedEditorial: () => import('@/components/related/RelatedEditorial'),
       RelatedSection: () => import('@/components/search/RelatedSection'),
       SideFilters: () => import('@/components/search/SideFilters')
     },
