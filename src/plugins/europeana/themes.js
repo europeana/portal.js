@@ -46,9 +46,6 @@ export const withEditorialContent = async({ $store, $i18n, $route, $contentful }
   return entities.map(theme => {
     const contentfulData = curatedEntities.find((curatedEntity) => curatedEntity.identifier === theme.id) || {};
     const override = {};
-    if (contentfulData.identifier) {
-      override.id = contentfulData.identifier;
-    }
     if (contentfulData.name) {
       override.prefLabel = { [$i18n.locale]: contentfulData.name };
       override.prefLabel.en = contentfulData.nameEN;
