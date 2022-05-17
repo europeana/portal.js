@@ -47,12 +47,22 @@
           />
         </b-col>
       </b-row>
-      <client-only>
-        <RelatedCollections
-          :entity-uris="relatedLink"
-          :title="$t('youMightAlsoLike')"
-        />
-      </client-only>
+      <b-row
+        v-if="relatedLink"
+        class="justify-content-center"
+      >
+        <b-col
+          cols="12"
+          class="mt-3 col-lg-8"
+        >
+          <client-only>
+            <RelatedCollections
+              :entity-uris="relatedLink"
+              :title="$t('youMightAlsoLike')"
+            />
+          </client-only>
+        </b-col>
+      </b-row>
       <b-row class="footer-margin" />
     </b-container>
   </div>
