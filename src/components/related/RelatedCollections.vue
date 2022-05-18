@@ -1,6 +1,6 @@
 <template>
   <b-container
-    v-if="relatedCollections.length > 0"
+    v-show="collections.length > 0"
     data-qa="related collections"
     class="related-collections"
   >
@@ -12,10 +12,9 @@
       :class="{ 'flex-wrap': wrap }"
     >
       <LinkBadge
-        v-for="relatedCollection in relatedCollections"
+        v-for="relatedCollection in collections"
         :id="relatedCollection.id"
         :key="relatedCollection.id"
-        ref="options"
         :link-to="linkGen(relatedCollection)"
         :title="relatedCollection.prefLabel ? relatedCollection.prefLabel : relatedCollection.name"
         :img="imageUrl(relatedCollection)"
@@ -27,10 +26,11 @@
 </template>
 
 <script>
-  import { BASE_URL as EUROPEANA_DATA_URL } from '../../plugins/europeana/data';
-  import { getEntityTypeHumanReadable, getEntitySlug } from '../../plugins/europeana/entity';
+  import pick from 'lodash/pick';
+  import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
+  import { getEntityTypeHumanReadable, getEntitySlug } from '@/plugins/europeana/entity';
 
-  import LinkBadge from './LinkBadge';
+  import LinkBadge from '../generic/LinkBadge';
 
   export default {
     name: 'RelatedCollections',
@@ -48,6 +48,10 @@
         type: Array,
         default: () => []
       },
+      entityUris: {
+        type: Array,
+        default: () => []
+      },
       badgeVariant: {
         type: String,
         default: 'secondary'
@@ -56,6 +60,21 @@
         type: Boolean,
         default: true
       }
+    },
+
+    data() {
+      return {
+        collections: this.relatedCollections
+      };
+    },
+
+    async fetch() {
+      if (this.entityUris.length === 0 || this.relatedCollections.length > 0) {
+        return;
+      }
+
+      const entities = await this.$apis.entity.find(this.entityUris);
+      this.collections = entities.map(entity => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo']));
     },
 
     mounted() {
@@ -72,14 +91,17 @@
 
     methods: {
       draw(showOrHide) {
-        this.$emit(showOrHide || (this.relatedCollections.length > 0 ? 'show' : 'hide'));
+        this.$emit(showOrHide || (this.collections.length > 0 ? 'show' : 'hide'));
         this.$nextTick(() => {
           this.$redrawVueMasonry && this.$redrawVueMasonry();
         });
       },
 
       linkGen(collection) {
-        const uriMatch = collection.id.match(`^${EUROPEANA_DATA_URL}/([^/]+)(/base)?/(.+)$`);
+        const uriMatch = collection.id?.match(`^${EUROPEANA_DATA_URL}/([^/]+)(/base)?/(.+)$`);
+        if (!uriMatch) {
+          return null;
+        }
 
         return this.$path({
           name: 'collections-type-all', params: {

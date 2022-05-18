@@ -12,7 +12,7 @@
 </template>
 
 <script>
-  import RelatedCollections from '../generic/RelatedCollections';
+  import RelatedCollections from '../related/RelatedCollections';
   import { getEntityUri } from '@/plugins/europeana/entity';
   import themes, { withEditorialContent } from '@/plugins/europeana/themes';
   import { mapState } from 'vuex';

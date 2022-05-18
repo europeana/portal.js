@@ -113,6 +113,11 @@ export default {
         },
         entityManagement: {
           url: process.env.EUROPEANA_ENTITY_MANAGEMENT_API_URL
+        },
+        iiifPresentation: {
+          media: {
+            url: process.env.EUROPEANA_MEDIA_IIIF_PRESENTATION_API_URL || 'https://iiif.europeana.eu/presentation'
+          }
         }
       },
       proxy: {
