@@ -501,7 +501,7 @@ describe('plugins/europeana/record', () => {
         .query(query => {
           return query.profile === 'minimal' &&
             !query.qf &&
-            query.query === 'europeana_id:("/123/abc" OR "/123/def")'
+            query.query === 'europeana_id:("/123/abc" OR "/123/def")';
         })
         .reply(200);
 
@@ -517,7 +517,7 @@ describe('plugins/europeana/record', () => {
         .query(query => {
           return query.profile === 'minimal' &&
             !query.qf &&
-            query.query === 'europeana_id:("/123/abc" OR "/123/def")'
+            query.query === 'europeana_id:("/123/abc" OR "/123/def")';
         })
         .reply(200);
 
