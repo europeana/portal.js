@@ -253,7 +253,7 @@
         }
 
         &.icon-logout::before {
-          content: '\e927';
+          content: '\e950';
         }
 
         &.icon-settings::before {
