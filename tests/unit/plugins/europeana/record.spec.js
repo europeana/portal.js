@@ -515,13 +515,13 @@ describe('plugins/europeana/record', () => {
       nock(BASE_URL)
         .get('/search.json')
         .query(query => {
-          return query.profile === 'minimal' &&
+          return !query.profile &&
             !query.qf &&
             query.query === 'europeana_id:("/123/abc" OR "/123/def")';
         })
         .reply(200);
 
-      await record().find(uris, { profile: 'minimal' });
+      await record().find(uris);
 
       expect(nock.isDone()).toBe(true);
     });
