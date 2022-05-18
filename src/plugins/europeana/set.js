@@ -14,6 +14,12 @@ export default (context = {}) => {
   return {
     $axios,
 
+    /**
+     * Search for user sets
+     * @param {Object} params retrieval params to send to Set API search method
+     * @param {Object} options retrieval options
+     * @param {Boolean} options.withMinimalItemPreviews retrieve minimal item metadata from Record API for first item in each set
+     */
     async search(params, options = {}) {
       try {
         const response = await $axios.get('/search', { params: { ...$axios.defaults.params, ...params } });
@@ -30,7 +36,7 @@ export default (context = {}) => {
             if (set.items) {
               set.items = set.items.map(uri => {
                 const itemId = uri.replace(EUROPEANA_DATA_URL_ITEM_PREFIX, '');
-                return minimalItemPreviews.items.find(item => item.id === itemId) || { itemId };
+                return minimalItemPreviews.items.find(item => item.id === itemId) || { id: itemId };
               });
             }
           }
