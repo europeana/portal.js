@@ -18,13 +18,14 @@
       :hero="hero"
       :authors="post.authorCollection.items.length > 0 ? post.authorCollection.items : null"
       :tags="post.keywords"
+      :related-link="post.relatedLink"
     />
   </div>
 </template>
 
 <script>
   import { mapGetters } from 'vuex';
-  import BlogPost from '../../components/blog/BlogPost';
+  import BlogPost from '@/components/blog/BlogPost';
 
   export default {
     name: 'BlogPostPage',

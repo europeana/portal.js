@@ -10,7 +10,7 @@
 </template>
 
 <script>
-  import RelatedCollections from '../generic/RelatedCollections';
+  import RelatedCollections from '../related/RelatedCollections';
 
   export default {
     name: 'RelatedSection',

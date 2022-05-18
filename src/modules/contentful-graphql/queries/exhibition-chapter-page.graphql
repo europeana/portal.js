@@ -19,6 +19,7 @@ query ExhibitionChapterPage(
         name
         description
       }
+      relatedLink
       hasPartCollection(limit: 40) {
         items {
           name
