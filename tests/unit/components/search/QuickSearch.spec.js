@@ -14,6 +14,7 @@ const contentfulResponse = {
         items: [
           {
             name: 'World War I',
+            nameEN: 'World War I',
             identifier: 'http://data.europeana.eu/concept/base/83',
             genre: 'ww1',
             primaryImageOfPage: {
@@ -25,6 +26,7 @@ const contentfulResponse = {
           },
           {
             name: 'Manuscripts',
+            nameEN: 'Manuscripts',
             identifier: 'http://data.europeana.eu/concept/base/17',
             genre: 'manuscript'
           }

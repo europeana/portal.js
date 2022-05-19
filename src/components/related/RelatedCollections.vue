@@ -29,6 +29,8 @@
   import pick from 'lodash/pick';
   import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
   import { getEntityTypeHumanReadable, getEntitySlug } from '@/plugins/europeana/entity';
+  import { urlIsContentfulAsset, optimisedSrcForContentfulAsset } from '@/plugins/contentful-utils';
+  import { withEditorialContent } from '@/plugins/europeana/themes';
 
   import LinkBadge from '../generic/LinkBadge';
 
@@ -74,7 +76,7 @@
       }
 
       const entities = await this.$apis.entity.find(this.entityUris);
-      this.collections = entities.map(entity => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo']));
+      this.collections = await withEditorialContent(this, entities.map(entity => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo'])));
     },
 
     mounted() {
@@ -112,6 +114,9 @@
       },
 
       imageUrl(collection) {
+        if (collection.contentfulImage && urlIsContentfulAsset(collection.contentfulImage.url)) {
+          return optimisedSrcForContentfulAsset(collection.contentfulImage, 40, 80);
+        }
         return this.$apis.entity.imageUrl(collection);
       }
     }

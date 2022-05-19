@@ -164,7 +164,7 @@
         this.$apis.entity.get(this.$route.params.type, this.$route.params.pathMatch),
         fetchEntityManagement ? this.$apis.entityManagement.get(this.$route.params.type, this.$route.params.pathMatch) : () => null,
         fetchCuratedEntities ? this.$contentful.query('curatedEntities', contentfulVariables) : () => null,
-        fetchEntityPage ? this.$contentful.query('collectionPage', { ...contentfulVariables, ...{ identifier: entityUri } }) : () => null
+        fetchEntityPage ? this.$contentful.query('collectionPage', { ...contentfulVariables, identifier: entityUri }) : () => null
       ])
         .then(responses => {
           this.$store.commit('entity/setEntity', pick(responses[0].entity, [

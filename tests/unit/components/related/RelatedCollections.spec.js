@@ -40,16 +40,48 @@ const relatedCollections = [
     }
   },
   {
-    id: 'http://data.europeana.eu/concept/base/207',
+    id: 'http://data.europeana.eu/concept/base/55',
     prefLabel: {
-      en: 'Byzantine art'
+      en: 'Textile'
     }
   }
 ];
+
+const contentfulResponse = {
+  data: {
+    data: {
+      curatedEntities: {
+        items: [
+          {
+            name: 'Mode',
+            nameEN: 'Fashion',
+            identifier: 'http://data.europeana.eu/concept/base/55',
+            genre: 'fashion',
+            primaryImageOfPage: {
+              image: {
+                url: 'https://images.ctfassets.net/i01duvb6kq77/792bNsvUU5gai7bWidjZoz/1d6ce46c91d5fbcd840e8cf8bfe376a3/206_item_QCZITS4J5WNRUS7ESLVJH6PSOCRHBPMI.jpg',
+                contentType: 'image/jpeg'
+              }
+            }
+          },
+          {
+            name: 'Manuscripts',
+            identifier: 'http://data.europeana.eu/concept/base/17',
+            genre: 'manuscript'
+          }
+        ]
+      }
+    }
+  }
+};
+
+const contentfulQuery = sinon.stub().resolves(contentfulResponse);
+const storeCommit = sinon.spy();
+
 const entityApiFindResponse = relatedCollections.slice(1);
 const entityUris = entityApiFindResponse.map(entity => entity.id);
 
-const factory = ({ propsData, mocks } = {}) => {
+const factory = ({ propsData, mocks, storeData } = {}) => {
   return shallowMountNuxt(RelatedCollections, {
     localVue,
     propsData: {
@@ -64,11 +96,26 @@ const factory = ({ propsData, mocks } = {}) => {
           find: sinon.stub().resolves(entityApiFindResponse)
         }
       },
-      $i18n: { locale: 'de' },
+      $i18n: {
+        locale: 'de',
+        isoLocale: () => 'de-DE'
+      },
       $t: () => {},
       $fetch: () => {},
       $path: (args) => {
         return `${args.params.type} - ${args.params.pathMatch}`;
+      },
+      $route: { query: { mode: null } },
+      $store: {
+        state: {
+          entity: {
+            curatedEntities: storeData?.curatedEntities
+          }
+        },
+        commit: storeCommit
+      },
+      $contentful: {
+        query: contentfulQuery
       },
       $link: {
         to: route => route,
@@ -140,20 +187,73 @@ describe('components/related/RelatedCollections', () => {
         describe('but entity URIs are supplied', () => {
           const propsData = { entityUris };
 
-          it('queries the Entity API', async() => {
-            const wrapper = factory({ propsData });
+          describe('when contentful theme/editorial overrides are stored', () => {
+            const storeData = {
+              curatedEntities: contentfulResponse.data.data.curatedEntities.items
+            };
+            it('queries the Entity API, does NOT re-query contentful or update stored values', async() => {
+              const wrapper = factory({ propsData, storeData });
 
-            await wrapper.vm.fetch();
+              await wrapper.vm.fetch();
 
-            expect(wrapper.vm.$apis.entity.find.calledWith(entityUris)).toBe(true);
+              expect(wrapper.vm.$apis.entity.find.calledWith(entityUris)).toBe(true);
+              expect(contentfulQuery.called).toBe(false);
+              expect(storeCommit.calledWith('entity/setCuratedEntities', sinon.match.any)).toBe(false);
+            });
+
+            it('uses the API response, and stored overrides', async() => {
+              const expected = entityApiFindResponse;
+              expected[2] = {
+                contentfulImage: {
+                  contentType: 'image/jpeg',
+                  url: 'https://images.ctfassets.net/i01duvb6kq77/792bNsvUU5gai7bWidjZoz/1d6ce46c91d5fbcd840e8cf8bfe376a3/206_item_QCZITS4J5WNRUS7ESLVJH6PSOCRHBPMI.jpg'
+                },
+                id: 'http://data.europeana.eu/concept/base/55',
+                prefLabel: {
+                  de: 'Mode',
+                  en: 'Fashion'
+                }
+              };
+
+              const wrapper = factory({ propsData, storeData });
+
+              await wrapper.vm.fetch();
+
+              expect(wrapper.vm.collections).toEqual(expected);
+            });
           });
 
-          it('uses the response', async() => {
-            const wrapper = factory({ propsData });
+          describe('without theme/editorial overrides stored', () => {
+            it('queries the Entity API, queries contentful and updates stored values', async() => {
+              const wrapper = factory({ propsData });
 
-            await wrapper.vm.fetch();
+              await wrapper.vm.fetch();
 
-            expect(wrapper.vm.collections).toEqual(entityApiFindResponse);
+              expect(wrapper.vm.$apis.entity.find.calledWith(entityUris)).toBe(true);
+              expect(contentfulQuery.called).toBe(true);
+              expect(storeCommit.calledWith('entity/setCuratedEntities', sinon.match.any)).toBe(true);
+            });
+
+            it('uses the API response, and fetched overrides', async() => {
+              const expected = entityApiFindResponse;
+              expected[2] = {
+                contentfulImage: {
+                  contentType: 'image/jpeg',
+                  url: 'https://images.ctfassets.net/i01duvb6kq77/792bNsvUU5gai7bWidjZoz/1d6ce46c91d5fbcd840e8cf8bfe376a3/206_item_QCZITS4J5WNRUS7ESLVJH6PSOCRHBPMI.jpg'
+                },
+                id: 'http://data.europeana.eu/concept/base/55',
+                prefLabel: {
+                  de: 'Mode',
+                  en: 'Fashion'
+                }
+              };
+
+              const wrapper = factory({ propsData });
+
+              await wrapper.vm.fetch();
+
+              expect(wrapper.vm.collections).toEqual(expected);
+            });
           });
         });
 

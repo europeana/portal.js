@@ -17,6 +17,7 @@
 </template>
 
 <script>
+  import { urlIsContentfulAsset, optimisedSrcForContentfulAsset } from '@/plugins/contentful-utils';
   export default {
     name: 'OptimisedImage',
 
@@ -69,36 +70,11 @@
         return Math.round(this.optimisedWidth / this.aspectRatio);
       },
 
-      forContentfulAsset() {
-        const hostnameMatch = this.src.match(/\/\/([^/]+)\//);
-        return hostnameMatch && (hostnameMatch[1] === 'images.ctfassets.net');
-      },
-
       optimisedSrc() {
-        if (typeof this.contentType !== 'string') {
+        if (typeof this.contentType !== 'string' || !urlIsContentfulAsset(this.src)) {
           return this.src;
         }
-
-        let imageUrl = this.src;
-        const imageQueryParams = [];
-
-        if (this.forContentfulAsset) {
-          // TODO: are optimisations possible on any other content types?
-          if (this.contentType === 'image/jpeg') {
-            imageQueryParams.push('fm=jpg&fl=progressive');
-            imageQueryParams.push(`q=${this.quality}`);
-          }
-
-          if (this.maxWidth) {
-            imageQueryParams.push(`w=${this.maxWidth}`);
-          }
-        }
-
-        if (imageQueryParams.length > 0) {
-          imageUrl += '?' + imageQueryParams.join('&');
-        }
-
-        return imageUrl;
+        return optimisedSrcForContentfulAsset({ url: this.src, contentType: this.contentType }, this.maxWidth, this.quality);
       }
     }
   };
