@@ -376,128 +376,85 @@
   @import '@/assets/scss/variables';
   @import '@/assets/scss/icons';
 
-  .open {
-    width: 100%;
-    position: relative;
-  }
+  .top-search {
+    &.open {
+      width: 100%;
 
-  .suggestions-open {
-    box-shadow: $boxshadow-light;
-  }
+      .form-inline {
+        align-items: flex-start;
+        width: auto;
 
-  .auto-suggest-dropdown {
-    width: 100%;
-    border-radius: 0 0 0.5rem 0.5rem;
-    background-color: $white;
-    overflow: hidden;
-    animation: appear 750ms ease-in-out;
-  }
+        .input-group {
+          width: 100%;
+          flex-wrap: nowrap;
+          height: 3.4rem;
+          box-shadow: 2px 2px 4px 0 rgba(0 0 0 / 8%);
 
-  @keyframes appear {
-    from {
-      max-height: 0;
+          .input-group-prepend {
+            display: none;
+          }
+        }
+
+        .form-control {
+          background-color: $white;
+          padding: 0.375rem 1rem 0.375rem 3.5rem;
+          height: 3.4rem;
+          box-shadow: none;
+          border-radius: 0;
+          color: $mediumgrey;
+          width: 100%;
+        }
+      }
+
+      .search-query {
+        box-shadow: $boxshadow-light;
+        width: 100%;
+        height: 3.5rem;
+        font-size: 1rem;
+        color: $mediumgrey;
+        display: flex;
+        align-items: center;
+        position: relative;
+        background: $white;
+
+        .search {
+          position: absolute;
+          width: 100%;
+          left: 0;
+          top: 0;
+          z-index: 99;
+          height: 3.5rem;
+          padding: 0.375rem 1rem 0.375rem 3.5rem;
+          justify-content: flex-start;
+
+          &:focus {
+            color: $black;
+            background-color: $offwhite;
+
+            ~ span {
+              z-index: 99;
+            }
+          }
+
+          &::before {
+            left: 1rem;
+            top: 1rem;
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+        }
+      }
     }
 
-    to {
-      max-height: 700px;
-    }
-  }
-
-  .form-inline {
-    background-color: $white;
-    font-size: 1rem;
-    padding-left: 2.5rem;
-    height: auto;
-    border-radius: 0.5rem;
-    width: 100%;
-
-    @at-root .suggestions-open & {
-      border-radius: 0.5rem 0.5rem 0 0;
-    }
-
-    &::before {
-      @extend %icon-font;
-
-      font-size: 1.1rem;
-      content: '\e92b';
+    .back-button {
+      position: absolute;
       left: 1rem;
       top: 1rem;
-      position: absolute;
-      width: 24px;
-      height: 24px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .input-group {
-      width: 100%;
-    }
-
-    .form-control {
-      padding: 1em;
-      background-color: $white;
-      height: auto;
-      color: $mediumgrey;
-      width: 100%;
-    }
-  }
-
-  .clear-button {
-    position: absolute;
-    right: 1rem;
-    top: 1rem;
-    z-index: 99;
-  }
-
-  .back-button {
-    position: absolute;
-    left: 1rem;
-    top: 1rem;
-    z-index: 99;
-  }
-
-  .icon-filter {
-    position: absolute;
-    right: 1rem;
-    top: 0;
-    z-index: 99;
-  }
-
-  .top-search {
-    .auto-suggest-dropdown {
-      display: block;
-      box-shadow: $boxshadow-light;
-      position: absolute;
-      top: 3.45rem;
-      z-index: 20;
-      border-radius: 0;
-      transition: $standard-transition;
-      animation: none;
-    }
-
-    .form-control {
-      padding: 0.375rem 1rem 0.375rem 3.5rem;
-      height: 3.4rem;
-      box-shadow: none;
-      border-radius: 0;
-    }
-
-    .form-inline {
-      padding-left: 0;
-      align-items: flex-start;
-      width: auto;
-      border-radius: 0;
-    }
-
-    .input-group {
-      flex-wrap: nowrap;
-      height: 3.4rem;
-      box-shadow: 2px 2px 4px 0 rgba(0 0 0 / 8%);
-
-      .input-group-prepend {
-        display: none;
-      }
+      z-index: 99;
     }
 
     .clear-button {
@@ -508,6 +465,146 @@
 
       @media (min-width: $bp-large) {
         right: 1rem;
+      }
+    }
+
+    .icon-filter {
+      position: absolute;
+      right: 1rem;
+      top: 0;
+      z-index: 99;
+    }
+
+    .auto-suggest-dropdown {
+      display: block;
+      box-shadow: $boxshadow-light;
+      position: absolute;
+      top: 3.45rem;
+      width: 100%;
+      z-index: 20;
+      border-radius: 0;
+      background-color: $white;
+      transition: $standard-transition;
+    }
+  }
+
+  .open:not(.top-search) {
+    width: 100%;
+    position: relative;
+
+    .auto-suggest-dropdown {
+      width: 100%;
+      border-radius: 0 0 0.5em 0.5em;
+      background-color: $white;
+      overflow: hidden;
+      animation: appear 750ms ease-in-out;
+
+      @media (min-width: $bp-extraextralarge) {
+        font-size: 1vw;
+      }
+    }
+
+    @keyframes appear {
+      from {
+        max-height: 0;
+      }
+
+      to {
+        max-height: 100vh;
+      }
+    }
+
+    .form-inline {
+      background-color: $white;
+      font-size: 1rem;
+      padding-left: 2.5em;
+      height: auto;
+      border-radius: 0.5em;
+      width: 100%;
+
+      @media (min-width: $bp-extraextralarge) {
+        font-size: 1vw;
+      }
+
+      &::before {
+        @extend %icon-font;
+
+        font-size: 1.1em;
+        content: '\e92b';
+        left: 1em;
+        top: 1em;
+        position: absolute;
+        width: 1.5em;
+        height: 1.5em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        @media (min-width: $bp-extraextralarge) {
+          font-size: 1vw;
+        }
+      }
+
+      .input-group {
+        width: 100%;
+      }
+
+      .form-control {
+        padding: 1em;
+        background-color: $white;
+        height: auto;
+        color: $mediumgrey;
+        width: 100%;
+
+        @media (min-width: $bp-extraextralarge) {
+          font-size: 1vw;
+        }
+      }
+    }
+
+    &.suggestions-open {
+      box-shadow: $boxshadow-light;
+
+      .form-inline {
+        border-radius: 0.5em 0.5em 0 0;
+      }
+    }
+
+    .clear-button {
+      position: absolute;
+      font-size: 1.5rem;
+      right: 0.75em;
+      top: 0.75em;
+      z-index: 99;
+      width: 1em;
+      height: 1em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      @media (min-width: $bp-extraextralarge) {
+        font-size: 1.5vw;
+      }
+    }
+
+    ::v-deep .list-group-item {
+      padding: 1em 1.25em 1em 3.4em;
+      font-size: 1rem;
+
+      @media (min-width: $bp-extraextralarge) {
+        font-size: 1vw;
+      }
+
+      &::before {
+        font-size: 1.1em;
+        left: 1em;
+        top: 1em;
+        width: 1.5em;
+        height: 1.5em;
+      }
+
+      &.list-item-quick-search {
+        padding: 0 1.25em 1.3125em;
       }
     }
   }
