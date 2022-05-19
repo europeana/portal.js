@@ -38,34 +38,35 @@
     },
 
     asyncData({ params, query, error, app }) {
-      if (!app.$features.newHomepage || (app.$features.newHomepage && params.pathMatch)) {
-        const variables = {
-          // TODO: clean up when new home is enabled
-          identifier: params.pathMatch ? params.pathMatch : 'home',
-          locale: app.i18n.isoLocale(),
-          preview: query.mode === 'preview'
-        };
-
-        return app.$contentful.query('browseStaticPage', variables)
-          .then(response => response.data.data)
-          .then(data => {
-            if (data.staticPageCollection.items.length > 0) {
-              const itemData = data.staticPageCollection.items[0];
-              itemData.staticPage = true;
-              return itemData;
-            } else if (data.browsePageCollection.items.length > 0) {
-              const itemData = data.browsePageCollection.items[0];
-              itemData.browsePage = true;
-              return itemData;
-            } else {
-              error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
-              return null;
-            }
-          })
-          .catch((e) => {
-            error({ statusCode: 500, message: e.toString() });
-          });
+      if (app.$features.newHomepage && !params.pathMatch) {
+        return;
       }
+      const variables = {
+        // TODO: clean up when new home is enabled
+        identifier: params.pathMatch ? params.pathMatch : 'home',
+        locale: app.i18n.isoLocale(),
+        preview: query.mode === 'preview'
+      };
+
+      return app.$contentful.query('browseStaticPage', variables)
+        .then(response => response.data.data)
+        .then(data => {
+          if (data.staticPageCollection.items.length > 0) {
+            const itemData = data.staticPageCollection.items[0];
+            itemData.staticPage = true;
+            return itemData;
+          } else if (data.browsePageCollection.items.length > 0) {
+            const itemData = data.browsePageCollection.items[0];
+            itemData.browsePage = true;
+            return itemData;
+          } else {
+            error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
+            return null;
+          }
+        })
+        .catch((e) => {
+          error({ statusCode: 500, message: e.toString() });
+        });
     },
 
     data() {
