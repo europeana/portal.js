@@ -28,6 +28,9 @@ $path.withArgs({
 
 const factory = (options = {}) => shallowMount(SearchForm, {
   localVue,
+  propsData: {
+    absoluteTopPositioned: true
+  },
   stubs: { ...options.stubs },
   mocks: {
     ...{
@@ -46,6 +49,9 @@ const factory = (options = {}) => shallowMount(SearchForm, {
 
 const fullFactory = () => mount(SearchForm, {
   localVue,
+  propsData: {
+    absoluteTopPositioned: true
+  },
   mocks: {
     $i18n: { locale: 'en' },
     $t: () => {},
