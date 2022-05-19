@@ -410,6 +410,7 @@
     height: auto;
     border-radius: 0.5rem;
     width: 100%;
+
     @at-root .suggestions-open & {
       border-radius: 0.5rem 0.5rem 0 0;
     }
