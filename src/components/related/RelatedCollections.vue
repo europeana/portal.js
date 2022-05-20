@@ -116,7 +116,7 @@
 
       imageUrl(collection) {
         if (collection.contentfulImage && urlIsContentfulAsset(collection.contentfulImage.url)) {
-          return optimisedSrcForContentfulAsset(collection.contentfulImage, 40, 80);
+          return optimisedSrcForContentfulAsset(collection.contentfulImage, 28, 80);
         }
         return this.$apis.entity.imageUrl(collection);
       }
