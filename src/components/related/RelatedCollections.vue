@@ -15,6 +15,7 @@
         v-for="relatedCollection in collections"
         :id="relatedCollection.id"
         :key="relatedCollection.id"
+        ref="options"
         :link-to="linkGen(relatedCollection)"
         :title="relatedCollection.prefLabel ? relatedCollection.prefLabel : relatedCollection.name"
         :img="imageUrl(relatedCollection)"
