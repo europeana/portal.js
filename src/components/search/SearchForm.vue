@@ -610,3 +610,11 @@
   }
 
 </style>
+
+<docs lang="md">
+  ```jsx
+    <div style="background-color: #ededed; margin: -16px; padding: 16px;">
+      <SearchForm />
+    </div>
+  ```
+</docs>

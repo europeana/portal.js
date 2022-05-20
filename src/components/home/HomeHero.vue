@@ -48,3 +48,9 @@
   }
 
 </style>
+
+<docs lang="md">
+  ```jsx
+    <HomeHero />
+  ```
+</docs>

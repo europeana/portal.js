@@ -70,6 +70,10 @@ module.exports = async() => {
             components: './src/components/generic/[A-Z]*.vue'
           },
           {
+            name: 'Home',
+            components: './src/components/home/[A-Z]*.vue'
+          },
+          {
             name: 'Item',
             components: './src/components/item/[A-Z]*.vue'
           },
