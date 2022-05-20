@@ -4,17 +4,32 @@ import storeModule from './store';
 
 const STORE_MODULE_NAME = 'axiosLogger';
 
-export default ({ store, app }, inject) => {
+export default ({ store, app, $config }, inject) => {
   if (store) {
     store.registerModule(STORE_MODULE_NAME, storeModule);
   }
 
   const requestInterceptor = config => {
-    let uri = axios.getUri(config);
+    const method = config.method.toUpperCase();
+
+    // Optionally, only log specific HTTP methods
+    if ($config?.axiosLogger?.httpMethods && !$config.axiosLogger.httpMethods.includes(method)) {
+      return config;
+    }
+
+    const params = {
+      ...config.params
+    };
+    // Optionally, clear certain URL params, e.g. to obscure API keys
+    for (const paramKey of ($config?.axiosLogger?.clearParams || [])) {
+      params[paramKey] = (paramKey in params) ? '' : null;
+    }
+
+    let uri = axios.getUri({ ...config, params });
     if (uri.startsWith('/') && config.baseURL) {
       uri = `${config.baseURL}${uri}`;
     }
-    const method = config.method.toUpperCase();
+
     store.commit(`${STORE_MODULE_NAME}/push`, { method, url: uri });
 
     return config;
@@ -22,7 +37,7 @@ export default ({ store, app }, inject) => {
 
   // TODO: do these route guards get duplicated being in this default export?
   app.router.beforeEach((to, from, next) => {
-    if (!store.state[STORE_MODULE_NAME].recording) {
+    if (!store.state[STORE_MODULE_NAME].recording && (to.path !== from.path)) {
       store.commit(`${STORE_MODULE_NAME}/reset`);
       store.commit(`${STORE_MODULE_NAME}/start`);
     }

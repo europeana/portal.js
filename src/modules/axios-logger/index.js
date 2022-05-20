@@ -9,7 +9,7 @@ export default function() {
   for (const template of templates) {
     this.addTemplate({
       src: path.resolve(__dirname, path.join('templates', template)),
-      fileName: path.join(MODULE_NAME, template.replace('.ejs', '.js'))
+      fileName: path.join(MODULE_NAME, template)
     });
   }
 

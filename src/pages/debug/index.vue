@@ -5,7 +5,9 @@
     />
     <b-row class="flex-md-row pb-5">
       <b-col cols="12">
-        <b-form>
+        <b-form
+          @submit.stop.prevent="submitForm"
+        >
           <b-form-checkbox
             v-model="settings.apiRequests"
             switch
@@ -13,6 +15,23 @@
           >
             {{ $t('debug.apiRequests') }}
           </b-form-checkbox>
+
+          <b-form-group
+            label="API key"
+            label-for="debug-input-api-key"
+          >
+            <b-form-input
+              v-model="settings.apiKey"
+              id="debug-input-api-key"
+            />
+          </b-form-group>
+
+          <b-button
+            type="submit"
+            variant="primary"
+          >
+            Save
+          </b-button>
         </b-form>
       </b-col>
     </b-row>
@@ -32,7 +51,8 @@
     data() {
       return {
         settings: { ...this.$store.getters['debug/settings'] },
-        title: this.$t('debug.debug')
+        title: this.$t('debug.debug'),
+        redirect: null
       };
     },
 
@@ -42,12 +62,16 @@
       };
     },
 
-    watch: {
-      settings: {
-        deep: true,
-        handler(value) {
-          this.$store.commit('debug/updateSettings', value);
-        }
+    beforeRouteEnter(to, from, next) {
+      next(vm => {
+        vm.redirect = from;
+      });
+    },
+
+    methods: {
+      submitForm() {
+        this.$store.commit('debug/updateSettings', this.settings);
+        this.$goto(this.redirect);
       }
     }
   };

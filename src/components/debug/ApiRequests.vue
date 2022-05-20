@@ -2,19 +2,13 @@
   <div
     data-qa="API requests"
   >
-    <b-button
-      v-b-modal.api-requests
-      variant="light"
-      data-qa="API requests modal button"
-    >
-      {{ title }}
-    </b-button>
     <b-modal
       id="api-requests"
       size="xl"
-      :title="title"
+      :title="$t('debug.apiRequests')"
       hide-footer
       data-qa="API requests modal"
+      @hide="hideModal"
     >
       <ol
         v-if="requests.length > 0"
@@ -47,17 +41,48 @@
 
 <script>
   export default {
-    props: {
-      requests: {
-        type: Array,
-        default: () => []
+    mounted() {
+      if (this.$route.hash === '#api-requests') {
+        this.$bvModal.show('api-requests');
       }
     },
 
-    data() {
-      return {
-        title: this.$t('debug.apiRequests')
-      };
+    computed: {
+      requests() {
+        if (!this.$store.getters['debug/settings']?.apiKey) {
+          return this.$store.state.axiosLogger.requests;
+        }
+
+        return this.$store.state.axiosLogger.requests.map((request) => {
+          const url = new URL(request.url);
+          if (url.searchParams.has('wskey')) {
+            url.searchParams.set('wskey', this.$store.getters['debug/settings'].apiKey);
+          }
+          return {
+            ...request,
+            url
+          };
+        });
+      }
+    },
+
+    watch: {
+      $route(to, from) {
+        this.$nextTick(() => {
+          if (to.hash === '#api-requests') {
+            this.$store.commit('debug/updateSettings', { ...this.$store.getters['debug/settings'], apiRequests: true });
+            this.$bvModal.show('api-requests');
+          }
+        });
+      }
+    },
+
+    methods: {
+      hideModal() {
+        if (this.$route.hash === '#api-requests') {
+          this.$nuxt.context.app.router.push({ ...this.$route, hash: undefined });
+        }
+      }
     }
   };
 </script>
