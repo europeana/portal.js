@@ -67,6 +67,15 @@
                 :sections="page.hasPartCollection.items"
               />
             </b-container>
+            <client-only>
+              <b-container class="px-0">
+                <RelatedEditorial
+                  v-if="entity"
+                  :entity-uri="entity.id"
+                  :query="$route.query.query"
+                />
+              </b-container>
+            </client-only>
           </b-col>
           <SideFilters
             :route="route"
@@ -95,10 +104,11 @@
       AlertMessage: () => import('@/components/generic/AlertMessage'),
       BrowseSections: () => import('@/components/browse/BrowseSections'),
       ClientOnly,
-      SearchInterface,
-      SideFilters: () => import('@/components/search/SideFilters'),
       EntityHeader: () => import('@/components/entity/EntityHeader'),
-      EntityRelatedCollections: () => import('@/components/entity/EntityRelatedCollections')
+      EntityRelatedCollections: () => import('@/components/entity/EntityRelatedCollections'),
+      RelatedEditorial: () => import('@/components/related/RelatedEditorial'),
+      SearchInterface,
+      SideFilters: () => import('@/components/search/SideFilters')
     },
 
     beforeRouteLeave(to, from, next) {
@@ -354,7 +364,10 @@
     },
     methods: {
       redirectToPrefPath() {
-        const entityName = this.page ? this.page.name : this.entity.prefLabel.en;
+        // FIXME: this is a temporary workaround until we always have the English name
+        //        in the context of editorial overrides from Contentful. EC-5719
+        // const entityName = this.page ? this.page.name : this.entity.prefLabel.en;
+        const entityName = this.entity.prefLabel.en;
         const desiredPath = getEntitySlug(this.entity.id, entityName);
         if (this.$route.params.pathMatch !== desiredPath) {
           const redirectPath = this.$path({

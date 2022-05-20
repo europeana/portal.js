@@ -127,7 +127,7 @@
       ItemHero: () => import('@/components/item/ItemHero'),
       AlertMessage: () => import('@/components/generic/AlertMessage'),
       ItemPreviewCardGroup: () => import('@/components/item/ItemPreviewCardGroup'),
-      RelatedCollections: () => import('@/components/generic/RelatedCollections'),
+      RelatedCollections: () => import('@/components/related/RelatedCollections'),
       SummaryInfo: () => import('@/components/item/SummaryInfo'),
       MetadataBox,
       ItemLanguageSelector: () => import('@/components/item/ItemLanguageSelector')

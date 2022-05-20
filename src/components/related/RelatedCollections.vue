@@ -1,6 +1,6 @@
 <template>
   <b-container
-    v-if="relatedCollections.length > 0"
+    v-show="collections.length > 0"
     data-qa="related collections"
     class="related-collections"
   >
@@ -8,8 +8,8 @@
       {{ title }}
     </h2>
     <div class="d-flex flex-wrap">
-      <RelatedChip
-        v-for="relatedCollection in relatedCollections"
+      <LinkBadge
+        v-for="relatedCollection in collections"
         :id="relatedCollection.id"
         :key="relatedCollection.id"
         :link-to="linkGen(relatedCollection)"
@@ -23,16 +23,17 @@
 </template>
 
 <script>
-  import { BASE_URL as EUROPEANA_DATA_URL } from '../../plugins/europeana/data';
-  import { getEntityTypeHumanReadable, getEntitySlug } from '../../plugins/europeana/entity';
+  import pick from 'lodash/pick';
+  import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
+  import { getEntityTypeHumanReadable, getEntitySlug } from '@/plugins/europeana/entity';
 
-  import RelatedChip from './RelatedChip';
+  import LinkBadge from '../generic/LinkBadge';
 
   export default {
     name: 'RelatedCollections',
 
     components: {
-      RelatedChip
+      LinkBadge
     },
 
     props: {
@@ -44,10 +45,29 @@
         type: Array,
         default: () => []
       },
+      entityUris: {
+        type: Array,
+        default: () => []
+      },
       badgeVariant: {
         type: String,
         default: 'secondary'
       }
+    },
+
+    data() {
+      return {
+        collections: this.relatedCollections
+      };
+    },
+
+    async fetch() {
+      if (this.entityUris.length === 0 || this.relatedCollections.length > 0) {
+        return;
+      }
+
+      const entities = await this.$apis.entity.find(this.entityUris);
+      this.collections = entities.map(entity => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo']));
     },
 
     mounted() {
@@ -64,7 +84,7 @@
 
     methods: {
       draw(showOrHide) {
-        this.$emit(showOrHide || (this.relatedCollections.length > 0 ? 'show' : 'hide'));
+        this.$emit(showOrHide || (this.collections.length > 0 ? 'show' : 'hide'));
         this.$nextTick(() => {
           this.$redrawVueMasonry && this.$redrawVueMasonry();
         });
@@ -76,13 +96,16 @@
 
         if (collection.id) {
           id = collection.id;
-          name = collection.prefLabel[this.$i18n.locale];
-        } else {
+          name = collection.prefLabel.en;
+        } else if (collection.identifier) {
           id = collection.identifier;
           name = collection.name;
         }
 
         const uriMatch = id.match(`^${EUROPEANA_DATA_URL}/([^/]+)(/base)?/(.+)$`);
+        if (!uriMatch) {
+          return null;
+        }
 
         return this.$path({
           name: 'collections-type-all', params: {

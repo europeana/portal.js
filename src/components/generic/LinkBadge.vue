@@ -4,25 +4,27 @@
     :href="$link.href(linkTo)"
     pill
     :variant="badgeVariant"
-    :class="{ 'img-chip': img }"
+    :class="{ 'img-chip': imageUrl }"
     :data-qa="localisedTitle.values[0] + ' related chip'"
     :lang="localisedTitle.code"
-    @click.native="trackClickEvent"
+    @click.native="handleClickEvent"
   >
     <div
-      v-if="img && type === 'Organization'"
+      v-if="imageUrl && type === 'Organization'"
       class="organisation-logo mr-2"
       data-qa="entity logo"
-      :style="`background-image: url(${img})`"
+      :style="`background-image: url(${imageUrl})`"
     />
     <b-img
-      v-else-if="img"
-      :src="img"
+      v-else-if="imageUrl"
+      :src="imageUrl"
       alt=""
       rounded="circle"
       class="mr-2"
+      @error="imageNotFound"
     />
     <span>{{ localisedTitle.values[0] }}</span>
+    <slot />
   </b-badge>
 </template>
 
@@ -30,12 +32,12 @@
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
 
   export default {
-    name: 'RelatedChip',
+    name: 'LinkBadge',
 
     props: {
       linkTo: {
-        type: String,
-        default: ''
+        type: [String, Object],
+        default: null
       },
       title: {
         type: [String, Object],
@@ -56,7 +58,17 @@
       badgeVariant: {
         type: String,
         default: 'secondary'
+      },
+      clickEventHandler: {
+        type: Function,
+        default: null
       }
+    },
+
+    data() {
+      return {
+        imageUrl: this.img
+      };
     },
 
     computed: {
@@ -72,10 +84,16 @@
     },
 
     methods: {
-      trackClickEvent() {
-        if (this.$matomo) {
+      handleClickEvent() {
+        if (this.clickEventHandler) {
+          this.clickEventHandler();
+        } else if (this.$matomo) {
           this.$matomo.trackEvent('Related_collections', 'Click related collection', this.linkTo);
         }
+      },
+
+      imageNotFound() {
+        this.imageUrl = '';
       }
     }
   };

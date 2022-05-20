@@ -27,6 +27,7 @@ query ExhibitionLandingPage(
         name
         description
       }
+      relatedLink
     }
   }
 }

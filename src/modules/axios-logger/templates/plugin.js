@@ -10,10 +10,12 @@ export default ({ store, app }, inject) => {
   }
 
   const requestInterceptor = config => {
-    const uri = axios.getUri(config);
-    const url = `${config.baseURL || ''}${uri}`;
+    let uri = axios.getUri(config);
+    if (uri.startsWith('/') && config.baseURL) {
+      uri = `${config.baseURL}${uri}`;
+    }
     const method = config.method.toUpperCase();
-    store.commit(`${STORE_MODULE_NAME}/push`, { method, url });
+    store.commit(`${STORE_MODULE_NAME}/push`, { method, url: uri });
 
     return config;
   };
