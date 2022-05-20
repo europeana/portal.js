@@ -16,7 +16,7 @@
 
     data() {
       return {
-        MEDIA_PLAYER_VERSION: '0.7.6',
+        MEDIA_PLAYER_VERSION: '0.8.0',
         JQUERY_VERSION: '3.4.1',
         JQUERY_UI_VERSION: '1.12.1',
         DASHJS_VERSION: '2.9.0',

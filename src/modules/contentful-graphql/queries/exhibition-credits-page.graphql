@@ -8,6 +8,7 @@ query ExhibitionCreditsPage(
       name
       identifier
       credits
+      relatedLink
       hasPartCollection(limit: 20) {
         items {
           identifier
