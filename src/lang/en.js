@@ -726,6 +726,9 @@ export default {
     "sideNavigation": "Side navigation"
   },
   "homeLinkAlt": "Europeana home",
+  "homePage": {
+    "title": "Discover European cultural heritage"
+  },
   "imageSlider": {
     "handle": "Slider Handle"
   },

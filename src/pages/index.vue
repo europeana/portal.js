@@ -1,7 +1,10 @@
 <template>
   <div>
+    <HomePage
+      v-if="isNewHomePage"
+    />
     <BrowsePage
-      v-if="browsePage"
+      v-else-if="browsePage"
       :name="name"
       :headline="headline"
       :description="description"
@@ -10,7 +13,7 @@
       :hero-image="heroImage"
     />
     <StaticPage
-      v-if="staticPage"
+      v-else-if="staticPage"
       :name="name"
       :description="description"
       :has-part-collection="hasPartCollection"
@@ -23,17 +26,23 @@
 <script>
   import BrowsePage from '../components/browse/BrowsePage';
   import StaticPage from '../components/static/StaticPage';
+  import HomePage from '../components/home/HomePage';
 
   export default {
-    name: 'BrowseOrStaticPage',
+    name: 'IndexPage',
 
     components: {
       BrowsePage,
-      StaticPage
+      StaticPage,
+      HomePage
     },
 
     asyncData({ params, query, error, app }) {
+      if (app.$features.newHomepage && !params.pathMatch) {
+        return;
+      }
       const variables = {
+        // TODO: clean up when new home is enabled
         identifier: params.pathMatch ? params.pathMatch : 'home',
         locale: app.i18n.isoLocale(),
         preview: query.mode === 'preview'
@@ -77,11 +86,11 @@
 
     head() {
       return {
-        title: this.$pageHeadTitle(this.name),
+        title: this.$pageHeadTitle(this.pageTitle),
         meta: [
           { hid: 'og:type', property: 'og:type', content: 'article' },
-          { hid: 'title', name: 'title', content: this.name },
-          { hid: 'og:title', property: 'og:title', content: this.name }
+          { hid: 'title', name: 'title', content: this.pageTitle },
+          { hid: 'og:title', property: 'og:title', content: this.pageTitle }
         ].concat(this.description ? [
           { hid: 'description', name: 'description', content: this.description },
           { hid: 'og:description', property: 'og:description', content: this.description }
@@ -93,8 +102,8 @@
     },
 
     computed: {
-      isHomePage() {
-        return this.identifier === 'home';
+      isNewHomePage() {
+        return this.$features.newHomepage && !this.$route.params.pathMatch;
       },
       socialMediaImage() {
         // use social media image if set in Contentful, otherwise use hero image, else null
@@ -114,6 +123,9 @@
       },
       heroImage() {
         return this.hero?.image || null;
+      },
+      pageTitle() {
+        return this.isNewHomePage ? this.$t('homePage.title') : this.name;
       }
     }
   };
