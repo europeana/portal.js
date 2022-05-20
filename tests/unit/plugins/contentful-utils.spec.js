@@ -3,7 +3,7 @@ import * as contentfulUtils from '@/plugins/contentful-utils';
 describe('plugins/contentful-utils', () => {
   describe('urlIsContentfulAsset', () => {
     it('is `true` for URLs on host images.ctfassets.net', () => {
-      const src = '//images.ctfassets.net/asset.jpeg';
+      const src = 'https://images.ctfassets.net/asset.jpeg';
 
       expect(contentfulUtils.urlIsContentfulAsset(src)).toBe(true);
     });
@@ -18,29 +18,29 @@ describe('plugins/contentful-utils', () => {
   describe('optimisedSrcForContentfulAsset', () => {
     it('compresses jpegs', () => {
       const asset = {
-        url: '//images.ctfassets.net/asset.jpeg',
+        url: 'https://images.ctfassets.net/asset.jpeg',
         contentType: 'image/jpeg'
       };
 
-      expect(contentfulUtils.optimisedSrcForContentfulAsset(asset)).toBe('//images.ctfassets.net/asset.jpeg?fm=jpg&fl=progressive');
+      expect(contentfulUtils.optimisedSrcForContentfulAsset(asset)).toBe('https://images.ctfassets.net/asset.jpeg?fm=jpg&fl=progressive');
     });
 
     it('joins all the options', () => {
       const asset = {
-        url: '//images.ctfassets.net/asset.jpeg',
+        url: 'https://images.ctfassets.net/asset.jpeg',
         contentType: 'image/jpeg'
       };
 
-      expect(contentfulUtils.optimisedSrcForContentfulAsset(asset, 200, 80)).toBe('//images.ctfassets.net/asset.jpeg?fm=jpg&fl=progressive&q=80&w=200');
+      expect(contentfulUtils.optimisedSrcForContentfulAsset(asset, { w: 200, q: 80 })).toBe('https://images.ctfassets.net/asset.jpeg?w=200&q=80&fm=jpg&fl=progressive');
     });
 
-    it('applies passed max with', () => {
+    it('applies passed max width', () => {
       const asset = {
-        url: '//images.ctfassets.net/asset.png',
+        url: 'https://images.ctfassets.net/asset.png',
         contentType: 'image/png'
       };
 
-      expect(contentfulUtils.optimisedSrcForContentfulAsset(asset, 40)).toBe('//images.ctfassets.net/asset.png?w=40');
+      expect(contentfulUtils.optimisedSrcForContentfulAsset(asset, { w: 40 })).toBe('https://images.ctfassets.net/asset.png?w=40');
     });
   });
 });

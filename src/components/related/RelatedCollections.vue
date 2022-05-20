@@ -116,7 +116,7 @@
 
       imageUrl(collection) {
         if (collection.contentfulImage && urlIsContentfulAsset(collection.contentfulImage.url)) {
-          return optimisedSrcForContentfulAsset(collection.contentfulImage, 28, 80);
+          return optimisedSrcForContentfulAsset(collection.contentfulImage, { w: 28, h: 28, fit: 'thumb' });
         }
         return this.$apis.entity.imageUrl(collection);
       }

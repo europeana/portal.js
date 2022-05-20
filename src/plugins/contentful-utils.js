@@ -4,25 +4,18 @@ export function urlIsContentfulAsset(url) {
   return hostnameMatch && (hostnameMatch[1] === 'images.ctfassets.net');
 }
 
-export function optimisedSrcForContentfulAsset(asset, maxWidth, quality) {
-  let imageUrl = asset.url;
-  const imageQueryParams = [];
+export function optimisedSrcForContentfulAsset(asset, params = {}) {
+  const imageUrl = new URL(asset.url);
 
   // TODO: are optimisations possible on any other content types?
   if (asset.contentType === 'image/jpeg') {
-    imageQueryParams.push('fm=jpg&fl=progressive');
-    if (quality) {
-      imageQueryParams.push(`q=${quality}`);
-    }
+    params['fm'] = 'jpg';
+    params['fl'] = 'progressive';
   }
 
-  if (maxWidth) {
-    imageQueryParams.push(`w=${maxWidth}`);
+  for (const key in params)  {
+    imageUrl.searchParams.set(key, params[key]);
   }
 
-  if (imageQueryParams.length > 0) {
-    imageUrl += '?' + imageQueryParams.join('&');
-  }
-
-  return imageUrl;
+  return imageUrl.toString();
 }

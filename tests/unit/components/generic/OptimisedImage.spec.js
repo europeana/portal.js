@@ -126,7 +126,7 @@ describe('components/generic/OptimisedImage', () => {
     });
 
     describe('when src is for Contentful image', () => {
-      const src = '//images.ctfassets.net/asset';
+      const src = 'https://images.ctfassets.net/asset';
       describe('and contentType is "image/jpeg"', () => {
         const contentType = 'image/jpeg';
 
