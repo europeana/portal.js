@@ -5,20 +5,25 @@
     />
     <b-row class="flex-md-row pb-5">
       <b-col cols="12">
+        <!-- TODO: i18n -->
         <b-form
           @submit.stop.prevent="submitForm"
         >
-          <b-form-checkbox
-            v-model="settings.enabled"
-            switch
+          <b-form-group
+            description="If enabled, the debug menu will be shown in the page footer."
           >
-            <!-- TODO: i18n -->
-            Enable debug menu
-          </b-form-checkbox>
+            <b-form-checkbox
+              v-model="settings.enabled"
+              switch
+            >
+              Enable debug menu
+            </b-form-checkbox>
+          </b-form-group>
 
           <b-form-group
             label="API key"
             label-for="debug-input-api-key"
+            description="Enter your Europeana API key and it will be used in the links to API requests."
           >
             <b-form-input
               id="debug-input-api-key"
@@ -30,7 +35,6 @@
             type="submit"
             variant="primary"
           >
-            <!-- TODO: i18n -->
             Save
           </b-button>
         </b-form>
@@ -72,7 +76,7 @@
     methods: {
       submitForm() {
         this.$store.commit('debug/updateSettings', this.settings);
-        this.$goto(this.redirect);
+        this.$goto(this.redirect || '/');
       }
     }
   };
