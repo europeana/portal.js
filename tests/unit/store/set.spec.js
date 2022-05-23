@@ -179,11 +179,11 @@ describe('store/set', () => {
     });
 
     describe('unlike()', () => {
-      it('removes from likes set via $apis.set, then commits with "unlike"', () => {
+      it('removes from likes set via $apis.set, then commits with "unlike"', async() => {
         store.actions.$apis.set.modifyItems = sinon.stub().resolves({});
         const state = { likesId: setId };
 
-        store.actions.unlike({ dispatch, commit, state }, itemId);
+        await store.actions.unlike({ dispatch, commit, state }, itemId);
 
         expect(store.actions.$apis.set.modifyItems.calledWith('delete', state.likesId, itemId)).toBe(true);
         expect(commit.calledWith('unlike', itemId)).toBe(true);

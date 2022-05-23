@@ -72,57 +72,54 @@ export default {
           throw e;
         });
     },
-    unlike({ dispatch, commit, state }, itemId) {
-      return this.$apis.set.modifyItems('delete', state.likesId, itemId)
-        .then(commit('unlike', itemId))
-        .then(() => {
-          return dispatch('fetchLikes');
-        })
-        .catch(() => {
-          return dispatch('fetchLikes');
-        });
+    async unlike({ dispatch, commit, state }, itemId) {
+      try {
+        await this.$apis.set.modifyItems('delete', state.likesId, itemId);
+        commit('unlike', itemId);
+        dispatch('fetchLikes');
+      } catch (e) {
+        dispatch('fetchLikes');
+      }
     },
-    addItem({ dispatch }, { setId, itemId }) {
-      return this.$apis.set.modifyItems('add', setId, itemId)
-        .then(() => {
-          dispatch('refreshCreation', setId);
-        })
-        .catch(() => {
-          dispatch('refreshCreation', setId);
-        });
+    async addItem({ dispatch }, { setId, itemId }) {
+      try {
+        await this.$apis.set.modifyItems('add', setId, itemId);
+        dispatch('refreshCreation', setId);
+      } catch (e) {
+        dispatch('refreshCreation', setId);
+      }
     },
-    removeItem({ dispatch }, { setId, itemId }) {
-      return this.$apis.set.modifyItems('delete', setId, itemId)
-        .then(() => {
-          dispatch('refreshCreation', setId);
-        })
-        .catch(() => {
-          dispatch('refreshCreation', setId);
-        });
+    async removeItem({ dispatch }, { setId, itemId }) {
+      try {
+        await this.$apis.set.modifyItems('delete', setId, itemId);
+        dispatch('refreshCreation', setId);
+      } catch (e) {
+        dispatch('refreshCreation', setId);
+      }
     },
-    setLikes({ commit }) {
-      return this.$apis.set.getLikes(this.$auth.user ? this.$auth.user.sub : null)
-        .then(likesId => commit('setLikesId', likesId));
+    async setLikes({ commit }) {
+      const likesId = await this.$apis.set.getLikes(this.$auth.user ? this.$auth.user.sub : null);
+      commit('setLikesId', likesId);
     },
-    createLikes({ commit }) {
-      return this.$apis.set.createLikes()
-        .then(response => commit('setLikesId', response.id));
+    async createLikes({ commit }) {
+      const response = await this.$apis.set.createLikes();
+      commit('setLikesId', response.id);
     },
     refreshSet({ state, dispatch }) {
       if (state.active) {
         dispatch('fetchActive', state.active.id);
       }
     },
-    fetchLikes({ commit, state }) {
+    async fetchLikes({ commit, state }) {
       if (!state.likesId) {
         return commit('setLikedItems', null);
       }
 
-      return this.$apis.set.get(state.likesId, {
+      const likes = await this.$apis.set.get(state.likesId, {
         pageSize: 100,
         profile: 'standard'
-      }, { withMinimalItems: true })
-        .then(likes => commit('setLikedItems', likes.items || []));
+      }, { withMinimalItems: true });
+      commit('setLikedItems', likes.items || []);
     },
     async fetchActive({ commit }, setId) {
       try {
@@ -138,41 +135,34 @@ export default {
         throw error;
       }
     },
-    createSet({ dispatch }, body) {
-      return this.$apis.set.create(body)
-        .then(() => dispatch('fetchCreations'));
+    async createSet({ dispatch }, body) {
+      await this.$apis.set.create(body);
+      dispatch('fetchCreations');
     },
-    update({ state, commit }, { id, body }) {
-      return this.$apis.set.update(id, body)
-        .then(response => {
-          if (state.active && id === state.active.id) {
-            commit('setActive', { items: state.active.items, ...response });
-          }
-        });
+    async update({ state, commit }, { id, body }) {
+      const response = await this.$apis.set.update(id, body);
+      if (state.active && id === state.active.id) {
+        commit('setActive', { items: state.active.items, ...response });
+      }
     },
-    deleteSet({ state, commit }, setId) {
-      return this.$apis.set.deleteSet(setId)
-        .then(() => {
-          if (state.active && setId === state.active.id) {
-            commit('setActive', 'DELETED');
-          }
-        });
+    async deleteSet({ state, commit }, setId) {
+      await this.$apis.set.deleteSet(setId);
+      if (state.active && setId === state.active.id) {
+        commit('setActive', 'DELETED');
+      }
     },
-    refreshCreation({ state, commit }, setId) {
+    async refreshCreation({ state, commit }, setId) {
       const setToReplaceIndex = state.creations.findIndex(set => set.id === setId);
       if (setToReplaceIndex === -1) {
-        return Promise.resolve();
+        return;
       }
+      const creations = [].concat(state.creations);
 
-      return this.$apis.set.get(setId, {
+      const set = await this.$apis.set.get(setId, {
         profile: 'standard'
-      })
-        .then(set => {
-          const creations = [].concat(state.creations);
-          creations[setToReplaceIndex] = set;
-
-          commit('setCreations', creations);
-        });
+      }, { withMinimalItems: true });
+      creations[setToReplaceIndex] = set;
+      commit('setCreations', creations);
     },
     async fetchCreations({ commit }) {
       const creatorId = this.$auth.user ? this.$auth.user.sub : null;
@@ -187,7 +177,7 @@ export default {
       const sets = searchResponse.data.items || [];
       commit('setCreations', sets);
     },
-    fetchCurations({ commit }) {
+    async fetchCurations({ commit }) {
       const contributorId = this.$auth.user ? this.$auth.user.sub : null;
       const searchParams = {
         query: `contributor:${contributorId}`,
@@ -196,22 +186,20 @@ export default {
         qf: 'type:EntityBestItemsSet'
       };
 
-      return this.$apis.set.search(searchParams, { withMinimalItemPreviews: true })
-        .then(searchResponse => commit('setCurations', searchResponse.data.items || []));
+      const searchResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
+      commit('setCurations', searchResponse.data.items || []);
     },
-    reviewRecommendation({ state, commit }, params) {
-      return this.$apis.recommendation[params.action]('set', params.setId, params.itemIds)
-        .then(response => {
-          const recList = state.activeRecommendations.slice();
-          const index = recList.findIndex(item => item.id === params.itemIds[0]);
-          if (response.items.length > 0) {
-            recList.splice(index, 1, response.items[0]);
-          } else {
-            recList.splice(index, 1);
-          }
+    async reviewRecommendation({ state, commit }, params) {
+      const response = await this.$apis.recommendation[params.action]('set', params.setId, params.itemIds);
+      const recList = state.activeRecommendations.slice();
+      const index = recList.findIndex(item => item.id === params.itemIds[0]);
+      if (response.items.length > 0) {
+        recList.splice(index, 1, response.items[0]);
+      } else {
+        recList.splice(index, 1);
+      }
 
-          commit('setActiveRecommendations', recList);
-        });
+      commit('setActiveRecommendations', recList);
     }
   }
 };

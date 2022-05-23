@@ -42,8 +42,6 @@
 </template>
 
 <script>
-  import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
-
   import AddItemToSetButton from './AddItemToSetButton';
 
   export default {
@@ -87,7 +85,7 @@
       // Array of IDs of sets containing the item
       collectionsWithItem() {
         return this.collections
-          .filter(collection => (collection.items || []).includes(`${EUROPEANA_DATA_URL}/item${this.itemId}`))
+          .filter(collection => (collection.items || []).some(item => item.id === this.itemId))
           .map(collection => collection.id);
       }
     },
