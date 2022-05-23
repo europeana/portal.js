@@ -1,5 +1,5 @@
 const defaults = {
-  apiRequests: false
+  enabled: false
 };
 
 export const state = () => ({

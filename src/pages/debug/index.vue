@@ -9,11 +9,11 @@
           @submit.stop.prevent="submitForm"
         >
           <b-form-checkbox
-            v-model="settings.apiRequests"
+            v-model="settings.enabled"
             switch
-            data-qa="API requests switch"
           >
-            {{ $t('debug.apiRequests') }}
+            <!-- TODO: i18n -->
+            Enable debug menu
           </b-form-checkbox>
 
           <b-form-group
@@ -30,6 +30,7 @@
             type="submit"
             variant="primary"
           >
+            <!-- TODO: i18n -->
             Save
           </b-button>
         </b-form>
@@ -39,7 +40,7 @@
 </template>
 
 <script>
-  import ContentHeader from '../../components/generic/ContentHeader';
+  import ContentHeader from '@/components/generic/ContentHeader';
 
   export default {
     name: 'DebugIndexPage',

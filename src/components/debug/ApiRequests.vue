@@ -14,18 +14,23 @@
         v-if="!$store.getters['debug/settings'].apiKey"
         variant="icon"
       >
+        <!-- TODO: i18n -->
+        <!-- TODO: fix spacing & underlining -->
         <p>
           No API key has been set.
+          First,
           <b-link
             href="https://pro.europeana.eu/pages/get-api"
           >
-            Get an API key.
+            get an API key,
           </b-link>
+          then,
           <b-link
             to="/debug"
           >
-            Set your API key.
+            set your API key
           </b-link>
+          .
         </p>
       </InfoMessage>
       <ol
@@ -108,7 +113,7 @@
 
     methods: {
       showModal() {
-        this.$store.commit('debug/updateSettings', { ...this.$store.getters['debug/settings'], apiRequests: true });
+        this.$store.commit('debug/updateSettings', { ...this.$store.getters['debug/settings'], enabled: true });
         this.$bvModal.show('api-requests');
       },
 

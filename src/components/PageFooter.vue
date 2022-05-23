@@ -153,7 +153,7 @@
         debugSettings: 'debug/settings'
       }),
       showDebugLinkGroup() {
-        return !!this.debugSettings.apiRequests;
+        return !!this.debugSettings.enabled;
       },
       footerMoreInfo() {
         return {
@@ -182,7 +182,7 @@
         return {
           name: this.$t('debug.debug'),
           links: [
-            { url: '/debug', text: 'Settings' },
+            { url: '/debug', text: 'Settings' }, // TODO: i18n
             { url: '#api-requests', text: this.$t('debug.apiRequests') }
           ]
         };
