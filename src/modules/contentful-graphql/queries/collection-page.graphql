@@ -10,7 +10,7 @@ query CollectionPage(
       identifier
       genre
       primaryImageOfPage {
-        url
+        url: urlTmp
         image {
           url
           description
@@ -23,7 +23,7 @@ query CollectionPage(
           name
           slug
           description
-          image
+          image: imageTmp
         }
       }
       hasPartCollection(limit: 20) {
@@ -44,7 +44,7 @@ query CollectionPage(
                   identifier
                   description
                   slug
-                  entityImage: image
+                  entityImage: imageTmp
                 }
                 ... on AutomatedRecordCard {
                   identifier
@@ -53,7 +53,7 @@ query CollectionPage(
                 ... on CuratedCard {
                   name
                   description
-                  url
+                  url: urlTmp
                   image {
                     url
                     description
@@ -63,7 +63,7 @@ query CollectionPage(
               }
             }
             moreButton {
-              url
+              url: urlTmp
               text
             }
         	}

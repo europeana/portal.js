@@ -34,7 +34,7 @@ query BlogPostPage(
             }
           }
           ... on Link {
-            url
+            url: urlTmp
             text
           }
           # CardGroup omitted intentionally
@@ -46,7 +46,7 @@ query BlogPostPage(
         items {
           name
           affiliation
-          url
+          url: urlTmp
         }
       }
       contentWarning {
@@ -62,7 +62,7 @@ fragment imageWithAttributionFields on ImageWithAttribution {
   creator
   provider
   license
-  url
+  url: urlTmp
   image {
     url
     description
