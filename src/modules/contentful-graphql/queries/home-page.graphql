@@ -1,0 +1,16 @@
+query HomePage(
+  $locale: String!,
+  $preview: Boolean = false
+) {
+  primaryCallToActionCollection(preview: $preview, locale: $locale, where: { position_contains: "home-" }, limit: 3) {
+    items {
+      name
+      text
+      relatedLink {
+        url
+        text
+      }
+      position
+    }
+  }
+}

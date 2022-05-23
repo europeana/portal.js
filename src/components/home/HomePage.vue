@@ -1,25 +1,61 @@
 <template>
   <div
-    class="hero"
+    class="page"
   >
     <div
-      class="hero-content"
+      class="hero"
     >
-      <SearchForm />
+      <div
+        class="hero-content"
+      >
+        <SearchForm />
+      </div>
     </div>
+    <CallToAction
+      v-if="topCTA"
+      :call-to-action="topCTA"
+    />
+    <CallToAction
+      v-if="middleCTA"
+      :call-to-action="middleCTA"
+    />
+    <CallToAction
+      v-if="bottomCTA"
+      :call-to-action="bottomCTA"
+    />
   </div>
 </template>
 
 <script>
   import SearchForm from '@/components/search/SearchForm';
+  import CallToAction from './CallToAction';
 
   export default {
     name: 'HomePage',
 
     components: {
-      SearchForm
-    }
+      SearchForm,
+      CallToAction
+    },
 
+    props: {
+      callsToAction: {
+        type: Array,
+        default: () => []
+      }
+    },
+
+    computed: {
+      topCTA() {
+        return this.callsToAction.find(cta => cta.position === 'home-top');
+      },
+      middleCTA() {
+        return this.callsToAction.find(cta => cta.position === 'home-middle');
+      },
+      bottomCTA() {
+        return this.callsToAction.find(cta => cta.position === 'home-bottom');
+      },
+    }
   };
 </script>
 
@@ -45,6 +81,12 @@
       width: 25em;
       min-width: 644px;
     }
+  }
+
+  .page {
+    align-contet: center;
+    background-color: white;
+    padding-bottom: 1rem;
   }
 
 </style>
