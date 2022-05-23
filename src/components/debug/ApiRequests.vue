@@ -10,54 +10,63 @@
       data-qa="API requests modal"
       @hide="hideModal"
     >
+      <template
+        v-if="requests.length > 0"
+      >
+        <InfoMessage
+          v-if="!$store.getters['debug/settings'].apiKey"
+          variant="icon"
+        >
+          <!-- TODO: i18n -->
+          <!-- TODO: fix spacing & underlining -->
+          <p>
+            No API key has been set.
+            First,
+            <b-link
+              href="https://pro.europeana.eu/pages/get-api"
+            >
+              get an API key,
+            </b-link>
+            then,
+            <b-link
+              to="/debug"
+            >
+              set your API key
+            </b-link>
+            .
+          </p>
+        </InfoMessage>
+        <ol>
+          <li
+            v-for="(request, index) of requests"
+            :key="index"
+            data-qa="logged API request"
+          >
+            <code>
+              {{ request.method }}
+              <a
+                v-if="request.method === 'GET'"
+                target="_blank"
+                :href="request.url"
+              >
+                {{ request.url }}
+              </a>
+              <template
+                v-else
+              >
+                {{ request.url }}
+              </template>
+            </code>
+          </li>
+        </ol>
+      </template>
       <InfoMessage
-        v-if="!$store.getters['debug/settings'].apiKey"
+        v-else
         variant="icon"
       >
         <!-- TODO: i18n -->
-        <!-- TODO: fix spacing & underlining -->
-        <p>
-          No API key has been set.
-          First,
-          <b-link
-            href="https://pro.europeana.eu/pages/get-api"
-          >
-            get an API key,
-          </b-link>
-          then,
-          <b-link
-            to="/debug"
-          >
-            set your API key
-          </b-link>
-          .
-        </p>
+        No requests to Europeana APIs were used on this page.
       </InfoMessage>
-      <ol
-        v-if="requests.length > 0"
-      >
-        <li
-          v-for="(request, index) of requests"
-          :key="index"
-          data-qa="logged API request"
-        >
-          <code>
-            {{ request.method }}
-            <a
-              v-if="request.method === 'GET'"
-              target="_blank"
-              :href="request.url"
-            >
-              {{ request.url }}
-            </a>
-            <template
-              v-else
-            >
-              {{ request.url }}
-            </template>
-          </code>
-        </li>
-      </ol>
     </b-modal>
   </div>
 </template>
