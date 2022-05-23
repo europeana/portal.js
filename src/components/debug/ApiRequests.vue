@@ -10,6 +10,24 @@
       data-qa="API requests modal"
       @hide="hideModal"
     >
+      <InfoMessage
+        v-if="!$store.getters['debug/settings'].apiKey"
+        variant="icon"
+      >
+        <p>
+          No API key has been set.
+          <b-link
+            href="https://pro.europeana.eu/pages/get-api"
+          >
+            Get an API key.
+          </b-link>
+          <b-link
+            to="/debug"
+          >
+            Set your API key.
+          </b-link>
+        </p>
+      </InfoMessage>
       <ol
         v-if="requests.length > 0"
       >
@@ -41,10 +59,14 @@
 
 <script>
   export default {
-    mounted() {
-      if (this.$route.hash === '#api-requests') {
-        this.$bvModal.show('api-requests');
-      }
+    components: {
+      InfoMessage: () => import('../generic/InfoMessage')
+    },
+
+    data() {
+      return {
+        hash: '#api-requests'
+      };
     },
 
     computed: {
@@ -67,21 +89,32 @@
     },
 
     watch: {
-      $route(to, from) {
+      $route(to) {
         this.$nextTick(() => {
-          if (to.hash === '#api-requests') {
-            this.$store.commit('debug/updateSettings', { ...this.$store.getters['debug/settings'], apiRequests: true });
-            this.$bvModal.show('api-requests');
+          if (to.hash === this.hash) {
+            this.showModal();
+          } else {
+            this.hideModal();
           }
         });
       }
     },
 
+    mounted() {
+      if (this.$route.hash === this.hash) {
+        this.showModal();
+      }
+    },
+
     methods: {
+      showModal() {
+        this.$store.commit('debug/updateSettings', { ...this.$store.getters['debug/settings'], apiRequests: true });
+        this.$bvModal.show('api-requests');
+      },
+
       hideModal() {
-        if (this.$route.hash === '#api-requests') {
-          this.$nuxt.context.app.router.push({ ...this.$route, hash: undefined });
-        }
+        this.$bvModal.hide('api-requests');
+        this.$nuxt.context.app.router.push({ ...this.$route, hash: undefined });
       }
     }
   };

@@ -21,8 +21,8 @@
             label-for="debug-input-api-key"
           >
             <b-form-input
-              v-model="settings.apiKey"
               id="debug-input-api-key"
+              v-model="settings.apiKey"
             />
           </b-form-group>
 
@@ -48,6 +48,12 @@
       ContentHeader
     },
 
+    beforeRouteEnter(to, from, next) {
+      next(vm => {
+        vm.redirect = from;
+      });
+    },
+
     data() {
       return {
         settings: { ...this.$store.getters['debug/settings'] },
@@ -60,12 +66,6 @@
       return {
         title: this.$pageHeadTitle(this.title)
       };
-    },
-
-    beforeRouteEnter(to, from, next) {
-      next(vm => {
-        vm.redirect = from;
-      });
     },
 
     methods: {
