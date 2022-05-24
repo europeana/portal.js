@@ -177,7 +177,7 @@ describe('search()', () => {
     sinon.resetHistory();
   });
 
-  it('queries the Set API for sets matching the params', async () => {
+  it('queries the Set API for sets matching the params', async() => {
     const searchParams = {
       query: 'type:EntityBestItemsSet',
       profile: 'minimal',
@@ -185,7 +185,7 @@ describe('search()', () => {
     };
 
     nock(BASE_URL)
-      .get(`/search`)
+      .get('/search')
       // TODO: Expect the params, this isn't matching the request though.
       // .query({ params: { wskey: 'apikey', ...searchParams } })
       .query(true)
@@ -194,7 +194,6 @@ describe('search()', () => {
     const response = await plugin({ $config }).search(searchParams);
 
     expect(response.data).toEqual('response');
-
   });
 
   describe('options', () => {
