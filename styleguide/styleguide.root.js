@@ -28,7 +28,8 @@ Vue.prototype.$store = {
     entity: { pinned: [] },
     search: {
       liveQueries: [],
-      showSearchBar: false
+      showSearchBar: false,
+      allThemes: []
     },
     set: { liked: [] }
   },
@@ -44,7 +45,7 @@ Vue.prototype.$store = {
   commit: () => {},
   dispatch: () => {}
 };
-Vue.prototype.$auth = {};
+Vue.prototype.$auth = { $storage: { setUniversal: () => {} }, loginWith: () => {} };
 Vue.prototype.$fetchState = {};
 Vue.prototype.$apis = {
   entity: {
