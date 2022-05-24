@@ -33,7 +33,6 @@ const storedAPIBaseURL = (store, id) => {
 };
 
 export const preferredAPIBaseURL = ({ id, baseURL }, { store, $config }) => {
-  console.log(store.state.apis);
   return storedAPIBaseURL(store, id) || apiConfig($config, id).url || baseURL;
 };
 
