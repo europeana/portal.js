@@ -26,7 +26,8 @@ Vue.prototype.$store = {
     entity: { pinned: [] },
     search: {
       liveQueries: [],
-      showSearchBar: false
+      showSearchBar: false,
+      allThemes: []
     },
     set: { liked: [] }
   },
@@ -41,7 +42,7 @@ Vue.prototype.$store = {
   commit: () => {},
   dispatch: () => {}
 };
-Vue.prototype.$auth = {};
+Vue.prototype.$auth = { $storage: { setUniversal: () => {} }, loginWith: () => {} };
 Vue.prototype.$fetchState = {};
 
 // TODO: properly import store modules needed for components that use them

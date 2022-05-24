@@ -60,6 +60,10 @@
         :options="searchQueryOptions"
         @select="showSearchOptions = false;"
       />
+      <QuickSearch
+        v-if="showQuickSearch"
+        ref="quicksearch"
+      />
     </div>
   </div>
 </template>
@@ -76,7 +80,8 @@
 
     components: {
       SearchQueryOptions,
-      FilterToggleButton
+      FilterToggleButton,
+      QuickSearch: () => import('@/components/search/QuickSearch')
     },
 
     data() {
@@ -161,6 +166,9 @@
 
       routePath() {
         return this.onSearchablePage ? this.$route.path : this.$path({ name: 'search' });
+      },
+      showQuickSearch() {
+        return !this.onSearchableCollectionPage && !this.query;
       }
     },
 
@@ -330,7 +338,9 @@
       },
 
       navigateWithArrowKeys(event) {
-        const searchDropdownOptions = this.$refs.searchoptions?.$refs.options || [];
+        const searchQueryOptionsComponentOptions = this.$refs.searchoptions?.$refs.options || [];
+        const quickSearchComponentOptions = this.$refs.quicksearch?.$children[0].$refs.options || [];
+        const searchDropdownOptions = searchQueryOptionsComponentOptions.concat(quickSearchComponentOptions);
         const activeOption = searchDropdownOptions.map(option => option.$el || option).indexOf(event.target);
 
         if (searchDropdownOptions.length) {

@@ -62,7 +62,8 @@ export default (context = {}) => {
       }
       const q = entityUris.join('" OR "');
       const params = {
-        query: `entity_uri:("${q}")`
+        query: `entity_uri:("${q}")`,
+        pageSize: entityUris.length
       };
       return this.search(params)
         .then(response => response.entities || []);
@@ -92,7 +93,6 @@ export default (context = {}) => {
 
     imageUrl(entity) {
       let url = null;
-
       // `image` is a property on automated entity cards in Contentful
       if (entity?.image) {
         url = this.$thumbnail.edmPreview(entity.image, { size: 200 });
@@ -242,20 +242,6 @@ export function entityParamsFromUri(uri) {
  */
 export function getEntitySlug(id, name) {
   const entityId = id.toString().split('/').pop();
-
-  // FIXME: this is a temporary workaround until we always have the English name
-  //        in the context of editorial overrides from Contentful. EC-5719
-  const nameOverrides = {
-    '55': 'fashion',
-    '129': 'industrial-heritage',
-    '17': 'manuscripts',
-    '151': 'maps-and-geography',
-    '128': 'migration',
-    '18': 'newspapers',
-    '48': 'photography'
-  };
-  name = nameOverrides[entityId] || name;
-
   const path = entityId + (name ? '-' + name.toLowerCase().replace(/ /g, '-') : '');
   return path;
 }

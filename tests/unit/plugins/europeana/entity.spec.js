@@ -159,6 +159,12 @@ describe('plugins/europeana/entity', () => {
 
         expect(nock.isDone()).toBe(true);
       });
+
+      it('resolves with a blank array if there are no URIs', async() => {
+        const result = await api().find([]);
+
+        expect(result).toEqual([]);
+      });
     });
 
     describe('suggest', () => {
@@ -213,6 +219,17 @@ describe('plugins/europeana/entity', () => {
         const items = await api().suggest(text);
 
         expect(items).toEqual(entitySuggestionsResponse.items);
+      });
+
+      it('returns an empty array when there are no items', async() => {
+        nock(BASE_URL)
+          .get(suggestEndpoint)
+          .query(true)
+          .reply(200,   { type: 'ResultPage', total: 0 });
+
+        const items = await api().suggest(text);
+
+        expect(items).toEqual([]);
       });
     });
 
