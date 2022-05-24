@@ -119,7 +119,7 @@ export default {
         pageSize: 100,
         profile: 'standard'
       }, { withMinimalItems: true });
-      commit('setLikedItems', likes.items || []);
+      return commit('setLikedItems', likes.items || []);
     },
     async fetchActive({ commit }, setId) {
       try {
@@ -152,7 +152,7 @@ export default {
       }
     },
     async refreshCreation({ state, commit }, setId) {
-      const setToReplaceIndex = state.creations.findIndex(set => set.id === setId);
+      const setToReplaceIndex = state.creations.findIndex(creation => creation.id === setId);
       if (setToReplaceIndex === -1) {
         return;
       }
