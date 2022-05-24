@@ -92,10 +92,11 @@ export default (context = {}) => {
      * @param {Object} body Set body
      * @return {Object} API response data
      */
-    update(id, body) {
+    update(id, body, params = {}) {
       return $axios.put(
         `/${setIdFromUri(id)}`,
-        body
+        body,
+        { params }
       )
         .then(response => response.data)
         .catch(error => {

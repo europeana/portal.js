@@ -130,6 +130,8 @@
                 <ItemPreviewCardGroup
                   :items="set.items"
                   :show-pins="setIsEntityBestItems && userIsEntityEditor"
+                  :draggable-items="userIsOwner"
+                  @endItemDrag="endItemDrag"
                 />
               </b-col>
             </b-row>
@@ -259,6 +261,28 @@
       },
       shareMediaUrl() {
         return this.$apis.thumbnail.edmPreview(this.set?.items?.[0]?.edmPreview?.[0], { size: 400 });
+      },
+      itemIds() {
+        return (this.set.items || []).map(item => item.id);
+      }
+    },
+
+    methods: {
+      endItemDrag(cards) {
+        const items = cards
+          .filter(card => this.itemIds.includes(card.id))
+          .map(card => `http://data.europeana.eu/item${card.id}`);
+        this.$store.dispatch('set/update', {
+          id: this.setId,
+          body: {
+            type: this.set.type,
+            title: this.set.title,
+            description: this.set.description,
+            visibility: this.set.visibility,
+            items
+          },
+          params: { profile: 'standard' }
+        });
       }
     }
   };

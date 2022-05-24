@@ -150,8 +150,8 @@ export default {
       return this.$apis.set.create(body)
         .then(() => dispatch('fetchCreations'));
     },
-    update({ state, commit }, { id, body }) {
-      return this.$apis.set.update(id, body)
+    update({ state, commit }, { id, body, params }) {
+      return this.$apis.set.update(id, body, params)
         .then(response => {
           if (state.active && id === state.active.id) {
             commit('setActive', { items: state.active.items, ...response });

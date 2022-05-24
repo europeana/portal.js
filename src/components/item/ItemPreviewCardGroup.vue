@@ -14,6 +14,61 @@
       :data-qa="`item previews ${view}`"
     >
       <slot />
+      <component
+        :is="draggableItems ? 'draggable' : 'div'"
+        v-model="cards"
+        @end="$emit('endItemDrag', cards)"
+      >
+        <template
+          v-for="(card, index) in cards"
+        >
+          <template
+            v-if="card === 'related'"
+          >
+            <b-card
+              v-show="showRelated"
+              :key="index"
+              class="text-left related-collections-card mb-4"
+            >
+              <slot
+                v-masonry-tile
+                name="related"
+              />
+            </b-card>
+          </template>
+          <ItemPreviewCard
+            v-else
+            :key="index"
+            v-masonry-tile
+            :item="card"
+            :hit-selector="itemHitSelector(card)"
+            :variant="cardVariant"
+            class="item"
+            :lazy="true"
+            :enable-accept-recommendation="enableAcceptRecommendations"
+            :enable-reject-recommendation="enableRejectRecommendations"
+            :show-pins="showPins"
+            :offset="items.findIndex(item => item.id === card.id)"
+            data-qa="item preview"
+            @like="$emit('like', card.id)"
+            @unlike="$emit('unlike', card.id)"
+          />
+        </template>
+      </component>
+    </div>
+  </div>
+  <b-card-group
+    v-else
+    :data-qa="`item previews ${view}`"
+    :class="cardGroupClass"
+    deck
+  >
+    <slot />
+    <component
+      :is="draggableItems ? 'draggable' : 'div'"
+      v-model="cards"
+      @end="$emit('endItemDrag', cards)"
+    >
       <template
         v-for="(card, index) in cards"
       >
@@ -26,22 +81,16 @@
             class="text-left related-collections-card mb-4"
           >
             <slot
-              v-masonry-tile
               name="related"
             />
           </b-card>
         </template>
         <ItemPreviewCard
           v-else
-          :key="index"
-          v-masonry-tile
+          :key="card.id"
           :item="card"
           :hit-selector="itemHitSelector(card)"
           :variant="cardVariant"
-          class="item"
-          :lazy="true"
-          :enable-accept-recommendation="enableAcceptRecommendations"
-          :enable-reject-recommendation="enableRejectRecommendations"
           :show-pins="showPins"
           :offset="items.findIndex(item => item.id === card.id)"
           data-qa="item preview"
@@ -49,54 +98,19 @@
           @unlike="$emit('unlike', card.id)"
         />
       </template>
-    </div>
-  </div>
-  <b-card-group
-    v-else
-    :data-qa="`item previews ${view}`"
-    :class="cardGroupClass"
-    deck
-  >
-    <slot />
-    <template
-      v-for="(card, index) in cards"
-    >
-      <template
-        v-if="card === 'related'"
-      >
-        <b-card
-          v-show="showRelated"
-          :key="index"
-          class="text-left related-collections-card mb-4"
-        >
-          <slot
-            name="related"
-          />
-        </b-card>
-      </template>
-      <ItemPreviewCard
-        v-else
-        :key="card.id"
-        :item="card"
-        :hit-selector="itemHitSelector(card)"
-        :variant="cardVariant"
-        :show-pins="showPins"
-        :offset="items.findIndex(item => item.id === card.id)"
-        data-qa="item preview"
-        @like="$emit('like', card.id)"
-        @unlike="$emit('unlike', card.id)"
-      />
-    </template>
+    </component>
   </b-card-group>
 </template>
 
 <script>
+  import draggable from 'vuedraggable';
   import ItemPreviewCard from './ItemPreviewCard';
 
   export default {
     name: 'ItemPreviewCardGroup',
 
     components: {
+      draggable,
       ItemPreviewCard
     },
 
@@ -126,6 +140,10 @@
         type: Boolean,
         default: false
       },
+      draggableItems: {
+        type: Boolean,
+        default: false
+      },
       enableAcceptRecommendations: {
         type: Boolean,
         default: false
@@ -136,11 +154,13 @@
       }
     },
 
-    computed: {
-      cards() {
-        return this.items.slice(0, 4).concat('related').concat(this.items.slice(4));
-      },
+    data() {
+      return {
+        cards: this.items.slice(0, 4).concat('related').concat(this.items.slice(4))
+      };
+    },
 
+    computed: {
       cardGroupClass() {
         let cardGroupClass;
 
