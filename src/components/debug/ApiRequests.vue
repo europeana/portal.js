@@ -13,29 +13,6 @@
       <template
         v-if="requests.length > 0"
       >
-        <InfoMessage
-          v-if="!$store.getters['debug/settings'].apiKey"
-          variant="icon"
-        >
-          <!-- TODO: i18n -->
-          <!-- TODO: fix spacing & underlining -->
-          <p>
-            No API key has been set.
-            First,
-            <b-link
-              href="https://pro.europeana.eu/pages/get-api"
-            >
-              get an API key,
-            </b-link>
-            then,
-            <b-link
-              to="/debug"
-            >
-              set your API key
-            </b-link>
-            .
-          </p>
-        </InfoMessage>
         <ol>
           <li
             v-for="(request, index) of requests"
@@ -59,6 +36,29 @@
             </code>
           </li>
         </ol>
+        <InfoMessage
+          v-if="!$store.getters['debug/settings'].apiKey"
+          variant="icon"
+        >
+          <!-- TODO: i18n -->
+          <!-- TODO: fix spacing & underlining -->
+          <p>
+            Tip: if you already have a
+            <b-link
+              href="https://pro.europeana.eu/pages/get-api"
+            >
+              Europeana API key
+            </b-link>,
+            you may enter it on the
+            <b-link
+              to="/debug"
+            >
+              settings page
+            </b-link>
+            and it will be included in these API request links.
+          </p>
+        </InfoMessage>
+
       </template>
       <InfoMessage
         v-else
@@ -72,9 +72,11 @@
 </template>
 
 <script>
+  import InfoMessage from '../generic/InfoMessage';
+
   export default {
     components: {
-      InfoMessage: () => import('../generic/InfoMessage')
+      InfoMessage
     },
 
     data() {
