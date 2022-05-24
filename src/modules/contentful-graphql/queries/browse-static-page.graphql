@@ -39,7 +39,7 @@ query BrowseStaticPage(
                   identifier
                   description
                   slug
-                  entityImage: imageTmp
+                  entityImage: image
                 }
                 ... on AutomatedRecordCard {
                   identifier
@@ -48,7 +48,7 @@ query BrowseStaticPage(
                 ... on CuratedCard {
                   name
                   description
-                  url: urlTmp
+                  url
                   image {
                     ...imageFields
                   }
@@ -56,7 +56,7 @@ query BrowseStaticPage(
               }
             }
             moreButton {
-              url: urlTmp
+              url
               text
             }
         	}
@@ -66,7 +66,7 @@ query BrowseStaticPage(
           ... on AutomatedCardGroup {
             genre
             moreButton {
-              url: urlTmp
+              url
               text
             }
           }
@@ -112,18 +112,18 @@ query BrowseStaticPage(
           ... on AutomatedCardGroup {
             genre
             moreButton {
-              url: urlTmp
+              url
               text
             }
           }
           ... on Link {
-            url: urlTmp
+            url
             text
           }
           ... on PrimaryCallToAction {
             text
             relatedLink {
-              url: urlTmp
+              url
               text
             }
           }
@@ -147,13 +147,13 @@ fragment imageWithAttributionFields on ImageWithAttribution {
   creator
   provider
   license
-  url: urlTmp
+  url
   image {
     ...imageFields
   }
 }
 fragment linkFields on Link {
-  url: urlTmp
+  url
   text
 }
 fragment linkGroupFields on LinkGroup {
@@ -162,7 +162,7 @@ fragment linkGroupFields on LinkGroup {
   links: linksCollection(limit: 10) {
     items {
       text
-      url: urlTmp
+      url
     }
   }
 }
