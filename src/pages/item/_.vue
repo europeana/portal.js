@@ -46,7 +46,7 @@
         >
           <b-col
             cols="12"
-            class="col-lg-10"
+            class="col-lg-10 mt-4"
           >
             <RelatedCollections
               :title="$t('collectionsYouMightLike')"
@@ -119,6 +119,7 @@
   import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
   import similarItemsQuery from '@/plugins/europeana/record/similar-items';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import { withEditorialContent } from '@/plugins/europeana/themes';
   import stringify from '@/mixins/stringify';
 
   export default {
@@ -329,7 +330,8 @@
       fetchRelatedEntities() {
         return this.$apis.entity.find(this.europeanaEntityUris.slice(0, 5))
           .then(entities => entities.map(entity => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo'])))
-          .then(reduced => this.$store.commit('item/setRelatedEntities', reduced));
+          .then(reduced => withEditorialContent(this, reduced))
+          .then(reducedWithOverrides => this.$store.commit('item/setRelatedEntities', reducedWithOverrides));
       },
 
       fetchSimilarItems() {

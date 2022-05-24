@@ -4,14 +4,18 @@
     data-qa="related collections"
     class="related-collections"
   >
-    <h2 class="related-heading text-uppercase mt-4 mb-2">
+    <h2 class="related-heading text-uppercase mb-2">
       {{ title }}
     </h2>
-    <div class="d-flex flex-wrap">
+    <div
+      class="badges-wrapper d-flex"
+      :class="{ 'flex-wrap': wrap }"
+    >
       <LinkBadge
         v-for="relatedCollection in collections"
         :id="relatedCollection.id"
         :key="relatedCollection.id"
+        ref="options"
         :link-to="linkGen(relatedCollection)"
         :title="relatedCollection.prefLabel ? relatedCollection.prefLabel : relatedCollection.name"
         :img="imageUrl(relatedCollection)"
@@ -26,6 +30,8 @@
   import pick from 'lodash/pick';
   import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
   import { getEntityTypeHumanReadable, getEntitySlug } from '@/plugins/europeana/entity';
+  import { urlIsContentfulAsset, optimisedSrcForContentfulAsset } from '@/plugins/contentful-utils';
+  import { withEditorialContent } from '@/plugins/europeana/themes';
 
   import LinkBadge from '../generic/LinkBadge';
 
@@ -52,6 +58,10 @@
       badgeVariant: {
         type: String,
         default: 'secondary'
+      },
+      wrap: {
+        type: Boolean,
+        default: true
       }
     },
 
@@ -67,7 +77,7 @@
       }
 
       const entities = await this.$apis.entity.find(this.entityUris);
-      this.collections = entities.map(entity => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo']));
+      this.collections = await withEditorialContent(this, entities.map(entity => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo'])));
     },
 
     mounted() {
@@ -91,18 +101,7 @@
       },
 
       linkGen(collection) {
-        let id = '';
-        let name = '';
-
-        if (collection.id) {
-          id = collection.id;
-          name = collection.prefLabel.en;
-        } else if (collection.identifier) {
-          id = collection.identifier;
-          name = collection.name;
-        }
-
-        const uriMatch = id.match(`^${EUROPEANA_DATA_URL}/([^/]+)(/base)?/(.+)$`);
+        const uriMatch = collection.id?.match(`^${EUROPEANA_DATA_URL}/([^/]+)(/base)?/(.+)$`);
         if (!uriMatch) {
           return null;
         }
@@ -110,12 +109,15 @@
         return this.$path({
           name: 'collections-type-all', params: {
             type: getEntityTypeHumanReadable(uriMatch[1]),
-            pathMatch: getEntitySlug(id, name)
+            pathMatch: getEntitySlug(collection.id, collection.prefLabel.en)
           }
         });
       },
 
       imageUrl(collection) {
+        if (collection.contentfulImage && urlIsContentfulAsset(collection.contentfulImage.url)) {
+          return optimisedSrcForContentfulAsset(collection.contentfulImage, { w: 28, h: 28, fit: 'thumb' });
+        }
         return this.$apis.entity.imageUrl(collection);
       }
     }

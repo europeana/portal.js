@@ -31,3 +31,29 @@ export default [
   { id: '48', qf: 'photography' },
   { id: '114', qf: 'sport' }
 ];
+
+export const withEditorialContent = async({ $store, $i18n, $route, $contentful }, entities) => {
+  let curatedEntities = $store.state.entity.curatedEntities;
+  if (!curatedEntities) {
+    const contentfulVariables = {
+      locale: $i18n.isoLocale(),
+      preview: $route.query.mode === 'preview'
+    };
+    const contentfulResponse = await $contentful.query('curatedEntities', contentfulVariables);
+    curatedEntities = contentfulResponse.data.data.curatedEntities.items;
+    $store.commit('entity/setCuratedEntities', curatedEntities);
+  }
+  return entities.map(theme => {
+    const contentfulData = curatedEntities.find((curatedEntity) => curatedEntity.identifier === theme.id) || {};
+    const override = {};
+    if (contentfulData.name) {
+      override.prefLabel = { [$i18n.locale]: contentfulData.name };
+      override.prefLabel.en = contentfulData.nameEN;
+    }
+    if (contentfulData.primaryImageOfPage?.image) {
+      override.contentfulImage = contentfulData.primaryImageOfPage.image;
+    }
+
+    return  { ...theme, ...override };
+  });
+};

@@ -6,6 +6,7 @@ query CollectionPage(
   entityPage: entityPageCollection(preview: $preview, locale: $locale, limit: 1, where: { identifier: $identifier }) {
     items {
       name
+      nameEN: name(locale: "en-GB")
       description
       identifier
       genre
@@ -21,6 +22,7 @@ query CollectionPage(
         items {
         	identifier
           name
+          nameEN: name(locale: "en-GB")
           slug
           description
           image
@@ -69,13 +71,6 @@ query CollectionPage(
         	}
         }
       }
-    }
-  }
-  curatedEntities: entityPageCollection(preview: $preview, locale: $locale, limit: 1000) {
-    items {
-      name
-      identifier
-      genre
     }
   }
 }
