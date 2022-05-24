@@ -172,7 +172,30 @@ describe('@/plugins/europeana/set', () => {
 });
 
 describe('search()', () => {
-  test.todo('queries the Set API for sets matching the params');
+  afterEach(() => {
+    nock.cleanAll();
+    sinon.resetHistory();
+  });
+
+  it('queries the Set API for sets matching the params', async () => {
+    const searchParams = {
+      query: 'type:EntityBestItemsSet',
+      profile: 'minimal',
+      pageSize: 1
+    };
+
+    nock(BASE_URL)
+      .get(`/search`)
+      // TODO: Expect the params, this isn't matching the request though.
+      // .query({ params: { wskey: 'apikey', ...searchParams } })
+      .query(true)
+      .reply(200, 'response');
+
+    const response = await plugin({ $config }).search(searchParams);
+
+    expect(response.data).toEqual('response');
+
+  });
 
   describe('options', () => {
     describe('withMinimalItemPreviews', () => {
@@ -249,12 +272,11 @@ describe('search()', () => {
       describe('when set to `false` (by default)', () => {
         const options = {};
 
-        // FIXME: why is this failing?
-        // it('does not request items from the Record API', async() => {
-        //   await plugin(context).search({}, options);
-        //
-        //   expect(context.$apis.record.find.called).toBe(false);
-        // });
+        it('does not request items from the Record API', async() => {
+          await plugin(context).search({}, options);
+
+          expect(context.$apis.record.find.called).toBe(false);
+        });
 
         it('leaves the item URIs on the sets', async() => {
           const response = await plugin(context).search({}, options);
