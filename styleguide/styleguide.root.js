@@ -15,7 +15,9 @@ Vue.directive('visible-on-scroll', () => {});
 Vue.prototype.$path = () => {
   return '/';
 };
-Vue.prototype.$route = () => ({}),
+Vue.prototype.$route = {
+  query: {}
+},
 Vue.prototype.$link = {
   to: route => route,
   href: () => null
@@ -33,6 +35,7 @@ Vue.prototype.$store = {
   },
   getters: {
     'entity/isPinned': () => {},
+    'search/activeView': () => {},
     'search/formatFacetFieldLabel': (name, value) => value,
     'set/isLiked': () => {}
   },
@@ -44,6 +47,15 @@ Vue.prototype.$store = {
 };
 Vue.prototype.$auth = { $storage: { setUniversal: () => {} }, loginWith: () => {} };
 Vue.prototype.$fetchState = {};
+Vue.prototype.$apis = {
+  entity: {
+    suggest(query) {
+      return Promise.resolve([
+        { prefLabel: { en: `suggestion for ${query}` } }
+      ]);
+    }
+  }
+};
 
 // TODO: properly import store modules needed for components that use them
 // const store = new Vuex.Store({

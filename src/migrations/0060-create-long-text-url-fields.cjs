@@ -1,11 +1,11 @@
 const urlFields = [
   { contentType: 'automatedEntityCard', id: 'image', name: 'Image', disabled: true },
-  { contentType: 'automatedRecordCard', id: 'thumbnailUrl', name: 'Thumbnail URL', required: true, disabled: true, control: 'singleLine' },
-  { contentType: 'curatedCard', id: 'url', required: true, control: 'singleLine' },
+  { contentType: 'automatedRecordCard', id: 'thumbnailUrl', name: 'Thumbnail URL', required: true, disabled: true },
+  { contentType: 'curatedCard', id: 'url', required: true },
   { contentType: 'imageWithAttribution', id: 'url', validations:
     [{ regexp: { pattern: '^(ftp|http|https):\\/\\/(\\w+:{0,1}\\w*@)?(\\S+)(:[0-9]+)?(\\/|\\/([\\w#!:.?+=&%@!\\-\\/]))?$' } }]
   },
-  { contentType: 'link', id: 'url', required: true, control: 'singleLine', validations:
+  { contentType: 'link', id: 'url', required: true, validations:
     [{
       regexp: { pattern: '^(((ftp|http|https):\\/\\/(\\w+:{0,1}\\w*@)?(\\S+)(:[0-9]+)?(\\/|\\/([\\w#!:.?+=&%@!\\-\\/]))?)|(\\/|\\/([\\w#!:.?+=&%@!\\-\\/])*))$' },
       message: 'Must be a URL or a URL path starting with "/"'
@@ -34,7 +34,7 @@ module.exports = function(migration) {
       .validations(urlField.validations || [])
       .disabled(true)
       .omitted(false);
-    contentType.changeFieldControl(urlField.id, 'builtin', urlField.control || 'urlEditor', {});
+    contentType.changeFieldControl(urlField.id, 'builtin', urlField.control || 'singleLine', {});
 
     // 4. populate temporary field from original
     migration.transformEntries({

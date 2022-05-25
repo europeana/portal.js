@@ -12,7 +12,9 @@
       class="d-flex justify-content-center w-100"
       data-qa="search form wrapper"
     >
-      <SearchForm />
+      <SearchForm
+        :absolute-top-positioned="true"
+      />
     </div>
     <template
       v-else
