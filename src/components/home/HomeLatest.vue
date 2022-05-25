@@ -4,7 +4,7 @@
     class="container-fluid"
   >
     <h2 class="text-center">
-      Discover our editorials
+      {{ $t('homePage.discoverEditorial') }}
     </h2>
     <b-card-group
       class="card-deck-3-cols"
