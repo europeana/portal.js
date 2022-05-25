@@ -727,6 +727,9 @@ export default {
     "quickSearch": "Quick Search"
   },
   "homeLinkAlt": "Europeana home",
+  "homePage": {
+    "title": "Discover European cultural heritage"
+  },
   "imageSlider": {
     "handle": "Slider Handle"
   },
