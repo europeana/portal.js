@@ -1,6 +1,7 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../utils';
 import BootstrapVue from 'bootstrap-vue';
+import sinon from 'sinon';
 
 import page from '@/pages/index';
 
@@ -9,16 +10,17 @@ localVue.use(BootstrapVue);
 
 const heroImageUrl = 'http://example.org/contentful/asset.jpg';
 const socialMediaImageUrl = 'https://example.org/social-media-image.jpg';
+const contentfulQueryMock = sinon.stub().resolves({});
 
-const factory = (socialMediaImage = null, primaryImageOfPage = null) => shallowMountNuxt(page, {
+const factory = (options = {}) => shallowMountNuxt(page, {
   localVue,
   data() {
     return {
       browsePage: true,
       identifer: 'home',
       name: 'Welcome to Europeana',
-      primaryImageOfPage,
-      image: socialMediaImage,
+      primaryImageOfPage: options.primaryImageOfPage || null,
+      image: options.socialMediaImage || null,
       hasPartCollection: {
         items: []
       }
@@ -27,18 +29,19 @@ const factory = (socialMediaImage = null, primaryImageOfPage = null) => shallowM
   mocks: {
     $t: key => key,
     $pageHeadTitle: key => key,
-    $features: {}
+    $features: options.features || {},
+    $route: { params: options.routeParams || {} },
   }
 });
 
-describe('Browse/Home page', () => {
+describe('Index page', () => {
   describe('head()', () => {
     it('uses the social media image for og:image', () => {
-      const wrapper = factory({
+      const wrapper = factory({ socialMediaImage: {
         url: socialMediaImageUrl,
         contentType: 'image/jpeg',
         description: 'Social media image description'
-      });
+      } });
 
       const headMeta = wrapper.vm.head().meta;
 
@@ -59,7 +62,7 @@ describe('Browse/Home page', () => {
           url: 'https://example.org/explore'
         }
       };
-      const wrapper = factory(null, primaryImageOfPage);
+      const wrapper = factory({ primaryImageOfPage });
 
       const headMeta = wrapper.vm.head().meta;
 
@@ -73,6 +76,41 @@ describe('Browse/Home page', () => {
       const headMeta = wrapper.vm.head().meta;
 
       expect(headMeta.filter(meta => meta.property === 'og:image').length).toBe(0);
+    });
+  });
+
+  describe('when on new home page', () => {
+    const wrapper = factory({ features: { newHomepage: true } });
+    afterEach(() => {
+      contentfulQueryMock.resolves({});
+    });
+
+    it('queries contentful for the CTAs', async () => {
+      contentfulQueryMock.resolves({
+        data: {
+          data: {
+            primaryCallToActionCollection: {
+              items: []
+            }
+          }
+        }
+      });
+
+      await wrapper.vm.asyncData({ params: {},
+        app: {
+          $contentful: { query: contentfulQueryMock },
+          $features: { newHomepage: true },
+          i18n: {
+            isoLocale: () => 'en-GB'
+          }
+        },
+        query: {}
+      });
+      expect(contentfulQueryMock.calledWith('homePage', { locale: 'en-GB', preview: false })).toBe(true);
+    });
+
+    it('uses the title as page title', () => {
+      expect(wrapper.vm.pageTitle).toEqual('homePage.title');
     });
   });
 });

@@ -18,8 +18,8 @@
             :key="set.id"
             :sub-title="setSubTitle(set)"
             :title="set.title"
-            :image-url="creationPreviewUrl(set.id)"
-            :media-type="creationPreviewType(set.id)"
+            :image-url="creationPreviewUrl(set)"
+            :media-type="creationPreviewType(set)"
             :texts="[set.description]"
             :url="{ name: 'set-all', params: { pathMatch: setPathMatch(set) } }"
             :offset="index"
@@ -64,11 +64,11 @@
       }
     },
     methods: {
-      creationPreviewUrl(setId) {
-        return this.$apis.thumbnail.edmPreview(this.$store.getters['set/creationPreview'](setId)?.url);
+      creationPreviewUrl(set) {
+        return this.$apis.thumbnail.edmPreview(set.items?.[0]?.edmPreview?.[0]);
       },
-      creationPreviewType(setId) {
-        return this.$store.getters['set/creationPreview'](setId)?.type;
+      creationPreviewType(set) {
+        return set.items?.[0]?.type;
       },
       setSubTitle(set) {
         const setTotal = set.total || 0;

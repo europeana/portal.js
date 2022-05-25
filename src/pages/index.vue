@@ -50,7 +50,10 @@
           .then(data => {
             const callsToAction = data.primaryCallToActionCollection.items;
             return { callsToAction };
-          });
+          })
+          .catch((e) => {
+            error({ statusCode: 500, message: e.toString() });
+          });;
       }
 
       // TODO: clean up when new home is enabled

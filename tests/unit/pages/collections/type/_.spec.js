@@ -59,6 +59,7 @@ const contentfulPageResponse = {
     }
   }
 };
+const contentfulQueryStub = sinon.stub().resolves(contentfulPageResponse);
 
 const factory = (options = {}) => shallowMountNuxt(collection, {
   localVue,
@@ -69,7 +70,7 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
     $te: () => true,
     $route: { query: options.query || '', params: { type: options.type, pathMatch: options.pathMatch } },
     $contentful: {
-      query: sinon.stub().resolves(contentfulPageResponse)
+      query: contentfulQueryStub
     },
     $apis: {
       entity: {
@@ -373,6 +374,66 @@ describe('pages/collections/type/_', () => {
     });
   });
 
+  describe('relatedCollectionCards', () => {
+    afterEach(() => {
+      contentfulQueryStub.resolves(contentfulPageResponse);
+    });
+    describe('when there are related collections', () => {
+      it('formats and returns the cards', async() => {
+        const contentfulPageResponseWithRelatedOverrides = {
+          data: {
+            data: {
+              entityPage: {
+                items: [
+                  {
+                    hasPartCollection: {
+                      items: []
+                    },
+                    relatedLinksCollection: {
+                      items: [
+                        {
+                          identifier: 'http://data.europeana.eu/concept/base/48',
+                          name: 'Photograph',
+                          nameEN: 'Photograph',
+                          image: 'Contentful image object'
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              curatedEntities: {
+                items: [{ identifier: topicEntity.entity.id }]
+              }
+            }
+          }
+        };
+        contentfulQueryStub.resolves(contentfulPageResponseWithRelatedOverrides);
+        const curatedEntities = [{ identifier: topicEntity.entity.id }];
+        const wrapper = factory(topicEntity);
+        wrapper.vm.$store.state.entity.curatedEntities = curatedEntities;
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.relatedCollectionCards).toStrictEqual([
+          {
+            id: 'http://data.europeana.eu/concept/base/48',
+            prefLabel: { en: 'Photograph' },
+            image: 'Contentful image object'
+          }
+        ]);
+      });
+    });
+
+    describe('when there are no related collections', () => {
+      it('returns null', () => {
+        const wrapper = factory(topicEntity);
+
+        expect(wrapper.vm.relatedCollectionCards).toBe(null);
+      });
+    });
+  });
+
   describe('methods', () => {
     describe('redirectToPrefPath', () => {
       const redirectIssued = async({ data, entity, pathMatch, serverOrClient = 'server' }) => {
@@ -402,26 +463,41 @@ describe('pages/collections/type/_', () => {
         const redirectOrReplace = serverOrClient === 'server' ? 'redirect' : 'replace';
 
         describe(`${serverOrClient}-side`, () => {
-          // FIXME: uncomment when reverting the temporary workaround until we
-          //        always have the English name in the context of editorial
-          //        overrides from Contentful. EC-5719
-          // describe('when entity has a named collection page', () => {
-          //   const data = { page: { name: 'Geography', hasPartCollection: { items: [] } } };
-          //
-          //   describe('and URL slug already uses the name', () => {
-          //     const pathMatch = '01234567890-geography';
-          //     it(`does not ${redirectOrReplace}`, async() => {
-          //       expect(await redirectIssued({ data, pathMatch, serverOrClient })).toBe(false);
-          //     });
-          //   });
-          //
-          //   describe('and URL slug does not use the name', () => {
-          //     const pathMatch = '01234567890-geo';
-          //     it(`${redirectOrReplace}s`, async() => {
-          //       expect(await redirectIssued({ data, pathMatch, serverOrClient })).toBe(true);
-          //     });
-          //   });
-          // });
+          describe('when entity has a named collection page', () => {
+            const data = { page: { name: 'Geography', nameEN: 'Geography', hasPartCollection: { items: [] } } };
+
+            describe('and URL slug already uses the name', () => {
+              const pathMatch = '01234567890-geography';
+              it(`does not ${redirectOrReplace}`, async() => {
+                expect(await redirectIssued({ data, pathMatch, serverOrClient })).toBe(false);
+              });
+            });
+
+            describe('and URL slug does not use the name', () => {
+              const pathMatch = '01234567890-geo';
+              it(`${redirectOrReplace}s`, async() => {
+                expect(await redirectIssued({ data, pathMatch, serverOrClient })).toBe(true);
+              });
+            });
+          });
+
+          describe('when using another locale and the entity has a named collection page', () => {
+            const data = { page: { name: 'Geographie', nameEN: 'Geography', hasPartCollection: { items: [] } } };
+
+            describe('and URL slug already uses the english name', () => {
+              const pathMatch = '01234567890-geography';
+              it(`does not ${redirectOrReplace}`, async() => {
+                expect(await redirectIssued({ data, pathMatch, serverOrClient })).toBe(false);
+              });
+            });
+
+            describe('and URL slug does not use the english name', () => {
+              const pathMatch = '01234567890';
+              it(`${redirectOrReplace}s`, async() => {
+                expect(await redirectIssued({ data, pathMatch, serverOrClient })).toBe(true);
+              });
+            });
+          });
 
           describe('when entity has no named collection page, but an English prefLabel', () => {
             const entity = { ...topicEntity.entity, prefLabel: { en: 'Geography' } };

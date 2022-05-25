@@ -21,7 +21,7 @@
         v-for="(collection, index) in collections"
         :key="index"
         :set="collection"
-        :img="collectionPreview(collection.id)"
+        :img="collectionPreview(collection)"
         :disabled="!fetched"
         :added="added.includes(collection.id)"
         :checked="collectionsWithItem.includes(collection.id)"
@@ -42,8 +42,6 @@
 </template>
 
 <script>
-  import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
-
   import AddItemToSetButton from './AddItemToSetButton';
 
   export default {
@@ -87,7 +85,7 @@
       // Array of IDs of sets containing the item
       collectionsWithItem() {
         return this.collections
-          .filter(collection => (collection.items || []).includes(`${EUROPEANA_DATA_URL}/item${this.itemId}`))
+          .filter(collection => (collection.items || []).some(item => item.id === this.itemId))
           .map(collection => collection.id);
       }
     },
@@ -116,8 +114,8 @@
         });
       },
 
-      collectionPreview(setId) {
-        return this.$apis.thumbnail.edmPreview(this.$store.getters['set/creationPreview'](setId)?.url);
+      collectionPreview(set) {
+        return this.$apis.thumbnail.edmPreview(set.items?.[0]?.edmPreview?.[0]);
       },
 
       addItem(setId) {

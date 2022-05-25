@@ -130,7 +130,7 @@ query BrowseStaticPage(
         }
       }
       relatedLinks {
-          ...linkGroupFields
+        ...linkGroupFields
       }
     }
   }
@@ -160,9 +160,9 @@ fragment linkGroupFields on LinkGroup {
   identifier
   name
   links: linksCollection(limit: 10) {
-      items {
-        text
-        url
-      }
+    items {
+      text
+      url
+    }
   }
 }

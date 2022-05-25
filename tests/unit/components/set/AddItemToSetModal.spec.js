@@ -11,7 +11,7 @@ const storeDispatch = sinon.stub().resolves({});
 const sets = [
   {
     id: '001',
-    items: ['http://data.europeana.eu/item/000/aaa'],
+    items: [{ id: '/000/aaa' }],
     title: 'Test collection',
     total: 1,
     visibility: 'public'

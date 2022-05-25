@@ -152,11 +152,10 @@
       const fetchEntityManagement = this.$features.entityManagement &&
         this.$auth.user?.resource_access?.entities?.roles.includes('editor');
       // Get the full page for this entity if not known needed, or known to be needed, and store for reuse
-      const fetchEntityPage = !this.$store.state.entity.curatedEntities ||
-        this.$store.state.entity.curatedEntities.some(entity => entity.identifier === entityUri);
+      const fetchEntityPage = !this.$store.state.entity.curatedEntities || this.$store.state.entity.curatedEntities.some(entity => entity.identifier === entityUri);
+      const fetchCuratedEntities = !this.$store.state.entity.curatedEntities;
 
       const contentfulVariables = {
-        identifier: entityUri,
         locale: this.$i18n.isoLocale(),
         preview: this.$route.query.mode === 'preview'
       };
@@ -164,7 +163,8 @@
       return Promise.all([
         this.$apis.entity.get(this.$route.params.type, this.$route.params.pathMatch),
         fetchEntityManagement ? this.$apis.entityManagement.get(this.$route.params.type, this.$route.params.pathMatch) : () => null,
-        fetchEntityPage ? this.$contentful.query('collectionPage', contentfulVariables) : () => null
+        fetchCuratedEntities ? this.$contentful.query('curatedEntities', contentfulVariables) : () => null,
+        fetchEntityPage ? this.$contentful.query('collectionPage', { ...contentfulVariables, identifier: entityUri }) : () => null
       ])
         .then(responses => {
           this.$store.commit('entity/setEntity', pick(responses[0].entity, [
@@ -175,10 +175,13 @@
             this.$store.commit('entity/setEntityDescription', responses[1].note);
             this.$store.commit('entity/setProxy', responses[1].proxies.find(proxy => proxy.id.includes('#proxy_europeana')));
           }
+          if (fetchCuratedEntities) {
+            const entitiesResponseData = responses[2].data.data;
+            this.$store.commit('entity/setCuratedEntities', entitiesResponseData.curatedEntities.items);
+          }
           if (fetchEntityPage) {
-            const pageResponseData = responses[2].data.data;
+            const pageResponseData = responses[responses.length - 1].data.data;
             this.page = pageResponseData.entityPage.items[0];
-            this.$store.commit('entity/setCuratedEntities', pageResponseData.curatedEntities.items);
           }
           this.$store.commit('search/setCollectionLabel', this.title.values[0]);
           return this.redirectToPrefPath();
@@ -296,7 +299,20 @@
         return this.page?.name || null;
       },
       relatedCollectionCards() {
-        return ((this.page?.relatedLinksCollection?.items?.length || 0) > 0) ? this.page.relatedLinksCollection.items : null;
+        if ((this.page?.relatedLinksCollection?.items?.length || 0) > 0) {
+          return this.page.relatedLinksCollection.items.map(item => {
+            const prefLabel = {
+              [this.$i18n.locale]: item.name,
+              en: item.nameEN
+            };
+            return {
+              id: item.identifier,
+              prefLabel,
+              image: item.image
+            };
+          });
+        }
+        return null;
       },
       userIsEditor() {
         return this.$store.state.auth.user?.resource_access?.entities?.roles?.includes('editor') || false;
@@ -364,11 +380,8 @@
     },
     methods: {
       redirectToPrefPath() {
-        // FIXME: this is a temporary workaround until we always have the English name
-        //        in the context of editorial overrides from Contentful. EC-5719
-        // const entityName = this.page ? this.page.name : this.entity.prefLabel.en;
-        const entityName = this.entity.prefLabel.en;
-        const desiredPath = getEntitySlug(this.entity.id, entityName);
+        const entityNameEn = this.page ? this.page.nameEN : this.entity.prefLabel.en;
+        const desiredPath = getEntitySlug(this.entity.id, entityNameEn);
         if (this.$route.params.pathMatch !== desiredPath) {
           const redirectPath = this.$path({
             name: 'collections-type-all',

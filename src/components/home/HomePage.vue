@@ -2,15 +2,7 @@
   <div
     class="page"
   >
-    <div
-      class="hero"
-    >
-      <div
-        class="hero-content"
-      >
-        <SearchForm />
-      </div>
-    </div>
+    <HomeHero />
     <CallToAction
       v-if="topCTA"
       :call-to-action="topCTA"
@@ -27,14 +19,14 @@
 </template>
 
 <script>
-  import SearchForm from '@/components/search/SearchForm';
+  import HomeHero from '@/components/home/HomeHero';
   import CallToAction from './CallToAction';
 
   export default {
     name: 'HomePage',
 
     components: {
-      SearchForm,
+      HomeHero,
       CallToAction
     },
 
@@ -60,33 +52,9 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
-
-  .hero {
-    margin-top: -70px;
-    background-color: $mediumgrey-light;
-    padding: 12rem 1.5rem;
-    min-height: 100vh;
-
-    @media (min-width: $bp-medium) {
-      font-size: 2vw;
-      padding: 6em 0 3em;
-    }
-  }
-
-  .hero-content {
-    margin: 0 auto;
-
-    @media (min-width: $bp-medium) {
-      width: 25em;
-      min-width: 644px;
-    }
-  }
-
   .page {
     align-contet: center;
     background-color: white;
     padding-bottom: 1rem;
   }
-
 </style>

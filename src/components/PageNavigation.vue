@@ -237,7 +237,7 @@
         }
 
         &.icon-school::before {
-          content: '\e947';
+          content: '\e952';
         }
 
         &.icon-info::before {
@@ -245,15 +245,15 @@
         }
 
         &.icon-help::before {
-          content: '\e921';
+          content: '\e94f';
         }
 
         &.icon-login::before {
-          content: '\e926';
+          content: '\e950';
         }
 
         &.icon-logout::before {
-          content: '\e927';
+          content: '\e950';
         }
 
         &.icon-settings::before {
@@ -265,11 +265,19 @@
         }
 
         &.icon-stories::before {
-          content: '\e935';
+          content: '\e951';
         }
 
         &.blank::before {
           color: transparent;
+        }
+
+        &.icon-school::before,
+        &.icon-stories::before,
+        &.icon-login::before,
+        &.icon-help::before {
+          font-size: 1.25rem;
+          padding: 0.1rem;
         }
       }
     }
