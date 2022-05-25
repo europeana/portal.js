@@ -48,19 +48,55 @@ const factory = () => shallowMountNuxt(HomeLatest, {
 });
 
 describe('components/home/HomeLatest', () => {
-  it('shows a section with editorial content', async() => {
-    const wrapper = factory();
-    await wrapper.vm.fetch();
+  describe('fetch', () => {
+    it('shows a section with editorial content', async() => {
+      const wrapper = factory();
+      await wrapper.vm.fetch();
 
-    const section =  wrapper.find('[data-qa="latest editorial"]');
-    expect(section.exists()).toBe(true);
+      const section =  wrapper.find('[data-qa="latest editorial"]');
+      expect(section.exists()).toBe(true);
+    });
+
+    it('shows 3 cards', async() => {
+      const wrapper = factory();
+      await wrapper.vm.fetch();
+
+      const section =  wrapper.find('[data-qa="latest editorial"]');
+      expect(section.findAll('contentcard-stub').length).toBe(3);
+    });
   });
 
-  it('shows 3 cards', async() => {
-    const wrapper = factory();
-    await wrapper.vm.fetch();
+  describe('methods', () => {
+    describe('cardLink', () => {
+      it('returns a link', async() => {
+        const wrapper = factory();
+        const link = wrapper.vm.cardLink({
+          __typename: 'ImageGallery',
+          name: 'Female literacy in the Middle Ages',
+          identifier: 'female-literacy-in-the-middle-ages',
+          description: 'Female literacy during the Middle Ages'
+        });
 
-    const section =  wrapper.find('[data-qa="latest editorial"]');
-    expect(section.findAll('contentcard-stub').length).toBe(3);
+        expect(link.name).toBe('galleries-all');
+      });
+    });
+
+    describe('cardImage', () => {
+      it('returns an image', async() => {
+        const wrapper = factory();
+        const image = wrapper.vm.cardImage({
+          __typename: 'ExhibitionPage',
+          name: 'Black lives in Europe',
+          identifier: 'black-lives-in-europe',
+          primaryImageOfPage: {
+            image: {
+              url: 'image.jpg'
+            }
+          }
+        });
+
+        expect(image).toBe('image.jpg');
+      });
+    });
   });
 });

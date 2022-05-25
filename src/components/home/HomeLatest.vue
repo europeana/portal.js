@@ -11,6 +11,7 @@
       class="card-deck-3-cols"
       deck
     >
+      <!-- TODO: use/add image alt description -->
       <ContentCard
         v-for="card in cards"
         :key="card.identifier"
@@ -61,7 +62,7 @@
         } else if (card['__typename'] === 'BlogPosting') {
           return { name: 'blog-all', params: { pathMatch: card.identifier } };
         }
-        return 'image';
+        return null;
       },
 
       cardImage(card) {
