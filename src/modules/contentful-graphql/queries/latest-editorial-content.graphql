@@ -1,0 +1,60 @@
+query latestEditorialContent(
+  $locale: String!,
+  $preview: Boolean = false,
+  $limit: Int = 1,
+  $query: String = ""
+) {
+  blogPostingCollection(
+    preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit
+  ) {
+    items {
+      __typename
+      name
+      identifier
+      primaryImageOfPage {
+        image {
+          url
+          contentType
+          description
+        }
+      }
+      datePublished
+    }
+  }
+  exhibitionPageCollection(
+    preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit
+  ) {
+    items {
+      __typename
+      name
+      identifier
+      primaryImageOfPage {
+        image {
+          url
+          contentType
+          description
+        }
+      }
+      datePublished
+    }
+  }
+  imageGalleryCollection(
+    where: { name_contains: $query },
+    preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit
+  ) {
+    items {
+      __typename
+      name
+      identifier
+      description
+      hasPartCollection(limit: 1) {
+        total
+        items {
+          identifier
+          encoding
+          thumbnailUrl
+        }
+      }
+    }
+  }
+}
