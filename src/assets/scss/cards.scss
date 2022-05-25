@@ -940,3 +940,13 @@
     }
   }
 }
+
+.carousel .carousel-3d-slider {
+  perspective: 100vw !important;
+  width: 12vw !important;
+  min-width: 200px !important;
+  .carousel-3d-slide {
+    width: 12vw !important;
+    min-width: 200px !important;
+  }
+}

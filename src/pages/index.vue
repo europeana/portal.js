@@ -1,5 +1,12 @@
 <template>
   <div>
+    <client-only
+      v-if="$route.params.pathMatch === 'themes'"
+    >
+      <StackedCardsCarousel
+        :slides="hasPartCollection.items[0].hasPartCollection.items"
+      />
+    </client-only>
     <HomePage
       v-if="isNewHomePage"
     />
@@ -34,7 +41,8 @@
     components: {
       BrowsePage,
       StaticPage,
-      HomePage
+      HomePage,
+      StackedCardsCarousel: () => import('../components/generic/StackedCardsCarousel')
     },
 
     asyncData({ params, query, error, app }) {
@@ -126,6 +134,9 @@
       },
       pageTitle() {
         return this.isNewHomePage ? this.$t('homePage.title') : this.name;
+      },
+      slides() {
+        return this.hasPartCollection?.items[0].hasPartCollection.items;
       }
     }
   };
