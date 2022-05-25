@@ -23,4 +23,13 @@ describe('components/media/MediaDefaultThumbnail', () => {
       expect(placeholderColor).toBe('#837F99');
     });
   });
+
+  describe('when no media type is available', () => {
+    it('uses the icon-unavailable class for the icon', async() => {
+      const wrapper = factory();
+
+      const thumbnail =  wrapper.find('[data-qa="default thumbnail"]');
+      expect(thumbnail.find('[class="icon-unavailable"]').exists()).toBe(true);
+    });
+  });
 });

@@ -49,7 +49,7 @@ describe('store/entity', () => {
       describe('when value passed in', () => {
         it('sets the pinned state', () => {
           const state = { pinned: null };
-          store.mutations.setPinned(state, itemsToPin);
+          store.mutations.setPinned(state, pinned);
           expect(state.pinned).toEqual(pinned);
         });
       });

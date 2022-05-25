@@ -66,16 +66,28 @@ describe('plugins/europeana/search', () => {
         expect(nock.isDone()).toBe(true);
       });
 
-      it('includes contentTier query', async() => {
-        baseRequest
-          .query(query => {
-            return query.qf === 'contentTier:(1 OR 2 OR 3 OR 4)';
-          })
-          .reply(200, defaultResponse);
+      describe('contentTier filter', () => {
+        it('is included by default', async() => {
+          baseRequest
+            .query(query => {
+              return query.qf === 'contentTier:(1 OR 2 OR 3 OR 4)';
+            })
+            .reply(200, defaultResponse);
 
-        await search()($axios, { query: 'anything' });
+          await search()($axios, { query: 'anything' });
 
-        expect(nock.isDone()).toBe(true);
+          expect(nock.isDone()).toBe(true);
+        });
+
+        it('may be omitted by setting addContentTierFilter option to `false`', async() => {
+          baseRequest
+            .query(query => (query.qf === undefined))
+            .reply(200, defaultResponse);
+
+          await search()($axios, { query: 'anything' }, { addContentTierFilter: false });
+
+          expect(nock.isDone()).toBe(true);
+        });
       });
 
       it('uses the supplied `facet` param', async() => {

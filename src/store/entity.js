@@ -20,11 +20,7 @@ export default {
       state.curatedEntities = value;
     },
     setPinned(state, value) {
-      if (value) {
-        state.pinned = value.map(item => item.id);
-      } else {
-        state.pinned = [];
-      }
+      state.pinned = value || [];
     },
     setFeaturedSetId(state, value) {
       state.featuredSetId = value;
@@ -116,7 +112,7 @@ export default {
     },
     getPins({ state, commit }) {
       return this.$apis.set.get(state.featuredSetId, {
-        profile: 'itemDescriptions',
+        profile: 'standard',
         pageSize: 100
       }).then(featured => featured.pinned > 0 ? commit('setPinned', featured.items.slice(0, featured.pinned)) : commit('setPinned', []));
     },

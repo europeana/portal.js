@@ -7,6 +7,8 @@ import search from './search';
 import thumbnail, { thumbnailTypeForMimeType } from  './thumbnail';
 import { isIIIFPresentation, isIIIFImage } from '../media';
 
+import { ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX } from './data';
+
 export const BASE_URL = process.env.EUROPEANA_RECORD_API_URL || 'https://api.europeana.eu/record';
 const MAX_VALUES_PER_PROXY_FIELD = 10;
 
@@ -146,6 +148,21 @@ export default (context = {}) => {
 
     search(params, options = {}) {
       return search(context)($axios, params, options);
+    },
+
+    /**
+     * Find records by their identifier
+     * @param {Array} europeanaIds record identifiers or URIs
+     * @param {Object} params additional options to include in the API search query
+     * @return {Array} record data as returned by the API
+     */
+    find(europeanaIds, params = {}) {
+      europeanaIds = europeanaIds.map(id => id.replace(EUROPEANA_DATA_URL_ITEM_PREFIX, ''));
+      const query = `europeana_id:("${europeanaIds.join('" OR "')}")`;
+      return this.search({
+        query,
+        ...params
+      }, { addContentTierFilter: false });
     },
 
     /**
