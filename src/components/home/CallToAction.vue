@@ -1,9 +1,9 @@
 <template>
-  <div class="home-cta d-flex flex-row">
-    <div class="cta-illustration align-self-stretch flex-fill">
+  <div class="home-cta d-lg-flex flex-lg-row flex-column">
+    <div class="cta-illustration align-self-stretch flex-lg-fill">
       <div class="geometry"/>
     </div>
-    <div class="cta-content align-self-stretch flex-fill">
+    <div class="cta-content align-self-stretch flex-lg-fill">
       <h2>
         {{ callToAction.name }}
       </h2>
@@ -51,13 +51,16 @@
 
   .home-cta {
     background-color: $bodygrey;
-    padding: 4.25rem;
     margin: 2rem auto;
-    max-width: 80%;
+    max-width: 75%;
     border-radius: 0.4rem;
-    overflow: hidden;
+
 
     .cta-illustration {
+      min-height: 11rem;
+      padding: 4.25rem;
+      overflow: hidden;
+
       .geometry {
         margin-left: auto;
         margin-right: auto;
@@ -72,6 +75,7 @@
     }
 
     .cta-content {
+      padding: 4.25rem;
       text-align: center;
     }
 
