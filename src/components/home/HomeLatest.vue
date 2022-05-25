@@ -2,6 +2,7 @@
   <section
     v-if="cards.length > 0"
     class="container-fluid"
+    data-qa="latest editorial"
   >
     <h2 class="text-center">
       {{ $t('homePage.discoverEditorial') }}
