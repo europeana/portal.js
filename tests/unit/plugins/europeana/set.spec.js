@@ -170,6 +170,20 @@ describe('@/plugins/europeana/set', () => {
     });
   });
 
+  describe('update()', () => {
+    it('updates the set', async() => {
+      const body = { type: 'Collection', visibility: 'public' };
+      const params = { profile: 'standard' };
+      nock(BASE_URL)
+        .put(`/${setId}`, body)
+        .query(query => query.profile === 'standard')
+        .reply(200);
+
+      await plugin({ $config }).update(setId, body, params);
+      expect(nock.isDone()).toBe(true);
+    });
+  });
+
   describe('search()', () => {
     it('queries the Set API for sets matching the params', async() => {
       const searchParams = {
