@@ -155,7 +155,7 @@ export default (context = {}) => {
      * @param {string} id the set's id
      * @return {Object} API response data
      */
-    deleteSet(id) {
+    delete(id) {
       return $axios.delete(
         `/${setIdFromUri(id)}`
       )

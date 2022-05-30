@@ -145,8 +145,8 @@ export default {
         commit('setActive', { items: state.active.items, ...response });
       }
     },
-    async deleteSet({ state, commit }, setId) {
-      await this.$apis.set.deleteSet(setId);
+    async delete({ state, commit }, setId) {
+      await this.$apis.set.delete(setId);
       if (state.active && setId === state.active.id) {
         commit('setActive', 'DELETED');
       }
