@@ -45,7 +45,7 @@ Feature: item page
 
     When I open an `item page without isShownBy or hasView`
     Then I see the `item page`
-    And I see the `media preview image`
+    And I see the `default thumbnail`
 
   Scenario: One related entity
     When I open `"The Milkmaid" item page`
