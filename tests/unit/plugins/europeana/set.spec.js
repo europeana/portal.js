@@ -173,10 +173,21 @@ describe('@/plugins/europeana/set', () => {
   describe('update()', () => {
     it('updates the set', async() => {
       const body = { type: 'Collection', visibility: 'public' };
+      nock(BASE_URL)
+        .put(`/${setId}`, body)
+        .query(true)
+        .reply(200);
+
+      await plugin({ $config }).update(setId, body);
+      expect(nock.isDone()).toBe(true);
+    });
+
+    it('includes params if supplied', async() => {
+      const body = { type: 'Collection', visibility: 'public' };
       const params = { profile: 'standard' };
       nock(BASE_URL)
         .put(`/${setId}`, body)
-        .query(query => query.profile === 'standard')
+        .query(query => query.profile === params.profile)
         .reply(200);
 
       await plugin({ $config }).update(setId, body, params);
