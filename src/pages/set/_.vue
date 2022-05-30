@@ -262,9 +262,6 @@
       },
       shareMediaUrl() {
         return this.$apis.thumbnail.edmPreview(this.set?.items?.[0]?.edmPreview?.[0], { size: 400 });
-      },
-      itemIds() {
-        return (this.set.items || []).map(item => item.id);
       }
     },
 
