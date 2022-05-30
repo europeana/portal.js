@@ -5,7 +5,7 @@
 
 import md5 from 'md5';
 
-import { apiConfig } from './utils.js';
+import { preferredAPIBaseURL } from './utils.js';
 import { BASE_URL as EUROPEANA_DATA_URL } from './data.js';
 
 // TODO: switch to v3 when v2 support is deprecated
@@ -36,11 +36,10 @@ export const thumbnailTypeForMimeType = (mimeType) => {
 };
 
 export default (context = {}) => {
-  const config = apiConfig(context.$config, 'thumbnail');
-  const baseUrl = config.url || BASE_URL;
-
   // TODO: remove `type` when v2 support is deprecated
   const media = (uri, { hash, size, type } = {}) => {
+    const baseUrl = preferredAPIBaseURL({ id: 'thumbnail', baseURL: BASE_URL }, context);
+
     if (!size) {
       size = 200;
     }
