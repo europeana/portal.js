@@ -14,11 +14,11 @@
           body-class="d-flex flex-column align-items-center"
         >
           <b-card-title
-            v-if="slide.name"
+            v-if="slide.title"
             title-tag="h3"
           >
             <span>
-              {{ slide.name }}
+              {{ slide.title }}
             </span>
           </b-card-title>
           <b-card-text
