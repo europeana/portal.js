@@ -18,6 +18,7 @@
         :is="draggableItems ? 'draggable' : 'div'"
         v-model="cards"
         draggable=".item"
+        handle=".move-button"
         @end="endItemDrag"
       >
         <template
@@ -49,6 +50,7 @@
             :enable-accept-recommendation="enableAcceptRecommendations"
             :enable-reject-recommendation="enableRejectRecommendations"
             :show-pins="showPins"
+            :show-move="draggableItems"
             :offset="items.findIndex(item => item.id === card.id)"
             data-qa="item preview"
             @like="$emit('like', card.id)"
@@ -94,6 +96,7 @@
           :hit-selector="itemHitSelector(card)"
           :variant="cardVariant"
           :show-pins="showPins"
+          :show-move="draggableItems"
           :offset="items.findIndex(item => item.id === card.id)"
           data-qa="item preview"
           @like="$emit('like', card.id)"
