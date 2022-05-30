@@ -131,7 +131,7 @@
                   :items="set.items"
                   :show-pins="setIsEntityBestItems && userIsEntityEditor"
                   :draggable-items="userIsOwner"
-                  @endItemDrag="endItemDrag"
+                  @endItemDrag="reorderItems"
                 />
               </b-col>
             </b-row>
@@ -152,6 +152,7 @@
 <script>
   import ClientOnly from 'vue-client-only';
 
+  import { ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX } from '@/plugins/europeana/data';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
 
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
@@ -268,10 +269,7 @@
     },
 
     methods: {
-      endItemDrag(cards) {
-        const items = cards
-          .filter(card => this.itemIds.includes(card.id))
-          .map(card => `http://data.europeana.eu/item${card.id}`);
+      reorderItems(items) {
         this.$store.dispatch('set/update', {
           id: this.setId,
           body: {
@@ -279,7 +277,7 @@
             title: this.set.title,
             description: this.set.description,
             visibility: this.set.visibility,
-            items
+            items: items.map(item => `${EUROPEANA_DATA_URL_ITEM_PREFIX}${item.id}`)
           },
           params: { profile: 'standard' }
         });

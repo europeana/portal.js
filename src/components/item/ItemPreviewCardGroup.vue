@@ -17,7 +17,8 @@
       <component
         :is="draggableItems ? 'draggable' : 'div'"
         v-model="cards"
-        @end="$emit('endItemDrag', cards)"
+        draggable=".item"
+        @end="endItemDrag"
       >
         <template
           v-for="(card, index) in cards"
@@ -67,7 +68,8 @@
     <component
       :is="draggableItems ? 'draggable' : 'div'"
       v-model="cards"
-      @end="$emit('endItemDrag', cards)"
+      draggable=".item"
+      @end="endItemDrag"
     >
       <template
         v-for="(card, index) in cards"
@@ -202,6 +204,9 @@
     },
 
     methods: {
+      endItemDrag() {
+        this.$emit('endItemDrag', this.cards.filter(card => card !== 'related'));
+      },
       itemHitSelector(item) {
         if (!this.hits) {
           return null;
