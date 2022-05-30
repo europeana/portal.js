@@ -67,88 +67,105 @@ const results = [
 describe('components/item/ItemPreviewCardGroup', () => {
   afterEach(sinon.resetHistory);
 
-  describe('when view is grid', () => {
-    it('renders each result with a link, and resizes the masonary grid', async() => {
-      const wrapper = await factory({ propsData: { items: results, view: 'grid' } });
+  describe('template', () => {
+    describe('when view is grid', () => {
+      it('renders each result with a link, and resizes the masonary grid', async() => {
+        const wrapper = await factory({ propsData: { items: results, view: 'grid' } });
 
-      const renderedResults =  wrapper.findAll('[data-qa="item preview"]');
+        const renderedResults =  wrapper.findAll('[data-qa="item preview"]');
 
-      expect(renderedResults.at(0).find('a').attributes().href.endsWith(`/item${results[0].id}`)).toBe(true);
-      expect(renderedResults.at(1).find('a').attributes().href.endsWith(`/item${results[1].id}`)).toBe(true);
-      expect(redrawMasonry.called).toBe(true);
+        expect(renderedResults.at(0).find('a').attributes().href.endsWith(`/item${results[0].id}`)).toBe(true);
+        expect(renderedResults.at(1).find('a').attributes().href.endsWith(`/item${results[1].id}`)).toBe(true);
+        expect(redrawMasonry.called).toBe(true);
+      });
     });
-  });
 
-  describe('when view is mosaic', () => {
-    it('renders each result with a link, and resizes the masonary grid', async() => {
-      const wrapper = await factory({ propsData: { items: results, view: 'mosaic' } });
+    describe('when view is mosaic', () => {
+      it('renders each result with a link, and resizes the masonary grid', async() => {
+        const wrapper = await factory({ propsData: { items: results, view: 'mosaic' } });
 
-      const renderedResults =  wrapper.findAll('[data-qa="item preview"]');
+        const renderedResults =  wrapper.findAll('[data-qa="item preview"]');
 
-      expect(renderedResults.at(0).find('a').attributes().href.endsWith(`/item${results[0].id}`)).toBe(true);
-      expect(renderedResults.at(1).find('a').attributes().href.endsWith(`/item${results[1].id}`)).toBe(true);
-      expect(redrawMasonry.called).toBe(true);
+        expect(renderedResults.at(0).find('a').attributes().href.endsWith(`/item${results[0].id}`)).toBe(true);
+        expect(renderedResults.at(1).find('a').attributes().href.endsWith(`/item${results[1].id}`)).toBe(true);
+        expect(redrawMasonry.called).toBe(true);
+      });
     });
-  });
 
-  describe('when view is list', () => {
-    it('renders each result with a link', () => {
-      const wrapper = factory({ propsData: { items: results, view: 'list' } });
-
-      const renderedResults =  wrapper.findAll('div[data-qa="item preview"]');
-
-      expect(renderedResults.at(0).find('a').attributes().href.endsWith(`/item${results[0].id}`)).toBe(true);
-      expect(renderedResults.at(1).find('a').attributes().href.endsWith(`/item${results[1].id}`)).toBe(true);
-    });
-  });
-
-  describe('cardGroupClass', () => {
-    describe('when in list view', () => {
-      it('uses the list card-group class', () => {
+    describe('when view is list', () => {
+      it('renders each result with a link', () => {
         const wrapper = factory({ propsData: { items: results, view: 'list' } });
 
-        expect(wrapper.vm.cardGroupClass).toMatch('card-group-list');
-      });
-    });
+        const renderedResults =  wrapper.findAll('div[data-qa="item preview"]');
 
-    describe('when in plain view', () => {
-      it('uses the card-deck card-group class', () => {
-        const wrapper = factory({ propsData: { items: results, view: 'plain' } });
-
-        expect(wrapper.vm.cardGroupClass).toMatch('card-deck-search');
-      });
-    });
-
-    describe('when in explore view', () => {
-      it('uses the explore-more card-group class', () => {
-        const wrapper = factory({ propsData: { items: results, view: 'explore' } });
-
-        expect(wrapper.vm.cardGroupClass).toMatch('explore-more');
-      });
-    });
-
-    describe('when in similar view', () => {
-      it('uses the explore-more card-group class', () => {
-        const wrapper = factory({ propsData: { items: results, view: 'similar' } });
-
-        expect(wrapper.vm.cardGroupClass).toMatch('similar-items');
+        expect(renderedResults.at(0).find('a').attributes().href.endsWith(`/item${results[0].id}`)).toBe(true);
+        expect(renderedResults.at(1).find('a').attributes().href.endsWith(`/item${results[1].id}`)).toBe(true);
       });
     });
   });
 
-  describe('#itemHitSelector', () => {
-    describe('when no hits are present', () => {
-      it('returns null', () => {
-        const wrapper = factory();
+  describe('computed', () => {
+    describe('cardGroupClass', () => {
+      describe('when in list view', () => {
+        it('uses the list card-group class', () => {
+          const wrapper = factory({ propsData: { items: results, view: 'list' } });
 
-        expect(wrapper.vm.itemHitSelector(results[0])).toBeNull();
+          expect(wrapper.vm.cardGroupClass).toMatch('card-group-list');
+        });
+      });
+
+      describe('when in plain view', () => {
+        it('uses the card-deck card-group class', () => {
+          const wrapper = factory({ propsData: { items: results, view: 'plain' } });
+
+          expect(wrapper.vm.cardGroupClass).toMatch('card-deck-search');
+        });
+      });
+
+      describe('when in explore view', () => {
+        it('uses the explore-more card-group class', () => {
+          const wrapper = factory({ propsData: { items: results, view: 'explore' } });
+
+          expect(wrapper.vm.cardGroupClass).toMatch('explore-more');
+        });
+      });
+
+      describe('when in similar view', () => {
+        it('uses the explore-more card-group class', () => {
+          const wrapper = factory({ propsData: { items: results, view: 'similar' } });
+
+          expect(wrapper.vm.cardGroupClass).toMatch('similar-items');
+        });
       });
     });
-    describe('when hits are present', () => {
-      it('picks the hit with the same ID as the item', () => {
-        const wrapper = factory({ propsData: { items: results, view: 'list', hits: [{ scope: '/123/abc', selectors: ['example selector'] }] } });
+  });
 
-        expect(wrapper.vm.itemHitSelector(results[0])).toMatch('example selector');
+  describe('methods', () => {
+    describe('itemHitSelector', () => {
+      describe('when no hits are present', () => {
+        it('returns null', () => {
+          const wrapper = factory();
+
+          expect(wrapper.vm.itemHitSelector(results[0])).toBeNull();
+        });
+      });
+
+      describe('when hits are present', () => {
+        it('picks the hit with the same ID as the item', () => {
+          const wrapper = factory({ propsData: { items: results, view: 'list', hits: [{ scope: '/123/abc', selectors: ['example selector'] }] } });
+
+          expect(wrapper.vm.itemHitSelector(results[0])).toMatch('example selector');
+        });
+      });
+    });
+
+    describe('endItemDrag', () => {
+      it('emits an @endItemDrag event with item cards', () => {
+        const wrapper = factory({ propsData: { items: results } });
+
+        wrapper.vm.endItemDrag();
+
+        expect(wrapper.emitted('endItemDrag')).toEqual([[results]]);
       });
     });
   });
