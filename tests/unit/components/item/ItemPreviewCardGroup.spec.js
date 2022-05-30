@@ -13,9 +13,10 @@ const storeIsLikedGetter = sinon.stub();
 const storeIsPinnedGetter = sinon.stub();
 const redrawMasonry = sinon.spy();
 
-const factory = () => {
+const factory = ({ propsData } = {}) => {
   return mount(ItemPreviewCardGroup, {
     localVue,
+    propsData,
     mocks: {
       $auth: { loggedIn: false },
       $config: { app: { internalLinkDomain: null } },
@@ -64,11 +65,11 @@ const results = [
 ];
 
 describe('components/item/ItemPreviewCardGroup', () => {
+  afterEach(sinon.resetHistory);
+
   describe('when view is grid', () => {
     it('renders each result with a link, and resizes the masonary grid', async() => {
-      const wrapper = factory();
-
-      await wrapper.setProps({ items: results, view: 'grid' });
+      const wrapper = await factory({ propsData: { items: results, view: 'grid' } });
 
       const renderedResults =  wrapper.findAll('[data-qa="item preview"]');
 
@@ -80,9 +81,7 @@ describe('components/item/ItemPreviewCardGroup', () => {
 
   describe('when view is mosaic', () => {
     it('renders each result with a link, and resizes the masonary grid', async() => {
-      const wrapper = factory();
-
-      await wrapper.setProps({ items: results, view: 'mosaic' });
+      const wrapper = await factory({ propsData: { items: results, view: 'mosaic' } });
 
       const renderedResults =  wrapper.findAll('[data-qa="item preview"]');
 
@@ -93,10 +92,8 @@ describe('components/item/ItemPreviewCardGroup', () => {
   });
 
   describe('when view is list', () => {
-    it('renders each result with a link', async() => {
-      const wrapper = factory();
-
-      await wrapper.setProps({ items: results, view: 'list' });
+    it('renders each result with a link', () => {
+      const wrapper = factory({ propsData: { items: results, view: 'list' } });
 
       const renderedResults =  wrapper.findAll('div[data-qa="item preview"]');
 
@@ -107,40 +104,32 @@ describe('components/item/ItemPreviewCardGroup', () => {
 
   describe('cardGroupClass', () => {
     describe('when in list view', () => {
-      it('uses the list card-group class', async() => {
-        const wrapper = factory();
-
-        await wrapper.setProps({ items: results, view: 'list' });
+      it('uses the list card-group class', () => {
+        const wrapper = factory({ propsData: { items: results, view: 'list' } });
 
         expect(wrapper.vm.cardGroupClass).toMatch('card-group-list');
       });
     });
 
     describe('when in plain view', () => {
-      it('uses the card-deck card-group class', async() => {
-        const wrapper = factory();
-
-        await wrapper.setProps({ items: results, view: 'plain' });
+      it('uses the card-deck card-group class', () => {
+        const wrapper = factory({ propsData: { items: results, view: 'plain' } });
 
         expect(wrapper.vm.cardGroupClass).toMatch('card-deck-search');
       });
     });
 
     describe('when in explore view', () => {
-      it('uses the explore-more card-group class', async() => {
-        const wrapper = factory();
-
-        await wrapper.setProps({ items: results, view: 'explore' });
+      it('uses the explore-more card-group class', () => {
+        const wrapper = factory({ propsData: { items: results, view: 'explore' } });
 
         expect(wrapper.vm.cardGroupClass).toMatch('explore-more');
       });
     });
 
     describe('when in similar view', () => {
-      it('uses the explore-more card-group class', async() => {
-        const wrapper = factory();
-
-        await wrapper.setProps({ items: results, view: 'similar' });
+      it('uses the explore-more card-group class', () => {
+        const wrapper = factory({ propsData: { items: results, view: 'similar' } });
 
         expect(wrapper.vm.cardGroupClass).toMatch('similar-items');
       });
@@ -156,10 +145,8 @@ describe('components/item/ItemPreviewCardGroup', () => {
       });
     });
     describe('when hits are present', () => {
-      it('picks the hit with the same ID as the item', async() => {
-        const wrapper = factory();
-
-        await wrapper.setProps({ items: results, view: 'list', hits: [{ scope: '/123/abc', selectors: ['example selector'] }] });
+      it('picks the hit with the same ID as the item', () => {
+        const wrapper = factory({ propsData: { items: results, view: 'list', hits: [{ scope: '/123/abc', selectors: ['example selector'] }] } });
 
         expect(wrapper.vm.itemHitSelector(results[0])).toMatch('example selector');
       });
