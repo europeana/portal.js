@@ -2,38 +2,34 @@
   <div>
     <HomeHero />
     <StackedCardsSwiper
-      :slides="themes"
+      :slides="swiperThemes"
     />
   </div>
 </template>
 
 <script>
-  import HomeHero from './HomeHero';
-  import { getEntityUri, getEntityTypeHumanReadable, getEntitySlug  } from '@/plugins/europeana/entity';
-  import themes, { withEditorialContent } from '@/plugins/europeana/themes';
-  import { mapState } from 'vuex';
+  import { getEntityTypeHumanReadable, getEntitySlug  } from '@/plugins/europeana/entity';
   import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
+  import allThemes from '@/mixins/allThemes';
+  import HomeHero from './HomeHero';
+  import StackedCardsSwiper from '@/components/generic/StackedCardsSwiper';
 
   export default {
     name: 'HomePage',
 
     components: {
       HomeHero,
-      StackedCardsSwiper: () => import('../generic/StackedCardsSwiper')
+      StackedCardsSwiper
     },
 
+    mixins: [allThemes],
+
     async fetch() {
-      if (this.allThemes.length === 0) {
-        const themesForStore = await withEditorialContent(this, themes.map((theme) => {
-          return { id: getEntityUri('topic', theme.id) };
-        }));
-        this.$store.commit('search/set', ['allThemes', themesForStore]);
-      }
+      await this.fetchAllThemes();
     },
 
     computed: {
-      ...mapState({ allThemes: state => state.search.allThemes }),
-      themes() {
+      swiperThemes() {
         return this.allThemes.map(theme => {
           return { title: theme.prefLabel[this.$i18n.locale],
                    description: theme.description[this.$i18n.locale],

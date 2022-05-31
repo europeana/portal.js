@@ -13,9 +13,7 @@
 
 <script>
   import RelatedCollections from '../related/RelatedCollections';
-  import { getEntityUri } from '@/plugins/europeana/entity';
-  import themes, { withEditorialContent } from '@/plugins/europeana/themes';
-  import { mapState } from 'vuex';
+  import allThemes from '@/mixins/allThemes';
 
   export default {
     name: 'QuickSearch',
@@ -23,6 +21,8 @@
     components: {
       RelatedCollections
     },
+
+    mixins: [allThemes],
 
     props: {
       /**
@@ -36,16 +36,10 @@
     },
 
     async fetch() {
-      if (this.allThemes.length === 0) {
-        const themesForStore = await withEditorialContent(this, themes.map((theme) => {
-          return { id: getEntityUri('topic', theme.id) };
-        }));
-        this.$store.commit('search/set', ['allThemes', themesForStore]);
-      }
+      await this.fetchAllThemes();
     },
 
     computed: {
-      ...mapState({ allThemes: state => state.search.allThemes }),
       optionsAndThemes() {
         return this.options.concat(this.allThemes);
       }
