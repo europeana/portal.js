@@ -11,7 +11,7 @@
       >
         <b-card
           class="h-100 text-center"
-          body-class="d-flex flex-column align-items-center"
+          body-class="py-4 d-flex flex-column align-items-center"
         >
           <b-card-title
             v-if="slide.title"
@@ -23,7 +23,7 @@
           </b-card-title>
           <b-card-text
             text-tag="div"
-            class="my-5"
+            class="mt-4 mb-5"
           >
             <p>
               {{ slide.description }}
@@ -32,7 +32,7 @@
           <b-button
             variant="outline-primary"
             :href="slide.url"
-            class="slide-link my-5"
+            class="slide-link"
           >
             explore
           </b-button>
@@ -62,10 +62,6 @@
       slides: {
         type: Array,
         required: true
-      },
-      loop: {
-        type: Boolean,
-        default: true
       }
     },
 
@@ -73,8 +69,6 @@
       return {
         swiperOptions: {
           effect: 'coverflow',
-          loop: this.loop,
-          loopedSlides: this.loop && 12,
           grabCursor: true,
           centeredSlides: true,
           slidesPerView: 'auto',
@@ -110,19 +104,19 @@
     },
 
     mounted() {
-      !this.loop && this.swiper.slideTo(this.slides.length / 2);
+      this.swiper.slideTo(this.slides.length / 2);
     }
   };
 </script>
 
 <style lang="scss" scoped>
 .slide-link {
-  margin: auto 0 0 0;
+  margin: auto 0 0;
 }
 
 .swiper-container {
   width: 100%;
-  padding: 3rem;
+  padding: 3rem 0;
 }
 
 .swiper-slide {

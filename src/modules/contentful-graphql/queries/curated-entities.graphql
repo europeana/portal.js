@@ -8,6 +8,7 @@ query CollectionPage(
       nameEN: name(locale: "en-GB")
       identifier
       genre
+      description
       primaryImageOfPage {
         image {
           url

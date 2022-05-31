@@ -3,10 +3,6 @@
     <HomeHero />
     <StackedCardsSwiper
       :slides="themes"
-      :loop="false"
-    />
-    <StackedCardsSwiper
-      :slides="themes"
     />
   </div>
 </template>
@@ -39,7 +35,9 @@
       ...mapState({ allThemes: state => state.search.allThemes }),
       themes() {
         return this.allThemes.map(theme => {
-          return { title: theme.prefLabel[this.$i18n.locale], url: this.linkGen(theme) };
+          return { title: theme.prefLabel[this.$i18n.locale],
+                   description: theme.description[this.$i18n.locale],
+                   url: this.linkGen(theme) };
         });
       }
     },
