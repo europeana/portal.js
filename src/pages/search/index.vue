@@ -7,7 +7,6 @@
       <b-row
         class="flex-row-reverse flex-nowrap"
       >
-        <SideFilters />
         <b-col
           class="results-col"
         >

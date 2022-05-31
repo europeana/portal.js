@@ -77,9 +77,6 @@
               </b-container>
             </client-only>
           </b-col>
-          <SideFilters
-            :route="route"
-          />
         </b-row>
       </b-container>
     </client-only>
@@ -107,8 +104,7 @@
       EntityHeader: () => import('@/components/entity/EntityHeader'),
       EntityRelatedCollections: () => import('@/components/entity/EntityRelatedCollections'),
       RelatedEditorial: () => import('@/components/related/RelatedEditorial'),
-      SearchInterface,
-      SideFilters: () => import('@/components/search/SideFilters')
+      SearchInterface
     },
 
     beforeRouteLeave(to, from, next) {

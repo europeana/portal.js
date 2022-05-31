@@ -16,6 +16,9 @@
     </b-row>
   </b-container>
   <b-container v-else>
+    <SideFilters
+      :route="route"
+    />
     <div
       class="mb-3 d-flex align-items-start align-items-md-center justify-content-between"
     >
@@ -117,7 +120,8 @@
       ItemPreviewCardGroup,
       LoadingSpinner: () => import('../generic/LoadingSpinner'),
       PaginationNav: () => import('../generic/PaginationNav'),
-      ViewToggles
+      ViewToggles,
+      SideFilters: () => import('./SideFilters')
     },
     mixins: [
       makeToastMixin
