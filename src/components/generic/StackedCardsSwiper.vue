@@ -14,7 +14,6 @@
           body-class="py-4 d-flex flex-column align-items-center"
         >
           <b-card-title
-            v-if="slide.title"
             title-tag="h3"
           >
             <span>
@@ -104,7 +103,7 @@
     },
 
     mounted() {
-      this.swiper.slideTo(this.slides.length / 2);
+      this.swiper && this.swiper.slideTo(this.slides.length / 2);
     }
   };
 </script>
