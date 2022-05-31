@@ -132,7 +132,8 @@
   <StackedCardsSwiper :slides="[
   {
     title: 'World War I',
-    description: 'Collection of untold stories and official histories of World War I, in a unique blend of cultural heritage collections and personal items contributed by European citizens.',
+    description: 'Collection of untold stories and official histories of World War I, in a unique blend of cultural heritage collections and personal items contributed by \
+    European citizens.',
     url: '/en/collections/topic/83-world-war-i'
   },
   {
@@ -142,12 +143,14 @@
   },
   {
     title: 'Art',
-    description: 'Discover inspiring art, artists and stories in the digitised collections of European museums, galleries, libraries and archives. Explore paintings, drawings, engravings and sculpture from cultural heritage institutions across Europe.',
+    description: 'Discover inspiring art, artists and stories in the digitised collections of European museums, galleries, libraries and archives. Explore paintings, \
+    drawings, engravings and sculpture from cultural heritage institutions across Europe.',
     url: '/en/collections/topic/190-art'
   },
   {
     title: 'Fashion',
-    description: 'Explore fashion – historical clothing and accessories, contemporary designs, catwalk photographs, drawings, sketches, plates, catalogues and videos – from more than 30 European public and private institutions.',
+    description: 'Explore fashion – historical clothing and accessories, contemporary designs, catwalk photographs, drawings, sketches, plates, catalogues and videos \
+    – from more than 30 European public and private institutions.',
     url: '/en/collections/topic/55-fashion'
   },
   {
@@ -177,7 +180,8 @@
   },
   {
     title: 'Natural history',
-    description: 'Natural history is the research and study of organisms including plants or animals in their environment. Explore the world\'s natural history in drawings, specimens and collections from European cultural heritage institutions.',
+    description: 'Natural history is the research and study of organisms including plants or animals in their environment. Explore the world\'s natural history in drawings, \
+    specimens and collections from European cultural heritage institutions.',
     url: '/en/collections/topic/156-natural-history'
   },
   {
