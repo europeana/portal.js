@@ -33,7 +33,7 @@
             :href="slide.url"
             class="slide-link"
           >
-            explore
+            {{ $t('explore') }}
           </b-button>
         </b-card>
       </swiper-slide>
@@ -58,6 +58,9 @@
     },
 
     props: {
+      /**
+       * Slides that each contain data for title, description and url
+       */
       slides: {
         type: Array,
         required: true
@@ -123,3 +126,75 @@
   height: auto;
 }
 </style>
+
+<docs lang="md">
+  ```jsx
+  <StackedCardsSwiper :slides="[
+  {
+    title: 'World War I',
+    description: 'Collection of untold stories and official histories of World War I, in a unique blend of cultural heritage collections and personal items contributed by European citizens.',
+    url: '/en/collections/topic/83-world-war-i'
+  },
+  {
+    title: 'Archaeology',
+    description: 'Explore all facets of archaeology from European museums, galleries, libraries and archives.',
+    url: '/en/collections/topic/80-archaeology'
+  },
+  {
+    title: 'Art',
+    description: 'Discover inspiring art, artists and stories in the digitised collections of European museums, galleries, libraries and archives. Explore paintings, drawings, engravings and sculpture from cultural heritage institutions across Europe.',
+    url: '/en/collections/topic/190-art'
+  },
+  {
+    title: 'Fashion',
+    description: 'Explore fashion – historical clothing and accessories, contemporary designs, catwalk photographs, drawings, sketches, plates, catalogues and videos – from more than 30 European public and private institutions.',
+    url: '/en/collections/topic/55-fashion'
+  },
+  {
+    title: 'Industrial Heritage',
+    description: 'Explore Europe\'s industrial heritage through the digitised collections of European cultural heritage organisations and personal stories of our working lives.',
+    url: '/en/collections/topic/129-industrial-heritage'
+  },
+  {
+    title: 'Manuscripts',
+    description: 'Explore the roots of European written culture through manuscripts from antiquity to the early print era. ',
+    url: '/en/collections/topic/17-manuscripts'
+  },
+  {
+    title: 'Maps and Geography',
+    description: 'Explore history, geography and cartography through the digitised collections of European cultural heritage institutions.',
+    url: '/en/collections/topic/151-maps-and-geography'
+  },
+  {
+    title: 'Migration',
+    description: 'Collections on the theme of migration to, from and within Europe, sourced from cultural heritage institutions and members of the public',
+    url: '/en/collections/topic/128-migration'
+  },
+  {
+    title: 'Music',
+    description: 'Explore recordings, sheet music, instruments and music-related collections from European audio-visual archives, libraries and museums.',
+    url: '/en/collections/topic/62-music'
+  },
+  {
+    title: 'Natural history',
+    description: 'Natural history is the research and study of organisms including plants or animals in their environment. Explore the world\'s natural history in drawings, specimens and collections from European cultural heritage institutions.',
+    url: '/en/collections/topic/156-natural-history'
+  },
+  {
+    title: 'Newspapers',
+    description: 'Explore the headlines, articles, advertisements, and opinion pieces from European newspapers from 20 countries, dating from 1618 to the 1980s.',
+    url: '/en/collections/topic/18-newspapers'
+  },
+  {
+    title: 'Photography',
+    description: 'Discover inspiring images and the history of photography through the collections of European cultural heritage institutions.',
+    url: '/en/collections/topic/48-photography'
+  },
+  {
+    title: 'Sport',
+    description: 'Explore sporting heritage and culture in photographs, films, sound recordings and texts from European collections.',
+    url: '/en/collections/topic/114-sport'
+  }
+  ]" />
+  ```
+</docs>

@@ -190,6 +190,7 @@ export default {
     "description": "Explore the exhibitions",
     "exhibitions": "Exhibition | Exhibitions"
   },
+  "explore": "Explore",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "colours",
