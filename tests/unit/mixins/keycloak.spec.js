@@ -41,15 +41,16 @@ describe('mixins/keycloak', () => {
         expect(wrapper.vm.keycloakLoginRedirect).toBe(mocks.$route.fullPath);
       });
 
-      it('falls back to /account if it would otherwise be /account/login', () => {
+      it('falls back to /account, preserving hash, if it would otherwise be /account/login', () => {
         const mocks = {
           $route: {
-            fullPath: '/en/account/login'
+            path: '/en/account/login',
+            hash: '#likes'
           }
         };
         const wrapper = factory(mocks);
 
-        expect(wrapper.vm.keycloakLoginRedirect).toBe('/account');
+        expect(wrapper.vm.keycloakLoginRedirect).toBe('/account#likes');
       });
     });
 

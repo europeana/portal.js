@@ -1,19 +1,18 @@
 export default {
   computed: {
     keycloakLoginRedirect() {
-      let redirect;
+      let redirect = '/account';
+
       if (this.$route) {
         if (this.$route.query && this.$route.query.redirect) {
           redirect = this.$route.query.redirect;
-        } else if (this.$route.path.endsWith('/account/login')) {
-          redirect = `/account/${this.$route.hash || ''}`;
+        } else if (this.$route.path?.endsWith('/account/login')) {
+          redirect = `/account${this.$route.hash || ''}`;
         } else if (this.$route.fullPath) {
           redirect = this.$route.fullPath;
         }
       }
-      if (!redirect) {
-        redirect = '/account';
-      }
+
       return redirect;
     },
 
