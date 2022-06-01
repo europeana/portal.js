@@ -16,7 +16,16 @@ const factory = (mocks = {}) => shallowMount(component, {
 describe('mixins/keycloak', () => {
   describe('computed', () => {
     describe('keycloakLoginRedirect', () => {
-      it('favours redirect from route query', () => {
+      describe('when there is no route', () => {
+        const mocks = {};
+        it('would redirect to /account', () => {
+          const wrapper = factory(mocks);
+
+          expect(wrapper.vm.keycloakLoginRedirect).toBe('/account');
+        });
+      });
+
+      describe('when the route has a redirect in its query', () => {
         const mocks = {
           $route: {
             fullPath: '/de/login',
@@ -25,32 +34,56 @@ describe('mixins/keycloak', () => {
             }
           }
         };
-        const wrapper = factory(mocks);
+        it('would redirect to the query redirect', () => {
+          const wrapper = factory(mocks);
 
-        expect(wrapper.vm.keycloakLoginRedirect).toBe(mocks.$route.query.redirect);
+          expect(wrapper.vm.keycloakLoginRedirect).toBe(mocks.$route.query.redirect);
+        });
       });
 
-      it('otherwise uses full path from route', () => {
-        const mocks = {
-          $route: {
-            fullPath: '/de/collections'
-          }
-        };
-        const wrapper = factory(mocks);
+      describe('else, when the route path is for /account/login', () => {
+        describe('and there is a hash in the route', () => {
+          const mocks = {
+            $route: {
+              path: '/en/account/login',
+              hash: '#likes'
+            }
+          };
 
-        expect(wrapper.vm.keycloakLoginRedirect).toBe(mocks.$route.fullPath);
-      });
+          it('would redirect to /account, preserving the hash', () => {
+            const wrapper = factory(mocks);
 
-      it('falls back to /account, preserving hash, if it would otherwise be /account/login', () => {
-        const mocks = {
-          $route: {
-            path: '/en/account/login',
-            hash: '#likes'
-          }
-        };
-        const wrapper = factory(mocks);
+            expect(wrapper.vm.keycloakLoginRedirect).toBe('/account#likes');
+          });
+        });
 
-        expect(wrapper.vm.keycloakLoginRedirect).toBe('/account#likes');
+        describe('but there is no hash in the route', () => {
+          const mocks = {
+            $route: {
+              path: '/en/account/login'
+            }
+          };
+
+          it('would redirect to /account', () => {
+            const wrapper = factory(mocks);
+
+            expect(wrapper.vm.keycloakLoginRedirect).toBe('/account');
+          });
+        });
+
+        describe('otherwise if there is a full path for the route', () => {
+          const mocks = {
+            $route: {
+              fullPath: '/de/collections'
+            }
+          };
+
+          it('would redirect to the route full path', () => {
+            const wrapper = factory(mocks);
+
+            expect(wrapper.vm.keycloakLoginRedirect).toBe(mocks.$route.fullPath);
+          });
+        });
       });
     });
 
