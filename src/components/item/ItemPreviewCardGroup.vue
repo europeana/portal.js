@@ -93,6 +93,7 @@
           v-else
           :key="card.id"
           :item="card"
+          class="item"
           :hit-selector="itemHitSelector(card)"
           :variant="cardVariant"
           :show-pins="showPins"
