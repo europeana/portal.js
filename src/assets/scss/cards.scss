@@ -279,7 +279,7 @@
 
     @media (min-width: $bp-medium) {
       margin-right: $grid-gutter-narrow;
-      margin-left: $grid-gutter-narrow;
+      margin-left: $grid-gutter-narrow !important;
 
       &:last-child {
         margin-bottom: 1rem;
