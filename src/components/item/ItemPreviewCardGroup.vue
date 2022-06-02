@@ -60,52 +60,50 @@
       </component>
     </div>
   </div>
-  <b-card-group
+  <component
+    :is="draggableItems ? 'draggable' : 'b-card-group'"
     v-else
+    :v-model="draggableItems && cards"
     :data-qa="`item previews ${view}`"
     :class="cardGroupClass"
     deck
+    tag="b-card-group"
+    :draggable="draggableItems && '.item'"
+    @end="endItemDrag"
   >
     <slot />
-    <component
-      :is="draggableItems ? 'draggable' : 'div'"
-      v-model="cards"
-      draggable=".item"
-      @end="endItemDrag"
+    <template
+      v-for="(card, index) in cards"
     >
       <template
-        v-for="(card, index) in cards"
+        v-if="card === 'related'"
       >
-        <template
-          v-if="card === 'related'"
+        <b-card
+          v-show="showRelated"
+          :key="index"
+          class="text-left related-collections-card mb-4"
         >
-          <b-card
-            v-show="showRelated"
-            :key="index"
-            class="text-left related-collections-card mb-4"
-          >
-            <slot
-              name="related"
-            />
-          </b-card>
-        </template>
-        <ItemPreviewCard
-          v-else
-          :key="card.id"
-          :item="card"
-          class="item"
-          :hit-selector="itemHitSelector(card)"
-          :variant="cardVariant"
-          :show-pins="showPins"
-          :show-move="draggableItems"
-          :offset="items.findIndex(item => item.id === card.id)"
-          data-qa="item preview"
-          @like="$emit('like', card.id)"
-          @unlike="$emit('unlike', card.id)"
-        />
+          <slot
+            name="related"
+          />
+        </b-card>
       </template>
-    </component>
-  </b-card-group>
+      <ItemPreviewCard
+        v-else
+        :key="card.id"
+        :item="card"
+        class="item"
+        :hit-selector="itemHitSelector(card)"
+        :variant="cardVariant"
+        :show-pins="showPins"
+        :show-move="draggableItems"
+        :offset="items.findIndex(item => item.id === card.id)"
+        data-qa="item preview"
+        @like="$emit('like', card.id)"
+        @unlike="$emit('unlike', card.id)"
+      />
+    </template>
+  </component>
 </template>
 
 <script>
