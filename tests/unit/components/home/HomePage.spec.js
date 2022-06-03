@@ -55,6 +55,7 @@ const factory = (options = {}) => shallowMountNuxt(HomePage, {
       locale: 'en',
       isoLocale: () => 'en-GB'
     },
+    $t: (key) => key,
     $store: {
       state: {
         search: { allThemes: options.themes || [] }

@@ -115,7 +115,8 @@ export default {
     },
     "notifications": {
       "update": "The collection has been updated"
-    }
+    },
+    "themes": "Themes"
   },
   "collectionsYouMightLike": "Collections you might like",
   "colourSwatch": "Colour swatch",

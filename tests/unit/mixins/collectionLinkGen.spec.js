@@ -59,25 +59,25 @@ const factory = () => shallowMountNuxt(component, {
 });
 
 describe('mixins/collectionLinkGen', () => {
-  describe('linkGen', () => {
+  describe('collectionLinkGen', () => {
     describe('when the item has an identifier/it is a curated chip from contenful', () => {
       it('uses the identifier and english name for the slug', () => {
         const wrapper = factory();
-        expect(wrapper.vm.linkGen(collections[0])).toBe('person - 123-contentful-title-en');
+        expect(wrapper.vm.collectionLinkGen(collections[0])).toBe('person - 123-contentful-title-en');
       });
     });
 
     describe('when the item has an id/it is a Europeana entity from a search request', () => {
       it('uses the id and the English prefLabel for the name', () => {
         const wrapper = factory();
-        expect(wrapper.vm.linkGen(collections[1])).toBe('topic - 194-visual-arts');
+        expect(wrapper.vm.collectionLinkGen(collections[1])).toBe('topic - 194-visual-arts');
       });
     });
 
     describe('when the item can not be identified as a Europeana entity', () => {
       it('is `null`', () => {
         const wrapper = factory();
-        expect(wrapper.vm.linkGen({})).toBe(null);
+        expect(wrapper.vm.collectionLinkGen({})).toBe(null);
       });
     });
   });

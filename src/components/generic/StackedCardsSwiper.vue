@@ -1,5 +1,11 @@
 <template>
   <div>
+    <h2
+      v-if="title"
+      class="heading text-center my-3"
+    >
+      {{ title }}
+    </h2>
     <swiper
       ref="swiper"
       :options="swiperOptions"
@@ -30,7 +36,7 @@
           </b-card-text>
           <b-button
             variant="outline-primary"
-            :href="slide.url"
+            :to="slide.url"
             class="slide-link"
           >
             {{ $t('explore') }}
@@ -58,6 +64,10 @@
     },
 
     props: {
+      title: {
+        type: String,
+        default: null
+      },
       /**
        * Slides that each contain data for title, description and url
        */
@@ -112,24 +122,33 @@
 </script>
 
 <style lang="scss" scoped>
-.slide-link {
-  margin: auto 0 0;
-}
+  @import '@/assets/scss/variables';
 
-.swiper-container {
-  width: 100%;
-  padding: 3rem 0;
-}
+  .heading {
+    color: $mediumgrey;
+    font-size: 2rem;
+  }
 
-.swiper-slide {
-  width: calc(200px + 12vmin);
-  height: auto;
-}
+  .slide-link {
+    margin: auto 0 0;
+  }
+
+  .swiper-container {
+    width: 100%;
+    padding: 1rem 0 3rem;
+  }
+
+  .swiper-slide {
+    width: calc(200px + 12vmin);
+    height: auto;
+  }
 </style>
 
 <docs lang="md">
   ```jsx
-  <StackedCardsSwiper :slides="[
+  <StackedCardsSwiper
+  title="Swiper title"
+  :slides="[
   {
     title: 'World War I',
     description: 'Collection of untold stories and official histories of World War I, in a unique blend of cultural heritage collections and personal items contributed by \

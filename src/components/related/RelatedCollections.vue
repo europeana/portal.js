@@ -16,7 +16,7 @@
         :id="relatedCollection.id"
         :key="relatedCollection.id"
         ref="options"
-        :link-to="linkGen(relatedCollection)"
+        :link-to="collectionLinkGen(relatedCollection)"
         :title="relatedCollection.prefLabel ? relatedCollection.prefLabel : relatedCollection.name"
         :img="imageUrl(relatedCollection)"
         :type="relatedCollection.type"

@@ -3,6 +3,7 @@
     <HomeHero />
     <StackedCardsSwiper
       :slides="swiperThemes"
+      :title="$t('collections.themes')"
     />
   </div>
 </template>
@@ -32,7 +33,7 @@
         return this.allThemes.map(theme => {
           return { title: theme.prefLabel[this.$i18n.locale],
                    description: theme.description[this.$i18n.locale],
-                   url: this.linkGen(theme) };
+                   url: this.collectionLinkGen(theme) };
         });
       }
     }
