@@ -22,10 +22,11 @@ const swiperSlides = [{
   url: '/en/collections/topic/190-art'
 }];
 
-const factory = () => mount(StackedCardsSwiper, {
+const factory = (options = {}) => mount(StackedCardsSwiper, {
   localVue,
   propsData: {
-    slides: swiperSlides
+    slides: swiperSlides,
+    title: options.title
   },
   mocks: {
     $t: () => {}
@@ -38,6 +39,13 @@ describe('components/generic/StackedCardsSwiper', () => {
       const wrapper = factory();
 
       expect(wrapper.findAll('div.swiper-slide').length).toBe(3);
+    });
+  });
+  describe('When a title is present', () => {
+    it('renders a heading', () => {
+      const wrapper = factory({ title: 'Slider' });
+
+      expect(wrapper.find('h2').text()).toEqual('Slider');
     });
   });
 });
