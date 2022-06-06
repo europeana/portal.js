@@ -1,64 +1,60 @@
 <template>
   <div
     v-if="masonryActive"
+    :key="`searchResultsGrid${view}`"
+    v-masonry
+    transition-duration="0.1"
+    item-selector=".card"
+    horizontal-order="true"
+    column-width=".masonry-container .card:not(.header-card)"
+    class="masonry-container"
+    :data-qa="`item previews ${view}`"
   >
-    <div
-      id="searchResultsGrid"
-      :key="`searchResultsGrid${view}`"
-      v-masonry
-      transition-duration="0.1"
-      item-selector=".card"
-      horizontal-order="true"
-      column-width=".masonry-container .card:not(.header-card)"
-      class="masonry-container"
-      :data-qa="`item previews ${view}`"
+    <slot />
+    <component
+      :is="draggableItems ? 'draggable' : 'div'"
+      v-model="cards"
+      :draggable="draggableItems && '.item'"
+      handle=".move-button"
+      @end="endItemDrag"
     >
-      <slot />
-      <component
-        :is="draggableItems ? 'draggable' : 'div'"
-        v-model="cards"
-        draggable=".item"
-        handle=".move-button"
-        @end="endItemDrag"
+      <template
+        v-for="(card, index) in cards"
       >
         <template
-          v-for="(card, index) in cards"
+          v-if="card === 'related'"
         >
-          <template
-            v-if="card === 'related'"
-          >
-            <b-card
-              v-show="showRelated"
-              :key="index"
-              class="text-left related-collections-card mb-4"
-            >
-              <slot
-                v-masonry-tile
-                name="related"
-              />
-            </b-card>
-          </template>
-          <ItemPreviewCard
-            v-else
+          <b-card
+            v-show="showRelated"
             :key="index"
-            v-masonry-tile
-            :item="card"
-            :hit-selector="itemHitSelector(card)"
-            :variant="cardVariant"
-            class="item"
-            :lazy="true"
-            :enable-accept-recommendation="enableAcceptRecommendations"
-            :enable-reject-recommendation="enableRejectRecommendations"
-            :show-pins="showPins"
-            :show-move="draggableItems"
-            :offset="items.findIndex(item => item.id === card.id)"
-            data-qa="item preview"
-            @like="$emit('like', card.id)"
-            @unlike="$emit('unlike', card.id)"
-          />
+            class="text-left related-collections-card mb-4"
+          >
+            <slot
+              v-masonry-tile
+              name="related"
+            />
+          </b-card>
         </template>
-      </component>
-    </div>
+        <ItemPreviewCard
+          v-else
+          :key="index"
+          v-masonry-tile
+          :item="card"
+          :hit-selector="itemHitSelector(card)"
+          :variant="cardVariant"
+          class="item"
+          :lazy="true"
+          :enable-accept-recommendation="enableAcceptRecommendations"
+          :enable-reject-recommendation="enableRejectRecommendations"
+          :show-pins="showPins"
+          :show-move="draggableItems"
+          :offset="items.findIndex(item => item.id === card.id)"
+          data-qa="item preview"
+          @like="$emit('like', card.id)"
+          @unlike="$emit('unlike', card.id)"
+        />
+      </template>
+    </component>
   </div>
   <component
     :is="draggableItems ? 'draggable' : 'b-card-group'"
@@ -67,7 +63,6 @@
     :data-qa="`item previews ${view}`"
     :class="cardGroupClass"
     deck
-    tag="b-card-group"
     :draggable="draggableItems && '.item'"
     @end="endItemDrag"
   >
