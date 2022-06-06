@@ -127,7 +127,7 @@
           <b-container class="px-0">
             <b-row class="mb-3">
               <b-col cols="12">
-                <ItemPreviewCardGroup
+                <ItemPreviewCardWall
                   :items="set.items"
                   :show-pins="setIsEntityBestItems && userIsEntityEditor"
                   :draggable-items="userIsOwner"
@@ -155,7 +155,7 @@
   import { ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX } from '@/plugins/europeana/data';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
 
-  import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
+  import ItemPreviewCardWall from '@/components/item/ItemPreviewCardWall';
   import SocialShareModal from '@/components/sharing/SocialShareModal.vue';
 
   export default {
@@ -165,7 +165,7 @@
       ClientOnly,
       LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
       AlertMessage: () => import('@/components/generic/AlertMessage'),
-      ItemPreviewCardGroup,
+      ItemPreviewCardWall,
       SocialShareModal,
       SetFormModal: () => import('@/components/set/SetFormModal'),
       SetRecommendations: () => import('@/components/set/SetRecommendations')

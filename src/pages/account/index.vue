@@ -83,7 +83,7 @@
                   <template
                     v-if="likedItems"
                   >
-                    <ItemPreviewCardGroup
+                    <ItemPreviewCardWall
                       v-if="likesId && likedItems.length !== 0"
                       :items="likedItems"
                       class="pb-5"
@@ -147,7 +147,7 @@
   import { mapState } from 'vuex';
 
   import keycloak from '../../mixins/keycloak';
-  import ItemPreviewCardGroup from '../../components/item/ItemPreviewCardGroup';
+  import ItemPreviewCardWall from '../../components/item/ItemPreviewCardWall';
   import UserSets from '../../components/account/UserSets';
   import AlertMessage from '../../components/generic/AlertMessage';
   import LoadingSpinner from '../../components/generic/LoadingSpinner';
@@ -157,7 +157,7 @@
 
     components: {
       BNav,
-      ItemPreviewCardGroup,
+      ItemPreviewCardWall,
       UserSets,
       AlertMessage,
       LoadingSpinner

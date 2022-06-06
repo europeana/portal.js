@@ -15,7 +15,7 @@
         <span class="icon-info-outline" />
         {{ recommendationsDisclaimer }}
       </h5>
-      <ItemPreviewCardGroup
+      <ItemPreviewCardWall
         :items="recommendations"
         :enable-accept-recommendations="enableAcceptRecommendations"
         :enable-reject-recommendations="enableRejectRecommendations"
@@ -25,13 +25,13 @@
 </template>
 
 <script>
-  import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
+  import ItemPreviewCardWall from '../item/ItemPreviewCardWall';
 
   export default {
     name: 'SetRecommendations',
 
     components: {
-      ItemPreviewCardGroup
+      ItemPreviewCardWall
     },
 
     props: {

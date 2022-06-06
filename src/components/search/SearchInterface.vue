@@ -56,7 +56,8 @@
             >
               {{ $t('noMoreResults') }}
             </p>
-            <ItemPreviewCardGroup
+            <component
+              :is="masonryActive ? 'ItemPreviewCardWall' : 'ItemPreviewCardGroup'"
               :items="results"
               :hits="hits"
               :view="view"
@@ -71,7 +72,7 @@
                   name="related"
                 />
               </template>
-            </ItemPreviewCardGroup>
+            </component>
             <InfoMessage
               v-if="lastAvailablePage"
             >
@@ -98,6 +99,7 @@
 <script>
   import ClientOnly from 'vue-client-only';
   import ItemPreviewCardGroup from '../item/ItemPreviewCardGroup'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
+  import ItemPreviewCardWall from '../item/ItemPreviewCardWall';
   import InfoMessage from '../generic/InfoMessage';
   import ViewToggles from './ViewToggles';
 
@@ -114,6 +116,7 @@
       SearchResultsContext: () => import('./SearchResultsContext'),
       InfoMessage,
       ItemPreviewCardGroup,
+      ItemPreviewCardWall,
       LoadingSpinner: () => import('../generic/LoadingSpinner'),
       PaginationNav: () => import('../generic/PaginationNav'),
       ViewToggles
@@ -225,6 +228,9 @@
         set(value) {
           this.$store.commit('search/setView', value);
         }
+      },
+      masonryActive() {
+        return this.view === 'grid' || this.view === 'mosaic';
       }
     },
 
