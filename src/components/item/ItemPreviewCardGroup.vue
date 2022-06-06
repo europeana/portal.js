@@ -38,7 +38,6 @@
         <ItemPreviewCard
           v-else
           :key="index"
-          v-masonry-tile
           :item="card"
           :hit-selector="itemHitSelector(card)"
           :variant="cardVariant"
@@ -126,7 +125,10 @@
         type: Number,
         default: 4
       },
-      // grid/list/similar
+      /**
+       * Layout view to use
+       * @values grid, mosaic, list, explore
+       */
       view: {
         type: String,
         default: 'grid'
@@ -167,14 +169,8 @@
         case 'list':
           cardGroupClass = 'card-group-list mx-0';
           break;
-        case 'plain':
-          cardGroupClass = `card-deck-search card-deck-${this.perRow}-cols`;
-          break;
         case 'explore':
           cardGroupClass = 'card-deck-4-cols narrow-gutter explore-more';
-          break;
-        case 'similar':
-          cardGroupClass = 'py-3 mx-0 card card-deck-4-cols similar-items';
           break;
         }
 
@@ -191,9 +187,7 @@
     },
 
     watch: {
-      'cards.length'() {
-        this.redrawMasonry();
-      }
+      'cards.length': 'redrawMasonry'
     },
 
     mounted() {
