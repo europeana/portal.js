@@ -76,7 +76,7 @@
       };
     },
 
-    async fetch() {
+    async mounted() {
       if (!this.endpoint || !this.url) {
         return;
       }
