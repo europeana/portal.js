@@ -183,7 +183,8 @@
           name: this.$t('debug.debug'),
           links: [
             { url: '/debug', text: 'Settings' }, // TODO: i18n
-            { url: '#api-requests', text: this.$t('debug.apiRequests') }
+            { url: '#api-requests', text: this.$t('debug.apiRequests') },
+            { url: '/debug/oembed', text: 'oEmbed' }
           ]
         };
       }

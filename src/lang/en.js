@@ -41,6 +41,7 @@ export default {
     "next": "Next",
     "pin": "Pin",
     "providedBy": "Provided by {provider}",
+    "preview": "Preview",
     "reject": "Reject",
     "send": "Send",
     "share": "Share",
