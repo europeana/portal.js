@@ -4,6 +4,7 @@
     :europeana-identifier="europeanaIdentifier"
     :media="media"
     :lazy="lazy"
+    :offset="offset"
   />
   <div
     v-else-if="isSinglePlayableMedia"
@@ -94,6 +95,10 @@
       lazy: {
         type: Boolean,
         default: true
+      },
+      offset: {
+        type: Number,
+        default: null
       }
     },
 

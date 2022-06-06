@@ -25,6 +25,7 @@
             :media="item"
             :is-single-playable-media="isSinglePlayableMedia"
             :lazy="false"
+            :offset="index"
           />
         </div>
         <MediaCard
@@ -33,6 +34,7 @@
           :media="item"
           :is-single-playable-media="isSinglePlayableMedia"
           :lazy="index > 0"
+          :offset="index"
         />
       </swiper-slide>
       <div

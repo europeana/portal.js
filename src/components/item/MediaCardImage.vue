@@ -11,7 +11,7 @@
       <MediaDefaultThumbnail
         v-if="showDefaultThumbnail"
         media-type="image"
-        data-qa="default thumbnail"
+        :offset="offset"
       />
       <component
         :is="lazy ? 'b-img-lazy' : 'b-img'"
@@ -37,6 +37,7 @@
       <MediaDefaultThumbnail
         v-if="showDefaultThumbnail"
         media-type="image"
+        :offset="offset"
       />
       <component
         :is="lazy ? 'b-img-lazy' : 'b-img'"
@@ -74,6 +75,10 @@
       europeanaIdentifier: {
         type: String,
         default: ''
+      },
+      offset: {
+        type: Number,
+        default: null
       }
     },
 
