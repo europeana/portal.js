@@ -65,6 +65,7 @@
     "vue-masonry": "^0.13.0",
     "vue-matomo": "^4.1.0",
     "vue-scrollto": "^2.20.0",
+    "vuedraggable": "^2.24.3",
     "vuex": "^3.6.2",
     "weighted-random": "^0.1.0"
   },

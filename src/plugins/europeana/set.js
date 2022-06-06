@@ -138,10 +138,11 @@ export default (context = {}) => {
      * @param {Object} body Set body
      * @return {Object} API response data
      */
-    update(id, body) {
+    update(id, body, params = {}) {
       return $axios.put(
         `/${setIdFromUri(id)}`,
-        body
+        body,
+        { params }
       )
         .then(response => response.data)
         .catch(error => {
@@ -154,7 +155,7 @@ export default (context = {}) => {
      * @param {string} id the set's id
      * @return {Object} API response data
      */
-    deleteSet(id) {
+    delete(id) {
       return $axios.delete(
         `/${setIdFromUri(id)}`
       )

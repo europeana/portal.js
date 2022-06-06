@@ -158,130 +158,150 @@ describe('@/plugins/europeana/set', () => {
     });
   });
 
-  describe('deleteSet()', () => {
+  describe('delete()', () => {
     it('deletes item from set', async() => {
       nock(BASE_URL)
         .delete(`/${setId}`)
         .query(true)
         .reply(204);
 
-      await plugin({ $config }).deleteSet(setId);
+      await plugin({ $config }).delete(setId);
       expect(nock.isDone()).toBe(true);
     });
   });
-});
 
-describe('search()', () => {
-  afterEach(() => {
-    nock.cleanAll();
-    sinon.resetHistory();
+  describe('update()', () => {
+    it('updates the set', async() => {
+      const body = { type: 'Collection', visibility: 'public' };
+      nock(BASE_URL)
+        .put(`/${setId}`, body)
+        .query(true)
+        .reply(200);
+
+      await plugin({ $config }).update(setId, body);
+      expect(nock.isDone()).toBe(true);
+    });
+
+    it('includes params if supplied', async() => {
+      const body = { type: 'Collection', visibility: 'public' };
+      const params = { profile: 'standard' };
+      nock(BASE_URL)
+        .put(`/${setId}`, body)
+        .query(query => query.profile === params.profile)
+        .reply(200);
+
+      await plugin({ $config }).update(setId, body, params);
+      expect(nock.isDone()).toBe(true);
+    });
   });
 
-  it('queries the Set API for sets matching the params', async() => {
-    const searchParams = {
-      query: 'type:EntityBestItemsSet',
-      profile: 'minimal',
-      pageSize: 1
-    };
-
-    nock(BASE_URL)
-      .get('/search')
-      // TODO: Expect the params, this isn't matching the request though.
-      // .query({ params: { wskey: 'apikey', ...searchParams } })
-      .query(true)
-      .reply(200, 'response');
-
-    const response = await plugin({ $config }).search(searchParams);
-
-    expect(response.data).toEqual('response');
-  });
-
-  describe('options', () => {
-    describe('withMinimalItemPreviews', () => {
-      const recordSearchResponse = {
-        items: [
-          { id: '/123/abc', prefLabel: { en: ['ABC'] } }
-        ]
-      };
-      const context = {
-        $config,
-        $apis: { record: { find: sinon.stub().resolves(recordSearchResponse) } }
-      };
-      const setSearchResponse = {
-        items: [
-          {
-            id: 'http://data.europeana.eu/set/1',
-            items: [
-              'http://data.europeana.eu/item/123/abc',
-              'http://data.europeana.eu/item/123/ghi'
-            ]
-          },
-          {
-            id: 'http://data.europeana.eu/set/2',
-            items: ['http://data.europeana.eu/item/123/def']
-          }
-        ]
+  describe('search()', () => {
+    it('queries the Set API for sets matching the params', async() => {
+      const searchParams = {
+        query: 'type:EntityBestItemsSet',
+        profile: 'minimal',
+        pageSize: 1
       };
 
-      beforeEach(() => {
-        nock(BASE_URL)
-          .get('/search')
-          .query(true)
-          .reply(200, setSearchResponse);
-      });
+      nock(BASE_URL)
+        .get('/search')
+        // TODO: Expect the params, this isn't matching the request though.
+        // .query({ params: { wskey: 'apikey', ...searchParams } })
+        .query(true)
+        .reply(200, 'response');
 
-      describe('when set to `true`', () => {
-        const options = { withMinimalItemPreviews: true };
+      const response = await plugin({ $config }).search(searchParams);
 
-        it('requests the minimal profile for the first item in each set from the Record API', async() => {
-          await plugin(context).search({}, options);
+      expect(response.data).toEqual('response');
+    });
 
-          expect(context.$apis.record.find.calledWith(
-            [
-              'http://data.europeana.eu/item/123/abc',
-              'http://data.europeana.eu/item/123/def'
-            ],
-            { profile: 'minimal', rows: 100 }
-          )).toBe(true);
+    describe('options', () => {
+      describe('withMinimalItemPreviews', () => {
+        const recordSearchResponse = {
+          items: [
+            { id: '/123/abc', prefLabel: { en: ['ABC'] } }
+          ]
+        };
+        const context = {
+          $config,
+          $apis: { record: { find: sinon.stub().resolves(recordSearchResponse) } }
+        };
+        const setSearchResponse = {
+          items: [
+            {
+              id: 'http://data.europeana.eu/set/1',
+              items: [
+                'http://data.europeana.eu/item/123/abc',
+                'http://data.europeana.eu/item/123/ghi'
+              ]
+            },
+            {
+              id: 'http://data.europeana.eu/set/2',
+              items: ['http://data.europeana.eu/item/123/def']
+            }
+          ]
+        };
+
+        beforeEach(() => {
+          nock(BASE_URL)
+            .get('/search')
+            .query(true)
+            .reply(200, setSearchResponse);
         });
 
-        it('stores the found items on the sets', async() => {
-          const response = await plugin(context).search({}, options);
+        describe('when set to `true`', () => {
+          const options = { withMinimalItemPreviews: true };
 
-          expect(response.data.items[0].items[0]).toEqual(recordSearchResponse.items[0]);
-        });
+          it('requests the minimal profile for the first item in each set from the Record API', async() => {
+            await plugin(context).search({}, options);
 
-        it('stores just the id for first set items not found', async() => {
-          const response = await plugin(context).search({}, options);
+            expect(context.$apis.record.find.calledWith(
+              [
+                'http://data.europeana.eu/item/123/abc',
+                'http://data.europeana.eu/item/123/def'
+              ],
+              { profile: 'minimal', rows: 100 }
+            )).toBe(true);
+          });
 
-          expect(response.data.items[1].items[0]).toEqual({
-            id: '/123/def'
+          it('stores the found items on the sets', async() => {
+            const response = await plugin(context).search({}, options);
+
+            expect(response.data.items[0].items[0]).toEqual(recordSearchResponse.items[0]);
+          });
+
+          it('stores just the id for first set items not found', async() => {
+            const response = await plugin(context).search({}, options);
+
+            expect(response.data.items[1].items[0]).toEqual({
+              id: '/123/def'
+            });
+          });
+
+          it('stores just the id for non-first set items', async() => {
+            const response = await plugin(context).search({}, options);
+
+            expect(response.data.items[0].items[1]).toEqual({
+              id: '/123/ghi'
+            });
           });
         });
 
-        it('stores just the id for non-first set items', async() => {
-          const response = await plugin(context).search({}, options);
+        describe('when set to `false` (by default)', () => {
+          const options = {};
 
-          expect(response.data.items[0].items[1]).toEqual({
-            id: '/123/ghi'
+          it('does not request items from the Record API', async() => {
+            await plugin(context).search({}, options);
+
+            expect(context.$apis.record.find.called).toBe(false);
           });
-        });
-      });
 
-      describe('when set to `false` (by default)', () => {
-        const options = {};
+          it('leaves the item URIs on the sets', async() => {
+            const response = await plugin(context).search({}, options);
 
-        it('does not request items from the Record API', async() => {
-          await plugin(context).search({}, options);
-
-          expect(context.$apis.record.find.called).toBe(false);
-        });
-
-        it('leaves the item URIs on the sets', async() => {
-          const response = await plugin(context).search({}, options);
-
-          expect(response.data.items[0].items).toEqual(setSearchResponse.items[0].items);
-          expect(response.data.items[1].items).toEqual(setSearchResponse.items[1].items);
+            expect(response.data.items[0].items).toEqual(setSearchResponse.items[0].items);
+            expect(response.data.items[1].items).toEqual(setSearchResponse.items[1].items);
+          });
         });
       });
     });

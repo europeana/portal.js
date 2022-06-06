@@ -38,6 +38,7 @@ export default {
     "goHome": "Go to the homepage",
     "learnMore": "Learn more",
     "like": "Like",
+    "move": "Move",
     "next": "Next",
     "pin": "Pin",
     "providedBy": "Provided by {provider}",

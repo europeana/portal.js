@@ -78,7 +78,7 @@ describe('components/set/DeleteSetModal', () => {
 
       await wrapper.find('form').trigger('submit.stop.prevent');
 
-      expect(storeDispatch.calledWith('set/deleteSet', '123')).toBe(true);
+      expect(storeDispatch.calledWith('set/delete', '123')).toBe(true);
     });
 
     it('hides the modal', async() => {
