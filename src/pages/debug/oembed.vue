@@ -60,6 +60,8 @@
   import oEmbed from '@/plugins/oembed';
 
   export default {
+    name: 'DebugOEmbedPage',
+
     components: {
       ContentHeader,
       HTMLEmbed
