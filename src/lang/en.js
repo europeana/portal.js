@@ -42,6 +42,7 @@ export default {
     "next": "Next",
     "pin": "Pin",
     "providedBy": "Provided by {provider}",
+    "preview": "Preview",
     "reject": "Reject",
     "save": "Save",
     "send": "Send",
