@@ -13,7 +13,6 @@
         >
           <SearchInterface
             id="search-interface"
-            :per-row="4"
             :show-related="showRelated"
           >
             <template

@@ -121,10 +121,6 @@
         type: Array,
         default: null
       },
-      perRow: {
-        type: Number,
-        default: 4
-      },
       /**
        * Layout view to use
        * @values grid, mosaic, list, explore
