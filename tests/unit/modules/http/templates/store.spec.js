@@ -1,6 +1,6 @@
 import store from '@/modules/http/templates/store';
 
-describe('http/store', () => {
+describe('modules/http/templates/store', () => {
   describe('getters', () => {
     describe('canonicalUrlWithoutLocale()', () => {
       describe('when `canonicalUrl` has two-letter locale', () => {
