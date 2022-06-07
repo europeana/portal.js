@@ -1,18 +1,12 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../utils';
 import BootstrapVue from 'bootstrap-vue';
-import Vuex from 'vuex';
 import sinon from 'sinon';
 
 import layout from '@/layouts/default';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
-localVue.use(Vuex);
-
-const store = new Vuex.Store({
-  state: { breadcrumb: {} }
-});
 
 const nuxtI18nHead = { htmlAttrs: { lang: 'en-GB' },
   link: [{
@@ -29,11 +23,19 @@ const nuxtI18nHead = { htmlAttrs: { lang: 'en-GB' },
 
 const factory = (options = {}) => shallowMountNuxt(layout, {
   localVue,
-  store,
   data() {
     return options.data || {};
   },
   mocks: {
+    $store: {
+      state: {
+        breadcrumb: {},
+      },
+      getters: {
+        'http/canonicalUrl': () => '/fr',
+        'http/canonicalUrlWithoutLocale': () => '/'
+      }
+    },
     $t: key => key,
     $auth: {
       $storage: {
