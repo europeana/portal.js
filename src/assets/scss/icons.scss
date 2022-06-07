@@ -157,21 +157,33 @@
 }
 
 .icon-3d::before {
-  content: '\e953';
+  content: '\e957';
 }
 
 .icon-sound::before {
-  content: '\e94f';
+  content: '\e956';
 }
 
 .icon-text::before {
-  content: '\e952';
+  content: '\e954';
 }
 
 .icon-image::before {
-  content: '\e950';
+  content: '\e955';
 }
 
 .icon-video::before {
-  content: '\e951';
+  content: '\e947';
+}
+
+.icon-unavailable::before {
+  content: '\e953';
+}
+
+.icon-ic-move-vert::before {
+  content: '\e958';
+}
+
+.icon-ic-move-xy::before {
+  content: '\e959';
 }

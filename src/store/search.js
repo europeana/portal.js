@@ -18,6 +18,7 @@ export default {
     collectionLabel: null,
     results: [],
     showSearchBar: false,
+    allThemes: [],
     totalResults: null,
     userParams: {},
     view: null,

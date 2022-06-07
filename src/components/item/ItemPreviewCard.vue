@@ -34,6 +34,7 @@
         <UserButtons
           :identifier="identifier"
           :show-pins="showPins"
+          :show-move="showMove"
           :button-text="true"
           button-variant="light-flat"
           @like="$emit('like', identifier)"
@@ -55,6 +56,7 @@
         v-else
         :identifier="identifier"
         :show-pins="showPins"
+        :show-move="showMove"
         @like="$emit('like', identifier)"
         @unlike="$emit('unlike', identifier)"
       />
@@ -113,6 +115,13 @@
        * If `true`, pin button will be rendered
        */
       showPins: {
+        type: Boolean,
+        default: false
+      },
+      /**
+       * If `true`, move button will be rendered
+       */
+      showMove: {
         type: Boolean,
         default: false
       },

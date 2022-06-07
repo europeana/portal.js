@@ -1,19 +1,23 @@
 <template>
   <div
     v-if="masonryActive"
+    :key="`searchResultsGrid${view}`"
+    v-masonry
+    transition-duration="0.1"
+    item-selector=".card"
+    horizontal-order="true"
+    column-width=".masonry-container .card:not(.header-card)"
+    class="masonry-container"
+    :data-qa="`item previews ${view}`"
   >
-    <div
-      id="searchResultsGrid"
-      :key="`searchResultsGrid${view}`"
-      v-masonry
-      transition-duration="0.1"
-      item-selector=".card"
-      horizontal-order="true"
-      column-width=".masonry-container .card:not(.header-card)"
-      class="masonry-container"
-      :data-qa="`item previews ${view}`"
+    <slot />
+    <component
+      :is="draggableItems ? 'draggable' : 'div'"
+      v-model="cards"
+      :draggable="draggableItems && '.item'"
+      handle=".move-button"
+      @end="endItemDrag"
     >
-      <slot />
       <template
         v-for="(card, index) in cards"
       >
@@ -43,19 +47,24 @@
           :enable-accept-recommendation="enableAcceptRecommendations"
           :enable-reject-recommendation="enableRejectRecommendations"
           :show-pins="showPins"
+          :show-move="draggableItems"
           :offset="items.findIndex(item => item.id === card.id)"
           data-qa="item preview"
           @like="$emit('like', card.id)"
           @unlike="$emit('unlike', card.id)"
         />
       </template>
-    </div>
+    </component>
   </div>
-  <b-card-group
+  <component
+    :is="draggableItems ? 'draggable' : 'b-card-group'"
     v-else
+    :v-model="draggableItems && cards"
     :data-qa="`item previews ${view}`"
     :class="cardGroupClass"
     deck
+    :draggable="draggableItems && '.item'"
+    @end="endItemDrag"
   >
     <slot />
     <template
@@ -78,25 +87,29 @@
         v-else
         :key="card.id"
         :item="card"
+        class="item"
         :hit-selector="itemHitSelector(card)"
         :variant="cardVariant"
         :show-pins="showPins"
+        :show-move="draggableItems"
         :offset="items.findIndex(item => item.id === card.id)"
         data-qa="item preview"
         @like="$emit('like', card.id)"
         @unlike="$emit('unlike', card.id)"
       />
     </template>
-  </b-card-group>
+  </component>
 </template>
 
 <script>
+  import draggable from 'vuedraggable';
   import ItemPreviewCard from './ItemPreviewCard';
 
   export default {
     name: 'ItemPreviewCardGroup',
 
     components: {
+      draggable,
       ItemPreviewCard
     },
 
@@ -126,6 +139,10 @@
         type: Boolean,
         default: false
       },
+      draggableItems: {
+        type: Boolean,
+        default: false
+      },
       enableAcceptRecommendations: {
         type: Boolean,
         default: false
@@ -136,11 +153,13 @@
       }
     },
 
-    computed: {
-      cards() {
-        return this.items.slice(0, 4).concat('related').concat(this.items.slice(4));
-      },
+    data() {
+      return {
+        cards: this.items.slice(0, 4).concat('related').concat(this.items.slice(4))
+      };
+    },
 
+    computed: {
       cardGroupClass() {
         let cardGroupClass;
 
@@ -182,6 +201,9 @@
     },
 
     methods: {
+      endItemDrag() {
+        this.$emit('endItemDrag', this.cards.filter(card => card !== 'related'));
+      },
       itemHitSelector(item) {
         if (!this.hits) {
           return null;

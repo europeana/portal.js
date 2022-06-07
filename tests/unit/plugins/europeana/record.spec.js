@@ -493,6 +493,40 @@ describe('plugins/europeana/record', () => {
     });
   });
 
+  describe('record().find()', () => {
+    it('searches the Record API for specified item IDs', async() => {
+      const ids = ['/123/abc', '/123/def'];
+      nock(BASE_URL)
+        .get('/search.json')
+        .query(query => {
+          return query.profile === 'minimal' &&
+            !query.qf &&
+            query.query === 'europeana_id:("/123/abc" OR "/123/def")';
+        })
+        .reply(200);
+
+      await record().find(ids, { profile: 'minimal' });
+
+      expect(nock.isDone()).toBe(true);
+    });
+
+    it('searches the Record API for specified item URIs', async() => {
+      const uris = ['http://data.europeana.eu/item/123/abc', 'http://data.europeana.eu/item/123/def'];
+      nock(BASE_URL)
+        .get('/search.json')
+        .query(query => {
+          return !query.profile &&
+            !query.qf &&
+            query.query === 'europeana_id:("/123/abc" OR "/123/def")';
+        })
+        .reply(200);
+
+      await record().find(uris);
+
+      expect(nock.isDone()).toBe(true);
+    });
+  });
+
   describe('record().mediaProxyUrl()', () => {
     const europeanaId = '/123/abc';
     const mediaUrl = 'https://www.example.org/audio.ogg';

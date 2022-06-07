@@ -86,9 +86,14 @@ export function rangeFromQueryParam(paramValue) {
  * @param {Boolean} options.escape whether or not to escape Lucene reserved characters in the search query
  * @param {string} options.locale source locale for multilingual search
  * @param {string} options.url override the API URL
+ * @param {Boolean} options.addContentTierFilter if `true`, add a content tier filter. default `true`
  * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display
  */
+// TODO: switch options.addContentTierFilter to default to `false`
 export default (context) => ($axios, params, options = {}) => {
+  const defaultOptions = { addContentTierFilter: true };
+  const localOptions = { ...defaultOptions, ...options };
+
   const maxResults = 1000;
   const perPage = params.rows === undefined ? 24 : Number(params.rows);
   const page = params.page || 1;
@@ -100,22 +105,22 @@ export default (context) => ($axios, params, options = {}) => {
     ...$axios.defaults.params,
     ...params,
     profile: params.profile || '',
-    qf: addContentTierFilter(params.qf),
-    query: options.escape ? escapeLuceneSpecials(query) : query,
+    qf: localOptions.addContentTierFilter ? addContentTierFilter(params.qf) : params.qf,
+    query: localOptions.escape ? escapeLuceneSpecials(query) : query,
     rows,
     start
   };
 
-  if (context?.$config?.app?.search?.translateLocales?.includes(options.locale)) {
+  if (context?.$config?.app?.search?.translateLocales?.includes(localOptions.locale)) {
     const targetLocale = 'en';
-    if (options.locale && (options.locale !== targetLocale)) {
+    if (localOptions.locale !== targetLocale) {
       searchParams.profile = `${searchParams.profile},translate`;
-      searchParams['q.source'] = options.locale;
+      searchParams['q.source'] = localOptions.locale;
       searchParams['q.target'] = targetLocale;
     }
   }
 
-  return $axios.get(`${options.url || ''}/search.json`, {
+  return $axios.get(`${localOptions.url || ''}/search.json`, {
     paramsSerializer(params) {
       return qs.stringify(params, { arrayFormat: 'repeat' });
     },

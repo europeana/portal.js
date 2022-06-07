@@ -108,32 +108,6 @@ describe('components/generic/OptimisedImage', () => {
     });
   });
 
-  describe('forContentfulAsset', () => {
-    it('is `true` for URLs on host images.ctfassets.net', () => {
-      const wrapper = factory({
-        src: '//images.ctfassets.net/asset.jpeg',
-        width: 2000,
-        height: 1250
-      });
-
-      const forContentfulAsset = wrapper.vm.forContentfulAsset;
-
-      expect(forContentfulAsset).toBe(true);
-    });
-
-    it('is `false` for other URLs', () => {
-      const wrapper = factory({
-        src: 'https://www.example.org/image.jpeg',
-        width: 2000,
-        height: 1250
-      });
-
-      const forContentfulAsset = wrapper.vm.forContentfulAsset;
-
-      expect(forContentfulAsset).toBe(false);
-    });
-  });
-
   describe('optimisedSrc', () => {
     describe('when src is not for Contentful image', () => {
       const src = 'https://www.example.org/image.jpeg';
@@ -152,7 +126,7 @@ describe('components/generic/OptimisedImage', () => {
     });
 
     describe('when src is for Contentful image', () => {
-      const src = '//images.ctfassets.net/asset';
+      const src = 'https://images.ctfassets.net/asset';
       describe('and contentType is "image/jpeg"', () => {
         const contentType = 'image/jpeg';
 

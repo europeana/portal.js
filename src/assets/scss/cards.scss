@@ -98,7 +98,6 @@
   box-shadow: $boxshadow-small;
 
   h2 {
-    margin-top: 0 !important;
     margin-right: 1rem;
   }
 
@@ -280,7 +279,7 @@
 
     @media (min-width: $bp-medium) {
       margin-right: $grid-gutter-narrow;
-      margin-left: $grid-gutter-narrow;
+      margin-left: $grid-gutter-narrow !important;
 
       &:last-child {
         margin-bottom: 1rem;
@@ -579,7 +578,7 @@
       flex-wrap: wrap;
       position: absolute;
       top: 1rem;
-      right: 1rem;
+      right: 0;
       z-index: 3;
       width: 100%;
 
@@ -593,12 +592,15 @@
 
       .user-buttons .btn {
         visibility: visible;
+        margin-right: 0.5rem;
+
+        &:last-of-type {
+          margin-right: 1rem;
+        }
 
         &:first-of-type {
-          margin-right: 0.5rem;
-
           &.pin-button {
-            margin-left: 2rem;
+            margin-left: 1rem;
 
             &.active {
               visibility: visible;
@@ -606,7 +608,6 @@
 
             +.btn {
               margin-left: auto;
-              margin-right: 0.5rem;
             }
           }
         }

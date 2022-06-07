@@ -38,6 +38,7 @@ export default {
     "goHome": "Go to the homepage",
     "learnMore": "Learn more",
     "like": "Like",
+    "move": "Move",
     "next": "Next",
     "pin": "Pin",
     "providedBy": "Provided by {provider}",
@@ -723,9 +724,13 @@ export default {
     "searchForEverythingInEntireCollection": "Search for everything in our entire collection",
     "searchForm": "Search form",
     "showSidebar": "Show Menu",
-    "sideNavigation": "Side navigation"
+    "sideNavigation": "Side navigation",
+    "quickSearch": "Quick Search"
   },
   "homeLinkAlt": "Europeana home",
+  "homePage": {
+    "title": "Discover European cultural heritage"
+  },
   "imageSlider": {
     "handle": "Slider Handle"
   },
@@ -895,6 +900,9 @@ export default {
     "record": "Item",
     "showAll": "Show all information",
     "similarItems": "Similar items",
+    "status": {
+      "unpublished": "[Unpublished item]"
+    },
     "transcription": "Transcription",
     "transcriptionDisclaimer": "This content is contributed by the public, not by the institution that provided this item."
   },
