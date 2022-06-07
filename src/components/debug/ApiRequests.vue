@@ -100,7 +100,7 @@
           }
           return {
             ...request,
-            url
+            url: url.toString()
           };
         });
       }
