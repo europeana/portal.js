@@ -56,22 +56,24 @@ export default ({ store, app, $config }, inject) => {
   };
 
   // TODO: do these route guards get duplicated being in this default export?
-  app.router.beforeEach((to, from, next) => {
-    if (!store.state[MODULE_NAME].recording && (to.path !== from.path)) {
-      store.commit(`${MODULE_NAME}/reset`);
-      store.commit(`${MODULE_NAME}/start`);
-    }
+  if (app?.router) {
+    app.router.beforeEach((to, from, next) => {
+      if (!store.state[MODULE_NAME].recording && (to.path !== from.path)) {
+        store.commit(`${MODULE_NAME}/reset`);
+        store.commit(`${MODULE_NAME}/start`);
+      }
 
-    next();
-  });
+      next();
+    });
 
-  app.router.afterEach(() => {
-    // Only stop recording client side to prevent SSR then CSR `afterEach` calls
-    // for the same routing resetting the logger before the CSR.
-    if (process.client) {
-      store.commit(`${MODULE_NAME}/stop`);
-    }
-  });
+    app.router.afterEach(() => {
+      // Only stop recording client side to prevent SSR then CSR `afterEach` calls
+      // for the same routing resetting the logger before the CSR.
+      if (process.client) {
+        store.commit(`${MODULE_NAME}/stop`);
+      }
+    });
+  }
 
   inject(MODULE_NAME, requestInterceptor);
 };
