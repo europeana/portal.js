@@ -2,61 +2,50 @@
   <div
     class="swiper-outer"
   >
-    <swiper
+    <div
       v-show="ready"
-      ref="awesome"
       class="swiper"
-      :options="swiperOptions"
       data-qa="awesome swiper"
-      @slide-change="onSlideChange"
-      @slide-change-transition-end="updateSwiper"
-      @ready="swiperReady"
     >
-      <swiper-slide
-        v-for="(item, index) in displayableMedia"
-        :key="index"
+      <div
+        class="swiper-wrapper"
       >
         <div
-          v-if="singleMediaResource"
-          class="container h-100"
+          v-for="(item, index) in displayableMedia"
+          :key="index"
+          class="swiper-slide"
         >
+          <div
+            v-if="singleMediaResource"
+            class="container h-100"
+          >
+            <MediaCard
+              :europeana-identifier="europeanaIdentifier"
+              :media="item"
+              :is-single-playable-media="isSinglePlayableMedia"
+              :lazy="false"
+            />
+          </div>
           <MediaCard
+            v-else
             :europeana-identifier="europeanaIdentifier"
             :media="item"
             :is-single-playable-media="isSinglePlayableMedia"
-            :lazy="false"
+            :lazy="index > 0"
           />
         </div>
-        <MediaCard
-          v-else
-          :europeana-identifier="europeanaIdentifier"
-          :media="item"
-          :is-single-playable-media="isSinglePlayableMedia"
-          :lazy="index > 0"
+        <div
+          class="swiper-button-prev"
         />
-      </swiper-slide>
-      <div
-        slot="button-prev"
-        class="swiper-button-prev"
-      />
-      <div
-        slot="button-next"
-        class="swiper-button-next"
-      />
-    </swiper>
+        <div
+          class="swiper-button-next"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-// Custom build of Swiper with only the modules we need:
-// @see https://swiperjs.com/api/#custom-build
-// @see https://github.com/surmon-china/vue-awesome-swiper#custom-build-with-swiper
-  import { Swiper as SwiperClass, Pagination, Navigation } from 'swiper/core';
-  import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter';
-  SwiperClass.use([Pagination, Navigation]);
-  const { Swiper, SwiperSlide } = getAwesomeSwiper(SwiperClass);
-
-  import 'swiper/swiper-bundle.css';
   import { isPlayableMedia } from '@/plugins/media';
 
   import MediaCard from './MediaCard';
@@ -64,8 +53,6 @@
   export default {
     name: 'AwesomeSwiper',
     components: {
-      Swiper,
-      SwiperSlide,
       MediaCard
     },
     props: {
@@ -96,22 +83,30 @@
             el: '.swiper-pagination',
             clickable: true,
             type: 'fraction'
+          },
+          on: {
+            afterInit: this.onAfterInit,
+            slideChange: this.onSlideChange,
+            slideChangeTransitionEnd: this.updateSwiper
           }
         },
         singleMediaResource,
-        ready: singleMediaResource
+        ready: singleMediaResource,
+        swiper: null
       };
     },
     computed: {
-      swiper() {
-        return this.$refs.awesome.$swiper;
-      },
       isSinglePlayableMedia() {
         return this.displayableMedia.filter(resource => isPlayableMedia(resource)).length === 1;
       }
     },
+    mounted() {
+      if (window.Swiper) {
+        this.swiper = new window.Swiper('.swiper', this.swiperOptions);
+      }
+    },
     methods: {
-      swiperReady() {
+      onAfterInit() {
         this.ready = true;
       },
       onSlideChange() {

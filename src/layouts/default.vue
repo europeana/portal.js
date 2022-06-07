@@ -109,11 +109,13 @@
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap@${versions.bootstrap}/dist/css/bootstrap.min.css` },
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/klaro@${klaroVersion}/dist/klaro.min.css` },
           { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap-vue@${versions['bootstrap-vue']}/dist/bootstrap-vue.min.css` },
+          { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/swiper@8.2.2/swiper-bundle.min.css' },
           { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrlWithoutLocale },
           ...i18nHead.link
         ],
         script: [
-          { src: `https://cdn.jsdelivr.net/npm/klaro@${klaroVersion}/dist/klaro-no-css.js`, defer: true }
+          { src: `https://cdn.jsdelivr.net/npm/klaro@${klaroVersion}/dist/klaro-no-css.js`, defer: true },
+          { src: 'https://cdn.jsdelivr.net/npm/swiper@8.2.2/swiper-bundle.min.js', defer: true }
         ],
         meta: [
           { hid: 'description', property: 'description', content: 'Europeana' },
