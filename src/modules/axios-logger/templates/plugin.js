@@ -24,7 +24,7 @@ export default ({ store, app, $config }, inject) => {
     return params;
   };
 
-  const requestUri = (requestConfig, params) => {
+  const requestUri = (requestConfig) => {
     let uri = axios.getUri({ ...requestConfig, params: requestParams(requestConfig) });
 
     if (uri.startsWith('/') && requestConfig.baseURL) {

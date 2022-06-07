@@ -81,7 +81,7 @@ describe('modules/axios-logger/templates/plugin', () => {
       const requestConfig = {
         method: 'put',
         url: 'https://api.example.org/'
-      }
+      };
 
       const wrapper = factory(configuredContext);
       wrapper.requestInterceptor(requestConfig);
