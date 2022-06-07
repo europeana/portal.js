@@ -38,6 +38,7 @@ export default {
     "goHome": "Go to the homepage",
     "learnMore": "Learn more",
     "like": "Like",
+    "move": "Move",
     "next": "Next",
     "pin": "Pin",
     "providedBy": "Provided by {provider}",
@@ -900,6 +901,9 @@ export default {
     "record": "Item",
     "showAll": "Show all information",
     "similarItems": "Similar items",
+    "status": {
+      "unpublished": "[Unpublished item]"
+    },
     "transcription": "Transcription",
     "transcriptionDisclaimer": "This content is contributed by the public, not by the institution that provided this item."
   },

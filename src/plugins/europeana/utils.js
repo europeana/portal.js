@@ -32,6 +32,10 @@ const storedAPIBaseURL = (store, id) => {
   }
 };
 
+export const preferredAPIBaseURL = ({ id, baseURL }, { store, $config }) => {
+  return storedAPIBaseURL(store, id) || apiConfig($config, id).url || baseURL;
+};
+
 export const apiConfig = ($config, id) => {
   if ($config?.europeana?.apis?.[id]) {
     return $config.europeana.apis[id];
@@ -43,7 +47,7 @@ export const apiConfig = ($config, id) => {
 const axiosInstanceOptions = ({ id, baseURL }, { store, $config }) => {
   const config = apiConfig($config, id);
   return {
-    baseURL: storedAPIBaseURL(store, id) || config.url || baseURL,
+    baseURL: preferredAPIBaseURL({ id, baseURL }, { store, $config }),
     params: {
       wskey: config.key
     }

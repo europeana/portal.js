@@ -5,7 +5,6 @@
     data-qa="default thumbnail"
   >
     <span
-      v-if="mediaType"
       :class="iconClass"
     />
   </div>
@@ -50,7 +49,8 @@
       },
 
       iconClass() {
-        return `icon-${this.mediaType.toLowerCase()}`;
+        const mediaClass = this.mediaType ? this.mediaType.toLowerCase() : 'unavailable';
+        return `icon-${mediaClass}`;
       }
     }
   };

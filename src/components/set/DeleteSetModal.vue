@@ -64,7 +64,7 @@
     methods: {
       // TODO: error handling
       async submitForm() {
-        await this.$store.dispatch('set/deleteSet', this.setId);
+        await this.$store.dispatch('set/delete', this.setId);
 
         this.makeToast(this.toastMsg);
         this.hide();
