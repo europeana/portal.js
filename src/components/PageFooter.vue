@@ -180,7 +180,7 @@
         return {
           name: this.$t('debug.debug'),
           links: [
-            { url: '/debug', text: 'Settings' }, // TODO: i18n
+            { url: '/debug', text: this.$t('debug.settings.title') },
             { url: '#api-requests', text: this.$t('debug.apiRequests') }
           ]
         };

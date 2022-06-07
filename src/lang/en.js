@@ -150,6 +150,7 @@ export default {
     "apiRequests": "API requests",
     "debug": "Debug",
     "settings": {
+      "title": "Settings",
       "form": {
         "api-key": {
           "description": "Enter your Europeana API key and it will be used in the links to API requests.",
