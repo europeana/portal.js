@@ -78,6 +78,7 @@
                 link-class="footer-link"
                 :caption="debugLinkGroup.name"
                 :links="debugLinkGroup.links"
+                data-qa="debug link group"
               />
             </b-col>
           </b-row>
@@ -181,7 +182,7 @@
           name: this.$t('debug.debug'),
           links: [
             { url: '/debug', text: this.$t('debug.settings.title') },
-            { url: '#api-requests', text: this.$t('debug.apiRequests') }
+            { url: '#api-requests', text: this.$t('debug.apiRequests'), dataQa: 'API requests link' }
           ]
         };
       }

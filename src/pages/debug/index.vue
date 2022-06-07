@@ -14,6 +14,7 @@
             <b-form-checkbox
               v-model="settings.enabled"
               switch
+              data-qa="enable debug menu switch"
             >
               {{ $t('debug.settings.form.enabled.label') }}
             </b-form-checkbox>
@@ -33,6 +34,7 @@
           <b-button
             type="submit"
             variant="primary"
+            data-qa="save debug settings button"
           >
             {{ $t('actions.save') }}
           </b-button>
