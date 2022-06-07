@@ -11,7 +11,7 @@
       @hide="hideModal"
     >
       <template
-        v-if="requests.length > 0"
+        v-if="requests && requests.length > 0"
       >
         <ol>
           <li
@@ -58,7 +58,6 @@
             and it will be included in these API request links.
           </p>
         </InfoMessage>
-
       </template>
       <InfoMessage
         v-else
@@ -87,6 +86,9 @@
 
     computed: {
       requests() {
+        if (!this.$store.state.axiosLogger) {
+          return null;
+        }
         if (!this.$store.getters['debug/settings']?.apiKey) {
           return this.$store.state.axiosLogger.requests;
         }
