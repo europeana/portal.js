@@ -5,25 +5,24 @@
     />
     <b-row class="flex-md-row pb-5">
       <b-col cols="12">
-        <!-- TODO: i18n -->
         <b-form
           @submit.stop.prevent="submitForm"
         >
           <b-form-group
-            description="If enabled, the debug menu will be shown in the page footer."
+            :description="$t('debug.settings.form.enabled.description')"
           >
             <b-form-checkbox
               v-model="settings.enabled"
               switch
             >
-              Enable debug menu
+              {{ $t('debug.settings.form.enabled.label') }}
             </b-form-checkbox>
           </b-form-group>
 
           <b-form-group
-            label="API key"
+            :label="$t('debug.settings.form.api-key.label')"
             label-for="debug-input-api-key"
-            description="Enter your Europeana API key and it will be used in the links to API requests."
+            :description="$t('debug.settings.form.api-key.description')"
           >
             <b-form-input
               id="debug-input-api-key"
@@ -35,7 +34,7 @@
             type="submit"
             variant="primary"
           >
-            Save
+            {{ $t('actions.save') }}
           </b-button>
         </b-form>
       </b-col>

@@ -43,6 +43,7 @@ export default {
     "pin": "Pin",
     "providedBy": "Provided by {provider}",
     "reject": "Reject",
+    "save": "Save",
     "send": "Send",
     "share": "Share",
     "shareOn": "Share on {social}",
@@ -147,7 +148,19 @@ export default {
   },
   "debug": {
     "apiRequests": "API requests",
-    "debug": "Debug"
+    "debug": "Debug",
+    "settings": {
+      "form": {
+        "api-key": {
+          "description": "Enter your Europeana API key and it will be used in the links to API requests.",
+          "label": "API key"
+        },
+        "enabled": {
+          "description": "If enabled, the debug menu will be shown in the page footer.",
+          "label": "Enable debug menu"
+        }
+      }
+    }
   },
   "delete": "Delete",
   "depiction": "A depiction of {title}",
@@ -942,7 +955,6 @@ export default {
       "createNew": "Create new gallery",
       "delete": "Delete gallery",
       "edit": "Edit gallery",
-      "save": "Save",
       "update": "Update gallery"
     },
     "form": {
