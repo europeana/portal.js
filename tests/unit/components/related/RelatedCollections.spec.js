@@ -102,9 +102,7 @@ const factory = ({ propsData, mocks, storeData } = {}) => {
       },
       $t: () => {},
       $fetch: () => {},
-      $path: (args) => {
-        return `${args.params.type} - ${args.params.pathMatch}`;
-      },
+      $path: () => {},
       $route: { query: { mode: null } },
       $store: {
         state: {
@@ -316,29 +314,6 @@ describe('components/related/RelatedCollections', () => {
         await wrapper.vm.draw();
 
         expect(wrapper.vm.$redrawVueMasonry.called).toBe(true);
-      });
-    });
-
-    describe('linkGen', () => {
-      describe('when the item has an identifier/it is a curated chip from contenful', () => {
-        it('uses the identifier and english name for the slug', () => {
-          const wrapper = factory();
-          expect(wrapper.vm.linkGen(relatedCollections[0])).toBe('person - 123-contentful-title-en');
-        });
-      });
-
-      describe('when the item has an id/it is a Europeana entity from a search request', () => {
-        it('uses the id and the English prefLabel for the name', () => {
-          const wrapper = factory();
-          expect(wrapper.vm.linkGen(relatedCollections[1])).toBe('topic - 194-visual-arts');
-        });
-      });
-
-      describe('when the item can not be identified as a Europeana entity', () => {
-        it('is `null`', () => {
-          const wrapper = factory();
-          expect(wrapper.vm.linkGen({})).toBe(null);
-        });
       });
     });
   });
