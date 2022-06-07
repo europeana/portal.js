@@ -62,7 +62,6 @@
 </template>
 
 <script>
-  import { mapGetters, mapState } from 'vuex';
   import { BBreadcrumb } from 'bootstrap-vue';
   import ClientOnly from 'vue-client-only';
   import PageHeader from '../components/PageHeader';
@@ -126,14 +125,17 @@
     },
 
     computed: {
-      ...mapState({
-        breadcrumbs: state => state.breadcrumb.data
-      }),
+      breadcrumbs() {
+        return this.$store.state.breadcrumb.data;
+      },
 
-      ...mapGetters({
-        canonicalUrl: 'http/canonicalUrl',
-        canonicalUrlWithoutLocale: 'http/canonicalUrlWithoutLocale'
-      }),
+      canonicalUrl() {
+        return this.$store.getters['http/canonicalUrl'];
+      },
+
+      canonicalUrlWithoutLocale() {
+        return this.$store.getters['http/canonicalUrlWithoutLocale'];
+      },
 
       feedbackEnabled() {
         return this.$features.jiraServiceDeskFeedbackForm && this.$config.app.baseUrl;
