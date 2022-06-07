@@ -47,13 +47,15 @@
             <b-link
               href="https://pro.europeana.eu/pages/get-api"
             >
-              Europeana API key
+              Europeana API key<!-- This comment removes white space
+                -->
             </b-link>,
             you may enter it on the
             <b-link
               to="/debug"
             >
-              settings page
+              settings page<!-- This comment removes white space
+                -->
             </b-link>
             and it will be included in these API request links.
           </p>
@@ -174,5 +176,10 @@
         display: inline-block;
       }
     }
+  }
+
+  ::v-deep .alert {
+    padding: 0;
+    margin-bottom: 0;
   }
 </style>
