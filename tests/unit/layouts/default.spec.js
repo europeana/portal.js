@@ -29,7 +29,7 @@ const factory = (options = {}) => shallowMountNuxt(layout, {
   mocks: {
     $store: {
       state: {
-        breadcrumb: {},
+        breadcrumb: {}
       },
       getters: {
         'http/canonicalUrl': '/fr',

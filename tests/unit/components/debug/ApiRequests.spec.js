@@ -5,11 +5,21 @@ import ApiRequests from '@/components/debug/ApiRequests.vue';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = (propsData) => shallowMount(ApiRequests, {
+const factory = ({ requests = [] }) => shallowMount(ApiRequests, {
   localVue,
-  propsData,
   mocks: {
-    $t: () => ''
+    $route: {},
+    $t: () => '',
+    $store: {
+      state: {
+        axiosLogger: {
+          requests
+        }
+      },
+      getters: {
+        'debug/settings': {}
+      }
+    }
   }
 });
 
