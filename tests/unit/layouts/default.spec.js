@@ -32,8 +32,8 @@ const factory = (options = {}) => shallowMountNuxt(layout, {
         breadcrumb: {},
       },
       getters: {
-        'http/canonicalUrl': () => '/fr',
-        'http/canonicalUrlWithoutLocale': () => '/'
+        'http/canonicalUrl': '/fr',
+        'http/canonicalUrlWithoutLocale': '/'
       }
     },
     $t: key => key,

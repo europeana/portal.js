@@ -105,8 +105,6 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
-
   import LangSelector from './generic/LanguageSelector';
   import LinkGroup from './generic/LinkGroup';
 
@@ -149,9 +147,9 @@
     },
 
     computed: {
-      ...mapGetters({
-        debugSettings: 'debug/settings'
-      }),
+      debugSettings() {
+        return this.$store.getters['debug/settings'];
+      },
       showDebugLinkGroup() {
         return !!this.debugSettings.enabled;
       },
