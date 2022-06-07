@@ -5,6 +5,6 @@ export default (req, res, next) => {
     res.writeHead(302, { location });
     res.end();
   } else {
-    return next();
+    next();
   }
 };
