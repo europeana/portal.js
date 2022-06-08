@@ -4,16 +4,18 @@
   >
     <HomeHero />
     <CallToAction
-      v-if="topCTA"
-      :call-to-action="topCTA"
+      v-if="callsToActions[0]"
+      :call-to-action="callsToActions[0]"
     />
+    <!-- TODO: insert themes here -->
     <CallToAction
-      v-if="middleCTA"
-      :call-to-action="middleCTA"
+      v-if="callsToActions[1]"
+      :call-to-action="callsToActions[1]"
     />
+    <!-- TODO: insert latest editorial here -->
     <CallToAction
-      v-if="bottomCTA"
-      :call-to-action="bottomCTA"
+      v-if="callsToActions[2]"
+      :call-to-action="callsToActions[2]"
     />
   </div>
 </template>
@@ -30,23 +32,27 @@
       CallToAction
     },
 
-    props: {
-      callsToAction: {
-        type: Array,
-        default: () => []
-      }
+    data() {
+      return {
+        sections: []
+      };
+    },
+
+    async fetch() {
+      const variables = {
+        identifier: this.$route.query.identifier || null,
+        locale: this.$i18n.isoLocale(),
+        preview: this.$route.query.mode === 'preview'
+      };
+      const response = await this.$contentful.query('homePage', variables);
+      const homePage = response.data.data.homePageCollection.items[0];
+      this.sections = homePage.sectionsCollection.items;
     },
 
     computed: {
-      topCTA() {
-        return this.callsToAction.find(cta => cta.position === 'home-top');
-      },
-      middleCTA() {
-        return this.callsToAction.find(cta => cta.position === 'home-middle');
-      },
-      bottomCTA() {
-        return this.callsToAction.find(cta => cta.position === 'home-bottom');
-      },
+      callsToActions() {
+        return this.sections.filter(section => section['__typename'] === 'PrimaryCallToAction');
+      }
     }
   };
 </script>

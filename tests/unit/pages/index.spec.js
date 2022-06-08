@@ -30,7 +30,7 @@ const factory = (options = {}) => shallowMountNuxt(page, {
     $t: key => key,
     $pageHeadTitle: key => key,
     $features: options.features || {},
-    $route: { params: options.routeParams || {} },
+    $route: { params: options.routeParams || {} }
   }
 });
 
@@ -81,32 +81,14 @@ describe('Index page', () => {
 
   describe('when on new home page', () => {
     const wrapper = factory({ features: { newHomepage: true } });
-    afterEach(() => {
-      contentfulQueryMock.resolves({});
-    });
-
-    it('queries contentful for the CTAs', async () => {
-      contentfulQueryMock.resolves({
-        data: {
-          data: {
-            primaryCallToActionCollection: {
-              items: []
-            }
-          }
-        }
-      });
-
-      await wrapper.vm.asyncData({ params: {},
+    it('does not query contentful', () => {
+      wrapper.vm.asyncData({ params: {},
         app: {
           $contentful: { query: contentfulQueryMock },
-          $features: { newHomepage: true },
-          i18n: {
-            isoLocale: () => 'en-GB'
-          }
-        },
-        query: {}
-      });
-      expect(contentfulQueryMock.calledWith('homePage', { locale: 'en-GB', preview: false })).toBe(true);
+          $features: { newHomepage: true }
+        } });
+
+      expect(contentfulQueryMock.called).toBe(false);
     });
 
     it('uses the title as page title', () => {

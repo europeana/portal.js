@@ -2,7 +2,6 @@
   <div>
     <HomePage
       v-if="isNewHomePage"
-      :calls-to-action="callsToAction"
     />
     <BrowsePage
       v-else-if="browsePage"
@@ -39,25 +38,16 @@
     },
 
     asyncData({ params, query, error, app }) {
+      if (app.$features.newHomepage && !params.pathMatch) {
+        return {};
+      }
+
       const variables = {
+        // TODO: clean up when new home is enabled
+        identifier: params.pathMatch ? params.pathMatch : 'home',
         locale: app.i18n.isoLocale(),
         preview: query.mode === 'preview'
       };
-
-      if (app.$features.newHomepage && !params.pathMatch) {
-        return app.$contentful.query('homePage', variables)
-          .then(response => response.data.data)
-          .then(data => {
-            const callsToAction = data.primaryCallToActionCollection.items;
-            return { callsToAction };
-          })
-          .catch((e) => {
-            error({ statusCode: 500, message: e.toString() });
-          });;
-      }
-
-      // TODO: clean up when new home is enabled
-      variables.identifier = params.pathMatch ? params.pathMatch : 'home';
 
       return app.$contentful.query('browseStaticPage', variables)
         .then(response => response.data.data)
@@ -91,8 +81,7 @@
         primaryImageOfPage: null,
         image: null,
         hasPartCollection: null,
-        relatedLinks: null,
-        callsToAction: null
+        relatedLinks: null
       };
     },
 

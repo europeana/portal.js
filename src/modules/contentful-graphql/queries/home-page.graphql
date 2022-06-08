@@ -1,16 +1,31 @@
 query HomePage(
   $locale: String!,
-  $preview: Boolean = false
+  $preview: Boolean = false,
+  $identifier: String
 ) {
-  primaryCallToActionCollection(preview: $preview, locale: $locale, where: { position_contains: "home-" }, limit: 3) {
+  homePageCollection(
+    preview: $preview,
+    locale: $locale,
+    order: sys_publishedAt_DESC,
+    limit: 1,
+    where: { identifier: $identifier }
+  ) {
     items {
       name
-      text
-      relatedLink {
-        url
-        text
+      identifier
+      sectionsCollection {
+        items {
+          __typename
+          ... on PrimaryCallToAction {
+            name
+      			text
+      			relatedLink {
+        			url
+        			text
+      			}
+          }
+        }
       }
-      position
     }
   }
 }

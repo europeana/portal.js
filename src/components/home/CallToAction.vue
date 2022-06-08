@@ -1,7 +1,7 @@
 <template>
   <div class="home-cta d-lg-flex flex-lg-row flex-column">
     <div class="cta-illustration align-self-stretch flex-lg-fill">
-      <div class="geometry"/>
+      <div class="geometry" />
     </div>
     <div class="cta-content align-self-stretch flex-lg-fill">
       <h2>
@@ -54,7 +54,6 @@
     margin: 2rem auto;
     max-width: 75%;
     border-radius: 0.4rem;
-
 
     .cta-illustration {
       min-height: 11rem;
