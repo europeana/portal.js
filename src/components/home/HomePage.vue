@@ -7,7 +7,10 @@
       v-if="callsToActions[0]"
       :call-to-action="callsToActions[0]"
     />
-    <!-- TODO: insert themes here -->
+    <StackedCardsSwiper
+      :slides="swiperThemes"
+      :title="$t('collections.themes')"
+    />
     <CallToAction
       v-if="callsToActions[1]"
       :call-to-action="callsToActions[1]"
@@ -21,16 +24,22 @@
 </template>
 
 <script>
-  import HomeHero from '@/components/home/HomeHero';
+  import allThemes from '@/mixins/allThemes';
+  import collectionLinkGen from '@/mixins/collectionLinkGen';
   import CallToAction from './CallToAction';
+  import HomeHero from './HomeHero';
+  import StackedCardsSwiper from '@/components/generic/StackedCardsSwiper';
 
   export default {
     name: 'HomePage',
 
     components: {
       HomeHero,
-      CallToAction
+      CallToAction,
+      StackedCardsSwiper
     },
+
+    mixins: [allThemes, collectionLinkGen],
 
     data() {
       return {
@@ -38,6 +47,7 @@
       };
     },
 
+    // TODO: refactor to use Promise.all instead of two unrelated await calls
     async fetch() {
       const variables = {
         identifier: this.$route.query.identifier || null,
@@ -47,11 +57,21 @@
       const response = await this.$contentful.query('homePage', variables);
       const homePage = response.data.data.homePageCollection.items[0];
       this.sections = homePage.sectionsCollection.items;
+
+      await this.fetchAllThemes();
     },
 
     computed: {
       callsToActions() {
         return this.sections.filter(section => section['__typename'] === 'PrimaryCallToAction');
+      },
+
+      swiperThemes() {
+        return this.allThemes.map(theme => ({
+          title: theme.prefLabel[this.$i18n.locale],
+          description: theme.description[this.$i18n.locale],
+          url: this.collectionLinkGen(theme)
+        }));
       }
     }
   };

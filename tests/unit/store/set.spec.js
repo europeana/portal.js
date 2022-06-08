@@ -374,22 +374,22 @@ describe('store/set', () => {
       });
     });
 
-    describe('deleteSet()', () => {
+    describe('delete()', () => {
       it('deletes the set via $apis.set', async() => {
-        store.actions.$apis.set.deleteSet = sinon.stub().resolves();
+        store.actions.$apis.set.delete = sinon.stub().resolves();
         const state = {};
 
-        await store.actions.deleteSet({ commit, state }, setId);
+        await store.actions.delete({ commit, state }, setId);
 
-        expect(store.actions.$apis.set.deleteSet.calledWith(setId)).toBe(true);
+        expect(store.actions.$apis.set.delete.calledWith(setId)).toBe(true);
       });
 
       describe('when set was active', () => {
         it('commits `DELETED` with "setActive"', async() => {
-          store.actions.$apis.set.deleteSet = sinon.stub().resolves();
+          store.actions.$apis.set.delete = sinon.stub().resolves();
           const state = { active: { id: setId } };
 
-          await store.actions.deleteSet({ commit, state }, setId);
+          await store.actions.delete({ commit, state }, setId);
 
           expect(commit.calledWith('setActive', 'DELETED')).toBe(true);
         });

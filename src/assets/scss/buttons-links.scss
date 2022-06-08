@@ -265,7 +265,8 @@
   &.add-button,
   &.like-button,
   &.pin-button,
-  &.recommendation-button {
+  &.recommendation-button,
+  &.move-button {
     font-size: $font-size-large;
 
     &.button-icon-only {
