@@ -11,7 +11,9 @@ const requestParams = (requestConfig, moduleConfig) => {
 
   // Optionally, clear certain URL params, e.g. to obscure API keys
   for (const paramKey of (moduleConfig?.clearParams || [])) {
-    params[paramKey] = (paramKey in params) ? '' : null;
+    if (paramKey in params) {
+      params[paramKey] = '';
+    }
   }
 
   return params;

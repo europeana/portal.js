@@ -27,6 +27,21 @@ describe('modules/axios-logger/templates/plugin', () => {
     expect(typeof wrapper.requestInterceptor).toBe('function');
   });
 
+  it('adds navigation guards to app router', () => {
+    const context = {
+      app: {
+        router: {
+          beforeEach: sinon.spy(),
+          afterEach: sinon.spy()
+        }
+      }
+    };
+    const wrapper = factory(context);
+
+    expect(context.app.router.beforeEach.called).toBe(true);
+    expect(context.app.router.afterEach.called).toBe(true);
+  });
+
   describe('request interceptor', () => {
     const context = {
       store: {
