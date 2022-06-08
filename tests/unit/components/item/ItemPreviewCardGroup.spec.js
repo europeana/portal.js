@@ -124,6 +124,19 @@ describe('components/item/ItemPreviewCardGroup', () => {
     });
   });
 
+  describe('watch', () => {
+    describe('items', () => {
+      it('updates orderedItems', async() => {
+        const wrapper = factory({ propsData: { items: [{ id: '1' }] } });
+        expect(wrapper.vm.orderedItems).toEqual([{ id: '1' }]);
+
+        await wrapper.setProps({ items: [{ id: '1' }, { id: '2' }] });
+
+        expect(wrapper.vm.orderedItems).toEqual([{ id: '1' }, { id: '2' }]);
+      });
+    });
+  });
+
   describe('methods', () => {
     describe('itemHitSelector', () => {
       describe('when no hits are present', () => {
