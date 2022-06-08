@@ -48,12 +48,14 @@
               href="https://pro.europeana.eu/pages/get-api"
             >
               {{ $t('debug.apiRequests.apiKeyLinkText') }}<!-- This comment removes white space
-            --></b-link>
+                -->
+            </b-link>
             <b-link
               to="/debug"
             >
               {{ $t('debug.apiRequests.settingsPageLinkText') }}<!-- This comment removes white space
-            --></b-link>
+                -->
+            </b-link>
           </i18n>
         </InfoMessage>
       </template>
