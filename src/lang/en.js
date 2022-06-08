@@ -116,7 +116,8 @@ export default {
     },
     "notifications": {
       "update": "The collection has been updated"
-    }
+    },
+    "themes": "Themes"
   },
   "collectionsYouMightLike": "Collections you might like",
   "colourSwatch": "Colour swatch",
@@ -191,6 +192,7 @@ export default {
     "description": "Explore the exhibitions",
     "exhibitions": "Exhibition | Exhibitions"
   },
+  "explore": "Explore",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "colours",

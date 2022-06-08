@@ -18,6 +18,7 @@ const contentfulResponse = {
             nameEN: 'World War I',
             identifier: 'http://data.europeana.eu/concept/base/83',
             genre: 'ww1',
+            description: 'Collection of untold stories and official histories of World War I',
             primaryImageOfPage: {
               image: {
                 url: 'https://images.ctfassets.net/i01duvb6kq77/792bNsvUU5gai7bWidjZoz/1d6ce46c91d5fbcd840e8cf8bfe376a3/206_item_QCZITS4J5WNRUS7ESLVJH6PSOCRHBPMI.jpg',
@@ -80,6 +81,7 @@ describe('describe./@/plugins/europeana/themes', () => {
           url: 'https://images.ctfassets.net/i01duvb6kq77/792bNsvUU5gai7bWidjZoz/1d6ce46c91d5fbcd840e8cf8bfe376a3/206_item_QCZITS4J5WNRUS7ESLVJH6PSOCRHBPMI.jpg',
           contentType: 'image/jpeg'
         };
+        expectedOverrides[2].description = { en: 'Collection of untold stories and official histories of World War I' };
 
         expect(contentfulQueryStub.called).toBe(true);
         expect(storeCommitStub.called).toBe(true);
@@ -96,6 +98,7 @@ describe('describe./@/plugins/europeana/themes', () => {
         const withOverrides = await withEditorialContent(stubbedContext, themesData);
         const expectedOverrides = themesData;
         expectedOverrides[3].prefLabel = { en: 'Manuscripts' };
+        expectedOverrides[2].description = { en: 'Collection of untold stories and official histories of World War I' };
 
         expect(contentfulQueryStub.called).toBe(false);
         expect(storeCommitStub.called).toBe(false);
