@@ -8,7 +8,7 @@
       {{ $t('homePage.discoverEditorial') }}
     </h2>
     <b-card-group
-      class="card-deck-3-cols"
+      class="card-deck-3-cols justify-content-center"
       deck
     >
       <!-- TODO: use/add image alt description -->
@@ -79,8 +79,23 @@
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
 
-  @media (min-width: $bp-extraextralarge) {
-    ::v-deep .content-card {
+  .card-deck {
+    flex-flow: row wrap;
+  }
+
+  ::v-deep .content-card {
+    min-height: 0;
+
+    .card-title {
+      display: block;
+      -webkit-line-clamp: none;
+    }
+
+    @media (min-width: $bp-small) {
+      max-width: 400px; /* gallery thumbnails are 400px wide */
+    }
+
+    @media (min-width: $bp-extraextralarge) {
       .card-subtitle {
         font-size: 0.75vw;
       }
