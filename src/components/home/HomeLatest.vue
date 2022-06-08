@@ -79,6 +79,11 @@
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
 
+  h2 {
+    color: $mediumgrey;
+    font-size: 2rem;
+  }
+
   .card-deck {
     flex-flow: row wrap;
   }
