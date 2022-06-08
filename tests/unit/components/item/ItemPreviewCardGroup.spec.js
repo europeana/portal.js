@@ -114,27 +114,11 @@ describe('components/item/ItemPreviewCardGroup', () => {
         });
       });
 
-      describe('when in plain view', () => {
-        it('uses the card-deck card-group class', () => {
-          const wrapper = factory({ propsData: { items: results, view: 'plain' } });
-
-          expect(wrapper.vm.cardGroupClass).toMatch('card-deck-search');
-        });
-      });
-
       describe('when in explore view', () => {
         it('uses the explore-more card-group class', () => {
           const wrapper = factory({ propsData: { items: results, view: 'explore' } });
 
           expect(wrapper.vm.cardGroupClass).toMatch('explore-more');
-        });
-      });
-
-      describe('when in similar view', () => {
-        it('uses the explore-more card-group class', () => {
-          const wrapper = factory({ propsData: { items: results, view: 'similar' } });
-
-          expect(wrapper.vm.cardGroupClass).toMatch('similar-items');
         });
       });
     });
