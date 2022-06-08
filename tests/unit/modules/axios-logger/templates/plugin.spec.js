@@ -36,7 +36,7 @@ describe('modules/axios-logger/templates/plugin', () => {
         }
       }
     };
-    const wrapper = factory(context);
+    factory(context);
 
     expect(context.app.router.beforeEach.called).toBe(true);
     expect(context.app.router.afterEach.called).toBe(true);
