@@ -182,7 +182,7 @@
           name: this.$t('debug.debug'),
           links: [
             { url: '/debug', text: this.$t('debug.settings.title') },
-            { url: '#api-requests', text: this.$t('debug.apiRequests'), dataQa: 'API requests link' }
+            { url: '#api-requests', text: this.$t('debug.apiRequests.title'), dataQa: 'API requests link' }
           ]
         };
       }

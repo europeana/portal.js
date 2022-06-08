@@ -5,7 +5,7 @@
     <b-modal
       id="api-requests"
       size="xl"
-      :title="$t('debug.apiRequests')"
+      :title="$t('debug.apiRequests.title')"
       hide-footer
       data-qa="API requests modal"
       @hide="hideModal"
@@ -40,33 +40,28 @@
           v-if="!$store.getters['debug/settings'].apiKey"
           variant="icon"
         >
-          <!-- TODO: i18n -->
-          <!-- TODO: fix spacing & underlining -->
-          <p>
-            Tip: if you already have a
+          <i18n
+            path="debug.apiRequests.tip"
+            tag="p"
+          >
             <b-link
               href="https://pro.europeana.eu/pages/get-api"
             >
-              Europeana API key<!-- This comment removes white space
-                -->
-            </b-link>,
-            you may enter it on the
+              {{ $t('debug.apiRequests.apiKeyLinkText') }}<!-- This comment removes white space
+            --></b-link>
             <b-link
               to="/debug"
             >
-              settings page<!-- This comment removes white space
-                -->
-            </b-link>
-            and it will be included in these API request links.
-          </p>
+              {{ $t('debug.apiRequests.settingsPageLinkText') }}<!-- This comment removes white space
+            --></b-link>
+          </i18n>
         </InfoMessage>
       </template>
       <InfoMessage
         v-else
         variant="icon"
       >
-        <!-- TODO: i18n -->
-        No requests to Europeana APIs were used on this page.
+        {{ $t('debug.apiRequests.noRequests') }}
       </InfoMessage>
     </b-modal>
   </div>

@@ -21,9 +21,9 @@
           </b-form-group>
 
           <b-form-group
-            :label="$t('debug.settings.form.api-key.label')"
+            :label="$t('debug.settings.form.apiKey.label')"
             label-for="debug-input-api-key"
-            :description="$t('debug.settings.form.api-key.description')"
+            :description="$t('debug.settings.form.apiKey.description')"
           >
             <b-form-input
               id="debug-input-api-key"

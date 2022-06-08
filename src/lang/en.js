@@ -148,12 +148,17 @@ export default {
     "to": "to"
   },
   "debug": {
-    "apiRequests": "API requests",
+    "apiRequests": {
+      "apiKeyLinkText": "Europeana API key",
+      "noRequests": "No requests to Europeana APIs were used on this page.",
+      "settingsPageLinkText": "settings page",
+      "tip": "Tip: if you already have a {0}, you may enter it on the {1} and it will be included in these API request links.",
+      "title": "API requests"
+    },
     "debug": "Debug",
     "settings": {
-      "title": "Settings",
       "form": {
-        "api-key": {
+        "apiKey": {
           "description": "Enter your Europeana API key and it will be used in the links to API requests.",
           "label": "API key"
         },
@@ -161,7 +166,8 @@ export default {
           "description": "If enabled, the debug menu will be shown in the page footer.",
           "label": "Enable debug menu"
         }
-      }
+      },
+      "title": "Settings"
     }
   },
   "delete": "Delete",
