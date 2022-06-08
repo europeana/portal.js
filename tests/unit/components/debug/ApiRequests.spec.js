@@ -32,7 +32,8 @@ const factory = ({ requests = [] } = {}) => shallowMountNuxt(ApiRequests, {
       },
       commit: sinon.spy()
     }
-  }
+  },
+  stubs: ['i18n']
 });
 
 describe('components/debug/ApiRequests', () => {
@@ -136,7 +137,7 @@ describe('components/debug/ApiRequests', () => {
 
   describe('watch', () => {
     describe('$route', () => {
-      it('shows the modal when the hash is right', async() => {
+      it('shows the modal when the to route hash is right', async() => {
         const wrapper = factory();
         sinon.spy(wrapper.vm, 'showModal');
 
@@ -145,11 +146,11 @@ describe('components/debug/ApiRequests', () => {
         expect(wrapper.vm.showModal.called).toBe(true);
       });
 
-      it('hides the modal when the hash is wrong', async() => {
+      it('hides the modal when the from route hash is right', async() => {
         const wrapper = factory();
         sinon.spy(wrapper.vm, 'hideModal');
 
-        await wrapper.vm.watch.$route.call(wrapper.vm, { hash: '#main' });
+        await wrapper.vm.watch.$route.call(wrapper.vm, {}, { hash: wrapper.vm.hash });
 
         expect(wrapper.vm.hideModal.called).toBe(true);
       });

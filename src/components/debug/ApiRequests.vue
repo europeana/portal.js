@@ -104,12 +104,12 @@
     },
 
     watch: {
-      $route(to) {
+      $route(to, from) {
         this.$nextTick(() => {
           if (to.hash === this.hash) {
             this.showModal();
-          } else {
-            this.hideModal();
+          } else if (from.hash === this.hash) {
+            this.hideModal({ updateRoute: false });
           }
         });
       }
@@ -127,9 +127,11 @@
         this.$bvModal.show('api-requests');
       },
 
-      hideModal() {
+      hideModal({ updateRoute = true } = {}) {
         this.$bvModal.hide('api-requests');
-        this.$nuxt.context.app.router.push({ ...this.$route, hash: undefined });
+        if (updateRoute) {
+          this.$nuxt.context.app.router.push({ ...this.$route, hash: undefined });
+        }
       }
     }
   };
