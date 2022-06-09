@@ -44,18 +44,22 @@
             path="debug.apiRequests.tip"
             tag="p"
           >
-            <b-link
-              href="https://pro.europeana.eu/pages/get-api"
-            >
-              {{ $t('debug.apiRequests.apiKeyLinkText') }}<!-- This comment removes white space
-                -->
-            </b-link>
-            <b-link
-              to="/debug"
-            >
-              {{ $t('debug.apiRequests.settingsPageLinkText') }}<!-- This comment removes white space
-                -->
-            </b-link>
+            <template #apiKeyLink>
+              <b-link
+                href="https://pro.europeana.eu/pages/get-api"
+              >
+                {{ $t('debug.apiRequests.apiKeyLinkText') }}<!-- This comment removes white space
+                  -->
+              </b-link>
+            </template>
+            <template #settingsPageLink>
+              <b-link
+                to="/debug"
+              >
+                {{ $t('debug.apiRequests.settingsPageLinkText') }}<!-- This comment removes white space
+                  -->
+              </b-link>
+            </template>
           </i18n>
         </InfoMessage>
       </template>

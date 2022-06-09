@@ -152,7 +152,7 @@ export default {
       "apiKeyLinkText": "Europeana API key",
       "noRequests": "No requests to Europeana APIs were used on this page.",
       "settingsPageLinkText": "settings page",
-      "tip": "Tip: if you already have a {0}, you may enter it on the {1} and it will be included in these API request links.",
+      "tip": "Tip: if you already have a {apiKeyLink}, you may enter it on the {settingsPageLink} and it will be included in these API request links.",
       "title": "API requests"
     },
     "debug": "Debug",
