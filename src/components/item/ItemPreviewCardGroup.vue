@@ -139,7 +139,7 @@
       },
       draggableItems: {
         type: Boolean,
-        default: true
+        default: false
       },
       enableAcceptRecommendations: {
         type: Boolean,
