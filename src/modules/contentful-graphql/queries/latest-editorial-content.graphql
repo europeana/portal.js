@@ -5,6 +5,7 @@ query latestEditorialContent(
   $query: String = ""
 ) {
   blogPostingCollection(
+    where: { name_contains: $query },
     preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit
   ) {
     items {
@@ -22,6 +23,7 @@ query latestEditorialContent(
     }
   }
   exhibitionPageCollection(
+    where: { name_contains: $query },
     preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit
   ) {
     items {

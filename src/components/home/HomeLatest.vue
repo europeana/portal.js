@@ -25,7 +25,7 @@
 </template>
 
 <script>
-  import ContentCard from '../../components/generic/ContentCard';
+  import ContentCard from '../generic/ContentCard';
 
   export default {
     components: {
