@@ -103,7 +103,7 @@ describe('components/home/HomeLatest', () => {
     });
 
     describe('cardImage', () => {
-      it('constructs edmPreview thumbnail URLs for galleries', () => {
+      describe('for galleries', () => {
         const wrapper = factory();
         wrapper.vm.$apis = {
           thumbnail: {
@@ -111,24 +111,39 @@ describe('components/home/HomeLatest', () => {
           }
         };
 
-        const image = wrapper.vm.cardImage({
-          __typename: 'ImageGallery',
-          hasPartCollection: {
-            items: [
-              {
-                encoding: {
-                  edmPreview: ['thumbnail.jpg']
+        it('favours edmPreview URLs', () => {
+          const image = wrapper.vm.cardImage({
+            __typename: 'ImageGallery',
+            hasPartCollection: {
+              items: [
+                {
+                  encoding: {
+                    edmPreview: ['edmPreview.jpg']
+                  }
                 }
-              }
-            ],
-            image: {
-              url: 'image.jpg'
+              ]
             }
-          }
+          });
+
+          expect(wrapper.vm.$apis.thumbnail.edmPreview.calledWith('edmPreview.jpg', { size: 400 })).toBe(true);
+          expect(image).toBe('edmPreview.jpg');
         });
 
-        expect(wrapper.vm.$apis.thumbnail.edmPreview.calledWith('thumbnail.jpg', { size: 400 })).toBe(true);
-        expect(image).toBe('thumbnail.jpg');
+        it('falls back to thumbnailUrl URLs', () => {
+          const image = wrapper.vm.cardImage({
+            __typename: 'ImageGallery',
+            hasPartCollection: {
+              items: [
+                {
+                  thumbnailUrl: 'thumbnail.jpg'
+                }
+              ]
+            }
+          });
+
+          expect(wrapper.vm.$apis.thumbnail.edmPreview.calledWith('thumbnail.jpg', { size: 400 })).toBe(true);
+          expect(image).toBe('thumbnail.jpg');
+        });
       });
 
       it('otherwise uses primaryImageOfPage URL', () => {
