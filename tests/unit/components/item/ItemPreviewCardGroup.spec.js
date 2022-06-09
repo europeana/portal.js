@@ -114,14 +114,6 @@ describe('components/item/ItemPreviewCardGroup', () => {
         });
       });
 
-      describe('when in plain view', () => {
-        it('uses the card-deck card-group class', () => {
-          const wrapper = factory({ propsData: { items: results, view: 'plain' } });
-
-          expect(wrapper.vm.cardGroupClass).toMatch('card-deck-search');
-        });
-      });
-
       describe('when in explore view', () => {
         it('uses the explore-more card-group class', () => {
           const wrapper = factory({ propsData: { items: results, view: 'explore' } });
@@ -129,13 +121,18 @@ describe('components/item/ItemPreviewCardGroup', () => {
           expect(wrapper.vm.cardGroupClass).toMatch('explore-more');
         });
       });
+    });
+  });
 
-      describe('when in similar view', () => {
-        it('uses the explore-more card-group class', () => {
-          const wrapper = factory({ propsData: { items: results, view: 'similar' } });
+  describe('watch', () => {
+    describe('items', () => {
+      it('updates orderedItems', async() => {
+        const wrapper = factory({ propsData: { items: [{ id: '1' }] } });
+        expect(wrapper.vm.orderedItems).toEqual([{ id: '1' }]);
 
-          expect(wrapper.vm.cardGroupClass).toMatch('similar-items');
-        });
+        await wrapper.setProps({ items: [{ id: '1' }, { id: '2' }] });
+
+        expect(wrapper.vm.orderedItems).toEqual([{ id: '1' }, { id: '2' }]);
       });
     });
   });

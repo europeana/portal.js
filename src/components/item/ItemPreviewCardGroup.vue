@@ -13,8 +13,7 @@
     <slot />
     <component
       :is="draggableItems ? 'draggable' : 'div'"
-      v-model="cards"
-      :draggable="draggableItems && '.item'"
+      v-model="orderedItems"
       handle=".move-button"
       @end="endItemDrag"
     >
@@ -38,7 +37,6 @@
         <ItemPreviewCard
           v-else
           :key="index"
-          v-masonry-tile
           :item="card"
           :hit-selector="itemHitSelector(card)"
           :variant="cardVariant"
@@ -48,7 +46,7 @@
           :enable-reject-recommendation="enableRejectRecommendations"
           :show-pins="showPins"
           :show-move="draggableItems"
-          :offset="items.findIndex(item => item.id === card.id)"
+          :offset="orderedItems.findIndex(item => item.id === card.id)"
           data-qa="item preview"
           @like="$emit('like', card.id)"
           @unlike="$emit('unlike', card.id)"
@@ -59,11 +57,10 @@
   <component
     :is="draggableItems ? 'draggable' : 'b-card-group'"
     v-else
-    :v-model="draggableItems && cards"
+    v-model="orderedItems"
     :data-qa="`item previews ${view}`"
     :class="cardGroupClass"
     deck
-    :draggable="draggableItems && '.item'"
     @end="endItemDrag"
   >
     <slot />
@@ -92,7 +89,7 @@
         :variant="cardVariant"
         :show-pins="showPins"
         :show-move="draggableItems"
-        :offset="items.findIndex(item => item.id === card.id)"
+        :offset="orderedItems.findIndex(item => item.id === card.id)"
         data-qa="item preview"
         @like="$emit('like', card.id)"
         @unlike="$emit('unlike', card.id)"
@@ -122,11 +119,10 @@
         type: Array,
         default: null
       },
-      perRow: {
-        type: Number,
-        default: 4
-      },
-      // grid/list/similar
+      /**
+       * Layout view to use
+       * @values grid, mosaic, list, explore
+       */
       view: {
         type: String,
         default: 'grid'
@@ -155,11 +151,15 @@
 
     data() {
       return {
-        cards: this.items.slice(0, 4).concat('related').concat(this.items.slice(4))
+        orderedItems: this.items
       };
     },
 
     computed: {
+      cards() {
+        return this.orderedItems.slice(0, 4).concat('related').concat(this.orderedItems.slice(4));
+      },
+
       cardGroupClass() {
         let cardGroupClass;
 
@@ -167,14 +167,8 @@
         case 'list':
           cardGroupClass = 'card-group-list mx-0';
           break;
-        case 'plain':
-          cardGroupClass = `card-deck-search card-deck-${this.perRow}-cols`;
-          break;
         case 'explore':
           cardGroupClass = 'card-deck-4-cols narrow-gutter explore-more';
-          break;
-        case 'similar':
-          cardGroupClass = 'py-3 mx-0 card card-deck-4-cols similar-items';
           break;
         }
 
@@ -191,8 +185,9 @@
     },
 
     watch: {
-      'cards.length'() {
-        this.redrawMasonry();
+      'cards.length': 'redrawMasonry',
+      items() {
+        this.orderedItems = this.items;
       }
     },
 

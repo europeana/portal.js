@@ -50,6 +50,9 @@ export const withEditorialContent = async({ $store, $i18n, $route, $contentful }
       override.prefLabel = { [$i18n.locale]: contentfulData.name };
       override.prefLabel.en = contentfulData.nameEN;
     }
+    if (contentfulData.description) {
+      override.description = { [$i18n.locale]: contentfulData.description };
+    }
     if (contentfulData.primaryImageOfPage?.image) {
       override.contentfulImage = contentfulData.primaryImageOfPage.image;
     }
