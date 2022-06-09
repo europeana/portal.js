@@ -68,26 +68,74 @@ describe('components/home/HomeLatest', () => {
 
   describe('methods', () => {
     describe('cardLink', () => {
-      it('returns a link', async() => {
+      it('constructs gallery links', () => {
         const wrapper = factory();
+
         const link = wrapper.vm.cardLink({
           __typename: 'ImageGallery',
-          name: 'Female literacy in the Middle Ages',
-          identifier: 'female-literacy-in-the-middle-ages',
-          description: 'Female literacy during the Middle Ages'
+          identifier: 'gallery'
         });
 
         expect(link.name).toBe('galleries-all');
       });
+
+      it('constructs exhibition links', () => {
+        const wrapper = factory();
+
+        const link = wrapper.vm.cardLink({
+          __typename: 'ExhibitionPage',
+          identifier: 'exhibition'
+        });
+
+        expect(link.name).toBe('exhibitions-exhibition');
+      });
+
+      it('constructs blog post links', () => {
+        const wrapper = factory();
+
+        const link = wrapper.vm.cardLink({
+          __typename: 'BlogPosting',
+          identifier: 'blog'
+        });
+
+        expect(link.name).toBe('blog-all');
+      });
     });
 
     describe('cardImage', () => {
-      it('returns an image', async() => {
+      it('constructs edmPreview thumbnail URLs for galleries', () => {
         const wrapper = factory();
+        wrapper.vm.$apis = {
+          thumbnail: {
+            edmPreview: sinon.stub().returnsArg(0)
+          }
+        };
+
+        const image = wrapper.vm.cardImage({
+          __typename: 'ImageGallery',
+          hasPartCollection: {
+            items: [
+              {
+                encoding: {
+                  edmPreview: ['thumbnail.jpg']
+                }
+              }
+            ],
+            image: {
+              url: 'image.jpg'
+            }
+          }
+        });
+
+        expect(wrapper.vm.$apis.thumbnail.edmPreview.calledWith('thumbnail.jpg', { size: 400 })).toBe(true);
+        expect(image).toBe('thumbnail.jpg');
+      });
+
+      it('otherwise uses primaryImageOfPage URL', () => {
+        const wrapper = factory();
+
         const image = wrapper.vm.cardImage({
           __typename: 'ExhibitionPage',
-          name: 'Black lives in Europe',
-          identifier: 'black-lives-in-europe',
           primaryImageOfPage: {
             image: {
               url: 'image.jpg'

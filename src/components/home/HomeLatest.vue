@@ -55,14 +55,15 @@
 
     methods: {
       cardLink(card) {
+        let link;
         if (card['__typename'] === 'ImageGallery') {
-          return { name: 'galleries-all', params: { pathMatch: card.identifier } };
+          link = { name: 'galleries-all', params: { pathMatch: card.identifier } };
         } else if (card['__typename'] === 'ExhibitionPage') {
-          return { name: 'exhibitions-exhibition', params: { exhibition: card.identifier } };
+          link = { name: 'exhibitions-exhibition', params: { exhibition: card.identifier } };
         } else if (card['__typename'] === 'BlogPosting') {
-          return { name: 'blog-all', params: { pathMatch: card.identifier } };
+          link = { name: 'blog-all', params: { pathMatch: card.identifier } };
         }
-        return null;
+        return link;
       },
 
       cardImage(card) {
