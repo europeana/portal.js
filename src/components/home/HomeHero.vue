@@ -11,9 +11,14 @@
         >
           {{ $t('homePage.title') }}
         </h1>
-        <p class="sub-headline text-center">
-          {{ $t('homePage.subHeadline') }}
-        </p>
+        <i18n
+          path="homePage.subHeadline"
+          tag="p"
+          for="homePage.free"
+          class="sub-headline text-center"
+        >
+          <strong>{{ $t('homePage.free') }}</strong>
+        </i18n>
       </header>
       <SearchForm />
     </div>
