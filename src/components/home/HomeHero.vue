@@ -50,24 +50,30 @@
     h1 {
       font-size: 2.125rem;
       font-weight: 700;
-      margin-bottom: 1.8em;
+      margin-bottom: 2em;
     }
 
     .sub-headline {
       font-size: 1rem;
-      margin-bottom: 3em;
+      margin-bottom: 4em;
     }
 
-    @media (min-width: $bp-extralarge) {
+    @media (min-width: $bp-medium) {
+      .sub-headline {
+        font-size: 1.25rem;
+      }
+    }
+
+    @media (min-width: $bp-extraextralarge) {
       padding: 6em 0 3em;
       font-size: 2vw;
 
       h1 {
-        font-size: 1.5em;
+        font-size: 2.6vw;
       }
 
       .sub-headline {
-        font-size: 0.875em;
+        font-size: 1.5vw;
       }
     }
   }
