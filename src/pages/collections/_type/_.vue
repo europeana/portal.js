@@ -61,12 +61,6 @@
                 </template>
               </SearchInterface>
             </b-container>
-            <b-container class="px-0">
-              <BrowseSections
-                v-if="page"
-                :sections="page.hasPartCollection.items"
-              />
-            </b-container>
             <client-only>
               <b-container class="px-0">
                 <RelatedEditorial
@@ -76,6 +70,12 @@
                 />
               </b-container>
             </client-only>
+            <b-container class="px-0">
+              <BrowseSections
+                v-if="page"
+                :sections="page.hasPartCollection.items"
+              />
+            </b-container>
           </b-col>
           <SideFilters
             :route="route"
