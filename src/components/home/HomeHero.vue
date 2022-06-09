@@ -17,7 +17,12 @@
           for="homePage.free"
           class="sub-headline text-center"
         >
-          <strong>{{ $t('homePage.free') }}</strong>
+          <template #download>
+            <strong>{{ $t('homePage.download') }}</strong>
+          </template>
+          <template #free>
+            <strong>{{ $t('homePage.free') }}</strong>
+          </template>
         </i18n>
       </header>
       <SearchForm />
