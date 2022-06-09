@@ -732,7 +732,7 @@ export default {
   "homeLinkAlt": "Europeana home",
   "homePage": {
     "title": "Discover European cultural heritage",
-    "discoverEditorial": "Discover our editorials"
+    "discoverEditorial": "Discover our stories"
   },
   "imageSlider": {
     "handle": "Slider Handle"
