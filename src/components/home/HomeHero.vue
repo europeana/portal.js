@@ -2,17 +2,19 @@
   <div
     class="hero"
   >
-    <h1
-      class="text-center"
-    >
-      {{ $t('homePage.title') }}
-    </h1>
     <div
       class="hero-content"
     >
-      <h2 class="text-center">
-        {{ $t('homePage.subHeadline') }}
-      </h2>
+      <header>
+        <h1
+          class="text-center"
+        >
+          {{ $t('homePage.title') }}
+        </h1>
+        <p class="sub-headline text-center">
+          {{ $t('homePage.subHeadline') }}
+        </p>
+      </header>
       <SearchForm />
     </div>
   </div>
@@ -41,7 +43,7 @@
     min-height: 100vh;
 
     h1,
-    h2 {
+    .sub-headline {
       color: $white;
     }
 
@@ -51,7 +53,7 @@
       margin-bottom: 1.8em;
     }
 
-    h2 {
+    .sub-headline {
       font-size: 1rem;
       margin-bottom: 3em;
     }
@@ -64,7 +66,7 @@
         font-size: 1.5em;
       }
 
-      h2 {
+      .sub-headline {
         font-size: 0.875em;
       }
     }
