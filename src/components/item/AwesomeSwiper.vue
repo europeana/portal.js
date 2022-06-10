@@ -4,7 +4,7 @@
   >
     <div
       v-show="ready"
-      class="swiper"
+      class="swiper swiper-container"
       data-qa="awesome swiper"
     >
       <div
@@ -34,13 +34,13 @@
             :lazy="index > 0"
           />
         </div>
-        <div
-          class="swiper-button-prev"
-        />
-        <div
-          class="swiper-button-next"
-        />
       </div>
+      <div
+        class="swiper-button-prev"
+      />
+      <div
+        class="swiper-button-next"
+      />
     </div>
   </div>
 </template>
