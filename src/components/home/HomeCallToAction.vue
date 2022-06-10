@@ -5,17 +5,19 @@
     </div>
     <div class="cta-content align-self-stretch flex-lg-fill">
       <h2>
-        {{ callToAction.name }}
+        {{ name }}
       </h2>
+      <!-- eslint-disable vue/no-v-html -->
       <div
         v-html="html"
       />
+      <!-- eslint-enable   vue/no-v-html -->
       <SmartLink
-        :destination="callToAction.relatedLink.url"
+        :destination="link.url"
         data-qa="call to action"
         class="btn btn-cta btn-primary"
       >
-        {{ callToAction.relatedLink.text }}
+        {{ link.text }}
       </SmartLink>
     </div>
   </div>
@@ -26,21 +28,29 @@
   import { marked } from 'marked';
 
   export default {
-    name: 'PrimaryCallToAction',
+    name: 'HomeCallToAction',
 
     components: {
       SmartLink
     },
     props: {
-      callToAction: {
+      name: {
+        type: Text,
+        required: true
+      },
+      text: {
+        type: Text,
+        required: true
+      },
+      link: {
         type: Object,
-        default: null
+        required: true
       }
     },
     computed: {
       html() {
         // TODO: Update the styling of the RichText component and use that instead.
-        return marked.parse(this.callToAction.text);
+        return marked.parse(this.text);
       }
     }
   };

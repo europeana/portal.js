@@ -5,7 +5,9 @@
     <HomeHero />
     <CallToAction
       v-if="callsToActions[0]"
-      :call-to-action="callsToActions[0]"
+      :name="callsToActions[0].name"
+      :text="callsToActions[0].text"
+      :link="callsToActions[0].relatedLink"
     />
     <StackedCardsSwiper
       :slides="swiperThemes"
@@ -13,12 +15,16 @@
     />
     <CallToAction
       v-if="callsToActions[1]"
-      :call-to-action="callsToActions[1]"
+      :name="callsToActions[1].name"
+      :text="callsToActions[1].text"
+      :link="callsToActions[1].relatedLink"
     />
     <!-- TODO: insert latest editorial here -->
     <CallToAction
       v-if="callsToActions[2]"
-      :call-to-action="callsToActions[2]"
+      :name="callsToActions[2].name"
+      :text="callsToActions[2].text"
+      :link="callsToActions[2].relatedLink"
     />
   </div>
 </template>
@@ -26,7 +32,7 @@
 <script>
   import allThemes from '@/mixins/allThemes';
   import collectionLinkGen from '@/mixins/collectionLinkGen';
-  import CallToAction from './CallToAction';
+  import HomeCallToAction from './HomeCallToAction';
   import HomeHero from './HomeHero';
   import StackedCardsSwiper from '@/components/generic/StackedCardsSwiper';
 
