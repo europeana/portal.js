@@ -1,13 +1,19 @@
-import { createLocalVue, mount } from '@vue/test-utils';
+import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
+import sinon from 'sinon';
 
 import AwesomeSwiper from '@/components/item/AwesomeSwiper.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = (propsData) => mount(AwesomeSwiper, {
+const factory = (propsData) => shallowMount(AwesomeSwiper, {
   localVue,
+  data() {
+    return {
+      swiper: swiperMock
+    };
+  },
   mocks: {
     $t: (key) => key,
     $apis: {
@@ -18,6 +24,11 @@ const factory = (propsData) => mount(AwesomeSwiper, {
   },
   propsData
 });
+
+const swiperMock = {
+  activeIndex: 1,
+  update: sinon.spy()
+};
 
 const displayableMedia = [
   {
@@ -55,14 +66,22 @@ describe('components/item/AwesomeSwiper', () => {
       const wrapper = factory({ displayableMedia, europeanaIdentifier });
       expect(wrapper.findAll('div.swiper-slide').length).toBe(5);
     });
+  });
+  describe('onSlideChange()', () => {
+    it('emits a `select` event with the item identifier', () => {
+      const wrapper = factory({ europeanaIdentifier, displayableMedia });
 
-    // FIXME: update for no vue-awesome-swiper
-    // it('emits a `select` event with the item identifier', () => {
-    //   const wrapper = factory({ europeanaIdentifier, displayableMedia });
-    //
-    //   wrapper.vm.swiper.slideTo(1, 1000, false);
-    //   expect(wrapper.emitted('select')).toEqual([[displayableMedia[1].about]]);
-    // });
+      wrapper.vm.onSlideChange();
+      expect(wrapper.emitted('select')).toEqual([[displayableMedia[1].about]]);
+    });
+  });
+  describe('updateSwiper()', () => {
+    it('emits a `select` event with the item identifier', () => {
+      const wrapper = factory({ europeanaIdentifier, displayableMedia });
+
+      wrapper.vm.updateSwiper();
+      expect(swiperMock.update.called).toBe(true);
+    });
   });
   describe('singleMediaResource', () => {
     it('is false when there are multiple displayableMedia', () => {

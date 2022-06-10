@@ -112,7 +112,7 @@
 
     mounted() {
       const middleCardIndex = Math.floor(this.slides.length / 2);
-      this.swiper && this.swiper.slideTo(middleCardIndex);
+      this.swiper.slideTo(middleCardIndex);
     }
   };
 </script>
