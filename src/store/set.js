@@ -143,7 +143,7 @@ export default {
       const response = await this.$apis.set.update(id, body, params);
 
       // Check if updated set is active set
-      if (state.active && state.active.id.endsWith(`/${id}`)) {
+      if (state.active && (state.active.id === id)) {
         // Respect reordering of items in update
         let items = state.active.items;
         if (response.items) {
