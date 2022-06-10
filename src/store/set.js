@@ -145,8 +145,7 @@ export default {
       // Check if updated set is active set, whether `id` is just numeric value, or full URI
       if (state.active && ((id === state.active.id) || (state.active.id.endsWith(`/${id}`)))) {
         // Respect reordering of items in update
-        const itemIds = response.items || [];
-        const items = itemIds.map(itemId => state.active.items.find(item => itemId.endsWith(item.id)));
+        const items = response.items ? response.items.map(itemId => state.active.items.find(item => itemId.endsWith(item.id))) : state.active.items;
         commit('setActive', { ...response, items });
       }
     },
