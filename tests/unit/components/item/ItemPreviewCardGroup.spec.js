@@ -115,7 +115,7 @@ describe('components/item/ItemPreviewCardGroup', () => {
         { id: '2' },
         { id: '3' },
         { id: '4' },
-        { id: '5' },
+        { id: '5' }
       ];
       const wrapper = factory({ propsData: { items } });
 
@@ -127,7 +127,7 @@ describe('components/item/ItemPreviewCardGroup', () => {
         { id: '3' },
         { id: '4' },
         'related',
-        { id: '5' },
+        { id: '5' }
       ];
       expect(wrapper.vm.cards).toEqual(expected);
     });
