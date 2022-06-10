@@ -1,7 +1,6 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
 import HomeCallToAction from '@/components/home/HomeCallToAction';
-import sinon from 'sinon';
 
 const localVue = createLocalVue();
 

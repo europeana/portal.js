@@ -35,11 +35,11 @@
     },
     props: {
       name: {
-        type: Text,
+        type: String,
         required: true
       },
       text: {
-        type: Text,
+        type: String,
         required: true
       },
       link: {
@@ -49,7 +49,7 @@
     },
     computed: {
       html() {
-        // TODO: Update the styling of the RichText component and use that instead.
+        // TODO: Update the styling of the RichString component and use that instead.
         return marked.parse(this.text);
       }
     }
