@@ -136,6 +136,10 @@
   @media (max-height: $bp-small) {
     align-items: flex-start;
   }
+
+  a {
+    text-decoration: none;
+  }
 }
 
 img {
