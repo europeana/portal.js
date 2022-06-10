@@ -1,15 +1,21 @@
 import { oEmbeddable } from './oembed';
 
-export function isPDF(media) {
-  return media.ebucoreHasMimeType === 'application/pdf';
-}
+export const webResourceEDMType = (media) => {
+  let type = null;
 
-export function isImage(media) {
-  if (!media.ebucoreHasMimeType) {
-    return false;
+  if (media.ebucoreHasMimeType?.startsWith('image/')) {
+    type = 'IMAGE';
+  } else if (media.ebucoreHasMimeType?.startsWith('audio/')) {
+    type = 'SOUND';
+  } else if (media.ebucoreHasMimeType?.startsWith('video/') || (media.ebucoreHasMimeType === 'application/dash+xml')) {
+    type = 'VIDEO';
+  } else if (media.ebucoreHasMimeType?.startsWith('text/') || (media.ebucoreHasMimeType === 'application/pdf')) {
+    type = 'TEXT';
   }
-  return media.ebucoreHasMimeType.startsWith('image/');
-}
+  // TODO: 3D media types?
+
+  return type;
+};
 
 export function isHTMLVideo(media) {
   if (!media.ebucoreHasMimeType) {

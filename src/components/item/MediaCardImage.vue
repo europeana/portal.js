@@ -10,7 +10,7 @@
     >
       <MediaDefaultThumbnail
         v-if="showDefaultThumbnail"
-        media-type="image"
+        :media-type="mediaType"
         :offset="offset"
       />
       <component
@@ -36,7 +36,7 @@
     >
       <MediaDefaultThumbnail
         v-if="showDefaultThumbnail"
-        media-type="image"
+        :media-type="mediaType"
         :offset="offset"
       />
       <component
@@ -56,6 +56,8 @@
 </template>
 
 <script>
+  import { webResourceEDMType } from '@/plugins/media';
+
   export default {
     name: 'MediaCardImage',
 
@@ -109,6 +111,9 @@
           return null;
         }
         return (this.media.ebucoreHeight / this.media.ebucoreWidth) * this.thumbnailWidth;
+      },
+      mediaType() {
+        return webResourceEDMType(this.media);
       }
     },
 
