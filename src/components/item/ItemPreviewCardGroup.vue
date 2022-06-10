@@ -13,13 +13,13 @@
     <slot />
     <component
       :is="draggableItems ? 'draggable' : 'div'"
-      v-model="draggableCards"
+      v-model="cards"
       :draggable="draggableItems && '.item'"
       handle=".move-button"
       @end="endItemDrag"
     >
       <template
-        v-for="(card, index) in draggableCards"
+        v-for="(card, index) in cards"
       >
         <template
           v-if="card === 'related'"
@@ -58,7 +58,7 @@
   <component
     :is="draggableItems ? 'draggable' : 'b-card-group'"
     v-else
-    v-model="draggableCards"
+    v-model="cards"
     :draggable="draggableItems && '.item'"
     :data-qa="`item previews ${view}`"
     :class="cardGroupClass"
@@ -67,7 +67,7 @@
   >
     <slot />
     <template
-      v-for="(card, index) in draggableCards"
+      v-for="(card, index) in cards"
     >
       <template
         v-if="card === 'related'"
@@ -153,19 +153,15 @@
 
     data() {
       return {
-        draggableCards: []
+        cards: []
       };
     },
 
     fetch() {
-      this.draggableCards = this.cards;
+      this.cards = this.items.slice(0, 4).concat('related').concat(this.items.slice(4));
     },
 
     computed: {
-      cards() {
-        return this.items.slice(0, 4).concat('related').concat(this.items.slice(4));
-      },
-
       cardGroupClass() {
         let cardGroupClass;
 
@@ -193,7 +189,7 @@
     watch: {
       'cards.length': 'redrawMasonry',
       items() {
-        this.draggableCards = this.cards;
+        this.$fetch();
       }
     },
 
@@ -203,7 +199,7 @@
 
     methods: {
       endItemDrag() {
-        this.$emit('endItemDrag', this.draggableCards.filter(card => card !== 'related'));
+        this.$emit('endItemDrag', this.cards.filter(card => card !== 'related'));
       },
       itemHitSelector(item) {
         if (!this.hits) {

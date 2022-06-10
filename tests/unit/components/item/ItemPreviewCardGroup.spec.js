@@ -108,6 +108,31 @@ describe('components/item/ItemPreviewCardGroup', () => {
     });
   });
 
+  describe('fetch', () => {
+    it('initialises cards to items, plus related at index 4', () => {
+      const items = [
+        { id: '1' },
+        { id: '2' },
+        { id: '3' },
+        { id: '4' },
+        { id: '5' },
+      ];
+      const wrapper = factory({ propsData: { items } });
+
+      wrapper.vm.fetch();
+
+      const expected = [
+        { id: '1' },
+        { id: '2' },
+        { id: '3' },
+        { id: '4' },
+        'related',
+        { id: '5' },
+      ];
+      expect(wrapper.vm.cards).toEqual(expected);
+    });
+  });
+
   describe('computed', () => {
     describe('cardGroupClass', () => {
       describe('when in list view', () => {
@@ -132,14 +157,14 @@ describe('components/item/ItemPreviewCardGroup', () => {
 
   describe('watch', () => {
     describe('items', () => {
-      it('updates draggableCards', async() => {
+      it('triggers $fetch', async() => {
         const wrapper = factory({ propsData: { items: [{ id: '1' }] } });
         wrapper.vm.fetch();
-        expect(wrapper.vm.draggableCards).toEqual([{ id: '1' }, 'related']);
+        sinon.spy(wrapper.vm, '$fetch');
 
         await wrapper.setProps({ items: [{ id: '1' }, { id: '2' }] });
 
-        expect(wrapper.vm.draggableCards).toEqual([{ id: '1' }, { id: '2' }, 'related']);
+        expect(wrapper.vm.$fetch.called).toBe(true);
       });
     });
   });
