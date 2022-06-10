@@ -47,14 +47,34 @@ const mixins = [
   }
 ];
 
+const homePageContentfulResponse = {
+  data: {
+    data: {
+      homePageCollection: {
+        items: [
+          {
+            sectionsCollection: {
+              items: []
+            }
+          }
+        ]
+      }
+    }
+  }
+};
+
 const factory = (options = {}) => shallowMountNuxt(HomePage, {
   localVue,
   mixins,
   mocks: {
+    $contentful: {
+      query: sinon.stub().resolves(homePageContentfulResponse)
+    },
     $i18n: {
       locale: 'en',
       isoLocale: () => 'en-GB'
     },
+    $route: { query: {} },
     $t: (key) => key,
     $store: {
       state: {
