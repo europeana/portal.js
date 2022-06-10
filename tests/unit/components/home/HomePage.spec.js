@@ -63,7 +63,8 @@ const factory = (options = {}) => shallowMountNuxt(HomePage, {
     },
     $path: (args) => {
       return `${args.params.type}/${args.params.pathMatch}`;
-    }
+    },
+    $fetchState: {}
   }
 });
 

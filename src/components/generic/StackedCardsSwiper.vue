@@ -53,9 +53,12 @@
 </template>
 
 <script>
+  import swiperMixin from '@/mixins/swiper';
 
   export default {
     name: 'StackedCardsSwiper',
+
+    mixins: [swiperMixin],
 
     props: {
       title: {
@@ -103,23 +106,13 @@
             afterInit: this.onAfterInit
           }
         },
-        ready: false,
-        swiper: null
+        ready: false
       };
     },
 
     mounted() {
-      if (window.Swiper) {
-        this.swiper = new window.Swiper('.swiper', this.swiperOptions);
-      }
       const middleCardIndex = Math.floor(this.slides.length / 2);
       this.swiper && this.swiper.slideTo(middleCardIndex);
-    },
-
-    methods: {
-      onAfterInit() {
-        this.ready = true;
-      }
     }
   };
 </script>

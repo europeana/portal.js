@@ -2,6 +2,7 @@
   <div>
     <HomeHero />
     <StackedCardsSwiper
+      v-if="!$fetchState.pending"
       :slides="swiperThemes"
       :title="$t('collections.themes')"
     />

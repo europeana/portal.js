@@ -47,14 +47,18 @@
 
 <script>
   import { isPlayableMedia } from '@/plugins/media';
-
+  import swiperMixin from '@/mixins/swiper';
   import MediaCard from './MediaCard';
 
   export default {
     name: 'AwesomeSwiper',
+
     components: {
       MediaCard
     },
+
+    mixins: [swiperMixin],
+
     props: {
       europeanaIdentifier: {
         type: String,
@@ -65,6 +69,7 @@
         required: true
       }
     },
+
     data() {
       const singleMediaResource = this.displayableMedia.length === 1;
       return {
@@ -91,24 +96,17 @@
           }
         },
         singleMediaResource,
-        ready: singleMediaResource,
-        swiper: null
+        ready: singleMediaResource
       };
     },
+
     computed: {
       isSinglePlayableMedia() {
         return this.displayableMedia.filter(resource => isPlayableMedia(resource)).length === 1;
       }
     },
-    mounted() {
-      if (window.Swiper) {
-        this.swiper = new window.Swiper('.swiper', this.swiperOptions);
-      }
-    },
+
     methods: {
-      onAfterInit() {
-        this.ready = true;
-      },
       onSlideChange() {
         this.$emit('select', this.displayableMedia[this.swiper.activeIndex].about);
       },
