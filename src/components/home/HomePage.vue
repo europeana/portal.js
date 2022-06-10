@@ -79,7 +79,6 @@
 
 <style lang="scss" scoped>
   .page {
-    align-contet: center;
     background-color: white;
     padding-bottom: 1rem;
   }
