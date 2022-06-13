@@ -2,6 +2,7 @@
   <MediaCardImage
     v-if="displayImage"
     :europeana-identifier="europeanaIdentifier"
+    :edm-type="edmType"
     :media="media"
     :lazy="lazy"
     :offset="offset"
@@ -87,6 +88,10 @@
       europeanaIdentifier: {
         type: String,
         default: ''
+      },
+      edmType: {
+        type: String,
+        default: null
       },
       isSinglePlayableMedia: {
         type: Boolean,

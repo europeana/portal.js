@@ -78,6 +78,10 @@
         type: String,
         default: ''
       },
+      edmType: {
+        type: String,
+        default: null
+      },
       offset: {
         type: Number,
         default: null
@@ -113,7 +117,7 @@
         return (this.media.ebucoreHeight / this.media.ebucoreWidth) * this.thumbnailWidth;
       },
       mediaType() {
-        return webResourceEDMType(this.media);
+        return webResourceEDMType(this.media) || this.edmType;
       }
     },
 
