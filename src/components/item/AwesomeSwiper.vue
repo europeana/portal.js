@@ -25,7 +25,7 @@
             :media="item"
             :is-single-playable-media="isSinglePlayableMedia"
             :lazy="false"
-            :offset="index"
+            :offset="displayableMedia.length > 1 ? index : null"
             :edm-type="edmType"
           />
         </div>
@@ -35,7 +35,7 @@
           :media="item"
           :is-single-playable-media="isSinglePlayableMedia"
           :lazy="index > 0"
-          :offset="index"
+          :offset="displayableMedia.length > 1 ? index : null"
           :edm-type="edmType"
         />
       </swiper-slide>
