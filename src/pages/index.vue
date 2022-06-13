@@ -79,17 +79,17 @@
 
       const response = await this.$contentful.query('browseStaticPage', variables);
       const data = response.data.data;
-      if (data.staticPageCollection.items.length > 0) {
+      if ((data.staticPageCollection?.items?.length || 0) > 0) {
         this.page = data.staticPageCollection.items[0];
         this.staticPage = true;
-      } else if (data.browsePageCollection.items.length > 0) {
+      } else if ((data.browsePageCollection?.items?.length || 0) > 0) {
         this.page = data.browsePageCollection.items[0];
         this.browsePage = true;
       } else {
         if (process.server) {
           this.$nuxt.context.res.statusCode = 404;
         }
-        throw new Error(this.$i18n.t('messages.notFound'));
+        throw new Error(this.$t('messages.notFound'));
       }
     },
 
