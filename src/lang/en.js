@@ -730,6 +730,9 @@ export default {
   },
   "homeLinkAlt": "Europeana home",
   "homePage": {
+    "download": "download",
+    "free": "free",
+    "subHeadline": "Find and {download} artworks, photographs, books, manuscripts, newspapers and music from over 4000 museums, archives, galleries, and libraries for {free}.",
     "title": "Discover European cultural heritage"
   },
   "imageSlider": {
