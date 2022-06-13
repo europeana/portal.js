@@ -53,6 +53,7 @@
 
     computed: {
       pageTitle() {
+        // TODO: read this from CTF home page content entry instead?
         return this.$t('homePage.title');
       },
       swiperThemes() {
