@@ -1,7 +1,6 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../utils';
 import BootstrapVue from 'bootstrap-vue';
-import sinon from 'sinon';
 
 import page from '@/pages/index';
 
@@ -10,23 +9,25 @@ localVue.use(BootstrapVue);
 
 const heroImageUrl = 'http://example.org/contentful/asset.jpg';
 const socialMediaImageUrl = 'https://example.org/social-media-image.jpg';
-const contentfulQueryMock = sinon.stub().resolves({});
 
 const factory = (options = {}) => shallowMountNuxt(page, {
   localVue,
   data() {
     return {
       browsePage: true,
-      identifer: 'home',
-      name: 'Welcome to Europeana',
-      primaryImageOfPage: options.primaryImageOfPage || null,
-      image: options.socialMediaImage || null,
-      hasPartCollection: {
-        items: []
+      page: {
+        identifer: 'home',
+        name: 'Welcome to Europeana',
+        primaryImageOfPage: options.primaryImageOfPage || null,
+        image: options.socialMediaImage || null,
+        hasPartCollection: {
+          items: []
+        }
       }
     };
   },
   mocks: {
+    $fetchState: {},
     $t: key => key,
     $pageHeadTitle: key => key,
     $features: options.features || {},
@@ -34,7 +35,7 @@ const factory = (options = {}) => shallowMountNuxt(page, {
   }
 });
 
-describe('Index page', () => {
+describe('IndexPage', () => {
   describe('head()', () => {
     it('uses the social media image for og:image', () => {
       const wrapper = factory({ socialMediaImage: {
@@ -76,23 +77,6 @@ describe('Index page', () => {
       const headMeta = wrapper.vm.head().meta;
 
       expect(headMeta.filter(meta => meta.property === 'og:image').length).toBe(0);
-    });
-  });
-
-  describe('when on new home page', () => {
-    const wrapper = factory({ features: { newHomepage: true } });
-    it('does not query contentful', () => {
-      wrapper.vm.asyncData({ params: {},
-        app: {
-          $contentful: { query: contentfulQueryMock },
-          $features: { newHomepage: true }
-        } });
-
-      expect(contentfulQueryMock.called).toBe(false);
-    });
-
-    it('uses the title as page title', () => {
-      expect(wrapper.vm.pageTitle).toEqual('homePage.title');
     });
   });
 });

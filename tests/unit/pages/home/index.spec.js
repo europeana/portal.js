@@ -1,6 +1,6 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
-import HomePage from '@/components/home/HomePage';
+import HomePage from '@/pages/home/index';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
@@ -51,6 +51,9 @@ const factory = (options = {}) => shallowMountNuxt(HomePage, {
   localVue,
   mixins,
   mocks: {
+    $features: {
+      newHomepage: true
+    },
     $i18n: {
       locale: 'en',
       isoLocale: () => 'en-GB'
@@ -67,7 +70,7 @@ const factory = (options = {}) => shallowMountNuxt(HomePage, {
   }
 });
 
-describe('components/home/HomePage', () => {
+describe('pages/home/index', () => {
   it('fetches all themes', async() => {
     const wrapper = factory();
     await wrapper.vm.fetch();
