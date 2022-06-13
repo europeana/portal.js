@@ -1,4 +1,5 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
+import sinon from 'sinon';
 
 import mixin from '@/mixins/swiper';
 
@@ -17,14 +18,18 @@ const factory = () => shallowMount(component, {
 });
 
 describe('mixins/swiper', () => {
-  // FIXME: test swiper initialisation
-  // describe('when swiper package is available', () => {
-  //   it('initialises new swiper', () => {
-  //     const wrapper = factory();
-
-  //     expect(wrapper.vm.swiper).toEqual(swiperMock);
-  //   });
-  // });
+  describe('when swiper package is available', () => {
+    class FakeSwiper {
+      constructor(element) {
+        this.element = element;
+      }
+    }
+    window.Swiper = FakeSwiper;
+    it('initialises new swiper', () => {
+      const wrapper = factory();
+      expect(wrapper.vm.swiper).toEqual({ element: '.swiper' });
+    });
+  });
   describe('onAfterInit()', () => {
     it('sets ready to true', () => {
       const wrapper = factory();
