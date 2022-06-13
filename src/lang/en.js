@@ -156,7 +156,6 @@ export default {
     "left": "Left",
     "right": "Right"
   },
-  "editorialContentYouMayLike": "Editorial content you may like",
   "edmIsShownAtLinkAlt": "View at the provider's website",
   "entity": {
     "actions": {
@@ -907,6 +906,11 @@ export default {
     },
     "transcription": "Transcription",
     "transcriptionDisclaimer": "This content is contributed by the public, not by the institution that provided this item."
+  },
+  "related": {
+    "editorial": {
+      "title": "Stories you may like"
+    }
   },
   "relatedCollections": "Related collections",
   "removeFilter": "Remove {filterLabel} filter",
