@@ -2,8 +2,10 @@
   <MediaCardImage
     v-if="displayImage"
     :europeana-identifier="europeanaIdentifier"
+    :edm-type="edmType"
     :media="media"
     :lazy="lazy"
+    :offset="offset"
   />
   <div
     v-else-if="isSinglePlayableMedia"
@@ -87,6 +89,10 @@
         type: String,
         default: ''
       },
+      edmType: {
+        type: String,
+        default: null
+      },
       isSinglePlayableMedia: {
         type: Boolean,
         default: false
@@ -94,6 +100,10 @@
       lazy: {
         type: Boolean,
         default: true
+      },
+      offset: {
+        type: Number,
+        default: null
       }
     },
 
