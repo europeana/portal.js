@@ -8,6 +8,7 @@
         :slides="swiperThemes"
         :title="$t('collections.themes')"
       />
+      <HomeLatest />
     </template>
     <IndexPage
       v-else
@@ -19,6 +20,7 @@
   import allThemes from '@/mixins/allThemes';
   import collectionLinkGen from '@/mixins/collectionLinkGen';
   import HomeHero from '@/components/home/HomeHero';
+  import HomeLatest from '@/components/home/HomeLatest';
   import StackedCardsSwiper from '@/components/generic/StackedCardsSwiper';
 
   export default {
@@ -26,6 +28,7 @@
 
     components: {
       HomeHero,
+      HomeLatest,
       IndexPage: () => import('../index'),
       StackedCardsSwiper
     },
