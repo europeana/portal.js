@@ -10,8 +10,8 @@
     >
       <MediaDefaultThumbnail
         v-if="showDefaultThumbnail"
-        media-type="image"
-        data-qa="default thumbnail"
+        :media-type="mediaType"
+        :offset="offset"
       />
       <component
         :is="lazy ? 'b-img-lazy' : 'b-img'"
@@ -36,7 +36,8 @@
     >
       <MediaDefaultThumbnail
         v-if="showDefaultThumbnail"
-        media-type="image"
+        :media-type="mediaType"
+        :offset="offset"
       />
       <component
         :is="lazy ? 'b-img-lazy' : 'b-img'"
@@ -55,6 +56,8 @@
 </template>
 
 <script>
+  import { webResourceEDMType } from '@/plugins/media';
+
   export default {
     name: 'MediaCardImage',
 
@@ -74,6 +77,14 @@
       europeanaIdentifier: {
         type: String,
         default: ''
+      },
+      edmType: {
+        type: String,
+        default: null
+      },
+      offset: {
+        type: Number,
+        default: null
       }
     },
 
@@ -104,6 +115,9 @@
           return null;
         }
         return (this.media.ebucoreHeight / this.media.ebucoreWidth) * this.thumbnailWidth;
+      },
+      mediaType() {
+        return webResourceEDMType(this.media) || this.edmType;
       }
     },
 
@@ -125,6 +139,10 @@
 
   @media (max-height: $bp-small) {
     align-items: flex-start;
+  }
+
+  a {
+    text-decoration: none;
   }
 }
 

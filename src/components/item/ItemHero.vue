@@ -2,6 +2,7 @@
   <div class="item-hero">
     <ItemMediaSwiper
       :europeana-identifier="identifier"
+      :edm-type="edmType"
       :displayable-media="media"
       @select="selectMedia"
     />
@@ -105,6 +106,10 @@
       identifier: {
         type: String,
         required: true
+      },
+      edmType: {
+        type: String,
+        default: null
       },
       edmRights: {
         type: String,

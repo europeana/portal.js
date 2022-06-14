@@ -141,8 +141,15 @@ export default {
     },
     async update({ state, commit }, { id, body, params }) {
       const response = await this.$apis.set.update(id, body, params);
-      if (state.active && id === state.active.id) {
-        commit('setActive', { items: state.active.items, ...response });
+
+      // Check if updated set is active set
+      if (state.active && (state.active.id === id)) {
+        // Respect reordering of items in update
+        let items = state.active.items;
+        if (response.items) {
+          items = response.items.map(itemId => state.active.items.find(item => itemId.endsWith(item.id)));
+        }
+        commit('setActive', { ...response, items });
       }
     },
     async delete({ state, commit }, setId) {

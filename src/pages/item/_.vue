@@ -24,6 +24,7 @@
           :identifier="identifier"
           :media="media"
           :edm-rights="edmRights"
+          :edm-type="type"
           :attribution-fields="attributionFields"
           :entities="europeanaEntities"
         />

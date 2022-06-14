@@ -13,7 +13,8 @@
     <slot />
     <component
       :is="draggableItems ? 'draggable' : 'div'"
-      v-model="orderedItems"
+      v-model="cards"
+      :draggable="draggableItems && '.item'"
       handle=".move-button"
       @end="endItemDrag"
     >
@@ -46,7 +47,7 @@
           :enable-reject-recommendation="enableRejectRecommendations"
           :show-pins="showPins"
           :show-move="draggableItems"
-          :offset="orderedItems.findIndex(item => item.id === card.id)"
+          :offset="items.findIndex(item => item.id === card.id)"
           data-qa="item preview"
           @like="$emit('like', card.id)"
           @unlike="$emit('unlike', card.id)"
@@ -57,7 +58,8 @@
   <component
     :is="draggableItems ? 'draggable' : 'b-card-group'"
     v-else
-    v-model="orderedItems"
+    v-model="cards"
+    :draggable="draggableItems && '.item'"
     :data-qa="`item previews ${view}`"
     :class="cardGroupClass"
     deck
@@ -89,7 +91,7 @@
         :variant="cardVariant"
         :show-pins="showPins"
         :show-move="draggableItems"
-        :offset="orderedItems.findIndex(item => item.id === card.id)"
+        :offset="items.findIndex(item => item.id === card.id)"
         data-qa="item preview"
         @like="$emit('like', card.id)"
         @unlike="$emit('unlike', card.id)"
@@ -151,15 +153,15 @@
 
     data() {
       return {
-        orderedItems: this.items
+        cards: []
       };
     },
 
-    computed: {
-      cards() {
-        return this.orderedItems.slice(0, 4).concat('related').concat(this.orderedItems.slice(4));
-      },
+    fetch() {
+      this.cards = this.items.slice(0, 4).concat('related').concat(this.items.slice(4));
+    },
 
+    computed: {
       cardGroupClass() {
         let cardGroupClass;
 
@@ -187,7 +189,7 @@
     watch: {
       'cards.length': 'redrawMasonry',
       items() {
-        this.orderedItems = this.items;
+        this.$fetch();
       }
     },
 

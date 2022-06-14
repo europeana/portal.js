@@ -1,6 +1,6 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
-import HomePage from '@/components/home/HomePage';
+import HomePage from '@/pages/home/index';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
@@ -47,38 +47,71 @@ const mixins = [
   }
 ];
 
-const factory = (options = {}) => shallowMountNuxt(HomePage, {
+const factory = ({ themes = [], $features = {} } = {}) => shallowMountNuxt(HomePage, {
   localVue,
   mixins,
   mocks: {
+    $features: {
+      newHomepage: true,
+      ...$features
+    },
     $i18n: {
       locale: 'en',
       isoLocale: () => 'en-GB'
     },
+    $pageHeadTitle: (text) => text,
     $t: (key) => key,
     $store: {
       state: {
-        search: { allThemes: options.themes || [] }
+        search: { allThemes: themes }
       }
     },
     $path: (args) => {
       return `${args.params.type}/${args.params.pathMatch}`;
     },
     $fetchState: {}
-  }
+  },
+  stubs: ['IndexPage']
 });
 
-describe('components/home/HomePage', () => {
-  it('fetches all themes', async() => {
-    const wrapper = factory();
-    await wrapper.vm.fetch();
+describe('pages/home/index', () => {
+  afterEach(sinon.resetHistory);
 
-    expect(fetchAllThemesSpy.called).toBe(true);
+  describe('fetch', () => {
+    describe('when new homepage is enabled', () => {
+      it('fetches all themes', async() => {
+        const wrapper = factory();
+        await wrapper.vm.fetch();
+
+        expect(fetchAllThemesSpy.called).toBe(true);
+      });
+
+      it('models the theme data to be used as swiper slides', async() => {
+        const wrapper = factory({ themes });
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.swiperThemes).toEqual(swiperSlides);
+      });
+    });
+
+    describe('when new homepage is disabled', () => {
+      it('fetches all themes', async() => {
+        const wrapper = factory({ $features: { newHomepage: false } });
+
+        await wrapper.vm.fetch();
+
+        expect(fetchAllThemesSpy.called).toBe(false);
+      });
+    });
   });
-  it('models the theme data to be used as swiper slides', async() => {
-    const wrapper = factory({ themes });
-    await wrapper.vm.fetch();
 
-    expect(wrapper.vm.swiperThemes).toEqual(swiperSlides);
+  describe('head', () => {
+    it('uses localised page title for title meta field', () => {
+      const wrapper = factory();
+
+      const headMeta = wrapper.vm.head().meta;
+
+      expect(headMeta.find(meta => meta.name === 'title')?.content).toBe('homePage.title');
+    });
   });
 });
