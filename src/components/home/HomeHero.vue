@@ -48,6 +48,7 @@
 
   .hero {
     margin-top: -70px;
+    margin-bottom: 1rem;
     background-color: $mediumgrey-light;
     padding: 12rem 1.5rem;
     min-height: 100vh;

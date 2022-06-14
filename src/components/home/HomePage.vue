@@ -5,6 +5,7 @@
       :slides="swiperThemes"
       :title="$t('collections.themes')"
     />
+    <HomeLatest />
   </div>
 </template>
 
@@ -12,6 +13,7 @@
   import allThemes from '@/mixins/allThemes';
   import collectionLinkGen from '@/mixins/collectionLinkGen';
   import HomeHero from './HomeHero';
+  import HomeLatest from './HomeLatest';
   import StackedCardsSwiper from '@/components/generic/StackedCardsSwiper';
 
   export default {
@@ -19,6 +21,7 @@
 
     components: {
       HomeHero,
+      HomeLatest,
       StackedCardsSwiper
     },
 
