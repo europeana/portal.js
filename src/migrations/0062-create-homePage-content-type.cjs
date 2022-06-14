@@ -3,7 +3,7 @@ module.exports = function (migration) {
     .createContentType('homePage')
     .name('Home Page')
     .description(
-      'The home page of the website. If more than one entry exists, that with the most recent 'publish at' date (that has passed) will be used.'
+      "The home page of the website. If more than one entry exists, that with the most recent 'publish at' date (that has passed) will be used."
     )
     .displayField('name');
 
