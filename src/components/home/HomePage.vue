@@ -4,27 +4,27 @@
   >
     <HomeHero />
     <HomeCallToAction
-      v-if="callsToActions[0]"
-      :name="callsToActions[0].name"
-      :text="callsToActions[0].text"
-      :link="callsToActions[0].relatedLink"
+      v-if="callsToAction[0]"
+      :name="callsToAction[0].name"
+      :text="callsToAction[0].text"
+      :link="callsToAction[0].relatedLink"
     />
     <StackedCardsSwiper
       :slides="swiperThemes"
       :title="$t('collections.themes')"
     />
     <HomeCallToAction
-      v-if="callsToActions[1]"
-      :name="callsToActions[1].name"
-      :text="callsToActions[1].text"
-      :link="callsToActions[1].relatedLink"
+      v-if="callsToAction[1]"
+      :name="callsToAction[1].name"
+      :text="callsToAction[1].text"
+      :link="callsToAction[1].relatedLink"
     />
     <!-- TODO: insert latest editorial here -->
     <HomeCallToAction
-      v-if="callsToActions[2]"
-      :name="callsToActions[2].name"
-      :text="callsToActions[2].text"
-      :link="callsToActions[2].relatedLink"
+      v-if="callsToAction[2]"
+      :name="callsToAction[2].name"
+      :text="callsToAction[2].text"
+      :link="callsToAction[2].relatedLink"
     />
   </div>
 </template>
@@ -61,8 +61,12 @@
     },
 
     computed: {
-      callsToActions() {
-        return this.sections.filter(section => section['__typename'] === 'PrimaryCallToAction');
+      callsToAction() {
+        const ctas = this.sections.filter(section => section['__typename'] === 'PrimaryCallToAction');
+        if (ctas.length < 3) {
+          ctas.unshift(null);
+        }
+        return ctas;
       },
 
       swiperThemes() {
