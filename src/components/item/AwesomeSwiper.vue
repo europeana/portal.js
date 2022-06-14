@@ -25,6 +25,8 @@
             :media="item"
             :is-single-playable-media="isSinglePlayableMedia"
             :lazy="false"
+            :offset="displayableMedia.length > 1 ? index : null"
+            :edm-type="edmType"
           />
         </div>
         <MediaCard
@@ -33,6 +35,8 @@
           :media="item"
           :is-single-playable-media="isSinglePlayableMedia"
           :lazy="index > 0"
+          :offset="displayableMedia.length > 1 ? index : null"
+          :edm-type="edmType"
         />
       </swiper-slide>
       <div
@@ -72,6 +76,10 @@
       europeanaIdentifier: {
         type: String,
         required: true
+      },
+      edmType: {
+        type: String,
+        default: null
       },
       displayableMedia: {
         type: Array,

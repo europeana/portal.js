@@ -1,19 +1,41 @@
 import * as media from '@/plugins/media';
 
 describe('plugins/media', () => {
-  describe('isPDF()', () => {
-    it('returns `true` if ebucoreHasMimeType is for PDF', () => {
-      const ebucoreHasMimeType = 'application/pdf';
-
-      expect(media.isPDF({ ebucoreHasMimeType })).toBe(true);
-    });
-  });
-
-  describe('isImage()', () => {
-    it('returns `true` if ebucoreHasMimeType is for an image', () => {
+  describe('webResourceEDMType()', () => {
+    it('returns IMAGE if ebucoreHasMimeType starts with image/', () => {
       const ebucoreHasMimeType = 'image/jpeg';
 
-      expect(media.isImage({ ebucoreHasMimeType })).toBe(true);
+      expect(media.webResourceEDMType({ ebucoreHasMimeType })).toBe('IMAGE');
+    });
+
+    it('returns SOUND if ebucoreHasMimeType starts with audio/', () => {
+      const ebucoreHasMimeType = 'audio/ogg';
+
+      expect(media.webResourceEDMType({ ebucoreHasMimeType })).toBe('SOUND');
+    });
+
+    it('returns TEXT if ebucoreHasMimeType is for PDF', () => {
+      const ebucoreHasMimeType = 'application/pdf';
+
+      expect(media.webResourceEDMType({ ebucoreHasMimeType })).toBe('TEXT');
+    });
+
+    it('returns TEXT if ebucoreHasMimeType starts with text/', () => {
+      const ebucoreHasMimeType = 'text/plain';
+
+      expect(media.webResourceEDMType({ ebucoreHasMimeType })).toBe('TEXT');
+    });
+
+    it('returns VIDEO if ebucoreHasMimeType is for DASH', () => {
+      const ebucoreHasMimeType = 'application/dash+xml';
+
+      expect(media.webResourceEDMType({ ebucoreHasMimeType })).toBe('VIDEO');
+    });
+
+    it('returns VIDEO if ebucoreHasMimeType starts with video/', () => {
+      const ebucoreHasMimeType = 'video/mp4';
+
+      expect(media.webResourceEDMType({ ebucoreHasMimeType })).toBe('VIDEO');
     });
   });
 
