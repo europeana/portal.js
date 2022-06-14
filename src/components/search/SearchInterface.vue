@@ -60,7 +60,6 @@
               :items="results"
               :hits="hits"
               :view="view"
-              :per-row="perRow"
               :show-pins="showPins"
               :show-related="showRelated"
             >
@@ -126,10 +125,6 @@
       perPage: {
         type: Number,
         default: 24
-      },
-      perRow: {
-        type: Number,
-        default: 4
       },
       route: {
         type: Object,

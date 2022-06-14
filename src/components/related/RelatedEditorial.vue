@@ -6,7 +6,7 @@
     <div class="col-12">
       <b-card
         class="card-group-card"
-        :title="$t('editorialContentYouMayLike')"
+        :title="$t('related.editorial.title')"
         title-tag="h2"
       >
         <b-card-group

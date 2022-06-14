@@ -152,7 +152,10 @@
 <script>
   import ClientOnly from 'vue-client-only';
 
-  import { ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX } from '@/plugins/europeana/data';
+  import {
+    ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX,
+    SET_URL_PREFIX as EUROPEANA_DATA_URL_SET_PREFIX
+  } from '@/plugins/europeana/data';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
 
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
@@ -268,7 +271,7 @@
     methods: {
       reorderItems(items) {
         this.$store.dispatch('set/update', {
-          id: this.setId,
+          id: `${EUROPEANA_DATA_URL_SET_PREFIX}/${this.setId}`,
           body: {
             type: this.set.type,
             title: this.set.title,

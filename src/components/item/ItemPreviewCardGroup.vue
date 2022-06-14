@@ -38,7 +38,6 @@
         <ItemPreviewCard
           v-else
           :key="index"
-          v-masonry-tile
           :item="card"
           :hit-selector="itemHitSelector(card)"
           :variant="cardVariant"
@@ -59,11 +58,11 @@
   <component
     :is="draggableItems ? 'draggable' : 'b-card-group'"
     v-else
-    :v-model="draggableItems && cards"
+    v-model="cards"
+    :draggable="draggableItems && '.item'"
     :data-qa="`item previews ${view}`"
     :class="cardGroupClass"
     deck
-    :draggable="draggableItems && '.item'"
     @end="endItemDrag"
   >
     <slot />
@@ -122,11 +121,10 @@
         type: Array,
         default: null
       },
-      perRow: {
-        type: Number,
-        default: 4
-      },
-      // grid/list/similar
+      /**
+       * Layout view to use
+       * @values grid, mosaic, list, explore
+       */
       view: {
         type: String,
         default: 'grid'
@@ -155,8 +153,12 @@
 
     data() {
       return {
-        cards: this.items.slice(0, 4).concat('related').concat(this.items.slice(4))
+        cards: []
       };
+    },
+
+    fetch() {
+      this.cards = this.items.slice(0, 4).concat('related').concat(this.items.slice(4));
     },
 
     computed: {
@@ -167,14 +169,8 @@
         case 'list':
           cardGroupClass = 'card-group-list mx-0';
           break;
-        case 'plain':
-          cardGroupClass = `card-deck-search card-deck-${this.perRow}-cols`;
-          break;
         case 'explore':
           cardGroupClass = 'card-deck-4-cols narrow-gutter explore-more';
-          break;
-        case 'similar':
-          cardGroupClass = 'py-3 mx-0 card card-deck-4-cols similar-items';
           break;
         }
 
@@ -191,8 +187,9 @@
     },
 
     watch: {
-      'cards.length'() {
-        this.redrawMasonry();
+      'cards.length': 'redrawMasonry',
+      items() {
+        this.$fetch();
       }
     },
 
