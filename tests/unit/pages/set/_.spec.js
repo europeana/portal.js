@@ -251,7 +251,7 @@ describe('SetPage', () => {
         ]);
 
         expect(storeDispatch.calledWith('set/update', {
-          id: defaultOptions.set.id,
+          id: `http://data.europeana.eu/set/${defaultOptions.set.id}`,
           body: {
             type: defaultOptions.set.type,
             title: defaultOptions.set.title,
