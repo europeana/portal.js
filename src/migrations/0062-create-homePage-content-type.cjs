@@ -3,7 +3,7 @@ module.exports = function (migration) {
     .createContentType('homePage')
     .name('Home Page')
     .description(
-      'The home page of the website. If more than one entry exists, that published most recently will be used.'
+      'The home page of the website. If more than one entry exists, that with the most recent 'publish at' date (that has passed) will be used.'
     )
     .displayField('name');
 
@@ -28,6 +28,16 @@ module.exports = function (migration) {
         unique: true,
       },
     ])
+    .disabled(false)
+    .omitted(false);
+
+  homePage
+    .createField('datePublished')
+    .name('Publish at')
+    .type('Date')
+    .localized(false)
+    .required(true)
+    .validations([])
     .disabled(false)
     .omitted(false);
 
@@ -68,6 +78,8 @@ module.exports = function (migration) {
     helpText:
       'A unique identifier for this home page. Used only for previewing.',
   });
+
+  homePage.changeFieldControl('datePublished', 'builtin', 'datePicker', {});
 
   homePage.changeFieldControl('sections', 'builtin', 'entryLinksEditor', {
     helpText:
