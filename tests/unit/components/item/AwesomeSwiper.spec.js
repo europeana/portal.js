@@ -2,12 +2,12 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
-import AwesomeSwiper from '@/components/item/AwesomeSwiper.vue';
+import ItemMediaSwiper from '@/components/item/ItemMediaSwiper.vue';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = (propsData) => shallowMount(AwesomeSwiper, {
+const factory = (propsData) => shallowMount(ItemMediaSwiper, {
   localVue,
   data() {
     return {
@@ -60,7 +60,7 @@ const displayableMedia = [
 
 const europeanaIdentifier = '/2020601/https___1914_1918_europeana_eu_contributions_10265';
 
-describe('components/item/AwesomeSwiper', () => {
+describe('components/item/ItemMediaSwiper', () => {
   describe('when the swiper loads', () => {
     it('shows five slides', () => {
       const wrapper = factory({ displayableMedia, europeanaIdentifier });

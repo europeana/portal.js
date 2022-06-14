@@ -3,7 +3,7 @@
     class="swiper-outer"
   >
     <div
-      v-show="ready"
+      v-show="swiperReady"
       class="swiper swiper-container"
       data-qa="awesome swiper"
     >
@@ -51,7 +51,7 @@
   import MediaCard from './MediaCard';
 
   export default {
-    name: 'AwesomeSwiper',
+    name: 'ItemMediaSwiper',
 
     components: {
       MediaCard
@@ -90,13 +90,13 @@
             type: 'fraction'
           },
           on: {
-            afterInit: this.onAfterInit,
+            afterInit: this.swiperOnAfterInit,
             slideChange: this.onSlideChange,
             slideChangeTransitionEnd: this.updateSwiper
           }
         },
         singleMediaResource,
-        ready: singleMediaResource
+        swiperReady: singleMediaResource
       };
     },
 

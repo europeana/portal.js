@@ -12,7 +12,7 @@ const localVue = createLocalVue();
 const factory = () => shallowMount(component, {
   localVue,
   data() {
-    return { ready: null };
+    return { swiperReady: null };
   }
 });
 
@@ -29,13 +29,13 @@ describe('mixins/swiper', () => {
       expect(wrapper.vm.swiper).toEqual({ element: '.swiper' });
     });
   });
-  describe('onAfterInit()', () => {
-    it('sets ready to true', () => {
+  describe('swiperOnAfterInit()', () => {
+    it('sets swiperReady to true', () => {
       const wrapper = factory();
 
-      wrapper.vm.onAfterInit();
+      wrapper.vm.swiperOnAfterInit();
 
-      expect(wrapper.vm.ready).toEqual(true);
+      expect(wrapper.vm.swiperReady).toEqual(true);
     });
   });
 });

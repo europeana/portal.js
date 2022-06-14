@@ -12,8 +12,8 @@ export default {
   },
 
   methods: {
-    onAfterInit() {
-      this.ready = true;
+    swiperOnAfterInit() {
+      this.swiperReady = true;
     }
   }
 };

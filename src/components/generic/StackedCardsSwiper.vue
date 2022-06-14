@@ -7,8 +7,8 @@
       {{ title }}
     </h2>
     <div
-      v-show="ready"
-      class="swiper"
+      v-show="swiperReady"
+      class="swiper swiper-container"
     >
       <div
         class="swiper-wrapper"
@@ -103,10 +103,10 @@
             scale: 1
           },
           on: {
-            afterInit: this.onAfterInit
+            afterInit: this.swiperOnAfterInit
           }
         },
-        ready: false
+        swiperReady: false
       };
     },
 
