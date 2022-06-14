@@ -103,6 +103,7 @@ describe('pages/home/index', () => {
     describe('when new homepage is enabled', () => {
       it('fetches all themes', async() => {
         const wrapper = factory();
+
         await wrapper.vm.fetch();
 
         expect(fetchAllThemesSpy.called).toBe(true);
@@ -110,24 +111,46 @@ describe('pages/home/index', () => {
 
       it('models the theme data to be used as swiper slides', async() => {
         const wrapper = factory({ themes });
+
         await wrapper.vm.fetch();
 
         expect(wrapper.vm.swiperThemes).toEqual(swiperSlides);
       });
 
-      test.todo('fetches the homePage entry from Contentful');
+      it('fetches the homePage entry from Contentful', async() => {
+        const wrapper = factory({ themes });
+        const clock = sinon.useFakeTimers();
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.$contentful.query.calledWith('homePage', {
+          locale: 'en-GB',
+          preview: false,
+          identifier: null,
+          date: '1970-01-01T00:00:00.000Z'
+        })).toBe(true);
+
+        clock.restore();
+      });
     });
 
     describe('when new homepage is disabled', () => {
+      const $features = { newHomepage: false };
       it('does not fetch themes', async() => {
-        const wrapper = factory({ $features: { newHomepage: false } });
+        const wrapper = factory({ $features });
 
         await wrapper.vm.fetch();
 
         expect(fetchAllThemesSpy.called).toBe(false);
       });
 
-      test.todo('does not fetch the homePage entry from Contentful');
+      it('does not fetch the homePage entry from Contentful', async() => {
+        const wrapper = factory({ $features });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.$contentful.query.called).toBe(false);
+      });
     });
   });
 
