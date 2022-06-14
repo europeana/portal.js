@@ -15,8 +15,8 @@
           :key="index"
           :title="entry.name"
           :url="entryUrl(entry)"
-          :image-url="entry.primaryImageOfPage.image.url"
-          :image-content-type="entry.primaryImageOfPage.image.contentType"
+          :image-url="entry.primaryImageOfPage && entry.primaryImageOfPage.image.url"
+          :image-content-type="entry.primaryImageOfPage && entry.primaryImageOfPage.image.contentType"
         />
       </b-card-group>
       <PaginationNav
