@@ -47,10 +47,32 @@ const mixins = [
   }
 ];
 
-const factory = ({ themes = [], $features = {} } = {}) => shallowMountNuxt(HomePage, {
+const homePageContentfulResponse = {
+  data: {
+    data: {
+      homePageCollection: {
+        items: [
+          {
+            sectionsCollection: {
+              items: []
+            }
+          }
+        ]
+      }
+    }
+  }
+};
+
+const factory = ({ themes = [], $features = {}, data = {} } = {}) => shallowMountNuxt(HomePage, {
   localVue,
   mixins,
+  data() {
+    return data;
+  },
   mocks: {
+    $contentful: {
+      query: sinon.stub().resolves(homePageContentfulResponse)
+    },
     $features: {
       newHomepage: true,
       ...$features
@@ -60,6 +82,7 @@ const factory = ({ themes = [], $features = {} } = {}) => shallowMountNuxt(HomeP
       isoLocale: () => 'en-GB'
     },
     $pageHeadTitle: (text) => text,
+    $route: { query: {} },
     $t: (key) => key,
     $store: {
       state: {
@@ -80,6 +103,7 @@ describe('pages/home/index', () => {
     describe('when new homepage is enabled', () => {
       it('fetches all themes', async() => {
         const wrapper = factory();
+
         await wrapper.vm.fetch();
 
         expect(fetchAllThemesSpy.called).toBe(true);
@@ -87,19 +111,45 @@ describe('pages/home/index', () => {
 
       it('models the theme data to be used as swiper slides', async() => {
         const wrapper = factory({ themes });
+
         await wrapper.vm.fetch();
 
         expect(wrapper.vm.swiperThemes).toEqual(swiperSlides);
       });
+
+      it('fetches the homePage entry from Contentful', async() => {
+        const wrapper = factory({ themes });
+        const clock = sinon.useFakeTimers();
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.$contentful.query.calledWith('homePage', {
+          locale: 'en-GB',
+          preview: false,
+          identifier: null,
+          date: '1970-01-01T00:00:00.000Z'
+        })).toBe(true);
+
+        clock.restore();
+      });
     });
 
     describe('when new homepage is disabled', () => {
-      it('fetches all themes', async() => {
-        const wrapper = factory({ $features: { newHomepage: false } });
+      const $features = { newHomepage: false };
+      it('does not fetch themes', async() => {
+        const wrapper = factory({ $features });
 
         await wrapper.vm.fetch();
 
         expect(fetchAllThemesSpy.called).toBe(false);
+      });
+
+      it('does not fetch the homePage entry from Contentful', async() => {
+        const wrapper = factory({ $features });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.$contentful.query.called).toBe(false);
       });
     });
   });
@@ -111,6 +161,46 @@ describe('pages/home/index', () => {
       const headMeta = wrapper.vm.head().meta;
 
       expect(headMeta.find(meta => meta.name === 'title')?.content).toBe('homePage.title');
+    });
+  });
+
+  describe('computed', () => {
+    describe('callsToAction', () => {
+      it('returns the PrimaryCallToAction-type sections', () => {
+        const data = {
+          sections: [
+            { '__typename': 'PrimaryCallToAction', name: 'Temporary', relatedLink: {}, text: '' },
+            { '__typename': 'SomethingElse' },
+            { '__typename': 'PrimaryCallToAction', name: 'Primary', relatedLink: {}, text: '' },
+            { '__typename': 'PrimaryCallToAction', name: 'Seconday', relatedLink: {}, text: '' }
+          ]
+        };
+        const wrapper = factory({ data });
+
+        const ctas = wrapper.vm.callsToAction;
+
+        expect(ctas).toEqual([
+          { '__typename': 'PrimaryCallToAction', name: 'Temporary', relatedLink: {}, text: '' },
+          { '__typename': 'PrimaryCallToAction', name: 'Primary', relatedLink: {}, text: '' },
+          { '__typename': 'PrimaryCallToAction', name: 'Seconday', relatedLink: {}, text: '' }
+        ]);
+      });
+
+      it('inserts `null` as the first element if fewer than 3 CTAs', () => {
+        const data = {
+          sections: [
+            { '__typename': 'PrimaryCallToAction', name: 'Primary', relatedLink: {}, text: '' }
+          ]
+        };
+        const wrapper = factory({ data });
+
+        const ctas = wrapper.vm.callsToAction;
+
+        expect(ctas).toEqual([
+          null,
+          { '__typename': 'PrimaryCallToAction', name: 'Primary', relatedLink: {}, text: '' }
+        ]);
+      });
     });
   });
 });

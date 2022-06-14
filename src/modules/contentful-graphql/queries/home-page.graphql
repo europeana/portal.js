@@ -1,0 +1,35 @@
+query HomePage(
+  $locale: String!,
+  $preview: Boolean = false,
+  $identifier: String,
+  $date: DateTime
+) {
+  homePageCollection(
+    preview: $preview,
+    locale: $locale,
+    order: datePublished_DESC,
+    limit: 1,
+    where: {
+      identifier: $identifier,
+      datePublished_lte: $date
+    }
+  ) {
+    items {
+      name
+      identifier
+      sectionsCollection {
+        items {
+          __typename
+          ... on PrimaryCallToAction {
+            name
+      			text
+      			relatedLink {
+        			url
+        			text
+      			}
+          }
+        }
+      }
+    }
+  }
+}
