@@ -357,6 +357,13 @@ export default {
   router: {
     middleware: ['trailing-slash', 'legacy/index', 'l10n'],
     extendRoutes(routes) {
+      const nuxtHomeRouteIndex = routes.findIndex(route => route.name === 'home');
+      routes[nuxtHomeRouteIndex] = {
+        name: 'home',
+        path: '/',
+        component: 'src/pages/home/index.vue'
+      };
+
       routes.push({
         name: 'slug',
         path: '/*',

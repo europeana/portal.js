@@ -176,7 +176,6 @@ export default {
     "left": "Left",
     "right": "Right"
   },
-  "editorialContentYouMayLike": "Editorial content you may like",
   "edmIsShownAtLinkAlt": "View at the provider's website",
   "entity": {
     "actions": {
@@ -751,6 +750,10 @@ export default {
   },
   "homeLinkAlt": "Europeana home",
   "homePage": {
+    "discoverEditorial": "Discover our stories",
+    "download": "download",
+    "free": "free",
+    "subHeadline": "Find and {download} artworks, photographs, books, manuscripts, newspapers and music from over 4000 museums, archives, galleries, and libraries for {free}.",
     "title": "Discover European cultural heritage"
   },
   "imageSlider": {
@@ -927,6 +930,11 @@ export default {
     },
     "transcription": "Transcription",
     "transcriptionDisclaimer": "This content is contributed by the public, not by the institution that provided this item."
+  },
+  "related": {
+    "editorial": {
+      "title": "Stories you may like"
+    }
   },
   "relatedCollections": "Related collections",
   "removeFilter": "Remove {filterLabel} filter",
