@@ -1,14 +1,18 @@
 query HomePage(
   $locale: String!,
   $preview: Boolean = false,
-  $identifier: String
+  $identifier: String,
+  $date: DateTime
 ) {
   homePageCollection(
     preview: $preview,
     locale: $locale,
     order: datePublished_DESC,
     limit: 1,
-    where: { identifier: $identifier }
+    where: {
+      identifier: $identifier,
+      datePublished_lte: $date
+    }
   ) {
     items {
       name

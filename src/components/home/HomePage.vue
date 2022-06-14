@@ -77,9 +77,10 @@
     methods: {
       async fetchContentfulEntry() {
         const variables = {
-          identifier: this.$route.query.identifier || null,
           locale: this.$i18n.isoLocale(),
-          preview: this.$route.query.mode === 'preview'
+          preview: this.$route.query.mode === 'preview',
+          identifier: this.$route.query.identifier || null,
+          date: (new Date()).toISOString()
         };
         const response = await this.$contentful.query('homePage', variables);
         const homePage = response.data.data.homePageCollection.items[0];
