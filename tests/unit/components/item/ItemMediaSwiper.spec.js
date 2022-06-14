@@ -1,19 +1,14 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import sinon from 'sinon';
 
 import ItemMediaSwiper from '@/components/item/ItemMediaSwiper.vue';
+jest.mock('swiper');
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const factory = (propsData) => shallowMount(ItemMediaSwiper, {
   localVue,
-  data() {
-    return {
-      swiper: swiperMock
-    };
-  },
   mocks: {
     $t: (key) => key,
     $apis: {
@@ -24,11 +19,6 @@ const factory = (propsData) => shallowMount(ItemMediaSwiper, {
   },
   propsData
 });
-
-const swiperMock = {
-  activeIndex: 1,
-  update: sinon.spy()
-};
 
 const displayableMedia = [
   {
@@ -71,7 +61,9 @@ describe('components/item/ItemMediaSwiper', () => {
     it('emits a `select` event with the item identifier', () => {
       const wrapper = factory({ europeanaIdentifier, displayableMedia });
 
+      wrapper.vm.swiper.activeIndex = 1;
       wrapper.vm.onSlideChange();
+
       expect(wrapper.emitted('select')).toEqual([[displayableMedia[1].about]]);
     });
   });
@@ -80,7 +72,8 @@ describe('components/item/ItemMediaSwiper', () => {
       const wrapper = factory({ europeanaIdentifier, displayableMedia });
 
       wrapper.vm.updateSwiper();
-      expect(swiperMock.update.called).toBe(true);
+
+      expect(wrapper.vm.swiper.update.mock.calls.length).toBe(1);
     });
   });
   describe('singleMediaResource', () => {

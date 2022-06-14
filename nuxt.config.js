@@ -394,7 +394,10 @@ export default {
     // See https://github.com/postcss/postcss/issues/1375
     postcss: null,
 
-    publicPath: buildPublicPath()
+    publicPath: buildPublicPath(),
+
+    // swiper v8 (and it's dependencies) is pure ESM and needs to be transpiled to be used by Vue2
+    transpile: ['dom7', 'ssr-window', 'swiper']
   },
 
   /*

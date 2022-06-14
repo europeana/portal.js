@@ -1,6 +1,5 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
-import sinon from 'sinon';
 
 import StackedCardsSwiper from '@/components/generic/StackedCardsSwiper';
 
@@ -25,9 +24,6 @@ const swiperSlides = [{
 
 const factory = (options = {}) => mount(StackedCardsSwiper, {
   localVue,
-  data() {
-    return { swiper: { slideTo: sinon.spy() } };
-  },
   propsData: {
     slides: swiperSlides,
     title: options.title

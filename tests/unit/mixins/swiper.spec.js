@@ -18,12 +18,6 @@ const factory = () => shallowMount(component, {
 
 describe('mixins/swiper', () => {
   describe('when swiper package is available', () => {
-    class FakeSwiper {
-      constructor(element) {
-        this.element = element;
-      }
-    }
-    window.Swiper = FakeSwiper;
     it('initialises new swiper', () => {
       const wrapper = factory();
       expect(wrapper.vm.swiper).toEqual({ element: '.swiper' });

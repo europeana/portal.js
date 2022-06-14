@@ -54,6 +54,7 @@
 
 <script>
   import swiperMixin from '@/mixins/swiper';
+  import { EffectCoverflow, Keyboard } from 'swiper';
 
   export default {
     name: 'StackedCardsSwiper',
@@ -77,6 +78,7 @@
     data() {
       return {
         swiperOptions: {
+          modules: [EffectCoverflow, Keyboard],
           effect: 'coverflow',
           grabCursor: true,
           centeredSlides: true,

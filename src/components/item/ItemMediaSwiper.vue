@@ -49,6 +49,7 @@
   import { isPlayableMedia } from '@/plugins/media';
   import swiperMixin from '@/mixins/swiper';
   import MediaCard from './MediaCard';
+  import { Pagination, Navigation } from 'swiper';
 
   export default {
     name: 'ItemMediaSwiper',
@@ -74,6 +75,7 @@
       const singleMediaResource = this.displayableMedia.length === 1;
       return {
         swiperOptions: {
+          modules: [Pagination, Navigation],
           init: true,
           threshold: singleMediaResource ? 5000000 :  null,
           slidesPerView: 'auto',

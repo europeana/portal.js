@@ -1,3 +1,6 @@
+import Swiper from 'swiper';
+import 'swiper/swiper-bundle.min.css';
+
 export default {
   data() {
     return {
@@ -6,9 +9,7 @@ export default {
   },
 
   mounted() {
-    if (window.Swiper) {
-      this.swiper = new window.Swiper('.swiper', this.swiperOptions);
-    }
+    this.swiper = new Swiper('.swiper', this.swiperOptions);
   },
 
   methods: {
