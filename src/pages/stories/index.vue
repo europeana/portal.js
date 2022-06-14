@@ -11,7 +11,7 @@
         deck
       >
         <ContentCard
-          v-for="(entry, index) in pageOfStories"
+          v-for="(entry, index) in stories"
           :key="index"
           :title="entry.name"
           :url="entryUrl(entry)"
@@ -21,7 +21,7 @@
       </b-card-group>
       <PaginationNav
         :per-page="perPage"
-        :total-results="stories.length"
+        :total-results="total"
       />
     </template>
     <IndexPage
@@ -76,15 +76,11 @@
       pageTitle() {
         // TODO: read this from CTF home page content entry instead?
         return this.$t('storiesPage.title');
-      },
-
-      pageOfStories() {
-        const page = this.$route.query.page || 1;
-        const sliceFrom = (page - 1) * this.perPage;
-        const sliceTo = sliceFrom + this.perPage;
-
-        return this.stories.slice(sliceFrom, sliceTo);
       }
+    },
+
+    watch: {
+      '$route.query.page': 'fetchContentfulEntries'
     },
 
     methods: {
@@ -95,9 +91,15 @@
         };
         const response = await this.$contentful.query('storiesPage', variables);
 
-        this.stories = response.data.data.blogPostingCollection.items
+        const page = this.$route.query.page || 1;
+        const sliceFrom = (page - 1) * this.perPage;
+        const sliceTo = sliceFrom + this.perPage;
+
+        const stories = response.data.data.blogPostingCollection.items
           .concat(response.data.data.exhibitionPageCollection.items)
           .sort((a, b) => (new Date(b.datePublished)).getTime() - (new Date(a.datePublished)).getTime());
+        this.total = stories.length;
+        this.stories = stories.slice(sliceFrom, sliceTo);
       },
 
       entryUrl(entry) {
