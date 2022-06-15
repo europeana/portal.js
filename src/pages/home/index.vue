@@ -12,6 +12,7 @@
         :link="callsToAction[0].relatedLink"
       />
       <StackedCardsSwiper
+        v-if="!$fetchState.pending"
         :slides="swiperThemes"
         :title="$t('collections.themes')"
       />

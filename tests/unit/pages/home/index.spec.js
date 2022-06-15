@@ -91,7 +91,8 @@ const factory = ({ themes = [], $features = {}, data = {} } = {}) => shallowMoun
     },
     $path: (args) => {
       return `${args.params.type}/${args.params.pathMatch}`;
-    }
+    },
+    $fetchState: {}
   },
   stubs: ['IndexPage']
 });

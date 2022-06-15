@@ -1,8 +1,6 @@
 # Multi-stage image to build and run europeana/portal.js
 
-# FIXME: locked to 16.15.0 due to 16.15.1 refusing to install conflicting swiper
-#        versions from package lock.
-FROM node:16.15.0-alpine AS base
+FROM node:16-alpine AS base
 
 ENV CHROMEDRIVER_SKIP_DOWNLOAD=true \
     GECKODRIVER_SKIP_DOWNLOAD=true \
