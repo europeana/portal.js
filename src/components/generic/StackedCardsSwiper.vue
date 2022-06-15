@@ -150,9 +150,13 @@
   }
 
   .swiper-slide {
-    width: calc(200px + 12vw);
+    width: calc(200px + 8vw);
     max-width: 720px;
     height: auto;
+
+    @media (min-width: $bp-extraextralarge) {
+    width: calc(200px + 12vw);
+    }
 
     h3 {
       font-size: 1.25em;
