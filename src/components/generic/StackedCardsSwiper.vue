@@ -22,6 +22,7 @@
           <b-card
             class="h-100 text-center"
             body-class="py-4 d-flex flex-column align-items-center"
+            :style="slide.imageCSSVars"
           >
             <b-card-title
               title-tag="h3"
@@ -164,6 +165,35 @@
 
     p {
       font-size: 1em;
+    }
+
+    --overlay: linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4));
+
+    .card {
+      border: 0;
+      background-image: var(--overlay), var(--bg-img-small);
+      background-size: cover;
+      background-repeat: no-repeat;
+
+      @media (min-width: $bp-small) {
+        background-image: var(--overlay), var(--bg-img-medium);
+      }
+
+      @media (min-width: $bp-medium) {
+        background-image: var(--overlay), var(--bg-img-large);
+      }
+
+      @media (min-width: $bp-large) {
+        background-image: var(--overlay), var(--bg-img-xl);
+      }
+
+      @media (min-width: $bp-extralarge) {
+        background-image: var(--overlay), var(--bg-img-xxl);
+      }
+
+      @media (min-width: $bp-extraextralarge) {
+        background-image: var(--overlay), var(--bg-img-xxlup);
+      }
     }
 
     .card-body {
