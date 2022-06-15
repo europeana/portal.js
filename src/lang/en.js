@@ -41,6 +41,7 @@ export default {
     "move": "Move",
     "next": "Next",
     "pin": "Pin",
+    "previous": "Previous",
     "providedBy": "Provided by {provider}",
     "reject": "Reject",
     "send": "Send",
@@ -853,6 +854,7 @@ export default {
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
   "noResults": "No results",
+  "of": "Of",
   "organisation": {
     "city": "City",
     "country": "Country",

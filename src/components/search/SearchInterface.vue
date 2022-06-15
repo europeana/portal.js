@@ -82,7 +82,7 @@
         <b-row>
           <b-col>
             <client-only>
-              <PaginationNav
+              <PaginationNavInput
                 :total-results="totalResults"
                 :per-page="perPage"
                 :max-results="1000"
@@ -115,7 +115,7 @@
       InfoMessage,
       ItemPreviewCardGroup,
       LoadingSpinner: () => import('../generic/LoadingSpinner'),
-      PaginationNav: () => import('../generic/PaginationNav'),
+      PaginationNavInput: () => import('../generic/PaginationNavInput'),
       ViewToggles
     },
     mixins: [
