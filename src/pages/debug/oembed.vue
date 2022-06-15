@@ -39,16 +39,14 @@
     </b-row>
     <b-row class="flex-md-row pb-5">
       <b-col cols="12">
-        <client-only>
-          <HTMLEmbed
-            v-if="oEmbedData"
-            :html="oEmbedData.html"
-            :provider="oEmbedData.provider_name"
-            :height="oEmbedData.height"
-            :width="oEmbedData.width"
-            :error="oEmbedData.error"
-          />
-        </client-only>
+        <HTMLEmbed
+          v-if="oEmbedData"
+          :html="oEmbedData.html"
+          :provider="oEmbedData.provider_name"
+          :height="oEmbedData.height"
+          :width="oEmbedData.width"
+          :error="oEmbedData.error"
+        />
       </b-col>
     </b-row>
   </b-container>
@@ -76,27 +74,33 @@
       };
     },
 
-    async mounted() {
-      if (!this.endpoint || !this.url) {
-        return;
-      }
-
-      try {
-        const response = await oEmbed(this.url, this.endpoint);
-        if (response.data && response.data.html) {
-          this.oEmbedData = response.data;
-        } else {
-          this.oEmbedData = { error: this.$t('messages.externalContentError') };
-        }
-      } catch (error) {
-        this.oEmbedData = { error: error.message };
-      }
-    },
-
     head() {
       return {
         title: this.$pageHeadTitle(this.title)
       };
+    },
+
+    mounted() {
+      this.fetchOEmbedData();
+    },
+
+    methods: {
+      async fetchOEmbedData() {
+        if (!this.endpoint || !this.url) {
+          return;
+        }
+
+        try {
+          const response = await oEmbed(this.url, this.endpoint);
+          if (response.data && response.data.html) {
+            this.oEmbedData = response.data;
+          } else {
+            this.oEmbedData = { error: this.$t('messages.externalContentError') };
+          }
+        } catch (error) {
+          this.oEmbedData = { error: error.message };
+        }
+      }
     }
   };
 </script>
