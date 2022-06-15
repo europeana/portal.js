@@ -107,8 +107,7 @@
           on: {
             afterInit: this.swiperOnAfterInit
           }
-        },
-        swiperReady: false
+        }
       };
     },
 

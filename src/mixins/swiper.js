@@ -4,7 +4,8 @@ import 'swiper/swiper-bundle.min.css';
 export default {
   data() {
     return {
-      swiper: null
+      swiper: null,
+      swiperReady: false
     };
   },
 

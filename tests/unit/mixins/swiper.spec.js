@@ -29,7 +29,7 @@ describe('mixins/swiper', () => {
 
       wrapper.vm.swiperOnAfterInit();
 
-      expect(wrapper.vm.swiperReady).toEqual(true);
+      expect(wrapper.vm.swiperReady).toBe(true);
     });
   });
 });
