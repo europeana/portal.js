@@ -3,13 +3,9 @@ import axiosRetry from 'axios-retry';
 
 import queries from './queries';
 
-export default ({ app, $config, $apm }, inject) => {
+export default ({ $config, $apm }, inject) => {
   const $axios = axios.create();
   axiosRetry($axios);
-
-  if (app.$axiosLogger) {
-    $axios.interceptors.request.use(app.$axiosLogger);
-  }
 
   const plugin = {
     $axios,

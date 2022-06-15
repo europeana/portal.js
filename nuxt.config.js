@@ -57,6 +57,10 @@ export default {
     axios: {
       baseURL: process.env.PORTAL_BASE_URL
     },
+    axiosLogger: {
+      clearParams: process.env.AXIOS_LOGGER_CLEAR_PARAMS?.split(',') || ['wskey'],
+      httpMethods: process.env.AXIOS_LOGGER_HTTP_METHODS?.toUpperCase().split(',')
+    },
     contentful: {
       spaceId: process.env.CTF_SPACE_ID,
       environmentId: process.env.CTF_ENVIRONMENT_ID,
