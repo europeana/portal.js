@@ -1,6 +1,5 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
-import sinon from 'sinon';
 import nock from 'nock';
 import BootstrapVue from 'bootstrap-vue';
 
