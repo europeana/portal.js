@@ -2,62 +2,143 @@
   <div
     data-qa="API requests"
   >
-    <b-button
-      v-b-modal.api-requests
-      variant="light"
-      data-qa="API requests modal button"
-    >
-      {{ title }}
-    </b-button>
     <b-modal
       id="api-requests"
       size="xl"
-      :title="title"
+      :title="$t('debug.apiRequests.title')"
       hide-footer
       data-qa="API requests modal"
+      @hide="hideModal"
     >
-      <ol
-        v-if="requests.length > 0"
+      <template
+        v-if="requests && requests.length > 0"
       >
-        <li
-          v-for="(request, index) of requests"
-          :key="index"
-          data-qa="logged API request"
+        <ol>
+          <li
+            v-for="(request, index) of requests"
+            :key="index"
+            data-qa="logged API request"
+          >
+            <code>
+              {{ request.method }}
+              <a
+                v-if="request.method === 'GET'"
+                target="_blank"
+                :href="request.url"
+              >
+                {{ request.url }}
+              </a>
+              <template
+                v-else
+              >
+                {{ request.url }}
+              </template>
+            </code>
+          </li>
+        </ol>
+        <InfoMessage
+          v-if="!$store.getters['debug/settings'].apiKey"
+          variant="icon"
         >
-          <code>
-            {{ request.method }}
-            <a
-              v-if="request.method === 'GET'"
-              target="_blank"
-              :href="request.url"
-            >
-              {{ request.url }}
-            </a>
-            <template
-              v-else
-            >
-              {{ request.url }}
+          <i18n
+            path="debug.apiRequests.tip"
+            tag="p"
+          >
+            <template #apiKeyLink>
+              <b-link
+                href="https://pro.europeana.eu/pages/get-api"
+              >
+                {{ $t('debug.apiRequests.apiKeyLinkText') }}<!-- This comment removes white space
+                  -->
+              </b-link>
             </template>
-          </code>
-        </li>
-      </ol>
+            <template #settingsPageLink>
+              <b-link
+                to="/debug"
+              >
+                {{ $t('debug.apiRequests.settingsPageLinkText') }}<!-- This comment removes white space
+                  -->
+              </b-link>
+            </template>
+          </i18n>
+        </InfoMessage>
+      </template>
+      <InfoMessage
+        v-else
+        variant="icon"
+      >
+        {{ $t('debug.apiRequests.noRequests') }}
+      </InfoMessage>
     </b-modal>
   </div>
 </template>
 
 <script>
+  import InfoMessage from '../generic/InfoMessage';
+
   export default {
-    props: {
-      requests: {
-        type: Array,
-        default: () => []
-      }
+    components: {
+      InfoMessage
     },
 
     data() {
       return {
-        title: this.$t('debug.apiRequests')
+        hash: '#api-requests'
       };
+    },
+
+    computed: {
+      requests() {
+        if (!this.$store.state.axiosLogger) {
+          return null;
+        }
+        if (!this.$store.getters['debug/settings']?.apiKey) {
+          return this.$store.state.axiosLogger.requests;
+        }
+
+        return this.$store.state.axiosLogger.requests.map((request) => {
+          const url = new URL(request.url);
+          if (url.searchParams.has('wskey')) {
+            url.searchParams.set('wskey', this.$store.getters['debug/settings'].apiKey);
+          }
+          return {
+            ...request,
+            url: url.toString()
+          };
+        });
+      }
+    },
+
+    watch: {
+      $route(to, from) {
+        this.$nextTick(() => {
+          if (to.hash === this.hash) {
+            this.showModal();
+          } else if (from.hash === this.hash) {
+            this.hideModal({ updateRoute: false });
+          }
+        });
+      }
+    },
+
+    mounted() {
+      if (this.$route.hash === this.hash) {
+        this.showModal();
+      }
+    },
+
+    methods: {
+      showModal() {
+        this.$store.commit('debug/updateSettings', { ...this.$store.getters['debug/settings'], enabled: true });
+        this.$bvModal.show('api-requests');
+      },
+
+      hideModal({ updateRoute = true } = {}) {
+        this.$bvModal.hide('api-requests');
+        if (updateRoute) {
+          this.$nuxt.context.app.router.push({ ...this.$route, hash: undefined });
+        }
+      }
     }
   };
 </script>
@@ -98,5 +179,10 @@
         display: inline-block;
       }
     }
+  }
+
+  ::v-deep .alert {
+    padding: 0;
+    margin-bottom: 0;
   }
 </style>
