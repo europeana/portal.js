@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="stacked-cards-wrapper">
     <h2
       v-if="title"
       class="heading text-center my-3"
@@ -121,13 +121,27 @@
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
 
+  .stacked-cards-wrapper {
+    font-size: 1rem;
+
+    @media (min-width: $bp-extraextralarge) {
+      font-size: 1vw;
+    }
+  }
+
   .heading {
     color: $mediumgrey;
-    font-size: 2rem;
+    font-size: 2em;
+
+    @media (min-width: $bp-extraextralarge) {
+      margin: 0.5em 0 !important;
+    }
   }
 
   .slide-link {
     margin: auto 0 0;
+    font-size: 1em;
+    padding: 0.375em 0.75em;
   }
 
   .swiper-container {
@@ -136,8 +150,23 @@
   }
 
   .swiper-slide {
-    width: calc(200px + 12vmin);
+    width: calc(200px + 12vw);
+    max-width: 720px;
     height: auto;
+
+    h3 {
+      font-size: 1.25em;
+    }
+
+    p {
+      font-size: 1em;
+    }
+
+    .card-body {
+      @media (min-width: $bp-extraextralarge) {
+        padding: 1.5em 1.25em !important;
+      }
+    }
   }
 </style>
 
