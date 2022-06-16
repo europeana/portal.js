@@ -350,3 +350,15 @@ Variant "overlay"<br>
     <span>Label: add to gallery</span>
   </b-button>
 ```
+
+Variant "outline-overlay"<br>
+*Used in the themes swiper*
+```jsx
+  <div style='margin: -16px; padding: 16px; background-image: url("https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Fwww.rijksmuseum.nl%2Fassetimage2.jsp%3Fid%3DSK-C-214");'>
+    <b-button
+      variant="outline-overlay"
+    >
+      <span>Label</span>
+    </b-button>
+  </div>
+```

@@ -299,6 +299,18 @@
   }
 }
 
+.btn-outline-overlay {
+  border: 1px solid $white;
+  color: $white;
+  transition: $standard-transition;
+
+  &:hover {
+    border-color: $innovationblue;
+    color: $innovationblue;
+    transition: $standard-transition;
+  }
+}
+
 a {
   &.skip-main {
     left: -999px;
