@@ -14,7 +14,8 @@
       <StackedCardsSwiper
         v-if="!$fetchState.pending"
         :slides="swiperThemes"
-        :title="$t('collections.themes')"
+        :title="$t('homePage.themesTitle')"
+        :cta="$t('homePage.themesCTA')"
       />
       <HomeCallToAction
         v-if="callsToAction[1]"

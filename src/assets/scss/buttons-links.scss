@@ -165,6 +165,22 @@
   }
 }
 
+.btn-outline-secondary {
+  border: 1px solid $mediumgrey;
+  color: $black;
+  transition: $standard-transition;
+  font-weight: 700;
+  padding: 0.5em 0.75em;
+
+  &:hover {
+    border-color: $innovationblue-dark;
+    background: $blue-20;
+    color: $innovationblue-dark;
+    transition: $standard-transition;
+    box-shadow: none;
+  }
+}
+
 .btn-danger {
   font-size: $font-size-small;
   text-transform: uppercase;

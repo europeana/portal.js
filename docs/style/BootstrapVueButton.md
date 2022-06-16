@@ -61,6 +61,17 @@ Variant "outline-primary":
   </b-button>
 ```
 
+Variant "outline-secondary"<br>
+*Used in the themes swiper*
+```jsx
+  <b-button
+    variant="outline-secondary"
+  >
+    <span>Label</span>
+  </b-button>
+```
+
+
 Variant "primary":
 ```jsx
   <b-button variant="primary">

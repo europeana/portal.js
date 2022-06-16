@@ -2,10 +2,17 @@
   <div class="stacked-cards-wrapper">
     <h2
       v-if="title"
-      class="heading text-center my-3"
+      class="heading text-center my-3 mx-1"
     >
       {{ title }}
     </h2>
+    <b-button
+      v-if="cta"
+      variant="outline-secondary"
+      class="cta my-4"
+    >
+      {{ cta }}
+    </b-button>
     <div
       v-show="swiperReady"
       class="swiper swiper-container"
@@ -68,6 +75,10 @@
         type: String,
         default: null
       },
+      cta: {
+        type: String,
+        default: null
+      },
       /**
        * Slides that each contain data for title, description and url
        */
@@ -125,6 +136,7 @@
 
   .stacked-cards-wrapper {
     font-size: 1rem;
+    text-align: center;
 
     @media (min-width: $bp-extraextralarge) {
       font-size: 1vw;
@@ -138,6 +150,10 @@
     @media (min-width: $bp-extraextralarge) {
       margin: 0.5em 0 !important;
     }
+  }
+
+  .cta {
+    font-size: 1em;
   }
 
   .slide-link {
