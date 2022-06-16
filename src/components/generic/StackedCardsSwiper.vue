@@ -173,7 +173,7 @@
     height: auto;
 
     @media (min-width: $bp-extraextralarge) {
-    width: calc(200px + 12vw);
+      width: calc(200px + 12vw);
     }
 
     h3 {
@@ -186,7 +186,7 @@
       font-size: 1em;
     }
 
-    --overlay: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
+    --overlay: linear-gradient(0deg, rgba(0 0 0 / 60%), rgba(0 0 0 / 60%));
 
     .card {
       border: 0;
@@ -217,6 +217,7 @@
 
     .card-body {
       color: $white;
+
       @media (min-width: $bp-extraextralarge) {
         padding: 1.5em 1.25em !important;
       }
