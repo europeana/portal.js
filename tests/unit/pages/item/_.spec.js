@@ -25,7 +25,6 @@ const item = {
   }
 };
 
-const itemSetRelatedEntities = sinon.spy();
 const store = new Vuex.Store({
   state: {
     entity: {
