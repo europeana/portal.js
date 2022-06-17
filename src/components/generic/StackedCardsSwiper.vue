@@ -52,6 +52,7 @@
               variant="outline-overlay"
               :to="slide.url"
               class="slide-link swiper-no-swiping"
+              @focus="swiper.slideTo(i)"
             >
               {{ $t('explore') }}
             </b-button>
