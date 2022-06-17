@@ -1,33 +1,32 @@
 <template>
-  <div>
-    <template
-      v-if="$features.newStoriesPage"
+  <div
+    v-if="$features.newStoriesPage"
+    class="gridless-container"
+  >
+    <ContentHeader
+      :title="pageTitle"
+    />
+    <b-card-group
+      class="card-deck-4-cols gridless-browse-cards"
+      deck
     >
-      <ContentHeader
-        :title="pageTitle"
+      <ContentCard
+        v-for="(entry, index) in stories"
+        :key="index"
+        :title="entry.name"
+        :url="entryUrl(entry)"
+        :image-url="entry.primaryImageOfPage && entry.primaryImageOfPage.image.url"
+        :image-content-type="entry.primaryImageOfPage && entry.primaryImageOfPage.image.contentType"
       />
-      <b-card-group
-        class="card-deck-3-cols justify-content-center"
-        deck
-      >
-        <ContentCard
-          v-for="(entry, index) in stories"
-          :key="index"
-          :title="entry.name"
-          :url="entryUrl(entry)"
-          :image-url="entry.primaryImageOfPage && entry.primaryImageOfPage.image.url"
-          :image-content-type="entry.primaryImageOfPage && entry.primaryImageOfPage.image.contentType"
-        />
-      </b-card-group>
-      <PaginationNav
-        :per-page="perPage"
-        :total-results="total"
-      />
-    </template>
-    <IndexPage
-      v-else
+    </b-card-group>
+    <PaginationNav
+      :per-page="perPage"
+      :total-results="total"
     />
   </div>
+  <IndexPage
+    v-else
+  />
 </template>
 
 <script>
