@@ -10,8 +10,9 @@
       v-if="cta"
       variant="outline-secondary"
       class="cta my-4"
+      :to="cta.url"
     >
-      {{ cta }}
+      {{ cta.text }}
     </b-button>
     <div
       v-show="swiperReady"
@@ -77,7 +78,7 @@
         default: null
       },
       cta: {
-        type: String,
+        type: Object,
         default: null
       },
       /**
@@ -134,12 +135,14 @@
       imageCSSVars(image) {
         if (urlIsContentfulAsset(image.url)) {
           return {
-            '--bg-img-small': `url('${optimisedSrcForContentfulAsset(image, { w: 245, h: 500, fit: 'fill' })}')`,
-            '--bg-img-medium': `url('${optimisedSrcForContentfulAsset(image, { w: 260, h: 500, fit: 'fill' })}')`,
-            '--bg-img-large': `url('${optimisedSrcForContentfulAsset(image, { w: 280, h: 500, fit: 'fill' })}')`,
-            '--bg-img-xl': `url('${optimisedSrcForContentfulAsset(image, { w: 300, h: 500, fit: 'fill' })}')`,
-            '--bg-img-xxl': `url('${optimisedSrcForContentfulAsset(image, { w: 350, h: 500, fit: 'fill' })}')`,
-            '--bg-img-xxlup': `url('${optimisedSrcForContentfulAsset(image, { w: 700, h: 900, fit: 'fill' })}')`
+            '--bg-img-small': `url('${optimisedSrcForContentfulAsset(image, { w: 245, h: 440, fit: 'fill' })}')`,
+            '--bg-img-medium': `url('${optimisedSrcForContentfulAsset(image, { w: 260, h: 420, fit: 'fill' })}')`,
+            '--bg-img-large': `url('${optimisedSrcForContentfulAsset(image, { w: 280, h: 400, fit: 'fill' })}')`,
+            '--bg-img-xl': `url('${optimisedSrcForContentfulAsset(image, { w: 300, h: 400, fit: 'fill' })}')`,
+            '--bg-img-xxl': `url('${optimisedSrcForContentfulAsset(image, { w: 320, h: 370, fit: 'fill' })}')`,
+            '--bg-img-xxxl': `url('${optimisedSrcForContentfulAsset(image, { w: 355, h: 345, fit: 'fill' })}')`,
+            '--bg-img-huge': `url('${optimisedSrcForContentfulAsset(image, { w: 510, h: 540, fit: 'fill' })}')`,
+            '--bg-img-4k': `url('${optimisedSrcForContentfulAsset(image, { w: 700, h: 900, fit: 'fill' })}')`
           };
         } else {
           return {
@@ -158,7 +161,7 @@
     font-size: 1rem;
     text-align: center;
 
-    @media (min-width: $bp-extraextralarge) {
+    @media (min-width: $bp-xxxl) {
       font-size: 1vw;
     }
   }
@@ -167,7 +170,7 @@
     color: $mediumgrey;
     font-size: 2em;
 
-    @media (min-width: $bp-extraextralarge) {
+    @media (min-width: $bp-xxxl) {
       margin: 0.5em 0 !important;
     }
   }
@@ -192,7 +195,7 @@
     max-width: 720px;
     height: auto;
 
-    @media (min-width: $bp-extraextralarge) {
+    @media (min-width: $bp-xxxl) {
       width: calc(200px + 12vw);
     }
 
@@ -210,35 +213,46 @@
 
     .card {
       border: 0;
-      background-image: var(--overlay), var(--bg-img-small);
       background-size: cover;
       background-repeat: no-repeat;
 
-      @media (min-width: $bp-small) {
+      @media (max-width: $bp-small) {
+        background-image: var(--overlay), var(--bg-img-small);
+      }
+
+      @media (min-width: $bp-small) and (max-width: $bp-medium) {
         background-image: var(--overlay), var(--bg-img-medium, var(--bg-img-small));
       }
 
-      @media (min-width: $bp-medium) {
+      @media (min-width: $bp-medium) and (max-width: $bp-large) {
         background-image: var(--overlay), var(--bg-img-large, var(--bg-img-small));
       }
 
-      @media (min-width: $bp-large) {
+      @media (min-width: $bp-large) and (max-width: $bp-extralarge) {
         background-image: var(--overlay), var(--bg-img-xl, var(--bg-img-small));
       }
 
-      @media (min-width: $bp-extralarge) {
+      @media (min-width: $bp-extralarge) and (max-width: $bp-xxl) {
         background-image: var(--overlay), var(--bg-img-xxl, var(--bg-img-small));
       }
 
-      @media (min-width: $bp-extraextralarge) {
-        background-image: var(--overlay), var(--bg-img-xxlup, var(--bg-img-small));
+      @media (min-width: $bp-xxl) and (max-width: $bp-xxxl) {
+        background-image: var(--overlay), var(--bg-img-xxxl, var(--bg-img-small));
+      }
+
+      @media (min-width: $bp-xxxl) and (max-width: $bp-huge) {
+        background-image: var(--overlay), var(--bg-img-huge, var(--bg-img-small));
+      }
+
+      @media (min-width: $bp-huge + 1px) {
+        background-image: var(--overlay), var(--bg-img-4k, var(--bg-img-small));
       }
     }
 
     .card-body {
       color: $white;
 
-      @media (min-width: $bp-extraextralarge) {
+      @media (min-width: $bp-xxxl) {
         padding: 1.5em 1.25em !important;
       }
     }

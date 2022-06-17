@@ -101,7 +101,7 @@
       max-width: 400px; /* gallery thumbnails are 400px wide */
     }
 
-    @media (min-width: $bp-extraextralarge) {
+    @media (min-width: $bp-xxxl) {
       .card-subtitle {
         font-size: 0.75vw;
       }

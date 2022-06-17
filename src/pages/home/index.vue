@@ -15,7 +15,7 @@
         v-if="!$fetchState.pending"
         :slides="swiperThemes"
         :title="$t('homePage.themesTitle')"
-        :cta="$t('homePage.themesCTA')"
+        :cta="{ url: '/collections', text: $t('homePage.themesCTA') }"
       />
       <HomeCallToAction
         v-if="callsToAction[1]"
