@@ -45,15 +45,15 @@ describe('components/item/ItemRecommendedItems', () => {
           identifier: '/123/abc',
           dcSubject: { en: ['whale'] },
           dcType: { def: ['image'] },
-          dcCreator: ['unknown'],
-          edmDataProvider: 'Europeana Foundation'
+          dcCreator: null,
+          edmDataProvider: { def: ['Europeana Foundation'] }
         };
         const wrapper = factory({ propsData, mocks });
 
         await wrapper.vm.fetch();
 
         expect(wrapper.vm.$apis.record.search.calledWith({
-          query: '(what:("whale" OR "image")^0.8 OR who:("unknown")^0.5 OR DATA_PROVIDER:("E")^0.2) NOT europeana_id:"/123/abc"',
+          query: '(what:("whale" OR "image")^0.8 OR DATA_PROVIDER:("Europeana Foundation")^0.2) NOT europeana_id:"/123/abc"',
           rows: 4,
           profile: 'minimal',
           facet: ''
