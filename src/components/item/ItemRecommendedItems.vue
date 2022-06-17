@@ -1,0 +1,111 @@
+<template>
+  <b-row
+    v-if="!$fetchState.pending && !$fetchState.error && items.length > 0"
+    class="mt-3 mb-0 justify-content-center"
+  >
+    <b-col
+      cols="12"
+      class="col-lg-10"
+    >
+      <h2
+        class="related-heading text-uppercase mb-2"
+      >
+        {{ $t('record.exploreMore') }}
+      </h2>
+      <ItemPreviewCardGroup
+        :items="items"
+        view="explore"
+        class="mb-0"
+        data-qa="similar items"
+      />
+    </b-col>
+  </b-row>
+</template>
+
+<script>
+  import similarItemsQuery from '@/plugins/europeana/record/similar-items';
+  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
+
+  export default {
+    name: 'ItemRecommendedItems',
+
+    components: {
+      ItemPreviewCardGroup
+    },
+
+    props: {
+      identifier: {
+        type: String,
+        required: true
+      },
+
+      dcType: {
+        type: [String, Object, Array],
+        default: null
+      },
+
+      dcSubject: {
+        type: [String, Object, Array],
+        default: null
+      },
+
+      dcCreator: {
+        type: [String, Object, Array],
+        default: null
+      },
+
+      edmDataProvider: {
+        type: [String, Object, Array],
+        default: null
+      }
+    },
+
+    data() {
+      return {
+        items: []
+      };
+    },
+
+    async fetch() {
+      const response = await this.getSimilarItems();
+      this.items = response.items;
+    },
+
+    methods: {
+      getSimilarItems() {
+        if (this.$auth.loggedIn) {
+          return this.$apis.recommendation.recommend('record', this.identifier)
+            .then(recommendResponse => recommendResponse);
+        }
+
+        const dataSimilarItems = {
+          dcSubject: this.getSimilarItemsData(this.dcSubject),
+          dcType: this.getSimilarItemsData(this.dcType),
+          dcCreator: this.getSimilarItemsData(this.dcCreator),
+          edmDataProvider: this.getSimilarItemsData(this.edmDataProvider)
+        };
+
+        return this.$apis.record.search({
+          query: similarItemsQuery(this.identifier, dataSimilarItems),
+          rows: 4,
+          profile: 'minimal',
+          facet: ''
+        });
+      },
+
+      getSimilarItemsData(value) {
+        if (!value) {
+          return null;
+        }
+
+        const data = langMapValueForLocale(value, this.$i18n.locale).values;
+        if (!data) {
+          return null;
+        }
+
+        return data.filter(item => typeof item === 'string');
+      }
+    }
+  };
+</script>

@@ -28,12 +28,6 @@ const item = {
 const itemSetRelatedEntities = sinon.spy();
 const store = new Vuex.Store({
   state: {
-    item: {
-      active: false,
-      annotations: [],
-      relatedEntities: [],
-      similarItems: []
-    },
     entity: {
       curatedEntities: [
         {
@@ -54,21 +48,16 @@ const store = new Vuex.Store({
       user: null
     }
   },
-  mutations: {
-    'item/setRelatedEntities': itemSetRelatedEntities
-  },
   getters: {
     'entity/isPinned': () => () => false,
     'http/canonicalUrl': () => () => null,
-    'set/isLiked': () => () => null,
-    'item/annotationsByMotivation': () => () => null
-  },
-  actions: {
-    'item/reset': () => null
+    'set/isLiked': () => () => null
   }
 });
 
-const factory = () => shallowMountNuxt(page, {
+const record = { id: '/123/abc' };
+
+const factory = ({ mocks = {} } = {}) => shallowMountNuxt(page, {
   localVue,
   data() {
     return item;
@@ -78,6 +67,7 @@ const factory = () => shallowMountNuxt(page, {
     $features: {},
     $pageHeadTitle: key => key,
     $route: {
+      params: { pathMatch: '123/abc' },
       query: {}
     },
     $t: key => key,
@@ -95,50 +85,40 @@ const factory = () => shallowMountNuxt(page, {
         find: sinon.spy()
       },
       record: {
-        getRecord: sinon.stub().resolves({}),
+        getRecord: sinon.stub().resolves(record),
         search: sinon.spy()
       }
     },
+    $fetchState: {},
     $matomo: {
       trackPageView: sinon.spy()
-    }
+    },
+    ...mocks
   },
   store
 });
 
 describe('pages/item/_.vue', () => {
-  afterEach(() => {
-    sinon.resetHistory();
-  });
+  afterEach(sinon.resetHistory);
 
-  describe('asyncData()', () => {
-    const params = { pathMatch: '123/abc' };
-    const record = { id: '/123/abc' };
-    const $apis = { record: { getRecord: sinon.stub().resolves({ record }) } };
-    const app = { i18n: { locale: 'en' } };
-
+  describe('fetch()', () => {
     describe('when the page is loaded without a metadataLanguage', () => {
-      const route = { query: {} };
-
-      it('gets a record from the API for the ID in the params pathMatch, for the current locale', async() => {
+      it('gets a record from the API for the ID in the route params pathMatch, for the current locale', async() => {
         const wrapper = factory();
 
-        const response = await wrapper.vm.asyncData({ params, app, route, $apis });
+        await wrapper.vm.fetch();
 
-        expect($apis.record.getRecord.calledWith('/123/abc', { locale: 'en', metadataLanguage: undefined })).toBe(true);
-        expect(response).toEqual(record);
+        expect(wrapper.vm.$apis.record.getRecord.calledWith('/123/abc', { locale: 'en', metadataLanguage: undefined })).toBe(true);
       });
     });
     describe('when the page is loaded with a metadataLanguage', () => {
-      const route = { query: { lang: 'fr' } };
-
       it('gets a record from the API for the ID in the params pathMatch, with metadataLanguage from `lang` query', async() => {
         const wrapper = factory();
+        wrapper.vm.$route.query = { lang: 'fr' };
 
-        const response = await wrapper.vm.asyncData({ params, app, route, $apis });
+        await wrapper.vm.fetch();
 
-        expect($apis.record.getRecord.calledWith('/123/abc', { locale: 'en', metadataLanguage: 'fr' })).toBe(true);
-        expect(response).toEqual(record);
+        expect(wrapper.vm.$apis.record.getRecord.calledWith('/123/abc', { locale: 'en', metadataLanguage: 'fr' })).toBe(true);
       });
     });
   });
@@ -155,71 +135,28 @@ describe('pages/item/_.vue', () => {
   });
 
   describe('methods', () => {
-    describe('fetchRelatedEntities()', () => {
-      const organizations = [
-        {
-          about: 'http://data.europeana.eu/organization/12345'
-        }
-      ];
-      const concepts = [
-        {
-          about: 'http://data.europeana.eu/concept/base/12345'
-        }
-      ];
-      const pluginResponse = [
-        {
-          id: 'http://data.europeana.eu/concept/base/12345',
-          prefLabel: { en: 'concept' },
-          isShownBy: 'http://example.org/image.jpeg',
-          altLabel: { en: 'alt concept' }
-        },
-        {
-          id: 'http://data.europeana.eu/organization/12345',
-          prefLabel: { en: 'organization' },
-          logo: 'http://example.org/logo.jpeg',
-          altLabel: { en: 'alt organization' }
-        }
-      ];
-      const dataToStore = [
-        {
-          id: 'http://data.europeana.eu/concept/base/12345',
-          prefLabel: { en: 'concept' },
-          isShownBy: 'http://example.org/image.jpeg'
-        },
-        {
-          id: 'http://data.europeana.eu/organization/12345',
-          prefLabel: { en: 'organization' },
-          logo: 'http://example.org/logo.jpeg'
-        }
-      ];
-
-      it('fetches related entities from API plugin', async() => {
-        const wrapper = factory();
-        await wrapper.setData({
-          concepts,
-          organizations
-        });
-        wrapper.vm.$apis.entity.find = sinon.stub().resolves(pluginResponse);
-        await wrapper.vm.fetchRelatedEntities();
-
-        expect(wrapper.vm.$apis.entity.find.calledWith([
-          'http://data.europeana.eu/concept/base/12345',
-          'http://data.europeana.eu/organization/12345'
-        ])).toBe(true);
-      });
-
-      it('picks fields from response and commits to store', async() => {
-        const wrapper = factory();
-        await wrapper.setData({
-          concepts,
-          organizations
-        });
-        wrapper.vm.$apis.entity.find = sinon.stub().resolves(pluginResponse);
-        await wrapper.vm.fetchRelatedEntities();
-
-        expect(itemSetRelatedEntities.calledWith(sinon.match.any, dataToStore)).toBe(true);
-      });
-    });
+    // TODO: update
+    // describe('annotationsByMotivation()', () => {
+    //   describe('when there are annotations', () => {
+    //     const state = {
+    //       annotations
+    //     };
+    //     describe('when asking for tagging annotations', () => {
+    //       it('has a tagging motivation', () => {
+    //         const taggingAnnotations = store.getters.annotationsByMotivation(state)('tagging');
+    //         expect(taggingAnnotations[0].motivation).toBe('tagging');
+    //         expect(taggingAnnotations.length).toBe(1);
+    //       });
+    //     });
+    //     describe('when asking for transcribing annotations', () => {
+    //       it('has a transcribing motivation', () => {
+    //         const taggingAnnotations = store.getters.annotationsByMotivation(state)('transcribing');
+    //         expect(taggingAnnotations[0].motivation).toBe('transcribing');
+    //         expect(taggingAnnotations.length).toBe(1);
+    //       });
+    //     });
+    //   });
+    // });
   });
 
   describe('head()', () => {
