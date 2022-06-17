@@ -68,33 +68,35 @@
     },
 
     async fetch() {
-      const response = await this.getSimilarItems();
-      this.items = response.items;
-    },
+      let response;
 
-    methods: {
-      getSimilarItems() {
-        if (this.$auth.loggedIn) {
-          return this.$apis.recommendation.recommend('record', this.identifier)
-            .then(recommendResponse => recommendResponse);
-        }
-
-        const dataSimilarItems = {
-          dcSubject: this.getSimilarItemsData(this.dcSubject),
-          dcType: this.getSimilarItemsData(this.dcType),
-          dcCreator: this.getSimilarItemsData(this.dcCreator),
-          edmDataProvider: this.getSimilarItemsData(this.edmDataProvider)
-        };
-
-        return this.$apis.record.search({
-          query: similarItemsQuery(this.identifier, dataSimilarItems),
+      if (this.$auth.loggedIn) {
+        response = await this.$apis.recommendation.recommend('record', this.identifier);
+      } else {
+        response = await this.$apis.record.search({
+          query: similarItemsQuery(this.identifier, this.similarItemsFields),
           rows: 4,
           profile: 'minimal',
           facet: ''
         });
-      },
+      }
 
-      getSimilarItemsData(value) {
+      this.items = response.items;
+    },
+
+    computed: {
+      similarItemsFields() {
+        return {
+          dcSubject: this.similarItemsFieldValue(this.dcSubject),
+          dcType: this.similarItemsFieldValue(this.dcType),
+          dcCreator: this.similarItemsFieldValue(this.dcCreator),
+          edmDataProvider: this.similarItemsFieldValue(this.edmDataProvider)
+        };
+      }
+    },
+
+    methods: {
+      similarItemsFieldValue(value) {
         if (!value) {
           return null;
         }
