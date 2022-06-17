@@ -44,7 +44,6 @@
   import HomeHero from '@/components/home/HomeHero';
   import HomeLatest from '@/components/home/HomeLatest';
   import StackedCardsSwiper from '@/components/generic/StackedCardsSwiper';
-  import { urlIsContentfulAsset, optimisedSrcForContentfulAsset } from '@/plugins/contentful-utils';
 
   export default {
     name: 'HomePage',
@@ -106,7 +105,7 @@
           return { title: theme.prefLabel[this.$i18n.locale],
                    description: theme.description[this.$i18n.locale],
                    url: this.collectionLinkGen(theme),
-                   imageCSSVars: this.responsiveContentfulImage(theme) };
+                   image: theme.contentfulImage };
         });
       }
     },
@@ -122,21 +121,7 @@
         const response = await this.$contentful.query('homePage', variables);
         const homePage = response.data.data.homePageCollection.items[0];
         this.sections = homePage.sectionsCollection.items;
-      },
-
-      responsiveContentfulImage(theme) {
-        if (theme.contentfulImage && urlIsContentfulAsset(theme.contentfulImage.url)) {
-          return {
-            '--bg-img-small': `url('${optimisedSrcForContentfulAsset(theme.contentfulImage, { w: 245, h: 500, fit: 'fill' })}')`,
-            '--bg-img-medium': `url('${optimisedSrcForContentfulAsset(theme.contentfulImage, { w: 260, h: 500, fit: 'fill' })}')`,
-            '--bg-img-large': `url('${optimisedSrcForContentfulAsset(theme.contentfulImage, { w: 280, h: 500, fit: 'fill' })}')`,
-            '--bg-img-xl': `url('${optimisedSrcForContentfulAsset(theme.contentfulImage, { w: 300, h: 500, fit: 'fill' })}')`,
-            '--bg-img-xxl': `url('${optimisedSrcForContentfulAsset(theme.contentfulImage, { w: 350, h: 500, fit: 'fill' })}')`,
-            '--bg-img-xxlup': `url('${optimisedSrcForContentfulAsset(theme.contentfulImage, { w: 700, h: 900, fit: 'fill' })}')`
-          };
-        }
       }
-
     }
   };
 

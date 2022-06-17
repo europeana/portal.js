@@ -29,7 +29,7 @@
           <b-card
             class="h-100 text-center"
             body-class="py-4 d-flex flex-column align-items-center"
-            :style="slide.imageCSSVars"
+            :style="slide.image && imageCSSVars(slide.image)"
           >
             <b-card-title
               title-tag="h3"
@@ -64,6 +64,7 @@
 <script>
   import swiperMixin from '@/mixins/swiper';
   import { EffectCoverflow, Keyboard } from 'swiper';
+  import { urlIsContentfulAsset, optimisedSrcForContentfulAsset } from '@/plugins/contentful-utils';
 
   export default {
     name: 'StackedCardsSwiper',
@@ -127,6 +128,25 @@
     mounted() {
       const middleCardIndex = Math.floor(this.slides.length / 2);
       this.swiper.slideTo(middleCardIndex);
+    },
+
+    methods: {
+      imageCSSVars(image) {
+        if (urlIsContentfulAsset(image.url)) {
+          return {
+            '--bg-img-small': `url('${optimisedSrcForContentfulAsset(image, { w: 245, h: 500, fit: 'fill' })}')`,
+            '--bg-img-medium': `url('${optimisedSrcForContentfulAsset(image, { w: 260, h: 500, fit: 'fill' })}')`,
+            '--bg-img-large': `url('${optimisedSrcForContentfulAsset(image, { w: 280, h: 500, fit: 'fill' })}')`,
+            '--bg-img-xl': `url('${optimisedSrcForContentfulAsset(image, { w: 300, h: 500, fit: 'fill' })}')`,
+            '--bg-img-xxl': `url('${optimisedSrcForContentfulAsset(image, { w: 350, h: 500, fit: 'fill' })}')`,
+            '--bg-img-xxlup': `url('${optimisedSrcForContentfulAsset(image, { w: 700, h: 900, fit: 'fill' })}')`
+          };
+        } else {
+          return {
+            '--bg-img-small': `url('${image.url}')`
+          };
+        }
+      }
     }
   };
 </script>
@@ -241,82 +261,82 @@
     description: 'Collection of untold stories and official histories of World War I, in a unique blend of cultural heritage collections and personal items contributed by \
     European citizens.',
     url: '/en/collections/topic/83-world-war-i',
-    imageCSSVars: { '--bg-img-small': `url('https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Fwww.rijksmuseum.nl%2Fassetimage2.jsp%3Fid%3DSK-C-214')` }
+    image: { url: 'https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Fwww.rijksmuseum.nl%2Fassetimage2.jsp%3Fid%3DSK-C-214' }
   },
   {
     title: 'Archaeology',
     description: 'Explore all facets of archaeology from European museums, galleries, libraries and archives.',
     url: '/en/collections/topic/80-archaeology',
-    imageCSSVars: { '--bg-img-small': `url('https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Fwww.rijksmuseum.nl%2Fassetimage2.jsp%3Fid%3DSK-C-214')` }
+    image: { url: 'https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Fwww.rijksmuseum.nl%2Fassetimage2.jsp%3Fid%3DSK-C-214' }
   },
   {
     title: 'Art',
     description: 'Discover inspiring art, artists and stories in the digitised collections of European museums, galleries, libraries and archives. Explore paintings, \
     drawings, engravings and sculpture from cultural heritage institutions across Europe.',
     url: '/en/collections/topic/190-art',
-    imageCSSVars: { '--bg-img-small': `url('https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Fwww.rijksmuseum.nl%2Fassetimage2.jsp%3Fid%3DSK-C-214')` }
+    image: { url: 'https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Fwww.rijksmuseum.nl%2Fassetimage2.jsp%3Fid%3DSK-C-214' }
   },
   {
     title: 'Fashion',
     description: 'Explore fashion – historical clothing and accessories, contemporary designs, catwalk photographs, drawings, sketches, plates, catalogues and videos \
     – from more than 30 European public and private institutions.',
     url: '/en/collections/topic/55-fashion',
-    imageCSSVars: { '--bg-img-small': `url('https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Fwww.rijksmuseum.nl%2Fassetimage2.jsp%3Fid%3DSK-C-214')` }
+    image: { url: 'https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Fwww.rijksmuseum.nl%2Fassetimage2.jsp%3Fid%3DSK-C-214' }
   },
   {
     title: 'Industrial Heritage',
     description: 'Explore Europe\'s industrial heritage through the digitised collections of European cultural heritage organisations and personal stories of our working lives.',
     url: '/en/collections/topic/129-industrial-heritage',
-    imageCSSVars: { '--bg-img-small': `url('https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Fwww.rijksmuseum.nl%2Fassetimage2.jsp%3Fid%3DSK-C-214')` }
+    image: { url: 'https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Fwww.rijksmuseum.nl%2Fassetimage2.jsp%3Fid%3DSK-C-214' }
   },
   {
     title: 'Manuscripts',
     description: 'Explore the roots of European written culture through manuscripts from antiquity to the early print era. ',
     url: '/en/collections/topic/17-manuscripts',
-    imageCSSVars: { '--bg-img-small': `url('https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Fwww.rijksmuseum.nl%2Fassetimage2.jsp%3Fid%3DSK-C-214')` }
+    image: { url: 'https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Fwww.rijksmuseum.nl%2Fassetimage2.jsp%3Fid%3DSK-C-214' }
   },
   {
     title: 'Maps and Geography',
     description: 'Explore history, geography and cartography through the digitised collections of European cultural heritage institutions.',
     url: '/en/collections/topic/151-maps-and-geography',
-    imageCSSVars: { '--bg-img-small': `url('https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Fwww.rijksmuseum.nl%2Fassetimage2.jsp%3Fid%3DSK-C-214')` }
+    image: { url: 'https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Fwww.rijksmuseum.nl%2Fassetimage2.jsp%3Fid%3DSK-C-214' }
   },
   {
     title: 'Migration',
     description: 'Collections on the theme of migration to, from and within Europe, sourced from cultural heritage institutions and members of the public',
     url: '/en/collections/topic/128-migration',
-    imageCSSVars: { '--bg-img-small': `url('https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Fwww.rijksmuseum.nl%2Fassetimage2.jsp%3Fid%3DSK-C-214')` }
+    image: { url: 'https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Fwww.rijksmuseum.nl%2Fassetimage2.jsp%3Fid%3DSK-C-214' }
   },
   {
     title: 'Music',
     description: 'Explore recordings, sheet music, instruments and music-related collections from European audio-visual archives, libraries and museums.',
     url: '/en/collections/topic/62-music',
-    imageCSSVars: { '--bg-img-small': `url('https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Fwww.rijksmuseum.nl%2Fassetimage2.jsp%3Fid%3DSK-C-214')` }
+    image: { url: 'https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Fwww.rijksmuseum.nl%2Fassetimage2.jsp%3Fid%3DSK-C-214' }
   },
   {
     title: 'Natural history',
     description: 'Natural history is the research and study of organisms including plants or animals in their environment. Explore the world\'s natural history in drawings, \
     specimens and collections from European cultural heritage institutions.',
     url: '/en/collections/topic/156-natural-history',
-    imageCSSVars: { '--bg-img-small': `url('https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Fwww.rijksmuseum.nl%2Fassetimage2.jsp%3Fid%3DSK-C-214')` }
+    image: { url: 'https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Fwww.rijksmuseum.nl%2Fassetimage2.jsp%3Fid%3DSK-C-214' }
   },
   {
     title: 'Newspapers',
     description: 'Explore the headlines, articles, advertisements, and opinion pieces from European newspapers from 20 countries, dating from 1618 to the 1980s.',
     url: '/en/collections/topic/18-newspapers',
-    imageCSSVars: { '--bg-img-small': `url('https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Fwww.rijksmuseum.nl%2Fassetimage2.jsp%3Fid%3DSK-C-214')` }
+    image: { url: 'https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Fwww.rijksmuseum.nl%2Fassetimage2.jsp%3Fid%3DSK-C-214' }
   },
   {
     title: 'Photography',
     description: 'Discover inspiring images and the history of photography through the collections of European cultural heritage institutions.',
     url: '/en/collections/topic/48-photography',
-    imageCSSVars: { '--bg-img-small': `url('https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Fwww.rijksmuseum.nl%2Fassetimage2.jsp%3Fid%3DSK-C-214')` }
+    image: { url: 'https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Fwww.rijksmuseum.nl%2Fassetimage2.jsp%3Fid%3DSK-C-214' }
   },
   {
     title: 'Sport',
     description: 'Explore sporting heritage and culture in photographs, films, sound recordings and texts from European collections.',
     url: '/en/collections/topic/114-sport',
-    imageCSSVars: { '--bg-img-small': `url('https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Fwww.rijksmuseum.nl%2Fassetimage2.jsp%3Fid%3DSK-C-214')` }
+    image: { url: 'https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Fwww.rijksmuseum.nl%2Fassetimage2.jsp%3Fid%3DSK-C-214' }
   }
   ]" />
   ```
