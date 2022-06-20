@@ -1,14 +1,21 @@
 <template>
   <section
     v-if="cards.length > 0"
-    class="container-fluid"
+    class="container-fluid text-center"
     data-qa="latest editorial"
   >
-    <h2 class="text-center">
+    <h2>
       {{ $t('homePage.discoverEditorial') }}
     </h2>
+    <b-button
+      variant="outline-secondary"
+      class="cta my-4"
+      :to="'/stories'"
+    >
+      {{ $t('homePage.storiesCTA') }}
+    </b-button>
     <b-card-group
-      class="card-deck-3-cols justify-content-center"
+      class="mt-3 card-deck-3-cols justify-content-center"
       deck
     >
       <!-- TODO: use/add image alt description -->
