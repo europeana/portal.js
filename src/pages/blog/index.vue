@@ -39,6 +39,7 @@
 <script>
   import ContentHeader from '../../components/generic/ContentHeader';
   import ContentCard from '../../components/generic/ContentCard';
+  import PaginationNavInput from'../../components/generic/PaginationNavInput';
 
   const PER_PAGE = 20;
 
@@ -48,7 +49,7 @@
     components: {
       ContentHeader,
       ContentCard,
-      PaginationNavInput: () => import('../../components/generic/PaginationNavInput')
+      PaginationNavInput
     },
 
     middleware: 'sanitisePageQuery',
