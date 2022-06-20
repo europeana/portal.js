@@ -9,7 +9,6 @@
       class="pl-0 d-flex justify-content-center"
     >
       <li
-        :aria-hidden="prevDisabled"
         :class="{ 'disabled' : prevDisabled}"
         class="page-item btn-prev pl-0"
         data-qa="prev button"
@@ -17,7 +16,8 @@
         <SmartLink
           :destination="prevUrl"
           :aria-label="$t('actions.previous')"
-          :aria-disabled="prevDisabled"
+          :disabled="prevDisabled"
+          :aria-hidden="prevDisabled"
           class="page-link"
         >
           <span class="icon-arrow-down" />
@@ -27,28 +27,32 @@
       <li
         class="page-item page-input"
       >
-        <!-- TODO: use b-form-input instead? -->
-        <input
-          type="text"
-          :value="page"
+        <b-form-input
+          v-model="page"
+          type="number"
+          :number="true"
+          :aria-label="$t('pageNumber')"
+          :min="1"
+          :max="totalPages"
+          data-qa="pagination input"
           @change="changePaginationNav"
-        > {{ $t('of') }} {{ totalPages }}
+        /> {{ $t('of') }} {{ totalPages }}
       </li>
       <li
-        :aria-hidden="nextDisabled"
         :class="{ 'disabled' : nextDisabled}"
         class="page-item btn-next pr-0"
         data-qa="next button"
       >
-        <a
+        <SmartLink
+          :destination="nextUrl"
           :aria-label="$t('actions.next')"
-          :aria-disabled="nextDisabled"
-          href="#"
+          :disabled="nextDisabled"
+          :aria-hidden="nextDisabled"
           class="page-link"
         >
           {{ $t('actions.next') }}
           <span class="icon-arrow-down" />
-        </a>
+        </SmartLink>
       </li>
     </ul>
   </nav>
@@ -83,6 +87,12 @@
       }
     },
 
+    data() {
+      return {
+        page: Number(this.$route?.query?.page) || 1
+      };
+    },
+
     computed: {
       totalPages() {
         const atLeastOne = Math.max(this.totalResults, 1);
@@ -90,7 +100,6 @@
       },
 
       prevDisabled() {
-        console.log(this.linkGen(0));
         return this.page <= 1;
       },
 
@@ -98,32 +107,42 @@
         return this.linkGen(this.page - 1);
       },
 
-      nextDisabled() {
-        return this.page === this.totalPages;
+      nextUrl() {
+        return this.linkGen(this.page + 1);
       },
 
-      page() {
-        return Number(this.$route?.query?.page) || 1;
+      nextDisabled() {
+        return this.page === this.totalPages;
+      }
+    },
+
+    watch: {
+      '$route.query.page'() {
+        this.page = Number(this.$route?.query?.page) || 1;
+        this.scrollToElement();
       }
     },
 
     methods: {
       changePaginationNav() {
-        // TODO: check if number added in input is a valid page number
-        // TODO: update page + results
+        const newRouteQuery = {  ...this.$route.query, page: this.page };
+        const newRoute = { path: this.$route.path, query: newRouteQuery };
+        // TODO: this isn't scrolling to the right place for the search interface.
         this.scrollToElement();
+        this.$goto(newRoute);
       },
 
       scrollToElement() {
         this.$scrollTo(`#${this.scrollToId}`);
       },
 
-      linkGen(page) {
+      linkGen(pageNo) {
         return {
           ...this.$route,
-          query: { ...this.$route.query, page }
+          query: { ...this.$route.query, page: pageNo }
         };
       }
     }
+
   };
 </script>

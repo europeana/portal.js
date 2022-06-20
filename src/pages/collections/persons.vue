@@ -23,8 +23,7 @@
     </b-row>
     <b-row>
       <b-col>
-        <PaginationNav
-          :limit="perPage"
+        <PaginationNavInput
           :total-results="total"
           :per-page="perPage"
         />
@@ -45,7 +44,7 @@
     components: {
       ContentHeader,
       ContentCard,
-      PaginationNav: () => import('@/components/generic/PaginationNav')
+      PaginationNavInput: () => import('@/components/generic/PaginationNavInput')
     },
     middleware: 'sanitisePageQuery',
     asyncData({ error, app, store }) {

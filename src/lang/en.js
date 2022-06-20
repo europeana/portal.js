@@ -861,6 +861,7 @@ export default {
     "nameAcronym": "Name acronym"
   },
   "pageHasLoaded": "has loaded",
+  "pageNumber": "Page number",
   "pages": {
     "collections": {
       "organisations": {

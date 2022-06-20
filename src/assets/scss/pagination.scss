@@ -8,7 +8,9 @@
     white-space: nowrap;
 
     &.disabled {
-      color: $mediumgrey;
+      a {
+        color: $mediumgrey;
+      }
     }
   }
 
@@ -63,6 +65,15 @@
       height: auto;
       background: $white;
       line-height: 1.375rem;
+
+      &::-webkit-inner-spin-button {
+        appearance: none;
+        margin: 0;
+      }
+
+      &[type='number'] {
+        appearance: textfield;
+      }
     }
   }
 }
