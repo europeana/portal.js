@@ -39,7 +39,7 @@
 <script>
   import ContentHeader from '../../components/generic/ContentHeader';
   import ContentCard from '../../components/generic/ContentCard';
-  import PaginationNavInput from'../../components/generic/PaginationNavInput';
+  import PaginationNavInput from '../../components/generic/PaginationNavInput';
 
   const PER_PAGE = 20;
 
