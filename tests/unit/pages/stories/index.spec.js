@@ -42,7 +42,8 @@ const factory = ({ $features = {}, data = {} } = {}) => shallowMountNuxt(Stories
     },
     $pageHeadTitle: (text) => text,
     $route: { query: {} },
-    $t: (key) => key
+    $t: (key) => key,
+    $tc: (key) => key
   },
   stubs: ['IndexPage', 'b-card-group']
 });
