@@ -90,6 +90,16 @@
   h2 {
     color: $mediumgrey;
     font-size: 2rem;
+
+    @media (min-width: $bp-extraextralarge) {
+      font-size: 2vw;
+    }
+  }
+
+  .cta {
+    @media (min-width: $bp-extraextralarge) {
+      font-size: 1vw;
+    }
   }
 
   .card-deck {
