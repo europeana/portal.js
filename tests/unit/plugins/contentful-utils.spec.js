@@ -22,7 +22,7 @@ describe('plugins/contentful-utils', () => {
         contentType: 'image/jpeg'
       };
 
-      expect(contentfulUtils.optimisedSrcForContentfulAsset(asset)).toBe('https://images.ctfassets.net/asset.jpeg?fm=jpg&fl=progressive');
+      expect(contentfulUtils.optimisedSrcForContentfulAsset(asset)).toBe('https://images.ctfassets.net/asset.jpeg?fm=jpg&fl=progressive&q=80');
     });
 
     it('joins all the options', () => {
