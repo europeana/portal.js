@@ -36,7 +36,7 @@
       @click="addToSet"
     >
       <span class="icon-ic-add" />
-      {{ buttonText ? $t('set.actions.save') : '' }}
+      {{ buttonText ? $t('actions.save') : '' }}
     </b-button>
     <b-button
       class="like-button text-uppercase d-inline-flex align-items-center"

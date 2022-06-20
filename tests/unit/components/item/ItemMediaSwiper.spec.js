@@ -1,12 +1,13 @@
-import { createLocalVue, mount } from '@vue/test-utils';
+import { createLocalVue, shallowMount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 
-import AwesomeSwiper from '@/components/item/AwesomeSwiper.vue';
+import ItemMediaSwiper from '@/components/item/ItemMediaSwiper.vue';
+jest.mock('swiper');
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const factory = (propsData) => mount(AwesomeSwiper, {
+const factory = (propsData) => shallowMount(ItemMediaSwiper, {
   localVue,
   mocks: {
     $t: (key) => key,
@@ -49,18 +50,30 @@ const displayableMedia = [
 
 const europeanaIdentifier = '/2020601/https___1914_1918_europeana_eu_contributions_10265';
 
-describe('components/item/AwesomeSwiper', () => {
+describe('components/item/ItemMediaSwiper', () => {
   describe('when the swiper loads', () => {
     it('shows five slides', () => {
       const wrapper = factory({ displayableMedia, europeanaIdentifier });
       expect(wrapper.findAll('div.swiper-slide').length).toBe(5);
     });
-
+  });
+  describe('onSlideChange()', () => {
     it('emits a `select` event with the item identifier', () => {
       const wrapper = factory({ europeanaIdentifier, displayableMedia });
 
-      wrapper.vm.swiper.slideTo(1, 1000, false);
+      wrapper.vm.swiper.activeIndex = 1;
+      wrapper.vm.onSlideChange();
+
       expect(wrapper.emitted('select')).toEqual([[displayableMedia[1].about]]);
+    });
+  });
+  describe('updateSwiper()', () => {
+    it('emits a `select` event with the item identifier', () => {
+      const wrapper = factory({ europeanaIdentifier, displayableMedia });
+
+      wrapper.vm.updateSwiper();
+
+      expect(wrapper.vm.swiper.update.mock.calls.length).toBe(1);
     });
   });
   describe('singleMediaResource', () => {

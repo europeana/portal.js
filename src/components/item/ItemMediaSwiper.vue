@@ -2,76 +2,68 @@
   <div
     class="swiper-outer"
   >
-    <swiper
-      v-show="ready"
-      ref="awesome"
-      class="swiper"
-      :options="swiperOptions"
+    <div
+      v-show="swiperReady"
+      class="swiper swiper-container"
       data-qa="awesome swiper"
-      @slide-change="onSlideChange"
-      @slide-change-transition-end="updateSwiper"
-      @ready="swiperReady"
     >
-      <swiper-slide
-        v-for="(item, index) in displayableMedia"
-        :key="index"
+      <div
+        class="swiper-wrapper"
       >
         <div
-          v-if="singleMediaResource"
-          class="container h-100"
+          v-for="(item, index) in displayableMedia"
+          :key="index"
+          class="swiper-slide"
         >
+          <div
+            v-if="singleMediaResource"
+            class="container h-100"
+          >
+            <MediaCard
+              :europeana-identifier="europeanaIdentifier"
+              :media="item"
+              :is-single-playable-media="isSinglePlayableMedia"
+              :lazy="false"
+              :offset="displayableMedia.length > 1 ? index : null"
+              :edm-type="edmType"
+            />
+          </div>
           <MediaCard
+            v-else
             :europeana-identifier="europeanaIdentifier"
             :media="item"
             :is-single-playable-media="isSinglePlayableMedia"
-            :lazy="false"
+            :lazy="index > 0"
             :offset="displayableMedia.length > 1 ? index : null"
             :edm-type="edmType"
           />
         </div>
-        <MediaCard
-          v-else
-          :europeana-identifier="europeanaIdentifier"
-          :media="item"
-          :is-single-playable-media="isSinglePlayableMedia"
-          :lazy="index > 0"
-          :offset="displayableMedia.length > 1 ? index : null"
-          :edm-type="edmType"
-        />
-      </swiper-slide>
+      </div>
       <div
-        slot="button-prev"
         class="swiper-button-prev"
       />
       <div
-        slot="button-next"
         class="swiper-button-next"
       />
-    </swiper>
+    </div>
   </div>
 </template>
 
 <script>
-// Custom build of Swiper with only the modules we need:
-// @see https://swiperjs.com/api/#custom-build
-// @see https://github.com/surmon-china/vue-awesome-swiper#custom-build-with-swiper
-  import { Swiper as SwiperClass, Pagination, Navigation } from 'swiper/core';
-  import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter';
-  SwiperClass.use([Pagination, Navigation]);
-  const { Swiper, SwiperSlide } = getAwesomeSwiper(SwiperClass);
-
-  import 'swiper/swiper-bundle.css';
   import { isPlayableMedia } from '@/plugins/media';
-
+  import swiperMixin from '@/mixins/swiper';
   import MediaCard from './MediaCard';
+  import { Pagination, Navigation } from 'swiper';
 
   export default {
-    name: 'AwesomeSwiper',
+    name: 'ItemMediaSwiper',
+
     components: {
-      Swiper,
-      SwiperSlide,
       MediaCard
     },
+
+    mixins: [swiperMixin],
+
     props: {
       europeanaIdentifier: {
         type: String,
@@ -86,10 +78,12 @@
         required: true
       }
     },
+
     data() {
       const singleMediaResource = this.displayableMedia.length === 1;
       return {
         swiperOptions: {
+          modules: [Pagination, Navigation],
           init: true,
           threshold: singleMediaResource ? 5000000 :  null,
           slidesPerView: 'auto',
@@ -104,24 +98,25 @@
             el: '.swiper-pagination',
             clickable: true,
             type: 'fraction'
+          },
+          on: {
+            afterInit: this.swiperOnAfterInit,
+            slideChange: this.onSlideChange,
+            slideChangeTransitionEnd: this.updateSwiper
           }
         },
         singleMediaResource,
-        ready: singleMediaResource
+        swiperReady: singleMediaResource
       };
     },
+
     computed: {
-      swiper() {
-        return this.$refs.awesome.$swiper;
-      },
       isSinglePlayableMedia() {
         return this.displayableMedia.filter(resource => isPlayableMedia(resource)).length === 1;
       }
     },
+
     methods: {
-      swiperReady() {
-        this.ready = true;
-      },
       onSlideChange() {
         this.$emit('select', this.displayableMedia[this.swiper.activeIndex].about);
       },

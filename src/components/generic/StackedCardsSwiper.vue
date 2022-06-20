@@ -6,62 +6,60 @@
     >
       {{ title }}
     </h2>
-    <swiper
-      ref="swiper"
-      :options="swiperOptions"
+    <div
+      v-show="swiperReady"
+      class="swiper swiper-container"
     >
-      <swiper-slide
-        v-for="(slide, i) in slides"
-        :key="i"
-        :index="i"
+      <div
+        class="swiper-wrapper"
       >
-        <b-card
-          class="h-100 text-center"
-          body-class="py-4 d-flex flex-column align-items-center"
+        <div
+          v-for="(slide, i) in slides"
+          :key="i"
+          :index="i"
+          class="swiper-slide"
         >
-          <b-card-title
-            title-tag="h3"
+          <b-card
+            class="h-100 text-center"
+            body-class="py-4 d-flex flex-column align-items-center"
           >
-            <span>
-              {{ slide.title }}
-            </span>
-          </b-card-title>
-          <b-card-text
-            text-tag="div"
-            class="mt-4 mb-5"
-          >
-            <p>
-              {{ slide.description }}
-            </p>
-          </b-card-text>
-          <b-button
-            variant="outline-primary"
-            :to="slide.url"
-            class="slide-link"
-          >
-            {{ $t('explore') }}
-          </b-button>
-        </b-card>
-      </swiper-slide>
-    </swiper>
+            <b-card-title
+              title-tag="h3"
+            >
+              <span>
+                {{ slide.title }}
+              </span>
+            </b-card-title>
+            <b-card-text
+              text-tag="div"
+              class="mt-4 mb-5"
+            >
+              <p>
+                {{ slide.description }}
+              </p>
+            </b-card-text>
+            <b-button
+              variant="outline-primary"
+              :to="slide.url"
+              class="slide-link"
+            >
+              {{ $t('explore') }}
+            </b-button>
+          </b-card>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-  import { Swiper as SwiperClass, EffectCoverflow, Keyboard } from 'swiper/core';
-  import getAwesomeSwiper from 'vue-awesome-swiper/dist/exporter';
-  SwiperClass.use([EffectCoverflow, Keyboard]);
-  const { Swiper, SwiperSlide } = getAwesomeSwiper(SwiperClass);
-
-  import 'swiper/swiper-bundle.css';
+  import swiperMixin from '@/mixins/swiper';
+  import { EffectCoverflow, Keyboard } from 'swiper';
 
   export default {
     name: 'StackedCardsSwiper',
 
-    components: {
-      Swiper,
-      SwiperSlide
-    },
+    mixins: [swiperMixin],
 
     props: {
       title: {
@@ -80,6 +78,7 @@
     data() {
       return {
         swiperOptions: {
+          modules: [EffectCoverflow, Keyboard],
           effect: 'coverflow',
           grabCursor: true,
           centeredSlides: true,
@@ -104,19 +103,17 @@
             modifier: 1,
             slideShadows: false,
             scale: 1
+          },
+          on: {
+            afterInit: this.swiperOnAfterInit
           }
         }
       };
     },
 
-    computed: {
-      swiper() {
-        return this.$refs.swiper.$swiper;
-      }
-    },
-
     mounted() {
-      this.swiper && this.swiper.slideTo(this.slides.length / 2);
+      const middleCardIndex = Math.floor(this.slides.length / 2);
+      this.swiper.slideTo(middleCardIndex);
     }
   };
 </script>

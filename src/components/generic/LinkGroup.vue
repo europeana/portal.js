@@ -21,6 +21,7 @@
           v-if="link.url"
           :destination="link.url"
           :link-class="linkClass"
+          :data-qa="link.dataQa"
         >
           <span
             v-if="link.icon"

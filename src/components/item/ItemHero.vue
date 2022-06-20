@@ -1,6 +1,6 @@
 <template>
   <div class="item-hero">
-    <AwesomeSwiper
+    <ItemMediaSwiper
       :europeana-identifier="identifier"
       :edm-type="edmType"
       :displayable-media="media"
@@ -69,7 +69,7 @@
 
 <script>
   import ClientOnly from 'vue-client-only';
-  import AwesomeSwiper from './AwesomeSwiper';
+  import ItemMediaSwiper from './ItemMediaSwiper';
   import DownloadButton from '../generic/DownloadButton';
   import DownloadModal from '../generic/DownloadModal.vue';
   import RightsStatementButton from '../generic/RightsStatementButton';
@@ -83,7 +83,7 @@
 
   export default {
     components: {
-      AwesomeSwiper,
+      ItemMediaSwiper,
       ClientOnly,
       DownloadButton,
       RightsStatementButton,
