@@ -138,7 +138,7 @@
 
       linkGen(pageNo) {
         return {
-          ...this.$route,
+          path: this.$route.path,
           query: { ...this.$route.query, page: pageNo }
         };
       }

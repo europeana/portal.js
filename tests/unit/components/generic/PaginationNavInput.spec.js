@@ -57,6 +57,17 @@ describe('components/generic/PaginationNavInput', () => {
     expect(nextButton.attributes().class).toContain('disabled');
   });
 
+  it('watches the route for changes to the page', async() => {
+    const wrapper = factory();
+    await wrapper.setProps({ totalResults: 240, perPage: 24 });
+
+    wrapper.vm.$route.query.page = 5;
+    await new Promise(process.nextTick);
+
+    expect(wrapper.vm.page).toBe(5);
+    expect(scrollToSpy.called).toBe(true);
+  });
+
   describe('methods', () => {
     describe('changePaginationNav()', () => {
       it('triggers a scroll and redirect to the  new page', async() => {
