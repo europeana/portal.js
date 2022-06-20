@@ -99,11 +99,10 @@
       similarItemsFieldValue(value) {
         if (!value) {
           return null;
-        } else {
-          return langMapValueForLocale(value, this.$i18n.locale)
-            .values
-            .filter(item => typeof item === 'string');
         }
+        return langMapValueForLocale(value, this.$i18n.locale)
+          .values
+          .filter(item => typeof item === 'string');
       }
     }
   };
