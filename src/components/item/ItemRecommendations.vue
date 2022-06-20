@@ -28,7 +28,7 @@
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
 
   export default {
-    name: 'ItemRecommendedItems',
+    name: 'ItemRecommendations',
 
     components: {
       ItemPreviewCardGroup

@@ -97,7 +97,7 @@
                 used instead.
           FIXME: ... but who knows when, so maybe fix here in the meantime
         -->
-        <ItemRecommendedItems
+        <ItemRecommendations
           :identifier="identifier"
           :dc-type="title"
           :dc-subject="metadata.dcSubject"
@@ -123,7 +123,7 @@
   import isEmpty from 'lodash/isEmpty';
   import { mapGetters } from 'vuex';
 
-  import ItemRecommendedItems from '@/components/item/ItemRecommendedItems';
+  import ItemRecommendations from '@/components/item/ItemRecommendations';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import MetadataBox from '@/components/item/MetadataBox';
 
@@ -137,7 +137,7 @@
       AlertMessage: () => import('@/components/generic/AlertMessage'),
       ItemHero: () => import('@/components/item/ItemHero'),
       ItemLanguageSelector: () => import('@/components/item/ItemLanguageSelector'),
-      ItemRecommendedItems,
+      ItemRecommendations,
       LoadingSpinner,
       MetadataBox,
       RelatedCollections: () => import('@/components/related/RelatedCollections'),

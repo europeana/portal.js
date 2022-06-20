@@ -1,11 +1,11 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
-import ItemRecommendedItems from '@/components/item/ItemRecommendedItems.vue';
+import ItemRecommendations from '@/components/item/ItemRecommendations.vue';
 
 import sinon from 'sinon';
 const localVue = createLocalVue();
 
-const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMountNuxt(ItemRecommendedItems, {
+const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMountNuxt(ItemRecommendations, {
   localVue,
   propsData,
   mocks: {
@@ -24,7 +24,7 @@ const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMountNuxt(ItemRe
   }
 });
 
-describe('components/item/ItemRecommendedItems', () => {
+describe('components/item/ItemRecommendations', () => {
   describe('fetch', () => {
     describe('when user is logged in', () => {
       const mocks = { $auth: { loggedIn: true } };
