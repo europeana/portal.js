@@ -9,6 +9,24 @@
 
   @media (min-width: $bp-extraextralarge) {
     font-size: 1vw;
+
+    header {
+      .col {
+        margin-bottom: 2.5em;
+      }
+    }
+
+    h1 {
+      font-size: 2.5vw;
+    }
+  }
+
+  .context-label {
+    font-size: $font-size-small;
+
+    @media (min-width: $bp-extraextralarge) {
+      font-size: 1vw;
+    }
   }
 }
 
@@ -23,15 +41,15 @@
     }
 
     @media (min-width: $bp-extraextralarge) {
-      flex: 0 0 calc(100% / 4 - #{1em * 2});
-      margin: 0 1em 1em;
+      flex: 0 0 calc(100% / 4 - #{1rem * 2});
+      margin: 0 1rem 2em;
     }
   }
 
   &.card-deck-3-cols .card {
     @media (min-width: $bp-extraextralarge) {
-      flex: 0 0 calc(100% / 3 - #{1em * 2});
-      margin: 0 1em 1em;
+      flex: 0 0 calc(100% / 3 - #{1rem * 2});
+      margin: 0 1rem 2em;
     }
   }
 
@@ -53,7 +71,7 @@
       }
 
       .card-body {
-        padding: 1em;
+        padding: 2em;
       }
 
       .card-title {

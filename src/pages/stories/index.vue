@@ -125,18 +125,11 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables';
-
   .page {
-    background-color: white;
+    background-color: white; // TODO: make this more generic when more and more pages get a white background
     padding-bottom: 1rem;
     padding-top: 1rem;
     margin-top: -1rem;
   }
-
-  .context-label {
-    font-size: $font-size-small;
-  }
-
 </style>
 
