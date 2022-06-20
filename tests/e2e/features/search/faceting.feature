@@ -67,7 +67,7 @@ Feature: Search faceting
     And I enter "The European Library" in the `side facet dropdown search input`
     And I click the `The European Library PROVIDER field`
     And I don't have a `loading spinner`
-    Then I should be on `/en/search?page=1&qf=PROVIDER%3A%22National%20Library%20of%20Spain%22`
+    Then I should be on `/en/search?page=1&qf=PROVIDER%3A%22The%20European%20Library%22`
 
   Scenario: Filtering results by two countries
     Given I am on the `search page`
