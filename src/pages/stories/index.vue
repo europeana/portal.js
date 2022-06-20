@@ -1,41 +1,37 @@
 <template>
   <div
-    class="page"
+    v-if="$features.newStoriesPage"
+    class="page gridless-container"
   >
+    <ContentHeader
+      :title="pageTitle"
+    />
     <div
-      v-if="$features.newStoriesPage"
-      class="gridless-container"
+      class="mb-4 context-label"
     >
-      <ContentHeader
-        :title="pageTitle"
-      />
-      <div
-        class="mb-4 context-label"
-      >
-        {{ $tc('items.itemCount', total, { count: total }) }}
-      </div>
-      <b-card-group
-        class="card-deck-4-cols gridless-browse-cards"
-        deck
-      >
-        <ContentCard
-          v-for="(entry, index) in stories"
-          :key="index"
-          :title="entry.name"
-          :url="entryUrl(entry)"
-          :image-url="entry.primaryImageOfPage && entry.primaryImageOfPage.image.url"
-          :image-content-type="entry.primaryImageOfPage && entry.primaryImageOfPage.image.contentType"
-        />
-      </b-card-group>
-      <PaginationNav
-        :per-page="perPage"
-        :total-results="total"
-      />
+      {{ $tc('items.itemCount', total, { count: total }) }}
     </div>
-    <IndexPage
-      v-else
+    <b-card-group
+      class="card-deck-4-cols gridless-browse-cards"
+      deck
+    >
+      <ContentCard
+        v-for="(entry, index) in stories"
+        :key="index"
+        :title="entry.name"
+        :url="entryUrl(entry)"
+        :image-url="entry.primaryImageOfPage && entry.primaryImageOfPage.image.url"
+        :image-content-type="entry.primaryImageOfPage && entry.primaryImageOfPage.image.contentType"
+      />
+    </b-card-group>
+    <PaginationNav
+      :per-page="perPage"
+      :total-results="total"
     />
   </div>
+  <IndexPage
+    v-else
+  />
 </template>
 
 <script>

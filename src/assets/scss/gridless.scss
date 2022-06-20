@@ -31,25 +31,32 @@
 }
 
 .gridless-browse-cards {
-  &.card-deck-4-cols .card {
-    @media (min-width: $bp-large) {
-      flex: 0 0 calc(100% / 3 - #{$grid-gutter * 2});
-    }
-
-    @media (min-width: $bp-extralarge) {
-      flex: 0 0 calc(100% / 4 - #{$grid-gutter * 2});
-    }
-
+  &.card-deck-4-cols {
     @media (min-width: $bp-extraextralarge) {
-      flex: 0 0 calc(100% / 4 - #{1rem * 2});
-      margin: 0 1rem 2em;
+      margin-left: -1em;
+      margin-right: -1em;
+    }
+
+    .card {
+      @media (min-width: $bp-large) {
+        flex: 0 0 calc(100% / 3 - #{$grid-gutter * 2});
+      }
+
+      @media (min-width: $bp-extralarge) {
+        flex: 0 0 calc(100% / 4 - #{$grid-gutter * 2});
+      }
+
+      @media (min-width: $bp-extraextralarge) {
+        flex: 0 0 calc(100% / 4 - #{1em * 2});
+        margin: 0 1em 2em;
+      }
     }
   }
 
   &.card-deck-3-cols .card {
     @media (min-width: $bp-extraextralarge) {
-      flex: 0 0 calc(100% / 3 - #{1rem * 2});
-      margin: 0 1rem 2em;
+      flex: 0 0 calc(100% / 3 - #{1em * 2});
+      margin: 0 1em 2em;
     }
   }
 
@@ -68,10 +75,11 @@
     @media (min-width: $bp-extraextralarge) {
       .card-subtitle {
         font-size: 0.875em;
+        margin-bottom: 0.75em;
       }
 
       .card-body {
-        padding: 2em;
+        padding: 1.5em;
       }
 
       .card-title {
