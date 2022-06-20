@@ -102,7 +102,7 @@
           :dc-type="title"
           :dc-subject="metadata.dcSubject"
           :dc-creator="metadata.dcCreator"
-          :edm-data-provider="metadata.edmDataProvider.value"
+          :edm-data-provider="metadata.edmDataProvider ? metadata.edmDataProvider.value : null"
         />
         <b-row class="footer-margin" />
       </b-container>
@@ -123,6 +123,7 @@
   import isEmpty from 'lodash/isEmpty';
   import { mapGetters } from 'vuex';
 
+  import ItemHero from '@/components/item/ItemHero';
   import ItemRecommendations from '@/components/item/ItemRecommendations';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import MetadataBox from '@/components/item/MetadataBox';
@@ -135,7 +136,7 @@
     name: 'ItemPage',
     components: {
       AlertMessage: () => import('@/components/generic/AlertMessage'),
-      ItemHero: () => import('@/components/item/ItemHero'),
+      ItemHero,
       ItemLanguageSelector: () => import('@/components/item/ItemLanguageSelector'),
       ItemRecommendations,
       LoadingSpinner,
@@ -159,7 +160,7 @@
         description: null,
         error: null,
         fromTranslationError: null,
-        identifier: null,
+        identifier: `/${this.$route.params.pathMatch}`,
         isShownAt: null,
         media: [],
         metadata: {},
@@ -175,7 +176,6 @@
 
     async fetch() {
       try {
-        this.identifier = `/${this.$route.params.pathMatch}`;
         const response = await this.$apis.record.getRecord(
           this.identifier,
           { locale: this.$i18n.locale, metadataLanguage: this.$route.query.lang }
