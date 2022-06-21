@@ -253,16 +253,4 @@ describe('pages/item/_.vue', () => {
       expect(alertMessage.exists()).toBe(true);
     });
   });
-
-  // describe('when related entities are found', () => {
-  //   it('renders related entities', async() => {
-  //     const wrapper = factory();
-
-  //     await wrapper.vm.fetch();
-
-  //     const relatedEntities = wrapper.find('[data-qa="related entities container"]');
-
-  //     expect(relatedEntities.exists()).toBe(true);
-  //   });
-  // });
 });
