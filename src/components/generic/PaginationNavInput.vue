@@ -9,7 +9,7 @@
       class="pl-0 d-flex justify-content-center"
     >
       <li
-        :class="{ 'disabled' : prevDisabled}"
+        :class="{ 'disabled' : prevDisabled }"
         class="page-item btn-prev pl-0"
         data-qa="prev button"
       >
@@ -39,7 +39,7 @@
         /> {{ $t('of') }} {{ totalPages }}
       </li>
       <li
-        :class="{ 'disabled' : nextDisabled}"
+        :class="{ 'disabled' : nextDisabled }"
         class="page-item btn-next pr-0"
         data-qa="next button"
       >

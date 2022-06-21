@@ -24,12 +24,6 @@ const factory = (options = {}) => shallowMount(PaginationNavInput, {
 describe('components/generic/PaginationNavInput', () => {
   afterEach(sinon.resetHistory);
 
-  it('shows pagination for number of pages', async() => {
-    const wrapper = factory();
-    await wrapper.setProps({ totalResults: 240, perPage: 24 });
-
-    expect(wrapper.vm.totalPages).toBe(10);
-  });
 
   it('disables the previous button on first page', async() => {
     const wrapper = factory();
@@ -55,14 +49,40 @@ describe('components/generic/PaginationNavInput', () => {
     expect(nextButton.attributes().class).toContain('disabled');
   });
 
-  it('watches the route for changes to the page', async() => {
-    const wrapper = factory();
-    await wrapper.setProps({ totalResults: 240, perPage: 24 });
+  describe('computed', () => {
+    describe('totalPages', () => {
+      it('calculates total number of pages', async() => {
+        const wrapper = factory();
+        await wrapper.setProps({ totalResults: 240, perPage: 24 });
 
-    wrapper.vm.$route.query.page = 5;
-    await new Promise(process.nextTick);
+        expect(wrapper.vm.totalPages).toBe(10);
+      });
+    });
+  });
 
-    expect(wrapper.vm.page).toBe(5);
+  describe('watch', () => {
+    describe('$route.query.page', () => {
+      it('updates the page data property', async() => {
+        const wrapper = factory();
+        await wrapper.setProps({ totalResults: 240, perPage: 24 });
+
+        wrapper.vm.$route.query.page = 5;
+        await wrapper.vm.$nextTick;
+
+        expect(wrapper.vm.page).toBe(5);
+      });
+
+      it('defaults the page data property to 1', async() => {
+        const wrapper = factory();
+        await wrapper.setProps({ totalResults: 240, perPage: 24 });
+
+        wrapper.vm.$route.query.page = undefined;
+        await wrapper.vm.$nextTick;
+
+        expect(wrapper.vm.page).toBe(1);
+      });
+
+    });
   });
 
   describe('methods', () => {
