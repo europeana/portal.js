@@ -12,6 +12,7 @@ localVue.use(BootstrapVue);
 
 const record = {
   identifier: '/123/abc',
+  concepts: [{ 'about': 'http://data.europeana.eu/concept/base/47', 'prefLabel': { 'en': ['Painting'] } }],
   metadata: {
     edmCountry: ['Netherlands'],
     edmDataProvider: {
@@ -24,39 +25,16 @@ const record = {
 };
 
 const store = new Vuex.Store({
-  state: {
-    entity: {
-      curatedEntities: [
-        {
-          name: 'World War I',
-          nameEN: 'World War I',
-          identifier: 'http://data.europeana.eu/concept/base/83',
-          genre: 'ww1'
-        },
-        {
-          name: 'Manuscripts',
-          nameEN: 'Manuscripts',
-          identifier: 'http://data.europeana.eu/concept/base/17',
-          genre: 'manuscript'
-        }
-      ]
-    },
-    auth: {
-      user: null
-    }
-  },
   getters: {
-    'entity/isPinned': () => () => false,
-    'http/canonicalUrl': () => () => null,
-    'set/isLiked': () => () => null
+    'http/canonicalUrl': () => () => null
   }
 });
 
 const factory = ({ mocks = {} } = {}) => shallowMountNuxt(page, {
   localVue,
-  stubs: ['client-only'],
+  stubs: ['client-only', 'i18n'],
   mocks: {
-    $features: {},
+    $features: { translatedItems: true },
     $pageHeadTitle: key => key,
     $route: {
       params: { pathMatch: '123/abc' },
@@ -64,7 +42,8 @@ const factory = ({ mocks = {} } = {}) => shallowMountNuxt(page, {
     },
     $t: key => key,
     $i18n: {
-      locale: 'en'
+      locale: 'en',
+      locales: ['en']
     },
     $auth: {
       loggedIn: false
@@ -81,7 +60,7 @@ const factory = ({ mocks = {} } = {}) => shallowMountNuxt(page, {
         search: sinon.spy()
       }
     },
-    $fetchState: {},
+    $fetchState: mocks.fetchState || {},
     $matomo: {
       trackPageView: sinon.spy()
     },
@@ -264,4 +243,26 @@ describe('pages/item/_.vue', () => {
       expect(headMeta.find(meta => meta.property === 'og:image').content).toBe(thumbnailUrl);
     });
   });
+
+  describe('when fetch errors', () => {
+    it('renders an alert message', () => {
+      const wrapper = factory({ mocks: { fetchState: { error: { message: 'Error message' } } } });
+
+      const alertMessage = wrapper.find('[data-qa="alert message container"]');
+
+      expect(alertMessage.exists()).toBe(true);
+    });
+  });
+
+  // describe('when related entities are found', () => {
+  //   it('renders related entities', async() => {
+  //     const wrapper = factory();
+
+  //     await wrapper.vm.fetch();
+
+  //     const relatedEntities = wrapper.find('[data-qa="related entities container"]');
+
+  //     expect(relatedEntities.exists()).toBe(true);
+  //   });
+  // });
 });
