@@ -49,9 +49,11 @@
             </b-card-text>
             <span class="line pb-4" />
             <b-button
+              ref="slideLink"
               variant="outline-overlay"
               :to="slide.url"
               class="slide-link swiper-no-swiping"
+              :data-qa="`slide link ${i}`"
               @focus="swiper.slideTo(i)"
             >
               {{ $t('explore') }}
@@ -121,7 +123,8 @@
             scale: 1
           },
           on: {
-            afterInit: this.swiperOnAfterInit
+            afterInit: this.swiperOnAfterInit,
+            activeIndexChange: this.setFocusOnActiveSlideLink
           }
         }
       };
@@ -133,6 +136,9 @@
     },
 
     methods: {
+      setFocusOnActiveSlideLink() {
+        this.$refs.slideLink[this.swiper.activeIndex].focus();
+      },
       imageCSSVars(image) {
         if (urlIsContentfulAsset(image.url)) {
           return {

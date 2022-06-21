@@ -172,7 +172,8 @@
   font-weight: 700;
   padding: 0.5em 0.75em;
 
-  &:hover {
+  &:hover,
+  &:focus {
     border-color: $innovationblue-dark;
     background: $blue-20;
     color: $innovationblue-dark;
@@ -320,7 +321,8 @@
   color: $white;
   transition: $standard-transition;
 
-  &:hover {
+  &:hover,
+  &:focus {
     border-color: $innovationblue;
     color: $innovationblue;
     transition: $standard-transition;
