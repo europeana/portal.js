@@ -80,9 +80,6 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
       },
       entityManagement: {
         get: sinon.stub().resolves({})
-      },
-      record: {
-        relatedEntities: sinon.stub().resolves({})
       }
     },
     $i18n: {

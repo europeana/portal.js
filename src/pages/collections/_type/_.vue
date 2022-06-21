@@ -127,8 +127,6 @@
     data() {
       return {
         page: null,
-        // TODO: is this used?
-        relatedEntities: null,
         showRelated: false,
         themes: themes.map(theme => theme.id)
       };
