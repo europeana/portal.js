@@ -60,7 +60,7 @@ const factory = ({ mocks = {} } = {}) => shallowMountNuxt(page, {
         search: sinon.spy()
       }
     },
-    $fetchState: mocks.fetchState || {},
+    $fetchState: {},
     $matomo: {
       trackPageView: sinon.spy()
     },
@@ -246,7 +246,7 @@ describe('pages/item/_.vue', () => {
 
   describe('when fetch errors', () => {
     it('renders an alert message', () => {
-      const wrapper = factory({ mocks: { fetchState: { error: { message: 'Error message' } } } });
+      const wrapper = factory({ mocks: { $fetchState: { error: { message: 'Error message' } } } });
 
       const alertMessage = wrapper.find('[data-qa="alert message container"]');
 
