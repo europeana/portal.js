@@ -5,23 +5,27 @@ import ItemRecommendations from '@/components/item/ItemRecommendations.vue';
 import sinon from 'sinon';
 const localVue = createLocalVue();
 
+const recommendedItems = [{ id: 'item001' }];
+
 const factory = ({ propsData = {}, mocks = {} } = {}) => shallowMountNuxt(ItemRecommendations, {
   localVue,
   propsData,
   mocks: {
     $apis: {
       recommendation: {
-        recommend: sinon.stub().resolves({ items: [] })
+        recommend: sinon.stub().resolves({ items: recommendedItems })
       },
       record: {
-        search: sinon.stub().resolves({ items: [] })
+        search: sinon.stub().resolves({ items: recommendedItems })
       }
     },
     $auth: {},
     $fetchState: {},
     $i18n: { locale: 'en' },
+    $t: key => key,
     ...mocks
-  }
+  },
+  stubs: ['b-row', 'b-col']
 });
 
 describe('components/item/ItemRecommendations', () => {
