@@ -126,9 +126,9 @@ export function normalizeEntityId(id) {
 export function getEntityQuery(uri) {
   let entityQuery;
 
-  if (uri.includes('/concept/base/')) {
+  if (uri.includes('/concept/')) {
     entityQuery = `skos_concept:"${uri}"`;
-  } else if (uri.includes('/agent/base/')) {
+  } else if (uri.includes('/agent/')) {
     entityQuery = `edm_agent:"${uri}"`;
   } else if (uri.includes('/timespan/')) {
     entityQuery = `edm_timespan:"${uri}"`;
