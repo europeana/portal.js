@@ -247,11 +247,11 @@
         background-image: var(--overlay), var(--bg-img-xxxl, var(--bg-img-small));
       }
 
-      @media (min-width: $bp-xxxl) and (max-width: $bp-huge) {
+      @media (min-width: $bp-xxxl) and (max-width: $bp-wqhd) {
         background-image: var(--overlay), var(--bg-img-huge, var(--bg-img-small));
       }
 
-      @media (min-width: $bp-huge + 1px) {
+      @media (min-width: $bp-wqhd + 1px) {
         background-image: var(--overlay), var(--bg-img-4k, var(--bg-img-small));
       }
     }
