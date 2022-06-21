@@ -24,29 +24,30 @@ const factory = (options = {}) => shallowMount(PaginationNavInput, {
 describe('components/generic/PaginationNavInput', () => {
   afterEach(sinon.resetHistory);
 
+  describe('template', () => {
+    it('disables the previous button on first page', async() => {
+      const wrapper = factory();
+      await wrapper.setProps({ totalResults: 240, perPage: 24 });
 
-  it('disables the previous button on first page', async() => {
-    const wrapper = factory();
-    await wrapper.setProps({ totalResults: 240, perPage: 24 });
+      const prevButton =  wrapper.find('[data-qa="prev button"]');
+      expect(prevButton.attributes().class).toContain('disabled');
+    });
 
-    const prevButton =  wrapper.find('[data-qa="prev button"]');
-    expect(prevButton.attributes().class).toContain('disabled');
-  });
-
-  it('disables the next button on last page', async() => {
-    const wrapper = factory({
-      mocks: {
-        $route: {
-          query: {
-            page: 10
+    it('disables the next button on last page', async() => {
+      const wrapper = factory({
+        mocks: {
+          $route: {
+            query: {
+              page: 10
+            }
           }
         }
-      }
-    });
-    await wrapper.setProps({ totalResults: 240, perPage: 24 });
+      });
+      await wrapper.setProps({ totalResults: 240, perPage: 24 });
 
-    const nextButton =  wrapper.find('[data-qa="next button"]');
-    expect(nextButton.attributes().class).toContain('disabled');
+      const nextButton =  wrapper.find('[data-qa="next button"]');
+      expect(nextButton.attributes().class).toContain('disabled');
+    });
   });
 
   describe('computed', () => {
