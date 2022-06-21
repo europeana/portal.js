@@ -2,10 +2,11 @@ query StoriesPage(
   $locale: String!,
   $preview: Boolean = false,
   $limit: Int = 1000,
-  $skip: Int = 0
+  $skip: Int = 0,
+  $query: String = ""
 ) {
-
   blogPostingCollection(
+    where: { name_contains: $query },
     preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit, skip: $skip
   ) {
     total
@@ -20,6 +21,7 @@ query StoriesPage(
     }
   }
   exhibitionPageCollection(
+    where: { name_contains: $query },
     preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit, skip: $skip
   ) {
     total
