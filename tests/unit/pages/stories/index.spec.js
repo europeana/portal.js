@@ -36,6 +36,7 @@ const factory = ({ $features = {}, data = {} } = {}) => shallowMountNuxt(Stories
       newStoriesPage: true,
       ...$features
     },
+    $fetchState: {},
     $i18n: {
       locale: 'en',
       isoLocale: () => 'en-GB'
