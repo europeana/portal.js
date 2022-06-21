@@ -22,9 +22,7 @@ const factory = (options = {}) => shallowMount(PaginationNavInput, {
 });
 
 describe('components/generic/PaginationNavInput', () => {
-  afterEach(() => {
-    sinon.resetHistory();
-  });
+  afterEach(sinon.resetHistory);
 
   it('shows pagination for number of pages', async() => {
     const wrapper = factory();
@@ -65,29 +63,17 @@ describe('components/generic/PaginationNavInput', () => {
     await new Promise(process.nextTick);
 
     expect(wrapper.vm.page).toBe(5);
-    expect(scrollToSpy.called).toBe(true);
   });
 
   describe('methods', () => {
     describe('changePaginationNav()', () => {
-      it('triggers a scroll and redirect to the  new page', async() => {
+      it('triggers a redirect to the new page', async() => {
         const wrapper = factory();
         await wrapper.setProps({ totalResults: 240, perPage: 24 });
         await wrapper.setData({ page: 2 });
 
         wrapper.vm.changePaginationNav();
-        expect(scrollToSpy.called).toBe(true);
         expect(gotoSpy.called).toBe(true);
-      });
-    });
-
-    describe('scrollToElement', () => {
-      it('triggers a scroll', async() => {
-        const wrapper = factory();
-        await wrapper.setProps({ totalResults: 240, perPage: 24 });
-
-        wrapper.vm.scrollToElement();
-        expect(scrollToSpy.called).toBe(true);
       });
     });
 

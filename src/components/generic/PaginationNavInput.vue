@@ -29,13 +29,13 @@
       >
         <b-form-input
           v-model="page"
-          type="number"
-          :number="true"
           :aria-label="$t('pageNumber')"
-          :min="1"
+          :lazy="true"
           :max="totalPages"
+          :min="1"
+          :number="true"
           data-qa="pagination input"
-          @change="changePaginationNav"
+          type="number"
         /> {{ $t('of') }} {{ totalPages }}
       </li>
       <li
@@ -77,10 +77,6 @@
         type: Number,
         default: 0
       },
-      scrollToId: {
-        type: String,
-        default: 'header'
-      },
       maxResults: {
         type: Number,
         default: null
@@ -119,21 +115,15 @@
     watch: {
       '$route.query.page'() {
         this.page = Number(this.$route?.query?.page) || 1;
-        this.scrollToElement();
-      }
+      },
+      page: 'changePaginationNav'
     },
 
     methods: {
       changePaginationNav() {
         const newRouteQuery = {  ...this.$route.query, page: this.page };
         const newRoute = { path: this.$route.path, query: newRouteQuery };
-        // TODO: this isn't scrolling to the right place for the search interface.
-        this.scrollToElement();
         this.$goto(newRoute);
-      },
-
-      scrollToElement() {
-        this.$scrollTo(`#${this.scrollToId}`);
       },
 
       linkGen(pageNo) {

@@ -165,6 +165,8 @@
         throw this.$store.state.search.error;
       }
       this.fetched = true;
+
+      this.$scrollTo && this.$scrollTo('#header');
     },
     computed: {
       ...mapState({
