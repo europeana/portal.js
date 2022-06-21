@@ -82,7 +82,6 @@ describe('components/generic/PaginationNavInput', () => {
 
         expect(wrapper.vm.page).toBe(1);
       });
-
     });
   });
 
