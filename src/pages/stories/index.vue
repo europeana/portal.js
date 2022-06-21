@@ -1,33 +1,59 @@
 <template>
   <div
     v-if="$features.newStoriesPage"
-    class="page gridless-container"
   >
-    <ContentHeader
-      :title="pageTitle"
-    />
+    <b-container
+      v-if="$fetchState.pending"
+      data-qa="loading spinner container"
+    >
+      <b-row class="flex-md-row py-4 text-center">
+        <b-col cols="12">
+          <LoadingSpinner />
+        </b-col>
+      </b-row>
+    </b-container>
+    <b-container
+      v-else-if="$fetchState.error"
+      data-qa="alert message container"
+    >
+      <b-row class="flex-md-row py-4">
+        <b-col cols="12">
+          <AlertMessage
+            :error="$fetchState.error.message"
+          />
+        </b-col>
+      </b-row>
+    </b-container>
     <div
-      class="mb-4 context-label"
+      v-else
+      class="page gridless-container"
     >
-      {{ $tc('items.itemCount', total, { count: total }) }}
-    </div>
-    <b-card-group
-      class="card-deck-4-cols gridless-browse-cards"
-      deck
-    >
-      <ContentCard
-        v-for="(entry, index) in stories"
-        :key="index"
-        :title="entry.name"
-        :url="entryUrl(entry)"
-        :image-url="entry.primaryImageOfPage && entry.primaryImageOfPage.image.url"
-        :image-content-type="entry.primaryImageOfPage && entry.primaryImageOfPage.image.contentType"
+      <ContentHeader
+        :title="pageTitle"
       />
-    </b-card-group>
-    <PaginationNav
-      :per-page="perPage"
-      :total-results="total"
-    />
+      <div
+        class="mb-4 context-label"
+      >
+        {{ $tc('items.itemCount', total, { count: total }) }}
+      </div>
+      <b-card-group
+        class="card-deck-4-cols gridless-browse-cards"
+        deck
+      >
+        <ContentCard
+          v-for="(entry, index) in stories"
+          :key="index"
+          :title="entry.name"
+          :url="entryUrl(entry)"
+          :image-url="entry.primaryImageOfPage && entry.primaryImageOfPage.image.url"
+          :image-content-type="entry.primaryImageOfPage && entry.primaryImageOfPage.image.contentType"
+        />
+      </b-card-group>
+      <PaginationNav
+        :per-page="perPage"
+        :total-results="total"
+      />
+    </div>
   </div>
   <IndexPage
     v-else
@@ -38,14 +64,17 @@
 <script>
   import ContentCard from '@/components/generic/ContentCard';
   import ContentHeader from '@/components/generic/ContentHeader';
+  import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import PaginationNav from '@/components/generic/PaginationNav';
 
   export default {
     name: 'StoriesPage',
 
     components: {
+      AlertMessage: () => import('@/components/generic/AlertMessage'),
       ContentCard,
       ContentHeader,
+      LoadingSpinner,
       IndexPage: () => import('../index'),
       PaginationNav
     },
