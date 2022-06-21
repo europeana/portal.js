@@ -31,6 +31,7 @@
   </div>
   <IndexPage
     v-else
+    slug="stories"
   />
 </template>
 
@@ -53,7 +54,13 @@
       return {
         perPage: 18,
         stories: [],
-        total: 0
+        total: 0,
+        // TODO: following four properties required when rendering IndexPage as
+        //       a child component; remove when new stories page is launched.
+        browsePage: false,
+        staticPage: false,
+        page: {},
+        identifier: null
       };
     },
 
@@ -128,4 +135,3 @@
     margin-top: -1rem;
   }
 </style>
-

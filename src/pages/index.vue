@@ -61,18 +61,26 @@
       StaticPage
     },
 
+    props: {
+      slug: {
+        type: String,
+        default: null
+      }
+    },
+
     data() {
       return {
         browsePage: false,
         staticPage: false,
-        page: {}
+        page: {},
+        // TODO: clean up when new home is enabled
+        identifier: this.slug || this.$route.params.pathMatch || 'home'
       };
     },
 
     async fetch() {
       const variables = {
-        // TODO: clean up when new home is enabled
-        identifier: this.$route.params.pathMatch ? this.$route.params.pathMatch : 'home',
+        identifier: this.identifier,
         locale: this.$i18n.isoLocale(),
         preview: this.$route.query.mode === 'preview'
       };
