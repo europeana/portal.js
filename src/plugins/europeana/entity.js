@@ -128,7 +128,7 @@ export function getEntityQuery(uri) {
 
   // TODO this baseless/infixed stuff will be redundant once no URIs have /base/
   const uriVariants = baseVariantEntityUris(uri);
-  const uriVariantsQuery = `("${uriVariants.join('" OR "')}")`
+  const uriVariantsQuery = `("${uriVariants.join('" OR "')}")`;
 
   if (uri.includes('/concept/')) {
     entityQuery = `skos_concept:${uriVariantsQuery}`;
