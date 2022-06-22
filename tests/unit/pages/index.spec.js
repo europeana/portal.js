@@ -12,7 +12,7 @@ const heroImageUrl = 'http://example.org/contentful/asset.jpg';
 const socialMediaImageUrl = 'https://example.org/social-media-image.jpg';
 
 const factory = ({
-  $route = {}, data = {}, contentfulQueryResponse = { data: { data: {} } }
+  $route = { params: {} }, data = {}, contentfulQueryResponse = { data: { data: {} } }
 } = {}) => shallowMountNuxt(page, {
   localVue,
   data() {

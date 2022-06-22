@@ -87,6 +87,8 @@
     "postcss-html": "^1.2.0",
     "postcss-scss": "^4.0.2",
     "properties-reader": "^2.2.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "sass": "^1.44.0",
     "sass-loader": "^10.0.0",
     "sinon": "^13.0.1",
