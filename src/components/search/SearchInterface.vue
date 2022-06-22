@@ -81,13 +81,11 @@
         </b-row>
         <b-row>
           <b-col>
-            <client-only>
-              <PaginationNav
-                :total-results="totalResults"
-                :per-page="perPage"
-                :max-results="1000"
-              />
-            </client-only>
+            <PaginationNavInput
+              :total-results="totalResults"
+              :per-page="perPage"
+              :max-results="1000"
+            />
           </b-col>
         </b-row>
       </b-col>
@@ -96,7 +94,6 @@
 </template>
 
 <script>
-  import ClientOnly from 'vue-client-only';
   import ItemPreviewCardGroup from '../item/ItemPreviewCardGroup'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
   import InfoMessage from '../generic/InfoMessage';
   import ViewToggles from './ViewToggles';
@@ -110,12 +107,11 @@
 
     components: {
       AlertMessage: () => import('../generic/AlertMessage'),
-      ClientOnly,
       SearchResultsContext: () => import('./SearchResultsContext'),
       InfoMessage,
       ItemPreviewCardGroup,
       LoadingSpinner: () => import('../generic/LoadingSpinner'),
-      PaginationNav: () => import('../generic/PaginationNav'),
+      PaginationNavInput: () => import('../generic/PaginationNavInput'),
       ViewToggles
     },
     mixins: [
@@ -165,6 +161,8 @@
         throw this.$store.state.search.error;
       }
       this.fetched = true;
+
+      this.$scrollTo && this.$scrollTo('#header');
     },
     computed: {
       ...mapState({
