@@ -83,7 +83,7 @@ describe('components/entity/EntityRelatedCollections', () => {
 
       it('queries Record API for related collections', async() => {
         const wrapper = factory({ propsData, responses });
-        const entityQuery = `skos_concept:("${infixedUri}" OR "${uri}")`
+        const entityQuery = `skos_concept:("${infixedUri}" OR "${uri}")`;
 
         await wrapper.vm.fetch();
 

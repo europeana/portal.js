@@ -416,7 +416,7 @@ describe('plugins/europeana/entity', () => {
 
     describe('when entity is an agent', () => {
       const uri = 'http://data.europeana.eu/agent/12345';
-      const infixedUri = 'http://data.europeana.eu/agent/base/12345'
+      const infixedUri = 'http://data.europeana.eu/agent/base/12345';
       it('queries on edm_agent', () => {
         expect(getEntityQuery(uri)).toBe(`edm_agent:("${infixedUri}" OR "${uri}")`);
       });
