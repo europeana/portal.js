@@ -49,7 +49,7 @@
           :image-content-type="entry.primaryImageOfPage && entry.primaryImageOfPage.image.contentType"
         />
       </b-card-group>
-      <PaginationNav
+      <PaginationNavInput
         :per-page="perPage"
         :total-results="total"
       />
@@ -65,7 +65,7 @@
   import ContentCard from '@/components/generic/ContentCard';
   import ContentHeader from '@/components/generic/ContentHeader';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
-  import PaginationNav from '@/components/generic/PaginationNav';
+  import PaginationNavInput from '@/components/generic/PaginationNavInput';
 
   export default {
     name: 'StoriesPage',
@@ -76,7 +76,7 @@
       ContentHeader,
       LoadingSpinner,
       IndexPage: () => import('../index'),
-      PaginationNav
+      PaginationNavInput
     },
 
     data() {
