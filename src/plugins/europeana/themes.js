@@ -49,6 +49,7 @@ export const withEditorialContent = async({ $store, $i18n, $route, $contentful }
       // return curatedEntity.identifier === theme.id;
       // TODO: this next line will be redundant once no URIs contain /base/
       return curatedEntity.identifier.includes('/concept/') &&
+        theme.id.includes('/concept/') &&
         curatedEntity.identifier.endsWith(`/${theme.id.split('/').pop()}`);
     }) || {};
     const override = {};
