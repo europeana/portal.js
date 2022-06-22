@@ -906,6 +906,9 @@ export default {
       }
     }
   },
+  "pagination": {
+    "label": "Pagination"
+  },
   "readMore": "Read more",
   "recommendation": {
     "prompts": {

@@ -1,7 +1,7 @@
 <template>
   <nav
     aria-hidden="false"
-    aria-label="Pagination"
+    :aria-label="$t('pagination.label')"
     data-qa="pagination navigation"
     class="pagination-nav-input"
   >
