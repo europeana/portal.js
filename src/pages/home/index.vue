@@ -33,6 +33,7 @@
     </div>
     <IndexPage
       v-else
+      slug="home"
     />
   </div>
 </template>
@@ -60,7 +61,13 @@
 
     data() {
       return {
-        sections: []
+        sections: [],
+        // TODO: following four properties required when rendering IndexPage as
+        //       a child component; remove when new home page is launched.
+        browsePage: false,
+        staticPage: false,
+        page: {},
+        identifier: null
       };
     },
 

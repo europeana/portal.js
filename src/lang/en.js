@@ -1009,6 +1009,9 @@ export default {
     "liked": "Liked",
     "pinned": "Pinned"
   },
+  "storiesPage": {
+    "title": "Stories"
+  },
   "website": "Website",
   "youMightAlsoLike": "You might also like"
 };
