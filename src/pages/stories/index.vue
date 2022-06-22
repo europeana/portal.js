@@ -31,6 +31,10 @@
       <ContentHeader
         :title="pageTitle"
       />
+      <BlogTags
+        v-if="tags.length > 0"
+        :tags="tags"
+      />
       <div
         class="mb-4 context-label"
       >
@@ -62,6 +66,8 @@
 </template>
 
 <script>
+  import uniq from 'lodash/uniq';
+  import BlogTags from '@/components/blog/BlogTags';
   import ContentCard from '@/components/generic/ContentCard';
   import ContentHeader from '@/components/generic/ContentHeader';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
@@ -72,6 +78,7 @@
 
     components: {
       AlertMessage: () => import('@/components/generic/AlertMessage'),
+      BlogTags,
       ContentCard,
       ContentHeader,
       LoadingSpinner,
@@ -83,6 +90,7 @@
       return {
         perPage: 18,
         stories: [],
+        tags: [],
         total: 0,
         // TODO: following four properties required when rendering IndexPage as
         //       a child component; remove when new stories page is launched.
@@ -119,14 +127,17 @@
     },
 
     watch: {
-      '$route.query.page': 'fetchContentfulEntries'
+      '$route.query.page': 'fetchContentfulEntries',
+      '$route.query.tag': 'fetchContentfulEntries'
     },
 
     methods: {
       async fetchContentfulEntries() {
         const variables = {
           locale: this.$i18n.isoLocale(),
-          preview: this.$route.query.mode === 'preview'
+          preview: this.$route.query.mode === 'preview',
+          tag: this.$route.query.tag,
+          withTags: !!this.$route.query.tag
         };
         const response = await this.$contentful.query('storiesPage', variables);
 
@@ -134,10 +145,13 @@
         const sliceFrom = (page - 1) * this.perPage;
         const sliceTo = sliceFrom + this.perPage;
 
-        const stories = response.data.data.blogPostingCollection.items
-          .concat(response.data.data.exhibitionPageCollection.items)
+        const stories = Object.values(response.data.data)
+          .reduce((memo, collection) => memo.concat(collection.items || []), [])
           .sort((a, b) => (new Date(b.datePublished)).getTime() - (new Date(a.datePublished)).getTime());
+
         this.total = stories.length;
+        this.tags = uniq(stories.reduce((memo, story) => memo.concat(story.keywords || []), []))
+          .sort((a, b) => a.trim().toLowerCase().localeCompare(b.trim().toLowerCase()));
         this.stories = stories.slice(sliceFrom, sliceTo);
       },
 

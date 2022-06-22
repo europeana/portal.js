@@ -12,6 +12,7 @@
           v-for="(tag, index) in tags"
           :key="index"
           variant="outline-light"
+          :to="$path({ name: 'stories', query: { tag } })"
         >
           {{ tag }}
         </b-badge>

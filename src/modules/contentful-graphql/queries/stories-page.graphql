@@ -3,37 +3,29 @@ query StoriesPage(
   $preview: Boolean = false,
   $limit: Int = 1000,
   $skip: Int = 0,
-  $query: String = ""
+  $query: String = "",
+  $tag: String = null,
+  $withTags: Boolean = false
 ) {
   blogPostingCollection(
     where: { name_contains: $query },
     preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit, skip: $skip
-  ) {
-    total
-    items {
-      __typename
-      identifier
-      name
-      datePublished
-      primaryImageOfPage {
-        ...imageWithAttributionFields
-      }
-    }
+  ) @skip(if: $withTags) {
+    ...blogPostingCollectionFields
   }
+
+  taggedBlogPostingCollection: blogPostingCollection(
+    preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit, skip: $skip,
+    where: { keywords_contains_all: [$tag] }
+  ) @include(if: $withTags) {
+    ...blogPostingCollectionFields
+  }
+
   exhibitionPageCollection(
     where: { name_contains: $query },
     preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit, skip: $skip
-  ) {
-    total
-    items {
-      __typename
-      identifier
-      name
-      datePublished
-      primaryImageOfPage {
-        ...imageWithAttributionFields
-      }
-    }
+  ) @skip(if: $withTags) {
+    ...exhibitionPageCollectionFields
   }
 }
 
@@ -41,5 +33,32 @@ fragment imageWithAttributionFields on ImageWithAttribution {
   image {
     url
     contentType
+  }
+}
+
+fragment blogPostingCollectionFields on BlogPostingCollection {
+  total
+  items {
+    __typename
+    identifier
+    name
+    datePublished
+    primaryImageOfPage {
+      ...imageWithAttributionFields
+    }
+    keywords
+  }
+}
+
+fragment exhibitionPageCollectionFields on ExhibitionPageCollection {
+  total
+  items {
+    __typename
+    identifier
+    name
+    datePublished
+    primaryImageOfPage {
+      ...imageWithAttributionFields
+    }
   }
 }
