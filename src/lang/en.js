@@ -43,6 +43,7 @@ export default {
     "pin": "Pin",
     "previous": "Previous",
     "providedBy": "Provided by {provider}",
+    "preview": "Preview",
     "reject": "Reject",
     "save": "Save",
     "send": "Send",
@@ -754,6 +755,7 @@ export default {
     "discoverEditorial": "Discover our stories",
     "download": "download",
     "free": "free",
+    "storiesCTA": "See all our stories",
     "subHeadline": "Find and {download} artworks, photographs, books, manuscripts, newspapers and music from over 4000 museums, archives, galleries, and libraries for {free}.",
     "title": "Discover European cultural heritage"
   },
@@ -1008,6 +1010,9 @@ export default {
   "statuses": {
     "liked": "Liked",
     "pinned": "Pinned"
+  },
+  "storiesPage": {
+    "title": "Stories"
   },
   "website": "Website",
   "youMightAlsoLike": "You might also like"

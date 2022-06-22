@@ -5,6 +5,7 @@ export default [
   { name: 'entityManagement' },
   { name: 'jiraServiceDeskFeedbackForm' },
   { name: 'newHomepage' },
+  { name: 'newStoriesPage' },
   { name: 'rejectEntityRecommendations' },
   { name: 'translatedItems' }
 ];

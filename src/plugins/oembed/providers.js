@@ -49,6 +49,13 @@ export default [
     ]
   },
   {
+    name: 'WEAVE',
+    endpoint: 'https://weave-3dviewer.com/api/core/v1/oembed',
+    schemes: [
+      'https://weave-3dviewer.com/asset/*'
+    ]
+  },
+  {
     name: 'YouTube',
     endpoint: 'https://www.youtube.com/oembed',
     schemes: [
