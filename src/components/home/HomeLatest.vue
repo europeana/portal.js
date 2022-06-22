@@ -1,7 +1,7 @@
 <template>
   <section
     v-if="cards.length > 0"
-    class="container-fluid text-center"
+    class="gridless-container text-center"
     data-qa="latest editorial"
   >
     <h2>
@@ -15,7 +15,7 @@
       {{ $t('homePage.storiesCTA') }}
     </b-button>
     <b-card-group
-      class="mt-3 card-deck-3-cols justify-content-center"
+      class="mt-3 card-deck-3-cols justify-content-center gridless-browse-cards"
       deck
     >
       <!-- TODO: use/add image alt description -->
@@ -104,40 +104,5 @@
 
   .card-deck {
     flex-flow: row wrap;
-  }
-
-  ::v-deep .content-card {
-    min-height: 0;
-
-    .card-title {
-      display: block;
-      -webkit-line-clamp: none;
-    }
-
-    @media (min-width: $bp-small) {
-      max-width: 400px; /* gallery thumbnails are 400px wide */
-    }
-
-    @media (min-width: $bp-extraextralarge) {
-      .card-subtitle {
-        font-size: 0.75vw;
-      }
-
-      .card-body {
-        padding: 2rem;
-      }
-
-      .card-title {
-        font-size: 1vw;
-        line-height: 1.1875vw;
-        max-height: none;
-        overflow: none;
-      }
-
-      .card-img {
-        min-height: 25rem;
-        max-height: 25rem;
-      }
-    }
   }
 </style>

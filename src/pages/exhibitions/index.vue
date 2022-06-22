@@ -30,8 +30,7 @@
     </b-row>
     <b-row>
       <b-col>
-        <PaginationNav
-          :limit="perPage"
+        <PaginationNavInput
           :total-results="total"
           :per-page="perPage"
         />
@@ -43,7 +42,7 @@
 <script>
   import ContentHeader from '../../components/generic/ContentHeader';
   import ContentCard from '../../components/generic/ContentCard';
-  import PaginationNav from '../../components/generic/PaginationNav';
+  import PaginationNavInput from '../../components/generic/PaginationNavInput';
 
   const PER_PAGE = 20;
 
@@ -52,7 +51,7 @@
     components: {
       ContentHeader,
       ContentCard,
-      PaginationNav
+      PaginationNavInput
     },
     beforeRouteLeave(to, from, next) {
       this.$store.commit('breadcrumb/clearBreadcrumb');

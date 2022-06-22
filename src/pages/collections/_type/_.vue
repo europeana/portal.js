@@ -127,7 +127,6 @@
     data() {
       return {
         page: null,
-        relatedEntities: null,
         showRelated: false,
         themes: themes.map(theme => theme.id)
       };

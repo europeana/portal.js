@@ -61,6 +61,7 @@ const factory = () => shallowMountNuxt(page, {
     $pageHeadTitle: key => key,
     $t: key => key,
     $tc: key => key,
+    $route: { query: null },
     $i18n: {
       locale: () => 'en'
     },
