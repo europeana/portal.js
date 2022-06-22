@@ -106,6 +106,7 @@
         return;
       }
       await this.fetchContentfulEntries();
+      this.$scrollTo && this.$scrollTo('#header');
     },
 
     head() {
@@ -127,8 +128,8 @@
     },
 
     watch: {
-      '$route.query.page': 'fetchContentfulEntries',
-      '$route.query.tag': 'fetchContentfulEntries'
+      '$route.query.page': '$fetch',
+      '$route.query.tag': '$fetch'
     },
 
     methods: {

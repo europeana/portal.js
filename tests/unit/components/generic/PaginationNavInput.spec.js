@@ -6,7 +6,6 @@ import sinon from 'sinon';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const scrollToSpy = sinon.spy();
 const gotoSpy = sinon.spy();
 
 const factory = (options = {}) => shallowMount(PaginationNavInput, {
@@ -15,7 +14,6 @@ const factory = (options = {}) => shallowMount(PaginationNavInput, {
     ...{
       $t: () => {},
       $route: { query: { page: 1 } },
-      $scrollTo: scrollToSpy,
       $goto: gotoSpy
     }, ...(options.mocks || {})
   }
