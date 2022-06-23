@@ -41,6 +41,7 @@ export default {
     "move": "Move",
     "next": "Next",
     "pin": "Pin",
+    "previous": "Previous",
     "providedBy": "Provided by {provider}",
     "preview": "Preview",
     "reject": "Reject",
@@ -876,12 +877,14 @@ export default {
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
   "noResults": "No results",
+  "of": "Of",
   "organisation": {
     "city": "City",
     "country": "Country",
     "nameAcronym": "Name acronym"
   },
   "pageHasLoaded": "has loaded",
+  "pageNumber": "Page number",
   "pages": {
     "collections": {
       "organisations": {
@@ -903,6 +906,9 @@ export default {
         "title": "Topics"
       }
     }
+  },
+  "pagination": {
+    "label": "Pagination"
   },
   "readMore": "Read more",
   "recommendation": {
