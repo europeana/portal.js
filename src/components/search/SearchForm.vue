@@ -509,7 +509,7 @@
       overflow: hidden;
       animation: appear 750ms ease-in-out;
 
-      @media (min-width: $bp-extraextralarge) {
+      @media (min-width: $bp-xxxl) {
         font-size: 1vw;
       }
     }
@@ -532,7 +532,7 @@
       border-radius: 0.5em;
       width: 100%;
 
-      @media (min-width: $bp-extraextralarge) {
+      @media (min-width: $bp-xxxl) {
         font-size: 1vw;
       }
 
@@ -550,7 +550,7 @@
         justify-content: center;
         align-items: center;
 
-        @media (min-width: $bp-extraextralarge) {
+        @media (min-width: $bp-xxxl) {
           font-size: 1vw;
         }
       }
@@ -566,7 +566,7 @@
         color: $mediumgrey;
         width: 100%;
 
-        @media (min-width: $bp-extraextralarge) {
+        @media (min-width: $bp-xxxl) {
           font-size: 1vw;
         }
       }
@@ -592,7 +592,7 @@
       justify-content: center;
       align-items: center;
 
-      @media (min-width: $bp-extraextralarge) {
+      @media (min-width: $bp-xxxl) {
         font-size: 1.5vw;
       }
     }
@@ -601,7 +601,7 @@
       padding: 1em 1.25em 1em 3.4em;
       font-size: 1rem;
 
-      @media (min-width: $bp-extraextralarge) {
+      @media (min-width: $bp-xxxl) {
         font-size: 1vw;
       }
 
