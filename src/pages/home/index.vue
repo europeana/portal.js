@@ -14,7 +14,8 @@
       <StackedCardsSwiper
         v-if="!$fetchState.pending"
         :slides="swiperThemes"
-        :title="$t('collections.themes')"
+        :title="$t('homePage.themesTitle')"
+        :cta="{ url: $path('/collections'), text: $t('homePage.themesCTA') }"
       />
       <HomeCallToAction
         v-if="callsToAction[1]"
@@ -110,7 +111,8 @@
         return this.allThemes.map(theme => {
           return { title: theme.prefLabel[this.$i18n.locale],
                    description: theme.description[this.$i18n.locale],
-                   url: this.collectionLinkGen(theme) };
+                   url: this.collectionLinkGen(theme),
+                   image: theme.contentfulImage };
         });
       }
     },

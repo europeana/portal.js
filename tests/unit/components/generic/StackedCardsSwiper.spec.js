@@ -9,12 +9,14 @@ localVue.use(BootstrapVue);
 const swiperSlides = [{
   title: 'World War I',
   description: 'Collection of untold stories and official histories of World War I, in a unique blend of cultural heritage collections and personal items contributed by European citizens.',
-  url: '/en/collections/topic/83-world-war-i'
+  url: '/en/collections/topic/83-world-war-i',
+  image: { url: 'https://api.europeana.eu/thumbnail/v2/url.json?size=w400&type=IMAGE&uri=https%3A%2F%2Fwww.rijksmuseum.nl%2Fassetimage2.jsp%3Fid%3DSK-C-214' }
 },
 {
   title: 'Archaeology',
   description: 'Explore all facets of archaeology from European museums, galleries, libraries and archives.',
-  url: '/en/collections/topic/80-archaeology'
+  url: '/en/collections/topic/80-archaeology',
+  image: { url: 'https://images.ctfassets.net/i01duvb6kq77/6g2HPP0JVfFh29Vx5nHPhO/fc1c1f817ef32fc9639013487759b45b/_15512_o_59888' }
 },
 {
   title: 'Art',
@@ -24,6 +26,7 @@ const swiperSlides = [{
 
 const factory = (options = {}) => mount(StackedCardsSwiper, {
   localVue,
+  attachTo: document.body,
   propsData: {
     slides: swiperSlides,
     title: options.title
@@ -46,6 +49,18 @@ describe('components/generic/StackedCardsSwiper', () => {
       const wrapper = factory({ title: 'Slider' });
 
       expect(wrapper.find('h2').text()).toEqual('Slider');
+    });
+  });
+  describe('When active slide changes', () => {
+    it('focus is set on the active\'s slide link', () => {
+      const wrapper = factory();
+
+      wrapper.vm.swiper.activeIndex = 1;
+      wrapper.vm.setFocusOnActiveSlideLink();
+
+      const slideLink = wrapper.find(`[data-qa="slide link ${wrapper.vm.swiper.activeIndex}"]:focus`);
+
+      expect(slideLink.exists()).toBe(true);
     });
   });
 });
