@@ -148,7 +148,7 @@
             '--bg-img-xl': `url('${optimisedSrcForContentfulAsset(image, { w: 300, h: 400, fit: 'fill' })}')`,
             '--bg-img-xxl': `url('${optimisedSrcForContentfulAsset(image, { w: 320, h: 370, fit: 'fill' })}')`,
             '--bg-img-xxxl': `url('${optimisedSrcForContentfulAsset(image, { w: 355, h: 345, fit: 'fill' })}')`,
-            '--bg-img-huge': `url('${optimisedSrcForContentfulAsset(image, { w: 510, h: 540, fit: 'fill' })}')`,
+            '--bg-img-wqhd': `url('${optimisedSrcForContentfulAsset(image, { w: 510, h: 540, fit: 'fill' })}')`,
             '--bg-img-4k': `url('${optimisedSrcForContentfulAsset(image, { w: 700, h: 900, fit: 'fill' })}')`
           };
         } else {
@@ -248,7 +248,7 @@
       }
 
       @media (min-width: $bp-xxxl) and (max-width: $bp-wqhd) {
-        background-image: var(--overlay), var(--bg-img-huge, var(--bg-img-small));
+        background-image: var(--overlay), var(--bg-img-wqhd, var(--bg-img-small));
       }
 
       @media (min-width: $bp-wqhd + 1px) {
