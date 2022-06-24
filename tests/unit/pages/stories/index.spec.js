@@ -63,7 +63,7 @@ describe('pages/stories/index', () => {
         expect(wrapper.vm.$contentful.query.calledWith('storiesPage', {
           locale: 'en-GB',
           preview: false,
-          tag: undefined,
+          tags: [],
           withTags: false
         })).toBe(true);
       });
