@@ -8,6 +8,11 @@ const localVue = createLocalVue();
 const storiesPageContentfulResponse = {
   data: {
     data: {
+      browsePageCollection: {
+        items: [
+          { hasPartCollection: { items: [] } }
+        ]
+      },
       blogPostingCollection: {
         items: [
           { datePublished: '2022-02-12T08:00:00.000+01:00' }
@@ -60,6 +65,7 @@ describe('pages/stories/index', () => {
         await wrapper.vm.fetch();
 
         expect(wrapper.vm.$contentful.query.calledWith('storiesPage', {
+          identifier: 'stories',
           locale: 'en-GB',
           preview: false
         })).toBe(true);
