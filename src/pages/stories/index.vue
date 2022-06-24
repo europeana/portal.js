@@ -66,7 +66,6 @@
 </template>
 
 <script>
-  import uniq from 'lodash/uniq';
   import BlogTags from '@/components/blog/BlogTags';
   import ContentCard from '@/components/generic/ContentCard';
   import ContentHeader from '@/components/generic/ContentHeader';
@@ -151,7 +150,13 @@
           .sort((a, b) => (new Date(b.datePublished)).getTime() - (new Date(a.datePublished)).getTime());
 
         this.total = stories.length;
-        this.tags = uniq(stories.reduce((memo, story) => memo.concat(story.keywords || []), []))
+        this.tags = Array.from(stories.reduce((memo, story) => {
+          for (const tag of (story.keywords || [])) {
+            memo.add(tag);
+          }
+          delete story.keywords;
+          return memo;
+        }, new Set()))
           .sort((a, b) => a.trim().toLowerCase().localeCompare(b.trim().toLowerCase()));
         this.stories = stories.slice(sliceFrom, sliceTo);
       },

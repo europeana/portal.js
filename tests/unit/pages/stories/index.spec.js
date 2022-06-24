@@ -62,9 +62,13 @@ describe('pages/stories/index', () => {
 
         expect(wrapper.vm.$contentful.query.calledWith('storiesPage', {
           locale: 'en-GB',
-          preview: false
+          preview: false,
+          tag: undefined,
+          withTags: false
         })).toBe(true);
       });
+
+      test.todo('optionally requests tagged stories');
 
       it('stores a page of the stories content, ordered by datePublished', async() => {
         const wrapper = factory({ data: { perPage: 2 } });
