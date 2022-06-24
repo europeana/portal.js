@@ -80,6 +80,7 @@ export default {
   "cardLabels": {
     "organisation": "Organisation",
     "person": "Person",
+    "place": "Place",
     "theme": "Theme",
     "time": "Century",
     "topic": "Topic"

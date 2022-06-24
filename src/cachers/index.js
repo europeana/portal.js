@@ -9,6 +9,7 @@ const runtimeConfig = defu(nuxtConfig.privateRuntimeConfig, nuxtConfig.publicRun
 const cacherNames = [
   'collections:organisations',
   'collections:organisations:featured',
+  'collections:places',
   'collections:times',
   'collections:times:featured',
   'collections:topics',

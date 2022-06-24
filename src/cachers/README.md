@@ -33,6 +33,12 @@ Entity API.
 
 Localised.
 
+#### `collections:place`
+Retrieves and caches all place-type, Europeana-scoped entities from the
+Entity API.
+
+Localised.
+
 #### `collections:times`
 Retrieves and caches all timespan-type, Europeana-scoped entities from the
 Entity API.

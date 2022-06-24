@@ -40,7 +40,7 @@ export default (context = {}) => {
         params: {
           ...this.$axios.defaults.params,
           text,
-          type: 'agent,concept,timespan,organization',
+          type: 'agent,concept,timespan,organization,place',
           scope: 'europeana',
           ...params
         }
@@ -134,6 +134,8 @@ export function getEntityQuery(uri) {
     entityQuery = `edm_timespan:"${uri}"`;
   } else if (uri.includes('/organization/')) {
     entityQuery = `foaf_organization:"${uri}"`;
+  } else if (uri.includes('/place/')) {
+    entityQuery = `where:"${uri}"`;
   } else {
     throw new Error(`Unsupported entity URI "${uri}"`);
   }
@@ -161,6 +163,7 @@ export function isEntityUri(uri, types) {
  */
 export function getEntityTypeApi(type) {
   const names = {
+    place: 'place',
     person: 'agent',
     topic: 'concept',
     time: 'timespan',
@@ -176,6 +179,7 @@ export function getEntityTypeApi(type) {
  */
 export function getEntityTypeHumanReadable(type) {
   const names = {
+    place: 'place',
     agent: 'person',
     concept: 'topic',
     timespan: 'time',
