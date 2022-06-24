@@ -141,7 +141,7 @@ describe('plugins/europeana/entity', () => {
 
     describe('find', () => {
       const uris = ['http://data.europeana.eu/agent/base/123', 'http://data.europeana.eu/concept/base/456'];
-      const uriQuery = 'entity_uri:("http://data.europeana.eu/agent/base/123" OR "http://data.europeana.eu/concept/base/456")';
+      const uriQuery = 'entity_uri:("http://data.europeana.eu/agent/base/123" OR "http://data.europeana.eu/agent/123" OR "http://data.europeana.eu/concept/base/456" OR "http://data.europeana.eu/concept/456")';
       const entitySearchResponse = {
         items: []
       };

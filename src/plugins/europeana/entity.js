@@ -60,7 +60,10 @@ export default (context = {}) => {
       if (entityUris?.length === 0) {
         return Promise.resolve([]);
       }
-      const q = entityUris.join('" OR "');
+      const q = entityUris
+        // TODO: this next line will be redundant once no URIs contain /base/
+        .reduce((memo, uri) => memo.concat(baseVariantEntityUris(uri)), [])
+        .join('" OR "');
       const params = {
         query: `entity_uri:("${q}")`,
         pageSize: entityUris.length
