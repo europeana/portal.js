@@ -12,7 +12,8 @@
           v-for="(tag, index) in tags"
           :key="index"
           variant="outline-light"
-          :to="$path({ name: 'stories', query: { tag } })"
+          :active="selected.includes(tag)"
+          :to="badgeLink(tag)"
         >
           {{ tag }}
         </b-badge>
@@ -29,6 +30,17 @@
       tags: {
         type: Array,
         required: true
+      },
+
+      selected: {
+        type: Array,
+        default: () => []
+      }
+    },
+
+    methods: {
+      badgeLink(tag) {
+        return this.$path({ name: 'stories', query: { tags: this.selected.concat(tag).join(',') } });
       }
     }
   };

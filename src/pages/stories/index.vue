@@ -34,6 +34,7 @@
       <BlogTags
         v-if="tags.length > 0"
         :tags="tags"
+        :selected="selectedTags"
       />
       <div
         class="mb-4 context-label"
@@ -88,6 +89,7 @@
     data() {
       return {
         perPage: 18,
+        selectedTags: [],
         stories: [],
         tags: [],
         total: 0,
@@ -128,16 +130,17 @@
 
     watch: {
       '$route.query.page': '$fetch',
-      '$route.query.tag': '$fetch'
+      '$route.query.tags': '$fetch'
     },
 
     methods: {
       async fetchContentfulEntries() {
+        this.selectedTags = this.$route.query.tags?.split(',') || [];
         const variables = {
           locale: this.$i18n.isoLocale(),
           preview: this.$route.query.mode === 'preview',
-          tag: this.$route.query.tag,
-          withTags: !!this.$route.query.tag
+          tags: this.selectedTags,
+          withTags: !!this.$route.query.tags
         };
         const response = await this.$contentful.query('storiesPage', variables);
 

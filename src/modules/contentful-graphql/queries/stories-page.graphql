@@ -4,7 +4,7 @@ query StoriesPage(
   $limit: Int = 1000,
   $skip: Int = 0,
   $query: String = "",
-  $tag: String = null,
+  $tags: [String] = [],
   $withTags: Boolean = false
 ) {
   blogPostingCollection(
@@ -16,7 +16,7 @@ query StoriesPage(
 
   taggedBlogPostingCollection: blogPostingCollection(
     preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit, skip: $skip,
-    where: { keywords_contains_all: [$tag] }
+    where: { keywords_contains_all: $tags }
   ) @include(if: $withTags) {
     ...blogPostingCollectionFields
   }
