@@ -15,8 +15,8 @@
         style="margin-top: 0;
           padding-left: 1.25rem;"
       >
-        <li>http://data.europeana.eu/agent/base/59832</li>
-        <li>https://api.europeana.eu/entity/timespan/base/20</li>
+        <li>http://data.europeana.eu/agent/59832</li>
+        <li>https://api.europeana.eu/entity/timespan/20</li>
         <li>https://www.europeana.eu/en/collections/person/60404-johannes-vermeer</li>
         <li>https://portaljs-test.eanadev.org/collections/topic/190</li>
       </ul>
