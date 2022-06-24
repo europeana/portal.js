@@ -48,6 +48,7 @@ const factory = ({ $features = {}, data = {} } = {}) => shallowMountNuxt(Stories
     },
     $pageHeadTitle: (text) => text,
     $route: { query: {} },
+    $scrollTo: sinon.spy(),
     $t: (key) => key,
     $tc: (key) => key
   },
@@ -91,6 +92,14 @@ describe('pages/stories/index', () => {
         await wrapper.vm.fetch();
 
         expect(wrapper.vm.total).toEqual(expected);
+      });
+
+      it('scrolls to the page header element', async() => {
+        const wrapper = factory();
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.$scrollTo.calledWith('#header')).toBe(true);
       });
     });
 

@@ -275,7 +275,7 @@ export default {
     '~/plugins/vue-directives',
     '~/plugins/vue-announcer.client',
     '~/plugins/vue-masonry.client',
-    '~/plugins/vue-scrollto',
+    '~/plugins/vue-scrollto.client',
     '~/plugins/ab-testing',
     '~/plugins/features'
   ],

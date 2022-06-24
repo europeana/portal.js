@@ -21,7 +21,7 @@
     padding-left: 4em;
   }
 
-  @media (min-width: $bp-extraextralarge) {
+  @media (min-width: $bp-xxl) {
     font-size: 1vw;
 
     header {
@@ -38,7 +38,7 @@
   .context-label {
     font-size: $font-size-small;
 
-    @media (min-width: $bp-extraextralarge) {
+    @media (min-width: $bp-xxl) {
       font-size: 1vw;
     }
   }
@@ -50,7 +50,7 @@
   }
 
   &.card-deck-4-cols {
-    @media (min-width: $bp-extraextralarge) {
+    @media (min-width: $bp-xxl) {
       margin-left: -1em;
       margin-right: -1em;
     }
@@ -64,7 +64,7 @@
         flex: 0 0 calc(100% / 4 - #{$grid-gutter * 2});
       }
 
-      @media (min-width: $bp-extraextralarge) {
+      @media (min-width: $bp-xxl) {
         flex: 0 0 calc(100% / 4 - #{1em * 2});
         margin: 0 1em 2em;
       }
@@ -72,7 +72,7 @@
   }
 
   &.card-deck-3-cols .card {
-    @media (min-width: $bp-extraextralarge) {
+    @media (min-width: $bp-xxl) {
       flex: 0 0 calc(100% / 3 - #{1em * 2});
       margin: 0 1em 2em;
     }
@@ -81,7 +81,7 @@
   .content-card {
     min-height: 0;
 
-    @media (min-width: $bp-extraextralarge) {
+    @media (min-width: $bp-xxl) {
       font-size: 1vw;
     }
 
@@ -90,7 +90,7 @@
       -webkit-line-clamp: none;
     }
 
-    @media (min-width: $bp-extraextralarge) {
+    @media (min-width: $bp-xxl) {
       .card-subtitle {
         font-size: 0.875em;
         margin-bottom: 0.75em;

@@ -41,6 +41,7 @@ export default {
     "move": "Move",
     "next": "Next",
     "pin": "Pin",
+    "previous": "Previous",
     "providedBy": "Provided by {provider}",
     "preview": "Preview",
     "reject": "Reject",
@@ -118,8 +119,7 @@ export default {
     },
     "notifications": {
       "update": "The collection has been updated"
-    },
-    "themes": "Themes"
+    }
   },
   "collectionsYouMightLike": "Collections you might like",
   "colourSwatch": "Colour swatch",
@@ -756,6 +756,8 @@ export default {
     "free": "free",
     "storiesCTA": "See all our stories",
     "subHeadline": "Find and {download} artworks, photographs, books, manuscripts, newspapers and music from over 4000 museums, archives, galleries, and libraries for {free}.",
+    "themesCTA": "See all our collections",
+    "themesTitle": "Start exploring by theme",
     "title": "Discover European cultural heritage"
   },
   "imageSlider": {
@@ -875,12 +877,14 @@ export default {
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
   "noResults": "No results",
+  "of": "Of",
   "organisation": {
     "city": "City",
     "country": "Country",
     "nameAcronym": "Name acronym"
   },
   "pageHasLoaded": "has loaded",
+  "pageNumber": "Page number",
   "pages": {
     "collections": {
       "organisations": {
@@ -902,6 +906,9 @@ export default {
         "title": "Topics"
       }
     }
+  },
+  "pagination": {
+    "label": "Pagination"
   },
   "readMore": "Read more",
   "recommendation": {
