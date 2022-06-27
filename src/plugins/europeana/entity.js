@@ -60,7 +60,10 @@ export default (context = {}) => {
       if (entityUris?.length === 0) {
         return Promise.resolve([]);
       }
-      const q = entityUris.join('" OR "');
+      const q = entityUris
+        // TODO: this next line will be redundant once no URIs contain /base/
+        .reduce((memo, uri) => memo.concat(baseVariantEntityUris(uri)), [])
+        .join('" OR "');
       const params = {
         query: `entity_uri:("${q}")`,
         pageSize: entityUris.length
@@ -126,12 +129,16 @@ export function normalizeEntityId(id) {
 export function getEntityQuery(uri) {
   let entityQuery;
 
-  if (uri.includes('/concept/base/')) {
-    entityQuery = `skos_concept:"${uri}"`;
-  } else if (uri.includes('/agent/base/')) {
-    entityQuery = `edm_agent:"${uri}"`;
+  // TODO this baseless/infixed stuff will be redundant once no URIs have /base/
+  const uriVariants = baseVariantEntityUris(uri);
+  const uriVariantsQuery = `("${uriVariants.join('" OR "')}")`;
+
+  if (uri.includes('/concept/')) {
+    entityQuery = `skos_concept:${uriVariantsQuery}`;
+  } else if (uri.includes('/agent/')) {
+    entityQuery = `edm_agent:${uriVariantsQuery}`;
   } else if (uri.includes('/timespan/')) {
-    entityQuery = `edm_timespan:"${uri}"`;
+    entityQuery = `edm_timespan:${uriVariantsQuery}`;
   } else if (uri.includes('/organization/')) {
     entityQuery = `foaf_organization:"${uri}"`;
   } else {
@@ -139,6 +146,22 @@ export function getEntityQuery(uri) {
   }
 
   return entityQuery;
+}
+
+// TODO this baseless/infixed stuff will be redundant once no URIs have /base/
+export function baseVariantEntityUris(uri) {
+  let infixedUri;
+  let baselessUri;
+  const typePattern = /\/(concept|agent|timespan|organization)\//;
+  if (uri.includes('/base/')) {
+    infixedUri = uri;
+    baselessUri = uri.replace('/base', '');
+  } else {
+    baselessUri = uri;
+    infixedUri = uri.replace(typePattern, '/$1/base/');
+  }
+
+  return [infixedUri, baselessUri];
 }
 
 /**
@@ -196,14 +219,14 @@ export function getEntityUrl(type, id) {
 
 /**
  * Retrieve the URI of the entity from the human readable type and ID
- * @param {string} type the human readable type of the entity either person or topic
+ * @param {string} type the human-readable type of the entity
  * @param {string} id the numeric identifier of the entity, (can contain trailing slug parts as these will be normalized)
  * @return {string} retrieved human readable name of type
  */
 export function getEntityUri(type, id) {
   const apiType = getEntityTypeApi(type);
-  const baseInfix = ['timespan', 'organization'].includes(apiType) ? '' : '/base';
-  return `${EUROPEANA_DATA_URL}/${apiType}${baseInfix}/${normalizeEntityId(id)}`;
+  // const baseInfix = ['timespan', 'organization'].includes(apiType) ? '' : '/base';
+  return `${EUROPEANA_DATA_URL}/${apiType}/${normalizeEntityId(id)}`;
 }
 
 /**

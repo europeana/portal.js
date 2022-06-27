@@ -91,13 +91,13 @@
     color: $mediumgrey;
     font-size: 2rem;
 
-    @media (min-width: $bp-extraextralarge) {
+    @media (min-width: $bp-xxl) {
       font-size: 2vw;
     }
   }
 
   .cta {
-    @media (min-width: $bp-extraextralarge) {
+    @media (min-width: $bp-xxl) {
       font-size: 1vw;
     }
   }

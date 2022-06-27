@@ -119,8 +119,7 @@ export default {
     },
     "notifications": {
       "update": "The collection has been updated"
-    },
-    "themes": "Themes"
+    }
   },
   "collectionsYouMightLike": "Collections you might like",
   "colourSwatch": "Colour swatch",
@@ -757,6 +756,8 @@ export default {
     "free": "free",
     "storiesCTA": "See all our stories",
     "subHeadline": "Find and {download} artworks, photographs, books, manuscripts, newspapers and music from over 4000 museums, archives, galleries, and libraries for {free}.",
+    "themesCTA": "See all our collections",
+    "themesTitle": "Start exploring by theme",
     "title": "Discover European cultural heritage"
   },
   "imageSlider": {

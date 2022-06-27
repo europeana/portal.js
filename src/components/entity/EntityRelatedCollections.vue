@@ -11,7 +11,7 @@
 
 <script>
   import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
-  import { getEntityUri, getEntityQuery } from '@/plugins/europeana/entity';
+  import { getEntityUri, getEntityQuery, getEntityTypeApi, normalizeEntityId } from '@/plugins/europeana/entity';
 
   import RelatedCollections from '../related/RelatedCollections';
 
@@ -64,11 +64,27 @@
           memo = memo.concat(facet.fields.map(entity => entity.label));
           return memo;
         }, [])
-        .filter(uri => uri.startsWith(EUROPEANA_DATA_URL) && (uri !== this.entityUri))
+        .filter(uri => {
+          if (!uri.startsWith(EUROPEANA_DATA_URL)) {
+            return false;
+          }
+          // TODO: this next line will suffice once no URIs contain /base/
+          // return uri !== this.entityUri;
+          // TODO: this next line will be redundant once no URIs contain /base/
+          return !(uri.includes(`/${this.entityTypeApi}/`) && uri.endsWith(`/${this.normalizedIdentifier}`));
+        })
         .slice(0, 4);
     },
 
     computed: {
+      normalizedIdentifier() {
+        return normalizeEntityId(this.identifier);
+      },
+
+      entityTypeApi() {
+        return getEntityTypeApi(this.type);
+      },
+
       entityUri() {
         return getEntityUri(this.type, this.identifier);
       },

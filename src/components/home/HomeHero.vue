@@ -75,7 +75,7 @@
       }
     }
 
-    @media (min-width: $bp-extraextralarge) {
+    @media (min-width: $bp-xxxl) {
       padding: 6em 0 3em;
       font-size: 2vw;
 

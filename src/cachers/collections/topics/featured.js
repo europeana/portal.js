@@ -74,7 +74,7 @@ const FEATURED = [
 ];
 
 const featuredQf = FEATURED
-  .map(idNum => `"http://data.europeana.eu/concept/base/${idNum}"`)
+  .map(idNum => `*/${idNum}`)
   .join(' OR ');
 
 const data = (config = {}) => baseData({ type: 'concept', qf: `id:(${featuredQf})` }, config);
