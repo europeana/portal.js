@@ -126,8 +126,7 @@
         return this.$t('storiesPage.title');
       },
       callsToAction() {
-        const ctas = this.sections.filter(section => section['__typename'] === 'PrimaryCallToAction');
-        return ctas;
+        return this.sections.filter(section => section['__typename'] === 'PrimaryCallToAction');
       }
     },
 

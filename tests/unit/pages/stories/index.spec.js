@@ -10,7 +10,9 @@ const storiesPageContentfulResponse = {
     data: {
       browsePageCollection: {
         items: [
-          { hasPartCollection: { items: [] } }
+          { hasPartCollection: { items: [
+            { '__typename': 'PrimaryCallToAction', name: 'PrimaryCTA', relatedLink: {}, text: '' }
+          ] } }
         ]
       },
       blogPostingCollection: {
@@ -28,7 +30,7 @@ const storiesPageContentfulResponse = {
   }
 };
 
-const factory = ({ $features = {}, data = {} } = {}) => shallowMountNuxt(StoriesPage, {
+const factory = ({ $features = {}, data = {}, $fetchState = {} } = {}) => shallowMountNuxt(StoriesPage, {
   localVue,
   data() {
     return data;
@@ -41,7 +43,7 @@ const factory = ({ $features = {}, data = {} } = {}) => shallowMountNuxt(Stories
       newStoriesPage: true,
       ...$features
     },
-    $fetchState: {},
+    $fetchState,
     $i18n: {
       locale: 'en',
       isoLocale: () => 'en-GB'
@@ -52,7 +54,7 @@ const factory = ({ $features = {}, data = {} } = {}) => shallowMountNuxt(Stories
     $t: (key) => key,
     $tc: (key) => key
   },
-  stubs: ['IndexPage', 'b-card-group']
+  stubs: ['b-card-group']
 });
 
 describe('pages/stories/index', () => {
@@ -100,6 +102,15 @@ describe('pages/stories/index', () => {
         await wrapper.vm.fetch();
 
         expect(wrapper.vm.$scrollTo.calledWith('#header')).toBe(true);
+      });
+      describe('when fetch errors', () => {
+        it('renders an alert message', () => {
+          const wrapper = factory({ $fetchState: { error: { message: 'Error message' } } });
+
+          const alertMessage = wrapper.find('[data-qa="alert message container"]');
+
+          expect(alertMessage.exists()).toBe(true);
+        });
       });
     });
 
