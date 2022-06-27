@@ -16,7 +16,7 @@ query StoriesPage(
 
   taggedBlogPostingCollection: blogPostingCollection(
     preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit, skip: $skip,
-    where: { keywords_contains_all: $tags }
+    where: { name_contains: $query, keywords_contains_all: $tags }
   ) @include(if: $withTags) {
     ...blogPostingCollectionFields
   }
