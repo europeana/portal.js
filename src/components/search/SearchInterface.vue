@@ -71,7 +71,7 @@
             </b-col>
           </b-row>
           <b-row
-            v-show="!$fetchState.error"
+            v-show="!$fetchState.error && showPagination"
           >
             <b-col>
               <PaginationNavInput
@@ -201,6 +201,9 @@
       },
       noMoreResults() {
         return this.hasAnyResults && this.results.length === 0;
+      },
+      showPagination() {
+        return this.totalResults > this.perPage;
       },
       noResults() {
         return this.totalResults === 0;
