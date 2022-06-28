@@ -1,5 +1,6 @@
 <template>
   <nav
+    v-show="showPagination"
     aria-hidden="false"
     :aria-label="$t('pagination.label')"
     data-qa="pagination navigation"
@@ -90,6 +91,10 @@
     },
 
     computed: {
+      showPagination() {
+        return this.totalResults > this.perPage;
+      },
+
       totalPages() {
         const atLeastOne = Math.max(this.totalResults, 1);
         return Math.ceil(Math.min(atLeastOne, this.maxResults || atLeastOne) / this.perPage);
