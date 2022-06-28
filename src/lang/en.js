@@ -41,9 +41,9 @@ export default {
     "move": "Move",
     "next": "Next",
     "pin": "Pin",
+    "preview": "Preview",
     "previous": "Previous",
     "providedBy": "Provided by {provider}",
-    "preview": "Preview",
     "reject": "Reject",
     "save": "Save",
     "send": "Send",
@@ -741,14 +741,14 @@ export default {
       "home": "Home",
       "stories": "Stories"
     },
+    "quickSearch": "Quick Search",
     "searchFor": "Search for {query}",
     "searchForEverything": "Search for everything",
     "searchForEverythingInCollection": "Search for everything in {collection}",
     "searchForEverythingInEntireCollection": "Search for everything in our entire collection",
     "searchForm": "Search form",
     "showSidebar": "Show Menu",
-    "sideNavigation": "Side navigation",
-    "quickSearch": "Quick Search"
+    "sideNavigation": "Side navigation"
   },
   "homeLinkAlt": "Europeana home",
   "homePage": {

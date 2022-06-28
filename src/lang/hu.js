@@ -38,10 +38,13 @@ export default {
     "goHome": "Ugrás a kezdőlapra",
     "learnMore": "Tudj meg többet",
     "like": "Kedvelés",
+    "move": "Mozgás",
     "next": "Következő",
     "pin": "Pin",
+    "preview": "Előnézet",
     "providedBy": "Szolgáltató: {provider}",
     "reject": "Elutasít",
+    "save": "Mentse",
     "send": "Küld",
     "share": "Megosztás",
     "shareOn": "Megosztás a következőn: {social}",
@@ -145,8 +148,27 @@ export default {
     "to": "erre"
   },
   "debug": {
-    "apiRequests": "API kérések",
-    "debug": "Debug"
+    "apiRequests": {
+      "apiKeyLinkText": "Europeana API kulcs",
+      "noRequests": "Ezen az oldalon nem használtak Europeana API-kra vonatkozó kéréseket.",
+      "settingsPageLinkText": "beállítások oldalon",
+      "tip": "Tipp: ha már rendelkezik {apiKeyLink} , megadhatja azt a {settingsPageLink} oldalon, és ez szerepelni fog ezekben az API-kérés hivatkozásokban.",
+      "title": "API kérések"
+    },
+    "debug": "Debug",
+    "settings": {
+      "form": {
+        "apiKey": {
+          "description": "Adja meg Europeana API-kulcsát, és azt az API-kérésekre mutató hivatkozásokban fogja használni.",
+          "label": "API kulcs"
+        },
+        "enabled": {
+          "description": "Ha engedélyezve van, a hibakeresési menü megjelenik az oldal láblécében.",
+          "label": "Hibakeresési menü engedélyezése"
+        }
+      },
+      "title": "Beállítások"
+    }
   },
   "delete": "Törlés",
   "depiction": "{title} ábrázolása",
@@ -167,16 +189,18 @@ export default {
     },
     "notifications": {
       "deleted": "Galéria törölve.",
+      "error": {
+        "unpin": "Hiba történt az elem rögzítésének feloldásakor. Kérjük, próbálja újra, vagy jelentse a problémát."
+      },
+      "pin": "Ez az elem a(z) \" {entity} \" gyűjtemény tetején fog megjelenni. Értesítjük, ha ez a változás látható lesz a gyűjtemény oldalán.",
       "pinLimit": {
         "body": "Egyelőre csak 24 elemet rögzíthet az első oldalon. Ha meg szeretné tűzni ezt az elemet, győződjön meg róla, hogy egy másikat bont ki, majd próbálja meg újra rögzíteni.",
         "title": "Túl sok rögzített elem"
       },
       "pinned": "Az elemet kitűzték. Most a gyűjtemény első oldalának tetején található. Lehet, hogy 24 óráig is eltarthat, amíg mindenki számára megjelenik.",
+      "select": "Válasszon ki egy kapcsolódó entitást, hogy az elemet hozzá/hozzá kapcsolja/elvegye.",
+      "unpin": "Ez az elem nem jelenik meg többé a \"{entity}\" gyűjtemény tetején. Értesítjük Önt, ha ez a változás láthatóvá válik a gyűjtemény oldalán.",
       "unpinned": "Az elem rögzítése megszűnt. Már nincs a gyűjtemény első oldalának tetején. Akár 24 órát is igénybe vehet, amíg mindenki eltűnik."
-    },
-    "prompts": {
-      "pin": "Biztos vagy benne, hogy fel akarod tűzni ezt az elemet? Ez az elem a \"{entity}\" kollekció tetején jelenik meg. Ez a változás 24 órát vehet igénybe, mire érvénybe lép.",
-      "unpin": "Biztos vagy benne, hogy le akarod venni ezt az elemet? Ez az elem nem fog többé a \"{entity}\" gyűjtemény tetején megjelenni. Ez a változás akár 24 órát is igénybe vehet, mire érvénybe lép."
     }
   },
   "error": "Hiba",
@@ -187,6 +211,7 @@ export default {
     "description": "Fedezze fel a kiállításokat",
     "exhibitions": "Kiállítások"
   },
+  "explore": "Fedezd fel",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "színek",
@@ -691,13 +716,24 @@ export default {
       "home": "itthon",
       "stories": "Történetek"
     },
+    "quickSearch": "Gyors keresés",
     "searchFor": "Keresés erre: {query}",
     "searchForEverything": "Keresés mindenre",
     "searchForEverythingInCollection": "Keresés mindenre a(z) {collection} gyűjteményben",
     "searchForEverythingInEntireCollection": "Keresés mindenre az egész gyűjteményben",
-    "showSidebar": "Menü mutatása"
+    "searchForm": "Keresés űrlap",
+    "showSidebar": "Menü mutatása",
+    "sideNavigation": "Oldalsó navigáció"
   },
   "homeLinkAlt": "Europeana kezdőlap",
+  "homePage": {
+    "discoverEditorial": "Fedezze fel történeteinket",
+    "download": "letöltés",
+    "free": "ingyenes",
+    "storiesCTA": "Tekintse meg az összes történetünket",
+    "subHeadline": "Találjon és {letöltsön le} műalkotásokat, fényképeket, könyveket, kéziratokat, újságokat és zenét több mint 4000 múzeumból, archívumból, galériából és könyvtárból {ingyenesen}.",
+    "title": "Fedezze fel az európai kulturális örökséget"
+  },
   "imageSlider": {
     "handle": "Csúszka fogantyú"
   },
@@ -852,6 +888,9 @@ export default {
   },
   "record": {
     "IIIFViewer": "IIIF néző",
+    "actions": {
+      "pin": "Az elem rögzítése az elérhető entitásokhoz"
+    },
     "allMetaData": "Minden metaadat",
     "copyEmbedLabel": "Beágyazási kód (Kattintson a másoláshoz)",
     "exploreMore": "Több felfedezés",
@@ -864,8 +903,16 @@ export default {
     "record": "Rekord",
     "showAll": "Az összes információ megjelenítése",
     "similarItems": "Hasonló elemek",
+    "status": {
+      "unpublished": "[Közzé nem tett tétel]"
+    },
     "transcription": "Átírás",
     "transcriptionDisclaimer": "Ezt a tartalmat a nyilvánosság hozza létre, nem az intézmény, amely a cikket szolgáltatta."
+  },
+  "related": {
+    "editorial": {
+      "title": "Történetek, amelyek tetszhetnek"
+    }
   },
   "relatedCollections": "Kapcsolódó gyűjtemények",
   "removeFilter": "{filterLabel} szűrő eltávolítása",
@@ -903,7 +950,6 @@ export default {
       "createNew": "Új galéria létrehozása",
       "delete": "Galéria törlése",
       "edit": "Galéria szerkesztése",
-      "save": "Mentse",
       "update": "Galéria frissítése"
     },
     "form": {
@@ -937,6 +983,9 @@ export default {
   "statuses": {
     "liked": "Tetszett",
     "pinned": "Odatűzött"
+  },
+  "storiesPage": {
+    "title": "Történetek"
   },
   "website": "Weboldal",
   "youMightAlsoLike": "Ez is érdekelheti Önt"

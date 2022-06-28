@@ -1,9 +1,12 @@
 query CollectionPage(
   $locale: String!,
-  $identifier: String!,
+  $identifiers: [String]!,
   $preview: Boolean = false
 ) {
-  entityPage: entityPageCollection(preview: $preview, locale: $locale, limit: 1, where: { identifier: $identifier }) {
+  entityPage: entityPageCollection(
+    preview: $preview, locale: $locale, limit: 1,
+    where: { identifier_in: $identifiers }
+  ) {
     items {
       name
       nameEN: name(locale: "en-GB")
