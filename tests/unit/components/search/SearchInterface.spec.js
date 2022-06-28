@@ -117,15 +117,6 @@ describe('components/search/SearchInterface', () => {
 
     test.todo('handles search errors');
 
-    it('marks the results as fetched', async() => {
-      const wrapper = factory();
-      expect(wrapper.vm.fetched).toBe(false);
-
-      await wrapper.vm.fetch();
-
-      expect(wrapper.vm.fetched).toBe(true);
-    });
-
     it('scrolls to the page header element', async() => {
       const wrapper = factory();
       wrapper.vm.$scrollTo = sinon.spy();

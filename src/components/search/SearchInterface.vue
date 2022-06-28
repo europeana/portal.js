@@ -135,11 +135,6 @@
         default: null
       }
     },
-    data() {
-      return {
-        fetched: false
-      };
-    },
     async fetch() {
       this.viewFromRouteQuery();
 
@@ -157,8 +152,6 @@
         } else if (this.noResults) {
           throw new Error(this.$t('noResults'));
         }
-
-        this.fetched = true;
       } finally {
         this.$scrollTo && this.$scrollTo('#header');
       }
