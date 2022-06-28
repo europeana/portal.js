@@ -1,9 +1,26 @@
 <template>
   <div data-qa="item page">
-    <b-container v-if="error">
-      <AlertMessage
-        :error="error"
-      />
+    <b-container
+      v-if="$fetchState.pending"
+      data-qa="loading spinner container"
+    >
+      <b-row class="flex-md-row py-4 text-center">
+        <b-col cols="12">
+          <LoadingSpinner />
+        </b-col>
+      </b-row>
+    </b-container>
+    <b-container
+      v-else-if="$fetchState.error"
+      data-qa="alert message container"
+    >
+      <b-row class="flex-md-row py-4">
+        <b-col cols="12">
+          <AlertMessage
+            :error="$fetchState.error.message"
+          />
+        </b-col>
+      </b-row>
     </b-container>
     <template
       v-else
@@ -24,6 +41,7 @@
           :identifier="identifier"
           :media="media"
           :edm-rights="edmRights"
+          :edm-type="type"
           :attribution-fields="attributionFields"
           :entities="europeanaEntities"
         />
@@ -41,7 +59,7 @@
           </b-col>
         </b-row>
         <b-row
-          v-if="relatedEntities && relatedEntities.length > 0"
+          v-if="relatedEntityUris.length > 0"
           class="justify-content-center"
         >
           <b-col
@@ -50,7 +68,7 @@
           >
             <RelatedCollections
               :title="$t('collectionsYouMightLike')"
-              :related-collections="relatedEntities"
+              :entity-uris="relatedEntityUris"
               data-qa="related entities"
               badge-variant="light"
             />
@@ -73,27 +91,19 @@
             />
           </b-col>
         </b-row>
-        <b-row
-          v-if="similarItems && similarItems.length > 0"
-          class="mt-3 mb-0 justify-content-center"
-        >
-          <b-col
-            cols="12"
-            class="col-lg-10"
-          >
-            <h2
-              class="related-heading text-uppercase mb-2"
-            >
-              {{ $t('record.exploreMore') }}
-            </h2>
-            <ItemPreviewCardGroup
-              :items="similarItems"
-              view="explore"
-              class="mb-0"
-              data-qa="similar items"
-            />
-          </b-col>
-        </b-row>
+        <!--
+          NOTE: dcType/title does not make sense here, but leave it alone as
+                eventually this will be deprecated and the Recommendation API
+                used instead.
+          FIXME: ... but who knows when, so maybe fix here in the meantime
+        -->
+        <ItemRecommendations
+          :identifier="identifier"
+          :dc-type="title"
+          :dc-subject="metadata.dcSubject"
+          :dc-creator="metadata.dcCreator"
+          :edm-data-provider="metadata.edmDataProvider ? metadata.edmDataProvider.value : null"
+        />
         <b-row class="footer-margin" />
       </b-container>
     </template>
@@ -111,71 +121,46 @@
 
 <script>
   import isEmpty from 'lodash/isEmpty';
-  import pick from 'lodash/pick';
-  import { mapState, mapGetters } from 'vuex';
+  import { mapGetters } from 'vuex';
 
+  import ItemHero from '@/components/item/ItemHero';
+  import ItemRecommendations from '@/components/item/ItemRecommendations';
+  import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import MetadataBox from '@/components/item/MetadataBox';
 
   import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
-  import similarItemsQuery from '@/plugins/europeana/record/similar-items';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
-  import { withEditorialContent } from '@/plugins/europeana/themes';
   import stringify from '@/mixins/stringify';
 
   export default {
     name: 'ItemPage',
     components: {
-      ItemHero: () => import('@/components/item/ItemHero'),
       AlertMessage: () => import('@/components/generic/AlertMessage'),
-      ItemPreviewCardGroup: () => import('@/components/item/ItemPreviewCardGroup'),
-      RelatedCollections: () => import('@/components/related/RelatedCollections'),
-      SummaryInfo: () => import('@/components/item/SummaryInfo'),
+      ItemHero,
+      ItemLanguageSelector: () => import('@/components/item/ItemLanguageSelector'),
+      ItemRecommendations,
+      LoadingSpinner,
       MetadataBox,
-      ItemLanguageSelector: () => import('@/components/item/ItemLanguageSelector')
+      RelatedCollections: () => import('@/components/related/RelatedCollections'),
+      SummaryInfo: () => import('@/components/item/SummaryInfo')
     },
 
     mixins: [
       stringify
     ],
 
-    async beforeRouteUpdate(to, from, next) {
-      if (to.path !== from.path) {
-        // Navigation to another item
-        await this.$store.dispatch('item/reset');
-      }
-      next();
-    },
-
-    async beforeRouteLeave(to, from, next) {
-      await this.$store.dispatch('item/reset');
-      next();
-    },
-
-    asyncData({ params, res, route, app, $apis }) {
-      return $apis.record
-        .getRecord(`/${params.pathMatch}`, { locale: app.i18n.locale, metadataLanguage: route.query.lang })
-        .then(result => {
-          return result.record;
-        })
-        .catch(error => {
-          if (typeof res !== 'undefined') {
-            res.statusCode = (typeof error.statusCode === 'undefined') ? 500 : error.statusCode;
-          }
-          return { error: error.message };
-        });
-    },
-
     data() {
       return {
         agents: [],
         allMediaUris: [],
         altTitle: null,
+        annotations: [],
         cardGridClass: null,
         concepts: [],
         description: null,
         error: null,
         fromTranslationError: null,
-        identifier: null,
+        identifier: `/${this.$route.params.pathMatch}`,
         isShownAt: null,
         media: [],
         metadata: {},
@@ -189,13 +174,22 @@
       };
     },
 
-    fetch() {
-      this.fetchAnnotations();
-      this.fetchRelatedEntities();
-      this.fetchSimilarItems();
+    async fetch() {
+      try {
+        const response = await this.$apis.record.getRecord(
+          this.identifier,
+          { locale: this.$i18n.locale, metadataLanguage: this.$route.query.lang }
+        );
+        for (const key in response.record) {
+          this[key] = response.record[key];
+        }
+      } catch (error) {
+        if (process.server) {
+          this.$nuxt.context.res.statusCode = error.statusCode || 500;
+        }
+        throw error;
+      }
     },
-
-    fetchOnServer: false,
 
     head() {
       return {
@@ -293,14 +287,11 @@
         return this.annotationsByMotivation('transcribing');
       },
       ...mapGetters({
-        shareUrl: 'http/canonicalUrl',
-        annotationsByMotivation: 'item/annotationsByMotivation'
+        shareUrl: 'http/canonicalUrl'
       }),
-      ...mapState({
-        relatedEntities: state => state.item.relatedEntities,
-        similarItems: state => state.item.similarItems,
-        annotations: state => state.item.annotations
-      }),
+      relatedEntityUris() {
+        return this.europeanaEntityUris.slice(0, 5);
+      },
       translatedItemsEnabled() {
         return this.$features.translatedItems;
       }
@@ -309,83 +300,24 @@
     watchQuery: ['lang'],
 
     mounted() {
-      if (!this.error) {
+      this.fetchAnnotations();
+      if (!this.$fetchState.error) {
         this.$matomo && this.$matomo.trackPageView('item page custom dimensions', this.matomoOptions());
       }
     },
 
     methods: {
-      fetchAnnotations() {
-        const annotationSearchParams = {
+      annotationsByMotivation(motivation) {
+        return this.annotations?.filter(annotation => annotation.motivation === motivation) || [];
+      },
+
+      async fetchAnnotations() {
+        this.annotations = await this.$apis.annotation.search({
           query: `target_record_id:"${this.identifier}"`,
           profile: 'dereference'
-        };
-
-        return this.$apis.annotation.search(annotationSearchParams)
-          .then(annotations => {
-            this.$store.commit('item/setAnnotations', annotations);
-          });
+        });
       },
 
-      fetchRelatedEntities() {
-        return this.$apis.entity.find(this.europeanaEntityUris.slice(0, 5))
-          .then(entities => entities.map(entity => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo'])))
-          .then(reduced => withEditorialContent(this, reduced))
-          .then(reducedWithOverrides => this.$store.commit('item/setRelatedEntities', reducedWithOverrides));
-      },
-
-      fetchSimilarItems() {
-        return this.getSimilarItems()
-          .then(similar => {
-            this.$store.commit('item/setSimilarItems', similar.items);
-          });
-      },
-
-      getSimilarItems() {
-        const noSimilarItems = { results: [] };
-        if (this.error) {
-          return Promise.resolve(noSimilarItems);
-        }
-
-        if (this.$auth.loggedIn) {
-          return this.$apis.recommendation.recommend('record', this.identifier)
-            .then(recommendResponse => recommendResponse);
-        }
-
-        const dataSimilarItems = {
-          dcSubject: this.getSimilarItemsData(this.metadata.dcSubject),
-          // NOTE: dcType/title does not make sense here, but leave it alone as
-          //       eventually this will be deprecated and the Recommendation API
-          //       used instead.
-          dcType: this.getSimilarItemsData(this.title),
-          dcCreator: this.getSimilarItemsData(this.metadata.dcCreator),
-          edmDataProvider: this.getSimilarItemsData(this.metadata.edmDataProvider.value)
-        };
-
-        return this.$apis.record.search({
-          query: similarItemsQuery(this.identifier, dataSimilarItems),
-          rows: 4,
-          profile: 'minimal',
-          facet: ''
-        })
-          .then(response => response)
-          .catch(() => {
-            return noSimilarItems;
-          });
-      },
-
-      getSimilarItemsData(value) {
-        if (!value) {
-          return null;
-        }
-
-        const data = langMapValueForLocale(value, this.$i18n.locale).values;
-        if (!data) {
-          return null;
-        }
-
-        return data.filter(item => typeof item === 'string');
-      },
       matomoOptions() {
         return {
           dimension1: langMapValueForLocale(this.metadata.edmCountry, 'en').values[0],

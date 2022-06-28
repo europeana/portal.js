@@ -10,8 +10,9 @@ const localVue = createLocalVue();
 localVue.use(Vuex);
 localVue.use(BootstrapVue);
 
-const item = {
+const record = {
   identifier: '/123/abc',
+  concepts: [{ 'about': 'http://data.europeana.eu/concept/base/47', 'prefLabel': { 'en': ['Painting'] } }],
   metadata: {
     edmCountry: ['Netherlands'],
     edmDataProvider: {
@@ -19,70 +20,30 @@ const item = {
       value: ['Data Provider']
     },
     edmProvider: [{ en: ['Provider'] }],
-    edmRights: { def: [
-      'http://rightsstatements.org/vocab/InC/1.0/'
-    ] }
+    edmRights: { def: ['http://rightsstatements.org/vocab/InC/1.0/'] }
   }
 };
 
-const itemSetRelatedEntities = sinon.spy();
 const store = new Vuex.Store({
-  state: {
-    item: {
-      active: false,
-      annotations: [],
-      relatedEntities: [],
-      similarItems: []
-    },
-    entity: {
-      curatedEntities: [
-        {
-          name: 'World War I',
-          nameEN: 'World War I',
-          identifier: 'http://data.europeana.eu/concept/base/83',
-          genre: 'ww1'
-        },
-        {
-          name: 'Manuscripts',
-          nameEN: 'Manuscripts',
-          identifier: 'http://data.europeana.eu/concept/base/17',
-          genre: 'manuscript'
-        }
-      ]
-    },
-    auth: {
-      user: null
-    }
-  },
-  mutations: {
-    'item/setRelatedEntities': itemSetRelatedEntities
-  },
   getters: {
-    'entity/isPinned': () => () => false,
-    'http/canonicalUrl': () => () => null,
-    'set/isLiked': () => () => null,
-    'item/annotationsByMotivation': () => () => null
-  },
-  actions: {
-    'item/reset': () => null
+    'http/canonicalUrl': () => () => null
   }
 });
 
-const factory = () => shallowMountNuxt(page, {
+const factory = ({ mocks = {} } = {}) => shallowMountNuxt(page, {
   localVue,
-  data() {
-    return item;
-  },
-  stubs: ['client-only'],
+  stubs: ['client-only', 'i18n'],
   mocks: {
-    $features: {},
+    $features: { translatedItems: true },
     $pageHeadTitle: key => key,
     $route: {
+      params: { pathMatch: '123/abc' },
       query: {}
     },
     $t: key => key,
     $i18n: {
-      locale: 'en'
+      locale: 'en',
+      locales: ['en']
     },
     $auth: {
       loggedIn: false
@@ -95,51 +56,72 @@ const factory = () => shallowMountNuxt(page, {
         find: sinon.spy()
       },
       record: {
-        getRecord: sinon.stub().resolves({}),
+        getRecord: sinon.stub().resolves({ record }),
         search: sinon.spy()
       }
     },
+    $fetchState: {},
     $matomo: {
       trackPageView: sinon.spy()
-    }
+    },
+    $nuxt: {
+      context: {
+        res: {}
+      }
+    },
+    ...mocks
   },
   store
 });
 
 describe('pages/item/_.vue', () => {
-  afterEach(() => {
-    sinon.resetHistory();
-  });
+  afterEach(sinon.resetHistory);
 
-  describe('asyncData()', () => {
-    const params = { pathMatch: '123/abc' };
-    const record = { id: '/123/abc' };
-    const $apis = { record: { getRecord: sinon.stub().resolves({ record }) } };
-    const app = { i18n: { locale: 'en' } };
-
+  describe('fetch', () => {
     describe('when the page is loaded without a metadataLanguage', () => {
-      const route = { query: {} };
-
-      it('gets a record from the API for the ID in the params pathMatch, for the current locale', async() => {
+      it('gets a record from the API for the ID in the route params pathMatch, for the current locale', async() => {
         const wrapper = factory();
 
-        const response = await wrapper.vm.asyncData({ params, app, route, $apis });
+        await wrapper.vm.fetch();
 
-        expect($apis.record.getRecord.calledWith('/123/abc', { locale: 'en', metadataLanguage: undefined })).toBe(true);
-        expect(response).toEqual(record);
+        expect(wrapper.vm.$apis.record.getRecord.calledWith('/123/abc', { locale: 'en', metadataLanguage: undefined })).toBe(true);
       });
     });
-    describe('when the page is loaded with a metadataLanguage', () => {
-      const route = { query: { lang: 'fr' } };
 
+    describe('when the page is loaded with a metadataLanguage', () => {
       it('gets a record from the API for the ID in the params pathMatch, with metadataLanguage from `lang` query', async() => {
         const wrapper = factory();
+        wrapper.vm.$route.query = { lang: 'fr' };
 
-        const response = await wrapper.vm.asyncData({ params, app, route, $apis });
+        await wrapper.vm.fetch();
 
-        expect($apis.record.getRecord.calledWith('/123/abc', { locale: 'en', metadataLanguage: 'fr' })).toBe(true);
-        expect(response).toEqual(record);
+        expect(wrapper.vm.$apis.record.getRecord.calledWith('/123/abc', { locale: 'en', metadataLanguage: 'fr' })).toBe(true);
       });
+    });
+
+    it('stores the response', async() => {
+      const wrapper = factory();
+
+      await wrapper.vm.fetch();
+
+      expect(wrapper.vm.identifier).toBe(record.identifier);
+      expect(wrapper.vm.metadata).toEqual(record.metadata);
+    });
+
+    it('handles API errors', async() => {
+      const wrapper = factory();
+      process.server = true;
+      wrapper.vm.$apis.record.getRecord = sinon.stub().throws(() => new Error('Internal Server Error'));
+
+      let error;
+      try {
+        await wrapper.vm.fetch();
+      } catch (e) {
+        error = e;
+      }
+
+      expect(wrapper.vm.$nuxt.context.res.statusCode).toBe(500);
+      expect(error.message).toBe('Internal Server Error');
     });
   });
 
@@ -155,74 +137,93 @@ describe('pages/item/_.vue', () => {
   });
 
   describe('methods', () => {
-    describe('fetchRelatedEntities()', () => {
-      const organizations = [
+    describe('annotationsByMotivation', () => {
+      const annotations = [
         {
-          about: 'http://data.europeana.eu/organization/12345'
-        }
-      ];
-      const concepts = [
-        {
-          about: 'http://data.europeana.eu/concept/base/12345'
-        }
-      ];
-      const pluginResponse = [
-        {
-          id: 'http://data.europeana.eu/concept/base/12345',
-          prefLabel: { en: 'concept' },
-          isShownBy: 'http://example.org/image.jpeg',
-          altLabel: { en: 'alt concept' }
+          motivation: 'transcribing',
+          body: {
+            type: 'FullTextResource',
+            value: 'This is the full transcription!',
+            language: 'en'
+          }
         },
         {
-          id: 'http://data.europeana.eu/organization/12345',
-          prefLabel: { en: 'organization' },
-          logo: 'http://example.org/logo.jpeg',
-          altLabel: { en: 'alt organization' }
-        }
-      ];
-      const dataToStore = [
-        {
-          id: 'http://data.europeana.eu/concept/base/12345',
-          prefLabel: { en: 'concept' },
-          isShownBy: 'http://example.org/image.jpeg'
-        },
-        {
-          id: 'http://data.europeana.eu/organization/12345',
-          prefLabel: { en: 'organization' },
-          logo: 'http://example.org/logo.jpeg'
+          motivation: 'tagging',
+          body: {
+            type: 'Concept',
+            prefLabel: {
+              en: 'tag',
+              fr: 'tag FR'
+            }
+          }
         }
       ];
 
-      it('fetches related entities from API plugin', async() => {
-        const wrapper = factory();
-        await wrapper.setData({
-          concepts,
-          organizations
+      describe('when asking for tagging annotations', () => {
+        it('has a tagging motivation', async() => {
+          const wrapper = await factory();
+          await wrapper.setData({ annotations });
+
+          const taggingAnnotations = wrapper.vm.annotationsByMotivation('tagging');
+
+          expect(taggingAnnotations[0].motivation).toBe('tagging');
+          expect(taggingAnnotations.length).toBe(1);
         });
-        wrapper.vm.$apis.entity.find = sinon.stub().resolves(pluginResponse);
-        await wrapper.vm.fetchRelatedEntities();
-
-        expect(wrapper.vm.$apis.entity.find.calledWith([
-          'http://data.europeana.eu/concept/base/12345',
-          'http://data.europeana.eu/organization/12345'
-        ])).toBe(true);
       });
 
-      it('picks fields from response and commits to store', async() => {
-        const wrapper = factory();
-        await wrapper.setData({
-          concepts,
-          organizations
-        });
-        wrapper.vm.$apis.entity.find = sinon.stub().resolves(pluginResponse);
-        await wrapper.vm.fetchRelatedEntities();
+      describe('when asking for transcribing annotations', () => {
+        it('has a transcribing motivation', async() => {
+          const wrapper = await factory();
+          await wrapper.setData({ annotations });
 
-        expect(itemSetRelatedEntities.calledWith(sinon.match.any, dataToStore)).toBe(true);
+          const taggingAnnotations = wrapper.vm.annotationsByMotivation('transcribing');
+
+          expect(taggingAnnotations[0].motivation).toBe('transcribing');
+          expect(taggingAnnotations.length).toBe(1);
+        });
+      });
+    });
+
+    describe('keywords', () => {
+      const annotations = [
+        {
+          motivation: 'tagging',
+          body: {
+            type: 'Concept',
+            prefLabel: {
+              en: 'tag 1 EN',
+              fr: 'tag 1 FR'
+            }
+          }
+        },
+        {
+          motivation: 'tagging',
+          body: {
+            type: 'Concept',
+            prefLabel: {
+              en: 'tag 2 EN',
+              es: 'tag 2 ES'
+            }
+          }
+        }
+      ];
+
+      it('converts tagging annotation prefLabels into a single LangMap', async() => {
+        const wrapper = await factory();
+        await wrapper.setData({ annotations });
+
+        const keywords = wrapper.vm.keywords;
+
+        expect(keywords).toEqual({
+          en: ['tag 1 EN', 'tag 2 EN'],
+          fr: ['tag 1 FR'],
+          es: ['tag 2 ES']
+        });
       });
     });
   });
 
-  describe('head()', () => {
+  describe('head', () => {
     it('uses first media large thumbnail for og:image', async() => {
       const thumbnailUrl = 'http://example.org/image/large.jpg';
       const wrapper = factory();
@@ -240,6 +241,16 @@ describe('pages/item/_.vue', () => {
 
       expect(headMeta.filter(meta => meta.property === 'og:image').length).toBe(1);
       expect(headMeta.find(meta => meta.property === 'og:image').content).toBe(thumbnailUrl);
+    });
+  });
+
+  describe('when fetch errors', () => {
+    it('renders an alert message', () => {
+      const wrapper = factory({ mocks: { $fetchState: { error: { message: 'Error message' } } } });
+
+      const alertMessage = wrapper.find('[data-qa="alert message container"]');
+
+      expect(alertMessage.exists()).toBe(true);
     });
   });
 });

@@ -139,14 +139,21 @@ export default {
       await this.$apis.set.create(body);
       dispatch('fetchCreations');
     },
-    async update({ state, commit }, { id, body }) {
-      const response = await this.$apis.set.update(id, body);
-      if (state.active && id === state.active.id) {
-        commit('setActive', { items: state.active.items, ...response });
+    async update({ state, commit }, { id, body, params }) {
+      const response = await this.$apis.set.update(id, body, params);
+
+      // Check if updated set is active set
+      if (state.active && (state.active.id === id)) {
+        // Respect reordering of items in update
+        let items = state.active.items;
+        if (response.items) {
+          items = response.items.map(itemId => state.active.items.find(item => itemId.endsWith(item.id)));
+        }
+        commit('setActive', { ...response, items });
       }
     },
-    async deleteSet({ state, commit }, setId) {
-      await this.$apis.set.deleteSet(setId);
+    async delete({ state, commit }, setId) {
+      await this.$apis.set.delete(setId);
       if (state.active && setId === state.active.id) {
         commit('setActive', 'DELETED');
       }

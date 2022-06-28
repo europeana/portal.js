@@ -61,12 +61,6 @@
                 </template>
               </SearchInterface>
             </b-container>
-            <b-container class="px-0">
-              <BrowseSections
-                v-if="page"
-                :sections="page.hasPartCollection.items"
-              />
-            </b-container>
             <client-only>
               <b-container class="px-0">
                 <RelatedEditorial
@@ -76,6 +70,12 @@
                 />
               </b-container>
             </client-only>
+            <b-container class="px-0">
+              <BrowseSections
+                v-if="page"
+                :sections="page.hasPartCollection.items"
+              />
+            </b-container>
           </b-col>
         </b-row>
       </b-container>
@@ -90,7 +90,7 @@
 
   import themes from '@/plugins/europeana/themes';
   import {
-    getEntitySlug, getEntityUri, getEntityQuery, normalizeEntityId
+    getEntitySlug, getEntityUri, getEntityQuery, normalizeEntityId, baseVariantEntityUris
   } from '@/plugins/europeana/entity';
   import { langMapValueForLocale, uriRegex } from  '@/plugins/europeana/utils';
 
@@ -123,7 +123,6 @@
     data() {
       return {
         page: null,
-        relatedEntities: null,
         showRelated: false,
         themes: themes.map(theme => theme.id)
       };
@@ -160,7 +159,7 @@
         this.$apis.entity.get(this.$route.params.type, this.$route.params.pathMatch),
         fetchEntityManagement ? this.$apis.entityManagement.get(this.$route.params.type, this.$route.params.pathMatch) : () => null,
         fetchCuratedEntities ? this.$contentful.query('curatedEntities', contentfulVariables) : () => null,
-        fetchEntityPage ? this.$contentful.query('collectionPage', { ...contentfulVariables, identifier: entityUri }) : () => null
+        fetchEntityPage ? this.$contentful.query('collectionPage', { ...contentfulVariables, identifiers: baseVariantEntityUris(entityUri) }) : () => null
       ])
         .then(responses => {
           this.$store.commit('entity/setEntity', pick(responses[0].entity, [

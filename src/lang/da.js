@@ -38,10 +38,13 @@ export default {
     "goHome": "Gå til hjemmesiden",
     "learnMore": "Lær mere",
     "like": "Synes om",
+    "move": "Bevæge sig",
     "next": "Næste",
     "pin": "Pin",
+    "preview": "Forhåndsvisning",
     "providedBy": "Leveret af {provider}",
     "reject": "Afvise",
+    "save": "Gem",
     "send": "Sende",
     "share": "Del",
     "shareOn": "Del på {social}",
@@ -145,8 +148,27 @@ export default {
     "to": "til"
   },
   "debug": {
-    "apiRequests": "API-anmodninger",
-    "debug": "Debug"
+    "apiRequests": {
+      "apiKeyLinkText": "Europeana API nøgle",
+      "noRequests": "Der blev ikke brugt nogen anmodninger til Europeana API'er på denne side.",
+      "settingsPageLinkText": "indstillinger side",
+      "tip": "Tip: Hvis du allerede har en {apiKeyLink}, kan du indtaste den på {settingsPageLink} og den vil blive inkluderet i disse API-anmodningslinks.",
+      "title": "API-anmodninger"
+    },
+    "debug": "Debug",
+    "settings": {
+      "form": {
+        "apiKey": {
+          "description": "Indtast din Europeana API-nøgle, og den vil blive brugt i links til API-anmodninger.",
+          "label": "API nøgle"
+        },
+        "enabled": {
+          "description": "Hvis den er aktiveret, vil fejlretningsmenuen blive vist i sidefoden.",
+          "label": "Aktiver fejlretningsmenu"
+        }
+      },
+      "title": "Indstillinger"
+    }
   },
   "delete": "Slet",
   "depiction": "En skildring af {title}",
@@ -167,16 +189,18 @@ export default {
     },
     "notifications": {
       "deleted": "Dit galleri er blevet slettet.",
+      "error": {
+        "unpin": "Der opstod en fejl under frigørelse af elementet. Prøv venligst igen, eller rapporter problemet."
+      },
+      "pin": "Dette element vises øverst i samlingen \" {entity} \". Vi giver dig besked, når denne ændring vil være synlig på indsamlingssiden.",
       "pinLimit": {
         "body": "Indtil videre kan du kun fastgøre 24 elementer på den første side. Hvis du vil fastgøre dette emne, skal du fjerne et andet emne og derefter prøve at fastgøre dette emne igen.",
         "title": "For mange fastgjorte emner"
       },
       "pinned": "Elementet er blevet fastgjort. Det er nu øverst på den første side i denne samling. Det kan tage op til 24 timer at vises for alle.",
+      "select": "Vælg en relateret enhed for at fastgøre/frigøre elementet til/fra det.",
+      "unpin": "Dette element stopper med at blive vist øverst i samlingen \" {entity} \". Vi giver dig besked, når denne ændring vil være synlig på indsamlingssiden.",
       "unpinned": "Elementet er blevet fastgjort. Det er ikke længere øverst på den første side i denne samling. Det kan tage op til 24 timer at forsvinde for alle."
-    },
-    "prompts": {
-      "pin": "Er du sikker på, at du vil fastgøre denne vare? Dette element vises øverst i {entity} \". Det kan tage op til 24 timer, før denne ændring træder i kraft.",
-      "unpin": "Er du sikker på, at du vil løsne denne vare? Dette element stopper med at vises øverst i {entity} \". Det kan tage op til 24 timer, før denne ændring træder i kraft."
     }
   },
   "error": "Fejl",
@@ -187,6 +211,7 @@ export default {
     "description": "Udforsk udstillingerne",
     "exhibitions": "Udstillinger"
   },
+  "explore": "Udforske",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "farver",
@@ -691,13 +716,24 @@ export default {
       "home": "Hjem",
       "stories": "Historier"
     },
+    "quickSearch": "Hurtig søgning",
     "searchFor": "Søg efter {query}",
     "searchForEverything": "Søg efter alt",
     "searchForEverythingInCollection": "Søg efter alt i {collection}",
     "searchForEverythingInEntireCollection": "Søg efter alt i hele vores samling",
-    "showSidebar": "Vis menu"
+    "searchForm": "Søg formular",
+    "showSidebar": "Vis menu",
+    "sideNavigation": "Sidenavigation"
   },
   "homeLinkAlt": "Europeana startside",
+  "homePage": {
+    "discoverEditorial": "Oplev vores historier",
+    "download": "hent",
+    "free": "ledig",
+    "storiesCTA": "Se alle vores historier",
+    "subHeadline": "Find og {download} kunstværker, fotografier, bøger, manuskripter, aviser og musik fra over 4000 museer, arkiver, gallerier og biblioteker {free}.",
+    "title": "Oplev den europæiske kulturarv"
+  },
   "imageSlider": {
     "handle": "Skydehåndtag"
   },
@@ -852,6 +888,9 @@ export default {
   },
   "record": {
     "IIIFViewer": "IIIF-fremviser",
+    "actions": {
+      "pin": "Fastgør element til tilgængelige enheder"
+    },
     "allMetaData": "Alle metadata",
     "copyEmbedLabel": "Integrer kode (Klik for at kopiere)",
     "exploreMore": "Udforsk mere",
@@ -864,8 +903,16 @@ export default {
     "record": "Registrering",
     "showAll": "Vis alle oplysninger",
     "similarItems": "Lignende artikler",
+    "status": {
+      "unpublished": "[Ikke-publiceret element]"
+    },
     "transcription": "Transskription",
     "transcriptionDisclaimer": "Dette indhold er leveret af offentligheden, ikke af den institution, der leverede denne artikel."
+  },
+  "related": {
+    "editorial": {
+      "title": "Historier, du måske kan lide"
+    }
   },
   "relatedCollections": "Relaterede samlinger",
   "removeFilter": "Fjern {filterLabel} filter",
@@ -903,7 +950,6 @@ export default {
       "createNew": "Opret nyt galleri",
       "delete": "Slet galleri",
       "edit": "Rediger galleri",
-      "save": "Gem",
       "update": "Opdater galleri"
     },
     "form": {
@@ -937,6 +983,9 @@ export default {
   "statuses": {
     "liked": "Kunne lide",
     "pinned": "Fastgjort"
+  },
+  "storiesPage": {
+    "title": "Historier"
   },
   "website": "Websted",
   "youMightAlsoLike": "Du vil måske også kunne lide"

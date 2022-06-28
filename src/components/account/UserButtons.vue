@@ -17,6 +17,17 @@
       {{ pinButtonText }}
     </b-button>
     <b-button
+      v-if="showMove"
+      class="move-button text-uppercase d-inline-flex align-items-center"
+      :class="{ 'button-icon-only': !buttonText }"
+      data-qa="add button"
+      :variant="buttonVariant"
+      :aria-label="$t('actions.move')"
+    >
+      <span class="icon-ic-move-xy" />
+      {{ buttonText ? $t('actions.move') : '' }}
+    </b-button>
+    <b-button
       class="add-button text-uppercase d-inline-flex align-items-center"
       :class="{ 'button-icon-only': !buttonText }"
       data-qa="add button"
@@ -25,7 +36,7 @@
       @click="addToSet"
     >
       <span class="icon-ic-add" />
-      {{ buttonText ? $t('set.actions.save') : '' }}
+      {{ buttonText ? $t('actions.save') : '' }}
     </b-button>
     <b-button
       class="like-button text-uppercase d-inline-flex align-items-center"
@@ -133,6 +144,13 @@
        * If `true`, pin button will be rendered
        */
       showPins: {
+        type: Boolean,
+        default: false
+      },
+      /**
+       * If `true`, move button will be rendered
+       */
+      showMove: {
         type: Boolean,
         default: false
       },

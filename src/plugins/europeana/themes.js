@@ -44,11 +44,21 @@ export const withEditorialContent = async({ $store, $i18n, $route, $contentful }
     $store.commit('entity/setCuratedEntities', curatedEntities);
   }
   return entities.map(theme => {
-    const contentfulData = curatedEntities.find((curatedEntity) => curatedEntity.identifier === theme.id) || {};
+    const contentfulData = curatedEntities.find((curatedEntity) => {
+      // TODO: this next line will suffice once no URIs contain /base/
+      // return curatedEntity.identifier === theme.id;
+      // TODO: this next line will be redundant once no URIs contain /base/
+      return curatedEntity.identifier.includes('/concept/') &&
+        theme.id.includes('/concept/') &&
+        curatedEntity.identifier.endsWith(`/${theme.id.split('/').pop()}`);
+    }) || {};
     const override = {};
     if (contentfulData.name) {
       override.prefLabel = { [$i18n.locale]: contentfulData.name };
       override.prefLabel.en = contentfulData.nameEN;
+    }
+    if (contentfulData.description) {
+      override.description = { [$i18n.locale]: contentfulData.description };
     }
     if (contentfulData.primaryImageOfPage?.image) {
       override.contentfulImage = contentfulData.primaryImageOfPage.image;

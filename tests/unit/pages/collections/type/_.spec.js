@@ -27,7 +27,7 @@ const organisationEntity = {
 
 const topicEntity = {
   entity: {
-    id: 'http://data.europeana.eu/concept/base/01234567890',
+    id: 'http://data.europeana.eu/concept/01234567890',
     description: { en: 'example of a topic description' },
     isShownBy: { thumbnail: 'https://api.europeana.eu/api/v2/thumbnail.jpg' },
     prefLabel: { en: 'Topic' }
@@ -38,7 +38,7 @@ const topicEntity = {
 
 const themeEntity = {
   entity: {
-    id: 'http://data.europeana.eu/concept/base/62',
+    id: 'http://data.europeana.eu/concept/62',
     description: { en: 'example of a theme description' },
     isShownBy: { thumbnail: 'https://api.europeana.eu/api/v2/thumbnail.jpg' },
     prefLabel: { en: 'Theme' }
@@ -80,9 +80,6 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
       },
       entityManagement: {
         get: sinon.stub().resolves({})
-      },
-      record: {
-        relatedEntities: sinon.stub().resolves({})
       }
     },
     $i18n: {
@@ -156,7 +153,7 @@ describe('pages/collections/type/_', () => {
         await wrapper.vm.fetch();
 
         return wrapper.vm.$contentful.query.calledWith('collectionPage', {
-          identifier: topicEntity.entity.id,
+          identifiers: ['http://data.europeana.eu/concept/base/01234567890', topicEntity.entity.id],
           locale: 'en-GB',
           preview: false
         });

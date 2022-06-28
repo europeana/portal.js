@@ -130,6 +130,8 @@
                 <ItemPreviewCardGroup
                   :items="set.items"
                   :show-pins="setIsEntityBestItems && userIsEntityEditor"
+                  :draggable-items="userIsOwner"
+                  @endItemDrag="reorderItems"
                 />
               </b-col>
             </b-row>
@@ -150,6 +152,10 @@
 <script>
   import ClientOnly from 'vue-client-only';
 
+  import {
+    ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX,
+    SET_URL_PREFIX as EUROPEANA_DATA_URL_SET_PREFIX
+  } from '@/plugins/europeana/data';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
 
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
@@ -259,6 +265,22 @@
       },
       shareMediaUrl() {
         return this.$apis.thumbnail.edmPreview(this.set?.items?.[0]?.edmPreview?.[0], { size: 400 });
+      }
+    },
+
+    methods: {
+      reorderItems(items) {
+        this.$store.dispatch('set/update', {
+          id: `${EUROPEANA_DATA_URL_SET_PREFIX}/${this.setId}`,
+          body: {
+            type: this.set.type,
+            title: this.set.title,
+            description: this.set.description,
+            visibility: this.set.visibility,
+            items: items.map(item => `${EUROPEANA_DATA_URL_ITEM_PREFIX}${item.id}`)
+          },
+          params: { profile: 'standard' }
+        });
       }
     }
   };

@@ -38,10 +38,14 @@ export default {
     "goHome": "Go to the homepage",
     "learnMore": "Learn more",
     "like": "Like",
+    "move": "Move",
     "next": "Next",
     "pin": "Pin",
+    "preview": "Preview",
+    "previous": "Previous",
     "providedBy": "Provided by {provider}",
     "reject": "Reject",
+    "save": "Save",
     "send": "Send",
     "share": "Share",
     "shareOn": "Share on {social}",
@@ -145,8 +149,27 @@ export default {
     "to": "to"
   },
   "debug": {
-    "apiRequests": "API requests",
-    "debug": "Debug"
+    "apiRequests": {
+      "apiKeyLinkText": "Europeana API key",
+      "noRequests": "No requests to Europeana APIs were used on this page.",
+      "settingsPageLinkText": "settings page",
+      "tip": "Tip: if you already have a {apiKeyLink}, you may enter it on the {settingsPageLink} and it will be included in these API request links.",
+      "title": "API requests"
+    },
+    "debug": "Debug",
+    "settings": {
+      "form": {
+        "apiKey": {
+          "description": "Enter your Europeana API key and it will be used in the links to API requests.",
+          "label": "API key"
+        },
+        "enabled": {
+          "description": "If enabled, the debug menu will be shown in the page footer.",
+          "label": "Enable debug menu"
+        }
+      },
+      "title": "Settings"
+    }
   },
   "delete": "Delete",
   "depiction": "A depiction of {title}",
@@ -154,7 +177,6 @@ export default {
     "left": "Left",
     "right": "Right"
   },
-  "editorialContentYouMayLike": "Editorial content you may like",
   "edmIsShownAtLinkAlt": "View at the provider's website",
   "entity": {
     "actions": {
@@ -190,6 +212,7 @@ export default {
     "description": "Explore the exhibitions",
     "exhibitions": "Exhibition | Exhibitions"
   },
+  "explore": "Explore",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "colours",
@@ -717,17 +740,24 @@ export default {
       "home": "Home",
       "stories": "Stories"
     },
+    "quickSearch": "Quick Search",
     "searchFor": "Search for {query}",
     "searchForEverything": "Search for everything",
     "searchForEverythingInCollection": "Search for everything in {collection}",
     "searchForEverythingInEntireCollection": "Search for everything in our entire collection",
     "searchForm": "Search form",
     "showSidebar": "Show Menu",
-    "sideNavigation": "Side navigation",
-    "quickSearch": "Quick Search"
+    "sideNavigation": "Side navigation"
   },
   "homeLinkAlt": "Europeana home",
   "homePage": {
+    "discoverEditorial": "Discover our stories",
+    "download": "download",
+    "free": "free",
+    "storiesCTA": "See all our stories",
+    "subHeadline": "Find and {download} artworks, photographs, books, manuscripts, newspapers and music from over 4000 museums, archives, galleries, and libraries for {free}.",
+    "themesCTA": "See all our collections",
+    "themesTitle": "Start exploring by theme",
     "title": "Discover European cultural heritage"
   },
   "imageSlider": {
@@ -847,12 +877,14 @@ export default {
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
   "noResults": "No results",
+  "of": "Of",
   "organisation": {
     "city": "City",
     "country": "Country",
     "nameAcronym": "Name acronym"
   },
   "pageHasLoaded": "has loaded",
+  "pageNumber": "Page number",
   "pages": {
     "collections": {
       "organisations": {
@@ -874,6 +906,9 @@ export default {
         "title": "Topics"
       }
     }
+  },
+  "pagination": {
+    "label": "Pagination"
   },
   "readMore": "Read more",
   "recommendation": {
@@ -904,6 +939,11 @@ export default {
     },
     "transcription": "Transcription",
     "transcriptionDisclaimer": "This content is contributed by the public, not by the institution that provided this item."
+  },
+  "related": {
+    "editorial": {
+      "title": "Stories you may like"
+    }
   },
   "relatedCollections": "Related collections",
   "removeFilter": "Remove {filterLabel} filter",
@@ -941,7 +981,6 @@ export default {
       "createNew": "Create new gallery",
       "delete": "Delete gallery",
       "edit": "Edit gallery",
-      "save": "Save",
       "update": "Update gallery"
     },
     "form": {
@@ -975,6 +1014,9 @@ export default {
   "statuses": {
     "liked": "Liked",
     "pinned": "Pinned"
+  },
+  "storiesPage": {
+    "title": "Stories"
   },
   "website": "Website",
   "youMightAlsoLike": "You might also like"

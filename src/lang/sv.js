@@ -38,10 +38,13 @@ export default {
     "goHome": "Gå till hemsidan",
     "learnMore": "Läs mer",
     "like": "Gilla",
+    "move": "Flytta",
     "next": "Nästa",
     "pin": "Stift",
+    "preview": "Förhandsvisning",
     "providedBy": "Tillhandahålls av {provider}",
     "reject": "Avvisa",
+    "save": "Spara",
     "send": "Skicka",
     "share": "Dela",
     "shareOn": "Dela på {social}",
@@ -145,8 +148,27 @@ export default {
     "to": "till"
   },
   "debug": {
-    "apiRequests": "API-förfrågningar",
-    "debug": "Felsöka"
+    "apiRequests": {
+      "apiKeyLinkText": "Europeana API-nyckel",
+      "noRequests": "Inga förfrågningar till Europeana API:er användes på den här sidan.",
+      "settingsPageLinkText": "inställningssidan",
+      "tip": "Tips: om du redan har en {apiKeyLink} kan du ange den på {settingsPageLink} och den kommer att inkluderas i dessa API-förfrågningslänkar.",
+      "title": "API-förfrågningar"
+    },
+    "debug": "Felsöka",
+    "settings": {
+      "form": {
+        "apiKey": {
+          "description": "Ange din Europeana API-nyckel så kommer den att användas i länkarna till API-förfrågningar.",
+          "label": "API-nyckel"
+        },
+        "enabled": {
+          "description": "Om den är aktiverad kommer felsökningsmenyn att visas i sidfoten.",
+          "label": "Aktivera felsökningsmeny"
+        }
+      },
+      "title": "Inställningar"
+    }
   },
   "delete": "Radera",
   "depiction": "En skildring av {title}",
@@ -167,16 +189,18 @@ export default {
     },
     "notifications": {
       "deleted": "Ditt galleri har raderats.",
+      "error": {
+        "unpin": "Det uppstod ett fel vid lossningen av objektet. Försök igen eller rapportera problemet."
+      },
+      "pin": "Det här objektet visas högst upp i samlingen \"{entity}\". Vi meddelar dig när ändringen syns på samlingssidan.",
       "pinLimit": {
         "body": "För tillfället kan du bara fästa 24 objekt på den första sidan. Om du vill fästa det här objektet måste du ta bort ett annat och sedan försöka fästa det här igen.",
         "title": "För många pinnade objekt"
       },
       "pinned": "Objektet har fästs. Det är nu högst upp på den första sidan i den här samlingen. Det kan ta upp till 24 timmar innan alla visas.",
+      "select": "Välj en relaterad entitet för att fästa/lossa objektet till/från den.",
+      "unpin": "Det här objektet kommer att sluta visas överst i samlingen \" {entity} \". Vi kommer att meddela dig när denna förändring kommer att synas på insamlingssidan.",
       "unpinned": "Objektet har lossats. Det är inte längre högst upp på den första sidan i den här samlingen. Det kan ta upp till 24 timmar innan alla försvinner."
-    },
-    "prompts": {
-      "pin": "Är du säker på att du vill fästa den här artikeln? Det här objektet kommer att visas högst upp i samlingen \"{entity}\". Det kan ta upp till 24 timmar innan den här ändringen träder i kraft.",
-      "unpin": "Är du säker på att du vill ta bort det här objektet? Det här objektet slutar visas högst upp i {entity} \". Det kan ta upp till 24 timmar innan ändringen träder i kraft."
     }
   },
   "error": "Fel",
@@ -187,6 +211,7 @@ export default {
     "description": "Utforska utställningarna",
     "exhibitions": "Utställningar"
   },
+  "explore": "Utforska",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "färger",
@@ -691,13 +716,24 @@ export default {
       "home": "Hem",
       "stories": "Berättelser"
     },
+    "quickSearch": "Snabb sökning",
     "searchFor": "Sök efter {query}",
     "searchForEverything": "Sök efter allt",
     "searchForEverythingInCollection": "Sök efter allt i {collection}",
     "searchForEverythingInEntireCollection": "Sök efter allt i hela vår samling",
-    "showSidebar": "Visa meny"
+    "searchForm": "Sökformulär",
+    "showSidebar": "Visa meny",
+    "sideNavigation": "Sidnavigering"
   },
   "homeLinkAlt": "Europeana hem",
+  "homePage": {
+    "discoverEditorial": "Upptäck våra berättelser",
+    "download": "ladda ner",
+    "free": "gratis",
+    "storiesCTA": "Se alla våra berättelser",
+    "subHeadline": "Hitta och {download} konstverk, fotografier, böcker, manuskript, tidningar och musik från över 4 000 museer, arkiv, gallerier och bibliotek för {free}.",
+    "title": "Upptäck det europeiska kulturarvet"
+  },
   "imageSlider": {
     "handle": "Skjutreglage"
   },
@@ -852,6 +888,9 @@ export default {
   },
   "record": {
     "IIIFViewer": "IIIF-tittare",
+    "actions": {
+      "pin": "Fäst objekt på tillgängliga entiteter"
+    },
     "allMetaData": "Alla metadata",
     "copyEmbedLabel": "Bädda in kod (Klicka för att kopiera)",
     "exploreMore": "Utforska mer",
@@ -864,8 +903,16 @@ export default {
     "record": "Dokument",
     "showAll": "Visa all information",
     "similarItems": "Liknande objekt",
+    "status": {
+      "unpublished": "[Opublicerat objekt]"
+    },
     "transcription": "Transkribering",
     "transcriptionDisclaimer": "Innehållet har lagts till av allmänheten, inte av institutionen som tillhandahåller detta föremål."
+  },
+  "related": {
+    "editorial": {
+      "title": "Berättelser du kanske gillar"
+    }
   },
   "relatedCollections": "Tillhörande kollektioner",
   "removeFilter": "Ta bort filter {filterLabel}",
@@ -903,7 +950,6 @@ export default {
       "createNew": "Skapa nytt galleri",
       "delete": "Radera galleri",
       "edit": "Redigera galleri",
-      "save": "Spara",
       "update": "Uppdatera galleri"
     },
     "form": {
@@ -937,6 +983,9 @@ export default {
   "statuses": {
     "liked": "Gillade",
     "pinned": "Fäst"
+  },
+  "storiesPage": {
+    "title": "Berättelser"
   },
   "website": "Webbplats",
   "youMightAlsoLike": "Du kanske också gillar"

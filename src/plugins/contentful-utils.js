@@ -11,6 +11,9 @@ export function optimisedSrcForContentfulAsset(asset, params = {}) {
   if (asset.contentType === 'image/jpeg') {
     params['fm'] = 'jpg';
     params['fl'] = 'progressive';
+    if (!params.q) {
+      params.q = 80;
+    }
   }
 
   for (const key in params)  {

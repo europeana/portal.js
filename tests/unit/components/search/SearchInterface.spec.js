@@ -1,4 +1,5 @@
-import { createLocalVue, shallowMount } from '@vue/test-utils';
+import { createLocalVue } from '@vue/test-utils';
+import { shallowMountNuxt } from '../../utils';
 import BootstrapVue from 'bootstrap-vue';
 import Vuex from 'vuex';
 import sinon from 'sinon';
@@ -49,13 +50,14 @@ const factory = (options = {}) => {
           setView: searchSetViewMutation
         },
         actions: {
+          activate: () => null,
           run: () => null
         }
       }
     }
   });
 
-  return shallowMount(SearchInterface, {
+  return shallowMountNuxt(SearchInterface, {
     localVue,
     mocks,
     store,
@@ -66,7 +68,7 @@ const factory = (options = {}) => {
 describe('components/search/SearchInterface', () => {
   beforeEach(() => sinon.resetHistory());
 
-  describe('output', () => {
+  describe('template', () => {
     describe('with `error` in search state', () => {
       it('displays the message', () => {
         const errorMessage = 'Something went very wrong';
@@ -83,7 +85,58 @@ describe('components/search/SearchInterface', () => {
     });
   });
 
-  describe('computed properties', () => {
+  describe('fetch', () => {
+    it('activates the search in the store', async() => {
+      const wrapper = factory();
+      sinon.spy(wrapper.vm.$store, 'dispatch');
+
+      await wrapper.vm.fetch();
+
+      expect(wrapper.vm.$store.dispatch.calledWith('search/activate')).toBe(true);
+    });
+
+    it('commits user params to the store from the route query', async() => {
+      const wrapper = factory();
+      sinon.spy(wrapper.vm.$store, 'commit');
+      const routeQuery = { query: 'history', page: 2 };
+      wrapper.vm.$route = { query: routeQuery };
+
+      await wrapper.vm.fetch();
+
+      expect(wrapper.vm.$store.commit.calledWith('search/set', ['userParams', routeQuery])).toBe(true);
+    });
+
+    it('runs the search via the store', async() => {
+      const wrapper = factory();
+      sinon.spy(wrapper.vm.$store, 'dispatch');
+
+      await wrapper.vm.fetch();
+
+      expect(wrapper.vm.$store.dispatch.calledWith('search/run')).toBe(true);
+    });
+
+    test.todo('handles search errors');
+
+    it('marks the results as fetched', async() => {
+      const wrapper = factory();
+      expect(wrapper.vm.fetched).toBe(false);
+
+      await wrapper.vm.fetch();
+
+      expect(wrapper.vm.fetched).toBe(true);
+    });
+
+    it('scrolls to the page header element', async() => {
+      const wrapper = factory();
+      wrapper.vm.$scrollTo = sinon.spy();
+
+      await wrapper.vm.fetch();
+
+      expect(wrapper.vm.$scrollTo.calledWith('#header')).toBe(true);
+    });
+  });
+
+  describe('computed', () => {
     describe('errorMessage', () => {
       describe('when there was a pagination error', () => {
         it('returns a user-friendly error message', async() => {
