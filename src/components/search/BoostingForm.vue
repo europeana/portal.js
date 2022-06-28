@@ -67,6 +67,7 @@
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
   @import '@/assets/scss/icons';
+
   .form-inline {
     background-color: $white;
     font-size: 1rem;
