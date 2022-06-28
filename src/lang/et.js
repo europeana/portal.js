@@ -6,7 +6,7 @@ export default {
     "likes": "Meeldimised",
     "linkAccount": "Minu konto",
     "linkLogin": "Logi sisse",
-    "linkLoginJoin": "Logi sisse/Liitu",
+    "linkLoginJoin": "Logi sisse\/Liitu",
     "linkLogout": "Logi välja",
     "myProfile": "Minu profiil",
     "notifications": {
@@ -38,10 +38,13 @@ export default {
     "goHome": "Minge avalehele",
     "learnMore": "Lisateave",
     "like": "Meeldib",
+    "move": "Liiguta",
     "next": "Järgmine",
     "pin": "Pin",
+    "preview": "Eelvaade",
     "providedBy": "Pakub {provider}",
     "reject": "Tagasi lükata",
+    "save": "Salvesta",
     "send": "Saada",
     "share": "Jagage",
     "shareOn": "Jagage saidil {social}",
@@ -145,8 +148,27 @@ export default {
     "to": "kuni"
   },
   "debug": {
-    "apiRequests": "API taotlused",
-    "debug": "Debug"
+    "apiRequests": {
+      "apiKeyLinkText": "Europeana API võti",
+      "noRequests": "Sellel lehel ei kasutatud Europeana API-de päringuid.",
+      "settingsPageLinkText": "seadete leht",
+      "tip": "Nõuanne: kui teil on juba {apiKeyLink} , võite selle sisestada lehel {settingsPageLink} ja see lisatakse nendele API päringu linkidele.",
+      "title": "API taotlused"
+    },
+    "debug": "Debug",
+    "settings": {
+      "form": {
+        "apiKey": {
+          "description": "Sisestage oma Europeana API võti ja seda kasutatakse API taotluste linkides.",
+          "label": "API võti"
+        },
+        "enabled": {
+          "description": "Kui see on lubatud, kuvatakse lehe jaluses silumismenüü.",
+          "label": "Luba silumismenüü"
+        }
+      },
+      "title": "Seaded"
+    }
   },
   "delete": "Kustuta",
   "depiction": "{title} kujutis",
@@ -167,16 +189,18 @@ export default {
     },
     "notifications": {
       "deleted": "Teie galerii on kustutatud.",
+      "error": {
+        "unpin": "Üksuse vabastamisel ilmnes viga. Proovige uuesti või teavitage probleemist."
+      },
+      "pin": "See üksus kuvatakse kogu „ {entity} ” ülaosas. Anname teile teada, kui seda muudatust kogumislehel näha on.",
       "pinLimit": {
         "body": "Praegu saate esimesele lehele kinnitada ainult 24 üksust. Kui soovite selle üksuse kinnitada, eemaldage kindlasti uus üksus ja proovige siis seda uuesti kinnitada.",
         "title": "Liiga palju kinnitatud üksusi"
       },
       "pinned": "Üksus on kinnitatud. See on nüüd selle kogumiku esimese lehe ülaosas. Kõigi kuvamiseks võib kuluda kuni 24 tundi.",
+      "select": "Valige seotud olem üksuse kinnitamiseks\/eemaldamiseks selle külge\/välja.",
+      "unpin": "Seda üksust ei kuvata enam kogu „ {entity} ” ülaosas. Anname teile teada, kui seda muudatust kogumislehel näha on.",
       "unpinned": "Üksus on vabastatud. Seda pole enam selle kogumiku esimese lehe ülaosas. Kõigi kadumiseks võib kuluda kuni 24 tundi."
-    },
-    "prompts": {
-      "pin": "Kas soovite kindlasti selle üksuse kinnitada? See üksus kuvatakse kogumi {entity} ülaosas. Selle muudatuse jõustumiseks võib kuluda kuni 24 tundi.",
-      "unpin": "Kas olete kindel, et soovite selle üksuse vabastada? Seda üksust ei kuvata kogu „ {entity} ” ülaosas. Selle muudatuse jõustumiseks võib kuluda kuni 24 tundi."
     }
   },
   "error": "Viga",
@@ -187,6 +211,7 @@ export default {
     "description": "Tutvuge näitustega",
     "exhibitions": "Näitused"
   },
+  "explore": "Avasta",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "värvid",
@@ -467,7 +492,7 @@ export default {
     "MIME_TYPE": {
       "name": "Failivorming | Failivormingud",
       "options": {
-        "text/plain": "Lihttekst"
+        "text\/plain": "Lihttekst"
       },
       "select": "Valige failivormingud"
     },
@@ -691,19 +716,30 @@ export default {
       "home": "Kodu",
       "stories": "Lood"
     },
+    "quickSearch": "Kiire otsing",
     "searchFor": "Otsi {query}",
     "searchForEverything": "Otsi kõike",
     "searchForEverythingInCollection": "Otsi kõike {collection}",
     "searchForEverythingInEntireCollection": "Otsi kõike kogu meie kollektsioonist",
-    "showSidebar": "Kuva menüü"
+    "searchForm": "Otsinguvorm",
+    "showSidebar": "Kuva menüü",
+    "sideNavigation": "Külgmine navigeerimine"
   },
   "homeLinkAlt": "Europeana avaleht",
+  "homePage": {
+    "discoverEditorial": "Avastage meie lugusid",
+    "download": "lae alla",
+    "free": "vaba",
+    "storiesCTA": "Vaadake kõiki meie lugusid",
+    "subHeadline": "Otsige ja {download} kunstiteoseid, fotosid, raamatuid, käsikirju, ajalehti ja muusikat enam kui 4000 muuseumist, arhiivist, galeriist ja raamatukogust {free} .",
+    "title": "Avastage Euroopa kultuuripärandit"
+  },
   "imageSlider": {
     "handle": "Liugkäepide"
   },
   "items": {
     "itemCount": "1 toode | {count} toodet",
-    "itemOf": "{max} / {count} tootest",
+    "itemOf": "{max} \/ {count} tootest",
     "recent": "Hiljutised esemed",
     "recommended": "Soovitatavad esemed",
     "youMightLike": "Tooted, mis võivad teile meeldida"
@@ -742,7 +778,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Aitab meie veebisaiti täiustada, rakendades aeg -ajalt eksperimentaalseid muudatusi.",
-        "title": "A/B testimine"
+        "title": "A\/B testimine"
       },
       "auth-strategy": {
         "description": "Mäletab sisselogimiseks kasutatava autoriseerimisstrateegia.",
@@ -774,7 +810,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Mäletab, kas eelistate näha otsingutulemusi loendi või ruudustiku kujul.",
-        "title": "Otsingutulemite vaade (loend / ruudustik)"
+        "title": "Otsingutulemite vaade (loend \/ ruudustik)"
       }
     }
   },
@@ -852,6 +888,9 @@ export default {
   },
   "record": {
     "IIIFViewer": "IIIF vaataja",
+    "actions": {
+      "pin": "Kinnitage üksus saadaolevatele olemitega"
+    },
     "allMetaData": "Kogu metateave",
     "copyEmbedLabel": "Embed code (Klõpsake kopeerimiseks)",
     "exploreMore": "Avastage rohkem",
@@ -864,8 +903,16 @@ export default {
     "record": "Kirje",
     "showAll": "Kuva kogu teave",
     "similarItems": "Sarnased tooted",
+    "status": {
+      "unpublished": "[Avaldamata üksus]"
+    },
     "transcription": "Transkriptsioon",
     "transcriptionDisclaimer": "See sisu on saadud eraisikult, mitte eset pakkunud institutsioonilt."
+  },
+  "related": {
+    "editorial": {
+      "title": "Lood, mis teile võivad meeldida"
+    }
   },
   "relatedCollections": "Seotud kollektsioonid",
   "removeFilter": "Eemalda filter {filterLabel}",
@@ -903,7 +950,6 @@ export default {
       "createNew": "Loo uus galerii",
       "delete": "Kustuta galerii",
       "edit": "Redigeeri galeriid",
-      "save": "Salvesta",
       "update": "Värskenda galeriid"
     },
     "form": {
@@ -937,6 +983,9 @@ export default {
   "statuses": {
     "liked": "Meeldis",
     "pinned": "Kinnitatud"
+  },
+  "storiesPage": {
+    "title": "Lood"
   },
   "website": "Veebisait",
   "youMightAlsoLike": "Sulle võib ka meeldida"

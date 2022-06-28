@@ -6,7 +6,7 @@ export default {
     "likes": "Mentions J’aime",
     "linkAccount": "Mon compte",
     "linkLogin": "Se connecter",
-    "linkLoginJoin": "Connexion/Rejoignez-nous",
+    "linkLoginJoin": "Connexion\/Rejoignez-nous",
     "linkLogout": "Déconnexion",
     "myProfile": "Mon profil",
     "notifications": {
@@ -38,10 +38,13 @@ export default {
     "goHome": "Aller à la page d'accueil",
     "learnMore": "Apprendre encore plus",
     "like": "Mention J'aime",
+    "move": "Déplacer",
     "next": "Suivant",
     "pin": "Épingler",
+    "preview": "Prévisualisation",
     "providedBy": "Fourni par {provider}",
     "reject": "Rejeter",
+    "save": "Sauvegarder",
     "send": "Envoyer",
     "share": "Partagez",
     "shareOn": "Partager sur {social}",
@@ -145,8 +148,27 @@ export default {
     "to": "à"
   },
   "debug": {
-    "apiRequests": "Demandes d'API",
-    "debug": "Déboguer"
+    "apiRequests": {
+      "apiKeyLinkText": "Clé API Europeana",
+      "noRequests": "Aucune demande aux API Europeana n'a été utilisée sur cette page.",
+      "settingsPageLinkText": "page des paramètres",
+      "tip": "Astuce : si vous avez déjà un {apiKeyLink} , vous pouvez le saisir sur le {settingsPageLink} et il sera inclus dans ces liens de demande d'API.",
+      "title": "Requêtes API"
+    },
+    "debug": "Déboguer",
+    "settings": {
+      "form": {
+        "apiKey": {
+          "description": "Entrez votre clé API Europeana et elle sera utilisée dans les liens vers les requêtes API.",
+          "label": "Clé API"
+        },
+        "enabled": {
+          "description": "S'il est activé, le menu de débogage sera affiché dans le pied de page.",
+          "label": "Activer le menu de débogage"
+        }
+      },
+      "title": "Paramètres"
+    }
   },
   "delete": "Supprimer",
   "depiction": "Une description de {title}",
@@ -167,16 +189,18 @@ export default {
     },
     "notifications": {
       "deleted": "Votre galerie a été supprimée.",
+      "error": {
+        "unpin": "Une erreur s'est produite lors du détachement de l'élément. Veuillez réessayer ou signaler le problème."
+      },
+      "pin": "Cet élément s'affichera en haut de la collection \" {entity} \". Nous vous informerons lorsque ce changement sera visible sur la page de collecte.",
       "pinLimit": {
         "body": "Pour l'instant, vous ne pouvez épingler que 24 éléments sur la première page. Si vous souhaitez épingler cet élément, assurez-vous d'en désépingler un autre, puis réessayez d'épingler celui-ci.",
         "title": "Trop d'éléments épinglés"
       },
       "pinned": "L'élément a été épinglé. Il est maintenant en haut de la première page de cette collection. Cela peut prendre jusqu'à 24 heures pour apparaître pour tout le monde.",
+      "select": "Sélectionnez une entité associée pour y épingler\/détacher l'élément.",
+      "unpin": "Cet élément ne s'affichera plus en haut de la collection \" {entity} \". Nous vous informerons lorsque ce changement sera visible sur la page de collecte.",
       "unpinned": "L'élément a été désépinglé. Il n'est plus en haut de la première page de cette collection. Cela peut prendre jusqu'à 24 heures pour disparaître pour tout le monde."
-    },
-    "prompts": {
-      "pin": "Voulez-vous vraiment épingler cet élément ? Cet élément apparaîtra en haut de la collection \" {entity} \". Ce changement peut prendre jusqu'à 24 heures pour prendre effet.",
-      "unpin": "Voulez-vous vraiment désépingler cet élément ? Cet élément cessera de s'afficher en haut de la collection \" {entity} \". Ce changement peut prendre jusqu'à 24 heures pour prendre effet."
     }
   },
   "error": "Erreur",
@@ -187,6 +211,7 @@ export default {
     "description": "Découvrez les expositions",
     "exhibitions": "Expositions"
   },
+  "explore": "Explorez",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "couleurs",
@@ -467,7 +492,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format de fichier | Formats de fichiers",
       "options": {
-        "text/plain": "Texte brut"
+        "text\/plain": "Texte brut"
       },
       "select": "Sélectionnez les formats de fichier"
     },
@@ -691,13 +716,24 @@ export default {
       "home": "Accueil",
       "stories": "Histoires"
     },
+    "quickSearch": "Recherche rapide",
     "searchFor": "Rechercher {query}",
     "searchForEverything": "Rechercher tout",
     "searchForEverythingInCollection": "Rechercher tout dans {collection}",
     "searchForEverythingInEntireCollection": "Rechercher tout dans notre collection",
-    "showSidebar": "Afficher le menu"
+    "searchForm": "Formulaire de recherche",
+    "showSidebar": "Afficher le menu",
+    "sideNavigation": "Navigation latérale"
   },
   "homeLinkAlt": "Accueil Europeana",
+  "homePage": {
+    "discoverEditorial": "Découvrez nos histoires",
+    "download": "télécharger",
+    "free": "gratuit",
+    "storiesCTA": "Voir toutes nos histoires",
+    "subHeadline": "Trouvez et {download} des œuvres d’art, des photographies, des livres, des manuscrits, des journaux et de la musique de plus de 4000 musées, archives, galeries et bibliothèques {free}.",
+    "title": "Découvrez le patrimoine culturel européen"
+  },
   "imageSlider": {
     "handle": "Poignée de curseur"
   },
@@ -742,7 +778,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Aide à améliorer notre site Web en appliquant occasionnellement des modifications expérimentales.",
-        "title": "Tests A/B"
+        "title": "Tests A\/B"
       },
       "auth-strategy": {
         "description": "Se souvient de la stratégie d'autorisation à utiliser pour se connecter.",
@@ -774,7 +810,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Se souvient si vous préférez voir les résultats de la recherche sous forme de liste ou de grille.",
-        "title": "Affichage des résultats de recherche (liste/grille)"
+        "title": "Affichage des résultats de recherche (liste\/grille)"
       }
     }
   },
@@ -852,6 +888,9 @@ export default {
   },
   "record": {
     "IIIFViewer": "Visionneuse IIIF",
+    "actions": {
+      "pin": "Épingler l'élément aux entités disponibles"
+    },
     "allMetaData": "Toutes les métadonnées",
     "copyEmbedLabel": "Code d’intégration (Cliquez pour copier)",
     "exploreMore": "En savoir plus",
@@ -864,8 +903,16 @@ export default {
     "record": "Enregistrement",
     "showAll": "Afficher toutes les informations",
     "similarItems": "Éléments similaires",
+    "status": {
+      "unpublished": "[Élément non publié]"
+    },
     "transcription": "Transcription",
     "transcriptionDisclaimer": "Ce contenu est fourni par le public, et non par l'institution qui a fourni cet article."
+  },
+  "related": {
+    "editorial": {
+      "title": "Histoires que vous aimerez peut-être"
+    }
   },
   "relatedCollections": "Collections similaires",
   "removeFilter": "Supprimer le filtre {filterLabel}",
@@ -903,7 +950,6 @@ export default {
       "createNew": "Créer une nouvelle galerie",
       "delete": "Supprimer la galerie",
       "edit": "Modifier la galerie",
-      "save": "Sauvegarder",
       "update": "Mettre à jour la galerie"
     },
     "form": {
@@ -937,6 +983,9 @@ export default {
   "statuses": {
     "liked": "Aimé",
     "pinned": "Épinglé"
+  },
+  "storiesPage": {
+    "title": "Histoires"
   },
   "website": "Site Internet",
   "youMightAlsoLike": "Vous pourriez aussi aimer"

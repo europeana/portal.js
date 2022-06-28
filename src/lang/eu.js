@@ -6,7 +6,7 @@ export default {
     "likes": "Atsegin |",
     "linkAccount": "Nire kontua",
     "linkLogin": "Saioa hasi",
-    "linkLoginJoin": "Saioa hasi/Sartu",
+    "linkLoginJoin": "Saioa hasi\/Sartu",
     "linkLogout": "Saioa amaitu",
     "myProfile": "Nire profila",
     "notifications": {
@@ -38,10 +38,13 @@ export default {
     "goHome": "Joan hasierako orrialdera",
     "learnMore": "Gehiago ikasi",
     "like": "Atsegin dut",
+    "move": "Mugitu",
     "next": "Hurrengoa",
     "pin": "Pin",
+    "preview": "Aurrebista",
     "providedBy": "{provider} emanda",
     "reject": "Baztertu",
+    "save": "Gorde",
     "send": "Bidali",
     "share": "Partekatu",
     "shareOn": "{social} partekatu",
@@ -145,8 +148,27 @@ export default {
     "to": "-ra"
   },
   "debug": {
-    "apiRequests": "API eskaerak",
-    "debug": "Araztu"
+    "apiRequests": {
+      "apiKeyLinkText": "Europeana API gakoa",
+      "noRequests": "Orri honetan ez da Europeana APIetarako eskaerarik erabili.",
+      "settingsPageLinkText": "ezarpenen orria",
+      "tip": "Aholkua: dagoeneko {apiKeyLink} bat baduzu, {settingsPageLink} atalean sar dezakezu eta API eskaera-esteka hauetan sartuko da.",
+      "title": "API eskaerak"
+    },
+    "debug": "Araztu",
+    "settings": {
+      "form": {
+        "apiKey": {
+          "description": "Sartu zure Europeana API gakoa eta API-eskaeretarako esteketan erabiliko da.",
+          "label": "API gakoa"
+        },
+        "enabled": {
+          "description": "Gaituta badago, arazketa menua orri-oinean agertuko da.",
+          "label": "Gaitu arazketa-menua"
+        }
+      },
+      "title": "Ezarpenak"
+    }
   },
   "delete": "Ezabatu",
   "depiction": "{title}-ren irudikapena",
@@ -167,16 +189,18 @@ export default {
     },
     "notifications": {
       "deleted": "Zure galeria ezabatu egin da.",
+      "error": {
+        "unpin": "Errore bat gertatu da elementua kentzean. Mesedez, saiatu berriro edo jakinarazi arazoa."
+      },
+      "pin": "Elementu hau \" {entity} \" bildumaren goialdean agertuko da. Aldaketa hau bilduma-orrian ikusgai izango denean jakinaraziko dizugu.",
       "pinLimit": {
         "body": "Oraingoz 24 elementu soilik leheneratu ditzakezu lehen orrian. Elementu hau itsatsi nahi baduzu, ziurtatu beste bat ainguratzen duzula eta saiatu berriro ainguratzen.",
         "title": "Ainguratutako elementu gehiegi"
       },
       "pinned": "Elementua ainguratu da. Bilduma honen lehen orrialdearen goialdean dago orain. 24 ordu behar izan ditzake guztientzat agertzeko.",
+      "select": "Hautatu erlazionatutako entitate bat elementua ainguratzeko\/desainguratzeko.",
+      "unpin": "Elementu hau \"{entity}\" bildumaren goialdean erakusteari utziko zaio. Aldaketa hau bildumaren orrian ikusgai dagoenean jakinaraziko dizugu.",
       "unpinned": "Elementua ainguratu egin da. Jada ez dago bilduma honetako lehen orrialdearen goialdean. 24 ordu behar izan ditzake guztientzat desagertzeko."
-    },
-    "prompts": {
-      "pin": "Ziur zaude elementu hau ainguratu nahi duzula? Elementu hau \" {entity} \" bildumaren goialdean erakutsiko da. Baliteke aldaketa hori 24 ordu behar izatea indarrean jartzeko.",
-      "unpin": "Ziur zaude elementu hau ainguratu nahi duzula? {entity} \" bildumaren goialdean agertzeari utziko zaio. Baliteke aldaketa hori 24 ordu behar izatea indarrean jartzeko."
     }
   },
   "error": "Akatsa",
@@ -187,6 +211,7 @@ export default {
     "description": "Erakusketak arakatu",
     "exhibitions": "Erakusketa | Erakusketak"
   },
+  "explore": "Esploratu",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "koloreak",
@@ -467,7 +492,7 @@ export default {
     "MIME_TYPE": {
       "name": "Fitxategiaren formatua | Fitxategien formatuak",
       "options": {
-        "text/plain": "Testu arrunta"
+        "text\/plain": "Testu arrunta"
       },
       "select": "Hautatu fitxategi formatuak"
     },
@@ -691,19 +716,30 @@ export default {
       "home": "Etxea",
       "stories": "Istorioak"
     },
+    "quickSearch": "Bilaketa azkarra",
     "searchFor": "Bilatu",
     "searchForEverything": "Dena bilatu",
     "searchForEverythingInCollection": "Dena bilatu hemen {collection}",
     "searchForEverythingInEntireCollection": "Dena bilatu gure bilduma osoan",
-    "showSidebar": "Erakutsi alboko barra"
+    "searchForm": "Bilaketa formularioa",
+    "showSidebar": "Erakutsi alboko barra",
+    "sideNavigation": "Alboko nabigazioa"
   },
   "homeLinkAlt": "Europeana Hasiera orria",
+  "homePage": {
+    "discoverEditorial": "Ezagutu gure istorioak",
+    "download": "deskargatu",
+    "free": "dohainik",
+    "storiesCTA": "Ikusi gure istorio guztiak",
+    "subHeadline": "Bilatu eta {download} artelanak, argazkiak, liburuak, eskuizkribuak, egunkariak eta musika 4.000 museo, artxibo, galeria eta liburutegitik gorako {free} .",
+    "title": "Ezagutu Europako kultur ondarea"
+  },
   "imageSlider": {
     "handle": "Kontrola"
   },
   "items": {
     "itemCount": "Elementu 1 | {count} elementu",
-    "itemOf": "{max}/{count} elementu",
+    "itemOf": "{max}\/{count} elementu",
     "recent": "Azken elementuak",
     "recommended": "Gomendatutako elementuak",
     "youMightLike": "Gustatu ahal zaizkizun elementuak"
@@ -742,7 +778,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Gure webgunea hobetzen laguntzen du noizean behin aldaketa esperimentalak aplikatuz.",
-        "title": "A / B probak"
+        "title": "A \/ B probak"
       },
       "auth-strategy": {
         "description": "Saioa hasteko erabili beharreko baimen estrategia gogoratzen du.",
@@ -774,7 +810,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Gogoratzen duzu bilaketa-emaitzak zerrenda edo sareta ikuspegian ikustea nahiago baduzu.",
-        "title": "Bilaketaren emaitzen ikuspegia (zerrenda / sareta)"
+        "title": "Bilaketaren emaitzen ikuspegia (zerrenda \/ sareta)"
       }
     }
   },
@@ -852,6 +888,9 @@ export default {
   },
   "record": {
     "IIIFViewer": "IIIF ikuslea",
+    "actions": {
+      "pin": "Ainguratu elementua eskuragarri dauden Entitateetan"
+    },
     "allMetaData": "Metadatu guztiak",
     "copyEmbedLabel": "Embed kodea (Egin klik kopiatzeko)",
     "exploreMore": "Gehiago arakatu",
@@ -864,8 +903,16 @@ export default {
     "record": "Elementua",
     "showAll": "Informazio guztia erakutsi",
     "similarItems": "Antzeko elementuak",
+    "status": {
+      "unpublished": "[Argitaratu gabeko elementua]"
+    },
     "transcription": "Transkripzioa",
     "transcriptionDisclaimer": "Eduki hori jendeak egin du, eta ez elementu hau eman duen erakundeak"
+  },
+  "related": {
+    "editorial": {
+      "title": "Gustuko izan ditzakezun istorioak"
+    }
   },
   "relatedCollections": "Lotutako bildumak",
   "removeFilter": "Kendu {filterLabel} iragazkia",
@@ -903,7 +950,6 @@ export default {
       "createNew": "Bilduma berria sortu",
       "delete": "Bilduma ezabatu",
       "edit": "Bilduma editatu",
-      "save": "Gorde",
       "update": "Bilduma eguneratu"
     },
     "form": {
@@ -937,6 +983,9 @@ export default {
   "statuses": {
     "liked": "Gustatu",
     "pinned": "Ainguratuta"
+  },
+  "storiesPage": {
+    "title": "Istorioak"
   },
   "website": "Webgunea",
   "youMightAlsoLike": "Baliteke ere gustatzea"

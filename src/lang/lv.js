@@ -6,7 +6,7 @@ export default {
     "likes": "Patīk",
     "linkAccount": "Mans konts",
     "linkLogin": "Pieteikties",
-    "linkLoginJoin": "Pieteikties/Pievienoties",
+    "linkLoginJoin": "Pieteikties\/Pievienoties",
     "linkLogout": "Atteikties",
     "myProfile": "Mans profils",
     "notifications": {
@@ -38,10 +38,13 @@ export default {
     "goHome": "Dodieties uz sākumlapu",
     "learnMore": "Apgūt vairāk",
     "like": "Patīk",
+    "move": "Pārvietot",
     "next": "Nākamais",
     "pin": "Pin",
+    "preview": "Priekšskatījums",
     "providedBy": "Nodrošina {provider}",
     "reject": "Noraidīt",
+    "save": "Glābt",
     "send": "Sūtīt",
     "share": "Dalies",
     "shareOn": "Dalīties {social}",
@@ -145,8 +148,27 @@ export default {
     "to": "uz"
   },
   "debug": {
-    "apiRequests": "API pieprasījumi",
-    "debug": "Atkļūdošana"
+    "apiRequests": {
+      "apiKeyLinkText": "Europeana API atslēga",
+      "noRequests": "Šajā lapā netika izmantots neviens Europeana API pieprasījums.",
+      "settingsPageLinkText": "iestatījumu lapa",
+      "tip": "Padoms. Ja jums jau ir {apiKeyLink} , varat to ievadīt {settingsPageLink} , un tas tiks iekļauts šajās API pieprasījumu saitēs.",
+      "title": "API pieprasījumi"
+    },
+    "debug": "Atkļūdošana",
+    "settings": {
+      "form": {
+        "apiKey": {
+          "description": "Ievadiet savu Europeana API atslēgu, un tā tiks izmantota saitēs uz API pieprasījumiem.",
+          "label": "API atslēga"
+        },
+        "enabled": {
+          "description": "Ja tas ir iespējots, atkļūdošanas izvēlne tiks parādīta lapas kājenē.",
+          "label": "Iespējot atkļūdošanas izvēlni"
+        }
+      },
+      "title": "Lestatījumi"
+    }
   },
   "delete": "Dzēst",
   "depiction": "{title} attēlojums",
@@ -167,16 +189,18 @@ export default {
     },
     "notifications": {
       "deleted": "Tava galerija ir izdzēsta.",
+      "error": {
+        "unpin": "Atspraužot vienumu, radās kļūda. Lūdzu, mēģiniet vēlreiz vai ziņojiet par problēmu."
+      },
+      "pin": "Šis vienums tiks rādīts kolekcijas “ {entity} ” augšdaļā. Mēs jūs informēsim, kad šīs izmaiņas būs redzamas kolekcijas lapā.",
       "pinLimit": {
         "body": "Pagaidām pirmajā lapā var piespraust tikai 24 vienumus. Ja vēlaties piespraust šo vienumu, noteikti atspraudiet vēl vienu un mēģiniet vēlreiz piespraust šo vienumu.",
         "title": "Pārāk daudz piesprausto vienumu"
       },
       "pinned": "Vienums ir piespraustas. Tagad tas atrodas šīs kolekcijas pirmās lapas augšpusē. Var paiet līdz pat 24 stundām, līdz tas parādās visiem.",
+      "select": "Atlasiet saistīto entītiju, lai piespraustu\/atspraustu vienumu tai\/no tā.",
+      "unpin": "Šis vienums vairs netiks rādīts kolekcijas “ {entity} ” augšdaļā. Mēs jūs informēsim, kad šīs izmaiņas būs redzamas kolekcijas lapā.",
       "unpinned": "Vienums ir atspraustas. Tas vairs nav šīs kolekcijas pirmās lapas augšpusē. Var paiet pat 24 stundas, līdz visi pazūd."
-    },
-    "prompts": {
-      "pin": "Vai tiešām vēlaties piespraust šo vienumu? Šis vienums tiks rādīts kolekcijas \"{entity}\" augšdaļā. Šo izmaiņu stāšanās spēkā var ilgt līdz 24 stundām.",
-      "unpin": "Vai tiešām vēlaties atspraust šo vienumu? Šis vienums vairs netiks rādīts kolekcijas \"{entity}\" augšdaļā. Šo izmaiņu stāšanās spēkā var ilgt līdz 24 stundām."
     }
   },
   "error": "Kļūda",
@@ -187,6 +211,7 @@ export default {
     "description": "Pārlūkot izstādes",
     "exhibitions": "Izstāde | Izstādes"
   },
+  "explore": "Izpētīt",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "krāsas",
@@ -467,7 +492,7 @@ export default {
     "MIME_TYPE": {
       "name": "Datnes formāts | Datņu formāti",
       "options": {
-        "text/plain": "Vienkāršs teksts"
+        "text\/plain": "Vienkāršs teksts"
       },
       "select": "Atlasīt failu formātus"
     },
@@ -558,7 +583,7 @@ export default {
       "name": "Izdošanas datums"
     },
     "proxy_dcterms_medium": {
-      "name": "Līdzeklis/ Līdzekļi",
+      "name": "Līdzeklis\/ Līdzekļi",
       "select": "Atlasīt multividi"
     }
   },
@@ -691,13 +716,24 @@ export default {
       "home": "Mājas",
       "stories": "Stāsti"
     },
+    "quickSearch": "Ātrā meklēšana",
     "searchFor": "Meklēt {query}",
     "searchForEverything": "Meklēt visu",
     "searchForEverythingInCollection": "Meklēt visu kolekcijā {collection}",
     "searchForEverythingInEntireCollection": "Meklēt visu visā mūsu kolekcijā",
-    "showSidebar": "Radīt izvēlni"
+    "searchForm": "Meklēšanas forma",
+    "showSidebar": "Radīt izvēlni",
+    "sideNavigation": "Sānu navigācija"
   },
   "homeLinkAlt": "Europeana vietne",
+  "homePage": {
+    "discoverEditorial": "Atklājiet mūsu stāstus",
+    "download": "lejupielādēt",
+    "free": "bezmaksas",
+    "storiesCTA": "Skatiet visus mūsu stāstus",
+    "subHeadline": "Atrodiet un {download} mākslas darbus, fotogrāfijas, grāmatas, manuskriptus, laikrakstus un mūziku no vairāk nekā 4000 muzejiem, arhīviem, galerijām un bibliotēkām {free}.",
+    "title": "Atklājiet Eiropas kultūras mantojumu"
+  },
   "imageSlider": {
     "handle": "Slīdņa rokturis"
   },
@@ -742,7 +778,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Palīdz uzlabot mūsu vietni, laiku pa laikam veicot eksperimentālas izmaiņas.",
-        "title": "A/B testēšana"
+        "title": "A\/B testēšana"
       },
       "auth-strategy": {
         "description": "Atceras autorizācijas stratēģiju, kas jāizmanto, lai pieteiktos.",
@@ -774,7 +810,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Atceras, vai vēlaties redzēt meklēšanas rezultātus saraksta vai režģa skatā.",
-        "title": "Meklēšanas rezultātu skats (saraksts / režģis)"
+        "title": "Meklēšanas rezultātu skats (saraksts \/ režģis)"
       }
     }
   },
@@ -852,6 +888,9 @@ export default {
   },
   "record": {
     "IIIFViewer": "IIIF skatītājs",
+    "actions": {
+      "pin": "Piespraudiet vienumu pieejamajām entītijām"
+    },
     "allMetaData": "Visi metadati",
     "copyEmbedLabel": "Iegulšanas kods (noklikšķiniet, lai kopētu)",
     "exploreMore": "Pārlūkot vairāk",
@@ -864,8 +903,16 @@ export default {
     "record": "Vienums",
     "showAll": "Rādīt visu informāciju",
     "similarItems": "Līdzīgi vienumi",
+    "status": {
+      "unpublished": "[Nepublicēts vienums]"
+    },
     "transcription": "Kopija",
     "transcriptionDisclaimer": "Šī satura veidošanā līdzdarbojušies iedzīvotāji, nevis šo vienumu nodrošinošā iestāde."
+  },
+  "related": {
+    "editorial": {
+      "title": "Stāsti, kas jums varētu patikt"
+    }
   },
   "relatedCollections": "Saistītās kolekcijas",
   "removeFilter": "Noņemt filtru {filterLabel}",
@@ -903,7 +950,6 @@ export default {
       "createNew": "Izveidot jaunu galeriju",
       "delete": "Dzēst galeriju",
       "edit": "Rediģēt galeriju",
-      "save": "Glābt",
       "update": "Atjaunināt galeriju"
     },
     "form": {
@@ -937,6 +983,9 @@ export default {
   "statuses": {
     "liked": "Patika",
     "pinned": "Piesprausts"
+  },
+  "storiesPage": {
+    "title": "Stāsti"
   },
   "website": "Vietne",
   "youMightAlsoLike": "Jums varētu arī patikt"

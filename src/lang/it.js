@@ -6,7 +6,7 @@ export default {
     "likes": "Mi piace",
     "linkAccount": "Il mio account",
     "linkLogin": "Accedi",
-    "linkLoginJoin": "Accedi/Iscriviti",
+    "linkLoginJoin": "Accedi\/Iscriviti",
     "linkLogout": "Esci",
     "myProfile": "Il mio profilo",
     "notifications": {
@@ -38,10 +38,13 @@ export default {
     "goHome": "Vai alla homepage",
     "learnMore": "Per saperne di più",
     "like": "Mi piace",
+    "move": "Spostare",
     "next": "Prossimo",
     "pin": "Spilla",
+    "preview": "Anteprima",
     "providedBy": "Fornito da {provider}",
     "reject": "Rifiuta",
+    "save": "Salva",
     "send": "Invia",
     "share": "Condividi",
     "shareOn": "Condividi su {social}",
@@ -145,8 +148,27 @@ export default {
     "to": "a"
   },
   "debug": {
-    "apiRequests": "Richieste API",
-    "debug": "Debug"
+    "apiRequests": {
+      "apiKeyLinkText": "Chiave API Europeana",
+      "noRequests": "In questa pagina non sono state utilizzate richieste alle API di Europeana.",
+      "settingsPageLinkText": "pagina delle impostazioni",
+      "tip": "Suggerimento: se hai già un {apiKeyLink} , puoi inserirlo in {settingsPageLink} e sarà incluso in questi link di richiesta API.",
+      "title": "Richieste API"
+    },
+    "debug": "Debug",
+    "settings": {
+      "form": {
+        "apiKey": {
+          "description": "Inserisci la tua chiave API Europeana e verrà utilizzata nei link alle richieste API.",
+          "label": "Chiave API"
+        },
+        "enabled": {
+          "description": "Se abilitato, il menu di debug verrà mostrato nel piè di pagina della pagina.",
+          "label": "Abilita menu di debug"
+        }
+      },
+      "title": "Impostazioni"
+    }
   },
   "delete": "Cancella",
   "depiction": "Una rappresentazione di {title}",
@@ -167,16 +189,18 @@ export default {
     },
     "notifications": {
       "deleted": "Galleria eliminata.",
+      "error": {
+        "unpin": "Si è verificato un errore durante lo sblocco dell'elemento. Riprova o segnala il problema."
+      },
+      "pin": "Questo elemento verrà visualizzato nella parte superiore della raccolta \" {entity} \". Ti avviseremo quando questa modifica sarà visibile nella pagina di raccolta.",
       "pinLimit": {
         "body": "Per ora puoi appuntare solo 24 oggetti nella prima pagina. Se vuoi appuntare questo elemento, assicurati di sbloccarne un altro e poi prova ad appuntare di nuovo questo.",
         "title": "Troppi oggetti appuntati"
       },
       "pinned": "L'articolo è stato appuntato. Ora è in cima alla prima pagina di questa collezione. Potrebbe richiedere fino a 24 ore per apparire per tutti.",
+      "select": "Seleziona un'entità correlata a cui aggiungere\/sbloccare l'elemento a\/da esso.",
+      "unpin": "Questo elemento non verrà più visualizzato nella parte superiore della raccolta \" {entity} \". Ti avviseremo quando questa modifica sarà visibile nella pagina di raccolta.",
       "unpinned": "L'elemento è stato sbloccato. Non è più in cima alla prima pagina di questa raccolta. Potrebbero essere necessarie fino a 24 ore per scomparire per tutti."
-    },
-    "prompts": {
-      "pin": "Sei sicuro di voler appuntare questo elemento? Questo elemento verrà visualizzato nella parte superiore della {entity} \". Questa modifica potrebbe richiedere fino a 24 ore per avere effetto.",
-      "unpin": "Sei sicuro di voler rimuovere questo elemento? Questo elemento smetterà di essere visualizzato nella parte superiore della raccolta \"{entity}\". Questa modifica potrebbe richiedere fino a 24 ore per avere effetto."
     }
   },
   "error": "Errore",
@@ -187,6 +211,7 @@ export default {
     "description": "Esplora le mostre",
     "exhibitions": "Mostre"
   },
+  "explore": "Esplorare",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "colori",
@@ -467,7 +492,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formato file | Formati file",
       "options": {
-        "text/plain": "Testo semplice"
+        "text\/plain": "Testo semplice"
       },
       "select": "Seleziona i formati di file"
     },
@@ -691,13 +716,24 @@ export default {
       "home": "Home",
       "stories": "Storie"
     },
+    "quickSearch": "Ricerca rapida",
     "searchFor": "Cerca {query}",
     "searchForEverything": "Cerca tutto",
     "searchForEverythingInCollection": "Cerca tutto in {collection}",
     "searchForEverythingInEntireCollection": "Cerca tutto nell'intera collezione",
-    "showSidebar": "Mostra menu"
+    "searchForm": "Modulo di ricerca",
+    "showSidebar": "Mostra menu",
+    "sideNavigation": "Navigazione laterale"
   },
   "homeLinkAlt": "Home Europeana",
+  "homePage": {
+    "discoverEditorial": "Scopri le nostre storie",
+    "download": "scaricare",
+    "free": "gratuito",
+    "storiesCTA": "Guarda tutte le nostre storie",
+    "subHeadline": "Trova e {download} opere d'arte, fotografie, libri, manoscritti, giornali e musica da oltre 4000 musei, archivi, gallerie e biblioteche per {free}.",
+    "title": "Scopri il patrimonio culturale europeo"
+  },
   "imageSlider": {
     "handle": "Dispositivo di scorrimento"
   },
@@ -742,7 +778,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Aiuta a migliorare il nostro sito Web applicando occasionalmente modifiche sperimentali.",
-        "title": "Test A/B"
+        "title": "Test A\/B"
       },
       "auth-strategy": {
         "description": "Ricorda la strategia di autorizzazione da utilizzare per accedere.",
@@ -774,7 +810,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Ricorda se preferisci vedere i risultati della ricerca in una visualizzazione elenco o griglia.",
-        "title": "Visualizzazione dei risultati di ricerca (elenco/griglia)"
+        "title": "Visualizzazione dei risultati di ricerca (elenco\/griglia)"
       }
     }
   },
@@ -852,6 +888,9 @@ export default {
   },
   "record": {
     "IIIFViewer": "Visualizzatore IIIF",
+    "actions": {
+      "pin": "Aggiungi l'elemento alle entità disponibili"
+    },
     "allMetaData": "Tutti i metadati",
     "copyEmbedLabel": "Incorpora codice (fare clic per copiare)",
     "exploreMore": "Esplora altro",
@@ -864,8 +903,16 @@ export default {
     "record": "Documentazione",
     "showAll": "Mostra tutte le informazioni",
     "similarItems": "Oggetti simili",
+    "status": {
+      "unpublished": "[Articolo non pubblicato]"
+    },
     "transcription": "Trascrizione",
     "transcriptionDisclaimer": "Questo contenuto è stato creato dagli utenti, non dall'istituzione che ha fornito l'articolo."
+  },
+  "related": {
+    "editorial": {
+      "title": "Storie che potrebbero piacerti"
+    }
   },
   "relatedCollections": "Collezioni correlate",
   "removeFilter": "Rimuovi il filtro {filterLabel}",
@@ -903,7 +950,6 @@ export default {
       "createNew": "Crea una nuova galleria",
       "delete": "Elimina galleria",
       "edit": "Modifica galleria",
-      "save": "Salva",
       "update": "Aggiorna galleria"
     },
     "form": {
@@ -937,6 +983,9 @@ export default {
   "statuses": {
     "liked": "Piaciuto",
     "pinned": "Appuntato"
+  },
+  "storiesPage": {
+    "title": "Storie"
   },
   "website": "Sito web",
   "youMightAlsoLike": "Potrebbe piacerti anche"

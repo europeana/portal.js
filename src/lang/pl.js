@@ -6,7 +6,7 @@ export default {
     "likes": "Polubienia",
     "linkAccount": "Moje konto",
     "linkLogin": "Zaloguj się",
-    "linkLoginJoin": "Zaloguj/Dołącz",
+    "linkLoginJoin": "Zaloguj\/Dołącz",
     "linkLogout": "Wyloguj",
     "myProfile": "Mój profil",
     "notifications": {
@@ -38,10 +38,13 @@ export default {
     "goHome": "Przejdź do strony głównej",
     "learnMore": "Ucz się więcej",
     "like": "Lubię",
+    "move": "Przesuń",
     "next": "Następny",
     "pin": "Szpilka",
+    "preview": "Podgląd",
     "providedBy": "Dostarczone przez {provider}",
     "reject": "Odrzuć",
+    "save": "Zapisać",
     "send": "Wyślij",
     "share": "Udostępnij",
     "shareOn": "Udostępnij na {social}",
@@ -145,8 +148,27 @@ export default {
     "to": "do"
   },
   "debug": {
-    "apiRequests": "Żądania API",
-    "debug": "Debug"
+    "apiRequests": {
+      "apiKeyLinkText": "Klucz API Europeana",
+      "noRequests": "Na tej stronie nie użyto żadnych żądań do interfejsów API Europeana.",
+      "settingsPageLinkText": "strona ustawień",
+      "tip": "Wskazówka: jeśli masz już {apiKeyLink}, możesz wprowadzić go na {settingsPageLink} i zostanie on uwzględniony w tych linkach żądań API.",
+      "title": "Żądania API"
+    },
+    "debug": "Debug",
+    "settings": {
+      "form": {
+        "apiKey": {
+          "description": "Wpisz swój klucz Europeana API, który będzie używany w linkach do żądań API.",
+          "label": "Klucz API"
+        },
+        "enabled": {
+          "description": "Jeśli ta opcja jest włączona, menu debugowania będzie wyświetlane w stopce strony.",
+          "label": "Włącz menu debugowania"
+        }
+      },
+      "title": "Ustawienia"
+    }
   },
   "delete": "Usuń",
   "depiction": "Obraz {title}",
@@ -167,16 +189,18 @@ export default {
     },
     "notifications": {
       "deleted": "Twoja galeria została usunięta.",
+      "error": {
+        "unpin": "Podczas odpinania elementu wystąpił błąd. Spróbuj ponownie lub zgłoś problem."
+      },
+      "pin": "Ten element będzie wyświetlany u góry kolekcji „ {entity} ”. Powiadomimy Cię, kiedy ta zmiana będzie widoczna na stronie kolekcji.",
       "pinLimit": {
         "body": "Na razie możesz przypiąć tylko 24 obiekty na pierwszej stronie. Jeśli chcesz przypiąć ten obiekt, upewnij się, że najpierw odpiąłeś inny i spróbuj ponownie.",
         "title": "Za dużo przpiętych obiektów"
       },
       "pinned": "Obiekt został przypięty. Znajduje się teraz na górze pierwszej strony tej kolekcji. Synchronizacja u wszystkich użytkowników może potrwać do 24 godzin.",
+      "select": "Wybierz powiązaną jednostkę, aby przypiąć\/odpiąć element do\/od niego.",
+      "unpin": "Ten element przestanie się wyświetlać u góry kolekcji „ {entity} ”. Powiadomimy Cię, kiedy ta zmiana będzie widoczna na stronie kolekcji.",
       "unpinned": "Obiekt został odpięty. Nie znajduje się już na górze pierwszej strony tej kolekcji. Może minąć do 24 godzin, zanim zniknie dla wszystkich użytkowników."
-    },
-    "prompts": {
-      "pin": "Czy na pewno chcesz przypiąć ten obiekt? Będzie on wtedy  wyświetlany u góry kolekcji  „ {entity} ”. Ta zmiana może potrwać do 24 godzin.",
-      "unpin": "Czy na pewno chcesz odpiąć ten obiekt? Przestanie on wtedy być wyświetlany u góry kolekcji  „ {entity} ”. Ta zmiana może potrwać do 24 godzin."
     }
   },
   "error": "Błąd",
@@ -187,6 +211,7 @@ export default {
     "description": "Przeglądaj wystawy",
     "exhibitions": "Wystawa | Wystawy"
   },
+  "explore": "Badać",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "kolory",
@@ -467,7 +492,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format plików | Formaty plików",
       "options": {
-        "text/plain": "Zwykły tekst"
+        "text\/plain": "Zwykły tekst"
       },
       "select": "Wybierz formaty plików"
     },
@@ -633,7 +658,7 @@ export default {
       "keywords": "Słowa kluczowe (dostarczone przez społeczność)",
       "timestampCreated": "Data utworzenia rekordu",
       "timestampUpdate": "Data zaktualizowania rekordu",
-      "wasPresentAt": "Był obecny w/na",
+      "wasPresentAt": "Był obecny w\/na",
       "year": "Rok"
     },
     "webResource": {
@@ -691,13 +716,24 @@ export default {
       "home": "Dom",
       "stories": "Historie"
     },
+    "quickSearch": "Szybkie wyszukiwanie",
     "searchFor": "Wyszukaj {query}",
     "searchForEverything": "Szukaj wszystkiego",
     "searchForEverythingInCollection": "Szukaj wszystkiego w {collection}",
     "searchForEverythingInEntireCollection": "Szukaj wszystkiego w całej naszej kolekcji",
-    "showSidebar": "Pokaż menu"
+    "searchForm": "Formularz wyszukiwania",
+    "showSidebar": "Pokaż menu",
+    "sideNavigation": "Nawigacja boczna"
   },
   "homeLinkAlt": "Strona główna Europeana",
+  "homePage": {
+    "discoverEditorial": "Odkryj nasze historie",
+    "download": "Ściągnij",
+    "free": "bezpłatnie",
+    "storiesCTA": "Zobacz wszystkie nasze historie",
+    "subHeadline": "Znajdź i {download} dzieła sztuki, fotografie, książki, rękopisy, gazety i muzykę z ponad 4000 muzeów, archiwów, galerii i bibliotek za {free}.",
+    "title": "Odkryj europejskie dziedzictwo kulturowe"
+  },
   "imageSlider": {
     "handle": "Uchwyt suwakowy"
   },
@@ -742,7 +778,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Pomaga ulepszyć naszą stronę internetową, od czasu do czasu stosując eksperymentalne zmiany.",
-        "title": "Testy A/B"
+        "title": "Testy A\/B"
       },
       "auth-strategy": {
         "description": "Zapamiętuje strategię autoryzacji używaną do logowania.",
@@ -774,7 +810,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Zapamiętuje czy wolisz widzieć wyniki wyszukiwania w widoku listy lub siatki.",
-        "title": "Widok wyników wyszukiwania (lista/siatka)"
+        "title": "Widok wyników wyszukiwania (lista\/siatka)"
       }
     }
   },
@@ -852,6 +888,9 @@ export default {
   },
   "record": {
     "IIIFViewer": "Przeglądarka IIIF",
+    "actions": {
+      "pin": "Przypinanie elementu do dostępnych encji"
+    },
     "allMetaData": "Wszystkie metadane",
     "copyEmbedLabel": "Kod do umieszczenia (kliknij, aby skopiować)",
     "exploreMore": "Odkryj więcej",
@@ -864,8 +903,16 @@ export default {
     "record": "Rekord",
     "showAll": "Pokaż wszystkie informacje",
     "similarItems": "Podobne obiekty",
+    "status": {
+      "unpublished": "[Pozycja nieopublikowana]"
+    },
     "transcription": "Transkrypcja",
     "transcriptionDisclaimer": "Treść ta jest tworzona przez społeczeństwo, a nie przez instytucję, która dostarczyła tę pozycję."
+  },
+  "related": {
+    "editorial": {
+      "title": "Historie, które mogą Ci się spodobać"
+    }
   },
   "relatedCollections": "Powiązane kolekcje",
   "removeFilter": "Usuń filtr {filterLabel}",
@@ -903,7 +950,6 @@ export default {
       "createNew": "Utwórz nową galerię",
       "delete": "Usuń galerię",
       "edit": "Edytuj galerię",
-      "save": "Zapisać",
       "update": "Zaktualizuj galerię"
     },
     "form": {
@@ -937,6 +983,9 @@ export default {
   "statuses": {
     "liked": "Lubiana",
     "pinned": "Przypięty"
+  },
+  "storiesPage": {
+    "title": "Historie"
   },
   "website": "Strona internetowa",
   "youMightAlsoLike": "Możesz też polubić"
