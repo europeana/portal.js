@@ -19,7 +19,6 @@
     <client-only v-else>
       <SearchInterface
         v-if="!$fetchState.pending"
-        class="px-0"
         :per-page="recordsPerPage"
         :route="route"
         :show-content-tier-toggle="false"

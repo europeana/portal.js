@@ -109,8 +109,4 @@
   .page-container {
     max-width: none;
   }
-
-  .results-col {
-    min-width: 0;
-  }
 </style>

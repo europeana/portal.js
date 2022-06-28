@@ -6,17 +6,21 @@
     <b-row
       class="flex-row flex-nowrap"
     >
-      <b-col
-        class="results-col"
-      >
-        <b-container v-if="$fetchState.pending && !fetched">
+      <b-col>
+        <b-container
+          v-if="$fetchState.pending && !fetched"
+          class="px-0 pb-3"
+        >
           <b-row class="flex-md-row py-4 text-center">
             <b-col cols="12">
               <LoadingSpinner />
             </b-col>
           </b-row>
         </b-container>
-        <b-container v-else-if="$fetchState.error">
+        <b-container
+          v-else-if="$fetchState.error"
+          class="px-0 pb-3"
+        >
           <b-row class="flex-md-row">
             <b-col cols="12">
               <AlertMessage
@@ -25,7 +29,10 @@
             </b-col>
           </b-row>
         </b-container>
-        <b-container v-else>
+        <b-container
+          v-else
+          class="px-0 pb-3"
+        >
           <div
             class="mb-3 d-flex align-items-start align-items-md-center justify-content-between"
           >
