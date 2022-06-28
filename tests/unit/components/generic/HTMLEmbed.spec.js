@@ -60,7 +60,6 @@ describe('components/media/HTMLEmbed', () => {
     });
 
     it('is used for Vimeo embeds', () => {
-      console.log('window.innerWidth', window.innerWidth);
       const wrapper = factory(fixtures.vimeo);
 
       const iframe = wrapper.find('[data-qa="responsive embed wrapper"] [data-qa="html embed"] iframe');
