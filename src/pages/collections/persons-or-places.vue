@@ -61,7 +61,7 @@
     async fetch() {
       const entityIndexParams = {
         query: '*:*',
-        page: this.$store.state.sanitised.page - 1,
+        page: this.page - 1,
         type: this.entityTypeApi,
         pageSize: this.perPage,
         scope: 'europeana',
@@ -101,11 +101,6 @@
       },
       page() {
         return this.$store.state.sanitised.page;
-      },
-      route() {
-        return {
-          name: `collections-${this.personsOrPlaces}`
-        };
       }
     },
 
