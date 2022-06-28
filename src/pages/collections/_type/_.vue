@@ -17,68 +17,62 @@
       </b-row>
     </b-container>
     <client-only v-else>
-      <b-container
-        class="page-container side-filters-enabled"
+      <SearchInterface
+        v-if="!$fetchState.pending"
+        class="px-0"
+        :per-page="recordsPerPage"
+        :route="route"
+        :show-content-tier-toggle="false"
+        :show-pins="userIsEditor && userIsSetsEditor"
+        :editorial-entity-label="editorialTitle"
+        :show-related="showRelated"
       >
-        <b-row class="flex-nowrap">
-          <b-col>
-            <b-container class="px-0 pb-3">
-              <SearchInterface
-                v-if="!$fetchState.pending"
-                class="px-0"
-                :per-page="recordsPerPage"
-                :route="route"
-                :show-content-tier-toggle="false"
-                :show-pins="userIsEditor && userIsSetsEditor"
-                :editorial-entity-label="editorialTitle"
-                :show-related="showRelated"
-              >
-                <EntityHeader
-                  v-if="!hasUserQuery"
-                  :description="description"
-                  :title="title"
-                  :logo="logo"
-                  :image="thumbnail"
-                  :editable="isEditable && userIsEditor"
-                  :external-link="homepage"
-                  :proxy="entity ? entity.proxy : null"
-                  :more-info="moreInfo"
-                />
-                <template
-                  v-if="collectionType !== 'organisation'"
-                  #related
-                >
-                  <client-only>
-                    <EntityRelatedCollections
-                      :type="$route.params.type"
-                      :identifier="$route.params.pathMatch"
-                      :overrides="relatedCollectionCards"
-                      data-qa="related entities"
-                      @show="showRelatedCollections"
-                      @hide="hideRelatedCollections"
-                    />
-                  </client-only>
-                </template>
-              </SearchInterface>
-            </b-container>
-            <client-only>
-              <b-container class="px-0">
-                <RelatedEditorial
-                  v-if="entity"
-                  :entity-uri="entity.id"
-                  :query="$route.query.query"
-                />
-              </b-container>
-            </client-only>
+        <EntityHeader
+          v-if="!hasUserQuery"
+          :description="description"
+          :title="title"
+          :logo="logo"
+          :image="thumbnail"
+          :editable="isEditable && userIsEditor"
+          :external-link="homepage"
+          :proxy="entity ? entity.proxy : null"
+          :more-info="moreInfo"
+        />
+        <template
+          v-if="collectionType !== 'organisation'"
+          #related
+        >
+          <client-only>
+            <EntityRelatedCollections
+              :type="$route.params.type"
+              :identifier="$route.params.pathMatch"
+              :overrides="relatedCollectionCards"
+              data-qa="related entities"
+              @show="showRelatedCollections"
+              @hide="hideRelatedCollections"
+            />
+          </client-only>
+        </template>
+        <template
+          #after-results
+        >
+          <client-only>
             <b-container class="px-0">
-              <BrowseSections
-                v-if="page"
-                :sections="page.hasPartCollection.items"
+              <RelatedEditorial
+                v-if="entity"
+                :entity-uri="entity.id"
+                :query="$route.query.query"
               />
             </b-container>
-          </b-col>
-        </b-row>
-      </b-container>
+          </client-only>
+          <b-container class="px-0">
+            <BrowseSections
+              v-if="page"
+              :sections="page.hasPartCollection.items"
+            />
+          </b-container>
+        </template>
+      </SearchInterface>
     </client-only>
   </div>
 </template>

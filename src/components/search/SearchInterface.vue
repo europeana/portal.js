@@ -1,97 +1,113 @@
 <template>
-  <b-container v-if="$fetchState.pending && !fetched">
-    <b-row class="flex-md-row py-4 text-center">
-      <b-col cols="12">
-        <LoadingSpinner />
-      </b-col>
-    </b-row>
-  </b-container>
-  <b-container v-else-if="$fetchState.error">
-    <b-row class="flex-md-row">
-      <b-col cols="12">
-        <AlertMessage
-          :error="errorMessage"
-        />
-      </b-col>
-    </b-row>
-  </b-container>
-  <b-container v-else>
-    <SideFilters
-      :route="route"
-    />
-    <div
-      class="mb-3 d-flex align-items-start align-items-md-center justify-content-between"
-    >
-      <SearchResultsContext
-        :label-override="editorialEntityLabel"
-      />
-      <ViewToggles
-        v-model="view"
-        :link-gen-route="route"
-        class="flex-nowrap mt-1 mt-md-0"
-      />
-    </div>
+  <b-container
+    data-qa="search interface"
+    class="page-container side-filters-enabled"
+  >
     <b-row
-      class="mb-3"
+      class="flex-row flex-nowrap"
     >
       <b-col
-        cols="12"
+        class="results-col"
       >
-        <b-container v-if="$fetchState.pending && fetched">
+        <b-container v-if="$fetchState.pending && !fetched">
           <b-row class="flex-md-row py-4 text-center">
             <b-col cols="12">
               <LoadingSpinner />
             </b-col>
           </b-row>
         </b-container>
-        <b-row
-          v-else
-          class="mb-3"
-        >
-          <b-col>
-            <AlertMessage
-              v-if="noResults"
-              :error="$t('noResults')"
+        <b-container v-else-if="$fetchState.error">
+          <b-row class="flex-md-row">
+            <b-col cols="12">
+              <AlertMessage
+                :error="errorMessage"
+              />
+            </b-col>
+          </b-row>
+        </b-container>
+        <b-container v-else>
+          <div
+            class="mb-3 d-flex align-items-start align-items-md-center justify-content-between"
+          >
+            <SearchResultsContext
+              :label-override="editorialEntityLabel"
             />
-            <p
-              v-else-if="noMoreResults"
-              data-qa="warning notice"
+            <ViewToggles
+              v-model="view"
+              :link-gen-route="route"
+              class="flex-nowrap mt-1 mt-md-0"
+            />
+          </div>
+          <b-row
+            class="mb-3"
+          >
+            <b-col
+              cols="12"
             >
-              {{ $t('noMoreResults') }}
-            </p>
-            <ItemPreviewCardGroup
-              :items="results"
-              :hits="hits"
-              :view="view"
-              :show-pins="showPins"
-              :show-related="showRelated"
-            >
-              <slot />
-              <template
-                #related
+              <b-container v-if="$fetchState.pending && fetched">
+                <b-row class="flex-md-row py-4 text-center">
+                  <b-col cols="12">
+                    <LoadingSpinner />
+                  </b-col>
+                </b-row>
+              </b-container>
+              <b-row
+                v-else
+                class="mb-3"
               >
-                <slot
-                  name="related"
-                />
-              </template>
-            </ItemPreviewCardGroup>
-            <InfoMessage
-              v-if="lastAvailablePage"
-            >
-              {{ $t('resultsLimitWarning') }}
-            </InfoMessage>
-          </b-col>
-        </b-row>
-        <b-row>
-          <b-col>
-            <PaginationNavInput
-              :total-results="totalResults"
-              :per-page="perPage"
-              :max-results="1000"
-            />
-          </b-col>
-        </b-row>
+                <b-col>
+                  <AlertMessage
+                    v-if="noResults"
+                    :error="$t('noResults')"
+                  />
+                  <p
+                    v-else-if="noMoreResults"
+                    data-qa="warning notice"
+                  >
+                    {{ $t('noMoreResults') }}
+                  </p>
+                  <ItemPreviewCardGroup
+                    :items="results"
+                    :hits="hits"
+                    :view="view"
+                    :show-pins="showPins"
+                    :show-related="showRelated"
+                  >
+                    <slot />
+                    <template
+                      #related
+                    >
+                      <slot
+                        name="related"
+                      />
+                    </template>
+                  </ItemPreviewCardGroup>
+                  <InfoMessage
+                    v-if="lastAvailablePage"
+                  >
+                    {{ $t('resultsLimitWarning') }}
+                  </InfoMessage>
+                </b-col>
+              </b-row>
+              <b-row>
+                <b-col>
+                  <PaginationNavInput
+                    :total-results="totalResults"
+                    :per-page="perPage"
+                    :max-results="1000"
+                  />
+                </b-col>
+              </b-row>
+            </b-col>
+          </b-row>
+        </b-container>
+        <slot
+          name="after-results"
+        />
       </b-col>
+      <SideFilters
+        :route="route"
+      />
     </b-row>
   </b-container>
 </template>
