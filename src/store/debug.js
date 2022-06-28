@@ -1,5 +1,6 @@
 const defaults = {
-  enabled: false
+  enabled: false,
+  boosting: false
 };
 
 export const state = () => ({

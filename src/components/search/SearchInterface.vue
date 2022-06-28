@@ -16,6 +16,11 @@
     </b-row>
   </b-container>
   <b-container v-else>
+    <client-only>
+      <BoostingForm
+        v-if="showBoostingForm"
+      />
+    </client-only>
     <div
       class="mb-3 d-flex align-items-start align-items-md-center justify-content-between"
     >
@@ -107,6 +112,7 @@
 
     components: {
       AlertMessage: () => import('../generic/AlertMessage'),
+      BoostingForm: () => import('./BoostingForm'),
       SearchResultsContext: () => import('./SearchResultsContext'),
       InfoMessage,
       ItemPreviewCardGroup,
@@ -213,6 +219,12 @@
       noResults() {
         return this.totalResults === 0;
       },
+      debugSettings() {
+        return this.$store.getters['debug/settings'];
+      },
+      showBoostingForm() {
+        return this.debugSettings.boosting;
+      },
       routeQueryView() {
         return this.$route.query.view;
       },
@@ -229,6 +241,7 @@
     watch: {
       routeQueryView: 'viewFromRouteQuery',
       '$route.query.api': '$fetch',
+      '$route.query.boost': '$fetch',
       '$route.query.reusability': '$fetch',
       '$route.query.query': '$fetch',
       '$route.query.qf': '$fetch',

@@ -19,7 +19,18 @@
               {{ $t('debug.settings.form.enabled.label') }}
             </b-form-checkbox>
           </b-form-group>
-
+          <b-form-group
+            v-if="fieldBoostingFeature"
+            description="If enabled, activates the boosting field on search result pages, to evaluate various boosting configurations."
+          >
+            <b-form-checkbox
+              v-model="settings.boosting"
+              switch
+              data-qa="enable boosting menu switch"
+            >
+              Enable field boosting
+            </b-form-checkbox>
+          </b-form-group>
           <b-form-group
             :label="$t('debug.settings.form.apiKey.label')"
             label-for="debug-input-api-key"
@@ -66,6 +77,12 @@
         title: this.$t('debug.debug'),
         redirect: null
       };
+    },
+
+    computed: {
+      fieldBoostingFeature() {
+        return this.$features.fieldBoosting;
+      }
     },
 
     head() {
