@@ -38,10 +38,13 @@ export default {
     "goHome": "Mur fil-homepage",
     "learnMore": "Itagħllem iżjed",
     "like": "Like",
+    "move": "Nimxu",
     "next": "Li jmiss",
     "pin": "Pin",
+    "preview": "Preview",
     "providedBy": "Ipprovdut minn {provider}",
     "reject": "Irrifjuta",
+    "save": "Tissejvja",
     "send": "Tibgħat",
     "share": "Ixxerja",
     "shareOn": "Ixxerja fuq {social}",
@@ -145,8 +148,27 @@ export default {
     "to": "biex"
   },
   "debug": {
-    "apiRequests": "Talbiet API",
-    "debug": "Iddibaggja"
+    "apiRequests": {
+      "apiKeyLinkText": "Ċavetta API Europeana",
+      "noRequests": "L-ebda talba lill-APIs tal-Europeana ma ntużat f'din il-paġna.",
+      "settingsPageLinkText": "paġna tas-settings",
+      "tip": "Tip: jekk diġà għandek {apiKeyLink} , tista' ddaħħalha fuq {settingsPageLink} u tkun inkluża f'dawn il-links ta' rikjesti API.",
+      "title": "Talbiet API"
+    },
+    "debug": "Iddibaggja",
+    "settings": {
+      "form": {
+        "apiKey": {
+          "description": "Daħħal iċ-ċavetta API Europeana tiegħek u din tintuża fil-links għal talbiet għall-API.",
+          "label": "Ċavetta API"
+        },
+        "enabled": {
+          "description": "Jekk ikun attivat, il-menu tad-debug jintwera fil-footer tal-paġna.",
+          "label": "Ippermetti l-menu tad-debug"
+        }
+      },
+      "title": "Settings"
+    }
   },
   "delete": "Iddilitja",
   "depiction": "Tpinġija ta' {title}",
@@ -167,16 +189,18 @@ export default {
     },
     "notifications": {
       "deleted": "Il-gallerija tiegħek tħassret.",
+      "error": {
+        "unpin": "Kien hemm żball fil-unpinning tal-oġġett. Jekk jogħġbok erġa' pprova, jew irrapporta l-kwistjoni."
+      },
+      "pin": "Dan l-oġġett se juri fin-naħa ta' fuq tal-kollezzjoni \" {entity} \". Aħna ninnotifikawk meta din il-bidla tkun viżibbli fuq il-paġna tal-ġbir.",
       "pinLimit": {
         "body": "Għalissa tista 'biss tpoġġi 24 oġġett fl-ewwel paġna. Jekk trid tpoġġi din il-partita, kun żgur li tneħħi pinna oħra u mbagħad erġa 'pprova tpinġiha.",
         "title": "Wisq oġġetti pinned"
       },
       "pinned": "L-item ġie mwaħħal. Issa tinsab fin-naħa ta' fuq tal-ewwel paġna ta' din il-ġabra. Jista' jieħu sa 24 siegħa biex jidher għal kulħadd.",
+      "select": "Agħżel entità relatata biex tippinja/unpin l-oġġett fuq/minnha.",
+      "unpin": "Dan l-oġġett se jieqaf jidher fin-naħa ta' fuq tal-kollezzjoni \" {entity} \". Aħna ninnotifikawk meta din il-bidla tkun viżibbli fuq il-paġna tal-ġbir.",
       "unpinned": "L-oġġett ma tpoġġiex. M’għadux fil-quċċata tal-ewwel paġna ta ’din il-kollezzjoni. Jista 'jieħu sa 24 siegħa biex jisparixxi għal kulħadd."
-    },
-    "prompts": {
-      "pin": "Int żgur li trid tpoġġi din il-partita? Dan l-oġġett se juri fil-quċċata tal-kollezzjoni \" {entity} Din il-bidla tista 'tieħu sa 24 siegħa biex tidħol fis-seħħ.",
-      "unpin": "Int żgur li trid tneħħi l-pinna ta 'dan l-oġġett? Din il-partita tieqaf tidher fin-naħa ta 'fuq tal-kollezzjoni \" {entity} Din il-bidla tista 'tieħu sa 24 siegħa biex tidħol fis-seħħ."
     }
   },
   "error": "Żball",
@@ -187,6 +211,7 @@ export default {
     "description": "Esplora l-wirjiet",
     "exhibitions": "Wirja | Wirjiet"
   },
+  "explore": "Esplora",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "kuluri",
@@ -691,13 +716,24 @@ export default {
       "home": "Paġna Ewlenija",
       "stories": "Ġrajjiet"
     },
+    "quickSearch": "Tiftix ta' malajr",
     "searchFor": "Fittex {query}",
     "searchForEverything": "Fittex kollox",
     "searchForEverythingInCollection": "Fittex kollox fi {collection}",
     "searchForEverythingInEntireCollection": "Fittex dak kollu li hemm fil-kollezzjoni sħiħa tagħna",
-    "showSidebar": "Uri l-Menu"
+    "searchForm": "Formola ta' tfittxija",
+    "showSidebar": "Uri l-Menu",
+    "sideNavigation": "Navigazzjoni tal-ġenb"
   },
   "homeLinkAlt": "Europeana home",
+  "homePage": {
+    "discoverEditorial": "Skopri l-istejjer tagħna",
+    "download": "niżżel",
+    "free": "ħielsa",
+    "storiesCTA": "Ara l-istejjer kollha tagħna",
+    "subHeadline": "Sib u {download} xogħlijiet tal-arti, ritratti, kotba, manuskritti, gazzetti u mużika minn aktar minn 4000 mużew, arkivju, galleriji, u libreriji {free}.",
+    "title": "Skopri l-wirt kulturali Ewropew"
+  },
   "imageSlider": {
     "handle": "Manku tas-Slajder"
   },
@@ -852,6 +888,9 @@ export default {
   },
   "record": {
     "IIIFViewer": "Telespettatur IIIF",
+    "actions": {
+      "pin": "Pin oġġett lill-Entitajiet disponibbli"
+    },
     "allMetaData": "Il-metadata kollha",
     "copyEmbedLabel": "Inkorpora il-code (Ikklikkja biex tikkopja)",
     "exploreMore": "Esplora Aktar",
@@ -864,8 +903,16 @@ export default {
     "record": "Rekord",
     "showAll": "Uri l-informazzjoni kollha",
     "similarItems": "Oġġetti simili",
+    "status": {
+      "unpublished": "[Oġġett mhux ippubblikat]"
+    },
     "transcription": "Traskrizzjoni",
     "transcriptionDisclaimer": "Dan il-kontenut huwa ġie kkontribwit mill-pubbliku, mhux mill-instituzzjoni li pprovdiet dan l-oġġett."
+  },
+  "related": {
+    "editorial": {
+      "title": "Stejjer li tista' togħġobkom"
+    }
   },
   "relatedCollections": "Kollezzjonijiet relatati",
   "removeFilter": "Neħħi l-filtru {filterLabel}",
@@ -903,7 +950,6 @@ export default {
       "createNew": "Oħloq direttorju tar-ritratti ġdid",
       "delete": "Ħassar id-direttorju tar-ritratti",
       "edit": "Editja d-direttorju tar-ritratti",
-      "save": "Tissejvja",
       "update": "Aġġorna d-direttorju tar-ritratti"
     },
     "form": {
@@ -937,6 +983,9 @@ export default {
   "statuses": {
     "liked": "Għoġobni",
     "pinned": "Mehmuż"
+  },
+  "storiesPage": {
+    "title": "Ġrajjiet"
   },
   "website": "Websajt",
   "youMightAlsoLike": "Inti tista 'wkoll tixtieq"
