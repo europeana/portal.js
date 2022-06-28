@@ -1,8 +1,9 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
 import BootstrapVue from 'bootstrap-vue';
+import sinon from 'sinon';
 
-import page from '@/pages/collections/persons';
+import page from '@/pages/collections/persons-or-places';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
@@ -11,8 +12,6 @@ const factory = () => shallowMountNuxt(page, {
   localVue,
   data() {
     return {
-      page: 1,
-      perPage: 24,
       entities: [
         {
           id: 'http://data.europeana.eu/agent/base/123',
@@ -27,32 +26,60 @@ const factory = () => shallowMountNuxt(page, {
           type: 'Agent'
         }
       ],
-      total: 17042,
-      title: 'Persons'
+      total: 17042
     };
   },
   mocks: {
     $t: key => key,
-    $route: { query: null, params: { type: 'person' } },
+    $route: { query: null, path: '/collections/persons' },
     $auth: {
       loggedIn: false
     },
     $apis: {
       entity: {
-        search: () => {},
+        search: sinon.stub().resolves({}),
         imageUrl: (image) => image.thumbnail
+      }
+    },
+    $i18n: {
+      locale: 'es'
+    },
+    $store: {
+      state: {
+        sanitised: {
+          page: 1
+        }
       }
     }
   }
 });
 
-describe('Person listing page', () => {
-  describe('pagination', () => {
+describe('pages/collections/persons-or-places', () => {
+  describe('template', () => {
     it('has a pagination nav', () => {
       const wrapper = factory();
 
       const pagination = wrapper.find('paginationnavinput-stub');
       expect(pagination.exists()).toBe(true);
+    });
+  });
+
+  describe('fetch', () => {
+    it('requests entities from the Entity API', async() => {
+      const wrapper = factory();
+
+      await wrapper.vm.$fetch();
+
+      expect(wrapper.vm.$apis.entity.search.calledWith({
+        query: '*:*',
+        page: 0,
+        type: 'agent',
+        pageSize: 24,
+        scope: 'europeana',
+        sort: 'skos_prefLabel.es',
+        qf: 'skos_prefLabel.es:*',
+        fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail'
+      })).toBe(true);
     });
   });
 });

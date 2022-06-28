@@ -897,6 +897,9 @@ export default {
       "persons": {
         "title": "Persons"
       },
+      "places": {
+        "title": "Places"
+      },
       "table": {
         "name": "Name"
       },
