@@ -79,16 +79,16 @@
       };
     },
 
-    computed: {
-      fieldBoostingFeature() {
-        return this.$features.fieldBoosting;
-      }
-    },
-
     head() {
       return {
         title: this.$pageHeadTitle(this.title)
       };
+    },
+
+    computed: {
+      fieldBoostingFeature() {
+        return this.$features.fieldBoosting;
+      }
     },
 
     methods: {

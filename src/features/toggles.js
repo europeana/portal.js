@@ -8,5 +8,5 @@ export default [
   { name: 'newStoriesPage' },
   { name: 'rejectEntityRecommendations' },
   { name: 'translatedItems' },
-  { name: 'fieldBoosting'}
+  { name: 'fieldBoosting' }
 ];
