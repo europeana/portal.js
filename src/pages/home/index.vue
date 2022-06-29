@@ -5,7 +5,7 @@
       class="page"
     >
       <HomeHero />
-      <HomeCallToAction
+      <CallToActionBanner
         v-if="callsToAction[0]"
         :name="callsToAction[0].name"
         :text="callsToAction[0].text"
@@ -17,14 +17,14 @@
         :title="$t('homePage.themesTitle')"
         :cta="{ url: $path('/collections'), text: $t('homePage.themesCTA') }"
       />
-      <HomeCallToAction
+      <CallToActionBanner
         v-if="callsToAction[1]"
         :name="callsToAction[1].name"
         :text="callsToAction[1].text"
         :link="callsToAction[1].relatedLink"
       />
       <HomeLatest />
-      <HomeCallToAction
+      <CallToActionBanner
         v-if="callsToAction[2]"
         :name="callsToAction[2].name"
         :text="callsToAction[2].text"
@@ -41,7 +41,7 @@
 <script>
   import allThemes from '@/mixins/allThemes';
   import collectionLinkGen from '@/mixins/collectionLinkGen';
-  import HomeCallToAction from '@/components/home/HomeCallToAction';
+  import CallToActionBanner from '@/components/generic/CallToActionBanner';
   import HomeHero from '@/components/home/HomeHero';
   import HomeLatest from '@/components/home/HomeLatest';
   import StackedCardsSwiper from '@/components/generic/StackedCardsSwiper';
@@ -50,7 +50,7 @@
     name: 'HomePage',
 
     components: {
-      HomeCallToAction,
+      CallToActionBanner,
       HomeHero,
       HomeLatest,
       IndexPage: () => import('../index'),

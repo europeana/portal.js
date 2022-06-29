@@ -31,7 +31,7 @@
       <ContentHeader
         :title="pageTitle"
       />
-      <HomeCallToAction
+      <CallToActionBanner
         v-if="callsToAction[0]"
         :name="callsToAction[0].name"
         :text="callsToAction[0].text"
@@ -82,7 +82,7 @@
       ContentHeader,
       LoadingSpinner,
       IndexPage: () => import('../index'),
-      HomeCallToAction: () => import('@/components/home/HomeCallToAction'),
+      CallToActionBanner: () => import('@/components/generic/CallToActionBanner'),
       PaginationNavInput
     },
 
