@@ -33,9 +33,21 @@ Entity API.
 
 Localised.
 
-#### `collections:place`
+#### `collections:organisations:featured`
+Retrieves and caches a daily rotation of 4 times from all organization-type,
+Europeana-scoped entities from the Entity API.
+
+Localised.
+
+#### `collections:places`
 Retrieves and caches all place-type, Europeana-scoped entities from the
 Entity API.
+
+Localised.
+
+#### `collections:places:featured`
+Retrieves and caches a daily rotation of 4 times from all place-type,
+Europeana-scoped entities from the Entity API.
 
 Localised.
 
@@ -46,8 +58,8 @@ Entity API.
 Localised.
 
 #### `collections:times:featured`
-Retrieves and caches a daily rotation of 4 times from a hard-coded subset of
-timespan-type, Europeana-scoped entities from the Entity API.
+Retrieves and caches a daily rotation of 4 times from all timespan-type,
+Europeana-scoped entities from the Entity API.
 
 Localised.
 

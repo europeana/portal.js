@@ -63,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Recent items",
     "organisation": "Organisations",
+    "place": "Places",
     "time": "Centuries",
     "topic": "Topics"
   },
