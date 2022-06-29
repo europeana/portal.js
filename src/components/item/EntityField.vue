@@ -35,7 +35,7 @@
     },
     computed: {
       isEuropeanaEntity() {
-        return this.about ? isEntityUri(this.about, ['timespan', 'concept', 'agent', 'organization']) : false;
+        return this.about ? isEntityUri(this.about, ['timespan', 'concept', 'agent', 'organization', 'place']) : false;
       },
       destination() {
         return this.isEuropeanaEntity ? entityParamsFromUri(this.about) : this.about;
