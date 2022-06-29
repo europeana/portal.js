@@ -138,7 +138,11 @@
       const fetchEntityManagement = this.$features.entityManagement &&
         this.$auth.user?.resource_access?.entities?.roles.includes('editor');
       // Get the full page for this entity if not known needed, or known to be needed, and store for reuse
-      const fetchEntityPage = !this.$store.state.entity.curatedEntities || this.$store.state.entity.curatedEntities.some(entity => entity.identifier === entityUri);
+      const fetchEntityPage = !this.$store.state.entity.curatedEntities ||
+        // TODO: restore following line when no URIs have /base/
+        // this.$store.state.entity.curatedEntities.some(entity => entity.identifier === entityUri);
+        // TODO: remove following line when no URIs have /base/
+        this.$store.state.entity.curatedEntities.some(entity => baseVariantEntityUris(entityUri).includes(entity.identifier));
       const fetchCuratedEntities = !this.$store.state.entity.curatedEntities;
 
       const contentfulVariables = {
