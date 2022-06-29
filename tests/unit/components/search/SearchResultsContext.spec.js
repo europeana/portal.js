@@ -184,7 +184,7 @@ describe('SearchResultsContext', () => {
       });
     });
 
-    describe('localisedEntityLabel', () => {
+    describe('entityLabel', () => {
       it('priorities labelOverride prop', () => {
         const storeState = {
           entity: { entity: fixtures.organisationEntity }
@@ -193,7 +193,7 @@ describe('SearchResultsContext', () => {
 
         const wrapper = factory({ propsData, storeState });
 
-        expect(wrapper.vm.localisedEntityLabel).toEqual({ values: ['override'], code: null });
+        expect(wrapper.vm.entityLabel).toEqual('override');
       });
 
       it('falls back to entity prefLabel', () => {
@@ -204,7 +204,7 @@ describe('SearchResultsContext', () => {
 
         const wrapper = factory({ propsData, storeState });
 
-        expect(wrapper.vm.localisedEntityLabel).toEqual(fixtures.organisationEntity.prefLabel);
+        expect(wrapper.vm.entityLabel).toEqual(fixtures.organisationEntity.prefLabel);
       });
     });
   });

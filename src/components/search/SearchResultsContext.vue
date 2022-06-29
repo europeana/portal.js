@@ -13,7 +13,7 @@
       >
         {{ entityTypeLabel }}
         <RemovalChip
-          :title="localisedEntityLabel"
+          :title="entityLabel"
           :link-to="entityRemovalLink"
           :img="entityImage"
           data-qa="entity removal badge"
@@ -31,7 +31,7 @@
       >
         {{ entityTypeLabel }}
         <RemovalChip
-          :title="localisedEntityLabel"
+          :title="entityLabel"
           :link-to="entityRemovalLink"
           :img="entityImage"
           data-qa="entity removal badge"
@@ -103,8 +103,8 @@
       hasEntity() {
         return this.entity && this.entity.id;
       },
-      localisedEntityLabel() {
-        return this.labelOverride ? { values: [this.labelOverride], code: null } : this.entity?.prefLabel;
+      entityLabel() {
+        return this.labelOverride || this.entity?.prefLabel;
       },
       entityImage() {
         return this.$apis.entity.imageUrl(this.entity);
