@@ -12,6 +12,7 @@ const storeDispatchSpy = sinon.spy();
 const factory = (propsData = {}, keyMock) => {
   return shallowMount(SideSwitchFilter, {
     localVue,
+    attachTo: document.body,
     propsData,
     mocks: {
       $store: {
