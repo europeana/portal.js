@@ -30,7 +30,7 @@
                 :route="route"
                 :show-content-tier-toggle="false"
                 :show-pins="userIsEditor && userIsSetsEditor"
-                :editorial-entity-label="editorialTitle"
+                :editorial-overrides="editorialOverrides"
                 :show-related="showRelated"
               >
                 <EntityHeader
@@ -300,6 +300,12 @@
       // Title from the Contentful entry
       editorialTitle() {
         return this.page?.name || null;
+      },
+      editorialImage() {
+        return this.page?.primaryImageOfPage?.image || null;
+      },
+      editorialOverrides() {
+        return { title: this.editorialTitle, image: this.editorialImage };
       },
       relatedCollectionCards() {
         if ((this.page?.relatedLinksCollection?.items?.length || 0) > 0) {

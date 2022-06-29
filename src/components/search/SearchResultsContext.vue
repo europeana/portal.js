@@ -66,6 +66,7 @@
   import { entityParamsFromUri } from '@/plugins/europeana/entity';
   import themes from '@/plugins/europeana/themes';
   import { mapState } from 'vuex';
+  import { urlIsContentfulAsset, optimisedSrcForContentfulAsset } from '@/plugins/contentful-utils';
 
   export default {
     name: 'SearchResultsContext',
@@ -76,12 +77,12 @@
 
     props: {
       /**
-       * Editorial title
+       * Editorial overrides
        *
-       * Title/label override. Used for editorial collection titles from Contentful.
+       * Title/label and image override. Used for editorial collection titles and images from Contentful.
        */
-      labelOverride: {
-        type: String,
+      editorialOverrides: {
+        type: Object,
         default: null
       }
     },
@@ -104,9 +105,12 @@
         return this.entity && this.entity.id;
       },
       entityLabel() {
-        return this.labelOverride || this.entity?.prefLabel;
+        return this.editorialOverrides?.title || this.entity?.prefLabel;
       },
       entityImage() {
+        if (this.editorialOverrides?.image && urlIsContentfulAsset(this.editorialOverrides.image.url)) {
+          return optimisedSrcForContentfulAsset(this.editorialOverrides.image, { w: 28, h: 28, fit: 'thumb' });
+        }
         return this.$apis.entity.imageUrl(this.entity);
       },
       entityTypeLabel() {

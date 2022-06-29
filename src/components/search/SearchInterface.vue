@@ -4,7 +4,7 @@
       class="mb-3 d-flex align-items-start align-items-md-center justify-content-between"
     >
       <SearchResultsContext
-        :label-override="editorialEntityLabel"
+        :editorial-overrides="editorialOverrides"
       />
       <ViewToggles
         v-model="view"
@@ -130,8 +130,8 @@
         type: Boolean,
         default: true
       },
-      editorialEntityLabel: {
-        type: String,
+      editorialOverrides: {
+        type: Object,
         default: null
       }
     },
