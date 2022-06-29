@@ -24,6 +24,7 @@ const factory = (options = {}) => {
     $features: { sideFilters: false, entityHeaderCards: false },
     $fetchState: options.fetchState || {},
     $route: { path: '/search', name: 'search', query: {} },
+    $nuxt: { context: { res: {} } },
     localise: (val) => val,
     ...options.mocks
   };
@@ -116,15 +117,34 @@ describe('components/search/SearchInterface', () => {
       expect(wrapper.vm.$store.dispatch.calledWith('search/run')).toBe(true);
     });
 
-    test.todo('handles search errors');
+    it('handles search API errors', async() => {
+      const wrapper = factory({ storeState: { error: new Error('API error'), errorStatusCode: 400 } });
+      process.server = true;
 
-    it('marks the results as fetched', async() => {
-      const wrapper = factory();
-      expect(wrapper.vm.fetched).toBe(false);
+      let error;
 
-      await wrapper.vm.fetch();
+      try {
+        await wrapper.vm.fetch();
+      } catch (e) {
+        error = e;
+      }
 
-      expect(wrapper.vm.fetched).toBe(true);
+      expect(error.message).toBe('API error');
+      expect(wrapper.vm.$nuxt.context.res.statusCode).toBe(400);
+    });
+
+    it('treats no results as an error', async() => {
+      const wrapper = factory({ storeState: { totalResults: 0 } });
+
+      let error;
+
+      try {
+        await wrapper.vm.fetch();
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error.message).toBe('noResults');
     });
 
     it('scrolls to the page header element', async() => {

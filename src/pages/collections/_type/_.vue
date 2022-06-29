@@ -62,14 +62,12 @@
                 :entity-uri="entity.id"
                 :query="$route.query.query"
               />
+              <BrowseSections
+                v-if="page"
+                :sections="page.hasPartCollection.items"
+              />
             </b-container>
           </client-only>
-          <b-container class="px-0">
-            <BrowseSections
-              v-if="page"
-              :sections="page.hasPartCollection.items"
-            />
-          </b-container>
         </template>
       </SearchInterface>
     </client-only>
