@@ -83,11 +83,8 @@
         return this.value.map(val => val.id).includes(suggestion.id);
       },
 
-      inputSearchText(val) {
-        this.$apis.entity.suggest(val, { type: 'agent,concept,timespan,organization,place' })
-          .then(suggestions => {
-            this.suggestions = suggestions;
-          });
+      async inputSearchText(val) {
+        this.suggestions = await this.$apis.entity.suggest(val, { type: 'agent,concept,timespan,organization,place' });
       },
 
       removeSelection(remove) {
