@@ -42,7 +42,9 @@ const factory = () => shallowMountNuxt(page, {
           }
         ]
       },
-      credits: ''
+      credits: '',
+      contentWarning: null,
+      relatedLink: null
     };
   },
   mocks: {
