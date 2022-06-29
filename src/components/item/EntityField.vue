@@ -4,12 +4,12 @@
       v-if="isEuropeanaEntity"
       :destination="{ name: 'collections-type-all', params: { type: destination.type, pathMatch: destination.id } }"
     >
-      {{ value }}
+      {{ text }}
     </SmartLink>
     <template
       v-else
     >
-      {{ value }}
+      {{ text }}
     </template>
   </span>
 </template>
@@ -24,7 +24,7 @@
       SmartLink
     },
     props: {
-      value: {
+      text: {
         type: String,
         default: null
       },
