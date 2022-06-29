@@ -13,6 +13,7 @@ localVue.use(BootstrapVue);
 
 const factory = () => shallowMount(MetadataOriginLabel, {
   localVue,
+  attachTo: document.body,
   mocks: {
     $t: (key) => key,
     $i18n

@@ -75,6 +75,7 @@ const factory = (options = {}) => {
   });
   return shallowMount(SideFilters, {
     localVue,
+    attachTo: document.body,
     mocks,
     router,
     store,
