@@ -1,21 +1,5 @@
 <template>
-  <b-container v-if="$fetchState.pending && !fetched">
-    <b-row class="flex-md-row py-4 text-center">
-      <b-col cols="12">
-        <LoadingSpinner />
-      </b-col>
-    </b-row>
-  </b-container>
-  <b-container v-else-if="$fetchState.error">
-    <b-row class="flex-md-row">
-      <b-col cols="12">
-        <AlertMessage
-          :error="errorMessage"
-        />
-      </b-col>
-    </b-row>
-  </b-container>
-  <b-container v-else>
+  <b-container>
     <div
       class="mb-3 d-flex align-items-start align-items-md-center justify-content-between"
     >
@@ -34,60 +18,70 @@
       <b-col
         cols="12"
       >
-        <b-container v-if="$fetchState.pending && fetched">
-          <b-row class="flex-md-row py-4 text-center">
-            <b-col cols="12">
-              <LoadingSpinner />
+        <b-row
+          v-if="$fetchState.pending"
+          class="flex-md-row py-4 text-center"
+        >
+          <b-col cols="12">
+            <LoadingSpinner />
+          </b-col>
+        </b-row>
+        <template
+          v-else
+        >
+          <b-row
+            class="mb-3"
+          >
+            <b-col>
+              <AlertMessage
+                v-show="$fetchState.error"
+                :error="errorMessage"
+              />
+              <template
+                v-if="!$fetchState.error"
+              >
+                <p
+                  v-show="noMoreResults"
+                  data-qa="warning notice"
+                >
+                  {{ $t('noMoreResults') }}
+                </p>
+                <ItemPreviewCardGroup
+                  :items="results"
+                  :hits="hits"
+                  :view="view"
+                  :show-pins="showPins"
+                  :show-related="showRelated"
+                >
+                  <slot />
+                  <template
+                    #related
+                  >
+                    <slot
+                      name="related"
+                    />
+                  </template>
+                </ItemPreviewCardGroup>
+                <InfoMessage
+                  v-show="lastAvailablePage"
+                >
+                  {{ $t('resultsLimitWarning') }}
+                </InfoMessage>
+              </template>
             </b-col>
           </b-row>
-        </b-container>
-        <b-row
-          v-else
-          class="mb-3"
-        >
-          <b-col>
-            <AlertMessage
-              v-if="noResults"
-              :error="$t('noResults')"
-            />
-            <p
-              v-else-if="noMoreResults"
-              data-qa="warning notice"
-            >
-              {{ $t('noMoreResults') }}
-            </p>
-            <ItemPreviewCardGroup
-              :items="results"
-              :hits="hits"
-              :view="view"
-              :show-pins="showPins"
-              :show-related="showRelated"
-            >
-              <slot />
-              <template
-                #related
-              >
-                <slot
-                  name="related"
-                />
-              </template>
-            </ItemPreviewCardGroup>
-            <InfoMessage
-              v-if="lastAvailablePage"
-            >
-              {{ $t('resultsLimitWarning') }}
-            </InfoMessage>
-          </b-col>
-        </b-row>
-        <b-row>
-          <b-col>
-            <PaginationNavInput
-              :total-results="totalResults"
-              :per-page="perPage"
-              :max-results="1000"
-            />
-          </b-col>
-        </b-row>
+          <b-row
+            v-show="!$fetchState.error"
+          >
+            <b-col>
+              <PaginationNavInput
+                :total-results="totalResults"
+                :per-page="perPage"
+                :max-results="1000"
+              />
+            </b-col>
+          </b-row>
+        </template>
       </b-col>
     </b-row>
   </b-container>
@@ -141,28 +135,26 @@
         default: null
       }
     },
-    data() {
-      return {
-        fetched: false
-      };
-    },
     async fetch() {
       this.viewFromRouteQuery();
 
       this.$store.dispatch('search/activate');
       this.$store.commit('search/set', ['userParams', this.$route.query]);
 
-      await this.$store.dispatch('search/run');
+      try {
+        await this.$store.dispatch('search/run');
 
-      if (this.$store.state.search.error) {
-        if (process.server) {
-          this.$nuxt.context.res.statusCode = this.$store.state.search.errorStatusCode;
+        if (this.$store.state.search.error) {
+          if (process.server) {
+            this.$nuxt.context.res.statusCode = this.$store.state.search.errorStatusCode;
+          }
+          throw this.$store.state.search.error;
+        } else if (this.noResults) {
+          throw new Error(this.$t('noResults'));
         }
-        throw this.$store.state.search.error;
+      } finally {
+        this.$scrollTo && this.$scrollTo('#header');
       }
-      this.fetched = true;
-
-      this.$scrollTo && this.$scrollTo('#header');
     },
     computed: {
       ...mapState({

@@ -68,8 +68,7 @@ describe('mixins/vue/facets', () => {
       describe('when key exists in neither current nor fallback locale', () => {
         const keyArg = 'hello';
         const mocks = {
-          $te: () => false,
-          $i18n: {}
+          $te: () => false
         };
 
         it('is null', () => {

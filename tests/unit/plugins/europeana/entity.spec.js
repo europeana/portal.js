@@ -8,7 +8,7 @@ const entityId = '94-architecture';
 const entityType = 'topic';
 const entityIdMisspelled = '94-architectuz';
 const apiEndpoint = '/concept/base/94.json';
-const baseRequest = nock(BASE_URL).get(apiEndpoint);
+const baseRequest = () => nock(BASE_URL).get(apiEndpoint);
 
 const entitiesResponse = {
   items: [
@@ -92,7 +92,7 @@ describe('plugins/europeana/entity', () => {
           const errorMessage = 'No resource found with ID:';
 
           beforeEach(() => {
-            baseRequest
+            baseRequest()
               .query(true)
               .reply(404, {
                 error: errorMessage
@@ -116,7 +116,7 @@ describe('plugins/europeana/entity', () => {
           const apiResponse = entitiesResponse.items[0];
 
           beforeEach(() => {
-            baseRequest
+            baseRequest()
               .query(true)
               .reply(200, apiResponse);
           });
