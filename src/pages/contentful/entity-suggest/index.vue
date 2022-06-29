@@ -17,7 +17,7 @@
           v-model="searchText"
           type="search"
           autocomplete="off"
-          placeholder="Search for topics, centuries, organisations and people"
+          placeholder="Search for topics, centuries, organisations, people and places"
           @input="inputSearchText"
         />
       </b-form-group>
@@ -84,7 +84,7 @@
       },
 
       inputSearchText(val) {
-        this.$apis.entity.suggest(val, { type: 'agent,concept,timespan,organization' })
+        this.$apis.entity.suggest(val, { type: 'agent,concept,timespan,organization,place' })
           .then(suggestions => {
             this.suggestions = suggestions;
           });
