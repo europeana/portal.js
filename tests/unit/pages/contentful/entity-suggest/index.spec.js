@@ -4,7 +4,6 @@ import BootstrapVue from 'bootstrap-vue';
 
 import page from '@/pages/contentful/entity-suggest/index';
 import sinon from 'sinon';
-import { apiError } from '@/plugins/europeana/utils';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);

@@ -1,5 +1,5 @@
 import * as cacher from '@/cachers/collections/places.js';
-import * as baseCacher from '@/cachers/collections/index.js'
+import * as baseCacher from '@/cachers/collections/index.js';
 import sinon from 'sinon';
 
 describe('@/cachers/collections/places', () => {
