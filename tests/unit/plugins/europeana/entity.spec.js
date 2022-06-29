@@ -8,7 +8,7 @@ const entityId = '94-architecture';
 const entityType = 'topic';
 const entityIdMisspelled = '94-architectuz';
 const apiEndpoint = '/concept/base/94.json';
-const baseRequest = nock(BASE_URL).get(apiEndpoint);
+const baseRequest = () => nock(BASE_URL).get(apiEndpoint);
 
 const entitiesResponse = {
   items: [
@@ -92,7 +92,7 @@ describe('plugins/europeana/entity', () => {
           const errorMessage = 'No resource found with ID:';
 
           beforeEach(() => {
-            baseRequest
+            baseRequest()
               .query(true)
               .reply(404, {
                 error: errorMessage
@@ -116,7 +116,7 @@ describe('plugins/europeana/entity', () => {
           const apiResponse = entitiesResponse.items[0];
 
           beforeEach(() => {
-            baseRequest
+            baseRequest()
               .query(true)
               .reply(200, apiResponse);
           });
@@ -141,7 +141,7 @@ describe('plugins/europeana/entity', () => {
 
     describe('find', () => {
       const uris = ['http://data.europeana.eu/agent/base/123', 'http://data.europeana.eu/concept/base/456'];
-      const uriQuery = 'entity_uri:("http://data.europeana.eu/agent/base/123" OR "http://data.europeana.eu/concept/base/456")';
+      const uriQuery = 'entity_uri:("http://data.europeana.eu/agent/base/123" OR "http://data.europeana.eu/agent/123" OR "http://data.europeana.eu/concept/base/456" OR "http://data.europeana.eu/concept/456")';
       const entitySearchResponse = {
         items: []
       };
@@ -294,23 +294,23 @@ describe('plugins/europeana/entity', () => {
       const id = '100-test-slug';
       describe('with type Agent', () => {
         const type = 'person';
-        it('returns an agent URI, with base infix, without any human readable labels', () => {
+        it('returns an agent URI, without any human readable labels, nor base infix', () => {
           const uri = getEntityUri(type, id);
-          expect(uri).toBe('http://data.europeana.eu/agent/base/100');
+          expect(uri).toBe('http://data.europeana.eu/agent/100');
         });
       });
 
       describe('with type Concept', () => {
         const type = 'topic';
-        it('returns a concept URI, with base infix, without any human readable labels', () => {
+        it('returns a concept URI, without any human readable labels, nor base infix', () => {
           const uri = getEntityUri(type, id);
-          expect(uri).toBe('http://data.europeana.eu/concept/base/100');
+          expect(uri).toBe('http://data.europeana.eu/concept/100');
         });
       });
 
       describe('with type Timespan', () => {
         const type = 'time';
-        it('returns a timespan URI, without any human readable labels, or base infix', () => {
+        it('returns a timespan URI, without any human readable labels, nor base infix', () => {
           const uri = getEntityUri(type, id);
           expect(uri).toBe('http://data.europeana.eu/timespan/100');
         });
@@ -318,7 +318,7 @@ describe('plugins/europeana/entity', () => {
 
       describe('with type Organization', () => {
         const type = 'organisation';
-        it('returns an organization URI, without any human readable labels, or base infix', () => {
+        it('returns an organization URI, without any human readable labels, nor base infix', () => {
           const uri = getEntityUri(type, id);
           expect(uri).toBe('http://data.europeana.eu/organization/100');
         });
@@ -407,23 +407,26 @@ describe('plugins/europeana/entity', () => {
 
   describe('getEntityQuery', () => {
     describe('when entity is a concept', () => {
-      const uri = 'http://data.europeana.eu/concept/base/12345';
+      const uri = 'http://data.europeana.eu/concept/12345';
+      const infixedUri = 'http://data.europeana.eu/concept/base/12345';
       it('queries on skos_concept', () => {
-        expect(getEntityQuery(uri)).toBe(`skos_concept:"${uri}"`);
+        expect(getEntityQuery(uri)).toBe(`skos_concept:("${infixedUri}" OR "${uri}")`);
       });
     });
 
     describe('when entity is an agent', () => {
-      const uri = 'http://data.europeana.eu/agent/base/12345';
+      const uri = 'http://data.europeana.eu/agent/12345';
+      const infixedUri = 'http://data.europeana.eu/agent/base/12345';
       it('queries on edm_agent', () => {
-        expect(getEntityQuery(uri)).toBe(`edm_agent:"${uri}"`);
+        expect(getEntityQuery(uri)).toBe(`edm_agent:("${infixedUri}" OR "${uri}")`);
       });
     });
 
     describe('when entity is a timespan', () => {
       const uri = 'http://data.europeana.eu/timespan/20';
+      const infixedUri = 'http://data.europeana.eu/timespan/base/20';
       it('queries on edm_timespan', () => {
-        expect(getEntityQuery(uri)).toBe(`edm_timespan:"${uri}"`);
+        expect(getEntityQuery(uri)).toBe(`edm_timespan:("${infixedUri}" OR "${uri}")`);
       });
     });
 

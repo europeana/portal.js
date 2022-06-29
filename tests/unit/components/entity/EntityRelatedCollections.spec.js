@@ -51,7 +51,8 @@ describe('components/entity/EntityRelatedCollections', () => {
         type: 'topic',
         identifier: '1-stained-glass'
       };
-      const uri = 'http://data.europeana.eu/concept/base/1';
+      const uri = 'http://data.europeana.eu/concept/1';
+      const infixedUri = 'http://data.europeana.eu/concept/base/1';
       const relatedUris = [
         'http://data.europeana.eu/concept/base/2',
         'http://data.europeana.eu/concept/base/3',
@@ -82,10 +83,11 @@ describe('components/entity/EntityRelatedCollections', () => {
 
       it('queries Record API for related collections', async() => {
         const wrapper = factory({ propsData, responses });
+        const entityQuery = `skos_concept:("${infixedUri}" OR "${uri}")`;
 
         await wrapper.vm.fetch();
 
-        expect(wrapper.vm.$apis.record.search.calledWith(sinon.match.has('query', `skos_concept:"${uri}"`))).toBe(true);
+        expect(wrapper.vm.$apis.record.search.calledWith(sinon.match.has('query', entityQuery))).toBe(true);
       });
 
       it('filters, reduces, and records the related collection URIs', async() => {

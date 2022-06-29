@@ -38,10 +38,13 @@ export default {
     "goHome": "Ga naar de homepage",
     "learnMore": "Leer meer",
     "like": "Liken",
+    "move": "Verplaats",
     "next": "Volgende",
     "pin": "Pin",
+    "preview": "Voorbeeld",
     "providedBy": "Aangeboden door {provider}",
     "reject": "Afwijzen",
+    "save": "Opslaan",
     "send": "Verzenden",
     "share": "Delen",
     "shareOn": "Delen op {social}",
@@ -145,8 +148,27 @@ export default {
     "to": "naar"
   },
   "debug": {
-    "apiRequests": "API-verzoeken",
-    "debug": "Foutopsporing"
+    "apiRequests": {
+      "apiKeyLinkText": "Europeana API-sleutel",
+      "noRequests": "Op deze pagina zijn geen verzoeken aan Europeana API's gebruikt.",
+      "settingsPageLinkText": "instellingen pagina",
+      "tip": "Tip: als u al een {apiKeyLink} heeft, kunt u deze invoeren op de {settingsPageLink} en deze wordt dan opgenomen in deze API-verzoeklinks.",
+      "title": "API-verzoeken"
+    },
+    "debug": "Foutopsporing",
+    "settings": {
+      "form": {
+        "apiKey": {
+          "description": "Voer uw Europeana API-sleutel in en deze wordt gebruikt in de links naar API-verzoeken.",
+          "label": "API sleutel"
+        },
+        "enabled": {
+          "description": "Wanneer ingeschakeld wordt het debug menu getoond in de footer van de pagina.",
+          "label": "Debug-menu inschakelen"
+        }
+      },
+      "title": "Instellingen"
+    }
   },
   "delete": "Verwijder",
   "depiction": "Een afbeelding van {title}",
@@ -167,16 +189,18 @@ export default {
     },
     "notifications": {
       "deleted": "Uw galerij is verwijderd",
+      "error": {
+        "unpin": "Er is een fout opgetreden bij het losmaken van het item. Probeer het opnieuw of meld het probleem."
+      },
+      "pin": "Dit item wordt bovenaan de collectie \" {entity} \" weergegeven. We laten je weten wanneer deze wijziging zichtbaar is op de collectiepagina.",
       "pinLimit": {
         "body": "Voorlopig kunt u maar 24 items vast zetten op de eerste pagina. Als u dit item wilt vast zetten, moet u ervoor zorgen dat u een ander item los maakt en vervolgens proberen deze opnieuw vast te zetten.",
         "title": "Te veel vastgezette items"
       },
       "pinned": "Het item is vastgezet. Het staat nu bovenaan de eerste pagina van deze collectie. Het kan tot 24 uur duren om voor iedereen te verschijnen.",
+      "select": "Selecteer een gerelateerde entiteit om het item vast te maken of los te maken.",
+      "unpin": "Dit item zal niet langer getoond worden bovenaan de \"{entity}\" collectie. We zullen u op de hoogte brengen wanneer deze verandering zichtbaar zal zijn op de collectie pagina.",
       "unpinned": "Het item is losgemaakt. Het staat niet meer bovenaan de eerste pagina van deze collectie. Het kan tot 24 uur duren om voor iedereen te verdwijnen."
-    },
-    "prompts": {
-      "pin": "Weet u zeker dat u dit item wilt vastzetten? Dit item wordt boven aan de verzameling {entiteit} weergegeven. Het kan tot 24 uur duren voordat deze wijziging van kracht wordt.",
-      "unpin": "Weet u zeker dat u dit item wilt losmaken? Dit item wordt niet meer weergegeven boven aan de verzameling {entiteit}. Het kan tot 24 uur duren voordat deze wijziging van kracht wordt."
     }
   },
   "error": "Fout",
@@ -187,6 +211,7 @@ export default {
     "description": "Ontdek de tentoonstellingen",
     "exhibitions": "Tentoonstellingen"
   },
+  "explore": "Ontdekken",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "kleuren",
@@ -691,13 +716,25 @@ export default {
       "home": "Home",
       "stories": "Verhalen"
     },
+    "quickSearch": "Snel zoeken",
     "searchFor": "Zoeken naar {query}",
     "searchForEverything": "Zoek op alles",
     "searchForEverythingInCollection": "Zoek op alles in {collection}",
     "searchForEverythingInEntireCollection": "Zoek op alles in onze gehele collectie",
-    "showSidebar": "Menu weergeven"
+    "searchForm": "Zoekformulier",
+    "showSidebar": "Menu weergeven",
+    "sideNavigation": "Navigatie aan de zijkant"
   },
   "homeLinkAlt": "Europeana Home",
+  "homePage": {
+    "discoverEditorial": "Ontdek onze verhalen",
+    "download": "download",
+    "free": "gratis",
+    "storiesCTA": "Bekijk al onze verhalen",
+    "subHeadline": "Vind en {download} kunstwerken, foto's, boeken, manuscripten, kranten en muziek van meer dan 4000 musea, archieven, galerijen en bibliotheken {free}.",
+    "themesCTA": "Bekijk al onze Collecties",
+    "title": "Ontdek het Europese culturele erfgoed"
+  },
   "imageSlider": {
     "handle": "Schuifgreep"
   },
@@ -852,6 +889,9 @@ export default {
   },
   "record": {
     "IIIFViewer": "IIIF-viewer",
+    "actions": {
+      "pin": "Pin item aan beschikbare entiteiten"
+    },
     "allMetaData": "Alle metadata",
     "copyEmbedLabel": "Embed code (klik om te kopiëren)",
     "exploreMore": "Meer verkennen",
@@ -864,8 +904,16 @@ export default {
     "record": "Registratie",
     "showAll": "Toon alle informatie",
     "similarItems": "Vergelijkbare items",
+    "status": {
+      "unpublished": "[Ongepubliceerd item]"
+    },
     "transcription": "Transcript",
     "transcriptionDisclaimer": "Deze content is een bijdrage van ons publiek, niet door de instelling die dit artikel heeft verstrekt."
+  },
+  "related": {
+    "editorial": {
+      "title": "Verhalen die u misschien leuk vindt"
+    }
   },
   "relatedCollections": "Gerelateerde collecties",
   "removeFilter": "Verwijder het filter {filterLabel}",
@@ -903,7 +951,6 @@ export default {
       "createNew": "Nieuwe galerij aanmaken",
       "delete": "Galerij verwijderen",
       "edit": "Galerij bewerken",
-      "save": "Opslaan",
       "update": "Galerij bijwerken"
     },
     "form": {
@@ -937,6 +984,9 @@ export default {
   "statuses": {
     "liked": "Liked",
     "pinned": "Pinned"
+  },
+  "storiesPage": {
+    "title": "Verhalen"
   },
   "website": "Website",
   "youMightAlsoLike": "Misschien vind je dit ook leuk"

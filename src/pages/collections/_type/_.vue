@@ -93,7 +93,7 @@
 
   import themes from '@/plugins/europeana/themes';
   import {
-    getEntitySlug, getEntityUri, getEntityQuery, normalizeEntityId
+    getEntitySlug, getEntityUri, getEntityQuery, normalizeEntityId, baseVariantEntityUris
   } from '@/plugins/europeana/entity';
   import { langMapValueForLocale, uriRegex } from  '@/plugins/europeana/utils';
 
@@ -151,7 +151,11 @@
       const fetchEntityManagement = this.$features.entityManagement &&
         this.$auth.user?.resource_access?.entities?.roles.includes('editor');
       // Get the full page for this entity if not known needed, or known to be needed, and store for reuse
-      const fetchEntityPage = !this.$store.state.entity.curatedEntities || this.$store.state.entity.curatedEntities.some(entity => entity.identifier === entityUri);
+      const fetchEntityPage = !this.$store.state.entity.curatedEntities ||
+        // TODO: restore following line when no URIs have /base/
+        // this.$store.state.entity.curatedEntities.some(entity => entity.identifier === entityUri);
+        // TODO: remove following line when no URIs have /base/
+        this.$store.state.entity.curatedEntities.some(entity => baseVariantEntityUris(entityUri).includes(entity.identifier));
       const fetchCuratedEntities = !this.$store.state.entity.curatedEntities;
 
       const contentfulVariables = {
@@ -163,7 +167,7 @@
         this.$apis.entity.get(this.$route.params.type, this.$route.params.pathMatch),
         fetchEntityManagement ? this.$apis.entityManagement.get(this.$route.params.type, this.$route.params.pathMatch) : () => null,
         fetchCuratedEntities ? this.$contentful.query('curatedEntities', contentfulVariables) : () => null,
-        fetchEntityPage ? this.$contentful.query('collectionPage', { ...contentfulVariables, identifier: entityUri }) : () => null
+        fetchEntityPage ? this.$contentful.query('collectionPage', { ...contentfulVariables, identifiers: baseVariantEntityUris(entityUri) }) : () => null
       ])
         .then(responses => {
           this.$store.commit('entity/setEntity', pick(responses[0].entity, [

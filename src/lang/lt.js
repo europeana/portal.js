@@ -38,10 +38,13 @@ export default {
     "goHome": "Eikite į pagrindinį puslapį",
     "learnMore": "Sužinokite daugiau",
     "like": "Patinka",
+    "move": "Perkelti",
     "next": "Kitas",
     "pin": "Kaištis",
+    "preview": "Peržiūra",
     "providedBy": "Tiekėjas {provider}",
     "reject": "Atmesti",
+    "save": "Išsaugoti",
     "send": "Siųsti",
     "share": "Dalintis",
     "shareOn": "Dalintis {social}",
@@ -145,8 +148,27 @@ export default {
     "to": "į"
   },
   "debug": {
-    "apiRequests": "API užklausos",
-    "debug": "Derinimo"
+    "apiRequests": {
+      "apiKeyLinkText": "Europeana API raktas",
+      "noRequests": "Šiame puslapyje nebuvo panaudotos užklausos dėl Europeana API.",
+      "settingsPageLinkText": "nustatymų puslapį",
+      "tip": "Patarimas: jei jau turite {apiKeyLink} , galite įvesti jį {settingsPageLink} ir jis bus įtrauktas į šias API užklausų nuorodas.",
+      "title": "API užklausos"
+    },
+    "debug": "Derinimo",
+    "settings": {
+      "form": {
+        "apiKey": {
+          "description": "Įveskite savo Europeana API raktą ir jis bus naudojamas API užklausų nuorodose.",
+          "label": "API raktas"
+        },
+        "enabled": {
+          "description": "Jei įjungta, derinimo meniu bus rodomas puslapio poraštėje.",
+          "label": "Įgalinti derinimo meniu"
+        }
+      },
+      "title": "Nustatymai"
+    }
   },
   "delete": "Ištrinti",
   "depiction": "{title} vaizdavimas",
@@ -167,16 +189,18 @@ export default {
     },
     "notifications": {
       "deleted": "Jūsų galerija panaikinta.",
+      "error": {
+        "unpin": "Atsegant elementą įvyko klaida. Bandykite dar kartą arba praneškite apie problemą."
+      },
+      "pin": "Šis elementas bus rodomas kolekcijos „ {entity} “ viršuje. Informuosime jus, kai šis pakeitimas bus matomas kolekcijos puslapyje.",
       "pinLimit": {
         "body": "Kol kas pirmajame puslapyje galite prisegti tik 24 elementus. Jei norite prisegti šį elementą, būtinai atsisekite kitą elementą ir tada vėl bandykite prisegti šį.",
         "title": "Per daug prisegtų elementų"
       },
       "pinned": "Elementas prisegtas. Dabar jis yra pirmojo šios kolekcijos puslapio viršuje. Gali užtrukti iki 24 valandų, kol visi pasirodys.",
+      "select": "Pasirinkite susijusį objektą, kurį norite prisegti / atsegti elementą prie jo / nuo jo.",
+      "unpin": "Šis elementas nebebus rodomas kolekcijos „ {entity} “ viršuje. Informuosime jus, kai šis pakeitimas bus matomas kolekcijos puslapyje.",
       "unpinned": "Elementas buvo atsegtas. Jo nebėra šio rinkinio pirmojo puslapio viršuje. Gali prireikti iki 24 valandų, kol jis išnyks visiems."
-    },
-    "prompts": {
-      "pin": "Ar tikrai norite prisegti šį elementą? Šis elementas bus rodomas kolekcijos \"{entity}\" viršuje. Šis pakeitimas gali įsigalioti per 24 valandas.",
-      "unpin": "Ar tikrai norite panaikinti šio elemento prisegimą? Šis elementas nebebus rodomas kolekcijos \"{entity}\" viršuje. Šis pakeitimas gali įsigalioti per 24 valandas."
     }
   },
   "error": "Klaida",
@@ -187,6 +211,7 @@ export default {
     "description": "Tyrinėti mūsų parodas",
     "exhibitions": "Parodos"
   },
+  "explore": "Naršyti",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "spalvos",
@@ -691,13 +716,24 @@ export default {
       "home": "Namai",
       "stories": "Istorijos"
     },
+    "quickSearch": "Greita paieška",
     "searchFor": "Ieškoti {query}",
     "searchForEverything": "Ieškoti visko",
     "searchForEverythingInCollection": "Ieškoti visko {collection}",
     "searchForEverythingInEntireCollection": "Ieškoti visko visoje kolekcijoje",
-    "showSidebar": "Rodyti meniu"
+    "searchForm": "Paieškos forma",
+    "showSidebar": "Rodyti meniu",
+    "sideNavigation": "Šoninė navigacija"
   },
   "homeLinkAlt": "„Europeana“ pagrindinis puslapis",
+  "homePage": {
+    "discoverEditorial": "Atraskite mūsų istorijas",
+    "download": "parsisiųsti",
+    "free": "nemokamai",
+    "storiesCTA": "Peržiūrėkite visas mūsų istorijas",
+    "subHeadline": "Raskite ir {download} meno kūrinius, nuotraukas, knygas, rankraščius, laikraščius ir muziką iš daugiau nei 4000 muziejų, archyvų, galerijų ir bibliotekų {free} .",
+    "title": "Atraskite Europos kultūros paveldą"
+  },
   "imageSlider": {
     "handle": "Slinkiklio rankena"
   },
@@ -852,6 +888,9 @@ export default {
   },
   "record": {
     "IIIFViewer": "IIIF žiūrovas",
+    "actions": {
+      "pin": "Prisekite elementą prie galimų objektų"
+    },
     "allMetaData": "Visi metaduomenys",
     "copyEmbedLabel": "Įterpti kodą (spustelėkite, jei norite kopijuoti)",
     "exploreMore": "Sužinokite daugiau",
@@ -864,8 +903,16 @@ export default {
     "record": "Įrašas",
     "showAll": "Rodyti visą informaciją",
     "similarItems": "Panašūs elementai",
+    "status": {
+      "unpublished": "[Nepaskelbtas elementas]"
+    },
     "transcription": "Transkripcija",
     "transcriptionDisclaimer": "Šį turinį patalpino visuomenės narys, o ne prekę pateikusi įstaiga."
+  },
+  "related": {
+    "editorial": {
+      "title": "Istorijos, kurios jums gali patikti"
+    }
   },
   "relatedCollections": "Susiję rinkiniai",
   "removeFilter": "Pašalinkite filtrą {filterLabel}",
@@ -903,7 +950,6 @@ export default {
       "createNew": "Kurti naują galeriją",
       "delete": "Naikinti galeriją",
       "edit": "Redaguoti galeriją",
-      "save": "Išsaugoti",
       "update": "Atnaujinti galeriją"
     },
     "form": {
@@ -937,6 +983,9 @@ export default {
   "statuses": {
     "liked": "Patiko",
     "pinned": "Prisegtas"
+  },
+  "storiesPage": {
+    "title": "Istorijos"
   },
   "website": "Interneto svetainė",
   "youMightAlsoLike": "Jums taip pat gali patikti"

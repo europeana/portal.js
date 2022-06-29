@@ -73,7 +73,7 @@
     },
 
     async fetch() {
-      if (this.entityUris.length === 0 || this.relatedCollections.length > 0) {
+      if (((this.entityUris?.length || 0) === 0) || ((this.relatedCollections?.length || 0) > 0)) {
         return;
       }
 

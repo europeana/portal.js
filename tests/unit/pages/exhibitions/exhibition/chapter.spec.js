@@ -23,6 +23,8 @@ const factory = (heroImage) => shallowMountNuxt(page, {
       chapters: [],
       exhibitionIdentifier: 'exhibition',
       exhibitionTitle: 'exhibition name',
+      exhibitionContentWarning: null,
+      relatedLink: null,
       page: {
         name: '',
         headline: '',

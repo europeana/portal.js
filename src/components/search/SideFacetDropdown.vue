@@ -248,7 +248,7 @@
       return this.queryFacet()
         .then((fields) => {
           this.fetching = false;
-          this.fields = fields;
+          this.fields = fields || [];
           this.fetched = true;
         });
     },
