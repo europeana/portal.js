@@ -1,9 +1,11 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
 import StoriesPage from '@/pages/stories/index';
+import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
+localVue.use(BootstrapVue);
 
 const storiesPageContentfulResponse = {
   data: {
