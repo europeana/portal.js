@@ -26,6 +26,7 @@ const i18n = new VueI18n({
 
 const factory = (propsData, translated = false) => mount(SummaryInfo, {
   localVue,
+  attachTo: document.body,
   propsData,
   i18n,
   mocks: {

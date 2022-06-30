@@ -29,7 +29,8 @@ const factory = (propsData, options = {}) => mount(ItemHero, {
       },
       getters: {
         'set/isLiked': storeIsLikedGetter,
-        'entity/isPinned': storeIsPinnedGetter
+        'entity/isPinned': storeIsPinnedGetter,
+        'entity/id': 'id123'
       },
       dispatch: storeDispatch
     },
@@ -87,7 +88,7 @@ const media = [
   }
 ];
 const identifier = '/2020601/https___1914_1918_europeana_eu_contributions_10265';
-const entities = [{ about: 'http://data.europeana.eu/agent/123' }];
+const entities = [{ about: 'http://data.europeana.eu/agent/123', prefLabel: { 'en': ['CARARE'] } }];
 
 describe('components/item/ItemHero', () => {
   describe('selectMedia', () => {
