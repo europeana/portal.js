@@ -85,9 +85,9 @@
     background-color: $mediumgrey-light;
     padding: 12rem 1.5rem;
     min-height: 100vh;
-
     background-size: cover;
     background-repeat: no-repeat;
+
     --overlay: linear-gradient(0deg, rgba(0 0 0 / 60%), rgba(0 0 0 / 60%));
 
     @media (max-width: $bp-small) {
