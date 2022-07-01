@@ -20,9 +20,12 @@
   import { isEntityUri, entityParamsFromUri } from '@/plugins/europeana/entity';
 
   export default {
+    name: 'EntityField',
+
     components: {
       SmartLink
     },
+
     props: {
       text: {
         type: String,
@@ -33,9 +36,10 @@
         required: true
       }
     },
+
     computed: {
       isEuropeanaEntity() {
-        return this.about ? isEntityUri(this.about, ['timespan', 'concept', 'agent', 'organization', 'place']) : false;
+        return isEntityUri(this.about);
       },
       destination() {
         return this.isEuropeanaEntity ? entityParamsFromUri(this.about) : this.about;
