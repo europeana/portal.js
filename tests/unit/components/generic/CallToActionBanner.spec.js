@@ -1,15 +1,15 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
-import HomeCallToAction from '@/components/home/HomeCallToAction';
+import CallToActionBanner from '@/components/generic/CallToActionBanner';
 
 const localVue = createLocalVue();
 
-const factory = ({ propsData = {} } = {}) => shallowMountNuxt(HomeCallToAction, {
+const factory = ({ propsData = {} } = {}) => shallowMountNuxt(CallToActionBanner, {
   localVue,
   propsData
 });
 
-describe('components/home/HomeCallToAction', () => {
+describe('components/generic/CallToActionBanner', () => {
   describe('computed', () => {
     describe('html', () => {
       it('converts CTA text Markdown to HTML', () => {
