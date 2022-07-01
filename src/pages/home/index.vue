@@ -4,7 +4,9 @@
       v-if="$features.newHomepage"
       class="page"
     >
-      <HomeHero />
+      <HomeHero
+        :background-image="backgroundImage"
+      />
       <HomeCallToAction
         v-if="callsToAction[0]"
         :name="callsToAction[0].name"
