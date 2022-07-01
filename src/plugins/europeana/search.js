@@ -111,10 +111,6 @@ export default (context) => ($axios, params, options = {}) => {
     start
   };
 
-  if (context?.$features?.fieldBoosting && params.boost) {
-    searchParams.boost = params.boost;
-  }
-
   if (context?.$config?.app?.search?.translateLocales?.includes(localOptions.locale)) {
     const targetLocale = 'en';
     if (localOptions.locale !== targetLocale) {

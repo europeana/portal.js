@@ -54,4 +54,14 @@ describe('components/search/BoostingForm', () => {
       expect(wrapper.vm.boost).toBe('ORIGINAL_DUMMY_BOOST_VALUE');
     });
   });
+  describe('watching for changes to the URL', () => {
+    it('updates the boost property', async() => {
+      const wrapper = factory();
+
+      wrapper.vm.$route.query.boost = 'NEW_DUMMY_BOOST';
+      await wrapper.vm.$nextTick;
+
+      expect(wrapper.vm.boost).toBe('NEW_DUMMY_BOOST');
+    });
+  });
 });
