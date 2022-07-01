@@ -99,5 +99,5 @@ describe('pages/collections/persons-or-places', () => {
 
       expect(wrapper.vm.head().title).toBe('pages.collections.persons.title');
     });
-  })
+  });
 });
