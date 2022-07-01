@@ -3,13 +3,12 @@ import * as baseCacher from '@/cachers/collections/index.js';
 import sinon from 'sinon';
 
 describe('@/cachers/collections/topics', () => {
-  it('fetches data with config and type: topic', () => {
+  it('fetches data with type: topic', () => {
     sinon.stub(baseCacher, 'default');
 
-    const config = {};
-    cacher.data(config);
+    cacher.data();
 
-    expect(baseCacher.default.calledWith({ type: 'concept' }, config)).toBe(true);
+    expect(baseCacher.default.calledWith({ type: 'concept' }, {})).toBe(true);
     sinon.resetHistory();
   });
 

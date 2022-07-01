@@ -3,13 +3,12 @@ import * as baseCacher from '@/cachers/collections/index.js';
 import sinon from 'sinon';
 
 describe('@/cachers/collections/organisations/featured', () => {
-  it('fetches data with config and type: organization', () => {
+  it('fetches data with type: organization', () => {
     sinon.stub(baseCacher, 'default');
 
-    const config = {};
-    cacher.data(config);
+    cacher.data();
 
-    expect(baseCacher.default.calledWith({ type: 'organization' }, config)).toBe(true);
+    expect(baseCacher.default.calledWith({ type: 'organization' }, {})).toBe(true);
     sinon.resetHistory();
   });
 

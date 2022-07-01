@@ -3,13 +3,12 @@ import * as baseCacher from '@/cachers/collections/index.js';
 import sinon from 'sinon';
 
 describe('@/cachers/collections/times', () => {
-  it('fetches data with config and type: timespan', () => {
+  it('fetches data with type: timespan', () => {
     sinon.stub(baseCacher, 'default');
 
-    const config = {};
-    cacher.data(config);
+    cacher.data();
 
-    expect(baseCacher.default.calledWith({ type: 'timespan' }, config)).toBe(true);
+    expect(baseCacher.default.calledWith({ type: 'timespan' }, {})).toBe(true);
     sinon.resetHistory();
   });
 

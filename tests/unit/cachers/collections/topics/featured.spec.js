@@ -3,14 +3,13 @@ import * as baseCacher from '@/cachers/collections/index.js';
 import sinon from 'sinon';
 
 describe('@/cachers/collections/topics/featured', () => {
-  it('fetches data with config, type: topic and hard-coded id filter', () => {
+  it('fetches data with type: topic and hard-coded id filter', () => {
     sinon.stub(baseCacher, 'default');
 
-    const config = {};
-    cacher.data(config);
+    cacher.data();
 
     expect(baseCacher.default.calledWith(
-      sinon.match.has('type', 'concept').and(sinon.match.has('qf', sinon.match(/^id:/))), config
+      sinon.match.has('type', 'concept').and(sinon.match.has('qf', sinon.match(/^id:/))), {}
     )).toBe(true);
     sinon.resetHistory();
   });
