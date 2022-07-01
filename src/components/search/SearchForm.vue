@@ -304,7 +304,8 @@
       linkGen(queryTerm, path) {
         const query = {
           view: this.view,
-          query: queryTerm || ''
+          query: queryTerm || '',
+          boost: this.$route?.query?.boost
         };
         return {
           path: path || this.$path({

@@ -77,6 +77,7 @@ export default {
     "published": "Published {date}",
     "relatedPosts": "Related posts"
   },
+  "boostingFormPlaceholder": "Enter field boosting query",
   "cardLabels": {
     "organisation": "Organisation",
     "person": "Person",
@@ -166,6 +167,10 @@ export default {
         "enabled": {
           "description": "If enabled, the debug menu will be shown in the page footer.",
           "label": "Enable debug menu"
+        },
+        "boosting": {
+          "description": "If enabled, activates the boosting field on search result pages, to evaluate various boosting configurations.",
+          "label": "Enable field boosting"
         }
       },
       "title": "Settings"

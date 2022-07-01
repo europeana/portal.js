@@ -21,14 +21,14 @@
           </b-form-group>
           <b-form-group
             v-if="fieldBoostingFeature"
-            description="If enabled, activates the boosting field on search result pages, to evaluate various boosting configurations."
+            :description="$t('debug.settings.form.boosting.description')"
           >
             <b-form-checkbox
               v-model="settings.boosting"
               switch
-              data-qa="enable boosting menu switch"
+              data-qa="enable boosting form switch"
             >
-              Enable field boosting
+              {{ $t('debug.settings.form.enabled.label') }}
             </b-form-checkbox>
           </b-form-group>
           <b-form-group
@@ -87,7 +87,7 @@
 
     computed: {
       fieldBoostingFeature() {
-        return this.$features.fieldBoosting;
+        return this.$features?.fieldBoosting;
       }
     },
 

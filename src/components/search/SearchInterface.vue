@@ -215,7 +215,7 @@
         return this.$store.getters['debug/settings'];
       },
       showBoostingForm() {
-        return this.debugSettings.boosting;
+        return this.debugSettings?.boosting;
       },
       routeQueryView() {
         return this.$route.query.view;

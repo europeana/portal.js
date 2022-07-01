@@ -9,7 +9,7 @@
     <b-form-input
       ref="boostingInput"
       v-model="boost"
-      placeholder="Enter field boosting query"
+      :placeholder="$t('boostingFormPlaceholder')"
       name="boost"
       data-qa="boost box"
       aria-autocomplete="list"
@@ -25,16 +25,6 @@
       return {
         boost: null
       };
-    },
-
-    computed: {
-      onSearchablePage() {
-        return this.$store.state.search.active;
-      },
-
-      routePath() {
-        return this.onSearchablePage ? this.$route.path : this.$path({ name: 'search' });
-      }
     },
 
     watch: {
@@ -53,17 +43,16 @@
       },
 
       async submitForm() {
-        const baseQuery = this.onSearchablePage ? this.$route.query : {};
-        const newRouteQuery = { ...baseQuery, ...{ page: 1, view: this.view, boost: this.boost } };
-        const newRoute = { path: this.routePath, query: newRouteQuery };
-
-        this.showSearchOptions = false;
+        const baseQuery = this.$route.query;
+        const newRouteQuery = { ...baseQuery, ...{ page: 1, boost: this.boost } };
+        const newRoute = { path: this.$route.path, query: newRouteQuery };
 
         await this.$goto(newRoute);
       }
     }
   };
 </script>
+
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
   @import '@/assets/scss/icons';
