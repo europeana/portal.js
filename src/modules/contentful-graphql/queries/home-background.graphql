@@ -1,0 +1,8 @@
+query HomeBackground(
+  $id: String!
+) {
+  asset(id: $id) {
+    url
+    contentType
+  }
+}

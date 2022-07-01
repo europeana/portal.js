@@ -38,7 +38,8 @@ export default {
       siteName: APP_SITE_NAME,
       search: {
         translateLocales: (process.env.APP_SEARCH_TRANSLATE_LOCALES || '').split(',')
-      }
+      },
+      homePageBackgroundAssetId: process.env.APP_HOME_BACKGROUND_ASSET_ID
     },
     auth: {
       strategies: {
