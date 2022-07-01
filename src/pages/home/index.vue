@@ -62,6 +62,7 @@
     data() {
       return {
         sections: [],
+        backgroundImage: null,
         // TODO: following four properties required when rendering IndexPage as
         //       a child component; remove when new home page is launched.
         browsePage: false,
@@ -128,6 +129,7 @@
         const response = await this.$contentful.query('homePage', variables);
         const homePage = response.data.data.homePageCollection.items[0];
         this.sections = homePage.sectionsCollection.items;
+        this.backgroundImage = homePage.image;
       }
     }
   };

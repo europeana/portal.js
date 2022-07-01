@@ -30,6 +30,10 @@ query HomePage(
           }
         }
       }
+      image {
+        url
+        contentType
+      }
     }
   }
 }
