@@ -62,7 +62,8 @@ const factory = (options = {}) => {
     localVue,
     mocks,
     store,
-    propsData: options.propsData
+    propsData: options.propsData,
+    stubs: ['SideFilters']
   });
 };
 
