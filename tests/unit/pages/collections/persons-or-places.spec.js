@@ -44,6 +44,7 @@ const factory = () => shallowMountNuxt(page, {
     $i18n: {
       locale: 'es'
     },
+    $pageHeadTitle: key => key,
     $store: {
       state: {
         sanitised: {
@@ -91,4 +92,12 @@ describe('pages/collections/persons-or-places', () => {
       expect(wrapper.vm.$scrollTo.calledWith('#header')).toBe(true);
     });
   });
+
+  describe('head', () => {
+    it('includes translated title', () => {
+      const wrapper = factory();
+
+      expect(wrapper.vm.head().title).toBe('pages.collections.persons.title');
+    });
+  })
 });
