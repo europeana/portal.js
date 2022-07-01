@@ -81,6 +81,20 @@
     min-height: 100vh;
     background-size: cover;
     background-repeat: no-repeat;
+    position: relative;
+
+    &::after {
+      border-bottom: 145px solid $white;
+      border-left: 60px solid transparent;
+      content: '';
+      display: block;
+      height: 0;
+      position: absolute;
+      right: 0;
+      top: calc(100% - 145px);
+      width: 0;
+      z-index: 1;
+    }
 
     --overlay: linear-gradient(0deg, rgba(0 0 0 / 60%), rgba(0 0 0 / 60%));
 

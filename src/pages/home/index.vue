@@ -139,8 +139,24 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '@/assets/scss/variables';
+
   .page {
     background-color: white;
     padding-bottom: 1rem;
+    position: relative;
+
+    &::after {
+      border-top: 145px solid $white;
+      border-left: 60px solid transparent;
+      content: '';
+      display: block;
+      height: 0;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      width: 0;
+      z-index: 1;
+    }
   }
 </style>
