@@ -83,6 +83,17 @@
     background-repeat: no-repeat;
     position: relative;
 
+    &::before {
+      content: '';
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      background-image: linear-gradient(0deg, #0b60aa, #0b60aa);
+      mix-blend-mode: multiply;
+      position: absolute;
+    }
+
     &::after {
       border-bottom: 145px solid $white;
       border-left: 60px solid transparent;
@@ -96,38 +107,36 @@
       z-index: 1;
     }
 
-    --overlay: linear-gradient(0deg, rgba(0 0 0 / 60%), rgba(0 0 0 / 60%));
-
     @media (max-width: $bp-small) {
-      background-image: var(--overlay), var(--bg-img-small);
+      background-image: var(--bg-img-small);
     }
 
     @media (min-width: $bp-small) and (max-width: $bp-medium) {
-      background-image: var(--overlay), var(--bg-img-medium, var(--bg-img-small));
+      background-image: var(--bg-img-medium, var(--bg-img-small));
     }
 
     @media (min-width: $bp-medium) and (max-width: $bp-large) {
-      background-image: var(--overlay), var(--bg-img-large, var(--bg-img-small));
+      background-image: var(--bg-img-large, var(--bg-img-small));
     }
 
     @media (min-width: $bp-large) and (max-width: $bp-extralarge) {
-      background-image: var(--overlay), var(--bg-img-xl, var(--bg-img-small));
+      background-image: var(--bg-img-xl, var(--bg-img-small));
     }
 
     @media (min-width: $bp-extralarge) and (max-width: $bp-xxl) {
-      background-image: var(--overlay), var(--bg-img-xxl, var(--bg-img-small));
+      background-image: var(--bg-img-xxl, var(--bg-img-small));
     }
 
     @media (min-width: $bp-xxl) and (max-width: $bp-xxxl) {
-      background-image: var(--overlay), var(--bg-img-xxxl, var(--bg-img-small));
+      background-image: var(--bg-img-xxxl, var(--bg-img-small));
     }
 
     @media (min-width: $bp-xxxl) and (max-width: $bp-wqhd) {
-      background-image: var(--overlay), var(--bg-img-wqhd, var(--bg-img-small));
+      background-image: var(--bg-img-wqhd, var(--bg-img-small));
     }
 
     @media (min-width: $bp-wqhd + 1px) {
-      background-image: var(--overlay), var(--bg-img-4k, var(--bg-img-small));
+      background-image: var(--bg-img-4k, var(--bg-img-small));
     }
 
     h1,
@@ -168,6 +177,7 @@
 
   .hero-content {
     margin: 0 auto;
+    position: relative; // Prevents blending with the background
 
     @media (min-width: $bp-medium) {
       width: 25em;
