@@ -80,11 +80,12 @@ export default (context = {}) => {
       try {
         const response = await $axios.get(`/${setIdFromUri(id)}`, { params: paramsWithDefaults });
         const set = response.data;
+        set.items = set.items.slice(0, 100);
 
         if (options.withMinimalItems && set.items) {
           const unpublishedItemDcTitleLangAware = { [context.i18n.locale]: [context.i18n.t('record.status.unpublished')] };
 
-          const minimalItems = await context.$apis.record.find(set.items.slice(0, 100), {
+          const minimalItems = await context.$apis.record.find(set.items, {
             profile: 'minimal',
             rows: 100
           });
