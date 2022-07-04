@@ -80,21 +80,24 @@ export default (context = {}) => {
       try {
         const response = await $axios.get(`/${setIdFromUri(id)}`, { params: paramsWithDefaults });
         const set = response.data;
-        set.items = set.items.slice(0, 100);
 
-        if (options.withMinimalItems && set.items) {
-          const unpublishedItemDcTitleLangAware = { [context.i18n.locale]: [context.i18n.t('record.status.unpublished')] };
+        if (set.items) {
+          set.items = set.items.slice(0, 100);
 
-          const minimalItems = await context.$apis.record.find(set.items, {
-            profile: 'minimal',
-            rows: 100
-          });
+          if (options.withMinimalItems) {
+            const unpublishedItemDcTitleLangAware = { [context.i18n.locale]: [context.i18n.t('record.status.unpublished')] };
 
-          set.items = set.items.map(uri => {
-            const itemId = uri.replace(EUROPEANA_DATA_URL_ITEM_PREFIX, '');
-            return minimalItems.items.find(item => item.id === itemId) ||
-              { id: itemId, dcTitleLangAware: unpublishedItemDcTitleLangAware };
-          });
+            const minimalItems = await context.$apis.record.find(set.items, {
+              profile: 'minimal',
+              rows: 100
+            });
+
+            set.items = set.items.map(uri => {
+              const itemId = uri.replace(EUROPEANA_DATA_URL_ITEM_PREFIX, '');
+              return minimalItems.items.find(item => item.id === itemId) ||
+                { id: itemId, dcTitleLangAware: unpublishedItemDcTitleLangAware };
+            });
+          }
         }
 
         return set;
