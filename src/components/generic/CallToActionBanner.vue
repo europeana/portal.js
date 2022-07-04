@@ -1,7 +1,13 @@
 <template>
   <div class="home-cta d-lg-flex flex-lg-row flex-column">
-    <div class="cta-illustration align-self-stretch flex-lg-fill">
-      <div class="geometry" />
+    <div
+      v-if="illustration"
+      class="cta-illustration align-self-stretch flex-lg-fill"
+    >
+      <b-img
+        :src="illustration.image.url"
+        :alt="illustration.image.description"
+      />
     </div>
     <div class="cta-content align-self-stretch flex-lg-fill">
       <h2>
@@ -45,6 +51,10 @@
       link: {
         type: Object,
         required: true
+      },
+      illustration: {
+        type: Object,
+        default: null
       }
     },
     computed: {

@@ -27,9 +27,19 @@ query HomePage(
         			url
         			text
       			}
+            illustration {
+              ...illustrationFields
+            }
           }
         }
       }
     }
+  }
+}
+
+fragment illustrationFields on Illustration {
+  image {
+    url
+    description
   }
 }

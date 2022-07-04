@@ -10,6 +10,7 @@
         :name="callsToAction[0].name"
         :text="callsToAction[0].text"
         :link="callsToAction[0].relatedLink"
+        :illustration="callsToAction[0].illustration"
       />
       <StackedCardsSwiper
         v-if="!$fetchState.pending"
@@ -22,6 +23,7 @@
         :name="callsToAction[1].name"
         :text="callsToAction[1].text"
         :link="callsToAction[1].relatedLink"
+        :illustration="callsToAction[1].illustration"
       />
       <HomeLatest />
       <CallToActionBanner
@@ -29,6 +31,7 @@
         :name="callsToAction[2].name"
         :text="callsToAction[2].text"
         :link="callsToAction[2].relatedLink"
+        :illustration="callsToAction[2].illustration"
       />
     </div>
     <IndexPage
