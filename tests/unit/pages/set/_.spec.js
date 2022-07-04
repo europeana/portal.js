@@ -67,7 +67,8 @@ const factory = (options = {}) => shallowMountNuxt(page, {
     $route: {
       params: {
         pathMatch: options.set?.id || '111'
-      }
+      },
+      query: {}
     },
     $store: {
       commit: storeCommit,
@@ -95,7 +96,7 @@ describe('SetPage', () => {
 
       await wrapper.vm.fetch();
 
-      expect(storeDispatch.calledWith('set/fetchActive', '123')).toBe(true);
+      expect(storeDispatch.calledWith('set/fetchActive', { setId: '123', page: 1 })).toBe(true);
     });
   });
 

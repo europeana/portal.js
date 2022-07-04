@@ -298,12 +298,12 @@ describe('store/set', () => {
         store.actions.$apis.set.get = sinon.stub().resolves(set);
         store.actions.$apis.record.search = sinon.stub().resolves({ items: [] });
 
-        await store.actions.fetchActive({ commit }, setId);
+        await store.actions.fetchActive({ commit }, { setId });
 
-        expect(store.actions.$apis.set.get.calledWith(setId, {
-          profile: 'standard',
-          pageSize: 100
-        }, { withMinimalItems: true })).toBe(true);
+        expect(store.actions.$apis.set.get.calledWith(setId,
+          { profile: 'standard' },
+          { withMinimalItems: true, page: 1 }
+        )).toBe(true);
         expect(commit.calledWith('setActive', set)).toBe(true);
       });
       describe('when API request doesn\'t return a set', () => {
@@ -312,7 +312,7 @@ describe('store/set', () => {
 
         it('throws the API error', async() => {
           store.actions.$apis.set.get = sinon.stub().rejects(apiError);
-          await expect(store.actions.fetchActive({ commit }, setId)).rejects.toThrow(apiError);
+          await expect(store.actions.fetchActive({ commit }, { setId })).rejects.toThrow(apiError);
         });
         it('sets the error\'s status code for the app response', async() => {
           store.actions.$apis.set.get = sinon.stub().rejects(apiError);
@@ -320,7 +320,7 @@ describe('store/set', () => {
 
           let error;
           try {
-            await store.actions.fetchActive({ commit }, setId);
+            await store.actions.fetchActive({ commit }, { setId });
           } catch (e) {
             error = e;
           }

@@ -105,7 +105,7 @@ export default {
     unpin({ dispatch, state }, itemId) {
       return this.$apis.set.modifyItems('delete', state.featuredSetId, itemId)
         .then(() =>  {
-          dispatch('set/fetchActive', state.featuredSetId, { root: true });
+          dispatch('set/fetchActive', { setId: state.featuredSetId }, { root: true });
           dispatch('getPins');
         })
         .catch((e) => {

@@ -121,12 +121,11 @@ export default {
       }, { withMinimalItems: true });
       return commit('setLikedItems', likes.items || []);
     },
-    async fetchActive({ commit }, setId) {
+    async fetchActive({ commit }, { setId, page = 1 }) {
       try {
         const set = await this.$apis.set.get(setId, {
-          pageSize: 100,
           profile: 'standard'
-        }, { withMinimalItems: true });
+        }, { withMinimalItems: true, page });
         commit('setActive', set);
       } catch (error) {
         if (process.server && error.statusCode) {

@@ -70,7 +70,6 @@ export default (context = {}) => {
      * @param {Boolean} options.withMinimalItems retrieve minimal item metadata from Record API
      * @return {Object} the set's object, containing the requested window of the set's items
      */
-    // TODO: pagination for sets with > 100 items
     async get(id, params = {}, options = {}) {
       const defaults = {
         profile: 'standard'
@@ -82,14 +81,19 @@ export default (context = {}) => {
         const set = response.data;
 
         if (set.items) {
-          set.items = set.items.slice(0, 100);
+          const perPage = 100;
+          const page = (options.page || 1);
+          const start = (page - 1) * perPage;
+          const end = page * perPage;
+          set.items = set.items.slice(start, end);
 
           if (options.withMinimalItems) {
             const unpublishedItemDcTitleLangAware = { [context.i18n.locale]: [context.i18n.t('record.status.unpublished')] };
 
             const minimalItems = await context.$apis.record.find(set.items, {
               profile: 'minimal',
-              rows: 100
+              rows: perPage,
+              start
             });
 
             set.items = set.items.map(uri => {

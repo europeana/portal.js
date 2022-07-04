@@ -138,6 +138,14 @@
           </b-container>
         </b-col>
       </b-row>
+      <b-row>
+        <b-col>
+          <PaginationNavInput
+            :total-results="set.total"
+            :per-page="perPage"
+          />
+        </b-col>
+      </b-row>
       <client-only>
         <SetRecommendations
           v-if="displayRecommendations"
@@ -151,6 +159,7 @@
 
 <script>
   import ClientOnly from 'vue-client-only';
+  import PaginationNavInput from '../../components/generic/PaginationNavInput';
 
   import {
     ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX,
@@ -169,6 +178,7 @@
       LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
       AlertMessage: () => import('@/components/generic/AlertMessage'),
       ItemPreviewCardGroup,
+      PaginationNavInput,
       SocialShareModal,
       SetFormModal: () => import('@/components/set/SetFormModal'),
       SetRecommendations: () => import('@/components/set/SetRecommendations')
@@ -184,8 +194,16 @@
 
     middleware: 'sanitisePageQuery',
 
+    data() {
+      return {
+        perPage: 100
+      };
+    },
+
     async fetch() {
-      await this.$store.dispatch('set/fetchActive', this.setId);
+      this.$scrollTo && this.$scrollTo('#header');
+
+      await this.$store.dispatch('set/fetchActive', { setId: this.setId, page: this.page });
 
       if (this.setIsEntityBestItems && this.userIsEntityEditor) {
         await this.$store.commit('entity/setFeaturedSetId', this.setId);
@@ -210,6 +228,9 @@
     },
 
     computed: {
+      page() {
+        return Number(this.$route.query.page || 1);
+      },
       set() {
         return this.$store.state.set.active || {};
       },
@@ -259,13 +280,16 @@
         return true;
       },
       displayItemCount() {
-        const max = 100;
-        const label = this.set.total > max ? 'items.itemOf' : 'items.itemCount';
-        return this.$tc(label, this.set.total, { max });
+        const label = this.set.total > this.perPage ? 'items.itemOf' : 'items.itemCount';
+        return this.$tc(label, this.set.total, { max: this.set.items?.length || 0 });
       },
       shareMediaUrl() {
         return this.$apis.thumbnail.edmPreview(this.set?.items?.[0]?.edmPreview?.[0], { size: 400 });
       }
+    },
+
+    watch: {
+      '$route.query.page': '$fetch'
     },
 
     methods: {

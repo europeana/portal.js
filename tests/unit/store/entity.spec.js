@@ -258,7 +258,7 @@ describe('store/entity', () => {
         await store.actions.unpin({ dispatch, state }, itemId);
 
         expect(store.actions.$apis.set.modifyItems.calledWith('delete', featuredSetId, itemId)).toBe(true);
-        expect(dispatch.calledWith('set/fetchActive', state.featuredSetId, { root: true })).toBe(true);
+        expect(dispatch.calledWith('set/fetchActive', { setId: state.featuredSetId }, { root: true })).toBe(true);
         expect(dispatch.calledWith('getPins')).toBe(true);
       });
       describe('when api call errors', () => {

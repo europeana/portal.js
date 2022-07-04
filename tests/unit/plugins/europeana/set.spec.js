@@ -79,7 +79,8 @@ describe('@/plugins/europeana/set', () => {
 
             expect(context.$apis.record.find.calledWith(setGetResponse.items, {
               profile: 'minimal',
-              rows: 100
+              rows: 100,
+              start: 0
             })).toBe(true);
           });
 
