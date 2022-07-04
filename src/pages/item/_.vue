@@ -297,7 +297,9 @@
       }
     },
 
-    watchQuery: ['lang'],
+    watch: {
+      '$route.query.lang': '$fetch'
+    },
 
     mounted() {
       this.fetchAnnotations();
