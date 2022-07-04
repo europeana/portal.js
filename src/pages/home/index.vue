@@ -11,6 +11,7 @@
         :text="callsToAction[0].text"
         :link="callsToAction[0].relatedLink"
         :illustration="callsToAction[0].illustration"
+        variant="light"
       />
       <StackedCardsSwiper
         v-if="!$fetchState.pending"
@@ -24,6 +25,7 @@
         :text="callsToAction[1].text"
         :link="callsToAction[1].relatedLink"
         :illustration="callsToAction[1].illustration"
+        variant="innovationblue"
       />
       <HomeLatest />
       <CallToActionBanner
@@ -141,5 +143,6 @@
   .page {
     background-color: white;
     padding-bottom: 1rem;
+    text-align: center;
   }
 </style>

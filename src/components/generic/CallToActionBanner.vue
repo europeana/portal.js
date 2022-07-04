@@ -1,8 +1,11 @@
 <template>
-  <div class="home-cta d-lg-flex flex-lg-row flex-column">
+  <div
+    class="home-cta d-flex flex-lg-row flex-column"
+    :class="variant"
+  >
     <div
       v-if="illustration"
-      class="cta-illustration align-self-stretch flex-lg-fill"
+      class="cta-illustration align-self-stretch"
     >
       <b-img
         :src="illustration.image.url"
@@ -55,6 +58,14 @@
       illustration: {
         type: Object,
         default: null
+      },
+      /**
+       * Banner variant to use
+       * @values yellowgrey, grey, blue
+       */
+      variant: {
+        type: String,
+        default: 'yellowgrey'
       }
     },
     computed: {
@@ -70,36 +81,95 @@
   @import '@/assets/scss/variables';
 
   .home-cta {
-    background-color: $bodygrey;
-    margin: 2rem auto;
-    max-width: 75%;
-    border-radius: 0.4rem;
+    max-width: 86%;
+    background-color: $yellowgrey;
+    margin: 3.5em auto 3em;
+    font-size: 1rem;
+    border-radius: 0.25em;
+    border: 0.25em solid $black;
+    box-shadow: 0.75em 0.75em 0 0 $black;
 
-    .cta-illustration {
-      min-height: 11rem;
-      padding: 4.25rem;
-      overflow: hidden;
-
-      .geometry {
-        margin-left: auto;
-        margin-right: auto;
-        margin-bottom: -70%;
-        border-radius: 1rem;
-        width: 70%;
-        max-width: 21rem;
-        padding-top: min(70%, 21rem);
-        background-color: $lightgrey;
-        transform: rotate(45deg);
-      }
+    @media (min-width: $bp-xxxl) {
+      font-size: 1vw;
+      max-width: 75%;
     }
 
     .cta-content {
-      padding: 4.25rem;
+      padding: 2.5em;
       text-align: center;
+      font-size: 1em;
+
+      h2 {
+        color: $mediumgrey;
+        font-size: 2em;
+        font-weight: 700;
+      }
+
+      p {
+        font-size: 1em;
+      }
     }
 
     .btn-primary.btn-cta {
       margin-bottom: 0;
+      text-transform: capitalize;
+      border: 0.1875em solid $black;
+      box-shadow: 0.25em 0.25em 0 0 $black;
+      font-weight: 700;
+      padding: 0.5em 1em;
+      border-radius: 0.25em;
+
+      @media (min-width: $bp-xxxl) {
+        font-size: 1vw;
+      }
+    }
+
+    &.light {
+      background-color: $bodygrey;
+    }
+
+    &.innovationblue {
+      background-color: $innovationblue;
+
+      .cta-content {
+        color: $white;
+
+        h2 {
+          color: $white;
+        }
+      }
+
+      .btn-primary.btn-cta {
+        background-color: $yellowgrey;
+        color: $black;
+
+        &:hover {
+          background-color: $white;
+        }
+      }
+    }
+
+    .cta-illustration {
+      overflow: hidden;
+      margin: 1em auto 0;
+      padding: 0 0.5em;
+      max-width: 300px;
+
+      @media (min-width: $bp-large) {
+        max-width: none;
+        flex-basis: 45%;
+        margin: auto 0 0;
+        padding: 1em 4em 0;
+        flex-shrink: 0;
+      }
+
+      @media (min-width: $bp-extralarge) {
+        flex-basis: 40%;
+      }
+
+      img {
+        width: 100%;
+      }
     }
   }
 </style>
