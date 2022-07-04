@@ -84,7 +84,7 @@ export default (context = {}) => {
         if (options.withMinimalItems && set.items) {
           const unpublishedItemDcTitleLangAware = { [context.i18n.locale]: [context.i18n.t('record.status.unpublished')] };
 
-          const minimalItems = await context.$apis.record.find(set.items, {
+          const minimalItems = await context.$apis.record.find(set.items.slice(0, 100), {
             profile: 'minimal',
             rows: 100
           });
