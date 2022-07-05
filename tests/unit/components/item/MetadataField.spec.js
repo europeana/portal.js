@@ -253,8 +253,7 @@ describe('components/item/MetadataField', () => {
       const props = {
         name: 'edmDataProvider',
         fieldData: {
-          url: undefined,
-          value: { en: ['National Library of Estonia'] }
+          def: [{ prefLabel: { en: ['National Library of Estonia'] } }]
         }
       };
 
