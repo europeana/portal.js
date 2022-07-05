@@ -28,7 +28,7 @@
               switch
               data-qa="enable boosting form switch"
             >
-              {{ $t('debug.settings.form.enabled.label') }}
+              {{ $t('debug.settings.form.boosting.label') }}
             </b-form-checkbox>
           </b-form-group>
           <b-form-group
