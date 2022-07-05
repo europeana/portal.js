@@ -19,7 +19,18 @@
               {{ $t('debug.settings.form.enabled.label') }}
             </b-form-checkbox>
           </b-form-group>
-
+          <b-form-group
+            v-if="fieldBoostingFeature"
+            :description="$t('debug.settings.form.boosting.description')"
+          >
+            <b-form-checkbox
+              v-model="settings.boosting"
+              switch
+              data-qa="enable boosting form switch"
+            >
+              {{ $t('debug.settings.form.enabled.label') }}
+            </b-form-checkbox>
+          </b-form-group>
           <b-form-group
             :label="$t('debug.settings.form.apiKey.label')"
             label-for="debug-input-api-key"
@@ -72,6 +83,12 @@
       return {
         title: this.$pageHeadTitle(this.title)
       };
+    },
+
+    computed: {
+      fieldBoostingFeature() {
+        return this.$features?.fieldBoosting;
+      }
     },
 
     methods: {

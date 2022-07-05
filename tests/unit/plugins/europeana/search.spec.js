@@ -211,6 +211,22 @@ describe('plugins/europeana/search', () => {
       });
     });
 
+    describe('boost params', () => {
+      describe('with a boost in the params', () => {
+        it('sends the boosting param', async() => {
+          baseRequest()
+            .query(query => {
+              return query['boost'] === 'BOOST';
+            })
+            .reply(200, defaultResponse);
+
+          await search({})($axios, { query: 'test', boost: 'BOOST' });
+
+          expect(nock.isDone()).toBe(true);
+        });
+      });
+    });
+
     describe('API response', () => {
       describe('with error', () => {
         it('returns API error message and status code', async() => {

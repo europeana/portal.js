@@ -19,7 +19,8 @@ const factory = ({ data = {} } = {}) => shallowMountNuxt(page, {
     $store: {
       getters: {
         'debug/settings': {
-          enabled: false
+          enabled: false,
+          fieldBoosting: false
         }
       },
       commit: sinon.spy()
