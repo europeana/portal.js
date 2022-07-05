@@ -57,7 +57,7 @@
       },
       /**
        * Banner variant to use
-       * @values yellowgrey, grey, blue
+       * @values yellowgrey, light, innovationblue
        */
       variant: {
         type: String,
@@ -159,3 +159,43 @@
     }
   }
 </style>
+
+<docs lang="md">
+  Variant "yellowgrey" (default):
+  ```jsx
+  <CallToActionBanner
+    name="Call to action name"
+    text="This is a call to action text"
+    :link="{ url: '/', text: 'Click here' }"
+  />
+  ```
+  Variant "yellowgrey" (default) with illustration:
+  ```jsx
+  <CallToActionBanner
+    name="Call to action name"
+    text="This is a call to action text"
+    :link="{ url: '/', text: 'Click here' }"
+    :illustration="{ image: { url: 'https://images.ctfassets.net/i01duvb6kq77/6Fm9ywRyWVVWlu4Uq3yNaM/d37780502312ca581c450d52f298eae3/illustration_curate.svg' } }"
+  />
+  ```
+  Variant "light" with illustration
+  ```jsx
+  <CallToActionBanner
+    name="Call to action name"
+    text="This is a call to action text"
+    :link="{ url: '/', text: 'Click here' }"
+    :illustration="{ image: { url: 'https://images.ctfassets.net/i01duvb6kq77/6Fm9ywRyWVVWlu4Uq3yNaM/d37780502312ca581c450d52f298eae3/illustration_curate.svg' } }"
+    variant="light"
+  />
+  ```
+  Variant "innovationblue" with illustration
+  ```jsx
+  <CallToActionBanner
+    name="Call to action name"
+    text="This is a call to action text"
+    :link="{ url: '/', text: 'Click here' }"
+    :illustration="{ image: { url: 'https://images.ctfassets.net/i01duvb6kq77/5KObdGGWsEnx45q2CmTZ7V/7684115e7fb6b850ddacf68ca61f1cf5/illustration_newsletter.svg' } }"
+    variant="innovationblue"
+  />
+  ```
+  </docs>
