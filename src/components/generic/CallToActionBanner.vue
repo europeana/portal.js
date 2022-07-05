@@ -1,31 +1,29 @@
 <template>
-  <div class="gridless-container">
+  <div
+    class="home-cta d-flex flex-md-row flex-column"
+    :class="variant"
+  >
     <div
-      class="home-cta d-flex flex-md-row flex-column"
-      :class="variant"
-    >
+      v-if="illustration"
+      class="cta-illustration align-self-stretch"
+      :style="`background-image: url(${illustration.image.url})`"
+    />
+    <div class="cta-content align-self-stretch flex-md-fill">
+      <h2>
+        {{ name }}
+      </h2>
+      <!-- eslint-disable vue/no-v-html -->
       <div
-        v-if="illustration"
-        class="cta-illustration align-self-stretch"
-        :style="`background-image: url(${illustration.image.url})`"
+        v-html="html"
       />
-      <div class="cta-content align-self-stretch flex-md-fill">
-        <h2>
-          {{ name }}
-        </h2>
-        <!-- eslint-disable vue/no-v-html -->
-        <div
-          v-html="html"
-        />
-        <!-- eslint-enable   vue/no-v-html -->
-        <SmartLink
-          :destination="link.url"
-          data-qa="call to action"
-          class="btn btn-cta btn-primary"
-        >
-          {{ link.text }}
-        </SmartLink>
-      </div>
+      <!-- eslint-enable   vue/no-v-html -->
+      <SmartLink
+        :destination="link.url"
+        data-qa="call to action"
+        class="btn btn-cta btn-primary"
+      >
+        {{ link.text }}
+      </SmartLink>
     </div>
   </div>
 </template>
@@ -80,7 +78,7 @@
 
   .home-cta {
     background-color: $yellowgrey;
-    margin: 3.5em auto 3em;
+    margin-bottom: 2em;
     font-size: 1rem;
     border-radius: 0.25em;
     border: 0.25em solid $black;
