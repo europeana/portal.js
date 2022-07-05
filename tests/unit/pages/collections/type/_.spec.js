@@ -14,6 +14,7 @@ const organisationEntity = {
     id: 'http://data.europeana.eu/organization/01234567890',
     logo: { id: 'http://commons.wikimedia.org/wiki/Special:FilePath/Albertina%20Logo.svg' },
     description: { en: 'example of an organisation description' },
+    prefLabel: { en: 'English name', nl: 'Dutch name' },
     homepage: 'https://www.example-organisation.eu',
     hasAddress: {
       countryName: 'The Netherlands',
@@ -335,11 +336,11 @@ describe('pages/collections/type/_', () => {
     });
 
     describe('description', () => {
-      it('returns a description for an organisation when provided', () => {
+      it('returns the English prefLabel for an organisation if non-native', () => {
         const wrapper = factory(organisationEntity);
 
         const description = wrapper.vm.description.values[0];
-        expect(description).toBe(organisationEntity.entity.description.en);
+        expect(description).toBe(organisationEntity.entity.prefLabel.en);
       });
     });
     describe('homepage', () => {
@@ -359,14 +360,15 @@ describe('pages/collections/type/_', () => {
       });
     });
     describe('moreInfo', () => {
-      it('returns an object with more entity data on organisation pages', () => {
+      it('returns an array with more entity data on organisation pages', () => {
         const wrapper = factory(organisationEntity);
 
         const moreInfo = wrapper.vm.moreInfo;
-        expect(moreInfo[0].value).toBe(organisationEntity.entity.homepage);
-        expect(moreInfo[1].value).toBe(organisationEntity.entity.hasAddress.countryName);
-        expect(moreInfo[2].value).toBe(organisationEntity.entity.acronym.en);
+        expect(moreInfo[0].value).toBe(organisationEntity.entity.prefLabel.en);
+        expect(moreInfo[1].value).toBe(organisationEntity.entity.acronym.en);
+        expect(moreInfo[2].value).toBe(organisationEntity.entity.hasAddress.countryName);
         expect(moreInfo[3].value).toBe(organisationEntity.entity.hasAddress.locality);
+        expect(moreInfo[4].value).toBe(organisationEntity.entity.homepage);
       });
     });
   });

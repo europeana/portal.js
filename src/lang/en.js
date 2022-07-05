@@ -885,6 +885,7 @@ export default {
   "organisation": {
     "city": "City",
     "country": "Country",
+    "englishName": "English name",
     "nameAcronym": "Name acronym"
   },
   "pageHasLoaded": "has loaded",

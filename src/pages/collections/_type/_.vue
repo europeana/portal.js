@@ -122,7 +122,7 @@
     fetch() {
       this.$store.commit('search/disableCollectionFacet');
 
-      const entityUri = getEntityUri(this.$route.params.type, this.$route.params.pathMatch);
+      const entityUri = getEntityUri(this.collectionType, this.$route.params.pathMatch);
       if (entityUri !== this.$store.state.entity.id) {
         // TODO: group as a reset action on the store?
         this.$store.commit('entity/setId', null);
@@ -151,8 +151,8 @@
       };
 
       return Promise.all([
-        this.$apis.entity.get(this.$route.params.type, this.$route.params.pathMatch),
-        fetchEntityManagement ? this.$apis.entityManagement.get(this.$route.params.type, this.$route.params.pathMatch) : () => null,
+        this.$apis.entity.get(this.collectionType, this.$route.params.pathMatch),
+        fetchEntityManagement ? this.$apis.entityManagement.get(this.collectionType, this.$route.params.pathMatch) : () => null,
         fetchCuratedEntities ? this.$contentful.query('curatedEntities', contentfulVariables) : () => null,
         fetchEntityPage ? this.$contentful.query('collectionPage', { ...contentfulVariables, identifiers: baseVariantEntityUris(entityUri) }) : () => null
       ])
@@ -249,16 +249,17 @@
         return null;
       },
       description() {
-        if (this.isEditable) {
-          return this.entity.note[this.$i18n.locale] ? { values: this.entity.note[this.$i18n.locale], code: this.$i18n.locale } : null;
-        }
-
         let description = null;
-        if (this.collectionType === 'organisation' && this.entity?.description) {
-          description = langMapValueForLocale(this.entity.description, this.$i18n.locale);
+
+        if (this.isEditable) {
+          description = this.entity.note[this.$i18n.locale] ? { values: this.entity.note[this.$i18n.locale], code: this.$i18n.locale } : null;
+        } else if (this.editorialDescription) {
+          description = { values: [this.editorialDescription], code: null };
+        } else if (this.organisationNonNativeEnglishName) {
+          description = this.organisationNonNativeEnglishName;
         }
 
-        return this.editorialDescription ? { values: [this.editorialDescription], code: null } : description;
+        return description;
       },
       descriptionText() {
         return ((this.description?.values?.length || 0) >= 1) ? this.description.values[0] : null;
@@ -320,19 +321,25 @@
         return {
           name: 'collections-type-all',
           params: {
-            type: this.$route.params.type,
+            type: this.collectionType,
             pathMatch: this.$route.params.pathMatch
           }
         };
       },
       title() {
+        let title;
+
         if (!this.entity) {
-          return this.titleFallback();
+          title = this.titleFallback();
+        } else if (this.editorialTitle) {
+          title = this.titleFallback(this.editorialTitle);
+        } else if (this.organisationNativeName) {
+          title = this.organisationNativeName;
+        } else {
+          title = langMapValueForLocale(this.entity.prefLabel, this.$i18n.locale);
         }
-        if (this.editorialTitle) {
-          return this.titleFallback(this.editorialTitle);
-        }
-        return langMapValueForLocale(this.entity.prefLabel, this.$i18n.locale);
+
+        return title;
       },
       isEditable() {
         return this.entity && this.editable;
@@ -343,26 +350,48 @@
       thumbnail() {
         return this.$apis.entity.imageUrl(this.entity);
       },
+      organisationNativeName() {
+        if (!this.entity?.prefLabel || this.collectionType !== 'organisation') {
+          return null;
+        }
+        const nativeLocale = Object.keys(this.entity.prefLabel).find(locale => locale !== 'en') || 'en';
+        return langMapValueForLocale(this.entity.prefLabel, nativeLocale);
+      },
+      organisationNonNativeEnglishName() {
+        if (!this.entity?.prefLabel || this.collectionType !== 'organisation') {
+          return null;
+        }
+        return Object.keys(this.entity.prefLabel).length > 1 && langMapValueForLocale(this.entity.prefLabel, 'en');
+      },
       moreInfo() {
-        const labelledMoreInfo = [];
-
-        if (this.collectionType === 'organisation') {
-          if (this.homepage)  {
-            labelledMoreInfo.push({ label: this.$t('website'), value: this.homepage });
-          }
-          if (this.entity?.hasAddress?.countryName)  {
-            labelledMoreInfo.push({ label: this.$t('organisation.country'), value: this.entity.hasAddress.countryName });
-          }
-          if (this.entity?.acronym)  {
-            const langMapValue = langMapValueForLocale(this.entity.acronym, this.$i18n.locale);
-            labelledMoreInfo.push({ label: this.$t('organisation.nameAcronym'), value: langMapValue.values[0], lang: langMapValue.code });
-          }
-          if (this.entity?.hasAddress?.locality)  {
-            labelledMoreInfo.push({ label: this.$t('organisation.city'), value: this.entity.hasAddress.locality });
-          }
+        if (!this.entity || this.collectionType !== 'organisation') {
+          return null;
         }
 
-        return labelledMoreInfo.length > 0 ? labelledMoreInfo : null;
+        const labelledMoreInfo = [];
+
+        if (this.organisationNonNativeEnglishName) {
+          labelledMoreInfo.push({
+            label: this.$t('organisation.englishName'),
+            value: this.organisationNonNativeEnglishName.values[0],
+            lang: this.organisationNonNativeEnglishName.code
+          });
+        }
+        if (this.entity?.acronym)  {
+          const langMapValue = langMapValueForLocale(this.entity.acronym, this.$i18n.locale);
+          labelledMoreInfo.push({ label: this.$t('organisation.nameAcronym'), value: langMapValue.values[0], lang: langMapValue.code });
+        }
+        if (this.entity?.hasAddress?.countryName)  {
+          labelledMoreInfo.push({ label: this.$t('organisation.country'), value: this.entity.hasAddress.countryName });
+        }
+        if (this.entity?.hasAddress?.locality)  {
+          labelledMoreInfo.push({ label: this.$t('organisation.city'), value: this.entity.hasAddress.locality });
+        }
+        if (this.homepage)  {
+          labelledMoreInfo.push({ label: this.$t('website'), value: this.homepage });
+        }
+
+        return labelledMoreInfo;
       }
     },
     watch: {
@@ -381,7 +410,7 @@
         if (this.$route.params.pathMatch !== desiredPath) {
           const redirectPath = this.$path({
             name: 'collections-type-all',
-            params: { type: this.$route.params.type, pathMatch: desiredPath }
+            params: { type: this.collectionType, pathMatch: desiredPath }
           });
           if (process.server) {
             this.$nuxt.context.redirect(302, redirectPath);
