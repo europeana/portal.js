@@ -1,33 +1,31 @@
 <template>
-  <div
-    class="home-cta d-flex flex-lg-row flex-column"
-    :class="variant"
-  >
+  <div class="gridless-container">
     <div
-      v-if="illustration"
-      class="cta-illustration align-self-stretch"
+      class="home-cta d-flex flex-md-row flex-column"
+      :class="variant"
     >
-      <b-img
-        :src="illustration.image.url"
-        :alt="illustration.image.description"
-      />
-    </div>
-    <div class="cta-content align-self-stretch flex-lg-fill">
-      <h2>
-        {{ name }}
-      </h2>
-      <!-- eslint-disable vue/no-v-html -->
       <div
-        v-html="html"
+        v-if="illustration"
+        class="cta-illustration align-self-stretch"
+        :style="`background-image: url(${illustration.image.url})`"
       />
-      <!-- eslint-enable   vue/no-v-html -->
-      <SmartLink
-        :destination="link.url"
-        data-qa="call to action"
-        class="btn btn-cta btn-primary"
-      >
-        {{ link.text }}
-      </SmartLink>
+      <div class="cta-content align-self-stretch flex-md-fill">
+        <h2>
+          {{ name }}
+        </h2>
+        <!-- eslint-disable vue/no-v-html -->
+        <div
+          v-html="html"
+        />
+        <!-- eslint-enable   vue/no-v-html -->
+        <SmartLink
+          :destination="link.url"
+          data-qa="call to action"
+          class="btn btn-cta btn-primary"
+        >
+          {{ link.text }}
+        </SmartLink>
+      </div>
     </div>
   </div>
 </template>
@@ -81,7 +79,6 @@
   @import '@/assets/scss/variables';
 
   .home-cta {
-    max-width: 86%;
     background-color: $yellowgrey;
     margin: 3.5em auto 3em;
     font-size: 1rem;
@@ -91,7 +88,6 @@
 
     @media (min-width: $bp-xxxl) {
       font-size: 1vw;
-      max-width: 75%;
     }
 
     .cta-content {
@@ -150,25 +146,17 @@
     }
 
     .cta-illustration {
-      overflow: hidden;
-      margin: 1em auto 0;
-      padding: 0 0.5em;
-      max-width: 300px;
+      background-repeat: no-repeat;
+      background-position: center bottom;
+      background-size: contain;
+      margin-top: 1em;
+      margin-left: 1em;
+      margin-right: 1em;
+      height: 175px;
 
-      @media (min-width: $bp-large) {
-        max-width: none;
-        flex-basis: 45%;
-        margin: auto 0 0;
-        padding: 1em 4em 0;
-        flex-shrink: 0;
-      }
-
-      @media (min-width: $bp-extralarge) {
-        flex-basis: 40%;
-      }
-
-      img {
-        width: 100%;
+      @media (min-width: $bp-medium) {
+        height: auto;
+        width: 40%;
       }
     }
   }
