@@ -133,6 +133,10 @@
       },
 
       prefLanguage() {
+        if (['edmDataProvider', 'edmProvider'].includes(this.name)) {
+          const langMap = this.fieldData.url ? this.fieldData.value : this.fieldData;
+          return Object.keys(langMap.def[0].prefLabel).find(key => key !== 'en');
+        }
         return this.metadataLanguage || this.$i18n.locale;
       },
 
