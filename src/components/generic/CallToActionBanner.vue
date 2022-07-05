@@ -28,7 +28,7 @@
   import { marked } from 'marked';
 
   export default {
-    name: 'HomeCallToAction',
+    name: 'CallToActionBanner',
 
     components: {
       SmartLink

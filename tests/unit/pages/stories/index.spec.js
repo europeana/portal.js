@@ -1,13 +1,22 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
 import StoriesPage from '@/pages/stories/index';
+import BootstrapVue from 'bootstrap-vue';
 import sinon from 'sinon';
 
 const localVue = createLocalVue();
+localVue.use(BootstrapVue);
 
 const storiesPageContentfulResponse = {
   data: {
     data: {
+      browsePageCollection: {
+        items: [
+          { hasPartCollection: { items: [
+            { '__typename': 'PrimaryCallToAction', name: 'PrimaryCTA', relatedLink: {}, text: '' }
+          ] } }
+        ]
+      },
       blogPostingCollection: {
         items: [
           { datePublished: '2022-02-12T08:00:00.000+01:00' }
@@ -23,7 +32,7 @@ const storiesPageContentfulResponse = {
   }
 };
 
-const factory = ({ $features = {}, data = {} } = {}) => shallowMountNuxt(StoriesPage, {
+const factory = ({ $features = {}, data = {}, $fetchState = {} } = {}) => shallowMountNuxt(StoriesPage, {
   localVue,
   data() {
     return data;
@@ -36,7 +45,7 @@ const factory = ({ $features = {}, data = {} } = {}) => shallowMountNuxt(Stories
       newStoriesPage: true,
       ...$features
     },
-    $fetchState: {},
+    $fetchState,
     $i18n: {
       locale: 'en',
       isoLocale: () => 'en-GB'
@@ -47,7 +56,7 @@ const factory = ({ $features = {}, data = {} } = {}) => shallowMountNuxt(Stories
     $t: (key) => key,
     $tc: (key) => key
   },
-  stubs: ['IndexPage', 'b-card-group']
+  stubs: ['b-card-group']
 });
 
 describe('pages/stories/index', () => {
@@ -61,6 +70,7 @@ describe('pages/stories/index', () => {
         await wrapper.vm.fetch();
 
         expect(wrapper.vm.$contentful.query.calledWith('storiesPage', {
+          identifier: 'stories',
           locale: 'en-GB',
           preview: false
         })).toBe(true);
@@ -94,6 +104,15 @@ describe('pages/stories/index', () => {
         await wrapper.vm.fetch();
 
         expect(wrapper.vm.$scrollTo.calledWith('#header')).toBe(true);
+      });
+      describe('when fetch errors', () => {
+        it('renders an alert message', () => {
+          const wrapper = factory({ $fetchState: { error: { message: 'Error message' } } });
+
+          const alertMessage = wrapper.find('[data-qa="alert message container"]');
+
+          expect(alertMessage.exists()).toBe(true);
+        });
       });
     });
 
