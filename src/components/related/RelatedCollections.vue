@@ -77,8 +77,16 @@
         return;
       }
 
-      const entities = await this.$apis.entity.find(this.entityUris);
-      this.collections = await withEditorialContent(this, entities.map(entity => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo'])));
+      let entities = await this.$apis.entity.find(this.entityUris);
+      entities = entities.map(entity => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo', 'type']));
+      entities = await withEditorialContent(this, entities);
+      for (const entity of entities) {
+        if (entity.type === 'Organization') {
+          const nativeLocale = Object.keys(entity.prefLabel).find(locale => locale !== 'en') || 'en';
+          entity.prefLabel = { [nativeLocale]: entity.prefLabel[nativeLocale] };
+        }
+      }
+      this.collections = entities;
     },
 
     mounted() {
