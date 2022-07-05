@@ -77,7 +77,6 @@ export default {
     "published": "Published {date}",
     "relatedPosts": "Related posts"
   },
-  "boostingFormPlaceholder": "Enter field boosting query",
   "cardLabels": {
     "organisation": "Organisation",
     "person": "Person",
@@ -958,7 +957,12 @@ export default {
   "resultsFor": "Results for {0}",
   "resultsLimitWarning": "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
   "resultsWithin": "Results within {0} {1} for {2}",
-  "search": "Search",
+  "search": {
+    "boost": {
+      "placeholder": "Enter field boosting query"
+    },
+    "title": "Search"
+  },
   "searchHasLoaded": "{0} results returned",
   "searchPlaceholder": "Search millions of items",
   "searchResults": "Search",

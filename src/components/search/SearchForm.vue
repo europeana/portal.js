@@ -39,7 +39,7 @@
           role="searchbox"
           aria-autocomplete="list"
           :aria-controls="showSearchOptions ? 'search-form-options' : null"
-          :aria-label="$t('search')"
+          :aria-label="$t('search.title')"
           @input="getSearchSuggestions(query);"
           @focus="showSearchOptions = true; updateSuggestions();"
         />

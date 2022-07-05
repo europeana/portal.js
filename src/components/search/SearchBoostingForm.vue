@@ -1,25 +1,21 @@
 <template>
   <b-form
-    ref="form"
     data-qa="boost form"
     inline
-    autocomplete="off"
     @submit.prevent="submitForm"
   >
     <b-form-input
-      ref="boostingInput"
       v-model="boost"
-      :placeholder="$t('boostingFormPlaceholder')"
+      :placeholder="$t('search.boost.placeholder')"
       name="boost"
       data-qa="boost box"
-      aria-autocomplete="list"
     />
   </b-form>
 </template>
 
 <script>
   export default {
-    name: 'BoostingForm',
+    name: 'SearchBoostingForm',
 
     data() {
       return {
@@ -27,27 +23,22 @@
       };
     },
 
+    fetch() {
+      this.boost = this.$route.query.boost;
+    },
+
     watch: {
       '$route.query.boost'() {
-        this.initBoost();
+        this.$fetch();
       }
     },
 
-    mounted() {
-      this.initBoost();
-    },
-
     methods: {
-      initBoost() {
-        this.boost = this.$route.query.boost;
-      },
-
-      async submitForm() {
-        const baseQuery = this.$route.query;
-        const newRouteQuery = { ...baseQuery, ...{ page: 1, boost: this.boost } };
-        const newRoute = { path: this.$route.path, query: newRouteQuery };
-
-        await this.$goto(newRoute);
+      submitForm() {
+        this.$goto({
+          path: this.$route.path,
+          query: { ...this.$route.query, ...{ page: 1, boost: this.boost } }
+        });
       }
     }
   };

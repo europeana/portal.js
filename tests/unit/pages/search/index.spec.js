@@ -116,7 +116,7 @@ describe('pages/item/_.vue', () => {
 
         const headTitle = wrapper.vm.head().title;
 
-        expect(headTitle).toBe('search');
+        expect(headTitle).toBe('search.title');
       });
     });
 

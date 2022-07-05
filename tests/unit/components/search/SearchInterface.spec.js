@@ -245,17 +245,17 @@ describe('components/search/SearchInterface', () => {
       });
     });
 
-    describe('showBoostingForm', () => {
+    describe('showSearchBoostingForm', () => {
       it('is true when the boosting toggle is enabled', () => {
         const wrapper = factory({ debugStore: { boosting: true } });
 
-        expect(wrapper.vm.showBoostingForm).toBe(true);
+        expect(wrapper.vm.showSearchBoostingForm).toBe(true);
       });
 
       it('is false when the boosting toggle is disabled', () => {
         const wrapper = factory();
 
-        expect(wrapper.vm.showBoostingForm).toBe(false);
+        expect(wrapper.vm.showSearchBoostingForm).toBe(false);
       });
     });
   });

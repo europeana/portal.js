@@ -1,8 +1,9 @@
 <template>
   <b-container>
     <client-only>
-      <BoostingForm
-        v-if="showBoostingForm"
+      <SearchBoostingForm
+        v-if="showSearchBoostingForm"
+        class="mb-3"
       />
     </client-only>
     <div
@@ -106,7 +107,7 @@
 
     components: {
       AlertMessage: () => import('../generic/AlertMessage'),
-      BoostingForm: () => import('./BoostingForm'),
+      SearchBoostingForm: () => import('./SearchBoostingForm'),
       SearchResultsContext: () => import('./SearchResultsContext'),
       InfoMessage,
       ItemPreviewCardGroup,
@@ -214,7 +215,7 @@
       debugSettings() {
         return this.$store.getters['debug/settings'];
       },
-      showBoostingForm() {
+      showSearchBoostingForm() {
         return this.debugSettings?.boosting;
       },
       routeQueryView() {
