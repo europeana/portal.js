@@ -2,19 +2,24 @@ module.exports = function(migration) {
   const homePage = migration.editContentType('homePage');
 
   homePage
-    .createField('image')
+    .createField('primaryImageOfPage')
     .name('Background image')
     .type('Link')
     .localized(false)
     .required(false)
     .validations([
       {
-        linkMimetypeGroup: ['image']
+        linkContentType: ['imageWithAttribution']
       }
     ])
     .disabled(false)
     .omitted(false)
-    .linkType('Asset');
+    .linkType('Entry');
 
-  homePage.changeFieldControl('image', 'builtin', 'assetLinkEditor', {});
+  homePage.changeFieldControl(
+    'primaryImageOfPage',
+    'builtin',
+    'entryLinkEditor',
+    {}
+  );
 };

@@ -30,10 +30,24 @@ query HomePage(
           }
         }
       }
-      image {
-        url
-        contentType
+      primaryImageOfPage {
+        ...imageWithAttributionFields
       }
     }
+  }
+}
+
+fragment imageWithAttributionFields on ImageWithAttribution {
+  name
+  creator
+  provider
+  license
+  url
+  image {
+    url
+    contentType
+    description
+    width
+    height
   }
 }

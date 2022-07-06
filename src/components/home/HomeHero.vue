@@ -28,18 +28,42 @@
       </header>
       <SearchForm />
     </div>
+    <figcaption
+      class="background-attribution"
+      @mouseleave="toggleCite"
+    >
+      <span
+        v-if="citeCollapsed"
+        class="icon-info"
+        @click="toggleCite"
+        @mouseover="toggleCite"
+        @touchstart="toggleCite"
+      />
+      <CiteAttribution
+        v-else
+        :name="backgroundImage ? backgroundImage.name : null"
+        :creator="backgroundImage ? backgroundImage.creator : null"
+        :provider="backgroundImage ? backgroundImage.provider : null"
+        :rights-statement="backgroundImage ? backgroundImage.license : null"
+        :url="backgroundImage ? backgroundImage.url : null"
+        extended
+        data-qa="attribution"
+      />
+    </figcaption>
   </div>
 </template>
 
 <script>
   import SearchForm from '@/components/search/SearchForm';
+  import CiteAttribution from '@/components/generic/CiteAttribution';
   import { optimisedSrcForContentfulAsset } from '@/plugins/contentful-utils';
 
   export default {
     name: 'HomeHero',
 
     components: {
-      SearchForm
+      SearchForm,
+      CiteAttribution
     },
 
     props: {
@@ -49,22 +73,34 @@
       }
     },
 
+    data() {
+      return {
+        citeCollapsed: true
+      };
+    },
+
     computed: {
       imageCSSVars() {
-        if (this.backgroundImage) {
+        if (this.backgroundImage?.image) {
           return {
-            '--bg-img-small': `url('${optimisedSrcForContentfulAsset(this.backgroundImage, { w: 576, h: 896, fit: 'fill' })}')`,
-            '--bg-img-medium': `url('${optimisedSrcForContentfulAsset(this.backgroundImage, { w: 768, h: 1080, fit: 'fill' })}')`,
-            '--bg-img-large': `url('${optimisedSrcForContentfulAsset(this.backgroundImage, { w: 992, h: 1080, fit: 'fill' })}')`,
-            '--bg-img-xl': `url('${optimisedSrcForContentfulAsset(this.backgroundImage, { w: 1200, h: 1080, fit: 'fill' })}')`,
-            '--bg-img-xxl': `url('${optimisedSrcForContentfulAsset(this.backgroundImage, { w: 1440, h: 1080, fit: 'fill' })}')`,
-            '--bg-img-xxxl': `url('${optimisedSrcForContentfulAsset(this.backgroundImage, { w: 1920, h: 1080, fit: 'fill' })}')`,
-            '--bg-img-wqhd': `url('${optimisedSrcForContentfulAsset(this.backgroundImage, { w: 2560, h: 1440, fit: 'fill' })}')`,
-            '--bg-img-4k': `url('${optimisedSrcForContentfulAsset(this.backgroundImage, { w: 3840, h: 2160, fit: 'fill' })}')`
+            '--bg-img-small': `url('${optimisedSrcForContentfulAsset(this.backgroundImage.image, { w: 576, h: 896, fit: 'fill' })}')`,
+            '--bg-img-medium': `url('${optimisedSrcForContentfulAsset(this.backgroundImage.image, { w: 768, h: 1080, fit: 'fill' })}')`,
+            '--bg-img-large': `url('${optimisedSrcForContentfulAsset(this.backgroundImage.image, { w: 992, h: 1080, fit: 'fill' })}')`,
+            '--bg-img-xl': `url('${optimisedSrcForContentfulAsset(this.backgroundImage.image, { w: 1200, h: 1080, fit: 'fill' })}')`,
+            '--bg-img-xxl': `url('${optimisedSrcForContentfulAsset(this.backgroundImage.image, { w: 1440, h: 1080, fit: 'fill' })}')`,
+            '--bg-img-xxxl': `url('${optimisedSrcForContentfulAsset(this.backgroundImage.image, { w: 1920, h: 1080, fit: 'fill' })}')`,
+            '--bg-img-wqhd': `url('${optimisedSrcForContentfulAsset(this.backgroundImage.image, { w: 2560, h: 1440, fit: 'fill' })}')`,
+            '--bg-img-4k': `url('${optimisedSrcForContentfulAsset(this.backgroundImage.image, { w: 3840, h: 2160, fit: 'fill' })}')`
           };
         } else {
           return null;
         }
+      }
+    },
+
+    methods: {
+      toggleCite() {
+        this.citeCollapsed = !this.citeCollapsed;
       }
     }
   };
@@ -182,6 +218,61 @@
     @media (min-width: $bp-medium) {
       width: 25em;
       min-width: 644px;
+    }
+  }
+
+  .background-attribution {
+
+    .icon-info {
+      color: $white;
+      position: absolute;
+      bottom: 1rem;
+      left: 2rem;
+      width: 1.5rem;
+      height: 1.5rem;
+      transition: $standard-transition;
+
+      &:hover {
+        opacity: 0.8;
+        cursor: pointer;
+      }
+
+      &::before {
+        font-size: 1.5rem;
+      }
+    }
+
+    ::v-deep cite {
+      left: 0.5rem;
+      bottom: 0.5rem;
+      border-radius: 0.25rem;
+      margin: 0;
+      padding: 0.75rem;
+      font-size: 0.75rem;
+      max-width: 75%;
+      box-shadow: $boxshadow-small;
+
+      p {
+        color: $mediumgrey;
+        display: box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        margin-bottom: 0.25rem;
+        font-size: 0.75rem;
+
+        a {
+          text-decoration: none;
+        }
+      }
+
+      .attribution {
+        margin-top: 0.5rem;
+
+        > span {
+          margin-left: 0;
+        }
+      }
     }
   }
 

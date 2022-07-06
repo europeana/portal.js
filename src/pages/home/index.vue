@@ -131,7 +131,7 @@
         const response = await this.$contentful.query('homePage', variables);
         const homePage = response.data.data.homePageCollection.items[0];
         this.sections = homePage.sectionsCollection.items;
-        this.backgroundImage = homePage.image;
+        this.backgroundImage = homePage.primaryImageOfPage;
       }
     }
   };
