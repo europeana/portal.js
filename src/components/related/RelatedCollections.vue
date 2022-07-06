@@ -30,7 +30,8 @@
   import pick from 'lodash/pick';
   import { urlIsContentfulAsset, optimisedSrcForContentfulAsset } from '@/plugins/contentful-utils';
   import { withEditorialContent } from '@/plugins/europeana/themes';
-  import collectionLinkGen from '@/mixins/collectionLinkGen';
+  import collectionLinkGenMixin from '@/mixins/collectionLinkGen';
+  import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
 
   import LinkBadge from '../generic/LinkBadge';
 
@@ -41,7 +42,10 @@
       LinkBadge
     },
 
-    mixins: [collectionLinkGen],
+    mixins: [
+      collectionLinkGenMixin,
+      europeanaEntitiesOrganizationsMixin
+    ],
 
     props: {
       title: {
@@ -81,9 +85,9 @@
       entities = entities.map(entity => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo', 'type']));
       entities = await withEditorialContent(this, entities);
       for (const entity of entities) {
-        if (entity.type === 'Organization') {
-          const nativeLocale = Object.keys(entity.prefLabel).find(locale => locale !== 'en') || 'en';
-          entity.prefLabel = { [nativeLocale]: entity.prefLabel[nativeLocale] };
+        const organizationNativePrefLabel = this.organizationEntityNativeName(entity);
+        if (organizationNativePrefLabel) {
+          entity.prefLabel = organizationNativePrefLabel;
         }
       }
       this.collections = entities;

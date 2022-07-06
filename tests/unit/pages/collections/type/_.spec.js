@@ -20,7 +20,8 @@ const organisationEntity = {
       countryName: 'The Netherlands',
       locality: 'The Hague'
     },
-    acronym: { en: 'ABC' }
+    acronym: { en: 'ABC' },
+    type: 'Organization'
   },
   type: 'organisation',
   pathMatch: '01234567890-organisation'
@@ -31,7 +32,8 @@ const topicEntity = {
     id: 'http://data.europeana.eu/concept/01234567890',
     description: { en: 'example of a topic description' },
     isShownBy: { thumbnail: 'https://api.europeana.eu/api/v2/thumbnail.jpg' },
-    prefLabel: { en: 'Topic' }
+    prefLabel: { en: 'Topic' },
+    type: 'Concept'
   },
   type: 'topic',
   pathMatch: '01234567890-topic'
@@ -42,7 +44,8 @@ const themeEntity = {
     id: 'http://data.europeana.eu/concept/62',
     description: { en: 'example of a theme description' },
     isShownBy: { thumbnail: 'https://api.europeana.eu/api/v2/thumbnail.jpg' },
-    prefLabel: { en: 'Theme' }
+    prefLabel: { en: 'Theme' },
+    type: 'Concept'
   },
   type: 'topic',
   pathMatch: '62-theme'

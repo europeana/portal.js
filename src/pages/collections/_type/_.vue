@@ -78,6 +78,7 @@
   import pick from 'lodash/pick';
   import ClientOnly from 'vue-client-only';
   import SearchInterface from '@/components/search/SearchInterface';
+  import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
 
   import themes from '@/plugins/europeana/themes';
   import {
@@ -97,6 +98,10 @@
       RelatedEditorial: () => import('@/components/related/RelatedEditorial'),
       SearchInterface
     },
+
+    mixins: [
+      europeanaEntitiesOrganizationsMixin
+    ],
 
     beforeRouteLeave(to, from, next) {
       if (to.matched[0].path !== `/${this.$i18n.locale}/search`) {
@@ -158,7 +163,7 @@
       ])
         .then(responses => {
           this.$store.commit('entity/setEntity', pick(responses[0].entity, [
-            'id', 'logo', 'note', 'description', 'homepage', 'prefLabel', 'isShownBy', 'hasAddress', 'acronym'
+            'id', 'logo', 'note', 'description', 'homepage', 'prefLabel', 'isShownBy', 'hasAddress', 'acronym', 'type'
           ]));
           if (responses[1].note) {
             this.$store.commit('entity/setEditable', true);
@@ -256,7 +261,7 @@
         } else if (this.editorialDescription) {
           description = { values: [this.editorialDescription], code: null };
         } else if (this.organisationNonNativeEnglishName) {
-          description = this.organisationNonNativeEnglishName;
+          description = langMapValueForLocale(this.organisationNonNativeEnglishName, this.$i18n.locale);
         }
 
         return description;
@@ -334,7 +339,7 @@
         } else if (this.editorialTitle) {
           title = this.titleFallback(this.editorialTitle);
         } else if (this.organisationNativeName) {
-          title = this.organisationNativeName;
+          title = langMapValueForLocale(this.organisationNativeName, this.$i18n.locale);
         } else {
           title = langMapValueForLocale(this.entity.prefLabel, this.$i18n.locale);
         }
@@ -351,17 +356,10 @@
         return this.$apis.entity.imageUrl(this.entity);
       },
       organisationNativeName() {
-        if (!this.entity?.prefLabel || this.collectionType !== 'organisation') {
-          return null;
-        }
-        const nativeLocale = Object.keys(this.entity.prefLabel).find(locale => locale !== 'en') || 'en';
-        return langMapValueForLocale(this.entity.prefLabel, nativeLocale);
+        return this.organizationEntityNativeName(this.entity);
       },
       organisationNonNativeEnglishName() {
-        if (!this.entity?.prefLabel || this.collectionType !== 'organisation') {
-          return null;
-        }
-        return Object.keys(this.entity.prefLabel).length > 1 && langMapValueForLocale(this.entity.prefLabel, 'en');
+        return this.organizationEntityNonNativeEnglishName(this.entity);
       },
       moreInfo() {
         if (!this.entity || this.collectionType !== 'organisation') {
@@ -373,8 +371,8 @@
         if (this.organisationNonNativeEnglishName) {
           labelledMoreInfo.push({
             label: this.$t('organisation.englishName'),
-            value: this.organisationNonNativeEnglishName.values[0],
-            lang: this.organisationNonNativeEnglishName.code
+            value: Object.values(this.organisationNonNativeEnglishName)[0],
+            lang: Object.keys(this.organisationNonNativeEnglishName)[0]
           });
         }
         if (this.entity?.acronym)  {
