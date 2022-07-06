@@ -10,7 +10,7 @@ const propsData = {
     name: 'Something',
     creator: 'Someone',
     provider: 'Somewhere',
-    rightsStatement: 'http://creativecommons.org/licenses/by-nd/4.0/',
+    license: 'http://creativecommons.org/licenses/by-nd/4.0/',
     url: 'http://www.example.org/'
   }
 };

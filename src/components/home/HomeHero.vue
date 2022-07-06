@@ -71,6 +71,10 @@
           return null;
         }
       }
+    },
+
+    mounted() {
+      console.log(this.backgroundImage);
     }
   };
 </script>
@@ -203,6 +207,21 @@
 
 <docs lang="md">
   ```jsx
-    <HomeHero />
+    <HomeHero
+      :background-image="{
+        creator: 'Europeana Foundation',
+        license: 'https://creativecommons.org/publicdomain/zero/1.0',
+        name: 'Background homepage',
+        provider: null,
+        url: null,
+        image: {
+          contentType: 'image/jpeg',
+          description: null,
+          height: 2694,
+          url: 'https://images.ctfassets.net/i01duvb6kq77/xtfviD6rWLt1VN46qRwJa/3db1d85b556b6bf5abcf5660001805a1/slanted_image_cover_5_.jpg',
+          width: 4320
+        }
+      }"
+    />
   ```
 </docs>

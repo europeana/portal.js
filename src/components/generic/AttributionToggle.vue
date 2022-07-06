@@ -53,3 +53,19 @@
     }
   };
 </script>
+
+<docs lang="md">
+  ```jsx
+    <div style="background-color: #ededed; margin: -16px; padding: 16px; height: 200px; position: relative;">
+      <AttributionToggle
+        :attribution="{
+          name: 'Something',
+          creator: 'Someone who made this',
+          provider: 'Somewhere',
+          license: 'http://creativecommons.org/licenses/by-nd/4.0/',
+          url: 'http://www.example.org/'
+        }"
+      />
+      </div>
+  ```
+</docs>
