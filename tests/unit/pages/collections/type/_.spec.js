@@ -338,14 +338,25 @@ describe('pages/collections/type/_', () => {
       });
     });
 
+    describe('title', () => {
+      test.todo('uses the fallback title if no entity is present');
+      test.todo('favours the editorial title if present');
+      test.todo('uses the native language name for organisations');
+      test.todo('otherwise localises the prefLabel');
+    });
+
     describe('description', () => {
-      it('returns the English prefLabel for an organisation if non-native', () => {
+      test.todo('uses the entity note (from Entity Management service), if editable');
+      test.todo('uses the editorial description, if available');
+
+      it('uses the English prefLabel for an organisation, if non-native', () => {
         const wrapper = factory(organisationEntity);
 
         const description = wrapper.vm.description.values[0];
         expect(description).toBe(organisationEntity.entity.prefLabel.en);
       });
     });
+
     describe('homepage', () => {
       it('returns a homepage on organisation pages', () => {
         const wrapper = factory(organisationEntity);
@@ -354,6 +365,7 @@ describe('pages/collections/type/_', () => {
         expect(homepage).toBe(organisationEntity.entity.homepage);
       });
     });
+
     describe('thumbnail', () => {
       it('returns a thumbnail when available', () => {
         const wrapper = factory(topicEntity);
