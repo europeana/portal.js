@@ -110,3 +110,38 @@
     width: 290px;
   }
 }
+
+.responsive-backround-image {
+
+  @media (max-width: $bp-small) {
+    background-image: var(--bg-img-small);
+  }
+
+  @media (min-width: $bp-small) and (max-width: $bp-medium) {
+    background-image: var(--bg-img-medium, var(--bg-img-small));
+  }
+
+  @media (min-width: $bp-medium) and (max-width: $bp-large) {
+    background-image: var(--bg-img-large, var(--bg-img-small));
+  }
+
+  @media (min-width: $bp-large) and (max-width: $bp-extralarge) {
+    background-image: var(--bg-img-xl, var(--bg-img-small));
+  }
+
+  @media (min-width: $bp-extralarge) and (max-width: $bp-xxl) {
+    background-image: var(--bg-img-xxl, var(--bg-img-small));
+  }
+
+  @media (min-width: $bp-xxl) and (max-width: $bp-xxxl) {
+    background-image: var(--bg-img-xxxl, var(--bg-img-small));
+  }
+
+  @media (min-width: $bp-xxxl) and (max-width: $bp-wqhd) {
+    background-image: var(--bg-img-wqhd, var(--bg-img-small));
+  }
+
+  @media (min-width: ($bp-wqhd + 1px)) {
+    background-image: var(--bg-img-4k, var(--bg-img-small));
+  }
+}

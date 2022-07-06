@@ -1,6 +1,6 @@
 <template>
   <div
-    class="hero figure-attribution"
+    class="hero figure-attribution responsive-backround-image"
     :style="imageCSSVars"
   >
     <div
@@ -37,7 +37,7 @@
 <script>
   import SearchForm from '@/components/search/SearchForm';
   import AttributionToggle from '@/components/generic/AttributionToggle';
-  import { optimisedSrcForContentfulAsset } from '@/plugins/contentful-utils';
+  import { responsiveBackgroundImageCSSVars } from '@/plugins/contentful-utils';
 
   export default {
     name: 'HomeHero',
@@ -56,20 +56,15 @@
 
     computed: {
       imageCSSVars() {
-        if (this.backgroundImage?.image) {
-          return {
-            '--bg-img-small': `url('${optimisedSrcForContentfulAsset(this.backgroundImage.image, { w: 576, h: 896, fit: 'fill' })}')`,
-            '--bg-img-medium': `url('${optimisedSrcForContentfulAsset(this.backgroundImage.image, { w: 768, h: 1080, fit: 'fill' })}')`,
-            '--bg-img-large': `url('${optimisedSrcForContentfulAsset(this.backgroundImage.image, { w: 992, h: 1080, fit: 'fill' })}')`,
-            '--bg-img-xl': `url('${optimisedSrcForContentfulAsset(this.backgroundImage.image, { w: 1200, h: 1080, fit: 'fill' })}')`,
-            '--bg-img-xxl': `url('${optimisedSrcForContentfulAsset(this.backgroundImage.image, { w: 1440, h: 1080, fit: 'fill' })}')`,
-            '--bg-img-xxxl': `url('${optimisedSrcForContentfulAsset(this.backgroundImage.image, { w: 1920, h: 1080, fit: 'fill' })}')`,
-            '--bg-img-wqhd': `url('${optimisedSrcForContentfulAsset(this.backgroundImage.image, { w: 2560, h: 1440, fit: 'fill' })}')`,
-            '--bg-img-4k': `url('${optimisedSrcForContentfulAsset(this.backgroundImage.image, { w: 3840, h: 2160, fit: 'fill' })}')`
-          };
-        } else {
-          return null;
-        }
+        return responsiveBackgroundImageCSSVars(this.backgroundImage?.image,
+                                                { small: { w: 576, h: 896, fit: 'fill' },
+                                                  medium: { w: 768, h: 1080, fit: 'fill' },
+                                                  large: { w: 992, h: 1080, fit: 'fill' },
+                                                  xl: { w: 1200, h: 1080, fit: 'fill' },
+                                                  xxl: { w: 1440, h: 1080, fit: 'fill' },
+                                                  xxxl: { w: 1920, h: 1080, fit: 'fill' },
+                                                  wqhd: { w: 2560, h: 1440, fit: 'fill' },
+                                                  '4k': { w: 3840, h: 2160, fit: 'fill' } });
       }
     }
   };
@@ -110,38 +105,6 @@
       top: calc(100% - 145px);
       width: 0;
       z-index: 1;
-    }
-
-    @media (max-width: $bp-small) {
-      background-image: var(--bg-img-small);
-    }
-
-    @media (min-width: $bp-small) and (max-width: $bp-medium) {
-      background-image: var(--bg-img-medium, var(--bg-img-small));
-    }
-
-    @media (min-width: $bp-medium) and (max-width: $bp-large) {
-      background-image: var(--bg-img-large, var(--bg-img-small));
-    }
-
-    @media (min-width: $bp-large) and (max-width: $bp-extralarge) {
-      background-image: var(--bg-img-xl, var(--bg-img-small));
-    }
-
-    @media (min-width: $bp-extralarge) and (max-width: $bp-xxl) {
-      background-image: var(--bg-img-xxl, var(--bg-img-small));
-    }
-
-    @media (min-width: $bp-xxl) and (max-width: $bp-xxxl) {
-      background-image: var(--bg-img-xxxl, var(--bg-img-small));
-    }
-
-    @media (min-width: $bp-xxxl) and (max-width: $bp-wqhd) {
-      background-image: var(--bg-img-wqhd, var(--bg-img-small));
-    }
-
-    @media (min-width: $bp-wqhd + 1px) {
-      background-image: var(--bg-img-4k, var(--bg-img-small));
     }
 
     h1,
