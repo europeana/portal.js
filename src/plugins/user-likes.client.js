@@ -1,7 +1,6 @@
-export default ({ $auth, store }) => {
-  console.log('user-likes');
-  if ($auth && $auth.loggedIn) {
-    store.dispatch('set/setLikes')
-      .then(() => store.dispatch('set/fetchLikes'));
+export default async({ $auth, store }) => {
+  if ($auth?.loggedIn) {
+    await store.dispatch('set/setLikes');
+    await store.dispatch('set/fetchLikes');
   }
 };
