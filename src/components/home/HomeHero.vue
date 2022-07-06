@@ -71,10 +71,6 @@
           return null;
         }
       }
-    },
-
-    mounted() {
-      console.log(this.backgroundImage);
     }
   };
 </script>
