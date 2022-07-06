@@ -112,7 +112,6 @@
 }
 
 .responsive-backround-image {
-
   @media (max-width: $bp-small) {
     background-image: var(--bg-img-small);
   }
