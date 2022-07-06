@@ -1,6 +1,6 @@
 <template>
   <div
-    class="hero"
+    class="hero figure-attribution"
     :style="imageCSSVars"
   >
     <div
@@ -28,34 +28,15 @@
       </header>
       <SearchForm />
     </div>
-    <figcaption
-      class="background-attribution"
-      @mouseleave="toggleCite"
-    >
-      <span
-        v-if="citeCollapsed"
-        class="icon-info"
-        @click="toggleCite"
-        @mouseover="toggleCite"
-        @touchstart="toggleCite"
-      />
-      <CiteAttribution
-        v-else
-        :name="backgroundImage ? backgroundImage.name : null"
-        :creator="backgroundImage ? backgroundImage.creator : null"
-        :provider="backgroundImage ? backgroundImage.provider : null"
-        :rights-statement="backgroundImage ? backgroundImage.license : null"
-        :url="backgroundImage ? backgroundImage.url : null"
-        extended
-        data-qa="attribution"
-      />
-    </figcaption>
+    <AttributionToggle
+      :attribution="backgroundImage"
+    />
   </div>
 </template>
 
 <script>
   import SearchForm from '@/components/search/SearchForm';
-  import CiteAttribution from '@/components/generic/CiteAttribution';
+  import AttributionToggle from '@/components/generic/AttributionToggle';
   import { optimisedSrcForContentfulAsset } from '@/plugins/contentful-utils';
 
   export default {
@@ -63,7 +44,7 @@
 
     components: {
       SearchForm,
-      CiteAttribution
+      AttributionToggle
     },
 
     props: {
@@ -71,12 +52,6 @@
         type: Object,
         default: null
       }
-    },
-
-    data() {
-      return {
-        citeCollapsed: true
-      };
     },
 
     computed: {
@@ -95,12 +70,6 @@
         } else {
           return null;
         }
-      }
-    },
-
-    methods: {
-      toggleCite() {
-        this.citeCollapsed = !this.citeCollapsed;
       }
     }
   };
@@ -221,61 +190,15 @@
     }
   }
 
-  .background-attribution {
-
-    .icon-info {
-      color: $white;
-      position: absolute;
-      bottom: 1rem;
-      left: 2rem;
-      width: 1.5rem;
-      height: 1.5rem;
-      transition: $standard-transition;
-
-      &:hover {
-        opacity: 0.8;
-        cursor: pointer;
-      }
-
-      &::before {
-        font-size: 1.5rem;
-      }
-    }
-
-    ::v-deep cite {
-      left: 0.5rem;
-      bottom: 0.5rem;
-      border-radius: 0.25rem;
-      margin: 0;
-      padding: 0.75rem;
-      font-size: 0.75rem;
-      max-width: 75%;
-      box-shadow: $boxshadow-small;
-
-      p {
-        color: $mediumgrey;
-        display: box;
-        -webkit-line-clamp: 1;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        margin-bottom: 0.25rem;
-        font-size: 0.75rem;
-
-        a {
-          text-decoration: none;
-        }
-      }
-
-      .attribution {
-        margin-top: 0.5rem;
-
-        > span {
-          margin-left: 0;
-        }
-      }
-    }
+  ::v-deep .icon-info {
+    left: 1.5rem;
+    right: auto;
   }
 
+  ::v-deep cite {
+    left: 0.5rem;
+    right: auto;
+  }
 </style>
 
 <docs lang="md">

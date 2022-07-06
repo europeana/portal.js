@@ -125,31 +125,62 @@ figure {
 }
 
 figcaption {
+  z-index: 4;
+
+  .icon-info {
+    color: $white;
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    transition: $standard-transition;
+
+    &:hover {
+      opacity: 0.8;
+      cursor: pointer;
+    }
+
+    &::before {
+      font-size: 1.5rem;
+      text-shadow: $textshadow-light;
+    }
+  }
+
   cite {
     background: $white;
     border: none;
-    border-top-left-radius: $border-radius-small;
-    border-top-right-radius: $border-radius-small;
-    bottom: 0;
+    border-radius: 0.25rem;
+    bottom: 0.5rem;
+    box-shadow: $boxshadow-small;
     color: inherit;
     display: inline;
-    font-size: 0.625rem;
+    font-size: 0.75rem;
     font-style: normal;
     font-weight: normal;
-    left: 1rem;
+    left: initial;
     line-height: 1.5;
     margin: 0;
-    margin-right: 1rem;
-    padding: 0.5rem 1rem;
+    max-width: 75%;
+    padding: 0.75rem;
     position: absolute;
+    right: 0.5rem;
     text-align: left;
 
-    .attribution > span {
-      margin-left: 0.25rem;
+    p {
+      color: $mediumgrey;
+      display: box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 0.25rem;
+    }
 
-      .license {
-        font-size: $font-size-small;
-        margin-top: -0.1rem;
+    .attribution {
+      margin-top: 0.5rem;
+
+      > span {
+        margin-left: 0;
       }
     }
   }
