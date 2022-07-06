@@ -351,7 +351,7 @@ export default {
       }
     },
     defaultStrategy: 'keycloak',
-    plugins: ['~/plugins/apis']
+    plugins: ['~/plugins/apis', '~/plugins/user-likes.client']
   },
 
   router: {
