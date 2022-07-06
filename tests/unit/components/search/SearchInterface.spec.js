@@ -55,6 +55,11 @@ const factory = (options = {}) => {
           run: () => null
         }
       }
+    },
+    getters: {
+      'debug/settings': () => {
+        return { enabled: false, boosting: false, ...options.debugStore };
+      }
     }
   });
 
@@ -62,7 +67,8 @@ const factory = (options = {}) => {
     localVue,
     mocks,
     store,
-    propsData: options.propsData
+    propsData: options.propsData,
+    stubs: ['SideFilters']
   });
 };
 
@@ -229,6 +235,28 @@ describe('components/search/SearchInterface', () => {
 
           expect(searchSetViewMutation.calledWith(sinon.match.any, view)).toBe(true);
         });
+      });
+    });
+
+    describe('debugSettings', () => {
+      it('reads the debug settings from the store', () => {
+        const wrapper = factory();
+
+        expect(wrapper.vm.debugSettings).toStrictEqual({ enabled: false, boosting: false });
+      });
+    });
+
+    describe('showSearchBoostingForm', () => {
+      it('is true when the boosting toggle is enabled', () => {
+        const wrapper = factory({ debugStore: { boosting: true } });
+
+        expect(wrapper.vm.showSearchBoostingForm).toBe(true);
+      });
+
+      it('is false when the boosting toggle is disabled', () => {
+        const wrapper = factory();
+
+        expect(wrapper.vm.showSearchBoostingForm).toBe(false);
       });
     });
   });

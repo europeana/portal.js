@@ -238,6 +238,9 @@
       contentTierFacetSwitch() {
         return !this.$store.getters['search/collection'] && !this.$store.getters['entity/id'];
       },
+      boost() {
+        return this.userParams.boost;
+      },
       qf() {
         return this.userParams.qf;
       },
@@ -383,6 +386,7 @@
       },
       updateCurrentSearchQuery(updates = {}) {
         const current = {
+          boost: this.boost,
           page: this.page,
           qf: this.qf,
           query: this.query,

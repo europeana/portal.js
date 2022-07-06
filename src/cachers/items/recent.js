@@ -27,7 +27,7 @@ const recentlyUpdatedContentTier4Dataset = async(exclude = []) => {
       sort: 'timestamp_update+desc'
     }
   });
-  return response.data.items[0].edmDatasetName;
+  return response.data.items?.[0]?.edmDatasetName;
 };
 
 const recentlyUpdatedContentTier4ItemFromDataset = async(dataset) => {
@@ -46,13 +46,18 @@ const recentlyUpdatedContentTier4ItemFromDataset = async(dataset) => {
 const recentlyUpdatedContentTier4Items = async() => {
   const datasets = [];
   const items = [];
+  let moreDatasets = true;
 
-  while (items.length < 4) {
+  while (moreDatasets && (items.length < 4)) {
     const dataset = await recentlyUpdatedContentTier4Dataset(datasets);
-    datasets.push(dataset);
+    if (dataset) {
+      datasets.push(dataset);
 
-    const item = await recentlyUpdatedContentTier4ItemFromDataset(dataset);
-    items.push(item);
+      const item = await recentlyUpdatedContentTier4ItemFromDataset(dataset);
+      items.push(item);
+    } else {
+      moreDatasets = false;
+    }
   }
 
   return items;

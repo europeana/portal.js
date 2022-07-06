@@ -31,6 +31,12 @@
       <ContentHeader
         :title="pageTitle"
       />
+      <CallToActionBanner
+        v-if="callsToAction[0]"
+        :name="callsToAction[0].name"
+        :text="callsToAction[0].text"
+        :link="callsToAction[0].relatedLink"
+      />
       <div
         class="mb-4 context-label"
       >
@@ -76,6 +82,7 @@
       ContentHeader,
       LoadingSpinner,
       IndexPage: () => import('../index'),
+      CallToActionBanner: () => import('@/components/generic/CallToActionBanner'),
       PaginationNavInput
     },
 
@@ -84,6 +91,7 @@
         perPage: 18,
         stories: [],
         total: 0,
+        sections: [],
         // TODO: following four properties required when rendering IndexPage as
         //       a child component; remove when new stories page is launched.
         browsePage: false,
@@ -116,6 +124,9 @@
     computed: {
       pageTitle() {
         return this.$t('storiesPage.title');
+      },
+      callsToAction() {
+        return this.sections.filter(section => section['__typename'] === 'PrimaryCallToAction');
       }
     },
 
@@ -126,6 +137,7 @@
     methods: {
       async fetchContentfulEntries() {
         const variables = {
+          identifier: 'stories',
           locale: this.$i18n.isoLocale(),
           preview: this.$route.query.mode === 'preview'
         };
@@ -140,6 +152,9 @@
           .sort((a, b) => (new Date(b.datePublished)).getTime() - (new Date(a.datePublished)).getTime());
         this.total = stories.length;
         this.stories = stories.slice(sliceFrom, sliceTo);
+
+        const storiesPage = response.data.data.browsePageCollection.items[0];
+        this.sections = storiesPage.hasPartCollection.items;
       },
 
       entryUrl(entry) {
