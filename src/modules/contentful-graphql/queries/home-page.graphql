@@ -27,7 +27,7 @@ query HomePage(
         			url
         			text
       			}
-            illustration {
+            image {
               ...illustrationFields
             }
           }

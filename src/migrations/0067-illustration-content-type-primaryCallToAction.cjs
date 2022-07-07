@@ -37,7 +37,7 @@ module.exports = function(migration) {
   const primaryCallToAction = migration.editContentType('primaryCallToAction');
 
   primaryCallToAction
-    .createField('illustration')
+    .createField('image')
     .name('Illustration')
     .type('Link')
     .localized(false)
@@ -51,5 +51,5 @@ module.exports = function(migration) {
     .omitted(false)
     .linkType('Entry');
 
-  primaryCallToAction.changeFieldControl('illustration', 'builtin', 'entryLinkEditor', {});
+  primaryCallToAction.changeFieldControl('image', 'builtin', 'entryLinkEditor', {});
 };
