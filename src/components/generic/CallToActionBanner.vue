@@ -6,8 +6,17 @@
     <div
       v-if="illustration"
       class="cta-illustration align-self-stretch"
-      :style="`background-image: url(${illustration.image.url})`"
-    />
+    >
+      <OptimisedImage
+        :alt="illustration.image.description"
+        :src="illustration.image.url"
+        :width="illustration.image.width"
+        :height="illustration.image.height"
+        :content-type="illustration.image.contentType"
+        :max-width="1100"
+        :lazy="true"
+      />
+    </div>
     <div class="cta-content align-self-stretch flex-md-fill">
       <h2>
         {{ name }}
@@ -36,7 +45,8 @@
     name: 'CallToActionBanner',
 
     components: {
-      SmartLink
+      SmartLink,
+      OptimisedImage: () => import('@/components/generic/OptimisedImage')
     },
     props: {
       name: {
@@ -144,17 +154,25 @@
     }
 
     .cta-illustration {
-      background-repeat: no-repeat;
-      background-position: center bottom;
-      background-size: contain;
       margin-top: 1em;
       margin-left: 1em;
       margin-right: 1em;
       height: 175px;
+      position: relative;
 
       @media (min-width: $bp-medium) {
         height: auto;
         width: 40%;
+      }
+
+      img {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        height: 100%;
+        right: 0;
+        margin: 0 auto;
       }
     }
   }

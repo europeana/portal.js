@@ -36,6 +36,7 @@
         :name="callsToAction[0].name"
         :text="callsToAction[0].text"
         :link="callsToAction[0].relatedLink"
+        :illustration="callsToAction[0].image"
       />
       <div
         class="mb-4 context-label"
