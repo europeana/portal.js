@@ -1,8 +1,10 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
+import VueI18n from 'vue-i18n';
 
 import HomeHero from '@/components/home/HomeHero.vue';
 
 const localVue = createLocalVue();
+localVue.use(VueI18n);
 
 const factory = (propsData) => shallowMount(HomeHero, {
   localVue,

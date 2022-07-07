@@ -6,7 +6,14 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const propsData = {
-  src: 'https://www.example.org/image.jpeg'
+  src: 'https://www.example.org/image.jpeg',
+  attribution: {
+    name: 'Something',
+    creator: 'Someone',
+    provider: 'Somewhere',
+    rightsStatement: 'http://creativecommons.org/licenses/by-nd/4.0/',
+    url: 'http://www.example.org/'
+  }
 };
 
 const factory = () => shallowMount(ImageWithAttribution, {
