@@ -39,7 +39,9 @@
                 class="flex-md-row py-4 text-center"
               >
                 <b-col cols="12">
-                  <LoadingSpinner />
+                  <LoadingSpinner
+                    :status-message="$t('loadingResults')"
+                  />
                 </b-col>
               </b-row>
               <template
