@@ -165,7 +165,7 @@
     async fetch() {
       // NOTE: this helps prevent lazy-loading issues when paginating in Chrome 103
       await this.$nextTick();
-      this.$scrollTo && await this.$scrollTo('#header');
+      this.$scrollTo && await this.$scrollTo('#header', { cancelable: false });
       this.viewFromRouteQuery();
 
       this.$store.dispatch('search/activate');
