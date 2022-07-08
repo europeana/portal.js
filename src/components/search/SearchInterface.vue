@@ -163,6 +163,8 @@
       }
     },
     async fetch() {
+      // NOTE: this helps prevent lazy-loading issues when paginating in Chrome 103
+      await this.$nextTick();
       this.$scrollTo && await this.$scrollTo('#header');
       this.viewFromRouteQuery();
 
