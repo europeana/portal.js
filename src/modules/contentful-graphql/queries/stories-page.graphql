@@ -25,6 +25,9 @@ query StoriesPage(
         			url
         			text
       			}
+            image {
+              ...illustrationFields
+            }
           }
         }
       }
@@ -66,5 +69,15 @@ fragment imageWithAttributionFields on ImageWithAttribution {
   image {
     url
     contentType
+  }
+}
+
+fragment illustrationFields on Illustration {
+  image {
+    url
+    description
+    contentType
+    width
+    height
   }
 }
