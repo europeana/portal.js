@@ -1,8 +1,10 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
+import BootstrapVue from 'bootstrap-vue';
 import CallToActionBanner from '@/components/generic/CallToActionBanner';
 
 const localVue = createLocalVue();
+localVue.use(BootstrapVue);
 
 const factory = ({ propsData = {} } = {}) => shallowMountNuxt(CallToActionBanner, {
   localVue,
@@ -22,8 +24,8 @@ describe('components/generic/CallToActionBanner', () => {
           },
           illustration: { image: {
             url: 'https://www.europeana.eu/illustration.svg',
-            width: '100px',
-            height: '1oopx'
+            width: 100,
+            height: 100
           } }
         } });
 
