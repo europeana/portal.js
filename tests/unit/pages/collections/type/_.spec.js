@@ -186,17 +186,12 @@ describe('pages/collections/type/_', () => {
     });
 
     describe('entity management', () => {
-      const features = {
-        enabled: { entityManagement: true },
-        disabled: { entityManagement: false }
-      };
       const auth = {
         authorized: { user: { 'resource_access': { entities: { roles: ['editor'] } } } },
         unauthorized: { user: { 'resource_access': { entities: { roles: [] } } } }
       };
-      const requestMade = async($features, $auth) => {
+      const requestMade = async($auth) => {
         const wrapper = factory(topicEntity);
-        wrapper.vm.$features = $features;
         wrapper.vm.$auth = $auth;
 
         await wrapper.vm.fetch();
@@ -204,75 +199,50 @@ describe('pages/collections/type/_', () => {
         return wrapper.vm.$apis.entityManagement.get.calledWith('topic', '01234567890-topic');
       };
 
-      describe('when feature is enabled', () => {
-        const $features = features.enabled;
-
-        describe('and user is authenticated with "entities" roles including "editor"', () => {
-          const $auth = auth.authorized;
-          it('requests entity management data', async() => {
-            expect(await requestMade($features, $auth)).toBe(true);
-          });
-
-          describe('and there is a note in the response', () => {
-            const proxy = { id: '#proxy_europeana' };
-            const response = { note: 'About the topic', proxies: [proxy] };
-
-            it('stores that the entity is editable', async() => {
-              const wrapper = factory(topicEntity);
-              wrapper.vm.$features = $features;
-              wrapper.vm.$auth = $auth;
-              wrapper.vm.$apis.entityManagement.get.resolves(response);
-
-              await wrapper.vm.fetch();
-
-              expect(wrapper.vm.$store.commit.calledWith('entity/setEditable', true)).toBe(true);
-            });
-            it('stores the note as the entity description', async() => {
-              const wrapper = factory(topicEntity);
-              wrapper.vm.$features = $features;
-              wrapper.vm.$auth = $auth;
-              wrapper.vm.$apis.entityManagement.get.resolves(response);
-
-              await wrapper.vm.fetch();
-
-              expect(wrapper.vm.$store.commit.calledWith('entity/setEntityDescription', response.note)).toBe(true);
-            });
-            it('stores the Europeana proxy as the entity proxy', async() => {
-              const wrapper = factory(topicEntity);
-              wrapper.vm.$features = $features;
-              wrapper.vm.$auth = $auth;
-              wrapper.vm.$apis.entityManagement.get.resolves(response);
-
-              await wrapper.vm.fetch();
-
-              expect(wrapper.vm.$store.commit.calledWith('entity/setProxy', response.proxies[0])).toBe(true);
-            });
-          });
+      describe('and user is authenticated with "entities" roles including "editor"', () => {
+        const $auth = auth.authorized;
+        it('requests entity management data', async() => {
+          expect(await requestMade($auth)).toBe(true);
         });
 
-        describe('but user is not authenticated with "entities" roles including "editor"', () => {
-          const $auth = auth.unauthorized;
-          it('does not request entity management data', async() => {
-            expect(await requestMade($features, $auth)).toBe(false);
+        describe('and there is a note in the response', () => {
+          const proxy = { id: '#proxy_europeana' };
+          const response = { note: 'About the topic', proxies: [proxy] };
+
+          it('stores that the entity is editable', async() => {
+            const wrapper = factory(topicEntity);
+            wrapper.vm.$auth = $auth;
+            wrapper.vm.$apis.entityManagement.get.resolves(response);
+
+            await wrapper.vm.fetch();
+
+            expect(wrapper.vm.$store.commit.calledWith('entity/setEditable', true)).toBe(true);
+          });
+          it('stores the note as the entity description', async() => {
+            const wrapper = factory(topicEntity);
+            wrapper.vm.$auth = $auth;
+            wrapper.vm.$apis.entityManagement.get.resolves(response);
+
+            await wrapper.vm.fetch();
+
+            expect(wrapper.vm.$store.commit.calledWith('entity/setEntityDescription', response.note)).toBe(true);
+          });
+          it('stores the Europeana proxy as the entity proxy', async() => {
+            const wrapper = factory(topicEntity);
+            wrapper.vm.$auth = $auth;
+            wrapper.vm.$apis.entityManagement.get.resolves(response);
+
+            await wrapper.vm.fetch();
+
+            expect(wrapper.vm.$store.commit.calledWith('entity/setProxy', response.proxies[0])).toBe(true);
           });
         });
       });
 
-      describe('when feature is disabled', () => {
-        const $features = features.disabled;
-
-        describe('and user is authenticated with "entities" roles including "editor"', () => {
-          const $auth = auth.authorized;
-          it('does not request entity management data', async() => {
-            expect(await requestMade($features, $auth)).toBe(false);
-          });
-        });
-
-        describe('but user is not authenticated with "entities" roles including "editor"', () => {
-          const $auth = auth.unauthorized;
-          it('does not request entity management data', async() => {
-            expect(await requestMade($features, $auth)).toBe(false);
-          });
+      describe('but user is not authenticated with "entities" roles including "editor"', () => {
+        const $auth = auth.unauthorized;
+        it('does not request entity management data', async() => {
+          expect(await requestMade($auth)).toBe(false);
         });
       });
     });
