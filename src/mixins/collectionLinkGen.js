@@ -4,7 +4,7 @@ import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
 export default {
   methods: {
     collectionLinkGen(collection) {
-      const uriMatch = collection.id?.match(`^${EUROPEANA_DATA_URL}/([^/]+)(/base)?/(.+)$`);
+      const uriMatch = collection.id?.match(`^${EUROPEANA_DATA_URL}/([^/]+)/(.+)$`);
       if (!uriMatch) {
         return null;
       }

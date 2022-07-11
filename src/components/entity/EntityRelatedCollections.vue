@@ -68,10 +68,7 @@
           if (!uri.startsWith(EUROPEANA_DATA_URL)) {
             return false;
           }
-          // TODO: this next line will suffice once no URIs contain /base/
-          // return uri !== this.entityUri;
-          // TODO: this next line will be redundant once no URIs contain /base/
-          return !(uri.includes(`/${this.entityTypeApi}/`) && uri.endsWith(`/${this.normalizedIdentifier}`));
+          return uri !== this.entityUri;
         })
         .slice(0, 4);
     },

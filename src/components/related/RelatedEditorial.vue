@@ -117,7 +117,7 @@
   Related editorial content: 4 entries
   ```jsx
   <RelatedEditorial
-    entity-uri="http://data.europeana.eu/concept/base/190"
+    entity-uri="http://data.europeana.eu/concept/190"
     :related-editorial="[{'__typename': 'BlogPosting',
       'name': 'Landscapes from the Soul: testing a longer title and even longer and some more characters',
       'identifier': 'landscapes-from-the-soul',
@@ -166,7 +166,7 @@
   Related editorial content: 1 entry
   ```jsx
   <RelatedEditorial
-    entity-uri="http://data.europeana.eu/concept/base/190"
+    entity-uri="http://data.europeana.eu/concept/190"
     :related-editorial="[{'__typename': 'BlogPosting',
       'name': 'Landscapes from the Soul: testing a longer title and even longer and some more characters',
       'identifier': 'landscapes-from-the-soul',

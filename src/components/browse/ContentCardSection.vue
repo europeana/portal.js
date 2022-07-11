@@ -93,11 +93,11 @@
     },
     methods: {
       entityRouterLink(uri, slug) {
-        const uriMatch = uri.match(`^${EUROPEANA_DATA_URL}/([^/]+)(/base)?/(.+)$`);
+        const uriMatch = uri.match(`^${EUROPEANA_DATA_URL}/([^/]+)/(.+)$`);
         return {
           name: 'collections-type-all', params: {
             type: getEntityTypeHumanReadable(uriMatch[1]),
-            pathMatch: slug ? slug : uriMatch[3]
+            pathMatch: slug ? slug : uriMatch[2]
           }
         };
       }

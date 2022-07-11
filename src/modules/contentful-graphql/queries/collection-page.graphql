@@ -1,11 +1,11 @@
 query CollectionPage(
   $locale: String!,
-  $identifiers: [String]!,
+  $identifier: String!,
   $preview: Boolean = false
 ) {
   entityPage: entityPageCollection(
     preview: $preview, locale: $locale, limit: 1,
-    where: { identifier_in: $identifiers }
+    where: { identifier: $identifier }
   ) {
     items {
       name

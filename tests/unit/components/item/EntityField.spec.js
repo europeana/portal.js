@@ -17,7 +17,7 @@ const factory = (propsData) => mount(EntityField, {
 describe('components/item/EntityField', () => {
   describe('when it represents a Europeana Entity', () => {
     it('shows linked entity', () => {
-      const wrapper = factory({ value: 'Painting', about: 'http://data.europeana.eu/concept/base/47' });
+      const wrapper = factory({ value: 'Painting', about: 'http://data.europeana.eu/concept/47' });
 
       const fieldValue = wrapper.find('span a');
       expect(fieldValue.attributes().href).toBe('localizedPath');
