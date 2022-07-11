@@ -33,7 +33,7 @@ const factory = (propsData = {}) => shallowMount(HTMLEmbed, {
 
 describe('components/media/HTMLEmbed', () => {
   describe('when there is something to embed', () => {
-    it('has an iframe', async() => {
+    it('has an iframe', () => {
       const wrapper = factory(fixtures.vimeo);
       const iframe = wrapper.find('[data-qa="html embed"] iframe');
 
@@ -42,7 +42,7 @@ describe('components/media/HTMLEmbed', () => {
   });
 
   describe('when there was a problem retrieving the embedded content', () => {
-    it('has the error message', async() => {
+    it('has the error message', () => {
       const errorMessage = 'Error: Request failed with status code 404';
       const wrapper = factory({ error: errorMessage });
       const container = wrapper.find('alertmessage-stub');
@@ -60,7 +60,6 @@ describe('components/media/HTMLEmbed', () => {
     });
 
     it('is used for Vimeo embeds', () => {
-      console.log('window.innerWidth', window.innerWidth);
       const wrapper = factory(fixtures.vimeo);
 
       const iframe = wrapper.find('[data-qa="responsive embed wrapper"] [data-qa="html embed"] iframe');

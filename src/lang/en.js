@@ -41,9 +41,9 @@ export default {
     "move": "Move",
     "next": "Next",
     "pin": "Pin",
+    "preview": "Preview",
     "previous": "Previous",
     "providedBy": "Provided by {provider}",
-    "preview": "Preview",
     "reject": "Reject",
     "save": "Save",
     "send": "Send",
@@ -166,6 +166,10 @@ export default {
         "enabled": {
           "description": "If enabled, the debug menu will be shown in the page footer.",
           "label": "Enable debug menu"
+        },
+        "boosting": {
+          "description": "If enabled, activates the boosting field on search result pages, to evaluate various boosting configurations.",
+          "label": "Enable field boosting"
         }
       },
       "title": "Settings"
@@ -740,14 +744,14 @@ export default {
       "home": "Home",
       "stories": "Stories"
     },
+    "quickSearch": "Quick Search",
     "searchFor": "Search for {query}",
     "searchForEverything": "Search for everything",
     "searchForEverythingInCollection": "Search for everything in {collection}",
     "searchForEverythingInEntireCollection": "Search for everything in our entire collection",
     "searchForm": "Search form",
     "showSidebar": "Show Menu",
-    "sideNavigation": "Side navigation",
-    "quickSearch": "Quick Search"
+    "sideNavigation": "Side navigation"
   },
   "homeLinkAlt": "Europeana home",
   "homePage": {
@@ -953,7 +957,12 @@ export default {
   "resultsFor": "Results for {0}",
   "resultsLimitWarning": "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
   "resultsWithin": "Results within {0} {1} for {2}",
-  "search": "Search",
+  "search": {
+    "boost": {
+      "placeholder": "Enter field boosting query"
+    },
+    "title": "Search"
+  },
   "searchHasLoaded": "{0} results returned",
   "searchPlaceholder": "Search millions of items",
   "searchResults": "Search",

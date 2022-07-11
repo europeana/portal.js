@@ -1,6 +1,6 @@
 {
   "name": "@europeana/portal",
-  "version": "1.72.0",
+  "version": "1.75.0",
   "description": "Europeana Portal",
   "scripts": {
     "analyze": "nuxt build --analyze",
@@ -81,7 +81,7 @@
     "eslint-plugin-jest": "^25.3.4",
     "eslint-plugin-vue": "^8.1.1",
     "jest": "^27.4.5",
-    "nock": "^10.0.6",
+    "nock": "^13.2.7",
     "nuxt": "^2.15.8",
     "postcss": "^8.4.0",
     "postcss-html": "^1.2.0",

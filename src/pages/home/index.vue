@@ -5,31 +5,41 @@
       class="page"
     >
       <HomeHero />
-      <HomeCallToAction
-        v-if="callsToAction[0]"
-        :name="callsToAction[0].name"
-        :text="callsToAction[0].text"
-        :link="callsToAction[0].relatedLink"
-      />
-      <StackedCardsSwiper
-        v-if="!$fetchState.pending"
-        :slides="swiperThemes"
-        :title="$t('homePage.themesTitle')"
-        :cta="{ url: $path('/collections'), text: $t('homePage.themesCTA') }"
-      />
-      <HomeCallToAction
-        v-if="callsToAction[1]"
-        :name="callsToAction[1].name"
-        :text="callsToAction[1].text"
-        :link="callsToAction[1].relatedLink"
-      />
-      <HomeLatest />
-      <HomeCallToAction
-        v-if="callsToAction[2]"
-        :name="callsToAction[2].name"
-        :text="callsToAction[2].text"
-        :link="callsToAction[2].relatedLink"
-      />
+      <div class="page gridless-container">
+        <CallToActionBanner
+          v-if="callsToAction[0]"
+          :name="callsToAction[0].name"
+          :text="callsToAction[0].text"
+          :link="callsToAction[0].relatedLink"
+          :illustration="callsToAction[0].image"
+          variant="light"
+          class="my-5"
+        />
+        <StackedCardsSwiper
+          v-if="!$fetchState.pending"
+          :slides="swiperThemes"
+          :title="$t('homePage.themesTitle')"
+          :cta="{ url: $path('/collections'), text: $t('homePage.themesCTA') }"
+        />
+        <CallToActionBanner
+          v-if="callsToAction[1]"
+          :name="callsToAction[1].name"
+          :text="callsToAction[1].text"
+          :link="callsToAction[1].relatedLink"
+          :illustration="callsToAction[1].image"
+          variant="innovationblue"
+          class="my-5"
+        />
+        <HomeLatest />
+        <CallToActionBanner
+          v-if="callsToAction[2]"
+          :name="callsToAction[2].name"
+          :text="callsToAction[2].text"
+          :link="callsToAction[2].relatedLink"
+          :illustration="callsToAction[2].image"
+          class="my-5"
+        />
+      </div>
     </div>
     <IndexPage
       v-else
@@ -41,7 +51,7 @@
 <script>
   import allThemes from '@/mixins/allThemes';
   import collectionLinkGen from '@/mixins/collectionLinkGen';
-  import HomeCallToAction from '@/components/home/HomeCallToAction';
+  import CallToActionBanner from '@/components/generic/CallToActionBanner';
   import HomeHero from '@/components/home/HomeHero';
   import HomeLatest from '@/components/home/HomeLatest';
   import StackedCardsSwiper from '@/components/generic/StackedCardsSwiper';
@@ -50,7 +60,7 @@
     name: 'HomePage',
 
     components: {
-      HomeCallToAction,
+      CallToActionBanner,
       HomeHero,
       HomeLatest,
       IndexPage: () => import('../index'),
@@ -138,5 +148,6 @@
   .page {
     background-color: white;
     padding-bottom: 1rem;
+    text-align: center;
   }
 </style>

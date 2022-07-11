@@ -297,7 +297,11 @@
       }
     },
 
-    watchQuery: ['lang'],
+    watch: {
+      '$route.query.lang'() {
+        this.$fetch();
+      }
+    },
 
     mounted() {
       this.fetchAnnotations();

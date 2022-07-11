@@ -38,10 +38,13 @@ export default {
     "goHome": "Idite na početnu stranicu",
     "learnMore": "Uči više",
     "like": "Sviđanje",
+    "move": "Potez",
     "next": "Sljedeći",
     "pin": "Klin",
+    "preview": "Pregled",
     "providedBy": "Omogućio {provider}",
     "reject": "Odbiti",
+    "save": "Uštedjeti",
     "send": "Slati",
     "share": "Podijeli",
     "shareOn": "Podijelite na {social}",
@@ -145,8 +148,27 @@ export default {
     "to": "do"
   },
   "debug": {
-    "apiRequests": "API zahtjevi",
-    "debug": "Otklanjanje pogrešaka"
+    "apiRequests": {
+      "apiKeyLinkText": "Europeana API ključ",
+      "noRequests": "Na ovoj stranici nisu korišteni zahtjevi za API-je Europeane.",
+      "settingsPageLinkText": "stranicu postavki",
+      "tip": "Savjet: ako već imate {apiKeyLink} , možete ga unijeti na {settingsPageLink} i on će biti uključen u ove veze zahtjeva za API.",
+      "title": "API zahtjevi"
+    },
+    "debug": "Otklanjanje pogrešaka",
+    "settings": {
+      "form": {
+        "apiKey": {
+          "description": "Unesite svoj Europeana API ključ i on će se koristiti u poveznicama na API zahtjeve.",
+          "label": "API ključ"
+        },
+        "enabled": {
+          "description": "Ako je omogućeno, izbornik za otklanjanje pogrešaka bit će prikazan u podnožju stranice.",
+          "label": "Omogući izbornik za otklanjanje pogrešaka"
+        }
+      },
+      "title": "Postavke"
+    }
   },
   "delete": "Izbriši",
   "depiction": "Prikaz {title}",
@@ -167,16 +189,18 @@ export default {
     },
     "notifications": {
       "deleted": "Vaša galerija je izbrisana.",
+      "error": {
+        "unpin": "Došlo je do pogreške pri otkvačivanju stavke. Pokušajte ponovno ili prijavite problem."
+      },
+      "pin": "Ova će se stavka prikazati na vrhu zbirke \" {entity} \". Obavijestit ćemo vas kada će ova promjena biti vidljiva na stranici zbirke.",
       "pinLimit": {
         "body": "Za sada na prvu stranicu možete prikvačiti samo 24 stavki. Ako želite prikvačiti ovu stavku, svakako otkačite drugu, a zatim pokušajte ponovo prikvačiti ovu.",
         "title": "Previše prikvačenih stavki"
       },
       "pinned": "Stavka je prikvačena. Sada je na vrhu prve stranice ove zbirke. Možda će trebati i do 24 sata da se svi pojave.",
+      "select": "Odaberite povezani entitet da biste prikvačili/otkvačili stavku na/s njega.",
+      "unpin": "Ova će se stavka prestati prikazivati na vrhu zbirke \" {entity} \". Obavijestit ćemo vas kada će ova promjena biti vidljiva na stranici zbirke.",
       "unpinned": "Stavka je otkvačena. Više nije na vrhu prve stranice ove zbirke. Moglo bi potrajati do 24 sata da nestane za sve."
-    },
-    "prompts": {
-      "pin": "Jeste li sigurni da želite prikvačiti ovu stavku? Ova će se stavka prikazati na vrhu zbirke \"{entitet}\". Ta promjena može potrajati do 24 sata.",
-      "unpin": "Jeste li sigurni da želite otkvačiti ovu stavku? Ova će se stavka prestati prikazivati na vrhu zbirke \"{entity}\". Ta promjena može potrajati do 24 sata."
     }
   },
   "error": "Greška",
@@ -187,6 +211,7 @@ export default {
     "description": "Istražite izložbe",
     "exhibitions": "izložbe"
   },
+  "explore": "Istražiti",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "boje",
@@ -691,13 +716,24 @@ export default {
       "home": "Dom",
       "stories": "Priče"
     },
+    "quickSearch": "Brzo pretraživanje",
     "searchFor": "Potražite {query}",
     "searchForEverything": "Pretraži sve",
     "searchForEverythingInCollection": "Pretraži sve u {collection}",
     "searchForEverythingInEntireCollection": "Pretraži sve u našoj cijeloj kolekciji",
-    "showSidebar": "Prikaži izbornik"
+    "searchForm": "Obrazac za pretragu",
+    "showSidebar": "Prikaži izbornik",
+    "sideNavigation": "Bočna navigacija"
   },
   "homeLinkAlt": "Glavna stranica Europeana",
+  "homePage": {
+    "discoverEditorial": "Otkrijte naše priče",
+    "download": "preuzmi",
+    "free": "besplatno",
+    "storiesCTA": "Pogledajte sve naše priče",
+    "subHeadline": "Pronađite i {download} umjetnička djela, fotografije, knjige, rukopise, novine i glazbu iz više od 4000 muzeja, arhiva, galerija i knjižnica {free}.",
+    "title": "Otkrijte europsku kulturnu baštinu"
+  },
   "imageSlider": {
     "handle": "Ručka klizača"
   },
@@ -852,6 +888,9 @@ export default {
   },
   "record": {
     "IIIFViewer": "IIIF preglednik",
+    "actions": {
+      "pin": "Prikvači stavku na dostupne entitete"
+    },
     "allMetaData": "Svi meta podaci",
     "copyEmbedLabel": "Ugradi kôd (kliknite za kopiranje)",
     "exploreMore": "Istraži više",
@@ -864,8 +903,16 @@ export default {
     "record": "Zapis",
     "showAll": "Prikaži sve informacije",
     "similarItems": "Slične stavke",
+    "status": {
+      "unpublished": "[Neobjavljena stavka]"
+    },
     "transcription": "Transkripcija",
     "transcriptionDisclaimer": "Ovaj sadržaj je ponudila javnost, a ne institucija koja je pružila ovu stavku."
+  },
+  "related": {
+    "editorial": {
+      "title": "Priče koje bi vam se mogle svidjeti"
+    }
   },
   "relatedCollections": "Povezane zbirke",
   "removeFilter": "Uklonite filtar {filterLabel} ",
@@ -903,7 +950,6 @@ export default {
       "createNew": "Stvori novu galeriju",
       "delete": "Izbriši galeriju",
       "edit": "Uredi galeriju",
-      "save": "Uštedjeti",
       "update": "Ažuriraj galeriju"
     },
     "form": {
@@ -937,6 +983,9 @@ export default {
   "statuses": {
     "liked": "Volio",
     "pinned": "Prikvačeno"
+  },
+  "storiesPage": {
+    "title": "Priče"
   },
   "website": "Web stranica",
   "youMightAlsoLike": "Možda će vam se također svidjeti"

@@ -56,7 +56,7 @@
           data-qa="show search button"
           class="button-icon-only icon-search ml-lg-3"
           variant="light-flat"
-          :aria-label="$t('search')"
+          :aria-label="$t('search.title')"
           @click="toggleSearchBar"
         />
         <FilterToggleButton />

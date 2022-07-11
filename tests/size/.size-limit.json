@@ -2,7 +2,7 @@
   {
     "name": "portal.js client",
     "running": false,
-    "limit": "890 KB",
+    "limit": "910 KB",
     "path": [
       ".nuxt/dist/client/*.js",
       "!.nuxt/dist/client/*.modern.js"
@@ -11,7 +11,7 @@
   {
     "name": "portal.js modern",
     "running": false,
-    "limit": "870 KB",
+    "limit": "880 KB",
     "path": [
       ".nuxt/dist/client/*.modern.js"
     ]
@@ -19,7 +19,7 @@
   {
     "name": "portal.js server",
     "running": false,
-    "limit": "650 KB",
+    "limit": "670 KB",
     "path": [
       ".nuxt/dist/server/*.js"
     ]
