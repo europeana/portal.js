@@ -41,8 +41,8 @@ module.exports = function (migration) {
   for (const contentTypeName of ['blogPosting', 'exhibitionPage']) {
     const contentType = migration.editContentType(contentTypeName);
 
-    // Disable use of old keywords field on exhbitionPage content type
-    if (contentTypeName === 'exhibitionPage') {
+    // Disable use of old keywords field on blogPosting content type
+    if (contentTypeName === 'blogPosting') {
       contentType.editField('keywords').disabled(true);
     }
 
