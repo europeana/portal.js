@@ -298,7 +298,9 @@
     },
 
     watch: {
-      '$route.query.lang': '$fetch'
+      '$route.query.lang'() {
+        this.$fetch();
+      }
     },
 
     mounted() {

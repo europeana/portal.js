@@ -27,6 +27,9 @@ query HomePage(
         			url
         			text
       			}
+            image {
+              ...illustrationFields
+            }
           }
         }
       }
@@ -44,10 +47,20 @@ fragment imageWithAttributionFields on ImageWithAttribution {
   license
   url
   image {
-    url
-    contentType
-    description
-    width
-    height
+    ...imageFields
   }
+}
+
+fragment illustrationFields on Illustration {
+  image {
+    ...imageFields
+  }
+}
+
+fragment imageFields on Asset {
+  url
+  contentType
+  description
+  width
+  height
 }

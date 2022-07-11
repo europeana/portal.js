@@ -1,7 +1,7 @@
 <template>
   <section
     v-if="cards.length > 0"
-    class="gridless-container text-center"
+    class="text-center"
     data-qa="latest editorial"
   >
     <h2>
