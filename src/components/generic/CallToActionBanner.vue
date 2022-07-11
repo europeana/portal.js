@@ -1,9 +1,23 @@
 <template>
-  <div class="home-cta d-lg-flex flex-lg-row flex-column">
-    <div class="cta-illustration align-self-stretch flex-lg-fill">
-      <div class="geometry" />
+  <div
+    class="home-cta d-flex flex-md-row flex-column"
+    :class="variant"
+  >
+    <div
+      v-if="illustration"
+      class="cta-illustration align-self-stretch"
+    >
+      <OptimisedImage
+        :alt="illustration.image.description"
+        :src="illustration.image.url"
+        :width="illustration.image.width"
+        :height="illustration.image.height"
+        :content-type="illustration.image.contentType"
+        :max-width="1100"
+        :lazy="true"
+      />
     </div>
-    <div class="cta-content align-self-stretch flex-lg-fill">
+    <div class="cta-content align-self-stretch flex-md-fill">
       <h2>
         {{ name }}
       </h2>
@@ -31,7 +45,8 @@
     name: 'CallToActionBanner',
 
     components: {
-      SmartLink
+      SmartLink,
+      OptimisedImage: () => import('@/components/generic/OptimisedImage')
     },
     props: {
       name: {
@@ -45,6 +60,18 @@
       link: {
         type: Object,
         required: true
+      },
+      illustration: {
+        type: Object,
+        default: null
+      },
+      /**
+       * Banner variant to use
+       * @values yellowgrey, light, innovationblue
+       */
+      variant: {
+        type: String,
+        default: 'yellowgrey'
       }
     },
     computed: {
@@ -60,36 +87,133 @@
   @import '@/assets/scss/variables';
 
   .home-cta {
-    background-color: $bodygrey;
-    margin: 2rem auto;
-    max-width: 75%;
-    border-radius: 0.4rem;
+    background-color: $yellowgrey;
+    margin-bottom: 2em;
+    font-size: 1rem;
+    border-radius: 0.25em;
+    border: 0.25em solid $black;
+    box-shadow: 0.75em 0.75em 0 0 $black;
 
-    .cta-illustration {
-      min-height: 11rem;
-      padding: 4.25rem;
-      overflow: hidden;
-
-      .geometry {
-        margin-left: auto;
-        margin-right: auto;
-        margin-bottom: -70%;
-        border-radius: 1rem;
-        width: 70%;
-        max-width: 21rem;
-        padding-top: min(70%, 21rem);
-        background-color: $lightgrey;
-        transform: rotate(45deg);
-      }
+    @media (min-width: $bp-xxxl) {
+      font-size: 1vw;
     }
 
     .cta-content {
-      padding: 4.25rem;
+      padding: 2.5em;
       text-align: center;
+      font-size: 1em;
+
+      h2 {
+        color: $mediumgrey;
+        font-size: 2em;
+        font-weight: 700;
+      }
+
+      p {
+        font-size: 1em;
+      }
     }
 
     .btn-primary.btn-cta {
       margin-bottom: 0;
+      text-transform: capitalize;
+      border: 0.1875em solid $black;
+      box-shadow: 0.25em 0.25em 0 0 $black;
+      font-weight: 700;
+      padding: 0.5em 1em;
+      border-radius: 0.25em;
+
+      @media (min-width: $bp-xxxl) {
+        font-size: 1vw;
+      }
+    }
+
+    &.light {
+      background-color: $bodygrey;
+    }
+
+    &.innovationblue {
+      background-color: $innovationblue;
+
+      .cta-content {
+        color: $white;
+
+        h2 {
+          color: $white;
+        }
+      }
+
+      .btn-primary.btn-cta {
+        background-color: $yellowgrey;
+        color: $black;
+
+        &:hover {
+          background-color: $white;
+        }
+      }
+    }
+
+    .cta-illustration {
+      margin-top: 1em;
+      margin-left: 1em;
+      margin-right: 1em;
+      height: 175px;
+      position: relative;
+
+      @media (min-width: $bp-medium) {
+        height: auto;
+        width: 40%;
+      }
+
+      img {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        height: 100%;
+        right: 0;
+        margin: 0 auto;
+      }
     }
   }
 </style>
+
+<docs lang="md">
+  Variant "yellowgrey" (default):
+  ```jsx
+  <CallToActionBanner
+    name="Call to action name"
+    text="This is a call to action text"
+    :link="{ url: '/', text: 'Click here' }"
+  />
+  ```
+  Variant "yellowgrey" (default) with illustration:
+  ```jsx
+  <CallToActionBanner
+    name="Call to action name"
+    text="This is a call to action text"
+    :link="{ url: '/', text: 'Click here' }"
+    :illustration="{ image: { url: 'https://images.ctfassets.net/i01duvb6kq77/6Fm9ywRyWVVWlu4Uq3yNaM/d37780502312ca581c450d52f298eae3/illustration_curate.svg' } }"
+  />
+  ```
+  Variant "light" with illustration
+  ```jsx
+  <CallToActionBanner
+    name="Call to action name"
+    text="This is a call to action text"
+    :link="{ url: '/', text: 'Click here' }"
+    :illustration="{ image: { url: 'https://images.ctfassets.net/i01duvb6kq77/6Fm9ywRyWVVWlu4Uq3yNaM/d37780502312ca581c450d52f298eae3/illustration_curate.svg' } }"
+    variant="light"
+  />
+  ```
+  Variant "innovationblue" with illustration
+  ```jsx
+  <CallToActionBanner
+    name="Call to action name"
+    text="This is a call to action text"
+    :link="{ url: '/', text: 'Click here' }"
+    :illustration="{ image: { url: 'https://images.ctfassets.net/i01duvb6kq77/5KObdGGWsEnx45q2CmTZ7V/7684115e7fb6b850ddacf68ca61f1cf5/illustration_newsletter.svg' } }"
+    variant="innovationblue"
+  />
+  ```
+  </docs>

@@ -27,9 +27,22 @@ query HomePage(
         			url
         			text
       			}
+            image {
+              ...illustrationFields
+            }
           }
         }
       }
     }
+  }
+}
+
+fragment illustrationFields on Illustration {
+  image {
+    url
+    description
+    contentType
+    width
+    height
   }
 }
