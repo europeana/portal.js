@@ -1,4 +1,4 @@
-module.exports = function (migration, { makeRequest }) {
+module.exports = function (migration) {
   // 1. Create new content type for Category
   const category = migration
     .createContentType('category')
@@ -73,45 +73,4 @@ module.exports = function (migration, { makeRequest }) {
       {}
     );
   }
-
-  // 3. Create category entries
-
-  // 4. Link exhibitionPage entries to categories based on keywords
-  migration.transformEntries({
-    contentType: 'exhibitionPage',
-    from: ['keywords'],
-    to: ['categories'],
-    transformEntryForLocale: async(fields, locale) => {
-      if (locale !== 'en-GB') {
-        return;
-      }
-
-      const categories = [];
-
-      for (const tag of fields.keywords[locale]) {
-        // fetch category entries for each keyword
-        const response = await makeRequest({
-          method: 'GET',
-          url: '/entries',
-          params: {
-            'content_type': 'category',
-            name: tag
-          }
-        });
-
-        // categories.push({
-        //   sys: {
-        //     type: 'Link',
-        //     linkType: 'Entry',
-        //     id: categoryId
-        //   }
-        // });
-      }
-
-      return {
-        categories: []
-      }
-    },
-    shouldPublish: 'preserve'
-  });
 };
