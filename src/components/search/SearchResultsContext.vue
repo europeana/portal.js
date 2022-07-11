@@ -16,6 +16,7 @@
           :title="entityLabel"
           :link-to="entityRemovalLink"
           :img="entityImage"
+          :type="entity.type"
           data-qa="entity removal badge"
           class="mt-1 mx-1"
         />
@@ -34,6 +35,7 @@
           :title="entityLabel"
           :link-to="entityRemovalLink"
           :img="entityImage"
+          :type="entity.type"
           data-qa="entity removal badge"
           class="mt-1 mx-1"
         />
