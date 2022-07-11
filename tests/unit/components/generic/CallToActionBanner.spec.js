@@ -19,7 +19,12 @@ describe('components/generic/CallToActionBanner', () => {
           link: {
             url: '/attention',
             text: 'Read more'
-          }
+          },
+          illustration: { image: {
+            url: 'https://www.europeana.eu/illustration.svg',
+            width: '100px',
+            height: '1oopx'
+          } }
         } });
 
         expect(wrapper.vm.html).toBe('<p><strong>Attention!</strong></p>\n');
