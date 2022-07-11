@@ -53,9 +53,4 @@ export default (context, inject) => {
   };
 
   inject(MODULE_NAME, plugin);
-
-  if (context.$auth && context.$auth.loggedIn) {
-    context.store.dispatch('set/setLikes')
-      .then(() => context.store.dispatch('set/fetchLikes'));
-  }
 };
