@@ -22,3 +22,24 @@ export function optimisedSrcForContentfulAsset(asset, params = {}) {
 
   return imageUrl.toString();
 }
+
+export function responsiveBackgroundImageCSSVars(image, params) {
+  if (image.url && urlIsContentfulAsset(image.url) && params) {
+    return {
+      '--bg-img-small': `url('${optimisedSrcForContentfulAsset(image, params.small)}')`,
+      '--bg-img-medium': `url('${optimisedSrcForContentfulAsset(image, params.medium)}')`,
+      '--bg-img-large': `url('${optimisedSrcForContentfulAsset(image, params.large)}')`,
+      '--bg-img-xl': `url('${optimisedSrcForContentfulAsset(image, params.xl)}')`,
+      '--bg-img-xxl': `url('${optimisedSrcForContentfulAsset(image, params.xxl)}')`,
+      '--bg-img-xxxl': `url('${optimisedSrcForContentfulAsset(image, params.xxxl)}')`,
+      '--bg-img-wqhd': `url('${optimisedSrcForContentfulAsset(image, params.wqhd)}')`,
+      '--bg-img-4k': `url('${optimisedSrcForContentfulAsset(image, params['4k'])}')`
+    };
+  } else if (image.url) {
+    return {
+      '--bg-img-small': `url('${image.url}')`
+    };
+  } else {
+    return null;
+  }
+}

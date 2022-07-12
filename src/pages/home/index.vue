@@ -4,7 +4,9 @@
       v-if="$features.newHomepage"
       class="page"
     >
-      <HomeHero />
+      <HomeHero
+        :background-image="backgroundImage"
+      />
       <div class="page gridless-container">
         <CallToActionBanner
           v-if="callsToAction[0]"
@@ -72,6 +74,7 @@
     data() {
       return {
         sections: [],
+        backgroundImage: null,
         // TODO: following four properties required when rendering IndexPage as
         //       a child component; remove when new home page is launched.
         browsePage: false,
@@ -138,6 +141,7 @@
         const response = await this.$contentful.query('homePage', variables);
         const homePage = response.data.data.homePageCollection.items[0];
         this.sections = homePage.sectionsCollection.items;
+        this.backgroundImage = homePage.primaryImageOfPage;
       }
     }
   };
@@ -145,9 +149,25 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '@/assets/scss/variables';
+
   .page {
     background-color: white;
     padding-bottom: 1rem;
+    position: relative;
     text-align: center;
+
+    &::after {
+      border-top: 145px solid $white;
+      border-left: 60px solid transparent;
+      content: '';
+      display: block;
+      height: 0;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      width: 0;
+      z-index: 1;
+    }
   }
 </style>
