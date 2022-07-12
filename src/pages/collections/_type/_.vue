@@ -354,7 +354,7 @@
         return title;
       },
       isEditable() {
-        return this.entity && this.editable;
+        return this.entity && !!this.editable;
       },
       hasUserQuery() {
         return this.$route.query.query &&  this.$route.query.query !== '';

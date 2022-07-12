@@ -14,6 +14,7 @@ const organisationEntity = {
     id: 'http://data.europeana.eu/organization/01234567890',
     logo: { id: 'http://commons.wikimedia.org/wiki/Special:FilePath/Albertina%20Logo.svg' },
     description: { en: 'example of an organisation description' },
+    note: { en: 'editable description' },
     prefLabel: { en: 'English name', nl: 'Dutch name' },
     homepage: 'https://www.example-organisation.eu',
     hasAddress: {
@@ -97,7 +98,8 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
     $store: {
       state: {
         entity: {
-          entity: options.entity
+          entity: options.entity,
+          ...options.entityStoreState
         },
         i18n: {
           locale: 'en'
@@ -315,20 +317,63 @@ describe('pages/collections/type/_', () => {
     });
 
     describe('title', () => {
-      test.todo('uses the fallback title if no entity is present');
-      test.todo('favours the editorial title if present');
-      test.todo('uses the native language name for organisations');
-      test.todo('otherwise localises the prefLabel');
+      it('uses the fallback title if no entity is present', () => {
+        const wrapper = factory();
+
+        const title = wrapper.vm.title;
+
+        expect(title).toEqual({ code: null, values: [undefined] });
+      });
+
+      it('favours the editorial title if present', () => {
+        const wrapper = factory(organisationEntity);
+        wrapper.setData({ page: { name: 'Editorial name' } });
+
+        const title = wrapper.vm.title.values[0];
+
+        expect(title).toEqual('Editorial name');
+      });
+
+      it('uses the native language name for organisations', () => {
+        const wrapper = factory(organisationEntity);
+
+        const title = wrapper.vm.title.values[0];
+
+        expect(title).toEqual(organisationEntity.entity.prefLabel.nl);
+      });
+
+      it('otherwise localises the prefLabel', () => {
+        const wrapper = factory(topicEntity);
+
+        const title = wrapper.vm.title.values[0];
+
+        expect(title).toEqual(topicEntity.entity.prefLabel.en);
+      });
     });
 
     describe('description', () => {
-      test.todo('uses the entity note (from Entity Management service), if editable');
-      test.todo('uses the editorial description, if available');
+      it('uses the entity note (from Entity Management service), if editable', () => {
+        const wrapper = factory({ ...organisationEntity, entityStoreState: { editable: true } });
+
+        const description = wrapper.vm.description.values;
+
+        expect(description).toBe(organisationEntity.entity.note.en);
+      });
+
+      it('uses the editorial description, if available', () => {
+        const wrapper = factory(organisationEntity);
+        wrapper.setData({ page: { description: 'Editorial description' } });
+
+        const description = wrapper.vm.description.values;
+
+        expect(description).toEqual(['Editorial description']);
+      });
 
       it('uses the English prefLabel for an organisation, if non-native', () => {
         const wrapper = factory(organisationEntity);
 
         const description = wrapper.vm.description.values[0];
+
         expect(description).toBe(organisationEntity.entity.prefLabel.en);
       });
     });
