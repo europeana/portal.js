@@ -197,11 +197,11 @@ describe('plugins/europeana/entity', () => {
         expect(nock.isDone()).toBe(true);
       });
 
-      it('restricts types to agent, concept, timespan & organization', async() => {
+      it('restricts types to agent, concept, timespan, organization & place', async() => {
         nock(BASE_URL)
           .get(suggestEndpoint)
           .query(query => {
-            return query.type === 'agent,concept,timespan,organization';
+            return query.type === 'agent,concept,timespan,organization,place';
           })
           .reply(200, entitySuggestionsResponse);
 
@@ -434,8 +434,15 @@ describe('plugins/europeana/entity', () => {
       });
     });
 
-    describe('otherwise', () => {
+    describe('when entity is a place', () => {
       const uri = 'http://data.europeana.eu/place/12345';
+      it('queries on where', () => {
+        expect(getEntityQuery(uri)).toBe(`where:"${uri}"`);
+      });
+    });
+
+    describe('otherwise', () => {
+      const uri = 'http://data.europeana.eu/item/12345';
       it('throws an error', () => {
         expect(() => getEntityQuery(uri) === null).toThrow(`Unsupported entity URI "${uri}"`);
       });
