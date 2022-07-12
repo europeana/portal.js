@@ -14,7 +14,7 @@ const factory = () => shallowMountNuxt(page, {
     return {
       entities: [
         {
-          id: 'http://data.europeana.eu/agent/base/123',
+          id: 'http://data.europeana.eu/agent/123',
           isShownBy: {
             id: 'http://mm.dimu.no/image/012wWWWtptov?dimension=800x800',
             thumbnail: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?uri=http%3A%2F%2Fmm.dimu.no%2Fimage%2F012wWWWtptov%3Fdimension%3D800x800&type=IMAGE',

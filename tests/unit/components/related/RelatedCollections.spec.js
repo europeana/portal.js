@@ -10,7 +10,7 @@ localVue.use(BootstrapVue);
 
 const relatedCollections = [
   {
-    id: 'http://data.europeana.eu/agent/base/123',
+    id: 'http://data.europeana.eu/agent/123',
     prefLabel: {
       de: 'Contentful title',
       en: 'Contentful title EN'
@@ -18,7 +18,7 @@ const relatedCollections = [
     image: 'http://data.europeana.eu/item/123/ABC'
   },
   {
-    id: 'http://data.europeana.eu/concept/base/194',
+    id: 'http://data.europeana.eu/concept/194',
     prefLabel: {
       en: 'Visual arts'
     },
@@ -30,7 +30,7 @@ const relatedCollections = [
     }
   },
   {
-    id: 'http://data.europeana.eu/organzation/base/1',
+    id: 'http://data.europeana.eu/organzation/1',
     logo: {
       id: 'http://www.wikimedia.org/wiki/Special:FilePath/logoUrlItem3.jpg',
       source: 'www.wikimedia.org/wiki/Special:FilePath/logoUrlItem3'
@@ -40,7 +40,7 @@ const relatedCollections = [
     }
   },
   {
-    id: 'http://data.europeana.eu/concept/base/55',
+    id: 'http://data.europeana.eu/concept/55',
     prefLabel: {
       en: 'Textile'
     }
@@ -55,7 +55,7 @@ const contentfulResponse = {
           {
             name: 'Mode',
             nameEN: 'Fashion',
-            identifier: 'http://data.europeana.eu/concept/base/55',
+            identifier: 'http://data.europeana.eu/concept/55',
             genre: 'fashion',
             primaryImageOfPage: {
               image: {
@@ -66,7 +66,7 @@ const contentfulResponse = {
           },
           {
             name: 'Manuscripts',
-            identifier: 'http://data.europeana.eu/concept/base/17',
+            identifier: 'http://data.europeana.eu/concept/17',
             genre: 'manuscript'
           }
         ]
@@ -205,7 +205,7 @@ describe('components/related/RelatedCollections', () => {
                 contentType: 'image/jpeg',
                 url: 'https://images.ctfassets.net/i01duvb6kq77/792bNsvUU5gai7bWidjZoz/1d6ce46c91d5fbcd840e8cf8bfe376a3/206_item_QCZITS4J5WNRUS7ESLVJH6PSOCRHBPMI.jpg'
               },
-              id: 'http://data.europeana.eu/concept/base/55',
+              id: 'http://data.europeana.eu/concept/55',
               prefLabel: {
                 de: 'Mode',
                 en: 'Fashion'
@@ -238,7 +238,7 @@ describe('components/related/RelatedCollections', () => {
                 contentType: 'image/jpeg',
                 url: 'https://images.ctfassets.net/i01duvb6kq77/792bNsvUU5gai7bWidjZoz/1d6ce46c91d5fbcd840e8cf8bfe376a3/206_item_QCZITS4J5WNRUS7ESLVJH6PSOCRHBPMI.jpg'
               },
-              id: 'http://data.europeana.eu/concept/base/55',
+              id: 'http://data.europeana.eu/concept/55',
               prefLabel: {
                 de: 'Mode',
                 en: 'Fashion'

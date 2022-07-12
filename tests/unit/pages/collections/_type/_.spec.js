@@ -159,7 +159,7 @@ describe('pages/collections/type/_', () => {
         await wrapper.vm.fetch();
 
         return wrapper.vm.$contentful.query.calledWith('collectionPage', {
-          identifiers: ['http://data.europeana.eu/concept/base/01234567890', topicEntity.entity.id],
+          identifier: topicEntity.entity.id,
           locale: 'en-GB',
           preview: false
         });
@@ -427,7 +427,7 @@ describe('pages/collections/type/_', () => {
                     relatedLinksCollection: {
                       items: [
                         {
-                          identifier: 'http://data.europeana.eu/concept/base/48',
+                          identifier: 'http://data.europeana.eu/concept/48',
                           name: 'Photograph',
                           nameEN: 'Photograph',
                           image: 'Contentful image object'
@@ -452,7 +452,7 @@ describe('pages/collections/type/_', () => {
 
         expect(wrapper.vm.relatedCollectionCards).toStrictEqual([
           {
-            id: 'http://data.europeana.eu/concept/base/48',
+            id: 'http://data.europeana.eu/concept/48',
             prefLabel: { en: 'Photograph' },
             image: 'Contentful image object'
           }

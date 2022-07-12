@@ -12,7 +12,7 @@ localVue.use(BootstrapVue);
 
 const record = {
   identifier: '/123/abc',
-  concepts: [{ 'about': 'http://data.europeana.eu/concept/base/47', 'prefLabel': { 'en': ['Painting'] } }],
+  concepts: [{ 'about': 'http://data.europeana.eu/concept/47', 'prefLabel': { 'en': ['Painting'] } }],
   metadata: {
     edmCountry: ['Netherlands'],
     edmDataProvider: {

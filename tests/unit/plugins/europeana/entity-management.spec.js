@@ -49,7 +49,7 @@ describe('plugins/europeana/entity-management', () => {
       const type = 'topic';
       const profile = 'internal';
       nock(BASE_URL)
-        .get(`/concept/base/${entityId}?profile=internal`)
+        .get(`/concept/${entityId}?profile=internal`)
         .reply(200, entityResponses.items[0]);
       const response =  await entitymanage(axios).get(type, entityId, { profile });
       expect(response.note['en']).toEqual(['A medium for recording information in the form of writing or images']);

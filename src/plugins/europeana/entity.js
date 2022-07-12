@@ -60,10 +60,7 @@ export default (context = {}) => {
       if (entityUris?.length === 0) {
         return Promise.resolve([]);
       }
-      const q = entityUris
-        // TODO: this next line will be redundant once no URIs contain /base/
-        .reduce((memo, uri) => memo.concat(baseVariantEntityUris(uri)), [])
-        .join('" OR "');
+      const q = entityUris.join('" OR "');
       const params = {
         query: `entity_uri:("${q}")`,
         pageSize: entityUris.length
@@ -129,16 +126,12 @@ export function normalizeEntityId(id) {
 export function getEntityQuery(uri) {
   let entityQuery;
 
-  // TODO this baseless/infixed stuff will be redundant once no URIs have /base/
-  const uriVariants = baseVariantEntityUris(uri);
-  const uriVariantsQuery = `("${uriVariants.join('" OR "')}")`;
-
   if (uri.includes('/concept/')) {
-    entityQuery = `skos_concept:${uriVariantsQuery}`;
+    entityQuery = `skos_concept:"${uri}"`;
   } else if (uri.includes('/agent/')) {
-    entityQuery = `edm_agent:${uriVariantsQuery}`;
+    entityQuery = `edm_agent:"${uri}"`;
   } else if (uri.includes('/timespan/')) {
-    entityQuery = `edm_timespan:${uriVariantsQuery}`;
+    entityQuery = `edm_timespan:"${uri}"`;
   } else if (uri.includes('/organization/')) {
     entityQuery = `foaf_organization:"${uri}"`;
   } else if (uri.includes('/place/')) {
@@ -150,24 +143,8 @@ export function getEntityQuery(uri) {
   return entityQuery;
 }
 
-// TODO this baseless/infixed stuff will be redundant once no URIs have /base/
-export function baseVariantEntityUris(uri) {
-  let infixedUri;
-  let baselessUri;
-  const typePattern = /\/(concept|agent|timespan|organization)\//;
-  if (uri.includes('/base/')) {
-    infixedUri = uri;
-    baselessUri = uri.replace('/base', '');
-  } else {
-    baselessUri = uri;
-    infixedUri = uri.replace(typePattern, '/$1/base/');
-  }
-
-  return [infixedUri, baselessUri];
-}
-
 /**
- * A check for a URI to see if it conforms ot the entity URI pattern,
+ * A check for a URI to see if it conforms to the entity URI pattern,
  * optionally takes entity types as an array of values to check for.
  * Will return true/false
  * @param {string} uri A URI to check
@@ -176,7 +153,7 @@ export function baseVariantEntityUris(uri) {
  */
 export function isEntityUri(uri, types) {
   types = types ? types : ['concept', 'agent', 'place', 'timespan', 'organization'];
-  return RegExp(`^http://data\\.europeana\\.eu/(${types.join('|')})(/base)?/\\d+$`).test(uri);
+  return RegExp(`^http://data\\.europeana\\.eu/(${types.join('|')})/\\d+$`).test(uri);
 }
 
 /**
@@ -218,7 +195,7 @@ export function getEntityTypeHumanReadable(type) {
  * @return {string} retrieved human readable name of type
  */
 export function getEntityUrl(type, id) {
-  return `/${getEntityTypeApi(type)}/base/${normalizeEntityId(id)}.json`;
+  return `/${getEntityTypeApi(type)}/${normalizeEntityId(id)}.json`;
 }
 
 /**
@@ -229,7 +206,6 @@ export function getEntityUrl(type, id) {
  */
 export function getEntityUri(type, id) {
   const apiType = getEntityTypeApi(type);
-  // const baseInfix = ['timespan', 'organization'].includes(apiType) ? '' : '/base';
   return `${EUROPEANA_DATA_URL}/${apiType}/${normalizeEntityId(id)}`;
 }
 
@@ -239,7 +215,7 @@ export function getEntityUri(type, id) {
  * @return {{type: String, identifier: string}} Object with the portal relevant identifiers.
  */
 export function entityParamsFromUri(uri) {
-  const matched = uri.match(/^http:\/\/data\.europeana\.eu\/(concept|agent|place|timespan|organization)(\/base)?\/(\d+)$/);
+  const matched = uri.match(/^http:\/\/data\.europeana\.eu\/(concept|agent|place|timespan|organization)\/(\d+)$/);
   const id = matched[matched.length - 1];
   const type = getEntityTypeHumanReadable(matched[1]);
   return { id, type };
@@ -256,13 +232,13 @@ export function entityParamsFromUri(uri) {
  * @return {string} path
  * @example
  *    const slug = getEntitySlug(
- *      'http://data.europeana.eu/concept/base/48',
+ *      'http://data.europeana.eu/concept/48',
  *      'Photography'
  *    );
  *    console.log(slug); // expected output: '48-photography'
  * @example
  *    const slug = getEntitySlug(
- *      'http://data.europeana.eu/agent/base/59832',
+ *      'http://data.europeana.eu/agent/59832',
  *      'Vincent van Gogh'
  *    );
  *    console.log(slug); // expected output: '59832-vincent-van-gogh'

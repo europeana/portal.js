@@ -61,20 +61,20 @@ const entries = {
   ],
   featuredTopics: [
     {
-      id: 'http://data.europeana.eu/concept/base/1',
+      id: 'http://data.europeana.eu/concept/1',
       prefLabel: { en: 'topic one' },
       isShownBy: { thumbnail: 'thumbnail' }
     },
     {
-      id: 'http://data.europeana.eu/concept/base/2',
+      id: 'http://data.europeana.eu/concept/2',
       prefLabel: { en: 'topic two' }
     },
     {
-      id: 'http://data.europeana.eu/concept/base/3',
+      id: 'http://data.europeana.eu/concept/3',
       prefLabel: { en: 'topic three' }
     },
     {
-      id: 'http://data.europeana.eu/concept/base/4',
+      id: 'http://data.europeana.eu/concept/4',
       prefLabel: { en: 'topic four' }
     }
   ],
@@ -222,10 +222,10 @@ describe('components/browse/AutomatedCardGroup', () => {
           __typename: 'AutomatedEntityCard',
           __variant: 'mini',
           name: { en: 'topic one' },
-          identifier: 'http://data.europeana.eu/concept/base/1',
+          identifier: 'http://data.europeana.eu/concept/1',
           image: 'image URL',
           encoding: {
-            id: 'http://data.europeana.eu/concept/base/1',
+            id: 'http://data.europeana.eu/concept/1',
             isShownBy: {
               thumbnail: 'thumbnail'
             },

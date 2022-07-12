@@ -770,7 +770,7 @@ describe('components/search/SideFacetDropdown', () => {
           await wrapper.setProps({
             name: 'contentTier'
           });
-          wrapper.vm.$store.getters['entity/id'] = 'http://data.europeana.eu/base/concept/12345';
+          wrapper.vm.$store.getters['entity/id'] = 'http://data.europeana.eu/concept/12345';
 
           const filtered = wrapper.vm.filterFacetFields(fields);
 

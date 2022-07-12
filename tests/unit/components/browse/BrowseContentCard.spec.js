@@ -128,7 +128,7 @@ describe('components/browse/BrowseContentCard', () => {
           const entityType = 'agent';
           const entityHumanType = 'person';
           const entityId = '12345';
-          const identifier = `http://data.europeana.eu/${entityType}/base/${entityId}`;
+          const identifier = `http://data.europeana.eu/${entityType}/${entityId}`;
           const wrapper = factory({ fields: { identifier } });
 
           expect(wrapper.vm.destination).toEqual({ name: 'collections-type-all', params: { type: entityHumanType, pathMatch: entityId } });
