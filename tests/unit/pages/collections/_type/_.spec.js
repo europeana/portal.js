@@ -574,6 +574,17 @@ describe('pages/collections/type/_', () => {
         expect(wrapper.vm.showRelated).toBe(false);
       });
     });
+
+    describe('proxyUpdated', () => {
+      it('triggers $fetch', () => {
+        const wrapper = factory(topicEntity);
+        sinon.spy(wrapper.vm, '$fetch');
+
+        wrapper.vm.proxyUpdated();
+
+        expect(wrapper.vm.$fetch.called).toBe(true);
+      });
+    });
   });
 
   describe('the head title', () => {
