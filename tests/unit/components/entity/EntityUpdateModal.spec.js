@@ -8,7 +8,6 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 localVue.use(VueI18n);
 
-const storeDispatch = sinon.stub().resolves({});
 import messages from '@/lang/en';
 
 const i18n = new VueI18n({
@@ -40,8 +39,10 @@ const factory = (propsData = {}) => mount(EntityUpdateModal, {
   },
   i18n,
   mocks: {
-    $store: {
-      dispatch: storeDispatch
+    $apis: {
+      entityManagement: {
+        update: sinon.spy()
+      }
     }
   }
 });
@@ -53,19 +54,18 @@ describe('components/entity/EntityUpdateModal', () => {
       await wrapper.find('#entity-description').setValue('Updated');
       await wrapper.find('form').trigger('submit.stop.prevent');
 
-      expect(storeDispatch.calledWith('entity/update', {
+      expect(wrapper.vm.$apis.entityManagement.update.calledWith('1-art', {
         id: '1-art',
-        body: {
-          type: 'concept',
-          prefLabel: {
-            en: 'Art'
-          },
-          note: {
-            en: ['Updated']
-          }
+        type: 'concept',
+        prefLabel: {
+          en: 'Art'
+        },
+        note: {
+          en: ['Updated']
         }
       })).toBe(true);
     });
+
     it('hides the modal', async() => {
       const wrapper = factory(existingEntityPropsData);
       const bvModalHide = sinon.spy(wrapper.vm.$bvModal, 'hide');

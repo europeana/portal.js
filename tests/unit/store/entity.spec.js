@@ -96,20 +96,6 @@ describe('store/entity', () => {
         expect(state.editable).toEqual(true);
       });
     });
-    describe('setProxy()', () => {
-      it('sets the entity proxy state', () => {
-        const state = { entity: {} };
-        store.mutations.setProxy(state, { id: 'proxy001' });
-        expect(state.entity.proxy).toEqual({ id: 'proxy001' });
-      });
-    });
-    describe('setProxyDescription()', () => {
-      it('sets the entity proxy note state', () => {
-        const state = { entity: { proxy: {} } };
-        store.mutations.setProxyDescription(state, 'example entity description');
-        expect(state.entity.proxy.note).toEqual('example entity description');
-      });
-    });
   });
 
   describe('getters', () => {
@@ -300,18 +286,6 @@ describe('store/entity', () => {
         await store.actions.createFeaturedSet({ getters, commit });
 
         expect(commit.calledWith('setFeaturedSetId', newSet.id)).toBe(true);
-      });
-    });
-    describe('update()', () => {
-      it('updates the entity description', async() => {
-        const body = { note: 'This is an updated enitty description' };
-
-        store.actions.$apis.entityManagement.update = sinon.stub().resolves(body);
-
-        await store.actions.update({ commit }, { id, body });
-
-        expect(commit.calledWith('setProxyDescription', body.note)).toBe(true);
-        expect(commit.calledWith('setEntityDescription', body.note)).toBe(true);
       });
     });
   });

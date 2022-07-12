@@ -38,12 +38,6 @@ export default {
     },
     setEditable(state, value) {
       state.editable = value;
-    },
-    setProxy(state, value) {
-      state.entity.proxy = value;
-    },
-    setProxyDescription(state, value) {
-      state.entity.proxy.note = value;
     }
   },
 
@@ -127,14 +121,6 @@ export default {
       };
       return this.$apis.set.create(featuredSetBody)
         .then(response => commit('setFeaturedSetId', response.id));
-    },
-    update({ commit }, { id, body }) {
-      return this.$apis.entityManagement.update(id.split('/').pop(), body)
-        .then(response => {
-          commit('setProxyDescription', body.note);
-          commit('setEntityDescription', response.note);
-        });
     }
-
   }
 };

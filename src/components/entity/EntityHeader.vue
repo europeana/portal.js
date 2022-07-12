@@ -79,6 +79,7 @@
         <EntityUpdateModal
           :body="proxy"
           :description="description.values[0] || null"
+          @updated="proxyUpdated"
         />
       </template>
     </client-only>
@@ -187,6 +188,10 @@
         this.$nextTick(() => {
           this.$redrawVueMasonry();
         });
+      },
+
+      proxyUpdated(response) {
+        this.$emit('updated', response);
       }
     }
   };

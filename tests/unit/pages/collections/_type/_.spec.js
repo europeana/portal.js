@@ -227,14 +227,20 @@ describe('pages/collections/type/_', () => {
 
             expect(wrapper.vm.$store.commit.calledWith('entity/setEntityDescription', response.note)).toBe(true);
           });
-          it('stores the Europeana proxy as the entity proxy', async() => {
+          it('stores pertinent data from response entity proxy', async() => {
             const wrapper = factory(topicEntity);
             wrapper.vm.$auth = $auth;
             wrapper.vm.$apis.entityManagement.get.resolves(response);
 
             await wrapper.vm.fetch();
 
-            expect(wrapper.vm.$store.commit.calledWith('entity/setProxy', response.proxies[0])).toBe(true);
+            expect(wrapper.vm.proxy).toEqual({
+              exactMatch: undefined,
+              sameAs: undefined,
+              note: 'About the topic',
+              id: undefined,
+              type: undefined
+            });
           });
         });
       });

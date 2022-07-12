@@ -34,8 +34,9 @@
           :image="thumbnail"
           :editable="isEditable && userIsEditor"
           :external-link="homepage"
-          :proxy="entity ? entity.proxy : null"
+          :proxy="proxy"
           :more-info="moreInfo"
+          @updated="proxyUpdated"
         />
         <template
           v-if="collectionType !== 'organisation'"
@@ -119,6 +120,7 @@
     data() {
       return {
         page: null,
+        proxy: null,
         showRelated: false,
         themes: themes.map(theme => theme.id)
       };
@@ -167,7 +169,13 @@
           if (responses[1].note) {
             this.$store.commit('entity/setEditable', true);
             this.$store.commit('entity/setEntityDescription', responses[1].note);
-            this.$store.commit('entity/setProxy', responses[1].proxies.find(proxy => proxy.id.includes('#proxy_europeana')));
+            this.proxy = {
+              id: responses[1].id,
+              type: responses[1].type,
+              note: responses[1].note,
+              sameAs: responses[1].sameAs,
+              exactMatch: responses[1].exactMatch
+            };
           }
           if (fetchCuratedEntities) {
             const entitiesResponseData = responses[2].data.data;
@@ -431,6 +439,9 @@
       },
       hideRelatedCollections() {
         this.showRelated = false;
+      },
+      proxyUpdated() {
+        this.$fetch();
       }
     }
   };

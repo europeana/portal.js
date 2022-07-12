@@ -73,13 +73,13 @@
 
     computed: {
       entityBody() {
-        const entityBody = {
-          type: this.body.type,
-          prefLabel: { ...this.body.prefLabel },
-          note: { ...this.body.note }
+        return {
+          ...this.body,
+          note: {
+            ...this.body.note,
+            [this.$i18n.locale]: [this.descriptionValue]
+          }
         };
-        entityBody.note[this.$i18n.locale] = [this.descriptionValue];
-        return entityBody;
       },
       disableSubmit() {
         // Disable submit button when description is not changed
@@ -96,18 +96,12 @@
       init() {
         this.descriptionValue = this.description ? this.description : this.descriptionValue;
       },
-      submitForm() {
-        const handler = this.$store.dispatch('entity/update', { id: this.body.id, body: this.entityBody });
-        return handler
-          .then(() => {
-            this.$bvModal.hide('entityUpdateModal');
-            this.makeToast(this.toastMsg);
-          })
-          .catch(e => {
-            throw e;
-          });
+      async submitForm() {
+        const response = await this.$apis.entityManagement.update(this.body.id.split('/').pop(), this.entityBody);
+        this.$emit('updated', response);
+        this.$bvModal.hide('entityUpdateModal');
+        this.makeToast(this.toastMsg);
       }
-
     }
   };
 </script>

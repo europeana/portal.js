@@ -45,6 +45,5 @@ export default (context = {}) => {
           throw apiError(error, context);
         });
     }
-
   };
 };
