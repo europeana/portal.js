@@ -82,6 +82,7 @@
     ::v-deep .related-heading {
       font-size: $font-size-extrasmall;
       padding: 0 15px;
+      text-align: left;
     }
   }
 </style>
