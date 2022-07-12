@@ -9,7 +9,7 @@
     <b-button
       v-if="cta"
       variant="outline-secondary"
-      class="cta my-4"
+      class="cta"
       :to="cta.url"
     >
       {{ cta.text }}
@@ -182,6 +182,7 @@
 
   .cta {
     font-size: 1em;
+    margin: 1.5em auto;
   }
 
   .slide-link {

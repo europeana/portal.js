@@ -9,7 +9,7 @@
     </h2>
     <b-button
       variant="outline-secondary"
-      class="cta my-4"
+      class="cta"
       :to="'/stories'"
     >
       {{ $t('homePage.storiesCTA') }}
@@ -101,6 +101,8 @@
   }
 
   .cta {
+    margin: 1.5em auto;
+
     @media (min-width: $bp-xxxl) {
       font-size: 1vw;
     }
