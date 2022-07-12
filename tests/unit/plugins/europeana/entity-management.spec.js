@@ -62,7 +62,7 @@ describe('plugins/europeana/entity-management', () => {
       nock(BASE_URL)
         .put(`/concept/${entityId}`)
         .reply(200, updatedEntity);
-      const response =  await entitymanage(axios).update(entityId, proxyBody);
+      const response = await entitymanage(axios).update(entityId, proxyBody);
       expect(response.id).toBe('http://data.europeana.eu/concept/124');
     });
   });

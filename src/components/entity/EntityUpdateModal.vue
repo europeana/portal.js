@@ -54,9 +54,9 @@
         type: Boolean,
         default: false
       },
-      body: {
-        type: Object,
-        default: () => ({})
+      id: {
+        type: String,
+        required: true
       },
       description: {
         type: String,
@@ -72,15 +72,6 @@
     },
 
     computed: {
-      entityBody() {
-        return {
-          ...this.body,
-          note: {
-            ...this.body.note,
-            [this.$i18n.locale]: [this.descriptionValue]
-          }
-        };
-      },
       disableSubmit() {
         // Disable submit button when description is not changed
         return (this.descriptionValue === '' && this.description === null) ||
@@ -97,7 +88,18 @@
         this.descriptionValue = this.description ? this.description : this.descriptionValue;
       },
       async submitForm() {
-        const response = await this.$apis.entityManagement.update(this.body.id.split('/').pop(), this.entityBody);
+        const entity = await this.$apis.entityManagement.get(this.id);
+        const europeanaProxy = entity.proxies.find(proxy => proxy.id.includes('#proxy_europeana'));
+        const body = {
+          sameAs: entity.sameAs,
+          exactMatch: entity.exactMatch,
+          ...europeanaProxy,
+          note: {
+            ...europeanaProxy.note || {},
+            [this.$i18n.locale]: [this.descriptionValue]
+          }
+        };
+        const response = await this.$apis.entityManagement.update(this.id, body);
         this.$emit('updated', response);
         this.$bvModal.hide('entityUpdateModal');
         this.makeToast(this.toastMsg);

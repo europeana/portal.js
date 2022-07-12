@@ -28,6 +28,7 @@
       >
         <EntityHeader
           v-if="!hasUserQuery"
+          :id="entity.id"
           :description="description"
           :title="title"
           :logo="logo"
@@ -139,10 +140,11 @@
         this.$store.commit('entity/setEditable', false);
         this.page = null;
       }
+      if (this.$auth?.user?.resource_access?.entities?.roles.includes('editor') && this.collectionType === 'topic') {
+        this.$store.commit('entity/setEditable', true);
+      }
       this.$store.commit('entity/setId', entityUri);
 
-      // Fetch entity management data if user has required access
-      const fetchEntityManagement = this.$auth?.user?.resource_access?.entities?.roles.includes('editor');
       // Get the full page for this entity if not known needed, or known to be needed, and store for reuse
       const fetchEntityPage = !this.$store.state.entity.curatedEntities ||
         this.$store.state.entity.curatedEntities.some(entity => entity.identifier === entityUri);
@@ -155,7 +157,6 @@
 
       return Promise.all([
         this.$apis.entity.get(this.collectionType, this.$route.params.pathMatch),
-        fetchEntityManagement ? this.$apis.entityManagement.get(this.collectionType, this.$route.params.pathMatch) : () => null,
         fetchCuratedEntities ? this.$contentful.query('curatedEntities', contentfulVariables) : () => null,
         fetchEntityPage ? this.$contentful.query('collectionPage', { ...contentfulVariables, identifier: entityUri }) : () => null
       ])
@@ -163,19 +164,8 @@
           this.$store.commit('entity/setEntity', pick(responses[0].entity, [
             'id', 'logo', 'note', 'description', 'homepage', 'prefLabel', 'isShownBy', 'hasAddress', 'acronym', 'type'
           ]));
-          if (responses[1].note) {
-            this.$store.commit('entity/setEditable', true);
-            this.$store.commit('entity/setEntityDescription', responses[1].note);
-            this.proxy = {
-              id: responses[1].id,
-              type: responses[1].type,
-              note: responses[1].note,
-              sameAs: responses[1].sameAs,
-              exactMatch: responses[1].exactMatch
-            };
-          }
           if (fetchCuratedEntities) {
-            const entitiesResponseData = responses[2].data.data;
+            const entitiesResponseData = responses[1].data.data;
             this.$store.commit('entity/setCuratedEntities', entitiesResponseData.curatedEntities.items);
           }
           if (fetchEntityPage) {

@@ -77,7 +77,7 @@
           {{ $t('actions.edit') }}
         </b-button>
         <EntityUpdateModal
-          :body="proxy"
+          :id="id"
           :description="description.values[0] || null"
           @updated="proxyUpdated"
         />
@@ -109,6 +109,10 @@
        */
       title: {
         type: Object,
+        required: true
+      },
+      id: {
+        type: String,
         required: true
       },
       /**
