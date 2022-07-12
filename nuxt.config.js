@@ -351,7 +351,7 @@ export default {
       }
     },
     defaultStrategy: 'keycloak',
-    plugins: ['~/plugins/apis']
+    plugins: ['~/plugins/apis', '~/plugins/user-likes.client']
   },
 
   router: {
@@ -363,6 +363,21 @@ export default {
         path: '/',
         component: 'src/pages/home/index.vue'
       };
+
+      const nuxtCollectionsPersonsOrPlacesRouteIndex = routes.findIndex(route => route.name === 'collections-persons-or-places');
+      routes.splice(nuxtCollectionsPersonsOrPlacesRouteIndex, 1);
+
+      routes.push({
+        name: 'collections-persons',
+        path: '/collections/persons',
+        component: 'src/pages/collections/persons-or-places.vue'
+      });
+
+      routes.push({
+        name: 'collections-places',
+        path: '/collections/places',
+        component: 'src/pages/collections/persons-or-places.vue'
+      });
 
       routes.push({
         name: 'slug',

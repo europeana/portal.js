@@ -28,7 +28,7 @@
           class="swiper-slide"
         >
           <b-card
-            class="h-100 text-center"
+            class="h-100 text-center responsive-backround-image"
             body-class="py-4 d-flex flex-column align-items-center"
             :style="slide.image && imageCSSVars(slide.image)"
           >
@@ -68,7 +68,7 @@
 <script>
   import swiperMixin from '@/mixins/swiper';
   import { EffectCoverflow, Keyboard } from 'swiper';
-  import { urlIsContentfulAsset, optimisedSrcForContentfulAsset } from '@/plugins/contentful-utils';
+  import { responsiveBackgroundImageCSSVars } from '@/plugins/contentful-utils';
 
   export default {
     name: 'StackedCardsSwiper',
@@ -140,22 +140,15 @@
         this.$refs.slideLink[this.swiper.activeIndex].focus();
       },
       imageCSSVars(image) {
-        if (urlIsContentfulAsset(image.url)) {
-          return {
-            '--bg-img-small': `url('${optimisedSrcForContentfulAsset(image, { w: 245, h: 440, fit: 'fill' })}')`,
-            '--bg-img-medium': `url('${optimisedSrcForContentfulAsset(image, { w: 260, h: 420, fit: 'fill' })}')`,
-            '--bg-img-large': `url('${optimisedSrcForContentfulAsset(image, { w: 280, h: 400, fit: 'fill' })}')`,
-            '--bg-img-xl': `url('${optimisedSrcForContentfulAsset(image, { w: 300, h: 400, fit: 'fill' })}')`,
-            '--bg-img-xxl': `url('${optimisedSrcForContentfulAsset(image, { w: 320, h: 370, fit: 'fill' })}')`,
-            '--bg-img-xxxl': `url('${optimisedSrcForContentfulAsset(image, { w: 355, h: 345, fit: 'fill' })}')`,
-            '--bg-img-wqhd': `url('${optimisedSrcForContentfulAsset(image, { w: 510, h: 540, fit: 'fill' })}')`,
-            '--bg-img-4k': `url('${optimisedSrcForContentfulAsset(image, { w: 700, h: 900, fit: 'fill' })}')`
-          };
-        } else {
-          return {
-            '--bg-img-small': `url('${image.url}')`
-          };
-        }
+        return responsiveBackgroundImageCSSVars(image,
+                                                { small: { w: 245, h: 440, fit: 'fill' },
+                                                  medium: { w: 260, h: 420, fit: 'fill' },
+                                                  large: { w: 280, h: 400, fit: 'fill' },
+                                                  xl: { w: 300, h: 400, fit: 'fill' },
+                                                  xxl: { w: 320, h: 370, fit: 'fill' },
+                                                  xxxl: { w: 355, h: 345, fit: 'fill' },
+                                                  wqhd: { w: 510, h: 540, fit: 'fill' },
+                                                  '4k': { w: 700, h: 900, fit: 'fill' } });
       }
     }
   };
@@ -216,47 +209,14 @@
       font-size: 1em;
     }
 
-    --overlay: linear-gradient(0deg, rgba(0 0 0 / 60%), rgba(0 0 0 / 60%));
-
     .card {
       border: 0;
       background-size: cover;
       background-repeat: no-repeat;
-
-      @media (max-width: $bp-small) {
-        background-image: var(--overlay), var(--bg-img-small);
-      }
-
-      @media (min-width: $bp-small) and (max-width: $bp-medium) {
-        background-image: var(--overlay), var(--bg-img-medium, var(--bg-img-small));
-      }
-
-      @media (min-width: $bp-medium) and (max-width: $bp-large) {
-        background-image: var(--overlay), var(--bg-img-large, var(--bg-img-small));
-      }
-
-      @media (min-width: $bp-large) and (max-width: $bp-extralarge) {
-        background-image: var(--overlay), var(--bg-img-xl, var(--bg-img-small));
-      }
-
-      @media (min-width: $bp-extralarge) and (max-width: $bp-xxl) {
-        background-image: var(--overlay), var(--bg-img-xxl, var(--bg-img-small));
-      }
-
-      @media (min-width: $bp-xxl) and (max-width: $bp-xxxl) {
-        background-image: var(--overlay), var(--bg-img-xxxl, var(--bg-img-small));
-      }
-
-      @media (min-width: $bp-xxxl) and (max-width: $bp-wqhd) {
-        background-image: var(--overlay), var(--bg-img-wqhd, var(--bg-img-small));
-      }
-
-      @media (min-width: $bp-wqhd + 1px) {
-        background-image: var(--overlay), var(--bg-img-4k, var(--bg-img-small));
-      }
     }
 
     .card-body {
+      background: linear-gradient(0deg, rgba(0 0 0 / 60%), rgba(0 0 0 / 60%));
       color: $white;
 
       @media (min-width: $bp-xxxl) {

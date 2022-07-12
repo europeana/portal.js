@@ -38,7 +38,7 @@
             </SmartLink>
             <EntityField
               v-else
-              :value="nestedValue"
+              :text="nestedValue"
               :about="value.about"
             />
           </li>

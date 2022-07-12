@@ -8,7 +8,7 @@
         <b-card-group
           class="card-deck-4-cols"
           deck
-          :data-qa="`${$route.params.type} listing page`"
+          :data-qa="`${entityTypeHumanReadable} listing page`"
         >
           <ContentCard
             v-for="entity in entities"
@@ -39,60 +39,75 @@
   import ContentCard from '@/components/generic/ContentCard';
   import PaginationNavInput from '@/components/generic/PaginationNavInput';
 
-  const PER_PAGE = 24;
   export default {
-    name: 'CollectionsPersonsIndexPage',
+    name: 'CollectionsPersonsOrPlacesIndexPage',
+
     components: {
       ContentHeader,
       ContentCard,
       PaginationNavInput
     },
+
     middleware: 'sanitisePageQuery',
-    asyncData({ error, app, store }) {
-      const entityIndexParams = {
-        query: '*:*',
-        page: store.state.sanitised.page - 1,
-        type: getEntityTypeApi('person'),
-        pageSize: PER_PAGE,
-        scope: 'europeana',
-        sort: `skos_prefLabel.${app.i18n.locale}`,
-        qf: `skos_prefLabel.${app.i18n.locale}:*`,
-        fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail'
-      };
-      return app.$apis.entity.search(entityIndexParams)
-        .then(response => response)
-        .then(data => {
-          return {
-            entities: data.entities,
-            total: data.total,
-            page: store.state.sanitised.page,
-            perPage: PER_PAGE,
-            title: app.i18n.t('pages.collections.persons.title')
-          };
-        })
-        .catch((e) => {
-          error({ statusCode: 500, message: e.toString() });
-        });
-    },
+
     data() {
       return {
-        perPage: PER_PAGE,
-        page: null
+        entities: [],
+        total: 0,
+        perPage: 24
       };
     },
+
+    async fetch() {
+      const entityIndexParams = {
+        query: '*:*',
+        page: this.page - 1,
+        type: this.entityTypeApi,
+        pageSize: this.perPage,
+        scope: 'europeana',
+        sort: `skos_prefLabel.${this.$i18n.locale}`,
+        qf: `skos_prefLabel.${this.$i18n.locale}:*`,
+        fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail'
+      };
+
+      try {
+        const response = await this.$apis.entity.search(entityIndexParams);
+
+        this.entities = response.entities;
+        this.total = response.total;
+      } finally {
+        this.$scrollTo && this.$scrollTo('#header');
+      }
+    },
+
     head() {
       return {
         title: this.$pageHeadTitle(this.title)
       };
     },
+
     computed: {
-      route() {
-        return {
-          name: 'collections-persons'
-        };
+      personsOrPlaces() {
+        return this.$route.path.split('/').pop();
+      },
+      entityTypeHumanReadable() {
+        return this.personsOrPlaces.slice(0, -1);
+      },
+      entityTypeApi() {
+        return getEntityTypeApi(this.entityTypeHumanReadable);
+      },
+      title() {
+        return this.$t(`pages.collections.${this.personsOrPlaces}.title`);
+      },
+      page() {
+        return this.$store.state.sanitised.page;
       }
     },
-    watchQuery: ['page'],
+
+    watch: {
+      '$route.query.page': '$fetch'
+    },
+
     methods: {
       entityRoute(entity) {
         return {

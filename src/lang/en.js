@@ -63,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Recent items",
     "organisation": "Organisations",
+    "place": "Places",
     "time": "Centuries",
     "topic": "Topics"
   },
@@ -80,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Organisation",
     "person": "Person",
+    "place": "Place",
     "theme": "Theme",
     "time": "Century",
     "topic": "Topic"
@@ -900,6 +902,9 @@ export default {
       },
       "persons": {
         "title": "Persons"
+      },
+      "places": {
+        "title": "Places"
       },
       "table": {
         "name": "Name"

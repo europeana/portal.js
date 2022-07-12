@@ -33,16 +33,34 @@ query HomePage(
           }
         }
       }
+      primaryImageOfPage {
+        ...imageWithAttributionFields
+      }
     }
+  }
+}
+
+fragment imageWithAttributionFields on ImageWithAttribution {
+  name
+  creator
+  provider
+  license
+  url
+  image {
+    ...imageFields
   }
 }
 
 fragment illustrationFields on Illustration {
   image {
-    url
-    description
-    contentType
-    width
-    height
+    ...imageFields
   }
+}
+
+fragment imageFields on Asset {
+  url
+  contentType
+  description
+  width
+  height
 }

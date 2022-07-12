@@ -277,6 +277,17 @@ describe('pages/contentful/entity-harvester/index', () => {
         });
       });
 
+      describe('when entry is a Place type entity', () => {
+        const response = {
+          type: 'Place',
+          note: { en: 'Note' }
+        };
+        it('returns the description from the note field', () => {
+          const wrapper = factory();
+          expect(wrapper.vm.entityDescriptionFromResponse(response)).toBe('Note');
+        });
+      });
+
       describe('when entry is an Organization type entity', () => {
         const response = {
           type: 'Organization',
@@ -291,16 +302,6 @@ describe('pages/contentful/entity-harvester/index', () => {
       describe('when entry is a Timespan type entity', () => {
         const response = {
           type: 'Timespan'
-        };
-        it('returns an empty string', () => {
-          const wrapper = factory();
-          expect(wrapper.vm.entityDescriptionFromResponse(response)).toBe('');
-        });
-      });
-
-      describe('when entry is a Place type entity', () => {
-        const response = {
-          type: 'Place'
         };
         it('returns an empty string', () => {
           const wrapper = factory();

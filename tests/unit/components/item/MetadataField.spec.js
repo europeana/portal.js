@@ -30,7 +30,7 @@ describe('components/item/MetadataField', () => {
         const fieldValue = wrapper.find('[data-qa="metadata field"] [data-qa="literal value"]');
         const entityFieldValue = wrapper.find('[data-qa="metadata field"] [data-qa="entity value"] entityfield-stub');
         expect(fieldValue.text()).toBe('Artist');
-        expect(entityFieldValue.attributes('value')).toBe('English name');
+        expect(entityFieldValue.attributes('text')).toBe('English name');
       });
     });
 
