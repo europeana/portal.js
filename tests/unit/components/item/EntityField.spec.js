@@ -15,7 +15,7 @@ const factory = (propsData) => mount(EntityField, {
 });
 
 const fixtures = {
-  europeanaEntity: { text: 'Painting', about: 'http://data.europeana.eu/concept/base/47' },
+  europeanaEntity: { text: 'Painting', about: 'http://data.europeana.eu/concept/47' },
   providerEntity: { text: 'Painting', about: 'http://example.org/entities/painting' }
 };
 
@@ -57,7 +57,7 @@ describe('components/item/EntityField', () => {
     });
 
     describe('destination', () => {
-      it('is extracts params from URI for Europeana entities', () => {
+      it('extracts params from URI for Europeana entities', () => {
         const wrapper = factory(fixtures.europeanaEntity);
 
         expect(wrapper.vm.destination).toEqual({ id: '47', type: 'topic' });

@@ -39,7 +39,7 @@ export default (context = {}) => {
      * @return {Object} API response data
      */
     update(id, body) {
-      return $axios.put(`/concept/base/${id}`, body)
+      return $axios.put(`/concept/${id}`, body)
         .then(response => response.data)
         .catch(error => {
           throw apiError(error, context);

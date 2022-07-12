@@ -91,12 +91,12 @@
   <QuickSearch
     :options="[
       {
-      id: 'http://data.europeana.eu/concept/base/48',
+      id: 'http://data.europeana.eu/concept/48',
       isShownBy: { thumbnail: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?uri=https%3A%2F%2Fwww.rijksmuseum.nl%2Fassetimage2.jsp%3Fid%3DRP-F-2000-21-40&type=IMAGE' },
       prefLabel: { en: 'photograph' }
       },
       {
-      id: 'http://data.europeana.eu/concept/base/55',
+      id: 'http://data.europeana.eu/concept/55',
       isShownBy: { thumbnail:
         'https://api.europeana.eu/api/v2/thumbnail-by-url.json?uri=https%3A%2F%2Fimages.memorix.nl%2Frce%2Fthumb%2Ffullsize%2Fa63716bf-0a46-ce14-f30a-9f2760f46e75.jpg&type=IMAGE'
       },

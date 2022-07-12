@@ -277,7 +277,7 @@ describe('components/search/SideFilters', () => {
 
         it('is included in the context of a non-thematic collection', () => {
           const entityStoreGetters = {
-            id: () => 'http://data.europeana.eu/base/concept/123'
+            id: () => 'http://data.europeana.eu/concept/123'
           };
           const searchStoreGetters = {
             facetNames: () => facetNames

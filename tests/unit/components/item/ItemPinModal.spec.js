@@ -34,7 +34,7 @@ const setSearchApiResponse = {
   }
 };
 
-const ENTITY_URI = 'http://data.europeana.eu/agent/base/123';
+const ENTITY_URI = 'http://data.europeana.eu/agent/123';
 
 const setGetApiResponseWithPinnedItem = {
   id: 'http://data.europeana.eu/set/456',
@@ -120,11 +120,11 @@ const factory = ({ propsData, data } = {}) => mount(ItemPinModal, {
         prefLabel: { en: ['Agent entity'] }
       },
       {
-        about: 'http://data.europeana.eu/topic/base/123',
+        about: 'http://data.europeana.eu/topic/123',
         prefLabel: { en: ['Topic entity'] }
       },
       {
-        about: 'http://data.europeana.eu/organisation/base/123456789',
+        about: 'http://data.europeana.eu/organisation/123456789',
         prefLabel: { en: ['Organisation entity'] }
       }
     ],

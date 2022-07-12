@@ -88,10 +88,10 @@ describe('components/browse/ContentCardSection', () => {
       const wrapper = factory({
         hasPartCollection: {
           items: [
-            { __typename: 'AutomatedEntityCard', name: 'Card one title', slug: '123', identifier: 'http://data.europeana.eu/agent/base/123', image: 'img/landscape.jpg' },
-            { __typename: 'AutomatedEntityCard', name: 'Card one title', slug: '1234', identifier: 'http://data.europeana.eu/agent/base/1234', image: 'img/landscape.jpg' },
-            { __typename: 'AutomatedEntityCard', name: 'Card one title', slug: '12345', identifier: 'http://data.europeana.eu/agent/base/12345', image: 'img/landscape.jpg' },
-            { __typename: 'AutomatedEntityCard', name: 'Card one title', slug: '123456', identifier: 'http://data.europeana.eu/agent/base/12346', image: 'img/landscape.jpg' }
+            { __typename: 'AutomatedEntityCard', name: 'Card one title', slug: '123', identifier: 'http://data.europeana.eu/agent/123', image: 'img/landscape.jpg' },
+            { __typename: 'AutomatedEntityCard', name: 'Card one title', slug: '1234', identifier: 'http://data.europeana.eu/agent/1234', image: 'img/landscape.jpg' },
+            { __typename: 'AutomatedEntityCard', name: 'Card one title', slug: '12345', identifier: 'http://data.europeana.eu/agent/12345', image: 'img/landscape.jpg' },
+            { __typename: 'AutomatedEntityCard', name: 'Card one title', slug: '123456', identifier: 'http://data.europeana.eu/agent/12346', image: 'img/landscape.jpg' }
           ]
         }
       });
@@ -103,10 +103,10 @@ describe('components/browse/ContentCardSection', () => {
       const wrapper = factory({
         hasPartCollection: {
           items: [
-            { __typename: 'AutomatedEntityCard', name: 'Card one title', slug: '123', identifier: 'http://data.europeana.eu/concept/base/123', image: 'img/landscape.jpg' },
-            { __typename: 'AutomatedEntityCard', name: 'Card one title', slug: '1234', identifier: 'http://data.europeana.eu/agent/base/1234', image: 'img/landscape.jpg' },
-            { __typename: 'AutomatedEntityCard', name: 'Card one title', slug: '12345', identifier: 'http://data.europeana.eu/agent/base/12345', image: 'img/landscape.jpg' },
-            { __typename: 'AutomatedEntityCard', name: 'Card one title', slug: '123456', identifier: 'http://data.europeana.eu/agent/base/12346', image: 'img/landscape.jpg' }
+            { __typename: 'AutomatedEntityCard', name: 'Card one title', slug: '123', identifier: 'http://data.europeana.eu/concept/123', image: 'img/landscape.jpg' },
+            { __typename: 'AutomatedEntityCard', name: 'Card one title', slug: '1234', identifier: 'http://data.europeana.eu/agent/1234', image: 'img/landscape.jpg' },
+            { __typename: 'AutomatedEntityCard', name: 'Card one title', slug: '12345', identifier: 'http://data.europeana.eu/agent/12345', image: 'img/landscape.jpg' },
+            { __typename: 'AutomatedEntityCard', name: 'Card one title', slug: '123456', identifier: 'http://data.europeana.eu/agent/12346', image: 'img/landscape.jpg' }
           ]
         }
       });

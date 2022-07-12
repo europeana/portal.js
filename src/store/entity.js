@@ -1,5 +1,3 @@
-import { baseVariantEntityUris } from '@/plugins/europeana/entity';
-
 export default {
   state: () => ({
     curatedEntities: null,
@@ -56,8 +54,7 @@ export default {
     },
 
     curatedEntity: (state) => (uri) => {
-      // TODO: baseVariantEntityUris lookup won't be needed when the entity API returns consistent URIs.
-      return state.curatedEntities.find(entity => baseVariantEntityUris(entity.identifier)[0] === baseVariantEntityUris(uri)[0]);
+      return state.curatedEntities.find(entity => entity.identifier === uri);
     },
 
     id(state) {
