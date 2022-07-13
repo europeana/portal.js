@@ -22,18 +22,19 @@
         :per-page="recordsPerPage"
         :route="route"
         :show-content-tier-toggle="false"
-        :show-pins="userIsEditor && userIsSetsEditor"
+        :show-pins="userIsEntitiesEditor && userIsSetsEditor"
         :editorial-overrides="editorialOverrides"
         :show-related="showRelated"
       >
         <EntityHeader
-          v-if="!hasUserQuery"
-          :id="entity.id"
+          v-show="entity && !hasUserQuery"
+          :id="entity && entity.id"
           :description="description"
           :title="title"
+          :sub-title="subTitle"
           :logo="logo"
           :image="thumbnail"
-          :editable="isEditable && userIsEditor"
+          :editable="editable"
           :external-link="homepage"
           :proxy="proxy"
           :more-info="moreInfo"
@@ -140,9 +141,6 @@
         this.$store.commit('entity/setEditable', false);
         this.page = null;
       }
-      if (this.$auth?.user?.resource_access?.entities?.roles.includes('editor') && this.collectionType === 'topic') {
-        this.$store.commit('entity/setEditable', true);
-      }
       this.$store.commit('entity/setId', entityUri);
 
       // Get the full page for this entity if not known needed, or known to be needed, and store for reuse
@@ -199,9 +197,6 @@
       recordsPerPage() {
         return this.$store.state.entity.recordsPerPage;
       },
-      editable() {
-        return this.$store.state.entity.editable;
-      },
       pageTitle() {
         return this.$fetchState.error ? this.$t('error') : this.title.values[0];
       },
@@ -250,12 +245,12 @@
       description() {
         let description = null;
 
-        if (this.isEditable) {
-          description = this.entity.note[this.$i18n.locale] ? { values: this.entity.note[this.$i18n.locale], code: this.$i18n.locale } : null;
-        } else if (this.editorialDescription) {
+        if (this.editorialDescription) {
           description = { values: [this.editorialDescription], code: null };
-        } else if (this.organisationNonNativeEnglishName) {
-          description = langMapValueForLocale(this.organisationNonNativeEnglishName, this.$i18n.locale);
+        } else if (this.entity?.note) {
+          description = langMapValueForLocale(this.entity.note, this.$i18n.locale);
+        } else if (this.entity?.description) {
+          description = langMapValueForLocale(this.entity.description, this.$i18n.locale);
         }
 
         return description;
@@ -310,11 +305,16 @@
         }
         return null;
       },
-      userIsEditor() {
-        return this.$store.state.auth.user?.resource_access?.entities?.roles?.includes('editor') || false;
+      editable() {
+        return this.entity &&
+          this.userIsEntitiesEditor &&
+          this.collectionType === 'topic';
+      },
+      userIsEntitiesEditor() {
+        return this.$auth?.user?.resource_access?.entities?.roles.includes('editor') || false;
       },
       userIsSetsEditor() {
-        return this.$store.state.auth.user?.resource_access?.usersets?.roles.includes('editor') || false;
+        return this.$auth?.user?.resource_access?.usersets?.roles.includes('editor') || false;
       },
       route() {
         return {
@@ -340,8 +340,10 @@
 
         return title;
       },
-      isEditable() {
-        return this.entity && !!this.editable;
+      subTitle() {
+        return this.organisationNonNativeEnglishName ?
+          langMapValueForLocale(this.organisationNonNativeEnglishName, this.$i18n.locale) :
+          null;
       },
       hasUserQuery() {
         return this.$route.query.query &&  this.$route.query.query !== '';
@@ -391,7 +393,7 @@
     },
     mounted() {
       this.storeSearchOverrides();
-      if (this.userIsEditor) {
+      if (this.userIsEntitiesEditor) {
         this.$store.dispatch('entity/getFeatured');
       }
     },

@@ -87,22 +87,34 @@
       init() {
         this.descriptionValue = this.description ? this.description : this.descriptionValue;
       },
-      async submitForm() {
+      async updateEntity() {
+        // First fetch the entity to get its Europeana proxy to avoid data loss
         const entity = await this.$apis.entityManagement.get(this.id);
-        const europeanaProxy = entity.proxies.find(proxy => proxy.id.includes('#proxy_europeana'));
-        const body = {
-          sameAs: entity.sameAs,
-          exactMatch: entity.exactMatch,
+        const europeanaProxy = entity.proxies.find(proxy => proxy.id.includes('#proxy_europeana')) || {};
+
+        let body = {};
+        if (entity.exactMatch) {
+          body.exactMatch = entity.exactMatch;
+        }
+        if (entity.sameAs) {
+          body.sameAs = entity.sameAs;
+        }
+        body = {
+          ...body,
           ...europeanaProxy,
           note: {
             ...europeanaProxy.note || {},
             [this.$i18n.locale]: [this.descriptionValue]
           }
         };
-        const response = await this.$apis.entityManagement.update(this.id, body);
-        this.$emit('updated', response);
+
+        return await this.$apis.entityManagement.update(this.id, body);
+      },
+      async submitForm() {
+        await this.updateEntity();
         this.$bvModal.hide('entityUpdateModal');
         this.makeToast(this.toastMsg);
+        this.$emit('updated');
       }
     }
   };

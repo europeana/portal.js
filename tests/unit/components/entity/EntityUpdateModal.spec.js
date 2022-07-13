@@ -18,17 +18,24 @@ const i18n = new VueI18n({
 });
 
 const existingEntityPropsData = {
-  description: 'A form of communication',
-  body: {
-    id: '1-art',
-    type: 'concept',
-    prefLabel: {
-      en: 'Art'
-    },
-    note: {
-      en: ['A form of communication', 'A book is a medium for recording information']
+  id: 'http://data.europeana.eu/concept/190',
+  description: 'Expressive work intended to be appreciated for its beauty or emotional power; or the process of creating such a work'
+};
+
+const entityManagementGetResponse = {
+  id: 'http://data.europeana.eu/concept/190',
+  type: 'Concept',
+  exactMatch: ['http://www.wikidata.org/entity/Q735'],
+  note: { en: 'Expressive work intended to be appreciated for its beauty or emotional power; or the process of creating such a work' },
+  prefLabel: { en: 'Art' },
+  proxies: [
+    {
+      id: 'http://data.europeana.eu/concept/190#proxy_europeana',
+      type: 'Concept',
+      prefLabel: { en: 'Art' },
+      note: { en: 'Expressive work intended to be appreciated for its beauty or emotional power; or the process of creating such a work' }
     }
-  }
+  ]
 };
 
 const factory = (propsData = {}) => mount(EntityUpdateModal, {
@@ -41,6 +48,7 @@ const factory = (propsData = {}) => mount(EntityUpdateModal, {
   mocks: {
     $apis: {
       entityManagement: {
+        get: sinon.stub().resolves(entityManagementGetResponse),
         update: sinon.spy()
       }
     }
@@ -48,59 +56,85 @@ const factory = (propsData = {}) => mount(EntityUpdateModal, {
 });
 
 describe('components/entity/EntityUpdateModal', () => {
-  describe('form submission', () => {
-    it('updates existing entity', async() => {
-      const wrapper = factory(existingEntityPropsData);
-      await wrapper.find('#entity-description').setValue('Updated');
-      await wrapper.find('form').trigger('submit.stop.prevent');
+  describe('template', () => {
+    describe('form submission', () => {
+      it('updates existing entity', async() => {
+        const wrapper = factory(existingEntityPropsData);
+        await wrapper.find('#entity-description').setValue('Updated');
+        sinon.spy(wrapper.vm, 'updateEntity');
 
-      expect(wrapper.vm.$apis.entityManagement.update.calledWith('1-art', {
-        id: '1-art',
-        type: 'concept',
-        prefLabel: {
-          en: 'Art'
-        },
-        note: {
-          en: ['Updated']
-        }
-      })).toBe(true);
+        await wrapper.find('form').trigger('submit.stop.prevent');
+        expect(wrapper.vm.updateEntity.called).toBe(true);
+      });
+
+      it('hides the modal', async() => {
+        const wrapper = factory(existingEntityPropsData);
+        const bvModalHide = sinon.spy(wrapper.vm.$bvModal, 'hide');
+
+        await wrapper.find('form').trigger('submit.stop.prevent');
+        await wrapper.vm.$nextTick();
+
+        expect(bvModalHide.calledWith('entityUpdateModal')).toBe(true);
+      });
+
+      it('makes toast', async() => {
+        const wrapper = factory(existingEntityPropsData);
+        const rootBvToast = sinon.spy(wrapper.vm.$root.$bvToast, 'toast');
+
+        await wrapper.find('form').trigger('submit.stop.prevent');
+        await wrapper.vm.$nextTick();
+
+        expect(rootBvToast.calledWith('The collection has been updated', sinon.match.any)).toBe(true);
+      });
     });
 
-    it('hides the modal', async() => {
-      const wrapper = factory(existingEntityPropsData);
-      const bvModalHide = sinon.spy(wrapper.vm.$bvModal, 'hide');
+    describe('update button', () => {
+      describe('when there is no description update', () => {
+        it('is disabled', () => {
+          const wrapper = factory(existingEntityPropsData);
 
-      await wrapper.find('form').trigger('submit.stop.prevent');
+          wrapper.find('#entity-description').setValue(existingEntityPropsData.description);
+          expect(wrapper.find('[data-qa="submit button"]').attributes('disabled')).toBe('disabled');
+        });
+      });
+      describe('when description is filled with empty string', () => {
+        it('is disabled', () => {
+          const wrapper = factory({ ...existingEntityPropsData, description: undefined });
 
-      expect(bvModalHide.calledWith('entityUpdateModal')).toBe(true);
-    });
+          wrapper.find('#entity-description').setValue('');
 
-    it('makes toast', async() => {
-      const wrapper = factory(existingEntityPropsData);
-      const rootBvToast = sinon.spy(wrapper.vm.$root.$bvToast, 'toast');
-
-      await wrapper.find('form').trigger('submit.stop.prevent');
-
-      expect(rootBvToast.calledWith('The collection has been updated', sinon.match.any)).toBe(true);
+          expect(wrapper.find('[data-qa="submit button"]').attributes('disabled')).toBe('disabled');
+        });
+      });
     });
   });
 
-  describe('update button', () => {
-    describe('when there is no description update', () => {
-      it('is disabled', () => {
+  describe('methods', () => {
+    describe('updateEntity', () => {
+      it('fetches the entity from the management API', async() => {
         const wrapper = factory(existingEntityPropsData);
+        await (wrapper.setData({ descriptionValue: 'Updated' }));
 
-        wrapper.find('#entity-description').setValue(existingEntityPropsData.description);
-        expect(wrapper.find('[data-qa="submit button"]').attributes('disabled')).toBe('disabled');
+        await wrapper.vm.updateEntity();
+
+        expect(wrapper.vm.$apis.entityManagement.get.calledWith(existingEntityPropsData.id)).toBe(true);
       });
-    });
-    describe('when description is filled with emptry string', () => {
-      it('is disabled', () => {
-        const wrapper = factory({ description: undefined });
 
-        wrapper.find('#entity-description').setValue('');
+      it('updates via the management API, preserving existing proxy data', async() => {
+        const wrapper = factory(existingEntityPropsData);
+        await (wrapper.setData({ descriptionValue: 'Updated' }));
 
-        expect(wrapper.find('[data-qa="submit button"]').attributes('disabled')).toBe('disabled');
+        await wrapper.vm.updateEntity();
+
+        expect(wrapper.vm.$apis.entityManagement.update.calledWith(
+          existingEntityPropsData.id, {
+            exactMatch: ['http://www.wikidata.org/entity/Q735'],
+            id: 'http://data.europeana.eu/concept/190#proxy_europeana',
+            type: 'Concept',
+            prefLabel: { en: 'Art' },
+            note: { en: ['Updated'] }
+          }
+        )).toBe(true);
       });
     });
   });

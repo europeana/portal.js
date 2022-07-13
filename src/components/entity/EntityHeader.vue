@@ -16,6 +16,12 @@
     >
       {{ title.values[0] }}
     </b-card-title>
+    <b-card-sub-title
+      v-if="subTitle"
+      :lang="subTitle.code"
+    >
+      {{ subTitle.values[0] }}
+    </b-card-sub-title>
     <b-card-text
       v-if="hasDescription"
       text-tag="div"
@@ -79,7 +85,7 @@
         <EntityUpdateModal
           :id="id"
           :description="description.values[0] || null"
-          @updated="proxyUpdated"
+          @updated="$emit('updated')"
         />
       </template>
     </client-only>
@@ -111,9 +117,19 @@
         type: Object,
         required: true
       },
+      /**
+       * URI of the entity
+       */
       id: {
         type: String,
         required: true
+      },
+      /**
+       * Sub-title of the entity
+       */
+      subTitle: {
+        type: Object,
+        default: null
       },
       /**
        * Description of the entity as object with 'values' (array of strings) and 'code' two letter language code
@@ -192,10 +208,6 @@
         this.$nextTick(() => {
           this.$redrawVueMasonry();
         });
-      },
-
-      proxyUpdated(response) {
-        this.$emit('updated', response);
       }
     }
   };

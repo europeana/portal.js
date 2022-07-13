@@ -13,14 +13,13 @@ const organisationEntity = {
   entity: {
     id: 'http://data.europeana.eu/organization/01234567890',
     logo: { id: 'http://commons.wikimedia.org/wiki/Special:FilePath/Albertina%20Logo.svg' },
-    description: { en: 'example of an organisation description' },
-    note: { en: 'editable description' },
     prefLabel: { en: 'English name', nl: 'Dutch name' },
     homepage: 'https://www.example-organisation.eu',
     hasAddress: {
       countryName: 'The Netherlands',
       locality: 'The Hague'
     },
+    description: { en: ['example of an organisation description'] },
     acronym: { en: 'ABC' },
     type: 'Organization'
   },
@@ -31,7 +30,7 @@ const organisationEntity = {
 const topicEntity = {
   entity: {
     id: 'http://data.europeana.eu/concept/01234567890',
-    description: { en: 'example of a topic description' },
+    note: { en: ['example of a topic note'] },
     isShownBy: { thumbnail: 'https://api.europeana.eu/api/v2/thumbnail.jpg' },
     prefLabel: { en: 'Topic' },
     type: 'Concept'
@@ -43,7 +42,7 @@ const topicEntity = {
 const themeEntity = {
   entity: {
     id: 'http://data.europeana.eu/concept/62',
-    description: { en: 'example of a theme description' },
+    note: { en: 'example of a theme description' },
     isShownBy: { thumbnail: 'https://api.europeana.eu/api/v2/thumbnail.jpg' },
     prefLabel: { en: 'Theme' },
     type: 'Concept'
@@ -71,8 +70,6 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
   mocks: {
     $fetchState: {},
     $t: (key, args) => args ? `${key} ${args}` : key,
-    $tc: (key) => key,
-    $te: () => true,
     $route: { query: options.query || '', params: { type: options.type, pathMatch: options.pathMatch } },
     $contentful: {
       query: contentfulQueryStub
@@ -91,30 +88,17 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
       locale: 'en',
       isoLocale: () => 'en-GB'
     },
-    $features: { sideFilters: false },
     $pageHeadTitle: key => key,
     $path: () => '/',
     $nuxt: { context: { redirect: sinon.spy(), app: { router: { replace: sinon.spy() } } } },
     $store: {
       state: {
         entity: {
-          entity: options.entity,
-          ...options.entityStoreState
-        },
-        i18n: {
-          locale: 'en'
-        },
-        auth: {},
-        search: {
-          showSearchBar: true
+          entity: options.entity
         }
       },
       getters: {
-        'entity/curatedEntity': sinon.stub().returns(null),
-        'search/facetNames': sinon.stub().returns([]),
-        'search/filters': sinon.stub().returns({}),
-        'search/queryUpdatesForFacetChanges': sinon.stub().returns({}),
-        'search/collection': sinon.stub().returns(false)
+        'entity/curatedEntity': sinon.stub().returns(null)
       },
       dispatch: sinon.spy(),
       commit: sinon.spy()
@@ -123,8 +107,8 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
   }
 });
 
-describe('pages/collections/type/_', () => {
-  beforeEach(sinon.resetHistory);
+describe('pages/collections/_type/_', () => {
+  afterEach(sinon.resetHistory);
 
   describe('fetch', () => {
     it('disables collection facet via search store', async() => {
@@ -183,74 +167,6 @@ describe('pages/collections/type/_', () => {
         const curatedEntities = [{}];
         it('is not requested from Contentful', async() => {
           expect(await requestMade(curatedEntities)).toBe(false);
-        });
-      });
-    });
-
-    describe('entity management', () => {
-      const auth = {
-        authorized: { user: { 'resource_access': { entities: { roles: ['editor'] } } } },
-        unauthorized: { user: { 'resource_access': { entities: { roles: [] } } } }
-      };
-      const requestMade = async($auth) => {
-        const wrapper = factory(topicEntity);
-        wrapper.vm.$auth = $auth;
-
-        await wrapper.vm.fetch();
-
-        return wrapper.vm.$apis.entityManagement.get.calledWith('topic', '01234567890-topic');
-      };
-
-      describe('and user is authenticated with "entities" roles including "editor"', () => {
-        const $auth = auth.authorized;
-        it('requests entity management data', async() => {
-          expect(await requestMade($auth)).toBe(true);
-        });
-
-        describe('and there is a note in the response', () => {
-          const proxy = { id: '#proxy_europeana' };
-          const response = { note: 'About the topic', proxies: [proxy] };
-
-          it('stores that the entity is editable', async() => {
-            const wrapper = factory(topicEntity);
-            wrapper.vm.$auth = $auth;
-            wrapper.vm.$apis.entityManagement.get.resolves(response);
-
-            await wrapper.vm.fetch();
-
-            expect(wrapper.vm.$store.commit.calledWith('entity/setEditable', true)).toBe(true);
-          });
-          it('stores the note as the entity description', async() => {
-            const wrapper = factory(topicEntity);
-            wrapper.vm.$auth = $auth;
-            wrapper.vm.$apis.entityManagement.get.resolves(response);
-
-            await wrapper.vm.fetch();
-
-            expect(wrapper.vm.$store.commit.calledWith('entity/setEntityDescription', response.note)).toBe(true);
-          });
-          it('stores pertinent data from response entity proxy', async() => {
-            const wrapper = factory(topicEntity);
-            wrapper.vm.$auth = $auth;
-            wrapper.vm.$apis.entityManagement.get.resolves(response);
-
-            await wrapper.vm.fetch();
-
-            expect(wrapper.vm.proxy).toEqual({
-              exactMatch: undefined,
-              sameAs: undefined,
-              note: 'About the topic',
-              id: undefined,
-              type: undefined
-            });
-          });
-        });
-      });
-
-      describe('but user is not authenticated with "entities" roles including "editor"', () => {
-        const $auth = auth.unauthorized;
-        it('does not request entity management data', async() => {
-          expect(await requestMade($auth)).toBe(false);
         });
       });
     });
@@ -351,15 +267,19 @@ describe('pages/collections/type/_', () => {
       });
     });
 
-    describe('description', () => {
-      it('uses the entity note (from Entity Management service), if editable', () => {
-        const wrapper = factory({ ...organisationEntity, entityStoreState: { editable: true } });
+    describe('subTitle', () => {
+      it('uses the English prefLabel for an organisation, if non-native', () => {
+        const wrapper = factory(organisationEntity);
 
-        const description = wrapper.vm.description.values;
+        const subTitle = wrapper.vm.subTitle.values[0];
 
-        expect(description).toBe(organisationEntity.entity.note.en);
+        expect(subTitle).toBe(organisationEntity.entity.prefLabel.en);
       });
+    });
 
+    // mocks: { $auth: { user: { resource_access: { entities: { roles: ['editor'] } } } } }
+
+    describe('description', () => {
       it('uses the editorial description, if available', () => {
         const wrapper = factory(organisationEntity);
         wrapper.setData({ page: { description: 'Editorial description' } });
@@ -369,12 +289,20 @@ describe('pages/collections/type/_', () => {
         expect(description).toEqual(['Editorial description']);
       });
 
-      it('uses the English prefLabel for an organisation, if non-native', () => {
+      it('uses the entity note, if present', () => {
+        const wrapper = factory(topicEntity);
+
+        const description = wrapper.vm.description.values;
+
+        expect(description).toEqual(topicEntity.entity.note.en);
+      });
+
+      it('uses the entity description, if present', () => {
         const wrapper = factory(organisationEntity);
 
-        const description = wrapper.vm.description.values[0];
+        const description = wrapper.vm.description.values;
 
-        expect(description).toBe(organisationEntity.entity.prefLabel.en);
+        expect(description).toEqual(organisationEntity.entity.description.en);
       });
     });
 
