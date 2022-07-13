@@ -110,8 +110,8 @@
       font-weight: 700;
       margin-bottom: 1em;
 
-      @media (min-width: $bp-small) {
-        margin-bottom: 2.75em;
+      @media (min-width: $bp-medium) {
+        margin-bottom: 2em;
       }
 
       @media (min-width: $bp-medium) {
