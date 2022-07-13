@@ -1,6 +1,6 @@
 <template>
   <div
-    class="home-cta d-flex flex-md-row flex-column"
+    class="cta-banner d-flex flex-md-row flex-column"
     :class="variant"
   >
     <div
@@ -86,7 +86,7 @@
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
 
-  .home-cta {
+  .cta-banner {
     background-color: $yellowgrey;
     margin-bottom: 2em;
     font-size: 1rem;
@@ -99,18 +99,35 @@
     }
 
     .cta-content {
-      padding: 2.5em;
+      padding: 1.75em;
       text-align: center;
-      font-size: 1em;
+      font-size: 1rem;
+
+      @media (min-width: $bp-extralarge) {
+        font-size: 1.375rem;
+      }
+
+      @media (min-width: $bp-xxxl) {
+        font-size: 1em;
+      }
 
       h2 {
         color: $mediumgrey;
-        font-size: 2em;
+        font-size: 2rem;
         font-weight: 700;
+        margin-bottom: 0.8em;
+
+        @media (min-width: $bp-extralarge) {
+          font-size: 2.375rem;
+        }
+
+        @media (min-width: $bp-xxxl) {
+          font-size: 2em;
+        }
       }
 
       p {
-        font-size: 1em;
+        margin-bottom: 1em;
       }
     }
 
@@ -122,6 +139,7 @@
       font-weight: 700;
       padding: 0.5em 1em;
       border-radius: 0.25em;
+      margin-top: 2em;
 
       @media (min-width: $bp-xxxl) {
         font-size: 1vw;
@@ -175,6 +193,10 @@
         margin: 0 auto;
       }
     }
+  }
+
+  .home-cta {
+    margin: 3em auto;
   }
 </style>
 

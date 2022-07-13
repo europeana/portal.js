@@ -15,7 +15,7 @@
           :link="callsToAction[0].relatedLink"
           :illustration="callsToAction[0].image"
           variant="light"
-          class="my-5"
+          class="home-cta"
         />
         <StackedCardsSwiper
           v-if="!$fetchState.pending"
@@ -30,7 +30,7 @@
           :link="callsToAction[1].relatedLink"
           :illustration="callsToAction[1].image"
           variant="innovationblue"
-          class="my-5"
+          class="home-cta"
         />
         <HomeLatest />
         <CallToActionBanner
@@ -39,7 +39,7 @@
           :text="callsToAction[2].text"
           :link="callsToAction[2].relatedLink"
           :illustration="callsToAction[2].image"
-          class="my-5"
+          class="home-cta"
         />
       </div>
     </div>

@@ -78,7 +78,7 @@
     margin-top: -70px;
     margin-bottom: 1rem;
     background-color: $mediumgrey-light;
-    padding: 12rem 1.5rem;
+    padding: 9.5rem 1.5rem;
     min-height: 100vh;
     background-size: cover;
     background-repeat: no-repeat;
@@ -116,17 +116,23 @@
     h1 {
       font-size: 2.125rem;
       font-weight: 700;
-      margin-bottom: 2em;
+      margin-bottom: 1em;
+
+      @media (min-width: $bp-small) {
+        margin-bottom: 2.75em;
+      }
+
+      @media (min-width: $bp-medium) {
+        font-size: 2.875rem;
+      }
     }
 
     .sub-headline {
       font-size: 1rem;
       margin-bottom: 4em;
-    }
 
-    @media (min-width: $bp-medium) {
-      .sub-headline {
-        font-size: 1.25rem;
+      @media (min-width: $bp-medium) {
+        font-size: 1.625rem;
       }
     }
 
