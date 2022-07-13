@@ -132,6 +132,8 @@
     font-size: 1rem;
     text-decoration: none;
     text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     &::before {
       @extend %icon-font;
