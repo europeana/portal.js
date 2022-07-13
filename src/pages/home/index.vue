@@ -7,7 +7,6 @@
       <HomeHero
         :background-image="backgroundImage"
       />
-      <!-- TODO: render everything else client-only? -->
       <client-only>
         <div class="page gridless-container">
           <CallToActionBanner
