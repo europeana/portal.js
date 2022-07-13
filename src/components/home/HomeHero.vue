@@ -12,19 +12,11 @@
         >
           {{ $t('homePage.title') }}
         </h1>
-        <i18n
-          path="homePage.subHeadline"
-          tag="p"
-          for="homePage.free"
+        <p
           class="sub-headline text-center"
         >
-          <template #download>
-            <strong>{{ $t('homePage.download') }}</strong>
-          </template>
-          <template #free>
-            <strong>{{ $t('homePage.free') }}</strong>
-          </template>
-        </i18n>
+          {{ $t('homePage.subHeadline') }}
+        </p>
       </header>
       <SearchForm />
     </div>

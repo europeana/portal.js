@@ -757,14 +757,12 @@ export default {
   },
   "homeLinkAlt": "Europeana home",
   "homePage": {
-    "discoverEditorial": "Discover our stories",
-    "download": "download",
-    "free": "free",
+    "discoverEditorial": "Latest stories",
     "storiesCTA": "See all our stories",
-    "subHeadline": "Find and {download} artworks, photographs, books, manuscripts, newspapers and music from over 4000 museums, archives, galleries, and libraries for {free}.",
-    "themesCTA": "See all our collections",
-    "themesTitle": "Start exploring by theme",
-    "title": "Discover European cultural heritage"
+    "subHeadline": "Search, save and share art, books, films and music from thousands of cultural institutions",
+    "themesCTA": "See all collections",
+    "themesTitle": "Explore by theme",
+    "title": "Discover Europe’s cultural heritage"
   },
   "imageSlider": {
     "handle": "Slider Handle"
@@ -969,7 +967,7 @@ export default {
     "title": "Search"
   },
   "searchHasLoaded": "{0} results returned",
-  "searchPlaceholder": "Search millions of items",
+  "searchPlaceholder": "Search 50+ million items",
   "searchResults": "Search",
   "searchResultsFor": "{0} - Search",
   "searchSuggestions": "Search suggestions",
