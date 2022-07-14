@@ -6,6 +6,7 @@ export const actions = {
   //          the response of the API calls.
   async nuxtServerInit(store, context) {
     store.dispatch('http/init', context);
+    store.dispatch('http/setRequestAcceptMediaTypes', context);
     store.commit('apis/init', context);
     context.$cookies && store.commit('search/setView', context.$cookies.get('searchResultsView'));
   }

@@ -24,6 +24,13 @@ export const isHttps = ({ req }) => {
   return false;
 };
 
+export const acceptMediaTypes = ({ req }) => {
+  return (req.headers.accept || '')
+    .split(',')
+    .map((accept) => accept.split(';')[0])
+    .filter((accept) => accept !== '*/*');
+};
+
 export const currentHost = ({ req }) => {
   if (process.client) {
     return window.location.host;

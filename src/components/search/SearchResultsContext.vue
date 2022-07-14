@@ -109,7 +109,11 @@
       },
       entityImage() {
         if (this.editorialOverrides?.image && urlIsContentfulAsset(this.editorialOverrides.image.url)) {
-          return optimisedSrcForContentfulAsset(this.editorialOverrides.image, { w: 28, h: 28, fit: 'thumb' });
+          return optimisedSrcForContentfulAsset(
+            this.editorialOverrides.image,
+            { w: 28, h: 28, fit: 'thumb' },
+            { acceptMediaTypes: this.$store.state.http.acceptMediaTypes }
+          );
         }
         return this.$apis.entity.imageUrl(this.entity);
       },

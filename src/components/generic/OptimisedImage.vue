@@ -74,7 +74,11 @@
         if (typeof this.contentType !== 'string' || !urlIsContentfulAsset(this.src)) {
           return this.src;
         }
-        return optimisedSrcForContentfulAsset({ url: this.src, contentType: this.contentType }, { w: this.maxWidth, q: this.quality });
+        return optimisedSrcForContentfulAsset(
+          { url: this.src, contentType: this.contentType },
+          { w: this.maxWidth, q: this.quality },
+          { acceptMediaTypes: this.$store.state.http.acceptMediaTypes }
+        );
       }
     }
   };

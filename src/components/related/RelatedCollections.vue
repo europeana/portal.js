@@ -103,7 +103,11 @@
 
       imageUrl(collection) {
         if (collection.contentfulImage && urlIsContentfulAsset(collection.contentfulImage.url)) {
-          return optimisedSrcForContentfulAsset(collection.contentfulImage, { w: 28, h: 28, fit: 'thumb' });
+          return optimisedSrcForContentfulAsset(
+            collection.contentfulImage,
+            { w: 28, h: 28, fit: 'thumb' },
+            { acceptMediaTypes: this.$store.state.http.acceptMediaTypes }
+          );
         }
         return this.$apis.entity.imageUrl(collection);
       }
