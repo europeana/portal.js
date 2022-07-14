@@ -67,11 +67,11 @@
         :aria-label="$t('header.sideNavigation')"
       >
         <b-navbar
-          class="sidebar-nav align-items-start flex-column pt-1 pl-2 pb-4 pr-2"
+          class="sidebar-nav align-items-start flex-column"
           role="navigation"
           data-qa="sidebar navigation"
         >
-          <div class="w-100 d-flex align-items-center pl-2 pt-2 pb-3">
+          <div class="sidebar-header w-100 d-flex align-items-center">
             <b-button
               v-b-toggle.sidebar
               data-qa="close menu button"
@@ -152,6 +152,10 @@
     z-index: 1030;
     padding: 0;
     box-shadow: 2px 2px 4px 0 rgb(0 0 0 / 8%);
+
+    @media (min-width: $bp-large) {
+      transition: $standard-transition;
+    }
 
     @media (min-width: $bp-xxxl) {
       font-size: 1vw;
@@ -241,6 +245,12 @@
     }
 
     &.sidebar-nav {
+      padding: 0.25em 0.5em 1.5em;
+
+      .sidebar-header {
+        padding: 0.5em 0.5em 1em;
+      }
+
       .logo {
         min-width: auto;
       }
@@ -249,12 +259,6 @@
         flex-direction: column;
         width: 100%;
       }
-    }
-  }
-
-  .container-fluid {
-    @media (min-width: $bp-large) {
-      transition: $standard-transition;
     }
   }
 
@@ -269,6 +273,13 @@
       font-size: 1.1vw;
       height: 1.5em;
       width: 1.5em;
+
+      &.icon-clear,
+      &.icon-filter {
+        font-size: 1.5vw;
+        height: 1em;
+        width: 1em;
+      }
     }
   }
 
