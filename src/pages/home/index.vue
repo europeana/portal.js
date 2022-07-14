@@ -59,6 +59,7 @@
   import HomeHero from '@/components/home/HomeHero';
   import HomeLatest from '@/components/home/HomeLatest';
   import StackedCardsSwiper from '@/components/generic/StackedCardsSwiper';
+  import { optimisedSrcForContentfulAsset } from '@/plugins/contentful-utils';
 
   export default {
     name: 'HomePage',
@@ -86,34 +87,38 @@
       };
     },
 
-    fetch() {
+    async fetch() {
       if (!this.$features.newHomepage) {
         return Promise.resolve();
       }
-      return Promise.all([
-        this.fetchContentfulEntry(),
-        this.fetchAllThemes()
-      ]);
+      await this.fetchContentfulEntry();
     },
 
-    fetchOnServer: false,
-
     head() {
-      // TODO: add description, social media image, etc
       return {
         title: this.$pageHeadTitle(this.pageTitle),
         meta: [
           { hid: 'og:type', property: 'og:type', content: 'article' },
           { hid: 'title', name: 'title', content: this.pageTitle },
-          { hid: 'og:title', property: 'og:title', content: this.pageTitle }
+          { hid: 'og:title', property: 'og:title', content: this.pageTitle },
+          { hid: 'description', name: 'description', content: this.pageSubHeadline },
+          { hid: 'og:description', property: 'og:description', content: this.pageSubHeadline },
+          { hid: 'og:image', property: 'og:image', content: this.headMetaOgImage }
         ]
       };
     },
 
     computed: {
       pageTitle() {
-        // TODO: read this from CTF home page content entry instead?
         return this.$t('homePage.title');
+      },
+
+      pageSubHeadline() {
+        return this.$t('homePage.subHeadline');
+      },
+
+      headMetaOgImage() {
+        return optimisedSrcForContentfulAsset(this.backgroundImage?.image, { w: 1200, h: 630, fit: 'fill' });
       },
 
       callsToAction() {
@@ -125,13 +130,21 @@
       },
 
       swiperThemes() {
-        return this.allThemes.map(theme => {
-          return { title: theme.prefLabel[this.$i18n.locale],
-                   description: theme.description[this.$i18n.locale],
-                   url: this.collectionLinkGen(theme),
-                   image: theme.contentfulImage };
-        });
+        return this.allThemes.map(theme => ({
+          title: theme.prefLabel[this.$i18n.locale],
+          description: theme.description[this.$i18n.locale],
+          url: this.collectionLinkGen(theme),
+          image: theme.contentfulImage
+        }));
       }
+    },
+
+    mounted() {
+      if (!this.$features.newHomepage) {
+        return;
+      }
+
+      this.fetchAllThemes();
     },
 
     methods: {
