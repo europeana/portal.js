@@ -12,7 +12,7 @@ export function optimisedSrcForContentfulAsset(asset, params = {}, { acceptMedia
   if (!params.fm && acceptMediaTypes.includes('image/webp')) {
     params.fm = 'webp';
     if (!params.q) {
-      params.q = 30;
+      params.q = 40;
     }
   } else if (asset.contentType === 'image/jpeg') {
     params.fm = 'jpg';
