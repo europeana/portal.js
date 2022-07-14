@@ -19,7 +19,7 @@
             class="home-cta"
           />
           <StackedCardsSwiper
-            v-if="!$fetchState.pending"
+            v-if="swiperThemes.length > 0"
             :slides="swiperThemes"
             :title="$t('homePage.themesTitle')"
             :cta="{ url: $path('/collections'), text: $t('homePage.themesCTA') }"
