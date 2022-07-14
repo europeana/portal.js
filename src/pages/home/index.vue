@@ -139,26 +139,25 @@
       }
     },
 
-    mounted() {
-      if (!this.$features.newHomepage) {
-        return;
-      }
-
-      this.fetchAllThemes();
-    },
-
     methods: {
       async fetchContentfulEntry() {
+        const skipCuratedEntities = !!this.$store.state.entity.curatedEntities;
         const variables = {
           locale: this.$i18n.isoLocale(),
           preview: this.$route.query.mode === 'preview',
           identifier: this.$route.query.identifier || null,
-          date: (new Date()).toISOString()
+          date: (new Date()).toISOString(),
+          skipCuratedEntities
         };
         const response = await this.$contentful.query('homePage', variables);
         const homePage = response.data.data.homePageCollection.items[0];
         this.sections = homePage.sectionsCollection.items;
         this.backgroundImage = homePage.primaryImageOfPage;
+
+        if (!skipCuratedEntities) {
+          this.$store.commit('entity/setCuratedEntities', response.data.data.curatedEntities.items);
+        }
+        this.fetchAllThemes();
       }
     }
   };

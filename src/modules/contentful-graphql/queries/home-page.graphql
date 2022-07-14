@@ -2,7 +2,8 @@ query HomePage(
   $locale: String!,
   $preview: Boolean = false,
   $identifier: String,
-  $date: DateTime
+  $date: DateTime,
+  $skipCuratedEntities: Boolean = true
 ) {
   homePageCollection(
     preview: $preview,
@@ -35,6 +36,22 @@ query HomePage(
       }
       primaryImageOfPage {
         ...imageWithAttributionFields
+      }
+    }
+  }
+
+  curatedEntities: entityPageCollection(preview: $preview, locale: $locale, limit: 1000) @skip(if: $skipCuratedEntities) {
+    items {
+      name
+      nameEN: name(locale: "en-GB")
+      identifier
+      genre
+      description
+      primaryImageOfPage {
+        image {
+          url
+          contentType
+        }
       }
     }
   }
