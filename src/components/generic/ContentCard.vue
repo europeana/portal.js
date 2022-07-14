@@ -110,7 +110,6 @@
   import stripMarkdown from '@/mixins/stripMarkdown';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
   import themes from '@/plugins/europeana/themes';
-  import { urlIsContentfulAsset, optimisedSrcForContentfulAsset } from '@/plugins/contentful-utils';
 
   export default {
     name: 'ContentCard',
@@ -376,15 +375,7 @@
       },
 
       optimisedImageUrl() {
-        // return this.$options.filters.optimisedImageUrl(this.imageUrl, this.imageContentType, this.imageOptimisationOptions);
-        if (!urlIsContentfulAsset(this.imageUrl)) {
-          return this.imageUrl;
-        }
-        return optimisedSrcForContentfulAsset(
-          { url: this.imageUrl },
-          { w: this.imageOptimisationOptions.width },
-          { acceptMediaTypes: this.$store?.state?.http?.acceptMediaTypes }
-        );
+        return this.$options.filters.optimisedImageUrl(this.imageUrl, this.imageContentType, this.imageOptimisationOptions);
       }
     },
 
