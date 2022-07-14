@@ -6,7 +6,7 @@ export default {
     "likes": "Kedvelések",
     "linkAccount": "Fiókom",
     "linkLogin": "Bejelentkezés",
-    "linkLoginJoin": "Bejelentkezés/Csatlakozás",
+    "linkLoginJoin": "Bejelentkezés\/Csatlakozás",
     "linkLogout": "Bejelentkezés",
     "myProfile": "A profilom",
     "notifications": {
@@ -42,6 +42,7 @@ export default {
     "next": "Következő",
     "pin": "Pin",
     "preview": "Előnézet",
+    "previous": "Előző",
     "providedBy": "Szolgáltató: {provider}",
     "reject": "Elutasít",
     "save": "Mentse",
@@ -198,7 +199,7 @@ export default {
         "title": "Túl sok rögzített elem"
       },
       "pinned": "Az elemet kitűzték. Most a gyűjtemény első oldalának tetején található. Lehet, hogy 24 óráig is eltarthat, amíg mindenki számára megjelenik.",
-      "select": "Válasszon ki egy kapcsolódó entitást, hogy az elemet hozzá/hozzá kapcsolja/elvegye.",
+      "select": "Válasszon ki egy kapcsolódó entitást, hogy az elemet hozzá\/hozzá kapcsolja\/elvegye.",
       "unpin": "Ez az elem nem jelenik meg többé a \"{entity}\" gyűjtemény tetején. Értesítjük Önt, ha ez a változás láthatóvá válik a gyűjtemény oldalán.",
       "unpinned": "Az elem rögzítése megszűnt. Már nincs a gyűjtemény első oldalának tetején. Akár 24 órát is igénybe vehet, amíg mindenki eltűnik."
     }
@@ -492,7 +493,7 @@ export default {
     "MIME_TYPE": {
       "name": "Fájlformátum | Fájlformátumok",
       "options": {
-        "text/plain": "Egyszerű szöveg"
+        "text\/plain": "Egyszerű szöveg"
       },
       "select": "Válassza ki a fájlformátumokat"
     },
@@ -727,12 +728,12 @@ export default {
   },
   "homeLinkAlt": "Europeana kezdőlap",
   "homePage": {
-    "discoverEditorial": "Fedezze fel történeteinket",
-    "download": "letöltés",
-    "free": "ingyenes",
-    "storiesCTA": "Tekintse meg az összes történetünket",
-    "subHeadline": "Találjon és {letöltsön le} műalkotásokat, fényképeket, könyveket, kéziratokat, újságokat és zenét több mint 4000 múzeumból, archívumból, galériából és könyvtárból {ingyenesen}.",
-    "title": "Fedezze fel az európai kulturális örökséget"
+    "discoverEditorial": "Legújabb történetek",
+    "storiesCTA": "Az összes történet megtekintése",
+    "subHeadline": "Válogasson több ezer kulturális intézmény művészeti alkotásaiból, könyveiből,filmjeiből és zeneműveiből, és mentse el vagy ossza meg kedvenceit",
+    "themesCTA": "Az összes téma megtekintése",
+    "themesTitle": "Téma szerinti felfedezés",
+    "title": "Fedezze fel Európa kulturális örökségét"
   },
   "imageSlider": {
     "handle": "Csúszka fogantyú"
@@ -778,7 +779,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Segít weboldalunk fejlesztésében azáltal, hogy alkalmanként kísérleti változtatásokat alkalmaz.",
-        "title": "A/B tesztelés"
+        "title": "A\/B tesztelés"
       },
       "auth-strategy": {
         "description": "Emlékszik a bejelentkezéshez használandó engedélyezési stratégiára.",
@@ -810,7 +811,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Emlékszik arra, hogy a keresési eredményeket inkább lista- vagy rácsnézetben szeretné-e látni.",
-        "title": "Keresési eredmény nézet (lista / rács)"
+        "title": "Keresési eredmény nézet (lista \/ rács)"
       }
     }
   },
@@ -851,12 +852,14 @@ export default {
   "newWindow": "új ablakban nyílik meg",
   "noMoreResults": "Nincs további eredmény a keresési lekérdezéshez.",
   "noResults": "Nincs találat",
+  "of": "A",
   "organisation": {
     "city": "Város",
     "country": "Ország",
     "nameAcronym": "Név rövidítés"
   },
   "pageHasLoaded": "betöltődött",
+  "pageNumber": "Oldalszám",
   "pages": {
     "collections": {
       "organisations": {
@@ -878,6 +881,9 @@ export default {
         "title": "Témák"
       }
     }
+  },
+  "pagination": {
+    "label": "Lapszámozás"
   },
   "readMore": "Bővebben",
   "recommendation": {
@@ -922,9 +928,14 @@ export default {
   "resultsFor": "Találatok a következőre: {0}",
   "resultsLimitWarning": "Nem jelennek meg további eredmények, mivel csak az első 1000 legrelevánsabb eredmény látható. Ha nem találta meg azt, amit keres, kérjük, finomítsa a keresést.",
   "resultsWithin": "Találatok a következőn belül {0} {1} a következőre: {2}",
-  "search": "Keresés",
+  "search": {
+    "boost": {
+      "placeholder": "Adja meg a mezőt növelő lekérdezést"
+    },
+    "title": "Keresés"
+  },
   "searchHasLoaded": "{0} eredmények visszaadva",
-  "searchPlaceholder": "Mit keres?",
+  "searchPlaceholder": "Keresés 50+ millió tételben",
   "searchResults": "Keresés",
   "searchResultsFor": "{0} - Keresés",
   "searchSuggestions": "Keresési javaslatok",

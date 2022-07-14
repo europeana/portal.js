@@ -6,7 +6,7 @@ export default {
     "likes": "Všečki",
     "linkAccount": "Moj račun",
     "linkLogin": "Vpis",
-    "linkLoginJoin": "Prijava/Pridruži se",
+    "linkLoginJoin": "Prijava\/Pridruži se",
     "linkLogout": "Izpis",
     "myProfile": "Moj profil",
     "notifications": {
@@ -42,6 +42,7 @@ export default {
     "next": "Naslednji",
     "pin": "Pin",
     "preview": "Predogled",
+    "previous": "Prejšnji",
     "providedBy": "Zagotavlja {provider}",
     "reject": "Zavrne",
     "save": "Shrani",
@@ -198,7 +199,7 @@ export default {
         "title": "Preveč pripete predmete"
       },
       "pinned": "Element je bil pripet. Zdaj je na vrhu prve strani te zbirke. Lahko traja do 24 ur, da se prikaže vsem.",
-      "select": "Izberite sorodno entiteto, da pripnete/odpnete element na/iz njega.",
+      "select": "Izberite sorodno entiteto, da pripnete\/odpnete element na\/iz njega.",
       "unpin": "Ta element se ne bo več prikazoval na vrhu zbirke » {entity} «. Ko bo ta sprememba vidna na strani zbirke, vas bomo obvestili.",
       "unpinned": "Element je bil odpenjen. Ni več na vrhu prve strani te zbirke. Lahko traja do 24 ur, da izgine za vse."
     }
@@ -492,7 +493,7 @@ export default {
     "MIME_TYPE": {
       "name": "Oblika zapisa datoteke | Oblike zapisov datotek",
       "options": {
-        "text/plain": "Golo besedilo"
+        "text\/plain": "Golo besedilo"
       },
       "select": "Izberite formate datotek"
     },
@@ -727,12 +728,12 @@ export default {
   },
   "homeLinkAlt": "Na začetno stran Europeana",
   "homePage": {
-    "discoverEditorial": "Odkrijte naše zgodbe",
-    "download": "prenos",
-    "free": "brezplačno",
-    "storiesCTA": "Oglejte si vse naše zgodbe",
-    "subHeadline": "Poiščite in {download} umetniška dela, fotografije, knjige, rokopise, časopise in glasbo iz več kot 4000 muzejev, arhivov, galerij in knjižnic za {free}.",
-    "title": "Odkrijte evropsko kulturno dediščino"
+    "discoverEditorial": "Najnovejše zgodbe",
+    "storiesCTA": "Oglejte si vse zgodbe",
+    "subHeadline": "Iskanje, shranjevanje in deljenje umetnosti, knjig, filmov in glasbe iz več tisoč kulturnih ustanov",
+    "themesCTA": "Oglejte si vse teme",
+    "themesTitle": "Raziščite po temi",
+    "title": "Odkrijte kulturno dediščino Evrope"
   },
   "imageSlider": {
     "handle": "Ročaj drsnika"
@@ -778,7 +779,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Pomaga izboljšati naše spletno mesto z občasno uporabo eksperimentalnih sprememb.",
-        "title": "A/B testiranje"
+        "title": "A\/B testiranje"
       },
       "auth-strategy": {
         "description": "Zapomni si strategijo avtorizacije, ki jo je treba uporabiti za prijavo.",
@@ -810,7 +811,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Zapomni si, če želite rezultate iskanja raje videti v pogledu seznama ali mreže.",
-        "title": "Pogled rezultatov iskanja (seznam / mreža)"
+        "title": "Pogled rezultatov iskanja (seznam \/ mreža)"
       }
     }
   },
@@ -922,9 +923,14 @@ export default {
   "resultsFor": "Rezultati za {0}",
   "resultsLimitWarning": "Dodatni rezultati niso prikazani, ker je prikazanih samo prvih 1000 najbolj relevantnih rezultatov. Če niste našli, kar iščete, razmislite o natančnejšem iskanju.",
   "resultsWithin": "Rezultati znotraj {0} {1} za {2}",
-  "search": "Išči",
+  "search": {
+    "boost": {
+      "placeholder": "Vnesite poizvedbo za povečanje polja"
+    },
+    "title": "Išči"
+  },
   "searchHasLoaded": "{0} vrnjeni rezultati",
-  "searchPlaceholder": "Kaj iščete?",
+  "searchPlaceholder": "Iskanje 50+ milijonov elementov",
   "searchResults": "Išči",
   "searchResultsFor": "{0} - Išči",
   "searchSuggestions": "Predlogi za iskanje",

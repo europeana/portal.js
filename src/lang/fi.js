@@ -6,7 +6,7 @@ export default {
     "likes": "Tykätyt",
     "linkAccount": "Oma tili",
     "linkLogin": "Kirjaudu sisään",
-    "linkLoginJoin": "Kirjaudu/Liity",
+    "linkLoginJoin": "Kirjaudu\/Liity",
     "linkLogout": "Kirjaudu ulos",
     "myProfile": "Profiilini",
     "notifications": {
@@ -42,6 +42,7 @@ export default {
     "next": "Seuraava",
     "pin": "Pin",
     "preview": "Esikatselu",
+    "previous": "Edellinen",
     "providedBy": "Tarjoaa {provider}",
     "reject": "Hylätä",
     "save": "Tallenna",
@@ -62,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Viimeisimmät kohdetta",
     "organisation": "Organisaatiot",
+    "place": "Paikat",
     "time": "Esillä vuosisatoja",
     "topic": "Esillä olevat aiheet"
   },
@@ -79,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Organisaatio",
     "person": "Henkilö",
+    "place": "Paikka",
     "theme": "Teema",
     "time": "Vuosisata",
     "topic": "Aihe"
@@ -492,7 +495,7 @@ export default {
     "MIME_TYPE": {
       "name": "Tiedostomuoto | Tiedostomuodot",
       "options": {
-        "text/plain": "Pelkkä teksti"
+        "text\/plain": "Pelkkä teksti"
       },
       "select": "Valitse tiedostomuodot"
     },
@@ -727,19 +730,19 @@ export default {
   },
   "homeLinkAlt": "Europeanan kotisivu",
   "homePage": {
-    "discoverEditorial": "Tutustu tarinoihimme",
-    "download": "lataa",
-    "free": "ilmainen",
-    "storiesCTA": "Katso kaikki tarinamme",
-    "subHeadline": "Etsi ja {download} taideteoksia, valokuvia, kirjoja, käsikirjoituksia, sanomalehtiä ja musiikkia yli 4000 museosta, arkistosta, galleriasta ja kirjastosta {free} .",
-    "title": "Tutustu eurooppalaiseen kulttuuriperintöön"
+    "discoverEditorial": "Uusimmat tarinat",
+    "storiesCTA": "Katso kaikki tarinat",
+    "subHeadline": "Etsi, tallenna ja jaa taidetta, kirjoja, elokuvia ja musiikkia tuhansista kulttuurilaitoksista",
+    "themesCTA": "Katso kaikki teemat",
+    "themesTitle": "Tutustu teemoittain",
+    "title": "Tutustu Euroopan kulttuuriperintöön"
   },
   "imageSlider": {
     "handle": "Liukusäätimen kahva"
   },
   "items": {
     "itemCount": "1 kohde |{count} kohdetta",
-    "itemOf": "{max} / {count} kohdetta",
+    "itemOf": "{max} \/ {count} kohdetta",
     "recent": "Viimeisimmät kohteet",
     "recommended": "Suositellut kohteet",
     "youMightLike": "Saattaisit tykätä näistä kohteista"
@@ -778,7 +781,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Auttaa parantamaan verkkosivustoamme soveltamalla ajoittain kokeellisia muutoksia.",
-        "title": "A/B -testaus"
+        "title": "A\/B -testaus"
       },
       "auth-strategy": {
         "description": "Muistaa kirjautumisessa käytettävän valtuutusstrategian.",
@@ -810,7 +813,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Muistaa, haluatko nähdä hakutulokset luettelossa tai ruudukkonäkymässä.",
-        "title": "Hakutulosnäkymä (luettelo/ruudukko)"
+        "title": "Hakutulosnäkymä (luettelo\/ruudukko)"
       }
     }
   },
@@ -851,12 +854,14 @@ export default {
   "newWindow": "avautuu uuteen ikkunaan",
   "noMoreResults": "Hakusi ei tuottanut enempää tuloksia.",
   "noResults": "Ei tuloksia",
+  "of": "of",
   "organisation": {
     "city": "Kaupunki",
     "country": "Maa",
     "nameAcronym": "Nimen lyhenne"
   },
   "pageHasLoaded": "on ladattu",
+  "pageNumber": "Sivunumero",
   "pages": {
     "collections": {
       "organisations": {
@@ -868,6 +873,9 @@ export default {
       "persons": {
         "title": "Henkilöt"
       },
+      "places": {
+        "title": "Paikat"
+      },
       "table": {
         "name": "Nimi"
       },
@@ -878,6 +886,9 @@ export default {
         "title": "Aiheet"
       }
     }
+  },
+  "pagination": {
+    "label": "Sivunumerointi"
   },
   "readMore": "Lue lisää",
   "recommendation": {
@@ -922,9 +933,14 @@ export default {
   "resultsFor": "Tulokset {0}",
   "resultsLimitWarning": "Enempää tuloksia ei näytetä, koska vain ensimmäiset 1000 merkityksellisintä tulosta näytetään. Jos et löytänyt etsimääsi, voit tarkentaa hakuasi.",
   "resultsWithin": "tulokset {0} {1} sisällä {2}",
-  "search": "Hae",
+  "search": {
+    "boost": {
+      "placeholder": "Syötä kentän tehostamiskysely"
+    },
+    "title": "Hae"
+  },
   "searchHasLoaded": "{0} tulosta palautettu",
-  "searchPlaceholder": "Mitä etsit?",
+  "searchPlaceholder": "Etsi 50+ miljoonaa kohdetta",
   "searchResults": "Hae",
   "searchResultsFor": "{0} – hae",
   "searchSuggestions": "Hakuehdotuksia",

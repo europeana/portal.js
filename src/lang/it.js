@@ -6,7 +6,7 @@ export default {
     "likes": "Mi piace",
     "linkAccount": "Il mio account",
     "linkLogin": "Accedi",
-    "linkLoginJoin": "Accedi/Iscriviti",
+    "linkLoginJoin": "Accedi\/Iscriviti",
     "linkLogout": "Esci",
     "myProfile": "Il mio profilo",
     "notifications": {
@@ -42,6 +42,7 @@ export default {
     "next": "Prossimo",
     "pin": "Spilla",
     "preview": "Anteprima",
+    "previous": "Precedente",
     "providedBy": "Fornito da {provider}",
     "reject": "Rifiuta",
     "save": "Salva",
@@ -198,7 +199,7 @@ export default {
         "title": "Troppi oggetti appuntati"
       },
       "pinned": "L'articolo è stato appuntato. Ora è in cima alla prima pagina di questa collezione. Potrebbe richiedere fino a 24 ore per apparire per tutti.",
-      "select": "Seleziona un'entità correlata a cui aggiungere/sbloccare l'elemento a/da esso.",
+      "select": "Seleziona un'entità correlata a cui aggiungere\/sbloccare l'elemento a\/da esso.",
       "unpin": "Questo elemento non verrà più visualizzato nella parte superiore della raccolta \" {entity} \". Ti avviseremo quando questa modifica sarà visibile nella pagina di raccolta.",
       "unpinned": "L'elemento è stato sbloccato. Non è più in cima alla prima pagina di questa raccolta. Potrebbero essere necessarie fino a 24 ore per scomparire per tutti."
     }
@@ -492,7 +493,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formato file | Formati file",
       "options": {
-        "text/plain": "Testo semplice"
+        "text\/plain": "Testo semplice"
       },
       "select": "Seleziona i formati di file"
     },
@@ -727,11 +728,11 @@ export default {
   },
   "homeLinkAlt": "Home Europeana",
   "homePage": {
-    "discoverEditorial": "Scopri le nostre storie",
-    "download": "scaricare",
-    "free": "gratuito",
-    "storiesCTA": "Guarda tutte le nostre storie",
-    "subHeadline": "Trova e {download} opere d'arte, fotografie, libri, manoscritti, giornali e musica da oltre 4000 musei, archivi, gallerie e biblioteche per {free}.",
+    "discoverEditorial": "Ultime storie",
+    "storiesCTA": "Vedi tutte le storie",
+    "subHeadline": "Ricerca, salva e condividi arte, libri, film e musica provenienti da migliaia di istituzioni culturali",
+    "themesCTA": "Vedi tutti i temi",
+    "themesTitle": "Esplora per tema",
     "title": "Scopri il patrimonio culturale europeo"
   },
   "imageSlider": {
@@ -778,7 +779,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Aiuta a migliorare il nostro sito Web applicando occasionalmente modifiche sperimentali.",
-        "title": "Test A/B"
+        "title": "Test A\/B"
       },
       "auth-strategy": {
         "description": "Ricorda la strategia di autorizzazione da utilizzare per accedere.",
@@ -810,7 +811,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Ricorda se preferisci vedere i risultati della ricerca in una visualizzazione elenco o griglia.",
-        "title": "Visualizzazione dei risultati di ricerca (elenco/griglia)"
+        "title": "Visualizzazione dei risultati di ricerca (elenco\/griglia)"
       }
     }
   },
@@ -851,12 +852,14 @@ export default {
   "newWindow": "si apre in una nuova finestra",
   "noMoreResults": "Non ci sono altri risultati per la tua query di ricerca.",
   "noResults": "Nessun Risultato",
+  "of": "Di",
   "organisation": {
     "city": "Città",
     "country": "Paese",
     "nameAcronym": "Nome acronimo"
   },
   "pageHasLoaded": "ha caricato",
+  "pageNumber": "Numero di pagina",
   "pages": {
     "collections": {
       "organisations": {
@@ -878,6 +881,9 @@ export default {
         "title": "Temi"
       }
     }
+  },
+  "pagination": {
+    "label": "Paginazione"
   },
   "readMore": "Leggi di più",
   "recommendation": {
@@ -922,9 +928,14 @@ export default {
   "resultsFor": "Risultati per {0}",
   "resultsLimitWarning": "Non vengono mostrati risultati aggiuntivi perché vengono visualizzati solo i primi 1.000 risultati più rilevanti. Se non hai trovato quello che stai cercando, considera la possibilità di perfezionare la tua ricerca.",
   "resultsWithin": "Risultati entro {0} {1} per {2}",
-  "search": "Cerca",
+  "search": {
+    "boost": {
+      "placeholder": "Immettere la query di potenziamento del campo"
+    },
+    "title": "Cerca"
+  },
   "searchHasLoaded": "{0} risultati restituiti",
-  "searchPlaceholder": "Cosa stai cercando?",
+  "searchPlaceholder": "Cerca oltre 50 milioni di articoli",
   "searchResults": "Cerca",
   "searchResultsFor": "{0} - Cerca",
   "searchSuggestions": "Suggerimenti di ricerca",

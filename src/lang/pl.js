@@ -6,7 +6,7 @@ export default {
     "likes": "Polubienia",
     "linkAccount": "Moje konto",
     "linkLogin": "Zaloguj się",
-    "linkLoginJoin": "Zaloguj/Dołącz",
+    "linkLoginJoin": "Zaloguj\/Dołącz",
     "linkLogout": "Wyloguj",
     "myProfile": "Mój profil",
     "notifications": {
@@ -42,6 +42,7 @@ export default {
     "next": "Następny",
     "pin": "Szpilka",
     "preview": "Podgląd",
+    "previous": "Poprzedni",
     "providedBy": "Dostarczone przez {provider}",
     "reject": "Odrzuć",
     "save": "Zapisać",
@@ -198,7 +199,7 @@ export default {
         "title": "Za dużo przpiętych obiektów"
       },
       "pinned": "Obiekt został przypięty. Znajduje się teraz na górze pierwszej strony tej kolekcji. Synchronizacja u wszystkich użytkowników może potrwać do 24 godzin.",
-      "select": "Wybierz powiązaną jednostkę, aby przypiąć/odpiąć element do/od niego.",
+      "select": "Wybierz powiązaną jednostkę, aby przypiąć\/odpiąć element do\/od niego.",
       "unpin": "Ten element przestanie się wyświetlać u góry kolekcji „ {entity} ”. Powiadomimy Cię, kiedy ta zmiana będzie widoczna na stronie kolekcji.",
       "unpinned": "Obiekt został odpięty. Nie znajduje się już na górze pierwszej strony tej kolekcji. Może minąć do 24 godzin, zanim zniknie dla wszystkich użytkowników."
     }
@@ -492,7 +493,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format plików | Formaty plików",
       "options": {
-        "text/plain": "Zwykły tekst"
+        "text\/plain": "Zwykły tekst"
       },
       "select": "Wybierz formaty plików"
     },
@@ -658,7 +659,7 @@ export default {
       "keywords": "Słowa kluczowe (dostarczone przez społeczność)",
       "timestampCreated": "Data utworzenia rekordu",
       "timestampUpdate": "Data zaktualizowania rekordu",
-      "wasPresentAt": "Był obecny w/na",
+      "wasPresentAt": "Był obecny w\/na",
       "year": "Rok"
     },
     "webResource": {
@@ -727,12 +728,12 @@ export default {
   },
   "homeLinkAlt": "Strona główna Europeana",
   "homePage": {
-    "discoverEditorial": "Odkryj nasze historie",
-    "download": "Ściągnij",
-    "free": "bezpłatnie",
-    "storiesCTA": "Zobacz wszystkie nasze historie",
-    "subHeadline": "Znajdź i {download} dzieła sztuki, fotografie, książki, rękopisy, gazety i muzykę z ponad 4000 muzeów, archiwów, galerii i bibliotek za {free}.",
-    "title": "Odkryj europejskie dziedzictwo kulturowe"
+    "discoverEditorial": "Najnowsze historie",
+    "storiesCTA": "Zobacz wszystkie historie",
+    "subHeadline": "Wyszukuj, zapisuj i udostępniaj dzieła sztuki, książki, filmy i muzykę z tysięcy instytucji kulturalnych",
+    "themesCTA": "Zobacz wszystkie motywy",
+    "themesTitle": "Eksploruj według motywu",
+    "title": "Odkryj dziedzictwo kulturowe Europy"
   },
   "imageSlider": {
     "handle": "Uchwyt suwakowy"
@@ -778,7 +779,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Pomaga ulepszyć naszą stronę internetową, od czasu do czasu stosując eksperymentalne zmiany.",
-        "title": "Testy A/B"
+        "title": "Testy A\/B"
       },
       "auth-strategy": {
         "description": "Zapamiętuje strategię autoryzacji używaną do logowania.",
@@ -810,7 +811,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Zapamiętuje czy wolisz widzieć wyniki wyszukiwania w widoku listy lub siatki.",
-        "title": "Widok wyników wyszukiwania (lista/siatka)"
+        "title": "Widok wyników wyszukiwania (lista\/siatka)"
       }
     }
   },
@@ -922,9 +923,14 @@ export default {
   "resultsFor": "Wyniki dla {0}",
   "resultsLimitWarning": "Dodatkowe wyniki nie są wyświetlane, ponieważ wyświetlanych jest tylko pierwsze 1000 najbardziej odpowiednich wyników. Jeśli nie znalazłeś tego, czego szukasz, rozważ zawężenie wyszukiwania.",
   "resultsWithin": "Wyniki w granicach {0} {1} dla {2}",
-  "search": "Szukaj",
+  "search": {
+    "boost": {
+      "placeholder": "Wpisz zapytanie zwiększające pole"
+    },
+    "title": "Szukaj"
+  },
   "searchHasLoaded": "{0} zwróconych wyników",
-  "searchPlaceholder": "Odkryj miliony obiektów",
+  "searchPlaceholder": "Przeszukaj ponad 50 milionów przedmiotów",
   "searchResults": "Szukaj",
   "searchResultsFor": "{0} - Szukaj",
   "searchSuggestions": "Sugestie wyszukiwania",

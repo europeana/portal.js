@@ -6,7 +6,7 @@ export default {
     "likes": "Patinka",
     "linkAccount": "Mano paskyra",
     "linkLogin": "Prisijungti",
-    "linkLoginJoin": "Prisijungti/Prisijungti",
+    "linkLoginJoin": "Prisijungti\/Prisijungti",
     "linkLogout": "Atsijungti",
     "myProfile": "Mano profilis",
     "notifications": {
@@ -42,6 +42,7 @@ export default {
     "next": "Kitas",
     "pin": "Kaištis",
     "preview": "Peržiūra",
+    "previous": "Ankstesnis",
     "providedBy": "Tiekėjas {provider}",
     "reject": "Atmesti",
     "save": "Išsaugoti",
@@ -198,7 +199,7 @@ export default {
         "title": "Per daug prisegtų elementų"
       },
       "pinned": "Elementas prisegtas. Dabar jis yra pirmojo šios kolekcijos puslapio viršuje. Gali užtrukti iki 24 valandų, kol visi pasirodys.",
-      "select": "Pasirinkite susijusį objektą, kurį norite prisegti / atsegti elementą prie jo / nuo jo.",
+      "select": "Pasirinkite susijusį objektą, kurį norite prisegti \/ atsegti elementą prie jo \/ nuo jo.",
       "unpin": "Šis elementas nebebus rodomas kolekcijos „ {entity} “ viršuje. Informuosime jus, kai šis pakeitimas bus matomas kolekcijos puslapyje.",
       "unpinned": "Elementas buvo atsegtas. Jo nebėra šio rinkinio pirmojo puslapio viršuje. Gali prireikti iki 24 valandų, kol jis išnyks visiems."
     }
@@ -492,7 +493,7 @@ export default {
     "MIME_TYPE": {
       "name": "Failo formatas | Failų formatai",
       "options": {
-        "text/plain": "Paprastas tekstas"
+        "text\/plain": "Paprastas tekstas"
       },
       "select": "Pasirinkite failų formatus"
     },
@@ -727,12 +728,12 @@ export default {
   },
   "homeLinkAlt": "„Europeana“ pagrindinis puslapis",
   "homePage": {
-    "discoverEditorial": "Atraskite mūsų istorijas",
-    "download": "parsisiųsti",
-    "free": "nemokamai",
-    "storiesCTA": "Peržiūrėkite visas mūsų istorijas",
-    "subHeadline": "Raskite ir {download} meno kūrinius, nuotraukas, knygas, rankraščius, laikraščius ir muziką iš daugiau nei 4000 muziejų, archyvų, galerijų ir bibliotekų {free} .",
-    "title": "Atraskite Europos kultūros paveldą"
+    "discoverEditorial": "Naujausios istorijos",
+    "storiesCTA": "Žiūrėti visas istorijas",
+    "subHeadline": "Ieškokite, išsaugokite ir bendrinkite meną, knygas, filmus ir muziką iš tūkstančiųkultūrosįstaigų",
+    "themesCTA": "Žiūrėti visas temas",
+    "themesTitle": "Naršykite pagal temą",
+    "title": "Atraskite Europos kultūrospaveldą"
   },
   "imageSlider": {
     "handle": "Slinkiklio rankena"
@@ -778,7 +779,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Padeda tobulinti mūsų svetainę, retkarčiais pritaikant eksperimentinius pakeitimus.",
-        "title": "A/B testavimas"
+        "title": "A\/B testavimas"
       },
       "auth-strategy": {
         "description": "Prisimena autorizacijos strategiją, kurią reikia naudoti prisijungiant.",
@@ -810,7 +811,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Prisimena, ar norite paieškos rezultatus matyti sąrašo ar tinklelio rodinyje.",
-        "title": "Paieškos rezultatų rodinys (sąrašas / tinklelis)"
+        "title": "Paieškos rezultatų rodinys (sąrašas \/ tinklelis)"
       }
     }
   },
@@ -922,9 +923,14 @@ export default {
   "resultsFor": "Rezultatai pagal užklausą {0}",
   "resultsLimitWarning": "Papildomi rezultatai nerodomi, nes parodomi tik pirmieji 1000 tinkamiausių rezultatų. Jei neradote to, ko ieškote, apsvarstykite galimybę patikslinti paiešką.",
   "resultsWithin": "Rezultatai pagal {0} {1} už {2}",
-  "search": "Paieška",
+  "search": {
+    "boost": {
+      "placeholder": "Įveskite lauko didinimo užklausą"
+    },
+    "title": "Paieška"
+  },
   "searchHasLoaded": "{0} grąžinti rezultatai",
-  "searchPlaceholder": "Ko jūs ieškote?",
+  "searchPlaceholder": "Paieška 50+ milijonų elementų",
   "searchResults": "Paieška",
   "searchResultsFor": "{0} - Ieškoti",
   "searchSuggestions": "Paieškos pasiūlymai",

@@ -6,7 +6,7 @@ export default {
     "likes": "Aprecieri",
     "linkAccount": "Contul meu",
     "linkLogin": "Autentificare",
-    "linkLoginJoin": "Autentificare/Înscriere",
+    "linkLoginJoin": "Autentificare\/Înscriere",
     "linkLogout": "Deconectare",
     "myProfile": "Profilul meu",
     "notifications": {
@@ -42,6 +42,7 @@ export default {
     "next": "Următorul",
     "pin": "Pin",
     "preview": "Previzualizare",
+    "previous": "Anterior",
     "providedBy": "Furnizat de {provider}",
     "reject": "Respinge",
     "save": "Salva",
@@ -198,7 +199,7 @@ export default {
         "title": "Prea multe articole fixate"
       },
       "pinned": "Elementul a fost fixat. Acum se află în partea de sus a primei pagini a acestei colecții. S-ar putea să dureze până la 24 de ore pentru a apărea pentru toată lumea.",
-      "select": "Selectați o entitate conexă pentru a fixa/dezfixa elementul la/de la aceasta.",
+      "select": "Selectați o entitate conexă pentru a fixa\/dezfixa elementul la\/de la aceasta.",
       "unpin": "Acest articol nu va mai apărea în partea de sus a colecției „ {entity} ”. Vă vom anunța când această modificare va fi vizibilă pe pagina de colecție.",
       "unpinned": "Elementul a fost dezlipit. Nu se mai află în partea de sus a primei pagini a acestei colecții. S-ar putea să dureze până la 24 de ore pentru a dispărea pentru toată lumea."
     }
@@ -492,7 +493,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format fișier| Formate fișier",
       "options": {
-        "text/plain": "Text simplu"
+        "text\/plain": "Text simplu"
       },
       "select": "Selectați formatele de fișiere"
     },
@@ -727,12 +728,12 @@ export default {
   },
   "homeLinkAlt": "Pagina principală Europeana",
   "homePage": {
-    "discoverEditorial": "Descoperiți poveștile noastre",
-    "download": "descărca",
-    "free": "gratuit",
-    "storiesCTA": "Vezi toate poveștile noastre",
-    "subHeadline": "Găsiți și {download} lucrări de artă, fotografii, cărți, manuscrise, ziare și muzică din peste 4000 de muzee, arhive, galerii și biblioteci {free}.",
-    "title": "Descoperiți patrimoniul cultural european"
+    "discoverEditorial": "Ultimele povești",
+    "storiesCTA": "Vezi toate poveștile",
+    "subHeadline": "Căutați, salvațișidistribuițiartă, cărți, filme și muzică de la mii de instituții culturale",
+    "themesCTA": "Vezi toate temele",
+    "themesTitle": "Explorați după temă",
+    "title": "Descoperiți patrimoniul cultural al Europei"
   },
   "imageSlider": {
     "handle": "Cursor glisor"
@@ -778,7 +779,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Ajută la îmbunătățirea site-ului nostru web aplicând ocazional modificări experimentale.",
-        "title": "Testarea A/B"
+        "title": "Testarea A\/B"
       },
       "auth-strategy": {
         "description": "Reține strategia de autorizare de utilizat pentru a vă conecta.",
@@ -810,7 +811,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Rețineți dacă preferați să vedeți rezultatele căutării într-o vizualizare listă sau grilă.",
-        "title": "Vizualizarea rezultatelor căutării (listă / grilă)"
+        "title": "Vizualizarea rezultatelor căutării (listă \/ grilă)"
       }
     }
   },
@@ -922,9 +923,14 @@ export default {
   "resultsFor": "Rezultate pentru {0}",
   "resultsLimitWarning": "Nu sunt afișate rezultate suplimentare deoarece sunt afișate doar primele 1000 dintre cele mai relevante rezultate. Dacă nu ai găsit ceea ce căutai, te rugăm să restrângi căutarea.",
   "resultsWithin": "Rezultatele în cadrul {0} {1} pentru {2}",
-  "search": "Căutare",
+  "search": {
+    "boost": {
+      "placeholder": "Introduceți interogarea de creștere a câmpului"
+    },
+    "title": "Căutare"
+  },
   "searchHasLoaded": "{0} rezultate returnate",
-  "searchPlaceholder": "Ce anume cauți?",
+  "searchPlaceholder": "Căutați peste 50 de milioane de articole",
   "searchResults": "Căutare",
   "searchResultsFor": "{0} - Căutare",
   "searchSuggestions": "Sugestii de căutare",

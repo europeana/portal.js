@@ -6,7 +6,7 @@ export default {
     "likes": "Gostos",
     "linkAccount": "A minha conta",
     "linkLogin": "Inicie sessão",
-    "linkLoginJoin": "Entrar/Criar conta",
+    "linkLoginJoin": "Entrar\/Criar conta",
     "linkLogout": "Encerrar sessão",
     "myProfile": "Meu perfil",
     "notifications": {
@@ -42,6 +42,7 @@ export default {
     "next": "Próximo",
     "pin": "Alfinete",
     "preview": "Visualizar",
+    "previous": "Anterior",
     "providedBy": "Fornecido por {provider}",
     "reject": "Rejeitar",
     "save": "Salve",
@@ -198,7 +199,7 @@ export default {
         "title": "Muitos itens fixados"
       },
       "pinned": "O item foi fixado. Agora está no topo da primeira página desta coleção. Pode levar até 24 horas para aparecer para todos.",
-      "select": "Selecione uma entidade relacionada para fixar/desafixar o item nela.",
+      "select": "Selecione uma entidade relacionada para fixar\/desafixar o item nela.",
       "unpin": "Este item deixará de ser exibido na parte superior da coleção \" {entity} \". Notificaremos você quando essa alteração estiver visível na página da coleção.",
       "unpinned": "O item foi desafixado. Não está mais no topo da primeira página desta coleção. Pode levar até 24 horas para desaparecer para todos."
     }
@@ -492,7 +493,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formato de ficheiro | Formatos de ficheiros",
       "options": {
-        "text/plain": "Texto simples"
+        "text\/plain": "Texto simples"
       },
       "select": "Selecione os formatos de arquivo"
     },
@@ -727,12 +728,12 @@ export default {
   },
   "homeLinkAlt": "Página Inicial Europeana",
   "homePage": {
-    "discoverEditorial": "Descubra as nossas histórias",
-    "download": "descarregar",
-    "free": "gratuitamente",
-    "storiesCTA": "Veja todas as nossas histórias",
-    "subHeadline": "Encontre e {download} obras de arte, fotografias, livros, manuscritos, jornais e músicas de mais de 4000 museus, arquivos, galerias e bibliotecas por {free}.",
-    "title": "Descubra o património cultural europeu"
+    "discoverEditorial": "Últimas histórias",
+    "storiesCTA": "Veja todas as histórias",
+    "subHeadline": "Pesquise, guarde e partilhe arte, livros, filmes e músicas de milhares de instituições culturais",
+    "themesCTA": "Ver todos os temas",
+    "themesTitle": "Explorar por tema",
+    "title": "Descubra o património cultural da Europa"
   },
   "imageSlider": {
     "handle": "Barra deslizante"
@@ -778,7 +779,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Ajuda a melhorar o nosso site, aplicando ocasionalmente alterações experimentais.",
-        "title": "Teste A/B"
+        "title": "Teste A\/B"
       },
       "auth-strategy": {
         "description": "Lembra a estratégia de autorização a ser usada para fazer login.",
@@ -810,7 +811,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Lembra-se se preferir ver os resultados da pesquisa numa lista ou numa visualização em grelha.",
-        "title": "Visualização de resultado de pesquisa (lista/grade)"
+        "title": "Visualização de resultado de pesquisa (lista\/grade)"
       }
     }
   },
@@ -922,9 +923,14 @@ export default {
   "resultsFor": "Resultados para {0}",
   "resultsLimitWarning": "Resultados adicionais não são mostrados, apenas os primeiros 1000 resultados mais relevantes são mostrados. Se não encontrou o que procurava, considere refinar a sua pesquisa.",
   "resultsWithin": "Resultados dentro de {0} {1} para {2}",
-  "search": "Procurar",
+  "search": {
+    "boost": {
+      "placeholder": "Digite consulta de reforço de campo"
+    },
+    "title": "Procurar"
+  },
   "searchHasLoaded": "{0} resultados retornados",
-  "searchPlaceholder": "Procure milhões de itens",
+  "searchPlaceholder": "Pesquise mais de 50 milhões de itens",
   "searchResults": "Procurar",
   "searchResultsFor": "{0} - Procurar",
   "searchSuggestions": "Sugestões de pesquisa",

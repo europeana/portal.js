@@ -6,7 +6,7 @@ export default {
     "likes": "Atsegin |",
     "linkAccount": "Nire kontua",
     "linkLogin": "Saioa hasi",
-    "linkLoginJoin": "Saioa hasi/Sartu",
+    "linkLoginJoin": "Saioa hasi\/Sartu",
     "linkLogout": "Saioa amaitu",
     "myProfile": "Nire profila",
     "notifications": {
@@ -42,6 +42,7 @@ export default {
     "next": "Hurrengoa",
     "pin": "Pin",
     "preview": "Aurrebista",
+    "previous": "Aurrekoa",
     "providedBy": "{provider} emanda",
     "reject": "Baztertu",
     "save": "Gorde",
@@ -62,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Azken elementuak",
     "organisation": "Erakundeak",
+    "place": "Lekuak",
     "time": "Mende aipagarriak",
     "topic": "Nabarmendutako gaiak"
   },
@@ -79,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Antolaketa",
     "person": "Pertsona",
+    "place": "Lekua",
     "theme": "Gaia",
     "time": "Mendea",
     "topic": "Gai"
@@ -162,6 +165,10 @@ export default {
           "description": "Sartu zure Europeana API gakoa eta API-eskaeretarako esteketan erabiliko da.",
           "label": "API gakoa"
         },
+        "boosting": {
+          "description": "Gaituta bazaude, aktibatu bilaketa-emaitzen orrietan bultzada-eremua, hainbat bultzada-konfigurazio ebaluatzeko.",
+          "label": "Gaitu eremua areagotzea"
+        },
         "enabled": {
           "description": "Gaituta badago, arazketa menua orri-oinean agertuko da.",
           "label": "Gaitu arazketa-menua"
@@ -198,7 +205,7 @@ export default {
         "title": "Ainguratutako elementu gehiegi"
       },
       "pinned": "Elementua ainguratu da. Bilduma honen lehen orrialdearen goialdean dago orain. 24 ordu behar izan ditzake guztientzat agertzeko.",
-      "select": "Hautatu erlazionatutako entitate bat elementua ainguratzeko/desainguratzeko.",
+      "select": "Hautatu erlazionatutako entitate bat elementua ainguratzeko\/desainguratzeko.",
       "unpin": "Elementu hau \"{entity}\" bildumaren goialdean erakusteari utziko zaio. Aldaketa hau bildumaren orrian ikusgai dagoenean jakinaraziko dizugu.",
       "unpinned": "Elementua ainguratu egin da. Jada ez dago bilduma honetako lehen orrialdearen goialdean. 24 ordu behar izan ditzake guztientzat desagertzeko."
     }
@@ -492,7 +499,7 @@ export default {
     "MIME_TYPE": {
       "name": "Fitxategiaren formatua | Fitxategien formatuak",
       "options": {
-        "text/plain": "Testu arrunta"
+        "text\/plain": "Testu arrunta"
       },
       "select": "Hautatu fitxategi formatuak"
     },
@@ -727,19 +734,19 @@ export default {
   },
   "homeLinkAlt": "Europeana Hasiera orria",
   "homePage": {
-    "discoverEditorial": "Ezagutu gure istorioak",
-    "download": "deskargatu",
-    "free": "dohainik",
-    "storiesCTA": "Ikusi gure istorio guztiak",
-    "subHeadline": "Bilatu eta {download} artelanak, argazkiak, liburuak, eskuizkribuak, egunkariak eta musika 4.000 museo, artxibo, galeria eta liburutegitik gorako {free} .",
-    "title": "Ezagutu Europako kultur ondarea"
+    "discoverEditorial": "Azken istorioak",
+    "storiesCTA": "Ikusi istorio guztiak",
+    "subHeadline": "Milaka kultur erakundeetako artea, liburuak, filmak eta musika bilatu, gorde eta partekatu",
+    "themesCTA": "Ikusi gai guztiak",
+    "themesTitle": "Arakatu gaiaren arabera",
+    "title": "Europako ondare kulturala ezagutu"
   },
   "imageSlider": {
     "handle": "Kontrola"
   },
   "items": {
     "itemCount": "Elementu 1 | {count} elementu",
-    "itemOf": "{max}/{count} elementu",
+    "itemOf": "{max}\/{count} elementu",
     "recent": "Azken elementuak",
     "recommended": "Gomendatutako elementuak",
     "youMightLike": "Gustatu ahal zaizkizun elementuak"
@@ -778,7 +785,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Gure webgunea hobetzen laguntzen du noizean behin aldaketa esperimentalak aplikatuz.",
-        "title": "A / B probak"
+        "title": "A \/ B probak"
       },
       "auth-strategy": {
         "description": "Saioa hasteko erabili beharreko baimen estrategia gogoratzen du.",
@@ -810,7 +817,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Gogoratzen duzu bilaketa-emaitzak zerrenda edo sareta ikuspegian ikustea nahiago baduzu.",
-        "title": "Bilaketaren emaitzen ikuspegia (zerrenda / sareta)"
+        "title": "Bilaketaren emaitzen ikuspegia (zerrenda \/ sareta)"
       }
     }
   },
@@ -851,12 +858,14 @@ export default {
   "newWindow": "leiho berrian irekiko da",
   "noMoreResults": "Ez dago emaitza gehiagorik zure bilaketarako.",
   "noResults": "Emaitzarik ez",
+  "of": "De",
   "organisation": {
     "city": "Hiria",
     "country": "Herrialdea",
     "nameAcronym": "Izenaren akronimoa"
   },
   "pageHasLoaded": "kargatu du",
+  "pageNumber": "Orrialde zenbakia",
   "pages": {
     "collections": {
       "organisations": {
@@ -868,6 +877,9 @@ export default {
       "persons": {
         "title": "Pertsonak"
       },
+      "places": {
+        "title": "Lekuak"
+      },
       "table": {
         "name": "Izena"
       },
@@ -878,6 +890,9 @@ export default {
         "title": "Gaiak"
       }
     }
+  },
+  "pagination": {
+    "label": "Paginazioa"
   },
   "readMore": "Gehiago irakurri",
   "recommendation": {
@@ -922,9 +937,14 @@ export default {
   "resultsFor": "{0} emaitzak",
   "resultsLimitWarning": "Emaitza osagarriak ez dira erakusten, izan ere, bakarrik erakusten dira lehenengo 1000 emaitza garrantzitsuenak. BIlatzen duzuna aurkitu ez baduzu, bilaketa zehatzagoa egin.",
   "resultsWithin": "{0} {1} barruko emaitzak {2}",
-  "search": "Bilatu",
+  "search": {
+    "boost": {
+      "placeholder": "Sartu eremua sustatzeko kontsulta"
+    },
+    "title": "Bilatu"
+  },
   "searchHasLoaded": "{0} emaitza itzuli dira",
-  "searchPlaceholder": "Milioika elementu bilatu",
+  "searchPlaceholder": "Bilatu 50 milioi elementu baino gehiago",
   "searchResults": "Bilatu",
   "searchResultsFor": "{0} - Bilatu",
   "searchSuggestions": "Iradokizunak bilatu",

@@ -6,7 +6,7 @@ export default {
     "likes": "Označenia Páči sa mi",
     "linkAccount": "Môj účet",
     "linkLogin": "Prihlásiť sa",
-    "linkLoginJoin": "Prihlásiť sa/Zaregistrovať sa",
+    "linkLoginJoin": "Prihlásiť sa\/Zaregistrovať sa",
     "linkLogout": "Odhlásiť sa",
     "myProfile": "Môj profil",
     "notifications": {
@@ -42,6 +42,7 @@ export default {
     "next": "Ďalšie",
     "pin": "Kolík",
     "preview": "Náhľad",
+    "previous": "Predchádzajúce",
     "providedBy": "Poskytovateľ:  {provider}",
     "reject": "Odmietnuť",
     "save": "Uložiť",
@@ -198,7 +199,7 @@ export default {
         "title": "Príliš veľa pripnutých položiek"
       },
       "pinned": "Položka bola pripnutá. Teraz je v hornej časti prvej stránky tejto zbierky. Zobrazenie pre všetkých môže trvať až 24 hodín.",
-      "select": "Vyberte súvisiacu entitu, na ktorú chcete položku pripnúť/odopnúť.",
+      "select": "Vyberte súvisiacu entitu, na ktorú chcete položku pripnúť\/odopnúť.",
       "unpin": "Táto položka sa prestane zobrazovať v hornej časti zbierky „ {entity} “. Keď bude táto zmena viditeľná na stránke zbierky, upozorníme vás.",
       "unpinned": "Položka bola odopnutá. Už sa nenachádza v hornej časti prvej stránky tejto zbierky. Zmiznutie pre každého môže trvať až 24 hodín."
     }
@@ -492,7 +493,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formát súboru | Formáty súborov",
       "options": {
-        "text/plain": "Obyčajný text"
+        "text\/plain": "Obyčajný text"
       },
       "select": "Vyberte formáty súborov"
     },
@@ -727,12 +728,12 @@ export default {
   },
   "homeLinkAlt": "Domovská stránka Europeana",
   "homePage": {
-    "discoverEditorial": "Objavte naše príbehy",
-    "download": "stiahnuť",
-    "free": "zadarmo",
-    "storiesCTA": "Pozrite si všetky naše príbehy",
-    "subHeadline": "Nájdite a {download} umelecké diela, fotografie, knihy, rukopisy, noviny a hudbu z viac, ako 4000 múzeí, archívov, galérií a knižníc {free}.",
-    "title": "Objavte európske kultúrne dedičstvo"
+    "discoverEditorial": "Najnovšie príbehy",
+    "storiesCTA": "Zobraziť všetky príbehy",
+    "subHeadline": "Vyhľadávajte, ukladajte a zdieľajte umenie, knihy, filmy a hudbu z tisícok kultúrnych inštitúcií",
+    "themesCTA": "Zobraziť všetky témy",
+    "themesTitle": "Preskúmajte podľa témy",
+    "title": "Objavte kultúrne dedičstvo Európy"
   },
   "imageSlider": {
     "handle": "Rukoväť posuvníka"
@@ -778,7 +779,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Pomáha zlepšovať náš web príležitostným použitím experimentálnych zmien.",
-        "title": "A/B testovanie"
+        "title": "A\/B testovanie"
       },
       "auth-strategy": {
         "description": "Pamätá si stratégiu autorizácie, ktorá sa má použiť na prihlásenie.",
@@ -810,7 +811,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Pamätá si, či chcete radšej zobraziť výsledky vyhľadávania v zozname alebo mriežke.",
-        "title": "Zobrazenie výsledkov hľadania (zoznam / mriežka)"
+        "title": "Zobrazenie výsledkov hľadania (zoznam \/ mriežka)"
       }
     }
   },
@@ -922,9 +923,14 @@ export default {
   "resultsFor": "Výsledky pre {0}",
   "resultsLimitWarning": "Ďalšie výsledky sa nezobrazujú, pretože sa zobrazuje iba prvých 1000 najrelevantnejších výsledkov. Ak ste nenašli, čo hľadáte, upresnite vyhľadávanie.",
   "resultsWithin": "Výsledky v rámci {0} {1} pre {2}",
-  "search": "Hľadať",
+  "search": {
+    "boost": {
+      "placeholder": "Zadajte dopyt na zvýšenie poľa"
+    },
+    "title": "Vyhľadávanie"
+  },
   "searchHasLoaded": "{0} vrátené výsledky",
-  "searchPlaceholder": "Čo hľadáte?",
+  "searchPlaceholder": "Vyhľadajte viac ako 50 miliónov položiek",
   "searchResults": "Vyhľadávať",
   "searchResultsFor": "{0} – vyhľadávať",
   "searchSuggestions": "Návrhy na vyhľadávanie",

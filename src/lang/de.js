@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mein Konto",
     "linkLogin": "Anmelden",
-    "linkLoginJoin": "Anmelden/Beitreten",
+    "linkLoginJoin": "Anmelden\/Beitreten",
     "linkLogout": "Abmelden",
     "myProfile": "Mein Profil",
     "notifications": {
@@ -42,6 +42,7 @@ export default {
     "next": "Weiter",
     "pin": "Stift",
     "preview": "Vorschau",
+    "previous": "Vorherige",
     "providedBy": "Bereitgestellt von {provider}",
     "reject": "Ablehnen",
     "save": "Speichern",
@@ -62,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Aktuelle Objekte",
     "organisation": "Organisationen",
+    "place": "Orte",
     "time": "Ausgewählte Jahrhunderte",
     "topic": "Ausgewählte Themen"
   },
@@ -79,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Organisation",
     "person": "Person",
+    "place": "Ort",
     "theme": "Thema",
     "time": "Jahrhundert",
     "topic": "Thema"
@@ -198,7 +201,7 @@ export default {
         "title": "Zu viele angeheftete Objekte"
       },
       "pinned": "Das Objekt wurde angeheftet. Es befindet sich jetzt oben auf der ersten Seite dieser Sammlung. Es kann bis zu 24 Stunden dauern, bis es für alle erscheint.",
-      "select": "Wählen Sie eine zugehörige Entität aus, um das Objekt daran anzuheften/von ihr zu lösen.",
+      "select": "Wählen Sie eine zugehörige Entität aus, um das Objekt daran anzuheften\/von ihr zu lösen.",
       "unpin": "Dieses Objekt wird nicht mehr oben in der Sammlung „ {entity} “ angezeigt. Wir werden Sie benachrichtigen, wenn diese Änderung auf der Sammlungsseite sichtbar wird.",
       "unpinned": "Das Objekt wurde nicht mehr angepinnt. Es steht nicht mehr oben auf der ersten Seite dieser Sammlung. Es kann bis zu 24 Stunden dauern, bis es für alle verschwindet."
     }
@@ -492,7 +495,7 @@ export default {
     "MIME_TYPE": {
       "name": "Dateiformat | Dateiformate",
       "options": {
-        "text/plain": "Klartext"
+        "text\/plain": "Klartext"
       },
       "select": "Dateiformate auswählen"
     },
@@ -727,12 +730,12 @@ export default {
   },
   "homeLinkAlt": "Startseite Europeana",
   "homePage": {
-    "discoverEditorial": "Entdecken Sie unsere Geschichten",
-    "download": "herunterladen",
-    "free": "kostenlos",
-    "storiesCTA": "Alle unsere Geschichten sehen",
-    "subHeadline": "Finden und {download} Sie Kunstwerke, Fotografien, Bücher, Manuskripte, Zeitungen und Musik aus über 4000 Museen, Archiven, Galerien und Bibliotheken {free}.",
-    "title": "Entdecken Sie das europäische Kulturerbe"
+    "discoverEditorial": "Neueste Geschichten",
+    "storiesCTA": "Alle Geschichten ansehen",
+    "subHeadline": "Suchen, speichern und teilen Sie Kunst, Bücher, Filme und Musik von Tausenden von Kultureinrichtungen",
+    "themesCTA": "Alle Themen anzeigen",
+    "themesTitle": "Erkunden Sie nach Thema",
+    "title": "Entdecken Sie Europas kulturelles Erbe"
   },
   "imageSlider": {
     "handle": "Schieberegler"
@@ -778,7 +781,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Hilft, unsere Website zu verbessern, indem gelegentlich experimentelle Änderungen vorgenommen werden.",
-        "title": "A/B-Tests"
+        "title": "A\/B-Tests"
       },
       "auth-strategy": {
         "description": "Erinnert an die Berechtigungsstrategie, die für die Anmeldung verwendet werden soll.",
@@ -810,7 +813,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Merkt sich, ob Sie die Suchergebnisse lieber in einer Listen- oder Rasteransicht anzeigen möchten.",
-        "title": "Suchergebnisansicht (Liste/Raster)"
+        "title": "Suchergebnisansicht (Liste\/Raster)"
       }
     }
   },
@@ -851,12 +854,14 @@ export default {
   "newWindow": "öffnet sich in einem neuen Fenster",
   "noMoreResults": "Es gibt keine weiteren Ergebnisse für Ihre Suchanfrage.",
   "noResults": "Keine Ergebnisse",
+  "of": "Von",
   "organisation": {
     "city": "Stadt",
     "country": "Land",
     "nameAcronym": "Name Akronym"
   },
   "pageHasLoaded": "hat geladen",
+  "pageNumber": "Seitennummer",
   "pages": {
     "collections": {
       "organisations": {
@@ -868,6 +873,9 @@ export default {
       "persons": {
         "title": "Personen"
       },
+      "places": {
+        "title": "Orte"
+      },
       "table": {
         "name": "Name"
       },
@@ -878,6 +886,9 @@ export default {
         "title": "Themen"
       }
     }
+  },
+  "pagination": {
+    "label": "Paginierung"
   },
   "readMore": "Mehr anzeigen",
   "recommendation": {
@@ -922,9 +933,14 @@ export default {
   "resultsFor": "Ergebnisse für {0}",
   "resultsLimitWarning": "Zusätzliche Ergebnisse werden nicht angezeigt, da nur die ersten 1000 relevantesten Ergebnisse angezeigt werden. Wenn Sie nicht gefunden haben, wonach Sie suchen, können Sie Ihre Suche verfeinern.",
   "resultsWithin": "Ergebnisse innerhalb {0} {1} für {2}",
-  "search": "Suchen",
+  "search": {
+    "boost": {
+      "placeholder": "Geben Sie die Feldverstärkungsabfrage ein"
+    },
+    "title": "Suche"
+  },
   "searchHasLoaded": "{0} Ergebnisse zurückgegeben",
-  "searchPlaceholder": "Durchsuche Millionen von Objekten",
+  "searchPlaceholder": "Suche 50+ Millionen Artikel",
   "searchResults": "Suche",
   "searchResultsFor": "{0} - Suche",
   "searchSuggestions": "Suchvorschläge",

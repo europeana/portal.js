@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mitt konto",
     "linkLogin": "Logga in",
-    "linkLoginJoin": "Logga in/Gå med",
+    "linkLoginJoin": "Logga in\/Gå med",
     "linkLogout": "Logga ut",
     "myProfile": "Min profil",
     "notifications": {
@@ -42,6 +42,7 @@ export default {
     "next": "Nästa",
     "pin": "Stift",
     "preview": "Förhandsvisning",
+    "previous": "Föregående",
     "providedBy": "Tillhandahålls av {provider}",
     "reject": "Avvisa",
     "save": "Spara",
@@ -198,7 +199,7 @@ export default {
         "title": "För många pinnade objekt"
       },
       "pinned": "Objektet har fästs. Det är nu högst upp på den första sidan i den här samlingen. Det kan ta upp till 24 timmar innan alla visas.",
-      "select": "Välj en relaterad entitet för att fästa/lossa objektet till/från den.",
+      "select": "Välj en relaterad entitet för att fästa\/lossa objektet till\/från den.",
       "unpin": "Det här objektet kommer att sluta visas överst i samlingen \" {entity} \". Vi kommer att meddela dig när denna förändring kommer att synas på insamlingssidan.",
       "unpinned": "Objektet har lossats. Det är inte längre högst upp på den första sidan i den här samlingen. Det kan ta upp till 24 timmar innan alla försvinner."
     }
@@ -492,7 +493,7 @@ export default {
     "MIME_TYPE": {
       "name": "Filformat | Filformat",
       "options": {
-        "text/plain": "Oformaterad text"
+        "text\/plain": "Oformaterad text"
       },
       "select": "Välj filformat"
     },
@@ -727,12 +728,12 @@ export default {
   },
   "homeLinkAlt": "Europeana hem",
   "homePage": {
-    "discoverEditorial": "Upptäck våra berättelser",
-    "download": "ladda ner",
-    "free": "gratis",
-    "storiesCTA": "Se alla våra berättelser",
-    "subHeadline": "Hitta och {download} konstverk, fotografier, böcker, manuskript, tidningar och musik från över 4 000 museer, arkiv, gallerier och bibliotek för {free}.",
-    "title": "Upptäck det europeiska kulturarvet"
+    "discoverEditorial": "Senaste berättelserna",
+    "storiesCTA": "Se alla berättelser",
+    "subHeadline": "Sök, spara och dela konst, böcker, filmer och musik från tusentals kulturella institutioner",
+    "themesCTA": "Se alla teman",
+    "themesTitle": "Utforska efter tema",
+    "title": "Upptäck Europas kulturella arv"
   },
   "imageSlider": {
     "handle": "Skjutreglage"
@@ -778,7 +779,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Hjälper till att förbättra vår webbplats genom att ibland tillämpa experimentella förändringar.",
-        "title": "A/B -testning"
+        "title": "A\/B -testning"
       },
       "auth-strategy": {
         "description": "Kommer ihåg den auktoriserings strategi som ska användas för att logga in.",
@@ -810,7 +811,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Kommer ihåg om du föredrar att se sökresultaten i en lista eller rutnät.",
-        "title": "Visa sökresultat (lista/rutnät)"
+        "title": "Visa sökresultat (lista\/rutnät)"
       }
     }
   },
@@ -922,9 +923,14 @@ export default {
   "resultsFor": "Resultat för {0}",
   "resultsLimitWarning": "Ytterligare resultat visas inte eftersom endast de 1000 första mest relevanta resultaten visas. Om du inte har hittat det du letar efter kan du prova att förfina din sökning.",
   "resultsWithin": "Resultat inom {0} {1} för {2}",
-  "search": "Sök",
+  "search": {
+    "boost": {
+      "placeholder": "Ange fältförstärkningsfråga"
+    },
+    "title": "Sök"
+  },
   "searchHasLoaded": "{0} resultat returnerade",
-  "searchPlaceholder": "Vad letar du efter?",
+  "searchPlaceholder": "Sök efter 50+ miljoner objekt",
   "searchResults": "Sök",
   "searchResultsFor": "{0} – Sök",
   "searchSuggestions": "Sök förslag",
