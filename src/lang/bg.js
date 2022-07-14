@@ -42,6 +42,7 @@ export default {
     "next": "Следваща",
     "pin": "Щифт",
     "preview": "Преглед",
+    "previous": "Предишна",
     "providedBy": "Предоставено от {provider}",
     "reject": "Отхвърляне",
     "save": "Запазете",
@@ -62,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Скорошни елементи",
     "organisation": "Организации",
+    "place": "Места",
     "time": "Представени векове",
     "topic": "Представени теми"
   },
@@ -79,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Организация",
     "person": "човек",
+    "place": "място",
     "theme": "Тема",
     "time": "Век",
     "topic": "Тема"
@@ -727,12 +730,12 @@ export default {
   },
   "homeLinkAlt": "Начална страница на Europeana",
   "homePage": {
-    "discoverEditorial": "Открийте нашите истории",
-    "download": "изтегляне",
-    "free": "Безплатно",
-    "storiesCTA": "Вижте всички наши истории",
-    "subHeadline": "Намерете и {download} произведения на изкуството, снимки, книги, ръкописи, вестници и музика от над 4000 музеи, архиви, галерии и библиотеки за {free}.",
-    "title": "Открийте европейското културно наследство"
+    "discoverEditorial": "Последни истории",
+    "storiesCTA": "Вижте всички истории",
+    "subHeadline": "Търсете, запазвайте и споделяйте изкуство, книги, филми и музика от хиляди културни институции",
+    "themesCTA": "Вижте всички теми",
+    "themesTitle": "Разгледайте по тема",
+    "title": "Открийте културното наследство на Европа"
   },
   "imageSlider": {
     "handle": "Манипулатор на плъзгач"
@@ -851,12 +854,14 @@ export default {
   "newWindow": "отваря се в нов прозорец",
   "noMoreResults": "Няма повече резултати за вашата заявка за търсене.",
   "noResults": "Няма получени резултати",
+  "of": "На",
   "organisation": {
     "city": "град",
     "country": "Държава:",
     "nameAcronym": "Акроним на името"
   },
   "pageHasLoaded": "е зареден",
+  "pageNumber": "Номер на страницата",
   "pages": {
     "collections": {
       "organisations": {
@@ -868,6 +873,9 @@ export default {
       "persons": {
         "title": "Лица"
       },
+      "places": {
+        "title": "Места"
+      },
       "table": {
         "name": "Име"
       },
@@ -878,6 +886,9 @@ export default {
         "title": "Теми"
       }
     }
+  },
+  "pagination": {
+    "label": "Пагинация"
   },
   "readMore": "Прочетете повече",
   "recommendation": {
@@ -922,9 +933,14 @@ export default {
   "resultsFor": "Резултати за {0}",
   "resultsLimitWarning": "Допълнителните резултати не са показани, тъй като са показани само първите 1000 най-подходящи резултата. Ако не сте намерили това, което търсите, моля, помислете за прецизиране на търсенето.",
   "resultsWithin": "Резултати в рамките на {0} {1} за {2}",
-  "search": "Търсене",
+  "search": {
+    "boost": {
+      "placeholder": "Въведете заявка за повишаване на полето"
+    },
+    "title": "Търсене"
+  },
   "searchHasLoaded": "{0} върнати резултати",
-  "searchPlaceholder": "Какво търсите?",
+  "searchPlaceholder": "Търсене в 50+ милиона артикула",
   "searchResults": "Търсене",
   "searchResultsFor": "{0} – търсене",
   "searchSuggestions": "Предложения за търсене",

@@ -42,6 +42,7 @@ export default {
     "next": "Li jmiss",
     "pin": "Pin",
     "preview": "Preview",
+    "previous": "Preċedenti",
     "providedBy": "Ipprovdut minn {provider}",
     "reject": "Irrifjuta",
     "save": "Tissejvja",
@@ -727,12 +728,12 @@ export default {
   },
   "homeLinkAlt": "Europeana home",
   "homePage": {
-    "discoverEditorial": "Skopri l-istejjer tagħna",
-    "download": "niżżel",
-    "free": "ħielsa",
-    "storiesCTA": "Ara l-istejjer kollha tagħna",
-    "subHeadline": "Sib u {download} xogħlijiet tal-arti, ritratti, kotba, manuskritti, gazzetti u mużika minn aktar minn 4000 mużew, arkivju, galleriji, u libreriji {free}.",
-    "title": "Skopri l-wirt kulturali Ewropew"
+    "discoverEditorial": "L-aħħar stejjer",
+    "storiesCTA": "Ara l-istejjer kollha",
+    "subHeadline": "Fittex, issejvja u aqsam arti, kotba, films u mużika minn eluf ta’ istituzzjonijiet kulturali",
+    "themesCTA": "Ara t-temi kollha",
+    "themesTitle": "Esplora skont it-tema",
+    "title": "Skopri l-wirt kulturali tal-Ewropa"
   },
   "imageSlider": {
     "handle": "Manku tas-Slajder"
@@ -922,9 +923,14 @@ export default {
   "resultsFor": "Riżultati għal {0}",
   "resultsLimitWarning": "Riżultati addizzjonali ma jidhrux minħabba li l-ewwel 1000 riżultat l-aktar rilevanti jintwerew. Jekk ma sibtx dak li qed tfittex, jekk jogħġbok ikkunsidra li tirfina it-tfittxija tiegħek.",
   "resultsWithin": "Riżultati fi ħdan {0} {1} għal {2}",
-  "search": "Fittex",
+  "search": {
+    "boost": {
+      "placeholder": "Daħħal mistoqsija li tagħti spinta lill-qasam"
+    },
+    "title": "Fittex"
+  },
   "searchHasLoaded": "{0} riżultati rritornati",
-  "searchPlaceholder": "Fittex miljun oġġett",
+  "searchPlaceholder": "Fittex 50+ miljun oġġett",
   "searchResults": "Fittex",
   "searchResultsFor": "{0} - Fittex",
   "searchSuggestions": "Fittex is-suġġerimenti",

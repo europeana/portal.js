@@ -42,6 +42,7 @@ export default {
     "next": "Ďalšie",
     "pin": "Kolík",
     "preview": "Náhľad",
+    "previous": "Predchádzajúce",
     "providedBy": "Poskytovateľ:  {provider}",
     "reject": "Odmietnuť",
     "save": "Uložiť",
@@ -727,12 +728,12 @@ export default {
   },
   "homeLinkAlt": "Domovská stránka Europeana",
   "homePage": {
-    "discoverEditorial": "Objavte naše príbehy",
-    "download": "stiahnuť",
-    "free": "zadarmo",
-    "storiesCTA": "Pozrite si všetky naše príbehy",
-    "subHeadline": "Nájdite a {download} umelecké diela, fotografie, knihy, rukopisy, noviny a hudbu z viac, ako 4000 múzeí, archívov, galérií a knižníc {free}.",
-    "title": "Objavte európske kultúrne dedičstvo"
+    "discoverEditorial": "Najnovšie príbehy",
+    "storiesCTA": "Zobraziť všetky príbehy",
+    "subHeadline": "Vyhľadávajte, ukladajte a zdieľajte umenie, knihy, filmy a hudbu z tisícok kultúrnych inštitúcií",
+    "themesCTA": "Zobraziť všetky témy",
+    "themesTitle": "Preskúmajte podľa témy",
+    "title": "Objavte kultúrne dedičstvo Európy"
   },
   "imageSlider": {
     "handle": "Rukoväť posuvníka"
@@ -922,9 +923,14 @@ export default {
   "resultsFor": "Výsledky pre {0}",
   "resultsLimitWarning": "Ďalšie výsledky sa nezobrazujú, pretože sa zobrazuje iba prvých 1000 najrelevantnejších výsledkov. Ak ste nenašli, čo hľadáte, upresnite vyhľadávanie.",
   "resultsWithin": "Výsledky v rámci {0} {1} pre {2}",
-  "search": "Hľadať",
+  "search": {
+    "boost": {
+      "placeholder": "Zadajte dopyt na zvýšenie poľa"
+    },
+    "title": "Vyhľadávanie"
+  },
   "searchHasLoaded": "{0} vrátené výsledky",
-  "searchPlaceholder": "Čo hľadáte?",
+  "searchPlaceholder": "Vyhľadajte viac ako 50 miliónov položiek",
   "searchResults": "Vyhľadávať",
   "searchResultsFor": "{0} – vyhľadávať",
   "searchSuggestions": "Návrhy na vyhľadávanie",

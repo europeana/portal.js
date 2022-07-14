@@ -42,6 +42,7 @@ export default {
     "next": "Ar Aghaidh",
     "pin": "Bioráin",
     "preview": "Réamhamharc",
+    "previous": "Roimhe Seo",
     "providedBy": "Arna sholáthar ag {provider}",
     "reject": "Diúltaigh",
     "save": "Sábháil",
@@ -727,12 +728,12 @@ export default {
   },
   "homeLinkAlt": "Baile Europeana",
   "homePage": {
-    "discoverEditorial": "Faigh amach ár scéalta",
-    "download": "íoslódáil",
-    "free": "saor",
-    "storiesCTA": "Féach ar ár scéalta go léir",
-    "subHeadline": "Aimsigh agus {íoslódáil} saothair ealaíne, grianghraif, leabhair, lámhscríbhinní, nuachtáin agus ceol ó níos mó ná 4000 músaeim, cartlanna, dánlanna, agus leabharlanna le haghaidh {saor in aisce}.",
-    "title": "Faigh amach oidhreacht chultúrtha na hEorpa"
+    "discoverEditorial": "Na scéalta is déanaí",
+    "storiesCTA": "Féach gach scéal",
+    "subHeadline": "Cuardaigh, sábháil agus roinn ealaín, leabhair, scannáin agus ceol ó na mílte institiúid chultúrtha",
+    "themesCTA": "Féach ar na téamaí go léir",
+    "themesTitle": "Déan iniúchadh de réir téama",
+    "title": "Faigh amach faoi oidhreacht chultúrtha na hEorpa"
   },
   "imageSlider": {
     "handle": "Hanla Sleamhnáin"
@@ -851,12 +852,14 @@ export default {
   "newWindow": "osclaítear i bhfuinneog nua é",
   "noMoreResults": "Níl aon toradh eile ann ar d'iarratas cuardaigh.",
   "noResults": "Níor aimsíodh aon Torthaí",
+  "of": "De",
   "organisation": {
     "city": "Cathair",
     "country": "Tír",
     "nameAcronym": "Acrainm ainm"
   },
   "pageHasLoaded": "luchtaithe",
+  "pageNumber": "Uimhir an leathanaigh",
   "pages": {
     "collections": {
       "organisations": {
@@ -878,6 +881,9 @@ export default {
         "title": "Ábhair"
       }
     }
+  },
+  "pagination": {
+    "label": "Leathanaigh"
   },
   "readMore": "Léigh níos mó",
   "recommendation": {
@@ -922,9 +928,14 @@ export default {
   "resultsFor": "Torthaí le haghaidh {0}",
   "resultsLimitWarning": "Ní thaispeántar torthaí breise óir nach dtaispeántar ach amháin an chéad 1000 toradh is ábhartha. Murar aimsigh tú a raibh uait, déan machnamh do chuardach a leasú.",
   "resultsWithin": "Torthaí laistigh de {0} {1} le haghaidh {2}",
-  "search": "Cuardaigh",
+  "search": {
+    "boost": {
+      "placeholder": "Cuir isteach ceist treisithe réimse"
+    },
+    "title": "Cuardaigh"
+  },
   "searchHasLoaded": "{0} torthaí ar ais",
-  "searchPlaceholder": "Cuardaigh na mílte míreanna",
+  "searchPlaceholder": "Cuardaigh 50+ milliún mír",
   "searchResults": "Cuardaigh",
   "searchResultsFor": "{0} - Cuardaigh",
   "searchSuggestions": "Cuardaigh moltaí",

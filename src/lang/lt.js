@@ -42,6 +42,7 @@ export default {
     "next": "Kitas",
     "pin": "Kaištis",
     "preview": "Peržiūra",
+    "previous": "Ankstesnis",
     "providedBy": "Tiekėjas {provider}",
     "reject": "Atmesti",
     "save": "Išsaugoti",
@@ -727,12 +728,12 @@ export default {
   },
   "homeLinkAlt": "„Europeana“ pagrindinis puslapis",
   "homePage": {
-    "discoverEditorial": "Atraskite mūsų istorijas",
-    "download": "parsisiųsti",
-    "free": "nemokamai",
-    "storiesCTA": "Peržiūrėkite visas mūsų istorijas",
-    "subHeadline": "Raskite ir {download} meno kūrinius, nuotraukas, knygas, rankraščius, laikraščius ir muziką iš daugiau nei 4000 muziejų, archyvų, galerijų ir bibliotekų {free} .",
-    "title": "Atraskite Europos kultūros paveldą"
+    "discoverEditorial": "Naujausios istorijos",
+    "storiesCTA": "Žiūrėti visas istorijas",
+    "subHeadline": "Ieškokite, išsaugokite ir bendrinkite meną, knygas, filmus ir muziką iš tūkstančiųkultūrosįstaigų",
+    "themesCTA": "Žiūrėti visas temas",
+    "themesTitle": "Naršykite pagal temą",
+    "title": "Atraskite Europos kultūrospaveldą"
   },
   "imageSlider": {
     "handle": "Slinkiklio rankena"
@@ -922,9 +923,14 @@ export default {
   "resultsFor": "Rezultatai pagal užklausą {0}",
   "resultsLimitWarning": "Papildomi rezultatai nerodomi, nes parodomi tik pirmieji 1000 tinkamiausių rezultatų. Jei neradote to, ko ieškote, apsvarstykite galimybę patikslinti paiešką.",
   "resultsWithin": "Rezultatai pagal {0} {1} už {2}",
-  "search": "Paieška",
+  "search": {
+    "boost": {
+      "placeholder": "Įveskite lauko didinimo užklausą"
+    },
+    "title": "Paieška"
+  },
   "searchHasLoaded": "{0} grąžinti rezultatai",
-  "searchPlaceholder": "Ko jūs ieškote?",
+  "searchPlaceholder": "Paieška 50+ milijonų elementų",
   "searchResults": "Paieška",
   "searchResultsFor": "{0} - Ieškoti",
   "searchSuggestions": "Paieškos pasiūlymai",
