@@ -1,12 +1,14 @@
 
 export function urlIsContentfulAsset(url) {
-  const hostnameMatch = url.match(/\/\/([^/]+)\//);
-  return hostnameMatch && (hostnameMatch[1] === 'images.ctfassets.net');
+  return (new URL(url)).host === 'images.ctfassets.net';
 }
 
 // TODO: refactor as a mixin so that the store is available and acceptMediaTypes
 //       does not need to be passed by all callers
 export function optimisedSrcForContentfulAsset(asset, params = {}, { acceptMediaTypes = [] } = {}) {
+  if (!asset?.url) {
+    return null;
+  }
   const imageUrl = new URL(asset.url);
 
   if (!params.fm && acceptMediaTypes.includes('image/webp')) {
