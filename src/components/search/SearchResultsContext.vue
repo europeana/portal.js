@@ -112,7 +112,7 @@
           return optimisedSrcForContentfulAsset(
             this.editorialOverrides.image,
             { w: 28, h: 28, fit: 'thumb' },
-            { acceptMediaTypes: this.$store.state.http.acceptMediaTypes }
+            { acceptMediaTypes: this.$store?.state?.http?.acceptMediaTypes }
           );
         }
         return this.$apis.entity.imageUrl(this.entity);
