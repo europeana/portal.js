@@ -23,6 +23,13 @@
     <AttributionToggle
       :attribution="backgroundImage"
     />
+    <img
+      width="250"
+      height="26"
+      src="@/assets/img/eu-funding.svg"
+      class="eu-logo"
+      :alt="$t('footer.imageDescription')"
+    >
   </div>
 </template>
 
@@ -111,10 +118,6 @@
       margin-bottom: 1em;
 
       @media (min-width: $bp-medium) {
-        margin-bottom: 2em;
-      }
-
-      @media (min-width: $bp-medium) {
         font-size: 2.875rem;
       }
     }
@@ -155,11 +158,19 @@
   ::v-deep .icon-info {
     left: 1.5rem;
     right: auto;
+    z-index: 3;
   }
 
   ::v-deep cite {
     left: 0.5rem;
     right: auto;
+    z-index: 3;
+  }
+
+  .eu-logo {
+    position: absolute;
+    right: calc(60px + 1rem);
+    bottom: 1rem;
   }
 </style>
 
