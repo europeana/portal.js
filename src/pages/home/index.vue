@@ -89,7 +89,7 @@
 
     async fetch() {
       if (!this.$features.newHomepage) {
-        return Promise.resolve();
+        return;
       }
       await this.fetchContentfulEntry();
     },
