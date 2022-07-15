@@ -57,7 +57,7 @@ module.exports = async function (migration, { makeRequest }) {
             });
           }
         } else if (tagData.entity) {
-          if (!relatedLink.includes(tagData.entity)) {
+          if (!relatedLink.includes(tagData.entity) && relatedLink) {
             relatedLink.push(tagData.entity);
           }
         } else {
@@ -65,9 +65,13 @@ module.exports = async function (migration, { makeRequest }) {
         }
       }
 
+      if (relatedLink.length > 5) {
+        console.error(`Too many related entities (${relatedLink.length}) for entry ${fields.identifier[locale]}`);
+      }
+
       return {
         categories,
-        relatedLink
+        relatedLink: relatedLink.slice(0, 5)
       }
     },
     shouldPublish: 'preserve'

@@ -13,7 +13,7 @@
           :key="index"
           variant="outline-light"
         >
-          {{ tag }}
+          {{ tag.name }}
         </b-badge>
       </div>
     </b-col>

@@ -17,7 +17,7 @@
       :identifier="post.identifier"
       :hero="hero"
       :authors="post.authorCollection.items.length > 0 ? post.authorCollection.items : null"
-      :tags="post.keywords"
+      :tags="post.categoriesCollection && post.categoriesCollection.items"
       :related-link="post.relatedLink"
     />
   </div>
