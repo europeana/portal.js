@@ -41,9 +41,12 @@ module.exports = function (migration) {
   for (const contentTypeName of ['blogPosting', 'exhibitionPage']) {
     const contentType = migration.editContentType(contentTypeName);
 
-    // Disable use of old keywords field on blogPosting content type
+    // Flag on the old keywords field on blogPosting content type that it will
+    // no longer be used by the website.
     if (contentTypeName === 'blogPosting') {
-      contentType.editField('keywords').disabled(true);
+      contentType.changeFieldControl('keywords', 'builtin', 'singleLine', {
+        helpText: 'NOTE: tags are being replaced by categories and will no longer be displayed by the website'
+      });
     }
 
     contentType
@@ -69,7 +72,7 @@ module.exports = function (migration) {
     contentType.changeFieldControl(
       'categories',
       'builtin',
-      'entryCardsEditor',
+      'entryLinkEditor',
       {}
     );
   }
