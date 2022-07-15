@@ -33,7 +33,7 @@ const fixtures = {
     prefLabel: { en: 'Organisation' }
   },
   thematicCollectionTopicEntity: {
-    id: 'http://data.europeana.eu/concept/base/190',
+    id: 'http://data.europeana.eu/concept/190',
     prefLabel: { en: 'Art' }
   }
 };

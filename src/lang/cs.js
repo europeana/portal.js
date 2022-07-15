@@ -42,6 +42,7 @@ export default {
     "next": "Další",
     "pin": "Kolík",
     "preview": "Náhled",
+    "previous": "Předchozí",
     "providedBy": "Poskytl {provider}",
     "reject": "Odmítnout",
     "save": "Uložit",
@@ -62,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Poslední položky",
     "organisation": "Organizace",
+    "place": "Místa",
     "time": "Vybraná století",
     "topic": "Doporučená témata"
   },
@@ -79,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Organizace",
     "person": "Osoba",
+    "place": "Místo",
     "theme": "Téma",
     "time": "Století",
     "topic": "Téma"
@@ -727,11 +730,11 @@ export default {
   },
   "homeLinkAlt": "Domovská stránka Europeana",
   "homePage": {
-    "discoverEditorial": "Objevte naše příběhy",
-    "download": "stáhnout",
-    "free": "zdarma",
-    "storiesCTA": "Podívejte se na všechny naše příběhy",
-    "subHeadline": "Najděte a {download} umělecká díla, fotografie, knihy, rukopisy, noviny a hudbu z více než 4000 muzeí, archivů, galerií a knihoven {free}.",
+    "discoverEditorial": "Nejnovější příběhy",
+    "storiesCTA": "Zobrazit všechny příběhy",
+    "subHeadline": "Vyhledávejte, ukládejte a sdílejte umění, knihy, filmy a hudbu z tisíců kulturních institucí",
+    "themesCTA": "Zobrazit všechna témata",
+    "themesTitle": "Prozkoumejte podle tématu",
     "title": "Objevte evropské kulturní dědictví"
   },
   "imageSlider": {
@@ -851,12 +854,14 @@ export default {
   "newWindow": "otevře se v novém okně",
   "noMoreResults": "Pro vaše zadání neexistují žádné další výsledky vyhledávání.",
   "noResults": "Žádné výsledky",
+  "of": "Z",
   "organisation": {
     "city": "Město",
     "country": "Země",
     "nameAcronym": "Zkratka jména"
   },
   "pageHasLoaded": "načteno",
+  "pageNumber": "Číslo stránky",
   "pages": {
     "collections": {
       "organisations": {
@@ -868,6 +873,9 @@ export default {
       "persons": {
         "title": "Osoby"
       },
+      "places": {
+        "title": "Místa"
+      },
       "table": {
         "name": "Název"
       },
@@ -878,6 +886,9 @@ export default {
         "title": "Předměty"
       }
     }
+  },
+  "pagination": {
+    "label": "Stránkování"
   },
   "readMore": "Více informací",
   "recommendation": {
@@ -922,9 +933,14 @@ export default {
   "resultsFor": "Výsledky pro {0}",
   "resultsLimitWarning": "Zobrazuje se pouze prvních tisíc nejvhodnějších výsledků, další výsledky se nezobrazují. Pokud jste nenašli, co jste hledali, zvažte upřesnění vyhledávání.",
   "resultsWithin": "Výsledky v rámci {0} {1} pro {2}",
-  "search": "Vyhledat",
+  "search": {
+    "boost": {
+      "placeholder": "Zadejte dotaz pro posílení pole"
+    },
+    "title": "Vyhledat"
+  },
   "searchHasLoaded": "Počet vrácených výsledků: {0}",
-  "searchPlaceholder": "Co hledáte?",
+  "searchPlaceholder": "Hledejte přes 50 milionů položek",
   "searchResults": "Vyhledat",
   "searchResultsFor": "{0} - vyhledat",
   "searchSuggestions": "Návrhy vyhledávání",

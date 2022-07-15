@@ -55,8 +55,10 @@ Feature: item page
   Scenario: Multiple related entities
     When I open the `"Het laatste avondmaal" item page`
     Then I see `related entities`
+    And I see the `Italy related chip` in the `related entities`
+    And I see the `Paper related chip` in the `related entities`
+    And I see the `Print related chip` in the `related entities`
     And I see the `Leonardo da Vinci related chip` in the `related entities`
-    And I see the `Engraving related chip` in the `related entities`
     And I see the `Rijksmuseum related chip` in the `related entities`
 
   Scenario: Metadata in another language

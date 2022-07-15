@@ -150,6 +150,7 @@
           description = langMapValueForLocale(response.biographicalInformation, 'en').values[0];
           break;
         case 'Concept':
+        case 'Place':
           // use `note`
           // NB: language map with each value being an array of literals
           description = langMapValueForLocale(response.note, 'en').values[0];
@@ -161,9 +162,6 @@
           break;
         case 'Timespan':
           // TODO: use what? `${response.begin} to ${response.end}`?
-          break;
-        case 'Place':
-          // TODO: use what? `${response.lat},${response.long}`?
           break;
         }
 

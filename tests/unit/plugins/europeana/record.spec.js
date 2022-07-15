@@ -78,14 +78,14 @@ const apiResponse = {
     ],
     agents: [
       {
-        about: 'http://data.europeana.eu/agent/base/110088',
+        about: 'http://data.europeana.eu/agent/110088',
         prefLabel: { en: 'Johann Wolfgang von Goethe' },
         rdaGr2DateOfBirth: { def: '1749-08-28' }
       }
     ],
     concepts: [
       {
-        about: 'http://data.europeana.eu/concept/base/190',
+        about: 'http://data.europeana.eu/concept/190',
         prefLabel: { en: 'Art' },
         note: { en: ['Art is a diverse range of human activities and the products of those activities'] }
       }
@@ -143,7 +143,7 @@ const translateProfileApiResponse = {
           'de': ['Deutsche Beschreibung']
         },
         edmIsRelatedTo: {
-          'def': ['http://data.europeana.eu/concept/base/190']
+          'def': ['http://data.europeana.eu/concept/190']
         }
       },
       {
@@ -156,14 +156,14 @@ const translateProfileApiResponse = {
     ],
     agents: [
       {
-        about: 'http://data.europeana.eu/agent/base/110088',
+        about: 'http://data.europeana.eu/agent/110088',
         prefLabel: { en: 'Johann Wolfgang von Goethe' },
         rdaGr2DateOfBirth: { def: '1749-08-28' }
       }
     ],
     concepts: [
       {
-        about: 'http://data.europeana.eu/concept/base/190',
+        about: 'http://data.europeana.eu/concept/190',
         prefLabel: { en: 'Art' },
         note: { en: ['Art is a diverse range of human activities and the products of those activities'] }
       }

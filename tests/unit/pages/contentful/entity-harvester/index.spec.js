@@ -13,7 +13,7 @@ const entityResponse = {
   error: null,
   entity: {
     '@context': 'http://www.europeana.eu/schemas/context/entity.jsonld',
-    id: 'http://data.europeana.eu/agent/base/20',
+    id: 'http://data.europeana.eu/agent/20',
     type: 'Agent',
     isShownBy: {
       id: 'http://atena.beic.it/webclient/DeliveryManager?pid=1930631&custom_att_2=deeplink',
@@ -61,7 +61,7 @@ const factory = () => shallowMountNuxt(page, {
 const responseError = {
   response: {
     data: {
-      action: '/entity/agent/base/20.json',
+      action: '/entity/agent/20.json',
       success: false,
       error: 'There was an error',
       status: 500
@@ -87,7 +87,7 @@ describe('pages/contentful/entity-harvester/index', () => {
           sinon.replaceGetter(wrapper.vm.$apis.entity, 'get', () => {
             return sinon.fake.returns(entityResponse);
           });
-          sinon.replace(wrapper.vm, 'getUrlFromUser', sinon.fake.returns(`http://data.europeana.eu/${type}/base/${id}`));
+          sinon.replace(wrapper.vm, 'getUrlFromUser', sinon.fake.returns(`http://data.europeana.eu/${type}/${id}`));
           wrapper.vm.populateFields = sinon.spy();
 
           await wrapper.vm.harvestEntity();
@@ -115,13 +115,13 @@ describe('pages/contentful/entity-harvester/index', () => {
           sinon.replaceGetter(wrapper.vm.$apis.entity, 'get', () => {
             throw apiError(responseError);
           });
-          sinon.replace(wrapper.vm, 'getUrlFromUser', sinon.fake.returns(`http://data.europeana.eu/${type}/base/${id}`));
+          sinon.replace(wrapper.vm, 'getUrlFromUser', sinon.fake.returns(`http://data.europeana.eu/${type}/${id}`));
           wrapper.vm.showError = sinon.spy();
           wrapper.vm.populateFields = sinon.spy();
 
           await wrapper.vm.harvestEntity();
           expect(wrapper.vm.populateFields.called).toBe(false);
-          expect(wrapper.vm.showError.calledWith(`Unable to harvest: http://data.europeana.eu/${type}/base/${id} Please make sure the entity can be accessed on the entity API. ${responseError.response.data.error}`)).toBe(true);
+          expect(wrapper.vm.showError.calledWith(`Unable to harvest: http://data.europeana.eu/${type}/${id} Please make sure the entity can be accessed on the entity API. ${responseError.response.data.error}`)).toBe(true);
         });
       });
 
@@ -131,7 +131,7 @@ describe('pages/contentful/entity-harvester/index', () => {
           sinon.replaceGetter(wrapper.vm.$apis.entity, 'get', () => {
             return sinon.fake.returns(entityResponse);
           });
-          sinon.replace(wrapper.vm, 'getUrlFromUser', sinon.fake.returns(`http://data.europeana.eu/${type}/base/${id}`));
+          sinon.replace(wrapper.vm, 'getUrlFromUser', sinon.fake.returns(`http://data.europeana.eu/${type}/${id}`));
           sinon.replace(wrapper.vm, 'populateFields', () => {
             throw Error('Contentful error');
           });
@@ -156,7 +156,7 @@ describe('pages/contentful/entity-harvester/index', () => {
         it('returns the params split from the URI', () => {
           const wrapper = factory();
 
-          expect(wrapper.vm.entityParamsFromUrl(`http://data.europeana.eu/${type}/base/${id}`)).toEqual({ type: 'person', id });
+          expect(wrapper.vm.entityParamsFromUrl(`http://data.europeana.eu/${type}/${id}`)).toEqual({ type: 'person', id });
         });
       });
 
@@ -164,7 +164,7 @@ describe('pages/contentful/entity-harvester/index', () => {
         it('returns the params split from the URI', () => {
           const wrapper = factory();
 
-          expect(wrapper.vm.entityParamsFromUrl(`https://api.europeana.eu/entity/${type}/base/${id}`)).toEqual({ type: 'person', id });
+          expect(wrapper.vm.entityParamsFromUrl(`https://api.europeana.eu/entity/${type}/${id}`)).toEqual({ type: 'person', id });
         });
       });
 
@@ -193,7 +193,7 @@ describe('pages/contentful/entity-harvester/index', () => {
 
     describe('populateFields', () => {
       const response = {
-        id: `http://data.europeana.eu/${type}/base/${id}`,
+        id: `http://data.europeana.eu/${type}/${id}`,
         prefLabel: [
           {
             '@language': 'en',
@@ -277,6 +277,17 @@ describe('pages/contentful/entity-harvester/index', () => {
         });
       });
 
+      describe('when entry is a Place type entity', () => {
+        const response = {
+          type: 'Place',
+          note: { en: 'Note' }
+        };
+        it('returns the description from the note field', () => {
+          const wrapper = factory();
+          expect(wrapper.vm.entityDescriptionFromResponse(response)).toBe('Note');
+        });
+      });
+
       describe('when entry is an Organization type entity', () => {
         const response = {
           type: 'Organization',
@@ -291,16 +302,6 @@ describe('pages/contentful/entity-harvester/index', () => {
       describe('when entry is a Timespan type entity', () => {
         const response = {
           type: 'Timespan'
-        };
-        it('returns an empty string', () => {
-          const wrapper = factory();
-          expect(wrapper.vm.entityDescriptionFromResponse(response)).toBe('');
-        });
-      });
-
-      describe('when entry is a Place type entity', () => {
-        const response = {
-          type: 'Place'
         };
         it('returns an empty string', () => {
           const wrapper = factory();

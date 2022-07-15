@@ -42,6 +42,7 @@ export default {
     "next": "Naslednji",
     "pin": "Pin",
     "preview": "Predogled",
+    "previous": "Prejšnji",
     "providedBy": "Zagotavlja {provider}",
     "reject": "Zavrne",
     "save": "Shrani",
@@ -727,12 +728,12 @@ export default {
   },
   "homeLinkAlt": "Na začetno stran Europeana",
   "homePage": {
-    "discoverEditorial": "Odkrijte naše zgodbe",
-    "download": "prenos",
-    "free": "brezplačno",
-    "storiesCTA": "Oglejte si vse naše zgodbe",
-    "subHeadline": "Poiščite in {download} umetniška dela, fotografije, knjige, rokopise, časopise in glasbo iz več kot 4000 muzejev, arhivov, galerij in knjižnic za {free}.",
-    "title": "Odkrijte evropsko kulturno dediščino"
+    "discoverEditorial": "Najnovejše zgodbe",
+    "storiesCTA": "Oglejte si vse zgodbe",
+    "subHeadline": "Iskanje, shranjevanje in deljenje umetnosti, knjig, filmov in glasbe iz več tisoč kulturnih ustanov",
+    "themesCTA": "Oglejte si vse teme",
+    "themesTitle": "Raziščite po temi",
+    "title": "Odkrijte kulturno dediščino Evrope"
   },
   "imageSlider": {
     "handle": "Ročaj drsnika"
@@ -922,9 +923,14 @@ export default {
   "resultsFor": "Rezultati za {0}",
   "resultsLimitWarning": "Dodatni rezultati niso prikazani, ker je prikazanih samo prvih 1000 najbolj relevantnih rezultatov. Če niste našli, kar iščete, razmislite o natančnejšem iskanju.",
   "resultsWithin": "Rezultati znotraj {0} {1} za {2}",
-  "search": "Išči",
+  "search": {
+    "boost": {
+      "placeholder": "Vnesite poizvedbo za povečanje polja"
+    },
+    "title": "Išči"
+  },
   "searchHasLoaded": "{0} vrnjeni rezultati",
-  "searchPlaceholder": "Kaj iščete?",
+  "searchPlaceholder": "Iskanje 50+ milijonov elementov",
   "searchResults": "Išči",
   "searchResultsFor": "{0} - Išči",
   "searchSuggestions": "Predlogi za iskanje",
