@@ -1,0 +1,79 @@
+.responsive-font {
+  @media (min-width: $bp-xxxl) {
+    font-size: $responsive-font-size-base;
+
+    header {
+      .col {
+        margin-bottom: 2.5em;
+      }
+    }
+
+    h1 {
+      font-size: 2.125vw;
+    }
+
+    $custom-spacer: 1vw;
+    $custom-spacers: (
+      0: 0,
+      1: $custom-spacer * 0.25,
+      2: $custom-spacer * 0.5,
+      3: $custom-spacer * 1,
+      4: $custom-spacer * 1.5,
+      5: $custom-spacer * 3
+    );
+    
+    @each $prop, $abbrev in (margin: m, padding: p) {
+      @each $size, $length in $custom-spacers {
+        .#{$abbrev}-#{$size} { #{$prop}: $length !important; }
+        .#{$abbrev}t-#{$size},
+        .#{$abbrev}y-#{$size} {
+          #{$prop}-top: $length !important;
+        }
+        .#{$abbrev}r-#{$size},
+        .#{$abbrev}x-#{$size} {
+          #{$prop}-right: $length !important;
+        }
+        .#{$abbrev}b-#{$size},
+        .#{$abbrev}y-#{$size} {
+          #{$prop}-bottom: $length !important;
+        }
+        .#{$abbrev}l-#{$size},
+        .#{$abbrev}x-#{$size} {
+          #{$prop}-left: $length !important;
+        }
+      }
+    }
+
+    .content-card {
+      font-size: $responsive-font-size-base;
+
+      .card-subtitle {
+        font-size: $responsive-font-size-extrasmall;
+        margin-bottom: 0.75em;
+      }
+
+      .card-body {
+        padding: 1.5em;
+      }
+
+      .card-title {
+        font-size: $responsive-font-size-large;
+        line-height: 1.25em;
+        max-height: none;
+      }
+    }
+
+    .btn-light-flat.button-icon-only {
+      font-size: 1.1vw;
+      height: 1.5em;
+      width: 1.5em;
+
+      &.icon-clear,
+      &.icon-filter {
+        font-size: $responsive-font-size-large;
+        height: 1em;
+        width: 1em;
+      }
+    }
+  }
+}

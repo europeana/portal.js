@@ -2,7 +2,7 @@
   <header
     id="header"
     v-visible-on-scroll
-    class="m-0 header-navbar container-fluid d-flex justify-content-between show"
+    class="responsive-font m-0 header-navbar container-fluid d-flex justify-content-between show"
     role="banner"
     :aria-label="$t('header.europeanaHome')"
     data-qa="header"
@@ -22,7 +22,7 @@
       <b-button
         v-b-toggle.sidebar
         variant="light-flat"
-        class="navbar-toggle collapsed button-icon-only flex-column align-self-center"
+        class="navbar-toggle collapsed button-icon-only flex-column align-self-center ml-3"
         :aria-label="$t('header.showSidebar')"
         data-qa="hamburger button"
       >
@@ -41,7 +41,7 @@
         >
       </SmartLink>
       <b-navbar
-        class="main-nav align-items-center flex-row d-flex p-0"
+        class="align-items-center flex-row d-flex p-0 mr-3"
         role="navigation"
       >
         <PageNavigation
@@ -67,11 +67,11 @@
         :aria-label="$t('header.sideNavigation')"
       >
         <b-navbar
-          class="sidebar-nav align-items-start flex-column"
+          class="sidebar-nav align-items-start flex-column pt-1 px-2 pb-4"
           role="navigation"
           data-qa="sidebar navigation"
         >
-          <div class="sidebar-header w-100 d-flex align-items-center">
+          <div class="w-100 d-flex align-items-center pl-2 pt-2 pb-3">
             <b-button
               v-b-toggle.sidebar
               data-qa="close menu button"
@@ -157,13 +157,13 @@
       transition: $standard-transition;
     }
 
-    @media (min-width: $bp-xxxl) {
-      font-size: 1vw;
-    }
-
     &:not(.show) ::v-deep .search-query,
     &:not(.show) ::v-deep .auto-suggest-dropdown {
       display: none;
+    }
+
+    @media (min-width: $bp-large) {
+      transition: $standard-transition;
     }
   }
 
@@ -197,13 +197,10 @@
   }
 
   .navbar-toggle {
-    margin-left: 1em;
-    font-size: 1rem;
+    font-size: $font-size-base;
 
     @media (min-width: $bp-xxxl) {
-      font-size: 1vw;
-      height: 1.5em;
-      width: 1.5em;
+      font-size: $responsive-font-size-base;
     }
 
     span {
@@ -240,17 +237,7 @@
       }
     }
 
-    &.main-nav {
-      margin-right: 1em;
-    }
-
     &.sidebar-nav {
-      padding: 0.25em 0.5em 1.5em;
-
-      .sidebar-header {
-        padding: 0.5em 0.5em 1em;
-      }
-
       .logo {
         min-width: auto;
       }
@@ -265,21 +252,6 @@
   .filters-toggle {
     @media (min-width: $bp-medium) {
       display: none;
-    }
-  }
-
-  .btn-light-flat.button-icon-only {
-    @media (min-width: $bp-xxxl) {
-      font-size: 1.1vw;
-      height: 1.5em;
-      width: 1.5em;
-
-      &.icon-clear,
-      &.icon-filter {
-        font-size: 1.5vw;
-        height: 1em;
-        width: 1em;
-      }
     }
   }
 
