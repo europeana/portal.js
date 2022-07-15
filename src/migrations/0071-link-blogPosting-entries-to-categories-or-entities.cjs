@@ -47,15 +47,19 @@ module.exports = async function (migration, { makeRequest }) {
         } else if (tagData.delete) {
           // Do nothing with it
         } else if (tagData.id) {
-          categories.push({
-            sys: {
-              type: 'Link',
-              linkType: 'Entry',
-              id: tagData.id
-            }
-          });
+          if (!categories.find((category) => category.sys.id === tagData.id)) {
+            categories.push({
+              sys: {
+                type: 'Link',
+                linkType: 'Entry',
+                id: tagData.id
+              }
+            });
+          }
         } else if (tagData.entity) {
-          relatedLink.push(tagData.entity);
+          if (!relatedLink.includes(tagData.entity)) {
+            relatedLink.push(tagData.entity);
+          }
         } else {
           console.warn(`Failed to detect action for entry ${fields.identifier[locale]}, keyword "${keyword}", tag data ${tagData}`);
         }
