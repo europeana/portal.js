@@ -50,7 +50,7 @@
             />
             <!-- eslint-enable vue/no-v-html -->
           </article>
-          <BlogTags
+          <RelatedCategoryTags
             v-if="tags"
             :tags="tags"
           />
@@ -77,9 +77,9 @@
     name: 'BlogPost',
 
     components: {
-      AuthoredHead: () => import('../../components/authored/AuthoredHead'),
+      AuthoredHead: () => import('../authored/AuthoredHead'),
       BlogAuthor: () => import('./BlogAuthor'),
-      BlogTags: () => import('../../components/blog/BlogTags'),
+      RelatedCategoryTags: () => import('../related/RelatedCategoryTags'),
       ClientOnly,
       SocialShareModal,
       ShareButton,
