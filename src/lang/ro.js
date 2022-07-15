@@ -42,6 +42,7 @@ export default {
     "next": "Următorul",
     "pin": "Pin",
     "preview": "Previzualizare",
+    "previous": "Anterior",
     "providedBy": "Furnizat de {provider}",
     "reject": "Respinge",
     "save": "Salva",
@@ -727,12 +728,12 @@ export default {
   },
   "homeLinkAlt": "Pagina principală Europeana",
   "homePage": {
-    "discoverEditorial": "Descoperiți poveștile noastre",
-    "download": "descărca",
-    "free": "gratuit",
-    "storiesCTA": "Vezi toate poveștile noastre",
-    "subHeadline": "Găsiți și {download} lucrări de artă, fotografii, cărți, manuscrise, ziare și muzică din peste 4000 de muzee, arhive, galerii și biblioteci {free}.",
-    "title": "Descoperiți patrimoniul cultural european"
+    "discoverEditorial": "Ultimele povești",
+    "storiesCTA": "Vezi toate poveștile",
+    "subHeadline": "Căutați, salvațișidistribuițiartă, cărți, filme și muzică de la mii de instituții culturale",
+    "themesCTA": "Vezi toate temele",
+    "themesTitle": "Explorați după temă",
+    "title": "Descoperiți patrimoniul cultural al Europei"
   },
   "imageSlider": {
     "handle": "Cursor glisor"
@@ -922,9 +923,14 @@ export default {
   "resultsFor": "Rezultate pentru {0}",
   "resultsLimitWarning": "Nu sunt afișate rezultate suplimentare deoarece sunt afișate doar primele 1000 dintre cele mai relevante rezultate. Dacă nu ai găsit ceea ce căutai, te rugăm să restrângi căutarea.",
   "resultsWithin": "Rezultatele în cadrul {0} {1} pentru {2}",
-  "search": "Căutare",
+  "search": {
+    "boost": {
+      "placeholder": "Introduceți interogarea de creștere a câmpului"
+    },
+    "title": "Căutare"
+  },
   "searchHasLoaded": "{0} rezultate returnate",
-  "searchPlaceholder": "Ce anume cauți?",
+  "searchPlaceholder": "Căutați peste 50 de milioane de articole",
   "searchResults": "Căutare",
   "searchResultsFor": "{0} - Căutare",
   "searchSuggestions": "Sugestii de căutare",

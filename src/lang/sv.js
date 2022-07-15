@@ -42,6 +42,7 @@ export default {
     "next": "Nästa",
     "pin": "Stift",
     "preview": "Förhandsvisning",
+    "previous": "Föregående",
     "providedBy": "Tillhandahålls av {provider}",
     "reject": "Avvisa",
     "save": "Spara",
@@ -727,12 +728,12 @@ export default {
   },
   "homeLinkAlt": "Europeana hem",
   "homePage": {
-    "discoverEditorial": "Upptäck våra berättelser",
-    "download": "ladda ner",
-    "free": "gratis",
-    "storiesCTA": "Se alla våra berättelser",
-    "subHeadline": "Hitta och {download} konstverk, fotografier, böcker, manuskript, tidningar och musik från över 4 000 museer, arkiv, gallerier och bibliotek för {free}.",
-    "title": "Upptäck det europeiska kulturarvet"
+    "discoverEditorial": "Senaste berättelserna",
+    "storiesCTA": "Se alla berättelser",
+    "subHeadline": "Sök, spara och dela konst, böcker, filmer och musik från tusentals kulturella institutioner",
+    "themesCTA": "Se alla teman",
+    "themesTitle": "Utforska efter tema",
+    "title": "Upptäck Europas kulturella arv"
   },
   "imageSlider": {
     "handle": "Skjutreglage"
@@ -922,9 +923,14 @@ export default {
   "resultsFor": "Resultat för {0}",
   "resultsLimitWarning": "Ytterligare resultat visas inte eftersom endast de 1000 första mest relevanta resultaten visas. Om du inte har hittat det du letar efter kan du prova att förfina din sökning.",
   "resultsWithin": "Resultat inom {0} {1} för {2}",
-  "search": "Sök",
+  "search": {
+    "boost": {
+      "placeholder": "Ange fältförstärkningsfråga"
+    },
+    "title": "Sök"
+  },
   "searchHasLoaded": "{0} resultat returnerade",
-  "searchPlaceholder": "Vad letar du efter?",
+  "searchPlaceholder": "Sök efter 50+ miljoner objekt",
   "searchResults": "Sök",
   "searchResultsFor": "{0} – Sök",
   "searchSuggestions": "Sök förslag",
