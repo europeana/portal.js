@@ -44,8 +44,8 @@ module.exports = function (migration) {
     // Flag on the old keywords field on blogPosting content type that it will
     // no longer be used by the website.
     if (contentTypeName === 'blogPosting') {
-      contentType.changeFieldControl('keywords', 'builtin', 'singleLine', {
-        helpText: 'NOTE: tags are being replaced by categories and will no longer be displayed by the website'
+      contentType.changeFieldControl('keywords', 'builtin', 'tagEditor', {
+        helpText: 'NOTE: tags are being replaced by categories and will no longer be displayed on the website'
       });
     }
 
@@ -72,7 +72,7 @@ module.exports = function (migration) {
     contentType.changeFieldControl(
       'categories',
       'builtin',
-      'entryLinkEditor',
+      'entryLinksEditor',
       {}
     );
   }
