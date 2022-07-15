@@ -273,7 +273,7 @@
 
         this.$apis.entity.suggest(query, {
           language: locale,
-          type: 'agent,concept,timespan'
+          type: 'agent,concept,place,timespan'
         })
           .then(suggestions => {
             this.activeSuggestionsQueryTerm = query;
