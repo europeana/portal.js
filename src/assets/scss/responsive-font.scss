@@ -35,6 +35,39 @@
       font-size: 2.125vw;
     }
 
+    .badge {
+      font-size: $responsive-font-size-small;
+
+      img {
+        width: 1.75vw;
+        height: 1.75vw;
+        left: 0.25vw;
+      }
+
+      .organisation-logo {
+        width: 1.75vw;
+        height: 1.75vw;
+      }
+
+      .close {
+        margin-left: 0.5vw;
+        &::before {
+          font-size: 1vw;
+        }
+      }
+    }
+
+    .badge-pill {
+      border-radius: 1.125vw;
+      padding: 0.25vw 0.75vw;
+      height: 2.25vw;
+      min-width: 4vw;
+
+      &.img-chip {
+        padding: 0.25vw 0.75vw 0.25vw calc(0.75vw + 1.75vw);
+      }
+    }
+
     .form-control {
       font-size: $responsive-font-size-base;
     }
