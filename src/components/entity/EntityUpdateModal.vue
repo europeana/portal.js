@@ -76,6 +76,9 @@
         // Disable submit button when description is not changed
         return (this.descriptionValue === '' && this.description === null) ||
           (this.descriptionValue === this.description);
+      },
+      descriptionFieldName() {
+        return this.id.includes('/concept/') ? 'note' : 'description';
       }
     },
 
@@ -102,8 +105,8 @@
         body = {
           ...body,
           ...europeanaProxy,
-          note: {
-            ...europeanaProxy.note || {},
+          [this.descriptionFieldName]: {
+            ...europeanaProxy[this.descriptionFieldName] || {},
             [this.$i18n.locale]: [this.descriptionValue]
           }
         };

@@ -84,7 +84,7 @@
         </b-button>
         <EntityUpdateModal
           :id="id"
-          :description="description.values[0] || null"
+          :description="description && description.values[0] || null"
           @updated="$emit('updated')"
         />
       </template>
