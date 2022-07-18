@@ -62,7 +62,15 @@ const factory = () => shallowMountNuxt(page, {
 describe('pages/contentful/category-suggest/index', () => {
   beforeEach(sinon.resetHistory);
   beforeAll(() => {
-    window.contentfulExtension = fakeContentfulExtension();
+    window.contentfulExtension = fakeContentfulExtension({ location: 'field' });
+  });
+
+  describe('mounted', () => {
+    it('triggers the window auto resizer', () => {
+      const wrapper = factory();
+
+      expect(wrapper.vm.contentfulExtensionSdk.window.startAutoResizer.called).toBe(true);
+    });
   });
 
   describe('methods', () => {

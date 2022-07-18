@@ -30,17 +30,17 @@ const fakeContentfulExtensionField = () => ({
 });
 
 // Stubs the Contentful app extension
-export const fakeContentfulExtension = (fields = []) => {
+export const fakeContentfulExtension = ({ entryFields = [], location = 'sidebar' } = {}) => {
   const fakeInit = callback => {
     const fakeSdk = {
       location: {
-        is: (location) => location === 'sidebar'
+        is: (val) => val === location
       },
       window: {
-        startAutoResizer: () => {}
+        startAutoResizer: sinon.spy()
       },
       entry: {
-        fields: fields.reduce((memo, field) => {
+        fields: entryFields.reduce((memo, field) => {
           memo[field] = fakeContentfulExtensionField();
           return memo;
         }, {})
