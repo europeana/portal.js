@@ -2,6 +2,29 @@
   @media (min-width: $bp-xxxl) {
     font-size: $responsive-font-size-base;
 
+    // Bootstrap's spacing utilities defines the margin and padding classes (m-1, px-5 etc.)
+    // These variables and imports recompile the spacing utility to use spacers based on vw instead of the default rem.
+    $custom-spacer: 1vw;
+    $spacers: (
+      0: 0,
+      1: $custom-spacer * 0.25,
+      2: $custom-spacer * 0.5,
+      3: $custom-spacer * 1,
+      4: $custom-spacer * 1.5,
+      5: $custom-spacer * 3
+    );
+    $grid-breakpoints: (
+      'xs': 0,
+      'sm': 576px,
+      'md': 768px,
+      'lg': 992px,
+      'xl': 1200px
+    );
+    /* stylelint-disable no-invalid-position-at-import-rule */
+    @import '~bootstrap/scss/mixins/breakpoints' (min-width: $bp-xxxl);
+    @import '~bootstrap/scss/utilities/spacing' (min-width: $bp-xxxl);
+    /* stylelint-enable no-invalid-position-at-import-rule */
+
     header {
       .col {
         margin-bottom: 2.5em;
@@ -10,38 +33,6 @@
 
     h1 {
       font-size: 2.125vw;
-    }
-
-    $custom-spacer: 1vw;
-    $custom-spacers: (
-      0: 0,
-      1: $custom-spacer * 0.25,
-      2: $custom-spacer * 0.5,
-      3: $custom-spacer * 1,
-      4: $custom-spacer * 1.5,
-      5: $custom-spacer * 3
-    );
-    
-    @each $prop, $abbrev in (margin: m, padding: p) {
-      @each $size, $length in $custom-spacers {
-        .#{$abbrev}-#{$size} { #{$prop}: $length !important; }
-        .#{$abbrev}t-#{$size},
-        .#{$abbrev}y-#{$size} {
-          #{$prop}-top: $length !important;
-        }
-        .#{$abbrev}r-#{$size},
-        .#{$abbrev}x-#{$size} {
-          #{$prop}-right: $length !important;
-        }
-        .#{$abbrev}b-#{$size},
-        .#{$abbrev}y-#{$size} {
-          #{$prop}-bottom: $length !important;
-        }
-        .#{$abbrev}l-#{$size},
-        .#{$abbrev}x-#{$size} {
-          #{$prop}-left: $length !important;
-        }
-      }
     }
 
     .content-card {
