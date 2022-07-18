@@ -42,6 +42,7 @@ export default {
     "next": "próximo",
     "pin": "Alfiler",
     "preview": "Vista previa",
+    "previous": "Anterior",
     "providedBy": "Proporcionado por {provider}",
     "reject": "Rechazar",
     "save": "Salvar",
@@ -727,12 +728,12 @@ export default {
   },
   "homeLinkAlt": "Página de inicio de Europeana",
   "homePage": {
-    "discoverEditorial": "Descubre nuestras historias",
-    "download": "descargar",
-    "free": "gratis",
-    "storiesCTA": "Ver todas nuestras historias",
-    "subHeadline": "Encuentre y {download} obras de arte, fotografías, libros, manuscritos, periódicos y música de más de 4000 museos, archivos, galerías y bibliotecas {free}.",
-    "title": "Descubre el patrimonio cultural europeo"
+    "discoverEditorial": "Últimas historias",
+    "storiesCTA": "Ver todas las historias",
+    "subHeadline": "Buscar, guarda y comparte arte, libros, películas y música de miles de instituciones culturales",
+    "themesCTA": "Ver todos los temas",
+    "themesTitle": "Explorar por tema",
+    "title": "Descubre la herencia cultural europea"
   },
   "imageSlider": {
     "handle": "Manipulador de control deslizante"
@@ -922,9 +923,14 @@ export default {
   "resultsFor": "Resultados para {0}",
   "resultsLimitWarning": "No se muestran los resultados adicionales, ya que solo se muestran los primeros 1000 resultados más relevantes. Si no ha encontrado lo que está buscando, considere delimitar su búsqueda.",
   "resultsWithin": "Resultados dentro de {0} {1} para {2}",
-  "search": "Buscar",
+  "search": {
+    "boost": {
+      "placeholder": "Introduzca la consulta de refuerzo del campo"
+    },
+    "title": "Buscar"
+  },
   "searchHasLoaded": "{0} resultados devueltos",
-  "searchPlaceholder": "Busca millones de elementos",
+  "searchPlaceholder": "Buscar más de 50 millones de artículos",
   "searchResults": "Buscar",
   "searchResultsFor": "{0} - Buscar",
   "searchSuggestions": "Sugerencias de búsqueda",

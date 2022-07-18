@@ -42,6 +42,7 @@ export default {
     "next": "Nākamais",
     "pin": "Pin",
     "preview": "Priekšskatījums",
+    "previous": "Iepriekšējais",
     "providedBy": "Nodrošina {provider}",
     "reject": "Noraidīt",
     "save": "Glābt",
@@ -727,11 +728,11 @@ export default {
   },
   "homeLinkAlt": "Europeana vietne",
   "homePage": {
-    "discoverEditorial": "Atklājiet mūsu stāstus",
-    "download": "lejupielādēt",
-    "free": "bezmaksas",
-    "storiesCTA": "Skatiet visus mūsu stāstus",
-    "subHeadline": "Atrodiet un {download} mākslas darbus, fotogrāfijas, grāmatas, manuskriptus, laikrakstus un mūziku no vairāk nekā 4000 muzejiem, arhīviem, galerijām un bibliotēkām {free}.",
+    "discoverEditorial": "Jaunākie stāsti",
+    "storiesCTA": "Skatīt visus stāstus",
+    "subHeadline": "Meklējiet,saglabājiet un kopīgojietmākslu,grāmatas, filmas un mūzikutūkstošoskultūrasiestāžu",
+    "themesCTA": "Skatīt visas tēmas",
+    "themesTitle": "Izpētiet pēc tēmas",
     "title": "Atklājiet Eiropas kultūras mantojumu"
   },
   "imageSlider": {
@@ -922,9 +923,14 @@ export default {
   "resultsFor": "Rezultāti vaicājumam {0}",
   "resultsLimitWarning": "Papildu rezultāti netiek parādīti, jo tiek parādīti tikai pirmie 1000 atbilstošākie rezultāti. Ja neesat atradis to, ko meklējat, lūdzu, apsveriet iespēju precizēt meklēšanu.",
   "resultsWithin": "Rezultāti {0} {1} ietvaros {2}",
-  "search": "Meklēt",
+  "search": {
+    "boost": {
+      "placeholder": "Ievadiet lauka pastiprināšanas vaicājumu"
+    },
+    "title": "Meklēt"
+  },
   "searchHasLoaded": "{0} atgriezti rezultāti",
-  "searchPlaceholder": "Meklēt starp miljoniem vienumu",
+  "searchPlaceholder": "Meklēt 50+ miljonus vienību",
   "searchResults": "Meklēt",
   "searchResultsFor": "{0} - Meklēšana",
   "searchSuggestions": "Meklēšanas ieteikumi",

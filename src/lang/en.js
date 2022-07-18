@@ -165,13 +165,13 @@ export default {
           "description": "Enter your Europeana API key and it will be used in the links to API requests.",
           "label": "API key"
         },
-        "enabled": {
-          "description": "If enabled, the debug menu will be shown in the page footer.",
-          "label": "Enable debug menu"
-        },
         "boosting": {
           "description": "If enabled, activates the boosting field on search result pages, to evaluate various boosting configurations.",
           "label": "Enable field boosting"
+        },
+        "enabled": {
+          "description": "If enabled, the debug menu will be shown in the page footer.",
+          "label": "Enable debug menu"
         }
       },
       "title": "Settings"
@@ -758,9 +758,9 @@ export default {
   "homeLinkAlt": "Europeana home",
   "homePage": {
     "discoverEditorial": "Latest stories",
-    "storiesCTA": "See all our stories",
+    "storiesCTA": "See all stories",
     "subHeadline": "Search, save and share art, books, films and music from thousands of cultural institutions",
-    "themesCTA": "See all collections",
+    "themesCTA": "See all themes",
     "themesTitle": "Explore by theme",
     "title": "Discover Europe’s cultural heritage"
   },
