@@ -76,6 +76,10 @@
     background-repeat: no-repeat;
     position: relative;
 
+    @media (min-width: $bp-xxxl) {
+      margin-top: -4.375vw
+    }
+
     &::before {
       content: '';
       left: 0;
