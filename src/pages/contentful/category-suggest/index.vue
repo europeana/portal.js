@@ -18,7 +18,7 @@
           type="search"
           autocomplete="off"
           placeholder="Search for topics, centuries, organisations, people and places"
-          @input="inputSearchText"
+          @input="suggestCategories"
         />
       </b-form-group>
       <b-form-group>
@@ -63,30 +63,11 @@
     },
 
     mounted() {
-      window.contentfulExtension.init(async(sdk) => {
+      window.contentfulExtension.init((sdk) => {
         this.contentfulExtensionSdk = sdk;
         if (sdk.location.is(window.contentfulExtension.locations.LOCATION_ENTRY_FIELD)) {
           sdk.window.startAutoResizer();
-
-          const ids = (sdk.field.getValue() || []).map((link) => link.sys.id);
-          if (ids.length > 0) {
-            const variables = {
-              locale: this.$i18n.isoLocale(),
-              preview: this.$route.query.mode === 'preview', // TODO: does this make sense here?
-              ids
-            };
-            const response = await this.$contentful.query('categoryFind', variables);
-
-            // preserve order of stored category IDs
-            const value = [];
-            for (const id of ids) {
-              const category = response.data.data.categoryCollection.items.find((item) => item.sys.id === id);
-              if (category) {
-                value.push(category);
-              }
-            }
-            this.value = value;
-          }
+          this.findCategories();
         }
       });
     },
@@ -96,7 +77,7 @@
         return this.value.map(val => val.sys.id).includes(suggestion.sys.id);
       },
 
-      async inputSearchText(text) {
+      async suggestCategories(text) {
         if (text.length < 2) {
           return;
         }
@@ -109,8 +90,30 @@
         this.suggestions = response.data.data.categoryCollection.items;
       },
 
+      async findCategories() {
+        const ids = (this.contentfulExtensionSdk.field.getValue() || []).map((link) => link.sys.id);
+        if (ids.length > 0) {
+          const variables = {
+            locale: this.$i18n.isoLocale(),
+            preview: this.$route.query.mode === 'preview', // TODO: does this make sense here?
+            ids
+          };
+          const response = await this.$contentful.query('categoryFind', variables);
+
+          // preserve order of stored category IDs
+          const value = [];
+          for (const id of ids) {
+            const category = response.data.data.categoryCollection.items.find((item) => item.sys.id === id);
+            if (category) {
+              value.push(category);
+            }
+          }
+          this.value = value;
+        }
+      },
+
       removeSelection(remove) {
-        this.value = this.value.filter(val => val.id !== remove.id);
+        this.value = this.value.filter(val => val.sys.id !== remove.sys.id);
       },
 
       selectSuggestion(select) {

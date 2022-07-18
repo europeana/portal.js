@@ -23,6 +23,12 @@ export const mountNuxt = (pageOrComponent, options = {}) => {
   return injectNuxtMethods(wrapper, pageOrComponent);
 };
 
+const fakeContentfulExtensionField = () => ({
+  getValue: sinon.stub(),
+  removeValue: sinon.stub(),
+  setValue: sinon.stub()
+});
+
 // Stubs the Contentful app extension
 export const fakeContentfulExtension = (fields = []) => {
   const fakeInit = callback => {
@@ -35,10 +41,11 @@ export const fakeContentfulExtension = (fields = []) => {
       },
       entry: {
         fields: fields.reduce((memo, field) => {
-          memo[field] = { removeValue: sinon.spy(), setValue: sinon.spy() };
+          memo[field] = fakeContentfulExtensionField();
           return memo;
         }, {})
       },
+      field: fakeContentfulExtensionField(),
       dialogs: {
         openAlert: sinon.spy(),
         openPrompt: sinon.spy()
@@ -56,6 +63,7 @@ export const fakeContentfulExtension = (fields = []) => {
   return {
     init: fakeInit,
     locations: {
+      LOCATION_ENTRY_FIELD: 'field',
       LOCATION_ENTRY_SIDEBAR: 'sidebar'
     }
   };
