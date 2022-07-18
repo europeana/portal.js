@@ -401,6 +401,10 @@
           height: 3.4rem;
           box-shadow: 2px 2px 4px 0 rgba(0 0 0 / 8%);
 
+          @media (min-width: $bp-xxxl) {
+            height: 3.4vw;
+          }
+
           .input-group-prepend {
             display: none;
           }
@@ -414,6 +418,11 @@
           border-radius: 0;
           color: $mediumgrey;
           width: 100%;
+
+          @media (min-width: $bp-xxxl) {
+            padding: 0.375vw 1vw 0.375vw 3.5vw;
+            height: 3.4vw;
+          }
         }
       }
 
@@ -466,6 +475,11 @@
       left: 1rem;
       top: 1rem;
       z-index: 99;
+
+      @media (min-width: $bp-xxxl) {
+        left: 1vw;
+        top: 1vw;
+      }
     }
 
     .clear-button {
@@ -476,6 +490,11 @@
 
       @media (min-width: $bp-large) {
         right: 1rem;
+      }
+
+      @media (min-width: $bp-xxxl) {
+        right: 1vw;
+        top: 1vw;
       }
     }
 
@@ -496,6 +515,10 @@
       border-radius: 0;
       background-color: $white;
       transition: $standard-transition;
+
+      @media (min-width: $bp-xxxl) {
+        top: 3.45vw;
+      }
     }
   }
 
