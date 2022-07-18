@@ -306,9 +306,10 @@
         return null;
       },
       editable() {
-        return this.entity &&
+        return this.$features.entityManagement &&
+          this.entity &&
           this.userIsEntitiesEditor &&
-          this.collectionType === 'topic';
+          ['topic', 'organisation'].includes(this.collectionType);
       },
       userIsEntitiesEditor() {
         return this.$auth?.user?.resource_access?.entities?.roles.includes('editor') || false;
