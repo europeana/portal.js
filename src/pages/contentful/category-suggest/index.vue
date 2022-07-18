@@ -1,0 +1,139 @@
+<template>
+  <div class="contentful">
+    <b-form-group>
+      <b-button
+        v-for="val in value"
+        :key="val.sys.id"
+        class="mb-2"
+        @click="removeSelection(val)"
+      >
+        {{ val.name }}
+      </b-button>
+    </b-form-group>
+
+    <b-form>
+      <b-form-group>
+        <b-form-input
+          v-model="searchText"
+          type="search"
+          autocomplete="off"
+          placeholder="Search for topics, centuries, organisations, people and places"
+          @input="inputSearchText"
+        />
+      </b-form-group>
+      <b-form-group>
+        <b-button
+          v-for="suggestion in suggestions"
+          :key="suggestion.sys.id"
+          class="mb-2"
+          :disabled="isSelected(suggestion)"
+          @click="selectSuggestion(suggestion)"
+        >
+          {{ suggestion.name }}
+        </b-button>
+      </b-form-group>
+    </b-form>
+  </div>
+</template>
+
+<script>
+  // TODO: this largely duplicates entity-suggest; refactor for DRYness
+  export default {
+    name: 'ContentfulCategorySuggestPage',
+
+    layout: 'contentful',
+
+    data() {
+      return {
+        value: [],
+        searchText: null,
+        suggestions: [],
+        contentfulExtensionSdk: null
+      };
+    },
+
+    head() {
+      return {
+        title: this.$pageHeadTitle('Category suggest - Contentful app')
+      };
+    },
+
+    watch: {
+      value: 'updateContentfulField'
+    },
+
+    mounted() {
+      window.contentfulExtension.init(async(sdk) => {
+        this.contentfulExtensionSdk = sdk;
+        if (sdk.location.is(window.contentfulExtension.locations.LOCATION_ENTRY_FIELD)) {
+          sdk.window.startAutoResizer();
+
+          const ids = (sdk.field.getValue() || []).map((link) => link.sys.id);
+          if (ids.length > 0) {
+            const variables = {
+              locale: this.$i18n.isoLocale(),
+              preview: this.$route.query.mode === 'preview', // TODO: does this make sense here?
+              ids
+            };
+            const response = await this.$contentful.query('categoryFind', variables);
+
+            // preserve order of stored category IDs
+            const value = [];
+            for (const id of ids) {
+              const category = response.data.data.categoryCollection.items.find((item) => item.sys.id === id);
+              if (category) {
+                value.push(category);
+              }
+            }
+            this.value = value;
+          }
+        }
+      });
+    },
+
+    methods: {
+      isSelected(suggestion) {
+        return this.value.map(val => val.sys.id).includes(suggestion.sys.id);
+      },
+
+      async inputSearchText(text) {
+        if (text.length < 2) {
+          return;
+        }
+        const variables = {
+          locale: this.$i18n.isoLocale(),
+          preview: this.$route.query.mode === 'preview', // TODO: does this make sense here?
+          text
+        };
+        const response = await this.$contentful.query('categorySuggest', variables);
+        this.suggestions = response.data.data.categoryCollection.items;
+      },
+
+      removeSelection(remove) {
+        this.value = this.value.filter(val => val.id !== remove.id);
+      },
+
+      selectSuggestion(select) {
+        this.value = this.value.concat(select);
+      },
+
+      updateContentfulField() {
+        this.contentfulExtensionSdk?.field?.setValue(this.value.map(val => ({
+          sys: {
+            type: 'Link',
+            linkType: 'Entry',
+            id: val.sys.id
+          }
+        })));
+      }
+    }
+  };
+</script>
+
+<style lang="scss" scoped>
+  .contentful {
+    button {
+      margin-right: 1rem;
+    }
+  }
+</style>

@@ -1,0 +1,19 @@
+query CategoryFind(
+  $locale: String!,
+  $ids: [String]!,
+  $preview: Boolean = false
+) {
+  categoryCollection(
+    preview: $preview,
+    locale: $locale,
+    where: { sys: { id_in: $ids } },
+    limit: 10
+  ) {
+    items {
+      name
+      sys {
+        id
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+query CategorySuggest(
+  $locale: String!,
+  $text: String!,
+  $preview: Boolean = false
+) {
+  categoryCollection(
+    preview: $preview,
+    locale: $locale,
+    where: { name_contains: $text },
+    limit: 10
+  ) {
+    items {
+      name
+      sys {
+        id
+      }
+    }
+  }
+}
