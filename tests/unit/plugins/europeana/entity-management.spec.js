@@ -67,7 +67,7 @@ describe('plugins/europeana/entity-management', () => {
         .query(query => query.profile === profile)
         .reply(200, entityResponses.items[0]);
 
-      const response = await entitymanage(axios).get(entityUri, { profile });
+      await entitymanage(axios).get(entityUri, { profile });
 
       expect(nock.isDone()).toBe(true);
     });
