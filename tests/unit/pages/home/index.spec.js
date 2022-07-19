@@ -6,17 +6,17 @@ import sinon from 'sinon';
 const localVue = createLocalVue();
 
 const themes = [{
-  id: 'http://data.europeana.eu/concept/base/83',
+  id: 'http://data.europeana.eu/concept/83',
   prefLabel: { en: 'World War I' },
   description: { en: 'Collection of untold stories and official histories of World War I, in a unique blend of cultural heritage collections and personal items contributed by European citizens.' }
 },
 {
-  id: 'http://data.europeana.eu/concept/base/80',
+  id: 'http://data.europeana.eu/concept/80',
   prefLabel: { en: 'Archaeology' },
   description: { en: 'Explore all facets of archaeology from European museums, galleries, libraries and archives.' }
 },
 {
-  id: 'http://data.europeana.eu/concept/base/190',
+  id: 'http://data.europeana.eu/concept/190',
   prefLabel: { en: 'Art' },
   description: { en: 'Discover inspiring art, artists and stories in the digitised collections of European museums, galleries, libraries and archives. Explore paintings, drawings, engravings and sculpture from cultural heritage institutions across Europe.' }
 }];
@@ -162,6 +162,32 @@ describe('pages/home/index', () => {
       const headMeta = wrapper.vm.head().meta;
 
       expect(headMeta.find(meta => meta.name === 'title')?.content).toBe('homePage.title');
+    });
+
+    it('uses localised page sub-headline for description meta field', () => {
+      const wrapper = factory();
+
+      const headMeta = wrapper.vm.head().meta;
+
+      expect(headMeta.find(meta => meta.name === 'description')?.content).toBe('homePage.subHeadline');
+    });
+
+    it('uses optimised CTF hero image for og:image meta field', async() => {
+      const wrapper = factory();
+      await wrapper.setData({
+        backgroundImage: {
+          image: {
+            url: 'https://images.ctfassets.net/image.jpeg',
+            contentType: 'image/jpeg'
+          }
+        }
+      });
+      await wrapper.vm.$nextTick();
+
+      const headMeta = wrapper.vm.head().meta;
+
+      expect(headMeta.find(meta => meta.property === 'og:image')?.content)
+        .toBe('https://images.ctfassets.net/image.jpeg?w=1200&h=630&fit=fill&fm=jpg&fl=progressive&q=80');
     });
   });
 

@@ -24,7 +24,7 @@ export const mountNuxt = (pageOrComponent, options = {}) => {
 };
 
 // Stubs the Contentful app extension
-export const fakeContentfulExtension = fields => {
+export const fakeContentfulExtension = (fields = []) => {
   const fakeInit = callback => {
     const fakeSdk = {
       location: {

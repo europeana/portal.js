@@ -23,41 +23,23 @@
           :max-width="1100"
           data-qa="image"
         />
-        <figcaption
-          @mouseleave="toggleCite"
-        >
-          <span
-            v-if="citeCollapsed"
-            class="icon-info"
-            @click="toggleCite"
-            @mouseover="toggleCite"
-            @touchstart="toggleCite"
-          />
-          <CiteAttribution
-            v-else
-            :name="attribution.name"
-            :creator="attribution.creator"
-            :provider="attribution.provider"
-            :rights-statement="rightsStatement"
-            :url="attribution.url"
-            extended
-            data-qa="attribution"
-          />
-        </figcaption>
+        <AttributionToggle
+          :attribution="attribution"
+        />
       </figure>
     </b-jumbotron>
   </b-container>
 </template>
 
 <script>
-  import CiteAttribution from './CiteAttribution';
+  import AttributionToggle from '@/components/generic/AttributionToggle';
   import OptimisedImage from './OptimisedImage';
 
   export default {
     name: 'ImageWithAttribution',
 
     components: {
-      CiteAttribution,
+      AttributionToggle,
       OptimisedImage
     },
 
@@ -99,24 +81,9 @@
         type: Object,
         required: true
       },
-      rightsStatement: {
-        type: String,
-        default: ''
-      },
       hero: {
         type: Boolean,
         default: false
-      }
-    },
-
-    data() {
-      return {
-        citeCollapsed: true
-      };
-    },
-    methods: {
-      toggleCite() {
-        this.citeCollapsed = !this.citeCollapsed;
       }
     }
   };

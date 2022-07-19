@@ -509,6 +509,9 @@
       background-color: $white;
       overflow: hidden;
       animation: appear 750ms ease-in-out;
+      position: absolute;
+      z-index: 20;
+      box-shadow: $boxshadow-light, $boxshadow-light-left;
 
       @media (min-width: $bp-xxxl) {
         font-size: 1vw;

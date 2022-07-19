@@ -165,24 +165,23 @@
       }
     },
     async fetch() {
+      // NOTE: this helps prevent lazy-loading issues when paginating in Chrome 103
+      await this.$nextTick();
+      this.$scrollTo && await this.$scrollTo('#header', { cancelable: false });
       this.viewFromRouteQuery();
 
       this.$store.dispatch('search/activate');
       this.$store.commit('search/set', ['userParams', this.$route.query]);
 
-      try {
-        await this.$store.dispatch('search/run');
+      await this.$store.dispatch('search/run');
 
-        if (this.$store.state.search.error) {
-          if (process.server) {
-            this.$nuxt.context.res.statusCode = this.$store.state.search.errorStatusCode;
-          }
-          throw this.$store.state.search.error;
-        } else if (this.noResults) {
-          throw new Error(this.$t('noResults'));
+      if (this.$store.state.search.error) {
+        if (process.server) {
+          this.$nuxt.context.res.statusCode = this.$store.state.search.errorStatusCode;
         }
-      } finally {
-        this.$scrollTo && this.$scrollTo('#header');
+        throw this.$store.state.search.error;
+      } else if (this.noResults) {
+        throw new Error(this.$t('noResults'));
       }
     },
     computed: {

@@ -52,12 +52,11 @@ describe('components/entity/EntityRelatedCollections', () => {
         identifier: '1-stained-glass'
       };
       const uri = 'http://data.europeana.eu/concept/1';
-      const infixedUri = 'http://data.europeana.eu/concept/base/1';
       const relatedUris = [
-        'http://data.europeana.eu/concept/base/2',
-        'http://data.europeana.eu/concept/base/3',
-        'http://data.europeana.eu/concept/base/4',
-        'http://data.europeana.eu/concept/base/5'
+        'http://data.europeana.eu/concept/2',
+        'http://data.europeana.eu/concept/3',
+        'http://data.europeana.eu/concept/4',
+        'http://data.europeana.eu/concept/5'
       ];
       const responses = {
         record: {
@@ -66,14 +65,14 @@ describe('components/entity/EntityRelatedCollections', () => {
               {
                 name: 'skos_concept',
                 fields: [
-                  { label: 'http://data.europeana.eu/concept/base/1' },
-                  { label: 'http://data.europeana.eu/concept/base/2' },
+                  { label: 'http://data.europeana.eu/concept/1' },
+                  { label: 'http://data.europeana.eu/concept/2' },
                   { label: 'http://www.wikidata.org/entity/1' },
-                  { label: 'http://data.europeana.eu/concept/base/3' },
+                  { label: 'http://data.europeana.eu/concept/3' },
                   { label: 'http://www.wikidata.org/entity/2' },
-                  { label: 'http://data.europeana.eu/concept/base/4' },
-                  { label: 'http://data.europeana.eu/concept/base/5' },
-                  { label: 'http://data.europeana.eu/concept/base/6' }
+                  { label: 'http://data.europeana.eu/concept/4' },
+                  { label: 'http://data.europeana.eu/concept/5' },
+                  { label: 'http://data.europeana.eu/concept/6' }
                 ]
               }
             ]
@@ -83,7 +82,7 @@ describe('components/entity/EntityRelatedCollections', () => {
 
       it('queries Record API for related collections', async() => {
         const wrapper = factory({ propsData, responses });
-        const entityQuery = `skos_concept:("${infixedUri}" OR "${uri}")`;
+        const entityQuery = `skos_concept:"${uri}"`;
 
         await wrapper.vm.fetch();
 

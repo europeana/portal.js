@@ -12,7 +12,7 @@ const localVue = createLocalVue();
 
 const collections = [
   {
-    id: 'http://data.europeana.eu/agent/base/123',
+    id: 'http://data.europeana.eu/agent/123',
     prefLabel: {
       de: 'Contentful title',
       en: 'Contentful title EN'
@@ -20,7 +20,7 @@ const collections = [
     image: 'http://data.europeana.eu/item/123/ABC'
   },
   {
-    id: 'http://data.europeana.eu/concept/base/194',
+    id: 'http://data.europeana.eu/concept/194',
     prefLabel: {
       en: 'Visual arts'
     },
@@ -32,7 +32,7 @@ const collections = [
     }
   },
   {
-    id: 'http://data.europeana.eu/organzation/base/1',
+    id: 'http://data.europeana.eu/organzation/1',
     logo: {
       id: 'http://www.wikimedia.org/wiki/Special:FilePath/logoUrlItem3.jpg',
       source: 'www.wikimedia.org/wiki/Special:FilePath/logoUrlItem3'
@@ -42,7 +42,7 @@ const collections = [
     }
   },
   {
-    id: 'http://data.europeana.eu/concept/base/55',
+    id: 'http://data.europeana.eu/concept/55',
     prefLabel: {
       en: 'Textile'
     }

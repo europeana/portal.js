@@ -7,14 +7,14 @@ import api, {
 const entityId = '94-architecture';
 const entityType = 'topic';
 const entityIdMisspelled = '94-architectuz';
-const apiEndpoint = '/concept/base/94.json';
+const apiEndpoint = '/concept/94.json';
 const baseRequest = () => nock(BASE_URL).get(apiEndpoint);
 
 const entitiesResponse = {
   items: [
     {
       type: 'Concept',
-      id: 'http://data.europeana.eu/concept/base/147831',
+      id: 'http://data.europeana.eu/concept/147831',
       prefLabel: { en: 'Architecture' },
       note: {
         en: ['Architecture is both the process and the product of planning, designing, and constructing buildings and other physical structures.']
@@ -22,12 +22,12 @@ const entitiesResponse = {
     },
     {
       type: 'Concept',
-      id: 'http://data.europeana.eu/concept/base/49928',
+      id: 'http://data.europeana.eu/concept/49928',
       prefLabel: { en: 'Painting' }
     },
     {
       type: 'Agent',
-      id: 'http://data.europeana.eu/agent/base/59832',
+      id: 'http://data.europeana.eu/agent/59832',
       prefLabel: { en: 'Vincent van Gogh' },
       biographicalInformation: [
         {
@@ -56,7 +56,7 @@ const entitySuggestionsResponse = {
   total: 1,
   items: [
     {
-      id: 'http://data.europeana.eu/concept/base/83',
+      id: 'http://data.europeana.eu/concept/83',
       type: 'Concept',
       prefLabel: {
         en: 'World War I',
@@ -70,11 +70,11 @@ const conceptEntitiesResponse = {
   partOf: { total: 120 },
   items: [
     { type: 'Concept',
-      id: 'http://data.europeana.eu/concept/base/123',
+      id: 'http://data.europeana.eu/concept/123',
       prefLabel: { en: 'Folklore' },
       isShownBy: { thumbnail: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?uri=https%3A%2F%2Fi.vimeocdn.com%2Fvideo%2F627971486_640.jpg&type=VIDEO' } },
     { type: 'Concept',
-      id: 'http://data.europeana.eu/concept/base/135',
+      id: 'http://data.europeana.eu/concept/135',
       prefLabel: { en: 'Alchemy' },
       isShownBy: { thumbnail: 'https://api.europeana.eu/api/v2/thumbnail-by-url.json?uri=http%3A%2F%2Fiiif.archivelab.org%2Fiiif%2Fmiraculummundisi00glau%241%2Ffull%2Ffull%2F0%2Fdefault.jpg&type=TEXT' } }
   ]
@@ -140,8 +140,8 @@ describe('plugins/europeana/entity', () => {
     });
 
     describe('find', () => {
-      const uris = ['http://data.europeana.eu/agent/base/123', 'http://data.europeana.eu/concept/base/456'];
-      const uriQuery = 'entity_uri:("http://data.europeana.eu/agent/base/123" OR "http://data.europeana.eu/agent/123" OR "http://data.europeana.eu/concept/base/456" OR "http://data.europeana.eu/concept/456")';
+      const uris = ['http://data.europeana.eu/agent/123', 'http://data.europeana.eu/concept/456'];
+      const uriQuery = 'entity_uri:("http://data.europeana.eu/agent/123" OR "http://data.europeana.eu/concept/456")';
       const entitySearchResponse = {
         items: []
       };
@@ -197,11 +197,11 @@ describe('plugins/europeana/entity', () => {
         expect(nock.isDone()).toBe(true);
       });
 
-      it('restricts types to agent, concept, timespan & organization', async() => {
+      it('restricts types to agent, concept, timespan, organization & place', async() => {
         nock(BASE_URL)
           .get(suggestEndpoint)
           .query(query => {
-            return query.type === 'agent,concept,timespan,organization';
+            return query.type === 'agent,concept,timespan,organization,place';
           })
           .reply(200, entitySuggestionsResponse);
 
@@ -327,8 +327,8 @@ describe('plugins/europeana/entity', () => {
   });
 
   describe('isEntityUri', () => {
-    describe('with an uri of "http://data.europeana.eu/agent/base/100"', () => {
-      const uri = 'http://data.europeana.eu/agent/base/100';
+    describe('with an uri of "http://data.europeana.eu/agent/100"', () => {
+      const uri = 'http://data.europeana.eu/agent/100';
       it('returns true', () => {
         const ret = isEntityUri(uri);
         expect(ret).toBe(true);
@@ -343,16 +343,16 @@ describe('plugins/europeana/entity', () => {
       });
     });
 
-    describe('with an uri of "http://data.europeana.eu/concept/base/100"', () => {
-      const uri = 'http://data.europeana.eu/concept/base/100';
+    describe('with an uri of "http://data.europeana.eu/concept/100"', () => {
+      const uri = 'http://data.europeana.eu/concept/100';
       it('returns true', () => {
         const ret = isEntityUri(uri);
         expect(ret).toBe(true);
       });
     });
 
-    describe('with an uri of "http://data.europeana.eu/place/base/100"', () => {
-      const uri = 'http://data.europeana.eu/place/base/100';
+    describe('with an uri of "http://data.europeana.eu/place/100"', () => {
+      const uri = 'http://data.europeana.eu/place/100';
       it('returns true', () => {
         const ret = isEntityUri(uri);
         expect(ret).toBe(true);
@@ -377,8 +377,8 @@ describe('plugins/europeana/entity', () => {
   });
 
   describe('entityParamsFromUri', () => {
-    describe('with an agent uri of "http://data.europeana.eu/agent/base/100"', () => {
-      const uri = 'http://data.europeana.eu/agent/base/100';
+    describe('with an agent uri of "http://data.europeana.eu/agent/100"', () => {
+      const uri = 'http://data.europeana.eu/agent/100';
       it('returns the id and type', () => {
         const params = entityParamsFromUri(uri);
         expect(params.id).toBe('100');
@@ -408,25 +408,22 @@ describe('plugins/europeana/entity', () => {
   describe('getEntityQuery', () => {
     describe('when entity is a concept', () => {
       const uri = 'http://data.europeana.eu/concept/12345';
-      const infixedUri = 'http://data.europeana.eu/concept/base/12345';
       it('queries on skos_concept', () => {
-        expect(getEntityQuery(uri)).toBe(`skos_concept:("${infixedUri}" OR "${uri}")`);
+        expect(getEntityQuery(uri)).toBe(`skos_concept:"${uri}"`);
       });
     });
 
     describe('when entity is an agent', () => {
       const uri = 'http://data.europeana.eu/agent/12345';
-      const infixedUri = 'http://data.europeana.eu/agent/base/12345';
       it('queries on edm_agent', () => {
-        expect(getEntityQuery(uri)).toBe(`edm_agent:("${infixedUri}" OR "${uri}")`);
+        expect(getEntityQuery(uri)).toBe(`edm_agent:"${uri}"`);
       });
     });
 
     describe('when entity is a timespan', () => {
       const uri = 'http://data.europeana.eu/timespan/20';
-      const infixedUri = 'http://data.europeana.eu/timespan/base/20';
       it('queries on edm_timespan', () => {
-        expect(getEntityQuery(uri)).toBe(`edm_timespan:("${infixedUri}" OR "${uri}")`);
+        expect(getEntityQuery(uri)).toBe(`edm_timespan:"${uri}"`);
       });
     });
 
@@ -437,8 +434,15 @@ describe('plugins/europeana/entity', () => {
       });
     });
 
+    describe('when entity is a place', () => {
+      const uri = 'http://data.europeana.eu/place/12345';
+      it('queries on where', () => {
+        expect(getEntityQuery(uri)).toBe(`where:"${uri}"`);
+      });
+    });
+
     describe('otherwise', () => {
-      const uri = 'http://data.europeana.eu/place/base/12345';
+      const uri = 'http://data.europeana.eu/item/12345';
       it('throws an error', () => {
         expect(() => getEntityQuery(uri) === null).toThrow(`Unsupported entity URI "${uri}"`);
       });

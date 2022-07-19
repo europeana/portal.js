@@ -42,6 +42,7 @@ export default {
     "next": "Sljedeći",
     "pin": "Klin",
     "preview": "Pregled",
+    "previous": "Prethodni",
     "providedBy": "Omogućio {provider}",
     "reject": "Odbiti",
     "save": "Uštedjeti",
@@ -62,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Nedavne stavke",
     "organisation": "Organizacije",
+    "place": "Mjesta",
     "time": "Istaknuta stoljeća",
     "topic": "Istaknute teme"
   },
@@ -79,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Organizacija",
     "person": "Osoba",
+    "place": "Mjesto",
     "theme": "Tema",
     "time": "Stoljeća",
     "topic": "Tema"
@@ -727,11 +730,11 @@ export default {
   },
   "homeLinkAlt": "Glavna stranica Europeana",
   "homePage": {
-    "discoverEditorial": "Otkrijte naše priče",
-    "download": "preuzmi",
-    "free": "besplatno",
-    "storiesCTA": "Pogledajte sve naše priče",
-    "subHeadline": "Pronađite i {download} umjetnička djela, fotografije, knjige, rukopise, novine i glazbu iz više od 4000 muzeja, arhiva, galerija i knjižnica {free}.",
+    "discoverEditorial": "Najnovije priče",
+    "storiesCTA": "Pogledajte sve priče",
+    "subHeadline": "Pretražujte, spremajte i dijelite umjetnost, knjige, filmove i glazbu iz tisuća kulturnih institucija",
+    "themesCTA": "Pogledajte sve teme",
+    "themesTitle": "Istražite po temi",
     "title": "Otkrijte europsku kulturnu baštinu"
   },
   "imageSlider": {
@@ -851,12 +854,14 @@ export default {
   "newWindow": "otvara se u novom prozoru",
   "noMoreResults": "Nema više rezultata za vaš upit za pretraživanje.",
   "noResults": "Nema rezultata",
+  "of": "Od",
   "organisation": {
     "city": "Grad",
     "country": "Država",
     "nameAcronym": "Akronim naziva"
   },
   "pageHasLoaded": "se učitao",
+  "pageNumber": "Broj stranice",
   "pages": {
     "collections": {
       "organisations": {
@@ -868,6 +873,9 @@ export default {
       "persons": {
         "title": "Osobe"
       },
+      "places": {
+        "title": "Mjesta"
+      },
       "table": {
         "name": "Ime"
       },
@@ -878,6 +886,9 @@ export default {
         "title": "Teme"
       }
     }
+  },
+  "pagination": {
+    "label": "Paginacija"
   },
   "readMore": "Pročitaj više",
   "recommendation": {
@@ -922,9 +933,14 @@ export default {
   "resultsFor": "Rezultati za {0}",
   "resultsLimitWarning": "Dodatni rezultati nisu prikazani jer je prikazano samo prvih 1000 najrelevantnijih rezultata. Ako niste pronašli ono što tražite, razmislite o preciziranju pretraživanja.",
   "resultsWithin": "Rezultati unutar {0} {1} za {2}",
-  "search": "Traži",
+  "search": {
+    "boost": {
+      "placeholder": "Unesite upit za povećanje polja"
+    },
+    "title": "Traži"
+  },
   "searchHasLoaded": "Vraćeno je {0} rezultata",
-  "searchPlaceholder": "Što tražite?",
+  "searchPlaceholder": "Pretražite više od 50 milijuna artikala",
   "searchResults": "Traži",
   "searchResultsFor": "{0} - Pretraži",
   "searchSuggestions": "Traži prijedloge",

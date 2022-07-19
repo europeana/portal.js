@@ -63,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Recent items",
     "organisation": "Organisations",
+    "place": "Places",
     "time": "Centuries",
     "topic": "Topics"
   },
@@ -80,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Organisation",
     "person": "Person",
+    "place": "Place",
     "theme": "Theme",
     "time": "Century",
     "topic": "Topic"
@@ -163,13 +165,13 @@ export default {
           "description": "Enter your Europeana API key and it will be used in the links to API requests.",
           "label": "API key"
         },
-        "enabled": {
-          "description": "If enabled, the debug menu will be shown in the page footer.",
-          "label": "Enable debug menu"
-        },
         "boosting": {
           "description": "If enabled, activates the boosting field on search result pages, to evaluate various boosting configurations.",
           "label": "Enable field boosting"
+        },
+        "enabled": {
+          "description": "If enabled, the debug menu will be shown in the page footer.",
+          "label": "Enable debug menu"
         }
       },
       "title": "Settings"
@@ -755,14 +757,12 @@ export default {
   },
   "homeLinkAlt": "Europeana home",
   "homePage": {
-    "discoverEditorial": "Discover our stories",
-    "download": "download",
-    "free": "free",
-    "storiesCTA": "See all our stories",
-    "subHeadline": "Find and {download} artworks, photographs, books, manuscripts, newspapers and music from over 4000 museums, archives, galleries, and libraries for {free}.",
-    "themesCTA": "See all our collections",
-    "themesTitle": "Start exploring by theme",
-    "title": "Discover European cultural heritage"
+    "discoverEditorial": "Latest stories",
+    "storiesCTA": "See all stories",
+    "subHeadline": "Search, save and share art, books, films and music from thousands of cultural institutions",
+    "themesCTA": "See all themes",
+    "themesTitle": "Explore by theme",
+    "title": "Discover Europe’s cultural heritage"
   },
   "imageSlider": {
     "handle": "Slider Handle"
@@ -900,6 +900,9 @@ export default {
       "persons": {
         "title": "Persons"
       },
+      "places": {
+        "title": "Places"
+      },
       "table": {
         "name": "Name"
       },
@@ -964,7 +967,7 @@ export default {
     "title": "Search"
   },
   "searchHasLoaded": "{0} results returned",
-  "searchPlaceholder": "Search millions of items",
+  "searchPlaceholder": "Search 50+ million items",
   "searchResults": "Search",
   "searchResultsFor": "{0} - Search",
   "searchSuggestions": "Search suggestions",

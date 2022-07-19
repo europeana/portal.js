@@ -172,8 +172,8 @@ describe('components/search/SearchForm', () => {
 
         await wrapper.setData({
           query,
-          suggestions: { ['http://data.europeana.eu/base/concept/123']: '"Trees"',
-            ['http://data.europeana.eu/base/concept/124']: '"Tree houses"' }
+          suggestions: { ['http://data.europeana.eu/concept/123']: '"Trees"',
+            ['http://data.europeana.eu/concept/124']: '"Tree houses"' }
         });
         wrapper.vm.submitForm();
 

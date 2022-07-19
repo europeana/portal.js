@@ -10,7 +10,7 @@ const proxyBody = { type: 'Concept',
     en: ['A two-dimensional visual language']
   } };
 
-const updatedEntity = { id: 'http://data.europeana.eu/concept/base/124',
+const updatedEntity = { id: 'http://data.europeana.eu/concept/124',
   type: 'Concept',
   prefLabel: { en: 'Painting' },
   note: {
@@ -20,7 +20,7 @@ const updatedEntity = { id: 'http://data.europeana.eu/concept/base/124',
 const entityResponses = {
   items: [
     {
-      id: 'http://data.europeana.eu/concept/base/123',
+      id: 'http://data.europeana.eu/concept/123',
       type: 'Concept',
       prefLabel: { en: 'Book' },
       note: {
@@ -28,7 +28,7 @@ const entityResponses = {
       }
     },
     {
-      id: 'http://data.europeana.eu/concept/base/124',
+      id: 'http://data.europeana.eu/concept/124',
       type: 'Concept',
       prefLabel: { en: 'Painting' },
       note: {
@@ -49,7 +49,7 @@ describe('plugins/europeana/entity-management', () => {
       const type = 'topic';
       const profile = 'internal';
       nock(BASE_URL)
-        .get(`/concept/base/${entityId}?profile=internal`)
+        .get(`/concept/${entityId}?profile=internal`)
         .reply(200, entityResponses.items[0]);
       const response =  await entitymanage(axios).get(type, entityId, { profile });
       expect(response.note['en']).toEqual(['A medium for recording information in the form of writing or images']);
@@ -60,10 +60,10 @@ describe('plugins/europeana/entity-management', () => {
     it('updates the data', async() => {
       const entityId = '124';
       nock(BASE_URL)
-        .put(`/concept/base/${entityId}`)
+        .put(`/concept/${entityId}`)
         .reply(200, updatedEntity);
       const response =  await entitymanage(axios).update(entityId, proxyBody);
-      expect(response.id).toBe('http://data.europeana.eu/concept/base/124');
+      expect(response.id).toBe('http://data.europeana.eu/concept/124');
     });
   });
 });

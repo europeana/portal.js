@@ -42,6 +42,7 @@ export default {
     "next": "Prossimo",
     "pin": "Spilla",
     "preview": "Anteprima",
+    "previous": "Precedente",
     "providedBy": "Fornito da {provider}",
     "reject": "Rifiuta",
     "save": "Salva",
@@ -727,11 +728,11 @@ export default {
   },
   "homeLinkAlt": "Home Europeana",
   "homePage": {
-    "discoverEditorial": "Scopri le nostre storie",
-    "download": "scaricare",
-    "free": "gratuito",
-    "storiesCTA": "Guarda tutte le nostre storie",
-    "subHeadline": "Trova e {download} opere d'arte, fotografie, libri, manoscritti, giornali e musica da oltre 4000 musei, archivi, gallerie e biblioteche per {free}.",
+    "discoverEditorial": "Ultime storie",
+    "storiesCTA": "Vedi tutte le storie",
+    "subHeadline": "Ricerca, salva e condividi arte, libri, film e musica provenienti da migliaia di istituzioni culturali",
+    "themesCTA": "Vedi tutti i temi",
+    "themesTitle": "Esplora per tema",
     "title": "Scopri il patrimonio culturale europeo"
   },
   "imageSlider": {
@@ -851,12 +852,14 @@ export default {
   "newWindow": "si apre in una nuova finestra",
   "noMoreResults": "Non ci sono altri risultati per la tua query di ricerca.",
   "noResults": "Nessun Risultato",
+  "of": "Di",
   "organisation": {
     "city": "Città",
     "country": "Paese",
     "nameAcronym": "Nome acronimo"
   },
   "pageHasLoaded": "ha caricato",
+  "pageNumber": "Numero di pagina",
   "pages": {
     "collections": {
       "organisations": {
@@ -878,6 +881,9 @@ export default {
         "title": "Temi"
       }
     }
+  },
+  "pagination": {
+    "label": "Paginazione"
   },
   "readMore": "Leggi di più",
   "recommendation": {
@@ -922,9 +928,14 @@ export default {
   "resultsFor": "Risultati per {0}",
   "resultsLimitWarning": "Non vengono mostrati risultati aggiuntivi perché vengono visualizzati solo i primi 1.000 risultati più rilevanti. Se non hai trovato quello che stai cercando, considera la possibilità di perfezionare la tua ricerca.",
   "resultsWithin": "Risultati entro {0} {1} per {2}",
-  "search": "Cerca",
+  "search": {
+    "boost": {
+      "placeholder": "Immettere la query di potenziamento del campo"
+    },
+    "title": "Cerca"
+  },
   "searchHasLoaded": "{0} risultati restituiti",
-  "searchPlaceholder": "Cosa stai cercando?",
+  "searchPlaceholder": "Cerca oltre 50 milioni di articoli",
   "searchResults": "Cerca",
   "searchResultsFor": "{0} - Cerca",
   "searchSuggestions": "Suggerimenti di ricerca",

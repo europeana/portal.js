@@ -1,6 +1,7 @@
 <template>
   <div
-    class="hero"
+    class="hero figure-attribution responsive-backround-image"
+    :style="imageCSSVars"
   >
     <div
       class="hero-content"
@@ -11,35 +12,61 @@
         >
           {{ $t('homePage.title') }}
         </h1>
-        <i18n
-          path="homePage.subHeadline"
-          tag="p"
-          for="homePage.free"
+        <p
           class="sub-headline text-center"
         >
-          <template #download>
-            <strong>{{ $t('homePage.download') }}</strong>
-          </template>
-          <template #free>
-            <strong>{{ $t('homePage.free') }}</strong>
-          </template>
-        </i18n>
+          {{ $t('homePage.subHeadline') }}
+        </p>
       </header>
       <SearchForm />
     </div>
+    <AttributionToggle
+      :attribution="backgroundImage"
+    />
+    <img
+      width="250"
+      height="26"
+      src="@/assets/img/eu-funding.svg"
+      class="eu-logo"
+      :alt="$t('footer.imageDescription')"
+    >
   </div>
 </template>
 
 <script>
   import SearchForm from '@/components/search/SearchForm';
+  import AttributionToggle from '@/components/generic/AttributionToggle';
+  import { responsiveBackgroundImageCSSVars } from '@/plugins/contentful-utils';
 
   export default {
     name: 'HomeHero',
 
     components: {
-      SearchForm
-    }
+      SearchForm,
+      AttributionToggle
+    },
 
+    props: {
+      backgroundImage: {
+        type: Object,
+        default: null
+      }
+    },
+
+    computed: {
+      imageCSSVars() {
+        return this.backgroundImage?.image &&
+          responsiveBackgroundImageCSSVars(this.backgroundImage.image,
+                                           { small: { w: 576, h: 896, fit: 'fill' },
+                                             medium: { w: 768, h: 1080, fit: 'fill' },
+                                             large: { w: 992, h: 1080, fit: 'fill' },
+                                             xl: { w: 1200, h: 1080, fit: 'fill' },
+                                             xxl: { w: 1440, h: 1080, fit: 'fill' },
+                                             xxxl: { w: 1920, h: 1080, fit: 'fill' },
+                                             wqhd: { w: 2560, h: 1440, fit: 'fill' },
+                                             '4k': { w: 3840, h: 2160, fit: 'fill' } });
+      }
+    }
   };
 </script>
 
@@ -50,8 +77,35 @@
     margin-top: -70px;
     margin-bottom: 1rem;
     background-color: $mediumgrey-light;
-    padding: 12rem 1.5rem;
+    padding: 9.5rem 1.5rem;
     min-height: 100vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+
+    &::before {
+      content: '';
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      background-image: linear-gradient(0deg, #0b60aa, #0b60aa);
+      mix-blend-mode: multiply;
+      position: absolute;
+    }
+
+    &::after {
+      border-bottom: 145px solid $white;
+      border-left: 60px solid transparent;
+      content: '';
+      display: block;
+      height: 0;
+      position: absolute;
+      right: 0;
+      top: calc(100% - 145px);
+      width: 0;
+      z-index: 1;
+    }
 
     h1,
     .sub-headline {
@@ -61,17 +115,19 @@
     h1 {
       font-size: 2.125rem;
       font-weight: 700;
-      margin-bottom: 2em;
+      margin-bottom: 1em;
+
+      @media (min-width: $bp-medium) {
+        font-size: 2.875rem;
+      }
     }
 
     .sub-headline {
       font-size: 1rem;
       margin-bottom: 4em;
-    }
 
-    @media (min-width: $bp-medium) {
-      .sub-headline {
-        font-size: 1.25rem;
+      @media (min-width: $bp-medium) {
+        font-size: 1.625rem;
       }
     }
 
@@ -91,6 +147,7 @@
 
   .hero-content {
     margin: 0 auto;
+    position: relative; // Prevents blending with the background
 
     @media (min-width: $bp-medium) {
       width: 25em;
@@ -98,10 +155,42 @@
     }
   }
 
+  ::v-deep .icon-info {
+    left: 1.5rem;
+    right: auto;
+    z-index: 3;
+  }
+
+  ::v-deep cite {
+    left: 0.5rem;
+    right: auto;
+    z-index: 3;
+  }
+
+  .eu-logo {
+    position: absolute;
+    right: calc(60px + 1rem);
+    bottom: 1rem;
+  }
 </style>
 
 <docs lang="md">
   ```jsx
-    <HomeHero />
+    <HomeHero
+      :background-image="{
+        creator: 'Europeana Foundation',
+        license: 'https://creativecommons.org/publicdomain/zero/1.0',
+        name: 'Background homepage',
+        provider: null,
+        url: null,
+        image: {
+          contentType: 'image/jpeg',
+          description: null,
+          height: 2694,
+          url: 'https://images.ctfassets.net/i01duvb6kq77/xtfviD6rWLt1VN46qRwJa/3db1d85b556b6bf5abcf5660001805a1/slanted_image_cover_5_.jpg',
+          width: 4320
+        }
+      }"
+    />
   ```
 </docs>
