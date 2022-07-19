@@ -93,9 +93,12 @@
       async updateEntity() {
         // First fetch the entity to get its Europeana proxy to avoid data loss
         const entity = await this.$apis.entityManagement.get(this.id);
-        const europeanaProxy = entity.proxies.find(proxy => proxy.id.includes('#proxy_europeana')) || {};
+        const europeanaProxy = entity.proxies.find(proxy => proxy.id.endsWith('#proxy_europeana')) || {};
 
-        let body = {};
+        let body = {
+          id: entity.id,
+          type: entity.type
+        };
         if (entity.exactMatch) {
           body.exactMatch = entity.exactMatch;
         }

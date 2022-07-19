@@ -113,7 +113,7 @@ describe('components/entity/EntityUpdateModal', () => {
     describe('updateEntity', () => {
       it('fetches the entity from the management API', async() => {
         const wrapper = factory(existingEntityPropsData);
-        await (wrapper.setData({ descriptionValue: 'Updated' }));
+        await wrapper.setData({ descriptionValue: 'Updated' });
 
         await wrapper.vm.updateEntity();
 
@@ -122,7 +122,7 @@ describe('components/entity/EntityUpdateModal', () => {
 
       it('updates via the management API, preserving existing proxy data', async() => {
         const wrapper = factory(existingEntityPropsData);
-        await (wrapper.setData({ descriptionValue: 'Updated' }));
+        await wrapper.setData({ descriptionValue: 'Updated' });
 
         await wrapper.vm.updateEntity();
 
@@ -132,6 +132,26 @@ describe('components/entity/EntityUpdateModal', () => {
             id: 'http://data.europeana.eu/concept/190#proxy_europeana',
             type: 'Concept',
             prefLabel: { en: 'Art' },
+            note: { en: ['Updated'] }
+          }
+        )).toBe(true);
+      });
+
+      it('handles no Europeana proxy in management API response', async() => {
+        const wrapper = factory(existingEntityPropsData);
+        wrapper.vm.$apis.entityManagement.get.resolves({
+          ...entityManagementGetResponse,
+          proxies: []
+        });
+        await wrapper.setData({ descriptionValue: 'Updated' });
+
+        await wrapper.vm.updateEntity();
+
+        expect(wrapper.vm.$apis.entityManagement.update.calledWith(
+          existingEntityPropsData.id, {
+            exactMatch: ['http://www.wikidata.org/entity/Q735'],
+            id: 'http://data.europeana.eu/concept/190',
+            type: 'Concept',
             note: { en: ['Updated'] }
           }
         )).toBe(true);
