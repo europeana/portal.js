@@ -56,7 +56,6 @@
           class="mt-4 col-lg-8"
         >
           <RelatedCategoryTags
-
             :tags="categoriesCollection.items"
           />
         </b-col>
