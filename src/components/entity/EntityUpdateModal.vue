@@ -111,7 +111,7 @@
           }
         };
 
-        return await this.$apis.entityManagement.update(this.id, body);
+        return this.$apis.entityManagement.update(this.id, body);
       },
       async submitForm() {
         await this.updateEntity();
