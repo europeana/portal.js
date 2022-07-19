@@ -43,28 +43,46 @@ describe('plugins/europeana/entity-management', () => {
     nock.cleanAll();
   });
 
-  describe('get()', () => {
-    it('gets the entity data', async() => {
+  describe('get', () => {
+    it('gets the entity data, defaulting to profile internal', async() => {
       const entityId = '123';
       const entityUri = 'http://data.europeana.eu/concept/123';
       const profile = 'internal';
       nock(BASE_URL)
         .get(`/concept/${entityId}`)
-        .query(query => query.profile === 'internal')
+        .query(query => query.profile === profile)
         .reply(200, entityResponses.items[0]);
-      const response =  await entitymanage(axios).get(entityUri, { profile });
-      expect(response.note['en']).toEqual(['A medium for recording information in the form of writing or images']);
+
+      const response = await entitymanage(axios).get(entityUri);
+
+      expect(response.note.en).toEqual(['A medium for recording information in the form of writing or images']);
+    });
+
+    it('supports overriding the default profile', async() => {
+      const entityId = '123';
+      const entityUri = 'http://data.europeana.eu/concept/123';
+      const profile = 'external';
+      nock(BASE_URL)
+        .get(`/concept/${entityId}`)
+        .query(query => query.profile === profile)
+        .reply(200, entityResponses.items[0]);
+
+      const response = await entitymanage(axios).get(entityUri, { profile });
+
+      expect(nock.isDone()).toBe(true);
     });
   });
 
-  describe('update()', () => {
+  describe('update', () => {
     it('updates the data', async() => {
       const entityId = '124';
       const entityUri = 'http://data.europeana.eu/concept/124';
       nock(BASE_URL)
         .put(`/concept/${entityId}`)
         .reply(200, updatedEntity);
+
       const response = await entitymanage(axios).update(entityUri, proxyBody);
+
       expect(response.id).toBe('http://data.europeana.eu/concept/124');
     });
   });
