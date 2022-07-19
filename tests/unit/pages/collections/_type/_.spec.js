@@ -68,6 +68,7 @@ const contentfulQueryStub = sinon.stub().resolves(contentfulPageResponse);
 const factory = (options = {}) => shallowMountNuxt(collection, {
   localVue,
   mocks: {
+    $features: {},
     $fetchState: {},
     $t: (key, args) => args ? `${key} ${args}` : key,
     $route: { query: options.query || '', params: { type: options.type, pathMatch: options.pathMatch } },
