@@ -42,6 +42,7 @@ export default {
     "next": "Volgende",
     "pin": "Pin",
     "preview": "Voorbeeld",
+    "previous": "Vorige",
     "providedBy": "Aangeboden door {provider}",
     "reject": "Afwijzen",
     "save": "Opslaan",
@@ -62,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Recente items",
     "organisation": "Organisaties",
+    "place": "Plaatsen",
     "time": "Aanbevolen eeuwen",
     "topic": "Aanbevolen onderwerpen"
   },
@@ -79,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Organisatie",
     "person": "Persoon",
+    "place": "Plaats",
     "theme": "Thema",
     "time": "Eeuw",
     "topic": "Onderwerp"
@@ -727,13 +730,12 @@ export default {
   },
   "homeLinkAlt": "Europeana Home",
   "homePage": {
-    "discoverEditorial": "Ontdek onze verhalen",
-    "download": "download",
-    "free": "gratis",
-    "storiesCTA": "Bekijk al onze verhalen",
-    "subHeadline": "Vind en {download} kunstwerken, foto's, boeken, manuscripten, kranten en muziek van meer dan 4000 musea, archieven, galerijen en bibliotheken {free}.",
-    "themesCTA": "Bekijk al onze Collecties",
-    "title": "Ontdek het Europese culturele erfgoed"
+    "discoverEditorial": "Laatste verhalen",
+    "storiesCTA": "Bekijk alle verhalen",
+    "subHeadline": "Zoek, bewaar en deel kunst, boeken, films en muziek van duizenden culturele instellingen",
+    "themesCTA": "Bekijk alle thema's",
+    "themesTitle": "Verkennen op thema",
+    "title": "Ontdek het cultureel erfgoed van Europa"
   },
   "imageSlider": {
     "handle": "Schuifgreep"
@@ -852,12 +854,14 @@ export default {
   "newWindow": "opent in nieuw venster",
   "noMoreResults": "Er zijn geen resultaten meer voor uw zoekopdracht.",
   "noResults": "Geen resultaten",
+  "of": "Van",
   "organisation": {
     "city": "Stad",
     "country": "Land",
     "nameAcronym": "Naam acroniem"
   },
   "pageHasLoaded": "heeft geladen",
+  "pageNumber": "Paginanummer",
   "pages": {
     "collections": {
       "organisations": {
@@ -869,6 +873,9 @@ export default {
       "persons": {
         "title": "Personen"
       },
+      "places": {
+        "title": "Plaatsen"
+      },
       "table": {
         "name": "Naam"
       },
@@ -879,6 +886,9 @@ export default {
         "title": "Onderwerpen"
       }
     }
+  },
+  "pagination": {
+    "label": "Paginering"
   },
   "readMore": "Lees verder",
   "recommendation": {
@@ -923,9 +933,14 @@ export default {
   "resultsFor": "Resultaten voor {0}",
   "resultsLimitWarning": "Aanvullende resultaten worden niet getoond, aangezien alleen de 1000 meest relevante resultaten worden getoond. Indien u niet hebt gevonden wat u zoekt, overweeg dan om uw zoekopdracht te verfijnen.",
   "resultsWithin": "Resultaten binnen {0} {1} voor {2}",
-  "search": "Zoeken",
+  "search": {
+    "boost": {
+      "placeholder": "Voer veldversterkende query in"
+    },
+    "title": "Zoeken"
+  },
   "searchHasLoaded": "{0} resultaten geretourneerd",
-  "searchPlaceholder": "Doorzoek miljoenen Items",
+  "searchPlaceholder": "Zoek meer dan 50 miljoen items",
   "searchResults": "Zoeken",
   "searchResultsFor": "{0} - Zoeken",
   "searchSuggestions": "Zoeksuggesties",

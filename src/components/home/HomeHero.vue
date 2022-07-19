@@ -12,25 +12,24 @@
         >
           {{ $t('homePage.title') }}
         </h1>
-        <i18n
-          path="homePage.subHeadline"
-          tag="p"
-          for="homePage.free"
+        <p
           class="sub-headline text-center"
         >
-          <template #download>
-            <strong>{{ $t('homePage.download') }}</strong>
-          </template>
-          <template #free>
-            <strong>{{ $t('homePage.free') }}</strong>
-          </template>
-        </i18n>
+          {{ $t('homePage.subHeadline') }}
+        </p>
       </header>
       <SearchForm />
     </div>
     <AttributionToggle
       :attribution="backgroundImage"
     />
+    <img
+      width="250"
+      height="26"
+      src="@/assets/img/eu-funding.svg"
+      class="eu-logo"
+      :alt="$t('footer.imageDescription')"
+    >
   </div>
 </template>
 
@@ -78,7 +77,7 @@
     margin-top: -70px;
     margin-bottom: 1rem;
     background-color: $mediumgrey-light;
-    padding: 12rem 1.5rem;
+    padding: 9.5rem 1.5rem;
     min-height: 100vh;
     background-size: cover;
     background-repeat: no-repeat;
@@ -116,17 +115,19 @@
     h1 {
       font-size: 2.125rem;
       font-weight: 700;
-      margin-bottom: 2em;
+      margin-bottom: 1em;
+
+      @media (min-width: $bp-medium) {
+        font-size: 2.875rem;
+      }
     }
 
     .sub-headline {
       font-size: 1rem;
       margin-bottom: 4em;
-    }
 
-    @media (min-width: $bp-medium) {
-      .sub-headline {
-        font-size: 1.25rem;
+      @media (min-width: $bp-medium) {
+        font-size: 1.625rem;
       }
     }
 
@@ -157,11 +158,19 @@
   ::v-deep .icon-info {
     left: 1.5rem;
     right: auto;
+    z-index: 3;
   }
 
   ::v-deep cite {
     left: 0.5rem;
     right: auto;
+    z-index: 3;
+  }
+
+  .eu-logo {
+    position: absolute;
+    right: calc(60px + 1rem);
+    bottom: 1rem;
   }
 </style>
 

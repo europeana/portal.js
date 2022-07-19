@@ -9,7 +9,7 @@
     <b-button
       v-if="cta"
       variant="outline-secondary"
-      class="cta my-4"
+      class="cta"
       :to="cta.url"
     >
       {{ cta.text }}
@@ -168,15 +168,21 @@
 
   .heading {
     color: $mediumgrey;
-    font-size: 2em;
+    font-size: 2rem;
+
+    @media (min-width: $bp-extralarge) {
+      font-size: 2.375rem;
+    }
 
     @media (min-width: $bp-xxxl) {
       margin: 0.5em 0 !important;
+      font-size: 2em;
     }
   }
 
   .cta {
     font-size: 1em;
+    margin: 1.5em auto;
   }
 
   .slide-link {
@@ -187,7 +193,7 @@
 
   .swiper-container {
     width: 100%;
-    padding: 1rem 0 3rem;
+    padding: 1rem 0;
   }
 
   .swiper-slide {

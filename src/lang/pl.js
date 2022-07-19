@@ -42,6 +42,7 @@ export default {
     "next": "Następny",
     "pin": "Szpilka",
     "preview": "Podgląd",
+    "previous": "Poprzedni",
     "providedBy": "Dostarczone przez {provider}",
     "reject": "Odrzuć",
     "save": "Zapisać",
@@ -727,12 +728,12 @@ export default {
   },
   "homeLinkAlt": "Strona główna Europeana",
   "homePage": {
-    "discoverEditorial": "Odkryj nasze historie",
-    "download": "Ściągnij",
-    "free": "bezpłatnie",
-    "storiesCTA": "Zobacz wszystkie nasze historie",
-    "subHeadline": "Znajdź i {download} dzieła sztuki, fotografie, książki, rękopisy, gazety i muzykę z ponad 4000 muzeów, archiwów, galerii i bibliotek za {free}.",
-    "title": "Odkryj europejskie dziedzictwo kulturowe"
+    "discoverEditorial": "Najnowsze historie",
+    "storiesCTA": "Zobacz wszystkie historie",
+    "subHeadline": "Wyszukuj, zapisuj i udostępniaj dzieła sztuki, książki, filmy i muzykę z tysięcy instytucji kulturalnych",
+    "themesCTA": "Zobacz wszystkie motywy",
+    "themesTitle": "Eksploruj według motywu",
+    "title": "Odkryj dziedzictwo kulturowe Europy"
   },
   "imageSlider": {
     "handle": "Uchwyt suwakowy"
@@ -922,9 +923,14 @@ export default {
   "resultsFor": "Wyniki dla {0}",
   "resultsLimitWarning": "Dodatkowe wyniki nie są wyświetlane, ponieważ wyświetlanych jest tylko pierwsze 1000 najbardziej odpowiednich wyników. Jeśli nie znalazłeś tego, czego szukasz, rozważ zawężenie wyszukiwania.",
   "resultsWithin": "Wyniki w granicach {0} {1} dla {2}",
-  "search": "Szukaj",
+  "search": {
+    "boost": {
+      "placeholder": "Wpisz zapytanie zwiększające pole"
+    },
+    "title": "Szukaj"
+  },
   "searchHasLoaded": "{0} zwróconych wyników",
-  "searchPlaceholder": "Odkryj miliony obiektów",
+  "searchPlaceholder": "Przeszukaj ponad 50 milionów przedmiotów",
   "searchResults": "Szukaj",
   "searchResultsFor": "{0} - Szukaj",
   "searchSuggestions": "Sugestie wyszukiwania",

@@ -1,10 +1,12 @@
 
 export function urlIsContentfulAsset(url) {
-  const hostnameMatch = url.match(/\/\/([^/]+)\//);
-  return hostnameMatch && (hostnameMatch[1] === 'images.ctfassets.net');
+  return (new URL(url)).host === 'images.ctfassets.net';
 }
 
 export function optimisedSrcForContentfulAsset(asset, params = {}) {
+  if (!asset?.url) {
+    return null;
+  }
   const imageUrl = new URL(asset.url);
 
   // TODO: are optimisations possible on any other content types?

@@ -1,8 +1,27 @@
 <template>
   <span
-    class="spinner-border spinner-border-sm"
     role="status"
-    aria-hidden="true"
     data-qa="loading spinner"
-  />
+  >
+    <span class="visually-hidden">
+      {{ statusMessage || $t('loading') }}
+    </span>
+    <span
+      class="spinner-border spinner-border-sm"
+      aria-hidden="true"
+    />
+  </span>
 </template>
+
+<script>
+  export default {
+    name: 'LoadingSpinner',
+
+    props: {
+      statusMessage: {
+        type: String,
+        default: null
+      }
+    }
+  };
+</script>
