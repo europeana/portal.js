@@ -27,7 +27,8 @@
         :show-related="showRelated"
       >
         <EntityHeader
-          v-show="entity && !hasUserQuery"
+          v-if="entity"
+          v-show="!hasUserQuery"
           :id="entity && entity.id"
           :description="description"
           :title="title"

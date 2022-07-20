@@ -51,6 +51,18 @@ const themeEntity = {
   pathMatch: '62-theme'
 };
 
+const agentEntity = {
+  entity: {
+    id: 'http://data.europeana.eu/concept/60305',
+    type: 'Agent',
+    prefLabel: {
+      en: 'William Shakespeare'
+    }
+  },
+  type: 'person',
+  pathMatch: '60305-william-shakespeare'
+};
+
 const contentfulPageResponse = {
   data: {
     data: {
@@ -200,6 +212,72 @@ describe('pages/collections/_type/_', () => {
   });
 
   describe('computed', () => {
+    describe('editable', () => {
+      const editableOptions = {
+        ...organisationEntity,
+        mocks: {
+          $features: { entityManagement: true },
+          $auth: { user: { resource_access: { entities: { roles: ['editor'] } } } }
+        }
+      };
+
+      it('is truthy if all criteria are met', () => {
+        const wrapper = factory(editableOptions);
+
+        const editable = wrapper.vm.editable;
+
+        expect(editable).toBeTruthy();
+      });
+
+      it('is falsy if entityManagement feature is disabled', () => {
+        const wrapper = factory({
+          ...editableOptions,
+          mocks: {
+            $features: { entityManagement: false }
+          }
+        });
+
+        const editable = wrapper.vm.editable;
+
+        expect(editable).toBeFalsy();
+      });
+
+      it('is falsy if entity is absent', () => {
+        const wrapper = factory({
+          ...editableOptions,
+          entity: null
+        });
+
+        const editable = wrapper.vm.editable;
+
+        expect(editable).toBeFalsy();
+      });
+
+      it('is falsy if user is unauthorized', () => {
+        const wrapper = factory({
+          ...editableOptions,
+          mocks: {
+            $auth: { user: { resource_access: { entities: { roles: [] } } } }
+          }
+        });
+
+        const editable = wrapper.vm.editable;
+
+        expect(editable).toBeFalsy();
+      });
+
+      it('is falsy if entity is not organisation or topic', () => {
+        const wrapper = factory({
+          ...editableOptions,
+          ...agentEntity
+        });
+
+        const editable = wrapper.vm.editable;
+
+        expect(editable).toBeFalsy();
+      });
+    });
+
     describe('contextLabel', () => {
       it('returns the label for an organisation', () => {
         const wrapper = factory(organisationEntity);
@@ -277,8 +355,6 @@ describe('pages/collections/_type/_', () => {
         expect(subTitle).toBe(organisationEntity.entity.prefLabel.en);
       });
     });
-
-    // mocks: { $auth: { user: { resource_access: { entities: { roles: ['editor'] } } } } }
 
     describe('description', () => {
       it('uses the editorial description, if available', () => {
