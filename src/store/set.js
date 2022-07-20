@@ -117,16 +117,16 @@ export default {
 
       const likes = await this.$apis.set.get(state.likesId, {
         pageSize: 100,
-        profile: 'standard'
-      }, { withMinimalItems: true });
+        profile: 'itemDescriptions'
+      });
       return commit('setLikedItems', likes.items || []);
     },
     async fetchActive({ commit }, setId) {
       try {
         const set = await this.$apis.set.get(setId, {
           pageSize: 100,
-          profile: 'standard'
-        }, { withMinimalItems: true });
+          profile: 'itemDescriptions'
+        });
         commit('setActive', set);
       } catch (error) {
         if (process.server && error.statusCode) {
@@ -166,8 +166,8 @@ export default {
       const creations = [].concat(state.creations);
 
       const set = await this.$apis.set.get(setId, {
-        profile: 'standard'
-      }, { withMinimalItems: true });
+        profile: 'itemDescriptions'
+      });
       creations[setToReplaceIndex] = set;
       commit('setCreations', creations);
     },
@@ -180,7 +180,7 @@ export default {
         qf: 'type:Collection'
       };
 
-      const searchResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
+      const searchResponse = await this.$apis.set.search(searchParams);
       const sets = searchResponse.data.items || [];
       commit('setCreations', sets);
     },
