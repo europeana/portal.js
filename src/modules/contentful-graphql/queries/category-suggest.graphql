@@ -1,10 +1,9 @@
 query CategorySuggest(
   $locale: String!,
-  $text: String!,
-  $preview: Boolean = false
+  $text: String!
 ) {
   categoryCollection(
-    preview: $preview,
+    preview: false,
     locale: $locale,
     where: { name_contains: $text },
     limit: 10

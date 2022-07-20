@@ -51,7 +51,6 @@ const factory = () => shallowMountNuxt(page, {
     $i18n: {
       isoLocale: () => 'en-GB'
     },
-    $route: { query: {} },
     $pageHeadTitle: key => key,
     $contentful: {
       query: contentfulQueryStub
@@ -88,8 +87,7 @@ describe('pages/contentful/category-suggest/index', () => {
 
         expect(contentfulQueryStub.calledWith('categoryFind', {
           ids: [fixtures.bees.sys.id, fixtures.nature.sys.id],
-          locale: 'en-GB',
-          preview: false
+          locale: 'en-GB'
         })).toBe(true);
       });
 
@@ -128,8 +126,7 @@ describe('pages/contentful/category-suggest/index', () => {
 
           expect(contentfulQueryStub.calledWith('categorySuggest', {
             text,
-            locale: 'en-GB',
-            preview: false
+            locale: 'en-GB'
           })).toBe(true);
         });
 

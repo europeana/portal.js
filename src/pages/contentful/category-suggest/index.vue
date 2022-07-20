@@ -17,7 +17,7 @@
           v-model="searchText"
           type="search"
           autocomplete="off"
-          placeholder="Search for topics, centuries, organisations, people and places"
+          placeholder="Search for categories"
           @input="suggestCategories"
         />
       </b-form-group>
@@ -83,7 +83,6 @@
         }
         const variables = {
           locale: this.$i18n.isoLocale(),
-          preview: this.$route.query.mode === 'preview', // TODO: does this make sense here?
           text
         };
         const response = await this.$contentful.query('categorySuggest', variables);
@@ -95,7 +94,6 @@
         if (ids.length > 0) {
           const variables = {
             locale: this.$i18n.isoLocale(),
-            preview: this.$route.query.mode === 'preview', // TODO: does this make sense here?
             ids
           };
           const response = await this.$contentful.query('categoryFind', variables);
