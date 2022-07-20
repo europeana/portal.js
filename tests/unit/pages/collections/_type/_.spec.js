@@ -217,7 +217,7 @@ describe('pages/collections/_type/_', () => {
         ...organisationEntity,
         mocks: {
           $features: { entityManagement: true },
-          $auth: { user: { resource_access: { entities: { roles: ['editor'] } } } }
+          $auth: { user: { 'resource_access': { entities: { roles: ['editor'] } } } }
         }
       };
 
@@ -257,7 +257,7 @@ describe('pages/collections/_type/_', () => {
         const wrapper = factory({
           ...editableOptions,
           mocks: {
-            $auth: { user: { resource_access: { entities: { roles: [] } } } }
+            $auth: { user: { 'resource_access': { entities: { roles: [] } } } }
           }
         });
 
