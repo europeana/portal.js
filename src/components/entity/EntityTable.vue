@@ -12,7 +12,7 @@
     </b-row>
     <b-table
       :fields="fields"
-      :items="collections"
+      :items="collectionsData"
       :sort-by.sync="sortBy"
       :busy="$fetchState.pending"
       striped
@@ -31,6 +31,17 @@
           {{ data.item.prefLabel }}
         </SmartLink>
       </template>
+      <template
+        v-if="type === 'organisations'"
+        #cell(nativeLabel)="data"
+      >
+        <SmartLink
+          :data-qa="`collection link ${data.item.slug}`"
+          :destination="entityRoute(data.item.slug)"
+        >
+          {{ data.item.nativeLabel }}
+        </SmartLink>
+      </template>
     </b-table>
   </div>
 </template>
@@ -39,6 +50,7 @@
   import { BTable } from 'bootstrap-vue';
   import LoadingSpinner from '../generic/LoadingSpinner';
   import SmartLink from '../generic/SmartLink';
+  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
 
   export default {
     name: 'EntityTable',
@@ -63,7 +75,13 @@
             key: 'prefLabel',
             sortable: true,
             label: this.$t('pages.collections.table.name')
+          },
+          this.type === 'organisations' && {
+            key: 'nativeLabel',
+            sortable: true,
+            label: 'native name' // this.$t('pages.collections.table.nativeName')
           }
+
         ]
       };
     },
@@ -82,8 +100,22 @@
       apiEndpoint() {
         // For organisations, only get English labels (for now).
         return this.type === 'organisations' ?
-          '/_api/cache/en/collections/organisations' :
+          '/_api/cache/collections/organisations' :
           `/_api/cache/${this.$i18n.locale}/collections/${this.type}`;
+      },
+      collectionsData() {
+        if (this.type === 'organisations' && this.collections) {
+          return this.collections.map(organistation => {
+            const organisationCopy = { ...organistation };
+            const nativeLocale = Object.keys(organisationCopy.prefLabel).find(locale => locale !== 'en') || 'en';
+
+            organisationCopy.nativeLabel = organisationCopy.prefLabel[nativeLocale];
+            organisationCopy.prefLabel = langMapValueForLocale(organisationCopy.prefLabel, 'en').values[0];
+            return organisationCopy;
+          });
+        } else {
+          return this.collections;
+        }
       }
     },
     methods: {
