@@ -16,8 +16,8 @@ describe('@/cachers/collections/organisations/featured', () => {
     expect(cacher.PICK).toEqual(['id', 'prefLabel', 'logo']);
   });
 
-  it('localises prefLabel', () => {
-    expect(cacher.LOCALISE).toBe('prefLabel');
+  it('localises nothing', () => {
+    expect(cacher.LOCALISE).toBeUndefined();
   });
 
   it('features 4 daily', () => {

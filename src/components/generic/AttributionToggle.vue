@@ -15,7 +15,7 @@
       :name="attribution ? attribution.name : null"
       :creator="attribution ? attribution.creator : null"
       :provider="attribution ? attribution.provider : null"
-      :rights-statement="attribution ? attribution.license : null"
+      :rights-statement="rightsStatement"
       :url="attribution ? attribution.url : null"
       extended
       data-qa="attribution"
@@ -44,6 +44,12 @@
       return {
         citeCollapsed: true
       };
+    },
+
+    computed: {
+      rightsStatement() {
+        return this.attribution?.rightsStatement || this.attribution?.license;
+      }
     },
 
     methods: {

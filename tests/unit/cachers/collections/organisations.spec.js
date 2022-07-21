@@ -16,7 +16,7 @@ describe('@/cachers/collections/organisations', () => {
     expect(cacher.PICK).toEqual(['slug', 'prefLabel']);
   });
 
-  it('localises prefLabel', () => {
-    expect(cacher.LOCALISE).toBe('prefLabel');
+  it('localises nothing', () => {
+    expect(cacher.LOCALISE).toBeUndefined();
   });
 });
