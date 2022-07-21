@@ -159,11 +159,10 @@
   .context-label {
     margin-bottom: 0;
     line-height: 3;
+    min-width: 0;
 
     .badge {
-      ::v-deep span:not(.icon) {
-        max-width: calc(50vw - 2rem);
-      }
+      max-width: calc(100% - 2rem);
     }
   }
 </style>

@@ -55,6 +55,7 @@
     color: $white;
     border-radius: $border-radius-large;
     margin-left: 4px;
+    flex-shrink: 0;
   }
   .badge-light { text-transform: none; }
 </style>
