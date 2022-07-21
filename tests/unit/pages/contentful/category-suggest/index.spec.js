@@ -9,11 +9,11 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const fixtures = {
-  bees: { name: 'bees', sys: { id: '4cVAVR7T2e7nrFICSkTHnW' } },
-  nature: { name: 'nature', sys: { id: '6htEL2kOfAXDdaGYfpZ85C' } },
-  performingArts: { name: 'performing arts', sys: { id: '5OeJ1iaee4NRGxqp7o8Nwl' } },
-  artNouveau: { name: 'Art Nouveau', sys: { id: '5HZQmIUJZ8j1D8Dw6KUlmg' } },
-  art: { name: 'art', sys: { id: '6PmhnUUPgewdQHOshwupUE' } }
+  bees: { fields: { name: { 'en-GB': 'bees' } }, sys: { id: '4cVAVR7T2e7nrFICSkTHnW' } },
+  nature: { fields: { name: { 'en-GB': 'nature' } }, sys: { id: '6htEL2kOfAXDdaGYfpZ85C' } },
+  performingArts: { fields: { name: { 'en-GB': 'performing arts' } }, sys: { id: '5OeJ1iaee4NRGxqp7o8Nwl' } },
+  artNouveau: { fields: { name: { 'en-GB': 'Art Nouveau' } }, sys: { id: '5HZQmIUJZ8j1D8Dw6KUlmg' } },
+  art: { fields: { name: { 'en-GB': 'art' } }, sys: { id: '6PmhnUUPgewdQHOshwupUE' } }
 };
 
 const contentfulEntryLink = (entry) => ({
@@ -21,28 +21,12 @@ const contentfulEntryLink = (entry) => ({
 });
 
 const contentfulCategoryFindResponse = {
-  data: {
-    data: {
-      categoryCollection: {
-        items: [fixtures.nature, fixtures.bees]
-      }
-    }
-  }
+  items: [fixtures.nature, fixtures.bees]
 };
 
 const contentfulCategorySuggestResponse = {
-  data: {
-    data: {
-      categoryCollection: {
-        items: [fixtures.performingArts, fixtures.artNouveau, fixtures.art]
-      }
-    }
-  }
+  items: [fixtures.performingArts, fixtures.artNouveau, fixtures.art]
 };
-
-const contentfulQueryStub = sinon.stub();
-contentfulQueryStub.withArgs('categoryFind', sinon.match.object).resolves(contentfulCategoryFindResponse);
-contentfulQueryStub.withArgs('categorySuggest', sinon.match.object).resolves(contentfulCategorySuggestResponse);
 
 const factory = () => shallowMountNuxt(page, {
   localVue,
@@ -51,10 +35,7 @@ const factory = () => shallowMountNuxt(page, {
     $i18n: {
       isoLocale: () => 'en-GB'
     },
-    $pageHeadTitle: key => key,
-    $contentful: {
-      query: contentfulQueryStub
-    }
+    $pageHeadTitle: key => key
   }
 });
 
@@ -82,24 +63,25 @@ describe('pages/contentful/category-suggest/index', () => {
       it('queries Contentful for current categories', async() => {
         const wrapper = factory();
         wrapper.vm.contentfulExtensionSdk.field.getValue.returns(value);
+        wrapper.vm.contentfulExtensionSdk.space.getEntries.resolves(contentfulCategoryFindResponse);
 
         await wrapper.vm.findCategories();
 
-        expect(contentfulQueryStub.calledWith('categoryFind', {
-          ids: [fixtures.bees.sys.id, fixtures.nature.sys.id],
-          locale: 'en-GB'
+        expect(wrapper.vm.contentfulExtensionSdk.space.getEntries.calledWith({
+          'sys.id[in]': [fixtures.bees.sys.id, fixtures.nature.sys.id].join(',')
         })).toBe(true);
       });
 
       it('stores the category data, preserving original order', async() => {
         const wrapper = factory();
         wrapper.vm.contentfulExtensionSdk.field.getValue.returns(value);
+        wrapper.vm.contentfulExtensionSdk.space.getEntries.resolves(contentfulCategoryFindResponse);
 
         await wrapper.vm.findCategories();
 
         expect(wrapper.vm.value.length).toBe(2);
-        expect(wrapper.vm.value[0].name).toBe('bees');
-        expect(wrapper.vm.value[1].name).toBe('nature');
+        expect(wrapper.vm.value[0].fields.name['en-GB']).toBe('bees');
+        expect(wrapper.vm.value[1].fields.name['en-GB']).toBe('nature');
       });
     });
 
@@ -112,7 +94,7 @@ describe('pages/contentful/category-suggest/index', () => {
 
           await wrapper.vm.suggestCategories(text);
 
-          expect(contentfulQueryStub.called).toBe(false);
+          expect(wrapper.vm.contentfulExtensionSdk.space.getEntries.called).toBe(false);
         });
       });
 
@@ -124,19 +106,19 @@ describe('pages/contentful/category-suggest/index', () => {
 
           await wrapper.vm.suggestCategories(text);
 
-          expect(contentfulQueryStub.calledWith('categorySuggest', {
-            text,
-            locale: 'en-GB'
+          expect(wrapper.vm.contentfulExtensionSdk.space.getEntries.calledWith({
+            'content_type': 'category',
+            'fields.name[match]': text
           })).toBe(true);
         });
 
         it('stores the suggestions', async() => {
           const wrapper = factory();
-          const text = 'art';
+          wrapper.vm.contentfulExtensionSdk.space.getEntries.resolves(contentfulCategorySuggestResponse);
 
           await wrapper.vm.suggestCategories(text);
 
-          expect(wrapper.vm.suggestions).toEqual(contentfulCategorySuggestResponse.data.data.categoryCollection.items);
+          expect(wrapper.vm.suggestions).toEqual(contentfulCategorySuggestResponse.items);
         });
       });
     });
@@ -151,8 +133,8 @@ describe('pages/contentful/category-suggest/index', () => {
         wrapper.vm.selectSuggestion(fixtures.nature);
 
         expect(wrapper.vm.value.length).toBe(2);
-        expect(wrapper.vm.value[0].name).toBe('bees');
-        expect(wrapper.vm.value[1].name).toBe('nature');
+        expect(wrapper.vm.value[0].fields.name['en-GB']).toBe('bees');
+        expect(wrapper.vm.value[1].fields.name['en-GB']).toBe('nature');
       });
     });
 
@@ -166,7 +148,7 @@ describe('pages/contentful/category-suggest/index', () => {
         wrapper.vm.removeSelection(fixtures.bees);
 
         expect(wrapper.vm.value.length).toBe(1);
-        expect(wrapper.vm.value[0].name).toBe('nature');
+        expect(wrapper.vm.value[0].fields.name['en-GB']).toBe('nature');
       });
     });
 

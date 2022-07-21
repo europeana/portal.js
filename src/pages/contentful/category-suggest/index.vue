@@ -7,7 +7,7 @@
         class="mb-2"
         @click="removeSelection(val)"
       >
-        {{ val.name }}
+        {{ val.fields.name['en-GB'] }}
       </b-button>
     </b-form-group>
 
@@ -29,7 +29,7 @@
           :disabled="isSelected(suggestion)"
           @click="selectSuggestion(suggestion)"
         >
-          {{ suggestion.name }}
+          {{ suggestion.fields.name['en-GB'] }}
         </b-button>
       </b-form-group>
     </b-form>
@@ -81,27 +81,24 @@
         if (text.length < 2) {
           return;
         }
-        const variables = {
-          locale: this.$i18n.isoLocale(),
-          text
-        };
-        const response = await this.$contentful.query('categorySuggest', variables);
-        this.suggestions = response.data.data.categoryCollection.items;
+        const response = await this.contentfulExtensionSdk.space.getEntries({
+          'content_type': 'category',
+          'fields.name[match]': text
+        });
+        this.suggestions = response.items;
       },
 
       async findCategories() {
         const ids = (this.contentfulExtensionSdk.field.getValue() || []).map((link) => link.sys.id);
         if (ids.length > 0) {
-          const variables = {
-            locale: this.$i18n.isoLocale(),
-            ids
-          };
-          const response = await this.$contentful.query('categoryFind', variables);
+          const response = await this.contentfulExtensionSdk.space.getEntries({
+            'sys.id[in]': ids.join(',')
+          });
 
           // preserve order of stored category IDs
           const value = [];
           for (const id of ids) {
-            const category = response.data.data.categoryCollection.items.find((item) => item.sys.id === id);
+            const category = response.items.find((item) => item.sys.id === id);
             if (category) {
               value.push(category);
             }
@@ -119,7 +116,7 @@
       },
 
       updateContentfulField() {
-        this.contentfulExtensionSdk?.field?.setValue(this.value.map(val => ({
+        this.contentfulExtensionSdk.field.setValue(this.value.map(val => ({
           sys: {
             type: 'Link',
             linkType: 'Entry',

@@ -54,7 +54,8 @@ export const fakeContentfulExtension = ({ entryFields = [], location = 'sidebar'
         createAsset: sinon.stub().resolves({ sys: { id: 'abcdef' } }),
         processAsset: sinon.stub().resolves({ sys: { id: 'abcdef' } }),
         waitUntilAssetProcessed: sinon.stub().resolves({ sys: { id: 'abcdef' } }),
-        publishAsset: sinon.stub().resolves({ sys: { id: 'abcdef' } })
+        publishAsset: sinon.stub().resolves({ sys: { id: 'abcdef' } }),
+        getEntries: sinon.stub().resolves({ items: [] })
       }
     };
     callback(fakeSdk);
