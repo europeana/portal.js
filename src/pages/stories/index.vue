@@ -157,6 +157,9 @@
     },
 
     mounted() {
+      if (!this.$features.newStoriesPage) {
+        return;
+      }
       this.fetchCategories();
     },
 
