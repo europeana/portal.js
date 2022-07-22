@@ -39,6 +39,7 @@
   import { BTable } from 'bootstrap-vue';
   import LoadingSpinner from '../generic/LoadingSpinner';
   import SmartLink from '../generic/SmartLink';
+  import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
 
   export default {
     name: 'EntityTable',
@@ -48,6 +49,9 @@
       LoadingSpinner,
       SmartLink
     },
+    mixins: [
+      europeanaEntitiesOrganizationsMixin
+    ],
     props: {
       type: {
         type: String,
@@ -70,7 +74,16 @@
     fetch() {
       return this.$axios.get(this.apiEndpoint, { baseURL: window.location.origin })
         .then(response => {
-          this.collections = response.data.map(Object.freeze);
+          // TODO: temporary organisations-specific workaround pending update of
+          //       table for both native and English
+          if (this.type === 'organisations') {
+            this.collections = response.data.map(org => ({
+              ...org,
+              prefLabel: Object.values(this.organizationEntityNativeName({ ...org, type: 'Organization' }))[0]
+            })).map(Object.freeze);
+          } else {
+            this.collections = response.data.map(Object.freeze);
+          }
         })
         .catch((e) => {
           // TODO: set fetch state error from message
@@ -80,9 +93,9 @@
     fetchOnServer: false,
     computed: {
       apiEndpoint() {
-        // For organisations, only get English labels (for now).
+        // For organisations, get unlocalised labels, for both English and native.
         return this.type === 'organisations' ?
-          '/_api/cache/en/collections/organisations' :
+          '/_api/cache/collections/organisations' :
           `/_api/cache/${this.$i18n.locale}/collections/${this.type}`;
       }
     },

@@ -95,7 +95,7 @@ const imageWithAttributionFields = ['name', 'image', 'creator', 'provider', 'lic
 
 describe('pages/contentful/image-harvester/index', () => {
   beforeAll(() => {
-    window.contentfulExtension = fakeContentfulExtension(imageWithAttributionFields);
+    window.contentfulExtension = fakeContentfulExtension({ entryFields: imageWithAttributionFields });
   });
 
   describe('methods', () => {

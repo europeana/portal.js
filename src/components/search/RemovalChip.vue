@@ -3,6 +3,7 @@
     :title="title"
     :link-to="linkTo"
     :img="img"
+    :type="type"
     badge-variant="light"
     data-qa="removal chip"
     :click-event-handler="clickEventHandler"
@@ -33,6 +34,10 @@
       img: {
         type: String,
         default: ''
+      },
+      type: {
+        type: String,
+        default: null
       }
     },
 

@@ -17,7 +17,7 @@
         :key="relatedCollection.id"
         ref="options"
         :link-to="collectionLinkGen(relatedCollection)"
-        :title="relatedCollection.prefLabel ? relatedCollection.prefLabel : relatedCollection.name"
+        :title="collectionTitle(relatedCollection)"
         :img="imageUrl(relatedCollection)"
         :type="relatedCollection.type"
         :badge-variant="badgeVariant"
@@ -31,7 +31,8 @@
   import pick from 'lodash/pick';
   import { urlIsContentfulAsset, optimisedSrcForContentfulAsset } from '@/plugins/contentful-utils';
   import { withEditorialContent } from '@/plugins/europeana/themes';
-  import collectionLinkGen from '@/mixins/collectionLinkGen';
+  import collectionLinkGenMixin from '@/mixins/collectionLinkGen';
+  import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
 
   import LinkBadge from '../generic/LinkBadge';
 
@@ -42,7 +43,10 @@
       LinkBadge
     },
 
-    mixins: [collectionLinkGen],
+    mixins: [
+      collectionLinkGenMixin,
+      europeanaEntitiesOrganizationsMixin
+    ],
 
     props: {
       title: {
@@ -78,8 +82,9 @@
         return;
       }
 
-      const entities = await this.$apis.entity.find(this.entityUris);
-      this.collections = await withEditorialContent(this, entities.map(entity => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo'])));
+      let entities = await this.$apis.entity.find(this.entityUris);
+      entities = entities.map(entity => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo', 'type']));
+      this.collections = await withEditorialContent(this, entities);
     },
 
     mounted() {
@@ -100,6 +105,21 @@
         this.$nextTick(() => {
           this.$redrawVueMasonry && this.$redrawVueMasonry();
         });
+      },
+
+      collectionTitle(collection) {
+        let title;
+
+        const organizationNativePrefLabel = this.organizationEntityNativeName(collection);
+        if (organizationNativePrefLabel) {
+          title = organizationNativePrefLabel;
+        } else if (collection.prefLabel) {
+          title = collection.prefLabel;
+        } else {
+          title = collection.name;
+        }
+
+        return title;
       },
 
       imageUrl(collection) {

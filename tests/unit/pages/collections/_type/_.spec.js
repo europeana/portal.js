@@ -13,13 +13,15 @@ const organisationEntity = {
   entity: {
     id: 'http://data.europeana.eu/organization/01234567890',
     logo: { id: 'http://commons.wikimedia.org/wiki/Special:FilePath/Albertina%20Logo.svg' },
-    description: { en: 'example of an organisation description' },
+    prefLabel: { en: 'English name', nl: 'Dutch name' },
     homepage: 'https://www.example-organisation.eu',
     hasAddress: {
       countryName: 'The Netherlands',
       locality: 'The Hague'
     },
-    acronym: { en: 'ABC' }
+    description: { en: ['example of an organisation description'] },
+    acronym: { en: 'ABC' },
+    type: 'Organization'
   },
   type: 'organisation',
   pathMatch: '01234567890-organisation'
@@ -28,9 +30,10 @@ const organisationEntity = {
 const topicEntity = {
   entity: {
     id: 'http://data.europeana.eu/concept/01234567890',
-    description: { en: 'example of a topic description' },
+    note: { en: ['example of a topic note'] },
     isShownBy: { thumbnail: 'https://api.europeana.eu/api/v2/thumbnail.jpg' },
-    prefLabel: { en: 'Topic' }
+    prefLabel: { en: 'Topic' },
+    type: 'Concept'
   },
   type: 'topic',
   pathMatch: '01234567890-topic'
@@ -39,12 +42,25 @@ const topicEntity = {
 const themeEntity = {
   entity: {
     id: 'http://data.europeana.eu/concept/62',
-    description: { en: 'example of a theme description' },
+    note: { en: 'example of a theme description' },
     isShownBy: { thumbnail: 'https://api.europeana.eu/api/v2/thumbnail.jpg' },
-    prefLabel: { en: 'Theme' }
+    prefLabel: { en: 'Theme' },
+    type: 'Concept'
   },
   type: 'topic',
   pathMatch: '62-theme'
+};
+
+const agentEntity = {
+  entity: {
+    id: 'http://data.europeana.eu/concept/60305',
+    type: 'Agent',
+    prefLabel: {
+      en: 'William Shakespeare'
+    }
+  },
+  type: 'person',
+  pathMatch: '60305-william-shakespeare'
 };
 
 const contentfulPageResponse = {
@@ -64,10 +80,9 @@ const contentfulQueryStub = sinon.stub().resolves(contentfulPageResponse);
 const factory = (options = {}) => shallowMountNuxt(collection, {
   localVue,
   mocks: {
+    $features: {},
     $fetchState: {},
     $t: (key, args) => args ? `${key} ${args}` : key,
-    $tc: (key) => key,
-    $te: () => true,
     $route: { query: options.query || '', params: { type: options.type, pathMatch: options.pathMatch } },
     $contentful: {
       query: contentfulQueryStub
@@ -86,7 +101,6 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
       locale: 'en',
       isoLocale: () => 'en-GB'
     },
-    $features: { sideFilters: false },
     $pageHeadTitle: key => key,
     $path: () => '/',
     $nuxt: { context: { redirect: sinon.spy(), app: { router: { replace: sinon.spy() } } } },
@@ -94,21 +108,10 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
       state: {
         entity: {
           entity: options.entity
-        },
-        i18n: {
-          locale: 'en'
-        },
-        auth: {},
-        search: {
-          showSearchBar: true
         }
       },
       getters: {
-        'entity/curatedEntity': sinon.stub().returns(null),
-        'search/facetNames': sinon.stub().returns([]),
-        'search/filters': sinon.stub().returns({}),
-        'search/queryUpdatesForFacetChanges': sinon.stub().returns({}),
-        'search/collection': sinon.stub().returns(false)
+        'entity/curatedEntity': sinon.stub().returns(null)
       },
       dispatch: sinon.spy(),
       commit: sinon.spy()
@@ -117,8 +120,8 @@ const factory = (options = {}) => shallowMountNuxt(collection, {
   }
 });
 
-describe('pages/collections/type/_', () => {
-  beforeEach(sinon.resetHistory);
+describe('pages/collections/_type/_', () => {
+  afterEach(sinon.resetHistory);
 
   describe('fetch', () => {
     it('disables collection facet via search store', async() => {
@@ -180,98 +183,6 @@ describe('pages/collections/type/_', () => {
         });
       });
     });
-
-    describe('entity management', () => {
-      const features = {
-        enabled: { entityManagement: true },
-        disabled: { entityManagement: false }
-      };
-      const auth = {
-        authorized: { user: { 'resource_access': { entities: { roles: ['editor'] } } } },
-        unauthorized: { user: { 'resource_access': { entities: { roles: [] } } } }
-      };
-      const requestMade = async($features, $auth) => {
-        const wrapper = factory(topicEntity);
-        wrapper.vm.$features = $features;
-        wrapper.vm.$auth = $auth;
-
-        await wrapper.vm.fetch();
-
-        return wrapper.vm.$apis.entityManagement.get.calledWith('topic', '01234567890-topic');
-      };
-
-      describe('when feature is enabled', () => {
-        const $features = features.enabled;
-
-        describe('and user is authenticated with "entities" roles including "editor"', () => {
-          const $auth = auth.authorized;
-          it('requests entity management data', async() => {
-            expect(await requestMade($features, $auth)).toBe(true);
-          });
-
-          describe('and there is a note in the response', () => {
-            const proxy = { id: '#proxy_europeana' };
-            const response = { note: 'About the topic', proxies: [proxy] };
-
-            it('stores that the entity is editable', async() => {
-              const wrapper = factory(topicEntity);
-              wrapper.vm.$features = $features;
-              wrapper.vm.$auth = $auth;
-              wrapper.vm.$apis.entityManagement.get.resolves(response);
-
-              await wrapper.vm.fetch();
-
-              expect(wrapper.vm.$store.commit.calledWith('entity/setEditable', true)).toBe(true);
-            });
-            it('stores the note as the entity description', async() => {
-              const wrapper = factory(topicEntity);
-              wrapper.vm.$features = $features;
-              wrapper.vm.$auth = $auth;
-              wrapper.vm.$apis.entityManagement.get.resolves(response);
-
-              await wrapper.vm.fetch();
-
-              expect(wrapper.vm.$store.commit.calledWith('entity/setEntityDescription', response.note)).toBe(true);
-            });
-            it('stores the Europeana proxy as the entity proxy', async() => {
-              const wrapper = factory(topicEntity);
-              wrapper.vm.$features = $features;
-              wrapper.vm.$auth = $auth;
-              wrapper.vm.$apis.entityManagement.get.resolves(response);
-
-              await wrapper.vm.fetch();
-
-              expect(wrapper.vm.$store.commit.calledWith('entity/setProxy', response.proxies[0])).toBe(true);
-            });
-          });
-        });
-
-        describe('but user is not authenticated with "entities" roles including "editor"', () => {
-          const $auth = auth.unauthorized;
-          it('does not request entity management data', async() => {
-            expect(await requestMade($features, $auth)).toBe(false);
-          });
-        });
-      });
-
-      describe('when feature is disabled', () => {
-        const $features = features.disabled;
-
-        describe('and user is authenticated with "entities" roles including "editor"', () => {
-          const $auth = auth.authorized;
-          it('does not request entity management data', async() => {
-            expect(await requestMade($features, $auth)).toBe(false);
-          });
-        });
-
-        describe('but user is not authenticated with "entities" roles including "editor"', () => {
-          const $auth = auth.unauthorized;
-          it('does not request entity management data', async() => {
-            expect(await requestMade($features, $auth)).toBe(false);
-          });
-        });
-      });
-    });
   });
 
   describe('beforeRouteLeave', () => {
@@ -301,6 +212,72 @@ describe('pages/collections/type/_', () => {
   });
 
   describe('computed', () => {
+    describe('editable', () => {
+      const editableOptions = {
+        ...organisationEntity,
+        mocks: {
+          $features: { entityManagement: true },
+          $auth: { user: { 'resource_access': { entities: { roles: ['editor'] } } } }
+        }
+      };
+
+      it('is truthy if all criteria are met', () => {
+        const wrapper = factory(editableOptions);
+
+        const editable = wrapper.vm.editable;
+
+        expect(editable).toBeTruthy();
+      });
+
+      it('is falsy if entityManagement feature is disabled', () => {
+        const wrapper = factory({
+          ...editableOptions,
+          mocks: {
+            $features: { entityManagement: false }
+          }
+        });
+
+        const editable = wrapper.vm.editable;
+
+        expect(editable).toBeFalsy();
+      });
+
+      it('is falsy if entity is absent', () => {
+        const wrapper = factory({
+          ...editableOptions,
+          entity: null
+        });
+
+        const editable = wrapper.vm.editable;
+
+        expect(editable).toBeFalsy();
+      });
+
+      it('is falsy if user is unauthorized', () => {
+        const wrapper = factory({
+          ...editableOptions,
+          mocks: {
+            $auth: { user: { 'resource_access': { entities: { roles: [] } } } }
+          }
+        });
+
+        const editable = wrapper.vm.editable;
+
+        expect(editable).toBeFalsy();
+      });
+
+      it('is falsy if entity is not organisation or topic', () => {
+        const wrapper = factory({
+          ...editableOptions,
+          ...agentEntity
+        });
+
+        const editable = wrapper.vm.editable;
+
+        expect(editable).toBeFalsy();
+      });
+    });
+
     describe('contextLabel', () => {
       it('returns the label for an organisation', () => {
         const wrapper = factory(organisationEntity);
@@ -334,14 +311,78 @@ describe('pages/collections/type/_', () => {
       });
     });
 
-    describe('description', () => {
-      it('returns a description for an organisation when provided', () => {
+    describe('title', () => {
+      it('uses the fallback title if no entity is present', () => {
+        const wrapper = factory();
+
+        const title = wrapper.vm.title;
+
+        expect(title).toEqual({ code: null, values: [undefined] });
+      });
+
+      it('favours the editorial title if present', () => {
+        const wrapper = factory(organisationEntity);
+        wrapper.setData({ page: { name: 'Editorial name' } });
+
+        const title = wrapper.vm.title.values[0];
+
+        expect(title).toEqual('Editorial name');
+      });
+
+      it('uses the native language name for organisations', () => {
         const wrapper = factory(organisationEntity);
 
-        const description = wrapper.vm.description.values[0];
-        expect(description).toBe(organisationEntity.entity.description.en);
+        const title = wrapper.vm.title.values[0];
+
+        expect(title).toEqual(organisationEntity.entity.prefLabel.nl);
+      });
+
+      it('otherwise localises the prefLabel', () => {
+        const wrapper = factory(topicEntity);
+
+        const title = wrapper.vm.title.values[0];
+
+        expect(title).toEqual(topicEntity.entity.prefLabel.en);
       });
     });
+
+    describe('subTitle', () => {
+      it('uses the English prefLabel for an organisation, if non-native', () => {
+        const wrapper = factory(organisationEntity);
+
+        const subTitle = wrapper.vm.subTitle.values[0];
+
+        expect(subTitle).toBe(organisationEntity.entity.prefLabel.en);
+      });
+    });
+
+    describe('description', () => {
+      it('uses the editorial description, if available', () => {
+        const wrapper = factory(organisationEntity);
+        wrapper.setData({ page: { description: 'Editorial description' } });
+
+        const description = wrapper.vm.description.values;
+
+        expect(description).toEqual(['Editorial description']);
+      });
+
+      it('uses the entity note, if present', () => {
+        const wrapper = factory(topicEntity);
+
+        const description = wrapper.vm.description.values;
+
+        expect(description).toEqual(topicEntity.entity.note.en);
+      });
+
+      it('uses the entity description, if present', () => {
+        const wrapper = factory(organisationEntity);
+
+        const description = wrapper.vm.description.values;
+
+        expect(description).toEqual(organisationEntity.entity.description.en);
+      });
+    });
+
     describe('homepage', () => {
       it('returns a homepage on organisation pages', () => {
         const wrapper = factory(organisationEntity);
@@ -350,6 +391,7 @@ describe('pages/collections/type/_', () => {
         expect(homepage).toBe(organisationEntity.entity.homepage);
       });
     });
+
     describe('thumbnail', () => {
       it('returns a thumbnail when available', () => {
         const wrapper = factory(topicEntity);
@@ -359,14 +401,15 @@ describe('pages/collections/type/_', () => {
       });
     });
     describe('moreInfo', () => {
-      it('returns an object with more entity data on organisation pages', () => {
+      it('returns an array with more entity data on organisation pages', () => {
         const wrapper = factory(organisationEntity);
 
         const moreInfo = wrapper.vm.moreInfo;
-        expect(moreInfo[0].value).toBe(organisationEntity.entity.homepage);
-        expect(moreInfo[1].value).toBe(organisationEntity.entity.hasAddress.countryName);
-        expect(moreInfo[2].value).toBe(organisationEntity.entity.acronym.en);
+        expect(moreInfo[0].value).toBe(organisationEntity.entity.prefLabel.en);
+        expect(moreInfo[1].value).toBe(organisationEntity.entity.acronym.en);
+        expect(moreInfo[2].value).toBe(organisationEntity.entity.hasAddress.countryName);
         expect(moreInfo[3].value).toBe(organisationEntity.entity.hasAddress.locality);
+        expect(moreInfo[4].value).toBe(organisationEntity.entity.homepage);
       });
     });
   });
@@ -534,6 +577,17 @@ describe('pages/collections/type/_', () => {
         await wrapper.vm.hideRelatedCollections();
 
         expect(wrapper.vm.showRelated).toBe(false);
+      });
+    });
+
+    describe('proxyUpdated', () => {
+      it('triggers $fetch', () => {
+        const wrapper = factory(topicEntity);
+        sinon.spy(wrapper.vm, '$fetch');
+
+        wrapper.vm.proxyUpdated();
+
+        expect(wrapper.vm.$fetch.called).toBe(true);
       });
     });
   });
