@@ -23,7 +23,8 @@ Object.assign(Vue.prototype, {
         ]);
       },
       imageUrl: (entity) => entity.image?.url
-    }
+    },
+    thumbnail: { edmPreview: (img) => img }
   },
   $auth: { $storage: { setUniversal: () => {} }, loginWith: () => {} },
   $fetchState: {},
@@ -57,7 +58,7 @@ const store = new Vuex.Store({
       namespaced: true,
       state: { pinned: [] },
       getters: {
-        isPinned: () => {}
+        isPinned: () => (value) => !!value
       }
     },
     search: {
@@ -79,7 +80,7 @@ const store = new Vuex.Store({
       namespaced: true,
       state: { liked: [] },
       getters: {
-        isLiked: () => {}
+        isLiked: () => (value) => !!value
       }
     }
   }
