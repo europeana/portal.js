@@ -109,7 +109,8 @@
         browsePage: false,
         staticPage: false,
         page: {},
-        identifier: null
+        identifier: null,
+        pageFetched: false
       };
     },
 
@@ -121,6 +122,7 @@
         this.fetchPage(),
         this.fetchStories()
       ]);
+      this.$scrollTo && this.$scrollTo('#header');
     },
 
     head() {
@@ -152,8 +154,8 @@
     },
 
     watch: {
-      '$route.query.page': 'fetchStories',
-      '$route.query.tags': 'fetchStories'
+      '$route.query.page': '$fetch',
+      '$route.query.tags': '$fetch'
     },
 
     mounted() {
@@ -165,6 +167,9 @@
 
     methods: {
       async fetchPage() {
+        if (this.pageFetched) {
+          return;
+        }
         const pageVariables = {
           identifier: 'stories',
           locale: this.$i18n.isoLocale(),
@@ -173,6 +178,7 @@
         const pageResponse = await this.$contentful.query('storiesPage', pageVariables);
         const storiesPage = pageResponse.data.data.browsePageCollection.items[0];
         this.sections = storiesPage.hasPartCollection.items;
+        this.pageFetched = true;
       },
 
       async fetchStories() {
@@ -225,8 +231,6 @@
           storiesResponse.data.data.exhibitionPageCollection.items
         ].flat();
         this.stories = storySysIds.map((sysId) => stories.find((story) => story.sys.id === sysId));
-
-        this.$scrollTo && this.$scrollTo('#header');
       },
 
       async fetchCategories() {
