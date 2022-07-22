@@ -1,12 +1,7 @@
 query StoriesPage(
   $identifier: String!,
   $locale: String!,
-  $preview: Boolean = false,
-  $limit: Int = 1000,
-  $skip: Int = 0,
-  $query: String = "",
-  $tags: [String] = [],
-  $withTags: Boolean = false
+  $preview: Boolean = false
 ) {
   browsePageCollection(
     preview: $preview,
@@ -35,34 +30,36 @@ query StoriesPage(
       }
     }
   }
-  blogPostingCollection(
-    where: { name_contains: $query },
-    preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit, skip: $skip
-  ) @skip(if: $withTags) {
-    ...blogPostingCollectionFields
-  }
 
-  taggedBlogPostingCollection: blogPostingCollection(
-    preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit, skip: $skip,
-    where: { name_contains: $query, keywords_contains_all: $tags }
-  ) @include(if: $withTags) {
-    ...blogPostingCollectionFields
-  }
 
-  exhibitionPageCollection(
-    where: { name_contains: $query },
-    preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit, skip: $skip
-  ) @skip(if: $withTags) {
-    ...exhibitionPageCollectionFields
-  }
+  # blogPostingCollection(
+  #   where: { name_contains: $query },
+  #   preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit, skip: $skip
+  # ) @skip(if: $withTags) {
+  #   ...blogPostingCollectionFields
+  # }
+  #
+  # taggedBlogPostingCollection: blogPostingCollection(
+  #   preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit, skip: $skip,
+  #   where: { name_contains: $query, keywords_contains_all: $tags }
+  # ) @include(if: $withTags) {
+  #   ...blogPostingCollectionFields
+  # }
+  #
+  # exhibitionPageCollection(
+  #   where: { name_contains: $query },
+  #   preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit, skip: $skip
+  # ) @skip(if: $withTags) {
+  #   ...exhibitionPageCollectionFields
+  # }
 }
 
-fragment imageWithAttributionFields on ImageWithAttribution {
-  image {
-    url
-    contentType
-  }
-}
+# fragment imageWithAttributionFields on ImageWithAttribution {
+#   image {
+#     url
+#     contentType
+#   }
+# }
 
 fragment illustrationFields on Illustration {
   image {
@@ -71,32 +68,5 @@ fragment illustrationFields on Illustration {
     contentType
     width
     height
-  }
-}
-
-fragment blogPostingCollectionFields on BlogPostingCollection {
-  total
-  items {
-    __typename
-    identifier
-    name
-    datePublished
-    primaryImageOfPage {
-      ...imageWithAttributionFields
-    }
-    keywords
-  }
-}
-
-fragment exhibitionPageCollectionFields on ExhibitionPageCollection {
-  total
-  items {
-    __typename
-    identifier
-    name
-    datePublished
-    primaryImageOfPage {
-      ...imageWithAttributionFields
-    }
   }
 }

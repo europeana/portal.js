@@ -12,8 +12,8 @@
           v-for="(tag, index) in tags"
           :key="index"
           variant="outline-light"
-          :active="selected.includes(tag)"
-          :to="badgeLink(tag)"
+          :active="selected.includes(tag.identifier)"
+          :to="badgeLink(tag.identifier)"
         >
           {{ tag.name }}
         </b-badge>
