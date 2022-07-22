@@ -2,7 +2,7 @@
   <b-row class="flex-md-row">
     <b-col
       v-if="tags.length > 0"
-      data-qa="blog tags"
+      data-qa="related category tags"
       cols="12"
       class="d-flex"
     >
@@ -15,7 +15,7 @@
           :active="selected.includes(tag)"
           :to="badgeLink(tag)"
         >
-          {{ tag }}
+          {{ tag.name }}
         </b-badge>
       </div>
     </b-col>
@@ -24,7 +24,7 @@
 
 <script>
   export default {
-    name: 'BlogTags',
+    name: 'RelatedCategoryTags',
 
     props: {
       tags: {
@@ -59,5 +59,4 @@
   .badge {
     margin: 0 0.25rem 0.5rem;
   }
-
 </style>

@@ -38,10 +38,14 @@ export default {
     "goHome": "Téigh go dtí an leathanach baile",
     "learnMore": "Foghlaim níos mó",
     "like": "Is maith liom",
+    "move": "Bog",
     "next": "Ar Aghaidh",
     "pin": "Bioráin",
+    "preview": "Réamhamharc",
+    "previous": "Roimhe Seo",
     "providedBy": "Arna sholáthar ag {provider}",
     "reject": "Diúltaigh",
+    "save": "Sábháil",
     "send": "Seol",
     "share": "Roinn",
     "shareOn": "Roinn ar {social}",
@@ -145,8 +149,27 @@ export default {
     "to": "go dtí"
   },
   "debug": {
-    "apiRequests": "Iarrataí API",
-    "debug": "Díbhug"
+    "apiRequests": {
+      "apiKeyLinkText": "Eochair Europeana API",
+      "noRequests": "Níor úsáideadh aon iarratas chuig Europeana APIs ar an leathanach seo.",
+      "settingsPageLinkText": "leathanach socruithe",
+      "tip": "Leid: má tá {apiKeyLink} agat cheana féin, is féidir leat é a chur isteach ar an {settingsPageLink} agus beidh sé san áireamh sna naisc iarratais API seo.",
+      "title": "Iarratais API"
+    },
+    "debug": "Díbhug",
+    "settings": {
+      "form": {
+        "apiKey": {
+          "description": "Cuir isteach d’eochair API Europeana agus úsáidfear í sna naisc chuig iarratais API.",
+          "label": "Eochair API"
+        },
+        "enabled": {
+          "description": "Má tá sé cumasaithe, taispeánfar an roghchlár dífhabhtaithe i mbuntásc an leathanaigh.",
+          "label": "Cumasaigh roghchlár debug"
+        }
+      },
+      "title": "Socruithe"
+    }
   },
   "delete": "Scrios",
   "depiction": "Léiriú ar {title}",
@@ -167,16 +190,18 @@ export default {
     },
     "notifications": {
       "deleted": "Scriosadh do ghailearaí.",
+      "error": {
+        "unpin": "Tharla earráid agus an mhír á díphionnáil. Bain triail eile as, nó cuir in iúl don fhadhb."
+      },
+      "pin": "Taispeánfar an mhír seo ag barr an bhailiúcháin \" {entity} \". Cuirfimid in iúl duit nuair a bheidh an t-athrú seo le feiceáil ar leathanach an bhailiúcháin.",
       "pinLimit": {
         "body": "Go dtí seo ní féidir leat ach 24 earra a phionáil ar an gcéad leathanach. Más mian leat an t-earra seo a phionáil, déan cinnte go ndéanann tú ceann eile a dhíshuiteáil agus ansin déan iarracht an ceann seo a phionáil arís.",
         "title": "An iomarca míreanna pinned"
       },
       "pinned": "Tá an t-earra pinned. Tá sé anois ag barr an chéad leathanaigh den bhailiúchán seo. Thógfadh sé suas le 24 uair an chloig láithriú do gach duine.",
+      "select": "Roghnaigh aonán gaolmhar chun an mhír a phionnadh/díphionnáil chuige/ó.",
+      "unpin": "Ní thaispeánfar an mhír seo ag barr an bhailiúcháin \" {entity} \". Cuirfimid in iúl duit nuair a bheidh an t-athrú seo le feiceáil ar leathanach an bhailiúcháin.",
       "unpinned": "Tá an mhír díphionnáilte. Níl sé ag barr an chéad leathanaigh den bhailiúchán seo a thuilleadh. D'fhéadfadh sé suas le 24 uair an chloig a thógáil chun imeacht do gach duine."
-    },
-    "prompts": {
-      "pin": "An bhfuil tú cinnte go bhfuil fonn ort an mhír seo a phionnáil? Taispeánfar an mhír seo ag barr an bhailiúcháin \"{entity}\". D'fhéadfadh sé go dtógfadh an t-athrú seo suas le 24 uair an chloig le teacht i bhfeidhm.",
-      "unpin": "An bhfuil tú cinnte gur mhaith leat an mhír seo a dhíghlasáil? Stopfaidh an mhír seo ag taispeáint ag barr an {entity} \". D’fhéadfadh go dtógfadh an t-athrú seo suas le 24 uair an chloig le teacht i bhfeidhm."
     }
   },
   "error": "Earráid",
@@ -187,6 +212,7 @@ export default {
     "description": "Déan iniúchadh ar na taispeántais",
     "exhibitions": "Taispeántas | Taispeántais"
   },
+  "explore": "Déan iniúchadh",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "dathanna",
@@ -691,13 +717,24 @@ export default {
       "home": "Baile",
       "stories": "Scéalta"
     },
+    "quickSearch": "Cuardach Tapa",
     "searchFor": "Cuardaigh {query}",
     "searchForEverything": "Cuardaigh gach rud",
     "searchForEverythingInCollection": "Cuardaigh gach rud i {collection}",
     "searchForEverythingInEntireCollection": "Cuardaigh gach rud inár mbailiúchán iomlán",
-    "showSidebar": "Taispeáin Roghchlár"
+    "searchForm": "Foirm chuardaigh",
+    "showSidebar": "Taispeáin Roghchlár",
+    "sideNavigation": "Nascleanúint taobh"
   },
   "homeLinkAlt": "Baile Europeana",
+  "homePage": {
+    "discoverEditorial": "Na scéalta is déanaí",
+    "storiesCTA": "Féach gach scéal",
+    "subHeadline": "Cuardaigh, sábháil agus roinn ealaín, leabhair, scannáin agus ceol ó na mílte institiúid chultúrtha",
+    "themesCTA": "Féach ar na téamaí go léir",
+    "themesTitle": "Déan iniúchadh de réir téama",
+    "title": "Faigh amach faoi oidhreacht chultúrtha na hEorpa"
+  },
   "imageSlider": {
     "handle": "Hanla Sleamhnáin"
   },
@@ -815,12 +852,14 @@ export default {
   "newWindow": "osclaítear i bhfuinneog nua é",
   "noMoreResults": "Níl aon toradh eile ann ar d'iarratas cuardaigh.",
   "noResults": "Níor aimsíodh aon Torthaí",
+  "of": "De",
   "organisation": {
     "city": "Cathair",
     "country": "Tír",
     "nameAcronym": "Acrainm ainm"
   },
   "pageHasLoaded": "luchtaithe",
+  "pageNumber": "Uimhir an leathanaigh",
   "pages": {
     "collections": {
       "organisations": {
@@ -843,6 +882,9 @@ export default {
       }
     }
   },
+  "pagination": {
+    "label": "Leathanaigh"
+  },
   "readMore": "Léigh níos mó",
   "recommendation": {
     "prompts": {
@@ -852,6 +894,9 @@ export default {
   },
   "record": {
     "IIIFViewer": "Amharcóir IIIF",
+    "actions": {
+      "pin": "PIN an mhír chuig na hEintitis atá ar fáil"
+    },
     "allMetaData": "Gach meiteashonraí",
     "copyEmbedLabel": "Leabaigh an cód (Cliceáil chun é a chópáil)",
     "exploreMore": "Déan iniúchadh ar níos mó",
@@ -864,8 +909,16 @@ export default {
     "record": "Mír",
     "showAll": "Taispeáin gach faisnéis",
     "similarItems": "Míreanna eile den chineál céanna",
+    "status": {
+      "unpublished": "[Mír neamhfhoilsithe]"
+    },
     "transcription": "Tras-scríobh",
     "transcriptionDisclaimer": "Is é an pobal a chuireann an t-ábhar seo ar fáil, ní ag an institiúid a chuir an mhír seo ar fáil."
+  },
+  "related": {
+    "editorial": {
+      "title": "Scéalta b’fhéidir gur mhaith leat"
+    }
   },
   "relatedCollections": "Bailiúcháin ghaolmhara",
   "removeFilter": "Bain {filterLabel} scagaire",
@@ -875,9 +928,14 @@ export default {
   "resultsFor": "Torthaí le haghaidh {0}",
   "resultsLimitWarning": "Ní thaispeántar torthaí breise óir nach dtaispeántar ach amháin an chéad 1000 toradh is ábhartha. Murar aimsigh tú a raibh uait, déan machnamh do chuardach a leasú.",
   "resultsWithin": "Torthaí laistigh de {0} {1} le haghaidh {2}",
-  "search": "Cuardaigh",
+  "search": {
+    "boost": {
+      "placeholder": "Cuir isteach ceist treisithe réimse"
+    },
+    "title": "Cuardaigh"
+  },
   "searchHasLoaded": "{0} torthaí ar ais",
-  "searchPlaceholder": "Cuardaigh na mílte míreanna",
+  "searchPlaceholder": "Cuardaigh 50+ milliún mír",
   "searchResults": "Cuardaigh",
   "searchResultsFor": "{0} - Cuardaigh",
   "searchSuggestions": "Cuardaigh moltaí",
@@ -903,7 +961,6 @@ export default {
       "createNew": "Cruthaigh gailearaí nua",
       "delete": "Scrios gailearaí",
       "edit": "Cuir an gailearaí in eagar",
-      "save": "Sábháil",
       "update": "Nuashonraigh gailearaí"
     },
     "form": {
@@ -937,6 +994,9 @@ export default {
   "statuses": {
     "liked": "Thaitin sé",
     "pinned": "Pionnáilte"
+  },
+  "storiesPage": {
+    "title": "Scéalta"
   },
   "website": "Suíomh Gréasáin",
   "youMightAlsoLike": "B'fhéidir gur mhaith leat freisin"

@@ -27,9 +27,40 @@ query HomePage(
         			url
         			text
       			}
+            image {
+              ...illustrationFields
+            }
           }
         }
       }
+      primaryImageOfPage {
+        ...imageWithAttributionFields
+      }
     }
   }
+}
+
+fragment imageWithAttributionFields on ImageWithAttribution {
+  name
+  creator
+  provider
+  license
+  url
+  image {
+    ...imageFields
+  }
+}
+
+fragment illustrationFields on Illustration {
+  image {
+    ...imageFields
+  }
+}
+
+fragment imageFields on Asset {
+  url
+  contentType
+  description
+  width
+  height
 }

@@ -38,10 +38,14 @@ export default {
     "goHome": "Ir a la página de inicio",
     "learnMore": "Aprende más",
     "like": "Me gusta",
+    "move": "Mover",
     "next": "próximo",
     "pin": "Alfiler",
+    "preview": "Vista previa",
+    "previous": "Anterior",
     "providedBy": "Proporcionado por {provider}",
     "reject": "Rechazar",
+    "save": "Salvar",
     "send": "Enviar",
     "share": "Compartir",
     "shareOn": "Compartir en {social}",
@@ -145,8 +149,27 @@ export default {
     "to": "a"
   },
   "debug": {
-    "apiRequests": "Solicitudes de API",
-    "debug": "Depurar"
+    "apiRequests": {
+      "apiKeyLinkText": "Clave API de Europeana",
+      "noRequests": "En esta página no se utilizaron solicitudes a las API de Europeana.",
+      "settingsPageLinkText": "página de configuración",
+      "tip": "Sugerencia: si ya tiene un {apiKeyLink}, puede ingresarlo en {settingsPageLink} y se incluirá en estos enlaces de solicitud de API.",
+      "title": "Solicitudes de API"
+    },
+    "debug": "Depurar",
+    "settings": {
+      "form": {
+        "apiKey": {
+          "description": "Introduzca su clave de API de Europeana y se utilizará en los enlaces a las solicitudes de API.",
+          "label": "Clave API"
+        },
+        "enabled": {
+          "description": "Si está habilitado, el menú de depuración se mostrará en el pie de página.",
+          "label": "Habilitar menú de depuración"
+        }
+      },
+      "title": "Configuración"
+    }
   },
   "delete": "Borrar",
   "depiction": "Una representación de {title}",
@@ -167,16 +190,18 @@ export default {
     },
     "notifications": {
       "deleted": "Tu galería ha sido eliminada.",
+      "error": {
+        "unpin": "Se ha producido un error al desanclar el elemento. Vuelva a intentarlo o informe del problema."
+      },
+      "pin": "Este elemento se mostrará en la parte superior de la colección \" {entity} \". Le notificaremos cuando este cambio sea visible en la página de colección.",
       "pinLimit": {
         "body": "Por ahora, solo puede anclar 24 elementos en la primera página. Si desea anclar este elemento, asegúrese de desanclar otro y luego intente anclar este de nuevo.",
         "title": "Demasiados elementos fijados"
       },
       "pinned": "El elemento se ha anclado. Ahora está en la parte superior de la primera página de esta colección. Puede tardar hasta 24 horas en aparecer para todos.",
+      "select": "Seleccione una entidad relacionada para anclar/desanclar el elemento a/desde ella.",
+      "unpin": "Este elemento dejará de mostrarse en la parte superior de la colección \" {entity} \". Le notificaremos cuando este cambio sea visible en la página de colección.",
       "unpinned": "El elemento se ha desanclarado. Ya no está en la parte superior de la primera página de esta colección. Puede tardar hasta 24 horas en desaparecer para todos."
-    },
-    "prompts": {
-      "pin": "¿Estás seguro de que deseas fijar este elemento? Este elemento se mostrará en la parte superior de la {entity} \". Este cambio puede tardar hasta 24 horas en surtir efecto.",
-      "unpin": "¿Estás seguro de que deseas desanclar este elemento? Este elemento dejará de mostrarse en la parte superior de la {entity} \". Este cambio puede tardar hasta 24 horas en surtir efecto."
     }
   },
   "error": "Error",
@@ -187,6 +212,7 @@ export default {
     "description": "Explora las exposiciones",
     "exhibitions": "Exposiciones"
   },
+  "explore": "Explore",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "colores",
@@ -691,13 +717,24 @@ export default {
       "home": "Inicio",
       "stories": "Historias"
     },
+    "quickSearch": "Búsqueda rápida",
     "searchFor": "Busca {query}",
     "searchForEverything": "Busca lo que quieras",
     "searchForEverythingInCollection": "Busca lo que quieras en {collection}",
     "searchForEverythingInEntireCollection": "Busca lo que quieras en toda nuestra colección",
-    "showSidebar": "Mostrar menú"
+    "searchForm": "Formulario de búsqueda",
+    "showSidebar": "Mostrar menú",
+    "sideNavigation": "Navegación lateral"
   },
   "homeLinkAlt": "Página de inicio de Europeana",
+  "homePage": {
+    "discoverEditorial": "Últimas historias",
+    "storiesCTA": "Ver todas las historias",
+    "subHeadline": "Buscar, guarda y comparte arte, libros, películas y música de miles de instituciones culturales",
+    "themesCTA": "Ver todos los temas",
+    "themesTitle": "Explorar por tema",
+    "title": "Descubre la herencia cultural europea"
+  },
   "imageSlider": {
     "handle": "Manipulador de control deslizante"
   },
@@ -852,6 +889,9 @@ export default {
   },
   "record": {
     "IIIFViewer": "Visor IIIF",
+    "actions": {
+      "pin": "Anclar elemento a entidades disponibles"
+    },
     "allMetaData": "Todos los metadatos",
     "copyEmbedLabel": "Código de inserción (haga clic para copiar)",
     "exploreMore": "Explorar más",
@@ -864,8 +904,16 @@ export default {
     "record": "Registro",
     "showAll": "Mostrar toda la información",
     "similarItems": "Elementos similares",
+    "status": {
+      "unpublished": "[Artículo no publicado]"
+    },
     "transcription": "Transcripción",
     "transcriptionDisclaimer": "Este contenido ha sido aportado por el público, no por la institución que ha proporcionado este artículo."
+  },
+  "related": {
+    "editorial": {
+      "title": "Historias que te pueden gustar"
+    }
   },
   "relatedCollections": "Colecciones relacionadas",
   "removeFilter": "Quitar el filtro {filterLabel}",
@@ -875,9 +923,14 @@ export default {
   "resultsFor": "Resultados para {0}",
   "resultsLimitWarning": "No se muestran los resultados adicionales, ya que solo se muestran los primeros 1000 resultados más relevantes. Si no ha encontrado lo que está buscando, considere delimitar su búsqueda.",
   "resultsWithin": "Resultados dentro de {0} {1} para {2}",
-  "search": "Buscar",
+  "search": {
+    "boost": {
+      "placeholder": "Introduzca la consulta de refuerzo del campo"
+    },
+    "title": "Buscar"
+  },
   "searchHasLoaded": "{0} resultados devueltos",
-  "searchPlaceholder": "Busca millones de elementos",
+  "searchPlaceholder": "Buscar más de 50 millones de artículos",
   "searchResults": "Buscar",
   "searchResultsFor": "{0} - Buscar",
   "searchSuggestions": "Sugerencias de búsqueda",
@@ -903,7 +956,6 @@ export default {
       "createNew": "Crear nueva galería",
       "delete": "Eliminar galería",
       "edit": "Editar galería",
-      "save": "Salvar",
       "update": "Actualizar galería"
     },
     "form": {
@@ -937,6 +989,9 @@ export default {
   "statuses": {
     "liked": "Gustó",
     "pinned": "Fijado"
+  },
+  "storiesPage": {
+    "title": "Historias"
   },
   "website": "Sitio web",
   "youMightAlsoLike": "También podría gustarte"

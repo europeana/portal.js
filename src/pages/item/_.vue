@@ -165,6 +165,7 @@
         media: [],
         metadata: {},
         organizations: [],
+        places: [],
         timespans: [],
         title: null,
         type: null,
@@ -232,6 +233,7 @@
           .concat(this.concepts)
           .concat(this.timespans)
           .concat(this.organizations)
+          .concat(this.places)
           .filter(entity => entity.about.startsWith(`${EUROPEANA_DATA_URL}/`));
       },
       europeanaEntityUris() {
@@ -297,7 +299,11 @@
       }
     },
 
-    watchQuery: ['lang'],
+    watch: {
+      '$route.query.lang'() {
+        this.$fetch();
+      }
+    },
 
     mounted() {
       this.fetchAnnotations();

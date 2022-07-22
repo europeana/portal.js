@@ -1,7 +1,7 @@
 <template>
   <section
     v-if="cards.length > 0"
-    class="gridless-container text-center"
+    class="text-center"
     data-qa="latest editorial"
   >
     <h2>
@@ -9,7 +9,7 @@
     </h2>
     <b-button
       variant="outline-secondary"
-      class="cta my-4"
+      class="cta"
       :to="'/stories'"
     >
       {{ $t('homePage.storiesCTA') }}
@@ -91,13 +91,19 @@
     color: $mediumgrey;
     font-size: 2rem;
 
-    @media (min-width: $bp-xxl) {
+    @media (min-width: $bp-extralarge) {
+      font-size: 2.375rem;
+    }
+
+    @media (min-width: $bp-xxxl) {
       font-size: 2vw;
     }
   }
 
   .cta {
-    @media (min-width: $bp-xxl) {
+    margin: 1.5em auto;
+
+    @media (min-width: $bp-xxxl) {
       font-size: 1vw;
     }
   }

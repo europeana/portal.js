@@ -1,13 +1,13 @@
 import store from '@/store/entity';
 import sinon from 'sinon';
 
-const entity = { id: 'http://data.europeana.eu/concept/base/001' };
-const id = 'http://data.europeana.eu/concept/base/001';
+const entity = { id: 'http://data.europeana.eu/concept/001' };
+const id = 'http://data.europeana.eu/concept/001';
 const itemsToPin = [{ id: '/123/abc' }, { id: '/234/abc' }];
 const pinned = ['/123/abc', '/234/abc'];
 const unPinned = ['/234/abc'];
-const curatedEntity1 = { id: '100', identifier: 'http://data.europeana.eu/concept/base/100' };
-const curatedEntity2 = { id: '200', identifier: 'http://data.europeana.eu/concept/base/200'  };
+const curatedEntity1 = { id: '100', identifier: 'http://data.europeana.eu/concept/100' };
+const curatedEntity2 = { id: '200', identifier: 'http://data.europeana.eu/concept/200'  };
 const curatedEntities = [curatedEntity1, curatedEntity2];
 const featuredSetId = 'http://data.europeana.eu/set/123';
 const itemId = '/123/abc';
@@ -15,7 +15,7 @@ const itemIdNotPinned = '/345/abc';
 const entityDescription = { en: 'example entity description' };
 const enPrefLabel = 'Art';
 const exampleState = {
-  id: 'http://data.europeana.eu/concept/base/001',
+  id: 'http://data.europeana.eu/concept/001',
   entity: {
     prefLabel: { en: enPrefLabel }
   }

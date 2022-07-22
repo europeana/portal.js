@@ -1,4 +1,5 @@
 query StoriesPage(
+  $identifier: String!,
   $locale: String!,
   $preview: Boolean = false,
   $limit: Int = 1000,
@@ -7,6 +8,33 @@ query StoriesPage(
   $tags: [String] = [],
   $withTags: Boolean = false
 ) {
+  browsePageCollection(
+    preview: $preview,
+    locale: $locale,
+    where: { identifier: $identifier },
+    limit: 1
+  ) {
+    items {
+      identifier
+      name
+      hasPartCollection {
+        items {
+          __typename
+          ... on PrimaryCallToAction {
+            name
+      			text
+      			relatedLink {
+        			url
+        			text
+      			}
+            image {
+              ...illustrationFields
+            }
+          }
+        }
+      }
+    }
+  }
   blogPostingCollection(
     where: { name_contains: $query },
     preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit, skip: $skip
@@ -33,6 +61,16 @@ fragment imageWithAttributionFields on ImageWithAttribution {
   image {
     url
     contentType
+  }
+}
+
+fragment illustrationFields on Illustration {
+  image {
+    url
+    description
+    contentType
+    width
+    height
   }
 }
 

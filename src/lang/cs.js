@@ -38,10 +38,14 @@ export default {
     "goHome": "Přejít na domovskou stránku",
     "learnMore": "Zjistěte více",
     "like": "Oblíbené",
+    "move": "Přestěhovat se",
     "next": "Další",
     "pin": "Kolík",
+    "preview": "Náhled",
+    "previous": "Předchozí",
     "providedBy": "Poskytl {provider}",
     "reject": "Odmítnout",
+    "save": "Uložit",
     "send": "Poslat",
     "share": "Sdílejte",
     "shareOn": "Sdílet na {social}",
@@ -59,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Poslední položky",
     "organisation": "Organizace",
+    "place": "Místa",
     "time": "Vybraná století",
     "topic": "Doporučená témata"
   },
@@ -76,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Organizace",
     "person": "Osoba",
+    "place": "Místo",
     "theme": "Téma",
     "time": "Století",
     "topic": "Téma"
@@ -145,8 +151,27 @@ export default {
     "to": "až"
   },
   "debug": {
-    "apiRequests": "Požadavky API",
-    "debug": "Ladit"
+    "apiRequests": {
+      "apiKeyLinkText": "Europeana API klíč",
+      "noRequests": "Na této stránce nebyly použity žádné požadavky na rozhraní API Europeany.",
+      "settingsPageLinkText": "stránka nastavení",
+      "tip": "Tip: Pokud již {apiKeyLink} máte, můžete jej zadat na stránce {settingsPageLink} a bude zahrnut do těchto odkazů na požadavky API.",
+      "title": "Požadavky API"
+    },
+    "debug": "Ladit",
+    "settings": {
+      "form": {
+        "apiKey": {
+          "description": "Zadejte svůj klíč Europeana API a bude použit v odkazech na požadavky API.",
+          "label": "API klíč"
+        },
+        "enabled": {
+          "description": "Pokud je povoleno, v zápatí stránky se zobrazí nabídka ladění.",
+          "label": "Povolit nabídku ladění"
+        }
+      },
+      "title": "Nastavení"
+    }
   },
   "delete": "Smazat",
   "depiction": "Znázornění {title}",
@@ -167,16 +192,18 @@ export default {
     },
     "notifications": {
       "deleted": "Vaše galerie byla smazána.",
+      "error": {
+        "unpin": "Při odepínání položky došlo k chybě. Zkuste to prosím znovu nebo nahlaste problém."
+      },
+      "pin": "Tato položka se zobrazí na začátku kolekce \"{entity}\". Upozorníme vás, až bude tato změna viditelná na stránce sbírky.",
       "pinLimit": {
         "body": "Prozatím můžete na první stránku připnout pouze 24 položek. Chcete-li tuto položku připnout, nezapomeňte odepnout jinou položku a potom ji zkusit připnout znovu.",
         "title": "Příliš mnoho připnutých položek"
       },
       "pinned": "Položka byla připnutím. Nyní je v horní části první stránky této kolekce. Může trvat až 24 hodin, než se objeví pro všechny.",
+      "select": "Vyberte související entitu, chcete-li položku k ní připnout/odepnout.",
+      "unpin": "Tato položka se přestane zobrazovat v horní části kolekce \"{entity}\". Upozorníme vás, když bude tato změna viditelná na stránce kolekce.",
       "unpinned": "Položka byla odepnuta. Už není v horní části první stránky této sbírky. Zmizení pro všechny může trvat až 24 hodin."
-    },
-    "prompts": {
-      "pin": "Opravdu chcete tuto položku připnout? Tato položka se zobrazí na začátku kolekce \"{entity}\". Tato změna se může projevit až za 24 hodin.",
-      "unpin": "Opravdu chcete tuto položku odepnout? Tato položka se přestane zobrazovat v horní části kolekce \"{entity}\". Tato změna se může projevit až za 24 hodin."
     }
   },
   "error": "Chyba",
@@ -187,6 +214,7 @@ export default {
     "description": "Prozkoumat výstavy",
     "exhibitions": "Výstavy"
   },
+  "explore": "Prozkoumat",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "barvy",
@@ -691,13 +719,24 @@ export default {
       "home": "Domov",
       "stories": "Příběhy"
     },
+    "quickSearch": "Rychlé hledání",
     "searchFor": "Vyhledat {query}",
     "searchForEverything": "Vyhledat vše",
     "searchForEverythingInCollection": "Vyhledat vše v {collection}",
     "searchForEverythingInEntireCollection": "Vyhledat vše v celé sbírce",
-    "showSidebar": "Zobrazit nabídku"
+    "searchForm": "Vyhledávací formulář",
+    "showSidebar": "Zobrazit nabídku",
+    "sideNavigation": "Boční navigace"
   },
   "homeLinkAlt": "Domovská stránka Europeana",
+  "homePage": {
+    "discoverEditorial": "Nejnovější příběhy",
+    "storiesCTA": "Zobrazit všechny příběhy",
+    "subHeadline": "Vyhledávejte, ukládejte a sdílejte umění, knihy, filmy a hudbu z tisíců kulturních institucí",
+    "themesCTA": "Zobrazit všechna témata",
+    "themesTitle": "Prozkoumejte podle tématu",
+    "title": "Objevte evropské kulturní dědictví"
+  },
   "imageSlider": {
     "handle": "Posuvný panel"
   },
@@ -815,12 +854,14 @@ export default {
   "newWindow": "otevře se v novém okně",
   "noMoreResults": "Pro vaše zadání neexistují žádné další výsledky vyhledávání.",
   "noResults": "Žádné výsledky",
+  "of": "Z",
   "organisation": {
     "city": "Město",
     "country": "Země",
     "nameAcronym": "Zkratka jména"
   },
   "pageHasLoaded": "načteno",
+  "pageNumber": "Číslo stránky",
   "pages": {
     "collections": {
       "organisations": {
@@ -831,6 +872,9 @@ export default {
       },
       "persons": {
         "title": "Osoby"
+      },
+      "places": {
+        "title": "Místa"
       },
       "table": {
         "name": "Název"
@@ -843,6 +887,9 @@ export default {
       }
     }
   },
+  "pagination": {
+    "label": "Stránkování"
+  },
   "readMore": "Více informací",
   "recommendation": {
     "prompts": {
@@ -852,6 +899,9 @@ export default {
   },
   "record": {
     "IIIFViewer": "Prohlížeč IIIF",
+    "actions": {
+      "pin": "Připnout položku k dostupným entitám"
+    },
     "allMetaData": "Všechna metadata",
     "copyEmbedLabel": "Vložit kód (kliknutím zkopírujete)",
     "exploreMore": "Prozkoumat více",
@@ -864,8 +914,16 @@ export default {
     "record": "Záznam",
     "showAll": "Zobrazit všechny informace",
     "similarItems": "Podobné položky",
+    "status": {
+      "unpublished": "[Nepublikovaná položka]"
+    },
     "transcription": "Přepis",
     "transcriptionDisclaimer": "Tento obsah pochází z veřejných zdrojů, nikoliv od poskytovatelské instituce."
+  },
+  "related": {
+    "editorial": {
+      "title": "Příběhy, které se vám mohou líbit"
+    }
   },
   "relatedCollections": "Související sbírky",
   "removeFilter": "Odstranit {filterLabel} filtr",
@@ -875,9 +933,14 @@ export default {
   "resultsFor": "Výsledky pro {0}",
   "resultsLimitWarning": "Zobrazuje se pouze prvních tisíc nejvhodnějších výsledků, další výsledky se nezobrazují. Pokud jste nenašli, co jste hledali, zvažte upřesnění vyhledávání.",
   "resultsWithin": "Výsledky v rámci {0} {1} pro {2}",
-  "search": "Vyhledat",
+  "search": {
+    "boost": {
+      "placeholder": "Zadejte dotaz pro posílení pole"
+    },
+    "title": "Vyhledat"
+  },
   "searchHasLoaded": "Počet vrácených výsledků: {0}",
-  "searchPlaceholder": "Co hledáte?",
+  "searchPlaceholder": "Hledejte přes 50 milionů položek",
   "searchResults": "Vyhledat",
   "searchResultsFor": "{0} - vyhledat",
   "searchSuggestions": "Návrhy vyhledávání",
@@ -903,7 +966,6 @@ export default {
       "createNew": "Vytvořit novou galerii",
       "delete": "Smazat galerii",
       "edit": "Upravit galerii",
-      "save": "Uložit",
       "update": "Aktualizovat galerii"
     },
     "form": {
@@ -937,6 +999,9 @@ export default {
   "statuses": {
     "liked": "Oblíbené",
     "pinned": "Připnuté"
+  },
+  "storiesPage": {
+    "title": "Příběhy"
   },
   "website": "Webové stránky",
   "youMightAlsoLike": "Mohlo by se vám také líbit"

@@ -42,13 +42,17 @@ const factory = () => shallowMountNuxt(page, {
           }
         ]
       },
-      credits: ''
+      credits: '',
+      contentWarning: null,
+      relatedLink: { items: [{ name: 'art' }] },
+      categoriesCollection: { items: [{ name: 'surrealism' }] }
     };
   },
   mocks: {
     $t: key => key,
     $tc: () => {},
-    $pageHeadTitle: key => key
+    $pageHeadTitle: key => key,
+    $path: () => '/'
   }
 });
 

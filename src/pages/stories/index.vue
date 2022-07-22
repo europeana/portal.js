@@ -31,7 +31,14 @@
       <ContentHeader
         :title="pageTitle"
       />
-      <BlogTags
+      <CallToActionBanner
+        v-if="callsToAction[0]"
+        :name="callsToAction[0].name"
+        :text="callsToAction[0].text"
+        :link="callsToAction[0].relatedLink"
+        :illustration="callsToAction[0].image"
+      />
+      <RelatedCategoryTags
         v-if="tags.length > 0"
         :tags="tags"
         :selected="selectedTags"
@@ -67,7 +74,7 @@
 </template>
 
 <script>
-  import BlogTags from '@/components/blog/BlogTags';
+  import RelatedCategoryTags from '@/components/related/RelatedCategoryTags';
   import ContentCard from '@/components/generic/ContentCard';
   import ContentHeader from '@/components/generic/ContentHeader';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
@@ -78,11 +85,12 @@
 
     components: {
       AlertMessage: () => import('@/components/generic/AlertMessage'),
-      BlogTags,
+      RelatedCategoryTags,
       ContentCard,
       ContentHeader,
       LoadingSpinner,
       IndexPage: () => import('../index'),
+      CallToActionBanner: () => import('@/components/generic/CallToActionBanner'),
       PaginationNavInput
     },
 
@@ -93,6 +101,7 @@
         stories: [],
         tags: [],
         total: 0,
+        sections: [],
         // TODO: following four properties required when rendering IndexPage as
         //       a child component; remove when new stories page is launched.
         browsePage: false,
@@ -125,6 +134,9 @@
     computed: {
       pageTitle() {
         return this.$t('storiesPage.title');
+      },
+      callsToAction() {
+        return this.sections.filter(section => section['__typename'] === 'PrimaryCallToAction');
       }
     },
 
@@ -137,6 +149,7 @@
       async fetchContentfulEntries() {
         this.selectedTags = this.$route.query.tags?.split(',') || [];
         const variables = {
+          identifier: 'stories',
           locale: this.$i18n.isoLocale(),
           preview: this.$route.query.mode === 'preview',
           tags: this.selectedTags,
@@ -162,6 +175,9 @@
         }, new Set()))
           .sort((a, b) => a.trim().toLowerCase().localeCompare(b.trim().toLowerCase()));
         this.stories = stories.slice(sliceFrom, sliceTo);
+
+        const storiesPage = response.data.data.browsePageCollection.items[0];
+        this.sections = storiesPage.hasPartCollection.items;
       },
 
       entryUrl(entry) {
@@ -180,10 +196,29 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '@/assets/scss/variables';
+
   .page {
     background-color: white; // TODO: make this more generic when more and more pages get a white background
     padding-bottom: 1rem;
     padding-top: 1rem;
     margin-top: -1rem;
+
+    &::after {
+      border-top: 145px solid $white;
+      border-left: 60px solid transparent;
+      content: '';
+      display: block;
+      height: 0;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      width: 0;
+      z-index: 1;
+    }
+
+    ::v-deep header .col {
+      margin-bottom: 1em;
+    }
   }
 </style>

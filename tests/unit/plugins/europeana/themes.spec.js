@@ -3,9 +3,9 @@ import sinon from 'sinon';
 
 const themesData = [
   { id: 'http://data.europeana.eu/organization/1482250000002112001', prefLabel: 'National Library of France' },
-  { id: 'http://data.europeana.eu/agent/base/59833', prefLabel: 'Voltaire' },
-  { id: 'http://data.europeana.eu/concept/base/83', prefLabel: { en: 'World War I' } },
-  { id: 'http://data.europeana.eu/concept/base/17', prefLabel: { en: 'Manusscript' } }
+  { id: 'http://data.europeana.eu/agent/59833', prefLabel: 'Voltaire' },
+  { id: 'http://data.europeana.eu/concept/83', prefLabel: { en: 'World War I' } },
+  { id: 'http://data.europeana.eu/concept/17', prefLabel: { en: 'Manusscript' } }
 ];
 
 const contentfulResponse = {
@@ -16,7 +16,7 @@ const contentfulResponse = {
           {
             name: 'World War I',
             nameEN: 'World War I',
-            identifier: 'http://data.europeana.eu/concept/base/83',
+            identifier: 'http://data.europeana.eu/concept/83',
             genre: 'ww1',
             description: 'Collection of untold stories and official histories of World War I',
             primaryImageOfPage: {
@@ -29,7 +29,7 @@ const contentfulResponse = {
           {
             name: 'Manuscripts',
             nameEN: 'Manuscripts',
-            identifier: 'http://data.europeana.eu/concept/base/17',
+            identifier: 'http://data.europeana.eu/concept/17',
             genre: 'manuscript'
           }
         ]

@@ -17,71 +17,59 @@
       </b-row>
     </b-container>
     <client-only v-else>
-      <b-container
-        class="page-container side-filters-enabled"
+      <SearchInterface
+        v-if="!$fetchState.pending"
+        :per-page="recordsPerPage"
+        :route="route"
+        :show-content-tier-toggle="false"
+        :show-pins="userIsEditor && userIsSetsEditor"
+        :editorial-overrides="editorialOverrides"
+        :show-related="showRelated"
       >
-        <b-row class="flex-nowrap">
-          <b-col>
-            <b-container class="px-0 pb-3">
-              <SearchInterface
-                v-if="!$fetchState.pending"
-                class="px-0"
-                :per-page="recordsPerPage"
-                :route="route"
-                :show-content-tier-toggle="false"
-                :show-pins="userIsEditor && userIsSetsEditor"
-                :editorial-entity-label="editorialTitle"
-                :show-related="showRelated"
-              >
-                <EntityHeader
-                  v-if="!hasUserQuery"
-                  :description="description"
-                  :title="title"
-                  :logo="logo"
-                  :image="thumbnail"
-                  :editable="isEditable && userIsEditor"
-                  :external-link="homepage"
-                  :proxy="entity ? entity.proxy : null"
-                  :more-info="moreInfo"
-                />
-                <template
-                  v-if="collectionType !== 'organisation'"
-                  #related
-                >
-                  <client-only>
-                    <EntityRelatedCollections
-                      :type="$route.params.type"
-                      :identifier="$route.params.pathMatch"
-                      :overrides="relatedCollectionCards"
-                      data-qa="related entities"
-                      @show="showRelatedCollections"
-                      @hide="hideRelatedCollections"
-                    />
-                  </client-only>
-                </template>
-              </SearchInterface>
-            </b-container>
-            <client-only>
-              <b-container class="px-0">
-                <RelatedEditorial
-                  v-if="entity"
-                  :entity-uri="entity.id"
-                  :query="$route.query.query"
-                />
-              </b-container>
-            </client-only>
+        <EntityHeader
+          v-if="!hasUserQuery"
+          :description="description"
+          :title="title"
+          :logo="logo"
+          :image="thumbnail"
+          :editable="isEditable && userIsEditor"
+          :external-link="homepage"
+          :proxy="entity ? entity.proxy : null"
+          :more-info="moreInfo"
+        />
+        <template
+          v-if="collectionType !== 'organisation'"
+          #related
+        >
+          <client-only>
+            <EntityRelatedCollections
+              :type="$route.params.type"
+              :identifier="$route.params.pathMatch"
+              :overrides="relatedCollectionCards"
+              data-qa="related entities"
+              @show="showRelatedCollections"
+              @hide="hideRelatedCollections"
+            />
+          </client-only>
+        </template>
+        <template
+          #after-results
+        >
+          <client-only>
             <b-container class="px-0">
+              <RelatedEditorial
+                v-if="entity"
+                :entity-uri="entity.id"
+                :query="$route.query.query"
+              />
               <BrowseSections
                 v-if="page"
                 :sections="page.hasPartCollection.items"
               />
             </b-container>
-          </b-col>
-          <SideFilters
-            :route="route"
-          />
-        </b-row>
-      </b-container>
+          </client-only>
+        </template>
+      </SearchInterface>
     </client-only>
   </div>
 </template>
@@ -93,7 +81,7 @@
 
   import themes from '@/plugins/europeana/themes';
   import {
-    getEntitySlug, getEntityUri, getEntityQuery, normalizeEntityId, baseVariantEntityUris
+    getEntitySlug, getEntityUri, getEntityQuery, normalizeEntityId
   } from '@/plugins/europeana/entity';
   import { langMapValueForLocale, uriRegex } from  '@/plugins/europeana/utils';
 
@@ -107,8 +95,7 @@
       EntityHeader: () => import('@/components/entity/EntityHeader'),
       EntityRelatedCollections: () => import('@/components/entity/EntityRelatedCollections'),
       RelatedEditorial: () => import('@/components/related/RelatedEditorial'),
-      SearchInterface,
-      SideFilters: () => import('@/components/search/SideFilters')
+      SearchInterface
     },
 
     beforeRouteLeave(to, from, next) {
@@ -151,7 +138,8 @@
       const fetchEntityManagement = this.$features.entityManagement &&
         this.$auth.user?.resource_access?.entities?.roles.includes('editor');
       // Get the full page for this entity if not known needed, or known to be needed, and store for reuse
-      const fetchEntityPage = !this.$store.state.entity.curatedEntities || this.$store.state.entity.curatedEntities.some(entity => entity.identifier === entityUri);
+      const fetchEntityPage = !this.$store.state.entity.curatedEntities ||
+        this.$store.state.entity.curatedEntities.some(entity => entity.identifier === entityUri);
       const fetchCuratedEntities = !this.$store.state.entity.curatedEntities;
 
       const contentfulVariables = {
@@ -163,7 +151,7 @@
         this.$apis.entity.get(this.$route.params.type, this.$route.params.pathMatch),
         fetchEntityManagement ? this.$apis.entityManagement.get(this.$route.params.type, this.$route.params.pathMatch) : () => null,
         fetchCuratedEntities ? this.$contentful.query('curatedEntities', contentfulVariables) : () => null,
-        fetchEntityPage ? this.$contentful.query('collectionPage', { ...contentfulVariables, identifiers: baseVariantEntityUris(entityUri) }) : () => null
+        fetchEntityPage ? this.$contentful.query('collectionPage', { ...contentfulVariables, identifier: entityUri }) : () => null
       ])
         .then(responses => {
           this.$store.commit('entity/setEntity', pick(responses[0].entity, [
@@ -296,6 +284,12 @@
       // Title from the Contentful entry
       editorialTitle() {
         return this.page?.name || null;
+      },
+      editorialImage() {
+        return this.page?.primaryImageOfPage?.image || null;
+      },
+      editorialOverrides() {
+        return { title: this.editorialTitle, image: this.editorialImage };
       },
       relatedCollectionCards() {
         if ((this.page?.relatedLinksCollection?.items?.length || 0) > 0) {

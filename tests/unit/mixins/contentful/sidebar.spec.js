@@ -17,7 +17,7 @@ const fields = ['name', 'url'];
 
 describe('mixins/contentful/sidebar', () => {
   beforeAll(() => {
-    window.contentfulExtension = fakeContentfulExtension(fields);
+    window.contentfulExtension = fakeContentfulExtension({ entryFields: fields });
   });
 
   describe('data', () => {

@@ -38,10 +38,14 @@ export default {
     "goHome": "Vá para a página inicial",
     "learnMore": "Saiba mais",
     "like": "Gosto",
+    "move": "Jogada",
     "next": "Próximo",
     "pin": "Alfinete",
+    "preview": "Visualizar",
+    "previous": "Anterior",
     "providedBy": "Fornecido por {provider}",
     "reject": "Rejeitar",
+    "save": "Salve",
     "send": "Enviar",
     "share": "Partilhar",
     "shareOn": "Partilhe em {social}",
@@ -145,8 +149,27 @@ export default {
     "to": "para"
   },
   "debug": {
-    "apiRequests": "Pedidos da API",
-    "debug": "Depurar"
+    "apiRequests": {
+      "apiKeyLinkText": "Europeana chave API",
+      "noRequests": "Nenhuma solicitação para APIs da Europeana foi usada nesta página.",
+      "settingsPageLinkText": "página de configurações",
+      "tip": "Dica: se já tiver um {apiKeyLink}, poderá inseri-lo em {settingsPageLink} e ele será incluído nesses links de solicitação de API.",
+      "title": "Pedidos da API"
+    },
+    "debug": "Depurar",
+    "settings": {
+      "form": {
+        "apiKey": {
+          "description": "Insira a sua chave de API Europeana e ela será usada nos links para solicitações de API.",
+          "label": "Chave API"
+        },
+        "enabled": {
+          "description": "Se ativado, o menu de depuração será mostrado no rodapé da página.",
+          "label": "Ativar menu de depuração"
+        }
+      },
+      "title": "Definições"
+    }
   },
   "delete": "Apagar",
   "depiction": "Uma representação de {title}",
@@ -167,16 +190,18 @@ export default {
     },
     "notifications": {
       "deleted": "A galeria foi eliminada.",
+      "error": {
+        "unpin": "Ocorreu um erro ao desafixar o item. Tente novamente ou relate o problema."
+      },
+      "pin": "Este item será exibido no topo da coleção \" {entity} \". Notificaremos você quando essa alteração estiver visível na página da coleção.",
       "pinLimit": {
         "body": "Por enquanto, você só pode fixar 24 itens na primeira página. Se quiser fixar este item, certifique-se de soltar outro e tente fixá-lo novamente.",
         "title": "Muitos itens fixados"
       },
       "pinned": "O item foi fixado. Agora está no topo da primeira página desta coleção. Pode levar até 24 horas para aparecer para todos.",
+      "select": "Selecione uma entidade relacionada para fixar/desafixar o item nela.",
+      "unpin": "Este item deixará de ser exibido na parte superior da coleção \" {entity} \". Notificaremos você quando essa alteração estiver visível na página da coleção.",
       "unpinned": "O item foi desafixado. Não está mais no topo da primeira página desta coleção. Pode levar até 24 horas para desaparecer para todos."
-    },
-    "prompts": {
-      "pin": "Tem certeza de que deseja fixar este item? Este item será mostrado no topo da {entity} \". Essa alteração pode levar até 24 horas para entrar em vigor.",
-      "unpin": "Tem certeza de que deseja liberar este item? Este item deixará de ser exibido no topo da {entity} \". Essa alteração pode levar até 24 horas para entrar em vigor."
     }
   },
   "error": "Erro",
@@ -187,6 +212,7 @@ export default {
     "description": "Explore as exposições",
     "exhibitions": "Exposições | Exposições"
   },
+  "explore": "Explorar",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "cores",
@@ -691,13 +717,24 @@ export default {
       "home": "Casa",
       "stories": "Histórias"
     },
+    "quickSearch": "Pesquisa rápida",
     "searchFor": "Pesquisa por {query}",
     "searchForEverything": "Procurar por tudo",
     "searchForEverythingInCollection": "Procurar por tudo em {collection}",
     "searchForEverythingInEntireCollection": "Procurar tudo na nossa coleção total",
-    "showSidebar": "Mostrar menu"
+    "searchForm": "Formulário de pesquisa",
+    "showSidebar": "Mostrar menu",
+    "sideNavigation": "Navegação lateral"
   },
   "homeLinkAlt": "Página Inicial Europeana",
+  "homePage": {
+    "discoverEditorial": "Últimas histórias",
+    "storiesCTA": "Veja todas as histórias",
+    "subHeadline": "Pesquise, guarde e partilhe arte, livros, filmes e músicas de milhares de instituições culturais",
+    "themesCTA": "Ver todos os temas",
+    "themesTitle": "Explorar por tema",
+    "title": "Descubra o património cultural da Europa"
+  },
   "imageSlider": {
     "handle": "Barra deslizante"
   },
@@ -852,6 +889,9 @@ export default {
   },
   "record": {
     "IIIFViewer": "Visualizador IIIF",
+    "actions": {
+      "pin": "Pino item para Entidades disponíveis"
+    },
     "allMetaData": "Todos os metadados",
     "copyEmbedLabel": "Incorporar código (Clique para copiar)",
     "exploreMore": "Explorar mais",
@@ -864,8 +904,16 @@ export default {
     "record": "Item",
     "showAll": "Mostrar todas as informações",
     "similarItems": "Itens relacionados",
+    "status": {
+      "unpublished": "[Item não publicado]"
+    },
     "transcription": "Transcrição",
     "transcriptionDisclaimer": "Este conteúdo é fornecido pelo público, não pela instituição que forneceu este item."
+  },
+  "related": {
+    "editorial": {
+      "title": "Histórias que você pode gostar"
+    }
   },
   "relatedCollections": "Coleções relacionadas",
   "removeFilter": "Remover o filtro {filterLabel}",
@@ -875,9 +923,14 @@ export default {
   "resultsFor": "Resultados para {0}",
   "resultsLimitWarning": "Resultados adicionais não são mostrados, apenas os primeiros 1000 resultados mais relevantes são mostrados. Se não encontrou o que procurava, considere refinar a sua pesquisa.",
   "resultsWithin": "Resultados dentro de {0} {1} para {2}",
-  "search": "Procurar",
+  "search": {
+    "boost": {
+      "placeholder": "Digite consulta de reforço de campo"
+    },
+    "title": "Procurar"
+  },
   "searchHasLoaded": "{0} resultados retornados",
-  "searchPlaceholder": "Procure milhões de itens",
+  "searchPlaceholder": "Pesquise mais de 50 milhões de itens",
   "searchResults": "Procurar",
   "searchResultsFor": "{0} - Procurar",
   "searchSuggestions": "Sugestões de pesquisa",
@@ -903,7 +956,6 @@ export default {
       "createNew": "Criar uma galeria",
       "delete": "Eliminar galeria",
       "edit": "Editar galeria",
-      "save": "Salve",
       "update": "Atualizar galeria"
     },
     "form": {
@@ -937,6 +989,9 @@ export default {
   "statuses": {
     "liked": "Apreciado",
     "pinned": "Fixado"
+  },
+  "storiesPage": {
+    "title": "Histórias"
   },
   "website": "Sítio Web",
   "youMightAlsoLike": "Também pode gostar"

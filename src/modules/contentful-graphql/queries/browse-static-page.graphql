@@ -73,6 +73,13 @@ query BrowseStaticPage(
           ... on ContentTypeRichText {
             text
           }
+          ... on PrimaryCallToAction {
+            text
+            relatedLink {
+              url
+              text
+            }
+          }
         }
       }
     }

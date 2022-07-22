@@ -39,7 +39,7 @@
           role="searchbox"
           aria-autocomplete="list"
           :aria-controls="showSearchOptions ? 'search-form-options' : null"
-          :aria-label="$t('search')"
+          :aria-label="$t('search.title')"
           @input="getSearchSuggestions(query);"
           @focus="showSearchOptions = true; updateSuggestions();"
         />
@@ -304,7 +304,8 @@
       linkGen(queryTerm, path) {
         const query = {
           view: this.view,
-          query: queryTerm || ''
+          query: queryTerm || '',
+          boost: this.$route?.query?.boost
         };
         return {
           path: path || this.$path({
@@ -508,6 +509,9 @@
       background-color: $white;
       overflow: hidden;
       animation: appear 750ms ease-in-out;
+      position: absolute;
+      z-index: 20;
+      box-shadow: $boxshadow-light, $boxshadow-light-left;
 
       @media (min-width: $bp-xxxl) {
         font-size: 1vw;

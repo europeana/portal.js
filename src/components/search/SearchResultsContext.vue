@@ -13,7 +13,7 @@
       >
         {{ entityTypeLabel }}
         <RemovalChip
-          :title="localisedEntityLabel"
+          :title="entityLabel"
           :link-to="entityRemovalLink"
           :img="entityImage"
           data-qa="entity removal badge"
@@ -31,7 +31,7 @@
       >
         {{ entityTypeLabel }}
         <RemovalChip
-          :title="localisedEntityLabel"
+          :title="entityLabel"
           :link-to="entityRemovalLink"
           :img="entityImage"
           data-qa="entity removal badge"
@@ -66,6 +66,7 @@
   import { entityParamsFromUri } from '@/plugins/europeana/entity';
   import themes from '@/plugins/europeana/themes';
   import { mapState } from 'vuex';
+  import { urlIsContentfulAsset, optimisedSrcForContentfulAsset } from '@/plugins/contentful-utils';
 
   export default {
     name: 'SearchResultsContext',
@@ -76,12 +77,12 @@
 
     props: {
       /**
-       * Editorial title
+       * Editorial overrides
        *
-       * Title/label override. Used for editorial collection titles from Contentful.
+       * Title/label and image override. Used for editorial collection titles and images from Contentful.
        */
-      labelOverride: {
-        type: String,
+      editorialOverrides: {
+        type: Object,
         default: null
       }
     },
@@ -103,10 +104,13 @@
       hasEntity() {
         return this.entity && this.entity.id;
       },
-      localisedEntityLabel() {
-        return this.labelOverride ? { values: [this.labelOverride], code: null } : this.entity?.prefLabel;
+      entityLabel() {
+        return this.editorialOverrides?.title || this.entity?.prefLabel;
       },
       entityImage() {
+        if (this.editorialOverrides?.image && urlIsContentfulAsset(this.editorialOverrides.image.url)) {
+          return optimisedSrcForContentfulAsset(this.editorialOverrides.image, { w: 28, h: 28, fit: 'thumb' });
+        }
         return this.$apis.entity.imageUrl(this.entity);
       },
       entityTypeLabel() {

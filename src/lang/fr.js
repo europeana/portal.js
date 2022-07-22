@@ -38,10 +38,14 @@ export default {
     "goHome": "Aller à la page d'accueil",
     "learnMore": "Apprendre encore plus",
     "like": "Mention J'aime",
+    "move": "Déplacer",
     "next": "Suivant",
     "pin": "Épingler",
+    "preview": "Prévisualisation",
+    "previous": "Précédent",
     "providedBy": "Fourni par {provider}",
     "reject": "Rejeter",
+    "save": "Sauvegarder",
     "send": "Envoyer",
     "share": "Partagez",
     "shareOn": "Partager sur {social}",
@@ -59,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Éléments récents",
     "organisation": "Organisations",
+    "place": "Des endroits",
     "time": "Des siècles en vedette",
     "topic": "Sujets d'actualité"
   },
@@ -76,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Organisation",
     "person": "Personne",
+    "place": "Place",
     "theme": "Thème",
     "time": "Siècle",
     "topic": "Sujet"
@@ -145,8 +151,27 @@ export default {
     "to": "à"
   },
   "debug": {
-    "apiRequests": "Demandes d'API",
-    "debug": "Déboguer"
+    "apiRequests": {
+      "apiKeyLinkText": "Clé API Europeana",
+      "noRequests": "Aucune demande aux API Europeana n'a été utilisée sur cette page.",
+      "settingsPageLinkText": "page des paramètres",
+      "tip": "Astuce : si vous avez déjà un {apiKeyLink} , vous pouvez le saisir sur le {settingsPageLink} et il sera inclus dans ces liens de demande d'API.",
+      "title": "Requêtes API"
+    },
+    "debug": "Déboguer",
+    "settings": {
+      "form": {
+        "apiKey": {
+          "description": "Entrez votre clé API Europeana et elle sera utilisée dans les liens vers les requêtes API.",
+          "label": "Clé API"
+        },
+        "enabled": {
+          "description": "S'il est activé, le menu de débogage sera affiché dans le pied de page.",
+          "label": "Activer le menu de débogage"
+        }
+      },
+      "title": "Paramètres"
+    }
   },
   "delete": "Supprimer",
   "depiction": "Une description de {title}",
@@ -167,16 +192,18 @@ export default {
     },
     "notifications": {
       "deleted": "Votre galerie a été supprimée.",
+      "error": {
+        "unpin": "Une erreur s'est produite lors du détachement de l'élément. Veuillez réessayer ou signaler le problème."
+      },
+      "pin": "Cet élément s'affichera en haut de la collection \" {entity} \". Nous vous informerons lorsque ce changement sera visible sur la page de collecte.",
       "pinLimit": {
         "body": "Pour l'instant, vous ne pouvez épingler que 24 éléments sur la première page. Si vous souhaitez épingler cet élément, assurez-vous d'en désépingler un autre, puis réessayez d'épingler celui-ci.",
         "title": "Trop d'éléments épinglés"
       },
       "pinned": "L'élément a été épinglé. Il est maintenant en haut de la première page de cette collection. Cela peut prendre jusqu'à 24 heures pour apparaître pour tout le monde.",
+      "select": "Sélectionnez une entité associée pour y épingler/détacher l'élément.",
+      "unpin": "Cet élément ne s'affichera plus en haut de la collection \" {entity} \". Nous vous informerons lorsque ce changement sera visible sur la page de collecte.",
       "unpinned": "L'élément a été désépinglé. Il n'est plus en haut de la première page de cette collection. Cela peut prendre jusqu'à 24 heures pour disparaître pour tout le monde."
-    },
-    "prompts": {
-      "pin": "Voulez-vous vraiment épingler cet élément ? Cet élément apparaîtra en haut de la collection \" {entity} \". Ce changement peut prendre jusqu'à 24 heures pour prendre effet.",
-      "unpin": "Voulez-vous vraiment désépingler cet élément ? Cet élément cessera de s'afficher en haut de la collection \" {entity} \". Ce changement peut prendre jusqu'à 24 heures pour prendre effet."
     }
   },
   "error": "Erreur",
@@ -187,6 +214,7 @@ export default {
     "description": "Découvrez les expositions",
     "exhibitions": "Expositions"
   },
+  "explore": "Explorez",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "couleurs",
@@ -691,13 +719,24 @@ export default {
       "home": "Accueil",
       "stories": "Histoires"
     },
+    "quickSearch": "Recherche rapide",
     "searchFor": "Rechercher {query}",
     "searchForEverything": "Rechercher tout",
     "searchForEverythingInCollection": "Rechercher tout dans {collection}",
     "searchForEverythingInEntireCollection": "Rechercher tout dans notre collection",
-    "showSidebar": "Afficher le menu"
+    "searchForm": "Formulaire de recherche",
+    "showSidebar": "Afficher le menu",
+    "sideNavigation": "Navigation latérale"
   },
   "homeLinkAlt": "Accueil Europeana",
+  "homePage": {
+    "discoverEditorial": "Dernières histoires",
+    "storiesCTA": "Voir toutes les histoires",
+    "subHeadline": "Recherchez, enregistrez et partagez des œuvre d’art, des ouvrages, des films et de la musique issues de milliers d’institutions culturelles",
+    "themesCTA": "Voir tous les thèmes",
+    "themesTitle": "Explorer par thème",
+    "title": "Découvrez l’héritage culturel européen"
+  },
   "imageSlider": {
     "handle": "Poignée de curseur"
   },
@@ -815,12 +854,14 @@ export default {
   "newWindow": "s'ouvre dans une nouvelle fenêtre",
   "noMoreResults": "Il n'y a plus de résultats pour votre requête de recherche.",
   "noResults": "Pas de résultat",
+  "of": "De",
   "organisation": {
     "city": "Ville",
     "country": "Pays",
     "nameAcronym": "Acronyme du nom"
   },
   "pageHasLoaded": "a chargé",
+  "pageNumber": "Numéro de page",
   "pages": {
     "collections": {
       "organisations": {
@@ -831,6 +872,9 @@ export default {
       },
       "persons": {
         "title": "Personnes"
+      },
+      "places": {
+        "title": "Des endroits"
       },
       "table": {
         "name": "Nom"
@@ -843,6 +887,9 @@ export default {
       }
     }
   },
+  "pagination": {
+    "label": "Pagination"
+  },
   "readMore": "Lire la suite",
   "recommendation": {
     "prompts": {
@@ -852,6 +899,9 @@ export default {
   },
   "record": {
     "IIIFViewer": "Visionneuse IIIF",
+    "actions": {
+      "pin": "Épingler l'élément aux entités disponibles"
+    },
     "allMetaData": "Toutes les métadonnées",
     "copyEmbedLabel": "Code d’intégration (Cliquez pour copier)",
     "exploreMore": "En savoir plus",
@@ -864,8 +914,16 @@ export default {
     "record": "Enregistrement",
     "showAll": "Afficher toutes les informations",
     "similarItems": "Éléments similaires",
+    "status": {
+      "unpublished": "[Élément non publié]"
+    },
     "transcription": "Transcription",
     "transcriptionDisclaimer": "Ce contenu est fourni par le public, et non par l'institution qui a fourni cet article."
+  },
+  "related": {
+    "editorial": {
+      "title": "Histoires que vous aimerez peut-être"
+    }
   },
   "relatedCollections": "Collections similaires",
   "removeFilter": "Supprimer le filtre {filterLabel}",
@@ -875,9 +933,14 @@ export default {
   "resultsFor": "Résultats pour {0}",
   "resultsLimitWarning": "Les résultats supplémentaires ne sont pas affichés, car seuls les 1000 premiers résultats les plus pertinents sont affichés. Si vous n'avez pas trouvé ce que vous cherchez, veuillez affiner votre recherche.",
   "resultsWithin": "Résultats dans les {0} {1} pour {2}",
-  "search": "Rechercher",
+  "search": {
+    "boost": {
+      "placeholder": "Entrer une requête d’amplification de champ"
+    },
+    "title": "Rechercher"
+  },
   "searchHasLoaded": "{0} résultats retournés",
-  "searchPlaceholder": "Que cherchez-vous ?",
+  "searchPlaceholder": "Rechercher plus de 50 millions d'articles",
   "searchResults": "Rechercher",
   "searchResultsFor": "{0} - Rechercher",
   "searchSuggestions": "Suggestions de recherche",
@@ -903,7 +966,6 @@ export default {
       "createNew": "Créer une nouvelle galerie",
       "delete": "Supprimer la galerie",
       "edit": "Modifier la galerie",
-      "save": "Sauvegarder",
       "update": "Mettre à jour la galerie"
     },
     "form": {
@@ -937,6 +999,9 @@ export default {
   "statuses": {
     "liked": "Aimé",
     "pinned": "Épinglé"
+  },
+  "storiesPage": {
+    "title": "Histoires"
   },
   "website": "Site Internet",
   "youMightAlsoLike": "Vous pourriez aussi aimer"

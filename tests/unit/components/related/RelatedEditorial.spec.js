@@ -53,7 +53,7 @@ describe('components/related/RelatedEditorial', () => {
 
   describe('fetch', () => {
     describe('when an entity URI is supplied', () => {
-      const entityUri = 'http://data.europeana.eu/concept/base/123';
+      const entityUri = 'http://data.europeana.eu/concept/123';
 
       it('stores 4 most recent entries', async() => {
         const wrapper = factory({ propsData: { entityUri } });

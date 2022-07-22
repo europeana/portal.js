@@ -38,10 +38,14 @@ export default {
     "goHome": "Prejsť na domovskú stránku",
     "learnMore": "Uč sa viac",
     "like": "Označenie Páči sa mi",
+    "move": "Hýbať",
     "next": "Ďalšie",
     "pin": "Kolík",
+    "preview": "Náhľad",
+    "previous": "Predchádzajúce",
     "providedBy": "Poskytovateľ:  {provider}",
     "reject": "Odmietnuť",
+    "save": "Uložiť",
     "send": "poslať",
     "share": "Zdieľať",
     "shareOn": "Zdieľať na sociálnej sieti {social}",
@@ -145,8 +149,27 @@ export default {
     "to": "do"
   },
   "debug": {
-    "apiRequests": "Žiadosti API",
-    "debug": "Debug"
+    "apiRequests": {
+      "apiKeyLinkText": "Europeana API kľúč",
+      "noRequests": "Na tejto stránke neboli použité žiadne požiadavky na rozhrania Europeana API.",
+      "settingsPageLinkText": "stránku nastavení",
+      "tip": "Tip: Ak už máte {apiKeyLink}, môžete ho zadať na stránke {settingsPageLink} a bude zahrnutý do týchto odkazov na žiadosti API.",
+      "title": "Požiadavky API"
+    },
+    "debug": "Debug",
+    "settings": {
+      "form": {
+        "apiKey": {
+          "description": "Zadajte svoj kľúč Europeana API a použije sa v odkazoch na požiadavky API.",
+          "label": "API kľúč"
+        },
+        "enabled": {
+          "description": "Ak je povolená, ponuka ladenia sa zobrazí v päte stránky.",
+          "label": "Povoliť ponuku ladenia"
+        }
+      },
+      "title": "Nastavenia"
+    }
   },
   "delete": "Vymazať",
   "depiction": "Zobrazenie {title}",
@@ -167,16 +190,18 @@ export default {
     },
     "notifications": {
       "deleted": "Galéria bola vymazaná.",
+      "error": {
+        "unpin": "Došlo k chybe pri odpájaní položky. Skúste to prosím znova alebo nahláste problém."
+      },
+      "pin": "Táto položka sa zobrazí v hornej časti zbierky „ {entity} “. Keď bude táto zmena viditeľná na stránke zbierky, upozorníme vás.",
       "pinLimit": {
         "body": "Zatiaľ môžete na prvú stránku pripnúť iba 24 položiek. Ak chcete túto položku pripnúť, odpojte inú a potom sa pokúste znova pripnúť túto položku.",
         "title": "Príliš veľa pripnutých položiek"
       },
       "pinned": "Položka bola pripnutá. Teraz je v hornej časti prvej stránky tejto zbierky. Zobrazenie pre všetkých môže trvať až 24 hodín.",
+      "select": "Vyberte súvisiacu entitu, na ktorú chcete položku pripnúť/odopnúť.",
+      "unpin": "Táto položka sa prestane zobrazovať v hornej časti zbierky „ {entity} “. Keď bude táto zmena viditeľná na stránke zbierky, upozorníme vás.",
       "unpinned": "Položka bola odopnutá. Už sa nenachádza v hornej časti prvej stránky tejto zbierky. Zmiznutie pre každého môže trvať až 24 hodín."
-    },
-    "prompts": {
-      "pin": "Naozaj chcete pripnúť túto položku? Táto položka sa zobrazí v hornej časti {entity} “. Účinnosť tejto zmeny môže trvať až 24 hodín.",
-      "unpin": "Ste si istí, že chcete zrušiť pripnutie tejto položky? Táto položka sa prestane zobrazovať v hornej časti kolekcie \"{entity}\". Táto zmena sa môže prejaviť až do 24 hodín."
     }
   },
   "error": "Chyba",
@@ -187,6 +212,7 @@ export default {
     "description": "Preskúmať naše výstavy",
     "exhibitions": "Výstavy"
   },
+  "explore": "Preskúmať",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "farby",
@@ -691,13 +717,24 @@ export default {
       "home": "Domov",
       "stories": "Príbehy"
     },
+    "quickSearch": "Rýchle vyhľadávanie",
     "searchFor": "Vyhľadávať dopyt {query}",
     "searchForEverything": "Vyhľadávať všetko",
     "searchForEverythingInCollection": "Vyhľadávať všetko v zbierke {collection}",
     "searchForEverythingInEntireCollection": "Vyhľadávať všetko v celej našej zbierke",
-    "showSidebar": "Zobraziť ponuku"
+    "searchForm": "Vyhľadávací formulár",
+    "showSidebar": "Zobraziť ponuku",
+    "sideNavigation": "Bočná navigácia"
   },
   "homeLinkAlt": "Domovská stránka Europeana",
+  "homePage": {
+    "discoverEditorial": "Najnovšie príbehy",
+    "storiesCTA": "Zobraziť všetky príbehy",
+    "subHeadline": "Vyhľadávajte, ukladajte a zdieľajte umenie, knihy, filmy a hudbu z tisícok kultúrnych inštitúcií",
+    "themesCTA": "Zobraziť všetky témy",
+    "themesTitle": "Preskúmajte podľa témy",
+    "title": "Objavte kultúrne dedičstvo Európy"
+  },
   "imageSlider": {
     "handle": "Rukoväť posuvníka"
   },
@@ -852,6 +889,9 @@ export default {
   },
   "record": {
     "IIIFViewer": "Divák IIIF",
+    "actions": {
+      "pin": "Pripnúť položku k dostupným entitám"
+    },
     "allMetaData": "Všetky metadáta",
     "copyEmbedLabel": "Vložiť kód (kliknutím skopírujete)",
     "exploreMore": "Preskúmať viac",
@@ -864,8 +904,16 @@ export default {
     "record": "Záznam",
     "showAll": "Zobraziť všetky informácie",
     "similarItems": "Podobné položky",
+    "status": {
+      "unpublished": "[Nezverejnená položka]"
+    },
     "transcription": "Prepis",
     "transcriptionDisclaimer": "Obsah pridáva verejnosť, nie inštitúcia, ktorá túto položku poskytla."
+  },
+  "related": {
+    "editorial": {
+      "title": "Príbehy, ktoré sa vám môžu páčiť"
+    }
   },
   "relatedCollections": "Súvisiace zbierky",
   "removeFilter": "Odstrániť filter {filterLabel}",
@@ -875,9 +923,14 @@ export default {
   "resultsFor": "Výsledky pre {0}",
   "resultsLimitWarning": "Ďalšie výsledky sa nezobrazujú, pretože sa zobrazuje iba prvých 1000 najrelevantnejších výsledkov. Ak ste nenašli, čo hľadáte, upresnite vyhľadávanie.",
   "resultsWithin": "Výsledky v rámci {0} {1} pre {2}",
-  "search": "Hľadať",
+  "search": {
+    "boost": {
+      "placeholder": "Zadajte dopyt na zvýšenie poľa"
+    },
+    "title": "Vyhľadávanie"
+  },
   "searchHasLoaded": "{0} vrátené výsledky",
-  "searchPlaceholder": "Čo hľadáte?",
+  "searchPlaceholder": "Vyhľadajte viac ako 50 miliónov položiek",
   "searchResults": "Vyhľadávať",
   "searchResultsFor": "{0} – vyhľadávať",
   "searchSuggestions": "Návrhy na vyhľadávanie",
@@ -903,7 +956,6 @@ export default {
       "createNew": "Vytvoriť novú galériu",
       "delete": "Vymazať galériu",
       "edit": "Upraviť galériu",
-      "save": "Uložiť",
       "update": "Aktualizovať galériu"
     },
     "form": {
@@ -937,6 +989,9 @@ export default {
   "statuses": {
     "liked": "Obľúbené",
     "pinned": "Pripnuté"
+  },
+  "storiesPage": {
+    "title": "Príbehy"
   },
   "website": "Webové stránky",
   "youMightAlsoLike": "Tiež sa vám môže páčiť"

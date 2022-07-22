@@ -248,6 +248,7 @@ export default (context = {}) => {
         concepts,
         timespans,
         organizations,
+        places,
         title: proxies.dcTitle,
         schemaOrg: data.schemaOrg ? Object.freeze(JSON.stringify(data.schemaOrg)) : undefined,
         metadataLanguage: prefLang

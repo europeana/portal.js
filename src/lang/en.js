@@ -41,9 +41,9 @@ export default {
     "move": "Move",
     "next": "Next",
     "pin": "Pin",
+    "preview": "Preview",
     "previous": "Previous",
     "providedBy": "Provided by {provider}",
-    "preview": "Preview",
     "reject": "Reject",
     "save": "Save",
     "send": "Send",
@@ -63,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Recent items",
     "organisation": "Organisations",
+    "place": "Places",
     "time": "Centuries",
     "topic": "Topics"
   },
@@ -80,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Organisation",
     "person": "Person",
+    "place": "Place",
     "theme": "Theme",
     "time": "Century",
     "topic": "Topic"
@@ -162,6 +164,10 @@ export default {
         "apiKey": {
           "description": "Enter your Europeana API key and it will be used in the links to API requests.",
           "label": "API key"
+        },
+        "boosting": {
+          "description": "If enabled, activates the boosting field on search result pages, to evaluate various boosting configurations.",
+          "label": "Enable field boosting"
         },
         "enabled": {
           "description": "If enabled, the debug menu will be shown in the page footer.",
@@ -740,25 +746,23 @@ export default {
       "home": "Home",
       "stories": "Stories"
     },
+    "quickSearch": "Quick Search",
     "searchFor": "Search for {query}",
     "searchForEverything": "Search for everything",
     "searchForEverythingInCollection": "Search for everything in {collection}",
     "searchForEverythingInEntireCollection": "Search for everything in our entire collection",
     "searchForm": "Search form",
     "showSidebar": "Show Menu",
-    "sideNavigation": "Side navigation",
-    "quickSearch": "Quick Search"
+    "sideNavigation": "Side navigation"
   },
   "homeLinkAlt": "Europeana home",
   "homePage": {
-    "discoverEditorial": "Discover our stories",
-    "download": "download",
-    "free": "free",
-    "storiesCTA": "See all our stories",
-    "subHeadline": "Find and {download} artworks, photographs, books, manuscripts, newspapers and music from over 4000 museums, archives, galleries, and libraries for {free}.",
-    "themesCTA": "See all our collections",
-    "themesTitle": "Start exploring by theme",
-    "title": "Discover European cultural heritage"
+    "discoverEditorial": "Latest stories",
+    "storiesCTA": "See all stories",
+    "subHeadline": "Search, save and share art, books, films and music from thousands of cultural institutions",
+    "themesCTA": "See all themes",
+    "themesTitle": "Explore by theme",
+    "title": "Discover Europe’s cultural heritage"
   },
   "imageSlider": {
     "handle": "Slider Handle"
@@ -896,6 +900,9 @@ export default {
       "persons": {
         "title": "Persons"
       },
+      "places": {
+        "title": "Places"
+      },
       "table": {
         "name": "Name"
       },
@@ -953,9 +960,14 @@ export default {
   "resultsFor": "Results for {0}",
   "resultsLimitWarning": "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
   "resultsWithin": "Results within {0} {1} for {2}",
-  "search": "Search",
+  "search": {
+    "boost": {
+      "placeholder": "Enter field boosting query"
+    },
+    "title": "Search"
+  },
   "searchHasLoaded": "{0} results returned",
-  "searchPlaceholder": "Search millions of items",
+  "searchPlaceholder": "Search 50+ million items",
   "searchResults": "Search",
   "searchResultsFor": "{0} - Search",
   "searchSuggestions": "Search suggestions",

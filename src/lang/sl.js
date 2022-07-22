@@ -38,10 +38,14 @@ export default {
     "goHome": "Pojdite na domačo stran",
     "learnMore": "Nauči se več",
     "like": "Všeč mi je",
+    "move": "Premakni se",
     "next": "Naslednji",
     "pin": "Pin",
+    "preview": "Predogled",
+    "previous": "Prejšnji",
     "providedBy": "Zagotavlja {provider}",
     "reject": "Zavrne",
+    "save": "Shrani",
     "send": "Pošlji",
     "share": "Deli",
     "shareOn": "Deli prek {social}",
@@ -145,8 +149,27 @@ export default {
     "to": "do"
   },
   "debug": {
-    "apiRequests": "API requests",
-    "debug": "Debug"
+    "apiRequests": {
+      "apiKeyLinkText": "Europeana API ključ",
+      "noRequests": "Na tej strani ni bila uporabljena nobena zahteva za API-je Europeana.",
+      "settingsPageLinkText": "stran z nastavitvami",
+      "tip": "Nasvet: če že imate {apiKeyLink}, ga lahko vnesete na {settingsPageLink} in vključen bo v te povezave zahtev API.",
+      "title": "Zahteve API"
+    },
+    "debug": "Debug",
+    "settings": {
+      "form": {
+        "apiKey": {
+          "description": "Vnesite svoj Europeana API ključ in uporabljen bo v povezavah do zahtev API.",
+          "label": "API ključ"
+        },
+        "enabled": {
+          "description": "Če je omogočeno, bo meni za odpravljanje napak prikazan v nogi strani.",
+          "label": "Omogoči meni za odpravljanje napak"
+        }
+      },
+      "title": "Nastavitve"
+    }
   },
   "delete": "Izbrišite",
   "depiction": "Upodobitev {title}",
@@ -167,16 +190,18 @@ export default {
     },
     "notifications": {
       "deleted": "Vaša zbirka je bila izbrisana.",
+      "error": {
+        "unpin": "Pri odpenjanju elementa je prišlo do napake. Poskusite znova ali prijavite težavo."
+      },
+      "pin": "Ta element bo prikazan na vrhu zbirke » {entity} «. Ko bo ta sprememba vidna na strani zbirke, vas bomo obvestili.",
       "pinLimit": {
         "body": "Zaenkrat lahko na prvo stran pripnete le 24 elementov. Če želite pripeti ta element, odstranite še enega in poskusite znova pripeti tega.",
         "title": "Preveč pripete predmete"
       },
       "pinned": "Element je bil pripet. Zdaj je na vrhu prve strani te zbirke. Lahko traja do 24 ur, da se prikaže vsem.",
+      "select": "Izberite sorodno entiteto, da pripnete/odpnete element na/iz njega.",
+      "unpin": "Ta element se ne bo več prikazoval na vrhu zbirke » {entity} «. Ko bo ta sprememba vidna na strani zbirke, vas bomo obvestili.",
       "unpinned": "Element je bil odpenjen. Ni več na vrhu prve strani te zbirke. Lahko traja do 24 ur, da izgine za vse."
-    },
-    "prompts": {
-      "pin": "Ali ste prepričani, da želite pripeti ta element? Ta element bo prikazan na vrhu zbirke \" {entity} \". Ta sprememba lahko začne veljati do 24 ur.",
-      "unpin": "Ali ste prepričani, da želite odpeti ta element? Ta element se ne bo več prikazoval na vrhu zbirke » {entity} «. Ta sprememba lahko začne veljati do 24 ur."
     }
   },
   "error": "Napaka",
@@ -187,6 +212,7 @@ export default {
     "description": "Razišči razstave",
     "exhibitions": "Razstave"
   },
+  "explore": "Raziščite",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "barve",
@@ -691,13 +717,24 @@ export default {
       "home": "Domov",
       "stories": "Zgodbe"
     },
+    "quickSearch": "Hitro iskanje",
     "searchFor": "Išči {query}",
     "searchForEverything": "Išči vse",
     "searchForEverythingInCollection": "Išči vse v {collection}",
     "searchForEverythingInEntireCollection": "Išči vse v naši celotni zbirki",
-    "showSidebar": "Pokaži meni"
+    "searchForm": "Obrazec za iskanje",
+    "showSidebar": "Pokaži meni",
+    "sideNavigation": "Stranska navigacija"
   },
   "homeLinkAlt": "Na začetno stran Europeana",
+  "homePage": {
+    "discoverEditorial": "Najnovejše zgodbe",
+    "storiesCTA": "Oglejte si vse zgodbe",
+    "subHeadline": "Iskanje, shranjevanje in deljenje umetnosti, knjig, filmov in glasbe iz več tisoč kulturnih ustanov",
+    "themesCTA": "Oglejte si vse teme",
+    "themesTitle": "Raziščite po temi",
+    "title": "Odkrijte kulturno dediščino Evrope"
+  },
   "imageSlider": {
     "handle": "Ročaj drsnika"
   },
@@ -852,6 +889,9 @@ export default {
   },
   "record": {
     "IIIFViewer": "Pregledovalnik IIIF",
+    "actions": {
+      "pin": "Pripnite element na razpoložljive entitete"
+    },
     "allMetaData": "Vsi metapodatki",
     "copyEmbedLabel": "Vdelaj kodo (kliknite za kopiranje)",
     "exploreMore": "Razišči več",
@@ -864,8 +904,16 @@ export default {
     "record": "Zapis",
     "showAll": "Pokaži vse informacije",
     "similarItems": "Podobna dela",
+    "status": {
+      "unpublished": "[Neobjavljeni element]"
+    },
     "transcription": "Prepis",
     "transcriptionDisclaimer": "To vsebino je prispevala javnost, ne ustanova, ki je zagotovila ta predmet."
+  },
+  "related": {
+    "editorial": {
+      "title": "Zgodbe, ki vam bodo morda všeč"
+    }
   },
   "relatedCollections": "Povezane zbirke",
   "removeFilter": "Odstrani filter {filterLabel}",
@@ -875,9 +923,14 @@ export default {
   "resultsFor": "Rezultati za {0}",
   "resultsLimitWarning": "Dodatni rezultati niso prikazani, ker je prikazanih samo prvih 1000 najbolj relevantnih rezultatov. Če niste našli, kar iščete, razmislite o natančnejšem iskanju.",
   "resultsWithin": "Rezultati znotraj {0} {1} za {2}",
-  "search": "Išči",
+  "search": {
+    "boost": {
+      "placeholder": "Vnesite poizvedbo za povečanje polja"
+    },
+    "title": "Išči"
+  },
   "searchHasLoaded": "{0} vrnjeni rezultati",
-  "searchPlaceholder": "Kaj iščete?",
+  "searchPlaceholder": "Iskanje 50+ milijonov elementov",
   "searchResults": "Išči",
   "searchResultsFor": "{0} - Išči",
   "searchSuggestions": "Predlogi za iskanje",
@@ -903,7 +956,6 @@ export default {
       "createNew": "Ustvari novo zbirko",
       "delete": "Izbriši zbirko",
       "edit": "Uredi zbirko",
-      "save": "Shrani",
       "update": "Posodobi zbirko"
     },
     "form": {
@@ -937,6 +989,9 @@ export default {
   "statuses": {
     "liked": "Všeč",
     "pinned": "Pripet"
+  },
+  "storiesPage": {
+    "title": "Zgodbe"
   },
   "website": "Spletno mesto",
   "youMightAlsoLike": "Morda bi vam bilo všeč tudi"

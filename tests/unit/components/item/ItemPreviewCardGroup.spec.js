@@ -182,10 +182,16 @@ describe('components/item/ItemPreviewCardGroup', () => {
 
       describe('when hits are present', () => {
         it('picks the hit with the same ID as the item', () => {
-          const wrapper = factory({ propsData: { items: results, view: 'list', hits: [{ scope: '/123/abc', selectors: ['example selector'] }] } });
+          const hitSelector = {
+            field: 'rdf:value',
+            prefix: 'Je^J)1-/ ',
+            exact: 'Book',
+            suffix: ' dito nuancé figuré &c. a. huitièmes fi? 6. quarts. 700. '
+          };
+          const wrapper = factory({ propsData: { items: results, view: 'list', hits: [{ scope: '/123/abc', selectors: [hitSelector] }] } });
           wrapper.vm.fetch();
 
-          expect(wrapper.vm.itemHitSelector(results[0])).toMatch('example selector');
+          expect(wrapper.vm.itemHitSelector(results[0]).exact).toMatch(hitSelector.exact);
         });
       });
     });

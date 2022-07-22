@@ -15,8 +15,8 @@
         style="margin-top: 0;
           padding-left: 1.25rem;"
       >
-        <li>http://data.europeana.eu/agent/base/59832</li>
-        <li>https://api.europeana.eu/entity/timespan/base/20</li>
+        <li>http://data.europeana.eu/agent/59832</li>
+        <li>https://api.europeana.eu/entity/timespan/20</li>
         <li>https://www.europeana.eu/en/collections/person/60404-johannes-vermeer</li>
         <li>https://portaljs-test.eanadev.org/collections/topic/190</li>
       </ul>
@@ -150,6 +150,7 @@
           description = langMapValueForLocale(response.biographicalInformation, 'en').values[0];
           break;
         case 'Concept':
+        case 'Place':
           // use `note`
           // NB: language map with each value being an array of literals
           description = langMapValueForLocale(response.note, 'en').values[0];
@@ -161,9 +162,6 @@
           break;
         case 'Timespan':
           // TODO: use what? `${response.begin} to ${response.end}`?
-          break;
-        case 'Place':
-          // TODO: use what? `${response.lat},${response.long}`?
           break;
         }
 
