@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const tagSlug = (tag) => tag.toLowerCase().replace(/\W/g, '-');
+const tagSlug = (tag) => tag.toLowerCase().replace(/\W/g, '-').replace(/(^-|-$)/, '');
 
 module.exports = async function (migration, { makeRequest }) {
   if (!process.env.TAGS_DATA_FILE_NAME) {
