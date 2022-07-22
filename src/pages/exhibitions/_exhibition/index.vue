@@ -48,12 +48,25 @@
         </b-col>
       </b-row>
       <b-row
+        v-if="categoriesCollection && categoriesCollection.items"
+        class="justify-content-center"
+      >
+        <b-col
+          cols="12"
+          class="mt-4 col-lg-8"
+        >
+          <RelatedCategoryTags
+            :tags="categoriesCollection.items"
+          />
+        </b-col>
+      </b-row>
+      <b-row
         v-if="relatedLink"
         class="justify-content-center"
       >
         <b-col
           cols="12"
-          class="mt-3 col-lg-8"
+          class="mt-4 col-lg-8"
         >
           <client-only>
             <RelatedCollections
@@ -84,6 +97,7 @@
       SocialShareModal,
       AuthoredHead: () => import('../../../components/authored/AuthoredHead'),
       ContentWarningModal: () => import('@/components/generic/ContentWarningModal'),
+      RelatedCategoryTags: () => import('@/components/related/RelatedCategoryTags'),
       RelatedCollections: () => import('@/components/related/RelatedCollections')
     },
     mixins: [
