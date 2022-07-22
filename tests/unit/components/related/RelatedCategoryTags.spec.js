@@ -8,7 +8,10 @@ const localVue = createLocalVue();
 const factory = ({ propsData } = {})  => shallowMountNuxt(RelatedCategoryTags, {
   localVue,
   propsData,
-  stubs: ['b-row', 'b-col', 'b-badge']
+  stubs: ['b-row', 'b-col', 'b-badge'],
+  mocks: {
+    $path: () => '/'
+  }
 });
 
 describe('components/related/RelatedCategoryTags', () => {
