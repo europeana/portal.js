@@ -44,7 +44,10 @@ const factory = () => shallowMountNuxt(page, {
       },
       credits: '',
       contentWarning: null,
-      relatedLink: { items: [{ name: 'art' }] },
+      relatedLink: [
+        'http://data.europeana.eu/concept/194',
+        'http://data.europeana.eu/concept/21'
+      ],
       categoriesCollection: { items: [{ name: 'surrealism' }] }
     };
   },
