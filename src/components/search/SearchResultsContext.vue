@@ -1,6 +1,6 @@
 <template>
   <h1
-    class="context-label float-left mw-100 d-inline-block"
+    class="context-label"
     data-qa="context label"
   >
     <template
@@ -17,13 +17,13 @@
           :link-to="entityRemovalLink"
           :img="entityImage"
           data-qa="entity removal badge"
-          class="mw-100 mt-1 mx-1"
+          class="mt-1 mx-1"
         />
         <RemovalChip
           :title="query"
           :link-to="queryRemovalLink"
           data-qa="query removal badge"
-          class="mw-100 mt-1 mx-1"
+          class="mt-1 mx-1"
         />
       </i18n>
       <span
@@ -35,7 +35,7 @@
           :link-to="entityRemovalLink"
           :img="entityImage"
           data-qa="entity removal badge"
-          class="mw-100 mt-1 mx-1"
+          class="mt-1 mx-1"
         />
       </span>
     </template>
@@ -51,7 +51,7 @@
           :title="query"
           :link-to="queryRemovalLink"
           data-qa="query removal badge"
-          class="mw-100 mt-1 mx-1"
+          class="mt-1 mx-1"
         />
       </i18n>
       <template v-else>
@@ -159,5 +159,10 @@
   .context-label {
     margin-bottom: 0;
     line-height: 3;
+    min-width: 0;
+
+    .badge {
+      max-width: calc(100% - 2rem);
+    }
   }
 </style>

@@ -19,7 +19,7 @@
             />
           </client-only>
           <div
-            class="clearfix mb-3"
+            class="mb-3 d-flex align-items-start justify-content-between"
           >
             <SearchResultsContext
               :editorial-overrides="editorialOverrides"
@@ -27,7 +27,7 @@
             <ViewToggles
               v-model="view"
               :link-gen-route="route"
-              class="flex-nowrap float-right mt-2"
+              class="flex-nowrap mt-md-2"
             />
           </div>
           <b-row
