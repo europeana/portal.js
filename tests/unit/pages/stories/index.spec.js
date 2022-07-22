@@ -12,25 +12,96 @@ const storiesPageContentfulResponse = {
     data: {
       browsePageCollection: {
         items: [
-          { hasPartCollection: { items: [
-            { '__typename': 'PrimaryCallToAction', name: 'PrimaryCTA', relatedLink: {}, text: '' }
-          ] } }
-        ]
-      },
-      blogPostingCollection: {
-        items: [
-          { datePublished: '2022-02-12T08:00:00.000+01:00' }
-        ]
-      },
-      exhibitionPageCollection: {
-        items: [
-          { datePublished: '2022-03-12T08:00:00.000+01:00' },
-          { datePublished: '2022-01-12T08:00:00.000+01:00' }
+          {
+            hasPartCollection: {
+              items: [
+                { '__typename': 'PrimaryCallToAction', name: 'PrimaryCTA', relatedLink: {}, text: '' }
+              ]
+            }
+          }
         ]
       }
     }
   }
 };
+const categoriesContentfulResponse = {
+  data: {
+    data: {
+      categoryCollection: {
+        items: [
+          { identifier: '3d', name: '3D' },
+          { identifier: 'cooking', name: 'cooking' },
+          { identifier: 'postcards', name: 'postcards' }
+        ]
+      }
+    }
+  }
+};
+const storiesMinimalContentfulResponse = {
+  data: {
+    data: {
+      blogPostingCollection: {
+        items: [
+          { date: '2022-02-12T08:00:00.000+01:00', sys: { id: '796f5YKe4b1u8uXtizSBu0' }, cats: { items: [{ id: '3d' }] } }
+        ]
+      },
+      exhibitionPageCollection: {
+        items: [
+          { date: '2022-03-12T08:00:00.000+01:00', sys: { id: '1tuVL9nnfMJzptXshe3Qw8' }, cats: { items: [{ id: 'cooking' }] } },
+          { date: '2022-01-12T08:00:00.000+01:00', sys: { id: '3KgVELZ48RKM4kbxJ0bYKi' }, cats: { items: [{ id: 'cooking' }, { id: 'postcards' }] } }
+        ]
+      }
+    }
+  }
+};
+const storiesBySysIdContentfulResponse = {
+  data: {
+    data: {
+      blogPostingCollection: {
+        items: [
+          {
+            __typename: 'BlogPosting',
+            sys: {
+              id: '796f5YKe4b1u8uXtizSBu0'
+            },
+            identifier: 'the-1920-olympics-games-in-antwerp',
+            name: 'The 1920 Olympics Games in Antwerp',
+            primaryImageOfPage: {
+              image: {
+                url: 'https://images.ctfassets.net/i01duvb6kq77/7Jnq4yka0vfYdWKo7IV7Dc/5778788f0359b1a6a81ef1f57a260982/feature_1920Olympics.jpg',
+                contentType: 'image/jpeg'
+              }
+            }
+          }
+        ]
+      },
+      exhibitionPageCollection: {
+        items: [
+          {
+            __typename: 'ExhibitionPage',
+            sys: {
+              id: '1tuVL9nnfMJzptXshe3Qw8'
+            },
+            identifier: 'the-images-that-shaped-europe',
+            name: 'The images that shaped Europe',
+            primaryImageOfPage: {
+              image: {
+                url: 'https://images.ctfassets.net/i01duvb6kq77/2X3RporIb4EYdG60jkKWcq/381755491830d3ef1066bd9b848900dc/hero_eu_test.jpg',
+                contentType: 'image/jpeg'
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+};
+
+const contentfulQueryStub = sinon.stub();
+contentfulQueryStub.withArgs('storiesPage', sinon.match.object).resolves(storiesPageContentfulResponse);
+contentfulQueryStub.withArgs('categories', sinon.match.object).resolves(categoriesContentfulResponse);
+contentfulQueryStub.withArgs('storiesMinimal', sinon.match.object).resolves(storiesMinimalContentfulResponse);
+contentfulQueryStub.withArgs('storiesBySysId', sinon.match.object).resolves(storiesBySysIdContentfulResponse);
 
 const factory = ({ $features = {}, data = {}, $fetchState = {} } = {}) => shallowMountNuxt(StoriesPage, {
   localVue,
@@ -39,7 +110,7 @@ const factory = ({ $features = {}, data = {}, $fetchState = {} } = {}) => shallo
   },
   mocks: {
     $contentful: {
-      query: sinon.stub().resolves(storiesPageContentfulResponse)
+      query: contentfulQueryStub
     },
     $features: {
       newStoriesPage: true,
@@ -64,7 +135,7 @@ describe('pages/stories/index', () => {
 
   describe('fetch', () => {
     describe('when new stories page is enabled', () => {
-      it('fetches stories content from Contentful', async() => {
+      it('fetches stories page content from Contentful', async() => {
         const wrapper = factory();
 
         await wrapper.vm.fetch();
@@ -72,19 +143,20 @@ describe('pages/stories/index', () => {
         expect(wrapper.vm.$contentful.query.calledWith('storiesPage', {
           identifier: 'stories',
           locale: 'en-GB',
-          preview: false,
-          tags: [],
-          withTags: false
+          preview: false
         })).toBe(true);
       });
 
+      test.todo('fetches all stories with minimal data from Contentful');
+      test.todo('fetches page of stories with full data from Contentful');
+      test.todo('fetches categories from Contentful');
       test.todo('optionally requests tagged stories');
 
       it('stores a page of the stories content, ordered by datePublished', async() => {
         const wrapper = factory({ data: { perPage: 2 } });
         const expected = [
-          storiesPageContentfulResponse.data.data.exhibitionPageCollection.items[0],
-          storiesPageContentfulResponse.data.data.blogPostingCollection.items[0]
+          storiesBySysIdContentfulResponse.data.data.exhibitionPageCollection.items[0],
+          storiesBySysIdContentfulResponse.data.data.blogPostingCollection.items[0]
         ];
 
         await wrapper.vm.fetch();
@@ -94,8 +166,8 @@ describe('pages/stories/index', () => {
 
       it('stores the total number of stories', async() => {
         const wrapper = factory({ data: { perPage: 2 } });
-        const expected = storiesPageContentfulResponse.data.data.exhibitionPageCollection.items.length +
-          storiesPageContentfulResponse.data.data.blogPostingCollection.items.length;
+        const expected = storiesMinimalContentfulResponse.data.data.exhibitionPageCollection.items.length +
+          storiesMinimalContentfulResponse.data.data.blogPostingCollection.items.length;
 
         await wrapper.vm.fetch();
 
