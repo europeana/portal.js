@@ -230,7 +230,7 @@
           storiesResponse.data.data.blogPostingCollection.items,
           storiesResponse.data.data.exhibitionPageCollection.items
         ].flat();
-        this.stories = storySysIds.map((sysId) => stories.find((story) => story.sys.id === sysId));
+        this.stories = storySysIds.map((sysId) => stories.find((story) => story.sys.id === sysId)).filter(Boolean);
       },
 
       async fetchCategories() {

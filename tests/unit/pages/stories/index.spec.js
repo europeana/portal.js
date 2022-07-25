@@ -90,6 +90,20 @@ const storiesBySysIdContentfulResponse = {
                 contentType: 'image/jpeg'
               }
             }
+          },
+          {
+            __typename: 'ExhibitionPage',
+            sys: {
+              id: '3KgVELZ48RKM4kbxJ0bYKi'
+            },
+            identifier: 'the-jean-monnet-house',
+            name: 'The Jean Monnet House',
+            primaryImageOfPage: {
+              image: {
+                url: 'https://images.ctfassets.net/i01duvb6kq77/2X3RporIb4EYdG60jkKWcq/381755491830d3ef1066bd9b848900dc/hero_eu_test.jpg',
+                contentType: 'image/jpeg'
+              }
+            }
           }
         ]
       }
