@@ -149,8 +149,6 @@ describe('pages/stories/index', () => {
 
       test.todo('fetches all stories with minimal data from Contentful');
       test.todo('fetches page of stories with full data from Contentful');
-      test.todo('fetches categories from Contentful');
-      test.todo('optionally requests tagged stories');
 
       it('stores a page of the stories content, ordered by datePublished', async() => {
         const wrapper = factory({ data: { perPage: 2 } });
@@ -182,12 +180,28 @@ describe('pages/stories/index', () => {
         expect(wrapper.vm.$scrollTo.calledWith('#header')).toBe(true);
       });
 
-      describe('tags', () => {
-        it('fetches all tags', async() => {
+      describe('categories & tagged stories', () => {
+        it('fetches categories from Contentful', async() => {
           const wrapper = factory();
           await wrapper.vm.fetch();
 
           expect(wrapper.vm.tags.length).toBe(3);
+        });
+
+        it('has a selected tag', async() => {
+          const wrapper = factory();
+          wrapper.vm.$route.query.tags = 'cooking';
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.selectedTags.length).toBe(1);
+        });
+
+        it('optionally requests tagged stories', async() => {
+          const wrapper = factory();
+          wrapper.vm.$route.query.tags = 'cooking';
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.stories.length).toBe(2);
         });
       });
 
