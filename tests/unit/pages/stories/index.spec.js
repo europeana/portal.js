@@ -181,6 +181,16 @@ describe('pages/stories/index', () => {
 
         expect(wrapper.vm.$scrollTo.calledWith('#header')).toBe(true);
       });
+
+      describe('tags', () => {
+        it('fetches all tags', async() => {
+          const wrapper = factory();
+          await wrapper.vm.fetch();
+
+          expect(wrapper.vm.tags.length).toBe(3);
+        });
+      });
+
       describe('when fetch errors', () => {
         it('renders an alert message', () => {
           const wrapper = factory({ $fetchState: { error: { message: 'Error message' } } });
