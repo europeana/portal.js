@@ -16,6 +16,12 @@
     >
       {{ title.values[0] }}
     </b-card-title>
+    <b-card-sub-title
+      v-if="subTitle"
+      :lang="subTitle.code"
+    >
+      {{ subTitle.values[0] }}
+    </b-card-sub-title>
     <b-card-text
       v-if="hasDescription"
       text-tag="div"
@@ -77,8 +83,9 @@
           {{ $t('actions.edit') }}
         </b-button>
         <EntityUpdateModal
-          :body="proxy"
-          :description="description.values[0] || null"
+          :id="id"
+          :description="description && description.values[0] || null"
+          @updated="$emit('updated')"
         />
       </template>
     </client-only>
@@ -109,6 +116,20 @@
       title: {
         type: Object,
         required: true
+      },
+      /**
+       * URI of the entity
+       */
+      id: {
+        type: String,
+        required: true
+      },
+      /**
+       * Sub-title of the entity
+       */
+      subTitle: {
+        type: Object,
+        default: null
       },
       /**
        * Description of the entity as object with 'values' (array of strings) and 'code' two letter language code
@@ -196,6 +217,12 @@
   .header-card .btn {
     margin-right: 0.5rem;
     margin-top: 0.5rem;
+  }
+
+  .card-subtitle {
+    font-weight: 600;
+    margin-top: 0.5rem;
+    margin-bottom: 0.375rem;
   }
 </style>
 

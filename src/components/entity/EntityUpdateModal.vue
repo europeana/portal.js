@@ -5,7 +5,6 @@
     :static="modalStatic"
     hide-footer
     hide-header-close
-    @show="init"
   >
     <b-form @submit.stop.prevent="submitForm">
       <b-form-group
@@ -50,64 +49,81 @@
     ],
 
     props: {
-      modalStatic: {
-        type: Boolean,
-        default: false
-      },
-      body: {
-        type: Object,
-        default: () => ({})
+      id: {
+        type: String,
+        required: true
       },
       description: {
         type: String,
         default: null
+      },
+      modalStatic: {
+        type: Boolean,
+        default: false
       }
     },
 
     data() {
       return {
-        descriptionValue: '',
+        descriptionValue: this.description,
+        entity: null,
         toastMsg: this.$t('collections.notifications.update')
       };
     },
 
     computed: {
-      entityBody() {
-        const entityBody = {
-          type: this.body.type,
-          prefLabel: { ...this.body.prefLabel },
-          note: { ...this.body.note }
-        };
-        entityBody.note[this.$i18n.locale] = [this.descriptionValue];
-        return entityBody;
-      },
       disableSubmit() {
         // Disable submit button when description is not changed
         return (this.descriptionValue === '' && this.description === null) ||
           (this.descriptionValue === this.description);
+      },
+      descriptionFieldName() {
+        return this.id.includes('/concept/') ? 'note' : 'description';
+      },
+      descriptionFieldIsArray() {
+        return Array.isArray(this.entity[this.descriptionFieldName][this.$i18n.locale]);
+      },
+      descriptionFieldValue() {
+        return this.descriptionFieldIsArray ? [this.descriptionValue] : this.descriptionValue;
+      },
+      europeanaProxy() {
+        return this.entity?.proxies?.find(proxy => proxy.id.endsWith('#proxy_europeana'));
+      },
+      updatedBody() {
+        const body = {};
+        // NOTE: exactMatch & sameAs handling are workarounds until the upstream
+        //       Europeana proxies always include those fields. See
+        //       https://europeana.atlassian.net/browse/EA-3103
+        if (this.entity.exactMatch) {
+          body.exactMatch = this.entity.exactMatch;
+        }
+        if (this.entity.sameAs) {
+          body.sameAs = this.entity.sameAs;
+        }
+        return {
+          ...body,
+          ...this.europeanaProxy,
+          [this.descriptionFieldName]: {
+            ...this.europeanaProxy[this.descriptionFieldName] || {},
+            [this.$i18n.locale]: this.descriptionFieldValue
+          }
+        };
       }
-    },
-
-    created() {
-      this.init();
     },
 
     methods: {
-      init() {
-        this.descriptionValue = this.description ? this.description : this.descriptionValue;
-      },
-      submitForm() {
-        const handler = this.$store.dispatch('entity/update', { id: this.body.id, body: this.entityBody });
-        return handler
-          .then(() => {
-            this.$bvModal.hide('entityUpdateModal');
-            this.makeToast(this.toastMsg);
-          })
-          .catch(e => {
-            throw e;
-          });
-      }
+      async updateEntity() {
+        // First fetch the entity to get its Europeana proxy to avoid data loss
+        this.entity = await this.$apis.entityManagement.get(this.id);
 
+        return this.$apis.entityManagement.update(this.id, this.updatedBody);
+      },
+      async submitForm() {
+        await this.updateEntity();
+        this.$bvModal.hide('entityUpdateModal');
+        this.makeToast(this.toastMsg);
+        this.$emit('updated');
+      }
     }
   };
 </script>
