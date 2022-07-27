@@ -11,15 +11,33 @@
           deck
           data-qa="gallery foyer"
         >
-          <ContentCard
-            v-for="gallery in galleries"
-            :key="gallery.identifier"
-            :title="gallery.name"
-            :url="{ name: 'galleries-all', params: { pathMatch: gallery.identifier } }"
-            :image-url="gallery.hasPartCollection.items[0] && imageUrl(gallery.hasPartCollection.items[0])"
-            :texts="[gallery.description]"
-            :show-subtitle="false"
-          />
+          <template
+            v-if="setGalleriesEnabled"
+          >
+            <ContentCard
+
+              v-for="gallery in galleries"
+              :key="gallery.slug"
+              :title="gallery.title"
+              :url="{ name: 'set-all', params: { pathMatch: gallery.slug } }"
+              :image-url="gallery.thumbnail"
+              :texts="[gallery.description]"
+              :show-subtitle="false"
+            />
+          </template>
+          <template
+            v-else
+          >
+            <ContentCard
+              v-for="gallery in galleries"
+              :key="gallery.identifier"
+              :title="gallery.name"
+              :url="{ name: 'galleries-all', params: { pathMatch: gallery.identifier } }"
+              :image-url="gallery.hasPartCollection.items[0] && imageUrl(gallery.hasPartCollection.items[0])"
+              :texts="[gallery.description]"
+              :show-subtitle="false"
+            />
+          </template>
         </b-card-group>
       </b-col>
     </b-row>
@@ -48,41 +66,89 @@
       PaginationNavInput: () => import('../../components/generic/PaginationNavInput')
     },
     middleware: 'sanitisePageQuery',
-    asyncData({ query, error, app, store }) {
-      const variables = {
-        locale: app.i18n.isoLocale(),
-        preview: query.mode === 'preview',
-        limit: PER_PAGE,
-        skip: (store.state.sanitised.page - 1) * PER_PAGE
-      };
-
-      return app.$contentful.query('galleryFoyerPage', variables)
-        .then(response => response.data.data)
-        .then(data => {
-          return {
-            galleries: data.imageGalleryCollection.items,
-            total: data.imageGalleryCollection.total,
-            page: store.state.sanitised.page,
-            perPage: PER_PAGE
-          };
-        })
-        .catch((e) => {
-          error({ statusCode: 500, message: e.toString() });
-        });
-    },
     data() {
       return {
+        galleries: [],
         perPage: PER_PAGE,
-        page: null
+        total: 0
       };
+    },
+    async fetch() {
+      if (this.setGalleriesEnabled) {
+        await this.fetchSetGalleries();
+      } else {
+        await this.fetchContentfulGalleries();
+      }
     },
     head() {
       return {
         title: this.$pageHeadTitle(this.$tc('galleries.galleries', 2))
       };
     },
-    watchQuery: ['page'],
+    computed: {
+      setGalleriesEnabled() {
+        return this.$features.setGalleries;
+      },
+      page() {
+        return Number(this.$route.query.page || 1)
+      }
+    },
+    watchQuery: ['page'], // TODO: remove when using set galleries
+    watch: {
+      '$route.query.page': '$fetch'
+    },
     methods: {
+      async fetchSetGalleries() {
+        const searchParams = {
+          query: 'visibility:published',
+          pageSize: PER_PAGE,
+          page: this.page -1,
+          profile: 'standard'
+        };
+
+        const setResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
+        this.galleries = this.parseSets(setResponse.data.items);
+        this.total = setResponse.data.partOf.total;
+        this.perPage = PER_PAGE;
+      },
+      parseSets(sets) {
+        return sets.map(set => {
+          return {
+            slug: this.setSlug(set.id),
+            title: set.title,
+            description: set.description,
+            thumbnail: this.setPreviewUrl(set.items[0].edmPreview)
+          };
+        });
+      },
+      setSlug(setId) {
+        return setId.split('/').pop();
+      },
+      setPreviewUrl(edmPreview) {
+        return this.$apis.thumbnail.edmPreview(edmPreview, { size: 400 });
+      },
+
+      // TODO: remove when using set galleries
+      async fetchContentfulGalleries() {
+        const variables = {
+          locale: this.$i18n.isoLocale(),
+          preview: this.$route.query.mode === 'preview',
+          limit: PER_PAGE,
+          skip: (this.$store.state.sanitised.page - 1) * PER_PAGE
+        };
+
+        const contentfulResponse = await this.$contentful.query('galleryFoyerPage', variables)
+          .then(response => response.data.data)
+          .catch((e) => {
+            error({ statusCode: 500, message: e.toString() });
+          });
+
+        this.galleries = contentfulResponse.imageGalleryCollection.items;
+        this.total = contentfulResponse.imageGalleryCollection.total;
+        this.perPage = PER_PAGE;
+      },
+
+      // TODO: remove when using set galleries
       imageUrl(data) {
         const edmPreview = data.encoding?.edmPreview?.[0] || data.thumbnailUrl;
         return this.$apis.thumbnail.edmPreview(edmPreview, { size: 400 });

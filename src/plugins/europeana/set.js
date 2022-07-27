@@ -22,6 +22,7 @@ export default (context = {}) => {
      */
     async search(params, options = {}) {
       try {
+        console.log(params);
         const response = await $axios.get('/search', { params: { ...$axios.defaults.params, ...params } });
 
         if (options.withMinimalItemPreviews && response.data.items) {
@@ -29,7 +30,7 @@ export default (context = {}) => {
 
           const minimalItemPreviews = await context.$apis.record.find(itemUris, {
             profile: 'minimal',
-            rows: 100
+            rows: params.perPage ? params.perPage : 100
           });
 
           for (const set of response.data.items) {

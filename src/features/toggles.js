@@ -7,6 +7,7 @@ export default [
   { name: 'newHomepage' },
   { name: 'newStoriesPage' },
   { name: 'rejectEntityRecommendations' },
+  { name: 'setGalleries' },
   { name: 'translatedItems' },
   { name: 'fieldBoosting' }
 ];
