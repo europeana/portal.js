@@ -423,7 +423,7 @@
           @media (min-width: $bp-large) {
             padding-right: 1rem;
           }
-          
+
           @media (min-width: $bp-xxxl) {
             padding: 0.375vw 1vw 0.375vw 3.5vw;
             height: 3.4vw;
