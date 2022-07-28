@@ -21,6 +21,7 @@
         :img="imageUrl(relatedCollection)"
         :type="relatedCollection.type"
         :badge-variant="badgeVariant"
+        :image-src-set="imageSrcSet(relatedCollection)"
       />
     </div>
   </b-container>
@@ -126,6 +127,16 @@
           return optimisedSrcForContentfulAsset(collection.contentfulImage, { w: 28, h: 28, fit: 'thumb' });
         }
         return this.$apis.entity.imageUrl(collection);
+      },
+
+      imageSrcSet(collection) {
+        if (collection.contentfulImage && urlIsContentfulAsset(collection.contentfulImage.url)) {
+          const smallImage = optimisedSrcForContentfulAsset(collection.contentfulImage, { w: 28, h: 28, fit: 'thumb' });
+          const wqhdImage = optimisedSrcForContentfulAsset(collection.contentfulImage, { w: 45, h: 45, fit: 'thumb' });
+          const fourKImage = optimisedSrcForContentfulAsset(collection.contentfulImage, { w: 67, h: 67, fit: 'thumb' });
+          return `${smallImage} 28w, ${wqhdImage} 45w, ${fourKImage} 67w`;
+        }
+        return null;
       }
     }
   };
