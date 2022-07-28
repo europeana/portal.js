@@ -932,7 +932,7 @@ export default {
   "results": "Tulemused",
   "resultsFor": "Tulemused päringule {0}",
   "resultsLimitWarning": "Täiendavaid tulemusi ei kuvata, kuna kuvatakse ainult esimesed 1000 kõige asjakohasemat tulemust. Kui te pole leidnud seda, mida otsite, kaaluge oma otsingu täpsustamist.",
-  "resultsWithin": "Tulemused {0} {1} piires {2} päringule {1}",
+  "resultsWithin": "Tulemused vahemikus {0} {1} päringule {2}",
   "search": {
     "boost": {
       "placeholder": "Sisestage välja võimendamise päring"
