@@ -6,7 +6,7 @@ export default {
     "likes": "Sviđanja",
     "linkAccount": "Moj račun",
     "linkLogin": "Prijava",
-    "linkLoginJoin": "Prijavi se/Pridruži se",
+    "linkLoginJoin": "Prijavi se\/Pridruži se",
     "linkLogout": "Odjava",
     "myProfile": "Moj profil",
     "notifications": {
@@ -55,7 +55,7 @@ export default {
   },
   "attribution": {
     "country": "Država:",
-    "creator": "Stvorio/la:",
+    "creator": "Stvorio\/la:",
     "date": "Datum:",
     "institution": "Institucija:",
     "title": "Naslov:"
@@ -201,7 +201,7 @@ export default {
         "title": "Previše prikvačenih stavki"
       },
       "pinned": "Stavka je prikvačena. Sada je na vrhu prve stranice ove zbirke. Možda će trebati i do 24 sata da se svi pojave.",
-      "select": "Odaberite povezani entitet da biste prikvačili/otkvačili stavku na/s njega.",
+      "select": "Odaberite povezani entitet da biste prikvačili\/otkvačili stavku na\/s njega.",
       "unpin": "Ova će se stavka prestati prikazivati na vrhu zbirke \" {entity} \". Obavijestit ćemo vas kada će ova promjena biti vidljiva na stranici zbirke.",
       "unpinned": "Stavka je otkvačena. Više nije na vrhu prve stranice ove zbirke. Moglo bi potrajati do 24 sata da nestane za sve."
     }
@@ -495,7 +495,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format datoteke | Formati datoteka",
       "options": {
-        "text/plain": "Jednostavni tekst"
+        "text\/plain": "Jednostavni tekst"
       },
       "select": "Odaberite formate datoteka"
     },
@@ -612,7 +612,7 @@ export default {
     "default": {
       "dcContributor": "Suradnici",
       "dcCoverage": "Mjesto-vrijeme",
-      "dcCreator": "Stvorio/la",
+      "dcCreator": "Stvorio\/la",
       "dcDate": "Datum",
       "dcDescription": "Opis",
       "dcDuration": "Trajanje",
@@ -781,7 +781,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Pomaže poboljšati našu web stranicu povremenom primjenom eksperimentalnih promjena.",
-        "title": "A/B testiranje"
+        "title": "A\/B testiranje"
       },
       "auth-strategy": {
         "description": "Sjeća se strategije autorizacije za prijavu.",
@@ -813,7 +813,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Sjeća ako radije vidite rezultate pretraživanja u prikazu popisa ili mreže.",
-        "title": "Prikaz rezultata pretraživanja (popis / mreža)"
+        "title": "Prikaz rezultata pretraživanja (popis \/ mreža)"
       }
     }
   },
