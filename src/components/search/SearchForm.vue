@@ -413,13 +413,17 @@
 
         .form-control {
           background-color: $white;
-          padding: 0.375rem 1rem 0.375rem 3.5rem;
+          padding: 0.375rem 4.5rem 0.375rem 3.5rem;
           height: 3.4rem;
           box-shadow: none;
           border-radius: 0;
           color: $mediumgrey;
           width: 100%;
 
+          @media (min-width: $bp-large) {
+            padding-right: 1rem;
+          }
+          
           @media (min-width: $bp-xxxl) {
             padding: 0.375vw 1vw 0.375vw 3.5vw;
             height: 3.4vw;

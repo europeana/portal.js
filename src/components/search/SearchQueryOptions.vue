@@ -132,6 +132,8 @@
     font-size: 1rem;
     text-decoration: none;
     text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     @media (min-width: $bp-xxxl) {
       font-size: 1vw;
