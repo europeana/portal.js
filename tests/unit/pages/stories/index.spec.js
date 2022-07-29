@@ -181,7 +181,7 @@ describe('pages/stories/index', () => {
           locale: 'en-GB',
           preview: false,
           limit: 18,
-          ids: sinon.match(['1tuVL9nnfMJzptXshe3Qw8','796f5YKe4b1u8uXtizSBu0', '3KgVELZ48RKM4kbxJ0bYKi'])
+          ids: sinon.match(['1tuVL9nnfMJzptXshe3Qw8', '796f5YKe4b1u8uXtizSBu0', '3KgVELZ48RKM4kbxJ0bYKi'])
         })).toBe(true);
       });
 
