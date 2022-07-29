@@ -18,6 +18,10 @@
     <b-img
       v-else-if="imageUrl"
       :src="imageUrl"
+      :srcset="imageSrcSet"
+      sizes="(max-width 1920px) 28w,
+      (max-width 2560) 45w,
+      (min-width 2561) 67w"
       alt=""
       rounded="circle"
       class="mr-2"
@@ -61,6 +65,10 @@
       },
       clickEventHandler: {
         type: Function,
+        default: null
+      },
+      imageSrcSet: {
+        type: String,
         default: null
       }
     },

@@ -6,7 +6,9 @@
     <b-row
       class="flex-row flex-nowrap"
     >
-      <b-col>
+      <b-col
+        class="col-results"
+      >
         <b-container
           class="px-0 pb-3"
         >
@@ -17,7 +19,7 @@
             />
           </client-only>
           <div
-            class="mb-3 d-flex align-items-start align-items-md-center justify-content-between"
+            class="mb-3 d-flex align-items-start justify-content-between"
           >
             <SearchResultsContext
               :editorial-overrides="editorialOverrides"
@@ -25,7 +27,7 @@
             <ViewToggles
               v-model="view"
               :link-gen-route="route"
-              class="flex-nowrap mt-1 mt-md-0"
+              class="flex-nowrap mt-md-2"
             />
           </div>
           <b-row
@@ -277,3 +279,9 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  .col-results {
+    min-width: 0;
+  }
+</style>

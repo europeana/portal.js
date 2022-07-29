@@ -26,7 +26,7 @@
     </b-container>
     <div
       v-else
-      class="page gridless-container"
+      class="page gridless-container responsive-font"
     >
       <ContentHeader
         :title="pageTitle"
@@ -282,6 +282,14 @@
 
     ::v-deep header .col {
       margin-bottom: 1em;
+    }
+  }
+
+  .context-label {
+    font-size: $font-size-small;
+
+    @media (min-width: $bp-xxxl) {
+      font-size: $responsive-font-size-small;
     }
   }
 </style>

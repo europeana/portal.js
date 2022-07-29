@@ -132,6 +132,13 @@
     font-size: 1rem;
     text-decoration: none;
     text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    @media (min-width: $bp-xxxl) {
+      font-size: 1vw;
+      padding: 1vw 1.25vw 1vw 3.4vw;
+    }
 
     &::before {
       @extend %icon-font;
@@ -141,11 +148,19 @@
       left: 1rem;
       top: 1rem;
       position: absolute;
-      width: 24px;
-      height: 24px;
+      width: 1.5rem;
+      height: 1.5rem;
       display: flex;
       justify-content: center;
       align-items: center;
+
+      @media (min-width: $bp-xxxl) {
+        font-size: 1.1vw;
+        left: 1vw;
+        top: 1vw;
+        width: 1.5vw;
+        height: 1.5vw;
+      }
     }
 
     &:focus,

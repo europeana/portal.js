@@ -1,6 +1,6 @@
 <template>
   <div
-    class="hero figure-attribution responsive-backround-image"
+    class="hero figure-attribution responsive-backround-image responsive-font"
     :style="imageCSSVars"
   >
     <div
@@ -82,6 +82,10 @@
     background-size: cover;
     background-repeat: no-repeat;
     position: relative;
+
+    @media (min-width: $bp-xxxl) {
+      margin-top: -4.375vw;
+    }
 
     &::before {
       content: '';
