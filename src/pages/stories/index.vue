@@ -38,6 +38,11 @@
         :link="callsToAction[0].relatedLink"
         :illustration="callsToAction[0].image"
       />
+      <RelatedCategoryTags
+        v-if="displayTags.length > 0"
+        :tags="displayTags"
+        :selected="selectedTags"
+      />
       <div
         class="mb-4 context-label"
       >
@@ -69,6 +74,8 @@
 </template>
 
 <script>
+  import uniq from 'lodash/uniq';
+  import RelatedCategoryTags from '@/components/related/RelatedCategoryTags';
   import ContentCard from '@/components/generic/ContentCard';
   import ContentHeader from '@/components/generic/ContentHeader';
   import LoadingSpinner from '@/components/generic/LoadingSpinner';
@@ -79,6 +86,7 @@
 
     components: {
       AlertMessage: () => import('@/components/generic/AlertMessage'),
+      RelatedCategoryTags,
       ContentCard,
       ContentHeader,
       LoadingSpinner,
@@ -90,7 +98,10 @@
     data() {
       return {
         perPage: 18,
+        selectedTags: [],
+        filteredTags: null,
         stories: [],
+        tags: [],
         total: 0,
         sections: [],
         // TODO: following four properties required when rendering IndexPage as
@@ -98,7 +109,8 @@
         browsePage: false,
         staticPage: false,
         page: {},
-        identifier: null
+        identifier: null,
+        pageFetched: false
       };
     },
 
@@ -106,7 +118,10 @@
       if (!this.$features.newStoriesPage) {
         return;
       }
-      await this.fetchContentfulEntries();
+      await Promise.all([
+        this.fetchPage(),
+        this.fetchStories()
+      ]);
       this.$scrollTo && this.$scrollTo('#header');
     },
 
@@ -128,34 +143,104 @@
       },
       callsToAction() {
         return this.sections.filter(section => section['__typename'] === 'PrimaryCallToAction');
+      },
+      displayTags() {
+        if (this.filteredTags) {
+          return this.tags.filter((tag) => this.filteredTags.includes(tag.identifier));
+        } else {
+          return this.tags;
+        }
       }
     },
 
     watch: {
-      '$route.query.page': '$fetch'
+      '$route.query.page': '$fetch',
+      '$route.query.tags': '$fetch'
+    },
+
+    mounted() {
+      if (!this.$features.newStoriesPage) {
+        return;
+      }
+      this.fetchCategories();
     },
 
     methods: {
-      async fetchContentfulEntries() {
-        const variables = {
+      async fetchPage() {
+        if (this.pageFetched) {
+          return;
+        }
+        const pageVariables = {
           identifier: 'stories',
           locale: this.$i18n.isoLocale(),
           preview: this.$route.query.mode === 'preview'
         };
-        const response = await this.$contentful.query('storiesPage', variables);
+        const pageResponse = await this.$contentful.query('storiesPage', pageVariables);
+        const storiesPage = pageResponse.data.data.browsePageCollection.items[0];
+        this.sections = storiesPage.hasPartCollection.items;
+        this.pageFetched = true;
+      },
 
+      async fetchStories() {
+        this.selectedTags = this.$route.query.tags?.split(',') || [];
+        let stories;
+
+        // Fetch minimal data for all stories to support ordering by datePublished
+        // and filtering by categories.
+        const storyIdsVariables = {
+          locale: this.$i18n.isoLocale(),
+          preview: this.$route.query.mode === 'preview'
+        };
+        const storyIdsResponse = await this.$contentful.query('storiesMinimal', storyIdsVariables);
+        stories = [
+          storyIdsResponse.data.data.blogPostingCollection.items,
+          storyIdsResponse.data.data.exhibitionPageCollection.items
+        ].flat();
+
+        // Filter by categories
+        if (this.selectedTags.length > 0) {
+          stories = stories.filter((story) => {
+            const storyTags = story.cats.items.map((cat) => cat.id);
+            return this.selectedTags.every((tag) => storyTags.includes(tag));
+          });
+          this.filteredTags = uniq(stories.map((story) => story.cats.items.map((cat) => cat.id)).flat());
+        } else {
+          this.filteredTags = null;
+        }
+
+        // Order by date published
+        stories = stories.sort((a, b) => (new Date(b.date)).getTime() - (new Date(a.date)).getTime());
+
+        // Paginate
+        this.total = stories.length;
         const page = this.$route.query.page || 1;
         const sliceFrom = (page - 1) * this.perPage;
         const sliceTo = sliceFrom + this.perPage;
+        const storySysIds = stories.slice(sliceFrom, sliceTo).map(story => story.sys.id);
 
-        const stories = response.data.data.blogPostingCollection.items
-          .concat(response.data.data.exhibitionPageCollection.items)
-          .sort((a, b) => (new Date(b.datePublished)).getTime() - (new Date(a.datePublished)).getTime());
-        this.total = stories.length;
-        this.stories = stories.slice(sliceFrom, sliceTo);
+        // Fetch full data for display of page of stories
+        const storiesVariables = {
+          locale: this.$i18n.isoLocale(),
+          preview: this.$route.query.mode === 'preview',
+          limit: this.perPage,
+          ids: storySysIds
+        };
+        const storiesResponse = await this.$contentful.query('storiesBySysId', storiesVariables);
+        stories = [
+          storiesResponse.data.data.blogPostingCollection.items,
+          storiesResponse.data.data.exhibitionPageCollection.items
+        ].flat();
+        this.stories = storySysIds.map((sysId) => stories.find((story) => story.sys.id === sysId)).filter(Boolean);
+      },
 
-        const storiesPage = response.data.data.browsePageCollection.items[0];
-        this.sections = storiesPage.hasPartCollection.items;
+      async fetchCategories() {
+        const categoriesVariables = {
+          locale: this.$i18n.isoLocale(),
+          preview: this.$route.query.mode === 'preview'
+        };
+        const categoriesResponse = await this.$contentful.query('categories', categoriesVariables);
+        this.tags = (categoriesResponse.data.data.categoryCollection.items || [])
+          .sort((a, b) => a.name.trim().toLowerCase().localeCompare(b.name.trim().toLowerCase()));
       },
 
       entryUrl(entry) {

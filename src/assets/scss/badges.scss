@@ -41,6 +41,11 @@
       font-size: 15px;
     }
   }
+
+  &.active {
+    border-color: $innovationblue;
+    background-color: $lightblue-dark;
+  }
 }
 
 .badge-pill {

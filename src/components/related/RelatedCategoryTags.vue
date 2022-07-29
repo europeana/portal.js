@@ -12,8 +12,14 @@
           v-for="(tag, index) in tags"
           :key="index"
           variant="outline-light"
+          :active="isActive(tag.identifier)"
+          :to="badgeLink(tag.identifier)"
         >
           {{ tag.name }}
+          <span
+            v-if="isActive(tag.identifier)"
+            class="icon icon-clear clear-indicator"
+          />
         </b-badge>
       </div>
     </b-col>
@@ -28,6 +34,27 @@
       tags: {
         type: Array,
         required: true
+      },
+
+      selected: {
+        type: Array,
+        default: () => []
+      }
+    },
+
+    methods: {
+      badgeLink(tag) {
+        if (this.selected.includes(tag)) {
+          const tags = this.selected.filter(item => item !== tag);
+          if (tags.length === 0) {
+            return this.$path({ name: 'stories' });
+          }
+          return this.$path({ name: 'stories', query: { tags: tags.join(',') } });
+        }
+        return this.$path({ name: 'stories', query: { tags: this.selected.concat(tag).join(',') } });
+      },
+      isActive(tagId) {
+        return this.selected.includes(tagId);
       }
     }
   };
