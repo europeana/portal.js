@@ -161,8 +161,29 @@ describe('pages/stories/index', () => {
         })).toBe(true);
       });
 
-      test.todo('fetches all stories with minimal data from Contentful');
-      test.todo('fetches page of stories with full data from Contentful');
+      it('fetches all stories with minimal data from Contentful', async() => {
+        const wrapper = factory();
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.$contentful.query.calledWith('storiesMinimal', {
+          locale: 'en-GB',
+          preview: false
+        })).toBe(true);
+      });
+
+      it('fetches page of stories with full data from Contentful', async() => {
+        const wrapper = factory();
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.$contentful.query.calledWith('storiesBySysId', {
+          locale: 'en-GB',
+          preview: false,
+          limit: 18,
+          ids: sinon.match(['1tuVL9nnfMJzptXshe3Qw8','796f5YKe4b1u8uXtizSBu0', '3KgVELZ48RKM4kbxJ0bYKi'])
+        })).toBe(true);
+      });
 
       it('stores a page of the stories content, ordered by datePublished', async() => {
         const wrapper = factory({ data: { perPage: 2 } });

@@ -30,36 +30,7 @@ query StoriesPage(
       }
     }
   }
-
-
-  # blogPostingCollection(
-  #   where: { name_contains: $query },
-  #   preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit, skip: $skip
-  # ) @skip(if: $withTags) {
-  #   ...blogPostingCollectionFields
-  # }
-  #
-  # taggedBlogPostingCollection: blogPostingCollection(
-  #   preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit, skip: $skip,
-  #   where: { name_contains: $query, keywords_contains_all: $tags }
-  # ) @include(if: $withTags) {
-  #   ...blogPostingCollectionFields
-  # }
-  #
-  # exhibitionPageCollection(
-  #   where: { name_contains: $query },
-  #   preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit, skip: $skip
-  # ) @skip(if: $withTags) {
-  #   ...exhibitionPageCollectionFields
-  # }
 }
-
-# fragment imageWithAttributionFields on ImageWithAttribution {
-#   image {
-#     url
-#     contentType
-#   }
-# }
 
 fragment illustrationFields on Illustration {
   image {
