@@ -8,7 +8,7 @@ module.exports = async function (migration, { makeRequest }) {
 
   const tagsData = JSON.parse(await fs.readFileSync(process.env.TAGS_DATA_FILE_NAME));
 
-  // 1. fetch category entries (created in migration 0068)
+  // 1. fetch category entries (created in migration 0071)
   const response = await makeRequest({
     method: 'GET',
     url: '/entries',
