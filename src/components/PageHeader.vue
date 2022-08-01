@@ -26,9 +26,7 @@
         :aria-label="$t('header.showSidebar')"
         data-qa="hamburger button"
       >
-        <span />
-        <span />
-        <span />
+        <span class="icon icon-menu" />
       </b-button>
       <SmartLink
         :destination="{ name: 'index' }"
@@ -197,24 +195,20 @@
   }
 
   .navbar-toggle {
-    font-size: $font-size-base;
+    font-size: 0.75rem;
+    padding: 0;
 
     @media (min-width: $bp-xxxl) {
       font-size: $responsive-font-size-base;
     }
 
     span {
-      width: 1.125em;
-      background: $black;
-      height: 0.125em;
-      margin-bottom: 0.1875em;
       transition: $standard-transition;
-      &:last-of-type { margin-bottom: 0; }
     }
 
     &:hover {
-      span {
-        background: $innovationblue;
+      span::before {
+        color: $innovationblue;
         transition: $standard-transition;
       }
     }
