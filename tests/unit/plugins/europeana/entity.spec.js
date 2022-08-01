@@ -1,7 +1,7 @@
 import nock from 'nock';
 
 import api, {
-  getEntityQuery, getEntitySlug, getEntityUri, BASE_URL, entityParamsFromUri, isEntityUri, getWikimediaThumbnailUrl
+  getEntityQuery, getEntityUri, BASE_URL, entityParamsFromUri, isEntityUri, getWikimediaThumbnailUrl
 } from '@/plugins/europeana/entity';
 
 const entityId = '94-architecture';
@@ -446,15 +446,6 @@ describe('plugins/europeana/entity', () => {
       it('throws an error', () => {
         expect(() => getEntityQuery(uri) === null).toThrow(`Unsupported entity URI "${uri}"`);
       });
-    });
-  });
-
-  describe('getEntitySlug', () => {
-    const entity = entitiesResponse.items[0];
-
-    it('constructs URL slug from numeric ID and prefLabel.en', () => {
-      const slug = getEntitySlug(entity.id, entity.prefLabel.en);
-      expect(slug).toBe('147831-architecture');
     });
   });
 

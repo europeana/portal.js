@@ -33,7 +33,8 @@
 </template>
 
 <script>
-  import { getEntityTypeApi, getEntityTypeHumanReadable, getEntitySlug } from '@/plugins/europeana/entity';
+  import { getEntityTypeApi, getEntityTypeHumanReadable } from '@/plugins/europeana/entity';
+  import { getLabelledSlug } from '@/plugins/europeana/utils';
 
   import ContentHeader from '@/components/generic/ContentHeader';
   import ContentCard from '@/components/generic/ContentCard';
@@ -114,7 +115,7 @@
           name: 'collections-type-all',
           params: {
             type: getEntityTypeHumanReadable(entity.type),
-            pathMatch: getEntitySlug(entity.id, entity.prefLabel.en)
+            pathMatch: getLabelledSlug(entity.id, entity.prefLabel.en)
           }
         };
       },

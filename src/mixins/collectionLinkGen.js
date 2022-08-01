@@ -1,4 +1,5 @@
-import { getEntityTypeHumanReadable, getEntitySlug  } from '@/plugins/europeana/entity';
+import { getEntityTypeHumanReadable  } from '@/plugins/europeana/entity';
+import { getLabelledSlug } from '@/plugins/europeana/utils';
 import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
 
 export default {
@@ -12,7 +13,7 @@ export default {
       return this.$path({
         name: 'collections-type-all', params: {
           type: getEntityTypeHumanReadable(uriMatch[1]),
-          pathMatch: getEntitySlug(collection.id, collection.prefLabel.en)
+          pathMatch: getLabelledSlug(collection.id, collection.prefLabel.en)
         }
       });
     }

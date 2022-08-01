@@ -54,34 +54,22 @@
     mixins: [
       stripMarkdown
     ],
-    asyncData({ params, query, error, app }) {
-      const variables = {
-        identifier: params.pathMatch,
-        locale: app.i18n.isoLocale(),
-        preview: query.mode === 'preview'
+    data() {
+      return {
+        set: null,
+        identifier: null,
+        images: [],
+        title: null,
+        rawDescription: null,
+        contentWarning: null
       };
-
-      return app.$contentful.query('galleryPage', variables)
-        .then(response => response.data.data)
-        .then(data => {
-          if (data.imageGalleryCollection.items.length === 0) {
-            error({ statusCode: 404, message: app.i18n.t('messages.notFound') });
-            return null;
-          }
-
-          const gallery = data.imageGalleryCollection.items[0];
-
-          return {
-            contentWarning: gallery.contentWarning,
-            identifier: variables.identifier,
-            images: gallery.hasPartCollection.items.filter(image => image !== null),
-            rawDescription: gallery.description,
-            title: gallery.name
-          };
-        })
-        .catch((e) => {
-          error({ statusCode: 500, message: e.toString() });
-        });
+    },
+    async fetch() {
+      if (this.setGalleriesEnabled) {
+        await this.fetchSetGallery();
+      } else {
+        await this.fetchContentfulGallery();
+      }
     },
     head() {
       return {
@@ -99,6 +87,9 @@
       };
     },
     computed: {
+      setGalleriesEnabled() {
+        return this.$features.setGalleries;
+      },
       shareMediaUrl() {
         return this.images.length === 0 ? null : this.imageUrl(this.images[0]);
       },
@@ -117,6 +108,38 @@
     },
 
     methods: {
+      async fetchSetGallery() {
+        const id = this.$route.params.pathMatch.split('-')[0];
+        const setGetResponse = await this.$apis.set.get(id, { withMinimalItemPreviews: true });
+        this.set = setGetResponse.data;
+      },
+      async fetchContentfulGallery() {
+        const variables = {
+          identifier: this.$route.params.pathMatch,
+          locale: this.$i18n.isoLocale(),
+          preview: this.$route.query.mode === 'preview'
+        };
+
+        await this.$contentful.query('galleryPage', variables)
+          .then(response => response.data.data)
+          .then(data => {
+            if (data.imageGalleryCollection.items.length === 0) {
+              this.error({ statusCode: 404, message: this.i18n.t('messages.notFound') });
+              return null;
+            }
+
+            const gallery = data.imageGalleryCollection.items[0];
+
+            this.contentWarning = gallery.contentWarning;
+            this.identifier = variables.identifier;
+            this.images = gallery.hasPartCollection.items.filter(image => image !== null);
+            this.rawDescription = gallery.description;
+            this.title = gallery.name;
+          })
+          .catch((e) => {
+            this.error({ statusCode: 500, message: e.toString() });
+          });
+      },
       imageTitle(data) {
         if (data.encoding) {
           return data.encoding.dcTitleLangAware || data.encoding.dcDescriptionLangAware || this.$t('record.record');

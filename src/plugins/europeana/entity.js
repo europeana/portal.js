@@ -222,34 +222,6 @@ export function entityParamsFromUri(uri) {
 }
 
 /**
- * Retrieves the path for the entity, based on id and title
- *
- * If `entityPage.name` is present, that will be used in the slug. Otherwise
- * `prefLabel.en` if present.
- *
- * @param {string} id entity ID, i.e. data.europeana.eu URI
- * @param {string} name the English name of the entity
- * @return {string} path
- * @example
- *    const slug = getEntitySlug(
- *      'http://data.europeana.eu/concept/48',
- *      'Photography'
- *    );
- *    console.log(slug); // expected output: '48-photography'
- * @example
- *    const slug = getEntitySlug(
- *      'http://data.europeana.eu/agent/59832',
- *      'Vincent van Gogh'
- *    );
- *    console.log(slug); // expected output: '59832-vincent-van-gogh'
- */
-export function getEntitySlug(id, name) {
-  const entityId = id.toString().split('/').pop();
-  const path = entityId + (name ? '-' + name.toLowerCase().replace(/ /g, '-') : '');
-  return path;
-}
-
-/**
  * The logic for going from: http://commons.wikimedia.org/wiki/Special:FilePath/[image] to
  * https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/[image]/200px-[image]:
  * @image {String} image URL of wikimedia image

@@ -86,9 +86,9 @@
 
   import themes from '@/plugins/europeana/themes';
   import {
-    getEntitySlug, getEntityUri, getEntityQuery, normalizeEntityId
+    getEntityUri, getEntityQuery, normalizeEntityId
   } from '@/plugins/europeana/entity';
-  import { langMapValueForLocale, uriRegex } from  '@/plugins/europeana/utils';
+  import { langMapValueForLocale, uriRegex, getLabelledSlug } from  '@/plugins/europeana/utils';
 
   export default {
     name: 'CollectionPage',
@@ -402,7 +402,7 @@
     methods: {
       redirectToPrefPath() {
         const entityNameEn = this.page ? this.page.nameEN : this.entity.prefLabel.en;
-        const desiredPath = getEntitySlug(this.entity.id, entityNameEn);
+        const desiredPath = getLabelledSlug(this.entity.id, entityNameEn);
         if (this.$route.params.pathMatch !== desiredPath) {
           const redirectPath = this.$path({
             name: 'collections-type-all',

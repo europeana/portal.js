@@ -19,7 +19,7 @@
               v-for="gallery in galleries"
               :key="gallery.slug"
               :title="gallery.title"
-              :url="{ name: 'set-all', params: { pathMatch: gallery.slug } }"
+              :url="{ name: 'galleries-all', params: { pathMatch: gallery.slug } }"
               :image-url="gallery.thumbnail"
               :texts="[gallery.description]"
               :show-subtitle="false"
@@ -53,6 +53,7 @@
 </template>
 
 <script>
+  import { getLabelledSlug } from '@/plugins/europeana/utils';
   import ContentHeader from '../../components/generic/ContentHeader';
   import ContentCard from '../../components/generic/ContentCard';
 
@@ -90,19 +91,19 @@
         return this.$features.setGalleries;
       },
       page() {
-        return Number(this.$route.query.page || 1)
+        return Number(this.$route.query.page || 1);
       }
     },
-    watchQuery: ['page'], // TODO: remove when using set galleries
     watch: {
       '$route.query.page': '$fetch'
     },
+    watchQuery: ['page'], // TODO: remove when using set galleries
     methods: {
       async fetchSetGalleries() {
         const searchParams = {
           query: 'visibility:published',
           pageSize: PER_PAGE,
-          page: this.page -1,
+          page: this.page - 1,
           profile: 'standard'
         };
 
@@ -114,15 +115,12 @@
       parseSets(sets) {
         return sets.map(set => {
           return {
-            slug: this.setSlug(set.id),
+            slug: getLabelledSlug(set.id, set.title.en),
             title: set.title,
             description: set.description,
             thumbnail: this.setPreviewUrl(set.items[0].edmPreview)
           };
         });
-      },
-      setSlug(setId) {
-        return setId.split('/').pop();
       },
       setPreviewUrl(edmPreview) {
         return this.$apis.thumbnail.edmPreview(edmPreview, { size: 400 });
@@ -140,7 +138,7 @@
         const contentfulResponse = await this.$contentful.query('galleryFoyerPage', variables)
           .then(response => response.data.data)
           .catch((e) => {
-            error({ statusCode: 500, message: e.toString() });
+            this.error({ statusCode: 500, message: e.toString() });
           });
 
         this.galleries = contentfulResponse.imageGalleryCollection.items;
