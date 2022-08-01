@@ -172,7 +172,7 @@ describe('pages/home/index', () => {
       expect(headMeta.find(meta => meta.name === 'description')?.content).toBe('homePage.subHeadline');
     });
 
-    it('uses optimised CTF hero image for og:image meta field', async() => {
+    it('uses CTF social media image for og:image meta field', async() => {
       const wrapper = factory();
       await wrapper.setData({
         backgroundImage: {

@@ -78,6 +78,7 @@
       return {
         sections: [],
         backgroundImage: null,
+        socialMediaImage: null,
         // TODO: following four properties required when rendering IndexPage as
         //       a child component; remove when new home page is launched.
         browsePage: false,
@@ -118,7 +119,8 @@
       },
 
       headMetaOgImage() {
-        return optimisedSrcForContentfulAsset(this.backgroundImage?.image, { w: 1200, h: 630, fit: 'fill' });
+        const image = this.socialMediaImage ? this.socialMediaImage : this.backgroundImage?.image;
+        return optimisedSrcForContentfulAsset(image, { w: 1200, h: 630, fit: 'fill' });
       },
 
       callsToAction() {
@@ -159,6 +161,7 @@
         const homePage = response.data.data.homePageCollection.items[0];
         this.sections = homePage.sectionsCollection.items.filter((item) => !!item);
         this.backgroundImage = homePage.primaryImageOfPage;
+        this.socialMediaImage = homePage.image;
       }
     }
   };
