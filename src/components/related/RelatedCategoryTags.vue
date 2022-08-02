@@ -14,6 +14,7 @@
           variant="outline-light"
           :active="isActive(tag.identifier)"
           :to="badgeLink(tag.identifier)"
+          @click.native="clickBadge(tag.identifier)"
         >
           <span>{{ tag.name }}</span>
           <span
@@ -43,18 +44,28 @@
     },
 
     methods: {
-      badgeLink(tag) {
-        if (this.selected.includes(tag)) {
-          const tags = this.selected.filter(item => item !== tag);
-          if (tags.length === 0) {
-            return this.$path({ name: 'stories' });
+      badgeLink(tagId) {
+        const route = { name: 'stories' };
+
+        if (this.selected.includes(tagId)) {
+          const tags = this.selected.filter(item => item !== tagId);
+          if (tags.length > 0) {
+            route.query = { tags: tags.join(',') };
           }
-          return this.$path({ name: 'stories', query: { tags: tags.join(',') } });
+        } else {
+          route.query = { tags: this.selected.concat(tagId).join(',') };
         }
-        return this.$path({ name: 'stories', query: { tags: this.selected.concat(tag).join(',') } });
+
+        return this.$path(route);
       },
       isActive(tagId) {
         return this.selected.includes(tagId);
+      },
+      clickBadge(tagId) {
+        if (this.$matomo) {
+          const action = this.isActive(tagId) ? 'Deselect' : 'Select';
+          this.$matomo.trackEvent('Tags', action, tagId);
+        }
       }
     }
   };
