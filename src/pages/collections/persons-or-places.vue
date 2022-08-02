@@ -14,6 +14,7 @@
             v-for="entity in entities"
             :key="entity.id"
             :title="entity.prefLabel"
+            :texts="[entity.note]"
             :url="entityRoute(entity)"
             :image-url="thumbnail(entity)"
             variant="mini"
@@ -67,7 +68,7 @@
         scope: 'europeana',
         sort: `skos_prefLabel.${this.$i18n.locale}`,
         qf: `skos_prefLabel.${this.$i18n.locale}:*`,
-        fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail'
+        fl: 'skos_prefLabel.*,isShownBy,isShownBy.thumbnail,skos_note.*'
       };
 
       try {

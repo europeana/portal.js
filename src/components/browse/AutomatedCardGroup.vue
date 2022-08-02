@@ -117,6 +117,7 @@
               __typename: this.cardType,
               __variant: (this.sectionType === RECENT_ITEMS) ? null : 'mini',
               name: entry.prefLabel,
+              description: entry.note,
               identifier: entry.id,
               image: this.$apis.entity.imageUrl(entry),
               encoding: entry,
