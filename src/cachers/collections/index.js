@@ -1,4 +1,5 @@
-import { createEuropeanaApiClient, getLabelledSlug } from '../utils.js';
+import { createEuropeanaApiClient } from '../utils.js';
+import { getLabelledSlug } from '@/plugins/europeana/utils';
 
 let axiosClient;
 

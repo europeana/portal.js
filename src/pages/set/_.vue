@@ -150,6 +150,7 @@
 </template>
 
 <script>
+  // TODO: This file will be deprecated when set driven galleries are in production.
   import ClientOnly from 'vue-client-only';
 
   import {

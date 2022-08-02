@@ -22,7 +22,6 @@ export default (context = {}) => {
      */
     async search(params, options = {}) {
       try {
-        console.log(params);
         const response = await $axios.get('/search', { params: { ...$axios.defaults.params, ...params } });
 
         if (options.withMinimalItemPreviews && response.data.items) {
