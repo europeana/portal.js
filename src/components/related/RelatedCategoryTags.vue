@@ -14,7 +14,6 @@
           variant="outline-light"
           :active="isActive(tag.identifier)"
           :to="badgeLink(tag.identifier)"
-          :title="tag.name"
         >
           <span>{{ tag.name }}</span>
           <span
@@ -65,18 +64,31 @@
   @import '@/assets/scss/variables';
 
   .related-category-tags {
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.5rem;
   }
 
   .icon-ic-tag {
     color: $mediumgrey;
     display: inline-block;
     font-size: 1.5rem;
-    padding-top: 0.25rem;
+    line-height: calc(2rem - 1px);
+
+    @media (min-width: $bp-xxxl) {
+      line-height: 2.25vw;
+    }
   }
 
-  .badge {
+  .badge-outline-light {
     margin: 0 0.25rem 0.5rem;
+
+    @media (min-width: $bp-medium) {
+      overflow: visible;
+      max-width: none;
+
+      span {
+        overflow: visible;
+      }
+    }
 
     .icon-clear {
       color: #000;

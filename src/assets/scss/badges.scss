@@ -154,7 +154,7 @@
   align-items: center;
   font-weight: normal;
   font-size: $font-size-small;
-  padding: 0 0.5rem;
+  padding: 0 0.75rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -165,5 +165,6 @@
   &.active {
     border-color: $innovationblue;
     background-color: $lightblue-dark;
+    box-shadow: 0 4px 8px rgb(0 0 0 / 15%);
   }
 }
