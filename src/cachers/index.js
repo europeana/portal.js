@@ -44,23 +44,31 @@ const runSetCacher = async(cacherName) => {
   console.log(cacherName);
 
   const cacher = await cacherModule(cacherName);
-  let data = await cacher.data(runtimeConfig);
-
-  if (cacher.DAILY) {
-    data = utils.daily(data, cacher.DAILY);
-  }
-
-  if (cacher.PICK) {
-    data = utils.pick(data, cacher.PICK);
-  }
+  let rawData = await cacher.data(runtimeConfig);
+  let langAwareData;
 
   if (cacher.LOCALISE) {
-    for (const locale of localeCodes) {
-      const localised = utils.localise(data, cacher.LOCALISE, locale);
-      await writeCacheKey(namespaceCacheKey(cacherName, locale), localised);
-    }
+    langAwareData = localeCodes.map((locale) => ({
+      key: namespaceCacheKey(cacherName, locale),
+      data: utils.localise(rawData, cacher.LOCALISE, locale)
+    }));
+  } else if (cacher.INTERNATIONALISE) {
+    langAwareData = [{ key: namespaceCacheKey(cacherName), data: cacher.INTERNATIONALISE(rawData) }];
   } else {
-    await writeCacheKey(namespaceCacheKey(cacherName), data);
+    langAwareData = [{ key: namespaceCacheKey(cacherName), data: rawData }];
+  }
+
+  for (const toCache of langAwareData) {
+    if (cacher.PICK) {
+      toCache.data = utils.pick(toCache.data, cacher.PICK);
+    }
+    if (cacher.SORT) {
+      toCache.data = utils.sort(toCache.data, cacher.SORT);
+    }
+    if (cacher.DAILY) {
+      toCache.data = utils.daily(toCache.data, cacher.DAILY);
+    }
+    await writeCacheKey(toCache.key, toCache.data);
   }
 };
 
