@@ -135,7 +135,7 @@ export function getEntityQuery(uri) {
   } else if (uri.includes('/organization/')) {
     entityQuery = `foaf_organization:"${uri}"`;
   } else if (uri.includes('/place/')) {
-    entityQuery = `where:"${uri}"`;
+    entityQuery = `edm_place:"${uri}"`;
   } else {
     throw new Error(`Unsupported entity URI "${uri}"`);
   }

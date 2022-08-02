@@ -437,7 +437,7 @@ describe('plugins/europeana/entity', () => {
     describe('when entity is a place', () => {
       const uri = 'http://data.europeana.eu/place/12345';
       it('queries on where', () => {
-        expect(getEntityQuery(uri)).toBe(`where:"${uri}"`);
+        expect(getEntityQuery(uri)).toBe(`edm_place:"${uri}"`);
       });
     });
 
