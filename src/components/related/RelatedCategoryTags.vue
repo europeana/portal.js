@@ -1,5 +1,5 @@
 <template>
-  <b-row class="flex-md-row related-category-tags">
+  <b-row class="flex-md-row related-category-tags responsive-font">
     <b-col
       v-if="tags.length > 0"
       data-qa="related category tags"
