@@ -69,6 +69,13 @@
       }
     }
 
+    .badge-outline-light {
+      height: 2.25vw;
+      padding-left: 0.5vw;
+      padding-right: 0.5vw;
+      max-width: 15vw;
+    }
+
     .form-control {
       font-size: $responsive-font-size-base;
     }
