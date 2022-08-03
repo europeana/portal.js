@@ -283,7 +283,8 @@
 
       sortedOptions() {
         if (this.isRadio) {
-          return this.fields;
+          const sortByLabel = (a, b) => this.tFacetOption(this.name, a).localeCompare(this.tFacetOption(this.name, b));
+          return this.fields.sort(sortByLabel);
         }
 
         const fields = this.groupedOptions;
