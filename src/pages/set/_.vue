@@ -151,6 +151,7 @@
 
 <script>
   // TODO: This file will be deprecated when set driven galleries are in production.
+  // TODO: Also move the beforeRouteEnter redirect to the legacy middleware.
   import ClientOnly from 'vue-client-only';
 
   import {
@@ -173,6 +174,15 @@
       SocialShareModal,
       SetFormModal: () => import('@/components/set/SetFormModal'),
       SetRecommendations: () => import('@/components/set/SetRecommendations')
+    },
+
+    async beforeRouteEnter(to, from, next) {
+      next(vm => {
+        if (vm.$features.setGalleries) {
+          const pathMatch = vm.$route.params.pathMatch;
+          vm.$goto(vm.$path({ name: 'galleries-all', params: { pathMatch } }));
+        }
+      });
     },
 
     async beforeRouteLeave(to, from, next) {
