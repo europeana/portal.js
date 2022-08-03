@@ -1,5 +1,6 @@
 import { createLocalVue } from '@vue/test-utils';
 import { shallowMountNuxt } from '../../utils';
+import sinon from 'sinon';
 
 import RelatedCategoryTags from '@/components/related/RelatedCategoryTags.vue';
 
@@ -10,7 +11,8 @@ const factory = ({ propsData } = {})  => shallowMountNuxt(RelatedCategoryTags, {
   propsData,
   stubs: ['b-row', 'b-col', 'b-badge'],
   mocks: {
-    $path: (opts) => opts
+    $path: (opts) => opts,
+    $matomo: { trackEvent: sinon.spy() }
   }
 });
 
@@ -29,7 +31,10 @@ describe('components/related/RelatedCategoryTags', () => {
     });
 
     describe('when there are tags', () => {
-      const tags = [{ name: 'red tape' }, { name: 'white wash' }];
+      const tags = [
+        { identifier: 'red-tape', name: 'red tape' },
+        { identifier: 'white-wash', name: 'white wash' }
+      ];
 
       it('displays the tag icon', () => {
         const wrapper = factory({ propsData: { tags } });
@@ -45,6 +50,28 @@ describe('components/related/RelatedCategoryTags', () => {
         const badges = wrapper.findAll('b-badge-stub');
 
         expect(badges.length).toBe(tags.length);
+      });
+
+      describe('clicking the badge', () => {
+        it('tracks selecting tag', () => {
+          const wrapper = factory({ propsData: { tags } });
+
+          const badge = wrapper.find('b-badge-stub');
+
+          badge.trigger('click.native');
+
+          expect(wrapper.vm.$matomo.trackEvent.calledWith('Tags', 'Select', 'red-tape')).toBe(true);
+        });
+
+        it('tracks deselecting tag', () => {
+          const wrapper = factory({ propsData: { tags, selected: [tags[0].identifier] } });
+
+          const badge = wrapper.find('b-badge-stub');
+
+          badge.trigger('click.native');
+
+          expect(wrapper.vm.$matomo.trackEvent.calledWith('Tags', 'Deselect', 'red-tape')).toBe(true);
+        });
       });
     });
 
