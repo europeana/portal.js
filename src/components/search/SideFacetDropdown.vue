@@ -283,7 +283,8 @@
 
       sortedOptions() {
         if (this.isRadio) {
-          return this.fields.sort((a, b) => this.tFacetOption(this.name, a).localeCompare(this.tFacetOption(this.name, b)));
+          // Slice to make a copy, as sort occurs in place
+          return this.fields.slice(0).sort((a, b) => this.tFacetOption(this.name, a).localeCompare(this.tFacetOption(this.name, b)));
         }
 
         const fields = this.groupedOptions;
