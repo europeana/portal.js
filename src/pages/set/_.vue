@@ -176,15 +176,6 @@
       SetRecommendations: () => import('@/components/set/SetRecommendations')
     },
 
-    async beforeRouteEnter(to, from, next) {
-      next(vm => {
-        if (vm.$features.setGalleries) {
-          const pathMatch = vm.$route.params.pathMatch;
-          vm.$goto(vm.$path({ name: 'galleries-all', params: { pathMatch } }));
-        }
-      });
-    },
-
     async beforeRouteLeave(to, from, next) {
       await this.$store.commit('set/setActive', null);
       await this.$store.commit('set/setActiveRecommendations', []);
@@ -193,7 +184,11 @@
       next();
     },
 
-    middleware: 'sanitisePageQuery',
+    middleware({ app, params, redirect }) {
+      if (app.$features.setGalleries) {
+        redirect({ name: `galleries-all___${app.i18n.locale}`, params });
+      }
+    },
 
     async fetch() {
       await this.$store.dispatch('set/fetchActive', this.setId);
