@@ -145,8 +145,7 @@ function entityValue(value, locale) {
  */
 export function getLabelledSlug(id, name) {
   const entityId = id.toString().split('/').pop();
-  const path = entityId + (name ? '-' + name.toLowerCase().replace(/ /g, '-') : '');
-  return path;
+  return entityId + (name ? '-' + name.toLowerCase().replace(/ /g, '-') : '');
 }
 
 function languageKeys(locale) {

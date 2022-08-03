@@ -218,7 +218,7 @@
       ContentCard: () => import('../../components/generic/ContentCard'),
       ContentWarningModal: () => import('@/components/generic/ContentWarningModal')
     },
-    async beforeRouteLeave(to, from, next) {
+    async beforeRouteLeave(_to, _from, next) {
       if (this.setGalleriesEnabled) {
         await this.$store.commit('set/setActive', null);
         await this.$store.commit('set/setActiveRecommendations', []);
