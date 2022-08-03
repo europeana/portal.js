@@ -235,8 +235,8 @@
       return {
         identifier: null,
         images: [],
-        title: null,
-        rawDescription: null,
+        title: '',
+        rawDescription: '',
         contentWarning: null
       };
     },
