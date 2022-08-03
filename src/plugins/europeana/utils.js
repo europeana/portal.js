@@ -144,8 +144,8 @@ function entityValue(value, locale) {
  *    console.log(slug); // expected output: '59832-vincent-van-gogh'
  */
 export function getLabelledSlug(id, name) {
-  const entityId = id.toString().split('/').pop();
-  return entityId + (name ? '-' + name.toLowerCase().replace(/ /g, '-') : '');
+  const numericId = id.toString().split('/').pop();
+  return numericId + (name ? '-' + name.toLowerCase().replace(/ /g, '-') : '');
 }
 
 function languageKeys(locale) {

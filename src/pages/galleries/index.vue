@@ -15,7 +15,6 @@
             v-if="setGalleriesEnabled"
           >
             <ContentCard
-
               v-for="gallery in galleries"
               :key="gallery.slug"
               :title="gallery.title"
@@ -97,7 +96,6 @@
     watch: {
       '$route.query.page': '$fetch'
     },
-    watchQuery: ['page'], // TODO: remove when using set galleries
     methods: {
       async fetchSetGalleries() {
         const searchParams = {
