@@ -3,11 +3,12 @@ export default [
   { name: 'acceptEntityRecommendations' },
   { name: 'acceptSetRecommendations' },
   { name: 'entityManagement' },
+  { name: 'fieldBoosting' },
   { name: 'jiraServiceDeskFeedbackForm' },
   { name: 'newHomepage' },
   { name: 'newStoriesPage' },
   { name: 'rejectEntityRecommendations' },
   { name: 'setGalleries' },
-  { name: 'translatedItems' },
-  { name: 'fieldBoosting' }
+  { name: 'storiesPageAllTags' },
+  { name: 'translatedItems' }
 ];
