@@ -39,7 +39,7 @@
         :illustration="callsToAction[0].image"
       />
       <RelatedCategoryTags
-        v-if="displayTags.length > 0"
+        v-if="($features.storiesPageAllTags || selectedTags.length > 0) && (displayTags.length > 0)"
         :tags="displayTags"
         :selected="selectedTags"
       />
