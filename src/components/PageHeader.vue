@@ -2,7 +2,7 @@
   <header
     id="header"
     v-visible-on-scroll
-    class="m-0 navbar-brand container-fluid d-flex justify-content-between show"
+    class="responsive-font m-0 header-navbar container-fluid d-flex justify-content-between show"
     role="banner"
     :aria-label="$t('header.europeanaHome')"
     data-qa="header"
@@ -26,9 +26,7 @@
         :aria-label="$t('header.showSidebar')"
         data-qa="hamburger button"
       >
-        <span />
-        <span />
-        <span />
+        <span class="icon icon-menu" />
       </b-button>
       <SmartLink
         :destination="{ name: 'index' }"
@@ -37,9 +35,6 @@
         <img
           src="../assets/img/logo.svg"
           :alt="$t('homeLinkAlt')"
-          width="153"
-          height="32"
-          class="mw-100"
           data-qa="logo"
         >
       </SmartLink>
@@ -70,7 +65,7 @@
         :aria-label="$t('header.sideNavigation')"
       >
         <b-navbar
-          class="sidebar-nav align-items-start flex-column pt-1 pl-2 pb-4 pr-2"
+          class="sidebar-nav align-items-start flex-column pt-1 px-2 pb-4"
           role="navigation"
           data-qa="sidebar navigation"
         >
@@ -147,7 +142,7 @@
 
   .container-fluid {
     background: $white;
-    height: 3.5rem;
+    height: 3.5em;
     position: fixed;
     right: 0;
     top: 0;
@@ -156,13 +151,21 @@
     padding: 0;
     box-shadow: 2px 2px 4px 0 rgb(0 0 0 / 8%);
 
+    @media (min-width: $bp-large) {
+      transition: $standard-transition;
+    }
+
     &:not(.show) ::v-deep .search-query,
     &:not(.show) ::v-deep .auto-suggest-dropdown {
       display: none;
     }
+
+    @media (min-width: $bp-large) {
+      transition: $standard-transition;
+    }
   }
 
-  .navbar-brand {
+  .header-navbar {
     min-width: 11.0625rem;
     flex: 0 0 auto;
 
@@ -170,50 +173,49 @@
       min-width: 9.5625rem;
       transition: 0.3s ease-in-out;
 
+      @media (min-width: $bp-medium) {
+        margin: 0 auto 0 0;
+        padding-left: 1.5em;
+      }
+
+      @media (min-width: $bp-extralarge) {
+        min-width: 18.75em;
+      }
+
       img {
         margin: auto 0;
+        width: auto;
+        height: 32px;
+
+        @media (min-width: $bp-xxxl) {
+          height: 2em;
+        }
       }
     }
   }
 
-  .navbar.sidebar-nav {
-    .logo {
-      min-width: auto;
-    }
-
-    .navbar-nav {
-      flex-direction: column;
-      width: 100%;
-    }
-  }
-
   .navbar-toggle {
+    font-size: 0.75rem;
+    padding: 0;
+
+    @media (min-width: $bp-xxxl) {
+      font-size: $responsive-font-size-base;
+    }
+
     span {
-      width: 1.125rem;
-      background: $black;
-      height: 2px;
-      margin-bottom: 3px;
       transition: $standard-transition;
-      &:last-of-type { margin-bottom: 0; }
     }
 
     &:hover {
-      span {
-        background: $innovationblue;
+      span::before {
+        color: $innovationblue;
         transition: $standard-transition;
       }
     }
   }
 
-  @media (min-width: $bp-medium) {
-    .logo {
-      margin: 0 auto 0 0;
-      padding-left: 1.5rem;
-    }
-  }
-
-  @media (min-width: $bp-large) {
-    .navbar {
+  .navbar {
+    @media (min-width: $bp-large) {
       position: relative;
       display: flex;
       height: auto;
@@ -229,15 +231,14 @@
       }
     }
 
-    .container-fluid {
-      transition: $standard-transition;
-    }
-  }
-
-  @media (min-width: $bp-extralarge) {
-    .navbar-brand {
+    &.sidebar-nav {
       .logo {
-        min-width: 18.75rem;
+        min-width: auto;
+      }
+
+      .navbar-nav {
+        flex-direction: column;
+        width: 100%;
       }
     }
   }

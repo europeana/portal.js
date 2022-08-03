@@ -156,38 +156,50 @@ describe('pages/home/index', () => {
   });
 
   describe('head', () => {
-    it('uses localised page title for title meta field', () => {
-      const wrapper = factory();
+    describe('meta', () => {
+      it('uses localised page title for title field', () => {
+        const wrapper = factory();
 
-      const headMeta = wrapper.vm.head().meta;
+        const headMeta = wrapper.vm.head().meta;
 
-      expect(headMeta.find(meta => meta.name === 'title')?.content).toBe('homePage.title');
-    });
-
-    it('uses localised page sub-headline for description meta field', () => {
-      const wrapper = factory();
-
-      const headMeta = wrapper.vm.head().meta;
-
-      expect(headMeta.find(meta => meta.name === 'description')?.content).toBe('homePage.subHeadline');
-    });
-
-    it('uses optimised CTF hero image for og:image meta field', async() => {
-      const wrapper = factory();
-      await wrapper.setData({
-        backgroundImage: {
-          image: {
-            url: 'https://images.ctfassets.net/image.jpeg',
-            contentType: 'image/jpeg'
-          }
-        }
+        expect(headMeta.find(meta => meta.name === 'title')?.content).toBe('homePage.title');
       });
-      await wrapper.vm.$nextTick();
 
-      const headMeta = wrapper.vm.head().meta;
+      it('uses localised page sub-headline for description field', () => {
+        const wrapper = factory();
 
-      expect(headMeta.find(meta => meta.property === 'og:image')?.content)
-        .toBe('https://images.ctfassets.net/image.jpeg?w=1200&h=630&fit=fill&fm=jpg&fl=progressive&q=80');
+        const headMeta = wrapper.vm.head().meta;
+
+        expect(headMeta.find(meta => meta.name === 'description')?.content).toBe('homePage.subHeadline');
+      });
+
+      describe('og:image', () => {
+        const image = {
+          url: 'https://images.ctfassets.net/image.jpeg',
+          contentType: 'image/jpeg'
+        };
+        const expected = 'https://images.ctfassets.net/image.jpeg?w=1200&h=630&fit=fill&fm=jpg&fl=progressive&q=80';
+
+        it('favours CTF social media image', async() => {
+          const wrapper = factory();
+          await wrapper.setData({ socialMediaImage: image });
+          await wrapper.vm.$nextTick();
+
+          const headMeta = wrapper.vm.head().meta;
+
+          expect(headMeta.find(meta => meta.property === 'og:image')?.content).toBe(expected);
+        });
+
+        it('falls back to CTF background image', async() => {
+          const wrapper = factory();
+          await wrapper.setData({ backgroundImage: { image } });
+          await wrapper.vm.$nextTick();
+
+          const headMeta = wrapper.vm.head().meta;
+
+          expect(headMeta.find(meta => meta.property === 'og:image')?.content).toBe(expected);
+        });
+      });
     });
   });
 

@@ -8,7 +8,7 @@ module.exports = async function (migration, { makeRequest }) {
 
   const tagsData = JSON.parse(await fs.readFileSync(process.env.TAGS_DATA_FILE_NAME));
 
-  // 1. fetch category entries (created in migration 0068)
+  // 1. fetch category entries (created in migration 0071)
   const response = await makeRequest({
     method: 'GET',
     url: '/entries',
@@ -23,6 +23,15 @@ module.exports = async function (migration, { makeRequest }) {
     for (const tagData of tagsData) {
       if ((tagData.tag === categoryName) || (tagData.replace === categoryName)) {
         tagData.id = entry.sys.id;
+      }
+    }
+  }
+
+  for (const tagData of tagsData) {
+    if (tagData.replace) {
+      const tagReplacement = tagsData.find((tagReplacementData) => tagReplacementData.tag === tagData.replace);
+      if (tagReplacement && tagReplacement.entity) {
+        tagData.entity = tagReplacement.entity;
       }
     }
   }
@@ -46,6 +55,10 @@ module.exports = async function (migration, { makeRequest }) {
           console.warn(`Tag not found for entry ${fields.identifier[locale]}: "${keyword}"`);
         } else if (tagData.delete) {
           // Do nothing with it
+        } else if (tagData.entity) {
+          if (!relatedLink.includes(tagData.entity) && relatedLink) {
+            relatedLink.push(tagData.entity);
+          }
         } else if (tagData.id) {
           if (!categories.find((category) => category.sys.id === tagData.id)) {
             categories.push({
@@ -55,10 +68,6 @@ module.exports = async function (migration, { makeRequest }) {
                 id: tagData.id
               }
             });
-          }
-        } else if (tagData.entity) {
-          if (!relatedLink.includes(tagData.entity) && relatedLink) {
-            relatedLink.push(tagData.entity);
           }
         } else {
           console.warn(`Failed to detect action for entry ${fields.identifier[locale]}, keyword "${keyword}", tag data ${tagData}`);

@@ -168,5 +168,10 @@
   .context-label {
     margin-bottom: 0;
     line-height: 3;
+    min-width: 0;
+
+    .badge {
+      max-width: calc(100% - 2rem);
+    }
   }
 </style>

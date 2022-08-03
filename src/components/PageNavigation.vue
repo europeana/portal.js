@@ -189,6 +189,11 @@
       display: flex;
       align-items: center;
 
+      @media (min-width: $bp-xxxl) {
+        font-size: 1vw;
+        padding: 0.5em;
+      }
+
       &:hover {
         color: $innovationblue;
       }
@@ -197,13 +202,19 @@
         &::after {
           content: '';
           position: absolute;
-          border-bottom: solid 3px $blue;
+          border-bottom: solid 0.1875em $blue;
           display: block;
           width: 100%;
           z-index: 1;
           left: 0;
           right: 0;
-          bottom: calc(-0.6rem);
+          bottom: -0.6em;
+          font-size: 1rem;
+
+          @media (min-width: $bp-xxxl) {
+            font-size: 1vw;
+            bottom: -0.633em;
+          }
         }
       }
 
@@ -219,6 +230,10 @@
         z-index: 1;
         margin-right: 0.75rem;
 
+        @media (min-width: $bp-xxxl) {
+          font-size: 1vw;
+        }
+
         &::before {
           @extend %icon-font;
 
@@ -226,6 +241,10 @@
           color: $black;
           transition: $standard-transition;
           font-size: 1.5rem;
+
+          @media (min-width: $bp-xxxl) {
+            font-size: 1.5vw;
+          }
         }
 
         &.icon-home::before {
@@ -278,6 +297,33 @@
         &.icon-help::before {
           font-size: 1.25rem;
           padding: 0.1rem;
+
+          @media (min-width: $bp-xxxl) {
+            font-size: 1.25vw;
+          }
+        }
+      }
+    }
+
+    &:not(.sidebar-nav-item) {
+      width: auto;
+      margin: auto;
+
+      .nav-link {
+        text-transform: uppercase;
+        font-size: $font-size-small;
+        font-weight: 600;
+
+        @media (min-width: $bp-xxxl) {
+          font-size: 0.875vw;
+        }
+
+        span {
+          position: relative;
+        }
+
+        .nav-link-icon {
+          display: none;
         }
       }
     }
@@ -304,6 +350,10 @@
         transition: $standard-transition;
         font-size: $font-size-base;
 
+        @media (min-width: $bp-xxxl) {
+          font-size: 1vw;
+        }
+
         &.exact-active-link,
         &:hover {
           color: $white;
@@ -327,27 +377,5 @@
         }
       }
     }
-
-    @media (min-width: $bp-large) {
-      &:not(.sidebar-nav-item) {
-        width: auto;
-        margin: auto;
-
-        .nav-link {
-          text-transform: uppercase;
-          font-size: $font-size-small;
-          font-weight: 600;
-
-          span {
-            position: relative;
-          }
-
-          .nav-link-icon {
-            display: none;
-          }
-        }
-      }
-    }
   }
-
 </style>
