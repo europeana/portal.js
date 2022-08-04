@@ -29,41 +29,45 @@
         >
           <b-card
             no-body
-            class="h-100 text-center responsive-backround-image"
-            body-class="py-4 d-flex flex-column align-items-center"
+            class="h-100 text-center"
           >
             <b-card-img-lazy
               :src="slide.image.url"
               alt="Image"
               :srcset="imageSrcset(slide.image)"
               :sizes="imageSizes()"
+              class="image-overlay position-absolute"
             />
-            <b-card-title
-              title-tag="h3"
+            <b-card-body
+              class="py-4 d-flex flex-column align-items-center position-relative"
             >
-              <span>
-                {{ slide.title }}
-              </span>
-            </b-card-title>
-            <b-card-text
-              text-tag="div"
-              class="my-4"
-            >
-              <p class="mb-0">
-                {{ slide.description }}
-              </p>
-            </b-card-text>
-            <span class="line pb-4" />
-            <b-button
-              ref="slideLink"
-              variant="outline-overlay"
-              :to="slide.url"
-              class="slide-link swiper-no-swiping"
-              :data-qa="`slide link ${i}`"
-              @focus="swiper.slideTo(i)"
-            >
-              {{ $t('explore') }}
-            </b-button>
+              <b-card-title
+                title-tag="h3"
+              >
+                <span>
+                  {{ slide.title }}
+                </span>
+              </b-card-title>
+              <b-card-text
+                text-tag="div"
+                class="my-4"
+              >
+                <p class="mb-0">
+                  {{ slide.description }}
+                </p>
+              </b-card-text>
+              <span class="line pb-4" />
+              <b-button
+                ref="slideLink"
+                variant="outline-overlay"
+                :to="slide.url"
+                class="slide-link swiper-no-swiping"
+                :data-qa="`slide link ${i}`"
+                @focus="swiper.slideTo(i)"
+              >
+                {{ $t('explore') }}
+              </b-button>
+            </b-card-body>
           </b-card>
         </div>
       </div>
@@ -147,16 +151,16 @@
       },
       imageSrcset(image) {
         return responsiveImageSrcset(image,
-                                      {
-                                        small: { w: 245, h: 440, fit: 'fill' },
-                                        medium: { w: 260, h: 420, fit: 'fill' },
-                                        large: { w: 280, h: 400, fit: 'fill' },
-                                        xl: { w: 300, h: 400, fit: 'fill' },
-                                        xxl: { w: 320, h: 370, fit: 'fill' },
-                                        xxxl: { w: 355, h: 345, fit: 'fill' },
-                                        wqhd: { w: 510, h: 540, fit: 'fill' },
-                                        '4k': { w: 700, h: 900, fit: 'fill' }
-                                      });
+                                     {
+                                       small: { w: 245, h: 440, fit: 'fill' },
+                                       medium: { w: 260, h: 420, fit: 'fill' },
+                                       large: { w: 280, h: 400, fit: 'fill' },
+                                       xl: { w: 300, h: 400, fit: 'fill' },
+                                       xxl: { w: 320, h: 370, fit: 'fill' },
+                                       xxxl: { w: 355, h: 345, fit: 'fill' },
+                                       wqhd: { w: 510, h: 540, fit: 'fill' },
+                                       '4k': { w: 700, h: 900, fit: 'fill' }
+                                     });
       },
       imageSizes() {
         return [
@@ -167,7 +171,7 @@
           '(max-width: 1440px) 320px',
           '(max-width: 1920px) 355px',
           '(max-width: 2560px) 510px',
-          '(max-width: 3840px) 700px',
+          '(max-width: 3840px) 700px'
         ].join(',');
       }
     }
@@ -239,6 +243,7 @@
       border: 0;
       background-size: cover;
       background-repeat: no-repeat;
+      overflow: hidden;
     }
 
     .card-body {
@@ -254,6 +259,15 @@
       width: 40%;
       border-top: 1px solid $white;
       margin: auto;
+    }
+
+    .image-overlay {
+      height: 100%;
+      width: auto;
+      max-width: none;
+      left: -50%;
+      right: -50%;
+      margin: 0 auto;
     }
   }
 </style>
