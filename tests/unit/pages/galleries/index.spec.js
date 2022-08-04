@@ -159,6 +159,7 @@ const factory = (options = {}) => shallowMountNuxt(page, {
       locale: () => 'en',
       isoLocale: () => 'en-GB'
     },
+    $fetchState: options.fetchState || {},
     $auth: {
       loggedIn: false
     },
@@ -231,6 +232,25 @@ describe('Gallery index page', () => {
 
     afterEach(() => {
       sinon.resetHistory();
+    });
+
+    describe('while loading', () => {
+      const wrapper = factory({ fetchState: { pending: true }, ...options });
+      it('shows a loading spinner', async() => {
+        const loadingSpinner = wrapper.find('[data-qa="loading spinner container"]');
+
+        expect(loadingSpinner.isVisible()).toBe(true);
+      });
+    });
+
+    describe('when fetching results in an error', () => {
+      const wrapper = factory({ fetchState: { error: { message: 'Something went wrong' } }, ...options });
+
+      it('shows an alert message', async() => {
+        const alertMessage = wrapper.find('[data-qa="alert message container"]');
+
+        expect(alertMessage.exists()).toBe(true);
+      });
     });
 
     describe('fetch', () => {

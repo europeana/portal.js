@@ -104,6 +104,7 @@
       } else {
         await this.fetchContentfulGalleries();
       }
+      this.$scrollTo && this.$scrollTo('#header');
     },
     head() {
       return {
