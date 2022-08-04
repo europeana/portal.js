@@ -1,7 +1,5 @@
 <template>
-  <div
-    v-if="$features.newStoriesPage"
-  >
+  <div>
     <b-container
       v-if="$fetchState.pending"
       data-qa="loading spinner container"
@@ -67,10 +65,6 @@
       />
     </div>
   </div>
-  <IndexPage
-    v-else
-    slug="stories"
-  />
 </template>
 
 <script>
@@ -90,7 +84,6 @@
       ContentCard,
       ContentHeader,
       LoadingSpinner,
-      IndexPage: () => import('../index'),
       CallToActionBanner: () => import('@/components/generic/CallToActionBanner'),
       PaginationNavInput
     },
@@ -104,12 +97,6 @@
         tags: [],
         total: 0,
         sections: [],
-        // TODO: following four properties required when rendering IndexPage as
-        //       a child component; remove when new stories page is launched.
-        browsePage: false,
-        staticPage: false,
-        page: {},
-        identifier: null,
         pageFetched: false
       };
     },
