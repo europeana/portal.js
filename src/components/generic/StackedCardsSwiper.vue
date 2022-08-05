@@ -28,9 +28,9 @@
           class="swiper-slide text-center"
         >
           <img
-            :data-src="slide.image.url"
+            :data-src="imageSrc(slide.image)"
             :data-srcset="imageSrcset(slide.image)"
-            :sizes="imageSizes()"
+            :data-sizes="imageSizes"
             class="image-overlay position-absolute swiper-lazy"
           >
           <div
@@ -69,7 +69,7 @@
 <script>
   import swiperMixin from '@/mixins/swiper';
   import { EffectCoverflow, Keyboard, Lazy } from 'swiper';
-  import { responsiveImageSrcset } from '@/plugins/contentful-utils';
+  import { urlIsContentfulAsset, optimisedSrcForContentfulAsset, responsiveImageSrcset } from '@/plugins/contentful-utils';
 
   export default {
     name: 'StackedCardsSwiper',
@@ -134,7 +134,17 @@
             afterInit: this.swiperOnAfterInit,
             activeIndexChange: this.setFocusOnActiveSlideLink
           }
-        }
+        },
+        imageSizes: [
+          '(max-width: 576px) 245px',
+          '(max-width: 768px) 260px',
+          '(max-width: 992px) 280px',
+          '(max-width: 1200px) 300px',
+          '(max-width: 1440px) 320px',
+          '(max-width: 1920px) 355px',
+          '(max-width: 2560px) 510px',
+          '700px'
+        ].join(',')
       };
     },
 
@@ -146,6 +156,15 @@
     methods: {
       setFocusOnActiveSlideLink() {
         this.$refs.slideLink[this.swiper.activeIndex].focus();
+      },
+      imageSrc(image) {
+        if (image.url && urlIsContentfulAsset(image.url)) {
+          return optimisedSrcForContentfulAsset(image, { w: 245, h: 440, fit: 'fill' });
+        } else if (image.url) {
+          return image.url;
+        } else {
+          return null;
+        }
       },
       imageSrcset(image) {
         return responsiveImageSrcset(image,
@@ -159,18 +178,6 @@
                                        wqhd: { w: 510, h: 540, fit: 'fill' },
                                        '4k': { w: 700, h: 900, fit: 'fill' }
                                      });
-      },
-      imageSizes() {
-        return [
-          '(max-width: 576px) 245px',
-          '(max-width: 768px) 260px',
-          '(max-width: 992px) 280px',
-          '(max-width: 1200px) 300px',
-          '(max-width: 1440px) 320px',
-          '(max-width: 1920px) 355px',
-          '(max-width: 2560px) 510px',
-          '(max-width: 3840px) 700px'
-        ].join(',');
       }
     }
   };
