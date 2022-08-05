@@ -26,7 +26,7 @@ export function optimisedSrcForContentfulAsset(asset, params = {}) {
 }
 
 export function responsiveImageSrcset(image, params) {
-  if (image.url && urlIsContentfulAsset(image.url) && params) {
+  if (image?.url && urlIsContentfulAsset(image.url) && params) {
     return [
       `${optimisedSrcForContentfulAsset(image, params.small)} ${params.small.w}w`,
       `${optimisedSrcForContentfulAsset(image, params.medium)} ${params.medium.w}w`,
@@ -37,7 +37,7 @@ export function responsiveImageSrcset(image, params) {
       `${optimisedSrcForContentfulAsset(image, params.wqhd)} ${params.wqhd.w}w`,
       `${optimisedSrcForContentfulAsset(image, params['4k'])} ${params['4k'].w}w`
     ].join(',');
-  } else if (image.url) {
+  } else if (image?.url) {
     return image.url;
   } else {
     return null;

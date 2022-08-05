@@ -158,9 +158,9 @@
         this.$refs.slideLink[this.swiper.activeIndex].focus();
       },
       imageSrc(image) {
-        if (image.url && urlIsContentfulAsset(image.url)) {
+        if (image?.url && urlIsContentfulAsset(image.url)) {
           return optimisedSrcForContentfulAsset(image, { w: 245, h: 440, fit: 'fill' });
-        } else if (image.url) {
+        } else if (image?.url) {
           return image.url;
         } else {
           return null;
