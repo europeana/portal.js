@@ -137,7 +137,7 @@
           description: theme.description[this.$i18n.locale],
           url: this.collectionLinkGen(theme),
           image: theme.contentfulImage
-        }));
+        })).sort((a, b) => a.title.localeCompare(b.title));
       }
     },
 
