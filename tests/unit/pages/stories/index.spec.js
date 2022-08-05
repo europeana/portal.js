@@ -127,7 +127,6 @@ const factory = ({ $features = {}, data = {}, $fetchState = {} } = {}) => shallo
       query: contentfulQueryStub
     },
     $features: {
-      newStoriesPage: true,
       ...$features
     },
     $fetchState,
@@ -180,7 +179,7 @@ describe('pages/stories/index', () => {
         expect(wrapper.vm.$contentful.query.calledWith('storiesBySysId', {
           locale: 'en-GB',
           preview: false,
-          limit: 18,
+          limit: 24,
           ids: sinon.match(['1tuVL9nnfMJzptXshe3Qw8', '796f5YKe4b1u8uXtizSBu0', '3KgVELZ48RKM4kbxJ0bYKi'])
         })).toBe(true);
       });
@@ -248,17 +247,6 @@ describe('pages/stories/index', () => {
 
           expect(alertMessage.exists()).toBe(true);
         });
-      });
-    });
-
-    describe('when new stories page is disabled', () => {
-      const $features = { newStoriesPage: false };
-      it('does not fetch content from Contentful', async() => {
-        const wrapper = factory({ $features });
-
-        await wrapper.vm.fetch();
-
-        expect(wrapper.vm.$contentful.query.called).toBe(false);
       });
     });
   });
