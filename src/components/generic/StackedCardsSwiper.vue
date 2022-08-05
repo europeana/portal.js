@@ -25,50 +25,41 @@
           v-for="(slide, i) in slides"
           :key="i"
           :index="i"
-          class="swiper-slide"
+          class="swiper-slide text-center"
         >
-          <b-card
-            no-body
-            class="h-100 text-center"
+          <img
+            :data-src="slide.image.url"
+            :data-srcset="imageSrcset(slide.image)"
+            :sizes="imageSizes()"
+            class="image-overlay position-absolute swiper-lazy"
           >
-            <b-card-img-lazy
-              :src="slide.image.url"
-              alt="Image"
-              :srcset="imageSrcset(slide.image)"
-              :sizes="imageSizes()"
-              class="image-overlay position-absolute"
-            />
-            <b-card-body
-              class="py-4 d-flex flex-column align-items-center position-relative"
+          <div
+            class="card-body h-100 py-4 d-flex flex-column align-items-center position-relative"
+          >
+            <h3>
+              <span>
+                {{ slide.title }}
+              </span>
+            </h3>
+            <div
+              class="my-4"
             >
-              <b-card-title
-                title-tag="h3"
-              >
-                <span>
-                  {{ slide.title }}
-                </span>
-              </b-card-title>
-              <b-card-text
-                text-tag="div"
-                class="my-4"
-              >
-                <p class="mb-0">
-                  {{ slide.description }}
-                </p>
-              </b-card-text>
-              <span class="line pb-4" />
-              <b-button
-                ref="slideLink"
-                variant="outline-overlay"
-                :to="slide.url"
-                class="slide-link swiper-no-swiping"
-                :data-qa="`slide link ${i}`"
-                @focus="swiper.slideTo(i)"
-              >
-                {{ $t('explore') }}
-              </b-button>
-            </b-card-body>
-          </b-card>
+              <p class="mb-0">
+                {{ slide.description }}
+              </p>
+            </div>
+            <span class="line pb-4" />
+            <b-button
+              ref="slideLink"
+              variant="outline-overlay"
+              :to="slide.url"
+              class="slide-link swiper-no-swiping"
+              :data-qa="`slide link ${i}`"
+              @focus="swiper.slideTo(i)"
+            >
+              {{ $t('explore') }}
+            </b-button>
+          </div>
         </div>
       </div>
     </div>
@@ -77,7 +68,7 @@
 
 <script>
   import swiperMixin from '@/mixins/swiper';
-  import { EffectCoverflow, Keyboard } from 'swiper';
+  import { EffectCoverflow, Keyboard, Lazy } from 'swiper';
   import { responsiveImageSrcset } from '@/plugins/contentful-utils';
 
   export default {
@@ -106,12 +97,19 @@
     data() {
       return {
         swiperOptions: {
-          modules: [EffectCoverflow, Keyboard],
+          modules: [EffectCoverflow, Keyboard, Lazy],
           effect: 'coverflow',
           grabCursor: true,
           centeredSlides: true,
           slidesPerView: 'auto',
           slideToClickedSlide: true,
+          preloadImages: false,
+          lazy: {
+            enabled: true,
+            checkInView: true,
+            loadPrevNext: true,
+            loadPrevNextAmount: 10
+          },
           breakpoints: {
             0: {
               spaceBetween: -150
@@ -224,6 +222,7 @@
     width: calc(200px + 8vw);
     max-width: 720px;
     height: auto;
+    overflow: hidden;
 
     @media (min-width: $bp-xxxl) {
       width: calc(200px + 12vw);
@@ -237,13 +236,6 @@
 
     p {
       font-size: 1em;
-    }
-
-    .card {
-      border: 0;
-      background-size: cover;
-      background-repeat: no-repeat;
-      overflow: hidden;
     }
 
     .card-body {
@@ -262,7 +254,8 @@
     }
 
     .image-overlay {
-      height: 100%;
+      min-height: 100%;
+      min-width: 100%;
       width: auto;
       max-width: none;
       left: -50%;
