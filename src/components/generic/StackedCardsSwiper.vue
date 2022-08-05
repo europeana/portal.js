@@ -31,6 +31,7 @@
             :data-src="imageSrc(slide.image)"
             :data-srcset="imageSrcset(slide.image)"
             :data-sizes="imageSizes"
+            :alt="slide.image && slide.image.description || ''"
             class="image-overlay position-absolute swiper-lazy"
           >
           <div
