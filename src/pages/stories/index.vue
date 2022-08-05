@@ -90,7 +90,7 @@
 
     data() {
       return {
-        perPage: 18,
+        perPage: 24,
         selectedTags: [],
         filteredTags: null,
         stories: [],
@@ -102,9 +102,6 @@
     },
 
     async fetch() {
-      if (!this.$features.newStoriesPage) {
-        return;
-      }
       await Promise.all([
         this.fetchPage(),
         this.fetchStories()
@@ -146,9 +143,6 @@
     },
 
     mounted() {
-      if (!this.$features.newStoriesPage) {
-        return;
-      }
       this.fetchCategories();
     },
 
