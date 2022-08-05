@@ -2,7 +2,7 @@ import baseData from './index.js';
 import organizationsMixin from '../../mixins/europeana/entities/organizations.js';
 
 const PICK = ['slug', 'prefLabel'];
-const INTERNATIONALISE = (data) => data.map((entity) => ({
+const INTERNATIONALISE = (entities) => entities.map((entity) => ({
   ...entity,
   prefLabel: organizationsMixin.methods.organizationEntityNativeName(entity)
 }));
