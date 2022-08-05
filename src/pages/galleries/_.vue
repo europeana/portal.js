@@ -358,6 +358,8 @@
       redirectToPrefPath() {
         const desiredPath = getLabelledSlug(this.set.id, this.set.title.en);
         if (this.$route.params.pathMatch !== desiredPath) {
+          console.log(desiredPath);
+          console.log(this.$route.params.pathMatch);
           const redirectPath = this.$path({
             name: 'galleries-all',
             params: { pathMatch: desiredPath }
