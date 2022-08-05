@@ -24,8 +24,6 @@
       :attribution="backgroundImage"
     />
     <img
-      width="250"
-      height="26"
       src="@/assets/img/eu-funding.svg"
       class="eu-logo"
       :alt="$t('footer.imageDescription')"
@@ -172,9 +170,18 @@
   }
 
   .eu-logo {
+    width: 15.5rem;
+    height: 1.65rem;
     position: absolute;
-    right: calc(60px + 1rem);
+    margin: auto;
+    margin-left: -7.75rem;
     bottom: 1rem;
+
+    @media (min-width: $bp-large) {
+      width: 25.25vw;
+      height: 2.6vw;
+      margin-left: -12.625vw;
+    }
   }
 </style>
 
