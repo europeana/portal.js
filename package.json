@@ -5,7 +5,7 @@
   "scripts": {
     "analyze": "nuxt build --analyze",
     "build": "nuxt build",
-    "cache": "node --require dotenv/config src/cachers/index.js",
+    "cache": "node --require dotenv/config src/cachers/cli.js",
     "dev": "nuxt",
     "generate": "nuxt generate",
     "lint:fix": "npm run lint -- --fix",

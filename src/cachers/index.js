@@ -72,10 +72,20 @@ const runSetCacher = async(cacherName) => {
   }
 };
 
-const main = async() => {
-  const command = process.argv[2];
-  const cacherName = process.argv[3];
+const writeCacheKey = (cacheKey, data) => {
+  const redisClient = utils.createRedisClient(runtimeConfig.redis);
+  return redisClient.setAsync(cacheKey, JSON.stringify(data))
+    .then(() => redisClient.quitAsync());
+};
 
+const readCacheKey = (cacheKey) => {
+  const redisClient = utils.createRedisClient(runtimeConfig.redis);
+  return redisClient.getAsync(cacheKey)
+    .then(data => redisClient.quitAsync()
+      .then(() => data));
+};
+
+export default async(command, cacherName) => {
   let response;
 
   try {
@@ -101,26 +111,3 @@ const main = async() => {
 
   return Promise.resolve(response);
 };
-
-const writeCacheKey = (cacheKey, data) => {
-  const redisClient = utils.createRedisClient(runtimeConfig.redis);
-  return redisClient.setAsync(cacheKey, JSON.stringify(data))
-    .then(() => redisClient.quitAsync());
-};
-
-const readCacheKey = (cacheKey) => {
-  const redisClient = utils.createRedisClient(runtimeConfig.redis);
-  return redisClient.getAsync(cacheKey)
-    .then(data => redisClient.quitAsync()
-      .then(() => data));
-};
-
-main()
-  .then(message => {
-    console.log(message);
-    process.exit(0);
-  })
-  .catch(message => {
-    console.log(`ERROR: ${message}`);
-    process.exit(1);
-  });
