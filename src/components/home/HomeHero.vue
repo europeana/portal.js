@@ -151,7 +151,7 @@
     @media (min-width: $bp-medium) {
       h1,
       .sub-headline,
-      .open {
+      .open:not(.top-search) {
         width: 25em;
         min-width: 644px;
         margin-left: auto;
