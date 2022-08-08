@@ -75,7 +75,7 @@
 
   .hero {
     margin-top: -70px;
-    margin-bottom: 1rem;
+    margin-bottom: 4.5rem;
     background-color: $mediumgrey-light;
     padding: 9.5rem 1.5rem;
     min-height: 100vh;
@@ -147,16 +147,32 @@
         font-size: 1.5vw;
       }
     }
+
+    @media (min-width: $bp-medium) {
+      h1,
+      .sub-headline,
+      .open {
+        width: 25em;
+        min-width: 644px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      h1 {
+        max-width: 744px;
+      }
+    }
+
+    @media (min-width: $bp-large) {
+      h1 {
+        max-width: 80%;
+      }
+    }
   }
 
   .hero-content {
     margin: 0 auto;
     position: relative; // Prevents blending with the background
-
-    @media (min-width: $bp-medium) {
-      width: 25em;
-      min-width: 644px;
-    }
   }
 
   ::v-deep .icon-info {
