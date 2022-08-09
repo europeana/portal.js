@@ -194,9 +194,10 @@
     ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX,
     SET_URL_PREFIX as EUROPEANA_DATA_URL_SET_PREFIX
   } from '@/plugins/europeana/data';
-  import { langMapValueForLocale, getLabelledSlug } from  '@/plugins/europeana/utils';
+  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
   import SocialShareModal from '@/components/sharing/SocialShareModal.vue';
+  import redirectToPrefPathMixin from '@/mixins/redirectToPrefPath';
 
   // TODO: the following imports are only needed for contentful Galleries.
   import ContentHeader from '../../components/generic/ContentHeader';
@@ -228,8 +229,10 @@
       next();
     },
     mixins: [
+      redirectToPrefPathMixin,
       // TODO: markdown is only used in contentful galleries
       stripMarkdown
+
     ],
     data() {
       return {
@@ -243,7 +246,7 @@
     async fetch() {
       if (this.setGalleriesEnabled) {
         await this.$store.dispatch('set/fetchActive', this.setId);
-        this.redirectToPrefPath();
+        this.redirectToPrefPath('galleries-all', this.setId, this.set.title.en);
         if (this.setIsEntityBestItems && this.userIsEntityEditor) {
           await this.$store.commit('entity/setFeaturedSetId', this.setId);
           await this.$store.dispatch('entity/getPins');
@@ -355,23 +358,6 @@
     },
 
     methods: {
-      redirectToPrefPath() {
-        const desiredPath = getLabelledSlug(this.set.id, this.set.title.en);
-        if (this.$route.params.pathMatch !== desiredPath) {
-          console.log(desiredPath);
-          console.log(this.$route.params.pathMatch);
-          const redirectPath = this.$path({
-            name: 'galleries-all',
-            params: { pathMatch: desiredPath }
-          });
-          if (process.server) {
-            this.$nuxt.context.redirect(302, redirectPath);
-          } else {
-            // _Replace_ history entry to prevent interference with back button
-            this.$nuxt.context.app.router.replace(redirectPath);
-          }
-        }
-      },
       reorderItems(items) {
         this.$store.dispatch('set/update', {
           id: `${EUROPEANA_DATA_URL_SET_PREFIX}/${this.setId}`,
