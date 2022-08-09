@@ -22,25 +22,6 @@
     }
   }
 
-  .compare-image-wrapper {
-    figcaption {
-      cite {
-        border-radius: 0;
-        border-top-left-radius: $border-radius-small;
-        border-top-right-radius: $border-radius-small;
-        bottom: 0;
-        font-size: 0.625rem;
-        left: 1rem;
-        margin-right: 1rem;
-        padding: 0.5rem 1rem;
-
-        .attribution > span {
-          margin-left: 0.25rem;
-        }
-      }
-    }
-  }
-
   .jumbotron {
     height: auto;
     background: $white;
@@ -98,6 +79,25 @@
         > span {
           white-space: normal;
         }
+      }
+    }
+  }
+}
+
+.compare-image-wrapper {
+  figcaption {
+    cite {
+      border-radius: 0;
+      border-top-left-radius: $border-radius-small;
+      border-top-right-radius: $border-radius-small;
+      bottom: 0;
+      font-size: 0.625rem;
+      left: 1rem;
+      margin-right: 1rem;
+      padding: 0.5rem 1rem;
+
+      .attribution > span {
+        margin-left: 0.25rem;
       }
     }
   }

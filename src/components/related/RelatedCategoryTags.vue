@@ -63,7 +63,7 @@
       },
       clickBadge(tagId) {
         if (this.$matomo) {
-          const action = this.isActive(tagId) ? 'Deselect' : 'Select';
+          const action = this.isActive(tagId) ? 'Deselect tag' : 'Select tag';
           this.$matomo.trackEvent('Tags', action, tagId);
         }
       }

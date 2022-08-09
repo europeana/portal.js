@@ -60,7 +60,7 @@ describe('components/related/RelatedCategoryTags', () => {
 
           badge.trigger('click.native');
 
-          expect(wrapper.vm.$matomo.trackEvent.calledWith('Tags', 'Select', 'red-tape')).toBe(true);
+          expect(wrapper.vm.$matomo.trackEvent.calledWith('Tags', 'Select tag', 'red-tape')).toBe(true);
         });
 
         it('tracks deselecting tag', () => {
@@ -70,7 +70,7 @@ describe('components/related/RelatedCategoryTags', () => {
 
           badge.trigger('click.native');
 
-          expect(wrapper.vm.$matomo.trackEvent.calledWith('Tags', 'Deselect', 'red-tape')).toBe(true);
+          expect(wrapper.vm.$matomo.trackEvent.calledWith('Tags', 'Deselect tag', 'red-tape')).toBe(true);
         });
       });
     });
