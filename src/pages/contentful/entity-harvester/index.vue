@@ -28,11 +28,10 @@
   import {
     isEntityUri,
     getEntityTypeHumanReadable,
-    getEntitySlug,
     entityParamsFromUri
   } from '@/plugins/europeana/entity';
   import contentfulSidebarMixin from '@/mixins/contentful/sidebar';
-  import { langMapValueForLocale } from '@/plugins/europeana/utils';
+  import { langMapValueForLocale, getLabelledSlug } from '@/plugins/europeana/utils';
   import { BASE_URL } from '@/plugins/europeana/data';
 
   export default {
@@ -121,7 +120,7 @@
         // set field values
         this.entry.fields.identifier.setValue(response.id); // data.europeana.eu URI
 
-        this.entry.fields.slug?.setValue(getEntitySlug(id, enPrefLabel)); // slug
+        this.entry.fields.slug?.setValue(getLabelledSlug(id, enPrefLabel)); // slug
 
         this.entry.fields.type?.setValue(getEntityTypeHumanReadable(response.type)); // entity type
 

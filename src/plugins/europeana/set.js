@@ -29,7 +29,7 @@ export default (context = {}) => {
 
           const minimalItemPreviews = await context.$apis.record.find(itemUris, {
             profile: 'minimal',
-            rows: 100
+            rows: params.perPage ? params.perPage : 100
           });
 
           for (const set of response.data.items) {

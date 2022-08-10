@@ -76,6 +76,7 @@ const contentfulPageResponse = {
   }
 };
 const contentfulQueryStub = sinon.stub().resolves(contentfulPageResponse);
+const redirectToPrefPathStub = sinon.stub();
 
 const factory = (options = {}) => shallowMountNuxt(collection, {
   localVue,
@@ -418,6 +419,7 @@ describe('pages/collections/_type/_', () => {
     afterEach(() => {
       contentfulQueryStub.resolves(contentfulPageResponse);
     });
+
     describe('when there are related collections', () => {
       it('formats and returns the cards', async() => {
         const contentfulPageResponseWithRelatedOverrides = {
@@ -474,92 +476,54 @@ describe('pages/collections/_type/_', () => {
     });
   });
 
-  describe('methods', () => {
-    describe('redirectToPrefPath', () => {
-      const redirectIssued = async({ data, entity, pathMatch, serverOrClient = 'server' }) => {
-        if (serverOrClient === 'server') {
-          process.server = true;
-          process.client = false;
-        } else {
-          process.server = false;
-          process.client = true;
-        }
+  describe('redirecting for slug labels', () => {
+    describe('when entity has a named collection page', () => {
+      const data = { page: { name: 'Geography', nameEN: 'Geography', hasPartCollection: { items: [] } } };
 
+      it('uses the english name', async() => {
         const wrapper = factory(topicEntity);
-        await wrapper.setData(data || {});
-        entity && (wrapper.vm.$store.state.entity.entity = entity);
-        wrapper.vm.$route.params.pathMatch = pathMatch;
 
-        await wrapper.vm.redirectToPrefPath();
+        wrapper.vm.redirectToPrefPath = redirectToPrefPathStub;
 
-        if (process.server) {
-          return wrapper.vm.$nuxt.context.redirect.calledWith(302, '/');
-        } else {
-          return wrapper.vm.$nuxt.context.app.router.replace.calledWith('/');
-        }
-      };
+        wrapper.vm.$store.state.entity.curatedEntities = [topicEntity];
+        wrapper.vm.$store.state.entity.id = topicEntity.entity.id;
+        await wrapper.setData(data);
 
-      for (const serverOrClient of ['server', 'client']) {
-        const redirectOrReplace = serverOrClient === 'server' ? 'redirect' : 'replace';
-
-        describe(`${serverOrClient}-side`, () => {
-          describe('when entity has a named collection page', () => {
-            const data = { page: { name: 'Geography', nameEN: 'Geography', hasPartCollection: { items: [] } } };
-
-            describe('and URL slug already uses the name', () => {
-              const pathMatch = '01234567890-geography';
-              it(`does not ${redirectOrReplace}`, async() => {
-                expect(await redirectIssued({ data, pathMatch, serverOrClient })).toBe(false);
-              });
-            });
-
-            describe('and URL slug does not use the name', () => {
-              const pathMatch = '01234567890-geo';
-              it(`${redirectOrReplace}s`, async() => {
-                expect(await redirectIssued({ data, pathMatch, serverOrClient })).toBe(true);
-              });
-            });
-          });
-
-          describe('when using another locale and the entity has a named collection page', () => {
-            const data = { page: { name: 'Geographie', nameEN: 'Geography', hasPartCollection: { items: [] } } };
-
-            describe('and URL slug already uses the english name', () => {
-              const pathMatch = '01234567890-geography';
-              it(`does not ${redirectOrReplace}`, async() => {
-                expect(await redirectIssued({ data, pathMatch, serverOrClient })).toBe(false);
-              });
-            });
-
-            describe('and URL slug does not use the english name', () => {
-              const pathMatch = '01234567890';
-              it(`${redirectOrReplace}s`, async() => {
-                expect(await redirectIssued({ data, pathMatch, serverOrClient })).toBe(true);
-              });
-            });
-          });
-
-          describe('when entity has no named collection page, but an English prefLabel', () => {
-            const entity = { ...topicEntity.entity, prefLabel: { en: 'Geography' } };
-
-            describe('and URL slug already uses the name', () => {
-              const pathMatch = '01234567890-geography';
-              it(`does not ${redirectOrReplace}`, async() => {
-                expect(await redirectIssued({ pathMatch, entity, serverOrClient })).toBe(false);
-              });
-            });
-
-            describe('and URL slug does not use the name', () => {
-              const pathMatch = '01234567890-geo';
-              it(`${redirectOrReplace}s`, async() => {
-                expect(await redirectIssued({ pathMatch, entity, serverOrClient })).toBe(true);
-              });
-            });
-          });
-        });
-      }
+        await wrapper.vm.fetch();
+        expect(redirectToPrefPathStub.calledWith('collections-type-all', 'http://data.europeana.eu/concept/01234567890', 'Geography', sinon.match.object)).toBe(true);
+      });
     });
 
+    describe('when using another locale and the entity has a named collection page', () => {
+      const data = { page: { name: 'Geographie', nameEN: 'Geography', hasPartCollection: { items: [] } } };
+
+      it('uses the english name', async() => {
+        const wrapper = factory(topicEntity);
+
+        wrapper.vm.redirectToPrefPath = redirectToPrefPathStub;
+
+        wrapper.vm.$store.state.entity.curatedEntities = [topicEntity];
+        wrapper.vm.$store.state.entity.id = topicEntity.entity.id;
+        await wrapper.setData(data);
+
+        await wrapper.vm.fetch();
+        expect(redirectToPrefPathStub.calledWith('collections-type-all', 'http://data.europeana.eu/concept/01234567890', 'Geography', sinon.match.object)).toBe(true);
+      });
+    });
+
+    describe('when entity has no named collection page, but an English prefLabel', () => {
+      it('uses the english prefLabel', async() => {
+        const wrapper = factory(topicEntity);
+
+        wrapper.vm.redirectToPrefPath = redirectToPrefPathStub;
+
+        await wrapper.vm.fetch();
+        expect(redirectToPrefPathStub.calledWith('collections-type-all', 'http://data.europeana.eu/concept/01234567890', 'Topic', sinon.match.object)).toBe(true);
+      });
+    });
+  });
+
+  describe('methods', () => {
     describe('showRelatedCollections()', () => {
       it('sets showRelated to true', async() => {
         const wrapper = factory(topicEntity);

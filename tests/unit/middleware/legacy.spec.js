@@ -90,7 +90,7 @@ describe('middleware/legacy', () => {
           fullPath: rule.from
         },
         query: fromQuery || {},
-        app: {}
+        app: { $features: {} }
       });
 
       const toPath = rule.to.split('?')[0];

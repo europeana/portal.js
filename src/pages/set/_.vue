@@ -150,6 +150,8 @@
 </template>
 
 <script>
+  // TODO: This file will be deprecated when set driven galleries are in production.
+  // TODO: Also move the beforeRouteEnter redirect to the legacy middleware.
   import ClientOnly from 'vue-client-only';
 
   import {
@@ -182,7 +184,11 @@
       next();
     },
 
-    middleware: 'sanitisePageQuery',
+    middleware({ app, params, redirect }) {
+      if (app.$features.setGalleries) {
+        redirect({ name: `galleries-all___${app.i18n.locale}`, params });
+      }
+    },
 
     async fetch() {
       await this.$store.dispatch('set/fetchActive', this.setId);
