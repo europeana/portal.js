@@ -16,6 +16,7 @@
 <script>
   import ContentCardSection from './ContentCardSection';
   import InfoCardSection from './InfoCardSection';
+  import { getLabelledSlug } from '@/plugins/europeana/utils';
 
   const FEATURED_ORGANISATIONS = 'Featured organisations';
   const FEATURED_PLACES = 'Featured places';
@@ -23,6 +24,7 @@
   const FEATURED_TIMES = 'Featured centuries';
   const RECENT_ITEMS = 'Recent items';
   const ITEM_COUNTS_MEDIA_TYPE = 'Item counts by media type';
+  const LATEST_GALLERIES = 'Latest Galleries';
 
   export default {
     name: 'AutomatedCardGroup',
@@ -71,13 +73,26 @@
       } else if (this.sectionType === ITEM_COUNTS_MEDIA_TYPE) {
         data.key = 'items/type-counts';
         data.cardType = 'InfoCard';
+      } else if (this.$features.setGalleries && this.sectionType === LATEST_GALLERIES) {
+        data.key = 'galleries';
+        data.cardType = 'AutomatedGalleryCard';
+        data.headline = this.$i18n.t('automatedCardGroup.gallery');
       }
 
       return data;
     },
 
-    fetch() {
-      if (process.server) {
+    async fetch() {
+      if (this.sectionType === LATEST_GALLERIES) {
+        const searchParams = {
+          query: 'visibility:published',
+          pageSize: 4,
+          profile: 'standard'
+        };
+
+        const setResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
+        this.entries = setResponse.data.items;
+      } else if (process.server) {
         return import('@/server-middleware/api/cache/index.js')
           .then(module => {
             return module.cached(this.key, this.$config)
@@ -105,6 +120,23 @@
                 info: this.$i18n.n(entry.count),
                 label: this.$t(`facets.TYPE.options.${entry.label}`),
                 image: this.infoImageFromType(entry.label)
+              }))
+            },
+            moreButton: this.moreButton
+          };
+        }
+        if (this.sectionType === LATEST_GALLERIES) {
+          return {
+            headline: this.headline,
+            hasPartCollection: {
+              items: this.entries?.map(set => ({
+                __typename: this.cardType,
+                __variant: null,
+                name: set.title,
+                identifier: set.id,
+                image: this.$apis.thumbnail.edmPreview(set.items[0].edmPreview, { size: 400 }),
+                url: `galleries/${getLabelledSlug(set.id, set.title.en)}`,
+                description: set.description
               }))
             },
             moreButton: this.moreButton
