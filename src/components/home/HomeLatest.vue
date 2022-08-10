@@ -110,5 +110,9 @@
 
   .card-deck {
     flex-flow: row wrap;
+
+    .content-card.card {
+      margin-bottom: 0;
+    }
   }
 </style>
