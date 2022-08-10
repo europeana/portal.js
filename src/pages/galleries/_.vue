@@ -219,6 +219,12 @@
       ContentCard: () => import('../../components/generic/ContentCard'),
       ContentWarningModal: () => import('@/components/generic/ContentWarningModal')
     },
+    mixins: [
+      redirectToPrefPathMixin,
+      // TODO: markdown is only used in contentful galleries
+      stripMarkdown
+
+    ],
     async beforeRouteLeave(_to, _from, next) {
       if (this.setGalleriesEnabled) {
         await this.$store.commit('set/setActive', null);
@@ -228,12 +234,6 @@
       }
       next();
     },
-    mixins: [
-      redirectToPrefPathMixin,
-      // TODO: markdown is only used in contentful galleries
-      stripMarkdown
-
-    ],
     data() {
       return {
         identifier: null,
