@@ -24,7 +24,7 @@
   const FEATURED_TIMES = 'Featured centuries';
   const RECENT_ITEMS = 'Recent items';
   const ITEM_COUNTS_MEDIA_TYPE = 'Item counts by media type';
-  const LATEST_GALLERIES = 'Latest Galleries';
+  const LATEST_GALLERIES = 'Latest galleries';
 
   export default {
     name: 'AutomatedCardGroup',
