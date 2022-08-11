@@ -101,7 +101,8 @@ module.exports = async() => {
           { rel: 'stylesheet', href: `https://unpkg.com/bootstrap@${bootstrapVersion}/dist/css/bootstrap.min.css` },
           { rel: 'stylesheet', href: `https://unpkg.com/bootstrap-vue@${bootstrapVueVersion}/dist/bootstrap-vue.min.css` }
         ]
-      }
+      },
+      favicon: 'https://www.europeana.eu/favicon.ico'
     },
     webpackConfig,
     usageMode: 'expand',
