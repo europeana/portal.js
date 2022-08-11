@@ -82,7 +82,7 @@
       return data;
     },
 
-    async fetch() {
+    fetch() {
       if (this.sectionType === LATEST_GALLERIES) {
         const searchParams = {
           query: 'visibility:published',
@@ -90,8 +90,10 @@
           profile: 'standard'
         };
 
-        const setResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
-        this.entries = setResponse.data.items;
+        return this.$apis.set.search(searchParams, { withMinimalItemPreviews: true })
+          .then(setResponse => {
+            this.entries = setResponse.data.items;
+          });
       } else if (process.server) {
         return import('@/server-middleware/api/cache/index.js')
           .then(module => {
