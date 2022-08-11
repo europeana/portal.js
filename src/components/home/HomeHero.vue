@@ -159,6 +159,7 @@
       }
 
       h1 {
+        width: auto;
         max-width: 744px;
       }
     }

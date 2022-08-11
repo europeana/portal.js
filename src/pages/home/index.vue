@@ -173,7 +173,7 @@
 
   .page {
     background-color: white;
-    padding-bottom: 1rem;
+    padding-bottom: 1px;
     position: relative;
     text-align: center;
 

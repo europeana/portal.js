@@ -178,6 +178,7 @@
       margin-right: 1em;
       height: 175px;
       position: relative;
+      flex-shrink: 0;
 
       @media (min-width: $bp-medium) {
         height: auto;
@@ -187,9 +188,8 @@
       img {
         position: absolute;
         left: 0;
-        top: 0;
         bottom: 0;
-        height: 100%;
+        max-height: 100%;
         right: 0;
         margin: 0 auto;
       }
