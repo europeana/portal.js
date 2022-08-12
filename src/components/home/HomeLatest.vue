@@ -110,5 +110,15 @@
 
   .card-deck {
     flex-flow: row wrap;
+
+    .content-card.card {
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      @media (min-width: $bp-medium) {
+        margin-bottom: 0;
+      }
+    }
   }
 </style>

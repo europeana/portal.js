@@ -115,7 +115,7 @@
         color: $mediumgrey;
         font-size: 2rem;
         font-weight: 700;
-        margin-bottom: 0.8em;
+        margin-bottom: 1.5rem;
 
         @media (min-width: $bp-extralarge) {
           font-size: 2.375rem;
@@ -123,6 +123,7 @@
 
         @media (min-width: $bp-xxxl) {
           font-size: 2em;
+          margin-bottom: 0.8em;
         }
       }
 
@@ -133,7 +134,7 @@
 
     .btn-primary.btn-cta {
       margin-bottom: 0;
-      text-transform: capitalize;
+      text-transform: none;
       border: 0.1875em solid $black;
       box-shadow: 0.25em 0.25em 0 0 $black;
       font-weight: 700;
@@ -177,6 +178,7 @@
       margin-right: 1em;
       height: 175px;
       position: relative;
+      flex-shrink: 0;
 
       @media (min-width: $bp-medium) {
         height: auto;
@@ -186,9 +188,8 @@
       img {
         position: absolute;
         left: 0;
-        top: 0;
         bottom: 0;
-        height: 100%;
+        max-height: 100%;
         right: 0;
         margin: 0 auto;
       }
