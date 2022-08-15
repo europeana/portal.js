@@ -54,7 +54,7 @@ describe('@/cachers/index', () => {
       it('logs error to console', async() => {
         await cachers.cli('unknown', 'command');
 
-        expect(consoleErrorStub.calledWith('Unknown command "unknown"')).toBe(true);
+        expect(consoleErrorStub.calledWith('ERROR: Unknown command "unknown"')).toBe(true);
       });
 
       it('exits with code 1', async() => {

@@ -102,8 +102,7 @@ export const run = async(command, cacherName) => {
     } else if (command === 'get') {
       response = await readCacheKey(namespaceCacheKey(cacherName));
     } else {
-      console.error(`Unknown command "${command}"`);
-      process.exit(1);
+      throw new Error(`Unknown command "${command}"`);
     }
   } catch (error) {
     return Promise.reject(utils.errorMessage(error));
