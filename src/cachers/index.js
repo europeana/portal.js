@@ -105,7 +105,7 @@ export const run = async(command, cacherName) => {
       throw new Error(`Unknown command "${command}"`);
     }
   } catch (error) {
-    return Promise.reject(utils.errorMessage(error));
+    return Promise.reject(new Error(utils.errorMessage(error)));
   }
 
   return Promise.resolve(response);
@@ -117,7 +117,7 @@ export const cli = async(command, cacherName) => {
     console.log(message);
     process.exit(0);
   } catch (error) {
-    console.error(`ERROR: ${error}`);
+    console.error(`ERROR: ${error.message}`);
     process.exit(1);
   }
 };

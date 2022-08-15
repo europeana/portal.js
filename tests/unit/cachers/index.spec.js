@@ -2,14 +2,32 @@ import sinon from 'sinon';
 
 import * as cacherUtils from '@/cachers/utils.js';
 import * as cachers from '@/cachers/index.js';
+import * as recentItemsCacher from '@/cachers/items/recent.js';
+
+let consoleErrorStub;
+let consoleLogStub;
+let processExitStub;
+
+const redisClientStub = {
+  getAsync: sinon.stub().resolves('cached'),
+  quitAsync: sinon.stub().resolves(),
+  setAsync: sinon.stub().resolves()
+};
+
+const recentItemsData = [
+  { id: '/abc/123' },
+  { id: '/def/123' },
+  { id: '/ghi/123' },
+  { id: '/jkl/123' }
+];
 
 describe('@/cachers/index', () => {
   beforeAll(() => {
-    const redisClientStub = {
-      getAsync: sinon.stub().resolves('cached'),
-      quitAsync: sinon.stub().resolves(),
-      setAsync: sinon.stub().resolves()
-    };
+    consoleErrorStub = sinon.stub(console, 'error');
+    consoleLogStub = sinon.stub(console, 'log');
+    processExitStub = sinon.stub(process, 'exit');
+
+    sinon.stub(recentItemsCacher, 'data').resolves(recentItemsData);
     sinon.stub(cacherUtils, 'createRedisClient').returns(redisClientStub);
   });
 
@@ -19,23 +37,35 @@ describe('@/cachers/index', () => {
     sinon.restore();
   });
 
+  describe('run', () => {
+    describe('get', () => {
+      it('reads and returns the cached data', async() => {
+        const response = await cachers.run('get', 'items:recent');
+
+        expect(redisClientStub.getAsync.calledWith('@europeana:portal.js:items:recent')).toBe(true);
+        expect(response).toBe('cached');
+      });
+    });
+
+    describe('set', () => {
+      it('generates and caches data', async() => {
+        await cachers.run('set', 'items:recent');
+
+        expect(redisClientStub.setAsync.calledWith(
+          '@europeana:portal.js:items:recent', JSON.stringify(recentItemsData)
+        )).toBe(true);
+      });
+    });
+
+    describe('unknown command', () => {
+      it('throws an error', async() => {
+        expect(async() => await cachers.run('unknown', 'command'))
+          .rejects.toThrow('Unknown command "unknown"');
+      });
+    });
+  });
+
   describe('cli', () => {
-    let consoleErrorStub;
-    let consoleLogStub;
-    let processExitStub;
-
-    beforeAll(() => {
-      consoleErrorStub = sinon.stub(console, 'error');
-      consoleLogStub = sinon.stub(console, 'log');
-      processExitStub = sinon.stub(process, 'exit');
-    });
-
-    afterAll(() => {
-      consoleErrorStub.restore();
-      consoleLogStub.restore();
-      processExitStub.restore();
-    });
-
     describe('on success', () => {
       it('logs message to console', async() => {
         await cachers.cli('get', 'items:recent');
