@@ -59,7 +59,7 @@ describe('@/cachers/index', () => {
 
     describe('unknown command', () => {
       it('throws an error', async() => {
-        expect(async() => await cachers.run('unknown', 'command'))
+        await expect(async() => await cachers.run('unknown', 'command'))
           .rejects.toThrow('Unknown command "unknown"');
       });
     });
