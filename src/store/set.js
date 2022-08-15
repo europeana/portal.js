@@ -180,7 +180,7 @@ export default {
         qf: 'type:Collection'
       };
 
-      const searchResponse = await this.$apis.set.search(searchParams);
+      const searchResponse = await this.$apis.set.search(searchParams, { withMinimalItemPreviews: true });
       const sets = searchResponse.data.items || [];
       commit('setCreations', sets);
     },
