@@ -137,7 +137,7 @@
           description: theme.description[this.$i18n.locale],
           url: this.collectionLinkGen(theme),
           image: theme.contentfulImage
-        }));
+        })).sort((a, b) => a.title.localeCompare(b.title));
       }
     },
 
@@ -173,7 +173,7 @@
 
   .page {
     background-color: white;
-    padding-bottom: 1rem;
+    padding-bottom: 1px;
     position: relative;
     text-align: center;
 
@@ -188,6 +188,17 @@
       top: 100%;
       width: 0;
       z-index: 1;
+    }
+
+    &.gridless-container {
+      > div,
+      > section {
+        margin-bottom: 5.5rem;
+      }
+
+      .cta-banner {
+        margin-bottom: calc(5.5rem + 0.75em);
+      }
     }
   }
 </style>

@@ -1,7 +1,4 @@
 // Thematic collections available via the `collection` qf filter.
-//
-// NOTE: Order is significant as it will be reflected in the collection filter
-//       on the search interface.
 export default [
   {
     id: '83', qf: 'ww1',

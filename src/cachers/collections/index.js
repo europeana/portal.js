@@ -1,5 +1,5 @@
 import { createEuropeanaApiClient } from '../utils.js';
-import { getEntitySlug } from '../../plugins/europeana/entity.js';
+import { getLabelledSlug } from '@/plugins/europeana/utils';
 
 let axiosClient;
 
@@ -23,7 +23,7 @@ const pageOfEntityResults = (page, params = {}) => {
 
 const entityWithSlug = (entity) => ({
   ...entity,
-  slug: getEntitySlug(entity.id, entity.prefLabel?.en)
+  slug: getLabelledSlug(entity.id, entity.prefLabel?.en)
 });
 
 const allEntityResults = async(params) => {

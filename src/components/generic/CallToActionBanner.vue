@@ -115,7 +115,7 @@
         color: $mediumgrey;
         font-size: 2rem;
         font-weight: 700;
-        margin-bottom: 0.8em;
+        margin-bottom: 1.5rem;
 
         @media (min-width: $bp-extralarge) {
           font-size: 2.375rem;
@@ -123,6 +123,7 @@
 
         @media (min-width: $bp-xxxl) {
           font-size: 2em;
+          margin-bottom: 0.8em;
         }
       }
 
@@ -133,7 +134,7 @@
 
     .btn-primary.btn-cta {
       margin-bottom: 0;
-      text-transform: capitalize;
+      text-transform: none;
       border: 0.1875em solid $black;
       box-shadow: 0.25em 0.25em 0 0 $black;
       font-weight: 700;
@@ -177,6 +178,7 @@
       margin-right: 1em;
       height: 175px;
       position: relative;
+      flex-shrink: 0;
 
       @media (min-width: $bp-medium) {
         height: auto;
@@ -186,9 +188,8 @@
       img {
         position: absolute;
         left: 0;
-        top: 0;
         bottom: 0;
-        height: 100%;
+        max-height: 100%;
         right: 0;
         margin: 0 auto;
       }
@@ -215,7 +216,9 @@
     name="Call to action name"
     text="This is a call to action text"
     :link="{ url: '/', text: 'Click here' }"
-    :illustration="{ image: { url: 'https://images.ctfassets.net/i01duvb6kq77/6Fm9ywRyWVVWlu4Uq3yNaM/d37780502312ca581c450d52f298eae3/illustration_curate.svg' } }"
+    :illustration="{
+      image: { url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
+       width: 890, height: 724 } }"
   />
   ```
   Variant "light" with illustration
@@ -224,7 +227,8 @@
     name="Call to action name"
     text="This is a call to action text"
     :link="{ url: '/', text: 'Click here' }"
-    :illustration="{ image: { url: 'https://images.ctfassets.net/i01duvb6kq77/6Fm9ywRyWVVWlu4Uq3yNaM/d37780502312ca581c450d52f298eae3/illustration_curate.svg' } }"
+    :illustration="{ image: { url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
+    width: 890, height: 724  } }"
     variant="light"
   />
   ```
@@ -234,7 +238,8 @@
     name="Call to action name"
     text="This is a call to action text"
     :link="{ url: '/', text: 'Click here' }"
-    :illustration="{ image: { url: 'https://images.ctfassets.net/i01duvb6kq77/5KObdGGWsEnx45q2CmTZ7V/7684115e7fb6b850ddacf68ca61f1cf5/illustration_newsletter.svg' } }"
+    :illustration="{ image: { url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
+    width: 890, height: 724  } }"
     variant="innovationblue"
   />
   ```

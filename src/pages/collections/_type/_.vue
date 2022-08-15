@@ -83,10 +83,11 @@
   import ClientOnly from 'vue-client-only';
   import SearchInterface from '@/components/search/SearchInterface';
   import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
+  import redirectToPrefPathMixin from '@/mixins/redirectToPrefPath';
 
   import themes from '@/plugins/europeana/themes';
   import {
-    getEntitySlug, getEntityUri, getEntityQuery, normalizeEntityId
+    getEntityUri, getEntityQuery, normalizeEntityId
   } from '@/plugins/europeana/entity';
   import { langMapValueForLocale, uriRegex } from  '@/plugins/europeana/utils';
 
@@ -104,7 +105,8 @@
     },
 
     mixins: [
-      europeanaEntitiesOrganizationsMixin
+      europeanaEntitiesOrganizationsMixin,
+      redirectToPrefPathMixin
     ],
 
     beforeRouteLeave(to, from, next) {
@@ -172,7 +174,8 @@
             this.page = pageResponseData.entityPage.items[0];
           }
           this.$store.commit('search/setCollectionLabel', this.title.values[0]);
-          return this.redirectToPrefPath();
+          const urlLabel = this.page ? this.page.nameEN : this.entity.prefLabel.en;
+          return this.redirectToPrefPath('collections-type-all', this.entity.id, urlLabel, { type: this.collectionType });
         });
     },
 
@@ -400,22 +403,6 @@
       }
     },
     methods: {
-      redirectToPrefPath() {
-        const entityNameEn = this.page ? this.page.nameEN : this.entity.prefLabel.en;
-        const desiredPath = getEntitySlug(this.entity.id, entityNameEn);
-        if (this.$route.params.pathMatch !== desiredPath) {
-          const redirectPath = this.$path({
-            name: 'collections-type-all',
-            params: { type: this.collectionType, pathMatch: desiredPath }
-          });
-          if (process.server) {
-            this.$nuxt.context.redirect(302, redirectPath);
-          } else {
-            // _Replace_ history entry to prevent interference with back button
-            this.$nuxt.context.app.router.replace(redirectPath);
-          }
-        }
-      },
       storeSearchOverrides() {
         this.$store.commit('search/set', ['overrideParams', this.searchOverrides]);
       },

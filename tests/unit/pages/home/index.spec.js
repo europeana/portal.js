@@ -5,37 +5,41 @@ import sinon from 'sinon';
 
 const localVue = createLocalVue();
 
-const themes = [{
-  id: 'http://data.europeana.eu/concept/83',
-  prefLabel: { en: 'World War I' },
-  description: { en: 'Collection of untold stories and official histories of World War I, in a unique blend of cultural heritage collections and personal items contributed by European citizens.' }
-},
-{
-  id: 'http://data.europeana.eu/concept/80',
-  prefLabel: { en: 'Archaeology' },
-  description: { en: 'Explore all facets of archaeology from European museums, galleries, libraries and archives.' }
-},
-{
-  id: 'http://data.europeana.eu/concept/190',
-  prefLabel: { en: 'Art' },
-  description: { en: 'Discover inspiring art, artists and stories in the digitised collections of European museums, galleries, libraries and archives. Explore paintings, drawings, engravings and sculpture from cultural heritage institutions across Europe.' }
-}];
+const themes = [
+  {
+    id: 'http://data.europeana.eu/concept/83',
+    prefLabel: { en: 'World War I' },
+    description: { en: 'Collection of untold stories and official histories of World War I, in a unique blend of cultural heritage collections and personal items contributed by European citizens.' }
+  },
+  {
+    id: 'http://data.europeana.eu/concept/80',
+    prefLabel: { en: 'Archaeology' },
+    description: { en: 'Explore all facets of archaeology from European museums, galleries, libraries and archives.' }
+  },
+  {
+    id: 'http://data.europeana.eu/concept/190',
+    prefLabel: { en: 'Art' },
+    description: { en: 'Discover inspiring art, artists and stories in the digitised collections of European museums, galleries, libraries and archives. Explore paintings, drawings, engravings and sculpture from cultural heritage institutions across Europe.' }
+  }
+];
 
-const swiperSlides = [{
-  title: 'World War I',
-  description: 'Collection of untold stories and official histories of World War I, in a unique blend of cultural heritage collections and personal items contributed by European citizens.',
-  url: 'topic/83-world-war-i'
-},
-{
-  title: 'Archaeology',
-  description: 'Explore all facets of archaeology from European museums, galleries, libraries and archives.',
-  url: 'topic/80-archaeology'
-},
-{
-  title: 'Art',
-  description: 'Discover inspiring art, artists and stories in the digitised collections of European museums, galleries, libraries and archives. Explore paintings, drawings, engravings and sculpture from cultural heritage institutions across Europe.',
-  url: 'topic/190-art'
-}];
+const orderedSwiperSlides = [
+  {
+    title: 'Archaeology',
+    description: 'Explore all facets of archaeology from European museums, galleries, libraries and archives.',
+    url: 'topic/80-archaeology'
+  },
+  {
+    title: 'Art',
+    description: 'Discover inspiring art, artists and stories in the digitised collections of European museums, galleries, libraries and archives. Explore paintings, drawings, engravings and sculpture from cultural heritage institutions across Europe.',
+    url: 'topic/190-art'
+  },
+  {
+    title: 'World War I',
+    description: 'Collection of untold stories and official histories of World War I, in a unique blend of cultural heritage collections and personal items contributed by European citizens.',
+    url: 'topic/83-world-war-i'
+  }
+];
 
 const fetchAllThemesSpy = sinon.stub().resolves(themes);
 
@@ -115,7 +119,7 @@ describe('pages/home/index', () => {
 
         await wrapper.vm.fetch();
 
-        expect(wrapper.vm.swiperThemes).toEqual(swiperSlides);
+        expect(wrapper.vm.swiperThemes).toEqual(orderedSwiperSlides);
       });
 
       it('fetches the homePage entry from Contentful', async() => {

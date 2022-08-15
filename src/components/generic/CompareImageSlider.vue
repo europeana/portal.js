@@ -413,25 +413,25 @@
 <docs lang="md">
   ```jsx
   <CompareImageSlider
-    left-image-src="https://via.placeholder.com/800x300/085395/FFFFFF?text=Left%20image"
-    left-image-content-type="image/png"
-    :left-image-width="800"
-    :left-image-height="300"
+    left-image-src="https://api.europeana.eu/thumbnail/v3/400/e9246ea9b899e724216689ea7df02c5b"
+    left-image-content-type="image/jpeg"
+    :left-image-width="400"
+    :left-image-height="634"
     :left-image-attribution="{
-      provider: 'placeholder.com',
-      name: 'Dark blue',
-      url: 'https://via.placeholder.com/800x300/085395/FFFFFF?text=Left%20image',
-      rightsStatement: 'http://creativecommons.org/publicdomain/zero/1.0/'
+      provider: 'Real Jardín Botánico Madrid',
+      name: 'Iris bulbosa versicolor ',
+      url: 'https://api.europeana.eu/thumbnail/v3/400/e9246ea9b899e724216689ea7df02c5b',
+      rightsStatement: 'https://creativecommons.org/licenses/by-nc-sa/4.0/'
     }"
-    right-image-src="https://via.placeholder.com/800x300/79B2E3/000000?text=Right%20image"
-    right-image-content-type="image/png"
-    :right-image-width="800"
-    :right-image-height="300"
+    right-image-src="https://api.europeana.eu/thumbnail/v3/400/1b25d6df603f228942a145629ed2b129"
+    right-image-content-type="image/jpeg"
+    :right-image-width="400"
+    :right-image-height="622"
     :right-image-attribution="{
-      provider: 'placeholder.com',
-      name: 'Light blue',
-      url: 'https://via.placeholder.com/800x300/79B2E3/000000?text=Right%20image',
-      rightsStatement: 'http://creativecommons.org/publicdomain/zero/1.0/'
+      provider: 'Real Jardín Botánico Madrid',
+      name: 'Gentianella autumnalis ',
+      url: 'https://api.europeana.eu/thumbnail/v3/400/1b25d6df603f228942a145629ed2b129',
+      rightsStatement: 'http://creativecommons.org/licenses/by-nc-sa/4.0/'
     }"
   />
   ```
