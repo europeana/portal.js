@@ -1,10 +1,7 @@
 import sinon from 'sinon';
 
 import * as cacherUtils from '@/cachers/utils.js';
-import * as recentItemsCacher from '@/cachers/items/recent.js';
 import * as cachers from '@/cachers/index.js';
-
-let createRedisClientStub;
 
 describe('@/cachers/index', () => {
   beforeAll(() => {
@@ -13,7 +10,7 @@ describe('@/cachers/index', () => {
       quitAsync: sinon.stub().resolves(),
       setAsync: sinon.stub().resolves()
     };
-    createRedisClientStub = sinon.stub(cacherUtils, 'createRedisClient').returns(redisClientStub);
+    sinon.stub(cacherUtils, 'createRedisClient').returns(redisClientStub);
   });
 
   afterEach(sinon.resetHistory);

@@ -9,7 +9,7 @@ describe('@/cachers/cli', () => {
     cachersCliStub = sinon.stub(cachers, 'cli');
 
     processArgv = process.argv;
-    process.argv = ['node', './cachers/cli.js', 'get', 'cache']
+    process.argv = ['node', './cachers/cli.js', 'get', 'cache'];
   });
 
   afterEach(sinon.resetHistory);

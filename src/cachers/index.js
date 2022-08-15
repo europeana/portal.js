@@ -121,6 +121,6 @@ export const cli = async(command, cacherName) => {
     console.error(`ERROR: ${error}`);
     process.exit(1);
   }
-}
+};
 
 export default run;
