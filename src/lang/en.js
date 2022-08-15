@@ -584,7 +584,7 @@ export default {
         "newspaper": "Newspapers",
         "photography": "Photography",
         "sport": "Sport",
-        "ww1": "1914-1918"
+        "ww1": "World War I"
       },
       "select": "Select a theme"
     },
@@ -885,6 +885,7 @@ export default {
   "organisation": {
     "city": "City",
     "country": "Country",
+    "englishName": "English name",
     "nameAcronym": "Name acronym"
   },
   "pageHasLoaded": "has loaded",

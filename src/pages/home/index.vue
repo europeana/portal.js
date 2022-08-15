@@ -78,6 +78,7 @@
       return {
         sections: [],
         backgroundImage: null,
+        socialMediaImage: null,
         // TODO: following four properties required when rendering IndexPage as
         //       a child component; remove when new home page is launched.
         browsePage: false,
@@ -118,7 +119,8 @@
       },
 
       headMetaOgImage() {
-        return optimisedSrcForContentfulAsset(this.backgroundImage?.image, { w: 1200, h: 630, fit: 'fill' });
+        const image = this.socialMediaImage ? this.socialMediaImage : this.backgroundImage?.image;
+        return optimisedSrcForContentfulAsset(image, { w: 1200, h: 630, fit: 'fill' });
       },
 
       callsToAction() {
@@ -135,7 +137,7 @@
           description: theme.description[this.$i18n.locale],
           url: this.collectionLinkGen(theme),
           image: theme.contentfulImage
-        }));
+        })).sort((a, b) => a.title.localeCompare(b.title));
       }
     },
 
@@ -159,6 +161,7 @@
         const homePage = response.data.data.homePageCollection.items[0];
         this.sections = homePage.sectionsCollection.items.filter((item) => !!item);
         this.backgroundImage = homePage.primaryImageOfPage;
+        this.socialMediaImage = homePage.image;
       }
     }
   };
@@ -170,7 +173,7 @@
 
   .page {
     background-color: white;
-    padding-bottom: 1rem;
+    padding-bottom: 1px;
     position: relative;
     text-align: center;
 
@@ -185,6 +188,17 @@
       top: 100%;
       width: 0;
       z-index: 1;
+    }
+
+    &.gridless-container {
+      > div,
+      > section {
+        margin-bottom: 5.5rem;
+      }
+
+      .cta-banner {
+        margin-bottom: calc(5.5rem + 0.75em);
+      }
     }
   }
 </style>

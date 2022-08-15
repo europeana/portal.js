@@ -1,6 +1,6 @@
 <template>
   <div
-    class="hero figure-attribution responsive-backround-image"
+    class="hero figure-attribution responsive-backround-image responsive-font"
     :style="imageCSSVars"
   >
     <div
@@ -75,13 +75,17 @@
 
   .hero {
     margin-top: -70px;
-    margin-bottom: 1rem;
+    margin-bottom: 4.5rem;
     background-color: $mediumgrey-light;
     padding: 9.5rem 1.5rem;
     min-height: 100vh;
     background-size: cover;
     background-repeat: no-repeat;
     position: relative;
+
+    @media (min-width: $bp-xxxl) {
+      margin-top: -4.375vw;
+    }
 
     &::before {
       content: '';
@@ -143,16 +147,33 @@
         font-size: 1.5vw;
       }
     }
+
+    @media (min-width: $bp-medium) {
+      h1,
+      .sub-headline,
+      .open:not(.top-search) {
+        width: 25em;
+        min-width: 644px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      h1 {
+        width: auto;
+        max-width: 744px;
+      }
+    }
+
+    @media (min-width: $bp-large) {
+      h1 {
+        max-width: 80%;
+      }
+    }
   }
 
   .hero-content {
     margin: 0 auto;
     position: relative; // Prevents blending with the background
-
-    @media (min-width: $bp-medium) {
-      width: 25em;
-      min-width: 644px;
-    }
   }
 
   ::v-deep .icon-info {
@@ -187,7 +208,7 @@
           contentType: 'image/jpeg',
           description: null,
           height: 2694,
-          url: 'https://images.ctfassets.net/i01duvb6kq77/xtfviD6rWLt1VN46qRwJa/3db1d85b556b6bf5abcf5660001805a1/slanted_image_cover_5_.jpg',
+          url: 'https://images.ctfassets.net/i01duvb6kq77/1trzaYGwJsR79hW38lMpJO/465bdac6bb52df2f574c50dacdc74ef8/slantedimagecover_v1.jpg',
           width: 4320
         }
       }"

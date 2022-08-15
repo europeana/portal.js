@@ -241,6 +241,10 @@ input[type='checkbox']:focus + label {
 
 main#default {
   margin-top: 70px;
+
+  @media (min-width: $bp-xxxl) {
+    margin-top: 4.375vw;
+  }
 }
 
 .organisation-logo {

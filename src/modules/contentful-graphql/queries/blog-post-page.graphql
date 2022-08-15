@@ -9,6 +9,13 @@ query BlogPostPage(
       name
       description
       datePublished
+      relatedLink
+      categoriesCollection {
+        items {
+          name
+          identifier
+        }
+      }
       primaryImageOfPage {
         ... imageWithAttributionFields
       }
@@ -40,8 +47,6 @@ query BlogPostPage(
           # CardGroup omitted intentionally
         }
       }
-      relatedLink
-      keywords
       authorCollection {
         items {
           name

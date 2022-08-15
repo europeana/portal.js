@@ -1,6 +1,6 @@
 {
   "name": "@europeana/portal",
-  "version": "1.76.1",
+  "version": "1.77.0",
   "description": "Europeana Portal",
   "scripts": {
     "analyze": "nuxt build --analyze",
@@ -75,7 +75,7 @@
     "@vue/vue2-jest": "^27.0.0-alpha.4",
     "babel-jest": "^27.4.6",
     "camelcase": "^6.2.1",
-    "contentful-cli": "^1.10.0",
+    "contentful-cli": "^1.14.21",
     "css-loader": "^4.2.0",
     "eslint": "^7.32.0",
     "eslint-plugin-jest": "^25.3.4",
