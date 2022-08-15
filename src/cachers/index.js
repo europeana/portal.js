@@ -72,20 +72,20 @@ const runSetCacher = async(cacherName) => {
   }
 };
 
-const writeCacheKey = (cacheKey, data) => {
+const writeCacheKey = async(cacheKey, data) => {
   const redisClient = utils.createRedisClient(runtimeConfig.redis);
-  return redisClient.setAsync(cacheKey, JSON.stringify(data))
-    .then(() => redisClient.quitAsync());
+  await redisClient.setAsync(cacheKey, JSON.stringify(data));
+  await redisClient.quitAsync();
 };
 
-const readCacheKey = (cacheKey) => {
+const readCacheKey = async(cacheKey) => {
   const redisClient = utils.createRedisClient(runtimeConfig.redis);
-  return redisClient.getAsync(cacheKey)
-    .then(data => redisClient.quitAsync()
-      .then(() => data));
+  const data = await redisClient.getAsync(cacheKey);
+  await redisClient.quitAsync();
+  return data;
 };
 
-export default async(command, cacherName) => {
+export const run = async(command, cacherName) => {
   let response;
 
   try {
@@ -111,3 +111,16 @@ export default async(command, cacherName) => {
 
   return Promise.resolve(response);
 };
+
+export const cli = async(command, cacherName) => {
+  try {
+    const message = await run(command, cacherName);
+    console.log(message);
+    process.exit(0);
+  } catch (error) {
+    console.error(`ERROR: ${error}`);
+    process.exit(1);
+  }
+}
+
+export default run;
