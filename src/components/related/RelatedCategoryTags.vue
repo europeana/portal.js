@@ -86,6 +86,7 @@
 
     @media (min-width: $bp-xxxl) {
       line-height: 2.25vw;
+      font-size: 1.5vw;
     }
   }
 
@@ -101,10 +102,8 @@
       }
     }
 
-    .icon-clear {
-      color: #000;
-      font-size: 1.25rem;
-      margin-left: 0.25rem;
+    @media (min-width: $bp-xxxl) {
+      margin: 0 0.25vw 0.5vw;
     }
   }
 </style>
