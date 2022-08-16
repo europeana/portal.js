@@ -105,12 +105,7 @@
     computed: {
       hero() {
         return this.post.primaryImageOfPage || null;
-      },
-
-      ...mapGetters({
-        shareUrl: 'http/canonicalUrl',
-        identifier: 'http/canonicalUrlWithoutLocale'
-      })
+      }
     }
   };
 </script>
