@@ -24,7 +24,6 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
   import BlogPost from '@/components/blog/BlogPost';
 
   export default {
