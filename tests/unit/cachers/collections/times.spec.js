@@ -19,4 +19,8 @@ describe('@/cachers/collections/times', () => {
   it('localises prefLabel', () => {
     expect(cacher.LOCALISE).toBe('prefLabel');
   });
+
+  it('sorts on prefLabel', () => {
+    expect(cacher.SORT).toBe('prefLabel');
+  });
 });

@@ -49,7 +49,7 @@
       };
 
       if (this.sectionType === FEATURED_ORGANISATIONS) {
-        data.key = `${this.$i18n.locale}/collections/organisations/featured`;
+        data.key = 'collections/organisations/featured';
         data.cardType = 'AutomatedEntityCard';
         data.headline = this.$i18n.t('automatedCardGroup.organisation');
       } else if (this.sectionType === FEATURED_PLACES) {

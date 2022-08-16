@@ -44,30 +44,48 @@ const runSetCacher = async(cacherName) => {
   console.log(cacherName);
 
   const cacher = await cacherModule(cacherName);
-  let data = await cacher.data(runtimeConfig);
-
-  if (cacher.DAILY) {
-    data = utils.daily(data, cacher.DAILY);
-  }
-
-  if (cacher.PICK) {
-    data = utils.pick(data, cacher.PICK);
-  }
+  let rawData = await cacher.data(runtimeConfig);
+  let langAwareData;
 
   if (cacher.LOCALISE) {
-    for (const locale of localeCodes) {
-      const localised = utils.localise(data, cacher.LOCALISE, locale);
-      await writeCacheKey(namespaceCacheKey(cacherName, locale), localised);
-    }
+    langAwareData = localeCodes.map((locale) => ({
+      key: namespaceCacheKey(cacherName, locale),
+      data: utils.localise(rawData, cacher.LOCALISE, locale)
+    }));
+  } else if (cacher.INTERNATIONALISE) {
+    langAwareData = [{ key: namespaceCacheKey(cacherName), data: cacher.INTERNATIONALISE(rawData) }];
   } else {
-    await writeCacheKey(namespaceCacheKey(cacherName), data);
+    langAwareData = [{ key: namespaceCacheKey(cacherName), data: rawData }];
+  }
+
+  for (const toCache of langAwareData) {
+    if (cacher.PICK) {
+      toCache.data = utils.pick(toCache.data, cacher.PICK);
+    }
+    if (cacher.SORT) {
+      toCache.data = utils.sort(toCache.data, cacher.SORT);
+    }
+    if (cacher.DAILY) {
+      toCache.data = utils.daily(toCache.data, cacher.DAILY);
+    }
+    await writeCacheKey(toCache.key, toCache.data);
   }
 };
 
-const main = async() => {
-  const command = process.argv[2];
-  const cacherName = process.argv[3];
+const writeCacheKey = async(cacheKey, data) => {
+  const redisClient = utils.createRedisClient(runtimeConfig.redis);
+  await redisClient.setAsync(cacheKey, JSON.stringify(data));
+  await redisClient.quitAsync();
+};
 
+const readCacheKey = async(cacheKey) => {
+  const redisClient = utils.createRedisClient(runtimeConfig.redis);
+  const data = await redisClient.getAsync(cacheKey);
+  await redisClient.quitAsync();
+  return data;
+};
+
+export const run = async(command, cacherName) => {
   let response;
 
   try {
@@ -84,35 +102,24 @@ const main = async() => {
     } else if (command === 'get') {
       response = await readCacheKey(namespaceCacheKey(cacherName));
     } else {
-      console.error(`Unknown command "${command}"`);
-      process.exit(1);
+      throw new Error(`Unknown command "${command}"`);
     }
   } catch (error) {
-    return Promise.reject(utils.errorMessage(error));
+    return Promise.reject(new Error(utils.errorMessage(error)));
   }
 
   return Promise.resolve(response);
 };
 
-const writeCacheKey = (cacheKey, data) => {
-  const redisClient = utils.createRedisClient(runtimeConfig.redis);
-  return redisClient.setAsync(cacheKey, JSON.stringify(data))
-    .then(() => redisClient.quitAsync());
-};
-
-const readCacheKey = (cacheKey) => {
-  const redisClient = utils.createRedisClient(runtimeConfig.redis);
-  return redisClient.getAsync(cacheKey)
-    .then(data => redisClient.quitAsync()
-      .then(() => data));
-};
-
-main()
-  .then(message => {
+export const cli = async(command, cacherName) => {
+  try {
+    const message = await run(command, cacherName);
     console.log(message);
     process.exit(0);
-  })
-  .catch(message => {
-    console.log(`ERROR: ${message}`);
+  } catch (error) {
+    console.error(`ERROR: ${error.message}`);
     process.exit(1);
-  });
+  }
+};
+
+export default run;
