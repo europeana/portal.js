@@ -162,9 +162,21 @@
   line-height: 1.5;
   height: calc(2rem - 1px);
 
+  &:hover,
+  &:focus {
+    color: $mediumgrey;
+    background: $bodygrey !important;
+  }
+
   &.active {
     border-color: $innovationblue;
     background-color: $lightblue-dark;
     box-shadow: 0 4px 8px rgb(0 0 0 / 15%);
+  }
+
+  .icon-clear {
+    color: $black;
+    font-size: 1.25rem;
+    margin-left: 0.25rem;
   }
 }
