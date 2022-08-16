@@ -16,6 +16,7 @@
       :sort-by.sync="sortBy"
       :busy="$fetchState.pending"
       striped
+      class="borderless"
     >
       <template #table-busy>
         <div class="text-center my-2">
@@ -28,7 +29,17 @@
           :data-qa="`collection link ${data.item.slug}`"
           :destination="entityRoute(data.item.slug)"
         >
-          {{ data.item.prefLabel }}
+          <template v-if="type === 'organisations'">
+            <strong>{{ data.item.prefLabel }}</strong>
+            <span v-if="data.item.englishLabel">
+              {{ data.item.englishLabel }}
+            </span>
+          </template>
+          <span
+            v-else
+          >
+            {{ data.item.prefLabel }}
+          </span>
         </SmartLink>
       </template>
     </b-table>
@@ -79,8 +90,11 @@
           if (this.type === 'organisations') {
             this.collections = response.data.map(org => ({
               ...org,
-              prefLabel: Object.values(this.organizationEntityNativeName({ ...org, type: 'Organization' }))[0]
+              prefLabel: Object.values(this.organizationEntityNativeName({ ...org, type: 'Organization' }))[0],
+              englishLabel: this.organizationEntityNonNativeEnglishName({ ...org, type: 'Organization' }) ? Object.values(this.organizationEntityNonNativeEnglishName({ ...org, type: 'Organization' }))[0] : null
             })).map(Object.freeze);
+            // switch table sorting off
+            this.fields[0].sortable = false;
           } else {
             this.collections = response.data.map(Object.freeze);
           }

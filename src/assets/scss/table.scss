@@ -35,6 +35,27 @@ table,
       }
     }
   }
+
+  &.borderless {
+    border: 0;
+
+    strong {
+      font-size: $font-size-base;
+      font-weight: 600;
+      line-height: 1.25rem;
+      display: block;
+    }
+
+    strong + span {
+      font-size: $font-size-extrasmall;
+      line-height: 1.25rem;
+      color: $mediumgrey;
+    }
+
+    a:hover strong + span {
+      color: inherit;
+    }
+  }
 }
 
 .table {

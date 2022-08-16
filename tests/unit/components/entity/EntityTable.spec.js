@@ -27,7 +27,7 @@ const factory = (propsData = { type: 'organisations' }, fetchState = { error: fa
 const middlewarePath = '/_api/cache/collections/organisations';
 const collections = [
   { id: '001', slug: '001-museum', prefLabel: { de: 'museum' } },
-  { id: '002', slug: '002-library', prefLabel: { nl: 'library' } }
+  { id: '002', slug: '002-library', prefLabel: { nl: 'bibliotheek', en: 'library' } }
 ];
 
 describe('components/entity/EntityTable', () => {
@@ -54,9 +54,16 @@ describe('components/entity/EntityTable', () => {
       await wrapper.vm.fetch();
 
       expect(wrapper.vm.collections).toEqual([
-        { id: '001', slug: '001-museum', prefLabel: 'museum' },
-        { id: '002', slug: '002-library', prefLabel: 'library' }
+        { id: '001', slug: '001-museum', prefLabel: 'museum', englishLabel: null },
+        { id: '002', slug: '002-library', prefLabel: 'bibliotheek', englishLabel: 'library' }
       ]);
+    });
+
+    it('switches sorting off for organisations', async() => {
+      const wrapper = factory();
+      await wrapper.vm.fetch();
+
+      expect(wrapper.vm.fields[0].sortable).toBe(false);
     });
   });
 
