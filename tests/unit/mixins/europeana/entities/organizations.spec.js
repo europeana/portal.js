@@ -43,27 +43,9 @@ describe('@/mixins/europeana/entities/organizations', () => {
         expect(actual).toBe(expected);
       });
 
-      it('is `true` if arg has type "Organization" and 1 prefLabel property', () => {
+      it('is `true` if arg has type "Organization" and prefLabel', () => {
         const arg = { type: 'Organization', prefLabel: { en: 'Museum' } };
         const expected = true;
-
-        const actual = factory().vm.isNamedOrganizationEntity(arg);
-
-        expect(actual).toBe(expected);
-      });
-
-      it('is `true` if arg has type "Organization" and 2 prefLabel properties', () => {
-        const arg = { type: 'Organization', prefLabel: { en: 'Museum', fr: 'Musée' } };
-        const expected = true;
-
-        const actual = factory().vm.isNamedOrganizationEntity(arg);
-
-        expect(actual).toBe(expected);
-      });
-
-      it('is `false` if arg has type "Organization" and > 2 prefLabel properties', () => {
-        const arg = { type: 'Organization', prefLabel: { en: 'Museum', fr: 'Musée', nl: 'Museum' } };
-        const expected = false;
 
         const actual = factory().vm.isNamedOrganizationEntity(arg);
 

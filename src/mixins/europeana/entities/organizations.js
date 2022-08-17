@@ -3,9 +3,7 @@ const ENGLISH_LOCALE_CODE = 'en';
 export default {
   methods: {
     isNamedOrganizationEntity(entity) {
-      return (entity?.type === 'Organization')
-        && !!entity.prefLabel
-        && Object.keys(entity.prefLabel).length < 3;
+      return (entity?.type === 'Organization') && !!entity.prefLabel;
     },
 
     organizationEntityNativeName(entity) {
