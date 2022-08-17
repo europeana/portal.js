@@ -58,22 +58,25 @@
             />
           </b-col>
         </b-row>
-        <b-row
+        <client-only
           v-if="relatedEntityUris.length > 0"
-          class="justify-content-center"
         >
-          <b-col
-            cols="12"
-            class="col-lg-10 mt-4"
+          <b-row
+            class="justify-content-center"
           >
-            <RelatedCollections
-              :title="$t('collectionsYouMightLike')"
-              :entity-uris="relatedEntityUris"
-              data-qa="related entities"
-              badge-variant="light"
-            />
-          </b-col>
-        </b-row>
+            <b-col
+              cols="12"
+              class="col-lg-10 mt-4"
+            >
+              <RelatedCollections
+                :title="$t('collectionsYouMightLike')"
+                :entity-uris="relatedEntityUris"
+                data-qa="related entities"
+                badge-variant="light"
+              />
+            </b-col>
+          </b-row>
+        </client-only>
         <b-row
           v-else
           class="mb-3"
@@ -91,19 +94,21 @@
             />
           </b-col>
         </b-row>
-        <!--
-          NOTE: dcType/title does not make sense here, but leave it alone as
-                eventually this will be deprecated and the Recommendation API
-                used instead.
-          FIXME: ... but who knows when, so maybe fix here in the meantime
-        -->
-        <ItemRecommendations
-          :identifier="identifier"
-          :dc-type="title"
-          :dc-subject="metadata.dcSubject"
-          :dc-creator="metadata.dcCreator"
-          :edm-data-provider="metadata.edmDataProvider ? metadata.edmDataProvider.value : null"
-        />
+        <client-only>
+          <!--
+            NOTE: dcType/title does not make sense here, but leave it alone as
+                  eventually this will be deprecated and the Recommendation API
+                  used instead.
+            FIXME: ... but who knows when, so maybe fix here in the meantime
+          -->
+          <ItemRecommendations
+            :identifier="identifier"
+            :dc-type="title"
+            :dc-subject="metadata.dcSubject"
+            :dc-creator="metadata.dcCreator"
+            :edm-data-provider="metadata.edmDataProvider ? metadata.edmDataProvider.value : null"
+          />
+        </client-only>
         <b-row class="footer-margin" />
       </b-container>
     </template>
