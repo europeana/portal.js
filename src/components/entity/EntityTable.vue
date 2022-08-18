@@ -30,9 +30,12 @@
           :destination="entityRoute(data.item.slug)"
         >
           <template v-if="type === 'organisations'">
-            <strong>{{ data.item.prefLabel }}</strong>
-            <span v-if="data.item.englishLabel">
-              {{ data.item.englishLabel }}
+            <strong :lang="data.item.nativeLabel.code">{{ data.item.nativeLabel.values[0] }}</strong>
+            <span
+              v-if="data.item.nonNativeEnglishLabel"
+              :lang="data.item.nonNativeEnglishLabel.code"
+            >
+              {{ data.item.nonNativeEnglishLabel.values[0] }}
             </span>
           </template>
           <span
@@ -50,7 +53,6 @@
   import { BTable } from 'bootstrap-vue';
   import LoadingSpinner from '../generic/LoadingSpinner';
   import SmartLink from '../generic/SmartLink';
-  import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
 
   export default {
     name: 'EntityTable',
@@ -60,9 +62,6 @@
       LoadingSpinner,
       SmartLink
     },
-    mixins: [
-      europeanaEntitiesOrganizationsMixin
-    ],
     props: {
       type: {
         type: String,
@@ -72,7 +71,7 @@
     data() {
       return {
         collections: null,
-        sortBy: 'prefLabel',
+        sortBy: this.type === 'organisations' ? 'nativeLabel.values[0]' : 'prefLabel',
         fields: [
           {
             key: 'prefLabel',
@@ -85,19 +84,7 @@
     fetch() {
       return this.$axios.get(this.apiEndpoint, { baseURL: window.location.origin })
         .then(response => {
-          // TODO: temporary organisations-specific workaround pending update of
-          //       table for both native and English
-          if (this.type === 'organisations') {
-            this.collections = response.data.map(org => ({
-              ...org,
-              prefLabel: Object.values(this.organizationEntityNativeName({ ...org, type: 'Organization' }))[0],
-              englishLabel: this.organizationEntityNonNativeEnglishName({ ...org, type: 'Organization' }) ? Object.values(this.organizationEntityNonNativeEnglishName({ ...org, type: 'Organization' }))[0] : null
-            })).map(Object.freeze);
-            // switch table sorting off
-            this.fields[0].sortable = false;
-          } else {
-            this.collections = response.data.map(Object.freeze);
-          }
+          this.collections = response.data.map(Object.freeze);
         })
         .catch((e) => {
           // TODO: set fetch state error from message
