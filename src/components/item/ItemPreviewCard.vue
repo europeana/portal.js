@@ -1,6 +1,6 @@
 <template>
   <ContentCard
-    :title="item.dcTitleLangAware || item.dcDescriptionLangAware"
+    :title="dcTitle || item.dcDescriptionLangAware"
     :url="url"
     :image-url="imageUrl"
     :texts="texts"
@@ -149,6 +149,17 @@
     },
 
     computed: {
+      dcTitle() {
+        return this.unpublishedItem ?
+          { [this.$i18n.locale]: [this.$t('record.status.unpublished')] } :
+          this.item.dcTitleLangAware;
+      },
+
+      unpublishedItem() {
+        const itemProperties = Object.keys(this.item);
+        return (itemProperties.length === 1) && (itemProperties[0] === 'id');
+      },
+
       texts() {
         const textlessVariants = ['explore', 'mosaic'];
         if (textlessVariants.includes(this.variant)) {

@@ -14,6 +14,7 @@
 <script>
   import RelatedCollections from '../related/RelatedCollections';
   import allThemes from '@/mixins/allThemes';
+  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
 
   export default {
     name: 'QuickSearch',
@@ -41,7 +42,12 @@
 
     computed: {
       optionsAndThemes() {
-        return this.options.concat(this.allThemes);
+        return this.options.concat(this.alphabeticallySortedThemes);
+      },
+      alphabeticallySortedThemes() {
+        // Slice to make a copy, as sort occurs in place
+        return this.allThemes.slice(0).sort((a, b) =>
+          langMapValueForLocale(a.prefLabel, this.$i18n.locale).values[0].localeCompare(langMapValueForLocale(b.prefLabel, this.$i18n.locale).values[0]));
       }
     }
   };

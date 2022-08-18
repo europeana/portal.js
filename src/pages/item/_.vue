@@ -289,7 +289,7 @@
         return this.annotationsByMotivation('transcribing');
       },
       ...mapGetters({
-        shareUrl: 'http/canonicalUrl'
+        shareUrl: 'http/canonicalUrlWithoutLocale'
       }),
       relatedEntityUris() {
         return this.europeanaEntityUris.slice(0, 5);

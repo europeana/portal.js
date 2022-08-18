@@ -1,5 +1,5 @@
 <template>
-  <b-row class="flex-md-row related-category-tags responsive-font">
+  <b-row class="flex-md-row related-category-tags">
     <b-col
       v-if="tags.length > 0"
       data-qa="related category tags"
@@ -84,8 +84,11 @@
     font-size: 1.5rem;
     line-height: calc(2rem - 1px);
 
-    @media (min-width: $bp-xxxl) {
-      line-height: 2.25vw;
+    @at-root .responsive-font & {
+      @media (min-width: $bp-xxxl) {
+        line-height: 2.25vw;
+        font-size: 1.5vw;
+      }
     }
   }
 
@@ -101,10 +104,10 @@
       }
     }
 
-    .icon-clear {
-      color: #000;
-      font-size: 1.25rem;
-      margin-left: 0.25rem;
+    @at-root .responsive-font & {
+      @media (min-width: $bp-xxxl) {
+        margin: 0 0.25vw 0.5vw;
+      }
     }
   }
 </style>

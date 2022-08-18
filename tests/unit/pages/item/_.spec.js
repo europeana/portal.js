@@ -26,7 +26,7 @@ const record = {
 
 const store = new Vuex.Store({
   getters: {
-    'http/canonicalUrl': () => () => null
+    'http/canonicalUrlWithoutLocale': () => 'https://www.example.org/item/123/abc'
   }
 });
 

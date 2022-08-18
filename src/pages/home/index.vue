@@ -60,6 +60,7 @@
   import HomeLatest from '@/components/home/HomeLatest';
   import StackedCardsSwiper from '@/components/generic/StackedCardsSwiper';
   import { optimisedSrcForContentfulAsset } from '@/plugins/contentful-utils';
+  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
 
   export default {
     name: 'HomePage',
@@ -133,8 +134,8 @@
 
       swiperThemes() {
         return this.allThemes.map(theme => ({
-          title: theme.prefLabel[this.$i18n.locale],
-          description: theme.description[this.$i18n.locale],
+          title: langMapValueForLocale(theme.prefLabel, this.$i18n.locale).values[0],
+          description: langMapValueForLocale(theme.description, this.$i18n.locale).values[0],
           url: this.collectionLinkGen(theme),
           image: theme.contentfulImage
         })).sort((a, b) => a.title.localeCompare(b.title));

@@ -8,7 +8,7 @@ localVue.use(Vuex);
 
 const store = new Vuex.Store({
   getters: {
-    'http/canonicalUrl': () => 'https://www.example.org/page'
+    'http/canonicalUrlWithoutLocale': () => 'https://www.example.org/page'
   }
 });
 
