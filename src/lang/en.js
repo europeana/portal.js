@@ -762,7 +762,8 @@ export default {
     "subHeadline": "Search, save and share art, books, films and music from thousands of cultural institutions",
     "themesCTA": "See all themes",
     "themesTitle": "Explore by theme",
-    "title": "Discover Europe’s cultural heritage"
+    "title": "Discover Europe’s {0} cultural heritage",
+    "titleDigital": "digital"
   },
   "imageSlider": {
     "handle": "Slider Handle"

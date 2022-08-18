@@ -112,7 +112,7 @@
 
     computed: {
       pageTitle() {
-        return this.$t('homePage.title');
+        return this.$t('homePage.title', [this.$t('homePage.titleDigital')]);
       },
 
       pageSubHeadline() {
