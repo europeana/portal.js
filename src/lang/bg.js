@@ -557,7 +557,7 @@ export default {
         "newspaper": "Вестници",
         "photography": "Фотография",
         "sport": "Спорт",
-        "ww1": "1914-1918"
+        "ww1": "Първа световна война"
       },
       "select": "Изберете тема"
     },
@@ -858,6 +858,7 @@ export default {
   "organisation": {
     "city": "град",
     "country": "Държава:",
+    "englishName": "английско име",
     "nameAcronym": "Акроним на името"
   },
   "pageHasLoaded": "е зареден",

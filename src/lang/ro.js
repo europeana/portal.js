@@ -80,6 +80,7 @@ export default {
   "cardLabels": {
     "organisation": "Organizare",
     "person": "Persoană",
+    "place": "Loc",
     "theme": "Temă",
     "time": "Secol",
     "topic": "Subiect"
@@ -555,7 +556,7 @@ export default {
         "newspaper": "Ziare",
         "photography": "Fotografie",
         "sport": "Sport",
-        "ww1": "1914-1918"
+        "ww1": "Primul Război Mondial"
       },
       "select": "Selectați o temă"
     },
@@ -855,6 +856,7 @@ export default {
   "organisation": {
     "city": "Oraș",
     "country": "Țara",
+    "englishName": "Nume englezesc",
     "nameAcronym": "Acronim de nume"
   },
   "pageHasLoaded": "a încărcat",
@@ -868,6 +870,9 @@ export default {
       },
       "persons": {
         "title": "Persoane"
+      },
+      "places": {
+        "title": "Locuri"
       },
       "table": {
         "name": "Nume"

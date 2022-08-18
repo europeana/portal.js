@@ -561,7 +561,7 @@ export default {
         "newspaper": "Egunkariak",
         "photography": "Argazkilaritza",
         "sport": "Kirola",
-        "ww1": "1914-1918"
+        "ww1": "Lehen Mundu Gerra"
       },
       "select": "Hautatu gai bat"
     },
@@ -862,6 +862,7 @@ export default {
   "organisation": {
     "city": "Hiria",
     "country": "Herrialdea",
+    "englishName": "Ingelesezko izena",
     "nameAcronym": "Izenaren akronimoa"
   },
   "pageHasLoaded": "kargatu du",

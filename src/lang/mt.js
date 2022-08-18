@@ -80,6 +80,7 @@ export default {
   "cardLabels": {
     "organisation": "Organizzazzjoni",
     "person": "Persuna",
+    "place": "Post",
     "theme": "Tema",
     "time": "Seklu",
     "topic": "Suġġett"
@@ -555,7 +556,7 @@ export default {
         "newspaper": "Gazzetti",
         "photography": "Fotografija",
         "sport": "Sport",
-        "ww1": "1914-1918"
+        "ww1": "L-Ewwel Gwerra Dinjija"
       },
       "select": "Agħżel tema"
     },
@@ -855,6 +856,7 @@ export default {
   "organisation": {
     "city": "Belt",
     "country": "Pajjiż",
+    "englishName": "Isem l-Ingliż",
     "nameAcronym": "Isem akronimu"
   },
   "pageHasLoaded": "ġie illowdjat",
@@ -868,6 +870,9 @@ export default {
       },
       "persons": {
         "title": "Persuni"
+      },
+      "places": {
+        "title": "Postijiet"
       },
       "table": {
         "name": "Isem"

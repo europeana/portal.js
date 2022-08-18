@@ -557,7 +557,7 @@ export default {
         "newspaper": "Noviny",
         "photography": "Fotografie",
         "sport": "Sport",
-        "ww1": "1914–1918"
+        "ww1": "První světová válka"
       },
       "select": "Vyberte motiv"
     },
@@ -858,6 +858,7 @@ export default {
   "organisation": {
     "city": "Město",
     "country": "Země",
+    "englishName": "Anglický název",
     "nameAcronym": "Zkratka jména"
   },
   "pageHasLoaded": "načteno",

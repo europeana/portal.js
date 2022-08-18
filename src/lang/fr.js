@@ -557,7 +557,7 @@ export default {
         "newspaper": "Journaux",
         "photography": "Photographie",
         "sport": "Sport",
-        "ww1": "1914-1918"
+        "ww1": "Première Guerre mondiale"
       },
       "select": "Sélectionnez un thème"
     },
@@ -858,6 +858,7 @@ export default {
   "organisation": {
     "city": "Ville",
     "country": "Pays",
+    "englishName": "Nom anglais",
     "nameAcronym": "Acronyme du nom"
   },
   "pageHasLoaded": "a chargé",

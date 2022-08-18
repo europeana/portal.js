@@ -80,6 +80,7 @@ export default {
   "cardLabels": {
     "organisation": "Szervezet",
     "person": "Személy",
+    "place": "Hely",
     "theme": "Téma",
     "time": "Század",
     "topic": "Téma"
@@ -555,7 +556,7 @@ export default {
         "newspaper": "Újságok",
         "photography": "Fotózás",
         "sport": "Sport",
-        "ww1": "1914-1918"
+        "ww1": "Első világháború"
       },
       "select": "Téma kiválasztása"
     },
@@ -856,6 +857,7 @@ export default {
   "organisation": {
     "city": "Város",
     "country": "Ország",
+    "englishName": "Angol név",
     "nameAcronym": "Név rövidítés"
   },
   "pageHasLoaded": "betöltődött",
@@ -870,6 +872,9 @@ export default {
       },
       "persons": {
         "title": "Személyek"
+      },
+      "places": {
+        "title": "Helyek"
       },
       "table": {
         "name": "Név"

@@ -557,7 +557,7 @@ export default {
         "newspaper": "Aviser",
         "photography": "Fotografi",
         "sport": "Sport",
-        "ww1": "1914-1918"
+        "ww1": "Første Verdenskrig"
       },
       "select": "Vælg et tema"
     },
@@ -760,7 +760,7 @@ export default {
         "learnMore": "Lad mig vælge"
       },
       "decline": "Jeg afviser",
-      "ok": "okay",
+      "ok": "Okay",
       "purposes": {
         "essential": {
           "description": "Disse tjenester er afgørende for, at dette websted fungerer korrekt. De inkluderer søgeresultatvisning og sprogindstillinger, bevarer den loggede tilstand og holder dit besøg sikkert. Du kan ikke deaktivere dem, da webstedet ellers ikke fungerer korrekt.",
@@ -858,6 +858,7 @@ export default {
   "organisation": {
     "city": "By",
     "country": "Land",
+    "englishName": "Engelsk navn",
     "nameAcronym": "Navn akronym"
   },
   "pageHasLoaded": "har indlæst",

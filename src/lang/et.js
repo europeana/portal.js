@@ -557,7 +557,7 @@ export default {
         "newspaper": "Ajalehed",
         "photography": "Fotograafia",
         "sport": "Sport",
-        "ww1": "1914–1918"
+        "ww1": "Esimene maailmasõda"
       },
       "select": "Valige teema"
     },
@@ -858,6 +858,7 @@ export default {
   "organisation": {
     "city": "Linn",
     "country": "Riik",
+    "englishName": "Ingliskeelne nimi",
     "nameAcronym": "Nime akronüüm"
   },
   "pageHasLoaded": "on laaditud",

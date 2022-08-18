@@ -80,6 +80,7 @@ export default {
   "cardLabels": {
     "organisation": "Organización",
     "person": "Persona",
+    "place": "Lugar",
     "theme": "Tema",
     "time": "Siglo",
     "topic": "Tema"
@@ -555,7 +556,7 @@ export default {
         "newspaper": "Periódicos",
         "photography": "Fotografía",
         "sport": "Deporte",
-        "ww1": "1914-1918"
+        "ww1": "Primera Guerra Mundial"
       },
       "select": "Selecciona un tema"
     },
@@ -855,6 +856,7 @@ export default {
   "organisation": {
     "city": "Ciudad",
     "country": "País",
+    "englishName": "Nombre en inglés",
     "nameAcronym": "acrónimo del nombre"
   },
   "pageHasLoaded": "ha cargado",
@@ -868,6 +870,9 @@ export default {
       },
       "persons": {
         "title": "Personas"
+      },
+      "places": {
+        "title": "Lugares"
       },
       "table": {
         "name": "Nombre"

@@ -557,7 +557,7 @@ export default {
         "newspaper": "Sanomalehdet",
         "photography": "Valokuvaus",
         "sport": "Urheilu",
-        "ww1": "1914–1918"
+        "ww1": "Ensimmäinen maailmansota"
       },
       "select": "Valitse teema"
     },
@@ -858,6 +858,7 @@ export default {
   "organisation": {
     "city": "Kaupunki",
     "country": "Maa",
+    "englishName": "Englanninkielinen nimi",
     "nameAcronym": "Nimen lyhenne"
   },
   "pageHasLoaded": "on ladattu",

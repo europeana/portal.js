@@ -80,6 +80,7 @@ export default {
   "cardLabels": {
     "organisation": "Organizacija",
     "person": "Asmuo",
+    "place": "Vieta",
     "theme": "Tema",
     "time": "Amžius",
     "topic": "Tema"
@@ -555,7 +556,7 @@ export default {
         "newspaper": "Laikraščiai",
         "photography": "Fotografija",
         "sport": "Sportas",
-        "ww1": "1914-1918"
+        "ww1": "Pirmasis pasaulinis karas"
       },
       "select": "Pasirinkite temą"
     },
@@ -855,6 +856,7 @@ export default {
   "organisation": {
     "city": "Miestas",
     "country": "Šalis",
+    "englishName": "Angliškas pavadinimas",
     "nameAcronym": "Pavadinimo akronimas"
   },
   "pageHasLoaded": "įkelta",
@@ -868,6 +870,9 @@ export default {
       },
       "persons": {
         "title": "Asmenys"
+      },
+      "places": {
+        "title": "Vietos"
       },
       "table": {
         "name": "Vardas"

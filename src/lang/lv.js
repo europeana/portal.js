@@ -80,6 +80,7 @@ export default {
   "cardLabels": {
     "organisation": "Organizācija",
     "person": "Persona",
+    "place": "Vieta",
     "theme": "Tēma",
     "time": "Gadsimts",
     "topic": "Temats"
@@ -555,7 +556,7 @@ export default {
         "newspaper": "Laikraksti",
         "photography": "Fotogrāfija",
         "sport": "Sports",
-        "ww1": "1914.–1918. gads"
+        "ww1": "Pirmais pasaules karš"
       },
       "select": "Izvēlieties motīvu"
     },
@@ -855,6 +856,7 @@ export default {
   "organisation": {
     "city": "Pilsēta",
     "country": "Valsts",
+    "englishName": "Angliskais nosaukums",
     "nameAcronym": "Vārda akronīms"
   },
   "pageHasLoaded": "ir ielādēts",
@@ -868,6 +870,9 @@ export default {
       },
       "persons": {
         "title": "Personas"
+      },
+      "places": {
+        "title": "Vietas"
       },
       "table": {
         "name": "Vārds"

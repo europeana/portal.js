@@ -80,6 +80,7 @@ export default {
   "cardLabels": {
     "organisation": "Organizacija",
     "person": "Oseba",
+    "place": "Mesto",
     "theme": "Tema",
     "time": "Stoletje",
     "topic": "Tema"
@@ -555,7 +556,7 @@ export default {
         "newspaper": "Časopisi",
         "photography": "Fotografija",
         "sport": "Šport",
-        "ww1": "1914-1918"
+        "ww1": "Prva svetovna vojna"
       },
       "select": "Izberite temo"
     },
@@ -758,7 +759,7 @@ export default {
         "learnMore": "Naj izberem"
       },
       "decline": "Zavrnem.",
-      "ok": "okej",
+      "ok": "Okej",
       "purposes": {
         "essential": {
           "description": "Te storitve so nujne za pravilno delovanje tega spletnega mesta. Vključujejo poglede rezultatov iskanja in jezikovne nastavitve, ohranjajo stanje prijave in zagotavljajo varnost vašega obiska. Ne morete jih onemogočiti, saj spletno mesto sicer ne bi delovalo pravilno.",
@@ -855,6 +856,7 @@ export default {
   "organisation": {
     "city": "Mesto",
     "country": "Država",
+    "englishName": "Angleško ime",
     "nameAcronym": "Kratica imena"
   },
   "pageHasLoaded": "je naložena",
@@ -868,6 +870,9 @@ export default {
       },
       "persons": {
         "title": "Osebe"
+      },
+      "places": {
+        "title": "Krajev"
       },
       "table": {
         "name": "Ime"

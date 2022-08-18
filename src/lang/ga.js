@@ -80,6 +80,7 @@ export default {
   "cardLabels": {
     "organisation": "Eagraíocht",
     "person": "Duine",
+    "place": "Áit",
     "theme": "Téama",
     "time": "Haois",
     "topic": "Ábhar"
@@ -555,7 +556,7 @@ export default {
         "newspaper": "Nuachtáin",
         "photography": "Grianghrafadóireacht",
         "sport": "Spórt",
-        "ww1": "1914-1918"
+        "ww1": "An Chéad Chogadh Domhanda"
       },
       "select": "Roghnaigh téama"
     },
@@ -856,6 +857,7 @@ export default {
   "organisation": {
     "city": "Cathair",
     "country": "Tír",
+    "englishName": "Ainm Béarla",
     "nameAcronym": "Acrainm ainm"
   },
   "pageHasLoaded": "luchtaithe",
@@ -870,6 +872,9 @@ export default {
       },
       "persons": {
         "title": "Daoine"
+      },
+      "places": {
+        "title": "Áiteanna"
       },
       "table": {
         "name": "Ainm"

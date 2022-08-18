@@ -80,6 +80,7 @@ export default {
   "cardLabels": {
     "organisation": "Organisation",
     "person": "Person",
+    "place": "Plats",
     "theme": "Tema",
     "time": "Århundrade",
     "topic": "Ämne"
@@ -555,7 +556,7 @@ export default {
         "newspaper": "Tidningar",
         "photography": "Fotografi",
         "sport": "Sport",
-        "ww1": "1914–1918"
+        "ww1": "Första världskriget"
       },
       "select": "Välj ett tema"
     },
@@ -855,6 +856,7 @@ export default {
   "organisation": {
     "city": "Stad",
     "country": "Land",
+    "englishName": "Engelskt namn",
     "nameAcronym": "Namn akronym"
   },
   "pageHasLoaded": "har laddats",
@@ -868,6 +870,9 @@ export default {
       },
       "persons": {
         "title": "Personer"
+      },
+      "places": {
+        "title": "Platser"
       },
       "table": {
         "name": "Namn"

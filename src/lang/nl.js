@@ -557,7 +557,7 @@ export default {
         "newspaper": "Kranten",
         "photography": "Fotografie",
         "sport": "Sport",
-        "ww1": "1914-1918"
+        "ww1": "Eerste Wereldoorlog"
       },
       "select": "Selecteer een thema"
     },
@@ -858,6 +858,7 @@ export default {
   "organisation": {
     "city": "Stad",
     "country": "Land",
+    "englishName": "Engelse naam",
     "nameAcronym": "Naam acroniem"
   },
   "pageHasLoaded": "heeft geladen",

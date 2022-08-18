@@ -80,6 +80,7 @@ export default {
   "cardLabels": {
     "organisation": "Organizácia",
     "person": "Osoba",
+    "place": "Miesto",
     "theme": "Téma",
     "time": "Storočia",
     "topic": "Téma"
@@ -555,7 +556,7 @@ export default {
         "newspaper": "Noviny",
         "photography": "Fotografie",
         "sport": "Šport",
-        "ww1": "1914 – 1918"
+        "ww1": "Prvá svetová vojna"
       },
       "select": "Vyberte tému"
     },
@@ -855,6 +856,7 @@ export default {
   "organisation": {
     "city": "Mesto",
     "country": "Krajina",
+    "englishName": "Anglický názov",
     "nameAcronym": "Názov akronym"
   },
   "pageHasLoaded": "načítal",
@@ -868,6 +870,9 @@ export default {
       },
       "persons": {
         "title": "Osoby"
+      },
+      "places": {
+        "title": "Miesta"
       },
       "table": {
         "name": "Meno"

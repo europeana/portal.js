@@ -557,7 +557,7 @@ export default {
         "newspaper": "Novine",
         "photography": "Fotografija",
         "sport": "Sport",
-        "ww1": "1914.-1918."
+        "ww1": "Prvi svjetski rat"
       },
       "select": "Odaberite temu"
     },
@@ -858,6 +858,7 @@ export default {
   "organisation": {
     "city": "Grad",
     "country": "Država",
+    "englishName": "Engleski naziv",
     "nameAcronym": "Akronim naziva"
   },
   "pageHasLoaded": "se učitao",
