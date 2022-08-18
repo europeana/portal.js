@@ -80,6 +80,7 @@ export default {
   "cardLabels": {
     "organisation": "Eagraíocht",
     "person": "Duine",
+    "place": "Áit",
     "theme": "Téama",
     "time": "Haois",
     "topic": "Ábhar"
@@ -199,7 +200,7 @@ export default {
         "title": "An iomarca míreanna pinned"
       },
       "pinned": "Tá an t-earra pinned. Tá sé anois ag barr an chéad leathanaigh den bhailiúchán seo. Thógfadh sé suas le 24 uair an chloig láithriú do gach duine.",
-      "select": "Roghnaigh aonán gaolmhar chun an mhír a phionnadh/díphionnáil chuige/ó.",
+      "select": "Roghnaigh aonán gaolmhar chun an mhír a phionnadh\/díphionnáil chuige\/ó.",
       "unpin": "Ní thaispeánfar an mhír seo ag barr an bhailiúcháin \" {entity} \". Cuirfimid in iúl duit nuair a bheidh an t-athrú seo le feiceáil ar leathanach an bhailiúcháin.",
       "unpinned": "Tá an mhír díphionnáilte. Níl sé ag barr an chéad leathanaigh den bhailiúchán seo a thuilleadh. D'fhéadfadh sé suas le 24 uair an chloig a thógáil chun imeacht do gach duine."
     }
@@ -493,7 +494,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formáid chomhaid | Formáidí comhaid",
       "options": {
-        "text/plain": "Téacs simplí"
+        "text\/plain": "Téacs simplí"
       },
       "select": "Roghnaigh formáidí comhaid"
     },
@@ -555,7 +556,7 @@ export default {
         "newspaper": "Nuachtáin",
         "photography": "Grianghrafadóireacht",
         "sport": "Spórt",
-        "ww1": "1914-1918"
+        "ww1": "An Chéad Chogadh Domhanda"
       },
       "select": "Roghnaigh téama"
     },
@@ -652,7 +653,7 @@ export default {
       "edmIsSimilarTo": "Is cosúil leis",
       "edmIsSuccessorOf": "Is comharba é ar",
       "edmProvider": "Soláthraí",
-      "edmRealizes": "Tuigeann sé/sí",
+      "edmRealizes": "Tuigeann sé\/sí",
       "edmRights": "Ráiteas Ceadúnas do na meáin sa mhír seo (mura sonraítear a mhalairt)",
       "edmUgc": "Inneachar ginte le húsáideoirí",
       "europeanaCollectionName": "Ainm bailiúcháin",
@@ -779,7 +780,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Cuidíonn sé lenár suíomh Gréasáin a fheabhsú trí athruithe turgnamhacha a chur i bhfeidhm ó am go chéile.",
-        "title": "Tástáil A/B"
+        "title": "Tástáil A\/B"
       },
       "auth-strategy": {
         "description": "Is cuimhin leis an straitéis údaraithe a úsáid chun logáil isteach.",
@@ -811,7 +812,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Cuimhníonn sé más fearr leat na torthaí cuardaigh a fheiceáil i liosta nó in amharc greille.",
-        "title": "Amharc toraidh cuardaigh (liosta/greille)"
+        "title": "Amharc toraidh cuardaigh (liosta\/greille)"
       }
     }
   },
@@ -856,6 +857,7 @@ export default {
   "organisation": {
     "city": "Cathair",
     "country": "Tír",
+    "englishName": "Ainm Béarla",
     "nameAcronym": "Acrainm ainm"
   },
   "pageHasLoaded": "luchtaithe",
@@ -870,6 +872,9 @@ export default {
       },
       "persons": {
         "title": "Daoine"
+      },
+      "places": {
+        "title": "Áiteanna"
       },
       "table": {
         "name": "Ainm"

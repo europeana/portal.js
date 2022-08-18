@@ -6,7 +6,7 @@ export default {
     "likes": "Patinka",
     "linkAccount": "Mano paskyra",
     "linkLogin": "Prisijungti",
-    "linkLoginJoin": "Prisijungti/Prisijungti",
+    "linkLoginJoin": "Prisijungti\/Prisijungti",
     "linkLogout": "Atsijungti",
     "myProfile": "Mano profilis",
     "notifications": {
@@ -80,6 +80,7 @@ export default {
   "cardLabels": {
     "organisation": "Organizacija",
     "person": "Asmuo",
+    "place": "Vieta",
     "theme": "Tema",
     "time": "Amžius",
     "topic": "Tema"
@@ -199,7 +200,7 @@ export default {
         "title": "Per daug prisegtų elementų"
       },
       "pinned": "Elementas prisegtas. Dabar jis yra pirmojo šios kolekcijos puslapio viršuje. Gali užtrukti iki 24 valandų, kol visi pasirodys.",
-      "select": "Pasirinkite susijusį objektą, kurį norite prisegti / atsegti elementą prie jo / nuo jo.",
+      "select": "Pasirinkite susijusį objektą, kurį norite prisegti \/ atsegti elementą prie jo \/ nuo jo.",
       "unpin": "Šis elementas nebebus rodomas kolekcijos „ {entity} “ viršuje. Informuosime jus, kai šis pakeitimas bus matomas kolekcijos puslapyje.",
       "unpinned": "Elementas buvo atsegtas. Jo nebėra šio rinkinio pirmojo puslapio viršuje. Gali prireikti iki 24 valandų, kol jis išnyks visiems."
     }
@@ -493,7 +494,7 @@ export default {
     "MIME_TYPE": {
       "name": "Failo formatas | Failų formatai",
       "options": {
-        "text/plain": "Paprastas tekstas"
+        "text\/plain": "Paprastas tekstas"
       },
       "select": "Pasirinkite failų formatus"
     },
@@ -555,7 +556,7 @@ export default {
         "newspaper": "Laikraščiai",
         "photography": "Fotografija",
         "sport": "Sportas",
-        "ww1": "1914-1918"
+        "ww1": "Pirmasis pasaulinis karas"
       },
       "select": "Pasirinkite temą"
     },
@@ -779,7 +780,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Padeda tobulinti mūsų svetainę, retkarčiais pritaikant eksperimentinius pakeitimus.",
-        "title": "A/B testavimas"
+        "title": "A\/B testavimas"
       },
       "auth-strategy": {
         "description": "Prisimena autorizacijos strategiją, kurią reikia naudoti prisijungiant.",
@@ -811,7 +812,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Prisimena, ar norite paieškos rezultatus matyti sąrašo ar tinklelio rodinyje.",
-        "title": "Paieškos rezultatų rodinys (sąrašas / tinklelis)"
+        "title": "Paieškos rezultatų rodinys (sąrašas \/ tinklelis)"
       }
     }
   },
@@ -855,6 +856,7 @@ export default {
   "organisation": {
     "city": "Miestas",
     "country": "Šalis",
+    "englishName": "Angliškas pavadinimas",
     "nameAcronym": "Pavadinimo akronimas"
   },
   "pageHasLoaded": "įkelta",
@@ -868,6 +870,9 @@ export default {
       },
       "persons": {
         "title": "Asmenys"
+      },
+      "places": {
+        "title": "Vietos"
       },
       "table": {
         "name": "Vardas"

@@ -6,7 +6,7 @@ export default {
     "likes": "Všečki",
     "linkAccount": "Moj račun",
     "linkLogin": "Vpis",
-    "linkLoginJoin": "Prijava/Pridruži se",
+    "linkLoginJoin": "Prijava\/Pridruži se",
     "linkLogout": "Izpis",
     "myProfile": "Moj profil",
     "notifications": {
@@ -80,6 +80,7 @@ export default {
   "cardLabels": {
     "organisation": "Organizacija",
     "person": "Oseba",
+    "place": "Mesto",
     "theme": "Tema",
     "time": "Stoletje",
     "topic": "Tema"
@@ -199,7 +200,7 @@ export default {
         "title": "Preveč pripete predmete"
       },
       "pinned": "Element je bil pripet. Zdaj je na vrhu prve strani te zbirke. Lahko traja do 24 ur, da se prikaže vsem.",
-      "select": "Izberite sorodno entiteto, da pripnete/odpnete element na/iz njega.",
+      "select": "Izberite sorodno entiteto, da pripnete\/odpnete element na\/iz njega.",
       "unpin": "Ta element se ne bo več prikazoval na vrhu zbirke » {entity} «. Ko bo ta sprememba vidna na strani zbirke, vas bomo obvestili.",
       "unpinned": "Element je bil odpenjen. Ni več na vrhu prve strani te zbirke. Lahko traja do 24 ur, da izgine za vse."
     }
@@ -493,7 +494,7 @@ export default {
     "MIME_TYPE": {
       "name": "Oblika zapisa datoteke | Oblike zapisov datotek",
       "options": {
-        "text/plain": "Golo besedilo"
+        "text\/plain": "Golo besedilo"
       },
       "select": "Izberite formate datotek"
     },
@@ -555,7 +556,7 @@ export default {
         "newspaper": "Časopisi",
         "photography": "Fotografija",
         "sport": "Šport",
-        "ww1": "1914-1918"
+        "ww1": "Prva svetovna vojna"
       },
       "select": "Izberite temo"
     },
@@ -758,7 +759,7 @@ export default {
         "learnMore": "Naj izberem"
       },
       "decline": "Zavrnem.",
-      "ok": "okej",
+      "ok": "Okej",
       "purposes": {
         "essential": {
           "description": "Te storitve so nujne za pravilno delovanje tega spletnega mesta. Vključujejo poglede rezultatov iskanja in jezikovne nastavitve, ohranjajo stanje prijave in zagotavljajo varnost vašega obiska. Ne morete jih onemogočiti, saj spletno mesto sicer ne bi delovalo pravilno.",
@@ -779,7 +780,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Pomaga izboljšati naše spletno mesto z občasno uporabo eksperimentalnih sprememb.",
-        "title": "A/B testiranje"
+        "title": "A\/B testiranje"
       },
       "auth-strategy": {
         "description": "Zapomni si strategijo avtorizacije, ki jo je treba uporabiti za prijavo.",
@@ -811,7 +812,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Zapomni si, če želite rezultate iskanja raje videti v pogledu seznama ali mreže.",
-        "title": "Pogled rezultatov iskanja (seznam / mreža)"
+        "title": "Pogled rezultatov iskanja (seznam \/ mreža)"
       }
     }
   },
@@ -855,6 +856,7 @@ export default {
   "organisation": {
     "city": "Mesto",
     "country": "Država",
+    "englishName": "Angleško ime",
     "nameAcronym": "Kratica imena"
   },
   "pageHasLoaded": "je naložena",
@@ -868,6 +870,9 @@ export default {
       },
       "persons": {
         "title": "Osebe"
+      },
+      "places": {
+        "title": "Krajev"
       },
       "table": {
         "name": "Ime"

@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mitt konto",
     "linkLogin": "Logga in",
-    "linkLoginJoin": "Logga in/Gå med",
+    "linkLoginJoin": "Logga in\/Gå med",
     "linkLogout": "Logga ut",
     "myProfile": "Min profil",
     "notifications": {
@@ -80,6 +80,7 @@ export default {
   "cardLabels": {
     "organisation": "Organisation",
     "person": "Person",
+    "place": "Plats",
     "theme": "Tema",
     "time": "Århundrade",
     "topic": "Ämne"
@@ -199,7 +200,7 @@ export default {
         "title": "För många pinnade objekt"
       },
       "pinned": "Objektet har fästs. Det är nu högst upp på den första sidan i den här samlingen. Det kan ta upp till 24 timmar innan alla visas.",
-      "select": "Välj en relaterad entitet för att fästa/lossa objektet till/från den.",
+      "select": "Välj en relaterad entitet för att fästa\/lossa objektet till\/från den.",
       "unpin": "Det här objektet kommer att sluta visas överst i samlingen \" {entity} \". Vi kommer att meddela dig när denna förändring kommer att synas på insamlingssidan.",
       "unpinned": "Objektet har lossats. Det är inte längre högst upp på den första sidan i den här samlingen. Det kan ta upp till 24 timmar innan alla försvinner."
     }
@@ -493,7 +494,7 @@ export default {
     "MIME_TYPE": {
       "name": "Filformat | Filformat",
       "options": {
-        "text/plain": "Oformaterad text"
+        "text\/plain": "Oformaterad text"
       },
       "select": "Välj filformat"
     },
@@ -555,7 +556,7 @@ export default {
         "newspaper": "Tidningar",
         "photography": "Fotografi",
         "sport": "Sport",
-        "ww1": "1914–1918"
+        "ww1": "Första världskriget"
       },
       "select": "Välj ett tema"
     },
@@ -779,7 +780,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Hjälper till att förbättra vår webbplats genom att ibland tillämpa experimentella förändringar.",
-        "title": "A/B -testning"
+        "title": "A\/B -testning"
       },
       "auth-strategy": {
         "description": "Kommer ihåg den auktoriserings strategi som ska användas för att logga in.",
@@ -811,7 +812,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Kommer ihåg om du föredrar att se sökresultaten i en lista eller rutnät.",
-        "title": "Visa sökresultat (lista/rutnät)"
+        "title": "Visa sökresultat (lista\/rutnät)"
       }
     }
   },
@@ -855,6 +856,7 @@ export default {
   "organisation": {
     "city": "Stad",
     "country": "Land",
+    "englishName": "Engelskt namn",
     "nameAcronym": "Namn akronym"
   },
   "pageHasLoaded": "har laddats",
@@ -868,6 +870,9 @@ export default {
       },
       "persons": {
         "title": "Personer"
+      },
+      "places": {
+        "title": "Platser"
       },
       "table": {
         "name": "Namn"

@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Il-Kont Tiegħi",
     "linkLogin": "Illoggja",
-    "linkLoginJoin": "Idħol/Ingħaqad",
+    "linkLoginJoin": "Idħol\/Ingħaqad",
     "linkLogout": "Oħroġ",
     "myProfile": "Il-profil Tiegħi",
     "notifications": {
@@ -80,6 +80,7 @@ export default {
   "cardLabels": {
     "organisation": "Organizzazzjoni",
     "person": "Persuna",
+    "place": "Post",
     "theme": "Tema",
     "time": "Seklu",
     "topic": "Suġġett"
@@ -199,7 +200,7 @@ export default {
         "title": "Wisq oġġetti pinned"
       },
       "pinned": "L-item ġie mwaħħal. Issa tinsab fin-naħa ta' fuq tal-ewwel paġna ta' din il-ġabra. Jista' jieħu sa 24 siegħa biex jidher għal kulħadd.",
-      "select": "Agħżel entità relatata biex tippinja/unpin l-oġġett fuq/minnha.",
+      "select": "Agħżel entità relatata biex tippinja\/unpin l-oġġett fuq\/minnha.",
       "unpin": "Dan l-oġġett se jieqaf jidher fin-naħa ta' fuq tal-kollezzjoni \" {entity} \". Aħna ninnotifikawk meta din il-bidla tkun viżibbli fuq il-paġna tal-ġbir.",
       "unpinned": "L-oġġett ma tpoġġiex. M’għadux fil-quċċata tal-ewwel paġna ta ’din il-kollezzjoni. Jista 'jieħu sa 24 siegħa biex jisparixxi għal kulħadd."
     }
@@ -493,7 +494,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format tal-fajl | Formati tal-fajl",
       "options": {
-        "text/plain": "Test bla format"
+        "text\/plain": "Test bla format"
       },
       "select": "Agħżel il-formati tal-fajl"
     },
@@ -555,7 +556,7 @@ export default {
         "newspaper": "Gazzetti",
         "photography": "Fotografija",
         "sport": "Sport",
-        "ww1": "1914-1918"
+        "ww1": "L-Ewwel Gwerra Dinjija"
       },
       "select": "Agħżel tema"
     },
@@ -779,7 +780,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Jgħin biex intejbu l-websajt tagħna billi kultant napplikaw bidliet sperimentali.",
-        "title": "Ittestjar A / B"
+        "title": "Ittestjar A \/ B"
       },
       "auth-strategy": {
         "description": "Jiftakar l-istrateġija ta' awtorizzazzjoni biex tużaha biex tilloggja.",
@@ -811,7 +812,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Tiftakar jekk tippreferi tara r-riżultati tat-tfittxija f'lista jew viżjoni tal-grilja.",
-        "title": "Veduta tar-riżultat tat-tfittxija (lista / gradilja)"
+        "title": "Veduta tar-riżultat tat-tfittxija (lista \/ gradilja)"
       }
     }
   },
@@ -855,6 +856,7 @@ export default {
   "organisation": {
     "city": "Belt",
     "country": "Pajjiż",
+    "englishName": "Isem l-Ingliż",
     "nameAcronym": "Isem akronimu"
   },
   "pageHasLoaded": "ġie illowdjat",
@@ -868,6 +870,9 @@ export default {
       },
       "persons": {
         "title": "Persuni"
+      },
+      "places": {
+        "title": "Postijiet"
       },
       "table": {
         "name": "Isem"
