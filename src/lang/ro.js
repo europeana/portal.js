@@ -6,7 +6,7 @@ export default {
     "likes": "Aprecieri",
     "linkAccount": "Contul meu",
     "linkLogin": "Autentificare",
-    "linkLoginJoin": "Autentificare\/Înscriere",
+    "linkLoginJoin": "Autentificare/Înscriere",
     "linkLogout": "Deconectare",
     "myProfile": "Profilul meu",
     "notifications": {
@@ -200,7 +200,7 @@ export default {
         "title": "Prea multe articole fixate"
       },
       "pinned": "Elementul a fost fixat. Acum se află în partea de sus a primei pagini a acestei colecții. S-ar putea să dureze până la 24 de ore pentru a apărea pentru toată lumea.",
-      "select": "Selectați o entitate conexă pentru a fixa\/dezfixa elementul la\/de la aceasta.",
+      "select": "Selectați o entitate conexă pentru a fixa/dezfixa elementul la/de la aceasta.",
       "unpin": "Acest articol nu va mai apărea în partea de sus a colecției „ {entity} ”. Vă vom anunța când această modificare va fi vizibilă pe pagina de colecție.",
       "unpinned": "Elementul a fost dezlipit. Nu se mai află în partea de sus a primei pagini a acestei colecții. S-ar putea să dureze până la 24 de ore pentru a dispărea pentru toată lumea."
     }
@@ -494,7 +494,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format fișier| Formate fișier",
       "options": {
-        "text\/plain": "Text simplu"
+        "text/plain": "Text simplu"
       },
       "select": "Selectați formatele de fișiere"
     },
@@ -780,7 +780,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Ajută la îmbunătățirea site-ului nostru web aplicând ocazional modificări experimentale.",
-        "title": "Testarea A\/B"
+        "title": "Testarea A/B"
       },
       "auth-strategy": {
         "description": "Reține strategia de autorizare de utilizat pentru a vă conecta.",
@@ -812,7 +812,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Rețineți dacă preferați să vedeți rezultatele căutării într-o vizualizare listă sau grilă.",
-        "title": "Vizualizarea rezultatelor căutării (listă \/ grilă)"
+        "title": "Vizualizarea rezultatelor căutării (listă / grilă)"
       }
     }
   },
