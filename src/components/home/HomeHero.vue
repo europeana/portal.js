@@ -149,6 +149,10 @@
 
       h1 {
         font-size: 2.6vw;
+
+        .digital-highlight {
+          text-shadow: 0.12vw 0.12vw 0 $blue;
+        }
       }
 
       .sub-headline {
