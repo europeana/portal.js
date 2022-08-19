@@ -30,7 +30,7 @@
           :destination="entityRoute(data.item.slug)"
         >
           <template v-if="type === 'organisations'">
-            <strong :lang="data.item.nativeLabel.code">{{ data.item.nativeLabel.values[0] }}</strong>
+            <strong :lang="data.item.nativeLabel && data.item.nativeLabel.code">{{ data.item.nativeLabel.values[0] }}</strong>
             <span
               v-if="data.item.nonNativeEnglishLabel"
               :lang="data.item.nonNativeEnglishLabel.code"
@@ -61,6 +61,8 @@
   import { BTable } from 'bootstrap-vue';
   import LoadingSpinner from '../generic/LoadingSpinner';
   import SmartLink from '../generic/SmartLink';
+  import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
+  import { langMapValueForLocale } from '@/plugins/europeana/utils';
 
   export default {
     name: 'EntityTable',
@@ -70,6 +72,9 @@
       LoadingSpinner,
       SmartLink
     },
+    mixins: [
+      europeanaEntitiesOrganizationsMixin
+    ],
     props: {
       type: {
         type: String,
@@ -97,7 +102,19 @@
     fetch() {
       return this.$axios.get(this.apiEndpoint, { baseURL: window.location.origin })
         .then(response => {
-          this.collections = response.data.map(Object.freeze);
+          if (this.type === 'organisations') {
+            this.collections = response.data.map(org => {
+              const nativeName = this.organizationEntityNativeName({ ...org, type: 'Organization' });
+              const englishName = this.organizationEntityNonNativeEnglishName({ ...org, type: 'Organization' });
+              return {
+                ...org,
+                nativeLabel: langMapValueForLocale(nativeName),
+                nonNativeEnglishLabel: englishName && langMapValueForLocale(englishName)
+              };
+            }).map(Object.freeze);
+          } else {
+            this.collections = response.data.map(Object.freeze);
+          }
         })
         .catch((e) => {
           // TODO: set fetch state error from message

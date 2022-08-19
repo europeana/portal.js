@@ -1,14 +1,7 @@
 import baseData from './index.js';
-import organizationsMixin from '../../mixins/europeana/entities/organizations.js';
-import { langMapValueForLocale } from '../../plugins/europeana/utils.js';
 import { createEuropeanaApiClient } from '../utils.js';
 
-const PICK = ['slug', 'recordCount', 'nativeLabel', 'nonNativeEnglishLabel'];
-const INTERNATIONALISE = (entities) => entities.map((entity) => ({
-  ...entity,
-  nativeLabel: langMapValueForLocale(organizationsMixin.methods.organizationEntityNativeName(entity)),
-  nonNativeEnglishLabel: langMapValueForLocale(organizationsMixin.methods.organizationEntityNonNativeEnglishName(entity))
-}));
+const PICK = ['slug', 'recordCount', 'prefLabel'];
 
 let axiosClient;
 
@@ -45,6 +38,5 @@ const data = async(config = {}) => {
 
 export {
   data,
-  INTERNATIONALISE,
   PICK
 };

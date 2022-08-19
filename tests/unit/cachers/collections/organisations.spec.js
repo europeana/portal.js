@@ -3,10 +3,10 @@ import * as baseCacher from '@/cachers/collections/index.js';
 import sinon from 'sinon';
 import nock from 'nock';
 
-const organisations = {
-  0: { id: 'http://data.europeana.eu/organization/001', type: 'Organization', prefLabel: { en: 'Museum', es: 'Museo' } },
-  1: { id: 'http://data.europeana.eu/organization/002', type: 'Organization', prefLabel: { en: 'Gallery' } }
-};
+const organisations = [
+  { id: 'http://data.europeana.eu/organization/001', type: 'Organization', prefLabel: { en: 'Museum', es: 'Museo' } },
+  { id: 'http://data.europeana.eu/organization/002', type: 'Organization', prefLabel: { en: 'Gallery' } }
+];
 
 const fields = [
   { label: 'http://data.europeana.eu/organization/001', count: 100 },
@@ -60,35 +60,11 @@ describe('@/cachers/collections/organisations', () => {
     sinon.resetHistory();
   });
 
-  it('picks slug, record count, native label and non-native English label', () => {
-    expect(cacher.PICK).toEqual(['slug', 'recordCount', 'nativeLabel', 'nonNativeEnglishLabel']);
+  it('picks slug, recordCount and prefLabel', () => {
+    expect(cacher.PICK).toEqual(['slug', 'recordCount', 'prefLabel']);
   });
 
   it('localises nothing', () => {
     expect(cacher.LOCALISE).toBeUndefined();
-  });
-
-  it('internationalises by native label and non-native English label', () => {
-    const data = [
-      { type: 'Organization', prefLabel: { en: 'Museum', es: 'Museo' } },
-      { type: 'Organization', prefLabel: { en: 'Gallery' } }
-    ];
-
-    const expected =       [
-      {
-        type: 'Organization',
-        prefLabel: { en: 'Museum', es: 'Museo' },
-        nativeLabel: { values: ['Museo'], code: 'es', translationSource: undefined },
-        nonNativeEnglishLabel: { values: ['Museum'], code: 'en', translationSource: undefined }
-      },
-      {
-        type: 'Organization',
-        prefLabel: { en: 'Gallery' },
-        nativeLabel: { values: ['Gallery'], code: 'en', translationSource: undefined },
-        nonNativeEnglishLabel: { values: [] }
-      }
-    ];
-
-    expect(cacher.INTERNATIONALISE(data)).toEqual(expected);
   });
 });

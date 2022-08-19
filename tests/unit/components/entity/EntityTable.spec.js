@@ -26,12 +26,21 @@ const factory = (propsData = { type: 'organisations' }, fetchState = { error: fa
 
 const middlewarePath = '/_api/cache/collections/organisations';
 const collections = [
-  { slug: '001-museum',
-    nativeLabel: { values: ['Museum'], code: 'de', translationSource: undefined },
-    nonNativeEnglishLabel: { values: ['Museum'], code: 'en', translationSource: undefined }  },
-  {  slug: '002-library',
-    nativeLabel: { values: ['Bibliotheek'], code: 'nl', translationSource: undefined },
-    nonNativeEnglishLabel: { values: ['Library'], code: 'en', translationSource: undefined }  }
+  { id: '001', slug: '001-museum', prefLabel: { de: 'museum', en: 'museum' } },
+  { id: '002', slug: '002-library', prefLabel: { nl: 'bibliotheek', en: 'library' } }
+];
+
+const organisations = [
+  { id: '001',
+    slug: '001-museum',
+    nativeLabel: { values: ['museum'], code: 'de', translationSource: undefined },
+    nonNativeEnglishLabel: { values: ['museum'], code: 'en', translationSource: undefined },
+    prefLabel: { de: 'museum', en: 'museum' } },
+  { id: '002',
+    slug: '002-library',
+    nativeLabel: { values: ['bibliotheek'], code: 'nl', translationSource: undefined },
+    nonNativeEnglishLabel: { values: ['library'], code: 'en', translationSource: undefined },
+    prefLabel: { nl: 'bibliotheek', en: 'library' } }
 ];
 
 describe('components/entity/EntityTable', () => {
@@ -57,14 +66,7 @@ describe('components/entity/EntityTable', () => {
 
       await wrapper.vm.fetch();
 
-      expect(wrapper.vm.collections).toEqual([
-        { slug: '001-museum',
-          nativeLabel: { values: ['Museum'], code: 'de', translationSource: undefined },
-          nonNativeEnglishLabel: { values: ['Museum'], code: 'en', translationSource: undefined } },
-        { slug: '002-library',
-          nativeLabel: { values: ['Bibliotheek'], code: 'nl', translationSource: undefined },
-          nonNativeEnglishLabel: { values: ['Library'], code: 'en', translationSource: undefined } }
-      ]);
+      expect(wrapper.vm.collections).toEqual(organisations);
     });
   });
 
@@ -73,10 +75,12 @@ describe('components/entity/EntityTable', () => {
       const wrapper = factory();
 
       await wrapper.setData({
-        collections
+        collections: organisations
       });
 
-      expect(wrapper.find('[data-qa="collection link 001-museum"]').attributes('href')).toBe(`/collections/organisation/${collections[0].slug}`);
+      const organisation = wrapper.find('[data-qa="collection link 001-museum"]');
+
+      expect(organisation.attributes('href')).toBe(`/collections/organisation/${collections[0].slug}`);
     });
   });
 
