@@ -45,6 +45,14 @@
           </span>
         </SmartLink>
       </template>
+      <template
+        v-if="type === 'organisations'"
+        #cell(itemCount)="data"
+      >
+        <span>
+          {{ data.item.recordCount | localise }}
+        </span>
+      </template>
     </b-table>
   </div>
 </template>
@@ -77,6 +85,11 @@
             key: 'prefLabel',
             sortable: true,
             label: this.$t('pages.collections.table.name')
+          },
+          this.type === 'organisations' && {
+            key: 'itemCount',
+            label: this.$t('pages.collections.table.items'),
+            class: 'text-right'
           }
         ]
       };

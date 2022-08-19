@@ -21,6 +21,12 @@ table,
     }
   }
 
+  tr {
+    &:hover {
+      color: $innovationblue;
+    }
+  }
+
   td {
     line-height: 1.214;
     padding: 1.125rem 1rem;
@@ -29,10 +35,6 @@ table,
 
     a {
       text-decoration: none;
-
-      &:hover {
-        color: $innovationblue;
-      }
     }
   }
 
