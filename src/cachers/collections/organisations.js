@@ -25,21 +25,22 @@ async function getRecordCounts() {
 }
 
 const data = async(config = {}) => {
-  const baseOrgData = await baseData({ type: 'organization' }, config);
+  const organisationData = await baseData({ type: 'organization' }, config);
 
   axiosClient = createEuropeanaApiClient(config.europeana?.apis?.record);
 
   const recordCounts = await getRecordCounts();
 
-  Object.keys(baseOrgData).forEach(
-    key => {
-      const organisationId = baseOrgData[key].id;
-      const organisation = recordCounts.filter(facet => facet.label === organisationId)[0];
-      const recordCount = organisation?.count;
-      return baseOrgData[key].recordCount = recordCount;
+  organisationData.map(
+    organisation => {
+      const organisationId = organisation.id;
+      const organisationWithCount = recordCounts.find(facet => facet.label === organisationId);
+      const recordCount = organisationWithCount?.count || 0;
+      organisation.recordCount = recordCount;
+      return organisation;
     });
 
-  return baseOrgData;
+  return organisationData;
 };
 
 export {
