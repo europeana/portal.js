@@ -8,7 +8,6 @@ module.exports = async function (migration) {
 
   const translations = JSON.parse(await fs.readFileSync(process.env.TAGS_TRANSLATIONS_FILE_NAME));
 
-  // 2. Link blogPosting entries to categories & entities
   migration.transformEntries({
     contentType: 'category',
     from: ['name'],
