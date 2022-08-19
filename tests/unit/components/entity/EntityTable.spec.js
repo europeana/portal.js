@@ -26,8 +26,12 @@ const factory = (propsData = { type: 'organisations' }, fetchState = { error: fa
 
 const middlewarePath = '/_api/cache/collections/organisations';
 const collections = [
-  { id: '001', slug: '001-museum', prefLabel: { de: 'museum' } },
-  { id: '002', slug: '002-library', prefLabel: { nl: 'bibliotheek', en: 'library' } }
+  { slug: '001-museum',
+    nativeLabel: { values: ['Museum'], code: 'de', translationSource: undefined },
+    nonNativeEnglishLabel: { values: ['Museum'], code: 'en', translationSource: undefined }  },
+  {  slug: '002-library',
+    nativeLabel: { values: ['Bibliotheek'], code: 'nl', translationSource: undefined },
+    nonNativeEnglishLabel: { values: ['Library'], code: 'en', translationSource: undefined }  }
 ];
 
 describe('components/entity/EntityTable', () => {
@@ -54,16 +58,13 @@ describe('components/entity/EntityTable', () => {
       await wrapper.vm.fetch();
 
       expect(wrapper.vm.collections).toEqual([
-        { id: '001', slug: '001-museum', prefLabel: 'museum', englishLabel: null },
-        { id: '002', slug: '002-library', prefLabel: 'bibliotheek', englishLabel: 'library' }
+        { slug: '001-museum',
+          nativeLabel: { values: ['Museum'], code: 'de', translationSource: undefined },
+          nonNativeEnglishLabel: { values: ['Museum'], code: 'en', translationSource: undefined } },
+        { slug: '002-library',
+          nativeLabel: { values: ['Bibliotheek'], code: 'nl', translationSource: undefined },
+          nonNativeEnglishLabel: { values: ['Library'], code: 'en', translationSource: undefined } }
       ]);
-    });
-
-    it('switches sorting off for organisations', async() => {
-      const wrapper = factory();
-      await wrapper.vm.fetch();
-
-      expect(wrapper.vm.fields[0].sortable).toBe(false);
     });
   });
 
