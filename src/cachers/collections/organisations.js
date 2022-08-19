@@ -24,7 +24,7 @@ const data = async(config = {}) => {
 
   const recordCounts = await getRecordCounts();
 
-  organisationData.map(
+  return organisationData.map(
     organisation => {
       const organisationId = organisation.id;
       const organisationWithCount = recordCounts.find(facet => facet.label === organisationId);
@@ -32,8 +32,6 @@ const data = async(config = {}) => {
       organisation.recordCount = recordCount;
       return organisation;
     });
-
-  return organisationData;
 };
 
 export {

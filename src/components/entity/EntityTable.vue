@@ -30,7 +30,7 @@
           :destination="entityRoute(data.item.slug)"
         >
           <template v-if="type === 'organisations'">
-            <strong :lang="data.item.nativeLabel && data.item.nativeLabel.code">{{ data.item.nativeLabel.values[0] }}</strong>
+            <strong :lang="data.item.nativeLabel.code">{{ data.item.nativeLabel.values[0] }}</strong>
             <span
               v-if="data.item.nonNativeEnglishLabel"
               :lang="data.item.nonNativeEnglishLabel.code"
