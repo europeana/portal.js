@@ -69,7 +69,6 @@
 </template>
 
 <script>
-  import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
   import EntityField from './EntityField';
   import MetadataOriginLabel from './MetadataOriginLabel';
@@ -83,10 +82,6 @@
       MetadataOriginLabel,
       SmartLink
     },
-
-    mixins: [
-      europeanaEntitiesOrganizationsMixin
-    ],
 
     props: {
       name: {
