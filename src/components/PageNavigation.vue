@@ -111,7 +111,8 @@
         return [
           { url: '/', text: this.$t('header.navigation.home') },
           { url: '/collections', text: this.$t('header.navigation.collections') },
-          { url: '/stories', text: this.$t('header.navigation.stories') }
+          { url: '/stories', text: this.$t('header.navigation.stories') },
+          { url: 'https://pro.europeana.eu/', text: this.$t('header.navigation.pro') }
         ];
       },
       sidebarNavigation() {
