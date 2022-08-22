@@ -131,7 +131,7 @@
       },
       displayTags() {
         if (this.filteredTags) {
-          return this.tags.filter((tag) => this.filteredTags.includes(tag.identifier));
+          return this.tags.filter((tag) => this.filteredTags.includes(tag.identifier) || this.selectedTags.includes(tag.identifier));
         } else {
           return this.tags;
         }
@@ -185,10 +185,8 @@
             const storyTags = story.cats.items.map((cat) => cat.id);
             return this.selectedTags.every((tag) => storyTags.includes(tag));
           });
-          this.filteredTags = uniq(stories.map((story) => story.cats.items.map((cat) => cat.id)).flat());
-        } else {
-          this.filteredTags = null;
         }
+        this.filteredTags = uniq(stories.map((story) => story.cats.items.map((cat) => cat.id)).flat());
 
         // Order by date published
         stories = stories.sort((a, b) => (new Date(b.date)).getTime() - (new Date(a.date)).getTime());
