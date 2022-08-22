@@ -112,7 +112,7 @@
           { url: '/', text: this.$t('header.navigation.home') },
           { url: '/collections', text: this.$t('header.navigation.collections') },
           { url: '/stories', text: this.$t('header.navigation.stories') },
-          { url: 'https://pro.europeana.eu/', text: this.$t('header.navigation.pro') }
+          { url: '/europeana-professionals', text: this.$t('header.navigation.pro') }
         ];
       },
       sidebarNavigation() {
@@ -157,7 +157,7 @@
         case ('/about-us'):
           className = 'icon-info';
           break;
-        case ('https://pro.europeana.eu/'):
+        case ('/europeana-professionals'):
           className = 'icon-pro';
           break;
         default:
