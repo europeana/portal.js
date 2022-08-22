@@ -32,30 +32,26 @@ const config = {
   }
 };
 
-describe('@/cachers/collections/organisations', () => {
-  beforeEach(() => {
-    nock(config.europeana.apis.record.url)
-      .get('/search.json')
-      .query(query => (
-        query.profile === 'facets' &&
+const mockFacetRequest = () => {
+  nock(config.europeana.apis.record.url)
+    .get('/search.json')
+    .query(query => (
+      query.profile === 'facets' &&
         query.query === 'foaf_organization:*data.europeana.eu*' &&
         query.facet === 'foaf_organization' &&
         query['f.foaf_organization.facet.limit'] === '10000' &&
         query.rows === '0'
-      ))
-      .reply(200, apiResponse);
-  });
+    ))
+    .reply(200, apiResponse);
+};
 
-  afterEach(() => {
-    nock.cleanAll();
-  });
+describe('@/cachers/collections/organisations', () => {
+  sinon.stub(baseCacher, 'default').resolves(organisations);
 
   it('fetches data with type: organization', async() => {
-    sinon.stub(baseCacher, 'default').resolves(organisations);
-
+    mockFacetRequest();
     await cacher.data(config);
 
-    expect(nock.isDone()).toBe(true);
     expect(baseCacher.default.calledWith({ type: 'organization' }, config)).toBe(true);
     sinon.resetHistory();
   });
@@ -66,5 +62,16 @@ describe('@/cachers/collections/organisations', () => {
 
   it('localises nothing', () => {
     expect(cacher.LOCALISE).toBeUndefined();
+  });
+
+  describe('when there is no fields on the facets response', () => {
+    it('recordCount falls back to 0', async() => {
+      apiResponse.facets[0].fields = null;
+      mockFacetRequest();
+      const organisationData = await cacher.data(config);
+
+      expect(organisationData[0].recordCount).toBe(0);
+      apiResponse.fields = fields;
+    });
   });
 });
