@@ -47,7 +47,7 @@
       </template>
       <template
         v-if="type === 'organisations'"
-        #cell(itemCount)="data"
+        #cell(recordCount)="data"
       >
         <span>
           {{ data.item.recordCount | localise }}
@@ -84,15 +84,21 @@
     data() {
       return {
         collections: null,
-        sortBy: this.type === 'organisations' ? 'nativeLabel.values[0]' : 'prefLabel',
+        sortBy: 'prefLabel',
         fields: [
           {
             key: 'prefLabel',
+            formatter: (value, key, item) => {
+              return item.nativeLabel.values[0];
+            },
             sortable: true,
+            sortByFormatted: this.type === 'organisations',
             label: this.$t('pages.collections.table.name')
           },
           this.type === 'organisations' && {
-            key: 'itemCount',
+            key: 'recordCount',
+            sortable: true,
+            sortDirection: 'desc',
             label: this.$t('pages.collections.table.items'),
             class: 'text-right'
           }
