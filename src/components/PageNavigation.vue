@@ -157,6 +157,9 @@
         case ('/about-us'):
           className = 'icon-info';
           break;
+        case ('https://pro.europeana.eu/'):
+          className = 'icon-pro';
+          break;
         default:
           className = 'icon-info blank';
           break;
@@ -254,6 +257,10 @@
 
         &.icon-collections::before {
           content: '\e91d';
+        }
+
+        &.icon-pro::before {
+          content: '\e95a';
         }
 
         &.icon-school::before {
