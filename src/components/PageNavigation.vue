@@ -344,7 +344,6 @@
       }
 
       .nav-link {
-        text-transform: capitalize;
         font-weight: 400;
         border-radius: $border-radius-small;
         transition: $standard-transition;
