@@ -59,7 +59,7 @@ const fullFactory = () => mount(SearchForm, {
     $path,
     $apis: { entity: { suggest: sinon.stub().resolves() } }
   },
-  store: store({ search: { showSearchBar: true,  allThemes: [] } } ),
+  store: store({ search: { showSearchBar: true,  allThemes: [] } }),
   attachTo: document.body,
   stubs: ['SearchQueryOptions']
 });
