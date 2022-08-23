@@ -29,7 +29,7 @@ $path.withArgs({
 const factory = (options = {}) => shallowMount(SearchForm, {
   localVue,
   propsData: {
-    absoluteTopPositioned: true
+    inTopNav: options.propsData ? options.propsData.inTopNav : true
   },
   stubs: { ...options.stubs },
   mocks: {
@@ -319,6 +319,24 @@ describe('components/search/SearchForm', () => {
         });
       });
     });
+
+    describe('when on the home page', () => {
+      const mocks = {
+        $apis: {
+          entity: {
+            suggest: sinon.stub().resolves([])
+          }
+        }
+      };
+
+      it('does NOT get suggestions from the Entity API', async() => {
+        const wrapper = factory({ mocks, propsData: { inTopNav: false } });
+
+        await wrapper.vm.getSearchSuggestions(query);
+
+        expect(mocks.$apis.entity.suggest.called).toBe(false);
+      });
+    });
   });
 
   describe('when search options show, not on a collection page and no query set', () => {
@@ -418,7 +436,7 @@ describe('components/search/SearchForm', () => {
 
       const clearButton = wrapper.find('[data-qa="clear button"]');
 
-      clearButton.trigger('click');
+      await clearButton.trigger('click');
 
       const focusedSearchInput = wrapper.find('[data-qa="search box"]:focus');
 

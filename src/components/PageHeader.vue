@@ -13,7 +13,7 @@
       data-qa="search form wrapper"
     >
       <SearchForm
-        :absolute-top-positioned="true"
+        :in-top-nav="true"
       />
     </div>
     <template
