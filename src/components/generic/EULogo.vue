@@ -25,10 +25,10 @@
   };
 </script>
 
-<!-- <docs lang="md">
+<docs lang="md">
   ```jsx
     <div style="background-color: #000000; margin: -16px; padding: 16px;">
       <EULogo />
     </div>
   ```
-</docs> -->
+</docs>
