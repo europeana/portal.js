@@ -88,13 +88,7 @@
       <b-row>
         <b-col lg="6">
           <div class="sub-footer">
-            <img
-              width="250"
-              height="26"
-              src="../assets/img/eu-funding.svg"
-              class="mb-3"
-              :alt="$t('footer.imageDescription')"
-            >
+            <EULogo />
             <p>{{ $t('footer.disclaimerLine1') }}</p>
 
             <p>{{ $t('footer.disclaimerLine2') }}</p>
@@ -108,11 +102,13 @@
 <script>
   import LangSelector from './generic/LanguageSelector';
   import LinkGroup from './generic/LinkGroup';
+  import EULogo from '@/components/generic/EULogo';
 
   export default {
     components: {
       LangSelector,
-      LinkGroup
+      LinkGroup,
+      EULogo
     },
 
     data() {
@@ -197,4 +193,4 @@
   ```jsx
   <PageFooter />
   ```
-</docs> -->
+</docs>

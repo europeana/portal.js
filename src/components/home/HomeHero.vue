@@ -23,19 +23,14 @@
     <AttributionToggle
       :attribution="backgroundImage"
     />
-    <img
-      width="250"
-      height="26"
-      src="@/assets/img/eu-funding.svg"
-      class="eu-logo"
-      :alt="$t('footer.imageDescription')"
-    >
+    <EULogo />
   </div>
 </template>
 
 <script>
   import SearchForm from '@/components/search/SearchForm';
   import AttributionToggle from '@/components/generic/AttributionToggle';
+  import EULogo from '@/components/generic/EULogo';
   import { responsiveBackgroundImageCSSVars } from '@/plugins/contentful-utils';
 
   export default {
@@ -43,7 +38,8 @@
 
     components: {
       SearchForm,
-      AttributionToggle
+      AttributionToggle,
+      EULogo
     },
 
     props: {
