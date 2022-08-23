@@ -26,16 +26,15 @@
       </template>
       <template #cell(prefLabel)="data">
         <SmartLink
-          :data-qa="`collection link ${data.item.slug}`"
           :destination="entityRoute(data.item.slug)"
         >
           <template v-if="type === 'organisations'">
-            <strong :lang="data.item.nativeLabel.code">{{ data.item.nativeLabel.values[0] }}</strong>
+            <strong :lang="data.item.prefLabelLang">{{ data.item.prefLabel }}</strong>
             <span
-              v-if="data.item.nonNativeEnglishLabel"
-              :lang="data.item.nonNativeEnglishLabel.code"
+              v-if="data.item.altLabel"
+              :lang="data.item.altLabelLang"
             >
-              {{ data.item.nonNativeEnglishLabel.values[0] }}
+              {{ data.item.altLabel }}
             </span>
           </template>
           <span
@@ -88,11 +87,7 @@
         fields: [
           {
             key: 'prefLabel',
-            formatter: (value, key, item) => {
-              return item.nativeLabel.values[0];
-            },
             sortable: true,
-            sortByFormatted: this.type === 'organisations',
             label: this.$t('pages.collections.table.name')
           },
           this.type === 'organisations' && {
@@ -102,30 +97,22 @@
             label: this.$t('pages.collections.table.items'),
             class: 'text-right'
           }
-        ]
+        ],
+        typeSingular: this.type.slice(0, -1)
       };
     },
-    fetch() {
-      return this.$axios.get(this.apiEndpoint, { baseURL: window.location.origin })
-        .then(response => {
-          if (this.type === 'organisations') {
-            this.collections = response.data.map(org => {
-              const nativeName = this.organizationEntityNativeName({ ...org, type: 'Organization' });
-              const englishName = this.organizationEntityNonNativeEnglishName({ ...org, type: 'Organization' });
-              return {
-                ...org,
-                nativeLabel: langMapValueForLocale(nativeName),
-                nonNativeEnglishLabel: englishName && langMapValueForLocale(englishName)
-              };
-            }).map(Object.freeze);
-          } else {
-            this.collections = response.data.map(Object.freeze);
-          }
-        })
-        .catch((e) => {
-          // TODO: set fetch state error from message
-          console.error({ statusCode: 500, message: e.toString() });
-        });
+    async fetch() {
+      try {
+        const response = await this.$axios.get(this.apiEndpoint, { baseURL: window.location.origin });
+        let collections = response.data;
+        if (this.type === 'organisations') {
+          collections = collections.map(this.organisationData);
+        }
+        this.collections = collections.map(Object.freeze);
+      } catch (e) {
+        // TODO: set fetch state error from message
+        console.error({ statusCode: 500, message: e.toString() });
+      }
     },
     fetchOnServer: false,
     computed: {
@@ -137,14 +124,22 @@
       }
     },
     methods: {
-      entityRoute(slug) {
+      organisationData(org) {
+        const nativeName = this.organizationEntityNativeName({ ...org, type: 'Organization' });
+        const nativeNameLangMapValue = langMapValueForLocale(nativeName, this.$i18n.locale);
+        const englishName = this.organizationEntityNonNativeEnglishName({ ...org, type: 'Organization' });
+        const englishNameLangMapValue = englishName && langMapValueForLocale(englishName, this.$i18n.locale);
+
         return {
-          name: 'collections-type-all',
-          params: {
-            type: this.type.slice(0, -1),
-            pathMatch: slug
-          }
+          ...org,
+          prefLabel: nativeNameLangMapValue.values[0],
+          prefLabelLang: nativeNameLangMapValue.code,
+          altLabel: englishNameLangMapValue && englishNameLangMapValue.values[0],
+          altLabelLang: englishNameLangMapValue && englishNameLangMapValue.code
         };
+      },
+      entityRoute(slug) {
+        return `/collections/${this.typeSingular}/${slug}`;
       }
     }
   };
