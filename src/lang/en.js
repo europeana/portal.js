@@ -709,7 +709,7 @@ export default {
     "imageDescription": "Co-financed by the Connecting Europe Facility of the European Union",
     "navigation": {
       "MoreInfoLabel": "More Info",
-      "about": "About us",
+      "about": "About",
       "accessibility": "Accessibility",
       "cookies": "Cookies",
       "forDevelopers": "For developers",
@@ -739,9 +739,9 @@ export default {
     "europeanaHome": "Europeana home",
     "inCollection": "Search for {query} in {collection}",
     "navigation": {
-      "about": "About us",
+      "about": "About",
       "collections": "Collections",
-      "europeanaClassroom": "Teachers",
+      "europeanaClassroom": "For teachers",
       "help": "Help",
       "home": "Home",
       "stories": "Stories"
