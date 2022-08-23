@@ -10,11 +10,43 @@
         />
       </b-col>
     </b-row>
+    <b-form-group
+      label="Filter"
+      label-for="filter-input"
+    >
+      <b-input-group>
+        <b-form-input
+          id="filter-input"
+          v-model="filter"
+          type="search"
+          placeholder="Type to Search"
+        />
+
+        <b-input-group-append>
+          <b-button
+            :disabled="!filter"
+            @click="filter = ''"
+          >
+            Clear
+          </b-button>
+        </b-input-group-append>
+      </b-input-group>
+    </b-form-group>
+
+    <b-pagination
+      v-model="currentPage"
+      :total-rows="3000"
+      :per-page="perPage"
+    />
     <b-table
       :fields="fields"
       :items="collections"
       :sort-by.sync="sortBy"
       :busy="$fetchState.pending"
+      :filter="filter"
+      :filter-included-fields="['prefLabel']"
+      :current-page="currentPage"
+      :per-page="perPage"
       striped
       class="borderless"
     >
@@ -58,7 +90,7 @@
 </template>
 
 <script>
-  import { BTable } from 'bootstrap-vue';
+  import { BTable, BPagination } from 'bootstrap-vue';
   import LoadingSpinner from '../generic/LoadingSpinner';
   import SmartLink from '../generic/SmartLink';
   import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
@@ -69,6 +101,7 @@
     components: {
       AlertMessage: () => import('@/components/generic/AlertMessage'),
       BTable,
+      BPagination,
       LoadingSpinner,
       SmartLink
     },
@@ -102,7 +135,10 @@
             label: this.$t('pages.collections.table.items'),
             class: 'text-right'
           }
-        ]
+        ],
+        filter: null,
+        currentPage: 1,
+        perPage: 100
       };
     },
     fetch() {
