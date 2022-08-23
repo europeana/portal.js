@@ -88,7 +88,9 @@
       <b-row>
         <b-col lg="6">
           <div class="sub-footer">
-            <EULogo />
+            <EULogo
+              class="mb-3"
+            />
             <p>{{ $t('footer.disclaimerLine1') }}</p>
 
             <p>{{ $t('footer.disclaimerLine2') }}</p>

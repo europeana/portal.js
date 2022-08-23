@@ -23,7 +23,7 @@
     <AttributionToggle
       :attribution="backgroundImage"
     />
-    <EULogo />
+    <EULogo class="bottom-right" />
   </div>
 </template>
 
@@ -95,16 +95,22 @@
     }
 
     &::after {
-      border-bottom: 145px solid $white;
-      border-left: 60px solid transparent;
+      border-bottom: 209px solid $white;
+      border-left: 95px solid transparent;
       content: '';
       display: block;
       height: 0;
       position: absolute;
       right: 0;
-      top: calc(100% - 145px);
+      top: calc(100% - 209px);
       width: 0;
       z-index: 1;
+
+      @media (min-width: $bp-xxxl) {
+        border-bottom-width: (209/16 * 1vw); // divide by 16 (1rem = 16px) and use vw to create responsive value
+        border-left-width: (95/16 * 1vw); // divide by 16 (1rem = 16px) and use vw to create responsive value
+        top: calc(100% - (209/16 * 1vw));
+      }
     }
 
     h1,
@@ -182,12 +188,6 @@
     left: 0.5rem;
     right: auto;
     z-index: 3;
-  }
-
-  .eu-logo {
-    position: absolute;
-    right: calc(60px + 1rem);
-    bottom: 1rem;
   }
 </style>
 
