@@ -1,5 +1,5 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import EULogo from '@/components/generic/EULogo.vue';
+import EULogo from '@/components/funders/EULogo.vue';
 
 const localVue = createLocalVue();
 
@@ -13,7 +13,7 @@ const factory = (locale) => shallowMount(EULogo, {
   }
 });
 
-describe('components/generic/EULogo', () => {
+describe('components/funders/EULogo', () => {
   it('displays a localised EU logo', async() => {
     const wrapper = factory('nl');
 
