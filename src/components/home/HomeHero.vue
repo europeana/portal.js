@@ -30,7 +30,7 @@
 <script>
   import SearchForm from '@/components/search/SearchForm';
   import AttributionToggle from '@/components/generic/AttributionToggle';
-  import EULogo from '@/components/generic/EULogo';
+  import EULogo from '@/components/funders/EULogo';
   import { responsiveBackgroundImageCSSVars } from '@/plugins/contentful-utils';
 
   export default {

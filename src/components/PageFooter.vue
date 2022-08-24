@@ -104,7 +104,7 @@
 <script>
   import LangSelector from './generic/LanguageSelector';
   import LinkGroup from './generic/LinkGroup';
-  import EULogo from '@/components/generic/EULogo';
+  import EULogo from '@/components/funders/EULogo';
 
   export default {
     components: {
