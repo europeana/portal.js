@@ -2,7 +2,7 @@
   <img
     width="304"
     height="64"
-    :src="EULogo"
+    :src="localisedEULogo"
     :alt="$t('footer.imageDescription')"
     class="eu-logo"
   >
@@ -12,7 +12,7 @@
     name: 'EULogo',
 
     computed: {
-      EULogo() {
+      localisedEULogo() {
         let logo;
         try {
           logo = require(`@/assets/img/eu-funded/${this.$i18n.locale}-Funded by the EU_NEG.svg`);
