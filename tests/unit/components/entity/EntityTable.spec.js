@@ -9,6 +9,7 @@ const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const $axiosGetStub = sinon.stub();
+const $gotoStub = sinon.stub();
 
 const factory = (propsData = { type: 'organisations' }, fetchState = { error: false, pending: false }) => shallowMountNuxt(EntityTable, {
   localVue,
@@ -19,7 +20,9 @@ const factory = (propsData = { type: 'organisations' }, fetchState = { error: fa
       get: $axiosGetStub
     },
     $t: (val) => val,
-    $i18n: { locale: 'en' }
+    $i18n: { locale: 'en' },
+    $goto: $gotoStub,
+    $path: (val) => val
   }
 });
 
@@ -73,13 +76,13 @@ describe('components/entity/EntityTable', () => {
     });
   });
 
-  describe('entityRoute', () => {
-    it('returns the local path', async() => {
+  describe('rowClicked', () => {
+    it('redirects to entity path', async() => {
       const wrapper = factory();
 
-      const entityRoute = wrapper.vm.entityRoute(organisations[0].slug);
+      await wrapper.vm.rowClicked(organisations[0]);
 
-      expect(entityRoute).toBe(`/collections/organisation/${organisations[0].slug}`);
+      expect($gotoStub.calledWith(`/collections/organisation/${organisations[0].slug}`)).toBe(true);
     });
   });
 

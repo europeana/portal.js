@@ -24,6 +24,7 @@ table,
   tbody tr {
     &:hover {
       color: $innovationblue;
+      cursor: pointer;
     }
   }
 
@@ -51,7 +52,7 @@ table,
     strong + span {
       font-size: $font-size-extrasmall;
       line-height: 1.25rem;
-      color: $mediumgrey;
+      color: inherit;
       text-transform: uppercase;
     }
 

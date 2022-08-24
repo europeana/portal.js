@@ -17,6 +17,7 @@
       :busy="$fetchState.pending"
       striped
       class="borderless"
+      @row-clicked="rowClicked"
     >
       <template #table-busy>
         <div class="text-center my-2">
@@ -25,24 +26,20 @@
         </div>
       </template>
       <template #cell(prefLabel)="data">
-        <SmartLink
-          :destination="entityRoute(data.item.slug)"
-        >
-          <template v-if="type === 'organisations'">
-            <strong :lang="data.item.prefLabelLang">{{ data.item.prefLabel }}</strong>
-            <span
-              v-if="data.item.altLabel"
-              :lang="data.item.altLabelLang"
-            >
-              {{ data.item.altLabel }}
-            </span>
-          </template>
+        <template v-if="type === 'organisations'">
+          <strong :lang="data.item.prefLabelLang">{{ data.item.prefLabel }}</strong>
           <span
-            v-else
+            v-if="data.item.altLabel"
+            :lang="data.item.altLabelLang"
           >
-            {{ data.item.prefLabel }}
+            {{ data.item.altLabel }}
           </span>
-        </SmartLink>
+        </template>
+        <span
+          v-else
+        >
+          {{ data.item.prefLabel }}
+        </span>
       </template>
       <template
         v-if="type === 'organisations'"
@@ -59,7 +56,6 @@
 <script>
   import { BTable } from 'bootstrap-vue';
   import LoadingSpinner from '../generic/LoadingSpinner';
-  import SmartLink from '../generic/SmartLink';
   import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
   import { langMapValueForLocale } from '@/plugins/europeana/utils';
 
@@ -68,8 +64,7 @@
     components: {
       AlertMessage: () => import('@/components/generic/AlertMessage'),
       BTable,
-      LoadingSpinner,
-      SmartLink
+      LoadingSpinner
     },
     mixins: [
       europeanaEntitiesOrganizationsMixin
@@ -134,12 +129,13 @@
           ...org,
           prefLabel: nativeNameLangMapValue.values[0],
           prefLabelLang: nativeNameLangMapValue.code,
-          altLabel: englishNameLangMapValue && englishNameLangMapValue.values[0],
-          altLabelLang: englishNameLangMapValue && englishNameLangMapValue.code
+          altLabel: englishNameLangMapValue?.values[0],
+          altLabelLang: englishNameLangMapValue?.code
         };
       },
-      entityRoute(slug) {
-        return `/collections/${this.typeSingular}/${slug}`;
+      rowClicked(item) {
+        const path = this.$path(`/collections/${this.typeSingular}/${item.slug}`);
+        this.$goto(path);
       }
     }
   };
