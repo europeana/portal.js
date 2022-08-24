@@ -744,6 +744,7 @@ export default {
       "europeanaClassroom": "For teachers",
       "help": "Help",
       "home": "Home",
+      "pro": "For professionals",
       "stories": "Stories"
     },
     "quickSearch": "Quick Search",

@@ -111,7 +111,8 @@
         return [
           { url: '/', text: this.$t('header.navigation.home') },
           { url: '/collections', text: this.$t('header.navigation.collections') },
-          { url: '/stories', text: this.$t('header.navigation.stories') }
+          { url: '/stories', text: this.$t('header.navigation.stories') },
+          { url: '/europeana-professionals', text: this.$t('header.navigation.pro') }
         ];
       },
       sidebarNavigation() {
@@ -155,6 +156,9 @@
           break;
         case ('/about-us'):
           className = 'icon-info';
+          break;
+        case ('/europeana-professionals'):
+          className = 'icon-pro';
           break;
         default:
           className = 'icon-info blank';
@@ -253,6 +257,10 @@
 
         &.icon-collections::before {
           content: '\e91d';
+        }
+
+        &.icon-pro::before {
+          content: '\e95a';
         }
 
         &.icon-school::before {
