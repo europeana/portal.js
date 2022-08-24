@@ -88,13 +88,9 @@
       <b-row>
         <b-col lg="6">
           <div class="sub-footer">
-            <img
-              width="250"
-              height="26"
-              src="../assets/img/eu-funding.svg"
+            <EULogo
               class="mb-3"
-              :alt="$t('footer.imageDescription')"
-            >
+            />
             <p>{{ $t('footer.disclaimerLine1') }}</p>
 
             <p>{{ $t('footer.disclaimerLine2') }}</p>
@@ -108,11 +104,13 @@
 <script>
   import LangSelector from './generic/LanguageSelector';
   import LinkGroup from './generic/LinkGroup';
+  import EULogo from '@/components/funders/EULogo';
 
   export default {
     components: {
       LangSelector,
-      LinkGroup
+      LinkGroup,
+      EULogo
     },
 
     data() {
@@ -191,10 +189,8 @@
   };
 </script>
 
-<!-- <docs lang="md">
-  TODO: uncomment and implement once store is available to styleguide
-  Page footer
+<docs lang="md">
   ```jsx
   <PageFooter />
   ```
-</docs> -->
+</docs>

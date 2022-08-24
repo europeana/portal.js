@@ -35,7 +35,8 @@ Object.assign(Vue.prototype, {
   $path: () => {
     return '/';
   },
-  $route: { query: {} }
+  $route: { query: {} },
+  switchLocalePath: () => '/'
 });
 
 const store = new Vuex.Store({
@@ -95,6 +96,11 @@ const i18n = new VueI18n({
     en: messages
   }
 });
+i18n.locales = [
+  { code: 'en', name: 'English', iso: 'en-GB' },
+  { code: 'de', name: 'Deutsch', iso: 'de-DE' },
+  { code: 'nl', name: 'Nederlands', iso: 'nl-NL' }
+];
 
 export default previewComponent => {
   // https://vuejs.org/v2/guide/render-function.html
