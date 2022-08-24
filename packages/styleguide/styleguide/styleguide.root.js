@@ -86,8 +86,8 @@ const store = new Vuex.Store({
   }
 });
 
-import messages from '@/europeana/portal/lang/en';
-import '@/europeana/portal/plugins/vue-filters';
+import messages from '@europeana/portal/src/lang/en.js';
+import '@europeana/portal/src/plugins/vue-filters';
 
 const i18n = new VueI18n({
   locale: 'en',

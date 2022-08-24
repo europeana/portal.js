@@ -7,7 +7,8 @@ const bootstrapVueVersion = require('bootstrap-vue/package.json').version;
 module.exports = async() => {
   // get the webpack config directly from nuxt
   const nuxtWebpackConfig = await getWebpackConfig('client', {
-    for: 'dev'
+    for: 'dev',
+    rootDir: '../portal'
   });
 
   const webpackConfig = {
@@ -19,7 +20,9 @@ module.exports = async() => {
         )
       ]
     },
-    resolve: { ...nuxtWebpackConfig.resolve },
+    resolve: {
+      ...nuxtWebpackConfig.resolve,
+    },
     plugins: [
       ...nuxtWebpackConfig.plugins
     ]
