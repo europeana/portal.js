@@ -15,6 +15,7 @@
       :items="collections"
       :sort-by.sync="sortBy"
       :busy="$fetchState.pending"
+      :tbody-tr-attr="{role: 'link'}"
       striped
       class="borderless"
       @row-clicked="rowClicked"
