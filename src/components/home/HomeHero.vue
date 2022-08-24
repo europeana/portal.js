@@ -107,8 +107,8 @@
       z-index: 1;
 
       @media (min-width: $bp-xxxl) {
-        border-bottom-width: (209 / 16 * 1vw); // divide by 16 (1rem = 16px) and use vw to create responsive value
-        border-left-width: (95 / 16 * 1vw); // divide by 16 (1rem = 16px) and use vw to create responsive value
+        border-bottom-width: calc(209 / 16 * 1vw); // divide by 16 (1rem = 16px) and use vw to create responsive value
+        border-left-width: calc(95 / 16 * 1vw); // divide by 16 (1rem = 16px) and use vw to create responsive value
         top: calc(100% - (209 / 16 * 1vw));
       }
     }

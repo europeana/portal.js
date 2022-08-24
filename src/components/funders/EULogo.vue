@@ -33,7 +33,7 @@
     bottom: 0;
     max-width: calc(100vw - 95px - 3rem); // viewport width minus cutout (95px) and 1rem for extra spacing
 
-    --right-spacing: (64 / 304 * 50%); // 50% of height divided by width to get 50% height of img for right spacing
+    --right-spacing: calc(64 / 304 * 50%); // 50% of height divided by width to get 50% height of img for right spacing
 
     @media (max-width: $bp-small - 1px) {
       margin-bottom: 1rem;
