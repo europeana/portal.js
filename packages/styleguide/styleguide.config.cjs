@@ -55,43 +55,43 @@ module.exports = async() => {
         sections: [
           {
             name: 'Page',
-            components: './src/components/[A-Z]*.vue'
+            components: '../portal/src/components/[A-Z]*.vue'
           },
           {
             name: 'Account',
-            components: './src/components/account/[A-Z]*.vue'
+            components: '../portal/src/components/account/[A-Z]*.vue'
           },
           {
             name: 'Entity',
-            components: './src/components/entity/[A-Z]*.vue'
+            components: '../portal/src/components/entity/[A-Z]*.vue'
           },
           {
             name: 'Generic',
-            components: './src/components/generic/[A-Z]*.vue'
+            components: '../portal/src/components/generic/[A-Z]*.vue'
           },
           {
             name: 'Home',
-            components: './src/components/home/[A-Z]*.vue'
+            components: '../portal/src/components/home/[A-Z]*.vue'
           },
           {
             name: 'Item',
-            components: './src/components/item/[A-Z]*.vue'
+            components: '../portal/src/components/item/[A-Z]*.vue'
           },
           {
             name: 'Related',
-            components: './src/components/related/[A-Z]*.vue'
+            components: '../portal/src/components/related/[A-Z]*.vue'
           },
           {
             name: 'Search',
-            components: './src/components/search/[A-Z]*.vue'
+            components: '../portal/src/components/search/[A-Z]*.vue'
           }
         ]
       }
     ],
-    assetsDir: './src/assets',
+    assetsDir: '../portal/src/assets',
     skipComponentsWithoutExample: true,
     require: [
-      resolve(__dirname, './src/assets/scss/style.scss'),
+      resolve(__dirname, '../portal/src/assets/scss/style.scss'),
       resolve(__dirname, './styleguide/style.scss')
     ],
     renderRootJsx: resolve(__dirname, './styleguide/styleguide.root.js'),
