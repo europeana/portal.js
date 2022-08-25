@@ -57,6 +57,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
+          cache: 'npm'
       -
         name: Install eslint
         run: |
@@ -79,6 +80,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
+          cache: 'npm'
       -
         name: Install stylelint
         run: |
@@ -105,9 +107,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
+          cache: 'npm'
       -
         name: NPM install
-        # TODO: caching
         run: npm ci --include-workspace-root -w packages/portal
       -
         name: Run unit tests
