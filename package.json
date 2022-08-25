@@ -1,8 +1,8 @@
 {
   "name": "europeana-portal",
-  "private": true,
   "version": "1.78.0",
   "description": "Europeana Portal",
+  "private": true,
   "workspaces": [
     "packages/*"
   ],
@@ -12,7 +12,7 @@
     "cache": "npm run -w packages/portal cache",
     "dev": "npm run -w packages/portal dev",
     "lint:fix": "npm run lint -- --fix",
-    "lint": "eslint --no-fix bin src tests/unit *.js styleguide",
+    "lint": "eslint --no-fix --ignore-path .gitignore bin packages tests *.js",
     "start:inspect": "npm run -w packages/portal start:inspect",
     "start": "npm run -w packages/portal start",
     "styleguide": "npm run -w packages/styleguide start",
