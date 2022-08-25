@@ -214,15 +214,19 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '@/assets/scss/variables';
+
   .header-card .btn {
     margin-right: 0.5rem;
     margin-top: 0.5rem;
   }
 
   .card-subtitle {
-    font-weight: 600;
     margin-top: 0.5rem;
     margin-bottom: 0.375rem;
+    font-size: $font-size-extrasmall;
+    color: $mediumgrey;
+    text-transform: uppercase;
   }
 </style>
 
