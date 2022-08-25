@@ -1,24 +1,27 @@
 export default {
   coveragePathIgnorePatterns: [
-    '<rootDir>/src/plugins/i18n/locales.js',
-    '<rootDir>/src/lang/',
-    '<rootDir>/src/migrations/'
+    '<rootDir>/packages/portal/src/plugins/i18n/locales.js',
+    '<rootDir>/packages/portal/src/lang/',
+    '<rootDir>/packages/portal/src/migrations/'
   ],
   collectCoverageFrom: [
-    '<rootDir>/src/**/*.{cjs,js,vue}'
+    '<rootDir>/packages/portal/src/**/*.{cjs,js,vue}'
   ],
   coverageReporters: [
-    'html', 'lcov', 'text'
+    'html',
+    'lcov',
+    'text'
   ],
   moduleFileExtensions: [
     'cjs',
     'js',
     'json',
+    'mjs',
     'vue'
   ],
   moduleNameMapper: {
     '^swiper$': '<rootDir>/tests/unit/swiperMock.js',
-    '^@/(.*)$': '<rootDir>/src/$1',
+    '^@/(.*)$': '<rootDir>/packages/portal/src/$1',
     '\\.css$': '<rootDir>/tests/unit/styleMock.js'
   },
   setupFiles: [
@@ -27,14 +30,14 @@ export default {
   testEnvironment: 'jsdom',
   testPathIgnorePatterns: [
     '/node_modules/',
-    '<rootDir>/.nuxt/',
-    '<rootDir>/tmp/'
+    '<rootDir>/packages/portal/.nuxt/',
+    '<rootDir>/packages/portal/tmp/'
   ],
   transformIgnorePatterns: [
     '/node_modules/(?!decamelize)'
   ],
   transform: {
-    '^.+\\.js$': 'babel-jest',
+    '^.+\\.(js|mjs)$': 'babel-jest',
     '^.+\\.vue$': '@vue/vue2-jest',
     '\\.(svg)$': '<rootDir>/tests/unit/fileTransformer.cjs'
   }
