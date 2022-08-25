@@ -79,7 +79,7 @@ jobs:
           cache-to: type=gha,mode=max
 
   # Run code linting on master and all PRs (including drafts)
-  test-lint:
+  lint-code:
     runs-on: ubuntu-latest
     if: (github.event_name == 'push' && github.event.ref == 'refs/heads/master') || (github.event_name == 'pull_request')
     steps:
@@ -99,6 +99,29 @@ jobs:
       -
         name: Run eslint
         run: npm run lint
+
+  # Run style linting on master and all PRs (including drafts)
+  lint-style:
+    runs-on: ubuntu-latest
+    if: (github.event_name == 'push' && github.event.ref == 'refs/heads/master') || (github.event_name == 'pull_request')
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      -
+        name: Install stylelint
+        run: |
+          npm install --prefix tmp stylelint stylelint-config-recommended-vue stylelint-config-standard-scss
+          mv tmp/node_modules ./
+      -
+        name: Run stylelint
+        run: npm run stylelint
+
 
   # Run unit tests on master (for coverage reports), and non-draft pull requests
   test-unit:
@@ -133,12 +156,6 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           target: base
           cache-from: type=gha
-      -
-        name: Check style linting
-        run: |
-          docker run \
-            --mount type=bind,source="$(pwd)"/.stylelintrc.cjs,target=/app/.stylelintrc.cjs \
-            ${DOCKER_REPOSITORY}:${{ steps.meta.outputs.version }} npm run stylelint
       -
         name: Run unit tests
         run: |
