@@ -86,3 +86,6 @@ vars.yml
 # Git
 .git/
 .github/
+
+# Docker
+Dockerfile
