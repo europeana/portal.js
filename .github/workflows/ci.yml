@@ -108,7 +108,7 @@ jobs:
       -
         name: NPM install
         # TODO: caching
-        run: npm ci -w packages/portal
+        run: npm ci --include-workspace-root -w packages/portal
       -
         name: Run unit tests
         run: npm run test:coverage
