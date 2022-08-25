@@ -1,5 +1,5 @@
 import { createLocalVue } from '@vue/test-utils';
-import { mountNuxt } from '../../utils';
+import { shallowMountNuxt } from '../../utils';
 import sinon from 'sinon';
 import BootstrapVue from 'bootstrap-vue';
 
@@ -10,7 +10,7 @@ localVue.use(BootstrapVue);
 
 const $axiosGetStub = sinon.stub();
 
-const factory = (propsData = { type: 'organisations' }, fetchState = { error: false, pending: false }) => mountNuxt(EntityTable, {
+const factory = (propsData = { type: 'organisations' }, fetchState = { error: false, pending: false }) => shallowMountNuxt(EntityTable, {
   localVue,
   propsData,
   mocks: {
@@ -19,15 +19,31 @@ const factory = (propsData = { type: 'organisations' }, fetchState = { error: fa
       get: $axiosGetStub
     },
     $t: (val) => val,
-    $i18n: { locale: 'en' },
-    $path: (code) => `/collections/${code.params.type}/${code.params.pathMatch}`
+    $i18n: { locale: 'en' }
   }
 });
 
 const middlewarePath = '/_api/cache/collections/organisations';
 const collections = [
-  { id: '001', slug: '001-museum', prefLabel: { de: 'museum' } },
-  { id: '002', slug: '002-library', prefLabel: { nl: 'library' } }
+  { slug: '001-museum', prefLabel: { de: 'museum', en: 'museum' } },
+  { slug: '002-library', prefLabel: { nl: 'bibliotheek', en: 'library' } }
+];
+
+const organisations = [
+  {
+    slug: '001-museum',
+    prefLabel: 'museum',
+    prefLabelLang: 'de',
+    altLabel: 'museum',
+    altLabelLang: null
+  },
+  {
+    slug: '002-library',
+    prefLabel: 'bibliotheek',
+    prefLabelLang: 'nl',
+    altLabel: 'library',
+    altLabelLang: null
+  }
 ];
 
 describe('components/entity/EntityTable', () => {
@@ -53,22 +69,17 @@ describe('components/entity/EntityTable', () => {
 
       await wrapper.vm.fetch();
 
-      expect(wrapper.vm.collections).toEqual([
-        { id: '001', slug: '001-museum', prefLabel: 'museum' },
-        { id: '002', slug: '002-library', prefLabel: 'library' }
-      ]);
+      expect(wrapper.vm.collections).toEqual(organisations);
     });
   });
 
   describe('entityRoute', () => {
-    it('returns an object to set the relative path', async() => {
+    it('returns the local path', async() => {
       const wrapper = factory();
 
-      await wrapper.setData({
-        collections
-      });
+      const entityRoute = wrapper.vm.entityRoute(organisations[0].slug);
 
-      expect(wrapper.find('[data-qa="collection link 001-museum"]').attributes('href')).toBe(`/collections/organisation/${collections[0].slug}`);
+      expect(entityRoute).toBe(`/collections/organisation/${organisations[0].slug}`);
     });
   });
 
