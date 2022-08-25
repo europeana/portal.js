@@ -35,6 +35,11 @@
     "@europeana/portal": "link:./packages/app",
     "@europeana/styleguide": "link:./packages/styleguide"
   },
+  "dependencies": {
+    "vue": "2.6.14",
+    "vue-server-renderer": "2.6.14",
+    "vue-template-compiler": "2.6.14"
+  },
   "devDependencies": {
     "@babel/core": "^7.16.12",
     "@babel/preset-env": "^7.16.11",
