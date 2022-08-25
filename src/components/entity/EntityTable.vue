@@ -134,8 +134,8 @@
           ...org,
           prefLabel: nativeNameLangMapValue.values[0],
           prefLabelLang: nativeNameLangMapValue.code,
-          altLabel: englishNameLangMapValue && englishNameLangMapValue.values[0],
-          altLabelLang: englishNameLangMapValue && englishNameLangMapValue.code
+          altLabel: englishNameLangMapValue?.values[0],
+          altLabelLang: englishNameLangMapValue?.code
         };
       },
       entityRoute(slug) {
