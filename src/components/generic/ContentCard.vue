@@ -61,7 +61,7 @@
             v-if="displayTitle"
             title-tag="div"
             data-qa="card title"
-            :lang="displayTitle.code || null"
+            :lang="displayTitle.code || ''"
           >
             <span>
               {{ displayTitle.value | truncate(90, $t('formatting.ellipsis')) }}
@@ -80,7 +80,7 @@
             <b-card-text
               v-for="(text, index) in displayTexts"
               :key="index"
-              :lang="text.code || null"
+              :lang="text.code || ''"
               text-tag="div"
             >
               <!-- eslint-disable vue/no-v-html -->
