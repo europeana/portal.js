@@ -157,7 +157,7 @@
         case ('/about-us'):
           className = 'icon-info';
           break;
-        case ('/europeana-professionals'):
+        case ('/professionals'):
           className = 'icon-pro';
           break;
         default:
