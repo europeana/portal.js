@@ -7,11 +7,17 @@
       class="hero-content"
     >
       <header>
-        <h1
+        <i18n
+          path="homePage.title"
+          tag="h1"
           class="text-center"
         >
-          {{ $t('homePage.title') }}
-        </h1>
+          <template #digital>
+            <span class="digital-highlight">
+              {{ $t('homePage.titleDigital') }}
+            </span>
+          </template>
+        </i18n>
         <p
           class="sub-headline text-center"
         >
@@ -120,8 +126,12 @@
 
     h1 {
       font-size: 2.125rem;
-      font-weight: 700;
+      font-weight: 900;
       margin-bottom: 1em;
+
+      .digital-highlight {
+        text-shadow: 3.5px 3.5px 0 $blue;
+      }
 
       @media (min-width: $bp-medium) {
         font-size: 2.875rem;
@@ -143,6 +153,10 @@
 
       h1 {
         font-size: 2.6vw;
+
+        .digital-highlight {
+          text-shadow: 0.24vw 0.24vw 0 $blue;
+        }
       }
 
       .sub-headline {

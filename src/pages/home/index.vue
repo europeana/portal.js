@@ -103,7 +103,7 @@
 
     computed: {
       pageTitle() {
-        return this.$t('homePage.title');
+        return this.$t('homePage.title', { digital: this.$t('homePage.titleDigital') });
       },
 
       pageSubHeadline() {
