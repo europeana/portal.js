@@ -19,12 +19,12 @@ To update the Open sans font:
    Saving these to a file (one url per line) will allow downloading all at once:
      wget --input-file=./opensans-urls.txt
 
-3. Ensure all files are placed in the apropriate directory:
+3. Ensure all files are placed in the appropriate directory:
      /src/asssets/fonts/opensans/[version]/[filename].woff2
 
 4. Replace all the https://fonts.gstatic.com/s/opensans/ URLs here with local URLs.
 
-5. Double check for any changes in formating. Make sure the imported scss rules
+5. Double check for any changes in formatting. Make sure the imported scss rules
    confrom to linting and don't contain unwanted rules/files.
 */
 
