@@ -12,9 +12,11 @@
           tag="h1"
           class="text-center"
         >
-          <span class="digital-highlight">
-            {{ $t('homePage.titleDigital') }}
-          </span>
+          <template #digital>
+            <span class="digital-highlight">
+              {{ $t('homePage.titleDigital') }}
+            </span>
+          </template>
         </i18n>
         <p
           class="sub-headline text-center"
@@ -126,7 +128,7 @@
       margin-bottom: 1em;
 
       .digital-highlight {
-        text-shadow: 2px 2px 0 $blue;
+        text-shadow: 3.5px 3.5px 0 $blue;
       }
 
       @media (min-width: $bp-medium) {
@@ -151,7 +153,7 @@
         font-size: 2.6vw;
 
         .digital-highlight {
-          text-shadow: 0.12vw 0.12vw 0 $blue;
+          text-shadow: 0.24vw 0.24vw 0 $blue;
         }
       }
 
