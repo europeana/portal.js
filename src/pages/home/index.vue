@@ -158,6 +158,7 @@
 
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
+  @import '@/assets/scss/mixins';
 
   .page {
     background-color: white;
@@ -165,18 +166,7 @@
     position: relative;
     text-align: center;
 
-    &::after {
-      border-top: 145px solid $white;
-      border-left: 60px solid transparent;
-      content: '';
-      display: block;
-      height: 0;
-      position: absolute;
-      right: 0;
-      top: 100%;
-      width: 0;
-      z-index: 1;
-    }
+    @include white-cutout;
 
     &.gridless-container {
       > div,

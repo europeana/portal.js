@@ -37,7 +37,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
+  @import '@/assets/scss/variables';
 
   .error-message {
     padding: 10rem 1rem;

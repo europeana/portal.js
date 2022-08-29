@@ -285,3 +285,11 @@ main#default {
     mix-blend-mode: multiply;
   }
 }
+
+.white-page {
+  background: $white;
+  margin-top: -3rem;
+  position: relative;
+
+  @include white-cutout;
+}
