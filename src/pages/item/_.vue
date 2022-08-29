@@ -1,5 +1,8 @@
 <template>
-  <div data-qa="item page">
+  <div
+    data-qa="item page"
+    :class="$fetchState.error && 'white-page'"
+  >
     <b-container
       v-if="$fetchState.pending"
       data-qa="loading spinner container"
@@ -10,18 +13,12 @@
         </b-col>
       </b-row>
     </b-container>
-    <b-container
+    <ErrorMessage
       v-else-if="$fetchState.error"
       data-qa="alert message container"
-    >
-      <b-row class="flex-md-row py-4">
-        <b-col cols="12">
-          <AlertMessage
-            :error="$fetchState.error.message"
-          />
-        </b-col>
-      </b-row>
-    </b-container>
+      :error="$fetchState.error"
+      variant="item not found"
+    />
     <template
       v-else
     >
@@ -140,7 +137,7 @@
   export default {
     name: 'ItemPage',
     components: {
-      AlertMessage: () => import('@/components/generic/AlertMessage'),
+      ErrorMessage: () => import('@/components/generic/ErrorMessage'),
       ItemHero,
       ItemLanguageSelector: () => import('@/components/item/ItemLanguageSelector'),
       ItemRecommendations,
