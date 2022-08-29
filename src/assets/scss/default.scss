@@ -12,7 +12,7 @@ body {
 
 @media (min-width: $bp-medium) {
   main {
-    min-height: 30rem;
+    min-height: $min-page-height;
   }
 }
 
@@ -290,6 +290,7 @@ main#default {
   background: $white;
   margin-top: -3rem;
   position: relative;
+  min-height: $min-page-height;
 
   @include white-cutout;
 }

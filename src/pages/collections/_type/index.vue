@@ -1,5 +1,5 @@
 <template>
-  <div class="collections-page">
+  <div class="collections-page white-page">
     <b-container>
       <b-row
         v-if="$fetchState.error"
@@ -70,8 +70,6 @@
     @import '@/assets/scss/variables';
 
     .collections-page {
-      background-color: $white;
-      margin-top: -3rem;
       padding: 3rem 0 7rem;
     }
   </style>
