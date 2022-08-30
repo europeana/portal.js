@@ -6,7 +6,7 @@ export default {
     "likes": "Synes om'er",
     "linkAccount": "Min konto",
     "linkLogin": "Log ind",
-    "linkLoginJoin": "Login/Deltag",
+    "linkLoginJoin": "Login\/Deltag",
     "linkLogout": "Log ud",
     "myProfile": "Min profil",
     "notifications": {
@@ -201,7 +201,7 @@ export default {
         "title": "For mange fastgjorte emner"
       },
       "pinned": "Elementet er blevet fastgjort. Det er nu øverst på den første side i denne samling. Det kan tage op til 24 timer at vises for alle.",
-      "select": "Vælg en relateret enhed for at fastgøre/frigøre elementet til/fra det.",
+      "select": "Vælg en relateret enhed for at fastgøre\/frigøre elementet til\/fra det.",
       "unpin": "Dette element stopper med at blive vist øverst i samlingen \" {entity} \". Vi giver dig besked, når denne ændring vil være synlig på indsamlingssiden.",
       "unpinned": "Elementet er blevet fastgjort. Det er ikke længere øverst på den første side i denne samling. Det kan tage op til 24 timer at forsvinde for alle."
     }
@@ -495,7 +495,7 @@ export default {
     "MIME_TYPE": {
       "name": "Filformat | Filformater",
       "options": {
-        "text/plain": "Almindelig tekst"
+        "text\/plain": "Almindelig tekst"
       },
       "select": "Vælg filformater"
     },
@@ -783,7 +783,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Hjælper med at forbedre vores websted ved lejlighedsvis at anvende eksperimentelle ændringer.",
-        "title": "A/B-testning"
+        "title": "A\/B-testning"
       },
       "auth-strategy": {
         "description": "Husker autorisationsstrategien, der skal bruges til at logge ind.",
@@ -815,7 +815,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Husk, hvis du foretrækker at se søgeresultaterne i en liste- eller gittervisning.",
-        "title": "Visning af søgeresultater (liste / gitter)"
+        "title": "Visning af søgeresultater (liste \/ gitter)"
       }
     }
   },

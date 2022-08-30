@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mitt konto",
     "linkLogin": "Logga in",
-    "linkLoginJoin": "Logga in/Gå med",
+    "linkLoginJoin": "Logga in\/Gå med",
     "linkLogout": "Logga ut",
     "myProfile": "Min profil",
     "notifications": {
@@ -63,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Senaste objekt",
     "organisation": "Organisationer",
+    "place": "Platser",
     "time": "Utvalda århundraden",
     "topic": "Utvalda ämnen"
   },
@@ -200,7 +201,7 @@ export default {
         "title": "För många pinnade objekt"
       },
       "pinned": "Objektet har fästs. Det är nu högst upp på den första sidan i den här samlingen. Det kan ta upp till 24 timmar innan alla visas.",
-      "select": "Välj en relaterad entitet för att fästa/lossa objektet till/från den.",
+      "select": "Välj en relaterad entitet för att fästa\/lossa objektet till\/från den.",
       "unpin": "Det här objektet kommer att sluta visas överst i samlingen \" {entity} \". Vi kommer att meddela dig när denna förändring kommer att synas på insamlingssidan.",
       "unpinned": "Objektet har lossats. Det är inte längre högst upp på den första sidan i den här samlingen. Det kan ta upp till 24 timmar innan alla försvinner."
     }
@@ -494,7 +495,7 @@ export default {
     "MIME_TYPE": {
       "name": "Filformat | Filformat",
       "options": {
-        "text/plain": "Oformaterad text"
+        "text\/plain": "Oformaterad text"
       },
       "select": "Välj filformat"
     },
@@ -782,7 +783,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Hjälper till att förbättra vår webbplats genom att ibland tillämpa experimentella förändringar.",
-        "title": "A/B -testning"
+        "title": "A\/B -testning"
       },
       "auth-strategy": {
         "description": "Kommer ihåg den auktoriserings strategi som ska användas för att logga in.",
@@ -814,7 +815,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Kommer ihåg om du föredrar att se sökresultaten i en lista eller rutnät.",
-        "title": "Visa sökresultat (lista/rutnät)"
+        "title": "Visa sökresultat (lista\/rutnät)"
       }
     }
   },
@@ -855,6 +856,7 @@ export default {
   "newWindow": "öppnas i nytt fönster",
   "noMoreResults": "Det finns inga fler resultat för din sökning.",
   "noResults": "Inga träffar",
+  "of": "Av",
   "organisation": {
     "city": "Stad",
     "country": "Land",
@@ -862,6 +864,7 @@ export default {
     "nameAcronym": "Namn akronym"
   },
   "pageHasLoaded": "har laddats",
+  "pageNumber": "Sidonummer",
   "pages": {
     "collections": {
       "organisations": {
@@ -887,6 +890,9 @@ export default {
         "title": "Ämnen"
       }
     }
+  },
+  "pagination": {
+    "label": "Paginering"
   },
   "readMore": "Läs mer",
   "recommendation": {
