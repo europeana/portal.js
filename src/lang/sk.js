@@ -63,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Nedávne položky",
     "organisation": "Organizácie",
+    "place": "Miesta",
     "time": "Odporúčané storočia",
     "topic": "Odporúčané témy"
   },
@@ -855,6 +856,7 @@ export default {
   "newWindow": "otvorí sa v novom okne",
   "noMoreResults": "Pre vaše vyhľadávanie neexistujú žiadne ďalšie výsledky.",
   "noResults": "Žiadne výsledky",
+  "of": "Z",
   "organisation": {
     "city": "Mesto",
     "country": "Krajina",
@@ -862,6 +864,7 @@ export default {
     "nameAcronym": "Názov akronym"
   },
   "pageHasLoaded": "načítal",
+  "pageNumber": "Číslo strany",
   "pages": {
     "collections": {
       "organisations": {
@@ -887,6 +890,9 @@ export default {
         "title": "Témy"
       }
     }
+  },
+  "pagination": {
+    "label": "Stránkovanie"
   },
   "readMore": "Viac",
   "recommendation": {

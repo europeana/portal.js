@@ -63,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Elementos recientes",
     "organisation": "Organizaciones",
+    "place": "Lugares",
     "time": "Siglos destacados",
     "topic": "Temas destacados"
   },
@@ -855,6 +856,7 @@ export default {
   "newWindow": "se abre en una nueva ventana",
   "noMoreResults": "No hay más resultados para su búsqueda.",
   "noResults": "No hay resultados",
+  "of": "De",
   "organisation": {
     "city": "Ciudad",
     "country": "País",
@@ -862,6 +864,7 @@ export default {
     "nameAcronym": "acrónimo del nombre"
   },
   "pageHasLoaded": "ha cargado",
+  "pageNumber": "Número de página",
   "pages": {
     "collections": {
       "organisations": {
@@ -887,6 +890,9 @@ export default {
         "title": "Temas"
       }
     }
+  },
+  "pagination": {
+    "label": "Paginación"
   },
   "readMore": "Leer más",
   "recommendation": {

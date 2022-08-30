@@ -63,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Legutóbbi cikk",
     "organisation": "Szervezetek",
+    "place": "Helyek",
     "time": "Kiemelt évszázadok",
     "topic": "Kiemelt témák"
   },

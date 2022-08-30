@@ -63,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Articole recente",
     "organisation": "Organizații",
+    "place": "Locuri",
     "time": "Secole recomandate",
     "topic": "Subiecte recomandate"
   },
@@ -719,7 +720,7 @@ export default {
       "pro": "Pentru profesioniști",
       "stories": "Povești"
     },
-    "quickSearch": "Cautare rapida",
+    "quickSearch": "Căutare rapidă",
     "searchFor": "Caută pentru {query}",
     "searchForEverything": "Caută tot",
     "searchForEverythingInCollection": "Caută tot în {collection}",
@@ -855,6 +856,7 @@ export default {
   "newWindow": "se deschide într-o fereastră nouă",
   "noMoreResults": "Nu mai există rezultate pentru interogarea de căutare.",
   "noResults": "Niciun rezultat",
+  "of": "De",
   "organisation": {
     "city": "Oraș",
     "country": "Țara",
@@ -862,6 +864,7 @@ export default {
     "nameAcronym": "Acronim de nume"
   },
   "pageHasLoaded": "a încărcat",
+  "pageNumber": "Numărul paginii",
   "pages": {
     "collections": {
       "organisations": {
@@ -887,6 +890,9 @@ export default {
         "title": "Subiecte"
       }
     }
+  },
+  "pagination": {
+    "label": "Paginare"
   },
   "readMore": "Citește mai mult",
   "recommendation": {

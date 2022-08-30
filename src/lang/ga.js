@@ -63,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Míreanna le déanaí",
     "organisation": "Eagraíochtaí",
+    "place": "Áiteanna",
     "time": "Na hAois réadmhaoin",
     "topic": "Topaicí réadmhaoine"
   },

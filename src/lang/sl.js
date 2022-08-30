@@ -63,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Nedavni predmeti",
     "organisation": "Organizacije",
+    "place": "Mesta",
     "time": "Priporočena stoletja",
     "topic": "Priporočene teme"
   },
@@ -855,6 +856,7 @@ export default {
   "newWindow": "odpre se v novem oknu",
   "noMoreResults": "Za vašo iskalno poizvedbo ni več rezultatov.",
   "noResults": "Brez rezultatov",
+  "of": "Od",
   "organisation": {
     "city": "Mesto",
     "country": "Država",
@@ -862,6 +864,7 @@ export default {
     "nameAcronym": "Kratica imena"
   },
   "pageHasLoaded": "je naložena",
+  "pageNumber": "Številka strani",
   "pages": {
     "collections": {
       "organisations": {
@@ -887,6 +890,9 @@ export default {
         "title": "Teme"
       }
     }
+  },
+  "pagination": {
+    "label": "Paginacija"
   },
   "readMore": "Preberi več",
   "recommendation": {

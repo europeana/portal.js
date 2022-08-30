@@ -63,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Itens recentes",
     "organisation": "Organizações",
+    "place": "Lugares",
     "time": "Séculos em destaque",
     "topic": "Tópicos em destaque"
   },
@@ -855,6 +856,7 @@ export default {
   "newWindow": "abre numa nova janela",
   "noMoreResults": "Não há mais resultados para a sua pesquisa.",
   "noResults": "Sem Resultados",
+  "of": "De",
   "organisation": {
     "city": "Cidade",
     "country": "País",
@@ -924,7 +926,7 @@ export default {
   },
   "related": {
     "editorial": {
-      "title": "Histórias que você pode gostar"
+      "title": "Histórias que pode gostar"
     }
   },
   "relatedCollections": "Coleções relacionadas",

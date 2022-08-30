@@ -63,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Pēdējie vienumi",
     "organisation": "Organizācijas",
+    "place": "Vietas",
     "time": "Izvēlētie gadsimti",
     "topic": "Izvēlētās tēmas"
   },

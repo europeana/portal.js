@@ -63,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Πρόσφατα αντικείμενα",
     "organisation": "Οργανώσεις",
+    "place": "Μέρη",
     "time": "Προτεινόμενοι αιώνες",
     "topic": "Προτεινόμενα θέματα"
   },
@@ -80,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Οργάνωση",
     "person": "Πρόσωπο",
+    "place": "Θέση",
     "theme": "Θέμα",
     "time": "Αιώνας",
     "topic": "Θέμα"
