@@ -6,7 +6,7 @@ export default {
     "likes": "Kedvelések",
     "linkAccount": "Fiókom",
     "linkLogin": "Bejelentkezés",
-    "linkLoginJoin": "Bejelentkezés\/Csatlakozás",
+    "linkLoginJoin": "Bejelentkezés/Csatlakozás",
     "linkLogout": "Bejelentkezés",
     "myProfile": "A profilom",
     "notifications": {
@@ -201,7 +201,7 @@ export default {
         "title": "Túl sok rögzített elem"
       },
       "pinned": "Az elemet kitűzték. Most a gyűjtemény első oldalának tetején található. Lehet, hogy 24 óráig is eltarthat, amíg mindenki számára megjelenik.",
-      "select": "Válasszon ki egy kapcsolódó entitást, hogy az elemet hozzá\/hozzá kapcsolja\/elvegye.",
+      "select": "Válasszon ki egy kapcsolódó entitást, hogy az elemet hozzá/hozzá kapcsolja/elvegye.",
       "unpin": "Ez az elem nem jelenik meg többé a \"{entity}\" gyűjtemény tetején. Értesítjük Önt, ha ez a változás láthatóvá válik a gyűjtemény oldalán.",
       "unpinned": "Az elem rögzítése megszűnt. Már nincs a gyűjtemény első oldalának tetején. Akár 24 órát is igénybe vehet, amíg mindenki eltűnik."
     }
@@ -495,7 +495,7 @@ export default {
     "MIME_TYPE": {
       "name": "Fájlformátum | Fájlformátumok",
       "options": {
-        "text\/plain": "Egyszerű szöveg"
+        "text/plain": "Egyszerű szöveg"
       },
       "select": "Válassza ki a fájlformátumokat"
     },
@@ -783,7 +783,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Segít weboldalunk fejlesztésében azáltal, hogy alkalmanként kísérleti változtatásokat alkalmaz.",
-        "title": "A\/B tesztelés"
+        "title": "A/B tesztelés"
       },
       "auth-strategy": {
         "description": "Emlékszik a bejelentkezéshez használandó engedélyezési stratégiára.",
@@ -815,7 +815,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Emlékszik arra, hogy a keresési eredményeket inkább lista- vagy rácsnézetben szeretné-e látni.",
-        "title": "Keresési eredmény nézet (lista \/ rács)"
+        "title": "Keresési eredmény nézet (lista / rács)"
       }
     }
   },
