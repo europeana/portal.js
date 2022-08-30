@@ -856,6 +856,7 @@ export default {
   "newWindow": "tiftaħ fit-tieqa l-ġdida",
   "noMoreResults": "M'hemmx aktar riżultati għall-mistoqsija tat-tfittxija tiegħek.",
   "noResults": "M'hawnx riżultati",
+  "of": "Ta",
   "organisation": {
     "city": "Belt",
     "country": "Pajjiż",
@@ -863,6 +864,7 @@ export default {
     "nameAcronym": "Isem akronimu"
   },
   "pageHasLoaded": "ġie illowdjat",
+  "pageNumber": "Numru tal-paġna",
   "pages": {
     "collections": {
       "organisations": {
@@ -888,6 +890,9 @@ export default {
         "title": "Suġġetti"
       }
     }
+  },
+  "pagination": {
+    "label": "Paġnar"
   },
   "readMore": "Aqra iktar",
   "recommendation": {

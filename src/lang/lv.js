@@ -735,7 +735,7 @@ export default {
     "subHeadline": "Meklējiet,saglabājiet un kopīgojietmākslu,grāmatas, filmas un mūzikutūkstošoskultūrasiestāžu",
     "themesCTA": "Skatīt visas tēmas",
     "themesTitle": "Izpētiet pēc tēmas",
-    "title": "Iepazīstiet Eiropas {digital}} kultūras mantojumu",
+    "title": "Iepazīstiet Eiropas {digital} kultūras mantojumu",
     "titleDigital": "digitālo"
   },
   "imageSlider": {

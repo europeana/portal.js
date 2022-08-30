@@ -63,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Ostatnie pozycje",
     "organisation": "Organizacje",
+    "place": "Miejsca",
     "time": "Polecane wieki",
     "topic": "Polecane tematy"
   },
@@ -855,6 +856,7 @@ export default {
   "newWindow": "otwiera się w nowym oknie",
   "noMoreResults": "Nie ma więcej wyników dla zapytania wyszukiwania.",
   "noResults": "Brak wyników",
+  "of": "Z",
   "organisation": {
     "city": "Miasto",
     "country": "Kraj",
@@ -862,6 +864,7 @@ export default {
     "nameAcronym": "Nazwa akronim"
   },
   "pageHasLoaded": "załadował",
+  "pageNumber": "Numer strony",
   "pages": {
     "collections": {
       "organisations": {
@@ -887,6 +890,9 @@ export default {
         "title": "Tematy"
       }
     }
+  },
+  "pagination": {
+    "label": "Paginacja"
   },
   "readMore": "Czytaj więcej",
   "recommendation": {

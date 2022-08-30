@@ -862,6 +862,7 @@ export default {
     "nameAcronym": "Acrônimo do nome"
   },
   "pageHasLoaded": "carregou",
+  "pageNumber": "Número de página",
   "pages": {
     "collections": {
       "organisations": {
@@ -887,6 +888,9 @@ export default {
         "title": "Tópicos"
       }
     }
+  },
+  "pagination": {
+    "label": "Paginação"
   },
   "readMore": "Ler mais",
   "recommendation": {
