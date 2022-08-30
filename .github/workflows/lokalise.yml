@@ -1,0 +1,29 @@
+name: Lokalise
+
+on: workflow_dispatch
+
+env:
+  LOKALISE_API_TOKEN: ${{ secrets.LOKALISE_API_TOKEN }}
+
+jobs:
+  create-pull-request:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Download Lokalise CLI
+        run: curl -sfL https://raw.githubusercontent.com/lokalise/lokalise-cli-2-go/master/install.sh | sh
+      -
+        name: Get project ID
+        run: export LOKALISE_PROJECT_ID=$(./bin/lokalise2 project list --token ${LOKALISE_API_TOKEN} | jq -Mr '.projects[]|select(.name=="Contentful - Portaljs").project_id')
+      -
+        name: Output project ID
+        run: echo ${LOKALISE_PROJECT_ID}
+      -
+        name: Download files
+        run: |
+          ./bin/lokalise2 file download --token ${LOKALISE_API_TOKEN} --project-id ${LOKALISE_PROJECT_ID} \
+            --exclude-tags "Not ready" --format react_native --all-platforms --replace-breaks false \
+            --add-newline-eof true --export-empty-as skip --export-sort a_z --plural-format array \
+            --placeholder-format printf --indentation 2sp --unzip-to ./tmp \
+            --dest ./tmp --bundle-structure "src/lang/%LANG_ISO%.%FORMAT%" \
+            --filter-langs "nl-NL"
