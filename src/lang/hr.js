@@ -679,10 +679,10 @@ export default {
     "disclaimerLine1": "Europeana je inicijativa Europske unije koju financiraju Instrument za povezivanje Europe i države članice Europske unije. Uslugama Europeane, uključujući ovu web stranicu, upravlja konzorcij predvođen Zakladom Europeana prema ugovoru o pružanju usluga s Europskom komisijom.",
     "disclaimerLine2": "Europska komisija ne jamči za točnost podataka i ne prihvaća nikakvu odgovornost niti bilo kakvu odgovornost u vezi s informacijama na ovom web mjestu. Niti Europska komisija, niti bilo koja osoba koja djeluje u ime Europske komisije, nije odgovorna niti je odgovorna za točnost ili upotrebu podataka na ovom web mjestu.",
     "findUsElsewhere": "Pronađite nas negdje drugdje",
-    "imageDescription": "Sufinancirano iz Instrumenta za povezivanje Europe u Europskoj uniji",
+    "imageDescription": "Financira Europska unija",
     "navigation": {
       "MoreInfoLabel": "Više informacija",
-      "about": "O nama",
+      "about": "Oko",
       "accessibility": "Pristupačnost",
       "cookies": "Kolačići",
       "forDevelopers": "Za programere",
@@ -712,11 +712,12 @@ export default {
     "europeanaHome": "Glavna stranica Europeana",
     "inCollection": "Potražite {query} u {collection}",
     "navigation": {
-      "about": "O nama",
+      "about": "Oko",
       "collections": "Zbirke",
-      "europeanaClassroom": "Nastavnici",
+      "europeanaClassroom": "Za učitelje",
       "help": "Pomoć",
       "home": "Dom",
+      "pro": "Za stručnjake",
       "stories": "Priče"
     },
     "quickSearch": "Brzo pretraživanje",
@@ -735,7 +736,8 @@ export default {
     "subHeadline": "Pretražujte, spremajte i dijelite umjetnost, knjige, filmove i glazbu iz tisuća kulturnih institucija",
     "themesCTA": "Pogledajte sve teme",
     "themesTitle": "Istražite po temi",
-    "title": "Otkrijte europsku kulturnu baštinu"
+    "title": "Otkrijte europsku {digital} kulturnu baštinu",
+    "titleDigital": "digitalnu"
   },
   "imageSlider": {
     "handle": "Ručka klizača"
@@ -878,6 +880,7 @@ export default {
         "title": "Mjesta"
       },
       "table": {
+        "items": "Predmeti",
         "name": "Ime"
       },
       "times": {

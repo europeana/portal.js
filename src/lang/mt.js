@@ -63,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Oġġetti reċenti",
     "organisation": "Organizzazzjonijiet",
+    "place": "Postijiet",
     "time": "Sekli dehru",
     "topic": "Suġġetti temi"
   },
@@ -678,10 +679,10 @@ export default {
     "disclaimerLine1": "Europeana hija inizjattiva tal-Unjoni Ewropea, iffinanzjata mill- Connecting Europe Facility tal-Unjoni Ewropea u l-Istati Membri tal-Unjoni Ewropea. Is-servizzi tal-Europeana, inkluż din il-websajt, huma mħaddma minn konsorzju mmexxi mill-Fondazzjoni Europeana taħt kuntratt ta ’servizz mal-Kummissjoni Ewropea.",
     "disclaimerLine2": "Il-Kummissjoni Ewropea ma tiggarantix l-eżattezza tal-informazzjoni u ma taċċetta l-ebda responsabbiltà jew responsabbiltà fir-rigward tal-informazzjoni f'dan il-websajt. La l-Kummissjoni Ewropea, u lanqas kwalunkwe persuna li taġixxi f'isem il-Kummissjoni Ewropea, ma hija responsabbli jew responsabbli għall-eżattezza jew l-użu tal-informazzjoni f'dan il-websajt.",
     "findUsElsewhere": "Sibna x'imkien ieħor",
-    "imageDescription": "Kofinanzjat mill-Faċilità Nikkollegaw l-Ewropa tal-Unjoni Ewropea",
+    "imageDescription": "Ffinanzjat mill-Unjoni Ewropea",
     "navigation": {
       "MoreInfoLabel": "Aktar Tagħrif",
-      "about": "Dwarna",
+      "about": "Dwar",
       "accessibility": "Aċċessibilità",
       "cookies": "Cookies",
       "forDevelopers": "Għall-iżviluppaturi",
@@ -711,11 +712,12 @@ export default {
     "europeanaHome": "Europeana home",
     "inCollection": "Fittex {query} fi {collection}",
     "navigation": {
-      "about": "Dwarna",
+      "about": "Dwar",
       "collections": "Kollezzjonijiet",
-      "europeanaClassroom": "Għalliema",
+      "europeanaClassroom": "Għall-għalliema",
       "help": "Għajnuna",
       "home": "Paġna Ewlenija",
+      "pro": "Għall-professjonisti",
       "stories": "Ġrajjiet"
     },
     "quickSearch": "Tiftix ta' malajr",
@@ -734,7 +736,8 @@ export default {
     "subHeadline": "Fittex, issejvja u aqsam arti, kotba, films u mużika minn eluf ta’ istituzzjonijiet kulturali",
     "themesCTA": "Ara t-temi kollha",
     "themesTitle": "Esplora skont it-tema",
-    "title": "Skopri l-wirt kulturali tal-Ewropa"
+    "title": "Skopri l-wirt kulturali {digital} tal-Ewropa",
+    "titleDigital": "diġitali"
   },
   "imageSlider": {
     "handle": "Manku tas-Slajder"
@@ -875,6 +878,7 @@ export default {
         "title": "Postijiet"
       },
       "table": {
+        "items": "Oġġetti",
         "name": "Isem"
       },
       "times": {

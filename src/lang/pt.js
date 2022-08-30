@@ -678,10 +678,10 @@ export default {
     "disclaimerLine1": "Europeana é uma iniciativa da União Europeia, financiada pelo Connecting Europe Facility da União Europeia e pelos Estados-Membros da União Europeia. Os serviços da Europeana, incluindo este site, são operados por um consórcio liderado pela Fundação Europeana ao abrigo de um contrato de serviços com a Comissão Europeia.",
     "disclaimerLine2": "A Comissão Europeia não garante a exactidão das informações e não aceita qualquer responsabilidade ou obrigação no que diz respeito às informações apresentadas neste site. Nem a Comissão Europeia, nem qualquer pessoa agindo em seu nome, é responsável pela exatidão ou pelo uso das informações contidas neste site.",
     "findUsElsewhere": "Encontre-nos em outro lugar",
-    "imageDescription": "Co-financiado pelo Mecanismo Interligar a Europa da União Europeia",
+    "imageDescription": "Financiado pela União Europeia",
     "navigation": {
       "MoreInfoLabel": "Mais informações",
-      "about": "Sobre nós",
+      "about": "Sobre",
       "accessibility": "Acessibilidade",
       "cookies": "Biscoitos",
       "forDevelopers": "Para desenvolvedores",
@@ -711,11 +711,12 @@ export default {
     "europeanaHome": "Página Inicial Europeana",
     "inCollection": "Pesquisar por {query} em {collection}",
     "navigation": {
-      "about": "Sobre nós",
+      "about": "Sobre",
       "collections": "Colecções",
-      "europeanaClassroom": "Professores",
+      "europeanaClassroom": "Para professores",
       "help": "Ajuda",
       "home": "Casa",
+      "pro": "Para profissionais",
       "stories": "Histórias"
     },
     "quickSearch": "Pesquisa rápida",
@@ -734,7 +735,8 @@ export default {
     "subHeadline": "Pesquise, guarde e partilhe arte, livros, filmes e músicas de milhares de instituições culturais",
     "themesCTA": "Ver todos os temas",
     "themesTitle": "Explorar por tema",
-    "title": "Descubra o património cultural da Europa"
+    "title": "Descubra o património cultural {digital} da Europa",
+    "titleDigital": "digital"
   },
   "imageSlider": {
     "handle": "Barra deslizante"
@@ -875,6 +877,7 @@ export default {
         "title": "Lugares"
       },
       "table": {
+        "items": "Itens",
         "name": "Nome"
       },
       "times": {

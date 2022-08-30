@@ -679,10 +679,10 @@ export default {
     "disclaimerLine1": "Europeana je iniciativa Evropské unie financovaná z Nástroje pro propojení Evropy a z prostředků členských států Evropské unie. Služby Europeany, včetně těchto webových stránek, provozuje konsorcium vedené nadací Europeana Foundation na základě smlouvy o poskytování služeb s Evropskou komisí.",
     "disclaimerLine2": "Evropská komise nezaručuje přesnost informací a nepřijímá žádnou odpovědnost ani žádnou odpovědnost, pokud jde o informace na této webové stránce. Evropská komise ani žádná osoba jednající jejím jménem nenese odpovědnost ani odpovědnost za přesnost nebo použití informací na tomto webu.",
     "findUsElsewhere": "Najděte nás jinde",
-    "imageDescription": "Spolufinancováno z nástroje Evropské unie pro propojení Evropy",
+    "imageDescription": "Financováno Evropskou unií",
     "navigation": {
       "MoreInfoLabel": "Více informací",
-      "about": "O nás",
+      "about": "O",
       "accessibility": "Přístupnost",
       "cookies": "Cookies",
       "forDevelopers": "Pro vývojáře",
@@ -712,11 +712,12 @@ export default {
     "europeanaHome": "Domovská stránka Europeana",
     "inCollection": "Hledat {query} v {collection}",
     "navigation": {
-      "about": "O nás",
+      "about": "O",
       "collections": "SBÍRKY",
-      "europeanaClassroom": "Učitelé",
+      "europeanaClassroom": "Pro učitele",
       "help": "Nápověda",
       "home": "Domov",
+      "pro": "Pro profesionály",
       "stories": "Příběhy"
     },
     "quickSearch": "Rychlé hledání",
@@ -735,7 +736,8 @@ export default {
     "subHeadline": "Vyhledávejte, ukládejte a sdílejte umění, knihy, filmy a hudbu z tisíců kulturních institucí",
     "themesCTA": "Zobrazit všechna témata",
     "themesTitle": "Prozkoumejte podle tématu",
-    "title": "Objevte evropské kulturní dědictví"
+    "title": "Objevte evropské {digital} kulturní dědictví",
+    "titleDigital": "digitální"
   },
   "imageSlider": {
     "handle": "Posuvný panel"
@@ -878,6 +880,7 @@ export default {
         "title": "Místa"
       },
       "table": {
+        "items": "Položky",
         "name": "Název"
       },
       "times": {

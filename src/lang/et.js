@@ -679,10 +679,10 @@ export default {
     "disclaimerLine1": "Europeana on Euroopa Liidu algatus, mida rahastavad Euroopa Liidu Euroopa ühendamise rahastu ja Euroopa Liidu liikmesriigid. Europeana teenuseid, sealhulgas seda veebisaiti, haldab konsortsium, mida juhib sihtasutuse Europeana sihtasutus Euroopa Komisjoni teenuslepingu alusel.",
     "disclaimerLine2": "Euroopa Komisjon ei taga teabe õigsust ega võta mingit vastutust sellel veebisaidil oleva teabe eest. Euroopa Komisjon ega ükski Euroopa Komisjoni nimel tegutsev isik ei vastuta ega vastuta sellel veebisaidil oleva teabe õigsuse ega kasutamise eest.",
     "findUsElsewhere": "Leidke meid mujalt",
-    "imageDescription": "Kaasfinantseerib Euroopa Liidu Euroopa ühendamise rahastu",
+    "imageDescription": "Rahastab Euroopa Liit",
     "navigation": {
       "MoreInfoLabel": "Rohkem infot",
-      "about": "Meist",
+      "about": "Umbes",
       "accessibility": "Juurdepääsetavus",
       "cookies": "Küpsised",
       "forDevelopers": "Arendajatele",
@@ -712,11 +712,12 @@ export default {
     "europeanaHome": "Europeana avaleht",
     "inCollection": "Otsi {query} {collection}",
     "navigation": {
-      "about": "Meist",
+      "about": "Umbes",
       "collections": "Kogud",
-      "europeanaClassroom": "Õpetajad",
+      "europeanaClassroom": "Õpetajate jaoks",
       "help": "Abimaterjal",
       "home": "Kodu",
+      "pro": "Professionaalidele",
       "stories": "Lood"
     },
     "quickSearch": "Kiire otsing",
@@ -735,7 +736,8 @@ export default {
     "subHeadline": "Otsi, salvesta ja jaga kunsti, raamatuid, filme ja muusikat tuhandetest kultuuriasutustest",
     "themesCTA": "Vaadake kõiki teemasid",
     "themesTitle": "Uurige teemade kaupa",
-    "title": "Avasta Euroopa kultuuripärandit"
+    "title": "Avastage Euroopa kultuuripärandit {digital} kujul",
+    "titleDigital": "digitaalsel"
   },
   "imageSlider": {
     "handle": "Liugkäepide"
@@ -878,6 +880,7 @@ export default {
         "title": "Kohad"
       },
       "table": {
+        "items": "Üksused",
         "name": "Nimi"
       },
       "times": {

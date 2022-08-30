@@ -678,10 +678,10 @@ export default {
     "disclaimerLine1": "Europeana jest inicjatywą Unii Europejskiej, finansowaną z unijnego Connecting Europe Facility oraz przez państwa członkowskie Unii Europejskiej. Usługi Europeany, w tym niniejsza strona internetowa, są prowadzone przez konsorcjum kierowane przez Fundację Europeana na podstawie umowy o świadczenie usług zawartej z Komisją Europejską.",
     "disclaimerLine2": "Komisja Europejska nie gwarantuje dokładności informacji i nie ponosi żadnej odpowiedzialności w odniesieniu do informacji na tej stronie internetowej. Ani Komisja Europejska, ani żadna osoba działająca w imieniu Komisji Europejskiej nie ponosi odpowiedzialności za dokładność lub wykorzystanie informacji na tej stronie internetowej.",
     "findUsElsewhere": "Znajdź nas w innych miejscach",
-    "imageDescription": "Współfinansowany z instrumentu „Łącząc Europę” Unii Europejskiej",
+    "imageDescription": "Finansowane przez Unię Europejską",
     "navigation": {
       "MoreInfoLabel": "Więcej informacji",
-      "about": "O nas",
+      "about": "O",
       "accessibility": "Dostępność",
       "cookies": "Pliki cookie",
       "forDevelopers": "Dla deweloperów",
@@ -711,11 +711,12 @@ export default {
     "europeanaHome": "Strona główna Europeany",
     "inCollection": "Wyszukaj {query} w {collection}",
     "navigation": {
-      "about": "O nas",
+      "about": "O",
       "collections": "Kolekcje",
-      "europeanaClassroom": "Nauczyciele",
+      "europeanaClassroom": "Dla nauczycieli",
       "help": "Pomoc",
       "home": "Dom",
+      "pro": "Dla profesjonalistów",
       "stories": "Historie"
     },
     "quickSearch": "Szybkie wyszukiwanie",
@@ -734,7 +735,8 @@ export default {
     "subHeadline": "Wyszukuj, zapisuj i udostępniaj dzieła sztuki, książki, filmy i muzykę z tysięcy instytucji kulturalnych",
     "themesCTA": "Zobacz wszystkie motywy",
     "themesTitle": "Eksploruj według motywu",
-    "title": "Odkryj dziedzictwo kulturowe Europy"
+    "title": "Odkryj {digital} dziedzictwo kulturowe Europy",
+    "titleDigital": "cyfrowe"
   },
   "imageSlider": {
     "handle": "Uchwyt suwakowy"
@@ -875,6 +877,7 @@ export default {
         "title": "Miejsca"
       },
       "table": {
+        "items": "Elementy",
         "name": "Nazwa"
       },
       "times": {

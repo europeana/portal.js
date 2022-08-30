@@ -679,10 +679,10 @@ export default {
     "disclaimerLine1": "Europeana er et initiativ fra Den Europæiske Union, der finansieres af EU's Connecting Europe-facilitet og EU's medlemsstater. Europeana-tjenesterne, herunder dette websted, drives af et konsortium ledet af Europeana Foundation i henhold til en servicekontrakt med Europa-Kommissionen.",
     "disclaimerLine2": "Europa-Kommissionen garanterer ikke nøjagtigheden af informationen og påtager sig intet ansvar over for informationen på dette websted. Hverken Europa-Kommissionen eller nogen person, der handler på Europa-Kommissionens vegne, er ansvarlig eller ansvarlig for nøjagtigheden eller brugen af oplysningerne på dette websted.",
     "findUsElsewhere": "Find os et andet sted",
-    "imageDescription": "Medfinansieret af Den Europæiske Unions Connecting Europe-facilitet",
+    "imageDescription": "Finansieret af Den Europæiske Union",
     "navigation": {
       "MoreInfoLabel": "Flere oplysninger",
-      "about": "Om os",
+      "about": "Om",
       "accessibility": "Tilgængelighed",
       "cookies": "Cookies",
       "forDevelopers": "For udviklere",
@@ -712,11 +712,12 @@ export default {
     "europeanaHome": "Europeana startside",
     "inCollection": "Søg efter {query} i {collection}",
     "navigation": {
-      "about": "Om os",
+      "about": "Om",
       "collections": "Samlinger",
-      "europeanaClassroom": "Lærere",
+      "europeanaClassroom": "For lærere",
       "help": "Hjælp",
       "home": "Hjem",
+      "pro": "For professionelle",
       "stories": "Historier"
     },
     "quickSearch": "Hurtig søgning",
@@ -735,7 +736,8 @@ export default {
     "subHeadline": "Søg, gem og del kunst, bøger, film og musik fra tusindvis af kulturinstitutioner",
     "themesCTA": "Se alle temaer",
     "themesTitle": "Udforsk efter tema",
-    "title": "Oplev Europas kulturarv"
+    "title": "Opdag Europas {digital} kulturarv",
+    "titleDigital": "digitale"
   },
   "imageSlider": {
     "handle": "Skydehåndtag"
@@ -878,6 +880,7 @@ export default {
         "title": "Steder"
       },
       "table": {
+        "items": "Varer",
         "name": "Navn"
       },
       "times": {

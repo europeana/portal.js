@@ -683,10 +683,10 @@ export default {
     "disclaimerLine1": "Europeana Europar Batasunaren ekimena da, Europar Batasuneko Connecting Europe Facility eta Europar Batasuneko estatu kideek finantzatua. Europeana zerbitzuak, webgune hau barne, Europeana Fundazioak zuzentzen duen partzuergo batek kudeatzen ditu Europako Batzordearekiko zerbitzu kontratu baten pean.",
     "disclaimerLine2": "Europako Batzordeak ez du informazioaren zehaztasuna bermatzen eta ez du inolako erantzukizunik edo inolako erantzukizunik onartzen webgune honetako informazioari dagokionez. Ez Europako Batzordeak ez Europako Batzordearen izenean jarduten duen inor ez da erantzule edo erantzule egiten webgune honetako informazioaren zehaztasunaz edo erabileraz.",
     "findUsElsewhere": "Beste nonbait aurkitu gaitzazu",
-    "imageDescription": "Europar Batasuneko Connecting Europe Facility-k ere finantzatu du",
+    "imageDescription": "Europar Batasunak finantzatua",
     "navigation": {
       "MoreInfoLabel": "Informazio gehiago",
-      "about": "Europeana bildumei buruz",
+      "about": "Buruz",
       "accessibility": "Irisgarritasuna",
       "cookies": "Cookieak",
       "forDevelopers": "Garatzaileentzat",
@@ -716,11 +716,12 @@ export default {
     "europeanaHome": "Europeanako hasiera orria",
     "inCollection": "Bilatu '{kontsulta}' bilduma honetan {collection}",
     "navigation": {
-      "about": "Europeana bildumei buruz",
+      "about": "Buruz",
       "collections": "Bildumak",
-      "europeanaClassroom": "Irakasleak",
+      "europeanaClassroom": "Irakasleentzat",
       "help": "Laguntza",
       "home": "Etxea",
+      "pro": "Para los profesionales",
       "stories": "Istorioak"
     },
     "quickSearch": "Bilaketa azkarra",
@@ -739,7 +740,8 @@ export default {
     "subHeadline": "Milaka kultur erakundeetako artea, liburuak, filmak eta musika bilatu, gorde eta partekatu",
     "themesCTA": "Ikusi gai guztiak",
     "themesTitle": "Arakatu gaiaren arabera",
-    "title": "Europako ondare kulturala ezagutu"
+    "title": "Europako ondare kulturala ezagutu",
+    "titleDigital": "digitala"
   },
   "imageSlider": {
     "handle": "Kontrola"
@@ -882,6 +884,7 @@ export default {
         "title": "Lekuak"
       },
       "table": {
+        "items": "Elementuak",
         "name": "Izena"
       },
       "times": {
