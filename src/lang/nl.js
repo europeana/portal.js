@@ -195,14 +195,14 @@ export default {
       "error": {
         "unpin": "Er is een fout opgetreden bij het losmaken van het item. Probeer het opnieuw of meld het probleem."
       },
-      "pin": "Dit item wordt bovenaan de collectie \" {entity} \" weergegeven. We laten je weten wanneer deze wijziging zichtbaar is op de collectiepagina.",
+      "pin": "Dit item wordt bovenaan de collectie " {entity} " weergegeven. We laten je weten wanneer deze wijziging zichtbaar is op de collectiepagina.",
       "pinLimit": {
         "body": "Voorlopig kunt u maar 24 items vast zetten op de eerste pagina. Als u dit item wilt vast zetten, moet u ervoor zorgen dat u een ander item los maakt en vervolgens proberen deze opnieuw vast te zetten.",
         "title": "Te veel vastgezette items"
       },
       "pinned": "Het item is vastgezet. Het staat nu bovenaan de eerste pagina van deze collectie. Het kan tot 24 uur duren om voor iedereen te verschijnen.",
       "select": "Selecteer een gerelateerde entiteit om het item vast te maken of los te maken.",
-      "unpin": "Dit item zal niet langer getoond worden bovenaan de \"{entity}\" collectie. We zullen u op de hoogte brengen wanneer deze verandering zichtbaar zal zijn op de collectie pagina.",
+      "unpin": "Dit item zal niet langer getoond worden bovenaan de "{entity}" collectie. We zullen u op de hoogte brengen wanneer deze verandering zichtbaar zal zijn op de collectie pagina.",
       "unpinned": "Het item is losgemaakt. Het staat niet meer bovenaan de eerste pagina van deze collectie. Het kan tot 24 uur duren om voor iedereen te verdwijnen."
     }
   },

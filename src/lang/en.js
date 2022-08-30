@@ -199,14 +199,14 @@ export default {
       "error": {
         "unpin": "There was an error unpinning the item. Please try again, or report the issue."
       },
-      "pin": "This item will show at the top of the \"{entity}\" collection. We will notify you when this change will be visible on the collection page.",
+      "pin": "This item will show at the top of the "{entity}" collection. We will notify you when this change will be visible on the collection page.",
       "pinLimit": {
         "body": "For now you can only pin 24 items. If you want to pin this item, make sure you unpin another one and try pinning this item again.",
         "title": "Too many pinned items"
       },
-      "pinned": "The item has been pinned. It will appear as the first item on the \"{entity}\" collection. We will notify you when this change will be visible on the collection page.",
+      "pinned": "The item has been pinned. It will appear as the first item on the "{entity}" collection. We will notify you when this change will be visible on the collection page.",
       "select": "Select a related entity to pin/unpin the item to/from it.",
-      "unpin": "This item will stop showing at the top of the \"{entity}\" collection. We will notify you when this change will be visible on the collection page.",
+      "unpin": "This item will stop showing at the top of the "{entity}" collection. We will notify you when this change will be visible on the collection page.",
       "unpinned": "The item has been unpinned. We will notify you when this change will be visible on the collection page."
     }
   },

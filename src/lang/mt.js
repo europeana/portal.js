@@ -195,14 +195,14 @@ export default {
       "error": {
         "unpin": "Kien hemm żball fil-unpinning tal-oġġett. Jekk jogħġbok erġa' pprova, jew irrapporta l-kwistjoni."
       },
-      "pin": "Dan l-oġġett se juri fin-naħa ta' fuq tal-kollezzjoni \" {entity} \". Aħna ninnotifikawk meta din il-bidla tkun viżibbli fuq il-paġna tal-ġbir.",
+      "pin": "Dan l-oġġett se juri fin-naħa ta' fuq tal-kollezzjoni " {entity} ". Aħna ninnotifikawk meta din il-bidla tkun viżibbli fuq il-paġna tal-ġbir.",
       "pinLimit": {
         "body": "Għalissa tista 'biss tpoġġi 24 oġġett fl-ewwel paġna. Jekk trid tpoġġi din il-partita, kun żgur li tneħħi pinna oħra u mbagħad erġa 'pprova tpinġiha.",
         "title": "Wisq oġġetti pinned"
       },
       "pinned": "L-item ġie mwaħħal. Issa tinsab fin-naħa ta' fuq tal-ewwel paġna ta' din il-ġabra. Jista' jieħu sa 24 siegħa biex jidher għal kulħadd.",
       "select": "Agħżel entità relatata biex tippinja\/unpin l-oġġett fuq\/minnha.",
-      "unpin": "Dan l-oġġett se jieqaf jidher fin-naħa ta' fuq tal-kollezzjoni \" {entity} \". Aħna ninnotifikawk meta din il-bidla tkun viżibbli fuq il-paġna tal-ġbir.",
+      "unpin": "Dan l-oġġett se jieqaf jidher fin-naħa ta' fuq tal-kollezzjoni " {entity} ". Aħna ninnotifikawk meta din il-bidla tkun viżibbli fuq il-paġna tal-ġbir.",
       "unpinned": "L-oġġett ma tpoġġiex. M’għadux fil-quċċata tal-ewwel paġna ta ’din il-kollezzjoni. Jista 'jieħu sa 24 siegħa biex jisparixxi għal kulħadd."
     }
   },

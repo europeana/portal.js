@@ -195,14 +195,14 @@ export default {
       "error": {
         "unpin": "Tharla earráid agus an mhír á díphionnáil. Bain triail eile as, nó cuir in iúl don fhadhb."
       },
-      "pin": "Taispeánfar an mhír seo ag barr an bhailiúcháin \" {entity} \". Cuirfimid in iúl duit nuair a bheidh an t-athrú seo le feiceáil ar leathanach an bhailiúcháin.",
+      "pin": "Taispeánfar an mhír seo ag barr an bhailiúcháin " {entity} ". Cuirfimid in iúl duit nuair a bheidh an t-athrú seo le feiceáil ar leathanach an bhailiúcháin.",
       "pinLimit": {
         "body": "Go dtí seo ní féidir leat ach 24 earra a phionáil ar an gcéad leathanach. Más mian leat an t-earra seo a phionáil, déan cinnte go ndéanann tú ceann eile a dhíshuiteáil agus ansin déan iarracht an ceann seo a phionáil arís.",
         "title": "An iomarca míreanna pinned"
       },
       "pinned": "Tá an t-earra pinned. Tá sé anois ag barr an chéad leathanaigh den bhailiúchán seo. Thógfadh sé suas le 24 uair an chloig láithriú do gach duine.",
       "select": "Roghnaigh aonán gaolmhar chun an mhír a phionnadh\/díphionnáil chuige\/ó.",
-      "unpin": "Ní thaispeánfar an mhír seo ag barr an bhailiúcháin \" {entity} \". Cuirfimid in iúl duit nuair a bheidh an t-athrú seo le feiceáil ar leathanach an bhailiúcháin.",
+      "unpin": "Ní thaispeánfar an mhír seo ag barr an bhailiúcháin " {entity} ". Cuirfimid in iúl duit nuair a bheidh an t-athrú seo le feiceáil ar leathanach an bhailiúcháin.",
       "unpinned": "Tá an mhír díphionnáilte. Níl sé ag barr an chéad leathanaigh den bhailiúchán seo a thuilleadh. D'fhéadfadh sé suas le 24 uair an chloig a thógáil chun imeacht do gach duine."
     }
   },

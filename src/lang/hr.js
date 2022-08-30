@@ -195,14 +195,14 @@ export default {
       "error": {
         "unpin": "Došlo je do pogreške pri otkvačivanju stavke. Pokušajte ponovno ili prijavite problem."
       },
-      "pin": "Ova će se stavka prikazati na vrhu zbirke \" {entity} \". Obavijestit ćemo vas kada će ova promjena biti vidljiva na stranici zbirke.",
+      "pin": "Ova će se stavka prikazati na vrhu zbirke " {entity} ". Obavijestit ćemo vas kada će ova promjena biti vidljiva na stranici zbirke.",
       "pinLimit": {
         "body": "Za sada na prvu stranicu možete prikvačiti samo 24 stavki. Ako želite prikvačiti ovu stavku, svakako otkačite drugu, a zatim pokušajte ponovo prikvačiti ovu.",
         "title": "Previše prikvačenih stavki"
       },
       "pinned": "Stavka je prikvačena. Sada je na vrhu prve stranice ove zbirke. Možda će trebati i do 24 sata da se svi pojave.",
       "select": "Odaberite povezani entitet da biste prikvačili\/otkvačili stavku na\/s njega.",
-      "unpin": "Ova će se stavka prestati prikazivati na vrhu zbirke \" {entity} \". Obavijestit ćemo vas kada će ova promjena biti vidljiva na stranici zbirke.",
+      "unpin": "Ova će se stavka prestati prikazivati na vrhu zbirke " {entity} ". Obavijestit ćemo vas kada će ova promjena biti vidljiva na stranici zbirke.",
       "unpinned": "Stavka je otkvačena. Više nije na vrhu prve stranice ove zbirke. Moglo bi potrajati do 24 sata da nestane za sve."
     }
   },

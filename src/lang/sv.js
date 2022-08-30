@@ -195,14 +195,14 @@ export default {
       "error": {
         "unpin": "Det uppstod ett fel vid lossningen av objektet. Försök igen eller rapportera problemet."
       },
-      "pin": "Det här objektet visas högst upp i samlingen \"{entity}\". Vi meddelar dig när ändringen syns på samlingssidan.",
+      "pin": "Det här objektet visas högst upp i samlingen "{entity}". Vi meddelar dig när ändringen syns på samlingssidan.",
       "pinLimit": {
         "body": "För tillfället kan du bara fästa 24 objekt på den första sidan. Om du vill fästa det här objektet måste du ta bort ett annat och sedan försöka fästa det här igen.",
         "title": "För många pinnade objekt"
       },
       "pinned": "Objektet har fästs. Det är nu högst upp på den första sidan i den här samlingen. Det kan ta upp till 24 timmar innan alla visas.",
       "select": "Välj en relaterad entitet för att fästa\/lossa objektet till\/från den.",
-      "unpin": "Det här objektet kommer att sluta visas överst i samlingen \" {entity} \". Vi kommer att meddela dig när denna förändring kommer att synas på insamlingssidan.",
+      "unpin": "Det här objektet kommer att sluta visas överst i samlingen " {entity} ". Vi kommer att meddela dig när denna förändring kommer att synas på insamlingssidan.",
       "unpinned": "Objektet har lossats. Det är inte längre högst upp på den första sidan i den här samlingen. Det kan ta upp till 24 timmar innan alla försvinner."
     }
   },

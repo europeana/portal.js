@@ -199,14 +199,14 @@ export default {
       "error": {
         "unpin": "Errore bat gertatu da elementua kentzean. Mesedez, saiatu berriro edo jakinarazi arazoa."
       },
-      "pin": "Elementu hau \" {entity} \" bildumaren goialdean agertuko da. Aldaketa hau bilduma-orrian ikusgai izango denean jakinaraziko dizugu.",
+      "pin": "Elementu hau " {entity} " bildumaren goialdean agertuko da. Aldaketa hau bilduma-orrian ikusgai izango denean jakinaraziko dizugu.",
       "pinLimit": {
         "body": "Oraingoz 24 elementu soilik leheneratu ditzakezu lehen orrian. Elementu hau itsatsi nahi baduzu, ziurtatu beste bat ainguratzen duzula eta saiatu berriro ainguratzen.",
         "title": "Ainguratutako elementu gehiegi"
       },
       "pinned": "Elementua ainguratu da. Bilduma honen lehen orrialdearen goialdean dago orain. 24 ordu behar izan ditzake guztientzat agertzeko.",
       "select": "Hautatu erlazionatutako entitate bat elementua ainguratzeko\/desainguratzeko.",
-      "unpin": "Elementu hau \"{entity}\" bildumaren goialdean erakusteari utziko zaio. Aldaketa hau bildumaren orrian ikusgai dagoenean jakinaraziko dizugu.",
+      "unpin": "Elementu hau "{entity}" bildumaren goialdean erakusteari utziko zaio. Aldaketa hau bildumaren orrian ikusgai dagoenean jakinaraziko dizugu.",
       "unpinned": "Elementua ainguratu egin da. Jada ez dago bilduma honetako lehen orrialdearen goialdean. 24 ordu behar izan ditzake guztientzat desagertzeko."
     }
   },

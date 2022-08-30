@@ -195,14 +195,14 @@ export default {
       "error": {
         "unpin": "Hiba történt az elem rögzítésének feloldásakor. Kérjük, próbálja újra, vagy jelentse a problémát."
       },
-      "pin": "Ez az elem a(z) \" {entity} \" gyűjtemény tetején fog megjelenni. Értesítjük, ha ez a változás látható lesz a gyűjtemény oldalán.",
+      "pin": "Ez az elem a(z) " {entity} " gyűjtemény tetején fog megjelenni. Értesítjük, ha ez a változás látható lesz a gyűjtemény oldalán.",
       "pinLimit": {
         "body": "Egyelőre csak 24 elemet rögzíthet az első oldalon. Ha meg szeretné tűzni ezt az elemet, győződjön meg róla, hogy egy másikat bont ki, majd próbálja meg újra rögzíteni.",
         "title": "Túl sok rögzített elem"
       },
       "pinned": "Az elemet kitűzték. Most a gyűjtemény első oldalának tetején található. Lehet, hogy 24 óráig is eltarthat, amíg mindenki számára megjelenik.",
       "select": "Válasszon ki egy kapcsolódó entitást, hogy az elemet hozzá\/hozzá kapcsolja\/elvegye.",
-      "unpin": "Ez az elem nem jelenik meg többé a \"{entity}\" gyűjtemény tetején. Értesítjük Önt, ha ez a változás láthatóvá válik a gyűjtemény oldalán.",
+      "unpin": "Ez az elem nem jelenik meg többé a "{entity}" gyűjtemény tetején. Értesítjük Önt, ha ez a változás láthatóvá válik a gyűjtemény oldalán.",
       "unpinned": "Az elem rögzítése megszűnt. Már nincs a gyűjtemény első oldalának tetején. Akár 24 órát is igénybe vehet, amíg mindenki eltűnik."
     }
   },

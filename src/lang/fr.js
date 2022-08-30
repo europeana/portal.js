@@ -195,14 +195,14 @@ export default {
       "error": {
         "unpin": "Une erreur s'est produite lors du détachement de l'élément. Veuillez réessayer ou signaler le problème."
       },
-      "pin": "Cet élément s'affichera en haut de la collection \" {entity} \". Nous vous informerons lorsque ce changement sera visible sur la page de collecte.",
+      "pin": "Cet élément s'affichera en haut de la collection " {entity} ". Nous vous informerons lorsque ce changement sera visible sur la page de collecte.",
       "pinLimit": {
         "body": "Pour l'instant, vous ne pouvez épingler que 24 éléments sur la première page. Si vous souhaitez épingler cet élément, assurez-vous d'en désépingler un autre, puis réessayez d'épingler celui-ci.",
         "title": "Trop d'éléments épinglés"
       },
       "pinned": "L'élément a été épinglé. Il est maintenant en haut de la première page de cette collection. Cela peut prendre jusqu'à 24 heures pour apparaître pour tout le monde.",
       "select": "Sélectionnez une entité associée pour y épingler\/détacher l'élément.",
-      "unpin": "Cet élément ne s'affichera plus en haut de la collection \" {entity} \". Nous vous informerons lorsque ce changement sera visible sur la page de collecte.",
+      "unpin": "Cet élément ne s'affichera plus en haut de la collection " {entity} ". Nous vous informerons lorsque ce changement sera visible sur la page de collecte.",
       "unpinned": "L'élément a été désépinglé. Il n'est plus en haut de la première page de cette collection. Cela peut prendre jusqu'à 24 heures pour disparaître pour tout le monde."
     }
   },

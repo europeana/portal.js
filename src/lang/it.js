@@ -195,14 +195,14 @@ export default {
       "error": {
         "unpin": "Si è verificato un errore durante lo sblocco dell'elemento. Riprova o segnala il problema."
       },
-      "pin": "Questo elemento verrà visualizzato nella parte superiore della raccolta \" {entity} \". Ti avviseremo quando questa modifica sarà visibile nella pagina di raccolta.",
+      "pin": "Questo elemento verrà visualizzato nella parte superiore della raccolta " {entity} ". Ti avviseremo quando questa modifica sarà visibile nella pagina di raccolta.",
       "pinLimit": {
         "body": "Per ora puoi appuntare solo 24 oggetti nella prima pagina. Se vuoi appuntare questo elemento, assicurati di sbloccarne un altro e poi prova ad appuntare di nuovo questo.",
         "title": "Troppi oggetti appuntati"
       },
       "pinned": "L'articolo è stato appuntato. Ora è in cima alla prima pagina di questa collezione. Potrebbe richiedere fino a 24 ore per apparire per tutti.",
       "select": "Seleziona un'entità correlata a cui aggiungere\/sbloccare l'elemento a\/da esso.",
-      "unpin": "Questo elemento non verrà più visualizzato nella parte superiore della raccolta \" {entity} \". Ti avviseremo quando questa modifica sarà visibile nella pagina di raccolta.",
+      "unpin": "Questo elemento non verrà più visualizzato nella parte superiore della raccolta " {entity} ". Ti avviseremo quando questa modifica sarà visibile nella pagina di raccolta.",
       "unpinned": "L'elemento è stato sbloccato. Non è più in cima alla prima pagina di questa raccolta. Potrebbero essere necessarie fino a 24 ore per scomparire per tutti."
     }
   },

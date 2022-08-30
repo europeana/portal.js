@@ -195,14 +195,14 @@ export default {
       "error": {
         "unpin": "Der opstod en fejl under frigørelse af elementet. Prøv venligst igen, eller rapporter problemet."
       },
-      "pin": "Dette element vises øverst i samlingen \" {entity} \". Vi giver dig besked, når denne ændring vil være synlig på indsamlingssiden.",
+      "pin": "Dette element vises øverst i samlingen " {entity} ". Vi giver dig besked, når denne ændring vil være synlig på indsamlingssiden.",
       "pinLimit": {
         "body": "Indtil videre kan du kun fastgøre 24 elementer på den første side. Hvis du vil fastgøre dette emne, skal du fjerne et andet emne og derefter prøve at fastgøre dette emne igen.",
         "title": "For mange fastgjorte emner"
       },
       "pinned": "Elementet er blevet fastgjort. Det er nu øverst på den første side i denne samling. Det kan tage op til 24 timer at vises for alle.",
       "select": "Vælg en relateret enhed for at fastgøre\/frigøre elementet til\/fra det.",
-      "unpin": "Dette element stopper med at blive vist øverst i samlingen \" {entity} \". Vi giver dig besked, når denne ændring vil være synlig på indsamlingssiden.",
+      "unpin": "Dette element stopper med at blive vist øverst i samlingen " {entity} ". Vi giver dig besked, når denne ændring vil være synlig på indsamlingssiden.",
       "unpinned": "Elementet er blevet fastgjort. Det er ikke længere øverst på den første side i denne samling. Det kan tage op til 24 timer at forsvinde for alle."
     }
   },

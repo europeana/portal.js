@@ -17,10 +17,10 @@ export default {
         "private": "Aún no has creado ninguna galería privada",
         "public": "Aún no has creado ninguna galería pública"
       },
-      "noLikedItems": "Aún no le has dado \"Me gusta\" a ningún elementos"
+      "noLikedItems": "Aún no le has dado "Me gusta" a ningún elementos"
     },
     "privateCollections": "Galerías privadas",
-    "profile": "Mis \"Me gusta\" y galerías",
+    "profile": "Mis "Me gusta" y galerías",
     "profileSettings": "Configuración de perfil",
     "publicCollections": "Galerías públicas",
     "settings": "Configuración",
@@ -195,14 +195,14 @@ export default {
       "error": {
         "unpin": "Se ha producido un error al desanclar el elemento. Vuelva a intentarlo o informe del problema."
       },
-      "pin": "Este elemento se mostrará en la parte superior de la colección \" {entity} \". Le notificaremos cuando este cambio sea visible en la página de colección.",
+      "pin": "Este elemento se mostrará en la parte superior de la colección " {entity} ". Le notificaremos cuando este cambio sea visible en la página de colección.",
       "pinLimit": {
         "body": "Por ahora, solo puede anclar 24 elementos en la primera página. Si desea anclar este elemento, asegúrese de desanclar otro y luego intente anclar este de nuevo.",
         "title": "Demasiados elementos fijados"
       },
       "pinned": "El elemento se ha anclado. Ahora está en la parte superior de la primera página de esta colección. Puede tardar hasta 24 horas en aparecer para todos.",
       "select": "Seleccione una entidad relacionada para anclar\/desanclar el elemento a\/desde ella.",
-      "unpin": "Este elemento dejará de mostrarse en la parte superior de la colección \" {entity} \". Le notificaremos cuando este cambio sea visible en la página de colección.",
+      "unpin": "Este elemento dejará de mostrarse en la parte superior de la colección " {entity} ". Le notificaremos cuando este cambio sea visible en la página de colección.",
       "unpinned": "El elemento se ha desanclarado. Ya no está en la parte superior de la primera página de esta colección. Puede tardar hasta 24 horas en desaparecer para todos."
     }
   },
@@ -985,8 +985,8 @@ export default {
     "notifications": {
       "deleted": "Tu galería ha sido eliminada.",
       "likeLimit": {
-        "body": "Lo sentimos, pero en este momento el límite de \"Me gusta\" está establecido en un máximo de 100 artículos. ¡Pronto eliminaremos este límite!",
-        "title": "100 \"Me gusta\""
+        "body": "Lo sentimos, pero en este momento el límite de "Me gusta" está establecido en un máximo de 100 artículos. ¡Pronto eliminaremos este límite!",
+        "title": "100 "Me gusta""
       },
       "updated": "El elemento se agregó a la galería."
     },

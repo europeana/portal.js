@@ -17,7 +17,7 @@ export default {
         "private": "Vēl nav izveidota neviena privāta galerija",
         "public": "Vēl nav izveidota neviena publiska galerija"
       },
-      "noLikedItems": "Neviens vienums vēl nav atzīmtes ar \"patīk\""
+      "noLikedItems": "Neviens vienums vēl nav atzīmtes ar "patīk""
     },
     "privateCollections": "Privātas galerijas",
     "profile": "Mani favorīti un galerijas",
@@ -985,7 +985,7 @@ export default {
     "notifications": {
       "deleted": "Tava galerija ir izdzēsta.",
       "likeLimit": {
-        "body": "Diemžēl šobrīd ir iespējams atzīmēt \"patīk\" ne vairāk kā 100 vienumiem. Drīzumā šis ierobežojums tiks noņemts!",
+        "body": "Diemžēl šobrīd ir iespējams atzīmēt "patīk" ne vairāk kā 100 vienumiem. Drīzumā šis ierobežojums tiks noņemts!",
         "title": "100 patīk"
       },
       "updated": "Vienums tika pievienots galerijai."

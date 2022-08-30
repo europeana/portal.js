@@ -195,14 +195,14 @@ export default {
       "error": {
         "unpin": "Ocorreu um erro ao desafixar o item. Tente novamente ou relate o problema."
       },
-      "pin": "Este item será exibido no topo da coleção \" {entity} \". Notificaremos você quando essa alteração estiver visível na página da coleção.",
+      "pin": "Este item será exibido no topo da coleção " {entity} ". Notificaremos você quando essa alteração estiver visível na página da coleção.",
       "pinLimit": {
         "body": "Por enquanto, você só pode fixar 24 itens na primeira página. Se quiser fixar este item, certifique-se de soltar outro e tente fixá-lo novamente.",
         "title": "Muitos itens fixados"
       },
       "pinned": "O item foi fixado. Agora está no topo da primeira página desta coleção. Pode levar até 24 horas para aparecer para todos.",
       "select": "Selecione uma entidade relacionada para fixar\/desafixar o item nela.",
-      "unpin": "Este item deixará de ser exibido na parte superior da coleção \" {entity} \". Notificaremos você quando essa alteração estiver visível na página da coleção.",
+      "unpin": "Este item deixará de ser exibido na parte superior da coleção " {entity} ". Notificaremos você quando essa alteração estiver visível na página da coleção.",
       "unpinned": "O item foi desafixado. Não está mais no topo da primeira página desta coleção. Pode levar até 24 horas para desaparecer para todos."
     }
   },

@@ -195,14 +195,14 @@ export default {
       "error": {
         "unpin": "Při odepínání položky došlo k chybě. Zkuste to prosím znovu nebo nahlaste problém."
       },
-      "pin": "Tato položka se zobrazí na začátku kolekce \"{entity}\". Upozorníme vás, až bude tato změna viditelná na stránce sbírky.",
+      "pin": "Tato položka se zobrazí na začátku kolekce "{entity}". Upozorníme vás, až bude tato změna viditelná na stránce sbírky.",
       "pinLimit": {
         "body": "Prozatím můžete na první stránku připnout pouze 24 položek. Chcete-li tuto položku připnout, nezapomeňte odepnout jinou položku a potom ji zkusit připnout znovu.",
         "title": "Příliš mnoho připnutých položek"
       },
       "pinned": "Položka byla připnutím. Nyní je v horní části první stránky této kolekce. Může trvat až 24 hodin, než se objeví pro všechny.",
       "select": "Vyberte související entitu, chcete-li položku k ní připnout\/odepnout.",
-      "unpin": "Tato položka se přestane zobrazovat v horní části kolekce \"{entity}\". Upozorníme vás, když bude tato změna viditelná na stránce kolekce.",
+      "unpin": "Tato položka se přestane zobrazovat v horní části kolekce "{entity}". Upozorníme vás, když bude tato změna viditelná na stránce kolekce.",
       "unpinned": "Položka byla odepnuta. Už není v horní části první stránky této sbírky. Zmizení pro všechny může trvat až 24 hodin."
     }
   },

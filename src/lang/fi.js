@@ -195,14 +195,14 @@ export default {
       "error": {
         "unpin": "Kohteen irrottamisessa tapahtui virhe. Yritä uudelleen tai ilmoita ongelmasta."
       },
-      "pin": "Tämä kohde näkyy kokoelman \" {entity} \" yläosassa. Ilmoitamme sinulle, kun tämä muutos tulee näkyviin kokoelmasivulle.",
+      "pin": "Tämä kohde näkyy kokoelman " {entity} " yläosassa. Ilmoitamme sinulle, kun tämä muutos tulee näkyviin kokoelmasivulle.",
       "pinLimit": {
         "body": "Tällä hetkellä voit kiinnittää vain 24 kohdetta ensimmäiselle sivulle. Jos haluat kiinnittää tämän kohteen, irrota toinen ja yritä sitten kiinnittää tämä uudelleen.",
         "title": "Liian monta kiinnitettyä kohdetta"
       },
       "pinned": "Kohde on kiinnitetty. Se on nyt tämän kokoelman ensimmäisen sivun yläosassa. Saattaa kestää jopa 24 tuntia, ennen kuin se näkyy kaikille.",
       "select": "Valitse liittyvä kokonaisuus, jos haluat liittää kohteen siihen tai irrottaa sen siitä.",
-      "unpin": "Tämä kohde lakkaa näkymästä kokoelman \" {entity} \" yläosassa. Ilmoitamme sinulle, kun tämä muutos tulee näkyviin kokoelmasivulle.",
+      "unpin": "Tämä kohde lakkaa näkymästä kokoelman " {entity} " yläosassa. Ilmoitamme sinulle, kun tämä muutos tulee näkyviin kokoelmasivulle.",
       "unpinned": "Kohde on irrotettu. Se ei ole enää tämän kokoelman ensimmäisen sivun yläosassa. Kaikkien katoaminen voi kestää jopa 24 tuntia."
     }
   },
