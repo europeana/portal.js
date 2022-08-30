@@ -6,7 +6,7 @@ export default {
     "likes": "Meeldimised",
     "linkAccount": "Minu konto",
     "linkLogin": "Logi sisse",
-    "linkLoginJoin": "Logi sisse/Liitu",
+    "linkLoginJoin": "Logi sisse\/Liitu",
     "linkLogout": "Logi välja",
     "myProfile": "Minu profiil",
     "notifications": {
@@ -201,7 +201,7 @@ export default {
         "title": "Liiga palju kinnitatud üksusi"
       },
       "pinned": "Üksus on kinnitatud. See on nüüd selle kogumiku esimese lehe ülaosas. Kõigi kuvamiseks võib kuluda kuni 24 tundi.",
-      "select": "Valige seotud olem üksuse kinnitamiseks/eemaldamiseks selle külge/välja.",
+      "select": "Valige seotud olem üksuse kinnitamiseks\/eemaldamiseks selle külge\/välja.",
       "unpin": "Seda üksust ei kuvata enam kogu „ {entity} ” ülaosas. Anname teile teada, kui seda muudatust kogumislehel näha on.",
       "unpinned": "Üksus on vabastatud. Seda pole enam selle kogumiku esimese lehe ülaosas. Kõigi kadumiseks võib kuluda kuni 24 tundi."
     }
@@ -495,7 +495,7 @@ export default {
     "MIME_TYPE": {
       "name": "Failivorming | Failivormingud",
       "options": {
-        "text/plain": "Lihttekst"
+        "text\/plain": "Lihttekst"
       },
       "select": "Valige failivormingud"
     },
@@ -679,10 +679,10 @@ export default {
     "disclaimerLine1": "Europeana on Euroopa Liidu algatus, mida rahastavad Euroopa Liidu Euroopa ühendamise rahastu ja Euroopa Liidu liikmesriigid. Europeana teenuseid, sealhulgas seda veebisaiti, haldab konsortsium, mida juhib sihtasutuse Europeana sihtasutus Euroopa Komisjoni teenuslepingu alusel.",
     "disclaimerLine2": "Euroopa Komisjon ei taga teabe õigsust ega võta mingit vastutust sellel veebisaidil oleva teabe eest. Euroopa Komisjon ega ükski Euroopa Komisjoni nimel tegutsev isik ei vastuta ega vastuta sellel veebisaidil oleva teabe õigsuse ega kasutamise eest.",
     "findUsElsewhere": "Leidke meid mujalt",
-    "imageDescription": "Kaasfinantseerib Euroopa Liidu Euroopa ühendamise rahastu",
+    "imageDescription": "Rahastab Euroopa Liit",
     "navigation": {
       "MoreInfoLabel": "Rohkem infot",
-      "about": "Meist",
+      "about": "Umbes",
       "accessibility": "Juurdepääsetavus",
       "cookies": "Küpsised",
       "forDevelopers": "Arendajatele",
@@ -712,11 +712,12 @@ export default {
     "europeanaHome": "Europeana avaleht",
     "inCollection": "Otsi {query} {collection}",
     "navigation": {
-      "about": "Meist",
+      "about": "Umbes",
       "collections": "Kogud",
-      "europeanaClassroom": "Õpetajad",
+      "europeanaClassroom": "Õpetajate jaoks",
       "help": "Abimaterjal",
       "home": "Kodu",
+      "pro": "Professionaalidele",
       "stories": "Lood"
     },
     "quickSearch": "Kiire otsing",
@@ -735,14 +736,15 @@ export default {
     "subHeadline": "Otsi, salvesta ja jaga kunsti, raamatuid, filme ja muusikat tuhandetest kultuuriasutustest",
     "themesCTA": "Vaadake kõiki teemasid",
     "themesTitle": "Uurige teemade kaupa",
-    "title": "Avasta Euroopa kultuuripärandit"
+    "title": "Avastage Euroopa kultuuripärandit {digital} kujul",
+    "titleDigital": "digitaalsel"
   },
   "imageSlider": {
     "handle": "Liugkäepide"
   },
   "items": {
     "itemCount": "1 toode | {count} toodet",
-    "itemOf": "{max} / {count} tootest",
+    "itemOf": "{max} \/ {count} tootest",
     "recent": "Hiljutised esemed",
     "recommended": "Soovitatavad esemed",
     "youMightLike": "Tooted, mis võivad teile meeldida"
@@ -781,7 +783,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Aitab meie veebisaiti täiustada, rakendades aeg -ajalt eksperimentaalseid muudatusi.",
-        "title": "A/B testimine"
+        "title": "A\/B testimine"
       },
       "auth-strategy": {
         "description": "Mäletab sisselogimiseks kasutatava autoriseerimisstrateegia.",
@@ -813,7 +815,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Mäletab, kas eelistate näha otsingutulemusi loendi või ruudustiku kujul.",
-        "title": "Otsingutulemite vaade (loend / ruudustik)"
+        "title": "Otsingutulemite vaade (loend \/ ruudustik)"
       }
     }
   },
@@ -878,6 +880,7 @@ export default {
         "title": "Kohad"
       },
       "table": {
+        "items": "Üksused",
         "name": "Nimi"
       },
       "times": {

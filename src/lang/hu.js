@@ -6,7 +6,7 @@ export default {
     "likes": "Kedvelések",
     "linkAccount": "Fiókom",
     "linkLogin": "Bejelentkezés",
-    "linkLoginJoin": "Bejelentkezés/Csatlakozás",
+    "linkLoginJoin": "Bejelentkezés\/Csatlakozás",
     "linkLogout": "Bejelentkezés",
     "myProfile": "A profilom",
     "notifications": {
@@ -200,7 +200,7 @@ export default {
         "title": "Túl sok rögzített elem"
       },
       "pinned": "Az elemet kitűzték. Most a gyűjtemény első oldalának tetején található. Lehet, hogy 24 óráig is eltarthat, amíg mindenki számára megjelenik.",
-      "select": "Válasszon ki egy kapcsolódó entitást, hogy az elemet hozzá/hozzá kapcsolja/elvegye.",
+      "select": "Válasszon ki egy kapcsolódó entitást, hogy az elemet hozzá\/hozzá kapcsolja\/elvegye.",
       "unpin": "Ez az elem nem jelenik meg többé a \"{entity}\" gyűjtemény tetején. Értesítjük Önt, ha ez a változás láthatóvá válik a gyűjtemény oldalán.",
       "unpinned": "Az elem rögzítése megszűnt. Már nincs a gyűjtemény első oldalának tetején. Akár 24 órát is igénybe vehet, amíg mindenki eltűnik."
     }
@@ -494,7 +494,7 @@ export default {
     "MIME_TYPE": {
       "name": "Fájlformátum | Fájlformátumok",
       "options": {
-        "text/plain": "Egyszerű szöveg"
+        "text\/plain": "Egyszerű szöveg"
       },
       "select": "Válassza ki a fájlformátumokat"
     },
@@ -678,10 +678,10 @@ export default {
     "disclaimerLine1": "Az Europeana az Európai Unió kezdeményezése, amelyet az Európai Unió Európai Uniót összekötő eszközének és az Európai Unió tagállamainak finanszíroz. Az Europeana szolgáltatásait, beleértve ezt a weboldalt is, az Europeana Alapítvány által vezetett konzorcium üzemelteti az Európai Bizottsággal kötött szolgáltatási szerződés alapján.",
     "disclaimerLine2": "Az Európai Bizottság nem garantálja az információk pontosságát, és semmilyen felelősséget nem vállal a weboldalon található információkkal kapcsolatban. Sem az Európai Bizottság, sem az Európai Bizottság nevében eljáró személyek nem felelősek vagy felelősek a weboldalon található információk pontosságáért vagy felhasználásáért.",
     "findUsElsewhere": "Keressen minket máshol",
-    "imageDescription": "Az Európai Unió Európai Hálózatfinanszírozási Eszköze által társfinanszírozva",
+    "imageDescription": "Az Európai Unió által finanszírozott",
     "navigation": {
       "MoreInfoLabel": "További információ",
-      "about": "Rólunk",
+      "about": "Ról ről",
       "accessibility": "Hozzáférhetőség",
       "cookies": "Sütik",
       "forDevelopers": "Fejlesztőknek",
@@ -711,11 +711,12 @@ export default {
     "europeanaHome": "Europeana kezdőlap",
     "inCollection": "Keresés erre: {query}, a {collection} gyűjteményben",
     "navigation": {
-      "about": "Rólunk",
+      "about": "Ról ről",
       "collections": "Gyűjtemények",
-      "europeanaClassroom": "Tanárok",
+      "europeanaClassroom": "A tanároknak",
       "help": "Súgó",
       "home": "itthon",
+      "pro": "Szakembereknek",
       "stories": "Történetek"
     },
     "quickSearch": "Gyors keresés",
@@ -734,7 +735,8 @@ export default {
     "subHeadline": "Válogasson több ezer kulturális intézmény művészeti alkotásaiból, könyveiből,filmjeiből és zeneműveiből, és mentse el vagy ossza meg kedvenceit",
     "themesCTA": "Az összes téma megtekintése",
     "themesTitle": "Téma szerinti felfedezés",
-    "title": "Fedezze fel Európa kulturális örökségét"
+    "title": "Fedezze fel Európa {digital} kulturális örökségét",
+    "titleDigital": "digitális"
   },
   "imageSlider": {
     "handle": "Csúszka fogantyú"
@@ -780,7 +782,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Segít weboldalunk fejlesztésében azáltal, hogy alkalmanként kísérleti változtatásokat alkalmaz.",
-        "title": "A/B tesztelés"
+        "title": "A\/B tesztelés"
       },
       "auth-strategy": {
         "description": "Emlékszik a bejelentkezéshez használandó engedélyezési stratégiára.",
@@ -812,7 +814,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Emlékszik arra, hogy a keresési eredményeket inkább lista- vagy rácsnézetben szeretné-e látni.",
-        "title": "Keresési eredmény nézet (lista / rács)"
+        "title": "Keresési eredmény nézet (lista \/ rács)"
       }
     }
   },
@@ -877,6 +879,7 @@ export default {
         "title": "Helyek"
       },
       "table": {
+        "items": "Tételek",
         "name": "Név"
       },
       "times": {

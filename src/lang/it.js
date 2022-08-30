@@ -6,7 +6,7 @@ export default {
     "likes": "Mi piace",
     "linkAccount": "Il mio account",
     "linkLogin": "Accedi",
-    "linkLoginJoin": "Accedi/Iscriviti",
+    "linkLoginJoin": "Accedi\/Iscriviti",
     "linkLogout": "Esci",
     "myProfile": "Il mio profilo",
     "notifications": {
@@ -200,7 +200,7 @@ export default {
         "title": "Troppi oggetti appuntati"
       },
       "pinned": "L'articolo è stato appuntato. Ora è in cima alla prima pagina di questa collezione. Potrebbe richiedere fino a 24 ore per apparire per tutti.",
-      "select": "Seleziona un'entità correlata a cui aggiungere/sbloccare l'elemento a/da esso.",
+      "select": "Seleziona un'entità correlata a cui aggiungere\/sbloccare l'elemento a\/da esso.",
       "unpin": "Questo elemento non verrà più visualizzato nella parte superiore della raccolta \" {entity} \". Ti avviseremo quando questa modifica sarà visibile nella pagina di raccolta.",
       "unpinned": "L'elemento è stato sbloccato. Non è più in cima alla prima pagina di questa raccolta. Potrebbero essere necessarie fino a 24 ore per scomparire per tutti."
     }
@@ -494,7 +494,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formato file | Formati file",
       "options": {
-        "text/plain": "Testo semplice"
+        "text\/plain": "Testo semplice"
       },
       "select": "Seleziona i formati di file"
     },
@@ -678,10 +678,10 @@ export default {
     "disclaimerLine1": "Europeana è un'iniziativa dell'Unione europea, finanziata dal Connecting Europe Facility dell'Unione europea e dagli Stati membri dell'Unione europea. I servizi Europeana, compreso questo sito web, sono gestiti da un consorzio guidato dalla Fondazione Europeana nell'ambito di un contratto di servizio con la Commissione europea.",
     "disclaimerLine2": "La Commissione europea non garantisce l'accuratezza delle informazioni e non si assume alcuna responsabilità in merito alle informazioni contenute in questo sito web. Né la Commissione europea, né alcuna persona che agisce per conto della Commissione europea, è responsabile o obbligata per l'accuratezza o l'uso delle informazioni su questo sito web.",
     "findUsElsewhere": "Trovaci altrove",
-    "imageDescription": "Cofinanziato dal fondo Collegare l'Europa dell'Unione Europea",
+    "imageDescription": "Finanziato dall'Unione Europea",
     "navigation": {
       "MoreInfoLabel": "Maggiori informazioni",
-      "about": "Chi siamo",
+      "about": "Di",
       "accessibility": "Accessibilità",
       "cookies": "Cookie",
       "forDevelopers": "Per gli sviluppatori",
@@ -711,11 +711,12 @@ export default {
     "europeanaHome": "Home Europeana",
     "inCollection": "Cerca {query} in {collection}",
     "navigation": {
-      "about": "Chi siamo",
+      "about": "Di",
       "collections": "Collezioni",
-      "europeanaClassroom": "Insegnanti",
+      "europeanaClassroom": "Per gli insegnanti",
       "help": "Aiuto",
       "home": "Home",
+      "pro": "Per professionisti",
       "stories": "Storie"
     },
     "quickSearch": "Ricerca rapida",
@@ -734,7 +735,8 @@ export default {
     "subHeadline": "Ricerca, salva e condividi arte, libri, film e musica provenienti da migliaia di istituzioni culturali",
     "themesCTA": "Vedi tutti i temi",
     "themesTitle": "Esplora per tema",
-    "title": "Scopri il patrimonio culturale europeo"
+    "title": "Scopri il patrimonio culturale {digital} europeo",
+    "titleDigital": "digitale"
   },
   "imageSlider": {
     "handle": "Dispositivo di scorrimento"
@@ -780,7 +782,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Aiuta a migliorare il nostro sito Web applicando occasionalmente modifiche sperimentali.",
-        "title": "Test A/B"
+        "title": "Test A\/B"
       },
       "auth-strategy": {
         "description": "Ricorda la strategia di autorizzazione da utilizzare per accedere.",
@@ -812,7 +814,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Ricorda se preferisci vedere i risultati della ricerca in una visualizzazione elenco o griglia.",
-        "title": "Visualizzazione dei risultati di ricerca (elenco/griglia)"
+        "title": "Visualizzazione dei risultati di ricerca (elenco\/griglia)"
       }
     }
   },
@@ -877,6 +879,7 @@ export default {
         "title": "Posti"
       },
       "table": {
+        "items": "Elementi",
         "name": "Nome"
       },
       "times": {
