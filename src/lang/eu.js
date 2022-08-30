@@ -6,7 +6,7 @@ export default {
     "likes": "Atsegin |",
     "linkAccount": "Nire kontua",
     "linkLogin": "Saioa hasi",
-    "linkLoginJoin": "Saioa hasi/Sartu",
+    "linkLoginJoin": "Saioa hasi\/Sartu",
     "linkLogout": "Saioa amaitu",
     "myProfile": "Nire profila",
     "notifications": {
@@ -205,7 +205,7 @@ export default {
         "title": "Ainguratutako elementu gehiegi"
       },
       "pinned": "Elementua ainguratu da. Bilduma honen lehen orrialdearen goialdean dago orain. 24 ordu behar izan ditzake guztientzat agertzeko.",
-      "select": "Hautatu erlazionatutako entitate bat elementua ainguratzeko/desainguratzeko.",
+      "select": "Hautatu erlazionatutako entitate bat elementua ainguratzeko\/desainguratzeko.",
       "unpin": "Elementu hau \"{entity}\" bildumaren goialdean erakusteari utziko zaio. Aldaketa hau bildumaren orrian ikusgai dagoenean jakinaraziko dizugu.",
       "unpinned": "Elementua ainguratu egin da. Jada ez dago bilduma honetako lehen orrialdearen goialdean. 24 ordu behar izan ditzake guztientzat desagertzeko."
     }
@@ -499,7 +499,7 @@ export default {
     "MIME_TYPE": {
       "name": "Fitxategiaren formatua | Fitxategien formatuak",
       "options": {
-        "text/plain": "Testu arrunta"
+        "text\/plain": "Testu arrunta"
       },
       "select": "Hautatu fitxategi formatuak"
     },
@@ -721,7 +721,7 @@ export default {
       "europeanaClassroom": "Irakasleentzat",
       "help": "Laguntza",
       "home": "Etxea",
-      "pro": "Para los profesionales",
+      "pro": "Profesionalentzat",
       "stories": "Istorioak"
     },
     "quickSearch": "Bilaketa azkarra",
@@ -740,7 +740,7 @@ export default {
     "subHeadline": "Milaka kultur erakundeetako artea, liburuak, filmak eta musika bilatu, gorde eta partekatu",
     "themesCTA": "Ikusi gai guztiak",
     "themesTitle": "Arakatu gaiaren arabera",
-    "title": "Europako ondare kulturala ezagutu",
+    "title": "Ezagutu Europako kultur ondare {digital}",
     "titleDigital": "digitala"
   },
   "imageSlider": {
@@ -748,7 +748,7 @@ export default {
   },
   "items": {
     "itemCount": "Elementu 1 | {count} elementu",
-    "itemOf": "{max}/{count} elementu",
+    "itemOf": "{max}\/{count} elementu",
     "recent": "Azken elementuak",
     "recommended": "Gomendatutako elementuak",
     "youMightLike": "Gustatu ahal zaizkizun elementuak"
@@ -787,7 +787,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Gure webgunea hobetzen laguntzen du noizean behin aldaketa esperimentalak aplikatuz.",
-        "title": "A / B probak"
+        "title": "A \/ B probak"
       },
       "auth-strategy": {
         "description": "Saioa hasteko erabili beharreko baimen estrategia gogoratzen du.",
@@ -819,7 +819,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Gogoratzen duzu bilaketa-emaitzak zerrenda edo sareta ikuspegian ikustea nahiago baduzu.",
-        "title": "Bilaketaren emaitzen ikuspegia (zerrenda / sareta)"
+        "title": "Bilaketaren emaitzen ikuspegia (zerrenda \/ sareta)"
       }
     }
   },

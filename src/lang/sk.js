@@ -6,7 +6,7 @@ export default {
     "likes": "Označenia Páči sa mi",
     "linkAccount": "Môj účet",
     "linkLogin": "Prihlásiť sa",
-    "linkLoginJoin": "Prihlásiť sa/Zaregistrovať sa",
+    "linkLoginJoin": "Prihlásiť sa\/Zaregistrovať sa",
     "linkLogout": "Odhlásiť sa",
     "myProfile": "Môj profil",
     "notifications": {
@@ -63,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Nedávne položky",
     "organisation": "Organizácie",
+    "place": "Miesta",
     "time": "Odporúčané storočia",
     "topic": "Odporúčané témy"
   },
@@ -200,7 +201,7 @@ export default {
         "title": "Príliš veľa pripnutých položiek"
       },
       "pinned": "Položka bola pripnutá. Teraz je v hornej časti prvej stránky tejto zbierky. Zobrazenie pre všetkých môže trvať až 24 hodín.",
-      "select": "Vyberte súvisiacu entitu, na ktorú chcete položku pripnúť/odopnúť.",
+      "select": "Vyberte súvisiacu entitu, na ktorú chcete položku pripnúť\/odopnúť.",
       "unpin": "Táto položka sa prestane zobrazovať v hornej časti zbierky „ {entity} “. Keď bude táto zmena viditeľná na stránke zbierky, upozorníme vás.",
       "unpinned": "Položka bola odopnutá. Už sa nenachádza v hornej časti prvej stránky tejto zbierky. Zmiznutie pre každého môže trvať až 24 hodín."
     }
@@ -494,7 +495,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formát súboru | Formáty súborov",
       "options": {
-        "text/plain": "Obyčajný text"
+        "text\/plain": "Obyčajný text"
       },
       "select": "Vyberte formáty súborov"
     },
@@ -782,7 +783,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Pomáha zlepšovať náš web príležitostným použitím experimentálnych zmien.",
-        "title": "A/B testovanie"
+        "title": "A\/B testovanie"
       },
       "auth-strategy": {
         "description": "Pamätá si stratégiu autorizácie, ktorá sa má použiť na prihlásenie.",
@@ -814,7 +815,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Pamätá si, či chcete radšej zobraziť výsledky vyhľadávania v zozname alebo mriežke.",
-        "title": "Zobrazenie výsledkov hľadania (zoznam / mriežka)"
+        "title": "Zobrazenie výsledkov hľadania (zoznam \/ mriežka)"
       }
     }
   },
@@ -855,6 +856,7 @@ export default {
   "newWindow": "otvorí sa v novom okne",
   "noMoreResults": "Pre vaše vyhľadávanie neexistujú žiadne ďalšie výsledky.",
   "noResults": "Žiadne výsledky",
+  "of": "Z",
   "organisation": {
     "city": "Mesto",
     "country": "Krajina",
@@ -862,6 +864,7 @@ export default {
     "nameAcronym": "Názov akronym"
   },
   "pageHasLoaded": "načítal",
+  "pageNumber": "Číslo strany",
   "pages": {
     "collections": {
       "organisations": {
@@ -887,6 +890,9 @@ export default {
         "title": "Témy"
       }
     }
+  },
+  "pagination": {
+    "label": "Stránkovanie"
   },
   "readMore": "Viac",
   "recommendation": {
