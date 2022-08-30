@@ -6,7 +6,7 @@ export default {
     "likes": "Patinka",
     "linkAccount": "Mano paskyra",
     "linkLogin": "Prisijungti",
-    "linkLoginJoin": "Prisijungti/Prisijungti",
+    "linkLoginJoin": "Prisijungti\/Prisijungti",
     "linkLogout": "Atsijungti",
     "myProfile": "Mano profilis",
     "notifications": {
@@ -200,7 +200,7 @@ export default {
         "title": "Per daug prisegtų elementų"
       },
       "pinned": "Elementas prisegtas. Dabar jis yra pirmojo šios kolekcijos puslapio viršuje. Gali užtrukti iki 24 valandų, kol visi pasirodys.",
-      "select": "Pasirinkite susijusį objektą, kurį norite prisegti / atsegti elementą prie jo / nuo jo.",
+      "select": "Pasirinkite susijusį objektą, kurį norite prisegti \/ atsegti elementą prie jo \/ nuo jo.",
       "unpin": "Šis elementas nebebus rodomas kolekcijos „ {entity} “ viršuje. Informuosime jus, kai šis pakeitimas bus matomas kolekcijos puslapyje.",
       "unpinned": "Elementas buvo atsegtas. Jo nebėra šio rinkinio pirmojo puslapio viršuje. Gali prireikti iki 24 valandų, kol jis išnyks visiems."
     }
@@ -494,7 +494,7 @@ export default {
     "MIME_TYPE": {
       "name": "Failo formatas | Failų formatai",
       "options": {
-        "text/plain": "Paprastas tekstas"
+        "text\/plain": "Paprastas tekstas"
       },
       "select": "Pasirinkite failų formatus"
     },
@@ -678,10 +678,10 @@ export default {
     "disclaimerLine1": "\"Europeana\" yra Europos Sąjungos iniciatyva, finansuojama Europos Sąjungos Europos Connecting Europe Facility ir Europos Sąjungos valstybių narių lėšomis. Europeanos paslaugas, įskaitant šią svetainę, teikia konsorciumas, kuriam vadovauja Europeana Foundation, pagal paslaugų teikimo sutartį su Europos Komisija.",
     "disclaimerLine2": "Europos Komisija negarantuoja informacijos tikslumo ir neprisiima jokios atsakomybės ar atsakomybės už šioje svetainėje pateiktą informaciją. Nei Europos Komisija, nei joks asmuo, veikiantis Europos Komisijos vardu, nėra atsakingas už šioje svetainėje esančios informacijos tikslumą ar naudojimą.",
     "findUsElsewhere": "Raskite mus kitur",
-    "imageDescription": "Bendrai finansuojama pagal Europos Sąjungos Europos infrastruktūros tinklų priemonę",
+    "imageDescription": "Finansuoja Europos Sąjunga",
     "navigation": {
       "MoreInfoLabel": "Daugiau informacijos",
-      "about": "Apie mus",
+      "about": "Apie",
       "accessibility": "Prieinamumas",
       "cookies": "Slapukai",
       "forDevelopers": "Programuotojams",
@@ -711,11 +711,12 @@ export default {
     "europeanaHome": "„Europeana“ pagrindinis puslapis",
     "inCollection": "Ieškoti {query} {collection}",
     "navigation": {
-      "about": "Apie mus",
+      "about": "Apie",
       "collections": "Kolekcijos",
       "europeanaClassroom": "Mokytojams",
       "help": "Pagalba",
       "home": "Namai",
+      "pro": "Profesionalams",
       "stories": "Istorijos"
     },
     "quickSearch": "Greita paieška",
@@ -734,7 +735,8 @@ export default {
     "subHeadline": "Ieškokite, išsaugokite ir bendrinkite meną, knygas, filmus ir muziką iš tūkstančiųkultūrosįstaigų",
     "themesCTA": "Žiūrėti visas temas",
     "themesTitle": "Naršykite pagal temą",
-    "title": "Atraskite Europos kultūrospaveldą"
+    "title": "Pažinkite Europos {skaitmeninį} kultūros paveldą",
+    "titleDigital": "Skaitmeninis"
   },
   "imageSlider": {
     "handle": "Slinkiklio rankena"
@@ -780,7 +782,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Padeda tobulinti mūsų svetainę, retkarčiais pritaikant eksperimentinius pakeitimus.",
-        "title": "A/B testavimas"
+        "title": "A\/B testavimas"
       },
       "auth-strategy": {
         "description": "Prisimena autorizacijos strategiją, kurią reikia naudoti prisijungiant.",
@@ -812,7 +814,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Prisimena, ar norite paieškos rezultatus matyti sąrašo ar tinklelio rodinyje.",
-        "title": "Paieškos rezultatų rodinys (sąrašas / tinklelis)"
+        "title": "Paieškos rezultatų rodinys (sąrašas \/ tinklelis)"
       }
     }
   },
@@ -875,6 +877,7 @@ export default {
         "title": "Vietos"
       },
       "table": {
+        "items": "Elementus",
         "name": "Vardas"
       },
       "times": {

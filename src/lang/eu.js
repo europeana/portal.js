@@ -6,7 +6,7 @@ export default {
     "likes": "Atsegin |",
     "linkAccount": "Nire kontua",
     "linkLogin": "Saioa hasi",
-    "linkLoginJoin": "Saioa hasi/Sartu",
+    "linkLoginJoin": "Saioa hasi\/Sartu",
     "linkLogout": "Saioa amaitu",
     "myProfile": "Nire profila",
     "notifications": {
@@ -205,7 +205,7 @@ export default {
         "title": "Ainguratutako elementu gehiegi"
       },
       "pinned": "Elementua ainguratu da. Bilduma honen lehen orrialdearen goialdean dago orain. 24 ordu behar izan ditzake guztientzat agertzeko.",
-      "select": "Hautatu erlazionatutako entitate bat elementua ainguratzeko/desainguratzeko.",
+      "select": "Hautatu erlazionatutako entitate bat elementua ainguratzeko\/desainguratzeko.",
       "unpin": "Elementu hau \"{entity}\" bildumaren goialdean erakusteari utziko zaio. Aldaketa hau bildumaren orrian ikusgai dagoenean jakinaraziko dizugu.",
       "unpinned": "Elementua ainguratu egin da. Jada ez dago bilduma honetako lehen orrialdearen goialdean. 24 ordu behar izan ditzake guztientzat desagertzeko."
     }
@@ -499,7 +499,7 @@ export default {
     "MIME_TYPE": {
       "name": "Fitxategiaren formatua | Fitxategien formatuak",
       "options": {
-        "text/plain": "Testu arrunta"
+        "text\/plain": "Testu arrunta"
       },
       "select": "Hautatu fitxategi formatuak"
     },
@@ -683,10 +683,10 @@ export default {
     "disclaimerLine1": "Europeana Europar Batasunaren ekimena da, Europar Batasuneko Connecting Europe Facility eta Europar Batasuneko estatu kideek finantzatua. Europeana zerbitzuak, webgune hau barne, Europeana Fundazioak zuzentzen duen partzuergo batek kudeatzen ditu Europako Batzordearekiko zerbitzu kontratu baten pean.",
     "disclaimerLine2": "Europako Batzordeak ez du informazioaren zehaztasuna bermatzen eta ez du inolako erantzukizunik edo inolako erantzukizunik onartzen webgune honetako informazioari dagokionez. Ez Europako Batzordeak ez Europako Batzordearen izenean jarduten duen inor ez da erantzule edo erantzule egiten webgune honetako informazioaren zehaztasunaz edo erabileraz.",
     "findUsElsewhere": "Beste nonbait aurkitu gaitzazu",
-    "imageDescription": "Europar Batasuneko Connecting Europe Facility-k ere finantzatu du",
+    "imageDescription": "Europar Batasunak finantzatua",
     "navigation": {
       "MoreInfoLabel": "Informazio gehiago",
-      "about": "Europeana bildumei buruz",
+      "about": "Buruz",
       "accessibility": "Irisgarritasuna",
       "cookies": "Cookieak",
       "forDevelopers": "Garatzaileentzat",
@@ -716,11 +716,12 @@ export default {
     "europeanaHome": "Europeanako hasiera orria",
     "inCollection": "Bilatu '{kontsulta}' bilduma honetan {collection}",
     "navigation": {
-      "about": "Europeana bildumei buruz",
+      "about": "Buruz",
       "collections": "Bildumak",
-      "europeanaClassroom": "Irakasleak",
+      "europeanaClassroom": "Irakasleentzat",
       "help": "Laguntza",
       "home": "Etxea",
+      "pro": "Para los profesionales",
       "stories": "Istorioak"
     },
     "quickSearch": "Bilaketa azkarra",
@@ -739,14 +740,15 @@ export default {
     "subHeadline": "Milaka kultur erakundeetako artea, liburuak, filmak eta musika bilatu, gorde eta partekatu",
     "themesCTA": "Ikusi gai guztiak",
     "themesTitle": "Arakatu gaiaren arabera",
-    "title": "Europako ondare kulturala ezagutu"
+    "title": "Europako ondare kulturala ezagutu",
+    "titleDigital": "digitala"
   },
   "imageSlider": {
     "handle": "Kontrola"
   },
   "items": {
     "itemCount": "Elementu 1 | {count} elementu",
-    "itemOf": "{max}/{count} elementu",
+    "itemOf": "{max}\/{count} elementu",
     "recent": "Azken elementuak",
     "recommended": "Gomendatutako elementuak",
     "youMightLike": "Gustatu ahal zaizkizun elementuak"
@@ -785,7 +787,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Gure webgunea hobetzen laguntzen du noizean behin aldaketa esperimentalak aplikatuz.",
-        "title": "A / B probak"
+        "title": "A \/ B probak"
       },
       "auth-strategy": {
         "description": "Saioa hasteko erabili beharreko baimen estrategia gogoratzen du.",
@@ -817,7 +819,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Gogoratzen duzu bilaketa-emaitzak zerrenda edo sareta ikuspegian ikustea nahiago baduzu.",
-        "title": "Bilaketaren emaitzen ikuspegia (zerrenda / sareta)"
+        "title": "Bilaketaren emaitzen ikuspegia (zerrenda \/ sareta)"
       }
     }
   },
@@ -882,6 +884,7 @@ export default {
         "title": "Lekuak"
       },
       "table": {
+        "items": "Elementuak",
         "name": "Izena"
       },
       "times": {

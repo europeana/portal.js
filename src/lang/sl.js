@@ -6,7 +6,7 @@ export default {
     "likes": "Všečki",
     "linkAccount": "Moj račun",
     "linkLogin": "Vpis",
-    "linkLoginJoin": "Prijava/Pridruži se",
+    "linkLoginJoin": "Prijava\/Pridruži se",
     "linkLogout": "Izpis",
     "myProfile": "Moj profil",
     "notifications": {
@@ -200,7 +200,7 @@ export default {
         "title": "Preveč pripete predmete"
       },
       "pinned": "Element je bil pripet. Zdaj je na vrhu prve strani te zbirke. Lahko traja do 24 ur, da se prikaže vsem.",
-      "select": "Izberite sorodno entiteto, da pripnete/odpnete element na/iz njega.",
+      "select": "Izberite sorodno entiteto, da pripnete\/odpnete element na\/iz njega.",
       "unpin": "Ta element se ne bo več prikazoval na vrhu zbirke » {entity} «. Ko bo ta sprememba vidna na strani zbirke, vas bomo obvestili.",
       "unpinned": "Element je bil odpenjen. Ni več na vrhu prve strani te zbirke. Lahko traja do 24 ur, da izgine za vse."
     }
@@ -494,7 +494,7 @@ export default {
     "MIME_TYPE": {
       "name": "Oblika zapisa datoteke | Oblike zapisov datotek",
       "options": {
-        "text/plain": "Golo besedilo"
+        "text\/plain": "Golo besedilo"
       },
       "select": "Izberite formate datotek"
     },
@@ -678,10 +678,10 @@ export default {
     "disclaimerLine1": "Europeana je pobuda Evropske unije, ki jo financirajo Connecting Europe Facility Evrope Evropske unije in države članice Evropske unije. Storitve Europeane, vključno s tem spletnim mestom, upravlja konzorcij pod vodstvom Fundacije Europeana na podlagi pogodbe o storitvah z Evropsko komisijo.",
     "disclaimerLine2": "Evropska komisija ne zagotavlja točnosti informacij in ne sprejema nobene odgovornosti ali odgovornosti v zvezi z informacijami na tej spletni strani. Niti Evropska komisija niti nobena oseba, ki deluje v imenu Evropske komisije, ni odgovorna ali odgovorna za točnost ali uporabo informacij na tej spletni strani.",
     "findUsElsewhere": "Najdite nas drugje",
-    "imageDescription": "Sofinancira Instrument za povezovanje Evrope Evropske unije",
+    "imageDescription": "Financira Evropska unija",
     "navigation": {
       "MoreInfoLabel": "Več informacij",
-      "about": "O nas",
+      "about": "O tem",
       "accessibility": "Dostopnost",
       "cookies": "Piškotki",
       "forDevelopers": "Za razvijalce",
@@ -711,11 +711,12 @@ export default {
     "europeanaHome": "Na začetno stran Europeana",
     "inCollection": "Išči {query} v {collection}",
     "navigation": {
-      "about": "O nas",
+      "about": "O tem",
       "collections": "Zbirke",
-      "europeanaClassroom": "Učitelji",
+      "europeanaClassroom": "Za učitelje",
       "help": "Pomoč",
       "home": "Domov",
+      "pro": "Za strokovnjake",
       "stories": "Zgodbe"
     },
     "quickSearch": "Hitro iskanje",
@@ -734,7 +735,8 @@ export default {
     "subHeadline": "Iskanje, shranjevanje in deljenje umetnosti, knjig, filmov in glasbe iz več tisoč kulturnih ustanov",
     "themesCTA": "Oglejte si vse teme",
     "themesTitle": "Raziščite po temi",
-    "title": "Odkrijte kulturno dediščino Evrope"
+    "title": "Odkrijte evropsko {digitalno} kulturno dediščino",
+    "titleDigital": "digitalno"
   },
   "imageSlider": {
     "handle": "Ročaj drsnika"
@@ -780,7 +782,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Pomaga izboljšati naše spletno mesto z občasno uporabo eksperimentalnih sprememb.",
-        "title": "A/B testiranje"
+        "title": "A\/B testiranje"
       },
       "auth-strategy": {
         "description": "Zapomni si strategijo avtorizacije, ki jo je treba uporabiti za prijavo.",
@@ -812,7 +814,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Zapomni si, če želite rezultate iskanja raje videti v pogledu seznama ali mreže.",
-        "title": "Pogled rezultatov iskanja (seznam / mreža)"
+        "title": "Pogled rezultatov iskanja (seznam \/ mreža)"
       }
     }
   },
@@ -875,6 +877,7 @@ export default {
         "title": "Krajev"
       },
       "table": {
+        "items": "Elementi",
         "name": "Ime"
       },
       "times": {

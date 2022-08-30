@@ -6,7 +6,7 @@ export default {
     "likes": "Sviđanja",
     "linkAccount": "Moj račun",
     "linkLogin": "Prijava",
-    "linkLoginJoin": "Prijavi se/Pridruži se",
+    "linkLoginJoin": "Prijavi se\/Pridruži se",
     "linkLogout": "Odjava",
     "myProfile": "Moj profil",
     "notifications": {
@@ -55,7 +55,7 @@ export default {
   },
   "attribution": {
     "country": "Država:",
-    "creator": "Stvorio/la:",
+    "creator": "Stvorio\/la:",
     "date": "Datum:",
     "institution": "Institucija:",
     "title": "Naslov:"
@@ -201,7 +201,7 @@ export default {
         "title": "Previše prikvačenih stavki"
       },
       "pinned": "Stavka je prikvačena. Sada je na vrhu prve stranice ove zbirke. Možda će trebati i do 24 sata da se svi pojave.",
-      "select": "Odaberite povezani entitet da biste prikvačili/otkvačili stavku na/s njega.",
+      "select": "Odaberite povezani entitet da biste prikvačili\/otkvačili stavku na\/s njega.",
       "unpin": "Ova će se stavka prestati prikazivati na vrhu zbirke \" {entity} \". Obavijestit ćemo vas kada će ova promjena biti vidljiva na stranici zbirke.",
       "unpinned": "Stavka je otkvačena. Više nije na vrhu prve stranice ove zbirke. Moglo bi potrajati do 24 sata da nestane za sve."
     }
@@ -495,7 +495,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format datoteke | Formati datoteka",
       "options": {
-        "text/plain": "Jednostavni tekst"
+        "text\/plain": "Jednostavni tekst"
       },
       "select": "Odaberite formate datoteka"
     },
@@ -612,7 +612,7 @@ export default {
     "default": {
       "dcContributor": "Suradnici",
       "dcCoverage": "Mjesto-vrijeme",
-      "dcCreator": "Stvorio/la",
+      "dcCreator": "Stvorio\/la",
       "dcDate": "Datum",
       "dcDescription": "Opis",
       "dcDuration": "Trajanje",
@@ -679,10 +679,10 @@ export default {
     "disclaimerLine1": "Europeana je inicijativa Europske unije koju financiraju Instrument za povezivanje Europe i države članice Europske unije. Uslugama Europeane, uključujući ovu web stranicu, upravlja konzorcij predvođen Zakladom Europeana prema ugovoru o pružanju usluga s Europskom komisijom.",
     "disclaimerLine2": "Europska komisija ne jamči za točnost podataka i ne prihvaća nikakvu odgovornost niti bilo kakvu odgovornost u vezi s informacijama na ovom web mjestu. Niti Europska komisija, niti bilo koja osoba koja djeluje u ime Europske komisije, nije odgovorna niti je odgovorna za točnost ili upotrebu podataka na ovom web mjestu.",
     "findUsElsewhere": "Pronađite nas negdje drugdje",
-    "imageDescription": "Sufinancirano iz Instrumenta za povezivanje Europe u Europskoj uniji",
+    "imageDescription": "Financira Europska unija",
     "navigation": {
       "MoreInfoLabel": "Više informacija",
-      "about": "O nama",
+      "about": "Oko",
       "accessibility": "Pristupačnost",
       "cookies": "Kolačići",
       "forDevelopers": "Za programere",
@@ -712,11 +712,12 @@ export default {
     "europeanaHome": "Glavna stranica Europeana",
     "inCollection": "Potražite {query} u {collection}",
     "navigation": {
-      "about": "O nama",
+      "about": "Oko",
       "collections": "Zbirke",
-      "europeanaClassroom": "Nastavnici",
+      "europeanaClassroom": "Za učitelje",
       "help": "Pomoć",
       "home": "Dom",
+      "pro": "Za stručnjake",
       "stories": "Priče"
     },
     "quickSearch": "Brzo pretraživanje",
@@ -735,7 +736,8 @@ export default {
     "subHeadline": "Pretražujte, spremajte i dijelite umjetnost, knjige, filmove i glazbu iz tisuća kulturnih institucija",
     "themesCTA": "Pogledajte sve teme",
     "themesTitle": "Istražite po temi",
-    "title": "Otkrijte europsku kulturnu baštinu"
+    "title": "Otkrijte europsku {digitalnu} kulturnu baštinu",
+    "titleDigital": "digitalnu"
   },
   "imageSlider": {
     "handle": "Ručka klizača"
@@ -781,7 +783,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Pomaže poboljšati našu web stranicu povremenom primjenom eksperimentalnih promjena.",
-        "title": "A/B testiranje"
+        "title": "A\/B testiranje"
       },
       "auth-strategy": {
         "description": "Sjeća se strategije autorizacije za prijavu.",
@@ -813,7 +815,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Sjeća ako radije vidite rezultate pretraživanja u prikazu popisa ili mreže.",
-        "title": "Prikaz rezultata pretraživanja (popis / mreža)"
+        "title": "Prikaz rezultata pretraživanja (popis \/ mreža)"
       }
     }
   },
@@ -878,6 +880,7 @@ export default {
         "title": "Mjesta"
       },
       "table": {
+        "items": "Predmeti",
         "name": "Ime"
       },
       "times": {

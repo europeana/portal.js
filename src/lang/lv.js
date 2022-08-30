@@ -6,7 +6,7 @@ export default {
     "likes": "Patīk",
     "linkAccount": "Mans konts",
     "linkLogin": "Pieteikties",
-    "linkLoginJoin": "Pieteikties/Pievienoties",
+    "linkLoginJoin": "Pieteikties\/Pievienoties",
     "linkLogout": "Atteikties",
     "myProfile": "Mans profils",
     "notifications": {
@@ -200,7 +200,7 @@ export default {
         "title": "Pārāk daudz piesprausto vienumu"
       },
       "pinned": "Vienums ir piespraustas. Tagad tas atrodas šīs kolekcijas pirmās lapas augšpusē. Var paiet līdz pat 24 stundām, līdz tas parādās visiem.",
-      "select": "Atlasiet saistīto entītiju, lai piespraustu/atspraustu vienumu tai/no tā.",
+      "select": "Atlasiet saistīto entītiju, lai piespraustu\/atspraustu vienumu tai\/no tā.",
       "unpin": "Šis vienums vairs netiks rādīts kolekcijas “ {entity} ” augšdaļā. Mēs jūs informēsim, kad šīs izmaiņas būs redzamas kolekcijas lapā.",
       "unpinned": "Vienums ir atspraustas. Tas vairs nav šīs kolekcijas pirmās lapas augšpusē. Var paiet pat 24 stundas, līdz visi pazūd."
     }
@@ -494,7 +494,7 @@ export default {
     "MIME_TYPE": {
       "name": "Datnes formāts | Datņu formāti",
       "options": {
-        "text/plain": "Vienkāršs teksts"
+        "text\/plain": "Vienkāršs teksts"
       },
       "select": "Atlasīt failu formātus"
     },
@@ -585,7 +585,7 @@ export default {
       "name": "Izdošanas datums"
     },
     "proxy_dcterms_medium": {
-      "name": "Līdzeklis/ Līdzekļi",
+      "name": "Līdzeklis\/ Līdzekļi",
       "select": "Atlasīt multividi"
     }
   },
@@ -678,10 +678,10 @@ export default {
     "disclaimerLine1": "Europeana ir Eiropas Savienības iniciatīva, ko finansē Eiropas Savienības Eiropas Connecting Europe Facility un Eiropas Savienības dalībvalstis. Europeana pakalpojumus, tostarp šo vietni, pārvalda konsorcijs, kuru vada Europeana fonds saskaņā ar pakalpojumu līgumu ar Eiropas Komisiju.",
     "disclaimerLine2": "Eiropas Komisija negarantē informācijas precizitāti un neuzņemas nekādu atbildību vai saistības attiecībā uz šajā tīmekļa vietnē sniegto informāciju. Ne Eiropas Komisija, ne jebkura persona, kas rīkojas Eiropas Komisijas vārdā, nav atbildīga par šajā tīmekļa vietnē sniegtās informācijas precizitāti vai izmantošanu.",
     "findUsElsewhere": "Atrodiet mūs citur",
-    "imageDescription": "Līdzfinansē Eiropas Savienības infrastruktūras savienošanas instruments",
+    "imageDescription": "Finansē Eiropas Savienība",
     "navigation": {
       "MoreInfoLabel": "Papildinformācija",
-      "about": "Par mums",
+      "about": "Par",
       "accessibility": "Pieejamība",
       "cookies": "Sīkfaili",
       "forDevelopers": "Izstrādātājiem",
@@ -711,11 +711,12 @@ export default {
     "europeanaHome": "Europeana vietne",
     "inCollection": "Meklēt {query} kolekcijā {collection}",
     "navigation": {
-      "about": "Par mums",
+      "about": "Par",
       "collections": "Kolekcijas",
       "europeanaClassroom": "Skolotājiem",
       "help": "Palīdzība",
       "home": "Mājas",
+      "pro": "Profesionāļiem",
       "stories": "Stāsti"
     },
     "quickSearch": "Ātrā meklēšana",
@@ -734,7 +735,8 @@ export default {
     "subHeadline": "Meklējiet,saglabājiet un kopīgojietmākslu,grāmatas, filmas un mūzikutūkstošoskultūrasiestāžu",
     "themesCTA": "Skatīt visas tēmas",
     "themesTitle": "Izpētiet pēc tēmas",
-    "title": "Atklājiet Eiropas kultūras mantojumu"
+    "title": "Iepazīstiet Eiropas {digitālo} kultūras mantojumu",
+    "titleDigital": "digitālo"
   },
   "imageSlider": {
     "handle": "Slīdņa rokturis"
@@ -780,7 +782,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Palīdz uzlabot mūsu vietni, laiku pa laikam veicot eksperimentālas izmaiņas.",
-        "title": "A/B testēšana"
+        "title": "A\/B testēšana"
       },
       "auth-strategy": {
         "description": "Atceras autorizācijas stratēģiju, kas jāizmanto, lai pieteiktos.",
@@ -812,7 +814,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Atceras, vai vēlaties redzēt meklēšanas rezultātus saraksta vai režģa skatā.",
-        "title": "Meklēšanas rezultātu skats (saraksts / režģis)"
+        "title": "Meklēšanas rezultātu skats (saraksts \/ režģis)"
       }
     }
   },
@@ -875,6 +877,7 @@ export default {
         "title": "Vietas"
       },
       "table": {
+        "items": "Vienumus",
         "name": "Vārds"
       },
       "times": {
