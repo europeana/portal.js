@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mein Konto",
     "linkLogin": "Anmelden",
-    "linkLoginJoin": "Anmelden/Beitreten",
+    "linkLoginJoin": "Anmelden\/Beitreten",
     "linkLogout": "Abmelden",
     "myProfile": "Mein Profil",
     "notifications": {
@@ -201,7 +201,7 @@ export default {
         "title": "Zu viele angeheftete Objekte"
       },
       "pinned": "Das Objekt wurde angeheftet. Es befindet sich jetzt oben auf der ersten Seite dieser Sammlung. Es kann bis zu 24 Stunden dauern, bis es für alle erscheint.",
-      "select": "Wählen Sie eine zugehörige Entität aus, um das Objekt daran anzuheften/von ihr zu lösen.",
+      "select": "Wählen Sie eine zugehörige Entität aus, um das Objekt daran anzuheften\/von ihr zu lösen.",
       "unpin": "Dieses Objekt wird nicht mehr oben in der Sammlung „ {entity} “ angezeigt. Wir werden Sie benachrichtigen, wenn diese Änderung auf der Sammlungsseite sichtbar wird.",
       "unpinned": "Das Objekt wurde nicht mehr angepinnt. Es steht nicht mehr oben auf der ersten Seite dieser Sammlung. Es kann bis zu 24 Stunden dauern, bis es für alle verschwindet."
     }
@@ -495,7 +495,7 @@ export default {
     "MIME_TYPE": {
       "name": "Dateiformat | Dateiformate",
       "options": {
-        "text/plain": "Klartext"
+        "text\/plain": "Klartext"
       },
       "select": "Dateiformate auswählen"
     },
@@ -513,6 +513,29 @@ export default {
         "uncategorized": "Nicht kategorisiert"
       },
       "select": "Wählen Sie aus, ob die Objekte wiederverwendbar sind"
+    },
+    "RIGHTS": {
+      "name": "Rechte",
+      "options": {
+        "*\/CNE\/*": "Urheberrecht nicht bewertet",
+        "*\/InC-EDU\/*": "Urheberrechtlich geschützt – Verwendung zu Bildungszwecken gestattet",
+        "*\/InC-OW-EU\/*": "Im Urheberrecht - OW-EU",
+        "*\/InC\/*": "Im Urheberrecht",
+        "*\/NoC-NC\/*": "Kein Urheberrecht – nur nicht-kommerzielle Nutzung",
+        "*\/NoC-OKLR\/*": "Kein Urheberrecht – andere bekannte gesetzliche Beschränkungen",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Gemeingut-Marke",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "Außerhalb des Urheberrechts - nicht kommerzielle Wiederverwendung",
+        "*\/rights\/rr-f\/*": "Rechte vorbehalten – Freier Zugang",
+        "*\/rights\/unknown\/*": "Unbekannter Urheberrechtsstatus"
+      },
+      "select": "Rechtestatements auswählen"
     },
     "TYPE": {
       "name": "Art des Mediums",
@@ -679,10 +702,10 @@ export default {
     "disclaimerLine1": "Europeana ist eine Initiative der Europäischen Union, die von der \"Connecting Europe Facility“ der Europäischen Union und den Mitgliedstaaten der Europäischen Union finanziert wird. Die Europeana-Dienste, einschließlich dieser Website, werden von einem Konsortium betrieben, das von der Europeana Foundation im Rahmen eines Dienstleistungsvertrags mit der Europäischen Kommission geführt wird.",
     "disclaimerLine2": "Die Europäische Kommission übernimmt keine Gewähr für die Richtigkeit der Informationen und übernimmt keinerlei Verantwortung oder Haftung für die Informationen auf dieser Website. Weder die Europäische Kommission noch eine Person, die im Namen der Europäischen Kommission handelt, ist für die Richtigkeit oder Verwendung der Informationen auf dieser Website verantwortlich oder haftbar.",
     "findUsElsewhere": "Finden Sie uns anderswo",
-    "imageDescription": "Kofinanziert von der Einrichtung „Connecting Europe“ der Europäischen Union",
+    "imageDescription": "Finanziert von der Europäischen Union",
     "navigation": {
       "MoreInfoLabel": "Mehr Infos",
-      "about": "Über uns",
+      "about": "Über",
       "accessibility": "Barrierefreiheit",
       "cookies": "Cookies",
       "forDevelopers": "Für Entwickler",
@@ -712,11 +735,12 @@ export default {
     "europeanaHome": "Europeana-Startseite",
     "inCollection": "Suchen Sie nach {query} in {collection}",
     "navigation": {
-      "about": "Über uns",
+      "about": "Über",
       "collections": "Sammlungen",
-      "europeanaClassroom": "Lehrerinnen und Lehrer",
+      "europeanaClassroom": "Für Lehrer",
       "help": "Hilfe",
       "home": "Startseite",
+      "pro": "Für Fachleute",
       "stories": "Geschichten"
     },
     "quickSearch": "Schnelle Suche",
@@ -735,7 +759,8 @@ export default {
     "subHeadline": "Suchen, speichern und teilen Sie Kunst, Bücher, Filme und Musik von Tausenden von Kultureinrichtungen",
     "themesCTA": "Alle Themen anzeigen",
     "themesTitle": "Erkunden Sie nach Thema",
-    "title": "Entdecken Sie Europas kulturelles Erbe"
+    "title": "Entdecken Sie das {digitale} kulturelle Erbe Europas",
+    "titleDigital": "digitale"
   },
   "imageSlider": {
     "handle": "Schieberegler"
@@ -781,7 +806,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Hilft, unsere Website zu verbessern, indem gelegentlich experimentelle Änderungen vorgenommen werden.",
-        "title": "A/B-Tests"
+        "title": "A\/B-Tests"
       },
       "auth-strategy": {
         "description": "Erinnert an die Berechtigungsstrategie, die für die Anmeldung verwendet werden soll.",
@@ -813,7 +838,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Merkt sich, ob Sie die Suchergebnisse lieber in einer Listen- oder Rasteransicht anzeigen möchten.",
-        "title": "Suchergebnisansicht (Liste/Raster)"
+        "title": "Suchergebnisansicht (Liste\/Raster)"
       }
     }
   },
@@ -878,6 +903,7 @@ export default {
         "title": "Orte"
       },
       "table": {
+        "items": "Artikel",
         "name": "Name"
       },
       "times": {

@@ -6,7 +6,7 @@ export default {
     "likes": "Označenia Páči sa mi",
     "linkAccount": "Môj účet",
     "linkLogin": "Prihlásiť sa",
-    "linkLoginJoin": "Prihlásiť sa/Zaregistrovať sa",
+    "linkLoginJoin": "Prihlásiť sa\/Zaregistrovať sa",
     "linkLogout": "Odhlásiť sa",
     "myProfile": "Môj profil",
     "notifications": {
@@ -200,7 +200,7 @@ export default {
         "title": "Príliš veľa pripnutých položiek"
       },
       "pinned": "Položka bola pripnutá. Teraz je v hornej časti prvej stránky tejto zbierky. Zobrazenie pre všetkých môže trvať až 24 hodín.",
-      "select": "Vyberte súvisiacu entitu, na ktorú chcete položku pripnúť/odopnúť.",
+      "select": "Vyberte súvisiacu entitu, na ktorú chcete položku pripnúť\/odopnúť.",
       "unpin": "Táto položka sa prestane zobrazovať v hornej časti zbierky „ {entity} “. Keď bude táto zmena viditeľná na stránke zbierky, upozorníme vás.",
       "unpinned": "Položka bola odopnutá. Už sa nenachádza v hornej časti prvej stránky tejto zbierky. Zmiznutie pre každého môže trvať až 24 hodín."
     }
@@ -494,7 +494,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formát súboru | Formáty súborov",
       "options": {
-        "text/plain": "Obyčajný text"
+        "text\/plain": "Obyčajný text"
       },
       "select": "Vyberte formáty súborov"
     },
@@ -512,6 +512,29 @@ export default {
         "uncategorized": "Nekategorizované"
       },
       "select": "Vyberte, či to môžete použiť"
+    },
+    "RIGHTS": {
+      "name": "Vyhlásenie o právach",
+      "options": {
+        "*\/CNE\/*": "Autorské práva sa nehodnotia",
+        "*\/InC-EDU\/*": "V autorských právach – Povolené použitie na vzdelávacie účely",
+        "*\/InC-OW-EU\/*": "V autorských právach - OW-EU",
+        "*\/InC\/*": "V autorských právach",
+        "*\/NoC-NC\/*": "Žiadne autorské práva – len na nekomerčné použitie",
+        "*\/NoC-OKLR\/*": "Žiadne autorské práva – iné známe právne obmedzenia",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Značka verejnej domény",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "Mimo autorských práv – nekomerčné opakované použitie",
+        "*\/rights\/rr-f\/*": "Práva vyhradené – Voľný prístup",
+        "*\/rights\/unknown\/*": "Neznámy stav autorských práv"
+      },
+      "select": "Vyberte vyhlásenia o právach"
     },
     "TYPE": {
       "name": "Typ média",
@@ -678,10 +701,10 @@ export default {
     "disclaimerLine1": "Europeana je iniciatíva Európskej únie financovaná Connecting Europe Facility a členskými štátmi Európskej únie. Služby Europeany, vrátane tejto webovej stránky, prevádzkuje konzorcium vedené nadáciou Europeana na základe zmluvy o poskytovaní služieb s Európskou komisiou.",
     "disclaimerLine2": "Európska komisia nezaručuje presnosť informácií a neprijíma žiadnu zodpovednosť ani zodpovednosť za informácie na tejto webovej stránke. Európska komisia ani žiadna osoba konajúca v mene Európskej komisie nie je zodpovedná ani zodpovedná za presnosť alebo použitie informácií na tejto webovej stránke.",
     "findUsElsewhere": "Nájdite nás aj inde",
-    "imageDescription": "Spolufinancované z nástroja Európskej únie s názvom Spájame Európu",
+    "imageDescription": "Financované Európskou úniou",
     "navigation": {
       "MoreInfoLabel": "Ďalšie informácie",
-      "about": "O nás",
+      "about": "O",
       "accessibility": "Prístupnosť",
       "cookies": "Cookies",
       "forDevelopers": "Pre vývojárov",
@@ -711,11 +734,12 @@ export default {
     "europeanaHome": "Domovská stránka Europeana",
     "inCollection": "Hľadajte výraz {query} v zbierke {collection}",
     "navigation": {
-      "about": "O nás",
+      "about": "O",
       "collections": "Zbierky",
-      "europeanaClassroom": "Učitelia",
+      "europeanaClassroom": "Pre učiteľov",
       "help": "Pomoc",
       "home": "Domov",
+      "pro": "Pre profesionálov",
       "stories": "Príbehy"
     },
     "quickSearch": "Rýchle vyhľadávanie",
@@ -734,7 +758,8 @@ export default {
     "subHeadline": "Vyhľadávajte, ukladajte a zdieľajte umenie, knihy, filmy a hudbu z tisícok kultúrnych inštitúcií",
     "themesCTA": "Zobraziť všetky témy",
     "themesTitle": "Preskúmajte podľa témy",
-    "title": "Objavte kultúrne dedičstvo Európy"
+    "title": "Objavte {digitálne} kultúrne dedičstvo Európy",
+    "titleDigital": "digitálne"
   },
   "imageSlider": {
     "handle": "Rukoväť posuvníka"
@@ -780,7 +805,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Pomáha zlepšovať náš web príležitostným použitím experimentálnych zmien.",
-        "title": "A/B testovanie"
+        "title": "A\/B testovanie"
       },
       "auth-strategy": {
         "description": "Pamätá si stratégiu autorizácie, ktorá sa má použiť na prihlásenie.",
@@ -812,7 +837,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Pamätá si, či chcete radšej zobraziť výsledky vyhľadávania v zozname alebo mriežke.",
-        "title": "Zobrazenie výsledkov hľadania (zoznam / mriežka)"
+        "title": "Zobrazenie výsledkov hľadania (zoznam \/ mriežka)"
       }
     }
   },
@@ -875,6 +900,7 @@ export default {
         "title": "Miesta"
       },
       "table": {
+        "items": "Položky",
         "name": "Meno"
       },
       "times": {

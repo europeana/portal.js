@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Il-Kont Tiegħi",
     "linkLogin": "Illoggja",
-    "linkLoginJoin": "Idħol/Ingħaqad",
+    "linkLoginJoin": "Idħol\/Ingħaqad",
     "linkLogout": "Oħroġ",
     "myProfile": "Il-profil Tiegħi",
     "notifications": {
@@ -200,7 +200,7 @@ export default {
         "title": "Wisq oġġetti pinned"
       },
       "pinned": "L-item ġie mwaħħal. Issa tinsab fin-naħa ta' fuq tal-ewwel paġna ta' din il-ġabra. Jista' jieħu sa 24 siegħa biex jidher għal kulħadd.",
-      "select": "Agħżel entità relatata biex tippinja/unpin l-oġġett fuq/minnha.",
+      "select": "Agħżel entità relatata biex tippinja\/unpin l-oġġett fuq\/minnha.",
       "unpin": "Dan l-oġġett se jieqaf jidher fin-naħa ta' fuq tal-kollezzjoni \" {entity} \". Aħna ninnotifikawk meta din il-bidla tkun viżibbli fuq il-paġna tal-ġbir.",
       "unpinned": "L-oġġett ma tpoġġiex. M’għadux fil-quċċata tal-ewwel paġna ta ’din il-kollezzjoni. Jista 'jieħu sa 24 siegħa biex jisparixxi għal kulħadd."
     }
@@ -494,7 +494,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format tal-fajl | Formati tal-fajl",
       "options": {
-        "text/plain": "Test bla format"
+        "text\/plain": "Test bla format"
       },
       "select": "Agħżel il-formati tal-fajl"
     },
@@ -512,6 +512,29 @@ export default {
         "uncategorized": "Mhux kategorizzati"
       },
       "select": "Agħżel jekk tistax tuża dan"
+    },
+    "RIGHTS": {
+      "name": "Dikjarazzjoni tad-drittijiet",
+      "options": {
+        "*\/CNE\/*": "Id-Drittijiet tal-Awtur Mhux Evalwati",
+        "*\/InC-EDU\/*": "Fid-Drittijiet tal-Awtur - Użu Edukattiv Permess",
+        "*\/InC-OW-EU\/*": "Fid-Drittijiet tal-Awtur - OW-EU",
+        "*\/InC\/*": "Fid-Drittijiet tal-Awtur",
+        "*\/NoC-NC\/*": "Ebda Copyright - Użu Mhux Kummerċjali Biss",
+        "*\/NoC-OKLR\/*": "Ebda Copyright - Restrizzjonijiet Legali Magħrufa Oħra",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Marka tad-Dominju Pubbliku",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "Mingħajr id-drittijiet tal-awtur - użu mill-ġdid mhux kummerċjali",
+        "*\/rights\/rr-f\/*": "Drittijiet Riservati - Aċċess liberu",
+        "*\/rights\/unknown\/*": "Status tad-drittijiet tal-awtur mhux magħruf"
+      },
+      "select": "Agħżel dikjarazzjonijiet tad-drittijiet"
     },
     "TYPE": {
       "name": "Tip ta' midja",
@@ -678,10 +701,10 @@ export default {
     "disclaimerLine1": "Europeana hija inizjattiva tal-Unjoni Ewropea, iffinanzjata mill- Connecting Europe Facility tal-Unjoni Ewropea u l-Istati Membri tal-Unjoni Ewropea. Is-servizzi tal-Europeana, inkluż din il-websajt, huma mħaddma minn konsorzju mmexxi mill-Fondazzjoni Europeana taħt kuntratt ta ’servizz mal-Kummissjoni Ewropea.",
     "disclaimerLine2": "Il-Kummissjoni Ewropea ma tiggarantix l-eżattezza tal-informazzjoni u ma taċċetta l-ebda responsabbiltà jew responsabbiltà fir-rigward tal-informazzjoni f'dan il-websajt. La l-Kummissjoni Ewropea, u lanqas kwalunkwe persuna li taġixxi f'isem il-Kummissjoni Ewropea, ma hija responsabbli jew responsabbli għall-eżattezza jew l-użu tal-informazzjoni f'dan il-websajt.",
     "findUsElsewhere": "Sibna x'imkien ieħor",
-    "imageDescription": "Kofinanzjat mill-Faċilità Nikkollegaw l-Ewropa tal-Unjoni Ewropea",
+    "imageDescription": "Ffinanzjat mill-Unjoni Ewropea",
     "navigation": {
       "MoreInfoLabel": "Aktar Tagħrif",
-      "about": "Dwarna",
+      "about": "Dwar",
       "accessibility": "Aċċessibilità",
       "cookies": "Cookies",
       "forDevelopers": "Għall-iżviluppaturi",
@@ -711,11 +734,12 @@ export default {
     "europeanaHome": "Europeana home",
     "inCollection": "Fittex {query} fi {collection}",
     "navigation": {
-      "about": "Dwarna",
+      "about": "Dwar",
       "collections": "Kollezzjonijiet",
-      "europeanaClassroom": "Għalliema",
+      "europeanaClassroom": "Għall-għalliema",
       "help": "Għajnuna",
       "home": "Paġna Ewlenija",
+      "pro": "Għall-professjonisti",
       "stories": "Ġrajjiet"
     },
     "quickSearch": "Tiftix ta' malajr",
@@ -734,7 +758,8 @@ export default {
     "subHeadline": "Fittex, issejvja u aqsam arti, kotba, films u mużika minn eluf ta’ istituzzjonijiet kulturali",
     "themesCTA": "Ara t-temi kollha",
     "themesTitle": "Esplora skont it-tema",
-    "title": "Skopri l-wirt kulturali tal-Ewropa"
+    "title": "Skopri l-wirt kulturali {diġitali} tal-Ewropa",
+    "titleDigital": "diġitali"
   },
   "imageSlider": {
     "handle": "Manku tas-Slajder"
@@ -780,7 +805,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Jgħin biex intejbu l-websajt tagħna billi kultant napplikaw bidliet sperimentali.",
-        "title": "Ittestjar A / B"
+        "title": "Ittestjar A \/ B"
       },
       "auth-strategy": {
         "description": "Jiftakar l-istrateġija ta' awtorizzazzjoni biex tużaha biex tilloggja.",
@@ -812,7 +837,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Tiftakar jekk tippreferi tara r-riżultati tat-tfittxija f'lista jew viżjoni tal-grilja.",
-        "title": "Veduta tar-riżultat tat-tfittxija (lista / gradilja)"
+        "title": "Veduta tar-riżultat tat-tfittxija (lista \/ gradilja)"
       }
     }
   },
@@ -875,6 +900,7 @@ export default {
         "title": "Postijiet"
       },
       "table": {
+        "items": "Oġġetti",
         "name": "Isem"
       },
       "times": {

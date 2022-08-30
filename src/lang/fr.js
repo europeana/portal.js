@@ -6,7 +6,7 @@ export default {
     "likes": "Mentions J’aime",
     "linkAccount": "Mon compte",
     "linkLogin": "Se connecter",
-    "linkLoginJoin": "Connexion/Rejoignez-nous",
+    "linkLoginJoin": "Connexion\/Rejoignez-nous",
     "linkLogout": "Déconnexion",
     "myProfile": "Mon profil",
     "notifications": {
@@ -201,7 +201,7 @@ export default {
         "title": "Trop d'éléments épinglés"
       },
       "pinned": "L'élément a été épinglé. Il est maintenant en haut de la première page de cette collection. Cela peut prendre jusqu'à 24 heures pour apparaître pour tout le monde.",
-      "select": "Sélectionnez une entité associée pour y épingler/détacher l'élément.",
+      "select": "Sélectionnez une entité associée pour y épingler\/détacher l'élément.",
       "unpin": "Cet élément ne s'affichera plus en haut de la collection \" {entity} \". Nous vous informerons lorsque ce changement sera visible sur la page de collecte.",
       "unpinned": "L'élément a été désépinglé. Il n'est plus en haut de la première page de cette collection. Cela peut prendre jusqu'à 24 heures pour disparaître pour tout le monde."
     }
@@ -495,7 +495,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format de fichier | Formats de fichiers",
       "options": {
-        "text/plain": "Texte brut"
+        "text\/plain": "Texte brut"
       },
       "select": "Sélectionnez les formats de fichier"
     },
@@ -513,6 +513,29 @@ export default {
         "uncategorized": "Non classé"
       },
       "select": "Sélectionnez si vous pouvez utiliser ce"
+    },
+    "RIGHTS": {
+      "name": "Droits",
+      "options": {
+        "*\/CNE\/*": "Droits d'auteur non évalués",
+        "*\/InC-EDU\/*": "Droits d'auteur - Utilisation à des fins éducatives autorisée",
+        "*\/InC-OW-EU\/*": "En droit d'auteur - OW-EU",
+        "*\/InC\/*": "En droit d'auteur",
+        "*\/NoC-NC\/*": "Pas de droit d'auteur - Utilisation non commerciale uniquement",
+        "*\/NoC-OKLR\/*": "Pas de droit d'auteur - Autres restrictions légales connues",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Marque du domaine public",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "Hors droits d'auteur - réutilisation non commerciale",
+        "*\/rights\/rr-f\/*": "Droits réservés - Accès gratuit",
+        "*\/rights\/unknown\/*": "Statut de copyright inconnu"
+      },
+      "select": "Sélectionnez les déclarations de droits"
     },
     "TYPE": {
       "name": "Type de support",
@@ -679,10 +702,10 @@ export default {
     "disclaimerLine1": "Europeana est une initiative de l'Union européenne, financée par le Connecting Europe Facility de l'Union européenne et les États membres de l'Union européenne. Les services Europeana, y compris ce site Web, sont exploités par un consortium dirigé par la Fondation Europeana dans le cadre d'un contrat de service avec la Commission européenne.",
     "disclaimerLine2": "La Commission européenne ne garantit pas l'exactitude des informations et n'accepte aucune responsabilité ou obligation quelle qu'elle soit en ce qui concerne les informations sur ce site. Ni la Commission européenne, ni aucune personne agissant au nom de la Commission européenne, n'est responsable de l'exactitude ou de l'utilisation des informations sur ce site Web.",
     "findUsElsewhere": "Nous trouver ailleurs",
-    "imageDescription": "Cofinancé par le Mécanisme pour l’interconnexion en Europe",
+    "imageDescription": "Financé par l'Union européenne",
     "navigation": {
       "MoreInfoLabel": "Plus d'informations",
-      "about": "À propos",
+      "about": "À propos de",
       "accessibility": "Accessibilité",
       "cookies": "Cookies",
       "forDevelopers": "Pour les développeurs",
@@ -693,7 +716,7 @@ export default {
       "terms": "Conditions d'utilisation"
     },
     "ourMission": "Notre mission",
-    "ourMissionQuote": "Europeana permet au secteur du patrimoine culturel d'effectuer sa transformation numérique. Nous développons l'expertise, les outils et les politiques pour prendre le virage du numérique et encourageons les partenariats qui favorisent l'innovation."
+    "ourMissionQuote": "Europeana permet au secteur du patrimoine culturel d'effectuer sa transformation numérique. Nous développons l'expertise, les outils et les strategies pour adopter le changement numérique et encourageons les partenariats qui favorisent l'innovation."
   },
   "formatting": {
     "ellipsis": "…",
@@ -712,11 +735,12 @@ export default {
     "europeanaHome": "Accueil Europeana",
     "inCollection": "Rechercher {query} dans {collection}",
     "navigation": {
-      "about": "À propos",
+      "about": "À propos de",
       "collections": "Collections",
-      "europeanaClassroom": "Enseignants",
+      "europeanaClassroom": "Pour les enseignants",
       "help": "Aide",
       "home": "Accueil",
+      "pro": "Pour les professionnels",
       "stories": "Histoires"
     },
     "quickSearch": "Recherche rapide",
@@ -732,10 +756,11 @@ export default {
   "homePage": {
     "discoverEditorial": "Dernières histoires",
     "storiesCTA": "Voir toutes les histoires",
-    "subHeadline": "Recherchez, enregistrez et partagez des œuvre d’art, des ouvrages, des films et de la musique issues de milliers d’institutions culturelles",
+    "subHeadline": "Recherchez, enregistrez et partagez des œuvres d’art, des livres, des films et de la musique issues de milliers d’institutions culturelles",
     "themesCTA": "Voir tous les thèmes",
     "themesTitle": "Explorer par thème",
-    "title": "Découvrez l’héritage culturel européen"
+    "title": "Découvrez le patrimoine culturel {numérique} européen",
+    "titleDigital": "numérique"
   },
   "imageSlider": {
     "handle": "Poignée de curseur"
@@ -781,7 +806,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Aide à améliorer notre site Web en appliquant occasionnellement des modifications expérimentales.",
-        "title": "Tests A/B"
+        "title": "Tests A\/B"
       },
       "auth-strategy": {
         "description": "Se souvient de la stratégie d'autorisation à utiliser pour se connecter.",
@@ -813,7 +838,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Se souvient si vous préférez voir les résultats de la recherche sous forme de liste ou de grille.",
-        "title": "Affichage des résultats de recherche (liste/grille)"
+        "title": "Affichage des résultats de recherche (liste\/grille)"
       }
     }
   },
@@ -878,6 +903,7 @@ export default {
         "title": "Des endroits"
       },
       "table": {
+        "items": "Éléments",
         "name": "Nom"
       },
       "times": {
@@ -941,7 +967,7 @@ export default {
     "title": "Rechercher"
   },
   "searchHasLoaded": "{0} résultats retournés",
-  "searchPlaceholder": "Rechercher plus de 50 millions d'articles",
+  "searchPlaceholder": "Rechercher plus de 50 millions d'objets",
   "searchResults": "Rechercher",
   "searchResultsFor": "{0} - Rechercher",
   "searchSuggestions": "Suggestions de recherche",

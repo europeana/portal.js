@@ -6,7 +6,7 @@ export default {
     "likes": "Aprecieri",
     "linkAccount": "Contul meu",
     "linkLogin": "Autentificare",
-    "linkLoginJoin": "Autentificare/Înscriere",
+    "linkLoginJoin": "Autentificare\/Înscriere",
     "linkLogout": "Deconectare",
     "myProfile": "Profilul meu",
     "notifications": {
@@ -200,7 +200,7 @@ export default {
         "title": "Prea multe articole fixate"
       },
       "pinned": "Elementul a fost fixat. Acum se află în partea de sus a primei pagini a acestei colecții. S-ar putea să dureze până la 24 de ore pentru a apărea pentru toată lumea.",
-      "select": "Selectați o entitate conexă pentru a fixa/dezfixa elementul la/de la aceasta.",
+      "select": "Selectați o entitate conexă pentru a fixa\/dezfixa elementul la\/de la aceasta.",
       "unpin": "Acest articol nu va mai apărea în partea de sus a colecției „ {entity} ”. Vă vom anunța când această modificare va fi vizibilă pe pagina de colecție.",
       "unpinned": "Elementul a fost dezlipit. Nu se mai află în partea de sus a primei pagini a acestei colecții. S-ar putea să dureze până la 24 de ore pentru a dispărea pentru toată lumea."
     }
@@ -494,7 +494,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format fișier| Formate fișier",
       "options": {
-        "text/plain": "Text simplu"
+        "text\/plain": "Text simplu"
       },
       "select": "Selectați formatele de fișiere"
     },
@@ -512,6 +512,29 @@ export default {
         "uncategorized": "Fără categorie"
       },
       "select": "Selectați dacă puteți utiliza acest lucru"
+    },
+    "RIGHTS": {
+      "name": "Declarație de drepturi",
+      "options": {
+        "*\/CNE\/*": "Drepturi de autor Neevaluate",
+        "*\/InC-EDU\/*": "În drepturi de autor - Utilizarea educațională permisă",
+        "*\/InC-OW-EU\/*": "În dreptul de autor - OW-EU",
+        "*\/InC\/*": "În dreptul de autor",
+        "*\/NoC-NC\/*": "Fără drepturi de autor - Numai pentru utilizare necomercială",
+        "*\/NoC-OKLR\/*": "Fără drepturi de autor - Alte restricții legale cunoscute",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Marca domeniului public",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "În afara dreptului de autor - reutilizare fără scop comercial",
+        "*\/rights\/rr-f\/*": "Drepturi rezervate - Acces gratuit",
+        "*\/rights\/unknown\/*": "Starea drepturilor de autor necunoscută"
+      },
+      "select": "Selectați declarațiile de drepturi"
     },
     "TYPE": {
       "name": "Tip de media",
@@ -678,10 +701,10 @@ export default {
     "disclaimerLine1": "Europeana este o inițiativă a Uniunii Europene, finanțată de Connecting Europe Facility al Uniunii Europene și de statele membre ale Uniunii Europene. Serviciile Europeana, inclusiv acest site web, sunt operate de un consorțiu condus de Fundația Europeana în temeiul unui contract de servicii cu Comisia Europeană.",
     "disclaimerLine2": "Comisia Europeană nu garantează acuratețea informațiilor și nu își asumă nicio răspundere sau răspundere cu privire la informațiile de pe acest site web. Nici Comisia Europeană, nici nicio persoană care acționează în numele Comisiei Europene, nu este responsabilă sau răspunzătoare pentru acuratețea sau utilizarea informațiilor de pe acest site web.",
     "findUsElsewhere": "Ne puteți găsi și în altă parte",
-    "imageDescription": "Cofinanțat de Connecting Europe Facility a Uniunii Europene",
+    "imageDescription": "Finanțat de Uniunea Europeană",
     "navigation": {
       "MoreInfoLabel": "Mai multe informații",
-      "about": "Despre noi",
+      "about": "Despre",
       "accessibility": "Accesibilitate",
       "cookies": "Cookie-uri",
       "forDevelopers": "Pentru dezvoltatori",
@@ -711,11 +734,12 @@ export default {
     "europeanaHome": "Pagina principală Europeana",
     "inCollection": "Caută pentru {query} în {collection}",
     "navigation": {
-      "about": "Despre noi",
+      "about": "Despre",
       "collections": "Colecții",
-      "europeanaClassroom": "Profesori",
+      "europeanaClassroom": "Pentru profesori",
       "help": "Ajutor",
       "home": "Acasă",
+      "pro": "Pentru profesioniști",
       "stories": "Povești"
     },
     "quickSearch": "Cautare rapida",
@@ -734,7 +758,8 @@ export default {
     "subHeadline": "Căutați, salvațișidistribuițiartă, cărți, filme și muzică de la mii de instituții culturale",
     "themesCTA": "Vezi toate temele",
     "themesTitle": "Explorați după temă",
-    "title": "Descoperiți patrimoniul cultural al Europei"
+    "title": "Descoperiți patrimoniul cultural {digital} al Europei",
+    "titleDigital": "digital"
   },
   "imageSlider": {
     "handle": "Cursor glisor"
@@ -780,7 +805,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Ajută la îmbunătățirea site-ului nostru web aplicând ocazional modificări experimentale.",
-        "title": "Testarea A/B"
+        "title": "Testarea A\/B"
       },
       "auth-strategy": {
         "description": "Reține strategia de autorizare de utilizat pentru a vă conecta.",
@@ -812,7 +837,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Rețineți dacă preferați să vedeți rezultatele căutării într-o vizualizare listă sau grilă.",
-        "title": "Vizualizarea rezultatelor căutării (listă / grilă)"
+        "title": "Vizualizarea rezultatelor căutării (listă \/ grilă)"
       }
     }
   },
@@ -875,6 +900,7 @@ export default {
         "title": "Locuri"
       },
       "table": {
+        "items": "Articole",
         "name": "Nume"
       },
       "times": {

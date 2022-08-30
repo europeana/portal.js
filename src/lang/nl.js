@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mijn account",
     "linkLogin": "Inloggen",
-    "linkLoginJoin": "Inloggen/Aanmelden",
+    "linkLoginJoin": "Inloggen\/Aanmelden",
     "linkLogout": "Uitloggen",
     "myProfile": "Mijn profiel",
     "notifications": {
@@ -495,7 +495,7 @@ export default {
     "MIME_TYPE": {
       "name": "Bestandsformaat | Bestandsformaten",
       "options": {
-        "text/plain": "Platte tekst"
+        "text\/plain": "Platte tekst"
       },
       "select": "Selecteer bestandsformaten"
     },
@@ -513,6 +513,29 @@ export default {
         "uncategorized": "Ongecategoriseerd"
       },
       "select": "Selecteer of je dit kunt gebruiken"
+    },
+    "RIGHTS": {
+      "name": "Rechtenverklaring",
+      "options": {
+        "*\/CNE\/*": "AUTEURSRECHTELIJKE STATUS NIET GEËVALUEERD",
+        "*\/InC-EDU\/*": "AUTEURSRECHTELIJK BESCHERMD - EDUCATIEF GEBRUIK TOEGESTAAN",
+        "*\/InC-OW-EU\/*": "AUTEURSRECHTELIJK BESCHERMD - OW-EU",
+        "*\/InC\/*": "AUTEURSRECHTELIJK BESCHERMD",
+        "*\/NoC-NC\/*": "NIET AUTEURSRECHTELIJK BESCHERMD - UITSLUITEND NIET-COMMERCIEEL GEBRUIK TOEGESTAAN",
+        "*\/NoC-OKLR\/*": "NIET AUTEURSRECHTELIJK BESCHERMD - ANDERE JURIDISCHE BEPERKINGEN",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Public Domain Mark",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "NIET AUTEURSRECHTELIJK BESCHERMD - UITSLUITEND NIET-COMMERCIEEL GEBRUIK TOEGESTAAN",
+        "*\/rights\/rr-f\/*": "Rights Reserved - Free access",
+        "*\/rights\/unknown\/*": "AUTEURSRECHTELIJKE BESCHERMING NIET BEPAALD"
+      },
+      "select": "Selecteer rechtenverklaringen"
     },
     "TYPE": {
       "name": "Soort media",
@@ -679,10 +702,10 @@ export default {
     "disclaimerLine1": "Europeana is een initiatief van de Europese Unie, gefinancierd door de Connecting Europe Facility van de Europese Unie en de lidstaten van de Europese Unie. De Europeana-diensten, waaronder deze website, worden beheerd door een consortium onder leiding van de Europeana Foundation in het kader van een servicecontract met de Europese Commissie.",
     "disclaimerLine2": "De Europese Commissie staat niet in voor de juistheid van de informatie en aanvaardt geen enkele verantwoordelijkheid of aansprakelijkheid met betrekking tot de informatie op deze website. Noch de Europese Commissie, noch enige persoon die namens de Europese Commissie handelt, is verantwoordelijk of aansprakelijk voor de juistheid of het gebruik van de informatie op deze website.",
     "findUsElsewhere": "Vind ons ergens anders",
-    "imageDescription": "Medegefinancierd door de Connecting Europe Facility van de Europese Unie",
+    "imageDescription": "Gefinancierd door de Europese Unie",
     "navigation": {
       "MoreInfoLabel": "Meer informatie",
-      "about": "Over ons",
+      "about": "Over",
       "accessibility": "Toegankelijkheid",
       "cookies": "Cookies",
       "forDevelopers": "Voor ontwikkelaars",
@@ -712,11 +735,12 @@ export default {
     "europeanaHome": "Europeana Home",
     "inCollection": "Zoek op {query} in {collection}",
     "navigation": {
-      "about": "Over ons",
+      "about": "Over",
       "collections": "Collecties",
-      "europeanaClassroom": "Leraren",
+      "europeanaClassroom": "Voor leraren",
       "help": "Help",
       "home": "Home",
+      "pro": "Voor professionals",
       "stories": "Verhalen"
     },
     "quickSearch": "Snel zoeken",
@@ -735,7 +759,8 @@ export default {
     "subHeadline": "Zoek, bewaar en deel kunst, boeken, films en muziek van duizenden culturele instellingen",
     "themesCTA": "Bekijk alle thema's",
     "themesTitle": "Verkennen op thema",
-    "title": "Ontdek het cultureel erfgoed van Europa"
+    "title": "Ontdek het {digitale} culturele erfgoed van Europa",
+    "titleDigital": "digitale"
   },
   "imageSlider": {
     "handle": "Schuifgreep"
@@ -781,7 +806,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Helpt onze website te verbeteren door af en toe experimentele wijzigingen aan te brengen.",
-        "title": "A/B-testen"
+        "title": "A\/B-testen"
       },
       "auth-strategy": {
         "description": "Onthoudt de autorisatie strategie die moet worden gebruikt om in te loggen.",
@@ -813,7 +838,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Onthoudt of u de zoekresultaten liever in een lijst- of rasterweergave wilt zien.",
-        "title": "Zoekresultaatweergave (lijst/raster)"
+        "title": "Zoekresultaatweergave (lijst\/raster)"
       }
     }
   },
@@ -878,6 +903,7 @@ export default {
         "title": "Plaatsen"
       },
       "table": {
+        "items": "Items",
         "name": "Naam"
       },
       "times": {

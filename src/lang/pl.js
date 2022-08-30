@@ -6,7 +6,7 @@ export default {
     "likes": "Polubienia",
     "linkAccount": "Moje konto",
     "linkLogin": "Zaloguj się",
-    "linkLoginJoin": "Zaloguj/Dołącz",
+    "linkLoginJoin": "Zaloguj\/Dołącz",
     "linkLogout": "Wyloguj",
     "myProfile": "Mój profil",
     "notifications": {
@@ -200,7 +200,7 @@ export default {
         "title": "Za dużo przpiętych obiektów"
       },
       "pinned": "Obiekt został przypięty. Znajduje się teraz na górze pierwszej strony tej kolekcji. Synchronizacja u wszystkich użytkowników może potrwać do 24 godzin.",
-      "select": "Wybierz powiązaną jednostkę, aby przypiąć/odpiąć element do/od niego.",
+      "select": "Wybierz powiązaną jednostkę, aby przypiąć\/odpiąć element do\/od niego.",
       "unpin": "Ten element przestanie się wyświetlać u góry kolekcji „ {entity} ”. Powiadomimy Cię, kiedy ta zmiana będzie widoczna na stronie kolekcji.",
       "unpinned": "Obiekt został odpięty. Nie znajduje się już na górze pierwszej strony tej kolekcji. Może minąć do 24 godzin, zanim zniknie dla wszystkich użytkowników."
     }
@@ -494,7 +494,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format plików | Formaty plików",
       "options": {
-        "text/plain": "Zwykły tekst"
+        "text\/plain": "Zwykły tekst"
       },
       "select": "Wybierz formaty plików"
     },
@@ -512,6 +512,29 @@ export default {
         "uncategorized": "Bez kategorii"
       },
       "select": "Wybierz, czy możesz używać tego"
+    },
+    "RIGHTS": {
+      "name": "Oświadczenie o prawach",
+      "options": {
+        "*\/CNE\/*": "Prawa autorskie nie zostały ocenione",
+        "*\/InC-EDU\/*": "W prawie autorskim — dozwolone użycie edukacyjne",
+        "*\/InC-OW-EU\/*": "Prawa autorskie - OW-EU",
+        "*\/InC\/*": "W prawach autorskich",
+        "*\/NoC-NC\/*": "Brak praw autorskich - Tylko do użytku niekomercyjnego",
+        "*\/NoC-OKLR\/*": "Brak praw autorskich - Inne znane ograniczenia prawne",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Znak domeny publicznej",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "Poza prawami autorskimi – Ponowne wykorzystanie niekomercyjne",
+        "*\/rights\/rr-f\/*": "Prawa zastrzeżone — Bezpłatny dostęp",
+        "*\/rights\/unknown\/*": "Nieznany status praw autorskich"
+      },
+      "select": "Wybierz oświadczenia o prawach"
     },
     "TYPE": {
       "name": "Rodzaj mediów",
@@ -660,7 +683,7 @@ export default {
       "keywords": "Słowa kluczowe (dostarczone przez społeczność)",
       "timestampCreated": "Data utworzenia rekordu",
       "timestampUpdate": "Data zaktualizowania rekordu",
-      "wasPresentAt": "Był obecny w/na",
+      "wasPresentAt": "Był obecny w\/na",
       "year": "Rok"
     },
     "webResource": {
@@ -678,10 +701,10 @@ export default {
     "disclaimerLine1": "Europeana jest inicjatywą Unii Europejskiej, finansowaną z unijnego Connecting Europe Facility oraz przez państwa członkowskie Unii Europejskiej. Usługi Europeany, w tym niniejsza strona internetowa, są prowadzone przez konsorcjum kierowane przez Fundację Europeana na podstawie umowy o świadczenie usług zawartej z Komisją Europejską.",
     "disclaimerLine2": "Komisja Europejska nie gwarantuje dokładności informacji i nie ponosi żadnej odpowiedzialności w odniesieniu do informacji na tej stronie internetowej. Ani Komisja Europejska, ani żadna osoba działająca w imieniu Komisji Europejskiej nie ponosi odpowiedzialności za dokładność lub wykorzystanie informacji na tej stronie internetowej.",
     "findUsElsewhere": "Znajdź nas w innych miejscach",
-    "imageDescription": "Współfinansowany z instrumentu „Łącząc Europę” Unii Europejskiej",
+    "imageDescription": "Finansowane przez Unię Europejską",
     "navigation": {
       "MoreInfoLabel": "Więcej informacji",
-      "about": "O nas",
+      "about": "O",
       "accessibility": "Dostępność",
       "cookies": "Pliki cookie",
       "forDevelopers": "Dla deweloperów",
@@ -711,11 +734,12 @@ export default {
     "europeanaHome": "Strona główna Europeany",
     "inCollection": "Wyszukaj {query} w {collection}",
     "navigation": {
-      "about": "O nas",
+      "about": "O",
       "collections": "Kolekcje",
-      "europeanaClassroom": "Nauczyciele",
+      "europeanaClassroom": "Dla nauczycieli",
       "help": "Pomoc",
       "home": "Dom",
+      "pro": "Dla profesjonalistów",
       "stories": "Historie"
     },
     "quickSearch": "Szybkie wyszukiwanie",
@@ -734,7 +758,8 @@ export default {
     "subHeadline": "Wyszukuj, zapisuj i udostępniaj dzieła sztuki, książki, filmy i muzykę z tysięcy instytucji kulturalnych",
     "themesCTA": "Zobacz wszystkie motywy",
     "themesTitle": "Eksploruj według motywu",
-    "title": "Odkryj dziedzictwo kulturowe Europy"
+    "title": "Odkryj {cyfrowe} dziedzictwo kulturowe Europy",
+    "titleDigital": "cyfrowe"
   },
   "imageSlider": {
     "handle": "Uchwyt suwakowy"
@@ -780,7 +805,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Pomaga ulepszyć naszą stronę internetową, od czasu do czasu stosując eksperymentalne zmiany.",
-        "title": "Testy A/B"
+        "title": "Testy A\/B"
       },
       "auth-strategy": {
         "description": "Zapamiętuje strategię autoryzacji używaną do logowania.",
@@ -812,7 +837,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Zapamiętuje czy wolisz widzieć wyniki wyszukiwania w widoku listy lub siatki.",
-        "title": "Widok wyników wyszukiwania (lista/siatka)"
+        "title": "Widok wyników wyszukiwania (lista\/siatka)"
       }
     }
   },
@@ -875,6 +900,7 @@ export default {
         "title": "Miejsca"
       },
       "table": {
+        "items": "Elementy",
         "name": "Nazwa"
       },
       "times": {

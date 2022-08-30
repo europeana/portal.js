@@ -6,7 +6,7 @@ export default {
     "likes": "Tykätyt",
     "linkAccount": "Oma tili",
     "linkLogin": "Kirjaudu sisään",
-    "linkLoginJoin": "Kirjaudu/Liity",
+    "linkLoginJoin": "Kirjaudu\/Liity",
     "linkLogout": "Kirjaudu ulos",
     "myProfile": "Profiilini",
     "notifications": {
@@ -495,7 +495,7 @@ export default {
     "MIME_TYPE": {
       "name": "Tiedostomuoto | Tiedostomuodot",
       "options": {
-        "text/plain": "Pelkkä teksti"
+        "text\/plain": "Pelkkä teksti"
       },
       "select": "Valitse tiedostomuodot"
     },
@@ -513,6 +513,29 @@ export default {
         "uncategorized": "Ei luokiteltu"
       },
       "select": "Valitse, voitko käyttää tätä"
+    },
+    "RIGHTS": {
+      "name": "Oikeuksia koskeva lausunto",
+      "options": {
+        "*\/CNE\/*": "Tekijänoikeus Ei arvioitu",
+        "*\/InC-EDU\/*": "Tekijänoikeus - Opetuskäyttö sallittu",
+        "*\/InC-OW-EU\/*": "Tekijänoikeus - OW-EU",
+        "*\/InC\/*": "Tekijänoikeudet",
+        "*\/NoC-NC\/*": "Ei tekijänoikeuksia – vain ei-kaupalliseen käyttöön",
+        "*\/NoC-OKLR\/*": "Ei tekijänoikeuksia – muut tunnetut lailliset rajoitukset",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Julkisen verkkotunnuksen merkki",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "Tekijänoikeuden ulkopuolella - ei-kaupallinen uudelleenkäyttö",
+        "*\/rights\/rr-f\/*": "Oikeudet pidätetään - Vapaa pääsy",
+        "*\/rights\/unknown\/*": "Tuntematon tekijänoikeustila"
+      },
+      "select": "Valitse oikeuksia koskevat lausumat"
     },
     "TYPE": {
       "name": "Mediatyyppi",
@@ -679,10 +702,10 @@ export default {
     "disclaimerLine1": "Europeana on Euroopan unionin aloite, jonka rahoittavat Euroopan unionin Verkkojen Eurooppa -väline ja Euroopan unionin jäsenvaltiot. Europeana-palveluja, mukaan lukien tämä verkkosivusto, ylläpitää konsortio, jota johtaa Europeana-säätiö Euroopan komission kanssa tehtyyn palvelusopimukseen.",
     "disclaimerLine2": "Euroopan komissio ei takaa tietojen paikkansapitävyyttä eikä ota mitään vastuuta tämän verkkosivuston tiedoista. Kumpikaan Euroopan komissio tai kukaan Euroopan komission puolesta toimiva henkilö ei ole vastuussa tai vastuussa tämän verkkosivuston tietojen oikeellisuudesta tai käytöstä.",
     "findUsElsewhere": "Löydä meidät muualta",
-    "imageDescription": "Euroopan unionin Verkkojen Eurooppa -väline on osallistunut rahoitukseen",
+    "imageDescription": "Euroopan unionin rahoittama",
     "navigation": {
       "MoreInfoLabel": "Lisätietoja",
-      "about": "Tietoa meistä",
+      "about": "Noin",
       "accessibility": "Saavutettavuus",
       "cookies": "Evästeet",
       "forDevelopers": "Kehittäjille",
@@ -712,11 +735,12 @@ export default {
     "europeanaHome": "Europeanan kotisivu",
     "inCollection": "Hae ehdoilla {query} kokoelmasta {collection}",
     "navigation": {
-      "about": "Tietoa meistä",
+      "about": "Noin",
       "collections": "Kokoelmat",
-      "europeanaClassroom": "Opettajat",
+      "europeanaClassroom": "Opettajille",
       "help": "Apua",
       "home": "Koti",
+      "pro": "Ammattilaisille",
       "stories": "Tarinoita"
     },
     "quickSearch": "Pikahaku",
@@ -735,14 +759,15 @@ export default {
     "subHeadline": "Etsi, tallenna ja jaa taidetta, kirjoja, elokuvia ja musiikkia tuhansista kulttuurilaitoksista",
     "themesCTA": "Katso kaikki teemat",
     "themesTitle": "Tutustu teemoittain",
-    "title": "Tutustu Euroopan kulttuuriperintöön"
+    "title": "Tutustu Euroopan {digitaaliseen} kulttuuriperintöön",
+    "titleDigital": "digitaaliseen"
   },
   "imageSlider": {
     "handle": "Liukusäätimen kahva"
   },
   "items": {
     "itemCount": "1 kohde |{count} kohdetta",
-    "itemOf": "{max} / {count} kohdetta",
+    "itemOf": "{max} \/ {count} kohdetta",
     "recent": "Viimeisimmät kohteet",
     "recommended": "Suositellut kohteet",
     "youMightLike": "Saattaisit tykätä näistä kohteista"
@@ -781,7 +806,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Auttaa parantamaan verkkosivustoamme soveltamalla ajoittain kokeellisia muutoksia.",
-        "title": "A/B -testaus"
+        "title": "A\/B -testaus"
       },
       "auth-strategy": {
         "description": "Muistaa kirjautumisessa käytettävän valtuutusstrategian.",
@@ -813,7 +838,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Muistaa, haluatko nähdä hakutulokset luettelossa tai ruudukkonäkymässä.",
-        "title": "Hakutulosnäkymä (luettelo/ruudukko)"
+        "title": "Hakutulosnäkymä (luettelo\/ruudukko)"
       }
     }
   },
@@ -878,6 +903,7 @@ export default {
         "title": "Paikat"
       },
       "table": {
+        "items": "Tuotteet",
         "name": "Nimi"
       },
       "times": {

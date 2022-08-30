@@ -6,7 +6,7 @@ export default {
     "likes": "Synes om'er",
     "linkAccount": "Min konto",
     "linkLogin": "Log ind",
-    "linkLoginJoin": "Login/Deltag",
+    "linkLoginJoin": "Login\/Deltag",
     "linkLogout": "Log ud",
     "myProfile": "Min profil",
     "notifications": {
@@ -201,7 +201,7 @@ export default {
         "title": "For mange fastgjorte emner"
       },
       "pinned": "Elementet er blevet fastgjort. Det er nu øverst på den første side i denne samling. Det kan tage op til 24 timer at vises for alle.",
-      "select": "Vælg en relateret enhed for at fastgøre/frigøre elementet til/fra det.",
+      "select": "Vælg en relateret enhed for at fastgøre\/frigøre elementet til\/fra det.",
       "unpin": "Dette element stopper med at blive vist øverst i samlingen \" {entity} \". Vi giver dig besked, når denne ændring vil være synlig på indsamlingssiden.",
       "unpinned": "Elementet er blevet fastgjort. Det er ikke længere øverst på den første side i denne samling. Det kan tage op til 24 timer at forsvinde for alle."
     }
@@ -495,7 +495,7 @@ export default {
     "MIME_TYPE": {
       "name": "Filformat | Filformater",
       "options": {
-        "text/plain": "Almindelig tekst"
+        "text\/plain": "Almindelig tekst"
       },
       "select": "Vælg filformater"
     },
@@ -513,6 +513,29 @@ export default {
         "uncategorized": "Ikke kategoriseret"
       },
       "select": "Vælg, om du kan bruge dette"
+    },
+    "RIGHTS": {
+      "name": "Erklæring om rettigheder",
+      "options": {
+        "*\/CNE\/*": "Copyright Ikke evalueret",
+        "*\/InC-EDU\/*": "I ophavsret - Uddannelsesmæssig brug tilladt",
+        "*\/InC-OW-EU\/*": "I ophavsret - OW-EU",
+        "*\/InC\/*": "I ophavsret",
+        "*\/NoC-NC\/*": "Ingen ophavsret - Kun ikke-kommerciel brug",
+        "*\/NoC-OKLR\/*": "Ingen ophavsret - Andre kendte juridiske begrænsninger",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Public Domain Mark",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "Uden af copyright - ikke-kommercielt genbrug",
+        "*\/rights\/rr-f\/*": "Rettigheder forbeholdt - Gratis adgang",
+        "*\/rights\/unknown\/*": "Ukendt ophavsretsstatus"
+      },
+      "select": "Vælg rettighedserklæringer"
     },
     "TYPE": {
       "name": "Medietype",
@@ -679,10 +702,10 @@ export default {
     "disclaimerLine1": "Europeana er et initiativ fra Den Europæiske Union, der finansieres af EU's Connecting Europe-facilitet og EU's medlemsstater. Europeana-tjenesterne, herunder dette websted, drives af et konsortium ledet af Europeana Foundation i henhold til en servicekontrakt med Europa-Kommissionen.",
     "disclaimerLine2": "Europa-Kommissionen garanterer ikke nøjagtigheden af informationen og påtager sig intet ansvar over for informationen på dette websted. Hverken Europa-Kommissionen eller nogen person, der handler på Europa-Kommissionens vegne, er ansvarlig eller ansvarlig for nøjagtigheden eller brugen af oplysningerne på dette websted.",
     "findUsElsewhere": "Find os et andet sted",
-    "imageDescription": "Medfinansieret af Den Europæiske Unions Connecting Europe-facilitet",
+    "imageDescription": "Finansieret af Den Europæiske Union",
     "navigation": {
       "MoreInfoLabel": "Flere oplysninger",
-      "about": "Om os",
+      "about": "Om",
       "accessibility": "Tilgængelighed",
       "cookies": "Cookies",
       "forDevelopers": "For udviklere",
@@ -712,11 +735,12 @@ export default {
     "europeanaHome": "Europeana startside",
     "inCollection": "Søg efter {query} i {collection}",
     "navigation": {
-      "about": "Om os",
+      "about": "Om",
       "collections": "Samlinger",
-      "europeanaClassroom": "Lærere",
+      "europeanaClassroom": "For lærere",
       "help": "Hjælp",
       "home": "Hjem",
+      "pro": "For professionelle",
       "stories": "Historier"
     },
     "quickSearch": "Hurtig søgning",
@@ -735,7 +759,8 @@ export default {
     "subHeadline": "Søg, gem og del kunst, bøger, film og musik fra tusindvis af kulturinstitutioner",
     "themesCTA": "Se alle temaer",
     "themesTitle": "Udforsk efter tema",
-    "title": "Oplev Europas kulturarv"
+    "title": "Opdag Europas {digitale} kulturarv",
+    "titleDigital": "digitale"
   },
   "imageSlider": {
     "handle": "Skydehåndtag"
@@ -781,7 +806,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Hjælper med at forbedre vores websted ved lejlighedsvis at anvende eksperimentelle ændringer.",
-        "title": "A/B-testning"
+        "title": "A\/B-testning"
       },
       "auth-strategy": {
         "description": "Husker autorisationsstrategien, der skal bruges til at logge ind.",
@@ -813,7 +838,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Husk, hvis du foretrækker at se søgeresultaterne i en liste- eller gittervisning.",
-        "title": "Visning af søgeresultater (liste / gitter)"
+        "title": "Visning af søgeresultater (liste \/ gitter)"
       }
     }
   },
@@ -878,6 +903,7 @@ export default {
         "title": "Steder"
       },
       "table": {
+        "items": "Varer",
         "name": "Navn"
       },
       "times": {
