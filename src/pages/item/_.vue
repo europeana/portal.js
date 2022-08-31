@@ -15,9 +15,9 @@
     </b-container>
     <ErrorMessage
       v-else-if="$fetchState.error"
-      data-qa="alert message container"
+      data-qa="error message container"
       :error="$fetchState.error.message"
-      variant="item not found"
+      variant="item"
     />
     <template
       v-else
@@ -122,7 +122,7 @@
 </template>
 
 <script>
-  import isEmpty from 'lodash/isEmpty';
+  import isEmpty from 'lodash/isEmpty.js';
   import { mapGetters } from 'vuex';
 
   import ItemHero from '@/components/item/ItemHero';

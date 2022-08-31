@@ -1,20 +1,20 @@
 <template>
   <div class="error-container gridless-container responsive-font">
-    <div class="error-wrapper d-flex flex-wrap flex-sm-nowrap align-items-center justify-content-between">
+    <div class="d-flex flex-wrap flex-sm-nowrap align-items-center justify-content-between">
       <b-img
         :src="illustrationSrc"
       />
       <section class="mt-4">
         <i18n
           tag="h1"
-          path="errorMessage.item.title"
+          :path="`errorMessage.${variant}.title`"
         >
           <template #newline>
             <br>
           </template>
         </i18n>
         <p>
-          {{ $t('errorMessage.item.description') }}
+          {{ $t(`errorMessage.${variant}.description`) }}
         </p>
       </section>
     </div>
@@ -50,7 +50,7 @@
       illustrationSrc() {
         let src;
         switch (this.variant) {
-        case ('item not found'):
+        case ('item'):
           src = require('@/assets/img/illustrations/il-item-not-found.svg');
           break;
         }
