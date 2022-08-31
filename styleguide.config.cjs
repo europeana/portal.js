@@ -92,7 +92,8 @@ module.exports = async() => {
     skipComponentsWithoutExample: true,
     require: [
       resolve(__dirname, './src/assets/scss/style.scss'),
-      resolve(__dirname, './styleguide/style.scss')
+      resolve(__dirname, './styleguide/style.scss'),
+      resolve(__dirname, './src/assets/img/illustrations/il-item-not-found.svg')
     ],
     renderRootJsx: resolve(__dirname, './styleguide/styleguide.root.js'),
     template: {

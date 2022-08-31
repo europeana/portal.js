@@ -2,19 +2,20 @@
   <div class="error-container gridless-container responsive-font">
     <div class="d-flex flex-wrap flex-sm-nowrap align-items-center justify-content-between">
       <b-img
+        v-if="illustrationSrc"
         :src="illustrationSrc"
       />
       <section class="mt-4">
         <i18n
           tag="h1"
-          :path="`errorMessage.${variant}.title`"
+          :path="titlePath"
         >
           <template #newline>
             <br>
           </template>
         </i18n>
-        <p>
-          {{ $t(`errorMessage.${variant}.description`) }}
+        <p v-if="descriptionPath">
+          {{ $t(descriptionPath) }}
         </p>
       </section>
     </div>
@@ -36,25 +37,21 @@
     },
 
     props: {
-      variant: {
+      titlePath: {
         type: String,
         required: true
+      },
+      descriptionPath: {
+        type: String,
+        default: null
+      },
+      illustrationSrc: {
+        type: String,
+        default: null
       },
       error: {
         type: String,
         default: null
-      }
-    },
-
-    computed: {
-      illustrationSrc() {
-        let src;
-        switch (this.variant) {
-        case ('item'):
-          src = require('@/assets/img/illustrations/il-item-not-found.svg');
-          break;
-        }
-        return src;
       }
     }
   };
@@ -120,3 +117,14 @@
     line-break: anywhere;
   }
 </style>
+
+<docs lang="md">
+  ```jsx
+  <ErrorMessage
+      error="Item was not found"
+      title-path="errorMessage.item.title"
+      description-path="errorMessage.item.description"
+      illustration-src="src/assets/img/illustrations/il-item-not-found.svg"
+  />
+  ```
+  </docs>

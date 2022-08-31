@@ -17,7 +17,9 @@
       v-else-if="$fetchState.error"
       data-qa="error message container"
       :error="$fetchState.error.message"
-      variant="item"
+      title-path="errorMessage.item.title"
+      description-path="errorMessage.item.description"
+      :illustration-src="require('@/assets/img/illustrations/il-item-not-found.svg')"
     />
     <template
       v-else
