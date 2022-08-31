@@ -15,9 +15,10 @@ jobs:
           node-version: 16
           cache: 'npm'
       -
-        name: Install packages
-        # TODO: only install req'd packages, i.e. dotenv and lokalise
-        run: npm ci
+        name: Install Node packages
+        run: |
+          npm ci --prefix tmp dotenv @lokalise/node-api
+          mv tmp/node_modules .
       -
         name: Update lang files
         run: npm run lokalise
