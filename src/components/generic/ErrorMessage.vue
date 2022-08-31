@@ -3,6 +3,7 @@
     <div class="d-flex flex-wrap flex-sm-nowrap align-items-center justify-content-between">
       <b-img
         :src="illustrationSrc"
+        alt=""
       />
       <section class="mt-4">
         <i18n
