@@ -214,7 +214,7 @@ export default {
     "description": "Explora las exposiciones",
     "exhibitions": "Exposiciones"
   },
-  "explore": "Explore",
+  "explore": "Explorar",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "colores",
