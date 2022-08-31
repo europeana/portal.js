@@ -2,7 +2,6 @@
   <div class="error-container gridless-container responsive-font">
     <div class="d-flex flex-wrap flex-sm-nowrap align-items-center justify-content-between">
       <b-img
-        v-if="illustrationSrc"
         :src="illustrationSrc"
       />
       <section class="mt-4">
@@ -14,8 +13,10 @@
             <br>
           </template>
         </i18n>
-        <p v-if="descriptionPath">
-          {{ $t(descriptionPath) }}
+        <p
+          data-qa="error message"
+        >
+          {{ $t(descriptionPath || '') }}
         </p>
       </section>
     </div>
@@ -39,7 +40,7 @@
     props: {
       titlePath: {
         type: String,
-        required: true
+        default: null
       },
       descriptionPath: {
         type: String,
