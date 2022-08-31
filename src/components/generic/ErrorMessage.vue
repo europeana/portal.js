@@ -1,15 +1,39 @@
 <template>
-  <div class="error-message">
-    <b-img
-      :src="illustrationSrc"
+  <div class="error-container gridless-container responsive-font">
+    <div class="error-wrapper d-flex flex-wrap flex-sm-nowrap align-items-center justify-content-between">
+      <b-img
+        :src="illustrationSrc"
+      />
+      <section class="mt-4">
+        <i18n
+          tag="h1"
+          path="errorMessage.item.title"
+        >
+          <template #newline>
+            <br>
+          </template>
+        </i18n>
+        <p>
+          {{ $t('errorMessage.item.description') }}
+        </p>
+      </section>
+    </div>
+    <AlertMessage
+      class="mt-5"
+      :error="error"
     />
-    <p>{{ error }}</p>
   </div>
 </template>
 
 <script>
+  import AlertMessage from '@/components/generic/AlertMessage';
+
   export default {
     name: 'ErrorMessage',
+
+    components: {
+      AlertMessage
+    },
 
     props: {
       variant: {
@@ -17,7 +41,7 @@
         required: true
       },
       error: {
-        type: Object,
+        type: String,
         default: null
       }
     },
@@ -39,10 +63,60 @@
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
 
-  .error-message {
-    padding: 10rem 1rem;
+  .error-container {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
     margin-left: auto;
     margin-right: auto;
+
+    @media (min-width: $bp-medium) {
+      max-width: 90%;
+    }
+
+    @media (min-width: $bp-extralarge) {
+      padding-top: 10rem;
+      padding-bottom: 12rem;
+      max-width: 75%;
+    }
+
+    @media (min-width: $bp-xxxl) {
+      padding-top: 10vw;
+      padding-bottom: 12vw;
+    }
+  }
+
+  section {
     width: 100%;
+    color: $mediumgrey-light;
+
+    @media (min-width: $bp-small) {
+      height: auto;
+      width: 50%;
+    }
+
+    @media (min-width: $bp-xxxl) {
+      max-width: 35em;
+    }
+
+    h1 {
+      color: $mediumgrey;
+      font-weight: 700;
+    }
+  }
+
+  img {
+    margin: 0 auto;
+    display: block;
+    width: 50%;
+
+    @media (min-width: $bp-small) {
+      margin: 0;
+      width: 35%;
+    }
+  }
+
+  ::v-deep .alert {
+    overflow: hidden;
+    line-break: anywhere;
   }
 </style>

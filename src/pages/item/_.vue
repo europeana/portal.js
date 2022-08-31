@@ -16,7 +16,7 @@
     <ErrorMessage
       v-else-if="$fetchState.error"
       data-qa="alert message container"
-      :error="$fetchState.error"
+      :error="$fetchState.error.message"
       variant="item not found"
     />
     <template

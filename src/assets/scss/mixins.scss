@@ -12,3 +12,13 @@
     z-index: 1;
   }
 }
+
+@mixin min-page-height {
+  @media (min-width: $bp-medium) {
+    min-height: 30rem;
+  }
+
+  @media (min-width: $bp-xxxl) {
+    min-height: 30vw;
+  }
+}
