@@ -9,21 +9,25 @@ jobs:
   create-pull-request:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
       -
-        name: Download Lokalise CLI
-        run: curl -sfL https://raw.githubusercontent.com/lokalise/lokalise-cli-2-go/master/install.sh | sh
+        name: Install packages
+        # TODO: only install req'd packages, i.e. dotenv and lokalise
+        run: npm ci
       -
-        name: Get project ID
-        run: export LOKALISE_PROJECT_ID=$(./bin/lokalise2 project list --token ${LOKALISE_API_TOKEN} | jq -Mr '.projects[]|select(.name=="Contentful - Portaljs").project_id')
+        name: Update lang files
+        run: npm run lokalise
       -
-        name: Output project ID
-        run: echo ${LOKALISE_PROJECT_ID}
+        name: Set pull pequest branch name
+        run: echo "PR_BRANCH=l10n/$(date +%Y-%m-%d_%H-%M-%S)" >> $GITHUB_ENV
       -
-        name: Download files
-        run: |
-          ./bin/lokalise2 file download --token ${LOKALISE_API_TOKEN} --project-id ${LOKALISE_PROJECT_ID} \
-            --exclude-tags "Not ready" --format react_native --all-platforms --replace-breaks false \
-            --add-newline-eof true --export-empty-as skip --export-sort a_z --plural-format array \
-            --placeholder-format printf --indentation 2sp --unzip-to ./tmp \
-            --dest ./tmp --bundle-structure "src/lang/%LANG_ISO%.%FORMAT%" \
-            --filter-langs "nl-NL"
+        name: Create pull request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          branch: ${{ env.PR_BRANCH }}
+          commit-message: "l10n: update translations"
+          title: "l10n: update translations"
