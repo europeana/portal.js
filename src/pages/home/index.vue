@@ -1,45 +1,39 @@
 <template>
-  <div>
-    <div
-      v-if="$features.newHomepage"
-      class="page"
-    >
-      <HomeHero
-        :background-image="backgroundImage"
-      />
-      <client-only>
-        <div class="page gridless-container">
-          <StackedCardsSwiper
-            v-if="swiperThemes.length > 0"
-            :slides="swiperThemes"
-            :title="$t('homePage.themesTitle')"
-            :cta="{ url: $path('/collections'), text: $t('homePage.themesCTA') }"
-          />
-          <CallToActionBanner
-            v-if="callsToAction[0]"
-            :name="callsToAction[0].name"
-            :text="callsToAction[0].text"
-            :link="callsToAction[0].relatedLink"
-            :illustration="callsToAction[0].image"
-            variant="innovationblue"
-            class="home-cta"
-          />
-          <HomeLatest />
-          <CallToActionBanner
-            v-if="callsToAction[1]"
-            :name="callsToAction[1].name"
-            :text="callsToAction[1].text"
-            :link="callsToAction[1].relatedLink"
-            :illustration="callsToAction[1].image"
-            class="home-cta"
-          />
-        </div>
-      </client-only>
-    </div>
-    <IndexPage
-      v-else
-      slug="home"
+  <div
+    class="page"
+    data-qa="home page"
+  >
+    <HomeHero
+      :background-image="backgroundImage"
     />
+    <client-only>
+      <div class="page gridless-container">
+        <StackedCardsSwiper
+          v-if="swiperThemes.length > 0"
+          :slides="swiperThemes"
+          :title="$t('homePage.themesTitle')"
+          :cta="{ url: $path('/collections'), text: $t('homePage.themesCTA') }"
+        />
+        <CallToActionBanner
+          v-if="callsToAction[0]"
+          :name="callsToAction[0].name"
+          :text="callsToAction[0].text"
+          :link="callsToAction[0].relatedLink"
+          :illustration="callsToAction[0].image"
+          variant="innovationblue"
+          class="home-cta"
+        />
+        <HomeLatest />
+        <CallToActionBanner
+          v-if="callsToAction[1]"
+          :name="callsToAction[1].name"
+          :text="callsToAction[1].text"
+          :link="callsToAction[1].relatedLink"
+          :illustration="callsToAction[1].image"
+          class="home-cta"
+        />
+      </div>
+    </client-only>
   </div>
 </template>
 
@@ -60,7 +54,6 @@
       CallToActionBanner,
       HomeHero,
       HomeLatest,
-      IndexPage: () => import('../index'),
       StackedCardsSwiper
     },
 
@@ -70,20 +63,11 @@
       return {
         sections: [],
         backgroundImage: null,
-        socialMediaImage: null,
-        // TODO: following four properties required when rendering IndexPage as
-        //       a child component; remove when new home page is launched.
-        browsePage: false,
-        staticPage: false,
-        page: {},
-        identifier: null
+        socialMediaImage: null
       };
     },
 
     async fetch() {
-      if (!this.$features.newHomepage) {
-        return;
-      }
       await this.fetchContentfulEntry();
     },
 
@@ -130,10 +114,6 @@
     },
 
     mounted() {
-      if (!this.$features.newHomepage) {
-        return;
-      }
-
       this.fetchAllThemes();
     },
 

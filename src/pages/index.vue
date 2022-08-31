@@ -73,8 +73,7 @@
         browsePage: false,
         staticPage: false,
         page: {},
-        // TODO: clean up when new home is enabled
-        identifier: this.slug || this.$route.params.pathMatch || 'home'
+        identifier: this.slug || this.$route.params.pathMatch
       };
     },
 
