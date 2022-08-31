@@ -275,7 +275,13 @@
         return langMapValueForLocale(this.description, this.metadataLanguage || this.$i18n.locale, { uiLanguage: this.$i18n.locale });
       },
       metaTitle() {
-        return this.titlesInCurrentLanguage[0] ? this.titlesInCurrentLanguage[0].value : this.$t('record.record');
+        if (this.$fetchState.error) {
+          return this.$t('errorMessage.item.metaTitle');
+        } else if (this.titlesInCurrentLanguage[0]) {
+          return this.titlesInCurrentLanguage[0].value;
+        } else {
+          return this.$t('record.record');
+        }
       },
       metaDescription() {
         if (isEmpty(this.descriptionInCurrentLanguage)) {
