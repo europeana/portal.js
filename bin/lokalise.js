@@ -25,7 +25,6 @@ const stringify = (thing, root = false, indent = 0) => {
     str = str + `"${quoted}"`;
   } else {
     str = str + '{\n';
-    // FIXME: the options to localeCompare should sort upper-case before lower-case
     const sorted = Object.keys(thing).sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'variant', caseFirst: 'upper' }));
     for (const key of sorted) {
       str = str + ' '.repeat(indent + 2) + `"${key}": `;
