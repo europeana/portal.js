@@ -682,7 +682,7 @@ export default {
     "imageDescription": "Finansuoja Europos Sąjunga",
     "navigation": {
       "MoreInfoLabel": "Daugiau informacijos",
-      "about": "Apie",
+      "about": "Apie mus",
       "accessibility": "Prieinamumas",
       "cookies": "Slapukai",
       "forDevelopers": "Programuotojams",
@@ -712,7 +712,7 @@ export default {
     "europeanaHome": "„Europeana“ pagrindinis puslapis",
     "inCollection": "Ieškoti {query} {collection}",
     "navigation": {
-      "about": "Apie",
+      "about": "Apie mus",
       "collections": "Kolekcijos",
       "europeanaClassroom": "Mokytojams",
       "help": "Pagalba",

@@ -682,7 +682,7 @@ export default {
     "imageDescription": "Finanțat de Uniunea Europeană",
     "navigation": {
       "MoreInfoLabel": "Mai multe informații",
-      "about": "Despre",
+      "about": "Despre noi",
       "accessibility": "Accesibilitate",
       "cookies": "Cookie-uri",
       "forDevelopers": "Pentru dezvoltatori",
@@ -712,7 +712,7 @@ export default {
     "europeanaHome": "Pagina principală Europeana",
     "inCollection": "Caută pentru {query} în {collection}",
     "navigation": {
-      "about": "Despre",
+      "about": "Despre noi",
       "collections": "Colecții",
       "europeanaClassroom": "Pentru profesori",
       "help": "Ajutor",

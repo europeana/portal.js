@@ -686,7 +686,7 @@ export default {
     "imageDescription": "Χρηματοδοτείται από την Ευρωπαϊκή Ένωση",
     "navigation": {
       "MoreInfoLabel": "Περισσότερες πληροφορίες",
-      "about": "Σχετικά με",
+      "about": "Σχετικά με εμάς",
       "accessibility": "Προσβασιμότητα",
       "cookies": "Cookies",
       "forDevelopers": "Για προγραμματιστές",
@@ -716,7 +716,7 @@ export default {
     "europeanaHome": "Αρχική σελίδα της Europeana",
     "inCollection": "Αναζητήστε τον όρο {query} στη συλλογή {collection}",
     "navigation": {
-      "about": "Σχετικά με",
+      "about": "Σχετικά με εμάς",
       "collections": "Συλλογές",
       "europeanaClassroom": "Για δασκάλους",
       "help": "Βοήθεια",

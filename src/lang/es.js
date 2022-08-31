@@ -682,7 +682,7 @@ export default {
     "imageDescription": "Financiado por la Unión Europea",
     "navigation": {
       "MoreInfoLabel": "Más información",
-      "about": "Sobre",
+      "about": "¿Qué es Europeana?",
       "accessibility": "Accesibilidad",
       "cookies": "Galletas",
       "forDevelopers": "Para desarrolladores",
@@ -712,7 +712,7 @@ export default {
     "europeanaHome": "Página de inicio de Europeana",
     "inCollection": "Busca {query} en {collection}",
     "navigation": {
-      "about": "Sobre",
+      "about": "¿Qué es Europeana?",
       "collections": "Colecciones",
       "europeanaClassroom": "Para profesores",
       "help": "Ayuda",

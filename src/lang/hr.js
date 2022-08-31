@@ -682,7 +682,7 @@ export default {
     "imageDescription": "Financira Europska unija",
     "navigation": {
       "MoreInfoLabel": "Više informacija",
-      "about": "Oko",
+      "about": "O nama",
       "accessibility": "Pristupačnost",
       "cookies": "Kolačići",
       "forDevelopers": "Za programere",
@@ -712,7 +712,7 @@ export default {
     "europeanaHome": "Glavna stranica Europeana",
     "inCollection": "Potražite {query} u {collection}",
     "navigation": {
-      "about": "Oko",
+      "about": "O nama",
       "collections": "Zbirke",
       "europeanaClassroom": "Za učitelje",
       "help": "Pomoć",

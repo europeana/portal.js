@@ -682,7 +682,7 @@ export default {
     "imageDescription": "Finansē Eiropas Savienība",
     "navigation": {
       "MoreInfoLabel": "Papildinformācija",
-      "about": "Par",
+      "about": "Par mums",
       "accessibility": "Pieejamība",
       "cookies": "Sīkfaili",
       "forDevelopers": "Izstrādātājiem",
@@ -712,7 +712,7 @@ export default {
     "europeanaHome": "Europeana vietne",
     "inCollection": "Meklēt {query} kolekcijā {collection}",
     "navigation": {
-      "about": "Par",
+      "about": "Par mums",
       "collections": "Kolekcijas",
       "europeanaClassroom": "Skolotājiem",
       "help": "Palīdzība",

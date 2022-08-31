@@ -686,7 +686,7 @@ export default {
     "imageDescription": "Europar Batasunak finantzatua",
     "navigation": {
       "MoreInfoLabel": "Informazio gehiago",
-      "about": "Buruz",
+      "about": "Guri buruz",
       "accessibility": "Irisgarritasuna",
       "cookies": "Cookieak",
       "forDevelopers": "Garatzaileentzat",
@@ -716,7 +716,7 @@ export default {
     "europeanaHome": "Europeanako hasiera orria",
     "inCollection": "Bilatu '{kontsulta}' bilduma honetan {collection}",
     "navigation": {
-      "about": "Buruz",
+      "about": "Guri buruz",
       "collections": "Bildumak",
       "europeanaClassroom": "Irakasleentzat",
       "help": "Laguntza",

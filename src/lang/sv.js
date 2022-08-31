@@ -682,7 +682,7 @@ export default {
     "imageDescription": "Finansieras av Europeiska unionen",
     "navigation": {
       "MoreInfoLabel": "Mer information",
-      "about": "Om",
+      "about": "Om oss",
       "accessibility": "Tillgänglighet",
       "cookies": "Cookies",
       "forDevelopers": "För utvecklare",
@@ -712,7 +712,7 @@ export default {
     "europeanaHome": "Europeana start",
     "inCollection": "Sök efter {query} i {collection}",
     "navigation": {
-      "about": "Om",
+      "about": "Om oss",
       "collections": "Samlingar",
       "europeanaClassroom": "För lärare",
       "help": "Hjälp",

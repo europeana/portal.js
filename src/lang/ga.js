@@ -682,7 +682,7 @@ export default {
     "imageDescription": "Maoinithe ag an Aontas Eorpach",
     "navigation": {
       "MoreInfoLabel": "Tuilleadh eolais",
-      "about": "Faoi",
+      "about": "Maidir linne",
       "accessibility": "Inrochtaineacht",
       "cookies": "Fianáin",
       "forDevelopers": "Faoi chomhair forbróirí",
@@ -712,7 +712,7 @@ export default {
     "europeanaHome": "Baile Europeana",
     "inCollection": "Cuardaigh {query} i {collection}",
     "navigation": {
-      "about": "Faoi",
+      "about": "Maidir linne",
       "collections": "Bailiúcháin",
       "europeanaClassroom": "Do mhúinteoirí",
       "help": "Cabhair",

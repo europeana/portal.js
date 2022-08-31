@@ -682,7 +682,7 @@ export default {
     "imageDescription": "Az Európai Unió által finanszírozott",
     "navigation": {
       "MoreInfoLabel": "További információ",
-      "about": "Ról ről",
+      "about": "Rólunk",
       "accessibility": "Hozzáférhetőség",
       "cookies": "Sütik",
       "forDevelopers": "Fejlesztőknek",
@@ -712,7 +712,7 @@ export default {
     "europeanaHome": "Europeana kezdőlap",
     "inCollection": "Keresés erre: {query}, a {collection} gyűjteményben",
     "navigation": {
-      "about": "Ról ről",
+      "about": "Rólunk",
       "collections": "Gyűjtemények",
       "europeanaClassroom": "A tanároknak",
       "help": "Súgó",

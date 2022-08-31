@@ -682,7 +682,7 @@ export default {
     "imageDescription": "Euroopan unionin rahoittama",
     "navigation": {
       "MoreInfoLabel": "Lisätietoja",
-      "about": "Noin",
+      "about": "Tietoa meistä",
       "accessibility": "Saavutettavuus",
       "cookies": "Evästeet",
       "forDevelopers": "Kehittäjille",
@@ -712,7 +712,7 @@ export default {
     "europeanaHome": "Europeanan kotisivu",
     "inCollection": "Hae ehdoilla {query} kokoelmasta {collection}",
     "navigation": {
-      "about": "Noin",
+      "about": "Tietoa meistä",
       "collections": "Kokoelmat",
       "europeanaClassroom": "Opettajille",
       "help": "Apua",

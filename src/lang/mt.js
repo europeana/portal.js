@@ -682,7 +682,7 @@ export default {
     "imageDescription": "Ffinanzjat mill-Unjoni Ewropea",
     "navigation": {
       "MoreInfoLabel": "Aktar Tagħrif",
-      "about": "Dwar",
+      "about": "Dwarna",
       "accessibility": "Aċċessibilità",
       "cookies": "Cookies",
       "forDevelopers": "Għall-iżviluppaturi",
@@ -712,7 +712,7 @@ export default {
     "europeanaHome": "Europeana home",
     "inCollection": "Fittex {query} fi {collection}",
     "navigation": {
-      "about": "Dwar",
+      "about": "Dwarna",
       "collections": "Kollezzjonijiet",
       "europeanaClassroom": "Għall-għalliema",
       "help": "Għajnuna",

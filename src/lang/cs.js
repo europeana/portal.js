@@ -682,7 +682,7 @@ export default {
     "imageDescription": "Financováno Evropskou unií",
     "navigation": {
       "MoreInfoLabel": "Více informací",
-      "about": "O",
+      "about": "O nás",
       "accessibility": "Přístupnost",
       "cookies": "Cookies",
       "forDevelopers": "Pro vývojáře",
@@ -712,7 +712,7 @@ export default {
     "europeanaHome": "Domovská stránka Europeana",
     "inCollection": "Hledat {query} v {collection}",
     "navigation": {
-      "about": "O",
+      "about": "O nás",
       "collections": "SBÍRKY",
       "europeanaClassroom": "Pro učitele",
       "help": "Nápověda",
