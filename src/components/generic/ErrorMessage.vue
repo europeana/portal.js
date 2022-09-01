@@ -5,7 +5,7 @@
         :src="illustrationSrc"
         alt=""
       />
-      <section class="mt-4">
+      <section class="mt-4 text-center text-sm-left">
         <i18n
           tag="h1"
           :path="titlePath"
