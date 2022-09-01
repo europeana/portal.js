@@ -914,8 +914,8 @@ export default {
         "title": "Places"
       },
       "table": {
-        "name": "Name",
-        "items": "Items"
+        "items": "Items",
+        "name": "Name"
       },
       "times": {
         "title": "Times"

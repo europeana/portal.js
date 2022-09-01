@@ -23,7 +23,7 @@ Feature: Page Footer
     And I see a link to "/en/about-us" in the `footer`
     And I see a link to "/en/for-developers" in the `footer`
     And I see a link to "https://pro.europeana.eu/services/data-publication-services" in the `footer`
-    And I see a link to "https://europeana.us3.list-manage.com/subscribe?u=ad318b7566f97eccc895e014e&id=1d4f51a117" in the `footer`
+    And I see a link to "https://zcv4-zcmp.maillist-manage.eu/ua/Optin?od=12ba7e82b5aa&zx=14ad17d982&sD=119ffcbc10c08987" in the `footer`
     And I see a link to "/en/help" in the `footer`
     And I see a link to "/en/rights" in the `footer`
     And I see a link to "/en/rights/privacy-policy" in the `footer`

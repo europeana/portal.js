@@ -63,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Ostatnie pozycje",
     "organisation": "Organizacje",
+    "place": "Miejsca",
     "time": "Polecane wieki",
     "topic": "Polecane tematy"
   },
@@ -678,7 +679,7 @@ export default {
     "disclaimerLine1": "Europeana jest inicjatywą Unii Europejskiej, finansowaną z unijnego Connecting Europe Facility oraz przez państwa członkowskie Unii Europejskiej. Usługi Europeany, w tym niniejsza strona internetowa, są prowadzone przez konsorcjum kierowane przez Fundację Europeana na podstawie umowy o świadczenie usług zawartej z Komisją Europejską.",
     "disclaimerLine2": "Komisja Europejska nie gwarantuje dokładności informacji i nie ponosi żadnej odpowiedzialności w odniesieniu do informacji na tej stronie internetowej. Ani Komisja Europejska, ani żadna osoba działająca w imieniu Komisji Europejskiej nie ponosi odpowiedzialności za dokładność lub wykorzystanie informacji na tej stronie internetowej.",
     "findUsElsewhere": "Znajdź nas w innych miejscach",
-    "imageDescription": "Współfinansowany z instrumentu „Łącząc Europę” Unii Europejskiej",
+    "imageDescription": "Finansowane przez Unię Europejską",
     "navigation": {
       "MoreInfoLabel": "Więcej informacji",
       "about": "O nas",
@@ -713,9 +714,10 @@ export default {
     "navigation": {
       "about": "O nas",
       "collections": "Kolekcje",
-      "europeanaClassroom": "Nauczyciele",
+      "europeanaClassroom": "Dla nauczycieli",
       "help": "Pomoc",
       "home": "Dom",
+      "pro": "Dla profesjonalistów",
       "stories": "Historie"
     },
     "quickSearch": "Szybkie wyszukiwanie",
@@ -734,7 +736,8 @@ export default {
     "subHeadline": "Wyszukuj, zapisuj i udostępniaj dzieła sztuki, książki, filmy i muzykę z tysięcy instytucji kulturalnych",
     "themesCTA": "Zobacz wszystkie motywy",
     "themesTitle": "Eksploruj według motywu",
-    "title": "Odkryj dziedzictwo kulturowe Europy"
+    "title": "Odkryj {digital} dziedzictwo kulturowe Europy",
+    "titleDigital": "cyfrowe"
   },
   "imageSlider": {
     "handle": "Uchwyt suwakowy"
@@ -853,6 +856,7 @@ export default {
   "newWindow": "otwiera się w nowym oknie",
   "noMoreResults": "Nie ma więcej wyników dla zapytania wyszukiwania.",
   "noResults": "Brak wyników",
+  "of": "Z",
   "organisation": {
     "city": "Miasto",
     "country": "Kraj",
@@ -860,6 +864,7 @@ export default {
     "nameAcronym": "Nazwa akronim"
   },
   "pageHasLoaded": "załadował",
+  "pageNumber": "Numer strony",
   "pages": {
     "collections": {
       "organisations": {
@@ -875,6 +880,7 @@ export default {
         "title": "Miejsca"
       },
       "table": {
+        "items": "Elementy",
         "name": "Nazwa"
       },
       "times": {
@@ -884,6 +890,9 @@ export default {
         "title": "Tematy"
       }
     }
+  },
+  "pagination": {
+    "label": "Paginacja"
   },
   "readMore": "Czytaj więcej",
   "recommendation": {

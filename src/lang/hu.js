@@ -63,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Legutóbbi cikk",
     "organisation": "Szervezetek",
+    "place": "Helyek",
     "time": "Kiemelt évszázadok",
     "topic": "Kiemelt témák"
   },
@@ -678,7 +679,7 @@ export default {
     "disclaimerLine1": "Az Europeana az Európai Unió kezdeményezése, amelyet az Európai Unió Európai Uniót összekötő eszközének és az Európai Unió tagállamainak finanszíroz. Az Europeana szolgáltatásait, beleértve ezt a weboldalt is, az Europeana Alapítvány által vezetett konzorcium üzemelteti az Európai Bizottsággal kötött szolgáltatási szerződés alapján.",
     "disclaimerLine2": "Az Európai Bizottság nem garantálja az információk pontosságát, és semmilyen felelősséget nem vállal a weboldalon található információkkal kapcsolatban. Sem az Európai Bizottság, sem az Európai Bizottság nevében eljáró személyek nem felelősek vagy felelősek a weboldalon található információk pontosságáért vagy felhasználásáért.",
     "findUsElsewhere": "Keressen minket máshol",
-    "imageDescription": "Az Európai Unió Európai Hálózatfinanszírozási Eszköze által társfinanszírozva",
+    "imageDescription": "Az Európai Unió által finanszírozott",
     "navigation": {
       "MoreInfoLabel": "További információ",
       "about": "Rólunk",
@@ -713,9 +714,10 @@ export default {
     "navigation": {
       "about": "Rólunk",
       "collections": "Gyűjtemények",
-      "europeanaClassroom": "Tanárok",
+      "europeanaClassroom": "A tanároknak",
       "help": "Súgó",
       "home": "itthon",
+      "pro": "Szakembereknek",
       "stories": "Történetek"
     },
     "quickSearch": "Gyors keresés",
@@ -734,7 +736,8 @@ export default {
     "subHeadline": "Válogasson több ezer kulturális intézmény művészeti alkotásaiból, könyveiből,filmjeiből és zeneműveiből, és mentse el vagy ossza meg kedvenceit",
     "themesCTA": "Az összes téma megtekintése",
     "themesTitle": "Téma szerinti felfedezés",
-    "title": "Fedezze fel Európa kulturális örökségét"
+    "title": "Fedezze fel Európa {digital} kulturális örökségét",
+    "titleDigital": "digitális"
   },
   "imageSlider": {
     "handle": "Csúszka fogantyú"
@@ -877,6 +880,7 @@ export default {
         "title": "Helyek"
       },
       "table": {
+        "items": "Tételek",
         "name": "Név"
       },
       "times": {
