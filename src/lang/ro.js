@@ -63,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Articole recente",
     "organisation": "Organizații",
+    "place": "Locuri",
     "time": "Secole recomandate",
     "topic": "Subiecte recomandate"
   },
@@ -681,7 +682,7 @@ export default {
     "imageDescription": "Finanțat de Uniunea Europeană",
     "navigation": {
       "MoreInfoLabel": "Mai multe informații",
-      "about": "Despre",
+      "about": "Despre noi",
       "accessibility": "Accesibilitate",
       "cookies": "Cookie-uri",
       "forDevelopers": "Pentru dezvoltatori",
@@ -711,7 +712,7 @@ export default {
     "europeanaHome": "Pagina principală Europeana",
     "inCollection": "Caută pentru {query} în {collection}",
     "navigation": {
-      "about": "Despre",
+      "about": "Despre noi",
       "collections": "Colecții",
       "europeanaClassroom": "Pentru profesori",
       "help": "Ajutor",
@@ -719,7 +720,7 @@ export default {
       "pro": "Pentru profesioniști",
       "stories": "Povești"
     },
-    "quickSearch": "Cautare rapida",
+    "quickSearch": "Căutare rapidă",
     "searchFor": "Caută pentru {query}",
     "searchForEverything": "Caută tot",
     "searchForEverythingInCollection": "Caută tot în {collection}",
@@ -855,6 +856,7 @@ export default {
   "newWindow": "se deschide într-o fereastră nouă",
   "noMoreResults": "Nu mai există rezultate pentru interogarea de căutare.",
   "noResults": "Niciun rezultat",
+  "of": "De",
   "organisation": {
     "city": "Oraș",
     "country": "Țara",
@@ -862,6 +864,7 @@ export default {
     "nameAcronym": "Acronim de nume"
   },
   "pageHasLoaded": "a încărcat",
+  "pageNumber": "Numărul paginii",
   "pages": {
     "collections": {
       "organisations": {
@@ -887,6 +890,9 @@ export default {
         "title": "Subiecte"
       }
     }
+  },
+  "pagination": {
+    "label": "Paginare"
   },
   "readMore": "Citește mai mult",
   "recommendation": {

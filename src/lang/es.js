@@ -63,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Elementos recientes",
     "organisation": "Organizaciones",
+    "place": "Lugares",
     "time": "Siglos destacados",
     "topic": "Temas destacados"
   },
@@ -213,7 +214,7 @@ export default {
     "description": "Explora las exposiciones",
     "exhibitions": "Exposiciones"
   },
-  "explore": "Explore",
+  "explore": "Explorar",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "colores",
@@ -677,13 +678,13 @@ export default {
     "customiseWebsiteLanguage": "Personalizar el idioma del sitio web",
     "disclaimerLine1": "Europeana es una iniciativa de la Unión Europea, financiada por el Connecting Europe Facility de la Unión Europea y los Estados miembros de la Unión Europea. Los servicios de Europeana, incluido este sitio web, son operados por un consorcio liderado por la Fundación Europeana en virtud de un contrato de servicios con la Comisión Europea.",
     "disclaimerLine2": "La Comisión Europea no garantiza la exactitud de la información y no acepta responsabilidad alguna con respecto a la información en este sitio web. Ni la Comisión Europea, ni ninguna persona que actúe en nombre de la Comisión Europea, es responsable de la exactitud o el uso de la información en este sitio web.",
-    "findUsElsewhere": "Encuéntrenos en otro sitio",
+    "findUsElsewhere": "Puedes encontrarnos también en",
     "imageDescription": "Financiado por la Unión Europea",
     "navigation": {
       "MoreInfoLabel": "Más información",
-      "about": "Sobre",
+      "about": "¿Qué es Europeana?",
       "accessibility": "Accesibilidad",
-      "cookies": "Galletas",
+      "cookies": "Cookies",
       "forDevelopers": "Para desarrolladores",
       "help": "Ayuda",
       "privacy": "Política de privacidad",
@@ -711,7 +712,7 @@ export default {
     "europeanaHome": "Página de inicio de Europeana",
     "inCollection": "Busca {query} en {collection}",
     "navigation": {
-      "about": "Sobre",
+      "about": "¿Qué es Europeana?",
       "collections": "Colecciones",
       "europeanaClassroom": "Para profesores",
       "help": "Ayuda",
@@ -855,6 +856,7 @@ export default {
   "newWindow": "se abre en una nueva ventana",
   "noMoreResults": "No hay más resultados para su búsqueda.",
   "noResults": "No hay resultados",
+  "of": "De",
   "organisation": {
     "city": "Ciudad",
     "country": "País",
@@ -862,6 +864,7 @@ export default {
     "nameAcronym": "acrónimo del nombre"
   },
   "pageHasLoaded": "ha cargado",
+  "pageNumber": "Número de página",
   "pages": {
     "collections": {
       "organisations": {
@@ -887,6 +890,9 @@ export default {
         "title": "Temas"
       }
     }
+  },
+  "pagination": {
+    "label": "Paginación"
   },
   "readMore": "Leer más",
   "recommendation": {

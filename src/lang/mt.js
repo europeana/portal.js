@@ -682,7 +682,7 @@ export default {
     "imageDescription": "Ffinanzjat mill-Unjoni Ewropea",
     "navigation": {
       "MoreInfoLabel": "Aktar Tagħrif",
-      "about": "Dwar",
+      "about": "Dwarna",
       "accessibility": "Aċċessibilità",
       "cookies": "Cookies",
       "forDevelopers": "Għall-iżviluppaturi",
@@ -712,7 +712,7 @@ export default {
     "europeanaHome": "Europeana home",
     "inCollection": "Fittex {query} fi {collection}",
     "navigation": {
-      "about": "Dwar",
+      "about": "Dwarna",
       "collections": "Kollezzjonijiet",
       "europeanaClassroom": "Għall-għalliema",
       "help": "Għajnuna",
@@ -856,6 +856,7 @@ export default {
   "newWindow": "tiftaħ fit-tieqa l-ġdida",
   "noMoreResults": "M'hemmx aktar riżultati għall-mistoqsija tat-tfittxija tiegħek.",
   "noResults": "M'hawnx riżultati",
+  "of": "Ta",
   "organisation": {
     "city": "Belt",
     "country": "Pajjiż",
@@ -863,6 +864,7 @@ export default {
     "nameAcronym": "Isem akronimu"
   },
   "pageHasLoaded": "ġie illowdjat",
+  "pageNumber": "Numru tal-paġna",
   "pages": {
     "collections": {
       "organisations": {
@@ -888,6 +890,9 @@ export default {
         "title": "Suġġetti"
       }
     }
+  },
+  "pagination": {
+    "label": "Paġnar"
   },
   "readMore": "Aqra iktar",
   "recommendation": {

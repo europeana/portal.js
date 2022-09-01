@@ -63,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Nedavni predmeti",
     "organisation": "Organizacije",
+    "place": "Mesta",
     "time": "Priporočena stoletja",
     "topic": "Priporočene teme"
   },
@@ -681,7 +682,7 @@ export default {
     "imageDescription": "Financira Evropska unija",
     "navigation": {
       "MoreInfoLabel": "Več informacij",
-      "about": "O tem",
+      "about": "O nas",
       "accessibility": "Dostopnost",
       "cookies": "Piškotki",
       "forDevelopers": "Za razvijalce",
@@ -711,7 +712,7 @@ export default {
     "europeanaHome": "Na začetno stran Europeana",
     "inCollection": "Išči {query} v {collection}",
     "navigation": {
-      "about": "O tem",
+      "about": "O nas",
       "collections": "Zbirke",
       "europeanaClassroom": "Za učitelje",
       "help": "Pomoč",
@@ -855,6 +856,7 @@ export default {
   "newWindow": "odpre se v novem oknu",
   "noMoreResults": "Za vašo iskalno poizvedbo ni več rezultatov.",
   "noResults": "Brez rezultatov",
+  "of": "Od",
   "organisation": {
     "city": "Mesto",
     "country": "Država",
@@ -862,6 +864,7 @@ export default {
     "nameAcronym": "Kratica imena"
   },
   "pageHasLoaded": "je naložena",
+  "pageNumber": "Številka strani",
   "pages": {
     "collections": {
       "organisations": {
@@ -887,6 +890,9 @@ export default {
         "title": "Teme"
       }
     }
+  },
+  "pagination": {
+    "label": "Paginacija"
   },
   "readMore": "Preberi več",
   "recommendation": {

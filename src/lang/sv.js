@@ -63,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Senaste objekt",
     "organisation": "Organisationer",
+    "place": "Platser",
     "time": "Utvalda århundraden",
     "topic": "Utvalda ämnen"
   },
@@ -681,7 +682,7 @@ export default {
     "imageDescription": "Finansieras av Europeiska unionen",
     "navigation": {
       "MoreInfoLabel": "Mer information",
-      "about": "Om",
+      "about": "Om oss",
       "accessibility": "Tillgänglighet",
       "cookies": "Cookies",
       "forDevelopers": "För utvecklare",
@@ -711,7 +712,7 @@ export default {
     "europeanaHome": "Europeana start",
     "inCollection": "Sök efter {query} i {collection}",
     "navigation": {
-      "about": "Om",
+      "about": "Om oss",
       "collections": "Samlingar",
       "europeanaClassroom": "För lärare",
       "help": "Hjälp",
@@ -855,6 +856,7 @@ export default {
   "newWindow": "öppnas i nytt fönster",
   "noMoreResults": "Det finns inga fler resultat för din sökning.",
   "noResults": "Inga träffar",
+  "of": "Av",
   "organisation": {
     "city": "Stad",
     "country": "Land",
@@ -862,6 +864,7 @@ export default {
     "nameAcronym": "Namn akronym"
   },
   "pageHasLoaded": "har laddats",
+  "pageNumber": "Sidonummer",
   "pages": {
     "collections": {
       "organisations": {
@@ -887,6 +890,9 @@ export default {
         "title": "Ämnen"
       }
     }
+  },
+  "pagination": {
+    "label": "Paginering"
   },
   "readMore": "Läs mer",
   "recommendation": {

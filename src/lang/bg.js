@@ -682,7 +682,7 @@ export default {
     "imageDescription": "Финансиран от Европейския съюз",
     "navigation": {
       "MoreInfoLabel": "Повече информация",
-      "about": "Oтносно",
+      "about": "За нас",
       "accessibility": "Достъпност",
       "cookies": "Бисквитки",
       "forDevelopers": "За разработчици",
@@ -712,7 +712,7 @@ export default {
     "europeanaHome": "Начална страница на Europeana",
     "inCollection": "Търсене на {query} в {collection}",
     "navigation": {
-      "about": "Oтносно",
+      "about": "За нас",
       "collections": "Колекции",
       "europeanaClassroom": "За учители",
       "help": "Помощ",

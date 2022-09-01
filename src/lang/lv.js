@@ -63,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Pēdējie vienumi",
     "organisation": "Organizācijas",
+    "place": "Vietas",
     "time": "Izvēlētie gadsimti",
     "topic": "Izvēlētās tēmas"
   },
@@ -681,7 +682,7 @@ export default {
     "imageDescription": "Finansē Eiropas Savienība",
     "navigation": {
       "MoreInfoLabel": "Papildinformācija",
-      "about": "Par",
+      "about": "Par mums",
       "accessibility": "Pieejamība",
       "cookies": "Sīkfaili",
       "forDevelopers": "Izstrādātājiem",
@@ -711,7 +712,7 @@ export default {
     "europeanaHome": "Europeana vietne",
     "inCollection": "Meklēt {query} kolekcijā {collection}",
     "navigation": {
-      "about": "Par",
+      "about": "Par mums",
       "collections": "Kolekcijas",
       "europeanaClassroom": "Skolotājiem",
       "help": "Palīdzība",
@@ -735,7 +736,7 @@ export default {
     "subHeadline": "Meklējiet,saglabājiet un kopīgojietmākslu,grāmatas, filmas un mūzikutūkstošoskultūrasiestāžu",
     "themesCTA": "Skatīt visas tēmas",
     "themesTitle": "Izpētiet pēc tēmas",
-    "title": "Iepazīstiet Eiropas {digital}} kultūras mantojumu",
+    "title": "Iepazīstiet Eiropas {digital} kultūras mantojumu",
     "titleDigital": "digitālo"
   },
   "imageSlider": {

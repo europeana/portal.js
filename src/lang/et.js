@@ -682,7 +682,7 @@ export default {
     "imageDescription": "Rahastab Euroopa Liit",
     "navigation": {
       "MoreInfoLabel": "Rohkem infot",
-      "about": "Umbes",
+      "about": "Meist",
       "accessibility": "Juurdepääsetavus",
       "cookies": "Küpsised",
       "forDevelopers": "Arendajatele",
@@ -712,7 +712,7 @@ export default {
     "europeanaHome": "Europeana avaleht",
     "inCollection": "Otsi {query} {collection}",
     "navigation": {
-      "about": "Umbes",
+      "about": "Meist",
       "collections": "Kogud",
       "europeanaClassroom": "Õpetajate jaoks",
       "help": "Abimaterjal",

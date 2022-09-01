@@ -686,7 +686,7 @@ export default {
     "imageDescription": "Europar Batasunak finantzatua",
     "navigation": {
       "MoreInfoLabel": "Informazio gehiago",
-      "about": "Buruz",
+      "about": "Guri buruz",
       "accessibility": "Irisgarritasuna",
       "cookies": "Cookieak",
       "forDevelopers": "Garatzaileentzat",
@@ -716,12 +716,12 @@ export default {
     "europeanaHome": "Europeanako hasiera orria",
     "inCollection": "Bilatu '{kontsulta}' bilduma honetan {collection}",
     "navigation": {
-      "about": "Buruz",
+      "about": "Guri buruz",
       "collections": "Bildumak",
       "europeanaClassroom": "Irakasleentzat",
       "help": "Laguntza",
       "home": "Etxea",
-      "pro": "Para los profesionales",
+      "pro": "Profesionalentzat",
       "stories": "Istorioak"
     },
     "quickSearch": "Bilaketa azkarra",
@@ -740,7 +740,7 @@ export default {
     "subHeadline": "Milaka kultur erakundeetako artea, liburuak, filmak eta musika bilatu, gorde eta partekatu",
     "themesCTA": "Ikusi gai guztiak",
     "themesTitle": "Arakatu gaiaren arabera",
-    "title": "Europako ondare kulturala ezagutu",
+    "title": "Ezagutu Europako kultur ondare {digital}",
     "titleDigital": "digitala"
   },
   "imageSlider": {

@@ -63,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Itens recentes",
     "organisation": "Organizações",
+    "place": "Lugares",
     "time": "Séculos em destaque",
     "topic": "Tópicos em destaque"
   },
@@ -681,7 +682,7 @@ export default {
     "imageDescription": "Financiado pela União Europeia",
     "navigation": {
       "MoreInfoLabel": "Mais informações",
-      "about": "Sobre",
+      "about": "Saiba mais sobre nós",
       "accessibility": "Acessibilidade",
       "cookies": "Biscoitos",
       "forDevelopers": "Para desenvolvedores",
@@ -711,7 +712,7 @@ export default {
     "europeanaHome": "Página Inicial Europeana",
     "inCollection": "Pesquisar por {query} em {collection}",
     "navigation": {
-      "about": "Sobre",
+      "about": "Saiba mais sobre nós",
       "collections": "Colecções",
       "europeanaClassroom": "Para professores",
       "help": "Ajuda",
@@ -855,6 +856,7 @@ export default {
   "newWindow": "abre numa nova janela",
   "noMoreResults": "Não há mais resultados para a sua pesquisa.",
   "noResults": "Sem Resultados",
+  "of": "De",
   "organisation": {
     "city": "Cidade",
     "country": "País",
@@ -862,6 +864,7 @@ export default {
     "nameAcronym": "Acrônimo do nome"
   },
   "pageHasLoaded": "carregou",
+  "pageNumber": "Número de página",
   "pages": {
     "collections": {
       "organisations": {
@@ -887,6 +890,9 @@ export default {
         "title": "Tópicos"
       }
     }
+  },
+  "pagination": {
+    "label": "Paginação"
   },
   "readMore": "Ler mais",
   "recommendation": {
@@ -920,7 +926,7 @@ export default {
   },
   "related": {
     "editorial": {
-      "title": "Histórias que você pode gostar"
+      "title": "Histórias que pode gostar"
     }
   },
   "relatedCollections": "Coleções relacionadas",
