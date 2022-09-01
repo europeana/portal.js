@@ -8,7 +8,6 @@ import page from '@/pages/index';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const heroImageUrl = 'http://example.org/contentful/asset.jpg';
 const socialMediaImageUrl = 'https://example.org/social-media-image.jpg';
 
 const factory = ({
