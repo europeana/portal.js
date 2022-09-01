@@ -124,7 +124,7 @@
 </template>
 
 <script>
-  import isEmpty from 'lodash/isEmpty.js';
+  import isEmpty from 'lodash/isEmpty';
   import { mapGetters } from 'vuex';
 
   import ItemHero from '@/components/item/ItemHero';

@@ -36,6 +36,6 @@ export default {
   transform: {
     '^.+\\.js$': 'babel-jest',
     '^.+\\.vue$': '@vue/vue2-jest',
-    '\\.(svg)$': '<rootDir>/tests/unit/fileTransformer.cjs'
+    '^.+\\.svg$': '<rootDir>/tests/unit/fileTransformer.cjs'
   }
 };
