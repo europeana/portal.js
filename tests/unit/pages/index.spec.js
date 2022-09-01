@@ -133,35 +133,7 @@ describe('IndexPage', () => {
       expect(headMeta.find(meta => meta.property === 'og:image').content).toBe(socialMediaImageUrl);
     });
 
-    it('uses hero image for og:image when no social media image is set', () => {
-      const wrapper = factory({
-        data: {
-          ...data,
-          page: {
-            ...data.page,
-            primaryImageOfPage: {
-              image: {
-                image: {
-                  url: heroImageUrl,
-                  description: 'Hero image description'
-                }
-              },
-              link: {
-                text: 'Go',
-                url: 'https://example.org/explore'
-              }
-            }
-          }
-        }
-      });
-
-      const headMeta = wrapper.vm.head().meta;
-
-      expect(headMeta.filter(meta => meta.property === 'og:image').length).toBe(1);
-      expect(headMeta.find(meta => meta.property === 'og:image').content).toBe(heroImageUrl);
-    });
-
-    it('does not set og image info when no relevant images exist', () => {
+    it('does not set og:image info when no relevant images exist', () => {
       const wrapper = factory({ data });
 
       const headMeta = wrapper.vm.head().meta;

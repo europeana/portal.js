@@ -6,7 +6,6 @@
     <AuthoredHead
       :title="name"
       :description="description"
-      :hero="hero"
     />
     <b-container>
       <b-row class="justify-content-center">
@@ -16,7 +15,7 @@
         >
           <article>
             <ShareButton class="mb-4" />
-            <SocialShareModal :media-url="hero ? hero.image.url : null" />
+            <SocialShareModal />
             <BrowseSections
               :sections="hasPartCollection.items"
               :rich-text-is-card="false"
@@ -72,10 +71,6 @@
         default: null
       },
       relatedLinks: {
-        type: Object,
-        default: null
-      },
-      hero: {
         type: Object,
         default: null
       }
