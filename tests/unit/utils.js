@@ -23,14 +23,15 @@ export const mountNuxt = (pageOrComponent, options = {}) => {
   return injectNuxtMethods(wrapper, pageOrComponent);
 };
 
-const fakeContentfulExtensionField = () => ({
-  getValue: sinon.stub(),
+const fakeContentfulExtensionField = (returnVal) => ({
+  getValue: sinon.stub().returns(returnVal),
   removeValue: sinon.stub(),
-  setValue: sinon.stub()
+  setValue: sinon.stub(),
+  onValueChanged: sinon.stub()
 });
 
 // Stubs the Contentful app extension
-export const fakeContentfulExtension = ({ entryFields = [], location = 'sidebar' } = {}) => {
+export const fakeContentfulExtension = ({ entryFields = [], fieldReturnValue = undefined, location = 'sidebar' } = {}) => {
   const fakeInit = callback => {
     const fakeSdk = {
       location: {
@@ -45,7 +46,7 @@ export const fakeContentfulExtension = ({ entryFields = [], location = 'sidebar'
           return memo;
         }, {})
       },
-      field: fakeContentfulExtensionField(),
+      field: fakeContentfulExtensionField(fieldReturnValue),
       dialogs: {
         openAlert: sinon.spy(),
         openPrompt: sinon.spy()
