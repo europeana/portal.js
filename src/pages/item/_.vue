@@ -17,8 +17,8 @@
       v-else-if="$fetchState.error"
       data-qa="error message container"
       :error="$fetchState.error.message"
-      title-path="errorMessage.item.title"
-      description-path="errorMessage.item.description"
+      title-path="errorMessage.itemNotFound.title"
+      description-path="errorMessage.itemNotFound.description"
       :illustration-src="require('@/assets/img/illustrations/il-item-not-found.svg')"
     />
     <template
@@ -276,7 +276,7 @@
       },
       metaTitle() {
         if (this.$fetchState.error) {
-          return this.$t('errorMessage.item.metaTitle');
+          return this.$t('errorMessage.itemNotFound.metaTitle');
         } else if (this.titlesInCurrentLanguage[0]) {
           return this.titlesInCurrentLanguage[0].value;
         } else {

@@ -7,8 +7,8 @@ localVue.use(BootstrapVue);
 
 const props = {
   error: 'Item was not found',
-  titlePath: 'errorMessage.item.title',
-  descriptionPath: 'errorMessage.item.description',
+  titlePath: 'errorMessage.itemNotFound.title',
+  descriptionPath: 'errorMessage.itemNotFound.description',
   illustrationSrc: 'src/assets/img/illustrations/il-item-not-found.svg'
 };
 

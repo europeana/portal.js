@@ -124,8 +124,8 @@
   ```jsx
   <ErrorMessage
       error="Item was not found"
-      title-path="errorMessage.item.title"
-      description-path="errorMessage.item.description"
+      title-path="errorMessage.itemNotFound.title"
+      description-path="errorMessage.itemNotFound.description"
       illustration-src="src/assets/img/illustrations/il-item-not-found.svg"
   />
   ```

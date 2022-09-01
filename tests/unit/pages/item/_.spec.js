@@ -273,7 +273,7 @@ describe('pages/item/_.vue', () => {
         const headMeta = wrapper.vm.head().meta;
 
         expect(headMeta.filter(meta => meta.property === 'og:title').length).toBe(1);
-        expect(headMeta.find(meta => meta.property === 'og:title').content).toBe('errorMessage.item.metaTitle');
+        expect(headMeta.find(meta => meta.property === 'og:title').content).toBe('errorMessage.itemNotFound.metaTitle');
       });
     });
   });
