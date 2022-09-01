@@ -7,11 +7,17 @@
       class="hero-content"
     >
       <header>
-        <h1
+        <i18n
+          path="homePage.title"
+          tag="h1"
           class="text-center"
         >
-          {{ $t('homePage.title') }}
-        </h1>
+          <template #digital>
+            <span class="digital-highlight">
+              {{ $t('homePage.titleDigital') }}
+            </span>
+          </template>
+        </i18n>
         <p
           class="sub-headline text-center"
         >
@@ -23,19 +29,14 @@
     <AttributionToggle
       :attribution="backgroundImage"
     />
-    <img
-      width="250"
-      height="26"
-      src="@/assets/img/eu-funding.svg"
-      class="eu-logo"
-      :alt="$t('footer.imageDescription')"
-    >
+    <EULogo class="bottom-right" />
   </div>
 </template>
 
 <script>
   import SearchForm from '@/components/search/SearchForm';
   import AttributionToggle from '@/components/generic/AttributionToggle';
+  import EULogo from '@/components/funders/EULogo';
   import { responsiveBackgroundImageCSSVars } from '@/plugins/contentful-utils';
 
   export default {
@@ -43,7 +44,8 @@
 
     components: {
       SearchForm,
-      AttributionToggle
+      AttributionToggle,
+      EULogo
     },
 
     props: {
@@ -99,16 +101,22 @@
     }
 
     &::after {
-      border-bottom: 145px solid $white;
-      border-left: 60px solid transparent;
+      border-bottom: 209px solid $white;
+      border-left: 95px solid transparent;
       content: '';
       display: block;
       height: 0;
       position: absolute;
       right: 0;
-      top: calc(100% - 145px);
+      top: calc(100% - 209px);
       width: 0;
       z-index: 1;
+
+      @media (min-width: $bp-xxxl) {
+        border-bottom-width: calc(209 / 16 * 1vw); // divide by 16 (1rem = 16px) and use vw to create responsive value
+        border-left-width: calc(95 / 16 * 1vw); // divide by 16 (1rem = 16px) and use vw to create responsive value
+        top: calc(100% - (209 / 16 * 1vw));
+      }
     }
 
     h1,
@@ -118,8 +126,12 @@
 
     h1 {
       font-size: 2.125rem;
-      font-weight: 700;
+      font-weight: 900;
       margin-bottom: 1em;
+
+      .digital-highlight {
+        text-shadow: 3.5px 3.5px 0 $blue;
+      }
 
       @media (min-width: $bp-medium) {
         font-size: 2.875rem;
@@ -141,6 +153,10 @@
 
       h1 {
         font-size: 2.6vw;
+
+        .digital-highlight {
+          text-shadow: 0.24vw 0.24vw 0 $blue;
+        }
       }
 
       .sub-headline {
@@ -186,12 +202,6 @@
     left: 0.5rem;
     right: auto;
     z-index: 3;
-  }
-
-  .eu-logo {
-    position: absolute;
-    right: calc(60px + 1rem);
-    bottom: 1rem;
   }
 </style>
 

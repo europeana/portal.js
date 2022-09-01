@@ -63,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Oggetti recenti",
     "organisation": "Organizzazioni",
+    "place": "Posti",
     "time": "Secoli in primo piano",
     "topic": "Argomenti in primo piano"
   },
@@ -678,7 +679,7 @@ export default {
     "disclaimerLine1": "Europeana è un'iniziativa dell'Unione europea, finanziata dal Connecting Europe Facility dell'Unione europea e dagli Stati membri dell'Unione europea. I servizi Europeana, compreso questo sito web, sono gestiti da un consorzio guidato dalla Fondazione Europeana nell'ambito di un contratto di servizio con la Commissione europea.",
     "disclaimerLine2": "La Commissione europea non garantisce l'accuratezza delle informazioni e non si assume alcuna responsabilità in merito alle informazioni contenute in questo sito web. Né la Commissione europea, né alcuna persona che agisce per conto della Commissione europea, è responsabile o obbligata per l'accuratezza o l'uso delle informazioni su questo sito web.",
     "findUsElsewhere": "Trovaci altrove",
-    "imageDescription": "Cofinanziato dal fondo Collegare l'Europa dell'Unione Europea",
+    "imageDescription": "Finanziato dall'Unione Europea",
     "navigation": {
       "MoreInfoLabel": "Maggiori informazioni",
       "about": "Chi siamo",
@@ -713,9 +714,10 @@ export default {
     "navigation": {
       "about": "Chi siamo",
       "collections": "Collezioni",
-      "europeanaClassroom": "Insegnanti",
+      "europeanaClassroom": "Per gli insegnanti",
       "help": "Aiuto",
       "home": "Home",
+      "pro": "Per professionisti",
       "stories": "Storie"
     },
     "quickSearch": "Ricerca rapida",
@@ -734,7 +736,8 @@ export default {
     "subHeadline": "Ricerca, salva e condividi arte, libri, film e musica provenienti da migliaia di istituzioni culturali",
     "themesCTA": "Vedi tutti i temi",
     "themesTitle": "Esplora per tema",
-    "title": "Scopri il patrimonio culturale europeo"
+    "title": "Scopri il patrimonio culturale {digital} europeo",
+    "titleDigital": "digitale"
   },
   "imageSlider": {
     "handle": "Dispositivo di scorrimento"
@@ -877,6 +880,7 @@ export default {
         "title": "Posti"
       },
       "table": {
+        "items": "Elementi",
         "name": "Nome"
       },
       "times": {

@@ -9,15 +9,6 @@
       />
       <client-only>
         <div class="page gridless-container">
-          <CallToActionBanner
-            v-if="callsToAction[0]"
-            :name="callsToAction[0].name"
-            :text="callsToAction[0].text"
-            :link="callsToAction[0].relatedLink"
-            :illustration="callsToAction[0].image"
-            variant="light"
-            class="home-cta"
-          />
           <StackedCardsSwiper
             v-if="swiperThemes.length > 0"
             :slides="swiperThemes"
@@ -25,21 +16,21 @@
             :cta="{ url: $path('/collections'), text: $t('homePage.themesCTA') }"
           />
           <CallToActionBanner
-            v-if="callsToAction[1]"
-            :name="callsToAction[1].name"
-            :text="callsToAction[1].text"
-            :link="callsToAction[1].relatedLink"
-            :illustration="callsToAction[1].image"
+            v-if="callsToAction[0]"
+            :name="callsToAction[0].name"
+            :text="callsToAction[0].text"
+            :link="callsToAction[0].relatedLink"
+            :illustration="callsToAction[0].image"
             variant="innovationblue"
             class="home-cta"
           />
           <HomeLatest />
           <CallToActionBanner
-            v-if="callsToAction[2]"
-            :name="callsToAction[2].name"
-            :text="callsToAction[2].text"
-            :link="callsToAction[2].relatedLink"
-            :illustration="callsToAction[2].image"
+            v-if="callsToAction[1]"
+            :name="callsToAction[1].name"
+            :text="callsToAction[1].text"
+            :link="callsToAction[1].relatedLink"
+            :illustration="callsToAction[1].image"
             class="home-cta"
           />
         </div>
@@ -112,7 +103,7 @@
 
     computed: {
       pageTitle() {
-        return this.$t('homePage.title');
+        return this.$t('homePage.title', { digital: this.$t('homePage.titleDigital') });
       },
 
       pageSubHeadline() {
@@ -125,11 +116,7 @@
       },
 
       callsToAction() {
-        const ctas = this.sections.filter(section => section['__typename'] === 'PrimaryCallToAction');
-        if (ctas.length < 3) {
-          ctas.unshift(null);
-        }
-        return ctas;
+        return this.sections.filter(section => section['__typename'] === 'PrimaryCallToAction');
       },
 
       swiperThemes() {

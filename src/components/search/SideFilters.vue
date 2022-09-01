@@ -552,10 +552,6 @@
     padding: 0;
     margin-top: -1rem;
 
-    @media (min-width: $bp-xxxl) {
-      margin-top: -1vw;
-    }
-
     .side-filters {
       background-color: $white;
       height: 100%;

@@ -706,10 +706,10 @@ export default {
     "disclaimerLine1": "Europeana is an initiative of the European Union, financed by the European Union’s Connecting Europe Facility and European Union Member States. The Europeana services, including this website, are operated by a consortium led by the Europeana Foundation under a service contract with the European Commission.",
     "disclaimerLine2": "The European Commission does not guarantee the accuracy of the information and accepts no responsibility or liability whatsoever with regard to the information on this website. Neither the European Commission, nor any person acting on the European Commission’s behalf, is responsible or liable for the accuracy or use of the information on this website.",
     "findUsElsewhere": "Find us elsewhere",
-    "imageDescription": "Co-financed by the Connecting Europe Facility of the European Union",
+    "imageDescription": "Funded by the European Union",
     "navigation": {
       "MoreInfoLabel": "More Info",
-      "about": "About us",
+      "about": "About",
       "accessibility": "Accessibility",
       "cookies": "Cookies",
       "forDevelopers": "For developers",
@@ -739,11 +739,12 @@ export default {
     "europeanaHome": "Europeana home",
     "inCollection": "Search for {query} in {collection}",
     "navigation": {
-      "about": "About us",
+      "about": "About",
       "collections": "Collections",
-      "europeanaClassroom": "Teachers",
+      "europeanaClassroom": "For teachers",
       "help": "Help",
       "home": "Home",
+      "pro": "For professionals",
       "stories": "Stories"
     },
     "quickSearch": "Quick Search",
@@ -762,7 +763,8 @@ export default {
     "subHeadline": "Search, save and share art, books, films and music from thousands of cultural institutions",
     "themesCTA": "See all themes",
     "themesTitle": "Explore by theme",
-    "title": "Discover Europe’s cultural heritage"
+    "title": "Discover Europe’s {digital} cultural heritage",
+    "titleDigital": "digital"
   },
   "imageSlider": {
     "handle": "Slider Handle"
@@ -905,6 +907,7 @@ export default {
         "title": "Places"
       },
       "table": {
+        "items": "Items",
         "name": "Name"
       },
       "times": {

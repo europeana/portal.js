@@ -136,7 +136,9 @@
         let nativeLocale;
         if (['edmDataProvider', 'edmProvider'].includes(this.name)) {
           const langMap = this.fieldData.url ? this.fieldData.value : this.fieldData;
-          nativeLocale = langMap.def && langMap.def[0]?.prefLabel && Object.keys(langMap.def[0].prefLabel).find(key => key !== 'en');
+          nativeLocale = langMap.def?.[0]?.prefLabel &&
+            Object.keys(langMap.def[0].prefLabel).length <= 2 &&
+            Object.keys(langMap.def[0].prefLabel).find(key => key !== 'en');
         }
         return nativeLocale || this.metadataLanguage || this.$i18n.locale;
       },

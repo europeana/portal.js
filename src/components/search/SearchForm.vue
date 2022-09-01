@@ -3,12 +3,12 @@
     ref="searchdropdown"
     class="open"
     :class="{
-      'top-search': absoluteTopPositioned,
+      'top-search': inTopNav,
       'suggestions-open': showSearchOptions
     }"
   >
     <b-button
-      v-if="absoluteTopPositioned"
+      v-if="inTopNav"
       data-qa="back button"
       class="button-icon-only icon-back back-button"
       variant="light-flat"
@@ -54,7 +54,7 @@
       @click="clearQuery"
     />
     <FilterToggleButton
-      v-if="absoluteTopPositioned"
+      v-if="inTopNav"
     />
     <div
       v-if="showSearchOptions"
@@ -91,7 +91,7 @@
     },
 
     props: {
-      absoluteTopPositioned: {
+      inTopNav: {
         type: Boolean,
         default: false
       }
@@ -181,7 +181,7 @@
         return this.onSearchablePage ? this.$route.path : this.$path({ name: 'search' });
       },
       showQuickSearch() {
-        return !this.onSearchableCollectionPage && !this.query;
+        return this.inTopNav && !this.onSearchableCollectionPage && !this.query;
       }
     },
 
@@ -207,7 +207,7 @@
 
     mounted() {
       this.initQuery();
-      this.absoluteTopPositioned && this.$nextTick(() => {
+      this.inTopNav && this.$nextTick(() => {
         this.$refs.searchinput.$el.focus();
       });
     },
@@ -259,7 +259,7 @@
           return;
         }
 
-        if (this.onSearchableCollectionPage) {
+        if (this.onSearchableCollectionPage || !this.inTopNav) {
           return;
         }
 

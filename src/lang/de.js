@@ -679,7 +679,7 @@ export default {
     "disclaimerLine1": "Europeana ist eine Initiative der Europäischen Union, die von der \"Connecting Europe Facility“ der Europäischen Union und den Mitgliedstaaten der Europäischen Union finanziert wird. Die Europeana-Dienste, einschließlich dieser Website, werden von einem Konsortium betrieben, das von der Europeana Foundation im Rahmen eines Dienstleistungsvertrags mit der Europäischen Kommission geführt wird.",
     "disclaimerLine2": "Die Europäische Kommission übernimmt keine Gewähr für die Richtigkeit der Informationen und übernimmt keinerlei Verantwortung oder Haftung für die Informationen auf dieser Website. Weder die Europäische Kommission noch eine Person, die im Namen der Europäischen Kommission handelt, ist für die Richtigkeit oder Verwendung der Informationen auf dieser Website verantwortlich oder haftbar.",
     "findUsElsewhere": "Finden Sie uns anderswo",
-    "imageDescription": "Kofinanziert von der Einrichtung „Connecting Europe“ der Europäischen Union",
+    "imageDescription": "Finanziert von der Europäischen Union",
     "navigation": {
       "MoreInfoLabel": "Mehr Infos",
       "about": "Über uns",
@@ -714,9 +714,10 @@ export default {
     "navigation": {
       "about": "Über uns",
       "collections": "Sammlungen",
-      "europeanaClassroom": "Lehrerinnen und Lehrer",
+      "europeanaClassroom": "Für Lehrer",
       "help": "Hilfe",
       "home": "Startseite",
+      "pro": "Für Fachleute",
       "stories": "Geschichten"
     },
     "quickSearch": "Schnelle Suche",
@@ -735,7 +736,8 @@ export default {
     "subHeadline": "Suchen, speichern und teilen Sie Kunst, Bücher, Filme und Musik von Tausenden von Kultureinrichtungen",
     "themesCTA": "Alle Themen anzeigen",
     "themesTitle": "Erkunden Sie nach Thema",
-    "title": "Entdecken Sie Europas kulturelles Erbe"
+    "title": "Entdecken Sie das {digital} kulturelle Erbe Europas",
+    "titleDigital": "digitale"
   },
   "imageSlider": {
     "handle": "Schieberegler"
@@ -878,6 +880,7 @@ export default {
         "title": "Orte"
       },
       "table": {
+        "items": "Artikel",
         "name": "Name"
       },
       "times": {
