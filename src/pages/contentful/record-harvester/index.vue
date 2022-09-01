@@ -1,0 +1,192 @@
+<template>
+  <div class="contentful">
+    <b-form-group>
+      <div class="thumbnail-preview">
+        <img
+          v-if="thumbnailUrl"
+          :src="thumbnailUrl"
+        />
+      </div>
+      <b-form-input
+        v-model="identifier"
+        type="text"
+        placeholder="Paste your record ID"
+      />
+      <p>
+        <b-button
+          class="mb-2"
+          @click="harvestRecord"
+          :disabled="!identifier"
+        >
+          Go!
+        </b-button>
+        <b-button
+          class="mb-2"
+          @click="resetRecord"
+        >
+          Clear all data
+        </b-button>
+      </p>
+    </b-form-group>
+    <p>{{ message }}</p>
+  </div>
+</template>
+
+<script>
+  import { langMapValueForLocale } from '@/plugins/europeana/utils';
+
+  export default {
+    name: 'ContentfulRecordHarvesterPage',
+
+    layout: 'contentful',
+
+    data() {
+      return {
+        contentfulExtensionSdk: null,
+        encoding: null,
+        identifier: '',
+        message: ''
+      }
+    },
+
+    head() {
+      return {
+        title: this.$pageHeadTitle('Record harvester - Contentful app'),
+        bodyAttrs: {
+          class: '',
+          style: 'background: transparent;'
+        }
+      };
+    },
+
+    mounted() {
+      window.contentfulExtension.init(sdk => {
+        this.contentfulExtensionSdk = sdk;
+        if (sdk.location.is(window.contentfulExtension.locations.LOCATION_ENTRY_FIELD)) {
+          sdk.window.startAutoResizer();
+
+          this.identifier = sdk.field.getValue();
+          this.encoding = sdk.entry.fields.encoding?.getValue();
+        }
+      });
+    },
+
+    computed: {
+      thumbnailUrl() {
+        if (this.encoding?.edmPreview) {
+          return this.encoding?.edmPreview[0] + 'size=w200';
+        }
+      }
+    },
+
+    methods: {
+      async harvestRecord() {
+        const itemIdentifier = await this.itemIdFromUrl(this.identifier);
+        if (!itemIdentifier) {
+          this.message = `Unable to parse URL: ${this.identifier} Please make sure the URL conforms to the accepted formats.`;
+          return;
+        }
+
+        const recordSearchParams = {
+          profile: 'minimal',
+          query: `europeana_id:"${itemIdentifier}"`,
+          qf: ['contentTier:*'],
+          rows: 1
+        };
+
+        let itemResponse;
+        try {
+          itemResponse = await this.$apis.record.search(recordSearchParams);
+          if (!itemResponse.items[0]) {
+            throw new Error('Not found');
+          }
+        } catch (error) {
+          this.message = `Unable to harvest "${itemIdentifier}". Please make sure the item can be accessed on the Record API. Error: "${error.message}"`;
+          return;
+        }
+
+        this.identifier = itemResponse.items[0].id;
+        this.encoding = itemResponse.items[0];
+        try {
+          await this.populateFields();
+          this.message = 'Success';
+        } catch (error) {
+          this.message = `There was a problem updating the entry. ${error.message}`;
+        }
+      },
+
+      // Supports:
+      // - ID: /90402/SK_A_2344
+      // - URI: http://data.europeana.eu/item/90402/SK_A_2344
+      // - Website URL: http(s)://www.europeana.eu/($LOCALE/)item/90402/SK_A_2344
+      itemIdFromUrl(url) {
+        const urlMatch = url?.match(/(\/[0-9]+\/[a-zA-Z0-9_]+)($|\?)/);
+        if (!urlMatch) {
+          return;
+        }
+        return urlMatch[1];
+      },
+
+      generateName(value) {
+        return (langMapValueForLocale(value, 'en').values[0] || `Record ${this.identifier}`).substring(0, 255);
+      },
+
+      async populateFields() {
+        const name = this.generateName(this.encoding.dcTitleLangAware);
+
+        this.contentfulExtensionSdk.field.setValue(this.encoding.id)
+        this.contentfulExtensionSdk.entry.fields.name?.setValue(name, 'en-GB');
+        this.contentfulExtensionSdk.entry.fields.encoding?.setValue(this.encoding);
+      },
+
+      resetRecord() {
+        try {
+          for(const [fieldName, field] of Object.entries(this.contentfulExtensionSdk.entry.fields)) {
+            field.removeValue();
+          };
+        } catch (error) {
+          this.message = `There was a problem clearing the entry. ${error.message}`;
+          return;
+        }
+        this.identifier = null;
+        this.encoding = null;
+        this.message = 'Successfully cleared all data';
+      }
+    },
+  };
+</script>
+
+<style lang="scss" scoped>
+  .contentful {
+    button {
+      margin-right: .5rem;
+    }
+
+    .thumbnail-preview {
+      float: right;
+      max-height: 200px;
+      max-width: 35%;
+      height: 200px;
+      width: 100%;
+      background: #ddd;
+      text-align: center;
+
+      img {
+        margin: auto;
+        width: auto;
+        height: 100%;
+        max-height: 200px;
+      }
+    }
+
+    input {
+      width: 60%;
+    }
+
+    p {
+      margin-top: .5rem;
+    }
+
+    font-size: 11px;
+  }
+</style>
