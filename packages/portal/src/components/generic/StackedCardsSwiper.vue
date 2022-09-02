@@ -25,28 +25,30 @@
           v-for="(slide, i) in slides"
           :key="i"
           :index="i"
-          class="swiper-slide"
+          class="swiper-slide text-center"
         >
-          <b-card
-            class="h-100 text-center responsive-backround-image"
-            body-class="py-4 d-flex flex-column align-items-center"
-            :style="slide.image && imageCSSVars(slide.image)"
+          <img
+            :data-src="imageSrc(slide.image)"
+            :data-srcset="imageSrcset(slide.image)"
+            :data-sizes="imageSizes"
+            :alt="slide.image && slide.image.description || ''"
+            class="image-overlay position-absolute swiper-lazy"
           >
-            <b-card-title
-              title-tag="h3"
-            >
+          <div
+            class="card-body h-100 py-4 d-flex flex-column align-items-center position-relative"
+          >
+            <h3>
               <span>
                 {{ slide.title }}
               </span>
-            </b-card-title>
-            <b-card-text
-              text-tag="div"
+            </h3>
+            <div
               class="my-4"
             >
               <p class="mb-0">
                 {{ slide.description }}
               </p>
-            </b-card-text>
+            </div>
             <span class="line pb-4" />
             <b-button
               ref="slideLink"
@@ -58,7 +60,7 @@
             >
               {{ $t('explore') }}
             </b-button>
-          </b-card>
+          </div>
         </div>
       </div>
     </div>
@@ -67,8 +69,8 @@
 
 <script>
   import swiperMixin from '@/mixins/swiper';
-  import { EffectCoverflow, Keyboard } from 'swiper';
-  import { responsiveBackgroundImageCSSVars } from '@/plugins/contentful-utils';
+  import { EffectCoverflow, Keyboard, Lazy } from 'swiper';
+  import { urlIsContentfulAsset, optimisedSrcForContentfulAsset, responsiveImageSrcset } from '@/plugins/contentful-utils';
 
   export default {
     name: 'StackedCardsSwiper',
@@ -96,12 +98,19 @@
     data() {
       return {
         swiperOptions: {
-          modules: [EffectCoverflow, Keyboard],
+          modules: [EffectCoverflow, Keyboard, Lazy],
           effect: 'coverflow',
           grabCursor: true,
           centeredSlides: true,
           slidesPerView: 'auto',
           slideToClickedSlide: true,
+          preloadImages: false,
+          lazy: {
+            enabled: true,
+            checkInView: true,
+            loadPrevNext: true,
+            loadPrevNextAmount: 10
+          },
           breakpoints: {
             0: {
               spaceBetween: -150
@@ -126,7 +135,17 @@
             afterInit: this.swiperOnAfterInit,
             activeIndexChange: this.setFocusOnActiveSlideLink
           }
-        }
+        },
+        imageSizes: [
+          '(max-width: 576px) 245px',
+          '(max-width: 768px) 260px',
+          '(max-width: 992px) 280px',
+          '(max-width: 1200px) 300px',
+          '(max-width: 1440px) 320px',
+          '(max-width: 1920px) 355px',
+          '(max-width: 2560px) 510px',
+          '700px'
+        ].join(',')
       };
     },
 
@@ -139,16 +158,27 @@
       setFocusOnActiveSlideLink() {
         this.$refs.slideLink[this.swiper.activeIndex].focus();
       },
-      imageCSSVars(image) {
-        return responsiveBackgroundImageCSSVars(image,
-                                                { small: { w: 245, h: 440, fit: 'fill' },
-                                                  medium: { w: 260, h: 420, fit: 'fill' },
-                                                  large: { w: 280, h: 400, fit: 'fill' },
-                                                  xl: { w: 300, h: 400, fit: 'fill' },
-                                                  xxl: { w: 320, h: 370, fit: 'fill' },
-                                                  xxxl: { w: 355, h: 345, fit: 'fill' },
-                                                  wqhd: { w: 510, h: 540, fit: 'fill' },
-                                                  '4k': { w: 700, h: 900, fit: 'fill' } });
+      imageSrc(image) {
+        if (image?.url && urlIsContentfulAsset(image.url)) {
+          return optimisedSrcForContentfulAsset(image, { w: 245, h: 440, fit: 'fill' });
+        } else if (image?.url) {
+          return image.url;
+        } else {
+          return null;
+        }
+      },
+      imageSrcset(image) {
+        return responsiveImageSrcset(image,
+                                     {
+                                       small: { w: 245, h: 440, fit: 'fill' },
+                                       medium: { w: 260, h: 420, fit: 'fill' },
+                                       large: { w: 280, h: 400, fit: 'fill' },
+                                       xl: { w: 300, h: 400, fit: 'fill' },
+                                       xxl: { w: 320, h: 370, fit: 'fill' },
+                                       xxxl: { w: 355, h: 345, fit: 'fill' },
+                                       wqhd: { w: 510, h: 540, fit: 'fill' },
+                                       '4k': { w: 700, h: 900, fit: 'fill' }
+                                     });
       }
     }
   };
@@ -201,6 +231,7 @@
     width: calc(200px + 8vw);
     max-width: 720px;
     height: auto;
+    overflow: hidden;
 
     @media (min-width: $bp-xxxl) {
       width: calc(200px + 12vw);
@@ -216,12 +247,6 @@
       font-size: 1em;
     }
 
-    .card {
-      border: 0;
-      background-size: cover;
-      background-repeat: no-repeat;
-    }
-
     .card-body {
       background: linear-gradient(0deg, rgba(0 0 0 / 60%), rgba(0 0 0 / 60%));
       color: $white;
@@ -235,6 +260,16 @@
       width: 40%;
       border-top: 1px solid $white;
       margin: auto;
+    }
+
+    .image-overlay {
+      min-height: 100%;
+      min-width: 100%;
+      width: auto;
+      max-width: none;
+      left: -50%;
+      right: -50%;
+      margin: 0 auto;
     }
   }
 </style>
