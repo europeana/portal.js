@@ -197,7 +197,7 @@ jobs:
         name: Build and load size test image
         uses: docker/build-push-action@v2
         with:
-          context: ./tests/size
+          context: ./packages/portal/tests/size
           load: true
           tags: ${{ env.DOCKER_REPOSITORY }}-test-size
           cache-from: type=gha
@@ -206,14 +206,14 @@ jobs:
         name: Prepare resources for size tests
         run: |
           docker run --name portal.js --rm -d ${{ env.DOCKER_REPOSITORY }}:${{ steps.meta.outputs.version }}
-          docker cp portal.js:/app/.nuxt ./.nuxt
+          docker cp portal.js:/app/packages/portal/.nuxt ./.nuxt
           docker stop portal.js
       -
         name: Run size tests
         run: |
           docker run \
             --mount type=bind,source="$(pwd)"/.nuxt,target=/app/.nuxt \
-            --mount type=bind,source="$(pwd)"/tests/size/.size-limit.json,target=/app/.size-limit.json \
+            --mount type=bind,source="$(pwd)"/portal/packages/tests/size/.size-limit.json,target=/app/.size-limit.json \
             ${{ env.DOCKER_REPOSITORY }}-test-size
 
   # Run e2e tests on non-draft pull requests
