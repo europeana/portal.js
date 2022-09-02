@@ -26,7 +26,7 @@ the Europeana APIs, Contentful, Redis and oAuth sections in the example .env fil
 docker-compose up
 
 # install package dependencies
-npm install
+npm ci
 
 # serve with hot reload at localhost:3000
 npm run dev
@@ -37,6 +37,14 @@ npm start
 ```
 
 For detailed explanation on how things work, refer to [Nuxt.js docs](https://nuxtjs.org).
+
+### Docker image
+
+To build the Docker image, run:
+
+```shell
+docker build -t europeana/portal.js -f packages/portal/Dockerfile .
+```
 
 ## Testing
 
@@ -50,7 +58,7 @@ Run the full test suite with: `npm test`
 `npm run test:unit` runs all unit tests.
 
 To run unit tests from a single file, append the full path, e.g.
-`npm run test:unit tests/unit/components/PageHeader.spec.js`
+`npm run test:unit packages/portal/tests/unit/components/PageHeader.spec.js`
 
 ### End-to-end tests
 
