@@ -5,37 +5,41 @@ import sinon from 'sinon';
 
 const localVue = createLocalVue();
 
-const themes = [{
-  id: 'http://data.europeana.eu/concept/83',
-  prefLabel: { en: 'World War I' },
-  description: { en: 'Collection of untold stories and official histories of World War I, in a unique blend of cultural heritage collections and personal items contributed by European citizens.' }
-},
-{
-  id: 'http://data.europeana.eu/concept/80',
-  prefLabel: { en: 'Archaeology' },
-  description: { en: 'Explore all facets of archaeology from European museums, galleries, libraries and archives.' }
-},
-{
-  id: 'http://data.europeana.eu/concept/190',
-  prefLabel: { en: 'Art' },
-  description: { en: 'Discover inspiring art, artists and stories in the digitised collections of European museums, galleries, libraries and archives. Explore paintings, drawings, engravings and sculpture from cultural heritage institutions across Europe.' }
-}];
+const themes = [
+  {
+    id: 'http://data.europeana.eu/concept/83',
+    prefLabel: { en: 'World War I' },
+    description: { en: 'Collection of untold stories and official histories of World War I, in a unique blend of cultural heritage collections and personal items contributed by European citizens.' }
+  },
+  {
+    id: 'http://data.europeana.eu/concept/80',
+    prefLabel: { en: 'Archaeology' },
+    description: { en: 'Explore all facets of archaeology from European museums, galleries, libraries and archives.' }
+  },
+  {
+    id: 'http://data.europeana.eu/concept/190',
+    prefLabel: { en: 'Art' },
+    description: { en: 'Discover inspiring art, artists and stories in the digitised collections of European museums, galleries, libraries and archives. Explore paintings, drawings, engravings and sculpture from cultural heritage institutions across Europe.' }
+  }
+];
 
-const swiperSlides = [{
-  title: 'World War I',
-  description: 'Collection of untold stories and official histories of World War I, in a unique blend of cultural heritage collections and personal items contributed by European citizens.',
-  url: 'topic/83-world-war-i'
-},
-{
-  title: 'Archaeology',
-  description: 'Explore all facets of archaeology from European museums, galleries, libraries and archives.',
-  url: 'topic/80-archaeology'
-},
-{
-  title: 'Art',
-  description: 'Discover inspiring art, artists and stories in the digitised collections of European museums, galleries, libraries and archives. Explore paintings, drawings, engravings and sculpture from cultural heritage institutions across Europe.',
-  url: 'topic/190-art'
-}];
+const orderedSwiperSlides = [
+  {
+    title: 'Archaeology',
+    description: 'Explore all facets of archaeology from European museums, galleries, libraries and archives.',
+    url: 'topic/80-archaeology'
+  },
+  {
+    title: 'Art',
+    description: 'Discover inspiring art, artists and stories in the digitised collections of European museums, galleries, libraries and archives. Explore paintings, drawings, engravings and sculpture from cultural heritage institutions across Europe.',
+    url: 'topic/190-art'
+  },
+  {
+    title: 'World War I',
+    description: 'Collection of untold stories and official histories of World War I, in a unique blend of cultural heritage collections and personal items contributed by European citizens.',
+    url: 'topic/83-world-war-i'
+  }
+];
 
 const fetchAllThemesSpy = sinon.stub().resolves(themes);
 
@@ -115,7 +119,7 @@ describe('pages/home/index', () => {
 
         await wrapper.vm.fetch();
 
-        expect(wrapper.vm.swiperThemes).toEqual(swiperSlides);
+        expect(wrapper.vm.swiperThemes).toEqual(orderedSwiperSlides);
       });
 
       it('fetches the homePage entry from Contentful', async() => {
@@ -156,38 +160,50 @@ describe('pages/home/index', () => {
   });
 
   describe('head', () => {
-    it('uses localised page title for title meta field', () => {
-      const wrapper = factory();
+    describe('meta', () => {
+      it('uses localised page title for title field', () => {
+        const wrapper = factory();
 
-      const headMeta = wrapper.vm.head().meta;
+        const headMeta = wrapper.vm.head().meta;
 
-      expect(headMeta.find(meta => meta.name === 'title')?.content).toBe('homePage.title');
-    });
-
-    it('uses localised page sub-headline for description meta field', () => {
-      const wrapper = factory();
-
-      const headMeta = wrapper.vm.head().meta;
-
-      expect(headMeta.find(meta => meta.name === 'description')?.content).toBe('homePage.subHeadline');
-    });
-
-    it('uses optimised CTF hero image for og:image meta field', async() => {
-      const wrapper = factory();
-      await wrapper.setData({
-        backgroundImage: {
-          image: {
-            url: 'https://images.ctfassets.net/image.jpeg',
-            contentType: 'image/jpeg'
-          }
-        }
+        expect(headMeta.find(meta => meta.name === 'title')?.content).toBe('homePage.title');
       });
-      await wrapper.vm.$nextTick();
 
-      const headMeta = wrapper.vm.head().meta;
+      it('uses localised page sub-headline for description field', () => {
+        const wrapper = factory();
 
-      expect(headMeta.find(meta => meta.property === 'og:image')?.content)
-        .toBe('https://images.ctfassets.net/image.jpeg?w=1200&h=630&fit=fill&fm=jpg&fl=progressive&q=80');
+        const headMeta = wrapper.vm.head().meta;
+
+        expect(headMeta.find(meta => meta.name === 'description')?.content).toBe('homePage.subHeadline');
+      });
+
+      describe('og:image', () => {
+        const image = {
+          url: 'https://images.ctfassets.net/image.jpeg',
+          contentType: 'image/jpeg'
+        };
+        const expected = 'https://images.ctfassets.net/image.jpeg?w=1200&h=630&fit=fill&fm=jpg&fl=progressive&q=80';
+
+        it('favours CTF social media image', async() => {
+          const wrapper = factory();
+          await wrapper.setData({ socialMediaImage: image });
+          await wrapper.vm.$nextTick();
+
+          const headMeta = wrapper.vm.head().meta;
+
+          expect(headMeta.find(meta => meta.property === 'og:image')?.content).toBe(expected);
+        });
+
+        it('falls back to CTF background image', async() => {
+          const wrapper = factory();
+          await wrapper.setData({ backgroundImage: { image } });
+          await wrapper.vm.$nextTick();
+
+          const headMeta = wrapper.vm.head().meta;
+
+          expect(headMeta.find(meta => meta.property === 'og:image')?.content).toBe(expected);
+        });
+      });
     });
   });
 
@@ -196,7 +212,6 @@ describe('pages/home/index', () => {
       it('returns the PrimaryCallToAction-type sections', () => {
         const data = {
           sections: [
-            { '__typename': 'PrimaryCallToAction', name: 'Temporary', relatedLink: {}, text: '' },
             { '__typename': 'SomethingElse' },
             { '__typename': 'PrimaryCallToAction', name: 'Primary', relatedLink: {}, text: '' },
             { '__typename': 'PrimaryCallToAction', name: 'Seconday', relatedLink: {}, text: '' }
@@ -207,25 +222,8 @@ describe('pages/home/index', () => {
         const ctas = wrapper.vm.callsToAction;
 
         expect(ctas).toEqual([
-          { '__typename': 'PrimaryCallToAction', name: 'Temporary', relatedLink: {}, text: '' },
           { '__typename': 'PrimaryCallToAction', name: 'Primary', relatedLink: {}, text: '' },
           { '__typename': 'PrimaryCallToAction', name: 'Seconday', relatedLink: {}, text: '' }
-        ]);
-      });
-
-      it('inserts `null` as the first element if fewer than 3 CTAs', () => {
-        const data = {
-          sections: [
-            { '__typename': 'PrimaryCallToAction', name: 'Primary', relatedLink: {}, text: '' }
-          ]
-        };
-        const wrapper = factory({ data });
-
-        const ctas = wrapper.vm.callsToAction;
-
-        expect(ctas).toEqual([
-          null,
-          { '__typename': 'PrimaryCallToAction', name: 'Primary', relatedLink: {}, text: '' }
         ]);
       });
     });

@@ -42,6 +42,7 @@ export default {
     "next": "Suivant",
     "pin": "Épingler",
     "preview": "Prévisualisation",
+    "previous": "Précédent",
     "providedBy": "Fourni par {provider}",
     "reject": "Rejeter",
     "save": "Sauvegarder",
@@ -62,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Éléments récents",
     "organisation": "Organisations",
+    "place": "Des endroits",
     "time": "Des siècles en vedette",
     "topic": "Sujets d'actualité"
   },
@@ -79,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Organisation",
     "person": "Personne",
+    "place": "Place",
     "theme": "Thème",
     "time": "Siècle",
     "topic": "Sujet"
@@ -554,7 +557,7 @@ export default {
         "newspaper": "Journaux",
         "photography": "Photographie",
         "sport": "Sport",
-        "ww1": "1914-1918"
+        "ww1": "Première Guerre mondiale"
       },
       "select": "Sélectionnez un thème"
     },
@@ -676,10 +679,10 @@ export default {
     "disclaimerLine1": "Europeana est une initiative de l'Union européenne, financée par le Connecting Europe Facility de l'Union européenne et les États membres de l'Union européenne. Les services Europeana, y compris ce site Web, sont exploités par un consortium dirigé par la Fondation Europeana dans le cadre d'un contrat de service avec la Commission européenne.",
     "disclaimerLine2": "La Commission européenne ne garantit pas l'exactitude des informations et n'accepte aucune responsabilité ou obligation quelle qu'elle soit en ce qui concerne les informations sur ce site. Ni la Commission européenne, ni aucune personne agissant au nom de la Commission européenne, n'est responsable de l'exactitude ou de l'utilisation des informations sur ce site Web.",
     "findUsElsewhere": "Nous trouver ailleurs",
-    "imageDescription": "Cofinancé par le Mécanisme pour l’interconnexion en Europe",
+    "imageDescription": "Financé par l'Union européenne",
     "navigation": {
       "MoreInfoLabel": "Plus d'informations",
-      "about": "À propos",
+      "about": "À propos d'Europeana",
       "accessibility": "Accessibilité",
       "cookies": "Cookies",
       "forDevelopers": "Pour les développeurs",
@@ -690,7 +693,7 @@ export default {
       "terms": "Conditions d'utilisation"
     },
     "ourMission": "Notre mission",
-    "ourMissionQuote": "Europeana permet au secteur du patrimoine culturel d'effectuer sa transformation numérique. Nous développons l'expertise, les outils et les politiques pour prendre le virage du numérique et encourageons les partenariats qui favorisent l'innovation."
+    "ourMissionQuote": "Europeana permet au secteur du patrimoine culturel d'effectuer sa transformation numérique. Nous développons l'expertise, les outils et les strategies pour adopter le changement numérique et encourageons les partenariats qui favorisent l'innovation."
   },
   "formatting": {
     "ellipsis": "…",
@@ -709,11 +712,12 @@ export default {
     "europeanaHome": "Accueil Europeana",
     "inCollection": "Rechercher {query} dans {collection}",
     "navigation": {
-      "about": "À propos",
+      "about": "À propos d'Europeana",
       "collections": "Collections",
-      "europeanaClassroom": "Enseignants",
+      "europeanaClassroom": "Pour les enseignants",
       "help": "Aide",
       "home": "Accueil",
+      "pro": "Pour les professionnels",
       "stories": "Histoires"
     },
     "quickSearch": "Recherche rapide",
@@ -727,12 +731,13 @@ export default {
   },
   "homeLinkAlt": "Accueil Europeana",
   "homePage": {
-    "discoverEditorial": "Découvrez nos histoires",
-    "download": "télécharger",
-    "free": "gratuit",
-    "storiesCTA": "Voir toutes nos histoires",
-    "subHeadline": "Trouvez et {download} des œuvres d’art, des photographies, des livres, des manuscrits, des journaux et de la musique de plus de 4000 musées, archives, galeries et bibliothèques {free}.",
-    "title": "Découvrez le patrimoine culturel européen"
+    "discoverEditorial": "Dernières histoires",
+    "storiesCTA": "Voir toutes les histoires",
+    "subHeadline": "Recherchez, enregistrez et partagez des œuvres d’art, des livres, des films et de la musique issues de milliers d’institutions culturelles",
+    "themesCTA": "Voir tous les thèmes",
+    "themesTitle": "Explorer par thème",
+    "title": "Découvrez le patrimoine culturel {digital} européen",
+    "titleDigital": "numérique"
   },
   "imageSlider": {
     "handle": "Poignée de curseur"
@@ -851,12 +856,15 @@ export default {
   "newWindow": "s'ouvre dans une nouvelle fenêtre",
   "noMoreResults": "Il n'y a plus de résultats pour votre requête de recherche.",
   "noResults": "Pas de résultat",
+  "of": "De",
   "organisation": {
     "city": "Ville",
     "country": "Pays",
+    "englishName": "Nom anglais",
     "nameAcronym": "Acronyme du nom"
   },
   "pageHasLoaded": "a chargé",
+  "pageNumber": "Numéro de page",
   "pages": {
     "collections": {
       "organisations": {
@@ -868,7 +876,11 @@ export default {
       "persons": {
         "title": "Personnes"
       },
+      "places": {
+        "title": "Des endroits"
+      },
       "table": {
+        "items": "Éléments",
         "name": "Nom"
       },
       "times": {
@@ -878,6 +890,9 @@ export default {
         "title": "Sujets"
       }
     }
+  },
+  "pagination": {
+    "label": "Pagination"
   },
   "readMore": "Lire la suite",
   "recommendation": {
@@ -922,9 +937,14 @@ export default {
   "resultsFor": "Résultats pour {0}",
   "resultsLimitWarning": "Les résultats supplémentaires ne sont pas affichés, car seuls les 1000 premiers résultats les plus pertinents sont affichés. Si vous n'avez pas trouvé ce que vous cherchez, veuillez affiner votre recherche.",
   "resultsWithin": "Résultats dans les {0} {1} pour {2}",
-  "search": "Rechercher",
+  "search": {
+    "boost": {
+      "placeholder": "Entrer une requête d’amplification de champ"
+    },
+    "title": "Rechercher"
+  },
   "searchHasLoaded": "{0} résultats retournés",
-  "searchPlaceholder": "Que cherchez-vous ?",
+  "searchPlaceholder": "Rechercher plus de 50 millions d'objets",
   "searchResults": "Rechercher",
   "searchResultsFor": "{0} - Rechercher",
   "searchSuggestions": "Suggestions de recherche",

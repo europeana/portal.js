@@ -1,7 +1,7 @@
 <template>
   <div
     data-qa="static page"
-    class="text-page figure-attribution"
+    class="text-page white-page figure-attribution"
   >
     <AuthoredHead
       :title="name"

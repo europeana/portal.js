@@ -42,6 +42,7 @@ export default {
     "next": "Næste",
     "pin": "Pin",
     "preview": "Forhåndsvisning",
+    "previous": "Forrige",
     "providedBy": "Leveret af {provider}",
     "reject": "Afvise",
     "save": "Gem",
@@ -62,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Seneste varer",
     "organisation": "Organisationer",
+    "place": "Steder",
     "time": "Udvalgte århundreder",
     "topic": "Udvalgte emner"
   },
@@ -79,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Organisation",
     "person": "Person",
+    "place": "Sted",
     "theme": "Tema",
     "time": "Århundrede",
     "topic": "Emne"
@@ -554,7 +557,7 @@ export default {
         "newspaper": "Aviser",
         "photography": "Fotografi",
         "sport": "Sport",
-        "ww1": "1914-1918"
+        "ww1": "Første Verdenskrig"
       },
       "select": "Vælg et tema"
     },
@@ -676,7 +679,7 @@ export default {
     "disclaimerLine1": "Europeana er et initiativ fra Den Europæiske Union, der finansieres af EU's Connecting Europe-facilitet og EU's medlemsstater. Europeana-tjenesterne, herunder dette websted, drives af et konsortium ledet af Europeana Foundation i henhold til en servicekontrakt med Europa-Kommissionen.",
     "disclaimerLine2": "Europa-Kommissionen garanterer ikke nøjagtigheden af informationen og påtager sig intet ansvar over for informationen på dette websted. Hverken Europa-Kommissionen eller nogen person, der handler på Europa-Kommissionens vegne, er ansvarlig eller ansvarlig for nøjagtigheden eller brugen af oplysningerne på dette websted.",
     "findUsElsewhere": "Find os et andet sted",
-    "imageDescription": "Medfinansieret af Den Europæiske Unions Connecting Europe-facilitet",
+    "imageDescription": "Finansieret af Den Europæiske Union",
     "navigation": {
       "MoreInfoLabel": "Flere oplysninger",
       "about": "Om os",
@@ -711,9 +714,10 @@ export default {
     "navigation": {
       "about": "Om os",
       "collections": "Samlinger",
-      "europeanaClassroom": "Lærere",
+      "europeanaClassroom": "For lærere",
       "help": "Hjælp",
       "home": "Hjem",
+      "pro": "For professionelle",
       "stories": "Historier"
     },
     "quickSearch": "Hurtig søgning",
@@ -727,12 +731,13 @@ export default {
   },
   "homeLinkAlt": "Europeana startside",
   "homePage": {
-    "discoverEditorial": "Oplev vores historier",
-    "download": "hent",
-    "free": "ledig",
-    "storiesCTA": "Se alle vores historier",
-    "subHeadline": "Find og {download} kunstværker, fotografier, bøger, manuskripter, aviser og musik fra over 4000 museer, arkiver, gallerier og biblioteker {free}.",
-    "title": "Oplev den europæiske kulturarv"
+    "discoverEditorial": "Seneste historier",
+    "storiesCTA": "Se alle historier",
+    "subHeadline": "Søg, gem og del kunst, bøger, film og musik fra tusindvis af kulturinstitutioner",
+    "themesCTA": "Se alle temaer",
+    "themesTitle": "Udforsk efter tema",
+    "title": "Opdag Europas {digital} kulturarv",
+    "titleDigital": "digitale"
   },
   "imageSlider": {
     "handle": "Skydehåndtag"
@@ -757,7 +762,7 @@ export default {
         "learnMore": "Lad mig vælge"
       },
       "decline": "Jeg afviser",
-      "ok": "okay",
+      "ok": "Okay",
       "purposes": {
         "essential": {
           "description": "Disse tjenester er afgørende for, at dette websted fungerer korrekt. De inkluderer søgeresultatvisning og sprogindstillinger, bevarer den loggede tilstand og holder dit besøg sikkert. Du kan ikke deaktivere dem, da webstedet ellers ikke fungerer korrekt.",
@@ -851,12 +856,15 @@ export default {
   "newWindow": "åbner i nyt vindue",
   "noMoreResults": "Der er ikke flere resultater for din søgning.",
   "noResults": "Ingen resultater",
+  "of": "Af",
   "organisation": {
     "city": "By",
     "country": "Land",
+    "englishName": "Engelsk navn",
     "nameAcronym": "Navn akronym"
   },
   "pageHasLoaded": "har indlæst",
+  "pageNumber": "Side nummer",
   "pages": {
     "collections": {
       "organisations": {
@@ -868,7 +876,11 @@ export default {
       "persons": {
         "title": "Personer"
       },
+      "places": {
+        "title": "Steder"
+      },
       "table": {
+        "items": "Varer",
         "name": "Navn"
       },
       "times": {
@@ -878,6 +890,9 @@ export default {
         "title": "Emner"
       }
     }
+  },
+  "pagination": {
+    "label": "Paginering"
   },
   "readMore": "Læs mere",
   "recommendation": {
@@ -922,9 +937,14 @@ export default {
   "resultsFor": "Resultater for {0}",
   "resultsLimitWarning": "Yderligere resultater vises ikke, da kun de første 1000 mest relevante resultater vises. Hvis du ikke har fundet det, du leder efter, kan du overveje at præcisere søgningen.",
   "resultsWithin": "Resultater inden for {0} {1} for {2}",
-  "search": "Søg",
+  "search": {
+    "boost": {
+      "placeholder": "Indtast feltforøgende forespørgsel"
+    },
+    "title": "Søg"
+  },
   "searchHasLoaded": "{0} resultater returneret",
-  "searchPlaceholder": "Hvad leder du efter?",
+  "searchPlaceholder": "Søg i mere end 50 millioner genstande",
   "searchResults": "Søg",
   "searchResultsFor": "{0} - Søg",
   "searchSuggestions": "Søgeforslag",

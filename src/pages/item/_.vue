@@ -1,5 +1,8 @@
 <template>
-  <div data-qa="item page">
+  <div
+    data-qa="item page"
+    :class="$fetchState.error && 'white-page'"
+  >
     <b-container
       v-if="$fetchState.pending"
       data-qa="loading spinner container"
@@ -10,18 +13,14 @@
         </b-col>
       </b-row>
     </b-container>
-    <b-container
+    <ErrorMessage
       v-else-if="$fetchState.error"
-      data-qa="alert message container"
-    >
-      <b-row class="flex-md-row py-4">
-        <b-col cols="12">
-          <AlertMessage
-            :error="$fetchState.error.message"
-          />
-        </b-col>
-      </b-row>
-    </b-container>
+      data-qa="error message container"
+      :error="$fetchState.error.message"
+      title-path="errorMessage.itemNotFound.title"
+      description-path="errorMessage.itemNotFound.description"
+      :illustration-src="require('@/assets/img/illustrations/il-item-not-found.svg')"
+    />
     <template
       v-else
     >
@@ -58,22 +57,25 @@
             />
           </b-col>
         </b-row>
-        <b-row
+        <client-only
           v-if="relatedEntityUris.length > 0"
-          class="justify-content-center"
         >
-          <b-col
-            cols="12"
-            class="col-lg-10 mt-4"
+          <b-row
+            class="justify-content-center"
           >
-            <RelatedCollections
-              :title="$t('collectionsYouMightLike')"
-              :entity-uris="relatedEntityUris"
-              data-qa="related entities"
-              badge-variant="light"
-            />
-          </b-col>
-        </b-row>
+            <b-col
+              cols="12"
+              class="col-lg-10 mt-4"
+            >
+              <RelatedCollections
+                :title="$t('collectionsYouMightLike')"
+                :entity-uris="relatedEntityUris"
+                data-qa="related entities"
+                badge-variant="light"
+              />
+            </b-col>
+          </b-row>
+        </client-only>
         <b-row
           v-else
           class="mb-3"
@@ -91,19 +93,21 @@
             />
           </b-col>
         </b-row>
-        <!--
-          NOTE: dcType/title does not make sense here, but leave it alone as
-                eventually this will be deprecated and the Recommendation API
-                used instead.
-          FIXME: ... but who knows when, so maybe fix here in the meantime
-        -->
-        <ItemRecommendations
-          :identifier="identifier"
-          :dc-type="title"
-          :dc-subject="metadata.dcSubject"
-          :dc-creator="metadata.dcCreator"
-          :edm-data-provider="metadata.edmDataProvider ? metadata.edmDataProvider.value : null"
-        />
+        <client-only>
+          <!--
+            NOTE: dcType/title does not make sense here, but leave it alone as
+                  eventually this will be deprecated and the Recommendation API
+                  used instead.
+            FIXME: ... but who knows when, so maybe fix here in the meantime
+          -->
+          <ItemRecommendations
+            :identifier="identifier"
+            :dc-type="title"
+            :dc-subject="metadata.dcSubject"
+            :dc-creator="metadata.dcCreator"
+            :edm-data-provider="metadata.edmDataProvider ? metadata.edmDataProvider.value : null"
+          />
+        </client-only>
         <b-row class="footer-margin" />
       </b-container>
     </template>
@@ -135,7 +139,7 @@
   export default {
     name: 'ItemPage',
     components: {
-      AlertMessage: () => import('@/components/generic/AlertMessage'),
+      ErrorMessage: () => import('@/components/generic/ErrorMessage'),
       ItemHero,
       ItemLanguageSelector: () => import('@/components/item/ItemLanguageSelector'),
       ItemRecommendations,
@@ -271,7 +275,13 @@
         return langMapValueForLocale(this.description, this.metadataLanguage || this.$i18n.locale, { uiLanguage: this.$i18n.locale });
       },
       metaTitle() {
-        return this.titlesInCurrentLanguage[0] ? this.titlesInCurrentLanguage[0].value : this.$t('record.record');
+        if (this.$fetchState.error) {
+          return this.$t('errorMessage.itemNotFound.metaTitle');
+        } else if (this.titlesInCurrentLanguage[0]) {
+          return this.titlesInCurrentLanguage[0].value;
+        } else {
+          return this.$t('record.record');
+        }
       },
       metaDescription() {
         if (isEmpty(this.descriptionInCurrentLanguage)) {
@@ -289,7 +299,7 @@
         return this.annotationsByMotivation('transcribing');
       },
       ...mapGetters({
-        shareUrl: 'http/canonicalUrl'
+        shareUrl: 'http/canonicalUrlWithoutLocale'
       }),
       relatedEntityUris() {
         return this.europeanaEntityUris.slice(0, 5);

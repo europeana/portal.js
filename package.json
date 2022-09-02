@@ -1,11 +1,11 @@
 {
   "name": "@europeana/portal",
-  "version": "1.75.0",
+  "version": "1.80.0",
   "description": "Europeana Portal",
   "scripts": {
     "analyze": "nuxt build --analyze",
     "build": "nuxt build",
-    "cache": "node --require dotenv/config src/cachers/index.js",
+    "cache": "node --require dotenv/config src/cachers/cli.js",
     "dev": "nuxt",
     "generate": "nuxt generate",
     "lint:fix": "npm run lint -- --fix",
@@ -75,7 +75,7 @@
     "@vue/vue2-jest": "^27.0.0-alpha.4",
     "babel-jest": "^27.4.6",
     "camelcase": "^6.2.1",
-    "contentful-cli": "^1.10.0",
+    "contentful-cli": "^1.14.29",
     "css-loader": "^4.2.0",
     "eslint": "^7.32.0",
     "eslint-plugin-jest": "^25.3.4",

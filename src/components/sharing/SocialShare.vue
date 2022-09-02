@@ -38,7 +38,7 @@
 
     computed: {
       ...mapGetters({
-        shareUrl: 'http/canonicalUrl'
+        shareUrl: 'http/canonicalUrlWithoutLocale'
       }),
       networks() {
         return [

@@ -94,20 +94,6 @@ describe('cachers/utils', () => {
       const localised = utils.localise(argument, 'prefLabel', 'fr');
       expect(localised).toEqual(expected);
     });
-
-    // it('omits any Array members without localised prefLabel', () => {
-    //   const argument = [
-    //     { id: '1' },
-    //     { id: '2', prefLabel: { en: 'English 2', fr: 'Français 2' } }
-    //   ];
-    //
-    //   const expected = [
-    //     { id: '2', prefLabel: 'Français 2' }
-    //   ];
-    //
-    //   const localised = utils.localise(argument, 'fr');
-    //   expect(localised).toEqual(expected);
-    // });
   });
 
   describe('pick', () => {
@@ -130,7 +116,35 @@ describe('cachers/utils', () => {
       ];
 
       const picked = utils.pick(argument, ['id', 'name']);
+
       expect(picked).toEqual(expected);
+    });
+  });
+
+  describe('sort', () => {
+    it('gets property to sort by from callback if 2nd arg is a function', () => {
+      const data = ['b', 'c', 'a'];
+      const sortFn = (val) => val;
+
+      const sorted = utils.sort(data, sortFn);
+
+      expect(sorted).toEqual(['a', 'b', 'c']);
+    });
+
+    it('gets property to sort by from object property if 2nd arg is not a function', () => {
+      const data = [{ id: 'b' }, { id: 'c' }, { id: 'a' }];
+
+      const sorted = utils.sort(data, 'id');
+
+      expect(sorted).toEqual([{ id: 'a' }, { id: 'b' }, { id: 'c' }]);
+    });
+
+    it('sorts numeric text by number', () => {
+      const data = [{ id: '1-one' }, { id: '12-twelve' }, { id: '2-two' }];
+
+      const sorted = utils.sort(data, 'id');
+
+      expect(sorted).toEqual([{ id: '1-one' }, { id: '2-two' }, { id: '12-twelve' }]);
     });
   });
 

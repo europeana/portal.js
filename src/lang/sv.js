@@ -42,6 +42,7 @@ export default {
     "next": "Nästa",
     "pin": "Stift",
     "preview": "Förhandsvisning",
+    "previous": "Föregående",
     "providedBy": "Tillhandahålls av {provider}",
     "reject": "Avvisa",
     "save": "Spara",
@@ -62,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Senaste objekt",
     "organisation": "Organisationer",
+    "place": "Platser",
     "time": "Utvalda århundraden",
     "topic": "Utvalda ämnen"
   },
@@ -79,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Organisation",
     "person": "Person",
+    "place": "Plats",
     "theme": "Tema",
     "time": "Århundrade",
     "topic": "Ämne"
@@ -554,7 +557,7 @@ export default {
         "newspaper": "Tidningar",
         "photography": "Fotografi",
         "sport": "Sport",
-        "ww1": "1914–1918"
+        "ww1": "Första världskriget"
       },
       "select": "Välj ett tema"
     },
@@ -676,7 +679,7 @@ export default {
     "disclaimerLine1": "Europeana är ett initiativ från Europeiska unionen, finansierat av EU: s Connecting Europe Facility och EU: s medlemsstater. Europeana-tjänsterna, inklusive denna webbplats, drivs av ett konsortium som leds av Europeana Foundation under ett serviceavtal med Europeiska kommissionen.",
     "disclaimerLine2": "Europeiska kommissionen garanterar inte att informationen är korrekt och tar inget ansvar för informationen på denna webbplats. Varken Europeiska kommissionen eller någon person som agerar på Europeiska kommissionens vägnar är ansvarig för att informationen på denna webbplats är korrekt eller används.",
     "findUsElsewhere": "Hitta oss någon annanstans",
-    "imageDescription": "Medfinansieras av EU:s Connecting Europe Facility",
+    "imageDescription": "Finansieras av Europeiska unionen",
     "navigation": {
       "MoreInfoLabel": "Mer information",
       "about": "Om oss",
@@ -690,7 +693,7 @@ export default {
       "terms": "Användarvillkor"
     },
     "ourMission": "Vårt uppdrag",
-    "ourMissionQuote": "Europeana stöttar kulturarvsektorns digitala omvandling. Vi utvecklar expertis, verktyg och policyer för att främja digital förändring och uppmuntra partnerskap som främjar innovation."
+    "ourMissionQuote": "Europeana stöttar kulturarvssektorn i den digitala omvandlingen. Vi utvecklar expertis, verktyg och grundprinciper för att gynna digital förändring och uppmuntra partnerskap som främjar innovation."
   },
   "formatting": {
     "ellipsis": "…",
@@ -711,9 +714,10 @@ export default {
     "navigation": {
       "about": "Om oss",
       "collections": "Samlingar",
-      "europeanaClassroom": "Lärare",
+      "europeanaClassroom": "För lärare",
       "help": "Hjälp",
       "home": "Hem",
+      "pro": "För yrkesverksamma",
       "stories": "Berättelser"
     },
     "quickSearch": "Snabb sökning",
@@ -727,12 +731,13 @@ export default {
   },
   "homeLinkAlt": "Europeana hem",
   "homePage": {
-    "discoverEditorial": "Upptäck våra berättelser",
-    "download": "ladda ner",
-    "free": "gratis",
-    "storiesCTA": "Se alla våra berättelser",
-    "subHeadline": "Hitta och {download} konstverk, fotografier, böcker, manuskript, tidningar och musik från över 4 000 museer, arkiv, gallerier och bibliotek för {free}.",
-    "title": "Upptäck det europeiska kulturarvet"
+    "discoverEditorial": "Senaste berättelserna",
+    "storiesCTA": "Se alla berättelser",
+    "subHeadline": "Sök, spara och dela konst, böcker, filmer och musik från tusentals kulturinstitutioner",
+    "themesCTA": "Se alla teman",
+    "themesTitle": "Utforska efter tema",
+    "title": "Upptäck Europas {digital} kulturarv",
+    "titleDigital": "digitala"
   },
   "imageSlider": {
     "handle": "Skjutreglage"
@@ -851,12 +856,15 @@ export default {
   "newWindow": "öppnas i nytt fönster",
   "noMoreResults": "Det finns inga fler resultat för din sökning.",
   "noResults": "Inga träffar",
+  "of": "Av",
   "organisation": {
     "city": "Stad",
     "country": "Land",
+    "englishName": "Engelskt namn",
     "nameAcronym": "Namn akronym"
   },
   "pageHasLoaded": "har laddats",
+  "pageNumber": "Sidonummer",
   "pages": {
     "collections": {
       "organisations": {
@@ -868,7 +876,11 @@ export default {
       "persons": {
         "title": "Personer"
       },
+      "places": {
+        "title": "Platser"
+      },
       "table": {
+        "items": "Objekt",
         "name": "Namn"
       },
       "times": {
@@ -878,6 +890,9 @@ export default {
         "title": "Ämnen"
       }
     }
+  },
+  "pagination": {
+    "label": "Paginering"
   },
   "readMore": "Läs mer",
   "recommendation": {
@@ -922,9 +937,14 @@ export default {
   "resultsFor": "Resultat för {0}",
   "resultsLimitWarning": "Ytterligare resultat visas inte eftersom endast de 1000 första mest relevanta resultaten visas. Om du inte har hittat det du letar efter kan du prova att förfina din sökning.",
   "resultsWithin": "Resultat inom {0} {1} för {2}",
-  "search": "Sök",
+  "search": {
+    "boost": {
+      "placeholder": "Ange fältförstärkningsfråga"
+    },
+    "title": "Sök"
+  },
   "searchHasLoaded": "{0} resultat returnerade",
-  "searchPlaceholder": "Vad letar du efter?",
+  "searchPlaceholder": "Sök bland 50+ miljoner objekt",
   "searchResults": "Sök",
   "searchResultsFor": "{0} – Sök",
   "searchSuggestions": "Sök förslag",

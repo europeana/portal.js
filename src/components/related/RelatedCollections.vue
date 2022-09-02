@@ -17,10 +17,11 @@
         :key="relatedCollection.id"
         ref="options"
         :link-to="collectionLinkGen(relatedCollection)"
-        :title="relatedCollection.prefLabel ? relatedCollection.prefLabel : relatedCollection.name"
+        :title="collectionTitle(relatedCollection)"
         :img="imageUrl(relatedCollection)"
         :type="relatedCollection.type"
         :badge-variant="badgeVariant"
+        :image-src-set="imageSrcSet(relatedCollection)"
       />
     </div>
   </b-container>
@@ -30,7 +31,8 @@
   import pick from 'lodash/pick';
   import { urlIsContentfulAsset, optimisedSrcForContentfulAsset } from '@/plugins/contentful-utils';
   import { withEditorialContent } from '@/plugins/europeana/themes';
-  import collectionLinkGen from '@/mixins/collectionLinkGen';
+  import collectionLinkGenMixin from '@/mixins/collectionLinkGen';
+  import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
 
   import LinkBadge from '../generic/LinkBadge';
 
@@ -41,7 +43,10 @@
       LinkBadge
     },
 
-    mixins: [collectionLinkGen],
+    mixins: [
+      collectionLinkGenMixin,
+      europeanaEntitiesOrganizationsMixin
+    ],
 
     props: {
       title: {
@@ -77,8 +82,9 @@
         return;
       }
 
-      const entities = await this.$apis.entity.find(this.entityUris);
-      this.collections = await withEditorialContent(this, entities.map(entity => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo'])));
+      let entities = await this.$apis.entity.find(this.entityUris);
+      entities = entities.map(entity => pick(entity, ['id', 'prefLabel', 'isShownBy', 'logo', 'type']));
+      this.collections = await withEditorialContent(this, entities);
     },
 
     mounted() {
@@ -101,6 +107,21 @@
         });
       },
 
+      collectionTitle(collection) {
+        let title;
+
+        const organizationNativePrefLabel = this.organizationEntityNativeName(collection);
+        if (organizationNativePrefLabel) {
+          title = organizationNativePrefLabel;
+        } else if (collection.prefLabel) {
+          title = collection.prefLabel;
+        } else {
+          title = collection.name;
+        }
+
+        return title;
+      },
+
       imageUrl(collection) {
         if (collection.contentfulImage && urlIsContentfulAsset(collection.contentfulImage.url)) {
           return optimisedSrcForContentfulAsset(
@@ -110,6 +131,16 @@
           );
         }
         return this.$apis.entity.imageUrl(collection);
+      },
+
+      imageSrcSet(collection) {
+        if (collection.contentfulImage && urlIsContentfulAsset(collection.contentfulImage.url)) {
+          const smallImage = optimisedSrcForContentfulAsset(collection.contentfulImage, { w: 28, h: 28, fit: 'thumb' });
+          const wqhdImage = optimisedSrcForContentfulAsset(collection.contentfulImage, { w: 45, h: 45, fit: 'thumb' });
+          const fourKImage = optimisedSrcForContentfulAsset(collection.contentfulImage, { w: 67, h: 67, fit: 'thumb' });
+          return `${smallImage} 28w, ${wqhdImage} 45w, ${fourKImage} 67w`;
+        }
+        return null;
       }
     }
   };

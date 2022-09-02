@@ -157,133 +157,131 @@ describe('components/related/RelatedCollections', () => {
     });
   });
 
-  describe('hooks', () => {
-    describe('fetch', () => {
-      afterEach(sinon.resetHistory);
+  describe('fetch', () => {
+    afterEach(sinon.resetHistory);
 
-      describe('when related collections are supplied', () => {
-        const propsData = { relatedCollections };
+    describe('when related collections are supplied', () => {
+      const propsData = { relatedCollections };
 
-        it('uses them', async() => {
-          const wrapper = factory({ propsData });
+      it('uses them', async() => {
+        const wrapper = factory({ propsData });
 
-          await wrapper.vm.fetch();
+        await wrapper.vm.fetch();
 
-          expect(wrapper.vm.collections).toEqual(relatedCollections);
+        expect(wrapper.vm.collections).toEqual(relatedCollections);
+      });
+
+      it('does not query the Entity API', async() => {
+        const wrapper = factory({ propsData });
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.$apis.entity.find.called).toBe(false);
+      });
+    });
+
+    describe('when no related collections are supplied', () => {
+      describe('but entity URIs are supplied', () => {
+        const propsData = { entityUris };
+
+        describe('when contentful theme/editorial overrides are stored', () => {
+          const storeData = {
+            curatedEntities: contentfulResponse.data.data.curatedEntities.items
+          };
+          it('queries the Entity API, does NOT re-query contentful or update stored values', async() => {
+            const wrapper = factory({ propsData, storeData });
+
+            await wrapper.vm.fetch();
+
+            expect(wrapper.vm.$apis.entity.find.calledWith(entityUris)).toBe(true);
+            expect(contentfulQuery.called).toBe(false);
+            expect(storeCommit.calledWith('entity/setCuratedEntities', sinon.match.any)).toBe(false);
+          });
+
+          it('uses the API response, and stored overrides', async() => {
+            const expected = entityApiFindResponse;
+            expected[2] = {
+              contentfulImage: {
+                contentType: 'image/jpeg',
+                url: 'https://images.ctfassets.net/i01duvb6kq77/792bNsvUU5gai7bWidjZoz/1d6ce46c91d5fbcd840e8cf8bfe376a3/206_item_QCZITS4J5WNRUS7ESLVJH6PSOCRHBPMI.jpg'
+              },
+              id: 'http://data.europeana.eu/concept/55',
+              prefLabel: {
+                de: 'Mode',
+                en: 'Fashion'
+              }
+            };
+
+            const wrapper = factory({ propsData, storeData });
+
+            await wrapper.vm.fetch();
+
+            expect(wrapper.vm.collections).toEqual(expected);
+          });
         });
 
+        describe('without theme/editorial overrides stored', () => {
+          it('queries the Entity API, queries contentful and updates stored values', async() => {
+            const wrapper = factory({ propsData });
+
+            await wrapper.vm.fetch();
+
+            expect(wrapper.vm.$apis.entity.find.calledWith(entityUris)).toBe(true);
+            expect(contentfulQuery.called).toBe(true);
+            expect(storeCommit.calledWith('entity/setCuratedEntities', sinon.match.any)).toBe(true);
+          });
+
+          it('uses the API response, and fetched overrides', async() => {
+            const expected = entityApiFindResponse;
+            expected[2] = {
+              contentfulImage: {
+                contentType: 'image/jpeg',
+                url: 'https://images.ctfassets.net/i01duvb6kq77/792bNsvUU5gai7bWidjZoz/1d6ce46c91d5fbcd840e8cf8bfe376a3/206_item_QCZITS4J5WNRUS7ESLVJH6PSOCRHBPMI.jpg'
+              },
+              id: 'http://data.europeana.eu/concept/55',
+              prefLabel: {
+                de: 'Mode',
+                en: 'Fashion'
+              }
+            };
+
+            const wrapper = factory({ propsData });
+
+            await wrapper.vm.fetch();
+
+            expect(wrapper.vm.collections).toEqual(expected);
+          });
+        });
+      });
+
+      describe('and no entity URIs are supplied', () => {
         it('does not query the Entity API', async() => {
-          const wrapper = factory({ propsData });
+          const wrapper = factory();
 
           await wrapper.vm.fetch();
 
           expect(wrapper.vm.$apis.entity.find.called).toBe(false);
         });
-      });
 
-      describe('when no related collections are supplied', () => {
-        describe('but entity URIs are supplied', () => {
-          const propsData = { entityUris };
+        it('has no collections', async() => {
+          const wrapper = factory();
 
-          describe('when contentful theme/editorial overrides are stored', () => {
-            const storeData = {
-              curatedEntities: contentfulResponse.data.data.curatedEntities.items
-            };
-            it('queries the Entity API, does NOT re-query contentful or update stored values', async() => {
-              const wrapper = factory({ propsData, storeData });
+          await wrapper.vm.fetch();
 
-              await wrapper.vm.fetch();
-
-              expect(wrapper.vm.$apis.entity.find.calledWith(entityUris)).toBe(true);
-              expect(contentfulQuery.called).toBe(false);
-              expect(storeCommit.calledWith('entity/setCuratedEntities', sinon.match.any)).toBe(false);
-            });
-
-            it('uses the API response, and stored overrides', async() => {
-              const expected = entityApiFindResponse;
-              expected[2] = {
-                contentfulImage: {
-                  contentType: 'image/jpeg',
-                  url: 'https://images.ctfassets.net/i01duvb6kq77/792bNsvUU5gai7bWidjZoz/1d6ce46c91d5fbcd840e8cf8bfe376a3/206_item_QCZITS4J5WNRUS7ESLVJH6PSOCRHBPMI.jpg'
-                },
-                id: 'http://data.europeana.eu/concept/55',
-                prefLabel: {
-                  de: 'Mode',
-                  en: 'Fashion'
-                }
-              };
-
-              const wrapper = factory({ propsData, storeData });
-
-              await wrapper.vm.fetch();
-
-              expect(wrapper.vm.collections).toEqual(expected);
-            });
-          });
-
-          describe('without theme/editorial overrides stored', () => {
-            it('queries the Entity API, queries contentful and updates stored values', async() => {
-              const wrapper = factory({ propsData });
-
-              await wrapper.vm.fetch();
-
-              expect(wrapper.vm.$apis.entity.find.calledWith(entityUris)).toBe(true);
-              expect(contentfulQuery.called).toBe(true);
-              expect(storeCommit.calledWith('entity/setCuratedEntities', sinon.match.any)).toBe(true);
-            });
-
-            it('uses the API response, and fetched overrides', async() => {
-              const expected = entityApiFindResponse;
-              expected[2] = {
-                contentfulImage: {
-                  contentType: 'image/jpeg',
-                  url: 'https://images.ctfassets.net/i01duvb6kq77/792bNsvUU5gai7bWidjZoz/1d6ce46c91d5fbcd840e8cf8bfe376a3/206_item_QCZITS4J5WNRUS7ESLVJH6PSOCRHBPMI.jpg'
-                },
-                id: 'http://data.europeana.eu/concept/55',
-                prefLabel: {
-                  de: 'Mode',
-                  en: 'Fashion'
-                }
-              };
-
-              const wrapper = factory({ propsData });
-
-              await wrapper.vm.fetch();
-
-              expect(wrapper.vm.collections).toEqual(expected);
-            });
-          });
-        });
-
-        describe('and no entity URIs are supplied', () => {
-          it('does not query the Entity API', async() => {
-            const wrapper = factory();
-
-            await wrapper.vm.fetch();
-
-            expect(wrapper.vm.$apis.entity.find.called).toBe(false);
-          });
-
-          it('has no collections', async() => {
-            const wrapper = factory();
-
-            await wrapper.vm.fetch();
-
-            expect(wrapper.vm.collections).toEqual([]);
-          });
+          expect(wrapper.vm.collections).toEqual([]);
         });
       });
     });
+  });
 
-    describe('beforeDestroy', () => {
-      it('triggers `draw` to hide component', async() => {
-        const wrapper = factory();
-        wrapper.vm.draw = sinon.spy();
+  describe('beforeDestroy', () => {
+    it('triggers `draw` to hide component', async() => {
+      const wrapper = factory();
+      wrapper.vm.draw = sinon.spy();
 
-        await wrapper.destroy();
+      await wrapper.destroy();
 
-        expect(wrapper.vm.draw.calledWith('hide')).toBe(true);
-      });
+      expect(wrapper.vm.draw.calledWith('hide')).toBe(true);
     });
   });
 
@@ -314,6 +312,32 @@ describe('components/related/RelatedCollections', () => {
         await wrapper.vm.draw();
 
         expect(wrapper.vm.$redrawVueMasonry.called).toBe(true);
+      });
+    });
+
+    describe('collectionTitle', () => {
+      it('uses native language for organisations', () => {
+        const wrapper = factory();
+
+        const title = wrapper.vm.collectionTitle({ type: 'Organization', prefLabel: { en: 'Museum', fr: 'Musée' } });
+
+        expect(title).toEqual({ fr: 'Musée' });
+      });
+
+      it('uses full prefLabel for other entity types if available', () => {
+        const wrapper = factory();
+
+        const title = wrapper.vm.collectionTitle({ type: 'Concept', prefLabel: { en: 'Cartoon', es: 'Dibujo humorístico' } });
+
+        expect(title).toEqual({ en: 'Cartoon', es: 'Dibujo humorístico' });
+      });
+
+      it('falls back to name', () => {
+        const wrapper = factory();
+
+        const title = wrapper.vm.collectionTitle({ name: 'Curated related entity' });
+
+        expect(title).toBe('Curated related entity');
       });
     });
   });

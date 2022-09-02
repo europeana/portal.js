@@ -21,6 +21,9 @@ const factory = (options = {}) => shallowMountNuxt(QuickSearch, {
   localVue,
   mixins,
   mocks: {
+    $i18n: {
+      locale: 'en'
+    },
     $t: (key) => key,
     $store: {
       state: {
@@ -40,7 +43,7 @@ describe('components/search/QuickSearch', () => {
 
   describe('when options or themes are available', () => {
     it('is rendered', async() => {
-      const wrapper = factory({ themes: ['theme1', 'theme2'] });
+      const wrapper = factory({ themes: [{ prefLabel: { en: 'theme1' } }, { prefLabel: { en: 'theme2' } }] });
       const quickSearch = wrapper.find('[data-qa="quick-search"]');
 
       expect(quickSearch.exists()).toBe(true);

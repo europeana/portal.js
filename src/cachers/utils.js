@@ -90,6 +90,15 @@ const pick = (data, fields) => {
   return mutateObjects(data, object => _pick(object, fields));
 };
 
+const sort = (data, sortOn) => {
+  const sortFn = typeof sortOn === 'function' ? sortOn : (value) => value[sortOn];
+  return data.sort((a, b) =>
+    sortFn(a).localeCompare(sortFn(b), undefined, {
+      numeric: true,
+      sensitivity: 'base'
+    }));
+};
+
 const mutateObjects = (data, mutator) => {
   if (Array.isArray(data)) {
     return data.map(mutator);
@@ -106,5 +115,6 @@ export {
   errorMessage,
   daily,
   localise,
-  pick
+  pick,
+  sort
 };

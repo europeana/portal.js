@@ -29,6 +29,12 @@ query ExhibitionChapterPage(
           primaryImageOfPage {
             ... imageWithAttributionFields
           }
+          categoriesCollection(limit: 10) {
+            items {
+              name
+              identifier
+            }
+          }
           hasPartCollection(limit: 40) {
             total
             items {

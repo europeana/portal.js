@@ -2,22 +2,13 @@
   <div>
     <div
       v-if="$features.newHomepage"
-      class="page"
+      class="page white-page"
     >
       <HomeHero
         :background-image="backgroundImage"
       />
       <client-only>
         <div class="page gridless-container">
-          <CallToActionBanner
-            v-if="callsToAction[0]"
-            :name="callsToAction[0].name"
-            :text="callsToAction[0].text"
-            :link="callsToAction[0].relatedLink"
-            :illustration="callsToAction[0].image"
-            variant="light"
-            class="home-cta"
-          />
           <StackedCardsSwiper
             v-if="swiperThemes.length > 0"
             :slides="swiperThemes"
@@ -25,21 +16,21 @@
             :cta="{ url: $path('/collections'), text: $t('homePage.themesCTA') }"
           />
           <CallToActionBanner
-            v-if="callsToAction[1]"
-            :name="callsToAction[1].name"
-            :text="callsToAction[1].text"
-            :link="callsToAction[1].relatedLink"
-            :illustration="callsToAction[1].image"
+            v-if="callsToAction[0]"
+            :name="callsToAction[0].name"
+            :text="callsToAction[0].text"
+            :link="callsToAction[0].relatedLink"
+            :illustration="callsToAction[0].image"
             variant="innovationblue"
             class="home-cta"
           />
           <HomeLatest />
           <CallToActionBanner
-            v-if="callsToAction[2]"
-            :name="callsToAction[2].name"
-            :text="callsToAction[2].text"
-            :link="callsToAction[2].relatedLink"
-            :illustration="callsToAction[2].image"
+            v-if="callsToAction[1]"
+            :name="callsToAction[1].name"
+            :text="callsToAction[1].text"
+            :link="callsToAction[1].relatedLink"
+            :illustration="callsToAction[1].image"
             class="home-cta"
           />
         </div>
@@ -60,6 +51,7 @@
   import HomeLatest from '@/components/home/HomeLatest';
   import StackedCardsSwiper from '@/components/generic/StackedCardsSwiper';
   import { optimisedSrcForContentfulAsset } from '@/plugins/contentful-utils';
+  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
 
   export default {
     name: 'HomePage',
@@ -78,6 +70,7 @@
       return {
         sections: [],
         backgroundImage: null,
+        socialMediaImage: null,
         // TODO: following four properties required when rendering IndexPage as
         //       a child component; remove when new home page is launched.
         browsePage: false,
@@ -110,7 +103,7 @@
 
     computed: {
       pageTitle() {
-        return this.$t('homePage.title');
+        return this.$t('homePage.title', { digital: this.$t('homePage.titleDigital') });
       },
 
       pageSubHeadline() {
@@ -118,24 +111,21 @@
       },
 
       headMetaOgImage() {
-        return optimisedSrcForContentfulAsset(this.backgroundImage?.image, { w: 1200, h: 630, fit: 'fill' });
+        const image = this.socialMediaImage ? this.socialMediaImage : this.backgroundImage?.image;
+        return optimisedSrcForContentfulAsset(image, { w: 1200, h: 630, fit: 'fill' });
       },
 
       callsToAction() {
-        const ctas = this.sections.filter(section => section['__typename'] === 'PrimaryCallToAction');
-        if (ctas.length < 3) {
-          ctas.unshift(null);
-        }
-        return ctas;
+        return this.sections.filter(section => section['__typename'] === 'PrimaryCallToAction');
       },
 
       swiperThemes() {
         return this.allThemes.map(theme => ({
-          title: theme.prefLabel[this.$i18n.locale],
-          description: theme.description[this.$i18n.locale],
+          title: langMapValueForLocale(theme.prefLabel, this.$i18n.locale).values[0],
+          description: langMapValueForLocale(theme.description, this.$i18n.locale).values[0],
           url: this.collectionLinkGen(theme),
           image: theme.contentfulImage
-        }));
+        })).sort((a, b) => a.title.localeCompare(b.title));
       }
     },
 
@@ -157,8 +147,9 @@
         };
         const response = await this.$contentful.query('homePage', variables);
         const homePage = response.data.data.homePageCollection.items[0];
-        this.sections = homePage.sectionsCollection.items;
+        this.sections = homePage.sectionsCollection.items.filter((item) => !!item);
         this.backgroundImage = homePage.primaryImageOfPage;
+        this.socialMediaImage = homePage.image;
       }
     }
   };
@@ -167,24 +158,22 @@
 
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
+  @import '@/assets/scss/mixins';
 
   .page {
-    background-color: white;
-    padding-bottom: 1rem;
-    position: relative;
+    margin-top: 0;
+    padding-bottom: 1px;
     text-align: center;
 
-    &::after {
-      border-top: 145px solid $white;
-      border-left: 60px solid transparent;
-      content: '';
-      display: block;
-      height: 0;
-      position: absolute;
-      right: 0;
-      top: 100%;
-      width: 0;
-      z-index: 1;
+    &.gridless-container {
+      > div,
+      > section {
+        margin-bottom: 5.5rem;
+      }
+
+      .cta-banner {
+        margin-bottom: calc(5.5rem + 0.75em);
+      }
     }
   }
 </style>

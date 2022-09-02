@@ -42,6 +42,7 @@ export default {
     "next": "Następny",
     "pin": "Szpilka",
     "preview": "Podgląd",
+    "previous": "Poprzedni",
     "providedBy": "Dostarczone przez {provider}",
     "reject": "Odrzuć",
     "save": "Zapisać",
@@ -62,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Ostatnie pozycje",
     "organisation": "Organizacje",
+    "place": "Miejsca",
     "time": "Polecane wieki",
     "topic": "Polecane tematy"
   },
@@ -79,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Organizacja",
     "person": "Osoba",
+    "place": "Miejsce",
     "theme": "Temat",
     "time": "Stulecie",
     "topic": "Temat"
@@ -554,7 +557,7 @@ export default {
         "newspaper": "Gazety",
         "photography": "Fotografia",
         "sport": "Sport",
-        "ww1": "1914–1918"
+        "ww1": "I wojna światowa"
       },
       "select": "Wybierz motyw"
     },
@@ -676,7 +679,7 @@ export default {
     "disclaimerLine1": "Europeana jest inicjatywą Unii Europejskiej, finansowaną z unijnego Connecting Europe Facility oraz przez państwa członkowskie Unii Europejskiej. Usługi Europeany, w tym niniejsza strona internetowa, są prowadzone przez konsorcjum kierowane przez Fundację Europeana na podstawie umowy o świadczenie usług zawartej z Komisją Europejską.",
     "disclaimerLine2": "Komisja Europejska nie gwarantuje dokładności informacji i nie ponosi żadnej odpowiedzialności w odniesieniu do informacji na tej stronie internetowej. Ani Komisja Europejska, ani żadna osoba działająca w imieniu Komisji Europejskiej nie ponosi odpowiedzialności za dokładność lub wykorzystanie informacji na tej stronie internetowej.",
     "findUsElsewhere": "Znajdź nas w innych miejscach",
-    "imageDescription": "Współfinansowany z instrumentu „Łącząc Europę” Unii Europejskiej",
+    "imageDescription": "Finansowane przez Unię Europejską",
     "navigation": {
       "MoreInfoLabel": "Więcej informacji",
       "about": "O nas",
@@ -711,9 +714,10 @@ export default {
     "navigation": {
       "about": "O nas",
       "collections": "Kolekcje",
-      "europeanaClassroom": "Nauczyciele",
+      "europeanaClassroom": "Dla nauczycieli",
       "help": "Pomoc",
       "home": "Dom",
+      "pro": "Dla profesjonalistów",
       "stories": "Historie"
     },
     "quickSearch": "Szybkie wyszukiwanie",
@@ -727,12 +731,13 @@ export default {
   },
   "homeLinkAlt": "Strona główna Europeana",
   "homePage": {
-    "discoverEditorial": "Odkryj nasze historie",
-    "download": "Ściągnij",
-    "free": "bezpłatnie",
-    "storiesCTA": "Zobacz wszystkie nasze historie",
-    "subHeadline": "Znajdź i {download} dzieła sztuki, fotografie, książki, rękopisy, gazety i muzykę z ponad 4000 muzeów, archiwów, galerii i bibliotek za {free}.",
-    "title": "Odkryj europejskie dziedzictwo kulturowe"
+    "discoverEditorial": "Najnowsze historie",
+    "storiesCTA": "Zobacz wszystkie historie",
+    "subHeadline": "Wyszukuj, zapisuj i udostępniaj dzieła sztuki, książki, filmy i muzykę z tysięcy instytucji kulturalnych",
+    "themesCTA": "Zobacz wszystkie motywy",
+    "themesTitle": "Eksploruj według motywu",
+    "title": "Odkryj {digital} dziedzictwo kulturowe Europy",
+    "titleDigital": "cyfrowe"
   },
   "imageSlider": {
     "handle": "Uchwyt suwakowy"
@@ -851,12 +856,15 @@ export default {
   "newWindow": "otwiera się w nowym oknie",
   "noMoreResults": "Nie ma więcej wyników dla zapytania wyszukiwania.",
   "noResults": "Brak wyników",
+  "of": "Z",
   "organisation": {
     "city": "Miasto",
     "country": "Kraj",
+    "englishName": "Nazwa angielska",
     "nameAcronym": "Nazwa akronim"
   },
   "pageHasLoaded": "załadował",
+  "pageNumber": "Numer strony",
   "pages": {
     "collections": {
       "organisations": {
@@ -868,7 +876,11 @@ export default {
       "persons": {
         "title": "Osoby"
       },
+      "places": {
+        "title": "Miejsca"
+      },
       "table": {
+        "items": "Elementy",
         "name": "Nazwa"
       },
       "times": {
@@ -878,6 +890,9 @@ export default {
         "title": "Tematy"
       }
     }
+  },
+  "pagination": {
+    "label": "Paginacja"
   },
   "readMore": "Czytaj więcej",
   "recommendation": {
@@ -922,9 +937,14 @@ export default {
   "resultsFor": "Wyniki dla {0}",
   "resultsLimitWarning": "Dodatkowe wyniki nie są wyświetlane, ponieważ wyświetlanych jest tylko pierwsze 1000 najbardziej odpowiednich wyników. Jeśli nie znalazłeś tego, czego szukasz, rozważ zawężenie wyszukiwania.",
   "resultsWithin": "Wyniki w granicach {0} {1} dla {2}",
-  "search": "Szukaj",
+  "search": {
+    "boost": {
+      "placeholder": "Wpisz zapytanie zwiększające pole"
+    },
+    "title": "Szukaj"
+  },
   "searchHasLoaded": "{0} zwróconych wyników",
-  "searchPlaceholder": "Odkryj miliony obiektów",
+  "searchPlaceholder": "Przeszukaj ponad 50 milionów przedmiotów",
   "searchResults": "Szukaj",
   "searchResultsFor": "{0} - Szukaj",
   "searchSuggestions": "Sugestie wyszukiwania",

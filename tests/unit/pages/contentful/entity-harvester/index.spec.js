@@ -73,7 +73,7 @@ const entityFields = ['identifier', 'slug', 'type', 'name', 'description', 'imag
 
 describe('pages/contentful/entity-harvester/index', () => {
   beforeAll(() => {
-    window.contentfulExtension = fakeContentfulExtension(entityFields);
+    window.contentfulExtension = fakeContentfulExtension({ entryFields: entityFields });
   });
 
   describe('methods', () => {

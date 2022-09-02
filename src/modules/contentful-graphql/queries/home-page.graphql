@@ -36,6 +36,9 @@ query HomePage(
       primaryImageOfPage {
         ...imageWithAttributionFields
       }
+      image {
+        ...imageFields
+      }
     }
   }
 }

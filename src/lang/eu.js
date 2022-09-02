@@ -42,6 +42,7 @@ export default {
     "next": "Hurrengoa",
     "pin": "Pin",
     "preview": "Aurrebista",
+    "previous": "Aurrekoa",
     "providedBy": "{provider} emanda",
     "reject": "Baztertu",
     "save": "Gorde",
@@ -62,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Azken elementuak",
     "organisation": "Erakundeak",
+    "place": "Lekuak",
     "time": "Mende aipagarriak",
     "topic": "Nabarmendutako gaiak"
   },
@@ -79,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Antolaketa",
     "person": "Pertsona",
+    "place": "Lekua",
     "theme": "Gaia",
     "time": "Mendea",
     "topic": "Gai"
@@ -161,6 +164,10 @@ export default {
         "apiKey": {
           "description": "Sartu zure Europeana API gakoa eta API-eskaeretarako esteketan erabiliko da.",
           "label": "API gakoa"
+        },
+        "boosting": {
+          "description": "Gaituta bazaude, aktibatu bilaketa-emaitzen orrietan bultzada-eremua, hainbat bultzada-konfigurazio ebaluatzeko.",
+          "label": "Gaitu eremua areagotzea"
         },
         "enabled": {
           "description": "Gaituta badago, arazketa menua orri-oinean agertuko da.",
@@ -554,7 +561,7 @@ export default {
         "newspaper": "Egunkariak",
         "photography": "Argazkilaritza",
         "sport": "Kirola",
-        "ww1": "1914-1918"
+        "ww1": "Lehen Mundu Gerra"
       },
       "select": "Hautatu gai bat"
     },
@@ -676,10 +683,10 @@ export default {
     "disclaimerLine1": "Europeana Europar Batasunaren ekimena da, Europar Batasuneko Connecting Europe Facility eta Europar Batasuneko estatu kideek finantzatua. Europeana zerbitzuak, webgune hau barne, Europeana Fundazioak zuzentzen duen partzuergo batek kudeatzen ditu Europako Batzordearekiko zerbitzu kontratu baten pean.",
     "disclaimerLine2": "Europako Batzordeak ez du informazioaren zehaztasuna bermatzen eta ez du inolako erantzukizunik edo inolako erantzukizunik onartzen webgune honetako informazioari dagokionez. Ez Europako Batzordeak ez Europako Batzordearen izenean jarduten duen inor ez da erantzule edo erantzule egiten webgune honetako informazioaren zehaztasunaz edo erabileraz.",
     "findUsElsewhere": "Beste nonbait aurkitu gaitzazu",
-    "imageDescription": "Europar Batasuneko Connecting Europe Facility-k ere finantzatu du",
+    "imageDescription": "Europar Batasunak finantzatua",
     "navigation": {
       "MoreInfoLabel": "Informazio gehiago",
-      "about": "Europeana bildumei buruz",
+      "about": "Guri buruz",
       "accessibility": "Irisgarritasuna",
       "cookies": "Cookieak",
       "forDevelopers": "Garatzaileentzat",
@@ -709,11 +716,12 @@ export default {
     "europeanaHome": "Europeanako hasiera orria",
     "inCollection": "Bilatu '{kontsulta}' bilduma honetan {collection}",
     "navigation": {
-      "about": "Europeana bildumei buruz",
+      "about": "Guri buruz",
       "collections": "Bildumak",
-      "europeanaClassroom": "Irakasleak",
+      "europeanaClassroom": "Irakasleentzat",
       "help": "Laguntza",
       "home": "Etxea",
+      "pro": "Profesionalentzat",
       "stories": "Istorioak"
     },
     "quickSearch": "Bilaketa azkarra",
@@ -727,12 +735,13 @@ export default {
   },
   "homeLinkAlt": "Europeana Hasiera orria",
   "homePage": {
-    "discoverEditorial": "Ezagutu gure istorioak",
-    "download": "deskargatu",
-    "free": "dohainik",
-    "storiesCTA": "Ikusi gure istorio guztiak",
-    "subHeadline": "Bilatu eta {download} artelanak, argazkiak, liburuak, eskuizkribuak, egunkariak eta musika 4.000 museo, artxibo, galeria eta liburutegitik gorako {free} .",
-    "title": "Ezagutu Europako kultur ondarea"
+    "discoverEditorial": "Azken istorioak",
+    "storiesCTA": "Ikusi istorio guztiak",
+    "subHeadline": "Milaka kultur erakundeetako artea, liburuak, filmak eta musika bilatu, gorde eta partekatu",
+    "themesCTA": "Ikusi gai guztiak",
+    "themesTitle": "Arakatu gaiaren arabera",
+    "title": "Ezagutu Europako kultur ondare {digital}",
+    "titleDigital": "digitala"
   },
   "imageSlider": {
     "handle": "Kontrola"
@@ -851,12 +860,15 @@ export default {
   "newWindow": "leiho berrian irekiko da",
   "noMoreResults": "Ez dago emaitza gehiagorik zure bilaketarako.",
   "noResults": "Emaitzarik ez",
+  "of": "De",
   "organisation": {
     "city": "Hiria",
     "country": "Herrialdea",
+    "englishName": "Ingelesezko izena",
     "nameAcronym": "Izenaren akronimoa"
   },
   "pageHasLoaded": "kargatu du",
+  "pageNumber": "Orrialde zenbakia",
   "pages": {
     "collections": {
       "organisations": {
@@ -868,7 +880,11 @@ export default {
       "persons": {
         "title": "Pertsonak"
       },
+      "places": {
+        "title": "Lekuak"
+      },
       "table": {
+        "items": "Elementuak",
         "name": "Izena"
       },
       "times": {
@@ -878,6 +894,9 @@ export default {
         "title": "Gaiak"
       }
     }
+  },
+  "pagination": {
+    "label": "Paginazioa"
   },
   "readMore": "Gehiago irakurri",
   "recommendation": {
@@ -922,9 +941,14 @@ export default {
   "resultsFor": "{0} emaitzak",
   "resultsLimitWarning": "Emaitza osagarriak ez dira erakusten, izan ere, bakarrik erakusten dira lehenengo 1000 emaitza garrantzitsuenak. BIlatzen duzuna aurkitu ez baduzu, bilaketa zehatzagoa egin.",
   "resultsWithin": "{0} {1} barruko emaitzak {2}",
-  "search": "Bilatu",
+  "search": {
+    "boost": {
+      "placeholder": "Sartu eremua sustatzeko kontsulta"
+    },
+    "title": "Bilatu"
+  },
   "searchHasLoaded": "{0} emaitza itzuli dira",
-  "searchPlaceholder": "Milioika elementu bilatu",
+  "searchPlaceholder": "Bilatu 50 milioi elementu baino gehiago",
   "searchResults": "Bilatu",
   "searchResultsFor": "{0} - Bilatu",
   "searchSuggestions": "Iradokizunak bilatu",

@@ -21,18 +21,19 @@ const record = {
     },
     edmProvider: [{ en: ['Provider'] }],
     edmRights: { def: ['http://rightsstatements.org/vocab/InC/1.0/'] }
-  }
+  },
+  title: { en: ['Item example'] }
 };
 
 const store = new Vuex.Store({
   getters: {
-    'http/canonicalUrl': () => () => null
+    'http/canonicalUrlWithoutLocale': () => 'https://www.example.org/item/123/abc'
   }
 });
 
 const factory = ({ mocks = {} } = {}) => shallowMountNuxt(page, {
   localVue,
-  stubs: ['client-only', 'i18n'],
+  stubs: ['client-only', 'i18n', 'ErrorMessage'],
   mocks: {
     $features: { translatedItems: true },
     $pageHeadTitle: key => key,
@@ -242,15 +243,38 @@ describe('pages/item/_.vue', () => {
       expect(headMeta.filter(meta => meta.property === 'og:image').length).toBe(1);
       expect(headMeta.find(meta => meta.property === 'og:image').content).toBe(thumbnailUrl);
     });
+    describe('meta title', () => {
+      it('uses the title in current language', async() => {
+        const wrapper = factory();
+
+        await wrapper.vm.fetch();
+
+        const headMeta = wrapper.vm.head().meta;
+
+        expect(headMeta.filter(meta => meta.property === 'og:title').length).toBe(1);
+        expect(headMeta.find(meta => meta.property === 'og:title').content).toBe('Item example');
+      });
+    });
   });
 
   describe('when fetch errors', () => {
-    it('renders an alert message', () => {
-      const wrapper = factory({ mocks: { $fetchState: { error: { message: 'Error message' } } } });
+    const errorMock = { $fetchState: { error: { message: 'Error message' } } };
+    it('renders an error message', () => {
+      const wrapper = factory({ mocks: errorMock });
 
-      const alertMessage = wrapper.find('[data-qa="alert message container"]');
+      const errorMessage = wrapper.find('[data-qa="error message container"]');
 
-      expect(alertMessage.exists()).toBe(true);
+      expect(errorMessage.exists()).toBe(true);
+    });
+    describe('meta title', () => {
+      it('communicates item is not found', () => {
+        const wrapper = factory({ mocks: errorMock });
+
+        const headMeta = wrapper.vm.head().meta;
+
+        expect(headMeta.filter(meta => meta.property === 'og:title').length).toBe(1);
+        expect(headMeta.find(meta => meta.property === 'og:title').content).toBe('errorMessage.itemNotFound.metaTitle');
+      });
     });
   });
 });

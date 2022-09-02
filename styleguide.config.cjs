@@ -92,7 +92,8 @@ module.exports = async() => {
     skipComponentsWithoutExample: true,
     require: [
       resolve(__dirname, './src/assets/scss/style.scss'),
-      resolve(__dirname, './styleguide/style.scss')
+      resolve(__dirname, './styleguide/style.scss'),
+      resolve(__dirname, './src/assets/img/illustrations/il-item-not-found.svg')
     ],
     renderRootJsx: resolve(__dirname, './styleguide/styleguide.root.js'),
     template: {
@@ -101,7 +102,8 @@ module.exports = async() => {
           { rel: 'stylesheet', href: `https://unpkg.com/bootstrap@${bootstrapVersion}/dist/css/bootstrap.min.css` },
           { rel: 'stylesheet', href: `https://unpkg.com/bootstrap-vue@${bootstrapVueVersion}/dist/bootstrap-vue.min.css` }
         ]
-      }
+      },
+      favicon: 'https://www.europeana.eu/favicon.ico'
     },
     webpackConfig,
     usageMode: 'expand',

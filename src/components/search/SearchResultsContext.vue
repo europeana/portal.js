@@ -16,6 +16,7 @@
           :title="entityLabel"
           :link-to="entityRemovalLink"
           :img="entityImage"
+          :type="entity.type"
           data-qa="entity removal badge"
           class="mt-1 mx-1"
         />
@@ -34,6 +35,7 @@
           :title="entityLabel"
           :link-to="entityRemovalLink"
           :img="entityImage"
+          :type="entity.type"
           data-qa="entity removal badge"
           class="mt-1 mx-1"
         />
@@ -65,6 +67,7 @@
   import RemovalChip from './RemovalChip';
   import { entityParamsFromUri } from '@/plugins/europeana/entity';
   import themes from '@/plugins/europeana/themes';
+  import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
   import { mapState } from 'vuex';
   import { urlIsContentfulAsset, optimisedSrcForContentfulAsset } from '@/plugins/contentful-utils';
 
@@ -74,6 +77,10 @@
     components: {
       RemovalChip
     },
+
+    mixins: [
+      europeanaEntitiesOrganizationsMixin
+    ],
 
     props: {
       /**
@@ -105,7 +112,9 @@
         return this.entity && this.entity.id;
       },
       entityLabel() {
-        return this.editorialOverrides?.title || this.entity?.prefLabel;
+        return this.editorialOverrides?.title ||
+          this.organizationEntityNativeName(this.entity) ||
+          this.entity?.prefLabel;
       },
       entityImage() {
         if (this.editorialOverrides?.image && urlIsContentfulAsset(this.editorialOverrides.image.url)) {
@@ -163,5 +172,10 @@
   .context-label {
     margin-bottom: 0;
     line-height: 3;
+    min-width: 0;
+
+    .badge {
+      max-width: calc(100% - 2rem);
+    }
   }
 </style>

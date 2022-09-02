@@ -42,6 +42,7 @@ export default {
     "next": "Weiter",
     "pin": "Stift",
     "preview": "Vorschau",
+    "previous": "Vorherige",
     "providedBy": "Bereitgestellt von {provider}",
     "reject": "Ablehnen",
     "save": "Speichern",
@@ -62,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Aktuelle Objekte",
     "organisation": "Organisationen",
+    "place": "Orte",
     "time": "Ausgewählte Jahrhunderte",
     "topic": "Ausgewählte Themen"
   },
@@ -79,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Organisation",
     "person": "Person",
+    "place": "Ort",
     "theme": "Thema",
     "time": "Jahrhundert",
     "topic": "Thema"
@@ -554,7 +557,7 @@ export default {
         "newspaper": "Zeitungen",
         "photography": "Fotografie",
         "sport": "Sport",
-        "ww1": "1914-1918"
+        "ww1": "Erster Weltkrieg"
       },
       "select": "Ein thema auswählen"
     },
@@ -676,7 +679,7 @@ export default {
     "disclaimerLine1": "Europeana ist eine Initiative der Europäischen Union, die von der \"Connecting Europe Facility“ der Europäischen Union und den Mitgliedstaaten der Europäischen Union finanziert wird. Die Europeana-Dienste, einschließlich dieser Website, werden von einem Konsortium betrieben, das von der Europeana Foundation im Rahmen eines Dienstleistungsvertrags mit der Europäischen Kommission geführt wird.",
     "disclaimerLine2": "Die Europäische Kommission übernimmt keine Gewähr für die Richtigkeit der Informationen und übernimmt keinerlei Verantwortung oder Haftung für die Informationen auf dieser Website. Weder die Europäische Kommission noch eine Person, die im Namen der Europäischen Kommission handelt, ist für die Richtigkeit oder Verwendung der Informationen auf dieser Website verantwortlich oder haftbar.",
     "findUsElsewhere": "Finden Sie uns anderswo",
-    "imageDescription": "Kofinanziert von der Einrichtung „Connecting Europe“ der Europäischen Union",
+    "imageDescription": "Finanziert von der Europäischen Union",
     "navigation": {
       "MoreInfoLabel": "Mehr Infos",
       "about": "Über uns",
@@ -711,9 +714,10 @@ export default {
     "navigation": {
       "about": "Über uns",
       "collections": "Sammlungen",
-      "europeanaClassroom": "Lehrerinnen und Lehrer",
+      "europeanaClassroom": "Für Lehrer",
       "help": "Hilfe",
       "home": "Startseite",
+      "pro": "Für Fachleute",
       "stories": "Geschichten"
     },
     "quickSearch": "Schnelle Suche",
@@ -727,12 +731,13 @@ export default {
   },
   "homeLinkAlt": "Startseite Europeana",
   "homePage": {
-    "discoverEditorial": "Entdecken Sie unsere Geschichten",
-    "download": "herunterladen",
-    "free": "kostenlos",
-    "storiesCTA": "Alle unsere Geschichten sehen",
-    "subHeadline": "Finden und {download} Sie Kunstwerke, Fotografien, Bücher, Manuskripte, Zeitungen und Musik aus über 4000 Museen, Archiven, Galerien und Bibliotheken {free}.",
-    "title": "Entdecken Sie das europäische Kulturerbe"
+    "discoverEditorial": "Neueste Geschichten",
+    "storiesCTA": "Alle Geschichten ansehen",
+    "subHeadline": "Suchen, speichern und teilen Sie Kunst, Bücher, Filme und Musik von Tausenden von Kultureinrichtungen",
+    "themesCTA": "Alle Themen anzeigen",
+    "themesTitle": "Erkunden Sie nach Thema",
+    "title": "Entdecken Sie das {digital} kulturelle Erbe Europas",
+    "titleDigital": "digitale"
   },
   "imageSlider": {
     "handle": "Schieberegler"
@@ -851,12 +856,15 @@ export default {
   "newWindow": "öffnet sich in einem neuen Fenster",
   "noMoreResults": "Es gibt keine weiteren Ergebnisse für Ihre Suchanfrage.",
   "noResults": "Keine Ergebnisse",
+  "of": "Von",
   "organisation": {
     "city": "Stadt",
     "country": "Land",
+    "englishName": "Englischer Name",
     "nameAcronym": "Name Akronym"
   },
   "pageHasLoaded": "hat geladen",
+  "pageNumber": "Seitennummer",
   "pages": {
     "collections": {
       "organisations": {
@@ -868,7 +876,11 @@ export default {
       "persons": {
         "title": "Personen"
       },
+      "places": {
+        "title": "Orte"
+      },
       "table": {
+        "items": "Artikel",
         "name": "Name"
       },
       "times": {
@@ -878,6 +890,9 @@ export default {
         "title": "Themen"
       }
     }
+  },
+  "pagination": {
+    "label": "Paginierung"
   },
   "readMore": "Mehr anzeigen",
   "recommendation": {
@@ -922,9 +937,14 @@ export default {
   "resultsFor": "Ergebnisse für {0}",
   "resultsLimitWarning": "Zusätzliche Ergebnisse werden nicht angezeigt, da nur die ersten 1000 relevantesten Ergebnisse angezeigt werden. Wenn Sie nicht gefunden haben, wonach Sie suchen, können Sie Ihre Suche verfeinern.",
   "resultsWithin": "Ergebnisse innerhalb {0} {1} für {2}",
-  "search": "Suchen",
+  "search": {
+    "boost": {
+      "placeholder": "Geben Sie die Feldverstärkungsabfrage ein"
+    },
+    "title": "Suche"
+  },
   "searchHasLoaded": "{0} Ergebnisse zurückgegeben",
-  "searchPlaceholder": "Durchsuche Millionen von Objekten",
+  "searchPlaceholder": "Suche 50+ Millionen Artikel",
   "searchResults": "Suche",
   "searchResultsFor": "{0} - Suche",
   "searchSuggestions": "Suchvorschläge",

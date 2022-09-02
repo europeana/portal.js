@@ -42,6 +42,7 @@ export default {
     "next": "Volgende",
     "pin": "Pin",
     "preview": "Voorbeeld",
+    "previous": "Vorige",
     "providedBy": "Aangeboden door {provider}",
     "reject": "Afwijzen",
     "save": "Opslaan",
@@ -62,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Recente items",
     "organisation": "Organisaties",
+    "place": "Plaatsen",
     "time": "Aanbevolen eeuwen",
     "topic": "Aanbevolen onderwerpen"
   },
@@ -79,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Organisatie",
     "person": "Persoon",
+    "place": "Plaats",
     "theme": "Thema",
     "time": "Eeuw",
     "topic": "Onderwerp"
@@ -554,7 +557,7 @@ export default {
         "newspaper": "Kranten",
         "photography": "Fotografie",
         "sport": "Sport",
-        "ww1": "1914-1918"
+        "ww1": "Eerste Wereldoorlog"
       },
       "select": "Selecteer een thema"
     },
@@ -676,7 +679,7 @@ export default {
     "disclaimerLine1": "Europeana is een initiatief van de Europese Unie, gefinancierd door de Connecting Europe Facility van de Europese Unie en de lidstaten van de Europese Unie. De Europeana-diensten, waaronder deze website, worden beheerd door een consortium onder leiding van de Europeana Foundation in het kader van een servicecontract met de Europese Commissie.",
     "disclaimerLine2": "De Europese Commissie staat niet in voor de juistheid van de informatie en aanvaardt geen enkele verantwoordelijkheid of aansprakelijkheid met betrekking tot de informatie op deze website. Noch de Europese Commissie, noch enige persoon die namens de Europese Commissie handelt, is verantwoordelijk of aansprakelijk voor de juistheid of het gebruik van de informatie op deze website.",
     "findUsElsewhere": "Vind ons ergens anders",
-    "imageDescription": "Medegefinancierd door de Connecting Europe Facility van de Europese Unie",
+    "imageDescription": "Gefinancierd door de Europese Unie",
     "navigation": {
       "MoreInfoLabel": "Meer informatie",
       "about": "Over ons",
@@ -711,9 +714,10 @@ export default {
     "navigation": {
       "about": "Over ons",
       "collections": "Collecties",
-      "europeanaClassroom": "Leraren",
+      "europeanaClassroom": "Voor leraren",
       "help": "Help",
       "home": "Home",
+      "pro": "Voor professionals",
       "stories": "Verhalen"
     },
     "quickSearch": "Snel zoeken",
@@ -727,13 +731,13 @@ export default {
   },
   "homeLinkAlt": "Europeana Home",
   "homePage": {
-    "discoverEditorial": "Ontdek onze verhalen",
-    "download": "download",
-    "free": "gratis",
-    "storiesCTA": "Bekijk al onze verhalen",
-    "subHeadline": "Vind en {download} kunstwerken, foto's, boeken, manuscripten, kranten en muziek van meer dan 4000 musea, archieven, galerijen en bibliotheken {free}.",
-    "themesCTA": "Bekijk al onze Collecties",
-    "title": "Ontdek het Europese culturele erfgoed"
+    "discoverEditorial": "Laatste verhalen",
+    "storiesCTA": "Bekijk alle verhalen",
+    "subHeadline": "Zoek, bewaar en deel kunst, boeken, films en muziek van duizenden culturele instellingen",
+    "themesCTA": "Bekijk alle thema's",
+    "themesTitle": "Verkennen op thema",
+    "title": "Ontdek het {digital} culturele erfgoed van Europa",
+    "titleDigital": "digitale"
   },
   "imageSlider": {
     "handle": "Schuifgreep"
@@ -852,12 +856,15 @@ export default {
   "newWindow": "opent in nieuw venster",
   "noMoreResults": "Er zijn geen resultaten meer voor uw zoekopdracht.",
   "noResults": "Geen resultaten",
+  "of": "Van",
   "organisation": {
     "city": "Stad",
     "country": "Land",
+    "englishName": "Engelse naam",
     "nameAcronym": "Naam acroniem"
   },
   "pageHasLoaded": "heeft geladen",
+  "pageNumber": "Paginanummer",
   "pages": {
     "collections": {
       "organisations": {
@@ -869,7 +876,11 @@ export default {
       "persons": {
         "title": "Personen"
       },
+      "places": {
+        "title": "Plaatsen"
+      },
       "table": {
+        "items": "Items",
         "name": "Naam"
       },
       "times": {
@@ -879,6 +890,9 @@ export default {
         "title": "Onderwerpen"
       }
     }
+  },
+  "pagination": {
+    "label": "Paginering"
   },
   "readMore": "Lees verder",
   "recommendation": {
@@ -923,9 +937,14 @@ export default {
   "resultsFor": "Resultaten voor {0}",
   "resultsLimitWarning": "Aanvullende resultaten worden niet getoond, aangezien alleen de 1000 meest relevante resultaten worden getoond. Indien u niet hebt gevonden wat u zoekt, overweeg dan om uw zoekopdracht te verfijnen.",
   "resultsWithin": "Resultaten binnen {0} {1} voor {2}",
-  "search": "Zoeken",
+  "search": {
+    "boost": {
+      "placeholder": "Voer veldversterkende query in"
+    },
+    "title": "Zoeken"
+  },
   "searchHasLoaded": "{0} resultaten geretourneerd",
-  "searchPlaceholder": "Doorzoek miljoenen Items",
+  "searchPlaceholder": "Zoek meer dan 50 miljoen items",
   "searchResults": "Zoeken",
   "searchResultsFor": "{0} - Zoeken",
   "searchSuggestions": "Zoeksuggesties",

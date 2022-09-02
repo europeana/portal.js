@@ -42,6 +42,7 @@ export default {
     "next": "Kitas",
     "pin": "Kaištis",
     "preview": "Peržiūra",
+    "previous": "Ankstesnis",
     "providedBy": "Tiekėjas {provider}",
     "reject": "Atmesti",
     "save": "Išsaugoti",
@@ -62,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Naujausi prekių",
     "organisation": "Organizacijos",
+    "place": "Vietos",
     "time": "Rekomenduojami šimtmečiai",
     "topic": "Rekomenduojamos temos"
   },
@@ -79,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Organizacija",
     "person": "Asmuo",
+    "place": "Vieta",
     "theme": "Tema",
     "time": "Amžius",
     "topic": "Tema"
@@ -554,7 +557,7 @@ export default {
         "newspaper": "Laikraščiai",
         "photography": "Fotografija",
         "sport": "Sportas",
-        "ww1": "1914-1918"
+        "ww1": "Pirmasis pasaulinis karas"
       },
       "select": "Pasirinkite temą"
     },
@@ -676,7 +679,7 @@ export default {
     "disclaimerLine1": "\"Europeana\" yra Europos Sąjungos iniciatyva, finansuojama Europos Sąjungos Europos Connecting Europe Facility ir Europos Sąjungos valstybių narių lėšomis. Europeanos paslaugas, įskaitant šią svetainę, teikia konsorciumas, kuriam vadovauja Europeana Foundation, pagal paslaugų teikimo sutartį su Europos Komisija.",
     "disclaimerLine2": "Europos Komisija negarantuoja informacijos tikslumo ir neprisiima jokios atsakomybės ar atsakomybės už šioje svetainėje pateiktą informaciją. Nei Europos Komisija, nei joks asmuo, veikiantis Europos Komisijos vardu, nėra atsakingas už šioje svetainėje esančios informacijos tikslumą ar naudojimą.",
     "findUsElsewhere": "Raskite mus kitur",
-    "imageDescription": "Bendrai finansuojama pagal Europos Sąjungos Europos infrastruktūros tinklų priemonę",
+    "imageDescription": "Finansuoja Europos Sąjunga",
     "navigation": {
       "MoreInfoLabel": "Daugiau informacijos",
       "about": "Apie mus",
@@ -714,6 +717,7 @@ export default {
       "europeanaClassroom": "Mokytojams",
       "help": "Pagalba",
       "home": "Namai",
+      "pro": "Profesionalams",
       "stories": "Istorijos"
     },
     "quickSearch": "Greita paieška",
@@ -727,12 +731,13 @@ export default {
   },
   "homeLinkAlt": "„Europeana“ pagrindinis puslapis",
   "homePage": {
-    "discoverEditorial": "Atraskite mūsų istorijas",
-    "download": "parsisiųsti",
-    "free": "nemokamai",
-    "storiesCTA": "Peržiūrėkite visas mūsų istorijas",
-    "subHeadline": "Raskite ir {download} meno kūrinius, nuotraukas, knygas, rankraščius, laikraščius ir muziką iš daugiau nei 4000 muziejų, archyvų, galerijų ir bibliotekų {free} .",
-    "title": "Atraskite Europos kultūros paveldą"
+    "discoverEditorial": "Naujausios istorijos",
+    "storiesCTA": "Žiūrėti visas istorijas",
+    "subHeadline": "Ieškokite, išsaugokite ir bendrinkite meną, knygas, filmus ir muziką iš tūkstančiųkultūrosįstaigų",
+    "themesCTA": "Žiūrėti visas temas",
+    "themesTitle": "Naršykite pagal temą",
+    "title": "Pažinkite Europos {digital} kultūros paveldą",
+    "titleDigital": "Skaitmeninis"
   },
   "imageSlider": {
     "handle": "Slinkiklio rankena"
@@ -851,12 +856,15 @@ export default {
   "newWindow": "atsidaro naujame lange",
   "noMoreResults": "Daugiau nėra rezultatų pagal jūsų paieškos užklausą.",
   "noResults": "Rezultatų nėra",
+  "of": "Iš",
   "organisation": {
     "city": "Miestas",
     "country": "Šalis",
+    "englishName": "Angliškas pavadinimas",
     "nameAcronym": "Pavadinimo akronimas"
   },
   "pageHasLoaded": "įkelta",
+  "pageNumber": "Puslapio numeris",
   "pages": {
     "collections": {
       "organisations": {
@@ -868,7 +876,11 @@ export default {
       "persons": {
         "title": "Asmenys"
       },
+      "places": {
+        "title": "Vietos"
+      },
       "table": {
+        "items": "Elementus",
         "name": "Vardas"
       },
       "times": {
@@ -878,6 +890,9 @@ export default {
         "title": "Temos"
       }
     }
+  },
+  "pagination": {
+    "label": "Numeracija"
   },
   "readMore": "Skaityti daugiau",
   "recommendation": {
@@ -922,9 +937,14 @@ export default {
   "resultsFor": "Rezultatai pagal užklausą {0}",
   "resultsLimitWarning": "Papildomi rezultatai nerodomi, nes parodomi tik pirmieji 1000 tinkamiausių rezultatų. Jei neradote to, ko ieškote, apsvarstykite galimybę patikslinti paiešką.",
   "resultsWithin": "Rezultatai pagal {0} {1} už {2}",
-  "search": "Paieška",
+  "search": {
+    "boost": {
+      "placeholder": "Įveskite lauko didinimo užklausą"
+    },
+    "title": "Paieška"
+  },
   "searchHasLoaded": "{0} grąžinti rezultatai",
-  "searchPlaceholder": "Ko jūs ieškote?",
+  "searchPlaceholder": "Paieška 50+ milijonų elementų",
   "searchResults": "Paieška",
   "searchResultsFor": "{0} - Ieškoti",
   "searchSuggestions": "Paieškos pasiūlymai",

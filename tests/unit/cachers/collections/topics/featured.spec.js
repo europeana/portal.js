@@ -22,6 +22,10 @@ describe('@/cachers/collections/topics/featured', () => {
     expect(cacher.LOCALISE).toBe('prefLabel');
   });
 
+  it('sorts on prefLabel', () => {
+    expect(cacher.SORT).toBe('prefLabel');
+  });
+
   it('features 4 daily', () => {
     expect(cacher.DAILY).toBe(4);
   });

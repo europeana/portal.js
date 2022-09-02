@@ -42,6 +42,7 @@ export default {
     "next": "Sljedeći",
     "pin": "Klin",
     "preview": "Pregled",
+    "previous": "Prethodni",
     "providedBy": "Omogućio {provider}",
     "reject": "Odbiti",
     "save": "Uštedjeti",
@@ -62,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Nedavne stavke",
     "organisation": "Organizacije",
+    "place": "Mjesta",
     "time": "Istaknuta stoljeća",
     "topic": "Istaknute teme"
   },
@@ -79,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Organizacija",
     "person": "Osoba",
+    "place": "Mjesto",
     "theme": "Tema",
     "time": "Stoljeća",
     "topic": "Tema"
@@ -554,7 +557,7 @@ export default {
         "newspaper": "Novine",
         "photography": "Fotografija",
         "sport": "Sport",
-        "ww1": "1914.-1918."
+        "ww1": "Prvi svjetski rat"
       },
       "select": "Odaberite temu"
     },
@@ -676,7 +679,7 @@ export default {
     "disclaimerLine1": "Europeana je inicijativa Europske unije koju financiraju Instrument za povezivanje Europe i države članice Europske unije. Uslugama Europeane, uključujući ovu web stranicu, upravlja konzorcij predvođen Zakladom Europeana prema ugovoru o pružanju usluga s Europskom komisijom.",
     "disclaimerLine2": "Europska komisija ne jamči za točnost podataka i ne prihvaća nikakvu odgovornost niti bilo kakvu odgovornost u vezi s informacijama na ovom web mjestu. Niti Europska komisija, niti bilo koja osoba koja djeluje u ime Europske komisije, nije odgovorna niti je odgovorna za točnost ili upotrebu podataka na ovom web mjestu.",
     "findUsElsewhere": "Pronađite nas negdje drugdje",
-    "imageDescription": "Sufinancirano iz Instrumenta za povezivanje Europe u Europskoj uniji",
+    "imageDescription": "Financira Europska unija",
     "navigation": {
       "MoreInfoLabel": "Više informacija",
       "about": "O nama",
@@ -711,9 +714,10 @@ export default {
     "navigation": {
       "about": "O nama",
       "collections": "Zbirke",
-      "europeanaClassroom": "Nastavnici",
+      "europeanaClassroom": "Za učitelje",
       "help": "Pomoć",
       "home": "Dom",
+      "pro": "Za stručnjake",
       "stories": "Priče"
     },
     "quickSearch": "Brzo pretraživanje",
@@ -727,12 +731,13 @@ export default {
   },
   "homeLinkAlt": "Glavna stranica Europeana",
   "homePage": {
-    "discoverEditorial": "Otkrijte naše priče",
-    "download": "preuzmi",
-    "free": "besplatno",
-    "storiesCTA": "Pogledajte sve naše priče",
-    "subHeadline": "Pronađite i {download} umjetnička djela, fotografije, knjige, rukopise, novine i glazbu iz više od 4000 muzeja, arhiva, galerija i knjižnica {free}.",
-    "title": "Otkrijte europsku kulturnu baštinu"
+    "discoverEditorial": "Najnovije priče",
+    "storiesCTA": "Pogledajte sve priče",
+    "subHeadline": "Pretražujte, spremajte i dijelite umjetnost, knjige, filmove i glazbu iz tisuća kulturnih institucija",
+    "themesCTA": "Pogledajte sve teme",
+    "themesTitle": "Istražite po temi",
+    "title": "Otkrijte europsku {digital} kulturnu baštinu",
+    "titleDigital": "digitalnu"
   },
   "imageSlider": {
     "handle": "Ručka klizača"
@@ -851,12 +856,15 @@ export default {
   "newWindow": "otvara se u novom prozoru",
   "noMoreResults": "Nema više rezultata za vaš upit za pretraživanje.",
   "noResults": "Nema rezultata",
+  "of": "Od",
   "organisation": {
     "city": "Grad",
     "country": "Država",
+    "englishName": "Engleski naziv",
     "nameAcronym": "Akronim naziva"
   },
   "pageHasLoaded": "se učitao",
+  "pageNumber": "Broj stranice",
   "pages": {
     "collections": {
       "organisations": {
@@ -868,7 +876,11 @@ export default {
       "persons": {
         "title": "Osobe"
       },
+      "places": {
+        "title": "Mjesta"
+      },
       "table": {
+        "items": "Predmeti",
         "name": "Ime"
       },
       "times": {
@@ -878,6 +890,9 @@ export default {
         "title": "Teme"
       }
     }
+  },
+  "pagination": {
+    "label": "Paginacija"
   },
   "readMore": "Pročitaj više",
   "recommendation": {
@@ -922,9 +937,14 @@ export default {
   "resultsFor": "Rezultati za {0}",
   "resultsLimitWarning": "Dodatni rezultati nisu prikazani jer je prikazano samo prvih 1000 najrelevantnijih rezultata. Ako niste pronašli ono što tražite, razmislite o preciziranju pretraživanja.",
   "resultsWithin": "Rezultati unutar {0} {1} za {2}",
-  "search": "Traži",
+  "search": {
+    "boost": {
+      "placeholder": "Unesite upit za povećanje polja"
+    },
+    "title": "Traži"
+  },
   "searchHasLoaded": "Vraćeno je {0} rezultata",
-  "searchPlaceholder": "Što tražite?",
+  "searchPlaceholder": "Pretražite više od 50 milijuna artikala",
   "searchResults": "Traži",
   "searchResultsFor": "{0} - Pretraži",
   "searchSuggestions": "Traži prijedloge",

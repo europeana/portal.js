@@ -42,6 +42,7 @@ export default {
     "next": "Ar Aghaidh",
     "pin": "Bioráin",
     "preview": "Réamhamharc",
+    "previous": "Roimhe Seo",
     "providedBy": "Arna sholáthar ag {provider}",
     "reject": "Diúltaigh",
     "save": "Sábháil",
@@ -62,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Míreanna le déanaí",
     "organisation": "Eagraíochtaí",
+    "place": "Áiteanna",
     "time": "Na hAois réadmhaoin",
     "topic": "Topaicí réadmhaoine"
   },
@@ -79,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Eagraíocht",
     "person": "Duine",
+    "place": "Áit",
     "theme": "Téama",
     "time": "Haois",
     "topic": "Ábhar"
@@ -554,7 +557,7 @@ export default {
         "newspaper": "Nuachtáin",
         "photography": "Grianghrafadóireacht",
         "sport": "Spórt",
-        "ww1": "1914-1918"
+        "ww1": "An Chéad Chogadh Domhanda"
       },
       "select": "Roghnaigh téama"
     },
@@ -676,10 +679,10 @@ export default {
     "disclaimerLine1": "Is tionscnamh de chuid an Aontais Eorpaigh é Europeana, arna mhaoiniú ag Saoráid Nascadh na hEorpa agus Ballstáit an Aontais Eorpaigh. Is iad cuibhreannas faoi stiúir Fhondúireacht Europeana a oibríonn seirbhísí Europeana, an láithreán gréasáin seo san áireamh, faoi chonradh seirbhíse leis an gCoimisiún Eorpach.",
     "disclaimerLine2": "Ní ráthaíonn an Coimisiún Eorpach cruinneas na faisnéise agus ní ghlacann sé aon fhreagracht ná dliteanas ar bith maidir leis an bhfaisnéis ar an suíomh Gréasáin seo. Níl an Coimisiún Eorpach, ná aon duine atá ag gníomhú thar ceann an Choimisiúin Eorpaigh, freagrach ná faoi dhliteanas as cruinneas nó úsáid na faisnéise ar an suíomh Gréasáin seo.",
     "findUsElsewhere": "Aimsigh muid áit eile",
-    "imageDescription": "Arna Comh-mhaoiniú ag an tSaoráid um Chónascadh na hEorpa de chuid an Aontais Eorpaigh",
+    "imageDescription": "Maoinithe ag an Aontas Eorpach",
     "navigation": {
       "MoreInfoLabel": "Tuilleadh eolais",
-      "about": "Fúinne",
+      "about": "Maidir linne",
       "accessibility": "Inrochtaineacht",
       "cookies": "Fianáin",
       "forDevelopers": "Faoi chomhair forbróirí",
@@ -709,11 +712,12 @@ export default {
     "europeanaHome": "Baile Europeana",
     "inCollection": "Cuardaigh {query} i {collection}",
     "navigation": {
-      "about": "Fúinne",
+      "about": "Maidir linne",
       "collections": "Bailiúcháin",
-      "europeanaClassroom": "Múinteoirí",
+      "europeanaClassroom": "Do mhúinteoirí",
       "help": "Cabhair",
       "home": "Baile",
+      "pro": "Do ghairmithe",
       "stories": "Scéalta"
     },
     "quickSearch": "Cuardach Tapa",
@@ -727,12 +731,13 @@ export default {
   },
   "homeLinkAlt": "Baile Europeana",
   "homePage": {
-    "discoverEditorial": "Faigh amach ár scéalta",
-    "download": "íoslódáil",
-    "free": "saor",
-    "storiesCTA": "Féach ar ár scéalta go léir",
-    "subHeadline": "Aimsigh agus {íoslódáil} saothair ealaíne, grianghraif, leabhair, lámhscríbhinní, nuachtáin agus ceol ó níos mó ná 4000 músaeim, cartlanna, dánlanna, agus leabharlanna le haghaidh {saor in aisce}.",
-    "title": "Faigh amach oidhreacht chultúrtha na hEorpa"
+    "discoverEditorial": "Na scéalta is déanaí",
+    "storiesCTA": "Féach gach scéal",
+    "subHeadline": "Cuardaigh, sábháil agus roinn ealaín, leabhair, scannáin agus ceol ó na mílte institiúid chultúrtha",
+    "themesCTA": "Féach ar na téamaí go léir",
+    "themesTitle": "Déan iniúchadh de réir téama",
+    "title": "Faigh amach faoi oidhreacht chultúrtha {digital} na hEorpa",
+    "titleDigital": "dhigiteach"
   },
   "imageSlider": {
     "handle": "Hanla Sleamhnáin"
@@ -851,12 +856,15 @@ export default {
   "newWindow": "osclaítear i bhfuinneog nua é",
   "noMoreResults": "Níl aon toradh eile ann ar d'iarratas cuardaigh.",
   "noResults": "Níor aimsíodh aon Torthaí",
+  "of": "De",
   "organisation": {
     "city": "Cathair",
     "country": "Tír",
+    "englishName": "Ainm Béarla",
     "nameAcronym": "Acrainm ainm"
   },
   "pageHasLoaded": "luchtaithe",
+  "pageNumber": "Uimhir an leathanaigh",
   "pages": {
     "collections": {
       "organisations": {
@@ -868,7 +876,11 @@ export default {
       "persons": {
         "title": "Daoine"
       },
+      "places": {
+        "title": "Áiteanna"
+      },
       "table": {
+        "items": "Míreanna",
         "name": "Ainm"
       },
       "times": {
@@ -878,6 +890,9 @@ export default {
         "title": "Ábhair"
       }
     }
+  },
+  "pagination": {
+    "label": "Leathanaigh"
   },
   "readMore": "Léigh níos mó",
   "recommendation": {
@@ -922,9 +937,14 @@ export default {
   "resultsFor": "Torthaí le haghaidh {0}",
   "resultsLimitWarning": "Ní thaispeántar torthaí breise óir nach dtaispeántar ach amháin an chéad 1000 toradh is ábhartha. Murar aimsigh tú a raibh uait, déan machnamh do chuardach a leasú.",
   "resultsWithin": "Torthaí laistigh de {0} {1} le haghaidh {2}",
-  "search": "Cuardaigh",
+  "search": {
+    "boost": {
+      "placeholder": "Cuir isteach ceist treisithe réimse"
+    },
+    "title": "Cuardaigh"
+  },
   "searchHasLoaded": "{0} torthaí ar ais",
-  "searchPlaceholder": "Cuardaigh na mílte míreanna",
+  "searchPlaceholder": "Cuardaigh 50+ milliún mír",
   "searchResults": "Cuardaigh",
   "searchResultsFor": "{0} - Cuardaigh",
   "searchSuggestions": "Cuardaigh moltaí",
