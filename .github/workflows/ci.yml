@@ -147,13 +147,12 @@ jobs:
         with:
           images: ${{ env.DOCKER_REPOSITORY }}
           tags: |
-            type=ref,event=pr
-            type=ref,event=branch
-            type=ref,event=tag
-            type=semver,pattern={{version}}
+            type=ref,event=pr,suffix=-build
+            type=ref,event=branch,suffix=-build
+            type=ref,event=tag,suffix=-build
+            type=semver,pattern={{version}},suffix=-build
       -
         name: Build
-        id: build-push
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -196,7 +195,6 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
         name: Build and push
-        id: build-push
         uses: docker/build-push-action@v2
         with:
           context: .
