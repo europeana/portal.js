@@ -63,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Nedávne položky",
     "organisation": "Organizácie",
+    "place": "Miesta",
     "time": "Odporúčané storočia",
     "topic": "Odporúčané témy"
   },
@@ -678,7 +679,7 @@ export default {
     "disclaimerLine1": "Europeana je iniciatíva Európskej únie financovaná Connecting Europe Facility a členskými štátmi Európskej únie. Služby Europeany, vrátane tejto webovej stránky, prevádzkuje konzorcium vedené nadáciou Europeana na základe zmluvy o poskytovaní služieb s Európskou komisiou.",
     "disclaimerLine2": "Európska komisia nezaručuje presnosť informácií a neprijíma žiadnu zodpovednosť ani zodpovednosť za informácie na tejto webovej stránke. Európska komisia ani žiadna osoba konajúca v mene Európskej komisie nie je zodpovedná ani zodpovedná za presnosť alebo použitie informácií na tejto webovej stránke.",
     "findUsElsewhere": "Nájdite nás aj inde",
-    "imageDescription": "Spolufinancované z nástroja Európskej únie s názvom Spájame Európu",
+    "imageDescription": "Financované Európskou úniou",
     "navigation": {
       "MoreInfoLabel": "Ďalšie informácie",
       "about": "O nás",
@@ -713,9 +714,10 @@ export default {
     "navigation": {
       "about": "O nás",
       "collections": "Zbierky",
-      "europeanaClassroom": "Učitelia",
+      "europeanaClassroom": "Pre učiteľov",
       "help": "Pomoc",
       "home": "Domov",
+      "pro": "Pre profesionálov",
       "stories": "Príbehy"
     },
     "quickSearch": "Rýchle vyhľadávanie",
@@ -734,7 +736,8 @@ export default {
     "subHeadline": "Vyhľadávajte, ukladajte a zdieľajte umenie, knihy, filmy a hudbu z tisícok kultúrnych inštitúcií",
     "themesCTA": "Zobraziť všetky témy",
     "themesTitle": "Preskúmajte podľa témy",
-    "title": "Objavte kultúrne dedičstvo Európy"
+    "title": "Objavte {digital} kultúrne dedičstvo Európy",
+    "titleDigital": "digitálne"
   },
   "imageSlider": {
     "handle": "Rukoväť posuvníka"
@@ -853,6 +856,7 @@ export default {
   "newWindow": "otvorí sa v novom okne",
   "noMoreResults": "Pre vaše vyhľadávanie neexistujú žiadne ďalšie výsledky.",
   "noResults": "Žiadne výsledky",
+  "of": "Z",
   "organisation": {
     "city": "Mesto",
     "country": "Krajina",
@@ -860,6 +864,7 @@ export default {
     "nameAcronym": "Názov akronym"
   },
   "pageHasLoaded": "načítal",
+  "pageNumber": "Číslo strany",
   "pages": {
     "collections": {
       "organisations": {
@@ -875,6 +880,7 @@ export default {
         "title": "Miesta"
       },
       "table": {
+        "items": "Položky",
         "name": "Meno"
       },
       "times": {
@@ -884,6 +890,9 @@ export default {
         "title": "Témy"
       }
     }
+  },
+  "pagination": {
+    "label": "Stránkovanie"
   },
   "readMore": "Viac",
   "recommendation": {

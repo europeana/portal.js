@@ -63,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Pēdējie vienumi",
     "organisation": "Organizācijas",
+    "place": "Vietas",
     "time": "Izvēlētie gadsimti",
     "topic": "Izvēlētās tēmas"
   },
@@ -678,7 +679,7 @@ export default {
     "disclaimerLine1": "Europeana ir Eiropas Savienības iniciatīva, ko finansē Eiropas Savienības Eiropas Connecting Europe Facility un Eiropas Savienības dalībvalstis. Europeana pakalpojumus, tostarp šo vietni, pārvalda konsorcijs, kuru vada Europeana fonds saskaņā ar pakalpojumu līgumu ar Eiropas Komisiju.",
     "disclaimerLine2": "Eiropas Komisija negarantē informācijas precizitāti un neuzņemas nekādu atbildību vai saistības attiecībā uz šajā tīmekļa vietnē sniegto informāciju. Ne Eiropas Komisija, ne jebkura persona, kas rīkojas Eiropas Komisijas vārdā, nav atbildīga par šajā tīmekļa vietnē sniegtās informācijas precizitāti vai izmantošanu.",
     "findUsElsewhere": "Atrodiet mūs citur",
-    "imageDescription": "Līdzfinansē Eiropas Savienības infrastruktūras savienošanas instruments",
+    "imageDescription": "Finansē Eiropas Savienība",
     "navigation": {
       "MoreInfoLabel": "Papildinformācija",
       "about": "Par mums",
@@ -716,6 +717,7 @@ export default {
       "europeanaClassroom": "Skolotājiem",
       "help": "Palīdzība",
       "home": "Mājas",
+      "pro": "Profesionāļiem",
       "stories": "Stāsti"
     },
     "quickSearch": "Ātrā meklēšana",
@@ -734,7 +736,8 @@ export default {
     "subHeadline": "Meklējiet,saglabājiet un kopīgojietmākslu,grāmatas, filmas un mūzikutūkstošoskultūrasiestāžu",
     "themesCTA": "Skatīt visas tēmas",
     "themesTitle": "Izpētiet pēc tēmas",
-    "title": "Atklājiet Eiropas kultūras mantojumu"
+    "title": "Iepazīstiet Eiropas {digital} kultūras mantojumu",
+    "titleDigital": "digitālo"
   },
   "imageSlider": {
     "handle": "Slīdņa rokturis"
@@ -853,6 +856,7 @@ export default {
   "newWindow": "tiek atvērts jaunā logā",
   "noMoreResults": "Jūsu meklēšanas vaicājumam vairs nav rezultātu.",
   "noResults": "Nav rezultātu",
+  "of": "No",
   "organisation": {
     "city": "Pilsēta",
     "country": "Valsts",
@@ -860,6 +864,7 @@ export default {
     "nameAcronym": "Vārda akronīms"
   },
   "pageHasLoaded": "ir ielādēts",
+  "pageNumber": "Lapas numurs",
   "pages": {
     "collections": {
       "organisations": {
@@ -875,6 +880,7 @@ export default {
         "title": "Vietas"
       },
       "table": {
+        "items": "Vienumus",
         "name": "Vārds"
       },
       "times": {
@@ -884,6 +890,9 @@ export default {
         "title": "Tēmas"
       }
     }
+  },
+  "pagination": {
+    "label": "Lapu šķirošana"
   },
   "readMore": "Lasīt vairāk",
   "recommendation": {

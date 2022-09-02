@@ -679,7 +679,7 @@ export default {
     "disclaimerLine1": "Europeana is een initiatief van de Europese Unie, gefinancierd door de Connecting Europe Facility van de Europese Unie en de lidstaten van de Europese Unie. De Europeana-diensten, waaronder deze website, worden beheerd door een consortium onder leiding van de Europeana Foundation in het kader van een servicecontract met de Europese Commissie.",
     "disclaimerLine2": "De Europese Commissie staat niet in voor de juistheid van de informatie en aanvaardt geen enkele verantwoordelijkheid of aansprakelijkheid met betrekking tot de informatie op deze website. Noch de Europese Commissie, noch enige persoon die namens de Europese Commissie handelt, is verantwoordelijk of aansprakelijk voor de juistheid of het gebruik van de informatie op deze website.",
     "findUsElsewhere": "Vind ons ergens anders",
-    "imageDescription": "Medegefinancierd door de Connecting Europe Facility van de Europese Unie",
+    "imageDescription": "Gefinancierd door de Europese Unie",
     "navigation": {
       "MoreInfoLabel": "Meer informatie",
       "about": "Over ons",
@@ -714,9 +714,10 @@ export default {
     "navigation": {
       "about": "Over ons",
       "collections": "Collecties",
-      "europeanaClassroom": "Leraren",
+      "europeanaClassroom": "Voor leraren",
       "help": "Help",
       "home": "Home",
+      "pro": "Voor professionals",
       "stories": "Verhalen"
     },
     "quickSearch": "Snel zoeken",
@@ -735,7 +736,8 @@ export default {
     "subHeadline": "Zoek, bewaar en deel kunst, boeken, films en muziek van duizenden culturele instellingen",
     "themesCTA": "Bekijk alle thema's",
     "themesTitle": "Verkennen op thema",
-    "title": "Ontdek het cultureel erfgoed van Europa"
+    "title": "Ontdek het {digital} culturele erfgoed van Europa",
+    "titleDigital": "digitale"
   },
   "imageSlider": {
     "handle": "Schuifgreep"
@@ -878,6 +880,7 @@ export default {
         "title": "Plaatsen"
       },
       "table": {
+        "items": "Items",
         "name": "Naam"
       },
       "times": {

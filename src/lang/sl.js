@@ -63,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Nedavni predmeti",
     "organisation": "Organizacije",
+    "place": "Mesta",
     "time": "Priporočena stoletja",
     "topic": "Priporočene teme"
   },
@@ -678,7 +679,7 @@ export default {
     "disclaimerLine1": "Europeana je pobuda Evropske unije, ki jo financirajo Connecting Europe Facility Evrope Evropske unije in države članice Evropske unije. Storitve Europeane, vključno s tem spletnim mestom, upravlja konzorcij pod vodstvom Fundacije Europeana na podlagi pogodbe o storitvah z Evropsko komisijo.",
     "disclaimerLine2": "Evropska komisija ne zagotavlja točnosti informacij in ne sprejema nobene odgovornosti ali odgovornosti v zvezi z informacijami na tej spletni strani. Niti Evropska komisija niti nobena oseba, ki deluje v imenu Evropske komisije, ni odgovorna ali odgovorna za točnost ali uporabo informacij na tej spletni strani.",
     "findUsElsewhere": "Najdite nas drugje",
-    "imageDescription": "Sofinancira Instrument za povezovanje Evrope Evropske unije",
+    "imageDescription": "Financira Evropska unija",
     "navigation": {
       "MoreInfoLabel": "Več informacij",
       "about": "O nas",
@@ -713,9 +714,10 @@ export default {
     "navigation": {
       "about": "O nas",
       "collections": "Zbirke",
-      "europeanaClassroom": "Učitelji",
+      "europeanaClassroom": "Za učitelje",
       "help": "Pomoč",
       "home": "Domov",
+      "pro": "Za strokovnjake",
       "stories": "Zgodbe"
     },
     "quickSearch": "Hitro iskanje",
@@ -734,7 +736,8 @@ export default {
     "subHeadline": "Iskanje, shranjevanje in deljenje umetnosti, knjig, filmov in glasbe iz več tisoč kulturnih ustanov",
     "themesCTA": "Oglejte si vse teme",
     "themesTitle": "Raziščite po temi",
-    "title": "Odkrijte kulturno dediščino Evrope"
+    "title": "Odkrijte evropsko {digital} kulturno dediščino",
+    "titleDigital": "digitalno"
   },
   "imageSlider": {
     "handle": "Ročaj drsnika"
@@ -853,6 +856,7 @@ export default {
   "newWindow": "odpre se v novem oknu",
   "noMoreResults": "Za vašo iskalno poizvedbo ni več rezultatov.",
   "noResults": "Brez rezultatov",
+  "of": "Od",
   "organisation": {
     "city": "Mesto",
     "country": "Država",
@@ -860,6 +864,7 @@ export default {
     "nameAcronym": "Kratica imena"
   },
   "pageHasLoaded": "je naložena",
+  "pageNumber": "Številka strani",
   "pages": {
     "collections": {
       "organisations": {
@@ -875,6 +880,7 @@ export default {
         "title": "Krajev"
       },
       "table": {
+        "items": "Elementi",
         "name": "Ime"
       },
       "times": {
@@ -884,6 +890,9 @@ export default {
         "title": "Teme"
       }
     }
+  },
+  "pagination": {
+    "label": "Paginacija"
   },
   "readMore": "Preberi več",
   "recommendation": {

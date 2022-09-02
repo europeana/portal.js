@@ -24,7 +24,7 @@
     </b-container>
     <div
       v-else
-      class="page gridless-container responsive-font"
+      class="page white-page gridless-container responsive-font"
     >
       <ContentHeader
         :title="pageTitle"
@@ -131,7 +131,7 @@
       },
       displayTags() {
         if (this.filteredTags) {
-          return this.tags.filter((tag) => this.filteredTags.includes(tag.identifier));
+          return this.tags.filter((tag) => this.filteredTags.includes(tag.identifier) || this.selectedTags.includes(tag.identifier));
         } else {
           return this.tags;
         }
@@ -185,10 +185,8 @@
             const storyTags = story.cats.items.map((cat) => cat.id);
             return this.selectedTags.every((tag) => storyTags.includes(tag));
           });
-          this.filteredTags = uniq(stories.map((story) => story.cats.items.map((cat) => cat.id)).flat());
-        } else {
-          this.filteredTags = null;
         }
+        this.filteredTags = uniq(stories.map((story) => story.cats.items.map((cat) => cat.id)).flat());
 
         // Order by date published
         stories = stories.sort((a, b) => (new Date(b.date)).getTime() - (new Date(a.date)).getTime());
@@ -242,25 +240,12 @@
 
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
+  @import '@/assets/scss/mixins';
 
   .page {
-    background-color: white; // TODO: make this more generic when more and more pages get a white background
     padding-bottom: 1rem;
     padding-top: 1rem;
     margin-top: -1rem;
-
-    &::after {
-      border-top: 145px solid $white;
-      border-left: 60px solid transparent;
-      content: '';
-      display: block;
-      height: 0;
-      position: absolute;
-      right: 0;
-      top: 100%;
-      width: 0;
-      z-index: 1;
-    }
 
     ::v-deep header .col {
       margin-bottom: 1em;

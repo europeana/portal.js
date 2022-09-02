@@ -212,7 +212,6 @@ describe('pages/home/index', () => {
       it('returns the PrimaryCallToAction-type sections', () => {
         const data = {
           sections: [
-            { '__typename': 'PrimaryCallToAction', name: 'Temporary', relatedLink: {}, text: '' },
             { '__typename': 'SomethingElse' },
             { '__typename': 'PrimaryCallToAction', name: 'Primary', relatedLink: {}, text: '' },
             { '__typename': 'PrimaryCallToAction', name: 'Seconday', relatedLink: {}, text: '' }
@@ -223,25 +222,8 @@ describe('pages/home/index', () => {
         const ctas = wrapper.vm.callsToAction;
 
         expect(ctas).toEqual([
-          { '__typename': 'PrimaryCallToAction', name: 'Temporary', relatedLink: {}, text: '' },
           { '__typename': 'PrimaryCallToAction', name: 'Primary', relatedLink: {}, text: '' },
           { '__typename': 'PrimaryCallToAction', name: 'Seconday', relatedLink: {}, text: '' }
-        ]);
-      });
-
-      it('inserts `null` as the first element if fewer than 3 CTAs', () => {
-        const data = {
-          sections: [
-            { '__typename': 'PrimaryCallToAction', name: 'Primary', relatedLink: {}, text: '' }
-          ]
-        };
-        const wrapper = factory({ data });
-
-        const ctas = wrapper.vm.callsToAction;
-
-        expect(ctas).toEqual([
-          null,
-          { '__typename': 'PrimaryCallToAction', name: 'Primary', relatedLink: {}, text: '' }
         ]);
       });
     });

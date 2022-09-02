@@ -679,7 +679,7 @@ export default {
     "disclaimerLine1": "Europeana on Euroopan unionin aloite, jonka rahoittavat Euroopan unionin Verkkojen Eurooppa -väline ja Euroopan unionin jäsenvaltiot. Europeana-palveluja, mukaan lukien tämä verkkosivusto, ylläpitää konsortio, jota johtaa Europeana-säätiö Euroopan komission kanssa tehtyyn palvelusopimukseen.",
     "disclaimerLine2": "Euroopan komissio ei takaa tietojen paikkansapitävyyttä eikä ota mitään vastuuta tämän verkkosivuston tiedoista. Kumpikaan Euroopan komissio tai kukaan Euroopan komission puolesta toimiva henkilö ei ole vastuussa tai vastuussa tämän verkkosivuston tietojen oikeellisuudesta tai käytöstä.",
     "findUsElsewhere": "Löydä meidät muualta",
-    "imageDescription": "Euroopan unionin Verkkojen Eurooppa -väline on osallistunut rahoitukseen",
+    "imageDescription": "Euroopan unionin rahoittama",
     "navigation": {
       "MoreInfoLabel": "Lisätietoja",
       "about": "Tietoa meistä",
@@ -714,9 +714,10 @@ export default {
     "navigation": {
       "about": "Tietoa meistä",
       "collections": "Kokoelmat",
-      "europeanaClassroom": "Opettajat",
+      "europeanaClassroom": "Opettajille",
       "help": "Apua",
       "home": "Koti",
+      "pro": "Ammattilaisille",
       "stories": "Tarinoita"
     },
     "quickSearch": "Pikahaku",
@@ -735,7 +736,8 @@ export default {
     "subHeadline": "Etsi, tallenna ja jaa taidetta, kirjoja, elokuvia ja musiikkia tuhansista kulttuurilaitoksista",
     "themesCTA": "Katso kaikki teemat",
     "themesTitle": "Tutustu teemoittain",
-    "title": "Tutustu Euroopan kulttuuriperintöön"
+    "title": "Tutustu Euroopan {digital} kulttuuriperintöön",
+    "titleDigital": "digitaaliseen"
   },
   "imageSlider": {
     "handle": "Liukusäätimen kahva"
@@ -878,6 +880,7 @@ export default {
         "title": "Paikat"
       },
       "table": {
+        "items": "Tuotteet",
         "name": "Nimi"
       },
       "times": {

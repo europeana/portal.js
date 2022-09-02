@@ -63,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Senaste objekt",
     "organisation": "Organisationer",
+    "place": "Platser",
     "time": "Utvalda århundraden",
     "topic": "Utvalda ämnen"
   },
@@ -678,7 +679,7 @@ export default {
     "disclaimerLine1": "Europeana är ett initiativ från Europeiska unionen, finansierat av EU: s Connecting Europe Facility och EU: s medlemsstater. Europeana-tjänsterna, inklusive denna webbplats, drivs av ett konsortium som leds av Europeana Foundation under ett serviceavtal med Europeiska kommissionen.",
     "disclaimerLine2": "Europeiska kommissionen garanterar inte att informationen är korrekt och tar inget ansvar för informationen på denna webbplats. Varken Europeiska kommissionen eller någon person som agerar på Europeiska kommissionens vägnar är ansvarig för att informationen på denna webbplats är korrekt eller används.",
     "findUsElsewhere": "Hitta oss någon annanstans",
-    "imageDescription": "Medfinansieras av EU:s Connecting Europe Facility",
+    "imageDescription": "Finansieras av Europeiska unionen",
     "navigation": {
       "MoreInfoLabel": "Mer information",
       "about": "Om oss",
@@ -692,7 +693,7 @@ export default {
       "terms": "Användarvillkor"
     },
     "ourMission": "Vårt uppdrag",
-    "ourMissionQuote": "Europeana stöttar kulturarvsektorns digitala omvandling. Vi utvecklar expertis, verktyg och policyer för att främja digital förändring och uppmuntra partnerskap som främjar innovation."
+    "ourMissionQuote": "Europeana stöttar kulturarvssektorn i den digitala omvandlingen. Vi utvecklar expertis, verktyg och grundprinciper för att gynna digital förändring och uppmuntra partnerskap som främjar innovation."
   },
   "formatting": {
     "ellipsis": "…",
@@ -713,9 +714,10 @@ export default {
     "navigation": {
       "about": "Om oss",
       "collections": "Samlingar",
-      "europeanaClassroom": "Lärare",
+      "europeanaClassroom": "För lärare",
       "help": "Hjälp",
       "home": "Hem",
+      "pro": "För yrkesverksamma",
       "stories": "Berättelser"
     },
     "quickSearch": "Snabb sökning",
@@ -731,10 +733,11 @@ export default {
   "homePage": {
     "discoverEditorial": "Senaste berättelserna",
     "storiesCTA": "Se alla berättelser",
-    "subHeadline": "Sök, spara och dela konst, böcker, filmer och musik från tusentals kulturella institutioner",
+    "subHeadline": "Sök, spara och dela konst, böcker, filmer och musik från tusentals kulturinstitutioner",
     "themesCTA": "Se alla teman",
     "themesTitle": "Utforska efter tema",
-    "title": "Upptäck Europas kulturella arv"
+    "title": "Upptäck Europas {digital} kulturarv",
+    "titleDigital": "digitala"
   },
   "imageSlider": {
     "handle": "Skjutreglage"
@@ -853,6 +856,7 @@ export default {
   "newWindow": "öppnas i nytt fönster",
   "noMoreResults": "Det finns inga fler resultat för din sökning.",
   "noResults": "Inga träffar",
+  "of": "Av",
   "organisation": {
     "city": "Stad",
     "country": "Land",
@@ -860,6 +864,7 @@ export default {
     "nameAcronym": "Namn akronym"
   },
   "pageHasLoaded": "har laddats",
+  "pageNumber": "Sidonummer",
   "pages": {
     "collections": {
       "organisations": {
@@ -875,6 +880,7 @@ export default {
         "title": "Platser"
       },
       "table": {
+        "items": "Objekt",
         "name": "Namn"
       },
       "times": {
@@ -884,6 +890,9 @@ export default {
         "title": "Ämnen"
       }
     }
+  },
+  "pagination": {
+    "label": "Paginering"
   },
   "readMore": "Läs mer",
   "recommendation": {
@@ -935,7 +944,7 @@ export default {
     "title": "Sök"
   },
   "searchHasLoaded": "{0} resultat returnerade",
-  "searchPlaceholder": "Sök efter 50+ miljoner objekt",
+  "searchPlaceholder": "Sök bland 50+ miljoner objekt",
   "searchResults": "Sök",
   "searchResultsFor": "{0} – Sök",
   "searchSuggestions": "Sök förslag",

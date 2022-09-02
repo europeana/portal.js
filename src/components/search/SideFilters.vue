@@ -464,6 +464,7 @@
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
   @import '@/assets/scss/icons';
+  @import '@/assets/scss/mixins';
 
   .filters-title {
     font-size: $font-size-small;
@@ -530,18 +531,7 @@
       min-width: 220px;
       min-height: 31rem;
 
-      &::after {
-        border-top: 145px solid $white;
-        border-left: 60px solid transparent;
-        content: '';
-        display: block;
-        height: 0;
-        position: absolute;
-        right: 0;
-        top: 100%;
-        width: 0;
-        z-index: 1;
-      }
+      @include white-cutout;
 
       .filters-backdrop {
         display: none;
@@ -551,10 +541,6 @@
     flex-grow: 0;
     padding: 0;
     margin-top: -1rem;
-
-    @media (min-width: $bp-xxxl) {
-      margin-top: -1vw;
-    }
 
     .side-filters {
       background-color: $white;
