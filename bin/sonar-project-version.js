@@ -1,6 +1,6 @@
 import propertiesReader from 'properties-reader';
 
-import versions from '../pkg-versions.js';
+import versions from '../packages/portal/pkg-versions.js';
 
 const versionSonarProjectProperties = async() => {
   const sonarProjectPropertiesFilePath = new URL('../sonar-project.properties', import.meta.url);

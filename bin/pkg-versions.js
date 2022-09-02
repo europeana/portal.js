@@ -1,5 +1,5 @@
 import fs from 'fs';
-import versions from '../pkg-versions.js';
+import versions from '../packages/portal/pkg-versions.js';
 
 const versionsFile = new URL('../packages/portal/pkg-versions.js', import.meta.url);
 
