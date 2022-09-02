@@ -129,7 +129,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
+  # Build the "build" stage of the Docker image separately, so that it gets cached
   docker-build:
+    runs-on: ubuntu-latest
     if: github.event_name == 'push' || github.event.pull_request.draft == false
     steps:
       -
@@ -162,8 +164,8 @@ jobs:
           cache-to: type=gha,mode=max
           tags: ${{ steps.meta.outputs.tags }}
 
-  # Build, and push to Docker Hub, full production Docker image for use throughout
-  # other jobs
+  # Build, and push to Docker Hub, the final-stage production-ready Docker image,
+  # for use throughout other jobs, and for deployment.
   docker-final:
     runs-on: ubuntu-latest
     needs: [docker-build]
