@@ -61,7 +61,10 @@ jobs:
       -
         name: Install eslint
         run: |
-          npm install --prefix tmp eslint eslint-plugin-jest eslint-plugin-vue
+          npm install --prefix tmp \
+            eslint@$(jq '.packages["node_modules/eslint"].version' package-lock.json) \
+            eslint-plugin-jest@$(jq '.packages["node_modules/eslint-plugin-jest"].version' package-lock.json) \
+            eslint-plugin-vue@$(jq '.packages["node_modules/eslint-plugin-vue"].version' package-lock.json)
           mv tmp/node_modules ./
       -
         name: Run eslint
@@ -84,7 +87,10 @@ jobs:
       -
         name: Install stylelint
         run: |
-          npm install --prefix tmp stylelint stylelint-config-recommended-vue stylelint-config-standard-scss
+          npm install --prefix tmp \
+            stylelint@$(jq '.packages["node_modules/stylelint"].version' package-lock.json) \
+            stylelint-config-recommended-vue@$(jq '.packages["node_modules/stylelint-config-recommended-vue"].version' package-lock.json) \ \
+            stylelint-config-standard-scss@$(jq '.packages["node_modules/stylelint-config-standard-scss"].version' package-lock.json)
           mv tmp/node_modules ./
       -
         name: Run stylelint
