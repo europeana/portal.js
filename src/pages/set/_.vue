@@ -9,18 +9,14 @@
       </b-col>
     </b-row>
   </b-container>
-  <b-container
+  <ErrorMessage
     v-else-if="$fetchState.error"
-    data-qa="alert message container"
-  >
-    <b-row class="flex-md-row py-4">
-      <b-col cols="12">
-        <AlertMessage
-          :error="$fetchState.error.message"
-        />
-      </b-col>
-    </b-row>
-  </b-container>
+    data-qa="error message container"
+    :error="$fetchState.error.message"
+    :title-path="$fetchState.error.titlePath"
+    :description-path="$fetchState.error.descriptionPath"
+    :illustration-src="$fetchState.error.illustrationSrc"
+  />
   <div
     v-else-if="set.id"
     class="mt-n3"
@@ -167,9 +163,10 @@
     name: 'SetPage',
 
     components: {
-      ClientOnly,
-      LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
       AlertMessage: () => import('@/components/generic/AlertMessage'),
+      ClientOnly,
+      ErrorMessage: () => import('@/components/generic/ErrorMessage'),
+      LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
       ItemPreviewCardGroup,
       SocialShareModal,
       SetFormModal: () => import('@/components/set/SetFormModal'),
@@ -191,11 +188,24 @@
     },
 
     async fetch() {
-      await this.$store.dispatch('set/fetchActive', this.setId);
+      try {
+        await this.$store.dispatch('set/fetchActive', this.setId);
 
-      if (this.setIsEntityBestItems && this.userIsEntityEditor) {
-        await this.$store.commit('entity/setFeaturedSetId', this.setId);
-        await this.$store.dispatch('entity/getPins');
+        if (this.setIsEntityBestItems && this.userIsEntityEditor) {
+          await this.$store.commit('entity/setFeaturedSetId', this.setId);
+          await this.$store.dispatch('entity/getPins');
+        }
+      } catch (error) {
+        if (process.server) {
+          this.$nuxt.context.res.statusCode = error.statusCode || 500;
+        }
+        if (error.statusCode === 403) {
+          error.titlePath = 'errorMessage.galleryUnauthorised.title';
+          error.descriptionPath = 'errorMessage.galleryUnauthorised.description';
+          error.metaTitlePath = 'errorMessage.galleryUnauthorised.metaTitle';
+          error.illustrationSrc = require('@/assets/img/illustrations/il-gallery-unauthorised.svg');
+        }
+        throw error;
       }
     },
 
@@ -216,6 +226,9 @@
     },
 
     computed: {
+      fetchState() {
+        return this.$fetchState;
+      },
       set() {
         return this.$store.state.set.active || {};
       },
@@ -247,7 +260,7 @@
       },
       displayTitle() {
         if (this.$fetchState.error) {
-          return { values: [this.$t('error')] };
+          return { values: [this.$t(this.$fetchState.error.metaTitlePath ? this.$fetchState.error.metaTitlePath : 'error')] };
         }
         return langMapValueForLocale(this.set.title, this.$i18n.locale);
       },

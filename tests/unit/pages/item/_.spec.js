@@ -258,7 +258,8 @@ describe('pages/item/_.vue', () => {
   });
 
   describe('when fetch errors', () => {
-    const errorMock = { $fetchState: { error: { message: 'Error message' } } };
+    const errorMock = { $fetchState: { error: { statusCode: 404, message: 'Error message' } } };
+
     it('renders an error message', () => {
       const wrapper = factory({ mocks: errorMock });
 
@@ -266,6 +267,7 @@ describe('pages/item/_.vue', () => {
 
       expect(errorMessage.exists()).toBe(true);
     });
+
     describe('meta title', () => {
       it('communicates item is not found', () => {
         const wrapper = factory({ mocks: errorMock });

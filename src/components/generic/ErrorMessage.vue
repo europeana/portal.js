@@ -1,12 +1,20 @@
 <template>
   <div class="error-container gridless-container responsive-font">
-    <div class="d-flex flex-wrap flex-sm-nowrap align-items-center justify-content-between">
+    <div
+      v-if="illustrationSrc || titlePath || descriptionPath"
+      class="d-flex flex-wrap flex-sm-nowrap align-items-center justify-content-between"
+    >
       <b-img
+        v-if="illustrationSrc"
         :src="illustrationSrc"
         alt=""
       />
-      <section class="mt-4 text-center text-sm-left">
+      <section
+        v-if="titlePath || descriptionPath"
+        class="mt-4 text-center text-sm-left"
+      >
         <i18n
+          v-if="titlePath"
           tag="h1"
           :path="titlePath"
         >
@@ -15,6 +23,7 @@
           </template>
         </i18n>
         <p
+          v-if="descriptionPath"
           data-qa="error message"
         >
           {{ $t(descriptionPath || '') }}
@@ -116,7 +125,6 @@
 
   ::v-deep .alert {
     overflow: hidden;
-    line-break: anywhere;
   }
 </style>
 
