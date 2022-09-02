@@ -1,5 +1,8 @@
 <template>
-  <div data-qa="item page">
+  <div
+    data-qa="item page"
+    :class="$fetchState.error && 'white-page'"
+  >
     <b-container
       v-if="$fetchState.pending"
       data-qa="loading spinner container"
@@ -10,18 +13,14 @@
         </b-col>
       </b-row>
     </b-container>
-    <b-container
+    <ErrorMessage
       v-else-if="$fetchState.error"
-      data-qa="alert message container"
-    >
-      <b-row class="flex-md-row py-4">
-        <b-col cols="12">
-          <AlertMessage
-            :error="$fetchState.error.message"
-          />
-        </b-col>
-      </b-row>
-    </b-container>
+      data-qa="error message container"
+      :error="$fetchState.error.message"
+      title-path="errorMessage.itemNotFound.title"
+      description-path="errorMessage.itemNotFound.description"
+      :illustration-src="require('@/assets/img/illustrations/il-item-not-found.svg')"
+    />
     <template
       v-else
     >
@@ -140,7 +139,7 @@
   export default {
     name: 'ItemPage',
     components: {
-      AlertMessage: () => import('@/components/generic/AlertMessage'),
+      ErrorMessage: () => import('@/components/generic/ErrorMessage'),
       ItemHero,
       ItemLanguageSelector: () => import('@/components/item/ItemLanguageSelector'),
       ItemRecommendations,
@@ -276,7 +275,13 @@
         return langMapValueForLocale(this.description, this.metadataLanguage || this.$i18n.locale, { uiLanguage: this.$i18n.locale });
       },
       metaTitle() {
-        return this.titlesInCurrentLanguage[0] ? this.titlesInCurrentLanguage[0].value : this.$t('record.record');
+        if (this.$fetchState.error) {
+          return this.$t('errorMessage.itemNotFound.metaTitle');
+        } else if (this.titlesInCurrentLanguage[0]) {
+          return this.titlesInCurrentLanguage[0].value;
+        } else {
+          return this.$t('record.record');
+        }
       },
       metaDescription() {
         if (isEmpty(this.descriptionInCurrentLanguage)) {
