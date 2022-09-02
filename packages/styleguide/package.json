@@ -8,7 +8,7 @@
   },
   "devDependencies": {
     "@europeana/portal": "1.80.0",
-    "vue-styleguidist": "4.47.0"
+    "vue-styleguidist": "4.48.0"
   },
   "contributors": [
     "Richard Doe <richard.doe@europeana.eu>",
