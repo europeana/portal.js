@@ -1,35 +1,54 @@
 import { oEmbeddable } from './oembed';
 
-export function isPDF(media) {
-  return media.ebucoreHasMimeType === 'application/pdf';
-}
+const MEDIA_TYPE_APPLICATION = 'application';
+const MEDIA_TYPE_APPLICATION_DASH_XML = `${MEDIA_TYPE_APPLICATION}/dash+xml`;
+const MEDIA_TYPE_APPLICATION_PDF = `${MEDIA_TYPE_APPLICATION}/pdf`;
+const MEDIA_TYPE_AUDIO = 'audio';
+const MEDIA_TYPE_AUDIO_FLAC = `${MEDIA_TYPE_AUDIO}/flac`;
+const MEDIA_TYPE_AUDIO_MPEG = `${MEDIA_TYPE_AUDIO}/mpeg`;
+const MEDIA_TYPE_AUDIO_OGG = `${MEDIA_TYPE_AUDIO}/ogg`;
+const MEDIA_TYPE_IMAGE = 'image';
+const MEDIA_TYPE_TEXT = 'text';
+const MEDIA_TYPE_VIDEO = 'video';
+const MEDIA_TYPE_VIDEO_OGG = `${MEDIA_TYPE_VIDEO}/ogg`;
+const MEDIA_TYPE_VIDEO_MP4 = `${MEDIA_TYPE_VIDEO}/mp4`;
+const MEDIA_TYPE_VIDEO_WEBM = `${MEDIA_TYPE_VIDEO}/webm`;
 
-export function isImage(media) {
-  if (!media.ebucoreHasMimeType) {
-    return false;
+const MEDIA_CODEC_H264 = 'h264';
+
+export const webResourceEDMType = (media) => {
+  let type = null;
+
+  if (media.ebucoreHasMimeType?.startsWith(`${MEDIA_TYPE_IMAGE}/`)) {
+    type = 'IMAGE';
+  } else if (media.ebucoreHasMimeType?.startsWith(`${MEDIA_TYPE_AUDIO}/`)) {
+    type = 'SOUND';
+  } else if (media.ebucoreHasMimeType?.startsWith(`${MEDIA_TYPE_VIDEO}/`) || (media.ebucoreHasMimeType === MEDIA_TYPE_APPLICATION_DASH_XML)) {
+    type = 'VIDEO';
+  } else if (media.ebucoreHasMimeType?.startsWith(`${MEDIA_TYPE_TEXT}/`) || (media.ebucoreHasMimeType === MEDIA_TYPE_APPLICATION_PDF)) {
+    type = 'TEXT';
   }
-  return media.ebucoreHasMimeType.startsWith('image/');
-}
+  // TODO: 3D media types?
+
+  return type;
+};
 
 export function isHTMLVideo(media) {
   if (!media.ebucoreHasMimeType) {
     return false;
   }
-  return ['video/ogg', 'video/webm'].includes(media.ebucoreHasMimeType) ||
-    ((media.ebucoreHasMimeType === 'video/mp4') && (media.edmCodecName === 'h264'));
+  return [MEDIA_TYPE_VIDEO_OGG, MEDIA_TYPE_VIDEO_WEBM].includes(media.ebucoreHasMimeType) ||
+    ((media.ebucoreHasMimeType === MEDIA_TYPE_VIDEO_MP4) && (media.edmCodecName === MEDIA_CODEC_H264));
 }
 
 export function isHTMLAudio(media) {
-  if (!media.ebucoreHasMimeType) {
-    return false;
-  }
-  return ['audio/flac', 'audio/ogg', 'audio/mpeg'].includes(media.ebucoreHasMimeType);
+  return [MEDIA_TYPE_AUDIO_FLAC, MEDIA_TYPE_AUDIO_OGG, MEDIA_TYPE_AUDIO_MPEG].includes(media.ebucoreHasMimeType);
 }
 
 export function isPlayableMedia(media) {
   return (typeof media.ebucoreHasMimeType === 'string' && (
     isHTMLAudio(media) || isHTMLVideo(media) ||
-    (media.ebucoreHasMimeType === 'application/dash+xml')
+    (media.ebucoreHasMimeType === MEDIA_TYPE_APPLICATION_DASH_XML)
   )) ||
     new RegExp('^http://www.euscreen.eu/item.html').test(media.about);
 }
@@ -80,7 +99,7 @@ export function isRichMedia(media) {
 }
 
 export function requiresDashJS(media) {
-  return (media === 'application/dash+xml') ||
+  return (media === MEDIA_TYPE_APPLICATION_DASH_XML) ||
     // FIXME: this is a hack to account for misinterpretation of %2B in URL query
     //        parameter on server-side only. Find a proper solution when the cause
     //        is known. See https://europeana.atlassian.net/browse/EC-5057

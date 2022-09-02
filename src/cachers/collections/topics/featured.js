@@ -2,6 +2,7 @@ import baseData from '../index.js';
 
 const PICK = ['id', 'prefLabel', 'isShownBy'];
 const LOCALISE = 'prefLabel';
+const SORT = 'prefLabel';
 const DAILY = 4;
 const FEATURED = [
   '106',
@@ -74,7 +75,7 @@ const FEATURED = [
 ];
 
 const featuredQf = FEATURED
-  .map(idNum => `"http://data.europeana.eu/concept/base/${idNum}"`)
+  .map(idNum => `*/${idNum}`)
   .join(' OR ');
 
 const data = (config = {}) => baseData({ type: 'concept', qf: `id:(${featuredQf})` }, config);
@@ -83,5 +84,6 @@ export {
   data,
   LOCALISE,
   PICK,
-  DAILY
+  DAILY,
+  SORT
 };

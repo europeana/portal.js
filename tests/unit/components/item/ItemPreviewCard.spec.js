@@ -24,6 +24,12 @@ const factory = (propsData) => {
     localVue,
     propsData,
     mocks: {
+      $apis: {
+        thumbnail: {
+          edmPreview: (img) => img?.edmPreview?.[0],
+          generic: (id) => id
+        }
+      },
       $auth: { loggedIn: false },
       $config: { app: { internalLinkDomain: null } },
       $path: (opts) => `/item/${opts.params.pathMatch}`,
@@ -50,14 +56,6 @@ describe('components/item/ItemPreviewCard', () => {
       const wrapper = factory({ item });
 
       expect(wrapper.vm.texts).toEqual([item.dcCreatorLangAware, item.dataProvider]);
-    });
-  });
-
-  describe('similar items card', () => {
-    it('renders a similar items content card without any recommendation buttons', () => {
-      const wrapper = factory({ item, variant: 'similar' });
-
-      expect(wrapper.vm.texts).toEqual([]);
     });
   });
 

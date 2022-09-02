@@ -34,9 +34,7 @@ const factory = (propsData) => mount(UserSets, {
     $config: { app: { internalLinkDomain: null } },
     $fetchState: {},
     $apis: {
-      set: {
-        getSetThumbnail: () => null
-      }
+      thumbnail: { edmPreview: (img) => img?.edmPreview?.[0] }
     },
     $t: (key) => key,
     $tc: (key) => key,

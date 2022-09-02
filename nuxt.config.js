@@ -57,6 +57,10 @@ export default {
     axios: {
       baseURL: process.env.PORTAL_BASE_URL
     },
+    axiosLogger: {
+      clearParams: process.env.AXIOS_LOGGER_CLEAR_PARAMS?.split(',') || ['wskey'],
+      httpMethods: process.env.AXIOS_LOGGER_HTTP_METHODS?.toUpperCase().split(',')
+    },
     contentful: {
       spaceId: process.env.CTF_SPACE_ID,
       environmentId: process.env.CTF_ENVIRONMENT_ID,
@@ -113,6 +117,11 @@ export default {
         },
         entityManagement: {
           url: process.env.EUROPEANA_ENTITY_MANAGEMENT_API_URL
+        },
+        iiifPresentation: {
+          media: {
+            url: process.env.EUROPEANA_MEDIA_IIIF_PRESENTATION_API_URL || 'https://iiif.europeana.eu/presentation'
+          }
         }
       },
       proxy: {
@@ -266,7 +275,7 @@ export default {
     '~/plugins/vue-directives',
     '~/plugins/vue-announcer.client',
     '~/plugins/vue-masonry.client',
-    '~/plugins/vue-scrollto',
+    '~/plugins/vue-scrollto.client',
     '~/plugins/ab-testing',
     '~/plugins/features'
   ],
@@ -342,12 +351,34 @@ export default {
       }
     },
     defaultStrategy: 'keycloak',
-    plugins: ['~/plugins/apis']
+    plugins: ['~/plugins/apis', '~/plugins/user-likes.client']
   },
 
   router: {
     middleware: ['trailing-slash', 'legacy/index', 'l10n'],
     extendRoutes(routes) {
+      const nuxtHomeRouteIndex = routes.findIndex(route => route.name === 'home');
+      routes[nuxtHomeRouteIndex] = {
+        name: 'home',
+        path: '/',
+        component: 'src/pages/home/index.vue'
+      };
+
+      const nuxtCollectionsPersonsOrPlacesRouteIndex = routes.findIndex(route => route.name === 'collections-persons-or-places');
+      routes.splice(nuxtCollectionsPersonsOrPlacesRouteIndex, 1);
+
+      routes.push({
+        name: 'collections-persons',
+        path: '/collections/persons',
+        component: 'src/pages/collections/persons-or-places.vue'
+      });
+
+      routes.push({
+        name: 'collections-places',
+        path: '/collections/places',
+        component: 'src/pages/collections/persons-or-places.vue'
+      });
+
       routes.push({
         name: 'slug',
         path: '/*',
@@ -389,7 +420,10 @@ export default {
     // See https://github.com/postcss/postcss/issues/1375
     postcss: null,
 
-    publicPath: buildPublicPath()
+    publicPath: buildPublicPath(),
+
+    // swiper v8 (and its dependencies) is pure ESM and needs to be transpiled to be used by Vue2
+    transpile: ['dom7', 'ssr-window', 'swiper']
   },
 
   /*
@@ -413,5 +447,7 @@ export default {
   srcDir: 'src/',
 
   // Opt-out of telemetry
-  telemetry: false
+  telemetry: false,
+
+  watch: ['~/**/*.graphql']
 };

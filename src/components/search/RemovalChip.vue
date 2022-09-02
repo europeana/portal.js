@@ -1,31 +1,26 @@
 <template>
-  <b-badge
-    :to="$link.to(linkTo)"
-    :href="$link.href(linkTo)"
-    pill
-    variant="light"
-    :class="{ 'img-chip': img }"
-    :data-qa="localisedTitle.values[0] + ' removal chip'"
-    :lang="localisedTitle.code"
-    @click.native="trackClickEvent"
+  <LinkBadge
+    :title="title"
+    :link-to="linkTo"
+    :img="img"
+    :type="type"
+    badge-variant="light"
+    data-qa="removal chip"
+    :click-event-handler="clickEventHandler"
   >
-    <b-img
-      v-if="img"
-      :src="img"
-      alt=""
-      rounded="circle"
-      class="mr-2"
-    />
-    {{ localisedTitle.values[0] }}
     <span class="icon icon-clear clear-indicator" />
-  </b-badge>
+  </LinkBadge>
 </template>
 
 <script>
-  import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import LinkBadge from '../generic/LinkBadge';
 
   export default {
     name: 'RemovalChip',
+
+    components: {
+      LinkBadge
+    },
 
     props: {
       title: {
@@ -39,23 +34,15 @@
       img: {
         type: String,
         default: ''
-      }
-    },
-
-    computed: {
-      localisedTitle() {
-        if (typeof this.title === 'string') {
-          return {
-            values: [this.title],
-            code: null
-          };
-        }
-        return langMapValueForLocale(this.title, this.$i18n.locale);
+      },
+      type: {
+        type: String,
+        default: null
       }
     },
 
     methods: {
-      trackClickEvent() {
+      clickEventHandler() {
         if (this.$matomo) {
           this.$matomo.trackEvent('Remove_search_criterion', 'Click remove search criteria', this.linkTo);
         }
@@ -73,6 +60,7 @@
     color: $white;
     border-radius: $border-radius-large;
     margin-left: 4px;
+    flex-shrink: 0;
   }
   .badge-light { text-transform: none; }
 </style>

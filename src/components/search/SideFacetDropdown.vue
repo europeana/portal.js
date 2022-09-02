@@ -145,6 +145,7 @@
   import { unquotableFacets } from '@/plugins/europeana/search';
   import { escapeLuceneSpecials, unescapeLuceneSpecials } from '@/plugins/europeana/utils';
   import facetsMixin from '@/mixins/facets';
+  import { mapState } from 'vuex';
 
   /**
    * Dropdown for search facet, with removable tags and optional search.
@@ -247,7 +248,7 @@
       return this.queryFacet()
         .then((fields) => {
           this.fetching = false;
-          this.fields = fields;
+          this.fields = fields || [];
           this.fetched = true;
         });
     },
@@ -282,7 +283,8 @@
 
       sortedOptions() {
         if (this.isRadio) {
-          return this.fields;
+          // Slice to make a copy, as sort occurs in place
+          return this.fields.slice(0).sort((a, b) => this.tFacetOption(this.name, a).localeCompare(this.tFacetOption(this.name, b)));
         }
 
         const fields = this.groupedOptions;
@@ -366,7 +368,7 @@
 
       paramsForFacets() {
         const params = {
-          ...this.$store.state.search.apiParams,
+          ...this.apiParams,
           rows: 0,
           profile: 'facets',
           facet: this.name
@@ -383,7 +385,11 @@
 
       activeLabel() {
         return this.selectedFilters[this.name].length > 0 || this.activeSearchInput;
-      }
+      },
+      ...mapState({
+        apiOptions: state => state.search.apiOptions,
+        apiParams: state => state.search.apiParams
+      })
     },
 
     watch: {
@@ -405,7 +411,7 @@
     methods: {
       queryFacet() {
         return this.$apis.record.search(this.paramsForFacets, {
-          ...this.$store.state['search/apiOptions'],
+          ...this.apiOptions,
           locale: this.$i18n.locale
         })
           .then((response) => response.facets?.[0]?.fields || [])

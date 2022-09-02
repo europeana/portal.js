@@ -7,7 +7,7 @@ import { BASE_URL } from '@/plugins/europeana/record';
 
 const apiEndpoint = '/search.json';
 
-const baseRequest = nock(BASE_URL).get(apiEndpoint);
+const baseRequest = () => nock(BASE_URL).get(apiEndpoint);
 const defaultResponse = { success: true, items: [], totalResults: 123456 };
 const $axios = axios.create({ baseURL: BASE_URL });
 
@@ -19,7 +19,7 @@ describe('plugins/europeana/search', () => {
   describe('search()()', () => {
     describe('API request', () => {
       it('requests 24 results by default', async() => {
-        baseRequest
+        baseRequest()
           .query(query => {
             return query.rows === '24';
           })
@@ -31,7 +31,7 @@ describe('plugins/europeana/search', () => {
       });
 
       it('accepts and uses `rows` option', async() => {
-        baseRequest
+        baseRequest()
           .query(query => {
             return query.rows === '9';
           })
@@ -43,7 +43,7 @@ describe('plugins/europeana/search', () => {
       });
 
       it('paginates if `page` is passed', async() => {
-        baseRequest
+        baseRequest()
           .query(query => {
             return query.rows === '24' && query.start === '25';
           })
@@ -55,7 +55,7 @@ describe('plugins/europeana/search', () => {
       });
 
       it('does not request rows beyond API limit', async() => {
-        baseRequest
+        baseRequest()
           .query(query => {
             return query.rows === '16' && query.start === '985';
           })
@@ -66,20 +66,32 @@ describe('plugins/europeana/search', () => {
         expect(nock.isDone()).toBe(true);
       });
 
-      it('includes contentTier query', async() => {
-        baseRequest
-          .query(query => {
-            return query.qf === 'contentTier:(1 OR 2 OR 3 OR 4)';
-          })
-          .reply(200, defaultResponse);
+      describe('contentTier filter', () => {
+        it('is included by default', async() => {
+          baseRequest()
+            .query(query => {
+              return query.qf === 'contentTier:(1 OR 2 OR 3 OR 4)';
+            })
+            .reply(200, defaultResponse);
 
-        await search()($axios, { query: 'anything' });
+          await search()($axios, { query: 'anything' });
 
-        expect(nock.isDone()).toBe(true);
+          expect(nock.isDone()).toBe(true);
+        });
+
+        it('may be omitted by setting addContentTierFilter option to `false`', async() => {
+          baseRequest()
+            .query(query => (query.qf === undefined))
+            .reply(200, defaultResponse);
+
+          await search()($axios, { query: 'anything' }, { addContentTierFilter: false });
+
+          expect(nock.isDone()).toBe(true);
+        });
       });
 
       it('uses the supplied `facet` param', async() => {
-        baseRequest
+        baseRequest()
           .query(query => {
             return query.facet === 'LANGUAGE';
           })
@@ -91,7 +103,7 @@ describe('plugins/europeana/search', () => {
       });
 
       it('uses the supplied `facet` param when using comma seperated list', async() => {
-        baseRequest
+        baseRequest()
           .query(query => {
             return query.facet === 'COUNTRY,REUSABILITY';
           })
@@ -103,7 +115,7 @@ describe('plugins/europeana/search', () => {
       });
 
       it('maps blank `query` to "*:*"', async() => {
-        baseRequest
+        baseRequest()
           .query(query => {
             return query['query'] === '*:*';
           })
@@ -115,7 +127,7 @@ describe('plugins/europeana/search', () => {
       });
 
       it('filters by reusability', async() => {
-        baseRequest
+        baseRequest()
           .query(query => {
             return query.reusability === 'open';
           })
@@ -132,7 +144,7 @@ describe('plugins/europeana/search', () => {
         it('passes API i18n params if configured and locale option given', async() => {
           const locale = 'es';
 
-          baseRequest
+          baseRequest()
             .query(query => {
               return query['q.source'] === locale && query['q.target'] === 'en';
             })
@@ -144,7 +156,7 @@ describe('plugins/europeana/search', () => {
         });
 
         it('does not pass API i18n params if no locale option', async() => {
-          baseRequest
+          baseRequest()
             .query(query => {
               const queryKeys = Object.keys(query);
               return !queryKeys.includes('q.source') && !queryKeys.includes('q.target');
@@ -159,7 +171,7 @@ describe('plugins/europeana/search', () => {
         it('does not pass API i18n params if locale is already "en"', async() => {
           const locale = 'en';
 
-          baseRequest
+          baseRequest()
             .query(query => {
               const queryKeys = Object.keys(query);
               return !queryKeys.includes('q.source') && !queryKeys.includes('q.target');
@@ -174,7 +186,7 @@ describe('plugins/europeana/search', () => {
 
       describe('escaping Lucene reserved characters', () => {
         it('does not escape them by default', async() => {
-          baseRequest
+          baseRequest()
             .query(query => {
               return query.query === 'dress (red OR blue)';
             })
@@ -186,7 +198,7 @@ describe('plugins/europeana/search', () => {
         });
 
         it('does escape them when options.escape is `true`', async() => {
-          baseRequest
+          baseRequest()
             .query(query => {
               return query.query === 'dress \\(red OR blue\\)';
             })
@@ -199,11 +211,27 @@ describe('plugins/europeana/search', () => {
       });
     });
 
+    describe('boost params', () => {
+      describe('with a boost in the params', () => {
+        it('sends the boosting param', async() => {
+          baseRequest()
+            .query(query => {
+              return query['boost'] === 'BOOST';
+            })
+            .reply(200, defaultResponse);
+
+          await search({})($axios, { query: 'test', boost: 'BOOST' });
+
+          expect(nock.isDone()).toBe(true);
+        });
+      });
+    });
+
     describe('API response', () => {
       describe('with error', () => {
         it('returns API error message and status code', async() => {
           const errorMessage = 'Invalid query parameter.';
-          baseRequest
+          baseRequest()
             .query(true)
             .reply(400, {
               success: false,
@@ -256,7 +284,7 @@ describe('plugins/europeana/search', () => {
             };
 
             beforeEach(() => {
-              baseRequest
+              baseRequest()
                 .query(true)
                 .reply(200, bloatedResponse);
             });
@@ -320,7 +348,7 @@ describe('plugins/europeana/search', () => {
           };
 
           beforeEach(() => {
-            baseRequest
+            baseRequest()
               .query(true)
               .reply(200, apiResponse);
           });

@@ -20,11 +20,7 @@ export default {
       state.curatedEntities = value;
     },
     setPinned(state, value) {
-      if (value) {
-        state.pinned = value.map(item => item.id);
-      } else {
-        state.pinned = [];
-      }
+      state.pinned = value || [];
     },
     setFeaturedSetId(state, value) {
       state.featuredSetId = value;
@@ -40,12 +36,6 @@ export default {
     },
     setEditable(state, value) {
       state.editable = value;
-    },
-    setProxy(state, value) {
-      state.entity.proxy = value;
-    },
-    setProxyDescription(state, value) {
-      state.entity.proxy.note = value;
     }
   },
 
@@ -63,6 +53,10 @@ export default {
 
     id(state) {
       return state.id ? state.id : null;
+    },
+
+    featuredSetId(state) {
+      return state.featuredSetId ? state.featuredSetId : null;
     },
 
     isPinned: (state) => (itemId) => {
@@ -88,12 +82,11 @@ export default {
       return dispatch('getPins')
         .then(() => {
           if (state.pinned && state.pinned.length >= 24) {
-            throw new Error('too many pins');
+            return Promise.reject(new Error('too many pins'));
+          } else {
+            return this.$apis.set.modifyItems('add', state.featuredSetId, itemId, true)
+              .then(() =>  commit('pin', itemId));
           }
-        })
-        .then(() => {
-          return this.$apis.set.modifyItems('add', state.featuredSetId, itemId, true)
-            .then(() =>  commit('pin', itemId));
         })
         .catch((e) => {
           dispatch('getPins');
@@ -103,6 +96,7 @@ export default {
     unpin({ dispatch, state }, itemId) {
       return this.$apis.set.modifyItems('delete', state.featuredSetId, itemId)
         .then(() =>  {
+          dispatch('set/fetchActive', state.featuredSetId, { root: true });
           dispatch('getPins');
         })
         .catch((e) => {
@@ -112,7 +106,8 @@ export default {
     },
     getPins({ state, commit }) {
       return this.$apis.set.get(state.featuredSetId, {
-        profile: 'itemDescriptions'
+        profile: 'standard',
+        pageSize: 100
       }).then(featured => featured.pinned > 0 ? commit('setPinned', featured.items.slice(0, featured.pinned)) : commit('setPinned', []));
     },
     createFeaturedSet({ getters, commit }) {
@@ -123,14 +118,6 @@ export default {
       };
       return this.$apis.set.create(featuredSetBody)
         .then(response => commit('setFeaturedSetId', response.id));
-    },
-    update({ commit }, { id, body }) {
-      return this.$apis.entityManagement.update(id.split('/').pop(), body)
-        .then(response => {
-          commit('setProxyDescription', body.note);
-          commit('setEntityDescription', response.note);
-        });
     }
-
   }
 };

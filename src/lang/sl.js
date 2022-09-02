@@ -38,10 +38,14 @@ export default {
     "goHome": "Pojdite na domačo stran",
     "learnMore": "Nauči se več",
     "like": "Všeč mi je",
+    "move": "Premakni se",
     "next": "Naslednji",
     "pin": "Pin",
+    "preview": "Predogled",
+    "previous": "Prejšnji",
     "providedBy": "Zagotavlja {provider}",
     "reject": "Zavrne",
+    "save": "Shrani",
     "send": "Pošlji",
     "share": "Deli",
     "shareOn": "Deli prek {social}",
@@ -59,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Nedavni predmeti",
     "organisation": "Organizacije",
+    "place": "Mesta",
     "time": "Priporočena stoletja",
     "topic": "Priporočene teme"
   },
@@ -76,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Organizacija",
     "person": "Oseba",
+    "place": "Mesto",
     "theme": "Tema",
     "time": "Stoletje",
     "topic": "Tema"
@@ -145,8 +151,27 @@ export default {
     "to": "do"
   },
   "debug": {
-    "apiRequests": "API requests",
-    "debug": "Debug"
+    "apiRequests": {
+      "apiKeyLinkText": "Europeana API ključ",
+      "noRequests": "Na tej strani ni bila uporabljena nobena zahteva za API-je Europeana.",
+      "settingsPageLinkText": "stran z nastavitvami",
+      "tip": "Nasvet: če že imate {apiKeyLink}, ga lahko vnesete na {settingsPageLink} in vključen bo v te povezave zahtev API.",
+      "title": "Zahteve API"
+    },
+    "debug": "Debug",
+    "settings": {
+      "form": {
+        "apiKey": {
+          "description": "Vnesite svoj Europeana API ključ in uporabljen bo v povezavah do zahtev API.",
+          "label": "API ključ"
+        },
+        "enabled": {
+          "description": "Če je omogočeno, bo meni za odpravljanje napak prikazan v nogi strani.",
+          "label": "Omogoči meni za odpravljanje napak"
+        }
+      },
+      "title": "Nastavitve"
+    }
   },
   "delete": "Izbrišite",
   "depiction": "Upodobitev {title}",
@@ -167,18 +192,18 @@ export default {
     },
     "notifications": {
       "deleted": "Vaša zbirka je bila izbrisana.",
+      "error": {
+        "unpin": "Pri odpenjanju elementa je prišlo do napake. Poskusite znova ali prijavite težavo."
+      },
+      "pin": "Ta element bo prikazan na vrhu zbirke » {entity} «. Ko bo ta sprememba vidna na strani zbirke, vas bomo obvestili.",
       "pinLimit": {
         "body": "Zaenkrat lahko na prvo stran pripnete le 24 elementov. Če želite pripeti ta element, odstranite še enega in poskusite znova pripeti tega.",
         "title": "Preveč pripete predmete"
       },
       "pinned": "Element je bil pripet. Zdaj je na vrhu prve strani te zbirke. Lahko traja do 24 ur, da se prikaže vsem.",
-      "pinnedFirstPage": "Element je bil pripet. Lahko traja do 24 ur, da se prikaže vsem.",
-      "unpinned": "Element je bil odpenjen. Ni več na vrhu prve strani te zbirke. Lahko traja do 24 ur, da izgine za vse.",
-      "unpinnedFirstPage": "Element je bil odpenjen. Lahko traja do 24 ur, da izgine za vse."
-    },
-    "prompts": {
-      "pin": "Ali ste prepričani, da želite pripeti ta element? Ta element bo prikazan na vrhu zbirke \" {entity} \". Ta sprememba lahko začne veljati do 24 ur.",
-      "unpin": "Ali ste prepričani, da želite odpeti ta element? Ta element se ne bo več prikazoval na vrhu zbirke » {entity} «. Ta sprememba lahko začne veljati do 24 ur."
+      "select": "Izberite sorodno entiteto, da pripnete/odpnete element na/iz njega.",
+      "unpin": "Ta element se ne bo več prikazoval na vrhu zbirke » {entity} «. Ko bo ta sprememba vidna na strani zbirke, vas bomo obvestili.",
+      "unpinned": "Element je bil odpenjen. Ni več na vrhu prve strani te zbirke. Lahko traja do 24 ur, da izgine za vse."
     }
   },
   "error": "Napaka",
@@ -189,6 +214,7 @@ export default {
     "description": "Razišči razstave",
     "exhibitions": "Razstave"
   },
+  "explore": "Raziščite",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "barve",
@@ -531,7 +557,7 @@ export default {
         "newspaper": "Časopisi",
         "photography": "Fotografija",
         "sport": "Šport",
-        "ww1": "1914-1918"
+        "ww1": "Prva svetovna vojna"
       },
       "select": "Izberite temo"
     },
@@ -653,7 +679,7 @@ export default {
     "disclaimerLine1": "Europeana je pobuda Evropske unije, ki jo financirajo Connecting Europe Facility Evrope Evropske unije in države članice Evropske unije. Storitve Europeane, vključno s tem spletnim mestom, upravlja konzorcij pod vodstvom Fundacije Europeana na podlagi pogodbe o storitvah z Evropsko komisijo.",
     "disclaimerLine2": "Evropska komisija ne zagotavlja točnosti informacij in ne sprejema nobene odgovornosti ali odgovornosti v zvezi z informacijami na tej spletni strani. Niti Evropska komisija niti nobena oseba, ki deluje v imenu Evropske komisije, ni odgovorna ali odgovorna za točnost ali uporabo informacij na tej spletni strani.",
     "findUsElsewhere": "Najdite nas drugje",
-    "imageDescription": "Sofinancira Instrument za povezovanje Evrope Evropske unije",
+    "imageDescription": "Financira Evropska unija",
     "navigation": {
       "MoreInfoLabel": "Več informacij",
       "about": "O nas",
@@ -688,18 +714,31 @@ export default {
     "navigation": {
       "about": "O nas",
       "collections": "Zbirke",
-      "europeanaClassroom": "Učitelji",
+      "europeanaClassroom": "Za učitelje",
       "help": "Pomoč",
       "home": "Domov",
+      "pro": "Za strokovnjake",
       "stories": "Zgodbe"
     },
+    "quickSearch": "Hitro iskanje",
     "searchFor": "Išči {query}",
     "searchForEverything": "Išči vse",
     "searchForEverythingInCollection": "Išči vse v {collection}",
     "searchForEverythingInEntireCollection": "Išči vse v naši celotni zbirki",
-    "showSidebar": "Pokaži meni"
+    "searchForm": "Obrazec za iskanje",
+    "showSidebar": "Pokaži meni",
+    "sideNavigation": "Stranska navigacija"
   },
   "homeLinkAlt": "Na začetno stran Europeana",
+  "homePage": {
+    "discoverEditorial": "Najnovejše zgodbe",
+    "storiesCTA": "Oglejte si vse zgodbe",
+    "subHeadline": "Iskanje, shranjevanje in deljenje umetnosti, knjig, filmov in glasbe iz več tisoč kulturnih ustanov",
+    "themesCTA": "Oglejte si vse teme",
+    "themesTitle": "Raziščite po temi",
+    "title": "Odkrijte evropsko {digital} kulturno dediščino",
+    "titleDigital": "digitalno"
+  },
   "imageSlider": {
     "handle": "Ročaj drsnika"
   },
@@ -723,7 +762,7 @@ export default {
         "learnMore": "Naj izberem"
       },
       "decline": "Zavrnem.",
-      "ok": "okej",
+      "ok": "Okej",
       "purposes": {
         "essential": {
           "description": "Te storitve so nujne za pravilno delovanje tega spletnega mesta. Vključujejo poglede rezultatov iskanja in jezikovne nastavitve, ohranjajo stanje prijave in zagotavljajo varnost vašega obiska. Ne morete jih onemogočiti, saj spletno mesto sicer ne bi delovalo pravilno.",
@@ -817,12 +856,15 @@ export default {
   "newWindow": "odpre se v novem oknu",
   "noMoreResults": "Za vašo iskalno poizvedbo ni več rezultatov.",
   "noResults": "Brez rezultatov",
+  "of": "Od",
   "organisation": {
     "city": "Mesto",
     "country": "Država",
+    "englishName": "Angleško ime",
     "nameAcronym": "Kratica imena"
   },
   "pageHasLoaded": "je naložena",
+  "pageNumber": "Številka strani",
   "pages": {
     "collections": {
       "organisations": {
@@ -834,7 +876,11 @@ export default {
       "persons": {
         "title": "Osebe"
       },
+      "places": {
+        "title": "Krajev"
+      },
       "table": {
+        "items": "Elementi",
         "name": "Ime"
       },
       "times": {
@@ -845,6 +891,9 @@ export default {
       }
     }
   },
+  "pagination": {
+    "label": "Paginacija"
+  },
   "readMore": "Preberi več",
   "recommendation": {
     "prompts": {
@@ -854,6 +903,9 @@ export default {
   },
   "record": {
     "IIIFViewer": "Pregledovalnik IIIF",
+    "actions": {
+      "pin": "Pripnite element na razpoložljive entitete"
+    },
     "allMetaData": "Vsi metapodatki",
     "copyEmbedLabel": "Vdelaj kodo (kliknite za kopiranje)",
     "exploreMore": "Razišči več",
@@ -866,8 +918,16 @@ export default {
     "record": "Zapis",
     "showAll": "Pokaži vse informacije",
     "similarItems": "Podobna dela",
+    "status": {
+      "unpublished": "[Neobjavljeni element]"
+    },
     "transcription": "Prepis",
     "transcriptionDisclaimer": "To vsebino je prispevala javnost, ne ustanova, ki je zagotovila ta predmet."
+  },
+  "related": {
+    "editorial": {
+      "title": "Zgodbe, ki vam bodo morda všeč"
+    }
   },
   "relatedCollections": "Povezane zbirke",
   "removeFilter": "Odstrani filter {filterLabel}",
@@ -877,9 +937,14 @@ export default {
   "resultsFor": "Rezultati za {0}",
   "resultsLimitWarning": "Dodatni rezultati niso prikazani, ker je prikazanih samo prvih 1000 najbolj relevantnih rezultatov. Če niste našli, kar iščete, razmislite o natančnejšem iskanju.",
   "resultsWithin": "Rezultati znotraj {0} {1} za {2}",
-  "search": "Išči",
+  "search": {
+    "boost": {
+      "placeholder": "Vnesite poizvedbo za povečanje polja"
+    },
+    "title": "Išči"
+  },
   "searchHasLoaded": "{0} vrnjeni rezultati",
-  "searchPlaceholder": "Kaj iščete?",
+  "searchPlaceholder": "Iskanje 50+ milijonov elementov",
   "searchResults": "Išči",
   "searchResultsFor": "{0} - Išči",
   "searchSuggestions": "Predlogi za iskanje",
@@ -905,7 +970,6 @@ export default {
       "createNew": "Ustvari novo zbirko",
       "delete": "Izbriši zbirko",
       "edit": "Uredi zbirko",
-      "save": "Shrani",
       "update": "Posodobi zbirko"
     },
     "form": {
@@ -939,6 +1003,9 @@ export default {
   "statuses": {
     "liked": "Všeč",
     "pinned": "Pripet"
+  },
+  "storiesPage": {
+    "title": "Zgodbe"
   },
   "website": "Spletno mesto",
   "youMightAlsoLike": "Morda bi vam bilo všeč tudi"

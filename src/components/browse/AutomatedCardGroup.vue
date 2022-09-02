@@ -14,11 +14,11 @@
 </template>
 
 <script>
-  import { getWikimediaThumbnailUrl } from '@/plugins/europeana/entity';
   import ContentCardSection from './ContentCardSection';
   import InfoCardSection from './InfoCardSection';
 
   const FEATURED_ORGANISATIONS = 'Featured organisations';
+  const FEATURED_PLACES = 'Featured places';
   const FEATURED_TOPICS = 'Featured topics';
   const FEATURED_TIMES = 'Featured centuries';
   const RECENT_ITEMS = 'Recent items';
@@ -49,9 +49,13 @@
       };
 
       if (this.sectionType === FEATURED_ORGANISATIONS) {
-        data.key = `${this.$i18n.locale}/collections/organisations/featured`;
+        data.key = 'collections/organisations/featured';
         data.cardType = 'AutomatedEntityCard';
         data.headline = this.$i18n.t('automatedCardGroup.organisation');
+      } else if (this.sectionType === FEATURED_PLACES) {
+        data.key = `${this.$i18n.locale}/collections/places/featured`;
+        data.cardType = 'AutomatedEntityCard';
+        data.headline = this.$i18n.t('automatedCardGroup.place');
       } else if (this.sectionType === FEATURED_TOPICS) {
         data.key = `${this.$i18n.locale}/collections/topics/featured`;
         data.cardType = 'AutomatedEntityCard';
@@ -114,7 +118,7 @@
               __variant: (this.sectionType === RECENT_ITEMS) ? null : 'mini',
               name: entry.prefLabel,
               identifier: entry.id,
-              image: entry.isShownBy?.thumbnail || (entry.logo ? getWikimediaThumbnailUrl(entry.logo.id, 80) : null),
+              image: this.$apis.entity.imageUrl(entry),
               encoding: entry,
               logo: !!entry.logo
             }))

@@ -238,6 +238,9 @@
       contentTierFacetSwitch() {
         return !this.$store.getters['search/collection'] && !this.$store.getters['entity/id'];
       },
+      boost() {
+        return this.userParams.boost;
+      },
       qf() {
         return this.userParams.qf;
       },
@@ -383,6 +386,7 @@
       },
       updateCurrentSearchQuery(updates = {}) {
         const current = {
+          boost: this.boost,
           page: this.page,
           qf: this.qf,
           query: this.query,
@@ -460,6 +464,7 @@
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
   @import '@/assets/scss/icons';
+  @import '@/assets/scss/mixins';
 
   .filters-title {
     font-size: $font-size-small;
@@ -526,18 +531,7 @@
       min-width: 220px;
       min-height: 31rem;
 
-      &::after {
-        border-top: 145px solid $white;
-        border-left: 60px solid transparent;
-        content: '';
-        display: block;
-        height: 0;
-        position: absolute;
-        right: 0;
-        top: 100%;
-        width: 0;
-        z-index: 1;
-      }
+      @include white-cutout;
 
       .filters-backdrop {
         display: none;

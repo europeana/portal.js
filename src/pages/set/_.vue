@@ -1,12 +1,18 @@
 <template>
-  <b-container v-if="$fetchState.pending">
+  <b-container
+    v-if="$fetchState.pending"
+    data-qa="loading spinner container"
+  >
     <b-row class="flex-md-row py-4 text-center">
       <b-col cols="12">
         <LoadingSpinner />
       </b-col>
     </b-row>
   </b-container>
-  <b-container v-else-if="$fetchState.error">
+  <b-container
+    v-else-if="$fetchState.error"
+    data-qa="alert message container"
+  >
     <b-row class="flex-md-row py-4">
       <b-col cols="12">
         <AlertMessage
@@ -76,6 +82,7 @@
                 <b-button
                   variant="outline-primary"
                   class="text-decoration-none mr-2"
+                  data-qa="edit set button"
                   @click="$bvModal.show(setFormModalId)"
                 >
                   {{ $t('actions.edit') }}
@@ -86,7 +93,6 @@
                   :title="set.title"
                   :description="set.description"
                   :visibility="set.visibility"
-                  @update="update"
                 />
               </template>
               <b-button
@@ -123,6 +129,9 @@
               <b-col cols="12">
                 <ItemPreviewCardGroup
                   :items="set.items"
+                  :show-pins="setIsEntityBestItems && userIsEntityEditor"
+                  :draggable-items="userIsOwner"
+                  @endItemDrag="reorderItems"
                 />
               </b-col>
             </b-row>
@@ -141,14 +150,17 @@
 </template>
 
 <script>
+  // TODO: This file will be deprecated when set driven galleries are in production.
+  // TODO: Also move the beforeRouteEnter redirect to the legacy middleware.
   import ClientOnly from 'vue-client-only';
 
+  import {
+    ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX,
+    SET_URL_PREFIX as EUROPEANA_DATA_URL_SET_PREFIX
+  } from '@/plugins/europeana/data';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
-  import { genericThumbnail } from '@/plugins/europeana/thumbnail';
 
-  import AlertMessage from '@/components/generic/AlertMessage';
   import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup';
-  import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import SocialShareModal from '@/components/sharing/SocialShareModal.vue';
 
   export default {
@@ -156,8 +168,8 @@
 
     components: {
       ClientOnly,
-      LoadingSpinner,
-      AlertMessage,
+      LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
+      AlertMessage: () => import('@/components/generic/AlertMessage'),
       ItemPreviewCardGroup,
       SocialShareModal,
       SetFormModal: () => import('@/components/set/SetFormModal'),
@@ -167,25 +179,24 @@
     async beforeRouteLeave(to, from, next) {
       await this.$store.commit('set/setActive', null);
       await this.$store.commit('set/setActiveRecommendations', []);
+      await this.$store.commit('entity/setFeaturedSetId', null);
+      await this.$store.commit('entity/setPinned', []);
       next();
     },
 
-    middleware: 'sanitisePageQuery',
-
-    data() {
-      return {
-        setFormModalId: `set-form-modal-${this.id}`
-      };
+    middleware({ app, params, redirect }) {
+      if (app.$features.setGalleries) {
+        redirect({ name: `galleries-all___${app.i18n.locale}`, params });
+      }
     },
 
-    fetch() {
-      return this.$store.dispatch('set/fetchActive', this.$route.params.pathMatch)
-        .catch((apiError) => {
-          if (process.server) {
-            this.$nuxt.context.res.statusCode = apiError.statusCode;
-          }
-          throw apiError;
-        });
+    async fetch() {
+      await this.$store.dispatch('set/fetchActive', this.setId);
+
+      if (this.setIsEntityBestItems && this.userIsEntityEditor) {
+        await this.$store.commit('entity/setFeaturedSetId', this.setId);
+        await this.$store.dispatch('entity/getPins');
+      }
     },
 
     head() {
@@ -208,15 +219,14 @@
       set() {
         return this.$store.state.set.active || {};
       },
-      itemCount() {
-        return this.set.total || 0;
+      setId() {
+        return this.$route.params.pathMatch;
+      },
+      setFormModalId() {
+        return `set-form-modal-${this.setId}`;
       },
       setCreatorId() {
-        if (this.set.creator) {
-          return typeof this.set.creator === 'string' ? this.set.creator : this.set.creator.id;
-        } else {
-          return null;
-        }
+        return this.set.creator && typeof this.set.creator === 'string' ? this.set.creator : this.set.creator.id;
       },
       userIsOwner() {
         return this.$auth.loggedIn && this.$store.state.auth.user &&
@@ -260,29 +270,23 @@
         return this.$tc(label, this.set.total, { max });
       },
       shareMediaUrl() {
-        if ((this.set?.items?.length || 0) === 0) {
-          return null;
-        } else {
-          return this.set.items[0].edmPreview ?
-            `${this.set.items[0].edmPreview[0]}&size=w400` :
-            genericThumbnail(this.set.items[0].id, { type: this.set.items[0].type, size: 'w400' });
-        }
-      }
-    },
-
-    watch: {
-      'set'() {
-        if (this.set === 'DELETED') {
-          // Set was deleted
-          const path = this.$path({ name: 'account' });
-          this.$goto(path);
-        }
+        return this.$apis.thumbnail.edmPreview(this.set?.items?.[0]?.edmPreview?.[0], { size: 400 });
       }
     },
 
     methods: {
-      update() {
-        this.$bvModal.hide(this.setFormModalId);
+      reorderItems(items) {
+        this.$store.dispatch('set/update', {
+          id: `${EUROPEANA_DATA_URL_SET_PREFIX}/${this.setId}`,
+          body: {
+            type: this.set.type,
+            title: this.set.title,
+            description: this.set.description,
+            visibility: this.set.visibility,
+            items: items.map(item => `${EUROPEANA_DATA_URL_ITEM_PREFIX}${item.id}`)
+          },
+          params: { profile: 'standard' }
+        });
       }
     }
   };

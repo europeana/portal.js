@@ -38,10 +38,14 @@ export default {
     "goHome": "Go to the homepage",
     "learnMore": "Learn more",
     "like": "Like",
+    "move": "Move",
     "next": "Next",
     "pin": "Pin",
+    "preview": "Preview",
+    "previous": "Previous",
     "providedBy": "Provided by {provider}",
     "reject": "Reject",
+    "save": "Save",
     "send": "Send",
     "share": "Share",
     "shareOn": "Share on {social}",
@@ -59,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Recent items",
     "organisation": "Organisations",
+    "place": "Places",
     "time": "Centuries",
     "topic": "Topics"
   },
@@ -76,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Organisation",
     "person": "Person",
+    "place": "Place",
     "theme": "Theme",
     "time": "Century",
     "topic": "Topic"
@@ -145,8 +151,31 @@ export default {
     "to": "to"
   },
   "debug": {
-    "apiRequests": "API requests",
-    "debug": "Debug"
+    "apiRequests": {
+      "apiKeyLinkText": "Europeana API key",
+      "noRequests": "No requests to Europeana APIs were used on this page.",
+      "settingsPageLinkText": "settings page",
+      "tip": "Tip: if you already have a {apiKeyLink}, you may enter it on the {settingsPageLink} and it will be included in these API request links.",
+      "title": "API requests"
+    },
+    "debug": "Debug",
+    "settings": {
+      "form": {
+        "apiKey": {
+          "description": "Enter your Europeana API key and it will be used in the links to API requests.",
+          "label": "API key"
+        },
+        "boosting": {
+          "description": "If enabled, activates the boosting field on search result pages, to evaluate various boosting configurations.",
+          "label": "Enable field boosting"
+        },
+        "enabled": {
+          "description": "If enabled, the debug menu will be shown in the page footer.",
+          "label": "Enable debug menu"
+        }
+      },
+      "title": "Settings"
+    }
   },
   "delete": "Delete",
   "depiction": "A depiction of {title}",
@@ -167,19 +196,28 @@ export default {
     },
     "notifications": {
       "deleted": "Your gallery has been deleted.",
+      "error": {
+        "unpin": "There was an error unpinning the item. Please try again, or report the issue."
+      },
+      "pin": "This item will show at the top of the \"{entity}\" collection. We will notify you when this change will be visible on the collection page.",
       "pinLimit": {
-        "body": "For now you can only pin 24 items on the first page. If you want to pin this item, make sure you unpin another one and then try to pin this one again.",
+        "body": "For now you can only pin 24 items. If you want to pin this item, make sure you unpin another one and try pinning this item again.",
         "title": "Too many pinned items"
       },
       "pinned": "The item has been pinned. It will appear as the first item on the \"{entity}\" collection. We will notify you when this change will be visible on the collection page.",
+      "select": "Select a related entity to pin/unpin the item to/from it.",
+      "unpin": "This item will stop showing at the top of the \"{entity}\" collection. We will notify you when this change will be visible on the collection page.",
       "unpinned": "The item has been unpinned. We will notify you when this change will be visible on the collection page."
-    },
-    "prompts": {
-      "pin": "Are you sure you want to pin this item? This item will show at the top of the \"{entity}\" collection. This change might take up to 24 hours to take effect.",
-      "unpin": "Are you sure you want to unpin this item? This item will stop showing at the top of the \"{entity}\" collection. This change might take up to 24 hours to take effect."
     }
   },
   "error": "Error",
+  "errorMessage": {
+    "itemNotFound": {
+      "description": "This could be due to the following reasons: this item doesn't exist, or; it was depublished because it did not match our quality criteria, or; it was updated and republished with a new unique identifier, in which case, try to find the item again.",
+      "metaTitle": "Item not found",
+      "title": "Oh no! {newline} We were not able to find this item."
+    }
+  },
   "exhibitions": {
     "chapters": "Chapters",
     "credits": "Credits",
@@ -187,6 +225,7 @@ export default {
     "description": "Explore the exhibitions",
     "exhibitions": "Exhibition | Exhibitions"
   },
+  "explore": "Explore",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "colours",
@@ -552,7 +591,7 @@ export default {
         "newspaper": "Newspapers",
         "photography": "Photography",
         "sport": "Sport",
-        "ww1": "1914-1918"
+        "ww1": "World War I"
       },
       "select": "Select a theme"
     },
@@ -674,10 +713,10 @@ export default {
     "disclaimerLine1": "Europeana is an initiative of the European Union, financed by the European Union’s Connecting Europe Facility and European Union Member States. The Europeana services, including this website, are operated by a consortium led by the Europeana Foundation under a service contract with the European Commission.",
     "disclaimerLine2": "The European Commission does not guarantee the accuracy of the information and accepts no responsibility or liability whatsoever with regard to the information on this website. Neither the European Commission, nor any person acting on the European Commission’s behalf, is responsible or liable for the accuracy or use of the information on this website.",
     "findUsElsewhere": "Find us elsewhere",
-    "imageDescription": "Co-financed by the Connecting Europe Facility of the European Union",
+    "imageDescription": "Funded by the European Union",
     "navigation": {
       "MoreInfoLabel": "More Info",
-      "about": "About us",
+      "about": "About",
       "accessibility": "Accessibility",
       "cookies": "Cookies",
       "forDevelopers": "For developers",
@@ -707,20 +746,33 @@ export default {
     "europeanaHome": "Europeana home",
     "inCollection": "Search for {query} in {collection}",
     "navigation": {
-      "about": "About us",
+      "about": "About",
       "collections": "Collections",
-      "europeanaClassroom": "Teachers",
+      "europeanaClassroom": "For teachers",
       "help": "Help",
       "home": "Home",
+      "pro": "For professionals",
       "stories": "Stories"
     },
+    "quickSearch": "Quick Search",
     "searchFor": "Search for {query}",
     "searchForEverything": "Search for everything",
     "searchForEverythingInCollection": "Search for everything in {collection}",
     "searchForEverythingInEntireCollection": "Search for everything in our entire collection",
-    "showSidebar": "Show Menu"
+    "searchForm": "Search form",
+    "showSidebar": "Show Menu",
+    "sideNavigation": "Side navigation"
   },
   "homeLinkAlt": "Europeana home",
+  "homePage": {
+    "discoverEditorial": "Latest stories",
+    "storiesCTA": "See all stories",
+    "subHeadline": "Search, save and share art, books, films and music from thousands of cultural institutions",
+    "themesCTA": "See all themes",
+    "themesTitle": "Explore by theme",
+    "title": "Discover Europe’s {digital} cultural heritage",
+    "titleDigital": "digital"
+  },
   "imageSlider": {
     "handle": "Slider Handle"
   },
@@ -838,12 +890,15 @@ export default {
   "newWindow": "opens in new window",
   "noMoreResults": "There are no more results for your search query.",
   "noResults": "No results",
+  "of": "Of",
   "organisation": {
     "city": "City",
     "country": "Country",
+    "englishName": "English name",
     "nameAcronym": "Name acronym"
   },
   "pageHasLoaded": "has loaded",
+  "pageNumber": "Page number",
   "pages": {
     "collections": {
       "organisations": {
@@ -855,7 +910,11 @@ export default {
       "persons": {
         "title": "Persons"
       },
+      "places": {
+        "title": "Places"
+      },
       "table": {
+        "items": "Items",
         "name": "Name"
       },
       "times": {
@@ -866,6 +925,9 @@ export default {
       }
     }
   },
+  "pagination": {
+    "label": "Pagination"
+  },
   "readMore": "Read more",
   "recommendation": {
     "prompts": {
@@ -875,6 +937,9 @@ export default {
   },
   "record": {
     "IIIFViewer": "IIIF viewer",
+    "actions": {
+      "pin": "Pin item to available Entities"
+    },
     "allMetaData": "All metadata",
     "copyEmbedLabel": "Embed code (Click to copy)",
     "exploreMore": "Explore More",
@@ -887,8 +952,16 @@ export default {
     "record": "Item",
     "showAll": "Show all information",
     "similarItems": "Similar items",
+    "status": {
+      "unpublished": "[Unpublished item]"
+    },
     "transcription": "Transcription",
     "transcriptionDisclaimer": "This content is contributed by the public, not by the institution that provided this item."
+  },
+  "related": {
+    "editorial": {
+      "title": "Stories you may like"
+    }
   },
   "relatedCollections": "Related collections",
   "removeFilter": "Remove {filterLabel} filter",
@@ -898,9 +971,14 @@ export default {
   "resultsFor": "Results for {0}",
   "resultsLimitWarning": "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
   "resultsWithin": "Results within {0} {1} for {2}",
-  "search": "Search",
+  "search": {
+    "boost": {
+      "placeholder": "Enter field boosting query"
+    },
+    "title": "Search"
+  },
   "searchHasLoaded": "{0} results returned",
-  "searchPlaceholder": "Search millions of items",
+  "searchPlaceholder": "Search 50+ million items",
   "searchResults": "Search",
   "searchResultsFor": "{0} - Search",
   "searchSuggestions": "Search suggestions",
@@ -926,7 +1004,6 @@ export default {
       "createNew": "Create new gallery",
       "delete": "Delete gallery",
       "edit": "Edit gallery",
-      "save": "Save",
       "update": "Update gallery"
     },
     "form": {
@@ -960,6 +1037,9 @@ export default {
   "statuses": {
     "liked": "Liked",
     "pinned": "Pinned"
+  },
+  "storiesPage": {
+    "title": "Stories"
   },
   "website": "Website",
   "youMightAlsoLike": "You might also like"

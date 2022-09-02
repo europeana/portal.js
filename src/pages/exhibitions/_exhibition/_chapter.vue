@@ -1,7 +1,7 @@
 <template>
   <div
     data-qa="exhibition chapter"
-    class="text-page figure-attribution"
+    class="text-page white-page figure-attribution"
   >
     <ContentWarningModal
       v-if="exhibitionContentWarning"
@@ -63,6 +63,35 @@
           </b-col>
         </b-row>
       </client-only>
+      <b-row
+        v-if="page.categoriesCollection && page.categoriesCollection.items"
+        class="justify-content-center"
+      >
+        <b-col
+          cols="12"
+          class="mt-4 col-lg-8"
+        >
+          <RelatedCategoryTags
+            :tags="page.categoriesCollection.items"
+          />
+        </b-col>
+      </b-row>
+      <b-row
+        v-if="relatedLink"
+        class="justify-content-center"
+      >
+        <b-col
+          cols="12"
+          class="mt-3 col-lg-8"
+        >
+          <client-only>
+            <RelatedCollections
+              :entity-uris="relatedLink"
+              :title="$t('youMightAlsoLike')"
+            />
+          </client-only>
+        </b-col>
+      </b-row>
       <b-row class="footer-margin" />
     </b-container>
   </div>
@@ -85,7 +114,9 @@
       SocialShareModal,
       AuthoredHead: () => import('../../../components/authored/AuthoredHead'),
       LinkList: () => import('../../../components/generic/LinkList'),
-      ContentWarningModal: () => import('@/components/generic/ContentWarningModal')
+      ContentWarningModal: () => import('@/components/generic/ContentWarningModal'),
+      RelatedCategoryTags: () => import('@/components/related/RelatedCategoryTags'),
+      RelatedCollections: () => import('@/components/related/RelatedCollections')
     },
     mixins: [
       exhibitionChapters
@@ -142,6 +173,7 @@
             exhibitionIdentifier: params.exhibition,
             exhibitionTitle: exhibition.name,
             exhibitionContentWarning: exhibition.contentWarning,
+            relatedLink: exhibition.relatedLink,
             page: chapter
           };
         })
@@ -204,3 +236,17 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  ::v-deep .related-collections {
+    &.container {
+      padding: 0;
+    }
+
+    .badge-pill {
+      margin-top: 0.25rem;
+      margin-right: 0.5rem;
+    }
+  }
+
+</style>

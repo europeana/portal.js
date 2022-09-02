@@ -1,7 +1,7 @@
 <template>
   <div
     data-qa="blog post"
-    class="text-page figure-attribution"
+    class="text-page white-page figure-attribution"
   >
     <ContentWarningModal
       v-if="post.contentWarning"
@@ -17,14 +17,14 @@
       :identifier="post.identifier"
       :hero="hero"
       :authors="post.authorCollection.items.length > 0 ? post.authorCollection.items : null"
-      :tags="post.keywords"
+      :tags="post.categoriesCollection && post.categoriesCollection.items"
+      :related-link="post.relatedLink"
     />
   </div>
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
-  import BlogPost from '../../components/blog/BlogPost';
+  import BlogPost from '@/components/blog/BlogPost';
 
   export default {
     name: 'BlogPostPage',
@@ -104,12 +104,7 @@
     computed: {
       hero() {
         return this.post.primaryImageOfPage || null;
-      },
-
-      ...mapGetters({
-        shareUrl: 'http/canonicalUrl',
-        identifier: 'http/canonicalUrlWithoutLocale'
-      })
+      }
     }
   };
 </script>

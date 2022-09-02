@@ -38,10 +38,14 @@ export default {
     "goHome": "Zur Homepage gehen",
     "learnMore": "Mehr erfahren",
     "like": "Like",
+    "move": "Verschieben",
     "next": "Weiter",
     "pin": "Stift",
+    "preview": "Vorschau",
+    "previous": "Vorherige",
     "providedBy": "Bereitgestellt von {provider}",
     "reject": "Ablehnen",
+    "save": "Speichern",
     "send": "Senden",
     "share": "Teilen",
     "shareOn": "Teilen auf {social}",
@@ -59,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Aktuelle Objekte",
     "organisation": "Organisationen",
+    "place": "Orte",
     "time": "Ausgewählte Jahrhunderte",
     "topic": "Ausgewählte Themen"
   },
@@ -76,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Organisation",
     "person": "Person",
+    "place": "Ort",
     "theme": "Thema",
     "time": "Jahrhundert",
     "topic": "Thema"
@@ -145,8 +151,27 @@ export default {
     "to": "an"
   },
   "debug": {
-    "apiRequests": "API-Anfragen",
-    "debug": "Debuggen"
+    "apiRequests": {
+      "apiKeyLinkText": "Europeana-API-Schlüssel",
+      "noRequests": "Auf dieser Seite wurden keine Anfragen an Europeana-APIs verwendet.",
+      "settingsPageLinkText": "Einstellungsseite",
+      "tip": "Tipp: Wenn Sie bereits einen {apiKeyLink} haben, können Sie ihn auf dem {settingsPageLink} eingeben und er wird in diese API-Anforderungslinks aufgenommen.",
+      "title": "API-Anfragen"
+    },
+    "debug": "Debuggen",
+    "settings": {
+      "form": {
+        "apiKey": {
+          "description": "Geben Sie Ihren Europeana-API-Schlüssel ein und er wird in den Links zu API-Anfragen verwendet.",
+          "label": "API-Schlüssel"
+        },
+        "enabled": {
+          "description": "Wenn aktiviert, wird das Debug-Menü in der Fußzeile der Seite angezeigt.",
+          "label": "Debug-Menü aktivieren"
+        }
+      },
+      "title": "Einstellungen"
+    }
   },
   "delete": "Löschen",
   "depiction": "Eine Darstellung von {title}",
@@ -167,18 +192,18 @@ export default {
     },
     "notifications": {
       "deleted": "Ihre Galerie wurde gelöscht.",
+      "error": {
+        "unpin": "Beim Lösen des Elements ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut oder melden Sie das Problem."
+      },
+      "pin": "Dieses Objekt wird oben in der Auflistung \"{entity}\" angezeigt. Wir werden Sie benachrichtigen, wenn diese Änderung auf der Sammlungsseite sichtbar wird.",
       "pinLimit": {
         "body": "Zurzeit können Sie nur 24 Objekte auf der ersten Seite pinnen. Wenn Sie dieses Objekt pinnen möchten, müssen Sie erst einen anderen Objekt entpinnen und dann versuchen, dieses Objekt erneut zu pinnen.",
         "title": "Zu viele angeheftete Objekte"
       },
       "pinned": "Das Objekt wurde angeheftet. Es befindet sich jetzt oben auf der ersten Seite dieser Sammlung. Es kann bis zu 24 Stunden dauern, bis es für alle erscheint.",
-      "pinnedFirstPage": "Das Objekt wurde angeheftet. Es kann bis zu 24 Stunden dauern, bis es für alle erscheint.",
-      "unpinned": "Das Objekt wurde nicht mehr angepinnt. Es steht nicht mehr oben auf der ersten Seite dieser Sammlung. Es kann bis zu 24 Stunden dauern, bis es für alle verschwindet.",
-      "unpinnedFirstPage": "Das Objekt wurde nicht mehr angepinnt. Es kann bis zu 24 Stunden dauern, bis es für alle verschwindet."
-    },
-    "prompts": {
-      "pin": "Sind Sie sicher, dass Sie dieses Objekt anheften möchten? Dieses Objekt wird oben in der Auflistung \"{entity}\" angezeigt. Es kann bis zu 24 Stunden dauern, bis diese Änderung wirksam wird.",
-      "unpin": "Möchten Sie dieses Objekt wirklich aufheben? Dieses Objekt wird nicht mehr oben in der \"{entity}\"  angezeigt. Es kann bis zu 24 Stunden dauern, bis diese Änderung wirksam wird."
+      "select": "Wählen Sie eine zugehörige Entität aus, um das Objekt daran anzuheften/von ihr zu lösen.",
+      "unpin": "Dieses Objekt wird nicht mehr oben in der Sammlung „ {entity} “ angezeigt. Wir werden Sie benachrichtigen, wenn diese Änderung auf der Sammlungsseite sichtbar wird.",
+      "unpinned": "Das Objekt wurde nicht mehr angepinnt. Es steht nicht mehr oben auf der ersten Seite dieser Sammlung. Es kann bis zu 24 Stunden dauern, bis es für alle verschwindet."
     }
   },
   "error": "Fehler",
@@ -189,6 +214,7 @@ export default {
     "description": "Entdecken Sie die Ausstellungen",
     "exhibitions": "Ausstellungen"
   },
+  "explore": "Erforschen",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "Farben",
@@ -531,7 +557,7 @@ export default {
         "newspaper": "Zeitungen",
         "photography": "Fotografie",
         "sport": "Sport",
-        "ww1": "1914-1918"
+        "ww1": "Erster Weltkrieg"
       },
       "select": "Ein thema auswählen"
     },
@@ -653,7 +679,7 @@ export default {
     "disclaimerLine1": "Europeana ist eine Initiative der Europäischen Union, die von der \"Connecting Europe Facility“ der Europäischen Union und den Mitgliedstaaten der Europäischen Union finanziert wird. Die Europeana-Dienste, einschließlich dieser Website, werden von einem Konsortium betrieben, das von der Europeana Foundation im Rahmen eines Dienstleistungsvertrags mit der Europäischen Kommission geführt wird.",
     "disclaimerLine2": "Die Europäische Kommission übernimmt keine Gewähr für die Richtigkeit der Informationen und übernimmt keinerlei Verantwortung oder Haftung für die Informationen auf dieser Website. Weder die Europäische Kommission noch eine Person, die im Namen der Europäischen Kommission handelt, ist für die Richtigkeit oder Verwendung der Informationen auf dieser Website verantwortlich oder haftbar.",
     "findUsElsewhere": "Finden Sie uns anderswo",
-    "imageDescription": "Kofinanziert von der Einrichtung „Connecting Europe“ der Europäischen Union",
+    "imageDescription": "Finanziert von der Europäischen Union",
     "navigation": {
       "MoreInfoLabel": "Mehr Infos",
       "about": "Über uns",
@@ -688,18 +714,31 @@ export default {
     "navigation": {
       "about": "Über uns",
       "collections": "Sammlungen",
-      "europeanaClassroom": "Lehrerinnen und Lehrer",
+      "europeanaClassroom": "Für Lehrer",
       "help": "Hilfe",
       "home": "Startseite",
+      "pro": "Für Fachleute",
       "stories": "Geschichten"
     },
+    "quickSearch": "Schnelle Suche",
     "searchFor": "Suche nach {query}",
     "searchForEverything": "Suchen Sie nach allem",
     "searchForEverythingInCollection": "Suchen Sie nach allem in {collection}",
     "searchForEverythingInEntireCollection": "Suchen Sie nach allem in unserer gesamten Sammlung",
-    "showSidebar": "Menü anzeigen"
+    "searchForm": "Suchformular",
+    "showSidebar": "Menü anzeigen",
+    "sideNavigation": "Seitliche Navigation"
   },
   "homeLinkAlt": "Startseite Europeana",
+  "homePage": {
+    "discoverEditorial": "Neueste Geschichten",
+    "storiesCTA": "Alle Geschichten ansehen",
+    "subHeadline": "Suchen, speichern und teilen Sie Kunst, Bücher, Filme und Musik von Tausenden von Kultureinrichtungen",
+    "themesCTA": "Alle Themen anzeigen",
+    "themesTitle": "Erkunden Sie nach Thema",
+    "title": "Entdecken Sie das {digital} kulturelle Erbe Europas",
+    "titleDigital": "digitale"
+  },
   "imageSlider": {
     "handle": "Schieberegler"
   },
@@ -817,12 +856,15 @@ export default {
   "newWindow": "öffnet sich in einem neuen Fenster",
   "noMoreResults": "Es gibt keine weiteren Ergebnisse für Ihre Suchanfrage.",
   "noResults": "Keine Ergebnisse",
+  "of": "Von",
   "organisation": {
     "city": "Stadt",
     "country": "Land",
+    "englishName": "Englischer Name",
     "nameAcronym": "Name Akronym"
   },
   "pageHasLoaded": "hat geladen",
+  "pageNumber": "Seitennummer",
   "pages": {
     "collections": {
       "organisations": {
@@ -834,7 +876,11 @@ export default {
       "persons": {
         "title": "Personen"
       },
+      "places": {
+        "title": "Orte"
+      },
       "table": {
+        "items": "Artikel",
         "name": "Name"
       },
       "times": {
@@ -845,6 +891,9 @@ export default {
       }
     }
   },
+  "pagination": {
+    "label": "Paginierung"
+  },
   "readMore": "Mehr anzeigen",
   "recommendation": {
     "prompts": {
@@ -854,6 +903,9 @@ export default {
   },
   "record": {
     "IIIFViewer": "IIIF-Viewer",
+    "actions": {
+      "pin": "Objekt an verfügbare Entitäten anheften"
+    },
     "allMetaData": "Alle Metadaten",
     "copyEmbedLabel": "Code einbetten (Zum Kopieren klicken)",
     "exploreMore": "Entdecken Sie mehr",
@@ -866,8 +918,16 @@ export default {
     "record": "Aufzeichnung",
     "showAll": "Alle Informationen anzeigen",
     "similarItems": "Ähnliche Objekte",
+    "status": {
+      "unpublished": "[unveröffentlichtes Objekt]"
+    },
     "transcription": "Transkription",
     "transcriptionDisclaimer": "Dieser Inhalt wird von der Öffentlichkeit bereitgestellt, nicht von der Institution, die dieses Objekt bereitgestellt hat."
+  },
+  "related": {
+    "editorial": {
+      "title": "Geschichten, die Ihnen gefallen könnten"
+    }
   },
   "relatedCollections": "Zugehörige Sammlungen",
   "removeFilter": "{filterLabel}-Filter entfernen",
@@ -877,9 +937,14 @@ export default {
   "resultsFor": "Ergebnisse für {0}",
   "resultsLimitWarning": "Zusätzliche Ergebnisse werden nicht angezeigt, da nur die ersten 1000 relevantesten Ergebnisse angezeigt werden. Wenn Sie nicht gefunden haben, wonach Sie suchen, können Sie Ihre Suche verfeinern.",
   "resultsWithin": "Ergebnisse innerhalb {0} {1} für {2}",
-  "search": "Suchen",
+  "search": {
+    "boost": {
+      "placeholder": "Geben Sie die Feldverstärkungsabfrage ein"
+    },
+    "title": "Suche"
+  },
   "searchHasLoaded": "{0} Ergebnisse zurückgegeben",
-  "searchPlaceholder": "Durchsuche Millionen von Objekten",
+  "searchPlaceholder": "Suche 50+ Millionen Artikel",
   "searchResults": "Suche",
   "searchResultsFor": "{0} - Suche",
   "searchSuggestions": "Suchvorschläge",
@@ -905,7 +970,6 @@ export default {
       "createNew": "Neue Galerie erstellen",
       "delete": "Galerie löschen",
       "edit": "Galerie bearbeiten",
-      "save": "Speichern",
       "update": "Galerie aktualisieren"
     },
     "form": {
@@ -939,6 +1003,9 @@ export default {
   "statuses": {
     "liked": "Gemocht",
     "pinned": "Angeheftet"
+  },
+  "storiesPage": {
+    "title": "Geschichten"
   },
   "website": "Webseite",
   "youMightAlsoLike": "Das könnte Ihnen auch gefallen"

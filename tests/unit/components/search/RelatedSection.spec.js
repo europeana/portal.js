@@ -6,7 +6,12 @@ import RelatedSection from '@/components/search/RelatedSection.vue';
 
 const localVue = createLocalVue();
 
-const relatedCollections = ['National Library of France', 'Voltaire', 'Louis XVI of France', 'National Library of Spain'];
+const relatedCollections = [
+  { id: 'http://data.europeana.eu/organization/1482250000002112001', prefLabel: 'National Library of France' },
+  { id: 'http://data.europeana.eu/agent/59833', prefLabel: 'Voltaire' },
+  { id: 'http://data.europeana.eu/agent/146742', prefLabel: 'Louis XVI of France' },
+  { id: 'http://data.europeana.eu/concept/17', prefLabel: { en: 'Manusscript' } }
+];
 
 const factory = (options = {}) => {
   return shallowMountNuxt(RelatedSection, {
@@ -16,7 +21,27 @@ const factory = (options = {}) => {
       $apis: { entity: { suggest: sinon.stub().resolves(relatedCollections) } },
       $fetchState: {},
       $i18n: { locale: 'en' },
-      $t: key => key
+      $t: key => key,
+      $store: {
+        state: {
+          entity: {
+            curatedEntities: [
+              {
+                name: 'World War I',
+                nameEN: 'World War I',
+                identifier: 'http://data.europeana.eu/concept/83',
+                genre: 'ww1'
+              },
+              {
+                name: 'Manuscripts',
+                nameEN: 'Manuscripts',
+                identifier: 'http://data.europeana.eu/concept/17',
+                genre: 'manuscript'
+              }
+            ]
+          }
+        }
+      }
     }
   });
 };
@@ -37,12 +62,13 @@ describe('components/search/RelatedSection', () => {
         })).toBe(true);
       });
 
-      it('stores response as relatedCollections', async() => {
+      it('stores response with overrides as relatedCollections', async() => {
         const wrapper = factory({ propsData });
 
         await wrapper.vm.fetch();
-
-        expect(wrapper.vm.relatedCollections).toEqual(relatedCollections);
+        const expectedRelated = relatedCollections;
+        expectedRelated[3].prefLabel = { en: 'Manuscripts' };
+        expect(wrapper.vm.relatedCollections).toEqual(expectedRelated);
       });
     });
 

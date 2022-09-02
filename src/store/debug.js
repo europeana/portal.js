@@ -1,5 +1,6 @@
 const defaults = {
-  apiRequests: false
+  enabled: false,
+  boosting: false
 };
 
 export const state = () => ({

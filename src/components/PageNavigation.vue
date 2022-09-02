@@ -111,7 +111,8 @@
         return [
           { url: '/', text: this.$t('header.navigation.home') },
           { url: '/collections', text: this.$t('header.navigation.collections') },
-          { url: '/stories', text: this.$t('header.navigation.stories') }
+          { url: '/stories', text: this.$t('header.navigation.stories') },
+          { url: '/professionals', text: this.$t('header.navigation.pro') }
         ];
       },
       sidebarNavigation() {
@@ -156,6 +157,9 @@
         case ('/about-us'):
           className = 'icon-info';
           break;
+        case ('/professionals'):
+          className = 'icon-pro';
+          break;
         default:
           className = 'icon-info blank';
           break;
@@ -189,6 +193,11 @@
       display: flex;
       align-items: center;
 
+      @media (min-width: $bp-xxxl) {
+        font-size: 1vw;
+        padding: 0.5em;
+      }
+
       &:hover {
         color: $innovationblue;
       }
@@ -197,13 +206,19 @@
         &::after {
           content: '';
           position: absolute;
-          border-bottom: solid 3px $blue;
+          border-bottom: solid 0.1875em $blue;
           display: block;
           width: 100%;
           z-index: 1;
           left: 0;
           right: 0;
-          bottom: calc(-0.6rem);
+          bottom: -0.6em;
+          font-size: 1rem;
+
+          @media (min-width: $bp-xxxl) {
+            font-size: 1vw;
+            bottom: -0.633em;
+          }
         }
       }
 
@@ -219,6 +234,10 @@
         z-index: 1;
         margin-right: 0.75rem;
 
+        @media (min-width: $bp-xxxl) {
+          font-size: 1vw;
+        }
+
         &::before {
           @extend %icon-font;
 
@@ -226,6 +245,10 @@
           color: $black;
           transition: $standard-transition;
           font-size: 1.5rem;
+
+          @media (min-width: $bp-xxxl) {
+            font-size: 1.5vw;
+          }
         }
 
         &.icon-home::before {
@@ -236,8 +259,12 @@
           content: '\e91d';
         }
 
+        &.icon-pro::before {
+          content: '\e95a';
+        }
+
         &.icon-school::before {
-          content: '\e947';
+          content: '\e952';
         }
 
         &.icon-info::before {
@@ -245,15 +272,15 @@
         }
 
         &.icon-help::before {
-          content: '\e921';
+          content: '\e94f';
         }
 
         &.icon-login::before {
-          content: '\e926';
+          content: '\e950';
         }
 
         &.icon-logout::before {
-          content: '\e927';
+          content: '\e950';
         }
 
         &.icon-settings::before {
@@ -265,11 +292,46 @@
         }
 
         &.icon-stories::before {
-          content: '\e935';
+          content: '\e951';
         }
 
         &.blank::before {
           color: transparent;
+        }
+
+        &.icon-school::before,
+        &.icon-stories::before,
+        &.icon-login::before,
+        &.icon-help::before {
+          font-size: 1.25rem;
+          padding: 0.1rem;
+
+          @media (min-width: $bp-xxxl) {
+            font-size: 1.25vw;
+          }
+        }
+      }
+    }
+
+    &:not(.sidebar-nav-item) {
+      width: auto;
+      margin: auto;
+
+      .nav-link {
+        text-transform: uppercase;
+        font-size: $font-size-small;
+        font-weight: 600;
+
+        @media (min-width: $bp-xxxl) {
+          font-size: 0.875vw;
+        }
+
+        span {
+          position: relative;
+        }
+
+        .nav-link-icon {
+          display: none;
         }
       }
     }
@@ -290,11 +352,14 @@
       }
 
       .nav-link {
-        text-transform: capitalize;
         font-weight: 400;
         border-radius: $border-radius-small;
         transition: $standard-transition;
         font-size: $font-size-base;
+
+        @media (min-width: $bp-xxxl) {
+          font-size: 1vw;
+        }
 
         &.exact-active-link,
         &:hover {
@@ -319,27 +384,5 @@
         }
       }
     }
-
-    @media (min-width: $bp-large) {
-      &:not(.sidebar-nav-item) {
-        width: auto;
-        margin: auto;
-
-        .nav-link {
-          text-transform: uppercase;
-          font-size: $font-size-small;
-          font-weight: 600;
-
-          span {
-            position: relative;
-          }
-
-          .nav-link-icon {
-            display: none;
-          }
-        }
-      }
-    }
   }
-
 </style>

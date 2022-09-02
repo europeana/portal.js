@@ -14,12 +14,12 @@ const factory = (propsData = {}) => mount(EntityInformationModal, {
   }
 });
 
-const info =  {
-  website: { label: 'website', value: 'https://www.europeana.eu' },
-  country: { label: 'Country', value: 'The Netherlands' },
-  acronym: { label: 'Acronym', value: 'EF' },
-  city: { label: 'city', value: 'The Hague' }
-};
+const info = [
+  { label: 'Website', value: 'https://www.deutsche-digitale-bibliothek.de' },
+  { label: 'Country', value: 'Germany' },
+  { label: 'Name acronym', value: 'DDB', lang: 'de' },
+  { label: 'City', value: 'Frankfurt am Main' }
+];
 
 const entityProps = {
   modalStatic: true,
@@ -47,7 +47,7 @@ describe('components/entity/EntityInformationModal', () => {
   it('links to the organisation URL for the website', () => {
     const wrapper = factory(entityProps);
 
-    const websiteLink = wrapper.find('ul li[data-qa="website field"] a');
-    expect(websiteLink.attributes().href).toEqual(info.website.value);
+    const websiteLink = wrapper.find('ul li[data-qa="Website field"] a');
+    expect(websiteLink.attributes().href).toEqual('https://www.deutsche-digitale-bibliothek.de');
   });
 });

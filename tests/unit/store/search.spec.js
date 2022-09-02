@@ -90,7 +90,7 @@ describe('store/search', () => {
       it('combines userParams and overrideParams into apiParams', () => {
         const userQuery = 'calais';
         const userQf = 'TYPE:"IMAGE"';
-        const overrideQf = 'edm_agent:"http://data.europeana.eu/agent/base/200"';
+        const overrideQf = 'edm_agent:"http://data.europeana.eu/agent/200"';
         const profile = 'minimal';
 
         const state = {

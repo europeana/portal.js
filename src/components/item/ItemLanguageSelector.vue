@@ -30,12 +30,14 @@
                 toggle-tag="span"
                 no-flip
                 class="multilingual-selector"
+                data-qa="item language dropdown"
               >
                 <b-dropdown-item
                   v-for="locale in translateLocales"
                   :key="locale.code"
                   class="multilingual-dropdown-item"
                   :to="translateParams(locale.code)"
+                  :data-qa="`item language option ${locale.code}`"
                 >
                   {{ locale.name }}
                 </b-dropdown-item>

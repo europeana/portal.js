@@ -38,10 +38,14 @@ export default {
     "goHome": "Ugrás a kezdőlapra",
     "learnMore": "Tudj meg többet",
     "like": "Kedvelés",
+    "move": "Mozgás",
     "next": "Következő",
     "pin": "Pin",
+    "preview": "Előnézet",
+    "previous": "Előző",
     "providedBy": "Szolgáltató: {provider}",
     "reject": "Elutasít",
+    "save": "Mentse",
     "send": "Küld",
     "share": "Megosztás",
     "shareOn": "Megosztás a következőn: {social}",
@@ -59,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Legutóbbi cikk",
     "organisation": "Szervezetek",
+    "place": "Helyek",
     "time": "Kiemelt évszázadok",
     "topic": "Kiemelt témák"
   },
@@ -76,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Szervezet",
     "person": "Személy",
+    "place": "Hely",
     "theme": "Téma",
     "time": "Század",
     "topic": "Téma"
@@ -145,8 +151,27 @@ export default {
     "to": "erre"
   },
   "debug": {
-    "apiRequests": "API kérések",
-    "debug": "Debug"
+    "apiRequests": {
+      "apiKeyLinkText": "Europeana API kulcs",
+      "noRequests": "Ezen az oldalon nem használtak Europeana API-kra vonatkozó kéréseket.",
+      "settingsPageLinkText": "beállítások oldalon",
+      "tip": "Tipp: ha már rendelkezik {apiKeyLink} , megadhatja azt a {settingsPageLink} oldalon, és ez szerepelni fog ezekben az API-kérés hivatkozásokban.",
+      "title": "API kérések"
+    },
+    "debug": "Debug",
+    "settings": {
+      "form": {
+        "apiKey": {
+          "description": "Adja meg Europeana API-kulcsát, és azt az API-kérésekre mutató hivatkozásokban fogja használni.",
+          "label": "API kulcs"
+        },
+        "enabled": {
+          "description": "Ha engedélyezve van, a hibakeresési menü megjelenik az oldal láblécében.",
+          "label": "Hibakeresési menü engedélyezése"
+        }
+      },
+      "title": "Beállítások"
+    }
   },
   "delete": "Törlés",
   "depiction": "{title} ábrázolása",
@@ -167,18 +192,18 @@ export default {
     },
     "notifications": {
       "deleted": "Galéria törölve.",
+      "error": {
+        "unpin": "Hiba történt az elem rögzítésének feloldásakor. Kérjük, próbálja újra, vagy jelentse a problémát."
+      },
+      "pin": "Ez az elem a(z) \" {entity} \" gyűjtemény tetején fog megjelenni. Értesítjük, ha ez a változás látható lesz a gyűjtemény oldalán.",
       "pinLimit": {
         "body": "Egyelőre csak 24 elemet rögzíthet az első oldalon. Ha meg szeretné tűzni ezt az elemet, győződjön meg róla, hogy egy másikat bont ki, majd próbálja meg újra rögzíteni.",
         "title": "Túl sok rögzített elem"
       },
       "pinned": "Az elemet kitűzték. Most a gyűjtemény első oldalának tetején található. Lehet, hogy 24 óráig is eltarthat, amíg mindenki számára megjelenik.",
-      "pinnedFirstPage": "Az elemet kitűzték. Lehet, hogy 24 óráig is eltarthat, amíg mindenki számára megjelenik.",
-      "unpinned": "Az elem rögzítése megszűnt. Már nincs a gyűjtemény első oldalának tetején. Akár 24 órát is igénybe vehet, amíg mindenki eltűnik.",
-      "unpinnedFirstPage": "Az elem rögzítése megszűnt. Akár 24 órát is igénybe vehet, amíg mindenki eltűnik."
-    },
-    "prompts": {
-      "pin": "Biztos vagy benne, hogy fel akarod tűzni ezt az elemet? Ez az elem a \"{entity}\" kollekció tetején jelenik meg. Ez a változás 24 órát vehet igénybe, mire érvénybe lép.",
-      "unpin": "Biztos vagy benne, hogy le akarod venni ezt az elemet? Ez az elem nem fog többé a \"{entity}\" gyűjtemény tetején megjelenni. Ez a változás akár 24 órát is igénybe vehet, mire érvénybe lép."
+      "select": "Válasszon ki egy kapcsolódó entitást, hogy az elemet hozzá/hozzá kapcsolja/elvegye.",
+      "unpin": "Ez az elem nem jelenik meg többé a \"{entity}\" gyűjtemény tetején. Értesítjük Önt, ha ez a változás láthatóvá válik a gyűjtemény oldalán.",
+      "unpinned": "Az elem rögzítése megszűnt. Már nincs a gyűjtemény első oldalának tetején. Akár 24 órát is igénybe vehet, amíg mindenki eltűnik."
     }
   },
   "error": "Hiba",
@@ -189,6 +214,7 @@ export default {
     "description": "Fedezze fel a kiállításokat",
     "exhibitions": "Kiállítások"
   },
+  "explore": "Fedezd fel",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "színek",
@@ -531,7 +557,7 @@ export default {
         "newspaper": "Újságok",
         "photography": "Fotózás",
         "sport": "Sport",
-        "ww1": "1914-1918"
+        "ww1": "Első világháború"
       },
       "select": "Téma kiválasztása"
     },
@@ -653,7 +679,7 @@ export default {
     "disclaimerLine1": "Az Europeana az Európai Unió kezdeményezése, amelyet az Európai Unió Európai Uniót összekötő eszközének és az Európai Unió tagállamainak finanszíroz. Az Europeana szolgáltatásait, beleértve ezt a weboldalt is, az Europeana Alapítvány által vezetett konzorcium üzemelteti az Európai Bizottsággal kötött szolgáltatási szerződés alapján.",
     "disclaimerLine2": "Az Európai Bizottság nem garantálja az információk pontosságát, és semmilyen felelősséget nem vállal a weboldalon található információkkal kapcsolatban. Sem az Európai Bizottság, sem az Európai Bizottság nevében eljáró személyek nem felelősek vagy felelősek a weboldalon található információk pontosságáért vagy felhasználásáért.",
     "findUsElsewhere": "Keressen minket máshol",
-    "imageDescription": "Az Európai Unió Európai Hálózatfinanszírozási Eszköze által társfinanszírozva",
+    "imageDescription": "Az Európai Unió által finanszírozott",
     "navigation": {
       "MoreInfoLabel": "További információ",
       "about": "Rólunk",
@@ -688,18 +714,31 @@ export default {
     "navigation": {
       "about": "Rólunk",
       "collections": "Gyűjtemények",
-      "europeanaClassroom": "Tanárok",
+      "europeanaClassroom": "A tanároknak",
       "help": "Súgó",
       "home": "itthon",
+      "pro": "Szakembereknek",
       "stories": "Történetek"
     },
+    "quickSearch": "Gyors keresés",
     "searchFor": "Keresés erre: {query}",
     "searchForEverything": "Keresés mindenre",
     "searchForEverythingInCollection": "Keresés mindenre a(z) {collection} gyűjteményben",
     "searchForEverythingInEntireCollection": "Keresés mindenre az egész gyűjteményben",
-    "showSidebar": "Menü mutatása"
+    "searchForm": "Keresés űrlap",
+    "showSidebar": "Menü mutatása",
+    "sideNavigation": "Oldalsó navigáció"
   },
   "homeLinkAlt": "Europeana kezdőlap",
+  "homePage": {
+    "discoverEditorial": "Legújabb történetek",
+    "storiesCTA": "Az összes történet megtekintése",
+    "subHeadline": "Válogasson több ezer kulturális intézmény művészeti alkotásaiból, könyveiből,filmjeiből és zeneműveiből, és mentse el vagy ossza meg kedvenceit",
+    "themesCTA": "Az összes téma megtekintése",
+    "themesTitle": "Téma szerinti felfedezés",
+    "title": "Fedezze fel Európa {digital} kulturális örökségét",
+    "titleDigital": "digitális"
+  },
   "imageSlider": {
     "handle": "Csúszka fogantyú"
   },
@@ -817,12 +856,15 @@ export default {
   "newWindow": "új ablakban nyílik meg",
   "noMoreResults": "Nincs további eredmény a keresési lekérdezéshez.",
   "noResults": "Nincs találat",
+  "of": "A",
   "organisation": {
     "city": "Város",
     "country": "Ország",
+    "englishName": "Angol név",
     "nameAcronym": "Név rövidítés"
   },
   "pageHasLoaded": "betöltődött",
+  "pageNumber": "Oldalszám",
   "pages": {
     "collections": {
       "organisations": {
@@ -834,7 +876,11 @@ export default {
       "persons": {
         "title": "Személyek"
       },
+      "places": {
+        "title": "Helyek"
+      },
       "table": {
+        "items": "Tételek",
         "name": "Név"
       },
       "times": {
@@ -845,6 +891,9 @@ export default {
       }
     }
   },
+  "pagination": {
+    "label": "Lapszámozás"
+  },
   "readMore": "Bővebben",
   "recommendation": {
     "prompts": {
@@ -854,6 +903,9 @@ export default {
   },
   "record": {
     "IIIFViewer": "IIIF néző",
+    "actions": {
+      "pin": "Az elem rögzítése az elérhető entitásokhoz"
+    },
     "allMetaData": "Minden metaadat",
     "copyEmbedLabel": "Beágyazási kód (Kattintson a másoláshoz)",
     "exploreMore": "Több felfedezés",
@@ -866,8 +918,16 @@ export default {
     "record": "Rekord",
     "showAll": "Az összes információ megjelenítése",
     "similarItems": "Hasonló elemek",
+    "status": {
+      "unpublished": "[Közzé nem tett tétel]"
+    },
     "transcription": "Átírás",
     "transcriptionDisclaimer": "Ezt a tartalmat a nyilvánosság hozza létre, nem az intézmény, amely a cikket szolgáltatta."
+  },
+  "related": {
+    "editorial": {
+      "title": "Történetek, amelyek tetszhetnek"
+    }
   },
   "relatedCollections": "Kapcsolódó gyűjtemények",
   "removeFilter": "{filterLabel} szűrő eltávolítása",
@@ -877,9 +937,14 @@ export default {
   "resultsFor": "Találatok a következőre: {0}",
   "resultsLimitWarning": "Nem jelennek meg további eredmények, mivel csak az első 1000 legrelevánsabb eredmény látható. Ha nem találta meg azt, amit keres, kérjük, finomítsa a keresést.",
   "resultsWithin": "Találatok a következőn belül {0} {1} a következőre: {2}",
-  "search": "Keresés",
+  "search": {
+    "boost": {
+      "placeholder": "Adja meg a mezőt növelő lekérdezést"
+    },
+    "title": "Keresés"
+  },
   "searchHasLoaded": "{0} eredmények visszaadva",
-  "searchPlaceholder": "Mit keres?",
+  "searchPlaceholder": "Keresés 50+ millió tételben",
   "searchResults": "Keresés",
   "searchResultsFor": "{0} - Keresés",
   "searchSuggestions": "Keresési javaslatok",
@@ -905,7 +970,6 @@ export default {
       "createNew": "Új galéria létrehozása",
       "delete": "Galéria törlése",
       "edit": "Galéria szerkesztése",
-      "save": "Mentse",
       "update": "Galéria frissítése"
     },
     "form": {
@@ -939,6 +1003,9 @@ export default {
   "statuses": {
     "liked": "Tetszett",
     "pinned": "Odatűzött"
+  },
+  "storiesPage": {
+    "title": "Történetek"
   },
   "website": "Weboldal",
   "youMightAlsoLike": "Ez is érdekelheti Önt"

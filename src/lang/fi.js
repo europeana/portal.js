@@ -38,10 +38,14 @@ export default {
     "goHome": "Siirry kotisivulle",
     "learnMore": "Opi lisää",
     "like": "Tykkää",
+    "move": "Liikkua",
     "next": "Seuraava",
     "pin": "Pin",
+    "preview": "Esikatselu",
+    "previous": "Edellinen",
     "providedBy": "Tarjoaa {provider}",
     "reject": "Hylätä",
+    "save": "Tallenna",
     "send": "Lähettää",
     "share": "Jaa",
     "shareOn": "Jaa mediassa {social}",
@@ -59,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Viimeisimmät kohdetta",
     "organisation": "Organisaatiot",
+    "place": "Paikat",
     "time": "Esillä vuosisatoja",
     "topic": "Esillä olevat aiheet"
   },
@@ -76,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Organisaatio",
     "person": "Henkilö",
+    "place": "Paikka",
     "theme": "Teema",
     "time": "Vuosisata",
     "topic": "Aihe"
@@ -145,8 +151,27 @@ export default {
     "to": "asti"
   },
   "debug": {
-    "apiRequests": "API-pyynnöt",
-    "debug": "Virheenkorjaus"
+    "apiRequests": {
+      "apiKeyLinkText": "Europeana API avain",
+      "noRequests": "Tällä sivulla ei käytetty Europeanan API-pyyntöjä.",
+      "settingsPageLinkText": "asetukset-sivu",
+      "tip": "Vinkki: jos sinulla on jo {apiKeyLink} , voit kirjoittaa sen {settingsPageLink} -sivulle ja se sisällytetään näihin API-pyyntölinkkeihin.",
+      "title": "API-pyynnöt"
+    },
+    "debug": "Virheenkorjaus",
+    "settings": {
+      "form": {
+        "apiKey": {
+          "description": "Anna Europeana API -avaimesi, niin sitä käytetään API-pyyntöjen linkeissä.",
+          "label": "API-avain"
+        },
+        "enabled": {
+          "description": "Jos käytössä, virheenkorjausvalikko näkyy sivun alatunnisteessa.",
+          "label": "Ota virheenkorjausvalikko käyttöön"
+        }
+      },
+      "title": "Asetukset"
+    }
   },
   "delete": "Poista",
   "depiction": "Kuvaus kohteesta {title}",
@@ -167,18 +192,18 @@ export default {
     },
     "notifications": {
       "deleted": "Galleriasi on poistettu.",
+      "error": {
+        "unpin": "Kohteen irrottamisessa tapahtui virhe. Yritä uudelleen tai ilmoita ongelmasta."
+      },
+      "pin": "Tämä kohde näkyy kokoelman \" {entity} \" yläosassa. Ilmoitamme sinulle, kun tämä muutos tulee näkyviin kokoelmasivulle.",
       "pinLimit": {
         "body": "Tällä hetkellä voit kiinnittää vain 24 kohdetta ensimmäiselle sivulle. Jos haluat kiinnittää tämän kohteen, irrota toinen ja yritä sitten kiinnittää tämä uudelleen.",
         "title": "Liian monta kiinnitettyä kohdetta"
       },
       "pinned": "Kohde on kiinnitetty. Se on nyt tämän kokoelman ensimmäisen sivun yläosassa. Saattaa kestää jopa 24 tuntia, ennen kuin se näkyy kaikille.",
-      "pinnedFirstPage": "Kohde on kiinnitetty. Saattaa kestää jopa 24 tuntia, ennen kuin se näkyy kaikille.",
-      "unpinned": "Kohde on irrotettu. Se ei ole enää tämän kokoelman ensimmäisen sivun yläosassa. Kaikkien katoaminen voi kestää jopa 24 tuntia.",
-      "unpinnedFirstPage": "Kohde on irrotettu. Kaikkien katoaminen voi kestää jopa 24 tuntia."
-    },
-    "prompts": {
-      "pin": "Haluatko varmasti kiinnittää tämän kohteen? Tämä kohde näkyy kokoelman {entity} Muutoksen voimaantulo voi kestää jopa 24 tuntia.",
-      "unpin": "Haluatko varmasti irrottaa tämän kohteen? Tämä kohde ei enää näy kokoelman {entity} Muutoksen voimaantulo voi kestää jopa 24 tuntia."
+      "select": "Valitse liittyvä kokonaisuus, jos haluat liittää kohteen siihen tai irrottaa sen siitä.",
+      "unpin": "Tämä kohde lakkaa näkymästä kokoelman \" {entity} \" yläosassa. Ilmoitamme sinulle, kun tämä muutos tulee näkyviin kokoelmasivulle.",
+      "unpinned": "Kohde on irrotettu. Se ei ole enää tämän kokoelman ensimmäisen sivun yläosassa. Kaikkien katoaminen voi kestää jopa 24 tuntia."
     }
   },
   "error": "Virhe",
@@ -189,6 +214,7 @@ export default {
     "description": "Tutustu näyttelyihin",
     "exhibitions": "Näyttelyt"
   },
+  "explore": "Tutkia",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "värit",
@@ -531,7 +557,7 @@ export default {
         "newspaper": "Sanomalehdet",
         "photography": "Valokuvaus",
         "sport": "Urheilu",
-        "ww1": "1914–1918"
+        "ww1": "Ensimmäinen maailmansota"
       },
       "select": "Valitse teema"
     },
@@ -653,7 +679,7 @@ export default {
     "disclaimerLine1": "Europeana on Euroopan unionin aloite, jonka rahoittavat Euroopan unionin Verkkojen Eurooppa -väline ja Euroopan unionin jäsenvaltiot. Europeana-palveluja, mukaan lukien tämä verkkosivusto, ylläpitää konsortio, jota johtaa Europeana-säätiö Euroopan komission kanssa tehtyyn palvelusopimukseen.",
     "disclaimerLine2": "Euroopan komissio ei takaa tietojen paikkansapitävyyttä eikä ota mitään vastuuta tämän verkkosivuston tiedoista. Kumpikaan Euroopan komissio tai kukaan Euroopan komission puolesta toimiva henkilö ei ole vastuussa tai vastuussa tämän verkkosivuston tietojen oikeellisuudesta tai käytöstä.",
     "findUsElsewhere": "Löydä meidät muualta",
-    "imageDescription": "Euroopan unionin Verkkojen Eurooppa -väline on osallistunut rahoitukseen",
+    "imageDescription": "Euroopan unionin rahoittama",
     "navigation": {
       "MoreInfoLabel": "Lisätietoja",
       "about": "Tietoa meistä",
@@ -688,18 +714,31 @@ export default {
     "navigation": {
       "about": "Tietoa meistä",
       "collections": "Kokoelmat",
-      "europeanaClassroom": "Opettajat",
+      "europeanaClassroom": "Opettajille",
       "help": "Apua",
       "home": "Koti",
+      "pro": "Ammattilaisille",
       "stories": "Tarinoita"
     },
+    "quickSearch": "Pikahaku",
     "searchFor": "Hae ehdoilla {query}",
     "searchForEverything": "Hae kaikkea",
     "searchForEverythingInCollection": "Hae kaikkea kokoelmasta {collection}",
     "searchForEverythingInEntireCollection": "Hae kaikkea koko kokoelmastamme",
-    "showSidebar": "Näytä valikko"
+    "searchForm": "Hakulomake",
+    "showSidebar": "Näytä valikko",
+    "sideNavigation": "Sivunavigointi"
   },
   "homeLinkAlt": "Europeanan kotisivu",
+  "homePage": {
+    "discoverEditorial": "Uusimmat tarinat",
+    "storiesCTA": "Katso kaikki tarinat",
+    "subHeadline": "Etsi, tallenna ja jaa taidetta, kirjoja, elokuvia ja musiikkia tuhansista kulttuurilaitoksista",
+    "themesCTA": "Katso kaikki teemat",
+    "themesTitle": "Tutustu teemoittain",
+    "title": "Tutustu Euroopan {digital} kulttuuriperintöön",
+    "titleDigital": "digitaaliseen"
+  },
   "imageSlider": {
     "handle": "Liukusäätimen kahva"
   },
@@ -817,12 +856,15 @@ export default {
   "newWindow": "avautuu uuteen ikkunaan",
   "noMoreResults": "Hakusi ei tuottanut enempää tuloksia.",
   "noResults": "Ei tuloksia",
+  "of": "of",
   "organisation": {
     "city": "Kaupunki",
     "country": "Maa",
+    "englishName": "Englanninkielinen nimi",
     "nameAcronym": "Nimen lyhenne"
   },
   "pageHasLoaded": "on ladattu",
+  "pageNumber": "Sivunumero",
   "pages": {
     "collections": {
       "organisations": {
@@ -834,7 +876,11 @@ export default {
       "persons": {
         "title": "Henkilöt"
       },
+      "places": {
+        "title": "Paikat"
+      },
       "table": {
+        "items": "Tuotteet",
         "name": "Nimi"
       },
       "times": {
@@ -845,6 +891,9 @@ export default {
       }
     }
   },
+  "pagination": {
+    "label": "Sivunumerointi"
+  },
   "readMore": "Lue lisää",
   "recommendation": {
     "prompts": {
@@ -854,6 +903,9 @@ export default {
   },
   "record": {
     "IIIFViewer": "IIIF-katsoja",
+    "actions": {
+      "pin": "Kiinnitä kohde käytettävissä oleviin Entiteetteihin"
+    },
     "allMetaData": "Kaikki metatiedot",
     "copyEmbedLabel": "Upota koodi (kopioi napsauttamalla)",
     "exploreMore": "Tutki lisää",
@@ -866,8 +918,16 @@ export default {
     "record": "Tietue",
     "showAll": "Näytä kaikki tiedot",
     "similarItems": "Samanlaisia kohteita",
+    "status": {
+      "unpublished": "[Julkaisematon kohde]"
+    },
     "transcription": "Transkriptio",
     "transcriptionDisclaimer": "Tämän sisällön on lähettänyt yksityishenkilö eikä tämän kohteen tarjoava instituutio."
+  },
+  "related": {
+    "editorial": {
+      "title": "Tarinoita, joista saatat pitää"
+    }
   },
   "relatedCollections": "Aiheeseen liittyvät kokoelmat",
   "removeFilter": "Poista {filterLabel} -suodatin",
@@ -877,9 +937,14 @@ export default {
   "resultsFor": "Tulokset {0}",
   "resultsLimitWarning": "Enempää tuloksia ei näytetä, koska vain ensimmäiset 1000 merkityksellisintä tulosta näytetään. Jos et löytänyt etsimääsi, voit tarkentaa hakuasi.",
   "resultsWithin": "tulokset {0} {1} sisällä {2}",
-  "search": "Hae",
+  "search": {
+    "boost": {
+      "placeholder": "Syötä kentän tehostamiskysely"
+    },
+    "title": "Hae"
+  },
   "searchHasLoaded": "{0} tulosta palautettu",
-  "searchPlaceholder": "Mitä etsit?",
+  "searchPlaceholder": "Etsi 50+ miljoonaa kohdetta",
   "searchResults": "Hae",
   "searchResultsFor": "{0} – hae",
   "searchSuggestions": "Hakuehdotuksia",
@@ -905,7 +970,6 @@ export default {
       "createNew": "Luo uusi galleria",
       "delete": "Poista galleria",
       "edit": "Muokkaa galleriaa",
-      "save": "Tallenna",
       "update": "Päivitä galleria"
     },
     "form": {
@@ -939,6 +1003,9 @@ export default {
   "statuses": {
     "liked": "Pidetty",
     "pinned": "Kiinnitetty"
+  },
+  "storiesPage": {
+    "title": "Tarinoita"
   },
   "website": "Verkkosivusto",
   "youMightAlsoLike": "Saatat myös pitää"

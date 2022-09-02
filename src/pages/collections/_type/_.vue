@@ -17,60 +17,63 @@
       </b-row>
     </b-container>
     <client-only v-else>
-      <b-container
-        class="page-container side-filters-enabled"
+      <SearchInterface
+        v-if="!$fetchState.pending"
+        :per-page="recordsPerPage"
+        :route="route"
+        :show-content-tier-toggle="false"
+        :show-pins="userIsEntitiesEditor && userIsSetsEditor"
+        :editorial-overrides="editorialOverrides"
+        :show-related="showRelated"
       >
-        <b-row class="flex-nowrap">
-          <b-col>
-            <b-container class="px-0 pb-3">
-              <SearchInterface
-                v-if="!$fetchState.pending"
-                class="px-0"
-                :per-page="recordsPerPage"
-                :route="route"
-                :show-content-tier-toggle="false"
-                :show-pins="userIsEditor && userIsSetsEditor"
-                :editorial-entity-label="editorialTitle"
-                :show-related="showRelated"
-              >
-                <EntityHeader
-                  v-if="!hasUserQuery"
-                  :description="description"
-                  :title="title"
-                  :logo="logo"
-                  :image="thumbnail"
-                  :editable="isEditable && userIsEditor"
-                  :external-link="homepage"
-                  :proxy="entity ? entity.proxy : null"
-                  :more-info="moreInfo"
-                />
-                <template
-                  #related
-                >
-                  <client-only>
-                    <RelatedCollections
-                      :title="$t('youMightAlsoLike')"
-                      :related-collections="relatedCollections"
-                      data-qa="related entities"
-                      @show="showRelatedCollections"
-                      @hide="hideRelatedCollections"
-                    />
-                  </client-only>
-                </template>
-              </SearchInterface>
-            </b-container>
+        <EntityHeader
+          v-if="entity"
+          v-show="!hasUserQuery"
+          :id="entity && entity.id"
+          :description="description"
+          :title="title"
+          :sub-title="subTitle"
+          :logo="logo"
+          :image="thumbnail"
+          :editable="editable"
+          :external-link="homepage"
+          :proxy="proxy"
+          :more-info="moreInfo"
+          @updated="proxyUpdated"
+        />
+        <template
+          v-if="collectionType !== 'organisation'"
+          #related
+        >
+          <client-only>
+            <EntityRelatedCollections
+              :type="$route.params.type"
+              :identifier="$route.params.pathMatch"
+              :overrides="relatedCollectionCards"
+              data-qa="related entities"
+              @show="showRelatedCollections"
+              @hide="hideRelatedCollections"
+            />
+          </client-only>
+        </template>
+        <template
+          #after-results
+        >
+          <client-only>
             <b-container class="px-0">
+              <RelatedEditorial
+                v-if="entity"
+                :entity-uri="entity.id"
+                :query="$route.query.query"
+              />
               <BrowseSections
                 v-if="page"
                 :sections="page.hasPartCollection.items"
               />
             </b-container>
-          </b-col>
-          <SideFilters
-            :route="route"
-          />
-        </b-row>
-      </b-container>
+          </client-only>
+        </template>
+      </SearchInterface>
     </client-only>
   </div>
 </template>
@@ -79,10 +82,12 @@
   import pick from 'lodash/pick';
   import ClientOnly from 'vue-client-only';
   import SearchInterface from '@/components/search/SearchInterface';
+  import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
+  import redirectToPrefPathMixin from '@/mixins/redirectToPrefPath';
 
   import themes from '@/plugins/europeana/themes';
   import {
-    getEntitySlug, getEntityUri, getEntityQuery, normalizeEntityId
+    getEntityUri, getEntityQuery, normalizeEntityId
   } from '@/plugins/europeana/entity';
   import { langMapValueForLocale, uriRegex } from  '@/plugins/europeana/utils';
 
@@ -93,11 +98,16 @@
       AlertMessage: () => import('@/components/generic/AlertMessage'),
       BrowseSections: () => import('@/components/browse/BrowseSections'),
       ClientOnly,
-      SearchInterface,
-      SideFilters: () => import('@/components/search/SideFilters'),
       EntityHeader: () => import('@/components/entity/EntityHeader'),
-      RelatedCollections: () => import('@/components/generic/RelatedCollections')
+      EntityRelatedCollections: () => import('@/components/entity/EntityRelatedCollections'),
+      RelatedEditorial: () => import('@/components/related/RelatedEditorial'),
+      SearchInterface
     },
+
+    mixins: [
+      europeanaEntitiesOrganizationsMixin,
+      redirectToPrefPathMixin
+    ],
 
     beforeRouteLeave(to, from, next) {
       if (to.matched[0].path !== `/${this.$i18n.locale}/search`) {
@@ -105,6 +115,8 @@
       }
       this.$store.commit('entity/setId', null); // needed to re-enable auto-suggest in header
       this.$store.commit('entity/setEntity', null); // needed for best bets handling
+      this.$store.commit('entity/setFeaturedSetId', null);
+      this.$store.commit('entity/setPinned', []);
       next();
     },
 
@@ -113,7 +125,7 @@
     data() {
       return {
         page: null,
-        relatedEntities: null,
+        proxy: null,
         showRelated: false,
         themes: themes.map(theme => theme.id)
       };
@@ -122,7 +134,7 @@
     fetch() {
       this.$store.commit('search/disableCollectionFacet');
 
-      const entityUri = getEntityUri(this.$route.params.type, this.$route.params.pathMatch);
+      const entityUri = getEntityUri(this.collectionType, this.$route.params.pathMatch);
       if (entityUri !== this.$store.state.entity.id) {
         // TODO: group as a reset action on the store?
         this.$store.commit('entity/setId', null);
@@ -134,39 +146,36 @@
       }
       this.$store.commit('entity/setId', entityUri);
 
-      // Fetch entity management data if feature enabled and user has required access
-      const fetchEntityManagement = this.$features.entityManagement &&
-        this.$auth.user?.resource_access?.entities?.roles.includes('editor');
       // Get the full page for this entity if not known needed, or known to be needed, and store for reuse
       const fetchEntityPage = !this.$store.state.entity.curatedEntities ||
         this.$store.state.entity.curatedEntities.some(entity => entity.identifier === entityUri);
+      const fetchCuratedEntities = !this.$store.state.entity.curatedEntities;
 
       const contentfulVariables = {
-        identifier: entityUri,
         locale: this.$i18n.isoLocale(),
         preview: this.$route.query.mode === 'preview'
       };
 
       return Promise.all([
-        this.$apis.entity.get(this.$route.params.type, this.$route.params.pathMatch),
-        fetchEntityManagement ? this.$apis.entityManagement.get(this.$route.params.type, this.$route.params.pathMatch) : () => null,
-        fetchEntityPage ? this.$contentful.query('collectionPage', contentfulVariables) : () => null
+        this.$apis.entity.get(this.collectionType, this.$route.params.pathMatch),
+        fetchCuratedEntities ? this.$contentful.query('curatedEntities', contentfulVariables) : () => null,
+        fetchEntityPage ? this.$contentful.query('collectionPage', { ...contentfulVariables, identifier: entityUri }) : () => null
       ])
         .then(responses => {
           this.$store.commit('entity/setEntity', pick(responses[0].entity, [
-            'id', 'logo', 'note', 'description', 'homepage', 'prefLabel', 'isShownBy', 'hasAddress', 'acronym'
+            'id', 'logo', 'note', 'description', 'homepage', 'prefLabel', 'isShownBy', 'hasAddress', 'acronym', 'type'
           ]));
-          if (responses[1].note) {
-            this.$store.commit('entity/setEditable', true);
-            this.$store.commit('entity/setEntityDescription', responses[1].note);
-            this.$store.commit('entity/setProxy', responses[1].proxies.find(proxy => proxy.id.includes('#proxy_europeana')));
+          if (fetchCuratedEntities) {
+            const entitiesResponseData = responses[1].data.data;
+            this.$store.commit('entity/setCuratedEntities', entitiesResponseData.curatedEntities.items);
           }
           if (fetchEntityPage) {
-            const pageResponseData = responses[2].data.data;
+            const pageResponseData = responses[responses.length - 1].data.data;
             this.page = pageResponseData.entityPage.items[0];
-            this.$store.commit('entity/setCuratedEntities', pageResponseData.curatedEntities.items);
           }
-          return this.redirectToPrefPath();
+          this.$store.commit('search/setCollectionLabel', this.title.values[0]);
+          const urlLabel = this.page ? this.page.nameEN : this.entity.prefLabel.en;
+          return this.redirectToPrefPath('collections-type-all', this.entity.id, urlLabel, { type: this.collectionType });
         });
     },
 
@@ -191,9 +200,6 @@
       },
       recordsPerPage() {
         return this.$store.state.entity.recordsPerPage;
-      },
-      editable() {
-        return this.$store.state.entity.editable;
       },
       pageTitle() {
         return this.$fetchState.error ? this.$t('error') : this.title.values[0];
@@ -241,16 +247,17 @@
         return null;
       },
       description() {
-        if (this.isEditable) {
-          return this.entity.note[this.$i18n.locale] ? { values: this.entity.note[this.$i18n.locale], code: this.$i18n.locale } : null;
-        }
-
         let description = null;
-        if (this.collectionType === 'organisation' && this.entity?.description) {
+
+        if (this.editorialDescription) {
+          description = { values: [this.editorialDescription], code: null };
+        } else if (this.entity?.note) {
+          description = langMapValueForLocale(this.entity.note, this.$i18n.locale);
+        } else if (this.entity?.description) {
           description = langMapValueForLocale(this.entity.description, this.$i18n.locale);
         }
 
-        return this.editorialDescription ? { values: [this.editorialDescription], code: null } : description;
+        return description;
       },
       descriptionText() {
         return ((this.description?.values?.length || 0) >= 1) ? this.description.values[0] : null;
@@ -280,101 +287,122 @@
       editorialTitle() {
         return this.page?.name || null;
       },
+      editorialImage() {
+        return this.page?.primaryImageOfPage?.image || null;
+      },
+      editorialOverrides() {
+        return { title: this.editorialTitle, image: this.editorialImage };
+      },
       relatedCollectionCards() {
-        return ((this.page?.relatedLinksCollection?.items?.length || 0) > 0) ? this.page.relatedLinksCollection.items : null;
+        if ((this.page?.relatedLinksCollection?.items?.length || 0) > 0) {
+          return this.page.relatedLinksCollection.items.map(item => {
+            const prefLabel = {
+              [this.$i18n.locale]: item.name,
+              en: item.nameEN
+            };
+            return {
+              id: item.identifier,
+              prefLabel,
+              image: item.image
+            };
+          });
+        }
+        return null;
       },
-      relatedCollections() {
-        return this.relatedEntities || this.relatedCollectionCards || [];
+      editable() {
+        return this.$features.entityManagement &&
+          this.entity &&
+          this.userIsEntitiesEditor &&
+          ['topic', 'organisation'].includes(this.collectionType);
       },
-      relatedCollectionsFound() {
-        return this.relatedCollections.length > 0;
-      },
-      userIsEditor() {
-        return this.$store.state.auth.user?.resource_access?.entities?.roles?.includes('editor') || false;
+      userIsEntitiesEditor() {
+        return this.$auth?.user?.resource_access?.entities?.roles.includes('editor') || false;
       },
       userIsSetsEditor() {
-        return this.$store.state.auth.user?.resource_access?.usersets?.roles.includes('editor') || false;
+        return this.$auth?.user?.resource_access?.usersets?.roles.includes('editor') || false;
       },
       route() {
         return {
           name: 'collections-type-all',
           params: {
-            type: this.$route.params.type,
+            type: this.collectionType,
             pathMatch: this.$route.params.pathMatch
           }
         };
       },
       title() {
+        let title;
+
         if (!this.entity) {
-          return this.titleFallback();
+          title = this.titleFallback();
+        } else if (this.editorialTitle) {
+          title = this.titleFallback(this.editorialTitle);
+        } else if (this.organisationNativeName) {
+          title = langMapValueForLocale(this.organisationNativeName, this.$i18n.locale);
+        } else {
+          title = langMapValueForLocale(this.entity.prefLabel, this.$i18n.locale);
         }
-        if (this.editorialTitle) {
-          return this.titleFallback(this.editorialTitle);
-        }
-        return langMapValueForLocale(this.entity.prefLabel, this.$i18n.locale);
+
+        return title;
       },
-      isEditable() {
-        return this.entity && this.editable;
+      subTitle() {
+        return this.organisationNonNativeEnglishName ?
+          langMapValueForLocale(this.organisationNonNativeEnglishName, this.$i18n.locale) :
+          null;
       },
       hasUserQuery() {
         return this.$route.query.query &&  this.$route.query.query !== '';
       },
       thumbnail() {
-        return this.entity?.isShownBy?.thumbnail || null;
+        return this.$apis.entity.imageUrl(this.entity);
+      },
+      organisationNativeName() {
+        return this.organizationEntityNativeName(this.entity);
+      },
+      organisationNonNativeEnglishName() {
+        return this.organizationEntityNonNativeEnglishName(this.entity);
       },
       moreInfo() {
-        const labelledMoreInfo = [];
-
-        if (this.collectionType === 'organisation') {
-          if (this.homepage)  {
-            labelledMoreInfo.push({ label: this.$t('website'), value: this.homepage });
-          }
-          if (this.entity?.hasAddress?.countryName)  {
-            labelledMoreInfo.push({ label: this.$t('organisation.country'), value: this.entity.hasAddress.countryName });
-          }
-          if (this.entity?.acronym)  {
-            const langMapValue = langMapValueForLocale(this.entity.acronym, this.$i18n.locale);
-            labelledMoreInfo.push({ label: this.$t('organisation.nameAcronym'), value: langMapValue.values[0], lang: langMapValue.code });
-          }
-          if (this.entity?.hasAddress?.locality)  {
-            labelledMoreInfo.push({ label: this.$t('organisation.city'), value: this.entity.hasAddress.locality });
-          }
+        if (!this.entity || this.collectionType !== 'organisation') {
+          return null;
         }
 
-        return labelledMoreInfo.length > 0 ? labelledMoreInfo : null;
+        const labelledMoreInfo = [];
+
+        if (this.organisationNonNativeEnglishName) {
+          labelledMoreInfo.push({
+            label: this.$t('organisation.englishName'),
+            value: Object.values(this.organisationNonNativeEnglishName)[0],
+            lang: Object.keys(this.organisationNonNativeEnglishName)[0]
+          });
+        }
+        if (this.entity?.acronym)  {
+          const langMapValue = langMapValueForLocale(this.entity.acronym, this.$i18n.locale);
+          labelledMoreInfo.push({ label: this.$t('organisation.nameAcronym'), value: langMapValue.values[0], lang: langMapValue.code });
+        }
+        if (this.entity?.hasAddress?.countryName)  {
+          labelledMoreInfo.push({ label: this.$t('organisation.country'), value: this.entity.hasAddress.countryName });
+        }
+        if (this.entity?.hasAddress?.locality)  {
+          labelledMoreInfo.push({ label: this.$t('organisation.city'), value: this.entity.hasAddress.locality });
+        }
+        if (this.homepage)  {
+          labelledMoreInfo.push({ label: this.$t('website'), value: this.homepage });
+        }
+
+        return labelledMoreInfo;
       }
     },
     watch: {
       searchOverrides: 'storeSearchOverrides'
     },
     mounted() {
-      this.$store.commit('search/setCollectionLabel', this.pageTitle);
       this.storeSearchOverrides();
-      // Disable related collections for organisation (for now)
-      if (!this.relatedCollectionCards && this.collectionType !== 'organisation') {
-        this.$apis.record.relatedEntities(this.$route.params.type, this.$route.params.pathMatch)
-          .then(facets => facets ? this.$apis.entity.facets(facets, this.$route.params.pathMatch) : [])
-          .then(related => this.relatedEntities = related.map(entity => {
-            return pick(entity, ['id', 'prefLabel', 'isShownBy']);
-          }));
-      }
-      if (this.userIsEditor) {
+      if (this.userIsEntitiesEditor) {
         this.$store.dispatch('entity/getFeatured');
       }
     },
     methods: {
-      redirectToPrefPath() {
-        const entityName = this.page ? this.page.name : this.entity.prefLabel.en;
-        const desiredPath = getEntitySlug(this.entity.id, entityName);
-        if (this.$route.params.pathMatch !== desiredPath) {
-          const redirectPath = this.$path({
-            name: 'collections-type-all',
-            params: { type: this.$route.params.type, pathMatch: desiredPath }
-          });
-          return this.$nuxt.context.redirect(302, redirectPath);
-        }
-        return true;
-      },
       storeSearchOverrides() {
         this.$store.commit('search/set', ['overrideParams', this.searchOverrides]);
       },
@@ -389,6 +417,9 @@
       },
       hideRelatedCollections() {
         this.showRelated = false;
+      },
+      proxyUpdated() {
+        this.$fetch();
       }
     }
   };

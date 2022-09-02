@@ -38,10 +38,14 @@ export default {
     "goHome": "Ir a la página de inicio",
     "learnMore": "Aprende más",
     "like": "Me gusta",
+    "move": "Mover",
     "next": "próximo",
     "pin": "Alfiler",
+    "preview": "Vista previa",
+    "previous": "Anterior",
     "providedBy": "Proporcionado por {provider}",
     "reject": "Rechazar",
+    "save": "Salvar",
     "send": "Enviar",
     "share": "Compartir",
     "shareOn": "Compartir en {social}",
@@ -59,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Elementos recientes",
     "organisation": "Organizaciones",
+    "place": "Lugares",
     "time": "Siglos destacados",
     "topic": "Temas destacados"
   },
@@ -76,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Organización",
     "person": "Persona",
+    "place": "Lugar",
     "theme": "Tema",
     "time": "Siglo",
     "topic": "Tema"
@@ -145,8 +151,27 @@ export default {
     "to": "a"
   },
   "debug": {
-    "apiRequests": "Solicitudes de API",
-    "debug": "Depurar"
+    "apiRequests": {
+      "apiKeyLinkText": "Clave API de Europeana",
+      "noRequests": "En esta página no se utilizaron solicitudes a las API de Europeana.",
+      "settingsPageLinkText": "página de configuración",
+      "tip": "Sugerencia: si ya tiene un {apiKeyLink}, puede ingresarlo en {settingsPageLink} y se incluirá en estos enlaces de solicitud de API.",
+      "title": "Solicitudes de API"
+    },
+    "debug": "Depurar",
+    "settings": {
+      "form": {
+        "apiKey": {
+          "description": "Introduzca su clave de API de Europeana y se utilizará en los enlaces a las solicitudes de API.",
+          "label": "Clave API"
+        },
+        "enabled": {
+          "description": "Si está habilitado, el menú de depuración se mostrará en el pie de página.",
+          "label": "Habilitar menú de depuración"
+        }
+      },
+      "title": "Configuración"
+    }
   },
   "delete": "Borrar",
   "depiction": "Una representación de {title}",
@@ -167,18 +192,18 @@ export default {
     },
     "notifications": {
       "deleted": "Tu galería ha sido eliminada.",
+      "error": {
+        "unpin": "Se ha producido un error al desanclar el elemento. Vuelva a intentarlo o informe del problema."
+      },
+      "pin": "Este elemento se mostrará en la parte superior de la colección \" {entity} \". Le notificaremos cuando este cambio sea visible en la página de colección.",
       "pinLimit": {
         "body": "Por ahora, solo puede anclar 24 elementos en la primera página. Si desea anclar este elemento, asegúrese de desanclar otro y luego intente anclar este de nuevo.",
         "title": "Demasiados elementos fijados"
       },
       "pinned": "El elemento se ha anclado. Ahora está en la parte superior de la primera página de esta colección. Puede tardar hasta 24 horas en aparecer para todos.",
-      "pinnedFirstPage": "El elemento se ha anclado. Puede tardar hasta 24 horas en aparecer para todos.",
-      "unpinned": "El elemento se ha desanclarado. Ya no está en la parte superior de la primera página de esta colección. Puede tardar hasta 24 horas en desaparecer para todos.",
-      "unpinnedFirstPage": "El elemento se ha desanclarado. Puede tardar hasta 24 horas en desaparecer para todos."
-    },
-    "prompts": {
-      "pin": "¿Estás seguro de que deseas fijar este elemento? Este elemento se mostrará en la parte superior de la {entity} \". Este cambio puede tardar hasta 24 horas en surtir efecto.",
-      "unpin": "¿Estás seguro de que deseas desanclar este elemento? Este elemento dejará de mostrarse en la parte superior de la {entity} \". Este cambio puede tardar hasta 24 horas en surtir efecto."
+      "select": "Seleccione una entidad relacionada para anclar/desanclar el elemento a/desde ella.",
+      "unpin": "Este elemento dejará de mostrarse en la parte superior de la colección \" {entity} \". Le notificaremos cuando este cambio sea visible en la página de colección.",
+      "unpinned": "El elemento se ha desanclarado. Ya no está en la parte superior de la primera página de esta colección. Puede tardar hasta 24 horas en desaparecer para todos."
     }
   },
   "error": "Error",
@@ -189,6 +214,7 @@ export default {
     "description": "Explora las exposiciones",
     "exhibitions": "Exposiciones"
   },
+  "explore": "Explorar",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "colores",
@@ -531,7 +557,7 @@ export default {
         "newspaper": "Periódicos",
         "photography": "Fotografía",
         "sport": "Deporte",
-        "ww1": "1914-1918"
+        "ww1": "Primera Guerra Mundial"
       },
       "select": "Selecciona un tema"
     },
@@ -652,13 +678,13 @@ export default {
     "customiseWebsiteLanguage": "Personalizar el idioma del sitio web",
     "disclaimerLine1": "Europeana es una iniciativa de la Unión Europea, financiada por el Connecting Europe Facility de la Unión Europea y los Estados miembros de la Unión Europea. Los servicios de Europeana, incluido este sitio web, son operados por un consorcio liderado por la Fundación Europeana en virtud de un contrato de servicios con la Comisión Europea.",
     "disclaimerLine2": "La Comisión Europea no garantiza la exactitud de la información y no acepta responsabilidad alguna con respecto a la información en este sitio web. Ni la Comisión Europea, ni ninguna persona que actúe en nombre de la Comisión Europea, es responsable de la exactitud o el uso de la información en este sitio web.",
-    "findUsElsewhere": "Encuéntrenos en otro sitio",
-    "imageDescription": "Cofinanciado por el fondo de inversión Connecting Europe Facility (Conectando Europa) de la Unión Europea.",
+    "findUsElsewhere": "Puedes encontrarnos también en",
+    "imageDescription": "Financiado por la Unión Europea",
     "navigation": {
       "MoreInfoLabel": "Más información",
-      "about": "Sobre nosotros",
+      "about": "¿Qué es Europeana?",
       "accessibility": "Accesibilidad",
-      "cookies": "Galletas",
+      "cookies": "Cookies",
       "forDevelopers": "Para desarrolladores",
       "help": "Ayuda",
       "privacy": "Política de privacidad",
@@ -667,7 +693,7 @@ export default {
       "terms": "Condiciones de uso"
     },
     "ourMission": "Nuestra misión",
-    "ourMissionQuote": "Europeana fortalece el sector del patrimonio cultural en su proceso de transformación digital. Desarrollamos dominio, herramientas y políticas para adoptar el cambio digital y fomentar asociaciones que fomenten la innovación."
+    "ourMissionQuote": "Europeana sostiene el sector del patrimonio cultural en su transformación digital. Desarrollamos competencias, herramientas y estrategias para adoptar el cambio digital y fomentar colaboraciones que promuevan la innovación."
   },
   "formatting": {
     "ellipsis": "…",
@@ -686,20 +712,33 @@ export default {
     "europeanaHome": "Página de inicio de Europeana",
     "inCollection": "Busca {query} en {collection}",
     "navigation": {
-      "about": "Sobre nosotros",
+      "about": "¿Qué es Europeana?",
       "collections": "Colecciones",
-      "europeanaClassroom": "Profesores",
+      "europeanaClassroom": "Para profesores",
       "help": "Ayuda",
       "home": "Inicio",
+      "pro": "Para los profesionales",
       "stories": "Historias"
     },
+    "quickSearch": "Búsqueda rápida",
     "searchFor": "Busca {query}",
     "searchForEverything": "Busca lo que quieras",
     "searchForEverythingInCollection": "Busca lo que quieras en {collection}",
     "searchForEverythingInEntireCollection": "Busca lo que quieras en toda nuestra colección",
-    "showSidebar": "Mostrar menú"
+    "searchForm": "Formulario de búsqueda",
+    "showSidebar": "Mostrar menú",
+    "sideNavigation": "Navegación lateral"
   },
   "homeLinkAlt": "Página de inicio de Europeana",
+  "homePage": {
+    "discoverEditorial": "Últimas historias",
+    "storiesCTA": "Ver todas las historias",
+    "subHeadline": "Busca, guarda y comparte arte, libros, películas y música de miles de instituciones culturales",
+    "themesCTA": "Ver todos los temas",
+    "themesTitle": "Explorar por tema",
+    "title": "Descubre el patrimonio cultural {digital} europeo",
+    "titleDigital": "digital"
+  },
   "imageSlider": {
     "handle": "Manipulador de control deslizante"
   },
@@ -817,12 +856,15 @@ export default {
   "newWindow": "se abre en una nueva ventana",
   "noMoreResults": "No hay más resultados para su búsqueda.",
   "noResults": "No hay resultados",
+  "of": "De",
   "organisation": {
     "city": "Ciudad",
     "country": "País",
+    "englishName": "Nombre en inglés",
     "nameAcronym": "acrónimo del nombre"
   },
   "pageHasLoaded": "ha cargado",
+  "pageNumber": "Número de página",
   "pages": {
     "collections": {
       "organisations": {
@@ -834,7 +876,11 @@ export default {
       "persons": {
         "title": "Personas"
       },
+      "places": {
+        "title": "Lugares"
+      },
       "table": {
+        "items": "Elementos",
         "name": "Nombre"
       },
       "times": {
@@ -845,6 +891,9 @@ export default {
       }
     }
   },
+  "pagination": {
+    "label": "Paginación"
+  },
   "readMore": "Leer más",
   "recommendation": {
     "prompts": {
@@ -854,6 +903,9 @@ export default {
   },
   "record": {
     "IIIFViewer": "Visor IIIF",
+    "actions": {
+      "pin": "Anclar elemento a entidades disponibles"
+    },
     "allMetaData": "Todos los metadatos",
     "copyEmbedLabel": "Código de inserción (haga clic para copiar)",
     "exploreMore": "Explorar más",
@@ -866,8 +918,16 @@ export default {
     "record": "Registro",
     "showAll": "Mostrar toda la información",
     "similarItems": "Elementos similares",
+    "status": {
+      "unpublished": "[Artículo no publicado]"
+    },
     "transcription": "Transcripción",
     "transcriptionDisclaimer": "Este contenido ha sido aportado por el público, no por la institución que ha proporcionado este artículo."
+  },
+  "related": {
+    "editorial": {
+      "title": "Historias que te pueden gustar"
+    }
   },
   "relatedCollections": "Colecciones relacionadas",
   "removeFilter": "Quitar el filtro {filterLabel}",
@@ -877,9 +937,14 @@ export default {
   "resultsFor": "Resultados para {0}",
   "resultsLimitWarning": "No se muestran los resultados adicionales, ya que solo se muestran los primeros 1000 resultados más relevantes. Si no ha encontrado lo que está buscando, considere delimitar su búsqueda.",
   "resultsWithin": "Resultados dentro de {0} {1} para {2}",
-  "search": "Buscar",
+  "search": {
+    "boost": {
+      "placeholder": "Introduzca la consulta de refuerzo del campo"
+    },
+    "title": "Buscar"
+  },
   "searchHasLoaded": "{0} resultados devueltos",
-  "searchPlaceholder": "Busca millones de elementos",
+  "searchPlaceholder": "Buscar más de 50 millones de objetos",
   "searchResults": "Buscar",
   "searchResultsFor": "{0} - Buscar",
   "searchSuggestions": "Sugerencias de búsqueda",
@@ -905,7 +970,6 @@ export default {
       "createNew": "Crear nueva galería",
       "delete": "Eliminar galería",
       "edit": "Editar galería",
-      "save": "Salvar",
       "update": "Actualizar galería"
     },
     "form": {
@@ -939,6 +1003,9 @@ export default {
   "statuses": {
     "liked": "Gustó",
     "pinned": "Fijado"
+  },
+  "storiesPage": {
+    "title": "Historias"
   },
   "website": "Sitio web",
   "youMightAlsoLike": "También podría gustarte"

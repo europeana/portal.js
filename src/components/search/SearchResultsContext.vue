@@ -1,5 +1,5 @@
 <template>
-  <div
+  <h1
     class="context-label"
     data-qa="context label"
   >
@@ -9,13 +9,14 @@
       <i18n
         v-if="hasQuery"
         path="resultsWithin"
-        tag="span"
+        :tag="false"
       >
         {{ entityTypeLabel }}
         <RemovalChip
-          :title="localisedEntityLabel"
+          :title="entityLabel"
           :link-to="entityRemovalLink"
           :img="entityImage"
+          :type="entity.type"
           data-qa="entity removal badge"
           class="mt-1 mx-1"
         />
@@ -31,9 +32,10 @@
       >
         {{ entityTypeLabel }}
         <RemovalChip
-          :title="localisedEntityLabel"
+          :title="entityLabel"
           :link-to="entityRemovalLink"
           :img="entityImage"
+          :type="entity.type"
           data-qa="entity removal badge"
           class="mt-1 mx-1"
         />
@@ -45,7 +47,7 @@
       <i18n
         v-if="hasQuery"
         path="resultsFor"
-        tag="span"
+        :tag="false"
       >
         <RemovalChip
           :title="query"
@@ -54,18 +56,20 @@
           class="mt-1 mx-1"
         />
       </i18n>
-      <span v-else>
+      <template v-else>
         {{ $t('results') }}
-      </span>
+      </template>
     </template>
-  </div>
+  </h1>
 </template>
 
 <script>
   import RemovalChip from './RemovalChip';
-  import { getWikimediaThumbnailUrl, entityParamsFromUri } from '@/plugins/europeana/entity';
+  import { entityParamsFromUri } from '@/plugins/europeana/entity';
   import themes from '@/plugins/europeana/themes';
+  import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
   import { mapState } from 'vuex';
+  import { urlIsContentfulAsset, optimisedSrcForContentfulAsset } from '@/plugins/contentful-utils';
 
   export default {
     name: 'SearchResultsContext',
@@ -74,14 +78,18 @@
       RemovalChip
     },
 
+    mixins: [
+      europeanaEntitiesOrganizationsMixin
+    ],
+
     props: {
       /**
-       * Editorial title
+       * Editorial overrides
        *
-       * Title/label override. Used for editorial collection titles from Contentful.
+       * Title/label and image override. Used for editorial collection titles and images from Contentful.
        */
-      labelOverride: {
-        type: String,
+      editorialOverrides: {
+        type: Object,
         default: null
       }
     },
@@ -103,11 +111,16 @@
       hasEntity() {
         return this.entity && this.entity.id;
       },
-      localisedEntityLabel() {
-        return this.labelOverride ? { values: [this.labelOverride], code: null } : this.entity?.prefLabel;
+      entityLabel() {
+        return this.editorialOverrides?.title ||
+          this.organizationEntityNativeName(this.entity) ||
+          this.entity?.prefLabel;
       },
       entityImage() {
-        return this.entity?.isShownBy?.thumbnail || (this.entity?.logo ? getWikimediaThumbnailUrl(this.entity?.logo?.id, 80) : null);
+        if (this.editorialOverrides?.image && urlIsContentfulAsset(this.editorialOverrides.image.url)) {
+          return optimisedSrcForContentfulAsset(this.editorialOverrides.image, { w: 28, h: 28, fit: 'thumb' });
+        }
+        return this.$apis.entity.imageUrl(this.entity);
       },
       entityTypeLabel() {
         return this.$t(`cardLabels.${this.contextType}`);
@@ -155,5 +168,10 @@
   .context-label {
     margin-bottom: 0;
     line-height: 3;
+    min-width: 0;
+
+    .badge {
+      max-width: calc(100% - 2rem);
+    }
   }
 </style>

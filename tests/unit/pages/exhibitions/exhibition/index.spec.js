@@ -42,13 +42,20 @@ const factory = () => shallowMountNuxt(page, {
           }
         ]
       },
-      credits: ''
+      credits: '',
+      contentWarning: null,
+      relatedLink: [
+        'http://data.europeana.eu/concept/194',
+        'http://data.europeana.eu/concept/21'
+      ],
+      categoriesCollection: { items: [{ name: 'surrealism' }] }
     };
   },
   mocks: {
     $t: key => key,
     $tc: () => {},
-    $pageHeadTitle: key => key
+    $pageHeadTitle: key => key,
+    $path: () => '/'
   }
 });
 

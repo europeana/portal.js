@@ -69,7 +69,7 @@ describe('plugins/europeana/utils', () => {
 
     it('rejects other keys', () => {
       const value = {
-        about: 'http://data.europeana.eu/concept/base/123'
+        about: 'http://data.europeana.eu/concept/123'
       };
 
       const isLangMap = utils.isLangMap(value);
@@ -163,6 +163,13 @@ describe('plugins/europeana/utils', () => {
     });
   });
 
+  describe('getLabelledSlug', () => {
+    it('constructs URL slug from numeric ID and prefLabel.en', () => {
+      const slug = utils.getLabelledSlug('http://data.euroepana.eu/concept/147831', 'Architecture');
+      expect(slug).toBe('147831-architecture');
+    });
+  });
+
   describe('reduceLangMapsForLocale', () => {
     const locale = 'fr';
 
@@ -198,7 +205,7 @@ describe('plugins/europeana/utils', () => {
 
     it('preserves entities on "def"', () => {
       const value = {
-        def: [{ about: 'http://data.europeana.eu/concept/base/123' }],
+        def: [{ about: 'http://data.europeana.eu/concept/123' }],
         en: 'English',
         fr: 'Français'
       };
@@ -206,7 +213,7 @@ describe('plugins/europeana/utils', () => {
       const reduced = utils.reduceLangMapsForLocale(value, locale);
 
       expect(reduced).toEqual({
-        def: [{ about: 'http://data.europeana.eu/concept/base/123' }],
+        def: [{ about: 'http://data.europeana.eu/concept/123' }],
         fr: 'Français'
       });
     });

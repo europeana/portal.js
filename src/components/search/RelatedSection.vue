@@ -10,7 +10,8 @@
 </template>
 
 <script>
-  import RelatedCollections from '../generic/RelatedCollections';
+  import RelatedCollections from '../related/RelatedCollections';
+  import { withEditorialContent } from '@/plugins/europeana/themes';
 
   export default {
     name: 'RelatedSection',
@@ -55,6 +56,8 @@
         return this.$apis.entity.suggest(query, {
           language: this.$i18n.locale,
           rows: 4
+        }).then((related) => {
+          return withEditorialContent(this, related);
         });
       }
     }

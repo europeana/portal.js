@@ -38,10 +38,14 @@ export default {
     "goHome": "Eikite į pagrindinį puslapį",
     "learnMore": "Sužinokite daugiau",
     "like": "Patinka",
+    "move": "Perkelti",
     "next": "Kitas",
     "pin": "Kaištis",
+    "preview": "Peržiūra",
+    "previous": "Ankstesnis",
     "providedBy": "Tiekėjas {provider}",
     "reject": "Atmesti",
+    "save": "Išsaugoti",
     "send": "Siųsti",
     "share": "Dalintis",
     "shareOn": "Dalintis {social}",
@@ -59,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Naujausi prekių",
     "organisation": "Organizacijos",
+    "place": "Vietos",
     "time": "Rekomenduojami šimtmečiai",
     "topic": "Rekomenduojamos temos"
   },
@@ -76,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Organizacija",
     "person": "Asmuo",
+    "place": "Vieta",
     "theme": "Tema",
     "time": "Amžius",
     "topic": "Tema"
@@ -145,8 +151,27 @@ export default {
     "to": "į"
   },
   "debug": {
-    "apiRequests": "API užklausos",
-    "debug": "Derinimo"
+    "apiRequests": {
+      "apiKeyLinkText": "Europeana API raktas",
+      "noRequests": "Šiame puslapyje nebuvo panaudotos užklausos dėl Europeana API.",
+      "settingsPageLinkText": "nustatymų puslapį",
+      "tip": "Patarimas: jei jau turite {apiKeyLink} , galite įvesti jį {settingsPageLink} ir jis bus įtrauktas į šias API užklausų nuorodas.",
+      "title": "API užklausos"
+    },
+    "debug": "Derinimo",
+    "settings": {
+      "form": {
+        "apiKey": {
+          "description": "Įveskite savo Europeana API raktą ir jis bus naudojamas API užklausų nuorodose.",
+          "label": "API raktas"
+        },
+        "enabled": {
+          "description": "Jei įjungta, derinimo meniu bus rodomas puslapio poraštėje.",
+          "label": "Įgalinti derinimo meniu"
+        }
+      },
+      "title": "Nustatymai"
+    }
   },
   "delete": "Ištrinti",
   "depiction": "{title} vaizdavimas",
@@ -167,18 +192,18 @@ export default {
     },
     "notifications": {
       "deleted": "Jūsų galerija panaikinta.",
+      "error": {
+        "unpin": "Atsegant elementą įvyko klaida. Bandykite dar kartą arba praneškite apie problemą."
+      },
+      "pin": "Šis elementas bus rodomas kolekcijos „ {entity} “ viršuje. Informuosime jus, kai šis pakeitimas bus matomas kolekcijos puslapyje.",
       "pinLimit": {
         "body": "Kol kas pirmajame puslapyje galite prisegti tik 24 elementus. Jei norite prisegti šį elementą, būtinai atsisekite kitą elementą ir tada vėl bandykite prisegti šį.",
         "title": "Per daug prisegtų elementų"
       },
       "pinned": "Elementas prisegtas. Dabar jis yra pirmojo šios kolekcijos puslapio viršuje. Gali užtrukti iki 24 valandų, kol visi pasirodys.",
-      "pinnedFirstPage": "Elementas buvo prisegtas. Gali prireikti iki 24 valandų, kad jis būtų rodomas visiems.",
-      "unpinned": "Elementas buvo atsegtas. Jo nebėra šio rinkinio pirmojo puslapio viršuje. Gali prireikti iki 24 valandų, kol jis išnyks visiems.",
-      "unpinnedFirstPage": "Elementas buvo atsegtas. Tai gali užtrukti iki 24 valandų, kol išnyks visiems."
-    },
-    "prompts": {
-      "pin": "Ar tikrai norite prisegti šį elementą? Šis elementas bus rodomas kolekcijos \"{entity}\" viršuje. Šis pakeitimas gali įsigalioti per 24 valandas.",
-      "unpin": "Ar tikrai norite panaikinti šio elemento prisegimą? Šis elementas nebebus rodomas kolekcijos \"{entity}\" viršuje. Šis pakeitimas gali įsigalioti per 24 valandas."
+      "select": "Pasirinkite susijusį objektą, kurį norite prisegti / atsegti elementą prie jo / nuo jo.",
+      "unpin": "Šis elementas nebebus rodomas kolekcijos „ {entity} “ viršuje. Informuosime jus, kai šis pakeitimas bus matomas kolekcijos puslapyje.",
+      "unpinned": "Elementas buvo atsegtas. Jo nebėra šio rinkinio pirmojo puslapio viršuje. Gali prireikti iki 24 valandų, kol jis išnyks visiems."
     }
   },
   "error": "Klaida",
@@ -189,6 +214,7 @@ export default {
     "description": "Tyrinėti mūsų parodas",
     "exhibitions": "Parodos"
   },
+  "explore": "Naršyti",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "spalvos",
@@ -531,7 +557,7 @@ export default {
         "newspaper": "Laikraščiai",
         "photography": "Fotografija",
         "sport": "Sportas",
-        "ww1": "1914-1918"
+        "ww1": "Pirmasis pasaulinis karas"
       },
       "select": "Pasirinkite temą"
     },
@@ -653,7 +679,7 @@ export default {
     "disclaimerLine1": "\"Europeana\" yra Europos Sąjungos iniciatyva, finansuojama Europos Sąjungos Europos Connecting Europe Facility ir Europos Sąjungos valstybių narių lėšomis. Europeanos paslaugas, įskaitant šią svetainę, teikia konsorciumas, kuriam vadovauja Europeana Foundation, pagal paslaugų teikimo sutartį su Europos Komisija.",
     "disclaimerLine2": "Europos Komisija negarantuoja informacijos tikslumo ir neprisiima jokios atsakomybės ar atsakomybės už šioje svetainėje pateiktą informaciją. Nei Europos Komisija, nei joks asmuo, veikiantis Europos Komisijos vardu, nėra atsakingas už šioje svetainėje esančios informacijos tikslumą ar naudojimą.",
     "findUsElsewhere": "Raskite mus kitur",
-    "imageDescription": "Bendrai finansuojama pagal Europos Sąjungos Europos infrastruktūros tinklų priemonę",
+    "imageDescription": "Finansuoja Europos Sąjunga",
     "navigation": {
       "MoreInfoLabel": "Daugiau informacijos",
       "about": "Apie mus",
@@ -691,15 +717,28 @@ export default {
       "europeanaClassroom": "Mokytojams",
       "help": "Pagalba",
       "home": "Namai",
+      "pro": "Profesionalams",
       "stories": "Istorijos"
     },
+    "quickSearch": "Greita paieška",
     "searchFor": "Ieškoti {query}",
     "searchForEverything": "Ieškoti visko",
     "searchForEverythingInCollection": "Ieškoti visko {collection}",
     "searchForEverythingInEntireCollection": "Ieškoti visko visoje kolekcijoje",
-    "showSidebar": "Rodyti meniu"
+    "searchForm": "Paieškos forma",
+    "showSidebar": "Rodyti meniu",
+    "sideNavigation": "Šoninė navigacija"
   },
   "homeLinkAlt": "„Europeana“ pagrindinis puslapis",
+  "homePage": {
+    "discoverEditorial": "Naujausios istorijos",
+    "storiesCTA": "Žiūrėti visas istorijas",
+    "subHeadline": "Ieškokite, išsaugokite ir bendrinkite meną, knygas, filmus ir muziką iš tūkstančiųkultūrosįstaigų",
+    "themesCTA": "Žiūrėti visas temas",
+    "themesTitle": "Naršykite pagal temą",
+    "title": "Pažinkite Europos {digital} kultūros paveldą",
+    "titleDigital": "Skaitmeninis"
+  },
   "imageSlider": {
     "handle": "Slinkiklio rankena"
   },
@@ -817,12 +856,15 @@ export default {
   "newWindow": "atsidaro naujame lange",
   "noMoreResults": "Daugiau nėra rezultatų pagal jūsų paieškos užklausą.",
   "noResults": "Rezultatų nėra",
+  "of": "Iš",
   "organisation": {
     "city": "Miestas",
     "country": "Šalis",
+    "englishName": "Angliškas pavadinimas",
     "nameAcronym": "Pavadinimo akronimas"
   },
   "pageHasLoaded": "įkelta",
+  "pageNumber": "Puslapio numeris",
   "pages": {
     "collections": {
       "organisations": {
@@ -834,7 +876,11 @@ export default {
       "persons": {
         "title": "Asmenys"
       },
+      "places": {
+        "title": "Vietos"
+      },
       "table": {
+        "items": "Elementus",
         "name": "Vardas"
       },
       "times": {
@@ -845,6 +891,9 @@ export default {
       }
     }
   },
+  "pagination": {
+    "label": "Numeracija"
+  },
   "readMore": "Skaityti daugiau",
   "recommendation": {
     "prompts": {
@@ -854,6 +903,9 @@ export default {
   },
   "record": {
     "IIIFViewer": "IIIF žiūrovas",
+    "actions": {
+      "pin": "Prisekite elementą prie galimų objektų"
+    },
     "allMetaData": "Visi metaduomenys",
     "copyEmbedLabel": "Įterpti kodą (spustelėkite, jei norite kopijuoti)",
     "exploreMore": "Sužinokite daugiau",
@@ -866,8 +918,16 @@ export default {
     "record": "Įrašas",
     "showAll": "Rodyti visą informaciją",
     "similarItems": "Panašūs elementai",
+    "status": {
+      "unpublished": "[Nepaskelbtas elementas]"
+    },
     "transcription": "Transkripcija",
     "transcriptionDisclaimer": "Šį turinį patalpino visuomenės narys, o ne prekę pateikusi įstaiga."
+  },
+  "related": {
+    "editorial": {
+      "title": "Istorijos, kurios jums gali patikti"
+    }
   },
   "relatedCollections": "Susiję rinkiniai",
   "removeFilter": "Pašalinkite filtrą {filterLabel}",
@@ -877,9 +937,14 @@ export default {
   "resultsFor": "Rezultatai pagal užklausą {0}",
   "resultsLimitWarning": "Papildomi rezultatai nerodomi, nes parodomi tik pirmieji 1000 tinkamiausių rezultatų. Jei neradote to, ko ieškote, apsvarstykite galimybę patikslinti paiešką.",
   "resultsWithin": "Rezultatai pagal {0} {1} už {2}",
-  "search": "Paieška",
+  "search": {
+    "boost": {
+      "placeholder": "Įveskite lauko didinimo užklausą"
+    },
+    "title": "Paieška"
+  },
   "searchHasLoaded": "{0} grąžinti rezultatai",
-  "searchPlaceholder": "Ko jūs ieškote?",
+  "searchPlaceholder": "Paieška 50+ milijonų elementų",
   "searchResults": "Paieška",
   "searchResultsFor": "{0} - Ieškoti",
   "searchSuggestions": "Paieškos pasiūlymai",
@@ -905,7 +970,6 @@ export default {
       "createNew": "Kurti naują galeriją",
       "delete": "Naikinti galeriją",
       "edit": "Redaguoti galeriją",
-      "save": "Išsaugoti",
       "update": "Atnaujinti galeriją"
     },
     "form": {
@@ -939,6 +1003,9 @@ export default {
   "statuses": {
     "liked": "Patiko",
     "pinned": "Prisegtas"
+  },
+  "storiesPage": {
+    "title": "Istorijos"
   },
   "website": "Interneto svetainė",
   "youMightAlsoLike": "Jums taip pat gali patikti"

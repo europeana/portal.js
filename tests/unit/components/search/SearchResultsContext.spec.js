@@ -8,6 +8,11 @@ const factory = (options = {}) => shallowMount(SearchResultsContext, {
   localVue,
   propsData: options.propsData,
   mocks: {
+    $apis: {
+      entity: {
+        imageUrl: () => ''
+      }
+    },
     $t: (key) => key,
     $path: (args) => args,
     $route: () => ({}),
@@ -28,7 +33,7 @@ const fixtures = {
     prefLabel: { en: 'Organisation' }
   },
   thematicCollectionTopicEntity: {
-    id: 'http://data.europeana.eu/concept/base/190',
+    id: 'http://data.europeana.eu/concept/190',
     prefLabel: { en: 'Art' }
   }
 };
@@ -179,16 +184,16 @@ describe('SearchResultsContext', () => {
       });
     });
 
-    describe('localisedEntityLabel', () => {
-      it('priorities labelOverride prop', () => {
+    describe('entityLabel', () => {
+      it('priorities editorialOverrides prop', () => {
         const storeState = {
           entity: { entity: fixtures.organisationEntity }
         };
-        const propsData = { labelOverride: 'override' };
+        const propsData = { editorialOverrides: { title: 'override' } };
 
         const wrapper = factory({ propsData, storeState });
 
-        expect(wrapper.vm.localisedEntityLabel).toEqual({ values: ['override'], code: null });
+        expect(wrapper.vm.entityLabel).toEqual('override');
       });
 
       it('falls back to entity prefLabel', () => {
@@ -199,7 +204,25 @@ describe('SearchResultsContext', () => {
 
         const wrapper = factory({ propsData, storeState });
 
-        expect(wrapper.vm.localisedEntityLabel).toEqual(fixtures.organisationEntity.prefLabel);
+        expect(wrapper.vm.entityLabel).toEqual(fixtures.organisationEntity.prefLabel);
+      });
+    });
+
+    describe('entityImage', () => {
+      it('prioritises the contentful asset', () => {
+        const storeState = {
+          entity: { entity: fixtures.organisationEntity }
+        };
+
+        const ctfImage = {
+          url: 'https://images.ctfassets.net/i01duvb6kq77/792bNsvUU5gai7bWidjZoz/1d6ce46c91d5fbcd840e8cf8bfe376a3/206_item_QCZITS4J5WNRUS7ESLVJH6PSOCRHBPMI.jpg',
+          contentType: 'image/jpeg'
+        };
+        const propsData = { editorialOverrides: { image: ctfImage } };
+
+        const wrapper = factory({ propsData, storeState });
+
+        expect(wrapper.vm.entityImage).toEqual(ctfImage.url + '?w=28&h=28&fit=thumb&fm=jpg&fl=progressive&q=80');
       });
     });
   });

@@ -38,10 +38,14 @@ export default {
     "goHome": "Dodieties uz sākumlapu",
     "learnMore": "Apgūt vairāk",
     "like": "Patīk",
+    "move": "Pārvietot",
     "next": "Nākamais",
     "pin": "Pin",
+    "preview": "Priekšskatījums",
+    "previous": "Iepriekšējais",
     "providedBy": "Nodrošina {provider}",
     "reject": "Noraidīt",
+    "save": "Glābt",
     "send": "Sūtīt",
     "share": "Dalies",
     "shareOn": "Dalīties {social}",
@@ -59,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Pēdējie vienumi",
     "organisation": "Organizācijas",
+    "place": "Vietas",
     "time": "Izvēlētie gadsimti",
     "topic": "Izvēlētās tēmas"
   },
@@ -76,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Organizācija",
     "person": "Persona",
+    "place": "Vieta",
     "theme": "Tēma",
     "time": "Gadsimts",
     "topic": "Temats"
@@ -145,8 +151,27 @@ export default {
     "to": "uz"
   },
   "debug": {
-    "apiRequests": "API pieprasījumi",
-    "debug": "Atkļūdošana"
+    "apiRequests": {
+      "apiKeyLinkText": "Europeana API atslēga",
+      "noRequests": "Šajā lapā netika izmantots neviens Europeana API pieprasījums.",
+      "settingsPageLinkText": "iestatījumu lapa",
+      "tip": "Padoms. Ja jums jau ir {apiKeyLink} , varat to ievadīt {settingsPageLink} , un tas tiks iekļauts šajās API pieprasījumu saitēs.",
+      "title": "API pieprasījumi"
+    },
+    "debug": "Atkļūdošana",
+    "settings": {
+      "form": {
+        "apiKey": {
+          "description": "Ievadiet savu Europeana API atslēgu, un tā tiks izmantota saitēs uz API pieprasījumiem.",
+          "label": "API atslēga"
+        },
+        "enabled": {
+          "description": "Ja tas ir iespējots, atkļūdošanas izvēlne tiks parādīta lapas kājenē.",
+          "label": "Iespējot atkļūdošanas izvēlni"
+        }
+      },
+      "title": "Lestatījumi"
+    }
   },
   "delete": "Dzēst",
   "depiction": "{title} attēlojums",
@@ -167,18 +192,18 @@ export default {
     },
     "notifications": {
       "deleted": "Tava galerija ir izdzēsta.",
+      "error": {
+        "unpin": "Atspraužot vienumu, radās kļūda. Lūdzu, mēģiniet vēlreiz vai ziņojiet par problēmu."
+      },
+      "pin": "Šis vienums tiks rādīts kolekcijas “ {entity} ” augšdaļā. Mēs jūs informēsim, kad šīs izmaiņas būs redzamas kolekcijas lapā.",
       "pinLimit": {
         "body": "Pagaidām pirmajā lapā var piespraust tikai 24 vienumus. Ja vēlaties piespraust šo vienumu, noteikti atspraudiet vēl vienu un mēģiniet vēlreiz piespraust šo vienumu.",
         "title": "Pārāk daudz piesprausto vienumu"
       },
       "pinned": "Vienums ir piespraustas. Tagad tas atrodas šīs kolekcijas pirmās lapas augšpusē. Var paiet līdz pat 24 stundām, līdz tas parādās visiem.",
-      "pinnedFirstPage": "Vienums ir piespraustas. Var paiet līdz pat 24 stundām, līdz tas parādās visiem.",
-      "unpinned": "Vienums ir atspraustas. Tas vairs nav šīs kolekcijas pirmās lapas augšpusē. Var paiet pat 24 stundas, līdz visi pazūd.",
-      "unpinnedFirstPage": "Vienums ir atspraustas. Var paiet pat 24 stundas, līdz visi pazūd."
-    },
-    "prompts": {
-      "pin": "Vai tiešām vēlaties piespraust šo vienumu? Šis vienums tiks rādīts kolekcijas \"{entity}\" augšdaļā. Šo izmaiņu stāšanās spēkā var ilgt līdz 24 stundām.",
-      "unpin": "Vai tiešām vēlaties atspraust šo vienumu? Šis vienums vairs netiks rādīts kolekcijas \"{entity}\" augšdaļā. Šo izmaiņu stāšanās spēkā var ilgt līdz 24 stundām."
+      "select": "Atlasiet saistīto entītiju, lai piespraustu/atspraustu vienumu tai/no tā.",
+      "unpin": "Šis vienums vairs netiks rādīts kolekcijas “ {entity} ” augšdaļā. Mēs jūs informēsim, kad šīs izmaiņas būs redzamas kolekcijas lapā.",
+      "unpinned": "Vienums ir atspraustas. Tas vairs nav šīs kolekcijas pirmās lapas augšpusē. Var paiet pat 24 stundas, līdz visi pazūd."
     }
   },
   "error": "Kļūda",
@@ -189,6 +214,7 @@ export default {
     "description": "Pārlūkot izstādes",
     "exhibitions": "Izstāde | Izstādes"
   },
+  "explore": "Izpētīt",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "krāsas",
@@ -531,7 +557,7 @@ export default {
         "newspaper": "Laikraksti",
         "photography": "Fotogrāfija",
         "sport": "Sports",
-        "ww1": "1914.–1918. gads"
+        "ww1": "Pirmais pasaules karš"
       },
       "select": "Izvēlieties motīvu"
     },
@@ -653,7 +679,7 @@ export default {
     "disclaimerLine1": "Europeana ir Eiropas Savienības iniciatīva, ko finansē Eiropas Savienības Eiropas Connecting Europe Facility un Eiropas Savienības dalībvalstis. Europeana pakalpojumus, tostarp šo vietni, pārvalda konsorcijs, kuru vada Europeana fonds saskaņā ar pakalpojumu līgumu ar Eiropas Komisiju.",
     "disclaimerLine2": "Eiropas Komisija negarantē informācijas precizitāti un neuzņemas nekādu atbildību vai saistības attiecībā uz šajā tīmekļa vietnē sniegto informāciju. Ne Eiropas Komisija, ne jebkura persona, kas rīkojas Eiropas Komisijas vārdā, nav atbildīga par šajā tīmekļa vietnē sniegtās informācijas precizitāti vai izmantošanu.",
     "findUsElsewhere": "Atrodiet mūs citur",
-    "imageDescription": "Līdzfinansē Eiropas Savienības infrastruktūras savienošanas instruments",
+    "imageDescription": "Finansē Eiropas Savienība",
     "navigation": {
       "MoreInfoLabel": "Papildinformācija",
       "about": "Par mums",
@@ -691,15 +717,28 @@ export default {
       "europeanaClassroom": "Skolotājiem",
       "help": "Palīdzība",
       "home": "Mājas",
+      "pro": "Profesionāļiem",
       "stories": "Stāsti"
     },
+    "quickSearch": "Ātrā meklēšana",
     "searchFor": "Meklēt {query}",
     "searchForEverything": "Meklēt visu",
     "searchForEverythingInCollection": "Meklēt visu kolekcijā {collection}",
     "searchForEverythingInEntireCollection": "Meklēt visu visā mūsu kolekcijā",
-    "showSidebar": "Radīt izvēlni"
+    "searchForm": "Meklēšanas forma",
+    "showSidebar": "Radīt izvēlni",
+    "sideNavigation": "Sānu navigācija"
   },
   "homeLinkAlt": "Europeana vietne",
+  "homePage": {
+    "discoverEditorial": "Jaunākie stāsti",
+    "storiesCTA": "Skatīt visus stāstus",
+    "subHeadline": "Meklējiet,saglabājiet un kopīgojietmākslu,grāmatas, filmas un mūzikutūkstošoskultūrasiestāžu",
+    "themesCTA": "Skatīt visas tēmas",
+    "themesTitle": "Izpētiet pēc tēmas",
+    "title": "Iepazīstiet Eiropas {digital} kultūras mantojumu",
+    "titleDigital": "digitālo"
+  },
   "imageSlider": {
     "handle": "Slīdņa rokturis"
   },
@@ -817,12 +856,15 @@ export default {
   "newWindow": "tiek atvērts jaunā logā",
   "noMoreResults": "Jūsu meklēšanas vaicājumam vairs nav rezultātu.",
   "noResults": "Nav rezultātu",
+  "of": "No",
   "organisation": {
     "city": "Pilsēta",
     "country": "Valsts",
+    "englishName": "Angliskais nosaukums",
     "nameAcronym": "Vārda akronīms"
   },
   "pageHasLoaded": "ir ielādēts",
+  "pageNumber": "Lapas numurs",
   "pages": {
     "collections": {
       "organisations": {
@@ -834,7 +876,11 @@ export default {
       "persons": {
         "title": "Personas"
       },
+      "places": {
+        "title": "Vietas"
+      },
       "table": {
+        "items": "Vienumus",
         "name": "Vārds"
       },
       "times": {
@@ -845,6 +891,9 @@ export default {
       }
     }
   },
+  "pagination": {
+    "label": "Lapu šķirošana"
+  },
   "readMore": "Lasīt vairāk",
   "recommendation": {
     "prompts": {
@@ -854,6 +903,9 @@ export default {
   },
   "record": {
     "IIIFViewer": "IIIF skatītājs",
+    "actions": {
+      "pin": "Piespraudiet vienumu pieejamajām entītijām"
+    },
     "allMetaData": "Visi metadati",
     "copyEmbedLabel": "Iegulšanas kods (noklikšķiniet, lai kopētu)",
     "exploreMore": "Pārlūkot vairāk",
@@ -866,8 +918,16 @@ export default {
     "record": "Vienums",
     "showAll": "Rādīt visu informāciju",
     "similarItems": "Līdzīgi vienumi",
+    "status": {
+      "unpublished": "[Nepublicēts vienums]"
+    },
     "transcription": "Kopija",
     "transcriptionDisclaimer": "Šī satura veidošanā līdzdarbojušies iedzīvotāji, nevis šo vienumu nodrošinošā iestāde."
+  },
+  "related": {
+    "editorial": {
+      "title": "Stāsti, kas jums varētu patikt"
+    }
   },
   "relatedCollections": "Saistītās kolekcijas",
   "removeFilter": "Noņemt filtru {filterLabel}",
@@ -877,9 +937,14 @@ export default {
   "resultsFor": "Rezultāti vaicājumam {0}",
   "resultsLimitWarning": "Papildu rezultāti netiek parādīti, jo tiek parādīti tikai pirmie 1000 atbilstošākie rezultāti. Ja neesat atradis to, ko meklējat, lūdzu, apsveriet iespēju precizēt meklēšanu.",
   "resultsWithin": "Rezultāti {0} {1} ietvaros {2}",
-  "search": "Meklēt",
+  "search": {
+    "boost": {
+      "placeholder": "Ievadiet lauka pastiprināšanas vaicājumu"
+    },
+    "title": "Meklēt"
+  },
   "searchHasLoaded": "{0} atgriezti rezultāti",
-  "searchPlaceholder": "Meklēt starp miljoniem vienumu",
+  "searchPlaceholder": "Meklēt 50+ miljonus vienību",
   "searchResults": "Meklēt",
   "searchResultsFor": "{0} - Meklēšana",
   "searchSuggestions": "Meklēšanas ieteikumi",
@@ -905,7 +970,6 @@ export default {
       "createNew": "Izveidot jaunu galeriju",
       "delete": "Dzēst galeriju",
       "edit": "Rediģēt galeriju",
-      "save": "Glābt",
       "update": "Atjaunināt galeriju"
     },
     "form": {
@@ -939,6 +1003,9 @@ export default {
   "statuses": {
     "liked": "Patika",
     "pinned": "Piesprausts"
+  },
+  "storiesPage": {
+    "title": "Stāsti"
   },
   "website": "Vietne",
   "youMightAlsoLike": "Jums varētu arī patikt"

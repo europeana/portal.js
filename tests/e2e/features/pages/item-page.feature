@@ -45,7 +45,7 @@ Feature: item page
 
     When I open an `item page without isShownBy or hasView`
     Then I see the `item page`
-    And I see the `media preview image`
+    And I see the `default thumbnail`
 
   Scenario: One related entity
     When I open `"The Milkmaid" item page`
@@ -55,8 +55,10 @@ Feature: item page
   Scenario: Multiple related entities
     When I open the `"Het laatste avondmaal" item page`
     Then I see `related entities`
+    And I see the `Italy related chip` in the `related entities`
+    And I see the `Paper related chip` in the `related entities`
+    And I see the `Print related chip` in the `related entities`
     And I see the `Leonardo da Vinci related chip` in the `related entities`
-    And I see the `Engraving related chip` in the `related entities`
     And I see the `Rijksmuseum related chip` in the `related entities`
 
   Scenario: Metadata in another language
@@ -113,6 +115,13 @@ Feature: item page
   Scenario: Seeing an item language selector
     When I open an `item page`
     Then I see an `item language selector`
+
+  Scenario: Using the item language selector
+    Given I am on the `"The Milkmaid" item page`
+    And I don't have a `translation tooltip`
+    When I click the `item language dropdown`
+    And I click the `item language option de`
+    Then I see a `translation tooltip`
 
   @resized-browser
   Scenario: HTML embedded media

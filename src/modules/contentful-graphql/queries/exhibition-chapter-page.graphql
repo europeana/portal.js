@@ -19,6 +19,7 @@ query ExhibitionChapterPage(
         name
         description
       }
+      relatedLink
       hasPartCollection(limit: 40) {
         items {
           name
@@ -27,6 +28,12 @@ query ExhibitionChapterPage(
           description
           primaryImageOfPage {
             ... imageWithAttributionFields
+          }
+          categoriesCollection(limit: 10) {
+            items {
+              name
+              identifier
+            }
           }
           hasPartCollection(limit: 40) {
             total

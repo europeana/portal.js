@@ -38,10 +38,14 @@ export default {
     "goHome": "Mergeți la pagina de pornire",
     "learnMore": "Află mai multe",
     "like": "Apreciere",
+    "move": "Muta",
     "next": "Următorul",
     "pin": "Pin",
+    "preview": "Previzualizare",
+    "previous": "Anterior",
     "providedBy": "Furnizat de {provider}",
     "reject": "Respinge",
+    "save": "Salva",
     "send": "Trimite",
     "share": "Distribuiți",
     "shareOn": "Distribuiți pe {social}",
@@ -59,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Articole recente",
     "organisation": "Organizații",
+    "place": "Locuri",
     "time": "Secole recomandate",
     "topic": "Subiecte recomandate"
   },
@@ -76,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Organizare",
     "person": "Persoană",
+    "place": "Loc",
     "theme": "Temă",
     "time": "Secol",
     "topic": "Subiect"
@@ -145,8 +151,27 @@ export default {
     "to": "la"
   },
   "debug": {
-    "apiRequests": "Solicitări API",
-    "debug": "Depanare"
+    "apiRequests": {
+      "apiKeyLinkText": "Cheia API Europeana",
+      "noRequests": "Pe această pagină nu au fost folosite solicitări către API-urile Europeana.",
+      "settingsPageLinkText": "pagina de setări",
+      "tip": "Sfat: dacă aveți deja un {apiKeyLink}, îl puteți introduce în {settingsPageLink} și va fi inclus în aceste linkuri de solicitare API.",
+      "title": "Solicitări API"
+    },
+    "debug": "Depanare",
+    "settings": {
+      "form": {
+        "apiKey": {
+          "description": "Introduceți cheia API Europeana și va fi folosită în linkurile către solicitările API.",
+          "label": "Cheia API"
+        },
+        "enabled": {
+          "description": "Dacă este activat, meniul de depanare va fi afișat în subsolul paginii.",
+          "label": "Activați meniul de depanare"
+        }
+      },
+      "title": "Setări"
+    }
   },
   "delete": "Șterge",
   "depiction": "O reprezentare a {title}",
@@ -167,18 +192,18 @@ export default {
     },
     "notifications": {
       "deleted": "Galeria ta a fost ștearsă.",
+      "error": {
+        "unpin": "S-a produs o eroare la dezlipirea articolului. Vă rugăm să încercați din nou sau să raportați problema."
+      },
+      "pin": "Acest articol va apărea în partea de sus a colecției „ {entity} ”. Vă vom anunța când această modificare va fi vizibilă pe pagina de colecție.",
       "pinLimit": {
         "body": "Pentru moment, puteți pin doar 24 elemente de pe prima pagină. Dacă doriți să fixați acest element, asigurați-vă că anulați fixarea altui element și apoi încercați să îl fixați din nou.",
         "title": "Prea multe articole fixate"
       },
       "pinned": "Elementul a fost fixat. Acum se află în partea de sus a primei pagini a acestei colecții. S-ar putea să dureze până la 24 de ore pentru a apărea pentru toată lumea.",
-      "pinnedFirstPage": "Elementul a fost fixat. S-ar putea să dureze până la 24 de ore pentru a apărea pentru toată lumea.",
-      "unpinned": "Elementul a fost dezlipit. Nu se mai află în partea de sus a primei pagini a acestei colecții. S-ar putea să dureze până la 24 de ore pentru a dispărea pentru toată lumea.",
-      "unpinnedFirstPage": "Elementul a fost dezlipit. Este posibil să dureze până la 24 de ore pentru a dispărea pentru toată lumea."
-    },
-    "prompts": {
-      "pin": "Sunteți sigur că doriți să fixați acest element? Acest element se va afișa în partea de sus a colecției \"{entity}\". Această modificare poate dura până la 24 de ore pentru a intra în vigoare.",
-      "unpin": "Sunteți sigur că doriți să anulați fixarea acestui articol? Acest element nu se va mai afișa în partea de sus a colecției \"{entity}\". Această modificare poate dura până la 24 de ore pentru a intra în vigoare."
+      "select": "Selectați o entitate conexă pentru a fixa/dezfixa elementul la/de la aceasta.",
+      "unpin": "Acest articol nu va mai apărea în partea de sus a colecției „ {entity} ”. Vă vom anunța când această modificare va fi vizibilă pe pagina de colecție.",
+      "unpinned": "Elementul a fost dezlipit. Nu se mai află în partea de sus a primei pagini a acestei colecții. S-ar putea să dureze până la 24 de ore pentru a dispărea pentru toată lumea."
     }
   },
   "error": "Eroare",
@@ -189,6 +214,7 @@ export default {
     "description": "Explorează expozițiile",
     "exhibitions": "Expoziții"
   },
+  "explore": "Explora",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "culori",
@@ -531,7 +557,7 @@ export default {
         "newspaper": "Ziare",
         "photography": "Fotografie",
         "sport": "Sport",
-        "ww1": "1914-1918"
+        "ww1": "Primul Război Mondial"
       },
       "select": "Selectați o temă"
     },
@@ -653,7 +679,7 @@ export default {
     "disclaimerLine1": "Europeana este o inițiativă a Uniunii Europene, finanțată de Connecting Europe Facility al Uniunii Europene și de statele membre ale Uniunii Europene. Serviciile Europeana, inclusiv acest site web, sunt operate de un consorțiu condus de Fundația Europeana în temeiul unui contract de servicii cu Comisia Europeană.",
     "disclaimerLine2": "Comisia Europeană nu garantează acuratețea informațiilor și nu își asumă nicio răspundere sau răspundere cu privire la informațiile de pe acest site web. Nici Comisia Europeană, nici nicio persoană care acționează în numele Comisiei Europene, nu este responsabilă sau răspunzătoare pentru acuratețea sau utilizarea informațiilor de pe acest site web.",
     "findUsElsewhere": "Ne puteți găsi și în altă parte",
-    "imageDescription": "Cofinanțat de Connecting Europe Facility a Uniunii Europene",
+    "imageDescription": "Finanțat de Uniunea Europeană",
     "navigation": {
       "MoreInfoLabel": "Mai multe informații",
       "about": "Despre noi",
@@ -688,18 +714,31 @@ export default {
     "navigation": {
       "about": "Despre noi",
       "collections": "Colecții",
-      "europeanaClassroom": "Profesori",
+      "europeanaClassroom": "Pentru profesori",
       "help": "Ajutor",
       "home": "Acasă",
+      "pro": "Pentru profesioniști",
       "stories": "Povești"
     },
+    "quickSearch": "Căutare rapidă",
     "searchFor": "Caută pentru {query}",
     "searchForEverything": "Caută tot",
     "searchForEverythingInCollection": "Caută tot în {collection}",
     "searchForEverythingInEntireCollection": "Caută tot în întreaga noastră colecție",
-    "showSidebar": "Afișează meniul"
+    "searchForm": "Formular de căutare",
+    "showSidebar": "Afișează meniul",
+    "sideNavigation": "Navigare laterală"
   },
   "homeLinkAlt": "Pagina principală Europeana",
+  "homePage": {
+    "discoverEditorial": "Ultimele povești",
+    "storiesCTA": "Vezi toate poveștile",
+    "subHeadline": "Căutați, salvațișidistribuițiartă, cărți, filme și muzică de la mii de instituții culturale",
+    "themesCTA": "Vezi toate temele",
+    "themesTitle": "Explorați după temă",
+    "title": "Descoperiți patrimoniul cultural {digital} al Europei",
+    "titleDigital": "digital"
+  },
   "imageSlider": {
     "handle": "Cursor glisor"
   },
@@ -817,12 +856,15 @@ export default {
   "newWindow": "se deschide într-o fereastră nouă",
   "noMoreResults": "Nu mai există rezultate pentru interogarea de căutare.",
   "noResults": "Niciun rezultat",
+  "of": "De",
   "organisation": {
     "city": "Oraș",
     "country": "Țara",
+    "englishName": "Nume englezesc",
     "nameAcronym": "Acronim de nume"
   },
   "pageHasLoaded": "a încărcat",
+  "pageNumber": "Numărul paginii",
   "pages": {
     "collections": {
       "organisations": {
@@ -834,7 +876,11 @@ export default {
       "persons": {
         "title": "Persoane"
       },
+      "places": {
+        "title": "Locuri"
+      },
       "table": {
+        "items": "Articole",
         "name": "Nume"
       },
       "times": {
@@ -845,6 +891,9 @@ export default {
       }
     }
   },
+  "pagination": {
+    "label": "Paginare"
+  },
   "readMore": "Citește mai mult",
   "recommendation": {
     "prompts": {
@@ -854,6 +903,9 @@ export default {
   },
   "record": {
     "IIIFViewer": "Vizualizator IIIF",
+    "actions": {
+      "pin": "Fixați elementul la entitățile disponibile"
+    },
     "allMetaData": "Toate metadatele",
     "copyEmbedLabel": "Cod de încorporare (Faceți clic pentru a copia)",
     "exploreMore": "Explorează mai mult",
@@ -866,8 +918,16 @@ export default {
     "record": "Înregistrare",
     "showAll": "Afișează toate informațiile",
     "similarItems": "Articole similare",
+    "status": {
+      "unpublished": "[Articol nepublicat]"
+    },
     "transcription": "Transcriere",
     "transcriptionDisclaimer": "La acest conținut a contribuit publicul, nu instituția care a furnizat acest articol."
+  },
+  "related": {
+    "editorial": {
+      "title": "Povești care s-ar putea să vă placă"
+    }
   },
   "relatedCollections": "Colecții similare",
   "removeFilter": "Elimină filtrul {filterLabel}",
@@ -877,9 +937,14 @@ export default {
   "resultsFor": "Rezultate pentru {0}",
   "resultsLimitWarning": "Nu sunt afișate rezultate suplimentare deoarece sunt afișate doar primele 1000 dintre cele mai relevante rezultate. Dacă nu ai găsit ceea ce căutai, te rugăm să restrângi căutarea.",
   "resultsWithin": "Rezultatele în cadrul {0} {1} pentru {2}",
-  "search": "Căutare",
+  "search": {
+    "boost": {
+      "placeholder": "Introduceți interogarea de creștere a câmpului"
+    },
+    "title": "Căutare"
+  },
   "searchHasLoaded": "{0} rezultate returnate",
-  "searchPlaceholder": "Ce anume cauți?",
+  "searchPlaceholder": "Căutați peste 50 de milioane de articole",
   "searchResults": "Căutare",
   "searchResultsFor": "{0} - Căutare",
   "searchSuggestions": "Sugestii de căutare",
@@ -905,7 +970,6 @@ export default {
       "createNew": "Creare galerie nouă",
       "delete": "Ștergere galerie",
       "edit": "Editare galerie",
-      "save": "Salva",
       "update": "Actualizare galerie"
     },
     "form": {
@@ -939,6 +1003,9 @@ export default {
   "statuses": {
     "liked": "A apreciat",
     "pinned": "Fixat"
+  },
+  "storiesPage": {
+    "title": "Povești"
   },
   "website": "Site-ul web",
   "youMightAlsoLike": "S-ar putea să vă placă și"

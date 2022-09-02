@@ -54,6 +54,10 @@ module.exports = async() => {
         name: 'Components',
         sections: [
           {
+            name: 'Page',
+            components: './src/components/[A-Z]*.vue'
+          },
+          {
             name: 'Account',
             components: './src/components/account/[A-Z]*.vue'
           },
@@ -66,8 +70,16 @@ module.exports = async() => {
             components: './src/components/generic/[A-Z]*.vue'
           },
           {
+            name: 'Home',
+            components: './src/components/home/[A-Z]*.vue'
+          },
+          {
             name: 'Item',
             components: './src/components/item/[A-Z]*.vue'
+          },
+          {
+            name: 'Related',
+            components: './src/components/related/[A-Z]*.vue'
           },
           {
             name: 'Search',
@@ -80,7 +92,8 @@ module.exports = async() => {
     skipComponentsWithoutExample: true,
     require: [
       resolve(__dirname, './src/assets/scss/style.scss'),
-      resolve(__dirname, './styleguide/style.scss')
+      resolve(__dirname, './styleguide/style.scss'),
+      resolve(__dirname, './src/assets/img/illustrations/il-item-not-found.svg')
     ],
     renderRootJsx: resolve(__dirname, './styleguide/styleguide.root.js'),
     template: {
@@ -89,7 +102,8 @@ module.exports = async() => {
           { rel: 'stylesheet', href: `https://unpkg.com/bootstrap@${bootstrapVersion}/dist/css/bootstrap.min.css` },
           { rel: 'stylesheet', href: `https://unpkg.com/bootstrap-vue@${bootstrapVueVersion}/dist/bootstrap-vue.min.css` }
         ]
-      }
+      },
+      favicon: 'https://www.europeana.eu/favicon.ico'
     },
     webpackConfig,
     usageMode: 'expand',

@@ -2,39 +2,83 @@ import axios from 'axios';
 
 import storeModule from './store';
 
-const STORE_MODULE_NAME = 'axiosLogger';
+const MODULE_NAME = 'axiosLogger';
 
-export default ({ store, app }, inject) => {
-  if (store) {
-    store.registerModule(STORE_MODULE_NAME, storeModule);
-  }
-
-  const requestInterceptor = config => {
-    const uri = axios.getUri(config);
-    const url = `${config.baseURL || ''}${uri}`;
-    const method = config.method.toUpperCase();
-    store.commit(`${STORE_MODULE_NAME}/push`, { method, url });
-
-    return config;
+const requestParams = (requestConfig, moduleConfig) => {
+  const params = {
+    ...requestConfig.params
   };
 
-  // TODO: do these route guards get duplicated being in this default export?
-  app.router.beforeEach((to, from, next) => {
-    if (!store.state[STORE_MODULE_NAME].recording) {
-      store.commit(`${STORE_MODULE_NAME}/reset`);
-      store.commit(`${STORE_MODULE_NAME}/start`);
+  // Optionally, clear certain URL params, e.g. to obscure API keys
+  for (const paramKey of (moduleConfig?.clearParams || [])) {
+    if (paramKey in params) {
+      params[paramKey] = '';
+    }
+  }
+
+  return params;
+};
+
+const requestUri = (requestConfig, moduleConfig) => {
+  let uri = axios.getUri({ ...requestConfig, params: requestParams(requestConfig, moduleConfig) });
+
+  if (uri.startsWith('/') && requestConfig.baseURL) {
+    uri = `${requestConfig.baseURL}${uri}`;
+  }
+
+  return uri;
+};
+
+const loggableRequest = (requestConfig, moduleConfig) => {
+  const method = requestConfig.method.toUpperCase();
+
+  // Optionally, only log specific HTTP methods
+  if (moduleConfig?.httpMethods && !moduleConfig.httpMethods.includes(method)) {
+    return null;
+  }
+
+  return { method, url: requestUri(requestConfig, moduleConfig) };
+};
+
+const requestInterceptor = (moduleConfig, store) => (requestConfig) => {
+  const requestLog = loggableRequest(requestConfig, moduleConfig);
+
+  if (requestLog) {
+    store.commit(`${MODULE_NAME}/push`, requestLog);
+  }
+
+  return requestConfig;
+};
+
+const addRouterNavigationGuards = (router, store) => {
+  router.beforeEach((to, from, next) => {
+    if (!store.state[MODULE_NAME].recording && (to.path !== from.path)) {
+      store.commit(`${MODULE_NAME}/reset`);
+      store.commit(`${MODULE_NAME}/start`);
     }
 
     next();
   });
 
-  app.router.afterEach(() => {
+  router.afterEach(() => {
     // Only stop recording client side to prevent SSR then CSR `afterEach` calls
     // for the same routing resetting the logger before the CSR.
     if (process.client) {
-      store.commit(`${STORE_MODULE_NAME}/stop`);
+      store.commit(`${MODULE_NAME}/stop`);
     }
   });
+};
 
-  inject('axiosLogger', requestInterceptor);
+export default ({ store, app, $config }, inject) => {
+  if (store) {
+    store.registerModule(MODULE_NAME, storeModule);
+  }
+
+  // TODO: do these route guards get duplicated being in this default export?
+  if (app?.router) {
+    addRouterNavigationGuards(app.router, store);
+  }
+
+  const moduleConfig = $config?.[MODULE_NAME];
+  inject(MODULE_NAME, requestInterceptor(moduleConfig, store));
 };

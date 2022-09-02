@@ -11,3 +11,11 @@ global.localStorage = {
   getItem: () => sinon.spy(),
   setItem: () => sinon.spy()
 };
+
+// Allow using client-only in component tests.
+// https://dev.to/alousilva/how-to-mock-nuxt-client-only-component-with-jest-47da
+import { config } from '@vue/test-utils';
+import clientOnlyMock from './clientOnlyMock';
+
+// Mock Nuxt client-side component
+config.stubs['client-only'] = clientOnlyMock;

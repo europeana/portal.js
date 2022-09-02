@@ -11,7 +11,7 @@ const storeDispatch = sinon.stub().resolves({});
 const sets = [
   {
     id: '001',
-    items: ['http://data.europeana.eu/item/000/aaa'],
+    items: [{ id: '/000/aaa' }],
     title: 'Test collection',
     total: 1,
     visibility: 'public'
@@ -29,9 +29,7 @@ const factory = (propsData = {}) => mount(AddItemToSetModal, {
     $tc: () => {},
     $i18n: {},
     $apis: {
-      set: {
-        getSetThumbnail: () => null
-      }
+      thumbnail: { edmPreview: (img) => img?.edmPreview?.[0] }
     },
     $store: {
       dispatch: storeDispatch,

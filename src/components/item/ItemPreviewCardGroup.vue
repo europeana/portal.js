@@ -1,19 +1,23 @@
 <template>
   <div
-    v-if="view === 'grid' || view === 'mosaic'"
+    v-if="masonryActive"
+    :key="`searchResultsGrid${view}`"
+    v-masonry
+    transition-duration="0.1"
+    item-selector=".card"
+    horizontal-order="true"
+    column-width=".masonry-container .card:not(.header-card)"
+    class="masonry-container"
+    :data-qa="`item previews ${view}`"
   >
-    <div
-      id="searchResultsGrid"
-      :key="`searchResultsGrid${view}`"
-      v-masonry
-      transition-duration="0.1"
-      item-selector=".card"
-      horizontal-order="true"
-      column-width=".masonry-container .card:not(.header-card)"
-      class="masonry-container"
-      :data-qa="`item previews ${view}`"
+    <slot />
+    <component
+      :is="draggableItems ? 'draggable' : 'div'"
+      v-model="cards"
+      :draggable="draggableItems && '.item'"
+      handle=".move-button"
+      @end="endItemDrag"
     >
-      <slot />
       <template
         v-for="(card, index) in cards"
       >
@@ -34,27 +38,32 @@
         <ItemPreviewCard
           v-else
           :key="index"
-          v-masonry-tile
           :item="card"
           :hit-selector="itemHitSelector(card)"
           :variant="cardVariant"
           class="item"
-          :lazy="false"
+          :lazy="true"
           :enable-accept-recommendation="enableAcceptRecommendations"
           :enable-reject-recommendation="enableRejectRecommendations"
           :show-pins="showPins"
+          :show-move="draggableItems"
+          :offset="items.findIndex(item => item.id === card.id)"
           data-qa="item preview"
           @like="$emit('like', card.id)"
           @unlike="$emit('unlike', card.id)"
         />
       </template>
-    </div>
+    </component>
   </div>
-  <b-card-group
+  <component
+    :is="draggableItems ? 'draggable' : 'b-card-group'"
     v-else
+    v-model="cards"
+    :draggable="draggableItems && '.item'"
     :data-qa="`item previews ${view}`"
     :class="cardGroupClass"
     deck
+    @end="endItemDrag"
   >
     <slot />
     <template
@@ -77,24 +86,29 @@
         v-else
         :key="card.id"
         :item="card"
+        class="item"
         :hit-selector="itemHitSelector(card)"
         :variant="cardVariant"
         :show-pins="showPins"
+        :show-move="draggableItems"
+        :offset="items.findIndex(item => item.id === card.id)"
         data-qa="item preview"
         @like="$emit('like', card.id)"
         @unlike="$emit('unlike', card.id)"
       />
     </template>
-  </b-card-group>
+  </component>
 </template>
 
 <script>
+  import draggable from 'vuedraggable';
   import ItemPreviewCard from './ItemPreviewCard';
 
   export default {
     name: 'ItemPreviewCardGroup',
 
     components: {
+      draggable,
       ItemPreviewCard
     },
 
@@ -107,11 +121,10 @@
         type: Array,
         default: null
       },
-      perRow: {
-        type: Number,
-        default: 4
-      },
-      // grid/list/similar
+      /**
+       * Layout view to use
+       * @values grid, mosaic, list, explore
+       */
       view: {
         type: String,
         default: 'grid'
@@ -121,6 +134,10 @@
         default: false
       },
       showRelated: {
+        type: Boolean,
+        default: false
+      },
+      draggableItems: {
         type: Boolean,
         default: false
       },
@@ -134,11 +151,17 @@
       }
     },
 
-    computed: {
-      cards() {
-        return this.items.slice(0, 4).concat('related').concat(this.items.slice(4));
-      },
+    data() {
+      return {
+        cards: []
+      };
+    },
 
+    fetch() {
+      this.cards = this.items.slice(0, 4).concat('related').concat(this.items.slice(4));
+    },
+
+    computed: {
       cardGroupClass() {
         let cardGroupClass;
 
@@ -146,14 +169,8 @@
         case 'list':
           cardGroupClass = 'card-group-list mx-0';
           break;
-        case 'plain':
-          cardGroupClass = `card-deck-search card-deck-${this.perRow}-cols`;
-          break;
         case 'explore':
           cardGroupClass = 'card-deck-4-cols narrow-gutter explore-more';
-          break;
-        case 'similar':
-          cardGroupClass = 'py-3 mx-0 card card-deck-4-cols similar-items';
           break;
         }
 
@@ -162,17 +179,28 @@
 
       cardVariant() {
         return this.view === 'grid' ? 'default' : this.view;
+      },
+
+      masonryActive() {
+        return this.view === 'grid' || this.view === 'mosaic';
+      }
+    },
+
+    watch: {
+      'cards.length': 'redrawMasonry',
+      items() {
+        this.$fetch();
       }
     },
 
     mounted() {
-      const masonryViews = ['grid', 'mosaic'];
-      if (typeof this.$redrawVueMasonry === 'function' && masonryViews.includes(this.view)) {
-        this.$redrawVueMasonry('searchResultsGrid');
-      }
+      this.redrawMasonry();
     },
 
     methods: {
+      endItemDrag() {
+        this.$emit('endItemDrag', this.cards.filter(card => card !== 'related'));
+      },
       itemHitSelector(item) {
         if (!this.hits) {
           return null;
@@ -180,6 +208,13 @@
 
         const hit = this.hits.find(hit => item.id === hit.scope);
         return hit ? hit.selectors[0] : null;
+      },
+      redrawMasonry() {
+        if (typeof this.$redrawVueMasonry === 'function' && this.masonryActive) {
+          this.$nextTick(() => {
+            this.$redrawVueMasonry();
+          });
+        }
       }
     }
   };

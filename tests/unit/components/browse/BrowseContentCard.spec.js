@@ -13,7 +13,10 @@ const factory = (props = { fields: {} }) => shallowMount(BrowseContentCard, {
   mocks: {
     $apis: {
       config: { data: { url: 'http://data.europeana.eu' } },
-      entity: { getEntityTypeHumanReadable: () => 'person' }
+      entity: { getEntityTypeHumanReadable: () => 'person' },
+      thumbnail: {
+        edmPreview: (img) => img
+      }
     },
     $path: (opts) => opts,
     $i18n: { locale: 'en' },
@@ -78,7 +81,7 @@ describe('components/browse/BrowseContentCard', () => {
           }
         });
 
-        expect(wrapper.vm.imageUrl).toBe(`${edmPreview}&size=w400`);
+        expect(wrapper.vm.imageUrl).toBe(edmPreview);
       });
     });
 
@@ -125,7 +128,7 @@ describe('components/browse/BrowseContentCard', () => {
           const entityType = 'agent';
           const entityHumanType = 'person';
           const entityId = '12345';
-          const identifier = `http://data.europeana.eu/${entityType}/base/${entityId}`;
+          const identifier = `http://data.europeana.eu/${entityType}/${entityId}`;
           const wrapper = factory({ fields: { identifier } });
 
           expect(wrapper.vm.destination).toEqual({ name: 'collections-type-all', params: { type: entityHumanType, pathMatch: entityId } });

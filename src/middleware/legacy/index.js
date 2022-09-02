@@ -25,7 +25,7 @@ const rules = [
 ];
 
 function stringifyPathChunks(chunks) {
-  return chunks.filter((chunk) => typeof chunk !== undefined).join('');
+  return chunks.filter((chunk) => !!chunk).join('');
 }
 
 const updateRoute = ({ status, route, req, redirect, app }) => {

@@ -1,7 +1,7 @@
 <template>
   <div
     data-qa="exhibition credits page"
-    class="text-page"
+    class="text-page white-page"
   >
     <!-- TODO: use the AuthoredHead component here, so it matches the exhibition chapters -->
     <b-container>
@@ -55,6 +55,22 @@
           />
         </b-col>
       </b-row>
+      <b-row
+        v-if="relatedLink"
+        class="justify-content-center"
+      >
+        <b-col
+          cols="12"
+          class="mt-3 col-lg-8"
+        >
+          <client-only>
+            <RelatedCollections
+              :entity-uris="relatedLink"
+              :title="$t('youMightAlsoLike')"
+            />
+          </client-only>
+        </b-col>
+      </b-row>
       <b-row class="footer-margin" />
     </b-container>
   </div>
@@ -71,7 +87,8 @@
     components: {
       ShareButton,
       SocialShareModal,
-      LinkList: () => import('../../../components/generic/LinkList')
+      LinkList: () => import('../../../components/generic/LinkList'),
+      RelatedCollections: () => import('@/components/related/RelatedCollections')
     },
     mixins: [
       exhibitionChapters
@@ -154,5 +171,16 @@
   ::v-deep img {
     display: block;
     margin: 1rem 0;
+  }
+
+  ::v-deep .related-collections {
+    &.container {
+      padding: 0;
+    }
+
+    .badge-pill {
+      margin-top: 0.25rem;
+      margin-right: 0.5rem;
+    }
   }
 </style>

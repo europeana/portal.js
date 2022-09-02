@@ -15,8 +15,8 @@
         style="margin-top: 0;
           padding-left: 1.25rem;"
       >
-        <li>http://data.europeana.eu/agent/base/59832</li>
-        <li>https://api.europeana.eu/entity/timespan/base/20</li>
+        <li>http://data.europeana.eu/agent/59832</li>
+        <li>https://api.europeana.eu/entity/timespan/20</li>
         <li>https://www.europeana.eu/en/collections/person/60404-johannes-vermeer</li>
         <li>https://portaljs-test.eanadev.org/collections/topic/190</li>
       </ul>
@@ -28,11 +28,10 @@
   import {
     isEntityUri,
     getEntityTypeHumanReadable,
-    getEntitySlug,
     entityParamsFromUri
   } from '@/plugins/europeana/entity';
   import contentfulSidebarMixin from '@/mixins/contentful/sidebar';
-  import { langMapValueForLocale } from '@/plugins/europeana/utils';
+  import { langMapValueForLocale, getLabelledSlug } from '@/plugins/europeana/utils';
   import { BASE_URL } from '@/plugins/europeana/data';
 
   export default {
@@ -121,7 +120,7 @@
         // set field values
         this.entry.fields.identifier.setValue(response.id); // data.europeana.eu URI
 
-        this.entry.fields.slug?.setValue(getEntitySlug(id, enPrefLabel)); // slug
+        this.entry.fields.slug?.setValue(getLabelledSlug(id, enPrefLabel)); // slug
 
         this.entry.fields.type?.setValue(getEntityTypeHumanReadable(response.type)); // entity type
 
@@ -150,6 +149,7 @@
           description = langMapValueForLocale(response.biographicalInformation, 'en').values[0];
           break;
         case 'Concept':
+        case 'Place':
           // use `note`
           // NB: language map with each value being an array of literals
           description = langMapValueForLocale(response.note, 'en').values[0];
@@ -161,9 +161,6 @@
           break;
         case 'Timespan':
           // TODO: use what? `${response.begin} to ${response.end}`?
-          break;
-        case 'Place':
-          // TODO: use what? `${response.lat},${response.long}`?
           break;
         }
 

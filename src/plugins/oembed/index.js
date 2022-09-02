@@ -37,10 +37,14 @@ export function oEmbedForEndpoint(endpoint, url) {
   });
 }
 
-export default function oEmbed(url) {
-  const provider = providerForUrl(url);
-  if (!provider) {
-    return null;
+export default function oEmbed(url, endpoint) {
+  if (!endpoint) {
+    const provider = providerForUrl(url);
+    if (!provider) {
+      return null;
+    }
+    endpoint = provider.endpoint;
   }
-  return oEmbedForEndpoint(provider.endpoint, url);
+
+  return oEmbedForEndpoint(endpoint, url);
 }

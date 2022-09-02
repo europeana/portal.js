@@ -1,4 +1,5 @@
-import { createLocalVue, shallowMount } from '@vue/test-utils';
+import { createLocalVue } from '@vue/test-utils';
+import { shallowMountNuxt } from '../../utils';
 import BootstrapVue from 'bootstrap-vue';
 import Vuex from 'vuex';
 import sinon from 'sinon';
@@ -23,6 +24,7 @@ const factory = (options = {}) => {
     $features: { sideFilters: false, entityHeaderCards: false },
     $fetchState: options.fetchState || {},
     $route: { path: '/search', name: 'search', query: {} },
+    $nuxt: { context: { res: {} } },
     localise: (val) => val,
     ...options.mocks
   };
@@ -49,24 +51,31 @@ const factory = (options = {}) => {
           setView: searchSetViewMutation
         },
         actions: {
+          activate: () => null,
           run: () => null
         }
+      }
+    },
+    getters: {
+      'debug/settings': () => {
+        return { enabled: false, boosting: false, ...options.debugStore };
       }
     }
   });
 
-  return shallowMount(SearchInterface, {
+  return shallowMountNuxt(SearchInterface, {
     localVue,
     mocks,
     store,
-    propsData: options.propsData
+    propsData: options.propsData,
+    stubs: ['SideFilters']
   });
 };
 
 describe('components/search/SearchInterface', () => {
   beforeEach(() => sinon.resetHistory());
 
-  describe('output', () => {
+  describe('template', () => {
     describe('with `error` in search state', () => {
       it('displays the message', () => {
         const errorMessage = 'Something went very wrong';
@@ -83,7 +92,77 @@ describe('components/search/SearchInterface', () => {
     });
   });
 
-  describe('computed properties', () => {
+  describe('fetch', () => {
+    it('activates the search in the store', async() => {
+      const wrapper = factory();
+      sinon.spy(wrapper.vm.$store, 'dispatch');
+
+      await wrapper.vm.fetch();
+
+      expect(wrapper.vm.$store.dispatch.calledWith('search/activate')).toBe(true);
+    });
+
+    it('commits user params to the store from the route query', async() => {
+      const wrapper = factory();
+      sinon.spy(wrapper.vm.$store, 'commit');
+      const routeQuery = { query: 'history', page: 2 };
+      wrapper.vm.$route = { query: routeQuery };
+
+      await wrapper.vm.fetch();
+
+      expect(wrapper.vm.$store.commit.calledWith('search/set', ['userParams', routeQuery])).toBe(true);
+    });
+
+    it('runs the search via the store', async() => {
+      const wrapper = factory();
+      sinon.spy(wrapper.vm.$store, 'dispatch');
+
+      await wrapper.vm.fetch();
+
+      expect(wrapper.vm.$store.dispatch.calledWith('search/run')).toBe(true);
+    });
+
+    it('handles search API errors', async() => {
+      const wrapper = factory({ storeState: { error: new Error('API error'), errorStatusCode: 400 } });
+      process.server = true;
+
+      let error;
+
+      try {
+        await wrapper.vm.fetch();
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error.message).toBe('API error');
+      expect(wrapper.vm.$nuxt.context.res.statusCode).toBe(400);
+    });
+
+    it('treats no results as an error', async() => {
+      const wrapper = factory({ storeState: { totalResults: 0 } });
+
+      let error;
+
+      try {
+        await wrapper.vm.fetch();
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error.message).toBe('noResults');
+    });
+
+    it('scrolls to the page header element', async() => {
+      const wrapper = factory();
+      wrapper.vm.$scrollTo = sinon.spy();
+
+      await wrapper.vm.fetch();
+
+      expect(wrapper.vm.$scrollTo.calledWith('#header')).toBe(true);
+    });
+  });
+
+  describe('computed', () => {
     describe('errorMessage', () => {
       describe('when there was a pagination error', () => {
         it('returns a user-friendly error message', async() => {
@@ -156,6 +235,28 @@ describe('components/search/SearchInterface', () => {
 
           expect(searchSetViewMutation.calledWith(sinon.match.any, view)).toBe(true);
         });
+      });
+    });
+
+    describe('debugSettings', () => {
+      it('reads the debug settings from the store', () => {
+        const wrapper = factory();
+
+        expect(wrapper.vm.debugSettings).toStrictEqual({ enabled: false, boosting: false });
+      });
+    });
+
+    describe('showSearchBoostingForm', () => {
+      it('is true when the boosting toggle is enabled', () => {
+        const wrapper = factory({ debugStore: { boosting: true } });
+
+        expect(wrapper.vm.showSearchBoostingForm).toBe(true);
+      });
+
+      it('is false when the boosting toggle is disabled', () => {
+        const wrapper = factory();
+
+        expect(wrapper.vm.showSearchBoostingForm).toBe(false);
       });
     });
   });

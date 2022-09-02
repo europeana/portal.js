@@ -27,6 +27,13 @@ query ExhibitionLandingPage(
         name
         description
       }
+      categoriesCollection {
+        items {
+          name
+          identifier
+        }
+      }
+      relatedLink
     }
   }
 }

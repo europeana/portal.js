@@ -38,10 +38,14 @@ export default {
     "goHome": "Minge avalehele",
     "learnMore": "Lisateave",
     "like": "Meeldib",
+    "move": "Liiguta",
     "next": "Järgmine",
     "pin": "Pin",
+    "preview": "Eelvaade",
+    "previous": "Eelmine",
     "providedBy": "Pakub {provider}",
     "reject": "Tagasi lükata",
+    "save": "Salvesta",
     "send": "Saada",
     "share": "Jagage",
     "shareOn": "Jagage saidil {social}",
@@ -59,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Hiljutised esemed",
     "organisation": "Organisatsioonid",
+    "place": "Kohad",
     "time": "Esiletõstetud sajandid",
     "topic": "Esile tõstetud teemad"
   },
@@ -76,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Organisatsioon",
     "person": "Isik",
+    "place": "Koht",
     "theme": "Teema",
     "time": "Sajand",
     "topic": "Teema"
@@ -145,8 +151,27 @@ export default {
     "to": "kuni"
   },
   "debug": {
-    "apiRequests": "API taotlused",
-    "debug": "Debug"
+    "apiRequests": {
+      "apiKeyLinkText": "Europeana API võti",
+      "noRequests": "Sellel lehel ei kasutatud Europeana API-de päringuid.",
+      "settingsPageLinkText": "seadete leht",
+      "tip": "Nõuanne: kui teil on juba {apiKeyLink} , võite selle sisestada lehel {settingsPageLink} ja see lisatakse nendele API päringu linkidele.",
+      "title": "API taotlused"
+    },
+    "debug": "Debug",
+    "settings": {
+      "form": {
+        "apiKey": {
+          "description": "Sisestage oma Europeana API võti ja seda kasutatakse API taotluste linkides.",
+          "label": "API võti"
+        },
+        "enabled": {
+          "description": "Kui see on lubatud, kuvatakse lehe jaluses silumismenüü.",
+          "label": "Luba silumismenüü"
+        }
+      },
+      "title": "Seaded"
+    }
   },
   "delete": "Kustuta",
   "depiction": "{title} kujutis",
@@ -167,18 +192,18 @@ export default {
     },
     "notifications": {
       "deleted": "Teie galerii on kustutatud.",
+      "error": {
+        "unpin": "Üksuse vabastamisel ilmnes viga. Proovige uuesti või teavitage probleemist."
+      },
+      "pin": "See üksus kuvatakse kogu „ {entity} ” ülaosas. Anname teile teada, kui seda muudatust kogumislehel näha on.",
       "pinLimit": {
         "body": "Praegu saate esimesele lehele kinnitada ainult 24 üksust. Kui soovite selle üksuse kinnitada, eemaldage kindlasti uus üksus ja proovige siis seda uuesti kinnitada.",
         "title": "Liiga palju kinnitatud üksusi"
       },
       "pinned": "Üksus on kinnitatud. See on nüüd selle kogumiku esimese lehe ülaosas. Kõigi kuvamiseks võib kuluda kuni 24 tundi.",
-      "pinnedFirstPage": "Objekt on kinnitatud. See võib võtta kuni 24 tundi, et see kõigile ilmuks.",
-      "unpinned": "Üksus on vabastatud. Seda pole enam selle kogumiku esimese lehe ülaosas. Kõigi kadumiseks võib kuluda kuni 24 tundi.",
-      "unpinnedFirstPage": "Üksus on vabastatud. Kõigi kadumiseks võib kuluda kuni 24 tundi."
-    },
-    "prompts": {
-      "pin": "Kas soovite kindlasti selle üksuse kinnitada? See üksus kuvatakse kogumi {entity} ülaosas. Selle muudatuse jõustumiseks võib kuluda kuni 24 tundi.",
-      "unpin": "Kas olete kindel, et soovite selle üksuse vabastada? Seda üksust ei kuvata kogu „ {entity} ” ülaosas. Selle muudatuse jõustumiseks võib kuluda kuni 24 tundi."
+      "select": "Valige seotud olem üksuse kinnitamiseks/eemaldamiseks selle külge/välja.",
+      "unpin": "Seda üksust ei kuvata enam kogu „ {entity} ” ülaosas. Anname teile teada, kui seda muudatust kogumislehel näha on.",
+      "unpinned": "Üksus on vabastatud. Seda pole enam selle kogumiku esimese lehe ülaosas. Kõigi kadumiseks võib kuluda kuni 24 tundi."
     }
   },
   "error": "Viga",
@@ -189,6 +214,7 @@ export default {
     "description": "Tutvuge näitustega",
     "exhibitions": "Näitused"
   },
+  "explore": "Avasta",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "värvid",
@@ -531,7 +557,7 @@ export default {
         "newspaper": "Ajalehed",
         "photography": "Fotograafia",
         "sport": "Sport",
-        "ww1": "1914–1918"
+        "ww1": "Esimene maailmasõda"
       },
       "select": "Valige teema"
     },
@@ -653,7 +679,7 @@ export default {
     "disclaimerLine1": "Europeana on Euroopa Liidu algatus, mida rahastavad Euroopa Liidu Euroopa ühendamise rahastu ja Euroopa Liidu liikmesriigid. Europeana teenuseid, sealhulgas seda veebisaiti, haldab konsortsium, mida juhib sihtasutuse Europeana sihtasutus Euroopa Komisjoni teenuslepingu alusel.",
     "disclaimerLine2": "Euroopa Komisjon ei taga teabe õigsust ega võta mingit vastutust sellel veebisaidil oleva teabe eest. Euroopa Komisjon ega ükski Euroopa Komisjoni nimel tegutsev isik ei vastuta ega vastuta sellel veebisaidil oleva teabe õigsuse ega kasutamise eest.",
     "findUsElsewhere": "Leidke meid mujalt",
-    "imageDescription": "Kaasfinantseerib Euroopa Liidu Euroopa ühendamise rahastu",
+    "imageDescription": "Rahastab Euroopa Liit",
     "navigation": {
       "MoreInfoLabel": "Rohkem infot",
       "about": "Meist",
@@ -688,18 +714,31 @@ export default {
     "navigation": {
       "about": "Meist",
       "collections": "Kogud",
-      "europeanaClassroom": "Õpetajad",
+      "europeanaClassroom": "Õpetajate jaoks",
       "help": "Abimaterjal",
       "home": "Kodu",
+      "pro": "Professionaalidele",
       "stories": "Lood"
     },
+    "quickSearch": "Kiire otsing",
     "searchFor": "Otsi {query}",
     "searchForEverything": "Otsi kõike",
     "searchForEverythingInCollection": "Otsi kõike {collection}",
     "searchForEverythingInEntireCollection": "Otsi kõike kogu meie kollektsioonist",
-    "showSidebar": "Kuva menüü"
+    "searchForm": "Otsinguvorm",
+    "showSidebar": "Kuva menüü",
+    "sideNavigation": "Külgmine navigeerimine"
   },
   "homeLinkAlt": "Europeana avaleht",
+  "homePage": {
+    "discoverEditorial": "Viimased lood",
+    "storiesCTA": "Vaata kõiki lugusid",
+    "subHeadline": "Otsi, salvesta ja jaga kunsti, raamatuid, filme ja muusikat tuhandetest kultuuriasutustest",
+    "themesCTA": "Vaadake kõiki teemasid",
+    "themesTitle": "Uurige teemade kaupa",
+    "title": "Avastage Euroopa kultuuripärandit {digital} kujul",
+    "titleDigital": "digitaalsel"
+  },
   "imageSlider": {
     "handle": "Liugkäepide"
   },
@@ -817,12 +856,15 @@ export default {
   "newWindow": "avaneb uues aknas",
   "noMoreResults": "Teie otsingupäringule pole rohkem tulemusi.",
   "noResults": "Ühtki tulemust",
+  "of": "of",
   "organisation": {
     "city": "Linn",
     "country": "Riik",
+    "englishName": "Ingliskeelne nimi",
     "nameAcronym": "Nime akronüüm"
   },
   "pageHasLoaded": "on laaditud",
+  "pageNumber": "Lehekülje number",
   "pages": {
     "collections": {
       "organisations": {
@@ -834,7 +876,11 @@ export default {
       "persons": {
         "title": "Isikud"
       },
+      "places": {
+        "title": "Kohad"
+      },
       "table": {
+        "items": "Üksused",
         "name": "Nimi"
       },
       "times": {
@@ -845,6 +891,9 @@ export default {
       }
     }
   },
+  "pagination": {
+    "label": "Paginatsioon"
+  },
   "readMore": "Loe lähemalt",
   "recommendation": {
     "prompts": {
@@ -854,6 +903,9 @@ export default {
   },
   "record": {
     "IIIFViewer": "IIIF vaataja",
+    "actions": {
+      "pin": "Kinnitage üksus saadaolevatele olemitega"
+    },
     "allMetaData": "Kogu metateave",
     "copyEmbedLabel": "Embed code (Klõpsake kopeerimiseks)",
     "exploreMore": "Avastage rohkem",
@@ -866,8 +918,16 @@ export default {
     "record": "Kirje",
     "showAll": "Kuva kogu teave",
     "similarItems": "Sarnased tooted",
+    "status": {
+      "unpublished": "[Avaldamata üksus]"
+    },
     "transcription": "Transkriptsioon",
     "transcriptionDisclaimer": "See sisu on saadud eraisikult, mitte eset pakkunud institutsioonilt."
+  },
+  "related": {
+    "editorial": {
+      "title": "Lood, mis teile võivad meeldida"
+    }
   },
   "relatedCollections": "Seotud kollektsioonid",
   "removeFilter": "Eemalda filter {filterLabel}",
@@ -876,10 +936,15 @@ export default {
   "results": "Tulemused",
   "resultsFor": "Tulemused päringule {0}",
   "resultsLimitWarning": "Täiendavaid tulemusi ei kuvata, kuna kuvatakse ainult esimesed 1000 kõige asjakohasemat tulemust. Kui te pole leidnud seda, mida otsite, kaaluge oma otsingu täpsustamist.",
-  "resultsWithin": "Tulemused {0} {1} piires {2} päringule {1}",
-  "search": "Otsing",
+  "resultsWithin": "Tulemused vahemikus {0} {1} päringule {2}",
+  "search": {
+    "boost": {
+      "placeholder": "Sisestage välja võimendamise päring"
+    },
+    "title": "Otsing"
+  },
   "searchHasLoaded": "{0} tagastatud tulemused",
-  "searchPlaceholder": "Mida te otsite?",
+  "searchPlaceholder": "Otsi 50+ miljonit üksust",
   "searchResults": "Otsing",
   "searchResultsFor": "{0} - otsing",
   "searchSuggestions": "Otsige soovitusi",
@@ -905,7 +970,6 @@ export default {
       "createNew": "Loo uus galerii",
       "delete": "Kustuta galerii",
       "edit": "Redigeeri galeriid",
-      "save": "Salvesta",
       "update": "Värskenda galeriid"
     },
     "form": {
@@ -939,6 +1003,9 @@ export default {
   "statuses": {
     "liked": "Meeldis",
     "pinned": "Kinnitatud"
+  },
+  "storiesPage": {
+    "title": "Lood"
   },
   "website": "Veebisait",
   "youMightAlsoLike": "Sulle võib ka meeldida"

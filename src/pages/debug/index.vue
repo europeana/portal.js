@@ -5,14 +5,50 @@
     />
     <b-row class="flex-md-row pb-5">
       <b-col cols="12">
-        <b-form>
-          <b-form-checkbox
-            v-model="settings.apiRequests"
-            switch
-            data-qa="API requests switch"
+        <b-form
+          @submit.stop.prevent="submitForm"
+        >
+          <b-form-group
+            :description="$t('debug.settings.form.enabled.description')"
           >
-            {{ $t('debug.apiRequests') }}
-          </b-form-checkbox>
+            <b-form-checkbox
+              v-model="settings.enabled"
+              switch
+              data-qa="enable debug menu switch"
+            >
+              {{ $t('debug.settings.form.enabled.label') }}
+            </b-form-checkbox>
+          </b-form-group>
+          <b-form-group
+            v-if="fieldBoostingFeature"
+            :description="$t('debug.settings.form.boosting.description')"
+          >
+            <b-form-checkbox
+              v-model="settings.boosting"
+              switch
+              data-qa="enable boosting form switch"
+            >
+              {{ $t('debug.settings.form.boosting.label') }}
+            </b-form-checkbox>
+          </b-form-group>
+          <b-form-group
+            :label="$t('debug.settings.form.apiKey.label')"
+            label-for="debug-input-api-key"
+            :description="$t('debug.settings.form.apiKey.description')"
+          >
+            <b-form-input
+              id="debug-input-api-key"
+              v-model="settings.apiKey"
+            />
+          </b-form-group>
+
+          <b-button
+            type="submit"
+            variant="primary"
+            data-qa="save debug settings button"
+          >
+            {{ $t('actions.save') }}
+          </b-button>
         </b-form>
       </b-col>
     </b-row>
@@ -20,7 +56,7 @@
 </template>
 
 <script>
-  import ContentHeader from '../../components/generic/ContentHeader';
+  import ContentHeader from '@/components/generic/ContentHeader';
 
   export default {
     name: 'DebugIndexPage',
@@ -29,10 +65,17 @@
       ContentHeader
     },
 
+    beforeRouteEnter(to, from, next) {
+      next(vm => {
+        vm.redirect = from;
+      });
+    },
+
     data() {
       return {
         settings: { ...this.$store.getters['debug/settings'] },
-        title: this.$t('debug.debug')
+        title: this.$t('debug.debug'),
+        redirect: null
       };
     },
 
@@ -42,12 +85,16 @@
       };
     },
 
-    watch: {
-      settings: {
-        deep: true,
-        handler(value) {
-          this.$store.commit('debug/updateSettings', value);
-        }
+    computed: {
+      fieldBoostingFeature() {
+        return this.$features?.fieldBoosting;
+      }
+    },
+
+    methods: {
+      submitForm() {
+        this.$store.commit('debug/updateSettings', this.settings);
+        this.$goto(this.redirect || '/');
       }
     }
   };

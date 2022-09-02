@@ -1,37 +1,34 @@
 <template>
-  <div>
-    <b-container
-      data-qa="search page"
-      class="page-container side-filters-enabled"
+  <div data-qa="search page">
+    <SearchInterface
+      id="search-interface"
+      :show-related="showRelated"
     >
-      <b-row
-        class="flex-row-reverse flex-nowrap"
+      <template
+        v-if="searchQuery"
+        #related
       >
-        <SideFilters />
-        <b-col
-          class="results-col"
-        >
-          <SearchInterface
-            id="search-interface"
-            :per-row="4"
-            :show-related="showRelated"
-          >
-            <template
-              v-if="searchQuery"
-              #related
-            >
-              <client-only>
-                <RelatedSection
-                  :query="searchQuery"
-                  @show="showRelatedSection"
-                  @hide="hideRelatedSection"
-                />
-              </client-only>
-            </template>
-          </SearchInterface>
-        </b-col>
-      </b-row>
-    </b-container>
+        <client-only>
+          <RelatedSection
+            :query="searchQuery"
+            @show="showRelatedSection"
+            @hide="hideRelatedSection"
+          />
+        </client-only>
+      </template>
+      <template
+        v-if="searchQuery"
+        #after-results
+      >
+        <client-only>
+          <b-container class="px-0">
+            <RelatedEditorial
+              :query="searchQuery"
+            />
+          </b-container>
+        </client-only>
+      </template>
+    </SearchInterface>
   </div>
 </template>
 
@@ -45,8 +42,8 @@
     components: {
       ClientOnly,
       SearchInterface,
-      RelatedSection: () => import('@/components/search/RelatedSection'),
-      SideFilters: () => import('@/components/search/SideFilters')
+      RelatedEditorial: () => import('@/components/related/RelatedEditorial'),
+      RelatedSection: () => import('@/components/search/RelatedSection')
     },
 
     async beforeRouteLeave(to, from, next) {
@@ -69,7 +66,7 @@
 
     head() {
       return {
-        title: this.$pageHeadTitle(this.searchQuery ? this.$t('searchResultsFor', [this.searchQuery]) : this.$t('search'))
+        title: this.$pageHeadTitle(this.searchQuery ? this.$t('searchResultsFor', [this.searchQuery]) : this.$t('search.title'))
       };
     },
 
@@ -111,9 +108,5 @@
 
   .page-container {
     max-width: none;
-  }
-
-  .results-col {
-    min-width: 0;
   }
 </style>

@@ -38,10 +38,14 @@ export default {
     "goHome": "Przejdź do strony głównej",
     "learnMore": "Ucz się więcej",
     "like": "Lubię",
+    "move": "Przesuń",
     "next": "Następny",
     "pin": "Szpilka",
+    "preview": "Podgląd",
+    "previous": "Poprzedni",
     "providedBy": "Dostarczone przez {provider}",
     "reject": "Odrzuć",
+    "save": "Zapisać",
     "send": "Wyślij",
     "share": "Udostępnij",
     "shareOn": "Udostępnij na {social}",
@@ -59,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Ostatnie pozycje",
     "organisation": "Organizacje",
+    "place": "Miejsca",
     "time": "Polecane wieki",
     "topic": "Polecane tematy"
   },
@@ -76,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Organizacja",
     "person": "Osoba",
+    "place": "Miejsce",
     "theme": "Temat",
     "time": "Stulecie",
     "topic": "Temat"
@@ -145,8 +151,27 @@ export default {
     "to": "do"
   },
   "debug": {
-    "apiRequests": "Żądania API",
-    "debug": "Debug"
+    "apiRequests": {
+      "apiKeyLinkText": "Klucz API Europeana",
+      "noRequests": "Na tej stronie nie użyto żadnych żądań do interfejsów API Europeana.",
+      "settingsPageLinkText": "strona ustawień",
+      "tip": "Wskazówka: jeśli masz już {apiKeyLink}, możesz wprowadzić go na {settingsPageLink} i zostanie on uwzględniony w tych linkach żądań API.",
+      "title": "Żądania API"
+    },
+    "debug": "Debug",
+    "settings": {
+      "form": {
+        "apiKey": {
+          "description": "Wpisz swój klucz Europeana API, który będzie używany w linkach do żądań API.",
+          "label": "Klucz API"
+        },
+        "enabled": {
+          "description": "Jeśli ta opcja jest włączona, menu debugowania będzie wyświetlane w stopce strony.",
+          "label": "Włącz menu debugowania"
+        }
+      },
+      "title": "Ustawienia"
+    }
   },
   "delete": "Usuń",
   "depiction": "Obraz {title}",
@@ -167,18 +192,18 @@ export default {
     },
     "notifications": {
       "deleted": "Twoja galeria została usunięta.",
+      "error": {
+        "unpin": "Podczas odpinania elementu wystąpił błąd. Spróbuj ponownie lub zgłoś problem."
+      },
+      "pin": "Ten element będzie wyświetlany u góry kolekcji „ {entity} ”. Powiadomimy Cię, kiedy ta zmiana będzie widoczna na stronie kolekcji.",
       "pinLimit": {
         "body": "Na razie możesz przypiąć tylko 24 obiekty na pierwszej stronie. Jeśli chcesz przypiąć ten obiekt, upewnij się, że najpierw odpiąłeś inny i spróbuj ponownie.",
         "title": "Za dużo przpiętych obiektów"
       },
       "pinned": "Obiekt został przypięty. Znajduje się teraz na górze pierwszej strony tej kolekcji. Synchronizacja u wszystkich użytkowników może potrwać do 24 godzin.",
-      "pinnedFirstPage": "Obiekt został przypięty. Synchronizacja u wszystkich użytkowników może potrwać do 24 godzin.",
-      "unpinned": "Obiekt został odpięty. Nie znajduje się już na górze pierwszej strony tej kolekcji. Może minąć do 24 godzin, zanim zniknie dla wszystkich użytkowników.",
-      "unpinnedFirstPage": "Obiekt został odpięty. Może minąć do 24 godzin, zanim zniknie dla wszystkich użytkowników."
-    },
-    "prompts": {
-      "pin": "Czy na pewno chcesz przypiąć ten obiekt? Będzie on wtedy  wyświetlany u góry kolekcji  „ {entity} ”. Ta zmiana może potrwać do 24 godzin.",
-      "unpin": "Czy na pewno chcesz odpiąć ten obiekt? Przestanie on wtedy być wyświetlany u góry kolekcji  „ {entity} ”. Ta zmiana może potrwać do 24 godzin."
+      "select": "Wybierz powiązaną jednostkę, aby przypiąć/odpiąć element do/od niego.",
+      "unpin": "Ten element przestanie się wyświetlać u góry kolekcji „ {entity} ”. Powiadomimy Cię, kiedy ta zmiana będzie widoczna na stronie kolekcji.",
+      "unpinned": "Obiekt został odpięty. Nie znajduje się już na górze pierwszej strony tej kolekcji. Może minąć do 24 godzin, zanim zniknie dla wszystkich użytkowników."
     }
   },
   "error": "Błąd",
@@ -189,6 +214,7 @@ export default {
     "description": "Przeglądaj wystawy",
     "exhibitions": "Wystawa | Wystawy"
   },
+  "explore": "Badać",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "kolory",
@@ -531,7 +557,7 @@ export default {
         "newspaper": "Gazety",
         "photography": "Fotografia",
         "sport": "Sport",
-        "ww1": "1914–1918"
+        "ww1": "I wojna światowa"
       },
       "select": "Wybierz motyw"
     },
@@ -653,7 +679,7 @@ export default {
     "disclaimerLine1": "Europeana jest inicjatywą Unii Europejskiej, finansowaną z unijnego Connecting Europe Facility oraz przez państwa członkowskie Unii Europejskiej. Usługi Europeany, w tym niniejsza strona internetowa, są prowadzone przez konsorcjum kierowane przez Fundację Europeana na podstawie umowy o świadczenie usług zawartej z Komisją Europejską.",
     "disclaimerLine2": "Komisja Europejska nie gwarantuje dokładności informacji i nie ponosi żadnej odpowiedzialności w odniesieniu do informacji na tej stronie internetowej. Ani Komisja Europejska, ani żadna osoba działająca w imieniu Komisji Europejskiej nie ponosi odpowiedzialności za dokładność lub wykorzystanie informacji na tej stronie internetowej.",
     "findUsElsewhere": "Znajdź nas w innych miejscach",
-    "imageDescription": "Współfinansowany z instrumentu „Łącząc Europę” Unii Europejskiej",
+    "imageDescription": "Finansowane przez Unię Europejską",
     "navigation": {
       "MoreInfoLabel": "Więcej informacji",
       "about": "O nas",
@@ -688,18 +714,31 @@ export default {
     "navigation": {
       "about": "O nas",
       "collections": "Kolekcje",
-      "europeanaClassroom": "Nauczyciele",
+      "europeanaClassroom": "Dla nauczycieli",
       "help": "Pomoc",
       "home": "Dom",
+      "pro": "Dla profesjonalistów",
       "stories": "Historie"
     },
+    "quickSearch": "Szybkie wyszukiwanie",
     "searchFor": "Wyszukaj {query}",
     "searchForEverything": "Szukaj wszystkiego",
     "searchForEverythingInCollection": "Szukaj wszystkiego w {collection}",
     "searchForEverythingInEntireCollection": "Szukaj wszystkiego w całej naszej kolekcji",
-    "showSidebar": "Pokaż menu"
+    "searchForm": "Formularz wyszukiwania",
+    "showSidebar": "Pokaż menu",
+    "sideNavigation": "Nawigacja boczna"
   },
   "homeLinkAlt": "Strona główna Europeana",
+  "homePage": {
+    "discoverEditorial": "Najnowsze historie",
+    "storiesCTA": "Zobacz wszystkie historie",
+    "subHeadline": "Wyszukuj, zapisuj i udostępniaj dzieła sztuki, książki, filmy i muzykę z tysięcy instytucji kulturalnych",
+    "themesCTA": "Zobacz wszystkie motywy",
+    "themesTitle": "Eksploruj według motywu",
+    "title": "Odkryj {digital} dziedzictwo kulturowe Europy",
+    "titleDigital": "cyfrowe"
+  },
   "imageSlider": {
     "handle": "Uchwyt suwakowy"
   },
@@ -817,12 +856,15 @@ export default {
   "newWindow": "otwiera się w nowym oknie",
   "noMoreResults": "Nie ma więcej wyników dla zapytania wyszukiwania.",
   "noResults": "Brak wyników",
+  "of": "Z",
   "organisation": {
     "city": "Miasto",
     "country": "Kraj",
+    "englishName": "Nazwa angielska",
     "nameAcronym": "Nazwa akronim"
   },
   "pageHasLoaded": "załadował",
+  "pageNumber": "Numer strony",
   "pages": {
     "collections": {
       "organisations": {
@@ -834,7 +876,11 @@ export default {
       "persons": {
         "title": "Osoby"
       },
+      "places": {
+        "title": "Miejsca"
+      },
       "table": {
+        "items": "Elementy",
         "name": "Nazwa"
       },
       "times": {
@@ -845,6 +891,9 @@ export default {
       }
     }
   },
+  "pagination": {
+    "label": "Paginacja"
+  },
   "readMore": "Czytaj więcej",
   "recommendation": {
     "prompts": {
@@ -854,6 +903,9 @@ export default {
   },
   "record": {
     "IIIFViewer": "Przeglądarka IIIF",
+    "actions": {
+      "pin": "Przypinanie elementu do dostępnych encji"
+    },
     "allMetaData": "Wszystkie metadane",
     "copyEmbedLabel": "Kod do umieszczenia (kliknij, aby skopiować)",
     "exploreMore": "Odkryj więcej",
@@ -866,8 +918,16 @@ export default {
     "record": "Rekord",
     "showAll": "Pokaż wszystkie informacje",
     "similarItems": "Podobne obiekty",
+    "status": {
+      "unpublished": "[Pozycja nieopublikowana]"
+    },
     "transcription": "Transkrypcja",
     "transcriptionDisclaimer": "Treść ta jest tworzona przez społeczeństwo, a nie przez instytucję, która dostarczyła tę pozycję."
+  },
+  "related": {
+    "editorial": {
+      "title": "Historie, które mogą Ci się spodobać"
+    }
   },
   "relatedCollections": "Powiązane kolekcje",
   "removeFilter": "Usuń filtr {filterLabel}",
@@ -877,9 +937,14 @@ export default {
   "resultsFor": "Wyniki dla {0}",
   "resultsLimitWarning": "Dodatkowe wyniki nie są wyświetlane, ponieważ wyświetlanych jest tylko pierwsze 1000 najbardziej odpowiednich wyników. Jeśli nie znalazłeś tego, czego szukasz, rozważ zawężenie wyszukiwania.",
   "resultsWithin": "Wyniki w granicach {0} {1} dla {2}",
-  "search": "Szukaj",
+  "search": {
+    "boost": {
+      "placeholder": "Wpisz zapytanie zwiększające pole"
+    },
+    "title": "Szukaj"
+  },
   "searchHasLoaded": "{0} zwróconych wyników",
-  "searchPlaceholder": "Odkryj miliony obiektów",
+  "searchPlaceholder": "Przeszukaj ponad 50 milionów przedmiotów",
   "searchResults": "Szukaj",
   "searchResultsFor": "{0} - Szukaj",
   "searchSuggestions": "Sugestie wyszukiwania",
@@ -905,7 +970,6 @@ export default {
       "createNew": "Utwórz nową galerię",
       "delete": "Usuń galerię",
       "edit": "Edytuj galerię",
-      "save": "Zapisać",
       "update": "Zaktualizuj galerię"
     },
     "form": {
@@ -939,6 +1003,9 @@ export default {
   "statuses": {
     "liked": "Lubiana",
     "pinned": "Przypięty"
+  },
+  "storiesPage": {
+    "title": "Historie"
   },
   "website": "Strona internetowa",
   "youMightAlsoLike": "Możesz też polubić"

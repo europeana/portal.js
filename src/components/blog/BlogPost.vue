@@ -50,10 +50,16 @@
             />
             <!-- eslint-enable vue/no-v-html -->
           </article>
-          <BlogTags
+          <RelatedCategoryTags
             v-if="tags"
             :tags="tags"
           />
+          <client-only>
+            <RelatedCollections
+              :entity-uris="relatedLink"
+              :title="$t('youMightAlsoLike')"
+            />
+          </client-only>
         </b-col>
       </b-row>
       <b-row class="footer-margin" />
@@ -62,7 +68,8 @@
 </template>
 
 <script>
-  import SocialShareModal from '../sharing/SocialShareModal.vue';
+  import ClientOnly from 'vue-client-only';
+  import SocialShareModal from '../sharing/SocialShareModal';
   import ShareButton from '../sharing/ShareButton.vue';
   import BrowseSections from '../browse/BrowseSections';
 
@@ -70,12 +77,14 @@
     name: 'BlogPost',
 
     components: {
-      AuthoredHead: () => import('../../components/authored/AuthoredHead'),
+      AuthoredHead: () => import('../authored/AuthoredHead'),
       BlogAuthor: () => import('./BlogAuthor'),
-      BlogTags: () => import('../../components/blog/BlogTags'),
+      RelatedCategoryTags: () => import('../related/RelatedCategoryTags'),
+      ClientOnly,
       SocialShareModal,
       ShareButton,
-      BrowseSections
+      BrowseSections,
+      RelatedCollections: () => import('@/components/related/RelatedCollections')
     },
 
     props: {
@@ -117,6 +126,11 @@
       tags: {
         type: Array,
         default: () => []
+      },
+
+      relatedLink: {
+        type: Array,
+        default: () => []
       }
     }
   };
@@ -126,4 +140,16 @@
   .author ~ .author::before {
     content: ', ';
   }
+
+  ::v-deep .related-collections {
+    &.container {
+      padding: 0;
+    }
+
+    .badge-pill {
+      margin-top: 0.25rem;
+      margin-right: 0.5rem;
+    }
+  }
+
 </style>

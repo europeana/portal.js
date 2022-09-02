@@ -13,7 +13,7 @@ query LatestCardGroups(
       name
       description
       primaryImageOfPage {
-        ...imageComparisonFields
+        ...imageWithAttributionFields
       }
     }
   }
@@ -37,13 +37,13 @@ query LatestCardGroups(
       name
       description
       primaryImageOfPage {
-        ...imageComparisonFields
+        ...imageWithAttributionFields
       }
     }
   }
 }
 
-fragment imageComparisonFields on ImageWithAttribution {
+fragment imageWithAttributionFields on ImageWithAttribution {
   image {
     url
     description

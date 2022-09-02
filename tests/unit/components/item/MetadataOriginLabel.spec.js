@@ -1,4 +1,6 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
+import BootstrapVue from 'bootstrap-vue';
+
 import MetadataOriginLabel from '@/components/item/MetadataOriginLabel.vue';
 
 const $i18n = {
@@ -7,10 +9,11 @@ const $i18n = {
 };
 
 const localVue = createLocalVue();
-localVue.directive('b-tooltip', {});
+localVue.use(BootstrapVue);
 
 const factory = () => shallowMount(MetadataOriginLabel, {
   localVue,
+  attachTo: document.body,
   mocks: {
     $t: (key) => key,
     $i18n

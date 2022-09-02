@@ -1,3 +1,4 @@
+import { ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX } from './data';
 import { apiError, createKeycloakAuthAxios } from './utils';
 
 export const BASE_URL = process.env.EUROPEANA_SET_API_URL || 'https://api.europeana.eu/set';
@@ -13,12 +14,38 @@ export default (context = {}) => {
   return {
     $axios,
 
-    search(params) {
-      return $axios.get('/search', { params: { ...$axios.defaults.params, ...params } })
-        .then(response => response)
-        .catch(error => {
-          throw apiError(error, context);
-        });
+    /**
+     * Search for user sets
+     * @param {Object} params retrieval params to send to Set API search method
+     * @param {Object} options retrieval options
+     * @param {Boolean} options.withMinimalItemPreviews retrieve minimal item metadata from Record API for first item in each set
+     */
+    async search(params, options = {}) {
+      try {
+        const response = await $axios.get('/search', { params: { ...$axios.defaults.params, ...params } });
+
+        if (options.withMinimalItemPreviews && response.data.items) {
+          const itemUris = response.data.items.filter(set => set.items).map(set => set.items[0]);
+
+          const minimalItemPreviews = await context.$apis.record.find(itemUris, {
+            profile: 'minimal',
+            rows: params.perPage ? params.perPage : 100
+          });
+
+          for (const set of response.data.items) {
+            if (set.items) {
+              set.items = set.items.map(uri => {
+                const itemId = uri.replace(EUROPEANA_DATA_URL_ITEM_PREFIX, '');
+                return minimalItemPreviews.items.find(item => item.id === itemId) || { id: itemId };
+              });
+            }
+          }
+        }
+
+        return response;
+      } catch (error) {
+        throw apiError(error, context);
+      }
     },
 
     /**
@@ -37,23 +64,23 @@ export default (context = {}) => {
     /**
      * Get a set with given id
      * @param {string} id the set's id
-     * @param {Object} options retrieval options
-     * @param {string} options.profile the set's metadata profile minimal/standard/itemDescriptions
+     * @param {Object} params retrieval params
+     * @param {string} params.profile the set's metadata profile minimal/standard/itemDescriptions
      * @return {Object} the set's object, containing the requested window of the set's items
      */
-    get(id, options = {}) {
+    // TODO: pagination for sets with > 100 items
+    async get(id, params = {}) {
       const defaults = {
         profile: 'standard'
       };
-      const params = { ...$axios.defaults.params, ...defaults, ...options };
+      const paramsWithDefaults = { ...$axios.defaults.params, ...defaults, ...params };
 
-      return $axios.get(`/${setIdFromUri(id)}`, { params })
-        .then(response => {
-          return response.data;
-        })
-        .catch(error => {
-          throw apiError(error, context);
-        });
+      try {
+        const response = await $axios.get(`/${setIdFromUri(id)}`, { params: paramsWithDefaults });
+        return response.data;
+      } catch (error) {
+        throw apiError(error, context);
+      }
     },
 
     /**
@@ -92,10 +119,11 @@ export default (context = {}) => {
      * @param {Object} body Set body
      * @return {Object} API response data
      */
-    update(id, body) {
+    update(id, body, params = {}) {
       return $axios.put(
         `/${setIdFromUri(id)}`,
-        body
+        body,
+        { params }
       )
         .then(response => response.data)
         .catch(error => {
@@ -108,7 +136,7 @@ export default (context = {}) => {
      * @param {string} id the set's id
      * @return {Object} API response data
      */
-    deleteSet(id) {
+    delete(id) {
       return $axios.delete(
         `/${setIdFromUri(id)}`
       )
@@ -134,11 +162,6 @@ export default (context = {}) => {
         .catch(error => {
           throw apiError(error, context);
         });
-    },
-
-    getSetThumbnail(set) {
-      const firstItemWithEdmPreview = (set.items || []).find(item => item.edmPreview);
-      return firstItemWithEdmPreview ? firstItemWithEdmPreview.edmPreview[0] : null;
     }
   };
 };

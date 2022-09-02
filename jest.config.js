@@ -17,6 +17,7 @@ export default {
     'vue'
   ],
   moduleNameMapper: {
+    '^swiper$': '<rootDir>/tests/unit/swiperMock.js',
     '^@/(.*)$': '<rootDir>/src/$1',
     '\\.css$': '<rootDir>/tests/unit/styleMock.js'
   },
@@ -34,6 +35,7 @@ export default {
   ],
   transform: {
     '^.+\\.js$': 'babel-jest',
-    '^.+\\.vue$': '@vue/vue2-jest'
+    '^.+\\.vue$': '@vue/vue2-jest',
+    '^.+\\.svg$': '<rootDir>/tests/unit/fileTransformer.cjs'
   }
 };

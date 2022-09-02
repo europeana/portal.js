@@ -38,10 +38,14 @@ export default {
     "goHome": "Gå til hjemmesiden",
     "learnMore": "Lær mere",
     "like": "Synes om",
+    "move": "Bevæge sig",
     "next": "Næste",
     "pin": "Pin",
+    "preview": "Forhåndsvisning",
+    "previous": "Forrige",
     "providedBy": "Leveret af {provider}",
     "reject": "Afvise",
+    "save": "Gem",
     "send": "Sende",
     "share": "Del",
     "shareOn": "Del på {social}",
@@ -59,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Seneste varer",
     "organisation": "Organisationer",
+    "place": "Steder",
     "time": "Udvalgte århundreder",
     "topic": "Udvalgte emner"
   },
@@ -76,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Organisation",
     "person": "Person",
+    "place": "Sted",
     "theme": "Tema",
     "time": "Århundrede",
     "topic": "Emne"
@@ -145,8 +151,27 @@ export default {
     "to": "til"
   },
   "debug": {
-    "apiRequests": "API-anmodninger",
-    "debug": "Debug"
+    "apiRequests": {
+      "apiKeyLinkText": "Europeana API nøgle",
+      "noRequests": "Der blev ikke brugt nogen anmodninger til Europeana API'er på denne side.",
+      "settingsPageLinkText": "indstillinger side",
+      "tip": "Tip: Hvis du allerede har en {apiKeyLink}, kan du indtaste den på {settingsPageLink} og den vil blive inkluderet i disse API-anmodningslinks.",
+      "title": "API-anmodninger"
+    },
+    "debug": "Debug",
+    "settings": {
+      "form": {
+        "apiKey": {
+          "description": "Indtast din Europeana API-nøgle, og den vil blive brugt i links til API-anmodninger.",
+          "label": "API nøgle"
+        },
+        "enabled": {
+          "description": "Hvis den er aktiveret, vil fejlretningsmenuen blive vist i sidefoden.",
+          "label": "Aktiver fejlretningsmenu"
+        }
+      },
+      "title": "Indstillinger"
+    }
   },
   "delete": "Slet",
   "depiction": "En skildring af {title}",
@@ -167,18 +192,18 @@ export default {
     },
     "notifications": {
       "deleted": "Dit galleri er blevet slettet.",
+      "error": {
+        "unpin": "Der opstod en fejl under frigørelse af elementet. Prøv venligst igen, eller rapporter problemet."
+      },
+      "pin": "Dette element vises øverst i samlingen \" {entity} \". Vi giver dig besked, når denne ændring vil være synlig på indsamlingssiden.",
       "pinLimit": {
         "body": "Indtil videre kan du kun fastgøre 24 elementer på den første side. Hvis du vil fastgøre dette emne, skal du fjerne et andet emne og derefter prøve at fastgøre dette emne igen.",
         "title": "For mange fastgjorte emner"
       },
       "pinned": "Elementet er blevet fastgjort. Det er nu øverst på den første side i denne samling. Det kan tage op til 24 timer at vises for alle.",
-      "pinnedFirstPage": "Elementet er blevet fastgjort. Det kan tage op til 24 timer at vises for alle.",
-      "unpinned": "Elementet er blevet fastgjort. Det er ikke længere øverst på den første side i denne samling. Det kan tage op til 24 timer at forsvinde for alle.",
-      "unpinnedFirstPage": "Elementet er blevet frigjort. Det kan tage op til 24 timer at forsvinde for alle."
-    },
-    "prompts": {
-      "pin": "Er du sikker på, at du vil fastgøre denne vare? Dette element vises øverst i {entity} \". Det kan tage op til 24 timer, før denne ændring træder i kraft.",
-      "unpin": "Er du sikker på, at du vil løsne denne vare? Dette element stopper med at vises øverst i {entity} \". Det kan tage op til 24 timer, før denne ændring træder i kraft."
+      "select": "Vælg en relateret enhed for at fastgøre/frigøre elementet til/fra det.",
+      "unpin": "Dette element stopper med at blive vist øverst i samlingen \" {entity} \". Vi giver dig besked, når denne ændring vil være synlig på indsamlingssiden.",
+      "unpinned": "Elementet er blevet fastgjort. Det er ikke længere øverst på den første side i denne samling. Det kan tage op til 24 timer at forsvinde for alle."
     }
   },
   "error": "Fejl",
@@ -189,6 +214,7 @@ export default {
     "description": "Udforsk udstillingerne",
     "exhibitions": "Udstillinger"
   },
+  "explore": "Udforske",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "farver",
@@ -531,7 +557,7 @@ export default {
         "newspaper": "Aviser",
         "photography": "Fotografi",
         "sport": "Sport",
-        "ww1": "1914-1918"
+        "ww1": "Første Verdenskrig"
       },
       "select": "Vælg et tema"
     },
@@ -653,7 +679,7 @@ export default {
     "disclaimerLine1": "Europeana er et initiativ fra Den Europæiske Union, der finansieres af EU's Connecting Europe-facilitet og EU's medlemsstater. Europeana-tjenesterne, herunder dette websted, drives af et konsortium ledet af Europeana Foundation i henhold til en servicekontrakt med Europa-Kommissionen.",
     "disclaimerLine2": "Europa-Kommissionen garanterer ikke nøjagtigheden af informationen og påtager sig intet ansvar over for informationen på dette websted. Hverken Europa-Kommissionen eller nogen person, der handler på Europa-Kommissionens vegne, er ansvarlig eller ansvarlig for nøjagtigheden eller brugen af oplysningerne på dette websted.",
     "findUsElsewhere": "Find os et andet sted",
-    "imageDescription": "Medfinansieret af Den Europæiske Unions Connecting Europe-facilitet",
+    "imageDescription": "Finansieret af Den Europæiske Union",
     "navigation": {
       "MoreInfoLabel": "Flere oplysninger",
       "about": "Om os",
@@ -688,18 +714,31 @@ export default {
     "navigation": {
       "about": "Om os",
       "collections": "Samlinger",
-      "europeanaClassroom": "Lærere",
+      "europeanaClassroom": "For lærere",
       "help": "Hjælp",
       "home": "Hjem",
+      "pro": "For professionelle",
       "stories": "Historier"
     },
+    "quickSearch": "Hurtig søgning",
     "searchFor": "Søg efter {query}",
     "searchForEverything": "Søg efter alt",
     "searchForEverythingInCollection": "Søg efter alt i {collection}",
     "searchForEverythingInEntireCollection": "Søg efter alt i hele vores samling",
-    "showSidebar": "Vis menu"
+    "searchForm": "Søg formular",
+    "showSidebar": "Vis menu",
+    "sideNavigation": "Sidenavigation"
   },
   "homeLinkAlt": "Europeana startside",
+  "homePage": {
+    "discoverEditorial": "Seneste historier",
+    "storiesCTA": "Se alle historier",
+    "subHeadline": "Søg, gem og del kunst, bøger, film og musik fra tusindvis af kulturinstitutioner",
+    "themesCTA": "Se alle temaer",
+    "themesTitle": "Udforsk efter tema",
+    "title": "Opdag Europas {digital} kulturarv",
+    "titleDigital": "digitale"
+  },
   "imageSlider": {
     "handle": "Skydehåndtag"
   },
@@ -723,7 +762,7 @@ export default {
         "learnMore": "Lad mig vælge"
       },
       "decline": "Jeg afviser",
-      "ok": "okay",
+      "ok": "Okay",
       "purposes": {
         "essential": {
           "description": "Disse tjenester er afgørende for, at dette websted fungerer korrekt. De inkluderer søgeresultatvisning og sprogindstillinger, bevarer den loggede tilstand og holder dit besøg sikkert. Du kan ikke deaktivere dem, da webstedet ellers ikke fungerer korrekt.",
@@ -817,12 +856,15 @@ export default {
   "newWindow": "åbner i nyt vindue",
   "noMoreResults": "Der er ikke flere resultater for din søgning.",
   "noResults": "Ingen resultater",
+  "of": "Af",
   "organisation": {
     "city": "By",
     "country": "Land",
+    "englishName": "Engelsk navn",
     "nameAcronym": "Navn akronym"
   },
   "pageHasLoaded": "har indlæst",
+  "pageNumber": "Side nummer",
   "pages": {
     "collections": {
       "organisations": {
@@ -834,7 +876,11 @@ export default {
       "persons": {
         "title": "Personer"
       },
+      "places": {
+        "title": "Steder"
+      },
       "table": {
+        "items": "Varer",
         "name": "Navn"
       },
       "times": {
@@ -845,6 +891,9 @@ export default {
       }
     }
   },
+  "pagination": {
+    "label": "Paginering"
+  },
   "readMore": "Læs mere",
   "recommendation": {
     "prompts": {
@@ -854,6 +903,9 @@ export default {
   },
   "record": {
     "IIIFViewer": "IIIF-fremviser",
+    "actions": {
+      "pin": "Fastgør element til tilgængelige enheder"
+    },
     "allMetaData": "Alle metadata",
     "copyEmbedLabel": "Integrer kode (Klik for at kopiere)",
     "exploreMore": "Udforsk mere",
@@ -866,8 +918,16 @@ export default {
     "record": "Registrering",
     "showAll": "Vis alle oplysninger",
     "similarItems": "Lignende artikler",
+    "status": {
+      "unpublished": "[Ikke-publiceret element]"
+    },
     "transcription": "Transskription",
     "transcriptionDisclaimer": "Dette indhold er leveret af offentligheden, ikke af den institution, der leverede denne artikel."
+  },
+  "related": {
+    "editorial": {
+      "title": "Historier, du måske kan lide"
+    }
   },
   "relatedCollections": "Relaterede samlinger",
   "removeFilter": "Fjern {filterLabel} filter",
@@ -877,9 +937,14 @@ export default {
   "resultsFor": "Resultater for {0}",
   "resultsLimitWarning": "Yderligere resultater vises ikke, da kun de første 1000 mest relevante resultater vises. Hvis du ikke har fundet det, du leder efter, kan du overveje at præcisere søgningen.",
   "resultsWithin": "Resultater inden for {0} {1} for {2}",
-  "search": "Søg",
+  "search": {
+    "boost": {
+      "placeholder": "Indtast feltforøgende forespørgsel"
+    },
+    "title": "Søg"
+  },
   "searchHasLoaded": "{0} resultater returneret",
-  "searchPlaceholder": "Hvad leder du efter?",
+  "searchPlaceholder": "Søg i mere end 50 millioner genstande",
   "searchResults": "Søg",
   "searchResultsFor": "{0} - Søg",
   "searchSuggestions": "Søgeforslag",
@@ -905,7 +970,6 @@ export default {
       "createNew": "Opret nyt galleri",
       "delete": "Slet galleri",
       "edit": "Rediger galleri",
-      "save": "Gem",
       "update": "Opdater galleri"
     },
     "form": {
@@ -939,6 +1003,9 @@ export default {
   "statuses": {
     "liked": "Kunne lide",
     "pinned": "Fastgjort"
+  },
+  "storiesPage": {
+    "title": "Historier"
   },
   "website": "Websted",
   "youMightAlsoLike": "Du vil måske også kunne lide"

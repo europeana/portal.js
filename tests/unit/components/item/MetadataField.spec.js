@@ -30,7 +30,7 @@ describe('components/item/MetadataField', () => {
         const fieldValue = wrapper.find('[data-qa="metadata field"] [data-qa="literal value"]');
         const entityFieldValue = wrapper.find('[data-qa="metadata field"] [data-qa="entity value"] entityfield-stub');
         expect(fieldValue.text()).toBe('Artist');
-        expect(entityFieldValue.attributes('value')).toBe('English name');
+        expect(entityFieldValue.attributes('text')).toBe('English name');
       });
     });
 
@@ -136,7 +136,7 @@ describe('components/item/MetadataField', () => {
           });
 
           it('omits them if there are other values', async() => {
-            const props = { name: 'dcCreator', fieldData: { def: ['http://data.europeana.eu/agent/base/123', 'Artist'] }, omitUrisIfOtherValues: true };
+            const props = { name: 'dcCreator', fieldData: { def: ['http://data.europeana.eu/agent/123', 'Artist'] }, omitUrisIfOtherValues: true };
             const wrapper = factory();
 
             await wrapper.setProps(props);
@@ -146,7 +146,7 @@ describe('components/item/MetadataField', () => {
           });
 
           it('only include them if there are no other values in any other language', async() => {
-            const props = { name: 'dcCreator', fieldData: { def: ['http://data.europeana.eu/agent/base/123'] }, omitUrisIfOtherValues: true };
+            const props = { name: 'dcCreator', fieldData: { def: ['http://data.europeana.eu/agent/123'] }, omitUrisIfOtherValues: true };
             const wrapper = factory();
 
             await wrapper.setProps(props);
@@ -158,7 +158,7 @@ describe('components/item/MetadataField', () => {
             const options = { omitUrisIfOtherValues: true, omitAllUris: true };
 
             it('ommits them if there are other values in any language', async() => {
-              const props = { name: 'dcCreator', fieldData: { def: ['http://data.europeana.eu/agent/base/123'], pl: ['Polish Value'] }, ...options };
+              const props = { name: 'dcCreator', fieldData: { def: ['http://data.europeana.eu/agent/123'], pl: ['Polish Value'] }, ...options };
               const wrapper = factory();
 
               await wrapper.setProps(props);
@@ -168,7 +168,7 @@ describe('components/item/MetadataField', () => {
             });
 
             it('omits them if there are other values', async() => {
-              const props = { name: 'dcCreator', fieldData: { def: ['http://data.europeana.eu/agent/base/123', 'Artist'] }, ...options };
+              const props = { name: 'dcCreator', fieldData: { def: ['http://data.europeana.eu/agent/123', 'Artist'] }, ...options };
               const wrapper = factory();
 
               await wrapper.setProps(props);
@@ -178,7 +178,7 @@ describe('components/item/MetadataField', () => {
             });
 
             it('omits them if it is the only value', async() => {
-              const props = { name: 'dcCreator', fieldData: { def: ['http://data.europeana.eu/agent/base/123'] }, ...options };
+              const props = { name: 'dcCreator', fieldData: { def: ['http://data.europeana.eu/agent/123'] }, ...options };
               const wrapper = factory();
 
               await wrapper.setProps(props);
@@ -253,8 +253,7 @@ describe('components/item/MetadataField', () => {
       const props = {
         name: 'edmDataProvider',
         fieldData: {
-          url: undefined,
-          value: { en: ['National Library of Estonia'] }
+          def: [{ prefLabel: { en: ['National Library of Estonia'] } }]
         }
       };
 

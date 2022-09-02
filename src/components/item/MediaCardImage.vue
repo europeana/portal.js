@@ -6,15 +6,24 @@
       v-if="imageLink && media.thumbnails.large && !media.isShownAt"
       :href="imageLink"
       target="_blank"
+      data-qa="media link"
     >
+      <MediaDefaultThumbnail
+        v-if="showDefaultThumbnail"
+        :media-type="mediaType"
+        :offset="offset"
+      />
       <component
         :is="lazy ? 'b-img-lazy' : 'b-img'"
+        v-else
         :src="thumbnailSrc"
         :width="thumbnailWidth"
         :height="thumbnailHeight"
         class="w-auto"
         alt=""
         data-qa="media preview image"
+        @error="imageNotFound"
+        @error.native="imageNotFound"
       />
       <span
         class="sr-only"
@@ -25,22 +34,37 @@
     <div
       v-else-if="media.thumbnails.large"
     >
+      <MediaDefaultThumbnail
+        v-if="showDefaultThumbnail"
+        :media-type="mediaType"
+        :offset="offset"
+      />
       <component
         :is="lazy ? 'b-img-lazy' : 'b-img'"
+        v-else
         :src="thumbnailSrc"
         :width="thumbnailWidth"
         :height="thumbnailHeight"
         alt=""
         class="mw-100"
         data-qa="media preview image"
+        @error="imageNotFound"
+        @error.native="imageNotFound"
       />
     </div>
   </div>
 </template>
 
 <script>
+  import { webResourceEDMType } from '@/plugins/media';
+
   export default {
     name: 'MediaCardImage',
+
+    components: {
+      MediaDefaultThumbnail: () => import('../media/MediaDefaultThumbnail')
+    },
+
     props: {
       media: {
         type: Object,
@@ -53,8 +77,23 @@
       europeanaIdentifier: {
         type: String,
         default: ''
+      },
+      edmType: {
+        type: String,
+        default: null
+      },
+      offset: {
+        type: Number,
+        default: null
       }
     },
+
+    data() {
+      return {
+        showDefaultThumbnail: false
+      };
+    },
+
     computed: {
       imageLink() {
         return this.$apis.record.mediaProxyUrl(this.media.about, this.europeanaIdentifier, { disposition: 'inline' });
@@ -76,6 +115,15 @@
           return null;
         }
         return (this.media.ebucoreHeight / this.media.ebucoreWidth) * this.thumbnailWidth;
+      },
+      mediaType() {
+        return webResourceEDMType(this.media) || this.edmType;
+      }
+    },
+
+    methods: {
+      imageNotFound() {
+        this.showDefaultThumbnail = true;
       }
     }
   };
@@ -91,6 +139,10 @@
 
   @media (max-height: $bp-small) {
     align-items: flex-start;
+  }
+
+  a {
+    text-decoration: none;
   }
 }
 

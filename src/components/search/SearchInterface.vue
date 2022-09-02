@@ -1,103 +1,122 @@
 <template>
-  <b-container v-if="$fetchState.pending && !fetched">
-    <b-row class="flex-md-row py-4 text-center">
-      <b-col cols="12">
-        <LoadingSpinner />
-      </b-col>
-    </b-row>
-  </b-container>
-  <b-container v-else-if="$fetchState.error">
-    <b-row class="flex-md-row">
-      <b-col cols="12">
-        <AlertMessage
-          :error="errorMessage"
-        />
-      </b-col>
-    </b-row>
-  </b-container>
-  <b-container v-else>
-    <div
-      class="mb-3 d-flex align-items-start align-items-md-center justify-content-between"
-    >
-      <SearchResultsContext
-        :label-override="editorialEntityLabel"
-      />
-      <ViewToggles
-        v-model="view"
-        :link-gen-route="route"
-        class="flex-nowrap mt-1 mt-md-0"
-      />
-    </div>
+  <b-container
+    data-qa="search interface"
+    class="page-container side-filters-enabled"
+  >
     <b-row
-      class="mb-3"
+      class="flex-row flex-nowrap"
     >
       <b-col
-        cols="12"
+        class="col-results"
       >
-        <b-container v-if="$fetchState.pending && fetched">
-          <b-row class="flex-md-row py-4 text-center">
-            <b-col cols="12">
-              <LoadingSpinner />
+        <b-container
+          class="px-0 pb-3"
+        >
+          <client-only>
+            <SearchBoostingForm
+              v-if="showSearchBoostingForm"
+              class="mb-3"
+            />
+          </client-only>
+          <div
+            class="mb-3 d-flex align-items-start justify-content-between"
+          >
+            <SearchResultsContext
+              :editorial-overrides="editorialOverrides"
+            />
+            <ViewToggles
+              v-model="view"
+              :link-gen-route="route"
+              class="flex-nowrap mt-md-2"
+            />
+          </div>
+          <b-row
+            class="mb-3"
+          >
+            <b-col
+              cols="12"
+            >
+              <b-row
+                v-if="$fetchState.pending"
+                class="flex-md-row py-4 text-center"
+              >
+                <b-col cols="12">
+                  <LoadingSpinner
+                    :status-message="$t('loadingResults')"
+                  />
+                </b-col>
+              </b-row>
+              <template
+                v-else
+              >
+                <b-row
+                  class="mb-3"
+                >
+                  <b-col>
+                    <AlertMessage
+                      v-show="$fetchState.error"
+                      :error="errorMessage"
+                    />
+                    <template
+                      v-if="!$fetchState.error"
+                    >
+                      <p
+                        v-show="noMoreResults"
+                        data-qa="warning notice"
+                      >
+                        {{ $t('noMoreResults') }}
+                      </p>
+                      <ItemPreviewCardGroup
+                        :items="results"
+                        :hits="hits"
+                        :view="view"
+                        :show-pins="showPins"
+                        :show-related="showRelated"
+                      >
+                        <slot />
+                        <template
+                          #related
+                        >
+                          <slot
+                            name="related"
+                          />
+                        </template>
+                      </ItemPreviewCardGroup>
+                      <InfoMessage
+                        v-show="lastAvailablePage"
+                      >
+                        {{ $t('resultsLimitWarning') }}
+                      </InfoMessage>
+                    </template>
+                  </b-col>
+                </b-row>
+                <b-row
+                  v-show="!$fetchState.error"
+                >
+                  <b-col>
+                    <PaginationNavInput
+                      :total-results="totalResults"
+                      :per-page="perPage"
+                      :max-results="1000"
+                    />
+                  </b-col>
+                </b-row>
+              </template>
             </b-col>
           </b-row>
         </b-container>
-        <b-row
-          v-else
-          class="mb-3"
-        >
-          <b-col>
-            <AlertMessage
-              v-if="noResults"
-              :error="$t('noResults')"
-            />
-            <p
-              v-else-if="noMoreResults"
-              data-qa="warning notice"
-            >
-              {{ $t('noMoreResults') }}
-            </p>
-            <ItemPreviewCardGroup
-              :items="results"
-              :hits="hits"
-              :view="view"
-              :per-row="perRow"
-              :show-pins="showPins"
-              :show-related="showRelated"
-            >
-              <slot />
-              <template
-                #related
-              >
-                <slot
-                  name="related"
-                />
-              </template>
-            </ItemPreviewCardGroup>
-            <InfoMessage
-              v-if="lastAvailablePage"
-            >
-              {{ $t('resultsLimitWarning') }}
-            </InfoMessage>
-          </b-col>
-        </b-row>
-        <b-row>
-          <b-col>
-            <client-only>
-              <PaginationNav
-                :total-results="totalResults"
-                :per-page="perPage"
-                :max-results="1000"
-              />
-            </client-only>
-          </b-col>
-        </b-row>
+        <slot
+          name="after-results"
+        />
       </b-col>
+      <SideFilters
+        :route="route"
+      />
     </b-row>
   </b-container>
 </template>
 
 <script>
-  import ClientOnly from 'vue-client-only';
   import ItemPreviewCardGroup from '../item/ItemPreviewCardGroup'; // Sorted before InfoMessage to prevent Conflicting CSS sorting warning
   import InfoMessage from '../generic/InfoMessage';
   import ViewToggles from './ViewToggles';
@@ -111,12 +130,13 @@
 
     components: {
       AlertMessage: () => import('../generic/AlertMessage'),
-      ClientOnly,
+      SearchBoostingForm: () => import('./SearchBoostingForm'),
       SearchResultsContext: () => import('./SearchResultsContext'),
       InfoMessage,
       ItemPreviewCardGroup,
       LoadingSpinner: () => import('../generic/LoadingSpinner'),
-      PaginationNav: () => import('../generic/PaginationNav'),
+      PaginationNavInput: () => import('../generic/PaginationNavInput'),
+      SideFilters: () => import('./SideFilters'),
       ViewToggles
     },
     mixins: [
@@ -126,10 +146,6 @@
       perPage: {
         type: Number,
         default: 24
-      },
-      perRow: {
-        type: Number,
-        default: 4
       },
       route: {
         type: Object,
@@ -145,17 +161,15 @@
         type: Boolean,
         default: true
       },
-      editorialEntityLabel: {
-        type: String,
+      editorialOverrides: {
+        type: Object,
         default: null
       }
     },
-    data() {
-      return {
-        fetched: false
-      };
-    },
     async fetch() {
+      // NOTE: this helps prevent lazy-loading issues when paginating in Chrome 103
+      await this.$nextTick();
+      this.$scrollTo && await this.$scrollTo('#header', { cancelable: false });
       this.viewFromRouteQuery();
 
       this.$store.dispatch('search/activate');
@@ -168,8 +182,9 @@
           this.$nuxt.context.res.statusCode = this.$store.state.search.errorStatusCode;
         }
         throw this.$store.state.search.error;
+      } else if (this.noResults) {
+        throw new Error(this.$t('noResults'));
       }
-      this.fetched = true;
     },
     computed: {
       ...mapState({
@@ -220,6 +235,12 @@
       noResults() {
         return this.totalResults === 0;
       },
+      debugSettings() {
+        return this.$store.getters['debug/settings'];
+      },
+      showSearchBoostingForm() {
+        return this.debugSettings?.boosting;
+      },
       routeQueryView() {
         return this.$route.query.view;
       },
@@ -236,6 +257,7 @@
     watch: {
       routeQueryView: 'viewFromRouteQuery',
       '$route.query.api': '$fetch',
+      '$route.query.boost': '$fetch',
       '$route.query.reusability': '$fetch',
       '$route.query.query': '$fetch',
       '$route.query.qf': '$fetch',
@@ -257,3 +279,9 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  .col-results {
+    min-width: 0;
+  }
+</style>
