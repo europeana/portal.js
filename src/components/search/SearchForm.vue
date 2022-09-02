@@ -3,12 +3,12 @@
     ref="searchdropdown"
     class="open"
     :class="{
-      'top-search': absoluteTopPositioned,
+      'top-search': inTopNav,
       'suggestions-open': showSearchOptions
     }"
   >
     <b-button
-      v-if="absoluteTopPositioned"
+      v-if="inTopNav"
       data-qa="back button"
       class="button-icon-only icon-back back-button"
       variant="light-flat"
@@ -54,7 +54,7 @@
       @click="clearQuery"
     />
     <FilterToggleButton
-      v-if="absoluteTopPositioned"
+      v-if="inTopNav"
     />
     <div
       v-if="showSearchOptions"
@@ -91,7 +91,7 @@
     },
 
     props: {
-      absoluteTopPositioned: {
+      inTopNav: {
         type: Boolean,
         default: false
       }
@@ -181,7 +181,7 @@
         return this.onSearchablePage ? this.$route.path : this.$path({ name: 'search' });
       },
       showQuickSearch() {
-        return !this.onSearchableCollectionPage && !this.query;
+        return this.inTopNav && !this.onSearchableCollectionPage && !this.query;
       }
     },
 
@@ -207,7 +207,7 @@
 
     mounted() {
       this.initQuery();
-      this.absoluteTopPositioned && this.$nextTick(() => {
+      this.inTopNav && this.$nextTick(() => {
         this.$refs.searchinput.$el.focus();
       });
     },
@@ -259,7 +259,7 @@
           return;
         }
 
-        if (this.onSearchableCollectionPage) {
+        if (this.onSearchableCollectionPage || !this.inTopNav) {
           return;
         }
 
@@ -272,7 +272,8 @@
         this.gettingSuggestions = true;
 
         this.$apis.entity.suggest(query, {
-          language: locale
+          language: locale,
+          type: 'agent,concept,place,timespan'
         })
           .then(suggestions => {
             this.activeSuggestionsQueryTerm = query;
@@ -401,6 +402,10 @@
           height: 3.4rem;
           box-shadow: 2px 2px 4px 0 rgba(0 0 0 / 8%);
 
+          @media (min-width: $bp-xxxl) {
+            height: 3.4vw;
+          }
+
           .input-group-prepend {
             display: none;
           }
@@ -408,12 +413,21 @@
 
         .form-control {
           background-color: $white;
-          padding: 0.375rem 1rem 0.375rem 3.5rem;
+          padding: 0.375rem 4.5rem 0.375rem 3.5rem;
           height: 3.4rem;
           box-shadow: none;
           border-radius: 0;
           color: $mediumgrey;
           width: 100%;
+
+          @media (min-width: $bp-large) {
+            padding-right: 1rem;
+          }
+
+          @media (min-width: $bp-xxxl) {
+            padding: 0.375vw 1vw 0.375vw 3.5vw;
+            height: 3.4vw;
+          }
         }
       }
 
@@ -466,6 +480,11 @@
       left: 1rem;
       top: 1rem;
       z-index: 99;
+
+      @media (min-width: $bp-xxxl) {
+        left: 1vw;
+        top: 1vw;
+      }
     }
 
     .clear-button {
@@ -476,6 +495,11 @@
 
       @media (min-width: $bp-large) {
         right: 1rem;
+      }
+
+      @media (min-width: $bp-xxxl) {
+        right: 1vw;
+        top: 1vw;
       }
     }
 
@@ -496,6 +520,10 @@
       border-radius: 0;
       background-color: $white;
       transition: $standard-transition;
+
+      @media (min-width: $bp-xxxl) {
+        top: 3.45vw;
+      }
     }
   }
 

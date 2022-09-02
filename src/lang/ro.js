@@ -42,6 +42,7 @@ export default {
     "next": "Următorul",
     "pin": "Pin",
     "preview": "Previzualizare",
+    "previous": "Anterior",
     "providedBy": "Furnizat de {provider}",
     "reject": "Respinge",
     "save": "Salva",
@@ -62,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Articole recente",
     "organisation": "Organizații",
+    "place": "Locuri",
     "time": "Secole recomandate",
     "topic": "Subiecte recomandate"
   },
@@ -79,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Organizare",
     "person": "Persoană",
+    "place": "Loc",
     "theme": "Temă",
     "time": "Secol",
     "topic": "Subiect"
@@ -554,7 +557,7 @@ export default {
         "newspaper": "Ziare",
         "photography": "Fotografie",
         "sport": "Sport",
-        "ww1": "1914-1918"
+        "ww1": "Primul Război Mondial"
       },
       "select": "Selectați o temă"
     },
@@ -676,7 +679,7 @@ export default {
     "disclaimerLine1": "Europeana este o inițiativă a Uniunii Europene, finanțată de Connecting Europe Facility al Uniunii Europene și de statele membre ale Uniunii Europene. Serviciile Europeana, inclusiv acest site web, sunt operate de un consorțiu condus de Fundația Europeana în temeiul unui contract de servicii cu Comisia Europeană.",
     "disclaimerLine2": "Comisia Europeană nu garantează acuratețea informațiilor și nu își asumă nicio răspundere sau răspundere cu privire la informațiile de pe acest site web. Nici Comisia Europeană, nici nicio persoană care acționează în numele Comisiei Europene, nu este responsabilă sau răspunzătoare pentru acuratețea sau utilizarea informațiilor de pe acest site web.",
     "findUsElsewhere": "Ne puteți găsi și în altă parte",
-    "imageDescription": "Cofinanțat de Connecting Europe Facility a Uniunii Europene",
+    "imageDescription": "Finanțat de Uniunea Europeană",
     "navigation": {
       "MoreInfoLabel": "Mai multe informații",
       "about": "Despre noi",
@@ -711,12 +714,13 @@ export default {
     "navigation": {
       "about": "Despre noi",
       "collections": "Colecții",
-      "europeanaClassroom": "Profesori",
+      "europeanaClassroom": "Pentru profesori",
       "help": "Ajutor",
       "home": "Acasă",
+      "pro": "Pentru profesioniști",
       "stories": "Povești"
     },
-    "quickSearch": "Cautare rapida",
+    "quickSearch": "Căutare rapidă",
     "searchFor": "Caută pentru {query}",
     "searchForEverything": "Caută tot",
     "searchForEverythingInCollection": "Caută tot în {collection}",
@@ -727,12 +731,13 @@ export default {
   },
   "homeLinkAlt": "Pagina principală Europeana",
   "homePage": {
-    "discoverEditorial": "Descoperiți poveștile noastre",
-    "download": "descărca",
-    "free": "gratuit",
-    "storiesCTA": "Vezi toate poveștile noastre",
-    "subHeadline": "Găsiți și {download} lucrări de artă, fotografii, cărți, manuscrise, ziare și muzică din peste 4000 de muzee, arhive, galerii și biblioteci {free}.",
-    "title": "Descoperiți patrimoniul cultural european"
+    "discoverEditorial": "Ultimele povești",
+    "storiesCTA": "Vezi toate poveștile",
+    "subHeadline": "Căutați, salvațișidistribuițiartă, cărți, filme și muzică de la mii de instituții culturale",
+    "themesCTA": "Vezi toate temele",
+    "themesTitle": "Explorați după temă",
+    "title": "Descoperiți patrimoniul cultural {digital} al Europei",
+    "titleDigital": "digital"
   },
   "imageSlider": {
     "handle": "Cursor glisor"
@@ -851,12 +856,15 @@ export default {
   "newWindow": "se deschide într-o fereastră nouă",
   "noMoreResults": "Nu mai există rezultate pentru interogarea de căutare.",
   "noResults": "Niciun rezultat",
+  "of": "De",
   "organisation": {
     "city": "Oraș",
     "country": "Țara",
+    "englishName": "Nume englezesc",
     "nameAcronym": "Acronim de nume"
   },
   "pageHasLoaded": "a încărcat",
+  "pageNumber": "Numărul paginii",
   "pages": {
     "collections": {
       "organisations": {
@@ -868,7 +876,11 @@ export default {
       "persons": {
         "title": "Persoane"
       },
+      "places": {
+        "title": "Locuri"
+      },
       "table": {
+        "items": "Articole",
         "name": "Nume"
       },
       "times": {
@@ -878,6 +890,9 @@ export default {
         "title": "Subiecte"
       }
     }
+  },
+  "pagination": {
+    "label": "Paginare"
   },
   "readMore": "Citește mai mult",
   "recommendation": {
@@ -922,9 +937,14 @@ export default {
   "resultsFor": "Rezultate pentru {0}",
   "resultsLimitWarning": "Nu sunt afișate rezultate suplimentare deoarece sunt afișate doar primele 1000 dintre cele mai relevante rezultate. Dacă nu ai găsit ceea ce căutai, te rugăm să restrângi căutarea.",
   "resultsWithin": "Rezultatele în cadrul {0} {1} pentru {2}",
-  "search": "Căutare",
+  "search": {
+    "boost": {
+      "placeholder": "Introduceți interogarea de creștere a câmpului"
+    },
+    "title": "Căutare"
+  },
   "searchHasLoaded": "{0} rezultate returnate",
-  "searchPlaceholder": "Ce anume cauți?",
+  "searchPlaceholder": "Căutați peste 50 de milioane de articole",
   "searchResults": "Căutare",
   "searchResultsFor": "{0} - Căutare",
   "searchSuggestions": "Sugestii de căutare",

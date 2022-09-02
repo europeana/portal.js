@@ -4,7 +4,7 @@ Feature: Entity page
     When I open an `entity page`
     Then I see the `entity page`
     And I see an `entity title`
-    And I don't have an `entity description`
+    And I see an `entity description`
     And I see `total results`
     And I see a `search list view toggle`
     And I see the `side filters`

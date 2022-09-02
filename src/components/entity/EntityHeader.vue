@@ -16,6 +16,12 @@
     >
       {{ title.values[0] }}
     </b-card-title>
+    <b-card-sub-title
+      v-if="subTitle"
+      :lang="subTitle.code"
+    >
+      {{ subTitle.values[0] }}
+    </b-card-sub-title>
     <b-card-text
       v-if="hasDescription"
       text-tag="div"
@@ -77,8 +83,9 @@
           {{ $t('actions.edit') }}
         </b-button>
         <EntityUpdateModal
-          :body="proxy"
-          :description="description.values[0] || null"
+          :id="id"
+          :description="description && description.values[0] || null"
+          @updated="$emit('updated')"
         />
       </template>
     </client-only>
@@ -109,6 +116,20 @@
       title: {
         type: Object,
         required: true
+      },
+      /**
+       * URI of the entity
+       */
+      id: {
+        type: String,
+        required: true
+      },
+      /**
+       * Sub-title of the entity
+       */
+      subTitle: {
+        type: Object,
+        default: null
       },
       /**
        * Description of the entity as object with 'values' (array of strings) and 'code' two letter language code
@@ -193,9 +214,19 @@
 </script>
 
 <style lang="scss" scoped>
+  @import '@/assets/scss/variables';
+
   .header-card .btn {
     margin-right: 0.5rem;
     margin-top: 0.5rem;
+  }
+
+  .card-subtitle {
+    margin-top: 0.5rem;
+    margin-bottom: 0.375rem;
+    font-size: $font-size-extrasmall;
+    color: $mediumgrey;
+    text-transform: uppercase;
   }
 </style>
 
@@ -203,6 +234,7 @@
   ```jsx
     <div style="background-color: #ededed; margin: -16px; padding: 16px;">
       <EntityHeader
+        id="http://data.europeana.eu/concept/190"
         :description="{ values: [
           'Discover inspiring art, artists and stories in the digitised collections of European museums, galleries,\
            libraries and archives. Explore paintings, drawings, engravings and sculpture from cultural heritage institutions\
@@ -214,12 +246,11 @@
         logo="https://cdn.jsdelivr.net/npm/@europeana/portal@1.62.2/.nuxt/dist/client/img/logo.e9d9080.svg"
         :editable="true"
         externalLink="https://www.europeana.eu"
-        :moreInfo="{
-          website: { label: 'website', value: 'https://www.europeana.eu' },
-          country: { label: 'Country', value: 'The Netherlands' },
-          acronym: { label: 'Acronym', value: 'EF' },
-          city: { label: 'city', value: 'The Hague' }
-        }"
+        :moreInfo="[{ label: 'website', value: 'https://www.europeana.eu' },
+          { label: 'Country', value: 'The Netherlands' },
+          { label: 'Acronym', value: 'EF' },
+          { label: 'city', value: 'The Hague' }
+        ]"
       />
     </div>
   ```

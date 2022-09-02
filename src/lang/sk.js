@@ -42,6 +42,7 @@ export default {
     "next": "Ďalšie",
     "pin": "Kolík",
     "preview": "Náhľad",
+    "previous": "Predchádzajúce",
     "providedBy": "Poskytovateľ:  {provider}",
     "reject": "Odmietnuť",
     "save": "Uložiť",
@@ -62,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Nedávne položky",
     "organisation": "Organizácie",
+    "place": "Miesta",
     "time": "Odporúčané storočia",
     "topic": "Odporúčané témy"
   },
@@ -79,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Organizácia",
     "person": "Osoba",
+    "place": "Miesto",
     "theme": "Téma",
     "time": "Storočia",
     "topic": "Téma"
@@ -554,7 +557,7 @@ export default {
         "newspaper": "Noviny",
         "photography": "Fotografie",
         "sport": "Šport",
-        "ww1": "1914 – 1918"
+        "ww1": "Prvá svetová vojna"
       },
       "select": "Vyberte tému"
     },
@@ -676,7 +679,7 @@ export default {
     "disclaimerLine1": "Europeana je iniciatíva Európskej únie financovaná Connecting Europe Facility a členskými štátmi Európskej únie. Služby Europeany, vrátane tejto webovej stránky, prevádzkuje konzorcium vedené nadáciou Europeana na základe zmluvy o poskytovaní služieb s Európskou komisiou.",
     "disclaimerLine2": "Európska komisia nezaručuje presnosť informácií a neprijíma žiadnu zodpovednosť ani zodpovednosť za informácie na tejto webovej stránke. Európska komisia ani žiadna osoba konajúca v mene Európskej komisie nie je zodpovedná ani zodpovedná za presnosť alebo použitie informácií na tejto webovej stránke.",
     "findUsElsewhere": "Nájdite nás aj inde",
-    "imageDescription": "Spolufinancované z nástroja Európskej únie s názvom Spájame Európu",
+    "imageDescription": "Financované Európskou úniou",
     "navigation": {
       "MoreInfoLabel": "Ďalšie informácie",
       "about": "O nás",
@@ -711,9 +714,10 @@ export default {
     "navigation": {
       "about": "O nás",
       "collections": "Zbierky",
-      "europeanaClassroom": "Učitelia",
+      "europeanaClassroom": "Pre učiteľov",
       "help": "Pomoc",
       "home": "Domov",
+      "pro": "Pre profesionálov",
       "stories": "Príbehy"
     },
     "quickSearch": "Rýchle vyhľadávanie",
@@ -727,12 +731,13 @@ export default {
   },
   "homeLinkAlt": "Domovská stránka Europeana",
   "homePage": {
-    "discoverEditorial": "Objavte naše príbehy",
-    "download": "stiahnuť",
-    "free": "zadarmo",
-    "storiesCTA": "Pozrite si všetky naše príbehy",
-    "subHeadline": "Nájdite a {download} umelecké diela, fotografie, knihy, rukopisy, noviny a hudbu z viac, ako 4000 múzeí, archívov, galérií a knižníc {free}.",
-    "title": "Objavte európske kultúrne dedičstvo"
+    "discoverEditorial": "Najnovšie príbehy",
+    "storiesCTA": "Zobraziť všetky príbehy",
+    "subHeadline": "Vyhľadávajte, ukladajte a zdieľajte umenie, knihy, filmy a hudbu z tisícok kultúrnych inštitúcií",
+    "themesCTA": "Zobraziť všetky témy",
+    "themesTitle": "Preskúmajte podľa témy",
+    "title": "Objavte {digital} kultúrne dedičstvo Európy",
+    "titleDigital": "digitálne"
   },
   "imageSlider": {
     "handle": "Rukoväť posuvníka"
@@ -851,12 +856,15 @@ export default {
   "newWindow": "otvorí sa v novom okne",
   "noMoreResults": "Pre vaše vyhľadávanie neexistujú žiadne ďalšie výsledky.",
   "noResults": "Žiadne výsledky",
+  "of": "Z",
   "organisation": {
     "city": "Mesto",
     "country": "Krajina",
+    "englishName": "Anglický názov",
     "nameAcronym": "Názov akronym"
   },
   "pageHasLoaded": "načítal",
+  "pageNumber": "Číslo strany",
   "pages": {
     "collections": {
       "organisations": {
@@ -868,7 +876,11 @@ export default {
       "persons": {
         "title": "Osoby"
       },
+      "places": {
+        "title": "Miesta"
+      },
       "table": {
+        "items": "Položky",
         "name": "Meno"
       },
       "times": {
@@ -878,6 +890,9 @@ export default {
         "title": "Témy"
       }
     }
+  },
+  "pagination": {
+    "label": "Stránkovanie"
   },
   "readMore": "Viac",
   "recommendation": {
@@ -922,9 +937,14 @@ export default {
   "resultsFor": "Výsledky pre {0}",
   "resultsLimitWarning": "Ďalšie výsledky sa nezobrazujú, pretože sa zobrazuje iba prvých 1000 najrelevantnejších výsledkov. Ak ste nenašli, čo hľadáte, upresnite vyhľadávanie.",
   "resultsWithin": "Výsledky v rámci {0} {1} pre {2}",
-  "search": "Hľadať",
+  "search": {
+    "boost": {
+      "placeholder": "Zadajte dopyt na zvýšenie poľa"
+    },
+    "title": "Vyhľadávanie"
+  },
   "searchHasLoaded": "{0} vrátené výsledky",
-  "searchPlaceholder": "Čo hľadáte?",
+  "searchPlaceholder": "Vyhľadajte viac ako 50 miliónov položiek",
   "searchResults": "Vyhľadávať",
   "searchResultsFor": "{0} – vyhľadávať",
   "searchSuggestions": "Návrhy na vyhľadávanie",

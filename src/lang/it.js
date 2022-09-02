@@ -42,6 +42,7 @@ export default {
     "next": "Prossimo",
     "pin": "Spilla",
     "preview": "Anteprima",
+    "previous": "Precedente",
     "providedBy": "Fornito da {provider}",
     "reject": "Rifiuta",
     "save": "Salva",
@@ -62,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Oggetti recenti",
     "organisation": "Organizzazioni",
+    "place": "Posti",
     "time": "Secoli in primo piano",
     "topic": "Argomenti in primo piano"
   },
@@ -79,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Organizzazione",
     "person": "Persona",
+    "place": "Luogo",
     "theme": "Tema",
     "time": "Secolo",
     "topic": "Argomento"
@@ -554,7 +557,7 @@ export default {
         "newspaper": "Quotidiani",
         "photography": "Fotografia",
         "sport": "Sport",
-        "ww1": "1914-1918"
+        "ww1": "Prima guerra mondiale"
       },
       "select": "Seleziona un tema"
     },
@@ -676,7 +679,7 @@ export default {
     "disclaimerLine1": "Europeana è un'iniziativa dell'Unione europea, finanziata dal Connecting Europe Facility dell'Unione europea e dagli Stati membri dell'Unione europea. I servizi Europeana, compreso questo sito web, sono gestiti da un consorzio guidato dalla Fondazione Europeana nell'ambito di un contratto di servizio con la Commissione europea.",
     "disclaimerLine2": "La Commissione europea non garantisce l'accuratezza delle informazioni e non si assume alcuna responsabilità in merito alle informazioni contenute in questo sito web. Né la Commissione europea, né alcuna persona che agisce per conto della Commissione europea, è responsabile o obbligata per l'accuratezza o l'uso delle informazioni su questo sito web.",
     "findUsElsewhere": "Trovaci altrove",
-    "imageDescription": "Cofinanziato dal fondo Collegare l'Europa dell'Unione Europea",
+    "imageDescription": "Finanziato dall'Unione Europea",
     "navigation": {
       "MoreInfoLabel": "Maggiori informazioni",
       "about": "Chi siamo",
@@ -711,9 +714,10 @@ export default {
     "navigation": {
       "about": "Chi siamo",
       "collections": "Collezioni",
-      "europeanaClassroom": "Insegnanti",
+      "europeanaClassroom": "Per gli insegnanti",
       "help": "Aiuto",
       "home": "Home",
+      "pro": "Per professionisti",
       "stories": "Storie"
     },
     "quickSearch": "Ricerca rapida",
@@ -727,12 +731,13 @@ export default {
   },
   "homeLinkAlt": "Home Europeana",
   "homePage": {
-    "discoverEditorial": "Scopri le nostre storie",
-    "download": "scaricare",
-    "free": "gratuito",
-    "storiesCTA": "Guarda tutte le nostre storie",
-    "subHeadline": "Trova e {download} opere d'arte, fotografie, libri, manoscritti, giornali e musica da oltre 4000 musei, archivi, gallerie e biblioteche per {free}.",
-    "title": "Scopri il patrimonio culturale europeo"
+    "discoverEditorial": "Ultime storie",
+    "storiesCTA": "Vedi tutte le storie",
+    "subHeadline": "Ricerca, salva e condividi arte, libri, film e musica provenienti da migliaia di istituzioni culturali",
+    "themesCTA": "Vedi tutti i temi",
+    "themesTitle": "Esplora per tema",
+    "title": "Scopri il patrimonio culturale {digital} europeo",
+    "titleDigital": "digitale"
   },
   "imageSlider": {
     "handle": "Dispositivo di scorrimento"
@@ -851,12 +856,15 @@ export default {
   "newWindow": "si apre in una nuova finestra",
   "noMoreResults": "Non ci sono altri risultati per la tua query di ricerca.",
   "noResults": "Nessun Risultato",
+  "of": "Di",
   "organisation": {
     "city": "Città",
     "country": "Paese",
+    "englishName": "Nome inglese",
     "nameAcronym": "Nome acronimo"
   },
   "pageHasLoaded": "ha caricato",
+  "pageNumber": "Numero di pagina",
   "pages": {
     "collections": {
       "organisations": {
@@ -868,7 +876,11 @@ export default {
       "persons": {
         "title": "Persone"
       },
+      "places": {
+        "title": "Posti"
+      },
       "table": {
+        "items": "Elementi",
         "name": "Nome"
       },
       "times": {
@@ -878,6 +890,9 @@ export default {
         "title": "Temi"
       }
     }
+  },
+  "pagination": {
+    "label": "Paginazione"
   },
   "readMore": "Leggi di più",
   "recommendation": {
@@ -922,9 +937,14 @@ export default {
   "resultsFor": "Risultati per {0}",
   "resultsLimitWarning": "Non vengono mostrati risultati aggiuntivi perché vengono visualizzati solo i primi 1.000 risultati più rilevanti. Se non hai trovato quello che stai cercando, considera la possibilità di perfezionare la tua ricerca.",
   "resultsWithin": "Risultati entro {0} {1} per {2}",
-  "search": "Cerca",
+  "search": {
+    "boost": {
+      "placeholder": "Immettere la query di potenziamento del campo"
+    },
+    "title": "Cerca"
+  },
   "searchHasLoaded": "{0} risultati restituiti",
-  "searchPlaceholder": "Cosa stai cercando?",
+  "searchPlaceholder": "Cerca oltre 50 milioni di articoli",
   "searchResults": "Cerca",
   "searchResultsFor": "{0} - Cerca",
   "searchSuggestions": "Suggerimenti di ricerca",

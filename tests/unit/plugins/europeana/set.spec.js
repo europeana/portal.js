@@ -31,11 +31,6 @@ describe('@/plugins/europeana/set', () => {
         'http://data.europeana.eu/item/123/def'
       ]
     };
-    const recordSearchResponse = {
-      items: [
-        { id: '/123/abc', prefLabel: { en: ['ABC'] } }
-      ]
-    };
 
     it('gets the set data', async() => {
       nock(BASE_URL)
@@ -55,66 +50,6 @@ describe('@/plugins/europeana/set', () => {
 
       await plugin({ $config }).get(setId);
       expect(nock.isDone()).toBe(true);
-    });
-
-    describe('options', () => {
-      describe('withMinimalItems', () => {
-        const context = {
-          $config,
-          i18n: { locale: 'nl', t: key => key },
-          $apis: { record: { find: sinon.stub().resolves(recordSearchResponse) } }
-        };
-        beforeEach(() => {
-          nock(BASE_URL)
-            .get(`/${setId}`)
-            .query(true)
-            .reply(200, setGetResponse);
-        });
-
-        describe('when set to `true`', () => {
-          const options = { withMinimalItems: true };
-
-          it('requests 100 minimal profile items from the Record API', async() => {
-            await plugin(context).get(setId, {}, options);
-
-            expect(context.$apis.record.find.calledWith(setGetResponse.items, {
-              profile: 'minimal',
-              rows: 100
-            })).toBe(true);
-          });
-
-          it('stores the found items on the set', async() => {
-            const set = await plugin(context).get(setId, {}, options);
-
-            expect(set.items[0]).toEqual(recordSearchResponse.items[0]);
-          });
-
-          it('stores a dcTitleLangAware warning for items not found', async() => {
-            const set = await plugin(context).get(setId, {}, options);
-
-            expect(set.items[1]).toEqual({
-              id: '/123/def',
-              dcTitleLangAware: { nl: ['record.status.unpublished'] }
-            });
-          });
-        });
-
-        describe('when set to `false` (by default)', () => {
-          const options = {};
-
-          it('does not request items from the Record API', async() => {
-            await plugin(context).get(setId, {}, options);
-
-            expect(context.$apis.record.find.called).toBe(false);
-          });
-
-          it('leaves the item URIs on the set', async() => {
-            const set = await plugin(context).get(setId, {}, options);
-
-            expect(set.items).toEqual(setGetResponse.items);
-          });
-        });
-      });
     });
   });
 

@@ -48,20 +48,20 @@ const dataToCache = [
     slug: '1-1st-century'
   },
   {
-    id: 'http://data.europeana.eu/timespan/3',
-    prefLabel: {
-      en: '2nd century'
-    },
-    isShownBy: 'http://www.example.eu',
-    slug: '3-2nd-century'
-  },
-  {
     id: 'http://data.europeana.eu/timespan/2',
     prefLabel: {
       en: '10th century'
     },
     isShownBy: 'http://www.example.eu',
     slug: '2-10th-century'
+  },
+  {
+    id: 'http://data.europeana.eu/timespan/3',
+    prefLabel: {
+      en: '2nd century'
+    },
+    isShownBy: 'http://www.example.eu',
+    slug: '3-2nd-century'
   }
 ];
 
@@ -107,7 +107,7 @@ describe('cachers/collections/index', () => {
       expect(nock.isDone()).toBe(true);
     });
 
-    it('returns data to cache, with numeric sorting', async() => {
+    it('returns all data to cache, with slugs', async() => {
       const data = await cacher(params, config);
 
       expect(data).toEqual(dataToCache);

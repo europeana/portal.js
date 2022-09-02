@@ -42,6 +42,7 @@ export default {
     "next": "Järgmine",
     "pin": "Pin",
     "preview": "Eelvaade",
+    "previous": "Eelmine",
     "providedBy": "Pakub {provider}",
     "reject": "Tagasi lükata",
     "save": "Salvesta",
@@ -62,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Hiljutised esemed",
     "organisation": "Organisatsioonid",
+    "place": "Kohad",
     "time": "Esiletõstetud sajandid",
     "topic": "Esile tõstetud teemad"
   },
@@ -79,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Organisatsioon",
     "person": "Isik",
+    "place": "Koht",
     "theme": "Teema",
     "time": "Sajand",
     "topic": "Teema"
@@ -554,7 +557,7 @@ export default {
         "newspaper": "Ajalehed",
         "photography": "Fotograafia",
         "sport": "Sport",
-        "ww1": "1914–1918"
+        "ww1": "Esimene maailmasõda"
       },
       "select": "Valige teema"
     },
@@ -676,7 +679,7 @@ export default {
     "disclaimerLine1": "Europeana on Euroopa Liidu algatus, mida rahastavad Euroopa Liidu Euroopa ühendamise rahastu ja Euroopa Liidu liikmesriigid. Europeana teenuseid, sealhulgas seda veebisaiti, haldab konsortsium, mida juhib sihtasutuse Europeana sihtasutus Euroopa Komisjoni teenuslepingu alusel.",
     "disclaimerLine2": "Euroopa Komisjon ei taga teabe õigsust ega võta mingit vastutust sellel veebisaidil oleva teabe eest. Euroopa Komisjon ega ükski Euroopa Komisjoni nimel tegutsev isik ei vastuta ega vastuta sellel veebisaidil oleva teabe õigsuse ega kasutamise eest.",
     "findUsElsewhere": "Leidke meid mujalt",
-    "imageDescription": "Kaasfinantseerib Euroopa Liidu Euroopa ühendamise rahastu",
+    "imageDescription": "Rahastab Euroopa Liit",
     "navigation": {
       "MoreInfoLabel": "Rohkem infot",
       "about": "Meist",
@@ -711,9 +714,10 @@ export default {
     "navigation": {
       "about": "Meist",
       "collections": "Kogud",
-      "europeanaClassroom": "Õpetajad",
+      "europeanaClassroom": "Õpetajate jaoks",
       "help": "Abimaterjal",
       "home": "Kodu",
+      "pro": "Professionaalidele",
       "stories": "Lood"
     },
     "quickSearch": "Kiire otsing",
@@ -727,12 +731,13 @@ export default {
   },
   "homeLinkAlt": "Europeana avaleht",
   "homePage": {
-    "discoverEditorial": "Avastage meie lugusid",
-    "download": "lae alla",
-    "free": "vaba",
-    "storiesCTA": "Vaadake kõiki meie lugusid",
-    "subHeadline": "Otsige ja {download} kunstiteoseid, fotosid, raamatuid, käsikirju, ajalehti ja muusikat enam kui 4000 muuseumist, arhiivist, galeriist ja raamatukogust {free} .",
-    "title": "Avastage Euroopa kultuuripärandit"
+    "discoverEditorial": "Viimased lood",
+    "storiesCTA": "Vaata kõiki lugusid",
+    "subHeadline": "Otsi, salvesta ja jaga kunsti, raamatuid, filme ja muusikat tuhandetest kultuuriasutustest",
+    "themesCTA": "Vaadake kõiki teemasid",
+    "themesTitle": "Uurige teemade kaupa",
+    "title": "Avastage Euroopa kultuuripärandit {digital} kujul",
+    "titleDigital": "digitaalsel"
   },
   "imageSlider": {
     "handle": "Liugkäepide"
@@ -851,12 +856,15 @@ export default {
   "newWindow": "avaneb uues aknas",
   "noMoreResults": "Teie otsingupäringule pole rohkem tulemusi.",
   "noResults": "Ühtki tulemust",
+  "of": "of",
   "organisation": {
     "city": "Linn",
     "country": "Riik",
+    "englishName": "Ingliskeelne nimi",
     "nameAcronym": "Nime akronüüm"
   },
   "pageHasLoaded": "on laaditud",
+  "pageNumber": "Lehekülje number",
   "pages": {
     "collections": {
       "organisations": {
@@ -868,7 +876,11 @@ export default {
       "persons": {
         "title": "Isikud"
       },
+      "places": {
+        "title": "Kohad"
+      },
       "table": {
+        "items": "Üksused",
         "name": "Nimi"
       },
       "times": {
@@ -878,6 +890,9 @@ export default {
         "title": "Teemad"
       }
     }
+  },
+  "pagination": {
+    "label": "Paginatsioon"
   },
   "readMore": "Loe lähemalt",
   "recommendation": {
@@ -921,10 +936,15 @@ export default {
   "results": "Tulemused",
   "resultsFor": "Tulemused päringule {0}",
   "resultsLimitWarning": "Täiendavaid tulemusi ei kuvata, kuna kuvatakse ainult esimesed 1000 kõige asjakohasemat tulemust. Kui te pole leidnud seda, mida otsite, kaaluge oma otsingu täpsustamist.",
-  "resultsWithin": "Tulemused {0} {1} piires {2} päringule {1}",
-  "search": "Otsing",
+  "resultsWithin": "Tulemused vahemikus {0} {1} päringule {2}",
+  "search": {
+    "boost": {
+      "placeholder": "Sisestage välja võimendamise päring"
+    },
+    "title": "Otsing"
+  },
   "searchHasLoaded": "{0} tagastatud tulemused",
-  "searchPlaceholder": "Mida te otsite?",
+  "searchPlaceholder": "Otsi 50+ miljonit üksust",
   "searchResults": "Otsing",
   "searchResultsFor": "{0} - otsing",
   "searchSuggestions": "Otsige soovitusi",

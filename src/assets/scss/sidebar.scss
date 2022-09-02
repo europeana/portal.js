@@ -7,6 +7,10 @@
   width: 16rem;
   max-height: 100vh;
   transition: $standard-transition; // fixes header appear/disappear
+
+  @media (min-width: $bp-xxxl) {
+    width: 16em;
+  }
 }
 
 // fixes header appear/disappear

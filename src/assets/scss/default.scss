@@ -10,10 +10,8 @@ body {
   }
 }
 
-@media (min-width: $bp-medium) {
-  main {
-    min-height: 30rem;
-  }
+main {
+  @include min-page-height;
 }
 
 h1,
@@ -241,6 +239,10 @@ input[type='checkbox']:focus + label {
 
 main#default {
   margin-top: 70px;
+
+  @media (min-width: $bp-xxxl) {
+    margin-top: calc(3.5vw + 1rem);
+  }
 }
 
 .organisation-logo {
@@ -280,4 +282,13 @@ main#default {
     opacity: 0.3;
     mix-blend-mode: multiply;
   }
+}
+
+.white-page {
+  background: $white;
+  margin-top: -3rem;
+  position: relative;
+
+  @include min-page-height;
+  @include white-cutout;
 }

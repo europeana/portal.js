@@ -42,6 +42,7 @@ export default {
     "next": "Li jmiss",
     "pin": "Pin",
     "preview": "Preview",
+    "previous": "Preċedenti",
     "providedBy": "Ipprovdut minn {provider}",
     "reject": "Irrifjuta",
     "save": "Tissejvja",
@@ -62,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Oġġetti reċenti",
     "organisation": "Organizzazzjonijiet",
+    "place": "Postijiet",
     "time": "Sekli dehru",
     "topic": "Suġġetti temi"
   },
@@ -79,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Organizzazzjoni",
     "person": "Persuna",
+    "place": "Post",
     "theme": "Tema",
     "time": "Seklu",
     "topic": "Suġġett"
@@ -554,7 +557,7 @@ export default {
         "newspaper": "Gazzetti",
         "photography": "Fotografija",
         "sport": "Sport",
-        "ww1": "1914-1918"
+        "ww1": "L-Ewwel Gwerra Dinjija"
       },
       "select": "Agħżel tema"
     },
@@ -676,7 +679,7 @@ export default {
     "disclaimerLine1": "Europeana hija inizjattiva tal-Unjoni Ewropea, iffinanzjata mill- Connecting Europe Facility tal-Unjoni Ewropea u l-Istati Membri tal-Unjoni Ewropea. Is-servizzi tal-Europeana, inkluż din il-websajt, huma mħaddma minn konsorzju mmexxi mill-Fondazzjoni Europeana taħt kuntratt ta ’servizz mal-Kummissjoni Ewropea.",
     "disclaimerLine2": "Il-Kummissjoni Ewropea ma tiggarantix l-eżattezza tal-informazzjoni u ma taċċetta l-ebda responsabbiltà jew responsabbiltà fir-rigward tal-informazzjoni f'dan il-websajt. La l-Kummissjoni Ewropea, u lanqas kwalunkwe persuna li taġixxi f'isem il-Kummissjoni Ewropea, ma hija responsabbli jew responsabbli għall-eżattezza jew l-użu tal-informazzjoni f'dan il-websajt.",
     "findUsElsewhere": "Sibna x'imkien ieħor",
-    "imageDescription": "Kofinanzjat mill-Faċilità Nikkollegaw l-Ewropa tal-Unjoni Ewropea",
+    "imageDescription": "Ffinanzjat mill-Unjoni Ewropea",
     "navigation": {
       "MoreInfoLabel": "Aktar Tagħrif",
       "about": "Dwarna",
@@ -711,9 +714,10 @@ export default {
     "navigation": {
       "about": "Dwarna",
       "collections": "Kollezzjonijiet",
-      "europeanaClassroom": "Għalliema",
+      "europeanaClassroom": "Għall-għalliema",
       "help": "Għajnuna",
       "home": "Paġna Ewlenija",
+      "pro": "Għall-professjonisti",
       "stories": "Ġrajjiet"
     },
     "quickSearch": "Tiftix ta' malajr",
@@ -727,12 +731,13 @@ export default {
   },
   "homeLinkAlt": "Europeana home",
   "homePage": {
-    "discoverEditorial": "Skopri l-istejjer tagħna",
-    "download": "niżżel",
-    "free": "ħielsa",
-    "storiesCTA": "Ara l-istejjer kollha tagħna",
-    "subHeadline": "Sib u {download} xogħlijiet tal-arti, ritratti, kotba, manuskritti, gazzetti u mużika minn aktar minn 4000 mużew, arkivju, galleriji, u libreriji {free}.",
-    "title": "Skopri l-wirt kulturali Ewropew"
+    "discoverEditorial": "L-aħħar stejjer",
+    "storiesCTA": "Ara l-istejjer kollha",
+    "subHeadline": "Fittex, issejvja u aqsam arti, kotba, films u mużika minn eluf ta’ istituzzjonijiet kulturali",
+    "themesCTA": "Ara t-temi kollha",
+    "themesTitle": "Esplora skont it-tema",
+    "title": "Skopri l-wirt kulturali {digital} tal-Ewropa",
+    "titleDigital": "diġitali"
   },
   "imageSlider": {
     "handle": "Manku tas-Slajder"
@@ -851,12 +856,15 @@ export default {
   "newWindow": "tiftaħ fit-tieqa l-ġdida",
   "noMoreResults": "M'hemmx aktar riżultati għall-mistoqsija tat-tfittxija tiegħek.",
   "noResults": "M'hawnx riżultati",
+  "of": "Ta",
   "organisation": {
     "city": "Belt",
     "country": "Pajjiż",
+    "englishName": "Isem l-Ingliż",
     "nameAcronym": "Isem akronimu"
   },
   "pageHasLoaded": "ġie illowdjat",
+  "pageNumber": "Numru tal-paġna",
   "pages": {
     "collections": {
       "organisations": {
@@ -868,7 +876,11 @@ export default {
       "persons": {
         "title": "Persuni"
       },
+      "places": {
+        "title": "Postijiet"
+      },
       "table": {
+        "items": "Oġġetti",
         "name": "Isem"
       },
       "times": {
@@ -878,6 +890,9 @@ export default {
         "title": "Suġġetti"
       }
     }
+  },
+  "pagination": {
+    "label": "Paġnar"
   },
   "readMore": "Aqra iktar",
   "recommendation": {
@@ -922,9 +937,14 @@ export default {
   "resultsFor": "Riżultati għal {0}",
   "resultsLimitWarning": "Riżultati addizzjonali ma jidhrux minħabba li l-ewwel 1000 riżultat l-aktar rilevanti jintwerew. Jekk ma sibtx dak li qed tfittex, jekk jogħġbok ikkunsidra li tirfina it-tfittxija tiegħek.",
   "resultsWithin": "Riżultati fi ħdan {0} {1} għal {2}",
-  "search": "Fittex",
+  "search": {
+    "boost": {
+      "placeholder": "Daħħal mistoqsija li tagħti spinta lill-qasam"
+    },
+    "title": "Fittex"
+  },
   "searchHasLoaded": "{0} riżultati rritornati",
-  "searchPlaceholder": "Fittex miljun oġġett",
+  "searchPlaceholder": "Fittex 50+ miljun oġġett",
   "searchResults": "Fittex",
   "searchResultsFor": "{0} - Fittex",
   "searchSuggestions": "Fittex is-suġġerimenti",

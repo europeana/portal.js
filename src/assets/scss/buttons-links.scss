@@ -356,6 +356,10 @@ a {
     text-align: center;
     font-size: 1.2rem;
     z-index: 999;
+
+    @media (min-width: $bp-xxxl) {
+      top: 4.375vw;
+    }
   }
 }
 

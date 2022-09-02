@@ -23,22 +23,30 @@ export const mountNuxt = (pageOrComponent, options = {}) => {
   return injectNuxtMethods(wrapper, pageOrComponent);
 };
 
+const fakeContentfulExtensionField = (returnVal) => ({
+  getValue: sinon.stub().returns(returnVal),
+  removeValue: sinon.stub(),
+  setValue: sinon.stub(),
+  onValueChanged: sinon.stub()
+});
+
 // Stubs the Contentful app extension
-export const fakeContentfulExtension = (fields = []) => {
+export const fakeContentfulExtension = ({ entryFields = [], fieldReturnValue = undefined, location = 'sidebar' } = {}) => {
   const fakeInit = callback => {
     const fakeSdk = {
       location: {
-        is: (location) => location === 'sidebar'
+        is: (val) => val === location
       },
       window: {
-        startAutoResizer: () => {}
+        startAutoResizer: sinon.spy()
       },
       entry: {
-        fields: fields.reduce((memo, field) => {
-          memo[field] = { removeValue: sinon.spy(), setValue: sinon.spy() };
+        fields: entryFields.reduce((memo, field) => {
+          memo[field] = fakeContentfulExtensionField();
           return memo;
         }, {})
       },
+      field: fakeContentfulExtensionField(fieldReturnValue),
       dialogs: {
         openAlert: sinon.spy(),
         openPrompt: sinon.spy()
@@ -47,7 +55,8 @@ export const fakeContentfulExtension = (fields = []) => {
         createAsset: sinon.stub().resolves({ sys: { id: 'abcdef' } }),
         processAsset: sinon.stub().resolves({ sys: { id: 'abcdef' } }),
         waitUntilAssetProcessed: sinon.stub().resolves({ sys: { id: 'abcdef' } }),
-        publishAsset: sinon.stub().resolves({ sys: { id: 'abcdef' } })
+        publishAsset: sinon.stub().resolves({ sys: { id: 'abcdef' } }),
+        getEntries: sinon.stub().resolves({ items: [] })
       }
     };
     callback(fakeSdk);
@@ -56,6 +65,7 @@ export const fakeContentfulExtension = (fields = []) => {
   return {
     init: fakeInit,
     locations: {
+      LOCATION_ENTRY_FIELD: 'field',
       LOCATION_ENTRY_SIDEBAR: 'sidebar'
     }
   };

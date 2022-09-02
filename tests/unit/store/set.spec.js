@@ -301,9 +301,9 @@ describe('store/set', () => {
         await store.actions.fetchActive({ commit }, setId);
 
         expect(store.actions.$apis.set.get.calledWith(setId, {
-          profile: 'standard',
+          profile: 'itemDescriptions',
           pageSize: 100
-        }, { withMinimalItems: true })).toBe(true);
+        })).toBe(true);
         expect(commit.calledWith('setActive', set)).toBe(true);
       });
       describe('when API request doesn\'t return a set', () => {
@@ -450,7 +450,7 @@ describe('store/set', () => {
           await store.actions.refreshCreation({ commit, state, dispatch }, setId);
 
           expect(store.actions.$apis.set.get.calledWith(setId, {
-            profile: 'standard'
+            profile: 'itemDescriptions'
           })).toBe(true);
           expect(commit.calledWith('setCreations', [newCreation])).toBe(true);
         });

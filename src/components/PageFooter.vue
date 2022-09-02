@@ -88,13 +88,9 @@
       <b-row>
         <b-col lg="6">
           <div class="sub-footer">
-            <img
-              width="250"
-              height="26"
-              src="../assets/img/eu-funding.svg"
+            <EULogo
               class="mb-3"
-              :alt="$t('footer.imageDescription')"
-            >
+            />
             <p>{{ $t('footer.disclaimerLine1') }}</p>
 
             <p>{{ $t('footer.disclaimerLine2') }}</p>
@@ -108,11 +104,13 @@
 <script>
   import LangSelector from './generic/LanguageSelector';
   import LinkGroup from './generic/LinkGroup';
+  import EULogo from '@/components/funders/EULogo';
 
   export default {
     components: {
       LangSelector,
-      LinkGroup
+      LinkGroup,
+      EULogo
     },
 
     data() {
@@ -161,7 +159,7 @@
             { url: '/about-us', text: this.$t('footer.navigation.about') },
             { url: '/for-developers', text: this.$t('footer.navigation.forDevelopers') },
             { url: 'https://pro.europeana.eu/services/data-publication-services', text: this.$t('footer.navigation.provide') },
-            { url: 'https://europeana.us3.list-manage.com/subscribe?u=ad318b7566f97eccc895e014e&id=1d4f51a117', text: this.$t('footer.navigation.subscribe') }
+            { url: 'https://zcv4-zcmp.maillist-manage.eu/ua/Optin?od=12ba7e82b5aa&zx=14ad17d982&sD=119ffcbc10c08987', text: this.$t('footer.navigation.subscribe') }
           ]
         };
       },
@@ -191,10 +189,8 @@
   };
 </script>
 
-<!-- <docs lang="md">
-  TODO: uncomment and implement once store is available to styleguide
-  Page footer
+<docs lang="md">
   ```jsx
   <PageFooter />
   ```
-</docs> -->
+</docs>

@@ -42,6 +42,7 @@ export default {
     "next": "Naslednji",
     "pin": "Pin",
     "preview": "Predogled",
+    "previous": "Prejšnji",
     "providedBy": "Zagotavlja {provider}",
     "reject": "Zavrne",
     "save": "Shrani",
@@ -62,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Nedavni predmeti",
     "organisation": "Organizacije",
+    "place": "Mesta",
     "time": "Priporočena stoletja",
     "topic": "Priporočene teme"
   },
@@ -79,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Organizacija",
     "person": "Oseba",
+    "place": "Mesto",
     "theme": "Tema",
     "time": "Stoletje",
     "topic": "Tema"
@@ -554,7 +557,7 @@ export default {
         "newspaper": "Časopisi",
         "photography": "Fotografija",
         "sport": "Šport",
-        "ww1": "1914-1918"
+        "ww1": "Prva svetovna vojna"
       },
       "select": "Izberite temo"
     },
@@ -676,7 +679,7 @@ export default {
     "disclaimerLine1": "Europeana je pobuda Evropske unije, ki jo financirajo Connecting Europe Facility Evrope Evropske unije in države članice Evropske unije. Storitve Europeane, vključno s tem spletnim mestom, upravlja konzorcij pod vodstvom Fundacije Europeana na podlagi pogodbe o storitvah z Evropsko komisijo.",
     "disclaimerLine2": "Evropska komisija ne zagotavlja točnosti informacij in ne sprejema nobene odgovornosti ali odgovornosti v zvezi z informacijami na tej spletni strani. Niti Evropska komisija niti nobena oseba, ki deluje v imenu Evropske komisije, ni odgovorna ali odgovorna za točnost ali uporabo informacij na tej spletni strani.",
     "findUsElsewhere": "Najdite nas drugje",
-    "imageDescription": "Sofinancira Instrument za povezovanje Evrope Evropske unije",
+    "imageDescription": "Financira Evropska unija",
     "navigation": {
       "MoreInfoLabel": "Več informacij",
       "about": "O nas",
@@ -711,9 +714,10 @@ export default {
     "navigation": {
       "about": "O nas",
       "collections": "Zbirke",
-      "europeanaClassroom": "Učitelji",
+      "europeanaClassroom": "Za učitelje",
       "help": "Pomoč",
       "home": "Domov",
+      "pro": "Za strokovnjake",
       "stories": "Zgodbe"
     },
     "quickSearch": "Hitro iskanje",
@@ -727,12 +731,13 @@ export default {
   },
   "homeLinkAlt": "Na začetno stran Europeana",
   "homePage": {
-    "discoverEditorial": "Odkrijte naše zgodbe",
-    "download": "prenos",
-    "free": "brezplačno",
-    "storiesCTA": "Oglejte si vse naše zgodbe",
-    "subHeadline": "Poiščite in {download} umetniška dela, fotografije, knjige, rokopise, časopise in glasbo iz več kot 4000 muzejev, arhivov, galerij in knjižnic za {free}.",
-    "title": "Odkrijte evropsko kulturno dediščino"
+    "discoverEditorial": "Najnovejše zgodbe",
+    "storiesCTA": "Oglejte si vse zgodbe",
+    "subHeadline": "Iskanje, shranjevanje in deljenje umetnosti, knjig, filmov in glasbe iz več tisoč kulturnih ustanov",
+    "themesCTA": "Oglejte si vse teme",
+    "themesTitle": "Raziščite po temi",
+    "title": "Odkrijte evropsko {digital} kulturno dediščino",
+    "titleDigital": "digitalno"
   },
   "imageSlider": {
     "handle": "Ročaj drsnika"
@@ -757,7 +762,7 @@ export default {
         "learnMore": "Naj izberem"
       },
       "decline": "Zavrnem.",
-      "ok": "okej",
+      "ok": "Okej",
       "purposes": {
         "essential": {
           "description": "Te storitve so nujne za pravilno delovanje tega spletnega mesta. Vključujejo poglede rezultatov iskanja in jezikovne nastavitve, ohranjajo stanje prijave in zagotavljajo varnost vašega obiska. Ne morete jih onemogočiti, saj spletno mesto sicer ne bi delovalo pravilno.",
@@ -851,12 +856,15 @@ export default {
   "newWindow": "odpre se v novem oknu",
   "noMoreResults": "Za vašo iskalno poizvedbo ni več rezultatov.",
   "noResults": "Brez rezultatov",
+  "of": "Od",
   "organisation": {
     "city": "Mesto",
     "country": "Država",
+    "englishName": "Angleško ime",
     "nameAcronym": "Kratica imena"
   },
   "pageHasLoaded": "je naložena",
+  "pageNumber": "Številka strani",
   "pages": {
     "collections": {
       "organisations": {
@@ -868,7 +876,11 @@ export default {
       "persons": {
         "title": "Osebe"
       },
+      "places": {
+        "title": "Krajev"
+      },
       "table": {
+        "items": "Elementi",
         "name": "Ime"
       },
       "times": {
@@ -878,6 +890,9 @@ export default {
         "title": "Teme"
       }
     }
+  },
+  "pagination": {
+    "label": "Paginacija"
   },
   "readMore": "Preberi več",
   "recommendation": {
@@ -922,9 +937,14 @@ export default {
   "resultsFor": "Rezultati za {0}",
   "resultsLimitWarning": "Dodatni rezultati niso prikazani, ker je prikazanih samo prvih 1000 najbolj relevantnih rezultatov. Če niste našli, kar iščete, razmislite o natančnejšem iskanju.",
   "resultsWithin": "Rezultati znotraj {0} {1} za {2}",
-  "search": "Išči",
+  "search": {
+    "boost": {
+      "placeholder": "Vnesite poizvedbo za povečanje polja"
+    },
+    "title": "Išči"
+  },
   "searchHasLoaded": "{0} vrnjeni rezultati",
-  "searchPlaceholder": "Kaj iščete?",
+  "searchPlaceholder": "Iskanje 50+ milijonov elementov",
   "searchResults": "Išči",
   "searchResultsFor": "{0} - Išči",
   "searchSuggestions": "Predlogi za iskanje",

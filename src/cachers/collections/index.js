@@ -1,5 +1,5 @@
 import { createEuropeanaApiClient } from '../utils.js';
-import { getEntitySlug } from '../../plugins/europeana/entity.js';
+import { getLabelledSlug } from '../../plugins/europeana/utils.js';
 
 let axiosClient;
 
@@ -23,7 +23,7 @@ const pageOfEntityResults = (page, params = {}) => {
 
 const entityWithSlug = (entity) => ({
   ...entity,
-  slug: getEntitySlug(entity.id, entity.prefLabel?.en)
+  slug: getLabelledSlug(entity.id, entity.prefLabel?.en)
 });
 
 const allEntityResults = async(params) => {
@@ -41,15 +41,8 @@ const allEntityResults = async(params) => {
   return allResults;
 };
 
-const sortResults = results => results.sort((a, b) =>
-  a.prefLabel.en?.localeCompare(b.prefLabel?.en, undefined, {
-    numeric: true,
-    sensitivity: 'base'
-  }));
-
 export default (params = {}, config = {}) => {
   axiosClient = createEuropeanaApiClient(config.europeana?.apis?.entity);
 
-  return allEntityResults(params)
-    .then(entities => sortResults(entities));
+  return allEntityResults(params);
 };

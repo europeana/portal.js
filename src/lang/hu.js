@@ -42,6 +42,7 @@ export default {
     "next": "Következő",
     "pin": "Pin",
     "preview": "Előnézet",
+    "previous": "Előző",
     "providedBy": "Szolgáltató: {provider}",
     "reject": "Elutasít",
     "save": "Mentse",
@@ -62,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Legutóbbi cikk",
     "organisation": "Szervezetek",
+    "place": "Helyek",
     "time": "Kiemelt évszázadok",
     "topic": "Kiemelt témák"
   },
@@ -79,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Szervezet",
     "person": "Személy",
+    "place": "Hely",
     "theme": "Téma",
     "time": "Század",
     "topic": "Téma"
@@ -554,7 +557,7 @@ export default {
         "newspaper": "Újságok",
         "photography": "Fotózás",
         "sport": "Sport",
-        "ww1": "1914-1918"
+        "ww1": "Első világháború"
       },
       "select": "Téma kiválasztása"
     },
@@ -676,7 +679,7 @@ export default {
     "disclaimerLine1": "Az Europeana az Európai Unió kezdeményezése, amelyet az Európai Unió Európai Uniót összekötő eszközének és az Európai Unió tagállamainak finanszíroz. Az Europeana szolgáltatásait, beleértve ezt a weboldalt is, az Europeana Alapítvány által vezetett konzorcium üzemelteti az Európai Bizottsággal kötött szolgáltatási szerződés alapján.",
     "disclaimerLine2": "Az Európai Bizottság nem garantálja az információk pontosságát, és semmilyen felelősséget nem vállal a weboldalon található információkkal kapcsolatban. Sem az Európai Bizottság, sem az Európai Bizottság nevében eljáró személyek nem felelősek vagy felelősek a weboldalon található információk pontosságáért vagy felhasználásáért.",
     "findUsElsewhere": "Keressen minket máshol",
-    "imageDescription": "Az Európai Unió Európai Hálózatfinanszírozási Eszköze által társfinanszírozva",
+    "imageDescription": "Az Európai Unió által finanszírozott",
     "navigation": {
       "MoreInfoLabel": "További információ",
       "about": "Rólunk",
@@ -711,9 +714,10 @@ export default {
     "navigation": {
       "about": "Rólunk",
       "collections": "Gyűjtemények",
-      "europeanaClassroom": "Tanárok",
+      "europeanaClassroom": "A tanároknak",
       "help": "Súgó",
       "home": "itthon",
+      "pro": "Szakembereknek",
       "stories": "Történetek"
     },
     "quickSearch": "Gyors keresés",
@@ -727,12 +731,13 @@ export default {
   },
   "homeLinkAlt": "Europeana kezdőlap",
   "homePage": {
-    "discoverEditorial": "Fedezze fel történeteinket",
-    "download": "letöltés",
-    "free": "ingyenes",
-    "storiesCTA": "Tekintse meg az összes történetünket",
-    "subHeadline": "Találjon és {letöltsön le} műalkotásokat, fényképeket, könyveket, kéziratokat, újságokat és zenét több mint 4000 múzeumból, archívumból, galériából és könyvtárból {ingyenesen}.",
-    "title": "Fedezze fel az európai kulturális örökséget"
+    "discoverEditorial": "Legújabb történetek",
+    "storiesCTA": "Az összes történet megtekintése",
+    "subHeadline": "Válogasson több ezer kulturális intézmény művészeti alkotásaiból, könyveiből,filmjeiből és zeneműveiből, és mentse el vagy ossza meg kedvenceit",
+    "themesCTA": "Az összes téma megtekintése",
+    "themesTitle": "Téma szerinti felfedezés",
+    "title": "Fedezze fel Európa {digital} kulturális örökségét",
+    "titleDigital": "digitális"
   },
   "imageSlider": {
     "handle": "Csúszka fogantyú"
@@ -851,12 +856,15 @@ export default {
   "newWindow": "új ablakban nyílik meg",
   "noMoreResults": "Nincs további eredmény a keresési lekérdezéshez.",
   "noResults": "Nincs találat",
+  "of": "A",
   "organisation": {
     "city": "Város",
     "country": "Ország",
+    "englishName": "Angol név",
     "nameAcronym": "Név rövidítés"
   },
   "pageHasLoaded": "betöltődött",
+  "pageNumber": "Oldalszám",
   "pages": {
     "collections": {
       "organisations": {
@@ -868,7 +876,11 @@ export default {
       "persons": {
         "title": "Személyek"
       },
+      "places": {
+        "title": "Helyek"
+      },
       "table": {
+        "items": "Tételek",
         "name": "Név"
       },
       "times": {
@@ -878,6 +890,9 @@ export default {
         "title": "Témák"
       }
     }
+  },
+  "pagination": {
+    "label": "Lapszámozás"
   },
   "readMore": "Bővebben",
   "recommendation": {
@@ -922,9 +937,14 @@ export default {
   "resultsFor": "Találatok a következőre: {0}",
   "resultsLimitWarning": "Nem jelennek meg további eredmények, mivel csak az első 1000 legrelevánsabb eredmény látható. Ha nem találta meg azt, amit keres, kérjük, finomítsa a keresést.",
   "resultsWithin": "Találatok a következőn belül {0} {1} a következőre: {2}",
-  "search": "Keresés",
+  "search": {
+    "boost": {
+      "placeholder": "Adja meg a mezőt növelő lekérdezést"
+    },
+    "title": "Keresés"
+  },
   "searchHasLoaded": "{0} eredmények visszaadva",
-  "searchPlaceholder": "Mit keres?",
+  "searchPlaceholder": "Keresés 50+ millió tételben",
   "searchResults": "Keresés",
   "searchResultsFor": "{0} - Keresés",
   "searchSuggestions": "Keresési javaslatok",

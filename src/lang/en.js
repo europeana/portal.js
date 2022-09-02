@@ -165,13 +165,13 @@ export default {
           "description": "Enter your Europeana API key and it will be used in the links to API requests.",
           "label": "API key"
         },
-        "enabled": {
-          "description": "If enabled, the debug menu will be shown in the page footer.",
-          "label": "Enable debug menu"
-        },
         "boosting": {
           "description": "If enabled, activates the boosting field on search result pages, to evaluate various boosting configurations.",
           "label": "Enable field boosting"
+        },
+        "enabled": {
+          "description": "If enabled, the debug menu will be shown in the page footer.",
+          "label": "Enable debug menu"
         }
       },
       "title": "Settings"
@@ -211,6 +211,13 @@ export default {
     }
   },
   "error": "Error",
+  "errorMessage": {
+    "itemNotFound": {
+      "description": "This could be due to the following reasons: this item doesn't exist, or; it was depublished because it did not match our quality criteria, or; it was updated and republished with a new unique identifier, in which case, try to find the item again.",
+      "metaTitle": "Item not found",
+      "title": "Oh no! {newline} We were not able to find this item."
+    }
+  },
   "exhibitions": {
     "chapters": "Chapters",
     "credits": "Credits",
@@ -584,7 +591,7 @@ export default {
         "newspaper": "Newspapers",
         "photography": "Photography",
         "sport": "Sport",
-        "ww1": "1914-1918"
+        "ww1": "World War I"
       },
       "select": "Select a theme"
     },
@@ -706,10 +713,10 @@ export default {
     "disclaimerLine1": "Europeana is an initiative of the European Union, financed by the European Union’s Connecting Europe Facility and European Union Member States. The Europeana services, including this website, are operated by a consortium led by the Europeana Foundation under a service contract with the European Commission.",
     "disclaimerLine2": "The European Commission does not guarantee the accuracy of the information and accepts no responsibility or liability whatsoever with regard to the information on this website. Neither the European Commission, nor any person acting on the European Commission’s behalf, is responsible or liable for the accuracy or use of the information on this website.",
     "findUsElsewhere": "Find us elsewhere",
-    "imageDescription": "Co-financed by the Connecting Europe Facility of the European Union",
+    "imageDescription": "Funded by the European Union",
     "navigation": {
       "MoreInfoLabel": "More Info",
-      "about": "About us",
+      "about": "About",
       "accessibility": "Accessibility",
       "cookies": "Cookies",
       "forDevelopers": "For developers",
@@ -739,11 +746,12 @@ export default {
     "europeanaHome": "Europeana home",
     "inCollection": "Search for {query} in {collection}",
     "navigation": {
-      "about": "About us",
+      "about": "About",
       "collections": "Collections",
-      "europeanaClassroom": "Teachers",
+      "europeanaClassroom": "For teachers",
       "help": "Help",
       "home": "Home",
+      "pro": "For professionals",
       "stories": "Stories"
     },
     "quickSearch": "Quick Search",
@@ -758,11 +766,12 @@ export default {
   "homeLinkAlt": "Europeana home",
   "homePage": {
     "discoverEditorial": "Latest stories",
-    "storiesCTA": "See all our stories",
+    "storiesCTA": "See all stories",
     "subHeadline": "Search, save and share art, books, films and music from thousands of cultural institutions",
-    "themesCTA": "See all collections",
+    "themesCTA": "See all themes",
     "themesTitle": "Explore by theme",
-    "title": "Discover Europe’s cultural heritage"
+    "title": "Discover Europe’s {digital} cultural heritage",
+    "titleDigital": "digital"
   },
   "imageSlider": {
     "handle": "Slider Handle"
@@ -885,6 +894,7 @@ export default {
   "organisation": {
     "city": "City",
     "country": "Country",
+    "englishName": "English name",
     "nameAcronym": "Name acronym"
   },
   "pageHasLoaded": "has loaded",
@@ -904,6 +914,7 @@ export default {
         "title": "Places"
       },
       "table": {
+        "items": "Items",
         "name": "Name"
       },
       "times": {

@@ -135,7 +135,7 @@ export function getEntityQuery(uri) {
   } else if (uri.includes('/organization/')) {
     entityQuery = `foaf_organization:"${uri}"`;
   } else if (uri.includes('/place/')) {
-    entityQuery = `where:"${uri}"`;
+    entityQuery = `edm_place:"${uri}"`;
   } else {
     throw new Error(`Unsupported entity URI "${uri}"`);
   }
@@ -219,34 +219,6 @@ export function entityParamsFromUri(uri) {
   const id = matched[matched.length - 1];
   const type = getEntityTypeHumanReadable(matched[1]);
   return { id, type };
-}
-
-/**
- * Retrieves the path for the entity, based on id and title
- *
- * If `entityPage.name` is present, that will be used in the slug. Otherwise
- * `prefLabel.en` if present.
- *
- * @param {string} id entity ID, i.e. data.europeana.eu URI
- * @param {string} name the English name of the entity
- * @return {string} path
- * @example
- *    const slug = getEntitySlug(
- *      'http://data.europeana.eu/concept/48',
- *      'Photography'
- *    );
- *    console.log(slug); // expected output: '48-photography'
- * @example
- *    const slug = getEntitySlug(
- *      'http://data.europeana.eu/agent/59832',
- *      'Vincent van Gogh'
- *    );
- *    console.log(slug); // expected output: '59832-vincent-van-gogh'
- */
-export function getEntitySlug(id, name) {
-  const entityId = id.toString().split('/').pop();
-  const path = entityId + (name ? '-' + name.toLowerCase().replace(/ /g, '-') : '');
-  return path;
 }
 
 /**

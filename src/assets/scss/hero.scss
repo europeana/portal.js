@@ -250,6 +250,11 @@
         .user-buttons {
           justify-content: space-between;
         }
+
+        .share-button,
+        .download-button {
+          width: auto;
+        }
       }
     }
   }

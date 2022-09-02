@@ -42,6 +42,7 @@ export default {
     "next": "Nākamais",
     "pin": "Pin",
     "preview": "Priekšskatījums",
+    "previous": "Iepriekšējais",
     "providedBy": "Nodrošina {provider}",
     "reject": "Noraidīt",
     "save": "Glābt",
@@ -62,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Pēdējie vienumi",
     "organisation": "Organizācijas",
+    "place": "Vietas",
     "time": "Izvēlētie gadsimti",
     "topic": "Izvēlētās tēmas"
   },
@@ -79,6 +81,7 @@ export default {
   "cardLabels": {
     "organisation": "Organizācija",
     "person": "Persona",
+    "place": "Vieta",
     "theme": "Tēma",
     "time": "Gadsimts",
     "topic": "Temats"
@@ -554,7 +557,7 @@ export default {
         "newspaper": "Laikraksti",
         "photography": "Fotogrāfija",
         "sport": "Sports",
-        "ww1": "1914.–1918. gads"
+        "ww1": "Pirmais pasaules karš"
       },
       "select": "Izvēlieties motīvu"
     },
@@ -676,7 +679,7 @@ export default {
     "disclaimerLine1": "Europeana ir Eiropas Savienības iniciatīva, ko finansē Eiropas Savienības Eiropas Connecting Europe Facility un Eiropas Savienības dalībvalstis. Europeana pakalpojumus, tostarp šo vietni, pārvalda konsorcijs, kuru vada Europeana fonds saskaņā ar pakalpojumu līgumu ar Eiropas Komisiju.",
     "disclaimerLine2": "Eiropas Komisija negarantē informācijas precizitāti un neuzņemas nekādu atbildību vai saistības attiecībā uz šajā tīmekļa vietnē sniegto informāciju. Ne Eiropas Komisija, ne jebkura persona, kas rīkojas Eiropas Komisijas vārdā, nav atbildīga par šajā tīmekļa vietnē sniegtās informācijas precizitāti vai izmantošanu.",
     "findUsElsewhere": "Atrodiet mūs citur",
-    "imageDescription": "Līdzfinansē Eiropas Savienības infrastruktūras savienošanas instruments",
+    "imageDescription": "Finansē Eiropas Savienība",
     "navigation": {
       "MoreInfoLabel": "Papildinformācija",
       "about": "Par mums",
@@ -714,6 +717,7 @@ export default {
       "europeanaClassroom": "Skolotājiem",
       "help": "Palīdzība",
       "home": "Mājas",
+      "pro": "Profesionāļiem",
       "stories": "Stāsti"
     },
     "quickSearch": "Ātrā meklēšana",
@@ -727,12 +731,13 @@ export default {
   },
   "homeLinkAlt": "Europeana vietne",
   "homePage": {
-    "discoverEditorial": "Atklājiet mūsu stāstus",
-    "download": "lejupielādēt",
-    "free": "bezmaksas",
-    "storiesCTA": "Skatiet visus mūsu stāstus",
-    "subHeadline": "Atrodiet un {download} mākslas darbus, fotogrāfijas, grāmatas, manuskriptus, laikrakstus un mūziku no vairāk nekā 4000 muzejiem, arhīviem, galerijām un bibliotēkām {free}.",
-    "title": "Atklājiet Eiropas kultūras mantojumu"
+    "discoverEditorial": "Jaunākie stāsti",
+    "storiesCTA": "Skatīt visus stāstus",
+    "subHeadline": "Meklējiet,saglabājiet un kopīgojietmākslu,grāmatas, filmas un mūzikutūkstošoskultūrasiestāžu",
+    "themesCTA": "Skatīt visas tēmas",
+    "themesTitle": "Izpētiet pēc tēmas",
+    "title": "Iepazīstiet Eiropas {digital} kultūras mantojumu",
+    "titleDigital": "digitālo"
   },
   "imageSlider": {
     "handle": "Slīdņa rokturis"
@@ -851,12 +856,15 @@ export default {
   "newWindow": "tiek atvērts jaunā logā",
   "noMoreResults": "Jūsu meklēšanas vaicājumam vairs nav rezultātu.",
   "noResults": "Nav rezultātu",
+  "of": "No",
   "organisation": {
     "city": "Pilsēta",
     "country": "Valsts",
+    "englishName": "Angliskais nosaukums",
     "nameAcronym": "Vārda akronīms"
   },
   "pageHasLoaded": "ir ielādēts",
+  "pageNumber": "Lapas numurs",
   "pages": {
     "collections": {
       "organisations": {
@@ -868,7 +876,11 @@ export default {
       "persons": {
         "title": "Personas"
       },
+      "places": {
+        "title": "Vietas"
+      },
       "table": {
+        "items": "Vienumus",
         "name": "Vārds"
       },
       "times": {
@@ -878,6 +890,9 @@ export default {
         "title": "Tēmas"
       }
     }
+  },
+  "pagination": {
+    "label": "Lapu šķirošana"
   },
   "readMore": "Lasīt vairāk",
   "recommendation": {
@@ -922,9 +937,14 @@ export default {
   "resultsFor": "Rezultāti vaicājumam {0}",
   "resultsLimitWarning": "Papildu rezultāti netiek parādīti, jo tiek parādīti tikai pirmie 1000 atbilstošākie rezultāti. Ja neesat atradis to, ko meklējat, lūdzu, apsveriet iespēju precizēt meklēšanu.",
   "resultsWithin": "Rezultāti {0} {1} ietvaros {2}",
-  "search": "Meklēt",
+  "search": {
+    "boost": {
+      "placeholder": "Ievadiet lauka pastiprināšanas vaicājumu"
+    },
+    "title": "Meklēt"
+  },
   "searchHasLoaded": "{0} atgriezti rezultāti",
-  "searchPlaceholder": "Meklēt starp miljoniem vienumu",
+  "searchPlaceholder": "Meklēt 50+ miljonus vienību",
   "searchResults": "Meklēt",
   "searchResultsFor": "{0} - Meklēšana",
   "searchSuggestions": "Meklēšanas ieteikumi",

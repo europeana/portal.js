@@ -29,7 +29,7 @@ export default (context = {}) => {
 
           const minimalItemPreviews = await context.$apis.record.find(itemUris, {
             profile: 'minimal',
-            rows: 100
+            rows: params.perPage ? params.perPage : 100
           });
 
           for (const set of response.data.items) {
@@ -66,12 +66,10 @@ export default (context = {}) => {
      * @param {string} id the set's id
      * @param {Object} params retrieval params
      * @param {string} params.profile the set's metadata profile minimal/standard/itemDescriptions
-     * @param {Object} options retrieval options
-     * @param {Boolean} options.withMinimalItems retrieve minimal item metadata from Record API
      * @return {Object} the set's object, containing the requested window of the set's items
      */
     // TODO: pagination for sets with > 100 items
-    async get(id, params = {}, options = {}) {
+    async get(id, params = {}) {
       const defaults = {
         profile: 'standard'
       };
@@ -79,28 +77,7 @@ export default (context = {}) => {
 
       try {
         const response = await $axios.get(`/${setIdFromUri(id)}`, { params: paramsWithDefaults });
-        const set = response.data;
-
-        if (set.items) {
-          set.items = set.items.slice(0, 100);
-
-          if (options.withMinimalItems) {
-            const unpublishedItemDcTitleLangAware = { [context.i18n.locale]: [context.i18n.t('record.status.unpublished')] };
-
-            const minimalItems = await context.$apis.record.find(set.items, {
-              profile: 'minimal',
-              rows: 100
-            });
-
-            set.items = set.items.map(uri => {
-              const itemId = uri.replace(EUROPEANA_DATA_URL_ITEM_PREFIX, '');
-              return minimalItems.items.find(item => item.id === itemId) ||
-                { id: itemId, dcTitleLangAware: unpublishedItemDcTitleLangAware };
-            });
-          }
-        }
-
-        return set;
+        return response.data;
       } catch (error) {
         throw apiError(error, context);
       }

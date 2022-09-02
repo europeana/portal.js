@@ -1,17 +1,23 @@
 <template>
   <div
-    class="hero figure-attribution responsive-backround-image"
+    class="hero figure-attribution responsive-backround-image responsive-font"
     :style="imageCSSVars"
   >
     <div
       class="hero-content"
     >
       <header>
-        <h1
+        <i18n
+          path="homePage.title"
+          tag="h1"
           class="text-center"
         >
-          {{ $t('homePage.title') }}
-        </h1>
+          <template #digital>
+            <span class="digital-highlight">
+              {{ $t('homePage.titleDigital') }}
+            </span>
+          </template>
+        </i18n>
         <p
           class="sub-headline text-center"
         >
@@ -23,12 +29,14 @@
     <AttributionToggle
       :attribution="backgroundImage"
     />
+    <EULogo class="bottom-right" />
   </div>
 </template>
 
 <script>
   import SearchForm from '@/components/search/SearchForm';
   import AttributionToggle from '@/components/generic/AttributionToggle';
+  import EULogo from '@/components/funders/EULogo';
   import { responsiveBackgroundImageCSSVars } from '@/plugins/contentful-utils';
 
   export default {
@@ -36,7 +44,8 @@
 
     components: {
       SearchForm,
-      AttributionToggle
+      AttributionToggle,
+      EULogo
     },
 
     props: {
@@ -68,13 +77,17 @@
 
   .hero {
     margin-top: -70px;
-    margin-bottom: 1rem;
+    margin-bottom: 4.5rem;
     background-color: $mediumgrey-light;
     padding: 9.5rem 1.5rem;
     min-height: 100vh;
     background-size: cover;
     background-repeat: no-repeat;
     position: relative;
+
+    @media (min-width: $bp-xxxl) {
+      margin-top: -4.375vw;
+    }
 
     &::before {
       content: '';
@@ -88,16 +101,22 @@
     }
 
     &::after {
-      border-bottom: 145px solid $white;
-      border-left: 60px solid transparent;
+      border-bottom: 209px solid $white;
+      border-left: 95px solid transparent;
       content: '';
       display: block;
       height: 0;
       position: absolute;
       right: 0;
-      top: calc(100% - 145px);
+      top: calc(100% - 209px);
       width: 0;
       z-index: 1;
+
+      @media (min-width: $bp-xxxl) {
+        border-bottom-width: calc(209 / 16 * 1vw); // divide by 16 (1rem = 16px) and use vw to create responsive value
+        border-left-width: calc(95 / 16 * 1vw); // divide by 16 (1rem = 16px) and use vw to create responsive value
+        top: calc(100% - (209 / 16 * 1vw));
+      }
     }
 
     h1,
@@ -107,11 +126,11 @@
 
     h1 {
       font-size: 2.125rem;
-      font-weight: 700;
+      font-weight: 900;
       margin-bottom: 1em;
 
-      @media (min-width: $bp-medium) {
-        margin-bottom: 2em;
+      .digital-highlight {
+        text-shadow: 3.5px 3.5px 0 $blue;
       }
 
       @media (min-width: $bp-medium) {
@@ -134,10 +153,36 @@
 
       h1 {
         font-size: 2.6vw;
+
+        .digital-highlight {
+          text-shadow: 0.24vw 0.24vw 0 $blue;
+        }
       }
 
       .sub-headline {
         font-size: 1.5vw;
+      }
+    }
+
+    @media (min-width: $bp-medium) {
+      h1,
+      .sub-headline,
+      .open:not(.top-search) {
+        width: 25em;
+        min-width: 644px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      h1 {
+        width: auto;
+        max-width: 744px;
+      }
+    }
+
+    @media (min-width: $bp-large) {
+      h1 {
+        max-width: 80%;
       }
     }
   }
@@ -145,21 +190,18 @@
   .hero-content {
     margin: 0 auto;
     position: relative; // Prevents blending with the background
-
-    @media (min-width: $bp-medium) {
-      width: 25em;
-      min-width: 644px;
-    }
   }
 
   ::v-deep .icon-info {
     left: 1.5rem;
     right: auto;
+    z-index: 3;
   }
 
   ::v-deep cite {
     left: 0.5rem;
     right: auto;
+    z-index: 3;
   }
 </style>
 
@@ -176,7 +218,7 @@
           contentType: 'image/jpeg',
           description: null,
           height: 2694,
-          url: 'https://images.ctfassets.net/i01duvb6kq77/xtfviD6rWLt1VN46qRwJa/3db1d85b556b6bf5abcf5660001805a1/slanted_image_cover_5_.jpg',
+          url: 'https://images.ctfassets.net/i01duvb6kq77/1trzaYGwJsR79hW38lMpJO/465bdac6bb52df2f574c50dacdc74ef8/slantedimagecover_v1.jpg',
           width: 4320
         }
       }"

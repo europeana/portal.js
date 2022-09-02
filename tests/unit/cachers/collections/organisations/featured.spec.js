@@ -16,11 +16,30 @@ describe('@/cachers/collections/organisations/featured', () => {
     expect(cacher.PICK).toEqual(['id', 'prefLabel', 'logo']);
   });
 
-  it('localises prefLabel', () => {
-    expect(cacher.LOCALISE).toBe('prefLabel');
+  it('localises nothing', () => {
+    expect(cacher.LOCALISE).toBeUndefined();
   });
 
   it('features 4 daily', () => {
     expect(cacher.DAILY).toBe(4);
+  });
+
+  it('internationalises by native prefLabel', () => {
+    const data = [
+      { type: 'Organization', prefLabel: { en: 'Museum', es: 'Museo' } },
+      { type: 'Organization', prefLabel: { en: 'Gallery' } }
+    ];
+    const expected = [
+      { type: 'Organization', prefLabel: { es: 'Museo' } },
+      { type: 'Organization', prefLabel: { en: 'Gallery' } }
+    ];
+
+    expect(cacher.INTERNATIONALISE(data)).toEqual(expected);
+  });
+
+  it('sorts by the first (pre-internationalised) prefLabel value', () => {
+    const organisation = { prefLabel: ['Museo'] };
+
+    expect(cacher.SORT(organisation)).toEqual('Museo');
   });
 });
