@@ -1,16 +1,17 @@
 version: "3"
 services:
   nginx:
-    image: europeana/portal.js-nginx:${NGINX_IMAGE_VERSION:-latest}
-    build:
-      context: ./nginx
+    # image: europeana/portal.js-nginx:${NGINX_IMAGE_VERSION:-latest}
+    image: europeana/portal.js-e2e-nginx-with-apis-cache:${NGINX_IMAGE_VERSION:-latest}
+    # build:
+    #   context: ./nginx
     ports:
       - "8080:80"
       - "4433:443"
     depends_on:
       - app
-    volumes:
-      - nginx-proxy-cache-apis:/var/cache/nginx/proxy/apis
+    # volumes:
+    #   - nginx-proxy-cache-apis:/var/cache/nginx/proxy/apis
   app:
     image: europeana/portal.js:${APP_IMAGE_VERSION:-latest}
     build:
@@ -113,5 +114,5 @@ services:
     environment:
       - WEBDRIVER_EN_HOST=chrome-en
       - APP_URL=https://nginx
-volumes:
-  nginx-proxy-cache-apis: {}
+# volumes:
+#   nginx-proxy-cache-apis: {}
