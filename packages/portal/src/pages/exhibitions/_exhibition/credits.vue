@@ -1,7 +1,7 @@
 <template>
   <div
     data-qa="exhibition credits page"
-    class="text-page"
+    class="text-page white-page"
   >
     <!-- TODO: use the AuthoredHead component here, so it matches the exhibition chapters -->
     <b-container>

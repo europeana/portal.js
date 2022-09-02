@@ -679,10 +679,10 @@ export default {
     "disclaimerLine1": "Europeana est une initiative de l'Union européenne, financée par le Connecting Europe Facility de l'Union européenne et les États membres de l'Union européenne. Les services Europeana, y compris ce site Web, sont exploités par un consortium dirigé par la Fondation Europeana dans le cadre d'un contrat de service avec la Commission européenne.",
     "disclaimerLine2": "La Commission européenne ne garantit pas l'exactitude des informations et n'accepte aucune responsabilité ou obligation quelle qu'elle soit en ce qui concerne les informations sur ce site. Ni la Commission européenne, ni aucune personne agissant au nom de la Commission européenne, n'est responsable de l'exactitude ou de l'utilisation des informations sur ce site Web.",
     "findUsElsewhere": "Nous trouver ailleurs",
-    "imageDescription": "Cofinancé par le Mécanisme pour l’interconnexion en Europe",
+    "imageDescription": "Financé par l'Union européenne",
     "navigation": {
       "MoreInfoLabel": "Plus d'informations",
-      "about": "À propos",
+      "about": "À propos d'Europeana",
       "accessibility": "Accessibilité",
       "cookies": "Cookies",
       "forDevelopers": "Pour les développeurs",
@@ -693,7 +693,7 @@ export default {
       "terms": "Conditions d'utilisation"
     },
     "ourMission": "Notre mission",
-    "ourMissionQuote": "Europeana permet au secteur du patrimoine culturel d'effectuer sa transformation numérique. Nous développons l'expertise, les outils et les politiques pour prendre le virage du numérique et encourageons les partenariats qui favorisent l'innovation."
+    "ourMissionQuote": "Europeana permet au secteur du patrimoine culturel d'effectuer sa transformation numérique. Nous développons l'expertise, les outils et les strategies pour adopter le changement numérique et encourageons les partenariats qui favorisent l'innovation."
   },
   "formatting": {
     "ellipsis": "…",
@@ -712,11 +712,12 @@ export default {
     "europeanaHome": "Accueil Europeana",
     "inCollection": "Rechercher {query} dans {collection}",
     "navigation": {
-      "about": "À propos",
+      "about": "À propos d'Europeana",
       "collections": "Collections",
-      "europeanaClassroom": "Enseignants",
+      "europeanaClassroom": "Pour les enseignants",
       "help": "Aide",
       "home": "Accueil",
+      "pro": "Pour les professionnels",
       "stories": "Histoires"
     },
     "quickSearch": "Recherche rapide",
@@ -732,10 +733,11 @@ export default {
   "homePage": {
     "discoverEditorial": "Dernières histoires",
     "storiesCTA": "Voir toutes les histoires",
-    "subHeadline": "Recherchez, enregistrez et partagez des œuvre d’art, des ouvrages, des films et de la musique issues de milliers d’institutions culturelles",
+    "subHeadline": "Recherchez, enregistrez et partagez des œuvres d’art, des livres, des films et de la musique issues de milliers d’institutions culturelles",
     "themesCTA": "Voir tous les thèmes",
     "themesTitle": "Explorer par thème",
-    "title": "Découvrez l’héritage culturel européen"
+    "title": "Découvrez le patrimoine culturel {digital} européen",
+    "titleDigital": "numérique"
   },
   "imageSlider": {
     "handle": "Poignée de curseur"
@@ -878,6 +880,7 @@ export default {
         "title": "Des endroits"
       },
       "table": {
+        "items": "Éléments",
         "name": "Nom"
       },
       "times": {
@@ -941,7 +944,7 @@ export default {
     "title": "Rechercher"
   },
   "searchHasLoaded": "{0} résultats retournés",
-  "searchPlaceholder": "Rechercher plus de 50 millions d'articles",
+  "searchPlaceholder": "Rechercher plus de 50 millions d'objets",
   "searchResults": "Rechercher",
   "searchResultsFor": "{0} - Rechercher",
   "searchSuggestions": "Suggestions de recherche",

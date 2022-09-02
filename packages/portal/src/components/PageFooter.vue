@@ -159,7 +159,7 @@
             { url: '/about-us', text: this.$t('footer.navigation.about') },
             { url: '/for-developers', text: this.$t('footer.navigation.forDevelopers') },
             { url: 'https://pro.europeana.eu/services/data-publication-services', text: this.$t('footer.navigation.provide') },
-            { url: 'https://europeana.us3.list-manage.com/subscribe?u=ad318b7566f97eccc895e014e&id=1d4f51a117', text: this.$t('footer.navigation.subscribe') }
+            { url: 'https://zcv4-zcmp.maillist-manage.eu/ua/Optin?od=12ba7e82b5aa&zx=14ad17d982&sD=119ffcbc10c08987', text: this.$t('footer.navigation.subscribe') }
           ]
         };
       },

@@ -58,7 +58,7 @@
     }
   }
 
-  .text-page .primary-cta {
+  .white-page .primary-cta {
     background-color: $bodygrey;
     max-width: calc(100% + 100px);
 

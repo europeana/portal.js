@@ -63,6 +63,7 @@ export default {
   "automatedCardGroup": {
     "item": "Elementos recientes",
     "organisation": "Organizaciones",
+    "place": "Lugares",
     "time": "Siglos destacados",
     "topic": "Temas destacados"
   },
@@ -213,7 +214,7 @@ export default {
     "description": "Explora las exposiciones",
     "exhibitions": "Exposiciones"
   },
-  "explore": "Explore",
+  "explore": "Explorar",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "colores",
@@ -677,13 +678,13 @@ export default {
     "customiseWebsiteLanguage": "Personalizar el idioma del sitio web",
     "disclaimerLine1": "Europeana es una iniciativa de la Unión Europea, financiada por el Connecting Europe Facility de la Unión Europea y los Estados miembros de la Unión Europea. Los servicios de Europeana, incluido este sitio web, son operados por un consorcio liderado por la Fundación Europeana en virtud de un contrato de servicios con la Comisión Europea.",
     "disclaimerLine2": "La Comisión Europea no garantiza la exactitud de la información y no acepta responsabilidad alguna con respecto a la información en este sitio web. Ni la Comisión Europea, ni ninguna persona que actúe en nombre de la Comisión Europea, es responsable de la exactitud o el uso de la información en este sitio web.",
-    "findUsElsewhere": "Encuéntrenos en otro sitio",
-    "imageDescription": "Cofinanciado por el fondo de inversión Connecting Europe Facility (Conectando Europa) de la Unión Europea.",
+    "findUsElsewhere": "Puedes encontrarnos también en",
+    "imageDescription": "Financiado por la Unión Europea",
     "navigation": {
       "MoreInfoLabel": "Más información",
-      "about": "Sobre nosotros",
+      "about": "¿Qué es Europeana?",
       "accessibility": "Accesibilidad",
-      "cookies": "Galletas",
+      "cookies": "Cookies",
       "forDevelopers": "Para desarrolladores",
       "help": "Ayuda",
       "privacy": "Política de privacidad",
@@ -692,7 +693,7 @@ export default {
       "terms": "Condiciones de uso"
     },
     "ourMission": "Nuestra misión",
-    "ourMissionQuote": "Europeana fortalece el sector del patrimonio cultural en su proceso de transformación digital. Desarrollamos dominio, herramientas y políticas para adoptar el cambio digital y fomentar asociaciones que fomenten la innovación."
+    "ourMissionQuote": "Europeana sostiene el sector del patrimonio cultural en su transformación digital. Desarrollamos competencias, herramientas y estrategias para adoptar el cambio digital y fomentar colaboraciones que promuevan la innovación."
   },
   "formatting": {
     "ellipsis": "…",
@@ -711,11 +712,12 @@ export default {
     "europeanaHome": "Página de inicio de Europeana",
     "inCollection": "Busca {query} en {collection}",
     "navigation": {
-      "about": "Sobre nosotros",
+      "about": "¿Qué es Europeana?",
       "collections": "Colecciones",
-      "europeanaClassroom": "Profesores",
+      "europeanaClassroom": "Para profesores",
       "help": "Ayuda",
       "home": "Inicio",
+      "pro": "Para los profesionales",
       "stories": "Historias"
     },
     "quickSearch": "Búsqueda rápida",
@@ -731,10 +733,11 @@ export default {
   "homePage": {
     "discoverEditorial": "Últimas historias",
     "storiesCTA": "Ver todas las historias",
-    "subHeadline": "Buscar, guarda y comparte arte, libros, películas y música de miles de instituciones culturales",
+    "subHeadline": "Busca, guarda y comparte arte, libros, películas y música de miles de instituciones culturales",
     "themesCTA": "Ver todos los temas",
     "themesTitle": "Explorar por tema",
-    "title": "Descubre la herencia cultural europea"
+    "title": "Descubre el patrimonio cultural {digital} europeo",
+    "titleDigital": "digital"
   },
   "imageSlider": {
     "handle": "Manipulador de control deslizante"
@@ -853,6 +856,7 @@ export default {
   "newWindow": "se abre en una nueva ventana",
   "noMoreResults": "No hay más resultados para su búsqueda.",
   "noResults": "No hay resultados",
+  "of": "De",
   "organisation": {
     "city": "Ciudad",
     "country": "País",
@@ -860,6 +864,7 @@ export default {
     "nameAcronym": "acrónimo del nombre"
   },
   "pageHasLoaded": "ha cargado",
+  "pageNumber": "Número de página",
   "pages": {
     "collections": {
       "organisations": {
@@ -875,6 +880,7 @@ export default {
         "title": "Lugares"
       },
       "table": {
+        "items": "Elementos",
         "name": "Nombre"
       },
       "times": {
@@ -884,6 +890,9 @@ export default {
         "title": "Temas"
       }
     }
+  },
+  "pagination": {
+    "label": "Paginación"
   },
   "readMore": "Leer más",
   "recommendation": {
@@ -935,7 +944,7 @@ export default {
     "title": "Buscar"
   },
   "searchHasLoaded": "{0} resultados devueltos",
-  "searchPlaceholder": "Buscar más de 50 millones de artículos",
+  "searchPlaceholder": "Buscar más de 50 millones de objetos",
   "searchResults": "Buscar",
   "searchResultsFor": "{0} - Buscar",
   "searchSuggestions": "Sugerencias de búsqueda",
