@@ -24,7 +24,6 @@
         </i18n>
         <p
           v-if="descriptionPath"
-          data-qa="error message"
         >
           {{ $t(descriptionPath || '') }}
         </p>

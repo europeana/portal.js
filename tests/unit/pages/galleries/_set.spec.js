@@ -134,10 +134,10 @@ describe('SetPage', () => {
     describe('when something goes wrong while fetching the set', () => {
       const wrapper = factory({ fetchState: { error: { message: 'Something went wrong' } } });
 
-      it('shows an alert message', async() => {
-        const alertMessage = wrapper.find('[data-qa="alert message container"]');
+      it('shows an error message', async() => {
+        const errorMessage = wrapper.find('[data-qa="error message container"]');
 
-        expect(alertMessage.exists()).toBe(true);
+        expect(errorMessage.exists()).toBe(true);
       });
       it('sets the head title and meta tag titles', () => {
         const headTitle = wrapper.vm.head().title;

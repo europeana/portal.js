@@ -268,7 +268,7 @@ describe('pages/item/_.vue', () => {
     describe('meta title', () => {
       describe('when fetch errored', () => {
         it('uses custom meta title path, if set', () => {
-          const mocks = { $fetchState: { error: { message: 'Item not found', metaTitlePath: 'error.itemNotFound.metaTitle' } } }
+          const mocks = { $fetchState: { error: { message: 'Item not found', metaTitlePath: 'error.itemNotFound.metaTitle' } } };
           const wrapper = factory({ mocks });
 
           const headMeta = wrapper.vm.head().meta;
