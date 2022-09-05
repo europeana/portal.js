@@ -16,7 +16,8 @@ COPY packages/portal/package*.json ./packages/portal/
 RUN npm ci -w packages/portal
 
 COPY *.md ./
-COPY packages/portal ./packages/portal
+COPY packages/portal/*.js ./packages/portal/
+COPY packages/portal/src ./packages/portal/src
 
 RUN npm run build
 RUN npm prune --omit dev

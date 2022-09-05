@@ -89,3 +89,6 @@ vars.yml
 
 # Docker
 Dockerfile
+
+# Tests
+tests/
