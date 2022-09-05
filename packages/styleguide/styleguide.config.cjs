@@ -21,7 +21,7 @@ module.exports = async() => {
       ]
     },
     resolve: {
-      ...nuxtWebpackConfig.resolve,
+      ...nuxtWebpackConfig.resolve
     },
     plugins: [
       ...nuxtWebpackConfig.plugins
