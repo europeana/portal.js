@@ -7,7 +7,7 @@ import { BASE_URL } from '@/plugins/europeana/record';
 
 const apiEndpoint = '/search.json';
 
-const baseRequest = nock(BASE_URL).get(apiEndpoint);
+const baseRequest = () => nock(BASE_URL).get(apiEndpoint);
 const defaultResponse = { success: true, items: [], totalResults: 123456 };
 const $axios = axios.create({ baseURL: BASE_URL });
 
@@ -16,192 +16,222 @@ describe('plugins/europeana/search', () => {
     nock.cleanAll();
   });
 
-  describe('search()', () => {
+  describe('search()()', () => {
     describe('API request', () => {
       it('requests 24 results by default', async() => {
-        baseRequest
+        baseRequest()
           .query(query => {
             return query.rows === '24';
           })
           .reply(200, defaultResponse);
 
-        await search($axios, { query: 'anything' });
+        await search()($axios, { query: 'anything' });
 
-        nock.isDone().should.be.true;
+        expect(nock.isDone()).toBe(true);
       });
 
       it('accepts and uses `rows` option', async() => {
-        baseRequest
+        baseRequest()
           .query(query => {
             return query.rows === '9';
           })
           .reply(200, defaultResponse);
 
-        await search($axios, { query: 'anything', rows: 9 });
+        await search()($axios, { query: 'anything', rows: 9 });
 
-        nock.isDone().should.be.true;
+        expect(nock.isDone()).toBe(true);
       });
 
       it('paginates if `page` is passed', async() => {
-        baseRequest
+        baseRequest()
           .query(query => {
             return query.rows === '24' && query.start === '25';
           })
           .reply(200, defaultResponse);
 
-        await search($axios, { page: 2, query: 'anything' });
+        await search()($axios, { page: 2, query: 'anything' });
 
-        nock.isDone().should.be.true;
+        expect(nock.isDone()).toBe(true);
       });
 
       it('does not request rows beyond API limit', async() => {
-        baseRequest
+        baseRequest()
           .query(query => {
             return query.rows === '16' && query.start === '985';
           })
           .reply(200, defaultResponse);
 
-        await search($axios, { page: 42, query: 'anything' });
+        await search()($axios, { page: 42, query: 'anything' });
 
-        nock.isDone().should.be.true;
+        expect(nock.isDone()).toBe(true);
       });
 
-      it('includes contentTier query', async() => {
-        baseRequest
-          .query(query => {
-            return query.qf === 'contentTier:(1 OR 2 OR 3 OR 4)';
-          })
-          .reply(200, defaultResponse);
+      describe('contentTier filter', () => {
+        it('is included by default', async() => {
+          baseRequest()
+            .query(query => {
+              return query.qf === 'contentTier:(1 OR 2 OR 3 OR 4)';
+            })
+            .reply(200, defaultResponse);
 
-        await search($axios, { query: 'anything' });
+          await search()($axios, { query: 'anything' });
 
-        nock.isDone().should.be.true;
+          expect(nock.isDone()).toBe(true);
+        });
+
+        it('may be omitted by setting addContentTierFilter option to `false`', async() => {
+          baseRequest()
+            .query(query => (query.qf === undefined))
+            .reply(200, defaultResponse);
+
+          await search()($axios, { query: 'anything' }, { addContentTierFilter: false });
+
+          expect(nock.isDone()).toBe(true);
+        });
       });
 
       it('uses the supplied `facet` param', async() => {
-        baseRequest
+        baseRequest()
           .query(query => {
             return query.facet === 'LANGUAGE';
           })
           .reply(200, defaultResponse);
 
-        await search($axios, { query: 'anything', facet: 'LANGUAGE' });
+        await search()($axios, { query: 'anything', facet: 'LANGUAGE' });
 
-        nock.isDone().should.be.true;
+        expect(nock.isDone()).toBe(true);
       });
 
       it('uses the supplied `facet` param when using comma seperated list', async() => {
-        baseRequest
+        baseRequest()
           .query(query => {
             return query.facet === 'COUNTRY,REUSABILITY';
           })
           .reply(200, defaultResponse);
 
-        await search($axios, { query: 'anything', facet: 'COUNTRY,REUSABILITY' });
+        await search()($axios, { query: 'anything', facet: 'COUNTRY,REUSABILITY' });
 
-        nock.isDone().should.be.true;
+        expect(nock.isDone()).toBe(true);
       });
 
       it('maps blank `query` to "*:*"', async() => {
-        baseRequest
+        baseRequest()
           .query(query => {
             return query['query'] === '*:*';
           })
           .reply(200, defaultResponse);
 
-        await search($axios, { query: '' });
+        await search()($axios, { query: '' });
 
-        nock.isDone().should.be.true;
+        expect(nock.isDone()).toBe(true);
       });
 
       it('filters by reusability', async() => {
-        baseRequest
+        baseRequest()
           .query(query => {
             return query.reusability === 'open';
           })
           .reply(200, defaultResponse);
 
-        await search($axios, { query: 'anything', reusability: 'open' });
+        await search()($axios, { query: 'anything', reusability: 'open' });
 
-        nock.isDone().should.be.true;
+        expect(nock.isDone()).toBe(true);
       });
 
       describe('multilingual queries', () => {
-        it('passes API i18n params if locale option given', async() => {
+        const context = { $config: { app: { search: { translateLocales: ['es'] } } } };
+
+        it('passes API i18n params if configured and locale option given', async() => {
           const locale = 'es';
 
-          baseRequest
+          baseRequest()
             .query(query => {
               return query['q.source'] === locale && query['q.target'] === 'en';
             })
             .reply(200, defaultResponse);
 
-          await search($axios, { query: 'flor' }, { locale });
+          await search(context)($axios, { query: 'flor' }, { locale });
 
-          nock.isDone().should.be.true;
+          expect(nock.isDone()).toBe(true);
         });
 
         it('does not pass API i18n params if no locale option', async() => {
-          baseRequest
+          baseRequest()
             .query(query => {
               const queryKeys = Object.keys(query);
               return !queryKeys.includes('q.source') && !queryKeys.includes('q.target');
             })
             .reply(200, defaultResponse);
 
-          await search($axios, { query: 'flor' });
+          await search(context)($axios, { query: 'flor' });
 
-          nock.isDone().should.be.true;
+          expect(nock.isDone()).toBe(true);
         });
 
         it('does not pass API i18n params if locale is already "en"', async() => {
           const locale = 'en';
 
-          baseRequest
+          baseRequest()
             .query(query => {
               const queryKeys = Object.keys(query);
               return !queryKeys.includes('q.source') && !queryKeys.includes('q.target');
             })
             .reply(200, defaultResponse);
 
-          await search($axios, { query: 'flor' }, { locale });
+          await search(context)($axios, { query: 'flor' }, { locale });
 
-          nock.isDone().should.be.true;
+          expect(nock.isDone()).toBe(true);
         });
       });
 
       describe('escaping Lucene reserved characters', () => {
         it('does not escape them by default', async() => {
-          baseRequest
+          baseRequest()
             .query(query => {
               return query.query === 'dress (red OR blue)';
             })
             .reply(200, defaultResponse);
 
-          await search($axios, { query: 'dress (red OR blue)' });
+          await search()($axios, { query: 'dress (red OR blue)' });
 
-          nock.isDone().should.be.true;
+          expect(nock.isDone()).toBe(true);
         });
 
         it('does escape them when options.escape is `true`', async() => {
-          baseRequest
+          baseRequest()
             .query(query => {
               return query.query === 'dress \\(red OR blue\\)';
             })
             .reply(200, defaultResponse);
 
-          await search($axios, { query: 'dress (red OR blue)' }, { escape: true });
+          await search()($axios, { query: 'dress (red OR blue)' }, { escape: true });
 
-          nock.isDone().should.be.true;
+          expect(nock.isDone()).toBe(true);
+        });
+      });
+    });
+
+    describe('boost params', () => {
+      describe('with a boost in the params', () => {
+        it('sends the boosting param', async() => {
+          baseRequest()
+            .query(query => {
+              return query['boost'] === 'BOOST';
+            })
+            .reply(200, defaultResponse);
+
+          await search({})($axios, { query: 'test', boost: 'BOOST' });
+
+          expect(nock.isDone()).toBe(true);
         });
       });
     });
 
     describe('API response', () => {
-      context('with error', () => {
+      describe('with error', () => {
         it('returns API error message and status code', async() => {
           const errorMessage = 'Invalid query parameter.';
-          baseRequest
+          baseRequest()
             .query(true)
             .reply(400, {
               success: false,
@@ -210,19 +240,19 @@ describe('plugins/europeana/search', () => {
 
           let error;
           try {
-            await search($axios, { query: 'NOT ' });
+            await search()($axios, { query: 'NOT ' });
           } catch (e) {
             error = e;
           }
 
-          error.message.should.eq(errorMessage);
-          error.statusCode.should.eq(400);
+          expect(error.message).toBe(errorMessage);
+          expect(error.statusCode).toBe(400);
         });
       });
 
-      context('with `items`', () => {
+      describe('with `items`', () => {
         function searchResponse(options = {}) {
-          return search($axios, { query: 'painting' }, options);
+          return search()($axios, { query: 'painting' }, options);
         }
 
         describe('.items', () => {
@@ -253,8 +283,8 @@ describe('plugins/europeana/search', () => {
               totalResults: 2
             };
 
-            beforeEach('stub API response', () => {
-              baseRequest
+            beforeEach(() => {
+              baseRequest()
                 .query(true)
                 .reply(200, bloatedResponse);
             });
@@ -263,33 +293,33 @@ describe('plugins/europeana/search', () => {
               const response = await searchResponse({ locale: 'en' });
               const item = response.items[0];
 
-              item.id.should.eq('/123/abc');
-              item.type.should.eq('IMAGE');
-              item.dataProvider.should.eql(['Europeana Foundation']);
-              item.edmPreview.should.eql(['https://example.org/thumbnail/123/abc.jpeg']);
+              expect(item.id).toBe('/123/abc');
+              expect(item.type).toBe('IMAGE');
+              expect(item.dataProvider).toEqual(['Europeana Foundation']);
+              expect(item.edmPreview).toEqual(['https://example.org/thumbnail/123/abc.jpeg']);
             });
 
             it('removes irrelevant LangMap locales', async() => {
               const response = await searchResponse({ locale: 'en' });
               const item = response.items[0];
 
-              item.dcTitleLangAware.should.eql({ en: ['A painting'] });
-              item.dcCreatorLangAware.should.eql({ en: ['An artist'] });
+              expect(item.dcTitleLangAware).toEqual({ en: ['A painting'] });
+              expect(item.dcCreatorLangAware).toEqual({ en: ['An artist'] });
             });
 
             it('truncates long LangMap values', async() => {
               const response = await searchResponse({ locale: 'en' });
               const item = response.items[0];
 
-              item.dcDescriptionLangAware.should.eql({ en: ['More information about this painting. More information about this painting. More information about this painting. More information about this painting. More information about this painting. More information about this painting. More information about this …'] });
+              expect(item.dcDescriptionLangAware).toEqual({ en: ['More information about this painting. More information about this painting. More information about this painting. More information about this painting. More information about this painting. More information about this painting. More information about this …'] });
             });
 
             it('removes irrelevant fields', async() => {
               const response = await searchResponse({ locale: 'en' });
               const item = response.items[0];
 
-              (item.title === undefined).should.be.true;
-              (item.dcDescription === undefined).should.be.true;
+              expect(item.title === undefined).toBe(true);
+              expect(item.dcDescription === undefined).toBe(true);
             });
           });
         });
@@ -317,29 +347,29 @@ describe('plugins/europeana/search', () => {
             totalResults: 2
           };
 
-          beforeEach('stub API response', () => {
-            baseRequest
+          beforeEach(() => {
+            baseRequest()
               .query(true)
               .reply(200, apiResponse);
           });
 
-          context('when page is not at the API limit', () => {
+          describe('when page is not at the API limit', () => {
             it('is `false`', async() => {
               const response = await searchResponse();
 
-              response.lastAvailablePage.should.be.false;
+              expect(response.lastAvailablePage).toBe(false);
             });
           });
 
-          context('when page is at the API limit', () => {
+          describe('when page is at the API limit', () => {
             function searchResponse() {
-              return search($axios, { query: 'painting', page: 42 });
+              return search()($axios, { query: 'painting', page: 42 });
             }
 
             it('is `true`', async() => {
               const response = await searchResponse();
 
-              response.lastAvailablePage.should.be.true;
+              expect(response.lastAvailablePage).toBe(true);
             });
           });
         });
@@ -348,122 +378,129 @@ describe('plugins/europeana/search', () => {
   });
 
   describe('addContentTierFilter', () => {
-    context('with no qf', () => {
+    describe('with no qf', () => {
       it('returns the qf with the tier 1-4 filter applied', () => {
         const expected = ['contentTier:(1 OR 2 OR 3 OR 4)'];
-        addContentTierFilter().should.deep.eql(expected);
+        expect(addContentTierFilter()).toEqual(expected);
       });
     });
-    context('with an empty array as qf', () => {
+    describe('with an empty array as qf', () => {
       const qf = [];
       it('returns the qf with the tier 1-4 filter applied', () => {
         const expected = ['contentTier:(1 OR 2 OR 3 OR 4)'];
-        addContentTierFilter(qf).should.deep.eql(expected);
+        expect(addContentTierFilter(qf)).toEqual(expected);
       });
     });
-    context('with a single non contentTier qf', () => {
+    describe('with a single non contentTier qf', () => {
       const qf = 'TYPE:"IMAGE"';
       it('returns the qf with the tier 1-4 filter applied', () => {
         const expected = ['TYPE:"IMAGE"', 'contentTier:(1 OR 2 OR 3 OR 4)'];
-        addContentTierFilter(qf).should.deep.eql(expected);
+        expect(addContentTierFilter(qf)).toEqual(expected);
       });
     });
-    context('with a contentTier qf', () => {
+    describe('with a contentTier qf', () => {
       const qf = 'contentTier:3';
       it('returns the qf as is', () => {
         const expected = ['contentTier:3'];
-        addContentTierFilter(qf).should.deep.eql(expected);
+        expect(addContentTierFilter(qf)).toEqual(expected);
       });
     });
-    context('with multiple qfs', () => {
+    describe('with multiple qfs', () => {
       const qf = ['TYPE:"IMAGE"', 'REUSABILITY:"open"'];
       it('returns the qf with the tier filter appended', () => {
         const expected = ['TYPE:"IMAGE"', 'REUSABILITY:"open"', 'contentTier:(1 OR 2 OR 3 OR 4)'];
-        addContentTierFilter(qf).should.deep.eql(expected);
+        expect(addContentTierFilter(qf)).toEqual(expected);
       });
     });
-    context('with a contentTier qf of "*"', () => {
+    describe('with a contentTier qf of "*"', () => {
       const qf = 'contentTier:*';
       it('returns the qf without the qf', () => {
         const expected = [];
-        addContentTierFilter(qf).should.deep.eql(expected);
+        expect(addContentTierFilter(qf)).toEqual(expected);
       });
     });
-    context('with a collection qf', () => {
+    describe('with a collection qf', () => {
       const qf = ['collection:art'];
       it('returns the qf with the tier 2-4 filter applied', () => {
         const expected = ['collection:art', 'contentTier:(2 OR 3 OR 4)'];
-        addContentTierFilter(qf).should.deep.eql(expected);
+        expect(addContentTierFilter(qf)).toEqual(expected);
+      });
+    });
+    describe('with an foaf_organization qf', () => {
+      const qf = ['foaf_organization:"http://data.europeana.eu/organization/1234567890"'];
+      it('returns the qf with no content tier filter applied', () => {
+        const expected = qf;
+        expect(addContentTierFilter(qf)).toEqual(expected);
       });
     });
   });
 
   describe('rangeToQueryParam', () => {
-    context('with no start or end', () => {
+    describe('with no start or end', () => {
       it('returns "[* TO *]"', () => {
         const expected = '[* TO *]';
-        rangeToQueryParam({}).should.eql(expected);
+        expect(rangeToQueryParam({})).toEqual(expected);
       });
     });
-    context('with only a start', () => {
+    describe('with only a start', () => {
       it('returns "[START TO *]"', () => {
         const expected = '[START TO *]';
-        rangeToQueryParam({ start: 'START' }).should.deep.eql(expected);
+        expect(rangeToQueryParam({ start: 'START' })).toEqual(expected);
       });
     });
-    context('with only an end', () => {
+    describe('with only an end', () => {
       it('returns "[* TO END]"', () => {
         const expected = '[* TO END]';
-        rangeToQueryParam({ end: 'END' }).should.deep.eql(expected);
+        expect(rangeToQueryParam({ end: 'END' })).toEqual(expected);
       });
     });
-    context('with both start and end', () => {
+    describe('with both start and end', () => {
       it('returns "[START TO END]"', () => {
         const expected = '[START TO END]';
-        rangeToQueryParam({ start: 'START', end: 'END' }).should.deep.eql(expected);
+        expect(rangeToQueryParam({ start: 'START', end: 'END' })).toEqual(expected);
       });
     });
   });
 
   describe('rangeFromQueryParam', () => {
-    context('when the pattern does NOT match', () => {
+    describe('when the pattern does NOT match', () => {
       it('returns null', () => {
-        (rangeFromQueryParam('[abc OR xyz]') === null).should.be.true;
+        expect(rangeFromQueryParam('[abc OR xyz]')).toBe(null);
       });
     });
-    context('with blank start and end values', () => {
+    describe('with blank start and end values', () => {
       it('returns both values', () => {
-        (rangeFromQueryParam('[ TO ]') === null).should.be.true;
+        expect(rangeFromQueryParam('[ TO ]')).toBe(null);
       });
     });
-    context('with only a start', () => {
+    describe('with only a start', () => {
       it('returns null for the end', () => {
         const expected = { start: 'START', end: null };
-        rangeFromQueryParam('[START TO *]').should.deep.eql(expected);
+        expect(rangeFromQueryParam('[START TO *]')).toEqual(expected);
       });
     });
-    context('with only an end', () => {
+    describe('with only an end', () => {
       it('returns null for the start', () => {
         const expected = { start: null, end: 'END' };
-        rangeFromQueryParam('[* TO END]').should.deep.eql(expected);
+        expect(rangeFromQueryParam('[* TO END]')).toEqual(expected);
       });
     });
-    context('with both start and end', () => {
+    describe('with both start and end', () => {
       it('returns both values', () => {
         const expected = { start: 'START', end: 'END' };
-        rangeFromQueryParam('[START TO END]').should.deep.eql(expected);
+        expect(rangeFromQueryParam('[START TO END]')).toEqual(expected);
       });
     });
-    context('with special characters', () => {
+    describe('with special characters', () => {
       it('returns both values', () => {
         const expected = { start: '10/Новембар/2000', end: 'Value with spaces' };
-        rangeFromQueryParam('[10/Новембар/2000 TO Value with spaces]').should.deep.eql(expected);
+        expect(rangeFromQueryParam('[10/Новембар/2000 TO Value with spaces]')).toEqual(expected);
       });
     });
-    context('with quoted values', () => {
+    describe('with quoted values', () => {
       it('returns both values', () => {
         const expected = { start: '"START"', end: '\'END\'' };
-        rangeFromQueryParam('["START" TO \'END\']').should.deep.eql(expected);
+        expect(rangeFromQueryParam('["START" TO \'END\']')).toEqual(expected);
       });
     });
   });

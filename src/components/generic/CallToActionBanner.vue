@@ -1,0 +1,246 @@
+<template>
+  <div
+    class="cta-banner d-flex flex-md-row flex-column"
+    :class="variant"
+  >
+    <div
+      v-if="illustration"
+      class="cta-illustration align-self-stretch"
+    >
+      <OptimisedImage
+        :alt="illustration.image.description"
+        :src="illustration.image.url"
+        :width="illustration.image.width"
+        :height="illustration.image.height"
+        :content-type="illustration.image.contentType"
+        :max-width="1100"
+        :lazy="true"
+      />
+    </div>
+    <div class="cta-content align-self-stretch flex-md-fill">
+      <h2>
+        {{ name }}
+      </h2>
+      <!-- eslint-disable vue/no-v-html -->
+      <div
+        v-html="html"
+      />
+      <!-- eslint-enable   vue/no-v-html -->
+      <SmartLink
+        :destination="link.url"
+        data-qa="call to action"
+        class="btn btn-cta btn-primary"
+      >
+        {{ link.text }}
+      </SmartLink>
+    </div>
+  </div>
+</template>
+
+<script>
+  import SmartLink from '@/components/generic/SmartLink';
+  import { marked } from 'marked';
+
+  export default {
+    name: 'CallToActionBanner',
+
+    components: {
+      SmartLink,
+      OptimisedImage: () => import('@/components/generic/OptimisedImage')
+    },
+    props: {
+      name: {
+        type: String,
+        required: true
+      },
+      text: {
+        type: String,
+        required: true
+      },
+      link: {
+        type: Object,
+        required: true
+      },
+      illustration: {
+        type: Object,
+        default: null
+      },
+      /**
+       * Banner variant to use
+       * @values yellowgrey, light, innovationblue
+       */
+      variant: {
+        type: String,
+        default: 'yellowgrey'
+      }
+    },
+    computed: {
+      html() {
+        // TODO: Update the styling of the RichString component and use that instead.
+        return marked.parse(this.text);
+      }
+    }
+  };
+</script>
+
+<style lang="scss" scoped>
+  @import '@/assets/scss/variables';
+
+  .cta-banner {
+    background-color: $yellowgrey;
+    margin-bottom: 2em;
+    font-size: 1rem;
+    border-radius: 0.25em;
+    border: 0.25em solid $black;
+    box-shadow: 0.75em 0.75em 0 0 $black;
+
+    @media (min-width: $bp-xxxl) {
+      font-size: 1vw;
+    }
+
+    .cta-content {
+      padding: 1.75em;
+      text-align: center;
+      font-size: 1rem;
+
+      @media (min-width: $bp-extralarge) {
+        font-size: 1.375rem;
+      }
+
+      @media (min-width: $bp-xxxl) {
+        font-size: 1em;
+      }
+
+      h2 {
+        color: $mediumgrey;
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+
+        @media (min-width: $bp-extralarge) {
+          font-size: 2.375rem;
+        }
+
+        @media (min-width: $bp-xxxl) {
+          font-size: 2em;
+          margin-bottom: 0.8em;
+        }
+      }
+
+      p {
+        margin-bottom: 1em;
+      }
+    }
+
+    .btn-primary.btn-cta {
+      margin-bottom: 0;
+      text-transform: none;
+      border: 0.1875em solid $black;
+      box-shadow: 0.25em 0.25em 0 0 $black;
+      font-weight: 700;
+      padding: 0.5em 1em;
+      border-radius: 0.25em;
+      margin-top: 2em;
+
+      @media (min-width: $bp-xxxl) {
+        font-size: 1vw;
+      }
+    }
+
+    &.light {
+      background-color: $bodygrey;
+    }
+
+    &.innovationblue {
+      background-color: $innovationblue;
+
+      .cta-content {
+        color: $white;
+
+        h2 {
+          color: $white;
+        }
+      }
+
+      .btn-primary.btn-cta {
+        background-color: $yellowgrey;
+        color: $black;
+
+        &:hover {
+          background-color: $white;
+        }
+      }
+    }
+
+    .cta-illustration {
+      margin-top: 1em;
+      margin-left: 1em;
+      margin-right: 1em;
+      height: 175px;
+      position: relative;
+      flex-shrink: 0;
+
+      @media (min-width: $bp-medium) {
+        height: auto;
+        width: 40%;
+      }
+
+      img {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        max-height: 100%;
+        right: 0;
+        margin: 0 auto;
+      }
+    }
+  }
+
+  .home-cta {
+    margin: 3em auto;
+  }
+</style>
+
+<docs lang="md">
+  Variant "yellowgrey" (default):
+  ```jsx
+  <CallToActionBanner
+    name="Call to action name"
+    text="This is a call to action text"
+    :link="{ url: '/', text: 'Click here' }"
+  />
+  ```
+  Variant "yellowgrey" (default) with illustration:
+  ```jsx
+  <CallToActionBanner
+    name="Call to action name"
+    text="This is a call to action text"
+    :link="{ url: '/', text: 'Click here' }"
+    :illustration="{
+      image: { url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
+       width: 890, height: 724 } }"
+  />
+  ```
+  Variant "light" with illustration
+  ```jsx
+  <CallToActionBanner
+    name="Call to action name"
+    text="This is a call to action text"
+    :link="{ url: '/', text: 'Click here' }"
+    :illustration="{ image: { url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
+    width: 890, height: 724  } }"
+    variant="light"
+  />
+  ```
+  Variant "innovationblue" with illustration
+  ```jsx
+  <CallToActionBanner
+    name="Call to action name"
+    text="This is a call to action text"
+    :link="{ url: '/', text: 'Click here' }"
+    :illustration="{ image: { url: 'https://images.ctfassets.net/i01duvb6kq77/1DxiDhy46cX5eBheNYFdP7/42518b79959f2ea5cd270f9cffa022b2/homepage_A_v4_blackline.svg',
+    width: 890, height: 724  } }"
+    variant="innovationblue"
+  />
+  ```
+  </docs>

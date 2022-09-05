@@ -26,17 +26,14 @@ const i18n = new VueI18n({
 
 const factory = (propsData, translated = false) => mount(SummaryInfo, {
   localVue,
+  attachTo: document.body,
   propsData,
   i18n,
   mocks: {
     $t: (key) => `TRANSLATED: ${key}`,
     $route: {},
-    $config: {
-      app: {
-        features: {
-          translatedItems: translated
-        }
-      }
+    $features: {
+      translatedItems: translated
     }
   }
 });
@@ -53,18 +50,18 @@ describe('components/item/SummaryInfo', () => {
 
     it('shows a title', () => {
       const title = wrapper.find('h1');
-      title.attributes().lang.should.eq('en');
-      title.text().should.eq('The title');
+      expect(title.attributes().lang).toBe('en');
+      expect(title.text()).toBe('The title');
     });
     it('shows a sub-title', () => {
       const subTitle = wrapper.find('header p');
-      subTitle.attributes().lang.should.eq('en');
-      subTitle.text().should.eq('The sub-title');
+      expect(subTitle.attributes().lang).toBe('en');
+      expect(subTitle.text()).toBe('The sub-title');
     });
     it('shows a description', () => {
       const description = wrapper.find('div.description p');
-      description.attributes().lang.should.eq('en');
-      description.text().should.eq('The description');
+      expect(description.attributes().lang).toBe('en');
+      expect(description.text()).toBe('The description');
     });
   });
 
@@ -79,7 +76,7 @@ describe('components/item/SummaryInfo', () => {
 
     it('shows a read more button', () => {
       const readMoreToggle = wrapper.find('button[data-qa="description show link"]');
-      readMoreToggle.text().should.eq('TRANSLATED: readMore');
+      expect(readMoreToggle.text()).toBe('TRANSLATED: readMore');
     });
   });
 
@@ -94,25 +91,25 @@ describe('components/item/SummaryInfo', () => {
 
     it('shows a title', () => {
       const readMoreToggle = wrapper.find('button[data-qa="description show link"]');
-      readMoreToggle.text().should.eq('TRANSLATED: readMore');
+      expect(readMoreToggle.text()).toBe('TRANSLATED: readMore');
     });
   });
 
   describe('when the item is translated', () => {
     const wrapper = factory({
       titles: [
-        { code: 'en', value: 'The title' },
+        { code: 'en', value: 'The title', translationSource: 'automated' },
         { code: 'en', value: 'The sub-title' }
       ],
-      description: { code: 'en', values: ['The description'] }
+      description: { code: 'en', values: ['The description'], translationSource: 'automated' }
     }, true);
     it('there is an icon behind the title signifying the translation source', () => {
-      const tooltip = wrapper.find('[data-qa="translated title tooltip"]');
-      tooltip.isVisible();
+      const tooltip = wrapper.find('h1 [data-qa="translation tooltip"]');
+      expect(tooltip.isVisible()).toBe(true);
     });
     it('there is an icon behind the description signifying the translation source', () => {
-      const tooltip = wrapper.find('[data-qa="translated description tooltip"]');
-      tooltip.isVisible();
+      const tooltip = wrapper.find('div.description [data-qa="translation tooltip"]');
+      expect(tooltip.isVisible()).toBe(true);
     });
   });
 });

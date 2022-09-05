@@ -64,6 +64,7 @@ typings/
 .idea
 
 # Storybook
+storybook/
 storybook-static/
 .storybook/
 

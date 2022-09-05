@@ -1,5 +1,5 @@
+import { BASE_URL as EUROPEANA_DATA_URL } from './data.js';
 import { apiError, createKeycloakAuthAxios } from './utils';
-import { getEntityUrl } from './entity';
 
 export const BASE_URL = process.env.EUROPEANA_ENTITY_MANAGEMENT_API_URL || 'https://api.europeana.eu/entity';
 
@@ -14,35 +14,35 @@ export default (context = {}) => {
 
     /**
      * Get an entity with given id, type
-     * @param {string} type the type of the entity,
-     * @param {string} id the entity's id
+     * @param {string} id the entity's URI
      * @param {Object} options retrieval options
      * @param {string} options.profile the entity's metadata profile
      * @return {Object} the entity object
      */
-    getEntity(type, id, options = {}) {
+    get(id, options = {}) {
       const defaults = {
         profile: 'internal'
       };
       const params = { ...defaults, ...options };
-      return $axios.get(getEntityUrl(type, id).replace('.json', ''), { params })
+      return $axios.get(id.replace(EUROPEANA_DATA_URL, ''), { params })
         .then(response => response.data)
-        .catch(error => apiError(error));
+        .catch(error => {
+          throw apiError(error, context);
+        });
     },
 
     /**
      * Update the body of the entity
-     * @param {string} id the entity's id
+     * @param {string} id the entity's URI
      * @param {Object} body the Proxy body
      * @return {Object} API response data
      */
-    updateEntity(id, body) {
-      return $axios.put(`/concept/base/${id}`, body)
+    update(id, body) {
+      return $axios.put(id.replace(EUROPEANA_DATA_URL, ''), body)
         .then(response => response.data)
         .catch(error => {
-          throw apiError(error);
+          throw apiError(error, context);
         });
     }
-
   };
 };

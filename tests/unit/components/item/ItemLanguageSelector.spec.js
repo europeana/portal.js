@@ -17,10 +17,11 @@ const i18n = new VueI18n({
 });
 i18n.locales = [
   { code: 'en', name: 'English', iso: 'en-GB' },
-  { code: 'de', name: 'Deutsch', iso: 'de-DE' }
+  { code: 'de', name: 'Deutsch', iso: 'de-DE' },
+  { code: 'nl', name: 'Nederlands', iso: 'nl-NL' }
 ];
 
-const factory = (propsData) => mount(ItemLanguageSelector, {
+const factory = (propsData = {}) => mount(ItemLanguageSelector, {
   localVue,
   propsData,
   i18n,
@@ -47,50 +48,54 @@ const factory = (propsData) => mount(ItemLanguageSelector, {
 });
 
 describe('components/item/ItemLanguageSelector', () => {
-  context('when the record has a supported edmLanguage', () => {
-    context('when the UI language and the edmLanguage are different it', () => {
-      it('suggests to translate the item metadata to the UI language ', () => {
-        const wrapper = factory({ itemLanguage: 'de', metadataLanguage: 'de' });
+  describe('when no translations are applied', () => {
+    it('suggests to translate the item metadata to other languages', () => {
+      const wrapper = factory();
 
-        const suggestion = wrapper.find('[data-qa="translate item suggestion"]');
-        suggestion.text().should.eq('Would you like to see this item in English?');
-      });
-    });
-    context('when the UI language and the edmLanguage are the same it', () => {
-      it('suggests to translate the item metadata to different language ', () => {
-        const wrapper = factory({ itemLanguage: 'en', metadataLanguage: 'en' });
+      const suggestion = wrapper.find('[data-qa="translate item suggestion"]');
+      expect(suggestion.text()).toContain('Would you like to see this item in');
 
-        const suggestion = wrapper.find('[data-qa="translate item suggestion"]');
-        suggestion.text().should.eq('Would you like to see this item in a different language?');
-      });
-    });
-    context('when the item metadata is to the UI language', () => {
-      it('suggests to return to the original language ', () => {
-        const wrapper = factory({ itemLanguage: 'de', metadataLanguage: 'en'  });
-
-        const suggestion = wrapper.find('[data-qa="translate item suggestion"]');
-        suggestion.text().should.eq('Would you like to see this item in original language?');
-      });
-    });
-    context('when the item metadata is to a non-UI language', () => {
-      it('suggests to return to the original language ', () => {
-        const wrapper = factory({ itemLanguage: 'de', metadataLanguage: 'nl'  });
-
-        const suggestion = wrapper.find('[data-qa="translate item suggestion"]');
-        suggestion.text().should.eq('Would you like to see this item in original language?');
-      });
+      expect(wrapper.findAll('[data-qa="remove item translation button"]').exists()).toBe(false);
     });
   });
+  describe('when tanslations are requested to a language other than the UI language', () => {
+    it('suggests to translate the item metadata to other languages and offers to remove translations', () => {
+      const wrapper = factory({ metadataLanguage: 'de' });
 
-  context('when the record has a unsupported edmLanguage', () => {
-    // ...
+      const suggestion = wrapper.find('[data-qa="translate item suggestion"]');
+      const removeButton = wrapper.find('[data-qa="remove item translation button"]');
+      expect(suggestion.text()).toContain('Would you like to see this item in');
+      expect(removeButton.text()).toBe('Stop translating this item to Deutsch.');
+    });
+  });
+  describe('when tanslations are requested to the UI language', () => {
+    it('suggests to translate the item metadata to other languages and offers to remove translations', () => {
+      const wrapper = factory({ metadataLanguage: 'en'  });
+
+      const suggestion = wrapper.find('[data-qa="translate item suggestion"]');
+      const removeButton = wrapper.find('[data-qa="remove item translation button"]');
+      expect(suggestion.text()).toContain('Would you like to see this item in');
+      expect(removeButton.text()).toBe('Stop translating this item to English.');
+    });
   });
 
   describe('translateParams', () => {
     it('adds the lang query with the provided language code', () => {
-      const wrapper = factory({ itemLanguage: 'en' });
+      const wrapper = factory();
       const newParams = wrapper.vm.translateParams('de');
-      newParams.query.lang.should.eq('de');
+      expect(newParams.query.lang).toBe('de');
+    });
+  });
+
+  describe('when the recuested translation failed', () => {
+    it('shows an error message', () => {
+      const wrapper = factory({ fromTranslationError: true });
+
+      const suggestion = wrapper.find('[data-qa="translate item error"]');
+      expect(suggestion.text()).toContain('Translation service is temporarily unavailable. Please try again later.');
+
+      expect(wrapper.findAll('[data-qa="translate item suggestion"]').exists()).toBe(false);
+      expect(wrapper.findAll('[data-qa="remove item translation button"]').exists()).toBe(false);
     });
   });
 });

@@ -1,66 +1,125 @@
 import defu from 'defu';
-import { createRedisClient, errorMessage } from './utils.js';
+import * as utils from './utils.js';
 import nuxtConfig from '../../nuxt.config.js';
+import localeCodes from '../plugins/i18n/codes.js';
+
+const CACHE_KEY_PREFIX = '@europeana:portal.js';
 const runtimeConfig = defu(nuxtConfig.privateRuntimeConfig, nuxtConfig.publicRuntimeConfig);
 
-const cachers = [
-  'entities:organisations',
-  'entities:times',
-  'entities:topics',
-  'items:recent'
+const cacherNames = [
+  'collections:organisations',
+  'collections:organisations:featured',
+  'collections:places',
+  'collections:places:featured',
+  'collections:times',
+  'collections:times:featured',
+  'collections:topics',
+  'collections:topics:featured',
+  'items:recent',
+  'items:type-counts'
 ];
 
-const cli = (cacher) => {
-  if (!cachers.includes(cacher)) {
-    throw new Error(`Unknown cacher "${cacher}"`);
+const cacherModule = (cacherName) => {
+  if (!cacherNames.includes(cacherName)) {
+    throw new Error(`Unknown cacher "${cacherName}"`);
   }
 
-  const cacherPath = cacher.replace(/:/g, '/');
+  const cacherPath = cacherName.replace(/:/g, '/');
 
   return import(`./${cacherPath}.js`);
 };
 
-const main = async() => {
-  const cacher = process.argv[2];
-  const command = process.argv[3];
+const namespaceCacheKey = (cacherName, locale) => {
+  let key = CACHE_KEY_PREFIX;
 
-  let executor;
-
-  const cacherCli = await cli(cacher);
-
-  switch (command) {
-    case 'set':
-      executor = cacherCli.cache(runtimeConfig);
-      break;
-    case 'get':
-      executor = readCacheKey(cacherCli.CACHE_KEY);
-      break;
-    default:
-      console.error(`Unknown command "${command}"`);
-      process.exit(1);
-      break;
+  if (locale) {
+    key = `${key}:${locale}`;
   }
+  key = `${key}:${cacherName}`;
 
-  return executor;
+  return key;
 };
 
-const readCacheKey = (cacheKey) => {
+const runSetCacher = async(cacherName) => {
+  console.log(cacherName);
+
+  const cacher = await cacherModule(cacherName);
+  let rawData = await cacher.data(runtimeConfig);
+  let langAwareData;
+
+  if (cacher.LOCALISE) {
+    langAwareData = localeCodes.map((locale) => ({
+      key: namespaceCacheKey(cacherName, locale),
+      data: utils.localise(rawData, cacher.LOCALISE, locale)
+    }));
+  } else if (cacher.INTERNATIONALISE) {
+    langAwareData = [{ key: namespaceCacheKey(cacherName), data: cacher.INTERNATIONALISE(rawData) }];
+  } else {
+    langAwareData = [{ key: namespaceCacheKey(cacherName), data: rawData }];
+  }
+
+  for (const toCache of langAwareData) {
+    if (cacher.PICK) {
+      toCache.data = utils.pick(toCache.data, cacher.PICK);
+    }
+    if (cacher.SORT) {
+      toCache.data = utils.sort(toCache.data, cacher.SORT);
+    }
+    if (cacher.DAILY) {
+      toCache.data = utils.daily(toCache.data, cacher.DAILY);
+    }
+    await writeCacheKey(toCache.key, toCache.data);
+  }
+};
+
+const writeCacheKey = async(cacheKey, data) => {
+  const redisClient = utils.createRedisClient(runtimeConfig.redis);
+  await redisClient.setAsync(cacheKey, JSON.stringify(data));
+  await redisClient.quitAsync();
+};
+
+const readCacheKey = async(cacheKey) => {
+  const redisClient = utils.createRedisClient(runtimeConfig.redis);
+  const data = await redisClient.getAsync(cacheKey);
+  await redisClient.quitAsync();
+  return data;
+};
+
+export const run = async(command, cacherName) => {
+  let response;
+
   try {
-    const redisClient = createRedisClient(runtimeConfig.redis);
-    return redisClient.getAsync(cacheKey)
-      .then(data => redisClient.quitAsync()
-        .then(() => ({ body: JSON.parse(data) || {} })));
+    if (command === 'set') {
+      if (cacherName === undefined) {
+        for (const cname of cacherNames) {
+          await runSetCacher(cname);
+        }
+      } else {
+        await runSetCacher(cacherName);
+      }
+
+      response = 'SUCCESS';
+    } else if (command === 'get') {
+      response = await readCacheKey(namespaceCacheKey(cacherName));
+    } else {
+      throw new Error(`Unknown command "${command}"`);
+    }
   } catch (error) {
-    return Promise.reject({ statusCode: 500, body: errorMessage(error) });
+    return Promise.reject(new Error(utils.errorMessage(error)));
+  }
+
+  return Promise.resolve(response);
+};
+
+export const cli = async(command, cacherName) => {
+  try {
+    const message = await run(command, cacherName);
+    console.log(message);
+    process.exit(0);
+  } catch (error) {
+    console.error(`ERROR: ${error.message}`);
+    process.exit(1);
   }
 };
 
-main()
-  .then(message => {
-    console.log(`SUCCESS: ${JSON.stringify(message)}`);
-    process.exit(0);
-  })
-  .catch(message => {
-    console.log(`ERROR: ${message}`);
-    process.exit(1);
-  });
+export default run;

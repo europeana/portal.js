@@ -23,16 +23,16 @@ npx contentful space use
 
 Run a migration:
 ```bash
-npx contentful space migration migrations/0001-migration-script.js
+npx contentful space migration migrations/0001-migration-script.cjs
 ```
 
 Generate migration for entire content model:
 ```bash
-npx contentful space generate migration -f migrations/0000-content-model.js
+npx contentful space generate migration -f migrations/0000-content-model.cjs
 ```
 **Note:** content model sidebar configuration is not exported in this migration
 and needs to be set explicitly in a separate migration, as in
-[0001-sidebar-widgets.js](./0001-sidebar-widgets.js).
+[0001-sidebar-widgets.cjs](./0001-sidebar-widgets.cjs).
 
 ## Documentation
 

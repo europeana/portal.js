@@ -30,7 +30,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
+  @import '@/assets/scss/variables';
 
   .rights-statement-button {
     color: $mediumgrey;
@@ -40,9 +40,10 @@
     font-size: $font-size-small;
     transition: $standard-transition;
     overflow: hidden;
+
     &:hover {
       cursor: pointer;
-      box-shadow: $boxshadow-light
+      box-shadow: $boxshadow-light;
     }
   }
 </style>

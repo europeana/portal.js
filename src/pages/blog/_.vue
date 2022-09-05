@@ -1,8 +1,14 @@
 <template>
   <div
     data-qa="blog post"
-    class="text-page figure-attribution"
+    class="text-page white-page figure-attribution"
   >
+    <ContentWarningModal
+      v-if="post.contentWarning"
+      :title="post.contentWarning.name"
+      :description="post.contentWarning.description"
+      :page-slug="`blog/${post.identifier}`"
+    />
     <BlogPost
       :date-published="post.datePublished"
       :title="post.name"
@@ -11,18 +17,26 @@
       :identifier="post.identifier"
       :hero="hero"
       :authors="post.authorCollection.items.length > 0 ? post.authorCollection.items : null"
-      :tags="post.keywords"
+      :tags="post.categoriesCollection && post.categoriesCollection.items"
+      :related-link="post.relatedLink"
     />
   </div>
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
-  import BlogPost from '../../components/blog/BlogPost';
+  import BlogPost from '@/components/blog/BlogPost';
 
   export default {
+    name: 'BlogPostPage',
+
     components: {
-      BlogPost
+      BlogPost,
+      ContentWarningModal: () => import('@/components/generic/ContentWarningModal')
+    },
+
+    beforeRouteLeave(to, from, next) {
+      this.$store.commit('breadcrumb/clearBreadcrumb');
+      next();
     },
 
     asyncData({ params, query, error, app, store, redirect }) {
@@ -69,17 +83,6 @@
       };
     },
 
-    computed: {
-      hero() {
-        return this.post.primaryImageOfPage || null;
-      },
-
-      ...mapGetters({
-        shareUrl: 'http/canonicalUrl',
-        identifier: 'http/canonicalUrlWithoutLocale'
-      })
-    },
-
     head() {
       return {
         title: this.$pageHeadTitle(this.post.name),
@@ -98,9 +101,10 @@
       };
     },
 
-    beforeRouteLeave(to, from, next) {
-      this.$store.commit('breadcrumb/clearBreadcrumb');
-      next();
+    computed: {
+      hero() {
+        return this.post.primaryImageOfPage || null;
+      }
     }
   };
 </script>

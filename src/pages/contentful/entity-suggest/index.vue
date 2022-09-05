@@ -17,7 +17,7 @@
           v-model="searchText"
           type="search"
           autocomplete="off"
-          placeholder="Search for topics"
+          placeholder="Search for topics, centuries, organisations, people and places"
           @input="inputSearchText"
         />
       </b-form-group>
@@ -38,6 +38,8 @@
 
 <script>
   export default {
+    name: 'ContentfulEntitySuggestPage',
+
     layout: 'contentful',
 
     data() {
@@ -46,6 +48,12 @@
         searchText: null,
         suggestions: [],
         contentfulExtensionSdk: null
+      };
+    },
+
+    head() {
+      return {
+        title: this.$pageHeadTitle('Entity suggest - Contentful app')
       };
     },
 
@@ -61,7 +69,7 @@
 
           const ids = sdk.field.getValue() || [];
           if (ids.length > 0) {
-            this.$apis.entity.findEntities(ids)
+            this.$apis.entity.find(ids)
               .then(entities => {
                 this.value = entities;
               });
@@ -75,11 +83,8 @@
         return this.value.map(val => val.id).includes(suggestion.id);
       },
 
-      inputSearchText(val) {
-        this.$apis.entity.getEntitySuggestions(val, { type: 'concept' })
-          .then(suggestions => {
-            this.suggestions = suggestions;
-          });
+      async inputSearchText(val) {
+        this.suggestions = await this.$apis.entity.suggest(val, { type: 'agent,concept,timespan,organization,place' });
       },
 
       removeSelection(remove) {
@@ -93,12 +98,6 @@
       updateContentfulField() {
         this.contentfulExtensionSdk?.field?.setValue(this.value.map(val => val.id));
       }
-    },
-
-    head() {
-      return {
-        title: this.$pageHeadTitle('Entity suggest - Contentful app')
-      };
     }
   };
 </script>

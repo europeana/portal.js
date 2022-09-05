@@ -35,12 +35,12 @@ describe('components/blog/BlogPost', () => {
   it('displays markdown data as HTML', () => {
     const wrapper = factory();
 
-    wrapper.find('[data-qa="blog-sections"]').html().should.contain('<p>Hello</p>');
+    expect(wrapper.find('[data-qa="blog-sections"]').html()).toContain('<p>Hello</p>');
   });
 
   it('removes the time from date string', () => {
     const wrapper = factory();
 
-    wrapper.find('[data-qa="date"]').html().should.contain('2019-10-03');
+    expect(wrapper.find('[data-qa="date"]').html()).toContain('2019-10-03');
   });
 });

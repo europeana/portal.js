@@ -2,7 +2,6 @@
   <div class="contentful">
     <b-form-group>
       <b-button
-        id="entityHarvest"
         class="mb-2"
         @click="harvestEntity"
       >
@@ -16,8 +15,8 @@
         style="margin-top: 0;
           padding-left: 1.25rem;"
       >
-        <li>http://data.europeana.eu/agent/base/59832</li>
-        <li>https://api.europeana.eu/entity/timespan/base/20</li>
+        <li>http://data.europeana.eu/agent/59832</li>
+        <li>https://api.europeana.eu/entity/timespan/20</li>
         <li>https://www.europeana.eu/en/collections/person/60404-johannes-vermeer</li>
         <li>https://portaljs-test.eanadev.org/collections/topic/190</li>
       </ul>
@@ -29,13 +28,19 @@
   import {
     isEntityUri,
     getEntityTypeHumanReadable,
-    getEntitySlug,
     entityParamsFromUri
   } from '@/plugins/europeana/entity';
-  import { langMapValueForLocale } from '@/plugins/europeana/utils';
+  import contentfulSidebarMixin from '@/mixins/contentful/sidebar';
+  import { langMapValueForLocale, getLabelledSlug } from '@/plugins/europeana/utils';
   import { BASE_URL } from '@/plugins/europeana/data';
 
   export default {
+    name: 'ContentfulEntityHarvesterPage',
+
+    mixins: [
+      contentfulSidebarMixin
+    ],
+
     layout: 'contentful',
 
     data() {
@@ -46,15 +51,14 @@
       };
     },
 
-    mounted() {
-      window.contentfulExtension.init(sdk => {
-        this.contentfulExtensionSdk = sdk;
-        if (sdk.location.is(window.contentfulExtension.locations.LOCATION_ENTRY_SIDEBAR)) {
-          sdk.window.startAutoResizer();
-
-          this.entry = sdk.entry;
+    head() {
+      return {
+        title: this.$pageHeadTitle('Entity harvester - Contentful app'),
+        bodyAttrs: {
+          class: '',
+          style: 'background: transparent;'
         }
-      });
+      };
     },
 
     methods: {
@@ -74,7 +78,7 @@
 
         let entityResponse;
         try {
-          entityResponse = await this.$apis.entity.getEntity(type, id);
+          entityResponse = await this.$apis.entity.get(type, id);
         } catch (error) {
           this.showError(`Unable to harvest: ${entityUrl} Please make sure the entity can be accessed on the entity API. ${error.message}`);
           return;
@@ -110,21 +114,13 @@
         throw new Error;
       },
 
-      showError(error) {
-        this.contentfulExtensionSdk.dialogs.openAlert({
-          title: 'Error',
-          message: error
-        });
-        this.message = 'Failed';
-      },
-
       // TODO: set up a configurable map for other fields to avoid hard-coding them here
       populateFields(response, id) {
         const enPrefLabel = langMapValueForLocale(response.prefLabel, 'en', { omitAllUris: true }).values[0];
         // set field values
         this.entry.fields.identifier.setValue(response.id); // data.europeana.eu URI
 
-        this.entry.fields.slug?.setValue(getEntitySlug(id, enPrefLabel)); // slug
+        this.entry.fields.slug?.setValue(getLabelledSlug(id, enPrefLabel)); // slug
 
         this.entry.fields.type?.setValue(getEntityTypeHumanReadable(response.type)); // entity type
 
@@ -153,6 +149,7 @@
           description = langMapValueForLocale(response.biographicalInformation, 'en').values[0];
           break;
         case 'Concept':
+        case 'Place':
           // use `note`
           // NB: language map with each value being an array of literals
           description = langMapValueForLocale(response.note, 'en').values[0];
@@ -165,23 +162,10 @@
         case 'Timespan':
           // TODO: use what? `${response.begin} to ${response.end}`?
           break;
-        case 'Place':
-          // TODO: use what? `${response.lat},${response.long}`?
-          break;
         }
 
         return description;
       }
-    },
-
-    head() {
-      return {
-        title: this.$pageHeadTitle('Entity harvester - Contentful app'),
-        bodyAttrs: {
-          class: '',
-          style: 'background: transparent;'
-        }
-      };
     }
   };
 </script>
@@ -191,6 +175,7 @@
     button {
       margin-right: 1rem;
     }
+
     font-size: 11px;
   }
 </style>

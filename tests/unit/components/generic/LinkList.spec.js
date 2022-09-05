@@ -24,26 +24,26 @@ describe('components/generic/LinkList', () => {
   it('contains a title', () => {
     const wrapper = factory();
     const linkListTitle = wrapper.find('[data-qa="link list title"]');
-    linkListTitle.text().should.contain('title text');
+    expect(linkListTitle.text()).toContain('title text');
   });
 
   it('contains elements for each link item', () => {
     const wrapper = factory();
     const linkList = wrapper.find('[data-qa="link list"]');
     const renderedList = linkList.findAll('.item');
-    renderedList.length.should.eq(2);
+    expect(renderedList.length).toBe(2);
   });
 
-  context('when an item contains a background image', () => {
+  describe('when an item contains a background image', () => {
     it('shows as background image of a link', () => {
       const wrapper = factory();
       const linkList = wrapper.find('[data-qa="link list"]');
       const linkWithBackground = linkList.findAll('[style^="background-image"]');
-      linkWithBackground.length.should.eq(1);
+      expect(linkWithBackground.length).toBe(1);
     });
   });
 
-  context('when an item has been delete or unpublished', () => {
+  describe('when an item has been delete or unpublished', () => {
     it('does not show this item as a link', () => {
       const wrapper = factory([
         { url: 'https://www.example.org',
@@ -55,7 +55,7 @@ describe('components/generic/LinkList', () => {
 
       const linkList = wrapper.find('[data-qa="link list"]');
       const renderedList = linkList.findAll('.item');
-      renderedList.length.should.eq(2);
+      expect(renderedList.length).toBe(2);
     });
   });
 });

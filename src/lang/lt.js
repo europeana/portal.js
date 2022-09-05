@@ -1,5 +1,7 @@
 export default {
   "account": {
+    "curatedCollections": "Kuruojamos kolekcijos",
+    "curatedCollectionsInfo": "Žemiau rasite visas jūsų kuruotas kolekcijas",
     "editProfile": "Redaguoti profilį",
     "likes": "Patinka",
     "linkAccount": "Mano paskyra",
@@ -11,6 +13,7 @@ export default {
       "loggedIn": "Dabar esate prisijungę. Sveiki!",
       "loggedOut": "Dabar esate prisijungę.",
       "noCollections": {
+        "curated": "Dar ne kuravote jokių rinkinių",
         "private": "Kol kas nesukūrėte jokių privačių galerijų",
         "public": "Kol kas nesukūrėte jokių viešų galerijų"
       },
@@ -24,15 +27,25 @@ export default {
     "title": "Mano paskyra"
   },
   "actions": {
+    "accept": "Priimti",
     "cancel": "Atšaukti",
     "close": "uždaryti",
+    "continue": "tęsti",
     "download": "Parsisiųsti",
     "edit": "Redaguoti",
     "feedback": "Atsiliepimas",
     "goBack": "Grįžti",
+    "goHome": "Eikite į pagrindinį puslapį",
+    "learnMore": "Sužinokite daugiau",
     "like": "Patinka",
+    "move": "Perkelti",
     "next": "Kitas",
+    "pin": "Kaištis",
+    "preview": "Peržiūra",
+    "previous": "Ankstesnis",
     "providedBy": "Tiekėjas {provider}",
+    "reject": "Atmesti",
+    "save": "Išsaugoti",
     "send": "Siųsti",
     "share": "Dalintis",
     "shareOn": "Dalintis {social}",
@@ -49,6 +62,8 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Naujausi prekių",
+    "organisation": "Organizacijos",
+    "place": "Vietos",
     "time": "Rekomenduojami šimtmečiai",
     "topic": "Rekomenduojamos temos"
   },
@@ -64,7 +79,10 @@ export default {
     "relatedPosts": "Susiję įrašai"
   },
   "cardLabels": {
+    "organisation": "Organizacija",
     "person": "Asmuo",
+    "place": "Vieta",
+    "theme": "Tema",
     "time": "Amžius",
     "topic": "Tema"
   },
@@ -77,16 +95,24 @@ export default {
     "fashion": {
       "facets": {
         "CREATOR": {
-          "name": "Projektuotojas | Projektuotojai"
+          "moreName": "dizaineriai",
+          "name": "Projektuotojas | Projektuotojai",
+          "select": "Pasirinkite dizainerius"
         },
         "proxy_dc_format": {
-          "name": "Technika | Technikos"
+          "moreName": "technikos",
+          "name": "Technika | Technikos",
+          "select": "Pasirinkite technikos"
         },
         "proxy_dc_type": {
-          "name": "Elemento tipas | Elementų tipai"
+          "moreName": "elementų tipai",
+          "name": "Elemento tipas | Elementų tipai",
+          "select": "Pasirinkite elementų tipus"
         },
         "proxy_dcterms_medium": {
-          "name": "Medžiaga | Medžiagos"
+          "moreName": "medžiagos",
+          "name": "Medžiaga | Medžiagos",
+          "select": "Pasirinkite medžiagas"
         }
       }
     },
@@ -117,11 +143,6 @@ export default {
       "teachers": "Mokytojams"
     }
   },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Sutikti su atsakomybės apribojimu dėl slapukų",
-    "link": "Daugiau informacijos",
-    "terms": "Siekiant užtikrinti geriausią naršymo patirtį, šiame tinklalapyje naudojami slapukai. Paspausdami ar naršydami šį tinklalapį sutinkate leisti mums rinkti informaciją slapukų pagalba."
-  },
   "curatedAutomatically": "Automatiškai kuruoja „Europeana“.",
   "dateFilter": {
     "endDate": "Pabaigos data",
@@ -130,8 +151,27 @@ export default {
     "to": "į"
   },
   "debug": {
-    "apiRequests": "API užklausos",
-    "debug": "Derinimo"
+    "apiRequests": {
+      "apiKeyLinkText": "Europeana API raktas",
+      "noRequests": "Šiame puslapyje nebuvo panaudotos užklausos dėl Europeana API.",
+      "settingsPageLinkText": "nustatymų puslapį",
+      "tip": "Patarimas: jei jau turite {apiKeyLink} , galite įvesti jį {settingsPageLink} ir jis bus įtrauktas į šias API užklausų nuorodas.",
+      "title": "API užklausos"
+    },
+    "debug": "Derinimo",
+    "settings": {
+      "form": {
+        "apiKey": {
+          "description": "Įveskite savo Europeana API raktą ir jis bus naudojamas API užklausų nuorodose.",
+          "label": "API raktas"
+        },
+        "enabled": {
+          "description": "Jei įjungta, derinimo meniu bus rodomas puslapio poraštėje.",
+          "label": "Įgalinti derinimo meniu"
+        }
+      },
+      "title": "Nustatymai"
+    }
   },
   "delete": "Ištrinti",
   "depiction": "{title} vaizdavimas",
@@ -142,13 +182,28 @@ export default {
   "edmIsShownAtLinkAlt": "Peržiūrėti teikėjo svetainę",
   "entity": {
     "actions": {
-      "cancel": "Atšaukti"
+      "cancel": "Atšaukti",
+      "pin": "Prisegti elementą",
+      "unpin": "Atsegti elementą",
+      "viewPinned": "Peržiūrėkite prisegtus elementus"
     },
     "labels": {
       "entity": "Subjektas"
     },
     "notifications": {
-      "deleted": "Jūsų galerija panaikinta."
+      "deleted": "Jūsų galerija panaikinta.",
+      "error": {
+        "unpin": "Atsegant elementą įvyko klaida. Bandykite dar kartą arba praneškite apie problemą."
+      },
+      "pin": "Šis elementas bus rodomas kolekcijos „ {entity} “ viršuje. Informuosime jus, kai šis pakeitimas bus matomas kolekcijos puslapyje.",
+      "pinLimit": {
+        "body": "Kol kas pirmajame puslapyje galite prisegti tik 24 elementus. Jei norite prisegti šį elementą, būtinai atsisekite kitą elementą ir tada vėl bandykite prisegti šį.",
+        "title": "Per daug prisegtų elementų"
+      },
+      "pinned": "Elementas prisegtas. Dabar jis yra pirmojo šios kolekcijos puslapio viršuje. Gali užtrukti iki 24 valandų, kol visi pasirodys.",
+      "select": "Pasirinkite susijusį objektą, kurį norite prisegti / atsegti elementą prie jo / nuo jo.",
+      "unpin": "Šis elementas nebebus rodomas kolekcijos „ {entity} “ viršuje. Informuosime jus, kai šis pakeitimas bus matomas kolekcijos puslapyje.",
+      "unpinned": "Elementas buvo atsegtas. Jo nebėra šio rinkinio pirmojo puslapio viršuje. Gali prireikti iki 24 valandų, kol jis išnyks visiems."
     }
   },
   "error": "Klaida",
@@ -159,8 +214,10 @@ export default {
     "description": "Tyrinėti mūsų parodas",
     "exhibitions": "Parodos"
   },
+  "explore": "Naršyti",
   "facets": {
     "COLOURPALETTE": {
+      "moreName": "spalvos",
       "name": "Spalva | Spalvos",
       "options": {
         "#000000": "Juoda",
@@ -307,23 +364,78 @@ export default {
         "#FFFFE0": "Šviesiai geltona",
         "#FFFFF0": "Dramblio kaulas",
         "#FFFFFF": "Balta"
-      }
+      },
+      "select": "Pasirinkite spalvas"
     },
     "COUNTRY": {
-      "name": "Teikianti šalis"
+      "name": "Teikianti šalis",
+      "options": {
+        "Albania": "Albanija",
+        "Austria": "Austrija",
+        "Belarus": "Baltarusija",
+        "Belgium": "Belgija",
+        "Bosnia and Herzegovina": "Bosnija ir Hercegovina",
+        "Bulgaria": "Bulgarija",
+        "Croatia": "Kroatija",
+        "Cyprus": "Kipras",
+        "Czech Republic": "Čekijos Respublika",
+        "Denmark": "Danija",
+        "Estonia": "Estija",
+        "Europe": "Europa",
+        "Finland": "Suomija",
+        "France": "Prancūzija",
+        "Georgia": "Gruzija",
+        "Germany": "Vokietija",
+        "Greece": "Graikija",
+        "Holy See (Vatican City State)": "Šventasis Sostas (Vatikano Miesto Valstybė)",
+        "Hungary": "Vengrija",
+        "Iceland": "Islandija",
+        "Ireland": "Airija",
+        "Israel": "Izraelis",
+        "Italy": "Italija",
+        "Latvia": "Latvija",
+        "Lithuania": "Lietuva",
+        "Luxembourg": "Liuksemburgas",
+        "Macedonia": "Makedonija",
+        "Malta": "Malta",
+        "Moldova": "Moldova",
+        "Montenegro": "Juodkalnija",
+        "Netherlands": "Nyderlandai",
+        "Norway": "Norvegija",
+        "Poland": "Lenkija",
+        "Portugal": "Portugalija",
+        "Romania": "Rumunija",
+        "Russia": "Rusija",
+        "Serbia": "Serbija",
+        "Slovakia": "Slovakija",
+        "Slovenia": "Slovėnija",
+        "Spain": "Ispanija",
+        "Sweden": "Švedija",
+        "Switzerland": "Šveicarija",
+        "Turkey": "Turkija",
+        "Ukraine": "Ukraina",
+        "United Kingdom": "Jungtinė Karalystė",
+        "United States of America": "Jungtinės Amerikos Valstijos"
+      },
+      "select": "Pasirinkite teikiančias šalis"
     },
     "CREATOR": {
-      "name": "Autorius | Autoriai"
+      "moreName": "kūrėjai",
+      "name": "Autorius | Autoriai",
+      "select": "Pasirinkite kūrėjus"
     },
     "DATA_PROVIDER": {
-      "name": "Institucija"
+      "moreName": "institucijose",
+      "name": "Institucija",
+      "select": "Pasirinkite institucijas"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Vaizdo orientacija | Vaizdo orientacijos",
       "options": {
         "landscape": "Gulsčias",
         "portrait": "Statmenas"
-      }
+      },
+      "select": "Pasirinkite vaizdo orientaciją"
     },
     "IMAGE_SIZE": {
       "name": "Vaizdo dydis | Vaizdo dydžiai",
@@ -332,19 +444,65 @@ export default {
         "large": "Didelis 1–4 MP (pvz., 1920 x 1080 pikselių)",
         "medium": "Vidutinis 0,5–1 MP (pvz., 850 x 850 pikselių)",
         "small": "Mažas < 0,5 MP (pvz., 650 x 600 pikselių)"
-      }
+      },
+      "select": "Pasirinkite vaizdo dydžius"
     },
     "LANGUAGE": {
-      "name": "Kalba"
+      "name": "Kalba",
+      "options": {
+        "ar": "Arabų",
+        "bg": "Bulgarų",
+        "bs": "Bosnių",
+        "ca": "Katalonų",
+        "cs": "Čekų",
+        "cy": "Valų",
+        "da": "Danų",
+        "de": "Vokiečių",
+        "el": "Graikų",
+        "en": "Anglų",
+        "es": "Ispanų",
+        "et": "Estų",
+        "fi": "Suomių",
+        "fr": "Prancūzų",
+        "ga": "Airių",
+        "gd": "Gėlų",
+        "he": "Hebrajų",
+        "hr": "Kroatų",
+        "hu": "Vengrų",
+        "is": "Islandų",
+        "it": "Italų",
+        "lt": "Lietuvių",
+        "lv": "Latvių",
+        "mk": "Makedonų",
+        "mt": "Maltiečių",
+        "mul": "Kelios kalbos",
+        "nl": "Olandų",
+        "no": "Norvegų",
+        "pl": "Lenkų",
+        "pt": "Portugalų",
+        "ro": "Rumunų",
+        "ru": "Rusų",
+        "sk": "Slovakų",
+        "sl": "Slovėnų",
+        "sq": "Albanų",
+        "sr": "Serbų",
+        "sv": "Švedų",
+        "tr": "Turkų",
+        "uk": "Ukrainiečių"
+      },
+      "select": "Pasirinkite kalbas"
     },
     "MIME_TYPE": {
       "name": "Failo formatas | Failų formatai",
       "options": {
         "text/plain": "Paprastas tekstas"
-      }
+      },
+      "select": "Pasirinkite failų formatus"
     },
     "PROVIDER": {
-      "name": "Kaupykla"
+      "moreName": "agregatoriai",
+      "name": "Kaupykla",
+      "select": "Pasirinkite agregatorius"
     },
     "REUSABILITY": {
       "name": "Ar galiu tai pakartotinai naudoti?",
@@ -353,7 +511,8 @@ export default {
         "permission": "Galbūt, kreipkitės leidimo",
         "restricted": "Taip, su sąlygomis",
         "uncategorized": "Neklasifikuota"
-      }
+      },
+      "select": "Pasirinkite, ar galite tai naudoti"
     },
     "TYPE": {
       "name": "Medijos tipas",
@@ -363,14 +522,17 @@ export default {
         "SOUND": "Garsas",
         "TEXT": "Tekstas",
         "VIDEO": "Vaizdo įrašas"
-      }
+      },
+      "select": "Pasirinkite laikmenos tipus"
     },
     "api": {
       "name": "Ieškoti",
       "options": {
         "fulltext": "Įrašai su visu tekstu",
         "metadata": "Tik metaduomenų įrašai"
-      }
+      },
+      "switch": "Ieškoti tik pilno teksto elementų turinyje",
+      "switchMoreInfo": "Šioje kolekcijoje galite pasirinkti, ko norite ieškoti: jei šis jungiklis įjungtas, tada ieškosite laikraščio ir dokumento tekste; jei jis išjungtas, tada ieškosite informacijos, apibūdinančios elementą, kaip ir daugumoje kitų kolekcijų."
     },
     "button": {
       "apply": "Taikyti",
@@ -381,7 +543,7 @@ export default {
       "showLess": "Rodyti mažiau {label}"
     },
     "collection": {
-      "name": "Kategorija",
+      "name": "Tema",
       "options": {
         "archaeology": "Archeologija",
         "art": "Menas",
@@ -395,28 +557,37 @@ export default {
         "newspaper": "Laikraščiai",
         "photography": "Fotografija",
         "sport": "Sportas",
-        "ww1": "1914-1918"
-      }
+        "ww1": "Pirmasis pasaulinis karas"
+      },
+      "select": "Pasirinkite temą"
     },
     "contentTier": {
-      "name": "Rodomi elementai, neatitinkantys mūsų paskelbimo kriterijų.",
-      "notification": "Yra prekių, kurios neatitinka mūsų skelbiamų prekių kriterijų. Šias prekes rasite aktyvavę filtrą „Prekių kokybė“, esantį skiltyje „Daugiau filtrų“.",
+      "name": "Prekės kokybė",
       "options": {
         "*": "Rodomi elementai, neatitinkantys mūsų paskelbimo kriterijų.",
-        "0": "Tik elementai, neatitinkantys mūsų paskelbimo kriterijų"
-      }
+        "0": "Tik elementai, neatitinkantys mūsų paskelbimo kriterijų",
+        "1": "Žema kokybė",
+        "2": "Vidutinė kokybė",
+        "3": "Aukštos kokybės ir daugkartinio naudojimo sąlygos",
+        "4": "Aukštos kokybės ir laisvai daugkartinio naudojimo"
+      },
+      "select": "Pasirinkite elemento savybes"
     },
+    "moreOptions": "Leškoti, kad rastumėte {0} daugiau {1}.",
     "proxy_dc_format": {
-      "name": "Formatas | Formatai"
+      "name": "Formatas | Formatai",
+      "select": "Pasirinkite formatus"
     },
     "proxy_dc_type": {
-      "name": "Tipas | Tipai"
+      "name": "Tipas | Tipai",
+      "select": "Pasirinkite tipus"
     },
     "proxy_dcterms_issued": {
       "name": "Išleidimo data"
     },
     "proxy_dcterms_medium": {
-      "name": "Laikmenos | Laikmena"
+      "name": "Laikmenos | Laikmena",
+      "select": "Pasirinkite laikmeną"
     }
   },
   "feedback": {
@@ -434,7 +605,8 @@ export default {
     "termsOfService": "Paslaugų teikimo sąlygos",
     "thankYou": "Ačiū!",
     "title": "Siųsti atsiliepimą",
-    "validEmail": "Įveskite galiojantį el. Pašto adresą"
+    "validEmail": "Įveskite galiojantį el. Pašto adresą",
+    "validFeedback": "Jūsų atsiliepimą turi sudaryti mažiausiai 5 žodžiai"
   },
   "fieldLabels": {
     "default": {
@@ -447,7 +619,6 @@ export default {
       "dcFormat": "Formatas",
       "dcIdentifier": "Identifikatorius",
       "dcLanguage": "Kalba",
-      "dcMedium": "Medija",
       "dcPublisher": "Leidėjas",
       "dcRelation": "Santykiai",
       "dcRights": "Teisės",
@@ -467,9 +638,9 @@ export default {
       "dctermsIssued": "Išleidimo data",
       "dctermsMedium": "Medija",
       "dctermsProvenance": "Kilmė",
-      "dctermsPublished": "Paskelbimo data",
       "dctermsReferences": "Nurodo",
       "dctermsSpatial": "Vietos",
+      "dctermsTOC": "Turinio lentelė",
       "dctermsTemporal": "Laiko",
       "edmCountry": "Teikianti šalis",
       "edmCurrentLocation": "Dabartinė vieta",
@@ -478,6 +649,7 @@ export default {
       "edmIncorporates": "Įtraukia",
       "edmIntermediateProvider": "Tarpinis teikėjas",
       "edmIsDerivativeOf": "Yra išvestinė iš",
+      "edmIsRelatedTo": "Yra susijęs su",
       "edmIsRepresentationOf": "Ar atstovavimas",
       "edmIsSimilarTo": "Yra panašus į",
       "edmIsSuccessorOf": "Yra įpėdinis",
@@ -489,7 +661,8 @@ export default {
       "keywords": "Raktiniai žodžiai (pateikia bendruomenė)",
       "timestampCreated": "Sukurtas laiko žyma",
       "timestampUpdate": "Laiko žyma atnaujinta",
-      "wasPresentAt": "Dalyvavo"
+      "wasPresentAt": "Dalyvavo",
+      "year": "Metai"
     },
     "webResource": {
       "about": "RDF Apie",
@@ -499,12 +672,14 @@ export default {
       "rdfAbout": "RDF Apie"
     }
   },
+  "filter": "Filtras",
+  "filterResults": "Filtruoti rezultatus",
   "footer": {
     "customiseWebsiteLanguage": "Pasirinkti tinklalapio kalbą",
     "disclaimerLine1": "\"Europeana\" yra Europos Sąjungos iniciatyva, finansuojama Europos Sąjungos Europos Connecting Europe Facility ir Europos Sąjungos valstybių narių lėšomis. Europeanos paslaugas, įskaitant šią svetainę, teikia konsorciumas, kuriam vadovauja Europeana Foundation, pagal paslaugų teikimo sutartį su Europos Komisija.",
     "disclaimerLine2": "Europos Komisija negarantuoja informacijos tikslumo ir neprisiima jokios atsakomybės ar atsakomybės už šioje svetainėje pateiktą informaciją. Nei Europos Komisija, nei joks asmuo, veikiantis Europos Komisijos vardu, nėra atsakingas už šioje svetainėje esančios informacijos tikslumą ar naudojimą.",
     "findUsElsewhere": "Raskite mus kitur",
-    "imageDescription": "Bendrai finansuojama pagal Europos Sąjungos Europos infrastruktūros tinklų priemonę",
+    "imageDescription": "Finansuoja Europos Sąjunga",
     "navigation": {
       "MoreInfoLabel": "Daugiau informacijos",
       "about": "Apie mus",
@@ -522,7 +697,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label} : {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -543,32 +717,51 @@ export default {
       "europeanaClassroom": "Mokytojams",
       "help": "Pagalba",
       "home": "Namai",
+      "pro": "Profesionalams",
       "stories": "Istorijos"
     },
+    "quickSearch": "Greita paieška",
     "searchFor": "Ieškoti {query}",
     "searchForEverything": "Ieškoti visko",
     "searchForEverythingInCollection": "Ieškoti visko {collection}",
     "searchForEverythingInEntireCollection": "Ieškoti visko visoje kolekcijoje",
-    "showSidebar": "Rodyti meniu"
+    "searchForm": "Paieškos forma",
+    "showSidebar": "Rodyti meniu",
+    "sideNavigation": "Šoninė navigacija"
   },
   "homeLinkAlt": "„Europeana“ pagrindinis puslapis",
+  "homePage": {
+    "discoverEditorial": "Naujausios istorijos",
+    "storiesCTA": "Žiūrėti visas istorijas",
+    "subHeadline": "Ieškokite, išsaugokite ir bendrinkite meną, knygas, filmus ir muziką iš tūkstančiųkultūrosįstaigų",
+    "themesCTA": "Žiūrėti visas temas",
+    "themesTitle": "Naršykite pagal temą",
+    "title": "Pažinkite Europos {digital} kultūros paveldą",
+    "titleDigital": "Skaitmeninis"
+  },
   "imageSlider": {
     "handle": "Slinkiklio rankena"
   },
   "items": {
     "itemCount": "1 prekė iš |{count} prekių",
     "itemOf": "{max} iš {count} prekių",
+    "recent": "Naujausi elementai",
+    "recommended": "Rekomenduojami daiktai",
     "youMightLike": "Prekės, kurios jums gali patikti"
   },
   "klaro": {
     "main": {
+      "acceptAll": "Priimti visus",
+      "acceptSelected": "Priimti pasirinktą",
       "consentModal": {
         "description": "Mes rimtai žiūrime į jūsų duomenų privatumą. Čia galite įvertinti ir pritaikyti paslaugas, kurias norėtume naudoti šioje svetainėje. Jūs esate atsakingas! Įjunkite arba išjunkite paslaugas, kaip jums atrodo tinkama.",
         "title": "Paslaugos, kuriomis norėtume naudotis."
       },
       "consentNotice": {
-        "description": "Mes rūpinamės jūsų privatumu ir naudojame duomenis tik tam, kad pagerintume jūsų patirtį. Reklamai nenaudojame jokios asmeninės informacijos. Savo sutikimą galite pakeisti kas 15 dienų."
+        "description": "Mes rūpinamės jūsų privatumu ir naudojame duomenis tik tam, kad pagerintume jūsų patirtį. Reklamai nenaudojame jokios asmeninės informacijos. Savo sutikimą galite pakeisti kas 15 dienų.",
+        "learnMore": "Leisk man pasirinkti"
       },
+      "decline": "Aš atsisakau",
       "ok": "Gerai",
       "purposes": {
         "essential": {
@@ -588,11 +781,16 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Padeda tobulinti mūsų svetainę, retkarčiais pritaikant eksperimentinius pakeitimus.",
+        "title": "A/B testavimas"
+      },
       "auth-strategy": {
         "description": "Prisimena autorizacijos strategiją, kurią reikia naudoti prisijungiant.",
         "title": "Auth strategija"
       },
       "debugSettings": {
+        "description": "Padeda derinti API užklausas",
         "title": "Derinti perjungti"
       },
       "hotjar": {
@@ -611,6 +809,10 @@ export default {
         "description": "Renka anoniminę statistiką apie tai, kaip lankytojai sąveikauja su svetaine.",
         "title": "Matomo"
       },
+      "newFeatureNotification": {
+        "description": "Rodomas pranešimas, kai atsiranda naujų funkcijų.",
+        "title": "Pranešimas apie naują funkciją"
+      },
       "searchResultsView": {
         "description": "Prisimena, ar norite paieškos rezultatus matyti sąrašo ar tinklelio rodinyje.",
         "title": "Paieškos rezultatų rodinys (sąrašas / tinklelis)"
@@ -621,41 +823,66 @@ export default {
     "skipToMain": "Pereiti į puslapio turinį"
   },
   "learnMore": "Sužinokite apie šio aprašymo šaltinį",
-  "linksToClassic": {
-    "home": {
-      "linkText": "Eiti į originalų „Europeana“.",
-      "text": "Jūs žiūrite naująjį „Europeana“."
-    },
-    "record": {
-      "linkText": "Peržiūrėti šį elementą originaliame „Europeana“.",
-      "text": "Jūs žiūrite šį elementą originaliame „Europeana“ tinklalapyje."
-    },
-    "search": {
-      "linkText": "Peržiūrėkite šiuos paieškos rezultatus originaliame „Europeana“ tinklalapyje.",
-      "text": "Jūs ieškote mūsų naujajame ir greitesniajame tinklalapyje."
-    }
-  },
+  "loading": "Įkeliama",
   "loadingResults": "Įkeliami rezultatai",
-  "mediaPreview": {
-    "selectItem": "Pasirinkite elementą {src}"
-  },
   "messages": {
     "copyToClipboardSuccess": "Nukopijuota į mainų sritį",
     "externalContentError": "Nepavyko įkelti išorinio turinio",
     "notFound": "Nerasta",
     "paginationLimitExceeded": "Galima peržiūrėti tik pirmuosius {limit} paieškos rezultatus."
   },
+  "modal": {
+    "download": {
+      "clickToCopy": "Spustelėkite priskyrimą, kad jį nukopijuotumėte",
+      "modalIntro": "Jei šį elementą naudojate žiniatinklyje ar kitur, nepamirškite šalia jo rodyti šio priskyrimo:",
+      "modalTitle": "Pasakykite ačiū"
+    }
+  },
   "multilingual": {
-    "original": "Originalūs metaduomenys",
-    "originalLanguage": "originalo kalba",
-    "other": "Kitos kalbos"
+    "automated": "Automatinis vertimas",
+    "enrichment": "Praturtinimas partnerių projektais",
+    "other": "Kitos kalbos",
+    "stopTranslating": "Nustokite versti šį elementą į {0}.",
+    "translateLanguage": "Ar norėtumėte pamatyti šį elementą {0} ?",
+    "translateQuotaError": "Vertimo paslauga laikinai nepasiekiama. Pabandykite dar kartą vėliau."
+  },
+  "newFeatureNotification": {
+    "dismiss": "Uždaryti",
+    "readMore": "Skaityti daugiau",
+    "text": {
+      "searchFilters": "Dabar galite ieškoti reikšmių atskiruose filtruose; patikrinkite!"
+    }
   },
   "newWindow": "atsidaro naujame lange",
   "noMoreResults": "Daugiau nėra rezultatų pagal jūsų paieškos užklausą.",
   "noResults": "Rezultatų nėra",
+  "of": "Iš",
+  "organisation": {
+    "city": "Miestas",
+    "country": "Šalis",
+    "englishName": "Angliškas pavadinimas",
+    "nameAcronym": "Pavadinimo akronimas"
+  },
   "pageHasLoaded": "įkelta",
+  "pageNumber": "Puslapio numeris",
   "pages": {
     "collections": {
+      "organisations": {
+        "table": {
+          "name": "Vardas"
+        },
+        "title": "Organizacijos"
+      },
+      "persons": {
+        "title": "Asmenys"
+      },
+      "places": {
+        "title": "Vietos"
+      },
+      "table": {
+        "items": "Elementus",
+        "name": "Vardas"
+      },
       "times": {
         "title": "Laikai"
       },
@@ -664,12 +891,23 @@ export default {
       }
     }
   },
+  "pagination": {
+    "label": "Numeracija"
+  },
   "readMore": "Skaityti daugiau",
+  "recommendation": {
+    "prompts": {
+      "accept": "Nykščiu aukštyn, kad pridėtumėte į galeriją",
+      "reject": "Nykščiu žemyn, jei nepatinka"
+    }
+  },
   "record": {
     "IIIFViewer": "IIIF žiūrovas",
+    "actions": {
+      "pin": "Prisekite elementą prie galimų objektų"
+    },
     "allMetaData": "Visi metaduomenys",
     "copyEmbedLabel": "Įterpti kodą (spustelėkite, jei norite kopijuoti)",
-    "downloadCopyrightInfo": "Šis elementas apsaugos autorių teisėmis, jo negalima atsisiųsti.",
     "exploreMore": "Sužinokite daugiau",
     "extendedInformation": "Išplėstinė informacija",
     "goodToKnow": "Naudinga žinoti",
@@ -680,12 +918,15 @@ export default {
     "record": "Įrašas",
     "showAll": "Rodyti visą informaciją",
     "similarItems": "Panašūs elementai",
+    "status": {
+      "unpublished": "[Nepaskelbtas elementas]"
+    },
     "transcription": "Transkripcija",
-    "transcriptionDisclaimer": "Šį turinį patalpino visuomenės narys, o ne prekę pateikusi įstaiga.",
-    "view": {
-      "image": "Peržiūrėti vaizdą",
-      "media": "Peržiūrėti laikmeną",
-      "pdf": "Peržiūrėti PDF"
+    "transcriptionDisclaimer": "Šį turinį patalpino visuomenės narys, o ne prekę pateikusi įstaiga."
+  },
+  "related": {
+    "editorial": {
+      "title": "Istorijos, kurios jums gali patikti"
     }
   },
   "relatedCollections": "Susiję rinkiniai",
@@ -693,12 +934,19 @@ export default {
   "reset": "Atstatyti",
   "resourceWikimedia": "Šaltinis iš „Wikimedia Commons“",
   "results": "Rezultatai",
+  "resultsFor": "Rezultatai pagal užklausą {0}",
   "resultsLimitWarning": "Papildomi rezultatai nerodomi, nes parodomi tik pirmieji 1000 tinkamiausių rezultatų. Jei neradote to, ko ieškote, apsvarstykite galimybę patikslinti paiešką.",
-  "search": "Paieška",
-  "searchPlaceholder": "Ko jūs ieškote?",
+  "resultsWithin": "Rezultatai pagal {0} {1} už {2}",
+  "search": {
+    "boost": {
+      "placeholder": "Įveskite lauko didinimo užklausą"
+    },
+    "title": "Paieška"
+  },
+  "searchHasLoaded": "{0} grąžinti rezultatai",
+  "searchPlaceholder": "Paieška 50+ milijonų elementų",
   "searchResults": "Paieška",
   "searchResultsFor": "{0} - Ieškoti",
-  "searchResultsForIn": "{0} - Ieškoti {1}",
   "searchSuggestions": "Paieškos pasiūlymai",
   "searchTier": {
     "button": {
@@ -712,7 +960,8 @@ export default {
   },
   "searchViews": {
     "grid": "Tinklelio rodinys",
-    "list": "Sąrašo rodinys"
+    "list": "Sąrašo rodinys",
+    "mosaic": "Mozaikos vaizdas"
   },
   "set": {
     "actions": {
@@ -738,12 +987,26 @@ export default {
       "likeLimit": {
         "body": "Atsiprašome, tačiau šiuo metu negalite turėti daugiau nei 100 patikusių prekių. Greitai šį apribojimą panaikinsime!",
         "title": "100 patinka"
-      }
+      },
+      "updated": "Elementas buvo įtrauktas į galeriją."
     },
     "prompts": {
       "delete": "Ar tikrai norite naikinti šią galeriją? Jei ją panaikinsite, prarasite visas į ją įtrauktas prekes."
     }
   },
   "showLess": "Rodyti mažiau",
-  "showMore": "Rodyti daugiau"
+  "showMore": "Rodyti daugiau",
+  "sideFilters": {
+    "noOptions": "Nėra parinkčių, kurias būtų galima pasirinkti",
+    "search": "Paieška"
+  },
+  "statuses": {
+    "liked": "Patiko",
+    "pinned": "Prisegtas"
+  },
+  "storiesPage": {
+    "title": "Istorijos"
+  },
+  "website": "Interneto svetainė",
+  "youMightAlsoLike": "Jums taip pat gali patikti"
 };

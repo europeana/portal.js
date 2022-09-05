@@ -30,14 +30,22 @@ export default {
     "accept": "Acceptere",
     "cancel": "Annuller",
     "close": "luk",
+    "continue": "fortsæt",
     "download": "Hent",
     "edit": "Rediger",
     "feedback": "Feedback",
     "goBack": "Tilbage",
+    "goHome": "Gå til hjemmesiden",
+    "learnMore": "Lær mere",
     "like": "Synes om",
+    "move": "Bevæge sig",
     "next": "Næste",
+    "pin": "Pin",
+    "preview": "Forhåndsvisning",
+    "previous": "Forrige",
     "providedBy": "Leveret af {provider}",
     "reject": "Afvise",
+    "save": "Gem",
     "send": "Sende",
     "share": "Del",
     "shareOn": "Del på {social}",
@@ -54,6 +62,8 @@ export default {
   },
   "automatedCardGroup": {
     "item": "Seneste varer",
+    "organisation": "Organisationer",
+    "place": "Steder",
     "time": "Udvalgte århundreder",
     "topic": "Udvalgte emner"
   },
@@ -71,6 +81,8 @@ export default {
   "cardLabels": {
     "organisation": "Organisation",
     "person": "Person",
+    "place": "Sted",
+    "theme": "Tema",
     "time": "Århundrede",
     "topic": "Emne"
   },
@@ -83,16 +95,24 @@ export default {
     "fashion": {
       "facets": {
         "CREATOR": {
-          "name": "Designer | Designere"
+          "moreName": "designere",
+          "name": "Designer | Designere",
+          "select": "Vælg designere"
         },
         "proxy_dc_format": {
-          "name": "Teknik | Teknikker"
+          "moreName": "teknikker",
+          "name": "Teknik | Teknikker",
+          "select": "Vælg teknikker"
         },
         "proxy_dc_type": {
-          "name": "Artikeltype | Artikeltyper"
+          "moreName": "varetyper",
+          "name": "Artikeltype | Artikeltyper",
+          "select": "Vælg varetyper"
         },
         "proxy_dcterms_medium": {
-          "name": "Materiale | Materialer"
+          "moreName": "materialer",
+          "name": "Materiale | Materialer",
+          "select": "Vælg materialer"
         }
       }
     },
@@ -123,11 +143,6 @@ export default {
       "teachers": "Lærere"
     }
   },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Accepter ansvarsfraskrivelse for cookies",
-    "link": "Mere information",
-    "terms": "Denne hjemmeside bruger cookies for at sikre, at du får den bedste oplevelse på vores hjemmeside. Ved at klikke eller navigere på siden accepterer du at tillade vores indsamling af information via cookies."
-  },
   "curatedAutomatically": "Kurateret automatisk af Europeana",
   "dateFilter": {
     "endDate": "Slutdato",
@@ -136,8 +151,27 @@ export default {
     "to": "til"
   },
   "debug": {
-    "apiRequests": "API-anmodninger",
-    "debug": "Debug"
+    "apiRequests": {
+      "apiKeyLinkText": "Europeana API nøgle",
+      "noRequests": "Der blev ikke brugt nogen anmodninger til Europeana API'er på denne side.",
+      "settingsPageLinkText": "indstillinger side",
+      "tip": "Tip: Hvis du allerede har en {apiKeyLink}, kan du indtaste den på {settingsPageLink} og den vil blive inkluderet i disse API-anmodningslinks.",
+      "title": "API-anmodninger"
+    },
+    "debug": "Debug",
+    "settings": {
+      "form": {
+        "apiKey": {
+          "description": "Indtast din Europeana API-nøgle, og den vil blive brugt i links til API-anmodninger.",
+          "label": "API nøgle"
+        },
+        "enabled": {
+          "description": "Hvis den er aktiveret, vil fejlretningsmenuen blive vist i sidefoden.",
+          "label": "Aktiver fejlretningsmenu"
+        }
+      },
+      "title": "Indstillinger"
+    }
   },
   "delete": "Slet",
   "depiction": "En skildring af {title}",
@@ -158,18 +192,18 @@ export default {
     },
     "notifications": {
       "deleted": "Dit galleri er blevet slettet.",
+      "error": {
+        "unpin": "Der opstod en fejl under frigørelse af elementet. Prøv venligst igen, eller rapporter problemet."
+      },
+      "pin": "Dette element vises øverst i samlingen \" {entity} \". Vi giver dig besked, når denne ændring vil være synlig på indsamlingssiden.",
       "pinLimit": {
         "body": "Indtil videre kan du kun fastgøre 24 elementer på den første side. Hvis du vil fastgøre dette emne, skal du fjerne et andet emne og derefter prøve at fastgøre dette emne igen.",
         "title": "For mange fastgjorte emner"
       },
       "pinned": "Elementet er blevet fastgjort. Det er nu øverst på den første side i denne samling. Det kan tage op til 24 timer at vises for alle.",
-      "pinnedFirstPage": "Elementet er blevet fastgjort. Det kan tage op til 24 timer at vises for alle.",
-      "unpinned": "Elementet er blevet fastgjort. Det er ikke længere øverst på den første side i denne samling. Det kan tage op til 24 timer at forsvinde for alle.",
-      "unpinnedFirstPage": "Elementet er blevet frigjort. Det kan tage op til 24 timer at forsvinde for alle."
-    },
-    "prompts": {
-      "pin": "Er du sikker på, at du vil fastgøre denne vare? Dette element vises øverst i {entity} \". Det kan tage op til 24 timer, før denne ændring træder i kraft.",
-      "unpin": "Er du sikker på, at du vil løsne denne vare? Dette element stopper med at vises øverst i {entity} \". Det kan tage op til 24 timer, før denne ændring træder i kraft."
+      "select": "Vælg en relateret enhed for at fastgøre/frigøre elementet til/fra det.",
+      "unpin": "Dette element stopper med at blive vist øverst i samlingen \" {entity} \". Vi giver dig besked, når denne ændring vil være synlig på indsamlingssiden.",
+      "unpinned": "Elementet er blevet fastgjort. Det er ikke længere øverst på den første side i denne samling. Det kan tage op til 24 timer at forsvinde for alle."
     }
   },
   "error": "Fejl",
@@ -180,8 +214,10 @@ export default {
     "description": "Udforsk udstillingerne",
     "exhibitions": "Udstillinger"
   },
+  "explore": "Udforske",
   "facets": {
     "COLOURPALETTE": {
+      "moreName": "farver",
       "name": "Farve | Farver",
       "options": {
         "#000000": "Sort",
@@ -328,23 +364,78 @@ export default {
         "#FFFFE0": "Lysegul",
         "#FFFFF0": "Elfenben",
         "#FFFFFF": "hvid"
-      }
+      },
+      "select": "Vælg farver"
     },
     "COUNTRY": {
-      "name": "Leverende land"
+      "name": "Leverende land",
+      "options": {
+        "Albania": "Albanien",
+        "Austria": "Østrig",
+        "Belarus": "Hviderusland",
+        "Belgium": "Belgien",
+        "Bosnia and Herzegovina": "Bosnien-Hercegovina",
+        "Bulgaria": "Bulgarien",
+        "Croatia": "Kroatien",
+        "Cyprus": "Cypern",
+        "Czech Republic": "Tjekkiet",
+        "Denmark": "Danmark",
+        "Estonia": "Estland",
+        "Europe": "Europa",
+        "Finland": "Finland",
+        "France": "Frankrig",
+        "Georgia": "Georgien",
+        "Germany": "Tyskland",
+        "Greece": "Grækenland",
+        "Holy See (Vatican City State)": "Hellig Stol (Vatikanstaten)",
+        "Hungary": "Ungarn",
+        "Iceland": "Island",
+        "Ireland": "Irland",
+        "Israel": "Israel",
+        "Italy": "Italien",
+        "Latvia": "Letland",
+        "Lithuania": "Litauen",
+        "Luxembourg": "Luxembourg",
+        "Macedonia": "Makedonien",
+        "Malta": "Malta",
+        "Moldova": "Moldova",
+        "Montenegro": "Montenegro",
+        "Netherlands": "Nederlandene",
+        "Norway": "Norge",
+        "Poland": "Polen",
+        "Portugal": "Portugal",
+        "Romania": "Rumænien",
+        "Russia": "Rusland",
+        "Serbia": "Serbien",
+        "Slovakia": "Slovakiet",
+        "Slovenia": "Slovenien",
+        "Spain": "Spanien",
+        "Sweden": "Sverige",
+        "Switzerland": "Schweiz",
+        "Turkey": "Tyrkiet",
+        "Ukraine": "Ukraine",
+        "United Kingdom": "Det Forenede Kongerige",
+        "United States of America": "Amerikas Forenede Stater"
+      },
+      "select": "Vælg leverer lande"
     },
     "CREATOR": {
-      "name": "Skaber | Skaberne"
+      "moreName": "skabere",
+      "name": "Skaber | Skaberne",
+      "select": "Vælg skabere"
     },
     "DATA_PROVIDER": {
-      "name": "Institution"
+      "moreName": "institutioner",
+      "name": "Institution",
+      "select": "Vælg institutioner"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Billedretning | Billedretninger",
       "options": {
         "landscape": "Landskab",
         "portrait": "Portræt"
-      }
+      },
+      "select": "Vælg billedorienteringer"
     },
     "IMAGE_SIZE": {
       "name": "Billedstørrelse | Billedstørrelser",
@@ -353,19 +444,65 @@ export default {
         "large": "Stor 1-4MP (f.eks 1920x1080px)",
         "medium": "Medium 0,5-1MP (f.eks. 850x850px)",
         "small": "Lille < 0,5MP (f.eks. 650x600px)"
-      }
+      },
+      "select": "Vælg billedstørrelser"
     },
     "LANGUAGE": {
-      "name": "Sprog"
+      "name": "Sprog",
+      "options": {
+        "ar": "Arabisk",
+        "bg": "Bulgarsk",
+        "bs": "Bosnisk",
+        "ca": "Catalansk",
+        "cs": "Tjekkisk",
+        "cy": "Walisisk",
+        "da": "Dansk",
+        "de": "Tysk",
+        "el": "Græsk",
+        "en": "Engelsk",
+        "es": "Spansk",
+        "et": "Estisk",
+        "fi": "Finsk",
+        "fr": "Fransk",
+        "ga": "Irsk",
+        "gd": "Gælisk",
+        "he": "Hebraisk",
+        "hr": "Kroatisk",
+        "hu": "Ungarsk",
+        "is": "Islandsk",
+        "it": "Italiensk",
+        "lt": "Litauisk",
+        "lv": "Lettisk",
+        "mk": "Makedonsk",
+        "mt": "Maltesisk",
+        "mul": "Flere sprog",
+        "nl": "Hollandsk",
+        "no": "Norsk",
+        "pl": "Polsk",
+        "pt": "Portugisisk",
+        "ro": "Rumænsk",
+        "ru": "Russisk",
+        "sk": "Slovakisk",
+        "sl": "Slovensk",
+        "sq": "Albansk",
+        "sr": "Serbisk",
+        "sv": "Svensk",
+        "tr": "Tyrkisk",
+        "uk": "Ukrainsk"
+      },
+      "select": "Vælg sprog"
     },
     "MIME_TYPE": {
       "name": "Filformat | Filformater",
       "options": {
         "text/plain": "Almindelig tekst"
-      }
+      },
+      "select": "Vælg filformater"
     },
     "PROVIDER": {
-      "name": "Aggregator"
+      "moreName": "aggregatorer",
+      "name": "Aggregator",
+      "select": "Vælg aggregatorer"
     },
     "REUSABILITY": {
       "name": "Må jeg videreformidle dette?",
@@ -374,7 +511,8 @@ export default {
         "permission": "Måske, søg tilladelse",
         "restricted": "Ja, med betingelser",
         "uncategorized": "Ikke kategoriseret"
-      }
+      },
+      "select": "Vælg, om du kan bruge dette"
     },
     "TYPE": {
       "name": "Medietype",
@@ -384,14 +522,17 @@ export default {
         "SOUND": "Lyd",
         "TEXT": "Tekst",
         "VIDEO": "Video"
-      }
+      },
+      "select": "Vælg typer af medier"
     },
     "api": {
       "name": "Søg efter",
       "options": {
         "fulltext": "Poster med fuldtekst",
         "metadata": "Kun metadata-poster"
-      }
+      },
+      "switch": "Søg kun i indholdet af elementer med fuldtekst",
+      "switchMoreInfo": "I denne samling kan du vælge, hvad du vil søge efter: Hvis denne knap er slået til, vil du søge i avis- og dokumentteksten; hvis den er slået fra, vil du i stedet søge i de oplysninger, der beskriver emnet, ligesom du altid gør i de fleste andre samlinger."
     },
     "button": {
       "apply": "Anvend",
@@ -402,7 +543,7 @@ export default {
       "showLess": "Vis mindre {label}"
     },
     "collection": {
-      "name": "Kategori",
+      "name": "Tema",
       "options": {
         "archaeology": "Arkæologi",
         "art": "Kunst",
@@ -416,28 +557,37 @@ export default {
         "newspaper": "Aviser",
         "photography": "Fotografi",
         "sport": "Sport",
-        "ww1": "1914-1918"
-      }
+        "ww1": "Første Verdenskrig"
+      },
+      "select": "Vælg et tema"
     },
     "contentTier": {
-      "name": "Indeholder emner, der ikke opfylder vores udgivelseskriterier",
-      "notification": "Nogle artikler, som ikke opfylder vores udgivelseskriterier, er tilgængelige. Du kan få adgang til disse artikler ved at aktivere filteret 'Artikelkvalitet' under 'Flere filtre'.",
+      "name": "Varekvalitet",
       "options": {
         "*": "Indeholder artikler, der ikke opfylder vores udgivelseskriterier",
-        "0": "Vis kun artikler, der ikke opfylder vores udgivelseskriterier"
-      }
+        "0": "Vis kun artikler, der ikke opfylder vores udgivelseskriterier",
+        "1": "Lav kvalitet",
+        "2": "Mellem kvalitet",
+        "3": "Høj kvalitet og genanvendelig med betingelser",
+        "4": "Høj kvalitet og frit genanvendelig"
+      },
+      "select": "Vælg varekvaliteter"
     },
+    "moreOptions": "Søg for at finde {0} mere {1}.",
     "proxy_dc_format": {
-      "name": "Format | Formater"
+      "name": "Format | Formater",
+      "select": "Vælg formater"
     },
     "proxy_dc_type": {
-      "name": "Type | typer"
+      "name": "Type | typer",
+      "select": "Vælg typer"
     },
     "proxy_dcterms_issued": {
       "name": "Udstedelsesdato"
     },
     "proxy_dcterms_medium": {
-      "name": "Medie | Medier"
+      "name": "Medie | Medier",
+      "select": "Vælg medie"
     }
   },
   "feedback": {
@@ -455,7 +605,8 @@ export default {
     "termsOfService": "Vilkår for brug",
     "thankYou": "Tak!",
     "title": "Send feedback",
-    "validEmail": "Indtast en gyldig email addresse"
+    "validEmail": "Indtast en gyldig email addresse",
+    "validFeedback": "Din feedback skal mindst bestå af 5 ord"
   },
   "fieldLabels": {
     "default": {
@@ -468,7 +619,6 @@ export default {
       "dcFormat": "Format",
       "dcIdentifier": "Identifikator",
       "dcLanguage": "Sprog",
-      "dcMedium": "Medium",
       "dcPublisher": "Udgiver",
       "dcRelation": "Forbindelser",
       "dcRights": "Rettigheder",
@@ -488,9 +638,9 @@ export default {
       "dctermsIssued": "Udstedelsesdato",
       "dctermsMedium": "Medium",
       "dctermsProvenance": "Oprindelse",
-      "dctermsPublished": "Udgivelsesdato",
       "dctermsReferences": "Referencer",
       "dctermsSpatial": "Steder",
+      "dctermsTOC": "Indholdsfortegnelse",
       "dctermsTemporal": "Tidsmæssig",
       "edmCountry": "Leverende land",
       "edmCurrentLocation": "Nuværende placering",
@@ -499,6 +649,7 @@ export default {
       "edmIncorporates": "Indeholder",
       "edmIntermediateProvider": "Mellemliggende udbyder",
       "edmIsDerivativeOf": "Er afledt af",
+      "edmIsRelatedTo": "Er relateret til",
       "edmIsRepresentationOf": "Er repræsentation af",
       "edmIsSimilarTo": "Svarer til",
       "edmIsSuccessorOf": "Er efterfølger til",
@@ -510,7 +661,8 @@ export default {
       "keywords": "Nøgleord (leveret af fællesskabet)",
       "timestampCreated": "Tidsstempel oprettet",
       "timestampUpdate": "Tidstempel opdateret",
-      "wasPresentAt": "Var til stede på"
+      "wasPresentAt": "Var til stede på",
+      "year": "År"
     },
     "webResource": {
       "about": "RDF Om",
@@ -520,12 +672,14 @@ export default {
       "rdfAbout": "RDF Om"
     }
   },
+  "filter": "Filter",
+  "filterResults": "Filtrer resultater",
   "footer": {
     "customiseWebsiteLanguage": "Tilpas hjemmesidens sprog",
     "disclaimerLine1": "Europeana er et initiativ fra Den Europæiske Union, der finansieres af EU's Connecting Europe-facilitet og EU's medlemsstater. Europeana-tjenesterne, herunder dette websted, drives af et konsortium ledet af Europeana Foundation i henhold til en servicekontrakt med Europa-Kommissionen.",
     "disclaimerLine2": "Europa-Kommissionen garanterer ikke nøjagtigheden af informationen og påtager sig intet ansvar over for informationen på dette websted. Hverken Europa-Kommissionen eller nogen person, der handler på Europa-Kommissionens vegne, er ansvarlig eller ansvarlig for nøjagtigheden eller brugen af oplysningerne på dette websted.",
     "findUsElsewhere": "Find os et andet sted",
-    "imageDescription": "Medfinansieret af Den Europæiske Unions Connecting Europe-facilitet",
+    "imageDescription": "Finansieret af Den Europæiske Union",
     "navigation": {
       "MoreInfoLabel": "Flere oplysninger",
       "about": "Om os",
@@ -543,7 +697,6 @@ export default {
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label}: {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -561,18 +714,31 @@ export default {
     "navigation": {
       "about": "Om os",
       "collections": "Samlinger",
-      "europeanaClassroom": "Lærere",
+      "europeanaClassroom": "For lærere",
       "help": "Hjælp",
       "home": "Hjem",
+      "pro": "For professionelle",
       "stories": "Historier"
     },
+    "quickSearch": "Hurtig søgning",
     "searchFor": "Søg efter {query}",
     "searchForEverything": "Søg efter alt",
     "searchForEverythingInCollection": "Søg efter alt i {collection}",
     "searchForEverythingInEntireCollection": "Søg efter alt i hele vores samling",
-    "showSidebar": "Vis menu"
+    "searchForm": "Søg formular",
+    "showSidebar": "Vis menu",
+    "sideNavigation": "Sidenavigation"
   },
   "homeLinkAlt": "Europeana startside",
+  "homePage": {
+    "discoverEditorial": "Seneste historier",
+    "storiesCTA": "Se alle historier",
+    "subHeadline": "Søg, gem og del kunst, bøger, film og musik fra tusindvis af kulturinstitutioner",
+    "themesCTA": "Se alle temaer",
+    "themesTitle": "Udforsk efter tema",
+    "title": "Opdag Europas {digital} kulturarv",
+    "titleDigital": "digitale"
+  },
   "imageSlider": {
     "handle": "Skydehåndtag"
   },
@@ -580,20 +746,23 @@ export default {
     "itemCount": "1 artikel |{count} artikler",
     "itemOf": "{max} af {count} artikler",
     "recent": "Seneste varer",
-    "recommendationsDisclaimer": "Tommelfinger op for at tilføje til galleriet - Tommelfinger ned, hvis du ikke kan lide det",
     "recommended": "Anbefalede varer",
     "youMightLike": "Artikler, du måske vil synes om"
   },
   "klaro": {
     "main": {
+      "acceptAll": "Accepter alle",
+      "acceptSelected": "Accepter valgt",
       "consentModal": {
         "description": "Vi tager dit datas privatliv alvorligt. Her kan du vurdere og tilpasse de tjenester, som vi gerne vil bruge på dette websted. Du har ansvaret! Aktivér eller deaktiver tjenester, som du finder det passende.",
         "title": "Tjenester, vi gerne vil bruge."
       },
       "consentNotice": {
-        "description": "Vi holder af dit privatliv og bruger kun data til at forbedre din oplevelse. Vi bruger ingen personlige oplysninger til reklame. Du kan ændre dit samtykke hver 15. dag."
+        "description": "Vi holder af dit privatliv og bruger kun data til at forbedre din oplevelse. Vi bruger ingen personlige oplysninger til reklame. Du kan ændre dit samtykke hver 15. dag.",
+        "learnMore": "Lad mig vælge"
       },
-      "ok": "okay",
+      "decline": "Jeg afviser",
+      "ok": "Okay",
       "purposes": {
         "essential": {
           "description": "Disse tjenester er afgørende for, at dette websted fungerer korrekt. De inkluderer søgeresultatvisning og sprogindstillinger, bevarer den loggede tilstand og holder dit besøg sikkert. Du kan ikke deaktivere dem, da webstedet ellers ikke fungerer korrekt.",
@@ -612,11 +781,16 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Hjælper med at forbedre vores websted ved lejlighedsvis at anvende eksperimentelle ændringer.",
+        "title": "A/B-testning"
+      },
       "auth-strategy": {
         "description": "Husker autorisationsstrategien, der skal bruges til at logge ind.",
         "title": "Auth-strategi"
       },
       "debugSettings": {
+        "description": "Hjælper med fejlfinding af API -anmodninger",
         "title": "Fejlfinding skifter"
       },
       "hotjar": {
@@ -635,6 +809,10 @@ export default {
         "description": "Samler anonyme statistikker om, hvordan besøgende interagerer med hjemmesiden.",
         "title": "Matomo"
       },
+      "newFeatureNotification": {
+        "description": "Viser en meddelelse, når nye funktioner bliver tilgængelige.",
+        "title": "Meddelelse om ny funktion"
+      },
       "searchResultsView": {
         "description": "Husk, hvis du foretrækker at se søgeresultaterne i en liste- eller gittervisning.",
         "title": "Visning af søgeresultater (liste / gitter)"
@@ -645,25 +823,8 @@ export default {
     "skipToMain": "Spring til sideindhold"
   },
   "learnMore": "Få mere at vide om kilden til denne beskrivelse",
-  "linksToClassic": {
-    "home": {
-      "linkText": "Gå til den oprindelige Europeana.",
-      "text": "Du ser den nye Europeana oplevelse."
-    },
-    "record": {
-      "linkText": "Se denne artikel i den originale Europeana.",
-      "text": "Du ser denne artikel på den nye Europeana-hjemmeside."
-    },
-    "search": {
-      "linkText": "Se disse søgeresultater i den oprindelige Europeana.",
-      "text": "Du søger på vores nye og hurtigere hjemmeside."
-    }
-  },
   "loading": "Indlæser",
   "loadingResults": "Indlæser resultater",
-  "mediaPreview": {
-    "selectItem": "Vælg element {src}"
-  },
   "messages": {
     "copyToClipboardSuccess": "Kopieret til udklipsholderen",
     "externalContentError": "Det eksterne indhold kunne ikke indlæses",
@@ -679,17 +840,31 @@ export default {
   },
   "multilingual": {
     "automated": "Automatiseret oversættelse",
-    "currentLanguage": "Vil du gerne se dette element i {0} ?",
-    "differentLanguage": "et andet sprog",
     "enrichment": "Berigelse ved partnerprojekter",
-    "original": "Originale metadata",
-    "originalLanguage": "originalsprog",
-    "other": "Andre sprog"
+    "other": "Andre sprog",
+    "stopTranslating": "Stop med at oversætte dette element til {0}.",
+    "translateLanguage": "Vil du gerne se dette element i {0} ?",
+    "translateQuotaError": "Oversættelsestjeneste er midlertidigt utilgængelig. Prøv igen senere."
+  },
+  "newFeatureNotification": {
+    "dismiss": "Luk",
+    "readMore": "Læs mere",
+    "text": {
+      "searchFilters": "Du kan nu søge efter værdier i de enkelte filtre; tjek det ud!"
+    }
   },
   "newWindow": "åbner i nyt vindue",
   "noMoreResults": "Der er ikke flere resultater for din søgning.",
   "noResults": "Ingen resultater",
+  "of": "Af",
+  "organisation": {
+    "city": "By",
+    "country": "Land",
+    "englishName": "Engelsk navn",
+    "nameAcronym": "Navn akronym"
+  },
   "pageHasLoaded": "har indlæst",
+  "pageNumber": "Side nummer",
   "pages": {
     "collections": {
       "organisations": {
@@ -701,6 +876,13 @@ export default {
       "persons": {
         "title": "Personer"
       },
+      "places": {
+        "title": "Steder"
+      },
+      "table": {
+        "items": "Varer",
+        "name": "Navn"
+      },
       "times": {
         "title": "Tider"
       },
@@ -709,12 +891,23 @@ export default {
       }
     }
   },
+  "pagination": {
+    "label": "Paginering"
+  },
   "readMore": "Læs mere",
+  "recommendation": {
+    "prompts": {
+      "accept": "Tommelfinger op for at tilføje til galleriet",
+      "reject": "Tommelfinger ned, hvis du ikke kan lide det"
+    }
+  },
   "record": {
     "IIIFViewer": "IIIF-fremviser",
+    "actions": {
+      "pin": "Fastgør element til tilgængelige enheder"
+    },
     "allMetaData": "Alle metadata",
     "copyEmbedLabel": "Integrer kode (Klik for at kopiere)",
-    "downloadCopyrightInfo": "Denne artikel er ophavsretligt beskyttet og kan ikke downloades.",
     "exploreMore": "Udforsk mere",
     "extendedInformation": "Udvidede oplysninger",
     "goodToKnow": "Værd at vide",
@@ -725,12 +918,15 @@ export default {
     "record": "Registrering",
     "showAll": "Vis alle oplysninger",
     "similarItems": "Lignende artikler",
+    "status": {
+      "unpublished": "[Ikke-publiceret element]"
+    },
     "transcription": "Transskription",
-    "transcriptionDisclaimer": "Dette indhold er leveret af offentligheden, ikke af den institution, der leverede denne artikel.",
-    "view": {
-      "image": "Se billede",
-      "media": "Se medier",
-      "pdf": "Se PDF"
+    "transcriptionDisclaimer": "Dette indhold er leveret af offentligheden, ikke af den institution, der leverede denne artikel."
+  },
+  "related": {
+    "editorial": {
+      "title": "Historier, du måske kan lide"
     }
   },
   "relatedCollections": "Relaterede samlinger",
@@ -738,12 +934,19 @@ export default {
   "reset": "Nulstil",
   "resourceWikimedia": "Ressource fra Wikimedia Commons",
   "results": "Resultater",
+  "resultsFor": "Resultater for {0}",
   "resultsLimitWarning": "Yderligere resultater vises ikke, da kun de første 1000 mest relevante resultater vises. Hvis du ikke har fundet det, du leder efter, kan du overveje at præcisere søgningen.",
-  "search": "Søg",
-  "searchPlaceholder": "Hvad leder du efter?",
+  "resultsWithin": "Resultater inden for {0} {1} for {2}",
+  "search": {
+    "boost": {
+      "placeholder": "Indtast feltforøgende forespørgsel"
+    },
+    "title": "Søg"
+  },
+  "searchHasLoaded": "{0} resultater returneret",
+  "searchPlaceholder": "Søg i mere end 50 millioner genstande",
   "searchResults": "Søg",
   "searchResultsFor": "{0} - Søg",
-  "searchResultsForIn": "{0} - Søg i {1}",
   "searchSuggestions": "Søgeforslag",
   "searchTier": {
     "button": {
@@ -757,7 +960,8 @@ export default {
   },
   "searchViews": {
     "grid": "Gittervisning",
-    "list": "Listevisning"
+    "list": "Listevisning",
+    "mosaic": "Mosaik udsigt"
   },
   "set": {
     "actions": {
@@ -792,5 +996,17 @@ export default {
   },
   "showLess": "Vis mindre",
   "showMore": "Vis mere",
-  "website": "Websted"
+  "sideFilters": {
+    "noOptions": "Der er ingen tilgængelige muligheder at vælge",
+    "search": "Søg"
+  },
+  "statuses": {
+    "liked": "Kunne lide",
+    "pinned": "Fastgjort"
+  },
+  "storiesPage": {
+    "title": "Historier"
+  },
+  "website": "Websted",
+  "youMightAlsoLike": "Du vil måske også kunne lide"
 };

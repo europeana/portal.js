@@ -15,6 +15,7 @@
     <ul
       class="m-0 p-0 text-left text-lg-right list-unstyled"
     >
+      <MetadataOriginLabel :translation-source="fieldData.translationSource" />
       <template
         v-for="(value, index) of displayValues.values"
       >
@@ -37,7 +38,7 @@
             </SmartLink>
             <EntityField
               v-else
-              :value="nestedValue"
+              :text="nestedValue"
               :about="value.about"
             />
           </li>
@@ -70,6 +71,7 @@
 <script>
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
   import EntityField from './EntityField';
+  import MetadataOriginLabel from './MetadataOriginLabel';
   import SmartLink from '../generic/SmartLink';
 
   export default {
@@ -77,6 +79,7 @@
 
     components: {
       EntityField,
+      MetadataOriginLabel,
       SmartLink
     },
 
@@ -84,6 +87,10 @@
       name: {
         type: String,
         default: ''
+      },
+      metadataLanguage: {
+        type: String,
+        default: null
       },
       fieldData: {
         type: [String, Object, Array],
@@ -125,6 +132,17 @@
         return (this.limit > -1);
       },
 
+      prefLanguage() {
+        let nativeLocale;
+        if (['edmDataProvider', 'edmProvider'].includes(this.name)) {
+          const langMap = this.fieldData.url ? this.fieldData.value : this.fieldData;
+          nativeLocale = langMap.def?.[0]?.prefLabel &&
+            Object.keys(langMap.def[0].prefLabel).length <= 2 &&
+            Object.keys(langMap.def[0].prefLabel).find(key => key !== 'en');
+        }
+        return nativeLocale || this.metadataLanguage || this.$i18n.locale;
+      },
+
       langMappedValues() {
         if (this.fieldData === null) {
           return null;
@@ -133,9 +151,11 @@
         } else if (Array.isArray(this.fieldData)) {
           return { values: this.fieldData, code: '' };
         } else if (Object.prototype.hasOwnProperty.call(this.fieldData, 'url')) {
-          return langMapValueForLocale(this.fieldData.value, this.$i18n.locale);
+          return langMapValueForLocale(this.fieldData.value, this.prefLanguage);
         }
-        return langMapValueForLocale(this.fieldData, this.$i18n.locale, { omitUrisIfOtherValues: this.omitUrisIfOtherValues, omitAllUris: this.omitAllUris });
+        return langMapValueForLocale(this.fieldData, this.prefLanguage, {
+          omitUrisIfOtherValues: this.omitUrisIfOtherValues, omitAllUris: this.omitAllUris
+        });
       },
 
       hasValuesForLocale() {
@@ -146,8 +166,8 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
-  @import '@/assets/scss/icons.scss';
+  @import '@/assets/scss/variables';
+  @import '@/assets/scss/icons';
 
   .metadata-row {
     border-bottom: 1px solid #e7e7e9;
@@ -168,13 +188,17 @@
 
       li {
         display: inline;
-        &:not(:last-child):after {
+
+        &:not(:last-child)::after {
           content: ';';
           padding: 0 0.2rem;
         }
-        a.is-external-link:after {
+
+        a.is-external-link::after {
           content: '\e900';
-          @extend .icon-font;
+
+          @extend %icon-font;
+
           vertical-align: initial;
           font-size: 0.75rem;
         }

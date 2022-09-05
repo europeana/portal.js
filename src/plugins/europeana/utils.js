@@ -1,7 +1,6 @@
 import axios from 'axios';
-import locales from '../i18n/locales';
-
-import { keycloakResponseErrorHandler } from './auth';
+import locales from '../i18n/locales.js';
+import { keycloakResponseErrorHandler } from './auth.js';
 
 export const createAxios = ({ id, baseURL, $axios }, context) => {
   const axiosOptions = axiosInstanceOptions({ id, baseURL }, context);
@@ -26,15 +25,19 @@ export const createKeycloakAuthAxios = ({ id, baseURL, $axios }, context) => {
 };
 
 const storedAPIBaseURL = (store, id) => {
-  if (store && store.state && store.state.apis && store.state.apis.urls[id]) {
+  if (store?.state?.apis?.urls?.[id]) {
     return store.state.apis.urls[id];
   } else {
     return null;
   }
 };
 
-const apiConfig = ($config, id) => {
-  if ($config && $config.europeana && $config.europeana.apis && $config.europeana.apis[id]) {
+export const preferredAPIBaseURL = ({ id, baseURL }, { store, $config }) => {
+  return storedAPIBaseURL(store, id) || apiConfig($config, id).url || baseURL;
+};
+
+export const apiConfig = ($config, id) => {
+  if ($config?.europeana?.apis?.[id]) {
     return $config.europeana.apis[id];
   } else {
     return {};
@@ -44,7 +47,7 @@ const apiConfig = ($config, id) => {
 const axiosInstanceOptions = ({ id, baseURL }, { store, $config }) => {
   const config = apiConfig($config, id);
   return {
-    baseURL: storedAPIBaseURL(store, id) || config.url || baseURL,
+    baseURL: preferredAPIBaseURL({ id, baseURL }, { store, $config }),
     params: {
       wskey: config.key
     }
@@ -52,7 +55,11 @@ const axiosInstanceOptions = ({ id, baseURL }, { store, $config }) => {
 };
 
 // TODO: extend to be more verbose in development environments, e.g. with stack trace
-export function apiError(error) {
+export function apiError(error, context) {
+  if (context?.$apm?.captureError) {
+    context?.$apm.captureError(error);
+  }
+
   let statusCode = 500;
   let message = error.message;
 
@@ -112,6 +119,33 @@ function entityValue(value, locale) {
     return entityValue;
   }
   return { code: '', values: [value.about], about: value.about };
+}
+
+/**
+ * Retrieves the path for an entity or gallery, based on id and name/title
+ *
+ * If `entityPage.name` is present, that will be used in the slug. Otherwise
+ * `prefLabel.en` if present.
+ *
+ * @param {string} id entity/set ID, i.e. data.europeana.eu URI
+ * @param {string} name the English name of the entity/set title
+ * @return {string} path
+ * @example
+ *    const slug = getLabelledSlug(
+ *      'http://data.europeana.eu/set/4279',
+ *      'Dizzy Gillespie'
+ *    );
+ *    console.log(slug); // expected output: '4279-dizzy-gillespie'
+ * @example
+ *    const slug = getLabelledSlug(
+ *      'http://data.europeana.eu/agent/59832',
+ *      'Vincent van Gogh'
+ *    );
+ *    console.log(slug); // expected output: '59832-vincent-van-gogh'
+ */
+export function getLabelledSlug(id, name) {
+  const numericId = id.toString().split('/').pop();
+  return numericId + (name ? '-' + name.toLowerCase().replace(/ /g, '-') : '');
 }
 
 function languageKeys(locale) {

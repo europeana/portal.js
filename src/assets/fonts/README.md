@@ -10,9 +10,9 @@ If you need to add new icons to the font:
 
 - Click “Import project”
 
-- Select the config file from assets/fonts
+- Select the config file from `src/assets/fonts`
 
-- A project with the name “Europeana” has been loaded
+- A project with the name “Europeana” will be shown
 
 - Click “Load” and you will see an overview of the icons currently in the font
 
@@ -24,8 +24,14 @@ To add new icons:
 
 - When ready, press the “generate font” button at the bottom, check if everything is there, and then press “download”
 
-- Copy and paste the .woff from the downloaded Zip into the assets/fonts folder
+- Copy and paste the .woff from the downloaded Zip into the `src/assets/fonts` folder
 
-- Click the project “Europeana” on the right in the top bar and click “download” to get the new config file.
+- Open the style.css from the Zip and copy the rules for the new icons into `src/assets/scss/icons.scss`
 
-- Copy and paste this config file into assets/fonts/icomoon-config.json
+- Click the project “Europeana” on the right in the top bar and click “download” to get the new config file
+
+- Copy and paste this config file into `src/assets/fonts/icomoon-config.json`
+
+# License
+
+The Open Sans fonts are licensed under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).

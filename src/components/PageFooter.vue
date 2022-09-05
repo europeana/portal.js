@@ -1,7 +1,7 @@
 <template>
   <footer
     data-qa="footer"
-    class="py-5 px-3"
+    class="page-footer py-5 px-3"
   >
     <b-container>
       <b-row>
@@ -9,14 +9,14 @@
           lg="5"
           class="pb-4"
         >
-          <figure>
-            <figcaption class="text-uppercase font-weight-bold">
+          <div class="mb-3">
+            <div class="group-title text-uppercase font-weight-bold">
               {{ $t('footer.ourMission') }}
-            </figcaption>
+            </div>
             <p class="font-italic mb-0">
               {{ $t('footer.ourMissionQuote') }}
             </p>
-          </figure>
+          </div>
           <LinkGroup
             list-class="footer-link-list social-links"
             link-class="footer-link"
@@ -32,6 +32,7 @@
             <b-col
               cols="6"
               lg="12"
+              class="mb-3"
             >
               <LinkGroup
                 v-if="footerMoreInfo"
@@ -56,29 +57,40 @@
           </b-row>
         </b-col>
         <b-col lg="3">
-          <figure>
-            <figcaption class="text-uppercase font-weight-bold pr-2">
-              {{ $t('footer.customiseWebsiteLanguage') }}
-            </figcaption>
-            <LangSelector data-qa="language selector" />
-          </figure>
-
-          <DebugMenu
-            v-if="showDebugMenu"
-            data-qa="debug menu"
-          />
+          <b-row>
+            <b-col
+              cols="6"
+              lg="12"
+              class="mb-3"
+            >
+              <div class="group-title text-uppercase font-weight-bold pr-2">
+                {{ $t('footer.customiseWebsiteLanguage') }}
+              </div>
+              <LangSelector data-qa="language selector" />
+            </b-col>
+            <b-col
+              cols="6"
+              lg="12"
+            >
+              <LinkGroup
+                v-if="showDebugLinkGroup"
+                list-class="footer-link-list"
+                link-class="footer-link"
+                :caption="debugLinkGroup.name"
+                :links="debugLinkGroup.links"
+                data-qa="debug link group"
+              />
+            </b-col>
+          </b-row>
         </b-col>
       </b-row>
       <hr class="my-5">
       <b-row>
         <b-col lg="6">
           <div class="sub-footer">
-            <img
-              width="250"
-              src="../assets/img/eu-funding.svg"
+            <EULogo
               class="mb-3"
-              :alt="$t('footer.imageDescription')"
-            >
+            />
             <p>{{ $t('footer.disclaimerLine1') }}</p>
 
             <p>{{ $t('footer.disclaimerLine2') }}</p>
@@ -90,16 +102,15 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
-
   import LangSelector from './generic/LanguageSelector';
   import LinkGroup from './generic/LinkGroup';
+  import EULogo from '@/components/funders/EULogo';
 
   export default {
     components: {
-      DebugMenu: () => import('./debug/DebugMenu'),
       LangSelector,
-      LinkGroup
+      LinkGroup,
+      EULogo
     },
 
     data() {
@@ -124,38 +135,62 @@
             text: 'Instagram',
             url: 'https://www.instagram.com/europeana_eu/',
             icon: 'icon-instagram'
+          },
+          {
+            text: 'LinkedIn',
+            url: 'https://www.linkedin.com/company/europeana',
+            icon: 'icon-linkedin'
           }
         ]
       };
     },
 
     computed: {
-      ...mapGetters({
-        debugSettings: 'debug/settings'
-      }),
-
-      showDebugMenu() {
-        return !!this.debugSettings.apiRequests;
+      debugSettings() {
+        return this.$store.getters['debug/settings'];
+      },
+      showDebugLinkGroup() {
+        return !!this.debugSettings.enabled;
       },
       footerMoreInfo() {
-        return { name: this.$t('footer.navigation.MoreInfoLabel'),
-                 links: [
-                   { url: '/about-us', text: this.$t('footer.navigation.about') },
-                   { url: '/for-developers', text: this.$t('footer.navigation.forDevelopers') },
-                   { url: 'https://pro.europeana.eu/services/data-publication-services', text: this.$t('footer.navigation.provide') },
-                   { url: 'https://europeana.us3.list-manage.com/subscribe?u=ad318b7566f97eccc895e014e&id=1d4f51a117', text: this.$t('footer.navigation.subscribe') }
-                 ] };
+        return {
+          name: this.$t('footer.navigation.MoreInfoLabel'),
+          links: [
+            { url: '/about-us', text: this.$t('footer.navigation.about') },
+            { url: '/for-developers', text: this.$t('footer.navigation.forDevelopers') },
+            { url: 'https://pro.europeana.eu/services/data-publication-services', text: this.$t('footer.navigation.provide') },
+            { url: 'https://zcv4-zcmp.maillist-manage.eu/ua/Optin?od=12ba7e82b5aa&zx=14ad17d982&sD=119ffcbc10c08987', text: this.$t('footer.navigation.subscribe') }
+          ]
+        };
       },
       footerHelp() {
-        return { name: this.$t('footer.navigation.help'),
-                 links: [
-                   { url: '/help', text: this.$t('footer.navigation.help') },
-                   { url: '/rights', text: this.$t('footer.navigation.terms') },
-                   { url: '/rights/privacy-policy', text: this.$t('footer.navigation.privacy') },
-                   { url: '/rights/accessibility-policy', text: this.$t('footer.navigation.accessibility') },
-                   { url: '/rights/cookies-policy', text: this.$t('footer.navigation.cookies') }
-                 ] };
+        return {
+          name: this.$t('footer.navigation.help'),
+          links: [
+            { url: '/help', text: this.$t('footer.navigation.help') },
+            { url: '/rights', text: this.$t('footer.navigation.terms') },
+            { url: '/rights/privacy-policy', text: this.$t('footer.navigation.privacy') },
+            { url: '/rights/accessibility-policy', text: this.$t('footer.navigation.accessibility') },
+            { url: '/rights/cookies-policy', text: this.$t('footer.navigation.cookies') }
+          ]
+        };
+      },
+      debugLinkGroup() {
+        return {
+          name: this.$t('debug.debug'),
+          links: [
+            { url: '/debug', text: this.$t('debug.settings.title') },
+            { url: '#api-requests', text: this.$t('debug.apiRequests.title'), dataQa: 'API requests link' },
+            { url: '/debug/oembed', text: 'oEmbed' }
+          ]
+        };
       }
     }
   };
 </script>
+
+<docs lang="md">
+  ```jsx
+  <PageFooter />
+  ```
+</docs>

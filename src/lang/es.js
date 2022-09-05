@@ -1,5 +1,7 @@
 export default {
   "account": {
+    "curatedCollections": "Colecciones curadas",
+    "curatedCollectionsInfo": "Encuentra a continuación todas las colecciones que has comisariado",
     "editProfile": "Editar perfil",
     "likes": "Me gusta",
     "linkAccount": "Mi cuenta",
@@ -11,10 +13,11 @@ export default {
       "loggedIn": "Ya ha iniciado la sesión. Bienvenido.",
       "loggedOut": "Ahora ha salido la sesión.",
       "noCollections": {
+        "curated": "Todavía no has comisariado ninguna colección",
         "private": "Aún no has creado ninguna galería privada",
         "public": "Aún no has creado ninguna galería pública"
       },
-      "noLikedItems": "Aún no le has dado \"Me gusta\" a ningún artículo"
+      "noLikedItems": "Aún no le has dado \"Me gusta\" a ningún elementos"
     },
     "privateCollections": "Galerías privadas",
     "profile": "Mis \"Me gusta\" y galerías",
@@ -24,15 +27,25 @@ export default {
     "title": "Mi cuenta"
   },
   "actions": {
+    "accept": "Aceptar",
     "cancel": "Cancelar",
     "close": "cerrar",
+    "continue": "continuar",
     "download": "Descargar",
     "edit": "Editar",
     "feedback": "Comentarios",
     "goBack": "Volver",
+    "goHome": "Ir a la página de inicio",
+    "learnMore": "Aprende más",
     "like": "Me gusta",
+    "move": "Mover",
     "next": "próximo",
+    "pin": "Alfiler",
+    "preview": "Vista previa",
+    "previous": "Anterior",
     "providedBy": "Proporcionado por {provider}",
+    "reject": "Rechazar",
+    "save": "Salvar",
     "send": "Enviar",
     "share": "Compartir",
     "shareOn": "Compartir en {social}",
@@ -48,7 +61,10 @@ export default {
     "title": "Título:"
   },
   "automatedCardGroup": {
-    "item": "Artículos recientes",
+    "item": "Elementos recientes",
+    "organisation": "Organizaciones",
+    "place": "Lugares",
+    "time": "Siglos destacados",
     "topic": "Temas destacados"
   },
   "blog": {
@@ -65,6 +81,8 @@ export default {
   "cardLabels": {
     "organisation": "Organización",
     "person": "Persona",
+    "place": "Lugar",
+    "theme": "Tema",
     "time": "Siglo",
     "topic": "Tema"
   },
@@ -77,16 +95,24 @@ export default {
     "fashion": {
       "facets": {
         "CREATOR": {
-          "name": "Diseñador | Diseñadores"
+          "moreName": "diseñadores",
+          "name": "Diseñador | Diseñadores",
+          "select": "Seleccionar diseñadores"
         },
         "proxy_dc_format": {
-          "name": "Técnica | Técnicas"
+          "moreName": "técnicas",
+          "name": "Técnica | Técnicas",
+          "select": "Seleccionar técnicas"
         },
         "proxy_dc_type": {
-          "name": "Tipo de objeto | Tipos de objeto"
+          "moreName": "tipos de elementos",
+          "name": "Tipo de objeto | Tipos de objeto",
+          "select": "Seleccionar tipos de elementos"
         },
         "proxy_dcterms_medium": {
-          "name": "Material | Materiales"
+          "moreName": "materiales",
+          "name": "Material | Materiales",
+          "select": "Seleccionar materiales"
         }
       }
     },
@@ -117,11 +143,6 @@ export default {
       "teachers": "Profesores"
     }
   },
-  "cookieDisclaimer": {
-    "acceptCookieDisclaimer": "Aceptar el consentimiento informado del uso de cookies",
-    "link": "Más información",
-    "terms": "Este sitio web utiliza cookies para garantizarle la mejor experiencia en nuestro sitio web. Al hacer clic o navegar por el sitio, nos da su consentimiento para recopilar información por medio de cookies."
-  },
   "curatedAutomatically": "Comisariados automáticamente por Europeana",
   "dateFilter": {
     "endDate": "Fecha de finalización",
@@ -130,8 +151,27 @@ export default {
     "to": "a"
   },
   "debug": {
-    "apiRequests": "Solicitudes de API",
-    "debug": "Depurar"
+    "apiRequests": {
+      "apiKeyLinkText": "Clave API de Europeana",
+      "noRequests": "En esta página no se utilizaron solicitudes a las API de Europeana.",
+      "settingsPageLinkText": "página de configuración",
+      "tip": "Sugerencia: si ya tiene un {apiKeyLink}, puede ingresarlo en {settingsPageLink} y se incluirá en estos enlaces de solicitud de API.",
+      "title": "Solicitudes de API"
+    },
+    "debug": "Depurar",
+    "settings": {
+      "form": {
+        "apiKey": {
+          "description": "Introduzca su clave de API de Europeana y se utilizará en los enlaces a las solicitudes de API.",
+          "label": "Clave API"
+        },
+        "enabled": {
+          "description": "Si está habilitado, el menú de depuración se mostrará en el pie de página.",
+          "label": "Habilitar menú de depuración"
+        }
+      },
+      "title": "Configuración"
+    }
   },
   "delete": "Borrar",
   "depiction": "Una representación de {title}",
@@ -142,13 +182,28 @@ export default {
   "edmIsShownAtLinkAlt": "Ver en el sitio web del proveedor",
   "entity": {
     "actions": {
-      "cancel": "Cancelar"
+      "cancel": "Cancelar",
+      "pin": "Elemento de pin",
+      "unpin": "Desanclar elemento",
+      "viewPinned": "Ver elementos anclados"
     },
     "labels": {
       "entity": "Entidad"
     },
     "notifications": {
-      "deleted": "Tu galería ha sido eliminada."
+      "deleted": "Tu galería ha sido eliminada.",
+      "error": {
+        "unpin": "Se ha producido un error al desanclar el elemento. Vuelva a intentarlo o informe del problema."
+      },
+      "pin": "Este elemento se mostrará en la parte superior de la colección \" {entity} \". Le notificaremos cuando este cambio sea visible en la página de colección.",
+      "pinLimit": {
+        "body": "Por ahora, solo puede anclar 24 elementos en la primera página. Si desea anclar este elemento, asegúrese de desanclar otro y luego intente anclar este de nuevo.",
+        "title": "Demasiados elementos fijados"
+      },
+      "pinned": "El elemento se ha anclado. Ahora está en la parte superior de la primera página de esta colección. Puede tardar hasta 24 horas en aparecer para todos.",
+      "select": "Seleccione una entidad relacionada para anclar/desanclar el elemento a/desde ella.",
+      "unpin": "Este elemento dejará de mostrarse en la parte superior de la colección \" {entity} \". Le notificaremos cuando este cambio sea visible en la página de colección.",
+      "unpinned": "El elemento se ha desanclarado. Ya no está en la parte superior de la primera página de esta colección. Puede tardar hasta 24 horas en desaparecer para todos."
     }
   },
   "error": "Error",
@@ -159,8 +214,10 @@ export default {
     "description": "Explora las exposiciones",
     "exhibitions": "Exposiciones"
   },
+  "explore": "Explorar",
   "facets": {
     "COLOURPALETTE": {
+      "moreName": "colores",
       "name": "Color | Colores",
       "options": {
         "#000000": "Negro",
@@ -307,23 +364,78 @@ export default {
         "#FFFFE0": "Amarillo claro",
         "#FFFFF0": "Marfil",
         "#FFFFFF": "Blanco"
-      }
+      },
+      "select": "Seleccionar colores"
     },
     "COUNTRY": {
-      "name": "País proveedor"
+      "name": "País proveedor",
+      "options": {
+        "Albania": "Albania",
+        "Austria": "Austria",
+        "Belarus": "Bielorrusia",
+        "Belgium": "Bélgica",
+        "Bosnia and Herzegovina": "Bosnia y Herzegovina",
+        "Bulgaria": "Bulgaria",
+        "Croatia": "Croacia",
+        "Cyprus": "Chipre",
+        "Czech Republic": "República Checa",
+        "Denmark": "Dinamarca",
+        "Estonia": "Estonia",
+        "Europe": "Europa",
+        "Finland": "Finlandia",
+        "France": "Francia",
+        "Georgia": "Georgia",
+        "Germany": "Alemania",
+        "Greece": "Grecia",
+        "Holy See (Vatican City State)": "Santa Sede (Estado de la Ciudad del Vaticano)",
+        "Hungary": "Hungría",
+        "Iceland": "Islandia",
+        "Ireland": "Irlanda",
+        "Israel": "Israel",
+        "Italy": "Italia",
+        "Latvia": "Letonia",
+        "Lithuania": "Lituania",
+        "Luxembourg": "Luxemburgo",
+        "Macedonia": "Macedonia",
+        "Malta": "Malta",
+        "Moldova": "Moldavia",
+        "Montenegro": "Montenegro",
+        "Netherlands": "Países Bajos",
+        "Norway": "Noruega",
+        "Poland": "Polonia",
+        "Portugal": "Portugal",
+        "Romania": "Rumanía",
+        "Russia": "Rusia",
+        "Serbia": "Serbia",
+        "Slovakia": "Eslovaquia",
+        "Slovenia": "Eslovenia",
+        "Spain": "España",
+        "Sweden": "Suecia",
+        "Switzerland": "Suiza",
+        "Turkey": "Turquía",
+        "Ukraine": "Ucrania",
+        "United Kingdom": "Reino Unido",
+        "United States of America": "Estados Unidos de América"
+      },
+      "select": "Seleccionar países proveedores"
     },
     "CREATOR": {
-      "name": "Creador | Creadores"
+      "moreName": "creadores",
+      "name": "Creador | Creadores",
+      "select": "Seleccionar creadores"
     },
     "DATA_PROVIDER": {
-      "name": "Institución"
+      "moreName": "instituciones",
+      "name": "Institución",
+      "select": "Seleccionar instituciones"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Orientación de la imagen | Orientaciones de la imagen",
       "options": {
         "landscape": "Horizontal",
         "portrait": "Vertical"
-      }
+      },
+      "select": "Seleccionar orientaciones de imagen"
     },
     "IMAGE_SIZE": {
       "name": "Tamaño de imagen | Tamaños de imagen",
@@ -332,19 +444,65 @@ export default {
         "large": "Grande, entre 1 y 4 MP (por ejemplo, 1920 × 1080 px)",
         "medium": "Mediano, entre 0,5 y 1 MP (por ejemplo 850 × 850 px)",
         "small": "Pequeño, inferior a 0,5 MP (por ejemplo, 650 × 600 px)"
-      }
+      },
+      "select": "Seleccionar tamaños de imagen"
     },
     "LANGUAGE": {
-      "name": "Idioma"
+      "name": "Idioma",
+      "options": {
+        "ar": "Árabe",
+        "bg": "Búlgaro",
+        "bs": "Bosnio",
+        "ca": "Catalán",
+        "cs": "Checo",
+        "cy": "Galés",
+        "da": "Danés",
+        "de": "Alemán",
+        "el": "Griego",
+        "en": "Inglés",
+        "es": "Español",
+        "et": "Estonio",
+        "fi": "Finlandés",
+        "fr": "Francés",
+        "ga": "Irlandés",
+        "gd": "Gaélico",
+        "he": "Hebreo",
+        "hr": "Croata",
+        "hu": "Húngaro",
+        "is": "Islandés",
+        "it": "Italiano",
+        "lt": "Lituano",
+        "lv": "Letón",
+        "mk": "Macedonio",
+        "mt": "Maltés",
+        "mul": "Múltiples idiomas",
+        "nl": "Holandés",
+        "no": "Noruego",
+        "pl": "Polaco",
+        "pt": "Portugués",
+        "ro": "Rumano",
+        "ru": "Ruso",
+        "sk": "Eslovaco",
+        "sl": "Esloveno",
+        "sq": "Albanés",
+        "sr": "Serbio",
+        "sv": "Sueco",
+        "tr": "Turco",
+        "uk": "Ucraniano"
+      },
+      "select": "Seleccionar idiomas"
     },
     "MIME_TYPE": {
       "name": "Formato de archivo | Formatos de archivo",
       "options": {
         "text/plain": "Texto sin formato"
-      }
+      },
+      "select": "Seleccionar formatos de archivo"
     },
     "PROVIDER": {
-      "name": "Agregador"
+      "moreName": "agregadores",
+      "name": "Agregador",
+      "select": "Seleccionar agregadores"
     },
     "REUSABILITY": {
       "name": "¿Puede reutilizarse?",
@@ -353,7 +511,8 @@ export default {
         "permission": "Tal vez, solicite permiso",
         "restricted": "Sí, con condiciones",
         "uncategorized": "Sin categoría"
-      }
+      },
+      "select": "Seleccione si puede usar esto"
     },
     "TYPE": {
       "name": "Tipo de medio",
@@ -363,14 +522,17 @@ export default {
         "SOUND": "Sonido",
         "TEXT": "Texto",
         "VIDEO": "Vídeo"
-      }
+      },
+      "select": "Seleccionar tipos de medios"
     },
     "api": {
       "name": "Buscar",
       "options": {
         "fulltext": "Registros de texto completo",
         "metadata": "Registros de solo metadatos"
-      }
+      },
+      "switch": "Buscar solo en el contenido de los elementos con texto completo",
+      "switchMoreInfo": "En esta colección, puede elegir lo que desea buscar: si este interruptor está activado, buscará dentro del periódico y el texto del documento; si está desactivada, buscará dentro de la información que describe el elemento, como siempre lo hace en la mayoría de las otras colecciones."
     },
     "button": {
       "apply": "Aplicar",
@@ -381,7 +543,7 @@ export default {
       "showLess": "Mostrar menos {label}"
     },
     "collection": {
-      "name": "Categoría",
+      "name": "Tema",
       "options": {
         "archaeology": "Arqueología",
         "art": "Arte",
@@ -395,28 +557,37 @@ export default {
         "newspaper": "Periódicos",
         "photography": "Fotografía",
         "sport": "Deporte",
-        "ww1": "1914-1918"
-      }
+        "ww1": "Primera Guerra Mundial"
+      },
+      "select": "Selecciona un tema"
     },
     "contentTier": {
-      "name": "Incluir los elementos que no cumplan nuestros criterios de publicación",
-      "notification": "Hay artículos disponibles que no coinciden con nuestros criterios de publicación. Puedes acceder a estos activando el filtro \"Calidad del elemento\" en \"Más filtros\".",
+      "name": "Calidad del artículo",
       "options": {
-        "*": "Incluir los objetos que no cumplan nuestros criterios de publicación",
-        "0": "Mostrar solo los elementos que no cumplen con nuestros criterios de publicación"
-      }
+        "*": "Incluir los elementos que no cumplan nuestros criterios de publicación",
+        "0": "Mostrar solo los elementos que no cumplen con nuestros criterios de publicación",
+        "1": "Baja calidad",
+        "2": "Calidad media",
+        "3": "Alta calidad y reutilizable con condiciones",
+        "4": "Alta calidad y libremente reutilizable"
+      },
+      "select": "Seleccione las calidades del artículo"
     },
+    "moreOptions": "Busque para encontrar {0} más {1}.",
     "proxy_dc_format": {
-      "name": "Formato | Formatos"
+      "name": "Formato | Formatos",
+      "select": "Seleccionar formatos"
     },
     "proxy_dc_type": {
-      "name": "Tipo | Tipos"
+      "name": "Tipo | Tipos",
+      "select": "Seleccionar tipos"
     },
     "proxy_dcterms_issued": {
       "name": "Fecha de publicación"
     },
     "proxy_dcterms_medium": {
-      "name": "Medio | Medios"
+      "name": "Medio | Medios",
+      "select": "Seleccionar medios"
     }
   },
   "feedback": {
@@ -434,7 +605,8 @@ export default {
     "termsOfService": "Términos de servicio",
     "thankYou": "Gracias.",
     "title": "Enviar comentarios",
-    "validEmail": "Introduzca una dirección de correo electrónico válida"
+    "validEmail": "Introduzca una dirección de correo electrónico válida",
+    "validFeedback": "Sus comentarios deben constar de 5 palabras como mínimo"
   },
   "fieldLabels": {
     "default": {
@@ -447,7 +619,6 @@ export default {
       "dcFormat": "Formato",
       "dcIdentifier": "Identificador",
       "dcLanguage": "Idioma",
-      "dcMedium": "Mediano",
       "dcPublisher": "Editor",
       "dcRelation": "relaciones",
       "dcRights": "Derechos",
@@ -467,9 +638,9 @@ export default {
       "dctermsIssued": "Fecha de edición",
       "dctermsMedium": "Mediano",
       "dctermsProvenance": "Procedencia",
-      "dctermsPublished": "Fecha de publicación",
       "dctermsReferences": "hace referencia a",
       "dctermsSpatial": "Lugares",
+      "dctermsTOC": "Tabla de contenido",
       "dctermsTemporal": "Temporal",
       "edmCountry": "País proveedor",
       "edmCurrentLocation": "Ubicación actual",
@@ -478,6 +649,7 @@ export default {
       "edmIncorporates": "incorpora",
       "edmIntermediateProvider": "Proveedor intermediario",
       "edmIsDerivativeOf": "es derivado de",
+      "edmIsRelatedTo": "Está relacionado con",
       "edmIsRepresentationOf": "es la representación de",
       "edmIsSimilarTo": "es parecido a",
       "edmIsSuccessorOf": "es el sucesor de",
@@ -489,7 +661,8 @@ export default {
       "keywords": "Palabras clave (proporcionadas por la comunidad)",
       "timestampCreated": "Sello de creación",
       "timestampUpdate": "Sello de actualización",
-      "wasPresentAt": "estuvo presente en"
+      "wasPresentAt": "estuvo presente en",
+      "year": "Año"
     },
     "webResource": {
       "about": "Acerca de RDF",
@@ -499,17 +672,19 @@ export default {
       "rdfAbout": "RDF About"
     }
   },
+  "filter": "Filtrar",
+  "filterResults": "Filtrar resultados",
   "footer": {
     "customiseWebsiteLanguage": "Personalizar el idioma del sitio web",
     "disclaimerLine1": "Europeana es una iniciativa de la Unión Europea, financiada por el Connecting Europe Facility de la Unión Europea y los Estados miembros de la Unión Europea. Los servicios de Europeana, incluido este sitio web, son operados por un consorcio liderado por la Fundación Europeana en virtud de un contrato de servicios con la Comisión Europea.",
     "disclaimerLine2": "La Comisión Europea no garantiza la exactitud de la información y no acepta responsabilidad alguna con respecto a la información en este sitio web. Ni la Comisión Europea, ni ninguna persona que actúe en nombre de la Comisión Europea, es responsable de la exactitud o el uso de la información en este sitio web.",
-    "findUsElsewhere": "Encuéntrenos en otro sitio",
-    "imageDescription": "Cofinanciado por el fondo de inversión Connecting Europe Facility (Conectando Europa) de la Unión Europea.",
+    "findUsElsewhere": "Puedes encontrarnos también en",
+    "imageDescription": "Financiado por la Unión Europea",
     "navigation": {
       "MoreInfoLabel": "Más información",
-      "about": "Sobre nosotros",
+      "about": "¿Qué es Europeana?",
       "accessibility": "Accesibilidad",
-      "cookies": "Galletas",
+      "cookies": "Cookies",
       "forDevelopers": "Para desarrolladores",
       "help": "Ayuda",
       "privacy": "Política de privacidad",
@@ -518,11 +693,10 @@ export default {
       "terms": "Condiciones de uso"
     },
     "ourMission": "Nuestra misión",
-    "ourMissionQuote": "Europeana fortalece el sector del patrimonio cultural en su proceso de transformación digital. Desarrollamos dominio, herramientas y políticas para adoptar el cambio digital y fomentar asociaciones que fomenten la innovación."
+    "ourMissionQuote": "Europeana sostiene el sector del patrimonio cultural en su transformación digital. Desarrollamos competencias, herramientas y estrategias para adoptar el cambio digital y fomentar colaboraciones que promuevan la innovación."
   },
   "formatting": {
     "ellipsis": "…",
-    "labelledValue": "{label}: {value}",
     "listSeperator": ";"
   },
   "galleries": {
@@ -538,37 +712,56 @@ export default {
     "europeanaHome": "Página de inicio de Europeana",
     "inCollection": "Busca {query} en {collection}",
     "navigation": {
-      "about": "Sobre nosotros",
+      "about": "¿Qué es Europeana?",
       "collections": "Colecciones",
-      "europeanaClassroom": "Profesores",
+      "europeanaClassroom": "Para profesores",
       "help": "Ayuda",
       "home": "Inicio",
+      "pro": "Para los profesionales",
       "stories": "Historias"
     },
+    "quickSearch": "Búsqueda rápida",
     "searchFor": "Busca {query}",
     "searchForEverything": "Busca lo que quieras",
     "searchForEverythingInCollection": "Busca lo que quieras en {collection}",
     "searchForEverythingInEntireCollection": "Busca lo que quieras en toda nuestra colección",
-    "showSidebar": "Mostrar menú"
+    "searchForm": "Formulario de búsqueda",
+    "showSidebar": "Mostrar menú",
+    "sideNavigation": "Navegación lateral"
   },
   "homeLinkAlt": "Página de inicio de Europeana",
+  "homePage": {
+    "discoverEditorial": "Últimas historias",
+    "storiesCTA": "Ver todas las historias",
+    "subHeadline": "Busca, guarda y comparte arte, libros, películas y música de miles de instituciones culturales",
+    "themesCTA": "Ver todos los temas",
+    "themesTitle": "Explorar por tema",
+    "title": "Descubre el patrimonio cultural {digital} europeo",
+    "titleDigital": "digital"
+  },
   "imageSlider": {
     "handle": "Manipulador de control deslizante"
   },
   "items": {
-    "itemCount": "1 artículo | {count} artículos",
-    "itemOf": "{max} de {count} artículos",
-    "youMightLike": "Artículos que quizá te gusten"
+    "itemCount": "1 elemento | {count} elementos",
+    "itemOf": "{max} de {count} elementos",
+    "recent": "Elementos recientes",
+    "recommended": "Elementos recomendados",
+    "youMightLike": "Elementos que quizá te gusten"
   },
   "klaro": {
     "main": {
+      "acceptAll": "Aceptar todo",
+      "acceptSelected": "Aceptar seleccionado",
       "consentModal": {
         "description": "Nos tomamos muy en serio la privacidad de sus datos. Aquí puede evaluar y personalizar los servicios que nos gustaría utilizar en este sitio web. ¡Estás a cargo! Habilite o deshabilite los servicios como mejor le parezca.",
         "title": "Servicios que nos gustaría utilizar."
       },
       "consentNotice": {
-        "description": "Nos preocupamos por su privacidad y solo usamos los datos para mejorar su experiencia. No utilizamos ninguna información personal para publicidad. Puede cambiar su consentimiento cada 15 días."
+        "description": "Nos preocupamos por su privacidad y solo usamos los datos para mejorar su experiencia. No utilizamos ninguna información personal para publicidad. Puede cambiar su consentimiento cada 15 días.",
+        "learnMore": "Dejame elegir"
       },
+      "decline": "Me niego",
       "ok": "Okey",
       "purposes": {
         "essential": {
@@ -588,11 +781,16 @@ export default {
       }
     },
     "services": {
+      "abTest": {
+        "description": "Ayuda a mejorar nuestro sitio web aplicando ocasionalmente cambios experimentales.",
+        "title": "Pruebas A/B"
+      },
       "auth-strategy": {
         "description": "Recuerda la estrategia de autorización que se debe utilizar para iniciar sesión.",
         "title": "Estrategia de autenticación"
       },
       "debugSettings": {
+        "description": "Ayuda a depurar solicitudes de API",
         "title": "Alternar depuración"
       },
       "hotjar": {
@@ -611,6 +809,10 @@ export default {
         "description": "Recopila estadísticas anónimas sobre cómo los visitantes interactúan con el sitio web.",
         "title": "Matomo"
       },
+      "newFeatureNotification": {
+        "description": "Muestra una notificación cuando hay nuevas funciones disponibles.",
+        "title": "Notificación de nuevas funciones"
+      },
       "searchResultsView": {
         "description": "Recuerda si prefiere ver los resultados de la búsqueda en una vista de lista o cuadrícula.",
         "title": "Vista de resultados de búsqueda (lista / cuadrícula)"
@@ -621,41 +823,65 @@ export default {
     "skipToMain": "Saltar al contenido de la página"
   },
   "learnMore": "Más información de la fuente de esta descripción",
-  "linksToClassic": {
-    "home": {
-      "linkText": "Ir a la web original de Europeana.",
-      "text": "Está viviendo la nueva experiencia Europeana."
-    },
-    "record": {
-      "linkText": "Ver este objeto en la web original de Europeana.",
-      "text": "Está viendo este objeto en la nueva web de Europeana."
-    },
-    "search": {
-      "linkText": "Ver estos resultados de búsqueda en la web original de Europeana.",
-      "text": "Está buscando en nuestra nueva web, ahora más rápida."
-    }
-  },
+  "loading": "Cargando",
   "loadingResults": "Cargando resultados",
-  "mediaPreview": {
-    "selectItem": "Seleccionar elemento {src}"
-  },
   "messages": {
     "copyToClipboardSuccess": "Copiado en el portapapeles",
     "externalContentError": "El contenido externo no se ha podido cargar",
     "notFound": "No se ha encontrado",
     "paginationLimitExceeded": "Solo es posible ver los primeros {limit} resultados de búsqueda."
   },
+  "modal": {
+    "download": {
+      "clickToCopy": "Haga clic en la atribución para copiarla",
+      "modalIntro": "Si usa este elemento en la web o en otro lugar, no olvide mostrar la siguiente atribución junto a él:",
+      "modalTitle": "Di gracias"
+    }
+  },
+  "multilingual": {
+    "automated": "Traducción automática",
+    "enrichment": "Enriquecimiento por parte de proyectos asociados",
+    "other": "otros idiomas",
+    "stopTranslating": "Dejar de traducir este elemento a {0}.",
+    "translateLanguage": "¿Le gustaría ver este artículo en {0} ?",
+    "translateQuotaError": "El servicio de traducción no está disponible temporalmente. Por favor, inténtelo de nuevo más tarde."
+  },
+  "newFeatureNotification": {
+    "dismiss": "Cerrar",
+    "readMore": "Leer más",
+    "text": {
+      "searchFilters": "Ahora puede buscar valores en los filtros individuales; ¡Echale un vistazo!"
+    }
+  },
   "newWindow": "se abre en una nueva ventana",
   "noMoreResults": "No hay más resultados para su búsqueda.",
   "noResults": "No hay resultados",
+  "of": "De",
+  "organisation": {
+    "city": "Ciudad",
+    "country": "País",
+    "englishName": "Nombre en inglés",
+    "nameAcronym": "acrónimo del nombre"
+  },
   "pageHasLoaded": "ha cargado",
+  "pageNumber": "Número de página",
   "pages": {
     "collections": {
       "organisations": {
+        "table": {
+          "name": "Nombre"
+        },
         "title": "Organizaciones"
       },
       "persons": {
         "title": "Personas"
+      },
+      "places": {
+        "title": "Lugares"
+      },
+      "table": {
+        "items": "Elementos",
+        "name": "Nombre"
       },
       "times": {
         "title": "Veces"
@@ -665,12 +891,23 @@ export default {
       }
     }
   },
+  "pagination": {
+    "label": "Paginación"
+  },
   "readMore": "Leer más",
+  "recommendation": {
+    "prompts": {
+      "accept": "Pulgar arriba para agregar a la galería",
+      "reject": "Pulgar hacia abajo si no le gusta"
+    }
+  },
   "record": {
     "IIIFViewer": "Visor IIIF",
+    "actions": {
+      "pin": "Anclar elemento a entidades disponibles"
+    },
     "allMetaData": "Todos los metadatos",
     "copyEmbedLabel": "Código de inserción (haga clic para copiar)",
-    "downloadCopyrightInfo": "Este objeto tiene derechos de autor y no se puede descargar.",
     "exploreMore": "Explorar más",
     "extendedInformation": "Información ampliada",
     "goodToKnow": "Información importante",
@@ -680,13 +917,16 @@ export default {
     "mediaPlayer": "Reproductor multimedia",
     "record": "Registro",
     "showAll": "Mostrar toda la información",
-    "similarItems": "Objetos similares",
+    "similarItems": "Elementos similares",
+    "status": {
+      "unpublished": "[Artículo no publicado]"
+    },
     "transcription": "Transcripción",
-    "transcriptionDisclaimer": "Este contenido ha sido aportado por el público, no por la institución que ha proporcionado este artículo.",
-    "view": {
-      "image": "Ver imagen",
-      "media": "Ver medio",
-      "pdf": "Ver PDF"
+    "transcriptionDisclaimer": "Este contenido ha sido aportado por el público, no por la institución que ha proporcionado este artículo."
+  },
+  "related": {
+    "editorial": {
+      "title": "Historias que te pueden gustar"
     }
   },
   "relatedCollections": "Colecciones relacionadas",
@@ -694,12 +934,19 @@ export default {
   "reset": "Reiniciar",
   "resourceWikimedia": "Recurso de Wikimedia Commons",
   "results": "Resultados",
+  "resultsFor": "Resultados para {0}",
   "resultsLimitWarning": "No se muestran los resultados adicionales, ya que solo se muestran los primeros 1000 resultados más relevantes. Si no ha encontrado lo que está buscando, considere delimitar su búsqueda.",
-  "search": "Buscar",
-  "searchPlaceholder": "Busca millones de artículos",
+  "resultsWithin": "Resultados dentro de {0} {1} para {2}",
+  "search": {
+    "boost": {
+      "placeholder": "Introduzca la consulta de refuerzo del campo"
+    },
+    "title": "Buscar"
+  },
+  "searchHasLoaded": "{0} resultados devueltos",
+  "searchPlaceholder": "Buscar más de 50 millones de objetos",
   "searchResults": "Buscar",
   "searchResultsFor": "{0} - Buscar",
-  "searchResultsForIn": "{0} - Buscar en {1}",
   "searchSuggestions": "Sugerencias de búsqueda",
   "searchTier": {
     "button": {
@@ -707,13 +954,14 @@ export default {
       "show": "Mostrar estos elementos"
     },
     "text": {
-      "hide": "Se muestran los artículos que no cumplen nuestros criterios de publicación.",
-      "show": "Hay más artículos que coinciden con su búsqueda, pero no cumplen nuestros criterios de publicación."
+      "hide": "Se muestran los elementos que no cumplen nuestros criterios de publicación.",
+      "show": "Hay más elementos que coinciden con su búsqueda, pero no cumplen nuestros criterios de publicación."
     }
   },
   "searchViews": {
     "grid": "Ver en cuadrícula",
-    "list": "Ver en lista"
+    "list": "Ver en lista",
+    "mosaic": "Vista de mosaico"
   },
   "set": {
     "actions": {
@@ -739,12 +987,26 @@ export default {
       "likeLimit": {
         "body": "Lo sentimos, pero en este momento el límite de \"Me gusta\" está establecido en un máximo de 100 artículos. ¡Pronto eliminaremos este límite!",
         "title": "100 \"Me gusta\""
-      }
+      },
+      "updated": "El elemento se agregó a la galería."
     },
     "prompts": {
-      "delete": "¿Estás seguro de que quieres eliminar esta galería? Si eliminas esta galería, perderás todos los artículos que le hayas agregado."
+      "delete": "¿Estás seguro de que quieres eliminar esta galería? Si eliminas esta galería, perderás todos los elementos que le hayas agregado."
     }
   },
   "showLess": "Mostrar menos",
-  "showMore": "Mostrar más"
+  "showMore": "Mostrar más",
+  "sideFilters": {
+    "noOptions": "No hay opciones disponibles para seleccionar",
+    "search": "Buscar"
+  },
+  "statuses": {
+    "liked": "Gustó",
+    "pinned": "Fijado"
+  },
+  "storiesPage": {
+    "title": "Historias"
+  },
+  "website": "Sitio web",
+  "youMightAlsoLike": "También podría gustarte"
 };

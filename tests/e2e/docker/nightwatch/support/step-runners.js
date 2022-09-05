@@ -30,9 +30,11 @@ function qaSelector(qaElementNames) {
 module.exports = {
   async amOnPageNumber(page) {
     await client.expect.url().to.match(new RegExp(`[?&]page=${page}([&#]|$)`));
-    const navSelector = qaSelector('pagination navigation');
-    const activeLinkSelector = navSelector + ` li.active a[aria-label="Go to page ${page}"]`;
-    await client.waitForElementVisible(activeLinkSelector);
+    const inputSelector = qaSelector('pagination input');
+    await client.waitForElementVisible(inputSelector);
+    await client.getValue(inputSelector, async(result) => {
+      await client.expect(result.value).to.equal(`${page}`);
+    });
   },
   async checkPageAccesibility() {
     const axeOptions = {
@@ -53,11 +55,19 @@ module.exports = {
     await this.checkTheCheckbox(selector);
   },
   async checkTheCheckbox(selector) {
+    const enabledSelector = `${selector}:enabled`;
+    await client.expect.element(enabledSelector).to.be.present;
+
     await client.getAttribute(selector, 'id', async(result) => {
       const checkboxId = result.value;
       const labelSelector = `label[for="${checkboxId}"]`;
       client.click(labelSelector);
     });
+  },
+  async waitForTargetToHaveState(qaElementName, state) {
+    const selector = qaSelector(qaElementName);
+    const stateSelector = `${selector}:${state}`;
+    await client.expect.element(stateSelector).to.be.present;
   },
   async switchTheTargetOnOrOff(qaElementName, onOrOff) {
     const selector = qaSelector(qaElementName);
@@ -83,6 +93,10 @@ module.exports = {
   },
   async checkTheRadio(inputName, inputValue) {
     const selector = `input[type="radio"][name="${inputName}"][value="${this.escapeCssAttributeSelector(inputValue)}"]`;
+
+    const enabledSelector = `${selector}:enabled`;
+    await client.expect.element(enabledSelector).to.be.present;
+
     await client.getAttribute(selector, 'id', (result) => {
       const radioId = result.value;
       const labelSelector = `label[for="${radioId}"]`;
@@ -91,6 +105,11 @@ module.exports = {
   },
   async clickOnTheTarget(qaElementNames) {
     const selector = qaSelector(qaElementNames);
+    await client.waitForElementVisible(selector);
+    await client.click(selector);
+  },
+  async clickOnTheTargetButton(qaElementNames) {
+    const selector = qaSelector(qaElementNames) + ' button';
     await client.waitForElementVisible(selector);
     await client.click(selector);
   },
@@ -182,17 +201,14 @@ module.exports = {
   async paginateToPage(page) {
     const containerSelector = qaSelector('pagination navigation');
 
-    // Move down to the nav container and wait one second to allow lazy-loading
-    // of images which may interfere with clicking on pagination.
-    // FIXME: this is not 100% reliable
-    await client.moveToElement(containerSelector, 0, 0);
-    await this.waitSomeSeconds(1);
-
     await client.waitForElementVisible(containerSelector);
-    const selector = containerSelector + ` a[aria-label="Go to page ${page}"]`;
+    const selector = containerSelector + ' ' + qaSelector('pagination input');
     await client.waitForElementVisible(selector);
-
-    await client.click(selector);
+    // Double clearing the input as a workaround to an issue on collection pages,
+    // where the first clear results in a redirect to page 1.
+    await client.clearValue(selector);
+    await client.clearValue(selector);
+    await client.setValue(selector, [`${page}` , client.Keys.ENTER]);
   },
   async preferBrowserLanguage(locale) {
     const nightwatchApiOptions = {
@@ -207,10 +223,10 @@ module.exports = {
     await startWebDriver(nightwatchApiOptions);
     await createSession(nightwatchApiOptions);
   },
-  async seeACheckedRadio(inputName, inputValue) {
-    const radioSelector = `input[type="radio"][name="${inputName}"][value="${inputValue}"]:checked`;
+  async seeACheckedInput(value, name, type) {
+    const selector = `input[type="${type}"][name="${name}"][value="${value}"]:checked`;
 
-    await client.expect.element(radioSelector).to.be.present;
+    await client.expect.element(selector).to.be.present;
   },
   async seeALinkInTarget(linkHref, qaElementName) {
     await client.expect.element(qaSelector(qaElementName) + ` a[href="${linkHref}"]`).to.be.visible;
@@ -223,7 +239,10 @@ module.exports = {
     await client.expect.element(qaSelector(qaElementNames)).text.to.contain(text);
   },
   async haveHighlightedATarget(qaElementNames) {
-    await client.expect.element(qaSelector(qaElementNames) + '.hover').to.be.visible;
+    await client.expect.element(qaSelector(qaElementNames) + ':focus').to.be.visible;
+  },
+  async haveEnabledButtonInTarget(qaElementName) {
+    await client.waitForElementVisible(qaSelector(qaElementName) + ' button:enabled');
   },
   async seeASectionHeadingWithText(headingLevel, text) {
     await client.expect.element(`h${headingLevel}`).text.to.contain(text);
@@ -238,14 +257,10 @@ module.exports = {
     });
   },
   async selectSearchResultsView(viewName) {
-    /* eslint-disable prefer-arrow-callback */
-    /* DO NOT MAKE INTO A ARROW FUNCTION - If you do, it will break the tests */
-    await client.execute(function(viewName) {
-      localStorage.searchResultsView = viewName;
-      sessionStorage.searchResultsView = viewName;
-      return true;
-    }, [viewName]);
-    /* eslint-enable prefer-arrow-callback */
+    await client.setCookie({
+      name: 'searchResultsView',
+      value: viewName
+    });
   },
   async doNotSeeTextInTarget(text, qaElementName) {
     const selector = qaSelector(qaElementName);
@@ -307,6 +322,20 @@ module.exports = {
   },
   async scrollWindow() {
     await client.execute('scroll(0, 100)');
+  },
+  async resizeBrowserWindow(width, height) {
+    await client.resizeWindow(width, height);
+  },
+  async iframeFitsContainer(qaElementNameParent) {
+    let childSize;
+    let parentSize;
+    await client.getElementSize(`${qaSelector(qaElementNameParent)} iframe`, (result) => {
+      childSize = { height: result.value.height, width: result.value.width };
+    });
+    await client.getElementSize(qaSelector(qaElementNameParent), (result) => {
+      parentSize = { height: result.value.height, width: result.value.width };
+    });
+    await client.expect(childSize.height).to.be.at.most(parentSize.height);
+    await client.expect(childSize.width).to.be.at.most(parentSize.width);
   }
 };
-

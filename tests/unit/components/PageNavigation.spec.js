@@ -22,6 +22,6 @@ describe('components/PageNavigation', () => {
     const wrapper = factory();
     const links = wrapper.find('[data-qa="main navigation"]');
 
-    links.html().includes('header.navigation.collections').should.be.true;
+    expect(links.html().includes('header.navigation.collections')).toBe(true);
   });
 });

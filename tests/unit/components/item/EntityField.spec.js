@@ -14,23 +14,60 @@ const factory = (propsData) => mount(EntityField, {
   }
 });
 
-describe('components/item/EntityField', () => {
-  describe('when it represents a Europeana Entity', () => {
-    it('shows linked entity', () => {
-      const wrapper = factory({ value: 'Painting', about: 'http://data.europeana.eu/concept/base/47' });
+const fixtures = {
+  europeanaEntity: { text: 'Painting', about: 'http://data.europeana.eu/concept/47' },
+  providerEntity: { text: 'Painting', about: 'http://example.org/entities/painting' }
+};
 
-      const fieldValue = wrapper.find('span a');
-      fieldValue.attributes().href.should.eq('localizedPath');
-      fieldValue.text().should.eq('Painting');
+describe('components/item/EntityField', () => {
+  describe('template', () => {
+    describe('when it represents a Europeana Entity', () => {
+      it('shows linked entity', () => {
+        const wrapper = factory(fixtures.europeanaEntity);
+
+        const fieldValue = wrapper.find('span a');
+        expect(fieldValue.attributes().href).toBe('localizedPath');
+        expect(fieldValue.text()).toBe('Painting');
+      });
+    });
+
+    describe('when it represents a provider entity', () => {
+      it('shows just the label', () => {
+        const wrapper = factory(fixtures.europeanaEntity);
+
+        const fieldValue = wrapper.find('span');
+        expect(fieldValue.text()).toBe('Painting');
+      });
     });
   });
 
-  describe('when it represents a provider entity', () => {
-    it('shows just the label', () => {
-      const wrapper = factory({ value: 'Painting', about: 'http://example.org/entities/painting' });
+  describe('computed', () => {
+    describe('isEuropeanaEntity', () => {
+      it('is `true` for Europeana entities', () => {
+        const wrapper = factory(fixtures.europeanaEntity);
 
-      const fieldValue = wrapper.find('span');
-      fieldValue.text().should.eq('Painting');
+        expect(wrapper.vm.isEuropeanaEntity).toBe(true);
+      });
+
+      it('is `false` for provider entities', () => {
+        const wrapper = factory(fixtures.providerEntity);
+
+        expect(wrapper.vm.isEuropeanaEntity).toBe(false);
+      });
+    });
+
+    describe('destination', () => {
+      it('extracts params from URI for Europeana entities', () => {
+        const wrapper = factory(fixtures.europeanaEntity);
+
+        expect(wrapper.vm.destination).toEqual({ id: '47', type: 'topic' });
+      });
+
+      it('uses URI for provider entities', () => {
+        const wrapper = factory(fixtures.providerEntity);
+
+        expect(wrapper.vm.destination).toBe(fixtures.providerEntity.about);
+      });
     });
   });
 });

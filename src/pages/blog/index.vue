@@ -27,9 +27,7 @@
     </b-row>
     <b-row>
       <b-col>
-        <PaginationNav
-          v-model="page"
-          :limit="perPage"
+        <PaginationNavInput
           :total-results="total"
           :per-page="perPage"
         />
@@ -41,15 +39,17 @@
 <script>
   import ContentHeader from '../../components/generic/ContentHeader';
   import ContentCard from '../../components/generic/ContentCard';
+  import PaginationNavInput from '../../components/generic/PaginationNavInput';
 
   const PER_PAGE = 20;
 
   export default {
-    name: 'BlogFoyer',
+    name: 'BlogIndexPage',
+
     components: {
       ContentHeader,
       ContentCard,
-      PaginationNav: () => import('../../components/generic/PaginationNav')
+      PaginationNavInput
     },
 
     middleware: 'sanitisePageQuery',
@@ -84,6 +84,14 @@
       };
     },
 
+    head() {
+      return {
+        title: this.$pageHeadTitle(this.$t('blog.blog'))
+      };
+    },
+
+    watchQuery: ['page'],
+
     methods: {
       imageUrl(post) {
         return post.primaryImageOfPage?.image?.url || null;
@@ -94,14 +102,6 @@
       imageAlt(post) {
         return post.primaryImageOfPage?.image?.description || '';
       }
-    },
-
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.$t('blog.blog'))
-      };
-    },
-
-    watchQuery: ['page']
+    }
   };
 </script>

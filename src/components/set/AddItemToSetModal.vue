@@ -10,7 +10,7 @@
   >
     <b-button
       variant="primary"
-      class="btn-collection w-100 mb-3 text-left"
+      class="btn-collection w-100 mb-3 text-left p-3"
       data-qa="create new gallery button"
       @click="$emit('clickCreateSet')"
     >
@@ -21,7 +21,7 @@
         v-for="(collection, index) in collections"
         :key="index"
         :set="collection"
-        :img="collectionPreview(collection.id)"
+        :img="collectionPreview(collection)"
         :disabled="!fetched"
         :added="added.includes(collection.id)"
         :checked="collectionsWithItem.includes(collection.id)"
@@ -42,8 +42,6 @@
 </template>
 
 <script>
-  import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
-
   import AddItemToSetButton from './AddItemToSetButton';
 
   export default {
@@ -87,7 +85,7 @@
       // Array of IDs of sets containing the item
       collectionsWithItem() {
         return this.collections
-          .filter(collection => (collection.items || []).includes(`${EUROPEANA_DATA_URL}/item${this.itemId}`))
+          .filter(collection => (collection.items || []).some(item => item.id === this.itemId))
           .map(collection => collection.id);
       }
     },
@@ -116,8 +114,8 @@
         });
       },
 
-      collectionPreview(setId) {
-        return this.$store.getters['set/creationPreview'](setId);
+      collectionPreview(set) {
+        return this.$apis.thumbnail.edmPreview(set.items?.[0]?.edmPreview?.[0]);
       },
 
       addItem(setId) {
@@ -142,9 +140,19 @@
 </script>
 
 <style lang="scss" scoped>
+  .btn-primary.btn-collection {
+    border: 0;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
   .collections {
     max-height: calc(100vh - 474px);
     overflow: auto;
+
+    .btn-collection {
+      font-weight: 600;
+    }
 
     .btn-collection:last-child {
       margin-bottom: 0;

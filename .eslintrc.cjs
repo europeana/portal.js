@@ -5,8 +5,8 @@ module.exports = {
   },
   'extends': [
     'eslint:recommended',
-    'plugin:vue/essential',
-    'plugin:vue/recommended'
+    'plugin:vue/recommended',
+    'plugin:jest/recommended'
   ],
   parserOptions: {
     ecmaVersion: 2020
@@ -30,6 +30,9 @@ module.exports = {
     'func-style': ['error', 'declaration', { allowArrowFunctions: true }],
     'function-call-argument-newline': ['error', 'consistent'],
     indent: ['error', 2, { SwitchCase: 1 }],
+    'jest/expect-expect': 'error',
+    'jest/prefer-expect-assertions': 0,
+    'jest/no-conditional-expect': 1,
     'jsx-quotes': ['error', 'prefer-double'],
     'key-spacing': ['error', { afterColon: true }],
     'keyword-spacing': ['error', { before: true, after: true }],

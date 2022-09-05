@@ -1,15 +1,27 @@
 /* eslint-disable camelcase */
 
-const APP_SITE_NAME = 'Europeana';
+/*
+** Nuxt config
+** Docs: https://nuxtjs.org/docs/configuration-glossary/
+*/
 
-import pkg from './package.json';
-import nuxtPkg from 'nuxt/package.json';
+const APP_SITE_NAME = 'Europeana';
+const APP_PKG_NAME = '@europeana/portal';
+
+import versions from './pkg-versions.js';
 
 import i18nLocales from './src/plugins/i18n/locales.js';
 import i18nDateTime from './src/plugins/i18n/datetime.js';
 import { parseQuery, stringifyQuery } from './src/plugins/vue-router.cjs';
+import features, { featureIsEnabled, featureNotificationExpiration } from './src/features/index.js';
 
-const featureIsEnabled = (value) => Boolean(Number(value));
+const buildPublicPath = () => {
+  if (featureIsEnabled(process.env.ENABLE_JSDELIVR_BUILD_PUBLIC_PATH)) {
+    return `https://cdn.jsdelivr.net/npm/${APP_PKG_NAME}@${versions[APP_PKG_NAME]}/.nuxt/dist/client`;
+  } else {
+    return process.env.NUXT_BUILD_PUBLIC_PATH;
+  }
+};
 
 export default {
   /*
@@ -20,16 +32,12 @@ export default {
       // TODO: rename env vars to prefix w/ APP_, except feature toggles
       baseUrl: process.env.PORTAL_BASE_URL,
       internalLinkDomain: process.env.INTERNAL_LINK_DOMAIN,
+      featureNotification: process.env.APP_FEATURE_NOTIFICATION,
+      featureNotificationExpiration: featureNotificationExpiration(process.env.APP_FEATURE_NOTIFICATION_EXPIRATION),
       schemaOrgDatasetId: process.env.SCHEMA_ORG_DATASET_ID,
       siteName: APP_SITE_NAME,
-      features: {
-        jiraServiceDeskFeedbackForm: featureIsEnabled(process.env.ENABLE_JIRA_SERVICE_DESK_FEEDBACK_FORM),
-        linksToClassic: featureIsEnabled(process.env.ENABLE_LINKS_TO_CLASSIC),
-        recommendations: featureIsEnabled(process.env.ENABLE_RECOMMENDATIONS),
-        acceptSetRecommendations: featureIsEnabled(process.env.ENABLE_ACCEPT_SET_RECOMMENDATIONS),
-        acceptEntityRecommendations: featureIsEnabled(process.env.ENABLE_ACCEPT_ENTITY_RECOMMENDATIONS),
-        entityManagement: featureIsEnabled(process.env.ENABLE_ENTITY_MANAGEMENT),
-        translatedItems: featureIsEnabled(process.env.ENABLE_TRANSLATED_ITEMS)
+      search: {
+        translateLocales: (process.env.APP_SEARCH_TRANSLATE_LOCALES || '').split(',')
       }
     },
     auth: {
@@ -49,6 +57,10 @@ export default {
     axios: {
       baseURL: process.env.PORTAL_BASE_URL
     },
+    axiosLogger: {
+      clearParams: process.env.AXIOS_LOGGER_CLEAR_PARAMS?.split(',') || ['wskey'],
+      httpMethods: process.env.AXIOS_LOGGER_HTTP_METHODS?.toUpperCase().split(',')
+    },
     contentful: {
       spaceId: process.env.CTF_SPACE_ID,
       environmentId: process.env.CTF_ENVIRONMENT_ID,
@@ -65,10 +77,15 @@ export default {
         environment: process.env.ELASTIC_APM_ENVIRONMENT || 'development',
         logLevel: process.env.ELASTIC_APM_LOG_LEVEL || 'info',
         serviceName: 'portal-js',
-        serviceVersion: pkg.version,
+        serviceVersion: versions[APP_PKG_NAME],
         frameworkName: 'Nuxt',
-        frameworkVersion: nuxtPkg.version,
-        usePathAsTransactionName: true
+        frameworkVersion: versions['@nuxt/core'],
+        ignoreUrls: [
+          /^\/(_nuxt|__webpack_hmr)\//
+        ],
+        ignoreUserAgents: [
+          'kube-probe/'
+        ]
       }
     },
     europeana: {
@@ -100,9 +117,20 @@ export default {
         },
         entityManagement: {
           url: process.env.EUROPEANA_ENTITY_MANAGEMENT_API_URL
+        },
+        iiifPresentation: {
+          media: {
+            url: process.env.EUROPEANA_MEDIA_IIIF_PRESENTATION_API_URL || 'https://iiif.europeana.eu/presentation'
+          }
+        }
+      },
+      proxy: {
+        media: {
+          url: process.env.EUROPEANA_MEDIA_PROXY_URL
         }
       }
     },
+    features: features(),
     hotjar: {
       id: process.env.HOTJAR_ID,
       sv: process.env.HOTJAR_SNIPPET_VERSION
@@ -134,6 +162,9 @@ export default {
   },
 
   privateRuntimeConfig: {
+    contentful: {
+      graphQlOrigin: process.env.CTF_GRAPHQL_ORIGIN_PRIVATE || process.env.CTF_GRAPHQL_ORIGIN
+    },
     jira: {
       origin: process.env.JIRA_API_ORIGIN,
       username: process.env.JIRA_API_USERNAME,
@@ -165,7 +196,7 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: pkg.description }
+      { hid: 'description', name: 'description', content: APP_SITE_NAME }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
@@ -199,10 +230,16 @@ export default {
     bootstrapVueCSS: false,
 
     // Tree shake plugins
+    //
+    // NOTE: do not register plugins globally (here) unless they are used widely;
+    //       import them locally into the views that need them instead. This
+    //       is to prevent large amounts of unused JS being sent upfront to clients.
+    //       As a general rule, only register globally if at least three views
+    //       use the plugin's components/directives. Also consider how often
+    //       those components are rendered based on placement in layout and
+    //       usage patterns by users, and the plugin's bundled size.
     componentPlugins: [
-      'AlertPlugin',
       'BadgePlugin',
-      'BreadcrumbPlugin',
       'ButtonPlugin',
       'CardPlugin',
       'DropdownPlugin',
@@ -218,16 +255,10 @@ export default {
       'LayoutPlugin',
       'LinkPlugin',
       'ListGroupPlugin',
-      'MediaPlugin',
       'ModalPlugin',
       'NavbarPlugin',
-      'NavPlugin',
-      'PaginationNavPlugin',
       'SidebarPlugin',
-      'TablePlugin',
-      'TabsPlugin',
-      'ToastPlugin',
-      'TooltipPlugin'
+      'ToastPlugin'
     ]
   },
 
@@ -236,7 +267,6 @@ export default {
   */
   plugins: [
     '~/plugins/vue-matomo.client',
-    '~/plugins/vue',
     '~/plugins/i18n/iso-locale',
     '~/plugins/hotjar.client',
     '~/plugins/link',
@@ -244,7 +274,10 @@ export default {
     '~/plugins/vue-filters',
     '~/plugins/vue-directives',
     '~/plugins/vue-announcer.client',
-    '~/plugins/vue-masonry.client'
+    '~/plugins/vue-masonry.client',
+    '~/plugins/vue-scrollto.client',
+    '~/plugins/ab-testing',
+    '~/plugins/features'
   ],
 
   buildModules: [
@@ -261,10 +294,9 @@ export default {
   modules: [
     '~/modules/elastic-apm',
     '@nuxtjs/axios',
-    ['@nuxtjs/robots', JSON.parse(process.env.NUXTJS_ROBOTS || '{"UserAgent":"*","Disallow":"/"}')],
     'bootstrap-vue/nuxt',
     'cookie-universal-nuxt',
-    ['nuxt-i18n', {
+    ['@nuxtjs/i18n', {
       locales: i18nLocales,
       baseUrl: ({ $config }) => $config.app.baseUrl,
       defaultLocale: 'en',
@@ -319,20 +351,37 @@ export default {
       }
     },
     defaultStrategy: 'keycloak',
-    plugins: ['~/plugins/apis']
+    plugins: ['~/plugins/apis', '~/plugins/user-likes.client']
   },
 
   router: {
-    middleware: ['legacy/index', 'l10n'],
+    middleware: ['trailing-slash', 'legacy/index', 'l10n'],
     extendRoutes(routes) {
+      const nuxtHomeRouteIndex = routes.findIndex(route => route.name === 'home');
+      routes[nuxtHomeRouteIndex] = {
+        name: 'home',
+        path: '/',
+        component: 'src/pages/home/index.vue'
+      };
+
+      const nuxtCollectionsPersonsOrPlacesRouteIndex = routes.findIndex(route => route.name === 'collections-persons-or-places');
+      routes.splice(nuxtCollectionsPersonsOrPlacesRouteIndex, 1);
+
+      routes.push({
+        name: 'collections-persons',
+        path: '/collections/persons',
+        component: 'src/pages/collections/persons-or-places.vue'
+      });
+
+      routes.push({
+        name: 'collections-places',
+        path: '/collections/places',
+        component: 'src/pages/collections/persons-or-places.vue'
+      });
+
       routes.push({
         name: 'slug',
         path: '/*',
-        component: 'src/pages/index.vue'
-      });
-      routes.push({
-        name: 'collections',
-        path: '/(collections)',
         component: 'src/pages/index.vue'
       });
     },
@@ -345,14 +394,42 @@ export default {
     // We can't use /api as that's reserved on www.europeana.eu for (deprecated)
     // access to Europeana APIs.
     { path: '/_api', handler: '~/server-middleware/api' },
+    { path: '/robots.txt', handler: '~/server-middleware/robots.txt' },
     '~/server-middleware/logging',
+    '~/server-middleware/referrer-policy',
     '~/server-middleware/record-json'
   ],
 
   /*
   ** Build configuration
   */
-  build: {},
+  build: {
+    // Do not enable extractCSS as it is unreliable.
+    // See: https://github.com/nuxt/nuxt.js/issues/4219
+    extractCSS: false,
+
+    extend(config, { isClient }) {
+      // Extend webpack config only for client bundle
+      if (isClient) {
+        // Build source maps to aid debugging in production builds
+        config.devtool = 'source-map';
+      }
+    },
+
+    // Prevent irrelevant postcss warnings
+    // See https://github.com/postcss/postcss/issues/1375
+    postcss: null,
+
+    publicPath: buildPublicPath(),
+
+    // swiper v8 (and its dependencies) is pure ESM and needs to be transpiled to be used by Vue2
+    transpile: ['dom7', 'ssr-window', 'swiper']
+  },
+
+  /*
+  ** Enable modern builds
+  */
+  modern: true,
 
   /*
   ** Render configuration
@@ -370,5 +447,7 @@ export default {
   srcDir: 'src/',
 
   // Opt-out of telemetry
-  telemetry: false
+  telemetry: false,
+
+  watch: ['~/**/*.graphql']
 };

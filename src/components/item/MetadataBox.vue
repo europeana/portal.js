@@ -17,10 +17,11 @@
             data-qa="main metadata section"
           >
             <MetadataField
-              v-for="(value, name) in coreMetadata"
+              v-for="name in CORE_FIELDS"
               :key="name"
+              :metadata-language="metadataLanguage"
               :name="name"
-              :field-data="value"
+              :field-data="metadata[name]"
             />
           </b-card-text>
         </b-tab>
@@ -32,10 +33,11 @@
             text-tag="div"
           >
             <MetadataField
-              v-for="(value, name) in allMetadata"
+              v-for="name in ALL_FIELDS"
               :key="name"
+              :metadata-language="metadataLanguage"
               :name="name"
-              :field-data="value"
+              :field-data="metadata[name]"
             />
           </b-card-text>
         </b-tab>
@@ -88,37 +90,42 @@
 </template>
 
 <script>
+  import { BTab, BTabs } from 'bootstrap-vue';
   import MetadataField from './MetadataField';
 
   export default {
     name: 'MetadataBox',
 
     components: {
+      BTab,
+      BTabs,
       MetadataField,
       MapEmbed: () => import('../geo/MapEmbed')
     },
 
     props: {
-      coreMetadata: {
+      metadata: {
+        type: Object,
+        required: true
+      },
+      location: {
         type: Object,
         default: null
       },
-      allMetadata: {
-        type: Object,
+      metadataLanguage: {
+        type: String,
         default: null
       },
       transcribingAnnotations: {
         type: Array,
         default: () => []
-      },
-      location: {
-        type: Object,
-        default: null
       }
     },
 
     data() {
       return {
+        CORE_FIELDS,
+        ALL_FIELDS,
         showLocationMap: false
       };
     },
@@ -137,4 +144,61 @@
       }
     }
   };
+
+  const CORE_FIELDS = [
+    'edmDataProvider',
+    'dcContributor',
+    'dcCreator',
+    'dcPublisher',
+    'dcSubject',
+    'dcType',
+    'dcDate',
+    'dctermsMedium'
+  ];
+
+  const ALL_FIELDS = CORE_FIELDS.concat([
+    'edmProvider',
+    'edmIntermediateProvider',
+    'edmRights',
+    'edmUgc',
+    'dcRights',
+    'dctermsCreated',
+    'dctermsIssued',
+    'dctermsTemporal',
+    'dcCoverage',
+    'dctermsSpatial',
+    'edmCurrentLocation',
+    'dctermsProvenance',
+    'dcSource',
+    'dcIdentifier',
+    'dctermsExtent',
+    'dcDuration',
+    'dcFormat',
+    'dcLanguage',
+    'dctermsIsPartOf',
+    'dcRelation',
+    'dctermsReferences',
+    'dctermsHasPart',
+    'dctermsHasVersion',
+    'dctermsIsFormatOf',
+    'dctermsIsReferencedBy',
+    'dctermsIsReplacedBy',
+    'dctermsIsRequiredBy',
+    'edmHasMet',
+    'edmIncorporates',
+    'edmIsDerivativeOf',
+    'edmIsRelatedTo',
+    'edmIsRepresentationOf',
+    'edmIsSimilarTo',
+    'edmIsSuccessorOf',
+    'edmRealizes',
+    'wasPresentAt',
+    'year',
+    'edmCountry',
+    'europeanaCollectionName',
+    'timestampCreated',
+    'timestampUpdate',
+    'keywords',
+    'dctermsTOC'
+  ]);
 </script>

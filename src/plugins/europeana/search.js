@@ -27,23 +27,21 @@ export const unquotableFacets = [
   'VIDEO_HD'
 ];
 
-// Thematic collections available via the `collection` qf
-// filter. Order is significant as it will be reflected on search results.
-export const thematicCollections = [
-  'ww1',
-  'archaeology',
-  'art',
-  'fashion',
-  'industrial',
-  'manuscript',
-  'map',
-  'migration',
-  'music',
-  'nature',
-  'newspaper',
-  'photography',
-  'sport'
-];
+export const filtersFromQf = (qfs) => {
+  const filters = {};
+
+  for (const qf of [].concat(qfs || [])) {
+    const qfParts = qf.split(':');
+    const name = qfParts[0];
+    const value = qfParts.slice(1).join(':');
+    if (typeof filters[name] === 'undefined') {
+      filters[name] = [];
+    }
+    filters[name].push(value);
+  }
+
+  return filters;
+};
 
 /**
  * Construct a range query from two values, if keys are omitted they will default to '*'
@@ -88,9 +86,14 @@ export function rangeFromQueryParam(paramValue) {
  * @param {Boolean} options.escape whether or not to escape Lucene reserved characters in the search query
  * @param {string} options.locale source locale for multilingual search
  * @param {string} options.url override the API URL
+ * @param {Boolean} options.addContentTierFilter if `true`, add a content tier filter. default `true`
  * @return {{results: Object[], totalResults: number, facets: FacetSet, error: string}} search results for display
  */
-export default function search($axios, params, options = {}) {
+// TODO: switch options.addContentTierFilter to default to `false`
+export default (context) => ($axios, params, options = {}) => {
+  const defaultOptions = { addContentTierFilter: true };
+  const localOptions = { ...defaultOptions, ...options };
+
   const maxResults = 1000;
   const perPage = params.rows === undefined ? 24 : Number(params.rows);
   const page = params.page || 1;
@@ -100,22 +103,25 @@ export default function search($axios, params, options = {}) {
 
   const searchParams = {
     ...$axios.defaults.params,
-    facet: params.facet,
-    profile: params.profile,
-    qf: addContentTierFilter(params.qf),
-    query: options.escape ? escapeLuceneSpecials(query) : query,
-    reusability: params.reusability,
+    ...params,
+    profile: params.profile || '',
+    qf: localOptions.addContentTierFilter ? addContentTierFilter(params.qf) : params.qf,
+    query: localOptions.escape ? escapeLuceneSpecials(query) : query,
     rows,
     start,
     sort: params.sort
   };
-  const targetLocale = 'en';
-  if (options.locale && options.locale !== targetLocale) {
-    searchParams['q.source'] = options.locale;
-    searchParams['q.target'] = targetLocale;
+
+  if (context?.$config?.app?.search?.translateLocales?.includes(localOptions.locale)) {
+    const targetLocale = 'en';
+    if (localOptions.locale !== targetLocale) {
+      searchParams.profile = `${searchParams.profile},translate`;
+      searchParams['q.source'] = localOptions.locale;
+      searchParams['q.target'] = targetLocale;
+    }
   }
 
-  return $axios.get(`${options.url || ''}/search.json`, {
+  return $axios.get(`${localOptions.url || ''}/search.json`, {
     paramsSerializer(params) {
       return qs.stringify(params, { arrayFormat: 'repeat' });
     },
@@ -124,13 +130,13 @@ export default function search($axios, params, options = {}) {
     .then(response => response.data)
     .then(data => ({
       ...data,
-      items: data.items.map(item => reduceFieldsForItem(item, options)),
+      items: data.items?.map(item => reduceFieldsForItem(item, options)),
       lastAvailablePage: start + perPage > maxResults
     }))
     .catch((error) => {
-      throw apiError(error);
+      throw apiError(error, context);
     });
-}
+};
 
 const reduceFieldsForItem = (item, options = {}) => {
   // Pick fields we need for search result display. See components/item/ItemPreviewCard.vue
@@ -142,7 +148,8 @@ const reduceFieldsForItem = (item, options = {}) => {
       'dcTitleLangAware',
       'edmPreview',
       'id',
-      'type'
+      'type',
+      'rights'
     ]
   );
 
@@ -173,14 +180,24 @@ const reduceFieldsForItem = (item, options = {}) => {
  */
 export function addContentTierFilter(qf) {
   let newQf = qf ? [].concat(qf) : [];
+
   if (!hasFilterForField(newQf, 'contentTier')) {
     // If no content tier qf is queried, tier 0 content is
     // excluded by default as it is considered not to meet
-    // Europeana's publishing criteria. Also tier 1 content is exluded if this
-    // is a search filtered by collection.
-    const contentTierFilter = hasFilterForField(newQf, 'collection') ? '2 OR 3 OR 4' : '1 OR 2 OR 3 OR 4';
-    newQf.push(`contentTier:(${contentTierFilter})`);
+    // Europeana's publishing criteria.
+    let contentTierFilter = '(1 OR 2 OR 3 OR 4)';
+
+    // Exceptions:
+    // 1. Tier 1 content is also excluded if this is a search filtered by collection.
+    // 2. All tier content is included if filtering by organization.
+    if (hasFilterForField(newQf, 'collection')) {
+      contentTierFilter = '(2 OR 3 OR 4)';
+    } else if (hasFilterForField(newQf, 'foaf_organization')) {
+      contentTierFilter = '*';
+    }
+    newQf.push(`contentTier:${contentTierFilter}`);
   }
+
   // contentTier:* is redundant so is removed
   newQf = newQf.filter(v => v !== 'contentTier:*');
 

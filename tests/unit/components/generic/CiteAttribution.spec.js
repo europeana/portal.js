@@ -26,7 +26,7 @@ describe('components/generic/CiteAttribution', () => {
     await wrapper.setProps({ url });
 
     const link = wrapper.find('cite a');
-    link.attributes().href.should.eq(url);
+    expect(link.attributes().href).toBe(url);
   });
 
   it('has an attribution', async() => {
@@ -34,7 +34,7 @@ describe('components/generic/CiteAttribution', () => {
     await wrapper.setProps({ creator: 'Johannes Vermeer' });
 
     const attribution = wrapper.find('cite a');
-    attribution.text().should.contain('Johannes Vermeer');
+    expect(attribution.text()).toContain('Johannes Vermeer');
   });
 
   it('has a rights statement', async() => {
@@ -42,7 +42,7 @@ describe('components/generic/CiteAttribution', () => {
     await wrapper.setProps({ rightsStatement: 'http://rightsstatements.org/vocab/InC/1.0/' });
 
     const rights = wrapper.find('cite a span');
-    rights.text().should.contain('In Copyright');
+    expect(rights.text()).toContain('In Copyright');
   });
 
   describe('.linkText', () => {
@@ -53,7 +53,7 @@ describe('components/generic/CiteAttribution', () => {
       const wrapper = factory();
       await wrapper.setProps({ name, creator, provider });
 
-      wrapper.vm.linkText.should.eq('Something, Someone, Somewhere');
+      expect(wrapper.vm.linkText).toBe('Something, Someone, Somewhere');
     });
 
     it('omits empty fields', async() => {
@@ -62,7 +62,7 @@ describe('components/generic/CiteAttribution', () => {
       const wrapper = factory();
       await wrapper.setProps({ name, provider });
 
-      wrapper.vm.linkText.should.eq('Something, Somewhere');
+      expect(wrapper.vm.linkText).toBe('Something, Somewhere');
     });
   });
 });

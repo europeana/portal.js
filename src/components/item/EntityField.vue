@@ -4,12 +4,12 @@
       v-if="isEuropeanaEntity"
       :destination="{ name: 'collections-type-all', params: { type: destination.type, pathMatch: destination.id } }"
     >
-      {{ value }}
+      {{ text }}
     </SmartLink>
     <template
       v-else
     >
-      {{ value }}
+      {{ text }}
     </template>
   </span>
 </template>
@@ -20,11 +20,14 @@
   import { isEntityUri, entityParamsFromUri } from '@/plugins/europeana/entity';
 
   export default {
+    name: 'EntityField',
+
     components: {
       SmartLink
     },
+
     props: {
-      value: {
+      text: {
         type: String,
         default: null
       },
@@ -33,9 +36,10 @@
         required: true
       }
     },
+
     computed: {
       isEuropeanaEntity() {
-        return this.about ? isEntityUri(this.about, ['timespan', 'concept', 'agent']) : false;
+        return isEntityUri(this.about);
       },
       destination() {
         return this.isEuropeanaEntity ? entityParamsFromUri(this.about) : this.about;

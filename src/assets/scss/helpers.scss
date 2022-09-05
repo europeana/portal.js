@@ -1,5 +1,5 @@
 .is-size-1 {
-  font-size: 2.375rem; 
+  font-size: 2.375rem;
 }
 
 .is-size-1-5 {
@@ -29,18 +29,29 @@
 .font-large {
   font-size: $font-size-large;
 }
+
 .font-medium {
   font-size: $font-size-medium;
 }
+
 .font-base {
   font-size: $font-size-base;
 }
+
 .font-small {
   font-size: $font-size-small;
 }
+
 .font-extra-small {
   font-size: $font-size-extrasmall;
 }
+
 .font-smallest {
   font-size: $font-size-smallest;
+}
+
+@media (min-width: $bp-medium) {
+  .flex-basis-md-auto {
+    flex-basis: auto;
+  }
 }

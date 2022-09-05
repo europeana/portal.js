@@ -1,102 +1,16 @@
-import omitBy from 'lodash/omitBy';
 import pick from 'lodash/pick';
 import uniq from 'lodash/uniq';
 import merge from 'deepmerge';
 
 import { apiError, createAxios, reduceLangMapsForLocale, isLangMap } from './utils';
 import search from './search';
-import { thumbnailUrl, thumbnailTypeForMimeType } from  './thumbnail';
-import { getEntityUri, getEntityQuery } from './entity';
-import { isIIIFPresentation } from '../media';
-import localeCodes from '../i18n/codes';
+import thumbnail, { thumbnailTypeForMimeType } from  './thumbnail';
+import { isIIIFPresentation, isIIIFImage } from '../media';
+
+import { ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX } from './data';
 
 export const BASE_URL = process.env.EUROPEANA_RECORD_API_URL || 'https://api.europeana.eu/record';
 const MAX_VALUES_PER_PROXY_FIELD = 10;
-
-/**
- * Retrieves the "Core" fields which will always be displayed on record pages.
- *
- * @param {Object[]} proxyData All core fields are in the proxyData.
- * @param {Object[]} providerAggregation Extra fields used for the provider name & isShownAt link.
- * @param {Object[]} entities Entities in order to perform entity lookups
- * @return {Object[]} Key value pairs of the metadata fields.
- */
-function coreFields(proxyData, providerAggregation, entities) {
-  const fields = lookupEntities(omitBy({
-    edmDataProvider: providerAggregation.edmDataProvider,
-    dcContributor: proxyData.dcContributor,
-    dcCreator: proxyData.dcCreator,
-    dcPublisher: proxyData.dcPublisher,
-    dcSubject: proxyData.dcSubject,
-    dcType: proxyData.dcType,
-    dctermsMedium: proxyData.dctermsMedium
-  }, isUndefined), entities);
-
-  fields.edmDataProvider = {
-    url: providerAggregation.edmIsShownAt, value: fields.edmDataProvider
-  };
-  return Object.freeze(fields);
-}
-
-const PROXY_EXTRA_FIELDS = [
-  'dcRights',
-  'dcPublisher',
-  'dctermsCreated',
-  'dcDate',
-  'dctermsIssued',
-  'dctermsPublished',
-  'dctermsTemporal',
-  'dcCoverage',
-  'dctermsSpatial',
-  'edmCurrentLocation',
-  'dctermsProvenance',
-  'dcSource',
-  'dcIdentifier',
-  'dctermsExtent',
-  'dcDuration',
-  'dcMedium',
-  'dcFormat',
-  'dcLanguage',
-  'dctermsIsPartOf',
-  'dcRelation',
-  'dctermsReferences',
-  'dctermsHasPart',
-  'dctermsHasVersion',
-  'dctermsIsFormatOf',
-  'dctermsIsReferencedBy',
-  'dctermsIsReplacedBy',
-  'dctermsIsRequiredBy',
-  'edmHasMet',
-  'edmIncorporates',
-  'edmIsDerivativeOf',
-  'edmIsRepresentationOf',
-  'edmIsSimilarTo',
-  'edmIsSuccessorOf',
-  'edmRealizes',
-  'wasPresentAt',
-  'year'
-];
-
-/**
- * Retrieves all additional fields which will be displayed on record pages in the collapsable section.
- *
- * @param {Object[]} proxy To take the fields from.
- * @param {Object[]} edm To take additional fields from.
- * @param {Object[]} entities Entities in order to perform entity lookups
- * @return {Object[]} Key value pairs of the metadata fields.
- */
-function extraFields(proxy, edm, entities) {
-  return Object.freeze(lookupEntities(omitBy({
-    ...pick(edm.aggregations[0], [
-      'edmProvider', 'edmIntermediateProvider', 'edmRights', 'edmUgc'
-    ]),
-    ...pick(proxy, PROXY_EXTRA_FIELDS),
-    edmCountry: edm.europeanaAggregation.edmCountry,
-    europeanaCollectionName: edm.europeanaCollectionName,
-    timestampCreated: edm.timestamp_created,
-    timestampUpdate: edm.timestamp_update
-  }, isUndefined), entities));
-}
 
 /**
  * Sorts an array of objects by the `isNextInSequence` property.
@@ -183,36 +97,72 @@ function setMatchingEntities(fields, key, entities) {
   }
 }
 
+const findProxy = (proxies, type) => proxies.find(proxy => proxy.about?.startsWith(`/proxy/${type}/`));
+
 /**
- * Find the currently preferred metadata language.
- * Only makes sense with translated item pages.
- * If no language is specified, defaults to the record's edmLanguage.
- * Only returns languages also supported by the UI & translate API.
- * @param {string} edmLang two letter edm language code of the record
- * @param {Object} options options from the record retrieval.
- * @param {string} options.metadataLanguage two-letter language code from the user
- * @return {?string} related entities
- */
-export function preferredLanguage(edmLang, options = {}) {
-  let lang = null;
-
-  if (options.metadataLanguage) {
-    lang = options.metadataLanguage;
-  } else if (localeCodes.includes(edmLang)) {
-    lang = edmLang;
+* Determine if a field will be displaying data from enrichment.
+* Should only be called in the context of a aggregatorProxy being present.
+* If the UI language is not in the enrichment, but also not in the default proxy,
+* the enrichment will be checked for an english fallback value which would take precedence.
+* @param {String} field the field name to check
+* @param {Object} aggregatorProxy the proxy with the enrichment data
+* @param {Object} providerProxy provider proxy, used to confirm whether preferable values exist outside the enriched data
+* @param {String} predictedUiLang the two letter language code which will be the prefered UI language
+* @return {Boolean} true if enriched data will be shown
+*/
+const localeSpecificFieldValueIsFromEnrichment = (field, aggregatorProxy, providerProxy, predictedUiLang, entities) => {
+  if (isLangMap(aggregatorProxy[field]) &&
+       (proxyHasEntityForField(aggregatorProxy, field, entities) ||
+         proxyHasLanguageField(aggregatorProxy, field, predictedUiLang) ||
+         proxyHasFallbackField(providerProxy, aggregatorProxy, field, predictedUiLang)
+       )
+  ) {
+    return true;
   }
+  return false;
+};
 
-  return lang;
-}
+const proxyHasEntityForField = (proxy, field, entities) => {
+  if (Array.isArray(proxy?.[field]?.def)) {
+    return proxy?.[field]?.def.some(key => {
+      return entities[key];
+    });
+  }
+  return entities[proxy?.[field]?.def];
+};
+
+const proxyHasLanguageField = (proxy, field, targetLanguage) => {
+  return proxy?.[field]?.[targetLanguage];
+};
+
+const proxyHasFallbackField = (proxy, fallbackProxy, field, targetLanguage) => {
+  return (!proxy[field]?.[targetLanguage] && fallbackProxy[field]?.['en']);
+};
 
 export default (context = {}) => {
   const $axios = createAxios({ id: 'record', baseURL: BASE_URL }, context);
+  const thumbnailUrl = thumbnail(context).media;
 
   return {
     $axios,
 
     search(params, options = {}) {
-      return search($axios, params, options);
+      return search(context)($axios, params, options);
+    },
+
+    /**
+     * Find records by their identifier
+     * @param {Array} europeanaIds record identifiers or URIs
+     * @param {Object} params additional options to include in the API search query
+     * @return {Array} record data as returned by the API
+     */
+    find(europeanaIds, params = {}) {
+      europeanaIds = europeanaIds.map(id => id.replace(EUROPEANA_DATA_URL_ITEM_PREFIX, ''));
+      const query = `europeana_id:("${europeanaIds.join('" OR "')}")`;
+      return this.search({
+        query,
+        ...params
+      }, { addContentTierFilter: false });
     },
 
     /**
@@ -237,49 +187,70 @@ export default (context = {}) => {
           return memo;
         }, {});
 
-      const proxyData = merge.all(edm.proxies);
+      const proxies = merge.all(edm.proxies);
 
-      for (const field in proxyData) {
-        if (isLangMap(proxyData[field])) {
-          for (const locale in proxyData[field]) {
-            if (Array.isArray(proxyData[field][locale]) && proxyData[field][locale].length > MAX_VALUES_PER_PROXY_FIELD) {
-              proxyData[field][locale] = proxyData[field][locale].slice(0, MAX_VALUES_PER_PROXY_FIELD).concat('…');
+      for (const field in proxies) {
+        if (isLangMap(proxies[field])) {
+          for (const locale in proxies[field]) {
+            if (Array.isArray(proxies[field][locale]) && proxies[field][locale].length > MAX_VALUES_PER_PROXY_FIELD) {
+              proxies[field][locale] = proxies[field][locale].slice(0, MAX_VALUES_PER_PROXY_FIELD).concat('…');
             }
           }
         }
       }
+
       let prefLang;
-      if (context.$config?.app?.features?.translatedItems) {
-        // TODO: initially API only supports translation of title & descripiton.
-        // Extend to other fields as available, or stop merging the proxies and
-        // refactor to maintain the source info without having to set this.
-        const europeanaProxy = edm.proxies.find(proxy => proxy.europeanaProxy);
-        ['dcTitle', 'dcDescription'].forEach((field) => {
-          if (europeanaProxy?.[field]) {
-            proxyData[field].translationSource = 'automated';
-          }
-        });
-        prefLang = preferredLanguage(edm.europeanaAggregation.edmLanguage.def[0], options);
+      if (context.$features?.translatedItems) {
+        prefLang = options.metadataLanguage ? options.metadataLanguage : null;
       }
+      const predictedUiLang = prefLang || options.locale;
+
+      // Europeana proxy only really needed for the translate profile
+      const europeanaProxy = findProxy(edm.proxies, 'europeana');
+      const aggregatorProxy = findProxy(edm.proxies, 'aggregator');
+      const providerProxy = findProxy(edm.proxies, 'provider');
+
+      for (const field in proxies) {
+        if (aggregatorProxy?.[field] && localeSpecificFieldValueIsFromEnrichment(field, aggregatorProxy, providerProxy, predictedUiLang, entities)) {
+          proxies[field].translationSource = 'enrichment';
+        } else if (europeanaProxy?.[field]?.[predictedUiLang] && context.$features?.translatedItems) {
+          proxies[field].translationSource = 'automated';
+        }
+      }
+
+      const metadata = {
+        ...lookupEntities(
+          merge.all([proxies, edm.aggregations[0], edm.europeanaAggregation]), entities
+        ),
+        europeanaCollectionName: edm.europeanaCollectionName ? {
+          url: { name: 'search', query: { query: `europeana_collectionName:"${edm.europeanaCollectionName[0]}"` } },
+          value: edm.europeanaCollectionName
+        } : null,
+        timestampCreated: edm.timestamp_created,
+        timestampUpdate: edm.timestamp_update
+      };
+      metadata.edmDataProvider = {
+        url: providerAggregation.edmIsShownAt, value: metadata.edmDataProvider
+      };
 
       const allMediaUris = this.aggregationMediaUris(providerAggregation).map(Object.freeze);
       return {
         allMediaUris,
-        altTitle: proxyData.dctermsAlternative,
-        description: proxyData.dcDescription,
+        altTitle: proxies.dctermsAlternative,
+        description: proxies.dcDescription,
+        fromTranslationError: options.fromTranslationError,
         identifier: edm.about,
-        type: edm.type,
+        type: edm.type, // TODO: Evaluate if this is used, if not remove.
         isShownAt: providerAggregation.edmIsShownAt,
-        coreFields: coreFields(proxyData, providerAggregation, entities),
-        fields: extraFields(proxyData, edm, entities),
+        metadata: Object.freeze(metadata),
         media: this.aggregationMedia(providerAggregation, allMediaUris, edm.type, edm.services),
         agents,
         concepts,
         timespans,
         organizations,
-        title: proxyData.dcTitle,
+        places,
+        title: proxies.dcTitle,
         schemaOrg: data.schemaOrg ? Object.freeze(JSON.stringify(data.schemaOrg)) : undefined,
-        edmLanguage: edm.europeanaAggregation.edmLanguage,
         metadataLanguage: prefLang
       };
     },
@@ -294,11 +265,11 @@ export default (context = {}) => {
 
       return {
         small: thumbnailUrl(uri, {
-          size: 'w200',
+          size: 200,
           type
         }),
         large: thumbnailUrl(uri, {
-          size: 'w400',
+          size: 400,
           type
         })
       };
@@ -334,7 +305,14 @@ export default (context = {}) => {
       //
       // Also greatly minimises response size, and hydration cost, for IIIF with
       // many web resources, all of which are contained in a single manifest anyway.
-      const displayable = isIIIFPresentation(media[0]) ? [media[0]] : media;
+      let displayable;
+      if (isIIIFPresentation(media[0])) {
+        displayable = [media[0]];
+      } else if (media.some(isIIIFImage)) {
+        displayable = [media.find(isIIIFImage)];
+      } else {
+        displayable = media;
+      }
 
       // Sort by isNextInSequence property if present
       return sortByIsNextInSequence(displayable).map(Object.freeze);
@@ -352,9 +330,9 @@ export default (context = {}) => {
       }
 
       const params = { ...this.$axios.defaults.params };
-      if (context.$config?.app?.features?.translatedItems) {
-        params.profile = 'translate';
+      if (context.$features?.translatedItems) {
         if (options.metadataLanguage) {
+          params.profile = 'translate';
           params.lang = options.metadataLanguage;
         }
       } else {
@@ -370,43 +348,33 @@ export default (context = {}) => {
       }
 
       return this.$axios.get(`${path}${europeanaId}.json`, { params })
-        .then(response => this.parseRecordDataFromApiResponse(response.data, options))
-        .then(parsed => {
-          return reduceLangMapsForLocale(parsed, parsed.metadataLanguage || options.locale, options);
+        .then((response) => {
+          const parsed = this.parseRecordDataFromApiResponse(response.data, options);
+          const reduced = reduceLangMapsForLocale(parsed, parsed.metadataLanguage || options.locale, { freeze: false });
+
+          // Restore `en` prefLabel on entities, e.g. for use in EntityBestItemsSet-type sets
+          for (const entityType of ['agents', 'concepts', 'organizations', 'places', 'timespans']) {
+            for (const reducedEntity of (reduced[entityType] || [])) {
+              const fullEntity = parsed[entityType].find(entity => entity.about === reducedEntity.about);
+              if (fullEntity.prefLabel?.en !== reducedEntity.prefLabel?.en) {
+                reducedEntity.prefLabel.en = fullEntity.prefLabel.en;
+              }
+            }
+          }
+
+          return {
+            record: reduced,
+            error: null
+          };
         })
-        .then(reduced => ({
-          record: reduced,
-          error: null
-        }))
         .catch((error) => {
-          throw apiError(error);
-        });
-    },
-
-    /**
-     * Search for specific facets for this entity to find the related entities
-     * @param {string} type the type of the entity
-     * @param {string} id the id of the entity, (can contain trailing slug parts as these will be normalized)
-     * @return {Object} related entities
-     * TODO: add people as related entities again
-     * TODO: use search() function?
-     */
-    relatedEntities(type, id) {
-      const entityUri = getEntityUri(type, id);
-
-      return this.$axios.get('search.json', {
-        params: {
-          ...this.$axios.defaults.params,
-          profile: 'facets',
-          facet: 'skos_concept',
-          query: getEntityQuery(entityUri),
-          rows: 0
-        }
-      })
-        .then(response => response.data.facets)
-        .catch(error => {
-          const message = error.response ? error.response.data.error : error.message;
-          throw new Error(message);
+          const errorResponse = error.response;
+          if (errorResponse?.status === 502 && errorResponse?.data.code === '502-TS' && !options.fromTranslationError) {
+            delete (options.metadataLanguage);
+            options.fromTranslationError = true;
+            return this.getRecord(europeanaId, options);
+          }
+          throw apiError(error, context);
         });
     },
 
@@ -417,7 +385,7 @@ export default (context = {}) => {
         params['api_url'] = new URL(this.$axios.defaults.baseURL).origin + '/api';
       }
 
-      const proxyUrl = new URL('https://proxy.europeana.eu');
+      const proxyUrl = new URL(context.$config?.europeana?.proxy?.media?.url || 'https://proxy.europeana.eu');
       proxyUrl.pathname = europeanaId;
       proxyUrl.searchParams.append('view', mediaUrl);
 

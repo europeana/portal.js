@@ -25,14 +25,6 @@ describe('components/generic/ImageWithAttribution', () => {
   it('renders the image', () => {
     const wrapper = factory();
     const image = wrapper.find('figure [data-qa="image"]');
-    image.attributes().src.should.eq(propsData.src);
-  });
-
-  it('renders the attribution', async() => {
-    const wrapper = factory();
-    wrapper.vm.toggleCite();
-    await wrapper.vm.$nextTick();
-    const attribution = wrapper.find('figure [data-qa="attribution"]');
-    attribution.attributes().url.should.eq(propsData.attribution.url);
+    expect(image.attributes().src).toBe(propsData.src);
   });
 });

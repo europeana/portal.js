@@ -5,10 +5,13 @@
     :url="destination"
     :image-url="imageUrl"
     :image-content-type="imageContentType"
+    :image-width="imageWidth"
+    :image-height="imageHeight"
     :image-alt="imageAlt"
     :variant="cardVariant"
     :omit-all-uris="true"
     :image-optimisation-options="{ width: 510 }"
+    :logo="fields.logo"
   />
 </template>
 
@@ -28,6 +31,10 @@
         default: () => ({})
       },
       cardType: {
+        type: String,
+        default: null
+      },
+      variant: {
         type: String,
         default: null
       }
@@ -59,7 +66,7 @@
         } else if (typeof this.cardFields.image === 'string') {
           imageUrl = this.cardFields.image;
         } else if (this.cardFields.edmPreview) {
-          imageUrl = `${this.cardFields.edmPreview[0]}&size=w400`;
+          imageUrl = this.$apis.thumbnail.edmPreview(this.cardFields.edmPreview[0], { size: 400 });
         } else if (this.cardFields.entityImage) {
           imageUrl = this.cardFields.entityImage;
         } else if (this.imageIsContentfulAsset) {
@@ -73,6 +80,12 @@
       },
       imageAlt() {
         return this.imageIsContentfulAsset && this.cardFields.image.description ? this.cardFields.image.description : '';
+      },
+      imageWidth() {
+        return this.imageIsContentfulAsset ? this.cardFields.image.width : null;
+      },
+      imageHeight() {
+        return this.imageIsContentfulAsset ? this.cardFields.image.height : null;
       },
       destination() {
         let destination = '';
@@ -114,6 +127,9 @@
         return texts;
       },
       cardVariant() {
+        if (this.variant) {
+          return this.variant;
+        }
         return this.cardType === 'AutomatedEntityCard' ? 'entity' : 'default';
       }
     },
@@ -125,9 +141,9 @@
         return (typeof this.fields.identifier === 'string') && this.fields.identifier.includes(EUROPEANA_DATA_URL);
       },
       entityRouterLink(uri, slug) {
-        const uriMatch = uri.match(`^${EUROPEANA_DATA_URL}/([^/]+)(/base)?/(.+)$`);
+        const uriMatch = uri.match(`^${EUROPEANA_DATA_URL}/([^/]+)/(.+)$`);
         return {
-          name: 'collections-type-all', params: { type: getEntityTypeHumanReadable(uriMatch[1]), pathMatch: slug ? slug : uriMatch[3] }
+          name: 'collections-type-all', params: { type: getEntityTypeHumanReadable(uriMatch[1]), pathMatch: slug ? slug : uriMatch[2] }
         };
       },
       recordRouterLink(identifier) {

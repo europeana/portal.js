@@ -1,8 +1,14 @@
 <template>
   <div
     data-qa="exhibition page"
-    class="text-page figure-attribution"
+    class="text-page white-page figure-attribution"
   >
+    <ContentWarningModal
+      v-if="contentWarning"
+      :title="contentWarning.name"
+      :description="contentWarning.description"
+      :page-slug="`exhibition/${identifier}`"
+    />
     <AuthoredHead
       :title="name"
       :description="headline"
@@ -41,27 +47,66 @@
           />
         </b-col>
       </b-row>
+      <b-row
+        v-if="categoriesCollection && categoriesCollection.items"
+        class="justify-content-center"
+      >
+        <b-col
+          cols="12"
+          class="mt-4 col-lg-8"
+        >
+          <RelatedCategoryTags
+            :tags="categoriesCollection.items"
+          />
+        </b-col>
+      </b-row>
+      <b-row
+        v-if="relatedLink"
+        class="justify-content-center"
+      >
+        <b-col
+          cols="12"
+          class="mt-4 col-lg-8"
+        >
+          <client-only>
+            <RelatedCollections
+              :entity-uris="relatedLink"
+              :title="$t('youMightAlsoLike')"
+            />
+          </client-only>
+        </b-col>
+      </b-row>
       <b-row class="footer-margin" />
     </b-container>
   </div>
 </template>
 
 <script>
-  import marked from 'marked';
+  import ClientOnly from 'vue-client-only';
+  import { marked } from 'marked';
   import SocialShareModal from '../../../components/sharing/SocialShareModal.vue';
   import ShareButton from '../../../components/sharing/ShareButton.vue';
   import exhibitionChapters from '../../../mixins/exhibitionChapters';
 
   export default {
+    name: 'ExhibitionPage',
     components: {
+      ClientOnly,
       LinkList: () => import('../../../components/generic/LinkList'),
       ShareButton,
       SocialShareModal,
-      AuthoredHead: () => import('../../../components/authored/AuthoredHead')
+      AuthoredHead: () => import('../../../components/authored/AuthoredHead'),
+      ContentWarningModal: () => import('@/components/generic/ContentWarningModal'),
+      RelatedCategoryTags: () => import('@/components/related/RelatedCategoryTags'),
+      RelatedCollections: () => import('@/components/related/RelatedCollections')
     },
     mixins: [
       exhibitionChapters
     ],
+    beforeRouteLeave(to, from, next) {
+      this.$store.commit('breadcrumb/clearBreadcrumb');
+      next();
+    },
     asyncData({ params, query, error, app, store, redirect }) {
       if (params.exhibition === undefined) {
         redirect(app.$path({ name: 'exhibitions' }));
@@ -97,28 +142,6 @@
           error({ statusCode: 500, message: e.toString() });
         });
     },
-    computed: {
-      hero() {
-        return this.primaryImageOfPage || null;
-      },
-      heroImage() {
-        return this.hero?.image || null;
-      },
-      mainContent() {
-        return this.text ? marked(this.text) : null;
-      },
-      optimisedImageUrl() {
-        return this.$options.filters.optimisedImageUrl(
-          this.heroImage.url,
-          this.heroImage.contentType,
-          { width: 800, height: 800 }
-        );
-      }
-    },
-    beforeRouteLeave(to, from, next) {
-      this.$store.commit('breadcrumb/clearBreadcrumb');
-      next();
-    },
     head() {
       return {
         title: this.$pageHeadTitle(this.name),
@@ -134,6 +157,38 @@
           { hid: 'og:image:alt', property: 'og:image:alt', content: this.heroImage.description || '' }
         ] : [])
       };
+    },
+    computed: {
+      hero() {
+        return this.primaryImageOfPage || null;
+      },
+      heroImage() {
+        return this.hero?.image || null;
+      },
+      mainContent() {
+        return this.text ? marked.parse(this.text) : null;
+      },
+      optimisedImageUrl() {
+        return this.$options.filters.optimisedImageUrl(
+          this.heroImage.url,
+          this.heroImage.contentType,
+          { width: 800, height: 800 }
+        );
+      }
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  ::v-deep .related-collections {
+    &.container {
+      padding: 0;
+    }
+
+    .badge-pill {
+      margin-top: 0.25rem;
+      margin-right: 0.5rem;
+    }
+  }
+
+</style>

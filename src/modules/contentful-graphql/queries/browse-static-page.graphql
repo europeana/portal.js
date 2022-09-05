@@ -23,9 +23,7 @@ query BrowseStaticPage(
         }
       }
       image {
-        url
-        contentType
-        description
+        ...imageFields
       }
       hasPartCollection(limit: 20) {
         items {
@@ -52,9 +50,7 @@ query BrowseStaticPage(
                   description
                   url
                   image {
-                    url
-                    contentType
-                    description
+                    ...imageFields
                   }
                 }
               }
@@ -69,9 +65,20 @@ query BrowseStaticPage(
           }
           ... on AutomatedCardGroup {
             genre
+            moreButton {
+              url
+              text
+            }
           }
           ... on ContentTypeRichText {
             text
+          }
+          ... on PrimaryCallToAction {
+            text
+            relatedLink {
+              url
+              text
+            }
           }
         }
       }
@@ -86,9 +93,7 @@ query BrowseStaticPage(
           ...imageWithAttributionFields
       }
       image {
-        url
-        contentType
-        description
+        ...imageFields
       }
       hasPartCollection(limit: 40) {
         total
@@ -111,17 +116,38 @@ query BrowseStaticPage(
               }
             }
           }
+          ... on AutomatedCardGroup {
+            genre
+            moreButton {
+              url
+              text
+            }
+          }
           ... on Link {
             url
             text
           }
+          ... on PrimaryCallToAction {
+            text
+            relatedLink {
+              url
+              text
+            }
+          }
         }
       }
       relatedLinks {
-          ...linkGroupFields
+        ...linkGroupFields
       }
     }
   }
+}
+fragment imageFields on Asset {
+  url
+  contentType
+  description
+  width
+  height
 }
 fragment imageWithAttributionFields on ImageWithAttribution {
   name
@@ -130,11 +156,7 @@ fragment imageWithAttributionFields on ImageWithAttribution {
   license
   url
   image {
-    url
-    contentType
-    description
-    width
-    height
+    ...imageFields
   }
 }
 fragment linkFields on Link {
@@ -145,9 +167,9 @@ fragment linkGroupFields on LinkGroup {
   identifier
   name
   links: linksCollection(limit: 10) {
-      items {
-        text
-        url
-      }
+    items {
+      text
+      url
+    }
   }
 }

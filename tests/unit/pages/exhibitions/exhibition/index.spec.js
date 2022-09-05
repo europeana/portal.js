@@ -42,13 +42,20 @@ const factory = () => shallowMountNuxt(page, {
           }
         ]
       },
-      credits: ''
+      credits: '',
+      contentWarning: null,
+      relatedLink: [
+        'http://data.europeana.eu/concept/194',
+        'http://data.europeana.eu/concept/21'
+      ],
+      categoriesCollection: { items: [{ name: 'surrealism' }] }
     };
   },
   mocks: {
     $t: key => key,
     $tc: () => {},
-    $pageHeadTitle: key => key
+    $pageHeadTitle: key => key,
+    $path: () => '/'
   }
 });
 
@@ -65,7 +72,7 @@ describe('exhibitionChapters mixin', () => {
       }
     };
 
-    linkListItems[0].url.should.eql(expectedChapterUrl);
+    expect(linkListItems[0].url).toEqual(expectedChapterUrl);
   });
 
   it('chapterPagesToLinkListItems returns a background for each chapter where present', async() => {
@@ -75,7 +82,7 @@ describe('exhibitionChapters mixin', () => {
     const linkListItems = await wrapper.vm.chapterPagesToLinkListItems(chapterList, currentExhibitionIdentifier);
     const expectedChapterBackground = 'https://www.example.eu/image1.jpg';
 
-    linkListItems[0].background.should.eql(expectedChapterBackground);
+    expect(linkListItems[0].background).toEqual(expectedChapterBackground);
   });
 
   it('chapterPagesToLinkListItems returns a text for each chapter', async() => {
@@ -85,7 +92,7 @@ describe('exhibitionChapters mixin', () => {
     const linkListItems = await wrapper.vm.chapterPagesToLinkListItems(chapterList, currentExhibitionIdentifier);
     const expectedChapterText = 'exhibition part 1';
 
-    linkListItems[0].text.should.eql(expectedChapterText);
+    expect(linkListItems[0].text).toEqual(expectedChapterText);
   });
 });
 
@@ -96,8 +103,8 @@ describe('Exhibition landing page', () => {
 
       const headMeta = wrapper.vm.head().meta;
 
-      headMeta.filter(meta => meta.property === 'og:image').length.should.eq(1);
-      headMeta.find(meta => meta.property === 'og:image').content.should.eq(heroImageUrl);
+      expect(headMeta.filter(meta => meta.property === 'og:image').length).toBe(1);
+      expect(headMeta.find(meta => meta.property === 'og:image').content).toBe(heroImageUrl);
     });
   });
 });

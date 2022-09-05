@@ -33,7 +33,7 @@
           <b-form-textarea
             id="set-description"
             v-model="descriptionValue"
-            maxlength="240"
+            maxlength="500"
             rows="4"
           />
         </b-form-group>
@@ -205,7 +205,7 @@
         this.submissionPending = true;
         const handler = this.isNew ?
           this.$store.dispatch('set/createSet', this.setBody) :
-          this.$store.dispatch('set/updateSet', { id: this.setId, body: this.setBody });
+          this.$store.dispatch('set/update', { id: this.setId, body: this.setBody });
 
         return handler
           .then(() => {

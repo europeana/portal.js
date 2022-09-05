@@ -8,7 +8,7 @@ describe('plugins/europeana/utils', () => {
         'x-europeana-record-api-url': url
       };
 
-      utils.apiUrlFromRequestHeaders('record', headers).should.eq(url);
+      expect(utils.apiUrlFromRequestHeaders('record', headers)).toBe(url);
     });
   });
 
@@ -18,7 +18,7 @@ describe('plugins/europeana/utils', () => {
 
       const escaped = utils.escapeLuceneSpecials(unescaped);
 
-      escaped.should.eq('\\+ \\- \\& \\| \\! \\( \\) \\{ \\} \\[ \\] \\^ \\" \\~ \\* \\? \\: \\/');
+      expect(escaped).toBe('\\+ \\- \\& \\| \\! \\( \\) \\{ \\} \\[ \\] \\^ \\" \\~ \\* \\? \\: \\/');
     });
   });
 
@@ -28,7 +28,7 @@ describe('plugins/europeana/utils', () => {
 
       const unescaped = utils.unescapeLuceneSpecials(escaped);
 
-      unescaped.should.eq('+ - & | ! ( ) { } [ ] ^ " ~ * ? : /');
+      expect(unescaped).toBe('+ - & | ! ( ) { } [ ] ^ " ~ * ? : /');
     });
   });
 
@@ -41,7 +41,7 @@ describe('plugins/europeana/utils', () => {
 
       const isLangMap = utils.isLangMap(value);
 
-      isLangMap.should.be.true;
+      expect(isLangMap).toBe(true);
     });
 
     it('accepts 3-letter codes', () => {
@@ -53,7 +53,7 @@ describe('plugins/europeana/utils', () => {
 
       const isLangMap = utils.isLangMap(value);
 
-      isLangMap.should.be.true;
+      expect(isLangMap).toBe(true);
     });
 
     it('accepts 2-letter codes with country code', () => {
@@ -64,17 +64,17 @@ describe('plugins/europeana/utils', () => {
 
       const isLangMap = utils.isLangMap(value);
 
-      isLangMap.should.be.true;
+      expect(isLangMap).toBe(true);
     });
 
     it('rejects other keys', () => {
       const value = {
-        about: 'http://data.europeana.eu/concept/base/123'
+        about: 'http://data.europeana.eu/concept/123'
       };
 
       const isLangMap = utils.isLangMap(value);
 
-      isLangMap.should.be.false;
+      expect(isLangMap).toBe(false);
     });
   });
 
@@ -86,7 +86,7 @@ describe('plugins/europeana/utils', () => {
 
       const selected = utils.selectLocaleForLangMap(langMap, locale);
 
-      selected.should.eq('en');
+      expect(selected).toBe('en');
     });
 
     it('second selects 3-letter code if present', () => {
@@ -94,7 +94,7 @@ describe('plugins/europeana/utils', () => {
 
       const selected = utils.selectLocaleForLangMap(langMap, locale);
 
-      selected.should.eq('eng');
+      expect(selected).toBe('eng');
     });
 
     it('third selects 2-letter code with country code if present', () => {
@@ -102,7 +102,7 @@ describe('plugins/europeana/utils', () => {
 
       const selected = utils.selectLocaleForLangMap(langMap, locale);
 
-      selected.should.eq('en-GB');
+      expect(selected).toBe('en-GB');
     });
 
     it('fourth selects "def" if present', () => {
@@ -110,7 +110,7 @@ describe('plugins/europeana/utils', () => {
 
       const selected = utils.selectLocaleForLangMap(langMap, locale);
 
-      selected.should.eq('def');
+      expect(selected).toBe('def');
     });
 
     it('fifth selects "und" if present', () => {
@@ -118,39 +118,39 @@ describe('plugins/europeana/utils', () => {
 
       const selected = utils.selectLocaleForLangMap(langMap, locale);
 
-      selected.should.eq('und');
+      expect(selected).toBe('und');
     });
 
-    context('when theLangMap is in fact an expanded JSONLD object', () => {
+    describe('when theLangMap is in fact an expanded JSONLD object', () => {
       it('first selects 2-letter code if present', () => {
         const langMap = [{ '@language': 'en', '@value': 'English' }, { '@language': 'fr', '@value': 'Français' }];
 
         const selected = utils.selectLocaleForLangMap(langMap, locale);
-        selected.should.eq('en');
+        expect(selected).toBe('en');
       });
 
       it('second selects 3-letter code if present', () => {
         const langMap = [{ '@language': 'eng', '@value': 'English' }, { '@language': 'fra', '@value': 'Français' }];
         const selected = utils.selectLocaleForLangMap(langMap, locale);
-        selected.should.eq('eng');
+        expect(selected).toBe('eng');
       });
 
       it('third selects 2-letter code with country code if present', () => {
         const langMap = [{ '@language': 'en-GB', '@value': 'English' }, { '@language': 'fr-FR', '@value': 'Français' }];
         const selected = utils.selectLocaleForLangMap(langMap, locale);
-        selected.should.eq('en-GB');
+        expect(selected).toBe('en-GB');
       });
 
       it('fourth selects "def" if present', () => {
         const langMap = [{ '@language': 'def', '@value': 'undefined' }, { '@language': 'fr', '@value': 'Français' }];
         const selected = utils.selectLocaleForLangMap(langMap, locale);
-        selected.should.eq('def');
+        expect(selected).toBe('def');
       });
 
       it('fifth selects "und" if present', () => {
         const langMap = [{ '@language': 'und', '@value': 'undefined' }, { '@language': 'fr-FR', '@value': 'Français' }];
         const selected = utils.selectLocaleForLangMap(langMap, locale);
-        selected.should.eq('und');
+        expect(selected).toBe('und');
       });
     });
 
@@ -159,7 +159,14 @@ describe('plugins/europeana/utils', () => {
 
       const selected = utils.selectLocaleForLangMap(langMap, locale);
 
-      selected.should.eq('fr');
+      expect(selected).toBe('fr');
+    });
+  });
+
+  describe('getLabelledSlug', () => {
+    it('constructs URL slug from numeric ID and prefLabel.en', () => {
+      const slug = utils.getLabelledSlug('http://data.euroepana.eu/concept/147831', 'Architecture');
+      expect(slug).toBe('147831-architecture');
     });
   });
 
@@ -174,7 +181,7 @@ describe('plugins/europeana/utils', () => {
 
       const reduced = utils.reduceLangMapsForLocale(value, locale);
 
-      reduced.should.eql([
+      expect(reduced).toEqual([
         { fr: 'Français 1' },
         { fr: 'Français 2' }
       ]);
@@ -185,7 +192,7 @@ describe('plugins/europeana/utils', () => {
 
       const reduced = utils.reduceLangMapsForLocale(value, locale);
 
-      reduced.should.eql({ fr: 'Français' });
+      expect(reduced).toEqual({ fr: 'Français' });
     });
 
     it('preserves the translationSource', () => {
@@ -193,20 +200,20 @@ describe('plugins/europeana/utils', () => {
 
       const reduced = utils.reduceLangMapsForLocale(value, locale);
 
-      reduced.should.eql({ fr: 'Français', translationSource: 'automated' });
+      expect(reduced).toEqual({ fr: 'Français', translationSource: 'automated' });
     });
 
     it('preserves entities on "def"', () => {
       const value = {
-        def: [{ about: 'http://data.europeana.eu/concept/base/123' }],
+        def: [{ about: 'http://data.europeana.eu/concept/123' }],
         en: 'English',
         fr: 'Français'
       };
 
       const reduced = utils.reduceLangMapsForLocale(value, locale);
 
-      reduced.should.eql({
-        def: [{ about: 'http://data.europeana.eu/concept/base/123' }],
+      expect(reduced).toEqual({
+        def: [{ about: 'http://data.europeana.eu/concept/123' }],
         fr: 'Français'
       });
     });
@@ -216,7 +223,7 @@ describe('plugins/europeana/utils', () => {
 
       const reduced = utils.reduceLangMapsForLocale(value, locale);
 
-      reduced.should.eq(value);
+      expect(reduced).toBe(value);
     });
   });
 });

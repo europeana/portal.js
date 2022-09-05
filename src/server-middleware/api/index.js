@@ -1,5 +1,6 @@
 import express from 'express';
 import defu  from 'defu';
+import apm from 'elastic-apm-node';
 import logging from '../logging.js';
 
 const app = express();
@@ -18,16 +19,29 @@ app.use((res, req, next) => {
   next();
 });
 
+app.use((req, res, next) => {
+  if (apm.isStarted())  {
+    // Elastic APM Node agent instruments Express requests automatically, but
+    // omits any prefix such as /_api/, so override the transactions name here
+    // to restore it form the original URL.
+    apm.setTransactionName(`${req.method} ${req.originalUrl.split('?')[0]}`);
+  }
+  next();
+});
+
 import debugMemoryUsage from './debug/memory-usage.js';
 app.get('/debug/memory-usage', debugMemoryUsage);
 
-import entitiesOrganisations from './entities/organisations.js';
-app.get('/entities/organisations', (req, res) => entitiesOrganisations(runtimeConfig)(req, res));
+// Redirection of some deprecated API URL paths.
+//
+// TODO: remove redirection of deprecated routes after new routes are
+//       well-established in production
+//
+// Deprecated with v1.63.0:
+app.get('/items/typeCounts', (req, res) => res.redirect('/_api/cache/items/type-counts'));
 
-import dailyEntries from './dailyEntries.js';
-app.get('/entities/topics', (req, res) => dailyEntries('topic', runtimeConfig)(req, res));
-app.get('/entities/times', (req, res) => dailyEntries('time', runtimeConfig)(req, res));
-app.get('/items/recent', (req, res) => dailyEntries('item', runtimeConfig)(req, res));
+import cache from './cache/index.js';
+app.get('/cache/*', (req, res) => cache(req.params[0], runtimeConfig)(req, res));
 
 import jiraServiceDesk from './jira/service-desk.js';
 app.post('/jira/service-desk', (req, res) => jiraServiceDesk(runtimeConfig.jira)(req, res));
@@ -38,11 +52,15 @@ app.get('/version', version);
 app.all('/*', (req, res) => res.sendStatus(404));
 
 export const errorHandler = (res, error) => {
+  let status = error.status || 500;
+  let message = error.message;
+
   if (error.response) {
-    res.status(error.response.status).set('Content-Type', 'text/plain').send(error.response.data.errorMessage);
-  } else {
-    res.status(error.status || 500).set('Content-Type', 'text/plain').send(error.message);
+    status = error.response.status;
+    message = error.response.data.errorMessage;
   }
+
+  res.status(status).set('Content-Type', 'text/plain').send(message);
 };
 
 export default app;

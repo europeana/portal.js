@@ -1,24 +1,36 @@
 <template>
-  <div data-qa="item page">
-    <NotificationBanner
-      v-if="redirectNotificationsEnabled"
-      :notification-url="notificationUrl"
-      :notification-text="$t('linksToClassic.record.text')"
-      :notification-link-text="$t('linksToClassic.record.linkText')"
-    />
-    <b-container v-if="error">
-      <AlertMessage
-        :error="error"
-      />
+  <div
+    data-qa="item page"
+    :class="$fetchState.error && 'white-page'"
+  >
+    <b-container
+      v-if="$fetchState.pending"
+      data-qa="loading spinner container"
+    >
+      <b-row class="flex-md-row py-4 text-center">
+        <b-col cols="12">
+          <LoadingSpinner />
+        </b-col>
+      </b-row>
     </b-container>
+    <ErrorMessage
+      v-else-if="$fetchState.error"
+      data-qa="error message container"
+      :error="$fetchState.error.message"
+      title-path="errorMessage.itemNotFound.title"
+      description-path="errorMessage.itemNotFound.description"
+      :illustration-src="require('@/assets/img/illustrations/il-item-not-found.svg')"
+    />
     <template
       v-else
     >
-      <ItemLanguageSelector
-        v-if="translatedItemsEnabled"
-        :item-language="edmLanguage.def[0]"
-        :metadata-language="metadataLanguage"
-      />
+      <client-only>
+        <ItemLanguageSelector
+          v-if="translatedItemsEnabled"
+          :from-translation-error="fromTranslationError"
+          :metadata-language="metadataLanguage"
+        />
+      </client-only>
       <b-container
         fluid
         class="bg-white mb-3 px-0"
@@ -28,7 +40,9 @@
           :identifier="identifier"
           :media="media"
           :edm-rights="edmRights"
+          :edm-type="type"
           :attribution-fields="attributionFields"
+          :entities="europeanaEntities"
         />
       </b-container>
       <b-container>
@@ -43,21 +57,25 @@
             />
           </b-col>
         </b-row>
-        <b-row
-          v-if="relatedEntities && relatedEntities.length > 0"
-          class="justify-content-center"
+        <client-only
+          v-if="relatedEntityUris.length > 0"
         >
-          <b-col
-            cols="12"
-            class="col-lg-10"
+          <b-row
+            class="justify-content-center"
           >
-            <RelatedCollections
-              :title="$t('collectionsYouMightLike')"
-              :related-collections="relatedEntities"
-              data-qa="related entities"
-            />
-          </b-col>
-        </b-row>
+            <b-col
+              cols="12"
+              class="col-lg-10 mt-4"
+            >
+              <RelatedCollections
+                :title="$t('collectionsYouMightLike')"
+                :entity-uris="relatedEntityUris"
+                data-qa="related entities"
+                badge-variant="light"
+              />
+            </b-col>
+          </b-row>
+        </client-only>
         <b-row
           v-else
           class="mb-3"
@@ -68,34 +86,28 @@
             class="col-lg-10"
           >
             <MetadataBox
-              :all-metadata="allMetaData"
-              :core-metadata="coreFields"
+              :metadata="fieldsAndKeywords"
               :location="locationData"
+              :metadata-language="metadataLanguage"
               :transcribing-annotations="transcribingAnnotations || []"
             />
           </b-col>
         </b-row>
-        <b-row
-          v-if="similarItems && similarItems.length > 0"
-          class="mt-3 mb-0 justify-content-center"
-        >
-          <b-col
-            cols="12"
-            class="col-lg-10"
-          >
-            <h2
-              class="related-heading text-uppercase mb-2"
-            >
-              {{ $t('record.exploreMore') }}
-            </h2>
-            <ItemPreviewCardGroup
-              v-model="similarItems"
-              view="explore"
-              class="mb-0"
-              data-qa="similar items"
-            />
-          </b-col>
-        </b-row>
+        <client-only>
+          <!--
+            NOTE: dcType/title does not make sense here, but leave it alone as
+                  eventually this will be deprecated and the Recommendation API
+                  used instead.
+            FIXME: ... but who knows when, so maybe fix here in the meantime
+          -->
+          <ItemRecommendations
+            :identifier="identifier"
+            :dc-type="title"
+            :dc-subject="metadata.dcSubject"
+            :dc-creator="metadata.dcCreator"
+            :edm-data-provider="metadata.edmDataProvider ? metadata.edmDataProvider.value : null"
+          />
+        </client-only>
         <b-row class="footer-margin" />
       </b-container>
     </template>
@@ -113,70 +125,88 @@
 
 <script>
   import isEmpty from 'lodash/isEmpty';
-  import { mapState, mapGetters } from 'vuex';
+  import { mapGetters } from 'vuex';
 
+  import ItemHero from '@/components/item/ItemHero';
+  import ItemRecommendations from '@/components/item/ItemRecommendations';
+  import LoadingSpinner from '@/components/generic/LoadingSpinner';
   import MetadataBox from '@/components/item/MetadataBox';
 
   import { BASE_URL as EUROPEANA_DATA_URL } from '@/plugins/europeana/data';
-  import similarItemsQuery from '@/plugins/europeana/record/similar-items';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
+  import stringify from '@/mixins/stringify';
 
   export default {
+    name: 'ItemPage',
     components: {
-      ItemHero: () => import('@/components/item/ItemHero'),
-      AlertMessage: () => import('@/components/generic/AlertMessage'),
-      ItemPreviewCardGroup: () => import('@/components/item/ItemPreviewCardGroup'),
-      RelatedCollections: () => import('@/components/generic/RelatedCollections'),
-      SummaryInfo: () => import('@/components/item/SummaryInfo'),
+      ErrorMessage: () => import('@/components/generic/ErrorMessage'),
+      ItemHero,
+      ItemLanguageSelector: () => import('@/components/item/ItemLanguageSelector'),
+      ItemRecommendations,
+      LoadingSpinner,
       MetadataBox,
-      NotificationBanner: () => import('@/components/generic/NotificationBanner'),
-      ItemLanguageSelector: () => import('@/components/item/ItemLanguageSelector')
+      RelatedCollections: () => import('@/components/related/RelatedCollections'),
+      SummaryInfo: () => import('@/components/item/SummaryInfo')
     },
 
-    fetch() {
-      this.fetchAnnotations();
-      this.fetchRelatedEntities();
-      this.fetchSimilarItems();
-    },
-
-    fetchOnServer: false,
-
-    asyncData({ params, res, route, app, $apis }) {
-      return $apis.record
-        .getRecord(`/${params.pathMatch}`, { locale: app.i18n.locale, metadataLanguage: route.query.lang })
-        .then(result => {
-          return result.record;
-        })
-        .catch(error => {
-          if (typeof res !== 'undefined') {
-            res.statusCode = (typeof error.statusCode === 'undefined') ? 500 : error.statusCode;
-          }
-          return { error: error.message };
-        });
-    },
+    mixins: [
+      stringify
+    ],
 
     data() {
       return {
         agents: [],
         allMediaUris: [],
         altTitle: null,
+        annotations: [],
         cardGridClass: null,
         concepts: [],
-        coreFields: null,
         description: null,
         error: null,
-        fields: {},
-        identifier: null,
+        fromTranslationError: null,
+        identifier: `/${this.$route.params.pathMatch}`,
         isShownAt: null,
         media: [],
+        metadata: {},
         organizations: [],
+        places: [],
         timespans: [],
         title: null,
         type: null,
         useProxy: true,
         schemaOrg: null,
-        edmLanguage: null,
         metadataLanguage: null
+      };
+    },
+
+    async fetch() {
+      try {
+        const response = await this.$apis.record.getRecord(
+          this.identifier,
+          { locale: this.$i18n.locale, metadataLanguage: this.$route.query.lang }
+        );
+        for (const key in response.record) {
+          this[key] = response.record[key];
+        }
+      } catch (error) {
+        if (process.server) {
+          this.$nuxt.context.res.statusCode = error.statusCode || 500;
+        }
+        throw error;
+      }
+    },
+
+    head() {
+      return {
+        title: this.$pageHeadTitle(this.metaTitle),
+        meta: [
+          { hid: 'title', name: 'title', content: this.metaTitle },
+          { hid: 'description', name: 'description', content: this.metaDescription },
+          { hid: 'og:title', property: 'og:title', content: this.metaTitle },
+          { hid: 'og:description', property: 'og:description', content: this.metaDescription },
+          { hid: 'og:image', property: 'og:image', content: this.pageHeadMetaOgImage },
+          { hid: 'og:type', property: 'og:type', content: 'article' }
+        ]
       };
     },
 
@@ -194,36 +224,33 @@
         }, {});
       },
       fieldsAndKeywords() {
-        return { ...this.fields, ...{ keywords: this.keywords } };
-      },
-      allMetaData() {
-        return { ...this.coreFields, ...this.fieldsAndKeywords };
+        return { ...this.metadata, keywords: this.keywords };
       },
       locationData() {
-        return this.fields.dctermsSpatial;
+        return this.metadata.dctermsSpatial;
       },
       edmRights() {
-        return this.fields.edmRights?.def[0] || '';
+        return this.metadata.edmRights?.def[0] || '';
       },
       europeanaEntities() {
         return this.agents
           .concat(this.concepts)
           .concat(this.timespans)
           .concat(this.organizations)
+          .concat(this.places)
           .filter(entity => entity.about.startsWith(`${EUROPEANA_DATA_URL}/`));
       },
       europeanaEntityUris() {
         return this.europeanaEntities
-          .slice(0, 5)
           .map(entity => entity.about);
       },
       attributionFields() {
         return {
           title: langMapValueForLocale(this.title, this.metadataLanguage || this.$i18n.locale).values[0],
-          creator: langMapValueForLocale(this.coreFields.dcCreator, this.$i18n.locale).values[0],
-          year: langMapValueForLocale(this.fields.year, this.$i18n.locale).values[0],
-          provider: langMapValueForLocale(this.coreFields.edmDataProvider.value, this.$i18n.locale).values[0],
-          country: langMapValueForLocale(this.fields.edmCountry, this.$i18n.locale).values[0],
+          creator: langMapValueForLocale(this.metadata.dcCreator, this.$i18n.locale).values[0],
+          year: langMapValueForLocale(this.metadata.year, this.$i18n.locale).values[0],
+          provider: langMapValueForLocale(this.metadata.edmDataProvider?.value, this.$i18n.locale).values[0],
+          country: langMapValueForLocale(this.metadata.edmCountry, this.$i18n.locale).values[0],
           url: this.shareUrl
         };
       },
@@ -248,28 +275,19 @@
         return langMapValueForLocale(this.description, this.metadataLanguage || this.$i18n.locale, { uiLanguage: this.$i18n.locale });
       },
       metaTitle() {
-        return this.titlesInCurrentLanguage[0] ? this.titlesInCurrentLanguage[0].value : this.$t('record.record');
+        if (this.$fetchState.error) {
+          return this.$t('errorMessage.itemNotFound.metaTitle');
+        } else if (this.titlesInCurrentLanguage[0]) {
+          return this.titlesInCurrentLanguage[0].value;
+        } else {
+          return this.$t('record.record');
+        }
       },
       metaDescription() {
         if (isEmpty(this.descriptionInCurrentLanguage)) {
           return '';
         }
         return this.descriptionInCurrentLanguage.values[0] || '';
-      },
-      dataProvider() {
-        const edmDataProvider = langMapValueForLocale(this.coreFields.edmDataProvider, this.$i18n.locale);
-
-        if (edmDataProvider.values[0].about) {
-          return edmDataProvider.values[0];
-        }
-
-        return edmDataProvider;
-      },
-      notificationUrl() {
-        return `https://classic.europeana.eu/portal/${this.$i18n.locale}/record${this.identifier}.html?utm_source=new-website&utm_medium=button`;
-      },
-      redirectNotificationsEnabled() {
-        return this.$config.app.features.linksToClassic;
       },
       pageHeadMetaOgImage() {
         return this.media[0]?.thumbnails?.large || null;
@@ -281,130 +299,49 @@
         return this.annotationsByMotivation('transcribing');
       },
       ...mapGetters({
-        shareUrl: 'http/canonicalUrl',
-        annotationsByMotivation: 'item/annotationsByMotivation'
+        shareUrl: 'http/canonicalUrlWithoutLocale'
       }),
-      ...mapState({
-        relatedEntities: state => state.item.relatedEntities,
-        similarItems: state => state.item.similarItems,
-        annotations: state => state.item.annotations
-      }),
+      relatedEntityUris() {
+        return this.europeanaEntityUris.slice(0, 5);
+      },
       translatedItemsEnabled() {
-        return this.$config.app.features.translatedItems;
+        return this.$features.translatedItems;
+      }
+    },
+
+    watch: {
+      '$route.query.lang'() {
+        this.$fetch();
       }
     },
 
     mounted() {
-      if (!this.error) {
+      this.fetchAnnotations();
+      if (!this.$fetchState.error) {
         this.$matomo && this.$matomo.trackPageView('item page custom dimensions', this.matomoOptions());
       }
     },
 
     methods: {
-      fetchAnnotations() {
-        const annotationSearchParams = {
+      annotationsByMotivation(motivation) {
+        return this.annotations?.filter(annotation => annotation.motivation === motivation) || [];
+      },
+
+      async fetchAnnotations() {
+        this.annotations = await this.$apis.annotation.search({
           query: `target_record_id:"${this.identifier}"`,
           profile: 'dereference'
-        };
-
-        return this.$apis.annotation.search(annotationSearchParams)
-          .then(annotations => {
-            this.$store.commit('item/setAnnotations', annotations);
-          });
+        });
       },
 
-      fetchRelatedEntities() {
-        return this.$apis.entity.findEntities(this.europeanaEntityUris)
-          .then(entities => {
-            this.$store.commit('item/setRelatedEntities', entities);
-          });
-      },
-
-      fetchSimilarItems() {
-        return this.getSimilarItems()
-          .then(similar => {
-            this.$store.commit('item/setSimilarItems', similar.items);
-          });
-      },
-
-      getSimilarItems() {
-        const noSimilarItems = { results: [] };
-        if (this.error) {
-          return Promise.resolve(noSimilarItems);
-        }
-
-        if (this.$config.app.features.recommendations && this.$auth.loggedIn) {
-          return this.$apis.recommendation.recommend('record', this.identifier)
-            .then(recommendResponse => recommendResponse);
-        }
-
-        const dataSimilarItems = {
-          dcSubject: this.getSimilarItemsData(this.coreFields.dcSubject),
-          dcType: this.getSimilarItemsData(this.title),
-          dcCreator: this.getSimilarItemsData(this.coreFields.dcCreator),
-          edmDataProvider: this.getSimilarItemsData(this.fields.edmDataProvider)
-        };
-
-        return this.$apis.record.search({
-          query: similarItemsQuery(this.identifier, dataSimilarItems),
-          rows: 4,
-          profile: 'minimal',
-          facet: ''
-        })
-          .then(response => response)
-          .catch(() => {
-            return noSimilarItems;
-          });
-      },
-
-      getSimilarItemsData(value) {
-        if (!value) {
-          return null;
-        }
-
-        const data = langMapValueForLocale(value, this.$i18n.locale).values;
-        if (!data) {
-          return null;
-        }
-
-        return data.filter(item => typeof item === 'string');
-      },
       matomoOptions() {
         return {
-          dimension1: langMapValueForLocale(this.fields.edmCountry, 'en').values[0],
-          dimension2: langMapValueForLocale(this.coreFields.edmDataProvider.value, 'en').values[0],
-          dimension3: langMapValueForLocale(this.fields.edmProvider, 'en').values[0],
-          dimension4: langMapValueForLocale(this.fields.edmRights, 'en').values[0]
+          dimension1: langMapValueForLocale(this.metadata.edmCountry, 'en').values[0],
+          dimension2: this.stringify(langMapValueForLocale(this.metadata.edmDataProvider?.value, 'en').values[0]),
+          dimension3: this.stringify(langMapValueForLocale(this.metadata.edmProvider, 'en').values[0]),
+          dimension4: langMapValueForLocale(this.metadata.edmRights, 'en').values[0]
         };
       }
-    },
-
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.metaTitle),
-        meta: [
-          { hid: 'title', name: 'title', content: this.metaTitle },
-          { hid: 'description', name: 'description', content: this.metaDescription },
-          { hid: 'og:title', property: 'og:title', content: this.metaTitle },
-          { hid: 'og:description', property: 'og:description', content: this.metaDescription },
-          { hid: 'og:image', property: 'og:image', content: this.pageHeadMetaOgImage },
-          { hid: 'og:type', property: 'og:type', content: 'article' }
-        ]
-      };
-    },
-
-    watchQuery: ['lang'],
-
-    async beforeRouteUpdate(to, from, next) {
-      if (to.path !== from.path) {
-        // Navigation to another item
-        await this.$store.dispatch('item/reset');
-      }
-      next();
-    },
-    async beforeRouteLeave(to, from, next) {
-      await this.$store.dispatch('item/reset');
-      next();
     }
   };
 </script>
@@ -416,12 +353,17 @@
     padding: 0;
   }
 
+  ::v-deep .related-collections .badge-light {
+    margin-top: 0.25rem;
+    margin-right: 0.5rem;
+  }
+
   ::v-deep .card-header-tabs {
     border-radius: 0.25rem 0.25rem 0 0;
   }
 
   ::v-deep .card-header-tabs .nav-link,
   ::v-deep .card-header-tabs .nav-link:hover {
-    border-radius: 0.25rem 0 0 0;
+    border-radius: 0.25rem 0 0;
   }
 </style>

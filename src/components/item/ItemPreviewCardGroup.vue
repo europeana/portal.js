@@ -1,65 +1,119 @@
 <template>
   <div
-    v-if="view === 'grid'"
+    v-if="masonryActive"
+    :key="`searchResultsGrid${view}`"
+    v-masonry
+    transition-duration="0.1"
+    item-selector=".card"
+    horizontal-order="true"
+    column-width=".masonry-container .card:not(.header-card)"
+    class="masonry-container"
+    :data-qa="`item previews ${view}`"
   >
-    <div
-      v-masonry
-      transition-duration="0.1"
-      item-selector=".card"
-      horizontal-order="true"
-      column-width=".masonry-container .card"
-      class="masonry-container"
-      data-qa="item previews grid"
+    <slot />
+    <component
+      :is="draggableItems ? 'draggable' : 'div'"
+      v-model="cards"
+      :draggable="draggableItems && '.item'"
+      handle=".move-button"
+      @end="endItemDrag"
     >
-      <ItemPreviewCard
-        v-for="(item, index) in value"
-        :key="item.id"
-        v-model="value[index]"
-        v-masonry-tile
-        :hit-selector="itemHitSelector(item)"
-        :variant="cardVariant"
-        class="item"
-        :lazy="false"
-        :recommended-item="recommendations"
-        :show-pins="showPins"
-        data-qa="item preview"
-        @like="$emit('like', item.id)"
-        @unlike="$emit('unlike', item.id)"
-      />
-    </div>
+      <template
+        v-for="(card, index) in cards"
+      >
+        <template
+          v-if="card === 'related'"
+        >
+          <b-card
+            v-show="showRelated"
+            :key="index"
+            class="text-left related-collections-card mb-4"
+          >
+            <slot
+              v-masonry-tile
+              name="related"
+            />
+          </b-card>
+        </template>
+        <ItemPreviewCard
+          v-else
+          :key="index"
+          :item="card"
+          :hit-selector="itemHitSelector(card)"
+          :variant="cardVariant"
+          class="item"
+          :lazy="true"
+          :enable-accept-recommendation="enableAcceptRecommendations"
+          :enable-reject-recommendation="enableRejectRecommendations"
+          :show-pins="showPins"
+          :show-move="draggableItems"
+          :offset="items.findIndex(item => item.id === card.id)"
+          data-qa="item preview"
+          @like="$emit('like', card.id)"
+          @unlike="$emit('unlike', card.id)"
+        />
+      </template>
+    </component>
   </div>
-  <b-card-group
+  <component
+    :is="draggableItems ? 'draggable' : 'b-card-group'"
     v-else
+    v-model="cards"
+    :draggable="draggableItems && '.item'"
     :data-qa="`item previews ${view}`"
     :class="cardGroupClass"
     deck
+    @end="endItemDrag"
   >
-    <ItemPreviewCard
-      v-for="(item, index) in value"
-      :key="item.id"
-      v-model="value[index]"
-      :hit-selector="itemHitSelector(item)"
-      :variant="cardVariant"
-      :show-pins="showPins"
-      data-qa="item preview"
-      @like="$emit('like', item.id)"
-      @unlike="$emit('unlike', item.id)"
-    />
-  </b-card-group>
+    <slot />
+    <template
+      v-for="(card, index) in cards"
+    >
+      <template
+        v-if="card === 'related'"
+      >
+        <b-card
+          v-show="showRelated"
+          :key="index"
+          class="text-left related-collections-card mb-4"
+        >
+          <slot
+            name="related"
+          />
+        </b-card>
+      </template>
+      <ItemPreviewCard
+        v-else
+        :key="card.id"
+        :item="card"
+        class="item"
+        :hit-selector="itemHitSelector(card)"
+        :variant="cardVariant"
+        :show-pins="showPins"
+        :show-move="draggableItems"
+        :offset="items.findIndex(item => item.id === card.id)"
+        data-qa="item preview"
+        @like="$emit('like', card.id)"
+        @unlike="$emit('unlike', card.id)"
+      />
+    </template>
+  </component>
 </template>
 
 <script>
+  import draggable from 'vuedraggable';
   import ItemPreviewCard from './ItemPreviewCard';
 
   export default {
     name: 'ItemPreviewCardGroup',
 
     components: {
+      draggable,
       ItemPreviewCard
     },
 
     props: {
-      value: {
+      items: {
         type: Array,
         default: () => []
       },
@@ -67,11 +121,10 @@
         type: Array,
         default: null
       },
-      perRow: {
-        type: Number,
-        default: 4
-      },
-      // grid/list/similar
+      /**
+       * Layout view to use
+       * @values grid, mosaic, list, explore
+       */
       view: {
         type: String,
         default: 'grid'
@@ -80,10 +133,32 @@
         type: Boolean,
         default: false
       },
-      recommendations: {
+      showRelated: {
+        type: Boolean,
+        default: false
+      },
+      draggableItems: {
+        type: Boolean,
+        default: false
+      },
+      enableAcceptRecommendations: {
+        type: Boolean,
+        default: false
+      },
+      enableRejectRecommendations: {
         type: Boolean,
         default: false
       }
+    },
+
+    data() {
+      return {
+        cards: []
+      };
+    },
+
+    fetch() {
+      this.cards = this.items.slice(0, 4).concat('related').concat(this.items.slice(4));
     },
 
     computed: {
@@ -94,14 +169,8 @@
         case 'list':
           cardGroupClass = 'card-group-list mx-0';
           break;
-        case 'plain':
-          cardGroupClass = `card-deck-search card-deck-${this.perRow}-cols`;
-          break;
         case 'explore':
           cardGroupClass = 'card-deck-4-cols narrow-gutter explore-more';
-          break;
-        case 'similar':
-          cardGroupClass = 'py-3 mx-0 card card-deck-4-cols similar-items';
           break;
         }
 
@@ -110,16 +179,28 @@
 
       cardVariant() {
         return this.view === 'grid' ? 'default' : this.view;
+      },
+
+      masonryActive() {
+        return this.view === 'grid' || this.view === 'mosaic';
+      }
+    },
+
+    watch: {
+      'cards.length': 'redrawMasonry',
+      items() {
+        this.$fetch();
       }
     },
 
     mounted() {
-      if (typeof this.$redrawVueMasonry === 'function' && this.view === 'grid') {
-        this.$redrawVueMasonry();
-      }
+      this.redrawMasonry();
     },
 
     methods: {
+      endItemDrag() {
+        this.$emit('endItemDrag', this.cards.filter(card => card !== 'related'));
+      },
       itemHitSelector(item) {
         if (!this.hits) {
           return null;
@@ -127,6 +208,13 @@
 
         const hit = this.hits.find(hit => item.id === hit.scope);
         return hit ? hit.selectors[0] : null;
+      },
+      redrawMasonry() {
+        if (typeof this.$redrawVueMasonry === 'function' && this.masonryActive) {
+          this.$nextTick(() => {
+            this.$redrawVueMasonry();
+          });
+        }
       }
     }
   };

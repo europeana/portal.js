@@ -23,6 +23,17 @@ query ExhibitionLandingPage(
         }
       }
       credits
+      contentWarning {
+        name
+        description
+      }
+      categoriesCollection {
+        items {
+          name
+          identifier
+        }
+      }
+      relatedLink
     }
   }
 }

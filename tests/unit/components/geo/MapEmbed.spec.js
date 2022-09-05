@@ -27,7 +27,7 @@ describe('components/geo/MapEmbed', () => {
 
     const iframe =  wrapper.find('iframe');
 
-    iframe.exists().should.be.true;
+    expect(iframe.exists()).toBe(true);
   });
 
   describe('label', () => {
@@ -36,7 +36,7 @@ describe('components/geo/MapEmbed', () => {
 
       const labelText =  wrapper.find('label').text();
 
-      labelText.should.startWith('Brighton');
+      expect(labelText.startsWith('Brighton')).toBe(true);
     });
 
     it('ends with formatted co-ordinates', () => {
@@ -44,7 +44,7 @@ describe('components/geo/MapEmbed', () => {
 
       const labelText =  wrapper.find('label').text();
 
-      labelText.should.endWith('50.82838° N -0.13947° W');
+      expect(labelText.endsWith('50.82838° N -0.13947° W')).toBe(true);
     });
   });
 
@@ -54,7 +54,7 @@ describe('components/geo/MapEmbed', () => {
 
       const marker = wrapper.vm.marker;
 
-      marker.should.eq('50.82838,-0.13947');
+      expect(marker).toBe('50.82838,-0.13947');
     });
   });
 
@@ -64,7 +64,7 @@ describe('components/geo/MapEmbed', () => {
 
       const bbox = wrapper.vm.bbox;
 
-      bbox.should.eq('-10.13947,45.82838,9.86053,55.82838');
+      expect(bbox).toBe('-10.13947,45.82838,9.86053,55.82838');
     });
   });
 
@@ -74,7 +74,7 @@ describe('components/geo/MapEmbed', () => {
 
       const iframeSrc = wrapper.vm.iframeSrc;
 
-      iframeSrc.should.eq('https://www.openstreetmap.org/export/embed.html?marker=50.82838,-0.13947&bbox=-10.13947,45.82838,9.86053,55.82838&layer=mapnik');
+      expect(iframeSrc).toBe('https://www.openstreetmap.org/export/embed.html?marker=50.82838,-0.13947&bbox=-10.13947,45.82838,9.86053,55.82838&layer=mapnik');
     });
   });
 });

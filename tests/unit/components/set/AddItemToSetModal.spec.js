@@ -11,7 +11,7 @@ const storeDispatch = sinon.stub().resolves({});
 const sets = [
   {
     id: '001',
-    items: ['http://data.europeana.eu/item/000/aaa'],
+    items: [{ id: '/000/aaa' }],
     title: 'Test collection',
     total: 1,
     visibility: 'public'
@@ -29,9 +29,7 @@ const factory = (propsData = {}) => mount(AddItemToSetModal, {
     $tc: () => {},
     $i18n: {},
     $apis: {
-      set: {
-        getSetThumbnail: () => null
-      }
+      thumbnail: { edmPreview: (img) => img?.edmPreview?.[0] }
     },
     $store: {
       dispatch: storeDispatch,
@@ -49,7 +47,7 @@ describe('components/set/AddItemToSetModal', () => {
       const wrapper = factory({ itemId: '/123/abc', modalId: 'add-item-to-set-modal-/123/abc' });
       wrapper.find('[data-qa="create new gallery button"]').trigger('click');
 
-      wrapper.emitted('clickCreateSet').length.should.eql(1);
+      expect(wrapper.emitted('clickCreateSet').length).toEqual(1);
     });
   });
 
@@ -60,7 +58,7 @@ describe('components/set/AddItemToSetModal', () => {
 
       wrapper.find('[data-qa="close button"]').trigger('click');
 
-      bvModalHide.should.have.been.calledWith('add-item-to-set-modal-/123/abc');
+      expect(bvModalHide.calledWith('add-item-to-set-modal-/123/abc')).toBe(true);
     });
   });
 
@@ -71,7 +69,7 @@ describe('components/set/AddItemToSetModal', () => {
 
       await wrapper.find('[data-qa="toggle item button 0"]').trigger('click');
 
-      storeDispatch.should.have.been.calledWith('set/addItem', { setId: '001', itemId: '/123/abc' });
+      expect(storeDispatch.calledWith('set/addItem', { setId: '001', itemId: '/123/abc' })).toBe(true);
     });
 
     it('removes item from gallery when item already added', async() => {
@@ -80,7 +78,7 @@ describe('components/set/AddItemToSetModal', () => {
 
       await wrapper.find('[data-qa="toggle item button 0"]').trigger('click');
 
-      storeDispatch.should.have.been.calledWith('set/removeItem', { setId: '001', itemId: '/000/aaa' });
+      expect(storeDispatch.calledWith('set/removeItem', { setId: '001', itemId: '/000/aaa' })).toBe(true);
     });
   });
 });

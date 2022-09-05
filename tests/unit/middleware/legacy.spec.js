@@ -89,7 +89,8 @@ describe('middleware/legacy', () => {
           path: fromPath,
           fullPath: rule.from
         },
-        query: fromQuery || {}
+        query: fromQuery || {},
+        app: { $features: {} }
       });
 
       const toPath = rule.to.split('?')[0];
@@ -97,9 +98,9 @@ describe('middleware/legacy', () => {
       const status = rule.status || 301;
 
       if (Object.keys(toQuery).length > 0) {
-        redirect.should.have.been.calledWith(status, toPath, toQuery);
+        expect(redirect.calledWith(status, { path: toPath, query: toQuery })).toBe(true);
       } else {
-        redirect.should.have.been.calledWith(status, toPath);
+        expect(redirect.calledWith(status, { path: toPath, query: {} })).toBe(true);
       }
     });
   }

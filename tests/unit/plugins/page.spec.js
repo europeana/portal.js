@@ -13,6 +13,6 @@ describe('pageHeadTitle', () => {
     );
     const pageTitleWithSiteName = pageHeadTitle(pageTitle);
 
-    pageTitleWithSiteName.should.eq(expected);
+    expect(pageTitleWithSiteName).toBe(expected);
   });
 });

@@ -1,13 +1,9 @@
-import { getEntityQuery } from '../plugins/europeana/entity';
-
 export default {
   state: () => ({
     curatedEntities: null,
     entity: null,
     id: null,
-    page: null,
     recordsPerPage: 24,
-    relatedEntities: null,
     pinned: null,
     featuredSetId: null,
     editable: false
@@ -20,21 +16,11 @@ export default {
     setId(state, value) {
       state.id = value;
     },
-    setPage(state, value) {
-      state.page = value;
-    },
-    setRelatedEntities(state, value) {
-      state.relatedEntities = value;
-    },
     setCuratedEntities(state, value) {
       state.curatedEntities = value;
     },
     setPinned(state, value) {
-      if (value) {
-        state.pinned = value.map(item => item.id);
-      } else {
-        state.pinned = [];
-      }
+      state.pinned = value || [];
     },
     setFeaturedSetId(state, value) {
       state.featuredSetId = value;
@@ -50,12 +36,6 @@ export default {
     },
     setEditable(state, value) {
       state.editable = value;
-    },
-    setProxy(state, value) {
-      state.entity.proxy = value;
-    },
-    setProxyDescription(state, value) {
-      state.entity.proxy.note = value;
     }
   },
 
@@ -75,48 +55,16 @@ export default {
       return state.id ? state.id : null;
     },
 
+    featuredSetId(state) {
+      return state.featuredSetId ? state.featuredSetId : null;
+    },
+
     isPinned: (state) => (itemId) => {
       return state.pinned ? state.pinned.includes(itemId) : false;
     }
   },
 
   actions: {
-    async searchForRecords({ getters, dispatch, commit, state }, query) {
-      if (!state.entity) {
-        return;
-      }
-
-      await dispatch('search/activate', null, { root: true });
-
-      const userParams = Object.assign({}, query);
-
-      const entityUri = state.id;
-
-      const overrideParams = {
-        qf: [],
-        rows: state.recordsPerPage
-      };
-
-      const curatedEntity = getters.curatedEntity(entityUri);
-      if (curatedEntity && curatedEntity.genre) {
-        overrideParams.qf.push(`collection:${curatedEntity.genre}`);
-      } else {
-        const entityQuery = getEntityQuery(entityUri);
-        overrideParams.qf.push(entityQuery);
-
-        if (!userParams.query) {
-          const englishPrefLabel = getters.englishPrefLabel;
-          if (englishPrefLabel) {
-            overrideParams.query = englishPrefLabel;
-          }
-        }
-      }
-
-      commit('search/set', ['userParams', userParams], { root: true });
-      commit('search/set', ['overrideParams', overrideParams], { root: true });
-
-      await dispatch('search/run', {}, { root: true });
-    },
     getFeatured({ commit, state, dispatch }) {
       const searchParams = {
         query: 'type:EntityBestItemsSet',
@@ -134,12 +82,11 @@ export default {
       return dispatch('getPins')
         .then(() => {
           if (state.pinned && state.pinned.length >= 24) {
-            throw new Error('too many pins');
+            return Promise.reject(new Error('too many pins'));
+          } else {
+            return this.$apis.set.modifyItems('add', state.featuredSetId, itemId, true)
+              .then(() =>  commit('pin', itemId));
           }
-        })
-        .then(() => {
-          return this.$apis.set.modifyItems('add', state.featuredSetId, itemId, true)
-            .then(() =>  commit('pin', itemId));
         })
         .catch((e) => {
           dispatch('getPins');
@@ -149,6 +96,7 @@ export default {
     unpin({ dispatch, state }, itemId) {
       return this.$apis.set.modifyItems('delete', state.featuredSetId, itemId)
         .then(() =>  {
+          dispatch('set/fetchActive', state.featuredSetId, { root: true });
           dispatch('getPins');
         })
         .catch((e) => {
@@ -157,8 +105,9 @@ export default {
         });
     },
     getPins({ state, commit }) {
-      return this.$apis.set.getSet(state.featuredSetId, {
-        profile: 'itemDescriptions'
+      return this.$apis.set.get(state.featuredSetId, {
+        profile: 'standard',
+        pageSize: 100
       }).then(featured => featured.pinned > 0 ? commit('setPinned', featured.items.slice(0, featured.pinned)) : commit('setPinned', []));
     },
     createFeaturedSet({ getters, commit }) {
@@ -167,16 +116,8 @@ export default {
         title: { 'en': getters.englishPrefLabel + ' Page' },
         subject: [getters.id]
       };
-      return this.$apis.set.createSet(featuredSetBody)
+      return this.$apis.set.create(featuredSetBody)
         .then(response => commit('setFeaturedSetId', response.id));
-    },
-    updateEntity({ commit }, { id, body }) {
-      return this.$apis.entityManagement.updateEntity(id.split('/').pop(), body)
-        .then(response => {
-          commit('setProxyDescription', body.note);
-          commit('setEntityDescription', response.note);
-        });
     }
-
   }
 };

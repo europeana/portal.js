@@ -16,6 +16,13 @@ function appSupportsLocale(locale) {
   return locale && localeCodes.includes(locale);
 }
 
+const localiseRoute = ({ route, req, redirect, app }) => {
+  if (app.$apm && process.server) {
+    app.$apm.setTransactionName(`${req.method} [l10n]`);
+  }
+  redirect(route);
+};
+
 export default ({ app, route, redirect, req }) => {
   // Exit early if this is an auth callback
   if (app.$auth && [
@@ -38,9 +45,14 @@ export default ({ app, route, redirect, req }) => {
       return;
     } else {
       // Remove unsupported locale from URL
-      redirect({
-        path: routePathLocaleMatch[2] || '/',
-        query: route.query
+      localiseRoute({
+        route: {
+          path: routePathLocaleMatch[2] || '/',
+          query: route.query
+        },
+        req,
+        redirect,
+        app
       });
       return;
     }
@@ -67,8 +79,13 @@ export default ({ app, route, redirect, req }) => {
   }
 
   const i18nPath = route.path === '/' ? `/${browserLocale}` : `/${browserLocale}${route.path}`;
-  redirect({
-    path: i18nPath,
-    query: route.query
+  localiseRoute({
+    route: {
+      path: i18nPath,
+      query: route.query
+    },
+    req,
+    redirect,
+    app
   });
 };

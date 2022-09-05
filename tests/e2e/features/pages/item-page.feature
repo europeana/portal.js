@@ -45,7 +45,7 @@ Feature: item page
 
     When I open an `item page without isShownBy or hasView`
     Then I see the `item page`
-    And I see the `media preview image`
+    And I see the `default thumbnail`
 
   Scenario: One related entity
     When I open `"The Milkmaid" item page`
@@ -55,9 +55,11 @@ Feature: item page
   Scenario: Multiple related entities
     When I open the `"Het laatste avondmaal" item page`
     Then I see `related entities`
+    And I see the `Italy related chip` in the `related entities`
+    And I see the `Paper related chip` in the `related entities`
+    And I see the `Print related chip` in the `related entities`
     And I see the `Leonardo da Vinci related chip` in the `related entities`
-    And I see the `Teodoro Matteini related chip` in the `related entities`
-    And I see the `Engraving related chip` in the `related entities`
+    And I see the `Rijksmuseum related chip` in the `related entities`
 
   Scenario: Metadata in another language
     When I open the `"Hammerflügel" item page`
@@ -81,10 +83,6 @@ Feature: item page
     Then I see the `IIIF viewer`
     And I am on an accessible page
 
-  Scenario: Seeing a notification banner
-    When I open an `item page`
-    Then I see a `notification banner`
-
   Scenario: Copying embed code
     When I open the `"Het laatste avondmaal" item page`
     And  I click the `share button`
@@ -96,7 +94,7 @@ Feature: item page
     When I click the `show search button`
     And I enter "pl_wgs84_pos_lat:* pl_wgs84_pos_long:* proxy_dcterms_spatial:http\://data.europeana.eu*" in the `search box`
     And I press the ENTER key
-    And I see a `search query` with the text "pl_wgs84_pos_lat:* pl_wgs84_pos_long:* proxy_dcterms_spatial:http\://data.europeana.eu*"
+    And I see a `context label` with the text "pl_wgs84_pos_lat:* pl_wgs84_pos_long:* proxy_dcterms_spatial:http\://data.europeana.eu*"
     And I click a `item preview`
     And I see an `item page`
     And I hover over the `metadata box`
@@ -108,7 +106,7 @@ Feature: item page
     When I click the `show search button`
     And I enter "NOT proxy_dcterms_spatial:* pl_wgs84_pos_lat:* pl_wgs84_pos_long:*" in the `search box`
     And I press the ENTER key
-    And I see a `search query` with the text "NOT proxy_dcterms_spatial:* pl_wgs84_pos_lat:* pl_wgs84_pos_long:*"
+    And I see a `context label` with the text "NOT proxy_dcterms_spatial:* pl_wgs84_pos_lat:* pl_wgs84_pos_long:*"
     And I click a `item preview`
     And I see an `item page`
     And I hover over the `metadata box`
@@ -117,3 +115,16 @@ Feature: item page
   Scenario: Seeing an item language selector
     When I open an `item page`
     Then I see an `item language selector`
+
+  Scenario: Using the item language selector
+    Given I am on the `"The Milkmaid" item page`
+    And I don't have a `translation tooltip`
+    When I click the `item language dropdown`
+    And I click the `item language option de`
+    Then I see a `translation tooltip`
+
+  @resized-browser
+  Scenario: HTML embedded media
+    When I open an `item page with a responsive embedded video`
+    And I resize the window to 1200 by 500
+    Then The iframe does not overflow `responsive embed wrapper`

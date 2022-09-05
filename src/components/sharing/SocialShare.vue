@@ -38,7 +38,7 @@
 
     computed: {
       ...mapGetters({
-        shareUrl: 'http/canonicalUrl'
+        shareUrl: 'http/canonicalUrlWithoutLocale'
       }),
       networks() {
         return [
@@ -55,7 +55,7 @@
           {
             identifier: 'pinterest',
             name: 'Pinterest',
-            url: `https://pinterest.com/pin/create/link/?url=${this.shareUrl}&media=${this.mediaUrl}`
+            url: `https://pinterest.com/pin/create/link/?url=${this.shareUrl}` + (this.mediaUrl ? `&media=${this.mediaUrl}` : '')
           }
         ];
       }
@@ -64,7 +64,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
+  @import '@/assets/scss/variables';
 
   a {
     align-items: center;

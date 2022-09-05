@@ -18,6 +18,6 @@ describe('components/generic/AlertMessage', () => {
     await wrapper.setProps({ error: 'No results' });
 
     const message =  wrapper.find('[data-qa="error notice"]');
-    message.text().should.contain('No results');
+    expect(message.text()).toContain('No results');
   });
 });

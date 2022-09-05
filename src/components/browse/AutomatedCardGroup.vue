@@ -1,8 +1,13 @@
 <template>
   <div
-    v-if="entries.length > 0"
+    v-if="entries && entries.length > 0"
   >
+    <InfoCardSection
+      v-if="key === 'items/type-counts'"
+      :section="contentCardSection"
+    />
     <ContentCardSection
+      v-else
       :section="contentCardSection"
     />
   </div>
@@ -10,94 +15,128 @@
 
 <script>
   import ContentCardSection from './ContentCardSection';
+  import InfoCardSection from './InfoCardSection';
 
+  const FEATURED_ORGANISATIONS = 'Featured organisations';
+  const FEATURED_PLACES = 'Featured places';
   const FEATURED_TOPICS = 'Featured topics';
   const FEATURED_TIMES = 'Featured centuries';
   const RECENT_ITEMS = 'Recent items';
+  const ITEM_COUNTS_MEDIA_TYPE = 'Item counts by media type';
 
   export default {
     name: 'AutomatedCardGroup',
 
     components: {
-      ContentCardSection
+      ContentCardSection,
+      InfoCardSection
     },
 
     props: {
       sectionType: {
         type: String,
         required: true
+      },
+      moreButton: {
+        type: Object,
+        default: null
       }
+    },
+
+    data() {
+      const data = {
+        entries: []
+      };
+
+      if (this.sectionType === FEATURED_ORGANISATIONS) {
+        data.key = 'collections/organisations/featured';
+        data.cardType = 'AutomatedEntityCard';
+        data.headline = this.$i18n.t('automatedCardGroup.organisation');
+      } else if (this.sectionType === FEATURED_PLACES) {
+        data.key = `${this.$i18n.locale}/collections/places/featured`;
+        data.cardType = 'AutomatedEntityCard';
+        data.headline = this.$i18n.t('automatedCardGroup.place');
+      } else if (this.sectionType === FEATURED_TOPICS) {
+        data.key = `${this.$i18n.locale}/collections/topics/featured`;
+        data.cardType = 'AutomatedEntityCard';
+        data.headline = this.$i18n.t('automatedCardGroup.topic');
+      } else if (this.sectionType === FEATURED_TIMES) {
+        data.key = `${this.$i18n.locale}/collections/times/featured`;
+        data.cardType = 'AutomatedEntityCard';
+        data.headline = this.$i18n.t('automatedCardGroup.time');
+      } else if (this.sectionType === RECENT_ITEMS) {
+        data.key = 'items/recent';
+        data.cardType = 'AutomatedRecordCard';
+        data.headline = this.$i18n.t('automatedCardGroup.item');
+      } else if (this.sectionType === ITEM_COUNTS_MEDIA_TYPE) {
+        data.key = 'items/type-counts';
+        data.cardType = 'InfoCard';
+      }
+
+      return data;
     },
 
     fetch() {
       if (process.server) {
-        return import('@/server-middleware/api/dailyEntries')
+        return import('@/server-middleware/api/cache/index.js')
           .then(module => {
-            return module.entriesOfTheDay(this.type, this.$config)
+            return module.cached(this.key, this.$config)
               .then(entries => {
                 this.entries = entries;
               });
-        });
+          });
+      } else {
+        return this.$axios.get(`/_api/cache/${this.key}`, { baseURL: window.location.origin })
+          .then(response => {
+            this.entries = response.data;
+          });
       }
-      return this.$axios.get(this.apiEndpoint)
-        .then(response => {
-          this.entries = response.data;
-        });
     },
-
-    data: () => ({
-      entries: []
-    }),
 
     computed: {
       contentCardSection() {
+        if (this.sectionType === ITEM_COUNTS_MEDIA_TYPE) {
+          return {
+            type: this.key,
+            hasPartCollection: {
+              items: this.entries?.map(entry => ({
+                __typename: this.cardType,
+                url: this.searchFromType(entry.label),
+                info: this.$i18n.n(entry.count),
+                label: this.$t(`facets.TYPE.options.${entry.label}`),
+                image: this.infoImageFromType(entry.label)
+              }))
+            },
+            moreButton: this.moreButton
+          };
+        }
         return {
-          headline: this.$i18n.t(`automatedCardGroup.${this.type}`),
+          headline: this.headline,
           hasPartCollection: {
             items: this.entries?.map(entry => ({
               __typename: this.cardType,
+              __variant: (this.sectionType === RECENT_ITEMS) ? null : 'mini',
               name: entry.prefLabel,
               identifier: entry.id,
-              image: entry.isShownBy?.thumbnail,
-              encoding: entry
+              image: this.$apis.entity.imageUrl(entry),
+              encoding: entry,
+              logo: !!entry.logo
             }))
-          }
+          },
+          moreButton: this.moreButton
         };
+      }
+    },
+
+    methods: {
+      infoImageFromType(itemType) {
+        return `ic-${itemType.toLowerCase()}`;
       },
-      type() {
-        switch (this.sectionType) {
-        case FEATURED_TOPICS:
-          return 'topic';
-        case FEATURED_TIMES:
-          return 'time';
-        case RECENT_ITEMS:
-          return 'item';
-        default:
-          return null;
-        }
-      },
-      cardType() {
-        switch (this.sectionType) {
-        case FEATURED_TOPICS:
-        case FEATURED_TIMES:
-          return 'AutomatedEntityCard';
-        case RECENT_ITEMS:
-          return 'AutomatedRecordCard';
-        default:
-          return null;
-        }
-      },
-      apiEndpoint() {
-        switch (this.sectionType) {
-        case FEATURED_TOPICS:
-          return '/_api/entities/topics';
-        case FEATURED_TIMES:
-          return '/_api/entities/times';
-        case RECENT_ITEMS:
-          return '/_api/items/recent';
-        default:
-          return null;
-        }
+      searchFromType(itemType) {
+        return {
+          name: 'search',
+          query: { query: '', qf: `TYPE:"${itemType}"` }
+        };
       }
     }
   };

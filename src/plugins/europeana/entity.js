@@ -1,5 +1,6 @@
 import { BASE_URL as EUROPEANA_DATA_URL } from './data.js';
 import { apiError, createAxios } from './utils.js';
+import thumbnail from './thumbnail.js';
 import md5 from 'md5';
 
 export const BASE_URL = process.env.EUROPEANA_ENTITY_API_URL || 'https://api.europeana.eu/entity';
@@ -10,20 +11,22 @@ export default (context = {}) => {
   return {
     $axios,
 
+    $thumbnail: thumbnail(context),
+
     /**
      * Get data for one entity from the API
      * @param {string} type the type of the entity, will be normalized to the EntityAPI type if it's a human readable type
      * @param {string} id the id of the entity (can contain trailing slug parts as these will be normalized)
      * @return {Object[]} parsed entity data
      */
-    getEntity(type, id) {
+    get(type, id) {
       return this.$axios.get(getEntityUrl(type, id))
         .then(response => ({
           error: null,
           entity: response.data
         }))
         .catch(error => {
-          throw apiError(error);
+          throw apiError(error, context);
         });
     },
 
@@ -32,41 +35,20 @@ export default (context = {}) => {
      * @param {string} text the query text to supply suggestions for
      * @param {Object} params additional parameters sent to the API
      */
-    getEntitySuggestions(text, params = {}) {
+    suggest(text, params = {}) {
       return this.$axios.get('/suggest', {
         params: {
           ...this.$axios.defaults.params,
           text,
-          type: 'agent,concept,timespan',
+          type: 'agent,concept,timespan,organization,place',
           scope: 'europeana',
           ...params
         }
       })
         .then(response => response.data.items ? response.data.items : [])
         .catch(error => {
-          throw apiError(error);
+          throw apiError(error, context);
         });
-    },
-
-    /**
-     * Return the facets that include data.europeana.eu
-     * @param {Object} facets the facets retrieved from the search
-     * @param {String} id id of the current entity
-     * @return {Object} related entities
-     * TODO: limit results
-     */
-    async getEntityFacets(facets, id) {
-      const currentId = normalizeEntityId(id);
-      let entities = [];
-      for (const facet of facets) {
-        const facetFilter = (value) => value['label'].includes(EUROPEANA_DATA_URL) && value['label'].split('/').pop() !== currentId;
-        entities = entities.concat(facet['fields'].filter(facetFilter));
-      }
-
-      const entityUris = entities.slice(0, 4).map(entity => {
-        return entity['label'];
-      });
-      return getRelatedEntityData(await this.findEntities(entityUris));
     },
 
     /**
@@ -74,15 +56,16 @@ export default (context = {}) => {
      * @param {Array} entityUris the URIs of the entities to retrieve
      * @return {Array} entity data
      */
-    findEntities(entityUris) {
+    find(entityUris) {
       if (entityUris?.length === 0) {
         return Promise.resolve([]);
       }
       const q = entityUris.join('" OR "');
       const params = {
-        query: `entity_uri:("${q}")`
+        query: `entity_uri:("${q}")`,
+        pageSize: entityUris.length
       };
-      return this.searchEntities(params)
+      return this.search(params)
         .then(response => response.entities || []);
     },
 
@@ -90,7 +73,7 @@ export default (context = {}) => {
      * Return all entity subjects of type concept / agent / timespan
      * @param {Object} params additional parameters sent to the API
      */
-    searchEntities(params = {}) {
+    search(params = {}) {
       return this.$axios.get('/search', {
         params: {
           ...this.$axios.defaults.params,
@@ -104,26 +87,27 @@ export default (context = {}) => {
           };
         })
         .catch((error) => {
-          throw apiError(error);
+          throw apiError(error, context);
         });
+    },
+
+    imageUrl(entity) {
+      let url = null;
+      // `image` is a property on automated entity cards in Contentful
+      if (entity?.image) {
+        url = this.$thumbnail.edmPreview(entity.image, { size: 200 });
+      // `isShownBy` is a property on most entity types
+      } else if (entity?.isShownBy?.thumbnail) {
+        url = this.$thumbnail.edmPreview(entity.isShownBy.thumbnail, { size: 200 });
+      // `logo` is a property on organization-type entities
+      } else if (entity?.logo?.id) {
+        url = getWikimediaThumbnailUrl(entity.logo.id, 28);
+      }
+
+      return url;
     }
   };
 };
-
-/**
- * Format the the entity data for a related entity
- * @param {Object} entities the data returned from the Entity API
- * @return {Object[]} entity data
- */
-function getRelatedEntityData(entities) {
-  const entityDetails = [];
-  for (const entity of entities || []) {
-    if (entity.prefLabel.en) {
-      entityDetails.push(entity);
-    }
-  }
-  return entityDetails;
-}
 
 /**
  * Remove any additional data from the slug in order to retrieve the entity id.
@@ -142,14 +126,16 @@ export function normalizeEntityId(id) {
 export function getEntityQuery(uri) {
   let entityQuery;
 
-  if (uri.includes('/concept/base/')) {
+  if (uri.includes('/concept/')) {
     entityQuery = `skos_concept:"${uri}"`;
-  } else if (uri.includes('/agent/base/')) {
+  } else if (uri.includes('/agent/')) {
     entityQuery = `edm_agent:"${uri}"`;
   } else if (uri.includes('/timespan/')) {
     entityQuery = `edm_timespan:"${uri}"`;
   } else if (uri.includes('/organization/')) {
     entityQuery = `foaf_organization:"${uri}"`;
+  } else if (uri.includes('/place/')) {
+    entityQuery = `edm_place:"${uri}"`;
   } else {
     throw new Error(`Unsupported entity URI "${uri}"`);
   }
@@ -158,7 +144,7 @@ export function getEntityQuery(uri) {
 }
 
 /**
- * A check for a URI to see if it conforms ot the entity URI pattern,
+ * A check for a URI to see if it conforms to the entity URI pattern,
  * optionally takes entity types as an array of values to check for.
  * Will return true/false
  * @param {string} uri A URI to check
@@ -166,8 +152,8 @@ export function getEntityQuery(uri) {
  * @return {Boolean} true if the URI is a valid entity URI
  */
 export function isEntityUri(uri, types) {
-  types = types ? types : ['concept', 'agent', 'place', 'timespan'];
-  return RegExp(`^http://data\\.europeana\\.eu/(${types.join('|')})(/base)?/\\d+$`).test(uri);
+  types = types ? types : ['concept', 'agent', 'place', 'timespan', 'organization'];
+  return RegExp(`^http://data\\.europeana\\.eu/(${types.join('|')})/\\d+$`).test(uri);
 }
 
 /**
@@ -177,6 +163,7 @@ export function isEntityUri(uri, types) {
  */
 export function getEntityTypeApi(type) {
   const names = {
+    place: 'place',
     person: 'agent',
     topic: 'concept',
     time: 'timespan',
@@ -192,6 +179,7 @@ export function getEntityTypeApi(type) {
  */
 export function getEntityTypeHumanReadable(type) {
   const names = {
+    place: 'place',
     agent: 'person',
     concept: 'topic',
     timespan: 'time',
@@ -207,19 +195,18 @@ export function getEntityTypeHumanReadable(type) {
  * @return {string} retrieved human readable name of type
  */
 export function getEntityUrl(type, id) {
-  return `/${getEntityTypeApi(type)}/base/${normalizeEntityId(id)}.json`;
+  return `/${getEntityTypeApi(type)}/${normalizeEntityId(id)}.json`;
 }
 
 /**
  * Retrieve the URI of the entity from the human readable type and ID
- * @param {string} type the human readable type of the entity either person or topic
+ * @param {string} type the human-readable type of the entity
  * @param {string} id the numeric identifier of the entity, (can contain trailing slug parts as these will be normalized)
  * @return {string} retrieved human readable name of type
  */
 export function getEntityUri(type, id) {
   const apiType = getEntityTypeApi(type);
-  const baseInfix = ['timespan', 'organization'].includes(apiType) ? '' : '/base';
-  return `${EUROPEANA_DATA_URL}/${apiType}${baseInfix}/${normalizeEntityId(id)}`;
+  return `${EUROPEANA_DATA_URL}/${apiType}/${normalizeEntityId(id)}`;
 }
 
 /**
@@ -228,38 +215,10 @@ export function getEntityUri(type, id) {
  * @return {{type: String, identifier: string}} Object with the portal relevant identifiers.
  */
 export function entityParamsFromUri(uri) {
-  const matched = uri.match(/^http:\/\/data\.europeana\.eu\/(concept|agent|place|timespan)(\/base)?\/(\d+)$/);
+  const matched = uri.match(/^http:\/\/data\.europeana\.eu\/(concept|agent|place|timespan|organization)\/(\d+)$/);
   const id = matched[matched.length - 1];
   const type = getEntityTypeHumanReadable(matched[1]);
   return { id, type };
-}
-
-/**
- * Retrieves the path for the entity, based on id and title
- *
- * If `entityPage.name` is present, that will be used in the slug. Otherwise
- * `prefLabel.en` if present.
- *
- * @param {string} id entity ID, i.e. data.europeana.eu URI
- * @param {string} name the English name of the entity
- * @return {string} path
- * @example
- *    const slug = getEntitySlug(
- *      'http://data.europeana.eu/concept/base/48',
- *      'Photography'
- *    );
- *    console.log(slug); // expected output: '48-photography'
- * @example
- *    const slug = getEntitySlug(
- *      'http://data.europeana.eu/agent/base/59832',
- *      'Vincent van Gogh'
- *    );
- *    console.log(slug); // expected output: '59832-vincent-van-gogh'
- */
-export function getEntitySlug(id, name) {
-  const entityId = id.toString().split('/').pop();
-  const path = entityId + (name ? '-' + name.toLowerCase().replace(/ /g, '-') : '');
-  return path;
 }
 
 /**

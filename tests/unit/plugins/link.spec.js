@@ -14,7 +14,7 @@ describe('link plugin', () => {
 
       const to = linkPlugin.to(path, query);
 
-      (to === null).should.be.true;
+      expect(to === null).toBe(true);
     });
 
     it('returns route object for path without "://"', () => {
@@ -23,7 +23,7 @@ describe('link plugin', () => {
 
       const to = linkPlugin.to(path, query);
 
-      to.should.eql({
+      expect(to).toEqual({
         path,
         query
       });
@@ -37,7 +37,7 @@ describe('link plugin', () => {
 
       const href = linkPlugin.href(path, query);
 
-      href.should.eql('http://example.org/about?query=art');
+      expect(href).toEqual('http://example.org/about?query=art');
     });
 
     it('returns null for path without "://"', () => {
@@ -46,7 +46,7 @@ describe('link plugin', () => {
 
       const href = linkPlugin.href(path, query);
 
-      (href === null).should.be.true;
+      expect(href === null).toBe(true);
     });
   });
 });

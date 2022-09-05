@@ -20,15 +20,7 @@
         deck
         data-qa="section group"
       >
-        <template v-if="!isPeopleSection">
-          <BrowseContentCard
-            v-for="(card, index) in cards"
-            :key="index"
-            :fields="card"
-            :card-type="card && card['__typename']"
-          />
-        </template>
-        <template v-else>
+        <template v-if="isPeopleSection">
           <ContentCard
             v-for="(card, index) in cards"
             :key="index"
@@ -37,6 +29,15 @@
             :image-url="card.entityImage"
             :image-optimisation-options="{ width: 510 }"
             variant="mini"
+          />
+        </template>
+        <template v-else>
+          <BrowseContentCard
+            v-for="(card, index) in cards"
+            :key="index"
+            :fields="card"
+            :card-type="card['__typename']"
+            :variant="card['__variant']"
           />
         </template>
       </b-card-group>
@@ -74,7 +75,7 @@
     },
     computed: {
       cards() {
-        return this.section.hasPartCollection.items.filter(card => card !== null);
+        return this.section.hasPartCollection.items.filter(card => !!card);
       },
 
       isPeopleSection() {
@@ -92,11 +93,11 @@
     },
     methods: {
       entityRouterLink(uri, slug) {
-        const uriMatch = uri.match(`^${EUROPEANA_DATA_URL}/([^/]+)(/base)?/(.+)$`);
+        const uriMatch = uri.match(`^${EUROPEANA_DATA_URL}/([^/]+)/(.+)$`);
         return {
           name: 'collections-type-all', params: {
             type: getEntityTypeHumanReadable(uriMatch[1]),
-            pathMatch: slug ? slug : uriMatch[3]
+            pathMatch: slug ? slug : uriMatch[2]
           }
         };
       }
@@ -105,7 +106,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
+  @import '@/assets/scss/variables';
 
   .browse-section {
     h2,
@@ -117,7 +118,7 @@
     h2 {
       font-size: 1.5rem;
       font-weight: 600;
-      letter-spacing: 0.12125rem;
+      letter-spacing: 0.1212rem;
     }
 
     p {

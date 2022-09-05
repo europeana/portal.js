@@ -1,10 +1,14 @@
-import dateFormat from 'dateformat';
-import * as utils from '../utils.js';
+const PICK = ['dataProvider', 'dcCreatorLangAware', 'dcTitleLangAware', 'edmPreview', 'id'];
+// TODO: We can't let the cacher localise in advance because the item preview card
+// expects to handle it. Consider refactoring that automated card group to
+// use generic content card directly?
+// const LOCALISE = ['dcCreatorLangAware', 'dcTitleLangAware'];
+const LOCALISE = false;
 
-const CACHE_KEY = '@europeana:portal.js:items:recent';
+import dateFormat from 'dateformat';
+import { createEuropeanaApiClient } from '../utils.js';
 
 let axiosClient;
-let redisClient;
 let randomSortSeed;
 
 const recentlyUpdatedContentTier4Dataset = async(exclude = []) => {
@@ -23,7 +27,7 @@ const recentlyUpdatedContentTier4Dataset = async(exclude = []) => {
       sort: 'timestamp_update+desc'
     }
   });
-  return response.data.items[0].edmDatasetName;
+  return response.data.items?.[0]?.edmDatasetName;
 };
 
 const recentlyUpdatedContentTier4ItemFromDataset = async(dataset) => {
@@ -42,33 +46,32 @@ const recentlyUpdatedContentTier4ItemFromDataset = async(dataset) => {
 const recentlyUpdatedContentTier4Items = async() => {
   const datasets = [];
   const items = [];
+  let moreDatasets = true;
 
-  while (items.length < 4) {
+  while (moreDatasets && (items.length < 4)) {
     const dataset = await recentlyUpdatedContentTier4Dataset(datasets);
-    datasets.push(dataset);
+    if (dataset) {
+      datasets.push(dataset);
 
-    const item = await recentlyUpdatedContentTier4ItemFromDataset(dataset);
-    items.push(item);
+      const item = await recentlyUpdatedContentTier4ItemFromDataset(dataset);
+      items.push(item);
+    } else {
+      moreDatasets = false;
+    }
   }
 
   return items;
 };
 
-const cache = async(config = {}) => {
-  try {
-    axiosClient = utils.createEuropeanaApiClient(config.europeana?.apis?.record);
-    redisClient = utils.createRedisClient(config.redis);
-    randomSortSeed = dateFormat(new Date(), 'isoDate');
+const data = (config = {}) => {
+  axiosClient = createEuropeanaApiClient(config.europeana?.apis?.record);
+  randomSortSeed = dateFormat(new Date(), 'isoDate');
 
-    const data = await recentlyUpdatedContentTier4Items();
-
-    return utils.writeToRedis(redisClient, CACHE_KEY, data);
-  } catch (error) {
-    return Promise.reject(utils.errorMessage(error));
-  }
+  return recentlyUpdatedContentTier4Items();
 };
 
 export {
-  cache,
-  CACHE_KEY
+  data,
+  LOCALISE,
+  PICK
 };

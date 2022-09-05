@@ -3,208 +3,239 @@
     data-qa="entity page"
     class="entity-page"
   >
-    <b-container fluid>
-      <b-row class="flex-md-row pt-5 bg-white mb-4">
-        <b-col
-          cols="12"
-        >
-          <b-container class="mb-5">
-            <EntityDetails
-              :description="description"
-              :is-editorial-description="hasEditorialDescription"
-              :title="title"
-              :context-label="contextLabel"
-              :logo="logo"
-              :external-link="homepage"
-            />
-            <client-only>
-              <section
-                v-if="isEditable && userIsEditor"
-              >
-                <div class="d-inline-flex">
-                  <b-button
-                    variant="outline-primary"
-                    @click="$bvModal.show('entityUpdateModal')"
-                  >
-                    {{ $t('actions.edit') }}
-                  </b-button>
-                  <EntityUpdateModal
-                    :body="entity.proxy"
-                    :description="descriptionText"
-                  />
-                </div>
-              </section>
-            </client-only>
-            <client-only>
-              <section
-                v-if="relatedCollectionsFound"
-                data-qa="related entities"
-              >
-                <RelatedCollections
-                  :title="$t('collectionsYouMightLike')"
-                  :related-collections="relatedEntities ? relatedEntities : relatedCollectionCards"
-                />
-              </section>
-            </client-only>
-          </b-container>
+    <b-container
+      v-if="$fetchState.error"
+    >
+      <b-row
+        class="flex-md-row py-4"
+      >
+        <b-col cols="12">
+          <AlertMessage
+            :error="$fetchState.error.message"
+          />
         </b-col>
       </b-row>
     </b-container>
-    <client-only>
-      <b-container>
-        <b-row>
-          <b-col
-            cols="12"
-            class="pb-3"
-          >
-            <i18n
-              v-if="$route.query.query"
-              path="searchResultsForIn"
-              tag="h2"
-              class="px-0 container"
-            >
-              <span>{{ $route.query.query }}</span>
-              <span>{{ title.values[0] }}</span>
-            </i18n>
-            <SearchInterface
-              class="px-0"
-              :per-page="recordsPerPage"
-              :route="route"
-              :show-content-tier-toggle="false"
-              :show-pins="userIsEditor && userIsSetsEditor"
+    <client-only v-else>
+      <SearchInterface
+        v-if="!$fetchState.pending"
+        :per-page="recordsPerPage"
+        :route="route"
+        :show-content-tier-toggle="false"
+        :show-pins="userIsEntitiesEditor && userIsSetsEditor"
+        :editorial-overrides="editorialOverrides"
+        :show-related="showRelated"
+      >
+        <EntityHeader
+          v-if="entity"
+          v-show="!hasUserQuery"
+          :id="entity && entity.id"
+          :description="description"
+          :title="title"
+          :sub-title="subTitle"
+          :logo="logo"
+          :image="thumbnail"
+          :editable="editable"
+          :external-link="homepage"
+          :proxy="proxy"
+          :more-info="moreInfo"
+          @updated="proxyUpdated"
+        />
+        <template
+          v-if="collectionType !== 'organisation'"
+          #related
+        >
+          <client-only>
+            <EntityRelatedCollections
+              :type="$route.params.type"
+              :identifier="$route.params.pathMatch"
+              :overrides="relatedCollectionCards"
+              data-qa="related entities"
+              @show="showRelatedCollections"
+              @hide="hideRelatedCollections"
             />
-          </b-col>
-        </b-row>
-        <b-row>
-          <b-col>
-            <b-container class="p-0">
+          </client-only>
+        </template>
+        <template
+          #after-results
+        >
+          <client-only>
+            <b-container class="px-0">
+              <RelatedEditorial
+                v-if="entity"
+                :entity-uri="entity.id"
+                :query="$route.query.query"
+              />
               <BrowseSections
                 v-if="page"
                 :sections="page.hasPartCollection.items"
               />
             </b-container>
-          </b-col>
-        </b-row>
-      </b-container>
+          </client-only>
+        </template>
+      </SearchInterface>
     </client-only>
   </div>
 </template>
 
 <script>
-  import axios from 'axios';
+  import pick from 'lodash/pick';
   import ClientOnly from 'vue-client-only';
-  import EntityDetails from '../../../components/entity/EntityDetails';
-  import SearchInterface from '../../../components/search/SearchInterface';
-  import { mapState } from 'vuex';
+  import SearchInterface from '@/components/search/SearchInterface';
+  import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
+  import redirectToPrefPathMixin from '@/mixins/redirectToPrefPath';
 
-  import { BASE_URL as EUROPEANA_DATA_URL } from '../../../plugins/europeana/data';
-  import { getEntityTypeHumanReadable, getEntitySlug, getEntityUri } from '../../../plugins/europeana/entity';
-  import { langMapValueForLocale, uriRegex } from  '../../../plugins/europeana/utils';
+  import themes from '@/plugins/europeana/themes';
+  import {
+    getEntityUri, getEntityQuery, normalizeEntityId
+  } from '@/plugins/europeana/entity';
+  import { langMapValueForLocale, uriRegex } from  '@/plugins/europeana/utils';
 
   export default {
+    name: 'CollectionPage',
+
     components: {
-      BrowseSections: () => import('../../../components/browse/BrowseSections'),
+      AlertMessage: () => import('@/components/generic/AlertMessage'),
+      BrowseSections: () => import('@/components/browse/BrowseSections'),
       ClientOnly,
-      EntityDetails,
-      SearchInterface,
-      EntityUpdateModal: () => import('../../../components/entity/EntityUpdateModal'),
-      RelatedCollections: () => import('../../../components/generic/RelatedCollections')
+      EntityHeader: () => import('@/components/entity/EntityHeader'),
+      EntityRelatedCollections: () => import('@/components/entity/EntityRelatedCollections'),
+      RelatedEditorial: () => import('@/components/related/RelatedEditorial'),
+      SearchInterface
+    },
+
+    mixins: [
+      europeanaEntitiesOrganizationsMixin,
+      redirectToPrefPathMixin
+    ],
+
+    beforeRouteLeave(to, from, next) {
+      if (to.matched[0].path !== `/${this.$i18n.locale}/search`) {
+        this.$store.commit('search/setShowSearchBar', false);
+      }
+      this.$store.commit('entity/setId', null); // needed to re-enable auto-suggest in header
+      this.$store.commit('entity/setEntity', null); // needed for best bets handling
+      this.$store.commit('entity/setFeaturedSetId', null);
+      this.$store.commit('entity/setPinned', []);
+      next();
     },
 
     middleware: 'sanitisePageQuery',
 
-    fetch({ query, params, redirect, error, app, store }) {
-      store.commit('search/disableCollectionFacet');
-
-      const entityUri = getEntityUri(params.type, params.pathMatch);
-      if (entityUri !== store.state.entity.id) {
-        // TODO: group as a reset action on the store?
-        store.commit('entity/setId', null);
-        store.commit('entity/setEntity', null);
-        store.commit('entity/setPage', null);
-        store.commit('entity/setRelatedEntities', null);
-        store.commit('entity/setFeaturedSetId', null);
-        store.commit('entity/setPinned', null);
-        store.commit('entity/setEditable', false);
-      }
-      store.commit('entity/setId', entityUri);
-
-      // Get all curated entity names & genres and store, unless already stored
-      const fetchCuratedEntities = !store.state.entity.curatedEntities;
-      // Get the full page for this entity if not known needed, or known to be needed, and store for reuse
-      const fetchEntityPage = !store.state.entity.curatedEntities ||
-        store.state.entity.curatedEntities.some(entity => entity.identifier === entityUri);
-      const fetchFromContentful = fetchCuratedEntities || fetchEntityPage;
-      // Prevent re-requesting entity content from APIs if already loaded,
-      // e.g. when paginating through entity search results
-      const fetchEntity = !store.state.entity.entity;
-      const fetchEntityManagement = fetchEntity && app.$config.app.features.entityManagement && app.$auth.user?.resource_access?.entities?.roles.includes('editor');
-
-      const contentfulVariables = {
-        identifier: entityUri,
-        locale: app.i18n.isoLocale(),
-        preview: query.mode === 'preview',
-        curatedEntities: fetchCuratedEntities,
-        entityPage: fetchEntityPage
-      };
-      return axios.all(
-        [store.dispatch('entity/searchForRecords', query)]
-          .concat(fetchEntity ? app.$apis.entity.getEntity(params.type, params.pathMatch) : () => {})
-          .concat(fetchEntityManagement ? app.$apis.entityManagement.getEntity(params.type, params.pathMatch) : () => ({}))
-          .concat(fetchFromContentful ? app.$contentful.query('collectionPage', contentfulVariables) : () => {})
-      )
-        .then(axios.spread((recordSearchResponse, entityResponse, entityManagementResponse, pageResponse) => {
-          if (fetchEntity) {
-            store.commit('entity/setEntity', entityResponse.entity);
-          }
-          if (entityManagementResponse.note) {
-            store.commit('entity/setEditable', true);
-            store.commit('entity/setEntityDescription', entityManagementResponse.note);
-            store.commit('entity/setProxy', entityManagementResponse.proxies.find(proxy => proxy.id.includes('#proxy_europeana')));
-          }
-          if (fetchFromContentful) {
-            const pageResponseData = pageResponse.data.data;
-            if (fetchCuratedEntities) {
-              store.commit('entity/setCuratedEntities', pageResponseData.curatedEntities.items);
-            }
-            if (fetchEntityPage) {
-              store.commit('entity/setPage', pageResponseData.entityPage.items[0]);
-            }
-          }
-          const entity = store.state.entity.entity;
-          const page = store.state.entity.page;
-          const entityName = page ? page.name : entity.prefLabel.en;
-          const desiredPath = getEntitySlug(entity.id, entityName);
-          if (params.pathMatch !== desiredPath) {
-            const redirectPath = app.$path({
-              name: 'collections-type-all',
-              params: { type: params.type, pathMatch: encodeURIComponent(desiredPath) }
-            });
-            return redirect(302, redirectPath);
-          }
-          return true;
-        }))
-        .catch((e) => {
-          const statusCode = (e.statusCode === undefined) ? 500 : e.statusCode;
-          store.commit('entity/setId', null);
-          error({ statusCode, message: e.toString() });
-        });
-    },
     data() {
       return {
-        relatedCollections: []
+        page: null,
+        proxy: null,
+        showRelated: false,
+        themes: themes.map(theme => theme.id)
       };
     },
+
+    fetch() {
+      this.$store.commit('search/disableCollectionFacet');
+
+      const entityUri = getEntityUri(this.collectionType, this.$route.params.pathMatch);
+      if (entityUri !== this.$store.state.entity.id) {
+        // TODO: group as a reset action on the store?
+        this.$store.commit('entity/setId', null);
+        this.$store.commit('entity/setEntity', null);
+        this.$store.commit('entity/setFeaturedSetId', null);
+        this.$store.commit('entity/setPinned', null);
+        this.$store.commit('entity/setEditable', false);
+        this.page = null;
+      }
+      this.$store.commit('entity/setId', entityUri);
+
+      // Get the full page for this entity if not known needed, or known to be needed, and store for reuse
+      const fetchEntityPage = !this.$store.state.entity.curatedEntities ||
+        this.$store.state.entity.curatedEntities.some(entity => entity.identifier === entityUri);
+      const fetchCuratedEntities = !this.$store.state.entity.curatedEntities;
+
+      const contentfulVariables = {
+        locale: this.$i18n.isoLocale(),
+        preview: this.$route.query.mode === 'preview'
+      };
+
+      return Promise.all([
+        this.$apis.entity.get(this.collectionType, this.$route.params.pathMatch),
+        fetchCuratedEntities ? this.$contentful.query('curatedEntities', contentfulVariables) : () => null,
+        fetchEntityPage ? this.$contentful.query('collectionPage', { ...contentfulVariables, identifier: entityUri }) : () => null
+      ])
+        .then(responses => {
+          this.$store.commit('entity/setEntity', pick(responses[0].entity, [
+            'id', 'logo', 'note', 'description', 'homepage', 'prefLabel', 'isShownBy', 'hasAddress', 'acronym', 'type'
+          ]));
+          if (fetchCuratedEntities) {
+            const entitiesResponseData = responses[1].data.data;
+            this.$store.commit('entity/setCuratedEntities', entitiesResponseData.curatedEntities.items);
+          }
+          if (fetchEntityPage) {
+            const pageResponseData = responses[responses.length - 1].data.data;
+            this.page = pageResponseData.entityPage.items[0];
+          }
+          this.$store.commit('search/setCollectionLabel', this.title.values[0]);
+          const urlLabel = this.page ? this.page.nameEN : this.entity.prefLabel.en;
+          return this.redirectToPrefPath('collections-type-all', this.entity.id, urlLabel, { type: this.collectionType });
+        });
+    },
+
+    head() {
+      return {
+        title: this.$pageHeadTitle(this.pageTitle),
+        meta: [
+          { hid: 'og:type', property: 'og:type', content: 'article' },
+          { hid: 'title', name: 'title', content: this.pageTitle },
+          { hid: 'og:title', property: 'og:title', content: this.pageTitle }
+        ]
+          .concat(this.descriptionText ? [
+            { hid: 'description', name: 'description', content: this.descriptionText },
+            { hid: 'og:description', property: 'og:description', content: this.descriptionText }
+          ] : [])
+      };
+    },
+
     computed: {
-      ...mapState({
-        entity: state => state.entity.entity,
-        page: state => state.entity.page,
-        relatedEntities: state => state.entity.relatedEntities,
-        recordsPerPage: state => state.entity.recordsPerPage,
-        editable: state => state.entity.editable
-      }),
+      entity() {
+        return this.$store.state.entity.entity;
+      },
+      recordsPerPage() {
+        return this.$store.state.entity.recordsPerPage;
+      },
+      pageTitle() {
+        return this.$fetchState.error ? this.$t('error') : this.title.values[0];
+      },
+      searchOverrides() {
+        const overrideParams = {
+          qf: [],
+          rows: this.recordsPerPage
+        };
+
+        if (this.entity) {
+          const curatedEntity = this.$store.getters['entity/curatedEntity'](this.entity.id);
+          if (curatedEntity && curatedEntity.genre) {
+            overrideParams.qf.push(`collection:${curatedEntity.genre}`);
+          } else {
+            const entityQuery = getEntityQuery(this.entity.id);
+            overrideParams.qf.push(entityQuery);
+            if (!this.$route.query.query) {
+              overrideParams.query = entityQuery; // Triggering best bets.
+            }
+          }
+        }
+
+        return overrideParams;
+      },
+      entityId() {
+        return normalizeEntityId(this.$route.params.pathMatch);
+      },
       contextLabel() {
-        return this.$t(`cardLabels.${this.$route.params.type}`);
+        let contextType = this.collectionType;
+
+        if (this.collectionType === 'topic' && this.themes.includes(this.entityId)) {
+          contextType = 'theme';
+        }
+
+        return this.$t(`cardLabels.${contextType}`);
       },
       collectionType() {
         return this.$route.params.type;
@@ -216,14 +247,17 @@
         return null;
       },
       description() {
-        if (this.isEditable) {
-          return this.entity.note[this.$store.state.i18n.locale] ? { values: this.entity.note[this.$store.state.i18n.locale], code: this.$store.state.i18n.locale } : null;
+        let description = null;
+
+        if (this.editorialDescription) {
+          description = { values: [this.editorialDescription], code: null };
+        } else if (this.entity?.note) {
+          description = langMapValueForLocale(this.entity.note, this.$i18n.locale);
+        } else if (this.entity?.description) {
+          description = langMapValueForLocale(this.entity.description, this.$i18n.locale);
         }
 
-        const description = this.collectionType === 'organisation' &&
-          this.entity?.description ? langMapValueForLocale(this.entity.description, this.$i18n.locale) : null;
-
-        return this.editorialDescription ? { values: [this.editorialDescription], code: null } : description;
+        return description;
       },
       descriptionText() {
         return ((this.description?.values?.length || 0) >= 1) ? this.description.values[0] : null;
@@ -253,115 +287,164 @@
       editorialTitle() {
         return this.page?.name || null;
       },
+      editorialImage() {
+        return this.page?.primaryImageOfPage?.image || null;
+      },
+      editorialOverrides() {
+        return { title: this.editorialTitle, image: this.editorialImage };
+      },
       relatedCollectionCards() {
-        return ((this.page?.relatedLinksCollection?.items?.length || 0) > 0) ? this.page.relatedLinksCollection.items : null;
+        if ((this.page?.relatedLinksCollection?.items?.length || 0) > 0) {
+          return this.page.relatedLinksCollection.items.map(item => {
+            const prefLabel = {
+              [this.$i18n.locale]: item.name,
+              en: item.nameEN
+            };
+            return {
+              id: item.identifier,
+              prefLabel,
+              image: item.image
+            };
+          });
+        }
+        return null;
       },
-      relatedCollectionsFound() {
-        return (this.relatedEntities?.length || this.relatedCollectionCards?.length || 0) > 0;
+      editable() {
+        return this.$features.entityManagement &&
+          this.entity &&
+          this.userIsEntitiesEditor &&
+          ['topic', 'organisation'].includes(this.collectionType);
       },
-      userIsEditor() {
-        return this.$store.state.auth.user?.resource_access?.entities?.roles?.includes('editor') || false;
+      userIsEntitiesEditor() {
+        return this.$auth?.user?.resource_access?.entities?.roles.includes('editor') || false;
       },
       userIsSetsEditor() {
-        return this.$store.state.auth.user?.resource_access?.usersets?.roles.includes('editor') || false;
+        return this.$auth?.user?.resource_access?.usersets?.roles.includes('editor') || false;
       },
       route() {
         return {
           name: 'collections-type-all',
           params: {
-            type: this.$route.params.type,
+            type: this.collectionType,
             pathMatch: this.$route.params.pathMatch
           }
         };
       },
       title() {
+        let title;
+
         if (!this.entity) {
-          return this.titleFallback();
+          title = this.titleFallback();
+        } else if (this.editorialTitle) {
+          title = this.titleFallback(this.editorialTitle);
+        } else if (this.organisationNativeName) {
+          title = langMapValueForLocale(this.organisationNativeName, this.$i18n.locale);
+        } else {
+          title = langMapValueForLocale(this.entity.prefLabel, this.$i18n.locale);
         }
-        if (this.editorialTitle) {
-          return this.titleFallback(this.editorialTitle);
-        }
-        return langMapValueForLocale(this.entity.prefLabel, this.$store.state.i18n.locale);
+
+        return title;
       },
-      isEditable() {
-        return this.entity && this.editable;
+      subTitle() {
+        return this.organisationNonNativeEnglishName ?
+          langMapValueForLocale(this.organisationNonNativeEnglishName, this.$i18n.locale) :
+          null;
+      },
+      hasUserQuery() {
+        return this.$route.query.query &&  this.$route.query.query !== '';
+      },
+      thumbnail() {
+        return this.$apis.entity.imageUrl(this.entity);
+      },
+      organisationNativeName() {
+        return this.organizationEntityNativeName(this.entity);
+      },
+      organisationNonNativeEnglishName() {
+        return this.organizationEntityNonNativeEnglishName(this.entity);
+      },
+      moreInfo() {
+        if (!this.entity || this.collectionType !== 'organisation') {
+          return null;
+        }
+
+        const labelledMoreInfo = [];
+
+        if (this.organisationNonNativeEnglishName) {
+          labelledMoreInfo.push({
+            label: this.$t('organisation.englishName'),
+            value: Object.values(this.organisationNonNativeEnglishName)[0],
+            lang: Object.keys(this.organisationNonNativeEnglishName)[0]
+          });
+        }
+        if (this.entity?.acronym)  {
+          const langMapValue = langMapValueForLocale(this.entity.acronym, this.$i18n.locale);
+          labelledMoreInfo.push({ label: this.$t('organisation.nameAcronym'), value: langMapValue.values[0], lang: langMapValue.code });
+        }
+        if (this.entity?.hasAddress?.countryName)  {
+          labelledMoreInfo.push({ label: this.$t('organisation.country'), value: this.entity.hasAddress.countryName });
+        }
+        if (this.entity?.hasAddress?.locality)  {
+          labelledMoreInfo.push({ label: this.$t('organisation.city'), value: this.entity.hasAddress.locality });
+        }
+        if (this.homepage)  {
+          labelledMoreInfo.push({ label: this.$t('website'), value: this.homepage });
+        }
+
+        return labelledMoreInfo;
       }
     },
+    watch: {
+      searchOverrides: 'storeSearchOverrides'
+    },
     mounted() {
-      this.$store.commit('search/setCollectionLabel', this.title.values[0]);
-      this.$store.dispatch('entity/searchForRecords', this.$route.query);
-      // TODO: move into a new entity store action?
-      // Disable related collections for organisation for now
-      if (!this.relatedCollectionCards && this.collectionType !== 'organisation') {
-        this.$apis.record.relatedEntities(this.$route.params.type, this.$route.params.pathMatch)
-          .then(facets => facets ? this.$apis.entity.getEntityFacets(facets, this.$route.params.pathMatch) : [])
-          .then(related => {
-            this.$store.commit('entity/setRelatedEntities', related);
-          });
-      }
-      if (this.userIsEditor) {
+      this.storeSearchOverrides();
+      if (this.userIsEntitiesEditor) {
         this.$store.dispatch('entity/getFeatured');
       }
     },
     methods: {
+      storeSearchOverrides() {
+        this.$store.commit('search/set', ['overrideParams', this.searchOverrides]);
+      },
       titleFallback(title) {
         return {
           values: [title],
           code: null
         };
       },
-      // TODO: remove this method, as it seems unused on the page
-      relatedLinkGen(item) {
-        let id = '';
-        let name = '';
-        if (typeof item.id === 'undefined') {
-          id = item.identifier;
-          name = item.name;
-        } else {
-          id = item.id;
-          name = item.prefLabel.en;
-        }
-        const uriMatch = id.match(`^${EUROPEANA_DATA_URL}/([^/]+)(/base)?/(.+)$`);
-        return this.$path({
-          name: 'collections-type-all', params: {
-            type: getEntityTypeHumanReadable(uriMatch[1]),
-            pathMatch: getEntitySlug(id, name)
-          }
-        });
+      showRelatedCollections() {
+        this.showRelated = true;
+      },
+      hideRelatedCollections() {
+        this.showRelated = false;
+      },
+      proxyUpdated() {
+        this.$fetch();
       }
-    },
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.title.values[0]),
-        meta: [
-          { hid: 'og:type', property: 'og:type', content: 'article' },
-          { hid: 'title', name: 'title', content: this.title.values[0] },
-          { hid: 'og:title', property: 'og:title', content: this.title.values[0] }
-        ]
-          .concat(this.descriptionText ? [
-            { hid: 'description', name: 'description', content: this.descriptionText },
-            { hid: 'og:description', property: 'og:description', content: this.descriptionText }
-          ] : [])
-      };
-    },
-    async beforeRouteLeave(to, from, next) {
-      if (to.matched[0].path !== `/${this.$store.state.i18n.locale}/search`) {
-        this.$store.commit('search/setShowSearchBar', false);
-      }
-      await this.$store.dispatch('search/deactivate');
-      this.$store.commit('entity/setId', null); // needed to re-enable auto-suggest in header
-      this.$store.commit('entity/setEntity', null); // needed for best bets handling
-      next();
-    },
-    watchQuery: ['api', 'reusability', 'query', 'qf', 'page']
+    }
   };
 </script>
 
 <style lang="scss" scoped>
+  @import '@/assets/scss/variables';
+
   .entity-page {
-    margin-top: -1rem;
+    &.top-header {
+      margin-top: -1rem;
+    }
+
     .related-collections {
       padding: 0;
     }
+
+    ::v-deep .related-collections .badge {
+      // TODO: Remove this when the badges move into the search results
+      margin-top: 0.25rem;
+      margin-right: 0.5rem;
+    }
+  }
+
+  .page-container {
+    max-width: none;
   }
 </style>

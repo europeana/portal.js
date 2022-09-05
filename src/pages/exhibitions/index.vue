@@ -30,9 +30,7 @@
     </b-row>
     <b-row>
       <b-col>
-        <PaginationNav
-          v-model="page"
-          :limit="perPage"
+        <PaginationNavInput
           :total-results="total"
           :per-page="perPage"
         />
@@ -44,16 +42,20 @@
 <script>
   import ContentHeader from '../../components/generic/ContentHeader';
   import ContentCard from '../../components/generic/ContentCard';
-  import PaginationNav from '../../components/generic/PaginationNav';
+  import PaginationNavInput from '../../components/generic/PaginationNavInput';
 
   const PER_PAGE = 20;
 
   export default {
-    name: 'ExhibitionFoyer',
+    name: 'ExhibitionsIndexPage',
     components: {
       ContentHeader,
       ContentCard,
-      PaginationNav
+      PaginationNavInput
+    },
+    beforeRouteLeave(to, from, next) {
+      this.$store.commit('breadcrumb/clearBreadcrumb');
+      next();
     },
 
     middleware: 'sanitisePageQuery',
@@ -86,6 +88,12 @@
         page: null
       };
     },
+    head() {
+      return {
+        title: this.$pageHeadTitle(this.$tc('exhibitions.exhibitions', 2))
+      };
+    },
+    watchQuery: ['page'],
     methods: {
       imageUrl(image) {
         return image?.image?.url;
@@ -96,16 +104,6 @@
       imageAlt(image) {
         return image?.image?.description || '';
       }
-    },
-    head() {
-      return {
-        title: this.$pageHeadTitle(this.$tc('exhibitions.exhibitions', 2))
-      };
-    },
-    watchQuery: ['page'],
-    beforeRouteLeave(to, from, next) {
-      this.$store.commit('breadcrumb/clearBreadcrumb');
-      next();
     }
   };
 </script>

@@ -8,7 +8,7 @@ describe('oEmbed()', () => {
   });
 
   for (const provider of supportedProviders) {
-    context(`when provider is "${provider.name}"`, () => {
+    describe(`when provider is "${provider.name}"`, () => {
       const endpointUrl = new URL(provider.endpoint);
 
       for (const scheme of provider.schemes) {
@@ -28,15 +28,7 @@ describe('oEmbed()', () => {
 
           await oEmbed(embeddableUrl);
 
-          nock.isDone().should.be.true;
-        });
-
-        it('returns a promise', () => {
-          nockRequest(embeddableUrl);
-
-          const response = oEmbed(embeddableUrl);
-
-          response.should.be.fulfilled;
+          expect(nock.isDone()).toBe(true);
         });
       }
     });
@@ -45,11 +37,11 @@ describe('oEmbed()', () => {
 
 describe('oEmbeddable()', () => {
   for (const provider of supportedProviders) {
-    context(`when provider is "${provider.name}"`, () => {
+    describe(`when provider is "${provider.name}"`, () => {
       for (const scheme of provider.schemes) {
         it(`is \`true\` for scheme "${scheme}"`, () => {
           const embeddableUrl = scheme.replace(/\*/g, 'abcdef');
-          oEmbeddable(embeddableUrl).should.be.true;
+          expect(oEmbeddable(embeddableUrl)).toBe(true);
         });
       }
     });
@@ -57,6 +49,6 @@ describe('oEmbeddable()', () => {
 
   it('is `false` for unsupported providers', () => {
     const unsupportedembeddableUrl = 'https://www.example.com/watch?v=abcdef';
-    oEmbeddable(unsupportedembeddableUrl).should.be.false;
+    expect(oEmbeddable(unsupportedembeddableUrl)).toBe(false);
   });
 });

@@ -114,17 +114,10 @@
         };
       },
       galleryCardData(card) {
-        let imageUrl;
-
-        if (card.hasPartCollection.items[0].encoding) {
-          imageUrl = `${card.hasPartCollection.items[0].encoding.edmPreview[0]}&size=w400`;
-        } else {
-          imageUrl = card.hasPartCollection.items[0].thumbnailUrl;
-        }
-
+        const edmPreview = card.hasPartCollection.items[0].encoding?.edmPreview?.[0] || card.hasPartCollection.items[0].thumbnailUrl;
         return {
           cardLink: { name: 'galleries-all', params: { pathMatch: card.identifier } },
-          imageUrl
+          imageUrl: this.$apis.thumbnail.edmPreview(edmPreview, { size: 400 })
         };
       }
     }
@@ -133,15 +126,14 @@
 </script>
 
 <style lang="scss" scoped>
-
-@import '@/assets/scss/variables.scss';
+@import '@/assets/scss/variables';
 
 .latest-section {
   h2 {
     color: $mediumgrey;
     font-size: 1.5rem;
     font-weight: 600;
-    letter-spacing: 0.12125rem;
+    letter-spacing: 0.1212rem;
     text-align: left;
   }
 }

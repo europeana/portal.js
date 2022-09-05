@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ${K8S_RESOURCE_NAME}
+  namespace: dev
+spec:
+  ports:
+  - name: 8080tcp
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    workload.user.cattle.io/workloadselector: apps.deployment-dev-${K8S_RESOURCE_NAME}
+  sessionAffinity: None
+  type: ClusterIP

@@ -5,6 +5,7 @@ const { client, createSession, closeSession, startWebDriver, stopWebDriver } = r
 const runners = require('../support/step-runners');
 
 require('../support/step-definitions');
+const browserDimensions = require('./defaults.conf.js').browserDimensions;
 
 const nightwatchApiOptions = {
   configFile: 'config/nightwatch.conf.js',
@@ -63,6 +64,11 @@ After({ tags: '@non-default-browser' }, async() => {
   await stopBrowser();
   await startBrowser();
   await warmupBrowser();
+});
+
+After({ tags: '@resized-browser' }, async() => {
+  // Restore default browser size
+  await runners.resizeBrowserWindow(browserDimensions.width, browserDimensions.height);
 });
 
 AfterAll(async() => {

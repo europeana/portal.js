@@ -15,6 +15,7 @@
         :height="leftImageHeight"
         :content-type="leftImageContentType"
         :max-width="1100"
+        :lazy="lazy"
         data-qa="compare image left image"
       />
       <OptimisedImage
@@ -24,6 +25,7 @@
         :height="rightImageHeight"
         :content-type="rightImageContentType"
         :max-width="1100"
+        :lazy="lazy"
         data-qa="compare image right image"
       />
       <div
@@ -73,6 +75,9 @@
   import CiteAttribution from './CiteAttribution';
   import OptimisedImage from './OptimisedImage';
 
+  /**
+   * Slider to compare two images side-by-side
+   */
   export default {
     name: 'CompareImageSlider',
 
@@ -82,54 +87,96 @@
     },
 
     props: {
+      /**
+       * URL of the left image
+       */
       leftImageSrc: {
         type: String,
         required: true
       },
 
+      /**
+       * Content type of the left image
+       */
       leftImageContentType: {
         type: String,
         default: null
       },
 
+      /**
+       * Width of the left image
+       */
       leftImageWidth: {
         type: Number,
         required: true
       },
 
+      /**
+       * Height of the left image
+       */
       leftImageHeight: {
         type: Number,
         required: true
       },
 
+      /**
+       * Attribution for the left image
+       *
+       * Properties are passed as props to CiteAttribution
+       */
       leftImageAttribution: {
         type: Object,
         required: true
       },
 
+      /**
+       * URL of the right image
+       */
       rightImageSrc: {
         type: String,
         required: true
       },
 
+      /**
+       * Content type of the right image
+       */
       rightImageContentType: {
         type: String,
         default: null
       },
 
+      /**
+       * Width of the right image
+       */
       rightImageWidth: {
         type: Number,
         required: true
       },
 
+      /**
+       * Height of the right image
+       */
       rightImageHeight: {
         type: Number,
         required: true
       },
 
+      /**
+       * Attribution for the right image
+       *
+       * Properties are passed as props to CiteAttribution
+       */
       rightImageAttribution: {
         type: Object,
         required: true
+      },
+
+      /**
+       * If `true`, lazy-load the images
+       */
+      lazy: {
+        type: Boolean,
+        default: true
       }
     },
 
@@ -167,15 +214,27 @@
     mounted() {
       this.setSliderWidth();
 
-      window.addEventListener('resize', this.setImageWidth);
-      window.addEventListener('mousemove', this.drag);
-      window.addEventListener('mouseup', this.stopDrag);
-      window.addEventListener('touchmove', this.drag);
-      window.addEventListener('touchend', this.stopDrag);
+      window.addEventListener('resize', this.resize);
+      window.addEventListener('mousemove', this.mousemove);
+      window.addEventListener('mouseup', this.mouseup);
+      window.addEventListener('touchmove', this.mousemove);
+      window.addEventListener('touchend', this.mouseup);
       this.$refs.rightImage.$el.addEventListener('load', this.setImageWidth);
     },
 
     methods: {
+      resize() {
+        this.setImageWidth();
+      },
+
+      mousemove(event) {
+        this.drag(event);
+      },
+
+      mouseup() {
+        this.stopDrag();
+      },
+
       setImageWidth() {
         this.imageWidth = this.$refs.rightImage.$el.getBoundingClientRect().width;
       },
@@ -203,6 +262,10 @@
       },
 
       drag(event) {
+        if (!this.dragging) {
+          return;
+        }
+
         // Calc Cursor Position from the left edge of the viewport
         const cursorXfromViewport = event.touches ? event.touches[0].pageX : event.pageX;
         // Calc Cursor Position from the left edge of the window (consider any page scrolling)
@@ -222,17 +285,15 @@
           pos = maxPos;
         }
 
-        if (this.dragging) {
-          this.sliderPosition = pos / this.imageWidth;
-          this.showHideAttribution();
-        }
+        this.sliderPosition = pos / this.imageWidth;
+        this.showHideAttribution();
       }
     }
   };
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
+  @import '@/assets/scss/variables';
 
   $slider-dimensions: 48px;
 
@@ -264,19 +325,19 @@
 
       .slider-handle {
         position: absolute;
-        background: rgba(255, 255, 255, 0.5);
+        background: rgb(255 255 255 / 50%);
         width: $slider-dimensions;
         height: $slider-dimensions;
         border: 0;
         border-radius: 50%;
-        box-shadow: 0 0 6px rgba(0, 0, 0, 0);
+        box-shadow: 0 0 6px rgb(0 0 0 / 0%);
 
         &.is-active {
-          background: rgba(255, 255, 255, 0.85);
+          background: rgb(255 255 255 / 85%);
         }
 
-        &:before,
-        &:after {
+        &::before,
+        &::after {
           content: '';
           position: absolute;
           width: 10px;
@@ -287,24 +348,24 @@
           transform-origin: 0 0;
         }
 
-        &:before {
+        &::before {
           left: 10px;
           transform: rotate(-45deg);
         }
 
-        &:after {
+        &::after {
           right: 0;
           transform: rotate(135deg);
         }
 
         &:hover {
-          box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
+          box-shadow: 0 0 3px rgb(0 0 0 / 40%);
 
-          &:before {
+          &::before {
             left: 9px;
           }
 
-          &:after {
+          &::after {
             right: -1px;
           }
         }
@@ -312,13 +373,12 @@
     }
 
     & + figcaption {
-
       cite {
         display: block;
         margin: 0;
         position: static;
 
-        &:before {
+        &::before {
           content: attr(data-prefix);
           font-style: normal;
         }
@@ -330,7 +390,7 @@
           position: absolute;
           transition: opacity 0.2s ease-out;
 
-          &:before {
+          &::before {
             display: none;
           }
 
@@ -349,3 +409,30 @@
     }
   }
 </style>
+
+<docs lang="md">
+  ```jsx
+  <CompareImageSlider
+    left-image-src="https://api.europeana.eu/thumbnail/v3/400/e9246ea9b899e724216689ea7df02c5b"
+    left-image-content-type="image/jpeg"
+    :left-image-width="400"
+    :left-image-height="634"
+    :left-image-attribution="{
+      provider: 'Real Jardín Botánico Madrid',
+      name: 'Iris bulbosa versicolor ',
+      url: 'https://api.europeana.eu/thumbnail/v3/400/e9246ea9b899e724216689ea7df02c5b',
+      rightsStatement: 'https://creativecommons.org/licenses/by-nc-sa/4.0/'
+    }"
+    right-image-src="https://api.europeana.eu/thumbnail/v3/400/1b25d6df603f228942a145629ed2b129"
+    right-image-content-type="image/jpeg"
+    :right-image-width="400"
+    :right-image-height="622"
+    :right-image-attribution="{
+      provider: 'Real Jardín Botánico Madrid',
+      name: 'Gentianella autumnalis ',
+      url: 'https://api.europeana.eu/thumbnail/v3/400/1b25d6df603f228942a145629ed2b129',
+      rightsStatement: 'http://creativecommons.org/licenses/by-nc-sa/4.0/'
+    }"
+  />
+  ```
+</docs>

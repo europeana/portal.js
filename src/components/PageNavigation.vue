@@ -22,62 +22,60 @@
       </SmartLink>
     </li>
     <!-- sso links -->
-    <template>
-      <template v-if="isAuthenticated">
-        <li
-          v-if="!sidebarNav"
-          class="nav-item d-none d-lg-inline-block"
-        >
-          <SmartLink
-            v-b-toggle.menu
-            :destination="'/account'"
-            link-class="nav-link"
-            exact
-          >
-            <span class="label">
-              {{ $t('account.myProfile') }}
-            </span>
-          </SmartLink>
-        </li>
-        <li
-          v-for="item in authLinks"
-          :key="item.url"
-          class="nav-item d-block"
-          :class="sidebarNav ? 'sidebar-nav-item' : 'd-lg-none'"
-        >
-          <b-link
-            v-b-toggle.menu
-            :to="item.to"
-            :href="item.href"
-            :data-qa="item.dataQa"
-            class="nav-link"
-          >
-            <span :class="renderIcon(item.url)" />
-            <span>
-              {{ item.text }}
-            </span>
-          </b-link>
-        </li>
-      </template>
+    <template v-if="isAuthenticated">
       <li
-        v-else
-        class="nav-item"
-        :class="sidebarNav ? 'sidebar-nav-item' : ''"
+        v-if="!sidebarNav"
+        class="nav-item d-none d-lg-inline-block"
+      >
+        <SmartLink
+          v-b-toggle.menu
+          :destination="'/account'"
+          link-class="nav-link"
+          exact
+        >
+          <span class="label">
+            {{ $t('account.myProfile') }}
+          </span>
+        </SmartLink>
+      </li>
+      <li
+        v-for="item in authLinks"
+        :key="item.url"
+        class="nav-item d-block"
+        :class="sidebarNav ? 'sidebar-nav-item' : 'd-lg-none'"
       >
         <b-link
           v-b-toggle.menu
-          data-qa="log in button"
+          :to="item.to"
+          :href="item.href"
+          :data-qa="item.dataQa"
           class="nav-link"
-          :href="$path({ name: 'account-login', query: { redirect: $route.fullPath } })"
-          @click.prevent="keycloakLogin"
         >
-          <span :class="renderIcon('/account/login')" />
+          <span :class="renderIcon(item.url)" />
           <span>
-            {{ $t('account.linkLoginJoin') }}
+            {{ item.text }}
           </span>
         </b-link>
       </li>
     </template>
+    <li
+      v-else
+      class="nav-item"
+      :class="sidebarNav ? 'sidebar-nav-item' : ''"
+    >
+      <b-link
+        v-b-toggle.menu
+        data-qa="log in button"
+        class="nav-link"
+        :href="$path({ name: 'account-login', query: { redirect: $route.fullPath } })"
+        @click.prevent="keycloakLogin"
+      >
+        <span :class="renderIcon('/account/login')" />
+        <span>
+          {{ $t('account.linkLoginJoin') }}
+        </span>
+      </b-link>
+    </li>
   </b-navbar-nav>
 </template>
 
@@ -113,7 +111,8 @@
         return [
           { url: '/', text: this.$t('header.navigation.home') },
           { url: '/collections', text: this.$t('header.navigation.collections') },
-          { url: '/stories', text: this.$t('header.navigation.stories') }
+          { url: '/stories', text: this.$t('header.navigation.stories') },
+          { url: '/professionals', text: this.$t('header.navigation.pro') }
         ];
       },
       sidebarNavigation() {
@@ -158,6 +157,9 @@
         case ('/about-us'):
           className = 'icon-info';
           break;
+        case ('/professionals'):
+          className = 'icon-pro';
+          break;
         default:
           className = 'icon-info blank';
           break;
@@ -174,11 +176,12 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/variables.scss';
-  @import '@/assets/scss/icons.scss';
+  @import '@/assets/scss/variables';
+  @import '@/assets/scss/icons';
 
   .nav-item {
     margin-right: 1rem;
+
     &:nth-last-child(2) {
       margin-right: 0;
     }
@@ -190,26 +193,38 @@
       display: flex;
       align-items: center;
 
+      @media (min-width: $bp-xxxl) {
+        font-size: 1vw;
+        padding: 0.5em;
+      }
+
       &:hover {
         color: $innovationblue;
       }
 
       &.exact-active-link {
-        &:after {
+        &::after {
           content: '';
           position: absolute;
-          border-bottom: solid 3px $blue;
+          border-bottom: solid 0.1875em $blue;
           display: block;
           width: 100%;
           z-index: 1;
           left: 0;
           right: 0;
-          bottom: calc(-0.6rem);
+          bottom: -0.6em;
+          font-size: 1rem;
+
+          @media (min-width: $bp-xxxl) {
+            font-size: 1vw;
+            bottom: -0.633em;
+          }
         }
       }
 
-      &.is-external-link:after {
-        @extend .icon-font;
+      &.is-external-link::after {
+        @extend %icon-font;
+
         content: '\e900';
       }
 
@@ -218,77 +233,149 @@
         font-size: 1rem;
         z-index: 1;
         margin-right: 0.75rem;
-        &:before {
-          @extend .icon-font;
+
+        @media (min-width: $bp-xxxl) {
+          font-size: 1vw;
+        }
+
+        &::before {
+          @extend %icon-font;
+
           content: '';
           color: $black;
           transition: $standard-transition;
           font-size: 1.5rem;
+
+          @media (min-width: $bp-xxxl) {
+            font-size: 1.5vw;
+          }
         }
-        &.icon-home:before {
+
+        &.icon-home::before {
           content: '\e922';
         }
-        &.icon-collections:before {
+
+        &.icon-collections::before {
           content: '\e91d';
         }
-        &.icon-school:before {
-          content: '\e91e';
+
+        &.icon-pro::before {
+          content: '\e95a';
         }
-        &.icon-info:before {
+
+        &.icon-school::before {
+          content: '\e952';
+        }
+
+        &.icon-info::before {
           content: '\e91f';
         }
-        &.icon-help:before {
-          content: '\e921';
+
+        &.icon-help::before {
+          content: '\e94f';
         }
-        &.icon-login:before {
-          content: '\e926';
+
+        &.icon-login::before {
+          content: '\e950';
         }
-        &.icon-logout:before {
-          content: '\e927';
+
+        &.icon-logout::before {
+          content: '\e950';
         }
-        &.icon-settings:before {
+
+        &.icon-settings::before {
           content: '\e928';
         }
-        &.icon-account:before {
+
+        &.icon-account::before {
           content: '\e932';
         }
-        &.icon-stories:before {
-          content: '\e935';
+
+        &.icon-stories::before {
+          content: '\e951';
         }
-        &.blank:before {
+
+        &.blank::before {
           color: transparent;
+        }
+
+        &.icon-school::before,
+        &.icon-stories::before,
+        &.icon-login::before,
+        &.icon-help::before {
+          font-size: 1.25rem;
+          padding: 0.1rem;
+
+          @media (min-width: $bp-xxxl) {
+            font-size: 1.25vw;
+          }
+        }
+      }
+    }
+
+    &:not(.sidebar-nav-item) {
+      width: auto;
+      margin: auto;
+
+      .nav-link {
+        text-transform: uppercase;
+        font-size: $font-size-small;
+        font-weight: 600;
+
+        @media (min-width: $bp-xxxl) {
+          font-size: 0.875vw;
+        }
+
+        span {
+          position: relative;
+        }
+
+        .nav-link-icon {
+          display: none;
         }
       }
     }
 
     &.sidebar-nav-item {
       width: 100%;
-      margin: 0 0 0.25rem 0;
+      margin: 0 0 0.25rem;
       position: relative;
       margin-right: 0;
+
       &:nth-last-child(2) {
         margin-right: 0;
       }
-      &:first-of-type, &:last-of-type {
+
+      &:first-of-type,
+      &:last-of-type {
         display: block;
       }
+
       .nav-link {
-        text-transform: capitalize;
         font-weight: 400;
         border-radius: $border-radius-small;
         transition: $standard-transition;
         font-size: $font-size-base;
 
-        &.exact-active-link, &:hover {
+        @media (min-width: $bp-xxxl) {
+          font-size: 1vw;
+        }
+
+        &.exact-active-link,
+        &:hover {
           color: $white;
           background: $blue;
-          &:before, &:after {
+
+          &::before,
+          &::after {
             display: none;
           }
-          .nav-link-icon:before {
+
+          .nav-link-icon::before {
             color: $white;
           }
         }
+
         span {
           overflow: hidden;
           white-space: nowrap;
@@ -297,25 +384,5 @@
         }
       }
     }
-
-    @media (min-width: $bp-large) {
-      &:not(.sidebar-nav-item) {
-        width: auto;
-        margin: auto;
-
-        .nav-link {
-          text-transform: uppercase;
-          font-size: $font-size-small;
-          font-weight: 600;
-          span {
-            position: relative;
-          }
-          .nav-link-icon {
-            display: none;
-          }
-        }
-      }
-    }
   }
-
 </style>

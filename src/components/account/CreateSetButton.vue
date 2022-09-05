@@ -22,6 +22,9 @@
 </template>
 
 <script>
+  /**
+   * Button for initiating creation of a user set (AKA gallery).
+   */
   export default {
     name: 'CreateSetButton',
 
@@ -30,6 +33,10 @@
     },
 
     props: {
+      /**
+       * Visibility of the set
+       * @values public, private
+       */
       visibility: {
         type: String,
         default: 'public'
@@ -56,3 +63,9 @@
     }
   };
 </script>
+
+<docs lang="md">
+  ```jsx
+  <CreateSetButton />
+  ```
+</docs>

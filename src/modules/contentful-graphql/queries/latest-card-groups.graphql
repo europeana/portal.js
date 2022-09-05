@@ -1,4 +1,11 @@
-query LatestCardGroups($preview: Boolean = false, $locale: String!, $limit: Int = 4, $exhibitions: Boolean = false, $galleries: Boolean = false, $blogPosts: Boolean = false) {
+query LatestCardGroups(
+  $preview: Boolean = false,
+  $locale: String!,
+  $limit: Int = 4,
+  $exhibitions: Boolean = false,
+  $galleries: Boolean = false,
+  $blogPosts: Boolean = false
+) {
   exhibitionPageCollection(preview: $preview, locale: $locale, order: datePublished_DESC, limit: $limit) @include(if: $exhibitions) {
     total
 		items {
@@ -6,7 +13,7 @@ query LatestCardGroups($preview: Boolean = false, $locale: String!, $limit: Int 
       name
       description
       primaryImageOfPage {
-        ...imageComparisonFields
+        ...imageWithAttributionFields
       }
     }
   }
@@ -30,13 +37,13 @@ query LatestCardGroups($preview: Boolean = false, $locale: String!, $limit: Int 
       name
       description
       primaryImageOfPage {
-        ...imageComparisonFields
+        ...imageWithAttributionFields
       }
     }
   }
 }
 
-fragment imageComparisonFields on ImageWithAttribution {
+fragment imageWithAttributionFields on ImageWithAttribution {
   image {
     url
     description

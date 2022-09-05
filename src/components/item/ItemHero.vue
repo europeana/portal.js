@@ -1,7 +1,8 @@
 <template>
   <div class="item-hero">
-    <AwesomeSwiper
+    <ItemMediaSwiper
       :europeana-identifier="identifier"
+      :edm-type="edmType"
       :displayable-media="media"
       @select="selectMedia"
     />
@@ -27,10 +28,13 @@
             <div class="swiper-pagination" />
           </div>
           <div class="d-flex justify-content-md-center align-items-center button-wrapper">
-            <div class="ml-lg-auto d-flex">
+            <div class="ml-lg-auto d-flex justify-content-center flex-wrap flex-md-nowrap">
               <client-only>
                 <UserButtons
-                  v-model="identifier"
+                  :identifier="identifier"
+                  :show-pins="showPins"
+                  :entities="entities"
+                  button-variant="secondary"
                 />
               </client-only>
               <ShareButton />
@@ -65,7 +69,7 @@
 
 <script>
   import ClientOnly from 'vue-client-only';
-  import AwesomeSwiper from './AwesomeSwiper';
+  import ItemMediaSwiper from './ItemMediaSwiper';
   import DownloadButton from '../generic/DownloadButton';
   import DownloadModal from '../generic/DownloadModal.vue';
   import RightsStatementButton from '../generic/RightsStatementButton';
@@ -79,7 +83,7 @@
 
   export default {
     components: {
-      AwesomeSwiper,
+      ItemMediaSwiper,
       ClientOnly,
       DownloadButton,
       RightsStatementButton,
@@ -103,6 +107,10 @@
         type: String,
         required: true
       },
+      edmType: {
+        type: String,
+        default: null
+      },
       edmRights: {
         type: String,
         default: ''
@@ -114,6 +122,11 @@
       attributionFields: {
         type: Object,
         default: () => ({})
+      },
+      // Entities related to the item, used for pinning.
+      entities: {
+        type: Array,
+        default: () => []
       }
     },
     data() {
@@ -149,6 +162,17 @@
       },
       downloadEnabled() {
         return this.rightsStatement && !this.rightsStatement.includes('/InC/') && !this.selectedMedia.isShownAt;
+      },
+      showPins() {
+        return this.userIsEditor && this.userIsSetsEditor && this.entities.length > 0;
+      },
+      userIsEditor() {
+        // TODO: check if this can be abstracted, it's the same as in  src/pages/collections/_type/_.vue
+        return this.$store.state.auth.user?.resource_access?.entities?.roles?.includes('editor') || false;
+      },
+      userIsSetsEditor() {
+        // TODO: check if theis can be abstracted, it's the same as in  src/pages/collections/_type/_.vue
+        return this.$store.state.auth.user?.resource_access?.usersets?.roles.includes('editor') || false;
       }
     },
     mounted() {

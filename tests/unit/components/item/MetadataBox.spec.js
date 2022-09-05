@@ -27,7 +27,7 @@ const fixtures = {
 
 describe('components/item/MetadataBox', () => {
   describe('location tab', () => {
-    context('when location prop is present', () => {
+    describe('when location prop is present', () => {
       const location = {
         def: [
           fixtures.locations.eastSussex,
@@ -37,44 +37,48 @@ describe('components/item/MetadataBox', () => {
 
       it('is rendered', () => {
         const wrapper = factory({
+          metadata: {},
           location
         });
 
         const locationTab = wrapper.find('[data-qa="location tab"]');
 
-        locationTab.exists().should.be.true;
+        expect(locationTab.exists()).toBe(true);
       });
 
-      context('and mappable location is present', () => {
+      describe('and mappable location is present', () => {
         it('does not render map embed at first', () => {
           const wrapper = factory({
+            metadata: {},
             location
           });
 
-          wrapper.vm.showLocationMap.should.be.false;
+          expect(wrapper.vm.showLocationMap).toBe(false);
         });
 
         it('renders map when location tab is clicked', async() => {
           const wrapper = factory({
+            metadata: {},
             location
           });
 
           wrapper.vm.clickLocationTab();
 
-          wrapper.vm.showLocationMap.should.be.true;
+          expect(wrapper.vm.showLocationMap).toBe(true);
         });
       });
     });
 
-    context('when location prop is absent', () => {
+    describe('when location prop is absent', () => {
       it('is not rendered', () => {
         const wrapper = factory({
+          metadata: {},
           location: null
         });
 
         const locationTab = wrapper.find('[data-qa="location tab"]');
 
-        locationTab.exists().should.be.false;
+        expect(locationTab.exists()).toBe(false);
       });
     });
   });
@@ -82,6 +86,7 @@ describe('components/item/MetadataBox', () => {
   describe('.mappableLocation', () => {
     it('uses the first location object having latitude and longitude', () => {
       const wrapper = factory({
+        metadata: {},
         location: {
           def: [
             fixtures.locations.eastSussex,
@@ -92,11 +97,12 @@ describe('components/item/MetadataBox', () => {
 
       const mappableLocation = wrapper.vm.mappableLocation;
 
-      mappableLocation.should.eql(fixtures.locations.brighton);
+      expect(mappableLocation).toEqual(fixtures.locations.brighton);
     });
 
     it('is `null` if no such location', () => {
       const wrapper = factory({
+        metadata: {},
         location: {
           def: [
             fixtures.locations.eastSussex
@@ -106,7 +112,7 @@ describe('components/item/MetadataBox', () => {
 
       const mappableLocation = wrapper.vm.mappableLocation;
 
-      (mappableLocation === null).should.be.true;
+      expect(mappableLocation === null).toBe(true);
     });
   });
 });

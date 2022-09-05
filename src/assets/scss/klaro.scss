@@ -41,6 +41,7 @@
       &:focus {
         outline: auto;
       }
+
       &:hover {
         box-shadow: $boxshadow-light;
       }
@@ -91,7 +92,8 @@
     .cm-list-input {
       + .cm-list-label .slider {
         border: 5px solid $lightgrey;
-        &:before {
+
+        &::before {
           border: 5px solid $lightgrey;
           top: -5px;
           left: -5px;
@@ -106,7 +108,7 @@
         border: 5px solid $innovationblue;
         opacity: 1;
 
-        &:before {
+        &::before {
           border-color: $innovationblue;
         }
       }
@@ -115,7 +117,7 @@
         background-color: $white;
         border: 5px solid $mediumgrey;
 
-        &:before {
+        &::before {
           border-color: $mediumgrey;
         }
       }
@@ -124,7 +126,7 @@
         background-color: $lightgreen;
         border: 5px solid $lightgreen;
 
-        &:before {
+        &::before {
           border-color: $lightgreen;
         }
       }
@@ -254,12 +256,14 @@
       .cm-modal.cm-klaro {
         width: 95%;
       }
+
       h1 {
         font-size: 1.5rem;
       }
 
       .cm-modal .cm-footer-buttons {
         flex-direction: column;
+
         .cm-btn {
           margin-bottom: 0.75rem;
           margin-right: 0;

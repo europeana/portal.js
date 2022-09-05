@@ -4,6 +4,7 @@
     v-if="html && responsiveProvider"
     class="responsive-embed-wrapper"
     :style="`max-width:${maxWidthWrapper}rem`"
+    data-qa="responsive embed wrapper"
   >
     <div
       data-qa="html embed"
@@ -29,7 +30,7 @@
   import AlertMessage from '../../components/generic/AlertMessage';
 
   export default {
-    name: 'OEmbedMedia',
+    name: 'HTMLEmbed',
 
     components: {
       AlertMessage

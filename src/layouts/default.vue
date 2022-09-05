@@ -21,7 +21,9 @@
     <client-only
       v-if="feedbackEnabled"
     >
-      <FeedbackWidget />
+      <FeedbackWidget
+        data-qa="feedback widget"
+      />
     </client-only>
     <main
       id="default"
@@ -36,50 +38,113 @@
         id="main"
       />
     </main>
+    <client-only
+      v-if="newFeatureNotificationEnabled"
+    >
+      <NewFeatureNotification
+        :feature="featureNotification.name"
+        :url="featureNotification.url"
+        data-qa="new feature notification"
+      >
+        <p>{{ $t(`newFeatureNotification.text.${featureNotification.name}`) }}</p>
+      </NewFeatureNotification>
+    </client-only>
     <client-only>
       <PageFooter />
+      <ApiRequests />
     </client-only>
+    <b-toaster
+      name="b-toaster-bottom-left-dynamic"
+      class="b-toaster-bottom-left-dynamic"
+      :style="{'--bottom': toastBottomOffset }"
+    />
   </div>
 </template>
 
 <script>
-  import { mapGetters, mapState } from 'vuex';
+  import { BBreadcrumb } from 'bootstrap-vue';
   import ClientOnly from 'vue-client-only';
   import PageHeader from '../components/PageHeader';
-  import klaroConfig from '../plugins/klaro-config';
-  import { version as bootstrapVersion } from 'bootstrap/package.json';
-  import { version as bootstrapVueVersion } from 'bootstrap-vue/package.json';
-
-  const klaroVersion = '0.7.18';
+  import makeToastMixin from '@/mixins/makeToast';
+  import klaroConfig, { version as klaroVersion } from '../plugins/klaro-config';
+  import versions from '../../pkg-versions';
+  import featureNotifications from '@/features/notifications';
 
   export default {
+    name: 'DefaultLayout',
+
     components: {
+      ApiRequests: () => import('../components/debug/ApiRequests'),
+      BBreadcrumb,
       ClientOnly,
       PageHeader,
       PageFooter: () => import('../components/PageFooter'),
-      FeedbackWidget: () => import('../components/feedback/FeedbackWidget')
+      FeedbackWidget: () => import('../components/feedback/FeedbackWidget'),
+      NewFeatureNotification: () => import('../components/generic/NewFeatureNotification')
     },
+
+    mixins: [
+      makeToastMixin
+    ],
 
     data() {
       return {
+        dateNow: Date.now(),
         linkGroups: {},
         enableAnnouncer: true,
-        klaro: null
+        klaro: null,
+        toastBottomOffset: '20px',
+        featureNotification: featureNotifications.find(feature => feature.name === this.$config?.app?.featureNotification),
+        featureNotificationExpiration: this.$config.app.featureNotificationExpiration
+      };
+    },
+
+    head() {
+      const i18nHead = this.$nuxtI18nHead({ addSeoAttributes: true });
+
+      return {
+        htmlAttrs: {
+          ...i18nHead.htmlAttrs
+        },
+        link: [
+          { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap@${versions.bootstrap}/dist/css/bootstrap.min.css` },
+          { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/klaro@${klaroVersion}/dist/klaro.min.css` },
+          { rel: 'stylesheet', href: `https://cdn.jsdelivr.net/npm/bootstrap-vue@${versions['bootstrap-vue']}/dist/bootstrap-vue.min.css` },
+          { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrlWithoutLocale },
+          ...i18nHead.link
+        ],
+        script: [
+          { src: `https://cdn.jsdelivr.net/npm/klaro@${klaroVersion}/dist/klaro-no-css.js`, defer: true }
+        ],
+        meta: [
+          { hid: 'description', property: 'description', content: 'Europeana' },
+          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl },
+          ...i18nHead.meta
+        ]
       };
     },
 
     computed: {
-      ...mapState({
-        breadcrumbs: state => state.breadcrumb.data
-      }),
+      breadcrumbs() {
+        return this.$store.state.breadcrumb.data;
+      },
 
-      ...mapGetters({
-        canonicalUrl: 'http/canonicalUrl',
-        canonicalUrlWithoutLocale: 'http/canonicalUrlWithoutLocale'
-      }),
+      canonicalUrl() {
+        return this.$store.getters['http/canonicalUrl'];
+      },
+
+      canonicalUrlWithoutLocale() {
+        return this.$store.getters['http/canonicalUrlWithoutLocale'];
+      },
 
       feedbackEnabled() {
-        return this.$config.app.features.jiraServiceDeskFeedbackForm && this.$config.app.baseUrl;
+        return this.$features.jiraServiceDeskFeedbackForm && this.$config.app.baseUrl;
+      },
+
+      newFeatureNotificationEnabled() {
+        return !!this.featureNotification &&
+          (!this.featureNotificationExpiration || (this.dateNow < this.featureNotificationExpiration)) &&
+          (!this.$cookies.get('new_feature_notification') || this.$cookies.get('new_feature_notification') !== this.featureNotification.name);
       }
     },
 
@@ -104,27 +169,16 @@
       this.klaro = window.klaro;
 
       if (this.$auth.$storage.getUniversal('portalLoggingIn') && this.$auth.loggedIn) {
-        this.showToast(this.$t('account.notifications.loggedIn'));
+        this.makeToast(this.$t('account.notifications.loggedIn'));
         this.$auth.$storage.removeUniversal('portalLoggingIn');
       }
       if (this.$auth.$storage.getUniversal('portalLoggingOut') && !this.$auth.loggedIn) {
-        this.showToast(this.$t('account.notifications.loggedOut'));
+        this.makeToast(this.$t('account.notifications.loggedOut'));
         this.$auth.$storage.removeUniversal('portalLoggingOut');
       }
     },
 
     methods: {
-      showToast(msg) {
-        this.$bvToast.toast(msg, {
-          toastClass: 'brand-toast',
-          toaster: 'b-toaster-bottom-left',
-          autoHideDelay: 5000,
-          isStatus: true,
-          noCloseButton: true,
-          solid: true
-        });
-      },
-
       renderKlaro() {
         if (this.klaro) {
           const config = klaroConfig(this.$i18n, this.$initHotjar, this.$matomo);
@@ -132,6 +186,7 @@
 
           this.klaro.render(config, true);
           manager.watch({ update: this.watchKlaroManagerUpdate });
+          this.setToastBottomOffset();
         }
       },
 
@@ -147,6 +202,10 @@
         }
 
         eventName && this.trackKlaroClickEvent(eventName);
+
+        setTimeout(() => {
+          this.setToastBottomOffset();
+        }, 10);
       },
 
       trackKlaroClickEvent(eventName) {
@@ -161,34 +220,12 @@
             this.timeoutUntilPiwikSet(counter + 1);
           }, 10);
         }
+      },
+
+      setToastBottomOffset() {
+        const cookieNoticeHeight = document.getElementsByClassName('cookie-notice')[0]?.offsetHeight;
+        this.toastBottomOffset = cookieNoticeHeight ? `${cookieNoticeHeight + 40}px` : '20px';
       }
-    },
-
-    head() {
-      const i18nSeo = this.$nuxtI18nSeo();
-
-      return {
-        htmlAttrs: {
-          ...i18nSeo.htmlAttrs
-        },
-        link: [
-          { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700&subset=latin,greek,cyrillic&display=swap',
-            body: true },
-          { rel: 'stylesheet', href: `https://unpkg.com/bootstrap@${bootstrapVersion}/dist/css/bootstrap.min.css` },
-          { rel: 'stylesheet', href: `https://cdn.kiprotect.com/klaro/v${klaroVersion}/klaro.min.css` },
-          { rel: 'stylesheet', href: `https://unpkg.com/bootstrap-vue@${bootstrapVueVersion}/dist/bootstrap-vue.min.css` },
-          { hreflang: 'x-default', rel: 'alternate', href: this.canonicalUrlWithoutLocale },
-          ...i18nSeo.link
-        ],
-        script: [
-          { src: `https://unpkg.com/klaro@${klaroVersion}/dist/klaro-no-css.js`, defer: true }
-        ],
-        meta: [
-          { hid: 'description', property: 'description', content: 'Europeana' },
-          { hid: 'og:url', property: 'og:url', content: this.canonicalUrl },
-          ...i18nSeo.meta
-        ]
-      };
     }
   };
 </script>

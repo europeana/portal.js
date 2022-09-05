@@ -16,7 +16,16 @@ const factory = (mocks = {}) => shallowMount(component, {
 describe('mixins/keycloak', () => {
   describe('computed', () => {
     describe('keycloakLoginRedirect', () => {
-      it('favours redirect from route query', () => {
+      describe('when there is no route', () => {
+        const mocks = {};
+        it('would redirect to /account', () => {
+          const wrapper = factory(mocks);
+
+          expect(wrapper.vm.keycloakLoginRedirect).toBe('/account');
+        });
+      });
+
+      describe('when the route has a redirect in its query', () => {
         const mocks = {
           $route: {
             fullPath: '/de/login',
@@ -25,20 +34,56 @@ describe('mixins/keycloak', () => {
             }
           }
         };
-        const wrapper = factory(mocks);
+        it('would redirect to the query redirect', () => {
+          const wrapper = factory(mocks);
 
-        wrapper.vm.keycloakLoginRedirect.should.eq(mocks.$route.query.redirect);
+          expect(wrapper.vm.keycloakLoginRedirect).toBe(mocks.$route.query.redirect);
+        });
       });
 
-      it('otherwise uses full path from route', () => {
-        const mocks = {
-          $route: {
-            fullPath: '/de/collections'
-          }
-        };
-        const wrapper = factory(mocks);
+      describe('else, when the route path is for /account/login', () => {
+        describe('and there is a hash in the route', () => {
+          const mocks = {
+            $route: {
+              path: '/en/account/login',
+              hash: '#likes'
+            }
+          };
 
-        wrapper.vm.keycloakLoginRedirect.should.eq(mocks.$route.fullPath);
+          it('would redirect to /account, preserving the hash', () => {
+            const wrapper = factory(mocks);
+
+            expect(wrapper.vm.keycloakLoginRedirect).toBe('/account#likes');
+          });
+        });
+
+        describe('but there is no hash in the route', () => {
+          const mocks = {
+            $route: {
+              path: '/en/account/login'
+            }
+          };
+
+          it('would redirect to /account', () => {
+            const wrapper = factory(mocks);
+
+            expect(wrapper.vm.keycloakLoginRedirect).toBe('/account');
+          });
+        });
+
+        describe('otherwise if there is a full path for the route', () => {
+          const mocks = {
+            $route: {
+              fullPath: '/de/collections'
+            }
+          };
+
+          it('would redirect to the route full path', () => {
+            const wrapper = factory(mocks);
+
+            expect(wrapper.vm.keycloakLoginRedirect).toBe(mocks.$route.fullPath);
+          });
+        });
       });
     });
 
@@ -54,7 +99,7 @@ describe('mixins/keycloak', () => {
 
         const keycloakAccountUrl = wrapper.vm.keycloakAccountUrl;
 
-        keycloakAccountUrl.should.eq(
+        expect(keycloakAccountUrl).toBe(
           'https://auth.example.org/auth/realms/europeana/account?referrer=portal.js&referrer_uri=https%3A%2F%2Fwww.example.eu'
         );
       });
@@ -82,44 +127,20 @@ describe('mixins/keycloak', () => {
       it('sets universal auth storage for redirect', () => {
         wrapper.vm.keycloakLogin();
 
-        mocks.$auth.$storage.setUniversal.should.have.been.calledWith('redirect', loginRedirect);
+        expect(mocks.$auth.$storage.setUniversal.calledWith('redirect', loginRedirect)).toBe(true);
       });
 
       it('sets universal auth storage for logging in flag', () => {
         wrapper.vm.keycloakLogin();
 
-        mocks.$auth.$storage.setUniversal.should.have.been.calledWith('portalLoggingIn', true);
+        expect(mocks.$auth.$storage.setUniversal.calledWith('portalLoggingIn', true)).toBe(true);
       });
 
       it('calls auth login with keycloak scheme and ui_locales param', () => {
         wrapper.vm.keycloakLogin();
 
-        mocks.$auth.loginWith.should.have.been.calledWith('keycloak', { params: { 'ui_locales': mocks.$i18n.locale } });
+        expect(mocks.$auth.loginWith.calledWith('keycloak', { params: { 'ui_locales': mocks.$i18n.locale } })).toBe(true);
       });
     });
   });
-
-  // it('stores the previous page full path for auth redirection', () => {
-  //   const authStorageSetUniversal = sinon.spy();
-  //   const wrapper = shallowMountNuxt(page, {
-  //     mocks: {
-  //       $auth: {
-  //         loginWith: sinon.spy(),
-  //         $storage: {
-  //           setUniversal: authStorageSetUniversal
-  //         }
-  //       },
-  //       $i18n: {
-  //         locale: 'en'
-  //       }
-  //     }
-  //   });
-  //
-  //   const from = { fullPath: '/eu/item/123/def' };
-  //   const next = sinon.stub().yields(wrapper.vm);
-  //   page.beforeRouteEnter.call(wrapper.vm, null, from, next);
-  //
-  //   next.should.have.been.called;
-  //   authStorageSetUniversal.should.have.been.calledWith('redirect', from.fullPath);
-  // });
 });

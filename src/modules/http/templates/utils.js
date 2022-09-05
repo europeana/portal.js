@@ -28,7 +28,7 @@ export const currentHost = ({ req }) => {
   if (process.client) {
     return window.location.host;
   }
-  return req.headers['x-forwarded-host'] || req.headers.host;
+  return (req.headers['x-forwarded-host'] || req.headers.host || '').split(',')[0];
 };
 
 export const currentProtocol = ({ req }) => {
