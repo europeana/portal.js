@@ -54,7 +54,6 @@
   },
   "devDependencies": {
     "camelcase": "^6.2.1",
-    "contentful-cli": "^1.15.1",
     "css-loader": "^4.2.0",
     "nock": "^13.2.7",
     "nuxt": "^2.15.8",
