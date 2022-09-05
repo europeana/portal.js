@@ -109,20 +109,41 @@ describe('pages/item/_.vue', () => {
       expect(wrapper.vm.metadata).toEqual(record.metadata);
     });
 
-    it('handles API errors', async() => {
-      const wrapper = factory();
-      process.server = true;
-      wrapper.vm.$apis.record.getRecord = sinon.stub().throws(() => new Error('Internal Server Error'));
+    describe('on errors', () => {
+      it('set the status code on SSRs', async() => {
+        const wrapper = factory();
+        process.server = true;
+        wrapper.vm.$apis.record.getRecord = sinon.stub().throws(() => new Error('Internal Server Error'));
 
-      let error;
-      try {
-        await wrapper.vm.fetch();
-      } catch (e) {
-        error = e;
-      }
+        let error;
+        try {
+          await wrapper.vm.fetch();
+        } catch (e) {
+          error = e;
+        }
 
-      expect(wrapper.vm.$nuxt.context.res.statusCode).toBe(500);
-      expect(error.message).toBe('Internal Server Error');
+        expect(wrapper.vm.$nuxt.context.res.statusCode).toBe(500);
+        expect(error.message).toBe('Internal Server Error');
+      });
+
+      it('displays an illustrated error message for 404 status', async() => {
+        const itemNotFoundError = { statusCode: 404, message: 'Error message' };
+        const wrapper = factory();
+        process.server = true;
+        wrapper.vm.$apis.record.getRecord.throws(itemNotFoundError);
+        wrapper.vm.$fetchState.error = itemNotFoundError;
+
+        let error;
+        try {
+          await wrapper.vm.$fetch();
+        } catch (e) {
+          error = e;
+        }
+
+        expect(wrapper.vm.$nuxt.context.res.statusCode).toBe(404);
+        expect(error.titlePath).toBe('errorMessage.itemNotFound.title');
+        expect(error.illustrationSrc).toBe('il-item-not-found.svg');
+      });
     });
   });
 
@@ -243,7 +264,31 @@ describe('pages/item/_.vue', () => {
       expect(headMeta.filter(meta => meta.property === 'og:image').length).toBe(1);
       expect(headMeta.find(meta => meta.property === 'og:image').content).toBe(thumbnailUrl);
     });
+
     describe('meta title', () => {
+      describe('when fetch errored', () => {
+        it('uses custom meta title path, if set', () => {
+          const mocks = { $fetchState: { error: { message: 'Item not found', metaTitlePath: 'error.itemNotFound.metaTitle' } } }
+          const wrapper = factory({ mocks });
+
+          const headMeta = wrapper.vm.head().meta;
+
+          expect(headMeta.filter(meta => meta.property === 'og:title').length).toBe(1);
+          expect(headMeta.find(meta => meta.property === 'og:title').content).toBe('error.itemNotFound.metaTitle');
+        });
+
+        it('falls back to generic error title', () => {
+          const mocks = { $fetchState: { error: { message: 'Error' } } };
+
+          const wrapper = factory({ mocks });
+
+          const headMeta = wrapper.vm.head().meta;
+
+          expect(headMeta.filter(meta => meta.property === 'og:title').length).toBe(1);
+          expect(headMeta.find(meta => meta.property === 'og:title').content).toBe('error');
+        });
+      });
+
       it('uses the title in current language', async() => {
         const wrapper = factory();
 
@@ -253,29 +298,6 @@ describe('pages/item/_.vue', () => {
 
         expect(headMeta.filter(meta => meta.property === 'og:title').length).toBe(1);
         expect(headMeta.find(meta => meta.property === 'og:title').content).toBe('Item example');
-      });
-    });
-  });
-
-  describe('when fetch errors', () => {
-    const errorMock = { $fetchState: { error: { statusCode: 404, message: 'Error message' } } };
-
-    it('renders an error message', () => {
-      const wrapper = factory({ mocks: errorMock });
-
-      const errorMessage = wrapper.find('[data-qa="error message container"]');
-
-      expect(errorMessage.exists()).toBe(true);
-    });
-
-    describe('meta title', () => {
-      it('communicates item is not found', () => {
-        const wrapper = factory({ mocks: errorMock });
-
-        const headMeta = wrapper.vm.head().meta;
-
-        expect(headMeta.filter(meta => meta.property === 'og:title').length).toBe(1);
-        expect(headMeta.find(meta => meta.property === 'og:title').content).toBe('errorMessage.itemNotFound.metaTitle');
       });
     });
   });
