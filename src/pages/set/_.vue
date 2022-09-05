@@ -146,7 +146,7 @@
 </template>
 
 <script>
-  // TODO: This file will be deprecated when set driven galleries are in production.
+  // TODO: This file will be deprecated when set-driven galleries are in production.
   // TODO: Also move the beforeRouteEnter redirect to the legacy middleware.
   import ClientOnly from 'vue-client-only';
 
