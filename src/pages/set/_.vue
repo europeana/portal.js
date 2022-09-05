@@ -163,7 +163,6 @@
     name: 'SetPage',
 
     components: {
-      AlertMessage: () => import('@/components/generic/AlertMessage'),
       ClientOnly,
       ErrorMessage: () => import('@/components/generic/ErrorMessage'),
       LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
