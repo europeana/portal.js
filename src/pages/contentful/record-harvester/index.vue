@@ -127,12 +127,12 @@
         return urlMatch[1];
       },
 
-      generateName(value) {
-        return (langMapValueForLocale(value, 'en').values[0] || `Record ${this.identifier}`).substring(0, 255);
+      generateName() {
+        return (langMapValueForLocale(this.encoding?.dcTitleLangAware, 'en').values[0] || `Record ${this.identifier}`).substring(0, 255);
       },
 
       async populateFields() {
-        const name = this.generateName(this.encoding.dcTitleLangAware);
+        const name = this.generateName();
 
         this.contentfulExtensionSdk.field.setValue(this.encoding.id)
         this.contentfulExtensionSdk.entry.fields.name?.setValue(name, 'en-GB');
