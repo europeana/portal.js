@@ -108,7 +108,8 @@ export default (context) => ($axios, params, options = {}) => {
     qf: localOptions.addContentTierFilter ? addContentTierFilter(params.qf) : params.qf,
     query: localOptions.escape ? escapeLuceneSpecials(query) : query,
     rows,
-    start
+    start,
+    sort: params.sort
   };
 
   if (context?.$config?.app?.search?.translateLocales?.includes(localOptions.locale)) {
