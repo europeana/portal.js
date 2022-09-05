@@ -35,6 +35,7 @@
     "@europeana/styleguide": "link:./packages/styleguide"
   },
   "dependencies": {
+    "axios": "^0.21.4",
     "vue": "2.6.14",
     "vue-server-renderer": "2.6.14",
     "vue-template-compiler": "2.6.14"

@@ -22,7 +22,6 @@
     "@nuxtjs/i18n": "^7.2.0",
     "@vue-a11y/announcer": "^2.1.0",
     "autosuggest-highlight": "^3.2.0",
-    "axios": "^0.21.1",
     "axios-retry": "^3.2.4",
     "bootstrap": "^4.6.0",
     "bootstrap-vue": "2.22.0",
