@@ -36,18 +36,18 @@ module.exports = async() => {
         sections: [
           {
             name: 'Font icons',
-            content: './docs/style/FontIcons.md'
+            content: '../portal/docs/style/FontIcons.md'
           },
           {
             name: 'Bootstrap Vue',
             sections: [
               {
                 name: 'Badge',
-                content: './docs/style/BootstrapVueBadge.md'
+                content: '../portal/docs/style/BootstrapVueBadge.md'
               },
               {
                 name: 'Button',
-                content: './docs/style/BootstrapVueButton.md'
+                content: '../portal/docs/style/BootstrapVueButton.md'
               }
             ]
           }
