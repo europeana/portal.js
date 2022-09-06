@@ -194,7 +194,7 @@
         }
         if (error.statusCode === 404) {
           error.titlePath = 'errorMessage.itemNotFound.title';
-          error.descriptionPath = 'errorMessage.itemNotFound.title';
+          error.descriptionPath = 'errorMessage.itemNotFound.description';
           error.metaTitlePath = 'errorMessage.itemNotFound.metaTitle';
           error.illustrationSrc = require('@/assets/img/illustrations/il-item-not-found.svg');
         }
