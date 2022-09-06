@@ -46,7 +46,6 @@
 <script>
   import allThemesMixin from '@/mixins/allThemes';
   import collectionLinkGenMixin from '@/mixins/collectionLinkGen';
-  import contentfulAssetsMixin from '@/mixins/contentful/assets';
   import CallToActionBanner from '@/components/generic/CallToActionBanner';
   import HomeHero from '@/components/home/HomeHero';
   import HomeLatest from '@/components/home/HomeLatest';
@@ -64,7 +63,7 @@
       StackedCardsSwiper
     },
 
-    mixins: [allThemesMixin, collectionLinkGenMixin, contentfulAssetsMixin],
+    mixins: [allThemesMixin, collectionLinkGenMixin],
 
     data() {
       return {
@@ -112,7 +111,7 @@
 
       headMetaOgImage() {
         const image = this.socialMediaImage ? this.socialMediaImage : this.backgroundImage?.image;
-        return this.optimisedSrcForContentfulAsset(image, { w: 1200, h: 630, fit: 'fill' });
+        return this.$contentful.assets.optimisedSrc(image, { w: 1200, h: 630, fit: 'fill' });
       },
 
       callsToAction() {

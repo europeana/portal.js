@@ -68,14 +68,13 @@
 </template>
 
 <script>
-  import contentfulAssetsMixin from '@/mixins/contentful/assets';
   import swiperMixin from '@/mixins/swiper';
   import { EffectCoverflow, Keyboard, Lazy } from 'swiper';
 
   export default {
     name: 'StackedCardsSwiper',
 
-    mixins: [contentfulAssetsMixin, swiperMixin],
+    mixins: [swiperMixin],
 
     props: {
       title: {
@@ -159,8 +158,8 @@
         this.$refs.slideLink[this.swiper.activeIndex].focus();
       },
       imageSrc(image) {
-        if (image?.url && this.urlIsContentfulAsset(image.url)) {
-          return this.optimisedSrcForContentfulAsset(image, { w: 245, h: 440, fit: 'fill' });
+        if (image?.url && this.$contentful.assets.isValidUrl(image.url)) {
+          return this.$contentful.assets.optimisedSrc(image, { w: 245, h: 440, fit: 'fill' });
         } else if (image?.url) {
           return image.url;
         } else {
@@ -168,17 +167,17 @@
         }
       },
       imageSrcset(image) {
-        return this.contentfulResponsiveImageSrcset(image,
-                                                    {
-                                                      small: { w: 245, h: 440, fit: 'fill' },
-                                                      medium: { w: 260, h: 420, fit: 'fill' },
-                                                      large: { w: 280, h: 400, fit: 'fill' },
-                                                      xl: { w: 300, h: 400, fit: 'fill' },
-                                                      xxl: { w: 320, h: 370, fit: 'fill' },
-                                                      xxxl: { w: 355, h: 345, fit: 'fill' },
-                                                      wqhd: { w: 510, h: 540, fit: 'fill' },
-                                                      '4k': { w: 700, h: 900, fit: 'fill' }
-                                                    });
+        return this.$contentful.assets.responsiveImageSrcset(image,
+                                                             {
+                                                               small: { w: 245, h: 440, fit: 'fill' },
+                                                               medium: { w: 260, h: 420, fit: 'fill' },
+                                                               large: { w: 280, h: 400, fit: 'fill' },
+                                                               xl: { w: 300, h: 400, fit: 'fill' },
+                                                               xxl: { w: 320, h: 370, fit: 'fill' },
+                                                               xxxl: { w: 355, h: 345, fit: 'fill' },
+                                                               wqhd: { w: 510, h: 540, fit: 'fill' },
+                                                               '4k': { w: 700, h: 900, fit: 'fill' }
+                                                             });
       }
     }
   };

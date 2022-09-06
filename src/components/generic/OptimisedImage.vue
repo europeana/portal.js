@@ -17,14 +17,8 @@
 </template>
 
 <script>
-  import contentfulAssetsMixin from '@/mixins/contentful/assets';
-
   export default {
     name: 'OptimisedImage',
-
-    mixins: [
-      contentfulAssetsMixin
-    ],
 
     props: {
       src: {
@@ -76,10 +70,10 @@
       },
 
       optimisedSrc() {
-        if (typeof this.contentType !== 'string' || !this.urlIsContentfulAsset(this.src)) {
+        if (typeof this.contentType !== 'string' || !this.$contentful.assets.isValidUrl(this.src)) {
           return this.src;
         }
-        return this.optimisedSrcForContentfulAsset(
+        return this.$contentful.assets.optimisedSrc(
           { url: this.src, contentType: this.contentType },
           { w: this.maxWidth, q: this.quality }
         );

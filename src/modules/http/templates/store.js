@@ -1,11 +1,10 @@
-import { acceptMediaTypes, currentProtocol, currentHost } from './utils';
+import { currentProtocol, currentHost } from './utils';
 
 // TODO: with ssl/http stuff gathered into a module, do we need to store ports here?
 
 export default {
   namespaced: true,
   state: () => ({
-    acceptMediaTypes: [],
     protocol: null,
     path: null,
     host: null,
@@ -42,10 +41,6 @@ export default {
       commit('set', ['path', path]);
       commit('set', ['httpPort', httpPort]);
       commit('set', ['httpsPort', httpsPort]);
-    },
-
-    setRequestAcceptMediaTypes({ commit }, { req }) {
-      commit('set', ['acceptMediaTypes', acceptMediaTypes({ req })]);
     }
   }
 };

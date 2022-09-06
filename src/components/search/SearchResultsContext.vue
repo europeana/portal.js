@@ -67,7 +67,6 @@
   import RemovalChip from './RemovalChip';
   import { entityParamsFromUri } from '@/plugins/europeana/entity';
   import themes from '@/plugins/europeana/themes';
-  import contentfulAssetsMixin from '@/mixins/contentful/assets';
   import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
   import { mapState } from 'vuex';
 
@@ -79,7 +78,6 @@
     },
 
     mixins: [
-      contentfulAssetsMixin,
       europeanaEntitiesOrganizationsMixin
     ],
 
@@ -118,8 +116,8 @@
           this.entity?.prefLabel;
       },
       entityImage() {
-        if (this.editorialOverrides?.image && this.urlIsContentfulAsset(this.editorialOverrides.image.url)) {
-          return this.optimisedSrcForContentfulAsset(
+        if (this.editorialOverrides?.image && this.$contentful.assets.isValidUrl(this.editorialOverrides.image.url)) {
+          return this.$contentful.assets.optimisedSrc(
             this.editorialOverrides.image,
             { w: 28, h: 28, fit: 'thumb' }
           );

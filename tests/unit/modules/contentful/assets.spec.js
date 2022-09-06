@@ -1,78 +1,62 @@
-import { createLocalVue, shallowMount } from '@vue/test-utils';
-
-import mixin from '@/mixins/contentful/assets';
-
-const component = {
-  template: '<div/>',
-  mixins: [mixin]
-};
-
-const factory = () => shallowMount(component, {
-  localVue: createLocalVue()
-});
+import assets from '@/modules/contentful/assets';
 
 describe('mixins/contentful/assets', () => {
   describe('methods', () => {
-    describe('urlIsContentfulAsset', () => {
+    describe('isValidUrl', () => {
       it('is `true` for URLs on host images.ctfassets.net', () => {
         const src = 'https://images.ctfassets.net/asset.jpeg';
-        const wrapper = factory();
 
-        expect(wrapper.vm.urlIsContentfulAsset(src)).toBe(true);
+        expect(assets().isValidUrl(src)).toBe(true);
       });
 
       it('is `false` for other URLs', () => {
         const src = 'https://www.example.org/image.jpeg';
-        const wrapper = factory();
 
-        expect(wrapper.vm.urlIsContentfulAsset(src)).toBe(false);
+        expect(assets().isValidUrl(src)).toBe(false);
       });
     });
 
-    describe('optimisedSrcForContentfulAsset', () => {
+    describe('optimisedSrc', () => {
       it('favours WebP if accepted and format not specified', () => {
-        const wrapper = factory();
-        wrapper.vm.$store = { state: { http: { acceptMediaTypes: ['text/html', 'image/apng', 'image/webp'] } } };
+        const store = { state: { contentful: { acceptedMediaTypes: ['text/html', 'image/apng', 'image/webp'] } } };
+
         const asset = {
           url: 'https://images.ctfassets.net/asset.jpeg',
           contentType: 'image/jpeg'
         };
 
-        expect(wrapper.vm.optimisedSrcForContentfulAsset(asset)).toBe('https://images.ctfassets.net/asset.jpeg?fm=webp&q=40');
+        expect(assets({ store }).optimisedSrc(asset)).toBe('https://images.ctfassets.net/asset.jpeg?fm=webp&q=40');
       });
 
       it('compresses jpegs', () => {
-        const wrapper = factory();
         const asset = {
           url: 'https://images.ctfassets.net/asset.jpeg',
           contentType: 'image/jpeg'
         };
 
-        expect(wrapper.vm.optimisedSrcForContentfulAsset(asset)).toBe('https://images.ctfassets.net/asset.jpeg?fm=jpg&fl=progressive&q=80');
+        expect(assets().optimisedSrc(asset)).toBe('https://images.ctfassets.net/asset.jpeg?fm=jpg&fl=progressive&q=80');
       });
 
       it('joins all the options', () => {
-        const wrapper = factory();
         const asset = {
           url: 'https://images.ctfassets.net/asset.jpeg',
           contentType: 'image/jpeg'
         };
 
-        expect(wrapper.vm.optimisedSrcForContentfulAsset(asset, { w: 200, q: 80 })).toBe('https://images.ctfassets.net/asset.jpeg?w=200&q=80&fm=jpg&fl=progressive');
+        expect(assets().optimisedSrc(asset, { w: 200, q: 80 })).toBe('https://images.ctfassets.net/asset.jpeg?w=200&q=80&fm=jpg&fl=progressive');
       });
 
       it('applies passed max width', () => {
-        const wrapper = factory();
         const asset = {
           url: 'https://images.ctfassets.net/asset.png',
           contentType: 'image/png'
         };
 
-        expect(wrapper.vm.optimisedSrcForContentfulAsset(asset, { w: 40 })).toBe('https://images.ctfassets.net/asset.png?w=40');
+        expect(assets().optimisedSrc(asset, { w: 40 })).toBe('https://images.ctfassets.net/asset.png?w=40');
       });
     });
 
-    describe('contentfulResponsiveBackgroundImageCSSVars', () => {
+    describe('responsiveBackgroundImageCSSVars', () => {
       describe('when a Contentful asset and params are available', () => {
         it('returns style definitions for all breakpoints', () => {
           const asset = {
@@ -88,9 +72,8 @@ describe('mixins/contentful/assets', () => {
               xxxl: { w: 355, h: 345, fit: 'fill' },
               wqhd: { w: 510, h: 540, fit: 'fill' },
               '4k': { w: 700, h: 900, fit: 'fill' } };
-          const wrapper = factory();
 
-          const variables = wrapper.vm.contentfulResponsiveBackgroundImageCSSVars(asset, params);
+          const variables = assets().responsiveBackgroundImageCSSVars(asset, params);
           expect(variables['--bg-img-4k']).toBeTruthy();
         });
       });
@@ -100,9 +83,8 @@ describe('mixins/contentful/assets', () => {
           const asset = {
             url: 'https://www.europeana.eu/asset.jpeg'
           };
-          const wrapper = factory();
 
-          const variables = wrapper.vm.contentfulResponsiveBackgroundImageCSSVars(asset);
+          const variables = assets().responsiveBackgroundImageCSSVars(asset);
           expect(variables['--bg-img-small']).toBeTruthy();
           expect(variables['--bg-img-4k']).toBeFalsy();
         });
@@ -111,9 +93,8 @@ describe('mixins/contentful/assets', () => {
       describe('when no image available', () => {
         it('returns null', () => {
           const asset = {};
-          const wrapper = factory();
 
-          const variables = wrapper.vm.contentfulResponsiveBackgroundImageCSSVars(asset);
+          const variables = assets().responsiveBackgroundImageCSSVars(asset);
           expect(variables).toBe(null);
         });
       });

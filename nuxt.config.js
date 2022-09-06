@@ -281,7 +281,7 @@ export default {
   ],
 
   buildModules: [
-    '~/modules/contentful-graphql',
+    '~/modules/contentful',
     '~/modules/axios-logger',
     '~/modules/http',
     '~/modules/query-sanitiser',

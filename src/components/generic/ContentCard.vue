@@ -107,7 +107,6 @@
 <script>
   import ClientOnly from 'vue-client-only';
   import SmartLink from './SmartLink';
-  import contentfulAssetsMixin from '@/mixins/contentful/assets';
   import stripMarkdownMixin from '@/mixins/stripMarkdown';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
   import themes from '@/plugins/europeana/themes';
@@ -122,7 +121,6 @@
     },
 
     mixins: [
-      contentfulAssetsMixin,
       stripMarkdownMixin
     ],
 
@@ -377,10 +375,10 @@
       },
 
       optimisedImageUrl() {
-        if (!this.urlIsContentfulAsset(this.imageUrl)) {
+        if (!this.$contentful.assets.isValidUrl(this.imageUrl)) {
           return this.imageUrl;
         }
-        return this.optimisedSrcForContentfulAsset(
+        return this.$contentful.assets.optimisedSrc(
           { url: this.imageUrl, contentType: this.imageContentType },
           { w: this.imageOptimisationOptions?.width }
         );
