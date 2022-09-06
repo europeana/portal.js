@@ -2,7 +2,7 @@
   <div>
     <div
       v-if="$features.newHomepage"
-      class="page"
+      class="page white-page"
     >
       <HomeHero
         :background-image="backgroundImage"
@@ -158,25 +158,12 @@
 
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
+  @import '@/assets/scss/mixins';
 
   .page {
-    background-color: white;
+    margin-top: 0;
     padding-bottom: 1px;
-    position: relative;
     text-align: center;
-
-    &::after {
-      border-top: 145px solid $white;
-      border-left: 60px solid transparent;
-      content: '';
-      display: block;
-      height: 0;
-      position: absolute;
-      right: 0;
-      top: 100%;
-      width: 0;
-      z-index: 1;
-    }
 
     &.gridless-container {
       > div,

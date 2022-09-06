@@ -24,7 +24,7 @@
     </b-container>
     <div
       v-else
-      class="page gridless-container responsive-font"
+      class="page white-page gridless-container responsive-font"
     >
       <ContentHeader
         :title="pageTitle"
@@ -240,25 +240,12 @@
 
 <style lang="scss" scoped>
   @import '@/assets/scss/variables';
+  @import '@/assets/scss/mixins';
 
   .page {
-    background-color: white; // TODO: make this more generic when more and more pages get a white background
     padding-bottom: 1rem;
     padding-top: 1rem;
     margin-top: -1rem;
-
-    &::after {
-      border-top: 145px solid $white;
-      border-left: 60px solid transparent;
-      content: '';
-      display: block;
-      height: 0;
-      position: absolute;
-      right: 0;
-      top: 100%;
-      width: 0;
-      z-index: 1;
-    }
 
     ::v-deep header .col {
       margin-bottom: 1em;

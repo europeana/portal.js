@@ -13,6 +13,7 @@ query CollectionPage(
         image {
           url
           contentType
+          description
         }
       }
     }

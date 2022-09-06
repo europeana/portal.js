@@ -211,6 +211,13 @@ export default {
     }
   },
   "error": "Error",
+  "errorMessage": {
+    "itemNotFound": {
+      "description": "This could be due to the following reasons: this item doesn't exist, or; it was depublished because it did not match our quality criteria, or; it was updated and republished with a new unique identifier, in which case, try to find the item again.",
+      "metaTitle": "Item not found",
+      "title": "Oh no! {newline} We were not able to find this item."
+    }
+  },
   "exhibitions": {
     "chapters": "Chapters",
     "credits": "Credits",
