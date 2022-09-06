@@ -130,8 +130,10 @@ describe('pages/item/_.vue', () => {
       it('sends custom dimensions in English', () => {
         const wrapper = factory();
 
-        expect(wrapper.vm.$matomo.trackPageView.calledWith('item page custom dimensions',
-          wrapper.vm.matomoOptions())).toBe(true);
+        expect(wrapper.vm.$matomo.trackPageView.calledWith(
+          'item page custom dimensions',
+          wrapper.vm.matomoOptions
+        )).toBe(true);
       });
     });
   });
