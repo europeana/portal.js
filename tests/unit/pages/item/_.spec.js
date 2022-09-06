@@ -156,7 +156,7 @@ describe('pages/item/_.vue', () => {
       const $fetchState = { pending: true };
 
       it('does not send custom dimensions to Matomo', () => {
-        const wrapper = factory({ mocks: { $fetchState }});
+        const wrapper = factory({ mocks: { $fetchState } });
 
         expect(wrapper.vm.$matomo.trackPageView.called).toBe(false);
       });
@@ -166,7 +166,7 @@ describe('pages/item/_.vue', () => {
       const $fetchState = { pending: false, error: { message: 'Item not found' } };
 
       it('does not send custom dimensions to Matomo', () => {
-        const wrapper = factory({ mocks: { $fetchState }});
+        const wrapper = factory({ mocks: { $fetchState } });
 
         expect(wrapper.vm.$matomo.trackPageView.called).toBe(false);
       });
@@ -176,7 +176,7 @@ describe('pages/item/_.vue', () => {
       const $fetchState = { pending: false };
 
       it('sends custom dimensions to Matomo', () => {
-        const wrapper = factory({ mocks: { $fetchState }});
+        const wrapper = factory({ mocks: { $fetchState } });
 
         expect(wrapper.vm.$matomo.trackPageView.calledWith(
           'item page custom dimensions',
