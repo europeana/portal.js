@@ -5,6 +5,7 @@
         <img
           v-if="thumbnailUrl"
           :src="thumbnailUrl"
+          alt="Record thumbnail"
         >
       </div>
       <b-form-input
