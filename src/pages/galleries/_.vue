@@ -1,186 +1,188 @@
 <template>
-  <b-container
-    v-if="!setGalleriesEnabled"
-  >
-    <ContentWarningModal
-      v-if="contentWarning"
-      :title="contentWarning.name"
-      :description="contentWarning.description"
-      :page-slug="`galleries/${identifier}`"
-    />
-    <ContentHeader
-      :title="title"
-      :description="htmlDescription"
-      :media-url="shareMediaUrl"
-      :context-label="$tc('galleries.galleries', 1)"
-    />
-    <b-row class="flex-md-row pb-5">
-      <b-col cols="12">
-        <div
-          v-masonry
-          transition-duration="0"
-          item-selector=".card"
-          horizontal-order="true"
-          column-width=".masonry-container .card"
-          class="masonry-container"
-          data-qa="gallery images"
-        >
-          <ContentCard
-            v-for="image in images"
-            :key="image.identifier"
-            v-masonry-tile
-            :title="imageTitle(image)"
-            :image-url="imageUrl(image)"
-            :lazy="false"
-            :url="{ name: 'item-all', params: { pathMatch: image.identifier.slice(1) } }"
-          />
-        </div>
-      </b-col>
-    </b-row>
-  </b-container>
-  <b-container
-    v-else-if="$fetchState.pending"
-    data-qa="loading spinner container"
-  >
-    <b-row class="flex-md-row py-4 text-center">
-      <b-col cols="12">
-        <LoadingSpinner />
-      </b-col>
-    </b-row>
-  </b-container>
-  <ErrorMessage
-    v-else-if="$fetchState.error"
-    data-qa="error message container"
-    :error="$fetchState.error.message"
-    :title-path="$fetchState.error.titlePath"
-    :description-path="$fetchState.error.descriptionPath"
-    :illustration-src="$fetchState.error.illustrationSrc"
-  />
-  <div
-    v-else-if="set.id"
-    class="mt-n3"
-    data-qa="user gallery page"
-  >
+  <div>
     <b-container
-      fluid
+      v-if="!setGalleriesEnabled"
     >
-      <b-row class="flex-md-row pt-5 bg-white mb-4">
-        <b-col
-          cols="12"
-        >
-          <b-container class="mb-5">
-            <b-row class="mb-4">
-              <b-col>
-                <div
-                  class="context-label"
-                >
-                  {{ $tc('galleries.galleries', 1) }}
-                </div>
-                <h1
-                  :lang="displayTitle.code"
-                >
-                  {{ displayTitle.values[0] }}
-                </h1>
-                <p
-                  class="usergallery-description mb-3 w-75"
-                  :lang="displayDescription.code"
-                >
-                  {{ displayDescription.values[0] }}
-                </p>
-                <!-- TODO: to avoid showing an empty div + whitespace, the v-if is on the div
-                    This can be changed when this functionality is further developed
-                -->
-                <div
-                  v-if="set.visibility === 'private' || set.creator.nickname"
-                  class="usergallery-metadata mb-2"
-                >
-                  <span
-                    v-if="set.creator.nickname"
-                    class="curator mb-2"
-                  >
-                    {{ $t('set.labels.curatedBy') }} @{{ set.creator.nickname }}
-                  </span>
-                  <span
-                    v-if="set.visibility === 'private'"
-                    class="
-                    visibility mb-2"
-                  >
-                    {{ $t('set.labels.private') }}
-                  </span>
-                </div>
-              </b-col>
-            </b-row>
-            <div class="d-inline-flex collection-buttons">
-              <template
-                v-if="userIsOwner"
-              >
-                <b-button
-                  variant="outline-primary"
-                  class="text-decoration-none mr-2"
-                  data-qa="edit set button"
-                  @click="$bvModal.show(setFormModalId)"
-                >
-                  {{ $t('actions.edit') }}
-                </b-button>
-                <SetFormModal
-                  :set-id="set.id"
-                  :modal-id="setFormModalId"
-                  :title="set.title"
-                  :description="set.description"
-                  :visibility="set.visibility"
-                />
-              </template>
-              <b-button
-                v-b-modal.share-modal
-                variant="outline-primary"
-                class="text-decoration-none"
-              >
-                {{ $t('actions.share') }}
-              </b-button>
-              <SocialShareModal :media-url="shareMediaUrl" />
-            </div>
-          </b-container>
-        </b-col>
-      </b-row>
-    </b-container>
-    <b-container
-      class="mb-3"
-      data-qa="user set"
-    >
-      <b-row>
-        <b-col>
-          <h2
-            class="related-heading text-uppercase"
-            data-qa="item count"
+      <ContentWarningModal
+        v-if="contentWarning"
+        :title="contentWarning.name"
+        :description="contentWarning.description"
+        :page-slug="`galleries/${identifier}`"
+      />
+      <ContentHeader
+        :title="title"
+        :description="htmlDescription"
+        :media-url="shareMediaUrl"
+        :context-label="$tc('galleries.galleries', 1)"
+      />
+      <b-row class="flex-md-row pb-5">
+        <b-col cols="12">
+          <div
+            v-masonry
+            transition-duration="0"
+            item-selector=".card"
+            horizontal-order="true"
+            column-width=".masonry-container .card"
+            class="masonry-container"
+            data-qa="gallery images"
           >
-            {{ displayItemCount }}
-          </h2>
+            <ContentCard
+              v-for="image in images"
+              :key="image.identifier"
+              v-masonry-tile
+              :title="imageTitle(image)"
+              :image-url="imageUrl(image)"
+              :lazy="false"
+              :url="{ name: 'item-all', params: { pathMatch: image.identifier.slice(1) } }"
+            />
+          </div>
         </b-col>
       </b-row>
-      <b-row>
-        <b-col>
-          <b-container class="px-0">
-            <b-row class="mb-3">
-              <b-col cols="12">
-                <ItemPreviewCardGroup
-                  :items="set.items"
-                  :show-pins="setIsEntityBestItems && userIsEntityEditor"
-                  :draggable-items="userIsOwner"
-                  @endItemDrag="reorderItems"
-                />
-              </b-col>
-            </b-row>
-          </b-container>
-        </b-col>
-      </b-row>
-      <client-only>
-        <SetRecommendations
-          v-if="displayRecommendations"
-          :identifier="`/${$route.params.pathMatch}`"
-          :type="set.type"
-        />
-      </client-only>
     </b-container>
+    <b-container
+      v-else-if="$fetchState.pending"
+      data-qa="loading spinner container"
+    >
+      <b-row class="flex-md-row py-4 text-center">
+        <b-col cols="12">
+          <LoadingSpinner />
+        </b-col>
+      </b-row>
+    </b-container>
+    <ErrorMessage
+      v-else-if="$fetchState.error"
+      data-qa="error message container"
+      :error="$fetchState.error.message"
+      :title-path="$fetchState.error.titlePath"
+      :description-path="$fetchState.error.descriptionPath"
+      :illustration-src="$fetchState.error.illustrationSrc"
+    />
+    <div
+      v-else-if="set.id"
+      class="mt-n3"
+      data-qa="user gallery page"
+    >
+      <b-container
+        fluid
+      >
+        <b-row class="flex-md-row pt-5 bg-white mb-4">
+          <b-col
+            cols="12"
+          >
+            <b-container class="mb-5">
+              <b-row class="mb-4">
+                <b-col>
+                  <div
+                    class="context-label"
+                  >
+                    {{ $tc('galleries.galleries', 1) }}
+                  </div>
+                  <h1
+                    :lang="displayTitle.code"
+                  >
+                    {{ displayTitle.values[0] }}
+                  </h1>
+                  <p
+                    class="usergallery-description mb-3 w-75"
+                    :lang="displayDescription.code"
+                  >
+                    {{ displayDescription.values[0] }}
+                  </p>
+                  <!-- TODO: to avoid showing an empty div + whitespace, the v-if is on the div
+                      This can be changed when this functionality is further developed
+                  -->
+                  <div
+                    v-if="set.visibility === 'private' || set.creator.nickname"
+                    class="usergallery-metadata mb-2"
+                  >
+                    <span
+                      v-if="set.creator.nickname"
+                      class="curator mb-2"
+                    >
+                      {{ $t('set.labels.curatedBy') }} @{{ set.creator.nickname }}
+                    </span>
+                    <span
+                      v-if="set.visibility === 'private'"
+                      class="
+                      visibility mb-2"
+                    >
+                      {{ $t('set.labels.private') }}
+                    </span>
+                  </div>
+                </b-col>
+              </b-row>
+              <div class="d-inline-flex collection-buttons">
+                <template
+                  v-if="userIsOwner"
+                >
+                  <b-button
+                    variant="outline-primary"
+                    class="text-decoration-none mr-2"
+                    data-qa="edit set button"
+                    @click="$bvModal.show(setFormModalId)"
+                  >
+                    {{ $t('actions.edit') }}
+                  </b-button>
+                  <SetFormModal
+                    :set-id="set.id"
+                    :modal-id="setFormModalId"
+                    :title="set.title"
+                    :description="set.description"
+                    :visibility="set.visibility"
+                  />
+                </template>
+                <b-button
+                  v-b-modal.share-modal
+                  variant="outline-primary"
+                  class="text-decoration-none"
+                >
+                  {{ $t('actions.share') }}
+                </b-button>
+                <SocialShareModal :media-url="shareMediaUrl" />
+              </div>
+            </b-container>
+          </b-col>
+        </b-row>
+      </b-container>
+      <b-container
+        class="mb-3"
+        data-qa="user set"
+      >
+        <b-row>
+          <b-col>
+            <h2
+              class="related-heading text-uppercase"
+              data-qa="item count"
+            >
+              {{ displayItemCount }}
+            </h2>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col>
+            <b-container class="px-0">
+              <b-row class="mb-3">
+                <b-col cols="12">
+                  <ItemPreviewCardGroup
+                    :items="set.items"
+                    :show-pins="setIsEntityBestItems && userIsEntityEditor"
+                    :draggable-items="userIsOwner"
+                    @endItemDrag="reorderItems"
+                  />
+                </b-col>
+              </b-row>
+            </b-container>
+          </b-col>
+        </b-row>
+        <client-only>
+          <SetRecommendations
+            v-if="displayRecommendations"
+            :identifier="`/${$route.params.pathMatch}`"
+            :type="set.type"
+          />
+        </client-only>
+      </b-container>
+    </div>
   </div>
 </template>
 

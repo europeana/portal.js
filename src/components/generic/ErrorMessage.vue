@@ -25,7 +25,7 @@
         <p
           v-if="descriptionPath"
         >
-          {{ $t(descriptionPath || '') }}
+          {{ $t(descriptionPath) }}
         </p>
       </section>
     </div>
