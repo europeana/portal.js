@@ -4,15 +4,14 @@ import BootstrapVue from 'bootstrap-vue';
 
 import page from '@/pages/contentful/record-harvester/index';
 import sinon from 'sinon';
-import { apiError } from '@/plugins/europeana/utils';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
 const apiResponse = () => ({
-  success:true,
-  itemsCount:1,
-  totalResults:1,
+  success: true,
+  itemsCount: 1,
+  totalResults: 1,
   items: [
     {
       dataProvider: ['Rijksmuseum'],
@@ -28,16 +27,16 @@ const apiResponse = () => ({
       edmIsShownAt: ['http://example.org/isShownAt'],
       edmIsShownBy: ['http://example.org/isShownBy'],
       edmPreview: ['https://api.europeana.eu/thumbnail/v2/url.json'],
-      europeanaCompleteness:10,
-      guid:'https://www.europeana.eu/item/90402/SK_A_2344?utm_source=api&utm_medium=api&utm_campaign=api2demo',
+      europeanaCompleteness: 10,
+      guid: 'https://www.europeana.eu/item/90402/SK_A_2344?utm_source=api&utm_medium=api&utm_campaign=api2demo',
       id: '/90402/SK_A_2344',
       link: 'https://api.europeana.eu/record/90402/SK_A_2344.json?wskey=api2demo',
-      provider:['Rijksmuseum'],
-      rights:['http://creativecommons.org/publicdomain/mark/1.0/'],
+      provider: ['Rijksmuseum'],
+      rights: ['http://creativecommons.org/publicdomain/mark/1.0/'],
       score: 16.46924,
       title: ['The Milkmaid', 'Het melkmeisje'],
       type: 'IMAGE',
-      year:['1660']
+      year: ['1660']
     }
   ]
 });
@@ -96,7 +95,7 @@ describe('pages/contentful/record-harvester/index', () => {
 
         const image = await wrapper.find('img');
         expect(image.isVisible()).toBe(true);
-        expect(image.attributes('src')).toEqual('https://api.europeana.eu/thumbnail/v2/url.jsonsize=w200')
+        expect(image.attributes('src')).toEqual('https://api.europeana.eu/thumbnail/v2/url.jsonsize=w200');
       });
     });
   });
@@ -143,7 +142,7 @@ describe('pages/contentful/record-harvester/index', () => {
 
           await wrapper.vm.harvestRecord();
           expect(wrapper.vm.populateFields.called).toBe(false);
-          expect(wrapper.vm.message).toEqual('Unable to harvest \"/90402/SK_A_2344\". Please make sure the item can be accessed on the Record API. Error: \"Not found\"');
+          expect(wrapper.vm.message).toEqual('Unable to harvest "/90402/SK_A_2344". Please make sure the item can be accessed on the Record API. Error: "Not found"');
         });
       });
 
@@ -153,7 +152,7 @@ describe('pages/contentful/record-harvester/index', () => {
 
           wrapper.vm.$apis.record.search.resolves(apiResponse());
 
-          wrapper.vm.populateFields = sinon.stub().throws('contentful','Contentful error.');
+          wrapper.vm.populateFields = sinon.stub().throws('contentful', 'Contentful error.');
 
           await wrapper.vm.harvestRecord();
           expect(wrapper.vm.populateFields.called).toBe(true);
@@ -169,7 +168,7 @@ describe('pages/contentful/record-harvester/index', () => {
         'https://www.europeana.eu/en/item/90402/SK_A_2344'
       ];
 
-      for(const format of supportedFormats) {
+      for (const format of supportedFormats) {
         it(`is able to parse an identifer from ${format}`, async() => {
           const wrapper = factory();
           const result = await wrapper.vm.itemIdFromUrl(format);
@@ -256,7 +255,7 @@ describe('pages/contentful/record-harvester/index', () => {
             identifier: '/90402/SK_A_2344'
           });
 
-          wrapper.vm.contentfulExtensionSdk.entry.fields.identifier.removeValue =  sinon.stub().throws('contentful','Contentful error.');
+          wrapper.vm.contentfulExtensionSdk.entry.fields.identifier.removeValue =  sinon.stub().throws('contentful', 'Contentful error.');
 
           await wrapper.vm.resetRecord();
 

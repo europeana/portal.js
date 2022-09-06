@@ -5,7 +5,7 @@
         <img
           v-if="thumbnailUrl"
           :src="thumbnailUrl"
-        />
+        >
       </div>
       <b-form-input
         v-model="identifier"
@@ -14,9 +14,9 @@
       />
       <p>
         <b-button
+          :disabled="!identifier"
           class="mb-2"
           @click="harvestRecord"
-          :disabled="!identifier"
         >
           Go!
         </b-button>
@@ -46,7 +46,7 @@
         encoding: null,
         identifier: '',
         message: ''
-      }
+      };
     },
 
     head() {
@@ -59,6 +59,15 @@
       };
     },
 
+    computed: {
+      thumbnailUrl() {
+        if (this.encoding?.edmPreview) {
+          return this.encoding?.edmPreview[0] + 'size=w200';
+        }
+        return undefined;
+      }
+    },
+
     mounted() {
       window.contentfulExtension.init(sdk => {
         this.contentfulExtensionSdk = sdk;
@@ -69,14 +78,6 @@
           this.encoding = sdk.entry.fields.encoding?.getValue();
         }
       });
-    },
-
-    computed: {
-      thumbnailUrl() {
-        if (this.encoding?.edmPreview) {
-          return this.encoding?.edmPreview[0] + 'size=w200';
-        }
-      }
     },
 
     methods: {
@@ -134,16 +135,16 @@
       async populateFields() {
         const name = this.generateName();
 
-        this.contentfulExtensionSdk.field.setValue(this.encoding.id)
+        this.contentfulExtensionSdk.field.setValue(this.encoding.id);
         this.contentfulExtensionSdk.entry.fields.name?.setValue(name, 'en-GB');
         this.contentfulExtensionSdk.entry.fields.encoding?.setValue(this.encoding);
       },
 
       resetRecord() {
         try {
-          for(const [fieldName, field] of Object.entries(this.contentfulExtensionSdk.entry.fields)) {
+          Object.values(this.contentfulExtensionSdk.entry.fields).forEach((field) => {
             field.removeValue();
-          };
+          });
         } catch (error) {
           this.message = `There was a problem clearing the entry. ${error.message}`;
           return;
@@ -152,7 +153,7 @@
         this.encoding = null;
         this.message = 'Successfully cleared all data';
       }
-    },
+    }
   };
 </script>
 
