@@ -123,12 +123,60 @@ describe('pages/item/_.vue', () => {
       expect(wrapper.vm.$nuxt.context.res.statusCode).toBe(500);
       expect(error.message).toBe('Internal Server Error');
     });
+
+    describe('on client-side request', () => {
+      it('sends custom dimensions to Matomo', async() => {
+        process.client = true;
+        const wrapper = factory();
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.$matomo.trackPageView.calledWith(
+          'item page custom dimensions',
+          wrapper.vm.matomoOptions
+        )).toBe(true);
+      });
+    });
+
+    describe('on server-side request', () => {
+      it('does not send custom dimensions to Matomo', async() => {
+        process.client = false;
+        const wrapper = factory();
+        sinon.resetHistory();
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.$matomo.trackPageView.called).toBe(false);
+      });
+    });
   });
 
   describe('mounted', () => {
-    describe('when matomo is active', () => {
-      it('sends custom dimensions in English', () => {
-        const wrapper = factory();
+    describe('when fetch is still pending', () => {
+      const $fetchState = { pending: true };
+
+      it('does not send custom dimensions to Matomo', () => {
+        const wrapper = factory({ mocks: { $fetchState }});
+
+        expect(wrapper.vm.$matomo.trackPageView.called).toBe(false);
+      });
+    });
+
+    describe('when fetch errored', () => {
+      const $fetchState = { pending: false, error: { message: 'Item not found' } };
+
+      it('does not send custom dimensions to Matomo', () => {
+        const wrapper = factory({ mocks: { $fetchState }});
+
+        expect(wrapper.vm.$matomo.trackPageView.called).toBe(false);
+      });
+    });
+
+    describe('when fetch completed without error', () => {
+      const $fetchState = { pending: false };
+
+      it('sends custom dimensions to Matomo', () => {
+        const wrapper = factory({ mocks: { $fetchState }});
 
         expect(wrapper.vm.$matomo.trackPageView.calledWith(
           'item page custom dimensions',
