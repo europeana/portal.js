@@ -31,6 +31,25 @@ export function optimisedSrcForContentfulAsset(asset, params = {}, { acceptMedia
   return imageUrl.toString();
 }
 
+export function responsiveImageSrcset(image, params, options = {}) {
+  if (image?.url && urlIsContentfulAsset(image.url) && params) {
+    return [
+      `${optimisedSrcForContentfulAsset(image, params.small, options)} ${params.small.w}w`,
+      `${optimisedSrcForContentfulAsset(image, params.medium, options)} ${params.medium.w}w`,
+      `${optimisedSrcForContentfulAsset(image, params.large, options)} ${params.large.w}w`,
+      `${optimisedSrcForContentfulAsset(image, params.xl, options)} ${params.xl.w}w`,
+      `${optimisedSrcForContentfulAsset(image, params.xxl, options)} ${params.xxl.w}w`,
+      `${optimisedSrcForContentfulAsset(image, params.xxxl, options)} ${params.xxxl.w}w`,
+      `${optimisedSrcForContentfulAsset(image, params.wqhd, options)} ${params.wqhd.w}w`,
+      `${optimisedSrcForContentfulAsset(image, params['4k'], options)} ${params['4k'].w}w`
+    ].join(',');
+  } else if (image?.url) {
+    return image.url;
+  } else {
+    return null;
+  }
+}
+
 export function responsiveBackgroundImageCSSVars(image, params, options = {}) {
   if (image.url && urlIsContentfulAsset(image.url) && params) {
     return {
