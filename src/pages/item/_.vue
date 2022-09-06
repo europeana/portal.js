@@ -189,6 +189,9 @@
         for (const key in response.record) {
           this[key] = response.record[key];
         }
+        if (process.client) {
+          this.trackCustomDimensions();
+        }
       } catch (error) {
         if (process.server) {
           this.$nuxt.context.res.statusCode = error.statusCode || 500;
@@ -320,12 +323,16 @@
 
     mounted() {
       this.fetchAnnotations();
-      if (!this.$fetchState.error) {
-        this.$matomo && this.$matomo.trackPageView('item page custom dimensions', this.matomoOptions);
+      if (!this.$fetchState.error && !this.$fetchState.pending) {
+        this.trackCustomDimensions();
       }
     },
 
     methods: {
+      trackCustomDimensions() {
+        this.$matomo && this.$matomo.trackPageView('item page custom dimensions', this.matomoOptions);
+      },
+
       annotationsByMotivation(motivation) {
         return this.annotations?.filter(annotation => annotation.motivation === motivation) || [];
       },
