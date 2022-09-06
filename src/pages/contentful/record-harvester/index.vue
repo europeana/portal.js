@@ -160,7 +160,7 @@
 <style lang="scss" scoped>
   .contentful {
     button {
-      margin-right: .5rem;
+      margin-right: 0.5rem;
     }
 
     .thumbnail-preview {
@@ -185,7 +185,7 @@
     }
 
     p {
-      margin-top: .5rem;
+      margin-top: 0.5rem;
     }
 
     font-size: 11px;
