@@ -29,9 +29,9 @@
 
 <script>
   import pick from 'lodash/pick';
-  import { urlIsContentfulAsset, optimisedSrcForContentfulAsset } from '@/plugins/contentful-utils';
   import { withEditorialContent } from '@/plugins/europeana/themes';
   import collectionLinkGenMixin from '@/mixins/collectionLinkGen';
+  import contentfulAssetsMixin from '@/mixins/contentful/assets';
   import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
 
   import LinkBadge from '../generic/LinkBadge';
@@ -45,6 +45,7 @@
 
     mixins: [
       collectionLinkGenMixin,
+      contentfulAssetsMixin,
       europeanaEntitiesOrganizationsMixin
     ],
 
@@ -123,21 +124,20 @@
       },
 
       imageUrl(collection) {
-        if (collection.contentfulImage && urlIsContentfulAsset(collection.contentfulImage.url)) {
-          return optimisedSrcForContentfulAsset(
+        if (collection.contentfulImage && this.urlIsContentfulAsset(collection.contentfulImage.url)) {
+          return this.optimisedSrcForContentfulAsset(
             collection.contentfulImage,
-            { w: 28, h: 28, fit: 'thumb' },
-            { acceptMediaTypes: this.$store?.state?.http?.acceptMediaTypes }
+            { w: 28, h: 28, fit: 'thumb' }
           );
         }
         return this.$apis.entity.imageUrl(collection);
       },
 
       imageSrcSet(collection) {
-        if (collection.contentfulImage && urlIsContentfulAsset(collection.contentfulImage.url)) {
-          const smallImage = optimisedSrcForContentfulAsset(collection.contentfulImage, { w: 28, h: 28, fit: 'thumb' });
-          const wqhdImage = optimisedSrcForContentfulAsset(collection.contentfulImage, { w: 45, h: 45, fit: 'thumb' });
-          const fourKImage = optimisedSrcForContentfulAsset(collection.contentfulImage, { w: 67, h: 67, fit: 'thumb' });
+        if (collection.contentfulImage && this.urlIsContentfulAsset(collection.contentfulImage.url)) {
+          const smallImage = this.optimisedSrcForContentfulAsset(collection.contentfulImage, { w: 28, h: 28, fit: 'thumb' });
+          const wqhdImage = this.optimisedSrcForContentfulAsset(collection.contentfulImage, { w: 45, h: 45, fit: 'thumb' });
+          const fourKImage = this.optimisedSrcForContentfulAsset(collection.contentfulImage, { w: 67, h: 67, fit: 'thumb' });
           return `${smallImage} 28w, ${wqhdImage} 45w, ${fourKImage} 67w`;
         }
         return null;

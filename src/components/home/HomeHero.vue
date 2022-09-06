@@ -34,10 +34,10 @@
 </template>
 
 <script>
+  import contentfulAssetsMixin from '@/mixins/contentful/assets';
   import SearchForm from '@/components/search/SearchForm';
   import AttributionToggle from '@/components/generic/AttributionToggle';
   import EULogo from '@/components/funders/EULogo';
-  import { responsiveBackgroundImageCSSVars } from '@/plugins/contentful-utils';
 
   export default {
     name: 'HomeHero',
@@ -47,6 +47,10 @@
       AttributionToggle,
       EULogo
     },
+
+    mixins: [
+      contentfulAssetsMixin
+    ],
 
     props: {
       backgroundImage: {
@@ -58,18 +62,17 @@
     computed: {
       imageCSSVars() {
         return this.backgroundImage?.image &&
-          responsiveBackgroundImageCSSVars(this.backgroundImage.image,
-                                           {
-                                             small: { w: 576, h: 896, fit: 'fill' },
-                                             medium: { w: 768, h: 1080, fit: 'fill' },
-                                             large: { w: 992, h: 1080, fit: 'fill' },
-                                             xl: { w: 1200, h: 1080, fit: 'fill' },
-                                             xxl: { w: 1440, h: 1080, fit: 'fill' },
-                                             xxxl: { w: 1920, h: 1080, fit: 'fill' },
-                                             wqhd: { w: 2560, h: 1440, fit: 'fill' },
-                                             '4k': { w: 3840, h: 2160, fit: 'fill' }
-                                           },
-                                           { acceptMediaTypes: this.$store?.state?.http?.acceptMediaTypes }
+          this.contentfulResponsiveBackgroundImageCSSVars(this.backgroundImage.image,
+                                                          {
+                                                            small: { w: 576, h: 896, fit: 'fill' },
+                                                            medium: { w: 768, h: 1080, fit: 'fill' },
+                                                            large: { w: 992, h: 1080, fit: 'fill' },
+                                                            xl: { w: 1200, h: 1080, fit: 'fill' },
+                                                            xxl: { w: 1440, h: 1080, fit: 'fill' },
+                                                            xxxl: { w: 1920, h: 1080, fit: 'fill' },
+                                                            wqhd: { w: 2560, h: 1440, fit: 'fill' },
+                                                            '4k': { w: 3840, h: 2160, fit: 'fill' }
+                                                          }
           );
       }
     }

@@ -17,9 +17,14 @@
 </template>
 
 <script>
-  import { urlIsContentfulAsset, optimisedSrcForContentfulAsset } from '@/plugins/contentful-utils';
+  import contentfulAssetsMixin from '@/mixins/contentful/assets';
+
   export default {
     name: 'OptimisedImage',
+
+    mixins: [
+      contentfulAssetsMixin
+    ],
 
     props: {
       src: {
@@ -71,13 +76,12 @@
       },
 
       optimisedSrc() {
-        if (typeof this.contentType !== 'string' || !urlIsContentfulAsset(this.src)) {
+        if (typeof this.contentType !== 'string' || !this.urlIsContentfulAsset(this.src)) {
           return this.src;
         }
-        return optimisedSrcForContentfulAsset(
+        return this.optimisedSrcForContentfulAsset(
           { url: this.src, contentType: this.contentType },
-          { w: this.maxWidth, q: this.quality },
-          { acceptMediaTypes: this.$store?.state?.http?.acceptMediaTypes }
+          { w: this.maxWidth, q: this.quality }
         );
       }
     }

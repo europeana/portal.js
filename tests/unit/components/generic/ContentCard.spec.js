@@ -188,27 +188,28 @@ describe('components/generic/ContentCard', () => {
         const wrapper = factory();
         await wrapper.setProps({ imageUrl: 'https://example.org' });
 
-        const image =  wrapper.find('[data-qa="content card"] .card-img img');
+        const image = wrapper.find('[data-qa="content card"] .card-img img');
         expect(image).toBeDefined();
         expect(image.attributes('src')).toBe('https://example.org');
       });
 
-      it('may have an optimised image', async() => {
-        const wrapper = factory();
-        await wrapper.setProps({ imageUrl: '//images.ctfassets.net/example/example.jpg', imageContentType: 'image/jpeg' });
+      it('may have an optimised image', () => {
+        const wrapper = factory({ propsData: {
+          imageUrl: 'https://images.ctfassets.net/example/example.jpg',
+          imageContentType: 'image/jpeg'
+        } });
 
-        expect(wrapper.vm.optimisedImageUrl).toContain('fm=jpg&fl=progressive&q=50');
+        expect(wrapper.vm.optimisedImageUrl).toContain('fm=jpg&fl=progressive&q=80');
       });
 
-      it('may have an optimised image with max width', async() => {
-        const wrapper = factory();
-        await wrapper.setProps({
-          imageUrl: '//images.ctfassets.net/example/example.jpg',
+      it('may have an optimised image with max width', () => {
+        const wrapper = factory({ propsData: {
+          imageUrl: 'https://images.ctfassets.net/example/example.jpg',
           imageContentType: 'image/jpeg',
           imageOptimisationOptions: { width: 510 }
-        });
+        } });
 
-        expect(wrapper.vm.optimisedImageUrl).toContain('fm=jpg&fl=progressive&q=50&w=510');
+        expect(wrapper.vm.optimisedImageUrl).toContain('w=510&fm=jpg&fl=progressive&q=80');
       });
 
       it('may have no image and is of variant mini', async() => {

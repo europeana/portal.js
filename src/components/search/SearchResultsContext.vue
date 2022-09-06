@@ -67,9 +67,9 @@
   import RemovalChip from './RemovalChip';
   import { entityParamsFromUri } from '@/plugins/europeana/entity';
   import themes from '@/plugins/europeana/themes';
+  import contentfulAssetsMixin from '@/mixins/contentful/assets';
   import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
   import { mapState } from 'vuex';
-  import { urlIsContentfulAsset, optimisedSrcForContentfulAsset } from '@/plugins/contentful-utils';
 
   export default {
     name: 'SearchResultsContext',
@@ -79,6 +79,7 @@
     },
 
     mixins: [
+      contentfulAssetsMixin,
       europeanaEntitiesOrganizationsMixin
     ],
 
@@ -117,11 +118,10 @@
           this.entity?.prefLabel;
       },
       entityImage() {
-        if (this.editorialOverrides?.image && urlIsContentfulAsset(this.editorialOverrides.image.url)) {
-          return optimisedSrcForContentfulAsset(
+        if (this.editorialOverrides?.image && this.urlIsContentfulAsset(this.editorialOverrides.image.url)) {
+          return this.optimisedSrcForContentfulAsset(
             this.editorialOverrides.image,
-            { w: 28, h: 28, fit: 'thumb' },
-            { acceptMediaTypes: this.$store?.state?.http?.acceptMediaTypes }
+            { w: 28, h: 28, fit: 'thumb' }
           );
         }
         return this.$apis.entity.imageUrl(this.entity);

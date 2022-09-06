@@ -107,10 +107,10 @@
 <script>
   import ClientOnly from 'vue-client-only';
   import SmartLink from './SmartLink';
-  import stripMarkdown from '@/mixins/stripMarkdown';
+  import contentfulAssetsMixin from '@/mixins/contentful/assets';
+  import stripMarkdownMixin from '@/mixins/stripMarkdown';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
   import themes from '@/plugins/europeana/themes';
-  import { urlIsContentfulAsset, optimisedSrcForContentfulAsset } from '@/plugins/contentful-utils';
 
   export default {
     name: 'ContentCard',
@@ -122,7 +122,8 @@
     },
 
     mixins: [
-      stripMarkdown
+      contentfulAssetsMixin,
+      stripMarkdownMixin
     ],
 
     props: {
@@ -376,13 +377,12 @@
       },
 
       optimisedImageUrl() {
-        if (!urlIsContentfulAsset(this.imageUrl)) {
+        if (!this.urlIsContentfulAsset(this.imageUrl)) {
           return this.imageUrl;
         }
-        return optimisedSrcForContentfulAsset(
-          { url: this.imageUrl },
-          {},
-          { acceptMediaTypes: this.$store?.state?.http?.acceptMediaTypes }
+        return this.optimisedSrcForContentfulAsset(
+          { url: this.imageUrl, contentType: this.imageContentType },
+          { w: this.imageOptimisationOptions?.width }
         );
       }
     },
