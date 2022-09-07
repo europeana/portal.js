@@ -106,7 +106,8 @@ const factory = () => shallowMountNuxt(page, {
     $auth: {
       loggedIn: false
     },
-    asyncData: () => true
+    asyncData: () => true,
+    $fetchState: {}
   }
 });
 

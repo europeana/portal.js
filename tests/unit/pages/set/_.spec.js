@@ -81,6 +81,11 @@ const factory = (options = {}) => shallowMountNuxt(page, {
       thumbnail: {
         edmPreview: () => ''
       }
+    },
+    $nuxt: {
+      context: {
+        res: {}
+      }
     }
   },
   stubs: ['SetRecommendations']
@@ -96,6 +101,43 @@ describe('SetPage', () => {
       await wrapper.vm.fetch();
 
       expect(storeDispatch.calledWith('set/fetchActive', '123')).toBe(true);
+    });
+
+    describe('on errors', () => {
+      it('set the status code on SSRs', async() => {
+        const wrapper = factory();
+        process.server = true;
+        wrapper.vm.$store.dispatch = sinon.stub().throws(() => new Error('Internal Server Error'));
+
+        let error;
+        try {
+          await wrapper.vm.fetch();
+        } catch (e) {
+          error = e;
+        }
+
+        expect(wrapper.vm.$nuxt.context.res.statusCode).toBe(500);
+        expect(error.message).toBe('Internal Server Error');
+      });
+
+      it('displays an illustrated error message for 403 status', async() => {
+        const unauthorisedError = { statusCode: 403, message: 'Unauthorised' };
+        const wrapper = factory();
+        process.server = true;
+        wrapper.vm.$store.dispatch = sinon.stub().throws(() => unauthorisedError);
+        wrapper.vm.$fetchState.error = unauthorisedError;
+
+        let error;
+        try {
+          await wrapper.vm.$fetch();
+        } catch (e) {
+          error = e;
+        }
+
+        expect(wrapper.vm.$nuxt.context.res.statusCode).toBe(403);
+        expect(error.titlePath).toBe('errorMessage.galleryUnauthorised.title');
+        expect(error.illustrationSrc).toBe('il-gallery-unauthorised.svg');
+      });
     });
   });
 
@@ -131,19 +173,20 @@ describe('SetPage', () => {
     });
 
     describe('when something goes wrong while fetching the set', () => {
-      const wrapper = factory({ fetchState: { error: { message: 'Something went wrong' } } });
+      const wrapper = factory({ fetchState: { error: { statusCode: 403, message: 'Something went wrong' } } });
 
-      it('shows an alert message', async() => {
-        const alertMessage = wrapper.find('[data-qa="alert message container"]');
+      it('shows an error message', async() => {
+        const errorMessage = wrapper.find('[data-qa="error message container"]');
 
-        expect(alertMessage.exists()).toBe(true);
+        expect(errorMessage.exists()).toBe(true);
       });
+
       it('sets the head title and meta tag titles', () => {
         const headTitle = wrapper.vm.head().title;
         const headMeta = wrapper.vm.head().meta;
 
         expect(headTitle).toEqual('error');
-        expect(headMeta.find(meta => meta.name === 'title').content).toEqual('error');
+        expect(headMeta.find(meta => meta.name === 'title').content).toBe('error');
       });
     });
 

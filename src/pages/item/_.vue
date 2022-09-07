@@ -17,9 +17,9 @@
       v-else-if="$fetchState.error"
       data-qa="error message container"
       :error="$fetchState.error.message"
-      title-path="errorMessage.itemNotFound.title"
-      description-path="errorMessage.itemNotFound.description"
-      :illustration-src="require('@/assets/img/illustrations/il-item-not-found.svg')"
+      :title-path="$fetchState.error.titlePath"
+      :description-path="$fetchState.error.descriptionPath"
+      :illustration-src="$fetchState.error.illustrationSrc"
     />
     <template
       v-else
@@ -192,6 +192,12 @@
         if (process.server) {
           this.$nuxt.context.res.statusCode = error.statusCode || 500;
         }
+        if (error.statusCode === 404) {
+          error.titlePath = 'errorMessage.itemNotFound.title';
+          error.descriptionPath = 'errorMessage.itemNotFound.description';
+          error.metaTitlePath = 'errorMessage.itemNotFound.metaTitle';
+          error.illustrationSrc = require('@/assets/img/illustrations/il-item-not-found.svg');
+        }
         throw error;
       }
     },
@@ -276,7 +282,7 @@
       },
       metaTitle() {
         if (this.$fetchState.error) {
-          return this.$t('errorMessage.itemNotFound.metaTitle');
+          return this.$t(this.$fetchState.error.metaTitlePath ? this.$fetchState.error.metaTitlePath : 'error');
         } else if (this.titlesInCurrentLanguage[0]) {
           return this.titlesInCurrentLanguage[0].value;
         } else {
