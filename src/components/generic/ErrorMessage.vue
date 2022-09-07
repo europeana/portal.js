@@ -82,6 +82,10 @@
     @media (min-width: $bp-extralarge) {
       max-width: 75%;
     }
+
+    @media (min-width: $bp-xxxl) {
+      padding-bottom: 1vw;
+    }
   }
 
   .notification {
@@ -100,6 +104,11 @@
       align-items: center;
       justify-content: space-between;
     }
+
+    @media (min-width: $bp-xxxl) {
+      padding-top: 5vw;
+      padding-bottom: 5vw;
+    }
   }
 
   section {
@@ -116,9 +125,26 @@
       width: 42%;
     }
 
+    @media (min-width: $bp-small) {
+      font-size: 1.375rem;
+    }
+
+    @media (min-width: $bp-xxxl) {
+      font-size: 1.375vw;
+    }
+
     h1 {
       color: $mediumgrey;
       font-weight: 700;
+      font-size: 2rem;
+
+      @media (min-width: $bp-small) {
+        font-size: 2.375rem;
+      }
+
+      @media (min-width: $bp-xxxl) {
+        font-size: 2.375vw;
+      }
     }
   }
 
