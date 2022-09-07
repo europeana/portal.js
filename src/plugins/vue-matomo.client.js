@@ -32,8 +32,8 @@ export const trackSiteSearch = (store) => (to) => {
 function waitForMatomo() {
   const that = this;
 
-  return new Promise(function(resolve, reject) {
-    function attempt(counter = 0) {
+  return new Promise((resolve, reject) => {
+    const attempt = (counter = 0) => {
       if (counter >= 10) {
         return reject('No Matomo');
       } else if (that.$matomo) {
@@ -41,7 +41,7 @@ function waitForMatomo() {
       } else {
         return setTimeout(() => attempt(counter + 1), 200);
       }
-    }
+    };
     return attempt();
   });
 }

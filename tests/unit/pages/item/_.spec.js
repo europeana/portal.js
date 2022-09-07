@@ -61,6 +61,7 @@ const factory = ({ mocks = {} } = {}) => shallowMountNuxt(page, {
       }
     },
     $fetchState: {},
+    $waitForMatomo: () => Promise.resolve(),
     $matomo: {
       trackPageView: sinon.spy()
     },
@@ -141,7 +142,7 @@ describe('pages/item/_.vue', () => {
     describe('on server-side request', () => {
       it('does not send custom dimensions to Matomo', async() => {
         process.client = false;
-        const wrapper = factory();
+        const wrapper = await factory();
         sinon.resetHistory();
 
         await wrapper.vm.fetch();
@@ -155,8 +156,8 @@ describe('pages/item/_.vue', () => {
     describe('when fetch is still pending', () => {
       const $fetchState = { pending: true };
 
-      it('does not send custom dimensions to Matomo', () => {
-        const wrapper = factory({ mocks: { $fetchState } });
+      it('does not send custom dimensions to Matomo', async() => {
+        const wrapper = await factory({ mocks: { $fetchState } });
 
         expect(wrapper.vm.$matomo.trackPageView.called).toBe(false);
       });
@@ -165,8 +166,8 @@ describe('pages/item/_.vue', () => {
     describe('when fetch errored', () => {
       const $fetchState = { pending: false, error: { message: 'Item not found' } };
 
-      it('does not send custom dimensions to Matomo', () => {
-        const wrapper = factory({ mocks: { $fetchState } });
+      it('does not send custom dimensions to Matomo', async() => {
+        const wrapper = await factory({ mocks: { $fetchState } });
 
         expect(wrapper.vm.$matomo.trackPageView.called).toBe(false);
       });
@@ -175,8 +176,8 @@ describe('pages/item/_.vue', () => {
     describe('when fetch completed without error', () => {
       const $fetchState = { pending: false };
 
-      it('sends custom dimensions to Matomo', () => {
-        const wrapper = factory({ mocks: { $fetchState } });
+      it('sends custom dimensions to Matomo', async() => {
+        const wrapper = await factory({ mocks: { $fetchState } });
 
         expect(wrapper.vm.$matomo.trackPageView.calledWith(
           'item page custom dimensions',

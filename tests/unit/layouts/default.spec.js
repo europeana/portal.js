@@ -52,6 +52,7 @@ const factory = (options = {}) => shallowMountNuxt(layout, {
     $route: {
       query: {}
     },
+    $waitForMatomo: () => Promise.resolve(),
     $matomo: {
       trackEvent: () => {}
     },
@@ -93,14 +94,20 @@ describe('layouts/default.vue', () => {
     };
 
     describe('renderKlaro', () => {
-      it('renders Klaro', () => {
-        factory({ data: { klaro: klaroMock } });
+      it('renders Klaro', async() => {
+        const wrapper = factory();
+        await wrapper.setData({ klaro: klaroMock });
+
+        await wrapper.vm.renderKlaro();
 
         expect(klaroMock.render.called).toBe(true);
       });
 
-      it('registers Klaro manager update watcher', () => {
-        const wrapper = factory({ data: { klaro: klaroMock } });
+      it('registers Klaro manager update watcher', async() => {
+        const wrapper = factory();
+        await wrapper.setData({ klaro: klaroMock });
+
+        await wrapper.vm.renderKlaro();
 
         expect(klaroManagerStub.watch.calledWith({ update: wrapper.vm.watchKlaroManagerUpdate })).toBe(true);
       });
