@@ -1,6 +1,17 @@
-import assets from '@/modules/contentful/assets';
+import assets from '@/modules/contentful/templates/assets';
 
-describe('mixins/contentful/assets', () => {
+const responsiveParams = {
+  small: { w: 245, h: 440, fit: 'fill' },
+  medium: { w: 260, h: 420, fit: 'fill' },
+  large: { w: 280, h: 400, fit: 'fill' },
+  xl: { w: 300, h: 400, fit: 'fill' },
+  xxl: { w: 320, h: 370, fit: 'fill' },
+  xxxl: { w: 355, h: 345, fit: 'fill' },
+  wqhd: { w: 510, h: 540, fit: 'fill' },
+  '4k': { w: 700, h: 900, fit: 'fill' }
+};
+
+describe('mixins/contentful/templates/assets', () => {
   describe('methods', () => {
     describe('isValidUrl', () => {
       it('is `true` for URLs on host images.ctfassets.net', () => {
@@ -14,9 +25,23 @@ describe('mixins/contentful/assets', () => {
 
         expect(assets().isValidUrl(src)).toBe(false);
       });
+
+      it('is `false` for non-URLs', () => {
+        const src = 'image.jpeg';
+
+        expect(assets().isValidUrl(src)).toBe(false);
+      });
     });
 
     describe('optimisedSrc', () => {
+      it('is `null` if no asset passed', () => {
+        expect(assets().optimisedSrc(null)).toBe(null);
+      });
+
+      it('is `null` if asset has no URL', () => {
+        expect(assets().optimisedSrc({ contentType: 'image/jpeg' })).toBe(null);
+      });
+
       it('favours WebP if accepted and format not specified', () => {
         const store = { state: { contentful: { acceptedMediaTypes: ['text/html', 'image/apng', 'image/webp'] } } };
 
@@ -26,6 +51,18 @@ describe('mixins/contentful/assets', () => {
         };
 
         expect(assets({ store }).optimisedSrc(asset)).toBe('https://images.ctfassets.net/asset.jpeg?fm=webp&q=40');
+      });
+
+      it('respects supplied quality param for WebP', () => {
+        const store = { state: { contentful: { acceptedMediaTypes: ['text/html', 'image/apng', 'image/webp'] } } };
+
+        const asset = {
+          url: 'https://images.ctfassets.net/asset.jpeg',
+          contentType: 'image/jpeg'
+        };
+        const params = { q: 50 };
+
+        expect(assets({ store }).optimisedSrc(asset, params)).toBe('https://images.ctfassets.net/asset.jpeg?q=50&fm=webp');
       });
 
       it('compresses jpegs', () => {
@@ -56,6 +93,43 @@ describe('mixins/contentful/assets', () => {
       });
     });
 
+    describe('responsiveImageSrcset', () => {
+      describe('when a Contentful asset and params are available', () => {
+        it('returns image srcset for all breakpoints', () => {
+          const asset = {
+            url: 'https://images.ctfassets.net/asset.jpeg',
+            contentType: 'image/jpeg'
+          };
+
+          const srcset = assets().responsiveImageSrcset(asset, responsiveParams);
+          expect(srcset).toContain('https://images.ctfassets.net/asset.jpeg?w=245&h=440&fit=fill&fm=jpg&fl=progressive&q=80 245w');
+        });
+      });
+
+      describe('when a Contentful asset, but no params are available', () => {
+        it('returns `null`', () => {
+          const asset = {
+            url: 'https://images.ctfassets.net/asset.jpeg',
+            contentType: 'image/jpeg'
+          };
+
+          const srcset = assets().responsiveImageSrcset(asset);
+
+          expect(srcset).toBe(null);
+        });
+      });
+
+      describe('when not a Contentful asset', () => {
+        it('returns `null`', () => {
+          const asset = 'image.jpeg';
+
+          const srcset = assets().responsiveImageSrcset(asset);
+
+          expect(srcset).toBe(null);
+        });
+      });
+    });
+
     describe('responsiveBackgroundImageCSSVars', () => {
       describe('when a Contentful asset and params are available', () => {
         it('returns style definitions for all breakpoints', () => {
@@ -63,17 +137,8 @@ describe('mixins/contentful/assets', () => {
             url: 'https://images.ctfassets.net/asset.jpeg',
             contentType: 'image/jpeg'
           };
-          const params =
-            { small: { w: 245, h: 440, fit: 'fill' },
-              medium: { w: 260, h: 420, fit: 'fill' },
-              large: { w: 280, h: 400, fit: 'fill' },
-              xl: { w: 300, h: 400, fit: 'fill' },
-              xxl: { w: 320, h: 370, fit: 'fill' },
-              xxxl: { w: 355, h: 345, fit: 'fill' },
-              wqhd: { w: 510, h: 540, fit: 'fill' },
-              '4k': { w: 700, h: 900, fit: 'fill' } };
 
-          const variables = assets().responsiveBackgroundImageCSSVars(asset, params);
+          const variables = assets().responsiveBackgroundImageCSSVars(asset, responsiveParams);
           expect(variables['--bg-img-4k']).toBeTruthy();
         });
       });
