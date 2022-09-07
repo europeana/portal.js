@@ -8,10 +8,16 @@
     <template #count>
       {{ totalResultsLocalised }}
     </template>
-    <template #type>
+    <template
+      #type
+      v-if="hasEntity"
+    >
       {{ entityTypeLabel }}
     </template>
-    <template #collection>
+    <template
+      #collection
+      v-if="hasEntity"
+    >
       <RemovalChip
         :title="entityLabel"
         :link-to="entityRemovalLink"
