@@ -2,7 +2,7 @@
   <div class="error-container gridless-container responsive-font">
     <div
       v-if="illustrationSrc || titlePath || descriptionPath"
-      class="d-flex flex-wrap flex-sm-nowrap align-items-center justify-content-between"
+      class="notification d-flex"
     >
       <b-img
         v-if="illustrationSrc"
@@ -11,7 +11,7 @@
       />
       <section
         v-if="titlePath || descriptionPath"
-        class="mt-4 text-center text-sm-left"
+        class="mt-4"
       >
         <i18n
           v-if="titlePath"
@@ -31,7 +31,6 @@
       </section>
     </div>
     <AlertMessage
-      class="mt-5"
       :error="error"
     />
   </div>
@@ -72,8 +71,7 @@
   @import '@/assets/scss/variables';
 
   .error-container {
-    padding-top: 5rem;
-    padding-bottom: 5rem;
+    padding-bottom: 1rem;
     margin-left: auto;
     margin-right: auto;
 
@@ -82,28 +80,40 @@
     }
 
     @media (min-width: $bp-extralarge) {
-      padding-top: 10rem;
-      padding-bottom: 12rem;
       max-width: 75%;
     }
+  }
 
-    @media (min-width: $bp-xxxl) {
-      padding-top: 10vw;
-      padding-bottom: 12vw;
+  .notification {
+    min-height: 100vh;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+
+    @media (orientation: portrait) {
+      flex-wrap: wrap;
+      align-content: center;
+      justify-content: center;
+    }
+
+    @media (orientation: landscape) {
+      flex-wrap: nowrap;
+      align-items: center;
+      justify-content: space-between;
     }
   }
 
   section {
     width: 100%;
     color: $mediumgrey-light;
+    max-width: 35em;
 
-    @media (min-width: $bp-small) {
-      height: auto;
-      width: 42%;
+    @media (orientation: portrait) {
+      text-align: center;
     }
 
-    @media (min-width: $bp-xxxl) {
-      max-width: 35em;
+    @media (orientation: landscape) {
+      height: auto;
+      width: 42%;
     }
 
     h1 {
@@ -118,8 +128,11 @@
     width: 75%;
 
     @media (min-width: $bp-small) {
-      margin: 0;
       width: 52%;
+    }
+
+    @media (orientation: landscape) {
+      margin: 0;
     }
   }
 
