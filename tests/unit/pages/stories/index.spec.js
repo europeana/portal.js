@@ -42,7 +42,7 @@ const storiesMinimalContentfulResponse = {
     data: {
       blogPostingCollection: {
         items: [
-          { date: '2022-02-12T08:00:00.000+01:00', sys: { id: '796f5YKe4b1u8uXtizSBu0' }, cats: { items: [{ id: '3d' }] } }
+          { date: '2022-02-12T08:00:00.000+01:00', sys: { id: '796f5YKe4b1u8uXtizSBu0' }, cats: { items: [{ id: '3d' }, null] } }
         ]
       },
       exhibitionPageCollection: {

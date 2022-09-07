@@ -52,6 +52,14 @@ describe('components/related/RelatedCategoryTags', () => {
         expect(badges.length).toBe(tags.length);
       });
 
+      it('excludes null tags', () => {
+        const wrapper = factory({ propsData: { tags: tags.concat([null]) } });
+
+        const badges = wrapper.findAll('b-badge-stub');
+
+        expect(badges.length).toBe(tags.length);
+      });
+
       describe('clicking the badge', () => {
         it('tracks selecting tag', () => {
           const wrapper = factory({ propsData: { tags } });
