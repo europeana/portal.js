@@ -1,18 +1,23 @@
 .page-footer {
-  background: $midnight;
-  color: $white;
-  position: relative;
+  filter: drop-shadow(20px 12px $innovationblue);
 
-  &::after {
-    border-top: 145px solid $bodygrey;
-    border-left: 60px solid transparent;
-    content: '';
-    display: block;
-    height: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 0;
+  @media (min-width: $bp-xxxl) {
+    filter: drop-shadow(1.25vw 0.75vw $innovationblue);
+  }
+
+  .footer-wrapper {
+    background: $black;
+    color: $white;
+    position: relative;
+    width: calc(100% - 20px);
+    margin-bottom: 12px;
+    clip-path: polygon(0 0, calc(100% - 95px) 0, 100% 209px, 100% 100%, 0 100%);
+
+    @media (min-width: $bp-xxxl) {
+      width: calc(100% - 1.25vw);
+      margin-bottom: 0.75vw;
+      clip-path: polygon(0 0, calc(100% - calc(95 / 16 * 1vw)) 0, 100% calc(209 / 16 * 1vw), 100% 100%, 0 100%);
+    }
   }
 
   .group-title {
@@ -87,7 +92,7 @@
           }
 
           .footer-link-icon {
-            color: $midnight;
+            color: $black;
             font-size: 1.5rem;
           }
         }
