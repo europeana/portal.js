@@ -15,26 +15,13 @@ const graphqlQueries = graphqlPaths.reduce((memo, graphqlPath) => {
 }, {});
 
 module.exports = function() {
-  this.addTemplate({
-    src: path.resolve(__dirname, path.join('templates', 'queries.ejs')),
-    fileName: path.join(MODULE_NAME, 'queries.js'),
-    options: graphqlQueries
-  });
-
-  this.addTemplate({
-    src: path.resolve(__dirname, path.join('assets.js')),
-    fileName: path.join(MODULE_NAME, 'assets.js')
-  });
-
-  this.addTemplate({
-    src: path.resolve(__dirname, path.join('query.js')),
-    fileName: path.join(MODULE_NAME, 'query.js')
-  });
-
-  this.addTemplate({
-    src: path.resolve(__dirname, path.join('store.js')),
-    fileName: path.join(MODULE_NAME, 'store.js')
-  });
+  for (const template of ['queries.ejs', 'assets.js', 'query.js', 'store.js']) {
+    this.addTemplate({
+      src: path.resolve(__dirname, path.join('templates', template)),
+      fileName: path.join(MODULE_NAME, template.replace('.ejs', '.js')),
+      options: graphqlQueries
+    });
+  }
 
   this.addPlugin({
     src: path.resolve(__dirname, 'plugin.js'),

@@ -12,6 +12,7 @@ export default ({ store } = {}) => ({
   },
 
   optimisedSrc(asset, params = {}) {
+    // TODO: use isValidUrl here?
     if (!asset?.url) {
       return null;
     }
@@ -38,7 +39,7 @@ export default ({ store } = {}) => ({
   },
 
   responsiveImageSrcset(image, params) {
-    if (image?.url && this.isValidUrl(image.url) && params) {
+    if (this.isValidUrl(image?.url) && params) {
       return [
         `${this.optimisedSrc(image, params.small)} ${params.small.w}w`,
         `${this.optimisedSrc(image, params.medium)} ${params.medium.w}w`,
@@ -49,8 +50,6 @@ export default ({ store } = {}) => ({
         `${this.optimisedSrc(image, params.wqhd)} ${params.wqhd.w}w`,
         `${this.optimisedSrc(image, params['4k'])} ${params['4k'].w}w`
       ].join(',');
-    } else if (image?.url) {
-      return image.url;
     } else {
       return null;
     }
