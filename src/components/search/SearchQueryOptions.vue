@@ -128,7 +128,7 @@
     border-radius: 0;
     box-shadow: none;
     padding: 1rem 1.25rem 1rem 3.4rem;
-    color: $black;
+    color: $greyblack;
     font-size: 1rem;
     text-decoration: none;
     text-align: left;

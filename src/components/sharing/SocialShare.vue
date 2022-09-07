@@ -69,9 +69,9 @@
   a {
     align-items: center;
     background: transparent;
-    border: 1px solid $black;
+    border: 1px solid $greyblack;
     border-radius: 50%;
-    color: $black;
+    color: $greyblack;
     display: inline-flex;
     height: calc(2.5rem - 1px);
     justify-content: center;
@@ -80,12 +80,12 @@
     width: calc(2.5rem - 1px);
 
     [class^='icon'] {
-      color: $black;
+      color: $greyblack;
       font-size: $font-size-medium;
     }
 
     &:hover {
-      background: $black;
+      background: $greyblack;
 
       [class^='icon'] {
         color: $white;

@@ -151,7 +151,7 @@
 
     &:last-of-type {
       background-color: $offwhite;
-      color: $black;
+      color: $greyblack;
       margin-bottom: 0;
 
       &::after {

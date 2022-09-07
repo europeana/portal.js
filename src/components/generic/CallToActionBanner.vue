@@ -91,8 +91,8 @@
     margin-bottom: 2em;
     font-size: 1rem;
     border-radius: 0.25em;
-    border: 0.25em solid $black;
-    box-shadow: 0.75em 0.75em 0 0 $black;
+    border: 0.25em solid $greyblack;
+    box-shadow: 0.75em 0.75em 0 0 $greyblack;
 
     @media (min-width: $bp-xxxl) {
       font-size: 1vw;
@@ -135,8 +135,8 @@
     .btn-primary.btn-cta {
       margin-bottom: 0;
       text-transform: none;
-      border: 0.1875em solid $black;
-      box-shadow: 0.25em 0.25em 0 0 $black;
+      border: 0.1875em solid $greyblack;
+      box-shadow: 0.25em 0.25em 0 0 $greyblack;
       font-weight: 700;
       padding: 0.5em 1em;
       border-radius: 0.25em;
@@ -164,7 +164,7 @@
 
       .btn-primary.btn-cta {
         background-color: $yellowgrey;
-        color: $black;
+        color: $greyblack;
 
         &:hover {
           background-color: $white;
