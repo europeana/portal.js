@@ -967,13 +967,16 @@ export default {
   "removeFilter": "Remove {filterLabel} filter",
   "reset": "Reset",
   "resourceWikimedia": "Resource from Wikimedia Commons",
-  "results": "Results",
-  "resultsFor": "Results for {0}",
-  "resultsLimitWarning": "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
-  "resultsWithin": "Results within {0} {1} for {2}",
   "search": {
     "boost": {
       "placeholder": "Enter field boosting query"
+    },
+    "results": {
+      "forQuery": "{count} results for {query}",
+      "limitWarning": "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
+      "withinCollection": "{count} results within {type} {collection}",
+      "withinCollectionForQuery": "{count} results within {type} {collection} for {query}",
+      "withoutQuery": "{count} results"
     },
     "title": "Search"
   },

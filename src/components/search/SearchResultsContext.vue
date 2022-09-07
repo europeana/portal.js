@@ -1,66 +1,35 @@
 <template>
-  <h1
+  <i18n
+    :path="i18nPath"
+    tag="h1"
     class="context-label"
     data-qa="context label"
   >
-    <template
-      v-if="hasEntity"
-    >
-      <i18n
-        v-if="hasQuery"
-        path="resultsWithin"
-        :tag="false"
-      >
-        {{ entityTypeLabel }}
-        <RemovalChip
-          :title="entityLabel"
-          :link-to="entityRemovalLink"
-          :img="entityImage"
-          :type="entity.type"
-          data-qa="entity removal badge"
-          class="mt-1 mx-1"
-        />
-        <RemovalChip
-          :title="query"
-          :link-to="queryRemovalLink"
-          data-qa="query removal badge"
-          class="mt-1 mx-1"
-        />
-      </i18n>
-      <span
-        v-else
-      >
-        {{ entityTypeLabel }}
-        <RemovalChip
-          :title="entityLabel"
-          :link-to="entityRemovalLink"
-          :img="entityImage"
-          :type="entity.type"
-          data-qa="entity removal badge"
-          class="mt-1 mx-1"
-        />
-      </span>
+    <template #count>
+      {{ totalResultsLocalised }}
     </template>
-    <template
-      v-else
-    >
-      <i18n
-        v-if="hasQuery"
-        path="resultsFor"
-        :tag="false"
-      >
-        <RemovalChip
-          :title="query"
-          :link-to="queryRemovalLink"
-          data-qa="query removal badge"
-          class="mt-1 mx-1"
-        />
-      </i18n>
-      <template v-else>
-        {{ $t('results') }}
-      </template>
+    <template #type>
+      {{ entityTypeLabel }}
     </template>
-  </h1>
+    <template #collection>
+      <RemovalChip
+        :title="entityLabel"
+        :link-to="entityRemovalLink"
+        :img="entityImage"
+        :type="entity.type"
+        data-qa="entity removal badge"
+        class="mt-1 mx-1"
+      />
+    </template>
+    <template #query>
+      <RemovalChip
+        :title="query"
+        :link-to="queryRemovalLink"
+        data-qa="query removal badge"
+        class="mt-1 mx-1"
+      />
+    </template>
+  </i18n>
 </template>
 
 <script>
@@ -103,8 +72,25 @@
     computed: {
       ...mapState({
         query: state => state.search.userParams.query,
-        entity: state => state.entity?.entity
+        entity: state => state.entity?.entity,
+        totalResults: state => state.search.totalResults
       }),
+      i18nPath() {
+        if (this.hasEntity) {
+          if (this.hasQuery) {
+            return 'search.results.withinCollectionForQuery';
+          } else {
+            return 'search.results.withinCollection';
+          }
+        } else if (this.hasQuery) {
+          return 'search.results.forQuery';
+        } else {
+          return 'search.results.withoutQuery';
+        }
+      },
+      totalResultsLocalised() {
+        return this.$options.filters.localise(this.totalResults);
+      },
       hasQuery() {
         return this.query && this.query !== '';
       },

@@ -85,7 +85,7 @@
                       <InfoMessage
                         v-show="lastAvailablePage"
                       >
-                        {{ $t('resultsLimitWarning') }}
+                        {{ $t('search.results.limitWarning') }}
                       </InfoMessage>
                     </template>
                   </b-col>
