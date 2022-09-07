@@ -34,12 +34,12 @@ function waitForMatomo() {
 
   return new Promise((resolve, reject) => {
     const attempt = (counter = 0) => {
-      if (counter >= 10) {
+      if (counter >= 20) {
         return reject('No Matomo');
       } else if (that.$matomo) {
         return resolve();
       } else {
-        return setTimeout(() => attempt(counter + 1), 200);
+        return setTimeout(() => attempt(counter + 1), 100);
       }
     };
     return attempt();
