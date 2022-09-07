@@ -29,7 +29,24 @@ export const trackSiteSearch = (store) => (to) => {
   return siteSearch;
 };
 
-export default ({ app, $config: { matomo: { host, siteId } }, store }) => {
+function waitForMatomo() {
+  const that = this;
+
+  return new Promise(function(resolve, reject) {
+    function attempt(counter = 0) {
+      if (counter >= 10) {
+        return reject('No Matomo');
+      } else if (that.$matomo) {
+        return resolve();
+      } else {
+        return setTimeout(() => attempt(counter + 1), 200);
+      }
+    }
+    return attempt();
+  });
+}
+
+export default ({ app, $config: { matomo: { host, siteId } }, store }, inject) => {
   if (!host || !siteId) {
     return;
   }
@@ -42,4 +59,6 @@ export default ({ app, $config: { matomo: { host, siteId } }, store }) => {
     trackSiteSearch: trackSiteSearch(store),
     requireCookieConsent: true
   });
+
+  inject('waitForMatomo', waitForMatomo);
 };

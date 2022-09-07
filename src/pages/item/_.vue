@@ -324,23 +324,11 @@
     mounted() {
       this.fetchAnnotations();
       if (!this.$fetchState.error && !this.$fetchState.pending) {
-        this.timeoutUntilPiwikSet();
+        this.$waitForMatomo().then(this.trackCustomDimensions).catch(() => {});
       }
     },
 
     methods: {
-      // We need to give the async loading of the Matomo JS from the Matomo server
-      // time to happen before trying to track custom dimensions.
-      timeoutUntilPiwikSet(counter) {
-        if (this.$matomo || counter > 100) {
-          this.trackCustomDimensions();
-        } else {
-          setTimeout(() => {
-            this.timeoutUntilPiwikSet(counter + 1);
-          }, 10);
-        }
-      },
-
       trackCustomDimensions() {
         this.$matomo && this.$matomo.trackPageView('item page custom dimensions', this.matomoOptions);
       },

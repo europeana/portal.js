@@ -165,7 +165,7 @@
     },
 
     mounted() {
-      this.timeoutUntilPiwikSet(0);
+      this.$waitForMatomo().then(this.renderKlaro).catch(() => {});
       this.klaro = window.klaro;
 
       if (this.$auth.$storage.getUniversal('portalLoggingIn') && this.$auth.loggedIn) {
@@ -210,16 +210,6 @@
 
       trackKlaroClickEvent(eventName) {
         this.$matomo && this.$matomo.trackEvent('Klaro', 'Clicked', eventName);
-      },
-
-      timeoutUntilPiwikSet(counter) {
-        if (this.$matomo || counter > 100) {
-          this.renderKlaro();
-        } else {
-          setTimeout(() => {
-            this.timeoutUntilPiwikSet(counter + 1);
-          }, 10);
-        }
       },
 
       setToastBottomOffset() {
