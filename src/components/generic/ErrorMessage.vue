@@ -17,6 +17,7 @@
           v-if="titlePath"
           tag="h1"
           :path="titlePath"
+          class="mb-4"
         >
           <template #newline>
             <br>
@@ -77,7 +78,7 @@
     margin-right: auto;
 
     @media (min-width: $bp-medium) {
-      max-width: 90%;
+      max-width: 92%;
     }
 
     @media (min-width: $bp-extralarge) {
@@ -98,7 +99,7 @@
 
     @media (min-width: $bp-small) {
       height: auto;
-      width: 50%;
+      width: 42%;
     }
 
     @media (min-width: $bp-xxxl) {
@@ -114,11 +115,11 @@
   img {
     margin: 0 auto;
     display: block;
-    width: 50%;
+    width: 75%;
 
     @media (min-width: $bp-small) {
       margin: 0;
-      width: 35%;
+      width: 52%;
     }
   }
 

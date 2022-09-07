@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div
+    :class="$fetchState.error && 'white-page'"
+  >
     <b-container
       v-if="$fetchState.pending"
       data-qa="loading spinner container"
