@@ -1,5 +1,5 @@
 import { createLocalVue } from '@vue/test-utils';
-import { mountNuxt } from '../../utils';
+import { shallowMountNuxt } from '../../utils';
 import BootstrapVue from 'bootstrap-vue';
 import ItemPreviewCardGroup from '@/components/item/ItemPreviewCardGroup.vue';
 import sinon from 'sinon';
@@ -15,7 +15,7 @@ const storeIsPinnedGetter = sinon.stub();
 const redrawMasonry = sinon.spy();
 
 const factory = ({ propsData } = {}) => {
-  return mountNuxt(ItemPreviewCardGroup, {
+  return shallowMountNuxt(ItemPreviewCardGroup, {
     localVue,
     propsData,
     mocks: {
@@ -70,40 +70,37 @@ describe('components/item/ItemPreviewCardGroup', () => {
 
   describe('template', () => {
     describe('when view is grid', () => {
-      it('renders each result with a link, and resizes the masonary grid', async() => {
+      it('renders each result as a card, and resizes the Masonry grid', async() => {
         const wrapper = factory({ propsData: { items: results, view: 'grid' } });
         await wrapper.vm.fetch();
 
-        const renderedResults =  wrapper.findAll('[data-qa="item preview"]');
+        const renderedResults = wrapper.findAll('[data-qa="item preview"]');
 
-        expect(renderedResults.at(0).find('a').attributes().href.endsWith(`/item${results[0].id}`)).toBe(true);
-        expect(renderedResults.at(1).find('a').attributes().href.endsWith(`/item${results[1].id}`)).toBe(true);
+        expect(renderedResults.length).toBe(2);
         expect(redrawMasonry.called).toBe(true);
       });
     });
 
     describe('when view is mosaic', () => {
-      it('renders each result with a link, and resizes the masonary grid', async() => {
+      it('renders each result as a card, and resizes the Masonry grid', async() => {
         const wrapper = factory({ propsData: { items: results, view: 'mosaic' } });
         await wrapper.vm.fetch();
 
-        const renderedResults =  wrapper.findAll('[data-qa="item preview"]');
+        const renderedResults = wrapper.findAll('[data-qa="item preview"]');
 
-        expect(renderedResults.at(0).find('a').attributes().href.endsWith(`/item${results[0].id}`)).toBe(true);
-        expect(renderedResults.at(1).find('a').attributes().href.endsWith(`/item${results[1].id}`)).toBe(true);
+        expect(renderedResults.length).toBe(2);
         expect(redrawMasonry.called).toBe(true);
       });
     });
 
     describe('when view is list', () => {
-      it('renders each result with a link', async() => {
+      it('renders each result as a card', async() => {
         const wrapper = factory({ propsData: { items: results, view: 'list' } });
         await wrapper.vm.fetch();
 
-        const renderedResults =  wrapper.findAll('div[data-qa="item preview"]');
+        const renderedResults = wrapper.findAll('[data-qa="item preview"]');
 
-        expect(renderedResults.at(0).find('a').attributes().href.endsWith(`/item${results[0].id}`)).toBe(true);
-        expect(renderedResults.at(1).find('a').attributes().href.endsWith(`/item${results[1].id}`)).toBe(true);
+        expect(renderedResults.length).toBe(2);
       });
     });
   });

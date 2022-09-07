@@ -1,4 +1,5 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
+import sinon from 'sinon';
 
 import SearchResultsContext from '@/components/search/SearchResultsContext.vue';
 
@@ -13,7 +14,12 @@ const factory = (options = {}) => shallowMount(SearchResultsContext, {
         imageUrl: () => ''
       }
     },
-    $t: (key) => key,
+    $contentful: {
+      assets: {
+        isValidUrl: (url) => url.includes('images.ctfassets.net'),
+        optimisedSrc: sinon.spy((img) => `${img.url}?optimised`)
+      }
+    },
     $path: (args) => args,
     $route: () => ({}),
     $store: {
@@ -22,7 +28,8 @@ const factory = (options = {}) => shallowMount(SearchResultsContext, {
         search: { userParams: {} },
         ...options.storeState
       }
-    }
+    },
+    $t: (key) => key
   },
   stubs: ['i18n']
 });
@@ -39,6 +46,8 @@ const fixtures = {
 };
 
 describe('SearchResultsContext', () => {
+  afterEach(sinon.resetHistory);
+
   describe('template', () => {
     describe('when searching within an entity collection', () => {
       const entity = {
@@ -215,14 +224,23 @@ describe('SearchResultsContext', () => {
         };
 
         const ctfImage = {
-          url: 'https://images.ctfassets.net/i01duvb6kq77/792bNsvUU5gai7bWidjZoz/1d6ce46c91d5fbcd840e8cf8bfe376a3/206_item_QCZITS4J5WNRUS7ESLVJH6PSOCRHBPMI.jpg',
+          url: 'https://images.ctfassets.net/image.jpg',
           contentType: 'image/jpeg'
         };
         const propsData = { editorialOverrides: { image: ctfImage } };
 
         const wrapper = factory({ propsData, storeState });
 
-        expect(wrapper.vm.entityImage).toEqual(ctfImage.url + '?w=28&h=28&fit=thumb&fm=jpg&fl=progressive&q=80');
+        expect(wrapper.vm.entityImage).toContain('?optimised');
+        expect(wrapper.vm.$contentful.assets.optimisedSrc.calledWith({
+          url: 'https://images.ctfassets.net/image.jpg',
+          contentType: 'image/jpeg'
+        },
+        {
+          w: 28,
+          h: 28,
+          fit: 'thumb'
+        })).toBe(true);
       });
     });
   });
