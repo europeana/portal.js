@@ -65,7 +65,9 @@ export function apiError(error, context) {
 
   if (error.response) {
     statusCode = error.response.status;
-    message = error.response.data.error;
+    if (error.response.headers['content-type'].startsWith('application/json') && error.response.data.error) {
+      message = error.response.data.error;
+    }
   }
 
   const apiError = new Error(message);
