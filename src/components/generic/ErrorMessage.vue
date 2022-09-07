@@ -1,8 +1,11 @@
 <template>
-  <div class="error-container gridless-container responsive-font">
+  <div
+    class="error-container gridless-container responsive-font"
+    :class="{'pt-5': !errorExplanationAvailable}"
+  >
     <div
-      v-if="illustrationSrc || titlePath || descriptionPath"
-      class="notification d-flex"
+      v-if="errorExplanationAvailable"
+      class="error-explanation d-flex"
     >
       <b-img
         v-if="illustrationSrc"
@@ -63,6 +66,12 @@
         type: String,
         default: null
       }
+    },
+
+    computed: {
+      errorExplanationAvailable() {
+        return this.illustrationSrc || this.titlePath || this.descriptionPath;
+      }
     }
   };
 </script>
@@ -88,7 +97,7 @@
     }
   }
 
-  .notification {
+  .error-explanation {
     min-height: 100vh;
     padding-top: 5rem;
     padding-bottom: 5rem;
