@@ -80,7 +80,10 @@
     },
     computed: {
       optimisedImageUrl() {
-        return this.$options.filters.optimisedImageUrl(this.heroImage?.image?.url, this.heroImage?.image?.imageContentType, { width: 1920 });
+        return this.$contentful.assets.optimisedSrc(
+          this.heroImage?.image,
+          { width: 1920 }
+        );
       },
       jumbotronStyle() {
         return {

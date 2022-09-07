@@ -19,7 +19,12 @@ const factory = ({
     return data;
   },
   mocks: {
-    $contentful: { query: sinon.stub().resolves(contentfulQueryResponse) },
+    $contentful: {
+      assets: {
+        optimisedSrc: (img) => `${img?.url}?optimised`
+      },
+      query: sinon.stub().resolves(contentfulQueryResponse)
+    },
     $features: {},
     $fetchState: {},
     $i18n: { isoLocale: () => 'en-GB' },
@@ -130,7 +135,7 @@ describe('IndexPage', () => {
       const headMeta = wrapper.vm.head().meta;
 
       expect(headMeta.filter(meta => meta.property === 'og:image').length).toBe(1);
-      expect(headMeta.find(meta => meta.property === 'og:image').content).toBe(socialMediaImageUrl);
+      expect(headMeta.find(meta => meta.property === 'og:image').content).toBe(`${socialMediaImageUrl}?optimised`);
     });
 
     it('uses hero image for og:image when no social media image is set', () => {
@@ -158,7 +163,7 @@ describe('IndexPage', () => {
       const headMeta = wrapper.vm.head().meta;
 
       expect(headMeta.filter(meta => meta.property === 'og:image').length).toBe(1);
-      expect(headMeta.find(meta => meta.property === 'og:image').content).toBe(heroImageUrl);
+      expect(headMeta.find(meta => meta.property === 'og:image').content).toBe(`${heroImageUrl}?optimised`);
     });
 
     it('does not set og image info when no relevant images exist', () => {

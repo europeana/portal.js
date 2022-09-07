@@ -15,6 +15,11 @@ const factory = () => mount(HeroHeader, {
   localVue,
   mocks: {
     $config: { app: { internalLinkDomain: null } },
+    $contentful: {
+      assets: {
+        optimisedSrc: (img) => `${img?.url}?optimised`
+      }
+    },
     $path: () => '/',
     $t: (key) => key
   },

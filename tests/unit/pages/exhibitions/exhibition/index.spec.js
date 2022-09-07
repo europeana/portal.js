@@ -52,6 +52,11 @@ const factory = () => shallowMountNuxt(page, {
     };
   },
   mocks: {
+    $contentful: {
+      assets: {
+        optimisedSrc: (img) => `${img?.url}?optimised`
+      }
+    },
     $t: key => key,
     $tc: () => {},
     $pageHeadTitle: key => key,
@@ -80,7 +85,7 @@ describe('exhibitionChapters mixin', () => {
     const chapterList = wrapper.vm.hasPartCollection.items;
     const currentExhibitionIdentifier = wrapper.vm.identifier;
     const linkListItems = await wrapper.vm.chapterPagesToLinkListItems(chapterList, currentExhibitionIdentifier);
-    const expectedChapterBackground = 'https://www.example.eu/image1.jpg';
+    const expectedChapterBackground = 'https://www.example.eu/image1.jpg?optimised';
 
     expect(linkListItems[0].background).toEqual(expectedChapterBackground);
   });
@@ -98,13 +103,13 @@ describe('exhibitionChapters mixin', () => {
 
 describe('Exhibition landing page', () => {
   describe('head()', () => {
-    it('uses hero image for og:image', () => {
+    it('uses optimised hero image for og:image', () => {
       const wrapper = factory();
 
       const headMeta = wrapper.vm.head().meta;
 
       expect(headMeta.filter(meta => meta.property === 'og:image').length).toBe(1);
-      expect(headMeta.find(meta => meta.property === 'og:image').content).toBe(heroImageUrl);
+      expect(headMeta.find(meta => meta.property === 'og:image').content).toBe(`${heroImageUrl}?optimised`);
     });
   });
 });

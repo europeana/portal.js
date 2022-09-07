@@ -25,9 +25,12 @@
 <script>
   import SmartLink from '../../components/generic/SmartLink';
   export default {
+    name: 'ExhibitionChapters',
+
     components: {
       SmartLink
     },
+
     props: {
       exhibitionIdentifier: {
         type: String,
@@ -42,6 +45,7 @@
         default: null
       }
     },
+
     computed: {
       currentChapter() {
         return this.$route.name.startsWith('exhibitions-exhibition-credits') ? 'credits' : this.$route.params.chapter;
@@ -59,6 +63,7 @@
         };
       }
     },
+
     methods: {
       chapterUrl(chapter) {
         return chapter.identifier === 'credits' ? {
@@ -74,17 +79,10 @@
       chapterText(chapter) {
         return chapter.identifier === this.currentChapter ? this.$t('exhibitions.currentChapter') : '';
       },
-      chapterImage(chapter) {
-        return chapter?.primaryImageOfPage?.image?.url || null;
-      },
-      chapterImageContentType(chapter) {
-        return chapter?.primaryImageOfPage?.image?.contentType || null;
-      },
       optimisedBackgroundImageUrl(chapter) {
-        return this.$options.filters.optimisedImageUrl(
-          this.chapterImage(chapter),
-          this.chapterImageContentType(chapter),
-          { width: 800, height: 800 }
+        return this.$contentful.assets.optimisedSrc(
+          chapter?.primaryImageOfPage?.image,
+          { w: 800, h: 800 }
         );
       }
     }

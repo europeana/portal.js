@@ -124,10 +124,10 @@
         return this.page.image || this.heroImage?.image || null;
       },
       socialMediaImageOptimisedUrl() {
-        return this.$options.filters.optimisedImageUrl(this.socialMediaImage.url, this.socialMediaImage.contentType, {
-          width: 800,
-          height: 800
-        });
+        return this.$contentful.assets.optimisedSrc(
+          this.socialMediaImage,
+          { w: 800, h: 800 }
+        );
       },
       socialMediaImageAlt() {
         return this.socialMediaImage?.description || '';
