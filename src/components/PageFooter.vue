@@ -3,14 +3,14 @@
     data-qa="footer"
     class="page-footer"
   >
-    <div class="footer-wrapper  py-5 px-3">
+    <div class="footer-wrapper py-5 px-3 pr-lg-5">
       <b-container>
         <b-row>
           <b-col
             lg="5"
             class="pb-4"
           >
-            <div class="mb-3">
+            <div class="mb-3 pr-5 pr-lg-0">
               <div class="group-title text-uppercase font-weight-bold">
                 {{ $t('footer.ourMission') }}
               </div>
