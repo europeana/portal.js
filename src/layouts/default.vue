@@ -165,7 +165,8 @@
     },
 
     mounted() {
-      this.$waitForMatomo().then(this.renderKlaro).catch(() => {});
+      const promise = this.$waitForMatomo ? this.$waitForMatomo() : Promise.resolve();
+      promise.finally(this.renderKlaro);
       this.klaro = window.klaro;
 
       if (this.$auth.$storage.getUniversal('portalLoggingIn') && this.$auth.loggedIn) {
