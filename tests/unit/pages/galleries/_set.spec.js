@@ -96,6 +96,20 @@ describe('SetPage', () => {
   afterEach(sinon.resetHistory);
 
   describe('fetch', () => {
+    it('validates the format of the Set ID', async() => {
+      const wrapper = factory({ fetchState: { pending: true }, set: { id: 'nope' } });
+
+      let error;
+      try {
+        await wrapper.vm.fetch();
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error.statusCode).toBe(400);
+      expect(storeDispatch.called).toBe(false);
+    });
+
     it('fetches the active set', async() => {
       const wrapper = factory(defaultOptions);
 
