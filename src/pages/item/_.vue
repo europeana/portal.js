@@ -1,5 +1,8 @@
 <template>
-  <div data-qa="item page">
+  <div
+    data-qa="item page"
+    :class="$fetchState.error && 'white-page'"
+  >
     <b-container
       v-if="$fetchState.pending"
       data-qa="loading spinner container"
@@ -10,18 +13,14 @@
         </b-col>
       </b-row>
     </b-container>
-    <b-container
+    <ErrorMessage
       v-else-if="$fetchState.error"
-      data-qa="alert message container"
-    >
-      <b-row class="flex-md-row py-4">
-        <b-col cols="12">
-          <AlertMessage
-            :error="$fetchState.error.message"
-          />
-        </b-col>
-      </b-row>
-    </b-container>
+      data-qa="error message container"
+      :error="$fetchState.error.message"
+      :title-path="$fetchState.error.titlePath"
+      :description-path="$fetchState.error.descriptionPath"
+      :illustration-src="$fetchState.error.illustrationSrc"
+    />
     <template
       v-else
     >
@@ -140,7 +139,7 @@
   export default {
     name: 'ItemPage',
     components: {
-      AlertMessage: () => import('@/components/generic/AlertMessage'),
+      ErrorMessage: () => import('@/components/generic/ErrorMessage'),
       ItemHero,
       ItemLanguageSelector: () => import('@/components/item/ItemLanguageSelector'),
       ItemRecommendations,
@@ -195,6 +194,12 @@
       } catch (error) {
         if (process.server) {
           this.$nuxt.context.res.statusCode = error.statusCode || 500;
+        }
+        if (error.statusCode === 404) {
+          error.titlePath = 'errorMessage.itemNotFound.title';
+          error.descriptionPath = 'errorMessage.itemNotFound.description';
+          error.metaTitlePath = 'errorMessage.itemNotFound.metaTitle';
+          error.illustrationSrc = require('@/assets/img/illustrations/il-item-not-found.svg');
         }
         throw error;
       }
@@ -279,7 +284,13 @@
         return langMapValueForLocale(this.description, this.metadataLanguage || this.$i18n.locale, { uiLanguage: this.$i18n.locale });
       },
       metaTitle() {
-        return this.titlesInCurrentLanguage[0] ? this.titlesInCurrentLanguage[0].value : this.$t('record.record');
+        if (this.$fetchState.error) {
+          return this.$t(this.$fetchState.error.metaTitlePath ? this.$fetchState.error.metaTitlePath : 'error');
+        } else if (this.titlesInCurrentLanguage[0]) {
+          return this.titlesInCurrentLanguage[0].value;
+        } else {
+          return this.$t('record.record');
+        }
       },
       metaDescription() {
         if (isEmpty(this.descriptionInCurrentLanguage)) {

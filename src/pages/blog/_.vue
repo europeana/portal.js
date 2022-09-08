@@ -1,7 +1,7 @@
 <template>
   <div
     data-qa="blog post"
-    class="text-page figure-attribution"
+    class="text-page white-page figure-attribution"
   >
     <ContentWarningModal
       v-if="post.contentWarning"
