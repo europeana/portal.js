@@ -83,19 +83,21 @@ describe('plugins/vue-matomo.client', () => {
       });
 
       it('resolves if $matomo set later', async() => {
-        plugin.default(context, inject);
+        const quickFailContext = { ...context, $config: { matomo: { ...context.$config.matomo, loadWait: { delay: 10, retries: 10 } } } };
+        plugin.default(quickFailContext, inject);
         const vm = {
           waitForMatomo
         };
 
         const promise = vm.waitForMatomo();
-        setTimeout(() => vm.$matomo = true, 200);
+        setTimeout(() => vm.$matomo = true, 5);
 
         await expect(promise).resolves.not.toThrow();
       });
 
       it('rejects if $matomo never set', async() => {
-        plugin.default(context, inject);
+        const instantFailContext = { ...context, $config: { matomo: { ...context.$config.matomo, loadWait: { delay: 0, retries: 1 } } } };
+        plugin.default(instantFailContext, inject);
         const vm = {
           waitForMatomo
         };

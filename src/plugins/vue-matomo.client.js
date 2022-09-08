@@ -29,24 +29,24 @@ export const trackSiteSearch = (store) => (to) => {
   return siteSearch;
 };
 
-function waitForMatomo() {
+const waitForMatomo = ({ delay = 100, retries = 20 }) => function() {
   const that = this;
 
   return new Promise((resolve, reject) => {
     const attempt = (counter = 0) => {
-      if (counter >= 20) {
-        return reject('No Matomo');
-      } else if (that.$matomo) {
+      if (that.$matomo) {
         return resolve();
+      } else if (counter >= retries) {
+        return reject('No Matomo');
       } else {
-        return setTimeout(() => attempt(counter + 1), 100);
+        return setTimeout(() => attempt(counter + 1), delay);
       }
     };
     return attempt();
   });
-}
+};
 
-export default ({ app, $config: { matomo: { host, siteId } }, store }, inject) => {
+export default ({ app, $config: { matomo: { host, siteId, loadWait = {} } }, store }, inject) => {
   if (!host || !siteId) {
     return;
   }
@@ -60,5 +60,5 @@ export default ({ app, $config: { matomo: { host, siteId } }, store }, inject) =
     requireCookieConsent: true
   });
 
-  inject('waitForMatomo', waitForMatomo);
+  inject('waitForMatomo', waitForMatomo(loadWait));
 };
