@@ -97,7 +97,7 @@ describe('layouts/default.vue', () => {
       it('waits for Matomo to be ready first', async() => {
         const $waitForMatomo = sinon.stub().resolves();
 
-        const wrapper = factory({ mocks: { $waitForMatomo } });
+        factory({ mocks: { $waitForMatomo } });
 
         expect($waitForMatomo.called).toBe(true);
       });
@@ -105,7 +105,7 @@ describe('layouts/default.vue', () => {
       it('renders Klaro if Matomo becomes ready', () => {
         const $waitForMatomo = sinon.stub().resolves();
 
-        const wrapper = factory({ data: { klaro: klaroMock }, mocks: { $waitForMatomo } });
+        factory({ data: { klaro: klaroMock }, mocks: { $waitForMatomo } });
 
         expect(klaroMock.render.called).toBe(true);
       });
@@ -113,7 +113,7 @@ describe('layouts/default.vue', () => {
       it('renders Klaro if Matomo does not become ready', () => {
         const $waitForMatomo = sinon.stub().rejects();
 
-        const wrapper = factory({ data: { klaro: klaroMock }, mocks: { $waitForMatomo } });
+        factory({ data: { klaro: klaroMock }, mocks: { $waitForMatomo } });
 
         expect(klaroMock.render.called).toBe(true);
       });
