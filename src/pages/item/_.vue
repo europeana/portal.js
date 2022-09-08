@@ -188,6 +188,9 @@
         for (const key in response.record) {
           this[key] = response.record[key];
         }
+        if (process.client) {
+          this.trackCustomDimensions();
+        }
       } catch (error) {
         if (process.server) {
           this.$nuxt.context.res.statusCode = error.statusCode || 500;
@@ -312,6 +315,14 @@
       },
       translatedItemsEnabled() {
         return this.$features.translatedItems;
+      },
+      matomoOptions() {
+        return {
+          dimension1: langMapValueForLocale(this.metadata.edmCountry, 'en').values[0],
+          dimension2: this.stringify(langMapValueForLocale(this.metadata.edmDataProvider?.value, 'en').values[0]),
+          dimension3: this.stringify(langMapValueForLocale(this.metadata.edmProvider, 'en').values[0]),
+          dimension4: langMapValueForLocale(this.metadata.edmRights, 'en').values[0]
+        };
       }
     },
 
@@ -323,12 +334,22 @@
 
     mounted() {
       this.fetchAnnotations();
-      if (!this.$fetchState.error) {
-        this.$matomo && this.$matomo.trackPageView('item page custom dimensions', this.matomoOptions());
+      if (!this.$fetchState.error && !this.$fetchState.pending) {
+        this.trackCustomDimensions();
       }
     },
 
     methods: {
+      trackCustomDimensions() {
+        if (!this.$waitForMatomo) {
+          return;
+        }
+
+        this.$waitForMatomo()
+          .then(() => this.$matomo.trackPageView('item page custom dimensions', this.matomoOptions))
+          .catch(() => {});
+      },
+
       annotationsByMotivation(motivation) {
         return this.annotations?.filter(annotation => annotation.motivation === motivation) || [];
       },
@@ -338,15 +359,6 @@
           query: `target_record_id:"${this.identifier}"`,
           profile: 'dereference'
         });
-      },
-
-      matomoOptions() {
-        return {
-          dimension1: langMapValueForLocale(this.metadata.edmCountry, 'en').values[0],
-          dimension2: this.stringify(langMapValueForLocale(this.metadata.edmDataProvider?.value, 'en').values[0]),
-          dimension3: this.stringify(langMapValueForLocale(this.metadata.edmProvider, 'en').values[0]),
-          dimension4: langMapValueForLocale(this.metadata.edmRights, 'en').values[0]
-        };
       }
     }
   };

@@ -62,6 +62,7 @@ const factory = ({ mocks = {} } = {}) => shallowMountNuxt(page, {
       }
     },
     $fetchState: {},
+    $waitForMatomo: () => Promise.resolve(),
     $matomo: {
       trackPageView: sinon.spy()
     },
@@ -145,20 +146,88 @@ describe('pages/item/_.vue', () => {
         expect(error.illustrationSrc).toBe('il-item-not-found.svg');
       });
     });
+
+    describe('on client-side request', () => {
+      it('sends custom dimensions to Matomo', async() => {
+        process.client = true;
+        const wrapper = factory();
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.$matomo.trackPageView.calledWith(
+          'item page custom dimensions',
+          wrapper.vm.matomoOptions
+        )).toBe(true);
+      });
+    });
+
+    describe('on server-side request', () => {
+      it('does not send custom dimensions to Matomo', async() => {
+        process.client = false;
+        const wrapper = await factory();
+        sinon.resetHistory();
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.$matomo.trackPageView.called).toBe(false);
+      });
+    });
   });
 
   describe('mounted', () => {
-    describe('when matomo is active', () => {
-      it('sends custom dimensions in English', () => {
-        const wrapper = factory();
+    describe('when fetch is still pending', () => {
+      const $fetchState = { pending: true };
 
-        expect(wrapper.vm.$matomo.trackPageView.calledWith('item page custom dimensions',
-          wrapper.vm.matomoOptions())).toBe(true);
+      it('does not send custom dimensions to Matomo', async() => {
+        const wrapper = await factory({ mocks: { $fetchState } });
+
+        expect(wrapper.vm.$matomo.trackPageView.called).toBe(false);
+      });
+    });
+
+    describe('when fetch errored', () => {
+      const $fetchState = { pending: false, error: { message: 'Item not found' } };
+
+      it('does not send custom dimensions to Matomo', async() => {
+        const wrapper = await factory({ mocks: { $fetchState } });
+
+        expect(wrapper.vm.$matomo.trackPageView.called).toBe(false);
+      });
+    });
+
+    describe('when fetch completed without error', () => {
+      const $fetchState = { pending: false };
+
+      it('sends custom dimensions to Matomo', async() => {
+        const wrapper = await factory({ mocks: { $fetchState } });
+
+        expect(wrapper.vm.$matomo.trackPageView.calledWith(
+          'item page custom dimensions',
+          wrapper.vm.matomoOptions
+        )).toBe(true);
       });
     });
   });
 
   describe('methods', () => {
+    describe('trackCustomDimensions', () => {
+      it('tracks page view if Matomo plugin installed', async() => {
+        const wrapper = factory();
+
+        await wrapper.vm.trackCustomDimensions();
+
+        expect(wrapper.vm.$matomo.trackPageView.called).toBe(true);
+      });
+
+      it('bails if no Matomo plugin not installed', async() => {
+        const wrapper = factory({ mocks: { $waitForMatomo: undefined } });
+
+        await wrapper.vm.trackCustomDimensions();
+
+        expect(wrapper.vm.$matomo.trackPageView.called).toBe(false);
+      });
+    });
+
     describe('annotationsByMotivation', () => {
       const annotations = [
         {
