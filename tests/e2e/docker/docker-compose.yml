@@ -78,6 +78,8 @@ services:
     volumes:
       - /dev/shm:/dev/shm
       - ../features:/app/tests/e2e/features
+      - ../../../tmp:/app/screenshots
+    env_file: ./nightwatch/.env
     environment:
       - WEBDRIVER_EN_HOST=chrome-en
       - WEBDRIVER_JA_HOST=chrome-ja
@@ -100,6 +102,7 @@ services:
     volumes:
       - /dev/shm:/dev/shm
       - ../visual:/app/tests/e2e/visual
+      - ../../../tmp:/app/screenshots
     environment:
       - WEBDRIVER_EN_HOST=chrome-en
       - APP_URL=https://nginx
