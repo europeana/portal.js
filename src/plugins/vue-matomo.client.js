@@ -29,7 +29,6 @@ export const trackSiteSearch = (store) => (to) => {
   return siteSearch;
 };
 
-// TODO: reject immediately if Matomo config not set?
 function waitForMatomo() {
   const that = this;
 
