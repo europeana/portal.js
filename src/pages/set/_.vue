@@ -153,6 +153,7 @@
   // TODO: This file will be deprecated when set-driven galleries are in production.
   // TODO: Also move the beforeRouteEnter redirect to the legacy middleware.
   import ClientOnly from 'vue-client-only';
+  import createHttpError from 'http-errors';
 
   import {
     ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX,
@@ -192,6 +193,8 @@
 
     async fetch() {
       try {
+        this.validateRoute();
+
         await this.$store.dispatch('set/fetchActive', this.setId);
 
         if (this.setIsEntityBestItems && this.userIsEntityEditor) {
@@ -291,6 +294,12 @@
     },
 
     methods: {
+      validateRoute() {
+        if (!/^\d+$/.test(this.$route.params.pathMatch)){
+          throw createHttpError(400, 'Invalid set ID');
+        }
+      },
+
       reorderItems(items) {
         this.$store.dispatch('set/update', {
           id: `${EUROPEANA_DATA_URL_SET_PREFIX}/${this.setId}`,
