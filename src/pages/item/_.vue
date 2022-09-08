@@ -324,13 +324,19 @@
     mounted() {
       this.fetchAnnotations();
       if (!this.$fetchState.error && !this.$fetchState.pending) {
-        this.$waitForMatomo().then(this.trackCustomDimensions).catch(() => {});
+        this.trackCustomDimensions();
       }
     },
 
     methods: {
       trackCustomDimensions() {
-        this.$matomo && this.$matomo.trackPageView('item page custom dimensions', this.matomoOptions);
+        if (!this.$waitForMatomo) {
+          return;
+        }
+
+        this.$waitForMatomo()
+          .then(() => this.$matomo.trackPageView('item page custom dimensions', this.matomoOptions))
+          .catch(() => {});
       },
 
       annotationsByMotivation(motivation) {
