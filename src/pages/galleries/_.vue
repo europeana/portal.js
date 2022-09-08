@@ -374,7 +374,7 @@
 
     methods: {
       validateRoute() {
-        if (!/^\d+(-.+)?$/.test(this.$route.params.pathMatch)){
+        if (!/^\d+(-.+)?$/.test(this.$route.params.pathMatch)) {
           throw createHttpError(400, 'Invalid set ID');
         }
       },
