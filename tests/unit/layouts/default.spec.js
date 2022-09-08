@@ -52,7 +52,6 @@ const factory = (options = {}) => shallowMountNuxt(layout, {
     $route: {
       query: {}
     },
-    $waitForMatomo: () => Promise.resolve(),
     $matomo: {
       trackEvent: () => {}
     },
@@ -64,7 +63,8 @@ const factory = (options = {}) => shallowMountNuxt(layout, {
       set: () => {}
     },
     $config: { app: { baseUrl: 'https://www.example.eu' } },
-    $nuxtI18nHead: () => nuxtI18nHead
+    $nuxtI18nHead: () => nuxtI18nHead,
+    ...options.mocks
   },
   stubs: {
     VueAnnouncer: { template: '<div id="announcer" aria-live="polite"></div>' },
@@ -92,6 +92,32 @@ describe('layouts/default.vue', () => {
       getManager: sinon.stub().returns(klaroManagerStub),
       render: sinon.spy()
     };
+
+    describe('when Matomo plugin is installed', () => {
+      it('waits for Matomo to be ready first', async() => {
+        const $waitForMatomo = sinon.stub().resolves();
+
+        const wrapper = factory({ mocks: { $waitForMatomo } });
+
+        expect($waitForMatomo.called).toBe(true);
+      });
+
+      it('renders Klaro if Matomo becomes ready', () => {
+        const $waitForMatomo = sinon.stub().resolves();
+
+        const wrapper = factory({ data: { klaro: klaroMock }, mocks: { $waitForMatomo } });
+
+        expect(klaroMock.render.called).toBe(true);
+      });
+
+      it('renders Klaro if Matomo does not become ready', () => {
+        const $waitForMatomo = sinon.stub().rejects();
+
+        const wrapper = factory({ data: { klaro: klaroMock }, mocks: { $waitForMatomo } });
+
+        expect(klaroMock.render.called).toBe(true);
+      });
+    });
 
     describe('renderKlaro', () => {
       it('renders Klaro', async() => {
