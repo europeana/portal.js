@@ -159,7 +159,7 @@
         };
         const pageResponse = await this.$contentful.query('storiesPage', pageVariables);
         const storiesPage = pageResponse.data.data.browsePageCollection.items[0];
-        this.sections = storiesPage.hasPartCollection.items;
+        this.sections = storiesPage?.hasPartCollection?.items || [];
         this.pageFetched = true;
       },
 
@@ -182,11 +182,11 @@
         // Filter by categories
         if (this.selectedTags.length > 0) {
           stories = stories.filter((story) => {
-            const storyTags = story.cats.items.map((cat) => cat.id);
+            const storyTags = story.cats.items.map((cat) => cat?.id);
             return this.selectedTags.every((tag) => storyTags.includes(tag));
           });
         }
-        this.filteredTags = uniq(stories.map((story) => story.cats.items.map((cat) => cat.id)).flat());
+        this.filteredTags = uniq(stories.map((story) => story.cats.items.filter((cat) => !!cat).map((cat) => cat.id)).flat());
 
         // Order by date published
         stories = stories.sort((a, b) => (new Date(b.date)).getTime() - (new Date(a.date)).getTime());

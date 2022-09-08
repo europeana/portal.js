@@ -42,7 +42,7 @@ const storiesMinimalContentfulResponse = {
     data: {
       blogPostingCollection: {
         items: [
-          { date: '2022-02-12T08:00:00.000+01:00', sys: { id: '796f5YKe4b1u8uXtizSBu0' }, cats: { items: [{ id: '3d' }] } }
+          { date: '2022-02-12T08:00:00.000+01:00', sys: { id: '796f5YKe4b1u8uXtizSBu0' }, cats: { items: [{ id: '3d' }, null] } }
         ]
       },
       exhibitionPageCollection: {
@@ -111,20 +111,25 @@ const storiesBySysIdContentfulResponse = {
   }
 };
 
-const contentfulQueryStub = sinon.stub();
-contentfulQueryStub.withArgs('storiesPage', sinon.match.object).resolves(storiesPageContentfulResponse);
-contentfulQueryStub.withArgs('categories', sinon.match.object).resolves(categoriesContentfulResponse);
-contentfulQueryStub.withArgs('storiesMinimal', sinon.match.object).resolves(storiesMinimalContentfulResponse);
-contentfulQueryStub.withArgs('storiesBySysId', sinon.match.object).resolves(storiesBySysIdContentfulResponse);
+const contentfulQueryStub = () => {
+  const stub = sinon.stub();
 
-const factory = ({ $features = {}, data = {}, $fetchState = {} } = {}) => shallowMountNuxt(StoriesPage, {
+  stub.withArgs('storiesPage', sinon.match.object).resolves(storiesPageContentfulResponse);
+  stub.withArgs('categories', sinon.match.object).resolves(categoriesContentfulResponse);
+  stub.withArgs('storiesMinimal', sinon.match.object).resolves(storiesMinimalContentfulResponse);
+  stub.withArgs('storiesBySysId', sinon.match.object).resolves(storiesBySysIdContentfulResponse);
+
+  return stub;
+};
+
+const factory = ({ $features = {}, data = {}, $fetchState = {}, mocks = {} } = {}) => shallowMountNuxt(StoriesPage, {
   localVue,
   data() {
     return data;
   },
   mocks: {
     $contentful: {
-      query: contentfulQueryStub
+      query: contentfulQueryStub()
     },
     $features: {
       ...$features
@@ -138,7 +143,8 @@ const factory = ({ $features = {}, data = {}, $fetchState = {} } = {}) => shallo
     $route: { query: {} },
     $scrollTo: sinon.spy(),
     $t: (key) => key,
-    $tc: (key) => key
+    $tc: (key) => key,
+    ...mocks
   },
   stubs: ['b-card-group']
 });
@@ -158,6 +164,18 @@ describe('pages/stories/index', () => {
           locale: 'en-GB',
           preview: false
         })).toBe(true);
+      });
+
+      it('handles potentially not having a page in Contentful', async() => {
+        const contentfulQueryStubNoStoriesPage = contentfulQueryStub();
+        contentfulQueryStubNoStoriesPage
+          .withArgs('storiesPage', sinon.match.object)
+          .resolves({ data: { data: { browsePageCollection: { items: [] } } } });
+
+        const wrapper = factory({ mocks: { $contentful: { query: contentfulQueryStubNoStoriesPage } } });
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.sections).toEqual([]);
       });
 
       it('fetches all stories with minimal data from Contentful', async() => {
