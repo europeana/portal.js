@@ -1,3 +1,4 @@
+import sinon from 'sinon';
 import * as plugin from '@/plugins/vue-matomo.client';
 
 describe('plugins/vue-matomo.client', () => {
@@ -50,6 +51,58 @@ describe('plugins/vue-matomo.client', () => {
         const resultsCount = plugin.trackSiteSearch(store)(route).resultsCount;
 
         expect(resultsCount).toBe(9890);
+      });
+    });
+  });
+
+  describe('waitForMatomo', () => {
+    const context = { app: {}, $config: { matomo: { host: 'stats.example.org', siteId: 1 } } };
+
+    it('is injected into context', () => {
+      const inject = sinon.spy();
+
+      plugin.default(context, inject);
+
+      expect(inject.calledWith('waitForMatomo', sinon.match.func)).toBe(true);
+    });
+
+    describe('promise', () => {
+      let waitForMatomo;
+      const inject = (name, fn) => waitForMatomo = fn;
+
+      it('resolves if $matomo already set', async() => {
+        plugin.default(context, inject);
+        const vm = {
+          $matomo: true,
+          waitForMatomo
+        };
+
+        const promise = vm.waitForMatomo();
+
+        await expect(promise).resolves.not.toThrow();
+      });
+
+      it('resolves if $matomo set later', async() => {
+        plugin.default(context, inject);
+        const vm = {
+          waitForMatomo
+        };
+
+        const promise = vm.waitForMatomo();
+        setTimeout(() => vm.$matomo = true, 200);
+
+        await expect(promise).resolves.not.toThrow();
+      });
+
+      it('rejects if $matomo never set', async() => {
+        plugin.default(context, inject);
+        const vm = {
+          waitForMatomo
+        };
+
+        const promise = vm.waitForMatomo();
+
+        await expect(promise).rejects.toBe('No Matomo');
       });
     });
   });
