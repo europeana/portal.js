@@ -210,6 +210,24 @@ describe('pages/item/_.vue', () => {
   });
 
   describe('methods', () => {
+    describe('trackCustomDimensions', () => {
+      it('tracks page view if Matomo plugin installed', async() => {
+        const wrapper = factory();
+
+        await wrapper.vm.trackCustomDimensions();
+
+        expect(wrapper.vm.$matomo.trackPageView.called).toBe(true);
+      });
+
+      it('bails if no Matomo plugin not installed', async() => {
+        const wrapper = factory({ mocks: { $waitForMatomo: undefined } });
+
+        await wrapper.vm.trackCustomDimensions();
+
+        expect(wrapper.vm.$matomo.trackPageView.called).toBe(false);
+      });
+    });
+
     describe('annotationsByMotivation', () => {
       const annotations = [
         {
