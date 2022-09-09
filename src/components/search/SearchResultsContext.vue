@@ -46,7 +46,6 @@
   import { entityParamsFromUri } from '@/plugins/europeana/entity';
   import themes from '@/plugins/europeana/themes';
   import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
-  import { mapState } from 'vuex';
   import { urlIsContentfulAsset, optimisedSrcForContentfulAsset } from '@/plugins/contentful-utils';
 
   export default {
@@ -61,6 +60,30 @@
     ],
 
     props: {
+      /**
+       * Total number of results from the current search.
+       */
+      totalResults: {
+        type: Number,
+        required: true
+      },
+
+      /**
+       * The search term(s).
+       */
+      query: {
+        type: String,
+        default: null
+      },
+
+      /**
+       * The entity theme/collection within which the search has been made.
+       */
+      entity: {
+        type: Object,
+        default: null
+      },
+
       /**
        * Editorial overrides
        *
@@ -79,11 +102,6 @@
     },
 
     computed: {
-      ...mapState({
-        query: state => state.search.userParams.query,
-        entity: state => state.entity?.entity,
-        totalResults: state => state.search.totalResults
-      }),
       i18nPath() {
         if (this.hasEntity && this.hasQuery) {
           return 'search.results.withinCollectionWithQuery';
@@ -102,7 +120,7 @@
         return this.query && this.query !== '';
       },
       hasEntity() {
-        return this.entity && this.entity.id;
+        return this.entity?.id;
       },
       entityLabel() {
         return this.editorialOverrides?.title ||

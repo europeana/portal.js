@@ -21,7 +21,13 @@
           <div
             class="mb-3 d-flex align-items-start justify-content-between"
           >
+            <!-- This div prevents ViewToggles jumping around as SearchResultsContext is shown & hidden -->
+            <div v-show="$fetchState.pending" />
             <SearchResultsContext
+              v-show="!$fetchState.pending"
+              :total-results="totalResults"
+              :entity="$store.state.entity.entity"
+              :query="query"
               :editorial-overrides="editorialOverrides"
             />
             <ViewToggles
@@ -37,7 +43,7 @@
               cols="12"
             >
               <b-row
-                v-if="$fetchState.pending"
+                v-show="$fetchState.pending"
                 class="flex-md-row py-4 text-center"
               >
                 <b-col cols="12">
@@ -47,7 +53,7 @@
                 </b-col>
               </b-row>
               <template
-                v-else
+                v-if="!$fetchState.pending"
               >
                 <b-row
                   class="mb-3"
@@ -166,6 +172,7 @@
         default: null
       }
     },
+
     async fetch() {
       // NOTE: this helps prevent lazy-loading issues when paginating in Chrome 103
       await this.$nextTick();
