@@ -1,7 +1,4 @@
 {
-  "name": "europeana-portal",
-  "version": "1.81.0",
-  "description": "Europeana Portal",
   "private": true,
   "workspaces": [
     "packages/*"
@@ -33,7 +30,8 @@
     "version": "node bin/pkg-versions.js && node bin/sonar-project-version.js && git add packages/portal/pkg-versions.js sonar-project.properties"
   },
   "resolutions": {
-    "@europeana/portal": "link:./packages/app",
+    "@europeana/contentful": "link:./packages/contentful",
+    "@europeana/portal": "link:./packages/portal",
     "@europeana/styleguide": "link:./packages/styleguide"
   },
   "dependencies": {
@@ -52,6 +50,7 @@
     "eslint-plugin-jest": "^25.3.4",
     "eslint-plugin-vue": "^8.1.1",
     "jest": "^27.4.5",
+    "lerna": "^5.5.0",
     "properties-reader": "^2.2.0",
     "stylelint": "^14.1.0",
     "stylelint-config-recommended-vue": "^1.0.0",
