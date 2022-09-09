@@ -1,13 +1,13 @@
 {
   "name": "@europeana/styleguide",
-  "version": "1.80.0",
+  "version": "1.81.0",
   "description": "Europeana styleguide",
   "private": true,
   "scripts": {
     "start": "vue-styleguidist server --config ./styleguide.config.cjs"
   },
   "devDependencies": {
-    "@europeana/portal": "1.80.0",
+    "@europeana/portal": "1.81.0",
     "vue-styleguidist": "4.48.0"
   },
   "contributors": [

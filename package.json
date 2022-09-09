@@ -1,6 +1,11 @@
 {
+<<<<<<< HEAD
   "name": "europeana-portal",
   "version": "1.80.0",
+=======
+  "name": "@europeana/portal",
+  "version": "1.81.0",
+>>>>>>> master
   "description": "Europeana Portal",
   "private": true,
   "workspaces": [
