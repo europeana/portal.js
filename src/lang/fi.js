@@ -6,7 +6,7 @@ export default {
     "likes": "Tykätyt",
     "linkAccount": "Oma tili",
     "linkLogin": "Kirjaudu sisään",
-    "linkLoginJoin": "Kirjaudu/Liity",
+    "linkLoginJoin": "Kirjaudu\/Liity",
     "linkLogout": "Kirjaudu ulos",
     "myProfile": "Profiilini",
     "notifications": {
@@ -207,6 +207,18 @@ export default {
     }
   },
   "error": "Virhe",
+  "errorMessage": {
+    "galleryUnauthorised": {
+      "description": "Tämä ei ole mahdollista, koska yksityiset galleriat näkyvät vain niiden luojalle. Jos tunnet gallerian luojan, pyydä häntä tekemään galleriasta julkinen. Vaihtoehtoisesti voit ilmoittaa tästä ongelmasta palautepainikkeella.",
+      "metaTitle": "Galleria luvaton",
+      "title": "Oho! {newline} Yrität tarkastella toisen henkilön yksityistä galleriaa."
+    },
+    "itemNotFound": {
+      "description": "Tämä voi johtua seuraavista syistä: tätä kohdetta ei ole olemassa tai; se poistettiin, koska se ei vastannut laatukriteereitämme tai; se päivitettiin ja julkaistiin uudelleen uudella yksilöivällä tunnisteella. Yritä siinä tapauksessa löytää kohde uudelleen.",
+      "metaTitle": "Kohdetta ei löydy",
+      "title": "Voi ei! {newline} Emme löytäneet tätä kohdetta."
+    }
+  },
   "exhibitions": {
     "chapters": "Luvut",
     "credits": "Tekijät",
@@ -495,7 +507,7 @@ export default {
     "MIME_TYPE": {
       "name": "Tiedostomuoto | Tiedostomuodot",
       "options": {
-        "text/plain": "Pelkkä teksti"
+        "text\/plain": "Pelkkä teksti"
       },
       "select": "Valitse tiedostomuodot"
     },
@@ -744,7 +756,7 @@ export default {
   },
   "items": {
     "itemCount": "1 kohde |{count} kohdetta",
-    "itemOf": "{max} / {count} kohdetta",
+    "itemOf": "{max} \/ {count} kohdetta",
     "recent": "Viimeisimmät kohteet",
     "recommended": "Suositellut kohteet",
     "youMightLike": "Saattaisit tykätä näistä kohteista"
@@ -783,7 +795,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Auttaa parantamaan verkkosivustoamme soveltamalla ajoittain kokeellisia muutoksia.",
-        "title": "A/B -testaus"
+        "title": "A\/B -testaus"
       },
       "auth-strategy": {
         "description": "Muistaa kirjautumisessa käytettävän valtuutusstrategian.",
@@ -815,7 +827,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Muistaa, haluatko nähdä hakutulokset luettelossa tai ruudukkonäkymässä.",
-        "title": "Hakutulosnäkymä (luettelo/ruudukko)"
+        "title": "Hakutulosnäkymä (luettelo\/ruudukko)"
       }
     }
   },

@@ -6,7 +6,7 @@ export default {
     "likes": "Me gusta",
     "linkAccount": "Mi cuenta",
     "linkLogin": "Iniciar sesión",
-    "linkLoginJoin": "Iniciar sesión/Unirse",
+    "linkLoginJoin": "Iniciar sesión\/Unirse",
     "linkLogout": "Cerrar sesión",
     "myProfile": "Mi perfil",
     "notifications": {
@@ -201,12 +201,24 @@ export default {
         "title": "Demasiados elementos fijados"
       },
       "pinned": "El elemento se ha anclado. Ahora está en la parte superior de la primera página de esta colección. Puede tardar hasta 24 horas en aparecer para todos.",
-      "select": "Seleccione una entidad relacionada para anclar/desanclar el elemento a/desde ella.",
+      "select": "Seleccione una entidad relacionada para anclar\/desanclar el elemento a\/desde ella.",
       "unpin": "Este elemento dejará de mostrarse en la parte superior de la colección \" {entity} \". Le notificaremos cuando este cambio sea visible en la página de colección.",
       "unpinned": "El elemento se ha desanclarado. Ya no está en la parte superior de la primera página de esta colección. Puede tardar hasta 24 horas en desaparecer para todos."
     }
   },
   "error": "Error",
+  "errorMessage": {
+    "galleryUnauthorised": {
+      "description": "Esto no es posible porque las galerías privadas solo son visibles para su creador. Si conoce al creador de la galería, pídale que la haga pública. Alternativamente, informe este problema usando el botón de comentarios.",
+      "metaTitle": "Galería no autorizada",
+      "title": "¡Ups! {newline} Estás intentando ver la galería privada de otra persona."
+    },
+    "itemNotFound": {
+      "description": "Esto podría deberse a las siguientes razones: este elemento no existe, o; fue des publicado porque no coincidía con nuestros criterios de calidad, o; se actualizó y se volvió a publicar con un nuevo identificador único, en cuyo caso, intente encontrar el elemento nuevamente.",
+      "metaTitle": "Elemento no encontrado",
+      "title": "¡Oh, no! {newline} No pudimos encontrar este elemento."
+    }
+  },
   "exhibitions": {
     "chapters": "Capítulos",
     "credits": "Créditos",
@@ -495,7 +507,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formato de archivo | Formatos de archivo",
       "options": {
-        "text/plain": "Texto sin formato"
+        "text\/plain": "Texto sin formato"
       },
       "select": "Seleccionar formatos de archivo"
     },
@@ -783,7 +795,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Ayuda a mejorar nuestro sitio web aplicando ocasionalmente cambios experimentales.",
-        "title": "Pruebas A/B"
+        "title": "Pruebas A\/B"
       },
       "auth-strategy": {
         "description": "Recuerda la estrategia de autorización que se debe utilizar para iniciar sesión.",
@@ -815,7 +827,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Recuerda si prefiere ver los resultados de la búsqueda en una vista de lista o cuadrícula.",
-        "title": "Vista de resultados de búsqueda (lista / cuadrícula)"
+        "title": "Vista de resultados de búsqueda (lista \/ cuadrícula)"
       }
     }
   },

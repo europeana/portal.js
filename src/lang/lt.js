@@ -6,7 +6,7 @@ export default {
     "likes": "Patinka",
     "linkAccount": "Mano paskyra",
     "linkLogin": "Prisijungti",
-    "linkLoginJoin": "Prisijungti/Prisijungti",
+    "linkLoginJoin": "Prisijungti\/Prisijungti",
     "linkLogout": "Atsijungti",
     "myProfile": "Mano profilis",
     "notifications": {
@@ -201,12 +201,24 @@ export default {
         "title": "Per daug prisegtų elementų"
       },
       "pinned": "Elementas prisegtas. Dabar jis yra pirmojo šios kolekcijos puslapio viršuje. Gali užtrukti iki 24 valandų, kol visi pasirodys.",
-      "select": "Pasirinkite susijusį objektą, kurį norite prisegti / atsegti elementą prie jo / nuo jo.",
+      "select": "Pasirinkite susijusį objektą, kurį norite prisegti \/ atsegti elementą prie jo \/ nuo jo.",
       "unpin": "Šis elementas nebebus rodomas kolekcijos „ {entity} “ viršuje. Informuosime jus, kai šis pakeitimas bus matomas kolekcijos puslapyje.",
       "unpinned": "Elementas buvo atsegtas. Jo nebėra šio rinkinio pirmojo puslapio viršuje. Gali prireikti iki 24 valandų, kol jis išnyks visiems."
     }
   },
   "error": "Klaida",
+  "errorMessage": {
+    "galleryUnauthorised": {
+      "description": "Tai neįmanoma, nes privačias galerijas mato tik jų kūrėjas. Jei pažįstate galerijos kūrėją, paprašykite, kad galerija būtų vieša. Arba praneškite apie šią problemą naudodami atsiliepimų mygtuką.",
+      "metaTitle": "Galerija neteisėta",
+      "title": "Ups! {newline} Jūs bandote peržiūrėti kito asmens privačią galeriją."
+    },
+    "itemNotFound": {
+      "description": "Taip gali nutikti dėl šių priežasčių: šio elemento nėra arba; jis buvo panaikintas, nes neatitiko mūsų kokybės kriterijų, arba; jis buvo atnaujintas ir paskelbtas iš naujo su nauju unikaliu identifikatoriumi. Tokiu atveju pabandykite rasti elementą dar kartą.",
+      "metaTitle": "Prekė nerasta",
+      "title": "O ne! {newline} Mums nepavyko rasti šio elemento."
+    }
+  },
   "exhibitions": {
     "chapters": "Skyriai",
     "credits": "Kreditai",
@@ -495,7 +507,7 @@ export default {
     "MIME_TYPE": {
       "name": "Failo formatas | Failų formatai",
       "options": {
-        "text/plain": "Paprastas tekstas"
+        "text\/plain": "Paprastas tekstas"
       },
       "select": "Pasirinkite failų formatus"
     },
@@ -783,7 +795,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Padeda tobulinti mūsų svetainę, retkarčiais pritaikant eksperimentinius pakeitimus.",
-        "title": "A/B testavimas"
+        "title": "A\/B testavimas"
       },
       "auth-strategy": {
         "description": "Prisimena autorizacijos strategiją, kurią reikia naudoti prisijungiant.",
@@ -815,7 +827,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Prisimena, ar norite paieškos rezultatus matyti sąrašo ar tinklelio rodinyje.",
-        "title": "Paieškos rezultatų rodinys (sąrašas / tinklelis)"
+        "title": "Paieškos rezultatų rodinys (sąrašas \/ tinklelis)"
       }
     }
   },

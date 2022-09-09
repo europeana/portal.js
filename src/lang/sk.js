@@ -6,7 +6,7 @@ export default {
     "likes": "Označenia Páči sa mi",
     "linkAccount": "Môj účet",
     "linkLogin": "Prihlásiť sa",
-    "linkLoginJoin": "Prihlásiť sa/Zaregistrovať sa",
+    "linkLoginJoin": "Prihlásiť sa\/Zaregistrovať sa",
     "linkLogout": "Odhlásiť sa",
     "myProfile": "Môj profil",
     "notifications": {
@@ -201,12 +201,24 @@ export default {
         "title": "Príliš veľa pripnutých položiek"
       },
       "pinned": "Položka bola pripnutá. Teraz je v hornej časti prvej stránky tejto zbierky. Zobrazenie pre všetkých môže trvať až 24 hodín.",
-      "select": "Vyberte súvisiacu entitu, na ktorú chcete položku pripnúť/odopnúť.",
+      "select": "Vyberte súvisiacu entitu, na ktorú chcete položku pripnúť\/odopnúť.",
       "unpin": "Táto položka sa prestane zobrazovať v hornej časti zbierky „ {entity} “. Keď bude táto zmena viditeľná na stránke zbierky, upozorníme vás.",
       "unpinned": "Položka bola odopnutá. Už sa nenachádza v hornej časti prvej stránky tejto zbierky. Zmiznutie pre každého môže trvať až 24 hodín."
     }
   },
   "error": "Chyba",
+  "errorMessage": {
+    "galleryUnauthorised": {
+      "description": "Nie je to možné, pretože súkromné galérie sú viditeľné iba pre ich tvorcu. Ak poznáte tvorcu galérie, požiadajte ho o zverejnenie galérie. Prípadne nahláste tento problém pomocou tlačidla spätnej väzby.",
+      "metaTitle": "Galéria je neoprávnená",
+      "title": "Ups! {newline} Snažíte sa zobraziť súkromnú galériu inej osoby."
+    },
+    "itemNotFound": {
+      "description": "Môže to byť z nasledujúcich dôvodov: táto položka neexistuje alebo; bolo zrušené, pretože nezodpovedalo našim kritériám kvality, alebo; bola aktualizovaná a znovu publikovaná s novým jedinečným identifikátorom, v takom prípade skúste položku znova nájsť.",
+      "metaTitle": "Položka sa nenašla",
+      "title": "Ó nie! {newline} Túto položku sa nám nepodarilo nájsť."
+    }
+  },
   "exhibitions": {
     "chapters": "Kapitoly",
     "credits": "Autori",
@@ -495,7 +507,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formát súboru | Formáty súborov",
       "options": {
-        "text/plain": "Obyčajný text"
+        "text\/plain": "Obyčajný text"
       },
       "select": "Vyberte formáty súborov"
     },
@@ -783,7 +795,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Pomáha zlepšovať náš web príležitostným použitím experimentálnych zmien.",
-        "title": "A/B testovanie"
+        "title": "A\/B testovanie"
       },
       "auth-strategy": {
         "description": "Pamätá si stratégiu autorizácie, ktorá sa má použiť na prihlásenie.",
@@ -815,7 +827,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Pamätá si, či chcete radšej zobraziť výsledky vyhľadávania v zozname alebo mriežke.",
-        "title": "Zobrazenie výsledkov hľadania (zoznam / mriežka)"
+        "title": "Zobrazenie výsledkov hľadania (zoznam \/ mriežka)"
       }
     }
   },

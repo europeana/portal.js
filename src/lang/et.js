@@ -6,7 +6,7 @@ export default {
     "likes": "Meeldimised",
     "linkAccount": "Minu konto",
     "linkLogin": "Logi sisse",
-    "linkLoginJoin": "Logi sisse/Liitu",
+    "linkLoginJoin": "Logi sisse\/Liitu",
     "linkLogout": "Logi välja",
     "myProfile": "Minu profiil",
     "notifications": {
@@ -201,12 +201,24 @@ export default {
         "title": "Liiga palju kinnitatud üksusi"
       },
       "pinned": "Üksus on kinnitatud. See on nüüd selle kogumiku esimese lehe ülaosas. Kõigi kuvamiseks võib kuluda kuni 24 tundi.",
-      "select": "Valige seotud olem üksuse kinnitamiseks/eemaldamiseks selle külge/välja.",
+      "select": "Valige seotud olem üksuse kinnitamiseks\/eemaldamiseks selle külge\/välja.",
       "unpin": "Seda üksust ei kuvata enam kogu „ {entity} ” ülaosas. Anname teile teada, kui seda muudatust kogumislehel näha on.",
       "unpinned": "Üksus on vabastatud. Seda pole enam selle kogumiku esimese lehe ülaosas. Kõigi kadumiseks võib kuluda kuni 24 tundi."
     }
   },
   "error": "Viga",
+  "errorMessage": {
+    "galleryUnauthorised": {
+      "description": "See pole võimalik, kuna privaatgaleriid on nähtavad ainult nende loojale. Kui teate galerii loojat, paluge tal galerii avalikustada. Teise võimalusena teavitage sellest probleemist tagasiside nupuga.",
+      "metaTitle": "Galerii volitamata",
+      "title": "Ups! {newline} Sa üritad vaadata teise isiku privaat galeriid."
+    },
+    "itemNotFound": {
+      "description": "Selle põhjuseks võivad olla järgmised põhjused: seda üksust pole olemas või; see tühistati, kuna see ei vastanud meie kvaliteedikriteeriumidele või; seda värskendati ja avaldati uuesti uue kordumatu identifikaatoriga. Sel juhul proovige üksust uuesti leida.",
+      "metaTitle": "Üksust ei leitud",
+      "title": "Oh ei! {newline} Me ei leidnud seda üksust."
+    }
+  },
   "exhibitions": {
     "chapters": "Peatükid",
     "credits": "Autorid",
@@ -495,7 +507,7 @@ export default {
     "MIME_TYPE": {
       "name": "Failivorming | Failivormingud",
       "options": {
-        "text/plain": "Lihttekst"
+        "text\/plain": "Lihttekst"
       },
       "select": "Valige failivormingud"
     },
@@ -744,7 +756,7 @@ export default {
   },
   "items": {
     "itemCount": "1 toode | {count} toodet",
-    "itemOf": "{max} / {count} tootest",
+    "itemOf": "{max} \/ {count} tootest",
     "recent": "Hiljutised esemed",
     "recommended": "Soovitatavad esemed",
     "youMightLike": "Tooted, mis võivad teile meeldida"
@@ -783,7 +795,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Aitab meie veebisaiti täiustada, rakendades aeg -ajalt eksperimentaalseid muudatusi.",
-        "title": "A/B testimine"
+        "title": "A\/B testimine"
       },
       "auth-strategy": {
         "description": "Mäletab sisselogimiseks kasutatava autoriseerimisstrateegia.",
@@ -815,7 +827,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Mäletab, kas eelistate näha otsingutulemusi loendi või ruudustiku kujul.",
-        "title": "Otsingutulemite vaade (loend / ruudustik)"
+        "title": "Otsingutulemite vaade (loend \/ ruudustik)"
       }
     }
   },

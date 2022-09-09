@@ -6,7 +6,7 @@ export default {
     "likes": "Polubienia",
     "linkAccount": "Moje konto",
     "linkLogin": "Zaloguj się",
-    "linkLoginJoin": "Zaloguj/Dołącz",
+    "linkLoginJoin": "Zaloguj\/Dołącz",
     "linkLogout": "Wyloguj",
     "myProfile": "Mój profil",
     "notifications": {
@@ -201,12 +201,24 @@ export default {
         "title": "Za dużo przpiętych obiektów"
       },
       "pinned": "Obiekt został przypięty. Znajduje się teraz na górze pierwszej strony tej kolekcji. Synchronizacja u wszystkich użytkowników może potrwać do 24 godzin.",
-      "select": "Wybierz powiązaną jednostkę, aby przypiąć/odpiąć element do/od niego.",
+      "select": "Wybierz powiązaną jednostkę, aby przypiąć\/odpiąć element do\/od niego.",
       "unpin": "Ten element przestanie się wyświetlać u góry kolekcji „ {entity} ”. Powiadomimy Cię, kiedy ta zmiana będzie widoczna na stronie kolekcji.",
       "unpinned": "Obiekt został odpięty. Nie znajduje się już na górze pierwszej strony tej kolekcji. Może minąć do 24 godzin, zanim zniknie dla wszystkich użytkowników."
     }
   },
   "error": "Błąd",
+  "errorMessage": {
+    "galleryUnauthorised": {
+      "description": "Nie jest to możliwe, ponieważ prywatne galerie są widoczne tylko dla ich twórcy. Jeśli znasz twórcę galerii, poproś go o upublicznienie galerii. Możesz też zgłosić ten problem za pomocą przycisku opinii.",
+      "metaTitle": "Galeria nieautoryzowana",
+      "title": "Ups! {newline} Próbujesz wyświetlić prywatną galerię innej osoby."
+    },
+    "itemNotFound": {
+      "description": "Może to być spowodowane następującymi przyczynami: ten element nie istnieje lub; został wycofany z publikacji, ponieważ nie spełniał naszych kryteriów jakości lub; został zaktualizowany i ponownie opublikowany z nowym unikalnym identyfikatorem, w takim przypadku spróbuj ponownie znaleźć przedmiot.",
+      "metaTitle": "Nie znaleziono przedmiotu",
+      "title": "O nie! {newline} Nie mogliśmy znaleźć tego przedmiotu."
+    }
+  },
   "exhibitions": {
     "chapters": "Rozdziały",
     "credits": "Twórcy",
@@ -495,7 +507,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format plików | Formaty plików",
       "options": {
-        "text/plain": "Zwykły tekst"
+        "text\/plain": "Zwykły tekst"
       },
       "select": "Wybierz formaty plików"
     },
@@ -661,7 +673,7 @@ export default {
       "keywords": "Słowa kluczowe (dostarczone przez społeczność)",
       "timestampCreated": "Data utworzenia rekordu",
       "timestampUpdate": "Data zaktualizowania rekordu",
-      "wasPresentAt": "Był obecny w/na",
+      "wasPresentAt": "Był obecny w\/na",
       "year": "Rok"
     },
     "webResource": {
@@ -783,7 +795,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Pomaga ulepszyć naszą stronę internetową, od czasu do czasu stosując eksperymentalne zmiany.",
-        "title": "Testy A/B"
+        "title": "Testy A\/B"
       },
       "auth-strategy": {
         "description": "Zapamiętuje strategię autoryzacji używaną do logowania.",
@@ -815,7 +827,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Zapamiętuje czy wolisz widzieć wyniki wyszukiwania w widoku listy lub siatki.",
-        "title": "Widok wyników wyszukiwania (lista/siatka)"
+        "title": "Widok wyników wyszukiwania (lista\/siatka)"
       }
     }
   },
