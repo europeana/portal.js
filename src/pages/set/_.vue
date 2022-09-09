@@ -1,158 +1,159 @@
 <template>
-  <b-container
-    v-if="$fetchState.pending"
-    data-qa="loading spinner container"
-  >
-    <b-row class="flex-md-row py-4 text-center">
-      <b-col cols="12">
-        <LoadingSpinner />
-      </b-col>
-    </b-row>
-  </b-container>
-  <b-container
-    v-else-if="$fetchState.error"
-    data-qa="alert message container"
-  >
-    <b-row class="flex-md-row py-4">
-      <b-col cols="12">
-        <AlertMessage
-          :error="$fetchState.error.message"
-        />
-      </b-col>
-    </b-row>
-  </b-container>
   <div
-    v-else-if="set.id"
-    class="mt-n3"
-    data-qa="user gallery page"
+    :class="$fetchState.error && 'white-page'"
   >
     <b-container
-      fluid
+      v-if="$fetchState.pending"
+      data-qa="loading spinner container"
     >
-      <b-row class="flex-md-row pt-5 bg-white mb-4">
-        <b-col
-          cols="12"
-        >
-          <b-container class="mb-5">
-            <b-row class="mb-4">
-              <b-col>
-                <div
-                  class="context-label"
-                >
-                  {{ $tc('galleries.galleries', 1) }}
-                </div>
-                <h1
-                  :lang="displayTitle.code"
-                >
-                  {{ displayTitle.values[0] }}
-                </h1>
-                <p
-                  class="usergallery-description mb-3 w-75"
-                  :lang="displayDescription.code"
-                >
-                  {{ displayDescription.values[0] }}
-                </p>
-                <!-- TODO: to avoid showing an empty div + whitespace, the v-if is on the div
-                    This can be changed when this functionality is further developed
-                -->
-                <div
-                  v-if="set.visibility === 'private' || set.creator.nickname"
-                  class="usergallery-metadata mb-2"
-                >
-                  <span
-                    v-if="set.creator.nickname"
-                    class="curator mb-2"
-                  >
-                    {{ $t('set.labels.curatedBy') }} @{{ set.creator.nickname }}
-                  </span>
-                  <span
-                    v-if="set.visibility === 'private'"
-                    class="
-                    visibility mb-2"
-                  >
-                    {{ $t('set.labels.private') }}
-                  </span>
-                </div>
-              </b-col>
-            </b-row>
-            <div class="d-inline-flex collection-buttons">
-              <template
-                v-if="userIsOwner"
-              >
-                <b-button
-                  variant="outline-primary"
-                  class="text-decoration-none mr-2"
-                  data-qa="edit set button"
-                  @click="$bvModal.show(setFormModalId)"
-                >
-                  {{ $t('actions.edit') }}
-                </b-button>
-                <SetFormModal
-                  :set-id="set.id"
-                  :modal-id="setFormModalId"
-                  :title="set.title"
-                  :description="set.description"
-                  :visibility="set.visibility"
-                />
-              </template>
-              <b-button
-                v-b-modal.share-modal
-                variant="outline-primary"
-                class="text-decoration-none"
-              >
-                {{ $t('actions.share') }}
-              </b-button>
-              <SocialShareModal :media-url="shareMediaUrl" />
-            </div>
-          </b-container>
+      <b-row class="flex-md-row py-4 text-center">
+        <b-col cols="12">
+          <LoadingSpinner />
         </b-col>
       </b-row>
     </b-container>
-    <b-container
-      class="mb-3"
-      data-qa="user set"
+    <ErrorMessage
+      v-else-if="$fetchState.error"
+      data-qa="error message container"
+      :error="$fetchState.error.message"
+      :title-path="$fetchState.error.titlePath"
+      :description-path="$fetchState.error.descriptionPath"
+      :illustration-src="$fetchState.error.illustrationSrc"
+    />
+    <div
+      v-else-if="set.id"
+      class="mt-n3"
+      data-qa="user gallery page"
     >
-      <b-row>
-        <b-col>
-          <h2
-            class="related-heading text-uppercase"
-            data-qa="item count"
+      <b-container
+        fluid
+      >
+        <b-row class="flex-md-row pt-5 bg-white mb-4">
+          <b-col
+            cols="12"
           >
-            {{ displayItemCount }}
-          </h2>
-        </b-col>
-      </b-row>
-      <b-row>
-        <b-col>
-          <b-container class="px-0">
-            <b-row class="mb-3">
-              <b-col cols="12">
-                <ItemPreviewCardGroup
-                  :items="set.items"
-                  :show-pins="setIsEntityBestItems && userIsEntityEditor"
-                  :draggable-items="userIsOwner"
-                  @endItemDrag="reorderItems"
-                />
-              </b-col>
-            </b-row>
-          </b-container>
-        </b-col>
-      </b-row>
-      <client-only>
-        <SetRecommendations
-          v-if="displayRecommendations"
-          :identifier="`/${$route.params.pathMatch}`"
-          :type="set.type"
-        />
-      </client-only>
-    </b-container>
+            <b-container class="mb-5">
+              <b-row class="mb-4">
+                <b-col>
+                  <div
+                    class="context-label"
+                  >
+                    {{ $tc('galleries.galleries', 1) }}
+                  </div>
+                  <h1
+                    :lang="displayTitle.code"
+                  >
+                    {{ displayTitle.values[0] }}
+                  </h1>
+                  <p
+                    class="usergallery-description mb-3 w-75"
+                    :lang="displayDescription.code"
+                  >
+                    {{ displayDescription.values[0] }}
+                  </p>
+                  <!-- TODO: to avoid showing an empty div + whitespace, the v-if is on the div
+                      This can be changed when this functionality is further developed
+                  -->
+                  <div
+                    v-if="set.visibility === 'private' || set.creator.nickname"
+                    class="usergallery-metadata mb-2"
+                  >
+                    <span
+                      v-if="set.creator.nickname"
+                      class="curator mb-2"
+                    >
+                      {{ $t('set.labels.curatedBy') }} @{{ set.creator.nickname }}
+                    </span>
+                    <span
+                      v-if="set.visibility === 'private'"
+                      class="
+                      visibility mb-2"
+                    >
+                      {{ $t('set.labels.private') }}
+                    </span>
+                  </div>
+                </b-col>
+              </b-row>
+              <div class="d-inline-flex collection-buttons">
+                <template
+                  v-if="userIsOwner"
+                >
+                  <b-button
+                    variant="outline-primary"
+                    class="text-decoration-none mr-2"
+                    data-qa="edit set button"
+                    @click="$bvModal.show(setFormModalId)"
+                  >
+                    {{ $t('actions.edit') }}
+                  </b-button>
+                  <SetFormModal
+                    :set-id="set.id"
+                    :modal-id="setFormModalId"
+                    :title="set.title"
+                    :description="set.description"
+                    :visibility="set.visibility"
+                  />
+                </template>
+                <b-button
+                  v-b-modal.share-modal
+                  variant="outline-primary"
+                  class="text-decoration-none"
+                >
+                  {{ $t('actions.share') }}
+                </b-button>
+                <SocialShareModal :media-url="shareMediaUrl" />
+              </div>
+            </b-container>
+          </b-col>
+        </b-row>
+      </b-container>
+      <b-container
+        class="mb-3"
+        data-qa="user set"
+      >
+        <b-row>
+          <b-col>
+            <h2
+              class="related-heading text-uppercase"
+              data-qa="item count"
+            >
+              {{ displayItemCount }}
+            </h2>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col>
+            <b-container class="px-0">
+              <b-row class="mb-3">
+                <b-col cols="12">
+                  <ItemPreviewCardGroup
+                    :items="set.items"
+                    :show-pins="setIsEntityBestItems && userIsEntityEditor"
+                    :draggable-items="userIsOwner"
+                    @endItemDrag="reorderItems"
+                  />
+                </b-col>
+              </b-row>
+            </b-container>
+          </b-col>
+        </b-row>
+        <client-only>
+          <SetRecommendations
+            v-if="displayRecommendations"
+            :identifier="`/${$route.params.pathMatch}`"
+            :type="set.type"
+          />
+        </client-only>
+      </b-container>
+    </div>
   </div>
 </template>
 
 <script>
-  // TODO: This file will be deprecated when set driven galleries are in production.
+  // TODO: This file will be deprecated when set-driven galleries are in production.
   // TODO: Also move the beforeRouteEnter redirect to the legacy middleware.
   import ClientOnly from 'vue-client-only';
+  import createHttpError from 'http-errors';
 
   import {
     ITEM_URL_PREFIX as EUROPEANA_DATA_URL_ITEM_PREFIX,
@@ -168,8 +169,8 @@
 
     components: {
       ClientOnly,
+      ErrorMessage: () => import('@/components/generic/ErrorMessage'),
       LoadingSpinner: () => import('@/components/generic/LoadingSpinner'),
-      AlertMessage: () => import('@/components/generic/AlertMessage'),
       ItemPreviewCardGroup,
       SocialShareModal,
       SetFormModal: () => import('@/components/set/SetFormModal'),
@@ -191,11 +192,26 @@
     },
 
     async fetch() {
-      await this.$store.dispatch('set/fetchActive', this.setId);
+      try {
+        this.validateRoute();
 
-      if (this.setIsEntityBestItems && this.userIsEntityEditor) {
-        await this.$store.commit('entity/setFeaturedSetId', this.setId);
-        await this.$store.dispatch('entity/getPins');
+        await this.$store.dispatch('set/fetchActive', this.setId);
+
+        if (this.setIsEntityBestItems && this.userIsEntityEditor) {
+          await this.$store.commit('entity/setFeaturedSetId', this.setId);
+          await this.$store.dispatch('entity/getPins');
+        }
+      } catch (error) {
+        if (process.server) {
+          this.$nuxt.context.res.statusCode = error.statusCode || 500;
+        }
+        if (error.statusCode === 403) {
+          error.titlePath = 'errorMessage.galleryUnauthorised.title';
+          error.descriptionPath = 'errorMessage.galleryUnauthorised.description';
+          error.metaTitlePath = 'errorMessage.galleryUnauthorised.metaTitle';
+          error.illustrationSrc = require('@/assets/img/illustrations/il-gallery-unauthorised.svg');
+        }
+        throw error;
       }
     },
 
@@ -216,6 +232,9 @@
     },
 
     computed: {
+      fetchState() {
+        return this.$fetchState;
+      },
       set() {
         return this.$store.state.set.active || {};
       },
@@ -247,7 +266,7 @@
       },
       displayTitle() {
         if (this.$fetchState.error) {
-          return { values: [this.$t('error')] };
+          return { values: [this.$t(this.$fetchState.error.metaTitlePath ? this.$fetchState.error.metaTitlePath : 'error')] };
         }
         return langMapValueForLocale(this.set.title, this.$i18n.locale);
       },
@@ -275,6 +294,12 @@
     },
 
     methods: {
+      validateRoute() {
+        if (!/^\d+$/.test(this.$route.params.pathMatch)) {
+          throw createHttpError(400, 'Invalid set ID');
+        }
+      },
+
       reorderItems(items) {
         this.$store.dispatch('set/update', {
           id: `${EUROPEANA_DATA_URL_SET_PREFIX}/${this.setId}`,

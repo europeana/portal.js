@@ -211,6 +211,18 @@ export default {
     }
   },
   "error": "Akatsa",
+  "errorMessage": {
+    "galleryUnauthorised": {
+      "description": "Hau ezinezkoa da galeria pribatuak bere sortzaileak soilik ikusten dituelako. Galeriaren sortzailea ezagutzen baduzu, eskatu galeria publiko egiteko. Bestela, jakinarazi arazo hau iritzia botoia erabiliz.",
+      "metaTitle": "Baimenik gabeko galeria",
+      "title": "Oops! {newline} Beste pertsona baten galeria pribatua ikusten saiatzen ari zara."
+    },
+    "itemNotFound": {
+      "description": "Hau arrazoi hauengatik izan daiteke: elementu hau ez da existitzen, edo; gure kalitate irizpideekin bat ez zetorrelako kaleratu zen, edo; eguneratu eta berriro argitaratu zen identifikatzaile esklusibo berri batekin, eta kasu horretan, saiatu berriro elementua aurkitzen.",
+      "metaTitle": "Ez da aurkitu elementua",
+      "title": "Oh ez! {newline} Ezin izan dugu elementu hau aurkitu."
+    }
+  },
   "exhibitions": {
     "chapters": "Kapituluak",
     "credits": "Kredituak",

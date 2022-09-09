@@ -207,6 +207,18 @@ export default {
     }
   },
   "error": "Hiba",
+  "errorMessage": {
+    "galleryUnauthorised": {
+      "description": "Ez nem lehetséges, mert a privát galériákat csak a készítőjük láthatja. Ha ismeri a galéria készítőjét, kérje meg, hogy tegye nyilvánossá a galériát. Alternatív megoldásként jelentse a problémát a visszajelzés gombbal.",
+      "metaTitle": "A galéria jogosulatlan",
+      "title": "Hoppá! {newline} Egy másik személy privát galériáját próbálja megtekinteni."
+    },
+    "itemNotFound": {
+      "description": "Ennek a következő okai lehetnek: ez az elem nem létezik, vagy; közzétételre került, mert nem felelt meg minőségi kritériumainknak, vagy; frissítve lett, és új egyedi azonosítóval újból közzétéve, ebben az esetben próbálja meg újra megtalálni az elemet.",
+      "metaTitle": "Az elem nem található",
+      "title": "Ó, nem! {newline} Nem találtuk meg ezt a tételt."
+    }
+  },
   "exhibitions": {
     "chapters": "Fejezetek",
     "credits": "Szerzői információk",

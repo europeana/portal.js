@@ -65,6 +65,9 @@ const responseError = {
       success: false,
       error: 'There was an error',
       status: 500
+    },
+    headers: {
+      'content-type': 'application/json'
     }
   }
 };

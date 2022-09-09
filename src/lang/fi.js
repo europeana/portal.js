@@ -207,6 +207,18 @@ export default {
     }
   },
   "error": "Virhe",
+  "errorMessage": {
+    "galleryUnauthorised": {
+      "description": "Tämä ei ole mahdollista, koska yksityiset galleriat näkyvät vain niiden luojalle. Jos tunnet gallerian luojan, pyydä häntä tekemään galleriasta julkinen. Vaihtoehtoisesti voit ilmoittaa tästä ongelmasta palautepainikkeella.",
+      "metaTitle": "Galleria luvaton",
+      "title": "Oho! {newline} Yrität tarkastella toisen henkilön yksityistä galleriaa."
+    },
+    "itemNotFound": {
+      "description": "Tämä voi johtua seuraavista syistä: tätä kohdetta ei ole olemassa tai; se poistettiin, koska se ei vastannut laatukriteereitämme tai; se päivitettiin ja julkaistiin uudelleen uudella yksilöivällä tunnisteella. Yritä siinä tapauksessa löytää kohde uudelleen.",
+      "metaTitle": "Kohdetta ei löydy",
+      "title": "Voi ei! {newline} Emme löytäneet tätä kohdetta."
+    }
+  },
   "exhibitions": {
     "chapters": "Luvut",
     "credits": "Tekijät",

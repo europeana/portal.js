@@ -207,6 +207,18 @@ export default {
     }
   },
   "error": "Chyba",
+  "errorMessage": {
+    "galleryUnauthorised": {
+      "description": "To není možné, protože soukromé galerie jsou viditelné pouze pro jejich tvůrce. Pokud znáte tvůrce galerie, požádejte ho, aby galerii zveřejnil. Případně nahlaste tento problém pomocí tlačítka zpětné vazby.",
+      "metaTitle": "Galerie neoprávněná",
+      "title": "Jejda! {newline} Pokoušíte se zobrazit soukromou galerii jiné osoby."
+    },
+    "itemNotFound": {
+      "description": "Může to být z následujících důvodů: tato položka neexistuje nebo; bylo zrušeno, protože neodpovídalo našim kritériím kvality, nebo; byla aktualizována a znovu publikována s novým jedinečným identifikátorem, v takovém případě zkuste položku znovu najít.",
+      "metaTitle": "Položka nenalezena",
+      "title": "Ach ne! {newline} Tuto položku se nám nepodařilo najít."
+    }
+  },
   "exhibitions": {
     "chapters": "Kapitoly",
     "credits": "Přispěvky",

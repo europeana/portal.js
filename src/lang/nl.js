@@ -207,6 +207,18 @@ export default {
     }
   },
   "error": "Fout",
+  "errorMessage": {
+    "galleryUnauthorised": {
+      "description": "Dit is niet mogelijk, omdat privé galerijen alleen zichtbaar zijn voor de maker ervan. Als u de maker van de galerij kent, vraag hem dan om de galerij publiek te maken. U kunt dit probleem ook melden via de feedback knop.",
+      "metaTitle": "Galerij ongeautoriseerd",
+      "title": "Oeps! {newline} U probeert de privégalerij van iemand anders te bekijken."
+    },
+    "itemNotFound": {
+      "description": "Dit kan de volgende redenen hebben: dit item bestaat niet, of; het werd ongepubliceerd, omdat het niet voldeed aan onze kwaliteitscriteria, of; het is bijgewerkt en opnieuw gepubliceerd met een nieuwe unieke identificatie. Probeer in dat geval het item opnieuw te vinden.",
+      "metaTitle": "Item niet gevonden",
+      "title": "Oh nee! {newline} We hebben dit item niet kunnen vinden."
+    }
+  },
   "exhibitions": {
     "chapters": "Hoofdstukken",
     "credits": "Credits",

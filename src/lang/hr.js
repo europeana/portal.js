@@ -207,6 +207,18 @@ export default {
     }
   },
   "error": "Greška",
+  "errorMessage": {
+    "galleryUnauthorised": {
+      "description": "To nije moguće jer su privatne galerije vidljive samo njihovom autoru. Ako poznajete autora galerije, zamolite ga da galeriju učini javnom. Alternativno, prijavite ovaj problem pomoću gumba za povratne informacije.",
+      "metaTitle": "Galerija neovlaštena",
+      "title": "Ups! {newline} Pokušavate pogledati privatnu galeriju druge osobe."
+    },
+    "itemNotFound": {
+      "description": "To može biti zbog sljedećih razloga: ova stavka ne postoji ili; povučeno je iz objave jer nije odgovaralo našim kriterijima kvalitete ili; ažuriran je i ponovno objavljen s novim jedinstvenim identifikatorom, u kojem slučaju ponovno pokušajte pronaći stavku.",
+      "metaTitle": "Stavka nije pronađena",
+      "title": "O ne! {newline} Nismo uspjeli pronaći ovu stavku."
+    }
+  },
   "exhibitions": {
     "chapters": "Poglavlja",
     "credits": "Krediti",

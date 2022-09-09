@@ -207,6 +207,18 @@ export default {
     }
   },
   "error": "Viga",
+  "errorMessage": {
+    "galleryUnauthorised": {
+      "description": "See pole võimalik, kuna privaatgaleriid on nähtavad ainult nende loojale. Kui teate galerii loojat, paluge tal galerii avalikustada. Teise võimalusena teavitage sellest probleemist tagasiside nupuga.",
+      "metaTitle": "Galerii volitamata",
+      "title": "Ups! {newline} Sa üritad vaadata teise isiku privaat galeriid."
+    },
+    "itemNotFound": {
+      "description": "Selle põhjuseks võivad olla järgmised põhjused: seda üksust pole olemas või; see tühistati, kuna see ei vastanud meie kvaliteedikriteeriumidele või; seda värskendati ja avaldati uuesti uue kordumatu identifikaatoriga. Sel juhul proovige üksust uuesti leida.",
+      "metaTitle": "Üksust ei leitud",
+      "title": "Oh ei! {newline} Me ei leidnud seda üksust."
+    }
+  },
   "exhibitions": {
     "chapters": "Peatükid",
     "credits": "Autorid",
