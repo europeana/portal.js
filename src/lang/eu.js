@@ -6,7 +6,7 @@ export default {
     "likes": "Atsegin |",
     "linkAccount": "Nire kontua",
     "linkLogin": "Saioa hasi",
-    "linkLoginJoin": "Saioa hasi\/Sartu",
+    "linkLoginJoin": "Saioa hasi/Sartu",
     "linkLogout": "Saioa amaitu",
     "myProfile": "Nire profila",
     "notifications": {
@@ -205,7 +205,7 @@ export default {
         "title": "Ainguratutako elementu gehiegi"
       },
       "pinned": "Elementua ainguratu da. Bilduma honen lehen orrialdearen goialdean dago orain. 24 ordu behar izan ditzake guztientzat agertzeko.",
-      "select": "Hautatu erlazionatutako entitate bat elementua ainguratzeko\/desainguratzeko.",
+      "select": "Hautatu erlazionatutako entitate bat elementua ainguratzeko/desainguratzeko.",
       "unpin": "Elementu hau \"{entity}\" bildumaren goialdean erakusteari utziko zaio. Aldaketa hau bildumaren orrian ikusgai dagoenean jakinaraziko dizugu.",
       "unpinned": "Elementua ainguratu egin da. Jada ez dago bilduma honetako lehen orrialdearen goialdean. 24 ordu behar izan ditzake guztientzat desagertzeko."
     }
@@ -511,7 +511,7 @@ export default {
     "MIME_TYPE": {
       "name": "Fitxategiaren formatua | Fitxategien formatuak",
       "options": {
-        "text\/plain": "Testu arrunta"
+        "text/plain": "Testu arrunta"
       },
       "select": "Hautatu fitxategi formatuak"
     },
@@ -533,23 +533,23 @@ export default {
     "RIGHTS": {
       "name": "Eskubideen adierazpena",
       "options": {
-        "*\/CNE\/*": "Copyright ez da ebaluatu",
-        "*\/InC-EDU\/*": "Copyright-en - Hezkuntza erabilera baimenduta",
-        "*\/InC-OW-EU\/*": "Copyright-en - OW-EU",
-        "*\/InC\/*": "Copyright-en",
-        "*\/NoC-NC\/*": "Copyright-rik gabe - Erabilera ez komertziala soilik",
-        "*\/NoC-OKLR\/*": "Copyright ez - Ezagutzen diren beste legezko murriztapen batzuk",
-        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
-        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
-        "*\/licenses\/by-nc\/*": "CC BY-NC",
-        "*\/licenses\/by-nd\/*": "CC BY-ND",
-        "*\/licenses\/by-sa\/*": "CC BY-SA",
-        "*\/licenses\/by\/*": "CC BY",
-        "*\/publicdomain\/mark\/*": "Domeinu Publikoaren Marka",
-        "*\/publicdomain\/zero\/*": "CC0",
-        "*\/rights\/out-of-copyright-non-commercial\/*": "Egile-eskubideetatik kanpo - komertziala ez den berrerabilpena",
-        "*\/rights\/rr-f\/*": "Eskubideak gordeta - Doako sarbidea",
-        "*\/rights\/unknown\/*": "Copyright-egoera ezezaguna"
+        "*/CNE/*": "Copyright ez da ebaluatu",
+        "*/InC-EDU/*": "Copyright-en - Hezkuntza erabilera baimenduta",
+        "*/InC-OW-EU/*": "Copyright-en - OW-EU",
+        "*/InC/*": "Copyright-en",
+        "*/NoC-NC/*": "Copyright-rik gabe - Erabilera ez komertziala soilik",
+        "*/NoC-OKLR/*": "Copyright ez - Ezagutzen diren beste legezko murriztapen batzuk",
+        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
+        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
+        "*/licenses/by-nc/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-ND",
+        "*/licenses/by-sa/*": "CC BY-SA",
+        "*/licenses/by/*": "CC BY",
+        "*/publicdomain/mark/*": "Domeinu Publikoaren Marka",
+        "*/publicdomain/zero/*": "CC0",
+        "*/rights/out-of-copyright-non-commercial/*": "Egile-eskubideetatik kanpo - komertziala ez den berrerabilpena",
+        "*/rights/rr-f/*": "Eskubideak gordeta - Doako sarbidea",
+        "*/rights/unknown/*": "Copyright-egoera ezezaguna"
       },
       "select": "Hautatu eskubideen adierazpenak"
     },
@@ -783,7 +783,7 @@ export default {
   },
   "items": {
     "itemCount": "Elementu 1 | {count} elementu",
-    "itemOf": "{max}\/{count} elementu",
+    "itemOf": "{max}/{count} elementu",
     "recent": "Azken elementuak",
     "recommended": "Gomendatutako elementuak",
     "youMightLike": "Gustatu ahal zaizkizun elementuak"
@@ -822,7 +822,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Gure webgunea hobetzen laguntzen du noizean behin aldaketa esperimentalak aplikatuz.",
-        "title": "A \/ B probak"
+        "title": "A / B probak"
       },
       "auth-strategy": {
         "description": "Saioa hasteko erabili beharreko baimen estrategia gogoratzen du.",
@@ -854,7 +854,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Gogoratzen duzu bilaketa-emaitzak zerrenda edo sareta ikuspegian ikustea nahiago baduzu.",
-        "title": "Bilaketaren emaitzen ikuspegia (zerrenda \/ sareta)"
+        "title": "Bilaketaren emaitzen ikuspegia (zerrenda / sareta)"
       }
     }
   },

@@ -6,7 +6,7 @@ export default {
     "likes": "Označenia Páči sa mi",
     "linkAccount": "Môj účet",
     "linkLogin": "Prihlásiť sa",
-    "linkLoginJoin": "Prihlásiť sa\/Zaregistrovať sa",
+    "linkLoginJoin": "Prihlásiť sa/Zaregistrovať sa",
     "linkLogout": "Odhlásiť sa",
     "myProfile": "Môj profil",
     "notifications": {
@@ -201,7 +201,7 @@ export default {
         "title": "Príliš veľa pripnutých položiek"
       },
       "pinned": "Položka bola pripnutá. Teraz je v hornej časti prvej stránky tejto zbierky. Zobrazenie pre všetkých môže trvať až 24 hodín.",
-      "select": "Vyberte súvisiacu entitu, na ktorú chcete položku pripnúť\/odopnúť.",
+      "select": "Vyberte súvisiacu entitu, na ktorú chcete položku pripnúť/odopnúť.",
       "unpin": "Táto položka sa prestane zobrazovať v hornej časti zbierky „ {entity} “. Keď bude táto zmena viditeľná na stránke zbierky, upozorníme vás.",
       "unpinned": "Položka bola odopnutá. Už sa nenachádza v hornej časti prvej stránky tejto zbierky. Zmiznutie pre každého môže trvať až 24 hodín."
     }
@@ -507,7 +507,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formát súboru | Formáty súborov",
       "options": {
-        "text\/plain": "Obyčajný text"
+        "text/plain": "Obyčajný text"
       },
       "select": "Vyberte formáty súborov"
     },
@@ -529,23 +529,23 @@ export default {
     "RIGHTS": {
       "name": "Vyhlásenie o právach",
       "options": {
-        "*\/CNE\/*": "Autorské práva sa nehodnotia",
-        "*\/InC-EDU\/*": "V autorských právach – Povolené použitie na vzdelávacie účely",
-        "*\/InC-OW-EU\/*": "V autorských právach - OW-EU",
-        "*\/InC\/*": "V autorských právach",
-        "*\/NoC-NC\/*": "Žiadne autorské práva – len na nekomerčné použitie",
-        "*\/NoC-OKLR\/*": "Žiadne autorské práva – iné známe právne obmedzenia",
-        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
-        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
-        "*\/licenses\/by-nc\/*": "CC BY-NC",
-        "*\/licenses\/by-nd\/*": "CC BY-ND",
-        "*\/licenses\/by-sa\/*": "CC BY-SA",
-        "*\/licenses\/by\/*": "CC BY",
-        "*\/publicdomain\/mark\/*": "Značka verejnej domény",
-        "*\/publicdomain\/zero\/*": "CC0",
-        "*\/rights\/out-of-copyright-non-commercial\/*": "Mimo autorských práv – nekomerčné opakované použitie",
-        "*\/rights\/rr-f\/*": "Práva vyhradené – Voľný prístup",
-        "*\/rights\/unknown\/*": "Neznámy stav autorských práv"
+        "*/CNE/*": "Autorské práva sa nehodnotia",
+        "*/InC-EDU/*": "V autorských právach – Povolené použitie na vzdelávacie účely",
+        "*/InC-OW-EU/*": "V autorských právach - OW-EU",
+        "*/InC/*": "V autorských právach",
+        "*/NoC-NC/*": "Žiadne autorské práva – len na nekomerčné použitie",
+        "*/NoC-OKLR/*": "Žiadne autorské práva – iné známe právne obmedzenia",
+        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
+        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
+        "*/licenses/by-nc/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-ND",
+        "*/licenses/by-sa/*": "CC BY-SA",
+        "*/licenses/by/*": "CC BY",
+        "*/publicdomain/mark/*": "Značka verejnej domény",
+        "*/publicdomain/zero/*": "CC0",
+        "*/rights/out-of-copyright-non-commercial/*": "Mimo autorských práv – nekomerčné opakované použitie",
+        "*/rights/rr-f/*": "Práva vyhradené – Voľný prístup",
+        "*/rights/unknown/*": "Neznámy stav autorských práv"
       },
       "select": "Vyberte vyhlásenia o právach"
     },
@@ -818,7 +818,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Pomáha zlepšovať náš web príležitostným použitím experimentálnych zmien.",
-        "title": "A\/B testovanie"
+        "title": "A/B testovanie"
       },
       "auth-strategy": {
         "description": "Pamätá si stratégiu autorizácie, ktorá sa má použiť na prihlásenie.",
@@ -850,7 +850,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Pamätá si, či chcete radšej zobraziť výsledky vyhľadávania v zozname alebo mriežke.",
-        "title": "Zobrazenie výsledkov hľadania (zoznam \/ mriežka)"
+        "title": "Zobrazenie výsledkov hľadania (zoznam / mriežka)"
       }
     }
   },

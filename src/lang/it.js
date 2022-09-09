@@ -6,7 +6,7 @@ export default {
     "likes": "Mi piace",
     "linkAccount": "Il mio account",
     "linkLogin": "Accedi",
-    "linkLoginJoin": "Accedi\/Iscriviti",
+    "linkLoginJoin": "Accedi/Iscriviti",
     "linkLogout": "Esci",
     "myProfile": "Il mio profilo",
     "notifications": {
@@ -201,7 +201,7 @@ export default {
         "title": "Troppi oggetti appuntati"
       },
       "pinned": "L'articolo è stato appuntato. Ora è in cima alla prima pagina di questa collezione. Potrebbe richiedere fino a 24 ore per apparire per tutti.",
-      "select": "Seleziona un'entità correlata a cui aggiungere\/sbloccare l'elemento a\/da esso.",
+      "select": "Seleziona un'entità correlata a cui aggiungere/sbloccare l'elemento a/da esso.",
       "unpin": "Questo elemento non verrà più visualizzato nella parte superiore della raccolta \" {entity} \". Ti avviseremo quando questa modifica sarà visibile nella pagina di raccolta.",
       "unpinned": "L'elemento è stato sbloccato. Non è più in cima alla prima pagina di questa raccolta. Potrebbero essere necessarie fino a 24 ore per scomparire per tutti."
     }
@@ -507,7 +507,7 @@ export default {
     "MIME_TYPE": {
       "name": "Formato file | Formati file",
       "options": {
-        "text\/plain": "Testo semplice"
+        "text/plain": "Testo semplice"
       },
       "select": "Seleziona i formati di file"
     },
@@ -529,23 +529,23 @@ export default {
     "RIGHTS": {
       "name": "Dichiarazione dei diritti",
       "options": {
-        "*\/CNE\/*": "Diritto d'autore non valutato",
-        "*\/InC-EDU\/*": "Nel diritto d'autore - Uso educativo permesso",
-        "*\/InC-OW-EU\/*": "Nel diritto d'autore - OW-EU",
-        "*\/InC\/*": "Nel diritto d'autore",
-        "*\/NoC-NC\/*": "Nessun diritto d'autore - Solo per uso non commerciale",
-        "*\/NoC-OKLR\/*": "Nessun diritto d'autore - Altre restrizioni legali note",
-        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
-        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
-        "*\/licenses\/by-nc\/*": "CC BY-NC",
-        "*\/licenses\/by-nd\/*": "CC BY-ND",
-        "*\/licenses\/by-sa\/*": "CC BY-SA",
-        "*\/licenses\/by\/*": "CC BY",
-        "*\/publicdomain\/mark\/*": "Marchio di pubblico dominio",
-        "*\/publicdomain\/zero\/*": "CC0",
-        "*\/rights\/out-of-copyright-non-commercial\/*": "Fuori copyright - riutilizzo non commerciale",
-        "*\/rights\/rr-f\/*": "Diritti riservati - Accesso gratuito",
-        "*\/rights\/unknown\/*": "Stato del copyright sconosciuto"
+        "*/CNE/*": "Diritto d'autore non valutato",
+        "*/InC-EDU/*": "Nel diritto d'autore - Uso educativo permesso",
+        "*/InC-OW-EU/*": "Nel diritto d'autore - OW-EU",
+        "*/InC/*": "Nel diritto d'autore",
+        "*/NoC-NC/*": "Nessun diritto d'autore - Solo per uso non commerciale",
+        "*/NoC-OKLR/*": "Nessun diritto d'autore - Altre restrizioni legali note",
+        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
+        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
+        "*/licenses/by-nc/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-ND",
+        "*/licenses/by-sa/*": "CC BY-SA",
+        "*/licenses/by/*": "CC BY",
+        "*/publicdomain/mark/*": "Marchio di pubblico dominio",
+        "*/publicdomain/zero/*": "CC0",
+        "*/rights/out-of-copyright-non-commercial/*": "Fuori copyright - riutilizzo non commerciale",
+        "*/rights/rr-f/*": "Diritti riservati - Accesso gratuito",
+        "*/rights/unknown/*": "Stato del copyright sconosciuto"
       },
       "select": "Seleziona dichiarazioni sui diritti"
     },
@@ -818,7 +818,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Aiuta a migliorare il nostro sito Web applicando occasionalmente modifiche sperimentali.",
-        "title": "Test A\/B"
+        "title": "Test A/B"
       },
       "auth-strategy": {
         "description": "Ricorda la strategia di autorizzazione da utilizzare per accedere.",
@@ -850,7 +850,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Ricorda se preferisci vedere i risultati della ricerca in una visualizzazione elenco o griglia.",
-        "title": "Visualizzazione dei risultati di ricerca (elenco\/griglia)"
+        "title": "Visualizzazione dei risultati di ricerca (elenco/griglia)"
       }
     }
   },

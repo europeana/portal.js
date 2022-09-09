@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Il-Kont Tiegħi",
     "linkLogin": "Illoggja",
-    "linkLoginJoin": "Idħol\/Ingħaqad",
+    "linkLoginJoin": "Idħol/Ingħaqad",
     "linkLogout": "Oħroġ",
     "myProfile": "Il-profil Tiegħi",
     "notifications": {
@@ -201,7 +201,7 @@ export default {
         "title": "Wisq oġġetti pinned"
       },
       "pinned": "L-item ġie mwaħħal. Issa tinsab fin-naħa ta' fuq tal-ewwel paġna ta' din il-ġabra. Jista' jieħu sa 24 siegħa biex jidher għal kulħadd.",
-      "select": "Agħżel entità relatata biex tippinja\/unpin l-oġġett fuq\/minnha.",
+      "select": "Agħżel entità relatata biex tippinja/unpin l-oġġett fuq/minnha.",
       "unpin": "Dan l-oġġett se jieqaf jidher fin-naħa ta' fuq tal-kollezzjoni \" {entity} \". Aħna ninnotifikawk meta din il-bidla tkun viżibbli fuq il-paġna tal-ġbir.",
       "unpinned": "L-oġġett ma tpoġġiex. M’għadux fil-quċċata tal-ewwel paġna ta ’din il-kollezzjoni. Jista 'jieħu sa 24 siegħa biex jisparixxi għal kulħadd."
     }
@@ -507,7 +507,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format tal-fajl | Formati tal-fajl",
       "options": {
-        "text\/plain": "Test bla format"
+        "text/plain": "Test bla format"
       },
       "select": "Agħżel il-formati tal-fajl"
     },
@@ -529,23 +529,23 @@ export default {
     "RIGHTS": {
       "name": "Dikjarazzjoni tad-drittijiet",
       "options": {
-        "*\/CNE\/*": "Id-Drittijiet tal-Awtur Mhux Evalwati",
-        "*\/InC-EDU\/*": "Fid-Drittijiet tal-Awtur - Użu Edukattiv Permess",
-        "*\/InC-OW-EU\/*": "Fid-Drittijiet tal-Awtur - OW-EU",
-        "*\/InC\/*": "Fid-Drittijiet tal-Awtur",
-        "*\/NoC-NC\/*": "Ebda Copyright - Użu Mhux Kummerċjali Biss",
-        "*\/NoC-OKLR\/*": "Ebda Copyright - Restrizzjonijiet Legali Magħrufa Oħra",
-        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
-        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
-        "*\/licenses\/by-nc\/*": "CC BY-NC",
-        "*\/licenses\/by-nd\/*": "CC BY-ND",
-        "*\/licenses\/by-sa\/*": "CC BY-SA",
-        "*\/licenses\/by\/*": "CC BY",
-        "*\/publicdomain\/mark\/*": "Marka tad-Dominju Pubbliku",
-        "*\/publicdomain\/zero\/*": "CC0",
-        "*\/rights\/out-of-copyright-non-commercial\/*": "Mingħajr id-drittijiet tal-awtur - użu mill-ġdid mhux kummerċjali",
-        "*\/rights\/rr-f\/*": "Drittijiet Riservati - Aċċess liberu",
-        "*\/rights\/unknown\/*": "Status tad-drittijiet tal-awtur mhux magħruf"
+        "*/CNE/*": "Id-Drittijiet tal-Awtur Mhux Evalwati",
+        "*/InC-EDU/*": "Fid-Drittijiet tal-Awtur - Użu Edukattiv Permess",
+        "*/InC-OW-EU/*": "Fid-Drittijiet tal-Awtur - OW-EU",
+        "*/InC/*": "Fid-Drittijiet tal-Awtur",
+        "*/NoC-NC/*": "Ebda Copyright - Użu Mhux Kummerċjali Biss",
+        "*/NoC-OKLR/*": "Ebda Copyright - Restrizzjonijiet Legali Magħrufa Oħra",
+        "*/licenses/by-nc-nd/*": "CC BY-NC-ND",
+        "*/licenses/by-nc-sa/*": "CC BY-NC-SA",
+        "*/licenses/by-nc/*": "CC BY-NC",
+        "*/licenses/by-nd/*": "CC BY-ND",
+        "*/licenses/by-sa/*": "CC BY-SA",
+        "*/licenses/by/*": "CC BY",
+        "*/publicdomain/mark/*": "Marka tad-Dominju Pubbliku",
+        "*/publicdomain/zero/*": "CC0",
+        "*/rights/out-of-copyright-non-commercial/*": "Mingħajr id-drittijiet tal-awtur - użu mill-ġdid mhux kummerċjali",
+        "*/rights/rr-f/*": "Drittijiet Riservati - Aċċess liberu",
+        "*/rights/unknown/*": "Status tad-drittijiet tal-awtur mhux magħruf"
       },
       "select": "Agħżel dikjarazzjonijiet tad-drittijiet"
     },
@@ -818,7 +818,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Jgħin biex intejbu l-websajt tagħna billi kultant napplikaw bidliet sperimentali.",
-        "title": "Ittestjar A \/ B"
+        "title": "Ittestjar A / B"
       },
       "auth-strategy": {
         "description": "Jiftakar l-istrateġija ta' awtorizzazzjoni biex tużaha biex tilloggja.",
@@ -850,7 +850,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Tiftakar jekk tippreferi tara r-riżultati tat-tfittxija f'lista jew viżjoni tal-grilja.",
-        "title": "Veduta tar-riżultat tat-tfittxija (lista \/ gradilja)"
+        "title": "Veduta tar-riżultat tat-tfittxija (lista / gradilja)"
       }
     }
   },
