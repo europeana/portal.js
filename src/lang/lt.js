@@ -207,6 +207,18 @@ export default {
     }
   },
   "error": "Klaida",
+  "errorMessage": {
+    "galleryUnauthorised": {
+      "description": "Tai neįmanoma, nes privačias galerijas mato tik jų kūrėjas. Jei pažįstate galerijos kūrėją, paprašykite, kad galerija būtų vieša. Arba praneškite apie šią problemą naudodami atsiliepimų mygtuką.",
+      "metaTitle": "Galerija neteisėta",
+      "title": "Ups! {newline} Jūs bandote peržiūrėti kito asmens privačią galeriją."
+    },
+    "itemNotFound": {
+      "description": "Taip gali nutikti dėl šių priežasčių: šio elemento nėra arba; jis buvo panaikintas, nes neatitiko mūsų kokybės kriterijų, arba; jis buvo atnaujintas ir paskelbtas iš naujo su nauju unikaliu identifikatoriumi. Tokiu atveju pabandykite rasti elementą dar kartą.",
+      "metaTitle": "Prekė nerasta",
+      "title": "O ne! {newline} Mums nepavyko rasti šio elemento."
+    }
+  },
   "exhibitions": {
     "chapters": "Skyriai",
     "credits": "Kreditai",
