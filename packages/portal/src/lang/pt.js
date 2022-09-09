@@ -207,6 +207,18 @@ export default {
     }
   },
   "error": "Erro",
+  "errorMessage": {
+    "galleryUnauthorised": {
+      "description": "Isso não é possível porque as galerias privadas são visíveis apenas para o seu criador. Se conhece o criador da galeria, peça a ele para torná-la pública. Como alternativa, relate esse problema usando o botão de feedback.",
+      "metaTitle": "Galeria não autorizada",
+      "title": "Oops! {newline} Está a tentar ver a galeria privada de outra pessoa."
+    },
+    "itemNotFound": {
+      "description": "Isso pode ser devido aos seguintes motivos: este item não existe, ou; foi despublicado porque não atendeu aos nossos critérios de qualidade, ou; ele foi atualizado e republicado com um novo identificador exclusivo, nesse caso, tente encontrar o item novamente.",
+      "metaTitle": "Item não encontrado",
+      "title": "Oh não! {newline} Não foi possível encontrar este item."
+    }
+  },
   "exhibitions": {
     "chapters": "Capítulos",
     "credits": "Créditos",

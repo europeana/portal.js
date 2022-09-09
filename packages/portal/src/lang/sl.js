@@ -207,6 +207,18 @@ export default {
     }
   },
   "error": "Napaka",
+  "errorMessage": {
+    "galleryUnauthorised": {
+      "description": "To ni mogoče, ker so zasebne galerije vidne samo njihovemu ustvarjalcu. Če poznate ustvarjalca galerije, ga prosite, naj galerijo objavi. Druga možnost je, da to težavo prijavite z gumbom za povratne informacije.",
+      "metaTitle": "Galerija nepooblaščena",
+      "title": "Ups! {newline} Poskušate si ogledati zasebno galerijo druge osebe."
+    },
+    "itemNotFound": {
+      "description": "Razlogi za to so lahko naslednji: ta element ne obstaja ali je bil odstranjen iz objave, ker ni ustrezal našim merilom kakovosti, ali je bil posodobljen in ponovno objavljen z novim edinstvenim identifikatorjem, v tem primeru poskusite element poiskati znova.",
+      "metaTitle": "Element ni bil najden",
+      "title": "Oh ne! {newline} Tega predmeta nismo mogli najti."
+    }
+  },
   "exhibitions": {
     "chapters": "Poglavja",
     "credits": "Sodelavci",

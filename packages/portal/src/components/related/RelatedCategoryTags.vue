@@ -9,7 +9,7 @@
       <span class="icon-ic-tag" />
       <div>
         <b-badge
-          v-for="(tag, index) in tags"
+          v-for="(tag, index) in tags.filter((tag) => !!tag)"
           :key="index"
           variant="outline-light"
           :active="isActive(tag.identifier)"

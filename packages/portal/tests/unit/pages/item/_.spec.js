@@ -62,6 +62,7 @@ const factory = ({ mocks = {} } = {}) => shallowMountNuxt(page, {
       }
     },
     $fetchState: {},
+    $waitForMatomo: () => Promise.resolve(),
     $matomo: {
       trackPageView: sinon.spy()
     },
@@ -109,35 +110,124 @@ describe('pages/item/_.vue', () => {
       expect(wrapper.vm.metadata).toEqual(record.metadata);
     });
 
-    it('handles API errors', async() => {
-      const wrapper = factory();
-      process.server = true;
-      wrapper.vm.$apis.record.getRecord = sinon.stub().throws(() => new Error('Internal Server Error'));
+    describe('on errors', () => {
+      it('set the status code on SSRs', async() => {
+        const wrapper = factory();
+        process.server = true;
+        wrapper.vm.$apis.record.getRecord = sinon.stub().throws(() => new Error('Internal Server Error'));
 
-      let error;
-      try {
+        let error;
+        try {
+          await wrapper.vm.fetch();
+        } catch (e) {
+          error = e;
+        }
+
+        expect(wrapper.vm.$nuxt.context.res.statusCode).toBe(500);
+        expect(error.message).toBe('Internal Server Error');
+      });
+
+      it('displays an illustrated error message for 404 status', async() => {
+        const itemNotFoundError = { statusCode: 404, message: 'Error message' };
+        const wrapper = factory();
+        process.server = true;
+        wrapper.vm.$apis.record.getRecord.throws(itemNotFoundError);
+        wrapper.vm.$fetchState.error = itemNotFoundError;
+
+        let error;
+        try {
+          await wrapper.vm.$fetch();
+        } catch (e) {
+          error = e;
+        }
+
+        expect(wrapper.vm.$nuxt.context.res.statusCode).toBe(404);
+        expect(error.titlePath).toBe('errorMessage.itemNotFound.title');
+        expect(error.illustrationSrc).toBe('il-item-not-found.svg');
+      });
+    });
+
+    describe('on client-side request', () => {
+      it('sends custom dimensions to Matomo', async() => {
+        process.client = true;
+        const wrapper = factory();
+
         await wrapper.vm.fetch();
-      } catch (e) {
-        error = e;
-      }
 
-      expect(wrapper.vm.$nuxt.context.res.statusCode).toBe(500);
-      expect(error.message).toBe('Internal Server Error');
+        expect(wrapper.vm.$matomo.trackPageView.calledWith(
+          'item page custom dimensions',
+          wrapper.vm.matomoOptions
+        )).toBe(true);
+      });
+    });
+
+    describe('on server-side request', () => {
+      it('does not send custom dimensions to Matomo', async() => {
+        process.client = false;
+        const wrapper = await factory();
+        sinon.resetHistory();
+
+        await wrapper.vm.fetch();
+
+        expect(wrapper.vm.$matomo.trackPageView.called).toBe(false);
+      });
     });
   });
 
   describe('mounted', () => {
-    describe('when matomo is active', () => {
-      it('sends custom dimensions in English', () => {
-        const wrapper = factory();
+    describe('when fetch is still pending', () => {
+      const $fetchState = { pending: true };
 
-        expect(wrapper.vm.$matomo.trackPageView.calledWith('item page custom dimensions',
-          wrapper.vm.matomoOptions())).toBe(true);
+      it('does not send custom dimensions to Matomo', async() => {
+        const wrapper = await factory({ mocks: { $fetchState } });
+
+        expect(wrapper.vm.$matomo.trackPageView.called).toBe(false);
+      });
+    });
+
+    describe('when fetch errored', () => {
+      const $fetchState = { pending: false, error: { message: 'Item not found' } };
+
+      it('does not send custom dimensions to Matomo', async() => {
+        const wrapper = await factory({ mocks: { $fetchState } });
+
+        expect(wrapper.vm.$matomo.trackPageView.called).toBe(false);
+      });
+    });
+
+    describe('when fetch completed without error', () => {
+      const $fetchState = { pending: false };
+
+      it('sends custom dimensions to Matomo', async() => {
+        const wrapper = await factory({ mocks: { $fetchState } });
+
+        expect(wrapper.vm.$matomo.trackPageView.calledWith(
+          'item page custom dimensions',
+          wrapper.vm.matomoOptions
+        )).toBe(true);
       });
     });
   });
 
   describe('methods', () => {
+    describe('trackCustomDimensions', () => {
+      it('tracks page view if Matomo plugin installed', async() => {
+        const wrapper = factory();
+
+        await wrapper.vm.trackCustomDimensions();
+
+        expect(wrapper.vm.$matomo.trackPageView.called).toBe(true);
+      });
+
+      it('bails if no Matomo plugin not installed', async() => {
+        const wrapper = factory({ mocks: { $waitForMatomo: undefined } });
+
+        await wrapper.vm.trackCustomDimensions();
+
+        expect(wrapper.vm.$matomo.trackPageView.called).toBe(false);
+      });
+    });
+
     describe('annotationsByMotivation', () => {
       const annotations = [
         {
@@ -243,7 +333,31 @@ describe('pages/item/_.vue', () => {
       expect(headMeta.filter(meta => meta.property === 'og:image').length).toBe(1);
       expect(headMeta.find(meta => meta.property === 'og:image').content).toBe(thumbnailUrl);
     });
+
     describe('meta title', () => {
+      describe('when fetch errored', () => {
+        it('uses custom meta title path, if set', () => {
+          const mocks = { $fetchState: { error: { message: 'Item not found', metaTitlePath: 'error.itemNotFound.metaTitle' } } };
+          const wrapper = factory({ mocks });
+
+          const headMeta = wrapper.vm.head().meta;
+
+          expect(headMeta.filter(meta => meta.property === 'og:title').length).toBe(1);
+          expect(headMeta.find(meta => meta.property === 'og:title').content).toBe('error.itemNotFound.metaTitle');
+        });
+
+        it('falls back to generic error title', () => {
+          const mocks = { $fetchState: { error: { message: 'Error' } } };
+
+          const wrapper = factory({ mocks });
+
+          const headMeta = wrapper.vm.head().meta;
+
+          expect(headMeta.filter(meta => meta.property === 'og:title').length).toBe(1);
+          expect(headMeta.find(meta => meta.property === 'og:title').content).toBe('error');
+        });
+      });
+
       it('uses the title in current language', async() => {
         const wrapper = factory();
 
@@ -253,27 +367,6 @@ describe('pages/item/_.vue', () => {
 
         expect(headMeta.filter(meta => meta.property === 'og:title').length).toBe(1);
         expect(headMeta.find(meta => meta.property === 'og:title').content).toBe('Item example');
-      });
-    });
-  });
-
-  describe('when fetch errors', () => {
-    const errorMock = { $fetchState: { error: { message: 'Error message' } } };
-    it('renders an error message', () => {
-      const wrapper = factory({ mocks: errorMock });
-
-      const errorMessage = wrapper.find('[data-qa="error message container"]');
-
-      expect(errorMessage.exists()).toBe(true);
-    });
-    describe('meta title', () => {
-      it('communicates item is not found', () => {
-        const wrapper = factory({ mocks: errorMock });
-
-        const headMeta = wrapper.vm.head().meta;
-
-        expect(headMeta.filter(meta => meta.property === 'og:title').length).toBe(1);
-        expect(headMeta.find(meta => meta.property === 'og:title').content).toBe('errorMessage.itemNotFound.metaTitle');
       });
     });
   });

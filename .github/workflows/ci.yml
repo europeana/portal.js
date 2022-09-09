@@ -251,6 +251,7 @@ jobs:
         name: Create e2e test container .env files
         run: |
           envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/app/.env
+          envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/nightwatch/.env
           envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/nightwatch-visual/.env
       -
         name: Pull images for e2e tests
@@ -304,6 +305,7 @@ jobs:
         name: Create visual test container .env files
         run: |
           envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/app/.env
+          envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/nightwatch/.env
           envsubst < .github/workflows/support/ci/.env > tests/e2e/docker/nightwatch-visual/.env
       -
         name: Pull images for visual tests

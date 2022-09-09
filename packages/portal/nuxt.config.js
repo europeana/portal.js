@@ -147,7 +147,11 @@ export default {
     },
     matomo: {
       host: process.env.MATOMO_HOST,
-      siteId: process.env.MATOMO_SITE_ID
+      siteId: process.env.MATOMO_SITE_ID,
+      loadWait: {
+        delay: process.env.MATOMO_LOAD_WAIT_DELAY,
+        retries: process.env.MATOMO_LOAD_WAIT_RETRIES
+      }
     },
     oauth: {
       origin: process.env.OAUTH_ORIGIN,
