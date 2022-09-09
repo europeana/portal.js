@@ -152,7 +152,6 @@
       ...mapState({
         collectionFacetEnabled: state => state.search.collectionFacetEnabled,
         showFiltersSheet: state => state.search.showFiltersSheet,
-        totalResults: state => state.search.totalResults,
         userParams: state => state.search.userParams
       }),
       ...mapGetters({
