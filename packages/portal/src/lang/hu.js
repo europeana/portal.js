@@ -139,7 +139,7 @@ export default {
     },
     "headerNavigation": {
       "Collections": "Gyűjtemények",
-      "explore": "Ismerje meg",
+      "explore": "felfedez",
       "teachers": "Tanárok"
     }
   },
@@ -226,7 +226,7 @@ export default {
     "description": "Fedezze fel a kiállításokat",
     "exhibitions": "Kiállítások"
   },
-  "explore": "Fedezd fel",
+  "explore": "fedezze fel",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "színek",
@@ -747,7 +747,7 @@ export default {
     "storiesCTA": "Az összes történet megtekintése",
     "subHeadline": "Válogasson több ezer kulturális intézmény művészeti alkotásaiból, könyveiből,filmjeiből és zeneműveiből, és mentse el vagy ossza meg kedvenceit",
     "themesCTA": "Az összes téma megtekintése",
-    "themesTitle": "Téma szerinti felfedezés",
+    "themesTitle": "fedezze fel a témát",
     "title": "Fedezze fel Európa {digital} kulturális örökségét",
     "titleDigital": "digitális"
   },
@@ -920,7 +920,7 @@ export default {
     },
     "allMetaData": "Minden metaadat",
     "copyEmbedLabel": "Beágyazási kód (Kattintson a másoláshoz)",
-    "exploreMore": "Több felfedezés",
+    "exploreMore": "Fedezz fel többet",
     "extendedInformation": "Kiterjesztett információk",
     "goodToKnow": "Jó tudni",
     "hideAll": "Az összes információ elrejtése",
