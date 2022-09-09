@@ -84,69 +84,79 @@ const factory = (options = {}) => {
 };
 
 describe('components/search/SideFilters', () => {
-  describe('reset button', () => {
-    it('is not present when no filters are selected', () => {
-      const searchStoreGetters = {
-        hasResettableFilters: () => false
-      };
-      const wrapper = factory({ searchStoreGetters });
+  describe('template', () => {
+    it('is wrapper in <section role="search">', () => {
+      const wrapper = factory();
 
-      const resetButton = wrapper.find('[data-qa="reset filters button"]');
+      const section = wrapper.find('section[role="search"]');
 
-      expect(resetButton.exists()).toBe(false);
+      expect(section.exists()).toBe(true);
     });
 
-    it('is present when filters are selected', () => {
-      const searchStoreState = {
-        userParams: {
-          qf: 'TYPE:"IMAGE"'
-        }
-      };
-      const wrapper = factory({ searchStoreState });
+    describe('reset button', () => {
+      it('is not present when no filters are selected', () => {
+        const searchStoreGetters = {
+          hasResettableFilters: () => false
+        };
+        const wrapper = factory({ searchStoreGetters });
 
-      const resetButton = wrapper.find('[data-qa="reset filters button"]');
+        const resetButton = wrapper.find('[data-qa="reset filters button"]');
 
-      expect(resetButton.exists()).toBe(true);
-      expect(resetButton.attributes('disabled')).not.toBe('disabled');
+        expect(resetButton.exists()).toBe(false);
+      });
+
+      it('is present when filters are selected', () => {
+        const searchStoreState = {
+          userParams: {
+            qf: 'TYPE:"IMAGE"'
+          }
+        };
+        const wrapper = factory({ searchStoreState });
+
+        const resetButton = wrapper.find('[data-qa="reset filters button"]');
+
+        expect(resetButton.exists()).toBe(true);
+        expect(resetButton.attributes('disabled')).not.toBe('disabled');
+      });
+
+      it('is disabled while search queries are running', () => {
+        const searchStoreState = {
+          userParams: {
+            qf: 'TYPE:"IMAGE"'
+          },
+          liveQueries: [{ query: 'river' }]
+        };
+        const wrapper = factory({ searchStoreState });
+
+        const resetButton = wrapper.find('[data-qa="reset filters button"]');
+
+        expect(resetButton.exists()).toBe(true);
+        expect(resetButton.attributes('disabled')).toBe('disabled');
+      });
     });
 
-    it('is disabled while search queries are running', () => {
-      const searchStoreState = {
-        userParams: {
-          qf: 'TYPE:"IMAGE"'
-        },
-        liveQueries: [{ query: 'river' }]
-      };
-      const wrapper = factory({ searchStoreState });
+    describe('number of search results', () => {
+      it('shows the total results', () => {
+        const searchStoreState = {
+          totalResults: 1000
+        };
 
-      const resetButton = wrapper.find('[data-qa="reset filters button"]');
+        const wrapper = factory({ searchStoreState });
+        const totalResults = wrapper.find('[data-qa="total results"]');
 
-      expect(resetButton.exists()).toBe(true);
-      expect(resetButton.attributes('disabled')).toBe('disabled');
-    });
-  });
+        expect(totalResults.exists()).toBe(true);
+      });
 
-  describe('number of search results', () => {
-    it('shows the total results', () => {
-      const searchStoreState = {
-        totalResults: 1000
-      };
+      it('does not show the total results', () => {
+        const searchStoreState = {
+          totalResults: null
+        };
 
-      const wrapper = factory({ searchStoreState });
-      const totalResults = wrapper.find('[data-qa="total results"]');
+        const wrapper = factory({ searchStoreState });
+        const totalResults = wrapper.find('[data-qa="total results"]');
 
-      expect(totalResults.exists()).toBe(true);
-    });
-
-    it('does not show the total results', () => {
-      const searchStoreState = {
-        totalResults: null
-      };
-
-      const wrapper = factory({ searchStoreState });
-      const totalResults = wrapper.find('[data-qa="total results"]');
-
-      expect(totalResults.exists()).toBe(false);
+        expect(totalResults.exists()).toBe(false);
+      });
     });
   });
 
