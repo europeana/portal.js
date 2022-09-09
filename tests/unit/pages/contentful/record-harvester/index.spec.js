@@ -161,28 +161,6 @@ describe('pages/contentful/record-harvester/index', () => {
       });
     });
 
-    describe('itemIdFromUrl', () => {
-      const supportedFormats = [
-        '/90402/SK_A_2344',
-        'http://data.europeana.eu/item/90402/SK_A_2344',
-        'https://www.europeana.eu/en/item/90402/SK_A_2344'
-      ];
-
-      for (const format of supportedFormats) {
-        it(`is able to parse an identifer from ${format}`, async() => {
-          const wrapper = factory();
-          const result = await wrapper.vm.itemIdFromUrl(format);
-          expect(result).toBe('/90402/SK_A_2344');
-        });
-      }
-
-      it('returns undefined when the format is not supported', async() => {
-        const wrapper = factory();
-        const result = await wrapper.vm.itemIdFromUrl('Unsupported format');
-        expect(result).toBe(undefined);
-      });
-    });
-
     describe('generateName', () => {
       describe('when there is a localisable value', () => {
         it('selects the english value', async() => {

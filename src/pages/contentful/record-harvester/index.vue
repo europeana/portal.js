@@ -35,6 +35,7 @@
 
 <script>
   import { langMapValueForLocale } from '@/plugins/europeana/utils';
+  import { recordIdFromUrl } from '@/plugins/europeana/record';
 
   export default {
     name: 'ContentfulRecordHarvesterPage',
@@ -83,7 +84,7 @@
 
     methods: {
       async harvestRecord() {
-        const itemIdentifier = await this.itemIdFromUrl(this.identifier);
+        const itemIdentifier = recordIdFromUrl(this.identifier);
         if (!itemIdentifier) {
           this.message = `Unable to parse URL: ${this.identifier} Please make sure the URL conforms to the accepted formats.`;
           return;
@@ -115,18 +116,6 @@
         } catch (error) {
           this.message = `There was a problem updating the entry. ${error.message}`;
         }
-      },
-
-      // Supports:
-      // - ID: /90402/SK_A_2344
-      // - URI: http://data.europeana.eu/item/90402/SK_A_2344
-      // - Website URL: http(s)://www.europeana.eu/($LOCALE/)item/90402/SK_A_2344
-      itemIdFromUrl(url) {
-        const urlMatch = url?.match(/(\/[0-9]+\/[a-zA-Z0-9_]+)($|\?)/);
-        if (!urlMatch) {
-          return;
-        }
-        return urlMatch[1];
       },
 
       generateName() {

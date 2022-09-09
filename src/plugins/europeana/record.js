@@ -427,5 +427,19 @@ const reduceWebResource = (webResource) => {
  * @return {Boolean}
  */
 export function isEuropeanaRecordId(value) {
-  return /^\/[0-9]+\/[a-zA-Z0-9_]+$/.test(value);
+  return /^\/\d+\/\w+$/.test(value);
+}
+
+/**
+ * Extracts a Record Id from a URL
+ * Supported formats:
+ *  ID: /90402/SK_A_2344
+ *  URI: http://data.europeana.eu/item/90402/SK_A_2344
+ *  Website URL: http(s)://www.europeana.eu/($LOCALE/)item/90402/SK_A_2344
+ * @param {string} value URL
+ * @return {string}
+ */
+export function recordIdFromUrl(value) {
+  const urlMatch = value.match(/(\/\d+\/\w+)($|\?)/);
+  return urlMatch?.[1];
 }

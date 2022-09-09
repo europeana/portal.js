@@ -1,5 +1,5 @@
 import nock from 'nock';
-import record, { isEuropeanaRecordId, BASE_URL } from '@/plugins/europeana/record';
+import record, { isEuropeanaRecordId, recordIdFromUrl, BASE_URL } from '@/plugins/europeana/record';
 
 const europeanaId = '/123/abc';
 const apiEndpoint = `${europeanaId}.json`;
@@ -581,6 +581,26 @@ describe('plugins/europeana/record', () => {
 
         expect(validation).toBe(false);
       });
+    });
+  });
+
+  describe('recordIdFromUrl()', () => {
+    const supportedFormats = [
+      '/90402/SK_A_2344',
+      'http://data.europeana.eu/item/90402/SK_A_2344',
+      'https://www.europeana.eu/en/item/90402/SK_A_2344'
+    ];
+
+    for (const format of supportedFormats) {
+      it(`is able to parse an identifer from ${format}`, () => {
+        const result = recordIdFromUrl(format);
+        expect(result).toBe('/90402/SK_A_2344');
+      });
+    }
+
+    it('returns undefined when the format is not supported', () => {
+      const result = recordIdFromUrl('Unsupported format');
+      expect(result).toBe(undefined);
     });
   });
 });
