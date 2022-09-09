@@ -972,11 +972,11 @@ export default {
       "placeholder": "Enter field boosting query"
     },
     "results": {
-      "forQuery": "{count} results for {query}",
       "limitWarning": "Additional results are not shown as only the first 1000 most relevant results are shown. If you haven't found what you're looking for, please consider refining your search.",
       "withinCollection": "{count} results within {type} {collection}",
-      "withinCollectionForQuery": "{count} results within {type} {collection} for {query}",
-      "withoutQuery": "{count} results"
+      "withinCollectionWithQuery": "{count} results within {type} {collection} for {query}",
+      "withoutQuery": "{count} results",
+      "withQuery": "{count} results for {query}"
     },
     "title": "Search"
   },

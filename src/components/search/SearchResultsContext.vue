@@ -9,14 +9,14 @@
       {{ totalResultsLocalised }}
     </template>
     <template
-      #type
       v-if="hasEntity"
+      #type
     >
       {{ entityTypeLabel }}
     </template>
     <template
-      #collection
       v-if="hasEntity"
+      #collection
     >
       <RemovalChip
         :title="entityLabel"
@@ -27,7 +27,10 @@
         class="mt-1 mx-1"
       />
     </template>
-    <template #query>
+    <template
+      v-if="hasQuery"
+      #query
+    >
       <RemovalChip
         :title="query"
         :link-to="queryRemovalLink"
@@ -82,14 +85,12 @@
         totalResults: state => state.search.totalResults
       }),
       i18nPath() {
-        if (this.hasEntity) {
-          if (this.hasQuery) {
-            return 'search.results.withinCollectionForQuery';
-          } else {
-            return 'search.results.withinCollection';
-          }
+        if (this.hasEntity && this.hasQuery) {
+          return 'search.results.withinCollectionWithQuery';
+        } else if (this.hasEntity) {
+          return 'search.results.withinCollection';
         } else if (this.hasQuery) {
-          return 'search.results.forQuery';
+          return 'search.results.withQuery';
         } else {
           return 'search.results.withoutQuery';
         }

@@ -147,7 +147,9 @@ describe('SearchResultsContext', () => {
         it('displays the generic results label', () => {
           const wrapper = factory({ storeState });
 
-          expect(wrapper.text()).toContain('results');
+          const i18n = wrapper.find('i18n-stub');
+
+          expect(i18n.attributes().path).toBe('search.results.withoutQuery');
         });
 
         it('does not display a query removal badge', () => {
