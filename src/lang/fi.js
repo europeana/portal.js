@@ -6,7 +6,7 @@ export default {
     "likes": "Tykätyt",
     "linkAccount": "Oma tili",
     "linkLogin": "Kirjaudu sisään",
-    "linkLoginJoin": "Kirjaudu/Liity",
+    "linkLoginJoin": "Kirjaudu\/Liity",
     "linkLogout": "Kirjaudu ulos",
     "myProfile": "Profiilini",
     "notifications": {
@@ -57,7 +57,7 @@ export default {
     "country": "Maa:",
     "creator": "Luoja:",
     "date": "Päivämäärä:",
-    "institution": "Instituutio:",
+    "institution": "kulttuuriperintölaitos",
     "title": "Nimi:"
   },
   "automatedCardGroup": {
@@ -139,7 +139,7 @@ export default {
     },
     "headerNavigation": {
       "Collections": "Kokoelmat",
-      "explore": "Tutki",
+      "explore": "tutustu",
       "teachers": "Opettajat"
     }
   },
@@ -226,7 +226,7 @@ export default {
     "description": "Tutustu näyttelyihin",
     "exhibitions": "Näyttelyt"
   },
-  "explore": "Tutkia",
+  "explore": "tutustu",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "värit",
@@ -437,9 +437,9 @@ export default {
       "select": "Valitse tekijät"
     },
     "DATA_PROVIDER": {
-      "moreName": "toimielimet",
-      "name": "Instituutio",
-      "select": "Valitse laitokset"
+      "moreName": "kulttuurilaitoksista",
+      "name": "kulttuuriperintölaitos",
+      "select": "valitse kulttuuriperintölaitos"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Kuvan suunta | Kuvan suunnat",
@@ -507,7 +507,7 @@ export default {
     "MIME_TYPE": {
       "name": "Tiedostomuoto | Tiedostomuodot",
       "options": {
-        "text/plain": "Pelkkä teksti"
+        "text\/plain": "Pelkkä teksti"
       },
       "select": "Valitse tiedostomuodot"
     },
@@ -656,7 +656,7 @@ export default {
       "dctermsTemporal": "Ajoitus",
       "edmCountry": "Alkuperämaa",
       "edmCurrentLocation": "Nykyinen sijainti",
-      "edmDataProvider": "Tarjoajainstituutio",
+      "edmDataProvider": "kulttuuriperintölaitos",
       "edmHasMet": "On tavannut henkilön",
       "edmIncorporates": "Sisältää",
       "edmIntermediateProvider": "Välillinen tarjoaja",
@@ -756,7 +756,7 @@ export default {
   },
   "items": {
     "itemCount": "1 kohde |{count} kohdetta",
-    "itemOf": "{max} / {count} kohdetta",
+    "itemOf": "{max} \/ {count} kohdetta",
     "recent": "Viimeisimmät kohteet",
     "recommended": "Suositellut kohteet",
     "youMightLike": "Saattaisit tykätä näistä kohteista"
@@ -795,7 +795,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Auttaa parantamaan verkkosivustoamme soveltamalla ajoittain kokeellisia muutoksia.",
-        "title": "A/B -testaus"
+        "title": "A\/B -testaus"
       },
       "auth-strategy": {
         "description": "Muistaa kirjautumisessa käytettävän valtuutusstrategian.",
@@ -827,7 +827,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Muistaa, haluatko nähdä hakutulokset luettelossa tai ruudukkonäkymässä.",
-        "title": "Hakutulosnäkymä (luettelo/ruudukko)"
+        "title": "Hakutulosnäkymä (luettelo\/ruudukko)"
       }
     }
   },
@@ -920,7 +920,7 @@ export default {
     },
     "allMetaData": "Kaikki metatiedot",
     "copyEmbedLabel": "Upota koodi (kopioi napsauttamalla)",
-    "exploreMore": "Tutki lisää",
+    "exploreMore": "tutustu",
     "extendedInformation": "Tarkemmat tiedot",
     "goodToKnow": "Hyvä tietää",
     "hideAll": "Piilota kaikki tiedot",
@@ -934,7 +934,7 @@ export default {
       "unpublished": "[Julkaisematon kohde]"
     },
     "transcription": "Transkriptio",
-    "transcriptionDisclaimer": "Tämän sisällön on lähettänyt yksityishenkilö eikä tämän kohteen tarjoava instituutio."
+    "transcriptionDisclaimer": "Tämän sisällön on lähettänyt yksittäinen henkilö, ei kulttuuriperintölaitos"
   },
   "related": {
     "editorial": {
