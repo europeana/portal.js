@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mitt konto",
     "linkLogin": "Logga in",
-    "linkLoginJoin": "Logga in/Gå med",
+    "linkLoginJoin": "Logga in\/Gå med",
     "linkLogout": "Logga ut",
     "myProfile": "Min profil",
     "notifications": {
@@ -201,12 +201,24 @@ export default {
         "title": "För många pinnade objekt"
       },
       "pinned": "Objektet har fästs. Det är nu högst upp på den första sidan i den här samlingen. Det kan ta upp till 24 timmar innan alla visas.",
-      "select": "Välj en relaterad entitet för att fästa/lossa objektet till/från den.",
+      "select": "Välj en relaterad entitet för att fästa\/lossa objektet till\/från den.",
       "unpin": "Det här objektet kommer att sluta visas överst i samlingen \" {entity} \". Vi kommer att meddela dig när denna förändring kommer att synas på insamlingssidan.",
       "unpinned": "Objektet har lossats. Det är inte längre högst upp på den första sidan i den här samlingen. Det kan ta upp till 24 timmar innan alla försvinner."
     }
   },
   "error": "Fel",
+  "errorMessage": {
+    "galleryUnauthorised": {
+      "description": "Detta är inte möjligt eftersom privata gallerier endast är synliga för deras skapare. Om du känner skaparen av galleriet, be dem att göra galleriet offentligt. Alternativt kan du rapportera det här problemet med feedbackknappen.",
+      "metaTitle": "Galleri obehörigt",
+      "title": "Oops! {newline} Du försöker visa en annan persons privata galleri."
+    },
+    "itemNotFound": {
+      "description": "Detta kan bero på följande orsaker: det här objektet finns inte, eller; den reduplicerades eftersom den inte matchade våra kvalitetskriterier, eller; den uppdaterades och publicerades på nytt med en ny unik identifierare. Försök i så fall att hitta objektet igen.",
+      "metaTitle": "Objektet hittades inte",
+      "title": "Åh nej! {newline} Vi kunde inte hitta det här objektet."
+    }
+  },
   "exhibitions": {
     "chapters": "Kapitel",
     "credits": "Upphovsmän",
@@ -495,7 +507,7 @@ export default {
     "MIME_TYPE": {
       "name": "Filformat | Filformat",
       "options": {
-        "text/plain": "Oformaterad text"
+        "text\/plain": "Oformaterad text"
       },
       "select": "Välj filformat"
     },
@@ -513,6 +525,29 @@ export default {
         "uncategorized": "Okategoriserad"
       },
       "select": "Välj om du kan använda detta"
+    },
+    "RIGHTS": {
+      "name": "Rättighetsförklaring",
+      "options": {
+        "*\/CNE\/*": "Upphovsrätt Ej utvärderad",
+        "*\/InC-EDU\/*": "I upphovsrätt - pedagogisk användning tillåten",
+        "*\/InC-OW-EU\/*": "I upphovsrätten - OW-EU",
+        "*\/InC\/*": "I upphovsrätt",
+        "*\/NoC-NC\/*": "Ingen upphovsrätt - Endast icke-kommersiell användning",
+        "*\/NoC-OKLR\/*": "Nej Upphovsrätt - Andra kända juridiska begränsningar",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Mark för offentlig egendom",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "Utan upphovsrätt - icke kommersiell återanvändning",
+        "*\/rights\/rr-f\/*": "Rättigheter reserverade - Fri tillgång",
+        "*\/rights\/unknown\/*": "Okänd upphovsrättsstatus"
+      },
+      "select": "Välj rättighetsutlåtanden"
     },
     "TYPE": {
       "name": "Typ av media",
@@ -783,7 +818,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Hjälper till att förbättra vår webbplats genom att ibland tillämpa experimentella förändringar.",
-        "title": "A/B -testning"
+        "title": "A\/B -testning"
       },
       "auth-strategy": {
         "description": "Kommer ihåg den auktoriserings strategi som ska användas för att logga in.",
@@ -815,7 +850,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Kommer ihåg om du föredrar att se sökresultaten i en lista eller rutnät.",
-        "title": "Visa sökresultat (lista/rutnät)"
+        "title": "Visa sökresultat (lista\/rutnät)"
       }
     }
   },

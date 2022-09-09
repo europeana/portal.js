@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mein Konto",
     "linkLogin": "Anmelden",
-    "linkLoginJoin": "Anmelden/Beitreten",
+    "linkLoginJoin": "Anmelden\/Beitreten",
     "linkLogout": "Abmelden",
     "myProfile": "Mein Profil",
     "notifications": {
@@ -201,12 +201,24 @@ export default {
         "title": "Zu viele angeheftete Objekte"
       },
       "pinned": "Das Objekt wurde angeheftet. Es befindet sich jetzt oben auf der ersten Seite dieser Sammlung. Es kann bis zu 24 Stunden dauern, bis es für alle erscheint.",
-      "select": "Wählen Sie eine zugehörige Entität aus, um das Objekt daran anzuheften/von ihr zu lösen.",
+      "select": "Wählen Sie eine zugehörige Entität aus, um das Objekt daran anzuheften\/von ihr zu lösen.",
       "unpin": "Dieses Objekt wird nicht mehr oben in der Sammlung „ {entity} “ angezeigt. Wir werden Sie benachrichtigen, wenn diese Änderung auf der Sammlungsseite sichtbar wird.",
       "unpinned": "Das Objekt wurde nicht mehr angepinnt. Es steht nicht mehr oben auf der ersten Seite dieser Sammlung. Es kann bis zu 24 Stunden dauern, bis es für alle verschwindet."
     }
   },
   "error": "Fehler",
+  "errorMessage": {
+    "galleryUnauthorised": {
+      "description": "Dies ist nicht möglich, da private Galerien nur für ihren Ersteller sichtbar sind. Wenn Sie den Ersteller der Galerie kennen, bitten Sie ihn, die Galerie öffentlich zu machen. Alternativ können Sie dieses Problem auch über die Feedback-Schaltfläche melden.",
+      "metaTitle": "Galerie nicht autorisiert",
+      "title": "Oops! {newline} Sie versuchen, die private Galerie einer anderen Person anzuzeigen."
+    },
+    "itemNotFound": {
+      "description": "Dies kann folgende Gründe haben: Diesem Objekt existiert nicht oder; es wurde depubliziert, weil es nicht unseren Qualitätskriterien entsprach, oder; Es wurde aktualisiert und mit einer neuen eindeutigen Kennung erneut veröffentlicht. Versuchen Sie in diesem Fall, das Objekt erneut zu finden.",
+      "metaTitle": "Objekt nicht gefunden",
+      "title": "Ach nein! {newline} Wir konnten dies Objekt nicht finden."
+    }
+  },
   "exhibitions": {
     "chapters": "Kapitel",
     "credits": "Credits",
@@ -495,7 +507,7 @@ export default {
     "MIME_TYPE": {
       "name": "Dateiformat | Dateiformate",
       "options": {
-        "text/plain": "Klartext"
+        "text\/plain": "Klartext"
       },
       "select": "Dateiformate auswählen"
     },
@@ -513,6 +525,29 @@ export default {
         "uncategorized": "Nicht kategorisiert"
       },
       "select": "Wählen Sie aus, ob die Objekte wiederverwendbar sind"
+    },
+    "RIGHTS": {
+      "name": "Rechte",
+      "options": {
+        "*\/CNE\/*": "Urheberrecht nicht bewertet",
+        "*\/InC-EDU\/*": "Urheberrechtlich geschützt – Verwendung zu Bildungszwecken gestattet",
+        "*\/InC-OW-EU\/*": "Im Urheberrecht - OW-EU",
+        "*\/InC\/*": "Im Urheberrecht",
+        "*\/NoC-NC\/*": "Kein Urheberrecht – nur nicht-kommerzielle Nutzung",
+        "*\/NoC-OKLR\/*": "Kein Urheberrecht – andere bekannte gesetzliche Beschränkungen",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Gemeingut-Marke",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "Außerhalb des Urheberrechts - nicht kommerzielle Wiederverwendung",
+        "*\/rights\/rr-f\/*": "Rechte vorbehalten – Freier Zugang",
+        "*\/rights\/unknown\/*": "Unbekannter Urheberrechtsstatus"
+      },
+      "select": "Rechtestatements auswählen"
     },
     "TYPE": {
       "name": "Art des Mediums",
@@ -783,7 +818,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Hilft, unsere Website zu verbessern, indem gelegentlich experimentelle Änderungen vorgenommen werden.",
-        "title": "A/B-Tests"
+        "title": "A\/B-Tests"
       },
       "auth-strategy": {
         "description": "Erinnert an die Berechtigungsstrategie, die für die Anmeldung verwendet werden soll.",
@@ -815,7 +850,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Merkt sich, ob Sie die Suchergebnisse lieber in einer Listen- oder Rasteransicht anzeigen möchten.",
-        "title": "Suchergebnisansicht (Liste/Raster)"
+        "title": "Suchergebnisansicht (Liste\/Raster)"
       }
     }
   },

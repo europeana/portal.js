@@ -6,7 +6,7 @@ export default {
     "likes": "Patīk",
     "linkAccount": "Mans konts",
     "linkLogin": "Pieteikties",
-    "linkLoginJoin": "Pieteikties/Pievienoties",
+    "linkLoginJoin": "Pieteikties\/Pievienoties",
     "linkLogout": "Atteikties",
     "myProfile": "Mans profils",
     "notifications": {
@@ -201,12 +201,24 @@ export default {
         "title": "Pārāk daudz piesprausto vienumu"
       },
       "pinned": "Vienums ir piespraustas. Tagad tas atrodas šīs kolekcijas pirmās lapas augšpusē. Var paiet līdz pat 24 stundām, līdz tas parādās visiem.",
-      "select": "Atlasiet saistīto entītiju, lai piespraustu/atspraustu vienumu tai/no tā.",
+      "select": "Atlasiet saistīto entītiju, lai piespraustu\/atspraustu vienumu tai\/no tā.",
       "unpin": "Šis vienums vairs netiks rādīts kolekcijas “ {entity} ” augšdaļā. Mēs jūs informēsim, kad šīs izmaiņas būs redzamas kolekcijas lapā.",
       "unpinned": "Vienums ir atspraustas. Tas vairs nav šīs kolekcijas pirmās lapas augšpusē. Var paiet pat 24 stundas, līdz visi pazūd."
     }
   },
   "error": "Kļūda",
+  "errorMessage": {
+    "galleryUnauthorised": {
+      "description": "Tas nav iespējams, jo privātās galerijas ir redzamas tikai to izveidotājam. Ja pazīstat galerijas veidotāju, palūdziet viņu padarīt galeriju publisku. Varat arī ziņot par šo problēmu, izmantojot atsauksmju pogu.",
+      "metaTitle": "Galerija ir nesankcionēta",
+      "title": "Ups! {newline} Jūs mēģināt apskatīt citas personas privāto galeriju."
+    },
+    "itemNotFound": {
+      "description": "Tam var būt šādi iemesli: šis vienums neeksistē vai; tas tika atcelts, jo tas neatbilda mūsu kvalitātes kritērijiem vai; tas tika atjaunināts un atkārtoti publicēts ar jaunu unikālu identifikatoru. Šādā gadījumā mēģiniet atrast vienumu vēlreiz.",
+      "metaTitle": "Vienums nav atrasts",
+      "title": "Ak nē! {newline} Mēs nevarējām atrast šo vienumu."
+    }
+  },
   "exhibitions": {
     "chapters": "Nodaļas",
     "credits": "Kredīti",
@@ -495,7 +507,7 @@ export default {
     "MIME_TYPE": {
       "name": "Datnes formāts | Datņu formāti",
       "options": {
-        "text/plain": "Vienkāršs teksts"
+        "text\/plain": "Vienkāršs teksts"
       },
       "select": "Atlasīt failu formātus"
     },
@@ -513,6 +525,29 @@ export default {
         "uncategorized": "Bez kategorijas"
       },
       "select": "Atlasit , vai varat izmantot šo"
+    },
+    "RIGHTS": {
+      "name": "Paziņojums par tiesībām",
+      "options": {
+        "*\/CNE\/*": "Autortiesības Nav novērtēts",
+        "*\/InC-EDU\/*": "Autortiesības - izglītojoša izmantošana atļauta",
+        "*\/InC-OW-EU\/*": "Autortiesībās - OW-EU",
+        "*\/InC\/*": "Autortiesībās",
+        "*\/NoC-NC\/*": "Nav autortiesību — tikai nekomerciālai lietošanai",
+        "*\/NoC-OKLR\/*": "Nav autortiesību — citi zināmi juridiski ierobežojumi",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Publiskā domēna zīme",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "Ārpus autortiesībām - nekomerciāla atkalizmantošana",
+        "*\/rights\/rr-f\/*": "Tiesības aizsargātas - Bezmaksas piekļuve",
+        "*\/rights\/unknown\/*": "Nezināms autortiesību statuss"
+      },
+      "select": "Atlasit tiesību paziņojumus"
     },
     "TYPE": {
       "name": "Līdzekļu veids",
@@ -586,7 +621,7 @@ export default {
       "name": "Izdošanas datums"
     },
     "proxy_dcterms_medium": {
-      "name": "Līdzeklis/ Līdzekļi",
+      "name": "Līdzeklis\/ Līdzekļi",
       "select": "Atlasīt multividi"
     }
   },
@@ -783,7 +818,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Palīdz uzlabot mūsu vietni, laiku pa laikam veicot eksperimentālas izmaiņas.",
-        "title": "A/B testēšana"
+        "title": "A\/B testēšana"
       },
       "auth-strategy": {
         "description": "Atceras autorizācijas stratēģiju, kas jāizmanto, lai pieteiktos.",
@@ -815,7 +850,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Atceras, vai vēlaties redzēt meklēšanas rezultātus saraksta vai režģa skatā.",
-        "title": "Meklēšanas rezultātu skats (saraksts / režģis)"
+        "title": "Meklēšanas rezultātu skats (saraksts \/ režģis)"
       }
     }
   },

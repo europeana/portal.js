@@ -6,7 +6,7 @@ export default {
     "likes": "Likes",
     "linkAccount": "Mijn account",
     "linkLogin": "Inloggen",
-    "linkLoginJoin": "Inloggen/Aanmelden",
+    "linkLoginJoin": "Inloggen\/Aanmelden",
     "linkLogout": "Uitloggen",
     "myProfile": "Mijn profiel",
     "notifications": {
@@ -207,6 +207,18 @@ export default {
     }
   },
   "error": "Fout",
+  "errorMessage": {
+    "galleryUnauthorised": {
+      "description": "Dit is niet mogelijk, omdat privé galerijen alleen zichtbaar zijn voor de maker ervan. Als u de maker van de galerij kent, vraag hem dan om de galerij publiek te maken. U kunt dit probleem ook melden via de feedback knop.",
+      "metaTitle": "Galerij ongeautoriseerd",
+      "title": "Oeps! {newline} U probeert de privégalerij van iemand anders te bekijken."
+    },
+    "itemNotFound": {
+      "description": "Dit kan de volgende redenen hebben: dit item bestaat niet, of; het werd ongepubliceerd, omdat het niet voldeed aan onze kwaliteitscriteria, of; het is bijgewerkt en opnieuw gepubliceerd met een nieuwe unieke identificatie. Probeer in dat geval het item opnieuw te vinden.",
+      "metaTitle": "Item niet gevonden",
+      "title": "Oh nee! {newline} We hebben dit item niet kunnen vinden."
+    }
+  },
   "exhibitions": {
     "chapters": "Hoofdstukken",
     "credits": "Credits",
@@ -495,7 +507,7 @@ export default {
     "MIME_TYPE": {
       "name": "Bestandsformaat | Bestandsformaten",
       "options": {
-        "text/plain": "Platte tekst"
+        "text\/plain": "Platte tekst"
       },
       "select": "Selecteer bestandsformaten"
     },
@@ -513,6 +525,29 @@ export default {
         "uncategorized": "Ongecategoriseerd"
       },
       "select": "Selecteer of je dit kunt gebruiken"
+    },
+    "RIGHTS": {
+      "name": "Rechtenverklaring",
+      "options": {
+        "*\/CNE\/*": "AUTEURSRECHTELIJKE STATUS NIET GEËVALUEERD",
+        "*\/InC-EDU\/*": "AUTEURSRECHTELIJK BESCHERMD - EDUCATIEF GEBRUIK TOEGESTAAN",
+        "*\/InC-OW-EU\/*": "AUTEURSRECHTELIJK BESCHERMD - OW-EU",
+        "*\/InC\/*": "AUTEURSRECHTELIJK BESCHERMD",
+        "*\/NoC-NC\/*": "NIET AUTEURSRECHTELIJK BESCHERMD - UITSLUITEND NIET-COMMERCIEEL GEBRUIK TOEGESTAAN",
+        "*\/NoC-OKLR\/*": "NIET AUTEURSRECHTELIJK BESCHERMD - ANDERE JURIDISCHE BEPERKINGEN",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Public Domain Mark",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "NIET AUTEURSRECHTELIJK BESCHERMD - UITSLUITEND NIET-COMMERCIEEL GEBRUIK TOEGESTAAN",
+        "*\/rights\/rr-f\/*": "Rights Reserved - Free access",
+        "*\/rights\/unknown\/*": "AUTEURSRECHTELIJKE BESCHERMING NIET BEPAALD"
+      },
+      "select": "Selecteer rechtenverklaringen"
     },
     "TYPE": {
       "name": "Soort media",
@@ -783,7 +818,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Helpt onze website te verbeteren door af en toe experimentele wijzigingen aan te brengen.",
-        "title": "A/B-testen"
+        "title": "A\/B-testen"
       },
       "auth-strategy": {
         "description": "Onthoudt de autorisatie strategie die moet worden gebruikt om in te loggen.",
@@ -815,7 +850,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Onthoudt of u de zoekresultaten liever in een lijst- of rasterweergave wilt zien.",
-        "title": "Zoekresultaatweergave (lijst/raster)"
+        "title": "Zoekresultaatweergave (lijst\/raster)"
       }
     }
   },

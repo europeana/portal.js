@@ -6,7 +6,7 @@ export default {
     "likes": "Mentions J’aime",
     "linkAccount": "Mon compte",
     "linkLogin": "Se connecter",
-    "linkLoginJoin": "Connexion/Rejoignez-nous",
+    "linkLoginJoin": "Connexion\/Rejoignez-nous",
     "linkLogout": "Déconnexion",
     "myProfile": "Mon profil",
     "notifications": {
@@ -201,12 +201,24 @@ export default {
         "title": "Trop d'éléments épinglés"
       },
       "pinned": "L'élément a été épinglé. Il est maintenant en haut de la première page de cette collection. Cela peut prendre jusqu'à 24 heures pour apparaître pour tout le monde.",
-      "select": "Sélectionnez une entité associée pour y épingler/détacher l'élément.",
+      "select": "Sélectionnez une entité associée pour y épingler\/détacher l'élément.",
       "unpin": "Cet élément ne s'affichera plus en haut de la collection \" {entity} \". Nous vous informerons lorsque ce changement sera visible sur la page de collecte.",
       "unpinned": "L'élément a été désépinglé. Il n'est plus en haut de la première page de cette collection. Cela peut prendre jusqu'à 24 heures pour disparaître pour tout le monde."
     }
   },
   "error": "Erreur",
+  "errorMessage": {
+    "galleryUnauthorised": {
+      "description": "Ce n'est pas possible car les galeries privées ne sont visibles que par leur créateur. Si vous connaissez le créateur de la galerie, demandez-lui de rendre la galerie publique. Vous pouvez également signaler ce problème à l'aide du bouton de commentaires.",
+      "metaTitle": "Galerie non autorisée",
+      "title": "Oops! {newline} Vous essayez de voir la galerie privée d'une autre personne."
+    },
+    "itemNotFound": {
+      "description": "Cela peut être dû aux raisons suivantes : cet élément n’existe pas, ou ; il a été publié parce qu’il ne correspondait pas à nos critères de qualité, ou; il a été mis à jour et republié avec un nouvel identifiant unique, auquel cas, essayez de retrouver l’élément.",
+      "metaTitle": "Objet non-trouvé",
+      "title": "Oh non! {newline} Nous n'avons pas pu trouver cet élément."
+    }
+  },
   "exhibitions": {
     "chapters": "Chapitres",
     "credits": "Crédits",
@@ -495,7 +507,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format de fichier | Formats de fichiers",
       "options": {
-        "text/plain": "Texte brut"
+        "text\/plain": "Texte brut"
       },
       "select": "Sélectionnez les formats de fichier"
     },
@@ -513,6 +525,29 @@ export default {
         "uncategorized": "Non classé"
       },
       "select": "Sélectionnez si vous pouvez utiliser ce"
+    },
+    "RIGHTS": {
+      "name": "Droits",
+      "options": {
+        "*\/CNE\/*": "Droits d'auteur non évalués",
+        "*\/InC-EDU\/*": "Droits d'auteur - Utilisation à des fins éducatives autorisée",
+        "*\/InC-OW-EU\/*": "En droit d'auteur - OW-EU",
+        "*\/InC\/*": "En droit d'auteur",
+        "*\/NoC-NC\/*": "Pas de droit d'auteur - Utilisation non commerciale uniquement",
+        "*\/NoC-OKLR\/*": "Pas de droit d'auteur - Autres restrictions légales connues",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Marque du domaine public",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "Hors droits d'auteur - réutilisation non commerciale",
+        "*\/rights\/rr-f\/*": "Droits réservés - Accès gratuit",
+        "*\/rights\/unknown\/*": "Statut de copyright inconnu"
+      },
+      "select": "Sélectionnez les déclarations de droits"
     },
     "TYPE": {
       "name": "Type de support",
@@ -783,7 +818,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Aide à améliorer notre site Web en appliquant occasionnellement des modifications expérimentales.",
-        "title": "Tests A/B"
+        "title": "Tests A\/B"
       },
       "auth-strategy": {
         "description": "Se souvient de la stratégie d'autorisation à utiliser pour se connecter.",
@@ -815,7 +850,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Se souvient si vous préférez voir les résultats de la recherche sous forme de liste ou de grille.",
-        "title": "Affichage des résultats de recherche (liste/grille)"
+        "title": "Affichage des résultats de recherche (liste\/grille)"
       }
     }
   },
