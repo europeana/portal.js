@@ -207,6 +207,18 @@ export default {
     }
   },
   "error": "Fejl",
+  "errorMessage": {
+    "galleryUnauthorised": {
+      "description": "Dette er ikke muligt, fordi private gallerier kun er synlige for deres skaber. Hvis du kender skaberen af galleriet, så bed dem om at gøre galleriet offentligt. Alternativt kan du rapportere dette problem ved hjælp af feedback-knappen.",
+      "metaTitle": "Galleri uautoriseret",
+      "title": "Ups! {newline} Du forsøger at se en anden persons private galleri."
+    },
+    "itemNotFound": {
+      "description": "Dette kan skyldes følgende årsager: denne vare findes ikke, eller; den blev offentliggjort, fordi den ikke opfyldte vores kvalitetskriterier, eller; den blev opdateret og genudgivet med en ny unik identifikator, i hvilket tilfælde prøv at finde varen igen.",
+      "metaTitle": "Varen blev ikke fundet",
+      "title": "Åh nej! {newline} Vi kunne ikke finde denne vare."
+    }
+  },
   "exhibitions": {
     "chapters": "Kapitler",
     "credits": "Credits",

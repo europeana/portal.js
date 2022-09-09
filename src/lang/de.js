@@ -207,6 +207,18 @@ export default {
     }
   },
   "error": "Fehler",
+  "errorMessage": {
+    "galleryUnauthorised": {
+      "description": "Dies ist nicht möglich, da private Galerien nur für ihren Ersteller sichtbar sind. Wenn Sie den Ersteller der Galerie kennen, bitten Sie ihn, die Galerie öffentlich zu machen. Alternativ können Sie dieses Problem auch über die Feedback-Schaltfläche melden.",
+      "metaTitle": "Galerie nicht autorisiert",
+      "title": "Oops! {newline} Sie versuchen, die private Galerie einer anderen Person anzuzeigen."
+    },
+    "itemNotFound": {
+      "description": "Dies kann folgende Gründe haben: Diesem Objekt existiert nicht oder; es wurde depubliziert, weil es nicht unseren Qualitätskriterien entsprach, oder; Es wurde aktualisiert und mit einer neuen eindeutigen Kennung erneut veröffentlicht. Versuchen Sie in diesem Fall, das Objekt erneut zu finden.",
+      "metaTitle": "Objekt nicht gefunden",
+      "title": "Ach nein! {newline} Wir konnten dies Objekt nicht finden."
+    }
+  },
   "exhibitions": {
     "chapters": "Kapitel",
     "credits": "Credits",
