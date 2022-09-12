@@ -78,10 +78,19 @@
     text-decoration: none;
     transition: background 0.25s;
     width: calc(2.5rem - 1px);
+    overflow: hidden;
+    vertical-align: middle;
 
     [class^='icon'] {
       color: $greyblack;
       font-size: $font-size-medium;
+
+      &.icon-facebook,
+      &.icon-pinterest {
+        font-size: calc(2.5rem - 1px);
+        background-color: $greyblack;
+        color: $bodygrey;
+      }
     }
 
     &:hover {
@@ -89,6 +98,12 @@
 
       [class^='icon'] {
         color: $white;
+
+        &.icon-facebook,
+        &.icon-pinterest {
+          background-color: $white;
+          color: $greyblack;
+        }
       }
     }
   }

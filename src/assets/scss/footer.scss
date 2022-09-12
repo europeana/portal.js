@@ -182,6 +182,13 @@
           .footer-link-icon {
             color: $black;
             font-size: 1.5rem;
+
+            &.icon-facebook,
+            &.icon-pinterest {
+              color: $white;
+              font-size: 2.5rem;
+              background-color: $black;
+            }
           }
         }
       }
