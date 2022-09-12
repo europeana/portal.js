@@ -1,16 +1,16 @@
 <template>
   <footer
     data-qa="footer"
-    class="page-footer"
+    class="page-footer responsive-font"
   >
-    <div class="footer-wrapper py-5 px-3 pr-lg-5">
+    <div class="footer-wrapper py-5">
       <b-container>
         <b-row>
           <b-col
             lg="5"
-            class="pb-4"
+            class="left-col pb-4"
           >
-            <div class="mb-3 pr-5 pr-lg-0">
+            <div class="mb-3 pr-5 pr-lg-3">
               <div class="group-title text-uppercase font-weight-bold">
                 {{ $t('footer.ourMission') }}
               </div>
@@ -27,7 +27,7 @@
           </b-col>
           <b-col
             lg="4"
-            class="pb-4"
+            class="middle-col pb-4"
           >
             <b-row>
               <b-col
@@ -57,7 +57,10 @@
               </b-col>
             </b-row>
           </b-col>
-          <b-col lg="3">
+          <b-col
+            lg="3"
+            class="right-col"
+          >
             <b-row>
               <b-col
                 cols="6"
