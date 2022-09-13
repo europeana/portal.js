@@ -9,7 +9,7 @@
     "cache": "npm run -w packages/portal cache",
     "dev": "npm run -w packages/portal dev",
     "lint:fix": "npm run lint -- --fix",
-    "lint": "eslint --no-fix --ignore-path .gitignore bin packages tests *.js",
+    "lint": "eslint --no-fix --ignore-path .gitignore packages",
     "start:inspect": "npm run -w packages/portal start:inspect",
     "start": "npm run -w packages/portal start",
     "styleguide": "npm run -w packages/styleguide start",
