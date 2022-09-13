@@ -10,7 +10,15 @@
     "type": "git",
     "url": "git+https://github.com/europeana/portal.js.git"
   },
-  "author": "",
+  "contributors": [
+    "Richard Doe <richard.doe@europeana.eu>",
+    "Lutz Biedinger <lutz.biedinger@europeana.eu>",
+    "Mirjam Verloop <mirjam.verloop@europeana.eu>",
+    "Leonie Peters <leonie.peters@europeana.eu>"
+  ],
+  "dependencies": {
+    "axios": "^0.21.4"
+  },
   "license": "EUPL-1.2",
   "bugs": {
     "url": "https://github.com/europeana/portal.js/issues"

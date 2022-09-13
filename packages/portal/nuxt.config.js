@@ -16,11 +16,7 @@ import { parseQuery, stringifyQuery } from './src/plugins/vue-router.cjs';
 import features, { featureIsEnabled, featureNotificationExpiration } from './src/features/index.js';
 
 const buildPublicPath = () => {
-  if (featureIsEnabled(process.env.ENABLE_JSDELIVR_BUILD_PUBLIC_PATH)) {
-    return `https://cdn.jsdelivr.net/npm/${APP_PKG_NAME}@${versions[APP_PKG_NAME]}/.nuxt/dist/client`;
-  } else {
-    return process.env.NUXT_BUILD_PUBLIC_PATH;
-  }
+  return process.env.NUXT_BUILD_PUBLIC_PATH;
 };
 
 export default {
