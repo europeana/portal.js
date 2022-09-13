@@ -85,7 +85,7 @@ Versioning of the monorepo [packages](./packages/) is managed using
 [Lerna](https://lerna.js.org/).
 
 ```shell
-npx lerna version --exact
+npx lerna version
 ```
 
 ## License
