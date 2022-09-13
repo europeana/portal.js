@@ -79,6 +79,15 @@ rebuild the generated Docker images in the test stack, with `npm run test:stack:
 Ensure that you have set a [Percy](https://percy.io) token as `PERCY_TOKEN` in
 tests/e2e/docker/nightwatch-visual/.env, then run `npm run test:visual`.
 
+## Versioning
+
+Versioning of the monorepo [packages](./packages/) is managed using
+[Lerna](https://lerna.js.org/).
+
+```shell
+npx lerna version --exact
+```
+
 ## License
 
 Licensed under the EUPL v1.2.
