@@ -5,13 +5,6 @@ import ErrorMessage from '@/components/generic/ErrorMessage.vue';
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 
-const props = {
-  error: 'Item was not found',
-  titlePath: 'errorMessage.itemNotFound.title',
-  descriptionPath: 'errorMessage.itemNotFound.description',
-  illustrationSrc: 'src/assets/img/illustrations/il-item-not-found.svg'
-};
-
 const factory = (propsData = {}) => shallowMount(ErrorMessage, {
   localVue,
   propsData,
@@ -22,16 +15,17 @@ const factory = (propsData = {}) => shallowMount(ErrorMessage, {
 });
 
 describe('components/generic/ErrorMessage', () => {
-  it('displays a description when available', async() => {
+  it('displays illustrated error with description when available', async() => {
+    const props = {
+      error: 'Item was not found',
+      titlePath: 'errorMessage.itemNotFound.title',
+      descriptionPath: 'errorMessage.itemNotFound.description',
+      illustrationSrc: 'src/assets/img/illustrations/il-item-not-found.svg'
+    };
     const wrapper = factory(props);
 
-    const illustration =  wrapper.find('[data-qa="error message"]');
-    expect(illustration.text()).toEqual(props.descriptionPath);
-  });
-  it('displays empty string when description unavailable', async() => {
-    const wrapper = factory();
+    const text = wrapper.text();
 
-    const illustration =  wrapper.find('[data-qa="error message"]');
-    expect(illustration.text()).toEqual('');
+    expect(text).toEqual(props.descriptionPath);
   });
 });

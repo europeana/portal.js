@@ -139,7 +139,7 @@ export default {
     },
     "headerNavigation": {
       "Collections": "Gyűjtemények",
-      "explore": "Ismerje meg",
+      "explore": "felfedez",
       "teachers": "Tanárok"
     }
   },
@@ -207,6 +207,18 @@ export default {
     }
   },
   "error": "Hiba",
+  "errorMessage": {
+    "galleryUnauthorised": {
+      "description": "Ez nem lehetséges, mert a privát galériákat csak a készítőjük láthatja. Ha ismeri a galéria készítőjét, kérje meg, hogy tegye nyilvánossá a galériát. Alternatív megoldásként jelentse a problémát a visszajelzés gombbal.",
+      "metaTitle": "A galéria jogosulatlan",
+      "title": "Hoppá! {newline} Egy másik személy privát galériáját próbálja megtekinteni."
+    },
+    "itemNotFound": {
+      "description": "Ennek a következő okai lehetnek: ez az elem nem létezik, vagy; közzétételre került, mert nem felelt meg minőségi kritériumainknak, vagy; frissítve lett, és új egyedi azonosítóval újból közzétéve, ebben az esetben próbálja meg újra megtalálni az elemet.",
+      "metaTitle": "Az elem nem található",
+      "title": "Ó, nem! {newline} Nem találtuk meg ezt a tételt."
+    }
+  },
   "exhibitions": {
     "chapters": "Fejezetek",
     "credits": "Szerzői információk",
@@ -214,7 +226,7 @@ export default {
     "description": "Fedezze fel a kiállításokat",
     "exhibitions": "Kiállítások"
   },
-  "explore": "Fedezd fel",
+  "explore": "fedezze fel",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "színek",
@@ -735,7 +747,7 @@ export default {
     "storiesCTA": "Az összes történet megtekintése",
     "subHeadline": "Válogasson több ezer kulturális intézmény művészeti alkotásaiból, könyveiből,filmjeiből és zeneműveiből, és mentse el vagy ossza meg kedvenceit",
     "themesCTA": "Az összes téma megtekintése",
-    "themesTitle": "Téma szerinti felfedezés",
+    "themesTitle": "fedezze fel a témát",
     "title": "Fedezze fel Európa {digital} kulturális örökségét",
     "titleDigital": "digitális"
   },
@@ -908,7 +920,7 @@ export default {
     },
     "allMetaData": "Minden metaadat",
     "copyEmbedLabel": "Beágyazási kód (Kattintson a másoláshoz)",
-    "exploreMore": "Több felfedezés",
+    "exploreMore": "Fedezz fel többet",
     "extendedInformation": "Kiterjesztett információk",
     "goodToKnow": "Jó tudni",
     "hideAll": "Az összes információ elrejtése",

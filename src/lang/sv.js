@@ -207,6 +207,18 @@ export default {
     }
   },
   "error": "Fel",
+  "errorMessage": {
+    "galleryUnauthorised": {
+      "description": "Detta är inte möjligt eftersom privata gallerier endast är synliga för deras skapare. Om du känner skaparen av galleriet, be dem att göra galleriet offentligt. Alternativt kan du rapportera det här problemet med feedbackknappen.",
+      "metaTitle": "Galleri obehörigt",
+      "title": "Oops! {newline} Du försöker visa en annan persons privata galleri."
+    },
+    "itemNotFound": {
+      "description": "Detta kan bero på följande orsaker: det här objektet finns inte, eller; den reduplicerades eftersom den inte matchade våra kvalitetskriterier, eller; den uppdaterades och publicerades på nytt med en ny unik identifierare. Försök i så fall att hitta objektet igen.",
+      "metaTitle": "Objektet hittades inte",
+      "title": "Åh nej! {newline} Vi kunde inte hitta det här objektet."
+    }
+  },
   "exhibitions": {
     "chapters": "Kapitel",
     "credits": "Upphovsmän",

@@ -207,6 +207,18 @@ export default {
     }
   },
   "error": "Eroare",
+  "errorMessage": {
+    "galleryUnauthorised": {
+      "description": "Acest lucru nu este posibil deoarece galeriile private sunt vizibile numai pentru creatorul lor. Dacă îl cunoașteți pe creatorul galeriei, cereți-i să facă publică galeria. Ca alternativă, raportați această problemă utilizând butonul de feedback.",
+      "metaTitle": "Galeria neautorizată",
+      "title": "Oops! {newline} Încercați să vizualizați galeria privată a unei alte persoane."
+    },
+    "itemNotFound": {
+      "description": "Acest lucru se poate datora următoarelor motive: acest articol nu există sau; a fost anulat pentru că nu corespundea criteriilor noastre de calitate, sau; a fost actualizat și republicat cu un nou identificator unic, caz în care, încercați să găsiți elementul din nou.",
+      "metaTitle": "Element nu a fost găsit",
+      "title": "Oh nu! {newline} Nu am putut găsi acest articol."
+    }
+  },
   "exhibitions": {
     "chapters": "Capitole",
     "credits": "Credite",

@@ -68,6 +68,9 @@ const apiErrorResponse = {
     data: {
       success: false,
       error: 'Invalid record identifier'
+    },
+    headers: {
+      'content-type': 'application/json'
     }
   }
 };

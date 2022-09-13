@@ -207,6 +207,18 @@ export default {
     }
   },
   "error": "Earráid",
+  "errorMessage": {
+    "galleryUnauthorised": {
+      "description": "Ní féidir é seo a dhéanamh mar níl gailearaithe príobháideacha le feiceáil ach ag a gcruthóir. Má tá aithne agat ar chruthaitheoir an ghailearaí, iarr orthu an gailearaí a phoibliú. Nó, tuairiscigh an cheist seo agus an cnaipe aiseolais á úsáid agat.",
+      "metaTitle": "Gailearaí neamhúdaraithe",
+      "title": "Úps! {newline} Tá tú ag iarraidh féachaint ar ghailearaí príobháideach duine eile."
+    },
+    "itemNotFound": {
+      "description": "D'fhéadfadh sé seo a bheith mar gheall ar na cúiseanna seo a leanas: níl an mhír seo ann, nó; dífhoilsíodh é toisc nach raibh sé ag teacht lenár gcritéir cháilíochta, nó; Rinneadh é a nuashonrú agus a athfhoilsiú le haitheantóir uathúil nua, agus sa chás sin, déan iarracht an mhír a aimsiú arís.",
+      "metaTitle": "Ní bhfuarthas an mhír",
+      "title": "Ó níl! {newline} Ní rabhamar in ann an mhír seo a aimsiú."
+    }
+  },
   "exhibitions": {
     "chapters": "Caibidlí",
     "credits": "Creidiúintí",

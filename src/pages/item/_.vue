@@ -17,9 +17,9 @@
       v-else-if="$fetchState.error"
       data-qa="error message container"
       :error="$fetchState.error.message"
-      title-path="errorMessage.itemNotFound.title"
-      description-path="errorMessage.itemNotFound.description"
-      :illustration-src="require('@/assets/img/illustrations/il-item-not-found.svg')"
+      :title-path="$fetchState.error.titlePath"
+      :description-path="$fetchState.error.descriptionPath"
+      :illustration-src="$fetchState.error.illustrationSrc"
     />
     <template
       v-else
@@ -188,9 +188,18 @@
         for (const key in response.record) {
           this[key] = response.record[key];
         }
+        if (process.client) {
+          this.trackCustomDimensions();
+        }
       } catch (error) {
         if (process.server) {
           this.$nuxt.context.res.statusCode = error.statusCode || 500;
+        }
+        if (error.statusCode === 404) {
+          error.titlePath = 'errorMessage.itemNotFound.title';
+          error.descriptionPath = 'errorMessage.itemNotFound.description';
+          error.metaTitlePath = 'errorMessage.itemNotFound.metaTitle';
+          error.illustrationSrc = require('@/assets/img/illustrations/il-item-not-found.svg');
         }
         throw error;
       }
@@ -276,7 +285,7 @@
       },
       metaTitle() {
         if (this.$fetchState.error) {
-          return this.$t('errorMessage.itemNotFound.metaTitle');
+          return this.$t(this.$fetchState.error.metaTitlePath ? this.$fetchState.error.metaTitlePath : 'error');
         } else if (this.titlesInCurrentLanguage[0]) {
           return this.titlesInCurrentLanguage[0].value;
         } else {
@@ -306,6 +315,14 @@
       },
       translatedItemsEnabled() {
         return this.$features.translatedItems;
+      },
+      matomoOptions() {
+        return {
+          dimension1: langMapValueForLocale(this.metadata.edmCountry, 'en').values[0],
+          dimension2: this.stringify(langMapValueForLocale(this.metadata.edmDataProvider?.value, 'en').values[0]),
+          dimension3: this.stringify(langMapValueForLocale(this.metadata.edmProvider, 'en').values[0]),
+          dimension4: langMapValueForLocale(this.metadata.edmRights, 'en').values[0]
+        };
       }
     },
 
@@ -317,12 +334,22 @@
 
     mounted() {
       this.fetchAnnotations();
-      if (!this.$fetchState.error) {
-        this.$matomo && this.$matomo.trackPageView('item page custom dimensions', this.matomoOptions());
+      if (!this.$fetchState.error && !this.$fetchState.pending) {
+        this.trackCustomDimensions();
       }
     },
 
     methods: {
+      trackCustomDimensions() {
+        if (!this.$waitForMatomo) {
+          return;
+        }
+
+        this.$waitForMatomo()
+          .then(() => this.$matomo.trackPageView('item page custom dimensions', this.matomoOptions))
+          .catch(() => {});
+      },
+
       annotationsByMotivation(motivation) {
         return this.annotations?.filter(annotation => annotation.motivation === motivation) || [];
       },
@@ -332,15 +359,6 @@
           query: `target_record_id:"${this.identifier}"`,
           profile: 'dereference'
         });
-      },
-
-      matomoOptions() {
-        return {
-          dimension1: langMapValueForLocale(this.metadata.edmCountry, 'en').values[0],
-          dimension2: this.stringify(langMapValueForLocale(this.metadata.edmDataProvider?.value, 'en').values[0]),
-          dimension3: this.stringify(langMapValueForLocale(this.metadata.edmProvider, 'en').values[0]),
-          dimension4: langMapValueForLocale(this.metadata.edmRights, 'en').values[0]
-        };
       }
     }
   };

@@ -207,6 +207,18 @@ export default {
     }
   },
   "error": "Żball",
+  "errorMessage": {
+    "galleryUnauthorised": {
+      "description": "Dan mhux possibbli għaliex il-galleriji privati huma viżibbli biss għall-kreatur tagħhom. Jekk taf lill-kreatur tal-gallerija, staqsihom biex jagħmlu l-gallerija pubblika. Inkella, irrapporta din il-kwistjoni billi tuża l-buttuna ta' feedback.",
+      "metaTitle": "Gallerija mhux awtorizzata",
+      "title": "Oops! {newline} Qed tipprova tara l-gallerija privata ta' persuna oħra."
+    },
+    "itemNotFound": {
+      "description": "Dan jista' jkun minħabba r-raġunijiet li ġejjin: dan l-oġġett ma jeżistix, jew; tneħħiet il-pubblikazzjoni għax ma kinitx taqbel mal-kriterji ta’ kwalità tagħna, jew; ġie aġġornat u ppubblikat mill-ġdid b'identifikatur uniku ġdid, f'liema każ, ipprova erġa' sib l-oġġett.",
+      "metaTitle": "Oġġett mhux misjub",
+      "title": "Oh le! {newline} Ma stajniex insibu dan l-oġġett."
+    }
+  },
   "exhibitions": {
     "chapters": "Kapitoli",
     "credits": "Krediti",

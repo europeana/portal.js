@@ -212,6 +212,11 @@ export default {
   },
   "error": "Error",
   "errorMessage": {
+    "galleryUnauthorised": {
+      "description": "This is not possible because private galleries are only visible to their creator. If you know the creator of the gallery, ask them to make the gallery public. Alternatively, report this issue using the feedback button.",
+      "metaTitle": "Gallery unauthorised",
+      "title": "Oops! {newline} You are trying to view another person’s private gallery."
+    },
     "itemNotFound": {
       "description": "This could be due to the following reasons: this item doesn't exist, or; it was depublished because it did not match our quality criteria, or; it was updated and republished with a new unique identifier, in which case, try to find the item again.",
       "metaTitle": "Item not found",

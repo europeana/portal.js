@@ -57,7 +57,7 @@ export default {
     "country": "Maa:",
     "creator": "Luoja:",
     "date": "Päivämäärä:",
-    "institution": "Instituutio:",
+    "institution": "kulttuuriperintölaitos",
     "title": "Nimi:"
   },
   "automatedCardGroup": {
@@ -139,7 +139,7 @@ export default {
     },
     "headerNavigation": {
       "Collections": "Kokoelmat",
-      "explore": "Tutki",
+      "explore": "tutustu",
       "teachers": "Opettajat"
     }
   },
@@ -207,6 +207,18 @@ export default {
     }
   },
   "error": "Virhe",
+  "errorMessage": {
+    "galleryUnauthorised": {
+      "description": "Tämä ei ole mahdollista, koska yksityiset galleriat näkyvät vain niiden luojalle. Jos tunnet gallerian luojan, pyydä häntä tekemään galleriasta julkinen. Vaihtoehtoisesti voit ilmoittaa tästä ongelmasta palautepainikkeella.",
+      "metaTitle": "Galleria luvaton",
+      "title": "Oho! {newline} Yrität tarkastella toisen henkilön yksityistä galleriaa."
+    },
+    "itemNotFound": {
+      "description": "Tämä voi johtua seuraavista syistä: tätä kohdetta ei ole olemassa tai; se poistettiin, koska se ei vastannut laatukriteereitämme tai; se päivitettiin ja julkaistiin uudelleen uudella yksilöivällä tunnisteella. Yritä siinä tapauksessa löytää kohde uudelleen.",
+      "metaTitle": "Kohdetta ei löydy",
+      "title": "Voi ei! {newline} Emme löytäneet tätä kohdetta."
+    }
+  },
   "exhibitions": {
     "chapters": "Luvut",
     "credits": "Tekijät",
@@ -214,7 +226,7 @@ export default {
     "description": "Tutustu näyttelyihin",
     "exhibitions": "Näyttelyt"
   },
-  "explore": "Tutkia",
+  "explore": "tutustu",
   "facets": {
     "COLOURPALETTE": {
       "moreName": "värit",
@@ -425,9 +437,9 @@ export default {
       "select": "Valitse tekijät"
     },
     "DATA_PROVIDER": {
-      "moreName": "toimielimet",
-      "name": "Instituutio",
-      "select": "Valitse laitokset"
+      "moreName": "kulttuurilaitoksista",
+      "name": "kulttuuriperintölaitos",
+      "select": "valitse kulttuuriperintölaitos"
     },
     "IMAGE_ASPECTRATIO": {
       "name": "Kuvan suunta | Kuvan suunnat",
@@ -644,7 +656,7 @@ export default {
       "dctermsTemporal": "Ajoitus",
       "edmCountry": "Alkuperämaa",
       "edmCurrentLocation": "Nykyinen sijainti",
-      "edmDataProvider": "Tarjoajainstituutio",
+      "edmDataProvider": "kulttuuriperintölaitos",
       "edmHasMet": "On tavannut henkilön",
       "edmIncorporates": "Sisältää",
       "edmIntermediateProvider": "Välillinen tarjoaja",
@@ -908,7 +920,7 @@ export default {
     },
     "allMetaData": "Kaikki metatiedot",
     "copyEmbedLabel": "Upota koodi (kopioi napsauttamalla)",
-    "exploreMore": "Tutki lisää",
+    "exploreMore": "tutustu",
     "extendedInformation": "Tarkemmat tiedot",
     "goodToKnow": "Hyvä tietää",
     "hideAll": "Piilota kaikki tiedot",
@@ -922,7 +934,7 @@ export default {
       "unpublished": "[Julkaisematon kohde]"
     },
     "transcription": "Transkriptio",
-    "transcriptionDisclaimer": "Tämän sisällön on lähettänyt yksityishenkilö eikä tämän kohteen tarjoava instituutio."
+    "transcriptionDisclaimer": "Tämän sisällön on lähettänyt yksittäinen henkilö, ei kulttuuriperintölaitos"
   },
   "related": {
     "editorial": {

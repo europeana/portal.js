@@ -165,8 +165,14 @@
     },
 
     mounted() {
-      this.timeoutUntilPiwikSet(0);
-      this.klaro = window.klaro;
+      if (!this.klaro) {
+        this.klaro = window.klaro;
+      }
+
+      // If Matomo plugin is installed, wait for Matomo to load, but still render
+      // Klaro if it fails to.
+      const renderKlaroAfter = this.$waitForMatomo ? this.$waitForMatomo() : Promise.resolve();
+      renderKlaroAfter.catch(() => {}).finally(this.renderKlaro);
 
       if (this.$auth.$storage.getUniversal('portalLoggingIn') && this.$auth.loggedIn) {
         this.makeToast(this.$t('account.notifications.loggedIn'));
@@ -210,16 +216,6 @@
 
       trackKlaroClickEvent(eventName) {
         this.$matomo && this.$matomo.trackEvent('Klaro', 'Clicked', eventName);
-      },
-
-      timeoutUntilPiwikSet(counter) {
-        if (this.$matomo || counter > 100) {
-          this.renderKlaro();
-        } else {
-          setTimeout(() => {
-            this.timeoutUntilPiwikSet(counter + 1);
-          }, 10);
-        }
       },
 
       setToastBottomOffset() {

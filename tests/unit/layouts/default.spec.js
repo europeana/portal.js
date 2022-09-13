@@ -63,7 +63,8 @@ const factory = (options = {}) => shallowMountNuxt(layout, {
       set: () => {}
     },
     $config: { app: { baseUrl: 'https://www.example.eu' } },
-    $nuxtI18nHead: () => nuxtI18nHead
+    $nuxtI18nHead: () => nuxtI18nHead,
+    ...options.mocks
   },
   stubs: {
     VueAnnouncer: { template: '<div id="announcer" aria-live="polite"></div>' },
@@ -92,15 +93,47 @@ describe('layouts/default.vue', () => {
       render: sinon.spy()
     };
 
-    describe('renderKlaro', () => {
-      it('renders Klaro', () => {
-        factory({ data: { klaro: klaroMock } });
+    describe('when Matomo plugin is installed', () => {
+      it('waits for Matomo to be ready first', async() => {
+        const $waitForMatomo = sinon.stub().resolves();
+
+        factory({ mocks: { $waitForMatomo } });
+
+        expect($waitForMatomo.called).toBe(true);
+      });
+
+      it('renders Klaro if Matomo becomes ready', () => {
+        const $waitForMatomo = sinon.stub().resolves();
+
+        factory({ data: { klaro: klaroMock }, mocks: { $waitForMatomo } });
 
         expect(klaroMock.render.called).toBe(true);
       });
 
-      it('registers Klaro manager update watcher', () => {
-        const wrapper = factory({ data: { klaro: klaroMock } });
+      it('renders Klaro if Matomo does not become ready', () => {
+        const $waitForMatomo = sinon.stub().rejects();
+
+        factory({ data: { klaro: klaroMock }, mocks: { $waitForMatomo } });
+
+        expect(klaroMock.render.called).toBe(true);
+      });
+    });
+
+    describe('renderKlaro', () => {
+      it('renders Klaro', async() => {
+        const wrapper = factory();
+        await wrapper.setData({ klaro: klaroMock });
+
+        await wrapper.vm.renderKlaro();
+
+        expect(klaroMock.render.called).toBe(true);
+      });
+
+      it('registers Klaro manager update watcher', async() => {
+        const wrapper = factory();
+        await wrapper.setData({ klaro: klaroMock });
+
+        await wrapper.vm.renderKlaro();
 
         expect(klaroManagerStub.watch.calledWith({ update: wrapper.vm.watchKlaroManagerUpdate })).toBe(true);
       });
