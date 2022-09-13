@@ -51,7 +51,6 @@
     "eslint-plugin-vue": "^8.1.1",
     "jest": "^27.4.5",
     "lerna": "^5.5.0",
-    "properties-reader": "^2.2.0",
     "stylelint": "^14.1.0",
     "stylelint-config-recommended-vue": "^1.0.0",
     "stylelint-config-standard-scss": "^3.0.0"

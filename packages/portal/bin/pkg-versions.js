@@ -1,8 +1,6 @@
 import fs from 'fs';
 import versions from '../pkg-versions.js';
 
-console.log(process.env.npm_package_version);
-
 const versionsFile = new URL('../pkg-versions.js', import.meta.url);
 
 let versionsSrc = fs.readFileSync(versionsFile, { encoding: 'utf8' });

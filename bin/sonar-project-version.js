@@ -1,19 +1,12 @@
-import propertiesReader from 'properties-reader';
+import fs from 'fs';
 
-import versions from '../packages/portal/pkg-versions.js';
-
-const versionSonarProjectProperties = async() => {
+const versionSonarProjectProperties = () => {
   const sonarProjectPropertiesFilePath = new URL('../sonar-project.properties', import.meta.url);
-  const sonarProjectProperties = propertiesReader(sonarProjectPropertiesFilePath,
-    'utf-8',
-    { writer: { saveSections: false } }
-  );
-  sonarProjectProperties.set('sonar.projectVersion', versions['@europeana/portal']);
-  await sonarProjectProperties.save(sonarProjectPropertiesFilePath);
+
+  let sonarProjectProperties = fs.readFileSync(sonarProjectPropertiesFilePath, { encoding: 'utf8' });
+  sonarProjectProperties = sonarProjectProperties.replace(/sonar\.projectVersion=.*/, `sonar.projectVersion=${process.env.npm_package_version}`);
+
+  fs.writeFileSync(sonarProjectPropertiesFilePath, sonarProjectProperties);
 };
 
-const version = async() => {
-  await versionSonarProjectProperties();
-};
-
-version();
+versionSonarProjectProperties();
