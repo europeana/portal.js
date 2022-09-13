@@ -125,6 +125,8 @@ jobs:
         #       its coverage output?
         name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@v1.6
+        with:
+          projectBaseDir: packages/portal
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

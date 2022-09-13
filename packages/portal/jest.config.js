@@ -1,11 +1,11 @@
 export default {
   coveragePathIgnorePatterns: [
-    '<rootDir>/packages/portal/src/plugins/i18n/locales.js',
-    '<rootDir>/packages/portal/src/lang/',
-    '<rootDir>/packages/portal/src/migrations/'
+    '<rootDir>/src/plugins/i18n/locales.js',
+    '<rootDir>/src/lang/',
+    '<rootDir>/src/migrations/'
   ],
   collectCoverageFrom: [
-    '<rootDir>/packages/portal/src/**/*.{cjs,js,vue}'
+    '<rootDir>/src/**/*.{cjs,js,vue}'
   ],
   coverageReporters: [
     'html',
@@ -21,7 +21,7 @@ export default {
   ],
   moduleNameMapper: {
     '^swiper$': '<rootDir>/tests/unit/swiperMock.js',
-    '^@/(.*)$': '<rootDir>/packages/portal/src/$1',
+    '^@/(.*)$': '<rootDir>/src/$1',
     '\\.css$': '<rootDir>/tests/unit/styleMock.js'
   },
   setupFiles: [
@@ -30,8 +30,8 @@ export default {
   testEnvironment: 'jsdom',
   testPathIgnorePatterns: [
     '/node_modules/',
-    '<rootDir>/packages/portal/.nuxt/',
-    '<rootDir>/packages/portal/tmp/'
+    '<rootDir>/.nuxt/',
+    '<rootDir>/tmp/'
   ],
   transformIgnorePatterns: [
     '/node_modules/(?!decamelize)'
