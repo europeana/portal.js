@@ -380,7 +380,7 @@
         }
         return this.$contentful.assets.optimisedSrc(
           { url: this.imageUrl, contentType: this.imageContentType },
-          this.imageOptimisationOptions?.width ? { w: this.imageOptimisationOptions?.width } : {}
+          { w: this.imageOptimisationOptions?.width, h: this.imageOptimisationOptions?.height }
         );
       }
     },

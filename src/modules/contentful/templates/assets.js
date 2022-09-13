@@ -32,7 +32,9 @@ export default ({ store } = {}) => ({
     }
 
     for (const key in params)  {
-      imageUrl.searchParams.set(key, params[key]);
+      if (params[key]) {
+        imageUrl.searchParams.set(key, params[key]);
+      }
     }
 
     return imageUrl.toString();
