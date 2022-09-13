@@ -66,6 +66,7 @@
 
             span {
               color: #4064ac;
+              background-color: $white;
             }
           }
 
@@ -82,6 +83,7 @@
 
             span {
               color: #ba0a21;
+              background-color: $white;
             }
           }
 
