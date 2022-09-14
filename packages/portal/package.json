@@ -1,6 +1,6 @@
 {
   "name": "@europeana/portal",
-  "version": "1.82.0",
+  "version": "1.83.0-alpha.0",
   "description": "Europeana Portal",
   "scripts": {
     "analyze": "nuxt build --analyze",
