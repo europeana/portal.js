@@ -15,6 +15,7 @@
 <script>
   import contentfulSidebarMixin from '@/mixins/contentful/sidebar';
   import { langMapValueForLocale } from '@/plugins/europeana/utils';
+  import { recordIdFromUrl } from '@/plugins/europeana/record';
   import { BASE_URL } from '@/plugins/europeana/data';
 
   export default {
@@ -43,10 +44,8 @@
           return;
         }
 
-        let id;
-        try {
-          (id = this.itemIdFromUrl(itemUrl));
-        } catch (error) {
+        let id = recordIdFromUrl(itemUrl);
+        if (!id) {
           this.showError(`Unable to parse URL: ${itemUrl} Please make sure the URL conforms to the accepted formats.`);
           return;
         }
@@ -73,18 +72,6 @@
           message: 'Enter an item page URL, or an item URI or ID.',
           intent: 'positive'
         });
-      },
-
-      // Supports:
-      // - ID: /90402/SK_A_2344
-      // - URI: http://data.europeana.eu/item/90402/SK_A_2344
-      // - Website URL: http(s)://www.europeana.eu/($LOCALE/)item/90402/SK_A_2344
-      itemIdFromUrl(url) {
-        const urlMatch = url.match(/(\/[0-9]+\/[a-zA-Z0-9_]+)($|\?)/);
-        if (!urlMatch) {
-          throw new Error;
-        }
-        return urlMatch[1];
       },
 
       localiseValue(value) {
