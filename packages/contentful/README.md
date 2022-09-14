@@ -23,12 +23,12 @@ npx contentful space use
 
 Run a migration:
 ```bash
-npx contentful space migration migrations/0001-migration-script.cjs
+npx contentful space migration packages/contentful/migrations/0001-migration-script.cjs
 ```
 
 Generate migration for entire content model:
 ```bash
-npx contentful space generate migration -f migrations/0000-content-model.cjs
+npx contentful space generate migration -f packages/contentful/migrations/0000-content-model.cjs
 ```
 
 ## Documentation
