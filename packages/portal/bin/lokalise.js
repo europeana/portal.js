@@ -1,6 +1,5 @@
 import { LokaliseApi } from '@lokalise/node-api';
 import fs from 'fs';
-import path from 'path';
 
 const lokaliseApi = new LokaliseApi({ apiKey: process.env.LOKALISE_API_TOKEN });
 
