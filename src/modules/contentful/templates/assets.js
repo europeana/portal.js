@@ -1,6 +1,13 @@
+const CONTENTFUL_IMAGES_ASSET_HOST = 'images.ctfassets.net';
+const CONTENTFUL_IMAGES_PARAMS_FL_PROGRESSIVE = 'progressive';
+const CONTENTFUL_IMAGES_PARAMS_FM_WEBP = 'webp';
+const CONTENTFUL_IMAGES_PARAMS_FM_JPEG = 'jpg'
 const MEDIA_TYPE_JPEG = 'image/jpeg';
 const MEDIA_TYPE_SVG = 'image/svg+xml';
 const MEDIA_TYPE_WEBP = 'image/webp';
+const RESPONSIVE_IMAGE_SIZES = [
+  'small', 'medium', 'large', 'xl', 'xxl', 'xxxl', 'wqhd', '4k'
+];
 
 export default ({ store } = {}) => ({
   acceptedMediaTypes() {
@@ -9,7 +16,7 @@ export default ({ store } = {}) => ({
 
   isValidUrl(url) {
     try {
-      return (new URL(url)).host === 'images.ctfassets.net';
+      return (new URL(url)).host === CONTENTFUL_IMAGES_ASSET_HOST;
     } catch (e) {
       return false;
     }
@@ -23,13 +30,13 @@ export default ({ store } = {}) => ({
     const imageUrl = new URL(asset.url);
 
     if (!params.fm && (asset.contentType !== MEDIA_TYPE_SVG) && this.acceptedMediaTypes().includes(MEDIA_TYPE_WEBP)) {
-      params.fm = 'webp';
+      params.fm = CONTENTFUL_IMAGES_PARAMS_FM_WEBP;
       if (!params.q) {
         params.q = 40;
       }
     } else if (asset.contentType === MEDIA_TYPE_JPEG) {
-      params.fm = 'jpg';
-      params.fl = 'progressive';
+      params.fm = CONTENTFUL_IMAGES_PARAMS_FM_JPEG;
+      params.fl = CONTENTFUL_IMAGES_PARAMS_FL_PROGRESSIVE;
       if (!params.q) {
         params.q = 80;
       }
@@ -46,16 +53,9 @@ export default ({ store } = {}) => ({
 
   responsiveImageSrcset(image, params) {
     if (this.isValidUrl(image?.url) && params) {
-      return [
-        `${this.optimisedSrc(image, params.small)} ${params.small.w}w`,
-        `${this.optimisedSrc(image, params.medium)} ${params.medium.w}w`,
-        `${this.optimisedSrc(image, params.large)} ${params.large.w}w`,
-        `${this.optimisedSrc(image, params.xl)} ${params.xl.w}w`,
-        `${this.optimisedSrc(image, params.xxl)} ${params.xxl.w}w`,
-        `${this.optimisedSrc(image, params.xxxl)} ${params.xxxl.w}w`,
-        `${this.optimisedSrc(image, params.wqhd)} ${params.wqhd.w}w`,
-        `${this.optimisedSrc(image, params['4k'])} ${params['4k'].w}w`
-      ].join(',');
+      return RESPONSIVE_IMAGE_SIZES
+        .map((size) => `${this.optimisedSrc(image, params[size])} ${params[size].w}w`)
+        .join(',');
     } else {
       return null;
     }
@@ -63,17 +63,11 @@ export default ({ store } = {}) => ({
 
   responsiveBackgroundImageCSSVars(image, params) {
     if (image?.url && this.isValidUrl(image.url) && params) {
-      return {
-        '--bg-img-small': `url('${this.optimisedSrc(image, params.small)}')`,
-        '--bg-img-medium': `url('${this.optimisedSrc(image, params.medium)}')`,
-        '--bg-img-large': `url('${this.optimisedSrc(image, params.large)}')`,
-        '--bg-img-xl': `url('${this.optimisedSrc(image, params.xl)}')`,
-        '--bg-img-xxl': `url('${this.optimisedSrc(image, params.xxl)}')`,
-        '--bg-img-xxxl': `url('${this.optimisedSrc(image, params.xxxl)}')`,
-        '--bg-img-wqhd': `url('${this.optimisedSrc(image, params.wqhd)}')`,
-        '--bg-img-4k': `url('${this.optimisedSrc(image, params['4k'])}')`
-      };
-    } else if (image.url) {
+      return RESPONSIVE_IMAGE_SIZES.reduce((memo, size) => {
+        memo[`--bg-img-${size}`] = `url('${this.optimisedSrc(image, params[size])}')`
+        return memo;
+      }, {});
+    } else if (image?.url) {
       return {
         '--bg-img-small': `url('${image.url}')`
       };
