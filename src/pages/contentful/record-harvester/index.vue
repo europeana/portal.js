@@ -5,13 +5,12 @@
         <img
           v-if="thumbnailUrl"
           :src="thumbnailUrl"
-          alt="Record thumbnail"
+          alt=""
         >
       </div>
       <b-form-input
         v-model="identifier"
         type="text"
-        placeholder="Paste your record ID"
       />
       <p>
         <b-button
