@@ -28,6 +28,8 @@ module.exports = async() => {
     ]
   };
 
+  console.log('nuxtWebpackConfig', JSON.stringify(nuxtWebpackConfig, null, 2))
+
   return {
     title: 'Europeana Style Guide',
     sections: [

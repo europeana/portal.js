@@ -1,0 +1,49 @@
+name: Styleguide
+
+on:
+  push:
+    branches:
+      - 'master'
+      # TODO: remove before merging
+      - 'chore/EC-6003-build-styleguide'
+    paths-ignore:
+    - 'packages/contentful/**'
+
+env:
+  DOCKER_REPOSITORY: europeana/styleguide
+
+docker-build:
+  runs-on: ubuntu-latest
+  steps:
+    -
+      name: Checkout
+      uses: actions/checkout@v3
+    -
+      name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+    -
+      name: Docker meta
+      id: meta
+      uses: docker/metadata-action@v3
+      with:
+        images: ${{ env.DOCKER_REPOSITORY }}
+        tags: |
+          type=ref,event=branch
+    -
+      name: Login to DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    -
+      name: Build and push
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        file: ./packages/styleguide/Dockerfile
+        pull: true
+        push: true
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
