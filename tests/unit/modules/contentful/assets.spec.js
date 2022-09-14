@@ -41,27 +41,46 @@ describe('modules/contentful/templates/assets', () => {
       expect(assets().optimisedSrc({ contentType: 'image/jpeg' })).toBe(null);
     });
 
-    it('favours WebP if accepted and format not specified', () => {
+    describe('if WebP format accepted by client', () => {
       const store = { state: { contentful: { acceptedMediaTypes: ['text/html', 'image/apng', 'image/webp'] } } };
 
-      const asset = {
-        url: 'https://images.ctfassets.net/asset.jpeg',
-        contentType: 'image/jpeg'
-      };
+      it('respects format if specified', () => {
+        const asset = {
+          url: 'https://images.ctfassets.net/asset.gif',
+          contentType: 'image/gif'
+        };
+        const params = { fm: 'png' };
 
-      expect(assets({ store }).optimisedSrc(asset)).toBe('https://images.ctfassets.net/asset.jpeg?fm=webp&q=40');
-    });
+        expect(assets({ store }).optimisedSrc(asset, params)).toBe('https://images.ctfassets.net/asset.gif?fm=png');
+      });
 
-    it('respects supplied quality param for WebP', () => {
-      const store = { state: { contentful: { acceptedMediaTypes: ['text/html', 'image/apng', 'image/webp'] } } };
+      it('converts to WebP if format not specified', () => {
+        const asset = {
+          url: 'https://images.ctfassets.net/asset.jpeg',
+          contentType: 'image/jpeg'
+        };
 
-      const asset = {
-        url: 'https://images.ctfassets.net/asset.jpeg',
-        contentType: 'image/jpeg'
-      };
-      const params = { q: 50 };
+        expect(assets({ store }).optimisedSrc(asset)).toBe('https://images.ctfassets.net/asset.jpeg?fm=webp&q=40');
+      });
 
-      expect(assets({ store }).optimisedSrc(asset, params)).toBe('https://images.ctfassets.net/asset.jpeg?q=50&fm=webp');
+      it('respects supplied quality param for WebP', () => {
+        const asset = {
+          url: 'https://images.ctfassets.net/asset.jpeg',
+          contentType: 'image/jpeg'
+        };
+        const params = { q: 50 };
+
+        expect(assets({ store }).optimisedSrc(asset, params)).toBe('https://images.ctfassets.net/asset.jpeg?q=50&fm=webp');
+      });
+
+      it('does not convert SVGs to WebP', () => {
+        const asset = {
+          url: 'https://images.ctfassets.net/asset.svg',
+          contentType: 'image/svg+xml'
+        };
+
+        expect(assets({ store }).optimisedSrc(asset)).toBe('https://images.ctfassets.net/asset.svg');
+      });
     });
 
     it('compresses jpegs', () => {

@@ -1,3 +1,7 @@
+const MEDIA_TYPE_JPEG = 'image/jpeg';
+const MEDIA_TYPE_SVG = 'image/svg+xml';
+const MEDIA_TYPE_WEBP = 'image/webp';
+
 export default ({ store } = {}) => ({
   acceptedMediaTypes() {
     return store?.state?.contentful?.acceptedMediaTypes || [];
@@ -18,12 +22,12 @@ export default ({ store } = {}) => ({
     }
     const imageUrl = new URL(asset.url);
 
-    if (!params.fm && this.acceptedMediaTypes().includes('image/webp')) {
+    if (!params.fm && (asset.contentType !== MEDIA_TYPE_SVG) && this.acceptedMediaTypes().includes(MEDIA_TYPE_WEBP)) {
       params.fm = 'webp';
       if (!params.q) {
         params.q = 40;
       }
-    } else if (asset.contentType === 'image/jpeg') {
+    } else if (asset.contentType === MEDIA_TYPE_JPEG) {
       params.fm = 'jpg';
       params.fl = 'progressive';
       if (!params.q) {
