@@ -21,7 +21,7 @@ jobs:
           mv tmp/node_modules .
       -
         name: Update lang files
-        run: npm run lokalise
+        run: npm run -w packages/portal lokalise
       -
         name: Set pull pequest branch name
         run: echo "PR_BRANCH=l10n/$(date +%Y-%m-%d_%H-%M-%S)" >> $GITHUB_ENV
