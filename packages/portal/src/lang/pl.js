@@ -6,7 +6,7 @@ export default {
     "likes": "Polubienia",
     "linkAccount": "Moje konto",
     "linkLogin": "Zaloguj się",
-    "linkLoginJoin": "Zaloguj/Dołącz",
+    "linkLoginJoin": "Zaloguj\/Dołącz",
     "linkLogout": "Wyloguj",
     "myProfile": "Mój profil",
     "notifications": {
@@ -201,7 +201,7 @@ export default {
         "title": "Za dużo przpiętych obiektów"
       },
       "pinned": "Obiekt został przypięty. Znajduje się teraz na górze pierwszej strony tej kolekcji. Synchronizacja u wszystkich użytkowników może potrwać do 24 godzin.",
-      "select": "Wybierz powiązaną jednostkę, aby przypiąć/odpiąć element do/od niego.",
+      "select": "Wybierz powiązaną jednostkę, aby przypiąć\/odpiąć element do\/od niego.",
       "unpin": "Ten element przestanie się wyświetlać u góry kolekcji „ {entity} ”. Powiadomimy Cię, kiedy ta zmiana będzie widoczna na stronie kolekcji.",
       "unpinned": "Obiekt został odpięty. Nie znajduje się już na górze pierwszej strony tej kolekcji. Może minąć do 24 godzin, zanim zniknie dla wszystkich użytkowników."
     }
@@ -507,7 +507,7 @@ export default {
     "MIME_TYPE": {
       "name": "Format plików | Formaty plików",
       "options": {
-        "text/plain": "Zwykły tekst"
+        "text\/plain": "Zwykły tekst"
       },
       "select": "Wybierz formaty plików"
     },
@@ -525,6 +525,29 @@ export default {
         "uncategorized": "Bez kategorii"
       },
       "select": "Wybierz, czy możesz używać tego"
+    },
+    "RIGHTS": {
+      "name": "Oświadczenie o prawach",
+      "options": {
+        "*\/CNE\/*": "Prawa autorskie nie zostały ocenione",
+        "*\/InC-EDU\/*": "W prawie autorskim — dozwolone użycie edukacyjne",
+        "*\/InC-OW-EU\/*": "Prawa autorskie - OW-EU",
+        "*\/InC\/*": "W prawach autorskich",
+        "*\/NoC-NC\/*": "Brak praw autorskich - Tylko do użytku niekomercyjnego",
+        "*\/NoC-OKLR\/*": "Brak praw autorskich - Inne znane ograniczenia prawne",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Znak domeny publicznej",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "Poza prawami autorskimi – Ponowne wykorzystanie niekomercyjne",
+        "*\/rights\/rr-f\/*": "Prawa zastrzeżone — Bezpłatny dostęp",
+        "*\/rights\/unknown\/*": "Nieznany status praw autorskich"
+      },
+      "select": "Wybierz oświadczenia o prawach"
     },
     "TYPE": {
       "name": "Rodzaj mediów",
@@ -673,7 +696,7 @@ export default {
       "keywords": "Słowa kluczowe (dostarczone przez społeczność)",
       "timestampCreated": "Data utworzenia rekordu",
       "timestampUpdate": "Data zaktualizowania rekordu",
-      "wasPresentAt": "Był obecny w/na",
+      "wasPresentAt": "Był obecny w\/na",
       "year": "Rok"
     },
     "webResource": {
@@ -795,7 +818,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Pomaga ulepszyć naszą stronę internetową, od czasu do czasu stosując eksperymentalne zmiany.",
-        "title": "Testy A/B"
+        "title": "Testy A\/B"
       },
       "auth-strategy": {
         "description": "Zapamiętuje strategię autoryzacji używaną do logowania.",
@@ -827,7 +850,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Zapamiętuje czy wolisz widzieć wyniki wyszukiwania w widoku listy lub siatki.",
-        "title": "Widok wyników wyszukiwania (lista/siatka)"
+        "title": "Widok wyników wyszukiwania (lista\/siatka)"
       }
     }
   },

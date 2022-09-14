@@ -6,7 +6,7 @@ export default {
     "likes": "Meeldimised",
     "linkAccount": "Minu konto",
     "linkLogin": "Logi sisse",
-    "linkLoginJoin": "Logi sisse/Liitu",
+    "linkLoginJoin": "Logi sisse\/Liitu",
     "linkLogout": "Logi välja",
     "myProfile": "Minu profiil",
     "notifications": {
@@ -201,7 +201,7 @@ export default {
         "title": "Liiga palju kinnitatud üksusi"
       },
       "pinned": "Üksus on kinnitatud. See on nüüd selle kogumiku esimese lehe ülaosas. Kõigi kuvamiseks võib kuluda kuni 24 tundi.",
-      "select": "Valige seotud olem üksuse kinnitamiseks/eemaldamiseks selle külge/välja.",
+      "select": "Valige seotud olem üksuse kinnitamiseks\/eemaldamiseks selle külge\/välja.",
       "unpin": "Seda üksust ei kuvata enam kogu „ {entity} ” ülaosas. Anname teile teada, kui seda muudatust kogumislehel näha on.",
       "unpinned": "Üksus on vabastatud. Seda pole enam selle kogumiku esimese lehe ülaosas. Kõigi kadumiseks võib kuluda kuni 24 tundi."
     }
@@ -507,7 +507,7 @@ export default {
     "MIME_TYPE": {
       "name": "Failivorming | Failivormingud",
       "options": {
-        "text/plain": "Lihttekst"
+        "text\/plain": "Lihttekst"
       },
       "select": "Valige failivormingud"
     },
@@ -525,6 +525,29 @@ export default {
         "uncategorized": "Kategoriseerimata"
       },
       "select": "Valige, kas saate seda kasutada"
+    },
+    "RIGHTS": {
+      "name": "Õiguste deklaratsioon",
+      "options": {
+        "*\/CNE\/*": "Autoriõigust ei hinnatud",
+        "*\/InC-EDU\/*": "Autoriõigusega - kasutamine hariduslikul eesmärgil lubatud",
+        "*\/InC-OW-EU\/*": "Autoriõigus – OW-EU",
+        "*\/InC\/*": "Autoriõigus",
+        "*\/NoC-NC\/*": "Autoriõigus puudub – ainult mitteäriliseks kasutamiseks",
+        "*\/NoC-OKLR\/*": "Autoriõigus puudub – muud teadaolevad juriidilised piirangud",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Avaliku domeeni märk",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "Autoriõigusest väljas - mitteäriline taaskasutamine",
+        "*\/rights\/rr-f\/*": "Õigused reserveeritud – tasuta juurdepääs",
+        "*\/rights\/unknown\/*": "Autoriõiguse staatus teadmata"
+      },
+      "select": "Valige õiguste avaldused"
     },
     "TYPE": {
       "name": "Meediumitüüp",
@@ -756,7 +779,7 @@ export default {
   },
   "items": {
     "itemCount": "1 toode | {count} toodet",
-    "itemOf": "{max} / {count} tootest",
+    "itemOf": "{max} \/ {count} tootest",
     "recent": "Hiljutised esemed",
     "recommended": "Soovitatavad esemed",
     "youMightLike": "Tooted, mis võivad teile meeldida"
@@ -795,7 +818,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Aitab meie veebisaiti täiustada, rakendades aeg -ajalt eksperimentaalseid muudatusi.",
-        "title": "A/B testimine"
+        "title": "A\/B testimine"
       },
       "auth-strategy": {
         "description": "Mäletab sisselogimiseks kasutatava autoriseerimisstrateegia.",
@@ -827,7 +850,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Mäletab, kas eelistate näha otsingutulemusi loendi või ruudustiku kujul.",
-        "title": "Otsingutulemite vaade (loend / ruudustik)"
+        "title": "Otsingutulemite vaade (loend \/ ruudustik)"
       }
     }
   },

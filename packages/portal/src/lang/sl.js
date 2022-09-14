@@ -6,7 +6,7 @@ export default {
     "likes": "Všečki",
     "linkAccount": "Moj račun",
     "linkLogin": "Vpis",
-    "linkLoginJoin": "Prijava/Pridruži se",
+    "linkLoginJoin": "Prijava\/Pridruži se",
     "linkLogout": "Izpis",
     "myProfile": "Moj profil",
     "notifications": {
@@ -201,7 +201,7 @@ export default {
         "title": "Preveč pripete predmete"
       },
       "pinned": "Element je bil pripet. Zdaj je na vrhu prve strani te zbirke. Lahko traja do 24 ur, da se prikaže vsem.",
-      "select": "Izberite sorodno entiteto, da pripnete/odpnete element na/iz njega.",
+      "select": "Izberite sorodno entiteto, da pripnete\/odpnete element na\/iz njega.",
       "unpin": "Ta element se ne bo več prikazoval na vrhu zbirke » {entity} «. Ko bo ta sprememba vidna na strani zbirke, vas bomo obvestili.",
       "unpinned": "Element je bil odpenjen. Ni več na vrhu prve strani te zbirke. Lahko traja do 24 ur, da izgine za vse."
     }
@@ -507,7 +507,7 @@ export default {
     "MIME_TYPE": {
       "name": "Oblika zapisa datoteke | Oblike zapisov datotek",
       "options": {
-        "text/plain": "Golo besedilo"
+        "text\/plain": "Golo besedilo"
       },
       "select": "Izberite formate datotek"
     },
@@ -525,6 +525,29 @@ export default {
         "uncategorized": "Nekategorizirano"
       },
       "select": "Izberite, ali lahko to uporabite"
+    },
+    "RIGHTS": {
+      "name": "Izjava o pravicah",
+      "options": {
+        "*\/CNE\/*": "Avtorske pravice niso ocenjene",
+        "*\/InC-EDU\/*": "V avtorskih pravicah – dovoljena izobraževalna uporaba",
+        "*\/InC-OW-EU\/*": "V avtorskih pravicah – OW-EU",
+        "*\/InC\/*": "V avtorskih pravicah",
+        "*\/NoC-NC\/*": "Brez avtorskih pravic - Samo za nekomercialno uporabo",
+        "*\/NoC-OKLR\/*": "Brez avtorskih pravic - Druge znane pravne omejitve",
+        "*\/licenses\/by-nc-nd\/*": "CC BY-NC-ND",
+        "*\/licenses\/by-nc-sa\/*": "CC BY-NC-SA",
+        "*\/licenses\/by-nc\/*": "CC BY-NC",
+        "*\/licenses\/by-nd\/*": "CC BY-ND",
+        "*\/licenses\/by-sa\/*": "CC BY-SA",
+        "*\/licenses\/by\/*": "CC BY",
+        "*\/publicdomain\/mark\/*": "Oznaka javne domene",
+        "*\/publicdomain\/zero\/*": "CC0",
+        "*\/rights\/out-of-copyright-non-commercial\/*": "Brez avtorskih pravic – nekomercialna ponovna uporaba",
+        "*\/rights\/rr-f\/*": "Pravice pridržane – Brezplačen dostop",
+        "*\/rights\/unknown\/*": "Neznan status avtorskih pravic"
+      },
+      "select": "Izberite izjave o pravicah"
     },
     "TYPE": {
       "name": "Vrsta medija",
@@ -795,7 +818,7 @@ export default {
     "services": {
       "abTest": {
         "description": "Pomaga izboljšati naše spletno mesto z občasno uporabo eksperimentalnih sprememb.",
-        "title": "A/B testiranje"
+        "title": "A\/B testiranje"
       },
       "auth-strategy": {
         "description": "Zapomni si strategijo avtorizacije, ki jo je treba uporabiti za prijavo.",
@@ -827,7 +850,7 @@ export default {
       },
       "searchResultsView": {
         "description": "Zapomni si, če želite rezultate iskanja raje videti v pogledu seznama ali mreže.",
-        "title": "Pogled rezultatov iskanja (seznam / mreža)"
+        "title": "Pogled rezultatov iskanja (seznam \/ mreža)"
       }
     }
   },
