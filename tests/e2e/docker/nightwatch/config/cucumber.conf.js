@@ -32,6 +32,10 @@ async function stopBrowser() {
 async function warmupBrowser() {
   // TODO: replace with a low cost static page not hitting any APIs
   await runners.openAPage('/en');
+
+  // Optionally take a screenshot of the warmup page
+  process.env.NIGHTWATCH_SCREENSHOTS && await client.saveScreenshot('./screenshots/warmup.png');
+
   await client.waitForElementVisible('#eu-klaro .cookie-notice');
 }
 
