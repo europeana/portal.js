@@ -10,7 +10,7 @@ for (const pkg in versions) {
   if (pkg === '@europeana/portal') {
     pkgJsonFile = new URL('../package.json', import.meta.url);
   } else {
-    pkgJsonFile = new URL(`../node_modules/${pkg}/package.json`, import.meta.url);
+    pkgJsonFile = new URL(`../../../node_modules/${pkg}/package.json`, import.meta.url);
   }
   const version = JSON.parse(fs.readFileSync(pkgJsonFile, { encoding: 'utf8' })).version;
 

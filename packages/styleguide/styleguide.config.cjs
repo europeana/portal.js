@@ -7,7 +7,8 @@ const bootstrapVueVersion = require('bootstrap-vue/package.json').version;
 module.exports = async() => {
   // get the webpack config directly from nuxt
   const nuxtWebpackConfig = await getWebpackConfig('client', {
-    for: 'dev'
+    for: 'dev',
+    rootDir: '../portal'
   });
 
   const webpackConfig = {
@@ -19,7 +20,9 @@ module.exports = async() => {
         )
       ]
     },
-    resolve: { ...nuxtWebpackConfig.resolve },
+    resolve: {
+      ...nuxtWebpackConfig.resolve
+    },
     plugins: [
       ...nuxtWebpackConfig.plugins
     ]
@@ -33,18 +36,18 @@ module.exports = async() => {
         sections: [
           {
             name: 'Font icons',
-            content: './docs/style/FontIcons.md'
+            content: '../portal/docs/style/FontIcons.md'
           },
           {
             name: 'Bootstrap Vue',
             sections: [
               {
                 name: 'Badge',
-                content: './docs/style/BootstrapVueBadge.md'
+                content: '../portal/docs/style/BootstrapVueBadge.md'
               },
               {
                 name: 'Button',
-                content: './docs/style/BootstrapVueButton.md'
+                content: '../portal/docs/style/BootstrapVueButton.md'
               }
             ]
           }
@@ -55,45 +58,44 @@ module.exports = async() => {
         sections: [
           {
             name: 'Page',
-            components: './src/components/[A-Z]*.vue'
+            components: '../portal/src/components/[A-Z]*.vue'
           },
           {
             name: 'Account',
-            components: './src/components/account/[A-Z]*.vue'
+            components: '../portal/src/components/account/[A-Z]*.vue'
           },
           {
             name: 'Entity',
-            components: './src/components/entity/[A-Z]*.vue'
+            components: '../portal/src/components/entity/[A-Z]*.vue'
           },
           {
             name: 'Generic',
-            components: './src/components/generic/[A-Z]*.vue'
+            components: '../portal/src/components/generic/[A-Z]*.vue'
           },
           {
             name: 'Home',
-            components: './src/components/home/[A-Z]*.vue'
+            components: '../portal/src/components/home/[A-Z]*.vue'
           },
           {
             name: 'Item',
-            components: './src/components/item/[A-Z]*.vue'
+            components: '../portal/src/components/item/[A-Z]*.vue'
           },
           {
             name: 'Related',
-            components: './src/components/related/[A-Z]*.vue'
+            components: '../portal/src/components/related/[A-Z]*.vue'
           },
           {
             name: 'Search',
-            components: './src/components/search/[A-Z]*.vue'
+            components: '../portal/src/components/search/[A-Z]*.vue'
           }
         ]
       }
     ],
-    assetsDir: './src/assets',
+    assetsDir: '../portal/src/assets',
     skipComponentsWithoutExample: true,
     require: [
-      resolve(__dirname, './src/assets/scss/style.scss'),
-      resolve(__dirname, './styleguide/style.scss'),
-      resolve(__dirname, './src/assets/img/illustrations/il-item-not-found.svg')
+      resolve(__dirname, '../portal/src/assets/scss/style.scss'),
+      resolve(__dirname, './styleguide/style.scss')
     ],
     renderRootJsx: resolve(__dirname, './styleguide/styleguide.root.js'),
     template: {

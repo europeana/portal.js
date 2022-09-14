@@ -1,6 +1,6 @@
 # Multi-stage image to build and run europeana/portal.js
 
-FROM node:16-alpine AS base
+FROM node:16-alpine AS build
 
 ENV CHROMEDRIVER_SKIP_DOWNLOAD=true \
     GECKODRIVER_SKIP_DOWNLOAD=true \
@@ -8,20 +8,19 @@ ENV CHROMEDRIVER_SKIP_DOWNLOAD=true \
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
+RUN mkdir -p packages/portal
 
-RUN npm ci
+COPY package*.json ./
+COPY packages/portal/package*.json ./packages/portal/
 
-COPY nuxt.config.js pkg-versions.js babel.config.cjs jest.config.js *.md .env.example ./
-COPY src ./src
-COPY styleguide ./styleguide
+RUN npm ci -w packages/portal
 
-
-FROM base AS build
+COPY *.md ./
+COPY packages/portal/*.js ./packages/portal/
+COPY packages/portal/src ./packages/portal/src
 
 RUN npm run build
-RUN rm -r babel.config.cjs jest.config.js styleguide
-RUN npm prune --production
+RUN npm prune --omit dev
 
 
 FROM gcr.io/distroless/nodejs:16
@@ -38,4 +37,4 @@ COPY --from=build /app .
 
 USER 1000
 
-CMD ["node_modules/.bin/nuxt-cli", "start"]
+CMD ["node_modules/.bin/nuxt-cli", "start", "./packages/portal"]

@@ -1,6 +1,6 @@
 # Migrations
 
-This directory contains [Contentful](https://www.contentful.com/) content model
+This package contains [Contentful](https://www.contentful.com/) content model
 migrations.
 
 ## Prerequisites
@@ -30,9 +30,6 @@ Generate migration for entire content model:
 ```bash
 npx contentful space generate migration -f migrations/0000-content-model.cjs
 ```
-**Note:** content model sidebar configuration is not exported in this migration
-and needs to be set explicitly in a separate migration, as in
-[0001-sidebar-widgets.cjs](./0001-sidebar-widgets.cjs).
 
 ## Documentation
 

@@ -182,7 +182,7 @@
       error="Item was not found"
       title-path="errorMessage.itemNotFound.title"
       description-path="errorMessage.itemNotFound.description"
-      illustration-src="src/assets/img/illustrations/il-item-not-found.svg"
+      illustration-src="/img/illustrations/il-item-not-found.svg"
   />
   ```
   </docs>

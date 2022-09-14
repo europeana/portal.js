@@ -8,12 +8,15 @@ export default {
     '<rootDir>/src/**/*.{cjs,js,vue}'
   ],
   coverageReporters: [
-    'html', 'lcov', 'text'
+    'html',
+    'lcov',
+    'text'
   ],
   moduleFileExtensions: [
     'cjs',
     'js',
     'json',
+    'mjs',
     'vue'
   ],
   moduleNameMapper: {
@@ -34,7 +37,7 @@ export default {
     '/node_modules/(?!decamelize)'
   ],
   transform: {
-    '^.+\\.js$': 'babel-jest',
+    '^.+\\.(js|mjs)$': 'babel-jest',
     '^.+\\.vue$': '@vue/vue2-jest',
     '^.+\\.svg$': '<rootDir>/tests/unit/fileTransformer.cjs'
   }

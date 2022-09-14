@@ -15,6 +15,7 @@ services:
     image: europeana/portal.js:${APP_IMAGE_VERSION:-latest}
     build:
       context: ../../..
+      dockerfile: ./packages/portal/Dockerfile
     depends_on:
       - cache
     expose:
