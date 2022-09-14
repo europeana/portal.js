@@ -1,7 +1,7 @@
 const CONTENTFUL_IMAGES_ASSET_HOST = 'images.ctfassets.net';
 const CONTENTFUL_IMAGES_PARAMS_FL_PROGRESSIVE = 'progressive';
 const CONTENTFUL_IMAGES_PARAMS_FM_WEBP = 'webp';
-const CONTENTFUL_IMAGES_PARAMS_FM_JPEG = 'jpg'
+const CONTENTFUL_IMAGES_PARAMS_FM_JPEG = 'jpg';
 const MEDIA_TYPE_JPEG = 'image/jpeg';
 const MEDIA_TYPE_SVG = 'image/svg+xml';
 const MEDIA_TYPE_WEBP = 'image/webp';
@@ -64,7 +64,7 @@ export default ({ store } = {}) => ({
   responsiveBackgroundImageCSSVars(image, params) {
     if (image?.url && this.isValidUrl(image.url) && params) {
       return RESPONSIVE_IMAGE_SIZES.reduce((memo, size) => {
-        memo[`--bg-img-${size}`] = `url('${this.optimisedSrc(image, params[size])}')`
+        memo[`--bg-img-${size}`] = `url('${this.optimisedSrc(image, params[size])}')`;
         return memo;
       }, {});
     } else if (image?.url) {
