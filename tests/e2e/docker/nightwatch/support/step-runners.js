@@ -208,7 +208,7 @@ module.exports = {
     // where the first clear results in a redirect to page 1.
     await client.clearValue(selector);
     await client.clearValue(selector);
-    await client.setValue(selector, [`${page}` , client.Keys.ENTER]);
+    await client.setValue(selector, [`${page}`, client.Keys.ENTER]);
   },
   async preferBrowserLanguage(locale) {
     const nightwatchApiOptions = {
