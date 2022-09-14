@@ -81,6 +81,11 @@ module.exports = {
     'switch-colon-spacing': 'error',
     'vue/script-indent': ['error', 2, { baseIndent: 1 }]
   },
+  settings: {
+    jest: {
+      version: 27
+    }
+  },
   overrides: [
     {
       files: [
@@ -92,7 +97,7 @@ module.exports = {
     },
     {
       files: [
-        'src/lang/*.js'
+        'packages/portal/src/lang/*.js'
       ],
       rules: {
         quotes: [

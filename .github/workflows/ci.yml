@@ -44,46 +44,63 @@ jobs:
               body: `JIRA ticket: ${process.env.JIRA_TICKET_NUMBER}`
             })
 
-  # Build the base stage of the Docker image first so that unit tests can run,
-  # as they do not require the full production image to be built.
-  docker-base-stage:
+  # Run code linting on master and all PRs (including drafts)
+  lint-code:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' || github.event.pull_request.draft == false
+    if: (github.event_name == 'push' && github.event.ref == 'refs/heads/master') || (github.event_name == 'pull_request')
     steps:
       -
         name: Checkout
         uses: actions/checkout@v2
       -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-      -
-        name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v3
+        name: Setup Node
+        uses: actions/setup-node@v3
         with:
-          images: ${{ env.DOCKER_REPOSITORY }}
-          tags: |
-            type=ref,event=pr,suffix=-base
-            type=ref,event=branch,suffix=-base
-            type=ref,event=tag,suffix=-base
-            type=semver,pattern={{version}},suffix=-base
+          node-version: 16
+          cache: 'npm'
       -
-        name: Build and cache
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          pull: true
-          tags: ${{ steps.meta.outputs.tags }}
-          target: base
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+        name: Install eslint
+        run: |
+          npm install --prefix tmp \
+            eslint@$(jq -Mr '.packages["node_modules/eslint"].version' package-lock.json) \
+            eslint-plugin-jest@$(jq -Mr '.packages["node_modules/eslint-plugin-jest"].version' package-lock.json) \
+            eslint-plugin-vue@$(jq -Mr '.packages["node_modules/eslint-plugin-vue"].version' package-lock.json)
+          mv tmp/node_modules ./
+      -
+        name: Run eslint
+        run: npm run lint
 
-  # Run linting and unit tests on master (for coverage reports), and non-draft
-  # pull requests
+  # Run style linting on master and all PRs (including drafts)
+  lint-style:
+    runs-on: ubuntu-latest
+    if: (github.event_name == 'push' && github.event.ref == 'refs/heads/master') || (github.event_name == 'pull_request')
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+      -
+        name: Install stylelint
+        run: |
+          npm install --prefix tmp \
+            stylelint@$(jq -Mr '.packages["node_modules/stylelint"].version' package-lock.json) \
+            stylelint-config-recommended-vue@$(jq -Mr '.packages["node_modules/stylelint-config-recommended-vue"].version' package-lock.json) \ \
+            stylelint-config-standard-scss@$(jq -Mr '.packages["node_modules/stylelint-config-standard-scss"].version' package-lock.json)
+          mv tmp/node_modules ./
+      -
+        name: Run stylelint
+        run: npm run stylelint
+
+
+  # Run unit tests on master (for coverage reports), and all pull requests
   test-unit:
     runs-on: ubuntu-latest
-    needs: [docker-base-stage]
-    if: (github.event_name == 'push' && github.event.ref == 'refs/heads/master') || (github.event_name == 'pull_request' && github.event.pull_request.draft == false)
+    if: (github.event_name == 'push' && github.event.ref == 'refs/heads/master') || (github.event_name == 'pull_request')
     steps:
       -
         name: Checkout
@@ -92,60 +109,32 @@ jobs:
           # For SonarCloud to blame culprits
           fetch-depth: 0
       -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-      -
-        name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v3
+        name: Setup Node
+        uses: actions/setup-node@v3
         with:
-          images: ${{ env.DOCKER_REPOSITORY }}
-          tags: |
-            type=ref,event=pr,suffix=-base
-            type=ref,event=branch,suffix=-base
+          node-version: 16
+          cache: 'npm'
       -
-        name: Load base image
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          load: true
-          tags: ${{ steps.meta.outputs.tags }}
-          target: base
-          cache-from: type=gha
-      -
-        name: Check code linting
-        run: |
-          docker run \
-            --mount type=bind,source="$(pwd)"/tests,target=/app/tests \
-            --mount type=bind,source="$(pwd)"/.eslintrc.cjs,target=/app/.eslintrc.cjs \
-            --mount type=bind,source="$(pwd)"/bin,target=/app/bin \
-            ${DOCKER_REPOSITORY}:${{ steps.meta.outputs.version }} npm run lint
-      -
-        name: Check style linting
-        run: |
-          docker run \
-            --mount type=bind,source="$(pwd)"/.stylelintrc.cjs,target=/app/.stylelintrc.cjs \
-            ${DOCKER_REPOSITORY}:${{ steps.meta.outputs.version }} npm run stylelint
+        name: NPM install
+        run: npm ci --include-workspace-root -w packages/portal
       -
         name: Run unit tests
-        run: |
-          mkdir coverage
-          docker run \
-            --mount type=bind,source="$(pwd)"/tests,target=/app/tests \
-            --mount type=bind,source="$(pwd)"/coverage,target=/app/coverage \
-            ${DOCKER_REPOSITORY}:${{ steps.meta.outputs.version }} npm run test:coverage
+        run: npm run test:coverage
       -
+        # TODO: make into separate job, depending on test-unit, and being supplied
+        #       its coverage output?
         name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@v1.6
+        with:
+          projectBaseDir: packages/portal
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-  # Build, and push to Docker Hub, full production Docker image for use throughout
-  # other jobs
-  docker-final-stage:
+  # Build, and push to Docker Hub, the final-stage production-ready Docker image,
+  # for use throughout other jobs, and for deployment.
+  docker-build:
     runs-on: ubuntu-latest
-    needs: [docker-base-stage]
     if: github.event_name == 'push' || github.event.pull_request.draft == false
     steps:
       -
@@ -173,10 +162,10 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
         name: Build and push
-        id: build-push
         uses: docker/build-push-action@v2
         with:
           context: .
+          file: ./packages/portal/Dockerfile
           pull: true
           push: true
           cache-from: type=gha
@@ -184,10 +173,10 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-  # Run size tests on pull requests
+  # Run size tests on non-draft pull requests
   test-size:
     runs-on: ubuntu-latest
-    needs: [docker-final-stage]
+    needs: [docker-build]
     if: github.event_name == 'pull_request' && github.event.pull_request.draft == false
     steps:
       -
@@ -209,6 +198,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
+          file: ./packages/portal/Dockerfile
           load: true
           tags: ${{ steps.meta.outputs.tags }}
           cache-from: type=gha
@@ -217,7 +207,7 @@ jobs:
         name: Build and load size test image
         uses: docker/build-push-action@v2
         with:
-          context: ./tests/size
+          context: ./packages/portal/tests/size
           load: true
           tags: ${{ env.DOCKER_REPOSITORY }}-test-size
           cache-from: type=gha
@@ -226,20 +216,20 @@ jobs:
         name: Prepare resources for size tests
         run: |
           docker run --name portal.js --rm -d ${{ env.DOCKER_REPOSITORY }}:${{ steps.meta.outputs.version }}
-          docker cp portal.js:/app/.nuxt ./.nuxt
+          docker cp portal.js:/app/packages/portal/.nuxt ./.nuxt
           docker stop portal.js
       -
         name: Run size tests
         run: |
           docker run \
             --mount type=bind,source="$(pwd)"/.nuxt,target=/app/.nuxt \
-            --mount type=bind,source="$(pwd)"/tests/size/.size-limit.json,target=/app/.size-limit.json \
+            --mount type=bind,source="$(pwd)"/packages/portal/tests/size/.size-limit.json,target=/app/.size-limit.json \
             ${{ env.DOCKER_REPOSITORY }}-test-size
 
-  # Run e2e tests on pull requests
+  # Run e2e tests on non-draft pull requests
   test-e2e:
     runs-on: ubuntu-latest
-    needs: [docker-final-stage]
+    needs: [docker-build]
     if: github.event_name == 'pull_request' && github.event.pull_request.draft == false
     steps:
       -
@@ -275,10 +265,10 @@ jobs:
         name: Run e2e tests
         run: docker-compose -f ./tests/e2e/docker/docker-compose.yml run --rm nightwatch-features
 
-  # Run visual tests on pull requests, and pushes to master
+  # Run visual tests on non-draft pull requests, and pushes to master
   test-visual:
     runs-on: ubuntu-latest
-    needs: [docker-final-stage]
+    needs: [docker-build]
     if: (github.event_name == 'push' && github.event.ref == 'refs/heads/master') || (github.event_name == 'pull_request' && github.event.pull_request.draft == false)
     env:
       PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
@@ -334,7 +324,7 @@ jobs:
   # * Pushes to master update the deployment in the test namespace
   deploy-ibm-cloud:
     runs-on: ubuntu-latest
-    needs: [docker-final-stage]
+    needs: [docker-build]
     if: (github.event_name == 'push' && github.event.ref == 'refs/heads/master') || (github.event_name == 'pull_request' && github.event.pull_request.draft == false)
     env:
       IBMCLOUD_API_URL: https://cloud.ibm.com
@@ -426,55 +416,3 @@ jobs:
               repo: context.repo.repo,
               body: `Preview deployment: https://${process.env.K8S_INGRESS_HOST}/`
             })
-
-  # Publish tagged versions to NPM
-  npm-publish:
-    runs-on: ubuntu-latest
-    needs: [docker-final-stage]
-    if: github.event_name == 'push' && startsWith( github.event.ref, 'refs/tags/v' )
-    env:
-      NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
-    steps:
-      -
-        name: Checkout
-        uses: actions/checkout@v2
-      -
-        name: Setup Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16'
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-      -
-        name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v3
-        with:
-          images: ${{ env.DOCKER_REPOSITORY }}
-          tags: |
-            type=ref,event=tag
-      -
-        name: Load built image
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          load: true
-          tags: ${{ steps.meta.outputs.tags }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-      -
-        name: Prepare resources for publish
-        run: |
-          docker run --name portal.js --rm -d ${{ env.DOCKER_REPOSITORY }}:${{ steps.meta.outputs.version }}
-          mkdir ./tmp
-          docker cp portal.js:/app ./tmp
-          docker stop portal.js
-      -
-        name: Publish to NPM
-        run: |
-          cp .github/workflows/support/docker-images/.npmrc ~/
-          npm publish --access public ./tmp/app
-      -
-        name: Warm up jsDelivr
-        run: .github/workflows/support/docker-images/warm-up-jsdelivr.sh ./tmp/app
