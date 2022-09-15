@@ -8,16 +8,16 @@
     content: '';
     position: absolute;
     top: 12px;
-    left: 12px;
-    right: -12px;
+    left: 0;
+    right: -18px;
     bottom: 0;
     background-color: $innovationblue;
     clip-path: polygon(0 0, calc(100% - 95px) 0, 100% 209px, 100% 100%, 0 100%);
 
     @media (min-width: $bp-xxxl) {
       top: 0.75vw;
-      left: 0.75vw;
-      right: -0.75vw;
+      left: 0;
+      right: -1.125vw;
       bottom: 0;
       background-color: $innovationblue;
       clip-path: polygon(0 0, calc(100% - calc(95 / 16 * 1vw)) 0, 100% calc(209 / 16 * 1vw), 100% 100%, 0 100%);
@@ -28,7 +28,6 @@
     background: $black;
     color: $white;
     position: relative;
-    width: calc(100% - 6px);
     clip-path: polygon(0 0, calc(100% - 95px) 0, 100% 209px, 100% 100%, 0 100%);
     z-index: 2;
     padding-left: 1.5rem;
@@ -39,7 +38,6 @@
     }
 
     @media (min-width: $bp-xxxl) {
-      width: calc(100% - 0.375vw);
       clip-path: polygon(0 0, calc(100% - calc(95 / 16 * 1vw)) 0, 100% calc(209 / 16 * 1vw), 100% 100%, 0 100%);
       padding-left: 18vw !important;
       padding-right: 18vw !important;
