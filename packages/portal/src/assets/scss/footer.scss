@@ -188,6 +188,10 @@
               color: $white;
               font-size: 2.5rem;
               background-color: $black;
+
+              &:hover {
+                color: rgb(255 255 255 / 75%);
+              }
             }
           }
         }

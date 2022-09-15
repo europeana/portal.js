@@ -11,7 +11,6 @@
     >
       <span :class="`icon-${network.identifier}`" />
       <span
-        v-if="withText"
         class="text"
       >{{ network.name }}
       </span>
@@ -29,10 +28,6 @@
       mediaUrl: {
         type: String,
         default: ''
-      },
-      withText: {
-        type: Boolean,
-        default: false
       }
     },
 
@@ -68,43 +63,57 @@
 
   a {
     align-items: center;
-    background: transparent;
-    border: 1px solid $greyblack;
-    border-radius: 50%;
-    color: $greyblack;
     display: inline-flex;
-    height: calc(2.5rem - 1px);
-    justify-content: center;
     text-decoration: none;
-    transition: background 0.25s;
-    width: calc(2.5rem - 1px);
-    overflow: hidden;
-    vertical-align: middle;
+    border-radius: 0.25rem;
+    width: calc(100% / 3 - 10px);
+    margin-right: 0 !important;
+    justify-content: flex-start;
+    padding: 0.75rem 0.625rem;
 
-    [class^='icon'] {
-      color: $greyblack;
-      font-size: $font-size-medium;
+    @media (max-width: $bp-small) {
+      width: 100%;
+      margin-bottom: 10px;
+    }
 
-      &.icon-facebook,
-      &.icon-pinterest {
-        font-size: calc(2.5rem - 1px);
-        background-color: $greyblack;
-        color: $bodygrey;
+    &.facebook {
+      border: solid 1px #4064ac;
+
+      span {
+        color: #4064ac;
+        background-color: $white;
+      }
+    }
+
+    &.twitter {
+      border: solid 1px #1c9ceb;
+
+      span {
+        color: #1c9ceb;
+      }
+    }
+
+    &.pinterest {
+      border: solid 1px #ba0a21;
+
+      span {
+        color: #ba0a21;
+        background-color: $white;
       }
     }
 
     &:hover {
-      background: $greyblack;
+      background: $white;
+    }
 
-      [class^='icon'] {
-        color: $white;
+    [class^='icon'] {
+      font-size: 1.125rem;
+    }
 
-        &.icon-facebook,
-        &.icon-pinterest {
-          background-color: $white;
-          color: $greyblack;
-        }
-      }
+    span.text {
+      font-family: $font-family-sans-serif;
+      font-weight: 600;
+      padding-left: 0.75rem;
     }
   }
 </style>
