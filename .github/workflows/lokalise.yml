@@ -14,7 +14,9 @@ jobs:
       -
         name: Install Node packages
         run: |
-          npm install --prefix tmp dotenv @lokalise/node-api
+          npm install --prefix tmp \
+            dotenv@$(jq -Mr '.packages["node_modules/dotenv"].version' package-lock.json) \
+            @lokalise/node-api@$(jq -Mr '.packages["node_modules/@lokalise/node-api"].version' package-lock.json)
           mv tmp/node_modules .
       -
         name: Update lang files
