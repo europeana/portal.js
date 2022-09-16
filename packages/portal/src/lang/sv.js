@@ -125,14 +125,13 @@ export default {
   },
   "collectionsYouMightLike": "Samlingar du kanske skulle gilla",
   "colourSwatch": "Färgprov",
-  "contentYouMightLike": "Innehåll du kanske skulle gilla",
   "contentfulManual": {
     "footerNavigation": {
-      "MoreInfoLabel": "Mer info",
       "about": "Om Europeana",
       "forDevelopers": "För utvecklare",
       "help": "Hjälp",
       "meetUs": "Möt teamet",
+      "MoreInfoLabel": "Mer info",
       "provide": "Bli en dataleverantör",
       "subscribe": "Prenumerera på vårt nyhetsbrev",
       "terms": "Användarvillkor och integritetspolicy"
@@ -143,6 +142,7 @@ export default {
       "teachers": "Lärare"
     }
   },
+  "contentYouMightLike": "Innehåll du kanske skulle gilla",
   "curatedAutomatically": "Sammanställt automatiskt av Europeana",
   "dateFilter": {
     "endDate": "Slutdatum",
@@ -228,6 +228,42 @@ export default {
   },
   "explore": "Utforska",
   "facets": {
+    "api": {
+      "name": "Sök efter",
+      "options": {
+        "fulltext": "Register med fulltext",
+        "metadata": "Metadata-endast register"
+      },
+      "switch": "Sök endast i innehållet i objekt med fulltext",
+      "switchMoreInfo": "I den här samlingen kan du välja vad du vill söka efter: om den här knappen är på, så kommer du att söka i tidningen och dokumenttexten; om den är avstängd kommer du istället att söka i informationen som beskriver föremålet, precis som du alltid gör i de flesta andra samlingar."
+    },
+    "button": {
+      "apply": "Tillämpa",
+      "cancel": "Avbryt",
+      "morefilters": "Fler filter",
+      "reset": "Återställ",
+      "showAll": "Visa alla {label}",
+      "showLess": "Visa mindre {label}"
+    },
+    "collection": {
+      "name": "Tema",
+      "options": {
+        "archaeology": "Arkeologi",
+        "art": "Konst",
+        "fashion": "Mode",
+        "industrial": "Industriminne",
+        "manuscript": "Manuskript",
+        "map": "Kartor och geografi",
+        "migration": "Migration",
+        "music": "Musik",
+        "nature": "Naturhistoria",
+        "newspaper": "Tidningar",
+        "photography": "Fotografi",
+        "sport": "Sport",
+        "ww1": "Första världskriget"
+      },
+      "select": "Välj ett tema"
+    },
     "COLOURPALETTE": {
       "moreName": "färger",
       "name": "Färg | Färger",
@@ -379,6 +415,18 @@ export default {
       },
       "select": "Välj färger"
     },
+    "contentTier": {
+      "name": "Objektets kvalitet",
+      "options": {
+        "*": "Innefattar objekt som inte uppfyller våra publiceringsvillkor",
+        "0": "Visa endast objekt som inte uppfyller våra publiceringskriterier",
+        "1": "Låg kvalitet",
+        "2": "Medium kvalité",
+        "3": "Hög kvalitet & återanvändbar med villkor",
+        "4": "Hög kvalitet och fritt återanvändbar"
+      },
+      "select": "Välj objektkvaliteter"
+    },
     "COUNTRY": {
       "name": "Tillhandahållande land",
       "options": {
@@ -511,10 +559,26 @@ export default {
       },
       "select": "Välj filformat"
     },
+    "moreOptions": "Sök för att hitta {0} mer {1}.",
     "PROVIDER": {
       "moreName": "aggregatorer",
       "name": "Sammanställare",
       "select": "Välj aggregatorer"
+    },
+    "proxy_dc_format": {
+      "name": "Format | Format",
+      "select": "Välj format"
+    },
+    "proxy_dc_type": {
+      "name": "Typ | Typer",
+      "select": "Välj typer"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Datum för utfärdande"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Medium | Media",
+      "select": "Välj media"
     },
     "REUSABILITY": {
       "name": "Kan jag återanvända det här?",
@@ -536,70 +600,6 @@ export default {
         "VIDEO": "Video"
       },
       "select": "Välj typer av media"
-    },
-    "api": {
-      "name": "Sök efter",
-      "options": {
-        "fulltext": "Register med fulltext",
-        "metadata": "Metadata-endast register"
-      },
-      "switch": "Sök endast i innehållet i objekt med fulltext",
-      "switchMoreInfo": "I den här samlingen kan du välja vad du vill söka efter: om den här knappen är på, så kommer du att söka i tidningen och dokumenttexten; om den är avstängd kommer du istället att söka i informationen som beskriver föremålet, precis som du alltid gör i de flesta andra samlingar."
-    },
-    "button": {
-      "apply": "Tillämpa",
-      "cancel": "Avbryt",
-      "morefilters": "Fler filter",
-      "reset": "Återställ",
-      "showAll": "Visa alla {label}",
-      "showLess": "Visa mindre {label}"
-    },
-    "collection": {
-      "name": "Tema",
-      "options": {
-        "archaeology": "Arkeologi",
-        "art": "Konst",
-        "fashion": "Mode",
-        "industrial": "Industriminne",
-        "manuscript": "Manuskript",
-        "map": "Kartor och geografi",
-        "migration": "Migration",
-        "music": "Musik",
-        "nature": "Naturhistoria",
-        "newspaper": "Tidningar",
-        "photography": "Fotografi",
-        "sport": "Sport",
-        "ww1": "Första världskriget"
-      },
-      "select": "Välj ett tema"
-    },
-    "contentTier": {
-      "name": "Objektets kvalitet",
-      "options": {
-        "*": "Innefattar objekt som inte uppfyller våra publiceringsvillkor",
-        "0": "Visa endast objekt som inte uppfyller våra publiceringskriterier",
-        "1": "Låg kvalitet",
-        "2": "Medium kvalité",
-        "3": "Hög kvalitet & återanvändbar med villkor",
-        "4": "Hög kvalitet och fritt återanvändbar"
-      },
-      "select": "Välj objektkvaliteter"
-    },
-    "moreOptions": "Sök för att hitta {0} mer {1}.",
-    "proxy_dc_format": {
-      "name": "Format | Format",
-      "select": "Välj format"
-    },
-    "proxy_dc_type": {
-      "name": "Typ | Typer",
-      "select": "Välj typer"
-    },
-    "proxy_dcterms_issued": {
-      "name": "Datum för utfärdande"
-    },
-    "proxy_dcterms_medium": {
-      "name": "Medium | Media",
-      "select": "Välj media"
     }
   },
   "feedback": {
@@ -636,8 +636,6 @@ export default {
       "dcRights": "Rättigheter",
       "dcSource": "Källa",
       "dcSubject": "Ämne",
-      "dcTitle": "Titel",
-      "dcType": "Typ av objekt",
       "dctermsCreated": "Skapelsedatum",
       "dctermsExtent": "Utsträckning",
       "dctermsHasPart": "Består av",
@@ -652,8 +650,10 @@ export default {
       "dctermsProvenance": "Proveniens",
       "dctermsReferences": "Hänvisar till",
       "dctermsSpatial": "Platser",
-      "dctermsTOC": "Innehållsförteckning",
       "dctermsTemporal": "Temporal",
+      "dctermsTOC": "Innehållsförteckning",
+      "dcTitle": "Titel",
+      "dcType": "Typ av objekt",
       "edmCountry": "Tillhandahållande land",
       "edmCurrentLocation": "Nuvarande plats",
       "edmDataProvider": "Tillhandahållande institution",
@@ -693,12 +693,12 @@ export default {
     "findUsElsewhere": "Hitta oss någon annanstans",
     "imageDescription": "Finansieras av Europeiska unionen",
     "navigation": {
-      "MoreInfoLabel": "Mer information",
       "about": "Om oss",
       "accessibility": "Tillgänglighet",
       "cookies": "Cookies",
       "forDevelopers": "För utvecklare",
       "help": "Hjälp",
+      "MoreInfoLabel": "Mer information",
       "privacy": "Integritetspolicy",
       "provide": "Bli en datapartner",
       "subscribe": "Prenumerera på vårt nyhetsbrev",
@@ -914,7 +914,6 @@ export default {
     }
   },
   "record": {
-    "IIIFViewer": "IIIF-tittare",
     "actions": {
       "pin": "Fäst objekt på tillgängliga entiteter"
     },
@@ -924,6 +923,7 @@ export default {
     "extendedInformation": "Utökad information",
     "goodToKnow": "Bra att veta",
     "hideAll": "Dölj all information",
+    "IIIFViewer": "IIIF-tittare",
     "location": "Plats",
     "locationOnMap": "Plats på kartan",
     "mediaPlayer": "Mediaspelare",

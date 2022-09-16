@@ -125,14 +125,13 @@ export default {
   },
   "collectionsYouMightLike": "Colecciones que quizá te gusten",
   "colourSwatch": "Muestra de color",
-  "contentYouMightLike": "Contenido que quizá te guste",
   "contentfulManual": {
     "footerNavigation": {
-      "MoreInfoLabel": "Más información",
       "about": "Acerca de Europeana",
       "forDevelopers": "Para desarrolladores",
       "help": "Ayuda",
       "meetUs": "Nuestro equipo",
+      "MoreInfoLabel": "Más información",
       "provide": "Conviértete en proveedor de datos",
       "subscribe": "Suscríbete a nuestro boletín",
       "terms": "Condiciones de uso y Política de privacidad"
@@ -143,6 +142,7 @@ export default {
       "teachers": "Profesores"
     }
   },
+  "contentYouMightLike": "Contenido que quizá te guste",
   "curatedAutomatically": "Comisariados automáticamente por Europeana",
   "dateFilter": {
     "endDate": "Fecha de finalización",
@@ -228,6 +228,42 @@ export default {
   },
   "explore": "Explorar",
   "facets": {
+    "api": {
+      "name": "Buscar",
+      "options": {
+        "fulltext": "Registros de texto completo",
+        "metadata": "Registros de solo metadatos"
+      },
+      "switch": "Buscar solo en el contenido de los elementos con texto completo",
+      "switchMoreInfo": "En esta colección, puede elegir lo que desea buscar: si este interruptor está activado, buscará dentro del periódico y el texto del documento; si está desactivada, buscará dentro de la información que describe el elemento, como siempre lo hace en la mayoría de las otras colecciones."
+    },
+    "button": {
+      "apply": "Aplicar",
+      "cancel": "Cancelar",
+      "morefilters": "Más filtros",
+      "reset": "Reiniciar",
+      "showAll": "Mostrar todo {label}",
+      "showLess": "Mostrar menos {label}"
+    },
+    "collection": {
+      "name": "Tema",
+      "options": {
+        "archaeology": "Arqueología",
+        "art": "Arte",
+        "fashion": "Moda",
+        "industrial": "Patrimonio industrial",
+        "manuscript": "Manuscritos",
+        "map": "Mapas y geografía",
+        "migration": "Migración",
+        "music": "Música",
+        "nature": "Historia natural",
+        "newspaper": "Periódicos",
+        "photography": "Fotografía",
+        "sport": "Deporte",
+        "ww1": "Primera Guerra Mundial"
+      },
+      "select": "Selecciona un tema"
+    },
     "COLOURPALETTE": {
       "moreName": "colores",
       "name": "Color | Colores",
@@ -379,6 +415,18 @@ export default {
       },
       "select": "Seleccionar colores"
     },
+    "contentTier": {
+      "name": "Calidad del artículo",
+      "options": {
+        "*": "Incluir los elementos que no cumplan nuestros criterios de publicación",
+        "0": "Mostrar solo los elementos que no cumplen con nuestros criterios de publicación",
+        "1": "Baja calidad",
+        "2": "Calidad media",
+        "3": "Alta calidad y reutilizable con condiciones",
+        "4": "Alta calidad y libremente reutilizable"
+      },
+      "select": "Seleccione las calidades del artículo"
+    },
     "COUNTRY": {
       "name": "País proveedor",
       "options": {
@@ -511,10 +559,26 @@ export default {
       },
       "select": "Seleccionar formatos de archivo"
     },
+    "moreOptions": "Busque para encontrar {0} más {1}.",
     "PROVIDER": {
       "moreName": "agregadores",
       "name": "Agregador",
       "select": "Seleccionar agregadores"
+    },
+    "proxy_dc_format": {
+      "name": "Formato | Formatos",
+      "select": "Seleccionar formatos"
+    },
+    "proxy_dc_type": {
+      "name": "Tipo | Tipos",
+      "select": "Seleccionar tipos"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Fecha de publicación"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Medio | Medios",
+      "select": "Seleccionar medios"
     },
     "REUSABILITY": {
       "name": "¿Puede reutilizarse?",
@@ -536,70 +600,6 @@ export default {
         "VIDEO": "Vídeo"
       },
       "select": "Seleccionar tipos de medios"
-    },
-    "api": {
-      "name": "Buscar",
-      "options": {
-        "fulltext": "Registros de texto completo",
-        "metadata": "Registros de solo metadatos"
-      },
-      "switch": "Buscar solo en el contenido de los elementos con texto completo",
-      "switchMoreInfo": "En esta colección, puede elegir lo que desea buscar: si este interruptor está activado, buscará dentro del periódico y el texto del documento; si está desactivada, buscará dentro de la información que describe el elemento, como siempre lo hace en la mayoría de las otras colecciones."
-    },
-    "button": {
-      "apply": "Aplicar",
-      "cancel": "Cancelar",
-      "morefilters": "Más filtros",
-      "reset": "Reiniciar",
-      "showAll": "Mostrar todo {label}",
-      "showLess": "Mostrar menos {label}"
-    },
-    "collection": {
-      "name": "Tema",
-      "options": {
-        "archaeology": "Arqueología",
-        "art": "Arte",
-        "fashion": "Moda",
-        "industrial": "Patrimonio industrial",
-        "manuscript": "Manuscritos",
-        "map": "Mapas y geografía",
-        "migration": "Migración",
-        "music": "Música",
-        "nature": "Historia natural",
-        "newspaper": "Periódicos",
-        "photography": "Fotografía",
-        "sport": "Deporte",
-        "ww1": "Primera Guerra Mundial"
-      },
-      "select": "Selecciona un tema"
-    },
-    "contentTier": {
-      "name": "Calidad del artículo",
-      "options": {
-        "*": "Incluir los elementos que no cumplan nuestros criterios de publicación",
-        "0": "Mostrar solo los elementos que no cumplen con nuestros criterios de publicación",
-        "1": "Baja calidad",
-        "2": "Calidad media",
-        "3": "Alta calidad y reutilizable con condiciones",
-        "4": "Alta calidad y libremente reutilizable"
-      },
-      "select": "Seleccione las calidades del artículo"
-    },
-    "moreOptions": "Busque para encontrar {0} más {1}.",
-    "proxy_dc_format": {
-      "name": "Formato | Formatos",
-      "select": "Seleccionar formatos"
-    },
-    "proxy_dc_type": {
-      "name": "Tipo | Tipos",
-      "select": "Seleccionar tipos"
-    },
-    "proxy_dcterms_issued": {
-      "name": "Fecha de publicación"
-    },
-    "proxy_dcterms_medium": {
-      "name": "Medio | Medios",
-      "select": "Seleccionar medios"
     }
   },
   "feedback": {
@@ -636,8 +636,6 @@ export default {
       "dcRights": "Derechos",
       "dcSource": "Fuente",
       "dcSubject": "Asunto",
-      "dcTitle": "Título",
-      "dcType": "Tipo de objeto",
       "dctermsCreated": "Fecha de creación",
       "dctermsExtent": "Alcance",
       "dctermsHasPart": "contiene",
@@ -652,8 +650,10 @@ export default {
       "dctermsProvenance": "Procedencia",
       "dctermsReferences": "hace referencia a",
       "dctermsSpatial": "Lugares",
-      "dctermsTOC": "Tabla de contenido",
       "dctermsTemporal": "Temporal",
+      "dctermsTOC": "Tabla de contenido",
+      "dcTitle": "Título",
+      "dcType": "Tipo de objeto",
       "edmCountry": "País proveedor",
       "edmCurrentLocation": "Ubicación actual",
       "edmDataProvider": "Institución proveedora",
@@ -693,12 +693,12 @@ export default {
     "findUsElsewhere": "Puedes encontrarnos también en",
     "imageDescription": "Financiado por la Unión Europea",
     "navigation": {
-      "MoreInfoLabel": "Más información",
       "about": "¿Qué es Europeana?",
       "accessibility": "Accesibilidad",
       "cookies": "Cookies",
       "forDevelopers": "Para desarrolladores",
       "help": "Ayuda",
+      "MoreInfoLabel": "Más información",
       "privacy": "Política de privacidad",
       "provide": "Conviértete en proveedor de datos",
       "subscribe": "Suscríbete a nuestro boletín",
@@ -914,7 +914,6 @@ export default {
     }
   },
   "record": {
-    "IIIFViewer": "Visor IIIF",
     "actions": {
       "pin": "Anclar elemento a entidades disponibles"
     },
@@ -924,6 +923,7 @@ export default {
     "extendedInformation": "Información ampliada",
     "goodToKnow": "Información importante",
     "hideAll": "Ocultar toda la información",
+    "IIIFViewer": "Visor IIIF",
     "location": "Ubicación",
     "locationOnMap": "Ubicación en el mapa",
     "mediaPlayer": "Reproductor multimedia",
