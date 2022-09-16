@@ -1,6 +1,10 @@
 name: CI
 
 on:
+  workflow_run:
+    workflows: [Lokalise]
+    types:
+      - completed
   push:
     branches:
       - 'master'
@@ -100,7 +104,7 @@ jobs:
   # Run unit tests on master (for coverage reports), and all pull requests
   test-unit:
     runs-on: ubuntu-latest
-    if: (github.event_name == 'push' && github.event.ref == 'refs/heads/master') || (github.event_name == 'pull_request')
+    if: (github.event_name == 'push' && github.event.ref == 'refs/heads/master') || (github.event_name == 'workflow_run') || (github.event_name == 'pull_request')
     steps:
       -
         name: Checkout
@@ -135,7 +139,7 @@ jobs:
   # for use throughout other jobs, and for deployment.
   docker-build:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' || github.event.pull_request.draft == false
+    if: github.event_name == 'push' || (github.event_name == 'workflow_run') || github.event.pull_request.draft == false
     steps:
       -
         name: Checkout
@@ -177,7 +181,7 @@ jobs:
   test-size:
     runs-on: ubuntu-latest
     needs: [docker-build]
-    if: github.event_name == 'pull_request' && github.event.pull_request.draft == false
+    if: (github.event_name == 'pull_request' && github.event.pull_request.draft == false) || (github.event_name == 'workflow_run')
     steps:
       -
         name: Checkout
@@ -230,7 +234,7 @@ jobs:
   test-e2e:
     runs-on: ubuntu-latest
     needs: [docker-build]
-    if: github.event_name == 'pull_request' && github.event.pull_request.draft == false
+    if: (github.event_name == 'pull_request' && github.event.pull_request.draft == false) || (github.event_name == 'workflow_run')
     steps:
       -
         name: Checkout
@@ -269,7 +273,7 @@ jobs:
   test-visual:
     runs-on: ubuntu-latest
     needs: [docker-build]
-    if: (github.event_name == 'push' && github.event.ref == 'refs/heads/master') || (github.event_name == 'pull_request' && github.event.pull_request.draft == false)
+    if: (github.event_name == 'push' && github.event.ref == 'refs/heads/master') || (github.event_name == 'pull_request' && github.event.pull_request.draft == false) || (github.event_name == 'workflow_run')
     env:
       PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
     steps:
@@ -325,7 +329,7 @@ jobs:
   deploy-ibm-cloud:
     runs-on: ubuntu-latest
     needs: [docker-build]
-    if: (github.event_name == 'push' && github.event.ref == 'refs/heads/master') || (github.event_name == 'pull_request' && github.event.pull_request.draft == false)
+    if: (github.event_name == 'push' && github.event.ref == 'refs/heads/master') || (github.event_name == 'pull_request' && github.event.pull_request.draft == false) || (github.event_name == 'workflow_run')
     env:
       IBMCLOUD_API_URL: https://cloud.ibm.com
       IBMCLOUD_API_KEY: ${{ secrets.IBMCLOUD_API_KEY }}
