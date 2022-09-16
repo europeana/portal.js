@@ -32,4 +32,5 @@ jobs:
           branch: ${{ env.PR_BRANCH }}
           commit-message: "l10n: update translations"
           title: "l10n: update translations"
+          body: "Automated translation updates by [Lokalise workflow](https://github.com/europeana/portal.js/blob/master/.github/workflows/lokalise.yml)."
           token: "${{ secrets.GIT_PAT }}"
