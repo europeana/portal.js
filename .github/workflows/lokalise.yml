@@ -32,4 +32,4 @@ jobs:
           branch: ${{ env.PR_BRANCH }}
           commit-message: "l10n: update translations"
           title: "l10n: update translations"
-          token: "${{ secrets.GITHUB_PAT }}"
+          token: "${{ secrets.GIT_PAT }}"
