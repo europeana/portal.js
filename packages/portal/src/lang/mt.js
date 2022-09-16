@@ -125,14 +125,13 @@ export default {
   },
   "collectionsYouMightLike": "Kollezzjonijiet li jistgħu jinteressawk",
   "colourSwatch": "Swatch tal-kuluri",
-  "contentYouMightLike": "Kontenut li jista' jinteressak",
   "contentfulManual": {
     "footerNavigation": {
-      "MoreInfoLabel": "Aktar Tagħrif",
       "about": "Dwar Europeana",
       "forDevelopers": "Għall-iżviluppaturi",
       "help": "Għajnuna",
       "meetUs": "Iltaqa' mat-tim",
+      "MoreInfoLabel": "Aktar Tagħrif",
       "provide": "Sir fornitur tad-dejta",
       "subscribe": "Abbona għan-Newsletter tagħna",
       "terms": "Termini tal-Użu u Politika ta' Privatezza"
@@ -143,6 +142,7 @@ export default {
       "teachers": "Għalliema"
     }
   },
+  "contentYouMightLike": "Kontenut li jista' jinteressak",
   "curatedAutomatically": "Amministrat awtomatikament minn Europeana",
   "dateFilter": {
     "endDate": "Data tat-tmiem",
@@ -228,6 +228,42 @@ export default {
   },
   "explore": "Esplora",
   "facets": {
+    "api": {
+      "name": "Fittex",
+      "options": {
+        "fulltext": "Oġġetti bit-test sħiħ",
+        "metadata": "Oġġetti tal-metadata biss"
+      },
+      "switch": "Fittex biss fil-kontenut ta' oġġetti b'test sħiħ",
+      "switchMoreInfo": "F'din il-ġabra, tista' tagħżel dak li trid tfittex: jekk dan is-swiċċ huwa mixgħul, allura inti se tfittex fit-test tal-gazzetta u tad-dokument; jekk tkun mitfija, allura inti minflok tfittex fl-informazzjoni li tiddeskrivi l-oġġett, bħalma dejjem tagħmel fil-biċċa l-kbira tal-kollezzjonijiet l-oħra."
+    },
+    "button": {
+      "apply": "Applika",
+      "cancel": "Ikkanċella",
+      "morefilters": "Aktar filtri",
+      "reset": "Irrisettja",
+      "showAll": "Uri kollox {label}",
+      "showLess": "Uri inqas {label}"
+    },
+    "collection": {
+      "name": "Tema",
+      "options": {
+        "archaeology": "Arkeoloġija",
+        "art": "Arti",
+        "fashion": "Moda",
+        "industrial": "Wirt Industrijali",
+        "manuscript": "Manuskritti",
+        "map": "Mapep u Ġeografija",
+        "migration": "Migrazzjoni",
+        "music": "Mużika",
+        "nature": "Storja Naturali",
+        "newspaper": "Gazzetti",
+        "photography": "Fotografija",
+        "sport": "Sport",
+        "ww1": "L-Ewwel Gwerra Dinjija"
+      },
+      "select": "Agħżel tema"
+    },
     "COLOURPALETTE": {
       "moreName": "kuluri",
       "name": "Kulur | Kuluri",
@@ -379,6 +415,18 @@ export default {
       },
       "select": "Agħżel kuluri"
     },
+    "contentTier": {
+      "name": "Kwalità tal-oġġett",
+      "options": {
+        "*": "Jinkludi oġġetti li ma jissodisfawx il-kriterji tal-pubblikazzjoni tagħna",
+        "0": "Uri biss l-oġġetti li ma jissodisfawx il-kriterji tal-pubblikazzjoni tagħna",
+        "1": "Kwalità baxxa",
+        "2": "Kwalità medja",
+        "3": "Kwalità għolja & li jistgħu jerġgħu jintużaw b'kundizzjonijiet",
+        "4": "Kwalità għolja & li jistgħu jerġgħu jintużaw liberament"
+      },
+      "select": "Agħżel il-kwalitajiet tal-oġġett"
+    },
     "COUNTRY": {
       "name": "Pajjiż fornitur",
       "options": {
@@ -511,10 +559,26 @@ export default {
       },
       "select": "Agħżel il-formati tal-fajl"
     },
+    "moreOptions": "Fittex biex issib {0} aktar {1}.",
     "PROVIDER": {
       "moreName": "aggregaturi",
       "name": "Aggregatur | Aggregaturi",
       "select": "Agħżel aggregaturi"
+    },
+    "proxy_dc_format": {
+      "name": "Format | Formati",
+      "select": "Agħżel formati"
+    },
+    "proxy_dc_type": {
+      "name": "Tip | Tipi",
+      "select": "Agħżel tipi"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Data ta' ħruġ"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Mezz | Midja",
+      "select": "Agħżel il-midja"
     },
     "REUSABILITY": {
       "name": "Nista' nuża dan?",
@@ -536,70 +600,6 @@ export default {
         "VIDEO": "Vidjo"
       },
       "select": "Agħżel tipi ta 'midja"
-    },
-    "api": {
-      "name": "Fittex",
-      "options": {
-        "fulltext": "Oġġetti bit-test sħiħ",
-        "metadata": "Oġġetti tal-metadata biss"
-      },
-      "switch": "Fittex biss fil-kontenut ta' oġġetti b'test sħiħ",
-      "switchMoreInfo": "F'din il-ġabra, tista' tagħżel dak li trid tfittex: jekk dan is-swiċċ huwa mixgħul, allura inti se tfittex fit-test tal-gazzetta u tad-dokument; jekk tkun mitfija, allura inti minflok tfittex fl-informazzjoni li tiddeskrivi l-oġġett, bħalma dejjem tagħmel fil-biċċa l-kbira tal-kollezzjonijiet l-oħra."
-    },
-    "button": {
-      "apply": "Applika",
-      "cancel": "Ikkanċella",
-      "morefilters": "Aktar filtri",
-      "reset": "Irrisettja",
-      "showAll": "Uri kollox {label}",
-      "showLess": "Uri inqas {label}"
-    },
-    "collection": {
-      "name": "Tema",
-      "options": {
-        "archaeology": "Arkeoloġija",
-        "art": "Arti",
-        "fashion": "Moda",
-        "industrial": "Wirt Industrijali",
-        "manuscript": "Manuskritti",
-        "map": "Mapep u Ġeografija",
-        "migration": "Migrazzjoni",
-        "music": "Mużika",
-        "nature": "Storja Naturali",
-        "newspaper": "Gazzetti",
-        "photography": "Fotografija",
-        "sport": "Sport",
-        "ww1": "L-Ewwel Gwerra Dinjija"
-      },
-      "select": "Agħżel tema"
-    },
-    "contentTier": {
-      "name": "Kwalità tal-oġġett",
-      "options": {
-        "*": "Jinkludi oġġetti li ma jissodisfawx il-kriterji tal-pubblikazzjoni tagħna",
-        "0": "Uri biss l-oġġetti li ma jissodisfawx il-kriterji tal-pubblikazzjoni tagħna",
-        "1": "Kwalità baxxa",
-        "2": "Kwalità medja",
-        "3": "Kwalità għolja & li jistgħu jerġgħu jintużaw b'kundizzjonijiet",
-        "4": "Kwalità għolja & li jistgħu jerġgħu jintużaw liberament"
-      },
-      "select": "Agħżel il-kwalitajiet tal-oġġett"
-    },
-    "moreOptions": "Fittex biex issib {0} aktar {1}.",
-    "proxy_dc_format": {
-      "name": "Format | Formati",
-      "select": "Agħżel formati"
-    },
-    "proxy_dc_type": {
-      "name": "Tip | Tipi",
-      "select": "Agħżel tipi"
-    },
-    "proxy_dcterms_issued": {
-      "name": "Data ta' ħruġ"
-    },
-    "proxy_dcterms_medium": {
-      "name": "Mezz | Midja",
-      "select": "Agħżel il-midja"
     }
   },
   "feedback": {
@@ -636,8 +636,6 @@ export default {
       "dcRights": "Drittijiet",
       "dcSource": "Sors",
       "dcSubject": "Suġġett",
-      "dcTitle": "Titlu",
-      "dcType": "Tip ta' oġġett",
       "dctermsCreated": "Data tal-ħolqien",
       "dctermsExtent": "Limitu",
       "dctermsHasPart": "Jikkonsisti minn",
@@ -652,8 +650,10 @@ export default {
       "dctermsProvenance": "Provenjenza",
       "dctermsReferences": "Jagħmel referenza għal",
       "dctermsSpatial": "Postijiet",
-      "dctermsTOC": "Werrej",
       "dctermsTemporal": "Temporali",
+      "dctermsTOC": "Werrej",
+      "dcTitle": "Titlu",
+      "dcType": "Tip ta' oġġett",
       "edmCountry": "Pajjiż fornitur",
       "edmCurrentLocation": "Post attwali",
       "edmDataProvider": "Istituzzjoni fornitriċi",
@@ -693,12 +693,12 @@ export default {
     "findUsElsewhere": "Sibna x'imkien ieħor",
     "imageDescription": "Ffinanzjat mill-Unjoni Ewropea",
     "navigation": {
-      "MoreInfoLabel": "Aktar Tagħrif",
       "about": "Dwarna",
       "accessibility": "Aċċessibilità",
       "cookies": "Cookies",
       "forDevelopers": "Għall-iżviluppaturi",
       "help": "Għajnuna",
+      "MoreInfoLabel": "Aktar Tagħrif",
       "privacy": "Regoli tal-privatezza",
       "provide": "Sir fornitur tad-dejta",
       "subscribe": "Abbona għan-Newsletter tagħna",
@@ -914,7 +914,6 @@ export default {
     }
   },
   "record": {
-    "IIIFViewer": "Telespettatur IIIF",
     "actions": {
       "pin": "Pin oġġett lill-Entitajiet disponibbli"
     },
@@ -924,6 +923,7 @@ export default {
     "extendedInformation": "Informazzjoni estiża",
     "goodToKnow": "Informazzjoni utli",
     "hideAll": "Aħbi l-informazzjoni kollha",
+    "IIIFViewer": "Telespettatur IIIF",
     "location": "Post",
     "locationOnMap": "Post fuq il-mappa",
     "mediaPlayer": "Plejer tal-midja",
