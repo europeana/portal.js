@@ -28,10 +28,8 @@ jobs:
       -
         name: Create pull request
         uses: peter-evans/create-pull-request@v4
-        env:
-          GITHUB_PAT: ${{ secrets.GITHUB_PAT }}
         with:
           branch: ${{ env.PR_BRANCH }}
           commit-message: "l10n: update translations"
           title: "l10n: update translations"
-          token: ${{ env.GITHUB_PAT }}
+          token: "${{ secrets.GITHUB_PAT }}"
