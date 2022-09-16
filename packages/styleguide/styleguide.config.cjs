@@ -5,7 +5,6 @@ const bootstrapVueVersion = require('bootstrap-vue/package.json').version;
 
 /** @type import("vue-styleguidist").Config */
 module.exports = async() => {
-  // console.log('process.env', process.env)
   // get the webpack config directly from nuxt
   const nuxtWebpackConfig = await getWebpackConfig('client', {
     for: process.env.NODE_ENV === 'production' ? 'build' : 'dev',
@@ -29,10 +28,8 @@ module.exports = async() => {
     ]
   };
 
-  // console.log('nuxtWebpackConfig', JSON.stringify(nuxtWebpackConfig.filenames, null, 2))
-
   return {
-    title: 'Europeana Style Guide',
+    title: 'Europeana Style Guide!',
     sections: [
       {
         name: 'Style',

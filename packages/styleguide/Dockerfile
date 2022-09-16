@@ -23,11 +23,10 @@ COPY packages/styleguide/style* ./packages/styleguide/
 COPY packages/portal/*.js ./packages/portal/
 COPY packages/portal/docs ./packages/portal/docs
 COPY packages/portal/src ./packages/portal/src
+
 RUN npm run build
 
 RUN npm run styleguide:build
-
-RUN ls -al /app/packages/styleguide
 
 
 FROM nginx:stable-alpine

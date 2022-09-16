@@ -49,4 +49,27 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-  # TODO: deploy to K8S
+  deploy-ibm-cloud:
+    runs-on: ubuntu-latest
+    needs: [docker-build]
+    env:
+      IBMCLOUD_API_URL: https://cloud.ibm.com
+      IBMCLOUD_API_KEY: ${{ secrets.IBMCLOUD_API_KEY }}
+      IBMCLOUD_CLUSTER_NAME: europeana-web
+      IBMCLOUD_REGION: eu-de
+      K8S_NAMESPACE: internal
+      K8S_DEPLOYMENT_NAME: styleguide
+    steps:
+      -
+        name: Install ibmcloud CLI
+        run: |
+          curl -fsSL https://clis.cloud.ibm.com/install/linux | sh
+          ibmcloud plugin install container-service
+      -
+        name: Login to IBM Cloud
+        run: |
+          ibmcloud login -a ${IBMCLOUD_API_URL} -r ${IBMCLOUD_REGION} --apikey ${IBMCLOUD_API_KEY}
+          ibmcloud ks cluster config --cluster ${IBMCLOUD_CLUSTER_NAME}
+      -
+        name: Restart deployment
+        run: kubectl rollout restart --namespace ${K8S_NAMESPACE} deployment/${K8S_DEPLOYMENT_NAME}
