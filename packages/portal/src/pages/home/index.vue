@@ -38,13 +38,12 @@
 </template>
 
 <script>
-  import allThemes from '@/mixins/allThemes';
-  import collectionLinkGen from '@/mixins/collectionLinkGen';
+  import allThemesMixin from '@/mixins/allThemes';
+  import collectionLinkGenMixin from '@/mixins/collectionLinkGen';
   import CallToActionBanner from '@/components/generic/CallToActionBanner';
   import HomeHero from '@/components/home/HomeHero';
   import HomeLatest from '@/components/home/HomeLatest';
   import StackedCardsSwiper from '@/components/generic/StackedCardsSwiper';
-  import { optimisedSrcForContentfulAsset } from '@/plugins/contentful-utils';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
 
   export default {
@@ -57,7 +56,7 @@
       StackedCardsSwiper
     },
 
-    mixins: [allThemes, collectionLinkGen],
+    mixins: [allThemesMixin, collectionLinkGenMixin],
 
     data() {
       return {
@@ -96,7 +95,7 @@
 
       headMetaOgImage() {
         const image = this.socialMediaImage ? this.socialMediaImage : this.backgroundImage?.image;
-        return optimisedSrcForContentfulAsset(image, { w: 1200, h: 630, fit: 'fill' });
+        return this.$contentful.assets.optimisedSrc(image, { w: 1200, h: 630, fit: 'fill' });
       },
 
       callsToAction() {

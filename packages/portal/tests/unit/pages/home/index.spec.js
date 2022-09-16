@@ -75,6 +75,9 @@ const factory = ({ themes = [], $features = {}, data = {} } = {}) => shallowMoun
   },
   mocks: {
     $contentful: {
+      assets: {
+        optimisedSrc: sinon.spy((img) => `${img?.url}?optimised`)
+      },
       query: sinon.stub().resolves(homePageContentfulResponse)
     },
     $features,
@@ -158,7 +161,7 @@ describe('pages/home/index', () => {
           url: 'https://images.ctfassets.net/image.jpeg',
           contentType: 'image/jpeg'
         };
-        const expected = 'https://images.ctfassets.net/image.jpeg?w=1200&h=630&fit=fill&fm=jpg&fl=progressive&q=80';
+        const expected = 'https://images.ctfassets.net/image.jpeg?optimised';
 
         it('favours CTF social media image', async() => {
           const wrapper = factory();
