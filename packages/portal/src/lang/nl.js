@@ -125,14 +125,13 @@ export default {
   },
   "collectionsYouMightLike": "Collecties die u misschien interessant vindt",
   "colourSwatch": "Kleurstaal",
-  "contentYouMightLike": "Content die u misschien interessant vindt",
   "contentfulManual": {
     "footerNavigation": {
-      "MoreInfoLabel": "Meer informatie",
       "about": "Over Europeana",
       "forDevelopers": "Voor ontwikkelaars",
       "help": "Help",
       "meetUs": "Ontmoet het team",
+      "MoreInfoLabel": "Meer informatie",
       "provide": "Word een gegevensprovider",
       "subscribe": "Aanmelden voor onze nieuwsbrief",
       "terms": "Gebruiksvoorwaarden en privacybeleid"
@@ -143,6 +142,7 @@ export default {
       "teachers": "Leraren"
     }
   },
+  "contentYouMightLike": "Content die u misschien interessant vindt",
   "curatedAutomatically": "Automatisch beheerd door Europeana",
   "dateFilter": {
     "endDate": "Einddatum",
@@ -228,6 +228,42 @@ export default {
   },
   "explore": "Ontdekken",
   "facets": {
+    "api": {
+      "name": "Zoeken naar",
+      "options": {
+        "fulltext": "Records met full-text",
+        "metadata": "Alleen records met Metadata"
+      },
+      "switch": "Zoek alleen in de inhoud van items met full-text",
+      "switchMoreInfo": "In deze collectie kunt u kiezen waarnaar u wilt zoeken: als deze schakelaar aan staat, zoekt u binnen de krant en documenttekst; als het is uitgeschakeld, zoekt u in plaats daarvan binnen de informatie die het item beschrijft, net zoals u altijd doet in de meeste andere collecties."
+    },
+    "button": {
+      "apply": "Toepassen",
+      "cancel": "Annuleren",
+      "morefilters": "Meer filters",
+      "reset": "Opnieuw instellen",
+      "showAll": "Alle {label} weergeven",
+      "showLess": "Minder weergeven {label}"
+    },
+    "collection": {
+      "name": "Thema",
+      "options": {
+        "archaeology": "Archeologie",
+        "art": "Kunst",
+        "fashion": "Mode",
+        "industrial": "Industrieel erfgoed",
+        "manuscript": "manuscripten",
+        "map": "Kaarten en geografie",
+        "migration": "Migratie",
+        "music": "Muziek",
+        "nature": "Natuurgeschiedenis",
+        "newspaper": "Kranten",
+        "photography": "Fotografie",
+        "sport": "Sport",
+        "ww1": "Eerste Wereldoorlog"
+      },
+      "select": "Selecteer een thema"
+    },
     "COLOURPALETTE": {
       "moreName": "kleuren",
       "name": "Kleur | Kleuren",
@@ -379,6 +415,18 @@ export default {
       },
       "select": "Selecteer kleuren"
     },
+    "contentTier": {
+      "name": "Item kwaliteit",
+      "options": {
+        "*": "Bevat items die niet voldoen aan onze publicatiecriteria",
+        "0": "Geef items weer die niet voldoen aan onze publicatiecriteria",
+        "1": "Lage kwaliteit",
+        "2": "Middelmatige kwaliteit",
+        "3": "Hoge kwaliteit & herbruikbaar onder voorwaarden",
+        "4": "Hoge kwaliteit & vrij herbruikbaar"
+      },
+      "select": "Selecteer item kwaliteit"
+    },
     "COUNTRY": {
       "name": "Land van levering",
       "options": {
@@ -511,10 +559,26 @@ export default {
       },
       "select": "Selecteer bestandsformaten"
     },
+    "moreOptions": "Zoek naar {0} meer {1}.",
     "PROVIDER": {
       "moreName": "aggregators",
       "name": "Aggregator | Aggregatoren",
       "select": "Selecteer aggregators"
+    },
+    "proxy_dc_format": {
+      "name": "Formaat | Formaten",
+      "select": "Selecteer formaten"
+    },
+    "proxy_dc_type": {
+      "name": "Type | Types",
+      "select": "Selecteer typen"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Datum van afgifte"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Medium | Media",
+      "select": "Selecteer media"
     },
     "REUSABILITY": {
       "name": "Kan ik dit hergebruiken?",
@@ -536,70 +600,6 @@ export default {
         "VIDEO": "Video"
       },
       "select": "Selecteer soorten media"
-    },
-    "api": {
-      "name": "Zoeken naar",
-      "options": {
-        "fulltext": "Records met full-text",
-        "metadata": "Alleen records met Metadata"
-      },
-      "switch": "Zoek alleen in de inhoud van items met full-text",
-      "switchMoreInfo": "In deze collectie kunt u kiezen waarnaar u wilt zoeken: als deze schakelaar aan staat, zoekt u binnen de krant en documenttekst; als het is uitgeschakeld, zoekt u in plaats daarvan binnen de informatie die het item beschrijft, net zoals u altijd doet in de meeste andere collecties."
-    },
-    "button": {
-      "apply": "Toepassen",
-      "cancel": "Annuleren",
-      "morefilters": "Meer filters",
-      "reset": "Opnieuw instellen",
-      "showAll": "Alle {label} weergeven",
-      "showLess": "Minder weergeven {label}"
-    },
-    "collection": {
-      "name": "Thema",
-      "options": {
-        "archaeology": "Archeologie",
-        "art": "Kunst",
-        "fashion": "Mode",
-        "industrial": "Industrieel erfgoed",
-        "manuscript": "manuscripten",
-        "map": "Kaarten en geografie",
-        "migration": "Migratie",
-        "music": "Muziek",
-        "nature": "Natuurgeschiedenis",
-        "newspaper": "Kranten",
-        "photography": "Fotografie",
-        "sport": "Sport",
-        "ww1": "Eerste Wereldoorlog"
-      },
-      "select": "Selecteer een thema"
-    },
-    "contentTier": {
-      "name": "Item kwaliteit",
-      "options": {
-        "*": "Bevat items die niet voldoen aan onze publicatiecriteria",
-        "0": "Geef items weer die niet voldoen aan onze publicatiecriteria",
-        "1": "Lage kwaliteit",
-        "2": "Middelmatige kwaliteit",
-        "3": "Hoge kwaliteit & herbruikbaar onder voorwaarden",
-        "4": "Hoge kwaliteit & vrij herbruikbaar"
-      },
-      "select": "Selecteer item kwaliteit"
-    },
-    "moreOptions": "Zoek naar {0} meer {1}.",
-    "proxy_dc_format": {
-      "name": "Formaat | Formaten",
-      "select": "Selecteer formaten"
-    },
-    "proxy_dc_type": {
-      "name": "Type | Types",
-      "select": "Selecteer typen"
-    },
-    "proxy_dcterms_issued": {
-      "name": "Datum van afgifte"
-    },
-    "proxy_dcterms_medium": {
-      "name": "Medium | Media",
-      "select": "Selecteer media"
     }
   },
   "feedback": {
@@ -636,8 +636,6 @@ export default {
       "dcRights": "Rechten",
       "dcSource": "Bron",
       "dcSubject": "Onderwerp",
-      "dcTitle": "Titel",
-      "dcType": "Type object",
       "dctermsCreated": "Aanmaakdatum",
       "dctermsExtent": "Mate",
       "dctermsHasPart": "Bestaat uit",
@@ -652,8 +650,10 @@ export default {
       "dctermsProvenance": "Herkomst",
       "dctermsReferences": "Verwijst naar",
       "dctermsSpatial": "Plaatsen",
-      "dctermsTOC": "Inhoudsopgave",
       "dctermsTemporal": "Tijdsperiode",
+      "dctermsTOC": "Inhoudsopgave",
+      "dcTitle": "Titel",
+      "dcType": "Type object",
       "edmCountry": "Land",
       "edmCurrentLocation": "Huidige locatie",
       "edmDataProvider": "Instituut",
@@ -693,12 +693,12 @@ export default {
     "findUsElsewhere": "Vind ons ergens anders",
     "imageDescription": "Gefinancierd door de Europese Unie",
     "navigation": {
-      "MoreInfoLabel": "Meer informatie",
       "about": "Over ons",
       "accessibility": "Toegankelijkheid",
       "cookies": "Cookies",
       "forDevelopers": "Voor ontwikkelaars",
       "help": "Help",
+      "MoreInfoLabel": "Meer informatie",
       "privacy": "Privacybeleid",
       "provide": "Word een datapartner",
       "subscribe": "Aanmelden voor onze nieuwsbrief",
@@ -914,7 +914,6 @@ export default {
     }
   },
   "record": {
-    "IIIFViewer": "IIIF-viewer",
     "actions": {
       "pin": "Pin item aan beschikbare entiteiten"
     },
@@ -924,6 +923,7 @@ export default {
     "extendedInformation": "Uitgebreide informatie",
     "goodToKnow": "Goed om te weten",
     "hideAll": "Verberg alle informatie",
+    "IIIFViewer": "IIIF-viewer",
     "location": "Locatie",
     "locationOnMap": "Locatie op kaart",
     "mediaPlayer": "Mediaspeler",
