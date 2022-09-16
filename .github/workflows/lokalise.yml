@@ -1,0 +1,34 @@
+name: Lokalise
+
+on: workflow_dispatch
+
+env:
+  LOKALISE_API_TOKEN: ${{ secrets.LOKALISE_API_TOKEN }}
+
+jobs:
+  create-pull-request:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+      -
+        name: Install Node packages
+        run: |
+          npm ci --prefix tmp dotenv @lokalise/node-api
+          mv tmp/node_modules .
+      -
+        name: Update lang files
+        run: npm run -w packages/portal lokalise
+      -
+        name: Set pull pequest branch name
+        run: echo "PR_BRANCH=l10n/$(date +%Y-%m-%d_%H-%M-%S)" >> $GITHUB_ENV
+      -
+        name: Create pull request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          branch: ${{ env.PR_BRANCH }}
+          commit-message: "l10n: update translations"
+          title: "l10n: update translations"
