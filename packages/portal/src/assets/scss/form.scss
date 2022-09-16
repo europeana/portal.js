@@ -49,6 +49,9 @@
 
 .facet-label {
   font-size: $font-size-extrasmall;
+  font-weight: normal;
+  display: inline-block;
+  line-height: 1.5;
   text-transform: uppercase;
   color: $mediumgrey;
   margin-bottom: 0.25rem;
@@ -56,6 +59,10 @@
   @at-root .focus &,
   &.facet-label-active {
     color: $blue;
+  }
+
+  label {
+    margin-bottom: 0;
   }
 }
 

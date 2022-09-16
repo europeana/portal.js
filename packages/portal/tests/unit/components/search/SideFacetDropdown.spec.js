@@ -117,7 +117,11 @@ const factory = (options = {}) => shallowMountNuxt(SideFacetDropdown, {
       }
     }
   },
-  stubs: ['b-form-tags'],
+  stubs: {
+    'b-form-tags': {
+      template: '<div><slot /></div>'
+    }
+  },
   propsData: {
     type: 'checkbox',
     name: 'COUNTRY',
@@ -165,6 +169,16 @@ const fullFactory = (options = {}) => mountNuxt(SideFacetDropdown, {
 
 describe('components/search/SideFacetDropdown', () => {
   beforeEach(sinon.resetHistory);
+
+  describe('template', () => {
+    it('shows a label wrapped in an h3 heading', () => {
+      const wrapper = factory();
+
+      const label = wrapper.find('h3 label');
+
+      expect(label.text()).toBe('facets.COUNTRY.name - 1');
+    });
+  });
 
   describe('fetch', () => {
     describe('if fields are not static', () => {

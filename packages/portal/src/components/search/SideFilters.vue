@@ -11,97 +11,98 @@
       class="side-filters"
       data-qa="side filters"
     >
-      <client-only>
-        <b-row
-          class="border-bottom border-top d-flex justify-content-between align-items-center flex-nowrap"
-        >
-          <div
-            v-if="totalResults"
-            class="filters-title"
-            data-qa="total results"
+      <section role="search">
+        <client-only>
+          <b-row
+            class="border-bottom border-top d-flex justify-content-between align-items-center flex-nowrap"
           >
-            {{ $tc('items.itemCount', totalResultsLocalised, { count: totalResultsLocalised }) }}
             <div
-              class="visually-hidden"
-              role="status"
+              v-if="totalResults"
+              class="filters-title"
+              data-qa="total results"
             >
-              {{ $t('searchHasLoaded', [totalResultsLocalised]) }}
+              {{ $tc('items.itemCount', totalResultsLocalised, { count: totalResultsLocalised }) }}
+              <div
+                class="visually-hidden"
+                role="status"
+              >
+                {{ $t('searchHasLoaded', [totalResultsLocalised]) }}
+              </div>
             </div>
-          </div>
-          <h2
-            v-else
-            class="filters-title"
-          >
-            {{ $t('filterResults') }}
-          </h2>
-          <button
-            v-if="hasResettableFilters()"
-            :disabled="resetButtonDisabled"
-            class="btn btn-outline-primary mr-3"
-            data-qa="reset filters button"
-            @click="resetFilters"
-          >
-            {{ $t('reset') }}
-          </button>
-          <b-button
-            data-qa="close filters button"
-            class="button-icon-only icon-clear mx-3"
-            variant="light-flat"
-            :aria-label="$t('header.closeSidebar')"
-            @click="toggleFilterSheet"
-          />
-        </b-row>
-        <b-row class="mb-3 mt-4">
-          <b-col
-            data-qa="search filters"
-          >
-            <div class="position-relative">
-              <SideSwitchFilter
-                v-if="enableApiFilter"
-                :value="filters.api"
-                name="api"
-                :label="$t('facets.api.switch')"
-                :tooltip="$t('facets.api.switchMoreInfo')"
-                checked-value="fulltext"
-                unchecked-value="metadata"
-                :default-value="apiFilterDefaultValue"
-                @changed="changeFacet"
-              />
-              <SideDateFilter
-                v-if="enableDateFilter"
-                :name="dateFilterField"
-                :start="dateFilter.start"
-                :end="dateFilter.end"
-                :specific="dateFilter.specific"
-                @dateFilter="dateFilterSelected"
-              />
-              <SideFacetDropdown
-                v-for="facet in filterableFacets"
-                :key="facet.name"
-                :name="facet.name"
-                :type="facetDropdownType(facet.name)"
-                :selected="filters[facet.name]"
-                :static-fields="facet.staticFields"
-                :search="facet.search"
-                :group-by="sideFacetDropdownGroupBy(facet.name)"
-                role="search"
-                :aria-label="facet.name"
-                @changed="changeFacet"
-              />
-              <SideSwitchFilter
-                v-if="contentTierFacetSwitch"
-                :value="filters.contentTier"
-                name="contentTier"
-                :label="$t('facets.contentTier.options.0')"
-                checked-value="&quot;0&quot;"
-                :unchecked-value="null"
-                :default-value="null"
-                @changed="changeFacet"
-              />
-            </div>
-          </b-col>
-        </b-row>
-      </client-only>
+            <h2
+              v-else
+              class="filters-title"
+            >
+              {{ $t('filterResults') }}
+            </h2>
+            <button
+              v-if="hasResettableFilters()"
+              :disabled="resetButtonDisabled"
+              class="btn btn-outline-primary mr-3"
+              data-qa="reset filters button"
+              @click="resetFilters"
+            >
+              {{ $t('reset') }}
+            </button>
+            <b-button
+              data-qa="close filters button"
+              class="button-icon-only icon-clear mx-3"
+              variant="light-flat"
+              :aria-label="$t('header.closeSidebar')"
+              @click="toggleFilterSheet"
+            />
+          </b-row>
+          <b-row class="mb-3 mt-4">
+            <b-col
+              data-qa="search filters"
+            >
+              <div class="position-relative">
+                <SideSwitchFilter
+                  v-if="enableApiFilter"
+                  :value="filters.api"
+                  name="api"
+                  :label="$t('facets.api.switch')"
+                  :tooltip="$t('facets.api.switchMoreInfo')"
+                  checked-value="fulltext"
+                  unchecked-value="metadata"
+                  :default-value="apiFilterDefaultValue"
+                  @changed="changeFacet"
+                />
+                <SideDateFilter
+                  v-if="enableDateFilter"
+                  :name="dateFilterField"
+                  :start="dateFilter.start"
+                  :end="dateFilter.end"
+                  :specific="dateFilter.specific"
+                  @dateFilter="dateFilterSelected"
+                />
+                <SideFacetDropdown
+                  v-for="facet in filterableFacets"
+                  :key="facet.name"
+                  :name="facet.name"
+                  :type="facetDropdownType(facet.name)"
+                  :selected="filters[facet.name]"
+                  :static-fields="facet.staticFields"
+                  :search="facet.search"
+                  :group-by="sideFacetDropdownGroupBy(facet.name)"
+                  :aria-label="facet.name"
+                  @changed="changeFacet"
+                />
+                <SideSwitchFilter
+                  v-if="contentTierFacetSwitch"
+                  :value="filters.contentTier"
+                  name="contentTier"
+                  :label="$t('facets.contentTier.options.0')"
+                  checked-value="&quot;0&quot;"
+                  :unchecked-value="null"
+                  :default-value="null"
+                  @changed="changeFacet"
+                />
+              </div>
+            </b-col>
+          </b-row>
+        </client-only>
+      </section>
     </b-container>
   </b-col>
 </template>
