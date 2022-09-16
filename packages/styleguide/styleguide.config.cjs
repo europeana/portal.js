@@ -29,7 +29,7 @@ module.exports = async() => {
   };
 
   return {
-    title: 'Europeana Style Guide!',
+    title: 'Europeana Style Guide',
     sections: [
       {
         name: 'Style',
