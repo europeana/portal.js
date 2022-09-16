@@ -125,14 +125,13 @@ export default {
   },
   "collectionsYouMightLike": "Zbirke, ki vam bodo mogoče všeč",
   "colourSwatch": "Barvni vzorec",
-  "contentYouMightLike": "Vsebina, ki vam bo mogoče všeč",
   "contentfulManual": {
     "footerNavigation": {
-      "MoreInfoLabel": "Več informacij",
       "about": "O zbirkah Europeana",
       "forDevelopers": "Za razvijalce",
       "help": "Pomoč",
       "meetUs": "Spoznajte ekipo",
+      "MoreInfoLabel": "Več informacij",
       "provide": "Postanite ponudnik podatkov",
       "subscribe": "Prijavite se na naša obvestila",
       "terms": "Pogoji uporabe in Pravilnik o zasebnosti"
@@ -143,6 +142,7 @@ export default {
       "teachers": "Učitelji"
     }
   },
+  "contentYouMightLike": "Vsebina, ki vam bo mogoče všeč",
   "curatedAutomatically": "Samodejno je kurirala Europeana",
   "dateFilter": {
     "endDate": "Datum konca",
@@ -228,6 +228,42 @@ export default {
   },
   "explore": "Raziščite",
   "facets": {
+    "api": {
+      "name": "Išči",
+      "options": {
+        "fulltext": "Zapisi s celotnim besedilom",
+        "metadata": "Samo zapisi z metapodatki"
+      },
+      "switch": "Iskanje samo v vsebini elementov s polnim besedilom",
+      "switchMoreInfo": "V tej zbirki lahko izberete, kaj želite iskati: če je to stikalo vklopljeno, boste iskali po besedilu časopisa in dokumenta; če je izklopljeno, boste iskali po informacijah, ki opisujejo predmet, tako kot v večini drugih zbirk."
+    },
+    "button": {
+      "apply": "Prijavi se",
+      "cancel": "Prekliči",
+      "morefilters": "Več filtrov",
+      "reset": "Ponastavi",
+      "showAll": "Prikaži vse {label}",
+      "showLess": "Prikaži manj {label}"
+    },
+    "collection": {
+      "name": "Tema",
+      "options": {
+        "archaeology": "Arheologija",
+        "art": "Umetnost",
+        "fashion": "Moda",
+        "industrial": "Industrijska dediščina",
+        "manuscript": "Rokopisi",
+        "map": "Zemljevidi in geografija",
+        "migration": "Migracije",
+        "music": "Glasba",
+        "nature": "Naravoslovna zgodovina",
+        "newspaper": "Časopisi",
+        "photography": "Fotografija",
+        "sport": "Šport",
+        "ww1": "Prva svetovna vojna"
+      },
+      "select": "Izberite temo"
+    },
     "COLOURPALETTE": {
       "moreName": "barve",
       "name": "Barva | Barve",
@@ -379,6 +415,18 @@ export default {
       },
       "select": "Izberite barve"
     },
+    "contentTier": {
+      "name": "Kakovost artikla",
+      "options": {
+        "*": "Vključuje elemente, ki ne izpolnjujejo naših meril za objavo",
+        "0": "Pokaži samo predmete, ki ne ustrezajo našim kriterijem objavljanja.",
+        "1": "Nizka kakovost",
+        "2": "Srednja kakovost",
+        "3": "Visoka kakovost in ponovna uporaba s pogoji",
+        "4": "Visoka kakovost & prosto večkratno uporabo"
+      },
+      "select": "Izberite kvalitete artikla"
+    },
     "COUNTRY": {
       "name": "Država izvora",
       "options": {
@@ -511,10 +559,26 @@ export default {
       },
       "select": "Izberite formate datotek"
     },
+    "moreOptions": "Poiščite {0} več {1}.",
     "PROVIDER": {
       "moreName": "agregatorji",
       "name": "Zbiralnik",
       "select": "Izberite agregatorje"
+    },
+    "proxy_dc_format": {
+      "name": "Format | Formati",
+      "select": "Izberite formate"
+    },
+    "proxy_dc_type": {
+      "name": "Vrsta | Vrste",
+      "select": "Izberite vrste"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Datum izdaje"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Medij | Mediji",
+      "select": "Izberite medija"
     },
     "REUSABILITY": {
       "name": "Ali lahko to ponovno uporabim?",
@@ -536,70 +600,6 @@ export default {
         "VIDEO": "Videoposnetek"
       },
       "select": "Izberite vrste medijev"
-    },
-    "api": {
-      "name": "Išči",
-      "options": {
-        "fulltext": "Zapisi s celotnim besedilom",
-        "metadata": "Samo zapisi z metapodatki"
-      },
-      "switch": "Iskanje samo v vsebini elementov s polnim besedilom",
-      "switchMoreInfo": "V tej zbirki lahko izberete, kaj želite iskati: če je to stikalo vklopljeno, boste iskali po besedilu časopisa in dokumenta; če je izklopljeno, boste iskali po informacijah, ki opisujejo predmet, tako kot v večini drugih zbirk."
-    },
-    "button": {
-      "apply": "Prijavi se",
-      "cancel": "Prekliči",
-      "morefilters": "Več filtrov",
-      "reset": "Ponastavi",
-      "showAll": "Prikaži vse {label}",
-      "showLess": "Prikaži manj {label}"
-    },
-    "collection": {
-      "name": "Tema",
-      "options": {
-        "archaeology": "Arheologija",
-        "art": "Umetnost",
-        "fashion": "Moda",
-        "industrial": "Industrijska dediščina",
-        "manuscript": "Rokopisi",
-        "map": "Zemljevidi in geografija",
-        "migration": "Migracije",
-        "music": "Glasba",
-        "nature": "Naravoslovna zgodovina",
-        "newspaper": "Časopisi",
-        "photography": "Fotografija",
-        "sport": "Šport",
-        "ww1": "Prva svetovna vojna"
-      },
-      "select": "Izberite temo"
-    },
-    "contentTier": {
-      "name": "Kakovost artikla",
-      "options": {
-        "*": "Vključuje elemente, ki ne izpolnjujejo naših meril za objavo",
-        "0": "Pokaži samo predmete, ki ne ustrezajo našim kriterijem objavljanja.",
-        "1": "Nizka kakovost",
-        "2": "Srednja kakovost",
-        "3": "Visoka kakovost in ponovna uporaba s pogoji",
-        "4": "Visoka kakovost & prosto večkratno uporabo"
-      },
-      "select": "Izberite kvalitete artikla"
-    },
-    "moreOptions": "Poiščite {0} več {1}.",
-    "proxy_dc_format": {
-      "name": "Format | Formati",
-      "select": "Izberite formate"
-    },
-    "proxy_dc_type": {
-      "name": "Vrsta | Vrste",
-      "select": "Izberite vrste"
-    },
-    "proxy_dcterms_issued": {
-      "name": "Datum izdaje"
-    },
-    "proxy_dcterms_medium": {
-      "name": "Medij | Mediji",
-      "select": "Izberite medija"
     }
   },
   "feedback": {
@@ -636,8 +636,6 @@ export default {
       "dcRights": "Pravice",
       "dcSource": "Vir",
       "dcSubject": "Zadeva",
-      "dcTitle": "Naslov",
-      "dcType": "Vrsta predmeta",
       "dctermsCreated": "Datum ustvarjanja",
       "dctermsExtent": "Obseg",
       "dctermsHasPart": "Je sestavljen iz",
@@ -652,8 +650,10 @@ export default {
       "dctermsProvenance": "Poreklo",
       "dctermsReferences": "Sklici",
       "dctermsSpatial": "Kraji",
-      "dctermsTOC": "Kazalo vsebine",
       "dctermsTemporal": "Časovno obdobje",
+      "dctermsTOC": "Kazalo vsebine",
+      "dcTitle": "Naslov",
+      "dcType": "Vrsta predmeta",
       "edmCountry": "Država izvora",
       "edmCurrentLocation": "Trenutna lokacija",
       "edmDataProvider": "Ustanova izvora",
@@ -693,12 +693,12 @@ export default {
     "findUsElsewhere": "Najdite nas drugje",
     "imageDescription": "Financira Evropska unija",
     "navigation": {
-      "MoreInfoLabel": "Več informacij",
       "about": "O nas",
       "accessibility": "Dostopnost",
       "cookies": "Piškotki",
       "forDevelopers": "Za razvijalce",
       "help": "Pomoč",
+      "MoreInfoLabel": "Več informacij",
       "privacy": "Pravilnik o zasebnosti",
       "provide": "Postanite ponudnik podatkov",
       "subscribe": "Prijavite se na naša obvestila",
@@ -914,7 +914,6 @@ export default {
     }
   },
   "record": {
-    "IIIFViewer": "Pregledovalnik IIIF",
     "actions": {
       "pin": "Pripnite element na razpoložljive entitete"
     },
@@ -924,6 +923,7 @@ export default {
     "extendedInformation": "Razširjene informacije",
     "goodToKnow": "Dobro je vedeti",
     "hideAll": "Skrij vse informacije",
+    "IIIFViewer": "Pregledovalnik IIIF",
     "location": "Lokacija",
     "locationOnMap": "Lokacija na zemljevidu",
     "mediaPlayer": "Medijski predvajalnik",
