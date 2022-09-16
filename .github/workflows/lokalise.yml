@@ -2,10 +2,6 @@ name: Lokalise
 
 on: workflow_dispatch
 
-env:
-  LOKALISE_API_TOKEN: ${{ secrets.LOKALISE_API_TOKEN }}
-  LOKALISE_PROJECT_ID: ${{ secrets.LOKALISE_PROJECT_ID }}
-
 jobs:
   create-pull-request:
     runs-on: ubuntu-latest
@@ -22,6 +18,9 @@ jobs:
           mv tmp/node_modules .
       -
         name: Update lang files
+        env:
+          LOKALISE_API_TOKEN: ${{ secrets.LOKALISE_API_TOKEN }}
+          LOKALISE_PROJECT_ID: ${{ secrets.LOKALISE_PROJECT_ID }}
         run: npm run -w packages/portal lokalise
       -
         name: Set pull pequest branch name
@@ -33,3 +32,4 @@ jobs:
           branch: ${{ env.PR_BRANCH }}
           commit-message: "l10n: update translations"
           title: "l10n: update translations"
+          token: ${{ secrets.GITHUB_PAT }}
