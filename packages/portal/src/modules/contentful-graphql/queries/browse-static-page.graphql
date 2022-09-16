@@ -9,19 +9,6 @@ query BrowseStaticPage(
       name
       headline
       description
-      primaryImageOfPage {
-         __typename
-        ... on HeroHeader{
-          title
-          headline
-          link {
-            ... linkFields
-          }
-          image {
-           ... imageWithAttributionFields
-          }
-        }
-      }
       image {
         ...imageFields
       }
@@ -89,9 +76,6 @@ query BrowseStaticPage(
       identifier
       name
       description
-      primaryImageOfPage {
-          ...imageWithAttributionFields
-      }
       image {
         ...imageFields
       }
@@ -158,10 +142,6 @@ fragment imageWithAttributionFields on ImageWithAttribution {
   image {
     ...imageFields
   }
-}
-fragment linkFields on Link {
-  url
-  text
 }
 fragment linkGroupFields on LinkGroup {
   identifier
