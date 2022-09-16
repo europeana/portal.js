@@ -17,7 +17,7 @@ jobs:
       -
         name: Install Node packages
         run: |
-          cp (package-lock,package).json tmp
+          cp package-lock.json package.json tmp
           npm ci --prefix tmp dotenv @lokalise/node-api
           mv tmp/node_modules .
       -
