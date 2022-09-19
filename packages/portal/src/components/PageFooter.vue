@@ -31,8 +31,9 @@
           >
             <b-row>
               <b-col
-                cols="6"
+                cols="12"
                 lg="12"
+                sm="6"
                 class="mb-3"
               >
                 <LinkGroup
@@ -44,8 +45,9 @@
                 />
               </b-col>
               <b-col
-                cols="6"
+                cols="12"
                 lg="12"
+                sm="6"
               >
                 <LinkGroup
                   v-if="footerHelp"
@@ -63,7 +65,8 @@
           >
             <b-row>
               <b-col
-                cols="6"
+                cols="12"
+                sm="6"
                 lg="12"
                 class="mb-3"
               >
@@ -73,7 +76,8 @@
                 <LangSelector data-qa="language selector" />
               </b-col>
               <b-col
-                cols="6"
+                cols="12"
+                sm="6"
                 lg="12"
               >
                 <LinkGroup
