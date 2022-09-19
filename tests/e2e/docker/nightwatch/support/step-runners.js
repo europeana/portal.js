@@ -145,11 +145,11 @@ module.exports = {
     const pattern = new RegExp(altValue ? `${value}|${altValue}` : value);
     await client.expect.element(`[data-field-name="${field}"]`).text.to.match(pattern);
   },
-  doNotSeeATarget(qaElementNames) {
-    client.expect.element(qaSelector(qaElementNames)).to.not.be.visible;
+  async doNotSeeATarget(qaElementNames) {
+    await client.expect.element(qaSelector(qaElementNames)).to.not.be.visible;
   },
-  doNotHaveATarget(qaElementNames) {
-    client.expect.element(qaSelector(qaElementNames)).to.not.be.present;
+  async doNotHaveATarget(qaElementNames) {
+    await client.expect.element(qaSelector(qaElementNames)).to.not.be.present;
   },
   async enterTextInTarget(text, qaElementName) {
     const selector = qaSelector(qaElementName);

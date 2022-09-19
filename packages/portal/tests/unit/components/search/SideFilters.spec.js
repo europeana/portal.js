@@ -85,6 +85,14 @@ const factory = (options = {}) => {
 
 describe('components/search/SideFilters', () => {
   describe('template', () => {
+    it('has a level 2 heading', () => {
+      const wrapper = factory();
+
+      const h2 = wrapper.find('h2');
+
+      expect(h2.text()).toBe('filterResults');
+    });
+
     it('is wrapper in <section role="search">', () => {
       const wrapper = factory();
 
@@ -131,31 +139,8 @@ describe('components/search/SideFilters', () => {
         const resetButton = wrapper.find('[data-qa="reset filters button"]');
 
         expect(resetButton.exists()).toBe(true);
+
         expect(resetButton.attributes('disabled')).toBe('disabled');
-      });
-    });
-
-    describe('number of search results', () => {
-      it('shows the total results', () => {
-        const searchStoreState = {
-          totalResults: 1000
-        };
-
-        const wrapper = factory({ searchStoreState });
-        const totalResults = wrapper.find('[data-qa="total results"]');
-
-        expect(totalResults.exists()).toBe(true);
-      });
-
-      it('does not show the total results', () => {
-        const searchStoreState = {
-          totalResults: null
-        };
-
-        const wrapper = factory({ searchStoreState });
-        const totalResults = wrapper.find('[data-qa="total results"]');
-
-        expect(totalResults.exists()).toBe(false);
       });
     });
   });

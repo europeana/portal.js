@@ -1,13 +1,23 @@
-import { createLocalVue, shallowMount } from '@vue/test-utils';
+import { createLocalVue, mount } from '@vue/test-utils';
+import VueI18n from 'vue-i18n';
 import sinon from 'sinon';
 
 import SearchResultsContext from '@/components/search/SearchResultsContext.vue';
 
 const localVue = createLocalVue();
+localVue.use(VueI18n);
 
-const factory = (options = {}) => shallowMount(SearchResultsContext, {
+import messages from '@/lang/en';
+
+const i18n = new VueI18n({
+  locale: 'en',
+  messages: { en: messages }
+});
+
+const factory = (options = {}) => mount(SearchResultsContext, {
   localVue,
   propsData: options.propsData,
+  i18n,
   mocks: {
     $apis: {
       entity: {
@@ -31,7 +41,7 @@ const factory = (options = {}) => shallowMount(SearchResultsContext, {
     },
     $t: (key) => key
   },
-  stubs: ['i18n']
+  stubs: ['RemovalChip']
 });
 
 const fixtures = {
@@ -50,28 +60,23 @@ describe('SearchResultsContext', () => {
 
   describe('template', () => {
     describe('when searching within an entity collection', () => {
-      const entity = {
-        entity: fixtures.organisationEntity
-      };
+      const entity = fixtures.organisationEntity;
 
       describe('and there are search terms', () => {
-        const storeState = {
+        const propsData = {
           entity,
-          search: {
-            userParams: {
-              query: 'painting'
-            }
-          }
+          query: 'painting',
+          totalResults: 1234
         };
 
         it('displays the entity type label', () => {
-          const wrapper = factory({ storeState });
+          const wrapper = factory({ propsData });
 
           expect(wrapper.text()).toContain('cardLabels.organisation');
         });
 
         it('displays an entity removal badge', () => {
-          const wrapper = factory({ storeState });
+          const wrapper = factory({ propsData });
 
           const badge = wrapper.find('[data-qa="entity removal badge"]');
 
@@ -79,7 +84,7 @@ describe('SearchResultsContext', () => {
         });
 
         it('displays a query removal badge', () => {
-          const wrapper = factory({ storeState });
+          const wrapper = factory({ propsData });
 
           const badge = wrapper.find('[data-qa="query removal badge"]');
 
@@ -88,23 +93,20 @@ describe('SearchResultsContext', () => {
       });
 
       describe('but there are no search terms', () => {
-        const storeState = {
+        const propsData = {
           entity,
-          search: {
-            userParams: {
-              query: ''
-            }
-          }
+          query: '',
+          totalResults: 1234
         };
 
         it('displays the entity type label', () => {
-          const wrapper = factory({ storeState });
+          const wrapper = factory({ propsData });
 
           expect(wrapper.text()).toContain('cardLabels.organisation');
         });
 
         it('displays an entity removal badge', () => {
-          const wrapper = factory({ storeState });
+          const wrapper = factory({ propsData });
 
           const badge = wrapper.find('[data-qa="entity removal badge"]');
 
@@ -112,7 +114,7 @@ describe('SearchResultsContext', () => {
         });
 
         it('does not display a query removal badge', () => {
-          const wrapper = factory({ storeState });
+          const wrapper = factory({ propsData });
 
           const badge = wrapper.find('[data-qa="query removal badge"]');
 
@@ -122,20 +124,17 @@ describe('SearchResultsContext', () => {
     });
 
     describe('when searching without an entity collection', () => {
-      const entity = {};
+      const entity = null;
 
       describe('and there are search terms', () => {
-        const storeState = {
+        const propsData = {
           entity,
-          search: {
-            userParams: {
-              query: 'painting'
-            }
-          }
+          query: 'painting',
+          totalResults: 1234
         };
 
         it('displays a query removal badge', () => {
-          const wrapper = factory({ storeState });
+          const wrapper = factory({ propsData });
 
           const badge = wrapper.find('[data-qa="query removal badge"]');
 
@@ -143,24 +142,21 @@ describe('SearchResultsContext', () => {
         });
       });
 
-      describe('but there are no search terms', () => {
-        const storeState = {
+      describe('and there are no search terms', () => {
+        const propsData = {
           entity,
-          search: {
-            userParams: {
-              query: ''
-            }
-          }
+          query: '',
+          totalResults: 1234
         };
 
         it('displays the generic results label', () => {
-          const wrapper = factory({ storeState });
+          const wrapper = factory({ propsData });
 
-          expect(wrapper.text()).toContain('results');
+          expect(wrapper.vm.i18nPath).toBe('search.results.withoutQuery');
         });
 
         it('does not display a query removal badge', () => {
-          const wrapper = factory({ storeState });
+          const wrapper = factory({ propsData });
 
           const badge = wrapper.find('[data-qa="query removal badge"]');
 
@@ -173,21 +169,23 @@ describe('SearchResultsContext', () => {
   describe('computed', () => {
     describe('contextType', () => {
       it('is "theme" if entity is thematic collection topic', () => {
-        const storeState = {
-          entity: { entity: fixtures.thematicCollectionTopicEntity }
+        const propsData = {
+          entity: fixtures.thematicCollectionTopicEntity,
+          totalResults: 1234
         };
 
-        const wrapper = factory({ storeState });
+        const wrapper = factory({ propsData });
 
         expect(wrapper.vm.contextType).toBe('theme');
       });
 
       it('is "organisation" if entity is organisation', () => {
-        const storeState = {
-          entity: { entity: fixtures.organisationEntity }
+        const propsData = {
+          entity: fixtures.organisationEntity,
+          totalResults: 1234
         };
 
-        const wrapper = factory({ storeState });
+        const wrapper = factory({ propsData });
 
         expect(wrapper.vm.contextType).toBe('organisation');
       });
@@ -195,23 +193,24 @@ describe('SearchResultsContext', () => {
 
     describe('entityLabel', () => {
       it('priorities editorialOverrides prop', () => {
-        const storeState = {
-          entity: { entity: fixtures.organisationEntity }
+        const propsData = {
+          entity: fixtures.organisationEntity,
+          totalResults: 1234,
+          editorialOverrides: { title: 'override' }
         };
-        const propsData = { editorialOverrides: { title: 'override' } };
 
-        const wrapper = factory({ propsData, storeState });
+        const wrapper = factory({ propsData });
 
         expect(wrapper.vm.entityLabel).toEqual('override');
       });
 
       it('falls back to entity prefLabel', () => {
-        const storeState = {
-          entity: { entity: fixtures.organisationEntity }
+        const propsData = {
+          entity: fixtures.organisationEntity,
+          totalResults: 1234
         };
-        const propsData = {};
 
-        const wrapper = factory({ propsData, storeState });
+        const wrapper = factory({ propsData });
 
         expect(wrapper.vm.entityLabel).toEqual(fixtures.organisationEntity.prefLabel);
       });
@@ -219,17 +218,17 @@ describe('SearchResultsContext', () => {
 
     describe('entityImage', () => {
       it('prioritises the contentful asset', () => {
-        const storeState = {
-          entity: { entity: fixtures.organisationEntity }
-        };
-
         const ctfImage = {
           url: 'https://images.ctfassets.net/image.jpg',
           contentType: 'image/jpeg'
         };
-        const propsData = { editorialOverrides: { image: ctfImage } };
+        const propsData = {
+          entity: fixtures.organisationEntity,
+          totalResults: 1234,
+          editorialOverrides: { image: ctfImage }
+        };
 
-        const wrapper = factory({ propsData, storeState });
+        const wrapper = factory({ propsData });
 
         expect(wrapper.vm.entityImage).toContain('?optimised');
         expect(wrapper.vm.$contentful.assets.optimisedSrc.calledWith({

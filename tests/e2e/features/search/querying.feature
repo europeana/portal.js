@@ -10,8 +10,8 @@ Feature: Search querying
     Then I see a `loading spinner`
     And I see a `context label` with the text "paris"
     And I see "paris" in the `search box`
-    And I don't have a `loading spinner`
-    And I see the `total results`
+    And I don't see a `loading spinner`
+    And I see the `context label`
     And I should see 24 `item preview`s
     And I am on an accessible page
 

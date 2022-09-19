@@ -16,21 +16,7 @@
           <b-row
             class="border-bottom border-top d-flex justify-content-between align-items-center flex-nowrap"
           >
-            <div
-              v-if="totalResults"
-              class="filters-title"
-              data-qa="total results"
-            >
-              {{ $tc('items.itemCount', totalResultsLocalised, { count: totalResultsLocalised }) }}
-              <div
-                class="visually-hidden"
-                role="status"
-              >
-                {{ $t('searchHasLoaded', [totalResultsLocalised]) }}
-              </div>
-            </div>
             <h2
-              v-else
               class="filters-title"
             >
               {{ $t('filterResults') }}
@@ -167,7 +153,6 @@
       ...mapState({
         collectionFacetEnabled: state => state.search.collectionFacetEnabled,
         showFiltersSheet: state => state.search.showFiltersSheet,
-        totalResults: state => state.search.totalResults,
         userParams: state => state.search.userParams
       }),
       ...mapGetters({
@@ -286,9 +271,6 @@
         const range = rangeFromQueryParam(dateFilterValue[0]);
 
         return range ? { ...range, specific: false } : { start: dateFilterValue[0], end: null, specific: true };
-      },
-      totalResultsLocalised() {
-        return this.$options.filters.localise(this.totalResults);
       }
     },
     watch: {
