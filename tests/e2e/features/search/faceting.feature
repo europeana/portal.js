@@ -8,6 +8,7 @@ Feature: Search faceting
     And I am on page number 1
     And I see a `filter badge` with the text "Image"
     And I am on an accessible page
+    And I find a `results status message`
 
   Scenario: Filtering results by Collection
     When I visit the `search page`

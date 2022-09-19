@@ -1,12 +1,21 @@
-import { createLocalVue, shallowMount } from '@vue/test-utils';
-
+import { createLocalVue, mount } from '@vue/test-utils';
+import VueI18n from 'vue-i18n';
 import SearchResultsContext from '@/components/search/SearchResultsContext.vue';
 
 const localVue = createLocalVue();
+localVue.use(VueI18n);
 
-const factory = ({ propsData = {} } = {}) => shallowMount(SearchResultsContext, {
+import messages from '@/lang/en';
+
+const i18n = new VueI18n({
+  locale: 'en',
+  messages: { en: messages }
+});
+
+const factory = ({ propsData = {} } = {}) => mount(SearchResultsContext, {
   localVue,
   propsData,
+  i18n,
   mocks: {
     $apis: {
       entity: {
@@ -17,7 +26,7 @@ const factory = ({ propsData = {} } = {}) => shallowMount(SearchResultsContext, 
     $path: (args) => args,
     $route: () => ({})
   },
-  stubs: ['i18n']
+  stubs: ['RemovalChip']
 });
 
 const fixtures = {
@@ -126,9 +135,7 @@ describe('SearchResultsContext', () => {
         it('displays the generic results label', () => {
           const wrapper = factory({ propsData });
 
-          const i18n = wrapper.find('i18n-stub');
-
-          expect(i18n.attributes().path).toBe('search.results.withoutQuery');
+          expect(wrapper.vm.i18nPath).toBe('search.results.withoutQuery');
         });
 
         it('does not display a query removal badge', () => {

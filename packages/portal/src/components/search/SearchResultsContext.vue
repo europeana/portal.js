@@ -1,44 +1,53 @@
 <template>
-  <i18n
-    :path="i18nPath"
-    tag="h1"
-    class="context-label"
-    data-qa="context label"
-  >
-    <template #count>
-      {{ totalResultsLocalised }}
-    </template>
-    <template
-      v-if="hasEntity"
-      #type
+  <div class="overflow-hidden">
+    <i18n
+      :path="i18nPath"
+      tag="h1"
+      class="context-label"
+      data-qa="context label"
     >
-      {{ entityTypeLabel }}
-    </template>
-    <template
-      v-if="hasEntity"
-      #collection
+      <template #count>
+        {{ totalResultsLocalised }}
+      </template>
+      <template
+        v-if="hasEntity"
+        #type
+      >
+        {{ entityTypeLabel }}
+      </template>
+      <template
+        v-if="hasEntity"
+        #collection
+      >
+        <RemovalChip
+          :title="entityLabel"
+          :link-to="entityRemovalLink"
+          :img="entityImage"
+          :type="entity.type"
+          data-qa="entity removal badge"
+          class="mt-1 mx-1"
+        />
+      </template>
+      <template
+        v-if="hasQuery"
+        #query
+      >
+        <RemovalChip
+          :title="query"
+          :link-to="queryRemovalLink"
+          data-qa="query removal badge"
+          class="mt-1 mx-1"
+        />
+      </template>
+    </i18n>
+    <div
+      class="visually-hidden"
+      role="status"
+      data-qa="results status message"
     >
-      <RemovalChip
-        :title="entityLabel"
-        :link-to="entityRemovalLink"
-        :img="entityImage"
-        :type="entity.type"
-        data-qa="entity removal badge"
-        class="mt-1 mx-1"
-      />
-    </template>
-    <template
-      v-if="hasQuery"
-      #query
-    >
-      <RemovalChip
-        :title="query"
-        :link-to="queryRemovalLink"
-        data-qa="query removal badge"
-        class="mt-1 mx-1"
-      />
-    </template>
-  </i18n>
+      {{ $t('searchHasLoaded', [totalResultsLocalised]) }}
+    </div>
+  </div>
 </template>
 
 <script>
