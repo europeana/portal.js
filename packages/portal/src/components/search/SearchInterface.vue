@@ -79,6 +79,7 @@
                           :view="view"
                           :show-pins="showPins"
                           :show-related="showRelated"
+                          id="item-search-results"
                         >
                           <slot />
                           <template
@@ -105,6 +106,7 @@
                         :total-results="totalResults"
                         :per-page="perPage"
                         :max-results="1000"
+                        aria-controls="item-search-results"
                       />
                     </b-col>
                   </b-row>
