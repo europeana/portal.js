@@ -8,6 +8,7 @@ Feature: Search faceting
     And I am on page number 1
     And I see a `filter badge` with the text "Image"
     And I am on an accessible page
+    And I find a `results status message`
 
   Scenario: Filtering results by Collection
     When I visit the `search page`
@@ -66,17 +67,17 @@ Feature: Search faceting
     And I click the `more facet values available button`
     And I enter "The European Library" in the `side facet dropdown search input`
     And I click the `The European Library PROVIDER field`
-    And I don't have a `loading spinner`
+    And I don't see a `loading spinner`
     Then I should be on `/en/search?page=1&qf=PROVIDER%3A%22The%20European%20Library%22`
 
   Scenario: Filtering results by two countries
     Given I am on the `search page`
     When I click the `COUNTRY side facet dropdown button`
     And I click the `Belgium COUNTRY field`
-    And I don't have a `loading spinner`
+    And I don't see a `loading spinner`
     And I click the `COUNTRY side facet dropdown button`
     And I click the `Germany COUNTRY field`
-    And I don't have a `loading spinner`
+    And I don't see a `loading spinner`
     Then I should be on `/en/search?page=1&qf=COUNTRY%3A%22Belgium%22&qf=COUNTRY%3A%22Germany%22`
     And I am on page number 1
     And I should have 2 `filter badge`s
@@ -85,13 +86,13 @@ Feature: Search faceting
     Given I am on the `search page`
     When I click the `COUNTRY side facet dropdown button`
     And I click the `Belgium COUNTRY field`
-    And I don't have a `loading spinner`
+    And I don't see a `loading spinner`
     And I click the `REUSABILITY side facet dropdown button`
     And I click the `open REUSABILITY field`
-    And I don't have a `loading spinner`
+    And I don't see a `loading spinner`
     And I click the `TYPE side facet dropdown button`
     And I click the `IMAGE TYPE field`
-    And I don't have a `loading spinner`
+    And I don't see a `loading spinner`
     Then I should be on `/en/search?page=1&qf=COUNTRY%3A%22Belgium%22&qf=TYPE%3A%22IMAGE%22&reusability=open`
     And I am on page number 1
     And I should have 3 `filter badge`s
@@ -121,10 +122,10 @@ Feature: Search faceting
     Given I am on the `search page`
     When I click the `COUNTRY side facet dropdown button`
     And I click the `Belgium COUNTRY field`
-    And I don't have a `loading spinner`
+    And I don't see a `loading spinner`
     And I click the `COUNTRY side facet dropdown button`
     And I click the `Germany COUNTRY field`
-    And I don't have a `loading spinner`
+    And I don't see a `loading spinner`
     Then I should be on `/en/search?page=1&qf=COUNTRY%3A%22Belgium%22&qf=COUNTRY%3A%22Germany%22`
     And I click an `item preview`
     Then I see an `item page`
@@ -153,7 +154,7 @@ Feature: Search faceting
     And I see a `filter badge` with the text "Image"
     And I go to page number 2
     And I am on page number 2
-    And I don't have a `loading spinner`
+    And I don't see a `loading spinner`
     Then I click the `TYPE side facet dropdown button`
     And I click the `VIDEO TYPE field`
     Then I am on page number 1
@@ -163,13 +164,13 @@ Feature: Search faceting
     When I click the `COUNTRY side facet dropdown button`
     And I click the `France COUNTRY field`
     And I should be on `/en/search?page=1&qf=COUNTRY%3A%22France%22`
-    And I don't have a `loading spinner`
+    And I don't see a `loading spinner`
     And I click the `TYPE side facet dropdown button`
     And I click the `IMAGE TYPE field`
     And I should be on `/en/search?page=1&qf=COUNTRY%3A%22France%22&qf=TYPE%3A%22IMAGE%22`
     And I go to page number 2
     And I should be on `/en/search?page=2&qf=COUNTRY%3A%22France%22&qf=TYPE%3A%22IMAGE%22`
-    And I don't have a `loading spinner`
+    And I don't see a `loading spinner`
     And the `reset filters button` is "enabled"
     And I hover over the `reset filters button`
     And I click the `reset filters button`

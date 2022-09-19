@@ -125,14 +125,13 @@ export default {
   },
   "collectionsYouMightLike": "Gustatu ahal zaizkizun bildumak",
   "colourSwatch": "Kolore swatch",
-  "contentYouMightLike": "Gustatu ahal zaizun edukia",
   "contentfulManual": {
     "footerNavigation": {
-      "MoreInfoLabel": "Informazio gehiago",
       "about": "Europeana bildumei buruz",
       "forDevelopers": "Garatzaileentzat",
       "help": "Laguntza",
       "meetUs": "Taldea ezagutu",
+      "MoreInfoLabel": "Informazio gehiago",
       "provide": "Datu hornitzaile bihurtu",
       "subscribe": "Harpidetu zaitez gure Buletinera",
       "terms": "Erabilera baldintzak eta pribatutasun politika"
@@ -143,6 +142,7 @@ export default {
       "teachers": "Irakasleak"
     }
   },
+  "contentYouMightLike": "Gustatu ahal zaizun edukia",
   "curatedAutomatically": "Europeanak automatikoki komisario lanak egin ditu",
   "dateFilter": {
     "endDate": "Amaiera data",
@@ -232,6 +232,42 @@ export default {
   },
   "explore": "Esploratu",
   "facets": {
+    "api": {
+      "name": "Bilatu",
+      "options": {
+        "fulltext": "Testu osoko elementuak",
+        "metadata": "Metadatuak soilik diren elementuak"
+      },
+      "switch": "Bilatu testu osoa duten elementuen edukian soilik",
+      "switchMoreInfo": "Bilduma honetan, zer bilatu nahi duzun aukeratu dezakezu: etengailu hau aktibatuta badago, egunkariaren eta dokumentuaren testuaren barruan bilatuko duzu; desaktibatuta badago, elementua deskribatzen duen informazioaren barruan bilatuko duzu, beste bilduma gehienetan beti egiten duzun bezala."
+    },
+    "button": {
+      "apply": "Aplikatu",
+      "cancel": "Bertan behera utzi",
+      "morefilters": "Iragazki gehiago",
+      "reset": "Berrezarri",
+      "showAll": "Erakutsi guztiak {label}",
+      "showLess": "Erakutsi gutxiago {label}"
+    },
+    "collection": {
+      "name": "Gaia",
+      "options": {
+        "archaeology": "Arkeologia",
+        "art": "Artea",
+        "fashion": "Moda",
+        "industrial": "Industria ondarea",
+        "manuscript": "Eskuizkribuak",
+        "map": "Mapak eta Geografia",
+        "migration": "Migrazioa",
+        "music": "Musika",
+        "nature": "Historia Naturala",
+        "newspaper": "Egunkariak",
+        "photography": "Argazkilaritza",
+        "sport": "Kirola",
+        "ww1": "Lehen Mundu Gerra"
+      },
+      "select": "Hautatu gai bat"
+    },
     "COLOURPALETTE": {
       "moreName": "koloreak",
       "name": "Kolorea | Koloreak",
@@ -383,6 +419,18 @@ export default {
       },
       "select": "Hautatu koloreak"
     },
+    "contentTier": {
+      "name": "Elementuaren kalitatea",
+      "options": {
+        "*": "Gure argitalpen irizpideak betetzen ez dituzten elementuak barne hartzen ditu",
+        "0": "Erakutsi soilik gure argitalpen irizpideak betetzen ez dituzten elementuak",
+        "1": "Kalitate baxua",
+        "2": "Kalitate ertaina",
+        "3": "Kalitate handiko eta baldintzarekin berrerabilgarria",
+        "4": "Kalitate handikoa eta libreki berrerabil daitekeena"
+      },
+      "select": "Hautatu elementuen kalitateak"
+    },
     "COUNTRY": {
       "name": "Herrialde hornitzailea",
       "options": {
@@ -515,10 +563,26 @@ export default {
       },
       "select": "Hautatu fitxategi formatuak"
     },
+    "moreOptions": "Bilatu {0} gehiago {1} aurkitzeko.",
     "PROVIDER": {
       "moreName": "agregatzaileak",
       "name": "Agregatzailea | Agregatzaileak",
       "select": "Hautatu agregatzaileak"
+    },
+    "proxy_dc_format": {
+      "name": "Formatua | Formatuak",
+      "select": "Hautatu  formatuak"
+    },
+    "proxy_dc_type": {
+      "name": "Mota | Motak",
+      "select": "Hautatu motak"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Igortze data"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Komunikabidea | Komunikabideak",
+      "select": "Hautatu euskarria"
     },
     "REUSABILITY": {
       "name": "Hau erabili dezaket?",
@@ -540,70 +604,6 @@ export default {
         "VIDEO": "Bideoa"
       },
       "select": "Hautatu euskarri motak"
-    },
-    "api": {
-      "name": "Bilatu",
-      "options": {
-        "fulltext": "Testu osoko elementuak",
-        "metadata": "Metadatuak soilik diren elementuak"
-      },
-      "switch": "Bilatu testu osoa duten elementuen edukian soilik",
-      "switchMoreInfo": "Bilduma honetan, zer bilatu nahi duzun aukeratu dezakezu: etengailu hau aktibatuta badago, egunkariaren eta dokumentuaren testuaren barruan bilatuko duzu; desaktibatuta badago, elementua deskribatzen duen informazioaren barruan bilatuko duzu, beste bilduma gehienetan beti egiten duzun bezala."
-    },
-    "button": {
-      "apply": "Aplikatu",
-      "cancel": "Bertan behera utzi",
-      "morefilters": "Iragazki gehiago",
-      "reset": "Berrezarri",
-      "showAll": "Erakutsi guztiak {label}",
-      "showLess": "Erakutsi gutxiago {label}"
-    },
-    "collection": {
-      "name": "Gaia",
-      "options": {
-        "archaeology": "Arkeologia",
-        "art": "Artea",
-        "fashion": "Moda",
-        "industrial": "Industria ondarea",
-        "manuscript": "Eskuizkribuak",
-        "map": "Mapak eta Geografia",
-        "migration": "Migrazioa",
-        "music": "Musika",
-        "nature": "Historia Naturala",
-        "newspaper": "Egunkariak",
-        "photography": "Argazkilaritza",
-        "sport": "Kirola",
-        "ww1": "Lehen Mundu Gerra"
-      },
-      "select": "Hautatu gai bat"
-    },
-    "contentTier": {
-      "name": "Elementuaren kalitatea",
-      "options": {
-        "*": "Gure argitalpen irizpideak betetzen ez dituzten elementuak barne hartzen ditu",
-        "0": "Erakutsi soilik gure argitalpen irizpideak betetzen ez dituzten elementuak",
-        "1": "Kalitate baxua",
-        "2": "Kalitate ertaina",
-        "3": "Kalitate handiko eta baldintzarekin berrerabilgarria",
-        "4": "Kalitate handikoa eta libreki berrerabil daitekeena"
-      },
-      "select": "Hautatu elementuen kalitateak"
-    },
-    "moreOptions": "Bilatu {0} gehiago {1} aurkitzeko.",
-    "proxy_dc_format": {
-      "name": "Formatua | Formatuak",
-      "select": "Hautatu  formatuak"
-    },
-    "proxy_dc_type": {
-      "name": "Mota | Motak",
-      "select": "Hautatu motak"
-    },
-    "proxy_dcterms_issued": {
-      "name": "Igortze data"
-    },
-    "proxy_dcterms_medium": {
-      "name": "Komunikabidea | Komunikabideak",
-      "select": "Hautatu euskarria"
     }
   },
   "feedback": {
@@ -640,8 +640,6 @@ export default {
       "dcRights": "Baimenak",
       "dcSource": "Iturria",
       "dcSubject": "Gaia",
-      "dcTitle": "Izenburua",
-      "dcType": "Objektu mota",
       "dctermsCreated": "Sortze data",
       "dctermsExtent": "Hedadura",
       "dctermsHasPart": "honetan datza",
@@ -656,8 +654,10 @@ export default {
       "dctermsProvenance": "Jatorria",
       "dctermsReferences": "erreferentzia egiten du",
       "dctermsSpatial": "Lekuak",
-      "dctermsTOC": "Edukien taula",
       "dctermsTemporal": "Aldi baterako",
+      "dctermsTOC": "Edukien taula",
+      "dcTitle": "Izenburua",
+      "dcType": "Objektu mota",
       "edmCountry": "Herrialde hornitzailea",
       "edmCurrentLocation": "Egungo kokapena",
       "edmDataProvider": "Erakunde hornitzailea",
@@ -697,12 +697,12 @@ export default {
     "findUsElsewhere": "Beste nonbait aurkitu gaitzazu",
     "imageDescription": "Europar Batasunak finantzatua",
     "navigation": {
-      "MoreInfoLabel": "Informazio gehiago",
       "about": "Guri buruz",
       "accessibility": "Irisgarritasuna",
       "cookies": "Cookieak",
       "forDevelopers": "Garatzaileentzat",
       "help": "Laguntza",
+      "MoreInfoLabel": "Informazio gehiago",
       "privacy": "Pribatutasun politika",
       "provide": "Datu hornitzaile bihurtu",
       "subscribe": "Harpidetu zaitez gure Buletinera",
@@ -918,7 +918,6 @@ export default {
     }
   },
   "record": {
-    "IIIFViewer": "IIIF ikuslea",
     "actions": {
       "pin": "Ainguratu elementua eskuragarri dauden Entitateetan"
     },
@@ -928,6 +927,7 @@ export default {
     "extendedInformation": "Informazio zabaldua",
     "goodToKnow": "Ondo dago jakitea",
     "hideAll": "Informazio guztia ezkutatu",
+    "IIIFViewer": "IIIF ikuslea",
     "location": "Kokapena",
     "locationOnMap": "Kokapena mapan",
     "mediaPlayer": "Multimedia erreproduzitzailea",

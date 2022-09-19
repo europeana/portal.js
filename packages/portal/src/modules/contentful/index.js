@@ -7,6 +7,7 @@ const MODULE_NAME = 'contentful-graphql';
 
 const graphqlPaths = glob.sync(path.resolve(__dirname, './queries/*.graphql'));
 
+// TODO: start using graphql-tag pkg to support importing of .graphql files
 const graphqlQueries = graphqlPaths.reduce((memo, graphqlPath) => {
   const basename = path.basename(graphqlPath, '.graphql');
   const alias = camelCase(basename);
@@ -15,11 +16,13 @@ const graphqlQueries = graphqlPaths.reduce((memo, graphqlPath) => {
 }, {});
 
 module.exports = function() {
-  this.addTemplate({
-    src: path.resolve(__dirname, path.join('templates', 'queries.ejs')),
-    fileName: path.join(MODULE_NAME, 'queries.js'),
-    options: graphqlQueries
-  });
+  for (const template of ['queries.ejs', 'assets.js', 'query.js', 'store.js']) {
+    this.addTemplate({
+      src: path.resolve(__dirname, path.join('templates', template)),
+      fileName: path.join(MODULE_NAME, template.replace('.ejs', '.js')),
+      options: graphqlQueries
+    });
+  }
 
   this.addPlugin({
     src: path.resolve(__dirname, 'plugin.js'),

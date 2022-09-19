@@ -1,6 +1,5 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import { fakeContentfulExtension } from '../../utils';
-// import sinon from 'sinon';
 
 import mixin from '@/mixins/contentful/sidebar';
 

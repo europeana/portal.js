@@ -12,7 +12,7 @@ on:
     types: [opened, synchronize, reopened, ready_for_review, converted_to_draft]
     paths-ignore:
     - '**.md'
-    - 'src/migrations/**'
+    - 'packages/contentful/migrations/**'
 
 env:
   CTF_CDA_ACCESS_TOKEN: ${{ secrets.CTF_CDA_ACCESS_TOKEN }}

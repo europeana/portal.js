@@ -5,7 +5,7 @@ import nock from 'nock';
 import sinon from 'sinon';
 import ItemEmbedCode from '@/components/item/ItemEmbedCode.vue';
 
-const OEMBED_BASE_URL = 'https://oembedjs.europeana.eu';
+const OEMBED_BASE_URL = 'https://oembed.europeana.eu';
 const identifier = '/123/abc';
 const html = '<iframe src=""></iframe>';
 

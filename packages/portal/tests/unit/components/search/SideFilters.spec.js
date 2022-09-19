@@ -84,69 +84,64 @@ const factory = (options = {}) => {
 };
 
 describe('components/search/SideFilters', () => {
-  describe('reset button', () => {
-    it('is not present when no filters are selected', () => {
-      const searchStoreGetters = {
-        hasResettableFilters: () => false
-      };
-      const wrapper = factory({ searchStoreGetters });
+  describe('template', () => {
+    it('has a level 2 heading', () => {
+      const wrapper = factory();
 
-      const resetButton = wrapper.find('[data-qa="reset filters button"]');
+      const h2 = wrapper.find('h2');
 
-      expect(resetButton.exists()).toBe(false);
+      expect(h2.text()).toBe('filterResults');
     });
 
-    it('is present when filters are selected', () => {
-      const searchStoreState = {
-        userParams: {
-          qf: 'TYPE:"IMAGE"'
-        }
-      };
-      const wrapper = factory({ searchStoreState });
+    it('is wrapper in <section role="search">', () => {
+      const wrapper = factory();
 
-      const resetButton = wrapper.find('[data-qa="reset filters button"]');
+      const section = wrapper.find('section[role="search"]');
 
-      expect(resetButton.exists()).toBe(true);
-      expect(resetButton.attributes('disabled')).not.toBe('disabled');
+      expect(section.exists()).toBe(true);
     });
 
-    it('is disabled while search queries are running', () => {
-      const searchStoreState = {
-        userParams: {
-          qf: 'TYPE:"IMAGE"'
-        },
-        liveQueries: [{ query: 'river' }]
-      };
-      const wrapper = factory({ searchStoreState });
+    describe('reset button', () => {
+      it('is not present when no filters are selected', () => {
+        const searchStoreGetters = {
+          hasResettableFilters: () => false
+        };
+        const wrapper = factory({ searchStoreGetters });
 
-      const resetButton = wrapper.find('[data-qa="reset filters button"]');
+        const resetButton = wrapper.find('[data-qa="reset filters button"]');
 
-      expect(resetButton.exists()).toBe(true);
-      expect(resetButton.attributes('disabled')).toBe('disabled');
-    });
-  });
+        expect(resetButton.exists()).toBe(false);
+      });
 
-  describe('number of search results', () => {
-    it('shows the total results', () => {
-      const searchStoreState = {
-        totalResults: 1000
-      };
+      it('is present when filters are selected', () => {
+        const searchStoreState = {
+          userParams: {
+            qf: 'TYPE:"IMAGE"'
+          }
+        };
+        const wrapper = factory({ searchStoreState });
 
-      const wrapper = factory({ searchStoreState });
-      const totalResults = wrapper.find('[data-qa="total results"]');
+        const resetButton = wrapper.find('[data-qa="reset filters button"]');
 
-      expect(totalResults.exists()).toBe(true);
-    });
+        expect(resetButton.exists()).toBe(true);
+        expect(resetButton.attributes('disabled')).not.toBe('disabled');
+      });
 
-    it('does not show the total results', () => {
-      const searchStoreState = {
-        totalResults: null
-      };
+      it('is disabled while search queries are running', () => {
+        const searchStoreState = {
+          userParams: {
+            qf: 'TYPE:"IMAGE"'
+          },
+          liveQueries: [{ query: 'river' }]
+        };
+        const wrapper = factory({ searchStoreState });
 
-      const wrapper = factory({ searchStoreState });
-      const totalResults = wrapper.find('[data-qa="total results"]');
+        const resetButton = wrapper.find('[data-qa="reset filters button"]');
 
-      expect(totalResults.exists()).toBe(false);
+        expect(resetButton.exists()).toBe(true);
+
+        expect(resetButton.attributes('disabled')).toBe('disabled');
+      });
     });
   });
 
