@@ -18,98 +18,100 @@
               class="mb-3"
             />
           </client-only>
-          <div
-            class="mb-3 d-flex align-items-start justify-content-between"
-          >
-            <!-- This div prevents ViewToggles jumping around as SearchResultsContext is shown & hidden -->
-            <div v-show="$fetchState.pending" />
-            <SearchResultsContext
-              v-show="!$fetchState.pending"
-              :total-results="totalResults"
-              :entity="$store.state.entity.entity"
-              :query="query"
-              :editorial-overrides="editorialOverrides"
-            />
-            <ViewToggles
-              v-model="view"
-              :link-gen-route="route"
-              class="flex-nowrap mt-md-2"
-            />
-          </div>
-          <b-row
-            class="mb-3"
-          >
-            <b-col
-              cols="12"
+          <section>
+            <div
+              class="mb-3 d-flex align-items-start justify-content-between"
             >
-              <b-row
-                v-show="$fetchState.pending"
-                class="flex-md-row py-4 text-center"
-              >
-                <b-col cols="12">
-                  <LoadingSpinner
-                    :status-message="$t('loadingResults')"
-                  />
-                </b-col>
-              </b-row>
-              <template
-                v-if="!$fetchState.pending"
+              <!-- This div prevents ViewToggles jumping around as SearchResultsContext is shown & hidden -->
+              <div v-show="$fetchState.pending" />
+              <SearchResultsContext
+                v-show="!$fetchState.pending"
+                :total-results="totalResults"
+                :entity="$store.state.entity.entity"
+                :query="query"
+                :editorial-overrides="editorialOverrides"
+              />
+              <ViewToggles
+                v-model="view"
+                :link-gen-route="route"
+                class="flex-nowrap mt-md-2"
+              />
+            </div>
+            <b-row
+              class="mb-3"
+            >
+              <b-col
+                cols="12"
               >
                 <b-row
-                  class="mb-3"
+                  v-show="$fetchState.pending"
+                  class="flex-md-row py-4 text-center"
                 >
-                  <b-col>
-                    <AlertMessage
-                      v-show="$fetchState.error"
-                      :error="errorMessage"
+                  <b-col cols="12">
+                    <LoadingSpinner
+                      :status-message="$t('loadingResults')"
                     />
-                    <template
-                      v-if="!$fetchState.error"
-                    >
-                      <p
-                        v-show="noMoreResults"
-                        data-qa="warning notice"
+                  </b-col>
+                </b-row>
+                <template
+                  v-if="!$fetchState.pending"
+                >
+                  <b-row
+                    class="mb-3"
+                  >
+                    <b-col>
+                      <AlertMessage
+                        v-show="$fetchState.error"
+                        :error="errorMessage"
+                      />
+                      <template
+                        v-if="!$fetchState.error"
                       >
-                        {{ $t('noMoreResults') }}
-                      </p>
-                      <ItemPreviewCardGroup
-                        :items="results"
-                        :hits="hits"
-                        :view="view"
-                        :show-pins="showPins"
-                        :show-related="showRelated"
-                      >
-                        <slot />
-                        <template
-                          #related
+                        <p
+                          v-show="noMoreResults"
+                          data-qa="warning notice"
                         >
-                          <slot
-                            name="related"
-                          />
-                        </template>
-                      </ItemPreviewCardGroup>
-                      <InfoMessage
-                        v-show="lastAvailablePage"
-                      >
-                        {{ $t('search.results.limitWarning') }}
-                      </InfoMessage>
-                    </template>
-                  </b-col>
-                </b-row>
-                <b-row
-                  v-show="!$fetchState.error"
-                >
-                  <b-col>
-                    <PaginationNavInput
-                      :total-results="totalResults"
-                      :per-page="perPage"
-                      :max-results="1000"
-                    />
-                  </b-col>
-                </b-row>
-              </template>
-            </b-col>
-          </b-row>
+                          {{ $t('noMoreResults') }}
+                        </p>
+                        <ItemPreviewCardGroup
+                          :items="results"
+                          :hits="hits"
+                          :view="view"
+                          :show-pins="showPins"
+                          :show-related="showRelated"
+                        >
+                          <slot />
+                          <template
+                            #related
+                          >
+                            <slot
+                              name="related"
+                            />
+                          </template>
+                        </ItemPreviewCardGroup>
+                        <InfoMessage
+                          v-show="lastAvailablePage"
+                        >
+                          {{ $t('search.results.limitWarning') }}
+                        </InfoMessage>
+                      </template>
+                    </b-col>
+                  </b-row>
+                  <b-row
+                    v-show="!$fetchState.error"
+                  >
+                    <b-col>
+                      <PaginationNavInput
+                        :total-results="totalResults"
+                        :per-page="perPage"
+                        :max-results="1000"
+                      />
+                    </b-col>
+                  </b-row>
+                </template>
+              </b-col>
+            </b-row>
+          </section>
         </b-container>
         <slot
           name="after-results"
