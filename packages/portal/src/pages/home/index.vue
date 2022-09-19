@@ -1,56 +1,49 @@
 <template>
-  <div>
-    <div
-      v-if="$features.newHomepage"
-      class="page white-page"
-    >
-      <HomeHero
-        :background-image="backgroundImage"
-      />
-      <client-only>
-        <div class="page gridless-container">
-          <StackedCardsSwiper
-            v-if="swiperThemes.length > 0"
-            :slides="swiperThemes"
-            :title="$t('homePage.themesTitle')"
-            :cta="{ url: $path('/collections'), text: $t('homePage.themesCTA') }"
-          />
-          <CallToActionBanner
-            v-if="callsToAction[0]"
-            :name="callsToAction[0].name"
-            :text="callsToAction[0].text"
-            :link="callsToAction[0].relatedLink"
-            :illustration="callsToAction[0].image"
-            variant="innovationblue"
-            class="home-cta"
-          />
-          <HomeLatest />
-          <CallToActionBanner
-            v-if="callsToAction[1]"
-            :name="callsToAction[1].name"
-            :text="callsToAction[1].text"
-            :link="callsToAction[1].relatedLink"
-            :illustration="callsToAction[1].image"
-            class="home-cta"
-          />
-        </div>
-      </client-only>
-    </div>
-    <IndexPage
-      v-else
-      slug="home"
+  <div
+    class="page white-page"
+    data-qa="home page"
+  >
+    <HomeHero
+      :background-image="backgroundImage"
     />
+    <client-only>
+      <div class="page gridless-container">
+        <StackedCardsSwiper
+          v-if="swiperThemes.length > 0"
+          :slides="swiperThemes"
+          :title="$t('homePage.themesTitle')"
+          :cta="{ url: $path('/collections'), text: $t('homePage.themesCTA') }"
+        />
+        <CallToActionBanner
+          v-if="callsToAction[0]"
+          :name="callsToAction[0].name"
+          :text="callsToAction[0].text"
+          :link="callsToAction[0].relatedLink"
+          :illustration="callsToAction[0].image"
+          variant="innovationblue"
+          class="home-cta"
+        />
+        <HomeLatest />
+        <CallToActionBanner
+          v-if="callsToAction[1]"
+          :name="callsToAction[1].name"
+          :text="callsToAction[1].text"
+          :link="callsToAction[1].relatedLink"
+          :illustration="callsToAction[1].image"
+          class="home-cta"
+        />
+      </div>
+    </client-only>
   </div>
 </template>
 
 <script>
-  import allThemes from '@/mixins/allThemes';
-  import collectionLinkGen from '@/mixins/collectionLinkGen';
+  import allThemesMixin from '@/mixins/allThemes';
+  import collectionLinkGenMixin from '@/mixins/collectionLinkGen';
   import CallToActionBanner from '@/components/generic/CallToActionBanner';
   import HomeHero from '@/components/home/HomeHero';
   import HomeLatest from '@/components/home/HomeLatest';
   import StackedCardsSwiper from '@/components/generic/StackedCardsSwiper';
-  import { optimisedSrcForContentfulAsset } from '@/plugins/contentful-utils';
   import { langMapValueForLocale } from  '@/plugins/europeana/utils';
 
   export default {
@@ -60,30 +53,20 @@
       CallToActionBanner,
       HomeHero,
       HomeLatest,
-      IndexPage: () => import('../index'),
       StackedCardsSwiper
     },
 
-    mixins: [allThemes, collectionLinkGen],
+    mixins: [allThemesMixin, collectionLinkGenMixin],
 
     data() {
       return {
         sections: [],
         backgroundImage: null,
-        socialMediaImage: null,
-        // TODO: following four properties required when rendering IndexPage as
-        //       a child component; remove when new home page is launched.
-        browsePage: false,
-        staticPage: false,
-        page: {},
-        identifier: null
+        socialMediaImage: null
       };
     },
 
     async fetch() {
-      if (!this.$features.newHomepage) {
-        return;
-      }
       await this.fetchContentfulEntry();
     },
 
@@ -112,7 +95,7 @@
 
       headMetaOgImage() {
         const image = this.socialMediaImage ? this.socialMediaImage : this.backgroundImage?.image;
-        return optimisedSrcForContentfulAsset(image, { w: 1200, h: 630, fit: 'fill' });
+        return this.$contentful.assets.optimisedSrc(image, { w: 1200, h: 630, fit: 'fill' });
       },
 
       callsToAction() {
@@ -130,10 +113,6 @@
     },
 
     mounted() {
-      if (!this.$features.newHomepage) {
-        return;
-      }
-
       this.fetchAllThemes();
     },
 

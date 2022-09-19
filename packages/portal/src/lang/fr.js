@@ -125,14 +125,13 @@ export default {
   },
   "collectionsYouMightLike": "Collections qui pourraient vous intéresser",
   "colourSwatch": "Échantillon de couleur",
-  "contentYouMightLike": "Contenu susceptible de vous plaire",
   "contentfulManual": {
     "footerNavigation": {
-      "MoreInfoLabel": "Plus d'informations",
       "about": "À propos des collections Europeana",
       "forDevelopers": "Pour les développeurs",
       "help": "Aide",
       "meetUs": "Rencontrez l'équipe",
+      "MoreInfoLabel": "Plus d'informations",
       "provide": "Devenez un fournisseur de données",
       "subscribe": "Abonnez-vous à notre newsletter",
       "terms": "Conditions d'utilisation et politique de confidentialité"
@@ -143,6 +142,7 @@ export default {
       "teachers": "Enseignants"
     }
   },
+  "contentYouMightLike": "Contenu susceptible de vous plaire",
   "curatedAutomatically": "Organisé automatiquement par Europeana",
   "dateFilter": {
     "endDate": "Date de fin",
@@ -228,6 +228,42 @@ export default {
   },
   "explore": "Explorez",
   "facets": {
+    "api": {
+      "name": "Rechercher",
+      "options": {
+        "fulltext": "Enregistrements avec texte intégral",
+        "metadata": "Enregistrements de métadonnées uniquement"
+      },
+      "switch": "Recherche uniquement dans le contenu des articles avec texte intégral",
+      "switchMoreInfo": "Dans cette collection, vous pouvez choisir ce que vous voulez rechercher: si ce bouton est activé, vous chercherez dans le texte du journal et du document; s'il est désactivé, vous chercherez plutôt dans les informations décrivant l'article, comme vous le faites toujours dans la plupart des autres collections."
+    },
+    "button": {
+      "apply": "Appliquer",
+      "cancel": "Annuler",
+      "morefilters": "Plus de filtres",
+      "reset": "Réinitialiser",
+      "showAll": "Afficher tout {label}",
+      "showLess": "Afficher moins {label}"
+    },
+    "collection": {
+      "name": "Thème",
+      "options": {
+        "archaeology": "Archéologie",
+        "art": "Art",
+        "fashion": "Mode",
+        "industrial": "Patrimoine industriel",
+        "manuscript": "Manuscrits",
+        "map": "Cartes et géographie",
+        "migration": "Migration",
+        "music": "Musique",
+        "nature": "Histoire naturelle",
+        "newspaper": "Journaux",
+        "photography": "Photographie",
+        "sport": "Sport",
+        "ww1": "Première Guerre mondiale"
+      },
+      "select": "Sélectionnez un thème"
+    },
     "COLOURPALETTE": {
       "moreName": "couleurs",
       "name": "Couleur | Couleurs",
@@ -379,6 +415,18 @@ export default {
       },
       "select": "Sélectionnez les couleurs"
     },
+    "contentTier": {
+      "name": "Qualité de l'article",
+      "options": {
+        "*": "Inclut les éléments ne répondant pas à nos critères de publication",
+        "0": "Afficher uniquement les articles ne répondant pas à nos critères de publication",
+        "1": "Basse qualité",
+        "2": "Qualité moyenne",
+        "3": "Haute qualité et réutilisable sous certaines conditions",
+        "4": "Haute qualité et librement réutilisable"
+      },
+      "select": "Sélectionnez les qualités de l'article"
+    },
     "COUNTRY": {
       "name": "Pays fournisseur",
       "options": {
@@ -511,10 +559,26 @@ export default {
       },
       "select": "Sélectionnez les formats de fichier"
     },
+    "moreOptions": "Cherchez pour trouver {0} plus {1}.",
     "PROVIDER": {
       "moreName": "agrégateurs",
       "name": "Agrégateur",
       "select": "Sélectionnez les agrégateurs"
+    },
+    "proxy_dc_format": {
+      "name": "Format | Formats",
+      "select": "Sélectionnez les formats"
+    },
+    "proxy_dc_type": {
+      "name": "Type | Types",
+      "select": "Sélectionnez les types"
+    },
+    "proxy_dcterms_issued": {
+      "name": "Date de publication"
+    },
+    "proxy_dcterms_medium": {
+      "name": "Média | Médias",
+      "select": "Sélectionnez le média"
     },
     "REUSABILITY": {
       "name": "Puis-je le réutiliser ?",
@@ -536,70 +600,6 @@ export default {
         "VIDEO": "Vidéo"
       },
       "select": "Sélectionnez les types de médias"
-    },
-    "api": {
-      "name": "Rechercher",
-      "options": {
-        "fulltext": "Enregistrements avec texte intégral",
-        "metadata": "Enregistrements de métadonnées uniquement"
-      },
-      "switch": "Recherche uniquement dans le contenu des articles avec texte intégral",
-      "switchMoreInfo": "Dans cette collection, vous pouvez choisir ce que vous voulez rechercher: si ce bouton est activé, vous chercherez dans le texte du journal et du document; s'il est désactivé, vous chercherez plutôt dans les informations décrivant l'article, comme vous le faites toujours dans la plupart des autres collections."
-    },
-    "button": {
-      "apply": "Appliquer",
-      "cancel": "Annuler",
-      "morefilters": "Plus de filtres",
-      "reset": "Réinitialiser",
-      "showAll": "Afficher tout {label}",
-      "showLess": "Afficher moins {label}"
-    },
-    "collection": {
-      "name": "Thème",
-      "options": {
-        "archaeology": "Archéologie",
-        "art": "Art",
-        "fashion": "Mode",
-        "industrial": "Patrimoine industriel",
-        "manuscript": "Manuscrits",
-        "map": "Cartes et géographie",
-        "migration": "Migration",
-        "music": "Musique",
-        "nature": "Histoire naturelle",
-        "newspaper": "Journaux",
-        "photography": "Photographie",
-        "sport": "Sport",
-        "ww1": "Première Guerre mondiale"
-      },
-      "select": "Sélectionnez un thème"
-    },
-    "contentTier": {
-      "name": "Qualité de l'article",
-      "options": {
-        "*": "Inclut les éléments ne répondant pas à nos critères de publication",
-        "0": "Afficher uniquement les articles ne répondant pas à nos critères de publication",
-        "1": "Basse qualité",
-        "2": "Qualité moyenne",
-        "3": "Haute qualité et réutilisable sous certaines conditions",
-        "4": "Haute qualité et librement réutilisable"
-      },
-      "select": "Sélectionnez les qualités de l'article"
-    },
-    "moreOptions": "Cherchez pour trouver {0} plus {1}.",
-    "proxy_dc_format": {
-      "name": "Format | Formats",
-      "select": "Sélectionnez les formats"
-    },
-    "proxy_dc_type": {
-      "name": "Type | Types",
-      "select": "Sélectionnez les types"
-    },
-    "proxy_dcterms_issued": {
-      "name": "Date de publication"
-    },
-    "proxy_dcterms_medium": {
-      "name": "Média | Médias",
-      "select": "Sélectionnez le média"
     }
   },
   "feedback": {
@@ -636,8 +636,6 @@ export default {
       "dcRights": "Droits",
       "dcSource": "Source",
       "dcSubject": "Thème",
-      "dcTitle": "Titre",
-      "dcType": "Type d'objet",
       "dctermsCreated": "Date de création",
       "dctermsExtent": "Étendue",
       "dctermsHasPart": "Est composé de",
@@ -652,8 +650,10 @@ export default {
       "dctermsProvenance": "Provenance",
       "dctermsReferences": "Se réfère à",
       "dctermsSpatial": "Lieux",
-      "dctermsTOC": "Table des matières",
       "dctermsTemporal": "Période",
+      "dctermsTOC": "Table des matières",
+      "dcTitle": "Titre",
+      "dcType": "Type d'objet",
       "edmCountry": "Pays fournisseur",
       "edmCurrentLocation": "Emplacement actuel",
       "edmDataProvider": "Institution fournisseuse",
@@ -693,12 +693,12 @@ export default {
     "findUsElsewhere": "Nous trouver ailleurs",
     "imageDescription": "Financé par l'Union européenne",
     "navigation": {
-      "MoreInfoLabel": "Plus d'informations",
       "about": "À propos d'Europeana",
       "accessibility": "Accessibilité",
       "cookies": "Cookies",
       "forDevelopers": "Pour les développeurs",
       "help": "Aide",
+      "MoreInfoLabel": "Plus d'informations",
       "privacy": "Politique de confidentialité",
       "provide": "Devenez un fournisseur de données",
       "subscribe": "Abonnez-vous à notre newsletter",
@@ -914,7 +914,6 @@ export default {
     }
   },
   "record": {
-    "IIIFViewer": "Visionneuse IIIF",
     "actions": {
       "pin": "Épingler l'élément aux entités disponibles"
     },
@@ -924,6 +923,7 @@ export default {
     "extendedInformation": "Informations complémentaires",
     "goodToKnow": "Bon à savoir",
     "hideAll": "Masquer toutes les informations",
+    "IIIFViewer": "Visionneuse IIIF",
     "location": "Emplacement",
     "locationOnMap": "Localisation sur la carte",
     "mediaPlayer": "Lecteur multimédia",

@@ -169,10 +169,9 @@
         return this.text ? marked.parse(this.text) : null;
       },
       optimisedImageUrl() {
-        return this.$options.filters.optimisedImageUrl(
-          this.heroImage.url,
-          this.heroImage.contentType,
-          { width: 800, height: 800 }
+        return this.$contentful.assets.optimisedSrc(
+          this.heroImage,
+          { w: 800, h: 800 }
         );
       }
     }

@@ -24,7 +24,7 @@
         :key="card.identifier"
         :title="card.name"
         :image-url="cardImage(card)"
-        :image-optimisation-options="{ width: 510 }"
+        :image-optimisation-options="{ width: 960 }"
         :url="cardLink(card)"
       />
     </b-card-group>

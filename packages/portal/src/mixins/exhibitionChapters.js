@@ -22,6 +22,7 @@ export default {
 
       return chapters;
     },
+
     creditsChapter() {
       if (!this.credits) {
         return null;
@@ -31,17 +32,12 @@ export default {
         identifier: 'credits'
       };
     },
-    chapterImage(chapter) {
-      return chapter?.primaryImageOfPage?.image?.url;
-    },
-    chapterImageContentType(chapter) {
-      return chapter?.primaryImageOfPage?.image?.contentType;
-    },
+
     optimisedBackgroundImageUrl(chapter) {
-      return this.$options.filters.optimisedImageUrl(
-        this.chapterImage(chapter),
-        this.chapterImageContentType(chapter),
-        { width: 800, height: 800 }
+      // FIXME: the height is far too large for the context; reduce it
+      return this.$contentful.assets.optimisedSrc(
+        chapter?.primaryImageOfPage?.image,
+        { w: 800, h: 800 }
       );
     }
   }

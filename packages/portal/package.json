@@ -1,12 +1,13 @@
 {
   "name": "@europeana/portal",
-  "version": "1.83.0-alpha.0",
+  "version": "1.83.0",
   "description": "Europeana Portal",
   "scripts": {
     "analyze": "nuxt build --analyze",
     "build": "nuxt build",
     "cache": "node --require dotenv/config src/cachers/cli.js",
     "dev": "nuxt",
+    "lokalise": "node --require dotenv/config bin/lokalise.js",
     "start:inspect": "node --inspect node_modules/.bin/nuxt-cli start",
     "start": "nuxt-cli start",
     "test:size": "docker build -t europeana/portal.js-test-size tests/size && [ -e .nuxt/dist ] || npm run build && docker run --mount type=bind,source=\"$(pwd)\"/.nuxt,target=/app/.nuxt --mount type=bind,source=\"$(pwd)\"/tests/size/.size-limit.json,target=/app/.size-limit.json europeana/portal.js-test-size",
@@ -57,6 +58,7 @@
     "weighted-random": "^0.1.0"
   },
   "devDependencies": {
+    "@lokalise/node-api": "^8.0.0",
     "camelcase": "^6.2.1",
     "css-loader": "^4.2.0",
     "nock": "^13.2.7",

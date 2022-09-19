@@ -55,7 +55,6 @@
   import { entityParamsFromUri } from '@/plugins/europeana/entity';
   import themes from '@/plugins/europeana/themes';
   import europeanaEntitiesOrganizationsMixin from '@/mixins/europeana/entities/organizations';
-  import { urlIsContentfulAsset, optimisedSrcForContentfulAsset } from '@/plugins/contentful-utils';
 
   export default {
     name: 'SearchResultsContext',
@@ -137,8 +136,11 @@
           this.entity?.prefLabel;
       },
       entityImage() {
-        if (this.editorialOverrides?.image && urlIsContentfulAsset(this.editorialOverrides.image.url)) {
-          return optimisedSrcForContentfulAsset(this.editorialOverrides.image, { w: 28, h: 28, fit: 'thumb' });
+        if (this.editorialOverrides?.image && this.$contentful.assets.isValidUrl(this.editorialOverrides.image.url)) {
+          return this.$contentful.assets.optimisedSrc(
+            this.editorialOverrides.image,
+            { w: 28, h: 28, fit: 'thumb' }
+          );
         }
         return this.$apis.entity.imageUrl(this.entity);
       },

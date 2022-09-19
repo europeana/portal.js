@@ -8,7 +8,7 @@ Feature: Home page
     The homepage is a browse page from Contentful
 
     When I open `/en`
-    Then I see a `browse page`
+    Then I see the `home page`
     And I am on an accessible page
     And I should have a Europeana branded page title
     And I do not see the Klaro banner

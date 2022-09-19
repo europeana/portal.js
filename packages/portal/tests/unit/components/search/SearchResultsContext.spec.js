@@ -1,5 +1,7 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import VueI18n from 'vue-i18n';
+import sinon from 'sinon';
+
 import SearchResultsContext from '@/components/search/SearchResultsContext.vue';
 
 const localVue = createLocalVue();
@@ -12,9 +14,9 @@ const i18n = new VueI18n({
   messages: { en: messages }
 });
 
-const factory = ({ propsData = {} } = {}) => mount(SearchResultsContext, {
+const factory = (options = {}) => mount(SearchResultsContext, {
   localVue,
-  propsData,
+  propsData: options.propsData,
   i18n,
   mocks: {
     $apis: {
@@ -22,9 +24,22 @@ const factory = ({ propsData = {} } = {}) => mount(SearchResultsContext, {
         imageUrl: () => ''
       }
     },
-    $t: (key) => key,
+    $contentful: {
+      assets: {
+        isValidUrl: (url) => url.includes('images.ctfassets.net'),
+        optimisedSrc: sinon.spy((img) => `${img.url}?optimised`)
+      }
+    },
     $path: (args) => args,
-    $route: () => ({})
+    $route: () => ({}),
+    $store: {
+      state: {
+        entity: {},
+        search: { userParams: {} },
+        ...options.storeState
+      }
+    },
+    $t: (key) => key
   },
   stubs: ['RemovalChip']
 });
@@ -41,6 +56,8 @@ const fixtures = {
 };
 
 describe('SearchResultsContext', () => {
+  afterEach(sinon.resetHistory);
+
   describe('template', () => {
     describe('when searching within an entity collection', () => {
       const entity = fixtures.organisationEntity;
@@ -202,7 +219,7 @@ describe('SearchResultsContext', () => {
     describe('entityImage', () => {
       it('prioritises the contentful asset', () => {
         const ctfImage = {
-          url: 'https://images.ctfassets.net/i01duvb6kq77/792bNsvUU5gai7bWidjZoz/1d6ce46c91d5fbcd840e8cf8bfe376a3/206_item_QCZITS4J5WNRUS7ESLVJH6PSOCRHBPMI.jpg',
+          url: 'https://images.ctfassets.net/image.jpg',
           contentType: 'image/jpeg'
         };
         const propsData = {
@@ -213,7 +230,16 @@ describe('SearchResultsContext', () => {
 
         const wrapper = factory({ propsData });
 
-        expect(wrapper.vm.entityImage).toEqual(ctfImage.url + '?w=28&h=28&fit=thumb&fm=jpg&fl=progressive&q=80');
+        expect(wrapper.vm.entityImage).toContain('?optimised');
+        expect(wrapper.vm.$contentful.assets.optimisedSrc.calledWith({
+          url: 'https://images.ctfassets.net/image.jpg',
+          contentType: 'image/jpeg'
+        },
+        {
+          w: 28,
+          h: 28,
+          fit: 'thumb'
+        })).toBe(true);
       });
     });
   });

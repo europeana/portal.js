@@ -1,15 +1,26 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import OptimisedImage from '@/components/generic/OptimisedImage.vue';
+import sinon from 'sinon';
 
 const localVue = createLocalVue();
 
 const factory = (propsData) => shallowMount(OptimisedImage, {
   localVue,
   propsData,
+  mocks: {
+    $contentful: {
+      assets: {
+        isValidUrl: (url) => url.includes('images.ctfassets.net'),
+        optimisedSrc: sinon.spy((img) => `${img.url}?optimised`)
+      }
+    }
+  },
   stubs: ['b-img', 'b-img-lazy']
 });
 
 describe('components/generic/OptimisedImage', () => {
+  afterEach(sinon.resetHistory);
+
   it('uses a lazy loading image by default', () => {
     const wrapper = factory({
       src: 'https://www.example.org/image.jpeg',
@@ -138,29 +149,17 @@ describe('components/generic/OptimisedImage', () => {
           maxWidth: 1500
         };
 
-        it('is a progressive JPEG', () => {
+        it('is optimised via Contentful plugin', () => {
           const wrapper = factory(propsData);
 
           const optimisedSrc = wrapper.vm.optimisedSrc;
 
-          expect(optimisedSrc).toContain('fm=jpg');
-          expect(optimisedSrc).toContain('fl=progressive');
-        });
-
-        it('scales down to max width', () => {
-          const wrapper = factory(propsData);
-
-          const optimisedSrc = wrapper.vm.optimisedSrc;
-
-          expect(optimisedSrc).toContain('w=1500');
-        });
-
-        it('reduces quality', () => {
-          const wrapper = factory(propsData);
-
-          const optimisedSrc = wrapper.vm.optimisedSrc;
-
-          expect(optimisedSrc).toContain('q=80');
+          expect(optimisedSrc).toContain('?optimised');
+          expect(wrapper.vm.$contentful.assets.optimisedSrc.calledWith({
+            url: 'https://images.ctfassets.net/asset',
+            contentType: 'image/jpeg'
+          },
+          { w: 1500, q: 80 })).toBe(true);
         });
       });
     });

@@ -94,6 +94,12 @@ const factory = () => shallowMountNuxt(page, {
     $apis: {
       thumbnail: { edmPreview: (img) => img }
     },
+    $contentful: {
+      assets: {
+        isValidUrl: (url) => url.includes('images.ctfassets.net'),
+        optimisedSrc: (img) => `${img.url}?optimised`
+      }
+    },
     $features: {},
     $pageHeadTitle: key => key,
     $t: key => key,

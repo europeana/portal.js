@@ -93,6 +93,14 @@ describe('components/search/SideFilters', () => {
       expect(h2.text()).toBe('filterResults');
     });
 
+    it('is wrapper in <section role="search">', () => {
+      const wrapper = factory();
+
+      const section = wrapper.find('section[role="search"]');
+
+      expect(section.exists()).toBe(true);
+    });
+
     describe('reset button', () => {
       it('is not present when no filters are selected', () => {
         const searchStoreGetters = {
@@ -131,6 +139,7 @@ describe('components/search/SideFilters', () => {
         const resetButton = wrapper.find('[data-qa="reset filters button"]');
 
         expect(resetButton.exists()).toBe(true);
+
         expect(resetButton.attributes('disabled')).toBe('disabled');
       });
     });

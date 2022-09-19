@@ -51,5 +51,7 @@ fragment imageWithAttributionFields on ImageWithAttribution {
   image {
     url
     contentType
+    width
+    height
   }
 }

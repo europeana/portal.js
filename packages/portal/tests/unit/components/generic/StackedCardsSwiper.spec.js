@@ -1,5 +1,6 @@
 import { createLocalVue, mount } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
+import sinon from 'sinon';
 
 import StackedCardsSwiper from '@/components/generic/StackedCardsSwiper';
 
@@ -32,11 +33,20 @@ const factory = (options = {}) => mount(StackedCardsSwiper, {
     title: options.title
   },
   mocks: {
+    $contentful: {
+      assets: {
+        isValidUrl: (url) => url.includes('images.ctfassets.net'),
+        optimisedSrc: sinon.spy((img) => `${img.url}?optimised`),
+        responsiveImageSrcset: sinon.spy((img, sizes) => Object.keys(sizes))
+      }
+    },
     $t: () => {}
   }
 });
 
 describe('components/generic/StackedCardsSwiper', () => {
+  afterEach(sinon.resetHistory);
+
   describe('when the swiper loads', () => {
     it('shows three slides', () => {
       const wrapper = factory();

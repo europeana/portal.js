@@ -26,37 +26,6 @@ Vue.filter('truncate', truncate);
 export const wordLength = text => text?.trim()?.match(/\w+/g)?.length || 0;
 Vue.filter('wordLength', wordLength);
 
-// TODO: deprecated; superceded by OptimisedImage.vue; remove when all dependent components updated
-Vue.filter('optimisedImageUrl', (imageUrl, contentType, options = {}) => {
-  if (typeof contentType !== 'string') {
-    return imageUrl;
-  }
-
-  const imageQueryParams = [];
-
-  const hostnameMatch = imageUrl.match(/\/\/([^/]+)\//);
-  if (hostnameMatch && (hostnameMatch[1] === 'images.ctfassets.net')) {
-    // TODO: are optimisations possible on any other content types?
-    if (contentType === 'image/jpeg') {
-      imageQueryParams.push('fm=jpg&fl=progressive');
-      imageQueryParams.push(`q=${options.quality || 50}`);
-    }
-
-    if (options.width) {
-      imageQueryParams.push(`w=${options.width}`);
-    }
-    if (options.height) {
-      imageQueryParams.push(`h=${options.height}`);
-    }
-  }
-
-  if (imageQueryParams.length > 0) {
-    imageUrl += '?' + imageQueryParams.join('&');
-  }
-
-  return imageUrl;
-});
-
 /**
  * Convert new lines to <br/>
  * @param {string} val text value
